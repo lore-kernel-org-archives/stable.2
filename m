@@ -1,76 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258467;
-	b=yPRUzd/e6bbI1hpT5wCPAxlEpWD7wHgU9SrQajbUCkCCKkxVunpJ4i/3J+Ull0Ic2r7J
-	 Nal93Ey1Dxeo+5u6kHpt8DbdOKSFM5KhTPcEWbraSNXanhvL/xl8nViW5zinBdILhFRZn
-	 ud81b7PiTwm+Oy4Izus06n2QDJz1Mh8bQUmDFUKwygFWR6YehJq4Rm3OhNHSopimH3m9Z
-	 1JICZeF1XVw5T89JWcqdOfARhNsEbiKtygdISoAS/cJL+A2vg+fv/w/FsyA7mxxqoVxK4
-	 lPt8uZLqWnxOPtszB3jMSZY1DXdMuw3ey/AdkM538URykDi/qlfiJxDeYzboBLhjLZg==
+	t=1794258479;
+	b=ezY6xFxP070RWeujqHtnnZ0OWMclNaO+dKlGdY+RL2rZgUv432w6isqMmHBwZ8ude9fM
+	 NOU/qb8teNOFBDjMHLg5UdjH2KpTZSFlj3q7oS1W4igavsvY2QC3oO9tsxWVxnmi+jicI
+	 SIKD4Ja9bZvHg5aMNSFqk4rWLilXEAu2p9x5fb4ERulFbpnYL7i5xBQulMCbmNnT9CN9q
+	 39egx54VserinX+Ngpny3I72cNtgbd/AMatbHI8Djqk7CKTciu/KcmWmEcDS6LlFx+kr1
+	 l4UcZDOKDMKrQYHlOAhb//6kBuUzDSAZBmXqPETS6bGxhnQrzFxBuUMFQmvZm3iVQgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258479;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=qmgeUuLjmJ/wmzQKJYHDJPfMGYHY2ormhPUZcxonf/I=;
-	b=BXesGKJtC9dXNM4HSn+5RBMxwjhUk8DdzRDf+Wq9ADsSXxLQH0mz/L/1SHWw1KxsoCl6
-	 yVx3QJn9XZk7vn3UH5I3I+rDJzp/qAeoT/bnMEi7u/msCs0drtpSwIt5YCgezxRHGj3ed
-	 YqYuzoPPSzmEqOfy82O/yPmbkhQrxhPdoUZkl18v7GNtYO0ksrP4IlnR+5E96P/48CxQL
-	 Mxld/zz23g8XcW/3vWDiVk2nvNskBvbABPyrcV2SXosg9nQScKhwKW6J3eUP2BIWzPv//
-	 NR2rjjpdmkpANZpoRP2kxvaVGu5U4NMgSn5SHjTVJVTwCnpMMBEvKZjusFoiMgzU7Sg==
+	bh=baiETMIsgc6YGRL1qHqGjDmlur6R10Judfum+86QzVs=;
+	b=T3nd1YanB9AbKd3OROlERDybuZE6dYFsxK73Zr+yyOKUv/eXaafdHG+kH7rRKXzOu+M3
+	 7DgPKmFbGuENRSIzbqJBGcM5/anS6tIkGwflMN50RukgRnHRrvCLnGI9RgpL152dKVzXK
+	 ZHbQhJK0t8vvZLPsJfmJJhyyPXiOKlQWOEXFKMenpJ8+vEtLULyujqFTR4ixkrwPMPMvK
+	 UUad01kc/AO9+rq4GEbc2dfZAVyYRnZAEgXu/VvGSktMdCgXNEbWew3IMPv+adUU97PXY
+	 dhIHFitzCJ/A+GaPog6Iom3UFL1m6onm7/vjcsQeVnONazq43lxFDUUUUXhZfkgblJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dhcMXdcM;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MV2PBVzM;
 	arc=none smtp.remote-ip=198.175.65.21
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A83606A325;
-	Mon,  9 Nov 2026 21:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A83606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875FC60A2607;
+	Mon,  9 Nov 2026 21:07:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875FC60A2607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dhcMXdcM
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MV2PBVzM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794258467; x=1825794467;
+  t=1794258479; x=1825794479;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ZDxMxOCsi7Wo7NO2LMxhmoeFjMI1TJ0AWMsIPGM+PYQ=;
-  b=dhcMXdcM4ecptlAi2FtaM64ajjKX02Fudzf+gYywVqKcqx945cisP4Kp
-   Mq7uxBPwJFDCiXG0B+WygQySAAWHJ80vgma6NOyY/+2dHXOKflhgdqm0W
-   bYhjpDchaBSjE/NgI5Qh+1SoB+V7Cr4+Y/+AzDsXSPvOML1tTZwhUxAh/
-   eNeEzydbf8HBGffEV/1QwvZqXYW+Li1S+dr7fWeUe+L/6QzaHag/Opx2n
-   Q7MA9klSGO3YhpJMG6noR6WKNuK4HhBNbysXwBRi8vgsy2qYcqarCNkba
-   aEcQs4ztJisdidAlEZA1boGcJOFueY2uxFRH04Q8eVjYpb9hw15cFlmXC
-   A==;
-X-CSE-ConnectionGUID: XzK/xtZGQ2yxBJcTMrAgRA==
-X-CSE-MsgGUID: cSzM8ltMQsqeDnQZueeVxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3079396"
+  bh=fxXF/9et+4Uw+IO/nG39bsXrq3vS5Vn0Aa/hTjovQZk=;
+  b=MV2PBVzMtn8oiwqak5fPez+HaHyn2VGo3sU8QAuitrh1hutNIIhB+OlQ
+   tytoEj1Q+LFT4/zLgqhairfSnvlaEA5OcafyZVpNJwlWqnYW9tI50zHo9
+   t8Noi6ausjS1yEQ3NqTj4aWP0fovrrUBlx8IqJu0U+GYe5A3nzw+xma0T
+   2PO4d+lQ6x/com7IMvzFPUqNSGNwCUynk5AGn7luytXQm2fuSvrR4qkiw
+   p2Uopw2Be/DH9pNOPk11Wa/PFwP4QBlqcBwuaGcpLDFCsNFUZvHWg98ZP
+   RHuRq0LAMFXSkZTj8HoPC9AcmB4EYi07ZcEWe3h6I45228vV6h4doxELN
+   w==;
+X-CSE-ConnectionGUID: f/9rI7dpRledacIi1vTw9Q==
+X-CSE-MsgGUID: 2/RPPcEkRJqOSowrQqT93g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3079409"
 X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3079396"
+   d="scan'208";a="3079409"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:46 -0800
-X-CSE-ConnectionGUID: Jn5L83FTQ+iMZxnVsJKQ2g==
-X-CSE-MsgGUID: Qx8XpJw6Qj2m6HalaZt08w==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:58 -0800
+X-CSE-ConnectionGUID: KLRjvRZNTFuOU4qcuvTmyA==
+X-CSE-MsgGUID: OzhPokStRlypIBafp3UdSQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8016832"
+   d="scan'208";a="8016852"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:44 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:54 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
 To: linux-pci@vger.kernel.org,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 02/11] PCI: Use Header Type in __pci_bridge_assign_resources()
-Date: Mon,  9 Nov 2026 23:07:02 +0200
-Message-ID: <20261109210714.3862-3-ilpo.jarvinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+Subject: [PATCH 03/11] PCI: Use Header Type to detect CardBus bridges in pci_resource_alignment()
+Date: Mon,  9 Nov 2026 23:07:03 +0200
+Message-ID: <20261109210714.3862-4-ilpo.jarvinen@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
 References: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
@@ -86,45 +86,52 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit b2fb5cc57469 ("PCI: Rely on config space header type, not class
-code") converted bridge window sizing and assignment to use the Header
-Type but __pci_bridge_assign_resources() still uses the Class Code to
-decide how to program the bridge windows. A Type 1 bridge whose Class
-Code is not PCI_CLASS_BRIDGE_PCI gets its windows sized and assigned but
-they are never programmed into the bridge.
+pci_resource_alignment() detects CardBus bridges by the Class Code while
+the rest of the PCI core uses the Header Type.
 
-Use the Header Type also in __pci_bridge_assign_resources().
+When CONFIG_CARDBUS is not set, pci_cardbus_resource_alignment() returns
+zero. A non-CardBus device that reports the CardBus Class Code then gets
+zero alignment for all its resources, and pbus_size_mem() calls __ffs()
+on it, which is undefined behavior. When CARDBUS is set, the device gets
+CardBus window alignment instead of its own alignment.
 
+Use pci_is_cardbus_bridge() in pci_resource_alignment() and make it take
+a const pointer as pci_resource_alignment() has one.
+
+Fixes: fd29d4ea09ba ("PCI: Separate CardBus setup & build it only with CONFIG_CARDBUS")
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Cc: stable@vger.kernel.org
 ---
+ drivers/pci/pci.h       | 2 +-
+ drivers/pci/setup-res.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-I don't have known failure to point to with this, thus I've not added the
-Fixes tag (the commit ref is available in the changelog if it's needed).
-
- drivers/pci/setup-bus.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index ed16ef7c26fa..6209773a35f1 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -1636,12 +1636,12 @@ static void __pci_bridge_assign_resources(struct pci_dev *bridge,
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index 77efa4c5c960..519918e24cc5 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -419,7 +419,7 @@ extern unsigned long pci_hotplug_mmio_size;
+ extern unsigned long pci_hotplug_mmio_pref_size;
+ extern unsigned long pci_hotplug_bus_size;
  
- 	__pci_bus_assign_resources(b, add_list, fail_head);
+-static inline bool pci_is_cardbus_bridge(struct pci_dev *dev)
++static inline bool pci_is_cardbus_bridge(const struct pci_dev *dev)
+ {
+ 	return dev->hdr_type == PCI_HEADER_TYPE_CARDBUS;
+ }
+diff --git a/drivers/pci/setup-res.c b/drivers/pci/setup-res.c
+index 376f09630a4a..d8d53861b4a6 100644
+--- a/drivers/pci/setup-res.c
++++ b/drivers/pci/setup-res.c
+@@ -255,7 +255,7 @@ resource_size_t pci_resource_alignment(const struct pci_dev *dev,
  
--	switch (bridge->class >> 8) {
--	case PCI_CLASS_BRIDGE_PCI:
-+	switch (bridge->hdr_type) {
-+	case PCI_HEADER_TYPE_BRIDGE:
- 		pci_setup_bridge(b);
- 		break;
- 
--	case PCI_CLASS_BRIDGE_CARDBUS:
-+	case PCI_HEADER_TYPE_CARDBUS:
- 		pci_setup_cardbus_bridge(b);
- 		break;
- 
+ 	if (pci_resource_is_iov(resno))
+ 		return pci_sriov_resource_alignment(dev, resno);
+-	if (dev->class >> 8 == PCI_CLASS_BRIDGE_CARDBUS)
++	if (pci_is_cardbus_bridge(dev))
+ 		return pci_cardbus_resource_alignment(res);
+ 	return resource_alignment(res);
+ }
 -- 
 2.47.3
 
