@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212819;
-	b=isHdZzOPn/BRT34voPW0cuyUn2/3ZOM5m0rAwPWJ1vryUB+2wdM2qTTzWipSuVyLLC8f
-	 EqiLKxw2EaZL6QhclW7Onc1DrL0fGJwnuYDfsIki/GADKRmusx6PHUZO25B4dAOZLWGzc
-	 ESpbjBdQCHotHBsEMpMnpKMF9WsvSAoWV1k2eqPZqjytJoQsuTr46t/U7zA7sM3FxLD55
-	 BvugrcQl32CFqSHSe75F7ruOSewIP53ze8vkrO17sTP1aFd8yaQgS0TNMuHntonbufjTj
-	 WXogJC6Jb1KWtJ7fL/3mhBjw6irCzWkHQJULCSMwlSdqTpTjxjsxuIbf9O5UV5qxb3A==
+	t=1794213158;
+	b=AMt16POj+MPFtrHxiZnBxTk3NHLIE7lT9Vby2v7hwo09LISlp8mRgYk0/pJqHV/BFW5W
+	 TqEEb8a7d4S6wyFntDHfeBfuISW+paN4RQDc3gQAdI8MuD89j/vAuf3S4qUUUSx5dN1ML
+	 eU7nX9HXBT1LyJVWNcwPk2bh4SgCg2PLKZPb0c7OP8sQXj3NhOctdBBffxIPWeFbKxTYg
+	 baZnxpMhmSksoTVBsS5SqPoaTH9qHy7dFuwAuYwS7LcHQB5k8ioAWE2BEBV8qu0wmbOUx
+	 zIuAPEvIz5+E/k+ygEkp27JPyHQUMKstxzfblg7CkSNvif2z+GHVy7SK7XQYk7fVPFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212819;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
-	b=lSxNMtozvIT9Hu2fuzj0A/ddcvQgsMOmqb5GiTmxtf5KZlRjtOv67HeIDmZX3QCSq5wl
-	 FGn2x1Ga+TKIf6AmQP5/WaaqEPFyMXDISBGdAglPNRE4shw3ayYuqVC6TVYeGS3tU7ful
-	 OQ/6B77gzFXyPDri1Su5NyuodRq8v/W92Alm+GOo3A7dYoFZC4m+XahIl54EeBA7uYqxE
-	 gQnVp+HhY9YZydgPvvarNJwdEkn4jbmC5Wi84TKZqQxrnqELHdln/9rbNtJJxK4bWeTzt
-	 LfxkzKPQLbfN13pSu3pHPSD7Cn8Hb6egbzsDea2rkHYpTEEbro3H/+rkOFSkY5Jkahw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213158;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=c7CjIHvf1cJr1jaGpt/oWodR55TiSE1nWeBz4SGW22w=;
+	b=F0KK5SW+iuhEUMd/mGlpx8HeNp1J7H+GIJqektVrrKa9ouT2P+B0pe6pU8hYmAEkYiTu
+	 WnmLHXl/RSnSQ6pu9zAxCP/LZ7dHH3Io7Q+ua8BMDbQP1839zsYyPdV9WNaoerSLgXsDe
+	 ZK0kNGhCL0C67m5sXQQfAgsoB6p2dvHPH5PCFGfxbZygScTSBNk8tQxtMsC6ddvNmPMii
+	 aLdNoo3rMtp5MHF2gozR8FXH7R71eXaD7lyvSdysiyoPI9Q2Ue+r2iFPfpq8g5KMdyiFZ
+	 tOTFF/JAS6s76YnT2rwrXQ280G8ZCB7ofjvf9lnEubpLfZF7emXfApz6kBLT26P6zqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oWP+Rohp;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BB5606A336
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:26:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3BB5606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L8HW20Mr;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26DE8606D81F
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:32:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DE8606D81F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oWP+Rohp
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e09aa5264so313902f8f.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 00:26:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794212817; x=1794817617; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
-        b=oWP+Rohp/ZJqGkQ+oORUcfZmPncX/8Tq39EQaGWxPWIS52HRy425y5lFRzPPC3Chpl
-         /R7Jba9ogvC+/fZs6IAAZLC3jvceX5rU0N7ivWgRMFm8SIrKMTFw+1zt0ASAEIaa5JAu
-         UiwHcK/EI2ZqUTaK8ufuyQaNuPAmmgTyJ62mcVKWNy4xbc1yJKoEzMxYi1VmdnGuwMKF
-         0lpR5fsyxrbB5W39WxkLI46qF1McQOggOviPNfVmhqipl5VHYpLizq1dXBzyHZIs8QOV
-         7ekEv63CMreUCjyBhkEpfNMx5f2L/Yxte8iqYzHEvOv2NaGv2E2dLtPqZ4wEAyPxeMF5
-         uCnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794212817; x=1794817617;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
-        b=rIH9pvo3ci/5t/ZnZlLZUq6wq5FrUghG9FZhLZUqqM06ZD6GS7TZjJlpRz0zZjx9GF
-         dnWgtn8snA2TRKjYmT/WNaZGWfz2n+Cz43k4ZUglgEGql6u4hbR1JXSiHIlGC+95PkMb
-         Vs7MkCVX7csy0QMmJpxjCT5wycK7lqtrgp7kBJJPl8uMsLMT3srS+y+XASz6yRBS4VTz
-         En8OaiaKdSV+QiO5OMu0/4RVehGqJ4MKFaP2OktAjDEHPYn6d79Kqwwq1iVO1qauUV+e
-         5/y/+5briqrMavn5JLtJmzbAIips5pHsvbVHkxMmh+8KukDwGk5vtYQEoZCbc4NrZGb9
-         xu/g==
-X-Forwarded-Encrypted: i=1; AL+hErGqhUCq8IIW9yoj5BnESA3FzLLUCAU+HKbM9ygmpqdnRr9dPFsP/denMXnnX++8EMGftCFwDXU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mAZ6o0sAOoRjX8BnQ/9bk8eQ5hVzUt272LRVEFCXsacCQBTmm
-	9A3fj13Pr5FjVZs/D50VahWqELZWzt+U7N90aSpvHR9JvhH7F9NB6xi/
-X-Gm-Gg: AYBFou3+jrgGfCOtevf2GaBiCTA6f6N2raOeIZiTkMAnnnlMicysri4M9pySIvw8ZBU
-	77/fc+Z/g+nS4uaq9lxy9vGrQXkmeKMzsZ873nkUTvxnkUJqQ/B7gaHXiqofUVipHRow2b8O02C
-	dQqClEImgSBibfEmpL3AKAPsiJ3U1hzveRXZ2x/jcySrHFh5NLK6HY0DFZTfDuRcB7NXv8TqTW2
-	1LLX0VPhF9XiC7Wm9GOz1RotwB2rcooFjd31IbfeSr1EAtthyd/W03f1JwIoQhc+G1iR0IFAbIU
-	RppligIuhnHhjzi/PtnDR0do/9dQR/45ke5FQoLv0s4mZnZGumtveO5j+Kyz5sM9cyI7nVpL4EI
-	WoB15sZ2J8tU8Pt8tSFIZVCl7Rwp6n5glBZ4wG35Tk7pt+9zawbGQW+QCaEZ4V/s4SmMfb+VZdZ
-	jbPPc2k9JtWDb8KRjgwgGAZ3bRlbQhqpMeOoRdoPcw5SSrGU4Vpsx6bZ/Uxq5VPNxDInc4VY+vP
-	2ZHj7sup7QkWCBmrK0zyLmySfuT+L4vvs+D/73BAN4tLWzaq4imK28NRCZpNicRrW+EnZTryfbY
-	4H7Y+3t7BBx3+Pkac0+cpIMk1ORhplWIFkp60ZSVrw==
-X-Received: by 2002:a05:6000:4b0f:b0:492:dddc:64c3 with SMTP id ffacd0b85a97d-49583deb6d6mr5829208f8f.41.1794212816806;
-        Mon, 09 Nov 2026 00:26:56 -0800 (PST)
-Received: from [192.168.10.105] ([212.58.121.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495b90701c7sm10520949f8f.10.2026.11.09.00.26.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:26:56 -0800 (PST)
-From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Date: Mon, 09 Nov 2026 08:26:52 +0000
-Subject: [PATCH] watchdog: gunyah_wdt: Re-enable the watchdog on resume
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=L8HW20Mr
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C1DC1576;
+	Mon,  9 Nov 2026 00:32:32 -0800 (PST)
+Received: from [10.57.17.30] (unknown [10.57.17.30])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4766B3F632;
+	Mon,  9 Nov 2026 00:32:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794213155; bh=u52UFqsuhgL5l2l0/al2u45IfbzFF9VJuVxXERF6xJ0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=L8HW20MrgZenHOLkYupCgB+Pd7n7KZhLyrXT96gkliIVf1KAGHC718hL7Opufr+Pk
+	 AwDLc4CnxQDjzfCiy7CamWMzviQ26AtA7CuoM99r3tcbpu3wEar60vMBV4HfKXU6ST
+	 Mmb5nul6BIxBye+7gSUJjKX17BLhVjm2ZKSWbQyE=
+Message-ID: <55e7eec2-1ccc-4645-9785-ed0b42421e01@arm.com>
+Date: Mon, 9 Nov 2026 08:32:32 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,128 +53,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH 7.3] cpufreq: CPPC: Select the frequency-invariance callback,
+ per CPU
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, rafael.j.wysocki@intel.com, sumitg@nvidia.com
+References: <20261108112738.2566137-3-christian.loehle@arm.com>
+ <2026-11-08-1-daily-reply-0007-cppc-7-3-p2@kernel.org>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <2026-11-08-1-daily-reply-0007-cppc-7-3-p2@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMuD8WoC/yXMyw6CMBBG4Vchs3YSWi8JvopxUYZfGBOr6VCEE
- N7dqstvcc5KhqQwOlcrJUxq+owFbleRDCH2YO2Kydf+5FzdcJ/jEgZ+dyMnWH6A/bEN0ogc9gF
- UulfCTeff83L923J7h4zfEW3bB7URElB1AAAA
-X-Change-ID: 20261109-gunyah-wdt-resume-25bac9cc43ae
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Hrishabh Rajput <hrishabh.rajput@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Stanislav Aleksandrov <lightofmysoul@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212814; l=3385;
- i=lightofmysoul@gmail.com; s=20261108; h=from:subject:message-id;
- bh=JhBHgp9sr8F6eF0LAjuuKHo+Dq8rxxMvSwyeg83jF/c=;
- b=ql8wh3203NCheD2G7gbJkVZlyVz94Lq19rmDLGGQXmLsGxxXzrNYlSbxL6ypH2s0BQ2gF1EVT
- IX7uthTFwsADMsIVAQSWkq77pwMbZ+82PV+GrQp+s6yAdIRlgcFvv2k
-X-Developer-Key: i=lightofmysoul@gmail.com; a=ed25519;
- pk=jeRUlfmkhE53CJPoeIIXgu7rTE0ybDRH0HQrEwbydzg=
 
-gunyah_wdt_suspend() disables an active watchdog, and
-gunyah_wdt_resume() enables it again with gunyah_wdt_start(). start()
-first disables the watchdog, which fails with -EINVAL when it is
-already disabled. start() ignores that only while the watchdog is
-inactive, but on resume it is still active for the watchdog core, so
-start() returns before it enables the watchdog:
+commit 21e018235d99bc86249b034c06646df8757b2852 upstream.
 
-  gunyah-wdt gunyah-wdt: gunyah_wdt_start: Failed to stop gunyah wdt -22
+cppc_cpufreq_cpu_fie_init() initializes deferred work only for CPUs whose
+feedback counters use PCC. However, if any CPU in a shared policy uses PCC,
+it installs the PCC tick callback for the entire policy. With FIE enabled,
+a non-PCC CPU then queues an uninitialized irq_work and can call a NULL
+function pointer when that work runs.
 
-So after every system suspend, the watchdog is left disabled.
+Choose the frequency-invariance callback separately for each CPU using
+the recorded work-initialization state. Processor removal can unpublish
+the CPC descriptor before callback registration, so querying its counter
+transport again can incorrectly select direct reads for a PCC CPU.
 
-Move setting the timeout and enabling the watchdog into
-gunyah_wdt_enable(), and call it on resume, where the watchdog is
-already disabled.
+Register the callbacks after all counter initialization has completed, so
+a failed initial read for an online CPU cannot leave a partially
+registered policy. PCC CPUs use their initialized deferred work, while
+non-PCC CPUs read their own counters directly from the tick.
 
-Tested on the Samsung Galaxy XR (Qualcomm Halliday) with s2idle and
-deep suspend.
-
-Fixes: ca316e145c35 ("watchdog: Add driver for Gunyah Watchdog")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-20-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
-gunyah_wdt binds on the Samsung Galaxy XR (Qualcomm Halliday) with this
-SCM patch:
-https://lore.kernel.org/r/20261109-qcom-scm-gunyah-uid-v1-1-2776343f9a3b@gmail.com
+Rebased on 89b37c05e36a (upstream 995e7d468070) and the queued patches.
+Includes the work-state and NULL-descriptor prerequisites from 27954e29d7de.
 
-This work was made together with Claude.
-Reviewed and tested on my Galaxy XR. Without this patch the watchdog
-doesn't bite after a suspend. With it, it bites again after both s2idle
-and deep suspend.
----
- drivers/watchdog/gunyah_wdt.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/acpi/cppc_acpi.c       |  3 +++
+ drivers/cpufreq/cppc_cpufreq.c | 21 +++++++++++++++------
+ 2 files changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/watchdog/gunyah_wdt.c b/drivers/watchdog/gunyah_wdt.c
-index 557a78306d18..348c7ccddde0 100644
---- a/drivers/watchdog/gunyah_wdt.c
-+++ b/drivers/watchdog/gunyah_wdt.c
-@@ -62,19 +62,12 @@ static int gunyah_wdt_call(unsigned long func_id, unsigned long arg1,
- 	return gunyah_error_remap(res.a0);
- }
- 
--static int gunyah_wdt_start(struct watchdog_device *wdd)
-+static int gunyah_wdt_enable(struct watchdog_device *wdd)
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 9079ddf2ead1..8aa0ce556863 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -1633,6 +1633,9 @@ bool cppc_perf_ctrs_in_pcc_cpu(unsigned int cpu)
  {
--	unsigned int timeout_ms;
-+	unsigned int timeout_ms = wdd->timeout * 1000;
- 	struct device *dev = wdd->parent;
- 	int ret;
+ 	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
  
--	ret = gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
--	if (ret && watchdog_active(wdd)) {
--		dev_err(dev, "%s: Failed to stop gunyah wdt %d\n", __func__, ret);
--		return ret;
--	}
--
--	timeout_ms = wdd->timeout * 1000;
- 	ret = gunyah_wdt_call(GUNYAH_WDT_SET_TIME, timeout_ms, timeout_ms);
- 	if (ret) {
- 		dev_err(dev, "%s: Failed to set timeout for gunyah wdt %d\n",
-@@ -89,6 +82,20 @@ static int gunyah_wdt_start(struct watchdog_device *wdd)
- 	return ret;
- }
- 
-+static int gunyah_wdt_start(struct watchdog_device *wdd)
-+{
-+	struct device *dev = wdd->parent;
-+	int ret;
++	if (!cpc_desc)
++		return false;
 +
-+	ret = gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
-+	if (ret && watchdog_active(wdd)) {
-+		dev_err(dev, "%s: Failed to stop gunyah wdt %d\n", __func__, ret);
-+		return ret;
+ 	return CPC_IN_PCC(&cpc_desc->cpc_regs[DELIVERED_CTR]) ||
+ 		CPC_IN_PCC(&cpc_desc->cpc_regs[REFERENCE_CTR]) ||
+ 		CPC_IN_PCC(&cpc_desc->cpc_regs[CTR_WRAP_TIME]);
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 951db2a6afb5..782b97acf5dc 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -42,6 +42,7 @@ MODULE_PARM_DESC(fie_disabled, "Disable Frequency Invariance Engine (FIE)");
+ /* Frequency invariance support */
+ struct cppc_freq_invariance {
+ 	int cpu;
++	bool pcc_work_initialized;
+ 	struct irq_work irq_work;
+ 	struct kthread_work work;
+ 	struct cppc_perf_fb_ctrs prev_perf_fb_ctrs;
+@@ -152,7 +153,7 @@ static struct scale_freq_data cppc_sftd_pcc = {
+ 
+ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ {
+-	struct scale_freq_data *sftd = &cppc_sftd;
++	struct scale_freq_data *sftd;
+ 	struct cppc_freq_invariance *cppc_fi;
+ 	int cpu, ret;
+ 
+@@ -169,7 +170,7 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 
+ 			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
+ 			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
+-			sftd = &cppc_sftd_pcc;
++			cppc_fi->pcc_work_initialized = true;
+ 		}
+ 
+ 		ret = cppc_get_perf_ctrs(cpu, &cppc_fi->prev_perf_fb_ctrs);
+@@ -185,8 +186,15 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 		}
+ 	}
+ 
+-	/* Register for freq-invariance */
+-	topology_set_scale_freq_source(sftd, policy->cpus);
++	/* A shared policy may contain both PCC and non-PCC counters. */
++	for_each_cpu(cpu, policy->cpus) {
++		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
++		if (cppc_fi->pcc_work_initialized)
++			sftd = &cppc_sftd_pcc;
++		else
++			sftd = &cppc_sftd;
++		topology_set_scale_freq_source(sftd, cpumask_of(cpu));
 +	}
-+
-+	return gunyah_wdt_enable(wdd);
-+}
-+
- static int gunyah_wdt_stop(struct watchdog_device *wdd)
- {
- 	return gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
-@@ -224,7 +231,7 @@ static int gunyah_wdt_resume(struct device *dev)
- 	struct watchdog_device *wdd = dev_get_drvdata(dev);
- 
- 	if (watchdog_active(wdd))
--		gunyah_wdt_start(wdd);
-+		gunyah_wdt_enable(wdd);
- 
- 	return 0;
  }
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261109-gunyah-wdt-resume-25bac9cc43ae
-
-Best regards,
---  
-Stanislav Aleksandrov <lightofmysoul@gmail.com>
-
+ 
+ /*
+@@ -209,11 +217,12 @@ static void cppc_cpufreq_cpu_fie_exit(struct cpufreq_policy *policy)
+ 	topology_clear_scale_freq_source(SCALE_FREQ_SOURCE_CPPC, policy->related_cpus);
+ 
+ 	for_each_cpu(cpu, policy->related_cpus) {
+-		if (!cppc_perf_ctrs_in_pcc_cpu(cpu))
+-			continue;
+ 		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
++		if (!cppc_fi->pcc_work_initialized)
++			continue;
+ 		irq_work_sync(&cppc_fi->irq_work);
+ 		kthread_cancel_work_sync(&cppc_fi->work);
++		cppc_fi->pcc_work_initialized = false;
+ 	}
+ }
+ 
+-- 
+2.34.1
