@@ -1,58 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239610;
-	b=ugL8FbfePY9OrWX2FzWno7UnIvW2rV3oaSl5Jnam9ri4x7Ci1EQbakEmPBGYeaoaMIlT
-	 VPijBQ4XQZDYCYezOB8P89RS+1hTf4hGZLb7708qXlSnSatTPS2t3JeqJtCNcKvTLrznv
-	 Ne7eHCrjDI3YTn5ulfFSfdbqoAT+ZVOwJZgK9JNKhOxC0FjJ/70HxCCjFTowBroEezjLk
-	 MO8Ky5iVkvee1vLna6vNfAhGbyGe2iCv9vSSCuFesICvTufRdWNoBRlzsxcIF4YkBE1+h
-	 YA95oRSp9oc/NNf/y1SidpIWY1214R3fRIyJxWs2mQtM8pUJdOVzIeBiGM6U0kMskkg==
+	t=1794239616;
+	b=G2twv57cbbydmYzq3XxDiFzeX+O6gHWR6JQGCR+J0GYoTJkQk7YLpNhgcjbwPlNlh65s
+	 9t5dvbPvgzILAansUQHaovz8hEw9eFAQAmEtyz6JCRTSAoXo28KvcgeaWLvc8VWQtXBzO
+	 JP6Sm2lDCG4Ou3B4EgIQoGXiCLdwnv0JkzLPyt7fy/BAndx+q87CssX7H9FNdjwM8UcLi
+	 zoa3H5AV43+mxrR5sztGe0lfSUTWsJk+aUaAKzzuuAYJCCMSotWa+oXff+wamqR7wty6E
+	 37buVZXb4BJwDsSbjSv3lA4nI28o3rGxYVP/APjVtrH47ASa31pt/aGvF12mRCnaF1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239616;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JjCSXoSw+BGZL7xX4IQFIvPROupCQYEx6ydgnJvXYoc=;
-	b=lWpEyVpHlwT5Egq1ZrpYRlYABB2Bw0h1GZ6DWLguJkjRWfVPlVV/1ACX6WSYNrWkkgB9
-	 1FNeHwc8vDBl7nnJJWu5JAGQnCgM+IWo1dvs5ZBmLGayeSt13h9bSsTtJJJXXXM41/UpS
-	 USqrZsp3RufKxPbfYwmo9qPn3tvbvTP+W9mA56YicqTnoCYwHkj+rn7vFMIR2ItN9puuf
-	 2PUoxfzPmIeuRwPvqTo9s7EtTAL8smH+WscDQuCKh3BbHUU6t6kOyo7nUaGVJshgYuRLi
-	 apkFNpCJKpr7GkeJzwJ37f5+p5gEuCm9Jm4kb+2UPG5Bja3dXF3aAy2m/91GKqYeluw==
+	bh=YbGDBqU4nxW38rvN5cjz46VE+ozOGhYAeWZw2r2wWtQ=;
+	b=QFosviJBB6CcYnlPPHs7KtrkvVyTq7xrIX1XxClfL9cG1EL44QO3a/3MpqV3AdYYS8Je
+	 8Y1UA7iMitmcz54nduTSUtsPsVLl1xmGojaDlOVFD5Qa4cTg8QbdPcqqNfAiAjxBeDSLo
+	 ErzX8sNqnwYC+/sAfmSko/KLMtT5z0lOEWnZ19l9QVfWjRWEkO80x78QiYOfzqK5Cc/dJ
+	 /OrwU059lbox3oA9ZsLoQ1hgjspRnCZebdQu9Avh8G0pwLP7Mn8X1j7e+dVYyedLXpoEt
+	 hTPsdtycaqxGwDd6aloHSUpDr2GZQdr97/PMZ73VEu7qmJlnMlEP+f/z4vJuC+hMKEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFT7vJuS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZD2W6ANq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CE5606A325;
-	Mon,  9 Nov 2026 15:53:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD0D606A33D;
+	Mon,  9 Nov 2026 15:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFT7vJuS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4133C1F008A2;
-	Mon,  9 Nov 2026 15:53:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZD2W6ANq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78E61F008A4;
+	Mon,  9 Nov 2026 15:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239610;
-	bh=JjCSXoSw+BGZL7xX4IQFIvPROupCQYEx6ydgnJvXYoc=;
+	s=k20260515; t=1794239616;
+	bh=YbGDBqU4nxW38rvN5cjz46VE+ozOGhYAeWZw2r2wWtQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nFT7vJuSEgymrn8/fjwDMeRDgM13zIL2TH23mING0HweNdr1vO+FVwDOgDEkG42vY
-	 DR3ZPX4FDHuzwfWg/NXpzFy7DvmtpkRz0l3pE3REyAQCDppQmrOJrF8U3lUwx5ogt3
-	 bMRpqeIeQT6r61ALafqf6HDmlggG9R8hbK5z+u3PWFTZyI3plhkxvt5VMZqGrzxGbj
-	 OkEWRH5WOGpWvbAU617zP4awqRFjkfXXGqjiEKH4rIP+X7J87iyYXd913/OZ4jplvg
-	 rtBWKL6pCqO2qM7HekT7pQfTaOKImnqTfa3nMmDlqsyg7lRXVst9XWsNTQ6q/lUbKa
-	 v2A2nH+R84YSg==
+	b=ZD2W6ANqH+nwDuzFgWpsFsA1zcRkNWiLxO/AHawwaWKnymA4Do/F+Yk/v4oqUYWjD
+	 v+fCAIHVschbqevMzl0HOkMedPkWkRMeOpbmBfb/l18Nz9xSx/doUHrxhU/N3FLJk3
+	 HUytSJv7gwmtQsUOPZjjZnZX/4XbF3JJqhZIabx3+AX2mJ7lieg0pupBpmIMIKMOha
+	 CDfeZgIMepWKOrYYoVVWxyuF+jyYn7+xYKKzdQ9FaMxOq4APVpl4yfCAPDmOVjPtKz
+	 4P3adLtS9aofXJYW+yUHUHfsRffabDS+NsC2T1ahdAYiX/1Yt6naGxIwEHJihk56M9
+	 NMk2DZfM1UNtQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: Re: [PATCH 6.6.y] nfsd: fix NULL dereference in nfsd4_free_layout_stateid()
-Date: Mon,  9 Nov 2026 10:52:45 -0500
-Message-ID: <2026-11-09-1-daily-reply-0003-nfsd-layout-6.6@kernel.org>
+	linux-mm@kvack.org,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH 6.12.y v2] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+Date: Mon,  9 Nov 2026 10:52:51 -0500
+Message-ID: <2026-11-09-1-daily-reply-0009-damon-psi-6.12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109084932.3861080-1-joseph.qi@linux.alibaba.com>
-References: <20261109084932.3861080-1-joseph.qi@linux.alibaba.com>
+In-Reply-To: <20261109011347.92467-1-sj@kernel.org>
+References: <20261109011347.92467-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,9 +69,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> nfsd: fix NULL dereference in nfsd4_free_layout_stateid()
+> mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
 
-Queued for 6.6, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
