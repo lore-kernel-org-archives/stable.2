@@ -1,47 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204488;
-	b=cv7y3bgLD/gZGHW/mKa0u78MFDVvoMqxciyoorl9HR3RexblX7pTje+XK2k/aG/tU/te
-	 TRouxOXulnwuHoS6XUr0OULUuysrSTr+iHeYB0dcdugKsvW5w1QpNmQS6hgf2ypS6JE2a
-	 9z80qUcZPmX0x7YxoGOGsh3waLe7VaASf73EI0tcHGUMHZkaRZSpklXqRk/K4P4OvsO7z
-	 dN6MyNHLoacRT6OWaRo3luVukv1TEj5hE34Z22mE98Pqxbp5+6WrOI1+H0RtahPfGaytf
-	 MADegHoBwK+pd3rmzO7iJiB/tRvQop04qKIygSZkzRHEnQ3RNIW23sx5xpbSiGAPkVA==
+	t=1794204613;
+	b=5Tcw/ggUNV9TPBcn8PhKhpcNvtBI/gDYYLLlciUkgxnglJ1XyMQoZjsf8JjNLl7kRoi9
+	 FT0Md1RtoFdWzd1MHpqk7mI4gvTI2zA7/kWzr93WB4IHqJc7JOzzhMRUk7Atbh0ucMMvJ
+	 XoCyCYGLzPHkpVNA6oSJiTSne03PFtVy8A54Jhmia9+5kJJd1Su+ns4v7skqnCX/5FYXg
+	 jTp4+BDUJWN2xJnTcdrsqm2f8zje5mznDhoW+JbpzB3GucPxFBq5VUhWDLHYTd95oJLjv
+	 IIZOpYKHWNWURPwvqTAoBJYTxIcFSuj08Zn6qqRx9U2KCEhfXBKNDJnpjxLU7rWy8hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204488;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ZpjLU6b1rBwqQ5orG9e7Qyn7cJGoHGcmVy6blKVnMJM=;
-	b=l+hITRY7Lldi3GK3aPWYv/nPQ7Ox0uxm/RYCmzHjy7Gw4I0NaSr5NRE3Hf3zcrFdmge/
-	 mWh6mWLDVy31mprrTpCWNi8SMT3Dl2v7HpzQ/1V5C79MdUFuWYeUusqa70dICXD/dghkT
-	 nZj08/QZ/FWYajAXGJZ31yVjR1gCwotfAynRMA22GkVjwa3bmvhdAanfIW2PzBpM2spoY
-	 aIL9GUAcJq+q9MmmZ5rCij3ih7sSlWWzJnbSnELLQKMeAlUZA22mO5fZKU3UUypr1ycQR
-	 OsMt1vEJYxquv6UZYt0+EoILqaCc++zrOc/m8ElI0bJoJp/BTPBd6FfuXFHWy+cL3fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204613;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kHmCaYxfDHn8K47bQjI+v/3u5wpeXFxvlLdiSYaq980=;
+	b=0JxwI9FVMA4LM22RLVPyaTolmNoi6DRc7FtU+ofaQ076TVUHhfDTfcrIccMWLOsF7IWj
+	 5Mh/mKSa6sXZbVzvdIhsawMcI0dZnAIspmF4Yfz0iuLVMdZkuN35VonPOV9hNZN5o5nd0
+	 VfcIYfmGLYOWWVBm03NCC1J6pL+z9gcZLoYnsSkuuiv02Y5eyXkBs3il9Bx9E4joUeWPe
+	 gD9s9q4ytBmVsfw2HHLDtGre2OO75mILztKAPNckZ5hs9/PAsuhyfj0Jq2NYFldnyJCM9
+	 Dzt1Se/1lQ5uH9LPLnv0rcfeRe0uWF2LQP0qHsy+zLct79gfqxRP3ljQ9tEo/E5bDRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFc7c24i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3A8606A31C;
-	Mon,  9 Nov 2026 06:08:07 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="xVBy4/HL";
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0055606A31C;
+	Mon,  9 Nov 2026 06:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0055606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFc7c24i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC63D1F0089F;
-	Mon,  9 Nov 2026 06:08:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794204487;
-	bh=ZpjLU6b1rBwqQ5orG9e7Qyn7cJGoHGcmVy6blKVnMJM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aFc7c24ikxzvKOCn+qV55jPlrhdZbe/43PFxyNLpvjwBOv+3kqU7SbtsWsa3eu7Di
-	 FOh3T/KkC06EIL2Qt84s+Z+lDKoCuhG+opgBx9O+YHFylscf1B3LCtd8PFD40Dnp/x
-	 WFCETWy61arbSG/zk8uTdPyJizoxoeTv8LXns9EpmU9C8y91TTdXZ7p6OtymmIRTcS
-	 ztm/QMhzRS3z5umWscOpEXjLXMVOoe+nJE38xsvEbEqox8YpsEZ1PLOox/7W/mi+0b
-	 oU42CVd8PyE/yrME5KCx5AIDr/ID3DS/D8PfhHDDEFjp54zETG1fcnqZlR9mD2kTJg
-	 4dUquTEyfIUnA==
-Message-ID: <0197be1d-1257-4597-aea2-1a065fe0a1d5@kernel.org>
-Date: Mon, 9 Nov 2026 15:08:03 +0900
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=xVBy4/HL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=xVBy4/HL0A9+2H31cSsWHvQHnP9gbSDrHiAM8fkJn46Knr2s+E3JXEyNiJ+R74/9Yncq8NkdHvvkH
+	 FwT9/mxIchDiYyvh3AmiyN1wmzJJ01DI/omGOyFdbl/WHknMzBBRYjZdL33kB42Pp0libmrTH+qKRN
+	 e3dUBGSkRC6l7c7I=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af163c07b6-c6a40;
+	Mon, 09 Nov 2026 14:10:08 +0800 (CST)
+X-RM-TRANSID:2ee96af163c07b6-c6a40
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af163bfd18-8376f;
+	Mon, 09 Nov 2026 14:10:08 +0800 (CST)
+X-RM-TRANSID:2eea6af163bfd18-8376f
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: Bin Liu <bin.liu@mediatek.com>,
+	linux-media@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org,
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mtk-jpeg: fix runtime PM leak in mtk_jpeg_dec_device_run()
+Date: Mon,  9 Nov 2026 14:10:06 +0800
+Message-ID: <20261109061006.1043-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,98 +70,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dm-crypt: defer async write submission to write thread
-To: Josef Schlehofer <pepe.schlehofer@gmail.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>
-Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ignat Korchagin <ignat@linux.win>,
- Milan Broz <gmazyland@gmail.com>
-References: <20261105072708.30722-1-pepe.schlehofer@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261105072708.30722-1-pepe.schlehofer@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 16:27, Josef Schlehofer wrote:
-> With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
-> bio directly, even when called from kcryptd_async_done(). An async
-> cipher may run this callback in softirq or with BH disabled, where
-> submit_bio_noacct() must not be called because it can sleep.
-> 
-> Submit inline only when async is false. Async completions are sent to
-> the write thread, as is already done for submit_from_crypt_cpus. Use
-> the async flag rather than in_interrupt(), since callback context
-> depends on the cipher driver. Sync ciphers still submit inline.
-> 
-> Tested with cryptd in QEMU (x86_64 and arm64) with
-> CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
+mtk_jpeg_dec_device_run() takes a runtime PM reference with
+pm_runtime_resume_and_get() and releases it in mtk_jpeg_dec_irq()
+after the hardware signals completion.  If mtk_jpeg_set_dec_dst()
+fails, however, the function jumps to dec_end without ever starting
+the hardware, so the interrupt never fires and the PM reference is
+leaked, keeping the device runtime-resumed forever.
 
-Originally, this was added to avoid write reordering for zoned block devices.
-So did you test this change with that (scsi_debug or null-blk) ? You can also
-use an emulated NVMe ZNS device in QEMU.
+mtk_jpeg_set_dec_dst() returns -EINVAL when the component count or
+the per-component plane sizes parsed from the JPEG header do not
+match the destination buffer, so the leak is reachable from
+userspace with a crafted bitstream.
 
-> 
-> In QEMU:
-> 
-> - 4k writes logging "sleeping function called from invalid context":
->   100/100 unpatched, 0/155 patched.
-> - nr_requests=4 on a loop device: 0/6 unpatched runs completed,
->   4/4 patched runs completed.
-> 
-> On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
-> 6th unpatched run and did not appear in 30 patched runs.
-> 
-> Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd workqueues")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> ---
-> Based on dm-7.4 (dab527d83462).
-> 
-> To reproduce, with CONFIG_DEBUG_ATOMIC_SLEEP, DM_CRYPT, BLK_DEV_LOOP,
-> CRYPTO_CRYPTD, CRYPTO_XTS and CRYPTO_AES:
-> 
->   modprobe -a cryptd dm_crypt loop
->   truncate -s 256M /dev/shm/nowq.img
->   L=$(losetup -f)
->   losetup "$L" /dev/shm/nowq.img
->   KEY=$(od -An -v -tx1 -N64 /dev/urandom | tr -d ' \n')
->   dmsetup create nowq --table "0 $((256 * 2048)) crypt capi:cryptd(xts-aes-lib)-plain64 $KEY 0 $L 0 2 no_read_workqueue no_write_workqueue"
->   D=/dev/dm-$(dmsetup info -c --noheadings -o minor nowq)
->   dd if=/dev/urandom of="$D" bs=4k count=1 conv=fsync
->   dmesg | grep 'sleeping function called'
-> 
-> For the nr_requests=4 case, run this instead of the dd. The writes did
-> not finish without this patch:
-> 
->   echo 4 > /sys/block/${L##*/}/queue/nr_requests
->   for i in 1 2 3 4; do dd if=/dev/urandom of="$D" bs=64k count=512 seek=$((i * 512)) conv=fsync & done; wait
-> 
->  drivers/md/dm-crypt.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-> index 8853e9af1c3d..c0552a300e62 100644
-> --- a/drivers/md/dm-crypt.c
-> +++ b/drivers/md/dm-crypt.c
-> @@ -1982,8 +1982,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
->  	/* crypt_convert should have filled the clone bio */
->  	BUG_ON(io->ctx.iter_out.bi_size);
->  
-> -	if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
-> -	    test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
-> +	if (likely(!async) &&
-> +	    (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
-> +	     test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
->  		dm_submit_bio_remap(io->base_bio, clone);
->  		return;
->  	}
+Drop the reference before jumping to dec_end.
 
+Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+---
+Verified against current upstream master.  The multi-core decode
+worker handles the same failure correctly (setdst_end/clk_end path
+does pm_runtime_put()); only the single-core device_run misses it.
+Not runtime-tested (no MediaTek JPEG hardware).
 
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1011,6 +1011,8 @@ static void mtk_jpeg_dec_device_run(void *priv)
+ 
+ 	mtk_jpeg_set_dec_src(ctx, &src_buf->vb2_buf, &bs);
+-	if (mtk_jpeg_set_dec_dst(ctx, &jpeg_src_buf->dec_param, &dst_buf->vb2_buf, &fb))
++	if (mtk_jpeg_set_dec_dst(ctx, &jpeg_src_buf->dec_param, &dst_buf->vb2_buf, &fb)) {
++		pm_runtime_put(jpeg->dev);
+ 		goto dec_end;
++	}
+ 
+ 	schedule_delayed_work(&jpeg->job_timeout_work,
 -- 
-Damien Le Moal
-Western Digital Research
+2.39.2
+
+
+
