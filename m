@@ -1,52 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243412;
-	b=BWEtklA8yJpxSGq5DDIOIP9RuoXFgD7DgUeD+JEotlRm7PqFeUBPa/mJWXVfnwluQ/t5
-	 ltGlC4hFIihKIxUS8tmZeLOLGc7gb3lTVeg+SUre017kvvmy7SImeGRhkHcMKUAqUXjyU
-	 C1PhRGwRDf7h8D07ZurAYiyRs5TabfhUQxwbNXyhC0DbMpQSBAdX7o9OXSiHGS2iTaASQ
-	 Q0UBnTn7cp8l5XAHoOp8I9WCHa8WMgUN9ZAawulV4rFa3vw2N1q+IINpEih3f2qDvC48P
-	 afbNwOuyRHlCYS3Uo51U3MNZgCthVsOg0hiYQCWHeELkZd77I2/j06joJxkaBK7TN1w==
+	t=1794243764;
+	b=JpyVbNBkT6ZHXOeFi7vwRnNoSA7k+jyUk4oDG9sa6wXch5zZH5zEQh9T8ZSX2fcnG5S+
+	 kSKCAcbkOO0Hl/0D5lQGpTeufNvp+BP19rd5E9jcLQehsG7b7KXmsg2i/GR9mzHyEq3iK
+	 KNCzjNjoMiT847vqd2YniPorFWREb/4/IqEp4d1HMhndxF8D/0JaG/bkvVF1iMQHlryIM
+	 JmDsnsR7s7t4cd+OjbXCs/clpvp1TayruGVzcwT8vYsi+PuSoLsDejweWHzLxzTHjpwbs
+	 LJIiE8H96c9bM2q0LiLDuWhtN4Y/gSsvUQTkEGLVQe8oLBVBn8xEAds1eeG1uYY6f9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243412;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xqkGm5f4QUzjMFVsDZnppdOxHCaNW2iDkgE+KO329LU=;
-	b=z6ZaN0t68FRkbz7MlvOFJJrOYksBRS+sN2iZ2SKW/MIeiS1YBJCeLsJu4551Yj7btmyL
-	 su7o7e8d+pUYL9aKVGlEBjrJB4S0nNDCy8lQuq2MLT8akQivZAAZsfJOYX3ish43/J2H/
-	 sk6nDa3WuOKfhS9z/0QRS7Du8NNlfCsuYA6b9UoOYpC6sbdGdZOSL0CNRABs6E8NbH5Fq
-	 oWDkGxfd+xWl7ALiV4b6D15eqv5OWO5DKPoHeOJluz/Z7x+QHPc344LUsGRxToC1mluuT
-	 ATr64JSWLdAX7/LXPx5aUtpEoRXokY1I3G7ybKphNSaPFnBZ1JQi97I3Z6G4rDQwtYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243764;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qY0mbUZdr0ztNMcKxMffZ/lOFKEQtrLqkPhKXm8ABiA=;
+	b=reTMERqqyorHXoJMPkeL5Dx3RMQijqVnN+WHA8tkxk66j5kP5XRNY8OxchquYl2u+xqu
+	 JY8+LN04oxmf0MkeUDiKjzwBLnctuxfLW0xWcqbHfvU4RBqtzH3giFailmnCDzBI3m00P
+	 rwhJ2lbbwmjWZ071ZI+wrvu7K+vysRoe+xnN4ifJeuVU54WerTJbTnpyFf0c090vLCx08
+	 pPEQDGdgg2R1qARZJS+d3WSQL+H1De9mwxmdqUJS69E1e+6v/EUkz61gNbQW3our5p4Xi
+	 AJRxi5gmCz9AMYJmEiJFTethHerGrdgN9PO4hN7H8+HvR8pDasTQJt0AnJ8Or0B+KKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGOxaN9u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hkcL9Mlc;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC37606A33C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 16:56:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15CD606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 17:02:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A15CD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGOxaN9u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10341F0089F;
-	Mon,  9 Nov 2026 16:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794243411;
-	bh=xqkGm5f4QUzjMFVsDZnppdOxHCaNW2iDkgE+KO329LU=;
-	h=From:To:Cc:Subject:Date;
-	b=fGOxaN9u8/+kd0KdfILrUalpLBEiA+iKYrmqWYFD4NJ3DMQ4HTKYHRj0NjBN96xfy
-	 oRNYMbBK+vIzqM882kFEe5vhth40be/J7ZqOYtTzWL9EzYDox1brn7XIz+FWgirIKg
-	 ecmRhpT8LyknbSse4q8VAQaMXV1eLxkAGtmomsjOnAwZHBG5E+YBwcPpA+DIOwe9My
-	 stGf9GvDBv0Pghy5sOj2lMpHB/kOKM5FKpmO/73dN8nBo4m8x9cTRZmkP96x4yMs+P
-	 wF8vOJ9GZMv4fo+FeB/jHbbdhoYjJtpRasFYq2rx+TNjLEafvtl0jx0uDNsOJfcZpR
-	 sAOx0CM282Iew==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org
-Cc: stable@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: [STABLE v5.15-v5.10] tracing/histograms: Verify event_call identity when updating synth_event refcount
-Date: Mon,  9 Nov 2026 16:56:48 +0000
-Message-ID: <20261109165648.3451454-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hkcL9Mlc
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36dbde64409so2006817eec.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 09:02:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794243763; x=1794848563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qY0mbUZdr0ztNMcKxMffZ/lOFKEQtrLqkPhKXm8ABiA=;
+        b=hkcL9MlcORBXFvbjWtWcHkl0IKHVpAmxnnQgf2LS6YqMGeO/zPObjXVUOxlRMnVb5+
+         s4kcVwj5dlgWXKN2lkV0A5hVitLtkAJLD8ASx5PIpRRX7b5wuc0Kfm3g19216Dw5SFPo
+         u+Tu0TOdt2sinQoAkOk8nScZBW+EiANXU7OV2HiV8MSjuxNLjBQM0/xrX9zP3Jaf2im9
+         l1PG7TMkj3JLc2wl0eZYUmN+9xj1jq0uv6ug74TTtX4o0H6gzslJDoPAdoqKwkKLrV/l
+         lgxFCJUCaDzWnK+9kknncAg6AxD6pbvYdvpg6dFOGTV3KiivH/ehoCltF2NVftNbOPrO
+         zKAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794243763; x=1794848563;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qY0mbUZdr0ztNMcKxMffZ/lOFKEQtrLqkPhKXm8ABiA=;
+        b=TN0tUbL9XS0PNTiYBvuRtTwt4IdmAcaN1iJ6cvfC8v/sOoNq7S7HU2+8G7pl8DmzNP
+         a7DJer1FnizCKFXLq3mVCe19OiFYOA3MOxrP9WFfoFlSZOe1xkhrvX7jtCLoQoo9afLt
+         BNTxoCG5RLb1wmqXji7cB5xZl5thBbZMKT7uQXt5B3SxbiX1KnVn2Vmd+UZ3n6yPoFfh
+         T5DP8n+guf/JsoYnZginoW5PPtelBR4c0Ko1ualbUbiqcMH+2pOsR/AJxiu/OskhIlgf
+         v8+zaQofsN5jLfF3d1xfFGldOprO6zH6h4LM3SvEsOCycTqYov6BERrDlSGcd1EoC/3J
+         XiRQ==
+X-Forwarded-Encrypted: i=1; AL+hErF1zeHATR+yFm0zK7QVNQKReKMAB7HKU4rM1C9LhuyKcwNSptKjLYkrZhlrL+hEHvzc5LKJkbA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xqS0EW5ntvmd+Vjn1IooXMu2IjdnP784pOal7d3cXHtbfwOW7
+	9wi+nYOGrVAgbu8bc1sFGFRS6tVbkE5VLrvhvEvku5UrltGwifmbKXB3
+X-Gm-Gg: AYBFou3mJIjN/eYHO5ntQFktLgFgQuq+vPswZxIUrkjgigx7YzTdPijZUeBmPMb/5Jt
+	h6Ggye6GVH1Sv5Kpu3P+e5w4PdkcnofLYsArVcDupnfyo4gFzlQ4Uas199A/Ogd/KRkcEQaQdJ6
+	BrMYQLPeLxBrGUGGQOD0nFfpWI/Ge8kJr7uLHxdUUT3sf2XMR/U/BLj7a81u1SJd1Ge5meTFCj2
+	JYKARP0e6PJMD9wkOl/IJ/L5ssVy8LrnPft/u80mDGP5eU/6ZUlWGyCWiKu/42rENrufyRADzsj
+	rBLCLkEDllRjJNGeHSamgAQtIZQOPygWI2Zss+e0kmyKZoMpAnAZi5zF/+KIiaIjo8rwxn6dMCQ
+	VAUt3e8IJCBNUQMGbZnthonWJUDorH7hPVZF6DQWUNe1AlpviQuZyN5m1Fc0+FW7RMiJXoiSn73
+	ppxxih+W8+QahZlxiS22fjWdPArepzSoBOSddPf6rYt038stdM8QIR2cNQafwhdkPIxnyZEFYB3
+	8PWFUFIWPRe8/rFxUlDgiFboy9PvNXgJZL5ndvhwUR9l3oaNTfmatSQx3i/pD5gRGPKAmcfXX05
+	DLqyrbfDgySVBt1pi6RXe6MH7QM8nMM99xi9RtOvN2RSb8QANnfzJpT1MIb7NKYWsERu6g==
+X-Received: by 2002:a05:7301:18a5:b0:36a:15ee:c20e with SMTP id 5a478bee46e88-37258658bc3mr7702403eec.33.1794243762677;
+        Mon, 09 Nov 2026 09:02:42 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265618e11sm13726894eec.7.2026.11.09.09.02.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:02:41 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Ray Jui <ray.jui@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Raviteja Garimella <raviteja.garimella@broadcom.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v2] phy: phy-bcm-ns2-usbdrd: cancel extcon work on unbind to avoid use-after-free
+Date: Tue, 10 Nov 2026 02:02:23 +0900
+Message-ID: <20261109170223.1829473-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,120 +105,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 3403d9bb27ebc3572bd048620746b4414e073bf9 ]
+From: Hyunjung Ko <hj351016@gmail.com>
 
-In event_hist_trigger_parse() and hist_unreg_all(), the histogram
-registration and unregistration paths look up find_synth_event() using
-trace_event_name(file->event_call) and adjust se->ref if a match is
-found.
+ns2_drd_phy_probe() schedules driver->wq_extcon (extcon_work), which is
+also queued from the ID/VBUS GPIO interrupt handler gpio_irq_handler().
+The work handler dereferences the driver data via container_of().
 
-Because find_synth_event() only compares the event basename, registering
-or removing a histogram on a non-synthetic trace event whose basename
-matches a synthetic event erroneously modifies the synthetic event's
-reference count.  If a histogram is registered on the non-synthetic
-event before the synthetic event is created and removed afterwards,
-se->ref is decremented without a matching increment, allowing the
-synthetic event to be freed while an active histogram action still holds
-a pointer to it.
+struct ns2_phy_driver is allocated with devm_kzalloc() and the driver has
+no remove callback, so on unbind devres frees it after probe's resources
+are released. The GPIO interrupts are requested with devm_request_irq(),
+and so released by devres; free_irq() only stops further interrupts, it
+does not cancel a delayed work that is already queued. probe() queues
+wq_extcon with a debounce delay before returning, and the GPIO interrupt
+can queue it too, so on unbind the pending work can run after
+ns2_phy_driver has been freed, dereferencing freed memory (use-after-free).
 
-Introduce find_synth_event_call() to verify that &se->call matches
-file->event_call before adjusting se->ref.
+Register the work with devm_delayed_work_autocancel() instead of
+INIT_DELAYED_WORK(). It is set up before the GPIO interrupts are
+requested, so on unwind devres frees the interrupts first - after which
+the work can no longer be queued - and then cancels the work while the
+driver data is still valid. extcon_work() does not re-queue itself, so a
+single cancel drains it.
 
-Fixes: 4b147936fa50 ("tracing: Add support for 'synthetic' events")
+Found by static analysis and code review; not runtime-reproduced (needs
+Broadcom Northstar2 USB DRD PHY hardware).
+
+Fixes: 787f24543c4a ("phy: phy-bcm-ns2-usbdrd: Broadcom USB DRD PHY driver for Northstar2")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261019120730.2342739-1-lee@kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[Lee: Context conflict in event_hist_trigger_func() - no functional change]
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- kernel/trace/trace_events_hist.c  | 11 +++--------
- kernel/trace/trace_events_synth.c | 10 ++++++++++
- kernel/trace/trace_synth.h        |  1 +
- 3 files changed, 14 insertions(+), 8 deletions(-)
+Changes in v2:
+- Reword the commit message: the GPIO interrupts are requested with
+  devm_request_irq() and released by devres (not "released with
+  devm_request_irq()") (Ray Jui).
+- Place the new #include <linux/devm-helpers.h> in alphabetical order,
+  after <linux/delay.h> (Ray Jui).
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 223b38f9ac0e..c8e57b6e28fd 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -5797,7 +5797,6 @@ static void hist_unreg_all(struct trace_event_file *file)
- 	struct event_trigger_data *test, *n;
- 	struct hist_trigger_data *hist_data;
- 	struct synth_event *se;
--	const char *se_name;
- 
- 	lockdep_assert_held(&event_mutex);
- 
-@@ -5810,8 +5809,7 @@ static void hist_unreg_all(struct trace_event_file *file)
- 			list_del_rcu(&test->list);
- 			trace_event_trigger_enable_disable(file, 0);
- 
--			se_name = trace_event_name(file->event_call);
--			se = find_synth_event(se_name);
-+			se = find_synth_event_call(file->event_call);
- 			if (se)
- 				se->ref--;
- 
-@@ -5834,7 +5832,6 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
- 	struct event_trigger_ops *trigger_ops;
- 	struct hist_trigger_data *hist_data;
- 	struct synth_event *se;
--	const char *se_name;
- 	bool remove = false;
- 	char *trigger, *p;
- 	int ret = 0;
-@@ -5931,8 +5928,7 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
- 		}
- 
- 		cmd_ops->unreg(glob+1, trigger_ops, trigger_data, file);
--		se_name = trace_event_name(file->event_call);
--		se = find_synth_event(se_name);
-+		se = find_synth_event_call(file->event_call);
- 		if (se)
- 			se->ref--;
- 		ret = 0;
-@@ -5973,8 +5969,7 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
- 	if (ret)
- 		goto out_unreg;
- 
--	se_name = trace_event_name(file->event_call);
--	se = find_synth_event(se_name);
-+	se = find_synth_event_call(file->event_call);
- 	if (se)
- 		se->ref++;
- 	/* Just return zero, not the number of registered triggers */
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index 62d146254f47..ba5647204d3e 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -848,6 +848,16 @@ struct synth_event *find_synth_event(const char *name)
- 	return NULL;
- }
- 
-+struct synth_event *find_synth_event_call(struct trace_event_call *call)
-+{
-+	struct synth_event *se;
-+	const char *name;
-+
-+	name = trace_event_name(call);
-+	se = find_synth_event(name);
-+	return se && &se->call == call ? se : NULL;
-+}
-+
- static struct trace_event_fields synth_event_fields_array[] = {
- 	{ .type = TRACE_FUNCTION_TYPE,
- 	  .define_fields = synth_event_define_fields },
-diff --git a/kernel/trace/trace_synth.h b/kernel/trace/trace_synth.h
-index 43f6fb6078db..d4ebf01b7049 100644
---- a/kernel/trace/trace_synth.h
-+++ b/kernel/trace/trace_synth.h
-@@ -37,5 +37,6 @@ struct synth_event {
- };
- 
- extern struct synth_event *find_synth_event(const char *name);
-+extern struct synth_event *find_synth_event_call(struct trace_event_call *call);
- 
- #endif /* __TRACE_SYNTH_H */
--- 
-2.56.0.506.g506a7eabc5-goog
+ drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c b/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
+index 171bf09..4b8930b 100644
+--- a/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
++++ b/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
+@@ -2,6 +2,7 @@
+ // Copyright (C) 2017 Broadcom
+
+ #include <linux/delay.h>
++#include <linux/devm-helpers.h>
+ #include <linux/extcon-provider.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/init.h>
+@@ -339,7 +340,9 @@ static int ns2_drd_phy_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		driver->debounce_jiffies = msecs_to_jiffies(GPIO_DELAY);
+
+-	INIT_DELAYED_WORK(&driver->wq_extcon, extcon_work);
++	ret = devm_delayed_work_autocancel(dev, &driver->wq_extcon, extcon_work);
++	if (ret)
++		return ret;
+
+ 	driver->id_irq = gpiod_to_irq(driver->id_gpiod);
+ 	if (driver->id_irq < 0) {
+--
+2.43.0
