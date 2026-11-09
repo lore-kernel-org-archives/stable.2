@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794202052;
-	b=hx0gAvfkmCP5boHZfXa4HZ46lxXmS+48tcOTFaTgK6vgsCJ+4H57u2qXPPIShZeVg4RH
-	 apAOI2+5m5aofyjTwpOrQXZSWxgzD0svtWbzkjkhi/pxZYIi9I/EQkt5v72QiCJfucdpe
-	 u/scJp0ERsQF9X4buNuGhs7PGjgtj3I9Nw52hmfuIqaZPEwi0F+Zlwh6lUD9mBFi0P5BT
-	 foqhPJe0uoM11SjZhK1vMS+QHOrIgntgOSoZD5dPPIwAG/wDqixVb53R5BYZQzbNb3RH0
-	 D2QFfaf4Ln+IdUNKlwvZJCPR0q5VBUuRBv1gQORMIZ7dbthLGTZrF7JklX0BwyO28Zw==
+	t=1794202053;
+	b=Q7lksfjdIZBTMJT6LdOxmauI4o6xOU08oRWiTX6B2YHbGw2uU/U5H8hKkITF9hFCfXhN
+	 gmp4lAJnaTAVgirjvmvHm1kxnncicdwFr4d1PvJADIn3jVevtrR1AH1TILVsHZWwzv4e7
+	 Oas1B9YaexJPQlyItYbeNsyNgB3+W0m6zL4ZdlYzd4lzXvznNQVtnSp8frpCw4yE61Yxu
+	 4q4PCqQorJmPhlmh3m+0mqzJKKaBQaTp5cPoKNXdrWw36EsI5D2HagsrjnkOT5BD0FsDE
+	 rlopgpoDEX7jHdB9jbQOqJnAXE8ydkYCHDIXcrRePHR+oEYwqTxnFjdsWjKd1Prpk2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794202052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202053;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=rNI0FhTOj0/kWQb6qFtt+AdoxirvrS8PR1o6nERy2kA=;
-	b=h9qSWkjzrOF2O0V3FvzPlEdonhweMUGTdX96PTMDsUL3EpfvIxFzDJVJyryNrbCdpZ3H
-	 yH4A++utAtGD9WahZSLQYJAcJWKE/fdXBCjBJTk+a1GI4Aql6IQjrk2//0tNkiAvegvXX
-	 mdKaBqBrapf9HV90VKw5EsLUxS4H1FwWOWxE9wRI5GRgtnioAsyQOhlS2RrEVg8yC6FjT
-	 AaRMQJ7wqY9aW2h7pobdoXBkGMEGWSYP1ZSZ46XkJJG7kb+2YEA+1yAZqeXshdL5RI8wh
-	 Saca6QJCwPxP4LgabL3/UOUAQoCyZrWLQt9DJk3S6tsOfvy1WTNpmWvC5vf5/LFmoyg==
+	bh=1BtYHxxSpkoc0eJPO2XWBHTEKtWfzsME850atTr5y88=;
+	b=Is+tfQOFpKH4a0gveqylaH/Bli88UhDTFkll4FhAdSJLLYFq9RgNQZ13UCVRk+ul96rG
+	 mCHEVuOjZNuzJTw8fLRsKVrZiBzf0VtIMAnd9ipXRkIbVK3l95P4sU4df62u6o3Xq6T0N
+	 +28ucatvq8Ah7KbEDYzuM96PSb19eTTb4o0RIja1H10HYjyxjHpBZLXJAl74+KlrBbXY7
+	 AtlphPZOROV+C888QVyh78z7qCqo2t5Bx7Nn2PHLWYhX0uaMB+PvnJa+SIFyMG3Tcp3im
+	 dy1QJwB6edC1fEcWxmMH/bQGBU4S8yrI22iLQpLJh3bGKVD0/S3Pg+1JoJPPGEm83Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="rtu9/jAN";
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mu1LLSrb;
 	arc=none smtp.remote-ip=111.22.67.139
 Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CFE2606A321;
-	Mon,  9 Nov 2026 05:27:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CFE2606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D0B0606A322;
+	Mon,  9 Nov 2026 05:27:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D0B0606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rtu9/jAN
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mu1LLSrb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=rtu9/jANHgrk8oBvee/yT73qI0nL6CZeeU68zbfB/QOqzYEXFT5MHe+6kLAKbNxs6+rUSkAgjByoK
-	 X9ZGmya5cqmthfYkAmffjIMcxKtN9fokyyvZ8t09nbFf0TPLVfR3vxeyi0vs76nllFiDptNBeOBBH0
-	 YVYdsXvl4MaqivUo=
+	b=mu1LLSrbUforV64iiqvmLBcZBvjKdmB1+qzO1laEiA3KSJcj2qQ9pPj3gtVjZ96WVPvf7ee34bk40
+	 4RBCdh0VEmByamH70AWtMVfrekrfxw7pnXbtFReD+9cBZgeQbPRL1fUhzfuYB3flupb+Dtmscnd98C
+	 BGbRHhw4tVIfykO0=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af159bf31d-c65a6;
-	Mon, 09 Nov 2026 13:27:27 +0800 (CST)
-X-RM-TRANSID:2ee96af159bf31d-c65a6
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af159bf31e-c65a7;
+	Mon, 09 Nov 2026 13:27:28 +0800 (CST)
+X-RM-TRANSID:2ee96af159bf31e-c65a7
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from  (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af159bcc11-8263b;
-	Mon, 09 Nov 2026 13:27:27 +0800 (CST)
-X-RM-TRANSID:2ee86af159bcc11-8263b
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af159bcc11-8263c;
+	Mon, 09 Nov 2026 13:27:28 +0800 (CST)
+X-RM-TRANSID:2ee86af159bcc11-8263c
 From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 To: linux-mtd@lists.infradead.org
 Cc: miquel.raynal@bootlin.com,
@@ -58,9 +58,9 @@ Cc: miquel.raynal@bootlin.com,
 	linux-kernel@vger.kernel.org,
 	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] mtd: rawnand: fix GPIO descriptor leak in rawnand_dt_parse_gpio_cs()
-Date: Mon,  9 Nov 2026 13:27:23 +0800
-Message-ID: <20261109052724.1032-2-zhaofeng2@cmss.chinamobile.com>
+Subject: [PATCH 2/2] mtd: rawnand: arasan: fix GPIO CS leak on probe error paths
+Date: Mon,  9 Nov 2026 13:27:24 +0800
+Message-ID: <20261109052724.1032-3-zhaofeng2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261109052724.1032-1-zhaofeng2@cmss.chinamobile.com>
 References: <20261109052724.1032-1-zhaofeng2@cmss.chinamobile.com>
@@ -75,54 +75,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rawnand_dt_parse_gpio_cs() acquires one GPIO descriptor per loop
-iteration with gpiod_get_index_optional().  If a later iteration
-fails, the descriptors acquired so far are never released, leaking
-the GPIO references.
+The CS GPIO descriptors acquired by anfc_parse_cs() via
+rawnand_dt_parse_gpio_cs() are only released in anfc_remove().  Two
+probe error paths leak them:
 
-Roll back with gpiod_put() on the error path.  gpiod_put() accepts
-NULL, so the NULL slots left by absent optional GPIOs need no special
-casing.
+- anfc_parse_cs() itself returns -EINVAL on an invalid DT GPIO CS
+  layout without releasing the freshly acquired descriptors;
+- anfc_probe() bails out when anfc_chips_init() fails, leaving the
+  successfully parsed CS array behind.
 
-Fixes: b85c943d181a ("mtd: rawnand: Add a helper to parse the gpio-cs DT property")
+Factor the gpiod_put() loop of anfc_remove() into anfc_put_cs() and
+call it from both error paths as well.  gpiod_put() accepts NULL, so
+this is also safe when the default all-NULL CS array is in place.
+
+Fixes: acbd3d0945f9 ("mtd: rawnand: arasan: Leverage additional GPIO CS")
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 ---
 Verified against current upstream master.  Not runtime-tested (no
-hardware using gpio-cs).
+Arasan hardware).
 
- drivers/mtd/nand/raw/nand_base.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/mtd/nand/raw/arasan-nand-controller.c | 26 ++++++++++++++----
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/nand_base.c b/drivers/mtd/nand/raw/nand_base.c
---- a/drivers/mtd/nand/raw/nand_base.c
-+++ b/drivers/mtd/nand/raw/nand_base.c
-@@ -5466,7 +5466,7 @@ int rawnand_dt_parse_gpio_cs(struct device *dev, struct gpio_desc ***cs_array,
- 			     unsigned int *ncs_array)
+diff --git a/drivers/mtd/nand/raw/arasan-nand-controller.c b/drivers/mtd/nand/raw/arasan-nand-controller.c
+--- a/drivers/mtd/nand/raw/arasan-nand-controller.c
++++ b/drivers/mtd/nand/raw/arasan-nand-controller.c
+@@ -1391,6 +1391,14 @@ static void anfc_reset(struct arasan_nfc *nfc)
+ 
+ 	nfc->cur_cs = -1;
+ }
+ 
++static void anfc_put_cs(struct arasan_nfc *nfc)
++{
++	int i;
++
++	for (i = 0; i < nfc->ncs; i++)
++		gpiod_put(nfc->cs_array[i]);
++}
++
+ static int anfc_parse_cs(struct arasan_nfc *nfc)
  {
- 	struct gpio_desc **descs;
--	int ndescs, i;
-+	int ndescs, i, ret;
- 
- 	ndescs = gpiod_count(dev, "cs");
- 	if (ndescs < 0) {
-@@ -5481,8 +5481,14 @@ int rawnand_dt_parse_gpio_cs(struct device *dev, struct gpio_desc ***cs_array,
- 	for (i = 0; i < ndescs; i++) {
- 		descs[i] = gpiod_get_index_optional(dev, "cs", i,
- 						    GPIOD_OUT_HIGH);
--		if (IS_ERR(descs[i]))
--			return PTR_ERR(descs[i]);
-+		if (IS_ERR(descs[i])) {
-+			ret = PTR_ERR(descs[i]);
+@@ -1413,7 +1421,9 @@ static int anfc_parse_cs(struct arasan_nfc *nfc)
+ 		if (nfc->ncs > 2 && !nfc->cs_array[0] && !nfc->cs_array[1]) {
+ 			dev_err(nfc->dev,
+ 				"Assign a single native CS when using GPIOs\n");
++			anfc_put_cs(nfc);
 +
-+			while (--i >= 0)
-+				gpiod_put(descs[i]);
-+
-+			return ret;
-+		}
- 	}
+ 			return -EINVAL;
+ 		}
  
- 	*ncs_array = ndescs;
+ 		if (nfc->cs_array[0])
+@@ -1469,23 +1479,23 @@ static int anfc_probe(struct platform_device *pdev)
+ 
+ 	ret = anfc_chips_init(nfc);
+ 	if (ret)
+-		return ret;
++		goto err_put_cs;
+ 
+ 	platform_set_drvdata(pdev, nfc);
+ 
+ 	return 0;
++
++err_put_cs:
++	anfc_put_cs(nfc);
++
++	return ret;
+ }
+ 
+ static void anfc_remove(struct platform_device *pdev)
+ {
+-	int i;
+ 	struct arasan_nfc *nfc = platform_get_drvdata(pdev);
+ 
+-	for (i = 0; i < nfc->ncs; i++) {
+-		if (nfc->cs_array[i]) {
+-			gpiod_put(nfc->cs_array[i]);
+-		}
+-	}
+-
++	anfc_put_cs(nfc);
++
+ 	anfc_chips_cleanup(nfc);
+ }
 -- 
 2.39.2
 
