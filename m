@@ -1,71 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794190600;
-	b=W/J7UXo8j7SIHBpPNzsgnWWNyX3b+ab5xMbSG9TGe+IOD5bMN6q4Cr2CyKDe7ZwZyZrk
-	 uFcsySTuKYOqhPjR0qvWo3DMqp5ROs9TuAgHXtVoqu7ZbHWAZ36Kk0HrZAvfjMxgfnR6z
-	 PgHtmzrbuZWgQj9ST7e7GMYqC8RfUjanpz6evOZUeUSZ+51RkQCtxCeaJnVCYfd95Yckg
-	 48ZPuC//vOT3yv/AwZA0Mzd3zmo9Kl6oNTkiRb+nGZXwOqO389HjLCoZ9HWfrUaQun7M9
-	 2v/GPKittR2h5NaF9QsYW7fHCAKPn0BXcN1m9uy9Z9QAM+NFJmlvaBjsvhoHU3Rl6uA==
+	t=1794191496;
+	b=UTdvt9O7KoYzwklN9dXPS5aOigTI7Zqr89/yuusHsPqis67MbyyZU0li8MfNEO5PNlt+
+	 OLGNm/TzdcpFzEdOvOjNvEP/AsJJkg/rLCmva7EFhA64fFPeFPxH9+PphfMIMkScQLIQk
+	 nyzJEFZkwqYbTZ3SMe5OnURjgFK2y51RlUAwJj283VsKqq8xDLwVO87i6Gl01bWMc6+LB
+	 1wDrS5bi441W7reHduEQaJRM38JB8P4dBV6CJQAGYyMgPLj68TkiUdcM8AGscEmyHI7FF
+	 t0GIIQC/IKCgN6OiLh1SSDyfgazRHQOqNc/r2OoVSrGDQuJrwXZ0XwMSATgtHaUujUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794190600;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=RweQvyw4NIgsuj4dNi7nK06pAit76GUtp9g8kGTqMg4=;
-	b=riwbrabiuwuE7JP9CSZhQD+uFvlmbhdlcYvRtI0PqdCo5O1tZHGLTcu5+jVdZSk4Taxb
-	 paNszXjsNmKeVCcuQGEfKVAWi2Do7rKsaCf8pHQ/qvKZlGhtINWgtXSsmJ5ZOXhAl800H
-	 ck3tBpLWWJRI00G7Y2LsMbJxmAuTYE/e3CRgsiD0L6RgLAT0DWmixeAVaKVGad5wjTvLC
-	 njGLLC3+SPaj4paUtXJqYqgHIAMkEEM5XIr5ATcok/nC96+8s4fPJjinwrO5nBokBflHD
-	 k48dT6lrCI7Xb70OYIhVpIQrsNhEb8hVS6nvCr6enOvKlmkUUZBMv2VZCc3vzY9XPGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191496;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=8zwvWBPtZCtktZYAG541eCPKPuE+/HtLXgXPeBWjtkY=;
+	b=xegrmFuHo8VNkgiGeweAXs8qpdH09h3hk2dDemWOXP+0lI2UDe8sRCkwQFneu+qSKYkH
+	 9rOppJTi/adIFgqHlNSswhzVirbsAirNLNcVFyLORpdB1UYwmNUkXGhrIx2ipccgUPDU5
+	 zwondUY2qbACE4nQpb2tlfV32qrGFYy//i9ndmNvgCUO067sr7swWQk+AwdxHIvJz+A5a
+	 CIHEwXYDIRcxbri+CWnTwUh0XR2MuGwdivExCcupB5hd1Uh4Xd8sVdYRU9KRqDPV5u6W9
+	 tL2c3Q7BieI4lS5VUIeTE1a8/kC0LAulfVZb1BsA2DsehvMwAGNgK7r0h4G7LGgRgMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NFDf4TDr;
-	arc=none smtp.remote-ip=95.215.58.128
-Received: from mta1.migadu.com (out-128.mta1.migadu.com [95.215.58.128])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RTssncOi;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018F4606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:16:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 018F4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39816606A323;
+	Mon,  9 Nov 2026 02:31:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39816606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NFDf4TDr
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0vqFp7/7WWiwnx+Zs/qlGOXEjprolacOHKPupS8KY24=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794190597; v=1; x=1794795397;
- b=NFDf4TDrErNLl4AlkmuT4JnT5cGbRlHkE7spyQDd057yfU25J2+yZEjD/pm9Q9Re9XIoGFJ7
- /dhV8eQb6xW4bTlmN/pH0jzJXtYuPNcQ/Yq+uvEM3TWG+1SZ+g/8h5GDLtpTIkAl28LRRZ9v7u/
- 1fo5dm8vfWbISM5pXq+nR9+8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 3ba9fe655f2ef269;
-	Mon, 09 Nov 2026 02:16:36 +0000
-X-Mizu-Trace-ID: 3ba9fe655f2ef269
-X-Migadu-Flow: FLOW_OUT
-From: Hui Zhu <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Yu Zhao <yuzhao@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=RTssncOi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=8z
+	wvWBPtZCtktZYAG541eCPKPuE+/HtLXgXPeBWjtkY=; b=RTssncOiHXO3poyWmF
+	kItN6EuqKb1KNo8KrcgTq2PCrWKIQfyV8USH8FSSsrBQm2XArsXlaqcT/lmyW7VG
+	wRb3CPRlVOwtRR24IzgKmlE5mOtlC+C3QxzLVMB7DFWtSuhiuCqzR6DxHweNyCSc
+	Z+0ZVGkcNdQBrCvwUyxKg7Yh8=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3f9FhMPFq9p_BGA--.58997S2;
+	Mon, 09 Nov 2026 10:30:58 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v3] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
-Date: Mon,  9 Nov 2026 10:16:11 +0800
-Message-ID: <20261109021611.22247-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] md: stop sync_work in md_stop() before clearing pers
+Date: Mon,  9 Nov 2026 10:30:55 +0800
+Message-Id: <20261109023055.2164333-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,72 +66,58 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3f9FhMPFq9p_BGA--.58997S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uw43tF4DGw47JrWxuw4kJFb_yoW8Aryfpr
+	WrXFy5GrWjqw4xAw1qgFy8uFyjyw1aqrWDtry2ga4ru3WYyr47XF1rKa12vFWDCFyktasI
+	vF4DJFZIka4vg3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6yIbUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+gM76WrxMGN3IQAA31
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
-lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
-returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
-clearing the refs or PG_workingset.
+dm-raid tears down arrays via md_stop(), which clears mddev->pers
+without waiting for previously queued sync_work. This work may
+then call remove_spares() with pers == NULL, or continue accessing
+mddev after raid_dtr() frees it.
 
-A MADV_FREE folio therefore keeps the state it had before madvise(2),
-even though madvise_free_pte_range() has already cleared the accessed and
-dirty bits of its PTEs.  lru_gen_folio_seq() places it one generation
-younger, and PG_workingset puts it in the last tier, so sort_folio()
-promotes and protects it instead of evicting it and charges it to
-lrugen->protected[], which read_ctrl_pos() uses to balance anon against
-file reclaim.  __folio_inc_gen() clears the refs but not PG_workingset,
-so this repeats every time the folio reaches the oldest generation.  If
-the folio is redirtied first, ttu_anon_lazyfree_folio() keeps it and
-lru_gen_eviction() packs the stale state into the shadow entry, so a
-later refault is promoted to the youngest generation.
+do_md_stop()/md_stop_writes() already call stop_sync_thread()
+before teardown. Do the same in md_stop() so sync_work finishes
+before pers is cleared.
 
-Call lru_gen_clear_refs() while the folio is still on the generation
-list, as deactivate_file_folio() and folio_deactivate() already do.  Its
-return value only says whether the folio is in the oldest generation,
-which lru_lazyfree() does not need because it re-adds the folio below.
-Keep folio_clear_referenced() unconditional: the classic LRU needs it,
-and it also covers the folios that lru_gen_clear_refs() skips.
-
-Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
+Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
+Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
 Cc: stable@vger.kernel.org
-Suggested-by: Barry Song <baohua@kernel.org>
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
-Reviewed-by: Barry Song <baohua@kernel.org>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
-Changelog:
-v3:
-Add Cc: stable@vger.kernel.org and pick up Barry's Reviewed-by.
-No code change compared to v2.
-Per the thread discussion, the __lru_gen_clear_refs() refactor will be
-sent as a separate cleanup after this fix lands.
 v2:
-Call lru_gen_clear_refs() before lruvec_del_folio() instead of
-open-coding the flag clears; drop the lru_gen_enabled() branch and
-the comment (Barry Song).
+- Drop the pers NULL check in md_start_sync().
+- Call stop_sync_thread() from md_stop() before clearing pers,
+  matching do_md_stop()/md_stop_writes().
+- v1: link: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
 
- mm/folio.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/md/md.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/mm/folio.c b/mm/folio.c
-index 35e242b48870b..ea3adb6a89d75 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
- 	    folio_test_swapcache(folio) || folio_test_unevictable(folio))
- 		return;
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..eaa20ecafbf7 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -7101,6 +7101,14 @@ void md_stop(struct mddev *mddev)
+ {
+ 	lockdep_assert_held(&mddev->reconfig_mutex);
  
-+	lru_gen_clear_refs(folio);
- 	lruvec_del_folio(lruvec, folio);
- 	folio_clear_active(folio);
--	if (lru_gen_enabled())
--		lru_gen_clear_refs(folio);
--	else
--		folio_clear_referenced(folio);
-+	folio_clear_referenced(folio);
- 	/*
- 	 * Lazyfree folios are clean anonymous folios.  They have
- 	 * the swapbacked flag cleared, to distinguish them from normal
++	/*
++	 * md_check_recovery() may have queued sync_work; that work accesses
++	 * pers. Wait for it here before __md_stop() clears pers, as
++	 * do_md_stop()/md_stop_writes() do.
++	 */
++	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
++	stop_sync_thread(mddev, true);
++
+ 	/* stop the array and free an attached data structures.
+ 	 * This is called from dm-raid
+ 	 */
 -- 
-2.43.0
+2.25.1
 
