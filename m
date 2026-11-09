@@ -1,55 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223018;
-	b=eJAdnviqlWTlt9qyOsGTS7Znvcj47FXXSiiTJ2jgbZIOuTUQ3tEcmvkNiRw6+8e2f+Pa
-	 gT8K7ZuzP+C1hy5a7W9kgcMntx44z8fTgWxTn1WW/XqyjhSiI0XdS3s5OD0EUUtQkTZYl
-	 wgrTTbDBXS9RtQN/oXzl3CZ/855PBBbm6WeEcDsdmvEvwORyj4cygB6yY08UXVZ3hWQVt
-	 kqASnPREfKhC6NDaeVEyVvt/NeqDhe2GvdSc5QQu5lfwkuflflT2ME5cTiBs/GbQ0b/Ss
-	 PzEL+qakWmzIznUKmzjnfbDyhP2w60uWC1W93VJG9Z5hRMWwP8Cs6JRFjrPLbAD5lwQ==
+	t=1794223343;
+	b=ZytHmLuA13rwIiDQGHDOLDwPEXJms5rbCLyl4ma3tT9Zkq7OrVsJHKF3/ueJvAyzlHIi
+	 4fuD699ICQV30p5naFPJ7PVarAvNeJUsctWs99NvhGXcT0aqABfrqjsbORNjlgD/XMrHO
+	 2UtDWslAVVsIzib6ItAK02rbPVfE5YpApGbAiPIoI1cGE6fVdYALzy0C7HQOoW0eiWbR4
+	 8lHZltIQpM9YVHwBgilNR3vzClVA81DIRSaXG+lQN1ALtVIZ45RAHDrCFNccgALLjWj+J
+	 S+F5QtGXcb58EM8BgjgnsnNpS5bjkx2IGGZc1BdCIFQKcuPPZAHsIFvl7/FLFE/zHhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223018;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=g362BMKFIDzyzm9WbyAXbPrl9q0ZEKXU+FroiUmw4p8=;
-	b=d454ngl7IyrZIpccZN8wfyQ5He3f3R70ITMCX4pthtwem/5Yu3yK/f9o1kOFECmak6CY
-	 0MTwfbCTbhwDfml2V/CiqjNMGs9QwjWSHlkt5rZgG9dFUQuk57mXGQNJlJklOxO67iMUE
-	 tZ0ysu+TXSV5yFJ0qZOrNnN+CoOV2vpFpw2m5bjPhP+TTCMA5gUzsMhIxTWnXvLaVicVW
-	 hyZ+OuvFN4Ci+Dkc8bxNRJ/wM9t1tx8JqetwZz+ggQWiNDT8uuXqhIt9vAafCpk1HYIoM
-	 OmRNNRw/2BSxvJUVJcnjiMphHmDKlmonxz351M5xxvYAmDnUTswAbDS5IJgbFqgC+mQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223343;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Xs5F7SiyTqAcRrucFvs27Y3YEdp5GXJ0oQ8KE7Wc5ME=;
+	b=4I2E/NRLnig7KQc9sEFk1pfxcpLzytRWNa+qQ0FySdmE+uK12APO5RtE0mTaAutmS1bQ
+	 r/0aGUvncMMOVjXpw50pX1FbLxV9gyuHthLgVoBX5eZnv9tOR5kwqsDqJqz7LF44L2pFy
+	 QUvHITf9i00oEddwGFPhZvpcMq0Va1JS5e39e32Iws1ndmj6W2pWydxyDOc+Uo6RT0GJV
+	 scwu59NxRodbsFeNR2SUSE8rOUFQ8Zw8QnJXPO6ZYipWdVNTqZfp6ZghI0bcDcwhWvti9
+	 FN0kU/+1P0FKtoKiyXsiDDem10BTVnrNsXiEL1LH4zngCgislqsVlGEKCO9YeRpdBaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cka6mHrw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jfCMgCBl;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EFC606A31C;
-	Mon,  9 Nov 2026 11:16:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2129A606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2129A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cka6mHrw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C281F0089F;
-	Mon,  9 Nov 2026 11:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794223018;
-	bh=g362BMKFIDzyzm9WbyAXbPrl9q0ZEKXU+FroiUmw4p8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Cka6mHrwsEa/HbWRWzj5RuHTVz/eGA6g2SdWVk4DVtIEXZbavyQxLOwBZySnvMqTr
-	 HCL8EMwbFx15KKbdWrIH3LvogA0Fta6za0ZHK130DEiBMCrTP8HhdJoMpKZQMq7Z0a
-	 ffCQbewQsNG1DGBgj6CdiRSA2LGf5FV27W267RsS+xEv0DogbCaNLF2TCWR/P8zsQ3
-	 ZQGrSfM8lNQca3ZbfFIMZnq+rS0ovxlSfzIVRBk7P5w3BoBimAvs4DyUZRpWkPULqX
-	 18NbPDVLzwP0ccJgyVGooRkY/Y2DIKoMn/9DqoxJBckroPJOd/2fIq7/Bv9HpwAl3Y
-	 ETx1bIzdS72/g==
-Date: Mon, 9 Nov 2026 13:16:52 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org,
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client sysfs
- setup failure
-Message-ID: <20261109111652.GD8635@unreal>
-References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jfCMgCBl
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so6924685e9.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:22:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794223341; x=1794828141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xs5F7SiyTqAcRrucFvs27Y3YEdp5GXJ0oQ8KE7Wc5ME=;
+        b=jfCMgCBlY9RopVhaSNRGgRHB2LGNqgbKO3lacuno07E4l5GQXAsyg1vIl8S5+G2Hib
+         WTLw2oluK8WNJay+xGNbCFdu6rq8+RDVil/5vmziw5ZhveSVb8Atdc2u5pvDPCBvRp7W
+         mDSeD4hJWBHULWqzSZckEGzQidvexDgEHLApAeQxwCB3A60sCys5acrGlV0L1jCdpgJl
+         MMG0JYRz5npQt1V8W9XihEPoF8aXciUcRAkdAYSPy/CfMcTwM7WcyYwwTKIoBiPVWx4r
+         /950l0jX8a6fWRBfhoEWuSpzXO5jPFNAVhZuWSXgV49epv0XwFNSUbjMHzqeZ1jfm5J7
+         xMbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794223341; x=1794828141;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xs5F7SiyTqAcRrucFvs27Y3YEdp5GXJ0oQ8KE7Wc5ME=;
+        b=eeaiSOWvNeaGgcOCsK1Oufe44P/z5UbhHfX+etqbZjGbcRLdeRHnzBFuwTGtyWMd16
+         7iqTFlE2McGc0qks7zXtR6cAsafmRHflbZMxKuQZXG00qxCE/itE1ahVomlN191ovguG
+         rt72DPOB7F6wYYOGXbBExKB1pCdWV7TmcsnpYW3EvPP8OgXAGoLWLxJvwvufIgIYpc0D
+         vXm3IUm13IH0PyErf87fgKXMR5qS8BNVvZerKCxE309DpRZ/6A+ewClL5Xqy5BK+ouYz
+         9Y2+rx0QMSM7AZituu+tHngNX6I8q6JlHKdRv0mGN7mh4X4aSZh2ln3rfFe2IwZQzS04
+         h0Bg==
+X-Forwarded-Encrypted: i=1; AL+hErFCQjsbP2RESjfbUx6B9U2PAnwvF5zEzt6c5Up3POdU0up4PB2zBRgR8fjvqPdvmw6sirmVnWo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9V6aLMw8P0mNnXvSUnQCNV7Ej01ZL2+229CK6WbN26tRUH7J0v
+	WNodk/jyvpiWV1teklzNAT/G+BLusNRXiin3+WzOl04HBeitURG5sMnJ2IFcz6MRG6ZVg8GbCwt
+	s3jM0
+X-Gm-Gg: AYBFou3lsovPTnLDYxmo8VMGyvU0whZyhFTJKc9JtC5n+PP3N5B8EfLCL3TQ4DJFCIs
+	d4QxBL755QLKNnIiPsTpfx3jiDzCkSu4UOQ6t4OthLOKElxsSkdax20wxMvgh78yhBUfTtPkERl
+	o6LP5qLoI1m2LmFzNskg5kg/sgCG0QrsCTQG1Cunmh3XQEoo4rl8E6F+qzcuLWCAkKCkjxGXoZP
+	WnkpV2GYWIY5pPlfuD8NZ5HR1Yzxw9NNo84VRtj49bktMXsputibeCF3o1idD1q6RB7/cVZftVY
+	DNOFJNBls2b9Jo7k0N4owhFIMMuAnW8xamN42QuNE1ZR8QZSKsKOfQ3x+3U9O1SLsclvg5BtCPH
+	+ogekV/A6zgoNIyKIoxXfuY4ivjF++DY+BtBIo/Eji9bQQUk9/R35KoQcxzpxGDHYkbffs1VqQD
+	DmS3sAALTk3PuzTVYJAXfgqSGT9neXWFYqY8tzzOo9UTvoXREzgYkJny0ltQrnd+36DGbUqn6X/
+	S+GXSlAi7ul4swBmbKzTYLvPq3J30ozywBdXbSdqzi3BctGK3w2k0hRveq6/Uqp2pOlLxoOy2Dt
+	8wV1UeNvVYsvfyKAm6htYtGdGyG2dsdBhXqmcw==
+X-Received: by 2002:a05:600c:8506:b0:4a2:10f9:37db with SMTP id 5b1f17b1804b1-4b963c664fdmr72108245e9.7.1794223341348;
+        Mon, 09 Nov 2026 03:22:21 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.74.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7da62edb4sm272724515e9.1.2026.11.09.03.22.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 03:22:20 -0800 (PST)
+Message-ID: <7a2e44a7-41af-461a-96c6-ea91780bf524@linaro.org>
+Date: Mon, 9 Nov 2026 11:22:19 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,149 +91,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] media: iris: Fix use-after-free on unbind with open
+ sessions
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com>
+ <2rWHCgRwgvQ8e4bhpYnYDjIzh1pjQNSNjdBFELmGe_h6iZzVLuoQDpUPAD64feN0mYHgyoDf3AYwIu-5ilkZdA==@protonmail.internalid>
+ <20261017-iris-handle-unbind-v1-3-7809148eb90f@oss.qualcomm.com>
+ <46e9506d-1eae-48d4-803d-d731d85fd376@kernel.org>
+ <831090d5-57c6-46dd-559a-bd6abebb982c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <831090d5-57c6-46dd-559a-bd6abebb982c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 10:14:46PM +0800, Guangshuo Li wrote:
-> rtrs_clt_create_path_files() drops the path reference on failure, but
-> its callers still close connections and free the path. This can access
-> freed memory and free the path twice.
+On 09/11/2026 05:08, Vishnu Reddy wrote:
+>>> +static void iris_core_release(struct v4l2_device *v4l2_dev)
+>>> +{
+>>> +    struct iris_core *core = container_of(v4l2_dev, struct iris_core,
+>>> v4l2_dev);
+>>> +
+>>> +    mutex_destroy(&core->lock);
+>>> +    put_device(core->dev);
+>>> +    kfree(core);
+>>> +}
+>>> +
+>> What you would have here is an admixture of devm allocated stuff and
+>> hand-allocated, refcounted with custom v4l2_release() which might all work
+>> but, it's not obvious to me does work i.e. core is hand allocated while
+>> reg_base, response_packet etc are devm() managed.
+> reg_base and response_packet are safe: after iris_remove() the IRQ is
+> freed and the core is in IRIS_CORE_DEINIT, so nothing uses them. Only
+> the core structure must outlive remove(), so only that is refcounted.
 
-Sorry, but how?
+Right and you can confidently assert that for clocks, regulators, power 
+domains and ICC ?
 
-> 
-> Keep the caller's path reference until its cleanup completes. Move
-> per-CPU stats cleanup to the path release callback and let the embedded
-> stats kobject hold a path reference until its own release callback, so
-> delayed kobject release cannot outlive the enclosing allocation. Keep
-> direct cleanup for failures before the path kobject is initialized.
-> 
-> This issue was found by our static analysis tool under development.
+TBH I think this is pretty hacky and unlikely to be safe.
 
-It looks like false positive.
+Another way I don't think this approach works is an ioctl() waiting on 
+firmware do do whatever. If the ioctl wakes up after the devres() 
+removal - then what ?
 
-Thanks
+>> A much simpler solution to your problem is :
+>>
+>> static struct platform_driver iris_driver = {
+>>      .driver = {
+>>          .suppress_bind_attrs = true,
+>>          ...
+>>      },
+>> };
+>>
+> This was discussed in [1]. Dmitry noted it is a sign of a badly written driver,
+> and I agree: it removes the unbind interface to avoid the problem instead of
+> fixing remove().
+> 
+> [1]
+> https://lore.kernel.org/all/ 
+> CAO9ioeUvV+3sME9P1bJTpDOSty=uojOKak659XCf337++vPVNg@mail.gmail.com
 
-> 
-> Fixes: 215378b838df ("RDMA/rtrs: client: sysfs interface functions")
-> Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI:gpt-6-astra
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-> ---
-> Build-tested the changed objects with x86_64 allmodconfig (W=1):
-> GCC with CONFIG_DEBUG_KOBJECT_RELEASE=n/y, and Clang with it enabled.
-> A host harness executing extracted cleanup functions passed 198
-> failure/teardown cases, including delayed release (also under ASan/UBSan).
-> No kernel runtime or RDMA hardware testing was performed.
-> 
->  drivers/infiniband/ulp/rtrs/rtrs-clt-sysfs.c | 10 +++++++---
->  drivers/infiniband/ulp/rtrs/rtrs-clt.c       | 14 ++++++++++----
->  2 files changed, 17 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt-sysfs.c b/drivers/infiniband/ulp/rtrs/rtrs-clt-sysfs.c
-> index f8b833bd81ad..44edc405f400 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt-sysfs.c
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt-sysfs.c
-> @@ -22,6 +22,7 @@ static void rtrs_clt_path_release(struct kobject *kobj)
->  
->  	clt_path = container_of(kobj, struct rtrs_clt_path, kobj);
->  
-> +	free_percpu(clt_path->stats->pcpu_stats);
->  	free_path(clt_path);
->  }
->  
-> @@ -32,11 +33,13 @@ static struct kobj_type ktype_sess = {
->  
->  static void rtrs_clt_path_stats_release(struct kobject *kobj)
->  {
-> +	struct rtrs_clt_path *clt_path;
->  	struct rtrs_clt_stats *stats;
->  
->  	stats = container_of(kobj, struct rtrs_clt_stats, kobj_stats);
->  
-> -	free_percpu(stats->pcpu_stats);
-> +	clt_path = container_of_const(stats, struct rtrs_clt_path, stats[0]);
-> +	kobject_put(&clt_path->kobj);
->  }
->  
->  static struct kobj_type ktype_stats = {
-> @@ -422,6 +425,7 @@ static const struct attribute_group rtrs_clt_path_attr_group = {
->  	.attrs = rtrs_clt_path_attrs,
->  };
->  
-> +/* The caller retains the initial path reference on all exits. */
->  int rtrs_clt_create_path_files(struct rtrs_clt_path *clt_path)
->  {
->  	struct rtrs_clt_sess *clt = clt_path->clt;
-> @@ -438,7 +442,6 @@ int rtrs_clt_create_path_files(struct rtrs_clt_path *clt_path)
->  				   "%s", str);
->  	if (err) {
->  		pr_err("kobject_init_and_add: %pe\n", ERR_PTR(err));
-> -		kobject_put(&clt_path->kobj);
->  		return err;
->  	}
->  	err = sysfs_create_group(&clt_path->kobj, &rtrs_clt_path_attr_group);
-> @@ -446,6 +449,8 @@ int rtrs_clt_create_path_files(struct rtrs_clt_path *clt_path)
->  		pr_err("sysfs_create_group(): %pe\n", ERR_PTR(err));
->  		goto put_kobj;
->  	}
-> +	/* Keep the path alive until its embedded stats kobject is released. */
-> +	kobject_get(&clt_path->kobj);
->  	err = kobject_init_and_add(&clt_path->stats->kobj_stats, &ktype_stats,
->  				   &clt_path->kobj, "stats");
->  	if (err) {
-> @@ -470,7 +475,6 @@ int rtrs_clt_create_path_files(struct rtrs_clt_path *clt_path)
->  	sysfs_remove_group(&clt_path->kobj, &rtrs_clt_path_attr_group);
->  put_kobj:
->  	kobject_del(&clt_path->kobj);
-> -	kobject_put(&clt_path->kobj);
->  
->  	return err;
->  }
-> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> index bf3a0377da3f..547313136598 100644
-> --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
-> @@ -2880,8 +2880,7 @@ struct rtrs_clt_sess *rtrs_clt_open(struct rtrs_clt_ops *ops,
->  		if (err) {
->  			list_del_rcu(&clt_path->s.entry);
->  			rtrs_clt_close_conns(clt_path, true);
-> -			free_percpu(clt_path->stats->pcpu_stats);
-> -			free_path(clt_path);
-> +			kobject_put(&clt_path->kobj);
->  			goto close_all_path;
->  		}
->  	}
-> @@ -3161,7 +3160,7 @@ int rtrs_clt_create_path_from_sysfs(struct rtrs_clt_sess *clt,
->  
->  	err = init_path(clt_path);
->  	if (err)
-> -		goto close_path;
-> +		goto close_path_free;
->  
->  	err = rtrs_clt_create_path_files(clt_path);
->  	if (err)
-> @@ -3169,12 +3168,19 @@ int rtrs_clt_create_path_from_sysfs(struct rtrs_clt_sess *clt,
->  
->  	return 0;
->  
-> -close_path:
-> +close_path_free:
->  	rtrs_clt_remove_path_from_arr(clt_path);
->  	rtrs_clt_close_conns(clt_path, true);
->  	free_percpu(clt_path->stats->pcpu_stats);
->  	free_path(clt_path);
->  
-> +	return err;
-> +
-> +close_path:
-> +	rtrs_clt_remove_path_from_arr(clt_path);
-> +	rtrs_clt_close_conns(clt_path, true);
-> +	kobject_put(&clt_path->kobj);
-> +
->  	return err;
->  }
->  
-> 
-> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+In which case I think you need to do more poving/reasoning here about 
+admixture of devm and hand-rolled allocations.
+
+Like what's the use-case you are supporting here with the unbind exactly ?
+
+---
+bod
