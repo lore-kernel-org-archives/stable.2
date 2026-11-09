@@ -1,105 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242529;
-	b=DP+c5GfJnkGh9fvHTlNFTja3hH0wmK7SKqWjdM19QK8Yyvns+E+5w8UBs9WDJUC60krf
-	 qTrtWb5f7LH+HyC2ew1xkgaNkC9UK6kVsIuYX7VGkNVq3U8LcJyl3c89y0JFqhZa8lUHE
-	 d+tfyCqZhARAVD+9l3+Z3yB7zzx2ZqWqupmu6DWPRsI2Hhs1XazPYRQwdUqArHmvn5UPf
-	 wBsxzNMZ1Jh37XZSEbykbBtBeL+oZSmyi/sdfUzGRan8CpAq/0edPljbbFzSao41YyxoT
-	 g9r66DFqHLVOCpjEhfarYRkpZz5soPzHqzYd+PL9Ig4o0TFoqRn7UEXjuZpmpBXGsBg==
+	t=1794243069;
+	b=r2NnnDP9UNzn/M9S7vuYz0/anqkVxRFXIh5CQfYsu4boXKZHfu0XNqo1AaXzDkPUO00T
+	 6xjjPWwDi/Yt2wbJ2wFjQs3dlJdTDrB27cWHdFD6U9vAtrw2Afa48TuRB/3JZtnv/uYiS
+	 GUMPtnaV3iUkFJK6XAoes25LTWcV8dDyhx0NZ9u267agC7LenKELRDAqPnlMDVA1gYDVQ
+	 OaVRKNVSS1tkuGt+sV+uBOPwb3cZhv5kWZSOE4JdbEnykdw43cErC1wYqp69R2ZWMlLez
+	 n8bMhPfVQKxvU11S5QLHwBFa+TfSNtEXAJR3d00ssgoUmM7BtXr2HUxHcNXXfkwRE8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243069;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
-	b=tb0sItbdFQ9l+ycGbtf99V3vz1lKJAE3GDzZQjSp1ucKhttJILkcXHAANR0oWL1rFQRo
-	 0tTFSiCNl7uJ1M/mm24VGVNRJkWOXDaIkPbJsoCh2yY/I/6t8YScenF3Wg7nRrl7aSe3P
-	 jK+xqtYutTm4lQDlzfZEdlTBPIPX8O1hyxr+ljghtVUsy6iXSF6Jddn8ZFiV5UY7M8xzS
-	 z3zRyuoC/REKcUjQsoj+OpyLbLoko5KJVEshYqOAF98iRhaL0QQOp2ImDKl/58oeXfHxE
-	 QIHgXM2knMEL23/naOIw7WEaLrjoTeW6tSUMufrJVpVF07iFd3RHGMphXo64afTGIUA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pRmx0w+ZK8QYZ3Le9mlwOie4ZXY6jj6xLVnd9zUts7M=;
+	b=M9J/7SnNpv15pVftqc0bWG2VUIzBoJMwQJCLNmhlM/S9xpDHzHOwFiSFwtu7xk/RnRNB
+	 67Ej1ij58cMWkjVOTodPrf06fn79feBztlwARWCOcIUYiBXZyJ8X4WXcLyCNDX8EAnbv9
+	 x9eBUihpVOnnd66Gyc9xnmYY7Dc1aDFRo/yEkxjsXuu6DVC45ijs9zD3RLn3GSMtIxvRu
+	 lHNTJuC0z30Ch+NPOXeObUnM6PDsiuTBjM70FglbNkA1zzuYzVIKm7rF/JHFVPf01Snm5
+	 ZME7UPHXeEVdNH6vc9tDOlTPknxusBRUiJFb3arRF/oaEO+2iT9s5+1mbw8IOb5aWEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fk/Wy5WQ";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=eVUtPdlI;
+	arc=none smtp.remote-ip=209.85.219.46
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3539D606A326
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 16:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3539D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D6460A2630
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 16:51:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42D6460A2630
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fk/Wy5WQ
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so6500435e9.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 08:42:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=eVUtPdlI
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91ec396c93dso12933066d6.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 08:51:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242527; x=1794847327; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
-        b=fk/Wy5WQCkWdrah+qLMkXKaos3bTrw3VzUEGV9pSdILWJp2hlmbRjEzGBmV1bKwBJy
-         XxBdw6jsIznlDUqJUlEUo3FwW0YnH7+a3nfRimB4b4WzowxYh803gXzalSJFwzfkMXYl
-         1rzi9QoOuS1UTNcE7mQHA6tESqziqaEBvmpsckEZ4PwtXmuwFS84r2vvpl6M50bORGdq
-         IFlGwM4zwaZmLsM3IvPqQ8nPz5tB1tcfuUQvLinXbWruDJFjdNxmUczmwB0r6DF4Ko1Q
-         Jd13Tq9tesDAqI7DZAR8EXNCbZr0F4/K8Z69mU9CiXtpZoOLHmFPUdwq2RMB+GhZ+B1C
-         SH/g==
+        d=rowland.harvard.edu; s=google; t=1794243068; x=1794847868; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pRmx0w+ZK8QYZ3Le9mlwOie4ZXY6jj6xLVnd9zUts7M=;
+        b=eVUtPdlIxx2K2Thn4bqSyzcFLOC9yflVfdzDBaB4D+MZJCGwgOy31UmzpcqO46/0m+
+         NqWjbSsE1jkuTeEv23cQkZpnXMJAhTVCr5b1jIlfQ6X2NXmuFQvqIA4hPTtsZaHKBZJG
+         6gjTfeUHOhB45RMJCn8msDinbGOCyzFB9RzGNN9IMDXOiShevnhn6LLswqZqui2OdzcL
+         bEDax1ClcWmvMhK3nGHlz50MOXdBGC7DHdg3Q7evUMrq2fJWPAhFYJvqFC0ZwE/mPUsY
+         XqJfT7QBn8XjXpnh4GqL9BuuEedeOkge01onJ6F/wC2JYQyl0aWoW4Y/OkIDSzQNqsdT
+         FAXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242527; x=1794847327;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rTBkN4SoXpbnTrjKm6a9r9Hi9WyVrqwpfUB5k5zGKJU=;
-        b=QFkmLeQ1pA5QiRTUj0OlNRtry6RSnwEAuugXC0dGkBSPYwedcg2VAG1+Yjw3bI+aU3
-         oC+yWIBRYWypgWKyVL4S999cbUyXI5QXV61k0gizjPyvwg/UWPRVGsWGBdkptFUWkz1l
-         KRSfxPuY5Kqx7iPmSKpANUTsqnlTXMaV4gWiPaHkiUOfitpXfJ+pAFdDUm5zyuvQKg8T
-         B0FzqsyRN56TXK91NIfvgXHT62+hgFMg4Bdzb8FaG3ia+fU3TzOFSZy2DF64ktEJsJuH
-         bvn3m9JiTHiNuX4UsIpUZSeqsb/Cs1H9je4aJxTFbz3CTIfyqa6JJXPkk6KT28bkBc0b
-         LzIw==
-X-Forwarded-Encrypted: i=1; AL+hErHSWCb6qsQuWJXsqRRUcn9+V41unO1bc/lDSZkJv/alfVpUKzwgKAPfKbSzNvVAhc9LW3bKfcc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KZ8sEpMH8lTuduNs9HoGD35wmmfEq+wz1eGTTus6PkDUlqqHw
-	g7Db8ER7AAgWlqbjR0YMwSAtH+vvt+UOPNZdxRe045OoPGFEzk1g8oY=
-X-Gm-Gg: AYBFou34Ts6G5VPrwl6Dw8Z9T3M94krLIjnjLZn9dAhKVngorwXhvUi63DxhgKb6LfU
-	ipo6f56mj4RcXeYcV9WqjPBdKI66gYymE1tjzD7KvLTvufOsonW8TPZUiOcIHXyfNwASGOJx8GO
-	coDegq+BOPEkjP1mo7wzm7aENnTDgmHnp/H9hhoov+U15c+6uFmD5sriQyw7H0h5fNjDIkYc+Hp
-	xvpnCAcsETLHnMAv76FB0pwUi7M/rRNdvhIdDH5M397Ov1FdkuytKA0PwkxIBLV+rMuBMlS+nFZ
-	BH9isF6StwU70Sm/s4LyHWRkGuRs5aQTPrS1ro/9fumjsQKUSm4GHQ+k4CrebFeNqBX6zglPPo8
-	Rr0pblbjebjCUfIWADbLrq8Jh11ljYPYdwHm/TwDH2f98/xz6ZefV3N8wrMa8+khIL2mrx96nb3
-	vSLe0UQGPg7aWubDy6/2LhDDi6hZdmaPV2yDoeZzO3KuzS8pbLJgHoSvA4BWE/Vrq4SbMl/qNsN
-	5TUU01c8rmUL3RNK9+kLiTMDiUqvvIA2/VuaPu5TdcAUJBM4lIPJHliM0AVFFrUfyJzb2CSsUq9
-	exp6FPMU7Uj6/oGdA5PgsOFUWPZp+cjn+J3nS2oC8xFlFmwnyFRfcMpRDsHm8fCrObhHEKY5TIu
-	ENB15l16LiUDDp+hC4M9VGCxBI4nEh5nFOxrnqtVuLIPM/UowV38UDZDWEIFT5e1dgmaLTKvtlA
-	==
-X-Received: by 2002:a05:600c:8b24:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4b960d9b66fmr79533325e9.10.1794242527085;
-        Mon, 09 Nov 2026 08:42:07 -0800 (PST)
-Received: from chateau ([194.65.85.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597371cc4sm10639482f8f.36.2026.11.09.08.42.05
+        d=1e100.net; s=20260707; t=1794243068; x=1794847868;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pRmx0w+ZK8QYZ3Le9mlwOie4ZXY6jj6xLVnd9zUts7M=;
+        b=1ItimeCueHvAnvZgGcgboz+ZEUNbOdJiAIp779Jp4PSRr48z7W1cwTQIk8bMdCTp6J
+         LUNTqPFdge6k6jkLyKpO3I9TukHxvUSUQSdh3yumYbt7yiXpXZayaPkDZsKerbv0Caqj
+         MOCQuZFUEDi7J0e4wNWUJfiWYhzXlNEhRifuXQnvdUj/6EkdZbNbEJfpfryUaQMD6+L0
+         7mij7BIN1yUlM6fEo4CNRE0zfVnU+EEdAjzrhNmgpr9XaJ0uN4Bvc/ERbwg5U2WyDr19
+         oq2kV1H6XPNWFz/3b8HVToooIcIS7pZGx0HTr/zAV9Bnb8POFXqYy2Md5b2qyi3dlppS
+         KY2w==
+X-Forwarded-Encrypted: i=1; AL+hErG8dMpCSj7GjOnz3aBOEeVi6oR9luF0Pu8SHt8Zy8nuK0VBRdHirVnCQRmQ90u6FI+ijSdWsSo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gRUQbANRrrfyj3OyjDVIZ6z9uxaamNVzDc9qFPBbShV0t0as4
+	Mq5dJmgEZyd6cu+CRejNu99DwBlHwqp6x2l7h3a/GjxbTIllNGLdQODNxSIFQHnsng==
+X-Gm-Gg: AYBFou1mEHqKpTjRoiUsPtXoFIk7dvuLPhDE6MmuflXBNhOYhSMzSEMAp352T6zzsV8
+	H+djm9pP8+OyPAToXB60JoKZvCEIWDwL+UO2G9eCWGvbkn4Ti8DDWYUzxmhHxm0JVAIqhMK2l7z
+	gPpqBWTMdsbVLYWt9bF0bEHVf3/VZc+P4X54D18CIrc+I94LcAcXH9Vb5ggzPdLu450xcC61r6r
+	Q/3dMu60pXfS+4p5Gco6SgFOOx7E+Lg1NFlLjAPZi54SyAh+tyy//h5EEkhdf5bqYjXKJQov2xK
+	fMMMDv7/RY6U2iMrFPLsTeOem2DrTbsEporJCWYRyrb0sUVWtnYSqE9FLF3PCY2HaBY/XINiyjv
+	BSJQCNshBXDtySisxgBD5jEG4uSaeRCn7zqsO7rQ3YTw85a0YCcNJi8XpK+bCyDEPa15l/SwUVA
+	9o+nCl7kkg7WckxURFQp83pDlH2WHFH5mWwK9RS03Mb7FQiqjIG8AG1hn1JuraXiJBhkRBOx4w5
+	lPdhhaNNfnGOLbaaWPL5QX2d5Zs2yLYRkD9xaiWS4gdX74Mpk/7qOYAgvBCfcsKZ111wvRuR1Qw
+	7naqVYfXVOGDzS4cx/DAnzB9dydH
+X-Received: by 2002:a05:620a:2b8e:b0:945:f5c0:a63f with SMTP id af79cd13be357-9479f228752mr4974385a.5.1794243067581;
+        Mon, 09 Nov 2026 08:51:07 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e7ce960sm12830485a.31.2026.11.09.08.51.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:42:06 -0800 (PST)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Arpith Alexander <arpith99@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Jake Steinman <j@metarealtyinc.ca>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH] media: ivsc: csi: Add sensor node in bound callback
-Date: Mon,  9 Nov 2026 16:41:59 +0000
-Message-ID: <ivsc-csi-tested.20261109163952.eaa256f0cc02@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103200226.100989-1-arpith99@gmail.com>
-References: <20261103200226.100989-1-arpith99@gmail.com>
+        Mon, 09 Nov 2026 08:51:06 -0800 (PST)
+Date: Mon, 9 Nov 2026 11:51:03 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: kayano050408@gmail.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Neill Kapron <nkapron@google.com>, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 1/3] usb: gadget: gadgetfs: fix ep0 request lifetime
+ on disconnect
+Message-ID: <72c56e59-9e78-4536-a0e8-8007aaa46fda@rowland.harvard.edu>
+References: <20261109-b4-gadgetfs-ep0-v6-0-b410e3dced89@gmail.com>
+ <20261109-b4-gadgetfs-ep0-v6-1-b410e3dced89@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,31 +101,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-b4-gadgetfs-ep0-v6-1-b410e3dced89@gmail.com>
 
-Hi Arpith,
+On Mon, Nov 09, 2026 at 02:50:51PM +0800, Jing Lin via B4 Relay wrote:
+> From: Jing Lin <kayano050408@gmail.com>
+> 
+> gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
+> the gadget, assuming that no I/O remains active.
+> 
+> With dummy_hcd, disconnecting does not necessarily drain ep0, so a delayed
+> userspace response can leave dev->req queued when it is freed.  This
+> triggers the warning in dummy_free_request() and a use-after-free when
+> dummy_udc_stop() subsequently drains the endpoint queue.
+> 
+> gadgetfs_setup() and the userspace copy helpers also race on dev->req and
+> req->buf:
+> 
+> 1. ep0_read() versus gadgetfs_setup().  A delegated control OUT request
+>    is queued by gadgetfs_setup() and completed by ep0_complete(), which
+>    leaves the payload in dev->req->buf and sets setup_out_ready.
+>    ep0_read() copies that payload with copy_to_user() after dropping
+>    dev->lock, so the copy can fault and sleep.  If a new control transfer
+>    arrives during that window, gadgetfs_setup() reuses dev->req for it;
+>    for example, GET_DESCRIPTOR(config) points req->buf at dev->config.
+>    When ep0_read() resumes, clean_req() frees whatever req->buf points to
+>    at that moment, which is now dev->config.  The following
+>    GET_DESCRIPTOR(config) dereferences the freed descriptor.
+> 
+> 2. ep0_write() versus gadgetfs_setup().  For a delegated control IN
+>    request, ep0_write() prepares dev->req and copies the response from
+>    userspace with copy_from_user() after dropping dev->lock.  A control
+>    request that arrives during that copy can point req->buf at dev->dev
+>    or dev->config, so the userspace copy overwrites a descriptor buffer,
+>    or it can reset req->buf to dev->rbuf, so the request is queued with
+>    the wrong buffer.  Completion then calls clean_req() on the wrong
+>    object.
+> 
+> Copy completed control OUT payloads into a separate setup_buf in
+> ep0_complete(), copy control IN payloads from userspace into a stack
+> buffer before preparing dev->req in ep0_write(), and reset req->buf when
+> control transfers finish.  Track whether dev->req is queued, reject reuse
+> while it is queued, and dequeue it without dev->lock before freeing it in
+> gadgetfs_unbind().
+> 
+> Only the buffer allocated by setup_req() belongs to the request, while
+> descriptor responses point req->buf into dev->buf.  Track the allocation
+> explicitly so clean_req() cannot free a descriptor buffer when a request
+> is destroyed while an in-kernel GET_DESCRIPTOR response is active, and
+> wait for the asynchronous usb_ep_dequeue() completion before freeing the
+> request.
+> 
+> Count setup callbacks and recheck the count in ep0_write() after
+> copy_from_user(), so a control request that arrives while dev->lock is
+> dropped invalidates the stale response instead of having it queued for
+> the new transfer.
+> 
+> Wake an ep0_read() that waits for a delegated OUT data stage when a new
+> setup aborts it, and include setup_abort in the wait condition so the
+> abort is not missed.
+> 
+> Consume setup_abort through one helper that returns to
+> STATE_DEV_CONNECTED only when the state is still STATE_DEV_SETUP.  This
+> keeps the following event read out of the control data path without
+> overwriting STATE_DEV_UNBOUND when gadgetfs_unbind() ran concurrently.
 
-Same regression on a Dell XPS 16 9640 (BIOS 1.4.1, OV02C10 behind the
-IVSC, HIMX1092:00 in ACPI). I reported it before finding your patch:
-https://lore.kernel.org/r/20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com/
+This seems like a lot of material for a single patch.  You could break 
+it into two separate patches, one to handle the ep0 abort races and one 
+to wait for outstanding requests to complete before freeing dev->req.  
+Maybe subdivide it even more, if you think that would help.
 
-I tested the same change (identical apart from the declaration of ret)
-on CachyOS 7.2.8, with modules built from kernel.org v7.2.8 sources:
-- 7.2.8 plus only the HM1092 entry from 4fdb0342f05e: no sub-device
-  node for the OV02C10, libcamera skips the sensor.
-- Same plus this change: the node is created, libcamera and PipeWire
-  find the camera, and "cam -c1 --capture=10" streams at 30 fps.
-- This change without the HM1092 entry, so .complete() runs after the
-  node already exists: still one node for the sensor, streams fine.
-No kernel warnings in any of these.
+> The setup() callback runs in interrupt context and may not sleep, so a
+> mutex cannot be used to serialize it against ep0_read() and ep0_write().
+> The shared request state is protected by dev->lock and the payloads are
+> handed off through private buffers instead.
 
-Tested-by: Sergey Zagursky <gvozdoder@gmail.com>
+This sort of material (saying what you decided _not_ to do) doesn't 
+belong in the patch description.  If anywhere, it should go in the 0/N 
+summary message.
 
-Sakari, if you pick this up, could you also add
-Closes: https://lore.kernel.org/r/20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com/
+> @@ -1073,13 +1123,20 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+>  			struct usb_request	*req = dev->req;
+>  
+>  			if ((retval = setup_req (ep, req, 0)) == 0) {
+> +				dev->state = STATE_DEV_CONNECTED;
+>  				++dev->udc_usage;
+> +				dev->ep0_req_queued = true;
+>  				spin_unlock_irq (&dev->lock);
+>  				retval = usb_ep_queue (ep, req, GFP_KERNEL);
+>  				spin_lock_irq (&dev->lock);
+>  				--dev->udc_usage;
+> +				if (retval < 0) {
+> +					dev->ep0_req_queued = false;
+> +					clean_req(ep, req);
+> +				}
 
-I used an AI assistant (Claude) to analyse the problem; the tests
-above ran on my machine.
+Here, and every other place where dev->ep0_req_queued is changed to 
+false, you need to call wake_up(&dev->wait).
 
-Thanks,
-Sergey
+>  			spin_unlock_irq (&dev->lock);
+>  			retval = wait_event_interruptible (dev->wait,
+> -					dev->setup_out_ready != 0);
+> +					dev->setup_out_ready ||
+> +					dev->setup_abort);
+>  
+>  			/* FIXME state could change from under us */
+> @@ -1781,15 +1883,29 @@ gadgetfs_unbind (struct usb_gadget *gadget)
+>  		usleep_range(1000, 2000);
+>  		spin_lock_irq(&dev->lock);
+>  	}
+> +	queued = dev->ep0_req_queued;
+>  	spin_unlock_irq (&dev->lock);
+>  
+> +	if (dev->req) {
+> +		if (queued) {
+> +			usb_ep_dequeue(gadget->ep0, dev->req);
+> +			/*
+> +			 * usb_ep_dequeue() may return before the completion
+> +			 * routine runs.  Do not free the request until the
+> +			 * controller has given it back.
+> +			 */
+> +			wait_event(dev->wait, !dev->ep0_req_queued);
+
+Otherwise, how will this wait_event() call be triggered, if it is 
+waiting for a failed submission?
+
+Also, it would be worthwhile to create a separate subroutine just for 
+submitting dev->req.  The same code is duplicated several times in the 
+driver.
+
+> +		}
+> +		dev->req->buf = dev->rbuf;
+> +		clean_req(gadget->ep0, dev->req);
+> +		usb_ep_free_request(gadget->ep0, dev->req);
+> +		dev->req = NULL;
+> +	}
+> +
+>  	destroy_ep_files (dev);
+
+Logically, this destroy_ep_files() call belongs before the dev->req 
+stuff, because ep0 is created before and destroyed after all the other 
+endpoints.
+
+Alan Stern
