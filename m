@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267846;
-	b=gYrRykGdULfldWlLdQ6CBMjKMYQPJ9GSURredY9Dx5Qci/RJCtOHZZe2O9mb+Jn+SWMH
-	 IU8V73PhoAMJwXA8mlRbGPwgEGFldZP2ybZ0Hg+7Ga058XYFW54kBKLdwkCTScPwFHNIu
-	 8KACX8ihQY0aOuhLDa1U8sfJ9PG6iJn0KpDH8FD7FEFX8qhtUz2Svq9kvioQFYkuFhp4U
-	 Y0FmGOqITRpEDTUpw+RowV/vTU6JWySVdrweJnHxcqmOykXAQKAoPxF1E/Kwvsqp3M0KU
-	 QsnIzbg646Cz7pk1u3I+ZJ69M4I1JHI5zQaTtz/4mZ2/ZOMaOO2u82mAu8qs0WxvbPA==
+	t=1794268106;
+	b=Lzy+HASaW34Vg/PPlFnXgndgt/8Cx+MhgmhCZIzuVphxNX9mlUe1/l1to5TtnEN26o53
+	 WLAAJpp4ByueyDYacBOHhFQhL234nzkCtvmsLa93dcB9LhXVHmCZEodNbpoWr8fmDwV/I
+	 n8CXeygIGW0z/+juTjeTMQH9cHglhWV9+JxxddDEcJjL1fFvjcbA77tebJQ96f3skTLZF
+	 SkOZsUoM7x7/1en7kYC5wb+2g5/UhVGdumoOiU0BB+ofRjxZAfdfPBroGus+76zwmL8An
+	 haVtZY2zjADHWFwkrhgpVXCmKPxF05FXm5Zi4WeCHfB6OibrHhjisccqmXURVVZzoqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268106;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PmhbxwAhZobaultoBjSu8D2kIdPNPcMCUeuvmcfA7tQ=;
-	b=SczGaAjqdxPhydfZ/SYLGkuj9ZI6mcm+2E/h0RlyF8m8q9hFMt8y0hnevYfJNEztAFK8
-	 oAp+4LitSGHwTA7lOw33+9ZAQwKsVdpZfIIR1zQHK6aKbjYOlFcOcjuwGGy7V9Kw4dlZA
-	 9D9HIkLyxK3pxhFEPXdOAqu6TfhT3mD2wbQdceqEDP3mrwAvuT4xJpv5XEm7xBHU07Uq2
-	 NczM8YMHZKhXtjjDo4ImX8km9IypDSVyUhcVgaeOJ7BE3MiTd9TlM3/mFxLShKtG0tIP5
-	 nnZYXCIeC9vcEqRb2FLfPiiEao2QuQ+2FKQi5cOcftFw4MXzV/LjK2aDsxNmnKf+wyg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=mgC3aFnQzEkUSqr0EdV9/pvy4kdF1e+4cJ+OWTfkigE=;
+	b=3D9S3/yxmiBUgDDLKPR0EGbUAKb5Tf4Whikc7bWjYCTXmkVuXI/baWbu7XLnfQ5dx9zB
+	 /5g3Vl/k98750hiuWyCCfKfFsemo685LKnL00Bj1fLCaijLsUr+Vth5dN152po+nwofF0
+	 yVFr9pV2K171ZSKH+nR8R29c28six9beMGy7cjpJACMhMH5wnCbJoJbDbxyO8R7IZYfGi
+	 nQn6HxjiJfS9sbk3FeDX2fpdPyWUG5ry40u31cY3Dj50zlfXIy3Sg377gqwNWcFgFgFE+
+	 hqYLYU8dGcHYy7PNnU1Qk/U7ccn2FOH6osEbQ4EM6eBlNTh1gt4YsKj12tJzLzGpnKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oxZbf5mh;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JCV1Ttpn;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB56606A330
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:44:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CB56606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDE9606A33D
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:48:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CDE9606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oxZbf5mh
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36f936424f2so614467eec.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:44:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JCV1Ttpn
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso928516a91.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:48:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794267846; x=1794872646; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=baylibre.com; s=google; t=1794268105; x=1794872905; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PmhbxwAhZobaultoBjSu8D2kIdPNPcMCUeuvmcfA7tQ=;
-        b=oxZbf5mhfD5R6tub2yBirdozQyMqvd3vaE6RXMzRunBEPCd21lHXtgxIVDU5jzsXiW
-         ly8Xetrfy+Bl5CqNLsBaJdMze/vK6V6vAt2CmW5aTVRO/89IENCVtggZi9/cd8dBmsVg
-         St3bJGjNwf3URuHvK0Y43JfSxQR2CVPtyYbxmVZjBOCYM5WfumnsNbmIvtrXpOGnZyX2
-         ESUReSh1v4YF3/216ZypQ9FqWhXu0o7ybAOdokOk+Jxi51crLfKmAZXtb0htWs1w6AsX
-         Alb7DA+5HWWETI8quK9UDRL6DKiafDlaGs94L5SoVs7ChlwsWEcZifeth8eW/Ra1uu9f
-         RwtQ==
+        bh=mgC3aFnQzEkUSqr0EdV9/pvy4kdF1e+4cJ+OWTfkigE=;
+        b=JCV1TtpntEO2y+R3SwQjg0sprnLUZgcAIH+abSygcDUpyFJxTFDalHfw8MGnB9a0y5
+         TRXJVvZZJLFxh3BwOs0WsTv53xhKY6lbuiT/Dc6u8M6mpIfPFHQ99/tpbqEjKR5bBtal
+         UA/UzkXT3DyhoY0d+QxQ/GwFUvDMIthYPWvHv0PQopFgPe2HfzQXHo3rLg9kl27EoGi3
+         EtqsUruCtPOXI4/gPYj+rW05dH2AYvQD666F6EXjBbXK7RPE795oRQ/e7D7ADvN+b2cW
+         KDZXGaNiwpR7X0EEBRaIrGYDsR21J6VSiRz1J0r3ONfd1VxnPmuNRSkDefmnCUD9I5jG
+         tcsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794267846; x=1794872646;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PmhbxwAhZobaultoBjSu8D2kIdPNPcMCUeuvmcfA7tQ=;
-        b=ycq2iXe8j323Z9xJwCwl0CvELHlKnZkCafTZS0nMBk192D4FZNBqusYDGlSA4YP6SL
-         LKEMYoa3SbgJKPvoUXdgdki07zha22b+jxBVB8MYcHtyER5WzFw2D4paHvkHw2N4vp7v
-         5Sa2DduQqMsQ4DV4GaHZHHXa4mD3V8OmFqLs3Wd1xx3zncm8X69ftSKA8IsxbgEokD66
-         dcuu0rOTNPDBsU1FK5KtAzVmTRLFGgri7JxLrjBP04hXeqkZjC0kQLaWgzBg8GbikGoE
-         lN6aHSxB7Vgr6ZQzIADx6waIO6NJXPFA84ozvSerhT3jgTPyoW3RQREPE893sCHbG9zG
-         kPqQ==
-X-Gm-Message-State: APuU4Z8E4KaqH40h2V0etWiOTPcxE5xPy5ziG3KNn+Ip3Ap5EiQHen9f
-	1OguSKVPs8Yszo4hPRrF93elzeIOuthFo4GgK61xTeDL2ceAvjltx9OTTIrCHP9lGbLpyg==
-X-Gm-Gg: AYBFou2W+W6B0MTHG8M9lgQvPOIJUxPSnYdxOiMQDOG1P2gCwl6XWvwIxwQrPkxqc90
-	hEe5e2CSbKDXaNQxf50m80ecXoAEHZSA5NAwM4lQV9ywGynx68SCpLnxg9EJ1TkCqBeC54J5YZT
-	htGcnfPxdc1nF0cyEGTUmvJ7gFWxzrHB5hGAxmWdPpuashWC2bIu27DX791NqUfmK5Ym8cYqFxl
-	XL8vS8y40Fd+ssU2FN1taAl9DmUsU2U1HHFnuEn/uoDAu0zvzunF7cAlOr3lrOFPOsT8PCSMOr7
-	hnI6oVhYcsHHAuLZXUknH6GWF9t7snuwqcsRe0e7ZpEearEjcMfqsXbhOSdSl9qhJlPE1enM7vm
-	86T9p2x9sBqh3iV/holIDGU1soOcOc3N+K4FCHmud3T3iTWJfFwq9Ziue0YZpvVzYxEmKY3/PRa
-	/KfTQtodJRwRjVgMG15I0DajlbTXGAsfbuVCkoIw1t43RAnSq+JBZm9Crrwe46OokbTPfmE4bf1
-	QiMRdGtLARE+BuqqI+popCNaWbcz9cMZpi1haKUoAAtA6uCw9uQVoDUVZC7MNqnqO9kVCp3TecK
-	rN1BolHma92REmOj0E0OqBSfrVe7A7nIPBogEhYIWQJ7kN92sxpOJ7hg1f8XXyXzxUxvTo5eGV9
-	ubOfx09HOFbqnwJTdeQL2kjQtl12nyRjo4quByjzCagHriowIqxl6dA7LdpQ=
-X-Received: by 2002:a05:7022:289:b0:179:a1d0:be39 with SMTP id a92af1059eb24-1b3b606291fmr998688c88.29.1794267845397;
-        Mon, 09 Nov 2026 15:44:05 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b72ce0sm2372807c88.18.2026.11.09.15.44.04
+        d=1e100.net; s=20260707; t=1794268105; x=1794872905;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mgC3aFnQzEkUSqr0EdV9/pvy4kdF1e+4cJ+OWTfkigE=;
+        b=HOSz9M8lu4qlRWqnpaXkLh1QYtPOlXX+dM0bz9KFuGkTWaOnJF9/WevalmCyjadAng
+         cb7vZy8ZKY9GLbZTuEKO9oTmTTPXqZiCaJyGWuNJUjJRl1PwefP1yyV8YR8EAR5gMlph
+         4pbqkCm1zciXtfLL1HIhIvBHvwPdFwR5DDv8UC9eZ5QC1TiQARDSu1sPaYWYzk/+zthl
+         2YbTasGt31Zp5vzmmGCH8hEXJx1JQTEKM6BD5Aq9wMr1FkqX4i0ZYjHRU3rHajj8RCPC
+         34u5bH4mFZk5JlVQsxqgn4zvpO3ycdwVhQgKkLL8YX2Bx8La9cyjTamAbJRrSapxd8zI
+         srrA==
+X-Forwarded-Encrypted: i=1; AL+hErF8W+49ueosDumxPvShMb2PvY1WREihyHobW2kOLnuqa+2w2F0Ya9eTA4swM3Lu5e6ZYpq+Ufg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rklH4dml/if9SfjAbb4yFsaUQAtTxKT6dlRgwQWrbOa87FZaF
+	jl70WCHlePpa+g43bpiDrZJCaWlSqxKXEaG2yOcjpOFqjZNoIxt1ZmUyCM6IVdccAk8=
+X-Gm-Gg: AYBFou3B9XrUSvTd7p/cwyi+vsb2jyf21S58zQy9RWMhIx3gvoxOd4Mn/VpklCiOv9E
+	MUnRx4zwTh8oB2XrYMBZhz58WbAXBNAfXPk1+6n0NKvFf5rQ/bp80ZaAkmR7bQtO2OSwnrd+BiX
+	BWO6LEnw7d4GEcojP+5DoIoSIUJx4nmL1u2DcRCk3f44aQbHUE/Om1iQ2IjIjUxTouZbdNLQoRr
+	3PkTJJSedPmGV6MSQfhmv345302nYDI4D4wg0eGgzrvl4k62xuPpE/QZIXTXYsozyvEhYV0tFav
+	UzQeFFe0PRrrScQsOVHshJYk/vXHdQ3q29H1dve3Edch81c8uFesEBfKCpAEWecYw1Fn6JR5zV6
+	YU/WqK8qaLLi2Kut2vOoIAkW7jJ2Hgn1MxfzlD7JZFP+TRlzHHUXhchPDPu2DxzNWm2NsyCHF5V
+	rMs2PCNDYjkAcCZ6a+zkcyTGwlY7lmsY5iXernBzEq/hUZlymgKN0IltrqHeLKs82dHyaGs9AFW
+	jvR6wJCsetqAJu2oiw7gnYxyHtxEUjGjZ9EhExvo1KsyuTXbdXFqEVbudHECkfxZOkQ+cDJDciG
+	3wtIVOW3wfrteRv0uG1uDsX/Gg==
+X-Received: by 2002:a17:90b:3844:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b16797724fmr660791a91.18.1794268105529;
+        Mon, 09 Nov 2026 15:48:25 -0800 (PST)
+Received: from localhost ([97.126.173.69])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b16771705asm1371571a91.12.2026.11.09.15.48.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:44:04 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: stable@vger.kernel.org
-Cc: sashal@kernel.org,
-	tglx@kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH 6.12.y] posix-timers: Accept NULL clock_getres() output in stubs
-Date: Mon,  9 Nov 2026 23:43:56 +0000
-Message-ID: <20261109234356.76230-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261107052631-failed-6.12-5b819071e434@kernel.org>
-References: <20261107052631-failed-6.12-5b819071e434@kernel.org>
+        Mon, 09 Nov 2026 15:48:25 -0800 (PST)
+From: Kevin Hilman <khilman@baylibre.com>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Roger Quadros <rogerq@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Matthias Schiffer <matthias.schiffer@tq-group.com>, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
+ "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
+In-Reply-To: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
+References: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
+Subject: Re: [PATCH] bus: ti-sysc: Don't reserve the system timers on
+ AM33xx
+Message-Id: <179426810432.2265990.13205445943569497614.b4-ty@b4>
+Date: Mon, 09 Nov 2026 15:48:24 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,51 +104,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-[ Upstream commit 5b819071e4346256c4edbae5cc2095dff25694fc ]
 
-With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
-supported clock when the result pointer is NULL. POSIX permits a NULL
-result pointer to suppress returning the clock resolution.
+On Tue, 03 Nov 2026 14:24:03 +0100, Markus Schneider-Pargmann (TI) wrote:
+> Commit
+>     3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
+> introduced handling of am33 SoC timers that are already active as
+> reserved. During probe this means the clocks are enabled and a reference
+> is kept.
+> 
+> On AM33xx deep sleep is entered by the PM coprocessor which
+> requires the PER power domain to be idle. The system timer driver
+> disables the clock during suspend but the additional reference held by
+> ti-sysc leads to the PER power domain not being idle:
+> 
+> [...]
 
-Only copy the result when a destination is provided, in both the native
-and time32 stubs. This matches the full POSIX timer implementation and
-preserves clock ID validation.
+Applied, thanks!
 
-Fixes: baa73d9e478f ("posix-timers: Make them configurable")
-Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
----
- kernel/time/posix-stubs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+[1/1] bus: ti-sysc: Don't reserve the system timers on AM33xx
+      commit: 196abf4dabe28fe7732732d0c79b84bf30994cee
 
-diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
-index 9b6fcb8d85e7..5a27335a917e 100644
---- a/kernel/time/posix-stubs.c
-+++ b/kernel/time/posix-stubs.c
-@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
- 	case CLOCK_REALTIME:
- 	case CLOCK_MONOTONIC:
- 	case CLOCK_BOOTTIME:
--		if (put_timespec64(&rtn_tp, tp))
-+		if (tp && put_timespec64(&rtn_tp, tp))
- 			return -EFAULT;
- 		return 0;
- 	default:
-@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
- 	case CLOCK_REALTIME:
- 	case CLOCK_MONOTONIC:
- 	case CLOCK_BOOTTIME:
--		if (put_old_timespec32(&rtn_tp, tp))
-+		if (tp && put_old_timespec32(&rtn_tp, tp))
- 			return -EFAULT;
- 		return 0;
- 	default:
-
-base-commit: 5c40a1750f44dd6c7292d8c8d0b4ffff1734576e
+Best regards,
 -- 
-2.43.0
+Kevin Hilman (TI) <khilman@baylibre.com>
+
