@@ -1,111 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231165;
-	b=xBblqsVdnUg9qkq/jWPZrc46IgENry9F3+G1pt1TuOMri3EQYrLjlHJbitud4c5S054l
-	 y0Nn9RYs6I0ncxob0R2hA2+6HT43DlVnmIl923eZ9SWJk36bnKDTHF/hISWMMOuNLrtkN
-	 w4/9+YEAjFmNIcY0U4VQcZzaiDLdofGAszKDqZoGoG1biDDFLn4CqCfq6XsQM65dOoj7t
-	 tVb3Mh+tZh29isO0PCLGzf7UlMG3jSUE9Q7dDXOKqlC/HeMKC+6DpgGsq/7yqth+lIVTj
-	 e9/gbcGIQ84akZYurXmZV6wtLcZVxLiu8wQL+mOarEp6qoUnadjaMCoxxziE4GxxVuw==
+	t=1794231496;
+	b=LZyVoai1eIjrFhdsbBGvPaEg6bPREHV55RAygrjtnmoGtfirhPCZzQB0ZH3K3gPGevrw
+	 OqK1QLc/tqCxIdP0c1iaocPQdf3jvnG1Fz0S/6L2uCmcLB9+I9s0+AMkm7rOzoJMVwzD/
+	 4oLPuTc0DOmW04WQp/dESTg0YsYkFokgLduoOhzt/kEK5Va4EkCW3GQZsJ1UgQNkhsYBF
+	 zLJLf+t3phVywE7wSXbmpgRBzWr3bFztmcXVoNVqejjwZFHyu3JUJXzjsXC/plN44QXfr
+	 //Mv3zVlhlK5FAIhpKKChgvTFP40Tv5n/K13dt31iRtoSDPaRguzOlHPQ+6PSGN1ySA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231165;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=tSYZSMfbWpn6IZacmi5pJPA8yJbsB5V+fFXDT86LYhY=;
-	b=jBt6a6uunUIUxZPmdTXRmAs77MCmW+0vkjhTs8WLKtUc6yIz3kL+fOSq8j35ycIqB1cr
-	 FzrhfQuD9gpKHLB9zRE7LVfcA2duN131bw9uDkH0qCS9tRY9QbeJW+1YUZbnan2dsVZyZ
-	 MaQq4AeSIlgDzK2MibFXHI6Au4BFXjpRVx8j/y9t5mTXPJaZf4yssL/wdNWdiggGe4j32
-	 TWKIbLOTWa4F9gfmXXGl6b/svq1v32A0jFRhhtA7sfzWh+JFNjXLv7FIGhhFTjlgbaw4V
-	 h4PGPwS3AtLpOk4Os9M1wFtiFZdxasbgjO1SSSaU4k48MN1q6OyBRKVSGSbOT4dhCVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231496;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+	b=slRQ1hnET2xAcx4RmlLZct8h8QX97HW0llxZ6BWyicI9DJqO1oREuubclM366+JsDZbI
+	 GVXmNRohWd4RzkJGHCtxaFYBoNWcborcjGNJRvTBtOCfOj8lX4HoSbmxPYK4MXo5y7Bzf
+	 8UhRi+WLu5UUT2yGfIUbuROljAAVVJ6iGHHkblst8mTS8JBXdJdn7yHrAuKtdnEwDDm5H
+	 kr6wJEwvBgZFJNwVUrAj8iXfuVR/ZwYdCeZM3Kji/NV4WC7SzovtsIWiEgqtnMs2ODC0R
+	 Ff7PRb9lk4WqJNm5Si5jO141pyVm5wJCH1JyEs39SzPd39Pmx2hnc+QZst8f7s1TyLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AuIEAf33;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ni3Rxsls;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VUtCOFoi;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HEIAIx1m;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C447606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 13:32:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C447606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4385606A330
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 13:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4385606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AuIEAf33;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ni3Rxsls
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DF17a309729
-	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 13:32:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tSYZSMfbWpn6IZacmi5pJPA8yJbsB5V+fFXDT86LYhY=; b=AuIEAf33+rrs+pto
-	WYdMtA6ypYrroU5H+DcPWPiCxEkisy9TOauID34IJjIyEr1IcFCDznV+xp97ZBg0
-	cenaQyHSTchsakwuhzyQFi+RsWZQAX2qIoLOn5mHQEHZLd2D+td42zrAjlWYMM8B
-	Zm1TkyYfQZ05g32+LqpoBSCx4Rr/Dal6yDMp4UnWzTtvXpAEM/cFxS3TR7AiIwle
-	k1tZ8oePfEtXHnffTZ+3q+63WJCUSHva8/dJWcmo4pZGMHWdDf9Z3ugTvmVYbpFb
-	ZBCDbLVPn+Y6Lo8Bxhz0dPFb3OmasektxfwVEdWjvj0u513EONjM8yrqwo9GIRAB
-	afBi8A==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucap8kpw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 13:32:44 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5ecdc7807f4so30379e0c.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 05:32:44 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VUtCOFoi;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HEIAIx1m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794231493;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+	b=VUtCOFoin3YsnZlHv1bGq3yzV7qv02AZiKSQEwCqxciMjpsbtAYhunQCGP+3TJqorp8+7s
+	XHva+KGu7ZSpUVy+QsQTGaGCv+s3xM3wiDikmYx+0gUM8sL7j5BEVbS58Ap38Ws2v8NlWY
+	aPRNxjHsXiCuAMXedfUcgPN2MLoOSMU=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-354-jS595FIQNuKvKGpSIHHgjQ-1; Mon, 09 Nov 2026 08:38:12 -0500
+X-MC-Unique: jS595FIQNuKvKGpSIHHgjQ-1
+X-Mimecast-MFC-AGG-ID: jS595FIQNuKvKGpSIHHgjQ_1794231491
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e00f3929bso504027f8f.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 05:38:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794231163; x=1794835963; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tSYZSMfbWpn6IZacmi5pJPA8yJbsB5V+fFXDT86LYhY=;
-        b=Ni3Rxsls+XypYtn4S3ryGuFw1JmPGo13e/OTqhNLz3IQkNzIGusUOxKQApqlnJc9uJ
-         VHJLAFwF4mDXOcXoGtA/6UDqbRozjQfXri8+h/f6zWr0bA43bO+nm/p32VXwi03TuAiO
-         vJMbibwIn4b20RlOvVE/JIsAZbnNLhGmxPGQX6IY3lGR/kpjvVu1i3ravjeiBEPCGBme
-         sAo/Ahajc0Jt31ErIKAAbGWwYOIcmLy7ZMqqHoe5FqDSfWQ//CwYH8xfLnFSdId/ieNL
-         lSqiaUbUIbAc3+NU/bR2hJSxVnrd4JaMAvhhi43nGkMf5sxAUdGT4/NGGTaE1OT563th
-         aZaA==
+        d=redhat.com; s=google; t=1794231491; x=1794836291; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+        b=HEIAIx1myBNl8RKtNU2XaCgpu79yU/cswIopgOKAAckX76fZaPPdUZz80jomxlLDwO
+         TKpL5uzkNnDfJql6smhnFjeHPj5toVH6EOsjjQvyTt2TTDk6jGYXTmWBMqt5oJ+OISXZ
+         bNk3+uKL9NKgignHq9zvMKt/kEK8wxGyRNU2KW7txfTsNUrLo2Scc0aQESVh0r4NWCvZ
+         JV+zF0NG9GxdWyiozHCOGj0s/PT/Uj8ExGGkdMxibWPUuFofVzD18pC5GlVDGIqE1EzS
+         VbALQvoq1rBNznrl6Krqrwsni8JvywssTcTmdCSNFkjO7HhJndbap36p2vQswKUuf5GZ
+         bPpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794231163; x=1794835963;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tSYZSMfbWpn6IZacmi5pJPA8yJbsB5V+fFXDT86LYhY=;
-        b=AQYLRgp07NvcpaU/DJmbj3p1FW1no9ebfy0MPcG+R1KP4mEyWyMGbXY76jKOMv0jvO
-         VdpmPI5AwCLAQ4eIlorHpYsWziRVfGok7AEvVFjkqefZ0DY1cGT/QTjhpBmmsldoaH71
-         CspQQobnREzhONAtevveb6KUyol1satsspM1TNVkIUmtLm3h2kJ9P5WRa0seZuIUTwP5
-         LYVZVIjN2YtIDchwhz/RgAs0SaBN4nQY36p7DHbLJroYGP25Ky1dgoHqQ+18+u+oB2cK
-         RsHjSthsWsT9PZM+SxtSzyzotEp9cqRehYUPGhdAKohFvfxup1RlyfkGb0DkvZ/tdemi
-         2Wdg==
-X-Forwarded-Encrypted: i=1; AL+hErFEA2SLUUiQnbYx8mKs9pZJCdewSx/ay6yrm/Sw769h/SEOWKMCQqdzSrT5XywMmEJaFaCnzBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JPTWWIIBjlMgclxAO6BGKQsong7piiBqja2KQWh8xcfOjH1Vg
-	Zq9KofwQYY5eAETTwSMBW9xYrHRdFEwX0T+jiAU+Cm+Mc4BNywH8iyl6oN33BzQgho8mXW12Gsk
-	EmVfnbqYIowUlHCWq2g9/y3g4lZmw5KefOOi+B1g/rCMdqGKx7ao0wnKyvXU=
-X-Gm-Gg: AYBFou1jRf2Da9Tz+WLlVfWcrbjVysU1pyxMCRdRs/dTriD/6B0vU+GRoyWDFsmmMZB
-	ddYKMrBMBC6aJ9UIuL9tM84nW0UjUzjTcS4/IcllyH4avRWQ+h8V6uioM3pv1MU4RNI0zsWuF7j
-	3PGbGixsbTF5YELqLxZ9oqSn0wdwybmTgRnYIcU/mpzqV9NZaWvpvejg8Geu38Uf3o3RERufGxK
-	3LkqaLRC+/a/PJWghQe248fR8wwlGuGZKhW39QNvyLlSkL+6NlqI0AF6WRENqkUZnVcjaYycUJP
-	QHxuGVc1vnePr4rN6OpALbL+p02+JH21LVix39P/uFxg/RYwNCry0bNG+ncW31w7usZZQKXAmgJ
-	R2XcvK5VhwZWtOzTdy/XwLrNUvUKxouFM1k+t367wjswyNBL3OvhNKYHd5GapcdDBErVxSQ==
-X-Received: by 2002:a05:6122:1c9:b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5ece7165ea6mr965344e0c.2.1794231163506;
-        Mon, 09 Nov 2026 05:32:43 -0800 (PST)
-X-Received: by 2002:a05:6122:1c9:b0:5e9:2e3c:2f5 with SMTP id 71dfb90a1353d-5ece7165ea6mr965320e0c.2.1794231162971;
-        Mon, 09 Nov 2026 05:32:42 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a9bc2e2sm169621466b.83.2026.11.09.05.32.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 05:32:41 -0800 (PST)
-Message-ID: <480582fe-27ff-4d14-b0c3-deab365a1225@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 14:32:39 +0100
+        d=1e100.net; s=20260707; t=1794231491; x=1794836291;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+        b=Z1PYj/S5XBJ43fwrLi9KS1cqlonN37mRahKrfnWAyqwMYQdl+Oa+XN5P/LCdQ12FkK
+         R84Qi983db8GN+4dwtxI7Eto2Owx+brwfLGEOX5hEXAyLaccJ4Ki5JJF75ZtcKyS9mPs
+         4wwZfMGqsPdhS5HNDqTUk5IzBfRsm3SNM7fdqvhSA+LEaRfRcG8hQbnnonuiLyTL4peA
+         xGuLVZF5+nmn/rj4he2L76hhhZ214+Ur19mPUrYRxVm+AfUjtTUFLayt/pT1F7BTrLOv
+         c3PJDHwHxJ5WYEgph1TrvkWPCj51tcKofDiIail+pNk/YwfCyi+T23KU51mt7yorlVCZ
+         ecSw==
+X-Forwarded-Encrypted: i=1; AL+hErEz407a+SHlTh2x8wkKc0hETSLVIC9Uz+YJf2CHJrB8VC9y/0PpgLYrmu/xjuFHixNx2NdwKac=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zgrdIPS6Kfgt7PGuny/R9Z1m8TK3rQQw6C0GmYycUy02iR5cg
+	BQj+mdiyKaWUh6ogOdHCLGIKm0qAzJi9FQTeF4PJxhORHxMEOCnMoyTIY90bBUg9s++LWaHfALL
+	Sikj44Fe9JjlSY68dvMnD4K4l4uvjIdtw6OKHheG+C06CXft5iF9bPqagRQ==
+X-Gm-Gg: AYBFou2QdEua8EETnhl8ueZi0aL3zBLltxjVgJl71pS7Qsl4Zj/gQOibwC7NzL0O9zz
+	lGaR3GnDY+CgvxaYI6XZIjZY4CgR1R9rr4znWyY48jjOp9s+6j/akFY9rPJzUi+8GJpD9pEVj/S
+	EGD5MZRJL12HLGNjkDZHgk3XeWa6W5jLIfimlnl0ja0qA/aP3wl/luryZEaL5a9eP5lJEvEuwsd
+	oKsfEpxj86pUncoB2v1gal9lGayvL9jxxIcNgTTtOMeTOLdly2T+AwFdV09CtJaomO+moLz42cn
+	NTlPp54l78y6RXI01v2OjjqwQwtXaqkzHgJU5eGzwEEzEsWZa8VVrnqyVhYNK45IWCAjTIhvHrB
+	O7OdzPi0fko5ZGhPjrYi/7bml/8UwAKgxi+3BvTYKGoAhmv2rlwjKpMd31mMKiw/u2yYShWBbHJ
+	xRsQ==
+X-Received: by 2002:a05:6000:240f:b0:48d:f160:efad with SMTP id ffacd0b85a97d-49425566d13mr15141623f8f.30.1794231490605;
+        Mon, 09 Nov 2026 05:38:10 -0800 (PST)
+X-Received: by 2002:a05:6000:240f:b0:48d:f160:efad with SMTP id ffacd0b85a97d-49425566d13mr15141537f8f.30.1794231490148;
+        Mon, 09 Nov 2026 05:38:10 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597652ca7sm10965139f8f.39.2026.11.09.05.38.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:38:09 -0800 (PST)
+Date: Mon, 9 Nov 2026 14:38:06 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 04/29] sched: Let a task boosted by a deadline waiter
+ change its policy
+Message-ID: <avHMvpJonTciAtx_@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-5-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,70 +128,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] mtd: rawnand: qcom: parse boot partitions before
- registering MTD
-To: James Hilliard <james.hilliard1@gmail.com>,
-        Miquel Raynal <miquel.raynal@bootlin.com>,
-        Richard Weinberger <richard@nod.at>,
-        Vignesh Raghavendra <vigneshr@ti.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Sricharan R <quic_srichara@quicinc.com>,
-        Md Sadre Alam <quic_mdalam@quicinc.com>,
-        Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
- <20261108-submit-qcom-nand-child-probe-errors-v1-v2-1-4a8704cbf7b4@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-1-4a8704cbf7b4@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1MyBTYWx0ZWRfX3H52qGqjOF8d
- 29U7oduaYo4ow09xjtpHxssKVeZbf2tizIwAG6LZKUkoCOk5xHwcoSfUxMGRkySpe7U5mzVhAji
- cJBm/LoRaOJzecYNixyIVSPJaonRDJ4wNHrCTJ3M96AdoNnKK/u3ZU1pXFG5I78F2yQvt2zBsco
- npEuw/7SrGKmhz0JTx+QuSqtBKJrnbHi2jVOeQIX9x0fJsT0aEz3C+9Xqk/UZ8iuzqwZDv/ah48
- 16MJ+Tfe/BQ09jhtCSmkJwjDnwHka3RSdJ9e/TxRB7dSa9VuohiWvcsXjOj9wZNJw/sz6VSNotc
- 2nSW0ASoPlM66RMpZCTlli/sH5kwxYAgix7eNbhbf8yArroICVocKeb1SQkU7H/kwCnK2ylVKkE
- wFP2XtkMapLHz2RNHfWaYkZxDxBTbA3VJ4kyk9cY+DiRT9ZRdUvfWRTdtmP+CdnknbPQ6crqU6K
- pRVdw2boPWYX4VY8gNg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1MyBTYWx0ZWRfX2TMHWI0blAY2
- owhNyqjk/qFq/PxvZtGfzqj1hJ7Z13cv0nlSfVWwhUlUBKVecSP8Oct+so7eP84dQ3T4fiTOPe1
- CUx775Cf63xM/EvO5zP2BPYKsSZE4VI=
-X-Proofpoint-ORIG-GUID: 63p0LNzML03e4Q544ADGS4TBUTg92dDX
-X-Authority-Analysis: v=2.4 cv=TaQDJhQh c=1 sm=1 tr=0 ts=6af1cb7c cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=X9yRgxbac6UzRlJmAAEA:9
- a=QEXdDO2ut3YA:10 a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-GUID: 63p0LNzML03e4Q544ADGS4TBUTg92dDX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090053
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-5-mathieu.desnoyers@efficios.com>
 
-On 11/8/26 11:42 PM, James Hilliard wrote:
-> A boot-partition parsing error currently calls nand_cleanup() after the
-> MTD device has already been registered, leaving a published device backed
-> by freed chip resources. Registration can also invoke consumers before
-> the boot-partition layout is available.
+Hello,
+
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> A SCHED_OTHER or SCHED_FIFO task that holds an rt_mutex can be boosted
+> into the deadline class by a deadline waiter. Then a sched_setattr() or
+> sched_setscheduler() call on it fails with EBUSY, unless it asks for
+> SCHED_DEADLINE. sysrq-n would not reset it either.
 > 
-> Parse that layout after nand_scan() supplies the geometry but before
-> publishing the device. All failures then reach cleanup without leaving a
-> registered MTD behind.
+> The admission test runs "if setscheduling to SCHED_DEADLINE (or
+> changing the parameters of a SCHED_DEADLINE task)", as its comment
+> says. sched_dl_overflow() then handles three cases, by the task's
+> policy: the task enters, leaves or stays in SCHED_DEADLINE. But the
+> call site tests dl_task(p). That tests the priority, so a boosted task
+> passes it. For such a task and another policy, sched_dl_overflow()
+> matches no case and returns -1.
 > 
-> Fixes: 862bdedd7f4b ("mtd: nand: raw: qcom_nandc: add support for unprotected spare data pages")
+> Fix this by testing the policy, with task_has_dl_policy(). A boosted
+> task has no bandwidth of its own to admit or release.
+> 
+> Now sysrq-n can take a boosted task out of the class.
+> normalize_rt_tasks() calls __sched_setscheduler() without pi, so the
+> task gets its normal priority. Nothing then drops the boost. At the
+> unlock, rt_mutex_setprio() sees no change of priority. The pi_se of the
+> task would keep pointing to the waiter, which can exit. So also drop the
+> boost in __setscheduler_dl_pi() when the task leaves the class, as
+> rt_mutex_setprio() does.
+> 
+> The boosted_owner_policy case of deadline_bw_test, added later in this
+> series, fails with EBUSY on v7.4-rc1. It passes with this series. The
+> sysrq_boosted_owner case of deadline_switch_test tests the sysrq-n path.
+> 
+> Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 > ---
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 
-Konrad
+Thanks,
+Juri
+
