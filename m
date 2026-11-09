@@ -1,59 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196554;
-	b=jcWsV8Yrme3+J947bHq/4dD5gD+LSP4iY9d3vH+hY7DiVfJBe6uZ3BtSF5NAXspLLCCd
-	 TpCaxumOVx06a6EzlOF/oETuZwBhBVYHHbe7Wv+ijiU/l/VX98z2EKelxLoWvCFrgodbJ
-	 YnWASt04IFg+ZRqkeEedqz8GElu2diSTOj/gQeCG7UyasTPAyPuzdnX+LEgzHnwJmPMiu
-	 8ybU05BWzRhIxbXCzPwnE+gqzELi5JMWPPRa5kBL6vxpc0KaXhxLhewnTVhgExIDbVTbp
-	 XEvEja8L39bj2xH/OpPnb3tX/IggP/cW0QC2fdiWfTZcssOFEx+rzepCe5fCsK5KkGg==
+	t=1794196616;
+	b=K8aDRwQSy05mdgVy83hx/a/7i/wai+sAOFfMWwJnawWn+AzClQxgmI+7/WjLa8GgBDmk
+	 A3zAN73wNqGv3lGENuXHh68uM62dobPokdQ69wNxtqmdheW75Og8RfYq9czfxwxZ7YoDO
+	 TIfgH6R+lJwrgvYaJGqiHLH5KsQsyq5wn4ljt+sd0dvAR02SMrfJVG83/hjURm7Q7JYNl
+	 EUKi2yg3Q8ImE7bA1Fp8kq12EN6n8IQdHgDPpFbi0FEcQyWds8MNLOvqmRGEE+RQLihcM
+	 b3h+K+c3oxnyII++JaClbiz/Z9JTRYXn03KxpZDTEJqu75ARD4jIjyjfzLcSPVOSwVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196554;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NdSfVFMRHW5pc7uIkSecBA8BWEnrgdl+JmAF/YPp61U=;
-	b=JoZ7cs0lIbDi1p1NAjOT3Z937pfyd/HD/dKTmFvhVz0qg+RaX7LCGd4Jmq0/1L5SkfYT
-	 THfvSo221hP2Stz9cwe+lvNO4j+0c1EzCHxDnmXzV2rfmXVTaouaO++oTuIlQ0MIWBBWu
-	 3vDVBlYoUO7ArYR5sl35co4b+1veUz8PR2fBwu080GPQrPeD5Al7yoix70O7p8AEaFbYX
-	 RD18WLzQmlqSF7L1yQDjvRnmh0zpQLM8ZnBtUmE1GrCdFBIFr1CQ77c6C9lGJ3eN7ojWi
-	 yHrURLsEpAwH2W1Hv3F1t0zfBFTcXiT8tq/oMBju6Ki/4vG6OG6WKaHjWYHpvPkEW/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196616;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=IpoxAai+pl1QF/TuFGqG7saRnVQYdTl5R9HquRiLLjA=;
+	b=xgSkbLQqvdkGVRm8Plc8EHIhlCZS7HwYStwP0UWs0XLjszC7acNZscayzldfGkiRsEC3
+	 yQHKzjjsnrr6YP05ctfDg9tAwMUukyiCTG4CZ+6OLD4BoIxEW8Tw1HvSoDy5SZJbCZkPW
+	 MhQNpca/8ZR7Xwo33VUxw0dTUQ1b1L65yl/VfU0XoGrLeitTGr0mucdIp0Y0JCav5udvK
+	 TBggWk4halYc7UfDvLRkgTjWsowYfkDBsAqwfqvzmjX5+Hdg6m1m2wrclMmNngG4qiltF
+	 dxmEKjLBOmiMzcHagrVf0jLVjaYhP+2YbqaaspMqmsern+A1YjBTrqhT/lksgDvRg/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oh5aTe8L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=CFd8lFUg;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A50B6082BC5;
-	Mon,  9 Nov 2026 03:55:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658FE606A31C;
+	Mon,  9 Nov 2026 03:56:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 658FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oh5aTe8L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541BA1F008BC;
-	Mon,  9 Nov 2026 03:55:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794196554;
-	bh=NdSfVFMRHW5pc7uIkSecBA8BWEnrgdl+JmAF/YPp61U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Oh5aTe8LxHpE2Mi/csfxTpk9IKApjDwttaKyyPYWFBBZdYUASg6HABzXzjHMt676P
-	 ZHnyqfJPN8CFwXA8+4BHQqBb750Nzvik4NZOQqZC62K6ysQi53FW7L7gya8Je7vI26
-	 LXErGn0OGMvjvKOB2h4bJXWme560ePsdnOSL9yILHsTFdT8Q4WeN0lxIvsvy/H+EU7
-	 Oxjk70DqI77Zrf4bueDWJcINRhqDEMnZTni7J+gnqh5sFLl4LEx/6QCiPzITvvI8NT
-	 bk7QyLJ7wVeQz0C+CRn9BE9TaEmh6Sm0huuxTvcVVGO1PTGSQLFN4J2Sf5eADM+bFx
-	 adl8K6dDxLl5w==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Boyan Liu <yymhvert@gmail.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+4a4f9998e2b4b490@bugs.sh,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: sd_zbc: cap zone report count by buffer size
-Date: Sun,  8 Nov 2026 22:55:34 -0500
-Message-ID: <179419615238.1941224.12734102484668812583.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028061651.110435-1-yymhvert@gmail.com>
-References: <20261028061651.110435-1-yymhvert@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=CFd8lFUg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=IpoxAai+pl1QF/TuFGqG7saRnVQYdTl5R9HquRiLLjA=; b=CFd8lFUg6lfA9BwHYqZzMDZ46+
+	/gGpSh/U3Yql7d+php4hyouKf1OXKFLzh+WFLBLHDu6Z4ZEf7Lb8XIAAWf8Vm5kq2aFG2QHnMColN
+	5Nx1/mr3CJWCsffKhpN3aKW03QfOCMxRe05IX+jqcKoA6xOkV9NNpofpoIUcDGDJzn6o=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQGUi-00FBUi-Vg; Mon, 09 Nov 2026 04:56:32 +0100
+Date: Mon, 9 Nov 2026 04:56:32 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Anthony Pighin <anthony.pighin@nokia.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: mii: Accept link settings read back while
+ the link is down
+Message-ID: <910e9272-a85e-4a71-9980-43a1b5160356@lunn.ch>
+References: <20261107210236.721901-1-anthony.pighin@nokia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,32 +66,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107210236.721901-1-anthony.pighin@nokia.com>
 
-On Wed, 28 Oct 2026 14:16:51 +0800, Boyan Liu wrote:
+On Sat, Nov 07, 2026 at 04:02:36PM -0500, Anthony Pighin wrote:
+> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the
+> network cable is not connected"), mii_ethtool_get_link_ksettings()
+> reports SPEED_UNKNOWN whenever the link is down.
 
-> sd_zbc_report_zones() limits descriptor parsing to the requested zone
-> count and the device-reported ZONE LIST LENGTH, but not to the number of
-> descriptors that fit in the allocated report buffer. A malicious or
-> malfunctioning device can report an oversized length and cause
-> out-of-bounds reads while the descriptors are parsed:
-> 
->     BUG: KASAN: slab-out-of-bounds in sd_zbc_report_zones (drivers/scsi/sd_zbc.c:256)
->     Read of size 8 at addr ffff88802c8d2610 by task kworker/u8:2/37
->     Call Trace:
->      sd_zbc_report_zones (drivers/scsi/sd_zbc.c:256)
->      blk_revalidate_disk_zones (block/blk-zoned.c:2354)
->      sd_zbc_revalidate_zones (drivers/scsi/sd_zbc.c:566)
->      sd_revalidate_disk (drivers/scsi/sd.c:3898)
->      sd_probe (drivers/scsi/sd.c:4101)
-> 
-> [...]
+mii.c is old deprecated code. So i would prefer not to change it.
 
-Applied to 7.4/scsi-fixes, thanks!
+I would say your first stop is to port the driver to phylink.
 
-[1/1] scsi: sd_zbc: cap zone report count by buffer size
-      https://git.kernel.org/mkp/scsi/c/612293fb469c
-
--- 
-Martin K. Petersen
+  Andrew
