@@ -1,75 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213487;
-	b=2FNZf5j58x37phRwfYn8SqWHvjIa3DdvXNgGTwd5USYZAg1F7ZsswE6wO5ZhLqCCKAPM
-	 t6c/qHrmMIT+YsEbM6RFHWCne9XSDGAdw13NuqXROyyfQnwVYFSwC1YQ6ZUDAKlD9v02s
-	 X1pFgePkCWq41OcSYFNYSb7xVYOjsLteU8gapLyninfDmRtfGE4s4PrNqO8aadu55GK/C
-	 5AVK9xXC/GqTvx2lYc21h5lqx0eZmQaOk7u5M+sNVGxIBeHxi1CaX+kg62WIDRMROZBDG
-	 C9//vewT46KVhbXHO7WTohcXwh2A8LEvtqCN2iFwKMqoG1juhiF0+1uQmf74SkWHGwA==
+	t=1794213488;
+	b=WS0oefYsFU1jVwjTjV1heKf/OyAhdzVi5hp2gszSX6hZt+ofZflYBVwmrv5FJsPDCWF8
+	 y4ZNatZggcbs/uVLKPsS4lNoDd21xDT4jKcXYd9mVZ1RVMMRsH59G1e3DNc0Iv2L+xbI5
+	 dB0ckCISogoQXdFwTv/wqJoF6B6cH5851iukoEhEIlADKlkf8L4PdhMHIih7sFNetWT1I
+	 H5Iza6hG6XEsdwpPNU0MjSNV/OxRZdZxMC4z8UFSrJG3KV9V+OMpdlzITLi7i/3mAXC3v
+	 k81CDoYl8A96Nr1WvZQl5SG3W9fvwiLYzH7Fz+FcJGtnOI692Hdd8sce7w2PLknHNLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213487;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213488;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=6VrZDM3fYOdSkSPKiqKMyCone02DlY/LbqIvTdlm5jE=;
-	b=5qGbhfh0M0DYoRNEccvFlnfOoiTFqcaNYw0zsaWcZQU964xDxhVbwaSvnGl/XBO+gd/U
-	 v5mbrdJBTusNWoFO4BT3uEfeh0a93XFFJNdXNMlWyExoooQ1uEjk24itGkiQ8yUI+Zo7K
-	 sKS7vcIClxlhTGZRStnhrbR8odCbpLfADDL97YgiqlRBg9GxlF0sP5EZsAKM+VyvWLYpV
-	 oA++cmRHfCyq9fa6j4CcL8rxnq8/FJKuaQHy5BY6UynLuw+BZ+h9ioWkcd6Zpt93kBbvX
-	 fQ4jxVFgl0s3dPcBw7Ket4hucF3vgR0B4KFJWgKfs7RvL64xmXFWMqSAtvTZLV8mrnA==
+	bh=DexF6N5HtJTlHyuSYF0/pzcFrVMrsZPBvnJHzEWC4Vs=;
+	b=l/Fgfi6m/S9dKnzffUYRolOhl6GETH4vDFikYrNQRfFh4JMouMHj+Z5OPYFOfnB71w7c
+	 sJoQmbVDlrarWuCeuxTSGh8QHuBV41PrFfvVekOpfQgMnv9PdtbflVKouucnKlmTKBZce
+	 6a+v6f51FGDAjB5jM9aO+H8D9NYcSrBY5k5gA13/lwFtcggJ/W+S0CnqgIkLmJEclMBK4
+	 +Nm3oEHrNcsdM+mLztIped6dve4neimw8RhzsH2WUBIsjuDzpkQdnB29XqX//Bok/+BrJ
+	 zKfR+zYacYhT9HxYhV0dXnzAPdD3tjuIvhOT51NHs4TD3ML7XB/6U2ox2aPQfu9NwTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sqS9N9tG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PF1b86qP;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=GNvtUzNH;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=esdTI3ce;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA5F606D83F;
-	Mon,  9 Nov 2026 08:38:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA5F606D83F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C368606EE8F;
+	Mon,  9 Nov 2026 08:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C368606EE8F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sqS9N9tG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=PF1b86qP
-Date: Mon, 09 Nov 2026 08:38:02 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=GNvtUzNH;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=esdTI3ce
+Date: Mon, 09 Nov 2026 08:38:04 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213484;
+	s=2020; t=1794213486;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6VrZDM3fYOdSkSPKiqKMyCone02DlY/LbqIvTdlm5jE=;
-	b=sqS9N9tGC7Fw9gMiaGHt/KqEYmkRMcVNBSrbQ0f2vd5DTl60mOUR77WCqXsJ6JHmdaNJK9
-	oKG+yg3L9DN0IR5yQoTUGIVB0xMuHHZumvR5bWq/4XTyl9dSmOCngY3QglUg/FeC2V7TdR
-	tYwzYVJ0450kZgFkDkzqsHy0vQlHl4F5xZWOVunz3J/n7jdJA0/eu4l6K4v5TbWV9xWtBG
-	8Nq/b1+Nr1DeBn7833Qw6NALyBEBA9bo1sVMkyoaitfJ3cK1T0dCebNFtpTPAGzmc1g5KL
-	BY+07NlTcRfoxK3Ozj/hCxvYwK357+1JYMMJW1DfWmQtU8PjBSekNXoFNHC9vQ==
+	bh=DexF6N5HtJTlHyuSYF0/pzcFrVMrsZPBvnJHzEWC4Vs=;
+	b=GNvtUzNH4g5F4BkYeCJtsDTtmIqleAsPz8wZuc5xrd2LT4d4Qz3Nuy5ojm9BOqN5mC7cr+
+	l70uH+RHJnUQijvsGDimSUiEkZFVvmeHERSqcsO+BGWFqrAJ+49nKqUoBp8+BHbpn8ZVv6
+	/VMSY11k3MJQHsmg6xZVTNcCpnJftqdAqvHpb4yTNR9BcEsqQDoo8IbqnYVeeqWiRli9Nw
+	VxgJlIS9zxAluBhPf5hBuMMBqcjVVqJdqEYsOyiN5iDe8CegZVMzKLhO8JPVfsIOtIeY4q
+	OlQPNrw9K5NNU1EkjLan9uzOk3doyV4N6YU+2l+6OB93vs7A1PBTaX21wOBqog==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213484;
+	s=2020e; t=1794213486;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6VrZDM3fYOdSkSPKiqKMyCone02DlY/LbqIvTdlm5jE=;
-	b=PF1b86qPh8jMxMqBG/xdeLEliqk1nac9P2hpvpW2YLhfHxxQr6yj7kxtobYqVhiOzqqpTB
-	g0xqwSCN52iqjcAw==
+	bh=DexF6N5HtJTlHyuSYF0/pzcFrVMrsZPBvnJHzEWC4Vs=;
+	b=esdTI3cebGNn7iA7zr/abi+nZikY1tzKupuA3/c1q70clXbAVEAMyglpSjtg1NVPbaupjC
+	ysNvb+9D1RfRfYCA==
 From: "tip-bot2 for Paolo Bertinetti" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] perf/hw_breakpoint: Clear stop state in
- hw_breakpoint_add()
-Cc: Paolo Bertinetti <paolobertinetti200f4@proton.me>,
+Subject: [tip: perf/urgent] tracing/perf: Clear stop state in perf_trace_add()
+Cc: Francesco Nigro <nigro.fra@gmail.com>,
+ Paolo Bertinetti <paolobertinetti200f4@proton.me>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>, stable@vger.kernel.org,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103130732.764081-3-paolobertinetti200f4@proton.me>
-References: <20261103130732.764081-3-paolobertinetti200f4@proton.me>
+In-Reply-To: <20261103130732.764081-2-paolobertinetti200f4@proton.me>
+References: <20261103130732.764081-2-paolobertinetti200f4@proton.me>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,7 +79,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421348251.2093942.4751132931367188495.tip-bot2@tip-bot2>
+Message-ID: <179421348457.2093942.5595845354188628427.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -89,15 +89,15 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the perf/urgent branch of tip:
 
-Commit-ID:     6bea5e29daf123a78ae58cb5926023f4705f396f
-Gitweb:        https://git.kernel.org/tip/6bea5e29daf123a78ae58cb5926023f4705=
-f396f
+Commit-ID:     fb3f6b21b04f1e8b8982e90e9bf62db9f0dcb5e4
+Gitweb:        https://git.kernel.org/tip/fb3f6b21b04f1e8b8982e90e9bf62db9f0d=
+cb5e4
 Author:        Paolo Bertinetti <paolobertinetti200f4@proton.me>
-AuthorDate:    Tue, 03 Nov 2026 13:07:53=20
+AuthorDate:    Tue, 03 Nov 2026 13:07:48=20
 Committer:     Peter Zijlstra <peterz@infradead.org>
 CommitterDate: Fri, 06 Nov 2026 11:45:14 +01:00
 
-perf/hw_breakpoint: Clear stop state in hw_breakpoint_add()
+tracing/perf: Clear stop state in perf_trace_add()
 
 Since commit 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage"),
 __perf_event_overflow() stops the event with pmu->stop() and disables
@@ -105,36 +105,45 @@ it when the PERF_EVENT_IOC_REFRESH limit is reached. When userspace
 re-arms the event with PERF_EVENT_IOC_REFRESH, the event is enabled
 again and pmu->add() is called with PERF_EF_START.
 
-hw_breakpoint_add() sets PERF_HES_STOPPED when PERF_EF_START is
-missing, but never clears it. The flag set by pmu->stop() stays, and
-perf_bp_event() drops every later hit, so a breakpoint re-armed this
-way delivers only its first overflow.
+perf_trace_add() sets PERF_HES_STOPPED when PERF_EF_START is missing,
+but never clears it. The flag set by pmu->stop() stays, and
+perf_tp_event_match() drops every later hit. A tracepoint, kprobe or
+uprobe event re-armed this way delivers only its first overflow. This
+breaks self-profilers such as async-profiler, and the "Event re-armed
+with PERF_EVENT_IOC_REFRESH" perf test fails:
+
+  1000 events, count 1, 1 overflows (1 POLL_HUP), re-arm errno 0
+  Tracepoint event : FAILED!
 
 Set the state from PERF_EF_START on every add, as perf_swevent_add()
 does.
 
 Fixes: 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage")
+Closes: https://lore.kernel.org/r/20261021131006.2101248-1-nigro.fra@gmail.co=
+m/
+Reported-by: Francesco Nigro <nigro.fra@gmail.com>
 Assisted-by: LLM
 Signed-off-by: Paolo Bertinetti <paolobertinetti200f4@proton.me>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://github.com/async-profiler/async-profiler/issues/1813
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261103130732.764081-3-paolobertinetti200f4@p=
+Link: https://patch.msgid.link/20261103130732.764081-2-paolobertinetti200f4@p=
 roton.me
 ---
- kernel/events/hw_breakpoint.c | 3 +--
+ kernel/trace/trace_event_perf.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/kernel/events/hw_breakpoint.c b/kernel/events/hw_breakpoint.c
-index 789add0..7a60621 100644
---- a/kernel/events/hw_breakpoint.c
-+++ b/kernel/events/hw_breakpoint.c
-@@ -968,8 +968,7 @@ static int hw_breakpoint_event_init(struct perf_event *bp)
+diff --git a/kernel/trace/trace_event_perf.c b/kernel/trace/trace_event_perf.c
+index 5b27285..a549897 100644
+--- a/kernel/trace/trace_event_perf.c
++++ b/kernel/trace/trace_event_perf.c
+@@ -354,8 +354,7 @@ int perf_trace_add(struct perf_event *p_event, int flags)
+ 	struct trace_event_call *tp_event =3D p_event->tp_event;
+ 	struct hw_perf_event *hwc =3D &p_event->hw;
 =20
- static int hw_breakpoint_add(struct perf_event *bp, int flags)
- {
 -	if (!(flags & PERF_EF_START))
--		bp->hw.state =3D PERF_HES_STOPPED;
-+	bp->hw.state =3D (flags & PERF_EF_START) ? 0 : PERF_HES_STOPPED;
+-		p_event->hw.state =3D PERF_HES_STOPPED;
++	hwc->state =3D (flags & PERF_EF_START) ? 0 : PERF_HES_STOPPED;
 =20
- 	if (is_sampling_event(bp)) {
- 		bp->hw.last_period =3D bp->hw.sample_period;
+ 	if (is_sampling_event(p_event)) {
+ 		hwc->last_period =3D hwc->sample_period;
