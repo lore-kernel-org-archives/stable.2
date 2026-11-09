@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193586;
-	b=Z8JfOBxUvesFJGxXX/FB/2NaO81vzz3be8Q6xC8eh01H7axsvYILpYhB2s9ui3ARsPXk
-	 hpwGoXgPppsbkn/3mL3Jmu14+Kk38ad86cCDcsRxNjUc5hqMhjfjI//vqtf0hRvgT+4RV
-	 KAUMtJJvCaj4EouFDS9na+idaEjLOokixVfB7z2pHQ8KJUaP/XdPb86xUxF5CBmuuSbqv
-	 bJ87H1E48d4N2UJF1iUAd6+K+Fg+hSaBW5YD+tGDgpjkSruFiSJwi0cSNqNLp0TrK5GRm
-	 4i6zGE/JddcF4B5MWGhiP3TpA7ZDcxHrB0HvcfhdlwMEhRUjAdGRO8Gq0ZTvRKsJJ2g==
+	t=1794193588;
+	b=ijIuGT2u0EP7lR85IxdLXQHJ+lIP5TKgBzfs7rurr/oEoC6YJDBpdPfkyjAsw4b72RAi
+	 G4/yJ4hoiM/DsvIqvmpmFDe8Xf4dPyvNxB7B9hYs9b16tjCvB9bABbj6Y1Pv6QdELgILK
+	 48GcDCdSlJQvcy0Y2g+1ssIch/HOUqByFnbuTzMkWKBMYHdJhIbA0P2i/PlpA9lxIh5Br
+	 mWAM7DIkY/XYjvDLHoUvTM7FdIjf2xDoYi7wwyxgw9+DSTyho+WHbZjLESrEz1kN/sEdr
+	 Xg/nFOCDrB9DKKVOzy6Tj737A45cNba7D4HqgNO7x7UjeIRmnPrqvf+VCYrTll+5lHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193588;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tpx9Y6W6yn61z0LVuZO0MzgOW+Qr0mw0e1dC+8xSVXY=;
-	b=B3gif39O9OEc+v8USZ3hEbZB0NEuy/3sUovqgWwfwKWmxuvOO0hEcoh8eFsWajbKtgge
-	 O/7Sytpbx1zI2JhTQHZmr+XT7PIIXTBXLHGXpgs2xuMWYGtCUERflf5MIA8Fthezbkalj
-	 P0QIO3qbDQ4v9MoaPwkPCNxuILPe/X2WudeBMJXi3pKvh7hLBnXzMVlNk0gZ0/bqeW/il
-	 iMfd2mvVNnoBdEE73ZSsEIyrUSg0+LGdP7E3D2Tlhadv/ItZbM4RxsR4pIE1NLbfOuto9
-	 n3++jNG0zpyzXVVgdH/4rnQ+ZC6ivX5I1d9kVRFejnidVG8QE+dWulY2ELzu/8/xiVw==
+	 Content-Transfer-Encoding;
+	bh=xnlTJTEiB3aLPboCiIjlcj1pRp8iyQm987gKfLhgv9M=;
+	b=tC04TiqZyr9IgOyKyBMFD04BFAuT99q6YVuXsnMi0FAeCDCvJF/mliN/lEalpbe8bNR7
+	 fHSqPndZJWBtioUOv2Jn0r7X9WuscVEEzEEUt4IDoDYuGGnysOv3bpo5c3RB3vvvbO3Fk
+	 fa5URd2/I6IUbkbAEpAS+S3SVVYGOXi7ythFNWbuGCVBCSBBAuO6C+rmQgE1DHRjGEQAL
+	 U99yIQfaTTKBIj0mVJEN9kAffF4AHz83yMeOJ3v3bE4nX+tMCHqR4uqcJReJnpV9e0fNm
+	 1+t+aru9+4LK8RSFZetQj7KfloBePvfvqdTvADGjcJncuJgbOVEhv54IWWxCHMPdwew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ZwHX447Z;
-	arc=none smtp.remote-ip=115.124.28.145
-Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=h9Rk3BgP;
+	arc=none smtp.remote-ip=115.124.28.171
+Received: from out28-171.mail.aliyun.com (out28-171.mail.aliyun.com [115.124.28.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0287606A32A
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0287606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8EF606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C8EF606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ZwHX447Z
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=h9Rk3BgP
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794193576; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=tpx9Y6W6yn61z0LVuZO0MzgOW+Qr0mw0e1dC+8xSVXY=;
-	b=ZwHX447ZWH2ff8683OBSxNXKFA/0lemSa+bBs3K29AI/exEWwZP9eUyEMATCrV0RWk39obIG1teigHpP+5c84xJkB8Rb+aF91lLU0+BRDk1YZAlh333mXwoRPYq3sbxz158wIoYPqJbxSgEIWY8T3LZI+ksPfmz6M0uZuXU+ZbE=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07736517|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0114469-0.000183943-0.988369;FP=6645749621535934392|3|1|3|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jzk1B9s_1794193575;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jzk1B9s_1794193575 cluster:ay29)
+	t=1794193585; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=xnlTJTEiB3aLPboCiIjlcj1pRp8iyQm987gKfLhgv9M=;
+	b=h9Rk3BgPmttb8ojoFIqNiLYzjk7yu6rybWHQevOauXfeNQKVADZmVkFSiV5O/XTouvdi0dFOf0G6GIwx+MEiW4kDE2qs7taZYy2/ek23p4EHdC3KsrQO9tJild0Cu5+flpU1q+L8mU0TbSs0ZTHLW20StenX63O2b53C0xaO+7k=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0743712|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0132805-0.00344454-0.983275;FP=11193109253693785298|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034020;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jziAnN3_1794193584;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jziAnN3_1794193584 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 11:06:16 +0800
+          Mon, 09 Nov 2026 11:06:24 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: stable@vger.kernel.org
-Cc: Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>
-Subject: [PATCH 6.6.y] ceph: clamp the inline data length in ceph_fill_inline_data()
-Date: Mon,  9 Nov 2026 11:06:15 +0800
-Message-ID: <20261109030615.419410-1-zhugl3@xiaopeng.com>
+Cc: liuwb@xiaopeng.com,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 5.15.y] spi: amd: fix len==0 underflow and FIFO overflow
+Date: Mon,  9 Nov 2026 11:06:23 +0800
+Message-ID: <20261109030623.419563-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261107053929-failed-6.6-9c1d14d3b66b@kernel.org>
-References: <20261107053929-failed-6.6-9c1d14d3b66b@kernel.org>
+In-Reply-To: <20261107060710-failed-5.15-e2f4edfc061e@kernel.org>
+References: <20261107060710-failed-5.15-e2f4edfc061e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +61,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52 ]
+From: Weibin Liu <liuwb@xiaopeng.com>
 
-The MDS decides how much inline data to attach to a reply, and the
-client parses inline_len without any upper bound: ceph_decode_need()
-only verifies that the message actually carries that many bytes.
-ceph_fill_inline_data() then copies the data into a single page
-with no length check, so a malicious or buggy MDS returning more
-inline data than the page can hold writes past its end.
+[ Upstream commit e2f4edfc061e493fddde16c4bbe1c4f230f41e4a ]
 
-Clamp the length to PAGE_SIZE so both callers, handle_cap_grant()
-and fill_inode(), are covered.
+amd_spi_fifo_xfer() unconditionally decrements xfer->len when a tx_buf
+is present. The SPI core does not reject zero-length transfers, so a
+transfer submitted through the SPI_IOC_MESSAGE ioctl with len == 0 and
+a tx_buf makes the u32 len wrap to 0xFFFFFFFF, and the following
+per-byte loop writes far past the FIFO window.
 
-Cc: stable@vger.kernel.org
-Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
+The driver also never checks the transfer length against
+AMD_SPI_FIFO_SIZE. The core splits each transfer down to the
+controller's max transfer size but does not bound the total message
+length, so a long transfer overflows the FIFO with out-of-bounds MMIO
+writes (tx) and reads (rx).
+
+Skip zero-length transfers and reject any transfer that would run past
+the end of the FIFO window.
+
+Fixes: bbb336f39efc ("spi: spi-amd: Add AMD SPI controller driver support")
+Cc: stable@vger.kernel.org # 5.8+
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ Adapted for 5.15.y: this tree has no per-message FIFO position tracking, so the check is a per-transfer bound against AMD_SPI_FIFO_SIZE, matching the per-byte loop offsets here. ]
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ Adapted for 6.6.y: folio_size()/memcpy_to_folio() → PAGE_SIZE and the page API; dropped the client warning on trees without it. ]
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 ---
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/spi/spi-amd.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index a5b21f4..a1428ce 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -1811,6 +1811,12 @@ void ceph_fill_inline_data(struct inode *inode, struct page *locked_page,
- 	doutc(cl, "%p %llx.%llx len %zu locked_page %p\n", inode,
- 	      ceph_vinop(inode), len, locked_page);
+diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
+index 39dbe99..ef9161e 100644
+--- a/drivers/spi/spi-amd.c
++++ b/drivers/spi/spi-amd.c
+@@ -176,6 +176,16 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
  
-+		if (len > PAGE_SIZE) {
-+			pr_warn_ratelimited_client(cl, "oversized inline data %zu\\n",
-+						   len);
-+			len = PAGE_SIZE;
-+	}
+ 	list_for_each_entry(xfer, &message->transfers,
+ 			    transfer_list) {
++		/* Skip zero-length transfers to avoid len underflow below */
++		if (!xfer->len)
++			continue;
 +
- 	if (len > 0) {
- 		void *kaddr = kmap_atomic(page);
- 		memcpy(kaddr, data, len);
++		/* Reject transfers that would overflow the FIFO window */
++		if (xfer->len > AMD_SPI_FIFO_SIZE) {
++			message->status = -EMSGSIZE;
++			goto fin_msg;
++		}
++
+ 		if (xfer->rx_buf)
+ 			m_cmd = AMD_SPI_XFER_RX;
+ 		if (xfer->tx_buf)
+@@ -219,10 +229,10 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
+ 		}
+ 	}
+ 
++fin_msg:
+ 	/* Update statistics */
+ 	message->actual_length = tx_len + rx_len + 1;
+ 	/* complete the transaction */
+-	message->status = 0;
+ 	spi_finalize_current_message(master);
+ 
+ 	return 0;
 -- 
 2.43.0
 
