@@ -1,113 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218851;
-	b=gEbNmXklu9nj4ZoFVK3RuvCTAgOw/mqTRN6cTpnk2lQT7RLQ5cWm/q3VDAbOnwz03sAg
-	 LhCWl4DsYU94Uy57mx1Y0Wool8Yut/wop8d8hgBbuH0mDFIkzWlXObODB+eVozhKzae/5
-	 4iNDHinvPwcTk816yQfRncubewZVeKn9lvDjBNx2GkrqadpRswQfk9nzVEBJq2fULeWX/
-	 NWITPVcqP1+nxtLxEJWAcZuTrpv54rrR6NxyK0rsO2NpkohVB+72tiXaefa4zI+GaayjK
-	 VHLn3dpt8p1Yspm2+Jf0KHBXCh3xbG/+IllyybwVXDt65bL90kXbJVyVLi/2j6rjCtw==
+	t=1794218843;
+	b=POK/WUqKa1a/FIPpplb4HRkh7iWm6FmBoOVJ2j5CWHhFeItsFpWXHV3d2Zfe4oLPhzPp
+	 lTfrqFpyBWKiABzfgDQISRNqfeuWGNmN0Y0XtzqjCDuHidZEcVSNrHJmfZYBVu+/3gCsE
+	 xXhEvRrFaX5BtDiAJBEoEuRoZwHERcnID3Mvq+nkE4fUqFyf3HXaMia3Wqp0G83R0YCF6
+	 44ee/bzBG2LO6Cq0uvK9ez5TQDv27TvC5abgh5ECcFMfOk20TqjooTVrATOfdfr8znQcB
+	 opVsI3kLV7FCuYKftXpRNHW+3EMgIdSZEBaUopxp7kUPwXKkP1b1QaFaOm0BnDXh77w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218851;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=;
-	b=BW18NtulvPKD1IEHZq6QHsn+jVjL3V40TkvnCIh3dUR1ygjxI6RCNJWSIuLlJ12Xiu7M
-	 F5ldcWVxMMJ1VzhOcu9EnMk8AUxSN0vgeL3Xy/5sCTC7en0wUVrdYEojFC5Ycf3Acnw8D
-	 KsOwqVelJlKPC844l6WFuwG+X3U/C5fMxaclNnkKc30cHJodwjayqtQ3UhkbEn+KbL+aB
-	 XEuzBIY1FgMLnKOWTkWrT6d/Um7XilpBa8C8+X51P1gQj9sxwIotmHbKiYhtfzBd6IkjJ
-	 6uvECdn/LbwHrz47gjMYix5pvQBtcLqeBe6aeoSE4DpqdQKW1gWfg/3q648qswfGy6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218843;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=BCv0Nnsjb1CATtKd+NoK/9Eh7t2jtA8IE/DMvxos3og=;
+	b=mL1I4xNsKCvXy8um4iNhZxMHop+N+3dGYkBIslt5HJgpICfF8/QSe9oC24G6PqrUU28u
+	 dW+gt0vRDqoPN+EFVMHPym/TBVUIXeJwS+YsxHR/UkHRM3JD2XO1XL7azXf+3HitgmVv2
+	 2QzLDGL4AI/ThgzzhbGbo9Ghz6tphs98QgCb81hLOmISbvwn8QMY1JdA9pT1BMKdgiR14
+	 JUQoQ+cgz1+vQS4d+REUi2pmlKI3K+ppcbFX2DEF/tWvd0rBgiYm9ym9+7SDvfQ3qWHdN
+	 xpG7JizY57NLvDp4bAhrJ9wn8rMkEjS53H2ozv6wqvnDFScodOg7HeoJfe0X33HmZvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qb863sBI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=diHyuIW4;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cjgaEr7m;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16572606D81F
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 10:07:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16572606D81F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB881606D805
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 10:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB881606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qb863sBI;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=diHyuIW4
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99unPi4077628
-	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 10:07:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=; b=Qb863sBIHPMRDAn0
-	hes8I7xH7m4yMwSRxsNLe/4HAEiM+QtaDNVayXp9m0sO1myCv43xXTfSyHo0UfZ6
-	XOgdTP9+inmJQdkuOan2FHy+EW3bo+ccojW+OIiW/UjB2oLXXPFJ1KRChj9WRS9a
-	4ZvldPqTgTLeLnHnojOY+PTMFnMVBu0VAOa1mVf4jDlB7CxQAKGlY+DsFlnjfXgx
-	mgzko6BcUp844bHQwbRmDDfNVTVXeaEsBh0skLlXH+tJuhYtIPa9c2e2QH81h/dO
-	c8zFafIkUW4TZ+0h1HZ7sz/K8r0P52vsI7LXpuqxjTMSTzwHJOEN0ZGCGAiXSimf
-	qyP1SQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsv735s1x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 10:07:29 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad53f538d2so620955a91.3
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 02:07:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cjgaEr7m
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so4088455e9.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 02:07:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794218849; x=1794823649; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=;
-        b=diHyuIW4x2u7X8upjj5uTywyfsgc0XCeivLftd47HHXlBapYMrm0PHpD6Kci/XQnLT
-         E/gsVMwjotuF92x/CTFuQKSqazjWxULXOKTOtC3Z5hCUsH24VbcTMknTplyyfwiUnaoc
-         9NjrMIxUARFKin4tIF1qo4exI0Y2LaxrCPqJ27J65Nwg1kdo+hcdYIzAO2xbjbpyhAfz
-         lCr9uhhxuF+sNM/TFiq+DTrWPEGZiZvP9Tr8L0ta9bF899YA6x1GL/84gH2mnXGN2Z2k
-         R1mmW4lHuqsmAYovVQ13TUoNBldD6oNKgkiybYTZ2AEnn49S3goGkA4fiR3Lj55Lm1IS
-         n1UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794218849; x=1794823649;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794218841; x=1794823641; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=;
-        b=W9VfqxfHWDfQ8izsORPPU3kdD91seCMGr6m/b5wB9BdexleV3r3UClREqYrfzumBbb
-         U0diNXnEvASXwkwo+qnr3CqJj2apg565DxV+8Cai3a2NyUtiHaaLyagqzYztfkgAf8uo
-         ZxPux0jvCxIOUwxRdlGMuqWfNc3GF/TFzmRKtIEFAqz8A8CrS8loURhryuip2UMw6Baa
-         W4M0so69U/UvimhdUQY1myWuBqF47xBQng4xSZcAWqauxVrzjyap19jChqSbvIR6D5U5
-         UtXq/IQX0NvcnhgS4jgGY7p2FaV0ZxaBS2r6gtBiiMvsbeI7FNRi21F4REkt7xVOiB1Q
-         +MZQ==
-X-Forwarded-Encrypted: i=1; AL+hErEynenUYw+I5poWFTXdKDwDkKSEnU6vm1UmrWOnrKrsje8zg0k88/2JQXrezuPxpHDR3M03PNQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tUMnHNzSSBMM1oxtlBo11I+xJfyp36rEMC+m66D3TvZxxuWFY
-	7+HSVankEFaQ6QGwcZYRfmbUEkNrVGsfyrJyGt4lGb/iazl8UtseLGNqCbOWuALC7ncClS8q4mi
-	luH/NCmB8EUqMt8MYinP0bkxWHAvg85JYvwm+rP4CZC7ADy6HWeVi3upZ3Pk=
-X-Gm-Gg: AYBFou3qTss8V+JtHl30MJ2voiAPB8M/xKoB6svcznwLEiIOPLkunbasKomFc2BpC+G
-	Qeep6PL5SurvnaYEwxCCFQ5LpMCIRW7XfQx2iUauwb+nbSbYAi4F74jslVa06LTEF0L8xPHIqXq
-	jXCa+Tg82eXz3Ibv0K4tL7I+j3BfqnWePvVsSCF+f9RtsBqfcZnnlAEsX87xhB9di2GIxQWVkuj
-	tVd9OU9Xdp9634zjFZolm4ng/24yNfCOdbe4ev0kxaXk2bn/qqg+sTmENGIgWomZ8Mm1VWgOGNN
-	zckYjYeq9MRCQnctxNfCDLrlNCRbfKlY1vJzMR2cimE/m9XNB72U9GnCsc7GD47Kp/Ue6F7fgYv
-	ekRtLGraMK3duap9GH87z3TfOTxJIWvfrlMc42OTq3HiBQ9boVJknpLF4324bLfK4U516Jmm1eN
-	161qKY81fVKOuYiOcOTxWPwTuDHiaG
-X-Received: by 2002:a17:90b:53cb:b0:3ab:5758:3757 with SMTP id 98e67ed59e1d1-3b12d5ef7f7mr3152483a91.61.1794218849194;
-        Mon, 09 Nov 2026 02:07:29 -0800 (PST)
-X-Received: by 2002:a17:90b:53cb:b0:3ab:5758:3757 with SMTP id 98e67ed59e1d1-3b12d5ef7f7mr3152416a91.61.1794218848687;
-        Mon, 09 Nov 2026 02:07:28 -0800 (PST)
-Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1054a53e4sm10034531a91.0.2026.11.09.02.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:07:27 -0800 (PST)
-From: Yin Li <yin.li@oss.qualcomm.com>
-Date: Mon, 09 Nov 2026 18:05:34 +0800
-Subject: [PATCH v5 2/7] arm_mpam: Fix MSC MMIO window size off-by-one with
- resource_size()
+        bh=BCv0Nnsjb1CATtKd+NoK/9Eh7t2jtA8IE/DMvxos3og=;
+        b=cjgaEr7mn0aEP7wTMLCAEdgMC8qpGXxO/avg+exKuuXYvTm9BSGOPuOPzkRJFHA9yL
+         cKZctyNtqWTiWhjEief30FaL9nmIkwMYN3umzN9RM3GrS2tv+Ime7tZoSW76EJ9ohMWS
+         zrJhCXISjUxM6Wc15ZCTWRBXpy5LpKLxTajxvgnV/k+KZrJXwev+pd9YGFeUhJj3vNZz
+         5xnWSFxqURGCXJbT6N83tpbyfT0Q1n/l2c/O4xWlU7mfTerHS74v6W3tUVxMhvf/IPI8
+         94/wWztpRVgJLYvCD4MMbWUQAG4JoI31Kyd+YVyxBROLkSb831+CQJ+94166oBa5pnSz
+         BSBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794218841; x=1794823641;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BCv0Nnsjb1CATtKd+NoK/9Eh7t2jtA8IE/DMvxos3og=;
+        b=dx8tOL4OpK+ehkniuZ29YmMnNVeAn/24NNX5iFE3ZpPI3mIqj0fgiXab4tZjL68BJl
+         t+k83m77bKyujQ8uH+caZDoj0FnPXcaesNMvV96Hhjznd4P+Uf0thodkPzsdig+AQuVC
+         4HfUQNse/GkMlRN6LDrwBQagr1qLWBFpKRpUiK1xyVJgvg8HgG1mhB+W0BiOP+wriJYh
+         GBC2RugvDIxUNVHZ2JNhk1HBO6pEAH9Xu8eIY4vHZPkY0SBDVMicpMq4t8D/9C8mTJOG
+         LzKEl7MujCQbB2Br8rialn78YwwxZ9rxcu6H0w6rj2zN+pC+SH35gLAGxthRLh7oXEUy
+         JuCQ==
+X-Forwarded-Encrypted: i=1; AL+hErEio7Fc0kcYeBezhPDCID8Mbs9OilwFVf7i4zz+/JOw0/Sc/cJCmaHDm9hfDEb7gygIfd3SL90=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JYXGMp+jDfNr9EV+rSSzzpAB3vmrrgWcdODKMNi3bGcVlJdIT
+	r4oT+DHEGfgGovRD1RhrW7jDmtRtoxNuRqbpd7q86qIXdMnVkriMnuF2
+X-Gm-Gg: AYBFou0lMbVZBcLnZK1tUDDZ6wCBaiISMnvalmOF1odz4d8LIhfqQxTldxLdBAkTpF2
+	B1RA5aWnaxll5zbw2IuaIBSx9Aq29eyIOC81gcXaP6mxg3mondy40ySBjt86yr4L+CEa2Zv9VPU
+	9SIHriyS96BYT5b1BleLIvN1LFgvmy9tSfwucZeQcg55bv9K1m8DWWYTnUNCOA9B1iVg02zpoO4
+	HycgiZybK7imL95piBFpmHn/NxX0s+G9anWlnUuQkLzt3qfbPyKo56/7sZmGcatTnoCNYuozv6B
+	/tVHfO1EPsJMdnZgxoJSiLqdYWVOwTqtadnPuGo44NHMWgou2rXT46m0ymQMQZcI1HCmT5vm5g/
+	iEP0iI3U6WvJ6CXUBfaNhQ/Tw262dqh/02amMTdwGG63diC9K591Po4yPZkFvWKAXWpJQm+8djY
+	VtWu6ErxFWwcLhB+DrPkKlWj8zWcJeH4MaYmYv+zBpSiYh6nDsH2wYG/CBRhO6adpRqDW/6gcT1
+	cd96L0eGViFu7WE6b1UgFDXkl0JqWzbE56cwA89ZFuLVGQtAPshl2BIQXcvsxZnXbWQD0A+K5qI
+	FaH9WjYcDIcJ2gfCtyhwIq0=
+X-Received: by 2002:a05:600c:46cb:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4b94d762ec2mr69628225e9.1.1794218840912;
+        Mon, 09 Nov 2026 02:07:20 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783f1d6sm8829668f8f.46.2026.11.09.02.07.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 02:07:20 -0800 (PST)
+Message-ID: <bb6fa14e-0a98-4b31-899d-0b1c883d0608@gmail.com>
+Date: Mon, 9 Nov 2026 11:07:17 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,116 +92,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261109-mpam-resctrl-dt-knp-support-v5-2-150335a79381@oss.qualcomm.com>
-References: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
-In-Reply-To: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
-To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Ben Horgan <ben.horgan@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
-        Drew Fustini <fustini@kernel.org>,
-        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        ganapatrao.kulkarni@oss.qualcomm.com,
-        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        devicetree@vger.kernel.org, Ping Li <leeonion.muyu@gmail.com>,
-        stable@vger.kernel.org, kernel test robot <lkp@intel.com>,
-        Jinjie Ruan <ruanjinjie@huawei.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794218815; l=1979;
- i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
- bh=M5HKKySRXJjebPuf/KLcSrGcy+Dr1wAQmzTykz+vO0Q=;
- b=Q4QHKXfPyNxTfeRfp19balrlzMk5OdUU4eKG1aMyyqKAydxt1uebl+7SdXXRpbAEmQKQ5kN5Z
- 6b+fSzkJixxCQwVFnssHT0MQsX9Umf3yTmY82A8IiSaPn1rVqaz8JAS
-X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
- pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX5u94AkCginL4
- pfI9MzTT9rfHn44b+Z2cB1zz43Xuhb17qKYOZqfWJ728Pbt4QMQu7pxMrI8wTP1rpDR0gIj27G3
- RU/hi9cGrx5Nnym3hgbEyx8PQ2qAdzhFqt9ypTjBEQrlJN+Qu1SeQ7NN3m2r7KXTJOCG9R7C8xx
- a/gqvqRwEcTNjeZv725HTn2/cCpzhIo5qsFeYcTXD2dFWcy4LLjgocKWyheR1AiCI7tnmL3i2O9
- tI9jlMPpSfcZ0T895U4TE+DsJXV82rZa8qRkpwt1V5fq7fHoShTRnzO+OmeGy1F+1jnpZkh6RiW
- TogcW87zCXgVNgMb1N0KQuxtSJgnOEDbrd9PHZiDobr4Bp6CeCAUnb5iQJteSnG/Een9qWDjQpJ
- EjcaukGRcXsUZ8QqemVBMxz+E3rjVx/4pgf59cmx2OtSEdGrrpKGp736SSJA2PcP/LdLefg2T7Y
- ugBncMFGZeVVcjTIj+Q==
-X-Proofpoint-ORIG-GUID: aKUsPaHTnxSgCkRgEJ673pVK2C4D0eoS
-X-Authority-Analysis: v=2.4 cv=bcb+w+PB c=1 sm=1 tr=0 ts=6af19b61 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8
- a=i0EeH86SAAAA:8 a=s3E7sL18FQBPR4dFS-QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX3X6hN3/0FBM6
- qB/PAZijho4GIEu9QgysXhx2Igt2WcAOGcK6nSFn+IdvRlijSXH4PWQkFa3CeY5WaobHDU0ktGw
- VxM0utV11Vv9kjFwukPNgnJcCYlSEEg=
-X-Proofpoint-GUID: aKUsPaHTnxSgCkRgEJ673pVK2C4D0eoS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 suspectscore=0 spamscore=0 clxscore=1011
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090040
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
+ into pipes
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard
+ <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
+References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
+ <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
+ <a9fb2d3c-d518-49d3-9479-a25fa2cfc5b3@gmail.com>
+ <8d23b1eb-72aa-479d-9486-dbfd86d8414c@kernel.org>
+ <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-struct resource uses an inclusive end address, so the window size is
-end - start + 1. do_mpam_msc_drv_probe() computed it as end - start,
-which is one byte too small.
+On 11/9/26 10:49 AM, David Hildenbrand (Arm) wrote:
+> On 11/9/26 10:30, David Hildenbrand (Arm) wrote:
+>> On 11/9/26 09:57, Jose A. Perez de Azpillaga wrote:
+>>> On 11/7/26 11:23 PM, David Hildenbrand (Arm) wrote:
+>>>> Similar to mapping pagecache folios into page tables, let's reject
+>>>> additional references when splicing folios into a pipe if the refcount
+>>>> is at its limit, similar to how we handle it during GUP.
+>>>>
+>>>> This will prevent more cases of possible folio refcount overflows with
+>>>> large pagecache folios.
+>>>>
+>>>> Let's keep it simple and check in the two callers of
+>>>> splice_folio_into_pipe(). Return -EOVERFLOW if the limit prevents any
+>>>> progress, so do_splice_read() can fall back to copy_splice_read() when
+>>>> read_iter is available. This keeps sendfile() and other splice users
+>>>> working when ordinary reads would still succeed.
+>>>>
+>>>> Also fall back to copying in FUSE when taking another reference through
+>>>> fuse_ref_folio() would exceed the limit.
+>>>>
+>>>> Also check in try_get_page() to cover pipe-buffer duplication by tee()
+>>>> and partial pipe-to-pipe splicing.
+>>>>
+>>>> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+>>>> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+>>>> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>>>> ---
+>>>>  fs/fuse/dev.c      |  5 +++--
+>>>>  fs/splice.c        |  8 +++++++-
+>>>>  include/linux/mm.h |  9 ++++++---
+>>>>  mm/filemap.c       | 11 ++++++++---
+>>>>  mm/shmem.c         |  4 ++++
+>>>>  5 files changed, 28 insertions(+), 9 deletions(-)
+>>>>
+>>>> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+>>>> index 3641abb90d6bb..4f6b7b42bfd3e 100644
+>>>> --- a/fs/fuse/dev.c
+>>>> +++ b/fs/fuse/dev.c
+>>>> @@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
+>>>>  		if (cs->write && cs->pipebufs && folio) {
+>>>>  			/*
+>>>>  			 * Can't control lifetime of pipe buffers, so always
+>>>> -			 * copy user pages.
+>>>> +			 * copy user pages. Also copy folios at their refcount limit.
+>>>>  			 */
+>>>> -			if (cs->req->args->user_pages) {
+>>>> +			if (cs->req->args->user_pages ||
+>>>> +			    unlikely(folio_ref_count_over_limit(folio))) {
+>>>>  				err = fuse_copy_fill(cs);
+>>>>  				if (err)
+>>>>  					return err;
+>>>> diff --git a/fs/splice.c b/fs/splice.c
+>>>> index e6d43329ed3f0..df73a4e65118b 100644
+>>>> --- a/fs/splice.c
+>>>> +++ b/fs/splice.c
+>>>> @@ -956,6 +956,7 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
+>>>>  			      unsigned int flags)
+>>>>  {
+>>>>  	unsigned int p_space;
+>>>> +	ssize_t ret;
+>>>>  
+>>>>  	if (unlikely(!(in->f_mode & FMODE_READ)))
+>>>>  		return -EBADF;
+>>>> @@ -977,7 +978,12 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
+>>>>  	 */
+>>>>  	if ((in->f_flags & O_DIRECT) || IS_DAX(in->f_mapping->host))
+>>>>  		return copy_splice_read(in, ppos, pipe, len, flags);
+>>>> -	return in->f_op->splice_read(in, ppos, pipe, len, flags);
+>>>> +	ret = in->f_op->splice_read(in, ppos, pipe, len, flags);
+>>>> +
+>>>> +	/* Fallback to copying when hitting folio refcount limits. */
+>>>> +	if (unlikely(ret == -EOVERFLOW) && in->f_op->read_iter)
+>>>> +		ret = copy_splice_read(in, ppos, pipe, len, flags);
+>>>
+>>> here it can't tell where the -EOVERFLOW came from, if another file
+>>> returns -EOVERFLOW (i.e. tty_fops uses copy_splice_read, and
+>>> n_hdlc_tty_read() returns -EOVERFLOW after dropping the frame), it now
+>>> gets a second read.
+>>
+>>
+>> That's what claude told me during review, and when asked whether that actually
+>> happened in practice it said no ;)
+>>
+>> So is that actually a problem?
+> 
+> Double checked, claude managed to confuse itself.
+> 
+> n_hdlc_tty_read() can indeed return -EOVERFLOW.
+> 
+> I should just have let splice keep failing, dealing with copy fallback starts to
+> get annoying.
+> 
+> I guess switching to -ETOOMANYREFS should work (and might be a better fitting error)
 
-mapped_hwpage_sz is used by the register access bounds checks, which
-have the form "offset + width > mapped_hwpage_sz". With the size one
-byte too small, an access to the last register in the window is
-incorrectly flagged as out of bounds: for a 0x1000 window, a 4-byte
-access at offset 0xFFC (bytes 0xFFC..0xFFF, legal) computes
-0xFFC + 4 = 0x1000 > 0xFFF and falsely warns.
-
-Use resource_size() so the size is correct. The ">" bounds checks are
-correct as-is once the size is accurate and are left unchanged.
-
-Fixes: f04046f2577a ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
-Cc: stable@vger.kernel.org
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
-Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
----
- drivers/resctrl/mpam_devices.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 05f785328dc2..bea231dac7e6 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -2506,7 +2506,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
- 			dev_err_once(dev, "Failed to map MSC base address\n");
- 			return ERR_CAST(io);
- 		}
--		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
-+		msc->mapped_hwpage_sz = resource_size(msc_res);
- 		msc->mapped_hwpage = io;
- 	} else if (msc->iface == MPAM_IFACE_PCC) {
- 		u32 mpam_fb_msc_id;
+I agree with that :)
 
 -- 
-2.34.1
-
+cheers,
+jose a. p-a
