@@ -1,100 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794255303;
-	b=S5SBE2huJDZj8YN6B7sc+Bqr63Lp9ZxTzabDdNSCJsqj26vm56lBQaRqaDIZsflQ+6MB
-	 DWazd955+nfdUpd6CLTGSv98QTNFbkrv9YTX/Q35cMA33raLQhfsblv5FFK03HgFwp81S
-	 695YiMuYHz0xLwN6HM8AGGapiGCl6qdg4q58FrhMK8fL3MKqADfL7ScD0ghQZdwUE/KNM
-	 8mumiImZufJvPv/5AV2mRFHL03kzFCVwAth6MZ8cZBWV8Z1UGCMM1cNvigDv+In18nk3m
-	 xyOqbdm3qhztAMrn9dWhKB89RsEtRtpFBC/Vj5Kv0M2CNt/DBTWWq5LJCq/dogZkJjg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255303;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dcA3JlLu3QaK+Vcd+6otPpngHTSFEBthNfyVcNg6yB0=;
-	b=sq80FLek21dyxV9MFTv2oLjqV0lUCzPgAzRGhH6NDOaJi40fQpho/uAxN0XX2ivqFgSu
-	 xRONs3nKu6aYgezMQgF4L/NkqHlCU9rBGkQ78qG+Clj7Ufff5lZRpSGhHAfTFAhruJhtD
-	 mv3j85qOWDgnHGaxgqDcx2+v2buHWPAQqGHoGcXGpQeJIt0DPoP7a7JEd1lOvRDg7N8KJ
-	 z1EkdR14DcT9zRgaGIguJR8n2rQHgOLxN/Q/dVrJ92opbz/lod0KwmXKIe6X/IHv540RH
-	 zL1T3s/TJrYkI5oDHqpYt1fwq3l353dbkS89uhRkc2PZtEokCnCJVWpL/G259V8krmA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=JM3aG7UD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794255606;
+	b=g8pf5J83Nklv9csyid8P71ZhZJ8wly2AA/P77JlCbNqYGzdsqLGfB1DqqE//y/BylXV4
+	 iM8FwPAjjOx8EUStD6EK5dTSP2uwT+QHv//NdpwT+FpZcC1OZTKMpGTayhnQIlSTuKUHA
+	 WXPYyLEc3yLpirqMoQID32hpm6iihWh/T8eXJgZps6TAKDoBZ+GoiplY1JldXJfLqGVja
+	 XFiYYVVD1FPRiSchRjQhYlycMvyLNUHqyuaPbHMLGsdHjwV2TLLiL3hyFMM4GYWVw5C4x
+	 6U00nwmyw+VmKisMphFzX9ruF2ULjV1zlwoipUXFecIJz4YbQUiP9WjD1XqEttDAHFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255606;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dKdPaLpeURROu7r1ylsmBxinR7thIXhk/SQaVUZfgEk=;
+	b=4Akc0K8f6slhivjvA9EoVc5uiuaMkkng5fdhtyiefUnCb4qzKuOYV9gG4gRku10V5q3L
+	 80g+MrMuMCs425SOUASKCPW8I6q1sNPkT76TUC0h/xmw0G1jRxdWLiq5sxFduzAKn6rDF
+	 HXybccIUvVHHTz9Xpy6/V0ITcdADzqsEviMr9Msau40u2sSzlaDicwCVCnHgnvial1MLY
+	 +nmwZYLRtMMSzWCynbNnh3m/3ivO5r7xq0kfOd0yL+EtQCnbW16Ova4vtG9vzaRtlgEJN
+	 WDS2igqlfFjJhguMWHScZvL7p7nDVjV7DNvUnw5oN22I1BDfz7pLrKMTCmJvtZ+RRTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=c8dxMWIS;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4033A606A336
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:15:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4033A606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39560606A31C;
+	Mon,  9 Nov 2026 20:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39560606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=JM3aG7UD
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b5efadd183so591423b3a.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:15:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794255303; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gq6C4/D67h/knly0Sn80/U5fRlKUxqx4QJPyR0casC43nng9moDfnkNcrPSphyH2H2
-         nPkNxMRZ6JYxvVOvKKiAKArEUAeZ4luwn3lUt51ytfwDalV6xPaAROFejEhTlQMSk7XR
-         GHaj86CgxJ/m7GH3AfgcvnOi3fTXMpC/DBavWv2OT/9dR2TLXitP1ibO/DY5g9wZ7Yuw
-         RI4e6CNjZVmPowUQ9O3HMc8QANGXNZtIH14myyWDw1CqiMdAgsJUiO8Dhj4ls1v3fWzV
-         Wq3539oDB+uwmnIX0XYPabunAsT0ZVazudtUtWlQS25cxXfRnLsXdojf/BoMAXLhetM/
-         lctQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dcA3JlLu3QaK+Vcd+6otPpngHTSFEBthNfyVcNg6yB0=;
-        fh=W04C360h3eHF1+36RN4t6j6EHAccy7qopFnlCAniobQ=;
-        b=pjFqnGYW0QNlNKCe2wDgsbfVfXobTw4kaQ8S7IzKv+1bWjIGqeQoK1YxsB4YUP8fh/
-         HXO3IO3HMTU8SpCm45WpdXvt7T4WWEA8Rc+/LFY+fInBP9qQ63bSH6vHOWFupJ6ynxm1
-         5ruGY9OiwvNlIkO+yT9gwEAYQXsB3+LS6lWq4EOu8WCZNtKsu7ICrS0zvKdf90prrSRG
-         ReXXlxnOp7b1ECQws8GAsyuV/msVH8H7zyYJ/AqyHdWMx3U265Qo/F/VnFu8mRAQdkc0
-         nSPVTKm2w+testueziiIcUbqhQ7pqOiTMDaSV95eHRtjI/KTafco50cX+xDLxiDH+5ep
-         MToQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1794255303; x=1794860103; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dcA3JlLu3QaK+Vcd+6otPpngHTSFEBthNfyVcNg6yB0=;
-        b=JM3aG7UDhE3ppbxcli+QQzARg2Kk347vy5ytnvpfinkJQjCez8mFUwcYs8+/PrAO8z
-         qQXYwQgzy8NbHr19R7sZA4uRrRbYDLtCZTFfnP5xl9j5o2XEJs++ZuMTq6tvsc8/HEJn
-         psFEtb6JYK9B1K2UCYWdaKijgaM/Sq6WoMXKjc08cwsZyhvosTpftZa2yma2RSbfY9xo
-         Q3vHnPYquzJjxSmB1OqnqGohXqzBVuNzvCn+GTJhiNm7oW7SLON4wQa1VbC7cxzBbOjC
-         DAXh9HTRv9+dK3JjCLtk1lYJ3Sq5ALw0klGRsuHQqUUOUkAIo4X4iR8NKPL5u45oL4wJ
-         ht3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794255303; x=1794860103;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dcA3JlLu3QaK+Vcd+6otPpngHTSFEBthNfyVcNg6yB0=;
-        b=f35/h37ftPz60rFsG2z5l6nO9teKFOkOTsbrnXZ81y/GuAjUoGWjCoort5IuLNtO7j
-         ty6WHcrUCP30d7tBkOx5wuy0oGtggi2CtM1h/tYMONGd2PL57BwUTNDok9/e7v9L0mOz
-         H4QaG1LKYa3sgfzOLkqVKtIYRuyNWIvzzXLtU2aP8SL4s7XnlGFivvyrmA79DNw6ydpt
-         kPLYMys76EmM+dMJ+lClz5o0SmVYIi4zpg4mRC9/WyxReyfPYMWvuFKLwlBP86f6vEqc
-         OeUlCyY7ibVFjn0HVIRwhOcSZizgKV7HsY1ev2yHJrAXWAf0rmAfAJGGXILJDUkOXMX+
-         cskw==
-X-Forwarded-Encrypted: i=1; AL+hErHcPsh1dntmiLk++4PXPqmHZl1g9eJKCHSEpZWIrQX2Sc4S5M1HWjG0+G883onViiywFwmFe9Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TH3kwAVBRkrmQLIWq4AcTOGtIRBQobQBznahlTNn0cIhow24v
-	BtIwRgj9LK7F0DlWyzVjgTN5F+NGlBy4Ps0DFfA4AxHv+oMWelNMnYw1tQxj9ufIqVJcn4vY3+E
-	hkaZut/rxkzfOFUv4JVQzRbge1bLVmMYt+XgUX6zg
-X-Gm-Gg: AYBFou0XgFe8rltIz48j+lXusLz/Nj26McEib7/e3rhcirbEHYI4hiH6BMhNAo7REj2
-	EixVQNdBXAcmO9Dz0QlsV3Tu+fWylz0HQdj2wkA7JUYWk9372H1FjEQ7xbcJYaPNmSGhlSjPJWW
-	0qSmtew9xb7Zughe5XIyWXNHOCpRtVJf5mljaWyby/5KMz+PlsXh0WAsR+AD2e34/8gxabLoMDz
-	SkrDizDYtwrjEpXV8Xyf29/sfAHbgWEs7IlQsGWwGXfXirYjgCgoC1XVGa2d4IeFdai8pJ3G/8s
-	ytlQQ8j4d98ZyMu41MZEpmUjbx+Idx0vaUtf8NezkHoYqrKWxeUhYi3RXYCR90zaLFpeXpZwqgi
-	XlVJd2AH5ged5mPJCFGC7n3e2GRrO6/jToQoDm7lzmeaOR5BqhPePRbmzxrbkXe74C+e/
-X-Received: by 2002:a05:6a21:62c4:b0:3e1:4e53:4e7f with SMTP id
- adf61e73a8af0-3f18f4ac9aamr162563637.27.1794255302075; Mon, 09 Nov 2026
- 12:15:02 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=c8dxMWIS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1794248808;
+	bh=i3ipDART78WTq85AmHOl70UeNqv+mMy5wJ+w7QZZGrc=;
+	h=From:Subject:Date:To:Cc:From;
+	b=c8dxMWISkWbhMvV1eJSCl5vL18TS+fRrVLNHKyNSUJwf88d4kBKdkFNvdF9a1GlDe
+	 tlQZ+qX9plujkl8Ty/DGjPtj7h5/NtBX3+60lyonAxTqRPrEo7M96fMtjNO9n4Np5K
+	 bo2gyzq5akNR4fYx/pMKoY7ztA/x7fUoONUlQMYc=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 740F540576;
+	Mon, 09 Nov 2026 10:26:48 -0800 (PST)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Subject: [PATCH v3 0/2] futex: Canonicalize arm64 tagged user addresses
+Date: Mon, 09 Nov 2026 10:26:46 -0800
+Message-Id: <20261109-futex-tagged-uaddr-v2-prep-v3-0-3f5f2ef83138@gentwo.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,66 +56,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com> <CAL4Wiiob6K=Y1ne0G+8L6b8fxNxdCz3z+THgCiCBX_5MjtSzcg@mail.gmail.com>
-In-Reply-To: <CAL4Wiiob6K=Y1ne0G+8L6b8fxNxdCz3z+THgCiCBX_5MjtSzcg@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 9 Nov 2026 15:14:48 -0500
-X-Gm-Features: AclHuK-R76EHDsnszW-O6Vgi4DzxwqLyNag33759siqThBnXu2JAqQRN94reBA4
-Message-ID: <CAHC9VhQGms7L3EL19tB+TRKvNP3ttSumHOdWcNM2377-fQiEOA@mail.gmail.com>
-Subject: Re: [PATCH net] cipso: stop modifying live ip_options_rcu
-To: Casey Schaufler <casey@schaufler-ca.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Jann Horn <jannh@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	netdev@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, selinux@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGYQ8moC/63PMQ7CMAwF0KugzBg1aUgrJu6BGFzipBnaIDctI
+ NS7EyqGiomByfoe3refYiAONIjD5imYpjCE2OdQbjfi0mLvCYLNWahCGVmUBbgx0R0Sek8WRrS
+ WYVJwZbqCKQl10exRKScykJcu3Bf8dM7ZcewgtUy4IpX6kMid0V+wBAm1tjW6hipj6qOnPt3iL
+ rJ/F7RhSJEfy/GTetf8Af3l0zyzUkpqKi11Y3FtnOd5fgH/FczJWAEAAA==
+X-Change-ID: 20261030-futex-tagged-uaddr-v2-prep-63ea40b5a22f
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
+ Davidlohr Bueso <dave@stgolabs.net>, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Shuah Khan <shuah@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Andrey Konovalov <andreyknvl@gmail.com>, Will Deacon <will@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794248808; l=1040;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=i3ipDART78WTq85AmHOl70UeNqv+mMy5wJ+w7QZZGrc=;
+ b=B4F5M1i6XMKJE3EJUI7+MnKXXrYiv2S4rG5EcnZ56MHtEdC/zLHUSEdbfBEArp3xCJX4pVf5V
+ TGeYa2UM54MDAwgm9PnSk0t4oliEvcXWDZN4ypBXVRzO3EECLDeT2Cq
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-On Fri, Nov 6, 2026 at 6:06=E2=80=AFPM Eric Dumazet <edumazet@kernel.org> w=
-rote:
-> Le ven. 6 nov. 2026 =C3=A0 22:40, Jann Horn <jannh@google.com> a =C3=A9cr=
-it :
-> >
-> > cipso_v4_delopt() operates on the ip_options_rcu of a socket or a reque=
-st
-> > socket, and tries to remove CIPSO options from the middle by moving all
-> > subsequent options.
-> > That's not allowed - ip_options_rcu can be read locklessly and must alw=
-ays
-> > be consistent. For example, ip_options_undo() reads trusted offsets and
-> > length values from the options buffer.
-> > Fix it by doing the modification in a copy.
-> >
-> > The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
-> > propagate memory allocation failures.
-> >
-> > Triggering this bug requires that the system is configured to use CIPSO=
-.
-> > (Setting up CIPSO requires privileges in init_user_ns.)
-> >
-> > Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jann Horn <jannh@google.com>
-> > ---
-> > I've sent a separate mail with a reproducer to Paul Moore.
->
-> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
->
-> Side note, not for this patch: Smack calls netlbl_sock_delattr()
-> and netlbl_sock_setattr() under bh_lock_sock_nested() only, which does
-> not exclude a concurrent lock_sock() owner such as
-> setsockopt(IP_OPTIONS). Both sides can then kfree_rcu() the same
-> old inet_opt. This already exists in the "cipso only" branch of
-> cipso_v4_delopt() and in cipso_v4_sock_setattr(), and with this patch
-> the copy branch has the same issue.
->
-> The rcu_dereference_protected(*opt_ptr, 1) in cipso_v4_delopt() hides
-> this from lockdep. Smack should probably use lock_sock() like
-> SELinux does in selinux_netlbl_socket_connect().
+Changes in v3:
+- Split the stable-targeted futex fix from its selftest, so the
+  selftest patch is not Cc'd to stable.
+- Add Davidlohr Bueso's Acked-by tag to the futex fix.
 
-Casey?
+Link to v2: https://lore.kernel.org/r/20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org
 
---=20
-paul-moore.com
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Shubhang Kaushik (Ampere) (2):
+      futex: Canonicalize arm64 tagged user addresses
+      selftests/futex: Test tagged arm64 futex addresses
+
+ kernel/futex/core.c                                |  2 +
+ .../testing/selftests/futex/functional/.gitignore  |  1 +
+ tools/testing/selftests/futex/functional/Makefile  |  1 +
+ .../selftests/futex/functional/futex_tagged_addr.c | 61 ++++++++++++++++++++++
+ tools/testing/selftests/futex/functional/run.sh    |  3 ++
+ 5 files changed, 68 insertions(+)
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261030-futex-tagged-uaddr-v2-prep-63ea40b5a22f
+
+Best regards,
+-- 
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
+
