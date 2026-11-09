@@ -1,58 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235510;
-	b=co/U+Vuw5fO0hKpq0RKz6ixwuflmF58SCY5TMeDqDKGC0dyHGBkfuJyWGzYbaNzaga2o
-	 GRbwaDQeP3g2RUqUOIfTfwAoFyjE5n087PEYfsFQbDvp8Jmym3okfrrb4Lq310Jzk1daG
-	 WFK++vKIhYvr/9kh7YoQVcQ0II8Ju5PG1cG/3JH5NYdF/BF1jAFcqkIH5QehQcFKU/0WH
-	 YrxLFJ+bzdKqJRilDS3zE62cxVbo/1OerxGPqcBBdCpNsGIAEZgLmqWUiYavyzn+VXEgv
-	 5em31yZp6igQJPvcbYmCwVaKi6i1oyx5oI+UP5UOHXmA96lKVDWyN9Rp7up35w8gTjA==
+	t=1794235575;
+	b=uZazWi7rOkRyOWKaMxPt9h69VL3T1fGRq6X2HAEk2ryQ5n5KQCkuBhK7JQ1KrTwP8KGt
+	 Vc1iN+xRNSbOx4ETtc5YHqqEysxjFt2NEbuvXJfkIpt/J/xN2TB8XeBUwMvNudjktw3l4
+	 3G8tWS5FPLhf0z944axtlNgO3nyv5KBRHbrpNuwhczA/3zdl4frsA+Z69w2VAbpn9bmgi
+	 OVnUr6pZP0FpCojr6+q9UpjZD7GDKqP8iGJ008Q9tgWV2au0j86iB9Yeg+60THzRAV/ne
+	 YkfwQTPk7tsuVndfmOnrrY3LGlueRjZ6l7bsdbg0GDnNeQJNA+dF/PEGFvUliFvHkmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235510;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7Qt+bdQBMRgfyzqEjWH55cwhWUCf0OmGYF56lEghc2Y=;
-	b=DGqjY/6Sl03OtcadxVC/XDSDKuzQCLcufXfiOEvenwFxmdrVR9Q8LOzZ1A1peojcd8uB
-	 ilZjg5kwNm97xj1szKZlSGVwKT2+psGM31HOK8uLDfDmwIfDxNgAPQSuh9WBF0vlMXtNJ
-	 wZAI09CuJArv7aTlGdlZ3tZBmiiS3NWvPPQyXjnv834scG3pa5cnhIWDe36i9IAVWd7qP
-	 6Z79NmQgYkXY8K7UTzV9q8yQshCq6U7Ws+LWgk10c8qXSogjqMc0eA2r6xboGjXHomlFt
-	 1WEmOFn9mbQNKf2g5r5jMZcgNwnZ4ESv8A+IonOc2tXDrZ755V82274HonCXEAK7r3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235575;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZTynlzVV0Ls8ODcAkfDfMcepOFVJ/hELBpVjw8Sm7jw=;
+	b=UMYw43I2Rmap54C089P3IbzUiq1456YHzESVquIN13byu9YOmBtX+ChS1jc0Tv74lVub
+	 TKPB4i2Ts6kSizxPeAQ90Hh/YjdTwCaXP7kQ7lH+Bp5GNe4HMYEI+GV1JPaJzv2Xhg4Hb
+	 Moq+V82O5xDe7tITbh5VgCFv5ypu3ycGc3p8qPvJX+8ZvlUboFvfE2WZ6iAgRWhepKBXp
+	 QaewHusclpmB4Bs9fNlPmFvaEbJxiDZYRQ44K0AzJLfakCZUDzLcPzaU9E3ohbDOwOUDw
+	 M5/VgiT3jte22PSubSIFeUOGCc0bMckHxtFII1EoIVMuEmnYi3Rck0i+NvvN+SzunZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeaPzbmF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Obm6L/ji";
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 86B58606A326;
-	Mon,  9 Nov 2026 14:45:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A08606A331;
+	Mon,  9 Nov 2026 14:46:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5A08606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NeaPzbmF
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8F88D1F0089F;
-	Mon,  9 Nov 2026 14:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794235510;
-	bh=7Qt+bdQBMRgfyzqEjWH55cwhWUCf0OmGYF56lEghc2Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NeaPzbmFsMfpsCQ81QYV9ORbpTNns7tXzpR/ckGodStlgh6uDj14wOJE2Qk++rpOn
-	 zCGyJ7Q0dd8fzufvIvEw0oDX8GIDdxmZ3T5oXgS1cBUux6RF05CZF6zAmglXLANsR6
-	 Sg9lDOt3+5sgVTUuUFsA8I8p++VzkLb39eVVTRylmEVHG8GD0ha3f1tbufAyc3u/TG
-	 zakHb6wPnHExtPPzSYIXX2XrdwmwQKdprKbfoRZYhihw7VPfBAQMBxhqM/bVviCHUz
-	 1obwYqLGSm7Fq3L78NK5Rvdkfl5qy944r4irWD0NNJZkYmGCWO/rsjONY3skabCnAM
-	 MUiSjrJo4jqwg==
-Date: Mon, 9 Nov 2026 16:45:06 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Guo Zihao <guozh23@xiaopeng.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Matthew Garrett <matthewgarrett@google.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Obm6L/ji
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794235574; x=1825771574;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=eH+3l1QBIxv1/IMcwKV7cNhEIMMQ97rqwGMaHvQn0c4=;
+  b=Obm6L/ji3msyphQvZ3tXMfA26TuAAqQofij/6zmImPlscD4dwJDmwi+h
+   QQweuUI2716t3zFyxKAj6uN5dosr7OfQgm0x/ZdnbS8RaLegbvvm2MTlT
+   HINDnVrgomJpTGMHyIIUxViOBvkvaCdntQDDtl48KqA3lOLPmYHEv5Plv
+   KGW2/4byhe/DVbHSEKH+J2jZrv99OnfJx2Ra7A2Sg4FwytvA/BcTiNLTu
+   PTln9MQNVFLODWHlzaf4brB5KiYWzSCilfPJAOgUZduwvCwRxD/p20bnC
+   uhoKKIkNBWZyzgImJ9D7pEVuUbU6f3FR+Betb7De0Q3KgQedm/aa0EFJk
+   A==;
+X-CSE-ConnectionGUID: PaPCJRqETouGZvzIB+tGEg==
+X-CSE-MsgGUID: Jh8CjTIOQlaSTPO2w/wX/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2836640"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2836640"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:14 -0800
+X-CSE-ConnectionGUID: zH+OlhDfR6KlqmKRlcD/ow==
+X-CSE-MsgGUID: 5j1elAAYTqyHqmM13E4YYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8323933"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:11 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-pci@vger.kernel.org,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: efi: reject a final events table with an oversized
- preboot log
-Message-ID: <avHccmVUV9Wki9bC@kernel.org>
-References: <au3xM-7onNTtgceh@kernel.org>
- <179418897414.2773996.1582380807629789288@xiaopeng.com>
- <avHcB5IOQHomIvEU@kernel.org>
+Subject: [PATCH 1/3] PCI: Fix NULL dereference when shrinking window without optional size
+Date: Mon,  9 Nov 2026 16:45:51 +0200
+Message-ID: <20261109144553.2516-2-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
+References: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +84,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avHcB5IOQHomIvEU@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 04:43:23PM +0200, Jarkko Sakkinen wrote:
-> On Mon, Nov 09, 2026 at 09:49:34AM +0800, Guo Zihao wrote:
-> > On Fri, Nov 06, 2026 at 03:24:39PM +0000, Jarkko Sakkinen wrote:
-> > > Ditto.
-> > >
-> > > For all four address validation vs bug fix intersection. I did not
-> > > check throughly enough to be exactly sure of all four.
-> > 
-> > For this one I'd like to argue the bug fix case, since the data being
-> > validated is not something the TPM reports over a TCG-defined
-> > protocol: both sizes come from EFI configuration tables written by
-> > firmware, and nothing in the TCG spec constrains what firmware puts
-> > there.
-> > 
-> > The firmware data is already treated as untrusted in the same
-> > function: it bails out on an empty log (log_tbl->size == 0), on a
-> > missing final log address, and on a wrong log format version. The
-> > unchecked subtraction is the odd one out.
-> > 
-> > The consequence is also plain memory corruption rather than a
-> > graceful rejection: final_events_log_size goes negative, the
-> > following devm_krealloc() gets a wrapped size, and the memcpy()
-> > appending the final events log runs with a negative length.
-> > 
-> > And the out-of-bounds write was introduced by 166a2809d65b ("tpm:
-> > Don't duplicate events from the final event log in the TCG2 log"):
-> > before that commit nothing subtracted the preboot size, so a
-> > malformed table was harmless. The Fixes: tag refers to that
-> > regression, not to the malformed table itself.
-> > 
-> > Ard also had a look at v2 and only asked for a pr_warn() on the
-> > rejection path, which is in.
-> > 
-> > So I'd like to keep the Fixes: tag here, but I'm happy to drop it if
-> > you disagree - your tree, your call.
-> > 
-> > Thanks.
-> 
-> Let's take quantitative approach instead.
-> 
-> OK, so does this actually happen? I'm weighting this based on that
-> mainly. Usually bus corruption is not very common when it comes to
-> TPMs because they are usually either soldered or in the firmware.
-> 
-> Is there something I'm missing out? I don't think bus interposer
-> type of security scenario is common enough to use it as a rationale.
+adjust_bridge_window() assumes a bridge window it needs to shrink is on
+add_list. A window is only added to add_list when it has optional size
+or alignment. When resource distribution gives a window that is not on
+add_list less space than its required size, res_to_dev_res() returns NULL
+that is unconditionally dereferenced.
 
-I do think that the change is for better. I'm disregarding its value
-by saying this :-)
+Consider a hotplug Root Port with no spare pref space and a switch below
+it with two non-hotplug Downstream Ports. 02:00.0 has a 2M pref BAR below
+it and 02:01.0 a 1M one. Alignment leaves only 1M of pref space for
+02:00.0, and hot-add (emulated using a remove+rescan cycle) crashes in
+the inlined adjust_bridge_window():
 
-There's so many bug incoming that we need to be just somewhat rigid on
-what we consider as a bug fix per se and what not.
+  BUG: kernel NULL pointer dereference, address: 0000000000000030
+  RIP: 0010:pci_bus_distribute_available_resources+0x19b/0x4b0
+  Call Trace:
+   <TASK>
+   pci_bus_distribute_available_resources+0x468/0x4b0
+   pci_bus_distribute_available_resources+0x468/0x4b0
+   pci_bridge_distribute_available_resources+0x7a/0x90
+   pci_assign_unassigned_bridge_resources+0x43/0xe0
+   pci_rescan_bus_bridge_resize+0x23/0x40
+   bus_rescan_store+0x63/0x80
 
-Br, Jarkko
+The required size must not be shrunk, so return early when the window
+has no optional size.
+
+Fixes: dc4b4d04e1ca ("PCI: Prevent shrinking bridge window from its required size")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+---
+
+As it was a non-public run of sashiko, no link is available to sashiko's
+report.
+
+ drivers/pci/setup-bus.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed16ef7c26fa..bd0974def921 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1896,7 +1896,11 @@ static void adjust_bridge_window(struct pci_dev *bridge, struct resource *res,
+ 				break;
+ 		}
+ 
++		/* Without optional size, there is nothing to shrink. */
+ 		dev_res = res_to_dev_res(add_list, res);
++		if (!dev_res)
++			return;
++
+ 		add_size = size - new_size;
+ 		if (add_size < dev_res->add_size) {
+ 			dev_res->add_size -= add_size;
+-- 
+2.47.3
+
