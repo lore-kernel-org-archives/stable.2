@@ -1,73 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229038;
-	b=Yo3Ed0wZjmkTrvdcQZq6egqnydUT+ZZlC9fIksm2bIkxIzKs8+jed3pJ+Fl6TNkXuZfD
-	 03Rl894JSLevLx8wW2NnJnUDpY0N0jM2IaK776n6f8Q0Zrbi7XXLlhRJkRKYj1yRBem6S
-	 l6vXMNCnV2fe0JoDWyO83uvDdmMKVsCEqjLWZDff+ru7+lzUA0Ta55NiVpPn3+VDyHwVi
-	 rgdqYczyMED6fdDSEh13PE3KHm1xD4W/9scs0rq60cXUj++lv76EAUgeBZXhAS/d04z4o
-	 SCgso9b8xV0hC6EPQNFXQwm0wZxz7wI03Sr11GuKovuBSQoMDtmKIQlfOSQe4FPV5Pw==
+	t=1794229046;
+	b=v9H0frF+vLGRP7gpof89H55lsITygYYpKSDSDfOt+77jkzx90Kr2XgycD4vIG236HkcC
+	 KoxhpZcr8J/k10ZBV75eVlgESGZmAvzGQyQBK1n8m+rEwnsahsmbfNGH79PUhPw/3tQdP
+	 aRXKBCZxCPxG88GhptPx5TSXW++uX+oUWi5MJJwQ6Noey87ZOVqv9Huuahu/qJTpLORZM
+	 vkKdV/RXue7aayMaA8RThcj3tceXPqfeMXMWpWmNzI4MqHTrZZR48rVWfEGALOGGriFgk
+	 Gy9xFHAWZRuvJGKE9kK742qTiTxS0rD2sDMPClczNXcVe4JcTTAfoxdyQLeL1vXexIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229038;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:Date:From:To:Message-Id:In-Reply-To:References:Subject:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lg5cyUsM8ERQunHRYLgJbo+ATKTBMtf510Y3GOahvOE=;
-	b=V32Rhpz5WxXpjrlDJ9waA6gAibyqV74aJOHXjjMdupXRd8YTu94ShyLWhMjDReHtEB3z
-	 IMw9LiW1TNOPw/TaP4OzdGEHeHNdRpEacN6jUck+W3vY4oV7vZ/9MLQpU3R+0szeHfKjC
-	 zFC1h8YZbkaj1i9qsph2c31KRFgNTSpyER7XN+nxX5s94kZgFVOZKwlXTDX52Ys6nJ3TZ
-	 SDdR58TZA2uruURLUbKVUnWrTqZUmkZW1nwhTbX1eQjYl6js0jq+eIJ8xQ4L/sxod9JKj
-	 Ms+4ASLCHD7vJXZzZeuGIk6CO1d86bnC9C21EAuAMwzKSbSyLwOfvK5FoTXv+yvAPXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229046;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=decC6/EKFH5ygjGtgwveqkqNEtpd268ptmFddrXcQkE=;
+	b=zmS7uYbS0LIzWWzmeoMvXwGBZKEHmfJKHNZGfCw3jaks5492/8rDW8QB1XAqeuVyOfID
+	 SkxOiUJRrBz1EXjg4OXl5FmavR0cxq5zsUWu2PaDen6j3Y1/YFg8U0ZF9Px95z667LgRY
+	 2QUavyGSLZABnXYyXIaAuqbQYfvf4S2yy7nc25q8zhcDs8Q8RcFW5f1CU1o+j96OJTW0a
+	 CtvhV9GqzwmdvBfuuSivQfG/d69Ho4sCTN1ZKn3h7x8Xf6qN4+LTgVnj+TTSCF0RShcrV
+	 UNtH9bECA8MoTBhTzBbTJv7BRoAg3OxxJ71FVvoD3UT7Qz5f3ZWyD2NxbVUWfpw0caQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cKyM1U/1";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ag8NylaB;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEFD606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:57:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A830E606A31C;
+	Mon,  9 Nov 2026 12:57:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A830E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKyM1U/1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472951F0089F
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:57:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794229037;
-	bh=lg5cyUsM8ERQunHRYLgJbo+ATKTBMtf510Y3GOahvOE=;
-	h=Date:From:To:In-Reply-To:References:Subject;
-	b=cKyM1U/1kBRJHHYqeGHXFT1wOtdMoyWyMuLsPSmP01J3UEBj8BKR0zAkkAheq1KAF
-	 VqxEqiON7M001uVaogoCrZgYO2n4h3hc1fYNV1/Ur046Q2cE5sIhr44nCVInAI92Nr
-	 JRDO2pS+LT+GDzvHGHtiOGBjSNuVVGKmBuXjqUNKo5DRup+J+xmAQkhmo+H+Zov935
-	 oNRurfnEzV89m7nzTktnDFUoUX9BZY57nfDi1XiFHgpoLZYJZ13tZ0rZB8mArncewm
-	 3Qo5Pc5uoQV4pLRJBeaNTX2AATpIDiJQ+z8Rz9LqTz9aVcwEX/Ttewfst9+BM5eePQ
-	 2teLw83g+B6Ag==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 85C92198003A
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 07:57:15 -0500 (EST)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Mon, 09 Nov 2026 07:57:15 -0500
-X-ME-Sender: <xms:KsPxaozJEng7FkGoDg5zGyDGbkijlFDyRjCnBlQX2FlqZg3d_VPgTg>
-    <xme:KsPxanFsshF8k9aicqJo_3aaP3hpag2XSoeAVDoqD_CVEOtMu9GOAdL9tG81FHMWL
-    CQeallTDxN8fe0U12Ril0WmlYD04lLLkncpLL2o3I1ztAtHuNyXS83E>
-X-ME-Proxy-Cause: dmFkZTE5JxoTQavf6f4VYgLo5pD3pwLbuMver0RCU8WqgRI+zcthdgwYf0JrxtmEIPWvQ6
-    DV0wMWr4CKi2zGPxlYk7jX+16LE33fy9y5agI4iZNumSHzca5rNDDtum/zYVMP0bMmI+dW
-    0ETyJZmHikPrf1UqqXyQKAR/w8+E2HqC48SXIWS99BhwLkLyKbxAGwiBUB7/AjuV7i6Ssb
-    RVvALxpyzExsrNCOR4ngSChxeed8eZoAnzNOVeOqPDcQkO6K0T+9x/qB33E3FCGhQR7zn/
-    FBEvvGLEYhafdTmLxQu0r/cmKzRrGrQ9F3S98zRp7D3XckksSPAHoIgjSxww0e1yaYpGGJ
-    FUotiuF+aNdWfHkcB1SeCcVKvNOusrN4OYtuXTkbS48A9tV9Zu+4/IF1ZldpqD5TIiRmWP
-    0JiOFRuzzVRwpFrIbaYa00c40NcUwF0AUNxhzNQDnIz3A2zuRnzBSUSXGUyAGv1FFFHXk0
-    1/hdk5o6go4A0w73lGxeXtF+CeAjNxoKuuA6IJbk7taA8tNSNKdA90R73/jFvkMwiPMghl
-    avj9LVJjcq6KeDQXZZ5fsdukVsT8H2NxxIyUujKIC3pGOcDHqVlalPQiEUocDWVnVP1sIb
-    z4qAVOUWUz8Eq5UCqpqmmTiRXqQia5YUhN5l7rkWLvHEkhqyWs0/tKBFW+9w
-X-ME-Proxy: <xmx:K8PxasCkWxnJstetr-kliwJol-DEzmZMLSWNIYsdJQgqCeaXcAlymw>
-    <xmx:K8Pxaucmf-v4R4h5lenjyyWrJmZTCfk6hXU73U_jjIYQ9PDXH1pBMA>
-    <xmx:K8PxascPMFLFdyhzYTJELVT-kNI7nsD4QG2-ZuPwPMy-XBiknhmkTQ>
-    <xmx:K8Pxaqhuwgt_2kSt5-Uxk-G0S2OcL9MfpKTlPXyzmn2TeRqkSWhQ2w>
-    <xmx:K8PxagQXE3NaA-m3CeT0b1yuD6H_zbl12CHDRAr32GHy3uTk2JZ4FD-I>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 95954F80093; Mon,  9 Nov 2026 07:57:14 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=ag8NylaB
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E3A3A0021;
+	Mon, 09 Nov 2026 13:57:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794229040; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=decC6/EKFH5ygjGtgwveqkqNEtpd268ptmFddrXcQkE=;
+	b=ag8NylaBvFXAoooQLCb5KYvDCoc9EzouQ8vh15P+yAwFILO/BFMtvcoGG7E6kUb4KzfM+6
+	/b5zYZo0WY2EkoE8N0dl7JOywH447CieFC6VTUhOkRTGUoB/UN11p5HLaLkYOlNGNFSnX0
+	q47MQNI5eQpbjL4UqLZ9ZKEO7ae1UazeSKZLVqphslkAhmrMz5of8RlOj4hJJSgH9XJ8nw
+	QA1rOrnrsDo5iPhRCOQRKwE3SOOJD0M+BKd3FUKB3rZptVWFKYSvE9kouVQEoWFiYFJpIh
+	O2Rqo4lC52ywUYp/iecFdF06wWSNlxjWLF1Gy7jdAoFDKxnpH4O3RyBdG+dFSQ==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Mon, 09 Nov 2026 13:57:09 +0100
+Subject: [PATCH 6.18.y] net: macb: wait for a running xmit before resetting
+ BQL on close
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,45 +56,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 09 Nov 2026 13:56:54 +0100
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: stable@vger.kernel.org
-Message-Id: <4f2a615a-c9c9-47c3-9cc9-b5071e8772e4@app.fastmail.com>
-In-Reply-To: <20261109122129.1396402-2-ardb+git@google.com>
-References: <20261107052256-failed-6.12-4c86b5f3fa78@kernel.org>
- <20261109122129.1396402-2-ardb+git@google.com>
-Subject: Re: [PATCH -stable] efi/libstub: arm64: Don't use the platform register x18
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261109-nb-macb-close-6-18-y-v1-1-51af4b20dffb@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMAwAf4X02ZJ1SgV/xfjAZtUaHWRVIyH8u
+ 1Mf75K7GUyyisGumiHLS02HVIBWFcRLn86CeiwM3nkmch2mgPc+Boy3wQQZqcUJyXPn1hvfNLy
+ Fko5ZTvr+bffANbX1BIe/t2e4Snx8n7AsH37+SbuAAAAA
+X-Change-ID: 20261109-nb-macb-close-6-18-y-126903425567
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sasha Levin <sashal@kernel.org>
+Cc: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Sean Anderson <sean.anderson@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
+macb_close() stops the queues without waiting for an xmit still
+running on another CPU. That frame charges BQL after the reset and
+never completes, so after the reopen the queue stays stopped with an
+empty ring and the watchdog fires until the next close.
 
+Seen on a Raspberry Pi CM5 with ethtool -G under load.
 
-On Mon, 9 Nov 2026, at 13:21, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
->
-> commit 4c86b5f3fa78347fa9cbc9e8ec06615b2f80e397 upstream
->
-> The UEFI specification designates x18, the platform register, as "do not
-> use" on AArch64, so that UEFI code is compatible both with an OS that
-> assigns a fixed role to x18, and with one that uses it as a temporary
-> register.
->
-> The arm64 EFI stub and the EFI zboot decompressor only avoid x18 if the
-> kernel is built with shadow call stacks, as that is the only case where
-> -ffixed-x18 is added to KBUILD_CFLAGS, which the stub inherits.
-> Otherwise, the compiler is free to use x18 as a temporary register, and
-> it does so.
->
-> So pass -ffixed-x18 unconditionally when building the stub for arm64,
-> so that the image can be run by loaders that rely on x18 being left
-> alone, such as a kernel that uses it for its shadow call stack.
->
-> Cc: <stable@vger.kernel.org> # 6.12.y and older
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> ---
->  drivers/firmware/efi/libstub/Makefile | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
+Upstream fixed this as part of the context swap rework in commit
+dcc3288b9433a ("net: macb: use context swapping in .set_ringparam()"),
+which is too large for stable.
 
-This applies to 6.12 and 6.8 only - I'll have another one out
-for the older ones.
+Fixes: e6a532185daa ("net: cadence: macb: Implement BQL")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Fixes a close race in 6.18.y and 7.3.y. Older LTS kernels have no BQL
+in macb and 7.4 has the fix through Théo's context swap series, so let's
+keep the fix small instead of pulling that whole series in.
+
+The stall was observed on a Raspberry Pi CM5 (2/30 close/open cycles under
+load stalled), so it is worth fixing.
+---
+ drivers/net/ethernet/cadence/macb_main.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 1eaf9be483153..422dd167187da 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -3156,14 +3156,16 @@ static int macb_close(struct net_device *dev)
+ 	unsigned long flags;
+ 	unsigned int q;
+ 
+-	netif_tx_stop_all_queues(dev);
+-
+ 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+ 		napi_disable(&queue->napi_rx);
+ 		napi_disable(&queue->napi_tx);
+-		netdev_tx_reset_queue(netdev_get_tx_queue(dev, q));
+ 	}
+ 
++	netif_tx_disable(dev);
++
++	for (q = 0; q < bp->num_queues; ++q)
++		netdev_tx_reset_queue(netdev_get_tx_queue(dev, q));
++
+ 	phylink_stop(bp->phylink);
+ 	phylink_disconnect_phy(bp->phylink);
+ 
+
+---
+base-commit: c3f63d70f236bb7685e6d11d1d9b5b351552e600
+change-id: 20261109-nb-macb-close-6-18-y-126903425567
+
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
+
