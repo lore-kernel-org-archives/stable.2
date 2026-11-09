@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794202370;
-	b=kka4/JjJa78HU7jSwZNy12+O3Wv3QVb882sp7vLvipcUDMGflavn7PkRe12pENKM8NeU
-	 75Cxmc+n8XnSnkYs3C8smx0LcIkw+4ZTxtZX4JAY4oo+XJpoSXdtp7HQgARO780e2hEqF
-	 pIb5aylNtZjhSzD6hGSlsM01zVPm8MoBysR15J7oINMkiDgWkELE5p8yG4uuoPQUkNtKm
-	 HylvIV1Y8hZFbtel1NEsp10jTCHtMNvhCEZvKCtL/gk7cZlJ5G3bUTM60/tRHd8QgfoTx
-	 dcc6l+pH9361TCG35KMTODH+C8EUSboGTMfEJkXeN1Q0bXIbA1wLbs0aXK0PU4TclPw==
+	t=1794202565;
+	b=Xml39tNfA0Lrsx9VrezPbCf0Xafkw4JnYDsKrIClSXX3Q3Mz8ZnLGVgq9Y7mjGnoQi82
+	 Mxm/Bauhoram5Rd+H7gr2SvPjDLBVfM8Ftm11Fx8jGsKCbXq6PgR9e1Di4VN0EOYikRmj
+	 SoEugR7ByN7Al+COH28qu2yYLIhDz1JywTdhl4UgopZSrJhmwW54r1GCdu1WE39DYZ8EZ
+	 0IZ3sh7oELn3SsAogTWNmhL1nG6kvvUM1O1ufrdhsRmpeu2p/DBWhNlg+My8aB+ame9qB
+	 uUiTdXdFr/2uyDt1KmMhY6/b09dULgFUXOsRjIS1D4YkRgu4hb6MwkRFiGdT3cvT94g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794202370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202565;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=kw9/cl/xv94ER8eFxqrZv0WxoeVLB4w/9rowBWWy0ZI=;
-	b=r710Q5Ip1vQXWiL9sTNpgo8IM0WVI4CzwZfrjOBPfrNk5IyT1JLSyF/lK2Xtn9mwf+pX
-	 dyqvLoFNNcRiIhTwif+YrxaTt08ih2+n7RxAVmkloX/oPZjzAaqPffHin37Q/R4UzQVzN
-	 cfm+Il0l10cnCS7KbOG4hORLYYWrCnN7m7NpvUvG0076PKTQ61yCiSZyx7YjIbkSxrEIB
-	 ueTiMnA0XnRD69gCaDG90QwR3sX0euqFiSQi13JguVUWlxu0Y4qUieJsuK+r8S+iRGqE2
-	 3S+Zj66ZrxqKFGTN/Mp/O/Vld42pf75PQ5ZzI8BMRXZzQLAivFb7zrw9J/jWKgL9Okg==
+	bh=zEHzahGRMT/SXnUT0PLyL436MEuNRv0wJUECgD7a2iA=;
+	b=E0fM9W01e7cF5/h6O+AnmYNGQkDPvLa3SBPVMet4JiUoXN1onfRNLVVoZ94w3DHor9T1
+	 qbQ30/90U5EgwLPavX4qFeqTtKZBKwsFl+BnsLjwp5VaR8U1wWWbDZfQ0iWtfvIGGyX5H
+	 9u99wP76k/B7x6T6PrW68HExx8YAE+caARGIiUVnILgBRK/OKQhpdlkCqvkqyEWVpQcOy
+	 ++84EafuKZl46dnv8Iv5JsNOMy1i6XvDbC0ok4VQaAmqpCKoLGC1YD27mZarqx+pDP1fj
+	 xMg9hZuZKwIN3TWMv7BccTz4ruq2XS0h/47xBJV4K7+vX2U1PU3DlED/ywUwmW+jNTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cweUIAsv;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cWtylABb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FA3606A334;
-	Mon,  9 Nov 2026 05:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581A7606A31C;
+	Mon,  9 Nov 2026 05:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cweUIAsv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A5861F008A2;
-	Mon,  9 Nov 2026 05:32:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=cWtylABb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF0F1F0089F;
+	Mon,  9 Nov 2026 05:36:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794202369;
-	bh=kw9/cl/xv94ER8eFxqrZv0WxoeVLB4w/9rowBWWy0ZI=;
+	d=linux-foundation.org; s=korg; t=1794202565;
+	bh=zEHzahGRMT/SXnUT0PLyL436MEuNRv0wJUECgD7a2iA=;
 	h=Date:To:From:Subject;
-	b=cweUIAsveMzRJhFwltQJH2+jY404I1dmgLorJiUtXe10loLrzmYRDriUtLwQU5J93
-	 xTzjtpKU5GPGthNvOHkrGoh3h2VwvZ5WuzT4OvkN2MZEdDEm8ZXmPg+iwAI4CWCoEI
-	 fpzarvCwyS+Uk7yMIsTcbLunmmV5es9MCu6hn8qE=
-Date: Sun, 08 Nov 2026 21:32:48 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,usama.arif@linux.dev,
-	stable@vger.kernel.org,ryan.roberts@arm.com,qi.zheng@linux.dev,
-	nico.pache@linux.dev,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,
-	hughd@google.com,dev.jain@arm.com,baolin.wang@linux.alibaba.com,
-	baohua@kernel.org,david@kernel.org,akpm@linux-foundation.org
+	b=cWtylABbIK7l+Ykn/V8uDxXAQ+9Kuj6VmI3ykmDwncpzAIpxC7Ryv7YR2R1l+SZtf
+	 8o60sBoS9RV2odk2P/CpsxLAjM4A4Y24doUasR3WVM7kLmysAzcf9i4GP2Bd7pa6j1
+	 YOLqM51R1QhISJwwG0OwwnA0KWvr0aXD80NpY5oY=
+Date: Sun, 08 Nov 2026 21:36:04 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,tz2294@columbia.edu,
+	stable@vger.kernel.org,rppt@kernel.org,qi.zheng@linux.dev,pfalcato@suse.de,
+	peterx@redhat.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,
+	jannh@google.com,david@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-free-unused-page-table-allocated-by-do_set_pmd.patch added to mm-new branch
-Message-Id: <20261109053249.5A5861F008A2@smtp.kernel.org>
+Subject: + mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch added to mm-new branch
+Message-Id: <20261109053605.0BF0F1F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,12 +54,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm: free unused page table allocated by do_set_pmd()
+     Subject: mm/mprotect: don't skip uffd marker install when racing with PTE table reclaim
 has been added to the -mm mm-new branch.  Its filename is
-     mm-free-unused-page-table-allocated-by-do_set_pmd.patch
+     mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-free-unused-page-table-allocated-by-do_set_pmd.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
 
 This patch will later appear in the mm-new branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -90,85 +89,124 @@ and is updated there most days
 
 ------------------------------------------------------
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm: free unused page table allocated by do_set_pmd()
-Date: Fri, 06 Nov 2026 13:36:12 +0100
+Subject: mm/mprotect: don't skip uffd marker install when racing with PTE table reclaim
+Date: Sat, 07 Nov 2026 00:28:55 +0100
 
-Patch series "mm: free unused page table allocated by do_set_pmd()", v2.
+change_pmd_range() populates PTE tables before installing uffd-wp markers.
+An empty PTE table can be removed after change_pmd_prepare() returns but
+before the pmd_none() check.
 
+That check then skips the range, allowing UFFDIO_WRITEPROTECT to report
+success without installing the required markers.  Subsequent writes by
+userspace to these areas will not trigger uffd events.
 
-This patch (of 2):
+PTE table reclaim during MADV_DONTNEED and page table retraction during
+khugepaged can trigger this.
 
-do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-deposited page table, such as PowerPC with the hash MMU. If the PMD is
-no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-without consuming that table.
+Retry page-table allocation in that case. Simplify the code, getting
+rid of change_pmd_prepare() by routing all code through the "again" label.
 
-Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-userfaultfd operation can install a PTE table before taking the folio
-lock. If that races with set_huge_pmd(), the unused preallocated table
-is lost when its local vm_fault goes out of scope.
+It's a small race though, so likely this is not very urgent.
 
-Track whether do_set_pmd() allocated the table and free it after dropping
-the PMD lock if it was not consumed. Preserve any preallocated table
-supplied by the caller for PTE fallback. Successful PMD installation
-consumes the table and clears the pointer.
-
-Returning without a preallocated table matches the existing behavior on
-architectures that do not need a deposited table. All callers
-already handle that case.
-
-Link: https://lore.kernel.org/20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org
-Link: https://lore.kernel.org/20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org
-Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
+Link: https://lore.kernel.org/20261107-uffd_shmem_marker-v1-1-91fa2d653cfe@kernel.org
+Fixes: fe2567eb5521 ("mm/shmem: allow uffd wr-protect none pte for file-backed mem")
+Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Hugh Dickins <hughd@google.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/memory.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/mprotect.c |   48 +++++++++++-------------------------------------
+ 1 file changed, 11 insertions(+), 37 deletions(-)
 
---- a/mm/memory.c~mm-free-unused-page-table-allocated-by-do_set_pmd
-+++ a/mm/memory.c
-@@ -5694,6 +5694,7 @@ vm_fault_t do_set_pmd(struct vm_fault *v
- 	struct vm_area_struct *vma = vmf->vma;
- 	bool write = vmf->flags & FAULT_FLAG_WRITE;
- 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-+	bool pgtable_allocated = false;
- 	pmd_t entry;
- 	vm_fault_t ret = VM_FAULT_FALLBACK;
- 
-@@ -5732,6 +5733,7 @@ vm_fault_t do_set_pmd(struct vm_fault *v
- 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
- 		if (!vmf->prealloc_pte)
- 			return VM_FAULT_OOM;
-+		pgtable_allocated = true;
- 	}
- 
- 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
-@@ -5762,6 +5764,10 @@ vm_fault_t do_set_pmd(struct vm_fault *v
- 	count_vm_event(THP_FILE_MAPPED);
- out:
- 	spin_unlock(vmf->ptl);
-+	if (pgtable_allocated && vmf->prealloc_pte) {
-+		pte_free(vma->vm_mm, vmf->prealloc_pte);
-+		vmf->prealloc_pte = NULL;
-+	}
- 	return ret;
+--- a/mm/mprotect.c~mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim
++++ a/mm/mprotect.c
+@@ -470,25 +470,8 @@ pgtable_populate_needed(struct vm_area_s
  }
- #else
+ 
+ /*
+- * Populate the pgtable underneath for whatever reason if requested.
+- * When {pte|pmd|...}_alloc() failed we treat it the same way as pgtable
+- * allocation failures during page faults by kicking OOM and returning
+- * error.
+- */
+-#define  change_pmd_prepare(vma, pmd, cp_flags)				\
+-	({								\
+-		long err = 0;						\
+-		if (unlikely(pgtable_populate_needed(vma, cp_flags))) {	\
+-			if (pte_alloc(vma->vm_mm, pmd))			\
+-				err = -ENOMEM;				\
+-		}							\
+-		err;							\
+-	})
+-
+-/*
+- * This is the general pud/p4d/pgd version of change_pmd_prepare(). We need to
+- * have separate change_pmd_prepare() because pte_alloc() returns 0 on success,
+- * while {pmd|pud|p4d}_alloc() returns the valid pointer on success.
++ * Populate the lower-level page table if marker installation requires it.
++ * Return -ENOMEM on allocation failure.
+  */
+ #define  change_prepare(vma, high, low, addr, cp_flags)			\
+ 	  ({								\
+@@ -517,30 +500,21 @@ static inline long change_pmd_range(stru
+ again:
+ 		next = pmd_addr_end(addr, end);
+ 
+-		ret = change_pmd_prepare(vma, pmd, cp_flags);
+-		if (ret) {
+-			pages = ret;
+-			break;
+-		}
+-
+-		if (pmd_none(*pmd))
++		if (unlikely(pgtable_populate_needed(vma, cp_flags))) {
++			if (pte_alloc(vma->vm_mm, pmd)) {
++				pages = -ENOMEM;
++				break;
++			}
++		} else if (pmd_none(*pmd)) {
+ 			goto next;
++		}
+ 
+ 		_pmd = pmdp_get_lockless(pmd);
+ 		if (pmd_is_huge(_pmd)) {
+ 			if ((next - addr != HPAGE_PMD_SIZE) ||
+ 			    pgtable_split_needed(vma, cp_flags)) {
+ 				__split_huge_pmd(vma, pmd, addr, false);
+-				/*
+-				 * For file-backed, the pmd could have been
+-				 * cleared; make sure pmd populated if
+-				 * necessary, then fall-through to pte level.
+-				 */
+-				ret = change_pmd_prepare(vma, pmd, cp_flags);
+-				if (ret) {
+-					pages = ret;
+-					break;
+-				}
++				goto again;
+ 			} else {
+ 				ret = change_huge_pmd(tlb, vma, pmd,
+ 						addr, newprot, cp_flags);
+@@ -554,7 +528,7 @@ again:
+ 					goto next;
+ 				}
+ 			}
+-			/* fall through, the trans huge pmd just split */
++			/* The PMD might have been split. */
+ 		}
+ 
+ 		ret = change_pte_range(tlb, vma, pmd, addr, next, newprot,
 _
 
 Patches currently in -mm which might be from david@kernel.org are
@@ -176,4 +214,5 @@ Patches currently in -mm which might be from david@kernel.org are
 mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch
 mm-free-unused-page-table-allocated-by-do_set_pmd.patch
 mm-dont-allocate-a-page-table-under-rcu-in-do_set_pmd.patch
+mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
 
