@@ -1,84 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188583;
-	b=Xo2GB8r6XJTvJIBSLSHNVIH2jAd1N7BxVdn0Dw6q/SlZXEtNRMliCvApAoabHSr4Jv0z
-	 4ZM7akki9y8i6jvQUwKX/7ULPuVPbhF1jCVdWB3iwkmRvbanQpMUv5AcyOER0l/wdLda5
-	 UzWVkVjqMtFAdAI36g6vKCL7iYpP3BgYhc9mNDl4vT+MUnOX+bSxh85o1UzIMEfzqvFGS
-	 nTvagIRRnArZpizCSk4g97/3H+daILWl5+3pHa1oCvoZN6+JrFuyaMQRzB0GWdYAGgDoh
-	 hkbBYaSQQDYRxTq3jF+EFX+gHHFogHkLWb1w0RjO730suIz1EFIQs7H+EUCZK59dxcw==
+	t=1794188744;
+	b=oynEtUvSgE5ONdTYtfpLtHf/c9YzzGLpD2m5vJrCv/U/XLhOHQWLOk4mzYWGmPOrBdUG
+	 sZ7hEO+6pY9fhfyYE46dUcpjRL4ix8MmnPHP9TaX64Q7Nau1lOoBWnW+JC6DHQacg/HEM
+	 50rEJsuY1ck++iUo70A53o+0aYy9bJOIbyIJvtBcdyRKiLCa4ragNyp5RQlwP6zJ6A+O8
+	 3gcm4RHUKpKnsmml/mDzZqLjnMCupG5k8wLGytN/vHwmlk+pTAGbrJeRiwrAnYSUsygrV
+	 mT7DC3BWIyD9wcgea1fVSlk5IWnraVHPcUdsBFJaLq/6tv5S0CxwY5gLZ8h4xFYoY4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188583;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lcmDctdGM+ZPmo4n0zBEpFAnirakx/N74Fvc8cihL8M=;
-	b=J2GtegpjdAoUi0s6rien01lVhX1xu6vh8TUzCCfTBp161s57kngUvZAEI0jTvQaGji0g
-	 LuuHJOm7kyyHuGMzHBdqUATkVwpc3fS+qMbJ70PJbRzM0qghtIMKb6xsVWhtSQnlOofRN
-	 Gpz8EyOrpXqDe+DZ65D6jN6f9SToQEX0q4cQXlpY8CyomKzzKg729Z0EImnYsmA3MJzts
-	 76ummiQQjralpD6OqPjfIUnULvZPvPjQ/jgtpVxlxt18ZXIGz0P/AEqv8iwg0XQ2BIptX
-	 lwdfKd5WlcvTj/Tpajzb8Nvb3GuvjfSrzN2M+kmsdomnQL4RzALvszIg5mKj3GuoIHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188744;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dJtHGHDtZtmjbOKJHErtajvv0VrvqMou54t9YxCKM0o=;
+	b=ouRyu2UiZTtQmiKFdHMRezNqYdmOueGo+zPgu8C7qnxF/W1wX5cXMXVWURQ/vl77Xdcv
+	 /A1d9WOsG84XgcBCwfMIAvycd3uo75jOMrAltmwaQSJ9kgMKPR+HnFyzPz9jOzWPmYpFT
+	 Y7YryrrltJm70VpfGLuGG9V2whstAN2hsJUqH7MIq1Ej9+W3nHwWaftKLbTg9uT90jSSv
+	 74zypaXgzXKXjivKuSRBXlXSFA3/iTfmyHlQr6tCAU4GS4qkUrxHGcumfp2+dH8qI9AKP
+	 GINWQLEFdG1uYgEfUFBgSCw15v/EjeZHKEPN7oiuYXBGhTRvX9DzDTUqAcKc8rVugbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gQ5QmdNJ;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02617606A332;
-	Mon,  9 Nov 2026 01:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02617606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZCTsIWQC;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EFFB3606A323;
+	Mon,  9 Nov 2026 01:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFFB3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gQ5QmdNJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794188582; x=1825724582;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wsAa2/L/mbiZWmbfru9q1ls/zeEYONCiPJqJ3XWh7fE=;
-  b=gQ5QmdNJpwYyo/babJjWUC2iU2U4V0wNFDLkAu7wVXaSNxgF3si2wsJQ
-   XuVBYqCoKFaUBZDmnHUZd3eckmeVAYE2Vo8UJhUxBU0aYXBnq5qFeZBmy
-   9YsDtqRqiehn176D+6UUnBCSSxeUFQPwmUXLFU/qLoZFFrohE6b5v44yW
-   mQaLMsoNJGxBpZwDMfOatJLMWll+kYuHYt2lJDeClfrklqyhxJ3dRSTyr
-   g3k46hFASU16QsZpTfk2Ry2kv0czy3bmci2BS/N9q4gFuziHJmkUF23sG
-   c81WnyYH/xOPPsCt4Dp5j83oemquQ9k9mPcvK6Ni8Lo5e0ZxFGzBt2RtA
-   A==;
-X-CSE-ConnectionGUID: KfF92RuzSF2O7zbYndk7iw==
-X-CSE-MsgGUID: MTx+2aBoT3qkSFaxObw2hg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2956319"
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="2956319"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:43:01 -0800
-X-CSE-ConnectionGUID: YOYE8PXER66Ej7YgwIwDNw==
-X-CSE-MsgGUID: VFN7djWGQLKyEGqawQqt8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="9502877"
-Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:42:58 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZCTsIWQC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ZCTsIWQC3uvYimIqtqZrylff+56BGKJHKpKwpaU5Cfuz3bUDPtX3EwWWAvqfl7xXjo+y1LyVfRs7c
+	 wnXw33m0+kHd/0iiqbS1iWT+FHjzuKUq+qvNo8PWqUvwcWp/JJIPzrsIzAM+XYhn3VpPnocEo7i5VX
+	 dAEfzoNP+QhB3fmc=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26af125c3ba6-fa8ff;
+	Mon, 09 Nov 2026 09:45:40 +0800 (CST)
+X-RM-TRANSID:2ee26af125c3ba6-fa8ff
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[223.108.79.102])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af125c1671-7c028;
+	Mon, 09 Nov 2026 09:45:40 +0800 (CST)
+X-RM-TRANSID:2eea6af125c1671-7c028
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
 	linux-kernel@vger.kernel.org,
-	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
-	Madhur Kumar <madhurkumar004@gmail.com>,
-	Fei Yu <fei.yu@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
-Date: Mon,  9 Nov 2026 09:48:52 +0800
-Message-ID: <20261109014852.2127723-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com,
+	tpluszz77@gmail.com
+Subject: [PATCH net v3 2/2] selftests: net: exercise SO_MARK on connected sockets
+Date: Mon,  9 Nov 2026 09:45:26 +0800
+Message-ID: <20261109014400.9025-2-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
+References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,246 +82,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fei Yu <fei.yu@intel.com>
+cmsg_so_mark.sh sends to explicit destinations, so it does not test the
+route cached by connect().
 
-The syncobj ioctls allocate several temporary arrays whose size is taken
-directly from the u32 count_handles provided by userspace:
+Add -k to cmsg_sender to connect first and send without msg_name.
+Check connected IPv4 and IPv6 UDP, ping and raw sockets with equal,
+prohibited and zero per-message marks.
 
- - handles and syncobjs in drm_syncobj_array_find()
- - points and entries in drm_syncobj_array_wait_timeout()
- - points and chains in drm_syncobj_timeline_signal_ioctl()
+Add an exact mark 0 prohibit rule before the connected cases. Connect
+with an allowed socket mark, then require rejection of a mark 0 cmsg.
 
-These are kmalloc() allocations, so a count above KMALLOC_MAX_SIZE /
-element size trips the WARN_ON_ONCE_GFP() in ___kmalloc_large_node():
-
-  WARNING: mm/slub.c:5459 at ___kmalloc_large_node+0x10c/0x170 mm/slub.c:5459
-  Call Trace:
-   __kmalloc_large_node_noprof+0x18/0x90 mm/slub.c:5502
-   __do_kmalloc_node mm/slub.c:5519 [inline]
-   __kmalloc_noprof+0x3f6/0x710 mm/slub.c:5556
-   _kmalloc_noprof include/linux/slab.h:995 [inline]
-   _kmalloc_array_noprof include/linux/slab.h:1211 [inline]
-   drm_syncobj_array_find+0x3a/0x440 drivers/gpu/drm/drm_syncobj.c:1241
-   drm_syncobj_timeline_wait_ioctl+0x18a/0x640 drivers/gpu/drm/drm_syncobj.c:1356
-   drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:817
-   drm_ioctl+0x70e/0xba0 drivers/gpu/drm/drm_ioctl.c:914
-
-The wait entries are 64 bytes each on 64-bit, so with a 4 MiB
-KMALLOC_MAX_SIZE a wait on more than about 64K handles already fails
-today, with a warning.
-
-Fix this in two parts:
-
- - Reject more than DRM_SYNCOBJ_MAX_HANDLES (1M) handles with -EINVAL in
-   drm_syncobj_array_find(), which every ioctl taking a handle array goes
-   through. The limit is a fixed number, so it is the same on all
-   architectures. It is above what these ioctls can handle today: with a
-   4 MiB KMALLOC_MAX_SIZE the 8-byte arrays already fail above 512K
-   handles on 64-bit, so no request that succeeds now is rejected. A
-   static_assert() makes sure that the largest per-handle allocation, the
-   wait entries, stays below the INT_MAX size limit of kvmalloc().
-
- - Switch the six allocations to kvmalloc(), so that handle counts up to
-   the limit (64 MiB of wait entries for 1M handles) no longer depend on
-   physically contiguous memory.
-
-Using kvmalloc() alone is not enough: the reproducer asks for more than
-INT_MAX bytes, which hits the WARN_ON_ONCE() in __kvmalloc_node_noprof()
-instead.
-
-Fixes: 3e6fb72d6cef ("drm/syncobj: Add a syncobj_array_find helper")
-Reported-by: syzbot+95416f957d84e858b377@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
-Suggested-by: Christian König <christian.koenig@amd.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fei Yu <fei.yu@intel.com>
+The same test fails four IPv6 cases before the kernel fix and passes
+all 54 with it.
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 ---
 v3:
- - Use a fixed DRM_SYNCOBJ_MAX_HANDLES of SZ_1M instead of deriving it from
-   sizeof(struct syncobj_wait_entry), so the limit is the same on 32-bit
-   and 64-bit, and add a static_assert() against the kvmalloc() INT_MAX
-   limit (Christian).
- - 1M rather than 64K: with a 4 MiB KMALLOC_MAX_SIZE, reset, signal, query
-   and timeline_signal currently work up to 512K handles on 64-bit, so a
-   64K limit would turn requests that work today into -EINVAL.
- - Keep the define kernel internal for -fixes; documenting the limit in
-   the uAPI struct comments will be a separate patch for -next.
- - Add Cc: stable.
- - v2: https://lore.kernel.org/all/20261104030930.3852781-1-fei.yu@intel.com/
+  - Add an exact mark 0 prohibit rule for the connected cases.
+  - Require rejection of a mark 0 cmsg after an allowed connect().
 
-v2:
- - Drop __GFP_NOWARN (Christian).
- - Add DRM_SYNCOBJ_MAX_HANDLES, return -EINVAL above it, and switch all six
-   arrays to kvmalloc() (Christian).
- - v1: https://lore.kernel.org/all/20261103085002.3100723-1-fei.yu@intel.com/
+v2: https://lore.kernel.org/netdev/20261104092252.15712-1-yanxia@cmss.chinamobile.com/T/
 
-The vmemdup_array_user() conversion and the points array cleanup Christian
-pointed out are left to Tvrtko's series, which he will rebase on top of
-this fix for -next.
+ tools/testing/selftests/net/cmsg_sender.c   | 21 +++++++++++++++++---
+ tools/testing/selftests/net/cmsg_so_mark.sh | 22 +++++++++++++++++++++
+ 2 files changed, 40 insertions(+), 3 deletions(-)
 
-Testing on v7.4-rc1 (x86_64, KASAN, virtio-gpu in QEMU):
- - syzbot C reproducer: base warns in ___kmalloc_large_node(), patched is
-   clean, the ioctl returns -EINVAL.
- - 1048576 signaled syncobjs; wait, timeline_wait, timeline_signal, query,
-   reset and signal with count 200000, 1M and 1M + 1:
-     base:    200000: wait and timeline_wait fail with -ENOMEM and the
-              warning, the others succeed. 1M: all six fail with -ENOMEM.
-     patched: 200000 and 1M: all succeed. 1M + 1: all return -EINVAL.
- - drm_syncobj.o builds for i386 with W=1 (static_assert holds).
- - checkpatch --strict clean, W=1 clean, kmemleak clean,
-   DRM KUnit 667/667 passed.
- - IGT syncobj_basic, syncobj_wait, syncobj_timeline on virtio-gpu:
-   202/202 subtests pass, same as base.
-
- drivers/gpu/drm/drm_syncobj.c | 44 +++++++++++++++++++++++------------
- 1 file changed, 29 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index f1d4da168545..c8a8c49d12fb 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -199,6 +199,7 @@
- #include <linux/file.h>
- #include <linux/fs.h>
- #include <linux/sched/signal.h>
-+#include <linux/sizes.h>
- #include <linux/sync_file.h>
- #include <linux/uaccess.h>
-
-@@ -220,6 +221,16 @@ struct syncobj_wait_entry {
- 	u64    point;
+diff --git a/tools/testing/selftests/net/cmsg_sender.c b/tools/testing/selftests/net/cmsg_sender.c
+index 67a72b1..035ab54 100644
+--- a/tools/testing/selftests/net/cmsg_sender.c
++++ b/tools/testing/selftests/net/cmsg_sender.c
+@@ -34,6 +34,7 @@ enum {
+ 	ERN_CMSG_RD,
+ 	ERN_CMSG_RCV,
+ 	ERN_SEND_MORE,
++	ERN_CONNECT,
  };
-
-+/*
-+ * Upper limit for the number of handles passed to a single ioctl. This is a
-+ * fixed number so that the limit is the same on all architectures. The
-+ * largest per-handle allocation is the wait entry array, which must stay
-+ * below the INT_MAX size limit of kvmalloc().
-+ */
-+#define DRM_SYNCOBJ_MAX_HANDLES	SZ_1M
-+static_assert(DRM_SYNCOBJ_MAX_HANDLES <=
-+	      INT_MAX / sizeof(struct syncobj_wait_entry));
+ 
+ struct option_cmsg_u32 {
+@@ -48,6 +49,7 @@ struct options {
+ 	unsigned int size;
+ 	unsigned int num_pkt;
+ 	bool msg_more;
++	bool connected;
+ 	struct {
+ 		unsigned int mark;
+ 		unsigned int dontfrag;
+@@ -93,6 +95,7 @@ static void __attribute__((noreturn)) cs_usage(const char *bin)
+ 	printf("Usage: %s [opts] <dst host> <dst port / service>\n", bin);
+ 	printf("Options:\n"
+ 	       "\t\t-s      Silent send() failures\n"
++	       "\t\t-k      Connect before sending\n"
+ 	       "\t\t-S      send() size\n"
+ 	       "\t\t-4/-6   Force IPv4 / IPv6 only\n"
+ 	       "\t\t-p prot Socket protocol\n"
+@@ -121,8 +124,12 @@ static void cs_parse_args(int argc, char *argv[])
+ {
+ 	int o;
+ 
+-	while ((o = getopt(argc, argv, "46sS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
++	while ((o = getopt(argc, argv,
++			   "46ksS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
+ 		switch (o) {
++		case 'k':
++			opt.connected = true;
++			break;
+ 		case 's':
+ 			opt.silent_send = true;
+ 			break;
+@@ -521,6 +528,12 @@ int main(int argc, char *argv[])
+ 
+ 	ca_set_sockopts(fd);
+ 
++	if (opt.connected && connect(fd, ai->ai_addr, ai->ai_addrlen)) {
++		fprintf(stderr, "Can't connect socket: %s\n", strerror(errno));
++		err = ERN_CONNECT;
++		goto err_out;
++	}
 +
- static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
- 				      struct syncobj_wait_entry *wait);
-
-@@ -1051,7 +1062,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		lockdep_assert_none_held_once();
- 	}
-
--	points = kmalloc_array(count, sizeof(*points), GFP_KERNEL);
-+	points = kvmalloc_array(count, sizeof(*points), GFP_KERNEL);
- 	if (points == NULL)
- 		return -ENOMEM;
-
-@@ -1064,7 +1075,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 		goto err_free_points;
- 	}
-
--	entries = kzalloc_objs(*entries, count);
-+	entries = kvzalloc_objs(*entries, count);
- 	if (!entries) {
- 		timeout = -ENOMEM;
- 		goto err_free_points;
-@@ -1185,10 +1196,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
- 						  &entries[i].fence_cb);
- 		dma_fence_put(entries[i].fence);
- 	}
--	kfree(entries);
-+	kvfree(entries);
-
- err_free_points:
--	kfree(points);
-+	kvfree(points);
-
- 	return timeout;
- }
-@@ -1238,7 +1249,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 	struct drm_syncobj **syncobjs;
- 	int ret;
-
--	handles = kmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
-+	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-+		return -EINVAL;
+ 	if (clock_gettime(CLOCK_REALTIME, &time_start_real))
+ 		error(ERN_GETTIME, errno, "gettime REALTIME");
+ 	if (clock_gettime(CLOCK_MONOTONIC, &time_start_mono))
+@@ -530,8 +543,10 @@ int main(int argc, char *argv[])
+ 	iov[0].iov_len = opt.size;
+ 
+ 	memset(&msg, 0, sizeof(msg));
+-	msg.msg_name = ai->ai_addr;
+-	msg.msg_namelen = ai->ai_addrlen;
++	if (!opt.connected) {
++		msg.msg_name = ai->ai_addr;
++		msg.msg_namelen = ai->ai_addrlen;
++	}
+ 	msg.msg_iov = iov;
+ 	msg.msg_iovlen = 1;
+ 
+diff --git a/tools/testing/selftests/net/cmsg_so_mark.sh b/tools/testing/selftests/net/cmsg_so_mark.sh
+index 772ad0c..341abfc 100644
+--- a/tools/testing/selftests/net/cmsg_so_mark.sh
++++ b/tools/testing/selftests/net/cmsg_so_mark.sh
+@@ -68,6 +68,28 @@ for ovr in setsock cmsg both; do
+     done
+ done
+ 
++# Reject an explicit zero mark while leaving the socket mark allowed.
++ip -netns "$NS" rule add fwmark 0/0xffffffff lookup 300 || exit 1
++ip -6 -netns "$NS" rule add fwmark 0/0xffffffff lookup 300 || exit 1
 +
-+	handles = kvmalloc_array(count_handles, sizeof(*handles), GFP_KERNEL);
- 	if (handles == NULL)
- 		return -ENOMEM;
-
-@@ -1248,7 +1262,7 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		goto err_free_handles;
- 	}
-
--	syncobjs = kmalloc_objs(*syncobjs, count_handles);
-+	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
- 	if (syncobjs == NULL) {
- 		ret = -ENOMEM;
- 		goto err_free_handles;
-@@ -1262,16 +1276,16 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 		}
- 	}
-
--	kfree(handles);
-+	kvfree(handles);
- 	*syncobjs_out = syncobjs;
- 	return 0;
-
- err_put_syncobjs:
- 	while (i-- > 0)
- 		drm_syncobj_put(syncobjs[i]);
--	kfree(syncobjs);
-+	kvfree(syncobjs);
- err_free_handles:
--	kfree(handles);
-+	kvfree(handles);
-
- 	return ret;
- }
-@@ -1283,7 +1297,7 @@ static void drm_syncobj_array_free(struct drm_syncobj **syncobjs,
-
- 	for (i = 0; i < count; i++)
- 		drm_syncobj_put(syncobjs[i]);
--	kfree(syncobjs);
-+	kvfree(syncobjs);
- }
-
- int
-@@ -1572,8 +1586,8 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 	if (ret < 0)
- 		return ret;
-
--	points = kmalloc_array(args->count_handles, sizeof(*points),
--			       GFP_KERNEL);
-+	points = kvmalloc_array(args->count_handles, sizeof(*points),
-+				GFP_KERNEL);
- 	if (!points) {
- 		ret = -ENOMEM;
- 		goto out;
-@@ -1586,7 +1600,7 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		goto err_points;
- 	}
-
--	chains = kmalloc_objs(*chains, args->count_handles);
-+	chains = kvmalloc_objs(*chains, args->count_handles);
- 	if (!chains) {
- 		ret = -ENOMEM;
- 		goto err_points;
-@@ -1609,9 +1623,9 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
- 		dma_fence_put(fence);
- 	}
- err_chains:
--	kfree(chains);
-+	kvfree(chains);
- err_points:
--	kfree(points);
-+	kvfree(points);
- out:
- 	drm_syncobj_array_free(syncobjs, args->count_handles);
++# Check per-message marks after connect() has populated the route cache.
++for i in 4 6; do
++    [ "$i" = 4 ] && TGT=$TGT4 || TGT=$TGT6
++
++    for p in u i r; do
++	for mark in "$((MARK + 1))" "$MARK" 0; do
++	    expected=0
++	    if [ "$mark" -eq "$MARK" ] || [ "$mark" -eq 0 ]; then
++		expected=1
++	    fi
++
++	    ip netns exec "$NS" ./cmsg_sender -"$i" -p "$p" -k \
++		-M "$((MARK + 1))" -m "$mark" -s "$TGT" 1234
++	    check_result "$?" "$expected" "IPv$i $p connected mark $mark"
++	done
++    done
++done
++
+ # Summary
+ if [ $BAD -ne 0 ]; then
+     echo "FAIL - $BAD/$TOTAL cases failed"
 
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
---
-2.53.0
