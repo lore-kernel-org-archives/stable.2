@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187771;
-	b=ydukeNlAG3B3rAQA2Q6QfYw8YbgMeuPsGaQS9eUWGl+Zv+XIKqXQy/2gVrsFQoz/5XQt
-	 4IgY9K5nsHmDG4j9D+bb/MHx6FxCXD2o+wc4EAFvaX7aSUN7BfVE1QlcyuSWzuMwJ7zD4
-	 z31a36ZQp1ykw8dqK8PBZIXe1jl6nOx0jOwaPy2P8/ho9sVFGSaX57zWAWICiqY5Gvkkf
-	 gfnueGs78QLcDUnNYn2nXQJEtwbfi/w00OGNZKbysS3N35VYlisfT5lVR4qlejy6k613b
-	 pWhFUf5FgA3vxFkN0GStmcipUE84WtJxx2Pjk1NsYrEg7XA9J6bBs9xxWE9WUWPyIHw==
+	t=1794187768;
+	b=xZsTPhJVni4l3IdCfYW1YyTFMnbnS/9naTYkiduIya2hopGW+IpYHTjFWU+IpuZlG8th
+	 qeqVitASYlqFVonjvf21dDITSxL18NwemtmCz02gk7XamUFYTBQA6l7Nnwu6ZnHx3TGDY
+	 kWpTGslHFXKDcz/iD3vU7cQaJagOm+GOZv0NqwJgiRpVkn12NlpIIVIgF9Ng1r1TcpCo0
+	 i0zrqoQn7qJk5pzS/iJj1yEGpr1EzDLv//K9wpKmPrYSzTi1jF+TlS6e/385Byc6IKCs3
+	 PfypPGXgAJe8Y9WkotYAFuChNqJc7GNZ5af5CUzpaM9S5yJwDcqnDLQEkKCKRTmKZ8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187768;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=vwaqv0RwpQdofsLvckQnMd1MHOnW+8febEpuFJFq6Z0=;
-	b=YAA0RmyE80ODBzvDb9Byt6dKs8NB279O1tSPJuQ7GRGP3RuES5rv0IbryzU6rJxf5Hno
-	 0qVz4U2ohSH9JW3I1/ZpM7ptmb2Z8Qx+dJujvrqCniECjY9Pl9id9EQ4cY976Bxz6OmJo
-	 pFXYF8tz5b4KxhrsJeocb4ubUctkTvmGLy549ptCLNHJ7XK0MgEClTHSsHslxg3Wphico
-	 j6G3ndCFjUTQM8Nt7SIidZRQMVmVKOsCBIkH5Y15D7XG+wWJdYZXoOEl39MyqiDxp507U
-	 A7tpbBnSLLtZfzWpbkpu+W8A1h+U9sZPosF+D95LXgblqlXv3Ou3NuzTs13TvInZ1xQ==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=3IT9ZF3wWg0/NDcCITM9rGC2ffWPOuz4O4zGIuPGi6Q=;
+	b=v2oZ/Ge7HiJy2sIUtlRY5zTRftUCyjX2uCeIUKfDQWzej+0Ta28UyB9ELmUrflfZIcer
+	 TQetSX+0xCnTC59AQ6nOCeUd6FEEUZkpp8uFSQivsDK5C1HI76CwpHv1ByhbMQ5Ria8UJ
+	 SyD/M3whhyCMKeJjRAPEz00DwxF8utjEFQGez0s0gOlZXywITxYUZDXjIqgG2JO7nfhui
+	 fQW4gMLLetMEwdy+GV8acZJUvncRmAgoECHtMvD89TJxhlfyavPyQI2y6OStsTM1YSXlh
+	 ky1Ae9MOCECqx2iSSYt6/FD7xUtUW9XxErhjrlchK4huyYLaSyakusXW4UsDuuOGIcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xrOgFll0;
-	arc=none smtp.remote-ip=209.85.167.173
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T78GkiWr;
+	arc=none smtp.remote-ip=209.85.160.43
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58443606CCFC
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 01:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58443606CCFC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1B1606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 01:29:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD1B1606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xrOgFll0
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4b190cdc9feso201710b6e.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 17:29:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T78GkiWr
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4adea5b7a2fso180941fac.2
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 17:29:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794187770; x=1794792570; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vwaqv0RwpQdofsLvckQnMd1MHOnW+8febEpuFJFq6Z0=;
-        b=xrOgFll0qEqVePCZJdJngiYJHQMhBeUhj/zyRfNtgWtx1QaTzb0tUCo978ZZORSWDw
-         qjOIsad0WHYh1iVH53CXWvNObodiQUidTSeL7BHEWwyybYK+fktaxGO3fMwdXIrX89sg
-         26EUNF30nH5yJwvvBqLFy/xe9OdK3wpRvT5sgxkXTMbODDZl0vt6uqQ+a/l2d9bwGMlW
-         AeKcBAWyG7yzLIAhrYWHAw6UC5EzLk+8lA0F5te9L0zFLbzk0wNXk45M179Af+6i5lxw
-         9fVmYmPMvpUJatJb1WXMOSJkqTeFldNU/Sl027w1R7Xr1rFFNJvlrQwEPhfKckjou3Gi
-         yJqg==
+        d=gmail.com; s=20260707; t=1794187767; x=1794792567; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3IT9ZF3wWg0/NDcCITM9rGC2ffWPOuz4O4zGIuPGi6Q=;
+        b=T78GkiWrHNeT2swXbg6OyiFqCfiDi1+Hd1EeIZCwmMvJRZU/2YSstTMP/wMq50rbKv
+         KawJrjWmcFeBRmTmEYiWEF6tj1savR34Bqw1V1f7205qRhXUWsEygxJ+tkw4wHy4rweP
+         M1FqBjEaEpxz2JFDntWkZm18OgoR4iQPlBZx+mxuXj0GH+WreVOPwvtsMcRiQUwIWMNh
+         bhSp3wP1XKZn4+MU5Fg19RwoCA2MgtA6UFzSpBhElgby0Qi2tp7AgKDZpln3D3eiJ9Qh
+         Ru9mDhSdRnwIDfn5YmNlj9zq//WmJ2p68NfNp4UbZl5MZYniz9nu7McOl9MfrhkCwyDl
+         XQqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187770; x=1794792570;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vwaqv0RwpQdofsLvckQnMd1MHOnW+8febEpuFJFq6Z0=;
-        b=AXDgcLkNjmpoqxGPWdigaqvdy0tFbI03c0yVIVX6AFB7PTt9HF8mogCjZPsdWLcAsP
-         W03Bo7OTEh34XeVSb2WEU2PiugaU2SQef/YAHHjcdGQ5Y5JSlaO8rcjC9H96nYsO80vJ
-         3m6BomYt1hyrS79d0xi0+TuGy2UX0AKBD82b6E1yi01ClXWit57G0wIBMdkKzuRXSsPB
-         eQ1KBH5JiFUYB2vejF65frgsz/WPvVPTXTGgGieyrtMWnLOMZ9vccvjdLNxqBFZlMfxt
-         a8a0QkWh8qHto4nE5uaFnH3yVzV1iKJoMKQUD3P8zvOe0V5o1ADMXZZdZelnbhquyw7X
-         W28g==
-X-Forwarded-Encrypted: i=1; AL+hErHnKuP5FXFZAa+Ead7rcfGg1SKT5NGAPE4sP2K/PKsRD6cTcireJAJnQOn7uSB2cU4nSmg+MHQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xpPAaEJFxoEagzWABwdFnkxvm8smE7iuRpkNBpTZlnVt1rwE5
-	WHh9KiuQAvn2BkMiThbAIR+Di2cS0Co2z4+Z0uS+LYjd/PxQ7Y/jShwrun69zA==
-X-Gm-Gg: AYBFou3aKT+8LRmxW9ZeNpGKrhesMbW1Iyg5oZgnK343SChGaBr6GgdXQXhEscSBbWx
-	2eS5hsTQ/aajM5lywiKmfO4ZgrA/7/hFhi3gvKZ9U2pABYZ7LgDWa4HrhMYxBBx18p+vpAlthGj
-	Gq4LuhHIWiHRnI3s9MiVJQu9SWWZ+NKyeA56SyKypRSGbseoNAtUwlskhxFGXkF1qT/7wqhLv/d
-	dpTWFhDdwP2COg1dwQkOzIHDklbKLIO2XGhPMTskGlXIS9FnirxxtJ9WVi4XAZPHi+l2Z5WEBTP
-	FbH+5tUYGHnm6XAe6EhN1yjx407WfC/wDogD35B+tstJTGhW+ZknTDZnhbONP0KeRhXCZqsYq73
-	MtK9i17IQ9hUj8RcX0RH0z8KlU3+5tkbV1xMqKpeeMJZuxvDj7lsgchLYVybG5KEw8NWx9RWjRl
-	SxSA8Q7tKgjE9o8zZEnEYfLxb3vfozI3Ux+L2jB3ARuvd+jvAwNH0YSKHI6gNtGNl1HnySw1TRM
-	eyeGnIp0ljop/ziI4KbvMUmZq4w2zhyNQ6TPFQSSHrfvW+aKmXSa6W2yE0e5secu52SdgvSeiGb
-	1VTossl0W4E2EiuiyRDO54pKmy2XxTRxzutZ6xI5hBSKy25jYwbZBxzydXn8mvYYdTvp1p/vD7j
-	Xqnf62Of8vDYLlcr7KTuzTcVhpMYuBmd40eoD7dK8z+s5k1HIFUtffSHpYp6JGT8M0nMT3XcfVG
-	QcOd8Mj7pdgLTHMLLBFiunmX3fvdqBAIHiEBjs3+qg4znBHJNBFe7q
-X-Received: by 2002:a05:6808:191f:b0:561:fa43:1b17 with SMTP id 5614622812f47-5681460726amr2343413b6e.42.1794187770252;
-        Sun, 08 Nov 2026 17:29:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794187767; x=1794792567;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3IT9ZF3wWg0/NDcCITM9rGC2ffWPOuz4O4zGIuPGi6Q=;
+        b=w13T/p6aJDEpVD11D1oknhOb+bLz7l/w5oluhRRSsEfuo22d/ZuohI3zo+RzAqfBlf
+         /1J3n1AyoBZxRnMgYzo6V6YzsIk9rBcKohPvr6iNQlVwVdP3PYQ3vEyqPpI7WAhJrhWW
+         6dBU0XgmeP7t3hbmLMVWkjDokiAbzenUyFxErL2teKeUeuYH6nRVvBgIYnMKAshDf9Lq
+         rbsecX9yvi/s7nbslyV9Bf40i3ZAhPph4YObuk0tChvN5/AJpJFcmIz41oV9dWhRGQ4s
+         rB4IP8i5LYDiAhY4/PG7gmYrNP1H2+C3ytzyvreINYiisYXJKivhNkwCWI2kza1gH+ZT
+         ny9A==
+X-Forwarded-Encrypted: i=1; AL+hErGhgYkLPGsfpiRqaWk0GItyU0FpJryk2Y0STYhSu8H1Mwk1Ic6G2zNGeaFeDn1j4MLBZbJvTkA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VReDAO2bCuSA0YfyjXcSg7yZI3rpHd9bKxu2gqnV5YNfL/DFq
+	Mikc/GdnagojeiJwqEUgFz0MaZEjmXVeO41amBZQJhyj/FjKFCm+3oDS
+X-Gm-Gg: AYBFou2sO1J8vrw2iirEgKfWjaR9KjJ4slwlSFHKyO7aLhoyBnzKv8kNZDe3upNwa95
+	8H+nSLdssPxkz1uh6Zi6/vDzZ/hBxV+nGbNU75arrp+Xaub1fxTe+8hFbylrcHpjEdD52S4ZzqX
+	Mfe5Zy81M/dUurmefD36LVpzBzSaZI+auWHQVeuxyyBvHThCwq5vGb6P4qbYtGiUHhpb9VhTuOl
+	gN1PxBBw6iKMjodWWt+q9Y8YbPqK28Z5Z1P1u6C8okymkjR54QpWbJSZ9vaeEs5fYzsBo9kw8d8
+	7PIBTZa/TPjw8Wza3VKSB63btt9N5Ax5IwZ2xHarw+C0SmZG0GicqDBxPVjMkpcIV0v04UsSGeP
+	Wiv6q++3/yXe1Y0hXTiL2tH/ue5V34bak+lkoYxFzwyjsDXJFdqAzX5NbjMz6F+eASk2JXRqHQR
+	yxlfqj8tPg6J6n0HnNSkmDmLBV3Uf6urYrWBuc1dCARPx8Yu01R4BVAg3o9UTpqdDYyNxZtm5+p
+	b8qV1DF7HsM2NhnV1uCMNd6hDjc4JQ98d2KUxyDQY/Ys+Fb5Ocf5z1kgOL0SW+f58SspXtKtrSb
+	Zpa+P45X9fQVZ5zG8ziUT+6lUfT2osoprAAPQpAYw8CH834V7kCJxnfy4hi2wtshKOhxe+Q3cYG
+	t0/lsAe0Plvh2WZFhiGnJRVjt9wVB+Oml5Svb8dEijklCMQ69kVZTYkB8PLgVo3zp+Kf1N7noxV
+	BXMfGRK6wrdOotOxtb4eeJMzDzXO77Bg7xtgEd+VL5fzJATWDGwRc1
+X-Received: by 2002:a05:6871:825:b0:491:6c73:817e with SMTP id 586e51a60fabf-4adeb44512cmr1457682fac.5.1794187766772;
+        Sun, 08 Nov 2026 17:29:26 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm4225818fac.10.2026.11.08.17.29.29
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm4225818fac.10.2026.11.08.17.29.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:29:29 -0800 (PST)
+        Sun, 08 Nov 2026 17:29:26 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 18:29:22 -0700
-Subject: [PATCH 3/4] mtd: rawnand: r852: use the standard OOB write
- operation
+Subject: [PATCH 0/4] mtd: rawnand: restore SmartMedia setup in r852
+Date: Sun, 08 Nov 2026 18:29:19 -0700
+Message-Id: <20261108-submit-r852-smartmedia-attach-v1-v1-0-56d08c0571a2@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,9 +95,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-r852-smartmedia-attach-v1-v1-3-56d08c0571a2@gmail.com>
-References: <20261108-submit-r852-smartmedia-attach-v1-v1-0-56d08c0571a2@gmail.com>
-In-Reply-To: <20261108-submit-r852-smartmedia-attach-v1-v1-0-56d08c0571a2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNwQrCMBBEf6Xs2cUkoLT+injYJKtZIVGStRRK/
+ 91ULwNvGN6s0LgKN7gMK1SepcmrdLCHAUKi8mCU2BmccWdrzYjt47Mo1vHksGWqmjkKIalSSDh
+ bdJOZJkvEhgi65l35Lsvv4nr7c3c8Oeju3ReeGqOvVELaq6zxWKj04EVh277+bkYYpAAAAA==
+X-Change-ID: 20261108-submit-r852-smartmedia-attach-v1-290991aae0aa
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
 Cc: Maxim Levitsky <maximlevitsky@gmail.com>, 
@@ -108,40 +108,37 @@ Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-r852 uses interleaved ECC placement to transfer a complete 512-byte sector
-and its 16-byte spare area through the hardware ECC engine. It supplies a
-custom OOB reader but leaves the OOB writer unset, so the NAND core selects
-nand_write_oob_syndrome().
+r852 installs its own NAND controller, but the shared SmartMedia setup is
+still attached to the unused legacy dummy controller. Run that setup from
+r852's attach_chip callback so the media-specific OOB layout, bad-block
+handling and page-size checks take effect. Restore the hardware-ECC
+default during probe so the PCI path selects a valid engine without a
+NAND device-tree node.
 
-With one ECC step and no prepad or postpad, that writer starts programming
-at steps * (size + bytes), or byte 528. The subsequent 16-byte transfer
-starts beyond the spare area instead of writing bytes 512-527. Raw OOB
-writes inherit the same callback.
+Before restoring the shared setup, correct the first ECC region's offset,
+remove recursive NAND locking from the bad-block marking path, and select
+the standard OOB writer for r852's contiguous spare area. These keep ECC
+bytes away from the metadata and bad-block writes within the spare area.
 
-Set write_oob to nand_write_oob_std(), which writes the spare area starting
-at the page's data size. Keep the interleaved page callbacks for full-page
-ECC transfers.
-
-Fixes: 67e054e91924 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
-Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-6-astra
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+
 ---
- drivers/mtd/nand/raw/r852.c | 1 +
- 1 file changed, 1 insertion(+)
+James Hilliard (4):
+      mtd: rawnand: sm_common: restore the first ECC region offset
+      mtd: rawnand: sm_common: avoid recursive locking when marking bad blocks
+      mtd: rawnand: r852: use the standard OOB write operation
+      mtd: rawnand: r852: restore SmartMedia and ECC initialization
 
-diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index 92c47d351c27..e78606b97b42 100644
---- a/drivers/mtd/nand/raw/r852.c
-+++ b/drivers/mtd/nand/raw/r852.c
-@@ -833,6 +833,7 @@ static int r852_attach_chip(struct nand_chip *chip)
- 
- 	/* TODO: hack */
- 	chip->ecc.read_oob = r852_read_oob;
-+	chip->ecc.write_oob = nand_write_oob_std;
- 
- 	return 0;
- }
+ drivers/mtd/nand/raw/r852.c      |  9 +++++++
+ drivers/mtd/nand/raw/sm_common.c | 55 ++++++++++++++++++++++------------------
+ drivers/mtd/nand/raw/sm_common.h |  3 +++
+ 3 files changed, 42 insertions(+), 25 deletions(-)
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20261108-submit-r852-smartmedia-attach-v1-290991aae0aa
 
--- 
-2.53.0
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
