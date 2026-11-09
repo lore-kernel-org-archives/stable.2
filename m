@@ -1,54 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239226;
-	b=bilTB9nEfXP8DQmibAnIhIkaHlrsgIu1vVZtIDd5RVqF81ztZH/MfrqILE/gkM1mi37/
-	 Oosc0Hanecji96FrzzTNjopUUzs7KrcalcTnFNFOMK+A7i/d/o4D4fGMFUBT0SGu2IJSC
-	 rOtWjpiPBhzbiw6lqUUQ8rwpRyvWRL+KFF93/Z350GM7BxOEoMyOXGnAyqOpkdIJF68wB
-	 nclVg8Ye6DkbhNbSZpH4u4TytUI6709370PG+XPOzavsCLJE+ngsi9zBJAv1HITNIGrCG
-	 IhAcc865Osrni5JeZp5tSKlgpuNVpdLznbf36NN/v8OpNHW60o09GpKRLu1pElHyjPw==
+	t=1794239237;
+	b=IM/YJL5+9CuEMxr8+v1TOsyHcR0w9i2smOpaOpxZ0XBLPJKrBCL7VrgtVDDNhSsXMMeB
+	 tQCPE+TbzPH6nEbYAOgYo0ucWDfcvlzJILsB54ZCGlMHbe1FiM8Fu0l2RGjqx6EvrK08T
+	 u/E4c9qsB9MIDj8UVeG2Dm21loJMo9aQR7q1EWOY8lb5zc+s2wQMax1t0eXBEsIzCt/5y
+	 Lb7gXTPK6lUYeyVVaLYJpKAkLtmV0l1U9FWTzUwppF2fTJAUCyMwmaDGi9QdLB5ftMNZC
+	 KA3HqHOHpUg4jb7d9KmagjSum1mdwVMpBWEG5KLil5D9OfcK8DSxn/wiHXH0gpWsqnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239226;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=PL+oxLY6mvYG5pGB/Nsx7MJwGOzVQ4K6Xsiuf4W1MLo=;
-	b=3iyb5qcWzQTYyN+UPFY4YhgoP7aqsi3R8eGxGvXweDPmWhUk1EnCHmLCh5XnEkDKpypJ
-	 W/vNSVjuTRPC3QIjXlJ+Dmn/E0WEWIfDIJsl+i42p5Uj/mVKdFa+YdryVMwrp+hDFMLS/
-	 yET24Hv9pxtQZFmBWeRgeMtKG2Rl3QqWT79QaScwmn1nsGhxxR+D8BkSTk9pjCalgULsr
-	 EhI1iZ5HLmTmGzV63jsM2JuAojhtwuuK39DTryXF1jZuteVsdBaFEAnxBUH9zpoUCxf/B
-	 5zUeLWOlx2IFvmfd/n3NPj4e5O9IMILI1/ICIiRf8mFX850YIdK5gR0qUapy4iYZR9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239237;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=cE6Ch6J1BkW58eNALCgFwBepu1y9rhfxpO10zeYVMnY=;
+	b=L2MTOTADmxChqJmSFslUwUUFe7NQ3TvC5ANeYmsbM15y/PRzuWYUtCNxaarE3fQ0POC1
+	 y1c3PCQkviYaZ2fYhq8bHzqGfyh906fqaCcyF+aFwdc/vUcHnM2fNYxNbv+/qnZQqjN+I
+	 JC+6HQ79/TxmYlrea0E+JmSrqPF6pMHch35mU7f5hlf02hfJrHxR1P0q1eOLrhjnoyu0W
+	 NJdAggkL8QGXZOzoA9zXU3nTZR0M9lcvYCqAB6uGx7+DNVVlyYee1Mh2Z97mnufaGymo9
+	 75MorBMFucs8hnBErZGX5lagZ74q8CzE1y67BbwSH6AkLl0MfpGic00zjd4AVEL/dhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oIAe/0MJ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FY15hpKK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vSksRZO1;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02992606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:47:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD5E606A321;
+	Mon,  9 Nov 2026 15:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FD5E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oIAe/0MJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30511F0089F;
-	Mon,  9 Nov 2026 15:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239225;
-	bh=PL+oxLY6mvYG5pGB/Nsx7MJwGOzVQ4K6Xsiuf4W1MLo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=oIAe/0MJQCqhFQgt2bJMb2nlkX+NMY7BxUMsF69do6eYFD6BjV7hEcVlHOo63oOLA
-	 1CLriN8+thWbBIeBDXo6BZaNkW4xEqgTC5UlfvlOwvunpo/FItr2JYeIh5fVlNjsKh
-	 rti2uEUKVJSj6InMVYsCqKLDkczN2XxPbUVcCU0qMow9cbB6i+BUO/8hnHAdvY1T+m
-	 iC8ktaqouQuXBdjAXjQAelF4nr8n/sDLrwaR9sbW0IwC0AUy0NE4dSVscuYTe6gEkK
-	 G+Vg3gfR9Qzf/iTlNXO0jc33q9WYpPgAeCULT1X0QNJK06ivHWpINMzivso66BxAIL
-	 +IieVyAQsYUgw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Sasha Levin <sashal@kernel.org>, iav@iav.lv
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v2 6.6.y, 6.1.y, 5.15.y, 5.10.y] genirq/kexec: Do not take
- the bus lock of an interrupt chip on the crash path
-In-Reply-To: <2026-11-08-1-daily-reply-0008-genirq-kexec-6-6@kernel.org>
-References: <877binwiyw.ffs@fw13>
- <2026-11-08-1-daily-reply-0008-genirq-kexec-6-6@kernel.org>
-Date: Mon, 09 Nov 2026 16:47:02 +0100
-Message-ID: <87eccuuhvt.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=FY15hpKK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=vSksRZO1
+Date: Mon, 09 Nov 2026 15:47:12 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794239235;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cE6Ch6J1BkW58eNALCgFwBepu1y9rhfxpO10zeYVMnY=;
+	b=FY15hpKK41oCXQIusu96AhsBNKriViooMdDu/ERpf86T56vEGlkmZZ2EoG+MtJWl61a+YK
+	9orAERDJnnJsFCMI9rcuw7IrobFX1I4KRic7RHi7lOpAqKFF6KFUibU0Yb3l1yCQrUYbzC
+	PGjJaoJOTE+q9o1UOkrFMjssH/nMqtJ1MiRcTuwZKDxIMGeOqAluB5QvfT3S8wVnVZk76h
+	3sCIJIcZt2LFLg7oX7aK7qIhOQa9VYtjMyvcMlfVbyL6bPTfl18ObgBsle9CiY0QgzD6cu
+	cZ0hihW/FkurdZJECLu2XzQD6jeqQVfti81PRGBKUTXXLYlyUToixxa7BDLm3g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794239235;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cE6Ch6J1BkW58eNALCgFwBepu1y9rhfxpO10zeYVMnY=;
+	b=vSksRZO1pbECyuNVIR61XhMO2VCS+gi5mFmr1nCqF9rev5ZGaDFU4h3MX+DgVVw002Imsi
+	SFbBVnIByeZVbdBg==
+From: "tip-bot2 for Florian Bezdeka" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: core/urgent] entry: Complete
+ syscall_enter_from_user_mode_work() to bool migration
+Cc: Florian Bezdeka <florian.bezdeka@siemens.com>,
+ Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261030-wip-flo-fixup-entry-code-v1-2-7724c29e800b@siemens.com>
+References: <20261030-wip-flo-fixup-entry-code-v1-2-7724c29e800b@siemens.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,136 +79,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Message-ID: <179423923291.2093942.7666652196041999066.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Igor Velkov <iav@iav.lv>
+The following commit has been merged into the core/urgent branch of tip:
 
-commit 717862eac6eff0eea8ac30a0c0de0bed84922aab upstream.
+Commit-ID:     efe191f1605a149b06eb0fe1ff975e7d3137c9bb
+Gitweb:        https://git.kernel.org/tip/efe191f1605a149b06eb0fe1ff975e7d313=
+7c9bb
+Author:        Florian Bezdeka <florian.bezdeka@siemens.com>
+AuthorDate:    Fri, 30 Oct 2026 13:31:42 +01:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 16:43:18 +01:00
 
-machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
-started interrupt. That function takes the bus lock of the chip and
-desc->lock, and syncs the chip when it drops them. On the crash path
-interrupts are off and the other CPUs are stopped, so a chip whose bus
-transfer is completed by an interrupt never returns from the sync.
+entry: Complete syscall_enter_from_user_mode_work() to bool migration
 
-On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
-the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
-init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
-every unlock, and the I2C controller needs its own interrupt to finish
-the transfer. A panic with a crash kernel loaded prints
+The return type of syscall_enter_from_user_mode_work() was changed to
+bool in the commit referenced below.
 
-  SMP: stopping secondary CPUs
+While doing so, one caller in syscall_enter_from_user_mode_randomize_stack()
+was overlooked and stayed at the previous type: long.
 
-and then nothing until the watchdog resets the board.
+Update this caller accordingly.
 
-machine_kexec_mask_interrupts() takes neither lock for the other
-operations on the descriptor. Move the search for the chip that
-implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
-takes no locks, and call it from machine_kexec_mask_interrupts().
-
-Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Igor Velkov <iav@iav.lv>
+Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_wor=
+k]() indicate syscall execution")
+Signed-off-by: Florian Bezdeka <florian.bezdeka@siemens.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv
+Link: https://patch.msgid.link/20261030-wip-flo-fixup-entry-code-v1-2-7724c29=
+e800b@siemens.com
 ---
-V2: Use the proper argument for __irq_set_irqchip_state() - Igor, Sasha
----
- arch/arm64/kernel/machine_kexec.c |    2 -
- include/linux/interrupt.h         |    1 
- kernel/irq/manage.c               |   49 +++++++++++++++++++-------------------
- 3 files changed, 27 insertions(+), 25 deletions(-)
----
---- a/arch/arm64/kernel/machine_kexec.c
-+++ b/arch/arm64/kernel/machine_kexec.c
-@@ -230,7 +230,7 @@ static void machine_kexec_mask_interrupt
- 		 * First try to remove the active state. If this
- 		 * fails, try to EOI the interrupt.
- 		 */
--		ret = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
-+		ret = __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
- 
- 		if (ret && irqd_irq_inprogress(&desc->irq_data) &&
- 		    chip->irq_eoi)
---- a/include/linux/interrupt.h
-+++ b/include/linux/interrupt.h
-@@ -518,6 +518,7 @@ extern int irq_get_irqchip_state(unsigne
- 				 bool *state);
- extern int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which,
- 				 bool state);
-+extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val);
- 
- #ifdef CONFIG_IRQ_FORCED_THREADING
- # ifdef CONFIG_PREEMPT_RT
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -2848,6 +2848,28 @@ int irq_get_irqchip_state(unsigned int i
- }
- EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
- 
-+int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val)
-+{
-+	struct irq_data *data = irq_desc_get_irq_data(desc);
-+	struct irq_chip *chip;
-+
-+	do {
-+		chip = irq_data_get_irq_chip(data);
-+
-+		if (WARN_ON_ONCE(!chip))
-+			return -ENODEV;
-+
-+		if (chip->irq_set_irqchip_state)
-+			break;
-+
-+		data = irqd_get_parent_data(data);
-+	} while (data);
-+
-+	if (data)
-+		return chip->irq_set_irqchip_state(data, which, val);
-+	return -EINVAL;
-+}
-+
- /**
-  *	irq_set_irqchip_state - set the state of a forwarded interrupt.
-  *	@irq: Interrupt line that is forwarded to a VM
-@@ -2864,36 +2886,15 @@ int irq_set_irqchip_state(unsigned int i
- 			  bool val)
- {
- 	struct irq_desc *desc;
--	struct irq_data *data;
--	struct irq_chip *chip;
- 	unsigned long flags;
--	int err = -EINVAL;
-+	int err;
- 
- 	desc = irq_get_desc_buslock(irq, &flags, 0);
- 	if (!desc)
--		return err;
--
--	data = irq_desc_get_irq_data(desc);
--
--	do {
--		chip = irq_data_get_irq_chip(data);
--		if (WARN_ON_ONCE(!chip)) {
--			err = -ENODEV;
--			goto out_unlock;
--		}
--		if (chip->irq_set_irqchip_state)
--			break;
--#ifdef CONFIG_IRQ_DOMAIN_HIERARCHY
--		data = data->parent_data;
--#else
--		data = NULL;
--#endif
--	} while (data);
-+		return -EINVAL;
- 
--	if (data)
--		err = chip->irq_set_irqchip_state(data, which, val);
-+	err = __irq_set_irqchip_state(desc, which, val);
- 
--out_unlock:
- 	irq_put_desc_busunlock(desc, flags);
- 	return err;
- }
+ include/linux/entry-common.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/entry-common.h b/include/linux/entry-common.h
+index a8b2430..1527841 100644
+--- a/include/linux/entry-common.h
++++ b/include/linux/entry-common.h
+@@ -202,7 +202,7 @@ do {									\
+ 									\
+ 	instrumentation_begin();					\
+ 	local_irq_enable();						\
+-	long _ret =3D syscall_enter_from_user_mode_work(regs, syscall);	\
++	bool _ret =3D syscall_enter_from_user_mode_work(regs, syscall);	\
+ 	instrumentation_end();						\
+ 									\
+ 	_ret;								\
