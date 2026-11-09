@@ -1,68 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794266975;
-	b=bRevZC3mKbDfpbmYkIpooKHcoGNvGLjBx3iVQ4isA4z/uhYhxQUBlidODtZMnSZlWMlC
-	 YFIp7Rk+ZhRaUimEBEbiJ+5/qALpldBDRebJqa5BYbySgDgQ9wtUPISfB4RH7BUGwYMNb
-	 OYtGhYdzMoALMpiNgADUROINFw9Yd/30JfqCmWb7nau2RvezIiVkreiPQuBVw8HButJMO
-	 IAZj2LzT+ETgZvMjmJbf29p3M4G3GPtCDVrISzdLPMALg7yxraOL40Vrhf/VSfGRYMapl
-	 ViXjSQsXKACJvWoqtzrKD4Qz7o3qV1hvn5xKImaARmJJimUNks5QbplY9eaYamhWAng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266975;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=uHE7poPRTNrYKOoUAKgTSfSnfCIOFFR8J8xVuB4fiMU=;
-	b=Uyv3JGb2rECBudiL6eSH9vAqAYQsPvZsjR8qh3uMrGuvNaIZCBbznyZoJImkQNckmTqK
-	 oy2cYKVdoDENokhFaIVtIB3AQZcMWnf0e8uOkF/RUdYdFPfZeihT55grScc8ijuJ8QUVr
-	 vD3Jyihx2XpZvY2MJuffAF7NUVJtgYHQvwQX134RR4GIOuQQf1TXI5r9nfvI/zO92Kjge
-	 vPGjZfzliMqA8AvK139951DTR4I+IMzMfUndg257zX3w1w3SjQr+DeSRqFJKcKDIzo7/Z
-	 x27IWsploMKxmcxYUsKoJlhKKW2+oJYB5Lq8buUhfz87TFTiQrKiLSAXzKIESYtiACw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b="AQr/wRHb";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794267076;
+	b=SOD3kFx2aF5vCONPquaQIHSzIIhW2BUACJ1SHscs+7nOcHIiQtwyiu9sZgdIHxxhRmY1
+	 livbf76luxmYAJ5jtaGOOzCzm+T/4FZpx10FSfTpSsN+f8MPnWslnIthw+MtC1c4yg6Q2
+	 gm+TFS834PiNS8Enjss7SX23J6gk1H+/aTSE/ONQvpU/890RyR7qCqHSR8hSt2hGT4yAX
+	 dUHLiBYJMutr1mJYM+WNSRjfKR4fqRxJ7jXhnAbWUvmHq2up5ef3eub00uvw3u/cSOdZ7
+	 sQ5b2MVs1WDj65lsOdOLFQDl65HlJ0jFPI47/PbvTYyF0K02t6QEnjz0hRtvcwwG40g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267076;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9A+riRpNVQjJl6veFEupozIlqUK4M9FiY8IOzpN2iZc=;
+	b=NNvKUCskttaTJ1xAZZ7eGjriDnv4AAbx5C40t84dv0RdJrcQXvF8cU/jAtRVCRhS9nHK
+	 Mt0quOCIvq5yfrzgTF96mTDbZAIsJ+S4TWMqi15VJVGbalBir+WbVoxamr1f3RAPZjZnc
+	 9CHYti3NYtigHs5KFJzMQQ5eYHl8mRDTzx//NPD16pN1OkKsm1ahfi/Gt1uk0y1TXzoYl
+	 uzbMFt4Mmf36rr5rsWWDoBs9YiPF5UTkOdR8nwaiVcfyYgs/Ng8m+JO4SunM/jZlMYAMQ
+	 XPJpRSFWV06iNL7V46xj7VbFvJvrUZ1D0bxyLgBsiLDTCHWBZI82Oorwb74c6cFIi3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eMRpAaPJ;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48609606A321;
-	Mon,  9 Nov 2026 23:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48609606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D8460A380C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:31:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D8460A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AQr/wRHb
-ARC-Seal: i=1; a=rsa-sha256; t=1794266957; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Fsf0Hk2FnriheINxsWwPT17T2lKNpqvHtnyGY4WzQ/YKq1dDDlT0QQAA0DWEMey0/zJpOje03WbA8mKlno+gWaOsTXDA6+MhbHYLs9O/cElbboQBcQzfnxUu9eOsfSRCsDrnzQCU+Pb9fiB+Gki347w/kX5166vw5pYHX7JBxHg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794266957; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=uHE7poPRTNrYKOoUAKgTSfSnfCIOFFR8J8xVuB4fiMU=; 
-	b=NKBvjH7E0ZbZM4aKChjYiew45tGZlLN/4jo3hH/2nBKOq/HZy8/EVkwht0kqRRemreCHRJpg23JUqmErVEoPCMRSwIAcMJrpSSAIJ1BYKXsl6P8e9UaaQhrJMXrZ//4Vlm1wiViERZp4Qh3IL2Z0aIoH6h59gxxJaf6yUYKZGCs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=AQr/wRHb0XJENbWYjxwjG+7mFLbD87+U38HHIZ/eY/Cb6YJryUcs+TtZsW/E5VtvDKrArvTd+XEPg8Zh889bxeJd/JQJ5WoCTDJUybhs71adQwJF2212hlMNPsYZMSUBhMJpzgWkvkfUNErwNtmxjkQ6iAhMgxRIxmQZnpokXHo=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=uHE7poPRTNrYKOoUAKgTSfSnfCIOFFR8J8xVuB4fiMU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794266956303190.50034302404822;
-	Mon, 9 Nov 2026 15:29:16 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id A5582180317; Tue, 10 Nov 2026 00:29:11 +0100 (CET)
-Date: Tue, 10 Nov 2026 00:29:11 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: ricardo@pardini.net
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Andrew Powers-Holmes <aholmes@omnom.net>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Yifeng Zhao <yifeng.zhao@rock-chips.com>
-Subject: Re: [PATCH] phy: rockchip: naneng-combphy: fix RK3588 SATA pipe_con1
- register offset
-Message-ID: <avJULe_00cHwMh4X@venus>
-References: <20261109-rk3588-combphy-sata2-6g-v1-1-e9135c91de6a@pardini.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eMRpAaPJ
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso1973463eec.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:31:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794267075; x=1794871875; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9A+riRpNVQjJl6veFEupozIlqUK4M9FiY8IOzpN2iZc=;
+        b=eMRpAaPJmiuHx6pVm0TFc70sjwhGhXiYffzIKSnWtHNWoD5t6POQHufo93M5Ej4KG+
+         MLQkMl6KTybHsqfsgbTbpgF1b+kX+CN03uR+SIU43ExgrCaGqE5di+oxHLawkJrdr2xP
+         OR8Tqj5PRaGPUqKOe2nTy3p//Pje1fd4tAb6N+Htkgha/a0F+Uns7Cz2e+QrKJBAwDJb
+         jGiNz9uic256rPKQbe6NqVjkP1EBIGxNz9HZd0PIq7INI+bOoLlIKzMUjQySzNfuxDL9
+         UQxzAQpkfElm3SRLTusD6pcAVSFsUrTX2NBDwgEdXUlKHXIRQbWv6TWYJhVKgKN8ZutQ
+         7NNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794267075; x=1794871875;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9A+riRpNVQjJl6veFEupozIlqUK4M9FiY8IOzpN2iZc=;
+        b=EAQrKiaGK9GIvWSG6nSiA3tRVDC+BUe8sUJYSWEdid0t61p/oUW/CgE/1sgzPZ7+04
+         83Wqc5WOAwhHGlx1QaRwgxcrnPP8/gPu8mRUfyGHPwI4p5AKNg8beVFmXlsurfxiCKgb
+         e3/qM4jvyRBuofHZLmlZQ39DOpnG41wK4VlDJSLOZXM2KxlwZpQRAFcpm0VfBYMRRmgU
+         3ai8mUaqDjWeWyuvzNwBRMTP8KoexIbNBxAh5zVICFjDs0MXvrR3lCcarMbN/9dSHZlO
+         +Tbf7OM7bjSJbMBYGCCPL+gUBvAGQNKJmIxWx6WUa7Mnt00X5nyHhoYXDLnNwyCcbCm1
+         H5zQ==
+X-Gm-Message-State: APuU4Z9A1Jr+BYCYykVVRdhw7wE46NHqSyJN6tIqFtBWpHrBwpE2iqzK
+	QqJmPwz5BSeNB7T84RxexCzq9SPCrdLsQb4pokXx3BJIyTWDVJ6leBjl3Z1hvcaV0faqkQ==
+X-Gm-Gg: AYBFou2Nxy05/bPblWBKSu8cRaX5RqtGAXkf9J4+RJrBkHorwaj2LdQuJbYMFeM0SQ8
+	4hHH5BTpgybn52C68q2zbP+LWeiSeHedciRGWT/3ytU047+kO0JUVrmVmMrzacGcA0Kf1HQu9/X
+	pxg1WLWIhtKvCB1EuZCG3e8b+7iGBKipRYiOWoFDNmKG6mYR+ilwH0LqxzXGTot6RXFPNX0s0BE
+	VO2kJZD7sl06dc4NkhPYyyotLULpoiRwcXeDTq3BkEnuCLWiWYnNHoQO0FEpHSIacywhxsOb18a
+	ehOup29SQORBKYST2fAQQEXH3+IKDAKYNya6ymB6tsbxMk7F1ZZ6iS/ANBaSKK0PeFszeppVyIq
+	ExAvl3ov5gUNGXjFUDMzEHRH8xCr7GKXg5zXUOSuCA2yUHzMAc5q0t6Hfcwf/UAIfYRQa1DNLrU
+	pK0NIuHRat4WgC4vX/98MOgppKfhKmCSKvu3ltp5JuQnuYn61RpfZpgPqOzUT+2bwRv+kaLMOhF
+	XYGF+fh8+jhbIrV6JS2MTM595g6xtO7HhyoCS9cQ14cTK7p/VhbWuB/IquuDS4VG8KDQqmQOJAm
+	QtpNDrNNqqbxaFpD7rOcnccof2Rxc6HAoPeoxJB9Ru4Ela6ig24GknJPN3ndMY8gc1r0f49i8Vy
+	Joy4AT03JCkXj4uy3e4kmnRMTfbBXBfe/fyQrnAQp+wH0LD0eJ4DNa2Oo6RA=
+X-Received: by 2002:a05:693c:8209:b0:36c:a281:1bc with SMTP id 5a478bee46e88-3751ef77a42mr1127299eec.16.1794267075405;
+        Mon, 09 Nov 2026 15:31:15 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe32276sm1611038eec.8.2026.11.09.15.31.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 15:31:14 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	tglx@kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH 6.6.y] posix-timers: Accept NULL clock_getres() output in stubs
+Date: Mon,  9 Nov 2026 23:31:05 +0000
+Message-ID: <20261109233105.56689-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261107053920-failed-6.6-5b819071e434@kernel.org>
+References: <20261107053920-failed-6.6-5b819071e434@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,161 +98,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6roxkdhx6bgac7mu"
-Content-Disposition: inline
-In-Reply-To: <20261109-rk3588-combphy-sata2-6g-v1-1-e9135c91de6a@pardini.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.7.7.1.5.4/291.452.71
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
+[ Upstream commit 5b819071e4346256c4edbae5cc2095dff25694fc ]
 
---6roxkdhx6bgac7mu
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] phy: rockchip: naneng-combphy: fix RK3588 SATA pipe_con1
- register offset
-MIME-Version: 1.0
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-Hi,
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-On Mon, Nov 09, 2026 at 02:12:47AM +0100, Ricardo Pardini via B4 Relay wrot=
-e:
-> From: Ricardo Pardini <ricardo@pardini.net>
->=20
-> On RK3588, the sata2 PHY speed is selected by sata2_phy_spdmode in
-> PHP_GRF_PHP_CON1[1:0] (offset 0x0004), with sata2_phy_rx_err in bit 2.
-> rk3588_combphy_grfcfgs has pipe_con1_for_sata at offset 0x0000 though,
-> so the value 0x2 (6.0 Gb/s, rx_err cleared) ends up in PHP_GRF_PHP_CON0
-> and CON1 is never written.
->=20
-> This leaves sata2 at its 1.5 Gb/s reset value, so the link only trains
-> at 1.5 Gb/s, even with a 6 Gb/s capable disk and no SControl speed
-> limit. sata0 and sata1 are not affected: their speed fields are in
-> PHP_GRF_PHP_CON0 and are set by pipe_con0_for_sata.
->=20
-> The register layout is described in the RK3588 TRM V1.0 Part1, section
-> 6.17 "PHP_GRF Register Description". Rockchip fixed this in their BSP
-> kernel in 2022 by moving pipe_con1_for_sata to offset 0x0004.
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
+---
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Drop the last sentence. It's not relevant for somebody checking the
-git log in a year or two.
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 9b6fcb8d85e7..5a27335a917e 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
 
-> Tested with an mSATA SSD on sata2 (combphy2_psu). Before:
->=20
->   ata2: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
->   Timing O_DIRECT disk reads: 374 MB in 3.01 seconds =3D 124.45 MB/sec
->=20
-> After:
->=20
->   ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
->   Timing O_DIRECT disk reads: 1266 MB in 3.00 seconds =3D 421.78 MB/sec
->=20
-> Fixes: a03c44277253 ("phy: rockchip: Add naneng combo phy support for RK3=
-588")
-> Cc: stable@vger.kernel.org
-> Link: https://github.com/rockchip-linux/kernel/commit/2f5fe2c0bbd4fa95102=
-aadd60da1100989103aa0
-> Cc: Yifeng Zhao <yifeng.zhao@rock-chips.com>
-> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
-> ---
-
-The patch is 1:1 from Yifeng Zhao with a better commit message.
-You should keep him as the patch author with his Signed-off-by
-followed by your Signed-off-by. Feel free to also add my R-b tag.
-E.g. like this:
-
-> ... (the commit message)
->=20
-> Fixes: a03c44277253 ("phy: rockchip: Add naneng combo phy support for RK3=
-588")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yifeng Zhao <yifeng.zhao@rock-chips.com>
-> [add proper commit message]
-> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
-
-
-Otherwise:
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-> This fixes the pipe_con1 GRF offset for SATA in the RK3588 combphy
-> table, so sata2 links train at 6 Gb/s instead of being stuck at
-> 1.5 Gb/s.
->=20
-> I found it when an mSATA SSD on sata2 would only link at 1.5 Gb/s,
-> and traced it to Rockchip's BSP kernel, which fixed the same offset in
-> 2022 in a commit titled "config sata2 rate to 6G for rk3588" (linked
-> in the patch). The RK3588 TRM V1.0 Part1 (section 6.17) agrees:
-> sata2_phy_spdmode is in PHP_GRF_PHP_CON1, while the sata0/sata1 speed
-> fields are in PHP_GRF_PHP_CON0 and already set correctly.
->
-> The misplaced write lands in PHP_GRF_PHP_CON0[2:0], which are the PCIe
-> link reset grant bits, and turns on the one for pcie3x2 whenever a
-> combphy is put in SATA mode. I don't know of any effect from that, but
-> this patch stops it too.
-
-You can add the info about this writing the PCIe link reset grant
-bits for pcie3x2 to the commit message and drop the previous three
-paragraphs from below the fold that are basically repeating the info
-=66rom the commit message.
-
-Greetings,
-
--- Sebastian
-
-> Only sata2 was tested. U-Boot has the same table and the same problem;
-> a fix is being sent there separately.
-> ---
->  drivers/phy/rockchip/phy-rockchip-naneng-combphy.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers=
-/phy/rockchip/phy-rockchip-naneng-combphy.c
-> index 3102a99128f6..c469222dba8b 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
-> @@ -1395,7 +1395,7 @@ static const struct rockchip_combphy_grfcfg rk3588_=
-combphy_grfcfgs =3D {
->  	.con3_for_sata		=3D { 0x000c, 15, 0, 0x00, 0x0407 },
->  	/* pipe-grf */
->  	.pipe_con0_for_sata	=3D { 0x0000, 11, 5, 0x00, 0x22 },
-> -	.pipe_con1_for_sata	=3D { 0x0000, 2, 0, 0x00, 0x2 },
-> +	.pipe_con1_for_sata	=3D { 0x0004, 2, 0, 0x00, 0x2 },
->  	.pipe_pcie1l0_sel	=3D { 0x0100, 0, 0, 0x01, 0x0 },
->  	.pipe_pcie1l1_sel	=3D { 0x0100, 1, 1, 0x01, 0x0 },
->  };
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261024-rk3588-combphy-sata2-6g-03bb30151552
->=20
-> Best regards,
-> -- =20
-> Ricardo Pardini <ricardo@pardini.net>
->=20
->=20
->=20
-
---6roxkdhx6bgac7mu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmryV0MACgkQ2O7X88g7
-+pr2OhAAmxrt9iWQqsLZ88EeVj0HWviV+7WVM8l74gh7cXl2x4t1sM/LeqbmRjzi
-d//J3Wd59neQxBNR4R0iKVhn6OGSmFUnnYJsh8y7lDNkrIxiYuLWoiA+ibdnwvrg
-XvTpfaKuPuRCZ+BD7I5ibL3QCiNjxhr/4ZPk01GlG2jdAfV5qlsOb1kecyXHHWOy
-qJ3NIPD++XrsvgE6nyjvYQv4hTuZgvf/Rj0nDC4IgRVG6ysqaIAcisPGFxX3HvnN
-4d5hkLciRnBxU7JFWWqG+EsY7sR4xKQtPSbzVmw8u1pcWVTDDUqOMRiHcRvGsELf
-DLWspqOSOfUG9t6GKRWTB92lYUxGMJWGRLQTd7SjT3YoQUoGZHLmaVz+l54XoDmR
-w9zw4smrTd0RN4ckh4GkSgKKHTeTYYWIDUuYEXDfjFZcFUlGAEV2hAxutSvUhjTM
-FqqJ6cytW2wx2BBf4bXKYHnHj1PD4a9GOh+WZniZhxbDZ/P7cDLjKhIsOIUtrLhM
-58iB1LN6GhOWyoX59uacdaS0sKLv0+0ktoaqhlzQc+b+cUH/wvMSB6EA18l7fuG1
-oPJRUaxjae41lSiiB9/vldvadH94Hs14OeKB+pWtGRrehN5/BydrVY9MbGI7BwiC
-jxBGSOsZNZ+XcMi50/eN1ZJOQP3DhWKvJir0MxrvoPGDH0y+3lY=
-=sZwb
------END PGP SIGNATURE-----
-
---6roxkdhx6bgac7mu--
+base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
+-- 
+2.43.0
