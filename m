@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239622;
-	b=LFA7PKEvRK772IGLyLBdvPYf1bWP1Jm/NFnWp9+Bu2AiLHBoyFvN7TugnAG07skF1jEo
-	 bTEobKj3tUI0yb3/tmWSuLsWxsweCtUq6wfksL4VJxqXSw5tsSEmn6ew0XkyYahv/mg+y
-	 U5AR3YtmI9v0hjAPpsVaJfuPQerPunVrB+ESvJcBdnTRHBX9gZ5t7CzZtlHMMw0QVk2lG
-	 kyXbG6QUJ77/qJOoqJIEspwykjJl/ErejGvbTENFHWpSa/Kl7qfK04KSTW39E2UKogBds
-	 8TR/DoAb5B/WtqKGLwofyQQjf8HVPVXJ4zr2tLd0lkjM6uLPlwu+47ZpgIXHyq+cWxw==
+	t=1794239623;
+	b=ZtPM7mjcXMMqOZ+q9vw/wPwSfuInfb+jMy+wBk1g2qp3SYv5gGD6UlzzYC7Q6NqG3JP9
+	 tA2VigJpzEp+n0C6S+juCwsfcFoeOdBjumvNeTzu4y9GUgPXm4GiL0QMseMiGDL9EJS35
+	 ghpG5weAymBbxczl67N2EAyfJyaP73yPNkfymTFcgIoBvz0f6f5kFdHzvFe+yLBUCPh+l
+	 49JUljqWbtjrci/9s04ZVqk8Qz0JWiK3i3cGuL7NoPc3Fq8mUaN1YUi+XUKvzbRVrNHn/
+	 7phjZ6Voeb79CuIg2Et1K/UIYrLAvQTDYxBp8X+5Y3auV70G2Ds7nBRJir/M7TP+3Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239622;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=K0aYS6Z2LTuqD8cd+K4Z4rYmYa3Yn5WmJK80VpjcgVg=;
-	b=PVNOhi31MJ3Ye7NGmsyxO7iLlxiZrgQvugqJ04uirVfZCXAAOST3/1tBCOC//F8GYF/f
-	 mcL1ZSoyt1TcZ56kPNDvJgI74TMqk18VHC4MQOnpeAb3pnS3IjCEYNT7jJxxMc/TtTXRT
-	 EPil6zOqN1mcv6vkrEzL8IYYZFAczDl8EAfTiM57fE22Mhg35DlnGPsNuTgckb5vAFpEl
-	 eFhNoBCMNoNxLA4DGt01cO+oLf9uBEV5FxzQeBxK72v6VwpS3HRhIqwXl0THdBHVFK9zn
-	 cx7VUY1X7xpmlJbFsW0rzMJOrHh63By3P87ugowHR6eB+KLAQuVXnXw7HdkwlX171WQ==
+	bh=2YP4N96Oj1ddvdTfrXKKoJuX4y1RqkANCMhdOg+WUhI=;
+	b=1rrrx0o+UFq1cKlrpIZMDRQTLcWXrR0Z5Ny9clpYyaCLYzs0rTRHi5thXXH+9tmnz+a6
+	 pYnYu8gGT6JDffnCvb2s7ufp1YuGwgS5K0FL4BIEguQsKGORlz1rJmCJfERfAUMNnmRHw
+	 dv78sdsqTkzSq31MSYOb44HJypu6/zphJ04bGWCmOMrjJ/Os+oTQHM5B1BTEuJZnAz3rg
+	 ygJ/Es/w8XLcVDeVsThn/aQmpyWucPiLTSWpzCdKxNFvjKUmlcd26QDyVDTrVF6YyNq6h
+	 phlo4dr6Yc1WnqJfYpzcDS1rifgu7MNFsJvl8O8pSOOQA2CypTNvbeFfYQiEl9OUAyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDV5VIc3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aX3z/xy3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7357D606EE89
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591B1606EE8A
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDV5VIc3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368F41F008A5;
-	Mon,  9 Nov 2026 15:53:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aX3z/xy3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B3CD1F008A1;
+	Mon,  9 Nov 2026 15:53:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239622;
-	bh=K0aYS6Z2LTuqD8cd+K4Z4rYmYa3Yn5WmJK80VpjcgVg=;
+	s=k20260515; t=1794239623;
+	bh=2YP4N96Oj1ddvdTfrXKKoJuX4y1RqkANCMhdOg+WUhI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BDV5VIc39KE4UTeVZ8hWsnHpD79tV3iRoq2CJie+//izcPX9RcmTjpxdSFyfHulKB
-	 IOqh7nGir2gMImAUvOA1vYGWNPOAtLgLwjwW3Zl4dQWu78n6qa6k2PkTLR6B+uKIDy
-	 +a7TrarHV2r/cXaVBVeTiq+WXB/8aUCXOVikpvSmIb+W6OiBLREU4u0DSa/H+LWftH
-	 cnOh5aVSyYmLLLbUWWm8Ec1fnYGllvGSj6L29HBQ7PRXsxkIvbnzrZWvC18HNwfE+S
-	 vgulrmcwQQEpKQ9/tGCBzSA2g+k51buoKE8qjMGTNC6tL16BHoAftjtNA1CI4WSuZi
-	 XOb9eY4bJ39dA==
+	b=aX3z/xy3ynMRho0VLdnBeZ2S0h+TZcxalrRGbtFtTKMZ1w/b0OD8w+U+3c6ulqm2s
+	 XwbNbdcEzBUyjX+DXyN65rcpuK7UZaKoDfkVY2d3WlR/KL6zz2DKUe3Ddam8gWaDex
+	 IQDHhyA39i7t2Tiq9YK1EN5o6SMbGsqqfFDEDYkKnbh2XxBRWPf7hRisZOcdU775PZ
+	 lmSUOjxiTpwEkXoEBbQGMgENWu5C2kS76OUTyCF1YQPfmk6FOtRBb9RHvVuOSOZCa1
+	 P9Psdiybre0K5qn/tGaMIrQ/1lCe7+o6qvOb6mD11L9o926TVbIEy/5vmVZPM5xoxq
+	 qQzaYLJdNHQ+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -48,12 +48,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	Jan Kara <jack@suse.cz>,
 	Theodore Ts'o <tytso@mit.edu>,
 	Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Subject: Re: [PATCH 5.15.y] jbd2: don't advance j_fc_off before the buffer is recorded
-Date: Mon,  9 Nov 2026 10:52:57 -0500
-Message-ID: <2026-11-09-1-daily-reply-0015-jbd2-5.15@kernel.org>
+Subject: Re: [PATCH 5.10.y] jbd2: don't advance j_fc_off before the buffer is recorded
+Date: Mon,  9 Nov 2026 10:52:58 -0500
+Message-ID: <2026-11-09-1-daily-reply-0016-jbd2-5.10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109-jbd2-fcoff-5-15-y-v1-1-bdc09d7a5941@samsung.com>
-References: <20261109-jbd2-fcoff-5-15-y-v1-1-bdc09d7a5941@samsung.com>
+In-Reply-To: <20261109-jbd2-fcoff-5-10-y-v1-1-7e8776914093@samsung.com>
+References: <20261109-jbd2-fcoff-5-10-y-v1-1-7e8776914093@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,7 +67,7 @@ Content-Transfer-Encoding: 8bit
 
 > jbd2: don't advance j_fc_off before the buffer is recorded
 
-Queued for 5.15, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
