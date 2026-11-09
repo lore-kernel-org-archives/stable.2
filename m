@@ -1,52 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.52.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229021;
-	b=wmLlWSeWQh91ugZAsdqq5cAeT1D8jG1hQP6JXWInz6v6kC2g1pj+2bnJFPznNwX1c/VK
-	 68U0evfxR4JsQIIfcs4Zk1nLOKHdyaaDvVbYWAqafz+d0RU1qxwSTeLlIPzT0AdeB10wC
-	 a7SLng5ZO8yqCR8+PaljZWKbpksqliiZzqJSAwzt7Zch1rmWQu/OPrGmylENYOaVgOoMp
-	 Mp1PHnQ55G1ebcJW8OT75XG7ErMHlBJyQBBMPxHWBtl8/NmQ3ufDDbEwha69F7Krg3BWK
-	 i4/FzxU+USIyyA1pkypdFlHgvFlyi8lZeQoF5eU8sT/RLh0hjWW38vnvZr2iXIjQw0Q==
+	t=1794229038;
+	b=Yo3Ed0wZjmkTrvdcQZq6egqnydUT+ZZlC9fIksm2bIkxIzKs8+jed3pJ+Fl6TNkXuZfD
+	 03Rl894JSLevLx8wW2NnJnUDpY0N0jM2IaK776n6f8Q0Zrbi7XXLlhRJkRKYj1yRBem6S
+	 l6vXMNCnV2fe0JoDWyO83uvDdmMKVsCEqjLWZDff+ru7+lzUA0Ta55NiVpPn3+VDyHwVi
+	 rgdqYczyMED6fdDSEh13PE3KHm1xD4W/9scs0rq60cXUj++lv76EAUgeBZXhAS/d04z4o
+	 SCgso9b8xV0hC6EPQNFXQwm0wZxz7wI03Sr11GuKovuBSQoMDtmKIQlfOSQe4FPV5Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229021;
-	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
-	 Subject:X-Priority:X-Mailer:X-Originating-IP:In-Reply-To:References:
-	 MIME-Version:Received:From:Date:X-HM-Tid:X-HM-MType:X-HM-NTES-SC:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=6WjD+7KwCK+a2zO9SxX1GaUGfgsoji0h2p/yuklFq40=;
-	b=IOjOaXGNNkkn7oQpUxCAVdn8VxzLpkULn1Vf/DrMV4+VzOyKXbd72mVFskm5EwppBx45
-	 Y+Vz4Sk1vi5BgpGQD0OJZyrdxhtcQDfudidp1/bNdGpICda8/kq8t/kqQNxu2jzAhCkWB
-	 XkizPM9piiqyMOS/PhGV+gaty7wD0JgUnEIN3onbv0BKPoCw0aTAdeGygkz1DFwz5qj4S
-	 rEnBQdSs1g5Yqy8geGa9+Mmg8R7pGESGt8BD9X0nwGlq1xgcm3QOq6RPpzea/u1BcfmIj
-	 zZWTZnTAbav3vlHhaC9w9PaEMDq/ROaNGrlVJAWmUXcquCVfHkGwzlUvJZv9lO3wQxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229038;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:Date:From:To:Message-Id:In-Reply-To:References:Subject:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lg5cyUsM8ERQunHRYLgJbo+ATKTBMtf510Y3GOahvOE=;
+	b=V32Rhpz5WxXpjrlDJ9waA6gAibyqV74aJOHXjjMdupXRd8YTu94ShyLWhMjDReHtEB3z
+	 IMw9LiW1TNOPw/TaP4OzdGEHeHNdRpEacN6jUck+W3vY4oV7vZ/9MLQpU3R+0szeHfKjC
+	 zFC1h8YZbkaj1i9qsph2c31KRFgNTSpyER7XN+nxX5s94kZgFVOZKwlXTDX52Ys6nJ3TZ
+	 SDdR58TZA2uruURLUbKVUnWrTqZUmkZW1nwhTbX1eQjYl6js0jq+eIJ8xQ4L/sxod9JKj
+	 Ms+4ASLCHD7vJXZzZeuGIk6CO1d86bnC9C21EAuAMwzKSbSyLwOfvK5FoTXv+yvAPXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EQawklHm;
-	arc=none smtp.remote-ip=160.236.52.228
-Received: from mail-m16023652228.xmail.ntesmail.com (mail-m16023652228.xmail.ntesmail.com [160.236.52.228])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cKyM1U/1";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7462E606A31C;
-	Mon,  9 Nov 2026 12:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7462E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEFD606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:57:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EQawklHm
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
-	"Md. Haris Iqbal" <haris.iqbal@ionos.com>, 
-	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gUkRNQS9ydHJzOiBGaXggcG90ZW50aWFsIHVzZS1hZnRlci1mcmVlIG9uIGNsaWVudCBzeXNmcyBzZXR1cCBmYWlsdXJl?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
-In-Reply-To: <20261109111652.GD8635@unreal>
-References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn> <20261109111652.GD8635@unreal>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKyM1U/1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472951F0089F
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:57:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794229037;
+	bh=lg5cyUsM8ERQunHRYLgJbo+ATKTBMtf510Y3GOahvOE=;
+	h=Date:From:To:In-Reply-To:References:Subject;
+	b=cKyM1U/1kBRJHHYqeGHXFT1wOtdMoyWyMuLsPSmP01J3UEBj8BKR0zAkkAheq1KAF
+	 VqxEqiON7M001uVaogoCrZgYO2n4h3hc1fYNV1/Ur046Q2cE5sIhr44nCVInAI92Nr
+	 JRDO2pS+LT+GDzvHGHtiOGBjSNuVVGKmBuXjqUNKo5DRup+J+xmAQkhmo+H+Zov935
+	 oNRurfnEzV89m7nzTktnDFUoUX9BZY57nfDi1XiFHgpoLZYJZ13tZ0rZB8mArncewm
+	 3Qo5Pc5uoQV4pLRJBeaNTX2AATpIDiJQ+z8Rz9LqTz9aVcwEX/Ttewfst9+BM5eePQ
+	 2teLw83g+B6Ag==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 85C92198003A
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 07:57:15 -0500 (EST)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Mon, 09 Nov 2026 07:57:15 -0500
+X-ME-Sender: <xms:KsPxaozJEng7FkGoDg5zGyDGbkijlFDyRjCnBlQX2FlqZg3d_VPgTg>
+    <xme:KsPxanFsshF8k9aicqJo_3aaP3hpag2XSoeAVDoqD_CVEOtMu9GOAdL9tG81FHMWL
+    CQeallTDxN8fe0U12Ril0WmlYD04lLLkncpLL2o3I1ztAtHuNyXS83E>
+X-ME-Proxy-Cause: dmFkZTE5JxoTQavf6f4VYgLo5pD3pwLbuMver0RCU8WqgRI+zcthdgwYf0JrxtmEIPWvQ6
+    DV0wMWr4CKi2zGPxlYk7jX+16LE33fy9y5agI4iZNumSHzca5rNDDtum/zYVMP0bMmI+dW
+    0ETyJZmHikPrf1UqqXyQKAR/w8+E2HqC48SXIWS99BhwLkLyKbxAGwiBUB7/AjuV7i6Ssb
+    RVvALxpyzExsrNCOR4ngSChxeed8eZoAnzNOVeOqPDcQkO6K0T+9x/qB33E3FCGhQR7zn/
+    FBEvvGLEYhafdTmLxQu0r/cmKzRrGrQ9F3S98zRp7D3XckksSPAHoIgjSxww0e1yaYpGGJ
+    FUotiuF+aNdWfHkcB1SeCcVKvNOusrN4OYtuXTkbS48A9tV9Zu+4/IF1ZldpqD5TIiRmWP
+    0JiOFRuzzVRwpFrIbaYa00c40NcUwF0AUNxhzNQDnIz3A2zuRnzBSUSXGUyAGv1FFFHXk0
+    1/hdk5o6go4A0w73lGxeXtF+CeAjNxoKuuA6IJbk7taA8tNSNKdA90R73/jFvkMwiPMghl
+    avj9LVJjcq6KeDQXZZ5fsdukVsT8H2NxxIyUujKIC3pGOcDHqVlalPQiEUocDWVnVP1sIb
+    z4qAVOUWUz8Eq5UCqpqmmTiRXqQia5YUhN5l7rkWLvHEkhqyWs0/tKBFW+9w
+X-ME-Proxy: <xmx:K8PxasCkWxnJstetr-kliwJol-DEzmZMLSWNIYsdJQgqCeaXcAlymw>
+    <xmx:K8Pxaucmf-v4R4h5lenjyyWrJmZTCfk6hXU73U_jjIYQ9PDXH1pBMA>
+    <xmx:K8PxascPMFLFdyhzYTJELVT-kNI7nsD4QG2-ZuPwPMy-XBiknhmkTQ>
+    <xmx:K8Pxaqhuwgt_2kSt5-Uxk-G0S2OcL9MfpKTlPXyzmn2TeRqkSWhQ2w>
+    <xmx:K8PxagQXE3NaA-m3CeT0b1yuD6H_zbl12CHDRAr32GHy3uTk2JZ4FD-I>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 95954F80093; Mon,  9 Nov 2026 07:57:14 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,47 +77,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 202321181@mail.sdu.edu.cn( [101.76.249.61] ) by ajax-webmail ( [127.0.0.1] ) ; Mon, 9 Nov 2026 20:56:46 +0800 (GMT+08:00)
-From: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
-Date: Mon, 9 Nov 2026 20:56:46 +0800 (GMT+08:00)
-X-HM-Tid: 0aa1c05f60d5d0cdkusya9b7de4bea6c
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMVHpP02bZAKsMEiErRSAekjx+ys+KNZNl0PLwl
-	f2MeqR5lbiqKsoq8sm3hZVy9q3VY0Ca69y1LOfMeXKdLfI1E5i1eQoqSDNKmzdVlKZstM3O+8hfF
-	V6URxYTc7eahx9VOrzkA6R7vVablFdI1bzF1E=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQhlNVhkdTU1PTB4aGEgeHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=EQawklHmnjEz1eDhnbHy5Vt9I1jjmcweJ9FfL9USrXSbV/oTgLc1IXWz4uFmpd0CcsbsObM3VNJoYcmmQz5ISGVhkKg7TMEWrLj5+6Oc8E+6FqQMScNVqubHmxkva1Fu+6sNNIK5FqPiGALDfVBfNLnh8mPa/ciDqCtmo3gk9qo=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=6WjD+7KwCK+a2zO9SxX1GaUGfgsoji0h2p/yuklFq40=;
-	h=date:mime-version:subject:message-id:from;
+Date: Mon, 09 Nov 2026 13:56:54 +0100
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: stable@vger.kernel.org
+Message-Id: <4f2a615a-c9c9-47c3-9cc9-b5071e8772e4@app.fastmail.com>
+In-Reply-To: <20261109122129.1396402-2-ardb+git@google.com>
+References: <20261107052256-failed-6.12-4c86b5f3fa78@kernel.org>
+ <20261109122129.1396402-2-ardb+git@google.com>
+Subject: Re: [PATCH -stable] efi/libstub: arm64: Don't use the platform register x18
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-SGkgTGVvbiwKClRoYW5rcyBmb3IgcmV2aWV3aW5nLgoKRnJvbTogTGVvbiBSb21hbm92c2t5IDxs
-ZW9uQGtlcm5lbC5vcmc+CkRhdGU6IDIwMjYtMTEtMDkgMTk6MTY6NTIKVG86ICBHdWFuZ3NodW8g
-TGkgPGxpZ3VhbmdzaHVvQG1haWwuc2R1LmVkdS5jbj4KQ2M6ICBKYXNvbiBHdW50aG9ycGUgPGpn
-Z0B6aWVwZS5jYT4sc3RhYmxlQHZnZXIua2VybmVsLm9yZywiTWQuIEhhcmlzIElxYmFsIiA8aGFy
-aXMuaXFiYWxAaW9ub3MuY29tPixKYWNrIFdhbmcgPGppbnB1LndhbmdAaW9ub3MuY29tPixsaW51
-eC1yZG1hQHZnZXIua2VybmVsLm9yZyxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnClN1Ympl
-Y3Q6IFJlOiBbUEFUQ0hdIFJETUEvcnRyczogRml4IHBvdGVudGlhbCB1c2UtYWZ0ZXItZnJlZSBv
-biBjbGllbnQgc3lzZnMgc2V0dXAgZmFpbHVyZT5PbiBTYXQsIE9jdCAzMSwgMjAyNiBhdCAxMDox
-NDo0NlBNICswODAwLCBHdWFuZ3NodW8gTGkgd3JvdGU6Cj4+IHJ0cnNfY2x0X2NyZWF0ZV9wYXRo
-X2ZpbGVzKCkgZHJvcHMgdGhlIHBhdGggcmVmZXJlbmNlIG9uIGZhaWx1cmUsIGJ1dAo+PiBpdHMg
-Y2FsbGVycyBzdGlsbCBjbG9zZSBjb25uZWN0aW9ucyBhbmQgZnJlZSB0aGUgcGF0aC4gVGhpcyBj
-YW4gYWNjZXNzCj4+IGZyZWVkIG1lbW9yeSBhbmQgZnJlZSB0aGUgcGF0aCB0d2ljZS4KPgo+U29y
-cnksIGJ1dCBob3c/Cj4KQ29uc2lkZXIgYW4gYWxsb2NhdGlvbiBmYWlsdXJlIHdoaWxlIHNldHRp
-bmcgdGhlIG5hbWUgb2YgdGhlIHBhdGgKa29iamVjdCBpbiBydHJzX2NsdF9jcmVhdGVfcGF0aF9m
-aWxlcygpLiBrb2JqZWN0X2luaXRfYW5kX2FkZCgpIGhhcwphbHJlYWR5IGluaXRpYWxpemVkIHRo
-ZSByZWZlcmVuY2UgY291bnQgdG8gb25lIHdoZW4gc2V0dGluZyB0aGUgbmFtZQpmYWlscyB3aXRo
-IC1FTk9NRU0uIFRoZSBzdGF0cyBrb2JqZWN0IGhhcyBub3QgYmVlbiBjcmVhdGVkIHlldCwgYW5k
-CmFkZGluZyB0aGUgcGF0aCB0byBjbHQtPnBhdGhzX2xpc3QgZGlkIG5vdCB0YWtlIGEga29iamVj
-dCByZWZlcmVuY2UuCgpUaGUgZXJyb3IgYnJhbmNoIHRoZW4gY2FsbHMga29iamVjdF9wdXQoJmNs
-dF9wYXRoLT5rb2JqKS4gVGhpcyBkcm9wcwp0aGUgb25seSByZWZlcmVuY2UuIFdpdGggQ09ORklH
-X0RFQlVHX0tPQkpFQ1RfUkVMRUFTRT1uLApydHJzX2NsdF9wYXRoX3JlbGVhc2UoKSBydW5zIHN5
-bmNocm9ub3VzbHkgYW5kIGNhbGxzIGZyZWVfcGF0aCgpLCB3aGljaApkb2VzIGtmcmVlKGNsdF9w
-YXRoKS4KCkJhY2sgaW4gcnRyc19jbHRfb3BlbigpLCB0aGUgZmlyc3Qgc3RhdGVtZW50IG9uIHRo
-YXQgZXJyb3IgcGF0aCBpczoKCiAgICAgICAgbGlzdF9kZWxfcmN1KCZjbHRfcGF0aC0+cy5lbnRy
-eSk7CgpUaGF0IGFjY2Vzc2VzIHRoZSBsaXN0IG5vZGUgZW1iZWRkZWQgaW4gdGhlIHBhdGggdGhh
-dCB3YXMganVzdCBmcmVlZC4KVGhpcyBpcyB0aGUgdXNlLWFmdGVyLWZyZWUgSSBtZWFudC4KClRo
-YW5rcywKR3VhbmdzaHVvCg==
+
+
+On Mon, 9 Nov 2026, at 13:21, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
+>
+> commit 4c86b5f3fa78347fa9cbc9e8ec06615b2f80e397 upstream
+>
+> The UEFI specification designates x18, the platform register, as "do not
+> use" on AArch64, so that UEFI code is compatible both with an OS that
+> assigns a fixed role to x18, and with one that uses it as a temporary
+> register.
+>
+> The arm64 EFI stub and the EFI zboot decompressor only avoid x18 if the
+> kernel is built with shadow call stacks, as that is the only case where
+> -ffixed-x18 is added to KBUILD_CFLAGS, which the stub inherits.
+> Otherwise, the compiler is free to use x18 as a temporary register, and
+> it does so.
+>
+> So pass -ffixed-x18 unconditionally when building the stub for arm64,
+> so that the image can be run by loaders that rely on x18 being left
+> alone, such as a kernel that uses it for its shadow call stack.
+>
+> Cc: <stable@vger.kernel.org> # 6.12.y and older
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+>  drivers/firmware/efi/libstub/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+
+This applies to 6.12 and 6.8 only - I'll have another one out
+for the older ones.
