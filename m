@@ -1,113 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227263;
-	b=EoG51CH4OiNp8TkP7Knt0lMufxkxCHPpJYB5WLkScs+4P+/JpuNTd3YcFv8Yj8q71C4w
-	 j+QDFbfAHXzHZKsfShRG+CTJrdptxorvZxdPx3cKc0nL6nzxJyVECpo5ZdUOOslDGOUPR
-	 g3IFbhtSafE0pCJ3o7ci0jjJzNGZQa1jrryn2lZfzi0dtA71fVRSankNJfNqRFcLlCsW0
-	 vnRg+y7uBCQ8aUTWQf4Jnny8fk3QbK7/7WhrBstBlNx8xTuliVXnuBkDRf6Qvzi4lgN6n
-	 1xky0Rn7flWTpO6Ujt38livTqCP6Yte6sD3e1GWEwrPY6q3ErrrgqZ1tqcy1hSaK4mA==
+	t=1794227545;
+	b=DNlSGuYyfCCZEhGku3M0A9VtGyCWpmKwaGrdSo1aUtqSyTn7S5YzIFrwuxPS4JncnyTA
+	 7uftMq+8z8THFDKULEYcTfsxqaDCv6zAMXdiZw628yUlpuKWQEY2Rj1+LaD308lPsvJeo
+	 4qnJGBxGdIphe9NbuWZC5NwcZPtD3YHd29NBpjz+vd7UV87weLq2LixuUTHAIL3QtV4xX
+	 z6BnkB0HpHjPqE+eBuop7VM8B91PJinPWhp4DsU31Fsu4/F0ikwv6b6zdOsneFZZKk7ud
+	 PuU3Qx4ce4seRlmBrI2lTPArmP2ZPt7ck4xszlh7k8kzb7A7Kx5+GEftX4mc1cNzAoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227263;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=TShl4Qj5cd4OI7xVaq2rRd5VnuO0gWJeEAaJPlDCzGI=;
-	b=Crbzo8Tdh7LUCDKzLKJSbHQfLN84By4yiOp8VEmOI+49TtANsSFYYnDdgTNTPoBGkWGz
-	 tpXynriaFEU6XSg4rDhrMlUexFMD3F1AEAtGmo+kYHfovHcukOX+pB0WXswLbS/xH42I4
-	 GvTZFiI041ZEDIUTgYbhzxhctITW77xvzsXxewEslztdlPksmXC4em7Kyj32iAfLovpSi
-	 M1oU2yQyezQiVMj4ozJRLF7msmzVDpScuhw3Ml2IqAOiTMWjPPVV5Ac/A0r5sdGtMq31K
-	 KJB9kTahlBUfZV6BnAudW+3d6Jv9iiHjuSBGwqEAYadnfyyb8nOO+5oLgK1hSlF91Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227545;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=VlFyDRL68yzv0Vgmoy9MTx56r7nZBApHYwIR8O8rV2s=;
+	b=08pMnp4kXYnlIaamKKXWH03wrHE8tSYXJ6GEOjPaIj0syLfH4HCi36O6tYV3TxXaZYCH
+	 l0jX7wTf2G3xX8dnjkR18b9lc5TOEhAE15Tc3ufrXcROKYQsq+jx05fpbleYbN2/vDgH2
+	 P3PhgMEGYmm0llVERIQf3yIqB9Ed96Uv3K7WNkpEJTHja9T3hNhUoJYoR8741rTyT/dBe
+	 bp4xtKsuEGza7KJtZoCY8akT0OxaUKcmnkC7+MkLoMuBb4a6j8kNYKjlsFwHvbFJkINz4
+	 POu5m+IrdvSUqgRwpmOoYaoz6idgJxiD6HVgmspQ7iSfRtB1dVLGdXkgK6d6AMsJ1tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SIl3yVPK;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LHEzo2P4;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SIl3yVPK;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LHEzo2P4;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlgVS065;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EE1606A322;
-	Mon,  9 Nov 2026 12:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3EE1606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819A4606D838;
+	Mon,  9 Nov 2026 12:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SIl3yVPK;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LHEzo2P4;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SIl3yVPK;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LHEzo2P4
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2006C21E65;
-	Mon,  9 Nov 2026 12:27:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794227261; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TShl4Qj5cd4OI7xVaq2rRd5VnuO0gWJeEAaJPlDCzGI=;
-	b=SIl3yVPKYJ965+u18PElxIf+SpbpW9DWOuFivvdPxjIDLRcPdYWHeVFP9dPVrOvXcWNKHa
-	QXWM4EIsZVEyF2p0+NLKnEPZJswIvNpkjKSzAxCdNLvROd3do4q7E3j/2YcMzYyd9cvVzp
-	RXluAneK5cTMlSfwGW/6lIEv1dT+Hf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794227261;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TShl4Qj5cd4OI7xVaq2rRd5VnuO0gWJeEAaJPlDCzGI=;
-	b=LHEzo2P4Zo+Bt+UY04a9M+fhogjIywgou5EURXROXkzz4WbhnnNfgMWk34VPXbZnigkaLb
-	HZQAcNGmQfCGGxBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=SIl3yVPK;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=LHEzo2P4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794227261; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TShl4Qj5cd4OI7xVaq2rRd5VnuO0gWJeEAaJPlDCzGI=;
-	b=SIl3yVPKYJ965+u18PElxIf+SpbpW9DWOuFivvdPxjIDLRcPdYWHeVFP9dPVrOvXcWNKHa
-	QXWM4EIsZVEyF2p0+NLKnEPZJswIvNpkjKSzAxCdNLvROd3do4q7E3j/2YcMzYyd9cvVzp
-	RXluAneK5cTMlSfwGW/6lIEv1dT+Hf0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794227261;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TShl4Qj5cd4OI7xVaq2rRd5VnuO0gWJeEAaJPlDCzGI=;
-	b=LHEzo2P4Zo+Bt+UY04a9M+fhogjIywgou5EURXROXkzz4WbhnnNfgMWk34VPXbZnigkaLb
-	HZQAcNGmQfCGGxBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ED15813302;
-	Mon,  9 Nov 2026 12:27:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id gX2eMzy88WoZZgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 12:27:40 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 83CC921FF9; Mon, 09 Nov 2026 13:27:32 +0100 (CET)
-Date: Mon, 9 Nov 2026 13:27:32 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 3/9] ext4: add ext4_inode_loc_block() helper
-Message-ID: <txaqqelwopcsrt5hzisylayvcc3h522ga5f7m3kfn2imcs7qwr@xs6v23q6cpeq>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
- <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
- <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
- <20261105-eurer-wimpel-gierig-935915475d98@brauner>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlgVS065
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9C9E1F008A4;
+	Mon,  9 Nov 2026 12:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794227545;
+	bh=VlFyDRL68yzv0Vgmoy9MTx56r7nZBApHYwIR8O8rV2s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DlgVS065/RaB7JFKsxLb9aYRFBXW7o5Mem6V+HH2grHzdJ6C5lnB8eUrr3CXAXqme
+	 DIzI4EtymtHbwc/qRn7tVb7xeGsRexOug7H8m/0trqdMVwGvYBhXvwkEC0CL9Q3mex
+	 H28978Cpee/AkyYlRtxWk7BxlDpPXBhpO614sBIL+1KQfFLJBrdObJcviV2J5pITtJ
+	 leZDeZr0SoWajOuwiRbc7wAs44/HtwyxwY3qrTQLIr1MOLR5WPfkXhAin865dA7FCD
+	 JBX1pxx6OOwsGV7QxFDPhRh1Z64lyASChkg4QoVpWuddtaIJ0RKdDS7wFrPvXftIGM
+	 m5F8JB+dm4Udw==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Qiliang Yuan <odys.yuan@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
+References: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
+Subject: Re: [PATCH v4 0/5] mm/ksm: keep smart scan from losing duplicate
+ pages
+Message-Id: <179422753967.4976.7051945485845554420.b4-ty@b4>
+Date: Mon, 09 Nov 2026 13:32:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,68 +68,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-eurer-wimpel-gierig-935915475d98@brauner>
-X-Rspamd-Queue-Id: 2006C21E65
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,vger.kernel.org,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.51
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Thu 05-11-26 10:37:01, Christian Brauner wrote:
-> On Wed, Nov 04, 2026 at 06:07:04PM +0100, Jan Kara wrote:
-> > So I don't think this patch is really needed. ext4_get_inode_loc_noio()
-> > does exactly what you need so you can use it in the next patch. If you
-> > really wanted to use sb_find_get_block_nonatomic() instead of
-> > sb_find_get_block(), you can actually switch ext4_get_inode_loc_noio() to
-> > use it.  ext4_get_inode_loc_noio() has only a single caller in ext4 -
-> > ext4_fc_snapshot_inode() - that is actually fine to take the folio lock.
-> > But that is mostly unrelated improvement to ext4.
+On Sun, 08 Nov 2026 20:22:49 -0500, Qiliang Yuan wrote:
+> With smart scan, which is on by default, two identical pages that become
+> mergeable some scans apart can stay unmerged for as long as they live:
+> each page times its skipped scans on its own, and once both are old they
+> may never be looked at in the same scan, which merging through the
+> unstable tree requires. This was first noticed as intermittent failures
+> of ksm_tests "KSM NUMA merging" in run_vmtests.sh.
 > 
-> Ok, I'll drop this and use ext4_get_inode_loc_noio().
-> 
-> Hm, the nonatomic lookup isn't optional though. Afaict, the atomic one
-> bails when the folio is being migrated. So for the fast commit snapshot
-> this now means we fall back to a full commit.
-> 
-> So in ->sync_inode_metadata() we now skip a dirty inode block and
-> fsync() returns before it's on disk. So we need to switch
-> ext4_get_inode_loc_noio() over to atomic as well, no?
+> [...]
 
-Yeah, you are right. That's a subtle difference.
+Applied, thanks!
 
-								Honza
+tree: mm/core.git
+branch: ksm-7.5.misc
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/5] mm/ksm: align smart scan skips with the scan number
+      https://git.kernel.org/mm/core/c/2b86234b
+[2/5] docs/mm: ksm: describe how smart scan picks the scans to skip
+      https://git.kernel.org/mm/core/c/53ee57e0
+[3/5] selftests/mm: fail KSM helpers on short reads and writes
+      https://git.kernel.org/mm/core/c/78509845
+[4/5] selftests/mm: move waiting for KSM full scans into a helper
+      https://git.kernel.org/mm/core/c/579d9b5a
+[5/5] selftests/mm: cover merging KSM pages aged by smart scan
+      https://git.kernel.org/mm/core/c/1c3db177
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Cheers,
+
+David
+
