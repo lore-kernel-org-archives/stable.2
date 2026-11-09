@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209643;
-	b=zKhXnc9P79h0P+WDH5v66nh4PGP37ITQtqcKTihMkDV5FDAvT0TgV/E5F5uiY3zdMSs1
-	 8yruJiUhUb+AZeV8Lb9ydU/9/rh75egWIJ2WqPIyOvBz746HM0IYLtzZNai0RZxOc5Ktm
-	 1sVO5PVhwyed7DN466qh5un4Nkpqezuilty9BW5tfiJCv3OUhV1j/FjHuDlIhFobAO5dn
-	 7lAuXw/nGrNYjdvXak0xnmwg4sGjvAmE7G0aSOM0WIfSi1R1HOyq1xCldt50wAZ8JyRgH
-	 hwxEBzly0g9KNOVQChwfDzpsJHX34+YaaXdJjpPeRJ/feqNGbAyzjemH0O0wJBeh9lg==
+	t=1794209685;
+	b=mgZlq5VQCQErgq5lKpLVsq1H9dIihXPlCSfoj6LQYYbv2yxwbitEZe161oFOxyEPpOrb
+	 e80tCmZ+SjslkpWv483txxmtScgbbKQMvKPMjSKUkwHHf5gr6QrZ1KH5F/8wZ8fHqDHN5
+	 hQkoa88h74aBv4jEAkYTENcpPLc4X5D8lnJM+9eEff8S6fzAsC1xSdJVP9ciI/d86Dfv+
+	 mM/U8Q4ksZ/PsNqxrEoqhLmZps+7Ghmros1i1dvNG96YJjQGplwAHp1mlNtlQfplh2yUr
+	 4uQ1n1uDJeH0k4jEN+wf5bsfpsODORjMhVIrUg8Fbc4Nf26Z+dGR0+Yfw/E0w5Aqj4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209643;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=xUomCp3G+LfMvtKyqhwJAVOlhjISvM2EjbUQ5TP+saA=;
-	b=yL7R+jADtsYkT/VTDThpoFHoZD03tOnQRV/imdXfJN+EEA6k3QkquRNHd33Jx3jL0ECm
-	 kmJJ2ewcm+2hMl7vqzHc/LTrewqIsnyrLpQQX5NQCDjEMTQ3cppfDVPJeJ1dD89Flznar
-	 sL8HEjEHKRYd+EpQTlHHImZqQwqkol0TnjvLT1kJiQyk5JHxkg2FxInW4E00rV/ph+JrE
-	 LmLeLfsdf9uwiIKHvcDf1Lf60TLgrnlkG2hik7KLEUZ8ZkoikZ39Ih5fKoPUIqyPdAPwf
-	 Anz1FSJ6M59j4dmYgNyWOvptBzGLxDW2y7k7A9Hvo67vpxg7aspOZ25XdC4B8ahvGUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209685;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=a95Lvz3SDK8ZS729zd2rB/xsCq3OYVLB1fhStb7IHBs=;
+	b=EclhxVhz7gVfUFduLvb/StiuvDmd771/dvW8/y/kY5q567uyv4EbQTk7lDjb37iSg27J
+	 qdXYudwPcoqkbmNAun+d+y43JHdTmboYL7+0nODP1Nszm8gbCQPzjNFJWSaGQ8Ez66Wzr
+	 o1bMnKwHaVXhAqU4sVXsz7lSpvJCBKeF+Cce346i6Vo552HxD8fAiGfczSvgPAggl+5kz
+	 9lwYB0ilvzVeEBmjCY35Y7q37diBk2/BD5Nrf1g9aqrer4tYBeI9Dnu6kyDJSeznrsGkF
+	 ms+/NpfjriGYfabmb1wzsupp0RXAvODrzdB7u2kxnuysQNrssgvyGariN277+xC7IuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofYQ8dJQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Otl2njGB;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55834606A322;
-	Mon,  9 Nov 2026 07:34:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2146071868;
+	Mon,  9 Nov 2026 07:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE2146071868
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofYQ8dJQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4410E1F008A1;
-	Mon,  9 Nov 2026 07:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209641;
-	bh=xUomCp3G+LfMvtKyqhwJAVOlhjISvM2EjbUQ5TP+saA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ofYQ8dJQMRuSeejKWpsw2KtfaUmurR0LF1MhBod/ZZ3P41TEG4wozg3N48S1aJCzj
-	 t9AFBk0ss8klUBmdyPyZclxYESs+j2fT7t1S4CZHEjM1e7dUg2McfxayuCgd7mgkL4
-	 0gGmxlmPx/hQsgmz69CaRYPukLtkGR2DCJqzdMQCfv7b6rWiDA+IYM0Do96/wNxA4X
-	 Wa2IwtHgwzQ+1U0/2bokoAB8eROTfoR0pJ4MfgoUp/dC9A3HsrClmwbqTYQVGpugnD
-	 SQBQ9ImMZIS5t5PrlkBjLj1hNCbvyV0nw8ClQHEQANbUPZXPpFCsVzam2l8TjhxLJQ
-	 rVendOyk+RUmg==
-Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
-From: netdev-bot+sashiko@kernel.org
-To: sunyiqi2@huawei.com
-Cc: robin@protonic.nl, o.rempel@pengutronix.de, kernel@pengutronix.de,
- socketcan@hartkopp.net, mkl@pengutronix.de, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
- luoxiaoxing@huawei.com, kuba@kernel.org
-Date: Mon, 09 Nov 2026 07:34:00 +0000
-Message-ID: <179420964075.994134.5840863564858819241@kernel.org>
-In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
-References: <20261105065931.1302-1-sunyiqi2@huawei.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Otl2njGB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794209685; x=1825745685;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=pNdl/FdSJJn3Fq+2HjjDtY3efpYOAux+p61fbQUhrII=;
+  b=Otl2njGBnjfPtFxbh/xAegCebDUanEXYmG5hagW81hsqcwvdnLwN4ZKi
+   inDyGSV4Ao2uCOVsSbe8usBID7q6ZtLMsq8RsAdQDoYMVMupNctJ4fdZ3
+   SMFiUr6SzBd+oLpXPtIGDHkyR0axlPzCdraMjHnVa77dFzpFDZg5MYjj2
+   aJwf0vPFo+TeL5TVszn2WA1idkBytLkUu5FuZrzhyfbaFpG2nGw5cSrPf
+   JDQwOEF4QEHjQ/CjdNUZCHRAWjWtdUKHBakCwGOnPy0RRXstxACBf9iot
+   06r66ERrQkLV5hCHHFGYq9WPUgiU98dfYBa9nL3jeUzs7HMCq6vcy6Ljm
+   g==;
+X-CSE-ConnectionGUID: 3y+6CAwdT7OrdiBBY5lx+Q==
+X-CSE-MsgGUID: SQc6bjmoT2yi8//tO7cj/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2942562"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2942562"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:34:44 -0800
+X-CSE-ConnectionGUID: JKbjXGVcQzGXy9xbUZOcUQ==
+X-CSE-MsgGUID: XqqTaNZ8QXK0GbtMWu8PVw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7847193"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:34:42 -0800
+Message-ID: <7f86b03e-1c99-44ed-8d07-3502a21821fc@linux.intel.com>
+Date: Mon, 9 Nov 2026 15:34:40 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,121 +72,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] iommu/vt-d: Set FPD when tearing down a PASID entry
+ with fault_ignore
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>
+References: <20261104051059.1345010-1-baolu.lu@linux.intel.com>
+ <20261104051059.1345010-2-baolu.lu@linux.intel.com>
+ <87o6c3uedj.fsf@intel.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <87o6c3uedj.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 11/6/2026 6:01 AM, Vinicius Costa Gomes wrote:
+> Lu Baolu<baolu.lu@linux.intel.com> writes:
+> 
+>>   static void
+>>   pasid_cache_invalidation_with_pasid(struct intel_iommu *iommu,
+>>   				    u16 did, u32 pasid)
+>> @@ -253,7 +238,6 @@ void intel_pasid_tear_down_entry(struct intel_iommu *iommu, struct device *dev,
+>>   
+>>   	if (!pasid_pte_is_present(pte)) {
+>>   		if (!pasid_pte_is_fault_disabled(pte)) {
+>> -			WARN_ON(READ_ONCE(pte->val[0]) != 0);
+>>   			spin_unlock(&iommu->lock);
+>>   			return;
+>>   		}
+>> @@ -266,6 +250,8 @@ void intel_pasid_tear_down_entry(struct intel_iommu *iommu, struct device *dev,
+>>   		 */
+>>   		pasid_clear_entry(pte);
+>>   		spin_unlock(&iommu->lock);
+>> +		if (!ecap_coherent(iommu->ecap))
+>> +			clflush_cache_range(pte, sizeof(*pte));
+>>   		intel_iommu_drain_pasid_prq(dev, pasid);
+>>
+> I think it's worth documenting in the commit message why both of these
+> are needed, removing the warning and adding the flush.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Yes. I will add the following to the commit message:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  Also drop the WARN_ON() for a non-present entry without FPD. Since
+  commit 75ed00055c05 a concurrent teardown can see such an entry before
+  it is zeroed. Flush the cache after clearing an FPD-only entry, as
+  other PASID entry updates do on non-coherent hardware.
 
-- [High] When a second out-of-range ETP DPO arrives, the new bad-offset
-  branch in j1939_xtp_rx_dpo_one() (net/can/j1939/transport.c) cancels…
-
---
-
-can: j1939: transport: validate the DPO packet offset
-
-This patch makes j1939_xtp_rx_dpo_one() check the packet offset from a
-received ETP DPO against session->pkt.total. An offset that is out of
-range is rejected and the session is aborted with
-J1939_XTP_ABORT_BAD_EDPO_OFFSET. This prevents a NULL skb from reaching
-j1939_sk_recv() when a later EOMA arrives.
-
-> diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-> index 8fcfd13e5e6f8..bda50432a72ea 100644
-> --- a/net/can/j1939/transport.c
-> +++ b/net/can/j1939/transport.c
-> @@ -1823,14 +1823,22 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
-
-[ ... ]
-
-> +	packet = j1939_etp_ctl_to_packet(skb->data);
-> +	if (packet >= session->pkt.total) {
-> +		j1939_session_timers_cancel(session);
-> +		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
-> +		return;
-> +	}
-
-[Severity: High]
-What happens if a second out-of-range DPO arrives while the session is
-already in J1939_SESSION_WAITING_ABORT?
-
-After the first bad DPO, j1939_session_cancel() arms the abort rxtimer
-and moves the session to WAITING_ABORT. The session stays on
-priv->active_session_list. j1939_session_get_by_addr_locked() does not
-filter on state, so j1939_xtp_rx_dpo() can still find it.
-
-If a second bad DPO comes in before J1939_XTP_ABORT_TIMEOUT_MS expires,
-this branch runs:
-
-j1939_xtp_rx_dpo_one()
-  j1939_session_timers_cancel()
-    j1939_session_rxtimer_cancel()
-      hrtimer_cancel(&session->rxtimer)   <- pending abort timer removed
-      j1939_session_put(session)
-  j1939_session_cancel()
-    if (session->state >= J1939_SESSION_ACTIVE &&
-        session->state < J1939_SESSION_WAITING_ABORT) {
-        ...                              <- skipped, already WAITING_ABORT
-    }
-
-j1939_tp_rxtimer() is the only timeout path that deactivates a session
-in WAITING_ABORT:
-
-    if (session->state == J1939_SESSION_WAITING_ABORT) {
-        ...
-        j1939_session_deactivate_activate_next(session);
-
-Once its timer has been cancelled, that path cannot run. Does the
-session then stay on the active list for good, still holding its
-reassembly skb and its netdev and j1939_priv references?
-
-Every repeated bad DPO would also queue another J1939_ERRQUEUE_RX_ABORT.
-
-Before this patch, a DPO in WAITING_ABORT only called
-j1939_tp_set_rxtimeout(session, 750). That re-armed rxtimer, so the
-session was still deactivated later.
-
-j1939_xtp_rx_rts_session_active() already documents this hazard and
-works around it:
-
-    } else if (session->state == J1939_SESSION_WAITING_ABORT) {
-        /* Force deactivation for the receiver.
-         * If we rely on the timer starting in j1939_session_cancel,
-         * a second RTS call here will cancel that timer and fail
-         * to restart it because the state is already WAITING_ABORT.
-         */
-        j1939_session_deactivate_activate_next(session);
-
-That workaround came from commit 1809c82aa073 ("net: can: j1939:
-j1939_xtp_rx_rts_session_active(): deactivate session upon receiving
-the second rts"). It fixed a syzbot refcount leak that showed up as
-"unregister_netdevice: waiting for vcan0 to become free".
-
-Any of these could avoid the problem:
-
-- Return early when session->state >= J1939_SESSION_WAITING_ABORT.
-
-- Cancel only the txtimer here. j1939_session_cancel() already cancels
-  and re-arms rxtimer through j1939_tp_set_rxtimeout().
-
-- Force j1939_session_deactivate_activate_next() when the state is
-  already WAITING_ABORT, as the RTS path does.
-
-The out_session_cancel paths in j1939_xtp_rx_cts_one() and
-j1939_xtp_rx_dat_one() use the same cancel-then-noop sequence, so a
-shared helper might be a better fix.
-
->  	/* transmitted without problems */
-> -	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
-> +	session->pkt.dpo = packet;
->  	session->last_cmd = dat[0];
->  	j1939_tp_set_rxtimeout(session, 750);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105065931.1302-1-sunyiqi2%40huawei.com
+Thanks,
+baolu
