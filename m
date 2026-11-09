@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260353;
-	b=xbtju/yXBefxh2wnHHd1J84FVyQw50F1feOhp+sq+R/oKpQjblbtTFAv/A85miDxYnT+
-	 hDNYcaYpkz9a04JJqEZjZNBAG1k09On6jhIGf/q3ByOKERBldYXzeOYMwYNI/r1QxOm/B
-	 bMNQ83D7+1xDJRWvd51KdTV7HnX0t5AaioPTvw9d3fEZCZusSOXOBF6GicuD8/rlGoPh2
-	 awrqtcaCPe48laa2slNBy9E0hNuy9OsoTbnjlnFvbCcEWj2x2XL2UL19xdBvxdH5UcR7T
-	 ZXGTwUFjnV66ihK8WMvctFE1zWQEwDx9WqpsdLfsf6u/eTADN7WVFxeG6ovEFRDQtag==
+	t=1794260412;
+	b=gyJFh9qt0zcDnT/bIuYgmqZFiIMRjx+3CGToyluAsG61bcOF2KABbcDM7ygjx/DVIeNL
+	 67/3s5OBJaB4GiHJw6sEgdElulrGpi3EP3pcepl1KEv4hT88z+xtOK9Itk8mU2Bl+/SGn
+	 gTW0CNK1+6QG/lkBscutD0BmFMB+rNl33qtk8gPKB5xbiil9T6m4RAB5zM2U629XgCIlB
+	 h9Sh4X9HN7cgkwsOJAQwoiMl19Lm57itrcbGat4KIAzLB8RLQgCFs7jAhCXD3Gs/76nuq
+	 24WwLm+DfudfbiJ0tJcpkMao5IodlPOj54KiwEBvhhnjftPffznFnlnEJKPmzA06Erg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260353;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=FEOSlh0slL9lzfjDFsxhcuq5DZBLDQNDE3K8Ix3LK58=;
-	b=FDdi0DvpIMgZysQjZLY2hymt/dMQcSj9EM71WkyX55mByQOphBUPoNRMn7U9uC5xSRLp
-	 RTDcf37tFlgH75YchR6VjO9hUdjl+7L7RC/gd7W02BudT6ea0p3fusQszbjYpvyvkGM4x
-	 nxXJtE1TkkdQyxHyA+fLEpf1RcpZOpBHMFAIAqrR5LAJKFp8AFT+fAE1Mf4ReGoo6KfpZ
-	 ER8h/Y+rpRphDMjyFPbSruOo46n+kl9DT7KlBIinEpClLZqVOm0gq595u0fQnXA34CmLV
-	 o/6OidfaF+Zf2ut3EUUT6qyy3g5CwJKn5rBNadcrnLFuwhYr7vSIiz9hYKxmEfHxtug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260412;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eUnUJ6fMsa+SK3hUNyUAZu2gmdqYdOP/pDefbHCAe7Q=;
+	b=WvVEwhpWg3IoBBfyADVgkn7oAjKAcvsZ7uS5Q2qZr6j48QvH1vTvBLo6RhPFIAvk+JPV
+	 Isk7TApT+b5gRF5njrfRvxwwM3jihxEtNquoNqC4trtm8Y0qxUPNutOzlHAd4lMqZt41H
+	 u0ocYLTS2Pm0AhgdiEgsoELdgeG/7rQw5hHKtzWS/qDPBm/QJqtrIF07siOZSwbKEez5k
+	 OidV2UcDbGVjdRrCDW3M09opQMbnrxO4bKsobvS0FFYrLcFcH+7ivY+ZaCpJvrrle5ZBL
+	 fkxqpGjCWkr/Enu7cn0dQD4txT+RYoNlaGfy+7lr1lETo8dY7SAMyYRjGtVwXp0yNog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kDjVbURZ;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=GWRCBtmQ;
+	arc=none smtp.remote-ip=91.218.175.64
+Received: from mta0.migadu.com (out-64.mta0.migadu.com [91.218.175.64])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD08606A336;
-	Mon,  9 Nov 2026 21:39:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBD08606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FC97606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 21:40:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FC97606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kDjVbURZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794260352; x=1825796352;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=n59xh4ThW8wY2o8B+J5hT31WyrWmamzID8/o7Mebbvs=;
-  b=kDjVbURZ7w3kVz/HpGyhct6m3nLaKQBtWE2A/0n4L39vc2zljKnbEE8I
-   effO2DhM+Q0l10uE96UlTXAfp6RDMr7dm2i4rHCAgOdey53aYq6KDUFy7
-   kGRcFBGZQvalg2/teRdUa/TfpXilHCDjmCQiCmQMzqN+H3NtJh4G+QOhz
-   3BJfOqcEZUr5S0aotVOFV00nsPplDJ070joih00zutIQHi/OwJ+NAUuHC
-   FU5b+f0k3hV4EmRZVv96yueu68DGI6Tt16YOtuoNcj8n+fPYT8MngyfmW
-   A+HxOdc0WoZMRMERGqISv6xPWsr+6FMwJvcZKmWPKIv6SY0OJZe6p57eA
-   g==;
-X-CSE-ConnectionGUID: r6e593o8TBWauqYMibuseQ==
-X-CSE-MsgGUID: Rph65iH3Tt+35/RrmOACTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2894825"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2894825"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:39:12 -0800
-X-CSE-ConnectionGUID: nzHce1zPR0u3KmM12VuC0A==
-X-CSE-MsgGUID: H2KvwVYXQSuuFI+wFKmkOw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7841553"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:39:11 -0800
-Date: Mon, 9 Nov 2026 23:39:08 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: lee@kernel.org, mika.westerberg@linux.intel.com, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: Clamp latency tolerance to the register
- value mask
-Message-ID: <avI9fDRmwFyIfTDv@ashevche-desk.local>
-References: <82545EC5E5ABC9F0+20261109094242.3783672-1-raoxu@uniontech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=GWRCBtmQ
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Y3CmxKJ4TKlJACzMuZuQE+pA/o7Ia4zpMq+sD48qZJQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794260407; v=1; x=1794865207;
+ b=GWRCBtmQ8mQYqYbx8qdefLwaYDeQkj6VU+gg+PyNgDeOrXtjguyx3KNB7CTPF/zOtqRYNwrs
+ 4ciJtPtsELFhHUBvUQUs1KIV2SpouXMAbkbf3sqRUc2+efELrQIdf/UIBPGoDuQWOJS+pUBOVCJ
+ HH0u4ZyRwQflY3uWqqBGL2TAllhjLxVetGpOfE7ABqmZCRGyiZg+Rr7Dy5pr67QSBWtF83vcpvZ
+ K0np02SDI0EFTWLZo8cTDNz7GQUap4fznYeR+Gz/XKIZHWRxED+4bNNY8UjpGmZodqfCbhZ8UHs
+ bEdCicMvjwNqMBeQ15UfC8PIVVLJ71ObR8U2lgonIclaw==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 91629022a1c960c4;
+	Mon, 09 Nov 2026 21:40:06 +0000
+X-Mizu-Trace-ID: 91629022a1c960c4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <25204208-5fcc-4b00-b359-86fc5f124700@packett.cool>
+Date: Mon, 9 Nov 2026 18:40:00 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,57 +60,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <82545EC5E5ABC9F0+20261109094242.3783672-1-raoxu@uniontech.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] remoteproc: qcom: pas: Request stop before tearing down
+ GLINK and SMD
+To: Jure Rebernik <jure.rebernik@luxonis.com>, andersson@kernel.org,
+ mathieu.poirier@linaro.org
+Cc: konrad.dybcio@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ linux-remoteproc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261109175752.793130-1-jure.rebernik@luxonis.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261109175752.793130-1-jure.rebernik@luxonis.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 05:42:42PM +0800, raoxu wrote:
-> 
-> The PM QoS latency tolerance interface accepts non-negative s32 values,
-> but the LPSS active and idle LTR registers have only a ten-bit value
-> field. intel_lpss_ltr_set() selects the larger scale for requests above
-> 1023 us and ORs val >> 5 into the register without limiting its width.
-> 
-> For a request of 32768 us, the shifted value is 1024 and the latency
-> value field becomes zero. A request of 100000 us leaves only 53 in the
-> value field. Still larger requests can set bits outside both the value
-> and scale fields. Thus a relaxed latency request can produce a much
-> stricter tolerance and unnecessarily restrict power saving.
-> 
-> Clamp the shifted value to LPSS_PRIV_LTR_VALUE_MASK before combining it
-> with LPSS_PRIV_LTR_SCALE_32US. This saturates oversized requests instead
-> of wrapping the field, matching the Intel LTR handling in sdhci-pci.
-> Negative values and PM_QOS_LATENCY_ANY retain their existing handling.
+Hi,
 
-Shouldn't we rather forbid to apply wrong values?
+On 11/9/26 2:57 PM, Jure Rebernik wrote:
+> A crash of the ADSP that the host reports, for example through the
+> remoteproc debugfs crash file, can reset the whole SoC on QCS8550
+> instead of restarting the ADSP. The reset was most frequent shortly
+> after the ADSP had started: on two QCS8550-based boards, crashing it
+> about 4.5 seconds after it was started reset the SoC in 19 of 42
+> tries. The serial console showed that the system stopped right after
+> the recovery started. Nothing more was logged, and the SoC was reset 6
+> to 7 seconds later.
 
-> The supplied fix was reviewed and this commit message prepared with
-> OpenCode AI assistance.
+I've been seeing crashes in sensorspd like
 
-This paragraph should go after '---' line below.
+qcom_q6v5_pas 3700000.remoteproc: fatal error received: 
+EX:kernel:0x1:SNS_SEE_I_0:0x10000025:PC=0xf00280b8:LR=0xf001f>
 
-> Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> Cc: stable@vger.kernel.org
-> ---
+on a Kodiak device (sm7325-motorola-dubai) also cause a whole-SoC reset 
+right after logging that, when trying to restart the ADSP.
 
-...
+Those are somewhat random and not too frequent, like once every couple days.
 
->  		if (val > LPSS_PRIV_LTR_VALUE_MASK)
-> -			ltr |= LPSS_PRIV_LTR_SCALE_32US | val >> 5;
-> +			ltr |= LPSS_PRIV_LTR_SCALE_32US |
-> +			       min_t(u32, val >> 5, LPSS_PRIV_LTR_VALUE_MASK);
+I'll test this patch and see if I no longer end up with my phone 
+randomly showing the u-boot menu when I pull it out of my pocket :D
 
-No min_t() in a new code. You mentioned clamping, use clamp(),
-it's exactly for that.
+> Since commit 0ea50486978f ("remoteproc: qcom: q6v5: Request shutdown if
+> crash is triggered host-side"), qcom_q6v5_request_stop() also sets the
+> SMP2P stop bit for a crash that the host reports, so that the firmware
+> takes part in its shutdown. The stop is requested from qcom_pas_stop(),
+> which rproc_stop() calls only after all subdevices have stopped. By
+> then the GLINK and SMD edges to the DSP have been unregistered and
+> their client devices, such as FastRPC, torn down. On QCS8550 the ADSP
+> firmware treats the stop bit as a fatal error and runs its error
+> handler after these links have gone away.
+>
+> Add a subdevice whose .stop callback requests the stop, and add it
+> before sysmon. Subdevices stop in the reverse order of addition, so the
+> callback runs after the SSR BEFORE_SHUTDOWN notification and
+> sysmon_stop(), and before SMD and GLINK are torn down. The firmware
+> then handles the stop request while its GLINK and SMD edges are still
+> registered. qcom_q6v5_request_stop() still skips the request when
+> sysmon got a shutdown ack, or when the firmware reported the crash
+> itself and the fatal or watchdog interrupt has cleared the running
+> flag. It also clears the running flag, so the call in qcom_pas_stop()
+> now only sends a request when the subdevices were not started.
+>
+> With this change, none of 104 host-reported crashes on the same boards
+> reset the SoC: 40 ADSP crashes at 4.5 seconds, 20 at 4 to 15 seconds,
+> 20 while the ADSP was streaming IMU sensor data and 24 CDSP crashes.
+> The ADSP or CDSP restarted each time.
+>
+> The problem was found, and this change was written and tested, with
+> the help of an AI coding assistant (Claude Code, by Anthropic). I
+> reviewed the change and the test results.
+Try not to provide the free advertisement right in the commit msg btw, 
+and to make it sliiightly less verbose.
+> [..]
+> +	 * Subdevices stop in the reverse order of addition. Request the stop
+> +	 * after sysmon has asked for a graceful shutdown and before smd and
+> +	 * glink are torn down.
+> +	 */
+> +	pas->stop_subdev.stop = qcom_pas_stop_subdev;
+> +	rproc_add_subdev(rproc, &pas->stop_subdev);
+> +
+> [..]
 
->  		else
->  			ltr |= LPSS_PRIV_LTR_SCALE_1US | val;
+It looks a bit funny that "stop is a device" but well, it's not like I 
+can think of a more elegant solution…
 
--- 
-With Best Regards,
-Andy Shevchenko
 
+Thanks,
+~val
 
