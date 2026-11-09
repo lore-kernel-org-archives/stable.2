@@ -1,53 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.52.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229019;
-	b=Wu0jXB6GkukLYDNP7TVCd9Qub7l9jjSpfQkTghlLthlRzw8TohOD31Rg7CoobiX/LA7f
-	 AyIWna6Tx5YbffwZjiFgRgohQvx0F3F/THA38QOEQZ5reSIQ762hWqevoyHclssPNvVEG
-	 uK8GUEsDJ1hMDnqo936ZVpZFYi3NVgaBu6sbXm6nAAuaSeQ8UTKnSz+Bs7n6EVL9IsBR6
-	 qrw1megA4Em+ftabmtmn7FOTrUUovWBdfedaJOHOnqyT2NChDuuRBr4Wj2v6zrpOpA0R5
-	 3JEKUy1PCvPHWyS5QxC4DRQAqze8QfLEjU94tJYKuh0ziivGfDsGOF6Ki7FSADuVW8w==
+	t=1794229021;
+	b=wmLlWSeWQh91ugZAsdqq5cAeT1D8jG1hQP6JXWInz6v6kC2g1pj+2bnJFPznNwX1c/VK
+	 68U0evfxR4JsQIIfcs4Zk1nLOKHdyaaDvVbYWAqafz+d0RU1qxwSTeLlIPzT0AdeB10wC
+	 a7SLng5ZO8yqCR8+PaljZWKbpksqliiZzqJSAwzt7Zch1rmWQu/OPrGmylENYOaVgOoMp
+	 Mp1PHnQ55G1ebcJW8OT75XG7ErMHlBJyQBBMPxHWBtl8/NmQ3ufDDbEwha69F7Krg3BWK
+	 i4/FzxU+USIyyA1pkypdFlHgvFlyi8lZeQoF5eU8sT/RLh0hjWW38vnvZr2iXIjQw0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229019;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=X8bKScF8eV0DybP5B8iH86pIo6Qb/6M8n/7AiE59994=;
-	b=DHUqcwZWaTv82RMSHgq33Ga98rsGhVWznwxmPnOVuzc7Gs4pNJu+Go70uA2fLmPpIiLD
-	 uzoUDQDfiWwXc+2oB36C0XLR90pc5fsZIli5eYyrOFTJj6Ib4eKAv6ok34nmLeacyk7l/
-	 JBvlLdzaA8PaYocubedPrK8sHr9Bk5juuAI2VAcqq6ETsUpavDhTtJJYLptbSytaXUzar
-	 bpHX1VG+ckLkOX4nSWwbuynZYc5HL32MP/tMEU9ODne8icULwJk6qPGmJLkGwyg3Qpsi8
-	 2mcvAe+xSoMK2RpPwLrK+aWeFJouEkR+4XVeJtQzoNodwE4ewfFvsq3NPmRZQWAp+Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229021;
+	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
+	 Subject:X-Priority:X-Mailer:X-Originating-IP:In-Reply-To:References:
+	 MIME-Version:Received:From:Date:X-HM-Tid:X-HM-MType:X-HM-NTES-SC:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=6WjD+7KwCK+a2zO9SxX1GaUGfgsoji0h2p/yuklFq40=;
+	b=IOjOaXGNNkkn7oQpUxCAVdn8VxzLpkULn1Vf/DrMV4+VzOyKXbd72mVFskm5EwppBx45
+	 Y+Vz4Sk1vi5BgpGQD0OJZyrdxhtcQDfudidp1/bNdGpICda8/kq8t/kqQNxu2jzAhCkWB
+	 XkizPM9piiqyMOS/PhGV+gaty7wD0JgUnEIN3onbv0BKPoCw0aTAdeGygkz1DFwz5qj4S
+	 rEnBQdSs1g5Yqy8geGa9+Mmg8R7pGESGt8BD9X0nwGlq1xgcm3QOq6RPpzea/u1BcfmIj
+	 zZWTZnTAbav3vlHhaC9w9PaEMDq/ROaNGrlVJAWmUXcquCVfHkGwzlUvJZv9lO3wQxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oDBcAO84;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EQawklHm;
+	arc=none smtp.remote-ip=160.236.52.228
+Received: from mail-m16023652228.xmail.ntesmail.com (mail-m16023652228.xmail.ntesmail.com [160.236.52.228])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6F4606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D6F4606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7462E606A31C;
+	Mon,  9 Nov 2026 12:56:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7462E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oDBcAO84
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=X8bKScF8eV0DybP5B8iH86pIo6Qb/6M8n/7AiE59994=; t=1794229017; x=2109589017; 
-	b=oDBcAO84R+bf3VZyzDPHTqE4AdXVWVHo62zLAIpdALvjtonC33f4j6pF+jTk4bVXOhZl2z+fSNv
-	PH8miNOAXMR2ymn81VIeIPDZ5bA88vZ/BDbxF9VGnxaPZwh/SiXIpPfjEY6tmD8+Q/iLGPcTMvRov
-	vcGQMoZOVL0rzPjMduQ7lMkvcVhKqHTpnwcSGwaVGOiEnIFkv3HSFk5qmjQgrmN8b4wcKhnXzns6+
-	z8h5Xfe4tEVzCU/Aln+FwGP6/AC/fLceCbkbRy/k1SsNPXycKm7SUsNDFNiNDwm00tJTHXpPRVvGN
-	6wwV0XrF9ivp7Wu3UUjnLNlMziA+gr4wATeQ==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xQOve-007Hdt-Il; Mon, 09 Nov 2026 13:56:54 +0100
-Message-ID: <6fccc8da-1c81-45c4-83ad-f71f48846342@igalia.com>
-Date: Mon, 9 Nov 2026 09:56:48 -0300
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EQawklHm
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
+	"Md. Haris Iqbal" <haris.iqbal@ionos.com>, 
+	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gUkRNQS9ydHJzOiBGaXggcG90ZW50aWFsIHVzZS1hZnRlci1mcmVlIG9uIGNsaWVudCBzeXNmcyBzZXR1cCBmYWlsdXJl?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+In-Reply-To: <20261109111652.GD8635@unreal>
+References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn> <20261109111652.GD8635@unreal>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,73 +56,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/v3d: Initialize timedout_batches when running a
- CSD job
-To: Iago Toral <itoral@igalia.com>,
- Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
- Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- stable@vger.kernel.org
-References: <20261101125619.2465064-1-mcanal@igalia.com>
- <179362541395.53188.8652440988836179813.b4-ty@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <179362541395.53188.8652440988836179813.b4-ty@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from 202321181@mail.sdu.edu.cn( [101.76.249.61] ) by ajax-webmail ( [127.0.0.1] ) ; Mon, 9 Nov 2026 20:56:46 +0800 (GMT+08:00)
+From: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Date: Mon, 9 Nov 2026 20:56:46 +0800 (GMT+08:00)
+X-HM-Tid: 0aa1c05f60d5d0cdkusya9b7de4bea6c
+X-HM-MType: 1
+X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMVHpP02bZAKsMEiErRSAekjx+ys+KNZNl0PLwl
+	f2MeqR5lbiqKsoq8sm3hZVy9q3VY0Ca69y1LOfMeXKdLfI1E5i1eQoqSDNKmzdVlKZstM3O+8hfF
+	V6URxYTc7eahx9VOrzkA6R7vVablFdI1bzF1E=
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQhlNVhkdTU1PTB4aGEgeHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
+DKIM-Signature: a=rsa-sha256;
+	b=EQawklHmnjEz1eDhnbHy5Vt9I1jjmcweJ9FfL9USrXSbV/oTgLc1IXWz4uFmpd0CcsbsObM3VNJoYcmmQz5ISGVhkKg7TMEWrLj5+6Oc8E+6FqQMScNVqubHmxkva1Fu+6sNNIK5FqPiGALDfVBfNLnh8mPa/ciDqCtmo3gk9qo=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=6WjD+7KwCK+a2zO9SxX1GaUGfgsoji0h2p/yuklFq40=;
+	h=date:mime-version:subject:message-id:from;
 
-
-On 02/11/26 10:16, Maíra Canal wrote:
-> 
-> On Sun, 01 Nov 2026 09:53:57 -0300, Maíra Canal wrote:
->> v3d_csd_job_timedout() decides whether a compute job made progress by
->> comparing CSD_CURRENT_CFG4, the number of batches the dispatcher still
->> has to start, against the value saved at the previous timeout. That
->> saved value is never initialized, so it is zero on the first timeout.
->>
->> On V3D 7.1.6 and later, CFG4 counts down to zero once the dispatcher has
->> started the last batch, but the dispatch keeps running until the batches
->> in flight complete. If the first timeout fires in that window, the
->> handler sees no change and resets the GPU while the job is about to
->> complete. For example, this happens with long dispatches that only keep a
->> single supergroup in flight.
->>
->> [...]
-> 
-> Applied to drm-misc-fixes, thanks!
-> 
-> [1/2] drm/v3d: Initialize timedout_batches when running a CSD job
->        commit: 0afdbdd5b1af729108de8f893d179c3b99eac29d
-> 
-> I'll apply the second patch to drm-misc-next after the back merge.
-
-Applied to drm-misc-next, thanks!
-
-Best regards,
-- Maíra
-
+SGkgTGVvbiwKClRoYW5rcyBmb3IgcmV2aWV3aW5nLgoKRnJvbTogTGVvbiBSb21hbm92c2t5IDxs
+ZW9uQGtlcm5lbC5vcmc+CkRhdGU6IDIwMjYtMTEtMDkgMTk6MTY6NTIKVG86ICBHdWFuZ3NodW8g
+TGkgPGxpZ3VhbmdzaHVvQG1haWwuc2R1LmVkdS5jbj4KQ2M6ICBKYXNvbiBHdW50aG9ycGUgPGpn
+Z0B6aWVwZS5jYT4sc3RhYmxlQHZnZXIua2VybmVsLm9yZywiTWQuIEhhcmlzIElxYmFsIiA8aGFy
+aXMuaXFiYWxAaW9ub3MuY29tPixKYWNrIFdhbmcgPGppbnB1LndhbmdAaW9ub3MuY29tPixsaW51
+eC1yZG1hQHZnZXIua2VybmVsLm9yZyxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnClN1Ympl
+Y3Q6IFJlOiBbUEFUQ0hdIFJETUEvcnRyczogRml4IHBvdGVudGlhbCB1c2UtYWZ0ZXItZnJlZSBv
+biBjbGllbnQgc3lzZnMgc2V0dXAgZmFpbHVyZT5PbiBTYXQsIE9jdCAzMSwgMjAyNiBhdCAxMDox
+NDo0NlBNICswODAwLCBHdWFuZ3NodW8gTGkgd3JvdGU6Cj4+IHJ0cnNfY2x0X2NyZWF0ZV9wYXRo
+X2ZpbGVzKCkgZHJvcHMgdGhlIHBhdGggcmVmZXJlbmNlIG9uIGZhaWx1cmUsIGJ1dAo+PiBpdHMg
+Y2FsbGVycyBzdGlsbCBjbG9zZSBjb25uZWN0aW9ucyBhbmQgZnJlZSB0aGUgcGF0aC4gVGhpcyBj
+YW4gYWNjZXNzCj4+IGZyZWVkIG1lbW9yeSBhbmQgZnJlZSB0aGUgcGF0aCB0d2ljZS4KPgo+U29y
+cnksIGJ1dCBob3c/Cj4KQ29uc2lkZXIgYW4gYWxsb2NhdGlvbiBmYWlsdXJlIHdoaWxlIHNldHRp
+bmcgdGhlIG5hbWUgb2YgdGhlIHBhdGgKa29iamVjdCBpbiBydHJzX2NsdF9jcmVhdGVfcGF0aF9m
+aWxlcygpLiBrb2JqZWN0X2luaXRfYW5kX2FkZCgpIGhhcwphbHJlYWR5IGluaXRpYWxpemVkIHRo
+ZSByZWZlcmVuY2UgY291bnQgdG8gb25lIHdoZW4gc2V0dGluZyB0aGUgbmFtZQpmYWlscyB3aXRo
+IC1FTk9NRU0uIFRoZSBzdGF0cyBrb2JqZWN0IGhhcyBub3QgYmVlbiBjcmVhdGVkIHlldCwgYW5k
+CmFkZGluZyB0aGUgcGF0aCB0byBjbHQtPnBhdGhzX2xpc3QgZGlkIG5vdCB0YWtlIGEga29iamVj
+dCByZWZlcmVuY2UuCgpUaGUgZXJyb3IgYnJhbmNoIHRoZW4gY2FsbHMga29iamVjdF9wdXQoJmNs
+dF9wYXRoLT5rb2JqKS4gVGhpcyBkcm9wcwp0aGUgb25seSByZWZlcmVuY2UuIFdpdGggQ09ORklH
+X0RFQlVHX0tPQkpFQ1RfUkVMRUFTRT1uLApydHJzX2NsdF9wYXRoX3JlbGVhc2UoKSBydW5zIHN5
+bmNocm9ub3VzbHkgYW5kIGNhbGxzIGZyZWVfcGF0aCgpLCB3aGljaApkb2VzIGtmcmVlKGNsdF9w
+YXRoKS4KCkJhY2sgaW4gcnRyc19jbHRfb3BlbigpLCB0aGUgZmlyc3Qgc3RhdGVtZW50IG9uIHRo
+YXQgZXJyb3IgcGF0aCBpczoKCiAgICAgICAgbGlzdF9kZWxfcmN1KCZjbHRfcGF0aC0+cy5lbnRy
+eSk7CgpUaGF0IGFjY2Vzc2VzIHRoZSBsaXN0IG5vZGUgZW1iZWRkZWQgaW4gdGhlIHBhdGggdGhh
+dCB3YXMganVzdCBmcmVlZC4KVGhpcyBpcyB0aGUgdXNlLWFmdGVyLWZyZWUgSSBtZWFudC4KClRo
+YW5rcywKR3VhbmdzaHVvCg==
