@@ -1,64 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229592;
-	b=raEUVtfXKSLPifNyjserEaz/Su8DIPW3S2r047p1g1203ghWBPNc6n7X+f6S4E2dm//1
-	 rpaTa/kq6YIoCYTD8vk3PMJWoVZMTKoh08PGob/xLCnLUo33F9IS2IafElN3Jl8jTDuV1
-	 3zM3aYOp2zNWRW3abNV5E0U/Vvj6m3RTX4kwVDGXb11NycS93eaob2AlVH6eRA3yfIauK
-	 OD8XkKHHIAf+GBNfH270QuwqLnMVSlLY8zhk8lpXpgOFOyiPikVvzNEc2Nk/sQ/E1BBHO
-	 4YxtdizADyU+awuWrjJlqZH0TIlbvk12kvuQ90/6EXs9ffllM4VfaHp5Lv3nClM/Q1Q==
+	t=1794229796;
+	b=HaFhvcAInXKj7RJr8UBkmIRYLZTBciw6x2bD93gPj29VOs4ZSi1VatuZPQw3KMNugADJ
+	 V6weKhAbmWOdPBCtJ+PEGM69dAGazXUoehTybN7jHJ9iIKOY7YfVvfK1Q8M2C3GXRWysX
+	 y7VGe5/vzXkq7OsGyBYA5GSKL2rmkWGMDTPRraDwum/eOQf1jC5YMYipzE801s0lcct3j
+	 /wGnYJ3rRROo+Qiz1voIxRo89IsaHOGdicwzcoM7cKUJpHsxr5rRTyukvdw8bGj2JwajQ
+	 C/Yzq3zLNpxCF3GJMxholvEk3FSjexwkJdyD65iMdSfCwCxRXvI2AsMMiFtDVJOn0oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229592;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
-	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=M5XaS0Zod6058OtmcR4y5qY/copfL+BUMUEu0sLQEWQ=;
-	b=ilN+eLuHQ46dlWlaU8/cdgX2I41yZkeX4b0OGt2zB9xls+uHeQoxRAstN9RykIbxk1IM
-	 Uy97OP9FMSCvzgbR79w35gMbiTHJuBO1UacGdHedZliVt1CU8551isuTbWa5+2XE2mwbQ
-	 HGpFmU7lIz4OW5yRYsA3VudviiH9ypb/oxkxtJOK6HHWHyd0lPgewi0W8eg4v5CWWBjcp
-	 D9RG8+KSFf2ni+oZYVWarPKw2A0DYV+L9J+VdzPhJdH94WZT2Tz02Plq2VU7YkgM3sgMs
-	 NB9AoXioHkESpGm7wtL0FG9vIOdR5sBEZ9wx2awUwF4wXM5WBnvUdcQIR/FUdRrDITw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229796;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
+	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=f+8E0s5Zue5uHtaK5KTCTkEmSgDAkRA+JcPbsxori10=;
+	b=2LRTziv6hkRFErjlqaVpg+YTtPUjmrsPG+mBpk4fAxOiJ3sSwoQMWjOxMXWi8vtbqiPn
+	 SMcUh4VSfDDDl/vz214sSEmybvbj+rJb4Fr+pl147f5V6wrOHrQS4CyewVdsD+9t9lHQf
+	 cQatvI7QET7IfSeR9uWH82ZKDwiAdJ25Hv10j1tVaiPhtZeMsO2/5GcR0sLyo5CUFP8vd
+	 ZU/H1JO+wLX1Y7zz0S0l0OjN7/sUlfByWb/ykU7Clf+5juqj+kZPfcklnYNugWMVwf6Ey
+	 8OYy4Uugn5t5loa0N+5t1oYSbMUiXz/iDxgWjLmBwJQNIO/jYnE6QceALCFun8+vO5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.46
-Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N6KnvR8W;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D635D606A325;
-	Mon,  9 Nov 2026 13:06:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D635D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jNVQh3QH3zpV2Z;
-	Mon,  9 Nov 2026 21:06:04 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.157])
-	by mail.maildlp.com (Postfix) with ESMTP id 6F1E340558;
-	Mon,  9 Nov 2026 21:06:27 +0800 (CST)
-Received: from [10.204.63.22] (unknown [10.204.63.22])
-	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0CGaF5JxfFqcoQPAA--.4413S2;
-	Mon, 09 Nov 2026 14:06:26 +0100 (CET)
-Message-ID: <f5b2a9348436f0ac8a11fe1957174de5cbba495b.camel@huaweicloud.com>
-Subject: Re: [PATCH v2] ima: fix races when deleting measurement list entries
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Steven Chen
- <chenste@linux.microsoft.com>,  stable@vger.kernel.org, Zhu Guanglei
- <zhugl3@xiaopeng.com>
-Date: Mon, 09 Nov 2026 14:06:14 +0100
-In-Reply-To: <179422925743.761920.15976497107095793440@xiaopeng.com>
-References: <20261109123335.432186-1-liuwb@xiaopeng.com>
-	 <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
-	 <179422925743.761920.15976497107095793440@xiaopeng.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5C5606A33B;
+	Mon,  9 Nov 2026 13:09:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A5C5606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N6KnvR8W
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54050f33f;
+	Mon, 9 Nov 2026 21:09:44 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] serial: sccnxp: Fix potential stale ports after IRQ request failure
+Date: Mon,  9 Nov 2026 21:09:43 +0800
+Message-ID: <20261109-21df1234b2-serial-sccnxp@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,35 +55,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:nRC2B0CGaF5JxfFqcoQPAA--.4413S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYs7kC6x804xWl14x267AKxVW8JVW5JwAF
-	c2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII
-	0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xv
-	wVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjc
-	xK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY
-	04v7MxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r1q6r43MxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7IU1zuWJUUUUU==
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrxOrlkpAACsH
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1c06dd09103a1kunmf9615dd512147e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0JMVhlDSBhLH0sYSk1NT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=N6KnvR8Wd9zieM82mRNyS0/wFuf4dZPUy7MvpF1sjobIDmh15WZuMPFqUd3UchKURok0pF1gvN69pohNyfrLOrYJx+UVfef6Vh3V1fdkkGOgGWIPpbkocKFL8Xm7DTZBHhlLFNaGrxSvrNZqyeqxWNrI1XBR+nGkpXhbvw5vUc4=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=f+8E0s5Zue5uHtaK5KTCTkEmSgDAkRA+JcPbsxori10=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, 2026-11-09 at 21:00 +0800, Weibin Liu wrote:
-> On Mon, 2026-11-09 at 13:49 +0100, Roberto Sassu wrote:
-> > Is it still true with the new semaphore?
->=20
-> No. That paragraph describes the unpatched code. The patch serializes
-> writers with ima_measurements_rwsem and protects the lookup and cut
-> with ima_extend_list_mutex.
+The ports are registered before the interrupt is requested. If that
+request fails, unregistering the UART driver frees its state array
+while the registered ports still refer to it.
 
-Sorry, the comment was not in the right place. Is it still necessary=20
-to take ima_extend_list_mutex to determine the cut position, since now
-writers are serialized with the semaphore?
+Check each port registration and remove the ports already registered
+before unwinding the UART driver on either failure path.
 
-Roberto
+This issue was found by our static analysis tool under development.
 
+Fixes: 1d65c0b12656 ("serial: New serial driver SCCNXP")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+ drivers/tty/serial/sccnxp.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/sccnxp.c b/drivers/tty/serial/sccnxp.c
+index cb31e3aceb62..502f8ebe265b 100644
+--- a/drivers/tty/serial/sccnxp.c
++++ b/drivers/tty/serial/sccnxp.c
+@@ -989,7 +989,9 @@ static int sccnxp_probe(struct platform_device *pdev)
+ 		s->port[i].uartclk	= uartclk;
+ 		s->port[i].ops		= &sccnxp_ops;
+ 		s->port[i].has_sysrq = IS_ENABLED(CONFIG_SERIAL_SCCNXP_CONSOLE);
+-		uart_add_one_port(&s->uart, &s->port[i]);
++		ret = uart_add_one_port(&s->uart, &s->port[i]);
++		if (ret)
++			goto err_remove_ports;
+ 		/* Set direction to input */
+ 		if (s->chip->flags & SCCNXP_HAVE_IO)
+ 			sccnxp_set_bit(&s->port[i], DIR_OP, 0);
+@@ -1016,6 +1018,10 @@ static int sccnxp_probe(struct platform_device *pdev)
+ 		return 0;
+ 	}
+ 
++err_remove_ports:
++	while (i--)
++		uart_remove_one_port(&s->uart, &s->port[i]);
++
+ 	uart_unregister_driver(&s->uart);
+ err_out:
+ 	if (!IS_ERR(s->regulator))
+-- 
+2.43.0
 
