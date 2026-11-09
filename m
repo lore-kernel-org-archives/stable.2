@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253178;
-	b=memuHiRLEdA4NuJEhKo4cYK8auDj9Tou1H7sC1A+lB+7WhqWkGdV3DrdGQI9mtDQ1X5c
-	 Nh7QrvQhgzJRk5IIjdZUVhUgwpE3xfRy0TnskW0SiywPjmCi+7N1+n3o+Hlu4x0HSnJWV
-	 itur/+mQ91pYw2yKt77i/OlJkTnqW8wEXFFcPfoqvNvF/NASDYORE3KgLNeyxUmy8gXn9
-	 /MQf7VMwegPOOpMP5j+0vHatpjPfQDGzLoYJp+sAYKLw3w3yuXk6GxCT2gEcpYmhswAPu
-	 YlwaPE7bfQLwWCRqz0FGiDUp5B7ktUQDtRvZMRLwFUmbAcuhndgqK9NnwGouqFeUUsw==
+	t=1794253186;
+	b=ZPicfuMQFM8Y3P0GkzGZYBdXMs7WwTpfLKez71iusTjR+JWyaqE21YdVGsyRmGwuQqo9
+	 l8/MsCGCsS26RhN00Z3TovbVFod8OmOEhDMjuijMatSpD+yygynGZX9M9rvXAv7arWgs9
+	 q4E6TyCyFKBIDlj5lJq+4eASAjau2ioNxPkSEA4w97cGzdDE5n8CHkivR4IXbjRDGqwqn
+	 3g8t0HyQDjxMQbC7jUb9d4BS3J2sE3sUZEuqsCyqXRmV/WNXUN+zsWq3hXSBs3QxOwr68
+	 daiTe6tV8/5INh7wb4OP+JiedsvtDjP8UkAvIOMDLmnRXAcaX+oaXnZRTt6VB8U7e7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253178;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253186;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
 	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=AO6k7VhnPykl5qhHlZJsMqShpDZ0BaYxHbA6JDryfgI=;
-	b=zFNnGAMZMhacXZpokguIC4xeail5BpNWhPuEPRtd2lejMoGZlRv9t8HUs0iGi3NofDqY
-	 2++2I5DXm68jn5FplHj9GpvD9t/5ZwkwGCHijz9UMd40gzWPPM4501DlDAEEohyEcEsU7
-	 iUmD+Lp5p6KvguBCjhhBndABKMGajbDfEPRiwi86qpONgZDdH4qNGmC2QTPy64b9aduoo
-	 YXGYV1uk31O7RqhFCSOu8/BgtlojRFpa+o5T0nuRGvxFtCvhOZRTB3812GBJnp56PFuzY
-	 6+tRuFWY/sHe7mN3Z3iYyeERc9dsegrmDgbaqekBrzMVg5OPojrgYbf2X3P8MubTj8g==
+	bh=ZdfTvhaFlxAY9qhVTuH7nBLLFVv4E+4zk2xSljCVV40=;
+	b=pGLI6xH9abst5UHSHt/c2cSmSPtwPGWOS72F+Lubnvav5qCYOw26FxOG61veyAuMfVib
+	 eytUOjuV5opqb/AhVxgBQuqJO6cbc9HRF7R0o/wEIeCQ8zrhaSYeHT5lDMB2AbAol52tB
+	 CNxE3fmCKLhlmR+SJGRj+LaTg8S4UamEGmLAW4dckRmfvwjLAtdE2k5Nj0ObsN/Wj1ZKt
+	 qSUcw3GDt535mXFWU+qZgjs+6f2b5k4Kne/kPIvA92M+NnEICK5yL/6oa8W1RaEbdV7KC
+	 MxJ7noleoBX0+cje0CuDlWGhPzq+A2mRzMc4w7pzafv3sJbQXmpCk1IgFrOUt2jkKWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C5xOgybl;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ExH28ikV;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0FE606A330;
-	Mon,  9 Nov 2026 19:39:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D0FE606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB1EF60A2625;
+	Mon,  9 Nov 2026 19:39:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB1EF60A2625
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C5xOgybl
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ExH28ikV
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794253177; x=1825789177;
+  t=1794253186; x=1825789186;
   h=from:to:cc:in-reply-to:references:subject:message-id:
    date:mime-version:content-transfer-encoding;
-  bh=l/IGU87br/8GR7Q3A8JKigp/P5JkZtjTrJNcbWbgJm4=;
-  b=C5xOgyblT90Fqo4wsRxZEoV4SbDTbVzHiIhcO+guz4P6xvbHGkhj8lOw
-   JuyuYSqSe5an87HiXrcjL+6p3pxNyseLlcRtynjNfCHpCYjmr6o3VYUFU
-   rwe/PuWwzq9ZxAyI19I78IV+fqpBjmLYM6/0BldTDXj4vfJ+wp5jUfnIW
-   TPw0VcG2/2WZSsAT/44KEQR34kaeJ0U+QuUHGN38hPqimYEzVzd7UmsmA
-   y5rA6QzEg/vLzXhKC3YTm1s8p888DDRhuTfYCHjT6wZC1frnd6Ciw6j7z
-   FFaeGcE3iBgJjiVUFB5hPC82quwbJHAVfo2tgN8L7URFGrTykHu/jHAyZ
+  bh=R9CNjeY4WdqHEnSJpOsePk/kYnW5XVOT/Y1CPn0j0+8=;
+  b=ExH28ikVBODjUzLTLCi4+L+m92jqMOGIERTHH6HZBaJHgUe88ghkH4Iy
+   5byEBdMw/Ilzo1aElEcAI6QoyVnhSlTZ4cf9Kn99Zcsnwpzqr7QMFZ91L
+   Zb3E5WcFwzizVa9oXbdgVW1eBpJG2qkRURI0fqiP3BVddVDV3+XLCoS5L
+   5XxR6nPW6kgqFPbJJIZcaEihUOO35YU/bRp8MtjfUAevBK91LJGowmWhn
+   DiujQ4kMHVH2yO1+whindySxjgOFyKzl2GRPwIQ2fICHO1ggDulXx32/K
+   3ui5LAImC7iLKHNVTsp1iEtThfcnUdKjm7C7ngrQR3f/RwJAsk+xtHH/1
    A==;
-X-CSE-ConnectionGUID: +dqBvUqeSeqjq7NQ7KeqMw==
-X-CSE-MsgGUID: QHvuVOF8QiSsXRj0ePcevQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3090764"
+X-CSE-ConnectionGUID: pZmhbkqYQca0o2/hPowfyQ==
+X-CSE-MsgGUID: DJEVhs6pSumOwQtj09CqGw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2867506"
 X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3090764"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:39:37 -0800
-X-CSE-ConnectionGUID: S3vCqCXiRbi33fK07+TDoA==
-X-CSE-MsgGUID: 09MmypJ0TM+iKDRxsL0HoA==
+   d="scan'208";a="2867506"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:39:45 -0800
+X-CSE-ConnectionGUID: skpbr71QQWCguv3nLbHeeQ==
+X-CSE-MsgGUID: hGGfGgpdT7iVxh/loHRE3A==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7810163"
+   d="scan'208";a="9727682"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:39:34 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:39:42 -0800
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Azael Avalos <coproscefalo@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, Darren Hart <dvhart@linux.intel.com>, 
+To: jorge.lopez2@hp.com, hansg@kernel.org, 
+ Muhammad Bilal <meatuni001@gmail.com>
+Cc: andriy.shevchenko@linux.intel.com, linux@weissschuh.net, 
  platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org
-In-Reply-To: <20261026083042.3982005-1-lgs201920130244@gmail.com>
-References: <20261026083042.3982005-1-lgs201920130244@gmail.com>
-Subject: Re: [PATCH] platform/x86: toshiba_acpi: fix UAF after IIO
- registration failure
-Message-Id: <179425316878.10927.5628001844548737863.b4-ty@b4>
-Date: Mon, 09 Nov 2026 21:39:28 +0200
+ stable@vger.kernel.org
+In-Reply-To: <20261026051740.88791-1-meatuni001@gmail.com>
+References: <20261026051740.88791-1-meatuni001@gmail.com>
+Subject: Re: [PATCH v8] platform/x86: hp-bioscfg: fix heap OOB in
+ hp_enforce_single_line_input()
+Message-Id: <179425317709.10927.8604237354153885108.b4-ty@b4>
+Date: Mon, 09 Nov 2026 21:39:37 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,16 +86,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
-On Mon, 26 Oct 2026 16:30:42 +0800, Guangshuo Li wrote:
+On Mon, 26 Oct 2026 10:17:40 +0500, Muhammad Bilal wrote:
 
-> When iio_device_register() fails, the error path frees dev->indio_dev
-> but leaves the pointer non-NULL. Since the probe continues, a later
-> driver removal or a subsequent probe failure can reach
-> toshiba_acpi_remove(), which may call iio_device_unregister() and
-> iio_device_free() through the dangling pointer.
+> The input is copied with kstrdup(), which stops at the first NUL, but
+> the full write size is passed to hp_enforce_single_line_input(). With
+> an embedded NUL the helper reads, and can write one byte, past the
+> copy. Use strnchrnul() so the scan stops at the first NUL, and return
+> -EINVAL for a NUL or newline before the last byte.
 > 
-> Set dev->indio_dev to NULL after freeing it so the remove path skips
-> the already-freed IIO device.
+> Tested on HP EliteBook 840 G2 (Fedora 44, Linux 7.2.8): writing "A\0"
+> followed by 4093 bytes of "B" to current_password 100 times returns
+> -EINVAL every time, without reading into the heap.
 > 
 > [...]
 
@@ -110,8 +111,8 @@ commit introduced in the most recent cycle or is clearly a regression
 fix.
 
 The list of commits applied:
-[1/1] platform/x86: toshiba_acpi: fix UAF after IIO registration failure
-      commit: fec3ad5dd1411c3b05f5ff1ff21a5025a0fd68f6
+[1/1] platform/x86: hp-bioscfg: fix heap OOB in hp_enforce_single_line_input()
+      commit: e7cf4282a8694f14eb44a2f110c7628a161e9692
 
 --
  i.
