@@ -1,56 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193585;
-	b=hgHIDZkxCSEc005JJoDu4ppT9tmK6vGPVZhDHsMZrXeGmHw/l7Rd/zoePnvHwIYoOpXP
-	 g0a6mFJznffQILrU3kZ/iU8EtIKC2Sq3MD/r24D2asas46bv59iv2BaZ1vcLqNGggrfx3
-	 V3kio7sfGILF7KjGesumBTVFXbr9q8PCU1S+SQqF2ntv/RLqoo2Hc71xcPwq/76d2ejQq
-	 wH3DOKsrBZ3pyWdUj0R23UFrV3DSQz3yMvau/zvBG4s/cSQJzihXRK+pME7rusCPfY2VY
-	 ha/b7xf4HhUsAnKtlvJlOF0rMVmGZduLS/iuv6HwFxPGBQFvFy7HV3wirmtj01hJKVA==
+	t=1794193586;
+	b=LxZATOCrhmpyQUU92sKiC+1edDENLo80v54xealaQdLrGhBJxyiKjbml6vE0Z9px7NSX
+	 f+POlyGQsZmkKcHeInJbtHsEnZmIsF2bxBX0wL0SBLDeU2twsyBqMIPe8Lk+sLRRR3Ut5
+	 709BLo0sYmFrHcuFqLxeimSU9cZvmPbzFr0TtAcb3eOlsXQQkTGRt0rkvlZW5YgL+gzz5
+	 RvPAyB1GS/YRniYJ+Rybg24bxuas8cXqDE5JfTSqiJLr7DaA36Rfb4CZNZRrYmsgDH/HF
+	 unaEQHjTV5ElrwoH5x+nXIcXDOCvs1hgrxZLcPj7nOuqvFMwrbtnghsEdrWiWKA/buw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193586;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=oE+pfedSZ3GW1yW3O4bceNqbVjctFTYPo2SmzMUWU9A=;
-	b=tJ8WEOyI699iPwQqOQP2O/FiJZGps+YJM1MfYUCeMZTskyWhPFmlYGfL/GXznI7swM9Q
-	 7DzpjQBlNEPqQtlLBPa1cw5LKE4iRW2FAB/oOXrU8PFuUtCyFoqmBT/P0hrqVbdpO3d0A
-	 NcEjWbr9lRhEXyxkiSBgLadwzuZX83RCeQ7cN04n9zEdY7EH4oy+ekumehcZrWnvKbEju
-	 wFO9IJJBQJu2A8ZrEcyOfqTCPDib3YQx8tSx7U4grxZtYGfqVV38r5Kt8ak/W1LO5ctxp
-	 OjnRara6EDvTaX/5YozNwDAz+EflhYd8awwmge/BpUWYAJFBZyNbS1mg6Shsjpli1Dg==
+	bh=SdY7E+Kl7jCh4LeRWf7UfzZFz2jYdkBFjUFWFjDL6fc=;
+	b=O2a+BfITB0gCqNhqg72m63sgwprquPqXhGU+8tBbbHJhdt2wI2yEErCg9etg0/Qr/IIW
+	 9dpLjITEw5ln2UoEN1nExeh4Vq0dNXlC+hbJuveDcFOyt0FMuU0ykf9z6eO979znZFNxi
+	 p2mcYwpB9D1VZPOybNh+8EIS3B2bJ7RSwAz5Ng4Qz5avGbFS5JAhDlptkjk28u+e4PNQN
+	 6eylBOPUjW3c1ififedbZLpfWbOhE9L05m53RCPmG46BG1/Fsjgk/evGkHcnp/rC7OtOP
+	 1QceWETOGxWKgeSCLvOLB1gPkJjtT2xzw8fqO2SgmufQR/JLwSMDOdYjHLmiWsEbctw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=O0oQ+iJx;
-	arc=none smtp.remote-ip=115.124.28.51
-Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=tA0xPs1R;
+	arc=none smtp.remote-ip=115.124.28.145
+Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442BF606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442BF606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99311606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99311606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=O0oQ+iJx
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=tA0xPs1R
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794193575; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=oE+pfedSZ3GW1yW3O4bceNqbVjctFTYPo2SmzMUWU9A=;
-	b=O0oQ+iJxK+5F4Ga+z4EyN1z7f9miSlinJmgpwNopNS276Ko3KYvgP3TrKeLieMsCg7zn0qfP1MmE9m8/a+sEKIklTDQwcEoeSSsTa7IaGVqWwj4ST/g8Cvtzq0XIMzvJCUpzxsB5ih2OLAGFgb3u/DxF1zBSblkFEIVbm4xQz3k=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08280249|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00323688-0.00020055-0.996563;FP=4424648679000448758|2|1|2|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=2;RT=2;SR=0;TI=SMTPD_---.jzhB24W_1794193575;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jzhB24W_1794193575 cluster:ay29)
+	t=1794193578; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=SdY7E+Kl7jCh4LeRWf7UfzZFz2jYdkBFjUFWFjDL6fc=;
+	b=tA0xPs1RsWBBREc0SNXMLIvKOIcntj/RsPft/rsd0Cvwmmu+xk2vAZRY5GhhNalNdheMxYtQDZR7OcDfGOy1gBVeHziQ0asDOWYBCewldQl4/OfkgojWNnGMM/ST/HDy+cQxN3lZRfBsBO7fGqrC0EmOgAbo7K3fo1el1hoFJmM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07465642|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.000859849-6.37942e-05-0.999076;FP=16997243140937108936|3|1|2|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jzk5.YU_1794193577;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jzk5.YU_1794193577 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 11:06:15 +0800
+          Mon, 09 Nov 2026 11:06:17 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: stable@vger.kernel.org
-Cc: John Johansen <john.johansen@canonical.com>
-Subject: [PATCH 6.12.y] apparmor: check accept index + 1 is in bounds
-Date: Mon,  9 Nov 2026 11:06:14 +0800
-Message-ID: <20261109030614.419397-1-zhugl3@xiaopeng.com>
+Cc: liuwb@xiaopeng.com,
+	Mark Brown <broonie@kernel.org>
+Subject: [PATCH 6.6.y] spi: bcm-qspi: reject oversized dummy bytes in mspi exec_mem_op
+Date: Mon,  9 Nov 2026 11:06:17 +0800
+Message-ID: <20261109030617.419442-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261107052758-failed-6.12-afe5d5a74739@kernel.org>
-References: <20261107052758-failed-6.12-afe5d5a74739@kernel.org>
+In-Reply-To: <20261107053540-failed-6.6-9e44f0df3fff@kernel.org>
+References: <20261107053540-failed-6.6-9e44f0df3fff@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,52 +63,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit afe5d5a747393cb3d00795db31d7fce5108a766a ]
+From: Weibin Liu <liuwb@xiaopeng.com>
 
-aa_lookup_condperms() returns perms[index + 1] when an accept entry has
-ACCEPT_FLAG_OWNER set and the subject uid does not match the file uid,
-so such an entry consumes two slots in the perms table.  But
-verify_dfa_accept_index() only checks that index is within the perms
-table, so a policy that sets the owner flag on the last entry is
-accepted, and the runtime lookup then reads perms[index + 1] one entry
-past the end of the table.
+[ Upstream commit 9e44f0df3fff215d9033089e85980048c3ac132a ]
 
-The perms table is allocated by unpack_perms_table() with a u16 size
-read from the policy blob, so a crafted policy can place the owner flag
-at index size - 1 to reach the out-of-bounds read.
+bcm_qspi_mspi_exec_mem_op() builds a local command buffer cmd[6]
+holding one opcode byte, up to four address bytes and one spare
+byte, and sets t[0].len = op->addr.nbytes + op->dummy.nbytes + 1.
+bcm_qspi_exec_mem_op() only validates op->addr.nbytes <= 4 and never
+bounds op->dummy.nbytes, which spi_mem_check_op() also leaves
+unrestricted. With addr.nbytes = 4 and dummy.nbytes >= 2 the length
+becomes 7 or more, so write_to_hw() reads past cmd[] on the kernel
+stack and pushes the leaked bytes into the hardware TXRAM.
 
-Check that index + 1 is also in bounds when the owner flag is set.
+Reject operations whose dummy phase does not fit the remaining byte
+of cmd[] by requiring op->dummy.nbytes <= 1, so such transfers fall
+back to the generic SPI path instead of overrunning the buffer.
 
-Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
-Cc: stable@vger.kernel.org
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Fixes: 5f195ee7d830c ("spi: bcm-qspi: Implement the spi_mem interface")
+Cc: stable@vger.kernel.org # 4.18+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20261015-bcm-qspi-dummy-bytes-v1-1-c319da3c2497@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ Adapted for 6.6.y: this tree returns -ENOTSUPP instead of -EOPNOTSUPP. ]
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ Adapted for 6.12.y: verify_dfa_accept_index() takes a non-const dfa here. ]
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 ---
- security/apparmor/policy_unpack.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/spi/spi-bcm-qspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 4642058..ffff8d8 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -1209,6 +1209,15 @@ static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
- 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
- 		if (ACCEPT_TABLE(dfa)[i] >= table_size)
- 			return false;
-+			/*
-+			 * Accept indexes for owner-conditional permissions come in
-+			 * pairs, so the non-owner entry at index + 1 must also be
-+			 * in bounds.
-+			 */
-+			if (dfa->tables[YYTD_ID_ACCEPT2] &&
-+			    (ACCEPT_TABLE2(dfa)[i] & ACCEPT_FLAG_OWNER) &&
-+			    ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
-+				return false;
- 	}
- 	return true;
- }
+diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
+index 0407b91..dd6fbdf 100644
+--- a/drivers/spi/spi-bcm-qspi.c
++++ b/drivers/spi/spi-bcm-qspi.c
+@@ -1197,8 +1197,9 @@ static int bcm_qspi_exec_mem_op(struct spi_mem *mem,
+ 	u32 addr = 0, len;
+ 	u_char *buf;
+ 
++	/* cmd[] holds 1 opcode + 4 address + 1 dummy byte at most */
+ 	if (!op->data.nbytes || !op->addr.nbytes || op->addr.nbytes > 4 ||
+-	    op->data.dir != SPI_MEM_DATA_IN)
++	    op->dummy.nbytes > 1 || op->data.dir != SPI_MEM_DATA_IN)
+ 		return -ENOTSUPP;
+ 
+ 	buf = op->data.buf.in;
 -- 
 2.43.0
 
