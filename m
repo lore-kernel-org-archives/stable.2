@@ -1,80 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245527;
-	b=VzZ83Y3v4ZelZisOb4GLvpcJ2h9bQCl4Xn9q9yBc+oTcH8DhMhvpGytuqw3+Qwdn6LJx
-	 snzlAcgCjw3XgWkKSXdZUCvDszLOHgCwYLl2WXFnjtjn68KQOw1evdBtTLHRre9CNUY0L
-	 QKoo0Pz1MHnftI/tzXzdNSlSWDW5v26WSvJgaflsUYG5Zp24YMNU4i0O2AmtQtfBW/hPE
-	 ycfrMGSf1m+a7QnHBUZ9fhXPkryiY4bXV+tCMBOSQq5EemiAo8KZ6frY+RRvQYALUyDbQ
-	 MJmCXchXsl/GBOUK65I3uTV3g3409RX/wBja9IbSXri0wWdjSoixDelb/q5rDn1JpJQ==
+	t=1794245561;
+	b=MjjBs2Y6aiwzLcD6W3Hx9xw4rbv4fLf12zzLu3kzCmwSOnulGigITIM3nS0LWqoC090p
+	 ly0e1/qMnm1vgT2Qkg/C2/OrJKb9dIwlElo77hN2HynX8282KwmJtErpBk6S0oxwnL5P6
+	 cK0USpKDBGjlNyO9jOsPgFnYS5fP87ygKwd0t2bIrgosYfnTFKWkfv2dd75+OxytNTHwk
+	 TDXe/OpWl9e0IvTAlWjCr6YljeSe2QZxZRkfZE2KsIzmOxRlWL7U1Ju6gXVDBlVOYnnl3
+	 V2xgSCW/6p9iX17Aj32LR5gDvo/tmdDHG+cvE93pJDsp/R7mIhD2T4j6CNQUl7/cx0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245527;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=yDsA1UelyyV0E9bjBEggnfArm1nyBFBVOtOUFlBiqCs=;
-	b=uCQYOkq+UXhmUWoHs5JaeO2eWy9j/C+nOMtVP6QODlrdsW6Wecd8+231nkk06Ta0h0Zb
-	 6TQ+NLY/3uxTZAnSKRfd95GtHJfsW53aul4U2vEBOvaOX/KLDD06ZZ4xhv4rwJqGRwdve
-	 vJnqZyLcIX+MXZ91DgdagBPzrPm5VpsOY4Kz6kcAYaPQqOiHUxPqi4ZwtsplXU0WTiHwo
-	 kZ+nQszYTti9WzsdzAxwFFafGklUiyQEyCP9wemr5TMBdxUZctbE1mzf/mVhiiVId/neF
-	 0aEHPZofwQX4tvN7zwnfNtIXHd9Qvs5YENCXEKQglY1SdqR7hi8CTBqcmAcA3ppfv7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794245561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8q9/bGCaBlutXPqwHx7AArWRooQhTMYyrXK72i+SUgE=;
+	b=hJ51QIrqhK29h5DG4fKSW6qNPCecVOqUbgZkUj01XBou28g9qfwO3ouFuVBX1PPOn/ZB
+	 McTiCIT7FzdoF8aPWuY46gXZbTr1IvJSsuniVulr+rE3skrYOD286909wZx/DyiNC4g9m
+	 ArmChOpYc51Eezr0dU32vgEf9kkKOeK76t/edKaPGzpqAgsuNlHG4Pk+zncSUoHPhledO
+	 7IvjkdsY5fAYt7akGlx770K5SEldVBpVOXN7jmGAjtLSCYwEimTKcKCCZkoKSRx5cMSrH
+	 7uJAwZrRko4ELAD5iWtHJ2ewM0r6UiZIx6OG2aBi198L2qzgphwhr84P59NwkbktYkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UXK6O75d;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EQmKk5Rj;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E226B606A31C;
-	Mon,  9 Nov 2026 17:32:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E226B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D49606A332
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 17:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53D49606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UXK6O75d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794245526; x=1825781526;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=/m8AZxJukkLTyUmuuoVQs8aebWRM87yobXRyOHGEaMw=;
-  b=UXK6O75dozfYsomp7PYRjCtev/Tg+1OZEeidpX9yRm5kG5Lxq3I1aXO7
-   rthS0qa14MYE3XZNjCbhogscl2o3AuBC1jXrGQYJ/0uJx/RwJOk4MbInq
-   cAVffAQAA0LoZrcuLfIfNhUiP7ZWi4aNH8rUJiKaz7kFTd3jr8t2dI9kj
-   HH2TCc2W6xdCOhd0nGldhdLfWE1JXhPYICWWTEr1hBcJZAc1HAHL8fHZw
-   cYnAsf7zDn2fDbbaGNFCHYF38cs5DSDyLzul0u7wPxGR09vyUfdogeD6D
-   Rq1lVAmOuStxkrdH5/f3CnbcGw7pML+x5QK+UsqBwZhlMttDtKqWD9LZU
-   w==;
-X-CSE-ConnectionGUID: a1NKef7zR0iUiFN43Llm0w==
-X-CSE-MsgGUID: 0Vl12I/aQ/uNnAjxvIwdmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2876031"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2876031"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:32:05 -0800
-X-CSE-ConnectionGUID: cP5Z68xRRrqqcXr7GPYuKg==
-X-CSE-MsgGUID: frtfl3gOQJaDlN/8fBucNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7970205"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by orviesa001.jf.intel.com with ESMTP; 09 Nov 2026 09:32:02 -0800
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: chandrashekar.devegowda@intel.com,
-	kiran.k@intel.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EQmKk5Rj
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so1874641eec.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 09:32:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794245559; x=1794850359; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8q9/bGCaBlutXPqwHx7AArWRooQhTMYyrXK72i+SUgE=;
+        b=EQmKk5RjkAhxRbIjjaCkbGkJE4qoNHccAbk64ey0g3ANNWf+Ieenu+MzM8+MOaDXO8
+         zDyahkJMBGZB+gAKLE9cXv8xMgF2UlScyQU0F4+s4BAforcepkiXq96vJ5NlydfBtzBN
+         VymekrZGIEZqEnjQnt0AfDfdnMjLWgC1MlHp426leP/PWWB1JQfAfldCKgHLZi4ZLWlT
+         5fESahR8IKw/CoXYFUojElteglrWJRrNMtppEjgnPzX1dOy66q/rZ5INXj76y+ikSdA0
+         4XpCyO+4xfnorVfOqD3/sLSLLwEHWKL1usgrV4/q5rUgtBf93NibMpSqEIVcXPp8epdM
+         TwcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794245559; x=1794850359;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8q9/bGCaBlutXPqwHx7AArWRooQhTMYyrXK72i+SUgE=;
+        b=NBJWAUTHbIUO1F3J9GrHxsgO1YvwLz1U6cjGWgg1zMAAxAX9RxZ0wTH7rRFohAWuX3
+         mHNn2ntCTD/PDDyGzesK+0Iv9XWoek/T1BJQRV2dCmA+i10bWCayzBFO6kmts+w9D1j6
+         xJp1iC4U5k5FeflHoP89w19hU9mc4adFZlxUcmCGStQTc2Y4rqpcZx8HHxFCki8tmoZc
+         aY0cbXhRSPY2diYnvhdZw7Hy3wZrBcdKwsZcJP7N4JbomhFuvHMNAwA3Obp5Oe5vgA5H
+         doTERBApR1JG4tDlGXMFYOJA6IwvF3OsGKvgymaD4W1VxKA8yjH5d7EUk9RBl+jlo/A3
+         M9RQ==
+X-Forwarded-Encrypted: i=1; AL+hErELd020lDpamagar1+cVWNs1H+AXi5Q7rnm1YOVBvfEkjHdaOgtEWLY7iV17n51WBabFF62BA0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MDF7JGfyzwkEzJ+rl8Aub/8Xm2ws7rD97p89Y9MxzLt2fhLfG
+	w1YrlJm1rSWdM3R78T+GrozcdwbTlSYKIv43AO8nrYP2OaxBASLn0ECPWHk02GvCCk91dSZ9
+X-Gm-Gg: AYBFou3QIb0hQv4W5yl+Tj2bGP85j5LgP/ZvGHszQoYBu1hhh41FaTw4HMnrO6iuR5L
+	BSl4NjUoX+KW2lx/x1Bdw5HXVd9G1J/gh5oUhj0+iDljfxEZUf/Cxzed750D8Jl2kH115vBEw22
+	l99ksjMcnYkxLNDp74VjHcRDOpjZ3syYUvywnKXPptG7249ISr/cKxq8wLztwKtFIUlnJv0XF9d
+	Yntc4/jTQC0a8Hs2b4C5ILo+b4IKSYVbcUjbB5LCiSfTqHzQoNEcisVps5Z03Tv+Y1UQ1aJ1Z+e
+	cdK0KNYSCTkEfR02jk/Kt1m08U39S9pLVpDVbfMejXFsWa7/BhA3N+EEok/3VAw/0kfUWu4Aotm
+	J5mkoBwpLb7KU7lgFYDAH/hfx/3QgbFXe1bq1KV9wBzhr3I0MSRQ3BwFL4eMqfsKj8z+k++yZtg
+	4agoXEsbBNOjYdGFEqT4ZnHtZcdjUjKqa58rcr0nHZ6PDKTPfsPuzcZzL3PtVBNMYoc9YOAGlXN
+	EGLoMC71zPB9SXrr6FSTl9dNM8f8M58d3+M7R+/vS0rG2Dey3zOB0BaqhXg+m92aaF4hFe/LJeK
+	Dtstv/t2FHldKJsFDHFBgHXPNLy0NXCjlJUC3yFS9R6+WH2sqSf7Nk7aJwGfkUgBJw==
+X-Received: by 2002:a05:7300:e5cb:b0:370:d6e4:e8aa with SMTP id 5a478bee46e88-3725826f58cmr8146878eec.41.1794245559036;
+        Mon, 09 Nov 2026 09:32:39 -0800 (PST)
+Received: from anon-laptop ([103.187.196.132])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265efd2dcsm14234472eec.17.2026.11.09.09.32.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:32:38 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: linkinjeon@kernel.org
+Cc: hyc.lee@gmail.com,
+	ntfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	lakshmipathi.k@intel.com,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v1 1/3] Bluetooth: btintel_pcie: Add yoyo support for config set TLV
-Date: Mon,  9 Nov 2026 19:31:52 +0200
-Message-ID: <20261109173154.8576-1-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org
+Subject: [PATCH v8] ntfs: convert a named $DATA stream safely when making room in a record
+Date: Mon,  9 Nov 2026 23:02:29 +0530
+Message-ID: <20261109173229.1921147-1-wahidzk0091@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109142429.1741882-1-wahidzk0091@gmail.com>
+References: <20261109142429.1741882-1-wahidzk0091@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,529 +102,338 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ajaykv <ajay.k.v@intel.com>
+When an attribute has to grow and the mft record is full,
+ntfs_resident_attr_resize() walks the other resident attributes and
+converts them to non-resident ones. For $DATA it always opens the
+unnamed data inode of the base inode, even if the attribute found is a
+named stream:
 
-Add parsing of the YoYo CONFIG_SET TLV so that debug register
-configuration can be supplied through the external TLV file.
-Each CONFIG_SET TLV is validated, and its address/value pairs
-are stored in the config set list of the YoYo context.
+  tvi = ntfs_iget(sb, base_ni->mft_no);
+  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
 
-At the configured timepoint, the stored pairs are written to
-the target memory region, with or without target access
-depending on the region type. Write failures are logged
-and do not stop normal Bluetooth bring-up. The stored pairs
-are freed when the device is removed.
+value_len is the length of the stream, so it does not match the
+attribute that ntfs_attr_make_non_resident() looks up for the unnamed
+inode, and the WARN_ON() on entry fires:
 
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
+  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
+   ntfs_resident_attr_resize
+   ntfs_attr_expand_locked
+   ntfs_expand_for_write
+   ntfs_file_write_iter
+   vfs_write
+
+It does not need a damaged volume. A file with an alternate data stream
+whose record has no room left is enough.
+
+Open a named stream by name with ntfs_attr_iget(), as is done for the
+other attribute types in this loop, and keep ntfs_iget() for the
+unnamed one. The loop runs with the mft record lock held and takes no
+lock of the stream inode, so converting a stream from here needs more
+care than the plain lookup gives:
+
+- A reader of the stream holds the folio lock and then takes the mft
+  record lock in ntfs_read_iomap_begin_resident(), the conversion takes
+  them the other way round and waits for folio 0. Take the folio with
+  FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
+  only tries to free space. The same inversion exists for the conversion
+  of the attribute being resized, which waited for folio 0 with the lock
+  held and hangs against an mmap fault or splice reader. Use FGP_NOWAIT
+  there too. The resize then fails with -ENOSPC while such a reader is
+  stuck on the lock, instead of hanging.
+  Do not look for room in other attributes either: the reader keeps the
+  folio until the lock is dropped, so the attribute can neither be
+  converted nor written without waiting for it, and the loop would only
+  convert other attributes for nothing.
+  FGP_NOWAIT also fails when the folio can not be allocated, so on
+  failure look the folio up: only one that is there means a busy folio,
+  otherwise return -ENOMEM.
+
+- A stream that is in the inode cache can be open, being written, being
+  removed or already unlinked. A write that passed its residency check
+  before the conversion carries on with a non-resident attribute, and
+  a stream in the middle of ntfs_stream_finish_remove() is converted
+  under its feet. Convert only a stream that is not cached.
+
+- An attribute inode of a file that has no links left is evicted on the
+  last iput() with its dirty folio, so what was converted is lost and
+  an open file reads its extended attributes back as missing. Convert
+  nothing, of any type, in a file that is being deleted or has no links
+  left.
+
+- The unnamed data is converted through the file's own inode, whose
+  i_rwsem only a resize of the unnamed data itself holds. When a stream
+  or an extended attribute is being resized, a writer of the file can
+  have passed its residency check and carry on with a non-resident
+  attribute (iomap_iter warnings, recursive mrec_lock). When the
+  unnamed data is the attribute being resized, its conversion was just
+  tried by the caller. Do not convert the unnamed data from this loop.
+
+- Do not convert the attribute that is being resized either. Its
+  conversion was just tried and failed, for instance on a busy folio,
+  and a second try that succeeds leaves the resize to go on with the
+  resident layout of a record that is now non-resident.
+
+- The lookup of a stream ignores case, so a stream whose name differs
+  only in case from an earlier one resolves to that one and the length
+  does not match again. Compare the names exactly.
+
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
 ---
- drivers/bluetooth/btintel_pcie.c       | 142 +++++++++++++++++++++++--
- drivers/bluetooth/btintel_pcie.h       |   1 +
- drivers/bluetooth/btintel_pcie_debug.c | 113 ++++++++++++++++++--
- drivers/bluetooth/btintel_pcie_debug.h |  76 ++++++++++++-
- 4 files changed, 313 insertions(+), 19 deletions(-)
+v8: Sashiko's review of v7: the fall-through on a busy folio could still
+    convert other attributes for nothing, also below the record size (the
+    attribute may not fit resident either), and a resident write that
+    follows waits for folio 0 under mrec_lock. A busy folio on the
+    resized attribute now fails the resize with -ENOSPC at any size,
+    nothing is converted. A forced -EAGAIN while growing an EA to 800
+    bytes now fails and the EA keeps its old value, also after a remount.
+    Also: FGP_NOWAIT fails with -EAGAIN when it can not allocate the folio
+    too, which would have shown up as a bogus -ENOSPC under memory
+    pressure. Now only a folio that is in the cache means busy, otherwise
+    -ENOMEM.
+v7: Sashiko's review of v6: when the resized attribute cannot be resident
+    at the new size (newsize >= mft record size), a busy folio (-EAGAIN,
+    mapped to -ENOSPC) still ran the make-room loop and converted the other
+    streams before the resize failed with -ENOSPC anyway. Reproduced with a
+    forced -EAGAIN (setxattr of 1500 bytes fails, two streams converted),
+    fixed: the resize fails right away and nothing is converted.
+v6: Sashiko's review of v5: when the conversion of the resized attribute
+    returns -EAGAIN (busy folio) and is mapped to -ENOSPC, the loop could
+    reach that attribute itself, convert it and resize its record as if it
+    were resident. Reproduced with one forced -EAGAIN (the EA is lost, the
+    resize fails with -EINVAL), fixed: the attribute being resized is never
+    converted from the loop, and neither is the unnamed data (its branch
+    was dead code once that is skipped).
+v5: Sashiko's review of v4 found more, each reproduced with a forced make-room
+    pass and a debug delay, fails before and passes after:
+    - the WofCompressedData stream of a WOF file was converted, and the
+      file read stale clusters until writeback (249 of 250 bytes wrong)
+    - an attribute converted in a file with no links left was evicted
+      with its dirty folio (open file reads its EA back as missing)
+    - a resize of a stream converted the unnamed data under a writer of
+      the file (iomap_iter WARNs, recursive mrec_lock)
+    - the conversion of the resized attribute itself waited for folio 0
+      with mrec_lock held (hung task against mmap fault and splice)
+    The six v4 scenarios still pass.
+v4: v3 (convert a named stream via ntfs_attr_iget()) can deadlock against
+    a reader of the stream and has other races with an open or removed
+    stream. Each is reproduced with a forced make-room pass and a debug
+    delay, fails on v3 and passes here: reader/converter deadlock
+    (hung task), write continuing on a converted attribute (iomap_iter
+    WARNINGs, recursive locking), unlinked file with an open stream (mft
+    record reported corrupt), stream converted during its own removal,
+    and a stream pair that differs only in case (WARN in
+    ntfs_attr_make_non_resident).
+v3: use ntfs_attr_iget() for a named stream instead of skipping it (v2).
+ fs/ntfs/attrib.c | 105 +++++++++++++++++++++++++++++++++++++++++++----
+ fs/ntfs/inode.c  |  19 +++++++++
+ fs/ntfs/inode.h  |   2 +
+ 3 files changed, 117 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index dadd79e4392f..de740477e6d7 100644
---- a/drivers/bluetooth/btintel_pcie.c
-+++ b/drivers/bluetooth/btintel_pcie.c
-@@ -927,6 +927,133 @@ static void btintel_pcie_release_mac_access(struct btintel_pcie_data *data)
- 	}
- }
- 
-+static void
-+btintel_pcie_apply_yoyo_config_sets(struct btintel_pcie_data *data,
-+				    u32 time_point)
-+{
-+	struct btintel_pcie_yoyo_config_set *config_set;
-+	resource_size_t bar0_len;
-+	int ret;
-+	u32 i;
-+
-+	if (!data)
-+		return;
-+
-+	/* Get the length of PCI BAR0 */
-+	bar0_len = pci_resource_len(data->pdev, 0);
-+
-+	if (!data->yoyo.enabled)
-+		return;
-+
-+	list_for_each_entry(config_set, &data->yoyo.config_set_list, list) {
-+		u32 pair_addr, addr, value;
-+
-+		if (config_set->time_point != time_point)
-+			continue;
-+
-+		switch (config_set->config_set_type) {
-+		case BTINTEL_PCIE_CFGSET_CSR:
-+		case BTINTEL_PCIE_CFGSET_PERIPH_MAC:
-+		case BTINTEL_PCIE_CFGSET_DEVICE_MEM:
-+			break;
-+		default:
-+			BT_WARN("YoYo: unknown/unsupported config_set type %u, skipping",
-+				config_set->config_set_type);
-+			continue;
-+		}
-+
-+		if (config_set->config_set_type == BTINTEL_PCIE_CFGSET_PERIPH_MAC ||
-+		    config_set->config_set_type == BTINTEL_PCIE_CFGSET_DEVICE_MEM) {
-+			ret = btintel_pcie_get_mac_access(data);
-+			if (ret) {
-+				BT_WARN("YoYo: MAC access failed for config set (%d), skipping",
-+					ret);
-+				/* get_mac_access() asserts MAC_ACCESS_REQ before it
-+				 * polls, and leaves it set on timeout; drop it so the
-+				 * request bit is not leaked.
-+				 */
-+				btintel_pcie_release_mac_access(data);
-+				continue;
-+			}
-+		}
-+
-+		for (i = 0; i < config_set->num_pairs; i++) {
-+			pair_addr = get_unaligned_le32(&config_set->pairs[i].address);
-+
-+			/* Calculate the effective address by adding the address offset */
-+			if (check_add_overflow(pair_addr, config_set->addr_offset, &addr)) {
-+				BT_WARN("YoYo: config set address overflow (0x%08x + 0x%08x)",
-+					pair_addr, config_set->addr_offset);
-+				continue;
-+			}
-+
-+			value = get_unaligned_le32(&config_set->pairs[i].value);
-+
-+			switch (config_set->config_set_type) {
-+			/* Direct Address Access (CSR) */
-+			case BTINTEL_PCIE_CFGSET_CSR:
-+				/* Validate the effective address for CSR access (Direct Address)
-+				 * addr not aligned to 4 bytes or exceeds the BAR0 length
-+				 */
-+				if ((addr & (sizeof(u32) - 1)) ||
-+				    bar0_len < sizeof(u32) ||
-+				    addr > bar0_len - sizeof(u32)) {
-+					BT_WARN("YoYo: bad CSR address 0x%08x for BAR0 length %llu",
-+						addr, (unsigned long long)bar0_len);
-+					continue;
-+				}
-+
-+				BT_DBG("YoYo: CSR write [0x%08x] = 0x%08x", addr, value);
-+				btintel_pcie_wr_reg32(data, addr, value);
-+				break;
-+			/* Indirect Address Access (Peripheral MAC and Device Memory) */
-+			case BTINTEL_PCIE_CFGSET_PERIPH_MAC:
-+			case BTINTEL_PCIE_CFGSET_DEVICE_MEM:
-+				/* Validate the effective address for peripheral MAC and device
-+				 * memory access: addr not aligned to 4 bytes
-+				 */
-+				if (!addr || (addr & (sizeof(u32) - 1))) {
-+					BT_WARN("YoYo: bad indirect address 0x%08x for type %u",
-+						addr, config_set->config_set_type);
-+					continue;
-+				}
-+
-+				btintel_pcie_wr_reg32(data,
-+						      BTINTEL_PCIE_PRPH_DEV_ADDR_REG,
-+						      addr);
-+				btintel_pcie_wr_reg32(data,
-+						      BTINTEL_PCIE_PRPH_DEV_WR_REG,
-+						      value);
-+				BT_DBG("YoYo: indirect write type %u addr 0x%08x value 0x%08x",
-+				       config_set->config_set_type, addr, value);
-+				break;
-+			default:
-+				BT_WARN("YoYo: unknown config_set type %u",
-+					config_set->config_set_type);
-+				break;
-+			}
-+		}
-+
-+		if (config_set->config_set_type == BTINTEL_PCIE_CFGSET_PERIPH_MAC ||
-+		    config_set->config_set_type == BTINTEL_PCIE_CFGSET_DEVICE_MEM)
-+			btintel_pcie_release_mac_access(data);
-+	}
-+}
-+
-+static void btintel_pcie_yoyo_handle_timepoint(struct btintel_pcie_data *data,
-+					       enum btintel_pcie_dbg_timepoint tp)
-+{
-+	if (!data || !data->yoyo.enabled)
-+		return;
-+
-+	if (tp <= BTINTEL_PCIE_TP_INVALID || tp >= BTINTEL_PCIE_TP_MAX_NUM) {
-+		BT_WARN("YoYo: invalid timepoint %u", tp);
-+		return;
-+	}
-+
-+	btintel_pcie_apply_yoyo_config_sets(data, tp);
-+}
-+
- static struct scatterlist *btintel_pcie_alloc_sgtable(ssize_t size)
- {
- 	int nents;
-@@ -1617,6 +1744,9 @@ static int btintel_pcie_enable_bt(struct btintel_pcie_data *data)
- 		BT_INFO("%s: Mac Init: Wait on Alive Interrupt",
- 			btintel_pcie_dev_name(data));
- 
-+	/* EARLY Timepoint Handler */
-+	btintel_pcie_yoyo_handle_timepoint(data, BTINTEL_PCIE_TP_EARLY);
-+
- 	btintel_pcie_set_reg_bits(data, BTINTEL_PCIE_CSR_FUNC_CTRL_REG,
- 				  BTINTEL_PCIE_CSR_FUNC_CTRL_FUNC_INIT);
- 
-@@ -4751,7 +4881,8 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
- 	if (data->enable_ini) {
- 		err = btintel_pcie_yoyo_load_and_parse(&data->yoyo, &pdev->dev);
- 		if (err) {
--			BT_WARN("YoYo is not configured (%d)", err);
-+			BT_WARN("YoYo (BDF - %s): yoyo is not configured (%d)",
-+				pci_name(pdev), err);
- 			btintel_pcie_yoyo_cleanup(&data->yoyo);
- 		}
- 	}
-@@ -4830,12 +4961,6 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
- 	if (current_work() != &data->reset_work)
- 		disable_work_sync(&data->reset_work);
- 
--	btintel_pcie_mask_hw_rfkill(data);
--	btintel_pcie_synchronize_irqs(data);
--	disable_delayed_work_sync(&data->hw_rfkill_work);
--
--	btintel_pcie_yoyo_cleanup(&data->yoyo);
--
- 	btintel_pcie_disable_interrupts(data);
- 
- 	btintel_pcie_synchronize_irqs(data);
-@@ -4854,6 +4979,9 @@ static void btintel_pcie_remove(struct pci_dev *pdev)
- 
- 	btintel_pcie_release_hdev(data);
- 
-+	/* Cleanup YoYo debug framework */
-+	btintel_pcie_yoyo_cleanup(&data->yoyo);
-+
- 	destroy_workqueue(data->dump_workqueue);
- 	destroy_workqueue(data->workqueue);
- 
-diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 4125601b78d7..2224785b6e30 100644
---- a/drivers/bluetooth/btintel_pcie.h
-+++ b/drivers/bluetooth/btintel_pcie.h
-@@ -27,6 +27,7 @@
- #define BTINTEL_PCIE_CSR_MBOX_4_REG		(BTINTEL_PCIE_CSR_BASE + 0x17C)
- #define BTINTEL_PCIE_CSR_MBOX_STATUS_REG	(BTINTEL_PCIE_CSR_BASE + 0x180)
- #define BTINTEL_PCIE_PRPH_DEV_ADDR_REG		(BTINTEL_PCIE_CSR_BASE + 0x440)
-+#define BTINTEL_PCIE_PRPH_DEV_WR_REG		(BTINTEL_PCIE_CSR_BASE + 0x454)
- #define BTINTEL_PCIE_PRPH_DEV_RD_REG		(BTINTEL_PCIE_CSR_BASE + 0x458)
- #define BTINTEL_PCIE_CSR_HBUS_TARG_WRPTR	(BTINTEL_PCIE_CSR_BASE + 0x460)
- 
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index d675d3ff63dc..c52ef24dd0b0 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -314,8 +314,10 @@ static int btintel_pcie_yoyo_parse_dbg_info(struct btintel_pcie_yoyo_ctx *ctx,
- 	const u8 *data = (const u8 *)info;
- 	u32 domain, image_type, core_type, version;
- 
--	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr))
-+	if (len != sizeof(*info) - sizeof(struct btintel_pcie_tlv_hdr)) {
-+		BT_WARN("YoYo: dbg info tlv is too short or Invalid");
- 		return -EBADMSG;
-+	}
- 
- 	image_type = get_unaligned_le32(data +
- 				       offsetof(struct btintel_pcie_tlv_dbg_info,
-@@ -361,7 +363,7 @@ static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
- 	u32 req_buf_size, version;
- 
- 	if (len != sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr)) {
--		BT_WARN("YoYo: unexpected buf alloc TLV length %u", len);
-+		BT_WARN("YoYo: buf alloc tlv is too short or Invalid");
- 		return -EBADMSG;
- 	}
- 
-@@ -423,6 +425,84 @@ static int btintel_pcie_yoyo_parse_buf_alloc(struct btintel_pcie_yoyo_ctx *ctx,
- 	return 0;
- }
- 
-+static int btintel_pcie_yoyo_parse_config_set(struct btintel_pcie_yoyo_ctx *ctx,
-+					      const struct btintel_pcie_tlv_config_set *tlv,
-+					      u32 len)
-+{
-+	struct btintel_pcie_yoyo_config_set *cs;
-+	u32 fixed_size = sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr);
-+	u32 pairs_bytes, num_pairs, domain, version, time_point, config_set_type;
-+
-+	if (len < fixed_size) {
-+		BT_WARN("YoYo: config set tlv too short or Invalid");
-+		return -EBADMSG;
-+	}
-+
-+	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
-+	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_CONFIG_SET_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported domain/version (%u/%u)",
-+			domain, version);
-+		return 0;
-+	}
-+
-+	time_point = get_unaligned_le32(&tlv->time_point);
-+	if (time_point != BTINTEL_PCIE_TP_EARLY) {
-+		BT_WARN("YoYo: config set unsupported time_point %u, skipping",
-+			time_point);
-+		return 0;
-+	}
-+
-+	config_set_type = get_unaligned_le32(&tlv->config_set_type);
-+	if (config_set_type != BTINTEL_PCIE_CFGSET_CSR &&
-+	    config_set_type != BTINTEL_PCIE_CFGSET_PERIPH_MAC &&
-+	    config_set_type != BTINTEL_PCIE_CFGSET_DEVICE_MEM) {
-+		BT_WARN("YoYo: config set unsupported config_set_type %u, skipping",
-+			config_set_type);
-+		return 0;
-+	}
-+
-+	/* Malformed pair data: skip this TLV, keep parsing the rest. */
-+	pairs_bytes = len - fixed_size;
-+	if (pairs_bytes % sizeof(struct btintel_pcie_addr_value)) {
-+		BT_WARN("YoYo: config set has an incomplete addr/value pair, skipping");
-+		return 0;
-+	}
-+
-+	num_pairs = pairs_bytes / sizeof(struct btintel_pcie_addr_value);
-+
-+	if (!num_pairs) {
-+		BT_WARN("YoYo: config set with no addr/value pairs, skipping");
-+		return 0;
-+	}
-+
-+	cs = kzalloc(sizeof(*cs), GFP_KERNEL);
-+	if (!cs) {
-+		BT_WARN("YoYo: failed to allocate config set entry, skipping");
-+		return -ENOMEM;
-+	}
-+
-+	cs->time_point = time_point;
-+	cs->config_set_type = config_set_type;
-+	cs->addr_offset = get_unaligned_le32(&tlv->addr_offset);
-+	cs->num_pairs = num_pairs;
-+
-+	cs->pairs = kmemdup(tlv->addr_pair, pairs_bytes, GFP_KERNEL);
-+	if (!cs->pairs) {
-+		kfree(cs);
-+		BT_WARN("YoYo: failed to allocate config set pairs, skipping");
-+		return -ENOMEM;
-+	}
-+
-+	BT_DBG("YoYo: config set tp=%u type=%u pairs=%u offset=0x%x",
-+	       cs->time_point, cs->config_set_type,
-+	       cs->num_pairs, cs->addr_offset);
-+
-+	list_add_tail(&cs->list, &ctx->config_set_list);
-+	return 0;
-+}
-+
- /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -463,10 +543,12 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 			ret = btintel_pcie_yoyo_parse_buf_alloc(ctx,
- 								(const void *)tlv, len);
- 			break;
-+		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
-+			ret = btintel_pcie_yoyo_parse_config_set(ctx, (const void *)tlv, len);
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
--		case BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
- 			BT_DBG("YoYo: valid tlv type 0x%x len=%u", type, len);
- 			break;
-@@ -528,6 +610,8 @@ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_init);
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index ce7c1b524180..eb4376e2a2fd 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -1975,7 +1975,21 @@ int ntfs_resident_attr_value_resize(struct mft_record *m, struct attr_record *a,
+  * inode i_size is that this is not necessarily uptodate.  This happens when
+  * ntfs_attr_make_non_resident() is called in the ->truncate call path(s).
   */
- void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
++static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size,
++		bool nowait);
++
+ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
++{
++	return __ntfs_attr_make_non_resident(ni, data_size, false);
++}
++
++/*
++ * With @nowait the folio lock is only tried: a caller that holds mrec_lock
++ * must not wait for a folio lock, the read path takes them the other way
++ * round. Fails with -EAGAIN if the folio is locked.
++ */
++static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size,
++		bool nowait)
  {
-+	struct btintel_pcie_yoyo_config_set *config_set, *config_tmp;
-+
- 	if (!ctx)
- 		return;
+ 	s64 new_size;
+ 	struct inode *vi = VFS_I(ni);
+@@ -2056,10 +2070,23 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
+ 		 * outside all ntfs locks, we need to get the folio now.
+ 		 */
+ 		folio = __filemap_get_folio(vi->i_mapping, 0,
+-					    FGP_CREAT | FGP_LOCK,
++					    FGP_CREAT | FGP_LOCK |
++					    (nowait ? FGP_NOWAIT : 0),
+ 					    mapping_gfp_mask(vi->i_mapping));
+ 		if (IS_ERR(folio)) {
+ 			err = -ENOMEM;
++			if (nowait) {
++				/*
++				 * FGP_NOWAIT also fails when it can not
++				 * allocate the folio. Only a folio that is
++				 * there and locked means a busy folio.
++				 */
++				folio = filemap_get_folio(vi->i_mapping, 0);
++				if (!IS_ERR(folio)) {
++					folio_put(folio);
++					err = -EAGAIN;
++				}
++			}
+ 			goto err_out;
+ 		}
  
-@@ -535,6 +619,14 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 	ctx->dbg_info_present = false;
- 	ctx->num_buf_allocs = 0;
- 	memset(ctx->buf_alloc, 0, sizeof(ctx->buf_alloc));
-+
-+	ctx->hdev = NULL;
-+
-+	list_for_each_entry_safe(config_set, config_tmp, &ctx->config_set_list, list) {
-+		list_del(&config_set->list);
-+		kfree(config_set->pairs);
-+		kfree(config_set);
+@@ -4895,8 +4922,19 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	/* There is not enough space in the mft record to perform the resize. */
+ 
+ 	/* Make the attribute non-resident if possible. */
+-	err = ntfs_attr_make_non_resident(attr_ni,
+-			le32_to_cpu(ctx->attr->data.resident.value_length));
++	err = __ntfs_attr_make_non_resident(attr_ni,
++			le32_to_cpu(ctx->attr->data.resident.value_length), true);
++	/*
++	 * A reader holding folio 0 waits for mrec_lock, which we hold. Do not
++	 * wait for it and do not look for room elsewhere either: the reader
++	 * keeps the folio until we drop the lock, so the attribute can neither
++	 * be converted nor written without waiting for it, and the loop below
++	 * would only convert other attributes for nothing.
++	 */
++	if (err == -EAGAIN) {
++		err = -ENOSPC;
++		goto put_err_out;
 +	}
+ 	if (!err) {
+ 		mark_mft_record_dirty(ctx->ntfs_ino);
+ 		ntfs_attr_put_search_ctx(ctx);
+@@ -4913,12 +4951,14 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	while (!(err = ntfs_attr_lookup(AT_UNUSED, NULL, 0, 0, 0, NULL, 0, ctx))) {
+ 		struct inode *tvi;
+ 		struct attr_record *a;
++		__le16 *name;
+ 		u32 value_len;
+ 
+ 		a = ctx->attr;
+ 		if (a->non_resident || a->type == AT_ATTRIBUTE_LIST)
+ 			continue;
+ 		value_len = le32_to_cpu(a->data.resident.value_length);
++		name = (__le16 *)((u8 *)a + le16_to_cpu(a->name_offset));
+ 
+ 		if (ntfs_attr_can_be_non_resident(vol, a->type))
+ 			continue;
+@@ -4933,18 +4973,65 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 		if (a->type == AT_DATA && !value_len)
+ 			continue;
+ 
+-		if (a->type == AT_DATA)
+-			tvi = ntfs_iget(sb, base_ni->mft_no);
+-		else
+-			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type,
+-				(__le16 *)((u8 *)a + le16_to_cpu(a->name_offset)),
++		/*
++		 * The attribute inode of an unlinked file is evicted on the
++		 * last iput() together with its dirty folio.
++		 */
++		if (NInoBeingDeleted(base_ni) || !VFS_I(base_ni)->i_nlink)
++			continue;
++
++		/*
++		 * Not the attribute being resized. Its conversion was tried
++		 * above and failed, for instance on a busy folio, and
++		 * converting it here would leave the resize to go on with the
++		 * resident layout of a non-resident record.
++		 */
++		if (a->type == attr_ni->type &&
++		    a->name_length == attr_ni->name_len &&
++		    (!a->name_length ||
++		     !memcmp(name, attr_ni->name,
++			     a->name_length * sizeof(__le16))))
++			continue;
++
++		/*
++		 * Not the unnamed data either. Only the resize of the unnamed
++		 * data itself holds its i_rwsem, a writer of the file can be
++		 * between its residency check and the mft record lock.
++		 */
++		if (a->type == AT_DATA && !a->name_length)
++			continue;
++
++		/*
++		 * A named $DATA stream is converted only if nobody has it open:
++		 * an open one can be unlinked, being removed or in use. A WOF
++		 * file reads its stream from the device, so the stream must
++		 * stay resident.
++		 */
++		if (a->type == AT_DATA) {
++			if (NInoWofCompressed(base_ni))
++				continue;
++			tvi = ntfs_attr_ilookup(VFS_I(base_ni), a->type,
++					name, a->name_length);
++			if (tvi) {
++				iput(tvi);
++				continue;
++			}
++		}
++		tvi = ntfs_attr_iget(VFS_I(base_ni), a->type, name,
+ 				a->name_length);
++		/* the lookup ignores case for streams, ours does not */
++		if (!IS_ERR(tvi) && a->type == AT_DATA &&
++		    memcmp(NTFS_I(tvi)->name, name,
++			   a->name_length * sizeof(__le16))) {
++			iput(tvi);
++			continue;
++		}
+ 		if (IS_ERR(tvi)) {
+ 			ntfs_error(sb, "Couldn't open attribute");
+ 			continue;
+ 		}
+ 
+-		if (ntfs_attr_make_non_resident(NTFS_I(tvi), value_len)) {
++		if (__ntfs_attr_make_non_resident(NTFS_I(tvi), value_len, true)) {
+ 			iput(tvi);
+ 			continue;
+ 		}
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 62dd5bd5bb81..ec9c7b219192 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -287,6 +287,25 @@ struct inode *ntfs_attr_iget(struct inode *base_vi, __le32 type,
+ 	return vi;
  }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
- 
-@@ -552,7 +644,7 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 	const struct firmware *fw;
- 	int ret;
- 
--	if (!ctx)
-+	if (!ctx || !dev)
- 		return -EINVAL;
- 
- 	ret = request_firmware_direct(&fw, BTINTEL_PCIE_YOYO_FW_NAME, dev);
-@@ -576,17 +668,22 @@ int btintel_pcie_yoyo_load_and_parse(struct btintel_pcie_yoyo_ctx *ctx,
- 
- 	/* File Corruption / TLV validation failed */
- 	if (ret) {
--		BT_ERR("YoYo: tlv parsing failed (%d)", ret);
-+		BT_WARN("YoYo: tlv parsing failed (%d)", ret);
-+		btintel_pcie_yoyo_cleanup(ctx);
- 		return ret;
- 	}
--	if (!ctx->dbg_info_present) {
--		BT_ERR("YoYo: Invalid BT debug Info tlv, using legacy DBGC defaults");
-+
-+	/* Mandatory debug Info Tlv is missing */
-+	if (!ctx->dbg_info_present ||
-+	    !ctx->num_buf_allocs) {
-+		BT_WARN("YoYo: mandatory tlv is missing, using legacy DBGC defaults");
-+		btintel_pcie_yoyo_cleanup(ctx);
- 		return -EBADMSG;
- 	}
- 
- 	ctx->enabled = true;
- 
--	BT_INFO("YoYo: feature enabled and configured");
-+	BT_INFO("YoYo (BDF - %s): feature enabled and configured", dev_name(dev));
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_load_and_parse);
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index b4d1d329886b..a9ecc7462d4e 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -48,9 +48,9 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
- #define BTINTEL_PCIE_YOYO_FW_NAME	"intel/ibt_debug_yoyo.bin"
- 
- /* TLV type codes */
--#define BTINTEL_PCIE_TLV_TYPE_DBG_INFO		0x1000005
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_INFO			0x1000005
- #define BTINTEL_PCIE_TLV_TYPE_DBG_BUF_ALLOC		0x1000006
--#define BTINTEL_PCIE_TLV_TYPE_DBG_HCMD		0x1000007
-+#define BTINTEL_PCIE_TLV_TYPE_DBG_HCMD			0x1000007
- #define BTINTEL_PCIE_TLV_TYPE_DBG_REGION		0x1000008
- #define BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER		0x1000009
- #define BTINTEL_PCIE_TLV_TYPE_DBG_CONFIG_SET		0x100000A
-@@ -59,6 +59,7 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
- /* Supported TLV type versions */
- #define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
- #define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
-+#define BTINTEL_PCIE_CONFIG_SET_TLV_VERSION	1
- /* Debug Info TLV */
- #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
- #define BTINTEL_PCIE_DOMAIN_BT			0
-@@ -77,7 +78,7 @@ enum btintel_pcie_image_tlv_type {
- 
- /* Allocation IDs */
- enum btintel_dbg_alloc_id {
--	BTINTEL_PCIE_ALLOC_ID_INVALID	= 0,
-+	BTINTEL_PCIE_ALLOC_ID_INVALID		= 0,
- 	BTINTEL_PCIE_ALLOC_ID_DBGC1		= 1,
- 	BTINTEL_PCIE_ALLOC_ID_DBGC2		= 2,
- 	BTINTEL_PCIE_ALLOC_ID_DBGC3		= 3,
-@@ -93,6 +94,41 @@ enum btintel_dbg_buf_location {
- 	BTINTEL_PCIE_BUF_LOC_MAX,
- };
- 
-+/* Config set types */
-+enum btintel_pcie_dbg_config_set_type {
-+	BTINTEL_PCIE_CFGSET_INVALID		= 0,
-+	BTINTEL_PCIE_CFGSET_PERIPH_MAC		= 1,
-+	BTINTEL_PCIE_CFGSET_PERIPH_PHY		= 2,
-+	BTINTEL_PCIE_CFGSET_PERIPH_AUX		= 3,
-+	BTINTEL_PCIE_CFGSET_DEVICE_MEM		= 4,
-+	BTINTEL_PCIE_CFGSET_CSR			= 5,
-+	BTINTEL_PCIE_CFGSET_DBGC_DRAM_ADDR	= 6,
-+	BTINTEL_PCIE_CFGSET_PERIPH_SCRATCH	= 7,
-+	BTINTEL_PCIE_CFGSET_MAX,
-+};
-+
-+/* Types of Timepoints */
-+enum btintel_pcie_dbg_timepoint {
-+	BTINTEL_PCIE_TP_INVALID			= 0,
-+	BTINTEL_PCIE_TP_EARLY			= 1,
-+	BTINTEL_PCIE_TP_AFTER_ALIVE		= 2,
-+	BTINTEL_PCIE_TP_POST_INIT		= 3,
-+	BTINTEL_PCIE_TP_FW_ASSERT		= 4,
-+	BTINTEL_PCIE_TP_FW_HW_ERROR		= 5,
-+	BTINTEL_PCIE_TP_FW_TFD_Q_HANG		= 6,
-+	BTINTEL_PCIE_TP_FW_DHC_NOTIF		= 7,
-+	BTINTEL_PCIE_TP_FW_RSP_OR_NOTIF		= 8,
-+	BTINTEL_PCIE_TP_USER_TRIGGER		= 9,
-+	BTINTEL_PCIE_TP_PERIODIC		= 10,
-+	BTINTEL_PCIE_TP_RESERVED		= 11,
-+	BTINTEL_PCIE_TP_HOST_ASSERT		= 12,
-+	BTINTEL_PCIE_TP_HOST_ALIVE_TIMEOUT	= 13,
-+	BTINTEL_PCIE_TP_HOST_DEVICE_DISABLE	= 15,
-+	BTINTEL_PCIE_TP_HOST_D3_START		= 16,
-+	BTINTEL_PCIE_TP_HOST_D3_END		= 17,
-+	BTINTEL_PCIE_TP_MAX_NUM,
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -152,6 +188,27 @@ struct btintel_pcie_tlv_buf_alloc {
- 	__le32 min_buf_size;
- } __packed;
  
 +/*
-+ * struct btintel_pcie_tlv_config_set - YoYo configuration-set TLV
-+ * @hdr: Common TLV type and payload length
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @time_point: Timepoint at which to apply this configuration
-+ * @config_set_type: Target register or memory space
-+ * @addr_offset: Offset added to each address/value pair address
-+ * @addr_pair: Variable-length array of address/value pairs
++ * ntfs_attr_ilookup - find an attribute inode that is already in the cache
 + *
-+ * Describes configuration values to apply at a specified timepoint. Fields
-+ * are stored in little-endian format in the packed firmware TLV.
++ * Like ntfs_attr_iget() but never reads anything. Returns the inode with an
++ * increased reference count, or NULL if it is not cached.
 + */
-+struct btintel_pcie_tlv_config_set {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le32 time_point;
-+	__le32 config_set_type;
-+	__le32 addr_offset;
-+	struct btintel_pcie_addr_value addr_pair[];
-+} __packed;
++struct inode *ntfs_attr_ilookup(struct inode *base_vi, __le32 type,
++		__le16 *name, u32 name_len)
++{
++	struct ntfs_attr na = {
++		.mft_no = base_vi->i_ino,
++		.type = type,
++		.name = name,
++		.name_len = name_len,
++	};
 +
- /* Parsed buffer allocation entry in the YoYo context */
- struct btintel_pcie_buf_alloc {
- 	u32	alloc_id;
-@@ -162,9 +219,20 @@ struct btintel_pcie_buf_alloc {
- 	bool	present;
- };
- 
-+/* Parsed config set entry in yoyo ctx */
-+struct btintel_pcie_yoyo_config_set {
-+	struct list_head		list;
-+	u32				time_point;
-+	u32				config_set_type;
-+	u32				addr_offset;
-+	u32				num_pairs;
-+	struct btintel_pcie_addr_value	*pairs;
-+};
++	return ilookup5(base_vi->i_sb, na.mft_no, ntfs_test_inode, &na);
++}
 +
  /*
-- * struct btintel_pcie_yoyo_ctx- Runtime state for YoYo debug configuration
-+ * struct btintel_pcie_yoyo_ctx - Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
-+ * @dbg_info_present: Whether the mandatory DEBUG_INFO TLV was validated
-  * @region_list: Parsed debug-region entries
-  * @trigger_list: Parsed debug-trigger entries
-  * @hcmd_list: Parsed HCI command entries
+  * ntfs_index_iget - obtain a struct inode corresponding to an index
+  * @base_vi:	vfs base inode containing the index related attributes
+diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
+index a18cbcf1c631..7ea52c59c04b 100644
+--- a/fs/ntfs/inode.h
++++ b/fs/ntfs/inode.h
+@@ -326,6 +326,8 @@ struct ntfs_attr {
+ int ntfs_test_inode(struct inode *vi, void *data);
+ int ntfs_test_inode_rcu(struct inode *vi, void *data);
+ struct inode *ntfs_iget(struct super_block *sb, u64 mft_no);
++struct inode *ntfs_attr_ilookup(struct inode *base_vi, __le32 type,
++		__le16 *name, u32 name_len);
+ struct inode *ntfs_attr_iget(struct inode *base_vi, __le32 type,
+ 		__le16 *name, u32 name_len);
+ struct inode *ntfs_index_iget(struct inode *base_vi, __le16 *name,
 -- 
-2.53.0
+2.56.0
 
