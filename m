@@ -1,117 +1,117 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189659;
-	b=jkf3oyaH+LCqsaZZYXOAC6G9sE57gIeuwrVOC3EKtVxhQ+uCccBC0yoiV8Oux7Ti61XL
-	 BCjYvvBPfJ+Kc2VaK1hFbl9pE6Z0ZnYOKr8ic7GVx0085uIvOgS/a3+Hbo0wDEaAmgswe
-	 68N85a2KuPeeYsSV3JDEP2rzzK6+gCXV11rjo8ZWLjTPtNF8m4+Z9U6cv+bafFdBDZ39V
-	 cufS/0Rgy9H+CAIzSWpwMwVdaM1YlE1lXr1S/e1aXYkiyW3vqYLIqAAPPOK1eXM0fQBDJ
-	 mfg7paCTIe1Wb+dvBai5YQi5CGxsLyLG8oFy9HJooNcyz6brluyjen2HOb+ZanXgifQ==
+	t=1794189661;
+	b=p6/9G3+oX3NZ4yE/5ZEBuF8onB7hUfUIVyqV/KXAs8QT8GqXfA5ZZYhjzb1JciWYm34o
+	 fD1licXTG+sdXn/Tx35oS8ZbOmyaA1eGAXykA6amW4H0nUGCx70UroxzBuI0n5PQgfBxc
+	 Vd+fbVkKqLZZwGHL7lqPwLdyeLNLfKRHsyFooriLqgCFV3t3tiQQuIe0/sw1puWsTDo7n
+	 LGbJL923AMQhJB1NbiFkyn8jOq76qxSCEKVG+FU7KvKyDqBydlxhWSTV5pH+D+j2EhbpK
+	 wFdc3TuM80gP7U/WgjibqJ8kZNmDDirADmyyIB0zF5fqxqJ+UnxFgUfdhvJFL5dQE+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189661;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=XOXcmaKGRGE3JDox1DRADQDwfl75lkNJsi1z4S+ZW6k=;
-	b=pRiLfZemdutsoyNSOc3IO7P2zXli86+a+tIW6VcYR7luJM6nsejH91OTsGESurk58cO1
-	 wA+dBh8s8ilDwvJ7F0vlkUChI7JjWjOrp7Pyu+Tz9BFCIT2IWBp7WwVMbwyD9v99t5nqr
-	 kH8M7am0H5pR31Y/oMtR5SESttH2TJ7JTbF83K14dZKpAkmtHzHCguh2BwLpB3X7N/C0+
-	 1SPXKBmu4/DX1uUBariKzYMcVJx1EI65Cb2EsSlCoC1/8nsAhBnWOB3IzoiyrFUipJiw/
-	 /VYrFnGUFYI4r36zeT6ipxjSk+s2Vy6xHB/AYyVGI8iW00cZp/y912WRL4q+llZOZYg==
+	bh=zfjumHfMq20wNK4tT2+MwRskYri0Yw2WvbN9guBc7Mw=;
+	b=24hFmqsoPsSUEPQm6i1Nf90hkbo0LQcNapbeLwDTZ0I+vcYJabct4dLbulcKD5pphYVu
+	 /y/uxzvCxakQakgRGyEWlXyrPBAn7Homi91MK/H4hUAITtQePLaGd17BGYVohrQ4m0YY9
+	 lQQZsD2X0dDBtmMfezX6xgHd9fHaFG90vK9tjncoQWPP4ffnN4Q3DQ2Ux9I/nPiR2BqU7
+	 /kHPVYLcVfNgPRSbBRyC3zEG8rqc0UBlm9LNncDRQN7mkM+oB+0AP4JNMuabCCaY8bFhP
+	 gWZ389F7rE1GmfITG7xM5a2ZT4mQ7Cqc1kk/1/cPVWaz7MQziWEXwL3r9fz2Nhp0CRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fourdim.xyz;
 	spf=pass smtp.mailfrom=fourdim.xyz;
-	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=O4LFlV7F;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UhqQzAjH;
+	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=vgv84PRy;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dl4CVQPD;
 	arc=none smtp.remote-ip=103.168.172.144
 Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D26F606A334
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D26F606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8D6606A330
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:01:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A8D6606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=O4LFlV7F;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UhqQzAjH
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 62512EC0585
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:00:58 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=vgv84PRy;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dl4CVQPD
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 832DBEC0586
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:01:00 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sun, 08 Nov 2026 21:00:58 -0500
+  by phl-compute-02.internal (MEProxy); Sun, 08 Nov 2026 21:01:00 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
 	cc:cc:content-transfer-encoding:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1794189658; x=
-	1794276058; bh=XOXcmaKGRGE3JDox1DRADQDwfl75lkNJsi1z4S+ZW6k=; b=O
-	4LFlV7F2R1lb2VGmcbax88t1NudvUcJW/EaI7C8bxNUt3Q8iAJrk+FvCH4UD1qvO
-	6Usk7tNZlm/0Euv3ViAVPJxG69yE8t3vLyZI/Of9r3zsW9oiyfKrz+t+DTeCE9Xz
-	c2iUxGAxxa9KSdhSOeiLpQnQIXXn2WeBXfJ5ZCqjjamvBX/wxnrOjqYGaso5+WYg
-	8mI3TpX3A0ezaUC+FH7hR0CRrgwqbiikIABpskpoUyeRLZct+0LBDNmiEDVa6Mlz
-	SGfSA2Br7SUdnWBk97v4rIBEz8VxPbEtkm2vKeGuXAPlaJ/Kq/wKXnegOsjN/G5a
-	29Tjf8psOXsVVe5bzCZhQ==
+	:reply-to:subject:subject:to:to; s=fm2; t=1794189660; x=
+	1794276060; bh=zfjumHfMq20wNK4tT2+MwRskYri0Yw2WvbN9guBc7Mw=; b=v
+	gv84PRyMX0ZGPVARjTOLSzL+a0OQqW5FeeNkxbLcHA/+a9Ka2DHg4qsP/wUMhAtA
+	L4jqHNxYiEVBre4muiTDHKl65Ru/MGflPJAyOSdGH0Rq38TKLtjAo2/p3GfOVSEC
+	FrVNjyZD7oaiMT8IjVJZH7VJQelHZTIRYQLjHAKKtE4OhqA4l4T/CH9XZBJFPmdy
+	T/GnLRYyMbFqhHdHQVW9fPG3yLwGlJCU86iEGdNYca2jD7jxve5QOjRYTqKXq0Sm
+	u9w679zzXmoovj7gjjhAx5qA8gGriY/5LqOjeMNjg7aDAFo+HRwsnLKst+0rUTaj
+	hO5ICc0IIUHkVBVWDomeA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794189658; x=1794276058; bh=X
-	OXcmaKGRGE3JDox1DRADQDwfl75lkNJsi1z4S+ZW6k=; b=UhqQzAjHrL5uoa9p1
-	HglZm47xZ1TmD+o59Sfmo0X+eckjDvorcnGTVyDjLymW4rYJ258gadrVBUKzPGNI
-	+qsyaVXviEM3ECJ2kfomQ5zbYxnu+HENNO4bXU+LJ2SqNNXRf6rbTYkOkaczjOiW
-	UL+u33Pkwng6MX3lj3dc1rqb0qbPoL1cyJCLZQOP8RT0EADbj1TCgGzMVYdNHvH6
-	HeG+J741D9tJ8S84u0rRVfcrwgzLl3Ohxry7yqDwvgjYnpYfl3yh2FlqBXhybVN7
-	eSi/K5+eFWNgtBWPAvZZM3goe/1v02iCPY7CoyN2KytfQITqEhM9HNsvPTlt34bW
-	huatA==
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794189660; x=1794276060; bh=z
+	fjumHfMq20wNK4tT2+MwRskYri0Yw2WvbN9guBc7Mw=; b=dl4CVQPD+Dwpcr9+G
+	diTAqfgwYQ89u8BmWgL5YR51q3jGsugXS5EK830JgbbUIVZLTEtec+oqkFbxC9GR
+	/clowe0CNJ9Zb40N6slw7oFF21uqPcL42cNQTtJFmfh/fABdkYItqri0+bXXltl9
+	5r5kSPzNMvlSmGawQ6twhg/25IwTNZdo+bNJwSjC07kg72xCK8SFKS2TBpIcjAU+
+	GkTXcE2zuBsdO0XsWWp9UZ+tSz4S26CddZPfFo4O7DWY1TiH+4ISfFY7GNHatGtV
+	qNEvQ7fEXY7OOocajLddtajP6gAd63YfiVcOibi2HUx67Kwsdsw8KXHis4sCaRBT
+	zOu/g==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=fourdim.xyz a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794189658; d=fourdim.xyz;
+DKIM2-Signature: i=1; m=1; t=1794189660; d=fourdim.xyz;
 	mf=PG9zc0Bmb3VyZGltLnh5ej4=;
 	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ZE+58a020EbgXxZCBM6oudeI87GrJOUcKzHFgXCUFmxO3NN
-	AR/cYc0UrMjEU1PV8fMTAzV8sPwwSkU3ALV+bETKHunAbpio+0KDB8BXtMI33RKT
-	fsB2FcV9x84nO5zybB9T47/oagt4gktPMq6x5VA1GyeESxOILN/D0GPKdXOcL5Hx
-	1Zc9ngcXC9b5FIWjlHBmOAboAugJ3mPF/7IJG6WkWO3dBXaNm++GduZJbhPDC3kb
-	xG/ebLOWT7z5U5/yzbU/qnWTgIF8RjK2ARHViEL6LBnJQ7jAtx5rUDXP1NQwBiDL
-	vWpGJTmWcNLMWclII//gOquqs1Jx/7WdmF+14+w==;
+	s=fm2:rsa-sha256:uDbnkAtMV2KWvf1xcfgiovmJv4am3Ks3U0rA2keDOwsBeAP
+	TIHdJtMZx7oYCbecWFqaC9kVdbYQ1U+VM8OFXFUqH4HQ/JKPUJNLcTn2UYiwbhtI
+	/Jkn4O4AWuoBCkQ3fSfoWYCpIF222PVO2ZqvY+D4VQ1i2iuB6RAdskC9fKMSpWfO
+	ktsjJAC9Q0+o9ln+1MFBnfoj1Lx2taGd/GCpp3Bb/n5iWta3KJO/g9IyzwFOZ9Tp
+	ZZnzdNzgPeosTJE2rt0sPqdkTsdj7s3t+xV5jDDmZM+y/jpa+VWaOOYmE/Mop+HZ
+	W8s0lFuJPAbht1fg11yhG1HkorVAhqCA5WpnUrA==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
 	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:qADGQHlhBMBW02y6Did1Mep/8zNQNKBZe1bOXr8ZDtE=:CgyV7ouykAgA7lM+i5bIU9SZQk/vrz9e0qejcC97oyw=;
-X-ME-Sender: <xms:WinxaleKSoEZzk-_o8eV773vyFtD2o7Ya3rInZTtQ8eMDpR8aK_zBw>
-    <xme:WinxapOwztebxZPlu0rSQvl0Zg9T5_sBVAPiBBViOH-_9sT97JnFHtL8ZGBTtxw0G
-    4aGlbtWa7PdH4cFwwh36en1h0b-RGGhaw3WIlTBokEpiaCS_ehWnhOc>
-X-ME-Received: <xmr:WinxasI2cgvvxnyqtr1tpspKxOD5jolDoAYvZgeeaC0nlGUC_SwH0zYX3Uyq_GPbvuw5AJ0>
-X-ME-Proxy-Cause: dmFkZTFL5xsFEidEDlvTjZoSmcvI3z4L4v2Wqh1Bd135ZGcfidh8fyHhq6DmWQqRsHj6xh
-    dFRRjsnHCU+R8Wsip+I79k9LEiIaIdn79AdSSNsH/L7Il6Qs+nyWIo8D/27xyvIoQb1qhT
-    lZHCOa+laW3OuUMPh+mXAMcwMR+xzfy+WW7+wYSOb25j1RZ9zYQHLrmX6DAYFQZ7Vd8V1j
-    B2gABwKqC/wj6nLNVjT3J+u6zqJt9hgCEan6Z5XxdcpJRcgHkDvIzIL2x9V+VYiaJrHro5
-    +RKwceclZ4UqJnqKkTvYqTSYOmIjjOwkw/eBP4Mq095kwyLzz5yHPoI599olMRDnZzZSeH
-    CLa5NT0XTVBg+k+VpFPEw7rNz4NLtwDJTBIaLELybtlCbXZLvRo+EiFldGrGyhr/JDqJgA
-    7JyfMspCjnLVQNXurqv9hTrqxbHTmRrpzqnbJjrsArgaO0VICMpq6p0E2OxJluwQNK+i/+
-    hIgp4N8uJBNr+o/EDpQosLgTzQqOO9QtE91KnUW4QD9xYAWeMDVF7wC4/Qtp519UekTp+a
-    EG0nJPh1GZpOOV1NdxQDK4hRtYAVB9UtjoSRPA8XK51RymV0gomRbkUJVqQd10XNtpYbWu
-    /MmM7V1/Ip4RKDlH26powGUCUafLKBl9WsbMbsKIxQOOzHkHEtKhP27v+Ftw
-X-ME-Proxy: <xmx:WinxaqHlhVtp-hZ45VaL3GSJUEWANeaqsiBKeBjfqnpnhkid55FYqQ>
-    <xmx:WinxakTpg3wwBtB9U5XRUeGO9p4Ckny8iWhUHewALiwjzQNiy2zmXw>
-    <xmx:WinxamFVBSh0vyP0-aDwWpOT2XF14JRF-mFoCGR4vUierA0GiuwwPg>
-    <xmx:Winxag8z-4MAsvoj0Yq9mh4OQtkjXAlSjGCMP7p_7WaFc6Fc6bUpMQ>
-    <xmx:Winxau_6sMk5byox7BBvMEJBk80SHDPnCNLctWUx7yew6iVcte8nksWy>
+Message-Instance: m=1; h=sha256:Q1WcwS3O+rmLR/eRwCj9vEZQF4PZa1jrQ00EU84lNgc=:xS5b87t1bml/bY+3ObrvEkuPZveOBIazFZbIWxCj+dc=;
+X-ME-Sender: <xms:XCnxakjOoiHkBTNqAHfPdMM3Lqn-6E4l3OJdAW9htuh7O2-Aji-FmQ>
+    <xme:XCnxajAkmgoorKH4BrCjl4_LmhUxAAIvLwHebqkiLl4yZr0Ru9DtZb29srC5j-48B
+    NgENQe4MrQLAQNM_K43qWlFpeoXCW5ltOLPqlPIpn_oTEncjWX1uf8>
+X-ME-Received: <xmr:XCnxapt-rTDh6fSoJi1ezHG6ixjClWxgCU4OLMhmDw8HUCa0coGci1Hp2MonasVuQHd4qbs>
+X-ME-Proxy-Cause: dmFkZTG2cyxO8u/pGkbkM3O4xTZi7ycXFHOalX7nmWsfKsiFkgbBQxzNLcO/5kGMGioxE7
+    uaap0KH87XZjutXjRWOeePa+tMp31zsyF5BDF4qdIMYzigW6z10vT85guxyaMaaMuOctJw
+    ZSTDrnqzD0Y9bgkgqorSkpaGCYCuCaMmGUUBPVU/GpSCK+yTsDqxNWJFKhtQurUliP1EG8
+    l0wQwXH7KAGA+Okb4wwJ1l1LhQWQRvxkNORbQdBFHzSbqLSQKFElsaXwVK+eA+Dwb+WUYv
+    +uEuGRVO7fatIeH+lHZsaNdLUZwKhAnqsHWh+15zoG+XbYOEIHB6lQAfcyfEGs2Gqp1sAX
+    mTnLJG5TNKOGcQpt9kJLRvmReKzvFQ3cHD5GcC2khEsZv8CH0bPVLGYMBohrnzCq6Pnx/A
+    m2GtBi+yVCUoaCu3nmAfLU0jAL1QqMSIpgamYjoG4f9A6s6bleUsWcxGpBzjdDsF2yP7tP
+    HJQ6jPRxbiUkgj6C104MrtD9cValvHcTigDaVxKPiWb9j86J9ZbSQHZI55zCPSfbQNX9sK
+    M/tkPZ/qXFglP+JqhZspyAe1VRKffP+w7LEuhs0ls9FYaUWTXYxfpRyWkGvoafAoVPHAJI
+    pyYsHWJwQRQqI9AabMQBpCkJkNRpVykHk+6ZncEPprzox5mFzA27WfMQuHeQ
+X-ME-Proxy: <xmx:XCnxagZzXOIOCdBpvfabXLHfIq9HnMlQBeqIKTHZr4_z9rE78gdnTQ>
+    <xmx:XCnxakXbApg5ODbi9bwwwJC_4pt5YI2BOttOcKcs8Yaz0TLwmUJF2w>
+    <xmx:XCnxas5Fa-HK10A0d1CitJKbA8h23lX5qLaT-wmxcXz5gqp9DrzKAQ>
+    <xmx:XCnxanh_4DRRW5ru-kkcoIsylNXiJFYM_bh50Im2N7AmWgfaduGe-A>
+    <xmx:XCnxalBWTL-qN15rloy1uhxZQp-K83rVTOiP0OM5CUoaVVs_TgkpQDQG>
 Feedback-ID: if72e4b10:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 21:00:58 -0500 (EST)
+ 8 Nov 2026 21:01:00 -0500 (EST)
 From: Siwei Zhang <oss@fourdim.xyz>
 To: stable@vger.kernel.org
 Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: [PATCH 5.10.y v2 1/3] Bluetooth: L2CAP: Reject signalling responses in invalid states
-Date: Sun,  8 Nov 2026 20:59:26 -0500
-Message-ID: <20261109020039.3035406-2-oss@fourdim.xyz>
+Subject: [PATCH 5.10.y v2 2/3] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
+Date: Sun,  8 Nov 2026 20:59:27 -0500
+Message-ID: <20261109020039.3035406-3-oss@fourdim.xyz>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109020039.3035406-1-oss@fourdim.xyz>
 References: <20261107062323-failed-5.10-6320736af7dc@kernel.org>
@@ -127,45 +127,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 6320736af7dcb90da6ee9fd651ecc11c564d45b7 upstream.
+commit a518b9a9ef6ee3b18ecdf6ba5360c608aaf969e9 upstream.
 
 Adjusted context as stable does not have the lockdep_assert_held()
-calls, and l2cap_get_chan_by_scid() still returns the channel locked,
-so l2cap_config_rsp() does not lock it again.
+call and the __must_hold() context analysis annotations, and
+l2cap_connect_create_rsp() still holds conn->chan_lock and returns
+through the unlock label when the channel lookup fails.
 
-Stable still has AMP support, which upstream removed in
+Stable still has AMP and A2MP support, which upstream removed in
 commit e7b02296fb40 ("Bluetooth: Remove BT_HS"). Close the same holes
 there:
 
-l2cap_logical_finish_create() answers the peer's configuration request
-and completes configuration once the AMP logical link is up. Only do
-this in BT_CONFIG, so a channel that has not been accepted yet or is
-being closed is neither marked as configured nor made ready.
+l2cap_do_create() sends an L2CAP_CREATE_CHAN_REQ whose response is also
+handled by l2cap_connect_create_rsp(). Set CONF_CONNECT_PEND in
+l2cap_send_create_chan_req() as l2cap_send_conn_req() does, so that
+the response to it is still accepted. This also makes
+__l2cap_no_conn_pending() see that request as outstanding, so
+l2cap_do_start(), l2cap_conn_start() and l2cap_security_cfm() leave
+the channel alone until it is answered, as they already do for a
+pending connection request. l2cap_do_create() itself now does the same
+instead of sending a second request.
 
-l2cap_do_create() moves an incoming AMP channel to BT_CONFIG and sends
-a successful create channel response once the physical link is up. It
-only checked that we have no connection request outstanding, so a
-channel still waiting in BT_CONNECT2 for security or deferred accept
-was accepted, as was a channel already past BT_CONNECT2. Only do this
-for a channel in BT_CONNECT2 that passes the checks l2cap_connect()
-makes before it accepts a channel.
+When an A2MP Discover Response lists no AMP controller,
+a2mp_discover_rsp() falls back to sending a connection request for
+every channel in BT_CONNECT, including channels still waiting for
+security or the feature mask exchange, channels that are not
+connection oriented and channels already setting up an AMP link. A
+peer can send that response unsolicited, and the request it triggers
+sets CONF_CONNECT_PEND, so the peer's connection response would still
+be accepted before security completes. Only handle a Discover Response
+while our Discover Request is outstanding. Move the checks
+l2cap_do_start() makes before sending the connection request into
+l2cap_chan_conn_req_allowed(), and add l2cap_amp_fallback_conn_req(),
+which only sends the fallback request for a connection oriented channel
+that has no request outstanding and passes those checks.
+l2cap_send_conn_req() is no longer used outside l2cap_core.c, so make
+it static.
 
-A peer can send configuration messages while an
-incoming channel is in BT_CONNECT2, before the
-security or deferred accept gate has completed. A
-configuration response can then promote the channel
-to BT_CONNECTED. Configuration responses can also
-act on channels that are closing, and a late connection
-response can move a disconnecting channel back to
-BT_CONFIG.
+An outgoing channel waits in BT_CONNECT until security
+and the feature mask exchange complete, and only then
+sends its connection request. A peer can answer it
+before that with a connection response matching our
+source CID. The channel then moves to BT_CONFIG,
+completes configuration and becomes connected before
+security has completed. If security then fails,
+l2cap_security_cfm() leaves the connected channel
+alone, so it stays up on a link that did not reach
+the required security level.
 
-Accept connection responses only while waiting in
-BT_CONNECT. Answer configuration requests in
-BT_CONNECT2, but defer our own request until
-BT_CONFIG so configuration cannot complete before
-the gate. Ignore configuration responses outside
-BT_CONFIG and BT_CONNECTED, and only complete
-configuration in BT_CONFIG.
+A connection response with a zero source CID is
+matched by identifier. Another channel can hold the
+same identifier for a response it still has to send,
+so the lookup can pick the wrong channel.
+
+Only accept a connection response while our request
+is outstanding, and only look at such channels when
+matching by identifier.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
@@ -173,100 +190,221 @@ Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
- net/bluetooth/l2cap_core.c | 38 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
+v2: Pull the payload of an unsolicited A2MP Discover Response before
+    returning from a2mp_discover_rsp().
+    https://lore.kernel.org/stable/2026-11-08-1-daily-reply-0004-l2cap-a2mp-5-10@kernel.org/
 
+ include/net/bluetooth/l2cap.h |  2 +-
+ net/bluetooth/a2mp.c          | 12 ++++--
+ net/bluetooth/a2mp.h          |  1 +
+ net/bluetooth/l2cap_core.c    | 81 +++++++++++++++++++++++++++++------
+ 4 files changed, 79 insertions(+), 17 deletions(-)
+
+diff --git a/include/net/bluetooth/l2cap.h b/include/net/bluetooth/l2cap.h
+index cbde15ad06fa..89a0d60d5c76 100644
+--- a/include/net/bluetooth/l2cap.h
++++ b/include/net/bluetooth/l2cap.h
+@@ -1006,7 +1006,7 @@ typedef void (*l2cap_chan_func_t)(struct l2cap_chan *chan, void *data);
+ void l2cap_chan_list(struct l2cap_conn *conn, l2cap_chan_func_t func,
+ 		     void *data);
+ void l2cap_chan_del(struct l2cap_chan *chan, int err);
+-void l2cap_send_conn_req(struct l2cap_chan *chan);
++void l2cap_amp_fallback_conn_req(struct l2cap_chan *chan);
+ void l2cap_move_start(struct l2cap_chan *chan);
+ void l2cap_logical_cfm(struct l2cap_chan *chan, struct hci_chan *hchan,
+ 		       u8 status);
+diff --git a/net/bluetooth/a2mp.c b/net/bluetooth/a2mp.c
+index 882805df735c..83669905a177 100644
+--- a/net/bluetooth/a2mp.c
++++ b/net/bluetooth/a2mp.c
+@@ -196,6 +196,12 @@ static int a2mp_discover_rsp(struct amp_mgr *mgr, struct sk_buff *skb,
+ 	u16 ext_feat;
+ 	bool found = false;
+ 
++	/* Only handle the response to our own Discover Request */
++	if (!test_and_clear_bit(DISCOVER_REQ_SENT, &mgr->state)) {
++		skb_pull(skb, le16_to_cpu(hdr->len));
++		return 0;
++	}
++
+ 	if (len < sizeof(*rsp))
+ 		return -EINVAL;
+ 
+@@ -254,10 +260,7 @@ static int a2mp_discover_rsp(struct amp_mgr *mgr, struct sk_buff *skb,
+ 				continue;
+ 
+ 			l2cap_chan_lock(chan);
+-
+-			if (chan->state == BT_CONNECT)
+-				l2cap_send_conn_req(chan);
+-
++			l2cap_amp_fallback_conn_req(chan);
+ 			l2cap_chan_unlock(chan);
+ 		}
+ 
+@@ -1050,5 +1053,6 @@ void a2mp_discover_amp(struct l2cap_chan *chan)
+ 
+ 	req.mtu = cpu_to_le16(L2CAP_A2MP_DEFAULT_MTU);
+ 	req.ext_feat = 0;
++	set_bit(DISCOVER_REQ_SENT, &mgr->state);
+ 	a2mp_send(mgr, A2MP_DISCOVER_REQ, 1, sizeof(req), &req);
+ }
+diff --git a/net/bluetooth/a2mp.h b/net/bluetooth/a2mp.h
+index 2fd253a61a2a..1bf31aed8547 100644
+--- a/net/bluetooth/a2mp.h
++++ b/net/bluetooth/a2mp.h
+@@ -15,6 +15,7 @@ enum amp_mgr_state {
+ 	READ_LOC_AMP_ASSOC,
+ 	READ_LOC_AMP_ASSOC_FINAL,
+ 	WRITE_REMOTE_AMP_ASSOC,
++	DISCOVER_REQ_SENT,
+ };
+ 
+ struct amp_mgr {
 diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index de97a746bb38..6b13f6784c40 100644
+index 6b13f6784c40..57015fce49b2 100644
 --- a/net/bluetooth/l2cap_core.c
 +++ b/net/bluetooth/l2cap_core.c
-@@ -4478,6 +4478,10 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+@@ -185,6 +185,28 @@ static struct l2cap_chan *l2cap_get_chan_by_ident(struct l2cap_conn *conn,
+ 	return c;
+ }
  
- 	l2cap_chan_lock(chan);
- 
-+	/* Ignore a late response after the channel has left BT_CONNECT. */
-+	if (chan->state != BT_CONNECT)
-+		goto done;
++/* Our connection request has been sent and is still outstanding */
++static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
++{
++	return chan->state == BT_CONNECT &&
++	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
++}
 +
- 	switch (result) {
- 	case L2CAP_CR_SUCCESS:
- 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
-@@ -4507,6 +4511,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 		break;
- 	}
- 
-+done:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
- 
-@@ -4642,7 +4647,13 @@ static inline int l2cap_config_req(struct l2cap_conn *conn,
- 		goto unlock;
- 	}
- 
--	if (!test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
-+	/* A channel in BT_CONNECT2 has not passed security or userspace
-+	 * accept yet. Answer the peer's request, but hold our own until
-+	 * the channel reaches BT_CONFIG: the CONNECT2 -> CONFIG sites send
-+	 * it. Connected channels may also need to reconfigure.
-+	 */
-+	if ((chan->state == BT_CONFIG || chan->state == BT_CONNECTED) &&
-+	    !test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
- 		u8 buf[64];
- 		l2cap_send_cmd(conn, l2cap_get_ident(conn), L2CAP_CONF_REQ,
- 			       l2cap_build_conf_req(chan, buf, sizeof(buf)), buf);
-@@ -4693,6 +4704,10 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
- 	if (!chan)
- 		return 0;
- 
-+	/* Connected channels may also receive reconfiguration responses. */
-+	if (chan->state != BT_CONFIG && chan->state != BT_CONNECTED)
-+		goto done;
++/* Other channels may hold the same ident for a response they still have
++ * to send, so only look at channels waiting for a connection response.
++ */
++static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *conn,
++							    u8 ident)
++{
++	struct l2cap_chan *c;
 +
- 	switch (result) {
- 	case L2CAP_CONF_SUCCESS:
- 		l2cap_conf_rfc_get(chan, rsp->data, len);
-@@ -4767,6 +4782,9 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
- 	if (test_bit(CONF_OUTPUT_DONE, &chan->conf_state)) {
- 		set_default_fcs(chan);
- 
-+		if (chan->state != BT_CONFIG)
-+			goto done;
++	list_for_each_entry(c, &conn->chan_l, list) {
++		if (c->ident == ident && l2cap_chan_connect_pending(c))
++			return c;
++	}
++	return NULL;
++}
 +
- 		if (chan->mode == L2CAP_MODE_ERTM ||
- 		    chan->mode == L2CAP_MODE_STREAMING)
- 			err = l2cap_ertm_init(chan);
-@@ -5180,6 +5198,12 @@ static void l2cap_logical_finish_create(struct l2cap_chan *chan,
- 	chan->hs_hchan = hchan;
- 	chan->hs_hcon->l2cap_data = chan->conn;
+ static struct l2cap_chan *__l2cap_global_chan_by_addr(__le16 psm, bdaddr_t *src,
+ 						      u8 src_type)
+ {
+@@ -1331,7 +1353,7 @@ static bool l2cap_check_efs(struct l2cap_chan *chan)
+ 	return true;
+ }
  
-+	/* Only answer the peer's configuration request and complete
-+	 * configuration while the channel is being configured.
-+	 */
-+	if (chan->state != BT_CONFIG)
-+		return;
+-void l2cap_send_conn_req(struct l2cap_chan *chan)
++static void l2cap_send_conn_req(struct l2cap_chan *chan)
+ {
+ 	struct l2cap_conn *conn = chan->conn;
+ 	struct l2cap_conn_req req;
+@@ -1355,6 +1377,8 @@ static void l2cap_send_create_chan_req(struct l2cap_chan *chan, u8 amp_id)
+ 
+ 	chan->ident = l2cap_get_ident(chan->conn);
+ 
++	set_bit(CONF_CONNECT_PEND, &chan->conf_state);
 +
- 	l2cap_send_efs_conf_rsp(chan, &rsp, chan->ident, 0);
+ 	l2cap_send_cmd(chan->conn, chan->ident, L2CAP_CREATE_CHAN_REQ,
+ 		       sizeof(req), &req);
+ }
+@@ -1618,6 +1642,26 @@ static bool l2cap_check_enc_key_size(struct hci_conn *hcon,
+ 		hcon->enc_key_size >= min_key_size);
+ }
  
- 	if (test_bit(CONF_INPUT_DONE, &chan->conf_state)) {
-@@ -5290,7 +5314,17 @@ static void l2cap_do_create(struct l2cap_chan *chan, int result,
++/* Check that a BR/EDR channel may send its connection request now */
++static bool l2cap_chan_conn_req_allowed(struct l2cap_chan *chan)
++{
++	struct l2cap_conn *conn = chan->conn;
++
++	if (!(conn->info_state & L2CAP_INFO_FEAT_MASK_REQ_DONE))
++		return false;
++
++	if (!l2cap_chan_check_security(chan, true) ||
++	    !__l2cap_no_conn_pending(chan))
++		return false;
++
++	if (!l2cap_check_enc_key_size(conn->hcon, chan)) {
++		__set_chan_timer(chan, L2CAP_DISC_TIMEOUT);
++		return false;
++	}
++
++	return true;
++}
++
+ static void l2cap_do_start(struct l2cap_chan *chan)
+ {
+ 	struct l2cap_conn *conn = chan->conn;
+@@ -1632,17 +1676,23 @@ static void l2cap_do_start(struct l2cap_chan *chan)
  		return;
  	}
  
--	/* Incoming channel on AMP */
-+	/* Incoming channel on AMP. Only answer it while it waits in
-+	 * BT_CONNECT2 and has passed the feature mask exchange, security
-+	 * and deferred accept, as l2cap_connect() requires before it
-+	 * accepts a channel.
+-	if (!(conn->info_state & L2CAP_INFO_FEAT_MASK_REQ_DONE))
+-		return;
++	if (l2cap_chan_conn_req_allowed(chan))
++		l2cap_start_connection(chan);
++}
+ 
+-	if (!l2cap_chan_check_security(chan, true) ||
+-	    !__l2cap_no_conn_pending(chan))
++/* A2MP found no AMP controller to use, so send the BR/EDR connection
++ * request instead, if the channel is still waiting to send one and
++ * passes the same checks as in l2cap_do_start(). Test for an outstanding
++ * request first, as the security check may start authentication.
++ */
++void l2cap_amp_fallback_conn_req(struct l2cap_chan *chan)
++{
++	if (chan->chan_type != L2CAP_CHAN_CONN_ORIENTED ||
++	    chan->state != BT_CONNECT || !__l2cap_no_conn_pending(chan))
+ 		return;
+ 
+-	if (l2cap_check_enc_key_size(conn->hcon, chan))
+-		l2cap_start_connection(chan);
+-	else
+-		__set_chan_timer(chan, L2CAP_DISC_TIMEOUT);
++	if (l2cap_chan_conn_req_allowed(chan))
++		l2cap_send_conn_req(chan);
+ }
+ 
+ static inline int l2cap_mode_supported(__u8 mode, __u32 feat_mask)
+@@ -4461,7 +4511,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+ 			goto unlock;
+ 		}
+ 	} else {
+-		chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
++		chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
+ 		if (!chan) {
+ 			err = -EBADSLT;
+ 			goto unlock;
+@@ -4478,8 +4528,11 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+ 
+ 	l2cap_chan_lock(chan);
+ 
+-	/* Ignore a late response after the channel has left BT_CONNECT. */
+-	if (chan->state != BT_CONNECT)
++	/* Only accept a response to a connection request we sent and that
++	 * is still outstanding. A channel waiting in BT_CONNECT for security
++	 * or the feature mask has not sent one yet.
 +	 */
-+	if (chan->state != BT_CONNECT2 ||
-+	    !(chan->conn->info_state & L2CAP_INFO_FEAT_MASK_REQ_DONE) ||
-+	    test_bit(FLAG_DEFER_SETUP, &chan->flags) ||
-+	    !l2cap_chan_check_security(chan, false))
-+		return;
++	if (!l2cap_chan_connect_pending(chan))
+ 		goto done;
+ 
+ 	switch (result) {
+@@ -5303,6 +5356,10 @@ static void l2cap_do_create(struct l2cap_chan *chan, int result,
+ 
+ 	/* Outgoing channel on AMP */
+ 	if (chan->state == BT_CONNECT) {
++		/* Never send a second request while one is outstanding */
++		if (!__l2cap_no_conn_pending(chan))
++			return;
 +
- 	if (__l2cap_no_conn_pending(chan)) {
- 		struct l2cap_conn_rsp rsp;
- 		char buf[128];
+ 		if (result == L2CAP_CR_SUCCESS) {
+ 			chan->local_amp_id = local_amp_id;
+ 			l2cap_send_create_chan_req(chan, remote_amp_id);
 -- 
 2.56.0
 
