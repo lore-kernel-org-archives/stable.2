@@ -1,62 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794207957;
-	b=iEJAmk8QxvfsKIEGU/nGqCkIGtX5BnJMayPys4DjI3urN+nzIColdsLPSc4D5uELE98S
-	 o4dAQjPFgzG7HxhCFHYn3nhMyfMM+JNpyqMv3wSxcGEk4WW0yViu21oLR6nbFE3uoW1kQ
-	 VMYWAxMUx5xBSJNpZ2be8HtoC4+E6xQLDfpRJN3kEVgdTorWZ2qbwyfHmqSTQ+4lb9jAB
-	 tsoFcxKjlcpuobH4RLDsmdxcGWXw2FEutZsLFM4RSFVoWUKqCakd56PJBNKMxGUcPiHgu
-	 DOi3Ed6VaqYHTcfJYaHsqbTjJWjjIMPraSfIOugNAVuUfNPoxzUVExL3vrpghVnY+Ig==
+	t=1794208210;
+	b=NFj1vVHLAM908qVSpQwdH1PJe9V44NRLGAA5Ws3YFlW6IYwspn1GZsMxpu4lNm923EUt
+	 yIoW7qvve/cEAiIQ1PpxRco7BN/MlIQDgNRL7V818iTmBvCHi2SO/1beLplxNeKGiRZ3r
+	 fOH+108ndQF+SMD3dkueqBldLv3C0DniAL6QWpQEhgP4bWIBJrs2mGgHQpheKBSK1Eb/V
+	 977N7z8oGKbkPN9oPiJM1YD8BjFVjxd0UVGIyfeceaDC3v2hw6dxdLwzmrGNPc3cuGeC3
+	 rk7nPUooyHVQzclNgR6GeS7aPKLvFHkumbQnhSus2J/a12SWlB1Q1xSXm5IA9lS8MYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794207957;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208210;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=OKfqZDRl0RoDQBoecXTPx+ATvrtGl86vakqk0+6hBNk=;
-	b=Q4Kkq5ZcLY2onMvegmX5TOste185G50P5CHvS5a2sW7hfFH77n1XtRtw4mJl9uQHmDAq
-	 URMivMXSmzOPBxMUhVy/KyVcTuxsUwm6F2PF2k1bjya9PDpGFoesxprxavVkUundngSHX
-	 etWs5S+zf0GMkIzSzWtGtclPN4U6tj+kcay8CANE8dOEALMG33qbL+yvj8h44ddcRqtT5
-	 tR+K8aG4mSbn2EtnvAAoamq7jzU/iTz/5eB6F/gfTy8Q9+Mwm6KqSh/gnLdxyDW3R6XM4
-	 T28B29oy/XA1/T/D/68lnLKjl8QWfbczR92kfiKOwWltvY62jCU+L6RwJTJYjJb8mkQ==
+	bh=JJ6qe9zMkWxzn6wlq5kkCPAnah3XYdAanji2PhYWtHE=;
+	b=z8JayuO4UYZ0lqC6KUS3ggXbhiveyNhDIVSGjTBWCmy9NmDDEDviskH60r0r4JATuLPM
+	 h93JPsgBKp7HOcpEkxPQY2KaFkJqkic7/NUFGhSz3rkyHpgUcaOMWz+DBU02rosASgUb9
+	 hoDc/0I285O+Yy7cKAQAGHzWEk5yk+6Nxc7SobttTTy8FNoKdwaPMXMv1d2ahJ6S6PM/r
+	 N+O0sEn32PzVUMm3At1cAzImceRAirpwtDS2EDrGXhj42ebs/n2Y0gMtbaRXcu/hiEruc
+	 3PCXumFFOzdzZs2eO0ySyvjfhf0YyHXRiE5MmNiuG11BrBzyXh8HooLP5tgUyYYEj/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WJB9BMq+;
-	arc=none smtp.remote-ip=91.218.175.136
-Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8036606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 07:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8036606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nROh6Ens;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED238606A321;
+	Mon,  9 Nov 2026 07:10:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED238606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WJB9BMq+
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OKfqZDRl0RoDQBoecXTPx+ATvrtGl86vakqk0+6hBNk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794207952; v=1; x=1794812752;
- b=WJB9BMq+fFhU13B3Sq0B4aMa4tfkj9SriMLLJ9oGbdbyajq5NvOEkpzysKSpI23zh/t4DzKn
- wjGbuVN0bZQ+wmVPANnnpDpVYkUwNba8AjXmhtLyLOGw9U0bP8bjP//dcyMYGuO/AEIewGUf9YH
- 2UNbpgd6Fte8Kufe78KBFt88=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dde931c2e3d2607a;
-	Mon, 09 Nov 2026 07:05:52 +0000
-X-Mizu-Trace-ID: dde931c2e3d2607a
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 09 Nov 2026 08:05:48 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, pkshih@realtek.com
-CC: kvalo@kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_1/3=5D_wifi=3A_rtw88=3A_clear_RTW?=
- =?US-ASCII?Q?=5FFLAG=5FRESTARTING_on_stop_and_start_failure?=
-In-Reply-To: <20261108142708.489067-2-skalpesh942@gmail.com>
-References: <20261108142708.489067-1-skalpesh942@gmail.com> <20261108142708.489067-2-skalpesh942@gmail.com>
-Message-ID: <CEF516A5-5E4B-42E2-BBEE-6FFD89BC5B90@linux.dev>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=nROh6Ens
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=nROh6EnszJPw4NICV8O+0pSR6JIyPLtdaMlWOOENGKAyfu08ooNsxXsF/Edte180E6T06hsKdqrf+
+	 inwZANXSoTRKbvbNbrQFY3QfVQS9DTN+UnZ5C/Bns49dUpJWKrjZ5TAlmyPNQl8G2HptQ0F2mQk71K
+	 RH8lNsIvQFLXZ/dE=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af171cd467-c76f3;
+	Mon, 09 Nov 2026 15:10:06 +0800 (CST)
+X-RM-TRANSID:2ee96af171cd467-c76f3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af171cccca-85742;
+	Mon, 09 Nov 2026 15:10:06 +0800 (CST)
+X-RM-TRANSID:2eea6af171cccca-85742
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-watchdog@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] watchdog: npcm: fix clock prepare leak when setting timeout on a running watchdog
+Date: Mon,  9 Nov 2026 15:10:03 +0800
+Message-ID: <20261109071004.1506-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,36 +70,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On November 8, 2026 3:27:05 PM GMT+01:00, Kalpesh Solanki
-<skalpesh942@gmail.com> wrote:
->When mac80211 stops or suspends the device without WoWLAN,
->drv_reconfig_complete() is never invoked with
->IEEE80211_RECONFIG_TYPE_RESTART. If firmware recovery was in flight
->during this transition, RTW_FLAG_RESTARTING remains set permanently,
->blocking all subsequent firmware recoveries until the module is reloaded.
->
->Similarly, if rtw_core_start() fails during drv_start() in a recovery
->restart, local->started remains false. When mac80211 cleans up via
->cfg80211_shutdown_all_interfaces(), drv_stop() returns early without
->calling rtw_ops_stop(), leaving RTW_FLAG_RESTARTING set permanently on
->hardware that failed to recover.
->
->Clear RTW_FLAG_RESTARTING in rtw_ops_stop(), as well as in
->rtw_ops_start() when rtw_core_start() returns an error, ensuring the
->driver always exits the restarting state on error or teardown.
->
->Fixes: 5c831644e1f4 ("rtw88: handle and recover when firmware crash")
->Cc: stable@vger.kernel.org
->Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
->---
+npcm_wdt_start() unconditionally prepares and enables the watchdog
+clock, and npcm_wdt_stop() is the only place that disables it.
+npcm_wdt_set_timeout() calls npcm_wdt_start() again whenever the
+watchdog is already active, so every WDIOC_SETTIMEOUT ioctl issued
+while the watchdog is running takes one extra clock prepare/enable
+reference that is never dropped.
 
-Looks good to me,
+Split the register programming out of npcm_wdt_start() into a
+__npcm_wdt_start() helper that assumes the clock is already running,
+and call the helper from npcm_wdt_set_timeout() instead; only the
+watchdog .start callback (and the restart path, which intentionally
+keeps the clock) now acquires the clock.
 
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+---
+Verified against current upstream master.  Not runtime-tested (no
+Nuvoton NPCM hardware).
 
-Best regards,
-Luka Gejak
+Note: this overlaps textually with Triet Hoang's pending
+error-propagation patch
+(https://marc.info/?l=linux-kernel&m=178955112320092)
+but fixes a different bug; whichever lands second will need a
+trivial rebase.
+
+ drivers/watchdog/npcm_wdt.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -148,10 +148,8 @@
+-static int npcm_wdt_start(struct watchdog_device *wdd)
++static void __npcm_wdt_start(struct watchdog_device *wdd)
+ {
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+ 	u32 val;
+ 
+-	clk_prepare_enable(wdt->clk);
+-
+ 	if (wdd->timeout < 2)
+ 		val = 0x800;
+ 	else if (wdd->timeout < 3)
+@@ -176,10 +174,19 @@
+ 	val |= NPCM_WTRE | NPCM_WTE | NPCM_WTR | NPCM_WTIE;
+ 
+ 	writel(val, wdt->reg);
+-
+-	return 0;
+ }
+ 
++static int npcm_wdt_start(struct watchdog_device *wdd)
++{
++	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
++
++	clk_prepare_enable(wdt->clk);
++
++	__npcm_wdt_start(wdd);
++
++	return 0;
++}
++
+ static int npcm_wdt_stop(struct watchdog_device *wdd)
+ {
+ 	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+@@ -216,7 +223,7 @@
+ 		wdd->timeout = 2750;
+ 
+ 	if (watchdog_active(wdd))
+-		npcm_wdt_start(wdd);
++		__npcm_wdt_start(wdd);
+ 
+ 	return 0;
+ }
+-- 
+2.39.2
+
+
+
