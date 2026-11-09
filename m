@@ -1,47 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218933;
-	b=aoonGYLxrNDUvlo0T6Puta7ibTYsYcAx1KGy3l39OTB5Lqxb9TJ2v5aL5dChGxcVO/4S
-	 IPW2aQGTYubBCbl6MmEV7BhbRK9pI7ezhliUwdu6+QEPlBJ3W88/SDlrxQmAeI2XnCeu0
-	 kM0zQeT3qF/EfZdvNsirOw8NRXYn2xcENS2cykOF69/HCcHi8oFGUYm8DeH5Xz2rrg+fv
-	 In1+V5l8I/Hr74N6nhdG0a0cTicLlHeBW/FgWnzQuhEKP8BNUtKVh8zJjE31QtEssNB8r
-	 UvGVV8j7rvqbo1kNWeXcy+3YD1moKXdYmzOQhbFHRHEf6Xp/R65HiSHXgSIFVKsOEVg==
+	t=1794219384;
+	b=h9zYzWQ5Pue1PSyRU8Y+SIr26DjWweyn+AmrpgKIGxNGhSyviUzoZpR8ug9Kq3OeVvdR
+	 mgZhHV91ipv2Q5/rITi8wJHOma1aglbZAVNf3f87vL1beALz21CtrJROGgQl/4EmHgQHp
+	 pNOK7QsKwbUIJ2LytkXH/RbHZYkE1wpMP5nMPXD4f/RNL4dWSiqCRNT6StXv+X9DOnrWq
+	 JshVQuPorC8f1o9Zg1stkTEE4rL+3rTnrEPXQqc6FPKlb+9lWEbjMisVK7GqODTk6xpOQ
+	 92oEEj9hbuLts4Q6STBvUMqP+pwP8LClbKHeoOmqTO/062r7tr5DscdevtQHz0dGlJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218933;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rkrTTfoabgAYGq+zadUuV0iR7WSnU+RqLdkrgA2Z5oQ=;
-	b=guW2nQYcKePx9HgwdCBOoSh30mggOnTkoqRcg8Pgf8f5DRmYlF+/crNkK08Ch2ClXNDs
-	 S1DVaYLnydfRoM8qH6Is1A3Bbpx+Hp6EJwB5g1mpZNAJtipceKRees3lQb8Dxul1c8Wws
-	 IVJ7sD10d0HH6Fv/IFTd7CuJ8lqklBNfGSsdALWXIYppqI3ItPvdZ6EecVp/C/e/F7GhB
-	 xKNXOXnqdcK2vPGVNY7RHMQJ9EeYd1qCiStsQRvK9VSt6TuwPE9JbmZFNQf8KsZwz2ggZ
-	 thQJwQxikZrYnQhArtheVgwIalgp5HQoybUiaI3exPd3n9bV9BzWjVkrGofYm1cE3MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219384;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=9PYjsCovxbwG2Itfx3rSNxc2BSeADRrw46k7ndRCDsQ=;
+	b=cuMKHF5q15r4TkTgRamBZMp7VzIexDl6rWHLzxm9u7vAI0WZkqXfk7I91NrthNaFGqKd
+	 HThVQ8hXJw9pqfGm4454tfeVtPSoCnq4bw5ux6CPIi3dRiBvG7Rsc23xLSENFuniVgTFr
+	 MeLexZzBobKblrLuu1HkIOUJxKs9kwY+O6nB1joCYv9HItyHZvcylRzo2SshMFIeSSPA2
+	 OXbPb7U38vXLGefZkz5HO0LVHypgnj10Ct01wuoivAabDENmKhm7VIAwrXrdSDaTspzpR
+	 TSJXD4S6v7sZeO+/30ZFXnj+9bM3gW7FbdfSh31y7Gl5ft4TVKXeN6jkOq6OsU8QmKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnzSr6DK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=net-swift.com;
+	spf=pass smtp.mailfrom=net-swift.com;
+	arc=none smtp.remote-ip=54.204.34.129
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE21606A31C;
-	Mon,  9 Nov 2026 10:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnzSr6DK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E951F0089F;
-	Mon,  9 Nov 2026 10:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794218932;
-	bh=rkrTTfoabgAYGq+zadUuV0iR7WSnU+RqLdkrgA2Z5oQ=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=UnzSr6DKpbYpBTm8GMIeiqXbOIYx8t2wFSODP1sc1KTLAa6Mvz4KxLoHdNJdGMLml
-	 EnsdMByNo8K0+Denet2LOXcvG60Zsb6ow0YCZPvLzVv6jxEjMq7iYvPqSuvhVywfmp
-	 JMz9nRrsKb8fdwcYlrm0/PtZCY3A+TEI0iULX4CKWNa7AXwHKTXtpCTGT6C9OLURLP
-	 nCeyh232CnzbE/T+i75A8na0nXJeUHVlX67jUkGNt58RAkYoSyzVc6myKWSJ8M6VBs
-	 jvl8+MI+zL0duukiEGqiaPwy4MQlQN0a3L+784LIH69Pv9Mb2g1YL/gbWFoZZyaaez
-	 mCUpL0caeNXfQ==
-Message-ID: <aa6ea9df-f767-4092-ad8f-f10305e27c3e@kernel.org>
-Date: Mon, 9 Nov 2026 11:08:34 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1897A606A321;
+	Mon,  9 Nov 2026 10:16:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1897A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=net-swift.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=net-swift.com
+X-QQ-mid: esmtpgz16t1794219306t968aa643
+X-QQ-Originating-IP: BL+GGtNklOLcGzGXfosN67fC2dQ023DN/eMB4kzlGc0=
+Received: from localhost.localdomain ( [60.186.246.243])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 18:14:44 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5273375935813799961
+EX-QQ-RecipientCnt: 14
+From: Mengyuan Lou <mengyuanlou@net-swift.com>
+To: netdev@vger.kernel.org
+Cc: jiawenwu@trustnetic.com,
+	duanqiangwen@net-swift.com,
+	linglingzhang@net-swift.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	hramamurthy@google.com,
+	jacob.e.keller@intel.com,
+	przemyslaw.kitszel@intel.com,
+	Mengyuan Lou <mengyuanlou@net-swift.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v8] net: libwx: fix VF PM suspend/resume flow
+Date: Mon,  9 Nov 2026 18:14:42 +0800
+Message-Id: <20261109101442.84605-1-mengyuanlou@net-swift.com>
+X-Mailer: git-send-email 2.30.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,269 +67,422 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
-References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
- <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
- <a9fb2d3c-d518-49d3-9479-a25fa2cfc5b3@gmail.com>
- <8d23b1eb-72aa-479d-9486-dbfd86d8414c@kernel.org>
- <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:net-swift.com:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: MDV28+Mv4MtlaDd5HzZDny1I3Jz7tLGp3MzYHp9KxAOhvrNR84kHfjiE
+	NTqIpK/czfv1/07xvze/J+NOyrsSln50j+m+WtvYXYMcMR+sVyzifnsGl852E5X7TmWTQSB
+	hnun5raMzJT5Dwkg7/gI989oaKEGZuPo2AgunZME7ALTsli1dJd7xaoDbk7z6JBhFZeN1/v
+	Wcdup1WT9dVASK2HBJFUrDJLFKQPA8MVB5jJ+o9L+Gy39yG4mlS/YJOtbpFZ2P6UO+pzh0h
+	Fc7Mi96JinYrMJG/rLNuyeISJHVCy79dN76e/WE5ws2vQkgTqcNNq6p83HWFsVpfAtBV+Gj
+	d7+V5yRYT3Rm2xzgKEpINFHDOA3d1xE2tkI9NSJbH9RhJ1ab9nRrICssu1BN+VM1IgN45JE
+	RFt3CEwQlEClWFWjeqK8Gh9aNVoocybDVCizSDYBpgxN51ua3/izZUF2uYGOTrU53chavLD
+	5okGYLIxdbaKIvOo8lRmyjUORXIwYqago3kvCJ5Q3LmJJTZZOqYRk0dC/CX5rr0285vrSUc
+	FpLPmMPFL0SSjOk6qmDUSDVA3GTL2ZTKLPi5qFvNejo5pW1JFKyVjIAL5M+HsepzIO7U4/s
+	IVacWY00rLrmKR9sAq4qvHVLqke8CIcELS55VnzVysGu3+Q2UszcW9htt+m8zs20/7LWnmT
+	/PgLE98OfqFiMrdnnjYk1VEXMAJwuoYelDGnONFgmQnaNU0lYRKZl1+zpPDIsjRW37iJlxr
+	wLln8rk7qLDpu7mVBF0LXl2QPWW3+QUONpdaX/sRr1Qbri6QOy+0EtfJ5OlStOWItjfVASY
+	6fX4+ll48MT/XLRzeHylRKevu3ZwFF9e0PNtkFMa1lyeuY61h+dIS8/f2iuyt72mRN17QuZ
+	b6nvOBGvq3rlCu5W11POrWASxPqcqTa/ZvbOF5aYNB5gU9ciNV9irkLjLZcADt6P3APT3Fr
+	lZI/1rSNLNMxr5gjVEy+abtbjc6a1Fl52PFGnvB9JYq013Df2B1i3jee7TIgJ82PyGpRDSt
+	juE99eImZu6NTHjymDr1JEgxmNZ7lpm+GN7VALMkz9jOj0KWgtgKWbTMehnWQhxDss4PvK6
+	6AYfnFFcvWsYGbO0weXfvhulj0JCNOvijPTwLAPUHMy
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-On 11/9/26 10:49, David Hildenbrand (Arm) wrote:
-> On 11/9/26 10:30, David Hildenbrand (Arm) wrote:
->> On 11/9/26 09:57, Jose A. Perez de Azpillaga wrote:
->>>
->>> here it can't tell where the -EOVERFLOW came from, if another file
->>> returns -EOVERFLOW (i.e. tty_fops uses copy_splice_read, and
->>> n_hdlc_tty_read() returns -EOVERFLOW after dropping the frame), it now
->>> gets a second read.
->>
->>
->> That's what claude told me during review, and when asked whether that actually
->> happened in practice it said no ;)
->>
->> So is that actually a problem?
-> 
-> Double checked, claude managed to confuse itself.
-> 
-> n_hdlc_tty_read() can indeed return -EOVERFLOW.
-> 
-> I should just have let splice keep failing, dealing with copy fallback starts to
-> get annoying.
-> 
-> I guess switching to -ETOOMANYREFS should work (and might be a better fitting error)
+The shared PM callbacks used by txgbevf and ngbevf free queue vectors and
+disable PCI without first stopping a running VF or draining service
+activity. Resume does not re-enable PCI or restore the queues and IRQs of
+a running VF. Service work can therefore access torn-down resources, and a
+running interface is not restored correctly after resume.
 
-Yeah, the following should do I think, please double check:
+Stop a running VF under RTNL before freeing its interrupt resources,
+preserving its administrative running state. Drain the service timer and
+work before disabling PCI.
 
-From 7ce030711737e8c26fb5500f2705940e93da0d44 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 4 Nov 2026 19:02:48 +0100
-Subject: [PATCH] mm: limit pagecache folio refcount when splicing into pipes
+Re-enable PCI on resume and defer PF readiness checks, VF reset and
+interrupt setup to the service task. Retry readiness and reset failures
+while keeping the device detached. Reopen the interface only if it is
+still administratively running. If interrupt setup or reopening fails,
+stop recovery, close the interface if necessary, and leave the device
+detached with PCI disabled.
 
-Similar to mapping pagecache folios into page tables, let's reject
-additional references when splicing folios into a pipe if the refcount
-is at its limit, similar to how we handle it during GUP.
+Track freed resources and PCI enable state to avoid duplicate teardown.
+Reject ring-parameter changes while queue vectors are unavailable.
 
-This will prevent more cases of possible folio refcount overflows with
-large pagecache folios.
+When backporting to kernels that do not have commit e73e4d187a1f52 ("net:
+wangxun: add pcie error handler"), add WX_STATE_DISABLED and
+WX_STATE_RES_FREED to enum wx_state before WX_STATE_NBITS. The PCIe
+error-handler implementation from that commit is not needed.
 
-Let's keep it simple and check in the two callers of
-splice_folio_into_pipe(). Return -ETOOMANYREFS if the limit prevents any
-progress, so do_splice_read() can fall back to copy_splice_read() when
-read_iter is available. This keeps sendfile() and other splice users
-working when ordinary reads would still succeed.
-
-Also fall back to copying in FUSE when taking another reference through
-fuse_ref_folio() would exceed the limit.
-
-Also check in try_get_page() to cover pipe-buffer duplication by tee()
-and partial pipe-to-pipe splicing.
-
-Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+Fixes: 377d180bd71c ("net: wangxun: add txgbevf build")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Mengyuan Lou <mengyuanlou@net-swift.com>
 ---
- fs/fuse/dev.c      |  5 +++--
- fs/splice.c        |  8 +++++++-
- include/linux/mm.h |  9 ++++++---
- mm/filemap.c       | 11 ++++++++---
- mm/shmem.c         |  4 ++++
- 5 files changed, 28 insertions(+), 9 deletions(-)
+Changelogs:
+v8:
+- Rename the goto labels in wxvf_reopen_subtask() to describe the action
+  taken on failure, and merge the duplicate open-failure and hard-failure
+  labels into a single err_disable_device label.
+v7: https://lore.kernel.org/netdev/20261029104220.77344-1-mengyuanlou@net-swift.com/
+- Skip the deferred reopen once the netdev is no longer registered, so a
+  pending reopen cannot race with unregister_netdev() during removal.
+- Correct the v5 changelog: the reopen is driven by the service timer,
+  not scheduled immediately from resume.
+v6: https://lore.kernel.org/netdev/20261019060216.38458-1-mengyuanlou@net-swift.com/
+- Clarify the enum dependency for stable backports to kernels without the
+  PCIe error-handler commit.
+- Keep API negotiation and MAC refresh after reset errors for existing
+  callers, while returning the reset error to the resume retry path.
+v5: https://lore.kernel.org/netdev/20261012080913.49444-1-mengyuanlou@net-swift.com/
+- Keep the deferred reopen pending while the PF is not ready, so the
+  service timer retries it instead of giving up on the first failure.
+- Serialize the PF mailbox probe with mbx_lock, send a firmware-version
+  request, and propagate VF reset failures.
+- Serialize link updates with RTNL and skip them while reopening is pending.
+- Track PCI and resource state to avoid duplicate teardown. Use dev_close()
+  on reopen failure and reject ring-parameter changes without queue vectors.
+- Retarget the patch to net and add Fixes and Cc: stable tags.
+v4: https://lore.kernel.org/netdev/20260908095801.61346-1-mengyuanlou@net-swift.com/
+- Refactor patch description and subject to focus on PM flow rework for
+  net-next instead of bug fixes, removing the Fixes tag.
+- Unconditionally restore the interrupt scheme in wxvf_reopen_subtask()
+  to fix NULL msix_entry dereference on previously admin-DOWN interfaces.
+- Add WX_FLAG_NEED_REOPEN guard in wxvf_link_config_subtask() to block
+  mailbox and register operations before reopening completes.
+- Validate netif_running() under rtnl_lock() in wxvf_reopen_subtask()
+  before invoking wxvf_open() to respect administrative DOWN events
+  during deferral.
+- Synchronize core netdev flags (__LINK_STATE_START and IFF_UP) and
+  trigger DOWN notifications on wxvf_reopen_subtask() failure paths.
+- Flush the service timer and work synchronously during suspend to avoid
+  tasks running after PCI device teardown.
+v3: https://lore.kernel.org/netdev/20260904085216.43469-1-mengyuanlou@net-swift.com/
+- Fix DMA-after-free and UAF races in wxvf_suspend() by invoking
+  wxvf_close() when running, ensuring DMA engines are stopped and
+  NAPI/IRQs/rings are cleanly freed before clearing PCI state.
+- Replace manual resource allocation in wxvf_resume() with deferred
+  reopening via WX_FLAG_NEED_REOPEN, scheduling wxvf_reopen_subtask() to
+  run full wxvf_open() sequence under rtnl_lock().
+- Move timer/work synchronization after rtnl_lock() release in
+  wxvf_suspend() to prevent service tasks from re-arming the timer.
+- Add error unwinding in wxvf_reopen_subtask() to set WX_STATE_DOWN,
+  clear bus mastering, and log errors if reopen fails.
+- Skip wxvf_link_config_subtask() when WX_STATE_DOWN is set to prevent
+  link updates on downed interfaces.
+v2: https://lore.kernel.org/netdev/20260829091423.83097-1-mengyuanlou@net-swift.com/
+- Refactored the suspend and resume logic to eliminate full netdevice
+  close/open cycles in favor of lightweight interrupt and queue manipulation:
+  * In wxvf_suspend(), replaced wxvf_close() with explicit queue stopping
+    (netif_tx_disable), carrier drop, NAPI disabling (wx_napi_disable_all), IRQ
+    releasing (wx_free_irq), and resource freeing (wx_free_resources).
+  * In wxvf_resume(), replaced wxvf_open() with granular resource allocation
+    (wx_setup_resources), MSI-X IRQ requesting (wx_request_msix_irqs_vf),
+    and deferred hardware reconfiguration via WX_FLAG_NEED_DO_RESET flag.
+- Dropped the addition of device_link_add() to parent PF in ngbevf and txgbevf
+  probe() paths to keep the patch focused strictly on libwx PM suspend/resume flow.
+v1: https://lore.kernel.org/netdev/20260826095243.16939-1-mengyuanlou@net-swift.com/
+---
+ .../net/ethernet/wangxun/libwx/wx_ethtool.c   |   3 +
+ drivers/net/ethernet/wangxun/libwx/wx_lib.c   |   3 +-
+ drivers/net/ethernet/wangxun/libwx/wx_type.h  |   1 +
+ drivers/net/ethernet/wangxun/libwx/wx_vf.c    |   4 +-
+ drivers/net/ethernet/wangxun/libwx/wx_vf.h    |   2 +
+ .../net/ethernet/wangxun/libwx/wx_vf_common.c | 123 ++++++++++++++++--
+ .../net/ethernet/wangxun/libwx/wx_vf_common.h |   2 +-
+ 7 files changed, 126 insertions(+), 12 deletions(-)
 
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 3641abb90d6bb..4f6b7b42bfd3e 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
- 		if (cs->write && cs->pipebufs && folio) {
- 			/*
- 			 * Can't control lifetime of pipe buffers, so always
--			 * copy user pages.
-+			 * copy user pages. Also copy folios at their refcount limit.
- 			 */
--			if (cs->req->args->user_pages) {
-+			if (cs->req->args->user_pages ||
-+			    unlikely(folio_ref_count_over_limit(folio))) {
- 				err = fuse_copy_fill(cs);
- 				if (err)
- 					return err;
-diff --git a/fs/splice.c b/fs/splice.c
-index e6d43329ed3f0..2fc1279628af5 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -956,6 +956,7 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
- 			      unsigned int flags)
- {
- 	unsigned int p_space;
-+	ssize_t ret;
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c b/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c
+index 940d2e59876c..729b1ec65bd7 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c
++++ b/drivers/net/ethernet/wangxun/libwx/wx_ethtool.c
+@@ -790,6 +790,9 @@ static int wx_set_ringparam_vf(struct net_device *netdev,
+ 	struct wx_ring *temp_ring;
+ 	int i, err = 0;
  
- 	if (unlikely(!(in->f_mode & FMODE_READ)))
- 		return -EBADF;
-@@ -977,7 +978,12 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
- 	 */
- 	if ((in->f_flags & O_DIRECT) || IS_DAX(in->f_mapping->host))
- 		return copy_splice_read(in, ppos, pipe, len, flags);
--	return in->f_op->splice_read(in, ppos, pipe, len, flags);
-+	ret = in->f_op->splice_read(in, ppos, pipe, len, flags);
++	if (!wx->num_q_vectors)
++		return -EBUSY;
 +
-+	/* Fallback to copying when hitting folio refcount limits. */
-+	if (unlikely(ret == -ETOOMANYREFS) && in->f_op->read_iter)
-+		ret = copy_splice_read(in, ppos, pipe, len, flags);
+ 	new_tx_count = clamp_t(u32, ring->tx_pending, WX_MIN_TXD, WX_MAX_TXD);
+ 	new_tx_count = ALIGN(new_tx_count, WX_REQ_TX_DESCRIPTOR_MULTIPLE);
+ 
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_lib.c b/drivers/net/ethernet/wangxun/libwx/wx_lib.c
+index dcbf5811046e..701d239ab13c 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_lib.c
++++ b/drivers/net/ethernet/wangxun/libwx/wx_lib.c
+@@ -3402,7 +3402,8 @@ EXPORT_SYMBOL(wx_set_ring);
+ 
+ void wx_service_event_schedule(struct wx *wx)
+ {
+-	if (!test_bit(WX_STATE_DOWN, wx->state) &&
++	if ((!test_bit(WX_STATE_DOWN, wx->state) ||
++	     test_bit(WX_FLAG_NEED_REOPEN, wx->flags)) &&
+ 	    !test_and_set_bit(WX_STATE_SERVICE_SCHED, wx->state))
+ 		queue_work(system_power_efficient_wq, &wx->service_task);
+ }
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_type.h b/drivers/net/ethernet/wangxun/libwx/wx_type.h
+index a7f3c48e9603..66b21bde962e 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_type.h
++++ b/drivers/net/ethernet/wangxun/libwx/wx_type.h
+@@ -1288,6 +1288,7 @@ enum wx_flags {
+ 	WX_FLAG_NEED_MODULE_RESET,
+ 	WX_FLAG_NEED_UPDATE_LINK,
+ 	WX_FLAG_NEED_DO_RESET,
++	WX_FLAG_NEED_REOPEN,
+ 	WX_FLAG_RX_MERGE_ENABLED,
+ 	WX_FLAG_TXHEAD_WB_ENABLED,
+ 	WX_FLAG_NEED_PCIE_RECOVERY,
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf.c b/drivers/net/ethernet/wangxun/libwx/wx_vf.c
+index 7567216a005f..213d13d26070 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_vf.c
++++ b/drivers/net/ethernet/wangxun/libwx/wx_vf.c
+@@ -38,8 +38,8 @@ void wx_init_hw_vf(struct wx *wx)
+ }
+ EXPORT_SYMBOL(wx_init_hw_vf);
+ 
+-static int wx_mbx_write_and_read_reply(struct wx *wx, u32 *req_buf,
+-				       u32 *resp_buf, u16 size)
++int wx_mbx_write_and_read_reply(struct wx *wx, u32 *req_buf,
++				u32 *resp_buf, u16 size)
+ {
+ 	int ret;
+ 
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf.h b/drivers/net/ethernet/wangxun/libwx/wx_vf.h
+index b64a4de089f2..e8001d5856a9 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_vf.h
++++ b/drivers/net/ethernet/wangxun/libwx/wx_vf.h
+@@ -109,6 +109,8 @@ struct wx_link_reg_fields {
+ };
+ 
+ void wx_init_hw_vf(struct wx *wx);
++int wx_mbx_write_and_read_reply(struct wx *wx, u32 *req_buf,
++				u32 *resp_buf, u16 size);
+ int wx_reset_hw_vf(struct wx *wx);
+ void wx_get_mac_addr_vf(struct wx *wx, u8 *mac_addr);
+ void wx_stop_adapter_vf(struct wx *wx);
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
+index 26de78e9a69e..e274a77b3be9 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
++++ b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.c
+@@ -16,9 +16,23 @@ int wxvf_suspend(struct device *dev_d)
+ 	struct pci_dev *pdev = to_pci_dev(dev_d);
+ 	struct wx *wx = pci_get_drvdata(pdev);
+ 
++	rtnl_lock();
+ 	netif_device_detach(wx->netdev);
++	if (netif_running(wx->netdev))
++		wxvf_close(wx->netdev);
++
++	clear_bit(WX_FLAG_NEED_REOPEN, wx->flags);
+ 	wx_clear_interrupt_scheme(wx);
+-	pci_disable_device(pdev);
++	set_bit(WX_STATE_RES_FREED, wx->state);
++	rtnl_unlock();
++
++	timer_delete_sync(&wx->service_timer);
++	cancel_work_sync(&wx->service_task);
++	clear_bit(WX_STATE_SERVICE_SCHED, wx->state);
++
++	pci_clear_master(pdev);
++	if (!test_and_set_bit(WX_STATE_DISABLED, wx->state))
++		pci_disable_device(pdev);
+ 
+ 	return 0;
+ }
+@@ -34,11 +48,20 @@ int wxvf_resume(struct device *dev_d)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev_d);
+ 	struct wx *wx = pci_get_drvdata(pdev);
++	int err;
+ 
+-	pci_set_master(pdev);
+-	wx_init_interrupt_scheme(wx);
+-	netif_device_attach(wx->netdev);
++	err = pci_enable_device_mem(pdev);
++	if (err) {
++		dev_err(&pdev->dev, "Cannot enable PCI device from suspend\n");
++		return err;
++	}
+ 
++	clear_bit(WX_STATE_DISABLED, wx->state);
++	pci_set_master(pdev);
++	rtnl_lock();
++	mod_timer(&wx->service_timer, jiffies + HZ);
++	set_bit(WX_FLAG_NEED_REOPEN, wx->flags);
++	rtnl_unlock();
+ 	return 0;
+ }
+ EXPORT_SYMBOL(wxvf_resume);
+@@ -52,13 +75,15 @@ void wxvf_remove(struct pci_dev *pdev)
+ 	unregister_netdev(netdev);
+ 	timer_shutdown_sync(&wx->service_timer);
+ 	cancel_work_sync(&wx->service_task);
++	clear_bit(WX_STATE_SERVICE_SCHED, wx->state);
+ 	kfree(wx->vfinfo);
+ 	kfree(wx->rss_key);
+ 	kfree(wx->mac_table);
+ 	wx_clear_interrupt_scheme(wx);
+ 	pci_release_selected_regions(pdev,
+ 				     pci_select_bars(pdev, IORESOURCE_MEM));
+-	pci_disable_device(pdev);
++	if (!test_and_set_bit(WX_STATE_DISABLED, wx->state))
++		pci_disable_device(pdev);
+ }
+ EXPORT_SYMBOL(wxvf_remove);
+ 
+@@ -137,7 +162,7 @@ void wx_negotiate_api_vf(struct wx *wx)
+ }
+ EXPORT_SYMBOL(wx_negotiate_api_vf);
+ 
+-void wx_reset_vf(struct wx *wx)
++int wx_reset_vf(struct wx *wx)
+ {
+ 	struct net_device *netdev = wx->netdev;
+ 	int ret = 0;
+@@ -150,6 +175,8 @@ void wx_reset_vf(struct wx *wx)
+ 		eth_hw_addr_set(netdev, wx->mac.addr);
+ 		ether_addr_copy(netdev->perm_addr, wx->mac.addr);
+ 	}
++
 +	return ret;
  }
+ EXPORT_SYMBOL(wx_reset_vf);
  
- /**
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 3356f7a670d1e..dd50262a70758 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2288,10 +2288,13 @@ static inline void get_page(struct page *page)
+@@ -279,6 +306,7 @@ void wxvf_up_complete(struct wx *wx)
+ 	wx_configure_msix_vf(wx);
+ 	smp_mb__before_atomic();
+ 	clear_bit(WX_STATE_DOWN, wx->state);
++	clear_bit(WX_STATE_RES_FREED, wx->state);
+ 	wx_napi_enable_all(wx);
  
- static inline __must_check bool try_get_page(struct page *page)
+ 	/* clear any pending interrupts, may auto mask */
+@@ -376,6 +404,9 @@ int wxvf_close(struct net_device *netdev)
  {
--	page = compound_head(page);
--	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-+	struct folio *folio = page_folio(page);
+ 	struct wx *wx = netdev_priv(netdev);
+ 
++	if (test_and_set_bit(WX_STATE_RES_FREED, wx->state))
++		return 0;
 +
-+	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
- 		return false;
--	page_ref_inc(page);
-+	if (unlikely(folio_ref_count_over_limit(folio)))
-+		return false;
-+	folio_ref_inc(folio);
- 	return true;
+ 	wxvf_down(wx);
+ 	wx_free_irq(wx);
+ 	wx_free_resources(wx);
+@@ -388,25 +419,101 @@ static void wxvf_link_config_subtask(struct wx *wx)
+ {
+ 	struct net_device *netdev = wx->netdev;
+ 
++	rtnl_lock();
++	if (test_bit(WX_STATE_DOWN, wx->state) ||
++	    test_bit(WX_FLAG_NEED_REOPEN, wx->flags))
++		goto out;
++
+ 	wxvf_watchdog_update_link(wx);
+ 	if (wx->link) {
+ 		if (netif_carrier_ok(netdev))
+-			return;
++			goto out;
+ 		netif_carrier_on(netdev);
+ 		netdev_info(netdev, "Link is Up - %s\n",
+ 			    phy_speed_to_str(wx->speed));
+ 	} else {
+ 		if (!netif_carrier_ok(netdev))
+-			return;
++			goto out;
+ 		netif_carrier_off(netdev);
+ 		netdev_info(netdev, "Link is Down\n");
+ 	}
++
++out:
++	rtnl_unlock();
++}
++
++static void wxvf_reopen_subtask(struct wx *wx)
++{
++	u32 ping[2] = { WX_VF_GET_FW_VERSION };
++	int ret;
++
++	if (!test_bit(WX_FLAG_NEED_REOPEN, wx->flags))
++		return;
++
++	rtnl_lock();
++	if (!test_bit(WX_FLAG_NEED_REOPEN, wx->flags) ||
++	    test_bit(WX_STATE_DISABLED, wx->state) ||
++	    wx->netdev->reg_state != NETREG_REGISTERED) {
++		rtnl_unlock();
++		return;
++	}
++
++	/* Serialize the ping with other VF mailbox accesses.
++	 * The helper sends the request and waits for the PF reply.
++	 */
++	spin_lock_bh(&wx->mbx.mbx_lock);
++	ret = wx_mbx_write_and_read_reply(wx, ping, ping, ARRAY_SIZE(ping));
++	spin_unlock_bh(&wx->mbx.mbx_lock);
++	if (ret) {
++		rtnl_unlock();
++		return;
++	}
++
++	ret = wx_reset_vf(wx);
++	if (ret) {
++		rtnl_unlock();
++		return;
++	}
++
++	if (wx_init_interrupt_scheme(wx)) {
++		dev_err(&wx->pdev->dev, "Failed to initialize interrupt scheme\n");
++		goto err_disable_device;
++	}
++
++	if (netif_running(wx->netdev) && wxvf_open(wx->netdev))
++		goto err_disable_device;
++
++	clear_bit(WX_FLAG_NEED_REOPEN, wx->flags);
++	if (!netif_running(wx->netdev))
++		timer_delete_sync(&wx->service_timer);
++	netif_device_attach(wx->netdev);
++	rtnl_unlock();
++	return;
++err_disable_device:
++	/* Do not retry interrupt setup or reopen from the service task. Keep the
++	 * netdev detached and down, and disable PCI.
++	 * Retry by rebinding the driver or through a later PM resume; bring the
++	 * interface up after recovery.
++	 */
++	timer_delete_sync(&wx->service_timer);
++	wx_clear_interrupt_scheme(wx);
++	clear_bit(WX_FLAG_NEED_REOPEN, wx->flags);
++	set_bit(WX_STATE_DOWN, wx->state);
++
++	if (netif_running(wx->netdev))
++		dev_close(wx->netdev);
++
++	rtnl_unlock();
++	if (!test_and_set_bit(WX_STATE_DISABLED, wx->state))
++		pci_disable_device(wx->pdev);
++	dev_err(&wx->pdev->dev, "Failed to fully resume device\n");
  }
  
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 920bbf86dfdff..44b23c51ea45f 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3094,9 +3094,10 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
-  * Return: On success, the number of bytes read will be returned and *@ppos
-  * will be updated if appropriate; 0 will be returned if there is no more data
-  * to be read; -EAGAIN will be returned if the pipe had no space, and some
-- * other negative error code will be returned on error.  A short read may occur
-- * if the pipe has insufficient space, we reach the end of the data or we hit a
-- * hole.
-+ * other negative error code will be returned on error; -ETOOMANYREFS will be
-+ * returned if the folio's refcount is too high and the caller can fall back to
-+ * copying.  A short read may occur if the pipe has insufficient space, we reach
-+ * the end of the data or we hit a hole.
-  */
- ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
- 			    struct pipe_inode_info *pipe,
-@@ -3168,6 +3169,10 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
- 			if (writably_mapped)
- 				flush_dcache_folio(folio);
+ static void wxvf_service_task(struct work_struct *work)
+ {
+ 	struct wx *wx = container_of(work, struct wx, service_task);
  
-+			if (unlikely(folio_ref_count_over_limit(folio))) {
-+				error = -ETOOMANYREFS;
-+				goto out;
-+			}
- 			n = min_t(loff_t, len, isize - *ppos);
- 			n = splice_folio_into_pipe(pipe, folio, *ppos, n);
- 			if (!n)
-diff --git a/mm/shmem.c b/mm/shmem.c
-index be4ab228cf67c..0b30b1de81a7c 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -3830,6 +3830,10 @@ static ssize_t shmem_file_splice_read(struct file *in, loff_t *ppos,
- 			 * Ok, we have the page, and it's up-to-date, so we can
- 			 * now splice it into the pipe.
- 			 */
-+			if (unlikely(folio_ref_count_over_limit(folio))) {
-+				error = -ETOOMANYREFS;
-+				break;
-+			}
- 			n = splice_folio_into_pipe(pipe, folio, *ppos, part);
- 			folio_put(folio);
- 			folio = NULL;
++	wxvf_reopen_subtask(wx);
+ 	wxvf_link_config_subtask(wx);
+ 	wxvf_reset_subtask(wx);
+ 	wx_service_event_complete(wx);
+diff --git a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.h b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.h
+index d45d5d8ac3ab..5bfeab6fdde6 100644
+--- a/drivers/net/ethernet/wangxun/libwx/wx_vf_common.h
++++ b/drivers/net/ethernet/wangxun/libwx/wx_vf_common.h
+@@ -10,7 +10,7 @@ int wxvf_resume(struct device *dev_d);
+ void wxvf_remove(struct pci_dev *pdev);
+ int wx_request_msix_irqs_vf(struct wx *wx);
+ void wx_negotiate_api_vf(struct wx *wx);
+-void wx_reset_vf(struct wx *wx);
++int wx_reset_vf(struct wx *wx);
+ void wx_set_rx_mode_vf(struct net_device *netdev);
+ void wx_configure_vf(struct wx *wx);
+ int wx_set_mac_vf(struct net_device *netdev, void *p);
 -- 
-2.56.0
+2.30.1
 
-
--- 
-Cheers,
-
-David
