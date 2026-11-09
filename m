@@ -1,113 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218842;
-	b=FJVI7PHmZhy0ZAuPTSLh4Xs688lDHrQ7VSEpBKX2X09Bt/97pAqmgWMp7DNFZ5MN74Xc
-	 eOwYjY5FNdnLVvKB2pZxMaQ1mJkIK6iEZbc8sVDq6L/6KGAGFYm5XeJ5sMXKehGmgovPH
-	 rfM4fvj2sBZjJfzyG+lySaCHHw43P3GWwZruaxgoFvCKOQ+sGl7KQU46Ey4vLgwIT7XjN
-	 TdD5R7XC7pJ6DOjOSNbIjPWC0BekfL1ffZp0eqLele/S1qqsqXSsiqHm0QAFjx5eHCXFL
-	 TSx9pzf4oF3rGHFZa0dqj6l7VEtOPYr+Xo6wbeia57WNY8kANhoE9DFqftxaTgBSfcQ==
+	t=1794218843;
+	b=dGVV6B2SIUdgselwNkRzYfSgdyw+no61DDjEnO/g5eZCEg5nfubSUfqqJLUTI1GLx6yc
+	 N2DLvRDVy6n60nXCGF51hlWCerWb++1UCcHGgG1vKQyznc1hd+7t39Tu3K6giGWe7n8zP
+	 JaMiunhFJLJZHfP+IQcSPpXrQgCGcuijtW2JhoZKTQQC8BalwMT1bIOLewC7Es5txNu6/
+	 D45YIwtrcAC+sOUqiDRsslYO8KlaXzSOajDJsDhCEEspbo2fh/lQu2Fz6QYNPEjrVvj+B
+	 cJZVBfmDtLlMdyuV1hkSmKROoEMOZLtcKgUM/LE07nKf3rj6WP1hvTyVa9DhkM5Fe2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218842;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CjV2MobfznHWSd6tt/gdIURuRgsbs0R2Ml80INwwLeU=;
-	b=MV6Orxpp4i3FpecmsazvPBcGI7Vv1et6Msr2EqI0/+HaF2RygDT9b3O0H+CtHcfHbbNy
-	 516QlUsPEXnBBgKb+lLXilP2LNbgllZvJm0nqhLiIaGPD+S2WKjGHBE+WeT6VoRVZhZIS
-	 oLeDVu/Vn5SZV1g4DIFk8zEVLwDSKVeb0FDLUrGKQ9DGzyu2hkXxw0HEOopIiv0kN3pkC
-	 9FP91PZYZp+gZfr/yXIkXvPFkTjWKNj1ZWRcNKExQ4MlGBxyjL7UbBHcKi7l48bv/eC+6
-	 Wssq5ELEL3zP01NwBW7YWOrXuBhYzDcYoo3YEh0Cg/EiR5IyLff7PxsPSmSRfTqH8Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218843;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=wzD2gVWenx4OduZr/3FuD3SECBgKzRss8SaZBrTL2N4=;
+	b=qjZ5utpCY+XclzDeJpDBYM0s35zywXfed3F7EECdLABGjfynetsTybAbuLAhn+JIAhJr
+	 lQpXq4QWO1EwfS0r/OONFLYnPayGYo5ja+qR4TrXwlekGsEK0rrb4StsPcmwbHznv2gT9
+	 zkSEoBLG6NUoFXACiiMOv/C2HA7wqO0Fmh7z/MkmLxAXcCsQbsmmnlTw6tmHYe8aNmelQ
+	 9ZN3et+plMwdy4p9UBWnrLFsWC67Rj4r28tyc2xSgRqR83iJtBI3CXJeF5Ce7zLWf9zwc
+	 657DoPk/2tQkPZ3gsANSyB/AyqDHnkgQ1OandSMJEPj7ZezNqE5q71C2lG8E98n1dQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="a9of3/qL";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SKYi8J97;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=dvd9dz2o;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A020606A32A
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 10:07:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A020606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4921606A326;
+	Mon,  9 Nov 2026 10:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4921606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a9of3/qL;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SKYi8J97
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99v2Yd3035333
-	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 10:07:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CjV2MobfznHWSd6tt/gdIURuRgsbs0R2Ml80INwwLeU=; b=a9of3/qL/4+MO8WB
-	lGHMVmTU62rb7WextgOeaYfECVNulD+JxEQXiv2o+3WOcNDeConh4zHrNfl3wtP1
-	dmEnFp9YlHwyAZ40/tqS8Zkb+FYvJ/SVdmXTQH4q15PvZ/t8MYHf45rhiN1JB//c
-	AJ9xFAQaPE+q29gR6sjkoBSwTyvu9b7EtbGHTDxqvTdkviR5SJ4yMPYRV2ZuwxCG
-	UveAyYACnh2FZJePJhAHvhUOVNOXqWIcYv0/DjUa+tfz0eAnQTqcESlF3giJ5pOa
-	+Y4BucgJ2WmW0NgK+P9xS36u43OYJZqgjm6bdT6twduSjkB5yHQyQUOBuacZlZ20
-	BbSGMA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsvc6nrcj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 10:07:20 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdaf3f2a58aso412669a12.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 02:07:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794218840; x=1794823640; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CjV2MobfznHWSd6tt/gdIURuRgsbs0R2Ml80INwwLeU=;
-        b=SKYi8J97+2OgxoGsD780fr4IeIDgPlFJR5NTDW14l5Ay7saa+/U1gpCuwdE3WoTP65
-         zebf1Qm2kEmsALB8q/mtta3rEcyUwf976yYbgp7E+WspdEuy98bAAM1bVxVjewUuT2Eq
-         JNrtsc3zGPilX/U38DdnefAvvTMC9IqnbjRcalyV9msmUNf+XaHtdFItGUcibhnPtCLC
-         DKGPLxPKkSJiEw1o7OeReEsMTL9WlwTTp+RescUmHVEGj5u+JO4LaD7rQohsXey4tIRM
-         WTaNFTTkVbu5Rw+v8HFO8x3s59b0Vz3vmy7S8q8NjeMJIVb5DY875RvZQoUtgwr+O42F
-         2MOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794218840; x=1794823640;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CjV2MobfznHWSd6tt/gdIURuRgsbs0R2Ml80INwwLeU=;
-        b=fWHlA5kIhYoOMaxISji4+r4IizYztfJWtMDI5FjEpvDazCEYMcZxhJvY2j7sj87pgu
-         65vGk4668XhVK98+AkBmWOWNgAyea2iIzzbxgIMWraJ6dOG9/SRaW9LhbmWKwW3D2BIe
-         OPC+IIsU0M+Sg+YklmtZxJmetf8VGqz0Rx2w73OVnNfnxLKK1jdWrcX2VIqS1v6ZhwgS
-         wo9O3hsW22OoIDL2suEYaD57hm3ns1f+43K+E36SFz3TK1bQltQTPVqXXtJ+L1gYVN0p
-         bE/RwhsMq7vNMiIYGiEfxQepMPAuiSYikl76xJW2RfbiLWF5c1vtKYEE41jYM1A+oH+a
-         KLdg==
-X-Forwarded-Encrypted: i=1; AL+hErHXNMP5FU0udToUWyCoPore0DuRm+/hYU/k0QxiDt3C61oigQ3bwb6fcEVLzId12lKURkCjgx0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZGrIKeE1kABXl7udrTAmuI1ajY/fNPeJx23bGNMaxp8yySrlA
-	Dw4+VTW7WIKle7y4AZqJqJQShCGvQv4+km1KTu5QGfsqp7nNbe2oBh6FObjn7WoOJdB6v7mihuu
-	dmV2rvQZeB6y9LO132/SUikhmLUiPS92k48Zzv3jamvk5idrr5Y3w871vULA=
-X-Gm-Gg: AYBFou0kAOQWWKVvpASVJdl6lEQO02ZJPPMyjoXwrR4mwmFARKgcnRqUZdAFaVUO5MB
-	PZ4p3haVlAp1o3QTM8RxOHvfPFNpx40V1YLVK3mlLhKgLrryvBMkbSTvJNfOc3G0Fjoi/LDG+2I
-	wJj62hbvt6xrSbwQgQXyF7wTEPpycrJPya6PFcp7ytEKtPhfBHYOiKNpbnVnlYSwSUmEtXRAjSk
-	Jr/X0CKKHVcrZAiKkiT/mOr4r7nsVX0yP9VSrQ8c+PL0XGUWOkjY0+Fh8Gj+r757rD9MTAX+pTT
-	DnZ90GsKn8ff/eEbxmBcBcErkDnCH7gTSt4xv6F69LR9DA3GVdBGfDgwimXh1XWZIJ7KrqdnAV6
-	7lIkpGZ6ltlqniAawBtOQW2tqRgrHUXwo7I8z1nCFxLwGH7FmJxdc3HvPQG+6IB8N66F/BlUX2l
-	eFKD7tgZmKRWbFQuIn2tnTDEfCO3vA
-X-Received: by 2002:a17:90b:4c8a:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3b12d54fb2cmr2526901a91.32.1794218839548;
-        Mon, 09 Nov 2026 02:07:19 -0800 (PST)
-X-Received: by 2002:a17:90b:4c8a:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3b12d54fb2cmr2526877a91.32.1794218839087;
-        Mon, 09 Nov 2026 02:07:19 -0800 (PST)
-Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1054a53e4sm10034531a91.0.2026.11.09.02.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:07:18 -0800 (PST)
-From: Yin Li <yin.li@oss.qualcomm.com>
-Date: Mon, 09 Nov 2026 18:05:33 +0800
-Subject: [PATCH v5 1/7] arm_mpam: Fix the RIS index range check in
- mpam_ris_create_locked
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=dvd9dz2o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794218828;
+	bh=wzD2gVWenx4OduZr/3FuD3SECBgKzRss8SaZBrTL2N4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=dvd9dz2omGOpIjnCzKhth+N0Pf3JAdA7r8DhQIwx6zIrZ86sVh61b1hedePeyxICk
+	 OYxYUi7xQ4ij8kt63NtBixOz7norVquB846LLsny4iAErpVf7AcvnYqVkf6yqnsDkE
+	 klOuF8x0s8JdMDVWQjxLyUZtAI7uVJU7wuim8bR8=
+X-QQ-mid: zesmtpgz6t1794218823t6ab04ff5
+X-QQ-Originating-IP: 5qUwObxY9qhhFgcy4aG04KtHrvTQxuH24Pjj+8aIQIw=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 18:07:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13396370734778610991
+EX-QQ-RecipientCnt: 15
+From: raoxu <raoxu@uniontech.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	luiz.von.dentz@intel.com,
+	brgl@kernel.org,
+	pmenzel@molgen.mpg.de,
+	pengpeng@iscas.ac.cn,
+	u.kleine-koenig@baylibre.com,
+	raoxu@uniontech.com,
+	lars@metafoo.de,
+	mike.looijmans@topic.nl,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] iio: adc: ltc2471: Fix LTC2473 differential offset
+Date: Mon,  9 Nov 2026 18:06:59 +0800
+Message-ID: <AD0B78CBE86D2045+20261109100659.3796603-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,101 +79,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-mpam-resctrl-dt-knp-support-v5-1-150335a79381@oss.qualcomm.com>
-References: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
-In-Reply-To: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
-To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Ben Horgan <ben.horgan@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
-        Drew Fustini <fustini@kernel.org>,
-        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        ganapatrao.kulkarni@oss.qualcomm.com,
-        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        devicetree@vger.kernel.org, Ping Li <leeonion.muyu@gmail.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794218813; l=1221;
- i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
- bh=dTfzizx2O8pIWKkNOZ5/tj+tagXJPodOMUlPeZeSs18=;
- b=WY70CK6+b3HD6F8igEKO8LA8i7n1vIrZlsEcst/OXcFuilQ4b/kjdatXb+vwpsWJnrgAaH+bu
- vPCzTswnJ9zAht0xJL7Sy2MaO2ckK12jMWNndpRwzyY4PojyLFaYyPH
-X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
- pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX9aK0+gIBpk6T
- slnaMatPgUB+2cwCnc81W0oLijEaQtlMtg/wH/lkRdGudQkKjA5a5vQwpXfzjhfKqYqvHmI+n86
- QoRvTuGdDUmGEAyhNTaNfajkpG49PiZ1SqeKJ/j5oSEmYFbznNEXRMHz37Y0/BsVvlln5tILUXn
- W8PJyMrNZ4kG80RolJGBUHSfBKtJ18krqWOAPnVTyVziT2Gmz/feEeVdgqGOt83+JrbnfRQq6PS
- Aj9I+2S2CXhO17n9SQbEFdUYk/wMhqWhad6HeVejLYu1iIlZQJAgfFihbpB7PJtHVbhtBPtmbwy
- fAdQvqGGiLSiYckZDymjef9OaDvk00vbj9LggcKWuLfEluL88RsYpXoDaYuJpC8sgvcEiRI3M4J
- WqBXcoq4zDGAafCqemadekGuuXmbXdgUHgqiUggOk49elTfF8yMyE/SXPQ84lDV6LxssxYTh+dn
- AzHS8rS92zCneYHI71Q==
-X-Authority-Analysis: v=2.4 cv=WOjqzXsR c=1 sm=1 tr=0 ts=6af19b58 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=cxiLKowE09Ysm4E8lmYA:9
- a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX5fzao0urDVHV
- A6maQRUdaZkZTmRWsT3RWQ7uKZMSlx+tSl0uTxQRbVdAt5Z4J1hTMKm25sdSUkSIjR3mJz6Vfwf
- Uz5jJyvOo3ICokZ/R94Wg+6wcffh7K8=
-X-Proofpoint-ORIG-GUID: V1-ucaZu62F9GUBzcgNzp9-8216IEb9i
-X-Proofpoint-GUID: V1-ucaZu62F9GUBzcgNzp9-8216IEb9i
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1011
- lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090040
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OCnNLGxuhE2o1dSDhlb8I+bEqgPkzzoI5OLoG5lcWfW1lHNtjWNmAWJ8
+	hggayVzDr5mjWXdcFliYr66Yk4VteRxgOHzu25XlsT6rjLIsE8mMXFSUywubcI97WXjMUpP
+	3QwG2UWNhzv3g8ZNeaQOG2A6BpgWhGJh2XQsHBFAovM1YAoJdu/PxUDSxoDLpOmw8JjOvf9
+	ZImW3bNiuRmfik+nLl4UozSBYC37S3G3h2H97l79ImYIwU/g85Pt6ow9dmtwSu1mPe9/IHW
+	Xg2hIsXq2ori3qIjbhAZckjdz4MI3/AB9v639VMw3uWIP80a8SwK8Yd963yy/MQJV0sy0uP
+	/g+fs8TonvKqN7DGIDyCcxXJJJiVW+9WdE0BrlPFWD0MqFi25un/grP6HE+G/3kYehMA8au
+	0qyE8Q5xl5pptQy1pJd3pyuMGML96lsqIDucBgLUm5XhlVwgegokfj2dnerYW/Sm4onqpEs
+	qLh+EbBLWJYSvMeU/0c4HUtmVUmK8B6kIhx1Xoqz9Ky15UOHGFjC/A+o6hXGfehYpQLjKoF
+	4BmKkXHNYIb9pZcKiT9UcxYnpZM+vvSqB2iB8ouR051WckzsCB2B0O6MPdL8bWmLR8t8n6F
+	Hum4bDZ7uAHhjyLAdYtOLK/Gy/8Q/+Ky0nqaV6KtbH36F8lP/Px+EJs4b9R7XF+8B2vknWV
+	duo24VhK2rbmEiXorv+deaXflsjJ/SLWRcUjDSHEn1DU//774+CFa3QGFBUq78CnirJE+6T
+	ce9xLGoxrwyJ0b3RvCc3TaLJwdgNKyBPulYZ0aFAgi90GmYQCZWhZJIWV6NttnKBdaqQ5kW
+	BRatl2HiJrEEUNrxwy9CsQs3oVeTtnE2fTu2NsQzv0DLJPbalF3AOWd/16WFGP9YmruKxaX
+	rpQhwtBJvMCvE3iSXx4busc1r4/5VNYLs0ivYWiXILYbfXav/EPuZJF2HRIGIy4SkNkpi+d
+	OhhTF4fPQf0j181QcaAFqooTfLzE4gQ4BDpc2FYPEystbXUjKIYZ1CzRF9t4zQ+ogect0s2
+	I7JkMZfdfZOaN1oE/OUt0XF6myJIfk8R/irNBis9vF1/1VcST1vyZEebpxsksJ0TPvlLk85
+	46ON20hk6qNk36feNj1ArY=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-The RIS selector field is defined as MPAMCFG_PART_SEL_RIS (bits 27:24),
-which is 4 bits wide and gives valid indices 0..15. MPAM_MSC_MAX_NUM_RIS
-is defined as 16, so the check should use >= to reject index 16 and
-above. The previous > check incorrectly accepted index 16 as valid.
+From: Xu Rao <raoxu@uniontech.com>
 
-Fixes: 01fb4b822472 ("arm_mpam: Add the class and component structures for firmware described ris")
+The LTC2473 reports its differential conversion result as an unsigned
+16-bit value spanning -VREF to +VREF. The IIO scale is consequently
+reported as 2 * VREF divided by 2^16.
+
+IIO offsets are expressed in raw codes, but the driver currently returns
+-LTC2471_VREF, which is a millivolt value. This makes the processed
+reading incorrect: with a 1.25 V reference, the midpoint raw code is
+shifted by 1250 instead of 32768 codes.
+
+Return the raw-code offset so that the midpoint maps to 0 mV and the
+endpoints map to -VREF and +VREF as intended. The single-ended LTC2471
+does not expose the offset attribute and is unaffected.
+
+The supplied fix was reviewed and this commit message prepared with
+OpenCode AI assistance.
+
+Fixes: 1d3eacbfa644 ("iio: Add LTC2471/LTC2473 driver")
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
 ---
- drivers/resctrl/mpam_devices.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Replace the raw -32768 literal with the named LTC2473_DIFF_OFFSET
+  macro.
 
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index c067b6d57d71..05f785328dc2 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -700,7 +700,7 @@ static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
- 
- 	lockdep_assert_held(&mpam_list_lock);
- 
--	if (ris_idx > MPAM_MSC_MAX_NUM_RIS)
-+	if (ris_idx >= MPAM_MSC_MAX_NUM_RIS)
- 		return -EINVAL;
- 
- 	if (test_and_set_bit(ris_idx, &msc->ris_idxs))
+ drivers/iio/adc/ltc2471.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
--- 
-2.34.1
+diff --git a/drivers/iio/adc/ltc2471.c b/drivers/iio/adc/ltc2471.c
+index 369af700969f..eb418c0fa732 100644
+--- a/drivers/iio/adc/ltc2471.c
++++ b/drivers/iio/adc/ltc2471.c
+@@ -25,6 +25,7 @@ struct ltc2471_data {
 
+ /* Reference voltage is 1.25V */
+ #define LTC2471_VREF 1250
++#define LTC2473_DIFF_OFFSET (-32768)
+
+ /* Read two bytes from the I2C bus to obtain the ADC result */
+ static int ltc2471_get_value(struct i2c_client *client)
+@@ -69,7 +70,7 @@ static int ltc2471_read_raw(struct iio_dev *indio_dev,
+
+ 	case IIO_CHAN_INFO_OFFSET:
+ 		/* Only differential chip has this property */
+-		*val = -LTC2471_VREF;
++		*val = LTC2473_DIFF_OFFSET;
+ 		return IIO_VAL_INT;
+
+ 	default:
+--
+2.50.1
