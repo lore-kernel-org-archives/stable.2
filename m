@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264596;
-	b=3qnIl8qaV/Aki1cV5BR3XZQh7mB0Rn110MaJhYd8ucctSm82vFW9rFUr32EWgHNhi9o2
-	 LPWN2inPXJRJqChBUeaGTcDHUoCm7xXFGEE/ECf3mRR1VuXrii9z7B/zoFL+xJLv4Tvf8
-	 8Pe9n0FqkOjeEvS9DgpkJW1DCdauNFxQ86NdhvZKv603af537W1wCGP6p4cYc6wItvUWz
-	 W611CH947/arOj8xeCIrTNussj8QJAglWvuO89tfm6TPs8yNUBgHfmRS+wl/ET4bZnToG
-	 mwoLWpISFnYOVm8tgkezSCrLS0NTmjs9riaaK4Lw32/v1dz1ixb/lTS0l7V5OxeAbHQ==
+	t=1794264678;
+	b=IfxvXLfk3Uh5YyAcw3mA9IRzKqRAOdehv5kbiFDLE0yXTJ/mwjYeWw2zvoeaKTd4i/Lc
+	 4udVN0OK3u+kaDYz3BfgrOiydgeoi27/ulXNZFuonrGD5cIh42LNvO7kzKRaglm2Ibji4
+	 cY8ti5nBb5DhNjNL12rtCPDeEhkNxp9xnJZgssuOnUudaC2CsMObUG0hqkTUey84ZrIXY
+	 DtKevnOZH86gpv1tyOY57eDkidyxorGZ90iQpieMtEvvgWkLKKrYCiZQo9qxlszkkPq0W
+	 zo0D8gxNUJtGT9YnSeGATKwWBod4hgDPyHby3P8nK+P4obK4Y+2c/li63IxInDAr4Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264596;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=hf+yqNYutAL2aRXI265QMA+VjlewtD9d2PAyBCFW/tY=;
-	b=3TkJ4iL0ktEjz4/BPHJC8iaVHEv7f9m3kvmBQpZXxyDpNe3WzHVexQ5BmqYFMeiYFfJ7
-	 Z8nE4/FN1YYJpaRKFgKjCf7DfaYAMiI8GXl+WYaaq8X1KA8CSn7fIkCfsNRx/NDaoWKgc
-	 m/hQsKBXl0fdp9a1gR+I239HHfoXNXDCjazwqS+lGRjrNCl9pCjs6dbDRQFQf7d1OSoNl
-	 BxoKXORMgbJUno63ZNLUu9C0ML1HzlsleZ5QYSOcTZV49SryHtyT76LpKjEMbSxMnkZrM
-	 eaz9Edraptzaok0KLQ1LpyzpoAhwQP7GKjfSeaJaLhqqAiYe1hKpjIOAweTzD0GQsKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794264678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GWUozN1sqytVtZWyljEOiokdUvJaFMksU3vpzWBMOnY=;
+	b=a39IFnZtsKd75257/ibq5l6I2Tm4EQAC+uf27pQu0Mc6AUDnHtKXrcs5mkCYT4Ga9/Tr
+	 bWaz2OKZgELY8oeNvJ2iZoSgOaPC5/slDuhNSawwOEKQZYn3PmmUa8hyQuI2HVo5TNUcb
+	 /RLZ/T1znXX+E0CvmnRHQzdKWqwkmGy6oUTTvdRS78SZ+vTFlTlegmyA4rVslucXoBHuF
+	 oAjnQTafRr/yiQtLEaaTp27TVwls4Tb6AsHj3Kg1YMKD/iSCmpFoDDH0XXso/IZe8UZOe
+	 5xGya2bsg2/sCIVQn8IRoU86w/xTLMyqK1XcnL9alOqV0rOam2O9S/Cn3VG7ba/qSqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="WMC/eAkC";
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ed5gRpR8;
+	arc=none smtp.remote-ip=74.125.229.2
+Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4415606A31C;
-	Mon,  9 Nov 2026 22:49:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4415606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7E5606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 22:51:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC7E5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WMC/eAkC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794264596; x=1825800596;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=V7lq3Nojdk4Wi4HvLSchpdyNNJVzu2RqwGA3f0BC3wI=;
-  b=WMC/eAkC2kw3STiIZDmNczvCnO2zwU+ooPQiVvlyFCLdIV5LAFW1KmqX
-   0sr1rHwz3ECvpBO9cBZb+sw0HrswBs4Widk689beMqs5riElw2hkekD4O
-   nHyF2hiY7WPLz9N/nFx2yptdQtOezBXJ2rgfEIgcURjCBSwhGnKDumpWc
-   aFdidFmpWcFgBHS8k50PNl7s+15jmqU9k8ccp68RkhTNoKJFKePs/Upug
-   tDHWFqI//eMO3mVe28I7ui05qfxV6O2HJzM2PDEDc3YMZaGeKtxAzkOFK
-   qv/GafwJuzO6hCbP9NNqKZL21xt+YB6HTNEynN3c2gm1Zl+v8CXU7cIPN
-   g==;
-X-CSE-ConnectionGUID: 7NwHCjzRT7avopTVuLHI9w==
-X-CSE-MsgGUID: griNA61wSD6DQccTCp7udg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2995970"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2995970"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:49:55 -0800
-X-CSE-ConnectionGUID: g8JDfDVAS4SVWzVWmZmJxg==
-X-CSE-MsgGUID: vtYgExP0SwSsDgFv8Tk78g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="9770089"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:49:53 -0800
-Date: Tue, 10 Nov 2026 00:49:51 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sergey Khimich <serghox@gmail.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] dmaengine: dw-axi-dmac: poll the correct enable bit
- during termination
-Message-ID: <avJOD_jpXRpvspY1@ashevche-desk.local>
-References: <20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com>
- <20261108-submit-dw-axi-dma-stop-pause-v1-v1-1-c48ec19e9ee4@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ed5gRpR8
+Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-370ebdde89eso1456576eec.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 14:51:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794264677; x=1794869477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GWUozN1sqytVtZWyljEOiokdUvJaFMksU3vpzWBMOnY=;
+        b=Ed5gRpR8JZpQ3mjdaF+2D/ZXejb9c+tRJNLh20bGJtL5OTl+ggIN1/o3LmGLANEmTt
+         FQ5dODG6EM16SFHhBkIi3B8bmlQE+wotstIcHb3X0BID2P+TP7LtVSJj5jHSL30VIhc1
+         sZKniufqsUS3gn7us/9OJfVu+DVZfL1ZebwKEFvNT4uKT2d0GvHpg2zJ9TjCwxvDyDow
+         zcZC6X124xiyz1dG9I5w9nUJMi74KPkQSFC85Qq4hkwS9nd0q5LK9exFhWYSdv+4w/Qh
+         4bjY3TmKuqDzBMive9jhIPbDvjPHH95v30tDLQzXqYUoSomvIVD4XTvyLHdG6L+uXO9O
+         uCHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794264677; x=1794869477;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GWUozN1sqytVtZWyljEOiokdUvJaFMksU3vpzWBMOnY=;
+        b=q7E6ZvAHvAvoTnAYy5DYm4GCfAr/0+VzXYPOUYUnjXat27HM2e3AjhjZTPsEWi2QCg
+         rk/JSRTKfDntniX5VVKEUtTWs2/bPQ+efugb8CQimqzTeXhDsqDWIKAPlVygjS+J079b
+         TE4OyMPmwDisIiW0ndHxH4G9atsI+HPiNNFibmrnFZmF0WAkrUhQoF0/7SFjU8Qr6Dbx
+         24ZAsUGU+E2MW2GjTMZQ78WAZZaEUgeVe73fKHVrDOB6C3TD2S4Fj7/CivXIZs1nDi/Y
+         REyoQlB4/GTHdC9Pg8s293YAgsW3zZ4Ig8Eqa1baUBswa4g5F61zpJl78bUiL8dbHyvD
+         5W8w==
+X-Gm-Message-State: APuU4Z+w/yOJs+lu/HycaH862XE70QU22ykBW4QVYNe8RLMTmJWfcLyY
+	dt/5QZFR5TejklO589t0uZMdxrN4+ZsnUv4Iw2+k5RHUy8eEQNEAUnFnjZlCmBZjSw8vzg==
+X-Gm-Gg: AYBFou2YCmrjQcUxPYvxaScIWcOVNiTZRVqM5Ok1dpHUsCuG3guVRxk5KRILaJHy7/X
+	9ukhUn7xv+pQayhhrdhy0GqG19ss03Pd6JbnKFm42Kp1ccOxs0KmwOAfGA0P+2NO4SDIBe5v4Gj
+	RlWNQYaA/pjSx386bg3D5TyZUnOamNopQboBlCUzwlCTWkzzTZV8Z15cQxaqbZEdreQoMFMFulq
+	yQopAuTNXrYZiNk+6qiVLDY0wu1CFYUquPfyMxwQFl8GZXvHIkFFofJpFfX9S3TRI2ObCzzGQQ8
+	P4qpjrXqKoIvjmXEvttiCGKRX2wpX7G7PSRg6deILuPgs4m43kzjx6pI59wWoZmI07XgwIlZ9hd
+	ECYzg27l8HdFH2+8UkSLgt9Dbc0AOl0AltxceOSvlCItNVQep1VgbnUa0PJGglBa7SFUh0gNRQN
+	/VXykPpkkMXtjBs0TgDwKDdRpTZovSUPkJ7XUZXAlxqWhBXrH8CfJVLttlBjjBYqSn5icxzfTSt
+	cpFWepDMR3Mbw01Do5FRWHttxXoPJ0VnLg7AHuBlaYRXeHnOdjEwK8z7DmzkkIoHtKkA05lZPxG
+	+H/I8TK5LgT/zFb7WhW4XhocTFIpOsL07He7OM4/MYRmNAJMY2ChEIDgP+FWABp26+s9bJXTlcg
+	bV6MFTZHeaetECzpjnqCrxgONYtvAwxfU7rvohCDCpgHIG57YNByuuYn9NrU=
+X-Received: by 2002:a05:7022:7e8a:b0:1a9:c52f:655c with SMTP id a92af1059eb24-1b3b618c8cemr1139938c88.36.1794264676405;
+        Mon, 09 Nov 2026 14:51:16 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm1990127c88.9.2026.11.09.14.51.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 14:51:15 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	tglx@kernel.org
+Subject: [PATCH 5.10.y] posix-timers: Accept NULL clock_getres() output in stubs
+Date: Mon,  9 Nov 2026 22:51:05 +0000
+Message-ID: <20261109225105.88440-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261107062853-failed-5.10-5b819071e434@kernel.org>
+References: <20261107062853-failed-5.10-5b819071e434@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,39 +97,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-submit-dw-axi-dma-stop-pause-v1-v1-1-c48ec19e9ee4@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 10:02:36PM -0700, James Hilliard wrote:
-> For channels 16 through 31, the channel enable bits occupy bits 32 through
-> 47 of the extended DMAC_CHEN register. dma_chan_terminate_all() only reads
-> the low word and tests BIT(chan->id), so it can conclude that an upper-bank
-> channel has stopped while its actual enable bit remains set. Descriptors
-> can then be freed while hardware still owns them.
-> 
-> Poll axi_chan_is_hw_enable(), which already handles both register banks
-> and the smaller channel layouts, instead of constructing another mask.
+[ Upstream commit 5b819071e4346256c4edbae5cc2095dff25694fc ]
 
-...
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-> -	ret = readl_poll_timeout_atomic(chan->chip->regs + DMAC_CHEN, val,
-> -					!(val & chan_active), 1000, 50000);
-> +	ret = read_poll_timeout_atomic(axi_chan_is_hw_enable, enabled, !enabled,
-> +				      1000, 50000, false, chan);
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-With a single argument it's readx_poll_timeout_atomic().
-While at it, you may use 1 * USEC_PER_MSEC and 50 * USEC_PER_MSEC instead of
-plain numbers.
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
+---
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-	ret = readx_poll_timeout_atomic(axi_chan_is_hw_enable, chan,
-					enabled, !enabled,
-					1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC);
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 3783d07d60ba..4eb4d7cb6179 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -116,7 +116,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -210,7 +210,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
 
+base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
