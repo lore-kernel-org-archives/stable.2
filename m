@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239609;
-	b=Syv+BV/DJ/hIOIHyH4BP3h10s/ZYDfcj+uVpVl9rNjoo9+MZGlLiSmJVX6I2gWqS+qw5
-	 ORanMvrC8JaBk9MWr/zRqTpC6Wt21w1PY5l7LXKv4eiaTgzFP0Gh8G1B8Jb66628R0YZj
-	 9fuE7sG/8co9k4BypTgRXJi+JdKmxvyTqIGObEow96o/AafCTEwXfHuy2i/9uNLrm5uoj
-	 O2XXsMUb5jGh005p4enaxGAQeA2FOoT/Zh0Euasf5D/oixraIkdID40e6kAvfiDuLMcMm
-	 cpW00KEPwv/Z9d5ciGpCBCc4M+3o6rfy5to6D/NgrZVXiL/BiujPYb/OvG8OzLBAjKw==
+	t=1794239611;
+	b=Ub/HkyB+1m+tyqwGOtpvbknLGBN5fE64kcm0XuDiQRjPoYMIBxRw1NLw0oJqsGrKbGC5
+	 ict6U5tWXF1K2gYNhBkmyRDw0oGgAdP0TAwaH6pO5CE3tNDHaRt8TTaA/nNMVnXNetD5k
+	 63WDFYKxM1OqMZ5bK5hzI8KBJGGaET+dW+adIHEq0bRvSkERKKG2jRNNcyJF1LxYH+3Vq
+	 0B06rnIB+rbbEDd+zrLeYkYJZ6Gl9Qwzhm67MLQxrZqIvjb4fX2suTWNQ8KuW8Vl7dHb+
+	 yAHN0gmC/f7qA6KNl9ikoHCDlcPG7qAKsiruIJ/txhDR2jhlrwP1Pr40tA23qHDgz2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239611;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ceSlBEzuNxuO4/T1ERd3OzK8OidhBSWdJANGxKEOQOE=;
-	b=Cm4uThAejkKPHuEpoDSmGCPBbhIE9ewhVqFGAIo6eklLDPhW9ORORvo20YmVR3ep+lNC
-	 iCrQJtRiRGZUg/fO+BwT9Z+4ROVMCKYFVhF8VOorrhu7FW9/2QWVybsdNRx8X4N753MAC
-	 0JNqmPebsrIpUmh83AgCg+1szQ5wlnW82VTiBnMqT5OiAvnSEMW3Z6xJ96rYswzHVPNdE
-	 4eTIUn52X42eIX804Y7RHw4JyS4pmBEu9fcyaXs26+M80G2XJWkX/lNph/MI5mOxkQQdR
-	 cR6LbR/CmQIMOkc7NoXNcoe0jEdmuKPnXczs0QRLfn6UZpnSh9A9l89bwBnPm8ab6hg==
+	bh=yJA7BCFhH+RQjLwjIdifscjXMoqOwffmrgW5a0DLcpE=;
+	b=btHfAkGttMXk/WNkLOKU6VsasyD5alkRXRBCAUBqZgz4asNA11Rj3vqTGmLeYEAxccRW
+	 Cu22fQNjbhOOxx8vWhhCgR69zu1G9lcvrVVh3KVPqMwUiwkyHw5bgozUps0eKRXIYScjz
+	 61kvJLhUkW+a85+G5IA9FkTnvPA4PjHAHJ7cJhgECoJxDhnwsMd1UUVG1Q1NNDFU9lDfD
+	 AvQGIpqrf3w7/8bz2i73GsEB0oaoG3VbmcQ/O/YWnbSnhHatnCP7qOKHkVnvBHQI5Ckfd
+	 Zov7eDhHd2cnR8BaSDKL4KWn86H58wnQegro8Ne4Rl1prW0bVLPS4KyFWCkXKucs5MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DpKl0o9Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NURiGASo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52104606A32A
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:53:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E768F606A334
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:53:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DpKl0o9Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A351F008A3;
-	Mon,  9 Nov 2026 15:53:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NURiGASo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480A41F0089F;
+	Mon,  9 Nov 2026 15:53:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239609;
-	bh=ceSlBEzuNxuO4/T1ERd3OzK8OidhBSWdJANGxKEOQOE=;
+	s=k20260515; t=1794239610;
+	bh=yJA7BCFhH+RQjLwjIdifscjXMoqOwffmrgW5a0DLcpE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DpKl0o9ZNvDzBss766opeFLf+yhAo4PY+YvjbCsgIO2RyH9qZ5N2wf/zPbv9StJ0Y
-	 TMJ1AG/WRnOEgyp6OkggdoqhHJAuV6X4XQNe/LJaz+CIKZh1hmF3y2HyI0kvL6l3Hx
-	 xoIb+cDi0Se1A5+1Oc5Dvj+ltJYWesCOYsv0ArQIIyV0tUS5e4sxAQbsUNrANfP2Hf
-	 rzE6162mbu/ZlHadPu867MdLP/PHU3T4ag7QcIVKyiLaJfBAIqeS310MiYcEj+YMgL
-	 AfybeJqu+IIlHn6KlwCuf6KXGusVQ5HdIdbdXoAHfpjxqa4Ml0CW3riYkN/JE6AnT6
-	 h7LghNmLYpQtA==
+	b=NURiGASoEHuJbGBgiqwJBTGouemRL4Pt3e9KC8XwexUaodeoqfGwsNqHFxG4EMJUy
+	 xzyHgzpPm4eLL4fwYbpdYFQnxdklUvY28oZQN8QaEdzIXEhq3MN3TYhfLg/EApD4PX
+	 L3DaN3sf26rmBNc9LAkA0nTCvZWQOQP6icscpikBZnBU5bH4wKh2siQaYMskm8yuRa
+	 33eqx8mUU6tsbUWBOYbpd9DxbO0dmglXdZyRCU+qFtek0SY4i9PxdJZzqCrdZoDhcw
+	 u56d+I1AafzIaTHnAlG2jPuoCgQPPz/kpbqZ18oVGh9xwViwbt6TusKnluIdUSkI+G
+	 Ku0cJTmMcQaJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Pufan Jin <cyan2254650260@gmail.com>
-Subject: Re: [PATCH 5.10.y] spi: zynq-qspi: fix address buffer corruption and support 4-byte address
-Date: Mon,  9 Nov 2026 10:52:44 -0500
-Message-ID: <2026-11-09-1-daily-reply-0002-zynq-qspi-5.10@kernel.org>
+	Heiko Carstens <hca@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>
+Subject: Re: [PATCH 5.10.y-6.18.y] s390/vmcp: Initialize full session info to zero
+Date: Mon,  9 Nov 2026 10:52:46 -0500
+Message-ID: <2026-11-09-1-daily-reply-0004-s390-vmcp@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261108171356.66438-1-cyan2254650260@gmail.com>
-References: <20261108171356.66438-1-cyan2254650260@gmail.com>
+In-Reply-To: <20261109102946.664117-1-borntraeger@linux.ibm.com>
+References: <20261109102946.664117-1-borntraeger@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,9 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> spi: zynq-qspi: fix address buffer corruption and support 4-byte address
+> s390/vmcp: Initialize full session info to zero
 
-Queued for 5.10, thanks.
+Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
