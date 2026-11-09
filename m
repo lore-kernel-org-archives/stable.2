@@ -1,59 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231564;
-	b=IACN9Tu3ZKvr2lsMzPqJLs4HpqQOoP5zphTNWZuLyqnE+0fQle4lZnVC7ERmxF5ykDtU
-	 iF6e7PUz6Vu9zgx3jPvmt9Wz+P0UjWsTRVmalR58UI/42QbdELqcvRhDI1YhvF3iW/BRw
-	 b+5oLA3t6YDjD53iuGed+VSAkzImlGyfOmEJ+4ITOCfgImOylyIuBU0FJP3xn2NF91a44
-	 EBVdxt5c3dVeaL664QC4mlWQ/YSnxv/ISV5B31SqCzQPpliSrZv1QfnYu/4pS+Zyx90uK
-	 DfSyihCWnLPEsszrRXY7x89OoockQrXNBVYTLD7NNsOXAiZ0/TSpjgByagdrIXOJcdA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231564;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9EeOB9u+/9zwiIE4qzGkedjBVs8MINTSV7waj5u02a8=;
-	b=Yq7sSmf77rBSBeNK9INfa6gSuy/Ghdj9Fev6j5wkVgQKxLELe02OmdhNOxQt8XGI9pAO
-	 wUL0abR0j6eKPymjWnshlm4T64IXnY9Dp/cT5P4WeIFMqz3+KhBOwyTR8gIDMz25LEONw
-	 2jIcvwGlph6AY0RNHz4FqmyvIXXTJF1vw56AZTnUpyMELvjd9OjFgbPTaDwBHpkmYJ+k+
-	 cmerX146mFA7n2I2a2NSM+PaV8nPfUAyPy1TjPVy9GzJbr8Nq6Ido/FyzgJ3fSBzSRMZM
-	 ZM9FtfI9JatVettpFSMjiIjOlPcqeUqqFyNPTs/EwH3i9F0qLqYZYwA3D/KfXViLUpA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM14gBG5;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794231839;
+	b=2L2rgjbJp8fUrzXzQJB//9hLNPkeOyy0oBaIwEc1PAFoZb1hck8ZCep08raaWSCPXXqc
+	 j7MFQbsguvoQ1xxjcFX2laN1J/VNuoDsbuSiq08yNlwyGr9VpbYqThpMTpUT6oHFhJUg/
+	 BxrzlSWBwwk0KnX9iWKiQunZxiQMUWVyDaA5bxtj4eYHy1t63eeWaW0EWTxljo4qRq51q
+	 qU+Drpam+PxGMpazzwRO7DO0s8+rUKDqveBenaAmUDpaw/bWW244QkIlegMQhRLtSbr+4
+	 SBEAaV6XUuHHQ/yR0w7QLyjh0Fe7qXk6B+5o7I3mHYS/mQCk2Vgm26r7h0qzyyeC0JA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231839;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=KqI+Qz+GFttCTfVI/Kt/WWeDzMVSRyn+Mk3zpEGvFOc=;
+	b=YwzgdjN+LALYGNKqHpXh/uVokXZqUT2VtzOct/Nr/gDEVmI7bF3r9wC79nq2d/ZSYzR2
+	 Z+XPwCS2N66bPZvS+V//jdvdESr2FwoUsxBFtIWiOkoefOcnUQv7n9wkOr1fh+RI3rKmt
+	 VP3Xe5vbtEhU2feX+1ZaF+KtCMIGj/ebODItfz69c0m+JMKkwsGup3XhhFG+CqbnBIaAE
+	 TFb9imGabegE4LnxfM3dYCLTP+DAoJvchzTnrPsZD+U6Zsj+5G60t0lzRDJUmiF8QvnOL
+	 ERd6IPLH+Xujh4wGcTbu2W0w8jz1yw6h9vG5ptcoDniN8JTrjSFyAT+ewdIz1PNoX3w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJTyT2C8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6E1606A338;
-	Mon,  9 Nov 2026 13:39:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E56E606A31C;
+	Mon,  9 Nov 2026 13:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM14gBG5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA6F1F0089F;
-	Mon,  9 Nov 2026 13:39:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJTyT2C8
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794231838;
+	b=WMrLIb5/84cSbNq17bceaxs3giUQ8Q9F/FC9Jz/86UvDMLCd86OlQAyQoX98RzQMXOMC
+	 Ll+1UJsC5e0j2CX67fPSsYz8oaHq/O2QDae9NM3mTWWNvkTW4aR93rUwDakecqb0plrlA
+	 h0okC5rY3qxlzz12QmwrAYTy+5RC/MzfyqwDRhWrEOV1H6DuwP2ZPxLV37wolhHeGmQU2
+	 kqizBadskrR6dA6aewPEusz/JLfEd3YyLjdmmh/kJojTrwN4V1zvRIfdvoxOIsZRJjtnL
+	 DA4hXGiy9QGJpjswR1rlI492w+AQkn5qpx2B4+OJ8GPWNCI+tAjk8wxg8R+tZLXT+Dg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794231838;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=KqI+Qz+GFttCTfVI/Kt/WWeDzMVSRyn+Mk3zpEGvFOc=;
+	b=bJA93VoW8AUZ07o+d43jg6e4qzfhhoKoLvk51n0ENXs261cIxSkQ3Fj7sc3N0EFgJOIu
+	 DvN1Yi4xmNMKlsg3cak2rwtDhzyjLvao0M92sevT5Rd54isgjoGdH0//Sgls4JvzFn+q4
+	 Q/wpURvE8/oKbgshOFk97JrvS3Jx3oF8MlvX1cCFXYoAzWiaCIUN9p19bEbIsW33/IdnP
+	 xBU720dwuhc8wed+9M36KqTjf+6N94jv+lgDCmxC8GogGJgNkCMbuxT9gdEmk4JKnlzC9
+	 2bq7aBh2uJbCRczLGQX3i2qj38Ei71XWForH6bWG8fWUNcmJblnEKiIYLUhF3eXeILQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 1E4291F0089F;
+	Mon,  9 Nov 2026 13:43:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794231563;
-	bh=9EeOB9u+/9zwiIE4qzGkedjBVs8MINTSV7waj5u02a8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DM14gBG5jHclDjY0Pkk4xcff2oUoW6RZHDO7esJ5sBtC7qzKEWaYZc8uci1xgYev3
-	 hKVHbinkFf++S9nUWcZoBArAsMp10Xzh8W6vhNvTMVcC33M8aP8j5VTyDhIZuvYqRo
-	 gCATQsDjSZdHrUIBFwCyD5SU4tJidgojqcmv10EACY+E/W8aKCiBPr456u23Shb9kj
-	 rUqSicm568UvVuQ88/pchRKCr3Nb//3eJGCwgfMDau3/xz3iymFDw7jvSXIvXXo8AZ
-	 KW2eXAhfnoWgTDcky61It+3067wjpYiG5bFnoZGdBUksT481mgoSbr6FpAUBoFxwNF
-	 1uU9HfqiDXWSA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Ping Cheng <ping.cheng@wacom.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v5.10 3/5] HID: wacom: Fix Use-After-Free in wacom_bamboo_pad
-Date: Mon,  9 Nov 2026 13:39:04 +0000
-Message-ID: <20261109133911.3026622-4-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-In-Reply-To: <20261109133911.3026622-1-lee@kernel.org>
-References: <20261109133911.3026622-1-lee@kernel.org>
+	s=k20260515; t=1794231838;
+	bh=KqI+Qz+GFttCTfVI/Kt/WWeDzMVSRyn+Mk3zpEGvFOc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ZJTyT2C8NUfrZtvakG0CARNC8BpC3p4lhy4WayPqKEddz/u0NvYw+Y2N/8eANgrjp
+	 HT4oJmUDu7Z8AIURXNT7QBUcugnFoSLs6774bSvqh3DxuJZfwCmXGiPsmkW5ikgrSn
+	 O+XyMjvbZFjGo1CAMCftH9kkU3HAbBdbvs1nLXmwGPJ8obgN5qdkZMwsMPBr0LjI56
+	 DPVY410dhV/WZMZ76pEAivZLFDV4cfk3uFZNVdlOvSMqcOQ8nDKn0hNgO8lO7b1W7u
+	 v5DIM7xoorU6j6wyZaHRPlu4RsOHbOV4MHyk43C5H3Zrb94olfDtWi7kLFIVCXp40Z
+	 P8MHI3+7QRhSA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A4FEB484BD;
+	Mon,  9 Nov 2026 13:43:57 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Subject: [PATCH 0/3] media: verisilicon: fix VEPU1 JPEG encoder writes past
+ the CAPTURE buffer
+Date: Mon, 09 Nov 2026 16:43:50 +0300
+Message-Id: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,178 +84,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAv1JyNtBWFPUr4sElasCNVEWQ/t3gc
+ QZmXggkTAEq84LQzYH3TcElBvq53SZCHpTBW587Z3NUecqO3TUuvPKJNsuosL7syKeg1SE08vM
+ f6ybGD+G1YdFhAAAA
+X-Change-ID: 20261106-hantro-buflimit-055e8029be23
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Chen-Yu Tsai <wenst@chromium.org>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794231837; l=3241;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=en/jn4YMqVb7Nenx7Rb8ix4nBUnrgggys7Qhs7eVdYc=;
+ b=Vzu8+WR8qtMz9STuQ8vNsgANjERJiMoL0jn3Kz0IB5o5qa5qjmePpUxxb375dpQGxFTRimMKP
+ T/vCqhTRomuBg/iauDBMz10oDcnBKdVSRsyoTRBpSaar41IE7Ta6eJ/
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
 
-[ Upstream commit 3a523ecf9ac3fdd33f5eb31c43937ee44135395b ]
+The H1 JPEG encoder is given its stream buffer limit in bytes, but the
+register counts 64-bit words, so a stream that does not fit the CAPTURE
+buffer is written past its end, up to eight times the buffer size. A
+quality 100 frame of noise does not fit the default sizeimage, and
+userspace can also set a smaller one, so any client of the encoder node
+can get there. On an RK3026, which has no IOMMU in front of the VPU, the
+encoder wrote 230 KB past a default-sized 640x480 buffer and 1.6 MB
+past a 1920x1088 one.
 
-wacom_bamboo_pad_pen_event() accesses wacom->shared->pen locklessly
-relative to wacom_remove_shared_data() which nullifies it.  This
-can lead to a Use-After-Free if the sibling device is removed while
-events are being processed.
+Patch 2 writes the limit in the right unit, rounded down to the 64-byte
+write bursts measured on the RK3026. With it, a frame that does not fit
+ends with a buffer-full interrupt, which the driver turns into an ERROR
+buffer but which leaves the encoder paused, so the following jobs time
+out. Patch 1, which goes first, stops the VEPU1 encoder after such an
+interrupt. The encoder still writes one burst with a limit of 0, and the
+driver writes the 624-byte header itself, so patch 3 makes the smallest
+CAPTURE sizeimage the header plus one burst.
 
-Resolve this by introducing RCU protection for pen and touch
-pointers:
+All three were tested on the RK3026 (VEPU1) only; the test paragraph of
+each patch has the numbers. v4l2-compliance 1.30.1 on the encoder node
+shows no new failures with the series; its one failure (the raw OUTPUT
+format's colorspace is not SRGB, v4l2-test-formats.cpp:892) fails
+without it as well. The VEPU2 JPEG encoder (rockchip_vpu2_hw_jpeg_enc.c,
+rockchip_vpu2_vepu_irq()) has the same code and the same limit in bytes,
+and the STM32MP25 VENC runs the H1 code that patch 2 changes but has its
+own interrupt handler without the stop of patch 1. I cannot test either,
+so this series leaves the VEPU2 and the STM32MP25 handler alone; a check
+there with a quality 100 noise frame and a default-sized CAPTURE buffer
+would be welcome, and the same change can follow.
 
- - Annotate 'pen' and 'touch' in wacom_shared struct with __rcu.
- - Wrap lockless readers in wacom_bamboo_pad_pen_event() with
-   rcu_read_lock() and rcu_dereference().
- - Update writers in wacom_sys.c using rcu_assign_pointer().
- - Use rcu_dereference_protected for comparisons under
-   wacom_udev_list_lock.
- - Also use rcu_access_pointer in wacom_sibling_pending() and
-   wacom_mode_change_work() to avoid warnings (while lockless access in
-   the latter remains a pre-existing issue).
+Not changed here: after a watchdog timeout, rockchip_vpu1_enc_reset()
+sets H1_REG_INTERRUPT_DIS_BIT and the JPEG encoder path never clears
+it, so every later job times out until the module is reloaded. That
+can be a follow-up.
 
-Cc: stable@vger.kernel.org
-Fixes: 8c97a765467c ("HID: wacom: add full support of the Wacom Bamboo PAD")
-Signed-off-by: Lee Jones <lee@kernel.org>
-Acked-by: Ping Cheng <ping.cheng@wacom.com>
-Tested-by: Ping Cheng <ping.cheng@wacom.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Use explicit lock/unlock calls and top-of-block declarations in
-      wacom_remove_shared_data() and wacom_bamboo_pad_pen_event() for
-      -std=gnu89 compatibility, and adapt to res_wacom]
-Signed-off-by: Lee Jones <lee@kernel.org>
+Before v5.18 (dc8bfe1e482d, "media: hantro: output encoded JPEG
+content directly to capture buffers") the stream went to a bounce
+buffer; patches 2 and 3 do not apply there and those trees would need a
+separate backport.
+
+The bugs were found and the patches drafted with an LLM coding
+assistant while porting mainline Linux to an RK3026 board; every claim
+in the messages was checked against the code or measured on the board.
+
 ---
- drivers/hid/wacom_sys.c | 40 ++++++++++++++++++++++++++--------------
- drivers/hid/wacom_wac.c | 14 +++++++-------
- drivers/hid/wacom_wac.h |  4 ++--
- 3 files changed, 35 insertions(+), 23 deletions(-)
+Sergei Khomenkov (3):
+      media: verisilicon: stop the VEPU1 JPEG encoder after an unfinished frame
+      media: verisilicon: program the H1 JPEG stream limit in 64-bit words
+      media: verisilicon: leave room for the JPEG header and one stream burst
 
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index 94e12c56e040..465d075d16f9 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -882,15 +882,22 @@ static void wacom_remove_shared_data(void *res)
- 	struct wacom_wac *wacom_wac = &res_wacom->wacom_wac;
- 
- 	if (wacom_wac->shared) {
-+		struct hid_device *touch, *pen;
-+
- 		data = container_of(wacom_wac->shared, struct wacom_hdev_data,
- 				    shared);
- 
- 		mutex_lock(&wacom_udev_list_lock);
--		if (wacom_wac->shared->touch == res_wacom->hdev) {
--			wacom_wac->shared->touch = NULL;
-+		touch = rcu_dereference_protected(wacom_wac->shared->touch,
-+						  lockdep_is_held(&wacom_udev_list_lock));
-+		pen = rcu_dereference_protected(wacom_wac->shared->pen,
-+						lockdep_is_held(&wacom_udev_list_lock));
-+
-+		if (touch == res_wacom->hdev) {
-+			rcu_assign_pointer(wacom_wac->shared->touch, NULL);
- 			rcu_assign_pointer(wacom_wac->shared->touch_input, NULL);
--		} else if (wacom_wac->shared->pen == res_wacom->hdev) {
--			wacom_wac->shared->pen = NULL;
-+		} else if (pen == res_wacom->hdev) {
-+			rcu_assign_pointer(wacom_wac->shared->pen, NULL);
- 		}
- 		mutex_unlock(&wacom_udev_list_lock);
- 
-@@ -2350,14 +2357,17 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
- 	}
- 
- 	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
--		if (wacom_wac->shared->touch == wacom->hdev || !wacom_wac->shared->touch) {
-+		struct hid_device *touch =
-+			rcu_dereference_protected(wacom_wac->shared->touch,
-+						  lockdep_is_held(&wacom_udev_list_lock));
-+
-+		if (touch == wacom->hdev || !touch) {
- 			wacom_wac->shared->type = wacom_wac->features.type;
--			wacom_wac->shared->touch = wacom->hdev;
-+			rcu_assign_pointer(wacom_wac->shared->touch, wacom->hdev);
- 			rcu_assign_pointer(wacom_wac->shared->touch_input, wacom_wac->touch_input);
- 		}
- 	} else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN) {
--		/* Pairs with smp_load_acquire() in wacom_sibling_pending() */
--		smp_store_release(&wacom_wac->shared->pen, wacom->hdev);
-+		rcu_assign_pointer(wacom_wac->shared->pen, wacom->hdev);
- 	}
- }
- 
-@@ -2373,8 +2383,7 @@ static bool wacom_sibling_pending(struct wacom *wacom)
- 		return false;
- 
- 	if (wacom->wacom_wac.shared) {
--		/* Pairs with smp_store_release() in wacom_set_shared_values() */
--		if (smp_load_acquire(&wacom->wacom_wac.shared->pen))
-+		if (rcu_access_pointer(wacom->wacom_wac.shared->pen))
- 			return false;
- 	}
- 
-@@ -2844,16 +2853,19 @@ static void wacom_mode_change_work(struct work_struct *work)
- 	bool is_direct = wacom->wacom_wac.is_direct_mode;
- 	int error = 0;
- 
--	if (shared->pen) {
--		wacom1 = hid_get_drvdata(shared->pen);
-+	struct hid_device *pen = rcu_access_pointer(shared->pen);
-+	struct hid_device *touch = rcu_access_pointer(shared->touch);
-+
-+	if (pen) {
-+		wacom1 = hid_get_drvdata(pen);
- 		wacom_release_resources(wacom1);
- 		hid_hw_stop(wacom1->hdev);
- 		wacom1->wacom_wac.has_mode_change = true;
- 		wacom1->wacom_wac.is_direct_mode = is_direct;
- 	}
- 
--	if (shared->touch) {
--		wacom2 = hid_get_drvdata(shared->touch);
-+	if (touch) {
-+		wacom2 = hid_get_drvdata(touch);
- 		wacom_release_resources(wacom2);
- 		hid_hw_stop(wacom2->hdev);
- 		wacom2->wacom_wac.has_mode_change = true;
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index 059572ea0509..4c7ad9dc543e 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3203,6 +3203,7 @@ static int wacom_bpt_irq(struct wacom_wac *wacom, size_t len)
- static void wacom_bamboo_pad_pen_event(struct wacom_wac *wacom,
- 		unsigned char *data)
- {
-+	struct hid_device *pen;
- 	unsigned char prefix;
- 
- 	/*
-@@ -3215,13 +3216,12 @@ static void wacom_bamboo_pad_pen_event(struct wacom_wac *wacom,
- 	prefix = data[0];
- 	data[0] = WACOM_REPORT_BPAD_PEN;
- 
--	/*
--	 * actually reroute the event.
--	 * No need to check if wacom->shared->pen is valid, hid_input_report()
--	 * will check for us.
--	 */
--	hid_input_report(wacom->shared->pen, HID_INPUT_REPORT, data,
--			 WACOM_PKGLEN_PENABLED, 1);
-+	rcu_read_lock();
-+	pen = rcu_dereference(wacom->shared->pen);
-+	if (pen)
-+		hid_input_report(pen, HID_INPUT_REPORT, data,
-+				 WACOM_PKGLEN_PENABLED, 1);
-+	rcu_read_unlock();
- 
- 	data[0] = prefix;
- }
-diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
-index 957247e6ba1c..56d54ac53b3d 100644
---- a/drivers/hid/wacom_wac.h
-+++ b/drivers/hid/wacom_wac.h
-@@ -287,8 +287,8 @@ struct wacom_shared {
- 	unsigned touch_max;
- 	int type;
- 	struct input_dev __rcu *touch_input;
--	struct hid_device *pen;
--	struct hid_device *touch;
-+	struct hid_device __rcu *pen;
-+	struct hid_device __rcu *touch;
- 	bool has_mute_touch_switch;
- 	bool is_touch_on;
- };
+ drivers/media/platform/verisilicon/hantro_h1_jpeg_enc.c | 10 +++++++++-
+ drivers/media/platform/verisilicon/hantro_v4l2.c        | 10 ++++++++++
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c    |  9 +++++++++
+ 3 files changed, 28 insertions(+), 1 deletion(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261106-hantro-buflimit-055e8029be23
+
+Best regards,
 -- 
-2.56.0.506.g506a7eabc5-goog
+Sergei Khomenkov <shomenkow@gmail.com>
+
 
