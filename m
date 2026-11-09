@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.99.196.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794210509;
-	b=oNqK/NEVPzyfd3q5KvDMeTierZQKL+hS/JGZ29j42oscaIJw1kRLEfGOkPqFuoSZ6L/n
-	 PBJwM856AUpMVf6x+fm7W9VDPra+YA6YU9pmRr1LksPH2PVN7dkxM7jAPfjrext9bBQFB
-	 cwj04OoFlVAsUsGPS1CuhqJZV9LUh6KZSwDgpsSTdP0z5LtbaKUpmXhbRaz0eJf3JvnNm
-	 9QbpG2biqiqTbJ6Hbzlf0tuGmi2tNwCdEOSwoNWzBoBEOZBm8nJYZtnP6/gK7nboaxbj2
-	 igNJFcR5HsBYttd+P0kNANzwwVZPRF5003JeAnDyz2lVS2I9m9t1H79+9mm/5/nX24A==
+	t=1794210623;
+	b=paWHMHFJWE5/EkyluiTYE2Ag9mCK3ollAtfpYukh0mQZbWTQtlt7r2UvtVn/PXpBXcre
+	 2oneBW1wZh+dHWWIgSZKIeR2b5WkGhkjoy2P53TmUROlrvkQK6V0Kfpqv61eyb2UAB7yK
+	 8ZYmfAwTxizh/V2o3AAdfpfQOG7THbdCdCzUa8FehtavdEuJUIrsjRJCqDkJEAGo2HU8e
+	 9/V284Lfj/jc3RnUlignBk/4uM51Pg5zx9hqwwVWYWWc0uKGflYsFbkvkvveiLRlUOK08
+	 UTweZpgWYzmTjZ+NKk2cc7AVz6ndRrbQrV6I52Kv5La53gEUr+/l3OVZGccbjBdgNLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794210509;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=T7ia6HAcSNfWdLBd4/D4gU8O0cJq5FRXdZNy9UsYfp4=;
-	b=gbhVXp45m4pnT7aDC00IqOkbzFf9TSdKcUqN6KQdNxov1h16m5Jfu4Sq9iqPAhQ256q3
-	 GZ4tiyH99tSx9i0AD9WTgIfSj9alW4fLOkBy5jTiX8ck8poB/IOGZ/6MoanSCKwN4gVmV
-	 VT93deZWvUgZqr1nrOy5NFufyNILez+SZS81m/3/v9irFY55SxcP03Br2qIEaCE3rfTD7
-	 DPOniR3ov9by4ErM/WnwmOjex9Xo+rBYHnFdRabeE2VbraiPWSnPfXxa3JedwP6a/RnFz
-	 adE8yFmNI7nDH9cPT6KDqxCYPkh1yCPGzqkh0PdOhna9I5ze3MCU4f1GbQrovBTqpEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794210623;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=FfVfXKB4UwJOvTzIpoGIW/5MDy7wdA8hCv+2HC7E7rM=;
+	b=aV/deBSqsMvT9WsLXOFV7vkD98BzVbTqqHul9DHOgpP7CoczV11b88n+09HPDudL/IlO
+	 PveHV+w33kNvjAEdVv9DjSVZImOdM+G/ljwmYPlQRbj34VH7qxlKYp7nqtEe3s3ukFW9U
+	 BkyuBEXxs2/315hyX32l7eHM002TP4JrRtQm4M4Viubq4xI8lE2unschREgwvkDHCjIKT
+	 dMc3QlGuF66hVcGgbUCpT/DRAjRNo3x2263QNZ2nMh0vZ0tttqd1XqDWFYBK0wsdHnWRw
+	 U8VdgCf/s6cVSWrexO2qgMfPZ+xOWy97kvdXBFPA4x/+q8zPSoEnEeoSgnChcyBgcTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=jotOPCU5;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ppVdFIBB;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=none header.from=namei.org;
+	spf=pass smtp.mailfrom=namei.org;
+	dkim=pass header.d=namei.org header.i=@namei.org header.a=rsa-sha256 header.s=2 header.b=llOAJIgb;
+	arc=none smtp.remote-ip=65.99.196.166
+Received: from mail.namei.org (namei.org [65.99.196.166])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996C1606A31C;
-	Mon,  9 Nov 2026 07:48:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 996C1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B31606A321;
+	Mon,  9 Nov 2026 07:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1B31606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=namei.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=namei.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=jotOPCU5;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ppVdFIBB
-Date: Mon, 09 Nov 2026 07:48:24 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794210506;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T7ia6HAcSNfWdLBd4/D4gU8O0cJq5FRXdZNy9UsYfp4=;
-	b=jotOPCU51U+tVIfLanC+qle1guJDQ4U4HMB7/l10NQraBt79FxENWL641ZBGVoT8PIXBMK
-	OggYR6DBc1WcPcUpK1qnhJVambX2d8VVO8/+t+fykqNEpl9gOFiPdC30JkmdBMLb1wMMfk
-	vzHvPhk8IQmsbifbicbDienTfk6C31sdl6E18ElHnOz2fPuYKCj7v9DB9wx49isEArL+H3
-	qfzt79KGM3c0PWHZ/rwIc4uITdKOXR5tufPR5UdXZj0U/tIzpl/5l879xEAwdD1BalsIit
-	jC7s9DPwtJZrL9vbpFWnswCFojtKL7OHzspuL0v/wpEj9/l+pMpI5/BVP+p9fw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794210506;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T7ia6HAcSNfWdLBd4/D4gU8O0cJq5FRXdZNy9UsYfp4=;
-	b=ppVdFIBBskGNourXgJTCp3e+tvDqPduMrCUK9qfvLFF+MDlkKyXoCkqpe6V6EwqHEZAGha
-	dUCeHMbnfI4xppAw==
-From: "tip-bot2 for Jason Andryuk" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/CPU/AMD: Don't print reset reason in VMs
-Cc: Borislav Petkov <bp@alien8.de>, Jason Andryuk <jason.andryuk@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Juergen Gross <jgross@suse.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
-References: <20261104013026.185392-1-jason.andryuk@amd.com>
+	dkim=pass (1024-bit key) header.d=namei.org header.i=@namei.org header.a=rsa-sha256 header.s=2 header.b=llOAJIgb
+Received: from localhost (localhost [127.0.0.1])
+	by mail.namei.org (Postfix) with ESMTPS id 44C982FD;
+	Mon,  9 Nov 2026 07:50:16 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.namei.org 44C982FD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=namei.org; s=2;
+	t=1794210616; bh=FfVfXKB4UwJOvTzIpoGIW/5MDy7wdA8hCv+2HC7E7rM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=llOAJIgbI3V5UyyycoFhCmxQwROPVnsbKhAaikUS7I/FEelUeLEtTUriwPopJdlWO
+	 bxO/T9JQ8KcBuXGr9I34nfDaWkQ5DRmMpwn2Sdsgv9Rj/eL/UVmFwavcoRqf1WYtqe
+	 /eyrqPFCRJD3pL1Owdm8AZ21dBX3PYMCKXjpmAjo=
+Date: Sun, 8 Nov 2026 23:50:16 -0800 (PST)
+From: James Morris <jmorris@namei.org>
+To: Yangyu Chen <cyy@cyyself.name>
+cc: anup@brainfault.org, atish.patra@linux.dev, pjw@kernel.org, 
+    palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+    kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
+    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+    stable@vger.kernel.org, Jason Montleon <jmontleo@redhat.com>
+Subject: Re: [PATCH] RISC-V: KVM: Fix G-stage page table memory leak on VM
+ destroy
+In-Reply-To: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
+Message-ID: <81ddd9e-791-9ca-3f3-f8381c785cd@namei.org>
+References: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,70 +64,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421050476.2093942.10171670781856963978.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-The following commit has been merged into the x86/urgent branch of tip:
+On Sat, 31 Oct 2026, Yangyu Chen wrote:
 
-Commit-ID:     ea51d1a4c31fc8320c34f897dc5296a0bfc5c7ca
-Gitweb:        https://git.kernel.org/tip/ea51d1a4c31fc8320c34f897dc5296a0bfc=
-5c7ca
-Author:        Jason Andryuk <jason.andryuk@amd.com>
-AuthorDate:    Tue, 03 Nov 2026 20:30:25 -05:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 08 Nov 2026 23:25:40 -08:00
+> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programming")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yangyu Chen <cyy@cyyself.name>
 
-x86/CPU/AMD: Don't print reset reason in VMs
+Tested-by: James Morris <jmorris@namei.org>
 
-print_s5_reset_status_mmio() expects to read FCH MMIO on baremetal.  VMs don't
-have emulated FCH registers, so there is nothing to check.  Add an early exit
-when running on a hypervisor.
+Assisted by an LLM.
 
-The real motivation is Xen PV domUs can't boot on Zen CPUs.  PV domUs PTEs
-contain system physical addresses - they don't have the concept of guest
-physical addresses.  domUs can only map physical addresses they are assigned,=
- so
-a domU fails to map the FCH MMIO addresses.
+On a SpacemiT K3 CoM260 host (Sv39x4), a native port of your reproducer 
+showed about 16 MiB lost per VM on Fedora's 7.3.1 kernel. With the same 
+source rebuilt with this patch, each run averaged under 0.1 MiB lost per 
+VM (130 measured VMs total), consistent with noise. Both figures count 
+free pages held on the per-CPU lists as free.
 
-However set_pte() does not return failure, so ioremap() returns a pointer whi=
-le
-the PTEs are unpopulated.  print_s5_reset_status_mmio() faults when reading
-through the pointer, breaking the boot.
 
-Limit the reset reason printing to baremetal only where it actually makes sen=
-se.
+-- 
+James Morris
+<jmorris@namei.org>
 
-  [ bp: Massage commit message. ]
-
-Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
-Suggested-by: Borislav Petkov <bp@alien8.de>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261104013026.185392-1-jason.andryuk@amd.com
----
- arch/x86/kernel/cpu/amd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 3972966..2f7efd3 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -1362,7 +1362,8 @@ static __init int print_s5_reset_status_mmio(void)
- 	u32 value;
- 	int i;
-=20
--	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
-+	if (!cpu_feature_enabled(X86_FEATURE_ZEN) ||
-+	    cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
- 		return 0;
-=20
- 	addr =3D ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(value));
