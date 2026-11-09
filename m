@@ -1,76 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255101;
-	b=Rsz3W03zeJFIWR0j/F6XU8GU7omYwMkt+wHjHlep5pcgF532aH7dfEPTTq7lUNygaK6K
-	 kjUrCWfq7hqByCgbRHIa7PLT34orKTkybVOGhNqbwaWos9hoqoAZ4iqIAh8VXhcN0+oBj
-	 dPifQpBrlnokqdp2IEEu4kMzhgffJsxeFCYUn6dT7lXzYUj3/fzaBxrlBLK9SDhLtK3v5
-	 PgEkHX1fqwbJTmvJhzLYMVJg2BY1iMbkr1y+TN1Th2tbCB2uHcX5kADcfDOmi+lq+aLji
-	 EeThWsaHHZl8OKvbTTmzT74vhOoV7/WqdsJZSK0bqIiuBNC5vjoZV8saxA3eI9dqMSA==
+	t=1794255150;
+	b=qxgP6DsUM64w1jr0vPhyVzNk+rjLqmcNVLjyr2pgFMNWIA0zNvPMQJU/eoK9x3DK7T2m
+	 rFJHjtGevbeMKWQIH14ShKZwhfXIuzqQ14CmHAWYPfZzscsgAXKvaIZdW33xs+9b2Oqin
+	 jZLBaeCa0theOvbQM2U8xrtiBJGYR1GNqlzwMaFph5YigUHFMzcrMdvs+chAxLocCzXzz
+	 tvbDZlFQ2xVgIMp8CW3c0Ka3VAGm4TiUtCmKDmbddOvsv+PmWeH1fsMUhhFTQ+/jb2+XW
+	 BctgFgjPGUzKHnRPxxJWTi585ZtJ2MiuQLHVsDDIFxjOFd880q9EZzpHdoPHNmw6C0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255101;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=FGfAVWgpi2aN94+rs+NNa1Po8AGQSVyIerXI/e4BStI=;
-	b=L5BWO4lOiVyHpx5GsWdbEwLZQ/CMatD1SIzoc81MZK5EYab4RRJaXUzLBzx9xsWsdhGl
-	 sWFn2RGUsig0v3NhzZaZGL4fwfnKwXE29K4KqayFoB9uyXF3bMSTqFrDm7sR71rKaswIG
-	 z+gWH9KvdlGnM2Vtn/5UMLpAuYD7D2mlNuDsYgf2jc/O+0eEL3ALF+feq9kjIb93+T8Mr
-	 9lG94/9eDzSvaImFWanaBKr0l0J8Xe2kx8I14oqTWtnfqdP11gFv0Q8EaWquFbVlatpyZ
-	 Zi+dKne+d3B5kvTA3jJYVfCiDn1bNgn7NDGS0BJB3Tv4bdzEHRLQxxktrsBcNvKoihA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255150;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=wlTGvH0QUOsr+i6QSOF/pBnjZSuTmqvqtfQVED5Nrp4=;
+	b=EKWxP+Y6ooGQKx5DSB342927J62ayd/sgLoXkND1EinxFVUm9cAAturEkg/Wgp73J00G
+	 BbhUO38AoKOWjxJfFtWDIHPOn/ZrB+Nh4qfnGKsrI99E/4ANQw7zLbH5JnphgL3v+FZGd
+	 q1msD5yz54Ss0Jk8vTN5QqBSoa5j3+ClJguMdF4r8/pPEasnh7XNzxIIMLRAcH7bN8imj
+	 FRG8kWib93HV1wh5f1XucN3fXJTQG+1gCpYcQ4g7k++F6TzHpfyqY3raw0QKXULNPyTs1
+	 sIhEdnVhlUPUBEa1xXvDP4Wwovys72cM9qvXasHX9JA3FpPoqy4A/AvcEASy+UjiY9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I1vNRjIe;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AE9EP2U3;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D80606A335
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:11:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D80606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB28B606A321;
+	Mon,  9 Nov 2026 20:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB28B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=I1vNRjIe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794255100;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=FGfAVWgpi2aN94+rs+NNa1Po8AGQSVyIerXI/e4BStI=;
-	b=I1vNRjIeB1UdVgRGhQfYM4jjirJAgQharfSHpRQvB/ciP3iGfp5DIDjVUyFOBTbyy88y/7
-	4G/hLqYYxeaIgjSy36MeWBA/DbrdR6Xe6U7Vszz1l+gCUUvglGhc7N7+CWuFJVRYIZ2GCT
-	j8SeVH5Loo4+THIJ0vYuGZiL7YtUE0w=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-UFTivgPGO7erJxWaWnQWWQ-1; Mon,
- 09 Nov 2026 15:11:34 -0500
-X-MC-Unique: UFTivgPGO7erJxWaWnQWWQ-1
-X-Mimecast-MFC-AGG-ID: UFTivgPGO7erJxWaWnQWWQ_1794255092
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AE9EP2U3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794255147;
+	bh=NUdD8rmrEWF0Gtvg3tI1P9FxbEJolb3CZKqT5DxBjJU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=AE9EP2U3ZdwEKiCK6ShpVS/2z04RaqxFkbEk4mRkQjQqB8IoFXvNQcvnehXBS+YDi
+	 9DxXzBHGM2Gxpxu5tm5uR0VTZeHz15vyqXiYyRr/TWC8sEgDIloTrdCVwRK/W1KNCJ
+	 /A+dWhrF9SR6JHOPiAqmwhM/QCyZ2jjJ3cyVsO6jaZS2rgC9YoD8HIEv38XMa0Lr+/
+	 e+WHydNGnr96Qr6AwPcGYOsmZbshtBKArLAFY6sgxfaFKVt0ifmzdpmyP9OlmHEocS
+	 kSJ3yBlu9bWKCcMonqZqSCgoW04vpX3diPdQthJ8k1lHrDjfwug9wMbUj5xM9vIYRL
+	 wZM8ZPGkb9E8A==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5886E180060F;
-	Mon,  9 Nov 2026 20:11:32 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A8E5C18004D2;
-	Mon,  9 Nov 2026 20:11:30 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Martin Wilck <mwilck@suse.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	John Garry <john.g.garry@oracle.com>,
-	linux-kernel@vger.kernel.org,
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DDDDB17E0269;
+	Mon, 09 Nov 2026 21:12:25 +0100 (CET)
+Message-ID: <a605ddd72e629ac677c7b45d940fa7e7f7412ebd.camel@collabora.com>
+Subject: Re: [PATCH 1/3] media: verisilicon: stop the VEPU1 JPEG encoder
+ after an unfinished frame
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: shomenkow@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	 <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Ezequiel Garcia
+	 <ezequiel@vanguardiasur.com.ar>, Chen-Yu Tsai <wenst@chromium.org>, Hugues
+ Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH] scsi: scsi_dh_alua: set handler_data before alua_initialize()
-Date: Mon,  9 Nov 2026 15:11:20 -0500
-Message-ID: <20261109201120.1067815-1-loberman@redhat.com>
+Date: Mon, 09 Nov 2026 15:12:23 -0500
+In-Reply-To: <20261109-hantro-buflimit-v1-1-f0b86ce61e66@gmail.com>
+References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
+	 <20261109-hantro-buflimit-v1-1-f0b86ce61e66@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-qVlDHU493oj7uu3cN6Fe"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,113 +93,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Since commit 50759b881e1d ("scsi: device_handler: alua: Call
-scsi_device_put() from non-atomic context"), alua_rtpg_queue() only
-queues an RTPG when sdev->handler_data points at an alua_dh_data whose
-port group matches:
+--=-qVlDHU493oj7uu3cN6Fe
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-	struct alua_dh_data *h = sdev->handler_data;
-	...
-	if (h && rcu_dereference(h->pg) == pg) {
+Le lundi 09 novembre 2026 =C3=A0 16:43 +0300, Sergei Khomenkov via B4 Relay=
+ a =C3=A9crit=C2=A0:
+> From: Sergei Khomenkov <shomenkow@gmail.com>
+>=20
+> When a JPEG stream does not fit the CAPTURE buffer, the H1 raises an
+> interrupt with BUFFER_FULL set and FRAME_RDY clear, and pauses with the
+> enable bit of H1_REG_ENC_CTRL still set, waiting for more output space.
+> rockchip_vpu1_vepu_irq() returns the buffer with the ERROR flag but
+> clears only the interrupt and AXI registers, so the next job is
+> programmed into the paused encoder: its ENC_CTRL write aborts the paused
+> frame, which raises a reset interrupt while the new job is being set up,
+> and that job times out. The watchdog then calls
+> rockchip_vpu1_enc_reset(), which sets H1_REG_INTERRUPT_DIS_BIT, and the
+> JPEG encoder path never clears that bit again, so every later job times
+> out as well. That second problem is not addressed here.
+>=20
+> Write 0 to the enable register when an interrupt does not report a
+> finished frame. The write comes before the interrupt and AXI registers
+> are cleared, and before the next job is scheduled. On the RK3026 it
+> raises no interrupt of its own: in the test below the encoder raised one
+> interrupt per frame and no job timed out.
+>=20
+> The encoder rarely gets there today, because the stream limit it is
+> given is eight times too large; the next patch fixes that, and then
+> every frame that does not fit ends this way.
+>=20
+> rockchip_vpu2_vepu_irq() and stm32mp25_venc_irq() do not stop the
+> encoder either. I cannot test the VEPU2 or the STM32MP25, so this patch
+> leaves them alone.
+>=20
+> Found with an LLM coding assistant while porting mainline Linux to a
+> Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
+> this message. Tested on that board with the stream limit fixed: without
+> this change the job after a buffer-full interrupt gets a reset interrupt
+> and every later job times out; with it the frame that does not fit comes
+> back with the ERROR flag and the following jobs, overflowing or not,
+> complete as before (10 alternating jobs, and four overflowing frames
+> queued back to back followed by fitting ones). Counted in
+> /proc/interrupts over 24 runs of the series (48 frames, 16 of them
+> ending in a buffer full), every frame raised exactly one interrupt, so
+> the stop write raises none. Only buffer full was exercised, not bus
+> errors or the hardware timeout. Not tested on other SoCs.
 
-However alua_bus_attach() only assigns sdev->handler_data after
-alua_initialize() returns, and alua_initialize() -> alua_check_vpd()
-is where the initial RTPG is queued. At that point handler_data is
-still NULL, so the initial RTPG is silently dropped: no RTPG is sent,
-nothing is logged, and sdev->access_state keeps its zeroed default of
-active/optimized for every path.
+Please trim this down to what is really needed.
 
-With dm-multipath this goes unnoticed, as pg_init calls
-scsi_dh_activate() once the map is loaded, which queues an RTPG after
-handler_data is set, and multipathd's alua prioritizer issues its own
-RTPG from userspace. Anything relying on sdev->access_state without a
-subsequent activate (sysfs access_state/preferred_path, native SCSI
-multipath path selection) sees every path as active/optimized until a
-Unit Attention or rescan triggers an RTPG.
+>=20
+> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
+rs/media/platform/verisilicon/rockchip_vpu_hw.c
+> index 02673be9878e..144d320302a1 100644
+> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> @@ -376,6 +376,15 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, v=
+oid *dev_id)
+>  =09state =3D (status & H1_REG_INTERRUPT_FRAME_RDY) ?
+>  =09=09VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
+> =20
+> +=09/*
+> +=09 * An interrupt without FRAME_RDY does not end the frame: after a
+> +=09 * buffer full the encoder pauses with its enable bit still set,
+> +=09 * waiting for more output space. Stop it, so that the next job is
+> +=09 * not programmed into a paused encoder.
+> +=09 */
+> +=09if (!(status & H1_REG_INTERRUPT_FRAME_RDY))
+> +=09=09vepu_write(vpu, 0, H1_REG_ENC_CTRL);
 
-Seen on an HP P2000 G3 FC array (implicit ALUA, two port groups, four
-paths per LUN) with dm-multipath not in use: sg_rtpg reports port group
-0 active/non-optimized and port group 1 active/optimized, but
-/sys/class/scsi_device/H:C:T:L/device/access_state reads
-active/optimized on all four paths after boot, and no
-"alua: port group XX state ..." message is logged. Writing "activate"
-to dh_state sends the RTPG and corrects access_state.
+Can you follow other similar patches (G2), and add some rate limited debug =
+so we
+are ware when a fault occured, and what fault it is. Its also best practice=
+ to
+only reset the bit you care about, Hantro IPs have all sort of side effect =
+per
+bits.
 
-Kernels without commit 50759b881e1d queue the attach-time RTPG
-unconditionally and are not affected.
+Nicolas
 
-Fix by assigning sdev->handler_data before calling alua_initialize(),
-and clearing it again on failure. sdev->handler is only set once
-scsi_dh_handler_attach() sees ->attach() succeed, so no handler
-callback can observe the partially initialised alua_dh_data. On the
-failure paths of alua_initialize(), h has not been added to a port
-group and no RTPG has been queued, so freeing it is unchanged.
+> +
+>  =09vepu_write(vpu, 0, H1_REG_INTERRUPT);
+>  =09vepu_write(vpu, 0, H1_REG_AXI_CTRL);
+> =20
 
-Fixes: 50759b881e1d ("scsi: device_handler: alua: Call scsi_device_put() from non-atomic context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
+--=-qVlDHU493oj7uu3cN6Fe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-Notes:
-    Tested on an HP P2000 G3 FC array (30 LUNs, 4 paths each): with this
-    patch the "alua: port group 00 state N ..." messages are logged during
-    boot and access_state shows two active/optimized and two
-    active/non-optimized paths per LUN without any manual activate.
-    Without it, all paths read active/optimized until an RTPG is triggered.
-    
-    I found this while testing John Garry's native SCSI multipath series
-    (v9) on an HP P2000 G3 FC array (30 LUNs, 4 paths each, dm-multipath
-    not in use). Native multipath uses sdev->access_state for path
-    selection, and every path showed active/optimized, although sg_rtpg
-    and dm-multipath (alua prio 50/10) both report port group 0 as
-    active/non-optimized. No "alua: port group XX state ..." message was
-    logged at boot. Writing "activate" to dh_state corrected access_state,
-    which pointed at the attach-time RTPG never being queued.
-    
-    With this patch, the port group state messages are logged during boot
-    and access_state shows two active/optimized and two
-    active/non-optimized paths per LUN without any manual activate.
-    
-    This fix is independent of the native multipath series. It affects any
-    user of access_state/preferred_path, and ALUA prep_fn fast-fail, on
-    kernels with 50759b881e1d where nothing calls scsi_dh_activate()
-    after attach.
-    
-    v9 series: https://lore.kernel.org/linux-scsi/20261108204733.557995-1-
-    john.garry@linux.dev/
+-----BEGIN PGP SIGNATURE-----
 
- drivers/scsi/device_handler/scsi_dh_alua.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavIpJwAKCRDZQZRRKWBy
+9Hk8AQDqkecJtNqrHJyWzsY47xf1Moj1ivtzo5zq3R0hSA87BwEA+RZEhGQ70w8c
+tLls+tZpnQtJ+rZDYw40pV7vcBIn/Qs=
+=nT8W
+-----END PGP SIGNATURE-----
 
-diff --git a/drivers/scsi/device_handler/scsi_dh_alua.c b/drivers/scsi/device_handler/scsi_dh_alua.c
-index 87ac0a6d63e5..84ff3aed2c46 100644
---- a/drivers/scsi/device_handler/scsi_dh_alua.c
-+++ b/drivers/scsi/device_handler/scsi_dh_alua.c
-@@ -1233,13 +1233,20 @@ static int alua_bus_attach(struct scsi_device *sdev)
- 	INIT_LIST_HEAD(&h->node);
- 
- 	mutex_init(&h->init_mutex);
-+	/*
-+	 * alua_rtpg_queue() only queues an RTPG when sdev->handler_data
-+	 * points at this alua_dh_data, so set it before alua_initialize()
-+	 * otherwise the initial RTPG issued from alua_check_vpd() is
-+	 * silently dropped and sdev->access_state is never populated.
-+	 */
-+	sdev->handler_data = h;
- 	err = alua_initialize(sdev, h);
- 	if (err != SCSI_DH_OK && err != SCSI_DH_DEV_OFFLINED)
- 		goto failed;
- 
--	sdev->handler_data = h;
- 	return SCSI_DH_OK;
- failed:
-+	sdev->handler_data = NULL;
- 	kfree(h);
- 	return err;
- }
--- 
-2.56.0
-
+--=-qVlDHU493oj7uu3cN6Fe--
