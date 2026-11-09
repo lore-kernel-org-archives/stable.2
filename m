@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794244556;
-	b=ymBXRxCCQwYqChdHBsOSdgWBOJy4PqZtTJIFlGpnlaeJqw4VSrhf1QeshM+5Mh3wJyux
-	 3/vKlp4S5kPhAp5hUsTUl16rXsNm7t6qtFYOLV3/p0y4AnkW4Fpi0PF9jPQosOZAIT2Nc
-	 QT4u4h7QGNyitQ8krwBUcsAbNQwGvjC1F+4zDsLbXAt4jKgJJMW4g25k1z4WDf0/J/4j1
-	 +q0LuY1wkncSKxjaWUMq9IVmOpEJavJeNbWVUai86ZqwR/xW/mBOKiDVBaA3ccBlxmUqi
-	 2gXCmZ99ZF2Lb+nJ3uFovmf7PpO8Q1Gz9fx25xpwqSCqOR24xUUwEMZRbkWy25UzxXg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244556;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hAyVKQNXWEvDV18f6Ws1s35eT9OxUv+MInf6BhY5vP4=;
-	b=eO9R1qnVfU1L1Zo1tqYq8CbKIpT4q+CquJEFofnb0tZLds0Nha5Uin+A3y2oinLkg5Tw
-	 QXLNQw7S51yntJ+IKES1F/V92g00r3n87f/Orsxf1ZF8s/PT+leTPBKiX2DkZbm4qmT9H
-	 7ekNZ4d+mosydCpDQIC0QU35GCJ57wMbuD3gWQ0938tpyKMYA+xnCLlNao6xt3em0zdZh
-	 ojKuhqAXJg2gfDDuVD7NvAvJau/44rVAkxgYqNHlC/O5SB5MrThDvAfhwsnUt7ilT+lgs
-	 fo21dpRokO8LAwZ4RgBWNxhMnZPK83RPti2xZ6wfSGZWvl9WSY1Uqj8ygpVNioZ/PQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/1hLmlX";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794244596;
+	b=lb98sujgbdAMI12GKqs1RjEKYpXqT7me0GJs+msjf8E711gCS52jdY6eu7KzzNr4fVN3
+	 qAPz/i2Q5qH601O8gV+bS+gblY9IW+wRIDbcMmsR8WeQOvZA/iNfk0c9JPmZn+OHgJu9r
+	 h5do6IrJJ7pNFGfrQUP8p5AORt7lNsjYtarM8mWyxpzuaspe3QjT5oGry52N0QrDhpA6s
+	 pcG026SkiWcS18EQU2ZvU1Yu4E0ZsVu0bwAO0qsSiMSreirLs4wKVEKQBJckrlX7IhH4y
+	 N7EHUNHiyNxoHcZPYyFmnzIOOSbUN3dTkkkacBhXylatjtQARDpZiL9d6xaPlGEZsaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244596;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=j6CW/1Tx0ekOFiRNdAR2OG0dMWkU4FJDAABQ/X0bHfs=;
+	b=zNeRClS+NuDllY3lWhtV8dWsNDBwZoruMQjnD5CfFngDCV3W0hdE5ML4pKjpMgA9ZEFf
+	 iQlESD/yGI0l2Rj2YinymXuGu5yozCwozk5+RUvlpAy/+bo7lBTKUQPP659csxDYgwfR0
+	 TTZKEL8XlRc8WxkmoDenEVHG4SsPfjvODIS+DqJpjU5q5BQSETkPoGCfu4r3BCh5KR4yD
+	 r//cHbSb5UsmZxIxYINTROTHKk9GnJhs9z5SQukguA+JUnu5u416RGhkjqJN/bxZVeszb
+	 Yj6iKASHlrEroDUuntI6gxkhZnUpFTIHDly+iUS6JN8iZnpWx/1YPTCIcRwXUJJ3QJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mnmvZ3;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A76606A31C;
-	Mon,  9 Nov 2026 17:15:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A995606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 17:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/1hLmlX
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794244556;
-	b=g+7vTeLGba+3TikqA2+gW8yFtLo+czzce6GDGiZqeR6mx/8kZCw9AYR/A9pST5ijIuFo
-	 eI7dCARZmnrC6fRIQWeUGnkPIiVF+I8ga8NaXVatdhIdZjNls3eE6UCKl8AmZ1WzMl20M
-	 PrqgpzmnqAMzh21z5JFFAkmsGz9Q0OoGCeWnfA+HPtS5IOz2wt5hkuLduT7DHu9Y4LPBq
-	 Hujbx2c7eLXd2fbYEiZfZV+Ll7XMDGemhPuDPcMcpJX0iEx0j4Xr9kbOYLyPPKwcDJEmb
-	 RJ55V8V7GOgGDXEl2lWk8LIKu3HKQRj5/6gkqapB3iQvKfcOia1CG8cVNg52QuJhH1g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794244556;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hAyVKQNXWEvDV18f6Ws1s35eT9OxUv+MInf6BhY5vP4=;
-	b=xoTdqnMgjF43jbykxgZEwXyIRNuxY+C4CyIo4m44pyZ8Qnl4hJ8fWa2haCCNdyD7I4d1
-	 hMCBxBcKVVaTE77zud9y0hBVO1JmLNqHJGxGVahIvGqlXXevaO00Ob4BXBNbWgfCWrEO5
-	 bzZi5BK5fVjWgbq8IuIZFzrXcri8TET+39kWI2ZHDopH1l5mP1YKefcigvzgSUQsiEvsi
-	 sCsBHZEKiO+i3wxW0PXkdVtlx3c4PM8uf4aZDWGypON4ZjlOukn/hWyVMAYnAGsoz9IIK
-	 gfM1IpJ9AQiE3r0ErPHoAmWyBTArGHPY4N6YAQjSPN37fGJhYaSiXyIOopLXQZ9gtGQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 81C431F008A1;
-	Mon,  9 Nov 2026 17:15:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mnmvZ3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A851F0089F;
+	Mon,  9 Nov 2026 17:16:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794244556;
-	bh=hAyVKQNXWEvDV18f6Ws1s35eT9OxUv+MInf6BhY5vP4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=j/1hLmlX2wneU5lbKV4JRevJEBTKFsngH08qCa4u55yRpsV8h9haSsgnBd1M/EJMG
-	 LYubpArL3mtS1KBvahQL0ylrh+wJtLZsBhycBR3Kkzgn1vJlVlvxk9m9fpK7hWqEcy
-	 Zzp+MMviTtGOHXvwjh7JeHq16NMkXusjdSn5AyZ1b1apGHvcPO06yVHGReL7LLNtBG
-	 yKuSGT998Zhv13t8cIfRlg7q0dvZblWW23zrpUp5Erz65ZYmIvrgb3LKSRIT1NSu6G
-	 QcXk/J9Lntrh1mOFeTDMYWww5zLKhzOQ6dPrQ/WXOzDaWi+6GjOuXHAOprN0TKbPeP
-	 9pKfxVQE/tTOA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D068348551;
-	Mon,  9 Nov 2026 17:15:54 +0000 (UTC)
-From: Ivan Verbovoy via B4 Relay <devnull+ivanverbovoy.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 19:15:55 +0200
-Subject: [PATCH] Input: da7280 - do not advertise FF_GAIN
+	s=k20260515; t=1794244596;
+	bh=j6CW/1Tx0ekOFiRNdAR2OG0dMWkU4FJDAABQ/X0bHfs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S5mnmvZ36QyMB3PKa1QOlaF8M6++BvEsviRir2wFFKZKhIGSfG7yw7wclXGxpDxxw
+	 EwNnTsa+biPnrA+66hoZnjS4wLEuYUh00iHBBHNmfL8Iv3m8wJJpuTLunscdf9mwSz
+	 iaiLjdRDkJas6Kb/uPRQXfibPZdu54Ivi7gdAhSxbViqX8bx8Na8CcbnurDXpPdCIY
+	 PHU04Qlq+IZSg2X2ag7KYYtpZWZZHFi5s6Ti9nb4+Iq4qLhfNf7TreGsfQ9LgyzfUv
+	 OERYrXHNd3uGl5kmdSnF6gdsFppUEr+eNJW5EEY8A66kbWUJirlf+YY0uL+KKXbea+
+	 o3ZQg3L8tBDgw==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id ED8A21980052;
+	Mon,  9 Nov 2026 12:16:30 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 09 Nov 2026 12:16:33 -0500
+X-ME-Sender: <xms:7v_xalaHW1t7fI0I_R3gU1CMnkRqpNp-XA0_0Fg4v6R8ft-Wq42eyw>
+    <xme:7v_xauuH0RV3MQ4Pb7C71_fo3nIvY8TKk73odKl0VDOnY6aGOxhGfw_G6R7EFVftK
+    PP7mjWjYSR9xtZ3dITdTypD8rckq-CevRhw78qxqEzbznFyCDKKkmQ>
+X-ME-Received: <xmr:7v_xampey70JtFaVA0GRMnJ_YQpvE6-UFpEySSD0K4td5NanbeGCdOUx6SQ>
+X-ME-Proxy-Cause: dmFkZTERlrsw/TgcMaQYagBEnXGdzeOR8l8ctOzfJRMC5gmxQrqcjviMIQVm5fCxzjFNKI
+    IeEbuGRKdFHZmLlvXbmrb9fzt7wQqlOtts94l4qY4D2oFWPXKUHMZO0fRI3X08tvy9QJCn
+    A02mYLG5Juy4RlqXdNpii+MXz8cX4yViexmP+/uUYcJ6+OgX4AckbkH8/NNN1SUFpaFgZD
+    n2e4j0GcraBJvUYshJyxQ7o0JndZ7qx7mMNaDnlKl5yzwxdTV0LKgn7Ck/ar5g7k/NnUdD
+    MQoixdGSru5Lk8amtpUzoV+E0VbdBuHQaAAffX2SmgNaVbFEpdrDauAk7bC3vfXTmEtfBI
+    Z73zrmDnsjHnFh3mBSDLndWiNeFU7k8H2Yaa0bbgNOzke45sxWlCdMDpPVJGhsVs2o3nmm
+    to4vqIxSuhz5nFQjAHiMRyRiVURSlMkn626DYbwDbLkPF3YJ0yGUiVkZZY7eXn+zv/VvZ/
+    v2z2cyJz8Kwk7XMhHpy+sRocofQ+UeNlH8ITiGkKN+VwZ08StrSHm1SiWOYvd7W1laHE46
+    lfRCr97z5nT70hUbQyd7NJTgfMpvQk2YnsBB7GYEoEPSKa/7QGHKzdfXTX60zC58DCBbio
+    kBeIOZFZ8Q8sdt8ykdj871CNWYVTKNOGXfcpp0XJASlbd0nOwFqrpV/YFP6Q
+X-ME-Proxy: <xmx:7v_xagmFT_VPHYNx8UGLXIzR-urF8KP1t2JDhY7f4OriXzqjVBNSjw>
+    <xmx:7v_xauTXPvS4e2WvouH9HmJdc4zo-6wYkBs5v3Fd4uebeTeLHRPMKQ>
+    <xmx:7v_xahR0uGKU3D4qmpVO7TuCxu9ooZh7OLQ9UBn4yl0t8vNU81R8mw>
+    <xmx:7v_xan56uCWHbpPe3MBvfmUB_jdX1viF3Wqyw4QjjNSZZa_xaiNR-w>
+    <xmx:7v_xanRDMpyKfqo0Gor9YLT1IUstCHJMDkz5hOoLDO4n7m0QQ0WqGX-c>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 12:16:29 -0500 (EST)
+Date: Mon, 9 Nov 2026 17:16:28 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in
+ do_set_pmd()
+Message-ID: <avH_38C4vO6BDywb@thinkstation>
+References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
+ <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,73 +91,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-da7280-fixes-v1-1-09cc3650261c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBCF4VeRWWvSS1LiVcSil8FYIB1EIt5ds
- fxy8p8LGBMhQ1NckPAgpmXOUGUBYXTzgIJiNmiprVLSiOgqXUvR04ksfDDW6uhqYyLkZE34Dbl
- ou9+8+wnD9n7AfT83JOVbcAAAAA==
-X-Change-ID: 20261103-da7280-fixes-bc3662da833d
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Support Opensource <support.opensource@diasemi.com>
-Cc: Roy Im <roy.im.opensource@diasemi.com>, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Ivan Verbovoy <ivanverbovoy@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794244554; l=1634;
- i=ivanverbovoy@gmail.com; s=20261103; h=from:subject:message-id;
- bh=+tqVB3FFlOvTrxuwLoZlTGemlkZKQe11KqmDZ4ghgME=;
- b=XqGYSR/7q15sJpPAK7Uho+UjtaZTkO0DnDGaX9Y1u0dwatFlIUeVHZZF6L8dDnxHfuHcLi1Zz
- EZfHPuL7AU0CCx/a9jd3bIpfc4EydqRug4g2IvZ36+ADClp9OMQ+H2J
-X-Developer-Key: i=ivanverbovoy@gmail.com; a=ed25519;
- pk=0AchqTH1hJFToIUeFfQRlVzzuaWQDs4e75SxT2y3s8c=
-X-Endpoint-Received: by B4 Relay for ivanverbovoy@gmail.com/20261103 with
- auth_id=1396
-X-Original-From: Ivan Verbovoy <ivanverbovoy@gmail.com>
-Reply-To: ivanverbovoy@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
 
-From: Ivan Verbovoy <ivanverbovoy@gmail.com>
+On Fri, Nov 06, 2026 at 01:36:13PM +0100, David Hildenbrand (Arm) wrote:
+> do_fault_around() skips PTE table preallocation when the PMD already points
+> to a PTE table. A concurrent collapse can then retract that table and
+> clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
+> 
+> filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
+> preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
+> allocating a PTE table to deposit. But filemap_map_pmd() calls
+> do_set_pmd() under RCU, so allocating from that context is not good.
+> 
+> This race became possible when retract_page_tables() stopped taking the
+> mmap and VMA locks. Previously, those locks excluded retraction while
+> the fault was in progress.
+> 
+> Add a may_alloc argument to do_set_pmd() and pass false from
+> filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
+> trying to allocate.
+> 
+> This issue should be fairly hard to hit in practice.
+> 
+> Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-The driver sets FF_GAIN in the device's force feedback capabilities but
-provides no set_gain() callback. input_ff_event() checks the capability
-bit, not the callback, before calling ff->set_gain(), so an EV_FF/FF_GAIN
-event written to the event node by any process with write access to it
-calls through a NULL pointer.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-The driver has no global gain to set: a constant effect carries its own
-level, and a periodic effect plays a pattern from the device's waveform
-memory. Drop FF_GAIN from the capabilities, so that input_ff_event()
-ignores such an event.
-
-Fixes: cd3f609823a5 ("Input: new da7280 haptic driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ivan Verbovoy <ivanverbovoy@gmail.com>
----
-A NULL set_gain() call on an FF_GAIN write, seen on a Surface Duo
-(sm8150).
----
- drivers/input/misc/da7280.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/input/misc/da7280.c b/drivers/input/misc/da7280.c
-index 995d3f7af41a..4c60fd4fb932 100644
---- a/drivers/input/misc/da7280.c
-+++ b/drivers/input/misc/da7280.c
-@@ -1226,7 +1226,6 @@ static int da7280_probe(struct i2c_client *client)
- 	input_set_capability(haptics->input_dev, EV_FF, FF_PERIODIC);
- 	input_set_capability(haptics->input_dev, EV_FF, FF_CUSTOM);
- 	input_set_capability(haptics->input_dev, EV_FF, FF_CONSTANT);
--	input_set_capability(haptics->input_dev, EV_FF, FF_GAIN);
- 
- 	error = input_ff_create(haptics->input_dev,
- 				DA7280_FF_EFFECT_COUNT_MAX);
-
----
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
-change-id: 20261103-da7280-fixes-bc3662da833d
-
-Best regards,
---  
-Ivan Verbovoy <ivanverbovoy@gmail.com>
-
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
