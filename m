@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187770;
-	b=HvcuHeMAfhJcZQWDh7Gz9AR6krb6s6a8aFn2TGpXSV3dQUK0cP8ReohJfV5gReaCcb3s
-	 6lxmzlkf7fSvFaMYQBHxKTtniq2drNxa21hdRndMYM83nl143E6V5/N4ETdBOvvF+PuFB
-	 UM8eIyHZcDt2LgNk97LYXvy7YHrZ9PqfKcnAvH2RQWNH/ZyGpKmVClRvYH0/qAm6HW2HT
-	 dsTTKtnCFuDdndKuGpVFhmw9W22FMOTIdAPM+nfpSlC3NcCSdF10SyGik52QtuYKpxPXZ
-	 7gRxDVJ5sLgYcqRgOu8PKXi0icaqC4mLE0bKdtsgCgLPwgf/tYzXxTweOvNRP4DwA2Q==
+	t=1794187773;
+	b=bkZsbpPQHvEf+a7Uak2ZBG/yUiKBd8jz5ZDgGitluZjvSJrXFLvAIXYMrkLX3qZydu2C
+	 hVzBYnqZ/xwID4h5o/gpXBmCxd/i3b4Hk2/qluL8g/O/RWRLDuSaYi91und83uZdlBOyi
+	 sKxZOExDeNpm0msHKZIvA38JxHPbcr1G6dXW48XubsUx5MG7+cf75iegy3XHZTrUup6E+
+	 E2LsK0LdIB7ogd9xgreZiMfHIhr5Ud4mQf/pnoowd8DO5ic9VSTpV3picQVwjlaxhYvK6
+	 q8JyPZccPdm6m6vvlGpO2xZqLI9KJgqqAm3UPCsRNivSpUmjF01Wmce3ICjbzIqAgjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187773;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=tHxPvkIQbIOFnf0PNycsyarZgqZPtDrXH02YRkVpewI=;
-	b=pC/HLSaGzrzESJtrHHKuntk3mGcSyPfAnb7Xx3CPoCNSnE4eotZDZS6rXy0A6WkjRUzj
-	 vnI6C1+nnEorDw/BUBvOC8W2YNpoxLGvwFXL00aYH+9Qj1aPhL3Skv/qS0yz6PXJPQJgc
-	 B9v1Nw3pdeK1DctM8uCts/Q2RzuBLSnk+gjOgvtZrsaXdeGAcNq83jC8UQt5yViCRl8Ai
-	 UUjoP3j8kuX7kDOoIcb7w2P+z+vfNEEfbwB0QEP3OVkuxSGDFy7VP2aBHM4wrTgOZdooo
-	 LhtBYX52CK3SnOT0xKvqkN0YMCttdx2Jb5Y2FDmZIxYQdUKZlt9G/zI2B60XiftNe6w==
+	bh=1LGO8kbqRjWmKCJdidhOgv7673/JPMkKyXcsVD0AoBg=;
+	b=krbe1nMrioXVmbL/tE+u7CuFHxW2LTr3kpaw6f5YGTNVAVqPbzQHTMtjP9z61qsmWSeC
+	 ltmM/7NedX8RlTSOpT9+g64XMB8fMRnVnFFelPhIU8pgv3VJ3wyRXdMKwu9vmRq0I2R8i
+	 rLqBppx7dPyySg2D0xOAGKVsSzNH5ITUs2g5UV6VlcCl1poMt+OjcPtcvfKR5ylgefWtp
+	 fyaJx4sCtA2mio//djtf84FErIDF5uUgj5sAzxd4GRxMedSea22Wm/ssReZ5a1ozm+SKc
+	 pv/imkxcIUWjbNUGptuRH0nfTvjWnzC4AyTpPtCQSmkKiUK7U+hWYMsy0SHfsZJGtpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g5lteWku;
-	arc=none smtp.remote-ip=209.85.167.180
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AFbwDHi1;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222CD606A787
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 01:29:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 222CD606A787
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968E3606D477
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 01:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 968E3606D477
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g5lteWku
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4f699fe49b3so288965b6e.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 17:29:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AFbwDHi1
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-716da696c1aso245580eaf.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 17:29:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794187769; x=1794792569; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794187771; x=1794792571; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tHxPvkIQbIOFnf0PNycsyarZgqZPtDrXH02YRkVpewI=;
-        b=g5lteWkumMsr/8XsXavjTdQzmzgC5aS1al4O8shgS7/SYpYcLeGONud4P5rJGDkpfr
-         KdiBiLgo/fmyLZC5XkGfvG97iRgJTnLeyJ+F8vzO9A0yQOcWQby81jFjQPE7ROv9xIQe
-         scPpmdhIDTqyt3wB3TJFcyQ5QWA+GTK8yrPIP0xSfoGq6F51v4GmxRKxeRZjdohCAb8o
-         ycDs/GlmiteaIr+YegKNB/dnMrXtyIKmQcoQDEkmOIgLCvF6sGyEY6lIO6uBg2Ce0rSU
-         f/JfdZOhkgGG+FQG9eiFz4v+qfz9kRhnRy/d2D5W5+m1u6HOgq8ZsvVQgwIplFRXYT7D
-         wgfA==
+        bh=1LGO8kbqRjWmKCJdidhOgv7673/JPMkKyXcsVD0AoBg=;
+        b=AFbwDHi1H24PUb/SvFwKhJqkhV1gmrS4q3qIyQBzWWfXdN/mNRHn2Osx3mZa+A35ty
+         b7NXioFL9MohkRiqLOb69geSNH4u/QlClxnwXHWMLzOH07yqobQNV3slNXTpP64TJvY7
+         ouwUI3FFzD2YhxgRxYiiQALgTdrgQcuhXNQYn+vuLtpTQHY6iPWpcGOX3EKo2vItC9W6
+         7sUsHClT/9kpDrO0VMPMnLrA1RBhEVUzmXLeVM8Aw8oOuLrKCYn4blUn5nvYfTm66twf
+         oIvVN/JuIgxZ/ybiSrgrHyO0TkRsHx3POEwtIlaQSolsrEWx16EQbEmR/13+RSJvaJWK
+         SOMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187769; x=1794792569;
+        d=1e100.net; s=20260707; t=1794187771; x=1794792571;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tHxPvkIQbIOFnf0PNycsyarZgqZPtDrXH02YRkVpewI=;
-        b=dLJwlG6UsM+hJmHerXZZ4W4VL950ArGQ1C5omNKNeZ6VAb8G5qNBmUCkVWolAm3pgk
-         72wdl1E8V/nXd1axwkMSSVcFYinUVQGlbUbOuqNlUPAd7rFdK7qVE4V8yQxbNz2tFcsV
-         aqRYM25wIz+9L2vfcubMqCcQrZaz6Bhwk+a9tuHU0Ht9QfG9BrWP4kik0SCU6DJDQEFF
-         iajgYKfQFEvGBknFvbYoYzRsAfKtaa5FQzEA81jNcQAEflDGd6y3s9HFVM1VGyokzAay
-         yGDpKuEOWOl3c9AhpGLPyZiQJoM0t3O4XudHL3iYEsmaX6miwMFeiwjX1utnghLH/NfW
-         t21A==
-X-Forwarded-Encrypted: i=1; AL+hErGnYtqMaXIsho1DspNkn0aPQ6NDrPffnvWvIyJZ6AITpQCeXKbZdkIlULfewc/HQGn1IJtrIz4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0B1AdwYRT0l749V/n86fuYw9MD5tIoToRXKa3eC14neQTY5wj
-	Fb4msFT06XMXgo7pg/gvJlrsPpP34T53tCx56GvRcCONCdaDASC/GOHY
-X-Gm-Gg: AYBFou3kvdxwcOr7pkFHbfbP4QyDn2IfCl8h7xF8WX54xYRG74ebQ0u2/YNJC5NfpjI
-	dtEhySpNvRD//W2bNRkGsTsMWSd7+ShD2NAz/xiWajviHiS4uia0cJynMojW9CXDltZ/DKonl7V
-	7S47EQkzL9CvvtOQilv3rhELlOZwJ/lzYCeKxgN7MX3lfOjwuIHTzVLiHpp5UQtvSsRwgPWc4A8
-	FQzMHBKtXNEvubGmcG4ghr2K4ggm+nDLjG8F/z9R5UceHgqmQCt0WCIMc1I8OIdnbiusCVA1jO2
-	VyhtEdVe/mpH92mjBxRq17Nlt2tXOPfYld7lbB0iKaMIJaQaMySg6V2rWJdR8PjVxTEFcqEBKDn
-	o1H5PJhY/bmHsCIb2Y5U+b7KeuMjL3b0PL3O067WsKVp4sDeVf/5rziRL4bGRed71aqCZ1uT20w
-	LA3BsVf18LClAqVbe14Qh89j89gUjm/3J1SqDUzPPFeAdM2RPR74cF0CIfs+HY28AZww484aEwm
-	5dTAsbNlI31k1jK7gCyBBIthWiWiFGHzBFedj/v5kah+LPJYLqOO3JH1274lVXmda4/nne5/wQk
-	2Bz+PD5T8ZCEGzCDthdFDcYK7YKmJgp9qmOjXzuVxpA9m7rrG+HAUeRG2KQtYFxhwcoHYH9+5Uc
-	ZJfH2afPC6zHXZmDjLRVSZjSFpmnOnwopu2cRTKvXo04xoQR8E5y6Pbs+LMs3AzW4EzPZXNbOpI
-	VijknADQJ2+nHiO/sdjmt1MlpxYVkSp8p+Fu44cpPwbor4iJZ641CaDGjcVmqm1ujOxPw9pC7Tf
-	g==
-X-Received: by 2002:a05:6808:538a:b0:4bc:cf33:7024 with SMTP id 5614622812f47-568143c75b4mr1962246b6e.42.1794187769024;
-        Sun, 08 Nov 2026 17:29:29 -0800 (PST)
+        bh=1LGO8kbqRjWmKCJdidhOgv7673/JPMkKyXcsVD0AoBg=;
+        b=Ba6z5/V5mDRHGhXooBwnwgaDiAmJCOPDUN6Aee5BSPYxn8ACPAQY4zG6lAI1cgsrPI
+         +K+P1RhA+HO1jIx7YvbhilyeIkiFRfvBHWWxxF0/yVVi5iZx6aLjZ2ePQ8kHei7f7ybq
+         awYV0NIYaUzTbEicv5OI8X00pAdSJ8h8Sgk22mQzF4aGurtJ1f1ZrKoHvW/BWngBdb66
+         AoXixWM03PqLDsycSv+DVb8CPfa42MrXZDTyKCbPY28oFiFkrzW1C1SuAjh/hfVlJTK2
+         1pNyTlIzucSP7PJxohfuPNylQd45OdW8047eubE9FPWjv9i8bofoVMSxGT1fRC4nEGq4
+         av2g==
+X-Forwarded-Encrypted: i=1; AL+hErFchPaFcjXIssGywHGEEKGCjuWCUUdYFm094dshTDbSGA6QmlW7YRvpsBz1gsGluTmZS4PXHxw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OP4q7yLfu+PkfDVfl9tv9ZzNlxlBUhy6S5cpjkMi9XBN6Cl4l
+	VEwc7vp00nBEw+IKyKJ2JHb8pn5hxoOI09EXA2hpHxcyCaxAUySFDFRJ
+X-Gm-Gg: AYBFou2CCKKWRLQkomnZ6TnidbSTt/RCimRIEJ+WIARUr9vUkpEjblDheyXoQjNCuzf
+	KwVqELt9tx48atz5U6TuKywvxSoS75LwnJs5bpV5ta3rs7cHBfajKesjMjnKqeytVFSb1vIn6GW
+	MNbMkXl1XlWgZY5CNsEPgHsSMLzGfBQjNImk74XIUR3CSBVmb9Zg9TFyxdUDOuSxDAi59UTjOBO
+	iHPz5lP/XrriCbntRsgrCJ1PAjzDehc084m+Cg+kbp+y4kOptLP2LIKlR5x2Oki1viwW8B2oYEn
+	rUzCn7+gy8SQawTyWwpK0Qfj7MrZXJEBii8e2UVo7T5PrrtYV0D9D8d/MX/iiX5sFrAYs2aBeAw
+	ZJXpcGXGvJRwkXKwKjpcYmnMe3lW+0sNV30Uqc48nayDc+lR9N3kjP/ZxPW9knlh0QfYyamUJgu
+	Z2o59nDu4vkC8SiPCEbCMsIOUTsZVURDRKGbZB0/+eGS4VubSJ5x6meaBTeghwMIltY12O4WcBv
+	DLucKHcYak4VX2l03lsPiB5gzh5qB+RAaeKz0lORq73JMKwYdioaABaC/6gsC1F7+GfKkeSws3W
+	UHegSyFT4AuG4UfBamnZjtGpUW1UGFqVvLOLWmfkQe9lUv3GbCeO9iUSXOR0Tq/KGW9LqB4nHUH
+	Wa1VVw1yCsagquZDNAcnWD8Y4ilnuKO9hVNvF1zQFDqFFek9oYH9i5oodfbdYdkuERkO9pj+WQU
+	cRGqCwBNxW/Lk9p5RKL5XXFoMh1tmQiw0aWuM4dS65usmg15Q/GW/u
+X-Received: by 2002:a05:6820:83d8:20b0:715:2147:23a9 with SMTP id 006d021491bc7-7170f23a98cmr975721eaf.19.1794187771525;
+        Sun, 08 Nov 2026 17:29:31 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm4225818fac.10.2026.11.08.17.29.27
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm4225818fac.10.2026.11.08.17.29.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:29:28 -0800 (PST)
+        Sun, 08 Nov 2026 17:29:31 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 18:29:21 -0700
-Subject: [PATCH 2/4] mtd: rawnand: sm_common: avoid recursive locking when
- marking bad blocks
+Date: Sun, 08 Nov 2026 18:29:23 -0700
+Subject: [PATCH 4/4] mtd: rawnand: r852: restore SmartMedia and ECC
+ initialization
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-r852-smartmedia-attach-v1-v1-2-56d08c0571a2@gmail.com>
+Message-Id: <20261108-submit-r852-smartmedia-attach-v1-v1-4-56d08c0571a2@gmail.com>
 References: <20261108-submit-r852-smartmedia-attach-v1-v1-0-56d08c0571a2@gmail.com>
 In-Reply-To: <20261108-submit-r852-smartmedia-attach-v1-v1-0-56d08c0571a2@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -109,89 +108,110 @@ Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-nand_block_markbad_lowlevel() holds the NAND chip and controller locks
-when it invokes the legacy block_markbad callback. sm_block_markbad()
-calls mtd_write_oob(), which re-enters nand_write_oob() and waits for the
-same locks, deadlocking the bad-block marking operation.
+r852 uses its own NAND controller and attach_chip callback, but
+sm_register_device() installs sm_attach_chip() on the unused legacy
+dummy controller. nand_scan_with_ids() only calls the active controller's
+callback, so the SmartMedia setup is skipped.
 
-Write the marker through the chip's OOB callback under the existing locks.
-Keep the reset, target selection, write-protection check and page-cache
-invalidation performed by the OOB write path, including the broken-xD
-write-protection exception. Preserve the 0x0f marker and fill the rest of
-the OOB with 0xff.
+This leaves the generic OOB layout and bad-block criteria in place,
+omits the SmartMedia bad-block marking callback, and skips rejection of
+unsupported page sizes.
 
-Use the OOB callback's return value directly. This also avoids comparing
-an 8-byte OOB write on 256-byte-page cards against the 16-byte sector OOB
-size and incorrectly reporting a successful write as an error.
+The same conversion removed the hardware-ECC default from probe. This
+PCI driver does not set a NAND device-tree node, so rawnand_dt_init()
+returns without selecting an ECC engine. The zero-initialized engine
+type remains invalid and nand_scan_tail() fails with -EINVAL.
 
-Fixes: 5a0edb251ae9 ("mtd: nand: refactor chip->block_markbad interface")
+Restore the hardware-ECC default in probe. Export sm_attach_chip() and
+call it from r852_attach_chip() before the ECC-engine check, so both
+hardware and software ECC configurations get the media layout. Propagate
+its error before scanning finishes or the MTD device is published.
+Remove the unused dummy-controller setup; r852 is the only caller of
+sm_register_device().
+
+Fixes: 7ef969a04228 ("mtd: rawnand: r852: Move the ECC initialization to ->attach_chip()")
+Closes: https://lore.kernel.org/r/sashiko-outbox-204208@kernel.org/
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/sm_common.c | 44 ++++++++++++++++++++++++----------------
- 1 file changed, 26 insertions(+), 18 deletions(-)
+ drivers/mtd/nand/raw/r852.c      | 8 ++++++++
+ drivers/mtd/nand/raw/sm_common.c | 8 ++------
+ drivers/mtd/nand/raw/sm_common.h | 3 +++
+ 3 files changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/sm_common.c b/drivers/mtd/nand/raw/sm_common.c
-index a3a3a05cc5a4..a6387111d271 100644
---- a/drivers/mtd/nand/raw/sm_common.c
-+++ b/drivers/mtd/nand/raw/sm_common.c
-@@ -100,30 +100,38 @@ static const struct mtd_ooblayout_ops oob_sm_small_ops = {
- static int sm_block_markbad(struct nand_chip *chip, loff_t ofs)
- {
- 	struct mtd_info *mtd = nand_to_mtd(chip);
--	struct mtd_oob_ops ops = { };
--	struct sm_oob oob;
-+	int chipnr = ofs >> chip->chip_shift;
-+	int page = ofs >> chip->page_shift;
-+	u8 status;
- 	int ret;
+diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
+index e78606b97b42..ce7def018099 100644
+--- a/drivers/mtd/nand/raw/r852.c
++++ b/drivers/mtd/nand/raw/r852.c
+@@ -820,6 +820,12 @@ static irqreturn_t r852_irq(int irq, void *data)
  
--	memset(&oob, -1, SM_OOB_SIZE);
--	oob.block_status = 0x0F;
-+	ret = nand_reset(chip, chipnr);
+ static int r852_attach_chip(struct nand_chip *chip)
+ {
++	int ret;
++
++	ret = sm_attach_chip(chip);
 +	if (ret)
 +		return ret;
++
+ 	if (chip->ecc.engine_type != NAND_ECC_ENGINE_TYPE_ON_HOST)
+ 		return 0;
  
--	/* As long as this function is called on erase block boundaries
--		it will work correctly for 256 byte nand */
--	ops.mode = MTD_OPS_PLACE_OOB;
--	ops.ooboffs = 0;
--	ops.ooblen = mtd->oobsize;
--	ops.oobbuf = (void *)&oob;
--	ops.datbuf = NULL;
-+	nand_select_target(chip, chipnr);
-+	if (!(chip->options & NAND_BROKEN_XD) &&
-+	    !chip->controller->controller_wp) {
-+		ret = nand_status_op(chip, &status);
-+		if (ret)
-+			goto out;
-+		if (!(status & NAND_STATUS_WP)) {
-+			ret = -EROFS;
-+			goto out;
-+		}
-+	}
+@@ -883,6 +889,8 @@ static int  r852_probe(struct pci_dev *pci_dev, const struct pci_device_id *id)
+ 	chip->legacy.read_buf = r852_read_buf;
+ 	chip->legacy.write_buf = r852_write_buf;
  
-+	if (page == chip->pagecache.page)
-+		chip->pagecache.page = -1;
++	chip->ecc.engine_type = NAND_ECC_ENGINE_TYPE_ON_HOST;
++
+ 	/* init our device structure */
+ 	dev = kzalloc_obj(struct r852_device);
  
--	ret = mtd_write_oob(mtd, ofs, &ops);
--	if (ret < 0 || ops.oobretlen != SM_OOB_SIZE) {
--		pr_notice("sm_common: can't mark sector at %i as bad\n",
--			  (int)ofs);
--		return -EIO;
--	}
-+	memset(chip->oob_poi, 0xff, mtd->oobsize);
-+	chip->oob_poi[chip->badblockpos] = 0x0f;
+diff --git a/drivers/mtd/nand/raw/sm_common.c b/drivers/mtd/nand/raw/sm_common.c
+index a6387111d271..291aa21dff4f 100644
+--- a/drivers/mtd/nand/raw/sm_common.c
++++ b/drivers/mtd/nand/raw/sm_common.c
+@@ -167,7 +167,7 @@ static struct nand_flash_dev nand_xd_flash_ids[] = {
+ 	{NULL}
+ };
  
--	return 0;
-+	/* The NAND core already holds the chip and controller locks. */
-+	ret = chip->ecc.write_oob(chip, page & chip->pagemask);
-+out:
-+	nand_deselect_target(chip);
-+	return ret;
+-static int sm_attach_chip(struct nand_chip *chip)
++int sm_attach_chip(struct nand_chip *chip)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+ 
+@@ -186,10 +186,7 @@ static int sm_attach_chip(struct nand_chip *chip)
+ 
+ 	return 0;
  }
+-
+-static const struct nand_controller_ops sm_controller_ops = {
+-	.attach_chip = sm_attach_chip,
+-};
++EXPORT_SYMBOL_GPL(sm_attach_chip);
  
- static struct nand_flash_dev nand_smartmedia_flash_ids[] = {
+ int sm_register_device(struct mtd_info *mtd, int smartmedia)
+ {
+@@ -200,7 +197,6 @@ int sm_register_device(struct mtd_info *mtd, int smartmedia)
+ 	chip->options |= NAND_SKIP_BBTSCAN;
+ 
+ 	/* Scan for card properties */
+-	chip->legacy.dummy_controller.ops = &sm_controller_ops;
+ 	flash_ids = smartmedia ? nand_smartmedia_flash_ids : nand_xd_flash_ids;
+ 	ret = nand_scan_with_ids(chip, 1, flash_ids);
+ 	if (ret)
+diff --git a/drivers/mtd/nand/raw/sm_common.h b/drivers/mtd/nand/raw/sm_common.h
+index 57fc9f86f9ee..599fce778fb2 100644
+--- a/drivers/mtd/nand/raw/sm_common.h
++++ b/drivers/mtd/nand/raw/sm_common.h
+@@ -33,6 +33,9 @@ struct sm_oob {
+ #define SM_SMALL_OOB_SIZE	8
+ 
+ 
++struct nand_chip;
++
++int sm_attach_chip(struct nand_chip *chip);
+ int sm_register_device(struct mtd_info *mtd, int smartmedia);
+ 
+ 
 
 -- 
 2.53.0
