@@ -1,122 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217179;
-	b=Q0jVZ8J725lI2gbvWd9ANeslqQXwIetkEav7o5St2dxkyYEWvYycAZf3iPwF7wZJ4M2f
-	 QWKtPd+CQuROTcLwxwtMKKg+Raw+rSNYyqrRe6S3uD5elAAYqGspuOj3NYzXGBhmldwuf
-	 gsX49q2WuyNJUrpUBij+uSBf8N/DCyyruwYrGzmWg1xgfcuwSXl4gjOuZLsHy7jCLu7cl
-	 0YBLcJp+c4U1VPBeRgdjLFCxtJ0NHC4DVg+KlVWYyw7ek/t0yJo7IdTGl4M9KpJWpNHBs
-	 MS69/BUJ7cayQaAZJp6Q8B4Yfgy8ofiPOsI8nbEuiP9wkBEQf7XrqGToaFvaZ6YtgsQ==
+	t=1794217182;
+	b=rT+O6a1MWFA8c5i+tMcNPPL4Kqzcqe1SECaV0PwGO2CUfK7byBJFlhlEpMrFU2ZKBCJa
+	 av1onHnkuRZhRZeEi06KsSPe5qL++ZPCm1jd+ou5SxU0jyUYH53BNVyhLgybtaJg572P9
+	 Q/i5IfRVYMlRKDaOc8PXb6lRJpjgtYLW4nTWQYxca6l3J1wtxexF6BZ+VAEYWILhcLztg
+	 B7fQfG+6URIMY6QE9MCSuFDQAltBQLZw+ZTHrbTLmnZTUU7Y7I4MbggUfeKJa0P8nCm3I
+	 m0dY/QQH3d1xGASqdKu7zMN2glAUd/gmheBWXPH31Gu52wip8skIZVMmA8BPWFSXIig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217179;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=k/MryLsTIN5kVKTH3Pbnv1AmufsI/5+jgtemRo4uues=;
-	b=y3DLW6fBsUBT51iXntat6nrpVyhEMpm3bLzb9XY6n3rSBFC8rvF/t4uKMEKO7pNkVdUe
-	 /MUwbwdqFotf5E/FLtFTmjmn1s0cn389QcMeJpcFXOpwuPKrdXpT90n/SPCQ+oueqnEbs
-	 05unhtSOmWnALsP0Va0U0HgJOVuc7+3VJ9UpM40lfMKRW0Ypa438xpqrL3GR3MT4zoS0v
-	 VaZZUBBcJNah/XFjpFy3jb3s8dLIkOkZxv7EbE+uiDTRuPZORcuop5nvXv10wG4esuM0c
-	 6xV45JJEt4jIhvxSupwqB6Su8cQsGVAGwhMwpwL++Jq2aFZhTvNozzZfBrOjsNzUNGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217182;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=G3C25bcrXiGlB5VNFdFYaNBvU4OVWzQaHEDb15i4OMw=;
+	b=BKEYcHj0XwsUMnTDE/Q/7lw4EAvCViBB0l8k6kpPNj9vg0lm+SWY6Wtg7hOIK1Untj17
+	 PWHiKfIn4CradolzgZNmnhDEUh3+rVmIiknQNRmkYPQh48BRUCpob0j9cM7fTwsyHhNTu
+	 CbrtgG0OUz7gMtp4MGnsqdF5rjCdn4HAh5Gjz88Oy0OBL0h7J+cIS93jN89dvcR6XOHrg
+	 T+usytun6C78tBPXJdihKTIBIM124zgVXq/gv1DIXcTEJohJrlldj9uhzmaQlkmmwv2MW
+	 a2QyX7BmmTpSqasxwMFObJbjQUd36vP/qMSurRwrsIK4CQP0M8lm9TDcBvDEkCVCgTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=acN6b9m9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SbUGFBXn;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAD2606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:39:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAAD2606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AOrGYWBf;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A0FB606A33F;
+	Mon,  9 Nov 2026 09:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A0FB606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=acN6b9m9;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SbUGFBXn
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A6kd3298532
-	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 09:39:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k/MryLsTIN5kVKTH3Pbnv1AmufsI/5+jgtemRo4uues=; b=acN6b9m9Ya7+MPom
-	5ezGwy6+9ze2aJrO5B8mZ1gvoToC6REdvTsXHNQXQxsCQAaZVQyd6YRQy16NkrE0
-	mjRx4KysVzyNtt4BanXHR8lhg6fTzUGFkxfJtDnWmcYTjoMKCihjKA88sQjy942z
-	ZA2onwyIym/K8pWDPT26nd2hFgdVgsBm3n1oTRuyo69zpdwPriyt5v5U9B2NG6qz
-	ZzKafRFG1gBC9AgSmZABpR9WZ9sIeqJbNLi2M9ydJk4E2EEfmIT1/mxLy7CXS6EG
-	61fm838ukAIgtDHePiWh8aWKjibPzat5upPx6VnRnFCEFjHVkaYeE2VzvHNxsTSA
-	eVQqQQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsuagwsk3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 09:39:37 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91ea5866643so13740446d6.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 01:39:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794217177; x=1794821977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k/MryLsTIN5kVKTH3Pbnv1AmufsI/5+jgtemRo4uues=;
-        b=SbUGFBXnYu4eL2rXFkAUf6rM0Ta8YMP5cAsdQAK/TxTlOsWWNlxGIPQzHGwrynr35G
-         y6J+ly1neMyJXY7sH7fNztAHJyf4chJzf2avsnXO70B2lcJS7vh0rFjWAI9cw34WeGxg
-         6PNkt5r4WTQ552qdHs+wIrv3IOmeMJVXgQcaU8PwFJ114vQ/3SOcPHoTanUW3PIkBUrm
-         g2wAUcl4QtYD2R0AboE2V2lDIJtvo3X3za9BSvjgthmUEIqIemKrSqPviSxDDpt1CPOr
-         AjuBUsUJaIoN6ZcI1cj1sFGDYOwz/A99QaTKIbrtqYI1qE1QHzIPff4xuIlH2EcARw8/
-         kMdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794217177; x=1794821977;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k/MryLsTIN5kVKTH3Pbnv1AmufsI/5+jgtemRo4uues=;
-        b=bTZOTIgI95+DAs8zyBUqRN90jNlorDoMspfg7JoTXulRhe/3xO6RO3iad4FgbCmN/7
-         rpM6RYe583kBJ+5Zhs5HS9+GS85gdzuTErJTNCGkEKyDt8qRIbhqU9RPVovR8DNWYw5/
-         PW7Ij4mZEWoLCsXmx7ogXBmHgHkG/8mk3k5sk9FA2fT6ohoz7b3WsGPlF7mL2HshcfBp
-         fcrHc8FZgyQe9HP7p53V4EyYDbo8PslUo7OpwUJDuQU897tHM5H7TfQXi65gSMAFnExF
-         vgGCibj+fqQj+WBNEwRucRUMYoeTV1mbdUb+d65k+EV5EbgFEs2Ea8qJnQrxx/aUcVaS
-         U12Q==
-X-Forwarded-Encrypted: i=1; AL+hErE699yq5fYGGSlRmPEChmGf0VXrn8FJqFlAM3dtzHIh31/yU1v7rgDWWADqJuGy0YwYaQcFaug=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rPqmepQQLee3eskN8WnfuO6y3CrtKrdAPc8bwdFQq6IUp9ayB
-	dCGUS7nQcjdkFTkl0hiA9DW0CMfFVayCtKL288eLs0p3CGFzHy3c27ynYUcxv+9N/ogwhpob2F9
-	xUaOQk7orhEuhmZyGe7ComMSpyXjgoo5xsVD/v+Bu5DjSTZ847mC0VYrJSzA=
-X-Gm-Gg: AYBFou3Bhmpl+mVeIFytLR4Op1YFOA06Luija+BSUK41OCJBbJ5qIr+5Bk6d4vbhh3g
-	xQmiH+FmcCwOpBI/OQSIrCMMO6jW+HS7a7zEVki8Nf+rg1Ilv8qY9mUlruLybpqMYc+DM7eBT4R
-	aMWpVr19mYQpQdsNNfa1sUBDxnACqO5l5Y2pYwZ4dMDKp8eW9cjljg1e7f6q7mCR/tEiOTvZIMq
-	iuKFjdaAmbuG+18AzMCl5nRnoSpX+8pH1ZTbDaC2gLpXzqX0gQwM7JPW897Lk0ytKC8sr2U3hPQ
-	u111sU8b//U7PxzI72f3z/z65mxFrTDeN/8cRKmtwk9xtr1eCH7VhHjPugbstwaLjFhaqMXFAMM
-	XPEvmRzcxkjzkeLNkhYkslDM4X0SvfKV8r4yL2L58jAtiKbkFyj6PsxKRaUtLLa0XeBL6fob/F/
-	OGXBB7bq3FcuqTEx3s4zw5nRTYXDRcORaBnxpij4GkDmizLhy2bqeWATsiW0dyRA==
-X-Received: by 2002:a05:620a:711a:b0:93e:623d:99ec with SMTP id af79cd13be357-947841e3a3bmr551108885a.13.1794217176924;
-        Mon, 09 Nov 2026 01:39:36 -0800 (PST)
-X-Received: by 2002:a05:620a:711a:b0:93e:623d:99ec with SMTP id af79cd13be357-947841e3a3bmr551106785a.13.1794217176494;
-        Mon, 09 Nov 2026 01:39:36 -0800 (PST)
-Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb75913sm164965255e9.0.2026.11.09.01.39.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:39:35 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Stephen Boyd <sboyd@codeaurora.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] pinctrl: qcom: fix a use-after-free bug in system shutdown path
-Date: Mon,  9 Nov 2026 10:39:33 +0100
-Message-ID: <179421717024.24538.4724609411487120777.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105-pinctrl-qcom-uaf-v1-1-c9cbc0a93161@oss.qualcomm.com>
-References: <20261105-pinctrl-qcom-uaf-v1-1-c9cbc0a93161@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AOrGYWBf
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EF2CE1516;
+	Mon,  9 Nov 2026 01:39:36 -0800 (PST)
+Received: from [10.57.12.22] (unknown [10.57.12.22])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A7303F85F;
+	Mon,  9 Nov 2026 01:39:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794217179; bh=GPuTwtxoypPcBye9GF2p0EwiGxkCh8DuIQyAQOS76eU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AOrGYWBfXyZZY5SmVc5arh4b0KoNuwHhiyfcKv/xj4kOQ2TP9vqnV+PmS1NcCkn/z
+	 Q0QkWVsLd4NfiROX7uvM6mXQ3c+j7V90kSagqtWkUwlwXChQtXNMwmyHgSxNaqn/5j
+	 JWE7SMUux0boIK4gxqFmA0UiN+WlMkHs8WkqH2lA=
+Message-ID: <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
+Date: Mon, 9 Nov 2026 09:40:11 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,54 +53,199 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
+ ranking
+To: Guo Chen <guo.chen@oss.qualcomm.com>,
+ "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, Pavel Machek <pavel@kernel.org>,
+ Len Brown <lenb@kernel.org>, Vincent Donnefort <vincent.donnefort@arm.com>,
+ Matthias Kaehlcke <mka@chromium.org>,
+ "Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+ tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
+References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
+ <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
+ <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzOCBTYWx0ZWRfX7Ko0VGmKLOiV
- xdKF//+8jqFVHyWv4H1YlG9LLvQuF/ktlBoIXUgOlY0brQFwjBdXf2/hKVHH50yZkMJ1AcS9XUd
- +EgW8mf2As/DL1Mh0z05yVhEAheoCp3dq22VwlIsqTfsbdnlEkp0ycJq+UXwXjXm7nQin/DP4D4
- 1VdmTWczsB+W8BmWY41M+PdoGDOwnkPoTf8agee6SBZxARGG1PMGaMfgwh/3t7UqE+KASrbO1Ym
- CQQA5D60eVQCzRLbHRio5pfQUok4L4pdV7wuv8oppNGmEkCwiqmUIrjTe0RtZHRiwMH3EaHTIqB
- cc47xq7vAOy8IKhOpmUZg3hEcRFOTX8l2n4DLnithPzfGEIrNA78LIIuKAlnBYTNdeNMCoKysry
- MbpgHCmYxRsKvaqik5tWB8WnhVPAFlY1XOLeKUiejqUpnFMmr+S86qaEpCeyripSuIS0DYe4smS
- OiP5/TyrFM8gFRW9mFg==
-X-Proofpoint-ORIG-GUID: fbanneoD1EJ8-Dpr72z-8h3zgyUyHI0R
-X-Proofpoint-GUID: fbanneoD1EJ8-Dpr72z-8h3zgyUyHI0R
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzOCBTYWx0ZWRfX1nxCsrB2OlAm
- +FR6sASBtoscGYCwlzXmuU6t4T/StGk1IOpEPKBwhdNVXlmXhbyZ4Ei6hrlSV0d9YgDvHlFsaW9
- v6TJp/VDy9KXHXExjm0QTeznXHrtHew=
-X-Authority-Analysis: v=2.4 cv=V8LoQuni c=1 sm=1 tr=0 ts=6af194d9 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=L5XZeMja_UA31ktuEWAA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0
- phishscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090038
 
 
-On Thu, 05 Nov 2026 17:09:40 +0100, Bartosz Golaszewski wrote:
-> msm_pinctrl_probe() allocates the pctrl structure via devm_kzalloc() and
-> unconditionally populates the global variables poweroff_pctrl and
-> pm_power_off.
+
+On 11/9/26 06:47, Guo Chen wrote:
 > 
-> If msm_pinctrl_probe() subsequently fails, devres resources - including
-> the memory allocated for pctrl - are automatically freed. However, the
-> global pointers are never cleared, resulting in a use-after-free during
-> kernel_power_off().
+> On 11/6/2026 11:15 PM, Rafael J. Wysocki (Intel) wrote:
+>> On Tue, Nov 3, 2026 at 12:21 PM Guo Chen <guo.chen@oss.qualcomm.com> 
+>> wrote:
+>>> em_compute_costs() ranks all the frequencies of the table, boost ones
+>>> included. A non-boost frequency can be marked inefficient only because
+>>> a faster boost frequency has a lower or equal cost, e.g.
+>>>
+>>>    3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
+>>>
+>>> With boost disabled 4.1 GHz cannot be selected, but 4.0 GHz is still
+>>> skipped by governors rounding down to efficient frequencies (e.g.
+>>> ondemand with CPUFREQ_RELATION_HE), which land on 3.9 GHz instead of
+>>> the best selectable frequency. Several frequencies can be affected.
+>>>
+>>> Exclude the boost frequencies from the ranking in em_compute_costs() and
+>>> keep them all efficient, using the highest non-boost frequency of the
+>>> CPUFreq table, returned by the new helper
+>>> cpufreq_table_max_nonboost_freq(), as the boundary.
+>>>
+>>> Fixes: c8ed99533dbc ("PM: EM: Mark inefficient states")
+>>> Signed-off-by: Guo Chen <guo.chen@oss.qualcomm.com>
+>> Please see Sashiko's feedback regarding this patch
+>>
+>> https://sashiko.dev/#/patchset/20261103-em-rank-boost-separately- 
+>> v2-1-5a13d1b38d37%40oss.qualcomm.com
+>>
+>> and tell me what you think about it.
+>>
+>> Thanks!
 > 
-> [...]
+> Thanks for the review.
+> 
+> I did consider this case. If no policy is found, max_nonboost stays 0 and
+> the new logic is bypassed, i.e. the ranking falls back to the old
+> behaviour, which looked like the least intrusive option. I also thought
+> about warning and returning an error, but most of the in-tree callers of
+> em_recalc_and_update() ignore the return value (e.g.
+> em_adjust_new_capacity() and exynos_asv_update_opps()), so the update would
+> just be dropped without anyone noticing.
+> 
+>>> ---
+>>> Changes in v2:
+>>> - Drop prev_boost and keep all boost states efficient by resetting
+>>>    prev_cost for them, as suggested by Lukasz. Boost states are no
+>>>    longer ranked against each other.
+>>> - Retitle the patch to match the new behaviour (was "Rank boost and
+>>>    non-boost frequencies separately") and reword the commit message.
+>>>
+>>> Link to v1: https://lore.kernel.org/all/20261030-em-rank-boost- 
+>>> separately-v1-1-238a6b2bb888@oss.qualcomm.com/
+>>> ---
+>>>   include/linux/cpufreq.h     | 24 ++++++++++++++++++++++++
+>>>   kernel/power/energy_model.c | 16 ++++++++++++++++
+>>>   2 files changed, 40 insertions(+)
+>>>
+>>> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+>>> index d3d0d9d02aa4..c93316141a11 100644
+>>> --- a/include/linux/cpufreq.h
+>>> +++ b/include/linux/cpufreq.h
+>>> @@ -1155,6 +1155,24 @@ cpufreq_table_set_inefficient(struct 
+>>> cpufreq_policy *policy,
+>>>          return -EINVAL;
+>>>   }
+>>>
+>>> +static inline unsigned int
+>>> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
+>>> +{
+>>> +       struct cpufreq_frequency_table *pos;
+>>> +       unsigned int max = 0;
+>>> +
+>>> +       if (!policy->freq_table)
+>>> +               return 0;
+>>> +
+>>> +       /* The table may be unsorted, scan all of it for the highest 
+>>> one. */
+>>> +       cpufreq_for_each_valid_entry(pos, policy->freq_table) {
+>>> +               if (!(pos->flags & CPUFREQ_BOOST_FREQ) && pos- 
+>>> >frequency > max)
+>>> +                       max = pos->frequency;
+>>> +       }
+>>> +
+>>> +       return max;
+>>> +}
+>>> +
+>>>   static inline int parse_perf_domain(int cpu, const char *list_name,
+>>>                                      const char *cell_name,
+>>>                                      struct of_phandle_args *args)
+>>> @@ -1219,6 +1237,12 @@ cpufreq_table_set_inefficient(struct 
+>>> cpufreq_policy *policy,
+>>>          return -EINVAL;
+>>>   }
+>>>
+>>> +static inline unsigned int
+>>> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
+>>> +{
+>>> +       return 0;
+>>> +}
+>>> +
+>>>   static inline int of_perf_domain_get_sharing_cpumask(int pcpu, 
+>>> const char *list_name,
+>>>                                                       const char 
+>>> *cell_name, struct cpumask *cpumask,
+>>>                                                       struct 
+>>> of_phandle_args *pargs)
+>>> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
+>>> index d19a65461ae8..5b1d095fd376 100644
+>>> --- a/kernel/power/energy_model.c
+>>> +++ b/kernel/power/energy_model.c
+>>> @@ -255,15 +255,24 @@ static int em_compute_costs(struct device *dev, 
+>>> struct em_perf_state *table,
+>>>                              unsigned long flags)
+>>>   {
+>>>          unsigned long prev_cost = ULONG_MAX;
+>>> +       struct cpufreq_policy *policy;
+>>> +       unsigned int max_nonboost = 0;
+>>>          int i, ret;
+>>>
+>>>          /* This is needed only for CPUs and EAS skip other devices */
+>>>          if (!_is_cpu_device(dev))
+>>>                  return 0;
+>>>
+>>> +       policy = cpufreq_cpu_get(dev->id);
+>>> +       if (policy) {
+>>> +               max_nonboost = cpufreq_table_max_nonboost_freq(policy);
+>>> +               cpufreq_cpu_put(policy);
+>>> +       }
+>>> +
+> 
+> The lookup can be made more robust though: on the update paths dev->id may
+> be offline while other CPUs of the performance domain are online. In v3, if
+> dev->id has no policy and the performance domain already exists, I will use
+> an active CPU of the performance domain instead, as
+> em_cpufreq_update_efficiencies() does, and only warn and fall back to the
+> old behaviour if that fails as well.
+> 
+> I did not use the performance domain for every lookup because at
+> registration time dev->em_pd is not assigned yet (it is set after
+> em_create_perf_table() has returned):
+> 
+> policy = cpufreq_cpu_get(dev->id);
+> if (!policy && dev->em_pd) {
+>      cpu = cpumask_first_and(em_span_cpus(dev->em_pd), cpu_active_mask);
+>      if (cpu < nr_cpu_ids)
+>          policy = cpufreq_cpu_get(cpu);
+> }
+> 
+> if (policy) {
+>      max_nonboost = cpufreq_table_max_nonboost_freq(policy);
+>      cpufreq_cpu_put(policy);
+>   } else {
+>      dev_warn(dev, "EM: no CPUFreq policy, boost states are "
+>                          "not excluded from the ranking\n");
+> }
+> 
+> This makes it much less likely to miss the policy, but cannot rule it out:
+> the CPU can still go offline between picking it and calling
+> cpufreq_cpu_get(). em_cpufreq_update_efficiencies() has the same
+> limitation.
+> 
+> Would that work for you?
+I also thought about that possible racy corner case, where
+CPU can go offline (or already be offline). Although, in current
+usage this should be OK, since we do this in boot phase and
+platforms are sane.
 
-Applied, thanks!
+We can can add that step with 'cpu_active_mask' to play safe,
+but no hard promises it would be atomic.
 
-[1/1] pinctrl: qcom: fix a use-after-free bug in system shutdown path
-      https://git.kernel.org/brgl/c/6c940958950e5df52831fb8c78a045d426b09f1b
+The warning also would help, for bring-up phase, so engineers would
+notice it and address the racy hot-plug booting system when it's there.
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
