@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794265833;
-	b=bM5IxkUqOYItr0jMN/LAMrvJzv7MB7/BHVksirH3j+JsK3aTqnmqfu229nbYsGQO6Lmp
-	 TmxHWI0mrIRMXWh08+h/LeA/V4omff5bMGOY5YKoqaY725O52MDa1RDfXKaEkUTamFYYv
-	 U+jaExiqCpWxZa5gtzijjr6TkxAjGW01RadgoArdEcgNjS6DT3j3Tca//gPu825NkDfe2
-	 RZ45oCfXXhCcB4WINt2r4EeUwZgUP3EFihQePtqg4ZzbW4dZVJJd3tWF1noW59NpEIpeD
-	 33Zxwu7o/CjCDy6wMYtV9KaAfIi/WBhNCd1apLP4WO4wPa5BE5Jt7UY/eQlp3xuFX0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265833;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794266030;
+	b=KybG+u7A2QOx1kHIaSADoCiYt5s9wWTUPPfMEuWQfP66LN8qrexTlFmrTphkWr+EHirC
+	 bt/2NmdZMAac/yJOa/FzUMZ5ir492075tXwIvMl38c0lDYHlfC1k28aYFCYAVUWfB+k7A
+	 KiwWyvvr62wzZaxzbHR0rP0clQP0/4jak32hr01WkC444LT8f+kxxpNPM5MaW+1nLTt6V
+	 4o7DjfpO3pbeGc+087RxAX4MiuAhuIAWJTXSN7Xfy5tF+mJQ/raXdHUdhevh8i5dwLJQ+
+	 kJq5yFkC121fJ6Aauh6/4OKonFC7hoy8iTeCHNT5w2uUxmEyc9oWBBL8YKJivSEApNg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266030;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CeN01vbNZQ47eEh9Avoe0zLX5olmSueBg1N4z40LWa8=;
-	b=fBotk81pyaiIngsU6g8MLZMIzSh4SyLteENBoqytuhk6PjMS9NDMSaRiOQsBv0DsylUM
-	 69ZIKiyBx3I4vgxggpnTG+7irTSN9l/RXK8+NTJ2rsHECWeITfaeJ2jwI1SoDLYh9KUeN
-	 nPeC2YjoURyqLwx9rOFmlWEGVXk1NVhDMZahnicbBoLbDYxHUi96mMygVeepBdm6TCkwV
-	 4bRnl9QUAfVYSVn7FE1iw7KrzOMBwhYI8KF5FUrznu8CXj26ugKe85XJ1lW3m5+wAfH81
-	 5iOjVRbtXwkgPxhEYgMwwT6fMI6oz805ijRQ8VAHOyaSBD/kE4VvktICzxyPzJfaQDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=A9FjoSRUuYCt7r0RaoeRKyy0JIV1W5v7GkSoINLVED8=;
+	b=ZxjTwEFgElR8wC/vFeEIpqXodCsDm011u6qN+DFG9cnEIhrsRkqgT/78U0lf6VGnodzT
+	 4QFkaHqGMFgEMNI7WEw7bjpOLrIX4Rg9ivAzmKvukeQYXSqieoTj8JrdUr5hjwsbgTxnH
+	 GE3vxTd1asoptc8ZUJ6twoPWK6lNet8Ywrk7HhFWX18HKefjZO3kkSt9CD4s+lf1o+HZL
+	 rgyLsrIYKUygfVx7g6Jhhb8cBBPomRcnGDdO9B4mMSkpB4u1oPWVP62W1t2DY3r2Hf9pN
+	 lim7smTGt62EXHXhIMu4d9Q4Arpd1JQ6rTM9OzlgoJZFnRn7xVtTkYoL9UeEZSEFqVg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyvQ6R4u;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LwCnGxyM;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9DC606A325
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE9DC606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E96606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:13:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08E96606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EyvQ6R4u
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36fb88ea38cso1738822eec.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:10:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794265832; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jCDQuT2Fb3JJh2ZmLcIFUl0LfknAb5ws/3EWQoGZxB0p+zCCqX9FxV9Wy+xEHngJ9f
-         fUuo5fl3nC8YQqDDg6MBgdC6pAG0jXPnIsyCh02wqdLS9e9lw7vB3gFpngh3XKyojkCW
-         WPMg7jW78xOYvZCBh1Hm3a6VEF1Jy/dLu7qFlRh2CeQKOrS/E0I0AQMXm0/WVYNErrXM
-         3lJsa0T1e3so8Y5hJmyjkyGow7N2wqqNij7WktHs7NkHznWE1mYD1eG7IOqlMkkH4Wki
-         CoRzLf1t/T6hPRJxkt42O6iprwHVjgLgmMHH3g3PQUS8vteuLSqlQ9Ieb9eXNXP1ovRe
-         ab6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CeN01vbNZQ47eEh9Avoe0zLX5olmSueBg1N4z40LWa8=;
-        fh=WZthPPhyCC5N5MCEL8YyDo4uF8L07Ee1wstY8AHCcQk=;
-        b=i158YyResb1P9qVlgX9teoMN/yUyIGq90ZKhrJu88TTd4DgeruCKLhY7lRM/eM+AMJ
-         eKlSgFtWKF/9aEdVSdfizJ77K0J5i0LB1Qr3WfIQwhGOnjmi8627wY42FTkygiSUIqYL
-         CnIndDt5YIXhsBp5CIZ4ciVHgcI8I2pTbo7uhJGL6SyxEH1rxJwo5OTKXpJprOI7xZOy
-         AvHSiL5jmOckWBbOez7hEFwRJQQVrrjrwdKGiU2Eii4gOzZF8hmNiCupS6ye/Jm50l5E
-         p7C63NfEpNxuwVBiLIptqECK4CvWiRepwHP42qY3xAadpxx+Frn4JF9oUqqwiEKjgTk4
-         8Ylw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LwCnGxyM
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso790008c88.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:13:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794265832; x=1794870632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CeN01vbNZQ47eEh9Avoe0zLX5olmSueBg1N4z40LWa8=;
-        b=EyvQ6R4uuyXmviqq7ZVFqZIFzQlkiXqW9tfrgKAUWTUMgV7dMQBh1mEEhVmD4UEPb5
-         Goo3/UnI9VUq5+7khqIGuT1ZRYmY6BlIQIp8HLMByVsQWd2cjM9jNCx67yvWhHBixbz7
-         DNmzzau0JrGagxIBLKv7MHt92YwMo4fDKtmFeIHo3uJfMpv2FOWMg0pp4TxD40unWdsN
-         KxZ6drl1lU+A/h20VoRB4e1EHzmFJ24GJ8LxHoR+2Vi9vpCzTjJH4tPZ4xgkAhZ8IxiB
-         3jIbuH9mLBZRUVGxc10Yh40mt/eyFd9ZmXOZorIJfhdL6+ye+vUgiwCcWbouK0AYYo11
-         NhiQ==
+        d=gmail.com; s=20260707; t=1794266029; x=1794870829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A9FjoSRUuYCt7r0RaoeRKyy0JIV1W5v7GkSoINLVED8=;
+        b=LwCnGxyMkn/RI5XC9YqLhWFQPoVLF0Bo3UJ+pAH/G/StF4gRzIAJzC+GfENZazD11t
+         cJ6ZYNzhcicD/crMsDcU3LmmDEwBatMrCabchZr/olyhOsZ5Ji0aWWI4OjrQWhwQ5vKG
+         PqdwL9E/mGzPS/mV5o1hwJeZ4EWh+226dqP4+Zi4PGINhrRku3okBKHnQPrCypyol3Vv
+         8E6LafTadJxo9Qh9eBGhQnsuvDR0UFuEHF9YQbJNLbEjfvQ6arEHjLdR6HaMyS7Uzm9x
+         OYV7lkFJS2Ny1jM8v26qZRAVkmyqtBaVvMA7Bkabw5RuUjP1forX7GJNPAJC7a36TMC7
+         SBCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794265832; x=1794870632;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CeN01vbNZQ47eEh9Avoe0zLX5olmSueBg1N4z40LWa8=;
-        b=fDTcxCnZm39g00vDDP0cwRenvoExQHHDNuTT/iSOCiEx72bdAC/MYhPyDFGBRmcOGu
-         CVgkqdHfvVpjar7kjwn6hsYDNYtpzi4Yd3BzjHbjTOI6ZN/wPfoJdC9RfUkjrXgV/u6b
-         9iYD1TxcVZon+6vDB7OzqGvSQSJCqH3PpqIP5+yfpGHqJM5hMKYWLR49wSG3Z2F6jmbN
-         cvAxmTPeYEXqPOSoTbySI3y158QEjrIHrmz5n6iMILfeQMP2wqsM4UhGk1U4ZhihSpxI
-         gJEQdmmC01pmXyBUhEbLUmIABpUDq5BiCgATTEpHYLG8vyOgOqSaXducsoxQFn3L7Qva
-         ++FQ==
-X-Forwarded-Encrypted: i=1; AL+hErHFyCHdejrJuDJVvkMcCdjPopeA0RQC2h7J5Uzmc5HkhMPTqaoWhrSUMM63tt2LTxnFxwnIsYM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7Uxw663qbRrcy1jGUMyOgPQesw51e708HuoQpJa+32bKGboEQ
-	UimFL3F26dAs6zDDDt1/9T9R52jtwjFBAuxcU2jJFht8Qbki9an7Peb8QuIklK4dqNUml2QbnvI
-	IcXAxOHPW1NxgnVkVmAv+es+KwaZ0WO4=
-X-Gm-Gg: AYBFou36rIIjstCw5ZsqIxj6T8Exa9L4/WsoagYh73L5PdHzQHC+kFf8SSC7Hv2oKKf
-	ovywQ8HKzxtlzZHYSe11nGJP5H0A5GFml87jq4QlC/P0vdMyNsYnoS3x6S3cgIX+qPFVZ4pJlKd
-	tOMdhkF712jSSlOCWc1IyYN4jivhGUb2TKiAxPUIHMTK3CunJZV3Nd5JodLv2MrZL1mTP4fSxOc
-	Ogd/JlgBm6Rex3FOBWc2bGwhzjg/tyNMeRSoGugCx441QVCKrux+vCAUoGayDC8p6fHY0WhBus9
-	/kb3dyxx9HErh2vorVEpg8rJkXoTz8eUaje9JFjMSDT901GzkJ+ZxAqUJeO9SGQBK58514J8Vtv
-	oIA4Bx2gVoqjeiOvA8aSrEkH/aINXvoFtsb6l
-X-Received: by 2002:a05:7022:3a0b:b0:14a:a6dc:9cbf with SMTP id
- a92af1059eb24-1b3b603b42cmr1305082c88.4.1794265831769; Mon, 09 Nov 2026
- 15:10:31 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794266029; x=1794870829;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A9FjoSRUuYCt7r0RaoeRKyy0JIV1W5v7GkSoINLVED8=;
+        b=cCjLk+ZI3Pmc6mmtCsnlJevpTE0vu6qEn8AFfAx9ZkHDdhuK3bc7a/lc63vrWr+YBi
+         kxO528/LjZY7LAgsTAMtX7fOyetsWdQA4d9g+xul9RZB38GZv0boUdTUGqa3S2c/MAWA
+         WZQFkUDr62l8cp8+Yflxsok9plW2fsdWLLv8ZSIUC8LCMGlG85MzyNmjG6vTUrLWQb5A
+         /e1hD4TvjeNT1jtrpqNogI4J7RAGU6YzvWb3/wPlKhGKmAeuJO+B49unG9mLFTExFRP0
+         758NaT/5kBcX6wXhpGmdc+f1ObGkuUS66czudABwYI9CJybMnaJhQL6neaMbJkqOU96l
+         uUAA==
+X-Gm-Message-State: APuU4Z+BpamYlAuYyKE8ISCS3bVHCQH8+4Vezpow/h8s6UuXaDc1zm6Q
+	WdKr3D//wy6vO5nsaMiNGNZIhHVIGaqA++R30Cneb3Y5QpPq1/9OyQQJIwO3vbSOTOmw0Q==
+X-Gm-Gg: AYBFou3AjY3MJhEAStGlRBU+opw3+bL88yQr+aY7/SVMt2GX1r4cB9kQQbmqzCwEYJb
+	qqgVxK/kABKnJ88V326fJGILLNOySsgQ9A/A7o69IwKNhmhrPFgWVYdNltesvmvzZXIzoWgdCJo
+	2BXzDheAwAhpu6cdV5kk4mgXuma5hZmaRl/qGxId7YBXHFjkVHvDCwrgiAIhcp0JGPdEuICR2PU
+	UuCu3jpj+CvOAUf7NSZCSTIS+/lJyqrlehG3FN/w5afF/l5PHGFYo+d985DsfuzBBD6tEOTU0gl
+	OdMCGTsuF1ZfeE+IHtxgJww5eAzinlsE0YxiBzuQ+eCDl+mfoIsdQToXOhFQdcibtaHEMfm7epj
+	WBBMh8Iyxt20+RBP9K77gJtzJJgxmrIeax3nPXh7pdpZNpVqbkbraDvxfGMZ8itYqP7OLgkozNn
+	PTILndXHrnu09Omuf6YgDoR7hsZdbOsk7+74n1bFUCR/xRRYgGtymPwOiJ9MNgpcQWJSg9w/GOm
+	TfjprVGhwMK4qt7AAQ6P4CIBz7D2RketxyKQWxLZvcUZDTNh9hDmL7f4y5b9C18+VW6+xem8/mw
+	llmK+/W3X3XW7Q4yHIWeD3SH19QqAQbBfayqQ1S5jySgd77T+ITAjsDxPRyHbg1fV1KdZ5T/v/v
+	Revoxrsuepnl83A9lcgjzYIaxLEJABa3Rtw7BNg==
+X-Received: by 2002:a05:701b:2710:b0:195:1a77:85cb with SMTP id a92af1059eb24-1b3b5fa29bdmr1009570c88.1.1794266028753;
+        Mon, 09 Nov 2026 15:13:48 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11346sm2424909c88.7.2026.11.09.15.13.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 15:13:48 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	tglx@kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH 6.1.y] posix-timers: Accept NULL clock_getres() output in stubs
+Date: Mon,  9 Nov 2026 23:13:35 +0000
+Message-ID: <20261109231335.37106-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261107055501-failed-6.1-5b819071e434@kernel.org>
+References: <20261107055501-failed-6.1-5b819071e434@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,114 +98,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260925205226.883724-1-ciro.pedrini@gmail.com> <asR-FLwLfpyT8uOz@archlinux>
-In-Reply-To: <asR-FLwLfpyT8uOz@archlinux>
-From: Ciro Pedrini <ciro.pedrini@gmail.com>
-Date: Mon, 9 Nov 2026 20:10:19 -0300
-X-Gm-Features: AclHuK8TyNRcPp0b9z7lECemH9V0gwfILnthmI4geEHwNdHTffkXe_9drxx8YF0
-Message-ID: <CAPKD0HdhnN6apu1jJpXEG1mAV1=GCA-rjBdt=xQsVX4KknW8mQ@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support
-To: Krishna Chomal <krishna.chomal108@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hey Krishna, sorry for my late response.
+[ Upstream commit 5b819071e4346256c4edbae5cc2095dff25694fc ]
 
-Unfortunately, I can't right now. I fixed a power usage issue on it
-(the performance mode wasn't really using the expected and reported
-wattage, perhaps you encountered the same thing?) and it died a few
-weeks later.
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-Guess it was used to running on low energy and decided "enough is enough".
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-It's at a repair shop now, so if it comes back to life in a few weeks
-and you still need the dump, I'll gladly send it over.
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
+---
+Applies cleanly to v6.1.192 (c75b0cf0982c) without changing the
+upstream code diff. Built with GCC 13.3.0 and W=1.
 
-El mar, 6 oct 2026 a la(s) 1:52=E2=80=AFa.m., Krishna Chomal
-(krishna.chomal108@gmail.com) escribi=C3=B3:
->
-> On Fri, Sep 25, 2026 at 05:52:26PM -0300, Ciro Pedrini wrote:
-> >The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
-> >so hp-wmi uses the generic thermal profile query. The firmware only
-> >stores that value and never acts on it, so the EC stays in its default
-> >mode and the CPU is held at 45 W whatever profile is selected.
-> >
-> >The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
-> >v1) and also needs the timed profile quirk: without it, the EC drops
-> >back to the default mode about two minutes after each profile change.
-> >
-> >Add 8A17 to omen_thermal_profile_boards and
-> >omen_timed_thermal_profile_boards.
-> >
-> >With this, all three profiles work and sustained package power under
-> >load goes from 45 W to 56-79 W.
->
-> Hi Ciro Pedrini,
->
-> I was working a patch[1] involving omen_timed_thermal_profile_boards[]
-> and needed some diagostic info. Would you mind attaching the acpidump
-> for your board 8A17?
->
-> Thanks!
->
-> [1]: https://lore.kernel.org/platform-driver-x86/asPy5Q5wNYaMzTqJ@archlin=
-ux/#m922ff6cf9a68285d2b0f64e578fd6d2d6fa573f4
->
-> >Cc: stable@vger.kernel.org
-> >Assisted-by: Claude:claude-opus-5-5
-> >Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
-> >---
-> >
-> >Notes:
-> >    Tested on 7.2.7, whose OMEN profile code matches for-next. Without t=
-he
-> >    timed quirk, EC 0x63 counts down from about 120 after each profile
-> >    write, and at zero the EC resets 0x95 to 0x30.
-> >
-> >    8A13, 8A14, 8A16 and 8A18 appear in the same DSDT. 8A18 is in the OM=
-EN
-> >    list but not the timed one, so it may have the same two-minute
-> >    fallback. I can't test it.
-> >
-> >    I used an AI assistant (Claude) for the ACPI analysis and to draft t=
-his
-> >    message. I tested the change on my machine and reviewed everything.
-> >
-> > drivers/platform/x86/hp/hp-wmi.c | 4 ++--
-> > 1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> >diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/=
-hp-wmi.c
-> >index 7ab81ce5f..76f489d5d 100644
-> >--- a/drivers/platform/x86/hp/hp-wmi.c
-> >+++ b/drivers/platform/x86/hp/hp-wmi.c
-> >@@ -207,7 +207,7 @@ static const char * const omen_thermal_profile_board=
-s[] =3D {
-> >       "886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "=
-88F6",
-> >       "88F7", "88FD", "88FE", "88FF",
-> >       "8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "=
-89EB",
-> >-      "8A15", "8A18", "8A42", "8A43",
-> >+      "8A15", "8A17", "8A18", "8A42", "8A43",
-> >       "8BAD",
-> >       "8E41",
-> > };
-> >@@ -226,7 +226,7 @@ static const char * const omen_thermal_profile_force=
-_v0_boards[] =3D {
-> >  * "balanced" when reaching zero.
-> >  */
-> > static const char * const omen_timed_thermal_profile_boards[] =3D {
-> >-      "8A15", "8A42",
-> >+      "8A15", "8A17", "8A42",
-> >       "8BAD",
-> > };
-> >
-> >
-> >base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
-> >--
-> >2.55.0
-> >
+QEMU, CONFIG_POSIX_TIMERS=n, uid=65534:
+  x86_64 native + i386 time32/time64 syscalls
+  Before: 159 passed, 9 failed (supported clocks with NULL output)
+  After:  168 passed, 0 failed
+
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 828aeecbd1e8..b2bb38e78520 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -117,7 +117,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -211,7 +211,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+
+base-commit: c75b0cf0982c00cddfd88d1acf3872f79b40980c
+-- 
+2.43.0
