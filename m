@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239635;
-	b=RVdDB83dPMspGzKRhtPW/Xal2MNVqFYJQDdqPjUfmIETVmLpVHVKqzanzA4gzEW5t21v
-	 14gg7RTb6WkeIuRAvZ9d8kpAJRyZVupH2Mwatf0MV1CyeOqTmBnLtzYhlDbK86WHeQW2h
-	 cTyelgYhaaLOOjV0P8yclPv9QQVTu/+qTyBE7Vuq973JL1uFo6XvxbzGvv/KjLaTk9IXw
-	 TGtWLXW4s9VbNfRwZFVMchY9CSsJma/+NcxBxDsJzY8/72Hxq6vCtW+fACqYCqj62IWBa
-	 +VcvJvFikguZd/dxrAqH+LEj8Y4hh9fJLW+TkXTJfhIKQZMGvuJu7D2AEa7eUcn8/HA==
+	t=1794239636;
+	b=t1CJb/I7CykdG7B4QSOocesLRfchW0P7wfPY+rt2EyQt2Mkh1DnogA9pgcAJctPPHeZX
+	 dh55e6CxyR2Gb1lQ+bgjZU74DSKv8PoCpr2RMRCB0lQS1DD4dAR/h0R3iGtvxkhIiMYvc
+	 rkDIcmZPVH2DAiiYhh6Lg3CHG3BfvVN+uiSH1Kb7W77TGNQxbsRdBNpO8Bzgu+WTvdRFi
+	 K50Nj+WB77YQqY5ahKPJR/hVWXutURVuhIvsBflf0QPUxWkGDHBKRrLtUX/UfU9GMqqaP
+	 FlThosFGv9LZRf5Aez0Ls2P5R/9PsSkgGtkBA4arl9foTem7ddazPtqCWE16a2T8O8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239636;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+peK76Is/BmQTldCwniNdhZzNIDH9msqww8fYZqr7+8=;
-	b=zTxAJbY0r4mCaI5Vcr4BoRsmUyaJRqGAaEkRphvNfCCTtfFjz9rmqtMsZW3jRu4b5aBz
-	 shPkiBqh1YI978Ouw/tozSkkzyJrAdogwFQeoY/d2mDGLrK5q5maX3r3qaG2l1H9aRQdn
-	 5IX4AtOXqzw/P3JE7dbVcEnd4DkF6LPkbLQk450r6tUwIqadk3glzoRg6tU8Blq7F/PoR
-	 7olmk5Ew76Uf4mo21d7tkQy0sYsNT606HOZiaH7uPmYGdCJoGwQn4MLopkY2DIP715znv
-	 5vP2fMCaaqd3dDxGlnecsfIvCHXKYaAyz8JACkUVMs50XHdjtSH2skOJHzHujKALeLQ==
+	bh=0JI7u5St9ZMS8yEnJep1Ah3uu5I8IAcjoXl98vxnLjY=;
+	b=aa535Krao396AjIJn6PUvcVWm2937hq+10tSjWfY18o3KqhYIzmBUt1k8cVVOf9KA64t
+	 ohyPn3NZQXNFN8qDj+wuRgeRwnrd1u53Ga4DhHZnCEKSRiCsNiSZptXi/AV41YOee6r77
+	 Zq1qBmgaFoTGgHWyOsjIOAer23pZotIOCN4VqzLRj6cAUqdKGulU2NDEZ0OQGDMOaUPqf
+	 6m5YF6O+Kf7LEjTAVyB4vlhV4hDgjeeoA5zkkjrCxlnMavbeOT6C31uixmB32WUk17oN3
+	 FazUXX9q9R8ZvT6jADsm4qTOaccYHk7LNHv8z5mMo8EnGS7pud+pQRllUxGUAU6ovzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWnJV0kV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isVbsNsr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA21E606A331
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B798606A331;
+	Mon,  9 Nov 2026 15:53:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWnJV0kV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC60E1F008A2;
-	Mon,  9 Nov 2026 15:53:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=isVbsNsr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C655E1F0089F;
+	Mon,  9 Nov 2026 15:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239635;
-	bh=+peK76Is/BmQTldCwniNdhZzNIDH9msqww8fYZqr7+8=;
+	s=k20260515; t=1794239636;
+	bh=0JI7u5St9ZMS8yEnJep1Ah3uu5I8IAcjoXl98vxnLjY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UWnJV0kVxLGO89HH+4GJLrjujrrcNuzj7/cr1tVFDYvNlcZkyqE0Se02uMNHgtyw/
-	 E8wOUpXWr19hhFu7TA4UNDhxz1u2ZEi+csG4t3XgUBmOcwRhwRisETqqxnTV9JuvQV
-	 fzJKB41TOn5zA+lQiYCEfd6PnhFUKjxeX8dVydqnWJaoVa2fv2tmlQGmZG+7n4wEql
-	 eJwNfrcJY+xEy6V4xi+fu2su+EGmn+Wc1eiiAgNT+AzficDSV1tRIxJTMJzcNB0pDd
-	 KqxmdSDp7DgCsI+UDk1ChZp4XHFqmLK0FWci1ONPwEuxBKt6u1/4dkUGaa9ADPRpnN
-	 Fkz5VJDRj/xmw==
+	b=isVbsNsrn9NZOdBU5mErPk5TiX3NEjSLARVVHps/YGyjo9LS7nhGymakNjePnMZpI
+	 z/Ue/vNu1cBO/g+jxWK29QXU9o0g2JuQfW1fjjRG7mv6CXsbXe00lfl2evdkw0huZF
+	 tomeCp+Ra3XMXKx8UrjZcjfdoIteH/dbLZs3B7mxsDwlgB1ZPcrGA2ivAkBeR+xJiD
+	 9jd6oswnxsgSTGyXa9Z/QVCVRdgsRTBt7Apk5SJ0FgnkURjQmSwpahVlAM0YuaG3Kt
+	 aqtE5eLkfN8DuFHrApO11Or5Pmyop0OVHvIAsmhtAAB6PrhDdzxz/13YBvQ02qQRln
+	 skL9QIUhQX3Cw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Sean Baggaley <me@drinkybird.net>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH 6.1.y 1/2] media: uvcvideo: Add autosuspend quirk for AVerMedia Live Gamer HD 2
-Date: Mon,  9 Nov 2026 10:53:11 -0500
-Message-ID: <2026-11-09-1-daily-reply-0029-uvc-gc515-6.1@kernel.org>
+	stable@vger.kernel.org,
+	kuba@kernel.org,
+	linux-hams@vger.kernel.org,
+	Bernard Pidoux <bernard.f6bvp@gmail.com>
+Subject: Re: [stable request] ROSE memory-safety fixes for 7.0.y and earlier (merged out-of-tree in linux-netdev/mod-orphan)
+Date: Mon,  9 Nov 2026 10:53:12 -0500
+Message-ID: <2026-11-09-1-daily-reply-0030-rose-ax25-41@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109093527.2436913-1-ribalda@chromium.org>
-References: <20261109093527.2436913-1-ribalda@chromium.org>
+In-Reply-To: <CAFAa3YDcJX5SKpss6TTnKwu83BCAWOrSzLrPAVmf-1hNryXLGA@mail.gmail.com>
+References: <CAFAa3YDcJX5SKpss6TTnKwu83BCAWOrSzLrPAVmf-1hNryXLGA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,9 +63,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> media: uvcvideo: Add autosuspend quirk for AVerMedia Live Gamer HD 2
+> [stable request] ROSE memory-safety fixes for 7.0.y and earlier (merged out-of-tree in linux-netdev/mod-orphan)
 
-Queued the series for 6.1, thanks.
+Queued all 41 for 6.18 and 6.12, in mbox order. Thanks.
 
 -- 
 Thanks,
