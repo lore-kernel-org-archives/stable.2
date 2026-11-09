@@ -1,52 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227558;
-	b=HIx1p/ZpWStr6QBQKDmGAL+WqwLICbEWEQ5Le7OPFCiNg2iLUWd5M2Ecj3SZEnXdc8kh
-	 v7umnngxrCjzgoYYKiV12dZ2swPeg2gAjoJNyycAQ7rA3Ywb8TVrzCWT7eV+9McFVKRBD
-	 KLqZF4stHz+uo04qEdB651cwxH3HZbcU3NBCBg5RbbIWN3OTz3VORFYlRtTi5kYsAiILy
-	 IElZBFJsPGD2Yq68u+g33/euTMcpx0jFHS5b9BC8qAiIgddVTcdwSxJkWGHRX/3kTSb8A
-	 TmUssAc1DpZPHogFddjPBefMNLWb1BIk9l0JRjVYNi2MF7tX7SdzFH2BcTDfWP2LafA==
+	t=1794227615;
+	b=Mez3QZb/xpwWhXkFBaokqY1qkPKi0svWORb0Ihu8WCyuEdgcgTXX93+e2vKMuo6NdfbC
+	 hDpkq1Noq6SJuUZ8cKhXZ4Rjoi+XpEqhsTH4HVl876FPG81kvZWYMALVaz6LniDil4UIr
+	 sbrr/0ACMsviBFCSKHus76aGfy1GA43eCe6iycVRK87c3fynCLheqpqmqkiGJ/hEELkmi
+	 k5GRoQtdTbLfZ1bW82TbAKXArRgFk121sYkuzeTXR0V7UAJh2hX2xcdPi34V6tiZm8lbJ
+	 Fb1bDYZLWBTwmOve2dr527MUoornpzU6MfM3kEwETpe9I3J4u+o/p3OYRpwbgfgUz5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227558;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=FMMjg5Tb5QutiWvyksGb2lNhCLSGiUBKibO1R6YfCBU=;
-	b=vgtK8Yb1t7Um0Du22ZChCQuSvmd14rNM0PEWoVGi3lo0LNjXuNdTIzgIlomn7rC0Rfzj
-	 ASmCbb9RWtUuL+ZKl8I7jndr5rbTXG9h6XkRJdQtNyoqvcl7Q2HjsuWhwJaWzP6mUcBy/
-	 L31RVS8jya+FjWKbH3cg3U4xgGIOmVCb7jMFHA/rE4Cz+dBdhDdza5vDgdlFSxWvZwajr
-	 +MFKaecTzPAZqnDYRdtkMBIC85QKnMeiR2pYI9kgHPL6rk3SQ4h7LtUhXKkao2LNbbbhs
-	 U4KXXfgm6Jqd2XBtjc+t7KIZh3y5NJFhzbxk9snAIjhIKXDfANfKvOwd2J4pB3HeaUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227615;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=4M5v/hY+kOczd+ysevcmCc3bFFIgJbCT2vaUCNfx0mo=;
+	b=wRGT5MacQyq0pHxXi9t0McCbWi6biqqCxAQ39r1Zr/UIy1MNgXzUnHAEC4cnPlkRSGt4
+	 E8yKj4EP4tzEQtQWtyLOOdRKXSVcOpc8RbQ7gUd0VEbEcewqwLm0C1oQhPCx78PTT6zmd
+	 vY+yXwgoUX7SLWeFefLT23bloEa+sqgNoMIHP4wDDFJ5SaI8h9Ap+eGUHOIy/n/lTpedo
+	 EO34DzL4540KgJBG14YUym8HCuzb1JzBkIOtY+j+AFVbGwDuXYVRxr8zPGcT7ksFtojDR
+	 HR7WhRpDKP9z2WiMgZTXtnroP177IBIRE91res4X3ljygpAXos+RAc3l8y7qxa1HK4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nt6X1uQl;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F0382608360B;
-	Mon,  9 Nov 2026 12:32:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0382608360B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=D9q8JT8D;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D95A606A323;
+	Mon,  9 Nov 2026 12:33:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D95A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nt6X1uQl
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 29CA91576;
-	Mon,  9 Nov 2026 04:32:33 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2D8ED3F632;
-	Mon,  9 Nov 2026 04:32:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794227556; bh=wo2RMPDExcAkwy96P2D0uHY6dqGY6uIQRPmpWz0sV0c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=nt6X1uQlJNrlFb1A1X8e0d4wOQNnPCq9YA08w2E8SDR3QXzGBDnoBba1cpTgsjmyz
-	 npjSQLJXsnVyqkY5JQw87sMGb+MSa417Ja7lIYVXl/x+cZBHYEfNMYF8U+u1k7GJ7y
-	 DQjAjCEg2EqIi9cYEJpv0jaLkxj2YnukULBTlWEs=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Mon, 09 Nov 2026 12:32:25 +0000
-Subject: [PATCH v3 1/6] mm: khugepaged: ignore MADV_HUGEPAGE for shadow
- stacks
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=D9q8JT8D
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNTj029Snz4yjSd;
+	Mon, 09 Nov 2026 20:33:24 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794227604;
+	bh=7kW5/iwLHrpMe+gbCylgUW1piFSCHLbOCGCPJrQrg5g=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=D9q8JT8DuAWXDjWcC89uERCcCfC+MLDCWmvj71QmjpRLv8dZb0umVfFZjHUrfh5bT
+	 TJfZsrjNGsl9pd+hLzYKoHyvHcSpegVOgdtrkoTkfWwFM2CXJZ4sT7NkKModcfr//1
+	 kwVQTi7mazZ3rIqojeWm5EdKAHzfcEtgSARI3RxOMpiFg/wrPVvH/qoAGkt2zqjQHz
+	 U9GgykQy01Xd9wumDQUwg2vA2yTEu8HQdCIt4swMF0yTrM19BPCVj5cmCuxJZ8Czvj
+	 KWi3b4vX5YlC8xcvrebKPLhL4kPWektgRsIPxZDjUa2j3VWvAHkcQLSnvlcJ8zfSQy
+	 ugm17/iscIeLg==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6A9CXHx7000110;
+	Mon, 9 Nov 2026 20:33:17 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 9 Nov 2026 20:33:20 +0800 (CST)
+X-Zmail-TransId: 2afb6af1bd90e10-bac93
+X-Mailer: Zmail v1.0
+Message-ID: <20261109203320542JEYrsjSWEO22mMpmG7U_n@zte.com.cn>
+In-Reply-To: <3b00799f-2fef-44bc-b798-79273c5c0ca7@kernel.org>
+References: 20261108142831046W_fbNCAFfuY0BjHPCCHgi@zte.com.cn,3b00799f-2fef-44bc-b798-79273c5c0ca7@kernel.org
+Date: Mon, 9 Nov 2026 20:33:20 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,92 +72,34 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-refactor_gup_fast-v3-1-2aaef02df0e1@arm.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
-In-Reply-To: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
-To: linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Yuan-Hao Hsu <aa9736195201@gmail.com>, Yeoreum Yun <yeoreum.yun@arm.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2250; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=wo2RMPDExcAkwy96P2D0uHY6dqGY6uIQRPmpWz0sV0c=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq8b1c1s12W6hVfBJ0af2H4ECDILxl5SXY0xgRk
- dMWbEcjOCqJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCavG9XAAKCRBt1cPRWsUx
- M5cCC/4whLG62aLd5wDKkGxX45q5wDXTgLQzStSXiohOrwsj5ie+SOSiXuQ49zjifts5Jsb1vzu
- GopB+twzLQxnHHdLg0EcWA3qQeihfZ2jgZ008vAaetQavRt7ElV+hQnaL4b3IU+k5QR2oJJdyaU
- mOvmBwHaB71miYhWLHW/SjFSg4Q1lgMeIct4w6rcuDQfvJJZ4PlTi1Cf4kBEGpef8OoWD7yJf7w
- Oxt+p43GHsCgXiNlY5fyLElkAKbpyeNy6mJUoCMyc4aM1tWdN5p5SOXbhmO+pylxqG6YV5q0hvv
- gkjGORrbcj39v+ipCRtL7+64ljESlq1uVcYAKNLwa5sgOnuc4m6vzOlzC/nbhaCL/LRQYU95DOh
- Gds4xFEgQKNo1QxIGou8OkWn6vNlsV0AHd4rzYfx+KAGEQlvJbnZ5W5B1r7tYdnzu6B3PEnr6F7
- aUaMwK74VC6idueVz2sP02KRWkGKL4SZNlSCXzVBHow6e/x+68N0WCDksj4n5IG51mgPw=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <david@kernel.org>, <akpm@linux-foundation.org>
+Cc: <linux-mm@kvack.org>, <ziy@nvidia.com>, <matthew.brost@intel.com>,
+        <joshua.hahnjy@gmail.com>, <byungchul@sk.com>, <gourry@gourry.net>,
+        <ying.huang@linux.alibaba.com>, <apopple@nvidia.com>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2Ml0gbW0vbWlncmF0ZTogZml4IHNvZnRsb2NrdXAgaW4gZG9fcGFnZXNfbW92ZSgpIHdpdGggaHVnZSBwYWdlIGFycmF5cw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A9CXHx7000110
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 09 Nov 2026 20:33:24 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF1BD94.000/4jNTj029Snz4yjSd
 
-commit 3efb9800557b ("mm: do not map the shadow stack as THP") makes
-shadow stack mappings default to VM_NOHUGEPAGE. However, userspace can
-still clear this flag and set VM_HUGEPAGE through madvise().
+Hi David,
 
-Allowing large folios in x86 shadow stacks exposes a limitation in
-folio_pte_batch_flags(). For example:
+fair enough -- and your reading is correct: preempt=none is unselectable
+under PREEMPT_DYNAMIC, and the arches that can still pick PREEMPT_NONE
+have no NUMA, so mainline cannot reach this path.
 
-  1. create a shadow stack mapping.
-  2. apply MADV_HUGEPAGE and populate the mapping with a PTE-mapped
-     large folio.
-  3. apply MADV_DONTFORK to the first base page of that folio.
-  4. call fork().
+I was aiming at the 6.6 LTS configs that shipped PREEMPT_NONE + NUMA: two
+lines of cond_resched(), no behaviour change, same as do_pages_stat() got
+in 8e934ab44389.  If you and Andrew would rather not carry a stable-only
+fix, just say so and I will withdraw it.
 
-In the parent, the first page remains writable and anonymous-exclusive,
-while the remaining pages shared with the child become write-protected
-and lose PageAnonExclusive(). These pages can still belong to the same
-large folio.
-
-On x86, writable shadow-stack PTEs have _PAGE_RW clear and _PAGE_DIRTY
-set. Write-protected PTEs have both bits clear, with the dirty state
-preserved in _PAGE_SAVED_DIRTY.
-
-When FPB_RESPECT_WRITE is set without FPB_RESPECT_DIRTY,
-folio_pte_batch_flags() normalizes PTEs using pte_mkclean(), which clears
-both dirty bits. This loses the distinction between writable
-shadow-stack PTEs and write-protected PTEs, allowing them to be grouped
-into the same batch. GUP-fast can encounter such a batch when walking
-across the VMA boundary created by MADV_DONTFORK.
-
-Since there is no practical use-case shadow stack with large folio,
-ignore MADV_HUGEPAGE for shadow stack mappings, preserving their
-VM_NOHUGEPAGE setting and preventing large-folio allocation.
-
-Fixes: 3efb9800557b ("mm: do not map the shadow stack as THP")
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: <stable@vger.kernel.org>
----
- mm/khugepaged.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 40fad28c52f6f..51ec043fa26c3 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -367,6 +367,9 @@ int hugepage_madvise(struct vm_area_struct *vma,
- {
- 	switch (advice) {
- 	case MADV_HUGEPAGE:
-+		/* PTE batching doesn't work reliably. */
-+		if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
-+			break;
- 		*vm_flags &= ~VM_NOHUGEPAGE;
- 		*vm_flags |= VM_HUGEPAGE;
- 		break;
-
--- 
-2.43.0
-
+Thanks,
+Shao
