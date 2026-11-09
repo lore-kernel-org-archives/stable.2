@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193595;
-	b=CJFALtYMqyPmDtF7diGAfrLDCvr7tyhxA7GeNvflS6JG/pnKhC1M4hB1CyyVLHeywFyq
-	 2wGomVEKeyIE4Hky/kbfTv6bYAd7saVmvbqPw/A3Uc8fhrbx3gkDcWVNeGn1FGsiwVBWo
-	 JqIujKu4qNvMA1Sn7d6Q2p/MDfT8gUgDTfvndQMs457nw7F8TWoZkMQKvFp4XlQgDWh6g
-	 WZSg5OEg+HT9pXP8eoW8KbDvOrO0yRiHV4YnaEO0Lt+a8GjiVVXanTVk47f6r/zoTNNxL
-	 0auNKcvi8KxeeZU4aC/dOAb5IL/z55t4U3U3ZHulMyXdHDk3wLfsB370c3ZcuTSM2wQ==
+	t=1794193821;
+	b=Nup/xgnAU2MUuLoZILYsv7AGIB4GBCyROypkskVfnqHfmbEfbQuFanbZnb2jzjr7DiXt
+	 JQGkObt1kzXe92aWare32FcskRrr0ULBtbps+jj6IGTReOfhDdPYHTchfsXD+m2uBlod+
+	 WYjy7mB13GgftZqmfVi2FqaOvYSWpK1L8vPLpTyNQpJz4ELVPDWebbVWCVpJDVq2Q6SMD
+	 4SoVXvC4uIvZ92AqcMvTSh41WP+OgjsRxnppdOGXAVcT2xc5qiiWu15QFUM7EVuJ/m5pj
+	 l6xrlTiozMWEIxcRiwDjYda8RsuObh1uMgDNbzaEv4EU9QnLwcHnCF4ZCRz0eHuqYYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193595;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193821;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=u1RzFQWPYGD8QWAuXnKu8F/lwTVjaC0hQdzf1z/TQEM=;
-	b=CBwKk9y5z3Ao0pQJT/iXQVW9ejj2Mt6azyJ27kJy0k695h03vG+qXE7Cjxxg5HFAcuiy
-	 sDCAJluIR9jt9oZfN6FacG9AyuBdsURrcyBXIMr8SfL2zLzmitHxD+X0zCqKxTpVoN+Wj
-	 ZBmhS+6qldpoDr1VVJQp2POPxWpJ202NtbCUWDBZnCHwQJMCr3OqaYVzY/uxh766BDOun
-	 rF80ZNr8wceLpEnUtD/UtIvsCPtPrpyqrptJQvRJvMuXRf5O7EBDvERd1TqvkaB9zQ3af
-	 8Vp7+XXtK8VGXL5M1K5EeplAbckLRABGNpjJpNIvXUNFVEp4tD9WEj5nlAz86Gpm3GA==
+	bh=R7YFoYH+pqizVWJtbykpYVkcry3ho5h+U0NhjdmQOV4=;
+	b=1bbKhmfPfON6tFuKwxm4Ann9YXNiyV/DZAAEmd0+zAKBEwA+1LZeJb9RKAHcGm7Vmham
+	 xepB+11UldIOawOhLBPPVyVaS/DQI9L2BB/u9mgQ/2NF2ZTQXMYshfhpyq3HG/FMmgigs
+	 bpLmfAiw1arlYGuEi2v6UtSR7JpCCAeP/0t+uYjlIidood2aY4tz+/3KSM1/u2u30QWPi
+	 74qol5u/LH06VhphN448AI0iRzhSCjCjXePPLzNVo1SHcVX+ActTffku0+6lyIRPt2njh
+	 VyejkbclRKJ3o7x4UoFxfCyDmceHa5JBluwqMLNdUw3PVwQEX4vWOEZbrsiLVB40G9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=a0p0HDSb;
-	arc=none smtp.remote-ip=115.124.28.125
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gtbDVREB;
+	arc=none smtp.remote-ip=91.218.175.153
+Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCBA606A320
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FCBA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B458606A320
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B458606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=a0p0HDSb
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794193585; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=u1RzFQWPYGD8QWAuXnKu8F/lwTVjaC0hQdzf1z/TQEM=;
-	b=a0p0HDSbX3JAEPLvk/6ppH/qUTOt+9EFw5BkDKc+O5krPqBvxjibC8355peeYrKR1Q0vAO1N39iOODRi4XE0A0THMcyPj7cvyxAb/fDdPCCBJiMpcEXo0PYnt5PV0xTHykFrvnDBuV6DpFT8RDY3AAQ4fmq6Keto7f0471Njmak=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436962|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0132805-0.00344454-0.983275;FP=11191983353786942674|1|1|2|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jzgkbDC_1794193585;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jzgkbDC_1794193585 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 11:06:25 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: stable@vger.kernel.org
-Cc: liuwb@xiaopeng.com,
-	Mark Brown <broonie@kernel.org>
-Subject: [PATCH 5.10.y] spi: amd: fix len==0 underflow and FIFO overflow
-Date: Mon,  9 Nov 2026 11:06:24 +0800
-Message-ID: <20261109030624.419576-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261107062408-failed-5.10-e2f4edfc061e@kernel.org>
-References: <20261107062408-failed-5.10-e2f4edfc061e@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gtbDVREB
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7Na7xjzcQd16juEXNoMu7pYk4KLFnTP5KHehCh6IFWE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794193813; v=1; x=1794798613;
+ b=gtbDVREBKlXmZiiQn37nboEHI2/a0a20du9yKFge83pgGuSGnnJnWOdvyIUGVWhK9MPfmf8b
+ RX9ADc8PDttBKuZ8wChz8b+rwNyNdarOiNrWfZR3x4yHDAAzQhnU5Xp0wtDMKweiSWKCeHnDzs5
+ W45HOEGmg5bHLrY9e6j8bN9s=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1ae66134428fd04f;
+	Mon, 09 Nov 2026 03:10:10 +0000
+X-Mizu-Trace-ID: 1ae66134428fd04f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <423c9b28-ecf2-4fab-817d-2fb326690c73@linux.dev>
+Date: Mon, 9 Nov 2026 11:10:02 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,73 +58,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>, muchun.song@linux.dev,
+ osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
+ lance.yang@linux.dev, Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+ <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Weibin Liu <liuwb@xiaopeng.com>
 
-[ Upstream commit e2f4edfc061e493fddde16c4bbe1c4f230f41e4a ]
 
-amd_spi_fifo_xfer() unconditionally decrements xfer->len when a tx_buf
-is present. The SPI core does not reject zero-length transfers, so a
-transfer submitted through the SPI_IOC_MESSAGE ioctl with len == 0 and
-a tx_buf makes the u32 len wrap to 0xFFFFFFFF, and the following
-per-byte loop writes far past the FIFO window.
+On 11/8/26 1:58 AM, David Hildenbrand (Arm) wrote:
+> On 11/7/26 11:30, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+>> unpinnable, causing unnecessary migration or pinning failures.
+>>
+>> These folios already own their CMA bitmap ranges, and memory blocks
+>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>>
+>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>> ---
+>>   include/linux/mm.h | 29 +----------------------------
+>>   mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+>>   2 files changed, 32 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index 2d0b8a4c9974f..75dd40265d3f4 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+>>   	return is_zero_page(&folio->page);
+>>   }
+>>   
+>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+>>   #ifdef CONFIG_MIGRATION
+>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>> -{
+>> -#ifdef CONFIG_CMA
+>> -	int mt = folio_migratetype(folio);
+>> -
+>> -	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+>> -		return false;
+>> -#endif
+>> -	/* The zero page can be "pinned" but gets special handling. */
+>> -	if (is_zero_folio(folio))
+>> -		return true;
+>> -
+>> -	/* Coherent device memory must always allow eviction. */
+>> -	if (folio_is_device_coherent(folio))
+>> -		return false;
+>> -
+>> -	/*
+>> -	 * Filesystems can only tolerate transient delays to truncate and
+>> -	 * hole-punch operations
+>> -	 */
+>> -	if (folio_is_fsdax(folio))
+>> -		return false;
+>> -
+>> -	/* Otherwise, non-movable zone folios can be pinned. */
+>> -	return !folio_is_zone_movable(folio);
+>> -
+>> -}
+> 
+> Moving code while adding new stuff to it, please don't.
+> 
+> Move code first, then modify it.
+> 
+> I don't want to play "find the difference between two pictures" on a Saturday
+> evening.
 
-The driver also never checks the transfer length against
-AMD_SPI_FIFO_SIZE. The core splits each transfer down to the
-controller's max transfer size but does not bound the total message
-length, so a long transfer overflows the FIFO with out-of-bounds MMIO
-writes (tx) and reads (rx).
+;), got it.
 
-Skip zero-length transfers and reject any transfer that would run past
-the end of the FIFO window.
+I moved the code to resolve a build dependency.
 
-Fixes: bbb336f39efc ("spi: spi-amd: Add AMD SPI controller driver support")
-Cc: stable@vger.kernel.org # 5.8+
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ Adapted for 5.10.y: this tree has no per-message FIFO position tracking, so the check is a per-transfer bound against AMD_SPI_FIFO_SIZE, matching the per-byte loop offsets here. ]
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
----
- drivers/spi/spi-amd.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+>> +bool folio_is_longterm_pinnable(struct folio *folio);
+>>   #else
+>>   static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>>   {
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index 2b405cce2ca5c..f41701c603500 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+>>   
+>>   #ifdef CONFIG_MIGRATION
+>>   
+>> +bool folio_is_longterm_pinnable(struct folio *folio)
+>> +{
+>> +#ifdef CONFIG_CMA
+>> +	int mt = folio_migratetype(folio);
+>> +
+>> +	/* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
+>> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+>> +		return true;
+> More hugetlb hackery ... don't like that, sorry.
 
-diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
-index a027cfd..f5433b7 100644
---- a/drivers/spi/spi-amd.c
-+++ b/drivers/spi/spi-amd.c
-@@ -176,6 +176,16 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
- 
- 	list_for_each_entry(xfer, &message->transfers,
- 			    transfer_list) {
-+		/* Skip zero-length transfers to avoid len underflow below */
-+		if (!xfer->len)
-+			continue;
-+
-+		/* Reject transfers that would overflow the FIFO window */
-+		if (xfer->len > AMD_SPI_FIFO_SIZE) {
-+			message->status = -EMSGSIZE;
-+			goto fin_msg;
-+		}
-+
- 		if (xfer->rx_buf)
- 			m_cmd = AMD_SPI_XFER_RX;
- 		if (xfer->tx_buf)
-@@ -219,10 +229,10 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
- 		}
- 	}
- 
-+fin_msg:
- 	/* Update statistics */
- 	message->actual_length = tx_len + rx_len + 1;
- 	/* complete the transaction */
--	message->status = 0;
- 	spi_finalize_current_message(master);
- 
- 	return 0;
--- 
-2.43.0
+Agree.
+
+> 
+> I think this just goes down to a problem we discussed a while ago that is
+> independent of hugetlb: we'd need some way to identify that the the page was
+> actually allocated by the CMA owner, and it's not just some other movable
+> allcoation that ended up there.
+> 
+> For something generic non-hugetlb thing, can't we call into CMA to ask whether
+> the current chunk is marked allocated?
+
+The existing bitmap is set before allocation completes, so the range
+may still contain borrowed movable pages. A set bit alone cannot
+establish ownership.
+
+A generic query may need separate ownership tracking, such as an
+owned_bitmap recording successfully allocated pages. Its updates and
+lookups would also need to handle concurrency with fast GUP.
+
+> 
+> If that's too hard, we could add a temporary hugetlb hack.
+
+For this fix, I'd prefer to keep the current check.
+
+> 
+> But we all hate hugetlb hacks. :)
+
++1.
+
+> 
 
