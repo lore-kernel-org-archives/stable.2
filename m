@@ -1,69 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236369;
-	b=PljcAF2soDR4ViPIvelUvSRN4jxRqBzFmRTGSS5rAuqCmM27du5tDiwo1xs2sJ5rvaJs
-	 +8oxw/qvC35qnOegdMC8ObyUuzp8DbDCd9pK12ZWOaefn6GSHMK9bnth2b28y867p7YQ6
-	 dMNakoxZy+H/qVk0RusyCHq6V4A7nOJcXS8/aIBXlrwp63/gcH2NiCE02tUMnPGGNirct
-	 CsTmXnliTPZglG8QdBNHKOX2awy+YfTJoNtwzQX8ANPA1Lq3FalAKKuodCbsORV7PPBfl
-	 ayB6eIz2SVnpTucObi3SjtHvGnPgb+t0oD9viUwlv5aVT4nJWMjeI7fvQQoPtfLYtzQ==
+	t=1794236435;
+	b=tctOj+1Sz2csEiWKCrtXLzpokHCv1tR/VW8C9DJap+UAWAotNwjpm+U9wlS/nnJ9s0Hl
+	 PpS5ope0vS9NtQjUjZpfqTgck4O6XYrgpKBoqOPIpl+lTE5Ahw4yvX6DdE7cbR2sFj0mX
+	 CgrA22EaZAalzfVPIRLkq3inLXzRpp6SO6bz+G4+igC65eEibkn/fZxdxtsuIUSFUfFtn
+	 eOwq2+JuWUHa7i7vz3QrHcw/8LZb8jZLsJ6BbveufnsSTl3wxw/sQRR5wI/VZG6AEMSgj
+	 XuidmddehWUkYiq0+/wwyJm3u8eVykIIDMEh/X0Npeq92cAUidVFD+BuBNwRLFW4stg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236369;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236435;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=9kBySGtA1zaIj96oeS4c/VdA6rY+Dd0IQx9SYvPX/3w=;
-	b=uFS83zjIewV0Ujguxdayc4Ee9B3v1neyYgwvK6cCpia1WX/aqsPs8odBDr4d3EEEupNP
-	 4iq2CghU30P1Q+OPKyVzGRCAZrAfBaLlmgyodC9AOqDdKJ0wli+MWfZxZJtGy0XFMIdSD
-	 KVIkMxi7ilQ5wJ3oi1mWXf4P7Nv5oUgM8PB4+Ww2c2Tjq/UebBQHBo6EzyH5WUN7L+kWl
-	 R/e4fZy2L7aihX2+bqzcYTe2uJ4iMliL/lJ78IsY6Sh6ZmOhhwWt70pnOkY6y9NPIP7kS
-	 DSEmhC5FgcWIK5Fw+pKxBLG7CkaY3JKdjzGfZv02MUjMjl6sLM0X3Nb/4lwS2nr30Kw==
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yk/7s1DGK2LaMZgRPwzZnMgeWvDZ0DPNeBQ+fDXOGmo=;
+	b=F1jLbkCqkNGbKgqUtyKDJvFbKVkmTRuNHCPY7htKEm625OJjaadJZaxkq3m08QeO4tZ9
+	 tvBD3Pz4u2r1JMAZ+Iu0b2Hszfw3tKhI9TDLpjBDyjBZRQG1KRLNcn00tPvzD9TvhhHup
+	 ysIPYerb418iAEssnWyhWvEXAe+0ELI8uLxEK7etNFBeg7dnXqFpKFKLwEUNB5WcuknNw
+	 fr5eagLU25ncgjQp9P91fYjD4fDpIqxyW37vndUgfqv0UdKlltx/zSxtsRa5jX+XORK3D
+	 0DpcqOTUh5OF60OIlWNm+DgZU2UwSV7eM5PjC3QB4OCzTT3jJjZK3h6PCJb27cggkOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="d/rES4bt";
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NctNdtZc;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="DOdx/ZyL";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4C3606A33D;
-	Mon,  9 Nov 2026 14:59:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A4C3606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF838606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:00:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF838606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=d/rES4bt
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNXxW2qZ2z5BNRx;
-	Mon, 09 Nov 2026 22:59:27 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794236367;
-	bh=yUf9ZiOFIeuL9xUq1c7xwo9e4Y8iMnWWs2GPorLm9fE=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=d/rES4bteGhWVCpXyIKFkpq7l+ECyto7R3zWHoPCxmk+YN7kQMlE4CffoeR5JpMIU
-	 NrCbVwVPUuUSZ711O+YBB4v+EO41yMfwlA8h40wVx56uD084UEMaDf5PyFf1jLMJzF
-	 b0LNvaLCrmP2mJvp7RNXTIKkposwJgjFAkObQfNFqHd0ziYBpUGSplvap++NGUO6B2
-	 qqAEPWCSNNxaisXDIXF+26Uf+2tydYmNbKitWBfLhAVTsz9kkrC8obCNHoThznfgz0
-	 CpfvZgW21lueRlxcHjoCC2eFPq2BvX2FfbzhsvHKAwppSwPO6HdwnRIl90XuWxnH+F
-	 /V0fo2kkC5pKw==
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6A9ExHnq067559;
-	Mon, 9 Nov 2026 22:59:17 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 9 Nov 2026 22:59:21 +0800 (CST)
-X-Zmail-TransId: 2afb6af1dfc99bf-69794
-X-Mailer: Zmail v1.0
-Message-ID: <20261109225921056-4eg0BGEufMgtHypJbPmM@zte.com.cn>
-In-Reply-To: <20261109225914306SSjwaKCesNqNUj53kLV1R@zte.com.cn>
-References: 20261109225914306SSjwaKCesNqNUj53kLV1R@zte.com.cn
-Date: Mon, 9 Nov 2026 22:59:21 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NctNdtZc;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DOdx/ZyL
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DF20C2928715
+	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 15:00:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yk/7s1DGK2LaMZgRPwzZnMgeWvDZ0DPNeBQ+fDXOGmo=; b=NctNdtZcMYdvTKdT
+	/9OUZD/qmpDdrtC/gm7Dhj1O5TpiNZw9NlN9CRpWh3eB7qlyBIIHgLN+sV1rX8zV
+	MJzpTe48JkfeUiRyNCyeteqMHnGAAmhCVGAcYKVhen+Of+oCYTinBibwY2M9FPft
+	ijncgMxHX//+t5JRbYO0jkXtW0w5IsTGj1KhEDkQyuqaI7dZquDM/lOU1itfcVsw
+	T/GB8ImYwPcIAiES1xdoHvcwF3faS24kVpURJinjg2emlZdk91+COykXUDXO7vQk
+	r26J9x2Xpz+2YLx+kpeEdVFQy01oaWh95rIFUMdp3VLt8BJaS/mbouLk2o8GnBXT
+	B1y2FA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hubt8s2p5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:00:33 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed2803f863so10721835ad.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 07:00:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794236433; x=1794841233; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yk/7s1DGK2LaMZgRPwzZnMgeWvDZ0DPNeBQ+fDXOGmo=;
+        b=DOdx/ZyLJlw4ZkmpMle8SsW+CRgb65MC+VAbJiBuWwA8VeO/Ebmcqrejep/rG+l/gz
+         atbcAmQv3TTKEaP871jf2XLszUZwKrHvlI39+J6QDxdNcxFjpKyolBzIKuXW9r7yTM9R
+         RrCKKEAoT8aXz80M2SzAuTuAVQobB/wGxiVGud7fTHXAx9pq1t0t6QLoGHCfs0lvYvzx
+         TTD+AldQHtettdQXxkIrDUz5V/Jq0KxXLTlTozTkcKzJwKMYV+TNNrRvv9cWB8iQVXjh
+         k5aRDzlDHedPW+WFydneRE0NfQoHymXv0NqW2RSStauHNSVBvLoF3tgEqyvstUItv761
+         +QRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794236433; x=1794841233;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yk/7s1DGK2LaMZgRPwzZnMgeWvDZ0DPNeBQ+fDXOGmo=;
+        b=O2N2Wwj8ES7jaNoC3YNbKHN6U3rq0EKiRuP/QJM8fr/9dr2EoA2XSAdy7JNAcVvKGK
+         hvPWKHQiUCk2QXBLsR3RGjQ7mEDFdQPLwnUGG8kHWP/r8Vl8yarNLTYkB7yQ2U5zzdrZ
+         4TEFJP4Ec+DN+BeDrP6lTko/d4Sg0AGXWfvMUFVqJven7ShwrTn9+YKvtVIz3cMU4EBG
+         FdfEPSkl4fXP12NYeoKUvYMXrKY3QSbS9g4+qPpMoAEl8hb6x4MHTMqEchMKqG5xbvMH
+         M5CgTfLeO6GHB2b64Hthg5vxmCzsAvPrGJoHaROVcw9Vaid14bcNf0zhANDgEdveodET
+         h5pA==
+X-Forwarded-Encrypted: i=1; AL+hErFUixznF9zd9j4r0MCh+Czfv7AoUPprzECMAhqv9799xjGzDvtSRsUIR7AYlbxe0jUw/5AVEfk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xXs7ejd5dYQTcsnf8a4EL8K26uO5pwNlFYSSvdif2sVmOekSb
+	df0t9OQghaGsQdfBrOoFMC/REkIX630tQ30bLyUnJHixwuFkrPM6kSF5vXC61u1MqYBhFqICzOZ
+	W1c8P5C9lhakrqQs233qH8DRzfIIr3RyHCju5sCr2alAZzVou2ZBMEA+E25E=
+X-Gm-Gg: AYBFou3tDFbdFHNHvkyPERwYm6P1XWkWUNzLReUAZTyD9IFwLphQ+LOwtCxM/SAKoTn
+	l89Bum7RFK87yPiC5tYDGrGOfw0yIKAYBRqKoV1oHcxlWnOf7BD6nGmMXn+tx7mkV7VDlnajKKr
+	X9ffDOl4Fjp4UR6DZhjWiStolsKwkBPtqSvR+TyJammF7c48dSz/6sgGEEIefoCj55kmRV1onqF
+	jmT5xWUcJNl7jK+H08xHJ12FifHE4ZAn/h9lRcjaEYVPAwYMOXdVG1yTFvAHLF+HzRJV1jO3FfF
+	5KRRDIxL2z8wRhlAjDQs0zy+6SmRSeVJc1UXUlhqE2ds7igpo+7bSwHjKC04Sv7zVcVjwmBJQc2
+	/Mlv+TZuxJeK+4Hgvr58nu13/AThkqyawLBhQBgKG8QrWSmk3coVyqRw9w6zn8JOfd+wrUCN7JJ
+	xGWLjGSw22qEH5iLFLMJUWsz0akcfleEw=
+X-Received: by 2002:a17:903:19ec:b0:2ed:3f47:9691 with SMTP id d9443c01a7336-2ed8378c6cfmr48205585ad.42.1794236432482;
+        Mon, 09 Nov 2026 07:00:32 -0800 (PST)
+X-Received: by 2002:a17:903:19ec:b0:2ed:3f47:9691 with SMTP id d9443c01a7336-2ed8378c6cfmr48197085ad.42.1794236424114;
+        Mon, 09 Nov 2026 07:00:24 -0800 (PST)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed8173a8b2sm12837335ad.67.2026.11.09.07.00.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 07:00:23 -0800 (PST)
+Message-ID: <a39b1918-5d04-452b-8b5a-0703963f4587@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 07:00:21 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,132 +115,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <hare@suse.de>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvMl0gbnZtZXQtYXV0aDogc3RvcmUgdGhlIERILUNIQVAga2V5IG9mZnNldCBpbnN0ZWFkIG9mIGhhcmRjb2RpbmcgaXQ=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A9ExHnq067559
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 22:59:27 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF1DFCF.000/4jNXxW2qZ2z5BNRx
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] wifi: ath11k: release the rproc reference on
+ teardown
+To: Wentao Liang <vulab@iscas.ac.cn>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        workflows@vger.kernel.org
+References: <20261103102915.1341148-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+In-Reply-To: <20261103102915.1341148-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1OSBTYWx0ZWRfX4r5WdgzsBN7+
+ IYf6F5sIYfa69c4QJLriczHHpuC9F4CLxF6G6x9RE60bF9tMAljSgSlrS0HJOi2R/qQ55hSsKeY
+ SloPJ9nKuZ0iNiPSJSGdxZtAVvGAFP34yy9aaewELjfjqX7HKZN7ClHDBjs41AQEmolrR4YP8Xg
+ P/+Hfjo/M9xGbTRfc3epPDNIKJP5Gt+4kgCcVCSIZw1jGptP07033fmfRFUNqnbuncqJhkdR+VB
+ QWgyauGccJfGgd1xRUIwN21ghKQdcQCDoGbw8EVJe2cj5d+r51EfDzFYGGsEoXgfD5N1jrU3vpX
+ ExY1K/wzkPV9wXeNMZ3BKedsHBJkqG0ukTHAxPVNYWnR177Yq+UbGBOKfnGIk+87q4KBRtAegrP
+ fBbRH2QCNrXFmltAYuPnAlwHF4sni5TN4NAVWUygaXiEP0tS9O1xt62v3mEBUio5+i+rbnwfDoT
+ Oxi4RP0sE4ZdKWUb4eQ==
+X-Proofpoint-GUID: zVRQ6CxFLRvK1yy5vA57Fi3qYIUujAvu
+X-Proofpoint-ORIG-GUID: zVRQ6CxFLRvK1yy5vA57Fi3qYIUujAvu
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1OSBTYWx0ZWRfXxa5hW63xniIp
+ sf76LwgoJ1bodbBRAodNzzZ2+YumFvBNbsIoIC++TwUDoZOPIYUg7aLI9j4FTjT+5xw4puqUjTO
+ 1/m/uUPCbjMYa/8YPC5z9UZEESGlXpM=
+X-Authority-Analysis: v=2.4 cv=Yr+a1IYX c=1 sm=1 tr=0 ts=6af1e011 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=mvyCH3EIRwqJGMeifaAA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090059
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On 11/3/2026 2:29 AM, Wentao Liang wrote:
+> ath11k_core_get_rproc() looks up the target remoteproc with
+> rproc_get_by_phandle(), which takes a device reference and a reference on
+> the remoteproc driver's module.  The resulting pointer is stored in
+> ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
+> tears down the firmware resources, and the probe error paths after the
+> lookup jump to err_core_free without dropping the reference either.
+> rproc_shutdown() does not release it, it only drops the power reference.
+> 
+> Release the reference when the AHB resources are freed and on the probe
+> error path, so that repeated bind/unbind cycles no longer accumulate
+> remoteproc references and the remoteproc module can be unloaded again.
+> 
+> Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-nvmet_auth_set_key() accepts variable-width hash identifiers, but
-nvmet_setup_auth() always skips ten bytes before extracting the key.
-For "DHHC-1:1:" this starts one byte past the allocated string's NUL
-terminator, causing an out-of-bounds read in nvme_auth_extract_key().
-Other nonstandard prefix widths also select the wrong key bytes.
++workflows
 
-Use %n to validate the complete prefix and record its actual length
-for both host and controller secrets.  Keep the offsets as int, matching
-the scan result, so whitespace or leading zeroes in the hash identifier
-do not truncate the saved offset.
+I am no longer accepting patches from this e-mail address.
 
-Fixes: db1312dd9548 ("nvmet: implement basic In-Band Authentication")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest, KASAN) with host and
-target DH-CHAP enabled.
+Go away or use a separate e-mail address per person working on this project,
+with that person actually responding to review feedback and adhering to the
+Linux kernel etiquette.
 
-Configuring the same 9-byte secret for the host entry on the target and
-connecting makes nvmet_setup_auth() read past the kstrdup'ed string:
+/jeff
 
-  unpatched                            patched
-  KASAN slab-out-of-bounds in          malformed key rejected,
-  strlen/strrchr, nvmet_setup_auth     connect fails cleanly
-
-diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
-index 574025730834..e0fc257ab90d 100644
---- a/drivers/nvme/target/auth.c
-+++ b/drivers/nvme/target/auth.c
-@@ -24,20 +24,24 @@ int nvmet_auth_set_key(struct nvmet_host *host, const char *secret,
- {
- 	unsigned char key_hash;
- 	char *dhchap_secret;
-+	int offset = 0;
- 
- 	if (!strlen(secret)) {
- 		if (set_ctrl) {
- 			kfree(host->dhchap_ctrl_secret);
- 			host->dhchap_ctrl_secret = NULL;
- 			host->dhchap_ctrl_key_hash = 0;
-+			host->dhchap_ctrl_key_offset = 0;
- 		} else {
- 			kfree(host->dhchap_secret);
- 			host->dhchap_secret = NULL;
- 			host->dhchap_key_hash = 0;
-+			host->dhchap_key_offset = 0;
- 		}
- 		return 0;
- 	}
--	if (sscanf(secret, "DHHC-1:%hhd:%*s", &key_hash) != 1)
-+	if (sscanf(secret, "DHHC-1:%hhd:%n", &key_hash, &offset) != 1 ||
-+	    !offset)
- 		return -EINVAL;
- 	if (key_hash > 3) {
- 		pr_warn("Invalid DH-HMAC-CHAP hash id %d\n",
-@@ -52,10 +56,12 @@ int nvmet_auth_set_key(struct nvmet_host *host, const char *secret,
- 		kfree(host->dhchap_ctrl_secret);
- 		host->dhchap_ctrl_secret = strim(dhchap_secret);
- 		host->dhchap_ctrl_key_hash = key_hash;
-+		host->dhchap_ctrl_key_offset = offset;
- 	} else {
- 		kfree(host->dhchap_secret);
- 		host->dhchap_secret = strim(dhchap_secret);
- 		host->dhchap_key_hash = key_hash;
-+		host->dhchap_key_offset = offset;
- 	}
- 	up_write(&nvmet_config_sem);
- 	return 0;
-@@ -135,6 +141,7 @@ u8 nvmet_setup_auth(struct nvmet_ctrl *ctrl, struct nvmet_sq *sq, bool reset)
- 	int ret = 0;
- 	struct nvmet_host_link *p;
- 	struct nvmet_host *host = NULL;
-+	const u8 *key;
- 
- 	down_read(&nvmet_config_sem);
- 	if (nvmet_is_disc_subsys(ctrl->subsys))
-@@ -181,8 +188,8 @@ u8 nvmet_setup_auth(struct nvmet_ctrl *ctrl, struct nvmet_sq *sq, bool reset)
- 
- 	/* Skip the 'DHHC-1:XX:' prefix */
- 	nvme_auth_free_key(ctrl->host_key);
--	ctrl->host_key = nvme_auth_extract_key(host->dhchap_secret + 10,
--					       host->dhchap_key_hash);
-+	key = host->dhchap_secret + host->dhchap_key_offset;
-+	ctrl->host_key = nvme_auth_extract_key(key, host->dhchap_key_hash);
- 	if (IS_ERR(ctrl->host_key)) {
- 		ret = NVME_AUTH_DHCHAP_FAILURE_NOT_USABLE;
- 		ctrl->host_key = NULL;
-@@ -200,8 +207,8 @@ u8 nvmet_setup_auth(struct nvmet_ctrl *ctrl, struct nvmet_sq *sq, bool reset)
- 		goto out_unlock;
- 	}
- 
--	ctrl->ctrl_key = nvme_auth_extract_key(host->dhchap_ctrl_secret + 10,
--					       host->dhchap_ctrl_key_hash);
-+	key = host->dhchap_ctrl_secret + host->dhchap_ctrl_key_offset;
-+	ctrl->ctrl_key = nvme_auth_extract_key(key, host->dhchap_ctrl_key_hash);
- 	if (IS_ERR(ctrl->ctrl_key)) {
- 		ret = NVME_AUTH_DHCHAP_FAILURE_NOT_USABLE;
- 		ctrl->ctrl_key = NULL;
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index d7804bf91aaa..6a17cd9ee0a9 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -400,6 +400,8 @@ struct nvmet_host {
- 	struct config_group	group;
- 	u8			*dhchap_secret;
- 	u8			*dhchap_ctrl_secret;
-+	int			dhchap_key_offset;
-+	int			dhchap_ctrl_key_offset;
- 	u8			dhchap_key_hash;
- 	u8			dhchap_ctrl_key_hash;
- 	u8			dhchap_hash_id;
