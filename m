@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209308;
-	b=OtTE9GTPwlRfEaaC/Tfzx8/5wxoC8S3q7xdu6k1k/zeKvrgtXFcr4CcQy75wxL6U/8m9
-	 eW4XfPr3Zmye2SvMDpk3u+Ky3Njih4OeU4St95YvdlJRgc9IMJIQ1Mb5Iy1JhxNRxMIM/
-	 sbjQ6kFT8hz/8CeF2F2qgPusYfzvHF9YnEVKBOuVtmhv6DiKza7I8BFLFBvftjJscibPm
-	 O3CjNBsGns2Adgory9AaPlh+RR+3bWbnxrev0uKOMlJb7+CPy7vEVeerzh6wt+ISgl6nn
-	 uF3W3wj74VGHMwrOqBko7mc4w2Dy9iLI6rJXVk934sUO83rTU98RVtpPwaCwYyGZNsg==
+	t=1794209643;
+	b=zKhXnc9P79h0P+WDH5v66nh4PGP37ITQtqcKTihMkDV5FDAvT0TgV/E5F5uiY3zdMSs1
+	 8yruJiUhUb+AZeV8Lb9ydU/9/rh75egWIJ2WqPIyOvBz746HM0IYLtzZNai0RZxOc5Ktm
+	 1sVO5PVhwyed7DN466qh5un4Nkpqezuilty9BW5tfiJCv3OUhV1j/FjHuDlIhFobAO5dn
+	 7lAuXw/nGrNYjdvXak0xnmwg4sGjvAmE7G0aSOM0WIfSi1R1HOyq1xCldt50wAZ8JyRgH
+	 hwxEBzly0g9KNOVQChwfDzpsJHX34+YaaXdJjpPeRJ/feqNGbAyzjemH0O0wJBeh9lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209308;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lfRgp0HB5v+rLWnfxGc74ghZj5F8hfOmtA2x8+sLx9U=;
-	b=GYL16mR3i/jCkfVI0kW2uZwM4SEZbTWakiOVDTOeOi/RNlS4poqqu3lt0lqKlM1exvxA
-	 NXYbchrwmdkSKFQhQkBjNei70Z5OyV0lpbV0BXEBRkQNnlulzl6/CM2BCAFB6YkI6rpYT
-	 7P3bDpcq/jHjTb0UJJurXsB1yP0b2/uN7CNpBQQ80MSvWOQQLSNpQ9YHsMpj0WosBeP4W
-	 /s4NJYKsZiyS4XKfonbNs/WuxDU79Gf+K/ZOjUo30JYha8m3VzUrCMZNrB/Pkeq/SDhTq
-	 R8yhuwcVO9GWsUKFwJQVzAexBHLoPkDJgV93Y/g7bCLNdeeCYq2q1ykiqafTdO+RYwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209643;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=xUomCp3G+LfMvtKyqhwJAVOlhjISvM2EjbUQ5TP+saA=;
+	b=yL7R+jADtsYkT/VTDThpoFHoZD03tOnQRV/imdXfJN+EEA6k3QkquRNHd33Jx3jL0ECm
+	 kmJJ2ewcm+2hMl7vqzHc/LTrewqIsnyrLpQQX5NQCDjEMTQ3cppfDVPJeJ1dD89Flznar
+	 sL8HEjEHKRYd+EpQTlHHImZqQwqkol0TnjvLT1kJiQyk5JHxkg2FxInW4E00rV/ph+JrE
+	 LmLeLfsdf9uwiIKHvcDf1Lf60TLgrnlkG2hik7KLEUZ8ZkoikZ39Ih5fKoPUIqyPdAPwf
+	 Anz1FSJ6M59j4dmYgNyWOvptBzGLxDW2y7k7A9Hvo67vpxg7aspOZ25XdC4B8ahvGUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qrpwx+QD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofYQ8dJQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBAC606A31C;
-	Mon,  9 Nov 2026 07:28:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55834606A322;
+	Mon,  9 Nov 2026 07:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qrpwx+QD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6665D1F0089F;
-	Mon,  9 Nov 2026 07:28:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofYQ8dJQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4410E1F008A1;
+	Mon,  9 Nov 2026 07:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209307;
-	bh=lfRgp0HB5v+rLWnfxGc74ghZj5F8hfOmtA2x8+sLx9U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qrpwx+QD/e9tTfgssOt1QiwSM9tQF6DxdbhqjyCQOECcGIfhGhiMpoam2NWBmqeGk
-	 GSbfBrkTklkvw6yCCQ0/Nnci03UEhn9D4+lCNFQ3e66FcI2FcL43eOJCTWfPlRbpio
-	 sZ9iNrUNBYzLEW/OC0qWnIQupg+3W2FDfKPhPrcg5eI/RQlE5Ca9QIxGajRYkgUSHZ
-	 xGfzWKU71+E/C0DaTvkZ00XVUOlFiDPV5x5aECPD4Pmg+rzICYNLqa8YvqKcApiNVG
-	 UPrvKp6FXSzGZmlznZ5wDpcJ2IODIaGbjk2EIppKZW1UH+ZuA3aGzs++PUt5nFw5ZX
-	 7qPyWYjZzvDhA==
-Message-ID: <a602d227-fb3d-4087-9364-a0430958ec02@kernel.org>
-Date: Mon, 9 Nov 2026 08:28:25 +0100
+	s=k20260515; t=1794209641;
+	bh=xUomCp3G+LfMvtKyqhwJAVOlhjISvM2EjbUQ5TP+saA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ofYQ8dJQMRuSeejKWpsw2KtfaUmurR0LF1MhBod/ZZ3P41TEG4wozg3N48S1aJCzj
+	 t9AFBk0ss8klUBmdyPyZclxYESs+j2fT7t1S4CZHEjM1e7dUg2McfxayuCgd7mgkL4
+	 0gGmxlmPx/hQsgmz69CaRYPukLtkGR2DCJqzdMQCfv7b6rWiDA+IYM0Do96/wNxA4X
+	 Wa2IwtHgwzQ+1U0/2bokoAB8eROTfoR0pJ4MfgoUp/dC9A3HsrClmwbqTYQVGpugnD
+	 SQBQ9ImMZIS5t5PrlkBjLj1hNCbvyV0nw8ClQHEQANbUPZXPpFCsVzam2l8TjhxLJQ
+	 rVendOyk+RUmg==
+Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
+From: netdev-bot+sashiko@kernel.org
+To: sunyiqi2@huawei.com
+Cc: robin@protonic.nl, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ socketcan@hartkopp.net, mkl@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
+ luoxiaoxing@huawei.com, kuba@kernel.org
+Date: Mon, 09 Nov 2026 07:34:00 +0000
+Message-ID: <179420964075.994134.5840863564858819241@kernel.org>
+In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
+References: <20261105065931.1302-1-sunyiqi2@huawei.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,75 +63,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0728/1257] spi: ljca: validate the response length
- before copying the data
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Weibin Liu <liuwb@xiaopeng.com>,
- Mark Brown <broonie@kernel.org>, Sasha Levin <sashal@kernel.org>
-References: <20261107134939.434104957@linuxfoundation.org>
- <20261107134959.376834309@linuxfoundation.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20261107134959.376834309@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 07. 11. 26, 14:50, Greg Kroah-Hartman wrote:
-> 7.3-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Weibin Liu <liuwb@xiaopeng.com>
-> 
-> [ Upstream commit 0fe4573c822c4c9152e2fd5269ab85410c9e458f ]
-And this one is allegedly fixed by:
-5072a9fae45a ("spi: ljca: Don't require data in write replies")
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-thanks,
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] When a second out-of-range ETP DPO arrives, the new bad-offset
+  branch in j1939_xtp_rx_dpo_one() (net/can/j1939/transport.c) cancels…
+
+--
+
+can: j1939: transport: validate the DPO packet offset
+
+This patch makes j1939_xtp_rx_dpo_one() check the packet offset from a
+received ETP DPO against session->pkt.total. An offset that is out of
+range is rejected and the session is aborted with
+J1939_XTP_ABORT_BAD_EDPO_OFFSET. This prevents a NULL skb from reaching
+j1939_sk_recv() when a later EOMA arrives.
+
+> diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+> index 8fcfd13e5e6f8..bda50432a72ea 100644
+> --- a/net/can/j1939/transport.c
+> +++ b/net/can/j1939/transport.c
+> @@ -1823,14 +1823,22 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
+
+[ ... ]
+
+> +	packet = j1939_etp_ctl_to_packet(skb->data);
+> +	if (packet >= session->pkt.total) {
+> +		j1939_session_timers_cancel(session);
+> +		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
+> +		return;
+> +	}
+
+[Severity: High]
+What happens if a second out-of-range DPO arrives while the session is
+already in J1939_SESSION_WAITING_ABORT?
+
+After the first bad DPO, j1939_session_cancel() arms the abort rxtimer
+and moves the session to WAITING_ABORT. The session stays on
+priv->active_session_list. j1939_session_get_by_addr_locked() does not
+filter on state, so j1939_xtp_rx_dpo() can still find it.
+
+If a second bad DPO comes in before J1939_XTP_ABORT_TIMEOUT_MS expires,
+this branch runs:
+
+j1939_xtp_rx_dpo_one()
+  j1939_session_timers_cancel()
+    j1939_session_rxtimer_cancel()
+      hrtimer_cancel(&session->rxtimer)   <- pending abort timer removed
+      j1939_session_put(session)
+  j1939_session_cancel()
+    if (session->state >= J1939_SESSION_ACTIVE &&
+        session->state < J1939_SESSION_WAITING_ABORT) {
+        ...                              <- skipped, already WAITING_ABORT
+    }
+
+j1939_tp_rxtimer() is the only timeout path that deactivates a session
+in WAITING_ABORT:
+
+    if (session->state == J1939_SESSION_WAITING_ABORT) {
+        ...
+        j1939_session_deactivate_activate_next(session);
+
+Once its timer has been cancelled, that path cannot run. Does the
+session then stay on the active list for good, still holding its
+reassembly skb and its netdev and j1939_priv references?
+
+Every repeated bad DPO would also queue another J1939_ERRQUEUE_RX_ABORT.
+
+Before this patch, a DPO in WAITING_ABORT only called
+j1939_tp_set_rxtimeout(session, 750). That re-armed rxtimer, so the
+session was still deactivated later.
+
+j1939_xtp_rx_rts_session_active() already documents this hazard and
+works around it:
+
+    } else if (session->state == J1939_SESSION_WAITING_ABORT) {
+        /* Force deactivation for the receiver.
+         * If we rely on the timer starting in j1939_session_cancel,
+         * a second RTS call here will cancel that timer and fail
+         * to restart it because the state is already WAITING_ABORT.
+         */
+        j1939_session_deactivate_activate_next(session);
+
+That workaround came from commit 1809c82aa073 ("net: can: j1939:
+j1939_xtp_rx_rts_session_active(): deactivate session upon receiving
+the second rts"). It fixed a syzbot refcount leak that showed up as
+"unregister_netdevice: waiting for vcan0 to become free".
+
+Any of these could avoid the problem:
+
+- Return early when session->state >= J1939_SESSION_WAITING_ABORT.
+
+- Cancel only the txtimer here. j1939_session_cancel() already cancels
+  and re-arms rxtimer through j1939_tp_set_rxtimeout().
+
+- Force j1939_session_deactivate_activate_next() when the state is
+  already WAITING_ABORT, as the RTS path does.
+
+The out_session_cancel paths in j1939_xtp_rx_cts_one() and
+j1939_xtp_rx_dat_one() use the same cancel-then-noop sequence, so a
+shared helper might be a better fix.
+
+>  	/* transmitted without problems */
+> -	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
+> +	session->pkt.dpo = packet;
+>  	session->last_cmd = dat[0];
+>  	j1939_tp_set_rxtimeout(session, 750);
+
 -- 
-js
-suse labs
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105065931.1302-1-sunyiqi2%40huawei.com
