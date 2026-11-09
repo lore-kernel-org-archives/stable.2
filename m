@@ -1,103 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204679;
-	b=INjsTpGszqF7XmwsbCzZFlUyGUG2nyHPtte/7IvgryWUpuqAky/z358BVJtaMsiKJcbP
-	 oqAGNdj4OzSkg8ZMnRWwRA5jqZNVJKGr+jQVcIsJcL+OIV2l981n77OxwBM654u4kp+Ja
-	 YH87XZjRZ/F/wdMYrXTL3lDjPld1NlAKS6z73dTqgXCUvWU/ipapIrmSLgwUOmgKa9cIq
-	 qQ2VbHtF94CO13u1/6cIgXmrpyi1OMHfZnQ3eTBPEot5wBQWKoB8rUdJpeI6VyGJQfvlW
-	 uqhu4/XJ4wdmUvyFQhaATmEzlFD4koxXEKD0CpCxn0WBEFUlsMBBIS05A3l7j4Cj0mQ==
+	t=1794205319;
+	b=nyNdd1MlUJC1e4fqHl3Vg3kxsUPPbDHJ0x9fjOC+rWH7PN1SxHbqayeGwciFdjmL0zg6
+	 jEtHTJlb2aq1/cxEh8oZixptUTBczQTFW0gnyc1ufcm8Sgm/c1WY4wUcmJHAu09iZUZrF
+	 0yyI+RhDke0CQuH3IHVm50Zu7iaFM3T9hj5q7rMlW9wbIhLm18ofa4yc78xhJ5Delgc1n
+	 X4To8tmGDqzAIn3Xt7enynApS2yZ7MyVLka5+Nl/Y5iVerYR9cz81CqFT5KaWAtdJ/lAz
+	 e95TUiSnIIUmsm5xAm+1rZ5bPxtx84IJc++eRjCLwqW9qh0W/6x7Vjoa7uNplNOss6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204679;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794205319;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JkolMb8tFJSidUGyY2kChnqwpp2TCm0729AY/AotZ6o=;
-	b=kqbpBkbjpHbT880ex1+hJWs9PmeijIODZIWvbc1d2jSSbWURIq2rUW37/nqNdOqTANVs
-	 P1kCvGr1bFT2LwvHddK88HZBXowNFoUrwo1d8M9bGe+f3ubm1aMuFOQ045N0MbMnxB+RM
-	 F/UP78kMWULt2ZhqhnyBcYlGIXv/tD2kWSJ0xk0S2qlnnPOHBvQbuEgbHFAbrCI6q073K
-	 hykUnOjIADaWuzG3IUpHMr5Wvwuvk17VTKhgkJswJ7PpbhZUztudFbWX6f4wx2G05IDXr
-	 yRy+wb7P7qdjwevbcYYvn5gzNSpIwX4r34mXuyXfJMQdFuPYKud2CCVTP44lpgWJHOw==
+	bh=j96X4UIakiFHOKxgOngYS1UNzbH0JLa5PG4yrQQAi7M=;
+	b=wfGLBaeobXCBZ/s+bo25CQHjbkyG8A0fBKDLY7ve3eSenLHnJkaFUZknQQP/6Ulq68Ph
+	 zamgZRy91tg33x0ItDiWkdMOkXCX8xQBqLyeslnrOa/gUV24hFZegwwkOMimhqvYRyg4i
+	 vndkfUxqErzTY83igiMS4jxnSbRaPNFfZKgUfw0qATdW6Bs0vFfjYDCSxOr0RKPl/7NM8
+	 gf7teOStpOjbgCUyGBdP2TFfvf4WF0h1OniXrH57qUcc1CKuzI8zCVIIGVgtyj2ybCV4X
+	 nQfHmq2UA6SHb1oh1Srs12+X8PUAeJPKRjVZROz+3sZ+bRs9lj/IYOfsvIYUP8f6deg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OfplylRo;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E1E606D81A
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 06:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95E1E606D81A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iU4iQnii;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A636A606A338;
+	Mon,  9 Nov 2026 06:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A636A606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OfplylRo
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36f6295304dso560341eec.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 22:11:19 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iU4iQnii
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794204679; x=1794809479; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JkolMb8tFJSidUGyY2kChnqwpp2TCm0729AY/AotZ6o=;
-        b=OfplylRoXH6zxkHdL811mTnHG1rZdYJjL1UcZLThcV+XmWvQYL4ogoK/zr1hb9sGIo
-         ceYnn4cXghVQFjG77gaIyVwaJUz8isqOcypuV6iWqxcvSpbqtMBCyJTsTl/3YCLr10pk
-         DrST9Xfqhp7P1pdZUuplHwm7emcMy0r7CkTs3kJRFqmIb6Aj16anRW6AMlBIAqTaOyiN
-         0hVnTtctIONIf0zDd/5DbeR4wDq12Y7NbW06FKYXagBs12se2OE4Mv6v2RgAu7lco0h1
-         s8MPJmlfz9t1mMP+gQmRMegX1yq1ANlxvieenGqG9l+JcEyISzYlrzk7/8gxoQqjyN/C
-         So8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794204679; x=1794809479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JkolMb8tFJSidUGyY2kChnqwpp2TCm0729AY/AotZ6o=;
-        b=wDsoeoA2Uw0xq7vGvOS09Fbs9dRPfsaFSyZmdk58c9vtTJvAYEwAVAX/3LWV7gvvlS
-         870daClS/gTbee7mH80NXr2YTQd6mG5svIRlso/L4eXZsRRWh3iN8D5R7oRG6a1JHhlC
-         Mh8k2hTkOyrULgE+bsE9JLmM33V5h8MFFich3RWPD9sOXySyVJMJvEygUiZEOd1q5MwV
-         fi8BbwuwrLRdpAJL/ASv44rU9aupcRAwYEYBb3OG6CVgaCYJC3oGvAfpRrxAVHZrjJwf
-         gQjuNk0dAIhXkCt2T4bNpvbwMZT7kmRoOoPZ/qZVPZEDmioJ9vx8e/g4k7IYnS0Xsrm3
-         QetQ==
-X-Forwarded-Encrypted: i=1; AL+hErGpoPBUgdv99ZYia1W48iCxfZWaThGsbfXOjaIGsovjFmz6hs/1GWekMboDgegA38sEeE2GzIw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P2FAD04PGTzOZkOG8JI3ZKvEnledQYsojADOUuEa8sXNviVSb
-	2ZsRO4RtFvyv+Drbmk0K8EBaPvB7/A+Lq1BHIP5wvNZ/GyUxkng47EJe
-X-Gm-Gg: AYBFou3Reoeb49DhhABJClicYGJSNmo/mCGeF5R6eExdQfz7ovCLttD/VC1X18lEvcT
-	v7lcTPzHeO4I4K6sDUodMhRqdfnFt8gcCopDWYOQSVQd7rB69PX+QbLMu+ljsQVKziorgE+qKQv
-	h74LFxDgeFMwwVFovGMe+RpFW26tq/g/8zEDmGjrlyxBVbhZJPCJRMv4n2kb+TTAavm+NYdmcmu
-	BcqfjoG7AfX535RxmGTxJpmSrYz7IdtSwboe9ALyxjkojkeKn/entOA4BZychO3VR1hyPDHTxdm
-	4RCAUnGUk5pgjqId6k1N2X/T01us/k5LAc6o/9+DfXDJn1wu5hFPN2tilYrjSnkskrNuAtC/X+D
-	83qYttjayJsiYcam45AhgRpvoLOI7LupRayNHtiB6yJqNQPEVLEmXU5ZW6J7VOaR5CVghoKp1be
-	STtgF8lyouzNb/dHdpuwW+j6GRvAttO9uWQn3Zy7r2/Gi2SLBvfo/cemWJlLyID+FtnfM1fUmHD
-	5bna3fIBrXAhl5wvRmbmbkzpQtQIV4ysxWfnEKuKlIeFtliV3XksK2Asjw86f828ymLTkEH9jqN
-	EpnbEELcSQF5mX1JX3TvaBwRgHqZ9PNe6tpBx6noDCZ2gz9ZzDZYAUL0seD5z5Q5NPvwlAsA1wS
-	V/aqgts2xKweCmrtk
-X-Received: by 2002:a05:7300:268f:b0:36e:ff7e:e57f with SMTP id 5a478bee46e88-37256bed4c7mr5983858eec.19.1794204678753;
-        Sun, 08 Nov 2026 22:11:18 -0800 (PST)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372661ede11sm12201192eec.21.2026.11.08.22.11.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 22:11:18 -0800 (PST)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Gideon Heinz <gideonheinz02@gmail.com>
-Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Hans de Goede <hansg@kernel.org>,
-	Edwin Velds <e.velds@gmail.com>,
-	Stuart Hayhurst <stuart.a.hayhurst@gmail.com>,
-	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	linux-input@vger.kernel.org,
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=iU4iQnii/lD1wRkQCZGge8sjA5p+MWo1NFE/3JAqaMnHo81Y0Zzwfm6Ai2geDnwwP7TftngeGCfP2
+	 Vzpyo2myHSYcPUKyTfqKaEiBoP4ShwEpLiO97OPN8rs+3+84j0cM3rc3ETaRpKxxTZqZqvKhSU/jbK
+	 Jlx7QQxpuIKKMJJY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af16683e00-9d193;
+	Mon, 09 Nov 2026 14:21:56 +0800 (CST)
+X-RM-TRANSID:2ee16af16683e00-9d193
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af16680c6d-8374c;
+	Mon, 09 Nov 2026 14:21:55 +0800 (CST)
+X-RM-TRANSID:2ee36af16680c6d-8374c
+From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+To: mst@redhat.com,
+	david@kernel.org
+Cc: jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 07/18] HID: logitech-hidpp: fix off-by-one in G920 force-feedback slot tracking
-Date: Sun,  8 Nov 2026 22:10:51 -0800
-Message-ID: <20261109061103.2887636-8-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-In-Reply-To: <20261109061103.2887636-1-dmitry.torokhov@gmail.com>
-References: <20261109061103.2887636-1-dmitry.torokhov@gmail.com>
+	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	stable@vger.kernel.org,
+	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+Subject: [PATCH v4] virtio_balloon: drain update works on probe error paths
+Date: Mon,  9 Nov 2026 14:21:52 +0800
+Message-ID: <20261109062152.1097-1-zhaimingbing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
+References: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,48 +79,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Logitech G920 firmware reports 64 total 1-based hardware effect slots,
-reserving one slot for the built-in autocenter spring while allocating
-the remaining 63 user effects across 1-based slots 2 through 64. Because
-the driver subtracts the reserved slot count upfront before sizing and
-bounds-checking its slot mapping table, the 63rd concurrent user effect
-is assigned hardware slot 64 and exceeds the stored limit, so its slot
-mapping is never recorded or released and remains leaked in wheel memory
-across device close and reopen.
+init_vqs() arms the stats virtqueue callback, so an update work can
+already be queued on the system freezable workqueue while
+virtballoon_probe() is still running.  If a later probe step fails, the
+error unwind deletes the virtqueues and frees vb without stopping the
+works, and the queued work runs after the balloon struct is gone:
 
-Keep the full hardware slot count for table sizing, lookups, and slot
-bounds checks, and withhold the reserved slot count only when creating
-the input force-feedback device.
+  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
+   update_balloon_stats_func+0x121/0x300
+   Workqueue: events_freezable update_balloon_stats_func
 
-Fixes: ff21a635dd1a ("HID: logitech-hidpp: Force feedback support for the Logitech G920")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+remove() already handles this via virtballoon_quiesce().  Factor the
+stopping of the update works out of it and run it on the probe error
+path as well, before the queues and vb go away.
+
+The same hole exists when init_vqs() itself fails after
+virtio_find_vqs() succeeded: the stats priming can fail with the queues
+up and the callback armed, yet probe jumps straight to out_free_vb and
+leaks the virtqueues while the queued work still references vb.  Unwind
+inside init_vqs() in that case, stopping the works before the queues
+are deleted.
+
+Also reset the device before del_vqs() on these paths, like
+remove_common() and the virtio_net/virtio_scsi error unwinds do:
+without the reset the queues stay enabled on the device and the next
+probe fails in setup_vq() with -ENOENT.
+
+The drained work takes vb->wakeup_lock in process_wakeup_event() and
+finish_wakeup_event(), so this depends on "virtio_balloon: initialize
+wakeup_lock before virtqueues are set up", which moves that
+spin_lock_init() to the top of probe.
+
+Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
+Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
+Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
 ---
- drivers/hid/hid-logitech-hidpp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index a1a69705338f..c4c878c9061b 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -2865,7 +2865,7 @@ static int hidpp_ff_init(struct hidpp_device *hidpp,
- 		for (j = 0; hidpp_ff_effects_v2[j] >= 0; j++)
- 			set_bit(hidpp_ff_effects_v2[j], dev->ffbit);
+The wakeup_lock dependency is now in mainline (161aa708b02c).
+
+Changes in v4 (from sashiko review):
+- reset the device before del_vqs() on both error paths, like
+  remove_common() and the virtio_net/virtio_scsi unwinds: without the
+  reset queue_enable stays set and the next probe fails in setup_vq()
+  with -ENOENT.
+
+ drivers/virtio/virtio_balloon.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 8c1b47ec1..b30a0ca26 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
+ 	finish_wakeup_event(vb);
+ }
  
--	error = input_ff_create(dev, num_slots);
-+	error = input_ff_create(dev, num_slots - HIDPP_FF_RESERVED_SLOTS);
++/* Stop queueing of and drain any pending balloon update works. */
++static void virtballoon_stop_updates(struct virtio_balloon *vb)
++{
++	spin_lock_irq(&vb->stop_update_lock);
++	vb->stop_update = true;
++	spin_unlock_irq(&vb->stop_update_lock);
++
++	cancel_work_sync(&vb->update_balloon_size_work);
++	cancel_work_sync(&vb->update_balloon_stats_work);
++}
++
+ static void update_balloon_size_func(struct work_struct *work)
+ {
+ 	struct virtio_balloon *vb;
+@@ -633,6 +644,9 @@ static int init_vqs(struct virtio_balloon *vb)
+ 		if (err) {
+ 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
+ 				 __func__);
++			virtballoon_stop_updates(vb);
++			virtio_reset_device(vb->vdev);
++			vb->vdev->config->del_vqs(vb->vdev);
+ 			return err;
+ 		}
+ 		virtqueue_kick(vb->stats_vq);
+@@ -1075,6 +1089,8 @@ static int virtballoon_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		destroy_workqueue(vb->balloon_wq);
+ out_del_vqs:
++	virtballoon_stop_updates(vb);
++	virtio_reset_device(vdev);
+ 	vdev->config->del_vqs(vdev);
+ out_free_vb:
+ 	mutex_destroy(&vb->balloon_lock);
+@@ -1115,11 +1131,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		virtio_balloon_unregister_shrinker(vb);
  
- 	if (error) {
- 		hid_err(dev, "Failed to create FF device!\n");
-@@ -3480,7 +3480,7 @@ static int g920_get_config(struct hidpp_device *hidpp,
- 		return -EPROTO;
- 	}
+-	spin_lock_irq(&vb->stop_update_lock);
+-	vb->stop_update = true;
+-	spin_unlock_irq(&vb->stop_update_lock);
+-	cancel_work_sync(&vb->update_balloon_size_work);
+-	cancel_work_sync(&vb->update_balloon_stats_work);
++	virtballoon_stop_updates(vb);
  
--	data->num_effects = response.fap.params[0] - HIDPP_FF_RESERVED_SLOTS;
-+	data->num_effects = response.fap.params[0];
- 
- 	/* reset all forces */
- 	ret = hidpp_send_fap_command_sync(hidpp, data->feature_index,
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		cancel_work_sync(&vb->report_free_page_work);
 -- 
-2.56.0.506.g506a7eabc5-goog
+2.43.0
+
+
 
