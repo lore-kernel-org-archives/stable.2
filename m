@@ -1,88 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256244;
-	b=XL3ZCfQwU3U0NRgyMYLUpeXCb/hadEM8mCwSh7j0uYoE06gRLMPUzUzdhs64skq0lwM1
-	 mC0OnAUDs8QWeOqKB/HLMBC+XZ5BRjp6Xdoosu1wrL+MiPTt3IeI1PXiNSdSZu352LBPj
-	 SelTi4gzGhosRytg3itD0G8ry7Sz8+BUX2rp6U8QizJajBcANJ7IhoH/V0rNwjV8NCOHT
-	 p+d/i0d/NtgFVlRTgz/6ufLY9tKYH1kN0RHYkwQ7XLnW14QhTOGtvUsdyodvPLrWVgz54
-	 kY2kX7VJQVG6FniKMlmQCKHAPNZNIKJYEkCE+pGfXgzUsufbLRZUxpLhePiUmjwr0yw==
+	t=1794256484;
+	b=wS0jxdZNHhjzSOyxAR9nY9hF5GrPfMM0A9IBrr6J5Jh7pMFK96pMF0for36VnnpMUWjm
+	 eOEZlaUJiFW+sc+xaSjkT8XWKpQTZSTvlGGFivB5lKkOzZrb/uO4kiM8WLO422/plMc4C
+	 n9xk9i7GVfwtyLuf2GrhpqRFiEgGXN1h1ucVEglbqxqqXe+4H62i/7uUs0OXcwgXibIjK
+	 LD50gZ5n45CDREQHCTIKb0gmQCWl5GA6HX1GRWtRuu85LXDVBjb5UYPLVG+oMIDFZ114W
+	 mUChxzTuCxvdJTdiEN2AvurWDo8ZOXAT7960kPkF2okQ2iEKmjbiiq750v52NKoamFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256244;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256484;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+tMX62hpYm7986gg5n8urKNYmz9FWSZU4tmvG1SnovM=;
-	b=cftt47hKiKztAyEv1xBOyxriifk3E9qmMfu+4HhKqZ9U1vb1LdGeQrCYIJLJXriygKnc
-	 s492H6QXQ+Y7yNx5Dxq4P29NrMm0P8nI7icO2g3dwnp0XPGK0K9c8llHW+8qTnj0Q5Y/c
-	 R5tT3c4xp1oUydAuwEX8FxzQgSub0TRLic7K2c8tiOsg3l6iawxI6M0/1vY+m6FZ4ozOp
-	 wr9ipi4s1on604nvR9Ym2sx4/GSoTRjN2XmJznZXSzAwzOfzxfLzmBUbpjkjNMHkkT976
-	 1n1Y2NNiOI+Z8mnhMBeq4Q2cm4dAjMxMvZrBZOe3WhGH+SjmqZLjGg/F0jGWUooPQRw==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=IBxWV0bMHBiaBYABre4CeRklD+VEvSYRbNLDT7mR5OE=;
+	b=RN5asxxDa+C+NRD06mKOA3HnznTWgoorot/ZtXOs6PkcJkdApV8SsFmGHM6nD99zEcBt
+	 wNCuFiMU1WYvwi9+6/C6t4mP11tm0X/uACYIAZrHlQZ04GsGH375YVy/FglkNaktDfY8R
+	 IAfGTVRtCKpsPm+KDzDH1xvk2j02+ArKk74LP+qF5VYuN0kt7eCQWkcFnJB6L17lU9sfX
+	 E/EFz19AwQ0LTXOut7AVmQw+pPVUNPsvA89AKE64PrlW/In821VC5sryn1g4442XOjP8W
+	 vfcIKCmgDxx59eDxpq44fNd8f6Dc3yG7cML+uezCe+Xkbekg9kXnz/QovamxL7NLYnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VEhyVY7K;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c9TmK+9W;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90961606A325
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:30:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90961606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87878606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87878606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VEhyVY7K
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so15953565e9.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:30:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c9TmK+9W
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-490f38e9688so1063132f8f.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:34:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794256242; x=1794861042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+tMX62hpYm7986gg5n8urKNYmz9FWSZU4tmvG1SnovM=;
-        b=VEhyVY7K42NAxTw8H2+GjeVz4ETJMueGbExtxQRoLg3PbImG65GKtXb+CzJOTr1zRS
-         c/R5pZGxgciPVhJInqhITwICQVjnQsI6ez+h8kRKrSxOYe7qHB/26wEF4ujKkYKiC6Gy
-         RTPYbtH2ePG5GJhLQsEGOCv9XjnmeiL+jBYMwfpP8c9U42loUfWhJiT60iBkjfyQgZKq
-         1j2J/6oAbhvyWK6iHS73Vs/q1iF7C8E7xbcQ/w6tL8H8YCC0NdJ6pJtRosg//YNp4VB6
-         efa1BS8wFx5YYiJtkxAfoLJxGeKWfEGsw6dQ51lGZuyOUZ/N/ksb0WtujasW3qct6ayq
-         dS7g==
+        d=gmail.com; s=20260707; t=1794256483; x=1794861283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IBxWV0bMHBiaBYABre4CeRklD+VEvSYRbNLDT7mR5OE=;
+        b=c9TmK+9WzrGyvd+dKsPN5CRanNi3KrAxYt7LKAN24BULUbEELTKz9a3REq0gnaF1eU
+         96dkvLHUhT+Dey24BA803kWLvqWppZfKGlgK/KTSDJWb8BEvoi7SQKLyu0+qFBBTQre6
+         c3ApfaIZXvk4P+K3nfi3o4lJT5hPfKjNev4vephwJOukoaCVqawno6zNEU4T8EiQ2QXW
+         9yEl7K8t58m72puXrbI19fiGd0WImOk5Oiyyr49pOh9OIc3MUl6WSRXs2+54rV0TOQsK
+         Ia7OO0PJANNhk8znn9Z2t/YF+YVTLM0vpswHDvvA4LmBeyZ/HMzX3fo3LpnpsBPzg7u7
+         xlGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794256242; x=1794861042;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+tMX62hpYm7986gg5n8urKNYmz9FWSZU4tmvG1SnovM=;
-        b=IU7S4deKmf+TqodzCWcWJMMunc91vP7L3UqsJV1gUUBEbQ+r7GFJlcG1GrXYbUGJD+
-         jexFek9Gan1/2uLkvIXzeClc3IaB4E/sbkWB30Kj+3ydId78hHSpD1/kfOqLzyZfbGc4
-         3VeRNcElVBqSAnj7dVe+Onns69fBWvZwo2/5KHgV42+e0+74TFaqel0/5EOZaAScAF73
-         UR0dvyEA55n3b91+Jbsd9FfjT5m3N+twopYXWKcuzWxmkzjhqiuT/aH9Outzfn8qI6dZ
-         K9564OMsgLDUVujrmEAIIF5i47OhNvjopM8OxErJb4iEz2RB5kaGR+Qk4eaj/J1pFzAi
-         9tWQ==
-X-Forwarded-Encrypted: i=1; AL+hErERf4oH4DjH+eQO3AZ7rkCVv5gL8X3zsafimd89cxwljABjybXOV/MjAo31ZfmNv9yqIt/5X/k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qurM2Df1QPaTPqvvYQe94YR4V3r/0yTS8D08UldHYRTit7Iy/
-	Gg+OgJQ0ulZWV+yHcjxWdBqbceP4h1RpUY7+dPt3lknfe1yCCDvid/lizAFaD44ATkw=
-X-Gm-Gg: AYBFou3VvtMjs1luiPchwE6uX7nZW/AaXqA+CFkYH/Gte1sfvwxkMzPGqm4Z1sJ1+3m
-	phMYSM8qYnel7KgszR1tWYIUF+cjRBb4qi9OHY+5Qx9APYGj04FCvCMjbKTx2NwWtjblwxK21lC
-	JBAaSg56KmFRM3kaZ8OXnUbfGfRKNZEA5srEV4KYZyDj1BJmEdMk7eVSKq1TkZ97KV18EOD23Bm
-	B/hNURHNsJq6wxrGXS2Sexv5hJALt2FLIsaxGvx+qI95gm5Pnuy/MncQk3P9UZxgzrXrlwzKfV/
-	71WmDwggQyv83CfWuN3+Ej58PZlrwdv0k0dUlDxgdAvY/EF7AgHCMBKTNsOf1OGLGJnZ/jpJ+v7
-	Lgm5ZVNy3kw+qEQuApBp7+bqnajL4AcMba4K0W4pgzJP+IR5xQ7tckQvHs4YQQjESed/NfvoE3+
-	k97ITDAyaaUPJfVxpaAQRfTNJnuYZS9q1d+ufi9dlPXbotDTs9/SqDZIze8/X4+B5b9+hNArdxg
-	g+sBaqmtuDwamRS+No1i3s2YCyMWEqM1CNDG/9+BYeiTX4jVHlSbwUw/eucjQgE+mjQfkLnAocV
-	9DUH2UngHmsoHK1UYDqWXmM=
-X-Received: by 2002:a05:600c:3d05:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ba0230519amr6586835e9.4.1794256241974;
-        Mon, 09 Nov 2026 12:30:41 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16769b589sm831706a91.5.2026.11.09.12.30.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 12:30:41 -0800 (PST)
-Message-ID: <70aa1a4e-895b-416f-a3cb-195af489b55e@suse.com>
-Date: Tue, 10 Nov 2026 07:00:34 +1030
+        d=1e100.net; s=20260707; t=1794256483; x=1794861283;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IBxWV0bMHBiaBYABre4CeRklD+VEvSYRbNLDT7mR5OE=;
+        b=eXEO8Bepuu0QnUgx4EwRbIMopwPJ4asbURGZNEIDbxQl8utID/dlSM9JUsN77WxrHt
+         RtwHDK6zUhqzsZMTvU7XV7wr/cJGk72Af53Q4NjtTEtI4gN1dQuttnyCVa+yjIZQ1POb
+         Xxk782FsmfEpTo71amGwI7vFQxRU4Tww8W2luRgNxJTSItfl9Hlk356iAqUlMPEUyx9t
+         KSMlfnCBSyOYRSv0uEhZvr+tQn7t80UR89EO2yonNRxVYphKjgQSpeew2IA0q43GbBvn
+         glgKD3AudyvKLztNGfMee+t527ltKfL5GTtHyn1Eb3Nmfnr7s/+SnHYX80xf1ehsfxWE
+         mCmw==
+X-Forwarded-Encrypted: i=1; AL+hErHbN1efGtBtzGgq1I5cmJT25Zha9LCr1gc+EZSQomdxL6pyaQIPyIxmZl0QHY6CoVgMzcMRTd8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WtBQWk/xRn5fI5pAzAsXP26xf2DSUJ5h7H7YwqUuPUx7Zvfs8
+	uCNu/oOPths6Nhq/zZajq7cIbXZurCynI8F5GKbGQn0BITAV1d2sbCV1
+X-Gm-Gg: AYBFou1MlkjLBbe7Hd+8lzWSDHr2tdScCW/SWZSyHComLmb035nZKf2ZIRcp9ckJIBG
+	SDvTT8qwwgy4CjYyqC39E2k4j80WPJkGUpWLuECobsUQI9pj39oa4sRC+N0sx0F8YhbblXcsFVx
+	Umjt88/3p73OjurZcHFs+tBZHXnF8hiWbAttb+5/FunSDgbXLvKU/SqFo7hwdxCNxtEK1Z64MYY
+	crJG3UBdTsa9HRLsLO/A6ja2ixsmQtlkuhKW/asB2XCM4d9U86d63KuuZHgzhyu+gyULpS+BuIu
+	3g8NsBSnCy2HbAZrX23PZQ6+uc6AsvOzLuMS+HsrMR/amo7fZduIj+ZV/BO+MvolhKuJwNdfHSz
+	gqqI7AsZloTrkP6DLavV2DHSyNyeJ13tV9LdESw8ilGOOze6Eo+BsSeOdYgeSkVxYKdo4D34Nyw
+	8lx4qQblQVjlonKQsXvMtXy9haG1uAlRpAhgAHNTfDCHlsKtBCGoA3MsHzJqKH6fsoMc6Rj2niS
+	n4bWqjpVsG0LFClKxNiFBKDpRkUJyYFdL0M1Z04ryW8sEpa06XNmSkqmHHAZUHSpMqVo1AaUxbB
+	NNIPtHv0luo7+uZaOQcG3+LixhDPOd92hRe1WqCn1/nAaDZx9kD14jpV4qk=
+X-Received: by 2002:a05:6000:4b10:b0:48e:678d:396e with SMTP id ffacd0b85a97d-4982e362a4emr1059772f8f.9.1794256482703;
+        Mon, 09 Nov 2026 12:34:42 -0800 (PST)
+Received: from foxbook (bfj76.neoplus.adsl.tpnet.pl. [83.28.47.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498365cbfc6sm917789f8f.41.2026.11.09.12.34.41
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Mon, 09 Nov 2026 12:34:42 -0800 (PST)
+Date: Mon, 9 Nov 2026 21:34:37 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, xuhaiyang5@hisilicon.com, xuetao09@huawei.com,
+ caiyadong@huawei.com, suzhuangluan@hisilicon.com
+Subject: Re: [PATCH v3] usb: core: hub: Re-guess ep0 maxpacket size after
+ reset
+Message-ID: <20261109213437.5c693895.michal.pecio@gmail.com>
+In-Reply-To: <3daf18d4-4936-4ed7-8846-b67f1664be13@rowland.harvard.edu>
+References: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+	<20261109093935.2634235-1-lvpengfei20@huawei.com>
+	<3daf18d4-4936-4ed7-8846-b67f1664be13@rowland.harvard.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,72 +102,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: reject refs=0 subvolume without DEAD in
- SUBVOL_SYNC_WAIT
-To: dsterba@suse.cz
-Cc: Cheng Yongkang <teel4res@gmail.com>, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261101062539.1744605-1-teel4res@gmail.com>
- <a92d223b-55fa-493e-821a-e5acc8afee08@suse.com>
- <b4962b1b-bc5e-4302-8456-73b9b8a6474b@suse.com>
- <20261109184712.GF4186782@twin.jikos.cz>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261109184712.GF4186782@twin.jikos.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-
-
-在 2026/11/10 05:17, David Sterba 写道:
-> On Sun, Nov 01, 2026 at 05:48:21PM +1030, Qu Wenruo wrote:
->> With that said, there are more problems with the ioctl.
->>
->> - No real user
->>     No one is utilizing BTRFS_SUBVOL_SYNC* flags. Btrfs-progs itself
->>     doesn't even bother it.
->>
->>     So all these fixes are very low priority, unless there are some wild
->>     programs utilizing this.
->>
->>     But even btrfs-progs doesn't utilize them, the possibility are very
->>     low.
+On Mon, 9 Nov 2026 11:05:30 -0500, Alan Stern wrote:
+> > diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> > index 199d3f535a89..d86bbba1457c 100644
+> > --- a/drivers/usb/core/hub.c
+> > +++ b/drivers/usb/core/hub.c
+> > @@ -4969,31 +4969,29 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+> >  	}
+> >  	oldspeed = udev->speed;
+> >  
+> > -	if (initial) {
+> > -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> > -		 * it's fixed size except for full speed devices.
+> > +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> > +	 * it's fixed size except for full speed devices.
+> > +	 */
+> > +	switch (udev->speed) {
+> > +	case USB_SPEED_SUPER_PLUS:
+> > +	case USB_SPEED_SUPER:
+> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> > +		break;
+> > +	case USB_SPEED_HIGH:		/* fixed at 64 */
+> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> > +		break;
+> > +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> > +		/* to determine the ep0 maxpacket size, try to read
+> > +		 * the device descriptor to get bMaxPacketSize0 and
+> > +		 * then correct our initial guess.
+> >  		 */
+> > -		switch (udev->speed) {
+> > -		case USB_SPEED_SUPER_PLUS:
+> > -		case USB_SPEED_SUPER:
+> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> > -			break;
+> > -		case USB_SPEED_HIGH:		/* fixed at 64 */
+> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> > -			break;
+> > -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> > -			/* to determine the ep0 maxpacket size, try to read
+> > -			 * the device descriptor to get bMaxPacketSize0 and
+> > -			 * then correct our initial guess.
+> > -			 */
+> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> > -			break;
+> > -		case USB_SPEED_LOW:		/* fixed at 8 */
+> > -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> > -			break;
+> > -		default:
+> > -			goto fail;
+> > -		}
+> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> > +		break;
+> > +	case USB_SPEED_LOW:		/* fixed at 8 */
+> > +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> > +		break;
+> > +	default:
+> > +		goto fail;
+> >  	}  
 > 
-> Obviously the ioctl was added so progs 'subvol sync' can use it for
-> non-root users. I started working on it but there's a problem with the
-> behaviour change between the user types. Root has full access and
-> reports the progress while with this ioctl there were some problems I
-> don't remember. The ioctl was designed to emulate all modes that root
-> can do so it should be possible to get 1:1 output.
+> The usb_ep0_reinit() call belongs here, right after 
+> udev->ep0.desc.wMaxPacketSize is set.
+> 
+> >  
+> >  	speed = usb_speed_string(udev->speed);
+> > @@ -5062,6 +5060,9 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+> >  				goto fail;
+> >  			}
+> >  
+> > +			/* Sync the guessed ep0 maxpacket size to hardware if needed */
+> > +			usb_ep0_reinit(udev);  
+> 
+> Not here.  And not inside the retry loop -- ep0_reinit should be
+> called only once since the maxpacket value is changed only once.
 
-Are you still planning to implement the full root-less subvolume wait in 
-progs?
+Sashiko pointed out that xhci-hcd may not perform ep0_reinit() properly
+until address_device() or enable_device() is called.
 
-Or is this feature deprecated and we can eventually remove it to reduce 
-LLM bug reports?
+So it's either this kludge, or dependency on an xhci-hcd patch which
+didn't exist until today:
+
+https://lore.kernel.org/linux-usb/20261109112846.04bfeb0f.michal.pecio@gmail.com/
+
+Regards,
+Michal
