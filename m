@@ -1,69 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216818;
-	b=iOs/z2DGEsdtDxaRyMrGTW2j0VWeOK92gCMDRyh/r85R4xIrGa6lx7C4kwCa4cO8NUvP
-	 dtGaVpfY5SdUnL7g6R91vfnJIPaeY/PnLQKvCBkvtX18yUCAFUXS/munZyK4yU42kMKV6
-	 DyyLCx9cTJ7ecpUaS/hv1LcYQHHgZKsXMzeRMg+kVy3dEya4H9Cbfu1V9VxUIxOQe0Lua
-	 9fWpOyy6ieGDaGM19DEY8mv1eh3kfaCU9GFBQs2ksb/9+yJTsTHKfT3ey5bBbHpY1uYUv
-	 0Lhqa9gIAxqChFyow4vXvrVqIDS2RB8w4vera61BrgdHg6lbe5MUE5R4/oIgJ6pKJxQ==
+	t=1794216543;
+	b=S8KgMwdbeMrEJBJBqKcezNbv56Ymf5yxv0myQMPF2v2d2WFkcjmO2USms3Btqlh/jPT7
+	 KRBDa5vvANwE19lNsbamfvVg1ZAYDvcRYN9iLJQV3mjuUGuCaye2kut7O+MoYBQWPVh48
+	 3B3c88nPFC60dXQmpbUZQdiq+hI52mY+4gBfrQ36x/RjVmgs8KyUdIR98y6tzr3ri9gDQ
+	 zDMLnQoFsiz9CY4JP0kN4CZlQLS8KpZleIP3KIa673nfkxTe96lEdU9v00iMHR6RLsj3d
+	 Fwk5CG3k7GSV7cyEqx8hAiSTLjcNXufjtAfBFFKWv8cEQ1h/dBj7NAw5HTB/nhrfWVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216818;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=tdrqNXvbOJfnmlPst0iypdpdKmNbCcqOM+pkeWm09qc=;
-	b=mnLpGzEdVEg0aBSo6ggIQvi7vl3gRlnQsa0FOR6SwaHp3lzjYFdUHCAMydn22qot9Shx
-	 7JNScjykwM2uOZA/VeJM3ecESpohKfwD3UyrjnU//g8d4v67XsUDeRw8YsznB9OxraSgf
-	 k83sNuqwYEvmO8D0hEuQGaCwHbNYIhZoylemxwhk3um869MA3nPqnl9mf8sIq1HV77qcK
-	 pUo7hCqBTRHYAb4a9qnrQnSy4tLNWdHqPcE9jUWJHZWRaaDKHeNk3PWayhUBGqrJhGWlQ
-	 3eMRx3i9MY2jIBMtQTDtNbwNj3tCjgUh6aMRvkrEtaY+SCBFSyTpUQnaF26EKhMLYeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216543;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=qbotQLjDf3or+XZjbpPemRjx+1SgujjO0xtjN9X3lDA=;
+	b=cUTaPSdbWglLrlA9gcL7weMN8SxkvsS/zLNStE1kJcpy51hNaeSkK1mXw5uaIVyILxFz
+	 kxC2BraxsCdPR8tpOdJ0lOwq/F6Zd8wWdX+iU1Ej14vAi+Uxt3AXR0N9bZ2je2OrzYdUy
+	 l+U9IhP4XonXguet9hEyJKfYmN+fqpRs0FaFefAYPJciL/LTJ9cvQ2vqZwfi6l0I6Oe2p
+	 9SdP/Yt9+AnSfiyMuTYohT74rHIYb/aF98ixi/0omU2bfpVUPmGGcOCSmfeFSD+AejuXB
+	 xPrhLHMzzdYmsxKjhnnIQ70xbm6toi4Gx4DXFd+q2ORjddGjbzzArgX6MlOwHvZS1PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XFhDgguA;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TMPBuRgM;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=5wFJED7x;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91308606A321;
-	Mon,  9 Nov 2026 09:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91308606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDA360A2631;
+	Mon,  9 Nov 2026 09:29:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDA360A2631
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XFhDgguA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794216784;
-	bh=tdrqNXvbOJfnmlPst0iypdpdKmNbCcqOM+pkeWm09qc=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=XFhDgguAQjvgw9TZqisvDJsFQxJ12Vo+EtmHyNwd/1jkzbMQ1ASLm96lYiq03V9Vm
-	 /YNRzyLOSEGgQo8vTULvk5KrNnMAobqDKIP8Xo98wREsDQxfKDQpWfmBCqbBO/iBRl
-	 pkzbTmcTsfNgo0H/qP6LSrZfUWgk90zKosWNUmPQ=
-X-QQ-mid: zesmtpgz7t1794216768t23ed94af
-X-QQ-Originating-IP: QejUh9wpFsrmFWP65cpzSdFpRsHVcwdB0Drmsw1YPsU=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 17:32:45 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1809446386184203717
-EX-QQ-RecipientCnt: 9
-From: raoxu <raoxu@uniontech.com>
-To: sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	hverkuil@kernel.org,
-	laurent.pinchart+renesas@ideasonboard.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: ov5645: Initialize the default mode
-Date: Mon,  9 Nov 2026 17:32:45 +0800
-Message-ID: <2870CBB9F723E453+20261109093245.3777610-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=TMPBuRgM;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=5wFJED7x
+Date: Mon, 09 Nov 2026 09:28:59 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794216541;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qbotQLjDf3or+XZjbpPemRjx+1SgujjO0xtjN9X3lDA=;
+	b=TMPBuRgMfcZC2xpY7N9my+VphR9mTSYkZ193bWcVkMjfiLc98ljD5PZluPULHfdx8ZUlOx
+	lvIr9jz2WMs880/5OVMTr7jpBUeZZm2jry9FLB6GoKbfIbcEW+hLuBcN6lWVbyF6U5ooCj
+	GlqX9B3RAXbNJimadp9430ykyli06oc6o9u+TBiDwl3tFDYOWkjvaNVdh7zJeM9VA3GsIy
+	H5qfKlmcd7Y0D4LhRi3ow9NyL+dHAXrwtcc6Hwt+EtKENzlw7dIphUY/bfmGUPRyq9nrwx
+	qJkEyEVRz09st63E6gDyrFDyhqTEGvJ3OZ/rVZtcTDmyhGZ8hgifANWb1KtWmQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794216541;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qbotQLjDf3or+XZjbpPemRjx+1SgujjO0xtjN9X3lDA=;
+	b=5wFJED7xWb80DROVtvoHSkuuxmExKcbg44XLtr8xlXy7Dukc1GQKrjBta9kUP7vlXpDHge
+	WSeuNKaJ9gAQSwBw==
+From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] sched/uclamp: Reject clamp values above
+ SCHED_CAPACITY_SCALE
+Cc: Sashiko <sashiko-bot@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Ingo Molnar <mingo@kernel.org>, Vincent Guittot <vincent.guittot@linaro.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261102134831.243255-1-parri.andrea@gmail.com>
+References: <20261102134831.243255-1-parri.andrea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,83 +80,179 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: M5AoSkhGr8pkVSUAhN/flHLD3yDWrYYyCw4RC58g1HIH0DJUa50p6TwE
-	DnNDPju5fCtm0bek4s4XvXAGPKrdM1dvbFqseimZZ4K49hfZy0B7eZlEPjEItQOi6AAtaxF
-	w1WrtN224pqhp8ztbQI1dYVPHJX7QQky7w0inRIll1VY05s/3/2dbl3Qz9S7YdMDoQKsK93
-	iclZdjMfJQba6Atbc0tW8hAA/k6mVKJq01oQBdtycKgFplVQwS/Qt9QEYvptNrDE5xkmDFK
-	diSOsaPM1+V1+zJP1K/efTao0qGoBGoS2PF9BUYlHx4zKK3PH+5GcIuInmO4+D+aIoR4vkX
-	zsIj5ZfUiMRY7Qu/a3C7axVUBzx3PNLp8hWWVjbyIv/UdkbAJ5RTFLJtAvPxUfSA46RaUwA
-	MKca76rX46dSV/j/kwYCIUj8a1KswcNFHDwFiWFTh3iL6y7ltDv9qjOsID+txSeE2Z3cd0u
-	tx67JVV5qiuZZ3hX9oKs8mdtnfBbv0O58Po4ts6eVbKlKNEyAGfZi38D4rp6wu0tc0R5aVS
-	yB3jJ+yBXRYjGmKiQQ3Ps1UdVffeplfQVmNMFiP1MPS9kxGZIngN0gJPs+YIBx6lRZNTBzd
-	Ykr+lnpoJ3aY41QO66gHC9q61AVUOXeFsrPrO5cWsGVlRF0xcL2is1cML4xZ5hvWFpRw8V0
-	axwv0slFQHuLjTOWA/KZ/ARDR83jCDaJ44jSNVo4smrrC8Ul2vDwk34ZlpMZxgEzfyrelmK
-	A16AuN5eB2H50RerllXKf83/GJSVMCU5Gh8tPuaRJ1ClPrOEm5WUNMAmMyBadY+LJ1UV2yL
-	Jn0AlAKnUUloODDBiu/Azja55jzMtCw8FrLHqZnLWD/CJgwYdilDlENBsrncsihoc49tHu2
-	Xax/tz6NcbdIqfvYHbSeGiJK4TAqCnrY+iQsZGort6e2LKC8MVKep3FoMzyUxuHzCE2i+Lv
-	urxq5JJ2Ph3YGI7sDdc1e7q96Y3Q9q2DaN6k3HEbHam2mD48E98pNLi1TXIoddhv1TJ85QP
-	s+yqi2kP4WvewOInUJKCcfYO7rBXY7RlSTndKIZ04ss2XFq9IJ
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Message-ID: <179421653983.2093942.7959311069663921093.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Xu Rao <raoxu@uniontech.com>
+The following commit has been merged into the sched/core branch of tip:
 
-ov5645_init_state() initializes the default 1920x1080 format through a
-TRY-format operation. As a result, ov5645_set_format() does not update
-the driver private current_mode, which is only changed for ACTIVE
-formats.
+Commit-ID:     8127ec8458df29bd702db602473042ccb9e619b9
+Gitweb:        https://git.kernel.org/tip/8127ec8458df29bd702db602473042ccb9e=
+619b9
+Author:        Andrea Parri <parri.andrea@gmail.com>
+AuthorDate:    Mon, 02 Nov 2026 14:48:30 +01:00
+Committer:     Ingo Molnar <mingo@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 10:09:10 +01:00
 
-Starting streaming without an explicit ACTIVE format then dereferences
-a NULL current_mode in ov5645_enable_streams(). The pixel rate and link
-frequency controls also use values unrelated to the default 1080p mode.
+sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE
 
-Initialize current_mode to the same 1920x1080 mode used by init_state(),
-and use that mode to initialize the pixel rate and link frequency
-controls. ACTIVE format changes continue to update the mode and controls
-through the existing path.
+sched_setattr() accepts sched_util_min and sched_util_max values that do
+not fit in uclamp_se::value. A single thread can do:
 
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
+  sched_setattr(max =3D 800)		returns 0
+  sched_setattr(min =3D 0xfffffffe)	returns 0
+  sched_getattr()			min=3D2046 max=3D800
 
-Fixes: f92711869c53 ("media: i2c: ov5645: Use subdev active state")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+which leaves the minimum above both SCHED_CAPACITY_SCALE and the task's own
+maximum.
+
+The range check in uclamp_validate() relies on the + 1 wrapping -1, the
+reset value, to 0:
+
+	if (util_min + 1 > SCHED_CAPACITY_SCALE + 1)
+
+That only works for an unsigned type. util_min and util_max are int and
+SCHED_CAPACITY_SCALE is a long, so every negative value passes the check,
+and so does INT_MAX, whose + 1 wraps.
+
+uclamp_se_set() then truncates what got through to the 11 bits of
+uclamp_se::value, but computes the bucket from the full value. A minimum
+of 0xfffff800 is stored as 0 in the top bucket, where uclamp_rq_max_value()
+takes it for the highest active clamp once a higher value leaves the rq.
+The rq clamp falls below what the remaining tasks requested, and emptying
+their bucket trips the WARN_ON_ONCE() in uclamp_rq_dec_id(), without any
+privilege:
+
+  WARNING: kernel/sched/core.c:1862 at dequeue_task+0x2a3/0x2b0, CPU#0: repro=
+/126
+  Call Trace:
+   __schedule+0x933/0x1320
+   schedule+0x36/0x100
+   do_nanosleep+0x61/0x190
+   hrtimer_nanosleep+0xb5/0x1d0
+
+Make util_min and util_max unsigned int, so that -1 is the only value that
+wraps. The pair check below is unaffected, since it skips -1 explicitly and
+anything else is at most SCHED_CAPACITY_SCALE by then.
+
+Requests that were only accepted because of this now fail with -EINVAL.
+
+The following program triggers the warning when run by any user outside
+a child cpu cgroup. With this applied, its 0xfffff800 request fails with
+-EINVAL and the warning no longer appears:
+
+  #define _GNU_SOURCE
+  #include <pthread.h>
+  #include <sched.h>
+  #include <stdint.h>
+  #include <sys/syscall.h>
+  #include <time.h>
+  #include <unistd.h>
+
+  struct attr {
+      uint32_t size, policy;
+      uint64_t flags;
+      int32_t nice;
+      uint32_t prio;
+      uint64_t runtime, deadline, period;
+      uint32_t util_min, util_max;
+  };
+
+  static volatile int stop;
+
+  static void set_min(uint32_t v)
+  {
+      /* KEEP_POLICY | KEEP_PARAMS | UTIL_CLAMP_MIN */
+      struct attr a =3D { .size =3D sizeof(a), .flags =3D 0x38, .util_min =3D=
+ v };
+
+      syscall(SYS_sched_setattr, 0, &a, 0);
+  }
+
+  static void burn(long us)
+  {
+      struct timespec s, n;
+
+      clock_gettime(CLOCK_MONOTONIC, &s);
+      do
+          clock_gettime(CLOCK_MONOTONIC, &n);
+      while ((n.tv_sec - s.tv_sec) * 1000000 +
+             (n.tv_nsec - s.tv_nsec) / 1000 < us);
+  }
+
+  static void *bogus(void *arg)
+  {
+      set_min(0xfffff800);
+      while (!stop)
+          burn(1000);
+      return arg;
+  }
+
+  static void *worker(void *arg)
+  {
+      long v =3D (long)arg;
+
+      set_min(v);
+      while (!stop) {
+          burn(v =3D=3D 800 ? 300 : 1500);
+          usleep(100);
+      }
+      return arg;
+  }
+
+  int main(void)
+  {
+      pthread_t t[3];
+      cpu_set_t c;
+      int i;
+
+      CPU_ZERO(&c);
+      CPU_SET(0, &c);
+      sched_setaffinity(0, sizeof(c), &c);
+      pthread_create(&t[0], NULL, bogus, NULL);
+      usleep(50000);
+      pthread_create(&t[1], NULL, worker, (void *)500L);
+      pthread_create(&t[2], NULL, worker, (void *)800L);
+      sleep(15);
+      stop =3D 1;
+      for (i =3D 0; i < 3; i++)
+          pthread_join(t[i], NULL);
+      return 0;
+  }
+
+An LLM helped find the warning and write this patch and its tests.
+
+Fixes: 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp constraint v=
+alue")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
+Link: https://patch.msgid.link/20261102134831.243255-1-parri.andrea@gmail.com
 ---
- drivers/media/i2c/ov5645.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ kernel/sched/syscalls.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-index a8d740ed4dc9..e77d70078097 100644
---- a/drivers/media/i2c/ov5645.c
-+++ b/drivers/media/i2c/ov5645.c
-@@ -1024,6 +1024,7 @@ static int ov5645_probe(struct i2c_client *client)
-
- 	ov5645->i2c_client = client;
- 	ov5645->dev = dev;
-+	ov5645->current_mode = &ov5645_mode_info_data[1];
-
- 	endpoint = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
- 	if (!endpoint)
-@@ -1095,12 +1096,14 @@ static int ov5645_probe(struct i2c_client *client)
- 	ov5645->pixel_clock = v4l2_ctrl_new_std(&ov5645->ctrls,
- 						&ov5645_ctrl_ops,
- 						V4L2_CID_PIXEL_RATE,
--						1, INT_MAX, 1, 1);
-+						1, INT_MAX, 1,
-+						ov5645->current_mode->pixel_clock);
- 	ov5645->link_freq = v4l2_ctrl_new_int_menu(&ov5645->ctrls,
- 						   &ov5645_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ,
- 						   ARRAY_SIZE(link_freq) - 1,
--						   0, link_freq);
-+						   ov5645->current_mode->link_freq,
-+						   link_freq);
- 	if (ov5645->link_freq)
- 		ov5645->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-
---
-2.50.1
-
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index fb8f332..98be11a 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -318,8 +318,8 @@ static inline void __setscheduler_dl_pi(int newprio, int =
+policy,
+ static int uclamp_validate(struct task_struct *p,
+ 			   const struct sched_attr *attr)
+ {
+-	int util_min =3D p->uclamp_req[UCLAMP_MIN].value;
+-	int util_max =3D p->uclamp_req[UCLAMP_MAX].value;
++	unsigned int util_min =3D p->uclamp_req[UCLAMP_MIN].value;
++	unsigned int util_max =3D p->uclamp_req[UCLAMP_MAX].value;
+=20
+ 	if (attr->sched_flags & SCHED_FLAG_UTIL_CLAMP_MIN) {
+ 		util_min =3D attr->sched_util_min;
