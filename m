@@ -1,93 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222053;
-	b=ZJbQ5Au3QbLl1cKuxD49q5tACQrplWWH7bZs5Dwt8PHfP7d5pvc1z6NhZBqN6FXzHoM8
-	 8eb4w7e1cOPv9p3OkM/rDfQ7m6XRnEeb942gGIPxD8oNJFi01KPrl1ZVBR6oV2PetyvLV
-	 oAiBUb2oEvw0HXY+m+3f8mRMEjMgrtpn+F/5uKfWrQDjkqG+eYtC+73e5PTSCVtclR9rW
-	 /2J7qSjbT7I0/1A6hnCYV2CDesXkWDJlXNO8N+0vdXHtZuggP88gabV8VcNuPiJu7h4b/
-	 qgxcxs6WC+V7oVEYvVZOqWMvluH/HU9ptoXfNwNhdx1WPOTYXUB9tGpY2PQbT/a5Hzw==
+	t=1794222309;
+	b=I899nSuJFdcch/pH/bkMPgvcMvjWjOtxpLR1fvuJYw8rWLa5IcpZ97PoMABckW9/r4Lv
+	 PR8vCNg3yyewvq/fYQ6N5oGA1hlC/p6GmJoxZ7+jznoLkyud/rXsEfBwdFIeI3XfIaDgj
+	 0QbTNgapG415Zt0NZM8zdKnhQ9T8U7bpcETk38bD0L4pBW9KfGHDYfd0DppKMqkrZcffr
+	 r3AsMa0ieSduDeFffdlOKLg/DCmclu/+FwU/xPjnacyzHaAJF2suwZODsfgiZUy4Tlq8u
+	 TZ5Mqw4ucwd13pjjE26A5r5cQWKYptO8GmOQDCHlMNfUJewiQiHT5T8bjMI3bh/rq0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222309;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4iXeY4iqUL9ww0pQAAvwhem0iOVjitiOYOwOdTHElEs=;
-	b=mYO51RUbXCEVUwi2nwUIeJO5907vcmzPW0WMCdn1/nqzT9jfF4hwxgPTo4CAun0BZEJK
-	 RRM+EEgTBjy35r8r3J7zkYAi/lpkY7giLgkMQMX37LgF/q8i8CP2BlJRV50Xonml5ANfL
-	 LjKOp4PX3T2pc5byoCnlw+Gw737l8oxkD1jBtC9MzAmD3I12JOT/gspC/zgUdk6CW+Igj
-	 9b9XeT137+81SZDyxRSNjfAIBzbG7GgDtNP0iH3yPEtgDaEXIDxGqG71KC6QtTKyItIoD
-	 DBZ666JTi+UxBMVLOI52MG2k2KurmyfKAkeX21AabEkA9E32+fA3LRYJvcxfp7Ja1Sg==
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
+	b=YDyNli0nfU4OYmZqxmkC+MDAbaPIiBDNhO7gSloi8YNZzy+TzO+WbtJmrqayR1D8nUDG
+	 MUeQMR71VuWnTGVTOgZtaJzXw7oBFc+sZIHEgKG1/WO+8TLp3V8zuFgELexN63SBVatI+
+	 bAVDNYdTipDQhcyJQ90mqz0a0Fd5nAvOVJ0pMrvRrLxwremZp02dpKsV9cscd6gFy8Ekv
+	 SDkR0h8zq0Vrvmd8EElsh/c3GjrW3fcAJE1qMflJxcsfuyhGjIEX+/6sjQQ+EHqOIDG91
+	 GI9nyBZttSMquMwURCAT5XVYtav5iIy6FQnc/asWw5I5pYMkRCAPLMIej1bbAsIqw9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="dgb/Ob6Q";
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NSykZstp;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B429606A334
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:00:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B429606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF3D606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF3D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dgb/Ob6Q
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1931ff67a29so1897280c88.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:00:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NSykZstp
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso638417f8f.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:05:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794222052; x=1794826852; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4iXeY4iqUL9ww0pQAAvwhem0iOVjitiOYOwOdTHElEs=;
-        b=dgb/Ob6QI01rMx87etoiMX2YGgi3uwE/Sja9pTJwEvfOdLa2+5qs2+VS6YOXYKcz0o
-         +MYkHXzbIujBKtLr+3+/93zEKoJg4unV/zBPOa8JTwqEAaP+yZL/T0E3hNKjKTG3BPPr
-         CmFFzSFLrx62/7MGwPsbC1zVXA2mBlEbRBsAjYQV80MumER68suOgFPiQ1It04NzVpu8
-         /Dto9EuhNnMIm+uR+juvruLO2NZMd/M0uttdxPkDAoQVVesrYjah6ILq3Vwu28JYsj80
-         gGYqrgt1eeZK54+oMZBd3gYfSnTnv96ZQcDaAt6PYwA3wywyYtkRX8q7zQ7SF7ZKBQmq
-         q9PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794222052; x=1794826852;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1794222308; x=1794827108; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4iXeY4iqUL9ww0pQAAvwhem0iOVjitiOYOwOdTHElEs=;
-        b=R69koVFwQtW3oV3wtkamO54iXgVB5Twc6zGCT4ifPMJjhcc8a9ydRNRrVSEyOB6jH1
-         4YwXqT6TG8as9wxWwXbfh8WomR8Papg5qEbcRtSMMjbpOtOUJnIPg5k+1iza4mgnt2uI
-         BsmY24stV8NvCl6tvYVeOQCjA3qGg/tLlgfygLVvyCQt7H5/RPL4oJvqNu6IN8lpVPKg
-         zqy/9ApMTOdjIygx6IeZRayLdjeqOLG8RLt1QxbeAzvZalH+Yx2ofWOK/dJH53tGZFE6
-         eWksvouEM7nn/mgieQi3d1aDF4OPCHMdt4WANBV1DW+PT0phbvX7190gEHCw6BprBHx6
-         XOyQ==
-X-Forwarded-Encrypted: i=1; AL+hErEHlBrBbzoO+J6nNeV+rSmCZ00fKxK3h5qnPZQ9HhFveBJCbYyei1mbL4tuKGY27KvakSjI1/k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qFDo8f7PsQl5bQ9Hoa6qaKTmXWykFFZI1widnv8NMcVskS72u
-	m/twBiQPWHnyBnCdo5gwapPmvZ5dxeQnYDFMJ6TCybqJrmDPkLtKqJms
-X-Gm-Gg: AYBFou14rHU+kjS+UH5HsOOYdrTjUY431lWf3jcTYtYlj2VU9NBEBLLceuL0I/7KOHB
-	0ay7l7MbX1iLsx5mFnxvpGDGjC+K0dKtLVg5E9aYcSd3My4NqNnoBjzXoa5H3BLBjSEV60KBx4n
-	xy6ugvO0PDr4dwETFE0FLNh6PfozSsl8BCWfVZHha+fafDo40QE8NGtPrCdEHW0GslouOSlc1xu
-	VGHWD9JBLMdufJgIQ/bV48CvFmW07CPdeuo+/XDytzTGfvyJIwrA7Rl1KbGcQwTmdbbnjiJb2ys
-	FJ9tJneFQDxODi2T77xaWR7IN321+BchZax0yOammA/t+pRVDJ3I90IIP9rQ6SR2TozvIS6Gblz
-	V38jgLnYVz7Nw9B+KskGrl+UgVdI73S90s9Bs4D16WZniMwp8M9pDOLnjtdPws9v8fkQmvOIShP
-	9BK2UM8VE9y7Rgl20ycMuthehILNQYu0kZBcTPwoZDGqQzeXxpXMNVnhE8Q0x/9nldZURpBgqaq
-	q8ESSGykAJi/1HJRv6TKE0/7OpEWYZlkABHePeofb4WWtjGvIMCFpnf+ud0UYZJOTZt4kcQGOVS
-	YAfglrBds863j5hT4RobjtNl+YAj0I6WR9UdjfT88Zf42vSw
-X-Received: by 2002:a05:701b:2092:20b0:151:5d01:9316 with SMTP id a92af1059eb24-1b39fedc89fmr6555851c88.23.1794222052154;
-        Mon, 09 Nov 2026 03:00:52 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375604109sm15407609c88.10.2026.11.09.03.00.49
+        bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
+        b=NSykZstp9oTiKUgFJ3UzxLehU62aPWxwFq90PnmqrOYywES4i4AcOzHYZySAY1pVwq
+         vwmj6DHH3dVkrhVibCHxQeVt+OxzQ5uX7hZAH05pO/IwWLrsGoc9ifYl79A1NCVf6A17
+         IoynvVz/C3YGak6RNV2fLBOpdZMypVS2K47ZFJrlTWQ990UhOgQWQ3c1ir05/s+hZJS3
+         HRJISrQT5YoW7RzT89EFMH7RBi6fKBzrKxwQ+L19Ps9oopbaBFlubCxu8MnCwlhIeiLj
+         RJjHDHMDIim/9IDvZQ4j4IwWOOMgf0O00+xYtIM6x+s2hBymV3bGjwWA1h8Kw2d4rg5B
+         TqFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794222308; x=1794827108;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
+        b=mYel7Oh49TK4V4+puEivfqrqLf+9gkA5aiysw+/eWQfDDCicSQWtzPeZ3PdkAJAzUI
+         U/8c3Ro6TSURNu1Jxy9hBm5uhS4j4eHVEVWU834YMFq46wg4XpJX62LR4xsf27/5qtY5
+         UuWcIrUKCVQyBgVQwMP7URoDbu5SJp/06hWIQQWD8NGAFQw5qPLC3zAVf+Xxy2N5y4Jd
+         PgB1GtsjcwUydcFVshCaCJYCSuBFA3jkOsNhwnzFUyiT356XZFWMaIwrn2B/KIdYFYCZ
+         aXKl1K9pKv0qIGbgUVbDDc4ZTl8xewUqhPDyQg3Z2zF4auI9mtwSIhhqdcJ6c57P/Yn0
+         lsEw==
+X-Forwarded-Encrypted: i=1; AL+hErEPvhCn/NJH8ldv8w3pAvrh8X0Qaz4EOqF8NR2M3J+7M1dbeIbNq0BF0fXN8drqjdXUtPxw1X8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ULwtw0IApqavIrLsEn5R/ntyYzUaaoZYvftByW9uoudKHp95c
+	R1C1uK7dHZD7YT/ESd9S1I4y7gZZiHI+jKK/0UYNK7EDnuVLFNZ5tKjNEyk+ByFz2oE=
+X-Gm-Gg: AYBFou1e3MjRBGauoWj3kNZQfb2/WNdDX+UutlNDCASQDTeC+I3eTqUlSdS8KcRLRPJ
+	X6j3ai3MYUIiKZuyjVyZlVzVC0w8JBbp9SsHcCMBvmch7YAeaTsYQAmyiJhysuC9c4hXsE7R7yp
+	xc3zYdtN0o/ZO9dA1y6at/Vku8YxzDxaWeKkdD8qL9Zjyq2DYmguR1u8Eq0gIl3d8JIQgPCzban
+	KvXHwUWjbl2rR8/SOn68NtGNFQnivUWd10gJIJrRdL1FcEnS/C45X88YP9VlcC2wvpdCX5Ky1cV
+	AhzmYW65momY36wCoBFivTI8xgFTBZqQxBRmlqIbSkVXVMoUsoxT8UYtZrNainnmNvpyu8jDv4C
+	inREgGF/lrkeRPKUYhc8APE9Z1TpcXGQtuKZVTMyg8SRbS/xjR/hVKbnXe6E+5/SgqK5Z3RaxLb
+	0MnWXbfKY3MrsEw7NiU8PT2reZ0Q5ZoYiu4Huk42TngAXi8XhoGUaHDYH9Cn0Zj8GJksZz3P3ol
+	+/zfOnpZC7TQoUdDzZkTsZ4vse3Eh3MDlyLk1GDoqELh4CL1e6wTApEIi/vCdIfueA2/S6LKHlR
+	UjV++I8XCUuhDEh5LYdHQBysOGzNxEE6w6EMrQS6BUo=
+X-Received: by 2002:a05:6000:2501:b0:48d:f460:2c62 with SMTP id ffacd0b85a97d-4958c0beec1mr7604586f8f.33.1794222307486;
+        Mon, 09 Nov 2026 03:05:07 -0800 (PST)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9ab09sm8970489f8f.28.2026.11.09.03.05.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:00:51 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] nfc: pn533: bounds-check the ATR_RES response before parsing it
-Date: Mon,  9 Nov 2026 20:00:16 +0900
-Message-ID: <20261109110016.1511307-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 09 Nov 2026 03:05:04 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Nicolas Belin <nbelin@baylibre.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, 
+ Shigeaki Asai <y-asai.0816@docomonet.jp>
+Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, John Williams <porschemad911@gmail.com>
+In-Reply-To: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
+References: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
+Subject: Re: [PATCH] drm/meson: encoder_dsi: load ENCL gamma table while
+ ENCL is disabled
+Message-Id: <179422230388.1497673.3746542387809770384.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:05:03 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,87 +106,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-From: Hyunjung Ko <hj351016@gmail.com>
+Hi,
 
-pn533_poll_dep_complete(), pn533_in_dep_link_up_complete() and
-pn533_activate_target_nfcdep() cast resp->data to the fixed ATR_RES
-header (struct pn533_cmd_jump_dep_response / pn533_cmd_activate_response)
-and, on a successful response, read nfcid3t[] and compute the general-
-bytes length as resp->len - sizeof(header). A short response leaves that
-read past the end of the skb data, an out-of-bounds read; the copied
-nfcid3t reaches userspace via nfc_targets_found() and netlink.
+On Sun, 04 Oct 2026 23:50:17 +0900, Shigeaki Asai wrote:
+> meson_encoder_dsi_atomic_enable() programmed the ENCL gamma LUT right
+> after meson_venc_mipi_dsi_mode_set(), i.e. while the ENCL timing
+> generator was already running (ENCL_VIDEO_EN=1). Writing the LUT
+> during active video stalls the hardware: L_GAMMA_CNTL_PORT
+> WR_RDY/ADR_RDY deassert and the ENCL line counter (ENCL_INFO_READ)
+> freezes, so every remaining write times out (~8s total at boot) and
+> the panel ends up with a corrupted gamma table (wrong colors).
+> 
+> [...]
 
-Only the success path needs the full fixed header: a no-peer/failure
-reply is just the status byte, and the existing failure handling (turn
-the radio off and re-arm polling, or print the error) must keep running
-for it. So validate resp->len >= sizeof(*rsp) after the status check, on
-the success path, in all three handlers, before nfcid3t and the general
-bytes are read.
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-fixes)
 
-Found by code review; not reproduced.
+[1/1] drm/meson: encoder_dsi: load ENCL gamma table while ENCL is disabled
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0cb7f6d9e4b1d0a411b628ccf78695ad41c66570
 
-Fixes: 361f3cb7f9cf ("NFC: DEP link hook implementation for pn533")
-Fixes: 673088fb42d0 ("NFC: pn533: Send ATR_REQ directly for active device detection")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-Changes in v2 (thanks to the Sashiko AI review):
- - move the length check to the SUCCESS path (after the status check), so
-   a no-peer/timeout reply (resp->len == 1) still takes the existing
-   "turn radio off, re-arm polling" / error path instead of returning
-   -EINVAL and stalling the poll loop
- - also guard pn533_activate_target_nfcdep(), the third ATR_RES parser
- - add Fixes: tags for the two commits that introduced the parsing
- - drop the inaccurate claim that the other handlers already length-check
-   resp->len (only pn533_init_target_complete() does)
-diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
-index b0133e51dce9..9c65b52a8a14 100644
---- a/drivers/nfc/pn533/pn533.c
-+++ b/drivers/nfc/pn533/pn533.c
-@@ -1319,6 +1319,17 @@ static int pn533_poll_dep_complete(struct pn533 *dev, void *arg,
- 		return 0;
- 	}
- 
-+	/*
-+	 * A successful ATR_RES carries the full fixed header (nfcid3t[] and
-+	 * the rest); the general bytes start at offset sizeof(*rsp). Reject a
-+	 * short success reply before reading nfcid3t and computing the
-+	 * general-bytes length, to avoid an out-of-bounds read.
-+	 */
-+	if (resp->len < sizeof(*rsp)) {
-+		rc = -EINVAL;
-+		goto error;
-+	}
-+
- 	dev_dbg(dev->dev, "Creating new target");
- 
- 	nfc_target.supported_protocols = NFC_PROTO_NFC_DEP_MASK;
-@@ -1799,6 +1810,11 @@ static int pn533_activate_target_nfcdep(struct pn533 *dev)
- 		return -EIO;
- 	}
- 
-+	if (resp->len < sizeof(*rsp)) {
-+		dev_kfree_skb(resp);
-+		return -EIO;
-+	}
-+
- 	/* ATR_RES general bytes are located at offset 16 */
- 	gt_len = resp->len - 16;
- 	rc = nfc_set_remote_general_bytes(dev->nfc_dev, rsp->gt, gt_len);
-@@ -1937,6 +1953,11 @@ static int pn533_in_dep_link_up_complete(struct pn533 *dev, void *arg,
- 		goto error;
- 	}
- 
-+	if (resp->len < sizeof(*rsp)) {
-+		rc = -EINVAL;
-+		goto error;
-+	}
-+
- 	if (!dev->tgt_available_prots) {
- 		struct nfc_target nfc_target;
- 
 -- 
-2.43.0
+Neil
 
