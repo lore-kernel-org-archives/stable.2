@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794240182;
-	b=WVISXuqAa4DwSN2Nk/r1n3I5G8xhpXIOc1sIQqtQhfNHBcijL+nrrN0UbniVQSoEgVX4
-	 eu1AM4WLv4R6Jn/VhZ4GXvDwLzHmonvg4dYgSVGyBidLI3vomshNCXN4ptsSpTkFv6gxg
-	 i0EZw+j4HCmylJymzBp1tvVOvtKMSgjJXbfwLRNvYV3LfqpFsVSWtuVVhLCusKXNU0U7V
-	 vik6m9d2enm+YsARvPeYfY3BY5gSko9DSk+N9xSeKhz5/OWWDHWfdKTy/1cRQLK6ritGk
-	 U5GCAfNdLw/jaWd3S0hwWP+I4+W0UmLtrSsenX5mO++iOSQKpDUiDfp9PGnuIVenUDw==
+	b=wKHP1o7qzEMs+xbTnzLlLH27bOGAVWJGnSeg1AwxvJmCzaRdQPrfFaF0A/8EgqJ7MWwv
+	 AIs45lZQfxnrgbQJ4Q2e3iUWlYmMcGoTo/O75qZvtKaDGLRaDejHVE5zUNmqnhAkRgrFu
+	 pPCUrTx2q2dobh43jrW456rh1LoNT+CjnI1IhTO4lkBSAhANVLsqxPcmg22j5eKF/NZ0U
+	 mLGN1A7rmbRswltr4iBNAXh6v6aAH9pBkU5gsPjCuh8/9V4N5d0uJ5FF7PsWHRlJi3oOH
+	 i00M/dWiI1gISK9F+KISH8IQpr4HNPFh0kXTdDKg+iEtZaFq9Qc8ZJ/RtNZNwQCem1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794240182;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
@@ -13,57 +13,57 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=HNCbvLN8ICuoCz0fHhWsUE+dzGmKKqmDwgj4AtvdWT0=;
-	b=VwSTOVkoCIyrvYVIN5nroh5b7eBrSaTCNWpbIj30XGHWBgFkmLZ71uXHxx2yxktePmlq
-	 RhJO1QvxZsM2pn2xTVBx3ih0IAI4GVM/rC4/UI4K8qhClmhCkSEPDO0kEwqeLJwgF+KIh
-	 0jE7YhMboDUrqo0ChYOJEhTf7swA2PTSx15D2d3pXzH/3sxqN5eKxm3r7vn1YoDto5hvl
-	 9vGati9a1hExlMMW99OtSQ/UdzKqIUqDc0OpX58zxaXsXP8JmG8DOze0m/rr61QASnTYD
-	 BQu3Z7t3yqzRErcycW47UUH6WxmteZ/DJbdBjsoV46C2eY+QTmCFERFx7OyDW1Yt+ng==
+	bh=5bk12FHQT4PypzlkZkgfKj9mgtiXFm38QoEdIbimCXE=;
+	b=svI4iFqJmQur/Ymcno5rT9R96dUX9yGjo1XhwOnzPkZ2XKKh1qsv+22K14QqzIPSb2gF
+	 PJQIxHtRETfKqR1/hN8r/hz3ftf9qsQFwDJa5MfzBM52yKiKeP165KearKD8fAHXVgwZn
+	 KJqR8OKBT2zHLVAc7ybsA2vWY8mJ5OZf4fvJwh0eLQW+NOe2zUkbb6gI029CGPQ6iZSgs
+	 6KUj7VLKhs2FcLO147WPgOEAXmSkPrJRw0uuy5o2REy6CpQSK8y5zOJpxq0vbVdG1wMud
+	 +YbBwmBxkdSLEQfRNOdx9SXOy3ih8tfRDHkV3efP9YCIyZ+0LH7Qr+2T0RSAQMc+r6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MRE3mumK;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=HfnSI4RF;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16752606A338;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184EF606EE80;
 	Mon,  9 Nov 2026 16:03:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16752606A338
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 184EF606EE80
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MRE3mumK
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=HfnSI4RF
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNZLq0j7pz58fdb;
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNZLq0DLWz8XsC8;
 	Tue, 10 Nov 2026 00:02:59 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
 	s=z202610; t=1794240179;
-	bh=M/RNTyCTnYXRawQXr7b5ifRdZQAzhOIHwOMjs9PSuU4=;
+	bh=SIB8DhFbZyaBGt4m/wXxeUj7iGeiLyG50/P13ESs9qg=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=MRE3mumKgI6wo5VuNEaQ0r2fZJdBoOxD+/tUb0NIv2EQZ88ctiUIbViR8LIBfVxsg
-	 chdhNq8D+iQtfnrAREvEEUX7+RAt9iIVfpnPSV87ahbgVCTjXpizhkvyudx7WbMq6t
-	 ov8lQ81WjkKxfT2Uf291IVXmO6A/O3EGkfHOyapW9V2FsPSkfO55CZP0oa0KE5vj9D
-	 FfZ0kepD6GwEtW/DJihBiESTKc6lHfS5EeOMV6uhm9Kdr2FK5kcxUoIUT3mGEln/18
-	 G/lQJiHEQZpsC0zKBgcDBLks/swfbHeGTYLzmwQrOJwE5JjS9vMjovUeBDBOvLORhy
-	 nJtBVRfocQVug==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6A9G2Tf4043123;
-	Tue, 10 Nov 2026 00:02:29 +0800 (+08)
+	b=HfnSI4RFAxJLC9HvSUD9jYu3Rm5WeKkGcD+G4+OWTM0Hqy0YAHSv++E6DQRe6yNE3
+	 a9dK26dL+SChvM/gF0kFE1O3kzIiBzCaT+2/jbBUkZQ3vCgS6uSk65IsKBCAFOr3Ly
+	 zNAdGCpKmdVh+YYvIm19h29o9sj/WERtG/TSxSSjBhWp6xkeeoWzx61L8SwkR6XaGM
+	 mRDuToncDG9GIOm0XOyHoxm2bX5DcNp4CxqFfpOTkbsNpSiwOIzHfPb6yVN540edSp
+	 fbnC18GBHQQ5axYpPokCreHhyiCpkkORJXxJ2+eymG9L/Ii8hz1m5dp9peiFzatF6L
+	 yf/jb00dJdOug==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6A9G2Wla002317;
+	Tue, 10 Nov 2026 00:02:32 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
 Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Tue, 10 Nov 2026 00:02:31 +0800 (CST)
-X-Zmail-TransId: 2afb6af1ee97dd4-a9b69
+	Tue, 10 Nov 2026 00:02:34 +0800 (CST)
+X-Zmail-TransId: 2afb6af1ee9aedd-a9c72
 X-Mailer: Zmail v1.0
-Message-ID: <20261110000231218wQzBUXC6z9Ptr1Rb3WqYR@zte.com.cn>
-In-Reply-To: <avHkMosHVOXCpVPD@ryzen>
-References: 20261029190111138tS0yRo0lL1zJZ_IutobE1@zte.com.cn,avHkMosHVOXCpVPD@ryzen
-Date: Tue, 10 Nov 2026 00:02:31 +0800 (CST)
+Message-ID: <20261110000234827nXRPQjzsInWFXaAaxeF6N@zte.com.cn>
+In-Reply-To: <avHknBRJnZPpAIke@ryzen>
+References: 20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn,avHknBRJnZPpAIke@ryzen
+Date: Tue, 10 Nov 2026 00:02:34 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,32 +75,33 @@ Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <cassel@kernel.org>
-Cc: <dlemoal@kernel.org>, <hansg@kernel.org>, <linux-ide@vger.kernel.org>,
+Cc: <dlemoal@kernel.org>, <linux-ide@vger.kernel.org>,
         <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gYXRhOiBsaWJhaGNpX3BsYXRmb3JtOiByZWplY3QgaW52YWxpZCBwb3J0IG51bWJlcnM=?=
+Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gYXRhOiBhaGNpX2R3YzogcmVqZWN0IGludmFsaWQgZGV2aWNlIHRyZWUgcG9ydCBudW1iZXJz?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A9G2Tf4043123
+X-MAIL:mse-fl2.zte.com.cn 6A9G2Wla002317
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Tue, 10 Nov 2026 00:02:59 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 00:02:59 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF1EEB3.000/4jNZLq0j7pz58fdb
+X-Fangmail-MID-QID: 6AF1EEB3.000/4jNZLq0DLWz8XsC8
 
-On Mon, Nov 09, 2026 at 04:18:10PM +0100, Niklas Cassel wrote:
-> The warning is redundant.
->
-> ahci_platform_get_resources() already prints a warning for this.
+On Mon, Nov 09, 2026 at 04:19:56PM +0100, Niklas Cassel wrote:
+> Again, this warning is reduntant, as it is already printed by
+> ahci_platform_get_resources().
 
-Right, thanks.  It walks the same child nodes earlier and warns for the
-same condition, so I'll drop the warning and only skip the node:
+Agreed, and thanks.  The KASAN run for this patch printed "invalid port
+number 100" twice in a row, which is exactly the duplication you point
+out; dropping the warning leaves only the skip, which is what the test
+exercises.
 
-	/* Already reported by ahci_platform_get_resources() */
-	if (port >= hpriv->nports)
-		continue;
+> And please send this as a patch 2/2 with the libahci_platform patch as a
+> patch 1/2.
 
-I'll resend as 1/2, with the ahci_dwc fix as 2/2.
+Will do: 1/2 libahci_platform, 2/2 this one.  Since the code changes I
+won't carry Damien's v1 Reviewed-by over; he is Cc'd.
 
 Best,
 Shao Mingyin
