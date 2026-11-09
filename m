@@ -1,59 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230194;
-	b=X0wSmsWK3XcrcflsW6tajg3WEloGlH8WEhQ3YvYtGBRJN1Goc8QnrGQGPSozlSgOlFXw
-	 jLIkhuJvQjsgDJiIjL20x/OWFlsnTK1ZMbIv6a/CXfIK22Z6NJgKpSq/CusfcHyBbFv1q
-	 71Ax3UlHq6+5PZwzsXR//7rqK7S5fnthJK/09+eSvXaW0EOgDxTqRQuztUDEmm2VqILfw
-	 gKYgrxxWQHT+WpMHSPqrRb604tetk9kVrfj12BfaNGdgRsyqMsizgarOCwglW93ySx5VC
-	 CU4uSXRM9WwaqaOf6CzKzV+0sDbNJZP0SSYoq1xRhw3Fo4w+M6s36i5Kq8RB4XryaVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230194;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=jeokM8/W5XmFatmunaVWUhvCJd/ttjYtGG4nHYx10NI=;
-	b=cAzx9wRi1r4eBojtFPpJiWCS/Ux4hB7DcVeVsPEWi99Ksc6nGPB28ztd0dsfkxA75y6g
-	 6EvLvAAwS51EuSTCy4r6jyHLHbLAhduavrzWx1LINJejREJBEt9sonspOBjrxEqP+QxHc
-	 6ZRYdedBXXCMVykP3Eov6AYpOR73fnIFvvsChAzBFIDmNsD2/eWhKOg1iHeitP05RGDNZ
-	 8P0ev7JSIRNj9M6vh+iCIqbHdBlaVcZRNpO1duxCJghra16n4/wdso/+nlaF8TUhXQak6
-	 8IwQ01ur3s2HXUlElOPAe4CTOEE0YJq/1aaHKzjnhyS5utEOEwnQiF5xVWjOEYGpQyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J0wwBc7d;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=52.101.191.128
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794230209;
+	b=1ZmKxp9cAyVxGH0gyEtAdVccaCSdOUeif5Zezj4al/T8JBjdjEHVw37aftYaFODcDR2S
+	 itLTa24prcLGcpAtYXW/QcAaO/zT5m6GYB51e3s1siYQjCYJ7Cr3cptbFki8ujKgD4+9M
+	 aXYKqXyp8S/S9a7Uc4YvKaVlb/UJ23qo7RDrhQLnA9H7PB6y9Xjg6sDu6GRyEGrkB8Qbm
+	 nMWkxVR1+cErYQ7EvTNV8NTVYvXw3aku7cyb2q175itZp7V4VQ4469NVyHbknJPlTkJdW
+	 oCgjASa8R2buJkkWcEfuT3kWRvvGPSOB4/UwHmQFFJ7gKiyTUO0grqdlmO0v9quSC6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230209;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=DynErxUbBsxpuEok4boDYuthCXDhDunU0h507qNMZNY=;
+	b=M3i/llvjZ8RZ2ncOBHlPr7rQ1hOAV38xettUU+8as3PBTMFSq6ZFuykJbKXmaBEXMdMC
+	 MCO+WrXRgUTXAiOTGYRheYVo38PveTPvwDyIhlcXpduCr7+B2APY5ZZ1Ct8ENO8M7uqPZ
+	 jaspyAJ6mdaxJmcKQUpDE1PJJd/av36cu9gRRKxrEKUOBJel1BLUBm25puOlKFuES0wu4
+	 oooPU8AKk1nmQh8U7l5F5qtb+TmUKoWzJU0LsY63bf16kvwT1qs1BYc2uzQqBsv16k9yL
+	 vdx25zoFAI85k6K5niFlkyKqISTdf9yxaea25xF9TEufYlMOerIo1qq2GfNLj74ytyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=j3krXVp6;
+	arc=fail smtp.remote-ip=52.101.191.128
+Received: from YQZPR01CU011.outbound.protection.outlook.com (mail-canadaeastazon11020128.outbound.protection.outlook.com [52.101.191.128])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6A1606A325;
-	Mon,  9 Nov 2026 13:16:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A63606A31C;
+	Mon,  9 Nov 2026 13:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A63606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J0wwBc7d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834651F0089F;
-	Mon,  9 Nov 2026 13:16:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230194;
-	bh=jeokM8/W5XmFatmunaVWUhvCJd/ttjYtGG4nHYx10NI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=J0wwBc7dIY6EN8ER9coT+VXGo14aBcUQZz3LbX2W7+TZBwor6dP1NSpHS0vbyMTqm
-	 2WnHiZ/7ADt1b0V3cG58C7LnVl0pi2bpIbwmkIjl3t/5jY5pjIheh0yezxSfuvdeWr
-	 U22ylj033cRHyOD1/V+cbbhWR58hjQMpiqoJ5D4/q1x9w0pQpfQjK4N8qRFYXCmlWR
-	 VryqjlCA6H64HXb2SHm907DAyWIz8B/jDygCzyySp5+lJB2TQJnE8pQ8c1NCql9sAc
-	 ciJzCJkXo+60/Ikz1oV/1P/cmsgkfxIQcPKOYUvDzsrbxRaXSRiBO1uSfUa1nzU1sV
-	 5WN/lx22rDLjw==
-Subject: Re: [PATCH v2 2/2] net: atlantic: AQC113: Limit multicast filters to
- available slots
-From: netdev-bot+sashiko@kernel.org
-To: j@jannau.net
-Cc: sukhdeeps@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 09 Nov 2026 13:16:33 +0000
-Message-ID: <179423019310.994134.7743580098620436662@kernel.org>
-In-Reply-To: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-2-0b988d031c78@jannau.net>
-References: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-2-0b988d031c78@jannau.net>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=j3krXVp6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PhcEKmGYjodJcRrL//17775TCV0+KBMZ67vHVSzwiikQJ9gfYqn5+1jpZOrnBjIFPfXiaulW3OMR1oyNiyDeTj9uUjPkIe4FQxSVGRA6Nqk9Q0LY8VnLUjfSxaI4sqau1wuI2H3AAEWc8gUqC+dMIxXzoOazYcHXBAlylLBf3PoWrgMhVXdwczc4IpU631bijziwLu680tCp7Jv+Ai/DeD4emWicuZHxpcNFKifWYKJKDS55zHG/24vHLV2foD/Qxxihe6rDYGQNDamfzM3xMTBbJr5Tr/IuHjZRh9Rnhvgzabft5XeM/kR8Rt6sGqUj7bkwYZCyreWyGj/ISDNa8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DynErxUbBsxpuEok4boDYuthCXDhDunU0h507qNMZNY=;
+ b=t11sKPWKDmuYXojh8QG6x7+TnRtPKhG9qf3BYHlT1AlEuPmNn3IzmOYZ/G+cwP/BpLmnufXyrTB7dlG0hTay9Z3PzB5IZ8YV0e+AF7cMCDkodkHQHfkHO0QErTfjvFl3bmzoS3+KpMh/qKuzJm66P+m3RD6vI7lFWfYs8RnTcnIknkc4KZ/Ds2xh95X7YyuSXXQl4qPo4gwt2uw065uidQDWUUkpOLRt5eRmolNCHsgcgta+wUjKgObefRLr7EJXzCXtsGxHDyoULQtkIp0yaGAOT8YuKvU6V9fB6epd9t76ltvowSjykN6PYD8c+5HCAE4nf48YJs7RSrlrRfjm4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DynErxUbBsxpuEok4boDYuthCXDhDunU0h507qNMZNY=;
+ b=j3krXVp6x7jiuhs8FNbGi3rDZIECqgiW5X5l7a5z3V70/nD7I+Hss5DVwJY/+KeoQ6r0o9oN1jIYe9gGoMkWVumPR2Vzn2EG37uJ4duQnwO10QtR2SYF8OZ/khAFGRXPluES13iM4uxP77mWqnpgQDysjrF8X/WVTwPQW5yDzylAJIG01Y2Tr1AgF9Hu0DTTgEamDS4AB5ZcFDP5dD1Ovg8MhR1yK9Dpce69OyaW3XJFrVOp+1VLyRycCSpA6FRH1cN5Gb5nOWoecL/nImc8coZBjnDXTD8Omp0a0hxjyJHkdPXHaVEW9W7xjr3o+s12paqqLL5Noan3FkhrNQtRGg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT4PR01MB11683.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:159::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 13:16:44 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 13:16:44 +0000
+Message-ID: <7546267d-8b07-4387-b673-f466ad7754ba@efficios.com>
+Date: Mon, 9 Nov 2026 08:16:42 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 03/29] sched/deadline: Do not admit bandwidth for
+ parameters that are kept
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+ linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, longman@redhat.com, ridong.chen@linux.dev,
+ tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-4-mathieu.desnoyers@efficios.com>
+ <avG_pJmgQr3V-PXZ@jlelli-thinkpadt14gen4.remote.csb>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <avG_pJmgQr3V-PXZ@jlelli-thinkpadt14gen4.remote.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0197.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::34) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,187 +109,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT4PR01MB11683:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53985059-7ed2-42a5-65e7-08df3e63b375
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|5023799004|4143699003|56012099006|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	emCR4Kglc01h3GSf31YmkammGnY/5dVhabs3JKEZ0ddbkC7b0NxRvjFNCBpo91Aq2fzfcPT5M04A75kNlCIJZkENax9+aWJD+/kP6W3p5iL4p5+E1/4XCj4fCyh0+kWiRlr55tbJcZF5ACIjMWt7zsyN8QcqtHD0hSflbeFZlSq0nItFg4PO92i3pgrFIrPYNgoQf+WvoVi6Ai1+3vxse0eOb45Mn+FXUxUDeboKlzIUr+d2wNDIbFMuiHMJZVsXeRsepKcSOo86MUT2Zb6eO5+HR7pO43Z8+OhKxyZKBkb1zt/elH/9WaUSM63GOPagJPZXQ7AR8ruNt+X4EQvRTIhiDczwcatElv75KEDjQNCNT68P9R04JZQKJaksrRayprXPo4xikalwU+I/YQhlaYk3LxsLE8mLSlD6keFC4EPdrxGW1t25xSZMf5roKFdDgFtUrvMaqqUph8b1wZflC4K3/lPDk4C/C7IZDwtuBR/fbEhhCMQIAKpK3r0lCegxX3WcMKEAxzPuysjdHIKH4vqlezEhvqaILNKEV9rV7I0EW5O7ubtEykNokqjZBRZ4COPp9NY3w1MK5z6UdOIIwnn3o7uqcqc6pCDXzcEGCuw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(5023799004)(4143699003)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a3dCc2M4OTk4TCtPTUxNNytyVFh4c3V5ekRLU1BJRXFtZzBLZnBXeUp6aEV5?=
+ =?utf-8?B?ZGlMVVRNVDlZQU1CNnVqYzRraVNaMmZ0UXp2SFdSczRKNjNVMVp6ZmVHdVgr?=
+ =?utf-8?B?MXpQcnQzYjFydVhwaUh4T3VMRlZScC9xU05TemVuOWtEdHNYYmRWM2RITVRk?=
+ =?utf-8?B?R2IyMm1mZ09jVndCRFB4OVNML0w4cW1rSEdXY09ldXhrcStrd0R4eTFaSWJW?=
+ =?utf-8?B?T1kzVHd1aFU5TVdyK3ZTN2pHbHZHeDUrRitabk5HSmx4K1Zra04vbDNCWWZC?=
+ =?utf-8?B?TGZ4eWlZVGI0eU0vRWFNd1FDRGdtZG15OFF5MVN0YStjYnVDMHdlQlFqcjlk?=
+ =?utf-8?B?UCtJelhPSlZQL2M3ZllPS2c1MlZIczNXYnBtcGsrT0N3L1k0dTNtVGJrc3pD?=
+ =?utf-8?B?YVkvaUg4RTQxckUzWmQ5M1RRcWZJUVV6eThyeTl1NGlNSWdNVDVIYzNjWFh5?=
+ =?utf-8?B?MHlrMmhSUW1ickNnUEpVTkNtTWdueEF4a3pteG93b0VyL3pQZG1CbUszTC9E?=
+ =?utf-8?B?bWx5SXdiaFRXdmFCL1pNNWdUYmNyaWVzVTZ5R1hKZ1BjNUI2SU9pMzJDVVM2?=
+ =?utf-8?B?Z1p1ejF5elk0OFlUNnRRL2F3WTFFcENRWVNPMzZCVFN0RmhjYkVVMHlwbjVu?=
+ =?utf-8?B?ajM3ZDZYOG1ySktPc2VZZ0taSndrY2JxdzFvNzE5YVNhalFPdTFxdUtUU3Yr?=
+ =?utf-8?B?aWJ5MFUxRVBkKzhHb0R4UEhnU1VZdWtiWlhLVFE1RSsxekJIZmpsVTNiZ2Nq?=
+ =?utf-8?B?aE12eGErOTZEb0ZlZ0VwMkNzQU54YTgzaTl6VUgyTmdnRnVNWlBtUWYraEFD?=
+ =?utf-8?B?dDBTQVBYc1gvdXNtekt5YU02OTU0QnNkR3dnYWowQjJraXZ0NG9qS2xMOXZ3?=
+ =?utf-8?B?ZVpiUi9xSXhGNWVBVGJXUzJQb3pmK2lMeTVoUlNqSlllOVp3WHhKSE9JMU1u?=
+ =?utf-8?B?RkVjYkR5RWpKcTBBK1o1K2hGMWdDQUZORHZ6cm4rclRsUWdnTzRyTGMrVEFu?=
+ =?utf-8?B?YVhzRXVwcGpGa2dYbmx3b0tuNjV4ZkJrQmxOc0ljYlBMVkhVZlUycnpFUkdz?=
+ =?utf-8?B?Y0pQbExMQ1ZSdjFjVTFjWXFtZEFRY0gzclBvaEZod1JuUUJUZEFuRjRoZHVW?=
+ =?utf-8?B?WWIwc3hPZTJpWHR1WjYrVVU3WHJLeDYyWVdSWExuc09PYUhHRGdudnd3Rmtl?=
+ =?utf-8?B?ZHYxQy9aSXFhTm9ZbjlSbnBXbDYwZFN3SURxY2tBaUJVNm5QK2JFaEhERWdU?=
+ =?utf-8?B?dUIzMlNlNjJhbjdjeDZlc2xvMFJNb0dERUM5QjVFTUFLbkpCTHF4alhRN1k0?=
+ =?utf-8?B?bzBnLy8zanE4QzRNcEZGNkVVR2pLc004UTNOdkVFbjZ4MWUycHdLZnIyb1Yr?=
+ =?utf-8?B?K2N6UmVrYzU1RCtIRVlVS0VYdlpOVXNvRW1ZNnVjc3RGQ29kOUJJcmpZa2to?=
+ =?utf-8?B?QzJWQjdQdXp0YkVGVDVGRUt6VmZYM09YL2pISlZuVXVVSVlKci83VnZ0Z3RT?=
+ =?utf-8?B?Vk9yOEU0ejNsUG81b2tSWUNkOEt0YlRVWko3Q3RTa2czZFJxaW9iRldZQ0Ja?=
+ =?utf-8?B?YkJPZkJCZDMvNUlaUDR0dEdJWXV2WUdkTmpyZ20zYnpNcHlGWVNQR0hIZzhC?=
+ =?utf-8?B?TWRFMGhJdXYzU3I2Tm11OUVJTHNGcVM3b1BxQk9kV2U2UjdMek5aaTl2Y2Fl?=
+ =?utf-8?B?TlVZNy9IWmlNSS8xcWVEK1dOZ294cE8rY2U5Y21JUXQ5ZFJhL0sxSGUybUpP?=
+ =?utf-8?B?cGRGMXpraUR3b1dLWjUzbWxGZXVpbm5Oc3d0Q1VWN1h4bXp5YTlta3dxTjll?=
+ =?utf-8?B?N1VMWllwcUN4YVRwcDBQckhHa0M0UEhlOVoxck5CQU9GRUh3Y0xuSC9XdWFq?=
+ =?utf-8?B?SnhUMXV6eWVpdjlBU2RZWHc0SzVrM1k4VTJDS1NqRzdjVXY1S0gwbzdlMnZm?=
+ =?utf-8?B?b0FYUkNMaU1TYksxSnRqV0gydnU0TGNPa1MzN0ZLZlVDVzZjQjFPK0RmbGpL?=
+ =?utf-8?B?N3A0NXk4SWpZc3I3R0drTFJqdEtJYW1XMXlET1B5U3NOZjdCUHFXNTFjWFNP?=
+ =?utf-8?B?UzRJSGg0eGs5OG1UYlhJekg5djI2cW9kQXEwVStTb0VqZjRVRlQwalZyclVo?=
+ =?utf-8?B?RmV0TEhDVUJMZ2lXSzRsTzUreVVmemZ5eE01WENhMU1pb0E2aFcyUmlMdVdO?=
+ =?utf-8?B?UkkrV3JwVE14TFVHWVhCLzZSNUloNlh5R0h3c0RnZ0lTbmNoaTZOVHJtcGx5?=
+ =?utf-8?B?eEhCazJBZUVUMDE4aDJBOUVYb2dJQkZHOGQ5MG00WGZRNUtMOCsya0QyYm1T?=
+ =?utf-8?B?YllFajVwM1QwZVl2WWhKR3Naa0o5Q2llSXpxVDUvUWVFNnhqVldJaG1TWnlo?=
+ =?utf-8?Q?cB6+r9WYRTWF2rQbU/gePRRl5wtqYn88jV9t+?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53985059-7ed2-42a5-65e7-08df3e63b375
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 13:16:44.4493
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JDvJjnS3un4aCuY6WDjSK85ZdQMqRtpCA0TiCHZ2udARupzZartcVhyZDX7N5JuN/ndMvD9/rhS+vN4h1cIomNnUvzy0YmnzgF8rxb7IIBo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT4PR01MB11683
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On 2026-11-09 07:42, Juri Lelli wrote:
+[...]
+> 
+>>   kernel/sched/syscalls.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+>> index 0e8b5c7324f6..894f93a80d5d 100644
+>> --- a/kernel/sched/syscalls.c
+>> +++ b/kernel/sched/syscalls.c
+>> @@ -690,8 +690,13 @@ int __sched_setscheduler(struct task_struct *p,
+>>   	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
+>>   	 * is available. Keep this check last. If a later check failed,
+>>   	 * nothing would give back the bandwidth it reserves.
+>> +	 *
+>> +	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
+>> +	 * there is nothing to admit. The parameters in attr may also be
+>> +	 * stale: sys_sched_setattr() read them from the task without a lock.
+> 
+> However I had to wonder what usecase would still make sense for a
+> KEEP_PARAMS call on a SCHED_DEADLINE task, I would say a !DL params
+> change (UCLAMP for example) for a (at the moment) DEADLINE task that
+> might become !DEADLINE in the future? Maybe we could add this to the
+> comment.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 1
+Yes, that is the case I see too. The deadline class does not set
+uclamp_enabled, but __setscheduler_uclamp() stores the clamps for any
+class. I will extend the comment in the next version:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+          * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
+          * there is nothing to admit. Such a call changes other attributes,
+          * such as the utilization clamps. A deadline task does not use its
+          * clamps, but keeps them for when it leaves the class. The
+          * parameters in attr may also be stale: sys_sched_setattr() read
+          * them from the task without a lock.
 
-- [High] The patch swaps two constant bounds for values derived from the
-  firmware-reported priv->l2_filter_count, and nothing validates that…
-- [High] net: atlantic: off-by-one L2 filter index in
-  hw_atl2_hw_packet_filter_set()
-- [Low] The commit message leaves out the concrete impact and part of the
-  code change: - It only says the firmware count (29) is "unfortunately…
+Thanks for the review!
 
---
+Mathieu
 
-net: atlantic: AQC113: Limit multicast filters to available slots
 
-This commit adds a hw_get_num_multicast_addresses() callback to struct
-aq_hw_ops. It lets AQC113 report fewer usable L2 filter slots than
-AQ_HW_MULTICAST_ADDRESS_MAX, based on the l2_filter_count that the firmware
-reports. aq_nic_set_multicast_list() uses this value to decide when to fall
-back, and hw_atl2_hw_multicast_list_set() now bounds the count by the same
-firmware value.
-
-> On Apple silicon systems with AQC113 the firmware returns
-[ ... ]
-> unfortunately less than AQ_HW_MULTICAST_ADDRESS_MAX (32).
-[ ... ]
-> Use this potentially smaller
-> number in aq_nic_set_multicast_list() to decide when to switch to
-> promiscuous mode.
-
-[Severity: Low]
-This isn't a bug, but could the commit message describe the impact and the
-full change more precisely?
-
-Before this fix, with a base index of 9 and more than 28 addresses,
-hw_atl2_hw_multicast_list_set() writes L2 unicast filter indices 38..41
-(0x5240..0x525C). That is past the end of the filter table, and it overlaps
-HW_ATL_RPFL2MC_ENF_ADR(0..3) at 0x5250..0x525C. The message does not say
-this.
-
-The message also does not mention that the guard in
-hw_atl2_hw_multicast_list_set() changes from
-(HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN) to (priv->l2_filter_count - 1).
-
-Also, for multicast the fallback in aq_nic_set_multicast_list() is
-IFF_ALLMULTI, not promiscuous mode.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-> index 8d7a489aa5de4..d0dc72bd098f4 100644
-> --- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-> +++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-> @@ -810,7 +810,7 @@ static int hw_atl2_hw_multicast_list_set(struct aq_hw_s *self,
->  	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
->  	int err = 0;
->  
-> -	if (count > (HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN)) {
-> +	if (count > (priv->l2_filter_count - 1)) {
->  		err = -EBADRQC;
->  		goto err_exit;
->  	}
-
-[Severity: High]
-This guard assumes hw_atl2_hw_packet_filter_set() uses the same slot
-layout as this function. It doesn't look like it does.
-
-hw_atl2_hw_multicast_list_set() sets base_location to
-priv->l2_filters_base_index + 1. It writes ar_mac[0..count - 1] into
-slots base_location + 0 through base_location + count - 1.
-
-aq_nic_set_multicast_list() then calls aq_nic_set_packet_filter(),
-which ends up in hw_atl2_hw_packet_filter_set(). That function computes
-the same base_location, but its loop starts at i = HW_ATL2_MAC_MIN (1).
-It enables base_location + i when i <= cfg->mc_list_count, so the +1
-offset is applied a second time.
-
-Take the values from the commit message (base index 9, count 29) and
-mc_list_count == n:
-
-  - slot 10 holds ar_mac[0], but hw_atl2_hw_packet_filter_set() never
-    touches it. It stays enabled when the list shrinks to zero or
-    IFF_MULTICAST is cleared.
-  - slot 10 + n gets enabled even though no address was written to it
-    on this pass, so frames for whatever stale address sits there are
-    accepted.
-  - the last iteration, i = 28, writes the enable bit of filter 38.
-    That is HW_ATL2_MAC_MAX, past the end of the L2 unicast filter
-    table.
-
-The double offset happens on every AQC113, whatever the slot counts.
-num_l2_filters is also only clamped to HW_ATL2_MAC_MAX, not to
-HW_ATL2_MAC_MAX - base_location. So any base index that is large
-enough relative to l2_filter_count walks off the end of the table.
-This path also runs from aq_nic_start(), so every open hits it, not
-only rx mode changes.
-
-This patch is meant to keep the address list within the slots the
-firmware reports. Should hw_atl2_hw_packet_filter_set() start at
-i = 0, stop before l2_filter_count - 1 (clamped so base_location + i
-stays below HW_ATL2_MAC_MAX), and test i < cfg->mc_list_count, to
-match hw_atl2_hw_multicast_list_set()? The loop appears to come from
-patch 1/2 of this series, so the fix probably belongs there.
-
-[ ... ]
-
-> @@ -1635,6 +1635,13 @@ static int hw_atl2_hw_vlan_ctrl(struct aq_hw_s *self, bool enable)
->  	return aq_hw_err_from_flags(self);
->  }
->  
-> +static int hw_atl2_get_num_multicast_addresses(struct aq_hw_s *self)
-> +{
-> +	struct hw_atl2_priv *priv = self->priv;
-> +
-> +	return min_t(int, priv->l2_filter_count - 1, AQ_HW_MULTICAST_ADDRESS_MAX);
-> +}
-
-[Severity: High]
-What happens here if the firmware reports l2_filter_count == 0?
-
-priv->l2_filter_count is unsigned int, so priv->l2_filter_count - 1 wraps
-to UINT_MAX, and min_t(int, ...) then returns -1.
-
-hw_atl2_utils_get_filter_caps() stores the firmware value without any
-check. The neighbouring art_count and l2_filters_base_index fields do get
-sanitized:
-
-drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c:hw_atl2_utils_get_filter_caps() {
-    ...
-	priv->art_count = filter_caps.rslv_tbl_count * 8;
-	if (priv->art_count == 0)
-		priv->art_count = HW_ATL2_ART_TOTAL_ENTRIES;
-	priv->l2_filters_base_index = filter_caps.l2_filters_base_index;
-	if (priv->l2_filters_base_index >= HW_ATL2_MAC_MAX)
-		priv->l2_filters_base_index = HW_ATL2_MAC_UC;
-	priv->l2_filter_count = filter_caps.l2_filter_count;
-    ...
-}
-
-In aq_nic_set_multicast_list(), the unicast check is signed, so it sets
-IFF_PROMISC and leaves i at 0. But i is unsigned int, so in the multicast
-check the -1 is converted to UINT_MAX:
-
-	if (i + netdev_mc_count(ndev) > num_multicast_addresses) {
-		packet_filter |= IFF_ALLMULTI;
-	} else {
-		netdev_for_each_mc_addr(ha, ndev) {
-			ether_addr_copy(self->mc_list.ar[i++],
-					ha->addr);
-
-Doesn't this mean the IFF_ALLMULTI fallback is never taken? Once more than
-32 multicast addresses are joined, would the loop then overflow
-self->mc_list.ar[] into the following fields of struct aq_nic_s?
-
-The later "i <= num_multicast_addresses" check is also unsigned, so
-hw_atl2_hw_multicast_list_set() gets called with count > 32. Its new guard,
-"count > (priv->l2_filter_count - 1)", also compares against UINT_MAX and
-rejects nothing. It would then read ar_mac[] out of bounds and program
-filters at base_location + i beyond HW_ATL2_MAC_MAX.
-
-There is also a separate case: a large l2_filter_count with a nonzero base
-index. The value is clamped only to AQ_HW_MULTICAST_ADDRESS_MAX, never to
-HW_ATL2_MAC_MAX - (l2_filters_base_index + 1). The guard in
-hw_atl2_hw_multicast_list_set() used the hardware constant before, and now
-it trusts the firmware count.
-
-With a base of 9 and a count of 34, wouldn't slots 10..41 get programmed?
-Filters 38..41 seem to land at 0x5240..0x525C, which overlaps
-HW_ATL_RPFL2MC_ENF_ADR(0..3).
-
-Would it make sense to validate l2_filter_count in
-hw_atl2_utils_get_filter_caps()? That would mean handling zero and clamping
-base + count to HW_ATL2_MAC_MAX, like the other fields there.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-0-0b988d031c78%40jannau.net
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
