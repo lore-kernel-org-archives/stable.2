@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223497;
-	b=SNAbSIw2jTSvGziaNHdysffKSaF4QCxS4JpIG0zOEGhZ6W6CfbKAMvfsJ5g6+D8aqFo8
-	 vlSrMedaO4MwCYB6c8tG0g0pgE7c3C5MFGuAKLYfrme5b9kYZsQzkUXy2btdE1Y/4QHAQ
-	 8SFVToZKfrhHr++8estGtfe7SCSZ/mLBofe2Plih6r+aBinhPU0nkV4n3Eq4L/A/tRHvL
-	 xfVifQKwefZIe45suelxXDbv4iyrEbUBCBvSVpg5DcP2I00s57zV66Srz5n+09/Jd1lYN
-	 pvXmzG2scg/psck8zkvzZ05DzYzwZIOL9J647a3ISZp18nBrMXeqelNdhab+UT2WbdA==
+	t=1794223760;
+	b=rjILe2x3nCf9C8GbGDob56E8fbV1ewwEGwQM8/33Mvo1ZFviXGX7CE3N/m8JwF5KqdpB
+	 pl5a7fW/TlC/YaEKsJCPezlDBYS4DivJIiBx9dKBk3/PF00yex2yTStLwGkNtEM5bKpH3
+	 ABqRHiOihRW/v7CfxsWza5x8QFzraEGnfBCMHKWSKyRCO1XGJe6+tHXljFTZmzuq9Tut0
+	 mtkec9BZrPUY9RTQi6juQGUtMnUm6JztYDTD4xgzgJ8dJERjfuvRKmzTgpXlkPNPAKPgf
+	 A4wvJEjDd/C35XnD11RnJnxUMRA+SU6hRwN5fhYZ/La4sy9nKUQgCK5VClY7oKkIeTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223497;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=WkXk8UeMIidM85N3aQ+wC/0a5G6Gf28wjQOq2oq5ouE=;
-	b=hg+ufHyWZyLymbbsNaE3IMFd7eqwOoGZZk6zEYqsM6ZHUx6qxbrApmYL5dt23wbJe3vp
-	 ZzBBXg/+LA8CkEqab8c7ARrBSEre1VsqbFs7RHZOdGTsXy0/jFg4Ro5IfrhmMVvOnYc3L
-	 7gMsZVpDplTF9cfQy8qqz1k1OCs8udcCf9r3UhrAgw47PA5NCsKQn7dhuJCdPqn3zDPQ0
-	 ShbxulmSzEzqKYIbg6OL+QkNwbxkV+fL367f+fClJZYnQKiUF7fG3pZRdwdpVbCAeQ/cv
-	 odoxn/CuopaoMF1V1A6gY/Sv2kAtjNz36oe1PUdfFaMo43Qfp4yEwUcfUnjslaANI7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223760;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Language:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=iNIQPzmiHA+Cn4QbV05J8JBQ0a9SblQ7mMLGrBWZZV8=;
+	b=VOo+Q6Dk/Q2d6bgQbMpCNaBJFgnyb3OUA0cqrf7I1SoW4ZyiIgOPn5xEDl6djDGTXUiK
+	 4jnaNCaNLqYN9FNsZfHW6eDEdzRxcWs6wtcAYlTCD3EebODgngYFXR1G4MAzlpIrfUyeZ
+	 QDP+QCwcSNMDFyaTMOeA7cUmg9HZay18SVn589ddj6n/+YX/PjLbIYw1iUKSyFhSBJl1I
+	 vpRyRw8efCiw1NdO7EgCBE97846XO5xbwyzjOjiMiu4MWCw9OybKCQUyvMkyABiVNb6tg
+	 6UuVRXYP0YFhJuHmalTiPbs5kCe675DjESwgfFAgdix2MN1H2Z+LFXw4zJAp044EpFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1P9jweV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qrhop0Mo;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C652606A31C;
-	Mon,  9 Nov 2026 11:24:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4A1606A322;
+	Mon,  9 Nov 2026 11:29:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE4A1606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1P9jweV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AB081F0089F;
-	Mon,  9 Nov 2026 11:24:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794223496;
-	bh=WkXk8UeMIidM85N3aQ+wC/0a5G6Gf28wjQOq2oq5ouE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j1P9jweVtKFreXVlXGX4OQRWUqQL1IbwZVuAbemRauaDZ/+Tmhb9J1ana7IuoCwT1
-	 ap/RS00ZiEV8AKpvU03iZKOpWyc3ATpOzZpZYNsK4Lxgh7kWs7n3/FzIH0fwJjBdMh
-	 TjYfowfE7MFEqQo40qb0LtNHfoAZFI930zGSIVSM/U+oKCKYh80nAyfHvptERGNYXt
-	 hOastcYc3BFYquSex+hrsv6LMMSzHIyr5cd9Sf5KkN/AaIjzAT2NME7R/WjltNVQDQ
-	 42gHLAsGhU02pNoYSMhLb8tslSUohki00SmyGE/e886/BibgkKiBH/SrVQ2Vna5Vgf
-	 4G3/O/coCspxw==
-Subject: Re: [PATCH net] nfp: flower: hold an RCU read lock while using an
- offloaded MAC entry
-From: netdev-bot+sashiko@kernel.org
-To: getshell@seu.edu.cn
-Cc: kuba@kernel.org, horms@kernel.org, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, oss-drivers@corigine.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Mon, 09 Nov 2026 11:24:55 +0000
-Message-ID: <179422349578.994134.14069907207951136090@kernel.org>
-In-Reply-To: <20261108105605.1668-1-getshell@seu.edu.cn>
-References: <20261108105605.1668-1-getshell@seu.edu.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qrhop0Mo
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=iNIQPzmiHA+Cn4QbV05J8JBQ0a9SblQ7mMLGrBWZZV8=;
+	b=qrhop0MopnJVqAeskNwKNdYuRqPtbihLXMLRYIvTQfbbKX4d3ZoxmOtC3A3uAe98KjQWlk3yG
+	xZLWHWKjPTsN97vIoeLnnNeAN1zOfV7Tvm2k3+yivN1NceqcDzNFEnRup/D6Lq8ZB5U/mnBS8kO
+	a72qU2TTcukkQfRT4927994=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jNSGg5qBzz1cySJ;
+	Mon,  9 Nov 2026 19:28:59 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 1941F40586;
+	Mon,  9 Nov 2026 19:29:14 +0800 (CST)
+Received: from [10.173.125.21] (10.173.125.21) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 9 Nov 2026 19:29:12 +0800
+Subject: Re: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
+ page under hugetlb_lock
+To: Andrew Morton <akpm@linux-foundation.org>, <mt4022@columbia.edu>
+CC: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, Muchun
+ Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, David
+ Hildenbrand <david@kernel.org>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Matthew
+ Wilcox <willy@infradead.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <tz2294@columbia.edu>,
+	<stable@vger.kernel.org>
+References: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
+ <20261106143914.16a42b8cdf7436d045b85aa6@linux-foundation.org>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <82a31bee-983e-bd22-a162-7c708c8ad475@huawei.com>
+Date: Mon, 9 Nov 2026 19:29:11 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,131 +77,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+In-Reply-To: <20261106143914.16a42b8cdf7436d045b85aa6@linux-foundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 2026/11/7 6:39, Andrew Morton wrote:
+> On Fri, 06 Nov 2026 11:09:50 -0500 Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
+> 
+>> From: Mani Tofigh <mt4022@columbia.edu>
+>>
+>> memory_failure() checks under hugetlb_lock that the page isn't part of
+>> a hugetlb folio and sets PG_hwpoison only after dropping the lock.  The
+>> page can become a tail page of a new hugetlb folio in the meantime.
+>> With hugetlb_free_vmemmap=on its struct page then lives in the tail
+>> page that all such folios in the zone share, so the flag lands on tail
+>> pages of every one of them:
+>>
+>>   Task A (memory_failure)              Task B (nr_hugepages write)
+>>   get_huge_page_for_hwpoison()
+>>     /* P not hugetlb */
+>>                                        alloc_fresh_hugetlb_folio()
+>>                                          /* P becomes a tail page */
+>>                                          hugetlb_vmemmap_optimize_folio()
+>>                                            /* P's struct page now in
+>>                                               the shared tail page */
+>>   TestSetPageHWPoison(P)
+>>
+>> The error on P itself is ignored, while healthy pages of other folios
+>> stay marked and are never reused once their folio is freed.  After
+>> freeing the pool, /proc/kpageflags shows them as hwpoisoned.
+>>
+>> This is the allocation side of the race that commit 32c877191e02
+>> ("hugetlb: do not clear hugetlb dtor until allocating vmemmap") fixed
+>> for freeing.
+>>
+>> Set the hugetlb flag of a new folio under hugetlb_lock and set
+>> PG_hwpoison of a non-hugetlb page inside the locked check, so that the
+>> vmemmap can't be optimized in between.  The retry path clears it under
+>> the same lock, unless the page has become part of a hugetlb folio in
+>> the meantime and its struct page isn't in the first vmemmap page of the
+>> folio, which HVO doesn't share.  The retry then knows the flag is its
+>> own.  With the fix, no healthy page gets marked anymore.
+>>
+>> This bug was identified and confirmed with the help of a deterministic
+>> hypervisor currently under development.  The C reproducer below however
+>> hits it within about 35s.
+> 
+> Thanks.
+> 
+> So as I understand it, if a single 4k page turns bad at just the right
+> time, we can mark a lot of healthy 4k pages as bad (hence lost until
+> reboot) while the bad 4k page remains in use?  But that race is very
+> unlikely?
+> 
+>> Fixes: f41f2ed43ca5 ("mm: hugetlb: free the vmemmap pages associated with each HugeTLB page")
+>> Cc: stable@vger.kernel.org
+> 
+> I'm hoping we don't need to backport, because the race is so unlikely,
+> the consequences aren't world-ending and the backporting story is
+> messy.
+> 
+> But I don't think I'll get my hope, because the consequences of this
+> race are worse in older kernels:
+> 
+> In 6.6.162 HVO maps shared tail metadata read-only, so the misplaced
+> PG_hwpoison write can cause an oops.
+> 
+> Also in 6.6.162 memory_failure() still has a ClearPageHWPoison(p) in
+> its PageCompound retry block so with HVO enabled and
+> CONFIG_TRANSPARENT_HUGEPAGE=n, its compound retry can still reach
+> read-only tail metadata.
+> 
+> Miaohe, wdyt?
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Yes, even though the probability is very low, it can still happen, and
+it may cause the kernel to crash or something like that, so I guess we
+have to backport it.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks both.
+.
 
-- [Medium] The commit message gets the pre-patch state wrong and leaves
-  out half of the fix.
-- [Medium] nfp: flower: RMW race on mac_entry->index in
-  nfp_flower_xmit_pre_tun_flow()
 
---
+> 
+> .
+> 
 
-nfp: flower: hold an RCU read lock while using an offloaded MAC entry
-
-This commit takes rcu_read_lock() around the offloaded MAC lookup in
-nfp_flower_xmit_pre_tun_flow() and around the update of mac_entry->index.
-The index is copied into a local before nfp_flower_xmit_tun_conf() is
-called. The patch also adds an rcu_head to struct nfp_tun_offloaded_mac
-and converts the kfree(entry) calls in nfp_tunnel_add_shared_mac() and
-nfp_tunnel_del_shared_mac() to kfree_rcu().
-
-> so kfree_rcu() alone is not enough: a grace period only protects readers
-> still inside an RCU read-side critical section. The writer is the netdev
-> notifier chain under rtnl, freeing in nfp_tunnel_del_shared_mac() with
-> rhashtable_remove_fast() + kfree_rcu(); the reader is the tc flower
-> offload path, which holds no rtnl, only priv->nfp_fl_lock.
-
-[ ... ]
-
-> the unlock: the firmware payload is unchanged and kfree_rcu() is kept.
-
-[Severity: Medium]
-Is this an accurate description of the code before the patch?
-
-Before this patch, struct nfp_tun_offloaded_mac had no rcu_head, and
-nfp_tunnel_del_shared_mac() freed the entry with a plain kfree(). This
-patch adds both the field and the conversion:
-
-    struct nfp_tun_offloaded_mac {
-    ...
-    	int bridge_count;
-    +	struct rcu_head rcu;
-    };
-
-and in nfp_tunnel_del_shared_mac():
-
-    -	kfree(entry);
-    +	kfree_rcu(entry, rcu);
-
-So kfree_rcu() is not "kept". It is introduced here.
-
-The patch also converts the err_free_entry path in
-nfp_tunnel_add_shared_mac(). That path is reached from err_remove_hash
-after the entry has already been inserted into offloaded_macs, but the
-commit message does not mention it:
-
-    err_remove_hash:
-    	rhashtable_remove_fast(&priv->tun.offloaded_macs, &entry->ht_node,
-    			       offloaded_macs_params);
-    err_free_entry:
-    -	kfree(entry);
-    +	kfree_rcu(entry, rcu);
-
-The patch carries Cc: stable. Could the commit message, and maybe the
-subject, say that the original bug was an immediate kfree() with no grace
-period? It would also help to say that the fix adds the rcu_head and
-converts both kfree() calls, not just the reader-side lock. Otherwise a
-backport could take only the rcu_read_lock()/rcu_read_unlock() part and
-keep the immediate kfree().
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
-> --- a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
-> +++ b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
-> @@ -1462,7 +1473,10 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
->  	else
->  		mac_entry->index &= ~NFP_TUN_PRE_TUN_IPV6_BIT;
->  
-> -	payload.port_idx = cpu_to_be16(mac_entry->index);
-> +	mac_idx = mac_entry->index;
-> +	rcu_read_unlock();
-> +
-> +	payload.port_idx = cpu_to_be16(mac_idx);
->  
->  	/* Copy mac id and vlan to flow - dev may not exist at delete time. */
->  	flow->pre_tun_rule.vlan_tci = payload.vlan_tci;
-
-[Severity: Medium]
-The commit message says the read-modify-write of mac_entry->index is
-now inside the RCU read-side section, but rcu_read_lock() only keeps
-the entry from being freed. It does not serialize setting or clearing
-NFP_TUN_PRE_TUN_IPV6_BIT here against the writers in
-nfp_tunnel_add_shared_mac() and nfp_tunnel_del_shared_mac(). Those
-assign entry->index from the netdev notifier under rtnl, while this
-path holds only priv->nfp_fl_lock. Either side's update to
-entry->index can be lost.
-
-Writing the IPv6 bit back into the shared entry also seems to corrupt
-the index those writers rely on. NFP_TUN_PRE_TUN_IPV6_BIT is BIT(7),
-and nfp_tunnel_is_mac_idx_global() compares the whole low byte of the
-index against NFP_FLOWER_CMSG_PORT_TYPE_OTHER_PORT. After an IPv6
-pre-tunnel rule has been offloaded, the low byte of entry->index has
-0x80 set.
-
-Later, nfp_tunnel_del_shared_mac() drops the last reference. It only
-masks off NFP_TUN_PRE_TUN_IDX_BIT before calling
-nfp_tunnel_is_mac_idx_global(), so the check fails. The ida_free() on
-priv->tun.mac_off_ids is then skipped, which leaks the ID. The stale
-bit is also carried into the index that the bridge_count revert path
-sends through __nfp_tunnel_offload_mac().
-
-This behaviour predates the patch. Since mac_idx is now a local copy
-anyway, would it make sense to read mac_entry->index once with
-READ_ONCE() under rcu_read_lock() and apply NFP_TUN_PRE_TUN_IPV6_BIT
-only to mac_idx? flow->pre_tun_rule.port_idx is taken from
-payload.port_idx, so the delete path should still see the IPv6 bit.
-Or is there a reason the bit has to be stored in the shared entry?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108105605.1668-1-getshell%40seu.edu.cn
