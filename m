@@ -1,66 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229271;
-	b=ejODD76+ZQRpK/Hd8c2gbFqh3RVIwmzFHJq+Dt08v+kET6UfPt+P1MTXdyd7WlNYIHgM
-	 t2rG29ona8uPAziPM8HdClRHmViw9+pnm+3OAaspQum2A3iujlb0Yf5Nv3ju9SLDj2aAq
-	 O7EciEtPcYW7F3BN88K965STp0MjidCi6kSJE+HQtZgbiemyzZ4xfF/qLfjnxv1A6xXrW
-	 p+e+ETraE04IHGDU6TrLkt6UPL9gLLbVzoyq9FykY9YEp2T8O0bdroVVuMHyqV0zDCqqU
-	 ARXVgAu+m6AGCHscWM+YKg+DKEupNSJiAAUBXuNr2wLRKArSDL1InKKG8yLPHt/8jtg==
+	t=1794229292;
+	b=BHjHaYzK2fys1Brlpfw+84Oe7E62cXQwKxWFO6rZLGY9Lp8np4049I15CEvyt9KWZCow
+	 gqxhVqRuCGM6VtSza3MAOMuKpy6rv+TS5uvjlbuSRq67HqzmRggYD3WoCdBZ0UsNEArxG
+	 yKPdi0xdcO9e+NhSoaaYyaNqIpwSZsRFff0KIKMdOSnd9BTB7q4lH1r3DmdCSibIljTb7
+	 mPcWky92QeOGi2AmuKogkFZdGfS9AYQRzZfsUjIARHqqa7kMwcckCVR0YtO6rPy4Eo9C4
+	 V08HPvsuQ8oLroU41a0h4P5L54at79ZBe4xSDZ/DvkaRtoNvVBdfF4lilY0gTl3XRWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229271;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:Message-ID;
-	bh=E1GGOvtBlaTsUmYtmvnwqkByifPIkOREx0MBTWn/Tmk=;
-	b=5N8xKo20r3w5XulvnAYfUGtyMG/JYsKsH6XgTqM1bihQGzMQhKtqZT06DZr4z+Aq9sMn
-	 pQwt8BhfMSYs41Unaw0xkLSid05kAISuBxB5VMWo52zpuBlneX8N+9ntQMSNEvMHwGzzq
-	 268J0piGCDHSmiD6U14J+TMlcC34Ss2f2/c793HchjnC8yVjAYSQ1ovls0wOp1eU/qLqj
-	 N1zbeUvOCi2qcrZpc9Ntuu/w7O2BctygUQDeohAR2hXmXFQbBJPC85nwIw28dV4DAq/Cp
-	 Gs4I2S5skM3ip9mroiBjJS0oeg/hQusNRGN1b8bfF/ID0i1fan/1qe5Ceq2X32z3fsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229292;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GrnS4jLv9hDP6qcIq7PmJP9UPyicS96uU+61H009H4c=;
+	b=ozueAw4sPsTaWv7oUUyenI6AXK0xgAK2b6nMZIOEaCYNb5/PRODawKkwwSMHsojm1u2f
+	 SdVJ2UJeJLNYhM+/cd96gQ5ALNVe8jXv6U0xyTY70dkKIiFEND300Kgt7kR0g9noWIqXT
+	 c9GDFq1/C8tCYJOoQG8KdCPFyqHs6/CjzldAap9prFACiK2KsCC37oYRHsCtE4xV8sUl0
+	 Q1aaF3vV1or/Hn50XkOMQnU9HIdaqKAi821yerHetc8g7YCiqeZL7mQJz/IUxVQ57gDRA
+	 /KwIqLnn+8VKitwn5Osf+N2F//sB0vJKHKJdK4kldNbAXbWios2JQn4EVEnVDl7DWgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=cRi9kA5s;
-	arc=none smtp.remote-ip=115.124.28.218
-Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g16flIQi;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA96606A321;
-	Mon,  9 Nov 2026 13:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA96606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7113A606A31C;
+	Mon,  9 Nov 2026 13:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7113A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=cRi9kA5s
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794229260; h=From:To:Subject:MIME-Version:Content-Type:Date:Message-ID;
-	bh=E1GGOvtBlaTsUmYtmvnwqkByifPIkOREx0MBTWn/Tmk=;
-	b=cRi9kA5sFS6J+a7FaRlbDo68s5P7YCoHdnukMM2Ee5hS+12hixfHA/J0V3F/L3gL3Dskx5B7KRmEkpf/G0XK4iL7KTt8LulY7bX9sC3LMuS5JStdE9t0NKpK9jAcuXeLHrMLEmd7eLk+IeN6l4jfPWNadLVgm6t39RQNFU/qNWQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2289389|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0211135-0.00440467-0.974482;FP=13103200845358019423|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k-FCRfd_1794229257;
-Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.k-FCRfd_1794229257 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 21:00:58 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>,
- linux-integrity@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>,
- Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Steven Chen <chenste@linux.microsoft.com>,
- stable@vger.kernel.org,
- Zhu Guanglei <zhugl3@xiaopeng.com>
-Subject: Re: [PATCH v2] ima: fix races when deleting measurement list entries
-In-Reply-To: <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
-References: <20261109123335.432186-1-liuwb@xiaopeng.com>
- <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=g16flIQi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794229291; x=1825765291;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OhnZ8KrQ1e0IGGbUwmpfLGs0XbCEpAloNu6dadFWA+w=;
+  b=g16flIQiSxjfI8VP4zj+dEaT2uGQALOajlj+zwNTlDDtShyZnaW0uZSJ
+   RHncDRDL0w3llEJH56KJ+qRfXoirUPi+xhL5MdffVzdz7tpZcgakJS/Bs
+   OiS0kt/9AhBGmn/r1V/0yDszekK8Nw2qkW2rS/JJh3Ir3bj/9LH34tQYr
+   oe89nL3XwehoI/K8vSpip/xSZNlWarw5ckugXpOrzfetg4ZlIAS4es3M6
+   /fakIZwghYpK7G6Pj824u6a4UtfDLNARSkHNRPSkfknuM4hIeyjOM0a9y
+   uNVzdAeIsjRbk0eYG40Y0dQjk0YwxApJDIqnB78Z3Xl1NDq0dgz/ZJC8K
+   w==;
+X-CSE-ConnectionGUID: QfFUXbeNQXSazI6XlD9j0w==
+X-CSE-MsgGUID: xOPI8AicSDSJJwHpM9Yxsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2866101"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2866101"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:01:30 -0800
+X-CSE-ConnectionGUID: 039pQ77LTj2MWhcf819ksA==
+X-CSE-MsgGUID: actMIGJiT6OrtWqfwZ7O9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="9634622"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:01:28 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id BA32F121B96;
+	Mon, 09 Nov 2026 15:01:24 +0200 (EET)
+Date: Mon, 9 Nov 2026 15:01:24 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: b.danias@tutamail.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Serin Yeh <serin.yeh@intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] media: i2c: ov8856: Don't power off a suspended
+ sensor in remove()
+Message-ID: <avHEJFI-DNz074FS@kekkonen.localdomain>
+References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
+ <20261104-ov8856-pm-fixes-v1-1-1958b730ce66@tutamail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,14 +90,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Mon, 09 Nov 2026 21:00:57 +0800
-Message-ID: <179422925743.761920.15976497107095793440@xiaopeng.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-1-1958b730ce66@tutamail.com>
 
-On Mon, 2026-11-09 at 13:49 +0100, Roberto Sassu wrote:
-> Is it still true with the new semaphore?
+Hi Babis,
 
-No. That paragraph describes the unpatched code. The patch serializes
-writers with ima_measurements_rwsem and protects the lookup and cut
-with ima_extend_list_mutex.
+Thanks for the set.
+
+On Wed, Nov 04, 2026 at 11:42:47AM +0200, Babis Danias via B4 Relay wrote:
+> From: Babis Danias <b.danias@tutamail.com>
+> 
+> ov8856_remove() calls ov8856_power_off() unconditionally. The sensor is
+> normally runtime-suspended by then, so its regulators and clock get
+> disabled a second time. On every unbind, the regulator core refuses the
+> extra disable with an "unbalanced disables" warning, and the clock
+> framework warns that the clock is already disabled and unprepared.
+> 
+> For the clock this is more than a warning: the clock framework keeps
+> one enable count per clock, shared by all its consumers. Where sensors
+> share a clock, such as the TPS68470 clock that int3472 hands to every
+> sensor behind it, the extra disable can stop the clock under another
+> sensor that is streaming.
+> 
+> This has been the case on devicetree systems since the power handling
+> was added. Since commit 609a71568664 ("media: i2c: ov8856 : remove ACPI
+> node bypass mechanism"), it happens on ACPI systems too. Seen on a Dell
+> Latitude 7320 Detachable (rear OV8856 behind a TPS68470) when unbinding
+> the driver:
+> 
+>   [  220.072107] unbalanced disables for CORE
+>   [  220.072109] WARNING: drivers/regulator/core.c:3262 at _regulator_disable+0xc3/0x150, CPU#2: tee/8667
+>   [  220.072825] tps68470-clk already disabled
+>   [  220.072828] WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x82/0x140, CPU#2: tee/8667
+>   [  220.073620] tps68470-clk already unprepared
+>   [  220.073623] WARNING: drivers/clk/clk.c:1047 at clk_core_unprepare+0x1cf/0x200, CPU#2: tee/8667
+> 
+> Power the sensor off only if it isn't runtime-suspended, then mark it
+> suspended, as other sensor drivers such as ov5675 do.
+> 
+> The problem was found, and this patch written, with the help of an AI
+> coding assistant (Claude Opus 5.5). See the cover letter for details.
+> 
+> Fixes: 0c2c7a1e0d69 ("media: ov8856: Add devicetree support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Babis Danias <b.danias@tutamail.com>
+> ---
+>  drivers/media/i2c/ov8856.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+> index 42c4b9c4e..988ce0310 100644
+> --- a/drivers/media/i2c/ov8856.c
+> +++ b/drivers/media/i2c/ov8856.c
+> @@ -2367,7 +2367,9 @@ static void ov8856_remove(struct i2c_client *client)
+>  	pm_runtime_disable(ov8856->dev);
+>  	mutex_destroy(&ov8856->mutex);
+>  
+> -	ov8856_power_off(ov8856->dev);
+> +	if (!pm_runtime_status_suspended(ov8856->dev))
+> +		ov8856_power_off(ov8856->dev);
+> +	pm_runtime_set_suspended(ov8856->dev);
+
+Also setting the device suspended should be conditional to its status, not
+just powering it off.
+
+>  }
+>  
+>  static int ov8856_probe(struct i2c_client *client)
+> 
+
+-- 
+Regards,
+
+Sakari Ailus
