@@ -1,68 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191971;
-	b=MA2sVFkII7l2D1DgWC7M+jpvl9vn2w7F2P2eG0BNPfoDxScmu9ovQDkhGQmTmJAQ2AcB
-	 K7Gdbel3JeHNLCflSqbMv0413sakKbTpc3xK+rABKV3W2LJVOKt97qPJX+wxMVoY3ZtoZ
-	 olzUdnj8QtPqow3E3kg/f6ovGU8ZmfuPtyx2l+J2y/VgDESMl3Of5uDa0am9mM/tcXpEA
-	 RCdiIBgRL8Banjm8c6dBxwffllcxfxTRrDVotiVc/5SrKcuX/UDuFklC548OEypYa5WOo
-	 59SOvY4uSxvuANyAM0CvsOFxT1pMawXm1mYlcmgNV47BdRqh3JyfQi1cw98vg9FQoMQ==
+	t=1794192103;
+	b=FJWyuVfv2p60gUxCuDmbE4HGkxEfIVNj3d05Jr57Q2NKTAX2a1hGazGln4Cy4y2FEYii
+	 fvWLjX6UP/supeE6EE+Bx36ZYSgkzdJmIc4JsVNNLnToGXjsXSwzuN/QIk5b80IoYZxsj
+	 +3maj5rm5SeLzRjJJw/KhoHisvM66zH67sAWNQGH8iJJIng2mrWxoOcJR82rQPp7ApJm7
+	 V2Qw5d7yNsBkiMzkHaAlY3ErrJdKRFkE4dXsTpvrQy2kXczpHLozJrvksGBIOi7h5yeX5
+	 gmXM6dE/XbBq17440leiJLUWMoO7cssswRX3yeFXgcfYEtdZJF+wAVnXFyIB8/UEaFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191971;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192103;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4GpeMPp9esUWNHQVrf4y4sbUF5AJ0dox7FxpZYGLtcA=;
-	b=bZpy//3GvRuMXosFZVsF2rbJvHumoHrfE4Ovckp1TNE2y6wTkTUJZ17ldtUYsVQdDlwJ
-	 j3RPCNI7D4yEpouZq99c/GbZFIPvGRdjr/yflXItBT0CYhmPEvc3TnMiIcFsa2pVYw4H8
-	 jkkD6KUrfRwCL5FTukeM7qawOCrxN1wWHv6//PhtTMcnRAxqYArMvAm6MkwZ6dolR2P4v
-	 KNPoms0KQph13uDPZ4VXMXnI+/qYQVraJpx4OTF3Q5K/7ogvvtkOMpNjuH2rsuGvv/7hx
-	 72vJ6kOPAFlA34Ps4xJtwz39lRxDED2jn7TwWINcpPkpeSAuEmqgGq79GfuFS6HhkyA==
+	bh=7Oaet72IvSMtzXaUg0NEIECqrGi+MmFL4ZFRzLknTqI=;
+	b=uXtDTnE/ZOXI5C8CHEyU2DrM41M+svyz1WUN+CQ2CRVrrX26Q//aQtzVUPIswrCE0kHF
+	 LKCe7mzYNdP1nIm9n0QOhUZdB5bF2kKXoAfPZ6aXuDeE19sJkk+mtigl49KW3uPbLnuoM
+	 SvfmMPA1iNVw8IhKYcg9SRTJWv9JjBrIFAXxW93bWrwDMrVP3UuaRyuLMmWcVpNqJvq4J
+	 z3ODo/1WXgddL4kPD4/nSUrqOs/WKGgmvap+RNjVHxULQym3ZO+XxQs5FMQwWuOleMT3K
+	 N8vStcO3bgPBXHgtNTkzA9lpC82NDcsBODKHsKCGk/I0Z/aeCoHHOPKfr03U2kvIUAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LaDROMfk;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B5CC606A31C;
-	Mon,  9 Nov 2026 02:39:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=rWOopgiE;
+	arc=none smtp.remote-ip=203.205.221.192
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBEF606A31C;
+	Mon,  9 Nov 2026 02:41:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BBEF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LaDROMfk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=LaDROMfkLni22zaf2pme8CxZCcy2q29gPFJ3Iu8CC77PRXHnyx46yEIrfy+0GEMznqNR0ueM1AOMU
-	 2v2lZ3gZpOkT3I7bFeeeWQbBfaseSAjflMNP0Q54Z6Xr33VvhTF2J9Pu4abqgcto+h4RZeGIqyVx3b
-	 y8rQi/G7KAqhdpyQ=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af13260230-8b943;
-	Mon, 09 Nov 2026 10:39:28 +0800 (CST)
-X-RM-TRANSID:2ee36af13260230-8b943
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af132011c9-7db93;
-	Mon, 09 Nov 2026 10:37:55 +0800 (CST)
-X-RM-TRANSID:2ee86af132011c9-7db93
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: dm-devel@lists.linux.dev
-Cc: agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	linux-kernel@vger.kernel.org,
-	syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=rWOopgiE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1794192097;
+	bh=7Oaet72IvSMtzXaUg0NEIECqrGi+MmFL4ZFRzLknTqI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rWOopgiEHK1q4WHZL/AlV2073gW+V3gZAMwMyxI8bxN7SXTNinr0gz8VCy9siesfk
+	 ePzhUU/sypy1qy38nMn/97nOCZdZ63mAS1mXJvugb4JHBNfmrOa4jH7aTNquuvBJ7g
+	 QDClkO3dKmLRgpXWFQ6sb4Cg5tRVfYIqpc8EKNU0=
+Received: from HAPYCAO-MC1.tencent.com ([101.226.143.240])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id A628646A; Mon, 09 Nov 2026 10:41:34 +0800
+X-QQ-mid: xmsmtpt1794192094tble5wlj5
+Message-ID: <tencent_3455CE5C67BEF809176851A476321557E70A@qq.com>
+X-QQ-XMAILINFO: MJf32pulH481VJxcL+chNSP4XMn7WwZ1fKHh5wH4lUPYryecSU5RCPxXI+qnk+
+	 hJz3p9hMgYkOEkoW1egWyF8mnDd+ZsOJM642LwYBBrDlH6mUZvr/aiRP7Cup6AjPh1Hq8SIp/F0l
+	 TNYLWAo1NTqkVpGLqckeNY46ZOm6PRz0ai8Qz6aNH/ag9oWptPELp5ponF6a7YJ4CfhRe68hHWUK
+	 5MhD5x6v73AmCeuS4zw41zHkikdxWjeIc0h9m8UMsGyM/J1BcLnmKYfRtJcqTa8tcUHBbGWjpnG2
+	 RD/6lAYstyLR+oHeAE7nKcO92cgHX7tSDvn/1Dkr+j7S6GZMI4lviFVspsvslU4WZiep5FScnzSN
+	 xq3iFuIFdteC6jzUQVXkMzkN7HcDsvZpZ78raWbqMFrpARNPDD4jWB7kGlTIMlY/KEEKn/VYf+5U
+	 IoVUDT5G85auvsHFZEEXIBMAVF6TNXb7Jrhsjo3mm+zBnmOLAQyuNwGgLkIVvjjsAHcTAzMXbWQF
+	 CgJIz0xgBG02I9lZ2bYQ0WCI0zJqOTuJQLAdvAaTvg4a9O0NN8b6iGD2gpe7bDDvUY55+bAta/Cx
+	 YlwUFLSwWoFoofe++9hptYRXnlhNJPOOP942vxpA2Tx88mDgJK8+XKcg7sdOHH9paLQSQrAHuDbJ
+	 33ORYNkI3n7DGeaJ8fcndXL+McvqSvloGqHVyLTERolaYBHqWkZFW6ojnm8nRqnacvGpREtf54wK
+	 z2db9a6Ds3QrNKAawXEe/50WiAzA8qcu3LmTVW7qm4JNWRMYPGazC4bGtGyEVou+zC54aP2tn8RZ
+	 6PvV9tOJ7AMweUlIZCggn3pzSg+fjG3mU5rCPKI2O0TFEH7kV7rIMY8PWPIhF4qYBqBQYN6csb89
+	 RDRUaTk/eTwWMe22eH48NlleFpyC+nvWzVeWs0nxd9jEfXKmhKqpUrKxkh6GXkFBX1HcnB2lBefn
+	 uhgjHepZDVlD1OViMQhyOTinxryO2h5L3KytYdh+vyaZXKZ6uT9+V9985ACODeyN8TYmGFDVCwlT
+	 G9UBLgkNEUHggaanInWikx32g4PsHnD0+fgYhBNfsJpUnrmbx65FmszsbefJs=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: bo cao <treebacker@foxmail.com>
+To: andrii.nakryiko@gmail.com
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	daniel@iogearbox.net,
+	netdev@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] dm crypt: fix use of uninitialized percpu_counter in ctr error path
-Date: Mon,  9 Nov 2026 10:37:53 +0800
-Message-ID: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+Subject: Re: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
+Date: Mon,  9 Nov 2026 10:41:34 +0800
+X-OQ-MSGID: <20261109024134.771-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <CAEf4BzYDmzNoN-5Rnfj4RrAU8wKnZe+tDFApng61L0mubXqung@mail.gmail.com>
+References: <CAEf4BzYDmzNoN-5Rnfj4RrAU8wKnZe+tDFApng61L0mubXqung@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,73 +86,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If percpu_counter_init() fails in crypt_ctr() (e.g. when the
-underlying percpu allocation fails under memory pressure or fault
-injection), the error path jumps to "bad", which calls
-crypt_dtr().  crypt_dtr() then evaluates
-WARN_ON(percpu_counter_sum(&cc->n_allocated_pages) != 0) and calls
-percpu_counter_destroy() on a counter that was never initialized,
-because __percpu_counter_init_many() returns -ENOMEM before
-calling raw_spin_lock_init() on fbc->lock.
 
-With lockdep enabled this triggers "INFO: trying to register
-non-static key" in __percpu_counter_sum(), as reported by syzbot.
-The console additionally shows "crypt: Unknown error (-ENOMEM)"
-because this failure path sets no ti->error.
+> please trim the commit message down, it's way too verbose
 
-Move percpu_counter_init() to right after the allocation of cc,
-before ti->private is set and before any "goto bad" can happen.
-On failure, set ti->error and free cc directly, so that
-crypt_dtr() is only ever called with an initialized counter.
+Will do -- a trimmed version follows as v4.
 
-Reported-by: syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=4b232570d625662eaab4
-Fixes: 5059353df86e ("dm crypt: limit the number of allocated pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-Not runtime-tested (the syzbot report has no reproducer; the
-failure requires percpu_counter_init() to fail).  The affected
-crypt_ctr() code is identical in current upstream master, so the
-patch applies there as-is.  The Fixes hash was verified against
-the upstream commit that introduced both the init call in
-crypt_ctr() and the teardown in crypt_dtr().
+> not sure this is right, bpf_per_cpu_ptr_proto specifies
+>
+>  .ret_type      = RET_PTR_TO_MEM_OR_BTF_ID | PTR_MAYBE_NULL | MEM_RDONLY,
+>
+> it already is marked as maybe_null
 
- drivers/md/dm-crypt.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+The proto is marked, but check_helper_call() drops the flag on the
+path this hunk touches.  For BPF_FUNC_per_cpu_ptr with a percpu obj
+argument (R1 tagged MEM_RCU), returns_cpu_specific_alloc_ptr is set,
+and the return type is then assigned as:
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 1ff16b8264..3e69dcc366 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -3249,6 +3249,14 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		ti->error = "Cannot allocate encryption context";
- 		return -ENOMEM;
- 	}
-+
-+	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
-+	if (ret < 0) {
-+		ti->error = "Cannot initialize page counter";
-+		kfree_sensitive(cc);
-+		return ret;
-+	}
-+
- 	cc->key_size = key_size;
- 	cc->sector_size = (1 << SECTOR_SHIFT);
- 	cc->sector_shift = 0;
-@@ -3260,10 +3268,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	crypt_calculate_pages_per_client();
- 	spin_unlock(&dm_crypt_clients_lock);
- 
--	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
--	if (ret < 0)
--		goto bad;
--
- 	/* Optional parameters need to be read before cipher constructor */
- 	if (argc > 5) {
- 		ret = crypt_ctr_optional(ti, argc - 5, &argv[5]);
--- 
-2.39.2
+	if (returns_cpu_specific_alloc_ptr) {
+		regs[BPF_REG_0].type = PTR_TO_BTF_ID | MEM_ALLOC | MEM_RCU;
+	} else {
+		/* MEM_RDONLY may be carried from ret_flag, but it
+		 * doesn't apply on PTR_TO_BTF_ID.  Fold it, otherwise ...
+		 */
+		ret_flag &= ~MEM_RDONLY;
+		regs[BPF_REG_0].type = PTR_TO_BTF_ID | ret_flag;
+	}
 
+The cpu-specific branch does not carry ret_flag at all, so
+PTR_MAYBE_NULL never reaches R0 there -- only the ksym path (the
+else branch) keeps it.  Nothing after the switch re-adds the flag
+for this case either: the code below only assigns an id when the
+register type is already maybe-null, and clears the flag for
+ptr-cast functions.
 
+Since bpf_per_cpu_ptr() does return NULL for cpu >= nr_cpu_ids
+(since 01cc55af9388), a program that calls it on a percpu obj and
+writes through the result without the NULL test passes verification
+and oopses on NULL + offset at run time.  The hunk carries
+(ret_flag & PTR_MAYBE_NULL) into that branch, which only restores
+what the proto already declares.
+
+Thanks,
+Bo Cao
 
