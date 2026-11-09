@@ -1,80 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235617;
-	b=UZMEYbNEUF4x+2mFLmuYI6Q9YuLIPRxFnoNAlRg8uAp/5KneSaqy8/xeb8Gm2pMofZ7Y
-	 /IJ9mWG7W8JOiOyUMiDiFLE2wkSRCqPCX8BfR0djOxmw8kKaVRQRAOQOM7LqUqTYhtlrG
-	 yzd+YvvRZzl1yqF1nnxU0/480cjhAOY513iUJw374K65BN823o1cotztWljiqd5xJ8Zbz
-	 oCyzs1Vki63gJYOKdzgEsrv1AgBHTeqFm3XX646WwXB0+e0Pv1H5n+BjWEGlaD8Ek59d/
-	 8GDM0Xk+9H3iTGaR6eWHBd6mWYM52SZskvLwtmxg2M9wI0C7dJQNGOKd+i/aqcz5b5w==
+	t=1794235712;
+	b=0ldSrcWNixVw5IFWf5/iNJoKoaQKDmOPf6CGMt3xG9jO8foRs/T+uQbpdvhI+EzhcqrY
+	 unyRUxB/bMyTmKaHdi658mTie2f1P1ISlb97Nm3fsbJlOLmhjW+FTgjVhnyMBWEetWH9i
+	 98yEM65Maa8HfUjFlpxs2dUdxxmvVTdyTkCFMw2ErzUtI0aOSoMiLw7Fb1WMJCgaiTAoU
+	 5v7i/PiRBWfua63qAD6AOzyFipGQuqv5CXZyTOSq1wKVdbFEdSbiC3b5YVjvHkvwqRsuH
+	 Z2Kh3JksJg0wDAYLBsH7KbiaI3YUTAWyzDhyDw4OHtuEsPWQg91WtOZHBBEZcg2S75w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235617;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/Zs+Ic1R03IE+bmq387RlMKn8zZ+sny+To/g863uh+I=;
-	b=KddoTb9gdnOpxTSysoazT8muQyV4+WbA44QqkTgbkat9zkVsJ443BhH7PP6lGudzoenb
-	 AfYuCUA2lDrmn+c5qymwYqqOkhEOH1kVb+mAd6kDtJNFceGKJgQ6C8zr0bLTfzrkfOJxG
-	 CntHTAVZZUau1q5SuumYFJHje8Atbao4wBqVcLM7/kwklOQB0t5vT930FEzWosOkrvFdB
-	 F1fw9a7ARSz1+KBQyJCKqpgFvqBaOxpoqEYwoawRgIy8CiVobgmiHt/UzqBnsQQ2ETeQ/
-	 8Pf+y+7QNdp5T9lc+a6qm+w1XQN5gI5leeJFi9xp4umKPRMrDopg6SNpUcrTun7Tf7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235712;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=M7mjVSswzFiYPoD6QT1qC2YywjNa1eCvKgF70U0xhrg=;
+	b=UPm6NKNKRytUCVo/pA4KgfmqXnUnX37WxDoKZ+zgsZHOw8pzxqeADzHnCqDmZoS5TanI
+	 blDGoqgOplyt5zyrOQgwnSulJfm5VnSpNCAVBJ0KK/oc+eVzStgLUTNGBQiVyM6aTdvJh
+	 F1ALIa8On9OJ7IKro1P6ect9HaKAL7qSORx41wwI/7IB60OxWWUjzrnjyxygnMo7TS68c
+	 DIiwc5bhfNTyiDTTU+RGgi2GkItG5wuxU2Jlzu2r+AlaRgb6brTq6PcIXWYjzknK8+UPX
+	 nxkY8TjfOki5rXDwzRFh1Fd/hBnn4LvEAQQzat967N/k8tked/PSYay3yfhY0QFfMaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqN4mN8g;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=oNUecxHC;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C20C606A31C;
-	Mon,  9 Nov 2026 14:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C20C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C84606A325
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 14:48:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C84606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqN4mN8g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794235616; x=1825771616;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=IYpd36+hNdVVbHA3LFgNx5Hn7NExvNmImvUzW4FHbYY=;
-  b=kqN4mN8grlztSnqH6hQMrpkjUmZ1L91piGySO8znJ3RMaG09ff7JoVAe
-   8laCuGbWm1jxFVN+mVPL32dgl/wQe0OB42icb8AlewZfQjD4RxHvbgzPb
-   hmNoxCfLu0/Q4OT4ZtWVzjRi+eEEGIdmz1PL8b4MA7eY8erMpM8LkSYV2
-   ZzAwokXhqI0rPRffPj3m3xe9UriTnyRmMJNNvlRL53gjcs+S1jIYhCIal
-   LjIXVbyDiXivSysLfa3a9sqcXSydQ3faF+h1Eh7iH22wj6+iKXf6+YrkH
-   7slVg5Bu7F4nK2ej8x6xHEmisrBuGeWGhm0RxLPYtiMyKB/6ktXCsAh75
-   g==;
-X-CSE-ConnectionGUID: /e+66MnWTdSh29v71GyyJQ==
-X-CSE-MsgGUID: LqYelcxcS/uIkz7gDKU1lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2957091"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2957091"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:56 -0800
-X-CSE-ConnectionGUID: GBQL0ihET5usu8uKS7Ogvw==
-X-CSE-MsgGUID: bgQJgiuYQviRFVR9NG048g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8044136"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:29 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] PCI: Honor window granularity during resource distribution
-Date: Mon,  9 Nov 2026 16:45:53 +0200
-Message-ID: <20261109144553.2516-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
-References: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=oNUecxHC
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f2f2edb19so81988485a.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 06:48:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1794235710; x=1794840510; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M7mjVSswzFiYPoD6QT1qC2YywjNa1eCvKgF70U0xhrg=;
+        b=oNUecxHC4848KNAA26lHQ2G+BYpWGFvGSyUdQl59xdkTLL68nrj101K5yWsvlahxtJ
+         NjIy7n4cPKvogrm33G94/yLTrcNabAnbH9oaO9/fqlPdqMhETQ2ody+fek6SSMiHM7lK
+         1DB/dDCxqHNrel53IXnnPdTTAasHGJTssEOZ+Ca0HANmvndcE7KPej/d1lzOUgobuQGh
+         U3BAlPeubxLio1DWsA623BiUEwqpep+ErKLxc2x4bBU8vHIhgqvUYPLdowJ7w6+mEe2z
+         HPHXw8Gvah2ZH/r1bnklT6b2NoK+Vi3kDWqd3gtj/SvPFzgaYABt+HWB3Wqw26RfkEqh
+         rcAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794235710; x=1794840510;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M7mjVSswzFiYPoD6QT1qC2YywjNa1eCvKgF70U0xhrg=;
+        b=sjYnOl1CmwnOLY/LBjFwRsIyxP/lKWyJF3bNnMstTyib7eYZ6nW1eTIrGIcub0Bq+k
+         BHF3z11Ut8wUu3Ch4caY3pYVOnlyrByRTja13g5yeBexPLS8cVUrm9FdwjiP31WVTUj0
+         1aAqdJlcV85z/de8aIZl94aNpfhb1BC9N77STz4UH+eVLIYXmlxZgdvshmaZv01Y5JQU
+         rwlBTi4+1jn9P169ObopiohFvdhpiPbPnKylWiyYPzq382QPp3Fxu+qXicJJ+AaNkgIH
+         qgISkAMLSjE3Rnr13UuT3yC/Nzrkwqlm3BI3A1PnepjK2vmpP/syzCeZ/Id9x8woJ3nF
+         z20Q==
+X-Forwarded-Encrypted: i=1; AL+hErFhihqWxOnaz7WBVnvJYHI3Ow6xzRwPhSFTlqm9payy+nW9BmAhp3WZkYT/y4DfcsueVLxtk9w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9aFK5CvEsAIve+jFmqdAulp3sQ1ZbtU8ey6iIkeGog7oNhLfAn
+	5O6dHA/Ha89sGisr3ui4jmLABKh6JV5b9QQJKUVOLhKx2a5Mf+Zp6GGcC//JADGfADQ=
+X-Gm-Gg: AYBFou1rO7ZdEh09Qbt8l8apKIsLOCSRhvj6P8njmgj+PbBJkYGZQ/0ggR8JPtJ3+t3
+	Nft28dyRh0nDQ9vP9IdvWYxMYdDZ2o7XYvZpDyDZJVlJkXFikhySPT3qqAA6BRUScDiebuh0C6/
+	qOcebOl1q5+Gvo2sumyhwGdKP517ZNF27bU0T0Lx4ZY9Gpj8BFQwxP7jLWRHnTfgbwKM5bZ52BX
+	QLu6jWHoDWTk42wdGPqzZdhG+xWqaDcDf8dhpIUFbn4BL/oT9Z7tJWYbAfHhb9niXsZXcGcfFpi
+	BjhP+7e/LGTKA5ygBSrH4lHa77FIcduDxUn/rjGbhHBUKPt0+yZOEDKziMRlLSh7+jPFqrqHoHV
+	9E1VngVEL+QqfRWClGFt3yWK7CP99tNYd6fCn87UFva6gupiqs3NLnaufVcNfCqwFrKEdsfZo40
+	DklyEX9kardnc8DtdgG5+NP/swN9vANLw/hXhlS6WkN4l/UGnuEsL4PyyRVYrZWox5vNzn7EA51
+	83qpe95Al/VG+UB5RSNYzmOj1bSEssoGrdojuhZvRrp//1bkXsitXj2KdRtGkksLIVFDxF05zOw
+	E7pD03ltDJX8eK1+ZnMvKzUiz3lIUhS6rBsRBIYPU7tG0RSU5gUpa0J1e+Mbf184XOCcJksCE8S
+	E/nvGwctlOA==
+X-Received: by 2002:a05:620a:28d6:b0:947:1d0a:c89c with SMTP id af79cd13be357-947848d1cfamr570972285a.56.1794235710297;
+        Mon, 09 Nov 2026 06:48:30 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91eceea05a2sm43886796d6.39.2026.11.09.06.48.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 06:48:29 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xQQfd-00000001QiU-0CrP;
+	Mon, 09 Nov 2026 10:48:29 -0400
+Date: Mon, 9 Nov 2026 10:48:29 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Edward Srouji <edwards@nvidia.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Yishai Hadas <yishaih@nvidia.com>,
+	Yishai Hadas <yishaih@mellanox.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Uri Dar <udar@nvidia.com>,
+	stable@vger.kernel.org, Michael Gur <michaelgur@nvidia.com>
+Subject: Re: [PATCH rdma-next 1/2] RDMA/mlx5: Fix DEVX UMEM mailbox size
+ truncation
+Message-ID: <20261109144829.GM663069@ziepe.ca>
+References: <20261109-devx-umem-mailbox-overflow-v1-0-4a63baab25dc@nvidia.com>
+ <20261109-devx-umem-mailbox-overflow-v1-1-4a63baab25dc@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,94 +105,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-devx-umem-mailbox-overflow-v1-1-4a63baab25dc@nvidia.com>
 
-When a bus below a hotplug bridge has BARs smaller than the window
-granularity, removing them leaves available[i].start unaligned.
-pci_bus_distribute_available_resources() then aligns the start up for the
-downstream bridge but keeps the end, so the size passed to
-adjust_bridge_window() has a sub-granularity tail. The bridge window ends
-up not being a multiple of the window granularity.
+On Mon, Nov 09, 2026 at 04:42:32PM +0200, Edward Srouji wrote:
+> From: Uri Dar <udar@nvidia.com>
+> 
+> devx_umem_reg_cmd_alloc() stores the CREATE_UMEM mailbox size, a header
+> plus 8 bytes per MTT, in the u32 cmd->inlen. The number of MTTs is
+> derived from the user-supplied length and pgsz_bitmap, so a UMEM of about
+> 2TB registered with 4KB pages wraps the size, the mailbox is
+> under-allocated and mlx5_ib_populate_pas() writes past its end.
+> 
+> Store the size in an int, the in_size type of mlx5_cmd_exec(), where a
+> larger value would turn negative, and compute it with overflow checks so
+> a UMEM whose mailbox does not fit is rejected.
+> 
+> Mailbox sizes within 512 bytes of INT_MAX still overflow the block count
+> in mlx5_calc_cmd_blocks(), but the command then fails with -ENOMEM
+> before reaching firmware. This predates the change.
+> 
+> Fixes: aeae94579caf ("IB/mlx5: Add DEVX support for memory registration")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Uri Dar <udar@nvidia.com>
+> Reviewed-by: Michael Gur <michaelgur@nvidia.com>
+> Signed-off-by: Edward Srouji <edwards@nvidia.com>
+> ---
+>  drivers/infiniband/hw/mlx5/devx.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
+> index fc6f793dcc6584e6a22b40c57e2df8f24579eb14..1da6c0e440d6e19d8791b012a148f479cfdddad7 100644
+> --- a/drivers/infiniband/hw/mlx5/devx.c
+> +++ b/drivers/infiniband/hw/mlx5/devx.c
+> @@ -113,7 +113,7 @@ struct devx_umem {
+>  
+>  struct devx_umem_reg_cmd {
+>  	void				*in;
+> -	u32				inlen;
+> +	int				inlen;
 
-Align the size down to the window granularity after aligning the start.
+Do not change things which must be unsigned into signed values.
 
-Consider a hotplug Root Port (bus 01) with a Switch Upstream Port (bus 02)
-below it that has an e1000 and an ivshmem with a 64k pref BAR as its other
-Functions. When the switch is hot-added (emulated with a remove and
-rescan), /proc/iomem before and after this change is:
-
-   faa00000-fe9fffff : PCI Bus 0000:01
-  -    faa00000-fe8200ff : PCI Bus 0000:02
-  +    faa00000-fe7fffff : PCI Bus 0000:02
-         faa00000-fc8fffff : PCI Bus 0000:03
-           faa00000-faa000ff : 0000:03:00.0
-         fc900000-fe6fffff : PCI Bus 0000:04
-  -    fe820100-fe8201ff : 0000:01:00.2
-  -    fe840000-fe85ffff : 0000:01:00.1
-  +    fe800000-fe81ffff : 0000:01:00.1
-  +    fe820000-fe8200ff : 0000:01:00.2
-  ...
-     100000000-13fffffff : PCI Bus 0000:01
-  -    100000000-12000ffff : PCI Bus 0000:02
-  +    100000000-11fffffff : PCI Bus 0000:02
-         100000000-10fffffff : PCI Bus 0000:03
-           100000000-10fffffff : 0000:03:00.0
-         110000000-117ffffff : PCI Bus 0000:04
-  -    120010000-12001ffff : 0000:01:00.2
-  +    120000000-12000ffff : 0000:01:00.2
-
-Before, the bus 02 windows end at fe8200ff and 12000ffff, which are not 1M
-aligned and thus impossible for a bridge window. As such an end cannot be
-written to the bridge, the resource tree does not match what the bridge
-actually uses: it decodes up to fe8fffff and 1200fffff, covering the BARs
-of 01:00.1 and 01:00.2.
-
-Fixes: 9db0b9b6a142 ("PCI: Take other bus devices into account when distributing resources")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
----
- drivers/pci/setup-bus.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 9d8b22d1e6ad..5651966f3029 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -1974,7 +1974,7 @@ static void pci_bus_distribute_available_resources(struct pci_bus *bus,
- 	unsigned int normal_bridges = 0, hotplug_bridges = 0;
- 	struct pci_dev *dev, *bridge = bus->self;
- 	resource_size_t per_bridge[PCI_P2P_BRIDGE_RESOURCE_NUM];
--	resource_size_t align;
-+	resource_size_t align, win_align;
- 	int i;
- 
- 	for (i = 0; i < PCI_P2P_BRIDGE_RESOURCE_NUM; i++) {
-@@ -1989,10 +1989,22 @@ static void pci_bus_distribute_available_resources(struct pci_bus *bus,
- 		 * window.
- 		 */
- 		align = pci_resource_alignment(bridge, res);
--		if (!resource_assigned(res) && align)
-+		if (!resource_assigned(res) && align) {
- 			available[i].start = min(ALIGN(available[i].start, align),
- 						 available[i].end + 1);
- 
-+			/*
-+			 * Small BARs on the parent bus may result in a
-+			 * size that is not a multiple of the window
-+			 * granularity (usually 1M), which is impossible
-+			 * for a bridge window.
-+			 */
-+			win_align = pci_min_window_alignment(bus, res->flags);
-+			resource_set_size(&available[i],
-+					  ALIGN_DOWN(resource_size(&available[i]),
-+						     win_align));
-+		}
-+
- 		/*
- 		 * Now that we have adjusted for alignment, update the
- 		 * bridge window resources to fill as much remaining
--- 
-2.47.3
-
+Jason
