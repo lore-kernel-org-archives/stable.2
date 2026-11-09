@@ -1,63 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227723;
-	b=fzxkdAbooPKxrmGILJYmT6Xh0ESfD3jVVnOPag58UXBMM0J/UpNAJWKJ2hhqV6ktlStC
-	 c8CcKETRP3yseDnC56hsHX5kq+SrdI28wg3MJUTo2qo+8lPbdzcg3CvnRAA1X9uCTbYSE
-	 CC94Bs6q5LJpAawfEehyKGaMbSScC5rS9Pa+/I0oeS8GxjLLz3HPfZpNReH7v54IJc/59
-	 PidWLhQ4QLPWQXxiRXOZPGgAnZL82SNgi0TOlYmnIUdP+9wstBymIr4bb7yfbzu5SkmqC
-	 3N/BKrxoIeVBcrvPLtn38HVYBs+PlGyKOQlLC6Cj/6hFt0YB2Cf5LWsVQk9NgnGjL/g==
+	t=1794227969;
+	b=kW+LKYBdHBY2rxU18yu1hQyEPToPrBL0prjVQq527Mr5X96lOhMI3+z0xFCVPm9EVgWg
+	 sg42BvJT2X5LMEponbWWp+LaXHQpKXZ4nmNLNWwTjUMHZXkhXyhlzAPTSL1sTeJjPMiv/
+	 O5ZMtSeMayLZlLBER+lgFhhb95oBTuJPweDMuBhbnGKcZtIGAQYxypl3ksvFcD9WvARmw
+	 a9zOak4D3jg6vv7dfywkw39EApUbwXWDbGpyODYHN0Rs1CJ0+UVHRFrBUJAdf5t/91M6i
+	 83fSbzNdZyI3kHrXU7Ncp0BnninvO+WnC8SGNc1ZteSJ/KNBjglhbXpdA+VVdQ7nwaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227723;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=oxHdGlhi4cZ/jhlBUDoZrZFRSMU9x1K2uotAGDmaO5c=;
-	b=eopmXTpofGSrZmHo7eeExjdce5eiWheMp5VZIcmhoYeblutgjxLbwo2wURJ+19j33u0l
-	 BzAQbG1payXn1BgyzmaejT/VArQ9kN/gdF4oJT7eijn+P7EGq+NpHuh909Pfg3Q9KhGA9
-	 MwfADYFaGZBSdZVGqOqLjma7LnZsx9JT7OMzKSALnjiOYFxOzbR01BhUszYDjBzIE3YyQ
-	 EVjQ4jr6oRTF7GkYHzN18fmDBr9yjH/c/YkB61tQ72amqQ0HWK6eNIuCNn3wxNz9ZPwlV
-	 1BBeKWm8TuDQ7ajZdEaoi76yGhutQia8jnTFJg3QV+guSWInBKbkNKH4pquxC0oS5bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227969;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n9bGePk9lrw7xV7HE6vQIA1MU1oWUPB9VGc2zWRd4WM=;
+	b=kjMuvlXZ+f0kAPO4okluqPe20Kc8JFSP4CuKiDyK3n9V0KwvNYRpkRjskQrGIJAqV0x8
+	 wUwSRKnNHeK4uLQX9aytnGZfil8SydmQn24AvVXijr2/tBV49F7UHIF291SrFawF/IflE
+	 RjJQSzkap8q0vZNSlgVfrPrD/AnNVmBccrFCSXzzxzStr/petrC9yCjGjkOnFF1QKxqJb
+	 MCxJ+ptgcHQR1Twr/aRI1HB8pJL4u8vGMmaQUZ1Hwe0k8++1pw6egjrtw6TnL4LaKP01j
+	 sjHH2fnJHYg7eFEyi7cUQGWm0cL3cOyGHgTBLa4qWXsZEZ3mVpAEomx6W4wsoi0/31A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=eROZzNMA;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XgS8SARQ;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 59E75606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59E75606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BAA606A31C;
+	Mon,  9 Nov 2026 12:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96BAA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=eROZzNMA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1794227720;
-	bh=oxHdGlhi4cZ/jhlBUDoZrZFRSMU9x1K2uotAGDmaO5c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=eROZzNMAly+9Uq3U7zSS6oaIQXNOSLfvd50OshK+DNA5z3tTPNejgt5XNzODXW3pd
-	 CherxxeTaASHt5ojxfrhfC8KPaSuEO+td5MUV7Zhdh7lszvSoap1zjedsd7m1Z+Lgo
-	 zxx41Qt59zMZFGsH8qfar+fDV9Xz5otwiqVeN30zAjWuSb2XdFMWVwmN/6mx6rpy7j
-	 LomOWrE9cW2RrhvbkZxuDA9jHKd+EQaVBqSUiCNVORN+IAYPAWeY09E2Qvy717P88g
-	 FSBToUMM9uDXBpfH33cSK6HHkx8v150kjSDe6rFJjTVLVylYw6oSYVl4kCxQ8l0CxQ
-	 M8agnCQvMIzzw==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id A697560058;
-	Mon,  9 Nov 2026 13:35:20 +0100 (CET)
-Date: Mon, 9 Nov 2026 13:35:17 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Abdifatah Suruur <suruurism@gmail.com>
-Cc: stable@vger.kernel.org, Florian Westphal <fw@strlen.de>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.18.y 1/2] Revert "netfilter: nft_byteorder: remove
- multi-register support"
-Message-ID: <avG-BZ1c3lcjyZuG@chamomile>
-References: <179422702104.5131.8115555421206983838@gmail.com>
- <179422702651.5131.4174988605567778384@gmail.com>
- <avG71wG3PHvRQT0B@chamomile>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XgS8SARQ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=n9bGePk9lrw7xV7HE6vQIA1MU1oWUPB9VGc2zWRd4WM=; t=1794227967; x=2109587967; 
+	b=XgS8SARQeDd52UUID8Zf5MsYQeqj2kxNFlXwBf6MzFX3B2WSCfTJy3Cg9mFtpo0JhyMziaFc3q7
+	OHgBudiYc5qeUXtidUL9kRcTwDuWs/8unXuuCRazog249+9c8Ktn1ZhDxHYq0/wqYO9H8O0Ih06bV
+	lXhaz5mfmCkYMoVfJbR9/5P/htyWu56xa1FF5n+ipJI06n+UftuthxA9G3cll/dzgGjRHPDCfnNvk
+	iAudp6IyNWcdDR89VuNdWLcXPnxVk/V39EUq6Skroj4p6FZVIexl3e4WJlNmIhnEWBFUVLe+KE9jr
+	Artm620STVvIAEZUkYpfKaM2BfnZIdw81BfA==;
+Received: from [179.105.94.163] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xQOea-007Gqw-OE; Mon, 09 Nov 2026 13:39:17 +0100
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: airlied@gmail.com,
+	Wentao Liang <vulab@iscas.ac.cn>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	dave.stevenson@raspberrypi.com,
+	dri-devel@lists.freedesktop.org,
+	kernel-list@raspberrypi.com,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+Date: Mon,  9 Nov 2026 09:38:46 -0300
+Message-ID: <179422792408.2740537.1643509391861817980.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106092016.2282805-1-vulab@iscas.ac.cn>
+References: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com> <20261106092016.2282805-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,19 +74,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avG71wG3PHvRQT0B@chamomile>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 01:26:02PM +0100, Pablo Neira Ayuso wrote:
-> On Mon, Nov 09, 2026 at 03:23:46PM +0300, Abdifatah Suruur wrote:
-> > This reverts commit dc29c0478b8564feb9371e715b5a0016eb8903fd.
-> > 
-> > The upstream change removes multi-register byteorder support and is
-> > tagged stable+noautosel because nftables versions before 1.1.0 can
-> > generate length/size combinations that the removal rejects.  Backporting
-> > it to stable can make existing rulesets fail to load.
+
+On Fri, 06 Nov 2026 09:20:16 +0000, Wentao Liang wrote:
+> The firmware reference taken via rpi_firmware_get() is leaked when
+> either of the devm_clk_get() calls for the core or display clocks
+> fails, as both error paths return without releasing it.
 > 
-> Same thing here, if this can break stuff, this cannot be taken as is.
+> Fix it by moving the firmware lookup below the clock lookups, so that
+> the reference is taken right before the firmware property is read and
+> released immediately afterwards.  The rpi_firmware_find_node() call
+> moves with it: the device node reference it returns would otherwise be
+> leaked by those same error paths.
+> 
+> [...]
 
-Apologies, please, withdraw this comment I made.
+Applied, thanks!
+
+[1/1] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+      commit: af200e91c7b996177aa90981b2f0e794b085d43a
+
+Best regards,
+- Maíra
