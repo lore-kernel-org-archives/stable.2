@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216545;
-	b=iVqVraTlcMEWQdPkOW50lTQR2vetedogCQGaS3YCvuUSES2YVC6NlDA74Byish+MWdet
-	 9P1UKvrMmBGYE0neyK8F9LqGTZwfpKaZ83d0npBWLmPDP7HIXV3LpE5EISrbFYkmp438g
-	 txSDaSPX1Ieezl0DBMDBwvvxql37G+Rfilce+GaKA4rs6Rtd++alDaQLEx/7Yue3ZwD36
-	 EojzpS3YgZOMqQViV/VM8n3C8rZ2xxbLvbKxsKP7QKrBgRpbemIEn7QGo4AbC5ZGHvdwc
-	 s/LDHewCqpd8Usoqr90BNGBEI6HP6H6WlFF3s6areOhtzcpjsGsCgoi2PnGO6qMTclQ==
+	t=1794216559;
+	b=dtHI6AffJBrcJzVF/0ZLwqSZ4udNm46aRKXuomZ+oXukbYHsrfTO5XiSWmEjl4U8d0RM
+	 IF2duNuDn/y3lP1k4M3Lu4AxQER6dYdM6+nPmrCnbZAj8nr4dyquo32JtZzKF2M+To/IU
+	 oZkMLnYSKEBt6zrk1DfD3WAfMkKjJcUjds80X0I41hoK161ebn5DvGl2rq9hdn0CXEJhF
+	 Q3JItLrSajNLZVJA7dZq+eBQDJ9td41al1d5AqgbLdO/XRTQZBFGtiFUa232kZnAsc9L6
+	 sDtlQR6IHBhFT8yuzciiAiKmTODQft0A8nkHk1RM3fyrJEFknDuNDWN0HtXDm2vIeag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216545;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
-	b=aqLXUtVRL6xZh99Pnai0FIHwwBbmKpmhevmeI75BY2i3Cyfbkowzu5x0KK6bMfpD22sW
-	 grbJ0QFOwfzBA6uQwH09KvPHEAXffV3+huQlWniqIirVsqQymHy9rUcpHFku+r0XE4cl3
-	 EL1KkMowkDeLI2TdIaf1IpCshrg3NaMoRA1kFAdJUswxuopfqO75Xn2tOeujuuVqkIZSo
-	 vjP20EFz/xu2ukYDDVGwRxWfdPFuKItsdaplp98YiBn4v4eN3GnwfrLOAAu7+bKtgu3zi
-	 bXeBVwAgTH2AEvDd5yZepETmXk5ZpfGcHRl/4mgT1N+L8C9swou4D/kF6lblrdQXJWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216559;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=d7BZyHIMsJtWrxLZeoDDEoIBAHc9N16pagqYxUqhowc=;
+	b=Ebn87FIsB/rREs6aoIx9jjbJ9vgG4vS92XboJszvKbgMYr8khNAcxtvMrPLAzikclm3X
+	 F0Fo4vf+9+0KkbxI9sF5jH8LJUkY+6UsCWdhctnF+WPw+0C6IhHKpM0KYdyHHZrd/nEtg
+	 HRfvwvox2GijbVbs/Ol8VeqHFmncdPovjUxZqeWmUElwXjyEW22ojVcwRmy8GUZlM3P4d
+	 rkoTYf8esXp78xN2kaoAbPeqUgxwYkpkJ77maj4zkZPGd66Y2OFxgGP3QbjczBPvKm3wd
+	 w02yt0zqa/XgZeDmCmaETTBc5OhiWUP6EUWqlu1t8iva6ammPhtwH15kpJh1PId23aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="Ow2C6L/T";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bBmyiFj;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="A6F/rvmF";
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C326460A381B;
-	Mon,  9 Nov 2026 09:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C326460A381B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0631C606A33D
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:29:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0631C606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Ow2C6L/T;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bBmyiFj
-Date: Mon, 09 Nov 2026 09:29:01 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794216543;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
-	b=Ow2C6L/Tg8g7GzVGLtEVMct4IqP2fv6ez4r+Jz488raiXLsXsIKtXsPAh0fJSqHxfCuZc2
-	I5ZBt+eTFx8ErUaycNWu7xcFyw4MATCasnNEqQ5t7WEpIeNz9/nTNgZiuOPYiJST7xL5Fl
-	BCJECRDCGaSlQDaNiXRlj5V6DNkjlRLy7dH3LWnCSjIg7b44gt0i8SExbMWMlyYy2xX4cn
-	xrySwBD+FnhqTVp+5iRs2TzzjwwhbDQHOth/7D9j1MhpfV2jX8xefUsBC/eRUucp6LQWU1
-	FnpdOYYaPrHxNugnGRb8XRRl1Ln/2WdYAlvbNER7ooV+njoJGIIM4nUaLssMTQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794216543;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
-	b=8bBmyiFjnld/l39mBWcmIKWttu21Tv6cLMSM1MlghrD+EkrPnB4O9ysG5J+Mnx7OxJ1J1m
-	CZpOR+EVifcGZaBQ==
-From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched/deadline: Fix spurious -EPERM for
- migration-disabled tasks
-Cc: Andrea Parri <parri.andrea@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Juri Lelli <juri.lelli@redhat.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261102135420.244745-1-parri.andrea@gmail.com>
-References: <20261102135420.244745-1-parri.andrea@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=A6F/rvmF
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso291235a91.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 01:29:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794216558; x=1794821358; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d7BZyHIMsJtWrxLZeoDDEoIBAHc9N16pagqYxUqhowc=;
+        b=A6F/rvmFCscwy9hvqb92wFE7j7rRjA4N0MNiAVJDmLcTJLmL24+QrO5ICZBqzcB3us
+         k3L8WDVdXS1XOzRycHGZDpPo+hwpp6IubbWaV1zIA3u11GDaNRSJb8JqXcEyDnQ7KJwN
+         97laAyvhnQdBfIxOqEkU1cs7rV9ybOYiSVy0E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794216558; x=1794821358;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d7BZyHIMsJtWrxLZeoDDEoIBAHc9N16pagqYxUqhowc=;
+        b=bGyyZ80t4fgNfW0ZJY7kvhbikemSG9KiVuVZ2XtvsPTOCfsJMgTq4u50cgvQO98aj9
+         uE4/fiUp9J4KPiF9QUSOcK/7k2/MyYdQCEray3Rho4F+m6jaOiTVhbxnePMDvg25Zt8u
+         ZQTdYoFzhK0esI/z78HiWRZbT+b6J7+AneuK5qCqYtlMnS8Ha4gbweTyjWPEP1KjJs/s
+         5OJfv4RbFXkA7RUCQZ9V4Tk+nSWz3dT21pGaulttwOOiS4JoqUHnjjKeO5et2dVmILkf
+         KpBt7v0cqppxsN61AKuenBMVVCF5rRgnxfVeiV95pOlCpz65QCxyGatK1ZYrLiTcpH5M
+         fQCg==
+X-Gm-Message-State: APuU4Z9uJxXS/D3q/FwAMQkFae1J+2QEoNG1N554lao1dMgUZpi3X9x0
+	XQPOlS+N69F8YGCBw5aa14f2jgAVaoAnC4KUisVpn2wJFPfhOLHRCSGxMspJUIQnsmWPp+Yb1M/
+	saYfJEvJ1
+X-Gm-Gg: AYBFou2tdD84Vkn72Z/VH41iZv+omzLeHONYerkdhRgJu/QQa3TwoNYwNIyD1AEaPEw
+	xxginFfvpwl6C+vbKc+ao25ieOlT7Q/aZ8RZTj8IiErZ4JESnkcqpvUz7rqJMrYUZl0/OUIvBkF
+	31I5D3qf2Fij06Z4C95Sh+pgfNdXVsAf2JBaBAuq8Ju1TzcKt7dtPIey6ow6CNBjN37WQmn/jKo
+	MYtU1EjiPvKBi8fRntfFel32VYdQW/hoFyPW3wW4jv2neLoQ6gj+oGW6Drzx2yPNP9lKy27A+JT
+	+ibJMhJjNHBkmdzWBTVDctEZ0gbf2VvC+XMpHxM0a+FKUHUzCesSlRs/bG7FMqbSVCrvgKtrvVM
+	w8Ld7ihLioDyW2kH9moPqtoUOfGkXdEudwxiSfY1TaSCEcgDOG/Etw5xAc7xJ9kxUcwRoiIgZwn
+	AhTRKb7S1wWGw3fZO6HT8QzD26GdTjN4P7BVYuLJ0/ivLf5VXefC8QyCOTX1Qh+sAuEYODIvD51
+	pa58g31ixJUbKI4anyDEvErhjOxGotq+TNNEUnAcXdUpMHrXck2nwdFb0cXkMe2uwG/WPbhJOll
+	3VgQrp5Jz0HSLqZ4Y29TC5Z6lMJToBOm7+RTIqFwWddF03WsQb5XkuYUprWcp8Km
+X-Received: by 2002:a17:90b:3886:b0:3ac:7c52:faeb with SMTP id 98e67ed59e1d1-3b12d400306mr3557192a91.41.1794216558301;
+        Mon, 09 Nov 2026 01:29:18 -0800 (PST)
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com. [74.125.82.46])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058d2faesm10632572a91.14.2026.11.09.01.29.17
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 01:29:17 -0800 (PST)
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1ae18eb9b69so633097c88.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 01:29:17 -0800 (PST)
+X-Received: by 2002:a05:7022:29b:b0:149:1feb:6da4 with SMTP id
+ a92af1059eb24-1b39feef206mr5568118c88.32.1794216556213; Mon, 09 Nov 2026
+ 01:29:16 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,157 +91,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421654135.2093942.2082186434797343921.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20261107050357-failed-7.3-65444446f0c5@kernel.org> <20261109092321.2282542-1-ribalda@chromium.org>
+In-Reply-To: <20261109092321.2282542-1-ribalda@chromium.org>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 9 Nov 2026 10:29:02 +0100
+X-Gmail-Original-Message-ID: <CANiDSCs3xq1aFbK73pOB8XNBKeke-XPs=J8JAm=PS8+__ceT5g@mail.gmail.com>
+X-Gm-Features: AclHuK9OoJa55OKsLFqv6JBOgw0Bx9w8IgpAhVm4HWM5d59hEI4OkRTvHIyqWvs
+Message-ID: <CANiDSCs3xq1aFbK73pOB8XNBKeke-XPs=J8JAm=PS8+__ceT5g@mail.gmail.com>
+Subject: Re: [PATCH 7.3.y] media: uvcvideo: Force UVC version for Avermedia GC515
+To: stable@vger.kernel.org
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Hans de Goede <johannes.goede@oss.qualcomm.com>, Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The following commit has been merged into the sched/core branch of tip:
+Please ignore this email. The correct one is the one is
+20261109092707.2326885-1-ribalda@chromium.org.
 
-Commit-ID:     6616bffa9b52da1338cf8bff9882404e02b9e361
-Gitweb:        https://git.kernel.org/tip/6616bffa9b52da1338cf8bff9882404e02b=
-9e361
-Author:        Andrea Parri <parri.andrea@gmail.com>
-AuthorDate:    Mon, 02 Nov 2026 14:54:19 +01:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 10:08:59 +01:00
-
-sched/deadline: Fix spurious -EPERM for migration-disabled tasks
-
-sched_setattr() can refuse to make a task SCHED_DEADLINE with -EPERM,
-even though the task's affinity covers the whole root domain. A retry
-can succeed, but the error blames an affinity the task does not have.
-
-__sched_setscheduler() tests p->cpus_ptr, which is not always the task's
-affinity. When a task is scheduled out inside a migrate_disable() section,
-migrate_disable_switch() points p->cpus_ptr at the current CPU until
-migrate_enable(). On PREEMPT_RT every spinlock_t holder is in such a
-section, so ordinary kernel work opens the window. Elsewhere, seccomp
-filters run in one.
-
-Test p->cpus_mask instead, which keeps the task's affinity and is what
-sched_getaffinity() reports. This should be safe because an admitted
-task's cpus_mask covers the root domain, so set_cpus_allowed_dl() moves
-no bandwidth when migrate_enable() restores p->cpus_ptr.
-
-The following program, run as root, had 553679, 453720 and 424623 of its
-1000000 requests refused on three boots of a 4-CPU PREEMPT_RT guest, and
-236182, 217174 and 237183 without PREEMPT_RT. With this applied the count
-is 0, also with lockdep, and a task pinned to one CPU is still refused:
-
-  #define _GNU_SOURCE
-  #include <errno.h>
-  #include <linux/filter.h>
-  #include <linux/seccomp.h>
-  #include <pthread.h>
-  #include <stddef.h>
-  #include <stdint.h>
-  #include <stdio.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  #define REQUESTS 1000000
-  #define INSNS 300
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-  };
-
-  static volatile int stop;
-  static volatile pid_t target;
-
-  static long set(struct attr a)
-  {
-      a.size =3D sizeof(a);
-      return syscall(SYS_sched_setattr, target, &a, 0);
-  }
-
-  static void *worker(void *arg)
-  {
-      struct sock_filter f[INSNS + 1];
-      struct sock_fprog prog =3D { .len =3D INSNS + 1, .filter =3D f };
-      int i;
-
-      /* Reading the arguments keeps seccomp from caching the result */
-      for (i =3D 0; i < INSNS; i++)
-          f[i] =3D (struct sock_filter)
-              BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
-                       offsetof(struct seccomp_data, args));
-      f[INSNS] =3D (struct sock_filter)
-          BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW);
-      syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog);
-
-      target =3D syscall(SYS_gettid);
-      while (!stop)
-          syscall(SYS_getppid);
-      return arg;
-  }
-
-  static void *hog(void *arg)
-  {
-      while (!stop)
-          ;
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[9];
-      long refused =3D 0;
-      int i;
-
-      pthread_create(&t[0], NULL, worker, NULL);
-      while (!target)
-          usleep(100);
-      for (i =3D 1; i < 9; i++)
-          pthread_create(&t[i], NULL, hog, NULL);
-      for (i =3D 0; i < REQUESTS; i++) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          if (set((struct attr){ .policy =3D 6, .runtime =3D 2000,
-                                 .deadline =3D 1000000000,
-                                 .period =3D 1000000000 }) && errno =3D=3D EP=
-ERM)
-              refused++;
-          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
-      }
-      stop =3D 1;
-      for (i =3D 0; i < 9; i++)
-          pthread_join(t[i], NULL);
-      printf("%ld of %d requests refused\n", refused, REQUESTS);
-      return 0;
-  }
-
-An LLM helped find this bug and write this patch and its test.
-
-Fixes: af449901b84c ("sched: Add migrate_disable()")
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Juri Lelli <juri.lelli@redhat.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261102135420.244745-1-parri.andrea@gmail.com
----
- kernel/sched/syscalls.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 45a127d..fb8f332 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -628,7 +628,7 @@ change:
- 			 * the entire root_domain to become SCHED_DEADLINE. We
- 			 * will also fail if there's no bandwidth available.
- 			 */
--			if (!cpumask_subset(span, p->cpus_ptr) ||
-+			if (!cpumask_subset(span, &p->cpus_mask) ||
- 			    rq->rd->dl_bw.bw =3D=3D 0) {
- 				retval =3D -EPERM;
- 				goto unlock;
+Thanks!
