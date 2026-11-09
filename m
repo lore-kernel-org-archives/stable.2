@@ -1,68 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208355;
-	b=JCyAjvrbUHza+Xa1hho7k0O+tmXs8WCRAOo0FaT/A7eV4OKZhwL1QAXa3q75m2x+hu4v
-	 irCuOkZDRbI/sgPSRAwS60mkLiJNtSjATQxUjS6Wa+7q9k6uJUILXVWfFoSQLwidpGmOG
-	 ma5YXFU/LitlskaGCrRj1kanYoAg0VgrGwHKhuVRGjsCYDgj0Ff0qA+BuGwcSCN7fDTbN
-	 gAkZ/jGAX6dYOFujKnQF3p/GImbRgVOadvBb3T6ULTlxLp7I2MCWgT9BM4fCaD/QoMBPJ
-	 vOSSr9l+5jgqkT+G+ZVj2+jHNYspYxJ8eP4E/Inno1u3AvaM1CXhTm6ZfkEBHELMKug==
+	t=1794208538;
+	b=tx8RTvtY32+98Pq9hp+2gTl3bnuoFe3w3OICOTufMiAf5Kin/1UpjRuxDVkiJprsKjyt
+	 yrcuGPeY2pWjlGrcitXlWUSeiQSn1XdrIyjUGwsUJBeenHC1VDP/qaO8Q4hIxXpE8NMwN
+	 gPZ4tubDNPgwKkGK03jHorPvjp04fr61gTIN9mNMkbHM+HDOtRBOdyJ+5sKzPw2UcdwjR
+	 yrcn6VzbQXUbzYl3YCJ3zwuwa2JGWp2bGdUW7Rl7KVJXQR03YK1wm2McJdwFW+ClSnMvp
+	 t2C3oeilXHVMckz9pOjrFx/c7F1a35VvHbSn0wa94ug4AMFFf4P2nLpyC+JJ/+sygTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208355;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jm9engSfdWPrS9dt7pF9UwSBMVA4d9S2cMVwCkkiwKQ=;
-	b=RDNTrXvH4XloAmRKUT0uM+dpvmVmY9D7BNoJU1SouQq0Wa40vyHgSN+TtE1Un9J6lc6C
-	 HEtT2pftqeRUf0FjO57HbgdLCY1XOEm/qAv2jugdH4Xpcr4okc6Tf1tgWZXwlQe1iW1Yw
-	 Cg2WlJr+OQWOY671gr4Ma2nsqJrGFgU4KNiG/ps/pPY9q4sEE50F8LPPJUgsDrDeW70QJ
-	 p86X1RvWKG/V72eWaZd3I3R9j9QyCMBS0C7XZo7ttvkXWOdVvPEOWyDrJ2CAx83pOewUS
-	 kyY2bcJTHbm2nm7JycuadUEZXQnKVEvQL/fj9pEp3BIPdmJWspxRVwAYmzb2wWCOuFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208538;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=IHDmqb3emIFmJ8fO9uRNFSu9XBh3Om7oI46gLrUcn6I=;
+	b=pQiVurqKBRT1BC/b1ESeVaj8iVd6HQTqqXhm1pFvuqlvX5FVwOzJqWxmHJnZMeDgg1Ld
+	 jW82tKfWk/eND02T5i1rikpq4K2Kdi0rkscuGuDISapODUYvoBFhEkRlYR99LNCJ5cdvS
+	 kjyTbXppll+BFasZ0PMFQBN0waD5VY0GADb4N/TTYGbp/kX7O0VPlcKhfcWofhsFWrUEh
+	 JTq78rRWsOaO38IdqiNsj9huj+A9ZQIABcX7+KsmyzUq/cWOQZGc3C2Vpmmv8iFhNdb43
+	 IUKovMIdfCU83zW4ohESqbFKywIDwnD6Q8iJjSkwNm1N88DXk+P2tO1+fd5vwImDTLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dSSbULsB;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w11j6Mdb;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7B0606A31C;
-	Mon,  9 Nov 2026 07:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD7B0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6468606A332
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 07:15:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6468606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dSSbULsB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794208355; x=1825744355;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=vuCWaIlGUKXXEN2eAbbUtujZ8yy68AEkaUI0O7EyVNs=;
-  b=dSSbULsBQWCmEu9/95U1Mh1FqxcjVetyqt9c9pDguXhXBVppDtdrL4I0
-   y0hmTSvgILu8k84g43Myvphs5Phpq6qN8fqBDatf/qeCSi4uCrnmA69b+
-   MJdOzWK8Z0jwmx+bF0F+PDOss5zE6hcRK8rkcCY2Zpf5w1Nni7FzT+6hj
-   nZcp+1vVYpSM4of5IxzjzrXb7wMOZ8s3cj+hIRm+5r0/Q3E/esqI7s2R9
-   HUSXx+Od07yfAaoONLZp6fEZcPhOjHOCnxhnHr1l70TdUx7L7tTVusYwM
-   1FiNOmnhJk4G+L1nqxz4KDekYc7jHlAgz/BYYbS32xmriHh5Dj+601Mrb
-   w==;
-X-CSE-ConnectionGUID: 5CM3MMqxTbSt9bwF+nXnKg==
-X-CSE-MsgGUID: usgmnsTeTsm5t/DUaZjeVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2953950"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2953950"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:12:34 -0800
-X-CSE-ConnectionGUID: cg/ksszfRaWB7nuvOkH03w==
-X-CSE-MsgGUID: jS8vn2vhQOqV6LVelN0C4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8370954"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.60]) ([10.245.244.60])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:12:31 -0800
-Message-ID: <3fabe6b3-1285-4edb-abaa-bedf406b4926@linux.intel.com>
-Date: Mon, 9 Nov 2026 09:13:10 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w11j6Mdb
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1a8cc11ac42so354564c88.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 23:15:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794208537; x=1794813337; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IHDmqb3emIFmJ8fO9uRNFSu9XBh3Om7oI46gLrUcn6I=;
+        b=w11j6MdbsB4L+lfEhx9/QuPWJwJnoR1/635ejpDfK+LKom66v1X4DvzF2uzylOTZ3/
+         Q9Dj95WkZTzj1PFghbcdCfk34yVFx93MMJxz6Fh9PQU2AnN3QRpI90c1HeaM2Cv6sZdy
+         xBne9KiUAxZ9zou72Cnq5p5hXQgOrGnWF+hOz+swqgKABD2dQlZjeqQwhEaAFPH2TQH+
+         lOiMp873AaypR3uky3pBLXoqP5rSu24uKD+dfdobZrN5JZcu5R5G5cAKOY6v8MJcA7uf
+         JrcxMfecrYw4AhM5KcvnGA72DtPG75dQ+8Yk2j/IYMe5Sjmbvxv0MbDYcQJ6+wEX7rON
+         4prg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794208537; x=1794813337;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IHDmqb3emIFmJ8fO9uRNFSu9XBh3Om7oI46gLrUcn6I=;
+        b=0SrY5Pf/74/CW/TiBG3HSgp3OQtYntMINh+AXBCz9KlSmsrfNxqKs5xVPKgbmINUHj
+         j3adZP9tySrIbvCg/lj4ttjNkOYHNvIuJUTV9+D33opt/o3ajsoU+whQ/1453Sz2ZktL
+         GtQieosbtccj2pH3cnhdmnc1yqWSXfReq+oFos2Cas2scIZ0K8lsNV1ZF3RNs1IuZ3qh
+         Ij5OcnLhvgN+8H0CwHp879HtArff7MWQTHY/EEC0cciPrzPgrtsyKhJCQ199W22IV1MJ
+         Ou/klRYjusExqOqVH0ToNHUYkTLQmlPUIg4BSA0EWhLve8oSXYARA0r3ASyvcux/Dtn1
+         MLMw==
+X-Forwarded-Encrypted: i=1; AL+hErFKUAlo+vsLSJkfNFmPI9RcFHtOM75zzgHPtOfRKlqmrKU2zMBydgNFdy8z6qTbFmv3rMEl3TY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SpGUDtyjv5EZ8ke6PKjLrbCKu0P5fWHvtHVJvns8sju3zuZ78
+	Z1Rp1Syr27sSuBKtuardIm9YlphDqLN636FUXTESSI+ntgKzHr1mzlBK
+X-Gm-Gg: AYBFou2+XkkSUJuNOwrK9g/8RjmxQOOtNkFN8SnYcvlLHhmd9YDPTwikc44ayk2PAYo
+	W7AEFiRsV4JFABeLmwn8wFknG1zhdt0z3t+1PHWFx0LmExiecX0OlSwVDE1NHvSdti2E+eiZTVU
+	zbKDj5JoXmwPD301uJhRiv01Y/vJ2BmqGP7L4TbiEYm0E6Lo3VdmpjdVvDhcWJw4PDpkyCPJJLk
+	mFwdKBT2IvIS94R1v2KBAwBsVw3VOSB1kY/XUCRyjc9F6R2qRlCKgqgdaHJOezkWL4qcYL7b51b
+	r/n9D3k3d86aGdA8Bl7NNpNpXMQU3/ABfHExZSBEJzxmkNpY9tYkRdw8BcCuuNtz/iUgdalj2+s
+	7X2gsJW3/Ha/Xg4kBobwKFEWhaWa6NROfmOYwSTP8LojXb60VY7PcHCghnFwLsHiwadNxWcCx7V
+	s2WD4bfgMLxdcAFK8AdZRfylkvKzHiAMeS6IHQjQLMZsnYi73DYlPM8vAawRb6BtPWVpl4qz5fZ
+	nEdtOe6LVbshwZHib7J4HbiQ7S/YBEV8gxyluMBiSlbl7ms+iPzH4UhqKo5cSxTP+TGWRY46bdQ
+	/714g1myBHpebtAERikMK3UcejYMWGONDqQfzhdsFa6zdUVLdvcaHVYNEC1yi2GCt5aA
+X-Received: by 2002:a05:7022:3c03:b0:147:a685:9125 with SMTP id a92af1059eb24-1b39fe30253mr4642534c88.2.1794208536573;
+        Sun, 08 Nov 2026 23:15:36 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37314626dsm14607158c88.1.2026.11.08.23.15.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 23:15:35 -0800 (PST)
+Date: Sun, 8 Nov 2026 23:15:32 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: Hans de Goede <hansg@kernel.org>, Bastien Nocera <hadess@hadess.net>, 
+	fangxy@xiaopeng.com, linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] Input: goodix - reject a bak_ref length that cannot hold
+ the checksum
+Message-ID: <avFzEGl-xQxGqN9p@google.com>
+References: <20261106075129.3106093-1-liuc63@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,84 +98,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: SOF: ipc4-topology: Fix pin format leak in
- process widget setup
-To: Baoli Zhang <baoli.zhang@linux.intel.com>,
- andriy.shevchenko@linux.intel.com, Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
- <sound-open-firmware@alsa-project.org>,
- "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Cc: stable@vger.kernel.org
-References: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106075129.3106093-1-liuc63@xiaopeng.com>
 
-
-
-On 09/11/2026 02:56, Baoli Zhang wrote:
-> sof_ipc4_widget_setup_comp_process() allocates the input and output pin
-> format arrays via sof_ipc4_get_audio_fmt(). When the following
-> sof_ipc4_widget_setup_msg() fails, e.g. because the firmware does not
-> provide a module matching the widget UUID, the error path jumps to the
-> 'err' label, which frees the process struct and clears swidget->private
-> but skips sof_ipc4_free_audio_fmt(). The arrays are then unreachable and
-> are reported by kmemleak:
+On Fri, Nov 06, 2026 at 03:51:29PM +0800, Liu Chao wrote:
+> driver_num and sensor_num are taken from the touchscreen config.  A
+> config with driver_num 1 and sensor_num 0 yields a bak_ref length of
+> 0, for which devm_kzalloc() returns ZERO_SIZE_PTR.  That pointer
+> passes the !ts->bak_ref check and the subsequent
+> ts->bak_ref[ts->bak_ref_len - 1] = 1 writes before the allocation.
 > 
->     sof_ipc4_get_audio_fmt+0xc9/0x420 [snd_sof]
->     sof_ipc4_widget_setup_comp_process+0x8e/0x200 [snd_sof]
->     snd_sof_load_topology+0x71a/0x840 [snd_sof]
->     sof_pcm_probe+0x77/0x120 [snd_sof]
->     snd_soc_component_probe+0x21/0x60 [snd_soc_core]
->     ...
+> Reject a length that leaves no room for the trailing checksum before
+> allocating, and skip saving a bak_ref that was never allocated.
+> Without the second check a rejected length leaves bak_ref NULL while
+> bak_ref_len still holds the bogus value, and goodix_save_bak_ref()
+> then writes through the same index on suspend.
 > 
-> Jump to 'free_available_fmt' instead, as the other process widget error
-> paths after sof_ipc4_get_audio_fmt() already do.
-> 
-> The other IPC4 widget setup functions (pga, mixer, src, asrc) free the
-> audio formats in their common error label and are not affected.
-> 
-> Fixes: f9efae954905 ("ASoC: SOF: ipc4-topology: Add support for base config extension")
+> Fixes: 09182ed20c04 ("Input: goodix - add support for controllers without flash")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.linte.com>
-
-> ---
-> Changes in v2:
-> - Drop the Assisted-by tag.
-> - v1: https://lore.kernel.org/linux-sound/20261103021710.3647599-1-baoli.zhang@linux.intel.com/
-> 
->  sound/soc/sof/ipc4-topology.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-> index 8b13c97b34804..de03dc58021a1 100644
-> --- a/sound/soc/sof/ipc4-topology.c
-> +++ b/sound/soc/sof/ipc4-topology.c
-> @@ -1313,7 +1313,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
->  
->  	ret = sof_ipc4_widget_setup_msg(swidget, &process->msg);
->  	if (ret)
-> -		goto err;
-> +		goto free_available_fmt;
->  
->  	/* parse process init module payload config type from module info */
->  	fw_module = swidget->module_info;
-> 
-> base-commit: 3ecd14f81434da3b5ff5c44d243715f96d52303d
+Applied, thank you.
 
 -- 
-Péter
-
+Dmitry
