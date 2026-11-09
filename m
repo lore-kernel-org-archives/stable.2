@@ -1,68 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237876;
-	b=u5Al+mpiivGQNW6spT4wpzQK37IR39TDEnBgKKXVB3am/YNLaqGj6EIiQgvShSs88ePr
-	 pNH7SV8HXP/ixalo7PaaZpQ+QVZxDp72SrGpMYR6oa2+jNFSaXBT0YWfzad0Roke0rIRZ
-	 9pLX2PzJ6X7H2l147xb5xwpkqtrIvpN8omdHjBeL9JVuFrczCxmxc8wEeg6LMC1EFDrLN
-	 bkmigH4sngwIYe6tb5ub92V3VT3loDbG9Phwb5+6DNTpsshEaU1rWqSqIzeLSrP2Sn3ba
-	 zjXjlW9hv8PewgRF1Id4YQduT5yCqPWoe22CQziR2Y4C7yQ6H5OyXTzdIGl93x17PBQ==
+	t=1794238008;
+	b=d7IkhZQkLNjNpVnkpOhIsO6NVlkPsAY+Y3lOCQL/HdcRNbxgdp2zuyYZLNEdgK6eQUOP
+	 4RalTOM9PAED06vtAZsM1pjJ/K6Pko4d+xSd7tMP67Q4pc31cgdqztRVAjuZDaqQX4nHD
+	 Si/Pa9OSp0N+rAJ4bUBnkr83a89rI6x0IB5iy0I7olB0AG3ruXpJGjnchNbVF8jlUvHyH
+	 xj+dn1AZgMhOG8u4ggSg0p3SwL0Zrm7NUh5WUvy6dY+iZT+xKPJg7aOeWU2EvB+b3wLYC
+	 QeSXPbXAJEafA4Fr3R1LTRVA6EjGKQr9xxUU4PWqBG/ehbZs08kFc4pyDFUUCAwfevA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237876;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238008;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=05PSSj9KAFKOlOAqbcefgviQBOp2FmRn72Lc22GkBCE=;
-	b=3RzC8ra6X73JlVKZWF3wPOLUBZHi8xA4o2waqOV5RvVdM0Zxe+dQaVyM/6Al5mbR5KOl
-	 4NuLh5I3AJP8zeicN+7FLqcBpPy6NyIR7Vs6R7ETeBCScUBZKzZkuu9f1kLZwiawi6/4d
-	 Zd5mtULK3yHCx87uBSSHV44GQ3uVKTZxtxAIv3GJIE7Ju8hVl8g02NGP07bGmSOh5Rthm
-	 saTlBXyI9zE+WwcZtylsh5YRqMBIXWJb/FAEO2mFa4qOB/xXxYFhVPgFwga0Opp1zcxco
-	 QwhDl+UM/xJrTdTAlPaSAcx1kJBXgnRWl8JJsBCqUboXdrOUGGY00koVCBaLlxicPkg==
+	bh=asWzf2+UXk4RswQoUFEg3HcDx7Ooefood5koUbks5Pw=;
+	b=5rgRWy1GdsxLGJJcPHXnKjwyvFQm49vNSTRpp9GyrEpNa8UKZ/vdZZhmMRrXI9FImedY
+	 qhAwNeuirA9S7x//PFPh0cwR9VkBEGF/pYpJOCVWvjmyXSTBFwkdkRQTm7QTWZJ5zzbXE
+	 kzT2KS2xMgaJP5Oapa4ISie8mCOYiAYvPHWi2Y7hkqYM/idq1Ufl+5htvw+xWIzuu1tGT
+	 aD8k92LxXkjyW4aHCVdf5mFVkj7YoPX1l2EIksn9CuHTbdAGHMVH8YZRnHh8U7B4GykvJ
+	 yWUGcSCTBZ9bZ0cDO9ap1zeTPXxhtS91RR7YsXN5hHn871XWQMtg0kXcenewM0CWL3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dW2hIoim;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1C7A606A321;
-	Mon,  9 Nov 2026 15:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C7A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D63BpG3L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053C1606A321;
+	Mon,  9 Nov 2026 15:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dW2hIoim
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7AFAE14BF;
-	Mon,  9 Nov 2026 07:24:30 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 066483F632;
-	Mon,  9 Nov 2026 07:24:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794237873; bh=5m0+4MkLWcNQHhoWxQ/fZjW/kH3KPYnBjU3kMCC73T0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dW2hIoimCnQ4aKC8wFf3cXyw0LwNNqLNkYtgmSRm+3yJohT9NFUKs1o/pkWDFnJRT
-	 1wKRX/L73wDMpIEmpsF9AhxYzUsWJZITwwrPlodIg5trvqYhZD/NzK9X9gVmZ6nJSB
-	 yOgP4lk2Y95HlkvimKrTvBU+9ZtrzIzSVdrIsDto=
-Date: Mon, 9 Nov 2026 15:24:28 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Rik van Riel <riel@surriel.com>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] mm: khugepaged: ignore MADV_HUGEPAGE for shadow
- stacks
-Message-ID: <avHlrEfKXDNtFJG4@e129823.arm.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-1-2aaef02df0e1@arm.com>
- <3a2d4135-f531-4797-8dd2-a2732a846e45@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D63BpG3L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6771F0089F;
+	Mon,  9 Nov 2026 15:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794238007;
+	bh=asWzf2+UXk4RswQoUFEg3HcDx7Ooefood5koUbks5Pw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D63BpG3LlxVxyNM9vrDuoWlOnfevHgN2GeyBpkEg4Nb2i8d0rtnvuBdKwx382gfiU
+	 L/VPXdlcMJCqd3q3arwoLzHEmP4/E0bNdoWsLuraMEvdWbs03Hhfb0wx+p2hwBh1Cs
+	 dNMvfrZ1CAK8+RtA+u17BVvq5cAL35cTdS2M5rbuOPmy3w1hu7GU0k5+gyldsI6tR1
+	 Z+L6URWnXctpBOlcs3Nv7TU/XP0/3drWDqhf7AV6PpUxnqAmEIPMKcqk9QeMLDdNOq
+	 WWNpEl4km/aENbJpOdAbTbhCL0VmFD1PfeQLusedm/RFZWpgXt9roJPrW4+k4fkxEH
+	 DH+J5ukDw5org==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 69F59198003A;
+	Mon,  9 Nov 2026 10:26:41 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 09 Nov 2026 10:26:44 -0500
+X-ME-Sender: <xms:MObxaj3HuNElXR88n2fGY8f18V5fMs1ReeNXEzVOb9TXJBRMa41jHA>
+    <xme:MObxarR4phJyHNKXVDt2aSVmBvW6TtWbJ95ey3izxgMxoL6hLgjIJXEZJUaYSnm2J
+    jueqem3Z_Sw8Ti13ZlFKFloQ42r6xxRc6GA7-Khl7spjGHpq__QawU>
+X-ME-Received: <xmr:MObxaoJPMHwFovSeKyBGLLIFqADFqQS4oqF7Xpk0wDfhd4ebAoMRPG3Kj5g>
+X-ME-Proxy-Cause: dmFkZTFsB1wl+SZijovTOdQmTWcJflC0w37VJalRRewiWniznqePFWh2dph+ba66rHa3rp
+    UY3KjOfMosjnWlCDYVkl/UEar8H8ytgzKVGrpzw3Oa05+uXuJKbkavCb6L4z4wwQg8jIQW
+    sOtqku/3BHy42OpLTIyypz9+RzjjkMPkx9ODI7ystBB193bd+XwdneWq6uyDZLqXUvKfE8
+    7ME4WecH9YMmoW/iNOZjEkz7yJhfjRyvyo8B1YMlgzL/mx+Nz1cZQDR/lvRr/b9xVeTaYF
+    51emEKpnAMhOLN9MQlOWZny+gEBpyGKNdafaxzSRx9xyfC4bJ4xinSD8o/kVCYE5dAUWRv
+    AyhC1+uSa51AGck/rdqkaCW02T0UqJeyvYprzmgmvtBiUpG8keo+fsSKuGnUpdy74zI4ag
+    4XhWnxgZK8a3kEpUPY5yIElxaLLfcM0pLElYTpPrDTef3C6R9SrpJ8z6h4yeidEB/nWtw+
+    XAGKEV1wCL5blcfEW0AHcy2bUnwrmD32nqhVhbrx4+wjSxf+Jjv5H+82io4DWhFpXG6pR6
+    I999cy/qGVf8apauXHSfT6SpErnDD3CUmuI7m01bz9u/iLOQXstE2Vgk1AL4hD/qhSOVOs
+    d2VdiHOyQyKuy4sFHwZ88yD4p+4xhOF0ekQ8FtAPMAL2+SuH3U9cS4qFZt1A
+X-ME-Proxy: <xmx:MObxaumoQF9TLCdX1x-FyLti5FLln9oZZnt1YgCkrKyWxjurK3R-2g>
+    <xmx:MObxahh4RDmzTkFCHQz3n4GQyl6RW_oRa46XL6f6plR1YcM9j0S-hw>
+    <xmx:MObxakqm3NwEiPt5uZoKeRrDj4NatGB_QI7McgERiudmtO--IDuNNg>
+    <xmx:MObxagvZSwSdkW63tN_kcHRVYFVWV1QGbfxl4ImgS7xUZaLb35pVZw>
+    <xmx:MObxases-Bn1IqbGqOJ1DEEhY1BxA3tWEgKS9lranEJGaC1CA7Z5lM0l>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 10:26:40 -0500 (EST)
+Date: Mon, 9 Nov 2026 15:26:39 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+Message-ID: <avHktSBkWvQSakji@thinkstation>
+References: <20261106-fix-split_folio_to_order-race-v2-1-1b59c67b8af3@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,81 +96,180 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3a2d4135-f531-4797-8dd2-a2732a846e45@kernel.org>
+In-Reply-To: <20261106-fix-split_folio_to_order-race-v2-1-1b59c67b8af3@nvidia.com>
 
-> On 11/9/26 13:32, Yeoreum Yun wrote:
-> > commit 3efb9800557b ("mm: do not map the shadow stack as THP") makes
-> > shadow stack mappings default to VM_NOHUGEPAGE. However, userspace can
-> > still clear this flag and set VM_HUGEPAGE through madvise().
-> > 
-> > Allowing large folios in x86 shadow stacks exposes a limitation in
-> > folio_pte_batch_flags(). For example:
-> > 
-> >   1. create a shadow stack mapping.
-> >   2. apply MADV_HUGEPAGE and populate the mapping with a PTE-mapped
-> >      large folio.
-> >   3. apply MADV_DONTFORK to the first base page of that folio.
-> >   4. call fork().
-> > 
-> > In the parent, the first page remains writable and anonymous-exclusive,
-> > while the remaining pages shared with the child become write-protected
-> > and lose PageAnonExclusive(). These pages can still belong to the same
-> > large folio.
-> > 
-> > On x86, writable shadow-stack PTEs have _PAGE_RW clear and _PAGE_DIRTY
-> > set. Write-protected PTEs have both bits clear, with the dirty state
-> > preserved in _PAGE_SAVED_DIRTY.
-> > 
-> > When FPB_RESPECT_WRITE is set without FPB_RESPECT_DIRTY,
-> > folio_pte_batch_flags() normalizes PTEs using pte_mkclean(), which clears
-> > both dirty bits. This loses the distinction between writable
-> > shadow-stack PTEs and write-protected PTEs, allowing them to be grouped
-> > into the same batch. GUP-fast can encounter such a batch when walking
-> > across the VMA boundary created by MADV_DONTFORK.
-> > 
-> > Since there is no practical use-case shadow stack with large folio,
-> > ignore MADV_HUGEPAGE for shadow stack mappings, preserving their
-> > VM_NOHUGEPAGE setting and preventing large-folio allocation.
-> > 
-> > Fixes: 3efb9800557b ("mm: do not map the shadow stack as THP")
-> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > Cc: <stable@vger.kernel.org>
-> > ---
-> >  mm/khugepaged.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> > index 40fad28c52f6f..51ec043fa26c3 100644
-> > --- a/mm/khugepaged.c
-> > +++ b/mm/khugepaged.c
-> > @@ -367,6 +367,9 @@ int hugepage_madvise(struct vm_area_struct *vma,
-> >  {
-> >  	switch (advice) {
-> >  	case MADV_HUGEPAGE:
-> > +		/* PTE batching doesn't work reliably. */
-> > +		if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
-> > +			break;
-> >  		*vm_flags &= ~VM_NOHUGEPAGE;
-> >  		*vm_flags |= VM_HUGEPAGE;
-> >  		break;
-> > 
+On Fri, Nov 06, 2026 at 01:28:46PM -0500, Zi Yan wrote:
+> __split_folio_to_order() calls prep_compound_page() on each new head page
+> to create a compound page after clear_compound_head(). prep_compound_page()
+> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+> and frozen and no one else is supposed to modify the folio's flags.
 > 
-> Ack, I prefer this solution for now until we know how to make pte_mkclean() on
-> x86 shadow stack PTEs not result in an implicit pte_wrprotect().
-
-Yeap. As we discussed in offline, just skip clearing dirty bit for
-shstk in pte_mkclear() wouldn't work since it would make a another
-regression -- wouldn't be page-outed.
-
-Might it would be good to use another soft-bit for shstk in x86.
-But, for now, it seems enough as you said.
-
+> However, code calling migration_entry_wait() can reach the folio by PFN,
+> then access its flags. It is because softleaf_entry_wait_on_locked() used
+> by migration_entry_wait() sets PG_waiters concurrently without taking a
+> reference and the frozen refcount during split cannot block it. Meanwhile,
+> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+> __SetPageHead()'s read and before its write.
 > 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> One example code interleaving:
+> 
+> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+> 
+> 1. clear_compound_head(new_head)
+>    new_head->compound_info = 0
+>    (page_folio(new_head) == new_head now)
+> 
+>                                            2. migration_entry_wait()
+>                                              softleaf_to_folio(entry)
+>                                              page_folio() -> new_head
+>                                              (not the old head any more)
+> 
+> 3. prep_compound_page(new_head, new_order)
+>      __SetPageHead(new_head)
+>        tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+> 
+>                                            4. folio_set_waiters(new_head)
+>                                              set_bit(PG_waiters, &flags.f)
+>                                              enqueue on waitqueue, sleep
+> 
+> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>        <-- store; overwrites step 4, PG_waiters == 0 again
+> 
+> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+> and CPU1 can remain blocked indefinitely.
+> 
+> Fix it by adding the atomic version SetPageHead() and
+> prep_compound_page_atomic() using it. __split_folio_to_order() uses
+> prep_compound_page_atomic() to avoid the issue without adding an atomic ops
+> to other prep_compound_page() users.
+> 
+> Reported-by: David Hildenbrand <david@kernel.org>
+> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
+> The issue was raised by David when reviewing Ye Liu's "mm/huge_memory: use
+> READ_ONCE() when cloning folio flags during split" [1].
+> 
+> [1] https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
 
-Thanks!
+Sorry for late reply, I only now got to this.
 
+Setting PG_head atomically on its own looks odd to me. The comment above
+smp_wmb() already says page flags must be visible before the page becomes
+non-compound. prep_compound_page() writing PG_head after
+clear_compound_head() is what breaks that.
+
+Can we build the whole flags word for the new head, PG_head included, and
+store it once before smp_wmb()?
+
+After clear_compound_head() only the tail and head setup is left, and it
+does not touch new_head->flags. Then SetPageHead() and
+prep_compound_page_atomic() are not needed.
+
+This was option 2 in your analysis[*] on Ye Liu's READ_ONCE() thread,
+but I don't see a barrier problem.
+
+PG_head gets the same ordering as the cloned PG_locked, and
+softleaf_entry_wait_on_locked() already relies on that through the same
+smp_wmb() and page_folio(). The new head carries PG_head for a moment
+while it is still a tail, but page_folio() only looks at compound_info.
+
+Reading the old head's flags with READ_ONCE() while building the word
+would also cover Ye Liu's KCSAN report.
+
+Something like this, on top of the v2 base, compile-tested only:
+
+[*] https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e8684..53786b2abe89 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3714,6 +3714,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ 		 * Don't pass it around before clear_compound_head().
+ 		 */
+ 		struct folio *new_folio = (struct folio *)new_head;
++		unsigned long flags;
+ 
+ 		VM_BUG_ON_PAGE(atomic_read(&new_folio->_mapcount) != -1, new_head);
+ 
+@@ -3730,8 +3731,8 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ 		 * unreferenced sub-pages of an anonymous THP: we can simply drop
+ 		 * PG_anon_exclusive (-> PG_mappedtodisk) for these here.
+ 		 */
+-		new_folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
+-		new_folio->flags.f |= (folio->flags.f &
++		flags = READ_ONCE(new_folio->flags.f) & ~PAGE_FLAGS_CHECK_AT_PREP;
++		flags |= READ_ONCE(folio->flags.f) &
+ 				((1L << PG_referenced) |
+ 				 (1L << PG_swapbacked) |
+ 				 (1L << PG_swapcache) |
+@@ -3749,7 +3750,16 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ #endif
+ 				 (1L << PG_dirty) |
+ 				 (1L << PG_dropbehind) |
+-				 LRU_GEN_MASK | LRU_REFS_MASK));
++				 LRU_GEN_MASK | LRU_REFS_MASK);
++
++		/*
++		 * Set PG_head here, not after clear_compound_head(): from then on
++		 * softleaf_entry_wait_on_locked() can set PG_waiters on new_head
++		 * without a reference, and a plain write would lose it.
++		 */
++		if (new_order)
++			flags |= 1L << PG_head;
++		WRITE_ONCE(new_folio->flags.f, flags);
+ 
+ 		new_folio->mapping = folio->mapping;
+ 		new_folio->index = folio->index + i;
+@@ -3779,7 +3789,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ 		 */
+ 		clear_compound_head(new_head);
+ 		if (new_order) {
+-			prep_compound_page(new_head, new_order);
++			__prep_compound_page(new_head, new_order);
+ 			folio_set_large_rmappable(new_folio);
+ 		}
+ 
+diff --git a/mm/internal.h b/mm/internal.h
+index aeebb3e49ed1..4ce67ce2f3fb 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -807,6 +807,8 @@ static inline void prep_compound_tail(struct page *tail,
+ 	VM_WARN_ON_ONCE(tail->private);
+ }
+ 
++void __prep_compound_page(struct page *page, unsigned int order);
++
+ #if defined CONFIG_COMPACTION || defined CONFIG_CMA
+ 
+ /*
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 143776e671ab..37768fa5341b 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -683,11 +683,17 @@ static inline bool pcp_allowed_order(unsigned int order)
+  */
+ 
+ void prep_compound_page(struct page *page, unsigned int order)
++{
++	__SetPageHead(page);
++	__prep_compound_page(page, order);
++}
++
++/* Set up the head and tail pages of a page that already has PG_head */
++void __prep_compound_page(struct page *page, unsigned int order)
+ {
+ 	int i;
+ 	int nr_pages = 1 << order;
+ 
+-	__SetPageHead(page);
+ 	for (i = 1; i < nr_pages; i++)
+ 		prep_compound_tail(page + i, page, order);
+ 
 -- 
-Sincerely,
-Yeoreum Yun
+  Kiryl Shutsemau / Kirill A. Shutemov
