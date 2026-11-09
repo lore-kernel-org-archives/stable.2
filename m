@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193588;
-	b=baa/P/pHT29+2+2BIoG3FWS1Fyq5lhZrZX/5KOcr/Fb861fFfp2nAq24ziktQ6GPgEyy
-	 OZCmISrbZoC9DD/5RAUptQW9ddaK0Nq481qQfeC5lL74qAOXXDNetV6gPZ2jSPSo6C8Kt
-	 0qZmOOzeXlwM+kEF6P1jppgGuyM/jTnGrpjhU0n6vBOLDhaTO+VostVl+FFHoYvbzlAAh
-	 2VM86uONV7NWwMDHqJzBXblUiRdrFcZy8R9iWk/0qdEqfmbNobnjd5osK6li/Yoi0aAMw
-	 l74heL1C7HPg36EKGLXUpFcATQM4ewEDajwVnn8pK1bkI5sV/EDIrMIKOIPgrq8TirQ==
+	t=1794193589;
+	b=vS+Ci3+FYSS+XHLigCI+lrr4M+K4V/GwnlGi5/pdrf2+QybvftQ75/RExtIV63/NaKj/
+	 6oQm9Z8lDbru+76+M5N4OjvNlRMSspVCOF3FJoQHJt7Q9DBO5hGtjAh74cykOQ5WgyoHL
+	 kmtu1OybhAt+GSIMoSwPiOHWQd7JPT8z1Jeb0ok0dpAzllkC+lC0F0JQt6h1/yL3kDcs+
+	 Plo8AvmYf62H0gMF7lKCxS+O2iFovyGRse9smo5DH6ViYeL6LXBXImXtSer/WiYrzr59I
+	 gx72ID90/RGutGr9mTpG2yLJuXOuVKoU2HTShL2Knu7ogLP9A6nF6Zv4jx1A5S0dSFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193589;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=lAk9QaoYIDXujghGW5MvMpSf4nfmRdRYorkDZVNY9Oo=;
-	b=vrKk1pAjmrmo+YI2MA0BgUijiyGF862rcqZWMEh5eGW7yBaVqDwy0NIh2Tem+et2wA4R
-	 ZGDeRcUlle7Eo1NEBcQUL5LRb9CQAhWwPoLQwIMUafEpjMryDE7CvBWcawimVg8Xte7QN
-	 goBKaMYj0lglv0WSz4BOCo563/mze1MqcFaAWDoCmtO4WJBWRXb1SmLN0NFkpncxhgeHX
-	 vaQmnox0UJ5yKmxVTUeetHJk7bI9QnxpfNYsFFQCgzJmCT9UTyS6v7FLr/joawcjNKiov
-	 uzAE7jiwmLHPK/RRYhXYuNH2YcXQcGneOdOECb/ujVgVm/vvDzUAs1H2RJvwy5R7csg==
+	bh=hOtfJ6199Jb0YALZy3Eb/EgmbHuB6jkFD329DhBpmjw=;
+	b=kvqtfSs6Ypuii1ek8CKesK3wgAXMCmf5nLJAzL2ReWFkBDfZ7o2BMXvVgqoIiMRI67Yd
+	 IyNw6vhil/M/DbqK1fk0f2PU38g85jyQYPwsFhJqDzWRrR8ciUH2ZfcIaRpo6lIpo1fLv
+	 RLrttWIIxZ3gqjHGCnU6CsEZ5j+Z6h38jFxD8cWmKe5RUow4+JIBFqU75OoBL8XXNodrn
+	 bvxwD7R5ZTjQKsQdffVifZ4lvmjUIR3JWzthL3UuT/YmB4l7Iop3uyszWASoUBJSk18tL
+	 7YpqreLP4je95pBX2J7wd/mek3hhDyl0UjzRg+BJp3tVXDlNRhb6l4ufzzlpMXLrTAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ubsLLDod;
-	arc=none smtp.remote-ip=115.124.28.51
-Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=UMKfh3YF;
+	arc=none smtp.remote-ip=115.124.28.74
+Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5363606A325
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5363606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F29606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 03:06:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0F29606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ubsLLDod
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=UMKfh3YF
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794193580; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=lAk9QaoYIDXujghGW5MvMpSf4nfmRdRYorkDZVNY9Oo=;
-	b=ubsLLDodfwv0Q2XBaWqZophPskzBWHIq3/jJrj0sCqK13NuKKTg17a9HiAhZpsF5ga36AimL+xqf3MIT/6vSAIyQGB5/eyf89Z+OIlfbOLvaWROgjSlSIsbATiQZJHKlE4nEYT9vlWzTfiBKnbq4P5yGFD/WzlX5Mpvz1cmzwnw=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07838292|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00999677-0.000253952-0.989749;FP=6654756752071198712|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jzgcZpN_1794193578;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jzgcZpN_1794193578 cluster:ay29)
+	t=1794193581; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=hOtfJ6199Jb0YALZy3Eb/EgmbHuB6jkFD329DhBpmjw=;
+	b=UMKfh3YFsdjRX+6hPK+DKjVedLowKMSrdJ1P4MsaKngN3qLasA5cD8kWufkFQdH66eU23BdZ8hbZwzXPSa8Ie/OyoLocsIA2SAgU2NAGrI1Axfj1aljszsLkUgDto+B1/zpcz2LbFn9OO3tqSz+t6zBgkGOziA0epLuUAqR/WXo=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07773912|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00751169-0.00029031-0.992198;FP=6663763951325939704|1|1|3|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.jzkMU7s_1794193580;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jzkMU7s_1794193580 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 11:06:19 +0800
+          Mon, 09 Nov 2026 11:06:20 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: stable@vger.kernel.org
 Cc: Alex Markuze <amarkuze@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>
-Subject: [PATCH 6.1.y] ceph: clamp the inline data length in ceph_fill_inline_data()
-Date: Mon,  9 Nov 2026 11:06:18 +0800
-Message-ID: <20261109030618.419473-1-zhugl3@xiaopeng.com>
+Subject: [PATCH 5.15.y] ceph: clamp the inline data length in ceph_fill_inline_data()
+Date: Mon,  9 Nov 2026 11:06:19 +0800
+Message-ID: <20261109030619.419499-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261107055510-failed-6.1-9c1d14d3b66b@kernel.org>
-References: <20261107055510-failed-6.1-9c1d14d3b66b@kernel.org>
+In-Reply-To: <20261107061204-failed-5.15-9c1d14d3b66b@kernel.org>
+References: <20261107061204-failed-5.15-9c1d14d3b66b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,17 +81,17 @@ Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ Adapted for 6.1.y: folio_size()/memcpy_to_folio() → PAGE_SIZE and the page API; dropped the client warning on trees without it. ]
+[ Adapted for 5.15.y: folio_size()/memcpy_to_folio() → PAGE_SIZE and the page API; dropped the client warning on trees without it. ]
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
  fs/ceph/addr.c | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 9f664a9..1920ac6 100644
+index 618ef36..0ccaf88 100644
 --- a/fs/ceph/addr.c
 +++ b/fs/ceph/addr.c
-@@ -1678,6 +1678,9 @@ void ceph_fill_inline_data(struct inode *inode, struct page *locked_page,
+@@ -1572,6 +1572,9 @@ void ceph_fill_inline_data(struct inode *inode, struct page *locked_page,
  	dout("fill_inline_data %p %llx.%llx len %zu locked_page %p\n",
  	     inode, ceph_vinop(inode), len, locked_page);
  
