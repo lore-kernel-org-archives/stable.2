@@ -1,57 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228969;
-	b=IOGef/rCxOMJb0Fr45NFgMaOrLYIMuVToieq+QbRZ1K0nmsVaVRuQJH2dD0WiJ2IJ6O3
-	 Zuy/yIaTptX7B0jbguwQqYwMYQEyXWNACQk6ULaOqZ+F0UhBwINUU9DThAkx1FUrs4icd
-	 8XdO98EW0m40Xiagb76ZrMaz9Am+1wKbydhT6KGUCnaGKvG8s8UWQQ48g8cZ+hEG0HYz/
-	 ZwoD3aPchkqq0ZoeBRhQsyPnn4D+KAZunw4ZBxQNoTZmm3x/HEm/Y85qUpDAEvJ0epPOf
-	 CH62KmYvzVLi4tuYRlCGqk9Lh2ptRXOZYW46IfyfhQ/++gz04YAXt+XTg8LYU0diblw==
+	t=1794229019;
+	b=Wu0jXB6GkukLYDNP7TVCd9Qub7l9jjSpfQkTghlLthlRzw8TohOD31Rg7CoobiX/LA7f
+	 AyIWna6Tx5YbffwZjiFgRgohQvx0F3F/THA38QOEQZ5reSIQ762hWqevoyHclssPNvVEG
+	 uK8GUEsDJ1hMDnqo936ZVpZFYi3NVgaBu6sbXm6nAAuaSeQ8UTKnSz+Bs7n6EVL9IsBR6
+	 qrw1megA4Em+ftabmtmn7FOTrUUovWBdfedaJOHOnqyT2NChDuuRBr4Wj2v6zrpOpA0R5
+	 3JEKUy1PCvPHWyS5QxC4DRQAqze8QfLEjU94tJYKuh0ziivGfDsGOF6Ki7FSADuVW8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228969;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=RlHXEngYq18Jj8tFRRJ8jj4MrDZLmQ3Qo9NJGm/ux7k=;
-	b=C3ttJHk6w1DzKDFQDO/azbExBYUhoGGF9CMKeEcUev1QnJWPjAre76hOLDbWLbzWYRIK
-	 sEK+9TY2ZUyJXsULFgKIM1QJ1Uj05aRXkoiExApFvFjeSLaAP6w8s8Adeam8GISYc8C0d
-	 V9P/jGlDrq//qqAHQItCO7g9hvDsBUNeJb31Edg+x15IHplYmqAI8iY1QGtpDYWbaaxAd
-	 hVomkrVn1DqauxZMQu1bfzuQ6OpNnZ1Q4znOy9SmaTOdl8OAwOmCmwukpoDlkdeG/q5NO
-	 9D0hXXfY8VIcTnGVcEGuGoAe1iLbUuxyTsC3rnnfUeHtD/QGrNqabOapyk0R6w1o+nQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229019;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=X8bKScF8eV0DybP5B8iH86pIo6Qb/6M8n/7AiE59994=;
+	b=DHUqcwZWaTv82RMSHgq33Ga98rsGhVWznwxmPnOVuzc7Gs4pNJu+Go70uA2fLmPpIiLD
+	 uzoUDQDfiWwXc+2oB36C0XLR90pc5fsZIli5eYyrOFTJj6Ib4eKAv6ok34nmLeacyk7l/
+	 JBvlLdzaA8PaYocubedPrK8sHr9Bk5juuAI2VAcqq6ETsUpavDhTtJJYLptbSytaXUzar
+	 bpHX1VG+ckLkOX4nSWwbuynZYc5HL32MP/tMEU9ODne8icULwJk6qPGmJLkGwyg3Qpsi8
+	 2mcvAe+xSoMK2RpPwLrK+aWeFJouEkR+4XVeJtQzoNodwE4ewfFvsq3NPmRZQWAp+Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwEcwZeS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oDBcAO84;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6778606A322;
-	Mon,  9 Nov 2026 12:56:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6F4606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:56:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D6F4606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwEcwZeS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1481F0089F;
-	Mon,  9 Nov 2026 12:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794228968;
-	bh=RlHXEngYq18Jj8tFRRJ8jj4MrDZLmQ3Qo9NJGm/ux7k=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZwEcwZeSanDenPa0eeRoFDyCiLtGCr2CMJ5FgJf5XZdSbIB0N8JBOb9RV7uCoDe1g
-	 eqjAIdB2AoI1r84cuzlN+g0R+zafTQJzGQVMEiJyeMDWSGMw0cPlXQKn1bSmLEV/2y
-	 QSEJ92Drya8zv0iK7yfGnYk9PFYUvsvv+A30rzX5Ffmcibck0nlEnj91yoBQR4C4+h
-	 8pILX51p0G0GbivHQT0O/bd3QrH8Md1XutNjypqw0DiWLS8NODfHcgjjy78bdADmVC
-	 UC+3gEv6E0ZJL5ZRsVG7mYCPdCFb6cCvOLfpa+byHIjPklVa7FXilFtfbTHD3zZ7Xb
-	 9GQ9mc5d8rcdA==
-From: David Hildenbrand <david@kernel.org>
-To: akpm@linux-foundation.org, david@kernel.org, shao.mingyin@zte.com.cn
-Cc: linux-mm@kvack.org, ziy@nvidia.com, matthew.brost@intel.com, 
- joshua.hahnjy@gmail.com, byungchul@sk.com, gourry@gourry.net, 
- ying.huang@linux.alibaba.com, apopple@nvidia.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261108142831046W_fbNCAFfuY0BjHPCCHgi@zte.com.cn>
-References: <20261108142831046W_fbNCAFfuY0BjHPCCHgi@zte.com.cn>
-Subject: Re: [PATCH v2] mm/migrate: fix softlockup in do_pages_move() with
- huge page arrays
-Message-Id: <179422896536.6396.2331659018342056694.b4-ty@b4>
-Date: Mon, 09 Nov 2026 13:56:05 +0100
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=oDBcAO84
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=X8bKScF8eV0DybP5B8iH86pIo6Qb/6M8n/7AiE59994=; t=1794229017; x=2109589017; 
+	b=oDBcAO84R+bf3VZyzDPHTqE4AdXVWVHo62zLAIpdALvjtonC33f4j6pF+jTk4bVXOhZl2z+fSNv
+	PH8miNOAXMR2ymn81VIeIPDZ5bA88vZ/BDbxF9VGnxaPZwh/SiXIpPfjEY6tmD8+Q/iLGPcTMvRov
+	vcGQMoZOVL0rzPjMduQ7lMkvcVhKqHTpnwcSGwaVGOiEnIFkv3HSFk5qmjQgrmN8b4wcKhnXzns6+
+	z8h5Xfe4tEVzCU/Aln+FwGP6/AC/fLceCbkbRy/k1SsNPXycKm7SUsNDFNiNDwm00tJTHXpPRVvGN
+	6wwV0XrF9ivp7Wu3UUjnLNlMziA+gr4wATeQ==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xQOve-007Hdt-Il; Mon, 09 Nov 2026 13:56:54 +0100
+Message-ID: <6fccc8da-1c81-45c4-83ad-f71f48846342@igalia.com>
+Date: Mon, 9 Nov 2026 09:56:48 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,44 +57,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/v3d: Initialize timedout_batches when running a
+ CSD job
+To: Iago Toral <itoral@igalia.com>,
+ Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
+ Melissa Wen <mwen@igalia.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ stable@vger.kernel.org
+References: <20261101125619.2465064-1-mcanal@igalia.com>
+ <179362541395.53188.8652440988836179813.b4-ty@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <179362541395.53188.8652440988836179813.b4-ty@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, 08 Nov 2026 14:28:31 +0800, shao.mingyin@zte.com.cn wrote:
-> mm/migrate: fix softlockup in do_pages_move() with huge page arrays
+
+On 02/11/26 10:16, Maíra Canal wrote:
 > 
-> do_pages_move() walks the array one page at a time.  An entry naming the
-> node its page is already on is never queued, so the loop runs without a
-> voluntary preemption point on a non-preemptible kernel; the existing
-> cond_resched() calls in the migration code are only reached after a
-> folio has been queued.  nr_pages comes straight from the syscall.
+> On Sun, 01 Nov 2026 09:53:57 -0300, Maíra Canal wrote:
+>> v3d_csd_job_timedout() decides whether a compute job made progress by
+>> comparing CSD_CURRENT_CFG4, the number of batches the dispatcher still
+>> has to start, against the value saved at the previous timeout. That
+>> saved value is never initialized, so it is zero on the first timeout.
+>>
+>> On V3D 7.1.6 and later, CFG4 counts down to zero once the dispatcher has
+>> started the last batch, but the dispatch keeps running until the batches
+>> in flight complete. If the first timeout fires in that window, the
+>> handler sees no change and resets the GPU while the job is about to
+>> complete. For example, this happens with long dispatches that only keep a
+>> single supergroup in flight.
+>>
+>> [...]
 > 
-> [...]
+> Applied to drm-misc-fixes, thanks!
+> 
+> [1/2] drm/v3d: Initialize timedout_batches when running a CSD job
+>        commit: 0afdbdd5b1af729108de8f893d179c3b99eac29d
+> 
+> I'll apply the second patch to drm-misc-next after the back merge.
 
-Applied, thanks!
+Applied to drm-misc-next, thanks!
 
-tree: mm/core.git
-branch: migrate-7.5.misc
-
-Applied patches will appear soon in mm-next, followed by linux-next.
-
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
-
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
-
-[1/1] mm/migrate: fix softlockup in do_pages_move() with huge page arrays
-      https://git.kernel.org/mm/core/c/e200153a
-
--- 
-Cheers,
-
-David
+Best regards,
+- Maíra
 
