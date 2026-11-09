@@ -1,68 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214749;
-	b=BBNBYmkHcBWIxOFN6XVlz8Wg3imUVF1qnorTEiLLHaSGltEJGioZNa7jBBKdLGn6V4Oz
-	 /GNHtMobBCUwz/1o5PpwCXp8rusLPYFfav5XxibkZSkAbzXoF7FG7ydE9fmcu7b/IXAvG
-	 slzxosaq93ZiJeF/www55jhzEH/U2s3N4UuhoZOIpda+pR/BixJ+2iGIXmk7/jYmasY73
-	 SESnBgm8a26JSojLT4a+d2MBf5oCo/bQiJ8vTM4QRaxYQIbcsY/jdCtfKCOZCknFsNkvy
-	 Moe5Xp8Bk2takD2rUyshoW66adTIl6xedRja4CnpGPkEqeY2jmaeHdhtoEKo5R+0Xog==
+	t=1794215031;
+	b=1WNdcbFdzlOlvF01GuHbMXtCX8aGkxPXFWDmX6nbE1QLkb14CxNkYiBcXFbHoRoa0vC/
+	 n0pKiCsUGGUuS1Fr31Z0GB22ntTciZqq1zCyb+IZutsbQ/jUyICYPhEdPk3BPT+la88Dx
+	 0Un0PDZViKbuxXbMGqH/BZDZoZHVVnNRqvnpqdHf8BPHM/+julhcdSWYD8/ya8o9u5FSU
+	 LKdgnu+AO/1oTcw9ZMvDa4WVYFx7sbgS2LkHIk3wWBfXgL+J5W3xO13UmJb36f2oM+2ox
+	 RgoNNj2y1aA4koomeutzEsLWeR1vQi91ylvkAMiCTge1AF8zXaQgW9N8FwQvcjkcCiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214749;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=Ry0hvg/7ZvGS+5MJjvgAu1kOtMI7ERoCHasBUkDzBN8=;
-	b=pveIMtxvW0FDAL5uD1IklaiZY9fVGE5LEjbdZxsPl7hP3ym1F49/fK5gEPjB9az0NI/R
-	 UYWtAy4Dt8Se8II6P8VolUGRnOlm+Flttyn3GB1okxZ1TJRMR31ouYptOK76972DyVBXU
-	 PCkl3lm+Bw/JU3MB6KcaYEzXVBjWmgYsgtYTet0CWeMy2BNDdxR+wlhTx3IpbnNUIU0RO
-	 uZ8ZFs8uaucEqFMVopYdB/tUnRstM7FbjGHfWVSKVbNSkUO7hFeRMwVYbpqoMNMlXmEhZ
-	 liAbENJTkZtTEH3fV+Cs46N/uVxnNyXuiNnbwYdSbngWR1eG1BFMF4MwaXonqxGvNtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215031;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=xL7NICnviPylGawuY6UFdSAue0kDWn0dNEjgPy6oRAo=;
+	b=5NSaRqU2aYa9IPmew1GsE3m6jg0oTg55k1W4L2F9EPItHidUilsRSRmgFKcF1h8+zhOl
+	 RBgJUhkE8RDoQCEUq4Ro4e0eYGLeM689pBD9uRPC11Eroyo/xekbCBrSrut9F431/q6ym
+	 Jw7zY4vU5SpJ/NhhqXg7qQHazkpdC1Epf93XXjI20lYpBVluuzZRtW7H1bdMaaKL9+T0b
+	 NRhRuX5g1KTOMgYJCfsefu0G8R7fsxRB181JWypmPojOgtU9asOg6p/h1dejCQ10lDOOl
+	 D+Fr1ctmBa7EpMTlgC31Iy6CsJtkfpFtNkN3FudWPO5pd5/KHNXl28wlLuxD+a2YIYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=FjWtxarp;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2KZ3WuW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6A8606A322;
-	Mon,  9 Nov 2026 08:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6A8606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF889606A31C;
+	Mon,  9 Nov 2026 09:03:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=FjWtxarp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794214723;
-	bh=Ry0hvg/7ZvGS+5MJjvgAu1kOtMI7ERoCHasBUkDzBN8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=FjWtxarpGQYLRCOCRQROuFAxa5I+Rx9vIZj1+3+oNNgNb51CtF422YagaZnhVJoXe
-	 c+IL1rwqD1xAWjH+kcOmPR/wGjCutcpGKQKZxEablckzByZJZrn/rHcGJXn9tuaYd4
-	 JWP+ol0CKL/FplspIceiaxThwKIoA2TaaCJDz7c0=
-X-QQ-mid: zesmtpgz1t1794214705t0209eb0c
-X-QQ-Originating-IP: D0rEOGTZh2iXiPzAu13irFDdBHXbIhUPCQSjyhIRml4=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 16:58:23 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10624433642065870936
-EX-QQ-RecipientCnt: 8
-From: raoxu <raoxu@uniontech.com>
-To: lee@kernel.org
-Cc: pavel@kernel.org,
-	griffin@kroah.com,
-	Denis.Osterland@diehl.com,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] leds: pwm: Fix active-low brightness with default-state keep
-Date: Mon,  9 Nov 2026 16:58:22 +0800
-Message-ID: <9524E319B9AF9D1A+20261109085822.3755803-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C2KZ3WuW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107FA1F0089F;
+	Mon,  9 Nov 2026 09:03:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794215030;
+	bh=xL7NICnviPylGawuY6UFdSAue0kDWn0dNEjgPy6oRAo=;
+	h=From:To:Cc:Subject:Date;
+	b=C2KZ3WuWjUIzoa8FcZUcaFzzQZhqMrHjM++x3qrdMIuFFCSVoc+/Ozkksr8Btqymr
+	 woteoGAq+NPOYL4t2nZT/EnFjR889tG3rGDRry5BhOVYpez37nrqrpJTVXD7P9nNda
+	 Fqo5uLViJhTiVN9ct41r6psIXua2EUoB6R2NL7yxFhvX4Lk2SlDKyMEQVA59ijHtTp
+	 rBI7dhrjR2bt4HFsQO2te6Vh8hoCrAzXOUoKFrk3iGHls+xbVmfzt8Z+ggM6bMEajt
+	 cUnKm96emTdtZlA+lTjLAV0dI9EXub9WqLAeGDbI9eHDlTSEon3dSuQrh9m8KJOvqp
+	 WDWFVgIYEhusw==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [STABLE v6.1-v5.15] ALSA: usb-audio: Don't try to submit URBs after disconnection
+Date: Mon,  9 Nov 2026 09:03:44 +0000
+Message-ID: <20261109090346.2098226-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,66 +61,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: Ndw/mc8X39ObNJ1UWdOrfa1vxiINxy2GaUzWAH88ZNWCH5ChWve6hLOm
-	s+oP3xHmubqaqJevmq/QrB0JVxmdXAFAeR2tNsL9rBhkpDmeTSJf6M9O8izY4u2kiwjuIsc
-	JcGM7EXLkAEixrDZ14TunWRyR+nMVKGuuO7cqpwBnf/ddn4qrmG/8B6m2vTDz+MG3ptpStb
-	SS4C7Rar+fcq+J99k0bcAsrlJ9aazPbdq9AjQyeaKD9jseTVqTNxvO8H6CMzhRVwZvMfStR
-	mpAw8oOOm2PTiYK711GfAD9io3WWgEbIf/kkXIYAJElSXOPyU+SiIZNICeNPQoqQK5yK8Ce
-	bvrKD0Kd1DuaxHtKS1fOoSymIa6ujDlYtjV07ThJ85KIv36BY8jzOOvnED1YFZ9hvu7TQnx
-	uAnVztZAUsEJ+e1sVWjf8K1UaArVgBAOidvAMWgwwPeDp9DtCwK+dbJXcu1BzX3JWv32g/O
-	oulJhA+S8g2MV+yAqN98hOqoA4zY/1o29Gh12LaWNC8e9JrUwukS2FyTIayavva8vt7cawU
-	25ix6YP3Q7TD8QPBmOMT+mEgLk7eTri4DYr00N+XpHxwsyxOsFtmWnHmtHX/h3b69xQnSZA
-	Ii087HX4apOriJ6CQbD3KeLDL3GPjkxl9B+IuIr43KKxTVcbuV19dgsw9/TZXpbWZP+tv64
-	UoFRuCXPWSGoIpeG3fXUtPuAEhuxCsZTP3nJuHiy7ss63FBe/vpkZTX5xN/b78wjwrOlAi5
-	srYnC4R3KcRTzzJGyQ6/uU4AONU0ZuQjb9OZowH8ah5TWiu39ipE+OSsvrrhElmwf9md/FS
-	gTeIaW9wDnExkZKwSs2tQKn0Aiu2cea7v13/5hMsGvzRozcGfJCzYX5hCKClHmlfBBi6i/X
-	WzCOeu9Ga8EHbk2/PU5OHPo04mvQ9ClY0clckOTYbDknO1ZuE/++mykIsrunLJV7voLTi8i
-	oTsbySQfDqfrg27YT12bzA1i5pp6Tt5BXmIJoAIBDVGuY8DxRQCII/p0+YbMnbKIsvC9pmk
-	K925GYL69f5wLZj1UNuAg+Hz1KDW2TuWwdo4QJ7nfwZv/wCLpr7AnnNnw4NbU=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-With default-state set to "keep", led_pwm_add() derives the initial
-brightness from the PWM duty cycle without accounting for active-low
-LEDs. However, led_pwm_set() inverts the duty cycle for these LEDs.
+commit ab574d1629552b6831cd91b926b38092c15d6142 upstream.
 
-For an enabled active-low PWM with zero duty cycle, the LED is fully
-on but its cached brightness is set to zero. Conversely, a full duty
-cycle is reported as maximum brightness instead of off. This exposes
-an incorrect brightness to userspace and can restore the wrong value
-after suspend. With an optional enable GPIO, the incorrect brightness
-also causes the wrong initial GPIO level to be selected.
+USB-audio driver can still submit URBs while the device is being
+disconnected, and it may result in spurious error messages like:
+  usb 1-2: cannot submit urb (err = -19)
+  usb 1-2: Unable to submit urb #0: -19 at snd_usb_queue_pending_output_urbs
+  usb 1-2: cannot submit urb 0, error -19: no device
+Although those are harmless, they are just ugly.
 
-Invert the computed brightness for active-low LEDs, matching the
-conversion used by led_pwm_set() while leaving the PWM state intact.
+This patch tries to avoid spewing such error messages when the device
+is already at the disconnected state.  It also skips the superfluous
+xfer notification, too.
 
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
-
-Fixes: 3d3d65bd2764 ("leds: pwm: add support for default-state device property")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20230828101924.27107-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/leds/leds-pwm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/usb/endpoint.c | 40 +++++++++++++++++++++++++++-------------
+ 1 file changed, 27 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/leds/leds-pwm.c b/drivers/leds/leds-pwm.c
-index 6c1f2f50ff85..da307767dbe8 100644
---- a/drivers/leds/leds-pwm.c
-+++ b/drivers/leds/leds-pwm.c
-@@ -131,6 +131,8 @@ static int led_pwm_add(struct device *dev, struct led_pwm_priv *priv,
- 		brightness = led->max_brightness;
- 		brightness *= led_data->pwmstate.duty_cycle;
- 		do_div(brightness, led_data->pwmstate.period);
-+		if (led_data->active_low)
-+			brightness = led->max_brightness - brightness;
- 		led_data->cdev.brightness = brightness;
+diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index dd81c94cbb52..167eefc14d82 100644
+--- a/sound/usb/endpoint.c
++++ b/sound/usb/endpoint.c
+@@ -520,13 +520,18 @@ int snd_usb_queue_pending_output_urbs(struct snd_usb_endpoint *ep,
+ 			return -EPIPE;
  		}
- 		break;
---
-2.50.1
+ 
+-		err = usb_submit_urb(ctx->urb, GFP_ATOMIC);
++		if (!atomic_read(&ep->chip->shutdown))
++			err = usb_submit_urb(ctx->urb, GFP_ATOMIC);
++		else
++			err = -ENODEV;
+ 		if (err < 0) {
+-			usb_audio_err(ep->chip,
+-				      "Unable to submit urb #%d: %d at %s\n",
+-				      ctx->index, err, __func__);
+-			if (!in_stream_lock)
+-				notify_xrun(ep);
++			if (!atomic_read(&ep->chip->shutdown)) {
++				usb_audio_err(ep->chip,
++					      "Unable to submit urb #%d: %d at %s\n",
++					      ctx->index, err, __func__);
++				if (!in_stream_lock)
++					notify_xrun(ep);
++			}
+ 			return -EPIPE;
+ 		}
+ 
+@@ -593,12 +598,17 @@ static void snd_complete_urb(struct urb *urb)
+ 		prepare_inbound_urb(ep, ctx);
+ 	}
+ 
+-	err = usb_submit_urb(urb, GFP_ATOMIC);
++	if (!atomic_read(&ep->chip->shutdown))
++		err = usb_submit_urb(urb, GFP_ATOMIC);
++	else
++		err = -ENODEV;
+ 	if (err == 0)
+ 		return;
+ 
+-	usb_audio_err(ep->chip, "cannot submit urb (err = %d)\n", err);
+-	notify_xrun(ep);
++	if (!atomic_read(&ep->chip->shutdown)) {
++		usb_audio_err(ep->chip, "cannot submit urb (err = %d)\n", err);
++		notify_xrun(ep);
++	}
+ 
+ exit_clear:
+ 	clear_bit(ctx->index, &ep->active_mask);
+@@ -1646,11 +1656,15 @@ int snd_usb_endpoint_start(struct snd_usb_endpoint *ep)
+ 			goto __error;
+ 		}
+ 
+-		err = usb_submit_urb(urb, GFP_ATOMIC);
++		if (!atomic_read(&ep->chip->shutdown))
++			err = usb_submit_urb(urb, GFP_ATOMIC);
++		else
++			err = -ENODEV;
+ 		if (err < 0) {
+-			usb_audio_err(ep->chip,
+-				"cannot submit urb %d, error %d: %s\n",
+-				i, err, usb_error_string(err));
++			if (!atomic_read(&ep->chip->shutdown))
++				usb_audio_err(ep->chip,
++					      "cannot submit urb %d, error %d: %s\n",
++					      i, err, usb_error_string(err));
+ 			goto __error;
+ 		}
+ 		set_bit(i, &ep->active_mask);
+-- 
+2.56.0.506.g506a7eabc5-goog
 
