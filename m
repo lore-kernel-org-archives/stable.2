@@ -1,90 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227025;
-	b=WYoTOdhKHm6CU0P3E6Kd4Nq6nGdytVeq9yJNvlSey9ysAJj0wasIIeoOlIde9RVxEGgD
-	 wB57sk/RwNL+whu2VoBlkJ1MblD4TtBCH1XEKsYkXspc8Vq6cuXUapveYbbaJ+ZNjnI64
-	 msax3osCSknVN2W6PFtuUwxHtiS7Y56NV1EB2ajoGttDb7gHqfkgO8pghz1rPTCQeYbrD
-	 Jz8Xki81ZVNJ5QidWZKAEDQMGePoTX5zeqqtG/msO0MEjPKQ6WgQEWu7AKDVwCUqQXYEA
-	 TrS2f4AmzuWp0tWTW1QjxbH4yqiTOjcX1v2T8fbA08eEjvrYPE5NOzABnuytuVJKwUA==
+	t=1794227033;
+	b=q8qMF2r4CoDJNfbaVUCmytjU9AqSpJgDUXC04AHSdaMa+/gLH7XRkVPaSncB4w7C//Zd
+	 g8ueJGUSSw83yH1da+EAcofq3mAmq3zEdYE0K36euNpNPYCJW3DTjPAAD13dYiti+Ix+2
+	 wW45esargH2BJUg/n0vd2au1OH2QJX4oQLtj7ha7+nqvYIZMkSLO0cSsWub7ypVU7o21B
+	 rgNnez0oM9a7jPV/gHw1ehB6okcMA5wNhp8MN5BgmESnPAets75Zca5yzWrLZn3j7B5Ie
+	 ULtMpgM/M+yVpyejHQG2oMKoamPN2cw9R8T8fcRwNYpETqYa9oLr0YdOeEXJEx5cq2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227033;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=Kz3bB+vsuGd2wTXDnL7xzs9PrYxFrhVkmgaoPhitFfE=;
-	b=MhFTye1EzXzVWMIy8swAavPfST6+ZsQbKOSGvBg/BfuC3aV3keDXC5AlsHrN9uC0AGCq
-	 /9qFFs6V+LJQYgAeVeL6SvZ2uSLs3gZmM3CY2fS9Km5gVZmKiRqYjQab/iO8YVO/2dSnE
-	 xjox8KCxwaLyaNaBQ3TaCixdi6qmSXbdzXwkSbULPqlFzTjxqI2pq4EIsA1kD+/JtSRep
-	 QotuRgcCV/d4br+bhOIVA2/njevBoXNBpZcUct84vNK9SsOtR5uluuJVVWW033Iioxepd
-	 LHDiCLwz5n7F8ZMgee+j4DKqKiUbOZbeepn7t6ciKvUCcFyZ7GF2Be5x9BxXre1UC+g==
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=FtIc8OJQRVs5mxAHtFndAKUpp3irN4qncNUdkvOYWPk=;
+	b=ycdmff0au8f0VFYaFt5vjofXyQCRB1+OJ1m42bYl0SpDLqgdylWfs1wow4rPEIcKhl7A
+	 t0Wlge9JPknTx3OLXJlb+XYTDRmwv8mnrz9ew//ybHK+0kpTBqWQ4WeruMfRm3MGKh5FK
+	 MwEwS90o+7/DGu/y2ng3+2OV2H785t32JyEKDB4+5qja6RbAA39HSWdmyqHQckVUbpUbC
+	 PwDYhnp0fx8sPNwLuyD0/vx6gIThtPHkQSQRslavudoTLYJQG1Ie2ltwwjowPG0hO6h0s
+	 QIdmGwMaLzM5eOBwcU1fsb5QlXij+/6MEGqBPkFceS2TVGHrrPnhHzEp6ov27LjVGTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZknsHKa;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ehWEs9aY;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D6F6082BC7
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:23:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D6F6082BC7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC913606A338
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:23:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC913606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZknsHKa
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4922523d1afso421318f8f.0
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:23:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ehWEs9aY
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so8177945e9.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:23:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794227023; x=1794831823; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kz3bB+vsuGd2wTXDnL7xzs9PrYxFrhVkmgaoPhitFfE=;
-        b=GZknsHKaFPAErfD8SOn9xIzpaKI/N2zurbyUyRh6tw5NlKsXXe29Wks1dwvMnoWjOs
-         nfrc/sLKppuyqHicUc361Btd1AjgDaCJ2YBXKtpjGOtJpUswx2+fgg98ZizSq1ARQSs1
-         b5ADn1iRwIQaBKcT+Jvrppg2C9jqpuGn0mJb1QunJSCoioYLu+DzX7E0iDSj2NSpBciX
-         oOI4UaJfwiMKy9VfBkLuBtctVJqb9/IXAc0E/Txw0bSYtS0teCPH125wgSGUsktfk8hm
-         MUzuDpTEr7QNhcTDoEMLaqorTAIc7U3Q/M6SLVLZzuQSNw4jX0ZRnLNAQuRCpxWguu7b
-         TPtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794227023; x=1794831823;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794227031; x=1794831831; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Kz3bB+vsuGd2wTXDnL7xzs9PrYxFrhVkmgaoPhitFfE=;
-        b=sn+4AOOjyR/VltVYz0t68PtOk3hWrRpkmrrqUoc2z+cCgHuOgaQhHdzZ4sP3jxR78B
-         bt+S6XZORche+PaAHpP5Xu65/EIoh5xBst9yr8m+ei21VKdxnUBPARo4+FBhRyq2pn+/
-         GMnTYuP9l4/xKMRNy0ivEpvu4dBbscItOZ4pSaC8YmGpjRxc9+0TTVCxmCvplVWXVR/I
-         EEGXR40Jyeh9qaV+WR1TKlq2Antg8c2uUdP7TelXoaGJzHh1GF/vxY5Sb3QqcUFr+rZ3
-         QlfWrCchZdoMA6TCtFv2jzJFR50+pye07qgsbkEBSUwarqkEMnlGfwgh7o549QNOsXrN
-         wGPg==
-X-Gm-Message-State: APuU4Z+OxqGbSiWGOF0Y0ubiO8N7PB6+CMEE2ys+NyoyftfWywEnJcrG
-	kOKsyg65C8TGzrH4FdWw6jp0bPcIkdwSZhBgVsVzUeeHtYV7NeXkFiT3yE0Qro0d
-X-Gm-Gg: AYBFou2uWd1Mhw4QpAUlNRVNGYT43McLfgQPiUch3MWrMEdUHGsdTtNXVrZfezuXdwU
-	3b5dZWn6SLyLvH9I7FFG82AKIovEHa4Ap/zZM33SV8AiWxz2+OzsMr/ajlLyH6KRITy8CMBm/71
-	X9Fiwvktag6RCzviRqAa5DM+xU7wJznJDAEtz/6AdpTLE+iYs7VvZgN0j68wmYJz0R0YBpDS1Xz
-	8W5WZB070KtKv4dhxwXdQiBnGyR/VkoRyNC7gKGTtIznzZUAk6AHeqsjAm/X1ef0+lnclUZ/Giv
-	1FHFHbUDBdxt9CFppJ6Ybec/zeH7bb+FbmviOrSTNHz51K9FM30sXXfBtoAhOwFaz3IYKF+RxXT
-	7Nn0tn86dKMBZ1s8Ccg9KYC5ilJqcynW3rl3ztcPiAYd540macwMZ9BrurvVqixV0Qxqz5LE2XV
-	OCfZsNvpt+O+PzCUSzq9uhJxQY9v0FjYnX9m6SZ38DHThE7r3yPAikQjpQaFXmOh/5a5+qhp3dU
-	TIxtIUYMbwzVyX5fSAglWPsJSL7rEvXT22Z572qc88jCzqtF0al9kbmEPc2ll4kR6YHOZ57Ibg5
-	4Y2+/UxiYrUi7AgM643iEuybdzq/Zy6QDnXVvIc/OTOFPhqL+lrSeVBcaGicBG47rDaJUXtTrBa
-	PgaRXiw==
-X-Received: by 2002:a5d:5f47:0:b0:492:820d:1e with SMTP id ffacd0b85a97d-49582badd84mr7720642f8f.11.1794227023376;
-        Mon, 09 Nov 2026 04:23:43 -0800 (PST)
+        bh=FtIc8OJQRVs5mxAHtFndAKUpp3irN4qncNUdkvOYWPk=;
+        b=ehWEs9aYR22ZWprEjQ+2zKV4ZJuc4lQ/buuwHCmK4CZCi4L7py9re69s7Y7Um7ZMsX
+         IEo7KBj/FXtdBPbijwtlrBxrd62pMLdHrmaAz3n8QxIMtFrYycq8EICuKnI/wUwLStT/
+         we+9wXC0yTvesHLcroOByqFOuS3sjzwjcUYd9RuCfm+HDYnIixLO2Izy42Fk0oz5vHQO
+         AY3bIY3wYrVZebhYreoeOwpBDx9qhqqJREuGBExo2O8f+p8Vh31KIY4XmLVif+D2k/S6
+         JzFkb4D/WRWK62HrDoo9dwjb7zDYvX+Bu0LhaH5nOSPs1hF0d9qATOQ8hA+z3YisJlhd
+         NHWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794227031; x=1794831831;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FtIc8OJQRVs5mxAHtFndAKUpp3irN4qncNUdkvOYWPk=;
+        b=oE7cloaGPTEwMI+NE5hiVgmfmasTIT0vv7hVv+Xr0Lcb4tZqDBmwymCvwXTr+OXblf
+         DI+d8yoQgA9/p/GSdjeIqdhFd5EMXhV/7KnJ3xUZWfrG8DeZ7oFmXroHIhrzFogtvwH/
+         b1QvEX8lDO+8CuwzRY2tAAzSprmsYnj5Xm7HRATKIgCv3/QGvGQaQBvjbsFAbQmr0c1q
+         Dg9syAD3VM9AEkuokIAwBNfPlrdIGFoUzbeT8LbdRTqbjRA1YhzPvHJg1M0XOMjknK2l
+         RyNiHLFwMOIlgwXhujnGy+7ssgmQdBM11OaLn5sxZE2gp7aI3m8bOFQehABe1X5oRQOB
+         RRbg==
+X-Gm-Message-State: APuU4Z+ySukJcmaRGBJiuWmy1wDX/P5KI1qbyMu6YBIOyEwlE1eKs6wO
+	yMCoQyxADRa5hjLvPt36i3IddSe6irg5UbW4F1L2dvwzFPkIgWZya1MxIL1K0M0r
+X-Gm-Gg: AYBFou1vZVcSOgbPES9evQIb3fSbeDUskmAkeOcAClvGuEM6lFTSokS4Nbd6i8ZujVu
+	QLLfWT8+8rUeSiSQvXww1S0owtAWEnND9dt284SNLCN9MrdTAdtEyVbxQiv+VHu+ufGW3A88HWu
+	hxJxW9gwQpAylppu2Zlt1if6MeK11f8ZIXYnNAaMi2jwF+KjcCsZnoHpHZOIiMynbQ4OwuyLxBa
+	u/vnEHJCO5y7k83IsxPTwcUANoMYNquwWD1j9jGkigtGKNCj4ekzBm3lyr6+9IVTJ9PKVbIV4ha
+	Nzzmu/SWsTGfl5c7K18TemhOUd+aUYw+oFd8r5TtKaZePcPFxX/m2AgmMpAOSKv3dNZXJ+Xs5mN
+	cgO5pGfLrdkM1M9hBEZ7s4TfhaJaJV/SiUX11OUBnMwD/BmHqYXQsXNEO7Lu2Bo4ZW+PIkgolK7
+	fqTlbTja5Z0gQKnqw9nrzEQmImhQHK8joBx8fBvLMhGN/JxobuPK6D/z4I8GpEs8dTWQzBtXJUU
+	ILDZ5GXXCfMfxaOg2fd4FvUprNbLg7OJY+c9Eu1u0uIVKmBUjxO+1IdsS695ngjxpSJ3CFt7RMb
+	uGbny5GcOwbKz+BYM9XPKnEp7Moy7CKFwnfW+gNWzoQMH8eZkyHJg84yD8Ll+jUOf/H43MPXRad
+	wD2eSOw==
+X-Received: by 2002:a05:600c:8714:b0:4a2:150f:1609 with SMTP id 5b1f17b1804b1-4b963c767a3mr66470605e9.8.1794227030969;
+        Mon, 09 Nov 2026 04:23:50 -0800 (PST)
 Received: from SurHub.localdomain ([196.188.113.144])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959774736bsm10609850f8f.43.2026.11.09.04.23.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4974b7645cesm3077886f8f.32.2026.11.09.04.23.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:23:42 -0800 (PST)
+        Mon, 09 Nov 2026 04:23:48 -0800 (PST)
 From: Abdifatah Suruur <suruurism@gmail.com>
 To: stable@vger.kernel.org
 Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
  Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 0/2] nft_byteorder: fix the uninitialised-stack read
- without removing multi-register support
-Date: Mon, 09 Nov 2026 15:23:41 +0300
-Message-ID: <179422702104.5131.8115555421206983838@gmail.com>
+Subject: [PATCH 6.18.y 1/2] Revert "netfilter: nft_byteorder: remove
+ multi-register support"
+Date: Mon, 09 Nov 2026 15:23:46 +0300
+Message-ID: <179422702651.5131.4174988605567778384@gmail.com>
+In-Reply-To: <179422702104.5131.8115555421206983838@gmail.com>
+References: <179422702104.5131.8115555421206983838@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
@@ -97,30 +101,140 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Pablo pointed out that the full upstream removal (bb061d3) cannot be
-applied to stable trees: nftables versions before 1.1.0 can generate
-len != size byteorder expressions, and the removal rejects them, so
-existing rulesets may fail to load.  The removal is tagged
-stable+noautosel for that reason.
+This reverts commit dc29c0478b8564feb9371e715b5a0016eb8903fd.
 
-This series restores the multi-register path in 6.18.y and fixes the
-uninitialised-stack read with a targeted initialisation:
+The upstream change removes multi-register byteorder support and is
+tagged stable+noautosel because nftables versions before 1.1.0 can
+generate length/size combinations that the removal rejects.  Backporting
+it to stable can make existing rulesets fail to load.
 
-1/2 reverts the removal currently in 6.18.y.
-2/2 zeroes the destination span marked initialised by the control
-    plane, but only when source and destination registers differ, so
-    in-place conversions (sreg == dreg) keep their value.
+Restore the multi-register path so stable keeps the old userspace-visible
+behaviour, and fix the uninitialised-stack read with a targeted
+initialisation in the next patch.
 
-This does not reject any rule and keeps the old userspace-visible
-behaviour.  It removes the dependency on CONFIG_INIT_STACK_ALL_ZERO
-zeroing the register file.
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+---
 
-Compile-tested by reverting the removal and applying 2/2 to the
-pre-removal tree; runtime testing on 6.18.y is welcome.
-
-Abdifatah Suruur (2):
-  Revert "netfilter: nft_byteorder: remove multi-register support"
-  netfilter: nft_byteorder: initialise the marked destination span
-
-Pablo, this is the stable-specific alternative we discussed. If a single
-folded patch is preferred, I can resend it that way.
+diff --git a/net/netfilter/nft_byteorder.c b/net/netfilter/nft_byteorder.c
+index 391aade36ef3c..74548b4c114b9 100644
+--- a/net/netfilter/nft_byteorder.c
++++ b/net/netfilter/nft_byteorder.c
+@@ -19,6 +19,7 @@ struct nft_byteorder {
+ 	u8			sreg;
+ 	u8			dreg;
+ 	enum nft_byteorder_ops	op:8;
++	u8			len;
+ 	u8			size;
+ };
+ 
+@@ -27,8 +28,13 @@ void nft_byteorder_eval(const struct nft_expr *expr,
+ 			const struct nft_pktinfo *pkt)
+ {
+ 	const struct nft_byteorder *priv = nft_expr_priv(expr);
+-	const u32 *src = &regs->data[priv->sreg];
++	u32 *src = &regs->data[priv->sreg];
+ 	u32 *dst = &regs->data[priv->dreg];
++	u16 *s16, *d16;
++	unsigned int i;
++
++	s16 = (void *)src;
++	d16 = (void *)dst;
+ 
+ 	switch (priv->size) {
+ 	case 8: {
+@@ -37,14 +43,18 @@ void nft_byteorder_eval(const struct nft_expr *expr,
+ 
+ 		switch (priv->op) {
+ 		case NFT_BYTEORDER_NTOH:
+-			src64 = nft_reg_load64(src);
+-
+-			nft_reg_store64(dst64, be64_to_cpu((__force __be64)src64));
++			for (i = 0; i < priv->len / 8; i++) {
++				src64 = nft_reg_load64(&src[i]);
++				nft_reg_store64(&dst64[i],
++						be64_to_cpu((__force __be64)src64));
++			}
+ 			break;
+ 		case NFT_BYTEORDER_HTON:
+-			src64 = (__force __u64)cpu_to_be64(nft_reg_load64(src));
+-
+-			nft_reg_store64(dst64, src64);
++			for (i = 0; i < priv->len / 8; i++) {
++				src64 = (__force __u64)
++					cpu_to_be64(nft_reg_load64(&src[i]));
++				nft_reg_store64(&dst64[i], src64);
++			}
+ 			break;
+ 		}
+ 		break;
+@@ -52,20 +62,24 @@ void nft_byteorder_eval(const struct nft_expr *expr,
+ 	case 4:
+ 		switch (priv->op) {
+ 		case NFT_BYTEORDER_NTOH:
+-			*dst = ntohl((__force __be32)*src);
++			for (i = 0; i < priv->len / 4; i++)
++				dst[i] = ntohl((__force __be32)src[i]);
+ 			break;
+ 		case NFT_BYTEORDER_HTON:
+-			*dst = (__force __u32)htonl(*src);
++			for (i = 0; i < priv->len / 4; i++)
++				dst[i] = (__force __u32)htonl(src[i]);
+ 			break;
+ 		}
+ 		break;
+ 	case 2:
+ 		switch (priv->op) {
+ 		case NFT_BYTEORDER_NTOH:
+-			nft_reg_store16(dst, ntohs(nft_reg_load_be16(src)));
++			for (i = 0; i < priv->len / 2; i++)
++				d16[i] = ntohs((__force __be16)s16[i]);
+ 			break;
+ 		case NFT_BYTEORDER_HTON:
+-			nft_reg_store_be16(dst, htons(nft_reg_load16(src)));
++			for (i = 0; i < priv->len / 2; i++)
++				d16[i] = (__force __u16)htons(s16[i]);
+ 			break;
+ 		}
+ 		break;
+@@ -123,22 +137,20 @@ static int nft_byteorder_init(const struct nft_ctx *ctx,
+ 	if (err < 0)
+ 		return err;
+ 
+-	/* no longer support multi-reg conversions */
+-	if (len != size)
+-		return -EOPNOTSUPP;
++	priv->len = len;
+ 
+ 	err = nft_parse_register_load(ctx, tb[NFTA_BYTEORDER_SREG], &priv->sreg,
+-				      len);
++				      priv->len);
+ 	if (err < 0)
+ 		return err;
+ 
+ 	err = nft_parse_register_store(ctx, tb[NFTA_BYTEORDER_DREG],
+ 				       &priv->dreg, NULL, NFT_DATA_VALUE,
+-				       len);
++				       priv->len);
+ 	if (err < 0)
+ 		return err;
+ 
+-	if (nft_reg_overlap(priv->sreg, priv->dreg, len))
++	if (nft_reg_overlap(priv->sreg, priv->dreg, priv->len))
+ 		return -EINVAL;
+ 
+ 	return 0;
+@@ -155,10 +167,9 @@ static int nft_byteorder_dump(struct sk_buff *skb,
+ 		goto nla_put_failure;
+ 	if (nla_put_be32(skb, NFTA_BYTEORDER_OP, htonl(priv->op)))
+ 		goto nla_put_failure;
+-	if (nla_put_be32(skb, NFTA_BYTEORDER_SIZE, htonl(priv->size)))
++	if (nla_put_be32(skb, NFTA_BYTEORDER_LEN, htonl(priv->len)))
+ 		goto nla_put_failure;
+-	/* compatibility for old userspace which permitted size != len */
+-	if (nla_put_be32(skb, NFTA_BYTEORDER_LEN, htonl(priv->size)))
++	if (nla_put_be32(skb, NFTA_BYTEORDER_SIZE, htonl(priv->size)))
+ 		goto nla_put_failure;
+ 	return 0;
+ 
+-- 
+2.53.0
