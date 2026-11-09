@@ -1,96 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227020;
-	b=eSjMFEPX5tlfV6BHs3NyURMq/qi1S9hy0NgPIIDZel6xry1IhTLBPmXHpNSUXPSSQ2E7
-	 IZWPg29bvm58EF0mGl5gJH8n1jXinWHdBySBSlAzTVw50hdxIc95MRA6RP0kmlUHHYIjf
-	 kjXImb//8Z7rnpKKU9LQgeqfimRBva+J0bfyz7DdMDL/ywvpICFDQsgUlPRMx6kRVEHkg
-	 zsjnGym6Bh0Jc7+lwL/8f1QDcy4cVBJ/wprbESqj7HpnZnqCNpYEyCIf4bQXyDPl3dZCo
-	 wKjfb6Zvr/1mPCA6e47uzGzMdbyXtTS52rh/Sc/FRpQ+GN8LxJtXlUS8VeQaF2PiOqg==
+	t=1794227025;
+	b=WYoTOdhKHm6CU0P3E6Kd4Nq6nGdytVeq9yJNvlSey9ysAJj0wasIIeoOlIde9RVxEGgD
+	 wB57sk/RwNL+whu2VoBlkJ1MblD4TtBCH1XEKsYkXspc8Vq6cuXUapveYbbaJ+ZNjnI64
+	 msax3osCSknVN2W6PFtuUwxHtiS7Y56NV1EB2ajoGttDb7gHqfkgO8pghz1rPTCQeYbrD
+	 Jz8Xki81ZVNJ5QidWZKAEDQMGePoTX5zeqqtG/msO0MEjPKQ6WgQEWu7AKDVwCUqQXYEA
+	 TrS2f4AmzuWp0tWTW1QjxbH4yqiTOjcX1v2T8fbA08eEjvrYPE5NOzABnuytuVJKwUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227025;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=uqkPwKdBphh8svxG0i7NhcNwoYudscGxRvBCQXii6DU=;
-	b=EliPwAY6AHvRxx6EDHST58/QfCS0VDiqcOW50zJ2MnEEkwC0eOtNp/OnMDFvrXMpmYST
-	 eP+54oupDrj6aCFb161V4QKtjda0hmvi0bERZAYDq26p4ywKOfe1JwHSsopm1wc1ckQMx
-	 oxfU6vgTwTCnGRwzOnPch3RcWXQWz31EL5ZZaElHuYodE+8CmeEoZK84jW62PorrftcV0
-	 3lAN8CpnGkKnMI/QpqdAlseGbod90ql4qLi0TozvU1kSmNJoJg65cHBSW8M28ED4UNFq7
-	 xs2cUR4dc/IbKiWVgw6/wCvMAChBhM2yqQP+U+xUuySogQax3m+i2LmYSCTues2RLag==
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=Kz3bB+vsuGd2wTXDnL7xzs9PrYxFrhVkmgaoPhitFfE=;
+	b=MhFTye1EzXzVWMIy8swAavPfST6+ZsQbKOSGvBg/BfuC3aV3keDXC5AlsHrN9uC0AGCq
+	 /9qFFs6V+LJQYgAeVeL6SvZ2uSLs3gZmM3CY2fS9Km5gVZmKiRqYjQab/iO8YVO/2dSnE
+	 xjox8KCxwaLyaNaBQ3TaCixdi6qmSXbdzXwkSbULPqlFzTjxqI2pq4EIsA1kD+/JtSRep
+	 QotuRgcCV/d4br+bhOIVA2/njevBoXNBpZcUct84vNK9SsOtR5uluuJVVWW033Iioxepd
+	 LHDiCLwz5n7F8ZMgee+j4DKqKiUbOZbeepn7t6ciKvUCcFyZ7GF2Be5x9BxXre1UC+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb7L+Ebg;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZknsHKa;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE34D6082BD1
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE34D6082BD1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D6F6082BC7
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30D6F6082BC7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb7L+Ebg
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so7049605e9.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:23:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GZknsHKa
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4922523d1afso421318f8f.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:23:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794227018; x=1794831818; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uqkPwKdBphh8svxG0i7NhcNwoYudscGxRvBCQXii6DU=;
-        b=Wb7L+EbgbfshuHOTA2DuNBCvwfnhVtbUsk8AFZahJYuPodOPs1oCGjtqiqYAZ4poT/
-         wbCvbkVBv2k4xPQz3ccID18nQtK4HgGRWKU6tPvAdyGjzT0IfJr9+nfI70Bf8v1QcBQt
-         LHxPsQif2FBfI9J2RY8l3KilTzLyTM0+F9vqQAx7JYnIj4YqhTE7FRLVpyG+jNg1iCbl
-         AIFIPI+4TeDlVsv8FAaevmdzINoeJQ4A3F8irZagt2S3G9a72Coc0vJf9rwz8gAhTePb
-         DJsezHzg4x/UFmJRRZU1mbhEoI0hiTb/5t8WaRk+pnlXFgi1n885Br0ptlsY3xVy9xtu
-         ZFVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794227018; x=1794831818;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794227023; x=1794831823; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uqkPwKdBphh8svxG0i7NhcNwoYudscGxRvBCQXii6DU=;
-        b=OBt5yoNPwdbD6mqET9mSa/L57t7L1YbNTOGmQZXgsoULJkET4cRz9XROCI9MMyG08e
-         ROWRFCgcSd9CTUm9v6JQUM9TzCXGejb3X/duM2Srv/pv5wb8N8Ne4inF+nPqmc4gtzBP
-         wXxf8SiZ1kO4h7RUfEXrkpVLoTJzb/+XQijh2tDUt3NZu7y/3AXs0nUB9huNVXLDKOet
-         QQqbVu4mj6EGNHOje6JKl0nRoljP3llLBfFlg9fWI2bQWYTB3RUzMwE/7D/xwV7OHmzn
-         cE2FMsh3hLn3B3KE4cO7qy3wWmGAZ0v0HvdYTZW7ofbk6tLcOXssPT5rcleX+FihebX5
-         GQ/A==
-X-Gm-Message-State: APuU4Z9s9aFAuEWYXnxQWwvIC6EmNKkw74u30ARcLlbjaXS3f4lHdJKr
-	Q8OtU1mjbphPPxEU7Wt7jsvPJgvc0ILlxnB60/fM/aykYBbNRVF73QYi+Eky24u3
-X-Gm-Gg: AYBFou2QuNc8lCBnao8N1xhd4aq4UQIcU/CJWcj9W5ytrWIUkUxV8qYdK9oVfkf0e93
-	bmBd5r1Oxj8DEpmqJY+Q26hzBxKNf6sxoW93ZugRfiM+qMsbNoztX6SyFvrzyP1VeNpLiwO3SSR
-	EfaRUPUnYQuGRONBth50bpx2Soz3FmHnwfU/sD6cWvpX/cZOSMloyANYjIp2yovHdaxgAPXZtL2
-	fMmdixe3cc67+im2gwFH6XSzvB/47yVDEx1Ta4Ar5X43i3XeGM+bqt4d/GUabUqfe0dTJ6d5+mD
-	Lr9a3pOvhXFc6aT54u7/IyX5GdjqBd5S2qhDF9TCgoEroX+qED51gAbUcmCLKSkOW5qy2BGwwcM
-	u3fE9fYdq/7VAauQI6hB12/iOM1aWeH2Gca10w2BPwgeWQnqyzf6yfxU2Gdu8vNM8tfZPV4KuG+
-	GofouqFQo+ZcDn9/GtdS+ApqC3/PziNhLj1KohbolRbkhodWnSas++ABTLpwmLel36lAwxW53xT
-	bT2neVvbtMTxG50tr14T03rlU7tHtvrZ9zxjwL3fAVt5eh5ejhd5oJEI7FT3ylDyQmlimLdLJP9
-	x/O7Ecw0oXuwFH/r0SULZq3A6z60CMxxkVp5Ij/nZPJzVgCTCzw8DO5Cc3zSanTE5k6YlDxwZ/z
-	D8hX5/4Tk5peAjkpVW2O/xL0Xdjc=
-X-Received: by 2002:a05:600c:8b88:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4b963c8921cmr71803085e9.31.1794227017980;
-        Mon, 09 Nov 2026 04:23:37 -0800 (PST)
+        bh=Kz3bB+vsuGd2wTXDnL7xzs9PrYxFrhVkmgaoPhitFfE=;
+        b=GZknsHKaFPAErfD8SOn9xIzpaKI/N2zurbyUyRh6tw5NlKsXXe29Wks1dwvMnoWjOs
+         nfrc/sLKppuyqHicUc361Btd1AjgDaCJ2YBXKtpjGOtJpUswx2+fgg98ZizSq1ARQSs1
+         b5ADn1iRwIQaBKcT+Jvrppg2C9jqpuGn0mJb1QunJSCoioYLu+DzX7E0iDSj2NSpBciX
+         oOI4UaJfwiMKy9VfBkLuBtctVJqb9/IXAc0E/Txw0bSYtS0teCPH125wgSGUsktfk8hm
+         MUzuDpTEr7QNhcTDoEMLaqorTAIc7U3Q/M6SLVLZzuQSNw4jX0ZRnLNAQuRCpxWguu7b
+         TPtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794227023; x=1794831823;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kz3bB+vsuGd2wTXDnL7xzs9PrYxFrhVkmgaoPhitFfE=;
+        b=sn+4AOOjyR/VltVYz0t68PtOk3hWrRpkmrrqUoc2z+cCgHuOgaQhHdzZ4sP3jxR78B
+         bt+S6XZORche+PaAHpP5Xu65/EIoh5xBst9yr8m+ei21VKdxnUBPARo4+FBhRyq2pn+/
+         GMnTYuP9l4/xKMRNy0ivEpvu4dBbscItOZ4pSaC8YmGpjRxc9+0TTVCxmCvplVWXVR/I
+         EEGXR40Jyeh9qaV+WR1TKlq2Antg8c2uUdP7TelXoaGJzHh1GF/vxY5Sb3QqcUFr+rZ3
+         QlfWrCchZdoMA6TCtFv2jzJFR50+pye07qgsbkEBSUwarqkEMnlGfwgh7o549QNOsXrN
+         wGPg==
+X-Gm-Message-State: APuU4Z+OxqGbSiWGOF0Y0ubiO8N7PB6+CMEE2ys+NyoyftfWywEnJcrG
+	kOKsyg65C8TGzrH4FdWw6jp0bPcIkdwSZhBgVsVzUeeHtYV7NeXkFiT3yE0Qro0d
+X-Gm-Gg: AYBFou2uWd1Mhw4QpAUlNRVNGYT43McLfgQPiUch3MWrMEdUHGsdTtNXVrZfezuXdwU
+	3b5dZWn6SLyLvH9I7FFG82AKIovEHa4Ap/zZM33SV8AiWxz2+OzsMr/ajlLyH6KRITy8CMBm/71
+	X9Fiwvktag6RCzviRqAa5DM+xU7wJznJDAEtz/6AdpTLE+iYs7VvZgN0j68wmYJz0R0YBpDS1Xz
+	8W5WZB070KtKv4dhxwXdQiBnGyR/VkoRyNC7gKGTtIznzZUAk6AHeqsjAm/X1ef0+lnclUZ/Giv
+	1FHFHbUDBdxt9CFppJ6Ybec/zeH7bb+FbmviOrSTNHz51K9FM30sXXfBtoAhOwFaz3IYKF+RxXT
+	7Nn0tn86dKMBZ1s8Ccg9KYC5ilJqcynW3rl3ztcPiAYd540macwMZ9BrurvVqixV0Qxqz5LE2XV
+	OCfZsNvpt+O+PzCUSzq9uhJxQY9v0FjYnX9m6SZ38DHThE7r3yPAikQjpQaFXmOh/5a5+qhp3dU
+	TIxtIUYMbwzVyX5fSAglWPsJSL7rEvXT22Z572qc88jCzqtF0al9kbmEPc2ll4kR6YHOZ57Ibg5
+	4Y2+/UxiYrUi7AgM643iEuybdzq/Zy6QDnXVvIc/OTOFPhqL+lrSeVBcaGicBG47rDaJUXtTrBa
+	PgaRXiw==
+X-Received: by 2002:a5d:5f47:0:b0:492:820d:1e with SMTP id ffacd0b85a97d-49582badd84mr7720642f8f.11.1794227023376;
+        Mon, 09 Nov 2026 04:23:43 -0800 (PST)
 Received: from SurHub.localdomain ([196.188.113.144])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f1117fasm155695025e9.13.2026.11.09.04.23.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959774736bsm10609850f8f.43.2026.11.09.04.23.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:23:37 -0800 (PST)
+        Mon, 09 Nov 2026 04:23:42 -0800 (PST)
 From: Abdifatah Suruur <suruurism@gmail.com>
 To: stable@vger.kernel.org
 Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
  Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] netfilter: nft_byteorder: initialise the marked
- destination span
-Date: Mon, 09 Nov 2026 15:22:59 +0300
-Message-ID: <179422697983.5131.11029262939381173340@gmail.com>
-In-Reply-To: <179422696909.5131.4005481731765358036@gmail.com>
-References: <179422696909.5131.4005481731765358036@gmail.com>
+Subject: [PATCH 6.18.y 0/2] nft_byteorder: fix the uninitialised-stack read
+ without removing multi-register support
+Date: Mon, 09 Nov 2026 15:23:41 +0300
+Message-ID: <179422702104.5131.8115555421206983838@gmail.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,53 +97,30 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-nft_byteorder_eval() writes only priv->len / priv->size whole elements,
-while nft_parse_register_store() marks DIV_ROUND_UP(priv->len, 4) full
-32-bit words as initialised.  For len/size combinations that do not fill
-the last marked word -- for example size 2 with len 1, which writes no
-element at all -- the control plane still accepts a later load of the
-whole word from another expression.  That load reads stale bytes from
-the struct nft_regs stack slot in nft_do_chain(), which is not
-zero-initialised.
+Pablo pointed out that the full upstream removal (bb061d3) cannot be
+applied to stable trees: nftables versions before 1.1.0 can generate
+len != size byteorder expressions, and the removal rejects them, so
+existing rulesets may fail to load.  The removal is tagged
+stable+noautosel for that reason.
 
-Zero the span that the control plane marks as initialised before the
-conversion, but only when the source and destination registers differ.
-nft_reg_overlap() allows an in-place conversion (sreg =3D=3D dreg), and the
-source is already initialised in that case; zeroing it would corrupt
-the value.
+This series restores the multi-register path in 6.18.y and fixes the
+uninitialised-stack read with a targeted initialisation:
 
-This preserves multi-register support and does not reject any rule, so
-old nftables versions that generate len !=3D size continue to load.  It
-only removes the dependency on some other initialisation of the
-register file.  Builds with CONFIG_INIT_STACK_ALL_ZERO mask the leak,
-but nft_byteorder must not rely on that.
+1/2 reverts the removal currently in 6.18.y.
+2/2 zeroes the destination span marked initialised by the control
+    plane, but only when source and destination registers differ, so
+    in-place conversions (sreg == dreg) keep their value.
 
-Fixes: 14fb07130c7d ("netfilter: nf_tables: allow loads only when register is=
- initialized")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
----
+This does not reject any rule and keeps the old userspace-visible
+behaviour.  It removes the dependency on CONFIG_INIT_STACK_ALL_ZERO
+zeroing the register file.
 
-diff --git a/net/netfilter/nft_byteorder.c b/net/netfilter/nft_byteorder.c
---- a/net/netfilter/nft_byteorder.c
-+++ b/net/netfilter/nft_byteorder.c
-@@ -33,6 +33,17 @@ void nft_byteorder_eval(const struct nft_expr *expr,
- 	u16 *s16, *d16;
- 	unsigned int i;
-=20
-+	/*
-+	 * nft_parse_register_store() marks DIV_ROUND_UP(priv->len, 4)
-+	 * words as initialised, but this function only writes whole
-+	 * len/size elements.  Zero the marked span so that a later load
-+	 * cannot read uninitialised stack data.  Do not touch it when
-+	 * source and destination are the same register: the source is
-+	 * already initialised and zeroing it would corrupt the value.
-+	 */
-+	if (priv->sreg !=3D priv->dreg)
-+		memset(dst, 0, DIV_ROUND_UP(priv->len, 4) * sizeof(u32));
-+
- 	s16 =3D (void *)src;
- 	d16 =3D (void *)dst;
-=20
---=20
-2.53.0
+Compile-tested by reverting the removal and applying 2/2 to the
+pre-removal tree; runtime testing on 6.18.y is welcome.
+
+Abdifatah Suruur (2):
+  Revert "netfilter: nft_byteorder: remove multi-register support"
+  netfilter: nft_byteorder: initialise the marked destination span
+
+Pablo, this is the stable-specific alternative we discussed. If a single
+folded patch is preferred, I can resend it that way.
