@@ -1,89 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200438;
-	b=BEWQUnmZuPLBzs5VQ7m2V9m0eiyhR7YCfVFwovnvJxu+qGMOJJuWIFlxoEOy/V3AlSo/
-	 0toIJBshA0n2lncoDkarfSNENHKNfl7j8Lky0sumr9JQfZ48ITKpe4ybLxx+/ICqXnDX1
-	 DEjxOYaohPBKaXPTxPE7DffXDcRbMA8FUar8Go0FeNwfpMqJ0o7XZidWfriP0gDgi+D4M
-	 zHWiz6WNsNTTe6/IUop9wFqYzq6tRGre3x9dHzBh/xsz4Ayc4VOBV/02WvOlxMWw7mCGp
-	 d0zCJro5U5hf1bhY+5o491tS+N2cIP+92ANwuSJGj0Sc8xCbwGqeebk+JQIkSvACl8w==
+	t=1794200563;
+	b=F2aW6pJUGh3lHvEo4Cnr96wmYNnviVGRZeYQHkyo/l7Zi97wE3tWZe9X/GGLCSz6cpYN
+	 Dx8V8LWcj3+EbsJrTxF1yGnbVpJ17nGldALxQSUaPgQcKpHxdVNDxXZxuCa+XnhSglXpU
+	 T++tRNODxzduChuM5HOMCjHy5Le2HhLGX5Hyn59/E5o+mkrhLuGNgMs0iI78GhgC15V93
+	 Ye7OK0Ep57wB4mHnBBpciCtqjOPV6V1wT8VB+79Mn1d//mYgospai1XLHV8ga47f8DiXh
+	 9KA6ad5o6NWkyb5n0YkkWCs0PHQyai76WTajUdTHg7K4xCb31WMO5uYE1wzAxI1folg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794200563;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=oESDww53zGSoGH4IO1bUrrqGEhAQT6H46eRyViPIMYQ=;
-	b=t/m7MAzWqSZPuHMQ8TkYWtpyEVPokJW3L/uJPL5560lQ3A06+10DmHWMQNxj+1L6H6hB
-	 ep41ji3L4+SJ69T6SKUoI/bC11y0HrEGxKRbUKFMZbRPWBPAJWW9eOt1zK5lKehR1YDjA
-	 d+Tm834Ci8LDLJ/OYseOg0PYpuqTTiYYDh666c0GtJWQ4/RkpDZzYcuBGAlebTbj4/v91
-	 QgqX/IQeHz2s8H+2LQm5NITvPLrg6YUdYRFRITedgbGwuhyppJg8AAwGUKY+o2+QN76X5
-	 cbzsVpWCMezzfaKCzv3e8vA5gJC02l2TANIu+KjZxE/uweYEMiQK3jeznwv0X7v2yJQ==
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=YeFAvqaFBjTDbwHpdVBu+3G5WzX84h/1VRkYo0vld38=;
+	b=wkeHKbhUN+NraC9JddB4V9lctvlHH6NK9tJoY+bWMi3nNl9fyUPMS7wYJ3C0vsK6mHZJ
+	 Mx039trx6ZymTpe8s5Md6yfgPQnozrBhRJNyVn3q8SupRw49/LAWouiTQVM/nBUBtUzxo
+	 nCC1roV6QHcBdfw7SocFbFxrUFco2qlH3VVZ0QTJjQOjiXAHqz6iaGbidd3q1wtnTN2fX
+	 GeS8Fn4moE2GJta3OvvbXjXm+PYySnhiucOQSntZKpLh59gf8Gbr7MA+76UQOA+IdqWxK
+	 +VOfUD3oIvCRasP5X6zAsae+qJ7MKfZUkEOFgEJ82qjjXNozENCEGkTm5+2uMqigY4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UwNoimSt;
-	arc=none smtp.remote-ip=209.85.210.41
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WNu9PZcY;
+	arc=none smtp.remote-ip=209.85.167.182
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CDB606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 05:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7CDB606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF74A606D803
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 05:02:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF74A606D803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UwNoimSt
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-825b40f8a26so185972a34.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 21:00:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WNu9PZcY
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4b190cdc9feso254742b6e.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 21:02:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794200436; x=1794805236; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oESDww53zGSoGH4IO1bUrrqGEhAQT6H46eRyViPIMYQ=;
-        b=UwNoimStSSPQTdJ+XmanVE386Z3IgzT3eWxbLpFXXMkNjf/noTv8mxVn7eyG3MYHAz
-         bNTT0kEnP6BvRx4sao4ayQdh7/I/3dMVoLK33SNaPiF5n049eeiw+jDEmWU/C/ixw0zf
-         bN/1GckfHsze3jyUtV+I/NrY0qcwBqZ+xGorxjWeJfIMXS+mgJVJNPXjlo810Y8Ipaas
-         FLalFKze3VMLEMvltQ91D2thIlkLoMhIG/+rUYOTpQL8/j2vE3BiupnSa0aNn+e8eEcL
-         qv/1lpNVoICG5mAElMpPmO/eMKVyRzYLuZ5zXxUaKSbJIxrVO/MQhiiS/MaTAY/vD/s1
-         S91w==
+        d=gmail.com; s=20260707; t=1794200562; x=1794805362; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YeFAvqaFBjTDbwHpdVBu+3G5WzX84h/1VRkYo0vld38=;
+        b=WNu9PZcY7TxOXyoWPWzBuRH9pbkVd+P/ZOLuHkQI15l10MtCNqSJuQsITVb21JP30q
+         dGXavCQ/ecYJIncDXhoVZ1yv1S7pPEdBKbwDVcl7+UbYve8jTxz6XTHQb3koywSZ5OHF
+         xmeiO6o1VM9Baqh3BS0bLTm463i0lro22JEeFh7lol9tewxyIimf/24HToDd6p5KuXa3
+         LRRjjV+uYEQOe7dAXIBwqS5k5IrRh3ppk7h/W6gZh9lr0zSXMd/yibyOBSUJ0oCPSHqD
+         V2E4VLdsL7+P6pirEGsIWjvcmvxqEZY48v8gD8LAFlpHax4FFQ1IHm5efcbL+uiatUEC
+         Aqdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794200436; x=1794805236;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=oESDww53zGSoGH4IO1bUrrqGEhAQT6H46eRyViPIMYQ=;
-        b=vMGloiX40zzuHwEiZx7XLzQhfh4BeG0M5n3OWTflMAEd4WgwnIpq/SRLuAx/cM6JHg
-         CDgiO+ytSGgmbMcyaeJ65KGWcAO44snXmNEZiU7q7sWia3WeabrMxLSIx9qrXT3i4vb9
-         wlzyfuO5SjE0T4BUfNnTMPb6MOua5dPaUDVnKycOAGTHLt4M+bKuIBsNAISiAsidPkpz
-         /fNdXDkn8AVyKnaFf00OTwWJySkKZ0elZV65Y3M2y+rRTxNtQFc87ZExdd9yZb7B4oFL
-         y1NQ4Gw25Fw5omATQ6tNEf4blqNPfkEOgZQUafO7oWuE5KepIerXkMj7dhuz/c4ydbcG
-         nMmA==
-X-Forwarded-Encrypted: i=1; AL+hErG4aw+E1ESlftB4cF+8dGUmZzJIKR61yutfWTUFKFYLRyPIX+Xb7huw+xhTQzRtDd/SEW9kJmA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90gQ/kzDHwomJ5iVuOX8i3PxoiYRrcd/w47/y+nfFGDZIIOydU
-	F4IwD0HDFowGn7eJIF6WgajSgbJEuaOH1lZbCRC9Vq4L+JGztYU3ce1f
-X-Gm-Gg: AYBFou0NV7xB4sXKKJ43I4sXzr8iWLqNa9kD69IbngQuyYpa4LZrnWSPHQhbmtnSVx8
-	yEY4NNRV8RHSAETLTg9BK7ZJyWiuO4T5484yex/Y2n40JKrz01pbbUo3AAFol/Frd/N03ZeSHf2
-	PHnaSqnVBzKyJ8dnbH9TMhkNlgfk8m3ZM+QZF41/FRgYo7kO7NBnoScIm8W/3MueH6OkIa3O0fB
-	ZB0IL+lIlm56lefePOwPxzii9aMmRZS5JFUnfUdcELKex31Pz/Dz5dZH/e7yczlpUFFjMHfJRys
-	sO30HaYRP3GKdLbI2IbJZt3JJSysyIlAwY6qrKAg/hiDZEoSHtf0S3Lxy3gEDLErtEgA60LhswS
-	6803ifAHkML7aiRIAccbVX5qwvN4CIUpWSG7icLwmvSB1ZFOs9fjzCe26ZlEP0P2L7fBFsjI3hD
-	3qLVteIRqMLfYou15QjK6PbM/7of3vVQTG3sHZTHZyY911T6GHmeHQzmvqFudfWjwQ1ukZJm60D
-	Kv1eDR2D2kG8F5fHekwnTq2baKQTHaX44jHLHbuUALTgSvh9X4ITYZU7yoVFaaM1j/BO26oVVih
-	nMjt1p/P8brVD/U/9rkV412nGzZsG3dp9NBhmY6u//SPwwSB/bWqd6870EP6ZwkIdAhj7DChPcp
-	kmpXzn5gawul2wxxOXa8jxgiWhgXgHzspAsyryeECDiG/wiAJqNitlhwGP1JWCGa9x091QWkKjE
-	kUcjQDn//p8kxHh2rYyFgexPbma8IIfdutMRKsZIJQYaG2UAnrmUE=
-X-Received: by 2002:a05:6830:b13:b0:81c:dbd7:65dc with SMTP id 46e09a7af769-85f50783fccmr2360049a34.7.1794200436306;
-        Sun, 08 Nov 2026 21:00:36 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794200562; x=1794805362;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YeFAvqaFBjTDbwHpdVBu+3G5WzX84h/1VRkYo0vld38=;
+        b=1t4URzM1PZG+/0LJl/iMLO6zCbt1EjreHnZPc1KwnUY86BkJPYxdwf4XbygGmbDoQx
+         tDv6bWFnLOtM4WxOwiryz57+Qug84Ht1MlK1IwK8YSt7Ueyg63kjvIHRy2XB+0wzbwzw
+         vHmmlX7DQ9EOfg5/Y6ftSr2suLVK7AE74J+xE6taQP3BT4DMWY/KZP90w9HxawDP3NqG
+         VLX/hTd2jz35E9JNfrA4pJnBM2zq0GpqNH/QNAyQU3npOZuS7iXk+ynOqM5JOTKezhMx
+         SVhuHr2jEECjhFNIRuwKvW8yAfuGMwyr3K6Hq9lkYFzkXisjnyUwrXqOkXflpWOtMpE5
+         AnEQ==
+X-Forwarded-Encrypted: i=1; AL+hErGWjK2G+2+YlU+VqFLN+0+46pNnL+poNdw2zaYj//DcGdJL2pgqPnePF6VToDFlOEWX1k/log0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9okQ6rP/Pvb2hbmUHY73rAzLx93uoSRheuMz3CssQWFvWDZbDR
+	oIK7MqnLxHSO8MLCJEKSFzm9NCgiMY7hU6s7i1ubZxHIZPbO3C+E4nT/
+X-Gm-Gg: AYBFou2HpQZBVx1tg5WQHJJUMWDrzZ74I6kHsxyJvAbQ/8or19/lZqVj2kmFCIwSso3
+	xweZihILRtKr3OOpnY8lA5DriAwGdVZqA7Vi7NsfWuEFmYImqQ4QAtjeU4sxzS5O8FWGp03g4NA
+	DNY0OoeLYtzPE3SRckkfRIeQx4kCdw1NMfhQItmMGswi8mdbb+Z6e4Z+hBAhuYTWUQkq4TnedjZ
+	usfrmuv9ap2RslEoFHffjEoJgQg1pkctYAm9QGO9HABJN9cN9JNAzO6Hqvk5y5CNb1ogAN9GXwR
+	ZdJeZSpElF68H/j8z/HRpAWJUj8e6u+P6HCfApUllwOcajeirpGP/JHjoop49Yh1uQJ8pBBTKo7
+	wefR1jfytsrnOCUwENKv51sS33M7vPieT/XzfI/0OGfehsouJuaE2Wr5PH+0U4SiWXybHx0eza+
+	kAB4Q/nqSDYH6Qmi+TKsYaxfhYZL5JjCaBUpMm2aIof+z70A5ietO+JkrJOxVOkw0z9siUakzjQ
+	oGVh9DVYUnsSddY4n6lU4Kj+rSM7NHbXP6NDKsk2xNvQYWuX0it9zLGS//TAY26jOJ3OL4KYhAd
+	spbFmzYUdAFq1uHmQ9Z8cKOQEY3R9RivYPaIcqoP8Kdnkv/5oaj1spOSnBgwQPftSxSq8uNqsmw
+	Fx5yvNyYv8WQK9OHYuVZo7XxLJq+zKK16U6R8Qc3No0oKFDj4mtpAakMvPLdeIiYgaQPQEvVNat
+	sIK6xACtj/DxTXz4fqpnUUyW7UJAeKBm7nE8mGUaHkvSWkWGbRkWlyH3uCfy3gABUVLuJvQ0O0r
+	A==
+X-Received: by 2002:a05:6808:13cc:b0:567:aa7b:4836 with SMTP id 5614622812f47-568144b6c0emr1886261b6e.26.1794200561873;
+        Sun, 08 Nov 2026 21:02:41 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fb2be33sm2953090a34.13.2026.11.08.21.00.34
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813ac6352sm3570841b6e.1.2026.11.08.21.02.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 21:00:35 -0800 (PST)
+        Sun, 08 Nov 2026 21:02:41 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 22:00:32 -0700
-Subject: [PATCH] dmaengine: tegra: only advertise supported pause
- operations
+Date: Sun, 08 Nov 2026 22:02:37 -0700
+Subject: [PATCH 2/3] dmaengine: dw-axi-dmac: retain descriptors when
+ termination times out
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,65 +97,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-tegra186-dma-pause-caps-v1-v1-1-9cc9b17a033d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNwQ7CIBBEf6Xh7EZAJY2/YjwssNI1KRKgjUnTf
- xfs8U1m3myiUGYq4j5sItPKhT+xgToNwk0YAwH7xkJLbZSSI5TFzlyhUsioRgN+Rki4FAKHqcC
- qwJirVxct/U1q0Twp04u//4/H8+AmeZOrXdwbFtvcZoxu6lFTUgwc6Xzs9v0Hy5/Ip6cAAAA=
-X-Change-ID: 20261108-submit-tegra186-dma-pause-caps-v1-664d1320d502
-To: Laxman Dewangan <ldewangan@nvidia.com>, 
- Jon Hunter <jonathanh@nvidia.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
- Pavan Kunapuli <pkunapuli@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>
-Cc: Rajesh Gumasta <rgumasta@nvidia.com>, 
- Thierry Reding <treding@nvidia.com>, Akhil R <akhilrajeev@nvidia.com>, 
- dmaengine@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
+Message-Id: <20261108-submit-dw-axi-dma-stop-pause-v1-v1-2-c48ec19e9ee4@gmail.com>
+References: <20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com>
+In-Reply-To: <20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com>
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Sergey Khimich <serghox@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Tegra186 does not support pausing a channel, but the driver installs
-device_pause and device_resume for every variant. Both callbacks return
--ENOSYS on Tegra186.
+dma_chan_terminate_all() warns when the channel enable bit does not clear,
+but then frees the descriptors and returns success. Its synchronize
+callback only drains virtual-channel callbacks, so terminate_sync() can
+also report success while hardware still accesses the transfer.
 
-dma_get_slave_caps() derives cmd_pause and cmd_resume from the presence
-of these callbacks. Clients such as generic 8250 therefore accept RX DMA
-channels that cannot satisfy their pause requirement. A receive timeout
-then reaches an unsupported pause operation instead of being excluded
-when the channel capabilities are checked.
+Return the polling error before detaching descriptors or changing the
+peripheral routing. This keeps the transfer resources available while
+the channel remains enabled and lets the caller retry termination without
+treating the timeout as a successful stop.
 
-Only install the pause and resume callbacks when the matched chip data
-advertises hardware support. Keep them available on Tegra194 and later.
+Hold the channel lock across disabling, polling and descriptor detachment
+so an interrupt handler cannot restart the channel between the stop check
+and cleanup.
 
-Fixes: ee17028009d4 ("dmaengine: tegra: Add tegra gpcdma driver")
+Fixes: 1deb96c0fa58 ("dmaegine: dw-axi-dmac: Support device_prep_dma_cyclic()")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/dma/tegra186-gpc-dma.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-index e76c58f213d8..72266f490e8a 100644
---- a/drivers/dma/tegra186-gpc-dma.c
-+++ b/drivers/dma/tegra186-gpc-dma.c
-@@ -1518,8 +1518,10 @@ static int tegra_dma_probe(struct platform_device *pdev)
- 	tdma->dma_dev.device_terminate_all = tegra_dma_terminate_all;
- 	tdma->dma_dev.device_tx_status = tegra_dma_tx_status;
- 	tdma->dma_dev.device_issue_pending = tegra_dma_issue_pending;
--	tdma->dma_dev.device_pause = tegra_dma_device_pause;
--	tdma->dma_dev.device_resume = tegra_dma_device_resume;
-+	if (cdata->hw_support_pause) {
-+		tdma->dma_dev.device_pause = tegra_dma_device_pause;
-+		tdma->dma_dev.device_resume = tegra_dma_device_resume;
-+	}
- 	tdma->dma_dev.device_synchronize = tegra_dma_chan_synchronize;
- 	tdma->dma_dev.residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index 49f65486e862..de092f190528 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -1186,21 +1186,24 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
+ 	int ret;
+ 	LIST_HEAD(head);
  
++	spin_lock_irqsave(&chan->vc.lock, flags);
++
+ 	axi_chan_disable(chan);
+ 
+ 	ret = read_poll_timeout_atomic(axi_chan_is_hw_enable, enabled, !enabled,
+ 				      1000, 50000, false, chan);
+-	if (ret == -ETIMEDOUT)
++	if (ret) {
++		spin_unlock_irqrestore(&chan->vc.lock, flags);
+ 		dev_warn(dmaengine_chan_dev(dchan),
+ 			 "%s failed to stop\n", axi_chan_name(chan));
++		return ret;
++	}
+ 
+ 	if (chan->direction != DMA_MEM_TO_MEM)
+ 		dw_axi_dma_set_hw_channel(chan, false);
+ 	if (chan->direction == DMA_MEM_TO_DEV)
+ 		dw_axi_dma_set_byte_halfword(chan, false);
+ 
+-	spin_lock_irqsave(&chan->vc.lock, flags);
+-
+ 	vchan_get_all_descriptors(&chan->vc, &head);
+ 
+ 	chan->cyclic = false;
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261108-submit-tegra186-dma-pause-caps-v1-664d1320d502
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
