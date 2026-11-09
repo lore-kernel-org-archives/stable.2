@@ -1,53 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212800;
-	b=yrG2L/S+epslGxqcAjALiobDUPYN6eN4JEjyysV3e4hWJFpBHAbrgjeNDY7UaCN6wish
-	 nmLJPoEyf4qa7h2zLefQBmICIxKqHxw15OcRZF52aoLmYpugDrwg5gpWtItR9A2DXRwg0
-	 VNaPneF+AhWBtcdytXX5PAq0Zq/Wl+sgVREG9MpRLKyj+FgLsCdlnDKeuR7cgKezzd4kE
-	 YYTyHccLGM6OJsd6v+uh9+6ZqKF2qLoorowhEnvpb3alGFyyO3KcCu2TOCESBoVnHUUjH
-	 dcPygpAlqvHqUFmIEBp9eKVYI+bOqAqxQWTvj6Co3+55Y3iSpJPKOSojeTfJIT8qknA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212800;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6NetEu8bRljJte9w/PtFKo360iOSm+g9vSdLRGrjE6U=;
-	b=ey82mTOpzbNLbh6+roIquDzQvQ7SNV5kO5jaJ3VyWzZWeAk9XtahpQMguzeY39a/amuJ
-	 1UzqwgjpMRb0zBlW+rRL0gCUYIL4/djX9wahjEuE8DU9ZDay16pI84XpdI/EcKBRf/O8L
-	 ew+1AmMFHXmNuD3bKz593mJTQis90ViSWTFPI1JbYnajNVt2b/NnED1coEYxqYBnFtuLo
-	 nGBNfyI20qa//qrO5m8s6RKytoArxmBSQr8xlCKxmlMgzlx3RspDqlGolCWcme41Bll9g
-	 GWz0Jz9vJVkkDTOdrXXcwi18QyAPspFY1Hu2S8HsN5k6G4FRFFZ+4BE4mbaLYi+qj0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNUlR9Gd;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794212817;
+	b=I24ZaZFxLkCEm3+DCzUtlTxizigQ0r0Lqj0tHPZ6f+4L4K5JOLG/L3Iog1D84ZrkKMqJ
+	 LOwGkPYisOTSPTjQtvMlT6G3R2ZxmaatRNH0fhDLwZM6sjKJuqkYNTbKHb7iCQU5PHmXA
+	 1DovUIfohgQWkngII1Ykeqx0eliGsK+Ru5oFQwHMPlaPrAxpdoaSHC8F9KsHdp3GOt2Q7
+	 G7wPR4lYiDTKYo6djvYBbut3/rj5ji2vU00AdI8KZz8152cjWO3t4BKyrX1KeeRhexW+t
+	 Q39KQ0Hz6VMOF4reOm1srMh1OZSniQH8LCwsVN4/FT8AIK/cdwM6L1EzjoFVWAscHTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212817;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=fmPtUa1J/S7UkBf8oBBBIHWEPV+ZOOAq6ygmojPUylg=;
+	b=2IEW2rw+zX8fOP2Evm7KgKrnSpqrgvWRdZGhykckbO4Le+1zlE9GHor+AoCJtcYGs1UZ
+	 E9Gw3TERAA2jJq3k10SzNErIqmGbnI6nRUJMGzCtC+VeW0oKJFelpFRW+25/aTlpVGMyt
+	 EJBCFGkc6MzAZUnvIKu+30Lh6uIqk0UvDuzOlknjJXFtJmT4SKJcAB5R0bW2cmouXYjEc
+	 gDRTxwl1X5oXJIIn55tORReSWUjDFsdIiMSdmnUYBedvJkFCMJ6lV0suHfuKvC7gqEF+b
+	 gVC7C0seR4/uj+EgDD4biDWfsJnrc5rLwIVZL8gC8/KvcGdzcMb3Q+7cgMGU+xlJ/5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF9kwyPI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7B51C606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:26:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33925606A31C;
+	Mon,  9 Nov 2026 08:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNUlR9Gd
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 957BB1F0089F;
-	Mon,  9 Nov 2026 08:26:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF9kwyPI
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794212816;
+	b=juYA10biWMrGsanfET1lNoh++ehAZsGGq5W6lmBvw2xviEA5gLWD79XjCFr8ExuN0TvG
+	 tvgY1tluwHy17TAyMvVKBFKLDrC0X8ykmiTmoiXBiYPFV27ONWTiB1b9W/2ZDNktjclY8
+	 iKOGk6fzbrW1B+GR/ZHYgJpnZDnANprPxgzy8xnBROOj8d8pqGggVBlmyY2jWA/nXjd48
+	 iA+Hrx2pVxbQG1yMQ+vgui68Ojxrg79wBkgjL6BSwVuMSatS450AgPdkEykoNln03E7Ks
+	 FdK0y5yDUpxfdtiuSc4Ove5kuJoFQLRdMpxBGUFEFfKQhpcAe7rS4CGi9+MPeHjfXqw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794212816;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=fmPtUa1J/S7UkBf8oBBBIHWEPV+ZOOAq6ygmojPUylg=;
+	b=NEflHJTzXGMsgx1PfGVz1Gx6424a3XHKqLxzY4bAeel1QKPFqkB4UA7OcqwRwI5PG8ux
+	 JKxaVFjH1PEfUhrutDtds72MgNudTsxxU701ZrEyjjmz1uva9+I+8R/+KMq6wv2iJUhFZ
+	 WGvRLSeyJqiyrRWMy+pQkzEWMgw8tn5O/4eF7zOaps6+ptSHSAbn24GgZhTm+3M+OSP5e
+	 nHhHFqa1xPhleMIuqWhuMQ01CHaPX2rTHpnBPrUZvdUVgkp2niptpv0YhvwWSpI0QhXSl
+	 b+xgisvQefRtlf2Ltu+iWkk6dze8w93sKLzQqiiWzzBlAiSkEDIwSdiI5JnAvmCisOA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 57F681F0089F;
+	Mon,  9 Nov 2026 08:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212800;
-	bh=6NetEu8bRljJte9w/PtFKo360iOSm+g9vSdLRGrjE6U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QNUlR9GdsqiRfXiKKDpD4EtPzWlh01CtBVn/YAomrvBKbyOltqknYw+JlWZzxMo8s
-	 AtH0xO5awOE2IPSHXxQCoCSR9WUwE4B2Gp7WSauO/zSP1adCDRnnztr7/W4inxswuu
-	 q9AB/KCYjwhxg8IfGd5eYkSp5RfpHRS6PBCPg7GkGaXvGJdwJjNt3pJB3ZRSTJHicY
-	 nUcbJzKaVve+oRuN73w0VF4IW6FVZxvb8WwwhQeduuUA1b+/ti0/0QCGTSdnpqd8g4
-	 GllVm9ByIF8kvoxfmt3YQZRnKCBEa1gItcQ383DIYiq/iEtZiptfzibAIFC9YqH2dh
-	 JctCsTmLMzhaw==
-Date: Mon, 9 Nov 2026 09:26:37 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: stable@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Subject: Re: [PATCH 6.6.y] pwm: tiehrpwm: Clear period on disable to allow
- reconfiguration
-Message-ID: <avGDhwQFx9z_vj8V@monoceros>
-References: <20261107053048-failed-6.6-e74b9a7ee500@kernel.org>
- <20261109081728.798045-2-ukleinek@kernel.org>
+	s=k20260515; t=1794212816;
+	bh=fmPtUa1J/S7UkBf8oBBBIHWEPV+ZOOAq6ygmojPUylg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=AF9kwyPIkjTMvQOH1okBvb4fYBmUnsCzrbn/P1ZKyvqZYlHJONQAWGhVAX79hC4WX
+	 jzl0NVRt7E2NgdwGrufgjSeUiVfmzR00Dv29IYD5s69+BTzSy0ftkK+6PyvMg0cJ+b
+	 kXZ6/UZ087jUt6/u4yyGSax3bXdE3S+PJsok9XFR2cp9FhN5/AblN9hXFe0EpXLyyp
+	 uwAF2uHcK/8oI2LSRYsmLv5pV1LJjNeRX8WD3bEG06+D7DhUysSbVpt0grZ56dDQhe
+	 a2uRQwZxPhIQPJBJ8/SAE593lqFZ/sLOrj2Zzhjv1zRY/HXjGw8oo7THVxIWO5fBQC
+	 xnwTx+2NI3cYw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C676248357;
+	Mon,  9 Nov 2026 08:26:55 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Mon, 09 Nov 2026 17:26:56 +0900
+Subject: [PATCH] xfs: break layouts before swapping extents
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,69 +82,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ieb3rnfbey3rdyap"
-Content-Disposition: inline
-In-Reply-To: <20261109081728.798045-2-ukleinek@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-xfs-swapext-break-layout-v1-1-7f6f137d18bb@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAM+D8WoC/x3MQQ5EQBBA0atIrVWiOwiuIhbNVFEhSJcZPRF31
+ 7F8i/8vUPJCCk1ygaefqGxrhEkTGCa3joTyiQab2dKYrMbAinq6ncKBvSc34+L+2/fAqubB5lz
+ 0VDHEfPfEEt512933A+YM3WxqAAAA
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>, 
+ "Darrick J. Wong" <djwong@kernel.org>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212815; l=2472;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=CaEz7uBoybLqkkBn52P/NyxwhKH05LuHzbS9Eqv03SQ=;
+ b=VPEoMQhIVld/k5YkvBH0AmoaVyqS9gkXEFvSLrjzHvbtu6mNXWyDh3wo6FhDsy6jKs0aYJQya
+ 2BYjMR7naZFAAH8bvnhjLivZQ4J/AU5u8wSaXH7hsKTkYBawyIGnFaz
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
+
+From: Daejun Park <daejun7.park@samsung.com>
+
+XFS_IOC_SWAPEXT does not break pNFS layouts. A client can keep writing
+to blocks that the swap moved to the temporary file. xfs_fsr frees
+those blocks when it closes that file. The writes then land in whatever
+reuses them.
+
+Lock with xfs_ilock2_io_mmap(), as the exchange-range ioctls do.
+
+Fixes: 781355c6e5ae ("xfs: recall pNFS layouts on conflicting access")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+---
+xfs_fsr uses SWAPEXT on kernels without XFS_IOC_COMMIT_RANGE, on
+filesystems without exchange-range, and in all xfsprogs before 6.12.
+
+When both files are DAX, xfs_ilock2_io_mmap() also breaks DAX layouts.
+With two DAX files whose pages had been faulted in, SWAPEXT hit the
+WARN_ON_ONCE in truncate_folio_batch_exceptionals() in 3 of 3 boots
+before this patch and in 0 of 3 after it. A DAX file swapped with a
+non-DAX file still hits it.
+
+Tested with a pynfs client holding an RW block layout while the MDS ran
+"xfs_io -c swapext". Before, the client's writes overwrote other files'
+data and a directory block. After, the swap recalls the layout first.
+The fstests fsr and swapext tests pass with and without the patch.
+---
+ fs/xfs/xfs_bmap_util.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/fs/xfs/xfs_bmap_util.c b/fs/xfs/xfs_bmap_util.c
+index 865aec3ae5a..595b7ea3ac9 100644
+--- a/fs/xfs/xfs_bmap_util.c
++++ b/fs/xfs/xfs_bmap_util.c
+@@ -1554,9 +1554,9 @@ xfs_swap_extents(
+ 	 * page cache safely. Once we have done this we can take the ilocks and
+ 	 * do the rest of the checks.
+ 	 */
+-	lock_two_nondirectories(VFS_I(ip), VFS_I(tip));
+-	filemap_invalidate_lock_two(VFS_I(ip)->i_mapping,
+-				    VFS_I(tip)->i_mapping);
++	error = xfs_ilock2_io_mmap(ip, tip);
++	if (error)
++		return error;
+ 
+ 	/* Verify that both files have the same format */
+ 	if ((VFS_I(ip)->i_mode & S_IFMT) != (VFS_I(tip)->i_mode & S_IFMT)) {
+@@ -1762,9 +1762,7 @@ xfs_swap_extents(
+ 	xfs_iunlock(ip, XFS_ILOCK_EXCL);
+ 	xfs_iunlock(tip, XFS_ILOCK_EXCL);
+ out_unlock:
+-	filemap_invalidate_unlock_two(VFS_I(ip)->i_mapping,
+-				      VFS_I(tip)->i_mapping);
+-	unlock_two_nondirectories(VFS_I(ip), VFS_I(tip));
++	xfs_iunlock2_io_mmap(ip, tip);
+ 	return error;
+ 
+ out_trans_cancel:
+
+---
+base-commit: 1e17fc56469d62d1c1ac45c137a2456d14456f1d
+change-id: 20261109-xfs-swapext-break-layout-89fc24f5be8f
+
+Best regards,
+-- 
+Daejun Park <daejun7.park@samsung.com>
 
 
---ieb3rnfbey3rdyap
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 6.6.y] pwm: tiehrpwm: Clear period on disable to allow
- reconfiguration
-MIME-Version: 1.0
-
-Hello again,
-
-On Mon, Nov 09, 2026 at 09:17:29AM +0100, Uwe Kleine-K=F6nig wrote:
-> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
->=20
-> [ Upstream commit e74b9a7ee50071aad25d3989bf985292f90b0c6e ]
->=20
-> Both channels share one period register, so ehrpwm_pwm_config() rejects a
-> period differing from the sibling's period_cycles[]. That value was clear=
-ed
-> only in .free(), not in .disable(), so a stopped channel kept blocking the
-> sibling from switching to a new frequency. Clear it in .disable() too.
->=20
-> Testcase:
->=20
->   cd /sys/class/pwm/pwmchip0; echo 0 > export; echo 1 > export
->   for p in pwm0 pwm1; do
->     echo 1000000 > $p/period; echo 500000 > $p/duty_cycle
->     echo 1 > $p/enable; echo 0 > $p/enable; echo 2000000 > $p/period
->   done
->   echo 1 > pwm0/enable	# before: -EINVAL, after: succeeds
->=20
-> Fixes: 01b2d4536f02 ("pwm: pwm-tiehrpwm: Fix conflicting channel period s=
-etting")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> Link: https://patch.msgid.link/20260929120806.2790355-1-alexander.sverdli=
-n@siemens.com
-> Signed-off-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
-
-I forgot to mention, this patch also applies to v5.10.x, so I assume
-this patch is fine also for 6.1 and 5.15.
-
-Best regards
-Uwe
-
---ieb3rnfbey3rdyap
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrxg7oACgkQj4D7WH0S
-/k7dUAgAtSGzsIVKXejqPsCzQwxNSTqA1JKqQRfPkZw56Nd+6ndsWeBUbs1aX6+M
-R8GQE12poRpHil1XybehA+PWi9Md2GcFEwAuWfxWEydGCYSPojJeYiMRi6whdqiw
-ze3uX6zkTc0wFzxhM5qF98FvOr5gMthe+PyHiywhXfjimRnJKqQKy3kuqvdaYhl8
-DyNOlYLZMNU4k4DFdfTNKNDoEIW/RQSl4QBz98/8kFGW7OfTkgEelAMB6nNNSq5s
-k+QZS/GsroP8Fb4WwwuyIAEzImjtJUqP4ygTQdFB4HQfkfTJKw0DczbygEvzaHur
-SrblCK6nsY82lHW/rlf8F6uPGnLKzA==
-=QybP
------END PGP SIGNATURE-----
-
---ieb3rnfbey3rdyap--
