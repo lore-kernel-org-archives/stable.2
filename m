@@ -1,79 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794231840;
-	b=yTQp2YkSpmUbGK8yr81nlV2UrDuFC3PTAVY8UlCC5KcvH+0AEMziQDJTg3FgTkVkidP+
-	 TFR6SFic8KRyi2IDAaxmXrkZUC/zBTHlSTUSpkvqA/1D1eVbOaEf8YVbWeHsuYHamgPGY
-	 NUkDjoJBMGmy9JeE7nFF5A2sopUnyPU40adZ5kNqAX2nRwdKKrROc5g7WjfXS196PmFdB
-	 iBeQZTffSTwv4ZdiOIJhBNQ4GtiWI5/LcP/vUkJRVj0xFzfp6X6KWfilSerFl72ycYTTS
-	 gJ48kLp5NDq3O8RKLWfisdORMpgMaFXGiuhNn8NDS5i15gIi6O68gFdxjL2VZ8mHiAA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231840;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	b=YzLO/F8t3ECGAqfBToNVaLHNS/GUpgLy47PzG4oqnsvTgpK4RJoiZDoJdD5U+Ac8CFJV
-	 EGa90TXcZcl6PQ/74KqNszvxm4je5IdmcQZjsGYaEexH5Rca0i/hPbFS46qadZmT75G0r
-	 WIdW1aCZsSAqyiSe5n9ahAHIsPStHonjbBU57HqoL7akHq87S4bMAvKJVbYYknWu8dfxK
-	 birbXi5G6sauwGO/SrYApsDbEYyo12tzh4n7bfaQEqpGHD7+DCMWNu4HejDbZ2mPAzOwK
-	 wppT9i6qecW5C6jnKdQuG2T1X08RFjjXzKgpJ5SBDkQmX3ABWGXPPIOwc7T6HLPu2nA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3402606A32A;
-	Mon,  9 Nov 2026 13:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794231839;
-	b=lG96xWLSy5XFfp2TMOIYrBVkKaQ+VBADwRz4p/M2sUwZ5/zRbjGhLs8jHA/fTInXt5JH
-	 NHFM+sYE7acMZlympfex1cMEKiMDe6+On9ddowo53UTKLm9ALHa4dqFzVSuxLEULxy0Ki
-	 ZZ1qybt4b8//Izwevapqm3OmDfnYgWGyNW/v93AKFdCnNA2aupdg58NUpxkfIvx0mb8j3
-	 wZ9uh3gx0PfODpVk2rfNhbohELad4LNpwnBKzt+WwrGSRLMtoGicZIS0FhEDLnL4aQDlH
-	 KmlHqT6o+pWrzGWeaMG2sff4tfFiX/kYU6CYBkGZ+3sds15gvl9sDQ9MCdDPgt0Ixkw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794231839;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	b=cqm9nPwAZPY2fjZiArfLYyw3VQ9gCurGoqhE4NwI3DMMQe5mz3jfA3IXNnVA7tFMjGmt
-	 ZbIK05gmypGp1djMFkrTtp+DJ1GHpwRVY3mLsGPmMDWTENX0Cib9vGuXhEzLjyVYvi4+O
-	 Hs93N0N5q5Qoj15r94F2/CS4uhh4Rz3L+WiXpqza8o5Ub+5+lHOD3yoLPfYIf83KuqIM5
-	 ugtHYRhmDUm8oJEzLQy7hFrTzJ4FadHkkXk5hvpRqJJ3HO/99wHzed43ITBilyEjPTu6v
-	 Kt7V3iXVH1x7w2IVBCOWO98hZhBz0E0UYhhfIYijp9QjGFeYQcWWxgMERGbQAdJHPsg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794231928;
+	b=U0wrRcg+C+vojbuFuTyWOJFLE48UKQw1MLAcDAfsEmX4T6TmDdKwyQ9h7734mWUaUkZa
+	 l489UIS88kETTrjmEkmQ9RRqeH/9ynlEpWo/zHldhrXcSm1F0hYz7k1zg89JCiltTBuMw
+	 I8GRDizvIMWYqA82Od5HF7oCnCLhek/2dLG3fcj4pqV3tHKlalFW+loodXpEV5FGw46Fd
+	 aU1xmPT09zSpgbh05TZK6vhRcd0t46CNcfs5uT5H6PWS47OP6dYwuOF5xQlQHkK9aff0G
+	 uR6ZJiUu2kcZFiw+7ZydHjO8e68EmgDSDgtTwDG5Z7ml8mn0GX6nYZpSfRSfeTCoxKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231928;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
+	b=BXIcRVdQWGptW1wLqXLjN+LstS440Z0NxGDMI572rSG6XT/v5xgfOQs0PqMsqflfOX+V
+	 WgrSb2RsQmf89/g3GRNzRqBKQKaOkbgul85TnOU0nhdrWJc+PpgN/oE7gPYM/tXqx6guE
+	 8OVXaRVXWdHxs7/9p+hS7iHxty6j2aKCYdzQZi4qLf8f1CCxv5uwpTrUhK9mkHFcn/Q9E
+	 DqcY2bxdI/E1hMavSDY2zrupF5mUuauNhYUk92uEy5hVEjGmCzoJStSkP3w/ysKpLThcy
+	 6HTXj24RSZBp85bpdao0fkdZrGp3d4Q57366mYeLdVaPE1IB7rCuf77/UU9mFoTZUQQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lntKLG1W;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5A2901F008A3;
-	Mon,  9 Nov 2026 13:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794231839;
-	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OFv5ScoHr6NEX0ohHKaYpAnOpZrheTiWrjXo99Rlw0ygg1U/Dn2oZPucD7D+8evGk
-	 3ZdZ6nLr/wwUQMeiwrO0+o3V4FNVo6AKlCD15SjOWuyiwb6dBPGZnlLzTGRsZQvJAq
-	 rcRTKisoxYnKf1AqpS5adK5I7K/uq0hrDQb95ZRoLAVRLBuq2paQZqIW2tjyQ+s8ol
-	 a5IWZTRu+qt+El3jWoPmmaqwBKUVVvrALlDIhQjxzRRg2Df/NeAtmCw2ybQ5w2EVdm
-	 HY2WvmPMfTprGz22zP/oPpqBZb14pNIwXoecP2b5HKsQnWLFs5UleEunL1Acfd0lXo
-	 u+z+Buf8ObpoA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DFA6F484C5;
-	Mon,  9 Nov 2026 13:43:57 +0000 (UTC)
-From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 16:43:53 +0300
-Subject: [PATCH 3/3] media: verisilicon: leave room for the JPEG header and
- one stream burst
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90CA606D802
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 13:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90CA606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lntKLG1W
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so331561a12.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 05:45:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794231927; x=1794836727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
+        b=lntKLG1Wz33t5Qj17jC/tC3S0IIMyWb4WPH64F0oOzWRxmWkzGRPHy5SJSuJIMKfZm
+         Xjw3giTGvEKF97qFw8CSiRId0IdtdkLIZ1BB2z97PVXdqcWDR7PighHDGpUmoZ7fqG2X
+         MDlenkCrXSjTl6R63MZKr06JUwHvyraCtHLF8Dzo4qe+PwPlRzSlrod39B5S69V8TyL9
+         xxmXcgvQxUIYgVr0f17mPipJ1Y3RblEwuqLsQGbFJU+nV+S3s5B12GiH49bAeh9n/3mD
+         SRl8FJpdCdg8flaAN8vVgmuYKh2yljVGLClNOD4BhBgZQBwbALYG1wnbubo7kOXGhyQE
+         ofPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794231927; x=1794836727;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
+        b=h4xbt0RK3Li0h3dkcZ9Vr8gK/n4fBsOyCWK2/gcMs/na5fdsReFONMXQabjvffZqU8
+         Z7/N7ivoeallyqEdFoDriYMeUcTVpUGGIcae7CkjfrE0DDt/beJEigNZ/7ezvh6ivqSS
+         nyZV5YwRPClrwsluQk93cWMp8iFR220WYlyYhaF1Al/LjywfkFHvD5aY37mf/Gh12AmT
+         cqEspov/xrgQPGTHU2Rci+BuqVa5XNInIz84b6C/TOUOKUJNkyOKa1OkE17Rz0KHJDPt
+         Ap/lx2xpnSTYZu3kEGcoqZ/DFK+qmbp50i/DmTJMyIdCwANE6QD+rfHOQyUneg98inkK
+         ByPg==
+X-Forwarded-Encrypted: i=1; AL+hErHemLQDOKGslmmm3wgUVrv2QNAmFTIRPmX2AvNlquOthWsRFf8qe0FmjdDbvZcn1sEmwS2Jxuk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/a0FQJ25uOs1emW5pJaIZIxufIslPMuG0FtFJsxPy1LAB2hpQu
+	e/1UEG6l971r10L37KyD7aU8DU3pG+eGVR6xJQeWqGTqT9aiEyFfyt99
+X-Gm-Gg: AYBFou04V3GKaET8FHdUnj8t1TYryydwPWlI/4nuTOub47SLODJ30D6URll8/PPz1FQ
+	Oq9N7tWxq9mFvj+yXx7VK55xyKi++jr4ns/7fp9lLrTMPfvGk7k8BqaVOK+JgswiqzyXgyQrY9F
+	yTV6eQRAHDUDXgbL2yUTtdwOzhtHTO3s0WWuhPT9hU0MWm1ghpxy1iTQnIUNB0+5vfgmVMXdqp9
+	hojpvai5ARWlx0wEy7hFHs/h/6yS/3lLm7uAXsKO01Voz/9d0OOdjdNovkmw1wuLt4BvvSF5Y1+
+	Wm976ElELMnLIBmLhJFZjKrLOLFvyle3GWU+kb9MOZg2sTCbF3Mxsn6C/zQltWS46Jp+DY5G8Qv
+	qjHfxMhxF5jcOUGyAscQRNDnoWX4cGNaF+CJPiZS5qlX9eAmgts1jmlZerOhyAt9SAOok9mwdyf
+	o7FJAETej5CbQN7cyobakpt8gWPK5K+R+SSCH2anwjPUzKJSbQq3I4nCAJ3HFxNpnyuF9+ND8Zo
+	9cBW4Z8iTOlzjCAcYa9Xx6JlH2lBamOYNAiX2W1ZsvVxPngxp7KQDDhDkpRT0JyoGzN0crLGRpG
+	ogBUf7OaNzUHpntUSY7enFNPa9V0
+X-Received: by 2002:a17:903:3890:b0:2ea:1b9b:b938 with SMTP id d9443c01a7336-2ed83791011mr36027055ad.55.1794231927034;
+        Mon, 09 Nov 2026 05:45:27 -0800 (PST)
+Received: from server227.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81727f9bsm11014285ad.57.2026.11.09.05.45.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:45:26 -0800 (PST)
+From: Zxyan Zhu <zxyan0222@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	maxime.chevallier@bootlin.com
+Cc: mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	richardcochran@gmail.com,
+	muhammad.nazim.amirul.nazle.asmade@altera.com,
+	rohan.g.thomas@altera.com,
+	rmk+kernel@armlinux.org.uk,
+	o.rempel@pengutronix.de,
+	wojciech.drewek@intel.com,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Zxyan Zhu <zxyan0222@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net-next v10 1/3] net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
+Date: Mon,  9 Nov 2026 21:45:04 +0800
+Message-Id: <20261109134506.2794160-2-zxyan0222@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109134506.2794160-1-zxyan0222@gmail.com>
+References: <20261109134506.2794160-1-zxyan0222@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,96 +114,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
-References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-In-Reply-To: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Chen-Yu Tsai <wenst@chromium.org>, 
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794231837; l=2875;
- i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=WFzfE2RiWdT+i+qq0glggXPv17AxZu0PiVwPxE5rxXQ=;
- b=pPK6FLWKeibNzXyvohaaL0PsnBvzKTougQAG6KwXp2yfxpo4tasR1lz+/mNE91PalLZ0uU93p
- 0Pp3dUaw9zCAA3hw1AA6gCnAy32OCAfz/TuRbgsnNesnOQZWA78mcPb
-X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
- pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
-X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
- auth_id=1409
-X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
-Reply-To: shomenkow@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+The Agilex5 smtg_crosststamp() handler polls XGMAC_INT_STATUS for TSIS
+to learn that the auxiliary snapshot is latched.  TSIS is a transient,
+read-to-clear status bit, so the poll is racy in two ways: a stale TSIS
+from an unrelated event satisfies it before the snapshot is latched,
+leaving *device unwritten while the call reports success, and a
+concurrent reader of XGMAC_TIMESTAMP_STATUS can clear it and make the
+poll time out.
 
-hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
-CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
-plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
-header into the plane with the CPU before the hardware starts, and a
-plane smaller than the header also makes the WARN_ON() in
-hantro_h1_jpeg_enc_set_buffers() and
-rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
-can trigger at will. After the header the encoder writes its stream in
-bursts, one of them even when the stream limit is 0; on the RK3026
-VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
-is therefore written past its end.
+The FIFO level is also reported by the ATSNS count in
+XGMAC_TIMESTAMP_STATUS, which reading the register does not disturb.
+Poll ATSNS instead of TSIS, after waiting for the PTP_ACR_ATSFC FIFO
+clear, so a stale ATSNS cannot satisfy the poll before the new snapshot
+is latched.
 
-Raise a smaller request to header_size + 64, so that every plane the
-driver accepts holds the header and at least one such burst.
+Hold aux_ts_lock across the whole sequence, and refuse the request
+with -EBUSY while a channel is enabled, so the PTP_ACR mask
+programming cannot disarm it and a concurrent request cannot flush the
+FIFO between the poll and the drain loop.  The lock is held across the
+SMTG register reads as well, so a concurrent PTP_SYS_OFFSET_PRECISE
+cannot retrigger GPO0 while they run.  The internal snapshot trigger
+is disarmed on the way out, including the error paths, so it does not
+stay armed in PTP_ACR after the cross-timestamp.
 
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
-this message. Tested on that board: a 640x480 CAPTURE format set with
-sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
-656-byte DMABUF plane is then refused with EINVAL, and frames that do
-not fit a 688-byte plane stop exactly at its end and come back with the
-ERROR flag. A request of 600, now raised to 688, encodes with no
-warning; before this change it was kept, and the encode hit the
-WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
-reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
-bytes after the header (a stream limit of 0), the encoder wrote one
-burst, 32 and 56 bytes past the plane. The burst size is measured there
-only; not tested on other SoCs.
-
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Fixes: fd8c4f645496 ("net: stmmac: socfpga: Add hardware supported cross-timestamp")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
 ---
- drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 52 +++++++++++++++----
+ 1 file changed, 41 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..cc35beac8338 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 		 */
- 		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
- 			pix_mp->width * pix_mp->height * fmt->max_depth;
-+	} else if (fmt->codec_mode == HANTRO_MODE_JPEG_ENC) {
-+		/*
-+		 * The JPEG encoder writes the header with the CPU, then the
-+		 * stream in bursts, one of them even when the stream limit
-+		 * is 0. Leave room for both; a burst is 64 bytes on the
-+		 * RK3026 VEPU1.
-+		 */
-+		pix_mp->plane_fmt[0].sizeimage =
-+			max_t(u32, pix_mp->plane_fmt[0].sizeimage,
-+			      fmt->header_size + 64);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 6d4bc1fe8f75..2d3c6702e203 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -304,13 +304,15 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	int i, ret;
+ 	u32 v;
+ 
++	mutex_lock(&priv->aux_ts_lock);
+ 	/* Both internal crosstimestamping and external triggered event
+-	 * timestamping cannot be run concurrently.
++	 * timestamping cannot be run concurrently: the PTP_ACR mask
++	 * programming below would disarm an external channel.
+ 	 */
+-	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
++	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN) {
++		mutex_unlock(&priv->aux_ts_lock);
+ 		return -EBUSY;
+-
+-	mutex_lock(&priv->aux_ts_lock);
++	}
+ 	/* Enable Internal snapshot trigger */
+ 	acr_value = readl(ptpaddr + PTP_ACR);
+ 	acr_value &= ~PTP_ACR_MASK;
+@@ -337,8 +339,21 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	acr_value = readl(ptpaddr + PTP_ACR);
+ 	acr_value |= PTP_ACR_ATSFC;
+ 	writel(acr_value, ptpaddr + PTP_ACR);
+-	/* Release the mutex */
+-	mutex_unlock(&priv->aux_ts_lock);
++
++	/* Wait for the FIFO clear, so the poll only sees snapshots from
++	 * this trigger.
++	 */
++	ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
++				 !(acr_value & PTP_ACR_ATSFC), 10, 10000);
++	if (ret) {
++		acr_value = readl(ptpaddr + PTP_ACR);
++		acr_value &= ~PTP_ACR_MASK;
++		writel(acr_value, ptpaddr + PTP_ACR);
++		mutex_unlock(&priv->aux_ts_lock);
++		netdev_err(priv->dev, "%s: Failed to clear snapshot FIFO\n",
++			   __func__);
++		return ret;
++	}
+ 
+ 	/* Trigger Internal snapshot signal. Create a rising edge by just toggle
+ 	 * the GPO0 to low and back to high.
+@@ -349,10 +364,17 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	gpio_value |= XGMAC_GPIO_GPO0;
+ 	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
+ 
+-	/* Poll for time sync operation done */
+-	ret = readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
+-				 (v & XGMAC_INT_TSIS), 100, 10000);
++	/* Poll ATSNS instead of the transient TSIS: the ATSNS count is
++	 * the FIFO level and is not cleared by reading the register.
++	 */
++	ret = readl_poll_timeout(ioaddr + XGMAC_TIMESTAMP_STATUS, v,
++				 FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v),
++				 100, 10000);
+ 	if (ret) {
++		acr_value = readl(ptpaddr + PTP_ACR);
++		acr_value &= ~PTP_ACR_MASK;
++		writel(acr_value, ptpaddr + PTP_ACR);
++		mutex_unlock(&priv->aux_ts_lock);
+ 		netdev_err(priv->dev, "%s: Wait for time sync operation timeout\n",
+ 			   __func__);
+ 		return ret;
+@@ -364,8 +386,7 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 		.use_nsecs = false,
+ 	};
+ 
+-	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK,
+-				 readl(ioaddr + XGMAC_TIMESTAMP_STATUS));
++	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v);
+ 
+ 	/* Repeat until the timestamps are from the FIFO last segment */
+ 	for (i = 0; i < num_snapshot; i++) {
+@@ -375,9 +396,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 		read_unlock_irqrestore(&priv->ptp_lock, flags);
  	}
  
++	/* Disarm the internal snapshot trigger, so the PTP_ACR mask does
++	 * not stay armed behind the software state.
++	 */
++	acr_value = readl(ptpaddr + PTP_ACR);
++	acr_value &= ~PTP_ACR_MASK;
++	writel(acr_value, ptpaddr + PTP_ACR);
++
+ 	get_smtgtime(priv->mii, SMTG_MDIO_ADDR, &smtg_time);
+ 	system->cycles = smtg_time;
+ 
++	mutex_unlock(&priv->aux_ts_lock);
++
  	return 0;
-
+ }
+ 
 -- 
-2.53.0
-
+2.34.1
 
