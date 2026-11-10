@@ -1,94 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317136;
-	b=QhdoFw/syEiayARauzpvOV7TXBcjIzBOhRayyw5CKJwwkOlF7Mq0yKjjv0LS6qcBAZFd
-	 XK7KwEPJe7YauOs3Aa/p1eEFM/RNysHPGlHlub00ZvafDMZX2eu6RGdie6Fz3v/TU/d8T
-	 E/jFsUH3BdX4O0CXeEbwk40UeSI9Ch+bFPFGPM+zLCRYsrXRu1MF1svoLmbf/qlPApUIj
-	 KXcOJ2eqH4dV8wB9pYowJrFdfqUQf/I2y47qq5Rk7iN6akIp4cs+P+c2BCKBIFzzCh9eQ
-	 4iawXlvjXNj8YF1u8hfH9EQ/0qX88K8bjyUItEO3gtjQ24XX912QGmbuWRay4osiPog==
+	t=1794317138;
+	b=OYDr990B2ZAatEw9wf2sHQ3yrOqCfozQogESMNEHfKtZHHEvv8OZ/S9jH+zDSCMklZpx
+	 LYa02dJUf9sgzlyLwwehYFy/zTa0JfvLi/lfRBKJZKKe0bHe/aqjHvc9szqElfsPiy4OK
+	 21PW1HGCWQcVY97ADdWYMmT4hiHWG419Q6US0ePUkSVqh4WlWPTU+EvmBGKmDIag+OEgE
+	 Tiox4ozhUTk5CvV6nirNjpz6HSn8T+/+ukri5DQYZjknQ0fzV6L9GbeyC1CqaZBFfK+MY
+	 nLXre1UQwusPayqtETx0vzcVPCcFPW4xXXyx2MIKZeBIp9/z6rPj5kirnxic1sxFdpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317136;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=YKd/kHsAOXGiQQzEOqTVusTgtAD/RculmOME4VJ/9Ks=;
-	b=U+SS5d4WJgggErreeZtu1pQmC/YxiGI9QDWH8a1RH+JeDYADJ4rrLijhzdc4bxc84Li7
-	 MpokyZ5ouh57cUytbPu37qVch1aZ+w0sJ3SPbZUHg2D3quBcwylWETQIKX8GcCgng5g8h
-	 YTPooyz+B/pz45Nq6QIqZBD8/yLzveEQSdz/Pqqj99s3Dq9J4hr7Nyc2rDftD/5vZugN1
-	 b9K79Il1yPmAQPMcpJYH7dANqrPJih9o4AZZKGQebSfxLTNIW326yQzLuGhxiqa+MXmsL
-	 L+hHToaRWzRLnpXrA0XSaUMFdQoSAhhyE83nmltIxp/iyfC/2D5gR/E9a4+5iEUSPTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317138;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=t4MAlczZwz+Z9fOfs1ne27AiExRYMI5kWrI8EdWvW98=;
+	b=oRGMcojQSS1KT9vtxkURMXgxj80QmyP4t1Xidex4zMiMaZB5duZBPMw0p5a+TeINFN0s
+	 GmQcr/XIPbD8sNKSKUwEcYViKCq4XhKh+vQ05/Jvak0PmVJ5qwYCaxZMZv5G9dnYVYkrj
+	 mYvAimhyl50ahMW2wfTvpmW1cJj6CYNX/70xSkmxlLHIIq9+ZiTwVsky7l81fyl6lCZ8x
+	 5vE1kYgRBcgZ0LC47YpQwiKSUkngyzLbGf8Dcax+s3ZOSGckJ7YhUMgjo0caq1CW3kBv5
+	 FpR35oBb84Ldu5OhUJzDbWanPiYRsGrO/Mo1o9Vh3of65A4vCLTgSaRfR3yUUoHmLVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N2UfvVcH;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oaeEYBjW;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A453A60727A4
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A453A60727A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B063660727A8;
+	Tue, 10 Nov 2026 13:25:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B063660727A8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N2UfvVcH
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso15534955e9.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:25:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794317134; x=1794921934; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YKd/kHsAOXGiQQzEOqTVusTgtAD/RculmOME4VJ/9Ks=;
-        b=N2UfvVcHrDHJqPWtz/QMS71N4YCSe0N3FxfMUhjmXmE+gKHx7xQJ0fZSNA6Ki27DLI
-         4NUez5humOsWmpUfLlwGSxiFajGxk0XR+uCM1tyInuAVXbsD/vp1SAOeyPGDU0mJFrWW
-         VmfYZ+OVpTIMMTKebquNXGwuJclH5f6Ek6pEyoaAsxWSAAMox3fYDL7+PE3aXI/3RERz
-         bWD9BXEM/xNvzwZKfWJkrp56i3YWcwxZ/kvmhSWI1o/3nmMaYwcy4bjxyGs5EL+exW4c
-         XRm8O0w3lxMXGwL9L1l37bzSKpnrrimyF6rI+/RRN2kF8S/l4mEKt52yizG7cJnuPHsE
-         CEDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794317134; x=1794921934;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YKd/kHsAOXGiQQzEOqTVusTgtAD/RculmOME4VJ/9Ks=;
-        b=RTH5xN3VugG+3HiohuD3W6KYGWMzT3yES2gQvpUICv6C/FS8dyAtEiTrSaeQ0mipeo
-         bTwODrb/VFc1JYEh70wK2qnoUDoX3PdOwW9OYZNjeAruuDxFJwFSRAYyh6UX9gW+DSt+
-         vF+PmSz5uhFGnZhQXBUOHZtFQ5Vg7fWIXt5v9YimFRhPX5Us7E0sFH2n8DcFfh9LcI6y
-         A9NPDOBtRM7NmJBeWr/1r+zA/Px6kvE60/KrK2b8ccEaWS0YaMPeNzkYASXmIl8iKgUb
-         t5leQy4cdvnAvJksiSORg9RUBR3DaLPBIsQBj6z5TJ2ea9y514TJQPHHtvsS9/hQeBay
-         J+4g==
-X-Forwarded-Encrypted: i=1; AL+hErEcXquVr26MVFUAUeru+HQ6qYp6nRa5ZHGje/72XA83vexouAyp6uy0WVRSs0NV7YQtVJmi5qM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NylgwqAw/YeCvrIHV2neOOBmiA3Yih81C670nYHkk9vtSIm9t
-	g1/SlwPTRlF0zXLsUqk8TskBOwAyEYXy+k2p6Fa7zfOOXaqO1CE7XJGDhQf2TAbBrqU=
-X-Gm-Gg: AYBFou2SE8Z+HvJ6EtRtRUnCJIVLcWVsCyvPLIkXxuwN2U62/TSLRG79sOpo+Mw1tpn
-	ntzyPsRHRmYAzhLIr7COXsL1L7xRbFwX3r1sMeiN6l1uQcOI43GHTNAXiMBAUb4b7SanmCmvtoH
-	L1G0dPoJiGIt9Ujbv0b15MBqnrhU6WT2GsfiXheVmD+SWXB/fB91iof2MshC3tbVyBXczp5wGPU
-	VOlPd9/e320WK4O2PPZDgLvah9arhQ9GCmKyqPonI2zc1UN4YiOv10csbidQtygfK8K7Ku3MG6y
-	V1nD0r6bOnxNCNS/2JwL5OCKfNcpfwvpE+w/2LOVqW5FpkVDb2dRw3f6M9UAfiycdkUON6LzcOl
-	gZBqJ9CzmYgWXBZqzurPFktyYpkoatRIKkh5xUk/mai4HA5C9Gwyd2Cbc3xAtjy7+HKTPhd23em
-	x9o/rpHzSpC/1UlgIrHooXa9xnT3wdszHxMo7tCDvX41dvvjAlXwm6SHPOhc6GRIRcimQXQf/lQ
-	sgU8sG/RyPEtA2XKjtPJp7UWizTsLNmrSZOpwi85Rlh7uKaIasStqWiMY4/ayBmWeiqGC7rfDqr
-	slviVLJjygxPlp++8iEGsdXTqNd+v6pSztxLUOJBbWqYEW7T4PPawQsmU6jzt7DLd5g=
-X-Received: by 2002:a05:600c:46cb:b0:4a4:de70:2ad4 with SMTP id 5b1f17b1804b1-4ba0234dda8mr46784525e9.22.1794317134025;
-        Tue, 10 Nov 2026 05:25:34 -0800 (PST)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba020433casm61728495e9.7.2026.11.10.05.25.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 05:25:33 -0800 (PST)
-Date: Tue, 10 Nov 2026 14:25:31 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: rostedt@goodmis.org, andriy.shevchenko@linux.intel.com,
-	linux@rasmusvillemoes.dk, senozhatsky@chromium.org,
-	akpm@linux-foundation.org, linux-kernel@vger.kernel.org,
-	keithrteeple@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3] lib/vsprintf: Preserve the sign of seconds in %ptSp
-Message-ID: <avMbS0HxxVBo76tq@pathway.suse.cz>
-References: <20261109215445.43419-1-dennylin0707@gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=oaeEYBjW
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 32323C14;
+	Tue, 10 Nov 2026 14:23:13 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794316993;
+	bh=wUMu5EA83ukUYsWdEZ++l3SaNDehH1CosyCK6910r4Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oaeEYBjWQEX7IO4L9ABR66Cx0fvkBOR+6KRdzXzjQ/fP7EgwvkyKcTCTjQQSHg6hr
+	 uGI1k4Fupr8XJtLlQMmG1oyf8p6wxrZP+zT9cdY3Hjw5xzF1yzJlaMbO/JMKFYWxyw
+	 yuCU9y9vnz7cKOTmJa81CvqfRM/fHTgzLuvcexDo=
+Date: Tue, 10 Nov 2026 14:25:33 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: linux-media@vger.kernel.org, dan.scally@ideasonboard.com, 
+	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: mali-c55: Disable colour space conversion for RGB
+ outputs
+Message-ID: <avMbJMoEWGrfhl4X@zed>
+References: <20261006234242.11934-1-devnexen@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,31 +62,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109215445.43419-1-dennylin0707@gmail.com>
+In-Reply-To: <20261006234242.11934-1-devnexen@gmail.com>
 
-On Mon 2026-11-09 21:54:45, Hungyu Lin wrote:
-> The documentation defines %ptSp as equivalent to %lld.%09ld, but
-> timespec64_str() formats tv_sec with default_dec_spec, which does not
-> have SIGN set. Negative seconds are therefore printed as unsigned
-> values: {-1, 0} produces "18446744073709551615.000000000" instead of
-> "-1.000000000".
-> 
-> Negative values can arise from time differences, for example in
-> fnic_get_stats_data() after the realtime clock steps backwards.
-> 
-> Use a signed decimal printf_spec for the seconds and add printf KUnit
-> coverage for zero, negative seconds and the signed limits.
-> 
-> Fixes: bccd5937447f ("lib/vsprintf: Add specifier for printing struct timespec64")
+Hi David
+
+On Wed, Oct 07, 2026 at 12:42:27AM +0100, David Carlier wrote:
+> The colour space conversion block is only programmed for YUV formats,
+> and its configuration is kept across streaming sessions. An RGB stream
+> started after a YUV one thus still converts its output to YUV.
+>
+> Clear the conversion configuration for non-YUV formats.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
 > Cc: stable@vger.kernel.org
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Tested-by: Keith Teeple <keithrteeple@gmail.com>
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> index ff01553026fb..2425a069a939 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
+> @@ -577,6 +577,10 @@ static void mali_c55_cap_dev_format_configure(struct mali_c55_cap_dev *cap_dev)
+>  				MALI_C55_REG_CS_CONV_CONFIG,
+>  				MALI_C55_CS_CONV_FILTER_MASK,
+>  				MALI_C55_CS_CONV_FILTER_ENABLE);
+> +	} else {
+> +		/* Don't inherit the conversion set up by a previous YUV stream. */
+> +		mali_c55_cap_dev_write(cap_dev, MALI_C55_REG_CS_CONV_CONFIG,
+> +				       0);
 
-JFYI, the patch has been committed into printk/linux.git,
-branch for-7.5-trivial.
+nit: fits on one line. I'll adjust it when applying.
 
-Best Regards,
-Petr
+The patch seems correct to me
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+Thanks
+   j
+
+>  	}
+>  }
+>
+> --
+> 2.55.0
+>
