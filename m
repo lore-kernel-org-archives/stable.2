@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273268;
-	b=f6t26Zv8fA8TG6GkbL8tvUWcyS8NJAJ1LlbaAvXI5+AEZ9VNGzTlXQFFAqSVIuv+lCaE
-	 L3U4Y9U8FTumhRtTqjz2JOUGRXkggj8r9It+ZI3q8eIC0Hsrda0lL+sknjfsRpiU27CE5
-	 uhrZekr51cabWB1YqjsTGg9iZNtgglZ7KwTsPM1F1xlH0imdjsZ1ADcvQ+hGGtE9jsNdR
-	 Msl5wLSi96AIGEOFFhNkHztswSx7hqVK3uIJprDG7ikx/3fmsP3k7GYj0/+/QDAA8o24f
-	 JjJ6mKKTWA8v3A5ZqgkOSCyRxlQtX4ZlvaLUx+25Xyq6xT29mDIYqbP562pmItCKxaA==
+	t=1794273271;
+	b=vUynGbS2DzQtSijCqOhzuD5dz6pVWVe6TRTpbvJsHAO4ffXv6JMAbDjdLRoplYtWLJW0
+	 kcD3KmYRM0kvafhTwn3Vyt2mDV5acKJ8l/ehLaVOH6w+kVTaa9kuESh0UeiIXghCPiEaM
+	 3pR0J/obZn8BP6epvh9KRZeuLjoci6SPRrStW10u1DtKPql3nbn703vbC0tKC0Reje74t
+	 frWjv+KC7V2GAw6Vt4YTHJY/fZdUdSIlPu3Vnd9dv/7zuZXEBnW/Xb8ouls9ge5vI+Tzm
+	 hV5PdfHBLSBc7BN2oQns6rLBdnJtpt19ElFWptorMDY7Ub1ErIlbQBghrDdwpmEPJrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273271;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PdrlS0xr5ZLlz5D1ZGmcKfctuWLj+vxuP86/QytjjgE=;
-	b=wWphlhZmTut4whXtcranREm3iZ84QZvHAWNn5uFAaMOK84axKNPyEZVN2a0v4ydA31wZ
-	 shREsnTVeQPgUIAG6wL8x5mW5n4/yC9jQHuSm2NmDROhPxTl35n5qXLnYEj1X+81LnEL8
-	 gQO9d20dYrgf5YrflODCoGqmoi37dVAMZ4Fd5lnMEiSuznJvYk5Ml9RTLPv19DRJzAuX7
-	 QoKzc1BE+E2eY2IPKrx78B3sdao7iKUnruXnHpkfmHv7uGUiQVGsWiU5L58z2VbFByXaS
-	 Sj3PheDJdaOLeLgSMFQO5UK+P+pI9mvxNiHe5GXq7qpNhXBLnbBg1FBUSThp8J0bPJQ==
+	bh=iCG8s68llaHJz57n4/GRJpfGkn+UfXWBawRjJg5Ub88=;
+	b=q+6yJ6B6mgW/p7PFyEzXyWcTHGhjFXS5VFe6VOgXMcQGcGxFrzn45TEUxrja1OoKRI7S
+	 q47qbfmAfgtXjD2ChYXgfKJYToWIAE+dgjadop7zR9o/Jy+d2ay5d8tOYImiTy8WApQLD
+	 kWlbNsVgm/3/lEv8EzoFZbYyL5DM1CfAx4YSpfj7OPoESAfS53frM7yDCshNEsDtQn+0k
+	 xGI7V7nsS10GGIiOfv7iD7QZ192PZspnqR61C7cKalVZaN4kl2g+h9iURIzLozI+pzGjw
+	 hVLO9PoTSngID87IiVUI9qwgJprcYJVX6i55SwfPnCk1lTKNFrRv7xoivwUyI169t9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKvB8zwZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZj3WMVI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D968606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FD9606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKvB8zwZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0841F0089F;
-	Tue, 10 Nov 2026 01:14:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZj3WMVI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3F71F0089F;
+	Tue, 10 Nov 2026 01:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273268;
-	bh=PdrlS0xr5ZLlz5D1ZGmcKfctuWLj+vxuP86/QytjjgE=;
+	s=k20260515; t=1794273270;
+	bh=iCG8s68llaHJz57n4/GRJpfGkn+UfXWBawRjJg5Ub88=;
 	h=From:To:Cc:Subject:Date;
-	b=HKvB8zwZWSVTj/8Txz9LIFMsUzGqW+A4zw8QmjgzXgonVWrt5lu94AsB0Iv6mQW10
-	 Ss5nS8yJjKQQqwxF08YEPqY0Gvbzuyne0RRc29iOaVW/2J86cN1lRYKJJeYqh7lpjk
-	 AQXJjhspm8Y0E3lEWsyLb3H4EOdcO7neFurSSGy4IjFJ88jCvFrEQUCgSBhlvtuZev
-	 nnfX2BzRtQn9W7TBKJvvVRgRPbfYrfxeCY+F6/yBYJ51JrYHfn6rmC8gb3YHvLo64I
-	 xyyKbYkRKOTG/Jl4zkQ11xFwQaFUxbsg5s1HHY4tYs2Phr/xt08ulXYi9EEHvcx4az
-	 rMuzidwistwtA==
+	b=PZj3WMVI6VbvWcq1P1oA+5ffXs5SKH/Hp6vrr4Cg3c/pdPQf7RrgvxzcKnT8GCK5N
+	 QO02rEcoPur2bPK+seMQBRNinlQ11tOi/8J5vMwmrZhjlMFhYlvB/zT3p5pCBrwgnJ
+	 1luXMYpQPDKR9TtpaaWwvcXNO2uwVO6/tlFjZsX95VjhJx1nPeKmJ9CX8224pJ3TNi
+	 p7grJrvyWICKcAtEii4yhWTBst29U45HHaaJClIhNgjtv1blCl7J8pViUeF3fOrr0s
+	 pXkQqz3cfWo+IemjQuCbArioEXaJRZvUxfIGSmLSp/xrCDM+gUtH116ebU8igdEbHb
+	 LdHUuJig6pQ3Q==
 From: Sasha Levin <sashal@kernel.org>
-To: mwen@igalia.com,
-	pgriffais@valvesoftware.com,
+To: mikhail.v.gavrilov@gmail.com,
+	jkasten@gmail.com,
 	alex.hung@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:14:26 -0500
-Message-ID: <20261109201426-failed-6.6-81f923b06580@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: set allow_freesync before validating a new stream" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:14:29 -0500
+Message-ID: <20261109201429-failed-6.6-ab18dd3061eb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,98 +70,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 81f923b065801c7d30042bcda31ccb9449b4f58b
+git cherry-pick -x ab18dd3061eb2d92e60c8bbf9a435c25962e449f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201426-failed-6.6-81f923b06580@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201429-failed-6.6-ab18dd3061eb@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 81f923b065801c7d30042bcda31ccb9449b4f58b Mon Sep 17 00:00:00 2001
-From: Melissa Wen <mwen@igalia.com>
-Date: Wed, 21 Oct 2026 14:29:25 +0200
-Subject: [PATCH] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP
- HDR
+From ab18dd3061eb2d92e60c8bbf9a435c25962e449f Mon Sep 17 00:00:00 2001
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Mon, 26 Oct 2026 12:33:45 +0500
+Subject: [PATCH] drm/amd/display: set allow_freesync before validating a new
+ stream
 
-Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
-infoframe") created the app_tf interface for FreeSync HDR and commit
-c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
-PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
-never made use of this interface: DM ignores what userspace sets
-regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
-PQ bit is never set in the infopacket received by the eDP panel.
+After resume from S3, DC enables SubVP on a single FreeSync display at
+a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
+meant to keep SubVP off that configuration ("For single display cases,
+freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
+at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
+after boot and enabled after "rtcwake -m mem", and the memory clock
+starts switching.  It stays that way until a later commit re-validates
+the state; a CRTC gamma change (toggling Night Light) turns SubVP off
+again.
 
-Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
-infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
-on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
-other VRR-capable panels that advertise Replay in its AMD VSDB.
+The policy reads dc_stream_state::allow_freesync while the new state
+is validated, but amdgpu_dm sets that field only in
+amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
+the commit.  A stream created by a modeset is therefore validated as
+if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
+streams and forces a modeset, so the resumed state is validated
+without FreeSync.
 
-It doesn't affect color/EOTF bits on infopackets for SDR and native
-HDMI.
+Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
+atomic check calls for every active CRTC and which already writes
+ignore_msa_timing_param to the stream.  It uses vrr_supported, the
+condition the flip-time value is derived from.  With this change the
+same TV keeps SubVP disabled across "rtcwake -m mem".
 
-Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+On this machine SubVP is also what exposes the single-frame scanout
+corruption reported in the thread linked below, so the FreeSync
+setting stopped working as a workaround after every suspend.
+
+Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
+Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
+Tested-by: Josh Kasten <jkasten@gmail.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
+(cherry picked from commit 29793918b0eb63b6810b248a906f87dd79b70be5)
 Cc: stable@vger.kernel.org
 ---
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 4620135437c5e..0be4506e9ae5b 100644
+index ab9cfbce8d73c..4620135437c5e 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -173,6 +173,18 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- }
- EXPORT_IF_KUNIT(amdgpu_dm_get_freesync_config_for_crtc);
+@@ -131,6 +131,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+ 					vrefresh >= aconnector->min_vfreq &&
+ 					vrefresh <= aconnector->max_vfreq;
  
-+#define DP_HDR_SDP_EOTF_IDX 2
++	/*
++	 * DC reads allow_freesync while validating the new state, for example
++	 * to keep SubVP off a single FreeSync display, but it is otherwise set
++	 * only on the first flip after the commit.  Set it here, so that a
++	 * stream created by this commit is not validated without it.
++	 */
++	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
 +
-+static bool dm_dp_in_hdr_mode(const struct dc_stream_state *stream)
-+{
-+	const struct dc_info_packet *hdr = &stream->hdr_static_metadata;
-+
-+	if (!dc_is_dp_signal(stream->signal) || !hdr->valid)
-+		return false;
-+
-+	return hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084;
-+}
-+
- void amdgpu_dm_update_freesync_state_on_stream(
- 	struct amdgpu_display_manager *dm,
- 	struct dm_crtc_state *new_crtc_state,
-@@ -189,6 +201,7 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 	bool pack_sdp_v1_3 = false;
- 	struct amdgpu_dm_connector *aconn;
- 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
-+	enum color_transfer_func app_tf;
- 
- 	if (!new_stream)
- 		return;
-@@ -240,12 +253,16 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 					&new_stream->adaptive_sync_infopacket);
- 	}
- 
-+	app_tf = dm_dp_in_hdr_mode(new_stream) ?
-+		 TRANSFER_FUNC_PQ2084 :
-+		 TRANSFER_FUNC_UNKNOWN;
-+
- 	mod_freesync_build_vrr_infopacket(
- 		dm->freesync_module,
- 		new_stream,
- 		&vrr_params,
- 		packet_type,
--		TRANSFER_FUNC_UNKNOWN,
-+		app_tf,
- 		&vrr_infopacket,
- 		pack_sdp_v1_3);
- 
+ 	if (new_crtc_state->vrr_supported) {
+ 		new_crtc_state->stream->ignore_msa_timing_param = true;
+ 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
 -- 
 2.53.0
 
