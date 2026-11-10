@@ -1,140 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794328423;
-	b=2hnIzUKTVqmo0p57MXCs3EFLBdHk95UJEB/RMT9zByabD7qgExq2BxelwWEBg8dGM3mu
-	 jumqoTbiLQg9TT4Kv863uF+zZVo9+w5Tvx3SN3wEI1efuiHQ+MedReHqagDZWEaWHBBuw
-	 sUCytsEhJbtRrukWxEKpSHA5e+oSjvf4eDPqVup80f5KZdnzKObvmZOagOaGzONH6s4Yf
-	 1g6/MCnTayrhAv2hy4TKLQ4WRbUneYcsqEdRBxeDcLihsKbzXPBVfyCNTsWnO8/dPuT58
-	 5CfvbPB7K6pQkimg/KOjD5sOcL0jjCxZLsUlLJfQlhixwqvLnPFdzmdgNvZCudvjadQ==
+	t=1794328506;
+	b=21uhC5PNvyOV7dnbsabLynl5NhPnRKV48U2y+nq6ErCR/rjS4Rh6fW2MeMEJ1yH+pwS0
+	 lVLduAgoBnwT7uk9QwMclNi1zS+ZONfhdfVHqJVCni0o/EgC3TyoBBB6nQ3RP/Nw8ToVq
+	 0IG8bMCFfL2Ofi93f84T9QTMh7s0VA6287TCvSS4SGtOH8ptXBgiJUSl9sMlMl2jV0aRd
+	 Bw2UP+epmNCAlVgtVLbk8aiUOgiwPrI3FT1zOyTKc5tRf60YyY+LICBfhKk6iT6iJFks8
+	 ZFGQn+cSp6HWRNKjLOCjJpkPdbAKgvY8KnOiGi29Dwq1tGjrY9smTA9JO8a3Z02gwNw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328423;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328506;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vXnUGB2Md7aQ7Na1iGu7XmIgmDC2Kx7/T5xcKSH3yqs=;
-	b=pEx+yPEAn+AMrN1c9ext6uPyumgMyVS9bX9ZAJWukb5vDgAjPR2P9nKs7NILCb8lynBy
-	 qdwrHETH4iVBPMltcrYGsHNT9DeAvwj+V+WFkpK6rIRrh/9uObIEt6fkwgqNfyTBTUUMb
-	 KHZZyMgxxg3qnzvMOw+0+lj8jo7HxQB0deEVyYHHKM21aUHqhAIUv2PrAUPE1m4NlIoSp
-	 Gj9xtHP8s/MVeT8EHavz85czCXU+6YqyvjWsXZ+yqX6rmzYefoKLz2sW8M8s7lXWT1eW5
-	 YQl6LhfH8ksLCd6AzYjtc73DuAa47m9hg1aQr7FhrY2KC49wos1Nbc41Eb3wS5QQGJQ==
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RW7n+hZg/mEco5yaPMk+2sefHheA/OtCH6qNZ34prUk=;
+	b=TBP2Kj2dpy2aFZ3yy7IMwIAtU3fWCZuhYbCRgwNdZHxP5FBHop+tqNYTbEIsZiU2dUKD
+	 Q7Rfb9mfHWc5KSnq/94S887GeQd0NiQrVc80ocZYFeF4d4NdLI+Nnr85k9HZ506ABtc2h
+	 7lrB5ZPJTFwOTwV9efsblfv7htW4wEj4wmZwkxwZzbWOGO1CLsHfJzcYus1iBBv1BnMV1
+	 oQdMCy6NDT2e9iQWRP6Lg3YATpDAUIMx4Q5Jq+hftwHVsjSMcplz5gPPrqDkPi6zfLL7U
+	 FLZ7xoC5dLeM9mcx/b74f5D/WkHq03mEI7qxcGLJ/Y7vqZL2mj44VHyXiN4op5ocdrQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=HylrYvB8;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=c2HsFMrB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pBG3EVmd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.53
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011053.outbound.protection.outlook.com [40.107.208.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE70606A206;
-	Tue, 10 Nov 2026 16:33:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFE70606A206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A81D606A883
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:35:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A81D606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=HylrYvB8;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=c2HsFMrB
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAEwGai1618160;
-	Tue, 10 Nov 2026 10:33:36 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=vXnUGB2Md7aQ7Na1iGu7XmIgmDC2Kx7/T5xcKSH3y
-	qs=; b=HylrYvB8fKiYjmnISJ97xuuHSbqr8XeW1ulqpDCuvVQ3+Jp5kobihqnS7
-	SoW4QHdOZqVnhTJyASrcHpHfkGAKTrwUmX5fKkSSR8EHGm1XC++NfkFUt3rc9YL4
-	GxIwZCUTYneLlCbOyKN4RX6mMuwXZ4PuDCDiTzFxIqJjizyAhal69K9FAKsPS/ZQ
-	rtL3SbuvJ1sRtG8Isgoh/CHx9D1eDWOZSrLLB83GkHM2eZQZDOdlh2l3om7b1ixC
-	QZDJfFQXECXkzzEnGebNDJxiOfk8w41HWFi62bbOOQMutIJCuK+cXFi3tEfCt9HW
-	ShyzOFjCxr7vx6bEjPyHvoy5H1UyA==
-Received: from bn8pr05cu002.outbound.protection.outlook.com (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hv0kstajc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 10:33:35 -0600 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pBG3EVmd
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RSVEnfiTy5IYV5qrkPDPoTwtlruzfjDc25VT4OWh2s9z4fnUyOcCMsGKN+bpUz+RNRVIZ0ZKLG9ywmRov2ssG6KqjwzUzkSNbJ3EouIf0t8jKR4nRhu6JOZfxOdd/SOKdqcTumotRlEPGw1fb+Mw5VgXMFwYHQsYyEf3ML4I1fSvY8L3Lq6T462dCjcb6VWlDfJ6k6aGl3JWXiRkIofBIypsZis7lY2tZmnw59PRg0+0Kc5/pccQUYhzjdXmf/uf9FEg7adqwF5XoPFcLHXdfScE3Cw4YMAwt1YHeJ4rfpNKpW7Pgi/F3Yloj+kV7yOWfMPC0bvTL4CIfrpDvqrM8g==
+ b=dfc7GajVtJnxxVBneo7wk6XgpSkBWWKbPwibhs8+FJQ2jvX1eIBefem0IHziwUKGfazuWXsAZ7ZCkJno6E3l1dwxcbH0H45+bm3VkcPOe4RJ+wCijoIQgTEkgJRWQybf2zkhy9Y1rmGVk/yyUio/bkYGSkAmvWN702iPvEK2v61fDiAyalGbwPe1dslKkl6hWq+ezRHGtujqi811a4kRVqx1loHXAcqa2uluEzo63pAc5uVyWorQO4ZwzfSeSxgzK65yG+6g4mqEGRr1z4o3rbUiBoWg0GK9wWQSin8rcBvKYs90f7fWBvfOAecezI6l/LwYhVtD+AjpGrVTcBr/2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vXnUGB2Md7aQ7Na1iGu7XmIgmDC2Kx7/T5xcKSH3yqs=;
- b=k7foMeFZHrqh4MwYicYRi9f8SU6ne2Kodr2/KF3stssaXrnWiBAiQyXb8Jq6DLYE2sfjKdnchKcuuQOc7+7j73R/6m5BQ4SKgRM6QKMtgQrc2974QE6nQVZe4qvQ00qKQGChcExcGlgNGIYVA60E6KHS+sD4XKnmtaR/EjRlH4w3AZTobeIkcDyliUpdD/jKfbjZ/Cdn3FcORua9vsNcrgxPJCJMLwmREYT0QuzwhQs7oqNp/1HAtnV8cu9hY2QYIssJ7pll081v5ICSigFw14XZ3NBuH2KNRVaH0rDfH0Oa1kLM5sQU756SeCqLcm9igB2O/zm48daB1WA+SkiW7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ bh=RW7n+hZg/mEco5yaPMk+2sefHheA/OtCH6qNZ34prUk=;
+ b=jPacXCMB6svhGyUzoHUn5EANDe17bihrlMDLo8Zsz/JJd4u5wqcuT0QG52C4laQc4xvRuWoax9Mj0TxSz1jiEZ6R8wghg581HB/8gx0+z2OtWHF81rNbOEw+Eh3EBi8Ay+ogRMIEktmSRtSvUVB4fC1u5+1pWEj/b10LPBnS7CQ1G6H171ZPTXbdQuAqlvdnDhxlzc6Dfekf72lpfDL/u1IVpfvj5W7bsircFeBPb9l6dpHicnZrCxnZady/9dXxKVsj+qm6ZYQvrhTFkAyffF5ncKcQNrHP30pFUvscZFbY4KNsaWik4MjTaaOp/kr9N5g/40qbMsBitBvkfAEHdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vXnUGB2Md7aQ7Na1iGu7XmIgmDC2Kx7/T5xcKSH3yqs=;
- b=c2HsFMrBEobBV09X0GpG9Ee9fgodce4O0ltdik+Kjplv1nxmYp/wtY5Uc4G2iRMU08q0UdvhojjkyKxu8k2ABMZ++5V82n/o3iKZsI4RT3xkcQBot2NCkQy6BhCP92/LeSc3bZvv4ZavvfZf4iTVn63FXLaLb2LQlYGcaD6A3Ac=
-Received: from BY3PR04CA0019.namprd04.prod.outlook.com (2603:10b6:a03:217::24)
- by MN2PR10MB4256.namprd10.prod.outlook.com (2603:10b6:208:1db::19) with
+ bh=RW7n+hZg/mEco5yaPMk+2sefHheA/OtCH6qNZ34prUk=;
+ b=pBG3EVmdA6GOuIFOMKrbh1pwALkuEZu4x7hKdIT/BLYT6d9gqLiXxBvsRdhyuUZarMGc2lHG1UV/+8XyAG4w+I3j5edUCRNqUlvvGR03E2AjWUmY/88D0rAh4y4EDQWZWTrGkF0x5+QOLvmHk6csXJeDYEPwWLkXnuPovBd6Kg7yBzl0fY3dSjRYwmFz/ctpaIpoBMUUq11Iu3CTHvAv57Da0lSqrwYi97P+kbuOmYw7Y/7Mx9x8OONR4JlevNvdh16zawfSTccdDRfJz+SSq/9I/80e1b4YzJvaKN+sjYYCIitOMtaEVA2Z0g2rroMaGnsaYTLDIYuPbgjGAXJGgA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DS4PR12MB646950.namprd12.prod.outlook.com (2603:10b6:8:4be::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Tue, 10 Nov
- 2026 16:33:34 +0000
-Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
- (2603:10b6:a03:217:cafe::4e) by BY3PR04CA0019.outlook.office365.com
- (2603:10b6:a03:217::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
- Nov 2026 16:33:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 16:33:33 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 10:32:50 -0600
-Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
- 2026 10:32:50 -0600
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 10 Nov 2026 10:32:50 -0600
-Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AAGWoH51141135;
-	Tue, 10 Nov 2026 10:32:50 -0600
-From: Brandon Brnich <b-brnich@ti.com>
-To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
-        <benjamin.gaignard@collabora.com>, <linux-media@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <k-willis@ti.com>, <jai.luthra@ideasonboard.com>,
-        Brandon Brnich
-	<b-brnich@ti.com>, <stable@vger.kernel.org>
-Subject: [PATCH v8 2/4] media: imagination: e5010: Fix clk never enabled without CONFIG_PM
-Date: Tue, 10 Nov 2026 10:32:45 -0600
-Message-ID: <20261110163247.48712-3-b-brnich@ti.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110163247.48712-1-b-brnich@ti.com>
-References: <20261110163247.48712-1-b-brnich@ti.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
+ 2026 16:35:03 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
+ 16:35:03 +0000
+From: Ido Schimmel <idosch@nvidia.com>
+To: stable@vger.kernel.org
+Cc: Ido Schimmel <idosch@nvidia.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 7.3.y] vxlan: Stop rejecting dynamic FDB entries with a nexthop ID
+Date: Tue, 10 Nov 2026 18:33:34 +0200
+Message-ID: <20261110163334.2275922-1-idosch@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109200127-failed-7.3-7308ef8b4a67@kernel.org>
+References: <20261109200127-failed-7.3-7308ef8b4a67@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1PEPF000008D3.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::433) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -144,131 +96,269 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|MN2PR10MB4256:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5c51e52-1745-4d02-64f3-08df3f485c79
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS4PR12MB646950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55778cac-5a5f-4550-6da9-08df3f4891f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|261028144727099003|261022115727099003|261021121427099003|56012099006|261021135927099003|261022105027099003|261021123027099003|261009223027099003|261026121527099003|261026140227099003|261022075727099003|261102123227099003|10067099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|11063799006|56012099006|22082099003|18002099003|6133799003|261022105027099003|10067099003|261102123227099003|261021123027099003|261028144727099003|261026140227099003|261026121527099003|261021121427099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
-	IxfZJkUb7efMVZ6XmEEZ7ga24u7in6kejQgEuL5VsrQkQInNEdKw38jO7V2dYgCWmPJLI8t1VWfOqzkYB45v/TuugWzck7LyssW8bSKSft87tlU9bDP2m/KdbNk9hJ8EeT6SLNP8E6fKFRMZnRyJXmQTyCG/AaMl0K211RxJCiTmvPlPZI0shhSzTgK+FNbxHardesNQItt/OsmpFEKkfph8BgOo7/4Zquqp3tJTWJGN53CBvm/BRUfVznB6qLANyi234AxyyHnwQST6Tg9xw06T/Tn61bQisMZOev1ju4hGou0eZ8DdUp185ve/QdV5g2nZ2ushqNC8fz2PE+2mY5+XV6w0EDcnFte3JpfXsdUADB4qzL4nBL6q7U9KqESQTG/qS0H+MLDrArXW6k3AxwI+XIC5q62Fjk4JWYHfS3lIL9CE9EM/MZr12xWQgZBvS4whA7yr/Bf7HvYsq5iU2CGAPyd+unInQT88ni/Er9OhLqZGo2ifyYnGV0LoMLUg42DwgAE2ohQlpH3hg+O7z7MCppNOia1PUOVti70kjGZDAsFxCGVPzYH91IAI+tSFjWPbZw7PGeo1oESpnTwYsfIqrWTZsD8aOzw6XwowUEOBm2Yg+SwiYJthR8fcMGre4r+kDcZdyeLozNGfr+EududfvJVmK9NGNmx+jPCsQZiCGTQ4/Dw5COfNbTagi5mZ8I6w+VCuojNwpa3kTWx3RQ==
+	R/0OOnyGJ2xWmi8m2qk5QEzMEjagnmaWOJ3dpGrYo0zYpqzpQ4nmIHvK1KUr3qdTdIlf81IpdSbsS/TJ+Z+pAzC3RSPLxpVOk23wXPUFvgebKjR9f6uVE6PAvEv6law/oe6p6UUqiKvLoVn2nIhd7rGvGUt3jeXsM6iz21o8XbPfIQ7jswNCsy6DCHpDzMt1mrsRylM97b0PESr6PCmsmXFk6fSGrU0KkC7VMmiNyKzFVpPPp71fs3Nb1ilQai6s+8+oy1WDclbbHdwe983y/g0IiTUpruMU+b7BM9YXs2iLDPYrVftJzvZ5cVBfODm8l+1U+rv8h9RQ9rWFSDOM7c5Ai+225Iu4xW2YXjot7jVZJZlnqpL1Li9CWtrDBfm4xn/7B2y+DjVLNaX41CtCcS666DicrxUyq5wdRAN2ShehIft8AWYZY1/Vnkyqyp/RN3wrAEgdXPnNRVNVLMAaXZm0H8s4P5MaSaRP0rfpBxzJG5uGXRUo99J+r3Fuka0ppTqEXp+c/RZeTvuegNofw5S0dNkbPyq0NXDujwucoisqibb6PxQg6t0Vlb4QWCKIaMopbRwqdDpKrSxZ8e1y16oOweFDB121V7kEXx/KsBdtxvD6tKE4XsWNoQDbeJNpavBSCcHhsD2V8pO3Mnz+nVIYqg+jHyi1K5GqbapMTz4=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(261028144727099003)(261022115727099003)(261021121427099003)(56012099006)(261021135927099003)(261022105027099003)(261021123027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(56012099006)(22082099003)(18002099003)(6133799003)(261022105027099003)(10067099003)(261102123227099003)(261021123027099003)(261028144727099003)(261026140227099003)(261026121527099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	QRn5WxXew3DusoW8mch2LcL+H+ds4oEFSzbGvWkb43DIOO4ylUyRuUszAymjCslHLp7N++LRqvQM2BB6VQDbaik7xEEb3X2YzmwpAvas0xP3QrAR4zln85Emx60DcSzCgjbLLgOqaUKJj7Hn2qntPviO5+K2U8Z3juUUFs4EhIl7DjAogHvL7BO2QMoh/LZjPhuTIKiiRl0RBQDaqoPVYr6M6RCSIfs6XlAX0e9VTKRJPobPJXSTtUPB8VRHsAUl4o/v5gEu63DkNiVyKp7eBn07bFV5gOAgcDlZ4ZBSe9pVtPJtqqXrJy/aIJrqnh0Gf3JAe+QJP68hTiRalZ1FCDWFaFW5YkiCSi/WUW1wEVLployAA7f3WkXONM+iM+BA6RuIKsOpqR3fpo7hOtH/K/FSf6FYeAkmCrYxqd74+Dz+UulXSuxdwo/+76eRSVrD
-X-Exchange-RoutingPolicyChecked:
-	W1V6pCwoPXRv+jPrAOrLA05sJ+bhZgVX/WeJYWZHXAdWO4nLziGVlKMrxUj6ra+1SdHUgD6+mZ9UBmY3dCnoYuHJlIb1Xi5hrIAbmUqDFOb/4f3hPpn8A+DhRT2TSpCDUZ1RJpEcsVoy3zAmbr7YoCqMV0xJH3z4QencXQVQe7llT0kSW3hUe5uZ7yEJaRr2cXpwdxcky7keQ3lwK4CkPpjkUSINE6ZX0JoG4X0T/GNPNWLgvU6Vd95Y9OeHTqZWJqILM7HTHPQFb9PVlX0ohYmUzzLwWJuef3EfWolYKS3j/JL2RNQqyjaQOZ93c1oXNmMtcFHuY4WhPnxsSTopZw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:33:33.0331
+	=?us-ascii?Q?Me3WFiBluep0b8U2VpHTAgv666rEPpL5I4kv5mogJ3qvAhQpo+U2h/fap3C+?=
+ =?us-ascii?Q?r4ey/sa3j0ai/EuhI7QLjbyF0XvzYHFXVGQWvgQ2wtDQSdhj9+ig/ZA762xv?=
+ =?us-ascii?Q?hQfV8M8XyEtf1V7rFGvKwbEeU1lEK8AAdLMdHacZzG5zfsYzPyy3xgDP8QM8?=
+ =?us-ascii?Q?TycczpivsE0oj3VKrxsK/nD4UXTxykCyymgjWIl6S366/lpaJl0JCNvFnjks?=
+ =?us-ascii?Q?r3SYUu+krFIhERkXregPvZG2i9apNbBAC7Trdm3mToUdFt9AU97q4kvSElZ/?=
+ =?us-ascii?Q?b7PtGVE3dQyq7TZxJJ35qPO58joIqxYwat+nMeVDSmwARw25KIAOmGWR/oBH?=
+ =?us-ascii?Q?9ltF+WIpRgn01XZiZ7hp3CrxX8AZ94F8D/4+BDoRn7K8E/KRsnL5pEMkieLD?=
+ =?us-ascii?Q?jjbBj0Q27281EwvEF+nLCloooH5Dr0uBRy1VR1dv0NmdKwLyOetO0PbR71Fp?=
+ =?us-ascii?Q?STKYm6w8ZcIDyDvbOMdVUE9qPbjm09CvCdL0ZwyrgULLo9bVpZiW7YerXYlN?=
+ =?us-ascii?Q?6dw8PrsdA3GVS8f9rM401iwRYjc77+TCswIO6k7p/IHLCfEMphumzybtqANP?=
+ =?us-ascii?Q?hnHpR/i90koBSjUnSiogshjzbfHwHqrQ69whUa8DbqF3LLBziytWPFaJBeW4?=
+ =?us-ascii?Q?y6Y3+OH+lxeHS4p9mFO9baQrYuYnEa5NGHjtZgCC0+/zxNPJmd1928g3WW5q?=
+ =?us-ascii?Q?X19aDv5qPKosq3p5iUcOPWEuaf0LfP/FOY4DvSBx0D4tjm6wj6MQEp18VhHz?=
+ =?us-ascii?Q?CpHTXXph5jmAGQuEED7f8oepjWavehCWWuqZ4+oM8grKRkJrI4tX6vL7qSmN?=
+ =?us-ascii?Q?O1Pz2W5sDxU9NY2RUS8kSZPYX/xMY0KvuK91O/al27/VcwtnmdmogAU/nKFz?=
+ =?us-ascii?Q?GKlkrTK7R2dO5OSSFurZ1MdU42f3yCnePRavxAYg4+9T8gCNR76QAJJsG1zG?=
+ =?us-ascii?Q?YYpdLWf7RANWW4DyeMPXQabNDCXdAtIUtgworyq6QFXJZQvD6B11n0q7FHg8?=
+ =?us-ascii?Q?69JEHsO63N9Q4WOjIz8c0E4d2rtpS/7ifNJshue328Q2Lm0R63FdJu3XRWRb?=
+ =?us-ascii?Q?0Up5oZnYowewgpXr/UAPb+ZcCDQNtkd1HTWQMmRZnUb9WcH7qK2M1KCXQRDg?=
+ =?us-ascii?Q?giq/NPqiJiY39OcGRr3FBHcU7OHfPD7VaylQgpvXeoCucUY6X85gzSFlS9Td?=
+ =?us-ascii?Q?27+vTC0tb9+5aIFBlE0e4wfXmpA3NFCPUXDm+lPeXQxMinZXWrV/pl4t0O34?=
+ =?us-ascii?Q?0wGEE0uz0Qw7db/5fVwAuERitT7p6y3MasiKwhPGBLy9UdgvaCOHtflZNF+j?=
+ =?us-ascii?Q?FDNxKclbbqEsEvmnauFfk6o5vY3WZ9Dm/FmHm+JEz4WSuyBczLfpH/98jGU2?=
+ =?us-ascii?Q?cE3Kn8UW34q/YBkCUWj6YiPEI/u42mOaqz+nG5nh9FFrecg2XTzWRJn/arh1?=
+ =?us-ascii?Q?jUH4knW/Bd+vCENG9GnJhqCN8chei6fHRMS1KjYHgNwGFNHBJwel8AKPuyv0?=
+ =?us-ascii?Q?/rIZ/PCH+TOkiGPr1kUx92TbgGiMPorE/NHzYYuvupp/XThGUz4UvUJs3EFk?=
+ =?us-ascii?Q?3q91mmlBWFEyuWPQ8TpO2MmuV2DuQb0NmowYWO5sa1gPVc78SQAUrfwW1zXa?=
+ =?us-ascii?Q?e/UeL3EF/tJf0pphEzun8LBrx8By32twaY6fG9IE+rZZRy+p/eoeJkfMFj2A?=
+ =?us-ascii?Q?YO6AEGgusSw6JsgufeSNg5mujlxbU9mJNaffabj/r5V6es8VGl9Mwim8ksnJ?=
+ =?us-ascii?Q?KZ2jhfWlyA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55778cac-5a5f-4550-6da9-08df3f4891f4
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:35:03.0412
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5c51e52-1745-4d02-64f3-08df3f485c79
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001D2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4256
-X-Proofpoint-ORIG-GUID: xGyIJ7XlL5yd4E9AitSgeZiUtzzsCqsM
-X-Authority-Analysis: v=2.4 cv=bcH+w+PB c=1 sm=1 tr=0 ts=6af3475f cx=c_pps
- a=J5CYyyHZZtesdUd/yj239g==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=-BWrc3HdS1PG3WIIs5UA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX3PadczeNJem4
- 5GvnNP0BTIHks5JzVcNBYXJvZRWiqOgz6+lbOdPZusfIEwZAzTTi/fPc9jDo+gfJT+FScmC3fBM
- gabBIlGegz+zCXpvF5NXnmsbdOQP/IqDkVMdd7iBkA19R53zo5UeubiDBRYSl0Bi4xITneNVVr/
- j9wDxPz7HHWZ5Zyw1T4psEazXVTT2bYmDFZexEAjvlOnlcI0qVqB4eS78ZPejb8p+QO2QzZKxdq
- RMIIP/onv+y5wfkjbKVwCbBoP2Cvjk7E+QqlQksS+Qq44jYUF8I2opT1xSPzrDIl4Hq2Ypvmd0J
- zDTYs+zeLV2et1N7/ic9xFXP9roSZUekAYHdACGYCjVi2bS5ILL6pEeROP4xDbmqbBEQIeI7e6Z
- 7Zq3PL4B1cDCAHutS7FP8v7J1KcMe74nJEZQ/TNulOHQI5UFbNVShiyoTuklrfv6IZ0+zBAS3Ml
- l578/oda6mCKKC+iDcg==
-X-Proofpoint-GUID: xGyIJ7XlL5yd4E9AitSgeZiUtzzsCqsM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX7OgkWJXSrVMy
- DUZ/yFYDW8VwLhtfbQPAWXQCJglO+HYGpU5Mfjow8bsRKnsgaaGNB/yJODJ62Wi07lxYejQ64mK
- qv/TpFqyZ+v2QI7qJscHxx2g1I4jJc4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0
- impostorscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100065
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: i+ATxZZepENAE7bRX+LrIwZNxWnVXeJ4U8bKhj2Qc88WG4kGPnUydodvvV4tPs6HCI2cUZdIZzn7blI46bYBAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB646950
 
-clk_prepare_enable is not called anywhere unless CONFIG_PM is set. This
-means without CONFIG_PM, the JPEG Encoder will not function properly.
+[ Upstream commit 7308ef8b4a6779a39f68d053c19b53a5c584a663 ]
 
-Add this call during the probe sequence to properly configure the device.
-If video_registration fails after clk is enabled, clk would be left on.
-Make a label to cover this case.
+Commit 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a
+nexthop id") started rejecting FDB entries that point to FDB nexthops
+unless they are configured as "permanent" or "static". The intent was to
+prevent such entries from being aged out by vxlan_cleanup(), which runs
+without RTNL and can therefore race with other VXLAN devices that modify
+the same per-nexthop FDB list.
 
-Update e5010_remove to ensure that clock is getting disabled in the case
-where e5010 was not suspended when remove gets called.
+However, FRR installs remote MACs that are behind a multihomed Ethernet
+Segment (EVPN-MH) as dynamic FDB entries that point to an FDB nexthop
+group. Since the above commit, these entries are rejected and traffic
+towards the corresponding MACs is flooded to all the remote VTEPs.
 
-Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+These entries are also marked as externally learned ("extern_learn")
+and are therefore skipped by vxlan_cleanup(), but exempting externally
+learned entries from the checks is not enough: vxlan_cleanup() reads
+the state and flags of an entry without the hash lock, so an entry that
+is concurrently changed from dynamic and externally learned to static
+can still be aged out.
+
+Instead, remove the checks added by the above commit and make
+vxlan_cleanup() skip FDB entries that point to FDB nexthops. Such
+entries can only be configured from user space, cannot be learned and
+cannot roam, so there is no reason to age them out. The nexthop pointer
+of an FDB entry is set before the entry is linked and is only cleared
+after it was unlinked and an RCU grace period has passed, so it can be
+checked without the hash lock.
+
+Adjust the test cases added by the above commit and add a test case
+that checks that dynamic FDB entries that point to FDB nexthops are not
+aged out. Without the fix:
+
+ # ./fib_nexthops.sh -t "ipv4_fdb_grp_fcnal ipv6_fdb_grp_fcnal"
+
+ IPv4 fdb groups functional
+ --------------------------
+ [...]
+ TEST: Fdb mac add with nexthop group and dynamic state              [FAIL]
+ TEST: Fdb mac add with nexthop group and extern_learn               [FAIL]
+ TEST: Fdb mac without nexthop group aged out                        [ OK ]
+ TEST: Fdb mac with nexthop group not aged out                       [FAIL]
+ [...]
+
+ IPv6 fdb groups functional
+ --------------------------
+ [...]
+ TEST: Fdb mac add with nexthop group and dynamic state              [FAIL]
+ TEST: Fdb mac add with nexthop group and extern_learn               [FAIL]
+ TEST: Fdb mac without nexthop group aged out                        [ OK ]
+ TEST: Fdb mac with nexthop group not aged out                       [FAIL]
+ [...]
+
+ Tests passed:  44
+ Tests failed:   6
+ Tests skipped:  0
+
+With the fix:
+
+ # ./fib_nexthops.sh -t "ipv4_fdb_grp_fcnal ipv6_fdb_grp_fcnal"
+
+ IPv4 fdb groups functional
+ --------------------------
+ [...]
+ TEST: Fdb mac add with nexthop group and dynamic state              [ OK ]
+ TEST: Fdb mac add with nexthop group and extern_learn               [ OK ]
+ TEST: Fdb mac without nexthop group aged out                        [ OK ]
+ TEST: Fdb mac with nexthop group not aged out                       [ OK ]
+ [...]
+
+ IPv6 fdb groups functional
+ --------------------------
+ [...]
+ TEST: Fdb mac add with nexthop group and dynamic state              [ OK ]
+ TEST: Fdb mac add with nexthop group and extern_learn               [ OK ]
+ TEST: Fdb mac without nexthop group aged out                        [ OK ]
+ TEST: Fdb mac with nexthop group not aged out                       [ OK ]
+ [...]
+
+ Tests passed:  50
+ Tests failed:   0
+ Tests skipped:  0
+
+Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
+Fixes: 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a nexthop id")
 Cc: stable@vger.kernel.org
-Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+Reported-by: Sascha Frey <sf@techfak.net>
+Closes: https://lore.kernel.org/netdev/20261028142928.GA8406@techfak.de/
+Tested-by: Sascha Frey <sf@techfak.net>
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/20261030133750.28668-1-idosch@nvidia.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ idosch: fixed a small conflict in vxlan_fdb_add() and vxlan_cleanup() ]
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
 ---
- .../platform/imagination/e5010-jpeg-enc.c     | 20 +++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ drivers/net/vxlan/vxlan_core.c              | 14 ++------
+ tools/testing/selftests/net/fib_nexthops.sh | 40 ++++++++++++++-------
+ 2 files changed, 31 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-index 23d06709a6929..17ea616ff1795 100644
---- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
-+++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
-@@ -1101,10 +1101,18 @@ static int e5010_probe(struct platform_device *pdev)
- 
- 	pm_runtime_enable(dev);
- 
-+	if (!pm_runtime_enabled(dev)) {
-+		ret = clk_prepare_enable(e5010->clk);
-+		if (ret) {
-+			dev_err_probe(dev, ret, "failed to enable clock\n");
-+			goto fail_after_v4l2_m2m_init;
-+		}
-+	}
-+
- 	ret = video_register_device(e5010->vdev, VFL_TYPE_VIDEO, 0);
- 	if (ret) {
- 		dev_err_probe(dev, ret, "failed to register video device\n");
--		goto fail_after_v4l2_m2m_init;
-+		goto fail_after_clock_enable;
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 3390e341d1e5..7ecd73a5a374 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -996,12 +996,6 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 		return -EOPNOTSUPP;
  	}
  
- 	v4l2_info(&e5010->v4l2_dev, "Device registered as /dev/video%d\n",
-@@ -1112,6 +1120,11 @@ static int e5010_probe(struct platform_device *pdev)
+-	if (rcu_access_pointer(f->nh) &&
+-	    !(state & (NUD_PERMANENT | NUD_NOARP))) {
+-		NL_SET_ERR_MSG(extack, "Cannot make a nexthop fdb dynamic");
+-		return -EOPNOTSUPP;
+-	}
+-
+ 	/* Do not allow an externally learned entry to take over an entry added
+ 	 * by the user.
+ 	 */
+@@ -1263,11 +1257,6 @@ static int vxlan_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
+ 	if (err)
+ 		return err;
  
- 	return 0;
+-	if (nhid && !(ndm->ndm_state & (NUD_PERMANENT | NUD_NOARP))) {
+-		NL_SET_ERR_MSG(extack, "A nexthop fdb cannot be dynamic");
+-		return -EINVAL;
+-	}
+-
+ 	if (vxlan->default_dst.remote_ip.sa.sa_family != ip.sa.sa_family)
+ 		return -EAFNOSUPPORT;
  
-+fail_after_clock_enable:
-+	if (pm_runtime_enabled(dev))
-+		pm_runtime_disable(dev);
-+	else
-+		clk_disable_unprepare(e5010->clk);
- fail_after_v4l2_m2m_init:
- 	v4l2_m2m_release(e5010->m2m_dev);
- fail_after_v4l2_register:
-@@ -1125,10 +1138,13 @@ static void e5010_remove(struct platform_device *pdev)
- {
- 	struct e5010_dev *e5010 = platform_get_drvdata(pdev);
+@@ -2887,6 +2876,9 @@ static void vxlan_cleanup(struct timer_list *t)
+ 		if (f->flags & NTF_EXT_LEARNED)
+ 			continue;
  
--	pm_runtime_disable(e5010->dev);
- 	video_unregister_device(e5010->vdev);
- 	v4l2_m2m_release(e5010->m2m_dev);
- 	v4l2_device_unregister(&e5010->v4l2_dev);
-+	pm_runtime_disable(e5010->dev);
-+	if (!pm_runtime_status_suspended(&pdev->dev))
-+		clk_disable_unprepare(e5010->clk);
++		if (rcu_access_pointer(f->nh))
++			continue;
 +
+ 		timeout = READ_ONCE(f->updated) + vxlan->cfg.age_interval * HZ;
+ 		if (time_before_eq(timeout, jiffies)) {
+ 			spin_lock(&vxlan->hash_lock);
+diff --git a/tools/testing/selftests/net/fib_nexthops.sh b/tools/testing/selftests/net/fib_nexthops.sh
+index 431d7bed7622..adbec51917eb 100755
+--- a/tools/testing/selftests/net/fib_nexthops.sh
++++ b/tools/testing/selftests/net/fib_nexthops.sh
+@@ -425,6 +425,14 @@ stop_ip_monitor()
+ 	return $rc
  }
  
- static void e5010_vb2_buffers_return(struct vb2_queue *q, enum vb2_buffer_state state)
++fdb_entry_aged()
++{
++	local mac=$1
++	local dev=$2
++
++	! $BRIDGE fdb get to $mac dev $dev self &> /dev/null
++}
++
+ check_nexthop_fdb_support()
+ {
+ 	$IP nexthop help 2>&1 | grep -q fdb
+@@ -538,14 +546,18 @@ ipv6_fdb_grp_fcnal()
+ 	log_test $? 0 "Fdb mac add with nexthop group and static state"
+ 
+ 	run_cmd "$BRIDGE fdb add 02:02:00:00:00:16 dev vx10 nhid 102 self dynamic"
+-	log_test $? 255 "Fdb mac add with nexthop group and dynamic state"
++	log_test $? 0 "Fdb mac add with nexthop group and dynamic state"
++
++	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self dynamic extern_learn"
++	log_test $? 0 "Fdb mac add with nexthop group and extern_learn"
+ 
+-	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self"
+-	run_cmd "$BRIDGE fdb replace 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
+-	log_test $? 255 "Fdb mac replace with nexthop group and dynamic state"
++	run_cmd "$IP link set dev vx10 up type vxlan ageing 1"
++	run_cmd "$BRIDGE fdb add 02:02:00:00:00:18 dev vx10 dst 2001:db8:91::11 self dynamic"
++	slowwait 20 fdb_entry_aged 02:02:00:00:00:18 vx10
++	log_test $? 0 "Fdb mac without nexthop group aged out"
+ 
+-	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
+-	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
++	run_cmd "$BRIDGE fdb get to 02:02:00:00:00:16 dev vx10 self"
++	log_test $? 0 "Fdb mac with nexthop group not aged out"
+ 
+ 	run_cmd "$IP -6 ro add 2001:db8:101::1/128 nhid 66"
+ 	log_test $? 2 "Route add with fdb nexthop"
+@@ -688,14 +700,18 @@ ipv4_fdb_grp_fcnal()
+ 	log_test $? 0 "Fdb mac add with nexthop group and static state"
+ 
+ 	run_cmd "$BRIDGE fdb add 02:02:00:00:00:16 dev vx10 nhid 102 self dynamic"
+-	log_test $? 255 "Fdb mac add with nexthop group and dynamic state"
++	log_test $? 0 "Fdb mac add with nexthop group and dynamic state"
++
++	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self dynamic extern_learn"
++	log_test $? 0 "Fdb mac add with nexthop group and extern_learn"
+ 
+-	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self"
+-	run_cmd "$BRIDGE fdb replace 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
+-	log_test $? 255 "Fdb mac replace with nexthop group and dynamic state"
++	run_cmd "$IP link set dev vx10 up type vxlan ageing 1"
++	run_cmd "$BRIDGE fdb add 02:02:00:00:00:18 dev vx10 dst 10.0.0.3 self dynamic"
++	slowwait 20 fdb_entry_aged 02:02:00:00:00:18 vx10
++	log_test $? 0 "Fdb mac without nexthop group aged out"
+ 
+-	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
+-	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
++	run_cmd "$BRIDGE fdb get to 02:02:00:00:00:16 dev vx10 self"
++	log_test $? 0 "Fdb mac with nexthop group not aged out"
+ 
+ 	run_cmd "$IP ro add 172.16.0.0/22 nhid 16"
+ 	log_test $? 2 "Route add with fdb nexthop"
 -- 
-2.43.0
+2.56.0
 
