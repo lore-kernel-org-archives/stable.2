@@ -1,78 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301407;
-	b=2rmfbB6PGl7Wo1tLXlsH324+6KHiZDq7AflMQW7KyZ/jMCzKnRYVfSX6EWP6GlgvzI1e
-	 A9kjtKc7l7eg9vr2dcQS0+nF4LrOXNbX5JN/m5dnMqQyMkZdfrvkOTkbhYiTQz+bVk5gQ
-	 dhMKwcXywtaQ54xl3/pJIdtKWQVCn6xlqBvN8JadqxszfEtOc0atvuQAasH9x5DP36h32
-	 +1cY/30RB8OGclJjXIukkbsSTZ3RRbF2Z5HoXI4KMlQMjF/p9gC0xs7Mugyz9sFP4xoR0
-	 T/zdhceRPI5fLmijM5WZS7zSav6isxtnsVLJTuobVBIRo/mZ9/1GrHULFwzDt965Z5A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301407;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
-	b=l6/Wm+++SUoWS8Ud/YF/jkHIfz3FNkp549nv/oeJg+Mamzpxs9dE9A2OvR0cbLvSmvi9
-	 8m/enEH7EdGLx4xSW7cmX/t3hdeN8WZFgXsbz+1fClLUamU1b6bGeIins3tlswvjF1JzY
-	 StEI6MiKfvPlqklWpBorooHNsKn9ZbBVH0vb764syZfQzYYVURQN07Ul5ZVg4OgANcBPa
-	 cKvGtD4O+5N6XLrlomyfKxfKnm5bdjH5SniCQ5YW1wmjSakYDpfAsp8kQhPKUsrF5JIQ8
-	 J74BejMHobxjo6wfvelSBIavbTkXxVf89v4UujWhyposBzonusp++NdiTw6Ykxln9EA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k36dh6iD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734E7606A321;
-	Tue, 10 Nov 2026 09:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k36dh6iD
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794301407;
-	b=rKX0OX0hMepRHCMfc+Mk2PWDPtvFo/y5wemS8M989MosE1mySnlLpxcC8/Y6SfjINIv+
-	 RTVw+hdRQvb6+EoXADHVp5J8X2Rv1EQIf5ogdA5aALHbMwiU3sPMgFLERnV0UN2+jjbpU
-	 iPHcP9y2XfHWp8hP9UiWN9ShRsU4RaO53Al2hkXJQq9FeGg+gLgKkQC4/s+SJ09skad3/
-	 8V0jBO0snqJU7FMLEwm2v4W9Gxnv2dmNMiHDUUux/rUrScA7s3ygsMCka3eEwO/kTq587
-	 L6HUztBxHnZevY/jPS7XohGs66a/vF0hGJufsLzRMx68nbI3/ELCuLy/2doWn8eQs0Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794301407;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
-	b=DFuxtGeOzxhNDcZKdO/4iOK+5UX4rp/vGtsUV+gYsn3bSVqHFLu9H8zdaYyUbN6QuZV3
-	 Ossh8LTqndIoR3BtATNFxz7J6Y2f2cp4jOBWgr8aKYs1IbQ+ykxUWTlk/W0P8DS4v+BB5
-	 zMdW641gnJjIfmAa0PeIaW9d0b6fAsxfsDZ+YgyRynW4coAWwxAV720xJ9WyPFu3mm/Qi
-	 bnCm5xayYsAHv7JSDmRPr/oNVjSfWSz/h9oE0kQZ318CSWlzzek7ZulE/GqxjvZgnHHub
-	 MTRGZonDPCLwazc2tTFfA7V3jwuKWk+HJMAmpZRnCT0lrxJNeWgUvV1hi42XCYqG6LA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794301853;
+	b=06t6q4bfiSExU9sZNiozzOMJeRVRxylCgsNM5995L3UR6dSEYiM+7dHb9EV96n1Limq/
+	 TcC+Vahug7qbet2rL92o4a4CKGvIeqluNErvI97SGSOcsI0MlHMfliEqzUT0Mw26MU8x/
+	 /0q7ITxyNe6V6ItzKqhJOHqd/BkhA2JT93gZypr268qPZdRE6rMrKa2oQynhkkRuq/dGD
+	 uLbG6w2v+Ua57oMHTuwHVefyxnUGFhg5FG6x+Uo637wlto1NlYIMtVBClSXGD4B/Glh5X
+	 06vimw0MrAIZAheK9XtMa6fsEGUXbqvZ9E6hM4fo/Fw1K9DO4Nx0HWNyvBEQd5INTDg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301853;
+	h=DMARC-Filter:DKIM-Signature:User-Agent:Content-Transfer-Encoding:
+	 Received:Subject:Date:Cc:In-Reply-To:Reply-To:To:Message-Id:
+	 X-Original-From:References:X-Lms-Return-Path:Content-Type:From:
+	 Mime-Version;
+	bh=WdNqNT+bFHTM+YyZgJqU98xQjZavflwKu1yOJyM3vLg=;
+	b=ZwY//kdnxQPRC9OLws+4zEotCRIEHKPu2rZ4z1XqdxSHCcPykeC33t4XH81ulXop1vsr
+	 9jj8s8Mby8+M8f1yk2nU8bMipaKtZfZG5k3o6W4TYaNksJZkPmCOe4C2+nvgbyPSrX5fv
+	 EtR7qyMjYZqplmD420fvq7I9IWkGYffabS3Z1s5l0KGM77Qf3EV/XWFR5QgtG3VH8nIDW
+	 BTqcri8azvTXCoMbi2i4fnOhSNh50OzUmswXVkv15npXoD2r4VoDx5pvict3SAgl+vqFw
+	 AcicOeh4ZdhRxN8IP2DYBnobT/TkYZMIFITqEG0zntbh7wmDXnrK8eJZOY3w10qe/GA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fygo.io;
+	spf=pass smtp.mailfrom=fygo.io;
+	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=BxmIuClX;
+	arc=none smtp.remote-ip=209.127.231.42
+Received: from va-2-42.ptr.blmpb.com (va-2-42.ptr.blmpb.com [209.127.231.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B7C541F008AB;
-	Tue, 10 Nov 2026 09:03:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794301407;
-	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=k36dh6iDdVvvAa3/qZ0yNWwlkRnSDdY/StCsP0nrMRnp4Ac/Lhgkp4B/U/yFKg4TO
-	 82EYAijRN2sTqfORWiKwaizVXmPyGHe8Ia6wuHbJgLHIqH3Bnkr84A0aLlvsBYE+pq
-	 MjyV3JYYBYZMme+Mdho9vwJg8qF/nSNHTDxNHErQPzCbdFaVqOFUF20XTdij75HX8U
-	 Q9IzVqyK133uV68ykf3SFV9UnCHFBPRoo5ozJX6CYNqqq53UVyEp0o390Dj0cpfo6d
-	 YfpzM1qjpVQHezw74DfAMAgkBqxhHfGKlFqrAL+Hjj4r0Tq13YQrdy5O0axvE1yaRC
-	 yPeZfedb0hAow==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4921D48A57;
-	Tue, 10 Nov 2026 09:03:26 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 09:03:26 +0000
-Subject: [PATCH net] gtp: free the skb after handling an echo response
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5E5606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D5E5606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=BxmIuClX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1794301843;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=WdNqNT+bFHTM+YyZgJqU98xQjZavflwKu1yOJyM3vLg=;
+ b=BxmIuClX1355HwMzKzj5df0p6A0O7fv0BuE36sLsSuUc7+ZGshKXdsZgs+sj/bfx1ssqGF
+ OtAMrohjAp2fs4QCA1+/TK7AcVnK0gWRSVnHoFWL5Z8147gkh92Z7rFmOQqhofpNICOE1h
+ 1716zy/8X1Ehbuzs20aKGhENnjrLmEwtyXMdYFmEfuCjc2Bdkp0+XHE8S9dtgXOqRn0s+v
+ tVXFJwNv8CF7xbC+0Z5I1DLmLXQEzpNziEIqQ6f+t06CC/xqhBMj5zcLnvhtTGBJUY2x8X
+ BU2xbnFOrFsbnrXE71QV0Vy+lm2KjpYHYKv/eu65CS4AtBuOfPRS46sdd682+g==
+User-Agent: Mozilla Thunderbird
+Content-Transfer-Encoding: quoted-printable
+Received: from [192.168.1.104] ([39.182.0.55]) by smtp.larksuite.com with ESMTPS; Tue, 10 Nov 2026 09:10:41 +0000
+Subject: Re: [PATCH] bfq: Transfer allocated request counts when moving queues
+Date: Tue, 10 Nov 2026 17:10:38 +0800
+Cc: <linux-block@vger.kernel.org>, <cgroups@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, "Tejun Heo" <tj@kernel.org>, 
+	"Josef Bacik" <josef@toxicpanda.com>, "Jan Kara" <jack@suse.cz>, 
+	"Paolo Valente" <paolo.valente@linaro.org>, <stable@vger.kernel.org>
+In-Reply-To: <20261028094208.716946-1-sunyangkai@fnnas.com>
+Reply-To: yukuai@fygo.io
+To: "sunyangkai" <sunyangkai@fnnas.com>, "Jens Axboe" <axboe@kernel.dk>, 
+	"yu kuai" <yukuai@fygo.io>
+Message-Id: <b38bfc29-62a6-4f55-b6d4-f312111b6490@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+References: <20261028094208.716946-1-sunyangkai@fnnas.com>
+X-Lms-Return-Path: <lba+26af2df92+45a504+vger.kernel.org+yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+From: "yu kuai" <yukuai@fygo.io>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,143 +71,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN3d8moC/x3MQQqAIBBA0avErBtQg4KuEi3MJh0KFZUIwrsnL
- d/i/xcyJaYMc/dCopszB98g+w6M094S8t4MSqhRSinQlohkXMCUI16kT5z0cGgzqm0fDLQuJjr
- 4+Z8LeCqw1voBEyRO/2gAAAA=
-To: pablo@netfilter.org, laforge@gnumonks.org, andrew+netdev@lunn.ch, 
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
- pabeni@redhat.com, joasantonio108@gmail.com
-Cc: osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794301405; l=3733;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=R9TcIxYRIQLC36eXFKBEQ/zbPTM2JwmdjnAqri7utlE=;
- b=USEiUSTtzqnSdLf/+y3HR6JuvI4VGG9bRKewqbXKarWNZBPZtmD7tPcE1rq5inbOwayXH3Xhc
- QUiacOqhnsZDNrw2Y+AxQyPrTEc3pzMt1uxH2zbeqM4MqTRWLdXJhPK
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+=E5=9C=A8 2026/10/28 17:42, sunyangkai =E5=86=99=E9=81=93:
 
-gtp0_handle_echo_resp() and gtp1u_handle_echo_resp() return the result
-of genlmsg_multicast_netns() to gtp_encap_recv().  When the netlink
-notification is delivered that result is 0, and gtp_encap_recv() treats
-0 as "the skb has been consumed":
+> When bfq_bfqq_move() moves a queue with outstanding requests to another
+> group, it changes entity->parent without transferring these charges.
+> The old ancestors retain the charges, while subsequent request releases
+> decrement the new ancestors even though they were never charged. This
+> can leave the destination group's allocated count negative and the
+> source group's count inflated after all requests have completed,
+> distorting the limits enforced by bfqq_request_over_limit().
+>
+> Subtract the queue's outstanding request count from its old ancestors
+> before dropping the old group reference, and add it to the new ancestors
+> after reparenting. Leave the queue's own count unchanged. Shared
+> ancestors have no net change, and bfqd->lock serializes the transfer
+> with request accounting.
+>
+> Fixes: 98f044999ba1 ("bfq: Track number of allocated requests in bfq_enti=
+ty")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: sunyangkai<sunyangkai@fnnas.com>
+> ---
+> Validation used a QEMU guest running a 6.18.18-based kernel, with BFQ
+> on a virtio block device. The workload submitted direct asynchronous
+> reads in /a/child, moved the task to /b, submitted more reads, and waited
+> for all completions before repeating. A read-only kretprobe observed
+> bfq_bfqq_move() entry and return counters.
+>
+> Without the fix, the drained destination group reached allocated=3D-1
+> and then -2. With the fix, outstanding charges were transferred and
+> the drained group counts were zero. Both runs covered migrations with
+> outstanding requests, completed all reads successfully, and reported
+> zero missed probes. This was not a runtime test of upstream master.
+>
+>   block/bfq-cgroup.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
+Reviewed-by: Yu Kuai <yukuai@fygo.io>
 
-	switch (ret) {
-	case 1:
-		netdev_dbg(gtp->dev, "pass up to the process\n");
-		break;
-	case 0:
-		break;
-	case -1:
-		netdev_dbg(gtp->dev, "GTP packet has been dropped\n");
-		kfree_skb(skb);
-		ret = 0;
-		break;
-	}
-
-The echo response handlers only read from the skb and never free it or
-pass it on, so every echo response that is reported to a listener on the
-gtp multicast group leaks the skb.  Echo responses are handled for any
-peer when the UDP sockets were created by the kernel, so a remote host
-can leak memory on the receiver by sending GTP echo responses while a
-process with CAP_NET_ADMIN is subscribed to the gtp multicast group, for
-example a daemon that monitors echo responses.
-
-The error paths do not leak but have a related problem.  -ENOMEM and the error from
-genlmsg_multicast_netns() (-ESRCH when nobody listens) are not -1, so
-they are returned unchanged to the UDP stack, which takes a negative
-value from encap_rcv() as a request to resubmit the packet to the
-protocol with that number.
-
-Return -1 when the notification cannot be built, so that
-gtp_encap_recv() drops the skb, and consume the skb once the
-notification has been handed to netlink, whether or not anybody is
-listening.
-
-Found by LLM-assisted source review.
-
-Fixes: d33bd757d362 ("gtp: Implement GTP echo request")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-This issue was found with the help of an LLM-based code review tool
-(Claude).  I checked the code paths by hand against v7.4-rc3 and
-reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
-not have the hardware to test it at runtime.
----
- drivers/net/gtp.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-index 1dd32e979cf5..85d1b0c46ecf 100644
---- a/drivers/net/gtp.c
-+++ b/drivers/net/gtp.c
-@@ -561,16 +561,19 @@ static int gtp0_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
- 
- 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
- 	if (!msg)
--		return -ENOMEM;
-+		return -1;
- 
- 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
- 	if (ret < 0) {
- 		nlmsg_free(msg);
--		return ret;
-+		return -1;
- 	}
- 
--	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
--				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
-+				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	consume_skb(skb);
-+
-+	return 0;
- }
- 
- static int gtp_proto_to_family(__u16 proto)
-@@ -748,16 +751,19 @@ static int gtp1u_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
- 
- 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
- 	if (!msg)
--		return -ENOMEM;
-+		return -1;
- 
- 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
- 	if (ret < 0) {
- 		nlmsg_free(msg);
--		return ret;
-+		return -1;
- 	}
- 
--	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
--				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
-+				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-+	consume_skb(skb);
-+
-+	return 0;
- }
- 
- static int gtp_parse_exthdrs(struct sk_buff *skb, unsigned int *hdrlen)
-
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-gtp-echo-rsp-leak-7a3fac62bd3c
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
-
+--=20
+Thanks,
+Kuai
