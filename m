@@ -1,74 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327811;
-	b=OqSrCcbUpF5rgM5CMV8f8C2i3+hhbIVM3anFFk3wupwDzBiWfZjaLIIfbCu5FoVRg7jc
-	 CDDscjLCCr7Wr7UKOBiv/9el0TUeeovdPOiAFlFCi55m5hfDwbIBc8XZkwAt0fD5I0yrh
-	 elfixexwgQm0ZZCQMFW5UYws47ByY86lww6/6xcsAPW0+SAKFIMUzbAM/QIbyBBjRQKLH
-	 t0rqAPh71aoes+QoNzs73+Fn7EyKqGiVwYTj7wFrWjvgjCo0BaYY/ycKTZ6YhCOgP0h1+
-	 E2kGqPIAXkfIYF+vR82AzVw8SbPwx1gj9rkkh+/vFtcKGDEsZQJj1BwH2R84iQ2+scQ==
+	t=1794327850;
+	b=BYcg8I+18Yp+rD4fUT4iFbhhMrWq7eSRr38bYUo5PpbVAmB/5RScAcKb3fp4L67sIKmJ
+	 XSjymOLGedHAJ9AWDjhI767K1aqe2I9QCpG6ZYtuRsaQHY1wnyhrMjNSUmC4bQ+wU7qzv
+	 EUKJ6XzaVgtZdnVDT2zJi1G5scGHjEQ/FzfxsnsijKRNImqtocHq+hwwzSuHViy30bAo5
+	 ejuFvMo+HsZGfxNgeYTHWi1Oj9pcxM6R9Nlf93PRggSzS3LQBdxvGZNththv3Z21u9nWM
+	 OQqQ7lPasUP/NfdLiW4XYxHKZkzwTDzG6sOGa9k7G+0q8k0e0QL3GZ+4MZM1b+uJe/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327811;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=TTgbH6RQNfqmOfI1QxheaONIegAGBbKbjZgXnlMazBQ=;
-	b=ECrFW1KkzDNoJkgIxLC7m+fEJBVnDweSiojM7YNaCJOxHyBD4CDKJNlVJhNoXbw+t9m9
-	 M2CeKixa0dqWArBwHgm6Ulw7u8uJ+QY2kUBBEupf2zaJ3DOLfb28pR20ktKRJ7WyFgsZr
-	 7UDk+zQxUS7X9NOO7N80FliMW+MeoDp3wgF/PuKX1njmm8R4M6n0O92r+qaLO/0+RoVXX
-	 y0KO87Pbk22VkEo3MQ+zWjhsulpm4T5laPFwGMKHU8ICVTCJITHf10YC0e6vpU5kKHBBA
-	 zK+8wz1XafA0YAM4C9ulzEJx5sj/TVlg3WJplMLSIe0pNYZ1XYqZYgCxqnQQ+kUzntg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327850;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=opBkLeuUR+02js/HJHTKCUlER5s3+MlcPC37+9QQ020=;
+	b=GWT1vRhOeoW+SXZzpDOMtJ1l2mSL8liXgfZMKQr5ec4B4Rr5RdDVrDrmmAQx232tXPBe
+	 aXwb98DuAfA1AiqiPKIQULYk7qnpVsV3sY/mP9rnXWcia/kVp+qLFDFkVIoe4BxGNdM+4
+	 PD86SsyMKbMlt4MbtzY6/XIqxG4oiINJzPW8FI+H0FGnY4CJBdisLt37cojeJ7KSWGOsn
+	 GkG/Mwm0IhnH/lzGfssrL+hGNDnZJ2NSkGs24mulJlNF2bdAwwRmdGpUfG41JNfKQxVqS
+	 n2Uf5G5yNRodMepw2C2AZYpF9pJUYZ9htYIWcHSa+QGc6E/adXG9FUduKf8VzctRtNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=l5xXoLFv;
-	arc=none smtp.remote-ip=209.85.208.71
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNaCDx6Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA3D606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:23:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA3D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D92606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:24:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=l5xXoLFv
-Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6a615ab0c06so2161025a12.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 08:23:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794327809; x=1794932609; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TTgbH6RQNfqmOfI1QxheaONIegAGBbKbjZgXnlMazBQ=;
-        b=l5xXoLFvQyaZKSyitvfZI+FFsRWIUkQW67RiieJhQcE80Cv23jUJxLhO2T+DwFMP33
-         d9vQatgms/dpLVox+QgQd3Hi7PsUVyW0GcJeLFw66RLXmttaCBuA7B6uL12pfSqfL/cH
-         c6qvfI+ln23oUCbUVURPN4ENwfqtLyXsBl27KHn8BozSXhLuoEtGHdlbOt2jHI1+Mn3X
-         Kj12AV8IZ3on8t+Z4i16zyIlLlX0Z+Z0CJxtObdPbY7wVvzvl2FV/etCPahQvYzyRED7
-         bq9eNS19v2BAuuPOyyInAVmWXtd3VGxRXZ1xYID71PfH+1UgUIvPr1Rnx4HZGrKYVx3/
-         3Jtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794327809; x=1794932609;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TTgbH6RQNfqmOfI1QxheaONIegAGBbKbjZgXnlMazBQ=;
-        b=1EZQ/a/Vizz7nkINjY9vwFptMEkjzOaBIzzxwlzonPEmZjzsyDduhmN0FWgGZJEQ/T
-         zFeK7DOGV989goHlni9jGDFkSv9EvJHgatWp37hEhDsQj/O3sNrxF7WzkKklZ5wv/oDu
-         q18i+Tvb6hwLk+tnuiJMOtlwjchEh9jyqyM8mF+j2E2FTT+51I2sI0DhWO0KeAN6EqL8
-         f/tJ/+Q1VGMzOBN537sVeFypqt1MvLy7jwnGyZ0y3HA7bz2GyD46Y03ZcXtasQgdHQ+N
-         vbiiSxODVNPe3Ss+jN5pEJpnI5oOjTTPDnA2bxgbXxEdmgU4reoUAWc3Ea2HS8vND/5s
-         nEmA==
-X-Gm-Message-State: APuU4Z910y/13QrNsZhT9SY2zJYSujzJPH9FJWIDoTZDKloFugJS7OmK
-	QQNFrT7M0SL2e6yeC363uBRVE/oVw3EXacDU7m8fvMdPP4smmXJIHTHAQxjXKSdlktp9W72W9aF
-	/vpaptpUNRH2ZljV8AkKHiGtybdtjQ5JqPFg0h0TgTrzOlQg2VIHsYjrPtCwbztcXbmaqFIMrAW
-	qFOyHsh6PDbSDh8INwBm2huc2PruOuoT8jP90qovyCEpp3IHSp03nF
-X-Received: from ejbsu10.prod.google.com ([2002:a17:907:3ca:b0:c3f:c35a:7704])
- (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:3f03:b0:c50:475d:9804 with SMTP id a640c23a62f3a-c5049583bf0mr292107366b.13.1794327808825;
- Tue, 10 Nov 2026 08:23:28 -0800 (PST)
-Date: Tue, 10 Nov 2026 16:23:21 +0000
-In-Reply-To: <20261107052412-failed-6.12-993e8fbfecbb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNaCDx6Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB51A1F008A2;
+	Tue, 10 Nov 2026 16:24:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794327849;
+	bh=opBkLeuUR+02js/HJHTKCUlER5s3+MlcPC37+9QQ020=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lNaCDx6Zsxzrxh+4trqUT8KBuWb8yJknvuI23n0jP2IvGLoUjiAk9qvAhApvLtho6
+	 dwmFvtxHAzHp5oYVelIDMl0gZCIzCv+3qmHIKBTDlVkvAucfg+0BbKRFCW7zhlOg5T
+	 i0uPVjC6e6EVXvEhUii1dTIOIs5A/RgWWT58I7aSl//0z5NZUx+2ve9ggOIWYDwVlG
+	 mouRBCaUYoXfyCWSf6dea+5aO/kKPTAACYu/7EDY9MNxNuGC0TinxqaoJwvGWtm05u
+	 FdhDjgNIVifyW32hH9Cc7si0eGmhYj7dPDFa85148LI5UVAohAPbVq5g3x1Cu0O1nx
+	 Z8MQA3z50WxOQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Ignat Korchagin <ignat@linux.win>,
+	Stefan Berger <stefanb@linux.ibm.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] crypto: ecc - Handle exceptional points in Shamir multiplication
+Date: Tue, 10 Nov 2026 11:24:06 -0500
+Message-ID: <20261110161933.2054228-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061814-failed-5.10-6fd70bc8bc01@kernel.org>
+References: <20261107061814-failed-5.10-6fd70bc8bc01@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,91 +61,324 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261107052412-failed-6.12-993e8fbfecbb@kernel.org>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261110162321.2117930-1-michalblk@google.com>
-Subject: [PATCH 6.12.y] sched_ext: Reset runnable_at when a task leaves its scheduler
-From: Michal Blaszczyk <michalblk@google.com>
-To: stable@vger.kernel.org
-Cc: Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
-	Michal Blaszczyk <michalblk@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The watchdog measures how long a task has been waiting from
-p->scx.runnable_at, which set_task_runnable() resets when the task becomes
-runnable after it last ran. ops_dequeue() never asks for a reset, as the
-dequeue of a waiting task is temporary, e.g. for a migration or an
-attribute change.
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-Leaving the scheduler isn't temporary. A task which is switched out of
-SCHED_EXT while it's waiting keeps its runnable_at. When it's switched back
-and becomes runnable, its wait appears to have started before it left, and
-the time it spent in another class counts towards the timeout. If the
-watchdog checks before the task runs, it aborts the scheduler:
+[ Upstream commit 6fd70bc8bc01a578c7728b7bd1cb5689c62cc5b7 ]
 
-  sched_ext: class_switch_stall: runner[418] failed to run for 3.010s
+Shamir multiplication mishandles equal points, opposite points and the
+point at infinity. This rejects valid ECDSA signatures and can accept
+invalid digest/signature tuples when the public key is G or -G. The
+kernel incorrectly rejects 16 valid signatures from Wycheproof.
 
-Here, the task waited for a few milliseconds before it was switched to
-SCHED_OTHER, slept outside of SCHED_EXT for three seconds, and was charged
-for all of it as soon as it woke up on SCHED_EXT again.
+Handle doubling, cancellation and the point at infinity in precomputation
+and accumulation. Add regression tests for P-256 ECDSA and 256/512-bit
+EC-RDSA. The valid vectors are Wycheproof P1363 secp256r1/SHA-256 cases
+60 and 210 converted to X9.62, two constructed ECDSA signatures for
+Q = +/-G with k = 2, and six constructed EC-RDSA signatures for Q = G,
+-G and -2G. Also add two invalid P-256 digest/signature tuples for
+Q = +/-G that must return -EKEYREJECTED.
 
-The same happens when scx_sub_enable_workfn() hands a waiting task over to
-a new sub-scheduler, which can then be blamed for time the task waited
-under the parent. scx_rehome_task() isn't affected, as it moves the task
-through SCX_TASK_INIT, which resets runnable_at. The stale runnable_at also
-skews the default core-sched ordering in scx_prio_less().
-
-Reset runnable_at in scx_disable_task(), when the task leaves the control
-of its scheduler.
-
-Fixes: 8a010b81b3a5 ("sched_ext: Implement runnable task stall watchdog")
-Cc: stable@vger.kernel.org # v6.12+
+Fixes: 0d7a78643f69 ("crypto: ecrdsa - add EC-RDSA (GOST 34.10) algorithm")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Michal Blaszczyk <michalblk@google.com>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
-(cherry picked from commit 993e8fbfecbbf284b9644c6f10741b28fb914094)
-[ michalblk: applied to kernel/sched/ext.c, where the function is
-  scx_ops_disable_task() and has no @sch; adjusted the comments and
-  context accordingly ]
-Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Reviewed-by: Ignat Korchagin <ignat@linux.win>
+Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ sashal: adapted ECC doubling calls and EC-RDSA vectors to older APIs lacking ECDSA and negative-result test support. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/ext.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ crypto/ecc.c     |  33 +++++++-
+ crypto/testmgr.h | 198 ++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 228 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
-index ded7a0dd2e533..d64803ab0ca23 100644
---- a/kernel/sched/ext.c
-+++ b/kernel/sched/ext.c
-@@ -2173,7 +2173,11 @@ static void ops_dequeue(struct task_struct *p, u64 deq_flags)
- {
- 	unsigned long opss;
- 
--	/* dequeue is always temporary, don't reset runnable_at */
-+	/*
-+	 * Don't reset runnable_at. If @p is waiting, the wait continues across
-+	 * temporary dequeues, e.g. for a migration or an attribute change.
-+	 * scx_ops_disable_task() ends it if @p leaves its scheduler.
-+	 */
- 	clr_task_runnable(p, false);
- 
- 	/* acquire ensures that we see the preceding updates on QUEUED */
-@@ -3794,6 +3798,14 @@ static void scx_ops_disable_task(struct task_struct *p)
- 	if (SCX_HAS_OP(disable))
- 		SCX_CALL_OP_TASK(SCX_KF_REST, disable, p);
- 	scx_set_task_state(p, SCX_TASK_READY);
-+
-+	/*
-+	 * If @p is runnable but not running, its wait started at runnable_at,
-+	 * which ops_dequeue() didn't reset. Leaving the BPF scheduler ends the
-+	 * wait. Reset runnable_at the next time @p is enqueued on SCX, so that
-+	 * the watchdog doesn't count the time @p spends elsewhere.
-+	 */
-+	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
+diff --git a/crypto/ecc.c b/crypto/ecc.c
+index 09067e4b320f5..506a89e90a0b4 100644
+--- a/crypto/ecc.c
++++ b/crypto/ecc.c
+@@ -1224,9 +1224,22 @@ static void ecc_point_add(const struct ecc_point *result,
+ 	vli_set(result->x, q->x, ndigits);
+ 	vli_set(result->y, q->y, ndigits);
+ 	vli_mod_sub(z, result->x, p->x, curve->p, ndigits);
++	if (vli_is_zero(z, ndigits)) {
++		if (vli_cmp(p->y, q->y, ndigits)) {
++			/* P + (-P) is the point at infinity. */
++			vli_clear(result->x, ndigits);
++			vli_clear(result->y, ndigits);
++			return;
++		}
++		/* The co-Z addition formula does not handle P == Q. */
++		z[0] = 1;
++		ecc_point_double_jacobian(result->x, result->y, z, curve->p, ndigits);
++		goto out;
++	}
+ 	vli_set(px, p->x, ndigits);
+ 	vli_set(py, p->y, ndigits);
+ 	xycz_add(px, py, result->x, result->y, curve->p, ndigits);
++out:
+ 	vli_mod_inv(z, z, curve->p, ndigits);
+ 	apply_z(result->x, result->y, z, curve->p, ndigits);
  }
+@@ -1266,21 +1279,37 @@ void ecc_point_mult_shamir(const struct ecc_point *result,
+ 	vli_set(rx, point->x, ndigits);
+ 	vli_set(ry, point->y, ndigits);
+ 	vli_clear(z + 1, ndigits - 1);
+-	z[0] = 1;
++	z[0] = !ecc_point_is_zero(point);
  
- static void scx_ops_exit_task(struct task_struct *p)
+ 	for (--i; i >= 0; i--) {
+ 		ecc_point_double_jacobian(rx, ry, z, curve->p, ndigits);
+ 		idx = (!!vli_test_bit(u1, i)) | ((!!vli_test_bit(u2, i)) << 1);
+ 		point = points[idx];
+-		if (point) {
++		if (point && !ecc_point_is_zero(point)) {
+ 			u64 tx[ECC_MAX_DIGITS];
+ 			u64 ty[ECC_MAX_DIGITS];
+ 			u64 tz[ECC_MAX_DIGITS];
+ 
++			if (vli_is_zero(z, ndigits)) {
++				/* Adding to infinity starts a new accumulator. */
++				vli_set(rx, point->x, ndigits);
++				vli_set(ry, point->y, ndigits);
++				z[0] = 1;
++				continue;
++			}
+ 			vli_set(tx, point->x, ndigits);
+ 			vli_set(ty, point->y, ndigits);
+ 			apply_z(tx, ty, z, curve->p, ndigits);
+ 			vli_mod_sub(tz, rx, tx, curve->p, ndigits);
++			if (vli_is_zero(tz, ndigits)) {
++				if (!vli_cmp(ry, ty, ndigits))
++					ecc_point_double_jacobian(rx, ry, z,
++								  curve->p, ndigits);
++				else
++					/* Adding opposite points yields infinity. */
++					vli_clear(z, ndigits);
++				continue;
++			}
+ 			xycz_add(tx, ty, rx, ry, curve->p, ndigits);
+ 			vli_mod_mult_fast(z, z, tz, curve->p, ndigits);
+ 		}
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index 45212d077c298..103b45279764b 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -646,7 +646,8 @@ static const struct akcipher_testvec rsa_tv_template[] = {
+ };
+ 
+ /*
+- * EC-RDSA test vectors are generated by gost-engine.
++ * EC-RDSA test vectors generated by gost-engine, followed by constructed
++ * exceptional-point regression vectors.
+  */
+ static const struct akcipher_testvec ecrdsa_tv_template[] = {
+ 	{
+@@ -797,6 +798,201 @@ static const struct akcipher_testvec ecrdsa_tv_template[] = {
+ 	.public_key_vec = true,
+ 	.siggen_sigver_test = true,
+ 	},
++	/*
++	 * Constructed EC-RDSA exceptional-point vectors.
++	 * With Q = dG, choose k = z1 + d*z2 (mod n), r = x(kG) mod n,
++	 * e = -r/z2 (mod n), and s = r*d + k*e (mod n).
++	 * The input digest is e, encoded little-endian.
++	 */
++	/* cp256a: Q=G, z1 = 3, z2 = 1. */
++	{
++	.key =
++	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
++	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
++	"\x91\x8d",
++	.key_len = 66,
++	.params = /* OID_gostCPSignA */
++	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
++	"\x07\x01\x01\x02\x02",
++	.param_len = 21,
++	.c =
++	"\x1a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x49"
++	"\x32\x67\xe0\x26\x16\xfd\xb7\xaf\xa4\xd7\x3e\x61\xd4\xf9\x7b\x94"
++	"\xf7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7"
++	"\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe4\xb7",
++	.c_size = 64,
++	.m =
++	"\xdc\xd3\xfd\x46\xcb\x14\x9d\xe1\x8f\x92\x54\xb2\x0c\xa0\x22\x66"
++	"\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x08",
++	.m_size = 32,
++	.algo = OID_gost2012PKey256,
++	.public_key_vec = true,
++	.siggen_sigver_test = true,
++	},
++	/* cp256a: Q=-G, z1 = 7, z2 = 6. */
++	{
++	.key =
++	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x83\xdf\x60\x61\x63\x36\x53\xdd\x4e\x1c\xdc\x20\xd2\xb0"
++	"\xd6\xca\x89\xd4\xc0\xba\xa5\xaf\x20\xd8\x25\x63\x67\x1f\x8e\x1b"
++	"\x6e\x72",
++	.key_len = 66,
++	.params = /* OID_gostCPSignA */
++	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
++	"\x07\x01\x01\x02\x02",
++	.param_len = 21,
++	.c =
++	"\x2a\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa"
++	"\x92\x10\x2d\x68\x19\x8f\x22\xd5\x60\xeb\x59\xd6\xf3\xe5\x9e\xc2"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
++	.c_size = 64,
++	.m =
++	"\xc3\x9e\xe5\xf3\xd6\x59\xeb\x60\xd5\x22\x8f\x19\x68\x2d\x10\x92"
++	"\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\x2a",
++	.m_size = 32,
++	.algo = OID_gost2012PKey256,
++	.public_key_vec = true,
++	.siggen_sigver_test = true,
++	},
++	/* cp256a: Q=-2G, z1 = 5, z2 = 2. */
++	{
++	.key =
++	"\x04\x40\x95\xfd\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
++	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
++	"\x91\x8d",
++	.key_len = 66,
++	.params = /* OID_gostCPSignA */
++	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
++	"\x07\x01\x01\x02\x02",
++	.param_len = 21,
++	.c =
++	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xb6\x30\x88\x38\x4c\xad\x68\x80\x22\xc2\x0d\x84\xdb\xb0\xdc\x47"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
++	.c_size = 64,
++	.m =
++	"\x49\xdc\xb0\xdb\x84\x0d\xc2\x22\x80\x68\xad\x4c\x38\x88\x30\xb6"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
++	.m_size = 32,
++	.algo = OID_gost2012PKey256,
++	.public_key_vec = true,
++	.siggen_sigver_test = true,
++	},
++	/* tc512a: Q=G, z1 = 3, z2 = 1. */
++	{
++	.key =
++	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\xa4\xf2\x15\x52\xcb\x89\xa5\x89\xb8\xf5\x35\xc2\x5f"
++	"\xfe\x28\x80\xe9\x41\x3a\x0e\xa5\xe6\x75\x3d\xe9\x36\xd0\x4f\xbe"
++	"\x26\x16\xdf\x21\xa9\xef\xcb\xfd\x64\x80\x77\xc1\xab\xf1\xac\x93"
++	"\x1c\x5e\xce\xe6\x50\x54\xe2\x16\x88\x1b\xa6\xe3\x6a\x83\x7a\xe8"
++	"\xcf\x03\x75",
++	.key_len = 131,
++	.params = /* OID_gostTC26Sign512A */
++	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
++	.param_len = 13,
++	.c =
++	"\xd8\xc0\xd7\xe3\xfb\xa6\xca\xff\x6a\xd1\xb4\xb4\x82\x1d\x15\x6f"
++	"\xa7\xc7\xbd\x63\x95\xb8\x29\x0d\xd4\xfa\xb1\x1c\x36\xbd\x32\x8d"
++	"\x1a\xba\xf1\x2e\xbc\x7b\xf2\x02\x96\xf8\xef\x2a\x5e\x72\x64\x86"
++	"\x67\x62\xfb\x62\x8e\x83\x53\x63\xb7\xe6\x78\x3c\x42\xd7\x0d\x1d"
++	"\xb7\xbf\xb8\x09\x56\xc8\x67\x00\x31\xba\x19\x19\x29\xf6\x4e\x30"
++	"\x1d\x68\x16\x34\x23\x6d\x47\xa6\x0e\x57\x1a\x4b\xed\xc0\xef\x25"
++	"\x74\x52\xef\x78\xb5\xb9\x8d\xbb\x3d\x9f\x31\x29\xd9\x34\x94\x33"
++	"\xce\x2a\x3a\x35\xcb\x51\x9c\x91\xe2\xd6\x33\xd7\xb3\x73\xae\x16",
++	.c_size = 128,
++	.m =
++	"\x5f\x04\x9d\x6b\x69\x7d\xf7\xe7\xcb\x1b\x81\x2f\x76\xfe\x20\xcd"
++	"\x2c\xcc\xd0\x74\x63\xfa\x52\x32\x56\xfb\xd3\x3e\xba\xa5\x93\xb3"
++	"\xd9\x10\x3f\x12\xb4\xe5\xa8\xf1\x59\xb8\x92\xdc\xcb\xe9\x97\xe2"
++	"\xcf\xb1\x09\xd6\xe6\xe6\x45\xce\xff\x98\x37\xa9\xf6\x47\x40\x48",
++	.m_size = 64,
++	.algo = OID_gost2012PKey512,
++	.public_key_vec = true,
++	.siggen_sigver_test = true,
++	},
++	/* tc512a: Q=-G, z1 = 7, z2 = 6. */
++	{
++	.key =
++	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x23\x0b\xea\xad\x34\x76\x5a\x76\x47\x0a\xca\x3d\xa0"
++	"\x01\xd7\x7f\x16\xbe\xc5\xf1\x5a\x19\x8a\xc2\x16\xc9\x2f\xb0\x41"
++	"\xd9\xe9\x20\xde\x56\x10\x34\x02\x9b\x7f\x88\x3e\x54\x0e\x53\x6c"
++	"\xe3\xa1\x31\x19\xaf\xab\x1d\xe9\x77\xe4\x59\x1c\x95\x7c\x85\x17"
++	"\x30\xfc\x8a",
++	.key_len = 131,
++	.params = /* OID_gostTC26Sign512A */
++	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
++	.param_len = 13,
++	.c =
++	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
++	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x37"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
++	.c_size = 128,
++	.m =
++	"\x3a\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
++	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
++	.m_size = 64,
++	.algo = OID_gost2012PKey512,
++	.public_key_vec = true,
++	.siggen_sigver_test = true,
++	},
++	/* tc512a: Q=-2G, z1 = 5, z2 = 2. */
++	{
++	.key =
++	"\x04\x81\x80\x7c\x13\xea\xd2\xd9\xaf\x82\xb9\x1f\xb2\xfd\xe1\x8d"
++	"\xf4\x5b\x37\xe4\xf2\x04\x6a\x2a\x1d\x15\x16\x95\x2a\x5d\x40\xcd"
++	"\xbb\x34\x44\x2f\x2b\x13\x0a\x47\xb0\xf6\xe5\xa5\x58\x3a\xf4\x54"
++	"\x09\xb0\x1d\xf5\x5c\xf1\xbf\x9d\x86\xa5\x97\xab\x96\x29\x62\xfc"
++	"\xdc\x89\x3b\x76\x3d\x50\x6e\x8a\xcf\x02\x4c\x74\x0e\x6e\xe0\x1f"
++	"\x28\xab\x27\x9b\x20\x02\xc8\xc4\x12\xcb\x8a\xe3\xa4\x27\xce\x39"
++	"\x62\xdf\x35\x6d\xc1\x65\x7f\x7b\x48\x90\x11\x8f\x19\x7c\x1e\x67"
++	"\x91\x97\xeb\x90\x85\x25\xfc\x86\xb3\x88\x6e\x5c\x57\x1f\x1d\x1d"
++	"\x3b\xec\x37",
++	.key_len = 131,
++	.params = /* OID_gostTC26Sign512A */
++	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
++	.param_len = 13,
++	.c =
++	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
++	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x33"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
++	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
++	.c_size = 128,
++	.m =
++	"\x39\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
++	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
++	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
++	.m_size = 64,
++	.algo = OID_gost2012PKey512,
++	.public_key_vec = true,
++	.siggen_sigver_test = true,
++	},
+ };
+ 
+ /*
 -- 
-2.56.0.506.g506a7eabc5-goog
+2.53.0
 
