@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794319423;
-	b=Eh7R2cJeJsFzSYd7dG21yoRgD5WyuJlK5ytMXPCEUJVDTMKg25953EkINaMn0TqxiYAG
-	 H1Vf1gizzUQVjizXFQlof1XghxkOYj09zfKcRj+9XdDfOAXvI/30p6iRCoqkKeEKL/+ga
-	 tWaaW1pTpMz/8tBEewC5zCNWNMS6wAjQHpCRSQcj/MsPmKMFE5jf/eLU2iieutY+v7Zmq
-	 Fg1KWIW+LIAdzoo8h2OO25appuPXVd/KK8WliFiGNQJI8HUZaM4aAG9qFaUjuvbDL0NAc
-	 21u341LlPseSo+c5i4NOMzu0q6d4tESZV0/iogruqpADTsPJYOoz0dzKE09tbnpGswg==
+	b=j3aNs53qQ3WVL15SVfnjKTXgWUfCvWMxbEtAae2GHUsHOvx/2PmH1ChmY1QYpzskV3BW
+	 ArhzZQXRkGb4bwwh4UJVMGXseXy/T2wK+vAAPBOH9ljg5QbK53tL1+DSKpnaNfHVJfpg4
+	 negRWEhBeVGhym6ODJt9JYEbSgEd277345hCNX7BJTrmWlbioOrZpeMg6qbnMl1SXIMyP
+	 zOLkQhczEyqSCnTQiDbWZOKK07MjUoNShP4Xn59bLBKn+MYD99uufvn0+kfom9hxo7vV3
+	 vUkitwt+XG/YA+eIeR+1vwGDRcqKBaanLletZa6n9cEAtpJRizh5mZ4Ymy2amAT43yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794319423;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hfYhbbfDp/BxeN1PSKcstpg1wjlp3WC/So3XcJD7BBc=;
-	b=rQtXXwOudN9P3pSCAwmJAUe08hk7AKhuKI0PXywgnRFaz5KY93otQQEXyahclX7QBR48
-	 +wQdz5yI34oEp60YM90iha8YhZLcZtwT0a5OWrqC132xCqJbCWq0lZh2iH4mOTngcnNCg
-	 lkfucGy6YoiUEKzs6a8cGeXRjvPkaIa7uylceetu7tUWQIfH1mddOxRwKNA8vELEJjmQ4
-	 YaPntYz2ZM1WAh5mCbv1zdd5y+l1LF7axl3NBz+Xt+2GCTPUFN6/dAxt2OzWMk+7tVws9
-	 WQcZLv+oIUBBtdMKH7ve9hP3hf6ExPVormiWsSkpen4qTFewH5mPuEc5Em1V7pOohDg==
+	bh=7hOMnB/VbWg/0xXq5zwBqhYcBW9E8nf2GYQFTSGcv2k=;
+	b=IIa/rBgBbehzK9Xithj0G7YJ1BpKMg7Z27mZhtGhFufiTY4xL/m8/OSZ8Xq6VKawVlt5
+	 Yxo5bA2Sfs9N/S6iO1ZJ3zbD1Sz6w5ibXNboW1gimr5MmFUkCMs5cJo9cD1PP3qBiuWOm
+	 /ARzRXuoTIM96Ob3m3LcWFaGNu5tf9C22Z7f7cd8jkcvoslyBnwXiiuaRziaGkhIBIm+f
+	 Sfliiycy7nCL6eAMGvkMPe7DIShtX6wZVddNW/EI81U2LzoQSBgW5KngFaNlw0agB65SB
+	 ApNJnS9jJTHsgNj6duaCxQoUZxZnIq7tGVeRkapsjZ+pOz+D4uv/hHP+XhZ6E5QC4hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L5FM1Ky0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZPVcyn59;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F3560A262D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D6760A2633
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:03:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L5FM1Ky0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314AF1F008A6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZPVcyn59
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F210B1F008A3;
 	Tue, 10 Nov 2026 14:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319422;
-	bh=hfYhbbfDp/BxeN1PSKcstpg1wjlp3WC/So3XcJD7BBc=;
+	s=k20260515; t=1794319423;
+	bh=7hOMnB/VbWg/0xXq5zwBqhYcBW9E8nf2GYQFTSGcv2k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L5FM1Ky02RKYsAvHgM/W4f2vy8++OXcj4kAhsL+gTrCP4020qEiQ218qLwDs8x/j9
-	 T+BN+jJFd4Yy10K9+dpUwK3c134J9iZsfBfGsYWHOhkbRsouCHOZQZdhG1N6tcg3MJ
-	 87uTSiWqwxtxxg72Q86Q9vVndwxVenWgcpQ+AeGNE/uui8q/VUH2CILq31Iz4AsRnV
-	 6o5WH5SECHmE7SPewrwRgCPb4d5/ll16DQcQTlrubJs29z+K/5v5XkGpkm+CgJLq5o
-	 OGUFGKDtdT1gXshC7xtTLEXBU77ULlme5sXIy4OLx7fBpIlvqP3Ma0YUEsushjr/+7
-	 XOETPRPAb275w==
+	b=ZPVcyn59aThPDx+IWrEM7lxOyZbpbL0HRpEk2S+KhvXbNeS/Htn2SElq7Tr4nhMqf
+	 2VUEfkJ28RcXdOZEXB8rbegLRM34wsESUI/+x9BgiDc0P/eQvZMiY2BAUawd9nmQ3W
+	 bEzl38bs1mY4RCJpGoLmXKgPjsLY9n/795cnd9Oc5wc+6ZNH6uonaQJDfDxemUfi4V
+	 3+UrZqMg3GmMDV0BX59roZTHvlCioAflacy2PVOEDPocBSu0/ti9qLrBidJC47BboT
+	 Zelxlxdv1p/8UnNNZTV0S7/28w+glG+sgpbnRjUzXXBGcZk1HX3GoNL4OD++yC1CS9
+	 OlEFKjeRtbtIA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Takashi Iwai <tiwai@suse.de>,
-	WenTao Liang <vulab@iscas.ac.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] ALSA: core: Fix unintuitive behavior of snd_power_ref_and_wait()
-Date: Tue, 10 Nov 2026 09:03:39 -0500
-Message-ID: <20261110140334.1822546-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] ALSA: core: Check shutdown flag at D0 power-state, too
+Date: Tue, 10 Nov 2026 09:03:40 -0500
+Message-ID: <20261110140334.1822546-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110140334.1822546-1-sashal@kernel.org>
 References: <20261107060043-failed-5.15-ad63c5b62843@kernel.org>
@@ -64,68 +63,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit b113a891252c3fa4fab11ec8c2894a22ecaf278c ]
+[ Upstream commit ad63c5b62843895e8c3cd7291ed07cc659df0355 ]
 
-snd_power_ref_and_wait() takes the power refcount and doesn't leave it
-no matter whether it returns an error or not.  However, the majority
-of callers don't expect but just returns without unreferencing in the
-caller side upon errors.
+The snd_power_ref_and_wait() skips the card->shutdown check when the
+card is already in D0 state and immediately returns as successful, by
+assuming the all-green in D0.  This assumption makes the code after
+this sync point behaving as if all power is up and ready, even though
+actually it might have been already at the disconnected state.
 
-For addressing the potential refcount unbalance, rather correct the
-behavior of snd_power_ref_wait() to unreference upon returning an
-error.
+Add the missing check of shutdown flag there for the more consistent
+behavior.
 
-Note that the problem above is likely negligible; the function returns
-an error only when the sound card is being shutdown, hence it doesn't
-matter about the power refcount any longer at such a state.
-
-Fixes: e94fdbd7b25d ("ALSA: control: Track in-flight control read/write/tlv accesses")
-Reported-by: WenTao Liang <vulab@iscas.ac.cn>
-Closes: https://lore.kernel.org/20260612022121.14329-1-vulab@iscas.ac.cn
-Link: https://patch.msgid.link/20260614090507.772540-1-tiwai@suse.de
+Cc: stable@vger.kernel.org
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: ad63c5b62843 ("ALSA: core: Check shutdown flag at D0 power-state, too")
+Link: https://patch.msgid.link/20260929125346.1478631-2-tiwai@suse.de
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/init.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ sound/core/init.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/sound/core/init.c b/sound/core/init.c
-index e9465b31f9fda..0cd775e913bb7 100644
+index 0cd775e913bb7..be04e64490ebc 100644
 --- a/sound/core/init.c
 +++ b/sound/core/init.c
-@@ -1148,7 +1148,7 @@ EXPORT_SYMBOL(snd_card_file_remove);
-  * typically around calling control ops.
-  *
-  * The caller needs to pull down the refcount via snd_power_unref() later
-- * no matter whether the error is returned from this function or not.
-+ * when this function returns 0.
-  *
-  * Return: Zero if successful, or a negative error code.
-  */
-@@ -1161,7 +1161,11 @@ int snd_power_ref_and_wait(struct snd_card *card)
- 		       card->shutdown ||
- 		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
- 		       snd_power_unref(card), snd_power_ref(card));
--	return card->shutdown ? -ENODEV : 0;
-+	if (card->shutdown) {
-+		snd_power_unref(card);
-+		return  -ENODEV;
+@@ -1155,12 +1155,12 @@ EXPORT_SYMBOL(snd_card_file_remove);
+ int snd_power_ref_and_wait(struct snd_card *card)
+ {
+ 	snd_power_ref(card);
+-	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
+-		return 0;
+-	wait_event_cmd(card->power_sleep,
+-		       card->shutdown ||
+-		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
+-		       snd_power_unref(card), snd_power_ref(card));
++	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
++		wait_event_cmd(card->power_sleep,
++			       card->shutdown ||
++			       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
++			       snd_power_unref(card), snd_power_ref(card));
 +	}
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(snd_power_ref_and_wait);
- 
-@@ -1178,7 +1182,8 @@ int snd_power_wait(struct snd_card *card)
- 	int ret;
- 
- 	ret = snd_power_ref_and_wait(card);
--	snd_power_unref(card);
-+	if (!ret)
-+		snd_power_unref(card);
- 	return ret;
- }
- EXPORT_SYMBOL(snd_power_wait);
+ 	if (card->shutdown) {
+ 		snd_power_unref(card);
+ 		return  -ENODEV;
 -- 
 2.53.0
 
