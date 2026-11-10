@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337479;
-	b=5Up721UJPQxeY6z2YZuxFgClv0cFVrKSRu9qdXxDHrcNciGzxX3RRsJTe9EH7XGcr2sE
-	 /pUZAWsDCs3y7J3gI9sFyv3lsj+2PZ5/66ucTl5RDgP1T74D7pmonIPklf99/6la96fUp
-	 sDa3+wZJTXV/2OnC+hyjyTHBGcqGum5HDJLVw2jQktx7r/j7bggN8zjX50yKAZm4dh9u5
-	 KwEENokkviLmCa/0AAynC9XtIArHaYrcjLZiPziXck1nZ1Tq90neSxQ4Dqm4gv+nCy4Or
-	 MFoXnLy4ZjzgToLqSoDQ1Cha/iP1JObiS7pxjSQRCd2adOf32ez+Qn6Gk3IE90nqFnw==
+	t=1794337494;
+	b=n0W1SPdeztL2JQRCzFMZ5VDEuO9LMWYxnrMQLZCexdPnpwUPaTZBRzF0OZX12gBrkIwm
+	 BIqWy0zpdQy9ex+h3vptY6ZDFcUdCEcWQQ7zPSWBqEVcpIVd2ymm8lkUUMDjOeA/aPJUS
+	 BLXqYrZDbfUCa2LdmB40T7f7qwOsfByF3T4S8/E/lbvc5w8WCfcw+veAnuMWMQg3TdQZi
+	 nyOeHCG6zm4kkFZGchnWPKkXN79hKkxsoOG2/FnW5EzsvHI7mgjcaNP1SMdJqEyS6zE0p
+	 pitNJJG7ftYFeWpvkHr2E81c6XtD7Anle6kFlzoaxzQKK5IKw2D3EL3Lz5b078qle+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337479;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
-	b=ShAsv6flfFgoRiuIwECeyj7NLx46d2P6Vm2c+se/XL1Hi3X5NJdo9qbZM2QOviNJYSJq
-	 y7iTY9EOqXXTNaofbgB7rY/v4tncci55SAamzZfwtIn9zKEh62qQA3BRqHy80YsCDxpeX
-	 jCX9m8wVunu5FzQpNY9ScVrMh2d1c26LlWlfV9dLeIF9Y+TLDHqat4QOH2rBpWhoogeXM
-	 EKQc0HiEtbnZNh23o6fLMqQQEpM3fvW3dAiuciePf8Ng06QKZ/UyVRcwAFGkoCMV0t2ah
-	 FfnpJtIYimQfgLsppk9l+gUib9OlFolkkP3xj0KxOkMcC9s6MyQ4aUdjofhs9rdMPmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337494;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Ltk5Cl9nHyL78Vy2SEPkcVeO7MGczi6TaQBW2DvXXK4=;
+	b=RaFg+cds1357MtGvBdYsza/R784rIURDe18FiE1fn/tW9hNXaO7+nRoql0cW0db0m8UO
+	 vf3oISDVMK/Z7jZ7AK0xMGq07bfzok27it5BOtsF9wy8kFcdsnksInKCODkPgnoDRPnjh
+	 Hc+4tXAH937EQWUlE9vnWMdjEn1DiIgEwmmKdmeTKd1X9TJA6Qh1esZaq40lp53Tu3zM/
+	 z3Ov3Lbr3iDYYC20mVRxjJeHqAWPo+4y1eq+eLlJrhzq75pDPPhM7+Ztap/vwIolf/8W2
+	 5PzOkhHPIJloVpeZYXs2PFstnUpb4gc029EWUZNrAQQ2aq8NEPNeWSS8zxFFaX+58PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=JAA4AuHR;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQqr2IuP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1F8C360A2639
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:04:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8C360A2639
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC602606A333
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:04:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=JAA4AuHR
-Received: by dvalin.narfation.org (Postfix) id 52CD41FD16;
-	Tue, 10 Nov 2026 19:04:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794337477;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
-	b=JAA4AuHRlmgDKw/nIjzQZelcMf3ohuHwq+qVPKWqhtKO+nRsEzUjUfr2HqIOGGV55SGw+W
-	FGltyD/Al074Ic3k2ORWBBNbNBj7REeP+0Pkh7fLMa1cEVf6NfkGY8DVrrsd/0Abv8ET3w
-	gxaOffS/zhfk974fO+jdIzb/5ANC6IM=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQqr2IuP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9AFB1F008A1;
+	Tue, 10 Nov 2026 19:04:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794337493;
+	bh=Ltk5Cl9nHyL78Vy2SEPkcVeO7MGczi6TaQBW2DvXXK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JQqr2IuPdfbtU3/s9ICect4nVUrrsbE9JfUKPYgfGsBn9CNtqyHByjOCLDNIBQ46Q
+	 zkwJL/O8bdQCv3wyxZpBDnw6iKgsPU86BMfmwKN1t6Fm10LduOHHIaziFvvx5U7Vs3
+	 6jB+oZu4FhslJmhkEeXIGeYJoxl+yvWxL4HKDkidwRWncBCgTnoCfcklIUWg0nuDQz
+	 KL4t/uKyS+8f7z1/K35PDCFaOtnmMcx2rZAq6Rk6Y06pp3nzhcHr/lAAHl8nNEanKL
+	 z7s2RHLnthrFS373pYC7Mqt3mppbl8xq7WxyWcGMS1j3mrwVECwDE85XQdYuMrhsug
+	 iweuvapb8f+Mg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12.y] batman-adv: tt: ignore ROAM flag of received ADD changes
-Date: Tue, 10 Nov 2026 20:04:34 +0100
-Message-ID: <20261110190434.114342-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200625-failed-6.12-c5d68abe6e7f@kernel.org>
-References: <20261109200625-failed-6.12-c5d68abe6e7f@kernel.org>
+Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
+	Dragan Simic <dsimic@manjaro.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
+Date: Tue, 10 Nov 2026 14:04:50 -0500
+Message-ID: <20261110190256.3444362-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052207-failed-6.12-84d08ff902f1@kernel.org>
+References: <20261107052207-failed-6.12-84d08ff902f1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,67 +64,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit c5d68abe6e7f1dbd132a602cb696fe1fff0389eb upstream.
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-A received TT change (OGM diff or full table response) with the ROAM flag
-but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
+[ Upstream commit 84d08ff902f1ec01177fef1a21a38934927f5aee ]
 
-* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
-  therefore excluded from the global CRC. The sender has it in its local
-  CRC and the receiver has to request the full table again
-* batadv_tt_global_purge_local() removes the local entry of the
-  receiver. The receiver's own client is considered as roamed to the sender
-  and frames for it are rerouted
+Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
+speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
+Rockchip PCIe header.
 
-The ROAM flag only has a meaning together with DEL. Drop it on reception to
-keep it from populating the global table with a temporary ROAMING entry
-which is not part of the CRC - and therefore causing a CRC mismatch.
+The reason is that Shawn Lin from Rockchip has reiterated that there may be
+danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
 
+While Rockchip has done so informally without issuing a proper errata, and
+the particulars are thus unknown, this may cause data loss or worse.
+
+This change is corroborated by RK3399 official datasheet [1], which states
+maximum link speed for this platform is 2.5 GT/s.
+
+[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
+
+Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
+Reported-by: Dragan Simic <dsimic@manjaro.org>
+Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
+Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
+Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Dragan Simic <dsimic@manjaro.org>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
+[ sashal: Adjusted context to preserve existing HIWORD_UPDATE macros instead of upstream HWORD macros. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
+ drivers/pci/controller/pcie-rockchip.h |  3 ---
+ 2 files changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 8397b9edb5aea..96d67ec1a8af9 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -3339,20 +3339,29 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
- {
- 	int i;
- 	int roams;
-+	u8 flags;
+diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
+index c07d7129f1c7c..6a970dc766d4d 100644
+--- a/drivers/pci/controller/pcie-rockchip.c
++++ b/drivers/pci/controller/pcie-rockchip.c
+@@ -66,8 +66,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
+ 	}
  
- 	for (i = 0; i < tt_num_changes; i++) {
--		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
--			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
-+		flags = (tt_change + i)->flags;
-+
-+		if (flags & BATADV_TT_CLIENT_DEL) {
-+			roams = flags & BATADV_TT_CLIENT_ROAM;
- 			batadv_tt_global_del(bat_priv, orig_node,
- 					     (tt_change + i)->addr,
- 					     ntohs((tt_change + i)->vid),
- 					     "tt removed by changes",
- 					     roams);
- 		} else {
-+			/* an announced client cannot have roamed away from
-+			 * orig_node. Only a ROAMING_ADV is allowed to add a
-+			 * global entry with the ROAM flag
-+			 */
-+			flags &= ~BATADV_TT_CLIENT_ROAM;
-+
- 			if (!batadv_tt_global_add(bat_priv, orig_node,
- 						  (tt_change + i)->addr,
- 						  ntohs((tt_change + i)->vid),
--						  (tt_change + i)->flags, ttvn))
-+						  flags, ttvn))
- 				/* In case of problem while storing a
- 				 * global_entry, we stop the updating
- 				 * procedure without committing the
+ 	rockchip->link_gen = of_pci_get_max_link_speed(node);
+-	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
+-		rockchip->link_gen = 2;
++	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
++		rockchip->link_gen = 1;
++		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
++	}
+ 
+ 	rockchip->core_rst = devm_reset_control_get_exclusive(dev, "core");
+ 	if (IS_ERR(rockchip->core_rst)) {
+@@ -237,12 +239,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
+ 		goto err_exit_phy;
+ 	}
+ 
+-	if (rockchip->link_gen == 2)
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
+-				    PCIE_CLIENT_CONFIG);
+-	else
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
+-				    PCIE_CLIENT_CONFIG);
++	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
++			    PCIE_CLIENT_CONFIG);
+ 
+ 	regs = PCIE_CLIENT_LINK_TRAIN_ENABLE | PCIE_CLIENT_ARI_ENABLE |
+ 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
+diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
+index d916fcc8badb8..5629ac4a7439b 100644
+--- a/drivers/pci/controller/pcie-rockchip.h
++++ b/drivers/pci/controller/pcie-rockchip.h
+@@ -37,7 +37,6 @@
+ #define   PCIE_CLIENT_MODE_RC		  HIWORD_UPDATE_BIT(0x0040)
+ #define   PCIE_CLIENT_MODE_EP            HIWORD_UPDATE(0x0040, 0)
+ #define   PCIE_CLIENT_GEN_SEL_1		  HIWORD_UPDATE(0x0080, 0)
+-#define   PCIE_CLIENT_GEN_SEL_2		  HIWORD_UPDATE_BIT(0x0080)
+ #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
+ #define   PCIE_CLIENT_INT_IN_ASSERT		HIWORD_UPDATE_BIT(0x0002)
+ #define   PCIE_CLIENT_INT_IN_DEASSERT		HIWORD_UPDATE(0x0002, 0)
+@@ -183,8 +182,6 @@
+ 	(((x) & PCIE_CLIENT_DEBUG_LTSSM_MASK) == PCIE_CLIENT_DEBUG_LTSSM_L2)
+ #define PCIE_LINK_UP(x) \
+ 	(((x) & PCIE_CLIENT_LINK_STATUS_MASK) == PCIE_CLIENT_LINK_STATUS_UP)
+-#define PCIE_LINK_IS_GEN2(x) \
+-	(((x) & PCIE_CORE_PL_CONF_SPEED_MASK) == PCIE_CORE_PL_CONF_SPEED_5G)
+ 
+ #define RC_REGION_0_ADDR_TRANS_H		0x00000000
+ #define RC_REGION_0_ADDR_TRANS_L		0x00000000
 -- 
-2.47.3
+2.53.0
 
