@@ -1,49 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309608;
-	b=KZawiZ4nLiSUpSnPjv8JOQKJiBGTt5oJMICZqznEtVUMnhI493UOHsta0cONv40jZnLG
-	 ve4vaUbhnbU7zEKJiUP8WWp/VUzsZOK4RsteLwrSbUpCub53p4SuDnz/Uq+/BJfCnNS9x
-	 /maTSCtbP3W3akmnovnlAqsbqrxqjf90g+W3ONjzXLB80VOgG04V3+sAtSy+jW1PB3QMj
-	 GZZyl9OaymsYVJuyayk5Gz+ozxlHn5DfyYF/LUTFpAqswFcO5ZiQHZYu9UvbzzUCYd5Jd
-	 NeFXQWRhE8YhPKremTBnv33ymiORD5tLY61HvhvobFo3MGvTVaJ0GOFGeA3fXlLSTFQ==
+	t=1794309875;
+	b=W+VKP/jYWW1oQ7u+LddBzigh1xLkbiffWWz329yx0xhVxWjBVVNH/uyKAdq9BKe/5YnI
+	 32kfI8UrFTNZ0lEDYj2Bbm/8FyMT3EG/AjIRPsn6e5815cc7MWuXXuIWbp8stiCge2hQm
+	 1js0/bM6xFKPeDPyNbv0t8IkMA3HULVAIeUBrjHilD1A98TZDv15YwmmoT1/Qfy1P5d/I
+	 YSguZLy3LRFF8Fy72QTNFVP7ZT4p/GFd397rc5w9/dL2w12ccDru5sU3vkgaxY/fhTX4W
+	 bY3BJbtFbtuJvA2IaFy/5Bbuof+wO0b6Yr640FD/1FizoM4lKddhyOrruX6SlU1J+rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309608;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=P5LItDkofLGLIRMGwr48t7RGGDVxJcFzQKJIYZivfrQ=;
-	b=R6BsxOgRoPi+2murWnYRe2/AiAOwKf5agIKkqdkhTICmcZVndDbJZXTSE5StC889rwoP
-	 2rMhV4/W7LKW2Qh3IHAqucjgLnNkFEyjbCnBLW7gRQrvYvGh6PJvtcMMM3sA6OCXbCwCj
-	 4auqxz5yTJrrL1wmzwgIpIo0QNP5qw7+wSWGaErwRO0SD8hbKwN084LJZx2ttTSvjdouT
-	 yRbqBiX8bK9n8ldmTKGuyoVqi1pOq2DM+KUgepNccTzOH2WypycvUkd6gqYHptp3cwEGt
-	 waxDHb5IpG3dnWdxUM7fdB6OIJTWtmthdiVwzYDhW4F8cS5QTJAYiXfrty3XZUtYEQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309875;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6ZVwT9JPvcRTq2+d66tI0z/MQ/l0urBNTSlvpkLaL2M=;
+	b=hktNhNb9L1DFZFI2XFQSf36DtgVWFOnWZEH1AnNZ+eXOGroReCMtZFuu4WyZ0UzNrjUU
+	 LyIFRfRXg5XlhoIqhFUor/yVRHwTWuyCYVY0/CDKpkS2sglqJoMiuvaUBE1S6H9aUB7/x
+	 uadOtEEb9MrBNISHUg4lP+AFuvA3wBI3QLz3xX4/AfPIPfRfVnE0kiWR1Qb72hS2Hu8bv
+	 ajuAcxvDfV+Io0gpzBV5kYb4s9NlFkKJd8xh7zBiMORGBjD2SnKJrII8qUfcPlT2H14fF
+	 W36t6nYfTnyip7/A/qfcFv05pdG0KlfTXLmgXifpxxOm51nYFtj4yQHRdwz2oSkamAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRnjS46o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d42QnZwE;
+	arc=none smtp.remote-ip=95.215.58.71
+Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D3C606A31C;
-	Tue, 10 Nov 2026 11:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B19606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B19606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRnjS46o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672D81F0089F;
-	Tue, 10 Nov 2026 11:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794309607;
-	bh=P5LItDkofLGLIRMGwr48t7RGGDVxJcFzQKJIYZivfrQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=TRnjS46osjZE0KcJjgC14/NubVQMO3BVX1nvaJ1wXUzYEXR/sE0661S6Gv0NWphi0
-	 GBqPJkj0MOa7iOKPYD87aT9TWk38oGdaOV5TcPC8FJJ3wk5JVvnjLgJ4SC7vrwXAip
-	 ed8e1qcp4DDbanf8tPaMhfVpyvr8ockrj9RYJDlSlGgAAnbbn+aM5LyBH0Xd3jvDeY
-	 lPp7kXuAtunEeji0cuzR3UFCI4uhYQVF4ldOz9G9kDDQxi7Ptb/jOBxBwsePcaqPmF
-	 JCoWkium5qr9c4IVL1ciFAnWsYePksM/FFGW+0gceD4XS3gkA7hMdm/SaFoTP5TjBh
-	 /JQUiPR1Vt+qg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E073391B17B;
-	Tue, 10 Nov 2026 11:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=d42QnZwE
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jkqaTN7aNaAhIxRpBgAN2fcj9pQU8jMWqyvdyAyPO+g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794309872; v=1; x=1794914672;
+ b=d42QnZwE/WUex9hyCFK+onRk/zm7eIFT8JL5ZzEBQjF6wv/5LUNkcW1452q7+jBGpM/61zy8
+ 2qFjJD3ycPtGdP2Xu80odf+Qi8AJqkOVIRJjw1M7QfoacnfSGPaHXvRiIZR7lhUddg/s8e1KheQ
+ ZcmADtPZGwdbi19tOnzD2V9Q=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 272fed88d5b8e528;
+	Tue, 10 Nov 2026 11:24:32 +0000
+X-Mizu-Trace-ID: 272fed88d5b8e528
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Uladzislau Rezki <urezki@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/9] mm/kmsan: undo the shadow mapping when the origin mapping fails
+Date: Tue, 10 Nov 2026 19:25:38 +0800
+Message-Id: <20261110112546.261415-2-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261110112546.261415-1-hao.ge@linux.dev>
+References: <20261110112546.261415-1-hao.ge@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,47 +86,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v5 0/2] xsk: fix multi-buffer TX software checksum
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179430960617.3882254.727568151015351636.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 11:20:06 +0000
-References: <20261104034809.24545-1-testwrzwrz@gmail.com>
-In-Reply-To: <20261104034809.24545-1-testwrzwrz@gmail.com>
-To: Rongzheng Wang <testwrzwrz@gmail.com>
-Cc: netdev@vger.kernel.org, maciej.fijalkowski@intel.com,
- magnus.karlsson@intel.com, kerneljasonxing@gmail.com, sdf@fomichev.me,
- hawk@kernel.org, stable@vger.kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
 
-Hello:
+kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
+the origin pages. If the second mapping fails, the first one is left
+mapped, and the callers do not roll it back. The next vmap of the
+same metadata range hits the stale PTEs again and fails with a
+WARN_ON() and -EBUSY in vmap_pages_pte_range().
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+Undo the shadow mapping on that error path, the same way
+kmsan_ioremap_page_range() cleans up after a partial failure.
+__vunmap_range_noflush() only clears the PTEs; nothing has touched
+the shadow mapping, so no TLB flush is needed.
 
-On Wed,  4 Nov 2026 11:48:07 +0800 you wrote:
-> This is v5 of the AF_XDP multi-buffer TX software checksum fix.
-> 
-> I found this while testing multi-buffer TX with XDP_UMEM_TX_SW_CSUM: a
-> two-descriptor packet had a bad wire checksum, while a single descriptor
-> was correct. There was no production or syzbot report.
-> 
-> Patch 1 moves the software checksum calculation from xsk_skb_metadata() to
-> the point where the last descriptor has been added to the skb.  The old
-> code calculated the checksum after the first descriptor, so multi-buffer
-> packets only included the first fragment in the checksum.
-> 
-> [...]
+Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ mm/kmsan/shadow.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Here is the summary with links:
-  - [net,v5,1/2] xsk: defer software checksum until the skb is complete
-    https://git.kernel.org/netdev/net/c/f2eddafbfcc0
-  - [net,v5,2/2] selftests/bpf: cover AF_XDP multi-buffer TX software checksum
-    https://git.kernel.org/netdev/net/c/c112921763e7
-
-You are awesome, thank you!
+diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+index 0c88d89bf0d6..2166086d3dc3 100644
+--- a/mm/kmsan/shadow.c
++++ b/mm/kmsan/shadow.c
+@@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
+ 					    o_pages, page_shift);
+ 	kmsan_leave_runtime();
+ 	if (mapped) {
++		/* Undo the shadow mapping set up above. */
++		kmsan_enter_runtime();
++		__vunmap_range_noflush(shadow_start, shadow_end);
++		kmsan_leave_runtime();
+ 		err = mapped;
+ 		goto ret;
+ 	}
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.25.1
 
