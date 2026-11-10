@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315682;
-	b=CKoyAsck7NPndoSJezSZ6dAGh4d67uRDKKX0sinakdZSHo/qLX8bDkWZ1un7kDNtL9Xc
-	 bibLMCluyE5kOGJs7Yiq4Xl2ILrcidRfllGNSlwr2mqHLDRYvfWISKxhfLYB2A+6yiHzc
-	 chaUY1aK5TjuM2ICFhFw2Dji7/epLEh64MezjcBAvjR4m1rOzJLs3tACYaZeQdJsywPcQ
-	 0OrU5+eMkf760AFyiL/xyIeFXVbH7PYEvFwUEo21XqG4qpBZ8AX0sgg5A7IpetpiCxpxD
-	 Awvgntz4cQsJUch+nnlb0ks4SY6L+6e9L736k589B+AGdqDTVV53jfx+It72MwNILYQ==
+	t=1794315707;
+	b=MlJr46PzQo+OYgsLArYyDy3plcPatYhtzREkvHJWJwKEzFVfV/Q4+xjL7b2dWiwcAn6h
+	 mYv1andZQbFxR/ZDr5FWXbZgOlK/SHZ29YBqAeG3TIxFdhBZP0NldP7onuPUwGUhtemZe
+	 IiVqetgAhbzjtMlmzYMKbGo0D1QVQeKYSTxjbbALmMNrAUKZgKrYINvDMSkZR9qeM9QuU
+	 jQ3jjJ0yPeQj4jHbObGhfQAvT29+DiSOyv8oOnHmVNVPFy3Ky6Q1hNp28Y6OUxf7IgV82
+	 iBM7GUOIxfq7UpT4GIkNjfQueF3U3Mn/ClJZwdCXl9wZ1XC5rweZPF1AiPzECHr72Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315707;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qC7XEzhxcf1Bed5jftZCW48CSjeaMJ9VxyFJ+Vl30Z0=;
-	b=JdabDAaIdwoqlVDDR0U0xoFIlRdOfPAHQeaEyLuiVAg/RrHuaHR09kt60btcwCq5JvOm
-	 /oBiIlRTBFwSNXn2dmvJsRcM8Qtnc0Qo6lHPciVWWCNss3pOuPyO9jvAzU9UbbEIZG4Yo
-	 twt9yTAJK6fGTYAuYMuQ2Hp44qi469DKWuBdMRV8L4yej/7iFwDkAjn8gEJxvvub4aXzW
-	 Hq0srixOODU+GQ9n2OCEAoTdddMs02d5JnF9Ug/nq9uEVycrKfPhyMS06JBBZkzYuu/n3
-	 isp2uhfmIfeab/JtOilWeD5J7ZdsP6p/REi8rmBHaIPDMyS5edOnVWu5plcIliw1+1g==
+	bh=xpZJ4PDVOKJCFKkXAvSJaZyb0hzkItV0E7HWgCTch0Q=;
+	b=INDHVixN9Xtr1GSiDU/65sDAOjk+PaL8K4DNRAIKePynfz7LXaJzjM/YDhMi6kmuJs4/
+	 IkFZupJ6T2wTBdYdRMo7dwHlwe5ZmGNecuqZa762GRmTqg1U2RSTJZv/IoLnQO6nZ4M0v
+	 Q6Gz3lCMOTsUOeMDDH1tHxCEti4hXP08hzxS2s3qKTB4PQfGk4MDWtSkfzYCBcfGq+9F+
+	 bgScGgytFDyZIzTRau6tlCkLRHbQmogFDqw9Ca2x7cxsefA4hF+cgTf0mKiPbpEKeC7Lv
+	 h5ZyiMAoTWtKZOjKhA0q7NWYIO4J+MNbCSuK9F9X8s9aAUs1lwHWJsfepiitxHwgjig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXeyGYdL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHF8Kh87;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431CC606A7C0
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:01:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD78606A7D6
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:01:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXeyGYdL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FB971F008A3;
-	Tue, 10 Nov 2026 13:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHF8Kh87
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB2701F0089F;
+	Tue, 10 Nov 2026 13:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315682;
-	bh=qC7XEzhxcf1Bed5jftZCW48CSjeaMJ9VxyFJ+Vl30Z0=;
+	s=k20260515; t=1794315707;
+	bh=xpZJ4PDVOKJCFKkXAvSJaZyb0hzkItV0E7HWgCTch0Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AXeyGYdL3zMZ7TJ4yiir1dW3ORUE38H7cV1BXC4+eidmosVN8U6YELcfUwGoLFP7D
-	 68IReBxTJvXHQR+U9pLBxO8QcS03Dna9miYuXRRfCb++U3xViBxHRv4SXjKYZdlOfv
-	 ESL0I6xDnAPQbru8bL0o7bJ1Ol7RSS0GzmfhvqBr619B0L5NyhL2iOcX4AaOmgCWoy
-	 ZGvrHxcT2CCI9rCWjdmA0rRI/aTVuKm/30rBBGkrgZc3id0+4KUVzpR8houbWJwJJD
-	 oVj8kEhskOnwquEXlaqnl0gP6YI6OuJK1IYMP1+kmBGi+j/NjYMv6/R0fuG23aQaPJ
-	 ht+uANAVoGUdQ==
+	b=KHF8Kh87ev7D0rsO/a2KSRrDkeGikQoh+jlF+ZDJBdipe7fBEcsYfOIyQKhHIRLmC
+	 DYmc/gHQ3NkNeGc+ymHTb8fZAIeypv3Rhojk22i28aGHm1oHXp8Ke4Rh7WgivhJhiq
+	 j7fqRP1yL5iHWH0MDNvm7doEN4rAilCZ89d71b5tXFtXp/rsxWz+u6JMYjG4PKFa4I
+	 xWEEDJAYty3hF80NF3DgUcPUzdiw3iMxEn1/xsPHCZJLtjGgFw1uu25hGVpSfQDxCN
+	 zFQpp22VxicjzmqQb/zZjuuw9KQN2pMDv01aruXgRirBElHLqnMAzJ/075k4I7VBbr
+	 X3XXEhSwfZJVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: ene_ir: Ensure teardown is done in the correct order
-Date: Tue, 10 Nov 2026 08:01:20 -0500
-Message-ID: <20261110130057.1564818-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] crypto: algif_skcipher - rewind rounded output bytes
+Date: Tue, 10 Nov 2026 08:01:45 -0500
+Message-ID: <20261110130122.1545220-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051729-failed-6.12-ae6cfbad7ca3@kernel.org>
-References: <20261107051729-failed-6.12-ae6cfbad7ca3@kernel.org>
+In-Reply-To: <20261107060252-failed-5.15-2f90facc7b94@kernel.org>
+References: <20261107060252-failed-5.15-2f90facc7b94@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +61,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Daehyeon Ko <4ncienth@gmail.com>
 
-[ Upstream commit ae6cfbad7ca346b78f4cdac38438bbfaed8c18a0 ]
+[ Upstream commit 2f90facc7b94934653eb7ebfadcc25d503b89196 ]
 
-The timer can be re-armed from the irq, so ensure that the timers are
-deleted after the irq and that we only free the rc device once we are
-sure that the irq has been silenced.
+af_alg_get_rsgl() advances the receive iterator by the unrounded RX
+scatterlist length.  For a continuing skcipher request,
+_skcipher_recvmsg() then rounds its local length down to a whole chunksize
+without restoring the iterator.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+A later chunk starts after bytes which the provider never wrote, while the
+syscall returns only the processed length.  When copy_splice_read()
+supplies non-zeroed pages and publishes that return as a dense prefix, the
+gap exposes stale bytes from a previous page lifetime.
+
+With unprivileged xts(aes), a 31-byte MSG_MORE request followed by one
+final byte advances a 47-byte destination while returning 32 bytes.  A
+hardened v7.2-rc5 image retained all 15 seeded stale bytes in 4,829 of
+4,829 records.  With init_on_alloc enabled, all 72,345 gap bytes observed
+were zero.
+
+Rewind the iterator by the tail excluded during rounding, before rejecting
+a zero processed length.  The crypto request uses only the rounded length;
+af_alg_free_resources() releases the entire RX list before another receive
+iteration.
+
+The fixed target-like kernel returned byte-identical dense 48-byte output
+in 4,771 of 4,771 rounds.  The unmodified kernel returned the vulnerable
+32-byte short record in 2,409 of 2,409 rounds.
+
+Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sean Young <sean@mess.org>
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: Adjusted the removal hunk to match del_timer_sync() instead of timer_delete_sync(). ]
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ sashal: adapted the rounding block to code lacking the upstream zero-length check and CRYPTO_SKCIPHER_REQ_NOTFINAL flag ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/ene_ir.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ crypto/algif_skcipher.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
-index 3fd51a41c3b2b..70e28bd4bdb93 100644
---- a/drivers/media/rc/ene_ir.c
-+++ b/drivers/media/rc/ene_ir.c
-@@ -1103,15 +1103,15 @@ static void ene_remove(struct pnp_dev *pnp_dev)
- 	unsigned long flags;
+diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
+index 6a1a71284fe82..c037c3969e9d6 100644
+--- a/crypto/algif_skcipher.c
++++ b/crypto/algif_skcipher.c
+@@ -82,8 +82,17 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	 * If more buffers are to be expected to be processed, process only
+ 	 * full block size buffers.
+ 	 */
+-	if (ctx->more || len < ctx->used)
+-		len -= len % bs;
++	if (ctx->more || len < ctx->used) {
++		size_t excess = len % bs;
++
++		len -= excess;
++		iov_iter_revert(&msg->msg_iter, excess);
++
++		if (!len) {
++			err = -EINVAL;
++			goto free;
++		}
++	}
  
- 	rc_unregister_device(dev->rdev);
--	del_timer_sync(&dev->tx_sim_timer);
- 	spin_lock_irqsave(&dev->hw_lock, flags);
- 	ene_rx_disable(dev);
- 	ene_rx_restore_hw_buffer(dev);
- 	spin_unlock_irqrestore(&dev->hw_lock, flags);
- 
--	rc_free_device(dev->rdev);
- 	free_irq(dev->irq, dev);
-+	timer_delete_sync(&dev->tx_sim_timer);
- 	release_region(dev->hw_io, ENE_IO_SIZE);
-+	rc_free_device(dev->rdev);
- 	kfree(dev);
- }
- 
+ 	/*
+ 	 * Create a per request TX SGL for this request which tracks the
 -- 
 2.53.0
 
