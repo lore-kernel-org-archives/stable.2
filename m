@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313627;
-	b=2fN/zP0Ag+4Evir9pZTnbyAojm+QzeHs31rgBOstX2brg/rQUnXZo07ZtxQaOKiLPgJn
-	 ip4mj0zrofl9+GTsPwrjYKdOJkv6wwyPxcjzCVDm74IuZmDjRqi5BUWgVZzeFT+9K6eEk
-	 gEAYVRS0uQgqrbsWDUAjQtwKuS8XDdOv0CCkkonW41hi8dbbTwH5B+eyL/ivKFDmTx9NE
-	 h+U+hpmixVpP+r9POz48aUiGWN+0wZbjI36p5z/JEN9KfLFIx3JuhLpfQ+7aZAFbrp8jU
-	 M0r0kJJyBAuqelZwhoo2vKB1dSWp+Kf7RXK85NDuiXIWOFE/v1bKecZWXn7ec5/l0DA==
+	t=1794313663;
+	b=Spn917EDLychHOE2VSKI/gT2He7kT8JkQSHK06rpwl+CCA6D27e1wVG1kUoeoYWHYz68
+	 sTsINnZODH7cyJwELESdsJpgMrWdtTwczq3IP0evciF5/RRfHNZ6eJ+1+hNVJfE4fb1AH
+	 c3Mb0jj2dIE5NTtSRGr+jGEjYAWBU5JVPHAFuZV+in+9442od8YLTezXqJgg3bt/HA+39
+	 XYXUTubXpKenSBiZ3WRvl8lecio3iHEBU0aivWy97aHOT84R3mHgMI5XFEI20GrvlARqu
+	 +A6NKKEgaSvs0y7nExacLQxEtYk0y3mueTv141mY/XxjJaE7irPQiB2hEq63xAdcklw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313627;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313663;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7TZjTcMEF76p3QWqNy49WkN9iKi1DS6tfpVO23ZQ7UE=;
-	b=vgNpwtXi7Eier1OdzCby4hBkKQQC6NMvxWf4C0HVAQk95AZ8ax2F5IksnCvu2A2B/wNq
-	 2L/L12J1HRboaUQ1RC/R9b+uh+NdhopycKY7ZD/Ysl/1nStaQ0e/7JOw0inIK0fTtYATG
-	 BhMARfaHHHZJqHGW7i0e4yhQPlDW7iJOossNVPxw1p873yZABnWaqUD0hdpOqW3HfXrK+
-	 6t/LG3PFwrx7cLy6G0tXJHTbvzHmLAgTnKjI3GYdfDlw/6wdqveS8d0nx2Qec2qAbx1im
-	 sSLM68Ieo2fRY91OMob750SCCow72jdlWQ3PFrXEOFzJssXh9cp+1+RmetLgNulhdDw==
+	bh=DLXNd+GsLuXv98OnBbwkj0DI81//n5Lysl4qs6dM56U=;
+	b=Mz1ZRrEPwJ90Fo/QHOeOdidKjdRqov//kTMQSzZFFfDPaoRR5P9uXbPpFPQarcku7+7/
+	 zm1kSFMJ+h/K1OuEpC2upw27fJe6ZlH7xStrpOKMNiHm5RNfzB3M+D72+zjqBdRXIlkDK
+	 iSPcKNhtQoqds1iJaqObxYF1YUJ7KZIKu+lzIM5i0wTuiwfI+lkOmkGlS0KK9WX7JLe+o
+	 Vu5fRsR1XPtLlBYMgki+9hFFJfTCtclvA2LS98Jj2+vp4o67rGbIOD1VM3plohd5wrFsc
+	 dZ/NBqdMCVxIaqEAyricyfaJOw5NXohpObtzDcJc6rSiYeWX6OK6tUQL9YgHSBUDW1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZ9PZRrf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oECG883b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE47606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16214606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:27:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZ9PZRrf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A2911F008A2;
-	Tue, 10 Nov 2026 12:27:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oECG883b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664851F0089F;
+	Tue, 10 Nov 2026 12:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313627;
-	bh=7TZjTcMEF76p3QWqNy49WkN9iKi1DS6tfpVO23ZQ7UE=;
+	s=k20260515; t=1794313662;
+	bh=DLXNd+GsLuXv98OnBbwkj0DI81//n5Lysl4qs6dM56U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KZ9PZRrfIx4VEqfTcSEd4UJuhzTP4hc9GlcPotRlTLICB2KB5AIWwH/kvzHr3qTBk
-	 tx0wxNJY1iVbUE1T+uHNAhZVKidUztTv6Fty4F7W/bGRoOwbh3+vBYRF1qmj5rFlNb
-	 aLmxPlAL5R+rXr0KI9bhr1o0di+pv6HGliUbwBJjysm8pLFVM4KGKLaLtmx6IQxUDY
-	 1p5Pthq947vAc6+/M5HlmVmd8b8KowbsDbljUMTnphDOjRCCRANNseE5g7+L3KMI8L
-	 lSGexHC5IPXDLJ2sDb8T1sC2QnOqvb7cRNEEL1YRgi8W+5cd3RPfZEq4DhdyKFpBVI
-	 DLLcFY4TgrhKw==
+	b=oECG883bat1CwNw4Al+xgk7Yjf7MPjVaJs2TeYDzwQoLbIAD14R3dtrrJe4LOtyTP
+	 9s16xXWWZz/UcFhKTOg54co96gy8lK5wzPViDGqj6jiD4sh6MoxMV9EoHEW/p0wFtc
+	 PxNaznfqSrjxSIpzLqTJ6MPqGn77e0ZfYOXlasv9tMXO0kQDwqyNNUyqUielvbz2Qq
+	 g5/gSfbS5pfHLT8HZyWexuZgwW+XXOmmYlXxm0YUoMZmikxNQRi1QzaDRTU0AwOfPE
+	 0JkgQicXhmuC8dCiuGQd1s4GiDwxeVpBkqZRzXWs44fdRVygztfhejD19b2EQ3C4q9
+	 mhQrmJ4/fBzrw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] ALSA: usb-audio: Protect Roland control activation
-Date: Tue, 10 Nov 2026 07:27:04 -0500
-Message-ID: <20261110122659.1155489-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] ASoC: codecs: wcd9335: Simplify with dev_err_probe
+Date: Tue, 10 Nov 2026 07:27:40 -0500
+Message-ID: <20261110122732.1208057-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110122659.1155489-1-sashal@kernel.org>
-References: <20261107050341-failed-7.3-19b42c1fff7f@kernel.org>
- <20261110122659.1155489-1-sashal@kernel.org>
+In-Reply-To: <20261107060034-failed-5.15-082723fee626@kernel.org>
+References: <20261107060034-failed-5.15-082723fee626@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,107 +61,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
-[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
+[ Upstream commit 67380533d450000699848e292d20ec18d0321f0e ]
 
-The USB MIDI driver changes the Roland MIDI Input Mode control's access
-flags directly from the rawmidi open and close paths.  These changes are
-not protected by the ALSA control core and the corresponding notifications
-can race with control access.
+Code can be a bit simpler with dev_err_probe().
 
-Use snd_ctl_activate_id() so that the control core updates the access flags
-and sends the notification under its lock.  Release the USB MIDI mutex
-before calling it because the control write path holds controls_rwsem while
-roland_load_put() takes the USB MIDI mutex.
-
-Keep the state transition and alternate-setting change under the USB MIDI
-mutex; rawmidi's open mutex serializes the enclosing open and close paths.
-
-Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Link: https://lore.kernel.org/r/20230417141453.919158-1-krzysztof.kozlowski@linaro.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 082723fee626 ("ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
- 1 file changed, 27 insertions(+), 26 deletions(-)
+ sound/soc/codecs/wcd9335.c | 27 +++++++++++----------------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 353217b3629b7..1099e5b814113 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			  int open)
- {
- 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
--	struct snd_kcontrol *ctl;
-+	struct snd_ctl_elem_id ctl_id;
-+	bool activate_ctl = false;
-+	bool active;
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 4170d8dc3e89f..24c3d1c28a294 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -5130,20 +5130,17 @@ static int wcd9335_irq_init(struct wcd9335_codec *wcd)
+ 	 * INTR2 is a subset of first interrupt sources MAD, VBAT, and SVA
+ 	 */
+ 	wcd->intr1 = of_irq_get_byname(wcd->dev->of_node, "intr1");
+-	if (wcd->intr1 < 0) {
+-		if (wcd->intr1 != -EPROBE_DEFER)
+-			dev_err(wcd->dev, "Unable to configure IRQ\n");
+-
+-		return wcd->intr1;
+-	}
++	if (wcd->intr1 < 0)
++		return dev_err_probe(wcd->dev, wcd->intr1,
++				     "Unable to configure IRQ\n");
  
- 	guard(rwsem_read)(&umidi->disc_rwsem);
- 	if (umidi->disconnected)
- 		return open ? -ENODEV : 0;
+ 	ret = devm_regmap_add_irq_chip(wcd->dev, wcd->regmap, wcd->intr1,
+ 				 IRQF_TRIGGER_HIGH, 0,
+ 				 &wcd9335_regmap_irq1_chip, &wcd->irq_data);
+ 	if (ret)
+-		dev_err(wcd->dev, "Failed to register IRQ chip: %d\n", ret);
++		return dev_err_probe(wcd->dev, ret, "Failed to register IRQ chip\n");
  
--	guard(mutex)(&umidi->mutex);
--	if (open) {
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access |=
--					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
--				update_roland_altsetting(umidi);
-+	scoped_guard(mutex, &umidi->mutex) {
-+		if (open) {
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = false;
-+					update_roland_altsetting(umidi);
-+				}
- 			}
--		}
--		umidi->opened[dir]++;
--		if (umidi->opened[1])
--			snd_usbmidi_input_start(&umidi->list);
--	} else {
--		umidi->opened[dir]--;
--		if (!umidi->opened[1] && !umidi->keep_input_running)
--			snd_usbmidi_input_stop(&umidi->list);
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access &=
--					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
-+			umidi->opened[dir]++;
-+			if (umidi->opened[1])
-+				snd_usbmidi_input_start(&umidi->list);
-+		} else {
-+			umidi->opened[dir]--;
-+			if (!umidi->opened[1] && !umidi->keep_input_running)
-+				snd_usbmidi_input_stop(&umidi->list);
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = true;
-+				}
- 			}
- 		}
- 	}
-+	if (activate_ctl)
-+		snd_ctl_activate_id(umidi->card, &ctl_id, active);
- 	return 0;
+-	return ret;
++	return 0;
  }
  
+ static int wcd9335_slim_probe(struct slim_device *slim)
+@@ -5211,17 +5208,15 @@ static int wcd9335_slim_status(struct slim_device *sdev,
+ 	slim_get_logical_addr(wcd->slim_ifc_dev);
+ 
+ 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
+-	if (IS_ERR(wcd->regmap)) {
+-		dev_err(dev, "Failed to allocate slim register map\n");
+-		return PTR_ERR(wcd->regmap);
+-	}
++	if (IS_ERR(wcd->regmap))
++		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
++				     "Failed to allocate slim register map\n");
+ 
+ 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
+ 						  &wcd9335_ifc_regmap_config);
+-	if (IS_ERR(wcd->if_regmap)) {
+-		dev_err(dev, "Failed to allocate ifc register map\n");
+-		return PTR_ERR(wcd->if_regmap);
+-	}
++	if (IS_ERR(wcd->if_regmap))
++		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
++				     "Failed to allocate ifc register map\n");
+ 
+ 	ret = wcd9335_bring_up(wcd);
+ 	if (ret) {
 -- 
 2.53.0
 
