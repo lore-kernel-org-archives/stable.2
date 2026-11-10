@@ -1,72 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300727;
-	b=pQZfNIj8TjcLjDiJT7tIusGhDUkj3r3TglObQzvpBEuT1LuA/AGIS8cG0ZpCyQZFLpSw
-	 sKJllmndltjJga/7GtkMHM3VdMuiGpmyPU7XV/VN9G0rPxJbXfm0FkClL8jGWPTCx4ym4
-	 Q9CuvJexxkQUvkVqYTE0j//Ze3Pr2xwodcCEBaYgJXRntN+enEivh64pO4b+inrfGUnBa
-	 WK4nnf70NJoFO9tKuFvP2j9KIF61slQrHAZxfcVvPbyCBklFbZcKeO5KmNwe8GE1CtiHV
-	 QvbEVGQ5Qd5ySimrpooSEu/Muwsjh8TKo7HH2CERkQUZ1JskLe35OEokFlrfghIVMig==
+	t=1794300860;
+	b=iaZiJx99ltdixwx8mPGGfLSWOGnwmZheNPXc5Ddc/iXhVEM3gFZnHFky2qu2D3+Pi70+
+	 aRNZ3njGEzqeQrCWuonT1LveIWwrHiBbpkeOY5tJP747ic0JCvDVCP/wzfznKEx2H2gtx
+	 y5USfdJ67kWXur9DujnU7gnYVYhksYSQQ43t753ixr3a3r70b/XQGuutx4rLSsK8LkV61
+	 VuZussz3RN4IdGvIWKEaNNuu8Grw3LE5Ch3memZ+3pXWc6AiRkevkw2KMuohor+TF1wO0
+	 zYhpMs9WExWJPK5wKiS/C2JJEgH830cmDK6K0CPPz+FkcZL/A2lcrM1yyMQk3RYYAaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300727;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=d5D9gpQbjcvMZ67GL0qNxbnaUW9mk3vSJgCblRAk37o=;
-	b=pFZZZiWSCDxBHUUX5faLphPgcoO7HBAlZqGthCIXZ9Prr/ENL/27FMpJCQPD4/tXqwkC
-	 WKlkzaczG9G8RZ8/mWgM485N2ULeAO4TNU1lnaqXj1mFaH0aogWAp0kw2j2K3wImfzH27
-	 yLoMJVCKMyItlrIgxJb/EcydNwSwi/1DENqbTHB1ERUGWLKu7QMxd6hVWPrCpnwFHh45z
-	 S6zVkicYheQxP4k4R6Tkco5HIbrzu9rOyuuoaDN+td0MJFJSC8BTT0S/tOQ27rJQAmcoy
-	 RIVfh7eZURhlWTo57bG+d4VFUKaydAPBfdnV+2WifxtE1W2RowLRboMawHq96Xxv7rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300860;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ggNk5U9ggfmA3f998rJ3qvt5tEr1LMQJ1Vt5cQlunjk=;
+	b=UH34kIWFwaz41vlW5qwx8dANbzCoFvrdmIs7apMM4PjlkkYbYwqy+pDKf2+BkqnpVK+/
+	 fGtrmK+OO20Hdodb+FmZeNWu0Xj3ZvT1OKc3h+C8HVBpyqUQlUVTSuYjJve0cHr9Tm7t0
+	 pXUurt68T/sMhJd+upTR0ilv8gfNG4k92thhcfEAboiIRVJ1Q8oDbq8b6ENuNZMQaPLq5
+	 8Jvcl99spiGKdhZ4lnabUQX0J+dR/qejr1MFXaphlzUCynlGJCACj+5KpVv0uypAaxL9M
+	 h0jsSvZXF6OFHzho38iIxi2gjHEYaf89/gArphpAE4Hq90ZN2PiY2RJBs+iREG6rVvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSLeLu0O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGLPB3eP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E923606A335;
-	Tue, 10 Nov 2026 08:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 57870606A31C;
+	Tue, 10 Nov 2026 08:54:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSLeLu0O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EA71F008AB;
-	Tue, 10 Nov 2026 08:52:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FGLPB3eP
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B38F21F0089F;
+	Tue, 10 Nov 2026 08:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794300726;
-	bh=d5D9gpQbjcvMZ67GL0qNxbnaUW9mk3vSJgCblRAk37o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cSLeLu0OaYIf7z1JFrvxmM5DcaB2YxeXeyQe6q07WYjBpwmbzFwoER4QX9Kta9Rs6
-	 pfy5Idc5rE//MhueULqcB6/+AgXgZnS80L0XHJLkd30mTuEqi8BrLCAO57yq2CjraH
-	 20ycrfdGfXldAgwPmyY9n0BU9696COZ+H1/YT/Wcohc04W1/bkb4si03msJatM2UGz
-	 o7m4p6xkvM62Ynd25tEgBDfFXge5uMbpJRXQmqKiUkS/Ft81jx7WbzOvnEfL2tP8x3
-	 aF5ZZajRnEnhbDqbC3MbUGU08xHM317t7krG7PCVLR/RTFMgUt2cXnYZdEgTrVPOEd
-	 A5PDPI/OqAi0g==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xQhaG-0000000Adc8-089A;
-	Tue, 10 Nov 2026 09:52:04 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>
-Subject: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client deregistration
-Date: Tue, 10 Nov 2026 09:51:18 +0100
-Message-ID: <20261110085125.2535508-3-johan@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110085125.2535508-1-johan@kernel.org>
-References: <20261110085125.2535508-1-johan@kernel.org>
+	s=k20260515; t=1794300859;
+	bh=ggNk5U9ggfmA3f998rJ3qvt5tEr1LMQJ1Vt5cQlunjk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FGLPB3ePZ5J3tTWm+3ArMy/T20VTut0oj/NYSEZwJm0RoBXcknY9aKiNcYwkx6KUw
+	 eM2YT0yUEhLILXHkZIo9KqVD4P9uFS1GvOxsA+fz5ByeNW30o3dAU7Zbi9pifE7j6K
+	 0kYTyAkE2KKbRU61stIsWaoVM3WF3CojI48VgwB15/70c/nIkuY1LDCjrFwyTrE3/D
+	 SUR7w/slvklK5dxm0LaUl9XVQG3G3ctw4PBaZWvumMG6PmEOfdJfVXJtnymg+bewX5
+	 L4C6Ck/vFC2rzwZu1Cq5hTLF1YXBJepDsII8kLkuud8oRmuJmHSJt1WF962C9Kc/j7
+	 U4KH+Dd0aZ1Zg==
+Date: Tue, 10 Nov 2026 09:54:11 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, Kent Gibson <warthog618@gmail.com>, 
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] gpiolib: don't overwrite the entire flags field
+ in gpiod_free_commit()
+Message-ID: <gw26q2blrbmmxwzv7vfjxwc5bzqzfgt57zs7bvt2kdx7x6a6qk@6i5z3a3crqft>
+References: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
+ <20261109-gpio-desc-flags-atomic-v2-4-c4c54b476628@oss.qualcomm.com>
+ <avJAv_3ACjvyc9VU@ashevche-desk.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,59 +61,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avJAv_3ACjvyc9VU@ashevche-desk.local>
 
-If a client has both a primary and a secondary firmware node, the
-secondary node is accessed via the ->secondary pointer of the primary
-node.
+On Mon, Nov 09, 2026 at 11:53:03PM +0200, Andy Shevchenko wrote:
+> On Mon, Nov 09, 2026 at 11:27:08AM +0100, Bartosz Golaszewski wrote:
+> > Use gpiod_update_flags() to clear all request-related flags in one go
+> > instead of risking racing with concurrent users and overwriting any
+> > changes they could have done between READ_ONCE() and WRITE_ONCE().
+> 
+> ...
+> 
+> >  #include <linux/acpi.h>
+> >  #include <linux/array_size.h>
+> >  #include <linux/bitmap.h>
+> > +#include <linux/bitops.h>
+> >  #include <linux/cleanup.h>
+> >  #include <linux/compat.h>
+> >  #include <linux/debugfs.h>
+> 
+> No need, bitmap API implies all bitops.
+>
 
-Use a temporary variable to track whether the firmware node is a
-software node and remove any software node before dropping its reference
-to avoid a use-after-free in device_remove_software_node() when
-accessing the secondary firmware node.
+I honestly have no idea what the policy is on "proxy" headers. In some
+cases people advise against them, in others they say to include them.
 
-Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct device")
-Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregister_device()")
-Cc: stable@vger.kernel.org	# 6.16
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/i2c/i2c-core-base.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+Is this documented anywhere?
 
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index 81603317b64d..c55ca14eaad9 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -1056,6 +1056,7 @@ EXPORT_SYMBOL_GPL(i2c_new_client_device);
- void i2c_unregister_device(struct i2c_client *client)
- {
- 	struct fwnode_handle *fwnode;
-+	bool fwnode_is_software_node;
- 
- 	if (IS_ERR_OR_NULL(client))
- 		return;
-@@ -1066,14 +1067,14 @@ void i2c_unregister_device(struct i2c_client *client)
- 	else if (is_acpi_device_node(fwnode))
- 		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
- 
-+	fwnode_is_software_node = is_software_node(fwnode);
-+	device_remove_software_node(&client->dev);
- 	/*
--	 * If the primary fwnode is a software node it is free-ed by
--	 * device_remove_software_node() below, avoid double-free.
-+	 * If the firmware node is a software node, its reference count
-+	 * was decremented by device_remove_software_node().
- 	 */
--	if (!is_software_node(fwnode))
-+	if (!fwnode_is_software_node)
- 		fwnode_handle_put(fwnode);
--
--	device_remove_software_node(&client->dev);
- 	device_unregister(&client->dev);
- }
- EXPORT_SYMBOL_GPL(i2c_unregister_device);
--- 
-2.56.0
+> > +		set_mask_bits(&desc->flags,
+> > +				   BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> > +				   BIT(GPIOD_FLAG_REQUESTED) |
+> > +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> > +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> > +				   BIT(GPIOD_FLAG_PULL_UP) |
+> > +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> > +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
+> > +				   BIT(GPIOD_FLAG_EDGE_RISING) |
+> > +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
+> > +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
+> > +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE) |
+> > +				   BIT(GPIOD_FLAG_IS_HOGGED), 0);
+> 
+> Indentation is broken (and it has spaces, which makes me totally confused what
+> the point of those spaces in the first place?).
+>
 
+Yep, and sashiko has some nits too. I'll need a v3.
+
+Bart
