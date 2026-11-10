@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272519;
-	b=vLLdL9hPemr+GIl5+8r8/iJjjWbD3PM/RL8bc3QegmoF224vq+Rn9HOSJOAu18r0t98f
-	 eHVC82P2wkLFSeCVVSO0Nhr6SJkjktkgeFkAMaNuhUWiaiUJApTI1OAOc5vGcAanehE2A
-	 f+GNB5qkyt3aHBpdVAHnkZrtN2KuPsgEnDwZTdmhJAf59H5lBtzI1Jdrju8KrZs8Zsrja
-	 K4OxCJFCvCpOCD50HMXub1lnq4Qh0AAKnUGvXHK5Yb92X5Fg9OZWYMcCLaAf+22nBPqaW
-	 6PJ0n6EX+wk144JWsbaHHfL+zs2IQeCYvrcxF4FbynXjKPN/oc43myPyOKcBSMa/6FA==
+	t=1794272521;
+	b=JUvO/vaSlOCCXBFVlZK7v2B1VPtuOGHK7rrxKdbZa9DsjS0kQX4HkpJ9DyyhueLNdYAF
+	 IEayVsUijUcthY1+9P62EhOq/w88atGpG1dT/4+Xyol2DwzhB0oyP3dSWGo/LFV+xhp+X
+	 OKPPbF6G5/wafX8Ycr55ZxxUpU/6YxUGzdia29tL9MZ6RmiM2USuMnMjk0aVxmx/pcP21
+	 Bl2uuucwGpWwFsgC8Lmsd+9WIXJLinl/Cwm1b03kGSckNuU+znjjwlxmHgQ8nsjnA0fuv
+	 EemDMA2h2sEwSq39e7mjcjXKqpg23od3BtGUo/ORvp9n41vn9uBU06FrGTnnqDLzUiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272521;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xgTqXdXy8RXmz+hNRMQHYULiBPfyMWBUs3BE+iCjwus=;
-	b=zakHufSQYIUJHMop9Gy6g1Xwwh3UPddNCaKj+5aKrBxWTN4QWbjWZjXkwQK4aTBpkABe
-	 PpXqcEU6ujK7Xnd39Xhuc8YCKDgR7Unem7eMSub72c2oujIXm5UHyucBlRhuVbnRNJriz
-	 hzdoR+Sbb46cLyDgvDBrpa3CZKXNoujwK0o5jVJqhbIkd7ST3N0ZCW5AQUw1rWMuIg4/7
-	 ImNBAX1Jl6OwuYpyfpFegADNJq2lHE0Yak1zOhaT7e+6lzL6MRc+tOXZZ23jIIN96BLCl
-	 FiETqUqmIM8CypDhmqGmBRuNtFBRb5SJ9oQa17TeTYhWgGEPCi0bf102xraac9Spniw==
+	bh=XNI5+TkYTyusGsYyU8rUpjqHYUYWb4H1ncanQ2yIE2g=;
+	b=fWRiJ7er6GEGQd112Z8yGLdeF404ieO/eF08c/zi3LhIKzx4oMz2L6mSH+Heu15abpiW
+	 84+4Olydl/RhUw8Mqmr8nmobYx7Za9acRZJAhy58Tp4Knihbx137xJOvuh4TAUgKBUrud
+	 4YWOZ3aNgXS2Qsanp9ICOiaof/4mmElOqvf0RtOXfjyLIb4G+/I9tHRL68c5KLSTU2ofX
+	 vYZ37AUkWvJ5h7exnHSMsLdu/tl9x6l49X0xxydGGHCxf6APIdWypZgnXH4wp4vq5f0nK
+	 syeFGicYrGzhWEW3OcxGTW46EQ4poARyA9D7jAKzfNmzfVyBF/w7qAK4O6t7ySDY8Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ydb8EjsF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nr63/Zho";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17C3606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101F7606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ydb8EjsF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9131F0089F;
-	Tue, 10 Nov 2026 01:01:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nr63/Zho
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FCD1F0089F;
+	Tue, 10 Nov 2026 01:02:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272518;
-	bh=xgTqXdXy8RXmz+hNRMQHYULiBPfyMWBUs3BE+iCjwus=;
+	s=k20260515; t=1794272520;
+	bh=XNI5+TkYTyusGsYyU8rUpjqHYUYWb4H1ncanQ2yIE2g=;
 	h=From:To:Cc:Subject:Date;
-	b=Ydb8EjsFqY2MtzZ1/XqpLOK54XwTIcSYhzanPwLCcD1nwZssKA5V3nbXTTyy5suka
-	 /EzY+KZyz2EilOxXPlH8+i0oshgrgaY62gjMf4ZHaQdV/SzRCNhWW5CPcoddWcg2ub
-	 zSMaUtrfkhM8SyNCJN7W167cj0Ruvr6CUrBltPf1fZFg9h+lb05Znqr1Qcfiq69cig
-	 Q1T3R050aqvLvsPTqDnYx5OjpmFdZXbUT/EcHQRowFyXw5oyJFM2OxCQzX5eVF9Ej3
-	 hoBIBBQHI1UgdQhtrZN+tio3dUSPyFPApZf1GrWRdI/t3X+N+fcnz8y+KamVoJY8oE
-	 9qNTyt2W07Ahg==
+	b=Nr63/ZhoeJet+4ByUBZ6WBljnmc3r+kvhoD3/0aL+B2TIZrVYVaSKjZ3mW37dxL/R
+	 LPrpwxy0Fjq+9wyloSXFGT/SzmO2gjLkamUvCnw5B4K48BWwMfTlulUod9SdUWOqfD
+	 h8wNOBDjrs3Xj2J1y0Lo/cwoqZhiBEjbNhIFxOPgL/TdRguigDgEKZZfvwYJAdZZmB
+	 JGtFjhO1LcXYECw+PyHAgoClFHb1HUkIWoBwM80pclj+gqPV4UOkzkaZIdeKUsIbzn
+	 VXZMFSin0l0Ifx+PAvefWTcXmZFo9f87CZ6Ar2B2AXmjCiwBL5Qnvj06/HVyeiiUSd
+	 9H5qfjxHwL6Ig==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	gourry@gourry.net,
-	rppt@kernel.org,
-	ljs@kernel.org,
-	usama.anjum@arm.com
+To: amir73il@gmail.com,
+	edvard@tuta.io
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake waiters when registration modes are removed" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:01:56 -0500
-Message-ID: <20261109200156-failed-7.3-4eee9c389b07@kernel.org>
+Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:59 -0500
+Message-ID: <20261109200159-failed-7.3-9ff338af0e00@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,102 +68,190 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4eee9c389b072e161549d46dcb1ae10b0222717e
+git cherry-pick -x 9ff338af0e002fe217cfa16b1289b76f6b21fc72
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200156-failed-7.3-4eee9c389b07@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200159-failed-7.3-9ff338af0e00@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4eee9c389b072e161549d46dcb1ae10b0222717e Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:54 +0100
-Subject: [PATCH] mm/userfaultfd: wake waiters when registration modes are
- removed
+From 9ff338af0e002fe217cfa16b1289b76f6b21fc72 Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 30 Oct 2026 18:07:02 +0100
+Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers
 
-UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-faults that are already queued. For example, switching an anonymous
-range from MISSING to WP leaves a missing-fault waiter asleep until
-userspace explicitly wakes it.
+Listing a merged or impure overlay directory opens the real layer
+directories from ovl_dir_read(), when the readdir cache is filled.
+Those opens use plain ovl_path_open(), so when the directory fd is
+one that fanotify created for a permission event, they can still raise
+FS_OPEN_PERM.  A listener that also marks the backing filesystem and
+calls getdents() on the event fd before answering then deadlocks the
+same way as with the directory open fixed by the previous commit.
 
-When a registration change removes a UFFD mode, wake waiters in the
-affected interval after updating the VMA. The VMA is write-locked at
-this point, so no new faults can queue under the old modes and woken
-threads cannot retry until mmap_write_unlock(). Waiters for retained
-modes in the same interval may also wake and refault.
+Store the overlay user file in struct ovl_readdir_data and pass it to
+ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
+the impure cache.  Internal readers such as ovl_check_empty_dir() and
+the mount-time workdir cleanup still pass no user file.
 
-The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-with both read and unread fault events.
+A note about severity and real world impact: The FAN_OPEN_PERM event is
+traditionally used by anti-malware protection agents and security/audit
+agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
+and agents typically monitor multiple mounts in a mount namespace.
+FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
+It is often not the case that anti-malware agents monitor open of
+directories. Security/audit engines are more likely to opt-into
+FAN_OPEN_PERM on directories, but are less likely to list the content
+of a directory within the scope of FAN_OPEN_PERM event, so the real
+world impact of this bug is likely not significant.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Reported-by: Edvard Conrad <edvard@tuta.io>
+Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
 Cc: stable@vger.kernel.org
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+Co-developed-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- mm/userfaultfd.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ fs/overlayfs/readdir.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index be630674fda9b..03f1b15bfe63e 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2270,6 +2270,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
- 	return ret;
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 5d21a328fad46..4cd4af097e5c1 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -43,6 +43,7 @@ struct ovl_dir_cache {
+ 
+ struct ovl_readdir_data {
+ 	struct dir_context ctx;
++	const struct file *user_file;
+ 	struct dentry *dentry;
+ 	bool is_lowest;
+ 	struct rb_root *root;
+@@ -377,7 +378,8 @@ static inline int ovl_dir_read(const struct path *realpath,
+ 	struct file *realfile;
+ 	int err;
+ 
+-	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
++	realfile = ovl_path_open_realfile(rdd->user_file, realpath,
++					  O_RDONLY | O_LARGEFILE);
+ 	if (IS_ERR(realfile))
+ 		return PTR_ERR(realfile);
+ 
+@@ -421,13 +423,14 @@ static void ovl_dir_reset(struct file *file)
  }
  
-+static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-+		unsigned long start, unsigned long end);
-+
- /* Assumes mmap write lock taken, and mm_struct pinned. */
- static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 			       struct vm_area_struct *vma,
-@@ -2287,6 +2290,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		prev = vma;
- 
- 	for_each_vma_range(vmi, vma, end) {
-+		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+
- 		cond_resched();
- 
- 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
-@@ -2332,6 +2337,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 */
- 		userfaultfd_set_ctx(vma, ctx, vm_flags);
- 
-+		/* Retry faults for removed modes while the VMA is write-locked. */
-+		if (any_mode_removed)
-+			wake_userfault_range(ctx, start, vma_end);
-+
- 		if (vma_is_hugetlb(vma) && uffd_disable_huge_pmd_share(vma))
- 			hugetlb_unshare_all_pmds(vma);
- 
-@@ -3648,6 +3657,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
- 		__wake_userfault(ctx, range);
- }
- 
-+static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-+		unsigned long start, unsigned long end)
-+{
-+	struct userfaultfd_wake_range range = {
-+		.start = start,
-+		.len = end - start,
-+	};
-+
-+	wake_userfault(ctx, &range);
-+}
-+
- static __always_inline int validate_unaligned_range(
- 	struct mm_struct *mm, __u64 start, __u64 len)
+ static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
+-	struct rb_root *root)
++	struct rb_root *root, const struct file *user_file)
  {
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_merge,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.dentry = dentry,
+ 		.list = list,
+ 		.root = root,
+@@ -498,9 +501,10 @@ static struct ovl_dir_cache *ovl_dir_cache_check(struct inode *inode,
+ 	return cache;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
++static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
+ {
+ 	int res;
++	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_dir_cache *cache;
+ 	struct inode *inode = d_inode(dentry);
+ 
+@@ -521,7 +525,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
+ 	INIT_LIST_HEAD(&cache->entries);
+ 	cache->root = RB_ROOT;
+ 
+-	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
++	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -665,8 +669,8 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
+ 	return true;
+ }
+ 
+-static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++static int ovl_dir_read_impure(const struct path *path, struct list_head *list,
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+@@ -674,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -710,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	const struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+@@ -731,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	cache->is_refcounted = false;
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -852,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
+ 	}
+@@ -866,14 +872,13 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ static int ovl_iterate_merged(struct file *file, struct dir_context *ctx)
+ {
+ 	struct ovl_dir_file *od = file->private_data;
+-	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_cache_entry *p;
+ 	int err;
+ 
+ 	if (!od->cache) {
+ 		struct ovl_dir_cache *cache;
+ 
+-		cache = ovl_cache_get(dentry);
++		cache = ovl_dir_cache_get(file);
+ 		if (IS_ERR(cache))
+ 			return PTR_ERR(cache);
+ 
+@@ -1120,7 +1125,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+ 	struct rb_root root = RB_ROOT;
+ 
+ 	with_ovl_creds(dentry->d_sb)
+-		err = ovl_dir_read_merged(dentry, list, &root);
++		err = ovl_dir_read_merged(dentry, list, &root, NULL);
+ 	if (err)
+ 		return err;
+ 
 -- 
 2.53.0
 
