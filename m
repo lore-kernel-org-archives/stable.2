@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794288635;
-	b=b3v8nfI+VHrlMJMCKiYQWi4szbkyC1sDAHP4NllMCQ4Zlj5IVlPsvPyVV3UAURAGiRUU
-	 o5xO/1ErzgHZQPEUH48TEhEyrxZgrPpMw7HDWC9GDbwDDJh7qjOb68bwYh1iQdoydqe8O
-	 lQ3GmBaYtj7t7p61G2a/3y0YqeUFyeWS1hWi1pXQMGEzLhWXuG9kr+/YWwq3PKDXYDf5s
-	 0s1BUjEBXgHcuvjZ3NMaA9YMzUNxwrYBeP+VdAsrBThRMlZFO7r3ad5jUTgEQahSmjmFr
-	 wOQ1FqrTwPOdu+KHgcPdOggjWh/VAzXfzyc8vGJ201QNcEke9N7Kvgi/ZXvx/hyEJtg==
+	t=1794288827;
+	b=MWyCUTWFdzfjfmjAW/dp5jl5Zk5sKCPyXloNvVAw3NBEypl/F8slDqTPSzI2/i/MeZRw
+	 PMD0cU5WiIQbCu3uw6kW+A2nweJ2FyQG+rZphKzBbjIhOUDW2ENqtSsrQM3C/PSyK2Yar
+	 tt+4i46X5Mrc+VrB2il+zoNM4XbOhdRO6xL3AV+XBFSp5jxHNnJwkoen4fBrszjGnbjWd
+	 xYccT5w7n+no8m5lxg1wwVAUCdb7A+ijUhC5rYS6n2jSx0ZDVCcQFA5LmeogDed12RK2D
+	 6UNqHLaP/ZYY8VKql1qA5UnwXIrrktYA8S0mghLO058waKQ0F5fAJ/N6776VtLEqOtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794288635;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dWgR6lOz/XTwUVVxX4Pdzk4k934e6eKpxRu+zRVJnNk=;
-	b=YBaVWKxEVClgo8KIpGk1CfZH6nxOBblYaHHpVsX32VDTbE5KYswqcLwwPP27ZHrb53Ry
-	 ASrVOIoNoI/BaLxNZ/Qm7CJq/RKajZFY6X1vAjEejgLZErgLlH1fbnKYsN1uxoTct2KEH
-	 m2mwbLTtK2S7zFWB2w9QMbrQUQ7DhR+upGcc/vv60Mm4VlSJMWMgu6OuLsSfO7SCFpLth
-	 lGZzNZ8X+xqJp2ZpXcQcuwSnJf2aaTTgFrZQIOXah2GTDK9G7Yr4KSL7gK0fUFroPxRZ+
-	 nqk0DeOFXbkjOCY4xVxr/cfNpMC0EIstOW+MP35kBGSuISLozynit+pVg7GzhDTHEFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794288827;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=SXPCCLeu6bOfAQfnDnfqA2Y+labC//B5Rc3/aEJwvGM=;
+	b=eGEFUrC8SmzLmXsKIE9grwBJCFqb2cB334/IPOfLoCcro9vMv3UuztfIdSN4ZThLLMpu
+	 Ye3dyE8AmHqAC9SEF5tXYvG3F4U3zKk2OXNZ0sloDSrRIBOXoe2MuPAcMOgoY7q6MbOe+
+	 wD6wjYOMdqsA26oZIsiNkegxn+xbTFWluiU37irACEFxoXHRnfiCLmnzIIAlRhOv64gMx
+	 n0FaCE+7Oonvl43VvxjtEc2NSchcDS5cdMzupXajzuzQ6hpWHuqOt5r2i7UNkEwXN1kDG
+	 uPd/XapBcd6hbGnoJcZkNPW+GxRlLVMPLEieMGGr+CyfIeilL1RaPVk/eCKAd1Kxc9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czQmSpMM;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="uOM/Az8v";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5419E606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:30:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422CA606A33C;
+	Tue, 10 Nov 2026 05:33:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czQmSpMM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E121F0089F;
-	Tue, 10 Nov 2026 05:30:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794288634;
-	bh=dWgR6lOz/XTwUVVxX4Pdzk4k934e6eKpxRu+zRVJnNk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=czQmSpMM//IsX5aC/BEqvRZ6L0Zrw564s6Glm80REoMXBVV4lqvDxXkukoqZlUE65
-	 d9KHPIGJtdmhybb/n9eaJDv5Z3Ao/syqHYE8nv0HB9EeYLbVfS/X2PcendUPmf5hBJ
-	 1yu1c5NWsdvDdj+1Kvaq/SqAvh3b10f2M0EUtVullwkHIdl5zhkIhm1lOMlVOGVunb
-	 XuK3CEa2nWwuigxkS+XoOmOrTkJRXt0yv17A6XKWSVUqEq82xhg7XmR2QRS+3Et1Z+
-	 XSiXTjImhJzOaqP1do2yamMpYH9O+pAotGdNst/+HVJTK4QoS4G2lU/+K1BZEQashs
-	 9+VFrtHPnDJUQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] media: microchip-isc: don't sleep in the clk .is_enabled callback
-Date: Tue, 10 Nov 2026 00:30:32 -0500
-Message-ID: <20261110053016.450069-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054129-failed-6.1-61490ff518c7@kernel.org>
-References: <20261107054129-failed-6.1-61490ff518c7@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uOM/Az8v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2FC1F0089F;
+	Tue, 10 Nov 2026 05:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794288827;
+	bh=SXPCCLeu6bOfAQfnDnfqA2Y+labC//B5Rc3/aEJwvGM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=uOM/Az8vhUo8huEn5CCDDJ70WdmUBJJ1YNghwS13hD0Y8+g+G2waPjZMqo8NhCj/w
+	 AOs+nfkM+xpY9/lfMgpCqJUdqNPORQ6LEeJv8Boz+AiZJBPYMlRJBl187b4wFAY2FC
+	 Ql21XDDvgZOT3dimGKlEf+J695tQr83bXe9b6/Vg=
+Date: Mon, 9 Nov 2026 21:33:46 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Akinobu Mita <akinobu.mita@gmail.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] fault-inject: fix boot failure with fault injection
+ boot parameters
+Message-Id: <20261109213346.634e83b158ee7086e64f9cd5@linux-foundation.org>
+In-Reply-To: <20261105160209.1504867-1-ekffu200098@gmail.com>
+References: <20261105160209.1504867-1-ekffu200098@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,57 +56,158 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+On Fri,  6 Nov 2026 01:01:58 +0900 Sang-Heon Jeon <ekffu200098@gmail.com> wrote:
 
-[ Upstream commit 61490ff518c7b3ea3ff1cd16bbc012e9e4f1ab74 ]
+> Since commit e9bc360b105c ("fault-inject: use prandom where
+> cryptographically secure randomness is not needed"), setup_fault_attr()
+> calls prandom_init_once(), which calls kmalloc() and schedule_work().
+> 
+> But setup_fault_attr() can be called from __setup handlers before slab
+> and workqueues are initialized, so any fault injection boot parameter
+> leads to boot failure.
+> 
+> So use DO_ONCE_LITE() instead.
 
-isc_clk_is_enabled() calls pm_runtime_resume_and_get() and
-pm_runtime_put_sync(), which can sleep and are not safe here, as
-.is_enabled must run in atomic context. clk_disable_unused() calls it so
-at boot, and CONFIG_DEBUG_ATOMIC_SLEEP reports a "sleeping function
-called from invalid context" BUG.
+thanks.  I'm surprised that command-line fault-injection options (or at
+least failslab) have been broken for 1.5 years.
 
-Use the atomic-safe pm_runtime_get_if_active() and pm_runtime_put()
-instead. A suspended ISC has its clocks gated, so report the clock
-disabled when the device is not already active.
+And what's going on in that code?  Why does it need to call
+prandom_init_once() from three different sites?
 
-Fixes: 01192aa1c5c2 ("media: atmel-isc: Enable the clocks during probe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: Added true as the second argument to pm_runtime_get_if_active() to match the older API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+I discussed it with LLM for a while and it proposed the below.  But I
+ran out of time to think about this.  The code seems to need a
+signficant rethink so I suppose a quick bandaid as you suggest is good
+enough for now :(
+
+
+
+
+
+Could we use a shared initialization helper instead?
+
+There are three prandom_init_once() expansions in fault-inject.c.
+Each has its own guard, so configuring another interface can reseed
+the same state after fault injection has started.
+
+DO_ONCE_LITE() avoids the allocation and workqueue dependency, but
+doesn't serialize concurrent initialization or wait for another caller
+to finish seeding.
+
+The patch below keeps prandom_seed_full_state() and gives all three
+configuration paths one lock and one completion flag. The three calls
+remain because each interface can independently enable injection.
+Moving initialization to an initcall would leave boot-parameter users
+able to inject faults before the initcall runs.
+
+An ordinary spinlock is sufficient: these are configuration paths, not
+the interrupt-time random-number generation path. It also preserves
+the lock type used by DO_ONCE(), allowing the RNG's ordinary locks on
+PREEMPT_RT. No raw spinlock or explicit interrupt disabling is needed.
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Date: Thu, 5 Nov 2026 10:01:33 -0800
+Subject: [PATCH] fault-inject: initialize random state once without workqueues
+
+Fault-injection boot parameters call setup_fault_attr() before slab
+and workqueues are initialized. Its prandom_init_once() call expands
+to DO_ONCE(), whose static-key disabling path allocates memory and
+schedules work. A valid boot parameter can therefore crash the kernel
+before boot completes, even when its probability is zero.
+
+The debugfs and configfs setup paths have separate prandom_init_once()
+expansions. Their independent guards also allow the shared random
+state to be seeded again after another interface has enabled fault
+injection.
+
+Replace the three expansions with calls to a shared helper. Serialize
+initialization with an ordinary spinlock and set the completion flag
+only after prandom_seed_full_state() has finished. This retains the
+existing seeding algorithm without allocating memory or scheduling
+work to disable a static key.
+
+The lock protects configuration-time initialization, which is not
+called from interrupt handlers. Use an ordinary spinlock rather than
+a raw spinlock because the RNG acquires ordinary locks that can sleep
+on PREEMPT_RT.
+
+Fixes: e9bc360b105c ("fault-inject: use prandom where cryptographically secure randomness is not needed")
+Reported-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Akinobu Mita <akinobu.mita@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/media/platform/atmel/atmel-isc-clk.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Prepared against c2366a2edc886a5a02d2a43de8b1c6ec09bab840.
+Source inspection only; this replacement has not been built or
+boot-tested.
 
-diff --git a/drivers/media/platform/atmel/atmel-isc-clk.c b/drivers/media/platform/atmel/atmel-isc-clk.c
-index 2059fe376b00e..54065c2cf1817 100644
---- a/drivers/media/platform/atmel/atmel-isc-clk.c
-+++ b/drivers/media/platform/atmel/atmel-isc-clk.c
-@@ -98,15 +98,14 @@ static int isc_clk_is_enabled(struct clk_hw *hw)
+ lib/fault-inject.c | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/lib/fault-inject.c b/lib/fault-inject.c
+--- a/lib/fault-inject.c
++++ b/lib/fault-inject.c
+@@ -12,6 +12,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/stacktrace.h>
+ #include <linux/fault-inject.h>
++#include <linux/spinlock.h>
+ 
+ /*
+  * The should_fail() functions use prandom instead of the normal Linux RNG
+@@ -19,6 +20,24 @@
+  */
+ static DEFINE_PER_CPU(struct rnd_state, fault_rnd_state);
+ 
++static void fault_random_init(void)
++{
++	static DEFINE_SPINLOCK(lock);
++	static bool initialized;
++
++	/*
++	 * Configuration paths must finish seeding before enabling injection,
++	 * and must not reseed state already in use by another interface.
++	 * These callers are not interrupt handlers. An ordinary lock allows
++	 * the RNG's sleeping locks on PREEMPT_RT.
++	 */
++	spin_lock(&lock);
++	if (!initialized) {
++		prandom_seed_full_state(&fault_rnd_state);
++		initialized = true;
++	}
++	spin_unlock(&lock);
++}
++
+ static u32 fault_prandom_u32_below_100(void)
  {
- 	struct isc_clk *isc_clk = to_isc_clk(hw);
- 	u32 status;
--	int ret;
- 
--	ret = pm_runtime_resume_and_get(isc_clk->dev);
--	if (ret < 0)
-+	/* Runs in atomic context, so must not sleep to resume the ISC. */
-+	if (pm_runtime_get_if_active(isc_clk->dev, true) <= 0)
+ 	struct rnd_state *state;
+@@ -50,7 +69,7 @@
  		return 0;
+ 	}
  
- 	regmap_read(isc_clk->regmap, ISC_CLKSR, &status);
+-	prandom_init_once(&fault_rnd_state);
++	fault_random_init();
  
--	pm_runtime_put_sync(isc_clk->dev);
-+	pm_runtime_put(isc_clk->dev);
+ 	attr->probability = probability;
+ 	attr->interval = interval;
+@@ -240,7 +259,7 @@
+ 	if (IS_ERR(dir))
+ 		return dir;
  
- 	return status & ISC_CLK(isc_clk->id) ? 1 : 0;
+-	prandom_init_once(&fault_rnd_state);
++	fault_random_init();
+ 
+ 	debugfs_create_ul("probability", mode, dir, &attr->probability);
+ 	debugfs_create_ul("interval", mode, dir, &attr->interval);
+@@ -456,7 +475,7 @@
+ 
+ void fault_config_init(struct fault_config *config, const char *name)
+ {
+-	prandom_init_once(&fault_rnd_state);
++	fault_random_init();
+ 
+ 	config_group_init_type_name(&config->group, name, &fault_config_type);
  }
--- 
-2.53.0
-
