@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351524;
-	b=Gk6U4dERNaDl6JT5e/SHVsE+NAF40uCuaPLf6na1kHsyTx9/fEOWFe4tR9Hw1PyKf0o2
-	 XCGsK3TfMgdC070YxfuX9D0agOy246CSVZyQxZfn/BmS93gxu7Kduy2Fj28VT7jTj+QgJ
-	 rY4X6iDL+qCjRb2UL6QwuKUNgrj77K/gelsLRMsc4HStoJo18Ha+0qUp0R7ChX0+UbQFV
-	 MVBZath3CjqMfPmWMxz/TvFNiJNBl73zW3IDFVFpMVgIfT7dOYKZSd9tHwTL++bIzOVFw
-	 Ifv1iIWzLGpLZE4937rXtog2WT80XXrPGTzF1zZbInAizqJzu9HCtv1rtNfFqN73WyQ==
+	t=1794351597;
+	b=Xq+KDUUgglNQ+vbX5xsnbku61+ebnYDK0iAP2tZYmCJUYTwCLeuc38r1IGYlB6O72MQW
+	 fAhyff8QCf5sE1isPJ81PFB4rE85Sz/j0qQ9Iv9UYOWSq+0I9zbC91x38vo/emnrM3L9j
+	 ka5L4V+va8jj1gvvKSTMFihCuacsL3WRgIlzT/fASaV57wAkbvE0qnYS0h9MQF7bmcGho
+	 yJPe0exdnPeYfibMMBjjOLuqfFBmLgeOQUA/Yshs0yq3excaCirHOTlyy/CWIFnbUJsYQ
+	 crXNfl6AQeVrKQOIyy3894yPmDELJMYVmRM8KJIjQG0CbQLQVqpIHuDVgz70PEpUqTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351524;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351597;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=p/IRGbv8AcBRuUrQFi+8SUoLHQw1n+w0YTfAH+Y92nc=;
-	b=m87py3adcF+MLcDXqVCW/3SJqloSCE2RloPLS9vzX6GbfaUazysnk4Alsp2+HDQAvv0g
-	 vfoEF3dxjhjYgp9dvTsbAjzTNIIXXc4ZIKVNAOJI21tSWYVcKgkP7yV7E8TbHEz8miD94
-	 nSU9Tokdz8IOk32mkzf8kVcB931CDP3dS53hTXZ/A/igYSV+3eVMKBSVSF1Xv8NWXddg1
-	 hUQTFNYp1K+g5vZtQyt4Va7Y9/OLdwsTa57AVEuJOArdrpjDY1S0YfQVMbuRMsM8g//GA
-	 T5WLPXk0j+kLvh68LW82/FwsLP0luGr3Ke2Mqb4r7QN9boEuavheNSZjw41XYqGLWIw==
+	bh=bFIpRPx2YZGBGUB7lpvwu3PR8rwLsePjl+Y2HF5Tgp0=;
+	b=1nI8L8ZDGkJZplxn/XW6Evxo/zh9dhNj4iBINi7uhtZE7uxtYj6VHbMRY227UBLQopxr
+	 vA+Qqrv3Kx/rysxpuwoe3MAfliXIlLQ+qKMwn1RbYV3rSp5I6GX8LJeEbemvWxEFsGOd4
+	 iajoVk4pIvoWZqAgDZ+Skbr00pUABxkVdanSuRNORHAvRrIS1oY4lfpbjpBi0rHV2bDVU
+	 O3zvOHg+Of8GnKKA0DkstmKADy+2K5AlJ1nHbIGt9En4gwieFYWQFuW6hhyZnVoYCZqxy
+	 yndND+UVWxKErLIT0TnO99MyY0U8xTxuIhLcOwopzfXkkLHxjMO+G+xtxmc6loPnrEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPsSEnBL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bs3ewZ+v;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDD3606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:58:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7644B606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:59:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPsSEnBL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3DB1F0093C;
-	Tue, 10 Nov 2026 22:58:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bs3ewZ+v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A531F0093C;
+	Tue, 10 Nov 2026 22:59:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794351523;
-	bh=p/IRGbv8AcBRuUrQFi+8SUoLHQw1n+w0YTfAH+Y92nc=;
+	s=k20260515; t=1794351597;
+	bh=bFIpRPx2YZGBGUB7lpvwu3PR8rwLsePjl+Y2HF5Tgp0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LPsSEnBLqVQyWUgaswgFYG4qn4llkrtDEjAcqxDEJZz1DS8KfNxglxieUXdXx9snB
-	 MP1yK/MjIii9z7bVOVZO32RB1yzJ8KzdvSccwagh1ULBvoxNAPh6h4t1oP5FMt1k6o
-	 PcVGpBF3dBSZl48pIWBe/mKL4W/PgxCQVCk4FyNPNCJeEHsLoVRyBCrzeB7i9rEZtH
-	 ZEPE/nkoBN017dcGGyIoGHKwG2f6h2cl9hNVcOS8HLLM20o0hilES6g9QEFe+hKgXw
-	 LnMhT0YlEgRmSrPrT/bFvzPY39LTtQZYDJjVoJAh95Cvo+kfDbLRS65j8msy5dOjt0
-	 psGL7gGMZ+Imw==
+	b=bs3ewZ+vb2gZEPEjHAIm0RHvIO0b+25N6FAerZ+uSAT8FNsK1SYgBEOPezjGJC/3r
+	 6ECvdB/VJfoiVRg6mpycstloZ36ATKXG2yUhhZPwX7g7IAER6aLa0PY80lsnTkFYXj
+	 8CwJBlR/w6fqxlyCxZoeRduvrtsyJsrPwIO3qYhZQk70hxwxW6fWVM9phpAWcfJ+1p
+	 htjMXu2ztl4HXJEsvkt1GyyyzrxTlCVA2hq3+rlIZ1XYv+QGX9dTiluQ6kbH+r++mh
+	 NkPr7ptH9DdvNB28zoF9/KLpjj9oe2F6OK4K3mUSmD81wS7fsSb+Lo4rM3z0p/l7Ij
+	 SYY5DDEepeVcA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Lee Jones <lee@kernel.org>,
+Cc: Xiang Mei <xmei5@asu.edu>,
+	co+ecaada42f806f629@bugs.sh,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] leds: ktd2692: Pass context to regulator cleanup
-Date: Tue, 10 Nov 2026 17:58:41 -0500
-Message-ID: <20261110225821.11051-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ceph: fix integer overflow in the snap trace bounds check
+Date: Tue, 10 Nov 2026 17:59:55 -0500
+Message-ID: <20261110225923.4141850-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054227-failed-6.1-c73e9f04445f@kernel.org>
-References: <20261107054227-failed-6.1-c73e9f04445f@kernel.org>
+In-Reply-To: <20261107061207-failed-5.15-b3bf89767e3c@kernel.org>
+References: <20261107061207-failed-5.15-b3bf89767e3c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,85 +63,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Xiang Mei <xmei5@asu.edu>
 
-[ Upstream commit c73e9f04445f361d5f19ca2edfde742ce18348ef ]
+[ Upstream commit b3bf89767e3ca9506f1c7167cac97c41ec254d42 ]
 
-regulator_disable_action() retrieves the driver context from device
-driver data.  However, ktd2692_parse_dt() registers the action before
-ktd2692_probe() stores the context with platform_set_drvdata().
+ceph_update_snap_trace() bounds the two encoded snapid arrays that follow a
+struct ceph_mds_snap_realm with sizeof(u64) * (num_snaps +
+num_prior_parent_snaps).  Both counts come straight off the wire as __le32,
+so the addition is evaluated in unsigned int and wraps before sizeof(u64)
+promotes it to size_t: an MDS sending num_snaps = 1 and
+num_prior_parent_snaps = 0xffffffff makes the sum zero and the check
+degenerates to ceph_decode_need(&p, e, 0, bad), which always passes.
+dup_array() then reads num_snaps * 8 bytes past the end of the message
+front, which ceph_msg_new2() allocates at exactly front_len bytes.  An
+unsolicited CEPH_MSG_CLIENT_SNAP reaches this from a malicious or
+compromised MDS with no client-side action, as do the snaptraces carried in
+an MDS reply and in a cap import.
 
-If devm_add_action_or_reset() cannot allocate the action, it invokes the
-callback immediately.  A later probe failure also invokes it during
-managed-resource unwinding.  Both paths dereference a NULL context.
+Compute the length with size_add()/size_mul() so it saturates at SIZE_MAX
+instead of wrapping, in the style fs/ceph/mdsmap.c already uses for
+num_export_targets.
 
-Pass the already allocated context directly to the action and retain the
-device pointer in it for error reporting.  The context is allocated before
-the action is registered, so reverse-order devres unwinding keeps it alive
-through the callback.
+  BUG: KASAN: slab-out-of-bounds in dup_array (include/linux/unaligned.h:28 fs/ceph/snap.c:500)
+  Read of size 8 at addr ffff8880102a16c8 by task kworker/1:2/129
+  Workqueue: ceph-msgr ceph_con_workfn
+  Call Trace:
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   dup_array (include/linux/unaligned.h:28 fs/ceph/snap.c:500)
+   ceph_update_snap_trace (fs/ceph/snap.c:836)
+   ceph_handle_snap (fs/ceph/snap.c:1155)
+   mds_dispatch (fs/ceph/mds_client.c:7234)
+   ceph_con_process_message (net/ceph/messenger.c:1424)
+   ceph_con_v1_try_read (net/ceph/messenger_v1.c:1430)
+   ceph_con_workfn (net/ceph/messenger.c:1576)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  ...
+  The buggy address is located 0 bytes to the right of
+   allocated 72-byte region [ffff8880102a1680, ffff8880102a16c8)
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: ee78b9360e14 ("leds: ktd2692: Fix an error handling path")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260910194525.99654-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
-[ sashal: adjusted context to account for missing ExpressWire properties and timing initialization ]
+Fixes: 963b61eb041e ("ceph: snapshot management")
+Reported-by: co+ecaada42f806f629@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ sashal: Adjusted snaps_len declaration placement to account for missing client and ret declarations. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/leds/flash/leds-ktd2692.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ fs/ceph/snap.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/leds/flash/leds-ktd2692.c b/drivers/leds/flash/leds-ktd2692.c
-index 670f3bf2e9062..b54220658f969 100644
---- a/drivers/leds/flash/leds-ktd2692.c
-+++ b/drivers/leds/flash/leds-ktd2692.c
-@@ -72,6 +72,8 @@ struct ktd2692_led_config_data {
- };
- 
- struct ktd2692_context {
-+	struct device *dev;
-+
- 	/* Related LED Flash class device */
- 	struct led_classdev_flash fled_cdev;
- 
-@@ -258,13 +260,12 @@ static void ktd2692_setup(struct ktd2692_context *led)
- 
- static void regulator_disable_action(void *_data)
- {
--	struct device *dev = _data;
--	struct ktd2692_context *led = dev_get_drvdata(dev);
-+	struct ktd2692_context *led = _data;
- 	int ret;
- 
- 	ret = regulator_disable(led->regulator);
- 	if (ret)
--		dev_err(dev, "Failed to disable supply: %d\n", ret);
-+		dev_err(led->dev, "Failed to disable supply: %d\n", ret);
- }
- 
- static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
-@@ -296,7 +297,7 @@ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
- 			dev_err(dev, "Failed to enable supply: %d\n", ret);
- 		} else {
- 			ret = devm_add_action_or_reset(dev,
--						regulator_disable_action, dev);
-+						regulator_disable_action, led);
- 			if (ret)
- 				return ret;
- 		}
-@@ -354,6 +355,7 @@ static int ktd2692_probe(struct platform_device *pdev)
- 	if (!led)
- 		return -ENOMEM;
- 
-+	led->dev = &pdev->dev;
- 	fled_cdev = &led->fled_cdev;
- 	led_cdev = &fled_cdev->led_cdev;
- 
+diff --git a/fs/ceph/snap.c b/fs/ceph/snap.c
+index 74a1fc919c6be..ce1f489e00e84 100644
+--- a/fs/ceph/snap.c
++++ b/fs/ceph/snap.c
+@@ -710,6 +710,7 @@ int ceph_update_snap_trace(struct ceph_mds_client *mdsc,
+ 	struct ceph_snap_realm *realm;
+ 	struct ceph_snap_realm *first_realm = NULL;
+ 	struct ceph_snap_realm *realm_to_rebuild = NULL;
++	size_t snaps_len;
+ 	int rebuild_snapcs;
+ 	int err = -ENOMEM;
+ 	LIST_HEAD(dirty_realms);
+@@ -723,8 +724,10 @@ int ceph_update_snap_trace(struct ceph_mds_client *mdsc,
+ 	ceph_decode_need(&p, e, sizeof(*ri), bad);
+ 	ri = p;
+ 	p += sizeof(*ri);
+-	ceph_decode_need(&p, e, sizeof(u64)*(le32_to_cpu(ri->num_snaps) +
+-			    le32_to_cpu(ri->num_prior_parent_snaps)), bad);
++	snaps_len = size_mul(size_add(le32_to_cpu(ri->num_snaps),
++				      le32_to_cpu(ri->num_prior_parent_snaps)),
++			     sizeof(u64));
++	ceph_decode_need(&p, e, snaps_len, bad);
+ 	snaps = p;
+ 	p += sizeof(u64) * le32_to_cpu(ri->num_snaps);
+ 	prior_parent_snaps = p;
 -- 
 2.53.0
 
