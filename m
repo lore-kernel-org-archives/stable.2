@@ -1,59 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333077;
-	b=b9nI4JpIVzYTqJf6XGmkMQAs+3Kd7TkAzLKscqDbJl+rlT+MBzQtQdQG1kedhRcGOLwu
-	 QfF1kyTANXMjLpafJ5k1ibXWVqtIkWoM9j8izspGz5au21L3b8SX1/B6DvYtXRCEANbf4
-	 r3oH3+6PiHU5GrTMrhr1g5Rdj/UIWWEy6F2lZYBt2pYP2DuGCWwAE0ObIBEydlVvCTX0c
-	 3onDCkGbxdUlW+FOHQrGY7viqKdIYG1u13oJl//pt8Ct7Akkl8EQsm/WvJ9+nRWdahNdZ
-	 RF7OhH+mOuY6fCVBZ4rJ6BNMvQLYXj2l7AK649dooh8slRRrcbhjq8gGefhcuvkT26A==
+	t=1794333159;
+	b=dp07IMtOiyGojNQN21HvUx1OueuP/DrU9XU24G5H9euYNqOX/PeF5240GXJ0sBRueqXq
+	 3NBfn7pAFCv3v+WsBSd7rqKv/FNu/KvQJqXHKqjGNDmV7nuIfnasn0vTXnBwumWWGIjsf
+	 wmrT1Mio+kVSFw60wvFTcqFXbJ5RcQX0hDMRKPpUZRZ1JFs8cq2iJV3W6kKMZt4wUsRJn
+	 nNIbp+4u1d+pyotqcb5S50unHepjs6yAIwi/3RRP+3pQPSh2UjwiybtYsttZdqe4qxIBC
+	 3RUK/muN1vsZXT6Ye7Yy2wG4C1HmEZH7PM+YS/j9BV+a+HgOOvklo11R85AWlQmOc9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333077;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=xcY5AzBipNIRhCxgAr8uVvMhPPMWHzQIh0xHBQBfhVo=;
-	b=oU0GzvjaxdahetyHeLiBkLZ3TRNR2jnoNVtiujp4asWg/u+6Tzysa1/Gq5RhPkXMIJOQ
-	 3auABZdvTO+6+10/bo9wjo+fpKQtHDKBXyK6ri1wphzXvSAd7HU8RF5GpChfijSN279fA
-	 C3p4JZvCXUl/RUsXTkpoRYs+bjdZSKDAtfbB+SwvADbcVWNXpmouItIixZ5kpelrHnXj4
-	 AyC8TVHBZ5Pydb+j1Q8ORmoXjH1im0hP7oe+CJJnm5WMsHXHt1LKnAtqtT6MiKwc1vxq2
-	 pPAvLezrZw0RcKODQBFx2zIbAYZ84K8U/THgozbNjSTegjX4XBs5o44ygTneEdmmlTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333159;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=xCxO6wHN+TRXHIDjOGo8CEF+HLXvHWy33I8APC/0vgs=;
+	b=r9KhcslR8Kh7mZLr+buAqtMakQrB9cKBYb+Pq8/krdn712qdSrx/yjc4azq5Hcpi1jmn
+	 oMCxxkyRpttKz9lNegV1663HMVotA0XHdLdIfD2vmgnq95aZaf5zzpUTPoal9Ga7ZreGV
+	 ddYnjjJEHu2T0Q7scZte5hVKhVGYRWsAhxYro/GGjAAqrUe4fthUu/rVbAVpOA6VZqkvs
+	 6L9Gu+23cLo8QNDMEHFcNXiMWmhJBz4weqqSnGe/gwRolj+CoMpBRx3vZGvANnsXoB9I+
+	 yidgYSZvn9qpOLy10C6s2VYXIUsrvuihQ21CXDXFYdoG+S8nLPxvs1Hd7GDnc9EgaQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5XfCheP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Kg9Q+eJO;
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E47606A31C;
-	Tue, 10 Nov 2026 17:51:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153A8606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:52:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153A8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l5XfCheP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6C501F0089F;
-	Tue, 10 Nov 2026 17:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333077;
-	bh=xcY5AzBipNIRhCxgAr8uVvMhPPMWHzQIh0xHBQBfhVo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=l5XfChePNKqAXxnGmaBCBPrutxW+EzsU49j7T1JNc3IsP206dkiF0VU9tf6FVdUI6
-	 QvY7GV1IasWghxpL1m9GCX08tcfViKft8Ue4vRDdvYNGuN2+2glspsQ2hFxaN56zzu
-	 4dgdonqI5ZQqSVsoqa07T+DatiUDGEBkrWp/atfQt1iDsasbHVH7D8SrdcRg8C/v3S
-	 In2UPr7v8sllUwnS7YLXJD7wXkQZYrwDl7WaWyNtUWRTdTOktsAnwifvtHWtX0tj1k
-	 mlUeGWIXZDkd1Luo1mfgCq3udWDhIT0mj5GPkVaJ9uJidErCvWAhZQIzNP4GwF8Uqv
-	 gUNvFlYPSA5PA==
-Subject: Re: [PATCH v2] can: peak_usb: pcan_usb: shut down restart timer on
- free to avoid use-after-free
-From: netdev-bot+sashiko@kernel.org
-To: hj351016@gmail.com
-Cc: mkl@pengutronix.de, linux-can@vger.kernel.org, mailhol.vincent@wanadoo.fr,
- kuba@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Tue, 10 Nov 2026 17:51:16 +0000
-Message-ID: <179433307644.488853.17304590823940051670@kernel.org>
-In-Reply-To: <20261109044911.1163505-1-hj351016@gmail.com>
-References: <20261109044911.1163505-1-hj351016@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Kg9Q+eJO
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so1001990a12.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:52:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333158; x=1794937958;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=xCxO6wHN+TRXHIDjOGo8CEF+HLXvHWy33I8APC/0vgs=;
+        b=HvWf2cTnKONzaZ1f7uUdED8/zMA/TQlZSz6Oo+sUf2B1UQr7Hc97zsFaxcNquaMjMc
+         a+U0Bevh5qAi4O8xNNYQE0WaZF1TX3oYgiz/QnehIb5bo6vIbOvxDgbsXZ4np8JUFe9T
+         e3uFmSp+yLNobuX4DugZ01Cgau7Adc7TTrgzIGagO41612nlI3NksSHB0HsNrVjqW5dV
+         uqarVDvY2ysI4Gtq4Grqci3pdM3mYC4tuxpZ1W+qlFxjAY3BTB92Hz/l6mht/61qw5OM
+         co1ieoQmCwJREuv07UZXcdtRKigkHKyPQ8TWhX7UDE5b2Ey/t2W8/uiuC3L+L74/avyj
+         oplw==
+X-Forwarded-Encrypted: i=1; AL+hErGrpsHQjGbEu+JbO09PufeVzV2gTJ3f6Nt/roASX1cf6ZF3vxs0yYqZpxlMqP6sJ+T2Zb5Rp/Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4V/q1PDba8LtYUGNrkoS16a6ekhTR1F8Mysa/fQ4Md/mYrhii
+	nU6P2x3hVs/o+2t4kZwCuW3dNUzTxpNV9jdutqR8w642E+QajMQtviXtgEXCteXx3nuKBN/CGJL
+	U8mW86XEumqM9koIyZfcVi7bW/b3psYsquvMJmK8sNh9diqpsM+jcWhXVyZ3JRPVzL+5WvYOqr2
+	OwYlVPDg3PedVgm9FeWYExIhNmRA03/WT6QtgDvuF3OaGSW1isItr3YFQ4Vrlv590t4xI8Wt6vk
+	MqUdGgZjYqvtlSU
+X-Gm-Gg: AYBFou3FlrxVYCHsir7yGTZaiabc8mowWuxdkLMI3PPVM+FtBmnQyjPxtxueaDCSsV4
+	WMxugjZif8L/kb9gH2nanuTGh6BXkpWKJV1dGlnSEGmrkpQVNBUIJidQ5YartEsIBKnKZFMyv4o
+	OQA6eLzBe9x5YwMtzhaiLU0L5n0lfmHX2jcnXY/B4cWqwCxDLw/72qnryxLXf0CU2ZRA8RGGYsj
+	b6Pa28BlXG0nMMbQr4U6nBfLAqBLhOr45HvD3iq7hXaV0UpHxNRUNtx3SIfsG5VCbe9rq9mcebl
+	FJy6vCQ/+x7OJVJEMb3w+1/whghf8Dd99N2/kFZFk1jBpWWtuj/Z0AJN5EI4PoYvzjuh0QcW3TU
+	TrHihJyNmuo1Zlgj1erlFzYOkBkVWnRe/9bD1Ux9NIusbmSF4AOI4hiLbL86tQV4tVoUIVF6891
+	daGx1jsYBUnEvaEqlDJYznGHTxtPBsY6HziPPVQv+v
+X-Received: by 2002:a17:90b:1dc7:b0:3ab:f38:2b3c with SMTP id 98e67ed59e1d1-3b166cebb32mr3221330a91.28.1794333158089;
+        Tue, 10 Nov 2026 09:52:38 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b17e30b681sm276008a91.7.2026.11.10.09.52.37
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:52:38 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93caf6c528aso416639285a.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:52:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794333157; x=1794937957; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xCxO6wHN+TRXHIDjOGo8CEF+HLXvHWy33I8APC/0vgs=;
+        b=Kg9Q+eJONJstBpEUYiLBQNThTJm62XVv0rQJA+Ns1wv1T4i6qTasR46vkVFRbNw4il
+         VKSUQKoXizao2u7kpuZBvv3y0qlO7RSrBBksCGHwUZ+H6Tr5IZ+s3jZNfbUD9/DF44TD
+         7/z+4HXDrNeMzNgKJERcSZ/ulgP0YPEIVV178=
+X-Forwarded-Encrypted: i=1; AL+hErGjzrbbTcbXyrqSpVJdV4kARxjmgfytIJKVHCQM+yv32uVm4eotuTijBueP1IymAkANFH2RVss=@vger.kernel.org
+X-Received: by 2002:a05:620a:371f:b0:93e:56c0:bea9 with SMTP id af79cd13be357-9479f311f79mr562160585a.21.1794333156975;
+        Tue, 10 Nov 2026 09:52:36 -0800 (PST)
+X-Received: by 2002:a05:620a:371f:b0:93e:56c0:bea9 with SMTP id af79cd13be357-9479f311f79mr562155985a.21.1794333156491;
+        Tue, 10 Nov 2026 09:52:36 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f02efa477sm1774066d6.16.2026.11.10.09.52.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 09:52:35 -0800 (PST)
+Message-ID: <b48af994-293d-4a19-ae06-cc0fd586bb8c@broadcom.com>
+Date: Tue, 10 Nov 2026 09:52:33 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,183 +106,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] phy: phy-bcm-ns2-usbdrd: cancel extcon work on unbind
+ to avoid use-after-free
+To: hyunjungg <hj351016@gmail.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Ray Jui <ray.jui@broadcom.com>,
+ Raviteja Garimella <raviteja.garimella@broadcom.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ bcm-kernel-feedback-list@broadcom.com, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261109170223.1829473-1-hj351016@gmail.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261109170223.1829473-1-hj351016@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 11/9/26 09:02, hyunjungg wrote:
+> From: Hyunjung Ko <hj351016@gmail.com>
+> 
+> ns2_drd_phy_probe() schedules driver->wq_extcon (extcon_work), which is
+> also queued from the ID/VBUS GPIO interrupt handler gpio_irq_handler().
+> The work handler dereferences the driver data via container_of().
+> 
+> struct ns2_phy_driver is allocated with devm_kzalloc() and the driver has
+> no remove callback, so on unbind devres frees it after probe's resources
+> are released. The GPIO interrupts are requested with devm_request_irq(),
+> and so released by devres; free_irq() only stops further interrupts, it
+> does not cancel a delayed work that is already queued. probe() queues
+> wq_extcon with a debounce delay before returning, and the GPIO interrupt
+> can queue it too, so on unbind the pending work can run after
+> ns2_phy_driver has been freed, dereferencing freed memory (use-after-free).
+> 
+> Register the work with devm_delayed_work_autocancel() instead of
+> INIT_DELAYED_WORK(). It is set up before the GPIO interrupts are
+> requested, so on unwind devres frees the interrupts first - after which
+> the work can no longer be queued - and then cancels the work while the
+> driver data is still valid. extcon_work() does not re-queue itself, so a
+> single cancel drains it.
+> 
+> Found by static analysis and code review; not runtime-reproduced (needs
+> Broadcom Northstar2 USB DRD PHY hardware).
+> 
+> Fixes: 787f24543c4a ("phy: phy-bcm-ns2-usbdrd: Broadcom USB DRD PHY driver for Northstar2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete on the probe error path it claims to cover
-  (the adap_dev_free label in peak_usb_create_dev()).
-- [High] The dev_init() failure path in peak_usb_create_dev() skips the
-  new dev_free() callback completely, so the restart timer is still…
-
---
-
-can: peak_usb: pcan_usb: shut down restart timer on free to avoid use-after-free
-
-This adds a pcan_usb dev_free callback that calls timer_shutdown_sync() on
-pdev->restart_timer. The goal is to keep the restart timer from running
-against a freed struct pcan_usb once free_candev() has run. The commit
-message says this covers disconnect and the probe error path that reaches
-the adap_dev_free label.
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> index 8fd058c328564..113b2e7453310 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> @@ -882,6 +882,19 @@ static int pcan_usb_start(struct peak_usb_device *dev)
->  	return pcan_usb_set_ext_vcc(dev, 0);
->  }
->  
-> +static void pcan_usb_free(struct peak_usb_device *dev)
-> +{
-> +	struct pcan_usb *pdev = container_of(dev, struct pcan_usb, dev);
-> +
-> +	/*
-> +	 * The restart timer is armed from the restart-command URB completion
-> +	 * (pcan_usb_restart_pending()), which is not anchored and so outlives
-> +	 * ndo_stop/unlink_all_urbs. Shut it down -- not just delete it -- so a
-> +	 * late completion cannot re-arm it after free_candev().
-> +	 */
-> +	timer_shutdown_sync(&pdev->restart_timer);
-
-[Severity: High]
-Does this cover the adap_dev_free probe error path in peak_usb_create_dev()?
-The commit message says it does.
-
-On disconnect, usb_unbind_interface() calls usb_disable_interface() before
-->disconnect(). That flushes the unanchored restart URB before dev_free()
-and free_candev() run.
-
-On probe failure, usb_probe_interface() takes its err: path, which does not
-disable the interface endpoints. Nothing in peak_usb_create_dev() kills the
-restart URB either:
-
-drivers/net/can/usb/peak_usb/pcan_usb_core.c:peak_usb_create_dev() {
-    ...
-	if (dev->adapter->dev_set_bus) {
-		err = dev->adapter->dev_set_bus(dev, 0);
-		if (err)
-			goto adap_dev_free;
-	}
-    ...
-adap_dev_free:
-	if (dev->adapter->dev_free)
-		dev->adapter->dev_free(dev);
-
-lbl_unregister_candev:
-	unregister_candev(netdev);
-    ...
-lbl_free_candev:
-	free_candev(netdev);
-}
-
-register_candev() has already run at this point, so can0 can be brought up.
-A bus-off followed by auto-restart or a manual restart then reaches
-peak_usb_restart()->pcan_usb_restart_async(). That submits the bus-on
-command on EP_CMDOUT with urb->context = pdev. The URB is not anchored, so
-peak_usb_unlink_all_urbs() never touches it.
-
-If the device delays EP_CMDOUT, the synchronous dev_set_bus(dev, 0) queued
-behind it can time out, and probe goes to adap_dev_free. When the restart
-URB completes later (the device finally ACKs, or an unplug flushes it with
--ESHUTDOWN), we get:
-
-pcan_usb_restart_pending()
-    struct pcan_usb *pdev = urb->context;
-    mod_timer(&pdev->restart_timer, ...);
-
-and pdev has already been freed by free_candev().
-
-timer_shutdown_sync() only makes mod_timer() a no-op while the timer_list
-memory is still valid. Can it stop this write to freed memory? If not, the
-comment above ("so a late completion cannot re-arm it after free_candev()")
-does not hold on this path.
-
-The commit message says "by which point the endpoint URBs have been flushed
-by usb_disable_interface()". That also seems to apply to disconnect only.
-
-There is also a smaller window on this path. dev_free() runs before
-unregister_candev(), so the interface can stay up with a timer that has
-been shut down. The only guard against a new submission is this check:
-
-pcan_usb_restart_async()
-	if (timer_pending(&pdev->restart_timer))
-		return -EBUSY;
-
-After shutdown that check is always false. Can new restart URBs be
-submitted in that window that never reach peak_usb_restart_complete()?
-
-Would anchoring the restart URB and killing that anchor before
-free_candev() on every path be a better fix than relying on the timer
-shutdown alone?
-
-> +}
-> +
->  static int pcan_usb_init(struct peak_usb_device *dev)
->  {
->  	struct pcan_usb *pdev = container_of(dev, struct pcan_usb, dev);
-> @@ -1051,6 +1064,7 @@ const struct peak_usb_adapter pcan_usb = {
->  	.dev_decode_buf = pcan_usb_decode_buf,
->  	.dev_encode_msg = pcan_usb_encode_msg,
->  	.dev_start = pcan_usb_start,
-> +	.dev_free = pcan_usb_free,
-
-[Severity: High]
-Does a dev_init() failure still leave the restart timer live at
-free_candev()? In peak_usb_create_dev(), this path jumps past the
-adap_dev_free label, so pcan_usb_free() is never called:
-
-drivers/net/can/usb/peak_usb/pcan_usb_core.c:peak_usb_create_dev() {
-    ...
-	if (dev->adapter->dev_init) {
-		err = dev->adapter->dev_init(dev);
-		if (err)
-			goto lbl_unregister_candev;
-	}
-    ...
-}
-
-pcan_usb_init() calls timer_setup() on restart_timer and then calls the
-synchronous pcan_usb_get_serial(). That call can block for up to
-PCAN_USB_COMMAND_TIMEOUT and then fail:
-
-drivers/net/can/usb/peak_usb/pcan_usb.c:pcan_usb_init() {
-    ...
-	timer_setup(&pdev->restart_timer, pcan_usb_restart, 0);
-    ...
-	err = pcan_usb_get_serial(dev, &serial_number);
-	if (err) {
-		...
-		return err;
-	}
-    ...
-}
-
-register_candev() has already run, so can0 can be brought up during that
-window. A bus-off and restart can then submit the restart URB, and its
-completion arms restart_timer.
-
-When pcan_usb_get_serial() fails, unregister_candev() and free_candev() run
-with no timer teardown. The timer may still be pending, or the restart URB
-may still be in flight. If the timer fires,
-pcan_usb_restart()->peak_usb_restart_complete() writes dev->can.state and
-calls netif_wake_queue() on freed memory.
-
-Should pcan_usb_init() shut down the timer (and kill the restart URB) on its
-own error return? Alternatively, the core could call dev_free() on this path
-too.
-
->  	.dev_restart_async = pcan_usb_restart_async,
->  	.do_get_berr_counter = pcan_usb_get_berr_counter,
->  };
-
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261109044911.1163505-1-hj351016%40gmail.com
+Florian
