@@ -1,109 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278036;
-	b=kSB4T7ImUsqeHll//HFTm6KG72kk7D7CvjCUE/XERWy27HuqSqrlGU221b5eToTYmN3c
-	 LIc7gpbpboV+xVmqqkjIwYQ4TG2RAZx1q121pMGavgcVSeM4zs1q5rOt2SZRfnm5HZyvp
-	 giQS7y+s3fejz6sW4co1sKewTnSPX/Dv1RloBsOynsf4547WiqEUr1taPOlMZwMnneD2K
-	 0vZ1iaQOKW+MUyAJVHdwuXTLFEtlj/Xg2EEWF9cs9odogWKtqM3GAnPeRSKjcg8Bq/uIg
-	 zpN0IDPenNkg2XbIhMUcPOaeirqVIcosicE2UowVLfLcHRVY7oSq8pzAhkgAqOXfBuw==
+	t=1794278090;
+	b=xajbtt67EiBuQeAsOdbwC34aGSz+Z1WhAdzfKAEx1XhdvOLg2a0Vu0kahQQOneAvu0S+
+	 A3H1pohDjfvzhHyrQtMS3Z24tYtbiWoI3lgOueY/j2CtY+nPCrqEiTq8SjUkFmk0exubu
+	 FnY323mysqwtEETF2CzYJpdByVFRD/Hw7C5L9j6WIvwzg+61AMwOC2LiJ1E5Qo1YNkmdF
+	 itvd93kTW/FzJe51upZHVrcKyVsK5idDsxhRMu4HTmAighgxqzF27PCnev1xyjSaqkdNb
+	 83Ar8lUxgPau7fVBh/EnwmnHv3PEP4bUww8rrUtivhcLdGkt9Bcu+366wZD0xw9abqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278036;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=onDRaLguTUW2a83jMl1YZiAlaHNlpOxn5ahgZIssCS4=;
-	b=utOuXjFTIfZpP08ujMsc/OzCmyfWDXL/lHdo7aZfoITQkTPf5vB7S7IIzT0b3vSd0X8e
-	 vj5OwbWUmlz2ZUdrw9vDMhw54ajRp1KwEJ8Pt2KwjVWE/G/gaN/nBrJIcIDPG/wbVEo7d
-	 k11G+HtRwh5N4m+sAD+HeLzM6e7/XCmtyohHYce/3e2tney8VPBHbmJzqs4QYzqWhfpLt
-	 2Ytd1CVmezOoiTLarvBgA6GJRRySFCoGWSrh+haC/lmt3psatfojYlRFO+1Jb/7xD4das
-	 BjvTEw/nclavFiUNTnDwO9s/SyZaN7inNtNOzHH5a4TK7h3iLM8/jjieDpVTj6ghZOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278090;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=l9iYhVyrmWgmkQIune/FDANRiKoK67tNTavZ8riBSu0=;
+	b=rLfpQzX2EEQktXbfclt03e/CNJeSwTtO7nrb49PpGOmbtLHPYKvw1SebWYAIPvFQBAK+
+	 ZsIyhLt/wUA31l4ShcjnMywgJGevbtodIrAWmcHNvWNH3sicStn+Mog4VFpo8tNMfahcr
+	 vThU5hMxAQgGOzbX4vMy8q8biWWiWpqM4yPi0eaLAmHZzxfxPuyNUPgJnnm/j0JdEGFI4
+	 iDx4HhFqo8zgPL7elNuZiLKHP7R7h6xKUuKQeD6UnApCf1HrBpU90hnHbQpLKetIi7AP/
+	 gdZtGF/QduJMM1AlxiSxer3g4QNcLBcC8XmlPLKr4/v3w43ISm0WQ/5L/f1TtmLqWkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G1obDVAS;
-	arc=none smtp.remote-ip=209.85.217.52
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6PBrkts;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8295E606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8295E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0BD3606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:34:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G1obDVAS
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7cc1cf48a39so579502137.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 18:33:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794278035; x=1794882835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=onDRaLguTUW2a83jMl1YZiAlaHNlpOxn5ahgZIssCS4=;
-        b=G1obDVASqefxB6poYdjSmxCFHjae9eYxJSNGGnlEYlbaEUEJivW7JDtmuGERQcgQmN
-         jLQt9g2DSx1yyia37PP/ykKwYVfjHoNMpAsBsWcx1xnqRLrrH9i6dHgRXVgwLRphQ3mg
-         Y6aMvkPKSa0PJn/FT/cPJaxDossiDDXv6D6d/28oQy6ndp/q9nQBiOQYer/iTR21B9JE
-         Xr+gk/exekmfyJoJTVs6SVqVjtObZYwFB8IzkdhjCRTYi9wYeI0qdVL1DDvdM8XQyPki
-         oglumqrNc6J2a2pRN8Z7kaLNm6XEJZwSAv7/NPRMsrQ1PX8GwtTNfs5q91PjawEY7Mxj
-         2T+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794278035; x=1794882835;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=onDRaLguTUW2a83jMl1YZiAlaHNlpOxn5ahgZIssCS4=;
-        b=q/6GCSKszYYT86ahHz/BT3KVBSq9prG68h1XTwZglC4EBiRxPzsJe5GORWy9EW9Nk3
-         lInQdi4cru+uioi3Rc2aL3fc+oPQy5yS3hf+0ejt3uEMy8qJ1S5fgc12HxKaS8krvr5A
-         XGj8d9HQftK6edh4jqrL3EhGNv+6otFLWkp4HvT8yJsnktPW7+IO2LdIxTCYqoEr8vK1
-         pLyQR9Lv54sfXtk1+pXgZKeTUHBLCTlJcAe+P+LUTFznVzbGPVNiuBhBJzwRqbJVSAQk
-         IVuA7D2US65LvxcC15iXp/GFhNftLV3Ybi/ztpsSLrnKCsNyp3d+YkQ+YxqwYQZeRqlw
-         tfjw==
-X-Forwarded-Encrypted: i=1; AL+hErFfPQOAS/fJzjojBsaEmMdzc5nouKXfWyGPDTgA7xwUF77zxj7CBA5pS+tmp4zfXJ1GDnZ5KRk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DTvJRX6U2OfWyNmf+OQ2CuDJN9SwNEy13xNFWdUbMjr//7HQ3
-	wvflMM4QcJ9Xi2CLC1/I6asXWq8H813bzXKK3ebYZzvlk3e1mP6sM4eL
-X-Gm-Gg: AYBFou07dlO5A2CzpIAUKRSa/Gj7jQ+poCZ0f+6zFkmTanFwogQNZ18ijq+wtu/FRU8
-	FNJF3tsQHvOYeM9aKO8z/m4DuJEGidA87ATBHPCdzHdTZIu2a1RlCcUy5JGpemxAUsQ9bdNkSiB
-	MWM9Oz1s5tdKESF+l62tiBAo5QDD1fz0WzaApqKtJGP2SgxormETRcwcYhYgFG/68nK26FDbaPz
-	LoHx7yA4KS0SQhNEfr0R11CzwSOkpnu6k1cEJ3k+/1WG0x974DUUS2l9Jt1HUHFac29zDnV+hOt
-	N0usK9+SfpseVtXYa932CWNv67Z/b72GGSGGfVtNTLMs44vSyl7oiVL3fGOXpAl1gZghUJ7iEIS
-	9jlfZcnpwy1xS/sQkSOZuM6jzJrdMOv/t7lDkZInrGSYO+7ulBw+jt7lIj3ZjAR9X2LhHVIhjF6
-	xXWaayO2IIkUxhQDI65dSiOay4HPVsvmv9VIB4kzAVtMDaGuw2t1BetWG61mjsQXylqgGiPhX8C
-	5SUdasHulvZnLbJbmsQjl4c/myDTkcM3xqnzhoLA/ZM30cqhuTeJWMqZhavDL6jrqd1mrAfGhC8
-	DXvyUlQIJEcYUlp3t1/8qlmOnfq3M/IChWg7hTUY5nHLDoCWbiJSZ2haSch4qCSQiwEoOTN3dpl
-	4JU3nCMdYHee4V8BEbFpNfk0fy41Blrgu8Od7AUHdzriDSxVgnpvKOAzanuZANYGbpmrBV8Q=
-X-Received: by 2002:a05:6102:2912:b0:7d2:7c63:5a0a with SMTP id ada2fe7eead31-7d301bcae2cmr373574137.23.1794278035436;
-        Mon, 09 Nov 2026 18:33:55 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d302359221sm877564137.6.2026.11.09.18.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:33:54 -0800 (PST)
-Date: Mon, 09 Nov 2026 21:33:54 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: dsahern@kernel.org, 
- idosch@nvidia.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemdebruijn.kernel@gmail.com, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- yana06070@163.com, 
- shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, 
- willemb@google.com, 
- tpluszz77@gmail.com
-Message-ID: <willemdebruijn.kernel.136b3b685931d@gmail.com>
-In-Reply-To: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
-References: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
-Subject: Re: [PATCH net v3 1/2] ipv6: fix cached route reuse for control
- messages
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6PBrkts
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929C31F0089F;
+	Tue, 10 Nov 2026 02:34:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794278089;
+	bh=l9iYhVyrmWgmkQIune/FDANRiKoK67tNTavZ8riBSu0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h6PBrktsiWiVhy0+Ra3SqeiipXf1sj4kzL5RxyFq/crtFCEyzfKVsnNXjASN4mpsn
+	 BfkcJWMzq4OAmLhtZ0JWc7UtgGEGvZ+8xQrA+RayGtWTT+BPBZBFqYLnUUtkIiVspd
+	 qWUQSHNYBKvCrSHumHRQCZLiAqGsbewC0b3APwmi7doYGNmc17uFfu+1eHE9Ow4Mjw
+	 dRulc+kuYlqXgnnoCqXSbmFg7HEVPH35VkEZkbYQxgUDMy47mIDSQTuoj7gFtm70hr
+	 dcJKY6uxe7GDKfhPXlO0UVzzvEjmadzEfmt+7sbFgQmeG1xZIGLq0zccuXtmo8cLW1
+	 c77KEJXd/adFg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Harry Wentland <harry.wentland@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Robert Mader <robert.mader@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG
+Date: Mon,  9 Nov 2026 21:34:47 -0500
+Message-ID: <20261110023436.3814185-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054051-failed-6.1-2ffaa7c40506@kernel.org>
+References: <20261107054051-failed-6.1-2ffaa7c40506@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,30 +60,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Xia Yan wrote:
-> A connected IPv6 UDP or ping socket can reuse its cached route when an
-> SO_MARK cmsg requests another mark. A packet can then bypass a prohibit
-> rule instead of failing with EACCES.
-> 
-> ip6_sk_dst_lookup_flow() reads the cache even when connected is false.
-> UDP clears connected after parsing IP or socket control messages. Ping
-> always passes false.
-> 
-> Only read the cache when connected is true. Ordinary connected UDP
-> sends keep using the cache. Ping sends do a fresh lookup.
-> 
-> Found during code review of IPv6 UDP route caching. On UML, the same
-> connected-socket selftest fails four IPv6 cases before the fix and
-> passes all 54 with it.
-> 
-> Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-> Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-> Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.1e0038bcc3ef8@gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+[ Upstream commit 2ffaa7c4050605cb27756f5336f778d1b21268b9 ]
+
+The ROM early-return checks for PQ, Gamma 2.2, and HLG in
+mod_color_calculate_degamma_params() do not consider the map_user_ramp
+parameter. When map_user_ramp is true (indicating a subsampled surface
+that requires post-scaler degamma via GAMCOR), the function still takes
+the ROM path, programming PRE_DEGAM instead.
+
+For subsampled formats the chroma channels must be upsampled by the
+scaler before degamma is applied. PRE_DEGAM sits before the scaler in
+the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
+Using the ROM for subsampled surfaces means degamma is applied to
+subsampled chroma before upsampling, producing incorrect results.
+
+Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
+forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
+is subsampled.
+
+Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-4.6
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Robert Mader <robert.mader@collabora.com>
+Link: https://patch.msgid.link/20260814211816.1219597-11-harry.wentland@amd.com
+[ sashal: Used the existing mapUserRamp parameter name instead of map_user_ramp in the added condition. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 447a0ec9cbe21..b6ba7d14bd8cc 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1900,7 +1900,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
+ 			return true;
+ 
+ 		if (dc_caps != NULL &&
+-			dc_caps->dpp.dcn_arch == 1) {
++			dc_caps->dpp.dcn_arch == 1 &&
++			!mapUserRamp) {
+ 
+ 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
+ 					dc_caps->dpp.dgam_rom_caps.pq == 1)
+-- 
+2.53.0
+
