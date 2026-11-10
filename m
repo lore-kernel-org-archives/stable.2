@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314425;
-	b=K8nr46VIIyiTipEfDwZ/taPBcKoqgzjk6MfSrp4tSCJlzrvHB7P5l4izEnXJ8FmXp/K7
-	 wNAAaBGnep2oq+XmTOorn8AGi+zYYBlfWVs2nWOcI56ap+MItIznBtf1n2uSpUujZJwZb
-	 aF0Diqf5g68A6OAJLYVRIdkG8TE6rSMkfeTbxKtX1ssIqRtwfu8x1IwtrrqzAuxUDPih/
-	 gQbqHnw+bLjEKxYz+7zim5U7GdIcB4C9tjkjdEzv8LCQ92USiKyDuxMLjoUFJwd08KItr
-	 i2+uqpiE4XHm3sogXtuyKibYZRS1Yc7ZiRfjHr6B+QtswY0yrY3bTrTg146oGgLtCwg==
+	t=1794314439;
+	b=Bu3bMlOw+a2cQVu4iY648WsmOEdWefMmPpOnH4mBNHfO1Q8DZZR/Op53VJByXrKCwsZQ
+	 eKu8kEegvGWbMt4vsE+jyFGzsvLQJTG1ErOvTeJ58vOwYxVFITo/3ie7ID65p0sK47UA6
+	 tOeE5UY7TnBHsxLBU4GG7StZwco3icqLz106jOEN1fOfFr7MAlC/PmovWph1edBNmP4XV
+	 zw7VRf+YUW4jw4w2Zlzoz88ZNOq7ZkxxVfduLyUziGuKr2sYEUnJO2E7sHcEVdVUa96DJ
+	 un+vq6dRmyttcOwLICGPTt5pR6bRKydECBAKxK3mvuMfiuiCfL8fTeFIUiw04351kJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314439;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zFJ/S0+JEf/6tSbYvlYrb5+miveH3EIj6YC7ZoHeGnM=;
-	b=UbgvAZ5QYpyyqDEZORQHY2xVOsZeoDKM+B2H4F4xZnMXicX+KMK5QLr0gmboBV+6IrjZ
-	 jqWvOUxUUPy/YSxHc/5Vqi01/g2PoZjaPKTarNeVOSAGpQsLsmU8t5FIBmX8P/q6cxWTy
-	 qPs/LdtB2TxndNoX0uieSWO+3UDk4mpbBtSxsbgWqiIBuMDLAZfSVzDQ4+UZXHT/vwuci
-	 btIk7CJcSfHNp/q+kg2dHxuK0BLHlw0JeHkbGrAjEf3RAbB3OhqnOsCbO1i9Rl+wSsmJD
-	 +USMAUVE6HlDCFCzekHbdO9QZ9jiPU9jTd3ehUJjOT+iVPflV8p0SsdZt2KY5xL5CsA==
+	bh=Q0Tims6CMLKP1f5MlwYRQFdzeObEjB93jiXnU4XaoAc=;
+	b=fpU7wYx25svnwGlati/r1VEN53izzZQh3OdXWFmOW9ejiCEaLhbCWQUv4mbFo3++q1iz
+	 fuTMSN55jJDUO2MRGXuLVLCGgMk+iwkKdSAn5PCsb1cvB8qGYR+Zp6oltQ1963+Mq29Mq
+	 7l1BgaTB5R73iWARRKe61BgWxVi5GVlugD/cT6+a5YvbZBchIzHNtuCzj/5BAmUrZ87Au
+	 0xVEvFgmv4BrwQyJXrIisSlK0CNQ9jThNg+MF3ZXJGWOepjh+mO2Fx9JB7N/TEjEuvJtd
+	 woPpUYakxXt05W/tOfVnDsoikfYKAMZgj0UbK7yfkq1n2OH1EbcCIz03+/zTgonBQuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DZmCS/8f";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhXYM353;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B0660A263D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:40:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A6B606A333
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:40:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DZmCS/8f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43391F008A4;
-	Tue, 10 Nov 2026 12:40:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhXYM353
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B341F0089F;
+	Tue, 10 Nov 2026 12:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314424;
-	bh=zFJ/S0+JEf/6tSbYvlYrb5+miveH3EIj6YC7ZoHeGnM=;
+	s=k20260515; t=1794314438;
+	bh=Q0Tims6CMLKP1f5MlwYRQFdzeObEjB93jiXnU4XaoAc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DZmCS/8fMdR0oTWKhPvDlmRaD+Vv6DVPLiPs17FG8Jn6QLkT+5wZh+N6qQBRt9jEp
-	 d8V6rH0BbSr2gaDPOt10kkovxmex3KNNnKqWPQINri962CHKVyVKA/r8TKXQswW70r
-	 j+5JB4hdXotC8eEFkgCWGn1FzmjpZvBYZGBuNuPIO6vs43bIfYsS49T1d2oJul8DqH
-	 mN09D4mNHIrAVIcRx4pNfdKkQJdVjq7EoEwOWpqd+OpzxG7z8gcU+9kWhjKQNqnIEX
-	 CN1eyU4rv+Qo6vXPwoy/9PW4jpEAIZw7ZRk13X0dyL7WQkMMUxWiTcct2VCKNbhgeJ
-	 l2ov6rBjviUkQ==
+	b=UhXYM353QzIbOYrm7OqFyY6wKL1p7qKf5KIyqnbD2aEAhX5dCtj0/DzR7yBO9/DIA
+	 poKVhL4eJ3blKBtf6vPDwss6gzlu2z8dWAS4QfJYrHf63ogPmmmwHUzh7MKBJXgqKh
+	 Ebkd813MVsQ2dwOCpy9nABZzqcxpymsV7l1Q0I0i51a1NEboQNqlmpGVUT9ywiOo5+
+	 ZhX13HOBRaQuBVhtI/ctdutj934/EoB6bm4vAHGa+IwKeSTuRDF5IKQ9shsF1lNbfl
+	 iSEWjcRdJJBzrZnSvQp83DH7cynomRZkiwz7sLIv2wo2wZIvdwgeyTMJafE7cb+EBw
+	 UEmuOZVN5zlBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 07:40:22 -0500
-Message-ID: <20261110124006.1286707-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ALSA: usb-audio: Protect Roland control activation
+Date: Tue, 10 Nov 2026 07:40:36 -0500
+Message-ID: <20261110124019.1376377-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050726-failed-6.18-56c1d32323e7@kernel.org>
-References: <20261107050726-failed-6.18-56c1d32323e7@kernel.org>
+In-Reply-To: <20261107051813-failed-6.12-19b42c1fff7f@kernel.org>
+References: <20261107051813-failed-6.12-19b42c1fff7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,78 +61,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 56c1d32323e773b8b927316f8beeae9238576335 ]
+[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
 
-tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the first
-~35 ms conversion.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot.
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Adjusted struct tmp102 context to account for the missing sample_time field. ]
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Replaced scoped guards with explicit lock/unlock calls while retaining the input-stop condition without keep_input_running. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp102.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/usb/midi.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
-index 376e0eac8cc1c..62a7bee9e4b95 100644
---- a/drivers/hwmon/tmp102.c
-+++ b/drivers/hwmon/tmp102.c
-@@ -56,7 +56,7 @@ struct tmp102 {
- 	const char *label;
- 	struct regmap *regmap;
- 	u16 config_orig;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index cb9bcfa22afc9..6ac38297c6c59 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1152,7 +1152,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
+ {
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
- /* convert left adjusted 13-bit TMP102 register value to milliCelsius */
-@@ -91,7 +91,7 @@ static int tmp102_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp102->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
- 			return -EAGAIN;
+ 	down_read(&umidi->disc_rwsem);
+ 	if (umidi->disconnected) {
+@@ -1164,11 +1166,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 	if (open) {
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = false;
+ 				update_roland_altsetting(umidi);
+ 			}
  		}
-@@ -270,7 +270,7 @@ static int tmp102_probe(struct i2c_client *client)
- 	 * Mark that we are not ready with data until the first
- 	 * conversion is complete
- 	 */
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
- 							 tmp102,
-@@ -303,7 +303,7 @@ static int tmp102_resume(struct device *dev)
- 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
- 				 TMP102_CONF_SD, 0);
- 
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	return err;
+@@ -1181,15 +1181,15 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			snd_usbmidi_input_stop(&umidi->list);
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = true;
+ 			}
+ 		}
+ 	}
+ 	mutex_unlock(&umidi->mutex);
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	up_read(&umidi->disc_rwsem);
+ 	return 0;
  }
 -- 
 2.53.0
