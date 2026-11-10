@@ -1,98 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794339367;
-	b=M7DXgN83radhUPuYUTKc/SWVhyCrjp8mAZhkYS1ZIV7YHLExzbdGSrXOfJG1rN5NmeLj
-	 yfGcXr3CmcpNxsN6gG1HzaducgGGFHWPiRLi4Zr0VEzgJQ0U/uqrt9wsP6kCr0LvxPQjV
-	 +lGp/8PeRV5jCUJtCnhMzAvMv8yiszgtK0sbNKzpMQma1lmWltjA6z21xN9V/5ZF/Esol
-	 TZBlamGGiB/2HsEwx3dTbr7+9JVAXrY2rLztLCpEa9mCt9tvmGF54JKBuF+wXYbKJyBiQ
-	 dS1gpm48zQr1XyLufzzp30+N2yrJHllX9jrHW1cpaiXeFHMgwx5fVmS/BwagpikUBQQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339367;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=s0VB72eLXTyvzuPole/vzKEB9qpR7L66QrwnqKGfowI=;
-	b=t39xmrI5aGhrseKinXB0erkP9x34AmGbSpEP+u7Zfk8n7fGwwPN+ESfHRowTg+8A1mSm
-	 1UEI4+S0pWEWPFfswZJBxdx0U5DgxTMJpxh7PZwRlFUVmIqtiohWDVxr+IEbVZ7xyMBIi
-	 pNr18jN7Bm8MQOYmNJ+9deYw0f/YNtGCsQYvlHmuf6UeHksKPOSF4g7dRTsdwrsSsc/iA
-	 m0sxVL2LOwL2+0mHvJSG+HcApgo/Kwyl+7N5So5Yn3i0uNN8nmDJfJnpkwXNYbTJpUZBK
-	 ZM/aoJVsTJCC4VHD754izD7zHwDbeFauJXY0ARmp639M0K3aU+BpX9mG9yZIAGI3HZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=FWAwVzKZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794339380;
+	b=AaFP4x3w48GPXq0jT5xv1VMmRXQOYZWQ5voJHbXVGBFyljuac3vQCa7R2yA7nvn1XIhs
+	 EKEuVHQXgFYckUalamU0B0yGm61ReutqX6qDB96MLfZjvl552t1a2P9OZZk3j8kTHa5vc
+	 wUgU5D+j6Q13SDrLc2cfGhSYqB7+hXc4vl4DD9juAQ7tcnAgvO9bAsAcGKiwfI89Mmvck
+	 oQ0pcJhW/w73AYVjIUerELYIh8FoZwmwh3/27Z2OzEv3GIamTsbNxmE1z9wHyRQClN8XF
+	 FiMp8+s1DNFBW3spdAKW4LmZvs+2VIo93nAZmbtb3WZotTQAZqeCJB2rnRAc50EJYtw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339380;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=yKI8uRbxWpKAgg0VxEj7KIuiAdskqV8+SQSmpYSxc+k=;
+	b=YShAn2jMWPdkmZpNh7jrRHPPxHBhhl5H3BjYwPTnwVaVlr/PWHoHZKYhq/mwq+mmXcxL
+	 iMZK3MRneGWQFCWmXvZ/HTTSR612jk9XOBYTstWs9mZKVEGAjPazpGrBYFTknPyf9nUpF
+	 RZruFG51PVYBIx7NAqfc+7sMqJlfp5fP9kJ7jiR4h4Ogcn85TzNPk82wCmH09KIwUtGOJ
+	 yRPoJ3u9RDEb/UcHAfe6rb1zdyHyp/3nRLNTAPppjb0lksJHNhMGibPuli7zh2f2IZiF0
+	 XSPTUMJ6E5cgdTzGpuTNOBWsvLSHDT9mU8RWsLlSPBIfkR4d5doBC+FiZ/JKo8ISgyg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="u0/qiNfO";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F403E606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:36:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F403E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FEA606A31C;
+	Tue, 10 Nov 2026 19:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=FWAwVzKZ
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8b2f59de176so1805363b3a.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:36:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794339366; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XlljoU7v7jc7R4QTVtkWxIitmBMuWBM2UsPaJH6uz0f9ftFT9yilj3PYea4SZl82gr
-         HGaRgE4E1GlP5ulIX+92ruWCJ8j7wD9w/Mxcrclgkph7Inx900GcOLgYLqBrZz00XBGe
-         BBVTy+83zVFEoQBpE3AbVWmeVcwqq3Bywfb3KC/e32+jn7u4wEI69ac9TywpuTnulayE
-         PKHm/kaxHjdmm/BIcS6C1p3rVcEctMcoHXI0TlI1fUqN2wk6m6bzNUvOJnrFqBx3Pf0Y
-         +nnkGCf+meUYDqXjzXEug0qyn29KiSXp467xu22oILFQxTjHn/XKYnAL4SQ1or7RhD3N
-         Oawg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s0VB72eLXTyvzuPole/vzKEB9qpR7L66QrwnqKGfowI=;
-        fh=kfwB4YibVJLA9niBivu2uVRSuOxOALnQaWsZMz1+ANE=;
-        b=p5vgRgD8az26e8lqOjmADhGM2qJTfw0DlmgnKU8weoZotwElIdyvuE++boN4tUlQGG
-         SM3zY8Dy26ez9xtY6EySSNbqOiP/C0d8m82nyuPRUI91YDSvR/iA6aZxMrif36ql4T74
-         YWkPOtB4Hl5FHP2bctD5W8yPygSfYHWd6LwATCf0dxDPDRWg2JSbA7au28CkT5KBHM2Z
-         oLOMkFQC3u45kWSyIDLXRi2uqfWYxtCc05GD3FhJjQ0afpolAMR8UhDPErHqSAnQbmiB
-         HUfrhLWGO7MjMLJyaXxOZJ94ZRsfC+lv1l/Pa9NtSdDUQeBEg1U43tzlxxsi7fs2YhXz
-         WwbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=u0/qiNfO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5271F0089F;
+	Tue, 10 Nov 2026 19:36:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1794339366; x=1794944166; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s0VB72eLXTyvzuPole/vzKEB9qpR7L66QrwnqKGfowI=;
-        b=FWAwVzKZccDp7rR7Dqn6k21AGZt6CMeyzuf6frtfr2tL2xrmbBI+mRJOq1iAVqKEIO
-         /IufWCAXSEco+eNvr1X/LMMbdmFHvqfpiYByOMPTYb8uccJ7DGqJFTlXjr/GZWpqxuTc
-         X9GbzJ1hNUuS3+efNTHEmEmoWhzKWUp2GGgH4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794339366; x=1794944166;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s0VB72eLXTyvzuPole/vzKEB9qpR7L66QrwnqKGfowI=;
-        b=0qBKqAtaVxLrvzrXgMVYZHrssn3//sBMBML/lPOG2S7CALBvKPuPDSMswARkmBWP00
-         E2/49CVTJoLUEG0Mlb3ugz1E9G5K9HxtJkHSOLrgPWKNo3gBzwyaPrbHn5wKlmNVvJU0
-         vKSWP5I+o1fXkgz6UZVW9FdEWbrLjmfuwJmLqDo/Bx2+fvPBmN8VNf74sT63dnM8diIO
-         gGqjifaqM3FLAqX2OmNLkIt6Xo4GSxVJxPS6JKAaqGY4rX7fA8z9x4WqZ/LtGezGELLf
-         3kADe14AvRchpgO4+z+MU82gegIMtLzDsGIIi5NytePlr2MNYAIsUJHJuYferbW0Btzy
-         zIFg==
-X-Forwarded-Encrypted: i=1; AL+hErFRLNgmGlAT6tZTEI4S1RptA2Nd03LitTgbRqsBeTFGMaMSMyTUqyhQcI3yjvtTg5Jz0GIOfws=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zHXnjW0k2e1EMO7vnmcX3M3ViLbkAU+ZIIJ7n+woYL6nV79QS
-	Pz8/5joUKrfL/h/jYXCtMsjKjR0lQ78+mt/i7DBuk/XUTNJamzvmCYZlNARDjh97S443JBc4+ut
-	XCsTxVcsYw2p6JZqWlc5wfpQgFpHFV77VrKb3SAvx
-X-Gm-Gg: AYBFou2+t7Cg+Q3wML5ovkf2S9WM9N4/rs5gawYS61d+PFQLxAglVBd7IOvPGVLM0xt
-	SA74tidQ8NUIqUC8favpQjpfSWCTAcXVqoRA/O1+Cmwm0PsShSL6t91PXCSM+nfz8SnNXkvGZyf
-	CWgxiFiALlo0Vjrj45SZnyPn/nJEp0ILKpWttdgdqBXwWc8eCO3HjG0ZaaowBW3WmYM/yKiJ/p4
-	T9yAglr4+QtBZy5RXEVhlgdNaGmCwfLjbOjCbf/Jcv2Wh9CHmEy8yIIV8zNmFOimXtsrr+/UcRX
-	FIX/4k0RZH6MMd9YJfnFVsTi192RyQD3DIL7EsaPB25e8coOlBmYblGwNEP4NOpkZXcHfcK/A0P
-	V7auW+QfDQVgKtOjd8aqcZ+xTncdEJmUxUb3aeHmruGFqbXBIHHihq9NhVRZRgiZHh+XFM02X4A
-	LOgHIXjzZXyoqmoR3o15ua6hqXgV8V57bzPSHG
-X-Received: by 2002:a05:6a00:1482:b0:878:3783:8a88 with SMTP id
- d2e1a72fcca58-8bc1deef93bmr85895b3a.52.1794339366268; Tue, 10 Nov 2026
- 11:36:06 -0800 (PST)
+	d=linux-foundation.org; s=korg; t=1794339379;
+	bh=yKI8uRbxWpKAgg0VxEj7KIuiAdskqV8+SQSmpYSxc+k=;
+	h=Date:To:From:Subject;
+	b=u0/qiNfO2PazNmcFfMYFvtL3fpqq87JNts2cbMm5kMhes6pl+FUPovKECYcyIFHJO
+	 3ylMYq/2nBTCocxpD5SCuhYFuPaNr5icitiJ+LyX9Tkffx26QvBe3ASW19SZD+lo4i
+	 6ebCJRUojxWIO0FQzFSFRa/8Wdk/XyrHw74w6LW0=
+Date: Tue, 10 Nov 2026 11:36:18 -0800
+To: mm-commits@vger.kernel.org,yuanchu@google.com,youngjun.park@lge.com,
+	willy@infradead.org,weixugc@google.com,stable@vger.kernel.org,
+	shikemeng@huaweicloud.com,shakeel.butt@linux.dev,ryncsn@gmail.com,
+	qi.zheng@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,
+	hannes@cmpxchg.org,david@kernel.org,chrisl@kernel.org,brauner@kernel.org,
+	baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
+	axelrasmussen@google.com,nphamcs@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261110193619.6F5271F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,64 +54,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <QDISC-6HS9.v3.r0.20261103062649-2@mojatatu.com>
- <179406458348.994134.6942745655171316289@kernel.org> <CAM0EoMnprPstSvZEj+FKtK_kM6JB-jkrhYRwSd_mmN3WAMFQFQ@mail.gmail.com>
- <20261110101953.6f7b6dac@kernel.org>
-In-Reply-To: <20261110101953.6f7b6dac@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 10 Nov 2026 14:35:54 -0500
-X-Gm-Features: AclHuK-o8fCkX4IOORxCRrQKTAN4fjHo9n1O3UvNIUpEqwk1J7vVfGugUqKjSgY
-Message-ID: <CAM0EoMm76uc8OXSzvMCSpodkm+8Q69q-g6UORiu5J7pFHd0Lnw@mail.gmail.com>
-Subject: Re: [PATCH net v3 2/2] net/sched: sch_teql: keep skb->dev consistent
- on the arp-queue path
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, victor@mojatatu.com, 
-	jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Nov 10, 2026 at 1:19=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Mon, 9 Nov 2026 06:44:09 -0500 Jamal Hadi Salim wrote:
-> > I think i missed responding to this one. Sashiko-nipa responses are
-> > very erratic. For some threads (not mine) a review shows up 2-3 days
-> > later. For mine the average time seems to be 7 days and sometimes a vN
-> > review appears a few days later after a vN+1.
->
-> Response time is based on contributor score, you are pretty deep in
-> the red given that you basically stopped reviewing patches from other
-> people, and keep mis-posting stuff.
-
-Yes, i just saw my grade, it's not good ;->
-Mis-posting was for debugging what was happening;-> but I admit to not
-reviewing.
-Note: I still review credible submissions (such as Alexandre's) or if
-one of you guys asked me to look at those (and what Victor posts as
-well).
-
-I stopped reviewing the drive-by AI patches because the returns
-were/are low. My cost analysis shows reviewing and chasing someone,
-testing, etc., takes about 5=E2=80=936 times longer than knocking one of 10=
-0+
-issues i have on my plate. Pre-AI there were much lower submissions
-and i would review to encourage more contribution etc. But now it
-costs someone 30 sec to send a patch and the count is just too high.
-Worse, a lot of these patch authors just disappear when it comes down
-to sending revision after revision. But my main motivation is a
-majority of them now get their sources from sashiko "pre-existing
-issues" which we are already collecting, analyzing and sending fixes
-for.
-
-My suggestion for the algorithm:
-dont give authors that just submitted a high mark just because they
-are new. "New contributor" scope has totally changed in meaning, I
-would grade perseverance as a high mark. I just sent a v9 on one of
-the patch series - and back and forth for over a month, I  feel i
-deserve a better grade than someone posting a patch and disapearing.
 
 
-cheers,
-jamal
+The patch titled
+     Subject: mm: vmscan: allow writeout of swapcache folios without anon mappings
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Nhat Pham <nphamcs@gmail.com>
+Subject: mm: vmscan: allow writeout of swapcache folios without anon mappings
+Date: Tue, 10 Nov 2026 07:14:05 -0800
+
+Patch series "mm: fix swapcache writeout and cluster table races", v2.
+
+Reviews of vswap and v1 of this series found bugs in existing swap code. 
+Allow swapcache writeout without anon mappings, publish cluster tables
+with the allocator locks held, and leave tableless clusters to the
+allocator.
+
+
+This patch (of 3):
+
+Unfaulted zswap readahead folios can be dirty and in swapcache without
+an anonymous mapping. pageout() rejects them before swap_writeout(),
+so reclaim cannot write them out while their swap entries remain
+referenced.
+
+Allow swapcache folios through the filesystem folio check. They already
+have swap entries and can use the existing swap writeout path. Anonymous
+folios outside swapcache have no mapping and already return PAGE_KEEP.
+
+Link: https://lore.kernel.org/20261110151407.789960-1-nphamcs@gmail.com
+Link: https://lore.kernel.org/20261110151407.789960-2-nphamcs@gmail.com
+Fixes: 84798514db50 ("mm: Remove swap_writepage() and shmem_writepage()")
+Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-181078@kernel.org/
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Christopher Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: <ryncsn@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/vmscan.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/mm/vmscan.c~mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings
++++ a/mm/vmscan.c
+@@ -714,7 +714,8 @@ static pageout_t pageout(struct swap_io_
+ 	 */
+ 	if (folio_ref_count(folio) != 1 + folio_nr_pages(folio) || !mapping)
+ 		return PAGE_KEEP;
+-	if (!shmem_mapping(mapping) && !folio_test_anon(folio))
++	/* Anonymous folios outside swapcache returned PAGE_KEEP above. */
++	if (!shmem_mapping(mapping) && !folio_test_swapcache(folio))
+ 		return PAGE_ACTIVATE;
+ 	if (!folio_clear_dirty_for_io(folio))
+ 		return PAGE_CLEAN;
+_
+
+Patches currently in -mm which might be from nphamcs@gmail.com are
+
+mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch
+mm-swap-publish-cluster-tables-after-reacquiring-allocator-locks.patch
+mm-swap-skip-relocation-of-tableless-clusters.patch
+
