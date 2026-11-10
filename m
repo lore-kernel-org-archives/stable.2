@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324574;
-	b=VXhQVIHwIujV3Cl2wMRQZ9aqQd3ikzCBIhQWh0gkj6DztejPu7Km5i7lUxkrEpP6aFGE
-	 MKSYL/5mXDdxT+lzZDQwyfxbFWryZtpbg49sUP3pzVPmu5AQG6EXWq7S0gyqOpT4qm/KW
-	 EtlR+NIcN8ULoznnhb0BhBMPQztsfWk0fxdBK/5uTJ8FwEwn0u4o/M8ogDAegQN+kSCzL
-	 6xKv0l6t17FnZW2FiUu4kHWDoJnoorgkyBsOY4d2Lz31s202Tdy6oiLbpc7ojYi44tYpc
-	 8yvroL05Bt/aU4+CBqzN6n0GaQr87Sxa2wFfNoHuiwrLz912nPMpyz7k3Q8ea0ocu/Q==
+	t=1794324602;
+	b=Jmy8/jZemQ+aIZtuSUzibQQkemsadO1GqXG226Xb+i/Yvc6knxRSnDjqDzDF6pGEVrwv
+	 Oa++CuslXfOeUl4NtKaxh9B0NrSh1+92ZE0rh/Q1i37/DY27mYw4I7U1wTFDbRGpOg9MP
+	 2UXnTh+kuP5Y1fPJPX9xKJWwO2aArnl0UxZRtyULxcygw92wOxPa4qIBowKK6ppjeVVpv
+	 802suzhfeRAvPYWIb09/0YxEUEg9562jfO9zbR+sKGr4nHVaWxemFMqRoNIMQWJsDxFif
+	 YSFAGII0VeKaj+puW7JOqhcuzb+wL6ySSc3yspc82jZK98dYolzu8lL2YKtQhcvWIEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324602;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uNLBHPjZ+m/au/Rm0qQMl1X6I7uLHPFP7cyWMcIEfnY=;
-	b=M2LstISgjwPF0J0sc2GNyBbLp4aPrzysmXK/y/kN/Cbz6ZfT8MGcdiIvrFyEfV1bNYdU
-	 jADJtRei9dY3MCuevytjkHdPKVsbqQii8ssx3MS1VYHf9Gd3kJ3Nt8AO4sRXukwkS7mnM
-	 ur5FA7AiArLTTgGx/i+Yzq5AAs/CKohdxc0Rycm2yo+JPYoPcvLk/m5I6i5shv3VtPkMZ
-	 62k8FC2eYf6iN2IYx/nvZ0OsRfaaoE5uANkdGg9BISGfh8opYuAbbCvTcTADbZ5VZS6nH
-	 hBufou61RolNY/43u32pJnBHyFg4XbbQkGqmramEvoUAE8ZYHtYs2reK4H+iRytrfew==
+	bh=0FyVQrS0Z+WQadj3ZrN4BIJIgTtyVn2ycRF9NHgnNQI=;
+	b=MWGq6qa1Jh+a+bpzcXAVHQ/OKcZEIoIzWDb/pQFbILdNdpq8BhmFFxZ/oHGask6tjx05
+	 8N6CXLHRAfFXO+8P21TjFJhqiTgNuMAUv4LXl7CnLNTRSOIe3JA/7CSu/sHUHg72AprVe
+	 wLdR7pz1VWS3ctb2I9e312PxmLzFaPXCPpcJ175YhVZAihWATj/lPqDpdPaG3ryacw9x+
+	 SUhuSBboIGaUXL4qbvtJezL1E0Xh/jHKTe1XD8XsM78j+GTbM4Mb2EmJPvWS9Z2n1bdDV
+	 1ltNcPonIdrm0/TdCJk2/6L3JiWKO93CSNw7oXrEYZjVfIWoUenTecyYK8YmLmpn57Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JH5kVpwm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRFhLl1F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A62560A261B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94B9606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:30:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JH5kVpwm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B6E1F0089F;
-	Tue, 10 Nov 2026 15:29:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRFhLl1F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE111F0089F;
+	Tue, 10 Nov 2026 15:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324573;
-	bh=uNLBHPjZ+m/au/Rm0qQMl1X6I7uLHPFP7cyWMcIEfnY=;
+	s=k20260515; t=1794324601;
+	bh=0FyVQrS0Z+WQadj3ZrN4BIJIgTtyVn2ycRF9NHgnNQI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JH5kVpwmhPM8q3DqSyG2i+IL21FzBLSIUbqIv4pc4bGms2CVWB+1pJjmERl5QoDMz
-	 dZqQJhwYKH/0y/DQxmINg5WRtqgdDo00HCrcnvNfm9WNf4jIgjYAUOZXIPCvAzlWtn
-	 ZkLgh1yaIoWv8qnqA/jzZfgI0iLWlSpl6wekknO6wDfz5WazKO7OpG82IvumPYDra7
-	 i7jck6jnhtIx2BGrnn233Zk3pSjE3BvL51n7qq5ydkXHdWh1eL/wSOzmPBTJ76m1Sv
-	 3aI//Jt12G9AThfe/GozRlXzsm/Qr5a09g4fST9xyJQWqMGNp1kfWkOxmwK4lQjEwo
-	 Uz+gq7GcncOuw==
+	b=XRFhLl1FxhfiXiSV2/45kSIZBHgdHb7iylUmqpNuwct3ktCGF/pXcExs6v+QYnHJg
+	 5FHzCiyIhM1XjGi7dRUqErP9fKLiHfqr6b8Kfdckp7nWfHy9Ln8bJRBv2BRCBsW1gy
+	 Z17uicZdLne8V7+fd2/D16stCZ4ogt7QrbA4sFL1jtRjL12TR8derw0VKougoJbV4Q
+	 nbmGc6bdKgFM2Fn00CnYblVe+mC5zzxuTKW5Spvl8Pr4D+0lCGoxG9VSERRbvxeerm
+	 ebSCEH9ENHZlKZiqK9IrNjaFVOUpUO6kzbkoQFMQR4kfKeM+bryhqfI4mBjmmTdjV8
+	 SEKephNFgvcfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
-	Kevin Wang <kevin.wang@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/amd/pm:restate all customized OD features on every table upload for smu 13.0.0/smu 14.0.2
-Date: Tue, 10 Nov 2026 10:29:32 -0500
-Message-ID: <20261110152907.2106173-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] mfd: twl-core: Use i2c_check_functionality as boolean value
+Date: Tue, 10 Nov 2026 10:29:58 -0500
+Message-ID: <20261110152949.2135243-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051317-failed-6.18-44d0d3031e47@kernel.org>
-References: <20261107051317-failed-6.18-44d0d3031e47@kernel.org>
+In-Reply-To: <20261107050717-failed-6.18-3c5c55d979dd@kernel.org>
+References: <20261107050717-failed-6.18-3c5c55d979dd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,336 +61,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kenneth Feng <kenneth.feng@amd.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 44d0d3031e47973ed65fd327669d5e2eaaf6c565 ]
+[ Upstream commit 7ee4fa2674e51a0d100b9240cd8a50355141362f ]
 
-PMFW interprets OverDriveTable.FeatureCtrlMask as the complete set of
-overdrive features that are currently overridden, not as a delta
-describing the operation at hand. On import it resets every feature
-whose bit is clear back to its default value - for the VF curve that
-means zeroing VoltageOffsetPerZoneBoundary[] outright.
+i2c_check_functionality() returns a boolean status rather than an error
+code - directly use it as a boolean value.
 
-The driver assumed the opposite. smu_v14_0_2_od_edit_dpm_table() clears
-the mask after a successful commit, so a subsequent above-default
-power1_cap write goes through smu_v14_0_2_set_ppt_limit() and uploads a
-table carrying only PP_OD_FEATURE_PPT_BIT. PMFW then drops the user's
-voltage offset and reverts to the stock V/F curve, while the driver's
-cached user table still reports the offset through pp_od_clk_voltage.
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5935
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Kevin Wang <kevin.wang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1b63bb397db208a8f84778a9d9cafc93da9373eb)
-Cc: stable@vger.kernel.org
-[ sashal: adjusted smu_table_context context for existing gpu_metrics_table_size and gpu_metrics_table fields instead of driver_tables ]
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Link: https://patch.msgid.link/20260505114543.159381-2-thorsten.blum@linux.dev
+Signed-off-by: Lee Jones <lee@kernel.org>
+Stable-dep-of: 3c5c55d979dd ("mfd: twl-core: Unregister the auxiliary platform device on unbind")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 +
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 35 +++++++----------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 32 +++++++---------
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 38 +++++++++++--------
- 4 files changed, 52 insertions(+), 55 deletions(-)
+ drivers/mfd/twl-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index e00beb901d906..0557fbf9649c8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -370,6 +370,8 @@ struct smu_table_context {
- 	void                            *boot_overdrive_table;
- 	void				*user_overdrive_table;
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index f89eda4a17fe4..c024a28b057e3 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -754,7 +754,7 @@ twl_probe(struct i2c_client *client)
+ 		return status;
+ 	}
  
-+	uint32_t			user_od_feature_mask;
-+
- 	uint32_t			gpu_metrics_table_size;
- 	void				*gpu_metrics_table;
- };
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index e463a39efab22..9d2d630bba240 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -1643,7 +1643,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t offset_of_voltageoffset;
- 	int32_t minimum, maximum;
--	uint32_t feature_ctrlmask;
- 	int i, ret = 0;
- 
- 	switch (type) {
-@@ -1965,21 +1964,16 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 			if (ret)
- 				return ret;
- 		} else {
--			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
- 			memcpy(od_table,
- 		       table_context->boot_overdrive_table,
- 		       sizeof(OverDriveTableExternal_t));
--			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
-+			od_table->OverDriveTable.FeatureCtrlMask = 0;
-+			table_context->user_od_feature_mask = 0;
- 		}
- 		fallthrough;
- 	case PP_OD_COMMIT_DPM_TABLE:
--		/*
--		 * The member below instructs PMFW the settings focused in
--		 * this single operation.
--		 * `uint32_t FeatureCtrlMask;`
--		 * It does not contain actual informations about user's custom
--		 * settings. Thus we do not cache it.
--		 */
-+		table_context->user_od_feature_mask =
-+			od_table->OverDriveTable.FeatureCtrlMask;
- 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
- 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
- 			   table_context->user_overdrive_table + offset_of_voltageoffset,
-@@ -1992,7 +1986,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
- 				return ret;
- 			}
- 
--			od_table->OverDriveTable.FeatureCtrlMask = 0;
- 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
- 			       (u8 *)od_table + offset_of_voltageoffset,
- 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
-@@ -2271,6 +2264,7 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
- 		       boot_od_table,
- 		       sizeof(OverDriveTableExternal_t));
- 		smu->user_dpm_profile.user_od = false;
-+		smu->smu_table.user_od_feature_mask = 0;
- 	} else if (smu->user_dpm_profile.user_od) {
- 		memcpy(&user_od_table_bak,
- 		       user_od_table,
-@@ -2320,12 +2314,8 @@ static int smu_v13_0_0_restore_user_od_settings(struct smu_context *smu)
- 	OverDriveTableExternal_t *od_table = table_context->overdrive_table;
- 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
- 	int res;
--
--	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
--							BIT(PP_OD_FEATURE_UCLK_BIT) |
--							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
--							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
--							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
-+	user_od_table->OverDriveTable.FeatureCtrlMask =
-+		table_context->user_od_feature_mask;
- 	res = smu_v13_0_0_upload_overdrive_table(smu, user_od_table);
- 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
- 	if (res == 0)
-@@ -3130,8 +3120,10 @@ static int smu_v13_0_0_set_power_limit(struct smu_context *smu,
- 	if (limit <= msg_limit) {
- 		if (smu->current_power_limit > msg_limit) {
- 			od_table->OverDriveTable.Ppt = 0;
--			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
--
-+			table_context->user_od_feature_mask &=
-+				~(1U << PP_OD_FEATURE_PPT_BIT);
-+			od_table->OverDriveTable.FeatureCtrlMask =
-+				table_context->user_od_feature_mask;
- 			ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
- 			if (ret) {
- 				dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
-@@ -3145,8 +3137,9 @@ static int smu_v13_0_0_set_power_limit(struct smu_context *smu,
- 			return ret;
- 
- 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
--		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
--
-+		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+		od_table->OverDriveTable.FeatureCtrlMask =
-+			table_context->user_od_feature_mask;
- 		ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
- 		if (ret) {
- 		  dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 0af98b5bf0ac2..9947b3f6bb5fb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -1631,7 +1631,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t offset_of_voltageoffset;
- 	int32_t minimum, maximum;
--	uint32_t feature_ctrlmask;
- 	int i, ret = 0;
- 
- 	switch (type) {
-@@ -1953,22 +1952,17 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 			if (ret)
- 				return ret;
- 		} else {
--			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
- 			memcpy(od_table,
- 					table_context->boot_overdrive_table,
- 					sizeof(OverDriveTableExternal_t));
--			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
-+			od_table->OverDriveTable.FeatureCtrlMask = 0;
-+			table_context->user_od_feature_mask = 0;
- 		}
- 		fallthrough;
- 
- 	case PP_OD_COMMIT_DPM_TABLE:
--		/*
--		 * The member below instructs PMFW the settings focused in
--		 * this single operation.
--		 * `uint32_t FeatureCtrlMask;`
--		 * It does not contain actual informations about user's custom
--		 * settings. Thus we do not cache it.
--		 */
-+		table_context->user_od_feature_mask =
-+			od_table->OverDriveTable.FeatureCtrlMask;
- 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
- 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
- 			   table_context->user_overdrive_table + offset_of_voltageoffset,
-@@ -1981,7 +1975,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
- 				return ret;
- 			}
- 
--			od_table->OverDriveTable.FeatureCtrlMask = 0;
- 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
- 			       (u8 *)od_table + offset_of_voltageoffset,
- 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
-@@ -2254,6 +2247,7 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
- 		       boot_od_table,
- 		       sizeof(OverDriveTableExternal_t));
- 		smu->user_dpm_profile.user_od = false;
-+		smu->smu_table.user_od_feature_mask = 0;
- 	} else if (smu->user_dpm_profile.user_od) {
- 		memcpy(&user_od_table_bak,
- 		       user_od_table,
-@@ -2304,11 +2298,8 @@ static int smu_v13_0_7_restore_user_od_settings(struct smu_context *smu)
- 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
- 	int res;
- 
--	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
--							BIT(PP_OD_FEATURE_UCLK_BIT) |
--							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
--							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
--							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
-+	user_od_table->OverDriveTable.FeatureCtrlMask =
-+		table_context->user_od_feature_mask;
- 	res = smu_v13_0_7_upload_overdrive_table(smu, user_od_table);
- 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
- 	if (res == 0)
-@@ -2726,7 +2717,10 @@ static int smu_v13_0_7_set_power_limit(struct smu_context *smu,
- 	if (limit <= msg_limit) {
- 		if (smu->current_power_limit > msg_limit) {
- 			od_table->OverDriveTable.Ppt = 0;
--			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+			table_context->user_od_feature_mask &=
-+				~(1U << PP_OD_FEATURE_PPT_BIT);
-+			od_table->OverDriveTable.FeatureCtrlMask =
-+				table_context->user_od_feature_mask;
- 
- 			ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
- 			if (ret) {
-@@ -2741,7 +2735,9 @@ static int smu_v13_0_7_set_power_limit(struct smu_context *smu,
- 			return ret;
- 
- 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
--		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+		od_table->OverDriveTable.FeatureCtrlMask =
-+			table_context->user_od_feature_mask;
- 
- 		ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
- 		if (ret) {
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index f8761a64a6e12..88bbc30b5ec96 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -2391,6 +2391,7 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
- 		       boot_od_table,
- 		       sizeof(OverDriveTableExternal_t));
- 		smu->user_dpm_profile.user_od = false;
-+		smu->smu_table.user_od_feature_mask = 0;
- 	} else if (smu->user_dpm_profile.user_od) {
- 		memcpy(&user_od_table_bak,
- 		       user_od_table,
-@@ -2439,11 +2440,8 @@ static int smu_v14_0_2_restore_user_od_settings(struct smu_context *smu)
- 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
- 	int res;
- 
--	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
--							BIT(PP_OD_FEATURE_UCLK_BIT) |
--							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
--							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
--							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
-+	user_od_table->OverDriveTable.FeatureCtrlMask =
-+		table_context->user_od_feature_mask;
- 	res = smu_v14_0_2_upload_overdrive_table(smu, user_od_table);
- 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
- 	if (res == 0)
-@@ -2528,7 +2526,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t offset_of_voltageoffset;
- 	int32_t minimum, maximum;
--	uint32_t feature_ctrlmask;
- 	int i, ret = 0;
- 
- 	switch (type) {
-@@ -2817,21 +2814,26 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 			if (ret)
- 				return ret;
- 		} else {
--			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
- 			memcpy(od_table,
- 		       table_context->boot_overdrive_table,
- 		       sizeof(OverDriveTableExternal_t));
--			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
-+			od_table->OverDriveTable.FeatureCtrlMask = 0;
-+			table_context->user_od_feature_mask = 0;
- 		}
- 		fallthrough;
- 	case PP_OD_COMMIT_DPM_TABLE:
- 		/*
--		 * The member below instructs PMFW the settings focused in
--		 * this single operation.
--		 * `uint32_t FeatureCtrlMask;`
--		 * It does not contain actual informations about user's custom
--		 * settings. Thus we do not cache it.
-+		 * PMFW interprets FeatureCtrlMask as the complete set of OD
-+		 * features that are currently overridden, not as a delta
-+		 * describing this single operation. Any feature whose bit is
-+		 * clear gets reset to its default on import. od_table's mask
-+		 * has accumulated every feature the user touched since the
-+		 * last full restore, so record it and keep restating it on
-+		 * subsequent uploads.
- 		 */
-+		table_context->user_od_feature_mask =
-+			od_table->OverDriveTable.FeatureCtrlMask;
-+
- 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
- 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
- 			   table_context->user_overdrive_table + offset_of_voltageoffset,
-@@ -2844,7 +2846,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 				return ret;
- 			}
- 
--			od_table->OverDriveTable.FeatureCtrlMask = 0;
- 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
- 			       (u8 *)od_table + offset_of_voltageoffset,
- 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
-@@ -2882,7 +2883,10 @@ static int smu_v14_0_2_set_power_limit(struct smu_context *smu,
- 	if (limit <= msg_limit) {
- 		if (smu->current_power_limit > msg_limit) {
- 			od_table->OverDriveTable.Ppt = 0;
--			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+			table_context->user_od_feature_mask &=
-+				~(1U << PP_OD_FEATURE_PPT_BIT);
-+			od_table->OverDriveTable.FeatureCtrlMask =
-+				table_context->user_od_feature_mask;
- 
- 			ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
- 			if (ret) {
-@@ -2897,7 +2901,9 @@ static int smu_v14_0_2_set_power_limit(struct smu_context *smu,
- 			return ret;
- 
- 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
--		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
-+		od_table->OverDriveTable.FeatureCtrlMask =
-+			table_context->user_od_feature_mask;
- 
- 		ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
- 		if (ret) {
+-	if (i2c_check_functionality(client->adapter, I2C_FUNC_I2C) == 0) {
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
+ 		dev_dbg(&client->dev, "can't talk I2C?\n");
+ 		status = -EIO;
+ 		goto free;
 -- 
 2.53.0
 
