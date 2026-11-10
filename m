@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344405;
-	b=xSycD/vSO6E+3pl99p4WbxjIjIxYh1AljIt1Smo7sbKzNI2Ibk4vfvmTXVA9Nci2+pS9
-	 2yDvQmP1l4ktCE7sKK4w3NwMRb83Iw4A+LNoSRgclTdGgqMSDwCjJPYqFFL0YIm58Fo+C
-	 sYqXCv7yJtq36A6/bK5kCtOL7DwJnNSDWqUK6yni9vZIk99OoZX8KVWDlHsaijxg3Hz6t
-	 yDN1EU0q8sMG+kv/F6HkXtqsA/QKQq2zAthZWAgg5Y9v9WOziBG9t58SXQwqDjE8MakjG
-	 ak7Tii8TldciWgO2ACm52LNMR/rVrKl1CRxRWAm4x3TGwdFvWymb5tx7NytjzVuXqAw==
+	t=1794344406;
+	b=rBbZxhoqfzywSxFCPao3oSwfEsFrfqA5jBjMLrOdhQyWZ2rkuA2Ku4L2hK0TNNbT/YoN
+	 jxaDfHwEs97rg1GjdZQcK3XSvUZB181gU5e2RvnT6kzdmIQhH5ScstSP37AIXiMXblQ2W
+	 zWF1GJtPP+q0HQ76Cj3ctJ1/8K+BLOk6QNQaJ5RTSihOxwrfNZIT4eJgVOJ324fSvbWdu
+	 kdKLCOsFLqlDSJan6iksQuFsGUzxf5pAIEgI82Db4LsmYOL4ApctG11csX2S8tqALiA+5
+	 P8tr1AbbdTOtR9g4h5bJG2hWNsm5BQpbCW71mfJQe2xNbFdKv5Tjkjbu9CzDwAk8QwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344406;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=z5BOQ/GJBZBi3U7ZtFz5HRXDsippEx2g621BWgoaTSE=;
-	b=DuKdzobtlVjGOqqNnFtu9PKuQodPTacWq4c9TQBrgYNZLTnIvl6gWStsiggZbA/ZPjoV
-	 R56gwO9hFGach8ZSHL169Nnq1TrDWMIhnYcVRpzpPyD84DWic+KtwCtVLGpscrLURU2ci
-	 KiOC0a8qLBIl3OeRNnTuntSBt4I95cOzkeBNgShID/8feuZhv8gWRWRSTiY7EGWpZdRQm
-	 QCGZuYEeXtjYVK4Gcek5npw3RuM6z0KgZIe7Vy7L9kobRygCgDZUOC5ZPPp3Y+ii7eOOu
-	 vb1bCZnCvXLgi/jbVXiMY3Iou1qMLAGY+vAF+LM0CYCPc0hVcUQSEMy+xKpXlghuTqg==
+	bh=B7riTDJpu+xAusGR6ZhbtUA4hXaJQVQ5XK/yRyRnAdU=;
+	b=u4KF1IG8F3aJ6brDDKOFRYhtojtXt/MYlIv0vhkoWwpgZHUWwhDtYRSBQgwlS3PgcQPB
+	 U8x5lAjmNLrgwb683+6VlgiwLywPtDSbTlOl842eEj1XyZHcY/n2NaaSOlH5vYunfSs/d
+	 DpULNlIlLB4UM8aN1jEPPS1bs6pVd8WywgKJEzUOriPsBWFzwseoL0ABCLwojO+pXwgbo
+	 Qo4ciFolszLDfvgnDmnX8PVDzGw+p/i/SHheSqiRwAlf3yFdimO4QySAZf5mrP9KOkEul
+	 ekdR83pS7x5pJYmcp1Th+sK5EggXtVMa/fXaJO2EXRjnQS14eiVwLuxezVBGINj1riA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfSroS5y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2VNkFSs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E14160A260A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F42C606A333
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfSroS5y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852AD1F008A3;
-	Tue, 10 Nov 2026 21:00:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2VNkFSs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588E31F008A1;
+	Tue, 10 Nov 2026 21:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794344405;
-	bh=z5BOQ/GJBZBi3U7ZtFz5HRXDsippEx2g621BWgoaTSE=;
+	bh=B7riTDJpu+xAusGR6ZhbtUA4hXaJQVQ5XK/yRyRnAdU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mfSroS5yxsshAiTGBln/mSSJW2VsXI0G84+qWUdniMMItd2eq6NbO11XlJUIriB8Q
-	 XuLv0BIt+kULLgsoq8o68p+I9CKWIXz0JhZxLkmvXzVW2hwBiNS92y/HVDbqnYaLFk
-	 Hfgqx2GJiJ9sw1oB6SEUGZqO6aN0fQfxAlv400lkmpKtgEtjdPoDMQCwfZ5SKd4FYD
-	 IBJu6EUBe+o8TdTFXaIps/9kD3IItpw9Y/0fuxTx6Ix1O/3GoQexW6AO+UudiNIj5n
-	 omKEUojfqAMrs7M/sBn4HHZa+JKRg05vSJy708MQgyYmTWY9avKSCXlmVUIxXDwmF2
-	 jPWvaD4nFRd4w==
+	b=Y2VNkFSsPltfndXAAFlhCLAJGX/oXCxJtFtGmIAGmXvUEd978WmzohpEnehfEBHKV
+	 zIiZbZ9o4GYQ0kqpIXFMT+qjI/zUxPt+XasU7fp7I9XglsJUwxaKzBFs2rVJ7enSqU
+	 IjRgf5p9un5TIB7wXXtg176Dxub7I2SFVikS68xYVcx0h3LRHzpyegS5K6IsA+lp0/
+	 ZyNFPHvpBenrSFh9T7ajCw9dR9/77iA+QWuu7xBx18JZijq+ST5XhWW0fpDls5gBdU
+	 xPiV/7YeeoK6fEMiDhUy0itNO3dYMm98l9RvPhdwQHhfR4YriFCdm0ngq4fJuB4Ezx
+	 gclviTIgYlPYg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ard Biesheuvel <ardb+git@google.com>
-Subject: Re: [PATCH -stable] efi/libstub: arm64: Don't use the platform register x18
-Date: Tue, 10 Nov 2026 15:59:29 -0500
-Message-ID: <2026-11-10-1-daily-reply-0033-efi-x18@kernel.org>
+	John Johansen <john.johansen@canonical.com>,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH 6.12.y v2] apparmor: check accept index + 1 is in bounds
+Date: Tue, 10 Nov 2026 15:59:30 -0500
+Message-ID: <2026-11-10-1-daily-reply-0036-apparmor-accept-v3@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109130300.1484407-2-ardb+git@google.com>
-References: <20261109130300.1484407-2-ardb+git@google.com>
+In-Reply-To: <20261110015643.469506-1-zhugl3@xiaopeng.com>
+References: <20261110015643.469506-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,9 +61,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> efi/libstub: arm64: Don't use the platform register x18
+> apparmor: check accept index + 1 is in bounds
 
-Queued for 6.1, 5.15 and 5.10, thanks.
+In v2 the index + 1 bound check sits in verify_dfa_accept_index(), which runs
+for both rules->file->dfa and rules->policy->dfa. The file dfa has two perms
+slots per state, so the check is right there, but the policy dfa has one slot
+per state (accept[state] == state, table size == state_count), so its last
+state always fails the new check and profiles with a policy dfa are rejected on
+load.
+
+Please limit the bound check to the file dfa and resend both trees (6.12 and
+6.6).
 
 -- 
 Thanks,
