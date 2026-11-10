@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354047;
-	b=JGTXiTJrhTzX3AHedWg6QDimQoLEibDBxO89GZ6PD44MaX/MExe6K3tWxyuZswhLWhtC
-	 JAPNC1/AMMxd7ifgGy3B/rENrIIYg75o/6Hg8BhhaSplG0iwS1dALpGg5eJqIlJ9zMVtN
-	 bMpw9jaEb3L0AdVyWiWa0MMB3MMsj+40efCsjgjB4+Ls9LzBaoLhpTOdm6lZsKGhfB2av
-	 VAhVlE1URGK4F1lNCHDLtD1wclp7YmI0D9HdwnUCGU4xHk8+CRZp8TRCd8a9pcv55xZTy
-	 70jGdiEhVSZb5Vn7wDNO9cw2WhZlhITP/yfq4tpHvNxcUh7C9NOR1rJyAu+tflcv/vA==
+	t=1794354053;
+	b=wD1+TeAXQJYBq13vCXoTQCk97fid+z1qT2dZn5ZPrGNiP9QpXiCz+FDBe5u0+6zZiseT
+	 P9w1EIBSPMSKQCRLqUYTUL81071eHAXm434TXwjBSl5gOSDDzftrQFuBr5J72OMeRCvsA
+	 aQGJ7XFxVMTevQPwuCPgRzG5C1ipt0slknVbfD9Heyh87O/UuJ7u75eVffQkANnDXjW81
+	 fCrdVZU3SbdQUKWpAjEJKFUeSSYOlwr3dZTJkLVfnZuLdH3LP0Btf3TZuKXUm4pS3mtlg
+	 7FkTWu8Ya/7SBuTvvXhqSHMoxs29JF2h5GzbUs7VsivmVw8H2oll1o9BoHj1/7R/GTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354053;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=brHWgnXbfENa3Pvi9qjIejV7+Ev4AtYuDj+o15AAsm0=;
-	b=15WSR9IMjqx/GXZLTf+0GCYtkhRNqpRZEOjsBVDEDsulqFVmxealf5KGCQg0BfJ5QT9L
-	 64CbBKeun3v5G4pqCvdkeAP7FL53RvGMv7axIWXOVStlhgYGsK9q9+Mwun/Gxx42kaKGC
-	 9vRdtMnlg7XmH4zms1y0+EJsYo2gJg4Uc8rqYbRRARlyIopGyta7StYQDcdAx1D9RY5Aq
-	 cpPZduoEAwxUmM/kuWabnlPKbsXx3gzEP1unuhpn9wW32rcguodIE0wH0UlkuQAawczlB
-	 bjXAUYWge81kvroaQjEHrT2J3E6uhXlKbhNdRh1q7xuAfzALf+uVCLIkFU0EFJZZXLA==
+	bh=Owbk8go3s/YK6qq6glJqe7qttYuK2DZ19j1wIpD/QKs=;
+	b=xXd7KouKInW1aeo/D9HBYGn2p8JE8bc1MgJA38fB8+VuiBVws3S+1UTqA717fTxKNZ1R
+	 qZ5/iFmyVOMjdkuBKKiqOXdcy2IslfPEY8UDTmkt3d+dmhGCsBbm4nQ4AUKCPbb8AbBGm
+	 cvqNu79GTlqiPa/sLusEDvFJNUFMuw0CIopxQs/4WxnwOKPFTt1KHz/UcV276pbBsvII8
+	 noyYlpZrYbHoaD3YRCDAzre+0apyoUkUEtpupSWZx3z7lr1Ah6XvjPEOGd5YKYpWl98uy
+	 qYAAhL2ODXmEhXxdMx5btk6dnJPFQNLTEdCHeaPGIUQOHbdhQkl5D+pBEWFSttWVoyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FeH7lwLD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mozlZtiw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC7B606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:40:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0E4606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FeH7lwLD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C6F1F0093C;
-	Tue, 10 Nov 2026 23:40:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mozlZtiw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999341F0093C;
+	Tue, 10 Nov 2026 23:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794354047;
-	bh=brHWgnXbfENa3Pvi9qjIejV7+Ev4AtYuDj+o15AAsm0=;
+	s=k20260515; t=1794354053;
+	bh=Owbk8go3s/YK6qq6glJqe7qttYuK2DZ19j1wIpD/QKs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FeH7lwLDg0Xr7GaVVu4WKnac1iVPzbNx2omD33LFUchq5UUu4ITIAGHNhtC+QYQIF
-	 RXvT4KqZ/426nbiSH1kOlwIbXE1gv7HovRuMuumnKT928IcYnE0UCWrk9Uzrkja3+g
-	 OuVH8zvdSyesstWZNYqq3wTxLF4CbnhEeN90XjHfhKl38Mkshno/rEi3yPMunV4DS8
-	 Lf8bAaftrABzseFXkRWbZzynUogfzetLoM2cdbEOVRyAew22oxJqX2fkGJ56PEycXN
-	 4GeNYHlWT3+7BLHQ9NffcdhUYsFIIw8M/q3bMoxouGwrImtSXDoIdnqaFhkLbecK8z
-	 6peBa/8cNJqUw==
+	b=mozlZtiwgLiMdgyd1RZx8WPghU5UsVwHe4s3H24bCL+Mm7WpAOaQC69nsOXIumyah
+	 xCVZVYM2kfdCeSoB4067Fn61YgpiTf0bpwPiwR30y+ynXkpEcPfjseARU1WGWG+6CI
+	 5AGsYwmKhzbrUdY9wNKPZWjvBamatLpi1XC8fPcmKMXjtY/19yIVEkV/EZvnmGCQsr
+	 UX9oaFCulOeNfS2kl9DyKg751Wns/bLxAoP2BP5MJ+iiW2tE+eH6QfXxDKfSvFbGpu
+	 F6na4mNKdb0VVAuZWu0hd/Bo7D91V3J6q6OkZ2aG0w+JfK2acfLqMnO+NhenU/CZwn
+	 z45Q+xXLs8osg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
-Date: Tue, 10 Nov 2026 18:40:45 -0500
-Message-ID: <20261110234025.143830-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] f2fs: don't use truncate_inode_pages_final() on live inodes
+Date: Tue, 10 Nov 2026 18:40:51 -0500
+Message-ID: <20261110234029.156812-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052303-failed-6.12-a1b4bd2c2c26@kernel.org>
-References: <20261107052303-failed-6.12-a1b4bd2c2c26@kernel.org>
+In-Reply-To: <20261107055222-failed-6.1-74bbd6ada01f@kernel.org>
+References: <20261107055222-failed-6.1-74bbd6ada01f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,58 +63,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit a1b4bd2c2c262b8094c86afb99364d16ac08cb66 ]
+[ Upstream commit 74bbd6ada01f91fcad60608e0417bf45a9fa99e6 ]
 
-Disabling LPIs is pretty nasty, as it directly messes with the AP list
-of the affected CPU, which could be running... This has the potential to
-lead to really bad behaviours, and we should not be doing that.
+truncate_inode_pages_final() is meant to be called from ->evict_inode.
+It sets AS_EXITING on the mapping, and nothing ever clears it, to tell
+the VM that the inode is going away.
 
-Take example on the way the Active state is handled and simply pause the
-the vcpu so that we are sure it is in a quiescent state, and the state be
-safely manipulated.
+f2fs calls it in two places where the inode stays live:
 
-Nobody has any expectation of performance for this anyway.
+ - F2FS_IOC_START_ATOMIC_REPLACE uses it to drop the page cache of the
+   original inode before setting i_size to 0. The atomic write then
+   goes on through this inode.
 
-Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
-Co-developed-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: replaced missing kvm_pause_vcpu() and kvm_resume_vcpu() calls with VM-wide kvm_arm_halt_guest() and kvm_arm_resume_guest() ]
+ - f2fs_abort_atomic_write() uses it to drop the uncommitted data. It
+   is called on eviction, but also on the last writer's close in
+   f2fs_release_file(), from f2fs_file_flush() when the atomic writer
+   exits, from F2FS_IOC_ABORT_ATOMIC_WRITE and when
+   F2FS_IOC_COMMIT_ATOMIC_WRITE fails.
+
+Other processes may still have the file open or mapped in all of these
+cases. The mapping then stays marked as exiting for as long as the
+inode is in memory. This stops reclaim from storing workingset shadow
+entries for it and breaks any code that assumes an exiting mapping has
+no users left.
+
+All we need in both places is to drop the page cache, so use
+truncate_inode_pages(mapping, 0) instead. The eviction path is not
+affected, because f2fs_pre_evict_inode() still calls
+truncate_inode_pages_final() after f2fs_abort_atomic_write().
+
+Cc: stable@kernel.org
+Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
+Fixes: 41e8f85a75fc ("f2fs: introduce F2FS_IOC_START_ATOMIC_REPLACE")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Omitted the atomic-replace hunk because atomic-replace support is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ fs/f2fs/segment.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index 6e157b0b21adf..c62666adc2f8d 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -276,9 +276,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
- 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
- 			return;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 6f792ebe6f530..ef1b80827fb0a 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -193,7 +193,7 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
+ 		return;
  
-+		/*
-+		 * Yes, disabling LPIs is painful, since it can be done from
-+		 * a *remote* vcpu! So let's not take any chance, and make
-+		 * sure that the target vCPU has written their LRs back to the
-+		 * irq structures, and release any reference they would have.
-+		 *
-+		 * If it hurts, don't do it.
-+		 */
-+		kvm_arm_halt_guest(vcpu->kvm);
- 		vgic_flush_pending_lpis(vcpu);
- 		vgic_its_invalidate_all_caches(vcpu->kvm);
- 		atomic_set_release(&vgic_cpu->ctlr, 0);
-+		kvm_arm_resume_guest(vcpu->kvm);
- 	} else {
- 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
- 					      GICR_CTLR_ENABLE_LPIS);
+ 	if (clean)
+-		truncate_inode_pages_final(inode->i_mapping);
++		truncate_inode_pages(inode->i_mapping, 0);
+ 
+ 	release_atomic_write_cnt(inode);
+ 	clear_inode_flag(inode, FI_ATOMIC_COMMITTED);
 -- 
 2.53.0
 
