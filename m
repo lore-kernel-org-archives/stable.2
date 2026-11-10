@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354533;
-	b=3ATjYINU23RVPBchHdpeLja1feyXxLZjoRfmDApiFkANa4dYkN4lvTwpgaMRjrl1YrE4
-	 2SoqIFu8bgb2cTP2rCDUaerPbYDdowC6Fbab4eUrPdpwv9Uz0K/CXGBrdkABTw4RRWi5t
-	 fK8F8nqQP2JQU9RfY3HeY1aeRYBB47zk6/YLLQuiMqzuXsvEseQ35MD9wOAmiBNrrtpPt
-	 /BzlKnj9W7flWDbZrE9ONsS9EdBaDAYK8C6X/kJEI8fKrB8s21QaojKPix10JR7tKpJyZ
-	 TCI2uwnA5e0tlFUA8hjxzW/97h/DnwyA7AER1ju/A0cOTjWabuJ0x8aSSLhatrsUyGg==
+	t=1794354541;
+	b=tJ4ALjuIsq3Qa1ciBl7Vs5S070hnZ90RFgq6yh+sDmAkg+BTE67xOeizHLyx1lMotklw
+	 QPKoDVPe4QsnEjbWmQBJXKSFTfhVDeeYiQAv2GCvJ2aSaqFoC++ia9J49dWZiS+HYT8v3
+	 T1WaXyI3YacRITfZ/M88DrtFhx5O5+jYdVnAwsJMvtwYyj9XcUtZF//GUzrD5xAs9gj4E
+	 Y0iaURHR5pID8g4ASnQhrJBZ1NEwZ4Tp6J/ORw14wJTSl4W7BgLvl0h1zZNBuvLTvRg10
+	 jAW7bX/P6635Qubs3UOgqaTpCSDOU7EaN4+CIhMbUB5I+5Vf5r+onWlEkhi6cf6toVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354541;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PmiFN8JAMxvh1RNGMA+Zd0z5kJig6lVReGRLgvWv6RE=;
-	b=uHZTE4Ty8RvLVIdxnOIXc9hzKynjoSXa7iRCx+9bTcHYnuZ686j3OIce0SSsb4fWDUzy
-	 drgM1NvFA1PxtFSquxBG5PS5nutf72SoBuNBujQFowrRKpAr7Gl8W4Mc74cyW7An5cB2v
-	 TbRU8OJVzOHarMuUYVcm80qxmVpQy2SYDLRLKHHMlyqNYdLsJBMEz1UyOmrl63FeUlHYt
-	 pEBsAMlues00VCe3lUW/vCs65PJouD+cC29Wbd2JhJKdWfxv8PPI4QTWktJelQ8a2gqmj
-	 D9sWrpQQOMht3ALnpcbO6A0OV2QUFjMm2UIw1qzhxZzMDogo86T/xShmyu3lWmpfeYw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=W/Z8HddXRhulnDOv7WB6GJf9/tiBNFZLPLdOuvDbWkM=;
+	b=Z+dTtnoyXgbaqhD4ER+Y3TO4TPJrma1Wsg7pSwixopgpJBhLB6EywaKbiOkgekt7Jugt
+	 I+lyCkFhwcgJTxPxN3gcTwnV/USw2/b2PUTSMyAPPvvlSu+O+YewbNlVhgSNYAQfAvnK3
+	 +Y1qZhoLlm4PTetnb0BKeNOd3bMHF1YdC1FJtIMtgUFeRiJEW4pB1Pea3kbYPAG6M4scY
+	 RDy/yMwa1z+FyF00xjjQq39s0+NFqVokn92Za4t78aFE9h1H+cZXECCFOqxfvkORqlrRY
+	 KtPAi7rpUs0FhJuyd913UZOPJsUyXKhHb2VCAX6ziJ3p3Ie7PLZWS0E8eFHRnYyut4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MeVNe9tU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOhDv4v+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38A1606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:48:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44B6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MeVNe9tU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5961F0093C;
-	Tue, 10 Nov 2026 23:48:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOhDv4v+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9F41F0093C;
+	Tue, 10 Nov 2026 23:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794354533;
-	bh=PmiFN8JAMxvh1RNGMA+Zd0z5kJig6lVReGRLgvWv6RE=;
+	s=k20260515; t=1794354541;
+	bh=W/Z8HddXRhulnDOv7WB6GJf9/tiBNFZLPLdOuvDbWkM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MeVNe9tUkm6O6HOcmwRf6amUN2wpBd2b3TzkMoa0Os5fMfsQO1eUbWKyCdlVbHscu
-	 McdVMX+Jm5lXuvkdDRyNKscrEWgHc6bZj4TL6EeAVegfb9a4M4a7zMWiitXxwCs0s8
-	 sY5nElbY+jfI1D6y/i1jT3yLGCWca6bZjyYeLc3mpRd4OfMiqmGNxSlzq36biJb9q8
-	 PJKIr0Ufjn6029I/ZxxhiVkTYOq8GYceiUiKY9mhYTSlOwNqPEaQP1wpWP6PY3I+Lw
-	 o2Mbz+1OqtQEbhsEF4EPpn8WsK9tyyyNLwPnGH0oqTJR84QN9LgHLvM/5RKRxn7uus
-	 Hx8s8QEl6JRfg==
+	b=ZOhDv4v+qPDNwZl2caz3Tjgt01VonMnZdB7lJ4/Co8cpiM+X+yFoXoM4wqSBIraBn
+	 FcUZWULvGecp9FrYcKctRuuFSkNb5XB60LfafSpHvBYx1ApF7WH5QnbeexZgvRWfiL
+	 ntXmv4/p6mTfQtWjg7UiufFyx1Vj+ZE0zLJSt2BgP+2GuHBpPzAE4ThEhoIKtbdfR6
+	 iT6aIquMljg7ZiSuHQnpwBfu+Gf11XP1jFltNZzUN5i2jZW0yKOEr7abyE6poCjpic
+	 1VoOxWwFS1Jem7YwZv4QszTeLz1MRZt3pOvIBAOIIU/cw6xiuSziFurJ5DrIUBSRo5
+	 zoQ2mg4uV5/9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Keita Morisaki <kmta1236@gmail.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Roman Li <roman.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] iio: adc: ad4080: enable address ascension for chip identification
-Date: Tue, 10 Nov 2026 18:48:51 -0500
-Message-ID: <20261110234644.182708-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amd/display: Fix swap in median3() for DSC rate control
+Date: Tue, 10 Nov 2026 18:48:59 -0500
+Message-ID: <20261110234820.186732-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050730-failed-6.18-c051d08d9877@kernel.org>
-References: <20261107050730-failed-6.18-c051d08d9877@kernel.org>
+In-Reply-To: <20261107062650-failed-5.10-7b23bf82ccbd@kernel.org>
+References: <20261107062650-failed-5.10-7b23bf82ccbd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +61,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+From: Keita Morisaki <kmta1236@gmail.com>
 
-[ Upstream commit c051d08d98771132868abf0cb95b6de95ab3060a ]
+[ Upstream commit 7b23bf82ccbdb4cf0752f2b8686e7319a7ce497f ]
 
-The two byte bulk read at AD4080_REG_PRODUCT_ID_L expects PRODUCT_ID_L
-followed by PRODUCT_ID_H. After a software reset the AD408x defaults to
-descending address mode, so the second byte comes from CHIP_TYPE (0x03)
-instead. CHIP_TYPE reads 0x07 on all AD408x parts, so an AD4080 reports
-0x0750 rather than 0x0050 and every part logs "Unrecognized CHIP_ID".
+median3() is meant to return the median of three values, but its last
+compare-and-swap step swaps b and c instead of a and b. When c is
+smaller than both a and b, it returns max(a, b) instead of min(a, b).
+For example, median3(2, 3, 1) returns 3 instead of 2.
 
-Set ADDR_ASC along with SDO_ENABLE before the read. This is the only
-multi byte transfer in the driver, so no other access is affected.
+_do_calc_rc_params() always passes 0 as the first argument, and the
+second argument is never below 12. So whenever the third argument is
+negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
+is set to the second argument instead of 0.
 
-Fixes: b66cddc8be72 ("iio: adc: ad4080: fix chip identification")
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Fix this by swapping a and b in the last step, as intended.
+
+Note that this change does not affect valid DSC configurations. The
+third argument is negative only when bits per pixel exceeds the
+uncompressed rate of the colour format:
+
+ - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
+
+ - 2 * bpc for 4:2:2
+
+ - 1.5 * bpc for 4:2:0
+
+Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
+Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 1ddc4bc97a62fc89d9d3681413d9f977e1fa1a83)
 Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Adjusted the target source location because median3() has not been relocated. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad4080.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
-index e15310fcd21a3..584f273c6bb35 100644
---- a/drivers/iio/adc/ad4080.c
-+++ b/drivers/iio/adc/ad4080.c
-@@ -455,7 +455,8 @@ static int ad4080_setup(struct iio_dev *indio_dev)
- 		return ret;
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
+index 4da21966ddcec..c860e536e98e2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
+@@ -169,7 +169,7 @@ static int median3(int a, int b, int c)
+ 	if (b > c)
+ 		swap(b, c);
+ 	if (a > b)
+-		swap(b, c);
++		swap(a, b);
  
- 	ret = regmap_write(st->regmap, AD4080_REG_INTERFACE_CONFIG_A,
--			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE);
-+			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE |
-+			   AD4080_INTERFACE_CONFIG_A_ADDR_ASC);
- 	if (ret)
- 		return ret;
- 
+ 	return b;
+ }
 -- 
 2.53.0
 
