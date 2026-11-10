@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314483;
-	b=pJKZH9jTJu65BynvZMvMI3gsCmHgMLdttlpxHkhPBiJy/fu7PT3Br7jH3DM0p1O0FdX/
-	 fzqted29DvawpzWelMMrHANZRqjZt9WgYUMPVJ0hrymzloqhISuhL3UI5yWx5VikSyWRK
-	 zJi3cm2eawEOVUIcxYMotjtjic0YQSuzOn/yUyii8DS/DbhDVf0oGuq8Q+T8vBCF96XeP
-	 bzZqE4OmJdBCxYEfzZsaVYgLFboO8huBLBDVz2u9e0td4qAU9jsOHoyi45W5t5aYqXHag
-	 YZDezUKqgAlDno8Il6r8xg9l/i28kuJlapPRO8OuEvgJjNZOILWI3tnDaK+ZpmLThkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314483;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DadmkYf647/FQ3Sm7Ul+REV7wHLCXxdXzaEbmYr1wRQ=;
-	b=nkRwjqvEvOExCIA1i0x2UwXNcfK3r37od9SMU7zOjnZLC7GRotsnwnaDCiUJxUnH/eWw
-	 rXn+GbUJ1Z1fpUoIcXrazzfxAN4SOa/K37qorO2dzwAYe0C6qVeNSjuIqP0iZhqrJLGeO
-	 FRfdL2B6+T+8RdP3rrvJghDO48COtXP/OhlhnPqRHHRuNgObJvc19Gn3vhVcgijV04FNx
-	 rQelZvR7RkNSNvYcytxDSFVKcejRiIyqfC4TY23xUE1bTWXk64+vRqsYgiTXJMSSAkqEH
-	 KpuIpDdfGx2I33WKSDs7ct31zMPv2Cl9NWxRGz5RUb4xNCGdCRKxUiK39uE2JC6n6ZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfPMrX6u;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794314509;
+	b=DVeF4PggqNth1JsnH8JABzwWSqSQQQJFnEtVnmLS3UYIp4V84aMNJiPCH9t2Qc61Cifp
+	 OW2BQdWgsZErvglt6xR607TWxeuoyUgr34btl7EAGTp7F4Ja3VRl2S0fOjz1liFg5M0Ya
+	 vSh5G5NIKv6EtnS8QV7/6nb9VSjhZVCPavzMipSE7+O13jpRR5rxqdwtQlK4waBPTQeEr
+	 PFxF9nrRAEIs8YgY+HOdPlZWaLemGB4UKnU3xOFfzZ4c0xpmkHRsgX3HTNfQVBz4uTM6I
+	 6nFmUespr6o6OsDPVxTa6xMP4hQd24zzwMWd0/Iv4/uGieag72sUl7l1omOl91DvKxQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314509;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QxlVyvsqNV97AlBOC2FE8kEyEB+oWLu2PyocIQGDZuE=;
+	b=4/vTuc6N/Vg2h7ypbaYH0eznIN+s1byGEYF5MtccoV+Z2UFB7POkaWbVQlqruHmACaXu
+	 4Drty07N9skrs0hhnlNuyDZ/09k1H2Jyhdb6VEyvXGfJOWJskZ0eB3F40NvRPjlLjIcyr
+	 JxXpEUPtpUaT7os7AJOEd/nbdQuW9Dl06mEoAqJh0tCTGKvmbHRHDZNT5GOar0R3MbvBZ
+	 L3+sxuDJSm0ozKP2aZzbkR2I4Wp3nAFYUlV6YF4htJi0aH82b3YHN3lJhDHcQMdwo7gVv
+	 yxKtoKbpEyClhh5PQuwem71Y5e+knDxBjHh5Fcak0FAC7IDfx28LYvMEOrekhYzqb3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKz9Rjp9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5154606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CAB606A31C;
+	Tue, 10 Nov 2026 12:41:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfPMrX6u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D54C71F0089F;
-	Tue, 10 Nov 2026 12:41:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKz9Rjp9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794314508;
+	b=gRbRGdrrE8vnnJ1nLMAncGOsaJ6kFDZPRPduaEzcgiOHuD0Fl+sk36DuicQLCjv4pD4R
+	 DssGkDiatRo6UvVvnvWrRxGfXzBda8LvFyeJT5juNqAZ2GpFT7J0IEkmAidEnqpdcIJMC
+	 pi6ANdRpaChopJyU5JR7SHhI0fFGClLV+wbs6w3vb4ZGNJLcA6khC85SlienXXopInWII
+	 eUPTHodmpXvxBaoqSUWC5XadTh1uLRI5I1Zj3VPH2Wl7l6ykRCVM99RwDl1nqSbZHBhZ9
+	 vEr1+NBPR1McP2nHjgFjKJ4Zj9agnmYSKsHfG/NrePOW1ClWkgKh/W+fhHaUJ2i/cnw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794314508;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QxlVyvsqNV97AlBOC2FE8kEyEB+oWLu2PyocIQGDZuE=;
+	b=AChZb6oW1DyxV/RbLnE/FxYiKROd4Hjud/bz/FqypYJ99rm5NCFGTHAU3UxtnegY6Idm
+	 YhZYrxoNGG+yriFMWVidJiaajJmnOd7zEBBKk/VlySl97QXWM3PAFHauIwMGnGpUY7M5K
+	 kplurima2qjQWuYN0XGeugtsgQc1k2ggU5jppCx6u0cVI+v2gWWubjOCK46Yg1nwTYpNV
+	 0f5eOYlRxlLP6180TYX7GFf8ExRyO+X2UilQT7Fw7bctHJA/Rz6b8Y6koG9V5rqBv7VXs
+	 x31n4/g7w6POJGxLWlsQLNj5u4E32oKSkD7YWpSbJkOKWhmdoEXAUcDbhBsEl+RDYvA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id D21A91F0089F;
+	Tue, 10 Nov 2026 12:41:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314482;
-	bh=DadmkYf647/FQ3Sm7Ul+REV7wHLCXxdXzaEbmYr1wRQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YfPMrX6ucyxGka6RqOvahZqHNd85kl1qjojwcXRemOzt6cfhdf4m9iF8QUiX0ZX0K
-	 ttFH9cz24xtRvr2RUveh2IS0gvumD9OXWXGk5gDyVrW0prI5JhDWjquf4vCmJdBUU1
-	 QvjXDj+YQdGhzq54mJzfd9EDpOU7d2V+EvfMGyoyohd1Kc9CeKhISwogKGd+ehcYYF
-	 ZACWS0/tcw1ssItO2FipivBsx97dyv3gDOZNj+na97MraSUJloLVJNjiF6pKdu4eSK
-	 NaZ6TD9KCbQB7Tt7VQ/7JvrNqtMzCAJPlKTREXCSlI1qGZ4TqQTgv0o4R/eO5pt6ac
-	 jkIlWEkKFFYRA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiaming Zhang <r772577952@gmail.com>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] gfs2: reject invalid inode sizes
-Date: Tue, 10 Nov 2026 07:41:20 -0500
-Message-ID: <20261110124104.1313054-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050637-failed-6.18-33ed0a0567e0@kernel.org>
-References: <20261107050637-failed-6.18-33ed0a0567e0@kernel.org>
+	s=k20260515; t=1794314508;
+	bh=QxlVyvsqNV97AlBOC2FE8kEyEB+oWLu2PyocIQGDZuE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=QKz9Rjp9nwlNPY9eIAxUhIZeLlPsQyQ7csZsRc3kJs8sRYxbvwR7AkbRBB+oRn8LC
+	 ZjsGcwa4TosHzZSiEtxRAB7fsVM1iG0ht4bXe078OS8TjljRkdvdfASKE3UcSlYjOJ
+	 7G88mdYlQthmAIu1M4lHt095SruBRDMk19JhSLC19YHipMR4RBJsU9tRleqYR7dd13
+	 VsZX6kYnh7rEgx8aC6CQSz97BprNOnGFZn7FCKZfykJ/PxnekI9k7gQXJAj1+7ctlL
+	 H+64ozPS0oOu4onvtBybjHaTm7px/+ydM65rOi/3T1MFFcvzUy1R0eYuMCq04FVrJj
+	 ubXfoEnCSe8Ag==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4B2EB48B42;
+	Tue, 10 Nov 2026 12:41:47 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 15:41:44 +0300
+Subject: [PATCH v2 1/3] media: verisilicon: stop the VEPU1 JPEG encoder
+ after an unfinished frame
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,76 +83,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-hantro-buflimit-v2-1-ff7790def9fc@gmail.com>
+References: <20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com>
+In-Reply-To: <20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Chen-Yu Tsai <wenst@chromium.org>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794314506; l=3084;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=YHxh7pOb2K0qV8FuiClIzJFZEkYN6AmWKtxTo6KANAk=;
+ b=uZxJGwVHOcWH3jWGfP8L1xLnMi7Sr/GSOL1WEVuW+C2Pi3WQsnfDvXgw2aoDxwWAs2rHNKOSz
+ 9v92gCbP2MfBnlUnTVUb6/Ye4SVCdcNY0Jwxh/vRozR2gp33+BJcSbd
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
+Content-Transfer-Encoding: 7bit
 
-From: Jiaming Zhang <r772577952@gmail.com>
+From: Sergei Khomenkov <shomenkow@gmail.com>
 
-[ Upstream commit 33ed0a0567e0abe66ea65e89dad2e35082890fbe ]
+When the JPEG stream reaches the stream buffer limit, the H1 raises a
+buffer-full interrupt and pauses with the enable bit of H1_REG_ENC_CTRL
+still set. rockchip_vpu1_vepu_irq() does not stop it, so the next job is
+programmed into the paused encoder and times out.
 
-A corrupted GFS2 image can store a dinode size that is larger than what VFS
-i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
-writes it directly into inode->i_size. If the value is larger than S64_MAX, the
-incore i_size becomes negative. That negative value can bypass the existing
-stuffed inode size check:
+Clear only the enable bit when an interrupt does not report a finished
+frame, and warn (rate limited) about each fault bit that is set, as
+hantro_g2_irq() does.
 
-inode->i_size > gfs2_max_stuffed_size(ip)
+Found with an LLM coding assistant while porting mainline Linux to a
+Rockchip RK3026 board; the assistant also drafted this change. Tested
+on that board, with the next patch applied: a frame that does not fit
+now ends with the ERROR flag and one interrupt, and the following jobs
+complete. Not tested on other SoCs.
 
-Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
-gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
-passes it to memcpy(), turning it into a huge copy size and triggering a
-out-of-bound issue.
-
-Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
-inode->i_size. Also make the stuffed inode check use the raw on-disk size while
-it is still unsigned.
-
-Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5-xhigh
+Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-[ sashal: adjusted context for direct inode->i_state access and the absent adjacent directory-consistency check ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 ---
- fs/gfs2/glops.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/media/platform/verisilicon/hantro_h1_regs.h  |  4 ++++
+ drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 18 ++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 242e47926b39d..35ad44d13e8b6 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -392,6 +392,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	umode_t mode = be32_to_cpu(str->di_mode);
- 	struct inode *inode = &ip->i_inode;
- 	bool is_new = inode->i_state & I_NEW;
-+	u64 size;
+diff --git a/drivers/media/platform/verisilicon/hantro_h1_regs.h b/drivers/media/platform/verisilicon/hantro_h1_regs.h
+index 8650cc489392..a7f18683dac1 100644
+--- a/drivers/media/platform/verisilicon/hantro_h1_regs.h
++++ b/drivers/media/platform/verisilicon/hantro_h1_regs.h
+@@ -11,6 +11,10 @@
  
- 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
- 		gfs2_consist_inode(ip);
-@@ -417,7 +418,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	i_uid_write(inode, be32_to_cpu(str->di_uid));
- 	i_gid_write(inode, be32_to_cpu(str->di_gid));
- 	set_nlink(inode, be32_to_cpu(str->di_nlink));
--	i_size_write(inode, be64_to_cpu(str->di_size));
-+	size = be64_to_cpu(str->di_size);
-+	if (unlikely(size > inode->i_sb->s_maxbytes)) {
-+		gfs2_consist_inode(ip);
-+		return -EIO;
+ /* Encoder registers. */
+ #define H1_REG_INTERRUPT				0x004
++#define     H1_REG_INTERRUPT_TIMEOUT			BIT(6)
++#define     H1_REG_INTERRUPT_BUFFER_FULL		BIT(5)
++#define     H1_REG_INTERRUPT_RESET			BIT(4)
++#define     H1_REG_INTERRUPT_BUS_ERROR			BIT(3)
+ #define     H1_REG_INTERRUPT_FRAME_RDY			BIT(2)
+ #define     H1_REG_INTERRUPT_DIS_BIT			BIT(1)
+ #define     H1_REG_INTERRUPT_BIT			BIT(0)
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 02673be9878e..d201b058e5e8 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -376,6 +376,24 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, void *dev_id)
+ 	state = (status & H1_REG_INTERRUPT_FRAME_RDY) ?
+ 		VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
+ 
++	if (status & H1_REG_INTERRUPT_BUFFER_FULL)
++		dev_warn_ratelimited(vpu->dev, "stream buffer full\n");
++	if (status & H1_REG_INTERRUPT_BUS_ERROR)
++		dev_warn_ratelimited(vpu->dev, "bus error detected\n");
++	if (status & H1_REG_INTERRUPT_TIMEOUT)
++		dev_warn_ratelimited(vpu->dev, "frame encode timed out\n");
++	if (status & H1_REG_INTERRUPT_RESET)
++		dev_warn_ratelimited(vpu->dev, "encoder reset\n");
++
++	/* After a buffer full the encoder pauses, still enabled: stop it. */
++	if (!(status & H1_REG_INTERRUPT_FRAME_RDY)) {
++		u32 ctrl = vepu_read(vpu, H1_REG_ENC_CTRL);
++
++		if (ctrl & H1_REG_ENC_CTRL_EN_BIT)
++			vepu_write(vpu, ctrl & ~H1_REG_ENC_CTRL_EN_BIT,
++				   H1_REG_ENC_CTRL);
 +	}
-+	i_size_write(inode, size);
- 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
- 	atime.tv_sec = be64_to_cpu(str->di_atime);
- 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
-@@ -456,7 +462,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	ip->i_depth = (u8)depth;
- 	ip->i_entries = be32_to_cpu(str->di_entries);
++
+ 	vepu_write(vpu, 0, H1_REG_INTERRUPT);
+ 	vepu_write(vpu, 0, H1_REG_AXI_CTRL);
  
--	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
-+	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
- 	}
+
 -- 
 2.53.0
+
 
