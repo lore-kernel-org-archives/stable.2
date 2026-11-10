@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341401;
-	b=TfC6cIxoKYQYL2kzPn3IO11xTGnX2pkJTkoUECo9KrsvriGVogqCz8GPq/ccNz5T+8BD
-	 rB93dT8uaTevAKBs7aEdxrH/3r0QTLse4pvamT7d/myOtxsNYGMUijkQnRQy/I3WVOFU3
-	 dcikmEQxTn4FHHjjsLJS5jxkZ0ppnrDXYhgsZ5xl58vUUSffkanT85stQO2RUyVuFbzp4
-	 BWJMuNCMQ2vWmk/27z6udYbb+/vZt+y8TO9xpDaNEU14STZKbmS2K4dgfVWqrbaWqed3n
-	 WA07NC0MYzv+Z6UkDXwNr9csUh4wEk+MgEqE4a+BTHi87GhROChrH5aqFjy4BCzGt0Q==
+	t=1794341406;
+	b=YKDPEqLvR1XN2U6VDwljLGmEV6IwjkwDT0ULLsByLTZtpEOc6N9wb9RR0PKd0o+EOEEG
+	 ifIM52xX/HVg3BHHAiF3xpczUPDmN00QVse4XOX8IS9YIVJaWbhStRBu5V7h3HnPMV/OG
+	 6PPlJP6Xb2f19rbpADkc0KmVD8G+YW5EJkSl6q9bbP2Bi+q0RLwBy+CT9sdKbuKTSCq8W
+	 6p2enocCYighx3LKaHDVseo5D04l6M7iL0i0IdQCjXYSd0WfhYqiHq24/IqsfK8Ixj1y4
+	 xODMZZaDryS2uDyvo+arSKtH/nuETBCfWHZf9hUxXdabKlCexGep1ZRwmP2n6JOhF2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341406;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=t47qrQn4nnNg2BAz8AcX3IcZVDg+LS4cm8LhhTszO7E=;
-	b=i9FYiWwm1xK41FlTxkgnNiQPVF+sAYTzvfOQItTDCGmP3OnFgGpqP/tj5jljtSOT5LXc
-	 Xd1JuuCOdjyV8u5g7OPmts8geoP8gciMvQPy/VCaT1GHuu9ASTUqwvTgvfZBc2HN+GBVA
-	 Ck8owP4eL8HRowDadQgMsFd7pzU71MRpN/FK4hoVhc7q02g/37UUO91A93as2vnaI9EZp
-	 F9q5n6P7TFfdFvRusIay7kmQ69ODTYy09GN+WsfWf/C4yx26ULt9tGUi5X6goTwNMESWz
-	 0WWxknHrrbxb/NQlM/r6OVavOl6fa8QEHMxkcesXr3kFMpAhAM5Mz59NA+Oj0h5AE4w==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pzBl5faae79g/KyQ4RI+9R5khW/nm9FSkWjutKvVBI0=;
+	b=TuOJQij+2JkFtOjM5vSWTs7lborK4X/wHQxMcCRA7k+FMHbbOLT5XobvbtHS+XPHkBva
+	 icvlSy+UowJpOcw8oNmaMDnZhJ8Ymf0mSEqaTlVutzEyO0XgzM5kpT1zwsWn6ShquTKIF
+	 BC3ue5K++tnWRt9xEVAuQAx5g40XkP5OL5jHaIY19UO1xOjmODnlhFZVTzh58hh0aeM52
+	 UguJHWJeT2qxu7+ktFx++XX4Pnbh8RKT9d0c8WTU91rou0x59mJTd879MSQKfBoF74/1a
+	 EpY5VRkSeB71vOWGHlDNEZGtBcxoK2uWNj1B8i7M+8tMzl1Ur8QPQ5PFyegQmu2gpHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QruvgdQc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrWKeY74;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2E4606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:10:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C062606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QruvgdQc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F201F008A2;
-	Tue, 10 Nov 2026 20:09:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrWKeY74
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D3B41F0089F;
+	Tue, 10 Nov 2026 20:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341400;
-	bh=t47qrQn4nnNg2BAz8AcX3IcZVDg+LS4cm8LhhTszO7E=;
+	s=k20260515; t=1794341406;
+	bh=pzBl5faae79g/KyQ4RI+9R5khW/nm9FSkWjutKvVBI0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QruvgdQclnTle5BsuyO0GUnlrvwfsSfj/wU1UptTHyuFh8wmE7/oVmIAxqOoYfFgy
-	 3CylzvBKs8D5qmzDMXSpEJVgYkmH0MJSvYilQnYUUgD7/wV4BGGx2nVw3z75cO/nsl
-	 h4VEs8zU95mpnrk5UhSfC0foYIWDThE8PGx9mf+cEzxkhd6N/83+YqRrJtWFYarqil
-	 oc7Ptw6hLnLzkHrxuLRIV2uAW5UED1ZPAMbgkkUODnD7syrfLsDqCCmUw6gX7GlVJk
-	 7JhmtpN8Qx4ytp3Xb2GyB53ULebQDj/E82QjVvmdvm8Iiqp4U0UZ6t51+rmxF7y07V
-	 45gZC9o7fKU7Q==
+	b=NrWKeY74x8eCcODUDR6QTHYBwyloqkdH2Y/YNwgr+IKPM/U6EOqE7ik9jqAYZiBQM
+	 OO6XQi4YKRuZp4Bi5fELHQfXiwNnfRXomlELAP+/IVIaTAAREqEVJWLEY7U2tF4h7d
+	 4mS9jTetSpCoTDjEoTIi7ohwSzizelYQa9NNKkxlOpqU6Wg26zjNdy9rbQJjHQS7HX
+	 coeEt75yWVxb335F+1AMdI031XIRp+OU5UcH9B/FZ5GTrsDER72yPDqk/5s4tkS4gb
+	 0w98exxJp8QE34VLAGfmaI2rikwfAWaC3dyjBsAK4iWIhLongklrFl4hz7gGAb1oDn
+	 uMS/+1NorSF9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chi Zhiling <chizhiling@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: =?UTF-8?q?Nikolaj=20Klitlund=20B=C3=B8rty?= <nbn@sj.dk>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] exfat: advance valid_size to EOF for append writes
-Date: Tue, 10 Nov 2026 15:09:58 -0500
-Message-ID: <20261110200928.3702462-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] Bluetooth: btusb: Add device ID for Realtek RTL8761BUE (StarTech AV53C1)
+Date: Tue, 10 Nov 2026 15:10:04 -0500
+Message-ID: <20261110200900.3697486-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051325-failed-6.18-b70ab4075037@kernel.org>
-References: <20261107051325-failed-6.18-b70ab4075037@kernel.org>
+In-Reply-To: <20261107062304-failed-5.10-1430308fc9d4@kernel.org>
+References: <20261107062304-failed-5.10-1430308fc9d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,92 +60,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chi Zhiling <chizhiling@kylinos.cn>
+From: Nikolaj Klitlund Børty <nbn@sj.dk>
 
-[ Upstream commit b70ab407503706289163dd59f1ac3e942bacc37d ]
+[ Upstream commit 1430308fc9d47a801a305700cd444b1a0051d14a ]
 
-For an append write, the write position is recalculated by
-generic_write_checks(). Therefore, the write position must be obtained
-after generic_write_checks() returns.
+Add the USB ID 0x14b0:0x047a for the StarTech AV53C1-USB-BLUETOOTH
+adapter, a Realtek RTL8761BUE based Bluetooth 5.3 dongle.
 
-Using the original write position to advance valid_size may cause the
-valid_size update to be skipped, potentially exposing stale data.
+Without this entry btusb treats the device as a generic Bluetooth
+adapter and never loads the Realtek firmware, leaving the controller on
+its ROM firmware. In that state it advertises and scans actively, but
+never reports advertisements during passive scanning. LE connections
+initiated by the kernel wait for a passive-scan report before issuing
+LE Create Connection, so connecting and pairing from BlueZ time out
+without any error from the controller.
 
-Also move the truncate_pagecache() check below the recalculated
-position, so that pos is never read before it is assigned.
+The same product is also sold with the ID 0x2c0a:0x8761, which is
+already supported.
 
-Fixes: 11a347fb6cef ("exfat: change to get file size from DataLength")
+lsusb -v output for the device:
+
+Bus 001 Device 010: ID 14b0:047a StarTech.com Ltd. Bluetooth Radio
+Device Descriptor:
+  bcdUSB               1.10
+  bDeviceClass          224 Wireless
+  bDeviceSubClass         1 Radio Frequency
+  bDeviceProtocol         1 Bluetooth
+  idVendor           0x14b0 StarTech.com Ltd.
+  idProduct          0x047a
+  bcdDevice            2.00
+  iManufacturer           1 Realtek
+  iProduct                2 Bluetooth Radio
+  iSerial                 3 00E04C239987
+  bNumInterfaces          2
+    Interface Descriptor:
+      bInterfaceClass       224 Wireless
+      bInterfaceSubClass      1 Radio Frequency
+      bInterfaceProtocol      1 Bluetooth
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Moved the pos assignment immediately after generic_write_checks() so the existing direct-I/O alignment check reads an initialized value. ]
+Signed-off-by: Nikolaj Klitlund Børty <nbn@sj.dk>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: adapted quirks_table insertion to blacklist_table with the missing Realtek group heading added ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/exfat/file.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/bluetooth/btusb.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index 536c8078f0c19..64569d8ba8d73 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -633,23 +633,18 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file_inode(file);
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
--	loff_t pos = iocb->ki_pos;
--	loff_t valid_size;
-+	loff_t pos, valid_size;
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index 55a54612a59e6..1eaa5c83da306 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -500,6 +500,10 @@ static const struct usb_device_id blacklist_table[] = {
+ 	{ USB_DEVICE(0x0bda, 0xb009), .driver_info = BTUSB_REALTEK },
+ 	{ USB_DEVICE(0x2ff8, 0xb011), .driver_info = BTUSB_REALTEK },
  
- 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
- 		return -EIO;
- 
- 	inode_lock(inode);
- 
--	if (pos > i_size_read(inode))
--		truncate_pagecache(inode, i_size_read(inode));
--
--	valid_size = ei->valid_size;
--
- 	ret = generic_write_checks(iocb, iter);
- 	if (ret <= 0)
- 		goto unlock;
- 
-+	pos = iocb->ki_pos;
- 	if (iocb->ki_flags & IOCB_DIRECT) {
- 		unsigned long align = pos | iov_iter_alignment(iter);
- 
-@@ -660,6 +655,10 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 		}
- 	}
- 
-+	if (pos > i_size_read(inode))
-+		truncate_pagecache(inode, i_size_read(inode));
++	/* Additional Realtek 8761BUV Bluetooth devices */
++	{ USB_DEVICE(0x14b0, 0x047a), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
 +
-+	valid_size = ei->valid_size;
- 	if (pos > valid_size) {
- 		ret = exfat_extend_valid_size(inode, pos);
- 		if (ret < 0 && ret != -ENOSPC) {
-@@ -669,6 +668,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 		}
- 		if (ret < 0)
- 			goto unlock;
-+
-+		pos = valid_size;
- 	}
- 
- 	ret = __generic_file_write_iter(iocb, iter);
-@@ -677,9 +678,6 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 
- 	inode_unlock(inode);
- 
--	if (pos > valid_size)
--		pos = valid_size;
--
- 	if (iocb->ki_pos > pos) {
- 		ssize_t err = generic_write_sync(iocb, iocb->ki_pos - pos);
- 		if (err < 0)
+ 	/* Additional Realtek 8821AE Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info = BTUSB_REALTEK },
+ 	{ USB_DEVICE(0x13d3, 0x3414), .driver_info = BTUSB_REALTEK },
 -- 
 2.53.0
 
