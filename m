@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326863;
-	b=DrbTXgn79YuC7m/MonQZmzOXLS93Rgn3s2fee2ryof8RMZm3xxncVEwYp8MqoPzVFqWP
-	 Pj5gjLmW8S4pUj1HrxfViT+2FyA6ZGE3pd9gaCuRDvAH0dgBnv0ZJwP9vO68m/uKd+IsV
-	 VzWxXjyKju7WIkGuCrQyqgETeIhX+4wiUFi5XL+OL4d9Q5KrNHAUNKJ6gaw9lCBQ0+QpJ
-	 TaI3IFvdOB+R5CEy7UQBzyxqCoYk5/9J+IdV2T8KFf5wo9Q11aRUJiVBrS9ErmqyX3lOw
-	 pLR3n3Ki83nEdt8W9yKKACHcV2eAM3QPNrpMI1FD+oKRauer9IdEJfzzspepHooXvCg==
+	t=1794326864;
+	b=CVNGka46bsQEexwy6LlASCk0YTsYvTCBVnnCqhwrCP/dYIwh8trHfKLFZFMXjdORyheQ
+	 taVF2n1JqIKWLOKqpoBQ1ZiUPRJNZS5/QMMk48xwnnRKZyOedtWDvK9SCT85sRQmBWe0E
+	 riT702CedeEPaZiYFQgzGJoVP486yqgZUFLszNuRG6PeCWKkDhUbhvNca1EBJXg2DVfg9
+	 XndMHaia8Sx71mI3+ZXhH8tJspb0bnsbZd031IR060dB4V37U3+5kqs17QjnT53Ok05M9
+	 r4WlQnff5VN7hEoFKo8Vuqx2WKWwNvL/gfI1IklOm48CgzvGzWq6/Q8lnY+YtSzoRrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326864;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=T8yh6Ka5cFqopKfHtWbOI0HW3UuBrB7gJugcnlazU7U=;
-	b=KFPqS/RRz6OA3NdoQ17rF0f0shBuvrrMQ/Jm/wHhHvWT8AvTGx2wOVB0UDOqvOkkn/Wt
-	 iea3Mp4CG8cmoyfiRLwUoq/urFwULgSsNpqxqbH6zRHEssiJ98nVDXRsFq2jfgYZfxL15
-	 PjNKXhbOOaFA1/ewYYYBHoaPKw0+nZf4LN7yTKEEGy6qeMHjwwBh+pjDWTuuycxVPmtY2
-	 tb13JxfxPlyjLZkVVmVIo1kxySnJyBa5V1FCen8FZJgWi6zHI3U3AWZaB+o7PbA/GwtSX
-	 MbjJinQpabe5oYTK5KXQZbPphw16XuKzjGLXsJQE+aCjyQ8Uaz1f8KkolMjYGjVt2Uw==
+	bh=9flqUZOwueLOxmjiIAlHkIGtXu+DmePHgg99ofPQG+I=;
+	b=v01Fqk7uHuwRhMW5rUe71ngrL7c+pSOZHWN6P1F8toqYaK59tkY7KcyNcII4Mn/a5HIn
+	 4Lvx1s5aWoHNKFc4ep0IxgsRBYhUjIki0PjPR5K5qx8PgtYEucRK3UlkMiA+NNdSTQESt
+	 Zk9X+BATc2z1RbkDtFt2ftGOm/BK0H8y7lDVAtRk6+Y6EYwjyb8fzJSuLvTTdDUVxTGId
+	 uLhnLC3WJ8ICeggdxU7ldDbdJXHp3LAi7PE0wM8V5XxW0I06p+wajJx4s30PTFamdVC8k
+	 WmqywF2fGdkGiHpBu6NcZ16nRR7hC6daJR5dlp/BGM3+0IoArIsAvYX9Ej49iuB6xRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBpp0X2i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKbNk4N0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBF4606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF009606A326
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:07:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBpp0X2i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FE81F0089F;
-	Tue, 10 Nov 2026 16:07:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKbNk4N0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190231F008A1;
+	Tue, 10 Nov 2026 16:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326862;
-	bh=T8yh6Ka5cFqopKfHtWbOI0HW3UuBrB7gJugcnlazU7U=;
+	s=k20260515; t=1794326863;
+	bh=9flqUZOwueLOxmjiIAlHkIGtXu+DmePHgg99ofPQG+I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZBpp0X2iNf93OKzsNGZM915SMzS3ngnTKeu4DJULjKz3xA39D3mIgaAwz0gTD7RlX
-	 Vr91NoUEqiqdbe/5GoTz5AqnT88s1uQsr6KD2P3dXsx/FeKVIWPZ+6j3pVDOI6JzKI
-	 QX1FcHjZ5rE4fRfJPDEFM525HpwPXnfiGfLIcsrr/Wa6P068+THDRca9qBAKpjWGEV
-	 521nkrdWTI8cxRZtTc1yzeG1jzDPkIrQzdYGI1daFnv24LsXR/97C1J5Xt64pHNRF0
-	 HWxm/XCOtR4ivm3Q60ebN4X3NrRxG/ndLvKQ75EoYoRijzSuETjnhS7hKqrwFbBSrH
-	 UZvHvfRwFXFhQ==
+	b=eKbNk4N01A6UXpbIC5jhFXxle+T4YHJli1JeJ3WkcrEzXC9LbFXvLXBRDigbqt9m9
+	 RNEZKbgkyDT2oMXtHbPbkwlR1r69cXcgFk26/mtXjPqITdVT5lD0qQ8kcgICOCUJiT
+	 MqTR25VLMN+zD/CDd7ay6gBLXzcyMhkgCHjUU4AgLWJquf7/WMYgW1T359Caw49diL
+	 U94i1wEjcReJ3wAf1U6mmdJ368FppKSIl49r5K15PeobOZe5ZiH65YKFcw13RUgKrk
+	 vu/wHsg+XRvj5KYCmNRh6mKqVRqWpzlmBVkSKUtVGdp0zTL036zGMba0+FbNt7RWhG
+	 LqaVS7Kz/7UIQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Lee <david.lee@trailofbits.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Claire Chang <tientzu@chromium.org>,
+	Alain Michaud <alainm@chromium.org>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] sctp: hold shkey across socket migration
+Subject: [PATCH 5.10.y 1/3] Bluetooth: Move force_bredr_smp debugfs into hci_debugfs_create_bredr
 Date: Tue, 10 Nov 2026 11:07:39 -0500
-Message-ID: <20261110160731.2394436-1-sashal@kernel.org>
+Message-ID: <20261110160710.2356064-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053553-failed-6.6-52ffeaa358d1@kernel.org>
-References: <20261107053553-failed-6.6-52ffeaa358d1@kernel.org>
+In-Reply-To: <20261107062317-failed-5.10-2a3e2287877b@kernel.org>
+References: <20261107062317-failed-5.10-2a3e2287877b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,70 +63,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Lee <david.lee@trailofbits.com>
+From: Claire Chang <tientzu@chromium.org>
 
-[ Upstream commit ad1320865b1826ffa2e81e37c49535751e81335c ]
+[ Upstream commit 82493316507a720b6faa2ec23971c0ca89c6dcb0 ]
 
-sctp_sock_migrate() transfers queued DATA skbs from the old socket to the
-new one. skb_orphan() invokes sctp_wfree() during that transfer and drops
-the skb-owned shared-key reference.
+Avoid multiple attempts to create the debugfs entry, force_bredr_smp,
+by moving it from the SMP registration to the BR/EDR controller init
+section. hci_debugfs_create_bredr is only called when HCI_SETUP and
+HCI_CONFIG is not set.
 
-If userspace has removed that key from the association, this can be the
-final reference. The following sctp_set_owner_w() then dereferences the
-freed chunk->shkey while trying to take the new owner reference.
-
-Take a temporary shared-key reference before orphaning the skb and release
-it after the new owner has taken its reference. This preserves the selected
-authentication key throughout the ownership transfer.
-
-Bug found and triaged by OpenAI Security Research and
-validated by Trail of Bits.
-
-Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: David Lee <david.lee@trailofbits.com>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20261009074244.3718-2-juny24602@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 52ffeaa358d1 ("sctp: re-point retained control chunks on association migration")
+Signed-off-by: Claire Chang <tientzu@chromium.org>
+Reviewed-by: Alain Michaud <alainm@chromium.org>
+Reviewed-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
+Stable-dep-of: 2a3e2287877b ("Bluetooth: hci_debugfs: Pin module for debugfs file operations")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sctp/socket.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ net/bluetooth/hci_debugfs.c | 50 +++++++++++++++++++++++++++++++++++++
+ net/bluetooth/smp.c         | 44 ++------------------------------
+ net/bluetooth/smp.h         |  2 ++
+ 3 files changed, 54 insertions(+), 42 deletions(-)
 
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index 4f9978e4f268d..d974d5d147771 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -148,9 +148,19 @@ static inline void sctp_set_owner_w(struct sctp_chunk *chunk)
+diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
+index a1f6e6c9dd4f3..1192280031685 100644
+--- a/net/bluetooth/hci_debugfs.c
++++ b/net/bluetooth/hci_debugfs.c
+@@ -498,6 +498,45 @@ static int auto_accept_delay_get(void *data, u64 *val)
+ DEFINE_SIMPLE_ATTRIBUTE(auto_accept_delay_fops, auto_accept_delay_get,
+ 			auto_accept_delay_set, "%llu\n");
  
- static void sctp_clear_owner_w(struct sctp_chunk *chunk)
- {
-+	/* Keep the shkey alive until the new owner takes its reference. */
-+	if (chunk->shkey)
-+		sctp_auth_shkey_hold(chunk->shkey);
- 	skb_orphan(chunk->skb);
- }
- 
-+static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
++static ssize_t force_bredr_smp_read(struct file *file,
++				    char __user *user_buf,
++				    size_t count, loff_t *ppos)
 +{
-+	sctp_set_owner_w(chunk);
-+	if (chunk->shkey)
-+		sctp_auth_shkey_release(chunk->shkey);
++	struct hci_dev *hdev = file->private_data;
++	char buf[3];
++
++	buf[0] = hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP) ? 'Y' : 'N';
++	buf[1] = '\n';
++	buf[2] = '\0';
++	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
 +}
 +
- #define traverse_and_process()	\
- do {				\
- 	msg = chunk->msg;	\
-@@ -9700,7 +9710,7 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
- 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
- 	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
- 	sctp_assoc_migrate(assoc, newsk);
--	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w);
-+	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
++static ssize_t force_bredr_smp_write(struct file *file,
++				     const char __user *user_buf,
++				     size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	bool enable;
++	int err;
++
++	err = kstrtobool_from_user(user_buf, count, &enable);
++	if (err)
++		return err;
++
++	err = smp_force_bredr(hdev, enable);
++	if (err)
++		return err;
++
++	return count;
++}
++
++static const struct file_operations force_bredr_smp_fops = {
++	.open		= simple_open,
++	.read		= force_bredr_smp_read,
++	.write		= force_bredr_smp_write,
++	.llseek		= default_llseek,
++};
++
+ static int idle_timeout_set(void *data, u64 val)
+ {
+ 	struct hci_dev *hdev = data;
+@@ -597,6 +636,17 @@ void hci_debugfs_create_bredr(struct hci_dev *hdev)
+ 	debugfs_create_file("voice_setting", 0444, hdev->debugfs, hdev,
+ 			    &voice_setting_fops);
  
- 	/* If the association on the newsk is already closed before accept()
- 	 * is called, set RCV_SHUTDOWN flag.
++	/* If the controller does not support BR/EDR Secure Connections
++	 * feature, then the BR/EDR SMP channel shall not be present.
++	 *
++	 * To test this with Bluetooth 4.0 controllers, create a debugfs
++	 * switch that allows forcing BR/EDR SMP support and accepting
++	 * cross-transport pairing on non-AES encrypted connections.
++	 */
++	if (!lmp_sc_capable(hdev))
++		debugfs_create_file("force_bredr_smp", 0644, hdev->debugfs,
++				    hdev, &force_bredr_smp_fops);
++
+ 	if (lmp_ssp_capable(hdev)) {
+ 		debugfs_create_file("ssp_debug_mode", 0444, hdev->debugfs,
+ 				    hdev, &ssp_debug_mode_fops);
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index 5466b1f1add9e..eefc9aa479f08 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -3388,31 +3388,8 @@ static void smp_del_chan(struct l2cap_chan *chan)
+ 	l2cap_chan_put(chan);
+ }
+ 
+-static ssize_t force_bredr_smp_read(struct file *file,
+-				    char __user *user_buf,
+-				    size_t count, loff_t *ppos)
++int smp_force_bredr(struct hci_dev *hdev, bool enable)
+ {
+-	struct hci_dev *hdev = file->private_data;
+-	char buf[3];
+-
+-	buf[0] = hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP) ? 'Y': 'N';
+-	buf[1] = '\n';
+-	buf[2] = '\0';
+-	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
+-}
+-
+-static ssize_t force_bredr_smp_write(struct file *file,
+-				     const char __user *user_buf,
+-				     size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	bool enable;
+-	int err;
+-
+-	err = kstrtobool_from_user(user_buf, count, &enable);
+-	if (err)
+-		return err;
+-
+ 	if (enable == hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP))
+ 		return -EALREADY;
+ 
+@@ -3434,16 +3411,9 @@ static ssize_t force_bredr_smp_write(struct file *file,
+ 
+ 	hci_dev_change_flag(hdev, HCI_FORCE_BREDR_SMP);
+ 
+-	return count;
++	return 0;
+ }
+ 
+-static const struct file_operations force_bredr_smp_fops = {
+-	.open		= simple_open,
+-	.read		= force_bredr_smp_read,
+-	.write		= force_bredr_smp_write,
+-	.llseek		= default_llseek,
+-};
+-
+ int smp_register(struct hci_dev *hdev)
+ {
+ 	struct l2cap_chan *chan;
+@@ -3468,17 +3438,7 @@ int smp_register(struct hci_dev *hdev)
+ 
+ 	hdev->smp_data = chan;
+ 
+-	/* If the controller does not support BR/EDR Secure Connections
+-	 * feature, then the BR/EDR SMP channel shall not be present.
+-	 *
+-	 * To test this with Bluetooth 4.0 controllers, create a debugfs
+-	 * switch that allows forcing BR/EDR SMP support and accepting
+-	 * cross-transport pairing on non-AES encrypted connections.
+-	 */
+ 	if (!lmp_sc_capable(hdev)) {
+-		debugfs_create_file("force_bredr_smp", 0644, hdev->debugfs,
+-				    hdev, &force_bredr_smp_fops);
+-
+ 		/* Flag can be already set here (due to power toggle) */
+ 		if (!hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP))
+ 			return 0;
+diff --git a/net/bluetooth/smp.h b/net/bluetooth/smp.h
+index bad594642a53d..c5da53dfab04f 100644
+--- a/net/bluetooth/smp.h
++++ b/net/bluetooth/smp.h
+@@ -194,6 +194,8 @@ bool smp_irk_matches(struct hci_dev *hdev, const u8 irk[16],
+ int smp_generate_rpa(struct hci_dev *hdev, const u8 irk[16], bdaddr_t *rpa);
+ int smp_generate_oob(struct hci_dev *hdev, u8 hash[16], u8 rand[16]);
+ 
++int smp_force_bredr(struct hci_dev *hdev, bool enable);
++
+ int smp_register(struct hci_dev *hdev);
+ void smp_unregister(struct hci_dev *hdev);
+ 
 -- 
 2.53.0
 
