@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320555;
-	b=jazu6YvrCjU3NnnpUSCxhjZpDip/ZHUqAD6OHNaA+Gse4j0u5W1HBJsLxvc6QS9wjoN9
-	 yWRncGNzBbti4tHxEJbMGpKdQFuhXseddoUskDn6nprpyuPOmNoe4dLP85COgS++8st3s
-	 Rjs4Rpxie/tVjfIy7l0BxCdev7TlBnnAdUlQ+whRSVXy+mGQBYQhXsYRckKA00XTllvSP
-	 3ChqYpCEk2lUS+9WYmyasyVhtHZAoDm3YYhNiQMwK4U/VZRQECvU38ztpjQeFYIgFuFir
-	 Vz/mqjFQECPGUJq3VW55iogh4Tt7weNWZ/rqrMM8tYY0x2arUtJi5k0lTga1i0IZq0g==
+	t=1794320623;
+	b=B4u79MvYrTM7E4KY5rneLDTAuZ7BDjU/6I4Ba6W9qXnjKMSSMrg4RxDrhekXWvLDU0Ps
+	 uCWLywI5aPhx2/UridKGy01xpVBn6rbNzj6ooGWrKo32OEpteK34fqJCn5SsJHaee2sTh
+	 dibv0HlK94O6THKT1DChi3m+eDekT99xK9gVO4KMpAusN+Gy2a1Ky5h5dLrD43f6WsFxk
+	 uPIUJlJP5tQgd7NFBXAisFqTI0T7UpH9k5G7e0WjLF0ne8scyys9nWvEG6PF0ZiCshREb
+	 9eWyk1nGwM8a14LjbTyn/J50lf/dl6tku9tOTu9r1DvR2E6Olq/ady7qW8KYb+zcZmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320555;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=AIYmoG2ZPhdsPOSGAKvMRGDsvTlHJm2tfagrMZ0h6+E=;
-	b=haI81llh4d+hmntsPjEuiw8zOxuUJbUWj6xw9/vM/2wrLlm7j+zATpY4T2g3+BJzO1M1
-	 6X+NTE15N5cWuR2Uq3NP+S0Kzoke2mMFww/UZFA5SqyYuhAccPQta95C3K1KDRyF+m34/
-	 +CHYHiu2K4ygdRyeh+21pXAdpy0yA+dLR7ya6fa0yVABu5kWUpT6YdAQwanoNFKPfVgy5
-	 uT/5fe3bPewWM9ZtgB+SSUZb7uF0wCRsYb54oVdXaigLyJUTjE8fL5nuQRSMMjJbYc4dL
-	 VDAAR7YnFqB1/bQ9v3zotyWhJ32vX4mCUGkb+Yan0s0e5qBpovnAdeONK4BAokSEn8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320623;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=P2hUNE1Jh0j7pcqEyX1/Tn/49MzqzJqi4PWC6FMgcp4=;
+	b=3AE9mr+94C6OK4NVYEOSC/7m3FC82nfpTXE1OdaOzBgVd7wkV0HgTAqcUGb01BPkpNE+
+	 Bf0KYZ3+mGuJhjCHDy4SXzQ2hTd6Gh+D3W6vL5Kj4SfOLjeyuBYFcfqtlHVpNUo8UBnJN
+	 bzL0p8gWl8gA+MSA3L5yRgYCFHCrjsydY3hG+aT0teQZaAVF3VfuekTs0rlWNKVIMOkgV
+	 Y2D3NQd1cnABHcDBUO2TcgWQliweqHLeNPPVBSaXXrND1a3PcYXQ6XTIptZPSN25f34wm
+	 GtT3Kpr2iMfX0hgeAOwcLde8MyJeeE2dRo847zAC/0FWWa5b0cylDxzCJJsS5U0l5Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLutfqhQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhFh38Jq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEE0606A325;
-	Tue, 10 Nov 2026 14:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDEE606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:23:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MLutfqhQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE24C1F0089F;
-	Tue, 10 Nov 2026 14:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhFh38Jq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4D51F0089F;
+	Tue, 10 Nov 2026 14:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320554;
-	bh=AIYmoG2ZPhdsPOSGAKvMRGDsvTlHJm2tfagrMZ0h6+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MLutfqhQmJMPBfQRVeyFBDU38p+SbvJq26SP6tRR8X3nTowgeWvkIgFkjEscpShhN
-	 QPjaeep4T1pWmb0KBVrDmVr1rejK9/RtWGyI0s35lO3GQlPDoxuJy0muqBDA+7MtK7
-	 QzZn47pNtf+AQotB1glSYUN6JsUOkWBiwYcfAALas71fhQPgQpK1hhn+BeqUD8+ImU
-	 MwQGR8H3CI9DobyIHL6BQFbPyZSC6BhygkQf2pt09xzlX7aFb73H9S41CVBFzm+YVR
-	 bpr0jSKmXzqhd9sfKsTP9WUkDF9BEo7FZPqgMlUBD3Q94YTuNXjGf/pUH01bIwD8rp
-	 CeOAlZWlhyhdQ==
-Date: Tue, 10 Nov 2026 14:22:26 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
- ring is full
-Message-ID: <avMiLt3ZXjYesS3X@gremlin>
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
- <20261110110724.3614412-2-fuad.tabba@linux.dev>
+	s=k20260515; t=1794320623;
+	bh=P2hUNE1Jh0j7pcqEyX1/Tn/49MzqzJqi4PWC6FMgcp4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hhFh38JqEchhSkqKH3tfDmBvowTUSG6gy0lj7/K0d+qHNDV+HoFlv+X++Sh2i0ZWB
+	 F00l1xi4v1o29nS69uTrNHY+SBBObjHYI0ESftHho7idLIttCHYI9QbgG0J9iZR+Xq
+	 h1sqMdwXWKUKmLM/V04pjByvP4zOEn2xVI9Aqt46fZM/9QS22CB5ejx6ondCCKxg6l
+	 QjqbQf0esBJCVLN5rljA7KOde/K3g0bJ3kE7WXOkN6qqqlrM4dntQye0UnQT3PAqW3
+	 z5TN2998oZBW6f3KJOTKTmP8nvC295R2Ky7BWea3dlxO08EJ/2EKclkWDGAI2rd39Q
+	 myfwP+/djisrQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Gabriel Krisman Bertazi <krisman@collabora.com>,
+	Eugen Hristev <eugen.hristev@collabora.com>,
+	Eric Biggers <ebiggers@google.com>,
+	Gabriel Krisman Bertazi <krisman@suse.de>,
+	Christian Brauner <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] ext4: Move CONFIG_UNICODE defguards into the code flow
+Date: Tue, 10 Nov 2026 09:23:40 -0500
+Message-ID: <20261110142328.1870404-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053253-failed-6.6-19e16597f9ba@kernel.org>
+References: <20261107053253-failed-6.6-19e16597f9ba@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,146 +62,214 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110110724.3614412-2-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 11:07:23AM +0000, Fuad Tabba wrote:
-> Pre-faulting can map a dirty-logged page writable, which pushes it to
-> the vCPU's dirty ring. KVM_RUN exits with KVM_EXIT_DIRTY_RING_FULL
-> before the ring overflows, but the pre-fault loop never checks it, so
-> one call over more such pages than the ring has free trips the WARN in
-> kvm_dirty_ring_push() and overwrites entries userspace hasn't
-> harvested. On x86:
->
->   WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x7a/0xd0
->   Call Trace:
->    make_spte+0x2cc/0x450
->    kvm_tdp_mmu_map+0x5e1/0x7f0
->    kvm_tdp_page_fault+0x12c/0x1b0
->    kvm_mmu_do_page_fault+0x181/0x250
->    kvm_arch_vcpu_pre_fault_memory+0x136/0x1d0
->    kvm_vcpu_pre_fault_memory+0xcf/0x180
->    kvm_vcpu_ioctl+0x455/0x770
+From: Gabriel Krisman Bertazi <krisman@collabora.com>
 
-If you have a local repro maybe worth sending a regression test for this?... and
-I type that, then check the 2/2 and see that you already did :) ok haha thanks!
+[ Upstream commit d98c822232f8642960a69caedeb7909471127939 ]
 
->
-> Stop the loop once the ring is soft full, returning the pages already
-> processed, or -ENOSPC when there are none, since a retry can't succeed
-> until userspace harvests the ring. kvm_dirty_ring_check_request() fills
-> in a KVM_RUN exit, so test the ring's state directly. The stub for
-> !HAVE_KVM_DIRTY_RING is for s390, which has the ioctl but no ring.
->
-> Fixes: bc1a5cd002116 ("KVM: Add KVM_PRE_FAULT_MEMORY vcpu ioctl to pre-populate guest memory")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Instead of a bunch of ifdefs, make the unicode built checks part of the
+code flow where possible, as requested by Torvalds.
 
-Yikes, nasty. Thanks for addressing this!
+Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+[eugen.hristev@collabora.com: port to 6.10-rc1]
+Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
+Link: https://lore.kernel.org/r/20240606073353.47130-7-eugen.hristev@collabora.com
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Signed-off-by: Christian Brauner <brauner@kernel.org>
+Stable-dep-of: 19e16597f9ba ("ext4: fix ABBA deadlock in ext4_rmdir()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ext4/crypto.c | 10 ++--------
+ fs/ext4/ext4.h   | 33 +++++++++++++++++++++------------
+ fs/ext4/namei.c  | 14 +++++---------
+ fs/ext4/super.c  |  4 +---
+ 4 files changed, 29 insertions(+), 32 deletions(-)
 
-LGTM so:
+diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
+index 8497f6125a8eb..c52971f62e525 100644
+--- a/fs/ext4/crypto.c
++++ b/fs/ext4/crypto.c
+@@ -31,11 +31,10 @@ int ext4_fname_setup_filename(struct inode *dir, const struct qstr *iname,
+ 
+ 	ext4_fname_from_fscrypt_name(fname, &name);
+ 
+-#if IS_ENABLED(CONFIG_UNICODE)
+ 	err = ext4_fname_setup_ci_filename(dir, iname, fname);
+ 	if (err)
+ 		ext4_fname_free_filename(fname);
+-#endif
++
+ 	return err;
+ }
+ 
+@@ -51,11 +50,9 @@ int ext4_fname_prepare_lookup(struct inode *dir, struct dentry *dentry,
+ 
+ 	ext4_fname_from_fscrypt_name(fname, &name);
+ 
+-#if IS_ENABLED(CONFIG_UNICODE)
+ 	err = ext4_fname_setup_ci_filename(dir, &dentry->d_name, fname);
+ 	if (err)
+ 		ext4_fname_free_filename(fname);
+-#endif
+ 	return err;
+ }
+ 
+@@ -70,10 +67,7 @@ void ext4_fname_free_filename(struct ext4_filename *fname)
+ 	fname->usr_fname = NULL;
+ 	fname->disk_name.name = NULL;
+ 
+-#if IS_ENABLED(CONFIG_UNICODE)
+-	kfree(fname->cf_name.name);
+-	fname->cf_name.name = NULL;
+-#endif
++	ext4_fname_free_ci_filename(fname);
+ }
+ 
+ static bool uuid_is_zero(__u8 u[16])
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 5a9a05d62f549..c3200c942d676 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -2747,8 +2747,25 @@ ext4_fsblk_t ext4_inode_to_goal_block(struct inode *);
+ 
+ #if IS_ENABLED(CONFIG_UNICODE)
+ extern int ext4_fname_setup_ci_filename(struct inode *dir,
+-					 const struct qstr *iname,
+-					 struct ext4_filename *fname);
++					const struct qstr *iname,
++					struct ext4_filename *fname);
++
++static inline void ext4_fname_free_ci_filename(struct ext4_filename *fname)
++{
++	kfree(fname->cf_name.name);
++	fname->cf_name.name = NULL;
++}
++#else
++static inline int ext4_fname_setup_ci_filename(struct inode *dir,
++					       const struct qstr *iname,
++					       struct ext4_filename *fname)
++{
++	return 0;
++}
++
++static inline void ext4_fname_free_ci_filename(struct ext4_filename *fname)
++{
++}
+ #endif
+ 
+ /* ext4 encryption related stuff goes here crypto.c */
+@@ -2771,16 +2788,11 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
+ 					    int lookup,
+ 					    struct ext4_filename *fname)
+ {
+-	int err = 0;
+ 	fname->usr_fname = iname;
+ 	fname->disk_name.name = (unsigned char *) iname->name;
+ 	fname->disk_name.len = iname->len;
+ 
+-#if IS_ENABLED(CONFIG_UNICODE)
+-	err = ext4_fname_setup_ci_filename(dir, iname, fname);
+-#endif
+-
+-	return err;
++	return ext4_fname_setup_ci_filename(dir, iname, fname);
+ }
+ 
+ static inline int ext4_fname_prepare_lookup(struct inode *dir,
+@@ -2792,10 +2804,7 @@ static inline int ext4_fname_prepare_lookup(struct inode *dir,
+ 
+ static inline void ext4_fname_free_filename(struct ext4_filename *fname)
+ {
+-#if IS_ENABLED(CONFIG_UNICODE)
+-	kfree(fname->cf_name.name);
+-	fname->cf_name.name = NULL;
+-#endif
++	ext4_fname_free_ci_filename(fname);
+ }
+ 
+ static inline int ext4_ioctl_get_encryption_pwsalt(struct file *filp,
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 1e72aa6f207ed..c77a18ce76bc7 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1875,8 +1875,7 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
+ 		}
+ 	}
+ 
+-#if IS_ENABLED(CONFIG_UNICODE)
+-	if (!inode && IS_CASEFOLDED(dir)) {
++	if (IS_ENABLED(CONFIG_UNICODE) && !inode && IS_CASEFOLDED(dir)) {
+ 		/* Eventually we want to call d_add_ci(dentry, NULL)
+ 		 * for negative dentries in the encoding case as
+ 		 * well.  For now, prevent the negative dentry
+@@ -1884,7 +1883,7 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
+ 		 */
+ 		return NULL;
+ 	}
+-#endif
++
+ 	return d_splice_alias(inode, dentry);
+ }
+ 
+@@ -3260,16 +3259,14 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+ 	ext4_fc_track_unlink(handle, dentry);
+ 	retval = ext4_mark_inode_dirty(handle, dir);
+ 
+-#if IS_ENABLED(CONFIG_UNICODE)
+ 	/* VFS negative dentries are incompatible with Encoding and
+ 	 * Case-insensitiveness. Eventually we'll want avoid
+ 	 * invalidating the dentries here, alongside with returning the
+ 	 * negative dentries at ext4_lookup(), when it is better
+ 	 * supported by the VFS for the CI case.
+ 	 */
+-	if (IS_CASEFOLDED(dir))
++	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
+ 		d_invalidate(dentry);
+-#endif
+ 
+ end_rmdir:
+ 	brelse(bh);
+@@ -3371,16 +3368,15 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
+ 		goto out_trace;
+ 
+ 	retval = __ext4_unlink(dir, &dentry->d_name, d_inode(dentry), dentry);
+-#if IS_ENABLED(CONFIG_UNICODE)
++
+ 	/* VFS negative dentries are incompatible with Encoding and
+ 	 * Case-insensitiveness. Eventually we'll want avoid
+ 	 * invalidating the dentries here, alongside with returning the
+ 	 * negative dentries at ext4_lookup(), when it is  better
+ 	 * supported by the VFS for the CI case.
+ 	 */
+-	if (IS_CASEFOLDED(dir))
++	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
+ 		d_invalidate(dentry);
+-#endif
+ 
+ out_trace:
+ 	trace_ext4_unlink_exit(dentry, retval);
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 9be69402c704e..f91f36c39651c 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -3630,14 +3630,12 @@ int ext4_feature_set_ok(struct super_block *sb, int readonly)
+ 		return 0;
+ 	}
+ 
+-#if !IS_ENABLED(CONFIG_UNICODE)
+-	if (ext4_has_feature_casefold(sb)) {
++	if (!IS_ENABLED(CONFIG_UNICODE) && ext4_has_feature_casefold(sb)) {
+ 		ext4_msg(sb, KERN_ERR,
+ 			 "Filesystem with casefold feature cannot be "
+ 			 "mounted without CONFIG_UNICODE");
+ 		return 0;
+ 	}
+-#endif
+ 
+ 	if (readonly)
+ 		return 1;
+-- 
+2.53.0
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  Documentation/virt/kvm/api.rst | 9 +++++++--
->  include/linux/kvm_dirty_ring.h | 6 ++++++
->  virt/kvm/dirty_ring.c          | 2 +-
->  virt/kvm/kvm_main.c            | 6 ++++++
->  4 files changed, 20 insertions(+), 3 deletions(-)
->
-> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-> index e95c9cda085d9..89eb6be9bc6e3 100644
-> --- a/Documentation/virt/kvm/api.rst
-> +++ b/Documentation/virt/kvm/api.rst
-> @@ -6544,6 +6544,7 @@ Errors:
->    ENOENT     The specified `gpa` is outside defined memslots.
->    ENOEXEC    The vCPU has not been initialised (arm64).
->    EINTR      An unmasked signal is pending and no page was processed.
-> +  ENOSPC     The vCPU's dirty ring is full and no page was processed.
->    EFAULT     The parameter address was invalid.
->    EHWPOISON  A poisoned host page was encountered.
->    EOPNOTSUPP Mapping memory for a GPA is unsupported by the
-> @@ -6588,7 +6589,9 @@ case, the ioctl can be called in parallel.
->
->  When the ioctl returns, the input values are updated to point to the
->  remaining range.  If `size` > 0 on return, the caller can just issue
-> -the ioctl again with the same `struct kvm_map_memory` argument.
-> +the ioctl again with the same `struct kvm_pre_fault_memory` argument.
-> +If that fails with ENOSPC, the vCPU's dirty ring has to be harvested
-> +and reset first.
->
->  On x86, shadow page tables cannot support this ioctl because they
->  are indexed by virtual address or nested guest physical address.
-> @@ -8957,7 +8960,9 @@ Therefore, the ioctl must be called *before* reading the content of
->  the dirty pages.
->
->  The dirty ring can get full.  When it happens, the KVM_RUN of the
-> -vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
-> +vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
-> +KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
-> +ring has been harvested and reset.
->
->  The dirty ring interface has a major difference comparing to the
->  KVM_GET_DIRTY_LOG interface in that, when reading the dirty ring from
-> diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-> index eb10d87adf7d5..88b4f2a009274 100644
-> --- a/include/linux/kvm_dirty_ring.h
-> +++ b/include/linux/kvm_dirty_ring.h
-> @@ -60,6 +60,11 @@ static inline void kvm_dirty_ring_push(struct kvm_vcpu *vcpu,
->  {
->  }
->
-> +static inline bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
-> +{
-> +	return false;
-> +}
-> +
->  static inline struct page *kvm_dirty_ring_get_page(struct kvm_dirty_ring *ring,
->  						   u32 offset)
->  {
-> @@ -81,6 +86,7 @@ int kvm_dirty_ring_alloc(struct kvm *kvm, struct kvm_dirty_ring *ring,
->  int kvm_dirty_ring_reset(struct kvm *kvm, struct kvm_dirty_ring *ring,
->  			 int *nr_entries_reset);
->  void kvm_dirty_ring_push(struct kvm_vcpu *vcpu, u32 slot, u64 offset);
-> +bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring);
->
->  bool kvm_dirty_ring_check_request(struct kvm_vcpu *vcpu);
->
-> diff --git a/virt/kvm/dirty_ring.c b/virt/kvm/dirty_ring.c
-> index 572b854edf740..f73f92102cb7a 100644
-> --- a/virt/kvm/dirty_ring.c
-> +++ b/virt/kvm/dirty_ring.c
-> @@ -40,7 +40,7 @@ static u32 kvm_dirty_ring_used(struct kvm_dirty_ring *ring)
->  	return READ_ONCE(ring->dirty_index) - READ_ONCE(ring->reset_index);
->  }
->
-> -static bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
-> +bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
->  {
->  	return kvm_dirty_ring_used(ring) >= ring->soft_limit;
->  }
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index cf4cb586f1407..da1b76ceb65e3 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
->  			break;
->  		}
->
-> +		/* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
-> +		if (vcpu->kvm->dirty_ring_size && kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
-> +			r = -ENOSPC;
-> +			break;
-> +		}
-> +
->  		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
->  		if (WARN_ON_ONCE(r == 0 || r == -EIO))
->  			break;
-> --
-> 2.47.3
->
-
---
-Cheers, Lorenzo
