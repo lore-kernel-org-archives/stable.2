@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794275812;
-	b=0iP4bARaguURNqY8sNsQzETrdf6yanz7ALMl3d43SRqt/pihrrkSm3kLPdY0bPLb/CS7
-	 T16ip7FmwsUvUSE0nJW/RWsOfuIu9GBh90ymEX2LmTOo4jG+7kWoA0LdPpnlbq6QWIJ/h
-	 TjXlXWvYzKT6+9x/l57XX8mz3VsGvksLmF1ecXzIeJGS1xFQqx0ux9UsEGHSWnMQrY0Pt
-	 aTqFY7e+QJ++GrBeGnNjQyaFdLHIh0t32JCvcR2EmWzowaQjeHoBZPawpBHXTz9iNIyqL
-	 DgBe+DduVFnNfDHiRNAF6t4NQWlj0TgX2LVAXBnVj5jCfb8oSmHgWDOWH3lI32ppaVQ==
+	b=y6+CSp4FZTgq+0t32U11dp8cC7RZhQedCfRFP6n7G1gxR6yqf1w4ZebrI3wiBS7jQrq6
+	 kUuk9dKzNvq7D2XKzHPzLONC6nf6tCZbEJAUZdA6bL1MoGCiE5BYvLUY2W6k5soQ0ni7I
+	 PDlzcnGxq9U9ybSGkYTimuGgNn3x4GbAxaDfu53TQdDpq6Nnjv1HHa3QWoxUgI3vVW+lA
+	 YdPV7nH9H0/wchpycj0lEeU+XGCAnXNaNDcf0QGv9snUxKXxEJ6dl1BwcQahNWRgEgtw6
+	 eEilauxfiKptw4Dqy8Q9bJzHIV9GgPMq1VHF+6og00A93mmHzAklLFoXQN7b+5DZqOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794275812;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YnpkvqWeyaPYdDUZznKdg2ofw9x2azkTUDp58GQdboo=;
-	b=4vKBHOFeo6e/3JqnD8FRm82y5ThKBZ/druM5Kc9xjMWEC9ynOx2vn6+B0mWMEP+EkhIz
-	 RF9wCZIwyaLtvxaXMf8cr8VXIro/PmQcIww8zZm9sHHIGxmLeN/P6irDAg0EZ9bMLAr+5
-	 k56uYERMJO1mFPQv8/Q+h5Ke72dV+Y5v33kcR2ppLFkJ5NH2O2e0HNQrtTQWXiVBW+9W6
-	 LRrSJo72IPZDwpAOLsOpAdC5e9OHHR0eA1W4KelX1MK6CB84yBD29Wmb/flSUb5iYRZzy
-	 ZKzZuNOmwV65w41eS7s/62XxlO4JCrsDDIJx60zGU6LgFUbO1cCW+iKGOmfqOQ6HosQ==
+	 Content-Transfer-Encoding;
+	bh=e+tDPAgX7Jc6AnygJexRUn8hbTfpq/wN0Exo0XiOIHw=;
+	b=NjoSR+rFwu2nWuMJztBrXYAJoP9iNUrHThYxOMSuXtBDm0KHfTmhcR3t1Yg8VyngvIW0
+	 CpjHFVuF6C95w8bWHhfBWs1YXKK2mn79xgnyyCF93Uyb5cuCBAoOsajnScRdzzbXjm0/E
+	 ZcO+n+D2hwuqvEp9ILrEJpWjYxnv/VFHAKaKh8nhbK73SqfGv196jxO2BWW3hXHfx4LNg
+	 12VWPFZgujUy2xk4fgHVotnSKOdu/8puHG9hjIOJL2lUc4qfQ9r2z5zhetIv5cmssHyfW
+	 GOEdEn2xKn0taRlH4+wI7oBkBYsOllrIADYC30yKzs2doW0Y2Pc/ZcIfqyfYDe1fMDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ENKZyDjS;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ZUqTqdJF;
 	arc=none smtp.remote-ip=115.124.28.221
 Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C372160A2606
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C372160A2606
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730E6606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:56:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 730E6606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ENKZyDjS
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ZUqTqdJF
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794275803; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=YnpkvqWeyaPYdDUZznKdg2ofw9x2azkTUDp58GQdboo=;
-	b=ENKZyDjSpch1nH+BEgzGYQorCtZW960466Gg5WrCMUl9lzeNGaGOsB9dxUCaLrTJGoI1GGnZ0K/xqIeQeat5ruQNv+UKeDnSEEWeZLYv1/c7kowOgi7xGKbV2V81BIW3qICLwK2Yj9xtk/tdiMTVNt3+ZTVeBNxna969/1f/Fd8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07715703|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0144926-0.000314442-0.985193;FP=6375533643885053944|2|1|3|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k-TYj4r_1794275802;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k-TYj4r_1794275802 cluster:ay29)
+	t=1794275803; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=e+tDPAgX7Jc6AnygJexRUn8hbTfpq/wN0Exo0XiOIHw=;
+	b=ZUqTqdJFF/K2DrxDj/8LEwo1+h5cYaEcxGL8UYXWML+6jfuswWQg2qVZf7g/7QCWXHqAw8iEmdv49jTVfBcfdMDvUQPkJmRyJ4NGBTL5l4n02zIyYQAjkmUbezvqb9iKlcP/dJSaVI1sB1e9VmyqWGF7FDsSGSuDVZenI6LamLY=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.104247|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00503485-0.000117359-0.994848;FP=4424367230260155508|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=2;RT=2;SR=0;TI=SMTPD_---.k-SkfiF_1794275803;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k-SkfiF_1794275803 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 09:56:42 +0800
+          Tue, 10 Nov 2026 09:56:43 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: stable@vger.kernel.org
-Cc: Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>
-Subject: [PATCH 5.10.y v2] ceph: clamp the inline data length in ceph_fill_inline_data()
+Cc: John Johansen <john.johansen@canonical.com>
+Subject: [PATCH 6.12.y v2] apparmor: check accept index + 1 is in bounds
 Date: Tue, 10 Nov 2026 09:56:42 +0800
-Message-ID: <20261110015642.469487-1-zhugl3@xiaopeng.com>
+Message-ID: <20261110015643.469506-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109030622.419531-1-zhugl3@xiaopeng.com>
-References: <20261109030622.419531-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261109030614.419397-1-zhugl3@xiaopeng.com>
+References: <20261109030614.419397-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +60,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52 ]
+[ Upstream commit afe5d5a747393cb3d00795db31d7fce5108a766a ]
 
-The MDS decides how much inline data to attach to a reply, and the
-client parses inline_len without any upper bound: ceph_decode_need()
-only verifies that the message actually carries that many bytes.
-ceph_fill_inline_data() then copies the data into a single page
-with no length check, so a malicious or buggy MDS returning more
-inline data than the page can hold writes past its end.
+aa_lookup_fperms() returns perms[index + 1] when the current fsuid
+does not match cond->uid, so such an entry consumes two slots in the
+perms table.  But verify_dfa_accept_index() only checks that index is
+within the perms table, so a policy whose last accept entry is reached
+with a non-matching fsuid reads perms[index + 1] one entry past the
+end of the table.
 
-Clamp the length to PAGE_SIZE so both callers, handle_cap_grant()
-and fill_inode(), are covered.
+The perms table is allocated by unpack_perms_table() with a u16 size
+read from the policy blob, so a crafted policy can place an accept
+entry at index size - 1 to reach the out-of-bounds read.
 
+Check that index + 1 is also in bounds.
+
+Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
 Cc: stable@vger.kernel.org
-Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ Adapted for 5.10.y: folio_size()/memcpy_to_folio() → PAGE_SIZE and the page API; this tree has no pr_warn_ratelimited_client(), so the warning is dropped. ]
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ Adapted for 6.12.y: this tree predates ACCEPT_FLAG_OWNER (2e12c5f06017), and aa_lookup_fperms() here reads perms[index + 1] whenever fsuid does not match cond->uid, with no flag to narrow the check to, so every accept index gets the pair bound. ]
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
-v2: drop the extra indentation level on the added if-block
-    and clarify the adaptation note, per review.
+v2: drop the ACCEPT_FLAG_OWNER reference (absent here -
+    2e12c5f06017 is not in this tree, so it broke the build)
+    and check index + 1 unconditionally: aa_lookup_fperms()
+    in this tree reads perms[index + 1] whenever fsuid does
+    not match cond->uid, with no flag to narrow the check
+    to, per review.
 
- fs/ceph/addr.c | 3 +++
- 1 file changed, 3 insertions(+)
+ security/apparmor/policy_unpack.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 4e247e6..bb9f13a 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -1717,6 +1717,9 @@ void ceph_fill_inline_data(struct inode *inode, struct page *locked_page,
- 	dout("fill_inline_data %p %llx.%llx len %zu locked_page %p\n",
- 	     inode, ceph_vinop(inode), len, locked_page);
- 
-+	if (len > PAGE_SIZE)
-+		len = PAGE_SIZE;
-+
- 	if (len > 0) {
- 		void *kaddr = kmap_atomic(page);
- 		memcpy(kaddr, data, len);
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 4642058..684a21d 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1209,6 +1209,14 @@ static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
+ 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
+ 		if (ACCEPT_TABLE(dfa)[i] >= table_size)
+ 			return false;
++			/*
++			 * Conditional permission entries consume two slots:
++			 * aa_lookup_fperms() reads perms[index] when fsuid matches
++			 * cond->uid and perms[index + 1] otherwise, so index + 1
++			 * must also be in bounds.
++			 */
++			if (ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
++				return false;
+ 	}
+ 	return true;
+ }
 -- 
 2.43.0
 
