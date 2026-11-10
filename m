@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313855;
-	b=WMXsuf0jGIleU0+yh/gphsMJ6re0IRKamD4CLwwgY4ZRTQg48K0tDlFFuJPhye45R1q4
-	 hR/55aIWYWUuXvTyZ3tmdZMxz7YriIihx2uogwdmS1iz32TX6RK+au8WTuhWpm2eLkV42
-	 EPmw/R11/DpPL46mzdAhoCSTe3wYOgArbsQbDsWwC/XHe4YekfiPaI397S+ZyXKUvXgJK
-	 k2UXKwJH302SQZaUOv5Uav0o4pG+9B1vJ9okOlEI4TA21ezxzBV8CBGKeCJf0s2jn+9xu
-	 I6cXMNb94bONq9LowORYuPKSyD6es6kg/tQXY6rYSOSBnhmJaWbAxzc4yFqqTRjzO1A==
+	t=1794313898;
+	b=wB7pzVTcIaqYT2lfn3GWWo1xOVAtCNU/bsVQifnlazRp2m2+67UMNlXtyQNyFb/5Oyc3
+	 OTYk/6+CPSNsW9r/DovCE0t6Lg2l5XHiaNdVSrrhg8AMPW57OuY3EsWWnLnr1GiKNg2DA
+	 HwrpB2raHGlVVIdmxxB/scl5Y8XhGdxsCASEwoqn7YzCUK10cd15y/CqyltPTVVmWXNwG
+	 yYT69kH1n0jwx/GWq3/Xt55IJG/c+phRKWCUjOj1/Rae6quyg8nSvo/JJyIKoIG9EL5x9
+	 ZrIVTUsaqA/Igid/kl4CzksxJMyQJmN9N6h4t32bctRwuULrLKT3mptQRVgnvXvkk7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313898;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fO9BO0wbmDeL50UnCAUhyfaB7huGMM7FTR+c+p07gCM=;
-	b=3y6iM9BCZ6Lh9nWVUadjxnVSm9OnI5d1J1rrLOwGBuOVtVxDcVtWDvvt9isX8YMPRaT2
-	 sOUseBGEnoqeS+2df1v+3hqrVRytMDPA08gzSfAXFGq4+XWoL42AJBwMnRKsOQIBneJEz
-	 6F8eaUf7W9+6lpIRZw/+MNwKZ5nASItWO2k886gx3nXqJQPVYtfjOvAno+Hook94bwmfm
-	 VNW/dHjYW+hjJZZHz1PXK2fGIUx5C+qP9s2evWyknZEq004IdYaBCqivwodsvimzkToHg
-	 DfaPyPF8XnR4EEaTNbI+W5AUcEoSYs6wn1+zLSJOY3+8lN9F3Fjkaot+5XWD3wrh1NA==
+	bh=0Px9meDwVxdSFJRp1wavOES8p66Y34pNoVX5MGwrgOY=;
+	b=5c7gPs5ewtbNT1MsiIsSOBZ4LjegV7s+P6gQHhU4lNj6r3LTqxMNQN4rHb+EWzKB0bWR
+	 tTu+5c2SIX3sQt22QL3klSCmBGvQNSbBx7SeBp7TotiniAZT6S6iWA5UtTrou9tV+t0Hy
+	 JOuH7jxFt0QZX3slP6fNkgTbqwSRYEtBGtiOmNfArqzxpLEEWZm83TPO6zBGfx1Sd7oYx
+	 leVrNSBWD2yyo90bmaY+4GHRJLqioQoRaAzvsryVB8Ap31xONQ761n63AqVI1jMG9JIio
+	 VndTezma1cxldWahGFks+Qy+ubTRLZd61iTaNo22M0noNU/gnqcAbOsjc8KPgj4AjnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YWBLMHG3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6uT6ZsC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F75606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:30:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A69606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YWBLMHG3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3E51F008A2;
-	Tue, 10 Nov 2026 12:30:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6uT6ZsC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69B521F008A1;
+	Tue, 10 Nov 2026 12:31:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313855;
-	bh=fO9BO0wbmDeL50UnCAUhyfaB7huGMM7FTR+c+p07gCM=;
+	s=k20260515; t=1794313897;
+	bh=0Px9meDwVxdSFJRp1wavOES8p66Y34pNoVX5MGwrgOY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YWBLMHG3VyPyA56Gj4zuWnmdt2r0ftsvH7RkV83AVLabnRMuI0kbPIck9BMnLyUEU
-	 Z6lm98cgOdXE2uAhYO8fYuyHb6VYlGXTbwyjAUIngGdMVhnl/NRIfXl4vMwSeekBIr
-	 xPM3ota/L0mZeKvxjfyeTGr/l/TrWOwBIL3gUXzi5QfhJy3Cgbq1eurk2rrZ+sajaJ
-	 YIS89TMBXl2+N8hX37BPwI4k72Uda/jbwUW/6d2HZqTmKwkRjw3hr9ojG6oh3JOChj
-	 Ru9IAsReM6PMN8mHFvXQBoVVoGTAFT68PaHeM1V0nO8FcNGkfVDpjWvkj2K/8uzVcG
-	 xcWJWzToXjHiA==
+	b=R6uT6ZsC/nISC3iX7XygbjPnFQMNvQZfgLS4EjUFxKzGG11ARqs0XENjKO/FP2XwG
+	 fLOM0y20xg14dJLPahwF7VHJlvIQ1YH+8bf/9PkCgKsUIkMgsEe2oOtgkSvODOgDPc
+	 azgLia8jZpDNhvbImCm7Ycxxg5c6E7+V64hmd9IPAK6KsrbjedBliejnXh5Ou/2f7O
+	 g8CNcYTSC1yD1sjltYPbgMIhfhsXXYLuxrFYVQfaj75dH5eI1p3jXE8WLqzIsIZ8q7
+	 wR9vy384kUFAjWb5xIg8vWXMrn8pOsxOXgb/G9S4FyeUhr0Us1WGU3mjhWZZkrP1pR
+	 TJFEy1n7z0Iew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ali Resool Tuama <aliresool567@gmail.com>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Changwei Ge <gechangwei@live.cn>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Jun Piao <piaojun@huawei.com>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Mark Fasheh <mark@fasheh.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE
-Date: Tue, 10 Nov 2026 07:30:51 -0500
-Message-ID: <20261110123027.1222319-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
+Date: Tue, 10 Nov 2026 07:31:35 -0500
+Message-ID: <20261110123115.1278382-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110123027.1222319-1-sashal@kernel.org>
-References: <20261107052058-failed-6.12-40224df29729@kernel.org>
- <20261110123027.1222319-1-sashal@kernel.org>
+In-Reply-To: <20261107053226-failed-6.6-25bf9e549360@kernel.org>
+References: <20261107053226-failed-6.6-25bf9e549360@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,51 +67,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ali Resool Tuama <aliresool567@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-[ Upstream commit 40224df29729618ecd88c5c0077e71b1e82c7a3a ]
+[ Upstream commit 25bf9e549360b656a6763232e0e9e58a00c3aff7 ]
 
-The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
-then re-enumerates in a mode it picks from how the host enumerated it.
+Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
 
-When the configuration descriptor is fetched the Linux way, 9 bytes
-followed by the full 80, the controller disconnects about 1 ms after
-its string descriptors have been read, before SET_CONFIGURATION, and
-comes back as 3537:1082, a generic HID gamepad without force feedback.
+The ocfs2 metadata validators trust the on-disk suballoc slot and bit
+without checking them against the slot range of the mounted filesystem and
+the capacity of the block group bitmap.  A corrupted image can carry
+OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
+the bitmap, and once the corresponding inode, extent block, xattr block,
+dir index root or refcount block gets freed, the bad value goes straight
+into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
+a BUG_ON() or runs off the end of local_system_inodes[].
 
-When the configuration descriptor is fetched in one 255-byte request,
-as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
-which xpad already supports, including rumble.
+This series rejects such values at read time, in the existing validators,
+so corrupted objects fail with -EROFS (and a read-only remount) instead of
+crashing:
 
-Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
-makes no difference; the configuration descriptor request size alone
-decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
-identity, as is already done for the ShanWan Wireless Gamepad.
+  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
+        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
+        ocfs2_validate_inode_block()"), and turns the "system file
+        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
+        an ocfs2_error();
+  patch 2 rejects oversized dinode suballoc bits;
+  patch 3 validates the suballoc slot and bit of xattr and dir index
+        blocks;
+  patch 4 validates the suballoc slot and bit of extent and refcount
+        blocks.
 
-Cc: stable <stable@kernel.org>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Ali Resool Tuama <aliresool567@gmail.com>
-Link: https://patch.msgid.link/20261002-master-v2-1-24b05d8792b5@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+The checks only enforce what the kernel and mkfs.ocfs2 already write: a
+valid slot from meta_ac->ac_alloc_slot and a bit within the block group
+bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
+OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
+healthy filesystems.
+
+Each new check was exercised under QEMU by corrupting the field in
+question with an out-of-range value; with the series applied the access
+fails with -EROFS and the filesystem remounts read-only instead of hitting
+the BUG_ON().
+
+This patch (of 4):
+
+ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
+OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
+mkfs.ocfs2 are allocated from the global allocator and thus legitimately
+carry this value; regular inodes are always allocated from a per-slot
+suballocator and hence must have a valid slot.
+
+If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
+ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
+and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
+when the inode is deleted.  This can be triggered by an unprivileged user
+unlinking such a corrupted file.
+
+Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
+still accepting it for system inodes.  Note that a crafted dinode carrying
+OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
+used to BUG() in ocfs2_read_locked_inode() ("system file state is
+ambiguous").  Since i_flags comes from disk, handle that mismatch with
+ocfs2_error() instead of BUG_ON() as well.
+
+Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
+Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
+Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context around the suballoc slot check in ocfs2_validate_inode_block() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/core/quirks.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-index 23d5c30332ffb..ee439a2ddf316 100644
---- a/drivers/usb/core/quirks.c
-+++ b/drivers/usb/core/quirks.c
-@@ -607,6 +607,9 @@ static const struct usb_device_id usb_quirk_list[] = {
- 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
- 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 01e33782f4f6e..213cc1ebc14b8 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -573,14 +573,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
+ 	fe = (struct ocfs2_dinode *) bh->b_data;
  
-+	/* GameSir G7 SE */
-+	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
-+
- 	/* DELL USB GEN2 */
- 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
+ 	/*
+-	 * This is a code bug. Right now the caller needs to
+-	 * understand whether it is asking for a system file inode or
+-	 * not so the proper lock names can be built.
++	 * The caller must know whether it is asking for a system file inode
++	 * or not so the proper lock names can be built.  Since i_flags comes
++	 * from disk, a mismatch is filesystem corruption instead of a code
++	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
+ 	 */
+-	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
+-			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
+-			"Inode %llu: system file state is ambiguous\n",
+-			(unsigned long long)args->fi_blkno);
++	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
++	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
++		status = ocfs2_error(osb->sb,
++				     "Inode %llu: system file state is ambiguous\n",
++				     (unsigned long long)args->fi_blkno);
++		goto bail;
++	}
  
+ 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
+ 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
+@@ -1597,8 +1601,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 		}
+ 	}
+ 
+-	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+-	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
++	/*
++	 * Only system inodes created by mkfs.ocfs2 are allocated from the
++	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
++	 * Regular inodes are always allocated from a per-slot suballocator.
++	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
++	 * deleting it would pass the slot to get_local_system_inode() via
++	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
++	 */
++	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
++		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
++			rc = ocfs2_error(sb,
++					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
++					 (unsigned long long)bh->b_blocknr,
++					 le16_to_cpu(di->i_suballoc_slot));
++			goto bail;
++		}
++	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_suballoc_slot));
 -- 
 2.53.0
 
