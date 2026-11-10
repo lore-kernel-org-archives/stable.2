@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331283;
-	b=EULMRfecXe9M9Ojg4WUE8Dh5pw8yOszGdUjsXdqQFnh6lxQBFXEqJlUHjq6I9tPwuiI7
-	 I7T12XgAldcuwlaWvcHCCcJn3SvJKPmpSUJ3XXpJ8lceqapWcSI3luiVBkL4T+hxClaI3
-	 UYb1WqCHmg3WEosZX5EYUWECVrAIVMAXEKLrr5qHZ0ANNfMS1pWameEQ94m9YykV8GIWt
-	 3ot58iiM7TLWpZHT06id5MabLVco1rKrZvDG3EzN5vnvGKzZk3EQp2nN2zHs9owOAc2GS
-	 k2FiDp2BFkOtqb7Is3Egt31hD76fGzTdP0jPknMtZ0TpUyyIXRanysz7myz3sbbHc9A==
+	t=1794331293;
+	b=QTEhgmvAuFMC2ro+WinFba0s3gVhk8oDKqmXe+qdhWhiMzJKFzpewn1oS771FR4ORgFp
+	 d+7Gw5pHdH1bpOrZfGxhdblE2vv/FvOn9WLDkUpYWc5oMYWmvEgUQ4YR53aCkjb2jF4DT
+	 idt24zviQ0QfI5e5oBsIKHn+gkfG/vZqoQ3x8oNwYidBxu+XHX8MSPzh+0F9XI/yQH1hL
+	 jZjliGn1ZXoGIW5GPoAnxq8qYrygUHOjw5YK/jQCkg6a6O/y6s4q7nuVgjyg3TCSxGZbO
+	 hOnCZtzEt6tAbqc74nC8iWganOPgRa4VarBMeZJhSaJ3CLxHA3TSGvl+eDklWvZTzcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331293;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=g3n5VXWZ8G2Sw+cqpvW0X9Ee1fATrhFc/S3FaEfiXag=;
-	b=swIankfMk6Q+UVkbD9djJWYDrw/m6x5IJGMrVZhNhgYmemaeDf8QAQfgjgrr38SJ5Vev
-	 8Np0hkl3XU+Lzfn65A3aE+gWyQfsbRkf/CtUNcQ/VrNFKYjM8qwQzNSvgVwHfu9Y15WaW
-	 aiaCWDzjZBFqPcAf7ZgjRRqVbLJTrFocix8zpf4ULkmeqwEfNk8JdXtDqnZK4T7PGOCLw
-	 pxYBm6P8kvGLXFl5NPSpNy/LDvWdzlkLfKMZJYUg8Q3TQ+BrAHq0cZ6y6q1Lx+4/eGHQF
-	 IcX+44uwFlc/IIYpOqSVgQbputCrBOrDpEuYKY3eRzRJKQziPbicEQQjr35irW3QvIA==
+	bh=IBJLW9gJYjVVTmSaQ4sa3ZZvNhNV2rgDrr2kJyOrSs0=;
+	b=qEHdO4btiq5LehNUSznXraufw380eak9dYO4qvRrpuAQAOPkpiEAtOWDm4TzwR+zhasd
+	 7GKmapC7Vdsu6o10xfYUNpuhCpgCtymzrBqx7kuPwXUyfkDQAj7EqhwmScEzsaz14EE2A
+	 ccXJpCp5AqQLby3pLwcWycW0PSpqAEOd5nvyldN3asUOi6SfN0DIHiz1wmxX/a1gEGFc5
+	 kqUc/80j8jh+Hc7TKOO9Uq2ueF30GmJX5dfOtoX0luXM+ggeyDrQ82h4xTTmpUT8r8zvU
+	 C+JbvgGpzEWNVDQXnT/tmUexIaVZpZPYv0yTrvnE0WTS2rYs/dS+qUDCKFZzA6HzcIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BM7KukgC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Y5qq/gct";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6BF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26A3606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BM7KukgC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E661F008A1;
-	Tue, 10 Nov 2026 17:21:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5qq/gct
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D27491F0089F;
+	Tue, 10 Nov 2026 17:21:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331282;
-	bh=g3n5VXWZ8G2Sw+cqpvW0X9Ee1fATrhFc/S3FaEfiXag=;
+	s=k20260515; t=1794331292;
+	bh=IBJLW9gJYjVVTmSaQ4sa3ZZvNhNV2rgDrr2kJyOrSs0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BM7KukgCxcHZjpI5MM9+42NJYSUZcMUQQ96vRmjDSNwMw0cESgWZyxv+uvHbmGo8b
-	 bhfa1muERRbSQiXr0t/gKIaTIRDC8L5xhJoDF5jEuOfZ/Mooy/gI42YjohxJC8VkkW
-	 ErNWwoG65jT7gaLKzvnrOZ3WR3/fQIQJHzzi1yoPzuvMB4p5VDBSZaqsXCWIXqXQcs
-	 HoB6qbukb16/62kivtGg9foF9xBBIfxeqIX/i8wMet6NOBDMqVb6gX9FCx8/Y66J2j
-	 yX/N7Jjgsw8ug4HmctF2zDdeCWAmT60BLduyzBxrR/6jkAZ+j1uCgNiA3+fbFqnFvA
-	 f9MXgylIpCR2g==
+	b=Y5qq/gctqdDOqq2xEwBqfkKDvi+v6Lkst53m+tDKE3BE9EjRS6UVWQDIOgcyd2qZV
+	 gfgWZATMRs5ANUcQ8zqYVNf/YaT9cbN8raxljTIWlOHli+9QpQRTgtcLwyB6QGnv13
+	 brnFKooO9ixdK+G9y5/YrrZIRGmYqMqyDrvhiubWZF4jLE36naGb0WSGvvfUUTUXX8
+	 yI1PcYM0IxOx1cVoUoDiUVqlAXyJjcQM/VyEgJ5xNN+go1E810VHDGBTocTrJd7xBy
+	 IpTOKADwIUY3RR00zUGOCm22Kje7S1b9cxh/0Fcip7eSewM1F4LG+1QF/YgLvKbkCr
+	 W6/Kit5rfMzig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Andrey Misiurov <andrey.misyrov@gmail.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 7/7] power: supply: core: Honor supplied-from with CONFIG_OF=y
-Date: Tue, 10 Nov 2026 12:21:13 -0500
-Message-ID: <20261110172014.2622013-7-sashal@kernel.org>
+Subject: [PATCH 5.15.y] fbdev: core: Initialize modelist in framebuffer_alloc()
+Date: Tue, 10 Nov 2026 12:21:30 -0500
+Message-ID: <20261110172104.2893386-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110172014.2622013-1-sashal@kernel.org>
-References: <20261107053127-failed-6.6-6bd80f22c764@kernel.org>
- <20261110172014.2622013-1-sashal@kernel.org>
+In-Reply-To: <20261107060515-failed-5.15-0c9cb9321cb3@kernel.org>
+References: <20261107060515-failed-5.15-0c9cb9321cb3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,175 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
 
-[ Upstream commit 6bd80f22c764fe8c56c62c118387f86a3ca98cff ]
+[ Upstream commit 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e ]
 
-The supplied-from device property is the name-based counterpart to
-firmware-node power-supplies references. It was added for non-DT platforms,
-but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
-a global kernel option, so x86 systems commonly enable it even when
-individual power supplies are described by software nodes.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-Consequently, these consumers never populate supplied_from and supplier
-notifications do not reach their external_power_changed() callbacks. On a
-Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
-notification running without invoking the BQ25892 callback, leaving the
-input current limit at its boot-time value.
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-Use a single power_supply_check_supplies() implementation for all
-configurations. Preserve firmware-node power-supplies references as the
-preferred firmware description and use the name-based supplied-from
-property only when no references are specified. Continue to honor an
-explicitly provided supplied_from list first and propagate errors from
-specified firmware references.
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
 
-With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
-test changes its input current limit from 500 mA to 2 A.
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
 
-Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
+
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
+
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Link: https://patch.msgid.link/20260924225152.985489-1-mauriziocasciano7@gmail.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: adapted fwnode reference parsing to of_parse_phandle_with_fixed_args() ]
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: adjusted framebuffer_alloc() context due to the missing info->blank assignment ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/power_supply_core.c | 90 ++++++++++++------------
- 1 file changed, 45 insertions(+), 45 deletions(-)
+ drivers/video/fbdev/core/fbsysfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-index a55b85ffe3337..c09fd5fbd941a 100644
---- a/drivers/power/supply/power_supply_core.c
-+++ b/drivers/power/supply/power_supply_core.c
-@@ -185,7 +185,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
- 		mutex_unlock(&psy->dev.parent->mutex);
- }
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index 09ee27e7fc25f..1117127402e82 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -56,6 +56,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
  
--#ifdef CONFIG_OF
-+static int power_supply_check_supplies_by_name(struct power_supply *psy)
-+{
-+	struct device *parent = psy->dev.parent;
-+	int nval, ret;
-+
-+	if (!parent)
-+		return 0;
-+
-+	nval = device_property_string_array_count(parent, "supplied-from");
-+	if (nval <= 0)
-+		return 0;
-+
-+	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
-+						sizeof(*psy->supplied_from),
-+						GFP_KERNEL);
-+	if (!psy->supplied_from)
-+		return -ENOMEM;
-+
-+	ret = device_property_read_string_array(parent, "supplied-from",
-+						(const char **)psy->supplied_from,
-+						nval);
-+	if (ret < 0)
-+		return ret;
-+
-+	psy->num_supplies = nval;
-+
-+	return 0;
-+}
-+
- static int __power_supply_populate_supplied_from(struct power_supply *epsy,
- 						 void *data)
- {
-@@ -256,73 +284,45 @@ static int power_supply_find_supply_from_node(struct device_node *supply_node)
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
++	INIT_LIST_HEAD(&info->modelist);
  
- static int power_supply_check_supplies(struct power_supply *psy)
- {
--	struct device_node *np;
--	int cnt = 0;
-+	struct of_phandle_args args;
-+	int cnt, ret;
- 
- 	/* If there is already a list honor it */
- 	if (psy->supplied_from && psy->num_supplies > 0)
- 		return 0;
- 
--	/* No device node found, nothing to do */
--	if (!psy->dev.of_node)
--		return 0;
--
--	do {
--		int ret;
-+	for (cnt = 0; psy->dev.of_node; cnt++) {
-+		ret = of_parse_phandle_with_fixed_args(psy->dev.of_node,
-+						       "power-supplies", 0, cnt, &args);
-+		if (ret) {
-+			if (ret != -ENOENT)
-+				return ret;
- 
--		np = of_parse_phandle(psy->dev.of_node, "power-supplies", cnt++);
--		if (!np)
- 			break;
-+		}
- 
--		ret = power_supply_find_supply_from_node(np);
--		of_node_put(np);
-+		ret = power_supply_find_supply_from_node(args.np);
-+		of_node_put(args.np);
- 
- 		if (ret) {
- 			dev_dbg(&psy->dev, "Failed to find supply!\n");
- 			return ret;
- 		}
--	} while (np);
-+	}
- 
--	/* Missing valid "power-supplies" entries */
--	if (cnt == 1)
--		return 0;
-+	/* Fall back to the name-based property if no references were specified. */
-+	if (!cnt)
-+		return power_supply_check_supplies_by_name(psy);
- 
- 	/* All supplies found, allocate char * array for filling */
- 	psy->supplied_from = devm_kcalloc(&psy->dev,
--					  cnt - 1, sizeof(*psy->supplied_from),
-+					  cnt, sizeof(*psy->supplied_from),
- 					  GFP_KERNEL);
- 	if (!psy->supplied_from)
- 		return -ENOMEM;
- 
- 	return power_supply_populate_supplied_from(psy);
- }
--#else
--static int power_supply_check_supplies(struct power_supply *psy)
--{
--	int nval, ret;
--
--	if (!psy->dev.parent)
--		return 0;
--
--	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
--	if (nval <= 0)
--		return 0;
--
--	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
--						sizeof(char *), GFP_KERNEL);
--	if (!psy->supplied_from)
--		return -ENOMEM;
--
--	ret = device_property_read_string_array(psy->dev.parent,
--		"supplied-from", (const char **)psy->supplied_from, nval);
--	if (ret < 0)
--		return ret;
--
--	psy->num_supplies = nval;
--
--	return 0;
--}
--#endif
- 
- struct psy_am_i_supplied_data {
- 	struct power_supply *psy;
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
 2.53.0
 
