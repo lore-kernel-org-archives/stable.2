@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310576;
-	b=bw0KSjPNaFa86TNkvIe2ODHCcsXqir6+F0MpJ56xNrVspGNvmnXGtNpuBgOb1+mm58mu
-	 qjhfg/zZzgTtELGgjOubzt+ZIFcNSKtBoB36QG6SEhDLrSs0Km6zSjmwSoKOq3SYMwbAi
-	 +Mx75vn2LYgy2xfPsSOLhk5+jHuQHxwdKVx4X2R2+gEFZjjhtV7JevwySaG5RaYzPlMr2
-	 Lp2UpMW+TLlBrUXji92H09+AC6Z8yEA5WJCQaCZXfXI17jgzuu0+gzpU9vCoFgXUpdfkz
-	 5P3ISh05XcyL2HKI8r/XNKphYRHbzk++/8CeLHtMXSD2c3nzBcK5b0eH6vmyrMQo9SA==
+	t=1794310609;
+	b=2eGNIM4IEGfCYlZT0z/SsigvVBYVZq3yJHroUMqdZG8W8EOfMWbvXnv8dtRoLp5KpzzM
+	 lfBt0WDyfX7bjyAZ9dXVXaOga9fuD2LV0sTmhIQG6oMylIEd7elcD5agVUVhG9Oj5aiwm
+	 0K73rfJs16ZGlVqT1DW8eD6x6Q+G9NUHP4fVaZv5DQYwAF0E0OwG4dJeR3ldEZ9z0Hcru
+	 40N53CqnKwtTBGA+5VAXiSFl3N++nb9FuXiSv19/ka8W8UAd4gb4SG40DsEzqBna9hIiX
+	 pMXKR/OmpzX7gpp8AXtNCEIr6o8Xq9/7rqXnasJPec7xMCKApo68I2JtySnJYQiWERw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310576;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KARVFzaA2emNcbaNE7Zlfo9u+xQFHA5uL67hKotT2QY=;
-	b=muLPGwtbDDWhdqR6JqMwckZIEvBEtfU0il5pLNYXFX8f8T3TQJ6QfTVpkbAu52nuB3qC
-	 YnP2U5XaQqJ2L470M90/BTJzJcno0+kgf3kzJpNTA3/GkrVmOyNvdCrV+KPjDal6pb5jC
-	 CDyKNx1YMRAHN2KTp1HEUdzyQ3MxXvOf66TeY6W1dq3vlsgKXDDG92s6Nizy1aM29UZpL
-	 KgXFcBmzDRX2JB5pATUx7yx23lsr/bV4gCoAWX1P7Rric9UyxPa8SKtKbRuoZlhj7y24D
-	 BTAnYvCSuTGxxqTcwLoJ20qzZQB1mUHiWk6dd2NwbfqfSk0cLZDmyP9lkKHXMHsVMMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310609;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kixVgiTzFmo3eOq/ssvfPl61Iy15bJJwVSGa7ryio4M=;
+	b=CftcOcJr6lZU6v7QIYpSaqun+J0vCCM8jLP/4UtZ6xGWZmEGUnJK23+wVX1hbjteSsIn
+	 W85nWWZg2khSHkaY5LWvHgBFd6lYydJrlcWz7mam0aouBsXfCnO1VJcf0JtRIIkqgxO5S
+	 Flxwp5ntgNGxctvyt+th+mM2a/vkq0v3XGtj3mTIKsGWrYuUt+JA6+eSWBAFUW19KcDcV
+	 QCqKichvgEHQWi6+SBsBZVvpHKPTxWR8O/3ASL4Ma9UVFIVQ5fGawPSRM63+90VzzjyLA
+	 LCRN/XAYtjB/oZ8ZyhLqslMpk6bXkZvYvwHy21U+7JaQAtmCDVd1k5fGnrh/Mvj12Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rw5ebseg;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwKMryRb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8873606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8873606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DA4606A336
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:36:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=rw5ebseg
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a215e64962so21761475e9.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:36:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794310574; x=1794915374; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KARVFzaA2emNcbaNE7Zlfo9u+xQFHA5uL67hKotT2QY=;
-        b=rw5ebsegRN1Bjft/2/4FWIrxGMhY08bhzAOpYaPg5CXXWQYAoujXytRwfsQgivSZFa
-         LBv4hprncfZ8YS61fd0bNtRQNE5xOMEqkeN3rm4NaT0sGl300b5/WnB/xrIDvEqy3/ee
-         zpOyMM7rUSXHTaJC0QMa3DdxfAT031eWhpVdBU1w2NB2kmqe44IPIjDsxlHFws6FXG5D
-         rwoG5+o0rhLEQmMevMoCUNjQpMuJHswFJ4AGVpZ7owRWHdpTNFJdn/5tQsiHIDetPgnX
-         4ZjLG5Wnx0VS72E8PX1au1kM2YZkzm7n/Au+dTEGRH1LNbcwuIt6x+5ikP1vzRUuJWyn
-         V4Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794310574; x=1794915374;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KARVFzaA2emNcbaNE7Zlfo9u+xQFHA5uL67hKotT2QY=;
-        b=KOrDEuKzOPgOqhxyBmdjHYZ3FXcSpbcs/gbQjbeLkEq74slV20kwpm61qowze/e0HA
-         h30Nm1XEnruBdVVQ3CbAPQmzz8rpam+huzKWUCFxcfDwU3zssPKQUQ+/VqWtwaCQATGD
-         NqYxSTRkkR8cDHHYmq0WrPe8PGYKfXthvXZwScppSIQDAP2z4uQwjagADKMXP0Yc0oO8
-         7f0kaq+qjOwgvX3ORwE+6GAdCa66TdbUgW+YVIO4u/4Jjvs/XF3BeR5RDooECdA0JNRo
-         QoAv2A/QNKB1f8niZ4bBHXtMKsByZ7mF3xMM5Gy0kKuytsOoXr+dqXw0JI6bSitd7xs4
-         DOrQ==
-X-Forwarded-Encrypted: i=1; AL+hErHV1qd1I5ZXKmw9wxQQPDoPI6K7amrr2WT2qZ15r4JyZTxORMJ9LLdyvRpnkZhgd39d85XthOE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Fmd8AMovbXpKzOy4luwZRYutKsg5kUDyj3DicifPfChbtbFR7
-	WncLUlTVyzIHq+W2vx/t5CByJFP5o+jSeGPhz+7NA1vFHhEU6EOP6RcQy2Nv5+l+JK8=
-X-Gm-Gg: AYBFou2pzguBS+DDoqusByV+PGtMem1OJEjsFYfSk/LzX+sJdr9zGaDeRoD/igjBXb4
-	udBKOX5ulGhvF9VutVCKt+2tKDAo2GYpQxA0hqkHXnRIqwm24AEVSGP+6t7PFOXiPsFsw35N2rs
-	pXm6w7C4h3hijxdbC8CglDzHNAyXMDexzRef1PBIK6CRO9Hlw5oAqlA/9h7/sySzROzVQyhBCKO
-	SEAFqeijLwbLC0XD5xAsF0xU/4HIpcLcR0KpD8KORS0elekOgxQ595D3znspjaDMBglK6v6AHWk
-	vhwyuQJmV9oC05kbL/McvYoHycz+SBwCLlCC8j1oRMb0BkA15MBC6ClgxzsHMTyI0/gPBiVInxT
-	7ymngkacI8HV2u2epMbaX8vC7uf0+bqqocne/WXw+uZXkwRDo7TBN04EGKDMmCoa1/CmdDEuPvI
-	E4P68gVZcbxWqj+U/pfwEM45WnaMKjQUT4FiLuQHrmqG8TgIyIHcCKa0zLYXxcQaHRO0KDUWfJy
-	fTIjO3XdXUt4ighoqpLiK4uM1nsIWf4XnX2FYPNEVbK5ym8Mxc0ahkHiWnH6K3wv80+PEYQUVnv
-	Sm3z89R2YG4AiQ2kWmwdK44LEmtLI1fo4w==
-X-Received: by 2002:a05:600c:34c7:b0:4a2:150f:1609 with SMTP id 5b1f17b1804b1-4ba0233bd68mr41274365e9.8.1794310574048;
-        Tue, 10 Nov 2026 03:36:14 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba020485bcsm54874055e9.11.2026.11.10.03.36.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 03:36:13 -0800 (PST)
-Message-ID: <6d0fabcb-79eb-4a17-af3e-b58a1d1c93fa@linaro.org>
-Date: Tue, 10 Nov 2026 11:36:12 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwKMryRb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A2B1F0089F;
+	Tue, 10 Nov 2026 11:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794310609;
+	bh=kixVgiTzFmo3eOq/ssvfPl61Iy15bJJwVSGa7ryio4M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gwKMryRbPetffIOShSSWwWZ2Zk5N7jOCh9hSv1xbyg9VTvHVYs6FMpJW0smvb3Ad1
+	 KkCLLyNeKZ2Ed6QU8BCZtsNhI0Hkd2M0EsSesGKdWZuwGtweJzHBWWhk9xGg1oHMRB
+	 Ntf1XPgrvTaYPzRKaduS4bgrARHY3d00x9MdzPM07MAzZZVW5tyuSXGd68wPQBpz00
+	 sddG5xaw/83YSB3sf1aWFl7F4m/LQSDGfTW3Id+0mgrhUGAN0vBfkTfpMFKQVB4PFY
+	 LBodG4sWxjxQSoVBfrxQkXweZaWvLjT81QYbeWdzFQhA1109L0MbtkAOt5G4fn+PtB
+	 xcigzoYuZcvmw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] aio: prevent eventfd/epoll recursion on poll
+Date: Tue, 10 Nov 2026 06:36:47 -0500
+Message-ID: <20261110113603.284603-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061424-failed-5.10-398e3fa789aa@kernel.org>
+References: <20261107061424-failed-5.10-398e3fa789aa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,67 +59,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6.y] perf cs-etm: fix a compilation issue in
- cs_etm_decoder__set_tid()
-To: Valentin Caron <valentin.caron@foss.st.com>, gregkh@linuxfoundation.org,
- stable@vger.kernel.org, Leo Yan <leo.yan@arm.com>
-Cc: Paschalis.Mpeis@arm.com, aaupov@meta.com, acme@redhat.com,
- corbet@lwn.net, irogers@google.com, jolsa@kernel.org, leo.yan@arm.com,
- linux-doc@vger.kernel.org, mike.leach@arm.com, namhyung@kernel.org,
- patches@lists.linux.dev, robert.walker@arm.com, sashal@kernel.org,
- skhan@linuxfoundation.org, suzuki.poulose@arm.com,
- amelie.delaunay@foss.st.com
-References: <20260912065621.463708027@linuxfoundation.org>
- <20261109171457.1233670-1-valentin.caron@foss.st.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261109171457.1233670-1-valentin.caron@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Daehyeon Ko <4ncienth@gmail.com>
 
+[ Upstream commit 398e3fa789aa5ffddc8689d8cbc7b31e1824130c ]
 
-On 09/11/2026 17:14, Valentin Caron wrote:
-> When compiling coresight tool with the command:
-> make -C tools/perf CORESIGHT=1 all
-> 
-> The following build issue occurs:
-> util/cs-etm-decoder/cs-etm-decoder.c:551:15: error: too many arguments to
-> function 'cs_etm_decoder__buffer_packet'
->    551 |         ret = cs_etm_decoder__buffer_packet(etmq, packet_queue,
->        |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> Fix this by removing the parameter "etmq" from function call to match its
-> declaration:
-> cs_etm_decoder__buffer_packet(struct cs_etm_packet_queue *packet_queue,
-> 			      const u8 trace_chan_id,
-> 			      enum cs_etm_sample_type sample_type)
-> 
-> Fixes: 99d324594165 ("perf cs-etm: Queue context packets for frontend")
-> Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
-> ---
->   tools/perf/util/cs-etm-decoder/cs-etm-decoder.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> index 277da9f767b9d..caacab8c92e26 100644
-> --- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> +++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-> @@ -548,7 +548,7 @@ cs_etm_decoder__set_tid(struct cs_etm_queue *etmq,
->   				elem->context.exception_level, tid))
->   		return OCSD_RESP_FATAL_SYS_ERR;
->   
-> -	ret = cs_etm_decoder__buffer_packet(etmq, packet_queue, trace_chan_id,
-> +	ret = cs_etm_decoder__buffer_packet(packet_queue, trace_chan_id,
->   					    CS_ETM_CONTEXT);
->   	if (ret != OCSD_RESP_CONT && ret != OCSD_RESP_WAIT)
->   		return ret;
+aio_poll_wake() can complete a keyed poll request inline while the
+provider waitqueue lock is held.  If the polled file is an epoll instance
+and the AIO result eventfd is watched by that same instance, signaling the
+result can feed back into epoll and try to take the provider waitqueue lock
+again.
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+For example, a timerfd wake can follow this path:
 
-I tested Coresight decoding on the 6.6.y branch in case there was some 
-other non-obvious dependency missing, but this is the only fix that's 
-required. Thanks!
+  timerfd -> ep_poll_callback -> aio_poll_wake -> aio_complete
+          -> eventfd_signal -> ep_poll_callback -> ep_poll_safewake
 
+The second ep_poll_safewake() recursively acquires ep->poll_wait.lock.
+eventfd_signal_allowed() does not prevent this because the wake chain did
+not begin in eventfd, so the task's eventfd recursion bit is still clear
+when aio_poll_wake() decides to complete inline.
+
+An unprivileged process can construct this graph and make a CPU spin on the
+recursive lock.  DEBUG_SPINLOCK reports "BUG: spinlock recursion", and
+lockdep reports the same epoll waitqueue lock as both held and requested.
+
+Always defer eventfd-backed poll completions through the existing
+aio_poll_put_work() path.  At this point the request has already been
+detached from the waitqueue and active request list, so the work item can
+publish the completion after the provider callback releases its lock.
+Poll completions without a result eventfd remain inline.
+
+Fixes: e8693bcfa0b4 ("aio: allow direct aio poll comletions for keyed wakeups")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Link: https://patch.msgid.link/20260813133843.2933127-1-4ncienth@gmail.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: Removed the existing eventfd_signal_count() check instead of upstream's !eventfd_signal_allowed() check. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/aio.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/fs/aio.c b/fs/aio.c
+index 22b6e20322741..16ceed755b7e5 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -1777,7 +1777,12 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
+ 		list_del_init(&req->wait.entry);
+ 		list_del(&iocb->ki_list);
+ 		iocb->ki_res.res = mangle_poll(mask);
+-		if (iocb->ki_eventfd && eventfd_signal_count()) {
++		/*
++		 * We hold an arbitrary provider waitqueue lock here.  Signaling a
++		 * result eventfd can feed back through epoll and try to take the same
++		 * lock again.  Defer all eventfd-backed poll completions.
++		 */
++		if (iocb->ki_eventfd) {
+ 			iocb = NULL;
+ 			INIT_WORK(&req->work, aio_poll_put_work);
+ 			schedule_work(&req->work);
+-- 
+2.53.0
 
