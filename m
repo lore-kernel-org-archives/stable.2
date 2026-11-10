@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316804;
-	b=wq2YBwgIipyWqDUopfAlDSyOreokjBU04qsP3XVLJs02eIn2sH7tzCWc1gyMcrJcye2U
-	 AxWOuhDRSvg5wN1ZLHRb9VdcEg11ieRzZuJI2XZmEl+rQynXnQFwSj2Xyu2XhCJYcbyhc
-	 3U/FuV8qlBsv+5/XCKyv6n2OzJSHovZFJ48wColSgb6G9G9yYAgX3W34PRTCY3hSkp1Xj
-	 8mmPcKAj9UEa1O73pbs3ArbRJMjBF6tQfdEAS0Nml3KTNLPYEyRC8jcThuyQdJHiMs7VK
-	 wRZYwgMcusLpTkj6fzi1qc5hUI5wL6HEYX5AlKfAvu+/rvLJ3j2kXD1F2hXcIa4Hg2g==
+	t=1794316829;
+	b=mc9MR3DMujv16Wlm4sWEMiljMW5v4OVNOwgnQxc8FkwUyJ9pZTRbtHNtlRh65zgEa6oj
+	 QMbv3OfZZxbuM501FrEqwuLicOxD1JnMvBRprn5O2QpRMf/MBk/0Jko1cbjOjeKgu04Tn
+	 cuVegXSF0NIQi6jqH6sBYsotVGb7Okl+/fq0u5mLJrCjAJw/JVIq0HC5i7iOvhy4hqsFi
+	 R1yq7uvvgGWEmzkSND3MMlzAN2Z64lwQgxioYisi4R/2mvQviKPWQwQmbDgi/SPj8EBMY
+	 4/oczksolR+S7x1i/Gggj0v56P25m7x6XW0EW/3sCecjFqbyDL8b0En04VG79Ylm6CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316829;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XW3HaFW+KxQ4EUs/FZKhZS7Vrsdu1B7wqYSzyyqVaPU=;
-	b=Tj68M0UZVhediug4ahG1lbMF8rU1AEZtN2DdFfXu5QPaaTG5pYNw0Q86nH7qzCyaj5YT
-	 fRjOfA3ZYb/QKTHVIsXm8YtMY1fhd4Za9bkQx/5uTrl5u/MfuuEAw+B8Ouq/JH9uSiEGf
-	 CiPVHIy+ahrQVHZpKZjnwyOxITXiIE6aHoZ26IMl9cVrA2pnemaOTZwhZfsgg3HAIB6QG
-	 VUGNqnWGyd3H5G0cQBL7takRy80n+nvc99HYwPl3xocsH1DGcTUP4FvVdKQr22dgrOc8G
-	 H9IpMf//4SBvtj7HitNjBk2VnrlYWMjrj3OyFNC3Qkgl6sEH+85fKZ8AZJ28VmUSIWg==
+	bh=ruo6VB1U5tPJ1k1mSBsiQ3FVZ+zJFj4/swlGPGBBf7Q=;
+	b=chT+6CNHNI0Xc134UXT6Z4icfoCo04mhXZlYKy1ouoqN0q5QR8dF6+f6ayeM4MWGvB9h
+	 bQXAvHofNcI2sdS/c5Q1NeZdB85rygjmjz+F6Ymb6rwXKdC0Rd/J1uT8ekNKHf9MgLhKW
+	 SVrk89tInK/1AxsFBNapKvy4OXtBopWOyHhWr2pHrYFQ1C8A1nwZjiJ17aGH3JIKgXEk3
+	 ciCpWLEYleJGip4bT50HLreRAYlJHA+Y2eHDxEyjmJbly+yp0InC9As57pqCGdCh4dkpf
+	 MSiey/lBnF+3M10QrqA8bl/LVmSmfSBkw2HAMJU0cLBNmcvEMdOpX2xN6x348/jUCtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2XNHv6x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AY1uCyEj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D893606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81083607680A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:20:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2XNHv6x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FDA1F0089F;
-	Tue, 10 Nov 2026 13:20:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AY1uCyEj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574951F008BE;
+	Tue, 10 Nov 2026 13:20:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316803;
-	bh=XW3HaFW+KxQ4EUs/FZKhZS7Vrsdu1B7wqYSzyyqVaPU=;
+	s=k20260515; t=1794316828;
+	bh=ruo6VB1U5tPJ1k1mSBsiQ3FVZ+zJFj4/swlGPGBBf7Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i2XNHv6xdeyvM3la0dke3kvk6ArAV55ktarxvPzBx9x9tz5XpSaP5sFUNPbH27IAv
-	 dfMQa7cCAr+tqYKIqKEzpHYpVVnnack2bx3uf2IEILFXcs83EGh/2d6s09+MRgDvTC
-	 bA1Kihyp9F0bvvYeiSUYOESu+Z8rv33eziiRpbGD4uEO7TXQslSgRsYi2ZTVqU5mTt
-	 k4RqdAzNM9qJjNHTxVYO6zhKRRpcIImXNXr1fGyZOxSODaZ4WbYrtrTLKrBkTLPfn0
-	 k2El5l74iGHT5xWzhlTuT3AwSD0M/OU238WkzKyw82Ng9tn3ows368QPcSRXsSifvU
-	 aszFtQ/qoVgCQ==
+	b=AY1uCyEji7YwQwRJ724NN5yrgLzSXPm4Eb3H7yR0uMdxphxxb0RHWqM91VLfWeiF2
+	 CTt+BOqc0B5ENpsvFULYw2kfSfqWrsxDa/WmTdshcWHRrMRyBMPltDpLsuc2+DoEDj
+	 9FGvNqDn63wQuOk3H/ygkvWTau0Y+qVn/n/If0kMWo9TRulxP5R9Bbceq6KG8wY+wB
+	 bRyFTL73cef7k65IPpIlUwPxUyWYTOTXNxz4TQi+Ns6tJR2LFQtz2jyMq6KYli8Stc
+	 gkqgKQR52sRMMgncabPgLCehWBVUfKcn5FdHaU1Roefh4XAJkHp37iHmt/gXzg2CdL
+	 3hu/zbuk7i9KQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abdifatah Suruur <suruurism@gmail.com>,
-	Juergen Gross <jgross@suse.com>,
+Cc: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] xen/gntdev: prevent private mappings from becoming writable
-Date: Tue, 10 Nov 2026 08:20:01 -0500
-Message-ID: <20261110131945.1665445-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] dmaengine: qcom: bam_dma: Defer IRQ trigger type to device tree
+Date: Tue, 10 Nov 2026 08:20:25 -0500
+Message-ID: <20261110132019.1716994-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054602-failed-6.1-2176dea8d8c1@kernel.org>
-References: <20261107054602-failed-6.1-2176dea8d8c1@kernel.org>
+In-Reply-To: <20261107052018-failed-6.12-82eed160cfa7@kernel.org>
+References: <20261107052018-failed-6.12-82eed160cfa7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,52 +63,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Abdifatah Suruur <suruurism@gmail.com>
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-[ Upstream commit 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a ]
+[ Upstream commit 3cee6f79553202d7d3954555560ac38d719344b8 ]
 
-gntdev_mmap() rejects writable private (non-shared) mappings of foreign
-grant pages, because a private writable mapping takes the COW path on
-pages that have no proper struct-page backing.  However, VM_MAYWRITE is
-left set, so userspace can map the grant read-only and then upgrade the
-mapping to writable with mprotect(), hitting the same COW path the
-check was written to prevent.
+The driver hardcodes IRQF_TRIGGER_HIGH when registering the BAM
+interrupt, which overrides the trigger type specified in the device
+tree. On Qualcomm Shikra SoC, the A2 BAM signals an edge interrupt
+to the apps processor; registering it as level-high causes the
+interrupt to not fire, resulting in missed DMA completions.
 
-Clear VM_MAYWRITE for private mappings, as i915 does for its read-only
-objects and as fixed in drm/vc4 (CVE-2026-68445) and drm/panthor
-(CVE-2024-53071) and ptp: vmclock (commit
-a5edadbae57e2298a56cf7a4e774a027905a331f).
+Use IRQF_TRIGGER_NONE instead, which causes the kernel to use the
+trigger type already configured by platform_get_irq() when it parsed
+the device tree interrupts property. This makes the driver
+platform-agnostic.
 
-Fixes: ab31523c2fcac ("xen/gntdev: allow usermode to map granted pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Message-ID: <20260819084217.1577-1-suruurism@gmail.com>
-[ sashal: Replaced unavailable vm_flags_clear() with direct bitwise clearing of VM_MAYWRITE in vma->vm_flags. ]
+Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Stable-dep-of: 82eed160cfa7 ("dmaengine: qcom: bam_dma: free interrupt before the clock in error path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/xen/gntdev.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/dma/qcom/bam_dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 6c6e264c6f11d..6b538c3c7bab7 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -1074,6 +1074,13 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 	if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
- 		return -EINVAL;
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index cf647662ae81c..9f712e7c7e07f 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -1323,7 +1323,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 		bam_channel_init(bdev, &bdev->channels[i], i);
  
-+	/*
-+	 * Private mappings of foreign grant pages must never become
-+	 * writable: they would take the COW path on granted pages.
-+	 */
-+	if (!(vma->vm_flags & VM_SHARED))
-+		vma->vm_flags &= ~VM_MAYWRITE;
-+
- 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
- 		 index, count, vma->vm_start, vma->vm_pgoff);
+ 	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+-			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
++			IRQF_TRIGGER_NONE, "bam_dma", bdev);
+ 	if (ret)
+ 		goto err_bam_channel_exit;
  
 -- 
 2.53.0
