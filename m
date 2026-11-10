@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322346;
-	b=cwX7DEoIR39+2lLUwQo9Ud9zr/EOtfe5m9KaOOjK+/FiaiEYkLGFC7F27okUg5R4pZw/
-	 9WjY2er1KZsGuF9KlWB3p3+IjbzuneC8RPZmaIXCuwDpHjPdIqmE4dAHR1zSERbr1CSSN
-	 LadUcS9p2TOGMuA3g3QBcvBIQKtbdhQw9Bn59LJY2GS3nS2bwWw0p3URXCDpwn/q/Fx9T
-	 1YH0yn5kC0wPSxMC9qV8iqTXczI6nmyntxL7vfCMi4sCZ5FvkL5QqZSsN5JMOHEWQIjmc
-	 sdYCIr9fD1oOGbVYB8z8vqaW/TsUU+KnIMe+5+iJQ2Td6gmXpTRn4TSU2UGL2IF/Wcg==
+	t=1794322383;
+	b=WHufz2yJUeKAOA9GwY4Oxpy9IujtgGaJdNPLOyIxkEvkLF7gpUttI2inpnWK2r6dOw/D
+	 wTeCUG79kG1+U9JNbBbn5NeI57Cve1XbqL2P6/jDpXffZtLxtOi8qPEcVIwC7LpqAk70Y
+	 mek2MWT3Ccq7xj1xiXFYST8s5hnwQhUlboA6okxjh0oKgvpB9YtYL6OAMgIwa7lA2Wfvg
+	 x+ceYLrHF/4X1qjn3//T4Jq3MVkeqP0KLsWBzwSz+V5l16VDxbt/FlGvk2yDlgzMlkaFR
+	 ErSjWL5/beX6XTO1hyti0IZaVgjMLktXujkjXPHGhk3yMqgWI187wOg0fG6va6p2Sdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322346;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WEi0OBPz0WhzdtOPhVd3eOIpfuGhYQ8+zh669kK+Wao=;
-	b=rGgpp4CwtAuIb6yP3dSNp2ju9+hwBxZTkzxa6F6rHbVs314rR3POpJc/Z4+kiQpwXJuT
-	 awGPT3td2kHQDYsZgzaG32GVOExEyEXRjOqf7ZFPW9hGAMdBshXiFhu2I8YwdgbWhfcua
-	 cx4pVMi2O1Xz46ES+Z3gDKCLpGfEXf089Nt9ytAJPTt5XwfzD0En/OPjtEbN+b2L+cnks
-	 3L9il2e9WstxFI1N43Vmq2AD65WUvWgw6YaE7TjN0BYx8f4RB9N+0rUKUKRek57mjAmsz
-	 KbWMyyzwxJuEt/Okw9eBqGGznjkx+6MhtX47Q2Rs7DoTbkqja39zGrOr8vIYWiMgjSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322383;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:MIME-Version:Content-Type;
+	bh=igzsGYM2riHiB9kMz5te5OJWhyKS/vyukYoWrtQT28Q=;
+	b=gJnJB7r3c1RQFXBdpGsxvTW1oF65Ejnq1Y71hozglKOqihEoySB/93RHVHOb1h6pG02j
+	 Ph3wfNAEgIW7BYuCrKT09u7Cg53dNw5pRhi/U6FOMmfwAsKn4d3HdyNInkodnRhI972qH
+	 DGlOpF85VY+mD/vtrgU0sdGEASYo9KVUp6mHhJhZwbL7S9MTcLhVi5LQ8hKE3aZes0rUF
+	 bBoHc27mT260Vb7cMIaaJAOqpXryZ2Iqy3p4Afmg3PNq3ibdVbKVxl/rgB068a3py1Lo7
+	 8vpP+G3GxCHL4I1q9xhJ9ComPuMM3o7CsJo2ieTcTmf89fHemJlQI9J8M9WA67By//w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J+GuAu/+";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=zecagOqh;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2297E60A2600
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E11D60A2613;
+	Tue, 10 Nov 2026 14:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E11D60A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+GuAu/+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D601F008A2;
-	Tue, 10 Nov 2026 14:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322345;
-	bh=WEi0OBPz0WhzdtOPhVd3eOIpfuGhYQ8+zh669kK+Wao=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J+GuAu/+y6Bnu0kJO8pyb35iJct9HtmwiBoZ97h+zx7eAJKot4jDUUMa38wkA7VV0
-	 mG8ox2HcDiEHw6s6wAjmXhjVB8NHtuvnWaWr0b7K71QvHIOIRSE0mXPu0gqzQimeSD
-	 IURaXbowxlbjaqeqRbRtQM4YZZ/RIWPNwpduQzPZYCmV4u9vRZa7+K6mjvGN8DOBbX
-	 B1iOdKN42BVSokqM7TYKA3BBnb9n/1ReVQK3ZGw1dOa4SJQJ3G/zFVmPw6APCuXQL7
-	 ZFVS262XwY1gQg74MLdZAV+IUWDbqbyOU1p4/kC7aPkPYhuJLyOlDaBRvHFPXjJtG0
-	 +SavMiEpEvnaA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yifei Gao <gyf161023@gmail.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] misc: fastrpc: fix double-free in fastrpc_map_attach() error path
-Date: Tue, 10 Nov 2026 09:52:22 -0500
-Message-ID: <20261110145217.1998136-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110145217.1998136-1-sashal@kernel.org>
-References: <20261107050955-failed-6.18-09fa66ec1b48@kernel.org>
- <20261110145217.1998136-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=zecagOqh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=igzsGYM2riHiB9kMz5te5OJWhyKS/vyukYoWrtQT28Q=; b=zecagOqhontScvij8Oiwv5tRbV
+	J2Ns2FrCnRRmdeY5glIfrWtDTbAbeWVKct3UsnFoXTtjFwJMfP7d8Z7uHX7YGzXeuAhezZ4vSBQsU
+	xWpeKsxiYIssHYZoB0hImdZAZGB6dCqxt5xBQ2G7jrU2X3Py7D2HV4CaNZCqkRpb2ofm7shEr9dZn
+	UCar/CR9banScJ56+87Sv8LgmSO/JGVHP7xaElCbpAiWknAGu8EHEIB+iVavthj5QNKKG5nehKiLW
+	ZmDDTFg6DnIsLv1av4pObPYUS7U5ZhDfO3+p4e9Mr7QHTYdPVIIYEvyc83za5sCBuu3BA0DKMXcl/
+	sE9r5ZIA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xQnDV-00000001MbM-1jwG;
+	Tue, 10 Nov 2026 11:52:58 -0300
+Message-ID: <5773ae99397b259efb80acd386e71fae@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>, Namjae Jeon
+ <linkinjeon@kernel.org>
+Cc: linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, Joseph Qi
+ <joseph.qi@linux.alibaba.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] smb: client: hold the inode across cifs_oplock_break()
+In-Reply-To: <20261110094829.2133495-1-joseph.qi@linux.alibaba.com>
+References: <20261110094829.2133495-1-joseph.qi@linux.alibaba.com>
+Date: Tue, 10 Nov 2026 11:52:58 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,74 +64,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Yifei Gao <gyf161023@gmail.com>
+Joseph Qi <joseph.qi@linux.alibaba.com> writes:
 
-[ Upstream commit 09fa66ec1b4896ab841da085ca58b6433f28f07f ]
+> cifs_oplock_break() drops the handle reference in the middle of the
+> handler and keeps using cinode afterwards, to send the break
+> acknowledgment and again in cifs_done_oplock_break().  The reference
+> cifs_queue_oplock_break() takes is the only pin: the handle holds the
+> dentry and the dentry is what keeps the inode alive.
+>
+> When that put is the last reference, the dput() in
+> cifsFileInfo_put_final() kills an unhashed dentry, drops the last
+> i_count and evicts the inode, so the rest of the handler runs on an
+> object whose free is only RCU-deferred.  An unhashed dentry that a
+> handle still references is an ordinary state: unlinking an open file
+> leaves the dentry that way, and so does the dcache teardown at unmount.
+>
+> Take a reference on the inode for the lifetime of the handler and drop
+> it once the break has been reported.  This also covers the
+> cifs_get_tlink() failure path, where the put is followed directly by
+> the out label.
+> ...
 
-map->table is assigned right after dma_buf_map_attachment_unlocked()
-succeeds. The two failure checks that follow, the len > map->size test
-and, where subsystem VMIDs are configured, a failed qcom_scm_assign_mem(),
-jump to map_err with map->table already set.
-
-map_err manually calls dma_buf_detach() and dma_buf_put() and then falls
-through to fastrpc_map_put(). Since that change the error path tail is
-fastrpc_map_put() -> fastrpc_free_map(), and fastrpc_free_map() already
-unmaps, detaches and puts the dma-buf whenever map->table is set.
-The two operations therefore run twice: the second dma_buf_put() drops an
-extra reference on map->buf, and dma_buf_unmap_attachment_unlocked()
-dereferences the map->attach already freed by the manual dma_buf_detach().
-kref_init() sets the refcount to 1 with no intervening get, so the final
-fastrpc_map_put() frees the map synchronously and the redundant cleanup is
-deterministic.
-
-The len > map->size branch is reachable by an unprivileged process via
-FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
-requested length, before any DSP invocation.
-
-Route both map->table-is-set failure branches to get_err instead of
-map_err, so fastrpc_free_map() is the single owner of the
-unmap/detach/put sequence. map_err is retained for the
-dma_buf_map_attachment_unlocked() failure, which is reached with
-map->table still NULL and an attachment that fastrpc_free_map() will not
-clean up, so its dma_buf_detach()/dma_buf_put() must still run manually.
-
-Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101220.1084101-2-srinivas.kandagatla@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/misc/fastrpc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 891f28e933537..9d596f4fd4dcd 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -854,7 +854,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
- 				len, map->size);
- 		err = -EINVAL;
--		goto map_err;
-+		goto get_err;
- 	}
- 	map->va = sg_virt(map->table->sgl);
- 	map->len = len;
-@@ -877,7 +877,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 			dev_err(sess->dev,
- 				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
- 				&map->dma_addr, map->len, err);
--			goto map_err;
-+			goto get_err;
- 		}
- 	}
- 	spin_lock(&fl->lock);
--- 
-2.53.0
-
+Applied.
