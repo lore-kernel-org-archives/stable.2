@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337702;
-	b=KKVinaS88YpBywMqKRgyEr8FKpTL3MPFJVTlqAf/jU6Jw5NuCBtsMJTFDBhoi4eI6bNf
-	 fJKnSbak32GvUzCCEIaj3KrCD1psBVeaZF4xBYsd4AwguIX8TG7MlEP2jE4KXKOOOFmdQ
-	 FXGVP2Oh0+RMKQ0SXg64qYj40cxMmzYOtpHKCUU0KCnlMr/IHOemB6eGNfR/lCcFbZM3E
-	 j5Jrd7o4CzjQ2gMku6nDonuZesjV61X9syT1/5xp0+nTjF0Xt9SOMetIMTud2dDQrYhdH
-	 5+3Y2wXO8eMqLObtJTPbXRPUtDKrQdXve0H2H0xKEwAZD1qorSL45yj2JQneIg6XuMA==
+	t=1794337765;
+	b=tQnwnD81tKQFwDNn0z8jmQl2+x9/muNmST2cPeUy2q93VhwS6+fch2sxqRGz4eOUryH2
+	 a97veRINJN4SPhd0A5lESss1i6zEsjo6rXFwKNcxckV2khGxrjlxlSpzqa27SP89V+CI6
+	 wC60OKpwBExD900lCcNXex4yOXjIc4l3KHL2eVKKx0e7+lhlOxqUbkRSJAukJSRgm/YJE
+	 xx1FHCIBbUspIUAqgoXvGRYZKFFuKoZuW+gJxaJ0StSiyNcH8pMaWI8+APSIeu/pOvy5B
+	 yrMp9W8MNNEVltCT3xP3IZt4SaT0WYzAYWO4O//n0lOc3INFwcPKkxly/9AiajOuccg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337765;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jG7yjgR5q4cooZVovaCCKFd3LEUH4hCFhOxnWGcWI4Q=;
-	b=qmIbeGJOPDtKhCgr2/QgDVaKiW+3yIVx4V6bozxQYiEBFp5DTYyu7NkoF+NBitSgissX
-	 0hlif4hsbCNtRzPWeoWJWgc4paxSiQt+Y3WnZl8IF2/4T9qmEmVBSrnIEpDnuEkAkr49s
-	 /Tt6eml6E19Vo01Z32HsYrpWtc0y+DN6oTA0rgQAiRb/PY7av5kZFBnSdiTKQWLkVeRA0
-	 u2Dvl0OBGyANhuL5jU6FNxrBVlk7w9lrWMdZjg0wbcFVUa/tN8KAgEFsWagXPTl/gmzG+
-	 GK0Djik5PHxBa24WvuiYMMx0+I2L8Ivd7brCXGYn92AXOL4MTACWlRyBDHguDGzv1DA==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EfeEFyop+VbcYOV1Lca4917rwXx2dNL4Ll2Ja0hVQa0=;
+	b=GJh/zxl+EnXQVhG30gODAmpr31OURoxsBbfvVcvzP9WicphxtBMfB0gker8kXqgY4ByY
+	 +6Rgi30OZeOEsVH86cnwEGwYVBq9rdDlLhU525lsnJxxnoX9hN+ChCEnJh+xV1hxierTX
+	 awNRoz4UTIHBWUGY1JAaD89N+6AKrIHy5ljRcy+LvofzO2tDt6fEsPQu6dfFkxwXeMcTn
+	 Qf0MRnkCHNWWhOGvmOFVZHqOu6qym6MOW8XI+CLdLmThXWoj1Dsp8XaPHsghzqtt0iyiI
+	 eHfqgogc+HvY4xFwaPgl9ig7JEr4D7v3XK+JjOgR7tBgO95+syRM7sVhQf066Eo72SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhAhT0nR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9WmJLuX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B66606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45817606A33E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:09:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhAhT0nR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7951F0089F;
-	Tue, 10 Nov 2026 19:08:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B9WmJLuX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BBD51F0089F;
+	Tue, 10 Nov 2026 19:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337701;
-	bh=jG7yjgR5q4cooZVovaCCKFd3LEUH4hCFhOxnWGcWI4Q=;
+	s=k20260515; t=1794337765;
+	bh=EfeEFyop+VbcYOV1Lca4917rwXx2dNL4Ll2Ja0hVQa0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FhAhT0nRT6gicY/yWMZfFKHgoaM+Gx6FjNR4l9hGz5WIjsQ7HYt9HQHdtBMycC7OJ
-	 Ny4Edb5GC1W/jXH9IiKdH7i8aQG6UTYicXzGTuHuGzTQ4oL7gW6AY57sDkpiBVzRrm
-	 jM2d7t5gbw8gdRpnOm44MgOkHH4UTrJDgq3Tez1RYdKCBbVbX+ynDAiFK5wCoOTtOL
-	 XmgszaZNR8LOuFQthpz3FbUEPvprCTyNjtTYzLinbSemP3WfDiLqAJEJoshNJt0ncd
-	 6fyuW4w3hrWb9hvhB7tsmzhiD0g6FNQgO5FaWSR6yuTclyVoEJyhVv/T2QFbEpYnpR
-	 6y/xorxFRxtwg==
+	b=B9WmJLuXbiApZUitDyh592IKVualo9pl/LMqrp6JSJWMk+MOiORaoTfzuLscF4E/w
+	 esCc8nQIpIbcMEZqNt93jPTmWU2pHPqA33fKp5eSdazIFkXK6OypucOyW79QLmwMNb
+	 koP6P5oEMEOT87qoOBuwZnGxVlhR5kmko3qWoDFz4osOCpuUdV9kPrZa1fo5KydDue
+	 MtV+kl46/NL4dygSeuc7UwvZvlwUj4y7vwB2SWxnOBZdXq2cISbQCuJa2EPxGNXIIP
+	 eYzmRXUhKHn5R8s6dj9jwBvtiNQ1vlWftGNEhKMskfDisY1I+0/ge3J1oK8g8VNZsl
+	 rh5R3/OaOaPow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] dm-bufio: fix non-working memory limit
-Date: Tue, 10 Nov 2026 14:08:19 -0500
-Message-ID: <20261110190539.3448006-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
+Date: Tue, 10 Nov 2026 14:09:22 -0500
+Message-ID: <20261110190841.3480488-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052200-failed-6.12-1190dbeaeaa0@kernel.org>
-References: <20261107052200-failed-6.12-1190dbeaeaa0@kernel.org>
+In-Reply-To: <20261107051036-failed-6.18-325bcc126cf7@kernel.org>
+References: <20261107051036-failed-6.18-325bcc126cf7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,100 +60,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-[ Upstream commit 1190dbeaeaa026a4879e675b8556a150c36a7ced ]
+[ Upstream commit 325bcc126cf7a512a0e2da0efddad665f69badac ]
 
-The function evict_old is supposed to loop and evict buffers while the
-allocated size is above the threshold. However if it hits one bufio
-client that is empty, it stops and doesn't attempt to scan other
-clients.
+The AMDI0112 ID is used to bind the PMF driver to some platforms.
+It doesn't have any Linux side code changes relative to the most
+similar AMDI0105.
 
-This commit fixes it, so that it skips empty clients and retries up to
-dm_bufio_client_count times.
-
-Fixes: 450e8dee51aa ("dm bufio: improve concurrent IO performance")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-5
-[ sashal: Retained params.last_accessed in place of the upstream local oldest_buffer variable. ]
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260826163611.2268377-1-mario.limonciello@amd.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+[ sashal: Adjusted ACPI table context to account for the missing AMDI0109 entry. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-bufio.c | 41 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 37 insertions(+), 4 deletions(-)
+ drivers/platform/x86/amd/pmf/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index 601c3e3fe56bb..d2a4fc35c8380 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -2526,6 +2526,13 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	init_waitqueue_head(&c->free_buffer_wait);
- 	c->async_write_error = 0;
- 
-+	/*
-+	 * A client with no buffers yet is not holding the oldest buffer in
-+	 * the system; leaving this zeroed would claim exactly that and keep
-+	 * the client pinned at the front of dm_bufio_all_clients.
-+	 */
-+	c->oldest_buffer = jiffies;
-+
- 	c->dm_io = dm_io_client_create();
- 	if (IS_ERR(c->dm_io)) {
- 		r = PTR_ERR(c->dm_io);
-@@ -2861,9 +2868,23 @@ static unsigned long __evict_a_few(unsigned long nr_buffers)
- 	count = __evict_many(c, &params, LIST_CLEAN, nr_buffers);
- 	dm_bufio_unlock(c);
- 
--	if (count)
-+	if (count) {
- 		c->oldest_buffer = params.last_accessed;
--	__insert_client(c);
-+		__insert_client(c);
-+	} else {
-+		/*
-+		 * We evicted nothing, so 'oldest_buffer' tells us nothing new
-+		 * and the client keeps its old, possibly very stale, value.
-+		 * Requeue it at the back rather than by that value, otherwise
-+		 * __insert_client() would put it straight back at the front
-+		 * and every subsequent call would pop this same client again,
-+		 * never reaching any of the others.
-+		 *
-+		 * This leaves the list slightly out of order, which is fine -
-+		 * it is only ever an approximation.
-+		 */
-+		list_add_tail(&c->client_list, &dm_bufio_all_clients);
-+	}
- 
- 	return count;
- }
-@@ -2888,11 +2909,23 @@ static void evict_old(void)
- {
- 	unsigned long threshold = dm_bufio_cache_size -
- 		dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
-+	int unproductive = 0;
- 
- 	mutex_lock(&dm_bufio_clients_lock);
- 	while (dm_bufio_current_allocated > threshold) {
--		if (!__evict_a_few(64))
--			break;
-+		if (__evict_a_few(64)) {
-+			unproductive = 0;
-+		} else {
-+			/*
-+			 * This client had nothing to give.  Try the others
-+			 * before giving up: one idle client, or one whose
-+			 * buffers are all held, must not stop us evicting
-+			 * from everybody else.  Stop once a whole sweep of
-+			 * the client list has freed nothing.
-+			 */
-+			if (++unproductive >= dm_bufio_client_count)
-+				break;
-+		}
- 		cond_resched();
- 	}
- 	mutex_unlock(&dm_bufio_clients_lock);
+diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+index e787480f4df26..c1b369fdf801e 100644
+--- a/drivers/platform/x86/amd/pmf/core.c
++++ b/drivers/platform/x86/amd/pmf/core.c
+@@ -464,6 +464,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
+ 	{"AMDI0105", 0},
+ 	{"AMDI0107", 0},
+ 	{"AMDI0108", 0},
++	{"AMDI0112", 0},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
 -- 
 2.53.0
 
