@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344380;
-	b=NU/yKCmvYd4z+lXeiuZhWyd+mIc25DWtg7kGmP4+Z3ysMwST0fqSyeXhBib5G/pEX7PX
-	 JRLCPW9ld+bUMNx/6Me2OAxjM6sFVXhCful2hi1yoIha30hbj2dfwDI6HOmDNmaYBkTgw
-	 2Vq1sa4N6u672+QugI1M2vhLX4ua6hJ4fur6wKuTiTKI9HgMTHF7tZ2QyfIRc5XEMb+F+
-	 e2JRuFOMRXFk6Wj8OKHuibDRwB36yov73qkXTtPFLyc2uINN03670v7rH2SwWAB+JWskz
-	 a7nLZD3eW5aIORBUXRXGDn0KW2bEGNXHoOlC8XTBX+7XA5NPOdKvvvuqH3XIFU7cV6w==
+	t=1794344382;
+	b=CM6V1ra91N6rMbHbvViDvqcFp4vEPqkdtTIQc7A2h/fi/mTmWuucog7aL+krzxZCSTJp
+	 Rz4ZCBAL1qG12PrSy2bKiLkVu8fsIXGBGTlQqDYEs07yfI7y8CFSU6D7XrqhCE8T6TTk6
+	 bxurCGMo5bZKrSsgTNXn5eXzbbedFuXdxhob2zZezVHmz5EpyCQ9fBZurPZfaG9LQbEqi
+	 l3MUiBAVH99iv7h9GX+l8MzDZcimjkw+0uvE4O9DbKNufn0IW1+z/RUSP09LEZDNDUChg
+	 zWZa0rebK5HGucZK7cnb9ntrEYiR5Mo6q2O8Xir82j8THxv28MBOtDuA/2Kk6Nzvpqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344382;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rEhyH04+R/17OYOFhWWs0CHwxDxLEw5dOmSsfQr/lLs=;
-	b=CZ/1hkXFfwMC2cL/1ogoe58qCnPAmXjvEgLRO64kuEbHaPihkSkvR6ez2r3yosFpOEQJ
-	 ThlnwpG2a14C/QViQy750Cd8p9kCw6NaGPi8KTXLR1P113n4/2QSpgb+7GaiZp5tERb4o
-	 xyqxqs7RP0ZQn02ygXDKQQKisTzcBkKxiZuGfFe3TAuDv29sj83GehkGCHoneYJguZKvt
-	 tdj0Tl0f9lkWr8pAn3vCY9lVWKR3Va/gpM8p7jhPCtbS4Fn1jIw5DRrVVuZDhjOYp9dvR
-	 vVpDGtptAV8tEcPctSUc4MO+KS0GXKcpDk/01jrO5z1Ldzxlwz4OLvXaCk8D2YO7uww==
+	bh=bRLf2eJN5BnQ1Rs/bcxgd+v8VFy6BbzXvv2K0AmYCKg=;
+	b=xroSyXHn/sdMVISE5j/A6F3xP2X6WODn1YY1WZY0L/4PKJKoRe5nJd59cPSgck3223E+
+	 QiQcRdJK6VPbillJ6a+NCqXHC86S6SgoNm0QEYN1FLbZ46bDeqEYLM2uLPWdIyyVCdkJW
+	 gN/9gZko9ByTxvc9eHSpkXYDgpi69mX5tzfhzN5KdNvAFdtGEGLVLNmlrZo8Qg59IBXHO
+	 2Mmeab/Xaa+HmXMrtr4DPgCdP0la1+ZVe2jpmdXIPjFxbXTQ1Re8EK9IOEXHR9p2Fz79u
+	 O21wkXNmvNj+UmAEBRuevJjYAJ924xoe6RFtbphGHBg2tZ/5Y1gLWNCVvtHNyyIm2AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ji+hOeC/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlM5W3Mz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B302606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE6A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji+hOeC/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1231F0089F;
-	Tue, 10 Nov 2026 20:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nlM5W3Mz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389351F008A1;
+	Tue, 10 Nov 2026 20:59:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344380;
-	bh=rEhyH04+R/17OYOFhWWs0CHwxDxLEw5dOmSsfQr/lLs=;
+	s=k20260515; t=1794344381;
+	bh=bRLf2eJN5BnQ1Rs/bcxgd+v8VFy6BbzXvv2K0AmYCKg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ji+hOeC/cq6RVi5dclLcifo1uGmfcOvQAFV0KAxXjbTtwOEbMBxkFNKNEa/47m/Ll
-	 A7PZeZudPOx7nIghEzwuSJ0VXL9Y9znWFTTWqa0ciJjoiFGhH09AABFQT+FJHQcp50
-	 SePgWSRNj3dFLmgsHEnwd2lKIJgrp62freHNptPmAM3dtbvuMgmEsxDGA9+BtIV7EA
-	 dfkB1SChABZY5qr2BaTg+Ea925ix9zRtPv2GG4fnDjA+aoRwgp4CQ/Z+1GrGPmP/Py
-	 qCFUaTpfKPuaHg8tEGvDt1ogaKZ+/2q+tkKGNQv/ubTnbw89BAwvc1JG64juDxYBpA
-	 FawXaKf6EyiAw==
+	b=nlM5W3Mz7qJXbzXx+vZqRsw7/wYbIpJjW9CVOWIElD2gFAzHeGVdC3miiPm60ZYd2
+	 yysxsqTt2svLatsCIvl1eKxOT6xEE55TJIX3kMDWCll7w6A8sAQzmD5BY9pjyHesC/
+	 GLvjcxlUpHEPLybSF2JtQwHkTzs72dGROkS5tND0AWjvlPX6SEM8O/u3jpfP/Su2g+
+	 oSh7ZohunDzJRGuH81LixqMm13wLh1Qkf/5NIWnTY1g8+VmbnojQTN2cE37piI3rD9
+	 ALTwJWhYqsc082U3k2/nSs+52KPp6sbJTpIkRV0F+4SV30kTdjQADQ0AVr3xLU8Tst
+	 OnNBSRP3E0ZIg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: Re: [PATCH 7.3.y v2] ceph: clamp the inline data length in ceph_fill_inline_data()
-Date: Tue, 10 Nov 2026 15:59:03 -0500
-Message-ID: <2026-11-10-1-daily-reply-0007-ceph-inline-7trees@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Ran Xiaokai <ran.xiaokai@zte.com.cn>,
+	ranxiaokai627@163.com,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Michal Hocko <mhocko@suse.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Mauricio Faria de Oliveira <mfo@igalia.com>,
+	linux-mm@kvack.org,
+	Hamid Nassiby <hamid.nassiby@nokia.com>
+Subject: Re: [PATCH 6.12.y] Revert "mm/page_owner: fix memory leak in page_owner_stack_fops->release()"
+Date: Tue, 10 Nov 2026 15:59:04 -0500
+Message-ID: <2026-11-10-1-daily-reply-0008-page-owner-revert-6.12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110015638.469378-1-zhugl3@xiaopeng.com>
-References: <20261110015638.469378-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261109141509.2880440-1-hamid.nassiby@nokia.com>
+References: <20261109141509.2880440-1-hamid.nassiby@nokia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,9 +69,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> ceph: clamp the inline data length in ceph_fill_inline_data()
+> Revert "mm/page_owner: fix memory leak in page_owner_stack_fops->release()"
 
-Queued for 7.3, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
