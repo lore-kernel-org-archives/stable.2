@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340504;
-	b=CzqPHM9TGBX/MJoWdwJHjQftliY8tUXBr1dvID31seYUwLsEtVjiICXWkRoA43fWrqJG
-	 Udto+WpAKJyAtO5+WN3xYAU98SVyN1fPhGwELDQsp7AWUjm+LHxfDvjVrv4gsQMmwxXuM
-	 hPdEykSrakxE0OGQ3QOCh+Dvwxt0cpc6I6u7sdQgakazS4yRadxiS1Y2B2vN8es4LJ0uh
-	 sTArxarZXQaAbyuuFNnwO/TJ+VVQJv04Ztwly1Z1m7IJzJHeEzXjM+ksY1I1dJKipz9ZF
-	 fAofR6maTSqF3HCt9h2ksPFozxOXs9LsU0ztSvrVtkHg66pEiP7ArLF7dPZM+8hKUqw==
+	t=1794340519;
+	b=raFsoPceLZhkD4vFYvvCuK3trfjjZkd98q/VbHCgRzaXHmUUcmngfpjcq3zNa36X3oQ+
+	 e5wuvVst+dTvl52S60KaP7esag0D7wf2JxkyOQanpKWukAo2E2TWpLBUaIAi0lHNBvaDQ
+	 l1LwyuXB8vud5NAPgjaktbSELnBsvE2gVNWup2m4y9fkr/kR51Tvj/JsHFG8r43fIBOQY
+	 GrZ6VWVsnZ3mEF1otiYeNDThD9gFVzgH+/6Xg+C4b9I1xRaf4M2no3a/BCFUaOREdTkAF
+	 c/4CFW+XYiSFXWwbVMzw4XTFSD8bFaqosP2SDZxN2drxeSe7H8mLGtY7caMvxRvd0tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340504;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340519;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=9jaAOUD7WaSy9F8woWkmi3bIsG6VWslyDC8PYmyNWE0=;
-	b=VLXKTLls7P6ZYRqs9/NQR6tDm//7lsxodVHNK4iUSQgSXzyf/M0z1nuoPqynVdCpByYw
-	 p5eqrZ0vTf9VGktysnOX9RvpylR+ChAiSp22yleWEml7mYf58PokA22MIH1nhS/2/RHc/
-	 nJ3+eEVhe4BTWIfIIHemwfhfJdZLEAWs1+AMgbYCSKOibRy04VxtFIXXX10tovUX32pTr
-	 b4HUbaSKKwEqAisuxwMfrjccb0HWrZ5IjHRf+j1wyKm0UkiMWqna/CLM8PRunn717NciP
-	 uZFGBAt+KQpCwGmQsZnhUSLP8vh4aQ2xvt+pnFjV7lDM5V7jNw/b3AbATIFFbqsloPA==
+	bh=JLDYprL1v/SZeQHPxRisjRWypCDw8535wjXx2AYPANA=;
+	b=gkZy931UmrB7/m74EVypJ+mMcvRxoApFrDWIKOi6x3CdhgKiYbr5zCij0Uq0Yuq3yCSX
+	 y98amwhTEnmAq3o14OnTFwV5QzVEb5UjXuMDn+HryIyvd/Xg5RoMhTD4aydYnAp6yBaj0
+	 VuoO8MhkYaGZkSIWKBRG79sPS7aisalRDHLH12AIDaquAF0SjgNHV3HHHpHFdtSq6lx77
+	 SnyaOrCrXy9bIy4VxGGmwTdLNPN7KccLylT1a8Mci6hELlaFg/MonnuTUw+WvzYyjJ8bO
+	 i0EKenZMq7Rxh8dN70cIhRAOI7p+7fPQ+gdo9YhYwd8LzLWpL29mnYSkgWFc8V5Z2Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=cyw7Pj9H;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VsuKOlFG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 357D9606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:55:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 357D9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C41606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=cyw7Pj9H
-Received: by dvalin.narfation.org (Postfix) id 742961FF3D;
-	Tue, 10 Nov 2026 19:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794340502;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9jaAOUD7WaSy9F8woWkmi3bIsG6VWslyDC8PYmyNWE0=;
-	b=cyw7Pj9HVH+FkM+mVvDW09T3KezHvP9MhgLjdf0A9HX2JQwo8vOFgRBjxNoy1lUe22ffZB
-	L6b01eCw+ZXAEE95dKaMxh1J3BaWNvT8O6J3B5/uBInvsy82ZugafboPxZrQvUCfMpR95E
-	bCaBmqa0Yismqhzspgu5DegffQFg8M0=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VsuKOlFG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC471F008A5;
+	Tue, 10 Nov 2026 19:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794340518;
+	bh=JLDYprL1v/SZeQHPxRisjRWypCDw8535wjXx2AYPANA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VsuKOlFGFg7y0/+nauFc6AP6mb86m0oKZV0/4H48uE2Uc337BPktIFZCvW05jUNKP
+	 FmoOz3Zh/o4kApLJL8Q7ILjMvyeWqYk/MW6QqJuJFk1B3M06R0YjpRd0Rj+pvfkcDv
+	 Q/yWXJOTkW7O8xr0eotbvvsgccejGlfnuXY2NN0WGc2t0nhGY4glrKXHpHEJ28gxJ6
+	 2LsOSqHPhaSIrfPqgxOES6cciMdSdX8rYUOn8ujyq56YZztFVCqn/FlR4Q/vOiQVYY
+	 wzheQ9nNDSDrxw4NzthenWxwfZhAStVGEli+lNzKm+uvuflYmbLk14cpIKXbGHhlcQ
+	 zg1O1t+R+H0eg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.10.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
-Date: Tue, 10 Nov 2026 20:54:59 +0100
-Message-ID: <20261110195459.423550-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109202534-failed-5.10-cc2186d78547@kernel.org>
-References: <20261109202534-failed-5.10-cc2186d78547@kernel.org>
+Cc: =?UTF-8?q?Nikolaj=20Klitlund=20B=C3=B8rty?= <nbn@sj.dk>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] Bluetooth: btusb: Add device ID for Realtek RTL8761BUE (StarTech AV53C1)
+Date: Tue, 10 Nov 2026 14:55:16 -0500
+Message-ID: <20261110195357.3634441-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060619-failed-5.15-1430308fc9d4@kernel.org>
+References: <20261107060619-failed-5.15-1430308fc9d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +60,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-commit cc2186d7854785b30d423f5d43757b086b300e55 upstream.
+From: Nikolaj Klitlund Børty <nbn@sj.dk>
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_tt_local_mark_removed() sets BATADV_TT_CLIENT_ROAM, queues a
-DEL|ROAM change and marks the entry as BATADV_TT_CLIENT_PENDING. If the
-client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_existing() only clears the PENDING flag and returns
-early. The ADD cancels the queued DEL, but the entry keeps the ROAM flag:
+[ Upstream commit 1430308fc9d47a801a305700cd444b1a0051d14a ]
 
-* batadv_is_my_client() reports the client as not served by this node
-* batadv_tt_local_client_is_roaming() reroutes unicast frames for it to
-  the node which sent the ROAMING_ADV
+Add the USB ID 0x14b0:0x047a for the StarTech AV53C1-USB-BLUETOOTH
+adapter, a Realtek RTL8761BUE based Bluetooth 5.3 dongle.
 
-The ROAM flag is only removed with the next frame of the client.
+Without this entry btusb treats the device as a generic Bluetooth
+adapter and never loads the Realtek firmware, leaving the controller on
+its ROM firmware. In that state it advertises and scans actively, but
+never reports advertisements during passive scanning. LE connections
+initiated by the kernel wait for a passive-scan report before issuing
+LE Create Connection, so connecting and pairing from BlueZ time out
+without any error from the controller.
 
-Since BATADV_TT_CLIENT_ROAM is set together with BATADV_TT_CLIENT_PENDING,
-it has to be cleared also at the same time with BATADV_TT_CLIENT_PENDING
-when the client roamed back.
+The same product is also sold with the ID 0x2c0a:0x8761, which is
+already supported.
+
+lsusb -v output for the device:
+
+Bus 001 Device 010: ID 14b0:047a StarTech.com Ltd. Bluetooth Radio
+Device Descriptor:
+  bcdUSB               1.10
+  bDeviceClass          224 Wireless
+  bDeviceSubClass         1 Radio Frequency
+  bDeviceProtocol         1 Bluetooth
+  idVendor           0x14b0 StarTech.com Ltd.
+  idProduct          0x047a
+  bcdDevice            2.00
+  iManufacturer           1 Realtek
+  iProduct                2 Bluetooth Radio
+  iSerial                 3 00E04C239987
+  bNumInterfaces          2
+    Interface Descriptor:
+      bInterfaceClass       224 Wireless
+      bInterfaceSubClass      1 Radio Frequency
+      bInterfaceProtocol      1 Bluetooth
 
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ adjust code still in batadv_tt_local_add ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Nikolaj Klitlund Børty <nbn@sj.dk>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: Adjusted insertion context to the existing RTL8761BU group in blacklist_table instead of quirks_table. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 96a2078d9c387..23d34e1b48eec 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -659,6 +659,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 	int hash_added, table_size, packet_size_max;
- 	bool ret = false;
- 	bool roamed_back = false;
-+	bool added = false;
- 	u8 remote_flags;
- 	u32 match_mark;
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index de588bee66e66..0b96df90c65e4 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -546,6 +546,8 @@ static const struct usb_device_id blacklist_table[] = {
+ 	  					     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x2550, 0x8761), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x14b0, 0x047a), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
  
-@@ -685,7 +686,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 			 * flag can be reset like it was never enqueued
- 			 */
- 			tt_local->common.flags &= ~BATADV_TT_CLIENT_PENDING;
--			goto add_event;
-+			added = true;
- 		}
- 
- 		if (tt_local->common.flags & BATADV_TT_CLIENT_ROAM) {
-@@ -766,10 +767,12 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 		goto out;
- 	}
- 
--add_event:
--	batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
-+	added = true;
- 
- check_roaming:
-+	if (added)
-+		batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
-+
- 	/* Check whether it is a roaming, but don't do anything if the roaming
- 	 * process has already been handled
- 	 */
+ 	/* Additional Realtek 8821AE Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info = BTUSB_REALTEK },
 -- 
-2.47.3
+2.53.0
 
