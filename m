@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273596;
-	b=y/U+W1DsG+hL8tNufVKg/nXzswpxqHKGcLYkKlH+K4v7iKvu0lfhA4aUcdEwy7mpAwey
-	 kWCGiDgP/NMQn+KhTPXFBDYTFynPVIKNy76cBaVv4zWG/fCFbVF6qid+I7otjdm1zZ/kF
-	 Cb2el2dKga+JZ2X1kjNF8jSuF5aMbHYTO3r1pgKQf+pCerZ9+2H2+RzZLeEmhTqRujQO3
-	 nesY3TQIThP8pdCksIeXVvGRgse+tzwwFBztfz4NHjQ5oessLJ8FJXmhwXQ1LSP9Uf4jW
-	 ioQ5ykpaxCn3R4Dm7gB4RcoBWAco1cIO77aHPoxyX+7mAlDJJ8xsmMFmB3qw47unBnA==
+	t=1794273598;
+	b=qPlzIPzTK3sxfqZwVjJC1V5n3E2LH4b0ZigHj0R1Ij5+wGibdL+j5sipYQT6vvScbL9R
+	 0z98cO7ppYf/bST2SV0hN+8UkdryUnucmU065MPk14rTE9yWNZisVuyp52xIYL/Fb1Xl2
+	 G3dl7J5oFupC3sydHRJMwbkuN7rYEhO1NbZKJ04Y16q0vZrJFtJm4yKcik6Fyd1Vi3kpm
+	 ccmqrvqUT9Nu5LqebeplQWV4VPMzt/DiEAMqleQJCBjTKhVcAriehX+ZSw2ZcbNEkSOfr
+	 w3TpTYkoPCnxXVPln4jc5hWef7nPdXk/YR42br2RpwOqSBbO9UCplwDDkrMvE/VUzrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273598;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xxNMyIkfReHDuMAGErht38PFYUxaFvqUxriIzqJlCjg=;
-	b=TxouU6ac783VibDmNr4AUnMspBs/CqXEhJKAvLH38Vgnn0QNT+2SmxudTmrWxuX8A46o
-	 pKABjyOYmLdLjjA8n9zm0hZ3kWX1SQ1OX4g1xt++8qcTTkdSaZCt5rfQIFLo2F/F7MBi2
-	 9mygywoQEvJ3+i8/fyvgsswQ0c63tX5O5S8knXETKbt7r0Ckrm4AXiq1UGdcCL29tVa8W
-	 4zciXP0s8vzVP2MBRpb5ZSpORvJN2bZPldN9JhjlEwxy+IloLej2Ph2hmxZkw8X6fVitA
-	 /2038FUdkGOALpE4Nz96r15yxeDjv5MJvVVznLl1r0lc+e7DQ3UtxSIZ53o0YXEPxMQ==
+	bh=LkdTKX8rhmG8OvZN6CjJWuShGG/jKj1yNlHgrWmyCbM=;
+	b=J/XuSoc6HKyFu9F2SfZ/Ok9bvue9v+ZV1oTQlbglzIz66lnolx3yzvm6W3lEyNHMbOtu
+	 q/Z7FhicgjmRsmCOl72KagepsrmALm6siHXv+RjJ5ylfbWpdEib6b7aDiDt26+0VHuwoM
+	 OdFdoq8UfNHzSW9cSQVlxt6BbZyqTPwmNeYT4BUdgQosLEziuLY4UdFwpBfAKDMJmEQfA
+	 yb5P5EAktDAiVAflQSFCL/rMqzLMsYtqKp7WioApX2R1FQOt3libeMztU2lPBjGSV89K+
+	 J2GcURYkJhOA1e7432r/vsXE7NgNaBWKmhlAC7AS6uMHg2eG2HNZc1yI6QUPp/WLEKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FjMW5hjs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeYV+3EF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FC0606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC8D606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FjMW5hjs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388DE1F0089F;
-	Tue, 10 Nov 2026 01:19:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeYV+3EF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690411F0089F;
+	Tue, 10 Nov 2026 01:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273595;
-	bh=xxNMyIkfReHDuMAGErht38PFYUxaFvqUxriIzqJlCjg=;
+	s=k20260515; t=1794273598;
+	bh=LkdTKX8rhmG8OvZN6CjJWuShGG/jKj1yNlHgrWmyCbM=;
 	h=From:To:Cc:Subject:Date;
-	b=FjMW5hjsHXTKaIek5ZVcnSpaimRYO0J5H/vChcChDQERqMv333zA+dDRTy4T0Ggqv
-	 zhiC/Hud7V22ppf5b/kLKEHVVG6IbmSXeV5TEDMUi5v8A6KcnouB84SQXP29XxfuvR
-	 +CfMFYqZtw30s9ryKGYqk8hYLONteIAtOifpz4yMilfeucJI8X9RafWDrZPFs9QxFK
-	 RtHwu/OQ2wQLFQ0g+tFXF6/RCQdPGSZNMunrzuRYENWlezvEvC8fd+F4XuQX+JZujC
-	 ERjdG3fuZlFwCoh2nAMd/cIi8U+o22raMMQx1PG7rd0YPZ2ohdq228/RuBi2Ek9Z6W
-	 ar/ZBGj5JAm+w==
+	b=aeYV+3EFEOsxNLKO+CewJCcEQ/Zitf7OaRlEuHBJI2V0JhNFxCvsCnofhxU6eSffm
+	 RSGEqoJYtO8HNWMp9bsAjxj2lePhYNU5g2CIlH69+XhfsOgmFF+BgrPwIIT9+6H+c6
+	 OpQJvAKKKF0Y10RgRNHNEypME0LthbBuUzkyxdhe+k7IlAEHl9qtnEl+/DTxiwCOkk
+	 qP0FV+uFZg8zhjjVG+lc9CDS2cFrHoUBtQFD7u8dbrv0YpIZ+PxcB1cES82myAomle
+	 MJNQY5HU1S1e/y+X+mFSyKN8bP0cLpnJ4ijxjF7OywuMGlSfVWtg2jc+kkP7Q4F05l
+	 rlQnKtCnUtXyw==
 From: Sasha Levin <sashal@kernel.org>
-To: matthias.goergens@gmail.com,
-	jack@suse.cz
+To: kas@kernel.org,
+	catalin.marinas@arm.com,
+	leitao@debian.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] udf: fix preallocation discarding before an empty allocation extent" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:54 -0500
-Message-ID: <20261109201953-failed-6.1-0c52750caaac@kernel.org>
+Subject: FAILED: patch "[PATCH] arm64: sdei: Run the event handler on the kernel vectors" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:56 -0500
+Message-ID: <20261109201956-failed-6.1-9bf6ee7952c7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,83 +69,150 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0c52750caaaccee8b0e929450fe6538ec4985722
+git cherry-pick -x 9bf6ee7952c7ee151c30e0fffcfc61b58127c899
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201953-failed-6.1-0c52750caaac@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201956-failed-6.1-9bf6ee7952c7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0c52750caaaccee8b0e929450fe6538ec4985722 Mon Sep 17 00:00:00 2001
-From: Matthias Goergens <matthias.goergens@gmail.com>
-Date: Fri, 30 Oct 2026 22:05:36 +0800
-Subject: [PATCH] udf: fix preallocation discarding before an empty allocation
- extent
+From 9bf6ee7952c7ee151c30e0fffcfc61b58127c899 Mon Sep 17 00:00:00 2001
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Date: Thu, 5 Nov 2026 12:08:33 +0000
+Subject: [PATCH] arm64: sdei: Run the event handler on the kernel vectors
 
-udf_discard_prealloc() finds the last extent of a file by peeking at
-the next one with udf_next_aext() and stopping when that returns 0.
-The peek reads into eloc and elen, and the code then uses them as the
-last extent.  But when udf_next_aext() returns 0 they hold no defined
-value: if the extent list ends in a continuation descriptor that leads
-to an empty allocation extent, they describe that continuation, i.e.
-the block of the empty allocation extent, one block long.
+With KPTI, VBAR_EL1 holds the trampoline vectors from the return to EL0
+until the next exception from EL0 maps the kernel and installs the
+kernel vectors. The trampoline vectors only handle exceptions from EL0;
+their current-EL half is zero-filled.
 
-The kernel creates such lists itself: when udf_delete_aext() removes
-the only descriptor of the last allocation extent in a list, it leaves
-that allocation extent empty and the continuation to it in place.
+An SDEI event is dispatched regardless of PSTATE.DAIF, so it lands there
+whenever the CPU is in user space. The SDEI entry trampoline maps the
+kernel but leaves VBAR_EL1 alone. An exception taken by the handler then
+executes the zeros, takes an undefined instruction exception to the same
+vector, and loops there forever. The event never completes and the CPU
+is lost; RCU stall reports are the first sign of it.
 
-If the last extent is a preallocation, udf_discard_prealloc() deletes
-it with udf_delete_aext(), which finds the following allocation extent
-empty, so it also removes the continuation and frees that allocation
-extent's block.  udf_discard_prealloc() then frees eloc and elen: that
-block a second time, instead of the preallocated blocks.  On a space
-bitmap the preallocated blocks leak and the free block count drifts.
-On an unallocated space table the second free adds a second free
-extent for the same block, which is later handed out twice: fsx as run
-by generic/091 and generic/263 ends up with two parts of its test file
-in one block and reads back bad data.
+RAS notifications land in user space whenever a task consumes the
+error, and NMI backtraces land wherever the CPU happens to be. The GHES
+handler takes no exception on its own, but any exception in the handler
+path does it: a WARN, a kprobe hit, or a fault fixed up by a _nofault()
+accessor.
 
-Peek into separate variables, so that eloc and elen keep the last
-extent that udf_next_aext() returned with 1.
+Install the kernel vectors in __sdei_handler() when VBAR_EL1 holds the
+trampoline vectors, and restore it before returning to firmware. The
+switch covers irqentry_nmi_enter() and irqentry_nmi_exit() too, as Usama
+Arif pointed out: their tracepoints and context tracking WARNs can take
+an exception as well.
 
-Fixes: cfe4c1b25dd6 ("udf: Fix preallocation discarding at indirect extent boundary")
+The IRQ-like resume into user space must still go through the
+trampoline to map the kernel. do_sdei_event() takes the interrupted
+VBAR_EL1 and keeps basing the resume address on it.
+
+Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
 Cc: stable@vger.kernel.org
-Suggested-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-Link: https://patch.msgid.link/480eccd1264a4cea5226fc36ed108931b2c403fb.1793349907.git.matthias.goergens@gmail.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+[catalin.marinas@arm.com: use raw_cpu_read() for this_cpu_vector]
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
 ---
- fs/udf/truncate.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/sdei.h    |  3 ++-
+ arch/arm64/kernel/entry-common.c | 21 ++++++++++++++++++++-
+ arch/arm64/kernel/sdei.c         |  6 ++++--
+ 3 files changed, 26 insertions(+), 4 deletions(-)
 
-diff --git a/fs/udf/truncate.c b/fs/udf/truncate.c
-index 0990f94b85518..75151a59f0da6 100644
---- a/fs/udf/truncate.c
-+++ b/fs/udf/truncate.c
-@@ -124,8 +124,8 @@ void udf_discard_prealloc(struct inode *inode)
- {
- 	struct extent_position epos = {};
- 	struct extent_position prev_epos = {};
--	struct kernel_lb_addr eloc;
--	uint32_t elen;
-+	struct kernel_lb_addr eloc, tmpeloc;
-+	uint32_t elen, tmpelen;
- 	uint64_t lbcount = 0;
- 	int8_t etype = -1;
- 	struct udf_inode_info *iinfo = UDF_I(inode);
-@@ -141,7 +141,8 @@ void udf_discard_prealloc(struct inode *inode)
+diff --git a/arch/arm64/include/asm/sdei.h b/arch/arm64/include/asm/sdei.h
+index b2248bd3cb58f..a78a5337ff854 100644
+--- a/arch/arm64/include/asm/sdei.h
++++ b/arch/arm64/include/asm/sdei.h
+@@ -44,7 +44,8 @@ asmlinkage unsigned long __sdei_handler(struct pt_regs *regs,
+ 					struct sdei_registered_event *arg);
  
- 	/* Find the last extent in the file */
- 	while (1) {
--		ret = udf_next_aext(inode, &epos, &eloc, &elen, &tmpetype, 0);
-+		ret = udf_next_aext(inode, &epos, &tmpeloc, &tmpelen,
-+				    &tmpetype, 0);
- 		if (ret < 0)
- 			goto out;
- 		if (ret == 0)
+ unsigned long do_sdei_event(struct pt_regs *regs,
+-			    struct sdei_registered_event *arg);
++			    struct sdei_registered_event *arg,
++			    unsigned long vbar);
+ 
+ unsigned long sdei_arch_get_entry_point(int conduit);
+ #define sdei_arch_get_entry_point(x)	sdei_arch_get_entry_point(x)
+diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+index 11d3f888fcd87..36b85b9e1575d 100644
+--- a/arch/arm64/kernel/entry-common.c
++++ b/arch/arm64/kernel/entry-common.c
+@@ -31,6 +31,7 @@
+ #include <asm/stacktrace.h>
+ #include <asm/sysreg.h>
+ #include <asm/system_misc.h>
++#include <asm/vectors.h>
+ 
+ /*
+  * Where the context being returned to had an active percpu GPR critical
+@@ -1040,6 +1041,7 @@ asmlinkage void noinstr __noreturn handle_bad_stack(struct pt_regs *regs)
+ asmlinkage noinstr unsigned long
+ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ {
++	unsigned long vbar;
+ 	irqentry_state_t state;
+ 	unsigned long ret;
+ 
+@@ -1065,10 +1067,27 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ 	else if (cpu_has_pan())
+ 		set_pstate_pan(0);
+ 
++	/*
++	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
++	 * EL0 until the next exception from EL0 maps the kernel. They only
++	 * handle exceptions from EL0: an exception taken here would run their
++	 * empty current-EL half and never come back. Switch to the kernel
++	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
++	 * still goes through the trampoline.
++	 */
++	vbar = read_sysreg(vbar_el1);
++	if (arm64_kernel_unmapped_at_el0() &&
++	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
++		write_sysreg((unsigned long)vectors, vbar_el1);
++		isb();
++	}
++
+ 	state = irqentry_nmi_enter(regs);
+-	ret = do_sdei_event(regs, arg);
++	ret = do_sdei_event(regs, arg, vbar);
+ 	irqentry_nmi_exit(regs, state);
+ 
++	write_sysreg(vbar, vbar_el1);
++
+ 	return ret;
+ }
+ #endif /* CONFIG_ARM_SDE_INTERFACE */
+diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
+index 778f2a1faac86..260c13106009c 100644
+--- a/arch/arm64/kernel/sdei.c
++++ b/arch/arm64/kernel/sdei.c
+@@ -200,16 +200,18 @@ unsigned long sdei_arch_get_entry_point(int conduit)
+  *  SDEI_EV_HANDLED -  success, return to the interrupted context.
+  *  SDEI_EV_FAILED  -  failure, return this error code to firmware.
+  *  virtual-address -  success, return to this address.
++ *
++ * vbar is the interrupted context's VBAR_EL1, for the IRQ-like resume.
+  */
+ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+-				      struct sdei_registered_event *arg)
++				      struct sdei_registered_event *arg,
++				      unsigned long vbar)
+ {
+ 	u32 mode;
+ 	int i, err = 0;
+ 	int clobbered_registers = 4;
+ 	u64 elr = read_sysreg(elr_el1);
+ 	u32 kernel_mode = read_sysreg(CurrentEL) | 1;	/* +SPSel */
+-	unsigned long vbar = read_sysreg(vbar_el1);
+ 
+ 	if (arm64_kernel_unmapped_at_el0())
+ 		clobbered_registers++;
 -- 
 2.53.0
 
