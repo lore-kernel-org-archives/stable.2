@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273640;
-	b=XFs28WQn76ZSXe8KliWCAYN2Sdtw/gH+XZ4quiREXHwPVoITkbhHY82ziNJ6GAO4II40
-	 g47c5FYBrBHgOIQyKUZYK8D3FgM0aQhhJ8iZSpiQQJk143G0oVXJZA4L3/UbQOTFkbC5k
-	 IkQAptpWdv7gzwa8pX72O3GNoVzxLD96F/or2NvDhAVLLvMXlTQLHkSTuwio3Yio9F+Ng
-	 gZYK2Rdrx3pnrOcp00GYpOJj/+XPf1D/OnbljLeXdLtVy/Wgt7d5p+BneedqLgx+kfEX0
-	 KWk8Nz9/vBlkMtUigP1B3IwC8X++1j/BjasyE/zy/A5MgxSRxUQ0NJvBnTX4P+9tldQ==
+	t=1794273642;
+	b=rlESESraXxEBFOb/o8Vi8w3KLaQnhHCIeEb/mtvEW1uombBmkbjXHBVixPdlb5NHGzav
+	 gklbUmJh1KeOBMwua+BkFaWJ+mUcEjnozEQk62MAxamcR5+kTVwh3E6Na4vc1Ts5PSWeD
+	 vLyiei/aSFjA7pWuJ3AHkwY/+pbfdB5ClFk/pCg+oDiR905kDK+Tcf5d0Lius9pmXeuph
+	 4gg1URLr05TQg3xfAiWVpeZQ3OtWy8J1JtFwZDVv2hBP5NLAT4RBDX0WM8SFq4PLMve4S
+	 dpaZoopkT+rjUxGvGhs2iMiRCapudvsu7sG3QGhjVGOvCh8/gzLHJlUPMS1X+OiLY8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273642;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dy/06mplnkZK6bKol5Qgs8Jt0t6m9TXIIXNprA9tA/g=;
-	b=lgWcB7s9Rl9irWWWmwPy6XqB1/P8ETaq+pghGUkAO9q+kN/wnFapCOu75R7CQYTM+W/+
-	 e+TVx60i0KltUZhsxAcOdEDEfEqxupZB99pNmeTW4YAtXJqA+mbQy2NfQKmDoTdJdzXTL
-	 7+HV41Q3tod/LoJSgKxlUAHTl39fd4k4ImyWH7DjnNDElCGbeRehpL0yf6hIBxxtK7Mzv
-	 Sf3o4Rn6uDJni2HCJzodIHQUugcgBp6rcQXuYY01hiR2CjO+oJKP1WbOF4xvZK+UMstm4
-	 GhlzhpBUDNKAyx9zl1vBwy3S05BsmufpdiPkbXKJsBdlar+o4naq8NRDWKvtc5fv/4g==
+	bh=Sz1iLDRDBC1cGcXWwTUC7jlfI/+ylfexyAWkOmjSZ9s=;
+	b=Gaq4keXFFXIqb8cFlYQ46IxX9h5fnVSnd6IwpZM+iWq+LwUA8wwqjEFL8T9gmprGLQVa
+	 o29fxAA0pBc2Q5HwYQPt/EeVo8LtZt0htpHIIN8u6MIeB1FLmcfVQ+JI10ZCbahrFEpLz
+	 x90Ov9e6VDsXfX74OHsrf34q2V5gy0Hh0IFVQPoGa9LEZZt1p0P4h9LIKw5Ux3Hs2i4S6
+	 qKbgH9zkXMSmaewa+3/BA6POmQp36yg+968LAJac78LkbmvxNOWzJpgWtWRYgobCgMTaP
+	 Y3O+SyEVgQ0nPd+sOT8FD0YyCqb/ZWbrUKENHxHp4zGhaWmfNpZh2gAYhLfz+bX4JxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERVhvDRa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwcCdYq5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ECD6606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4A5606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ERVhvDRa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9481F0089F;
-	Tue, 10 Nov 2026 01:20:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwcCdYq5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8BEA1F0089F;
+	Tue, 10 Nov 2026 01:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273640;
-	bh=dy/06mplnkZK6bKol5Qgs8Jt0t6m9TXIIXNprA9tA/g=;
+	s=k20260515; t=1794273642;
+	bh=Sz1iLDRDBC1cGcXWwTUC7jlfI/+ylfexyAWkOmjSZ9s=;
 	h=From:To:Cc:Subject:Date;
-	b=ERVhvDRa7RQrPMqegURMuPq5N8IfTMl6tiwUCRG7+wnwV1h+JRB9ODZxkrLQNtnyF
-	 e3szwhg96vpKbpVhj/+Z31915jBYjnMcz+PkxX473Gqtql3jhmtewGG4w8TMNupg1X
-	 WC/skOnNbN6VRPI9yerAaLA6EJAWv+wNu2qnnX+2BRckMTYz/zzO/PLg/ml93Feeb7
-	 nIXVCZ7rWssc+tk3c5TU4YG9rMicXesGryIMRgXX72/4b77ChLziK3Z2oZI1wvtadr
-	 TxgPz6IR1tq0x5AzhonL/SrW4OL89OmS5pKxayosWKbxYVx7Ctgs07rXEKckO1duHB
-	 lcZF8kARnSdbA==
+	b=BwcCdYq5RAPEeD5vfHIgn3VQW77QJnXWcjErsPhktdL5hjKWXaWp/VVHRT1pIH3TV
+	 xi3XKpHUB/VF3b+Ui3ETL7I9O27u78vJX6AGQGxFpknziAZwislN34L5nYwefcbYBd
+	 fV+K8yvxBqnzRBuyNWvMJB6OvOVtNr0Or2oxkeFeKPcvbQXCJPONr9yHzNeCtjdjS/
+	 DZv9IpkREXbcZ2OYDoaZIjBZPB0W4la10LUK9zW5YIvI0m/pC8f9gHPT+ziukyRDiD
+	 oKKh3iCGYQ7LWjNh2RvXoUQnKlHpsGVnSQucHSUjePcpoDFcR3o7JSAizamT0HH3nt
+	 txx0pI18KoraQ==
 From: Sasha Levin <sashal@kernel.org>
-To: n0ps1edzz@gmail.com,
-	liuhangbin@kylinos.cn,
-	davem@davem-thinkpadp1gen8.ibmlond.csb
+To: lucas.tanure@neat.no,
+	mcanal@igalia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:38 -0500
-Message-ID: <20261109202038-failed-5.15-66dfb2cacda7@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/vc4: hdmi: enable scrambling before the TMDS clock starts" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:40 -0500
+Message-ID: <20261109202040-failed-5.15-81383bd290a1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,60 +68,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 66dfb2cacda7faae614d688943d85e75abf7f586
+git cherry-pick -x 81383bd290a18f06ccf9b0bfb29e1a3ef73d9357
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202038-failed-5.15-66dfb2cacda7@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202040-failed-5.15-81383bd290a1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 66dfb2cacda7faae614d688943d85e75abf7f586 Mon Sep 17 00:00:00 2001
-From: Zhou Qiuyue <n0ps1edzz@gmail.com>
-Date: Mon, 26 Oct 2026 12:48:08 +0800
-Subject: [PATCH] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
+From 81383bd290a18f06ccf9b0bfb29e1a3ef73d9357 Mon Sep 17 00:00:00 2001
+From: Lucas Tanure <lucas.tanure@neat.no>
+Date: Mon, 26 Oct 2026 16:40:28 +0000
+Subject: [PATCH] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-rawv6_send_hdrinc() caches the route before handing the skb to
-l3mdev_ip6_out(). The VRF output path may replace skb->dst and release
-the original route, leaving the cached pointer stale.
+HDMI 2.0 requires a source to suspend the TMDS clock, write the
+TMDS_Bit_Clock_Ratio bit in the sink's SCDC registers, wait at least
+1 ms and only then resume the clock. vc4 does the opposite: the PHY
+starts at the new rate first, and the SCDC bits are written tens of
+milliseconds later, at the very end of the enable sequence, together
+with the source side scrambler. On disable the bits are cleared while
+the clock is still running.
 
-The function later dereferences that pointer for statistics accounting
-and as the output device passed to NF_HOOK(). Its RCU read-side critical
-section starts after l3mdev_ip6_out(), so it cannot prevent the old route
-from being reclaimed in between.
+Some sinks sample the bit only when the clock appears. One HDMI 2.0
+sink we tested then sets up its receiver for a 1/10 clock and never
+recovers: a Raspberry Pi 5 at 3840x2160@60 shows no picture, while
+1080p60 and 4K30 work and other sources work at 4K60 on the same sink.
+Writing the bit by hand before enabling the output makes the same mode
+lock every time.
 
-Reload the route from the current skb destination after
-l3mdev_ip6_out() returns.
+Enable scrambling, on the sink and in the controller, before the PHY is
+started, and disable it only after the PHY has been stopped. The SCDC
+helper already waits the required time after writing the ratio bit.
 
-KASAN reports a slab-use-after-free in rawv6_sendmsg(), with the route
-allocated by ip6_dst_alloc(), freed by dst_destroy() from rcu_core(), and
-the related RCU callback queued from vrf_l3_out().
-
-Fixes: 4c1feac58e06 ("net: vrf: Flip IPv6 output path from FIB lookup hook to out hook")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhou Qiuyue <n0ps1edzz@gmail.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Fixes: c85695a2016e ("drm/vc4: hdmi: Enable the scrambler")
+Link: https://github.com/raspberrypi/linux/issues/7693
+Assisted-by: LLM
+Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
+Link: https://patch.msgid.link/20261026164028.78792-4-lucas.tanure@neat.no
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- net/ipv6/raw.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-index b965258cf9e5f..bdea825434ea7 100644
---- a/net/ipv6/raw.c
-+++ b/net/ipv6/raw.c
-@@ -654,6 +654,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
- 	if (unlikely(!skb))
- 		return 0;
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index f58f645ec3c50..f2043f907dc52 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -917,8 +917,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
+ 		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
+ 	}
  
-+	/* l3mdev_ip6_out() may have replaced the skb dst. */
-+	rt = dst_rt6_info(skb_dst(skb));
+-	vc4_hdmi_disable_scrambling(encoder);
+-
+ 	drm_dev_exit(idx);
+ 
+ out:
+@@ -946,6 +944,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
+ 	if (vc4_hdmi->variant->phy_disable)
+ 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
+ 
++	vc4_hdmi_disable_scrambling(encoder);
 +
- 	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
- 	 * in the error path. Since skb has been freed, the dst could
- 	 * have been queued for deletion.
+ 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
+ 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
+ 
+@@ -1553,6 +1553,8 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
+ 		goto err_disable_pixel_clock;
+ 	}
+ 
++	vc4_hdmi_enable_scrambling(encoder);
++
+ 	if (vc4_hdmi->variant->phy_init)
+ 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
+ 
+@@ -1687,7 +1689,6 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
+ 	}
+ 
+ 	vc4_hdmi_recenter_fifo(vc4_hdmi);
+-	vc4_hdmi_enable_scrambling(encoder);
+ 
+ 	drm_dev_exit(idx);
+ 
 -- 
 2.53.0
 
