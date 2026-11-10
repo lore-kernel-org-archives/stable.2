@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293115;
-	b=nnx8RcJ6fDI4W5nAIL6AqaVy+sdyIEisvPLjZb48CDNI2X/bqH1js+65TIdukeJsncuM
-	 issZqNHE3KvrrxIfG6kEltc8XbfvvHeyuIJIRdEGkVj1HPN7VWYZa3+0KX2Qvx3HVfqIA
-	 e4zZt3AaKWhnYJ7JEtGnp9MTN8G7PMzmaRTvh6972gtG5XX/mWv1Y33kJZDtnze2b+zit
-	 2NnXgYbOoyITYkDNpRcxItxYHfDTL1RNbb5g04jZ6c0LAgk4ELwNPAg9PG+GN0G2XXqjs
-	 0xvatA82oZxkywZI+O+/b8FnWo/CQd8KZPEmSTVkZy+XP7fxRR8t6sMm3f2GW0NdvPA==
+	t=1794293122;
+	b=Ek9qjZl8aQiGuJ2CrS503F5CpZkAuYeeieLHrsxoRc8QDqPwbZmuxL+LwL9e0reIZcmK
+	 btPOlWxqcCnZBqfIYfRpUn46/aUFi/oZJe3JKkbvuriUpdhlxEUnlWaHVcTbFHwP3FZ8a
+	 TpjKa7NLAbMZd7248Vcl8emoqe9vhkvmjH+gnPzv8DVUIfNqzoba+Majm+QdOVPnzZfSd
+	 rUUfeKe5eJp40D92Qi4gR/2rJ7+iITyFF6ijwk3Bzg+SH5bLV+gGhonhN66R7byplFZNs
+	 6hDEZUwsX7EwUVe/cc5sLcMsmHcl4TL/qisUruecgBMbJoiKxI8MFwVswn0JMnxlpXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293115;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293122;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=x0pg1ZSD2VK0yA5MmV6R9bMjgrhzjbCuT0KFvY/z3/Y=;
-	b=16CBRxy99x7OpPyMAElNK1MRRKREmKX5k1oCNkuGExQBYaykb7DypwrSzPnC5drpy6wV
-	 xgpRW9zGCQlgjSiNBq0e6VEKw4iNaOrDoLb6ywJKeCkEw0wiJokZsr3/2EQMSfmsoVW0M
-	 Yn1KAuHkaEg9lFoa5PlFwW7cnkec0DhTFNpfaukQkfSjq7IDe/f9ebeXysDfDzX1v5n7F
-	 9HYG/UxXqps1sf8SsS5fKA8PR9LqE3O4vPQknOidrCp2CF8QTwvBlV9KKdwH0GmmX9GJ0
-	 1Qh6dcrpL+BTQuxvQz7wGSymxdy9kIsr/j0kOhZGLfH811yivqfduZvixLBlyNAtzlw==
+	bh=5C/Dt0omSofHasNhSwji9hwqILOVkgmTX5ilJiy6Nio=;
+	b=ULTmNlPMq21HTsBKpHRvTLEM/Fb5YiOPmkwwN4NdhDwKxe8czLvOwgZDp1mc/eSoBTyE
+	 IJq+TaMJugTSb+SM5Nq/1n8HoeHHzJR/TOWSk6muHvFxQJgFhs/FttUqqygIIkwEYpVas
+	 fdb9EHTpcKHECnR8lBhPc7xxTln8qJXuy/CBPZM4NKTz8rHwQOKUJ2oqcOzaxjAGyz8xM
+	 BtI0tL4Tr9lkxVv4A7maM+EVilpLECP7NTf2QVs6en4/6cur4mjYHyMYdEc9qxdmcLpw8
+	 ImmmMz35hZDWiJ2Fwy0eNSjkBdr9HyghNwBTk65nNzQJtsFOdzycHtv6fHqRxm5ibLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=OrMKWSDC;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=h6nB08i5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6225606BD76;
-	Tue, 10 Nov 2026 06:45:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45741606CB19;
+	Tue, 10 Nov 2026 06:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=OrMKWSDC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896531F008A3;
-	Tue, 10 Nov 2026 06:45:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=h6nB08i5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDBA51F008A1;
+	Tue, 10 Nov 2026 06:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293114;
-	bh=x0pg1ZSD2VK0yA5MmV6R9bMjgrhzjbCuT0KFvY/z3/Y=;
+	d=linux-foundation.org; s=korg; t=1794293121;
+	bh=5C/Dt0omSofHasNhSwji9hwqILOVkgmTX5ilJiy6Nio=;
 	h=Date:To:From:Subject;
-	b=OrMKWSDCPSghZrL08FtygmwEzYOngWAJjSJLtHS5p4PZ3eZOlhDlGG3JmIiKGa3Di
-	 BRed5KR3COmDGYj1zILXz8pI95xd/yc5xZhSVEYQbEtRg5SB15TXZkmgjIQ6pEzyOM
-	 LGWTCCueOgvu/G4sI0oMjOKV6OnoRgcP5JgN2It4=
-Date: Mon, 09 Nov 2026 22:45:14 -0800
+	b=h6nB08i5PJmHEYYYQnSELQd6ojuivh2l13I0iNABYalks/TKBxYCSKvpEM1+Uez9W
+	 7jMC5luKhySuKOS4mggf0C7TsBXbxts2e0yyOxZ++oWs22iTD5NaBsohf31PSzFTB5
+	 cwSm6HTs1kAX8F4l+fH8DLXKYm347MSCueDnB+hQ=
+Date: Mon, 09 Nov 2026 22:45:21 -0800
 To: mm-commits@vger.kernel.org,will@kernel.org,stable@vger.kernel.org,
 	pjw@kernel.org,palmer@dabbelt.com,osalvador@suse.de,mark.rutland@arm.com,
 	kevin.brodsky@arm.com,david@kernel.org,dave.hansen@intel.com,
-	catalin.marinas@arm.com,bjorn@rivosinc.com,bjorn@kernel.org,
-	apopple@nvidia.com,aou@eecs.berkeley.edu,alex@ghiti.fr,
+	catalin.marinas@arm.com,bjorn@rivosinc.com,apopple@nvidia.com,
+	aou@eecs.berkeley.edu,anshuman.khandual@arm.com,alex@ghiti.fr,
 	agordeev@linux.ibm.com,muchun.song@linux.dev,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] riscv-mm-fix-hotplug-page-table-destructor-handling.patch removed from -mm tree
-Message-Id: <20261110064514.896531F008A3@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch removed from -mm tree
+Message-Id: <20261110064521.BDBA51F008A1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,40 +56,42 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: riscv/mm: fix hotplug page-table destructor handling
+     Subject: arm64/mm: fix destructor for unconstructed hotplug page tables
 has been removed from the -mm tree.  Its filename was
-     riscv-mm-fix-hotplug-page-table-destructor-handling.patch
+     arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Muchun Song <muchun.song@linux.dev>
-Subject: riscv/mm: fix hotplug page-table destructor handling
-Date: Fri, 23 Oct 2026 14:34:26 +0800
+Subject: arm64/mm: fix destructor for unconstructed hotplug page tables
+Date: Fri, 23 Oct 2026 14:34:28 +0800
 
-RISC-V uses the same memory-hotplug teardown code for linear-map and
-vmemmap page tables. Late linear-map allocations run page-table
-constructors, while vmemmap and early allocations may not.
+Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
+hot-removed page tables") made free_hotplug_pgtable_page()
+unconditionally run the page-table destructor. This matches page tables
+allocated by the arm64 mapping code, which runs the corresponding
+constructors.
 
-free_pte_table() unconditionally calls pagetable_dtor(), corrupting
-NR_PAGETABLE accounting for constructor-free tables. free_pmd_table()
-avoids that for vmemmap using is_vmemmap, but mapping type is not a
-reliable proxy for constructor state. In particular, it becomes invalid
-once runtime vmemmap tables use the normal pgalloc helpers.
+However, arm64 also uses the generic sparse-vmemmap population code.
+Runtime intermediate page tables allocated by that code do not run a
+page-table constructor. Freeing one during memory hot-remove therefore
+runs a destructor without a matching constructor and corrupts
+NR_PAGETABLE accounting.
 
-Introduce free_pgtable_page() to select free_reserved_page() for reserved
-pages and pagetable_free() otherwise. The latter runs the destructor only
-when PageTable() is set, handling both constructor-backed and
-constructor-free tables.
+Free intermediate page-table pages through pagetable_free(). It runs the
+destructor only for constructor-backed pages and then releases the page
+through the page-table freeing path.
 
-Link: https://lore.kernel.org/20261023063428.3658761-3-songmuchun@bytedance.com
-Fixes: c75a74f4ba19 ("riscv: mm: Add memory hotplugging support")
+Link: https://lore.kernel.org/20261023063428.3658761-5-songmuchun@bytedance.com
+Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
 Signed-off-by: Muchun Song <muchun.song@linux.dev>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Björn Töpel <bjorn@kernel.org>
 Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Oscar Salvador <osalvador@suse.de>
 Cc: Dave Hansen <dave.hansen@intel.com>
 Cc: Paul Walmsley <pjw@kernel.org>
@@ -97,7 +99,6 @@ Cc: Palmer Dabbelt <palmer@dabbelt.com>
 Cc: Albert Ou <aou@eecs.berkeley.edu>
 Cc: Alexandre Ghiti <alex@ghiti.fr>
 Cc: Björn Töpel <bjorn@rivosinc.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Mark Rutland <mark.rutland@arm.com>
 Cc: Alexander Gordeev <agordeev@linux.ibm.com>
@@ -105,80 +106,25 @@ Cc: Alistair Popple <apopple@nvidia.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- arch/riscv/mm/init.c |   27 ++++++++++++---------------
- 1 file changed, 12 insertions(+), 15 deletions(-)
+ arch/arm64/mm/mmu.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
---- a/arch/riscv/mm/init.c~riscv-mm-fix-hotplug-page-table-destructor-handling
-+++ a/arch/riscv/mm/init.c
-@@ -1501,10 +1501,17 @@ struct execmem_info __init *execmem_arch
- #endif /* CONFIG_EXECMEM */
+--- a/arch/arm64/mm/mmu.c~arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables
++++ a/arch/arm64/mm/mmu.c
+@@ -1495,8 +1495,7 @@ static void free_hotplug_page_range(stru
  
- #ifdef CONFIG_MEMORY_HOTPLUG
-+static void __meminit free_pgtable_page(struct page *page)
-+{
-+	if (PageReserved(page))
-+		free_reserved_page(page);
-+	else
-+		pagetable_free(page_ptdesc(page));
-+}
-+
- static void __meminit free_pte_table(pte_t *pte_start, pmd_t *pmd)
+ static void free_hotplug_pgtable_page(struct page *page)
  {
- 	struct page *page = pmd_page(*pmd);
--	struct ptdesc *ptdesc = page_ptdesc(page);
- 	pte_t *pte;
- 	int i;
- 
-@@ -1514,18 +1521,13 @@ static void __meminit free_pte_table(pte
- 			return;
- 	}
- 
--	pagetable_dtor(ptdesc);
--	if (PageReserved(page))
--		free_reserved_page(page);
--	else
--		pagetable_free(ptdesc);
-+	free_pgtable_page(page);
- 	pmd_clear(pmd);
+-	pagetable_dtor(page_ptdesc(page));
+-	free_hotplug_page_range(page, PAGE_SIZE, NULL);
++	pagetable_free(page_ptdesc(page));
  }
  
--static void __meminit free_pmd_table(pmd_t *pmd_start, pud_t *pud, bool is_vmemmap)
-+static void __meminit free_pmd_table(pmd_t *pmd_start, pud_t *pud)
- {
- 	struct page *page = pud_page(*pud);
--	struct ptdesc *ptdesc = page_ptdesc(page);
- 	pmd_t *pmd;
- 	int i;
- 
-@@ -1535,12 +1537,7 @@ static void __meminit free_pmd_table(pmd
- 			return;
- 	}
- 
--	if (!is_vmemmap)
--		pagetable_dtor(ptdesc);
--	if (PageReserved(page))
--		free_reserved_page(page);
--	else
--		pagetable_free(ptdesc);
-+	free_pgtable_page(page);
- 	pud_clear(pud);
- }
- 
-@@ -1660,7 +1657,7 @@ static void __meminit remove_pud_mapping
- 		remove_pmd_mapping(pmd_base, addr, next, is_vmemmap, altmap);
- 
- 		if (pgtable_l4_enabled())
--			free_pmd_table(pmd_base, pudp, is_vmemmap);
-+			free_pmd_table(pmd_base, pudp);
- 	}
- }
- 
+ static bool pgtable_range_aligned(unsigned long start, unsigned long end,
 _
 
 Patches currently in -mm which might be from muchun.song@linux.dev are
 
-riscv-mm-fix-missing-destructor-for-hotplug-pud-tables.patch
-arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch
 mm-sparse-vmemmap-map-shared-vmemmap-tail-pages-as-read-only.patch
 powerpc-mm-map-shared-vmemmap-tail-pages-as-read-only.patch
 mm-hugetlb_vmemmap-remove-vmemmap_wrprotect_hvo.patch
