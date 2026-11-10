@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794350578;
-	b=g9sQ4ZHKqUTfADIQkvVt8GHBcX82Ye7OhvJdhptKvUr+XruzuOzSMbIxEertk05e2rv7
-	 bEt/2r8xne2QDP0NPymj/c+rNafj/sqNFDNg84MygqXrwsVZA4A/UhNIP8o46/sVAVAqp
-	 RYURdM/v5euop0KYMYvj+pQ9drJKM3PHlFuF6OcjpTcBrKE4JOXvR3QhrEXwnLq9Lpu8d
-	 j1RsxZeBnAieulL+7+ImFoKORDdC2QRxWdHNmzQ7NsbhTMrE4ad0/pNt4AwirdT1Txpmd
-	 QiL98Jus3Y+gvJWkbIouk9kC8bPByCCRBfy67RwxjTpI1yP1S+QOrhaEHQuajO7zchg==
+	t=1794350674;
+	b=sa18VmdriTYiV2rqF0bIclICwnmQ3+Hp6Tt51TsTboZhrD2lYqdgSWaoEcv/G90CYjRB
+	 Oca18vTXK1GF2RnGYWXh9cY9fmu56JkScyrUXRcSxFNwvX7ouBHxVvkbpRMZu3Kr74kF9
+	 OQz7z2Qk03wX82snhvurLGQKHQEUHagiT81ipLg11AXTpUDYN3KsCRnY1Qu08JEtrIRM3
+	 ZnTxmJjNE7DNUI1pznyn+hGgnj61po3/CnwWpxu/QesjU5KRV38rtaSr3CaDCh2JLZDpa
+	 COVw8hP/5QsAofvlxERB/amnSAt+p1Za81/xBU0Pex+JQuRDE75nSwjWyqExel/oh2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794350578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=65ccBi3rzxm73dF4Hh1JDA1NcutcYotrBjNv9MyOyhM=;
-	b=fBJc6glyebHW9wzB9Yq6R0pzkUgnczRIbojYIf+K+pcYkk71asiTOAuNpLP5txuokiuI
-	 R8qRRhltlxJjXQ0vzHaUyrMJfooyyWsXmxN8K5qPOirLXNMaiQO3izT00n06qhQPfQ9Fm
-	 u4/ujsM9evIjtAa8uvb/lhKDULkAdKN9TFQ/5XiiyIYvXZe6f0XZXitFpVeDvfXKgFOeV
-	 8JivdBYj3Xp0VcRKrvyqSMUFymKBFHKolSat764p85CJP8mozmVcz4XO93XMYTwZHbmGJ
-	 FhcWCRe1iE4M8iBeuuwqJkJ0V6BxCTmTk8IRih8Bm8sUSwBf4f8K6RB8oHJ9K9s0pYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794350674;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=vFnD84xzsJbpZSzjq3IWWLmQ9UPjNCr62mXf5P81X+I=;
+	b=hVa5HwlCmPZIGXiig8uBrsrH2zSdvSbGjU2cqNR3eS7yDqTWOb6lMTwZq0/d0mzGB8P/
+	 dco0QY6Pd+5wuU25hEH5Y6+eXAIAPiNXCx0CcFwoAAgPGtlkEKmiHYQt0I1A+f5Yju7pl
+	 6bGI5mJIcwf9nWM9ff4gFgd/36PWkHhbisD1Zz9nVA2RH2MSbdYviQbwmaz1EF+Qbb7a4
+	 CarT104TI4BTv7XlgyDXDDe/RccbN2rUZY2C739YxKprd9lz3uc9t0ovwGxyxAaG2LxFn
+	 2t6e6vleK3N4/m4CHK3l2qV4aNs3tM1O0gHi3cMSXEh+ic9+5mkN6Rq09fih/G4rCgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=theori.io;
-	spf=pass smtp.mailfrom=theori.io;
-	dkim=pass header.d=theori.io header.i=@theori.io header.a=rsa-sha256 header.s=google2026 header.b=B97Y8h0+;
-	arc=none smtp.remote-ip=74.125.225.71
-Received: from mail-wr2-f7.google.com (mail-wr2-f7.google.com [74.125.225.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HC+7savY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6AE606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B6AE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=theori.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=theori.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0F9606A331
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=theori.io header.i=@theori.io header.a=rsa-sha256 header.s=google2026 header.b=B97Y8h0+
-Received: by mail-wr2-f7.google.com with SMTP id ffacd0b85a97d-48df951fd31so1048794f8f.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:42:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=theori.io; s=google2026; t=1794350575; x=1794955375; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=65ccBi3rzxm73dF4Hh1JDA1NcutcYotrBjNv9MyOyhM=;
-        b=B97Y8h0+lfe0/AHj05Oi62WQcXmqYayJBwOKgM1wVexj6YwUmIAqvFuBFFwUuqlfgS
-         IcISOfys3nOJeliQbQCcJI93jcdbdCp0miw66BPLtx4h+/++Za5uIfBKuLI3ATz3lC3j
-         HeqMIeq50joZTvZ26NwuKH5VbWUCHE66zQK6M3eYQ2ECiTJi8//6KaCbID4zOxfEgcu/
-         teqJcgi6kRX+vyvKE1n6iRdOchyPXoxjB5BhNTAjzDzu5FJNS2/I4f8zopNLKYtM+VV5
-         ee0+gKenqyZmr7UVHrh0ElNeP59/hS3F0+poENrwM70ne0tofjwHpS1Zkci6R7Y/Ok6L
-         jqDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794350575; x=1794955375;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=65ccBi3rzxm73dF4Hh1JDA1NcutcYotrBjNv9MyOyhM=;
-        b=APm90smuN078Qzb2W6qaY4vhQB8Yy0ZUnRNpKFmztdVSEbhf/swoLMOeXvSsbo6ho5
-         iDbRWJZC1LvF2Wu59NY0vRYQAbdgCss5ZRsvl2nyuAxHobzMGMr91f72pW1fBa1bFFGn
-         ZbQnowGhSGoA9vdshsTWHTo4GLRxaePFgfYCD3uWb1JXhprL2/MR6Ayou/RDkJI44Ymv
-         auPt8br8OQKZnD4nDvNYuOQWs2BC2whRo/1rlX3agBzWyrGgwiLHsZcoz4SdMYTXFXjW
-         WfeoQbm7U/g3+Dfuwzzze/cKug6LKox3gAnQD3cbyYk08nbjK8/rRJSyi37/wBo1435G
-         2D7A==
-X-Forwarded-Encrypted: i=1; AL+hErFigN900ddRwUac6Efm0iaHtJS9wJc4ZreqqIC4wWSz3ImXWhpaUtEZ1Kh/007W/VUFa6jmqGA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91LcTlgVqBu3Iez76c6a+xWfJMhrxLhXyY3EBEtJPg0vPf7ZPS
-	rSqJ3lZiC8Crd2Nqd5luzv0Axl7n5UD3MxsucVfxrjt6dHf1jV1DkzRxYNmfo1ygxQQ=
-X-Gm-Gg: AYBFou18vWzRP+L2w8rMiXjtvxR7XDf8eG8nCOQPYkN20hPobxnB+8FM0F+E6+zvKzx
-	SUBUf6bX3ejwBo0IHo9PmXhvJTaDen/90meDxCPO2YoUDmu48RIIOuEypjz7TG/Mx778ICYoWIj
-	yoLpE4D2lV1Uj2GxpeSky3p5XPAt1x5HP+ROwnfWBBOfVT0GMhc22naxGAQuREARw+E3gENWZ0U
-	l/849FAKiA+uV3cfPSwkNB3KY4hFiSmEqCs/6y7iQtOYAyVUyKL5vOB23Exazia2xzJU03BGksX
-	Onwqh3uXJZ1Sx3S5Deqz7+j4Wd1E6/A1qWkaaqNrNBoWQkzjran7Pr/NGVOVwOL519k/OGrx7di
-	LAwGyrJMTfuX1P3sRLeCPGHvPx9fkLfz8LQy9T4IqnIBsjJeAx7WzXVdW2UDv7eUBjjGiX0FVV7
-	yDSlNePbcmi9etcLAq5DA9LaOOFHnudf2TxbBGojfHg/WUj+EyCzLIMO0V8dbTn1B43mRdnvLB2
-	SdVHxuO5m+DW7UNbZll0eePQkJfOyvFiKgcPOJ3oNdeviLeWkORQsFV5sF3b5o9wK+97TXcCQO4
-	r4BF/hCgxs0CVP7mR4D0Bh3mLySUnWhrTPcw19CzpvBK6Wz9bzedido9pF8Kum9YgkhpnFqwpcE
-	v9BID8w==
-X-Received: by 2002:a05:6000:2308:b0:48e:6f76:de9c with SMTP id ffacd0b85a97d-499c6e9636amr523356f8f.28.1794350574841;
-        Tue, 10 Nov 2026 14:42:54 -0800 (PST)
-Received: from localhost.localdomain (bbcs-110-227.pub.wingo.ch. [144.2.110.227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983585923bsm7599946f8f.11.2026.11.10.14.42.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 10 Nov 2026 14:42:53 -0800 (PST)
-From: Yves Bieri <yves.bieri@theori.io>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yves Bieri <yves.bieri@theori.io>,
-	stable@vger.kernel.org
-Subject: [PATCH net] sctp: do not free a new asoc peeled off while sendmsg slept
-Date: Tue, 10 Nov 2026 23:42:33 +0100
-Message-ID: <20261110224233.82977-1-yves.bieri@theori.io>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HC+7savY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC171F008A2;
+	Tue, 10 Nov 2026 22:44:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794350674;
+	bh=vFnD84xzsJbpZSzjq3IWWLmQ9UPjNCr62mXf5P81X+I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HC+7savYtFwvNyjfAu5BfoYEXilfURCk8ZG92KugPmZAkEsP0iKZBxmL1D/K4ojDA
+	 HI0+FX+d5Qop0Vm2DXAnP15WIoC+xDTw24OjIVKvI36tQudEDbnGn4XZ+pL+xwv91K
+	 MNr93ByA4qRp2vTFbQx8nxFacYFHrfYS4qgQoRhA9Dnp8TdxD41UbzeJ1Dl5mk49Yh
+	 H6tzUoHo7sOiWTSVPu9BqzZE19Xf1yhMZbTpMnZ7ETUbMr+kbRwJeW9dcsW1hUCauk
+	 88tMj5+MWqE4QkDotWeLz3Lp6wwfEVf+IgmRetV+wFabdGkscpKYOx9fUTl4YqG0wm
+	 f+GtirRUnBSrA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Devin Wittmayer <lucid_duck@justthetip.ca>,
+	Chris <hoopyfrood42@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] wifi: mt76: move the channel survey when the channel changes
+Date: Tue, 10 Nov 2026 17:44:31 -0500
+Message-ID: <20261110223343.4033618-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053231-failed-6.6-68342a7bd7e5@kernel.org>
+References: <20261107053231-failed-6.6-68342a7bd7e5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,92 +62,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When sctp_sendmsg() creates a new association and sending on it fails
-with anything but -ESRCH, it frees the association. The send can
-sleep in sctp_wait_for_sndbuf(), which releases the socket lock, and
-meanwhile another thread can peel the new association off to a new
-socket. The wait then returns -EPIPE, and sctp_sendmsg() frees an
-association that now belongs to the peeled-off socket, without holding
-that socket's lock.
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
 
-If the peeled-off socket frees the association first, e.g. on close(),
-sctp_sendmsg() frees it a second time. Otherwise a syscall running
-concurrently on the peeled-off socket can use it after sctp_sendmsg()
-freed it. Both are reachable by an unprivileged user. The double free
-on net with KASAN:
+[ Upstream commit 68342a7bd7e5e273e2969e3c0f4c62ee3d006ce8 ]
 
-  BUG: KASAN: double-free in sctp_tsnmap_free+0x5c/0x80
-   sctp_association_free+0x1eb/0x750
-   sctp_sendmsg+0x15ff/0x2020
-  Freed by task 836:
-   sctp_association_free+0x1eb/0x750
-   sctp_primitive_ABORT+0x85/0xe0
-   sctp_close+0x22a/0x8d0
+mt7921 and mt7925 report every survey counter against one channel and
+never mark the one in use. With firmware channel management, both use
+channel contexts and never call __mt76_set_channel(), so
+phy->chan_state, phy->chandef and phy->main_chandef keep the first
+channel of the band.
 
-Commit dfcb9f4f99f1 ("sctp: deny peeloff operation on asocs with threads
-sleeping on it") fixed this double free by denying the peeloff.
-Commit cea0cc80a677 ("sctp: use the right sk after waking up from
-wait_buf sleep") replaced that check, and commit a0ff660058b8 ("sctp:
-return error if the asoc has been peeled off in sctp_wait_for_sndbuf")
-reverted it to return -EPIPE, without restoring the check.
+Update them when a context is assigned or changed, after booking the
+time spent on the old channel. This also makes the legacy rate lookup
+in mt76_connac2_mac_fill_txs() and mt7925_mac_add_txs_skb() use the
+band of the current channel.
 
-Fix this by holding a reference on the new association while sending
-on it, and by freeing it on error only if this socket still owns it.
-asoc->base.sk only changes in sctp_sock_migrate(), which runs with this
-socket locked, so the ownership check is stable. The reference keeps
-the check safe if the new owner frees the association meanwhile.
-Userspace still gets -EPIPE, and the association stays with the socket
-it was peeled off to.
+With two channel contexts (multi-channel or MLO), the survey follows
+the context that was assigned or changed last, since the driver reads
+the band 0 counters only.
 
-This was found by Xint Code, an AI code review agent, and reproduced as
-an unprivileged user on net with KASAN (trace above), without modifying
-the kernel or using error injection. With this patch the sender gets
--EPIPE and the association keeps working on the peeled-off socket.
-Without a peeloff, a failed send that created the association (EAGAIN,
-EINTR) still frees it, and a peer ABORT while the sender sleeps still
-frees it exactly once. The SCTP selftest sctp_vrf.sh passes. The
-reproducer is available on request.
+Tested on MT7922 over PCIe, MT7921AU and MT7925 over USB.
 
-Fixes: a0ff660058b8 ("sctp: return error if the asoc has been peeled off in sctp_wait_for_sndbuf")
+Fixes: 41ac53c899bd ("wifi: mt76: mt7921: introduce chanctx support")
+Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yves Bieri <yves.bieri@theori.io>
+Reported-by: Chris <hoopyfrood42@gmail.com>
+Closes: https://lore.kernel.org/linux-wireless/CAHaeJsT8O8Nhq351hFp3NAL8e0iU85N-LBdYZ9nYHFHVy7t_hQ@mail.gmail.com/
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20261001003501.2425492-1-lucid_duck@justthetip.ca
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+[ sashal: adapted channel survey integration to the existing main_chan field and MT7921 context layout. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Tested on net at b71c101bbb98.
+ drivers/net/wireless/mediatek/mt76/mac80211.c    | 14 ++++++++++++++
+ drivers/net/wireless/mediatek/mt76/mt76.h        |  2 ++
+ drivers/net/wireless/mediatek/mt76/mt7921/main.c |  1 +
+ drivers/net/wireless/mediatek/mt76/mt792x_core.c |  1 +
+ 4 files changed, 18 insertions(+)
 
-The fix and this message were drafted with Claude, and reviewed and
-tested by me.
-
- net/sctp/socket.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index b5a57f6..e7e14a0 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -2082,10 +2082,20 @@ static int sctp_sendmsg(struct sock *sk, struct msghdr *msg, size_t msg_len)
- 	/* Update snd_info with the asoc */
- 	sctp_sendmsg_update_sinfo(asoc, sinfo, &cmsgs);
+diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/wireless/mediatek/mt76/mac80211.c
+index 3f09bf58130d4..379eecd09d0f0 100644
+--- a/drivers/net/wireless/mediatek/mt76/mac80211.c
++++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
+@@ -945,6 +945,20 @@ void mt76_update_survey(struct mt76_phy *phy)
+ }
+ EXPORT_SYMBOL_GPL(mt76_update_survey);
  
-+	/* sctp_sendmsg_to_asoc() may release the socket lock while waiting,
-+	 * and a new asoc can be peeled off to another socket meanwhile.  Hold
-+	 * it, and free it on error only if it is still owned by sk.
-+	 */
-+	if (new)
-+		sctp_association_hold(asoc);
++void mt76_phy_chandef_set(struct mt76_phy *phy,
++			  struct cfg80211_chan_def *chandef)
++{
++	if (!chandef->chan)
++		return;
 +
- 	/* Send msg to the asoc */
- 	err = sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo);
--	if (err < 0 && err != -ESRCH && new)
--		sctp_association_free(asoc);
-+	if (new) {
-+		if (err < 0 && err != -ESRCH && asoc->base.sk == sk)
-+			sctp_association_free(asoc);
-+		sctp_association_put(asoc);
-+	}
++	mt76_update_survey(phy);
++
++	phy->chandef = *chandef;
++	phy->main_chan = chandef->chan;
++	phy->chan_state = mt76_channel_state(phy, chandef->chan);
++}
++EXPORT_SYMBOL_GPL(mt76_phy_chandef_set);
++
+ void mt76_set_channel(struct mt76_phy *phy)
+ {
+ 	struct mt76_dev *dev = phy->dev;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wireless/mediatek/mt76/mt76.h
+index 5050f640530f8..37ba676ca9038 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76.h
++++ b/drivers/net/wireless/mediatek/mt76/mt76.h
+@@ -1297,6 +1297,8 @@ void mt76_release_buffered_frames(struct ieee80211_hw *hw,
+ bool mt76_has_tx_pending(struct mt76_phy *phy);
+ void mt76_set_channel(struct mt76_phy *phy);
+ void mt76_update_survey(struct mt76_phy *phy);
++void mt76_phy_chandef_set(struct mt76_phy *phy,
++			  struct cfg80211_chan_def *chandef);
+ void mt76_update_survey_active_time(struct mt76_phy *phy, ktime_t time);
+ int mt76_get_survey(struct ieee80211_hw *hw, int idx,
+ 		    struct survey_info *survey);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+index 8f0976e9c295e..acf54f27332f6 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+@@ -1292,6 +1292,7 @@ static void mt7921_ctx_iter(void *priv, u8 *mac,
+ 		mt7921_mcu_config_sniffer(mvif, ctx);
+ 	else
+ 		mt76_connac_mcu_uni_set_chctx(mvif->phy->mt76, &mvif->mt76, ctx);
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ }
  
- out_unlock:
- 	release_sock(sk);
-
-base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
+ static void
+diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+index d990e34cfcd23..aa76ca4be33a8 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
++++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+@@ -244,6 +244,7 @@ int mt792x_assign_vif_chanctx(struct ieee80211_hw *hw,
+ 
+ 	mutex_lock(&dev->mt76.mutex);
+ 	mvif->mt76.ctx = ctx;
++	mt76_phy_chandef_set(&dev->mphy, &ctx->def);
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+ 	return 0;
 -- 
-2.43.0
+2.53.0
+
