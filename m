@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311298;
-	b=4BdXiTYaLNPQU82qUClrcAdbwHlcrEsYhGQk1sjg7ds10ztd1MXARKZMNbiYk2oF/EJ7
-	 uiXU2vPQYIo0E2X4hweUVZXT/xZApBc9onNijFLZRHzOfUXGOlnlLKYL6yqhI+capHED+
-	 eT6MeT3tudHoZtSujg62NkEXtHZTVDlmmoEZJv4utO2UX9Py/UZKtjQkGJy6DpByAq0FM
-	 HyGXx8ZZVOzA36T3He4fena83Erx9Iu1PMIiCxf7q47AD4qHGn75nEhm+AA+ZwRP3WW92
-	 ItVrVhVK4PJVTS7dgghz8pCy5dfwUeJySSSJoGWWxbVlJdAmJbhmobNdld+iL4n70iQ==
+	t=1794311356;
+	b=WpbuG9Wni4VRmGWY+gq06L4WTB6UlkxJZI2HfbBpBkeB44KOy6mDIj5DSOB64BrE9ycw
+	 YQQVEQy9GRqXF3yngq4YVPplJWpyUd1hN2lc2h/k+UyGyPPELkyJMTu5nXZUuWf22ZOm6
+	 j3+sOYjjbe9w7y/Vv/SdPA8WomuIRbMk5s1YlCAx4TxRqWrNNapJkOM+LX0OKBgCMWgRH
+	 FKh6dba56VkJCTiTl744zVKlcK5IVvaz36Ze2Yr5l+elsenL2AkE61q+BifTZ30ygCYXF
+	 MdlZL5szt/9/DK4KgPG2BV4njWadeI3JRefbDGttfrYbBoxSGjsfVyWvHzDI/4LObDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311356;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rPuq8HZwfQSj8hKo89LthqS8VkiUPAcn83ucvF3u10s=;
-	b=zYC0FQwz+baxNz1bU0s2oV7KYwlVdbwoGmd8AdA38Pr6N6JJ+qjMrC2jMWwdOnxmbaf4
-	 fYESxE9o1HA6HzS+VSRWVaJKc3a8g01wEPoQTyRSy2inl0O7w9d9QOlJbbf8ROWGcNg1E
-	 ubOvHj3fqNF14caAiM6TQwh1r9OZXGymQoFVNJUzl729RQkmYSyfWpbn7FMmqseAm1R2c
-	 NX0tvddtnVefNP+SFyb6hy3K9Re7omLjPRlDPlvpy2YCO1+EWob/kkyEca0hbnb0q+Ngg
-	 qvFhtDJhnzs75pVJpG8wtnZD9vpb+t41K+xLljeCNAPs5YeiEM1TO3U/0bu4slsc2FQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=r8N0OWiyKAatgIhZ4pD7zbJ+IVTIbjv3CTH0tirxUno=;
+	b=4eHV9rCJtMQJzJAwcqI9ukqYwFbtZelA799NiGJT5mx6TGxGIR/LZzPD/UJWa710nF0E
+	 hicNXEpXUFEgq7Rrm2KKOtCmIpr4HYP7dNX+jO+iUG5rNY/cxjERP6BLyc+xST9WmLvvW
+	 XqOlPHMB1IfjIJ8nkh221ySg2LgVri+PTZhZlTZSo7RtabHZMSxJFgy91mK89ZvjaAwLN
+	 SeSlEMEZEFVwH04AReF/znqpCPNUE9RGxBLmj6NVe7P49+4hFzR0e0OI5+BhZRtpSX1xc
+	 mT9Zva7W5hC6yyE0cvGV2SbsPjQEYMpoRtRIqIl8P36b8mf1lp85cqu32MCd8Pqs3oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYMBlAWu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDLsqDkc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38B4606A333
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:48:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE74606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYMBlAWu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485DB1F0089F;
-	Tue, 10 Nov 2026 11:48:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDLsqDkc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7235A1F0089F;
+	Tue, 10 Nov 2026 11:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311297;
-	bh=rPuq8HZwfQSj8hKo89LthqS8VkiUPAcn83ucvF3u10s=;
+	s=k20260515; t=1794311355;
+	bh=r8N0OWiyKAatgIhZ4pD7zbJ+IVTIbjv3CTH0tirxUno=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cYMBlAWuFPDHhNbrj2Q+gSJ9CJ1PcVigzeI/NZNhFDw/Fv3ufqr5f7CKyFHUxCwdI
-	 Z+BSexOoKb623A2AduuC8A4HbdgYq6WqcZ/6rAvsc1rJaj4C/HpDxifI/zWQVF8FY5
-	 rbNC1JLDGUfushl8Wa2e1yrZ2DLRn6lPaFWGPQVypO0zCk0NiBlblofWxREqH4YECR
-	 M+1y7AAEPFJNQ0TD1JjYB6bwdNgnxoVF5YUGC0ZaMU0w3WaufOx66FqpeGRSBm33b4
-	 gMkSt4OAFLJm8s6idbCcIIbU2A297vKuF6s56xDoXDXbbgMHKLNbqULGxCX1ZDRQXW
-	 n6ze+UHqRZC0Q==
+	b=LDLsqDkcpCXCg+bL+A+iyvv1jdnDqdpcENVfgIZllIRdjoFp5irQdzRYG6B57JprW
+	 nALfLbC27au8lk6gXUw7mBcweMPlOxU6DE1FuxmdhEpREJ4oztaa9+J0uJp4kTaZhu
+	 SMbV872/800VGhpV1xiiVet8Kjt7Md0ZATWjSA7mLDMA5el8V5syAgNpET/ezY9wdv
+	 IEpT+ogFfJC3hDcs9Lianrl60snqzYF+Z3pnszfKRat3mTztSNihmqc1L1Uj4GS86/
+	 rHDpVG8VE04qF/+NHLLcHgPrlrE8HuTdBmevjM5RxMEWXji1SeyqR0u4S/BgyCdAWd
+	 EUy52yv7zZ+MA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wei-Lin Chang <weilin.chang@arm.com>,
-	Sashiko AI <sashiko-bot@kernel.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-	Marc Zyngier <maz@kernel.org>,
+Cc: Yunpeng Tian <shionthanatos@gmail.com>,
+	Gongming Wang <gmwgg05@gmail.com>,
+	Mingda Zhang <npczmd@qq.com>,
+	Qinrun Dai <jupmouse@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: arm64: ptdump: Check the page tables aren't freed when accessing
-Date: Tue, 10 Nov 2026 06:48:14 -0500
-Message-ID: <20261110114755.606960-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] udf: validate the device specification EA before using it
+Date: Tue, 10 Nov 2026 06:49:13 -0500
+Message-ID: <20261110114858.624535-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050719-failed-6.18-7d7199bdf77a@kernel.org>
-References: <20261107050719-failed-6.18-7d7199bdf77a@kernel.org>
+In-Reply-To: <20261107050612-failed-6.18-9a2390959685@kernel.org>
+References: <20261107050612-failed-6.18-9a2390959685@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,146 +62,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Wei-Lin Chang <weilin.chang@arm.com>
+From: Yunpeng Tian <shionthanatos@gmail.com>
 
-[ Upstream commit 7d7199bdf77a3a6ed74d0037133f435a7febe97c ]
+[ Upstream commit 9a2390959685ac35a58c80c8016120849a2babf6 ]
 
-An open debugfs file keeps the KVM structure alive, but does not prevent
-mmu notifier release from freeing the stage-2 page tables when the VMM’s
-address space is torn down. Therefore page tables belonging to the mmus
-could have been freed when a thread opens or reads the ptdump files.
-Take the mmu_lock and check mmu->pgt is still alive before accessing the
-page tables.
+udf_get_extendedattr() bounds an extended attribute only against
+struct genericFormat, which is 12 bytes.  A type-12 device
+specification is struct deviceSpec, which is 24 bytes plus a flexible
+impUse array. Thus a corrupted filesystem can contain extended attribute
+that is accepted by udf_get_extendedattr() but udf_write_inode() or
+udf_read_inode() may access beyond the end of provided buffer.
 
-Also for the ipa_range file and stage2_levels file, switch from keeping
-the pointer to the page tables to keeping the pointer to the mmu.
+Provide a udf_device_spec_valid() check to validate correctness of
+extended attribute that is a deviceSpec. While here, check the result of
+udf_add_extendedattr() before dereferencing it as it can return NULL in
+case of error.
 
-Fixes: 7c4f73548ed1 ("KVM: arm64: Register ptdump with debugfs on guest creation")
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/kvmarm/20260623144054.B91D21F000E9@smtp.kernel.org/
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+[JK: Removed duplicated validity checks]
+
+Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
+Reported-by: Gongming Wang <gmwgg05@gmail.com>
+Reported-by: Mingda Zhang <npczmd@qq.com>
+Reported-by: Qinrun Dai <jupmouse@gmail.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260924094951.727352-2-weilin.chang@arm.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: copied ia_bits alongside start_level under mmu_lock to accommodate parser initialization during open ]
+Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adapted udf_write_inode() changes to udf_update_inode() while preserving its existing err variable and synchronous writeback error handling ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/ptdump.c | 50 +++++++++++++++++++++++++++++------------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+ fs/udf/inode.c | 42 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
-index dc5acfb00af91..8e4966194be49 100644
---- a/arch/arm64/kvm/ptdump.c
-+++ b/arch/arm64/kvm/ptdump.c
-@@ -97,22 +97,35 @@ static struct kvm_ptdump_guest_state *kvm_ptdump_parser_create(struct kvm *kvm)
- {
- 	struct kvm_ptdump_guest_state *st;
- 	struct kvm_s2_mmu *mmu = &kvm->arch.mmu;
--	struct kvm_pgtable *pgtable = mmu->pgt;
-+	s8 start_level;
-+	u32 ia_bits;
- 	int ret;
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index d00b78523a967..a9538a0f9734b 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -1346,6 +1346,26 @@ int udf_setsize(struct inode *inode, loff_t newsize)
+ 	return err;
+ }
  
-+	/*
-+	 * We only need the pgt start level and IPA size to initialize the ptdump,
-+	 * get them while holding the mmu_lock. It's fine if the pgt gets freed
-+	 * afterwards, we'll check again when doing the actual dump.
-+	 */
-+	scoped_guard(read_lock, &kvm->mmu_lock) {
-+		if (!mmu->pgt)
-+			return ERR_PTR(-ENOENT);
-+		start_level = mmu->pgt->start_level;
-+		ia_bits = mmu->pgt->ia_bits;
-+	}
++/*
++ * Verify validity of struct deviceSpec on disk. udf_get_extendedattr() has
++ * already verified the generic header and made sure attribute fits in the
++ * inode so we just have to make sure attribute space is large enough for
++ * deviceSpec struct and required impUse information.
++ */
++static bool udf_device_spec_valid(struct deviceSpec *dsea)
++{
++	u32 attr_length, imp_use_length;
 +
- 	st = kzalloc(sizeof(struct kvm_ptdump_guest_state), GFP_KERNEL_ACCOUNT);
- 	if (!st)
- 		return ERR_PTR(-ENOMEM);
- 
--	ret = kvm_ptdump_build_levels(&st->level[0], pgtable->start_level);
-+	ret = kvm_ptdump_build_levels(&st->level[0], start_level);
- 	if (ret) {
- 		kfree(st);
- 		return ERR_PTR(ret);
++	attr_length = le32_to_cpu(dsea->attrLength);
++	imp_use_length = le32_to_cpu(dsea->impUseLength);
++	if (attr_length < sizeof(struct deviceSpec) ||
++	    imp_use_length < sizeof(struct regid) ||
++	    imp_use_length > attr_length - sizeof(struct deviceSpec))
++		return false;
++
++	return true;
++}
++
+ /*
+  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
+  * arbitrary - just that we hopefully don't limit any real use of rewritten
+@@ -1664,13 +1684,12 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
+ 	if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode)) {
+ 		struct deviceSpec *dsea =
+ 			(struct deviceSpec *)udf_get_extendedattr(inode, 12, 1);
+-		if (dsea) {
+-			init_special_inode(inode, inode->i_mode,
++
++		if (!dsea || !udf_device_spec_valid(dsea))
++			goto out;
++		init_special_inode(inode, inode->i_mode,
+ 				MKDEV(le32_to_cpu(dsea->majorDeviceIdent),
+ 				      le32_to_cpu(dsea->minorDeviceIdent)));
+-			/* Developer ID ??? */
+-		} else
+-			goto out;
  	}
+ 	ret = 0;
+ out:
+@@ -1818,6 +1837,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 				udf_add_extendedattr(inode,
+ 						     sizeof(struct deviceSpec) +
+ 						     sizeof(struct regid), 12, 0x3);
++			if (!dsea) {
++				err = -ENOSPC;
++				goto out_unlock;
++			}
+ 			dsea->attrType = cpu_to_le32(12);
+ 			dsea->attrSubtype = 1;
+ 			dsea->attrLength = cpu_to_le32(
+@@ -1825,6 +1848,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 						sizeof(struct regid));
+ 			dsea->impUseLength = cpu_to_le32(sizeof(struct regid));
+ 		}
++		if (!udf_device_spec_valid(dsea)) {
++			err = -EFSCORRUPTED;
++			goto out_unlock;
++		}
+ 		eid = (struct regid *)dsea->impUse;
+ 		memset(eid, 0, sizeof(*eid));
+ 		strcpy(eid->ident, UDF_ID_DEVELOPER);
+@@ -1966,6 +1993,11 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 	brelse(bh);
  
- 	st->ipa_marker[0].name		= "Guest IPA";
--	st->ipa_marker[1].start_address = BIT(pgtable->ia_bits);
--	st->range[0].end		= BIT(pgtable->ia_bits);
-+	st->ipa_marker[1].start_address = BIT(ia_bits);
-+	st->range[0].end		= BIT(ia_bits);
- 
- 	st->kvm				= kvm;
- 	st->parser_state = (struct ptdump_pg_state) {
-@@ -141,9 +154,11 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
- 
- 	parser_state->seq = m;
- 
--	write_lock(&kvm->mmu_lock);
-+	guard(write_lock)(&kvm->mmu_lock);
-+	if (!mmu->pgt)
-+		return 0;
+ 	return err;
 +
- 	ret = kvm_pgtable_walk(mmu->pgt, 0, BIT(mmu->pgt->ia_bits), &walker);
--	write_unlock(&kvm->mmu_lock);
- 
- 	return ret;
- }
-@@ -193,17 +208,27 @@ static const struct file_operations kvm_ptdump_guest_fops = {
- 
- static int kvm_pgtable_range_show(struct seq_file *m, void *unused)
- {
--	struct kvm_pgtable *pgtable = m->private;
-+	struct kvm_s2_mmu *mmu = m->private;
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-+
-+	guard(read_lock)(&kvm->mmu_lock);
-+
-+	if (mmu->pgt)
-+		seq_printf(m, "%2u\n", mmu->pgt->ia_bits);
- 
--	seq_printf(m, "%2u\n", pgtable->ia_bits);
- 	return 0;
++out_unlock:
++	unlock_buffer(bh);
++	brelse(bh);
++	return err;
  }
  
- static int kvm_pgtable_levels_show(struct seq_file *m, void *unused)
- {
--	struct kvm_pgtable *pgtable = m->private;
-+	struct kvm_s2_mmu *mmu = m->private;
-+	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-+
-+	guard(read_lock)(&kvm->mmu_lock);
-+
-+	if (mmu->pgt)
-+		seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - mmu->pgt->start_level);
- 
--	seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - pgtable->start_level);
- 	return 0;
- }
- 
-@@ -211,15 +236,12 @@ static int kvm_pgtable_debugfs_open(struct inode *m, struct file *file,
- 				    int (*show)(struct seq_file *, void *))
- {
- 	struct kvm *kvm = m->i_private;
--	struct kvm_pgtable *pgtable;
- 	int ret;
- 
- 	if (!kvm_get_kvm_safe(kvm))
- 		return -ENOENT;
- 
--	pgtable = kvm->arch.mmu.pgt;
--
--	ret = single_open(file, show, pgtable);
-+	ret = single_open(file, show, &kvm->arch.mmu);
- 	if (ret < 0)
- 		kvm_put_kvm(kvm);
- 	return ret;
+ struct inode *__udf_iget(struct super_block *sb, struct kernel_lb_addr *ino,
 -- 
 2.53.0
 
