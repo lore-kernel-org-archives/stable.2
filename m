@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280200;
-	b=3TqPk6tvrdO6hPj9719cFcJXPEelHTpp5GaegaZyQkHSP8pgBkPUHJ07JobOQa7C76yg
-	 TdsmNobhhP6E/m4l8H1iusBzRmgEPL5I05K95QtUAk2+NRwSMicUuXxt3Z3uTpS9wgwN7
-	 mcggIdpeCxWlhNrfA0HDs4zziTw5tRH94KegrYwl+v9MKuPhQbRMKH+GbcQG/G+psd32w
-	 MfCEXJSPmcBeyM6kKPLJJr+f7DXzX1QpCUHxrjZdTYCP09Twc3foLi1VRw2IhrPcMSHcx
-	 kBS5OmWYHFdr2efxApefJ1EIwMBW4oOlIcXt8LYyda48g8ohdpmJJUqKxho/w4hWKyg==
+	t=1794280201;
+	b=sS4XB67VQbieG8/66ILxrz/WNmpJOnLSwgV5uPSOpM2ueMoqnyInQmVjrFpBjNQjA8C6
+	 Owps59CJN7ixPwq/sIKTnDRMLJ0BbH2DfAvAcXg+FTDtCdzh3D2X9SxJqeM/A4+GYaTQO
+	 SwEpfgleZpSy+5VYMq4+VWP5pIWQmr+5J1LY/vrF/Rijk5bqZwHI+7C5ETaZVfxa4zQrl
+	 hKk3gQv+KjxErlINR2K2cMynYfpI+Fo5gELDy5xUiwXov+b4yNw4leg5/YIgjcNPdEhTK
+	 zU1YLN5w+8oXoyVyOqwKODc4tV8lfuJumyueCpa7S7Tv2SlGKur/0oUnUzpr5RZd0Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280201;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mDRqSb05I27Y3g9iBo0SjNaSIIaNupxmq4LkzeziBJk=;
-	b=KnmBkzm1/8P3P56PbJnuaH0jdANu/gHaX/IJMDkndrLYfRooOkROhVk/n5MblLBWX8zU
-	 XgvQqSxAP2Ht9SR0zXBIIk2i3nmMrajO8+xrrLfcd4JsO+H+dklHqS0VTS1OKdUxSKdkN
-	 lgccozNad5IFnj9PQ/zreJ/w9P0Qzw3uHGQHhUocNUkdLfvF5hfkCzjsunCuxaM9WeJZS
-	 6kXg6GCckkbXAZ5jdp2jxI2vuR9E8blnjtmElNM/PGdpFdk4WK658Tmj+8UE4ESHJj5GH
-	 o8p5fQbqaVj0e6Pznu10FTvJ3W6zrDz/6pENatxfV21ZbzrsS30MDZbfeprhqybzgIg==
+	bh=PywiT9Ep14G0sBmfohyQYhBCz2Fict1x3Orh8NoCAsE=;
+	b=bSyu6y56ZMAIn8IOFkt35AgATqjSnMvv1iAuLdxMI909JBkn4WBzXeRsDoVT56ufN6oB
+	 aEhPewG2ykCsGv0yIJvhToYDnS+3cbgSx1RpKcuA3YMkmLveDUGxvNPNzVZb7KoZhp2fh
+	 1YM0Wj/UmtI4lPEKo0cCC4x0RVpdFFVJ7GIlHarbWvDp6HiPg1pjcWkuiYtJ5r+qS1nJN
+	 9RZB5m8pfXUybArRFjAypn6VFYzil7eLkrEt/6IwTKlszKC4NIozDwN1D+0Q/HB4qwh4S
+	 4Z7gdt9J9l9b86mPAKZAwMEcDeCAJAWwoOso+7JFmtUqgMnaLX6iVWXzQxa0ZW0SllQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FZg/rVOE";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3bFrYRo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5370606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10571606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZg/rVOE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E044B1F008A1;
-	Tue, 10 Nov 2026 03:09:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3bFrYRo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E483E1F008A4;
+	Tue, 10 Nov 2026 03:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280199;
-	bh=mDRqSb05I27Y3g9iBo0SjNaSIIaNupxmq4LkzeziBJk=;
+	s=k20260515; t=1794280200;
+	bh=PywiT9Ep14G0sBmfohyQYhBCz2Fict1x3Orh8NoCAsE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FZg/rVOE0YS1LKl1wZVRq4lC7Xmwp8YvXshKv6z3EGV4lf6y8NUptobJgZ/nrnHzI
-	 BxWrNm7Lhah09gHi257u/YuGoJfKxRTvytB2r5p689FHt8ziqr6Ri1vhGUI1+BWNDK
-	 /bcG6tftArjSYlsAgU7LYeQbrkfTV/Pd+0J5yLdpYoBppyaJwxkolsqlQ5oaxIXGA6
-	 WzZwZgn3ZroQpM1sLXJ/GEY8p5FTAgANveiV3+V3JilTUN5JuIbv8XrH4R5kyPPDDr
-	 JTFTvAbDXl7Xd451mBRe/a13cpWrXXMQ8u8hWun0KOjBgOGlUxFDhV6wDGm5hb72o1
-	 n2L8XXrqmmWUg==
+	b=I3bFrYRo3xrZCy2zQ4mD2HgstWog/8QEgiyJiqO1Y2FZIrBUao/wAt9snBWLszBAI
+	 idporgrK5allJQncy2IDQba6RFsQ35wwI9f9oTMINrvHhvCWUAe3PY9v85wpfY67QF
+	 /Ddn0jr0EDv4KjaQmFRDqCGGewZSHVnCSRg4ss13iPAGSKlovQHlK+Mr/OHNTLtMWS
+	 hevjYfbCXUpUV7j7ZGilc24KlohD/7jdelG2TR0NTOlr+mb7Eo/HJ+uqbdQnIpnl/J
+	 XMM5CQKZDALqspn2ccZyl+ESEgd+exThAaqXGs6rb0cpQ1U21Zn2RlGipcFd/8LlbH
+	 d/cA8bKdEjSFw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yihao Han <hanyihao@vivo.com>,
-	Neil Armstrong <narmstrong@baylibre.com>,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+Cc: Sean Young <sean@mess.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] media: meson-ir-tx: remove superfluous dev_err()
-Date: Mon,  9 Nov 2026 22:09:56 -0500
-Message-ID: <20261110030950.4189721-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] media: meson-ir-tx: Ensure probe error is propagated
+Date: Mon,  9 Nov 2026 22:09:57 -0500
+Message-ID: <20261110030950.4189721-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055721-failed-5.15-2eb8a4cba70f@kernel.org>
+In-Reply-To: <20261110030950.4189721-1-sashal@kernel.org>
 References: <20261107055721-failed-5.15-2eb8a4cba70f@kernel.org>
+ <20261110030950.4189721-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,38 +64,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yihao Han <hanyihao@vivo.com>
+From: Sean Young <sean@mess.org>
 
-[ Upstream commit 82b4737fd001247527405b19045c25bf1622ab6d ]
+[ Upstream commit 2eb8a4cba70f521a8217021e227cfa28ba17724b ]
 
-Remove dev_err() messages after platform_get_irq*() failures.
-platform_get_irq() already prints an error.
+devm_clk_get_enabled() may return -EPROBE_DEFER which needs to be
+propagated else the probe will not be deferred, it will fail instead.
 
-Generated by: scripts/coccinelle/api/platform_get_irq.cocci
-
-Signed-off-by: Yihao Han <hanyihao@vivo.com>
-Reviewed-by: Neil Armstrong <narmstrong@baylibre.com>
+Fixes: 49be1c78d575 ("media: rc: introduce Meson IR TX driver")
 Signed-off-by: Sean Young <sean@mess.org>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
-Stable-dep-of: 2eb8a4cba70f ("media: meson-ir-tx: Ensure probe error is propagated")
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: stable@vger.kernel.org
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/meson-ir-tx.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/media/rc/meson-ir-tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
-index 498692ef2e803..e050430ffc7b3 100644
+index e050430ffc7b3..d26fbe0b65de1 100644
 --- a/drivers/media/rc/meson-ir-tx.c
 +++ b/drivers/media/rc/meson-ir-tx.c
-@@ -327,10 +327,8 @@ static int __init meson_irtx_probe(struct platform_device *pdev)
- 		return PTR_ERR(ir->reg_base);
+@@ -295,7 +295,7 @@ static int meson_irtx_mod_clock_probe(struct meson_irtx *ir,
+ 
+ 	clock = devm_clk_get_enabled(ir->dev, "xtal");
+ 	if (IS_ERR(clock))
+-		return -ENODEV;
++		return PTR_ERR(clock);
+ 
+ 	ir->clk_rate = clk_get_rate(clock) / 3;
+ 
+@@ -328,7 +328,7 @@ static int __init meson_irtx_probe(struct platform_device *pdev)
  
  	irq = platform_get_irq(pdev, 0);
--	if (irq < 0) {
--		dev_err(dev, "no irq resource found\n");
-+	if (irq < 0)
- 		return -ENODEV;
--	}
+ 	if (irq < 0)
+-		return -ENODEV;
++		return irq;
  
  	ir->dev = dev;
  	ir->carrier = MIRTX_DEFAULT_CARRIER;
