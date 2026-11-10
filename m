@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282176;
-	b=oi4ubHS/i9FRjJIIdG7B+KZwaaFRGnheZuei12kg/TzabBxpmLmqdu1YeeBd2P4cAQeL
-	 tFWlY7JLlpDHSP8doJeFydzyumKeo6nGEmNEc1+F5iFA5ELyhc4aiRssbu4FwuJC78+43
-	 ZuGSG3lPxCC9rapHfv5FyCXlTa0VfpJSl6iXlj4zIPQH+WFQl6PDz+ycgllpD2EPL9Q6a
-	 5GobT2ETAqVGZUQQT8eze8SZGwXiwmETLN70ji+caVP0WcWxtYf+yxxRYdXxnwu1djl++
-	 GJDk4EWrS+K5IcSs2S3Xiic2bd3+YxSqeb6Phv2VqVbPK23A0eKo4qZ5flXCZGkxc1Q==
+	t=1794282199;
+	b=pJxoE0cZlYFghz0wSHTQaJdDy8yFT3S//+8/3mNVAixbZ7uodfvVciyrQo1Bik7CQeVT
+	 /V5qEUcUMNyfwQJZNcUk2XMxg5+4Q9Fexf2AipHiZ2RUjL4uDcJeeL53E0OQgHD5woIYD
+	 ag4S55pToNXjNo8xNvLQkIoKqaXXvkRpH8q/kOqblZL4jeVDiCC3G1xWdrkgxaQokar34
+	 P4g9/Ti0c8jlZg/chuGfMfeUgIwSRz+WkdExGlt85xo7Is1GKl57s600KU6Yz+iqE+kW8
+	 cAdbkfBfegEPPoiM0Emzsg5SksMLId4Wd2qsjDGeA6vedNtBZbjaW0CyL1k0rJMikPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282176;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794282199;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7aQKkusDlL3Guonb1fc9edugTVQPDMDcHRnmlWnkSbw=;
-	b=CB/wmfJbzndSYF28L0mjerggz8oxYOXHv0AN5eyA6TcRDa9GZwNf+Eg8XaiOSpZz+Ehc
-	 NY46ktKnD/59pTC5y+/WawkiEh2rHJipsJzeCXf78cVmujxmhTUV46rryIgYYzWXpHBIn
-	 0Y5X5YBwI869YICxp8Gfxzdr/ACT+eqGS67tjrI3jpJBxOj9z/5eh0pBDeGUmLCVX0lMT
-	 BhZIaByHRnQtEgRR3ZQIGY3EeajO986YmFqMYa8yXp/2R4hvcL4Ri8JvE9mF+I2yiPnM6
-	 4zSm1NRY+7wE9aF2XG4cdBqiueAcEG9Yrn7gJm9g/CMolc/updMrUMAj37jj6JzQtkg==
+	bh=wP8RcriYH3rUfy+COy24SpvryOeXTUZCCW25/82Yx7s=;
+	b=HArIBhjjFLtSVgPgUhu96+VSHVsmXnN0OA1LIvAj52B74pBSgeuLU5eIt8wPItIACnc7
+	 68W78jKOtn7DOfdpx0ofLZ7sWyf8mzs1YPs6I2EWSKIkg0Zw3UQHPBm6JdRDGFqNCaqDX
+	 7obJVevfkz5jtcaTCYvQr79gR//Vz5eaUf+V82kig/VRSi5v0EO/yjsjkGlmXWPzBXerU
+	 NSC5nb/VtBMDnbFh7B5ypKXUk3CUKK0L9efzV6+0RgiKF8H9x5ARRYhab58YXlEHz8Aix
+	 ep+/9gNB7wbZWdUMCd0kBlvcBJfEaP6tigqt8nOAYXem0BIebOhiEMR7qcaNkToT7Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3BRfPph;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRztZtud;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF49606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:42:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C526606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:43:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3BRfPph
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECD61F0089F;
-	Tue, 10 Nov 2026 03:42:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRztZtud
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA4B1F0089F;
+	Tue, 10 Nov 2026 03:43:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794282176;
-	bh=7aQKkusDlL3Guonb1fc9edugTVQPDMDcHRnmlWnkSbw=;
+	s=k20260515; t=1794282199;
+	bh=wP8RcriYH3rUfy+COy24SpvryOeXTUZCCW25/82Yx7s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J3BRfPphtnPL3OCbWmnEjMlwaPRm+EFIe7hdQ/6SlTzsiWRQNHz2A/BQIRisDMl6G
-	 gti4K7/nDgvw25DopcBb7ctTdw/xy9g+r2RCLCJBju1jyPu9Y1AnU8RTUWnTC2/+W1
-	 jbCpwY5sKekl/93s0q1lpDhIZJjmWSqWnkATU121DfDBZ/nSTYh8nSdiduhWfbpNpE
-	 ll5eLYBSpDlGo38YnaZp05iXowBE8dp0Hb2jO7ZRl0NJebelki135Ap+XUKxZ+jwEv
-	 7usxw7R9glOLZbLQq07ZVjeaFuI+T0FVBN0wQxspaHJFAl+NXqJUk+NGOfvMWCmtyZ
-	 QEmOyCent9qYg==
+	b=KRztZtudg3tFwfuY/JJLVcl3P4ZUdsRiXCAljGUB6BQ4MCJvnLCvaDupGDiSdylPP
+	 390O+XA15NLuZfg8WI7As8VM5nvaWXOwqjRGPGQPbAKJKyMnDxrjUHvrhBl1Srv3sn
+	 bE/cYTVpOzeY7qvreUe6wBYvFTbBH3RQ03fYX1i+zOokdDaeIKGTWc4EGFxbaIlfdy
+	 Ka2y7e1/sZ0qeCqzrmwtDYxlUGhBe+WrY58xMLqTCdnBP8ccT11naqqOfpLVIf7nNY
+	 TExUGIAKboJV5a+RSldyHnfG96mfaYkJ/Qg4kx4Hx+3WWPPJ5xoReXN59q9E1/PvC8
+	 TIw48Yx5oOGCg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Koichiro Den <den@valinux.co.jp>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@nxp.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] fs: make sure to call fsnotify_inoderemove() only once when inode is dead
-Date: Mon,  9 Nov 2026 22:42:54 -0500
-Message-ID: <20261110034228.254757-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
+Date: Mon,  9 Nov 2026 22:43:17 -0500
+Message-ID: <20261110034252.178293-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054107-failed-6.1-669bb5af15d4@kernel.org>
-References: <20261107054107-failed-6.1-669bb5af15d4@kernel.org>
+In-Reply-To: <20261107050642-failed-6.18-5cdbd6d3a3a1@kernel.org>
+References: <20261107050642-failed-6.18-5cdbd6d3a3a1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,86 +63,214 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Amir Goldstein <amir73il@gmail.com>
+From: Koichiro Den <den@valinux.co.jp>
 
-[ Upstream commit 669bb5af15d41a21359d00a441490f87a88eb52a ]
+[ Upstream commit 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 ]
 
-Daehyeon reported a race wherein fsnotify_removeinode() can be called
-when inode still has a live alias.  This can lead to several undesired
-outcomes such as crashes in fsnotify code or avoidance of inode mark
-notifications.
+The virtual PCI driver registers an ntb_dev but has no remove callback.
+Unbinding the endpoint function can therefore free BARs while the NTB
+device and its client still use them. It also leaves the virtual PCI
+devices and root bus allocated.
 
-Check that inode is really "dead", meaning no nlink and no more aliases
-before calling fsnotify_inoderemove() for final cleanup of inode marks.
-Also do not allow open_by_handle() to add new aliases to a "dead" inode.
+Allocate an ntb_dev for each virtual PCI probe and unregister it from the
+matching remove callback. Start command processing only after registration.
+Publish the device for doorbell IRQs at the same point. During remove, stop
+the command work and drain IRQ handlers before unregistering the device.
 
-Ideally, we'd call fsnotify_inoderemove() once last inode reference is
-dropped to make things simpler. Alas fsnotify inode marks currently hold
-inode references and thus this doesn't work. Once we teach fsnotify to
-avoid holding inode references, these games with dead inodes can go as
-well.
+Retain the root bus returned by pci_scan_bus() so it can be removed on
+unbind. Unregister the virtual PCI driver before releasing endpoint
+resources. Stop and remove the root bus under the PCI rescan/remove lock,
+then release its host bridge.
 
-Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4ncienth@gmail.com/
-CC: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260902164924.1333135-2-jack@suse.cz
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: adapted inode-death checks to the existing alias-creation flow with inline conditions in __d_instantiate_anon() ]
+Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Cc: stable@vger.kernel.org # 6.0+
+Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
+[ sashal: adapted doorbell changes to the existing polling implementation without IRQ handlers or a peer-doorbell worker ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dcache.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 69 +++++++++++++++----
+ 1 file changed, 55 insertions(+), 14 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 205552e31b200..f1baadff1e8b6 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -390,14 +390,16 @@ static void dentry_unlink_inode(struct dentry * dentry)
- 	__releases(dentry->d_inode->i_lock)
+diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+index 68110855ea1c7..39d9844873f53 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+@@ -118,7 +118,7 @@ struct epf_ntb_ctrl {
+ } __packed;
+ 
+ struct epf_ntb {
+-	struct ntb_dev ntb;
++	struct ntb_dev *ntb;
+ 	struct pci_epf *epf;
+ 	struct config_group group;
+ 
+@@ -144,10 +144,15 @@ struct epf_ntb {
+ 	void __iomem *vpci_mw_addr[MAX_MW];
+ 
+ 	struct delayed_work cmd_handler;
++	struct pci_bus *vpci_bus;
+ };
+ 
+ #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
+-#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
++
++static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
++{
++	return ntb->pdev->sysdata;
++}
+ 
+ static struct pci_epf_header epf_ntb_header = {
+ 	.vendorid	= PCI_ANY_ID,
+@@ -173,7 +178,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
+ 	else
+ 		ntb->reg->link_status &= ~LINK_STATUS_UP;
+ 
+-	ntb_link_event(&ntb->ntb);
++	ntb_link_event(ntb->ntb);
+ 	return 0;
+ }
+ 
+@@ -261,7 +266,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+ 	for (i = 1; i < ntb->db_count; i++) {
+ 		if (ntb->epf_db[i]) {
+ 			ntb->db |= 1 << (i - 1);
+-			ntb_db_event(&ntb->ntb, i);
++			ntb_db_event(ntb->ntb, i);
+ 			ntb->epf_db[i] = 0;
+ 		}
+ 	}
+@@ -796,7 +801,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
+-	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
+ 
+ 	return 0;
+ 
+@@ -1100,6 +1104,7 @@ static int vpci_scan_bus(void *sysdata)
+ 		pr_err("create pci bus failed\n");
+ 		return -EINVAL;
+ 	}
++	ndev->vpci_bus = vpci_bus;
+ 
+ 	pci_bus_add_devices(vpci_bus);
+ 
+@@ -1144,7 +1149,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
+ 	int ret;
+ 	struct device *dev;
+ 
+-	dev = &ntb->ntb.dev;
++	dev = &ndev->dev;
+ 	barno = ntb->epf_ntb_bar[BAR_MW1 + idx];
+ 	epf_bar = &ntb->epf->bar[barno];
+ 	epf_bar->phys_addr = addr;
+@@ -1244,7 +1249,7 @@ static int vntb_epf_peer_db_set(struct ntb_dev *ndev, u64 db_bits)
+ 	ret = pci_epc_raise_irq(ntb->epf->epc, func_no, vfunc_no,
+ 				PCI_IRQ_MSI, interrupt_num + 1);
+ 	if (ret)
+-		dev_err(&ntb->ntb.dev, "Failed to raise IRQ\n");
++		dev_err(&ntb->epf->dev, "Failed to raise IRQ\n");
+ 
+ 	return ret;
+ }
+@@ -1327,13 +1332,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
+ 
+ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
  {
- 	struct inode *inode = dentry->d_inode;
-+	bool notify_dead;
+-	int ret;
+ 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
+ 	struct device *dev = &pdev->dev;
++	struct ntb_dev *ntb;
++	int ret;
  
- 	raw_write_seqcount_begin(&dentry->d_seq);
- 	__d_clear_type_and_inode(dentry);
- 	hlist_del_init(&dentry->d_u.d_alias);
- 	raw_write_seqcount_end(&dentry->d_seq);
-+	notify_dead = !inode->i_nlink && hlist_empty(&inode->i_dentry);
- 	spin_unlock(&dentry->d_lock);
- 	spin_unlock(&inode->i_lock);
--	if (!inode->i_nlink)
-+	if (notify_dead)
- 		fsnotify_inoderemove(inode);
- 	if (dentry->d_op && dentry->d_op->d_iput)
- 		dentry->d_op->d_iput(dentry, inode);
-@@ -2096,7 +2098,10 @@ static struct dentry *__d_instantiate_anon(struct dentry *dentry,
+-	ndev->ntb.pdev = pdev;
+-	ndev->ntb.topo = NTB_TOPO_NONE;
+-	ndev->ntb.ops =  &vntb_epf_ops;
++	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
++	if (!ntb)
++		return -ENOMEM;
++
++	ntb->pdev = pdev;
++	ntb->topo = NTB_TOPO_NONE;
++	ntb->ops = &vntb_epf_ops;
  
- 	security_d_instantiate(dentry, inode);
- 	spin_lock(&inode->i_lock);
--	res = __d_find_any_alias(inode);
-+	if (!inode->i_nlink && hlist_empty(&inode->i_dentry))
-+		res = ERR_PTR(-ESTALE);
-+	else
-+		res = __d_find_any_alias(inode);
- 	if (res) {
- 		spin_unlock(&inode->i_lock);
- 		dput(dentry);
-@@ -2143,7 +2148,12 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
+ 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+ 	if (ret) {
+@@ -1341,16 +1351,33 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		return ret;
+ 	}
  
--	res = d_find_any_alias(inode);
-+	spin_lock(&inode->i_lock);
-+	if (!inode->i_nlink && hlist_empty(&inode->i_dentry))
-+		res = ERR_PTR(-ESTALE);
-+	else
-+		res = __d_find_any_alias(inode);
-+	spin_unlock(&inode->i_lock);
- 	if (res)
- 		goto out_iput;
+-	ret = ntb_register_device(&ndev->ntb);
++	ret = ntb_register_device(ntb);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register NTB device\n");
+ 		return ret;
+ 	}
  
++	/* Publish after ntb_register_device() succeeds */
++	smp_store_release(&ndev->ntb, ntb);
++	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
++
+ 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
+ 	return 0;
+ }
+ 
++static void pci_vntb_remove(struct pci_dev *pdev)
++{
++	struct epf_ntb *ndev = pdev->sysdata;
++	struct ntb_dev *ntb;
++
++	/* Stop the work reader */
++	cancel_delayed_work_sync(&ndev->cmd_handler);
++
++	ntb = xchg(&ndev->ntb, NULL);
++
++	ntb_unregister_device(ntb);
++}
++
+ static struct pci_device_id pci_vntb_table[] = {
+ 	{
+ 		PCI_DEVICE(0xffff, 0xffff),
+@@ -1362,6 +1389,7 @@ static struct pci_driver vntb_pci_driver = {
+ 	.name           = "pci-vntb",
+ 	.id_table       = pci_vntb_table,
+ 	.probe          = pci_vntb_probe,
++	.remove         = pci_vntb_remove,
+ };
+ 
+ /* ============ PCIe EPF Driver Bind ====================*/
+@@ -1442,12 +1470,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
+  */
+ static void epf_ntb_unbind(struct pci_epf *epf)
+ {
++	struct pci_host_bridge *bridge;
+ 	struct epf_ntb *ntb = epf_get_drvdata(epf);
+ 
++	pci_unregister_driver(&vntb_pci_driver);
++
++	if (ntb->vpci_bus) {
++		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
++
++		pci_lock_rescan_remove();
++		pci_stop_root_bus(ntb->vpci_bus);
++		pci_remove_root_bus(ntb->vpci_bus);
++		ntb->vpci_bus = NULL;
++		pci_unlock_rescan_remove();
++
++		pci_free_host_bridge(bridge);
++	}
++
+ 	epf_ntb_epc_cleanup(ntb);
+ 	epf_ntb_config_spad_bar_free(ntb);
+-
+-	pci_unregister_driver(&vntb_pci_driver);
+ }
+ 
+ // EPF driver probe
 -- 
 2.53.0
 
