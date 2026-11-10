@@ -1,53 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274171;
-	b=wh/1yJOPp0J5+kW9pSDh20Yc3UYMF6Et5NbxQ8R8cbVljnYxajiRhKV3JaHuL8JJDHj3
-	 yAaptx52aOJ0RAPtmo6v36x19bWsdRI8+W+KXKZDhOnU7uJgKg23On9kmJ6/C7BKTDDkW
-	 rAxLvHqVnbjzDVa2d92Zhowekx2ClBf5H7zy2Mjq9vjpWY7gKzX5lOXGlU/ptPV2l3SAS
-	 1lx4T8HKP9+wrSeuVnzuQGRJjnkKwgIlJz1vkpNWpR+Qz3OEdutpI14561CuEB5mJlHYn
-	 bhLsBJcvE/whUdT2lEkXowSSBBxMiFosrKaW+c6PRtMkwgwJRUNUmQ6nZ6Kovqeudog==
+	t=1794274237;
+	b=csNmR/mMm7J7CyxF7qfsOfVNM1aAwRtVeU9z0qMtzcMOAybxM1otGXOTVJlk/2xz+2mr
+	 mnxtuVhymbvCUKkZAWyySlHCLRzMYZqAX+Dq7wyZ6mc+vAGgGn+/TbGGBt7ACStwK4RxB
+	 AkLesNJdnEpg/SrAIaLv1H/zdDsCGghlUsiid285QKvPiiLql4q3UvvaSx5v8RJbg5Z4C
+	 Us4bbUlDb2h7hUSgxHDWped56NafdAPrL5MUh7ioalkqzem1395fwX+zuPN55zbhsgAYf
+	 ijEFLkoRw/m/ket12WyqNcpaZpz2cfGZYL4vh+drvZArDIzDsYobJ3L5JjF95ls2NyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274171;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=z5E0ilkb1R0znp4oaGghSQ5YI7U69fC/TbYHV8AayCY=;
-	b=f8Gg3o0RPjJU+NgXyf4V9ud4q3LLXpRkboFCOeKfBwMzsUGvcfQSON5AsCRxCQqghcJE
-	 4fjp7bJcOmGx4lODSCJ8SuKV8Xs7ZblFE9Ck1rU5o17OnhVERPFDQ9Hv2F9uML6LLwsc4
-	 anLf3xZOnz/k2d8T7slGgcuyD+8Kqml5HpCD7rgz4kgC6IJXQhb9CLCFlzKhbWuNXqSqv
-	 s0Wj68HZBJH01knw9Pc+hiYuBonKKBNpu5BZCt6VNCOoDuW7iE9fAI63HX0e6Mblzi4Sc
-	 a/BmB5DotT5ha68jAEfWU978rKrSaiN8LWcolfZ/iJ3gkmb1u1zcbUKciNFw0n2NoEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274237;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6cr9ziobUF9AnItm9jr9xGM9l0DDOZ1SgmvFxuND5DU=;
+	b=TRWcsP0nbhFCW+ZusDcl+l1UCqosSE+P+TSE1dTIGkFBV+aX5c/H2PnJzYWaijyhUDoN
+	 hgs+SObfOInOxYLOfkr8gxWeKTmn3mF/m3wFRNw7F7ZtUzLdGP3taAHdwfmjwyohSVAX/
+	 wxOoBjiJGNVHKaFn8Cz3HMOoac76Ny4DLAVyrINz6lAR9skf2W//vCwB+ML/cTEkUn0PB
+	 llqJhpxbqAd9ELZmn8YW6S7L3dU6qICKv6WMgeS1M+T2WwVk0ZNzQonh8Vv/VZft8avuO
+	 A7TWQ02opUugMjtmriKZImQn0eOlGFZMmWpLk/Y4NSsgSkxNeoTBH7BVTqUmOIGe1/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAoShDct;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=pardini.net;
+	spf=pass smtp.mailfrom=pardini.net;
+	dkim=pass header.d=pardini.net header.i=@pardini.net header.a=rsa-sha256 header.s=google header.b="FQ/Vg4eZ";
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAB7606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:29:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD72D606A339
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:30:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD72D606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAoShDct
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC641F0089F;
-	Tue, 10 Nov 2026 01:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274171;
-	bh=z5E0ilkb1R0znp4oaGghSQ5YI7U69fC/TbYHV8AayCY=;
-	h=From:To:Cc:Subject:Date;
-	b=lAoShDctGWDdkb/hS38V6z/7WfoowbpXrqfOa5C7uSsX8SdZtt5TlPSUAKnL6etJ5
-	 cNlnZdTOxpn8sd7vVCNLmFVdr+CJVcJ21/i0Yo9LE5T3NKou1vXDEhI19bApgoEAqP
-	 wq/MxsR46cusOSISvhbWjrWhhrHVoi+t5+Au4sHX2lGZTMVpizVRGvHmFIdMcpOuRE
-	 HvHQilNh3D2Fsnh22Ak9+ALfoDD1Cg/Z7YncgeBAEI9PohuaZYazwCTLh9e9oR5lhP
-	 aNBqy3u9aWdermnqpwSXacm/58k2daRZnpAfBg7U34rlfzlkYvXWIMptpIU55DHY7K
-	 BVWyzhqndas7A==
-From: Sasha Levin <sashal@kernel.org>
-To: zhaogongyi@bytedance.com,
-	cassel@kernel.org,
-	dlemoal@kernel.org
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ata: libata-scsi: reject data-in commands with a data-out buffer" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:29:29 -0500
-Message-ID: <20261109202929-failed-5.10-a4845f077415@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=pardini.net header.i=@pardini.net header.a=rsa-sha256 header.s=google header.b=FQ/Vg4eZ
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso213416766b.3
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 17:30:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pardini.net; s=google; t=1794274235; x=1794879035; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6cr9ziobUF9AnItm9jr9xGM9l0DDOZ1SgmvFxuND5DU=;
+        b=FQ/Vg4eZ2DaEJ51myVQiaugzwi+/CrgpUMLwAX7xlzIUdTYY3BVr+V6rV9VBg8iaHw
+         vNvrtIgzLaaY+rcERUMZPEEyWcFk636tB6X9T4nWTyvUQaQoTZAEqdYZwdBHeAb0qxG7
+         6VevPOLmI2lWHIPG7jemP9LIimpTffXxrMzMKf5xf3cTlJAGIOu3OQ7ccPu3uH0nlY/r
+         W7nWaLSZWCaNCDG2fHPCAls/LjfBF1VfL8d04G//ZWrYid+Adt5qbkwIaLo9O6QBASnV
+         gomYcv8rr3oHeI4QNvDY63+Jv65H73gXjIiKuQMzkT9uwoa/9impg6RTkAIjNJxhA7rs
+         99ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794274235; x=1794879035;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6cr9ziobUF9AnItm9jr9xGM9l0DDOZ1SgmvFxuND5DU=;
+        b=UzJreo25Cmzb+v/M4ewBOWYK7Gm1sxLR/1UwXA1r/9OUulkFxZFNTAjGN+TWlsMyzC
+         Sowz+2PRobBMq7Db1R6hFHgs9siYocjjO45tswhdDxls6zL8PtNDcsGfAuyt60qCYWW1
+         ynXnpqZjywelb059AiuhxuHUzwYlnmc8HTvHYq4orTFYtqDtsPDTTRVkV0aPhP4BrX5F
+         AZoBNiyebC6hBZSCfNwNovtHds4XK6bkzlk19TexfXx+SpoFm9sZB4LovnE95oTGYwat
+         3MwNlr/m4Z3NWv/QvnLNrkI+9X9cQIfduJJemXW5bGNKiIUocx5Yds9fsDrFRf056TNb
+         0/+w==
+X-Forwarded-Encrypted: i=1; AL+hErGdN8wlhCJqvA8g9bISZW1NYe1iWViXIlNDgJd2Wm5NOTvIFEvbvcT2WOUtvB1subK2rv6eWn4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1zvgZh15nS/jGi5gvd31d5vv0XUl6iLx9QlOVNeFgBA5nqh9v
+	jbuv/F1NXSBxkWSirlQLSaYaWeScyVXLu7g9hFlTnW3eN4OFobCIYrqiioPC6svTvw==
+X-Gm-Gg: AYBFou3YE9KezfS2+kici0V/nnfuM2BaeUOEHC0BhabckfCKd6pYV6HejCrouzNLxGV
+	fEmfLFM25qXuShlmDK9mZ32qHSckLFlSEzl0zW5kvwHn7tp83mqNlKgI18O9icPITcq3axv9U2U
+	mE35Ij7mDtV/E+ewyRBpKvLphk3uuPkPng7OwVQuQ2JshceTdDMmE4QZIC5a6CZR8RYJzSXEmmo
+	E4LMhSXep+/3Dn9fMPHG7HfVtW3qSOAEdWX0LDAwwk55ibSkJt+uaA0q0nYTbiLQBjFscJRuihQ
+	9dxOHcUxe8qRmCS9TueYCDuG51fdO2bMErBtMGnNhDS4v/s3oPkTgnSB5P+UynjmXXpjWH22jkt
+	bXNS6j814+1cmoz0QXeAK7fv35B4RyjBh1F2PufuC/YzJ8zDnvqVi4fT4ABkOeh9HoAnkoVoCAP
+	pVZNclNjNPLxFYsFR9lPPw3Bp3CK5svAQ2KwJIstnPgORTJ0dkmlTbHFqcJmsf5kswr63/w7a9B
+	hvfn77Z94grc5Es8gAzFiNUiX8fJV2QuuHUX2oLnNnm4vYOQ6JMgYFWL6lUz8XbjaJBdqyIFHzr
+	mJ8lywlbQwfT7mc+zcoa+ZVItAy9yeKVefChP8xeRckhYwLtT4sLSDZyCJe+aprYDOvSA4TAeMu
+	XdGet1InZ/EFLwCsvmGvHWU3/raOipFRCrSm+O/dwaJyxLzRaH512eaR0VBfThhMyjbPuFQ==
+X-Received: by 2002:a17:906:c108:b0:c40:d920:747c with SMTP id a640c23a62f3a-c5048f4046fmr83137966b.7.1794274235103;
+        Mon, 09 Nov 2026 17:30:35 -0800 (PST)
+Received: from ?IPV6:2a02:a466:4d7a:0:65ed:a8e1:a329:4b? (2a02-a466-4d7a-0-65ed-a8e1-a329-4b.fixed6.kpn.net. [2a02:a466:4d7a:0:65ed:a8e1:a329:4b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a5701a1sm41990066b.21.2026.11.09.17.30.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 17:30:34 -0800 (PST)
+Message-ID: <f225b5f6-13eb-40d0-a9ca-7efab0e6876c@pardini.net>
+Date: Tue, 10 Nov 2026 02:30:33 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,119 +93,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: rockchip: naneng-combphy: fix RK3588 SATA pipe_con1
+ register offset
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Andrew Powers-Holmes <aholmes@omnom.net>,
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Yifeng Zhao <yifeng.zhao@rock-chips.com>
+References: <20261109-rk3588-combphy-sata2-6g-v1-1-e9135c91de6a@pardini.net>
+ <avJULe_00cHwMh4X@venus>
+Content-Language: en-US
+From: Ricardo Pardini <ricardo@pardini.net>
+In-Reply-To: <avJULe_00cHwMh4X@venus>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Hi Sebastian,
 
-To reproduce the conflict and resubmit, you may use the following commands:
+On 10/11/2026 00:29, Sebastian Reichel wrote:
+> The patch is 1:1 from Yifeng Zhao with a better commit message.
+> You should keep him as the patch author with his Signed-off-by
+> followed by your Signed-off-by. Feel free to also add my R-b tag.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x a4845f077415ef32fe672c841e2fc58ae9e28273
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202929-failed-5.10-a4845f077415@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Thanks a lot for the review and for the directions. I've prepared v2
+along those lines: Yifeng Zhao as the author with his Signed-off-by,
+the BSP sentence (and Link:) dropped, the pcie3x2 link reset grant note 
+moved into the commit message, the notes below the fold trimmed, and 
+your R-b added.
 
-Thanks,
-Sasha
+I'll wait a bit before sending v2, in case anyone else wants to chime
+in; Sashiko seems happy about v1.
 
------------------- original commit in Linus's tree ------------------
+T-b's from folks with a &sata2 board (Firefly ITX-3588J / Firefly 
+ROC-RK3588-RT, from a quick search) would be nice too; the board I found 
+it on (Mixtile Blade3) is not yet sent upstream (I'm still fighting its 
+2x FUSB302 and PD powering troubles there).
 
-From a4845f077415ef32fe672c841e2fc58ae9e28273 Mon Sep 17 00:00:00 2001
-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Date: Wed, 4 Nov 2026 21:06:38 +0800
-Subject: [PATCH] ata: libata-scsi: reject data-in commands with a data-out
- buffer
-
-SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
-scatterlist can then contain pages pinned without write access.
-ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
-in the reported case, the copy tried to write the shared zero page
-and faulted in the kernel.
-
-The same mismatch can affect SG_IO commands translated by libata.
-ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
-the receive buffer even if the drive aborts the command. For ATAPI,
-the successful INQUIRY completion also rewrites the buffer in
-atapi_fixup_inquiry().
-
-Reject these mismatched commands before the buffer is written or the
-command is issued. Report ABORTED COMMAND / DATA IN BUFFER ERROR because
-the CDB itself can be valid; the supplied transfer direction is wrong.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20261104130638.37882-1-zhaogongyi@bytedance.com
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
----
- drivers/ata/libata-scsi.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index b1d5d822a9a20..87a57495d2e4b 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	if (xlat_func(qc))
- 		goto done;
- 
-+	/*
-+	 * A data-out request may contain pages pinned without write access.
-+	 * Reject a translated data-in command before issuing it, since its
-+	 * completion handler may write to the buffer even if the device fails.
-+	 */
-+	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-+		     ata_is_data(qc->tf.protocol) &&
-+		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		goto done;
-+	}
-+
- 	return ata_scsi_qc_issue(ap, qc);
- 
- done:
-@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
- 
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		return;
-+	}
-+
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
- 
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-@@ -3173,6 +3193,14 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
- 
- 	qc->complete_fn = atapi_qc_complete;
- 
-+	/* atapi_fixup_inquiry() writes to the buffer on successful completion. */
-+	if (scmd->sc_data_direction == DMA_TO_DEVICE &&
-+	    scmd->cmnd[0] == INQUIRY) {
-+		ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		return 1;
-+	}
-+
- 	qc->tf.flags |= ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE;
- 	if (scmd->sc_data_direction == DMA_TO_DEVICE) {
- 		qc->tf.flags |= ATA_TFLAG_WRITE;
--- 
-2.53.0
-
-
-
+Thanks again,
+Ricardo
 
