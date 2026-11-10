@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280201;
-	b=sS4XB67VQbieG8/66ILxrz/WNmpJOnLSwgV5uPSOpM2ueMoqnyInQmVjrFpBjNQjA8C6
-	 Owps59CJN7ixPwq/sIKTnDRMLJ0BbH2DfAvAcXg+FTDtCdzh3D2X9SxJqeM/A4+GYaTQO
-	 SwEpfgleZpSy+5VYMq4+VWP5pIWQmr+5J1LY/vrF/Rijk5bqZwHI+7C5ETaZVfxa4zQrl
-	 hKk3gQv+KjxErlINR2K2cMynYfpI+Fo5gELDy5xUiwXov+b4yNw4leg5/YIgjcNPdEhTK
-	 zU1YLN5w+8oXoyVyOqwKODc4tV8lfuJumyueCpa7S7Tv2SlGKur/0oUnUzpr5RZd0Rg==
+	t=1794280217;
+	b=VvFLXGNiMNq9unzveZwxNXWsSmQrX1J228w79JnbnfkJL2qZ2ZNGofGWcSDqPA1AzTKt
+	 p3c0Dx3/Jy6ckLvs0Ycsler6lDrfID8kP5PWikvkCHOABHi3i/mq+grIYOpixAVgWcPTq
+	 +4AJ6KPyFearSqXu2uOp2VhNOrL/AR23yGnGjPQhjsKdY4H4mrxSwUFBT6pOSV/z0/UNC
+	 w2b7uRqG73/AQD0fbUtJMu5tBR/6xd6OB62vT/5w/bYIHatX0nj5MF3VrQnarU2G5mPTQ
+	 yCuph72Vh7Rad7dnPnaleChD1VSZC/BMncZHt4hIAc7aY+rmdgjyv57QmBgn3TySI1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280217;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PywiT9Ep14G0sBmfohyQYhBCz2Fict1x3Orh8NoCAsE=;
-	b=bSyu6y56ZMAIn8IOFkt35AgATqjSnMvv1iAuLdxMI909JBkn4WBzXeRsDoVT56ufN6oB
-	 aEhPewG2ykCsGv0yIJvhToYDnS+3cbgSx1RpKcuA3YMkmLveDUGxvNPNzVZb7KoZhp2fh
-	 1YM0Wj/UmtI4lPEKo0cCC4x0RVpdFFVJ7GIlHarbWvDp6HiPg1pjcWkuiYtJ5r+qS1nJN
-	 9RZB5m8pfXUybArRFjAypn6VFYzil7eLkrEt/6IwTKlszKC4NIozDwN1D+0Q/HB4qwh4S
-	 4Z7gdt9J9l9b86mPAKZAwMEcDeCAJAWwoOso+7JFmtUqgMnaLX6iVWXzQxa0ZW0SllQ==
+	bh=Ady+daUUqycPozpaXUfChvYm9oCkjzXwVXjgWDE/pks=;
+	b=NGLlPz2oQGRCQ/whXIsqVYiMis2RT7ik2+heFRPBzIBhyhDTSbgs74q9d89ewHUrxPDj
+	 JFCg67u7SXGMZhiG+SSu/37/Y0tQxakUrgUddaeC53ioztWu2d+VOJ8mqPF2b91g8hJOo
+	 Az8z2/ekfHxBSIdesN8hc+t16Mz80UM/uZ0LOh+jrewVEBBtXhqlruBWuxgksD0xd9x0/
+	 vfM6m23c8FJR0LVFwb6iWKFAQp79PqIVXCfrQLSpI2+FXjb+sdwc9uX6zRTFpGAHszDup
+	 SeFvfalR8em928WCEpKX7lr43vjRKEalbWTQNsTzWyF6kQcMwRoiYQvvKrSCQk78HRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3bFrYRo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYSdmkh5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10571606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:10:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7866160A260C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3bFrYRo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E483E1F008A4;
-	Tue, 10 Nov 2026 03:09:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYSdmkh5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9627F1F008A2;
+	Tue, 10 Nov 2026 03:10:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280200;
-	bh=PywiT9Ep14G0sBmfohyQYhBCz2Fict1x3Orh8NoCAsE=;
+	s=k20260515; t=1794280217;
+	bh=Ady+daUUqycPozpaXUfChvYm9oCkjzXwVXjgWDE/pks=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I3bFrYRo3xrZCy2zQ4mD2HgstWog/8QEgiyJiqO1Y2FZIrBUao/wAt9snBWLszBAI
-	 idporgrK5allJQncy2IDQba6RFsQ35wwI9f9oTMINrvHhvCWUAe3PY9v85wpfY67QF
-	 /Ddn0jr0EDv4KjaQmFRDqCGGewZSHVnCSRg4ss13iPAGSKlovQHlK+Mr/OHNTLtMWS
-	 hevjYfbCXUpUV7j7ZGilc24KlohD/7jdelG2TR0NTOlr+mb7Eo/HJ+uqbdQnIpnl/J
-	 XMM5CQKZDALqspn2ccZyl+ESEgd+exThAaqXGs6rb0cpQ1U21Zn2RlGipcFd/8LlbH
-	 d/cA8bKdEjSFw==
+	b=PYSdmkh5VpAGZj3KW4ejVlYCG8nRfWkTwWSnuPxtDCO9Gsozbb+l8Z+mgE2Q/1TCa
+	 xtIYRjr+qFOj8CRF8LFW669KgBtrkL8dN5CL9ZY3sxbUSRMm7OCYbhdLJBF9aBW1Zp
+	 10ScFtptmUQ3fsc3rN7JQjd1gRTe4QoF4jjJLhEoqnONoytsqwGkoV9x1h/O4tQ4EY
+	 5/D14v07ayfE8fNX5b1W87K/yj0z9BBD7Xu/yiZ4vD8H/7okTAr5EeZ6iLUHxY3bnZ
+	 EWfgCMDk2vL7hIlivIL13+DW9VRdNH8QkHwgxEc35l/TaKHRmf7kG/zoLswhOa2E0m
+	 65T0NknWSRtnw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] media: meson-ir-tx: Ensure probe error is propagated
-Date: Mon,  9 Nov 2026 22:09:57 -0500
-Message-ID: <20261110030950.4189721-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single mode
+Date: Mon,  9 Nov 2026 22:10:15 -0500
+Message-ID: <20261110030951.3818176-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110030950.4189721-1-sashal@kernel.org>
-References: <20261107055721-failed-5.15-2eb8a4cba70f@kernel.org>
- <20261110030950.4189721-1-sashal@kernel.org>
+In-Reply-To: <20261107051614-failed-6.12-38dbf24dfbd0@kernel.org>
+References: <20261107051614-failed-6.12-38dbf24dfbd0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,46 +63,209 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 
-[ Upstream commit 2eb8a4cba70f521a8217021e227cfa28ba17724b ]
+[ Upstream commit 38dbf24dfbd0a73b89fa2871a7148429aef05531 ]
 
-devm_clk_get_enabled() may return -EPROBE_DEFER which needs to be
-propagated else the probe will not be deferred, it will fail instead.
+When device is suspended and it is in single mode then changing
+datarate doesn't make it actually wait for new measurement, so to
+be sure that read after change is correct, functions that changes
+datarate and gain will wait for a new data.
 
-Fixes: 49be1c78d575 ("media: rc: introduce Meson IR TX driver")
-Signed-off-by: Sean Young <sean@mess.org>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
+Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: replaced scoped PM guards with pm_runtime_resume_and_get() and explicit cleanup using pm_runtime_mark_last_busy() before pm_runtime_put_autosuspend() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/meson-ir-tx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/iio/adc/ti-ads1100.c | 121 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 115 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
-index e050430ffc7b3..d26fbe0b65de1 100644
---- a/drivers/media/rc/meson-ir-tx.c
-+++ b/drivers/media/rc/meson-ir-tx.c
-@@ -295,7 +295,7 @@ static int meson_irtx_mod_clock_probe(struct meson_irtx *ir,
+diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+index 1e46f07a9ca6a..bea727ff9d6ee 100644
+--- a/drivers/iio/adc/ti-ads1100.c
++++ b/drivers/iio/adc/ti-ads1100.c
+@@ -14,10 +14,12 @@
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
++#include <linux/iopoll.h>
+ #include <linux/mutex.h>
+ #include <linux/property.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/time.h>
+ #include <linux/units.h>
  
- 	clock = devm_clk_get_enabled(ir->dev, "xtal");
- 	if (IS_ERR(clock))
--		return -ENODEV;
-+		return PTR_ERR(clock);
+ #include <linux/iio/iio.h>
+@@ -42,6 +44,9 @@
+ static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
+ static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
  
- 	ir->clk_rate = clk_get_rate(clock) / 3;
++/* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
++#define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
++
+ struct ads1100_data {
+ 	struct i2c_client *client;
+ 	struct regulator *reg_vdd;
+@@ -123,10 +128,86 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
+ 	return 0;
+ }
  
-@@ -328,7 +328,7 @@ static int __init meson_irtx_probe(struct platform_device *pdev)
++static int ads1100_conversion_busy(struct ads1100_data *data)
++{
++	u8 buffer[3];
++	int ret;
++
++	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
++		return ret;
++	}
++
++	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
++}
++
++static int ads1100_wait_single_conversion(struct ads1100_data *data)
++{
++	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
++	int data_rate_Hz = ads1100_data_rate[data_rate_index];
++	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
++	int busy;
++	int ret;
++
++	ret = readx_poll_timeout(ads1100_conversion_busy, data,
++				 busy, busy <= 0,
++				 poll_us, ADS1100_MAX_DRDY_TIMEOUT_US);
++	if (busy < 0)
++		return busy;
++
++	return ret;
++}
++
++static int ads1100_start_single_conversion(struct ads1100_data *data)
++{
++	u8 config = data->config | ADS1100_CFG_SC;
++	int ret;
++
++	ret = i2c_master_send(data->client, &config, sizeof(config));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
++		return ret;
++	}
++	/* Need to wait because of change from continuous to single mode */
++	ret = ads1100_wait_single_conversion(data);
++	if (ret)
++		return ret;
++
++	config |= ADS1100_CFG_ST_BSY;
++
++	ret = i2c_master_send(data->client, &config, sizeof(config));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
++		return ret;
++	}
++
++	/* No need to cache it, it's status bit */
++	data->config = config & ~ADS1100_CFG_ST_BSY;
++
++	return 0;
++}
++
++static int ads1100_poll_data_ready(struct ads1100_data *data)
++{
++	int ret;
++
++	ret = ads1100_start_single_conversion(data);
++	if (ret)
++		return ret;
++
++	ret = ads1100_wait_single_conversion(data);
++	if (ret)
++		return ret;
++
++	return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS);
++}
++
+ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ {
+ 	int microvolts;
+ 	int gain;
++	int ret;
  
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
--		return -ENODEV;
-+		return irq;
+ 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
+ 	if (val)
+@@ -135,6 +216,10 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	if (!val2)
+ 		return -EINVAL;
  
- 	ir->dev = dev;
- 	ir->carrier = MIRTX_DEFAULT_CARRIER;
++	ret = pm_runtime_resume_and_get(&data->client->dev);
++	if (ret)
++		return ret;
++
+ 	microvolts = regulator_get_voltage(data->reg_vdd);
+ 	/*
+ 	 * val2 is in 'micro' units, n = val2 / 1000000
+@@ -144,27 +229,51 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	 * bitshift so everything fits in 32-bits yields this formula.
+ 	 */
+ 	gain = DIV_ROUND_CLOSEST(microvolts, BIT(15)) * MILLI / val2;
+-	if (gain < BIT(0) || gain > BIT(3))
+-		return -EINVAL;
++	if (gain < BIT(0) || gain > BIT(3)) {
++		ret = -EINVAL;
++		goto out;
++	}
+ 
+ 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
+ 
+-	return 0;
++	ret = ads1100_poll_data_ready(data);
++out:
++	pm_runtime_mark_last_busy(&data->client->dev);
++	pm_runtime_put_autosuspend(&data->client->dev);
++
++	return ret;
+ }
+ 
+ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
+ {
+ 	unsigned int i;
+ 	unsigned int size;
++	int ret;
+ 
+ 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
+ 	for (i = 0; i < size; i++) {
+ 		if (ads1100_data_rate[i] == rate)
+-			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
+-						       FIELD_PREP(ADS1100_DR_MASK, i));
++			break;
+ 	}
+ 
+-	return -EINVAL;
++	if (i == size)
++		return -EINVAL;
++
++	ret = pm_runtime_resume_and_get(&data->client->dev);
++	if (ret)
++		return ret;
++
++	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
++				      FIELD_PREP(ADS1100_DR_MASK, i));
++	if (ret)
++		goto out;
++
++	ret = ads1100_poll_data_ready(data);
++out:
++	pm_runtime_mark_last_busy(&data->client->dev);
++	pm_runtime_put_autosuspend(&data->client->dev);
++
++	return ret;
+ }
+ 
+ static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
 -- 
 2.53.0
 
