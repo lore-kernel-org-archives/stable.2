@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341110;
-	b=mGlAWV0HH/f0vb/b8be5Msc/kdPcPT7MeCzH5Wpv2yVXqfmneq553TVpg9Fchhn+AFT+
-	 Vap91lqEtew08FfB0sI6Pn/WvKqZBM/oJr2N1sH9GSGPnXJQbOwVBTV1LvPmloIM24jS+
-	 yz8XBuQMycIyvn6V0okkloYpMB4LGaRKy32o8TdUKSSa1OL4YGMM35ELgnbCIyFd6PWqh
-	 Msb0rE/FGVVk3aC3EQP25iqDsi+21CSJQ3yiShyGzSzA11qFpi2Zk6cn16Cw7MF3BQizo
-	 ph8sRUwIdahBNUa2Jk66a3fA9qrmAnqpFZpoEeEXHj7S0j6QlvJGenuKPXEq+RoJYjA==
+	t=1794341168;
+	b=PQzhHopXM9uDLxcbkuNV9VoNgqmMswv9k/i2dGJbn55+yUnlwMzpqp/leEevPCCQ0k4G
+	 VvDRq+k99HQa06teVDWCZTunuNT3TAcoXnotOQ0jdXJvUPIeAdG/mo+SO8oy0HrEX4CCN
+	 eHzQrJZH3ObvdvqlJB2zHTTE2TOV06H2uCWigcCcTJgm9V4KrnJvFuIkEdj8MtczsQFYF
+	 NlPORO7q+7ruM05Y3MRsBn/7Wb1f4bnHV5awnWUVL5l8EKftq2VBwhnX9AG38dEUykcSn
+	 ori1xlENZFYmVrPl7sRbJVlZ/HYnMnmqLdZc9e3dBlr31JFihURQjH22NUbFulGVGpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341110;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=L7RU9VzoQ56HMBb8gQA2RAMl3pjHNLenGGTDONGlK1o=;
-	b=HtU5pnXgrSbQAN64RPfLnSvGYjiHhMugGBv41eXDjOFMokUe3nV+iNWQIfgj1uaT23pu
-	 Tg1cGSezll8iYAlpbMhqLEY3B15S9DETNkVGQPjhlgCBe7IgBhSeO2JdHpSRtgEBfXVRg
-	 UUi90RbBfZHK9zmrq7pyOtveUScjY9aouAjSqIHHtK3ZYZFE0kfabp3jwtoTOt7uW+F99
-	 vNF8GzX0hW5m9zw71k7VhHDhw9lkz8q63HdiYaIsQI4PAMPyEWSZvSMijtY33pII6sYz3
-	 qeJPZKW8GJVWiaDf4vCKO+3vwuVerVWdE3G2tuZJBcvs6+wIXJ1w7wxos5/CwOrCTWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341168;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5cCNd5C3NgQ8FqbUpDpP4T8mFx9FG08/ganDkKISSDA=;
+	b=AnYrIr3U2Clj/UJxcc0wgHhqDsdrGTxydXDOTkODd4f3s1Sh6SgVOjQrWZLzW3e3cQbc
+	 hTf3eMUKqQD8k20/HrrajWN3tHH7vt2U1v4VyO/F6+g0Mquyct842UEybe1fdEMky91k/
+	 rulTkpR1BYHYXcnMcB2eHcrGzPJWQ/cATvOxviGVBRg0cNaFWIjTZQsoegQApDcJd9RVv
+	 LC0Cs8royfYfP3e0bWNp1dwOBWsNILZDkZSOWn1U7XhGxPtpUQMU1ouynfrlg0KY5JeOF
+	 cxHIseHGpSb+zfhiCyumF078UHlRGBmPA1gTpcw+jEMq8MBzBGg71TeZvsvhaqlCMCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Wb5MEhGG;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtFMd8c2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6555C606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:05:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6555C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FA5606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Wb5MEhGG
-Received: by dvalin.narfation.org (Postfix) id CB88020FF9;
-	Tue, 10 Nov 2026 20:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794341108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L7RU9VzoQ56HMBb8gQA2RAMl3pjHNLenGGTDONGlK1o=;
-	b=Wb5MEhGGTBpfKuAXwosXUAhUSvAG7ZlUydGWM+BccIES44gy/in6xuL+p1IprxHILAlO5B
-	o+ANA7W6jHpxGDHNlaxNpM0lGmnVtFAAHzBUu0OLbna+CRK9kLvxeTdCxHUN0XtH8CtRfr
-	anxfnrBdefMgV6vW9pCK8C1JPDxvDTo=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtFMd8c2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D201F0089F;
+	Tue, 10 Nov 2026 20:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794341168;
+	bh=5cCNd5C3NgQ8FqbUpDpP4T8mFx9FG08/ganDkKISSDA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MtFMd8c2M4VYKer+SfXuElmrYPf8BqbxIoSnvxuq/7Qx7+ESAkb/4OSV+SIOnLrnD
+	 ZtkbP23Z9G6r9coczFYJQSRIVinojIzfUsMWKCdaTQ4V+9soEdzYmNF9k8uKetul/L
+	 YR1iQ/u1GR1O+QvS2ovC0cXOsDWRcNVmM5iYc/RlL2uNnI7xgAxqZQRqM3C3PLDBhn
+	 5Ic3NjiMKPs6IQIg8l7NnELxBqTniV5gQvOwCPn+fJkcrHlqvHFV9tcLSgdgqxBGiK
+	 huXIqj3jG7fUwTkl44ahGQyvNvPlWnqogQ6cqoe64GmtDOaA0iKnMbTL7TjU/BbrXc
+	 pbm+3w/nOISnw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.15.y v2 2/2] batman-adv: Close OGM aggregation before transmission
-Date: Tue, 10 Nov 2026 21:04:58 +0100
-Message-ID: <20261110200458.452945-2-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110200458.452945-1-sven@narfation.org>
-References: <20261109202015-failed-5.15-f91f64a91682@kernel.org>
- <20261110200458.452945-1-sven@narfation.org>
+Cc: Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload
+Date: Tue, 10 Nov 2026 15:06:06 -0500
+Message-ID: <20261110200529.3657251-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060223-failed-5.15-6fff9de5c5b4@kernel.org>
+References: <20261107060223-failed-5.15-6fff9de5c5b4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,83 +63,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Janne Grunau <j@jannau.net>
 
-commit f91f64a91682c07e6c5f059804e709656364e8a6 upstream.
+[ Upstream commit 6fff9de5c5b425817588eeed42bd56d665751c13 ]
 
-The OGM send worker leaves its forwarding packet on forw_bat_list until
-after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
-but emission reads and clones the packet without that lock.
+Since commit 416386060 ("Mark authorization completed on driver
+indication during 4-way HS offload") [0] wpa_supplicant expects
+NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
+driver supports 4-way handshake offload.
+This was apparently never tested with the upstream brcmfmac driver as it
+does not report this. This broke authentication on Apple silicon devices
+(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
+2.11 was released [1]. This was initially dealt with by reverting the
+commit in Fedora [2] and other Linux distributions.
+Instead of carrying the revert over to wpa_supplicant 2.12 add the
+expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
 
-CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
-list lock, finds the same packet and appends another OGM. The sender can
-observe the new packet length before the corresponding direct-link flag
-is set, or clone the skb while its length and payload are being updated.
-This can transmit an OGM with incorrect flags or inconsistent data.
+The "Fixes:" tag is not fully accurate as this has only became an issue
+after userspace changes years after the change. Since the change is
+expected to be required in all active stable branches for wpa_supplicant
+2.11 / 2.12 compatibility it is helpful even though
+BRCMF_PROFILE_FWSUP_SAE did not exists then.
 
-KCSAN reported:
-
-  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
-  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
-  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
-  value changed: 0x00c0 -> 0x00d8
-
-Mark the aggregate as full under forw_bat_list_lock before emission. This
-waits for any ongoing append and prevents further aggregation. Emission
-uses packet_len to walk the OGMs, so all queued packets are still sent.
-Keep the packet on the list so interface purging can find the worker,
-wait for it to finish and free the packet.
-
-Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
-Cc: stable@vger.kernel.org # 4.10.x: 434becf57bdc ("batman-adv: Limit number of aggregated packets directly")
-Cc: stable@vger.kernel.org # 4.10.x
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-[ Use BITS_PER_TYPE(...) instead of BATADV_MAX_AGGREGATION_PACKETS ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
+Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
+Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
+Cc: stable@vger.kernel.org
+Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
+Signed-off-by: Janne Grunau <j@jannau.net>
+Reviewed-by: Neal Gompa <neal@gompa.dev>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: replaced the authorization helper with an inline PSK/SAE check using the three-argument cfg80211_port_authorized() API ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:
-- Submit together with the marked dependency commit 434becf57bdc
-  ("batman-adv: Limit number of aggregated packets directly")
----
- net/batman-adv/bat_iv_ogm.c | 5 +++++
- net/batman-adv/types.h      | 8 +++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 62ee9b8bf9da1..7378a2d73a3ee 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1794,6 +1794,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
- 		goto out;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 13ea5f0c8e1e1..aec1c0b9ef08c 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -6029,6 +6029,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
+ 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
+ 	struct cfg80211_connect_resp_params conn_params;
++	bool authorized;
+ 
+ 	brcmf_dbg(TRACE, "Enter\n");
+ 
+@@ -6049,7 +6050,12 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 		conn_params.req_ie_len = conn_info->req_ie_len;
+ 		conn_params.resp_ie = conn_info->resp_ie;
+ 		conn_params.resp_ie_len = conn_info->resp_ie_len;
++		authorized = completed &&
++			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
++			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK);
+ 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
++		if (authorized)
++			cfg80211_port_authorized(ndev, profile->bssid, GFP_KERNEL);
+ 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
+ 			  completed ? "succeeded" : "failed");
  	}
- 
-+	/* Mark aggregate as full before forcing emit. */
-+	spin_lock_bh(&bat_priv->forw_bat_list_lock);
-+	forw_packet->num_packets = BITS_PER_TYPE(forw_packet->direct_link_flags);
-+	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
-+
- 	batadv_iv_ogm_emit(forw_packet);
- 
- 	/* we have to have at least one packet in the queue to determine the
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index a51fee83d1126..a0d334b3d4659 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -2177,7 +2177,13 @@ struct batadv_forw_packet {
- 	/** @direct_link_flags: direct link flags for aggregated OGM packets */
- 	u32 direct_link_flags;
- 
--	/** @num_packets: counter for aggregated OGMv1 packets */
-+	/**
-+	 * @num_packets: counter for aggregated OGMv1 packets. Set to
-+	 *  BITS_PER_TYPE(forw_packet->direct_link_flags) (independent of the
-+	 *  real number of aggregated packets) by the send worker to prevent
-+	 *  further aggregation while the packet is emitted. It must therefore
-+	 *  not be used to iterate over the aggregated packets
-+	 */
- 	u8 num_packets;
- 
- 	/** @delayed_work: work queue callback item for packet sending */
 -- 
-2.47.3
+2.53.0
 
