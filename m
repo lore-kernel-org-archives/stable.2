@@ -1,55 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326737;
-	b=XDmIpPPpGheEbqNjAyGkX3y5W+1FbqrWZiupKvtuMdazS0VRCsV5t1J9dSRkbaODYbGs
-	 Z5G+JZY7XCTAJ/PsTlLGPXlciU1FLMChOX5E0APz1sQ1ibajCtmhPQ5ApdrZaOHoBp/Se
-	 nFMsPKC8CRCfgO206p6T0I6zuskZgk+NB6aWHDzuR0adpNCQH6qxWm83pFh2Y4CQi8rBX
-	 x5peN6q6STDCEgYsSL9p1Lw6Vqr5ekeNW8/5WXkV+jeULKkq2uX0HMl5yEQBBxuBXZAGJ
-	 M3JfKT4OtIPklcbmauqcjVM2quBxLcqPXWWxiaY6lfc9Y1qOs8m9V1F/wm51wb+cIDA==
+	t=1794326774;
+	b=lY9aWu0tcm5xT0xZmt9jAk9Def3Bvt1NDVJFgrskEjwGvpOsDbP+MpiK52LLDtw877wx
+	 GwVichqm+IuVwsgXyw8/ZMT4CHf19WWuMcCng+v6aIMBVhh6DoIEm8mr6kUXJj3jJW/5i
+	 naUQiHQ8Zg2GJ0dYs+CxO7wmJWmwZvngOoALik4LP4xA/dT3beFWZIwu/DFEB6G/RIeBg
+	 rWKJz9VoiQt55chpzKxhkzJivIFAUqnrc/2hAp7552XByxt/Ucxmd7DOHGQNWxYrRUZgU
+	 q7LXvfu6Eq/Bzs019SbNmt/bGytc/+VQe3d4WnplIxpBDOEkBkbo0Xxr1s5YUdI+qGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326737;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sSAR7Czzwx1XfmUF9Dh8g72t3qn8YZFcmDOG3Qz821A=;
-	b=JAH/pW1sCdF2wAObJkfi+TXn1LNQHFLjlRn+MzvQ1lG2PIyeW07fehQ8TWLO24lv1KIv
-	 vRXxgPbXhhpG6I4iwql/JKBGnrx4zjo/RU5EoUxqxUM77ZPhh/TVRxFAp73t6REtyoiFi
-	 vuROM4BBQF4w8QeQY1DsbT5stDhQ2Y0GLXi4wgjhaAWc09g40RD44B9hY2jTQwTyDoVqt
-	 mdEBgDuzBfDUE58HDhvlRuhsZ0hIdh3t/w2qoDOR7bsdX/VqAjJHQBWouyUyhX6JVl9hb
-	 LIB1WIe0DT4O/M+bRdAP0nit86co1g/HlGBFSksOCrPF3+HQGEibRGm4MXP1EHi9MjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326774;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=L2H/pxduNiYKQqjz4ouWTik9hJ0P2GnqDdb+wXeBGM0=;
+	b=uXd1q8RuvIU70Th96tZqweeFOGvzLhkxUwam0WvXcKGNE1sbDOrt/J15xJuKMEbTzxW+
+	 gwNze5nrVkAuCPK2pVJwmCqCiJ7mnDV+VzfJHNdpk5fmTF33S9cfJH+QSIQGvpV4rcgpK
+	 c6dyPMGSw5lEAPLR5WUmNDQAUSJ4LD/yBWyj2H4BvHyhXPAj1ECeSe0jtICUh6JJP9jHS
+	 Yg5jC7JSVrWEBhFxV/owoXwQG5i5a5UCZFDi+159BJmKImJKR9YBMK7x1o1Jc6nOKrY1L
+	 InP6++QS8L+v6WL2op8TpasnWCSOK77ruYYa/shOX7oIY0X6EqwjhFRzQQ+XItgANhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lOWIp/dp";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=uKz7oHJ4;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB76A606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6895606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:06:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6895606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOWIp/dp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0A31F0089F;
-	Tue, 10 Nov 2026 16:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326736;
-	bh=sSAR7Czzwx1XfmUF9Dh8g72t3qn8YZFcmDOG3Qz821A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lOWIp/dpZ3P1gZ+x/bWIly99/mIjHgLOxbGYlHBJkyID69tg70M6z/H84PfRk1qDj
-	 4l3e9ADnCwlcpe8s+IHdDm1ls9DQkaHdi3GwGV5ZX+ruArlEl2vP75Ot7HugeE6ZeS
-	 9B9TDkJst/n0fWT/TN97ee5wUh0T5vOfIRo3mLFa0OqKDe1AoOWexgjxlTXARrHvE7
-	 nyAZq6G2BoXgcdXylROow2GHwYi1xLBKIIJF5oyLDqL64narz8pdNBm+qyGq0Grrgo
-	 tITAyaNt8PXtFWsh17clRjMYRtvvU0mpA5iGOJlcia4oHBQaWrV30xsu6cXGx7I5qk
-	 u3MOEczIyNk/A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mailbox: altera: shut down RX polling timer on channel teardown
-Date: Tue, 10 Nov 2026 11:05:34 -0500
-Message-ID: <20261110160517.2394982-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054642-failed-6.1-0cf10e65639c@kernel.org>
-References: <20261107054642-failed-6.1-0cf10e65639c@kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=uKz7oHJ4
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jPBN15LVQzMl1M;
+	Tue, 10 Nov 2026 17:06:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794326769; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L2H/pxduNiYKQqjz4ouWTik9hJ0P2GnqDdb+wXeBGM0=;
+	b=uKz7oHJ4fWyE4FbHfMfY3+a8Rus/wgGWqT9lD48bQ7N43K45LFGjX/UQ/MTWNV7Fo9UnEs
+	5BnoZcNcdJ50OTdSnXgMZCNzxuIhv0OcA27rw8V/HG8KSY0PTgIY4WqcS0LbDZKQR+kOKa
+	gwpXKbQew0+sMRBAqNCsQnmVrM/VAspgO26l/XOh+AhcNCjj25uG8YgMN21QsQgSB0MwvO
+	s6DnYPPdsRCURJOD6NLoGKoQMFrCmyzr+An+k00qTGTJNIWxVrxwXcIVJwr8BEihO2Mcpw
+	OYriFeO98kH7Q1Y+Cl7ksa3LJvYieoToOSrg4r7as13MXpMuXtxYxN3GFrTgPw==
+Message-ID: <29aff55662591ec9b0e329b01384bcf24e3fb071.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Ensure stopped entity cannot be re-added to
+ the run-queue
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luben Tuikov <luben.tuikov@amd.com>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Andrey Grodzovsky
+ <andrey.grodzovsky@amd.com>,  Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ stable@vger.kernel.org
+Date: Tue, 10 Nov 2026 17:06:07 +0100
+In-Reply-To: <20261109160743.17020-1-tvrtko.ursulin@igalia.com>
+References: <20261109160743.17020-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,46 +80,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: d6w7mquascwrry3moutanxuotoax4d3i
+X-MBO-RS-ID: d325a14c4ca09da072d
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+On Mon, 2026-11-09 at 16:07 +0000, Tvrtko Ursulin wrote:
+>
 
-[ Upstream commit 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 ]
+[=E2=80=A6]
 
-The RX polling callback unconditionally rearms the timer after it
-processes mailbox data.  altera_mbox_shutdown() uses
-timer_delete_sync(), which waits for a running callback but does not
-prevent that callback from rearming the timer after the deletion.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-Use timer_shutdown_sync() for the final polling teardown so the timer
-cannot be queued again while the mailbox channel is being released.
-The timer is reinitialized with timer_setup() on a later channel startup,
-so polling mode remains reusable.
+I've proof-read it. Makes absolute sense.
 
-Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
-[ sashal: replaced del_timer_sync() instead of timer_delete_sync() with timer_shutdown_sync() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/mailbox/mailbox-altera.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied it to drm-misc-fixes
 
-diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
-index afb320e9d69ce..e81c8bac651af 100644
---- a/drivers/mailbox/mailbox-altera.c
-+++ b/drivers/mailbox/mailbox-altera.c
-@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
- 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
- 		free_irq(mbox->irq, chan);
- 	} else if (!mbox->is_sender) {
--		del_timer_sync(&mbox->rxpoll_timer);
-+		timer_shutdown_sync(&mbox->rxpoll_timer);
- 	}
- }
- 
--- 
-2.53.0
 
+Thx
+P.
