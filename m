@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326774;
-	b=lY9aWu0tcm5xT0xZmt9jAk9Def3Bvt1NDVJFgrskEjwGvpOsDbP+MpiK52LLDtw877wx
-	 GwVichqm+IuVwsgXyw8/ZMT4CHf19WWuMcCng+v6aIMBVhh6DoIEm8mr6kUXJj3jJW/5i
-	 naUQiHQ8Zg2GJ0dYs+CxO7wmJWmwZvngOoALik4LP4xA/dT3beFWZIwu/DFEB6G/RIeBg
-	 rWKJz9VoiQt55chpzKxhkzJivIFAUqnrc/2hAp7552XByxt/Ucxmd7DOHGQNWxYrRUZgU
-	 q7LXvfu6Eq/Bzs019SbNmt/bGytc/+VQe3d4WnplIxpBDOEkBkbo0Xxr1s5YUdI+qGQ==
+	t=1794326863;
+	b=DrbTXgn79YuC7m/MonQZmzOXLS93Rgn3s2fee2ryof8RMZm3xxncVEwYp8MqoPzVFqWP
+	 Pj5gjLmW8S4pUj1HrxfViT+2FyA6ZGE3pd9gaCuRDvAH0dgBnv0ZJwP9vO68m/uKd+IsV
+	 VzWxXjyKju7WIkGuCrQyqgETeIhX+4wiUFi5XL+OL4d9Q5KrNHAUNKJ6gaw9lCBQ0+QpJ
+	 TaI3IFvdOB+R5CEy7UQBzyxqCoYk5/9J+IdV2T8KFf5wo9Q11aRUJiVBrS9ErmqyX3lOw
+	 pLR3n3Ki83nEdt8W9yKKACHcV2eAM3QPNrpMI1FD+oKRauer9IdEJfzzspepHooXvCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326774;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=L2H/pxduNiYKQqjz4ouWTik9hJ0P2GnqDdb+wXeBGM0=;
-	b=uXd1q8RuvIU70Th96tZqweeFOGvzLhkxUwam0WvXcKGNE1sbDOrt/J15xJuKMEbTzxW+
-	 gwNze5nrVkAuCPK2pVJwmCqCiJ7mnDV+VzfJHNdpk5fmTF33S9cfJH+QSIQGvpV4rcgpK
-	 c6dyPMGSw5lEAPLR5WUmNDQAUSJ4LD/yBWyj2H4BvHyhXPAj1ECeSe0jtICUh6JJP9jHS
-	 Yg5jC7JSVrWEBhFxV/owoXwQG5i5a5UCZFDi+159BJmKImJKR9YBMK7x1o1Jc6nOKrY1L
-	 InP6++QS8L+v6WL2op8TpasnWCSOK77ruYYa/shOX7oIY0X6EqwjhFRzQQ+XItgANhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326863;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=T8yh6Ka5cFqopKfHtWbOI0HW3UuBrB7gJugcnlazU7U=;
+	b=KFPqS/RRz6OA3NdoQ17rF0f0shBuvrrMQ/Jm/wHhHvWT8AvTGx2wOVB0UDOqvOkkn/Wt
+	 iea3Mp4CG8cmoyfiRLwUoq/urFwULgSsNpqxqbH6zRHEssiJ98nVDXRsFq2jfgYZfxL15
+	 PjNKXhbOOaFA1/ewYYYBHoaPKw0+nZf4LN7yTKEEGy6qeMHjwwBh+pjDWTuuycxVPmtY2
+	 tb13JxfxPlyjLZkVVmVIo1kxySnJyBa5V1FCen8FZJgWi6zHI3U3AWZaB+o7PbA/GwtSX
+	 MbjJinQpabe5oYTK5KXQZbPphw16XuKzjGLXsJQE+aCjyQ8Uaz1f8KkolMjYGjVt2Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=uKz7oHJ4;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBpp0X2i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6895606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:06:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6895606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BBF4606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:07:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=uKz7oHJ4
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jPBN15LVQzMl1M;
-	Tue, 10 Nov 2026 17:06:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794326769; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L2H/pxduNiYKQqjz4ouWTik9hJ0P2GnqDdb+wXeBGM0=;
-	b=uKz7oHJ4fWyE4FbHfMfY3+a8Rus/wgGWqT9lD48bQ7N43K45LFGjX/UQ/MTWNV7Fo9UnEs
-	5BnoZcNcdJ50OTdSnXgMZCNzxuIhv0OcA27rw8V/HG8KSY0PTgIY4WqcS0LbDZKQR+kOKa
-	gwpXKbQew0+sMRBAqNCsQnmVrM/VAspgO26l/XOh+AhcNCjj25uG8YgMN21QsQgSB0MwvO
-	s6DnYPPdsRCURJOD6NLoGKoQMFrCmyzr+An+k00qTGTJNIWxVrxwXcIVJwr8BEihO2Mcpw
-	OYriFeO98kH7Q1Y+Cl7ksa3LJvYieoToOSrg4r7as13MXpMuXtxYxN3GFrTgPw==
-Message-ID: <29aff55662591ec9b0e329b01384bcf24e3fb071.camel@mailbox.org>
-Subject: Re: [PATCH] drm/sched: Ensure stopped entity cannot be re-added to
- the run-queue
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
-	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luben Tuikov <luben.tuikov@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Andrey Grodzovsky
- <andrey.grodzovsky@amd.com>,  Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- stable@vger.kernel.org
-Date: Tue, 10 Nov 2026 17:06:07 +0100
-In-Reply-To: <20261109160743.17020-1-tvrtko.ursulin@igalia.com>
-References: <20261109160743.17020-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZBpp0X2i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FE81F0089F;
+	Tue, 10 Nov 2026 16:07:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794326862;
+	bh=T8yh6Ka5cFqopKfHtWbOI0HW3UuBrB7gJugcnlazU7U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZBpp0X2iNf93OKzsNGZM915SMzS3ngnTKeu4DJULjKz3xA39D3mIgaAwz0gTD7RlX
+	 Vr91NoUEqiqdbe/5GoTz5AqnT88s1uQsr6KD2P3dXsx/FeKVIWPZ+6j3pVDOI6JzKI
+	 QX1FcHjZ5rE4fRfJPDEFM525HpwPXnfiGfLIcsrr/Wa6P068+THDRca9qBAKpjWGEV
+	 521nkrdWTI8cxRZtTc1yzeG1jzDPkIrQzdYGI1daFnv24LsXR/97C1J5Xt64pHNRF0
+	 HWxm/XCOtR4ivm3Q60ebN4X3NrRxG/ndLvKQ75EoYoRijzSuETjnhS7hKqrwFbBSrH
+	 UZvHvfRwFXFhQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Lee <david.lee@trailofbits.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] sctp: hold shkey across socket migration
+Date: Tue, 10 Nov 2026 11:07:39 -0500
+Message-ID: <20261110160731.2394436-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053553-failed-6.6-52ffeaa358d1@kernel.org>
+References: <20261107053553-failed-6.6-52ffeaa358d1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,21 +61,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: d6w7mquascwrry3moutanxuotoax4d3i
-X-MBO-RS-ID: d325a14c4ca09da072d
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-11-09 at 16:07 +0000, Tvrtko Ursulin wrote:
->
+From: David Lee <david.lee@trailofbits.com>
 
-[=E2=80=A6]
+[ Upstream commit ad1320865b1826ffa2e81e37c49535751e81335c ]
 
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+sctp_sock_migrate() transfers queued DATA skbs from the old socket to the
+new one. skb_orphan() invokes sctp_wfree() during that transfer and drops
+the skb-owned shared-key reference.
 
-I've proof-read it. Makes absolute sense.
+If userspace has removed that key from the association, this can be the
+final reference. The following sctp_set_owner_w() then dereferences the
+freed chunk->shkey while trying to take the new owner reference.
 
-Applied it to drm-misc-fixes
+Take a temporary shared-key reference before orphaning the skb and release
+it after the new owner has taken its reference. This preserves the selected
+authentication key throughout the ownership transfer.
 
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
 
-Thx
-P.
+Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261009074244.3718-2-juny24602@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 52ffeaa358d1 ("sctp: re-point retained control chunks on association migration")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sctp/socket.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 4f9978e4f268d..d974d5d147771 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -148,9 +148,19 @@ static inline void sctp_set_owner_w(struct sctp_chunk *chunk)
+ 
+ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ {
++	/* Keep the shkey alive until the new owner takes its reference. */
++	if (chunk->shkey)
++		sctp_auth_shkey_hold(chunk->shkey);
+ 	skb_orphan(chunk->skb);
+ }
+ 
++static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
++{
++	sctp_set_owner_w(chunk);
++	if (chunk->shkey)
++		sctp_auth_shkey_release(chunk->shkey);
++}
++
+ #define traverse_and_process()	\
+ do {				\
+ 	msg = chunk->msg;	\
+@@ -9700,7 +9710,7 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
+ 	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
+ 	sctp_assoc_migrate(assoc, newsk);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w);
++	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
+ 
+ 	/* If the association on the newsk is already closed before accept()
+ 	 * is called, set RCV_SHUTDOWN flag.
+-- 
+2.53.0
+
