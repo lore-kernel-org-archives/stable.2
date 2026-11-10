@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273543;
-	b=huDQUd4ATV+v/BZ2pMJ58vvr8Fdh6jEQxL79KG+J1MLWj57Up2AOroAw7WfyTkW+wt2/
-	 JuH654XzphpJMecP6ozt7ZcL3WwYr7zNknS3/8f4vZDDiJ/UgcD1kzmq2AgUquhJKDXNe
-	 Zjh7+otRKwLzzHsZBXx1RDIslq0+GaMpwfG5reXBe2g4SZkpnMx5NoES8k99X4VwSlzmM
-	 S2iP3YsjFZgz0K4T3pf39rgUtyb3QH4cfR6DOIuB0vf6SHEkCFyUUkaaaJzz8Tw/zTeLh
-	 EJYNLDuo6ZReji2KtVZh1+1uBP+PCvea5CTBUbezFvcDpKRQRyb8mCrDM+qJD8KQMVw==
+	t=1794273546;
+	b=3OfPQAYVbXNdZ30r3M4E1ZblKvBg60Z9ErEfwJFcpT8FOKnS/kn/fsBzMx8HlV41cpc/
+	 Kt5QA5DssEwU1LF+BeqFUwwofwZmBDZkaJn34H6pJqSnS0KbTjUxOGb79w0XDz66Z0/ri
+	 gvwJ/G42TC1ycpf5yXGqqRmwMRCX3BtmwqfnqaxN2CdIcwjVBg6zDE3TM0jtcP130AMZc
+	 c3oietIVxcvOmajvZrcIPVAQwtuYDwH0Ux2mC+my9SHgX5XjMVgKsl/OrZZghGY+anCAT
+	 Sjy/flgrfnohf1TtRGgjhMKRa3YkmY8TVxh+ShEcKvkwb9hkU+NnsR01Yw6hTn7M7WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273546;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mrKPb0/TC5qqsPWV3w49rttWGRgXFZ989L+yq0jADPk=;
-	b=bWnx70Gh6DlMmgQvfwMTYOuss4Fqw1tlaSk9Fb2VdX/44596ilsp5NzOlrJ3Lr5sKDEH
-	 /FEmbdcaI7uWGg+E71rfTbHOiVmq9DqWXXC1rEcrhrJe6yzskp/pb5pZndYMWmG5xCkAW
-	 xBVLOtZcoTzdM/oy1vXkujyU3LjrMO691nGQupcNfnp7l/3NVCyBHoe6Wi+bemXFvUPWp
-	 Fa9Zyq4HLgKYBKbBPEK4y6AOdDqMsgG49uBqV06lNNbXMBK0OLJARjG9i0vE57MgWFXU7
-	 qZ3PMms57qx7+MLSktO/j+aXZDBYYdyxDQHjA+h2FDD3qk9qI+Btehi6w2DcwvAnmuw==
+	bh=iMIoCvfQhWfzfqt4UeDdzALAPkoVRws4ZL2NlbGPerA=;
+	b=f7K5QQGPjCwnXLLplW+CxNkZ2/TK5Xwz31Bp9eMjKRDHqbo3CNml3Rcm94Iw9+tBYmbc
+	 M+mh4BemLKFp2xCEZReigxQaGv2f0ww768SAa5qjD/MU0rAGBmjJXr4WX90scI/HTn80i
+	 m9yjBr/SRrvhkEPQaVjGFgBoqjnuo6AwW0YnompTluPlZbx6lQk5o7UAwZM3Rle8/sk+n
+	 R6IdEJBkLpX8A/zuL0+OMtWBs+Pqv1LN4f8ZH+lTkuDHHVBruiYGllYKuvXZGQOV16ycu
+	 xSs3oiEWYsneTukY5a/tgGQxA0fBtuQxwsZoOQBvmKIt3/GAeZ0oeH54mdsA/88+Unw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="j/1LYits";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSG9IUYs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6166D606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A323A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j/1LYits
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF751F0089F;
-	Tue, 10 Nov 2026 01:19:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSG9IUYs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018D41F0089F;
+	Tue, 10 Nov 2026 01:19:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273543;
-	bh=mrKPb0/TC5qqsPWV3w49rttWGRgXFZ989L+yq0jADPk=;
+	s=k20260515; t=1794273545;
+	bh=iMIoCvfQhWfzfqt4UeDdzALAPkoVRws4ZL2NlbGPerA=;
 	h=From:To:Cc:Subject:Date;
-	b=j/1LYitsIFmRnoLIZi9/yecbWz78CGBMjUaHE4e2bSIENcZ8IO0nIOCRuSTEXEovm
-	 lCNR/42dzGkdACU7H3qZSe21jELs3JCwMonuNWwIAhEifzqoNDkYKIMx/6KNelgPmn
-	 k7DkPqnc9t3c1I6dfX7YUkyLDQO4kqtyAKYgmBtWY46yV/YElPs8XfoI1WqCjCPb/T
-	 UPYWI5061tMYB1NOILDQbv+LDTegsufDa+AhH+AQ0Ul1nwhhGdfl/Qm/8p+yTyNnjo
-	 Rbd3LdSwUGWyUVjl24NnresyK4RDJuesPBmekFXeMyxWtY1YUtr67D0kT3f8vnbpE3
-	 xlmlsx8nCg0eA==
+	b=MSG9IUYsBL92aFzi2lPIL0vfzQ3iJxGYvAareNtV9DcA5BFejw9VDEP7GZucymFSQ
+	 I5N0GJBPr0RFWf5bnoD2XJPsrJWl2VmDhxmq0t3eg5Xk2RWcIvHSf6a0A6XiapPQ3R
+	 k1qVhZ77okexFG7O3PuLOPe+CVvM70piWDVJQYdiIoAM5EOTPQ3WK92dxIgIB5CEa6
+	 qqFEwjHpWep3Oav+awwtcC6D8P4qg3nlPtQ0jH6z6X+Z2ycn8ymRHUDccN64L7adUK
+	 WGZXZ07tTcAUd+NPVqd6YMUF80L0bMB5WPqCcwVrrJMH4oDq+0TplZK83MD5orEIAs
+	 kBaNGVtjBIKmw==
 From: Sasha Levin <sashal@kernel.org>
-To: jesse.zhang@amd.com,
-	christian.koenig@amd.com,
+To: prike.liang@amd.com,
+	vitaly.prosyak@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu: keep the CS user fence BO in GTT" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:01 -0500
-Message-ID: <20261109201901-failed-6.1-7a56d929dc23@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or unmapping queues" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:03 -0500
+Message-ID: <20261109201903-failed-6.1-623507b8f4fe@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,82 +69,89 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7a56d929dc2304edaa6231e1eb5eb82b7e8b74a9
+git cherry-pick -x 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201901-failed-6.1-7a56d929dc23@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201903-failed-6.1-623507b8f4fe@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7a56d929dc2304edaa6231e1eb5eb82b7e8b74a9 Mon Sep 17 00:00:00 2001
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-Date: Sun, 18 Oct 2026 19:17:57 +0800
-Subject: [PATCH] drm/amdgpu: keep the CS user fence BO in GTT
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8 Mon Sep 17 00:00:00 2001
+From: Prike Liang <Prike.Liang@amd.com>
+Date: Fri, 16 Oct 2026 09:34:32 +0800
+Subject: [PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or
+ unmapping queues
 
-The CS ioctl hands the GPU the GART address of the user fence BO, but
-since the BO keeps its own preferred and allowed domains, it no longer
-makes sure the BO is in GTT. A user fence in a VRAM BO, which only needs
-to be a page in size, gets its address from amdgpu_bo_gpu_offset(), which
-warns about non-contiguous VRAM. On navi31, a CS with a user fence in a
-4K VRAM BO, or in one created with AMDGPU_GEM_CREATE_VM_ALWAYS_VALID:
+The user queue map and unmap helpers talk to the MES, but only the
+create path holds reset_domain->sem around them. The eviction, restore,
+destroy and suspend paths can submit to the MES while a GPU reset is in
+progress:
 
-  WARNING: amdgpu_object.c:1531 at amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu], CPU#11: cs_gem_checks/18393
-  RIP: 0010:amdgpu_bo_gpu_offset+0x86/0xb0 [amdgpu]
+  WARNING: amdgpu_device.c:928 at amdgpu_device_skip_hw_access+0x73/0x90 [amdgpu]
+  Workqueue: events amdgpu_eviction_fence_suspend_worker [amdgpu]
   Call Trace:
-   <TASK>
-   amdgpu_cs_parser_bos.isra.0+0x4eb/0x850 [amdgpu]
-   amdgpu_cs_ioctl+0x97e/0x2510 [amdgpu]
-   drm_ioctl_kernel+0xac/0x110 [drm]
-   drm_ioctl+0x2c6/0x5b0 [drm]
-   __x64_sys_ioctl+0xa0/0xf0
-   do_syscall_64+0xa3/0x4d0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   amdgpu_mm_wdoorbell64+0x20/0x70 [amdgpu]
+   mes_v11_0_ring_set_wptr+0x71/0x80 [amdgpu]
+   amdgpu_ring_commit+0x5b/0xa0 [amdgpu]
+   mes_v11_0_submit_pkt_and_poll_completion.constprop.0+0x207/0x520 [amdgpu]
+   mes_v11_0_remove_hw_queue+0xd9/0x100 [amdgpu]
+   mes_userq_unmap+0xc3/0x140 [amdgpu]
+   amdgpu_userq_unmap_helper+0x67/0x280 [amdgpu]
+   amdgpu_userq_evict+0x52/0xf0 [amdgpu]
+   amdgpu_eviction_fence_suspend_worker+0x55/0xe0 [amdgpu]
 
-and BOs which can't be in GTT at all, like GWS or OA ones of a page in
-size, pass the checks as well.
+Take the semaphore for read in the helpers instead, around both the MES
+call and the queue state check and update. The reset changes the queue
+state from amdgpu_userq_pre_reset()/post_reset(), so every caller now
+waits for a running reset and acts on the state it left behind.
 
-Only take BOs which can't be anywhere else than in GTT as user fence,
-which the CS then validates there along with its other BOs. While at it,
-detect userptrs with amdgpu_ttm_tt_is_userptr(); amdgpu_ttm_tt_get_usermm()
-returns NULL once the task which created the userptr is gone.
-
-v2: only take BOs which can only be in GTT instead of special casing the
-    user fence BO in the validation, use amdgpu_ttm_tt_is_userptr()
-    (Christian)
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f16989def9561d04d0f2e77216f5319112d29bf1)
+(cherry picked from commit e6a8b8588f43bd4d7054ac47cccc35f56ad2df90)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index ac32530c1b488..f51a6c00f6ff0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -150,7 +150,12 @@ static int amdgpu_cs_p1_user_fence(struct amdgpu_cs_parser *p,
- 	if (size != PAGE_SIZE || data->offset > (size - 8))
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 4dca1ab48410a..958a3c9f4c617 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -362,6 +362,8 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
+ 		adev->userq_funcs[queue->queue_type];
+ 	int r;
  
--	if (amdgpu_ttm_tt_get_usermm(p->uf_bo->tbo.ttm))
-+	if (amdgpu_ttm_tt_is_userptr(p->uf_bo->tbo.ttm))
-+		return -EINVAL;
-+
-+	/* The GPU writes the user fence through the GART */
-+	if (p->uf_bo->preferred_domains != AMDGPU_GEM_DOMAIN_GTT &&
-+	    p->uf_bo->allowed_domains != AMDGPU_GEM_DOMAIN_GTT)
- 		return -EINVAL;
++	/* The reset changes the queue state and the MES is unusable meanwhile */
++	guard(rwsem_read)(&adev->reset_domain->sem);
+ 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
+ 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
+ 		trace_amdgpu_userq_state_start(queue);
+@@ -388,6 +390,8 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
+ 		adev->userq_funcs[queue->queue_type];
+ 	int r;
  
- 	*offset = data->offset;
++	/* The reset changes the queue state and the MES is unusable meanwhile */
++	guard(rwsem_read)(&adev->reset_domain->sem);
+ 	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
+ 		trace_amdgpu_userq_state_start(queue);
+ 
+@@ -769,12 +773,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	if (!adev->userq_halt_for_enforce_isolation ||
+ 	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
+ 	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
+-		/* Serialize the map against an in-progress GPU reset (MES is
+-		 * unresponsive during recovery), matching amdgpu_userq_detach_doorbell().
+-		 */
+-		down_read(&adev->reset_domain->sem);
+ 		r = amdgpu_userq_map_helper(queue);
+-		up_read(&adev->reset_domain->sem);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
+ 			trace_amdgpu_userq_create_end(queue, r);
 -- 
 2.53.0
 
