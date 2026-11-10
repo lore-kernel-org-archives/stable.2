@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273558;
-	b=Mc1IjTVylX638nFbHHWZdV5Tl8bdEyo18eHygC5q+2x6axrl7TiuBcYGewEFo/EOwVWJ
-	 14qxLguvLWr4dLsFdJO9X1mQ1xyHtSWj/bDCswsV+gAvcD6NA1Fetp7tq0lA8EYv1viPh
-	 oINU62Vr+Ch+XmB0xrE11aKmrMXVgUxN9ny1aEHlo3KmsT7zMByX+osYxPKQS6XgM6u0z
-	 NtoX1+SFO7Tfx2QInB3WJxtUpboDg+T2DvSgSP+tRZtXwDpCGPvw53z8W5SKqoPBLtkKj
-	 /AT9iXjM8VWQfGPGnH5JYtZJ1YWM9yjX3B1LRLnRIF1j2AVA1VcLc+QOK0NGI/9lRlg==
+	t=1794273560;
+	b=QIMUTZelZ+4hzuTfcaERlzuKz+UPL9LpZp8a/SINzCtCc5b49QmvAER/Ly7oXN+McGaL
+	 6MYt82cp+3nkk81oMnxpT5uZox3m+obIqf2ZuV9JKlQUdc2pA3UdusyR3ANybPGAfZIaf
+	 ey5oOOSS6Rfo5gXcNqHlR6GJyOt5CEXciwGB/FfS8nScZFtFCGUfGsVUxUGqLQTkKHXIJ
+	 2T3YVW9c448y2S3tTlrA4vMhsT/QAi3jhRVxMWN1JpJSJ7c+Idyy6K8dr54IqXrpVfqI3
+	 0soNGPcjvqid/peOxsvO0ZnbJh5p/IIGZb5Nj8egZ/y5inXDXmK4cRBMLCaNp8/yfuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273560;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GPNuEwInqy6m9ZBeZq9IO2zBTYiVKKTyrQMjdW6/CK0=;
-	b=hy0lDIM4B9ogTFH80RHCDBiqsmxBB7DSppnScmFMvVk3XruNXNLzdlaoO/STmrqCEW9P
-	 NiYT2k/VNCj/lVe4zY08svy7OeS6yqVMphH7SZSYAbGWefkYCAXhIMQvgNwKVvah7eQAz
-	 jY+BSZ2XYApYtgzhAD4gTEKmziKsIEWzOlELJiWdTdgku3xYy65fmp+FPOUhZyIklaHpp
-	 eZ1ArAPSeiwqB/gG1W7LNW1HKCau2usCwWRQM8iq5dc1ueJTV0InK47hnWqkZrCRdI3Eb
-	 /V5H+zxTR36faVcSoaRv2mVJ+24Gpf47XoIPlBQmpDfXrIH2v+vvqixiwjOMUdROD0Q==
+	bh=LPJxMmqIu34g5dYRnrnyq3MC0famBiFzLssTRJfX304=;
+	b=V7+M72vnBPUDfE90FtMlJfS5X3R2yyPGHFnROQSuMttpekMeMEZDNpyelnTLwEYWJjW6
+	 PyzCUTFphzJACwZFVOPA0Nojc/gd+/R0zWWnjZfQ4GzCLRsV+FkZ7pbtDA9YLV0L88wqW
+	 R6uhLvdBig1uuv5pFKyDHyrhfPaGppkvHZtodk5hY5dfYXMi43RhwjfhRL+dm5w0h14Sp
+	 7j7CrxGz6miwsB3O/9gxrCjdklbVM0Yq8mTaPLHzdg4V69YI9dOIZBRSyNHvWt1ocnKun
+	 CamXYkMQv4pyOKeZ+Fwzaw3ASEw5Z/KRYGGKIAta67HZXG/rWiPdWfYkVc9vgIgAszQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFSDBwzd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYNjKAQn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA73606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587B5606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFSDBwzd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572A51F0089F;
-	Tue, 10 Nov 2026 01:19:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cYNjKAQn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02111F0089F;
+	Tue, 10 Nov 2026 01:19:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273558;
-	bh=GPNuEwInqy6m9ZBeZq9IO2zBTYiVKKTyrQMjdW6/CK0=;
+	s=k20260515; t=1794273560;
+	bh=LPJxMmqIu34g5dYRnrnyq3MC0famBiFzLssTRJfX304=;
 	h=From:To:Cc:Subject:Date;
-	b=cFSDBwzdDrzeHQgFT0SUV1tBTECZeE5H4PbV3iWNm+U3qGSTANDjfUdHSLmKnbn3/
-	 E1rVCZL8DRBMEWxLugWUhq2a3xpUNmTf/lb9QBTdbeZug5vFg603JE2VkiqyPjROow
-	 L3FAVioatWWY+DQaM3zMgYDbCC9egoEGkCipnptwvO6SABiHrQech22LiQUcVkiGNW
-	 IRl5cBOVQjLE39YaBB7YA1n6RKBxl8kCmcXFVpv0SdWOdrKz68rLyHx2IpR8YzcHpb
-	 hqWMipoGzJim19GlNjqFBgMsvHlDX+4JpgZNozLftqVtTgMSAjV3//LOtkUHLIZdnE
-	 DyN8SBaRAraZw==
+	b=cYNjKAQnthpFp7qj4VtxJV7CkGOBGHURJ+XmT+Fh24L0i4K2dG599EfkWX7xYSaWd
+	 lxCXFltGtVl7Qmhneqi8vZJuY0rYwyM6RkkJpWyQDfXDW6nqwfIYCo7ye2mey0+/cf
+	 kfCsgTjJf+44/rp7snFa1xoyaWQv4UCM888rRqjy1bJwNDPQcGZuTZHYK7105Pg5qO
+	 1a5Kgi1VcR5xB9nqfH7E6Pn7+MCnW0OYZ9HzczgGR2Eyz5EVIYpYc26NlKzydvUdaN
+	 Cvnqey3Qmuem3zFoOzZbn7Tvy6H8bDZWZVKf6Q0MNXU7wJCaCjFFP0KuLEnto7cot5
+	 8JrxVsRol51gQ==
 From: Sasha Levin <sashal@kernel.org>
-To: 4ncienth@gmail.com,
-	sgarzare@redhat.com,
-	mst@redhat.com,
-	pabeni@redhat.com
+To: misha@nasledov.com,
+	alex.hung@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] vhost/vsock: size receive SKBs from declared payload" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:16 -0500
-Message-ID: <20261109201916-failed-6.1-d5e912448cd9@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: Drop clock requirements on DCN32 when no displays are active" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:18 -0500
+Message-ID: <20261109201918-failed-6.1-bba4dc330648@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,118 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d5e912448cd98b261eba8e35ab838f2dc69a79f5
+git cherry-pick -x bba4dc3306483335ddbe065c05b2d8359ec387a4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201916-failed-6.1-d5e912448cd9@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201918-failed-6.1-bba4dc330648@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d5e912448cd98b261eba8e35ab838f2dc69a79f5 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Mon, 5 Oct 2026 08:51:01 +0900
-Subject: [PATCH] vhost/vsock: size receive SKBs from declared payload
+From bba4dc3306483335ddbe065c05b2d8359ec387a4 Mon Sep 17 00:00:00 2001
+From: Misha Nasledov <misha@nasledov.com>
+Date: Mon, 19 Oct 2026 16:42:32 -0700
+Subject: [PATCH] drm/amd/display: Drop clock requirements on DCN32 when no
+ displays are active
 
-vhost_vsock_alloc_skb() sizes the skb from iov_length(), the total guest
-descriptor length.  virtio_transport_inc_rx_pkt() instead adds hdr->len to
-rx_bytes and buf_used, and budgets each queued skb as SKB_TRUESIZE(0).  The
-guest controls the descriptor length and hdr->len independently.
+amdgpu_dm builds the new dc_state as a copy of the old one. When the last
+stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
+never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
+dramclk/dcfclk/fclk requirements of the display that was just turned off.
+dcn32_update_clocks() then keeps those hard minimums applied.
 
-A guest can therefore provide a 64 KiB descriptor while declaring a zero
-payload.  The descriptor-sized skb remains queued, rx_bytes and buf_used
-remain unchanged, and only the fixed queue-entry budget limits retention.
-This is not a lifetime leak: the skb is freed when dequeued or at socket
-teardown.  Repeating this across connections can nevertheless exhaust host
-memory.  On Linux v7.2, 455 such descriptors retained 30,255,680 bytes for
-a 262,144-byte receive buffer; a full-payload control retained 265,984
-bytes.
+On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
+the monitor off, and the board idles at 28.4 W. With this change they
+drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
 
-Vhost previously read hdr->len and allocated pkt->buf from that value.  The
-conversion from virtio_vsock_pkt to sk_buff instead allocated receive skbs
-from the descriptor length, introducing the allocation-accounting mismatch.
+Reset the clock requirements in that case, as calculate_dlg_params()
+already does when no HUBP is active and as the DML2 path does for
+stream_count == 0.
 
-Copy the header into a stack object and validate hdr->len before allocating
-the skb.  Size the allocation as sizeof(hdr) + payload_len so descriptor
-capacity no longer determines queued memory.  Check payload_len against
-len - sizeof(hdr) to avoid addition overflow on 32-bit hosts.
-
-Fixes: 71dc9ec9ac7d ("virtio/vsock: replace virtio_vsock_pkt with sk_buff")
+Signed-off-by: Misha Nasledov <misha@nasledov.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
 Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Link: https://patch.msgid.link/20261004235101.1464007-1-4ncienth@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- drivers/vhost/vsock.c | 34 ++++++++++++++++------------------
- 1 file changed, 16 insertions(+), 18 deletions(-)
+ .../display/dc/resource/dcn32/dcn32_resource.c    | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-index 0cb87971d7491..88a310390eb0a 100644
---- a/drivers/vhost/vsock.c
-+++ b/drivers/vhost/vsock.c
-@@ -360,7 +360,7 @@ static struct sk_buff *
- vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
- 		      unsigned int out, unsigned int in)
- {
--	struct virtio_vsock_hdr *hdr;
-+	struct virtio_vsock_hdr hdr;
- 	struct iov_iter iov_iter;
- 	struct sk_buff *skb;
- 	size_t payload_len;
-@@ -378,34 +378,32 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
- 	    len > VIRTIO_VSOCK_MAX_PKT_BUF_SIZE + VIRTIO_VSOCK_SKB_HEADROOM)
- 		return NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 3a6a489388435..619b9b3362fc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -1941,8 +1941,21 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
+ 	out = dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, validate_mode);
+ 	DC_FP_END();
  
--	/* len contains both payload and hdr */
--	skb = virtio_vsock_alloc_skb(len, GFP_KERNEL);
--	if (!skb)
--		return NULL;
--
- 	iov_iter_init(&iov_iter, ITER_SOURCE, vq->iov, out, len);
+-	if (pipe_cnt == 0)
++	if (pipe_cnt == 0) {
++		/* The context is a copy of the previous state, so without this the
++		 * clocks the last display needed stay applied with all displays off.
++		 */
++		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.num_ways = 0;
+ 		goto validate_out;
++	}
  
--	hdr = virtio_vsock_hdr(skb);
--	nbytes = copy_from_iter(hdr, sizeof(*hdr), &iov_iter);
--	if (nbytes != sizeof(*hdr)) {
-+	nbytes = copy_from_iter(&hdr, sizeof(hdr), &iov_iter);
-+	if (nbytes != sizeof(hdr)) {
- 		vq_err(vq, "Expected %zu bytes for pkt->hdr, got %zu bytes\n",
--		       sizeof(*hdr), nbytes);
--		kfree_skb(skb);
-+		       sizeof(hdr), nbytes);
- 		return NULL;
- 	}
- 
--	payload_len = le32_to_cpu(hdr->len);
-+	payload_len = le32_to_cpu(hdr.len);
-+
-+	/* The pkt is too big or the length in the header is invalid */
-+	if (payload_len > len - sizeof(hdr))
-+		return NULL;
-+
-+	/* Allocate only for the payload declared in the header. */
-+	skb = virtio_vsock_alloc_skb(payload_len + sizeof(hdr), GFP_KERNEL);
-+	if (!skb)
-+		return NULL;
-+
-+	memcpy(virtio_vsock_hdr(skb), &hdr, sizeof(hdr));
- 
- 	/* No payload */
- 	if (!payload_len)
- 		return skb;
- 
--	/* The pkt is too big or the length in the header is invalid */
--	if (payload_len + sizeof(*hdr) > len) {
--		kfree_skb(skb);
--		return NULL;
--	}
--
- 	virtio_vsock_skb_put(skb, payload_len);
- 
- 	if (skb_copy_datagram_from_iter(skb, 0, &iov_iter, payload_len)) {
+ 	if (!out)
+ 		goto validate_fail;
 -- 
 2.53.0
 
