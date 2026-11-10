@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794310609;
-	b=2eGNIM4IEGfCYlZT0z/SsigvVBYVZq3yJHroUMqdZG8W8EOfMWbvXnv8dtRoLp5KpzzM
-	 lfBt0WDyfX7bjyAZ9dXVXaOga9fuD2LV0sTmhIQG6oMylIEd7elcD5agVUVhG9Oj5aiwm
-	 0K73rfJs16ZGlVqT1DW8eD6x6Q+G9NUHP4fVaZv5DQYwAF0E0OwG4dJeR3ldEZ9z0Hcru
-	 40N53CqnKwtTBGA+5VAXiSFl3N++nb9FuXiSv19/ka8W8UAd4gb4SG40DsEzqBna9hIiX
-	 pMXKR/OmpzX7gpp8AXtNCEIr6o8Xq9/7rqXnasJPec7xMCKApo68I2JtySnJYQiWERw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794310609;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kixVgiTzFmo3eOq/ssvfPl61Iy15bJJwVSGa7ryio4M=;
-	b=CftcOcJr6lZU6v7QIYpSaqun+J0vCCM8jLP/4UtZ6xGWZmEGUnJK23+wVX1hbjteSsIn
-	 W85nWWZg2khSHkaY5LWvHgBFd6lYydJrlcWz7mam0aouBsXfCnO1VJcf0JtRIIkqgxO5S
-	 Flxwp5ntgNGxctvyt+th+mM2a/vkq0v3XGtj3mTIKsGWrYuUt+JA6+eSWBAFUW19KcDcV
-	 QCqKichvgEHQWi6+SBsBZVvpHKPTxWR8O/3ASL4Ma9UVFIVQ5fGawPSRM63+90VzzjyLA
-	 LCRN/XAYtjB/oZ8ZyhLqslMpk6bXkZvYvwHy21U+7JaQAtmCDVd1k5fGnrh/Mvj12Ig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwKMryRb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794310627;
+	b=PPhOiuoodkirpGsGEDnax1k/ou+vnzxIKfO5uIoyMYfOQbaWmLgq2SYE6ND91WNSmDGV
+	 aglzBccgcYeli+Oyaa0d/hYygK2/mo/svKV0RoVoz/2bBDQ98UhnPb+w4Pug9FzMwN2kn
+	 SkAnBqfSQeJH5bxw3jt04efLYhgTQthzWCfUfddpypJMbKMTj+J/7VqmPqg4jSKxmheo1
+	 bKlKZi2C2Nmbp3xBBzJ5vKIztX7dvRSnhrCeWrUsD/j0vkpLoNDwzDG/PAC/nXy9M2259
+	 735ycpUfTEXtZs7BupzPijecUMh3Dp0Xy90UGkUDOkmllPtP7u2f82k1TQ6Hi41Un+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794310627;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qt/neJcxZ9xZ75W+JO0+hRLDr4yabM2iU7/BXS4KDeE=;
+	b=txkh+GhHSgkjs2dST/h0iU2Zo88nvMrFklgqNUfhNWTRgiGbZhOMKuX/IqT8yTL5/AYk
+	 pCtzZd823qiFY4HGGefqd9vK7cEhk8/PpsNx/0FH3v4jNTSy/zyeUhTlvUZTSiNy2dQ5b
+	 9hx3R4PB5Styw0Fub34EDk+ViTEjLGmLk33t5JiyTvRmNAorKWXS/PFnJXdg5NdL40qFA
+	 zVDbrF8BZMvlVCPVJzd6bjH2p/pDcgJEEPX98urUBHKCaGZuiakZQ80rDSY1gBMsHMkBc
+	 GTZZcfkwxQibe3VMvy+16MckSZp8/u/hJkCnJmR4V1hNO522ZqkrAD4B7lZ+nF1Yx8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JTHyTB6n;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DA4606A336
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B269606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:37:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B269606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwKMryRb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A2B1F0089F;
-	Tue, 10 Nov 2026 11:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794310609;
-	bh=kixVgiTzFmo3eOq/ssvfPl61Iy15bJJwVSGa7ryio4M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gwKMryRbPetffIOShSSWwWZ2Zk5N7jOCh9hSv1xbyg9VTvHVYs6FMpJW0smvb3Ad1
-	 KkCLLyNeKZ2Ed6QU8BCZtsNhI0Hkd2M0EsSesGKdWZuwGtweJzHBWWhk9xGg1oHMRB
-	 Ntf1XPgrvTaYPzRKaduS4bgrARHY3d00x9MdzPM07MAzZZVW5tyuSXGd68wPQBpz00
-	 sddG5xaw/83YSB3sf1aWFl7F4m/LQSDGfTW3Id+0mgrhUGAN0vBfkTfpMFKQVB4PFY
-	 LBodG4sWxjxQSoVBfrxQkXweZaWvLjT81QYbeWdzFQhA1109L0MbtkAOt5G4fn+PtB
-	 xcigzoYuZcvmw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] aio: prevent eventfd/epoll recursion on poll
-Date: Tue, 10 Nov 2026 06:36:47 -0500
-Message-ID: <20261110113603.284603-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061424-failed-5.10-398e3fa789aa@kernel.org>
-References: <20261107061424-failed-5.10-398e3fa789aa@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JTHyTB6n
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67c05273c38so2263197d50.1
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:37:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794310626; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Je5dyYHLMb+6HGtP80Vs1rGPXlXtTci0rXpPXUHmjDLInnOSPk+RC3HSzXPtoEPciT
+         IxWWFQeLYBE3ex/o2JwnMarmeCHlrErCk4KPVRK+lbCOUtWUlRZ2xPHoyNtTzpLRcpLt
+         6hEMGQ2ftSuHFL2fpj0U5M3Oa5ilYV606KWbA8HiBF+m8rPqcLW4n9Ybbn4Wj7wDrXpW
+         2dAMKzya97Wyu/Pyp8HvBDiYmmw/SFghpDQiX4P0AV8OP1CFaBLIrV9vLGUlyyDZmhez
+         TyLNFFSjpOjCk3r5VFWud9tNI9O6i77suI3uXGmc3RZ/tbSBupoLSb/NaVXMH7m4ftOd
+         sv7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qt/neJcxZ9xZ75W+JO0+hRLDr4yabM2iU7/BXS4KDeE=;
+        fh=+RgtVU2ovOiTNEOg2BoGq5Vs62kDe8yDsgav6zUhibc=;
+        b=MVxZ+hmZLGrql8crzrZgvF6Lcje+e+qXH8CfX8qw7C7bq/nwPQ0N0ykHqSeHFGBGJB
+         Fm4QXZday0vDCs6pwzdbeVWSs3lq5kWsGYvmoANmOGnIUMZVFwgTpk4iVO0V0jtvVkP1
+         2NYP3U+MdH8zyNLMaPQjmvCb9mVYch7MY6VuJ9ccIMbUatmMhO7JfmZg3uZRyh6aAXm4
+         IknZJgpw2PzeA5uMLZQmx1/2A1yG+5ir7uneYPNeQH3S8vQVTrNM6idyp+S7fdmMXWX2
+         yJIzyiugQ8dvvuxanZ6htubvOLz5YehpRNK3d17P/67q9zZRUY68jFPGpnRIEDZqw+p8
+         amKg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794310626; x=1794915426; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qt/neJcxZ9xZ75W+JO0+hRLDr4yabM2iU7/BXS4KDeE=;
+        b=JTHyTB6nbZ8JaA/jdut3kJtMd66vKZ67uO8vZqznGa2kOEFm+X/fcfaMMWSuW7O1by
+         ldOQw4FC/6+3QYvmrdG9gUV2ERIfRnrNjo9543Z4NaaSie5iw/e9wNBcLksOxhjnmUWp
+         D3X4c3nfy69aLw6Q9L1mVRSjkWd/VMSP3gzGVKCpukMIJPcKRiSeytXqE8f2bB5EhpMM
+         alKLIfcFv6SxTZlX5DUbBlQj9wC/Nn8SOqxyKfb4UeRERyXWwGOaLDDtQKu5S+1nCrS+
+         Cuy8aDkbQinmx2QGZcxW/XGzyrjoUVjSj3anNguDFH3AGuoxxk2hE2fQhyR5J6v3ip59
+         yiNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794310626; x=1794915426;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qt/neJcxZ9xZ75W+JO0+hRLDr4yabM2iU7/BXS4KDeE=;
+        b=wmBqXAPd1QcHP9ev4I2w+OyEwCCU6amYh7tK5oSwRZii4/1MFFZMGyRt7yPdDNRO9G
+         BO0unJj404zM3NUKU2LMP8Jmfu9cuZy8+fgVSthzC9BFljxxymjf48FIr1icBR7IoXUH
+         dtcpRHb7jB03eV5LebXMq0n7TTeSVp+glb3UFIfdH7HqXCLtu0sSSSNmK4F9pz8WLml0
+         JrORF9RYt0o/QqePxeKtge2Gfw/g54hayMeXsrSX5dnyqRZRhmW2riRHLiASdX+2R7mq
+         ncVV8Ue0h30tsv1fOfIXmEWZf+CQCU0rM7rystT0bjpbgmJpkV0zHi8vJlVvWhvnfmTJ
+         umig==
+X-Forwarded-Encrypted: i=1; AL+hErHhOYJVPamDvP54k4JRMjCEP1Unq7XbhcXgdkAHLtSxTAy1cJCv/YyHLhmk/wxBRIZCeKljALg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/iblIzuNd6eZNrW+cZoSdxdmPcwDQWEsjJOEdFejZGllDKJ2Pd
+	GAmVoYRwqrLctbY4pta15D8fmHlGO61oKtOtIJTimJG47X2AjOryr51283nPCnYlhCPgqI0mOtc
+	eWjkBHnLm76OwvPBxLJODj4Exglz9EpNHYq4m
+X-Gm-Gg: AYBFou12XQ/ha6x8DLSn3rh0MWoM8ga3XdOQDmtrWKvqnhrBgF8+shFinW0qMBMNlvr
+	+/hOL9VbLqPQ+L2FOCvtoCSX6O3TQO7nNo1eXMsML7zAv1APAIefuuEroqEOjVDJjcMrPYTpPJL
+	OFOSp/teKGinAv7JkZeRZtxxYee64nBE7j7CfB9A9/3MrDVkG5Zb7KBploEdST7M0xM5pTdxut9
+	9fM5gGoArsCwTwJYHp7STZIiDzC28eyZeBSqcrryyjuLPeibMqL0WNB+MIwDyqiQfU8ttzl0qZ7
+	4EHJKtY+X2s35SqKBOQ6iPq73oxgHnzmiv/9Q7snuvN0o256QTIAANz49B4L5vLs6y/Duh+S2AN
+	mkxalTGlLEs51CCydxf53/Q/sTJWBeZU30jJ31+k3yrmq7s/n7I/Rk7e5BcsIsYrj6A==
+X-Received: by 2002:a53:edc5:0:b0:679:887f:a2bf with SMTP id
+ 956f58d0204a3-67c567cfd59mr955013d50.36.1794310626310; Tue, 10 Nov 2026
+ 03:37:06 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,67 +104,208 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105160209.1504867-1-ekffu200098@gmail.com> <20261109213346.634e83b158ee7086e64f9cd5@linux-foundation.org>
+In-Reply-To: <20261109213346.634e83b158ee7086e64f9cd5@linux-foundation.org>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+Date: Tue, 10 Nov 2026 20:36:54 +0900
+X-Gm-Features: AclHuK_2rdVIzXDvlS0k-IPNS1HMB51W2pzMFbgaNitdqk4GrOOh4YW5AtmS_js
+Message-ID: <CABFDxMGtYLFSiCLHsXn_ihG3cv-oCgo01FW6e+9aYN2gvM+W_A@mail.gmail.com>
+Subject: Re: [PATCH] fault-inject: fix boot failure with fault injection boot parameters
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Akinobu Mita <akinobu.mita@gmail.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+Hi, Andrew
 
-[ Upstream commit 398e3fa789aa5ffddc8689d8cbc7b31e1824130c ]
+2026=EB=85=84 11=EC=9B=94 10=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 2:33, =
+Andrew Morton <akpm@linux-foundation.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
+=B1:
+>
+> On Fri,  6 Nov 2026 01:01:58 +0900 Sang-Heon Jeon <ekffu200098@gmail.com>=
+ wrote:
+>
+> > Since commit e9bc360b105c ("fault-inject: use prandom where
+> > cryptographically secure randomness is not needed"), setup_fault_attr()
+> > calls prandom_init_once(), which calls kmalloc() and schedule_work().
+> >
+> > But setup_fault_attr() can be called from __setup handlers before slab
+> > and workqueues are initialized, so any fault injection boot parameter
+> > leads to boot failure.
+> >
+> > So use DO_ONCE_LITE() instead.
+>
+> thanks.  I'm surprised that command-line fault-injection options (or at
+> least failslab) have been broken for 1.5 years.
+>
+> And what's going on in that code?  Why does it need to call
+> prandom_init_once() from three different sites?
+>
+> I discussed it with LLM for a while and it proposed the below.  But I
+> ran out of time to think about this.  The code seems to need a
+> signficant rethink so I suppose a quick bandaid as you suggest is good
+> enough for now :(
 
-aio_poll_wake() can complete a keyed poll request inline while the
-provider waitqueue lock is held.  If the polled file is an epoll instance
-and the AIO result eventfd is watched by that same instance, signaling the
-result can feed back into epoll and try to take the provider waitqueue lock
-again.
+Thanks for looking into this. I checked the proposal from LLM.
 
-For example, a timerfd wake can follow this path:
+>
+>
+>
+> Could we use a shared initialization helper instead?
+>
+> There are three prandom_init_once() expansions in fault-inject.c.
+> Each has its own guard, so configuring another interface can reseed
+> the same state after fault injection has started.
+>
+> DO_ONCE_LITE() avoids the allocation and workqueue dependency, but
+> doesn't serialize concurrent initialization or wait for another caller
+> to finish seeding.
 
-  timerfd -> ep_poll_callback -> aio_poll_wake -> aio_complete
-          -> eventfd_signal -> ep_poll_callback -> ep_poll_safewake
+In theory, right. But IMHO, do we really need serialization in
+setup_fault_attr()?
 
-The second ep_poll_safewake() recursively acquires ep->poll_wait.lock.
-eventfd_signal_allowed() does not prevent this because the wake chain did
-not begin in eventfd, so the task's eventfd recursion bit is still clear
-when aio_poll_wake() decides to complete inline.
+> The patch below keeps prandom_seed_full_state() and gives all three
+> configuration paths one lock and one completion flag. The three calls
+> remain because each interface can independently enable injection.
+> Moving initialization to an initcall would leave boot-parameter users
+> able to inject faults before the initcall runs.
+>
+> An ordinary spinlock is sufficient: these are configuration paths, not
+> the interrupt-time random-number generation path. It also preserves
+> the lock type used by DO_ONCE(), allowing the RNG's ordinary locks on
+> PREEMPT_RT. No raw spinlock or explicit interrupt disabling is needed.
 
-An unprivileged process can construct this graph and make a CPU spin on the
-recursive lock.  DEBUG_SPINLOCK reports "BUG: spinlock recursion", and
-lockdep reports the same epoll waitqueue lock as both held and requested.
+Right.
 
-Always defer eventfd-backed poll completions through the existing
-aio_poll_put_work() path.  At this point the request has already been
-detached from the waitqueue and active request list, so the work item can
-publish the completion after the provider callback releases its lock.
-Poll completions without a result eventfd remain inline.
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Date: Thu, 5 Nov 2026 10:01:33 -0800
+> Subject: [PATCH] fault-inject: initialize random state once without workq=
+ueues
+>
+> Fault-injection boot parameters call setup_fault_attr() before slab
+> and workqueues are initialized. Its prandom_init_once() call expands
+> to DO_ONCE(), whose static-key disabling path allocates memory and
+> schedules work. A valid boot parameter can therefore crash the kernel
+> before boot completes, even when its probability is zero.
 
-Fixes: e8693bcfa0b4 ("aio: allow direct aio poll comletions for keyed wakeups")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260813133843.2933127-1-4ncienth@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Removed the existing eventfd_signal_count() check instead of upstream's !eventfd_signal_allowed() check. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/aio.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Right, and that's what we are trying to fix.
 
-diff --git a/fs/aio.c b/fs/aio.c
-index 22b6e20322741..16ceed755b7e5 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -1777,7 +1777,12 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
- 		list_del_init(&req->wait.entry);
- 		list_del(&iocb->ki_list);
- 		iocb->ki_res.res = mangle_poll(mask);
--		if (iocb->ki_eventfd && eventfd_signal_count()) {
-+		/*
-+		 * We hold an arbitrary provider waitqueue lock here.  Signaling a
-+		 * result eventfd can feed back through epoll and try to take the same
-+		 * lock again.  Defer all eventfd-backed poll completions.
-+		 */
-+		if (iocb->ki_eventfd) {
- 			iocb = NULL;
- 			INIT_WORK(&req->work, aio_poll_put_work);
- 			schedule_work(&req->work);
--- 
-2.53.0
+> The debugfs and configfs setup paths have separate prandom_init_once()
+> expansions. Their independent guards also allow the shared random
+> state to be seeded again after another interface has enabled fault
+> injection.
 
+Reseeding could be useless work, but it does not break the system.
+
+> Replace the three expansions with calls to a shared helper. Serialize
+> initialization with an ordinary spinlock and set the completion flag
+> only after prandom_seed_full_state() has finished. This retains the
+> existing seeding algorithm without allocating memory or scheduling
+> work to disable a static key.
+
+Code description is correct. But we can easily find how the code works
+without this description..
+
+> The lock protects configuration-time initialization, which is not
+> called from interrupt handlers. Use an ordinary spinlock rather than
+> a raw spinlock because the RNG acquires ordinary locks that can sleep
+> on PREEMPT_RT.
+
+Again, right, but no need to describe this in the commit message.
+
+> Fixes: e9bc360b105c ("fault-inject: use prandom where cryptographically s=
+ecure randomness is not needed")
+> Reported-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> Cc: Akinobu Mita <akinobu.mita@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
+> Prepared against c2366a2edc886a5a02d2a43de8b1c6ec09bab840.
+> Source inspection only; this replacement has not been built or
+> boot-tested.
+>
+>  lib/fault-inject.c | 25 ++++++++++++++++++++++---
+>  1 file changed, 22 insertions(+), 3 deletions(-)
+>
+> diff --git a/lib/fault-inject.c b/lib/fault-inject.c
+> --- a/lib/fault-inject.c
+> +++ b/lib/fault-inject.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/interrupt.h>
+>  #include <linux/stacktrace.h>
+>  #include <linux/fault-inject.h>
+> +#include <linux/spinlock.h>
+>
+>  /*
+>   * The should_fail() functions use prandom instead of the normal Linux R=
+NG
+> @@ -19,6 +20,24 @@
+>   */
+>  static DEFINE_PER_CPU(struct rnd_state, fault_rnd_state);
+>
+> +static void fault_random_init(void)
+> +{
+> +       static DEFINE_SPINLOCK(lock);
+> +       static bool initialized;
+
+declare below fault_rnd_state looks better.
+
+> +
+> +       /*
+> +        * Configuration paths must finish seeding before enabling inject=
+ion,
+> +        * and must not reseed state already in use by another interface.
+> +        * These callers are not interrupt handlers. An ordinary lock all=
+ows
+> +        * the RNG's sleeping locks on PREEMPT_RT.
+> +        */
+> +       spin_lock(&lock);
+> +       if (!initialized) {
+> +               prandom_seed_full_state(&fault_rnd_state);
+> +               initialized =3D true;
+> +       }
+> +       spin_unlock(&lock);
+> +}
+> +
+>  static u32 fault_prandom_u32_below_100(void)
+>  {
+>         struct rnd_state *state;
+> @@ -50,7 +69,7 @@
+>                 return 0;
+>         }
+>
+> -       prandom_init_once(&fault_rnd_state);
+> +       fault_random_init();
+>
+>         attr->probability =3D probability;
+>         attr->interval =3D interval;
+> @@ -240,7 +259,7 @@
+>         if (IS_ERR(dir))
+>                 return dir;
+>
+> -       prandom_init_once(&fault_rnd_state);
+> +       fault_random_init();
+>
+>         debugfs_create_ul("probability", mode, dir, &attr->probability);
+>         debugfs_create_ul("interval", mode, dir, &attr->interval);
+> @@ -456,7 +475,7 @@
+>
+>  void fault_config_init(struct fault_config *config, const char *name)
+>  {
+> -       prandom_init_once(&fault_rnd_state);
+> +       fault_random_init();
+>
+>         config_group_init_type_name(&config->group, name, &fault_config_t=
+ype);
+>  }
+
+In general, the shared initialization helper looks okay. But I think
+this should be applied as a separate patch. Also, the commit message
+is a bit verbose.
+
+Andrew, is it okay to send an extra patch based on your suggestion
+with your co-developed-by tag?
+
+Best regards,
+Sang-Heon Jeon
