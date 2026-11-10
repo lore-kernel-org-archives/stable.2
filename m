@@ -1,55 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272196;
-	b=OroXJxArkijZ61Ctc25n+YpQg5wRoSaaUQWN56pnHI0Ia8pJEc969Oaxk1iAJlz8w15i
-	 /VLIB2AqzGo4YiDx6J+NKSx/pl29U7YmYxyid01GiTJSPm58D8YwSl1Pg1OluzxUvC6Ro
-	 CQyAwYksTfLsylqojttlDT63T2hV2tkswHVZeFEZexBsl7VAIK5rI8c0synV7jb96sho4
-	 V+QkBT0LIYSpp6c3YTnEg4ADWY+acwafLS1RRdb3t+lknnHaW6BMkSndoZXun6F9IYTvH
-	 lhh2qOTs3xfVItC1rM5c7YLebmUhcBFcWf7KmpbDW/kU39yaIXG6WkYYLwslKfDmw8Q==
+	t=1794272340;
+	b=K9gM0WYw5LXMFSwA+mvyvxpMAc2Ro/lTzbV+PITI2veyqFqQD0k6pIjNt2vEqQ/LQUwA
+	 YThQy2FuoaqZU1Vh6J9mb8/Fo0Nl/guxOhGa/zR7mUtgmjlrXWXCOOOfRSSVIxn58NQr2
+	 rUVG+xaDsQ6pJWCLhjWy47kh6qyxYZem3mW4ZFtivNYebSc0AqEXWD4//VIpObayNChCY
+	 FejDD2o/DsOU4sZQx8/xLPKbTiLsgSkRD9PVBm5RE1QZQglJGpgv8817uAkVv4IhZlhpe
+	 yVU06SMjWMwMt2EPfe2jcHA5Mhmho8JPdWHKfV2EF/9wbUkmYswCMmBAK3GYvu9Gydg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272196;
-	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:MIME-Version:Content-Type;
-	bh=POYNQ8UFORjsZSBOAZpmVOdf956zxHeg9590atUMmfM=;
-	b=4Jw8fOy7aZTLt8ueMTuh07gfyMC8HAXWd5gOATwS+/kmJ2h2vTXa9Cbp3+n0hoW+ZZeU
-	 suSF41DMLmd5urazu576vPLDBhgu7B8zKfmPQSKTtrsOArHlvdVooHFs6o3+mkst4PJuT
-	 KezqMmdXaj4TU2P6oa+mCIW14pre71WootUI5n9Q8iTmniFVpPD/G1UvqqCkAKNooCav1
-	 iHrVlXz09gyC+nQ3jZOLBlgSIzHOtfgqgXdsmRMBVPhhTjK5dEooqemnN+MsUCNs5E2fc
-	 /Cxy2H9eo+AxOVEZi1TQyl+EsE2yKHBG7KstO/MkQemNERC82zTkNg7MJXAdGZtowOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272340;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:User-Agent:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=9lqqwcZ9XnbvHpSrJpxapi5L34S1YmBQvqDv/pgHJfs=;
+	b=BMphf0DchO2N/8AGKs8xC5KXcGAP1rVfjpxydo8ZNlFEx5CBfFgisLK273X7vQ9+xGgN
+	 S1evm9r0Lfkd3XS5WaZD0Zt04OuyD9Lk2bHnJxg5sNAz7/0MOTZG9CSUQgaJljAQ34SbF
+	 WCfl9V2EL5dLYe16MGQ9WaXHak/76b5JcH0EdYoIfx3nSsJ1GlRPK5xVYhFhbsuZProVI
+	 zTBkBAC6D7meQ4dWCj2nZ1RDaxs82VR+D4Zi+/JevPQOVjxkD3QOnQQ+sauvoSdYG22ui
+	 Y8O0EPhDeemGWIQkTm7kIuIU0/X8fYMtA3l2oBe+zTtgAJt4bTRWMESuI3Jen4J7sfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DLwdMFW/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zHAludM1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BkUepYyq;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zHAludM1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BkUepYyq;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED637606A32A;
-	Tue, 10 Nov 2026 00:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C80A606A33A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 00:58:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C80A606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DLwdMFW/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F921F008A1;
-	Tue, 10 Nov 2026 00:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272195;
-	bh=POYNQ8UFORjsZSBOAZpmVOdf956zxHeg9590atUMmfM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=DLwdMFW/60LVnTLa0yQmFg0tJx5vXiCHVmG3eQvGbHS3Idmk3+SseDFBk4e4QF6db
-	 QGhyDVdv2TP7uE6I7XG/AK58MazhLRnlCZ5IuW+IA6DhA5bLWD/ACaImWurFZy0tQz
-	 lG0sil3FGULB2pGRmHFZtabyVEjLG1JEgXDwUhr7Ds+JfrM4HvX/XQnnIh6+HycLwT
-	 PjlB5wVDGsd8SFJO8h51aceVX/oB5ajpAbcSzJ1OiF2SPzAMsPLPlO4hwHFHxz2rJF
-	 tOrhtc7ad9zvKgBlPUII/yBcXSRUtAqULMSVRHxrRdbVxmN/lbj6eJxUfYj0lJyQdy
-	 SPIVp3mRgcmJA==
-Date: Mon, 9 Nov 2026 16:56:33 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-cc: jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com, 
-    boris.ostrovsky@oracle.com, xen-devel@lists.xenproject.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] xen/pvcalls: destroy the per-socket workqueue on
- release
-In-Reply-To: <20261109122324.30134-3-yhlee@isslab.korea.ac.kr>
-Message-ID: <604a9832-80ac-107c-b36f-4bb338519cbc@kernel.org>
-References: <20261109122324.30134-1-yhlee@isslab.korea.ac.kr> <20261109122324.30134-3-yhlee@isslab.korea.ac.kr>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zHAludM1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BkUepYyq;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=zHAludM1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BkUepYyq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3CE9D21FAE;
+	Tue, 10 Nov 2026 00:58:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794272330;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9lqqwcZ9XnbvHpSrJpxapi5L34S1YmBQvqDv/pgHJfs=;
+	b=zHAludM15y7EIEkCCM4s/AFQypniYwUdp9QWZWwgq3mjCCAP/O2DZHRoad1CT/vvAGv2FD
+	sC8zDlLboI16Ex8/g8h7mVNZCDYqSzg3f6dOC/IFIlkhMULih69lDQs/1ri9xxMmRd2OdR
+	AX39BGYrQHmGX6zWFeryAAWzG6GaPsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794272330;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9lqqwcZ9XnbvHpSrJpxapi5L34S1YmBQvqDv/pgHJfs=;
+	b=BkUepYyq4mmHQ223mOTu0lGKVytiV1RyCaDgqEgMEJmlPmYeBGJmx+Ps3KN48lSXap93X3
+	hjOLXxw7ine2yvAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794272330;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9lqqwcZ9XnbvHpSrJpxapi5L34S1YmBQvqDv/pgHJfs=;
+	b=zHAludM15y7EIEkCCM4s/AFQypniYwUdp9QWZWwgq3mjCCAP/O2DZHRoad1CT/vvAGv2FD
+	sC8zDlLboI16Ex8/g8h7mVNZCDYqSzg3f6dOC/IFIlkhMULih69lDQs/1ri9xxMmRd2OdR
+	AX39BGYrQHmGX6zWFeryAAWzG6GaPsE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794272330;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9lqqwcZ9XnbvHpSrJpxapi5L34S1YmBQvqDv/pgHJfs=;
+	b=BkUepYyq4mmHQ223mOTu0lGKVytiV1RyCaDgqEgMEJmlPmYeBGJmx+Ps3KN48lSXap93X3
+	hjOLXxw7ine2yvAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E2B01339F;
+	Tue, 10 Nov 2026 00:58:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 5lr1Nkls8mrlagAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Tue, 10 Nov 2026 00:58:50 +0000
+Date: Tue, 10 Nov 2026 01:58:48 +0100
+From: David Sterba <dsterba@suse.cz>
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Qu Wenruo <wqu@suse.com>
+Subject: Re: [PATCH v2] btrfs: remove devid kobject when deleting a missing
+ device
+Message-ID: <20261110005848.GG4186782@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20261026105109.1148939-1-teel4res@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,50 +113,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026105109.1148939-1-teel4res@gmail.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.00
 
-On Mon, 9 Nov 2026, Yehyeong Lee wrote:
-> pvcalls_new_active_socket() gives every active socket its own ordered
-> workqueue:
+On Mon, Oct 26, 2026 at 03:51:09AM -0700, Cheng Yongkang wrote:
+> btrfs_rm_device() removes the sysfs device entry only when
+> device->bdev_file is non-NULL.  A missing device (created by
+> add_missing_dev() for an absent disk) has bdev_file == NULL, but
+> btrfs_sysfs_add_device() still registers its devid kobject under
+> /sys/fs/btrfs/<uuid>/devinfo/<devid>.
 > 
-> 	map->ioworker.wq = alloc_ordered_workqueue("pvcalls_io", 0);
+> When such a device is deleted, btrfs_free_device() frees the
+> btrfs_device while the devid kobject remains registered.  The kobject
+> is embedded in the freed btrfs_device and its show functions use
+> container_of() to reach it, so reading any devinfo attribute is a
+> use-after-free:
 > 
-> and nothing ever destroys it.  pvcalls_back_release_active() flushes
-> map->ioworker.register_work and frees map, but the workqueue and its
-> pool_workqueues stay allocated, so a frontend leaks a workqueue per socket
-> it connects and releases - a loop a guest can run as long as it likes.
+>   BUG: KASAN: slab-use-after-free in sysfs_kf_seq_show+0x157/0x490
+>   Read of size 8 at addr ffff88801d8172a8 by task poc/9385
+>   ...
+>   Freed by task 9385:
+>    kfree
+>    btrfs_rm_device+0x11ee/0x17b0
+>    btrfs_ioctl_rm_dev+0x265/0x400
+>   Allocated by task 9390:
+>    btrfs_alloc_device+0x7e/0x400
+>    device_list_add
+>    btrfs_scan_one_device
+>    btrfs_control_ioctl
 > 
-> Destroy it after the IRQ is unbound, so no new work can be queued, and
-> before map is freed.  pvcalls_back_ioworker() takes no locks, in
-> particular not fedata->socket_lock, which the backend_disconnect() caller
-> holds here, so draining it from this point is safe; the flush_work() just
-> above already has the same requirement.
+> The freed object is kmalloc-1k and the faulting access is 680 bytes
+> inside it (offsetof(struct btrfs_device, devid_kobj) = 640 plus
+> offsetof(struct kobject, ktype) = 40), confirming the embedded
+> devid_kobj.
 > 
-> Fixes: 5db4d286a8ef ("xen/pvcalls: implement connect command")
+> btrfs_sysfs_remove_device() already skips the block-device link when
+> device->bdev is NULL and only touches the devid kobject when it is
+> initialized.  Call it for missing devices too.
+> 
+> Link: https://lore.kernel.org/all/20261025180252.349049-1-teel4res@gmail.com/
+> Fixes: 668e48af7a94 ("btrfs: sysfs, add devid/dev_state kobject and device attributes")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> Reviewed-by: Qu Wenruo <wqu@suse.com>
+> Assisted-by: LLM
+> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
 > ---
->  drivers/xen/pvcalls-back.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
-> index dcefa91a40cd05..27aa06289a7b92 100644
-> --- a/drivers/xen/pvcalls-back.c
-> +++ b/drivers/xen/pvcalls-back.c
-> @@ -456,6 +456,7 @@ static int pvcalls_back_release_active(struct xenbus_device *dev,
->  	xenbus_unmap_ring_vfree(dev, map->bytes);
->  	xenbus_unmap_ring_vfree(dev, (void *)map->ring);
->  	unbind_from_irqhandler(map->irq, map);
-> +	destroy_workqueue(map->ioworker.wq);
+> v2: add Link, Fixes and stable tags, keep the Reviewed-by because the code is
+> unchanged, and remove local validation details from the commit message.
 
-Please move the call to destroy_workqueue() just after flush_work().
-With that:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
->  	sock_release(map->sock);
->  	kfree(map);
-> -- 
-> 2.43.0
-> 
+Added to for-next, thanks.
