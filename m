@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315175;
-	b=DDc3NKCm8/DdQNCMPlQ8YHZPwLL56CUux8mcpE6W8nEzk5Fs/rYjA+nC6RLP9gZbioaW
-	 vtmpBZFUVGUZ8iNZfarFwabx1Fhes9X9yYyc0pnMlygMWKxO89kyqPzUp4sKZxtxsE3qM
-	 DlgjSBVQsXoGCuNgy7fVMKxhTeBg2GFwWl2Fs1VsAm+AdzLaAyRMM8stbRj+EGWpWURj4
-	 uSZbZg0k6aY8i6C3NCmvXXN5teg+Koefv/t+cF+MFwighMyzhSLSJdkLlqnq9kvq+ExmC
-	 WfYLuxK/57nAkcNUxG/Gl8/gYThwBG62mclqOcH6Qi6WuBD4opFUtY3ixsOAmD/0Q+g==
+	t=1794315176;
+	b=j0qoIN9CxpaGY71WyCAw6DgABKk3nFTXqNe0T+1lK+YJvNInIfNJeHJ0h9zZp4WrTzDS
+	 yQieo2AhFI2ZF89+Awc5sTIU7pMAK02vMq7ZE8dzDat2u8WYdmZmBG6kud0VYH/4/VGLv
+	 stswNAf7dl7q9sRV8p22Q/aErUq5swNuU3kgvRw6mIhAqU8lgKRb8tT0Nz9/EiWJONrFB
+	 tVFsa/erl0m/uzdydcQvDQoNZZsoKdAvLKsU8H42BbIj0V0AJ0BqB8sKBDNeR6hpAvIl6
+	 jNrvIFovZ9oVBXL+zErVdV8WeX1EB3Yhds7UoXUwvBDYm4VjpsqfQYQuN1bsm8eALKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315175;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315176;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6InytrjD5eNKGLr7Uc06ly4yHxSUONfylQAl5AlgNKA=;
-	b=iIFz9k4G0JZocjbZM63w7ynjP5E8O7WjT3ytUvKKAaNegyKvM6zfQ/mFUE5Bq4Aso2iP
-	 83Zlx5FEVbX8Fe8yC2pzWmAMhkDxl6x1udW90XP0OXFgoY6xP6ynPdi5D/yJ556/OPNnG
-	 1D6Ep5ymz1p06H/fonTQErPaj53tuoSkPjo6phybKN570He1YEOk9yXYZ4b5x+9i2gAR/
-	 15GXfCqsNfJH6/1AmdwfyAqj+kyhS7eH5IeoJoaPVmLPJ6BuP1lgM2mRm4pRuUBqzCvNd
-	 4yBmZjDQQ7F5stZKNLZQiYzTiLThv2hm8Iw+YYSHa6l1NQ+r8tPcy0PbNTSjkrTICkQ==
+	bh=jHQj1B/07kFYbSob5B83EW8pmfCGjRwAqZbw8ufsFvw=;
+	b=clQWo9TNDXua6Vmp0eFKELl/KJDoDSCm5/VsNcSXCMXgO3duypCL3Ynxay/c+iJ4qbcw
+	 +V1LHlcCj1Uv7a7laDtoJRY98Cr1qyUbtgCbwWaQrPt4LNSIzZLVhDmLIfZgshXJEeJcm
+	 VU8BUeReJ+pXIUOdOL9/a9ilwzskass/LhUkkBK/EFrgGenB53VAHO7nQZQzm3rGPK1dX
+	 Hm5oNbdbvIFnUY9Jx+t4ntrrw1b++5umjQ4dpbFxEskjbZFB7UsClQigDST3DpSXXGaN1
+	 b4BTLfrE3vw3LBJ1lGrnyky0RwqkZASbhk31v1MMPbMrkbq/uViesahVFhwjQuaoFLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIiBO1xT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnfPOfI6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A25606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:52:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB093606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:52:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIiBO1xT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283A01F008A2;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnfPOfI6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B811F0089F;
 	Tue, 10 Nov 2026 12:52:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315174;
-	bh=6InytrjD5eNKGLr7Uc06ly4yHxSUONfylQAl5AlgNKA=;
+	s=k20260515; t=1794315175;
+	bh=jHQj1B/07kFYbSob5B83EW8pmfCGjRwAqZbw8ufsFvw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LIiBO1xT/W9PxiCA6fULbia9B4Ij+ltKEJujVzawbPN5/UBY1GG/VZMM0sVAqq2DR
-	 CyiRTTYPACGLlO/++ZVlIkBQVjHjzbC9GHrFLM6fZxeSO7dogNqAWr5Yk7BnLyG08R
-	 qB77CR+4CKEs0hiAbb5fedk7o193tb0se87AzNIt62tXH5uymo4EzCMxxEBn4tkgSU
-	 1VJDb1BGxeA6KTHmXvuQdAME9s4l5+HiQIGj2+SaLLf93x3tXrvlhiw3PBNSL1vcPr
-	 KfhB79at0gbGtBe22ogPxHbxCBkGqRj1lJkzdo4CGhM58zB2aJMc8grC0CuBJJLC7Q
-	 6jR6W2qtJCvfA==
+	b=mnfPOfI6uJTeXls8C44eHDDCoWKcXZ4toMgJRTJpHFFqVxCuZTtwWQPI+4Mx9xGTr
+	 VnvfqohrPIRxhOuHesle+Is25kBWLgUm5ewYi4qPMeOJBN0S44JerULSDEwWDJI0hj
+	 i53B4c37LWx9XXBJfxAvQFw85pwjevhsOz2cKrWZay7w+kwO1nI7DQuheGSEskpQyO
+	 cgcBtzfaoVFFzeWbF1WSkPYalYXIqP8N1uijixDCN+A8NktcjKA/XNKQoas+vzhn4o
+	 haSRhCM/rqcJKkfJvlDYLbCMYtC4tgJrIco9WlGTgqLFLpqzLfA5gSPKyeShPzoyEO
+	 jnD+bRTRVv/7A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] i3c: master: replace ENOTSUPP with SUSV4-compliant EOPNOTSUPP
-Date: Tue, 10 Nov 2026 07:52:51 -0500
-Message-ID: <20261110125207.1400304-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
+Date: Tue, 10 Nov 2026 07:52:52 -0500
+Message-ID: <20261110125207.1400304-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110125207.1400304-1-sashal@kernel.org>
 References: <20261107051751-failed-6.12-6b8b1d1d7bc7@kernel.org>
@@ -63,115 +62,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+From: Tom Verdonck <tom.verdonck@inspiral.be>
 
-[ Upstream commit d10a4c323883c41cf1b652309e61c48bce248e35 ]
+[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
 
-Replace non-standard ENOTSUPP with the SUSV4-defined error code
-EOPNOTSUPP to fix below checkpatch warning:
-  "ENOTSUPP is not a SUSV4 error code, prefer EOPNOTSUPP"
+tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
+and, on every temperature read, refuses the read with -EAGAIN while
+time_before(jiffies, ready_time) is true, in order to skip the initial
+conversion.
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://lore.kernel.org/r/20250628192027.3932-6-wsa+renesas@sang-engineering.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Stable-dep-of: 6b8b1d1d7bc7 ("hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check")
+->ready_time is an unsigned long compared with time_before(), whose
+signed difference is only meaningful while the two values are within
+LONG_MAX jiffies of each other. Because ->ready_time is set once and
+never refreshed, jiffies keeps advancing away from it, and after 2^31
+jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+happens ~248.5 days after boot: time_before() then permanently reports
+"not ready" and the driver returns -EAGAIN on every read, without ever
+touching the sensor, until the next reboot. The continuous-mode path,
+which sets ->ready_time to jiffies with no added conversion delay, wraps
+the same way.
+
+Store the deadline as a 64-bit jiffies value and compare it with
+get_jiffies_64()/time_before64(), which does not wrap in any practical
+uptime.
+
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: adjusted structure context because the params member is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i3c/master.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/hwmon/tmp108.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 28a39b2c039b1..1bbfff68a5394 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -844,14 +844,14 @@ static int i3c_master_send_ccc_cmd_locked(struct i3c_master_controller *master,
- 		return -EINVAL;
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index e86bedb31189f..d95957d808e1b 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -73,7 +73,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	unsigned long ready_time;
++	u64 ready_time;
+ };
  
- 	if (!master->ops->send_ccc_cmd)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	if ((cmd->id & I3C_CCC_DIRECT) && (!cmd->dests || !cmd->ndests))
- 		return -EINVAL;
- 
- 	if (master->ops->supports_ccc_cmd &&
- 	    !master->ops->supports_ccc_cmd(master, cmd))
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	ret = master->ops->send_ccc_cmd(master, cmd);
- 	if (ret) {
-@@ -1441,7 +1441,7 @@ static int i3c_master_retrieve_dev_info(struct i3c_dev_desc *dev)
- 
- 	if (dev->info.bcr & I3C_BCR_HDR_CAP) {
- 		ret = i3c_master_gethdrcap_locked(master, &dev->info);
--		if (ret && ret != -ENOTSUPP)
-+		if (ret && ret != -EOPNOTSUPP)
- 			return ret;
+ /* convert 12-bit TMP108 register value to milliCelsius */
+@@ -124,7 +124,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+ 		/* Is it too early to return a conversion ? */
+-		if (time_before(jiffies, tmp108->ready_time)) {
++		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+ 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+ 				__func__);
+ 			return -EAGAIN;
+@@ -357,7 +357,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+ 		return err;
  	}
  
-@@ -2244,7 +2244,7 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
- 	 */
- 	if (boardinfo->base.flags & I2C_CLIENT_TEN) {
- 		dev_err(dev, "I2C device with 10 bit address not supported.");
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 	}
+-	tmp108->ready_time = jiffies;
++	tmp108->ready_time = get_jiffies_64();
+ 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+ 	    TMP108_MODE_SHUTDOWN)
+ 		tmp108->ready_time +=
+@@ -408,7 +408,7 @@ static int tmp108_resume(struct device *dev)
  
- 	/* LVR is encoded in reg[2]. */
-@@ -2374,13 +2374,13 @@ static int i3c_master_i2c_adapter_xfer(struct i2c_adapter *adap,
- 		return -EINVAL;
- 
- 	if (!master->ops->i2c_xfers)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	/* Doing transfers to different devices is not supported. */
- 	addr = xfers[0].addr;
- 	for (i = 1; i < nxfers; i++) {
- 		if (addr != xfers[i].addr)
--			return -ENOTSUPP;
-+			return -EOPNOTSUPP;
- 	}
- 
- 	i3c_bus_normaluse_lock(&master->bus);
-@@ -2801,7 +2801,7 @@ static int i3c_master_check_ops(const struct i3c_master_controller_ops *ops)
-  *	    controller)
-  * @ops: the master controller operations
-  * @secondary: true if you are registering a secondary master. Will return
-- *	       -ENOTSUPP if set to true since secondary masters are not yet
-+ *	       -EOPNOTSUPP if set to true since secondary masters are not yet
-  *	       supported
-  *
-  * This function takes care of everything for you:
-@@ -2828,7 +2828,7 @@ int i3c_master_register(struct i3c_master_controller *master,
- 
- 	/* We do not support secondary masters yet. */
- 	if (secondary)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	ret = i3c_master_check_ops(ops);
- 	if (ret)
-@@ -2988,7 +2988,7 @@ int i3c_dev_do_priv_xfers_locked(struct i3c_dev_desc *dev,
- 		return -EINVAL;
- 
- 	if (!master->ops->priv_xfers)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	return master->ops->priv_xfers(dev, xfers, nxfers);
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = jiffies +
++	tmp108->ready_time = get_jiffies_64() +
+ 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
+ 	return err;
  }
-@@ -3038,7 +3038,7 @@ int i3c_dev_request_ibi_locked(struct i3c_dev_desc *dev,
- 	int ret;
- 
- 	if (!master->ops->request_ibi)
--		return -ENOTSUPP;
-+		return -EOPNOTSUPP;
- 
- 	if (dev->ibi)
- 		return -EBUSY;
 -- 
 2.53.0
 
