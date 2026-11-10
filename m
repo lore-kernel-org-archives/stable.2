@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794329197;
-	b=SYTXJlE5XIXtlfvCu0Yc/eXHAW4nR4lVI4vq/97VI15vYF3L9N8i0hAkcLEd1f14qJNl
-	 7J6yvp/ZrpatZItWcpkGD4p/RA0RwsWEIIcVwf1/fulOkurDV2Aol1AmMT4/lQhqsL/un
-	 pUBZmCPxKHw/enAHuKKpXycRgwglylh1SBmsyo2+BgTQnCVizA6sZXSJSGSw58bsIvaxx
-	 4mBGeR8dwPr0BagkkAbRIp5nztz6RTPu23RkA99cNDJjY27quGp34Z2PoGethE/zctaeD
-	 xtpZaBtGDDLf7AtTjthJnmeX43D3BX0afoPCrlh11bm0FLuiYTkv1vJ8kI7uwU+b+YQ==
+	b=u/Na4Dc2O701CZLNH8E4Ui0UWy2w5w2I2FltnIW9uXrmPhl4uB7yqgBA9EXX717M6nHg
+	 Dsl9XZMNgBmJUY/8Rob+78IsEHEmJ7LuB80XtEUbpcFgcDFKBHNedULKEJMzC72btivJp
+	 AlinlJ5j/SrJ9s0pvwc+WWx4BOCG+UN3i/rauH9dtP23kwaarDkkJFLOZoOl2zbn5RfzL
+	 ST8N1mQ6OpWW6ve4G1iYuy2Q9VpU7bYmlQTZYKcS7VINggRf91R0XCLan3qqF41bppbRw
+	 YiqgTMj+OLrdnIo61lROPCRkZA9fMzpJvEQKg9fc4hofuqDAJ4V1ftCeGXyxIjKn0/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794329197;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RkZTLW/CNSkiTnxbfbpGEWkEgUVDTZldEX2agu3X0pI=;
-	b=KoHZDyZ1OeHUQDQvmQD44HI082GdezCigT5V7464FymlBhCE1aTWvCsRzg/SZnfgwrtb
-	 KXWIxw+whiCmrpJ0+6TiKU08Qil7v5tVTGoRx7ildVZaesF6gQ89K7zLEV63IFUMGcMlT
-	 JizryiRSLymSehUPWBkdukmvv8l7j5eV2jcexCpGbgDyhsuRmXy6jD0eJHuGTdTkOzAEU
-	 s7PGL5l4oQ+2mee5RDMaDiAp4GhXzd7zu/EO8NfyzdQ+JAhn1rgdK/58DY3d50snKPC0y
-	 DVdUAS0/vMmkqoiyz3tn6CPPtwB/Y1cH5Srgy3i2PPgu7A2c+aIOsrjtaqWKfqKtmUg==
+	bh=XUVnt7k4HXPRZqiU79aWoJP1CCDHwoDDeDHrJwhwV4o=;
+	b=vs4QtWnbI5hcsg1P74d2G4wq7QBSKxaAmjBVcsFcJcy7rhO2rlgVMgbztAjtXu+sMXWw
+	 J7Z5kZAvRat5s2folhH/DJLfDy/Fq+G1iN+AumJLq27omPnBIso9O5U+3D3Ir6WTWGhpe
+	 5JYcnLz+2J6/3IPQ4JSzdgbwxQR0SSsdTZWig+kBudq7aRn0g+r+mIORDsJuBlAboiAKu
+	 pxWKF3NAZ5SNIKsb1SNaLjU+43a9poq3NaMk3K/92S8kpbKcq9952NXLJGrKDACIXd+5w
+	 7Zqw9EmM3Mv/ZJg+SZmZZl8BYBlckZbs7x3wxeFPy2iz2A6aTvs4o8ziQlA9RLKc5Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVs9Mmxk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USb4gMO9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B311B606A31C;
-	Tue, 10 Nov 2026 16:46:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C252606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lVs9Mmxk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910431F008A2;
-	Tue, 10 Nov 2026 16:46:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=USb4gMO9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64311F008A4;
+	Tue, 10 Nov 2026 16:46:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794329196;
-	bh=RkZTLW/CNSkiTnxbfbpGEWkEgUVDTZldEX2agu3X0pI=;
+	s=k20260515; t=1794329197;
+	bh=XUVnt7k4HXPRZqiU79aWoJP1CCDHwoDDeDHrJwhwV4o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lVs9MmxkzykroIpe/PMxQmYOycYWyF0e50LIT4l6BiJwDAg2TpmyAbOiy3/8KlFt3
-	 WXCZCcuw5sZs/LKicgWiwmmZEr/PIBtVg3qlMcC932ihRw559jB2kfFIMkeQxNadC3
-	 OmsICsV1/KPaZ9+rwrofAoD6r6X3ATNSFoTUX3d1dXVjuyJcW0Kd3v1xQdsxYrCjwQ
-	 JPaRiMO8cNMYg7ijTlVTS6PjtXqRh87Y4xVJ/hyoQYXbw6I+nbxfkeydYkUN3lisr9
-	 C0OFyoxgyi8LbUfHvVyMQ8Sxvm53B3RbleH/rFQshgpoxuDaH5GI2xi8D7prf87nWW
-	 8/A1f0Ol2I4eg==
+	b=USb4gMO9TAD5/bRc3/VjDDNygyZuVABDK4c+Uua0NhWPH82u98m5n0YQdKSIfG+b7
+	 QJYHKZIUUyaKaXeD5+P3c+dBlhFqthlJVJxGCVtLrsrTUQP8ixjYEuTA+ZvpBCwH+X
+	 /rLyYKA9hbOrdkybZTAjR9J2y8TJtoiSrEZsG3ZI7z/xZanJwFLr6fn9gmtbzUXqO2
+	 Ct92Vyy0F2I22naxqd4WmomOYgC0LzD+enBrL3AmNSCDvhNX7pgLYpSBlkCTgvcUQQ
+	 /iakB/IHvNbkxRENGHfN+xVBRL/bsA3oWFGsqkngdwpu8Sh6H2/gFdnd9IDd9Rz/Hz
+	 hwiHMx1SS3Mlw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] xfs: Use folio_next_pos()
-Date: Tue, 10 Nov 2026 11:46:32 -0500
-Message-ID: <20261110164625.2532323-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] xfarray: don't crash when sorting if array element crosses a folio
+Date: Tue, 10 Nov 2026 11:46:33 -0500
+Message-ID: <20261110164625.2532323-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110164625.2532323-1-sashal@kernel.org>
 References: <20261107050829-failed-6.18-329750292e9d@kernel.org>
@@ -65,53 +63,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit ac0a11113de3f0007283d20f5a38615ea4c6e9fd ]
+[ Upstream commit 329750292e9dfbb594b375d7b30cf5ddb58b7bb9 ]
 
-This is one instruction more efficient than open-coding folio_pos() +
-folio_size().  It's the equivalent of (x + y) << z rather than
-x << z + y << z.
+LOLLM points out that if an array element crosses a folio boundary,
+xfile_get_folio returns a NULL folio pointer.  If this happens,
+si->folio is also set to NULL, and calling folio_pos/folio_address will
+just crash the kernel.  Teach this function to handle this condition by
+falling back to reading the array element into scratchpad memory.
 
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Link: https://patch.msgid.link/20251024170822.1427218-10-willy@infradead.org
+Cc: stable@vger.kernel.org # v6.6
+Fixes: cf36f4f64c2d4e ("xfs: cache pages used for xfarray quicksort convergence")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
-Cc: Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 329750292e9d ("xfarray: don't crash when sorting if array element crosses a folio")
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/xfarray.c | 2 +-
- fs/xfs/xfs_aops.c      | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/xfs/scrub/xfarray.c | 69 ++++++++++++++++++++++++++++--------------
+ 1 file changed, 47 insertions(+), 22 deletions(-)
 
 diff --git a/fs/xfs/scrub/xfarray.c b/fs/xfs/scrub/xfarray.c
-index ccf7cfb63bbc8..78880b76b15d0 100644
+index 78880b76b15d0..5e1b56defabd0 100644
 --- a/fs/xfs/scrub/xfarray.c
 +++ b/fs/xfs/scrub/xfarray.c
-@@ -833,7 +833,7 @@ xfarray_sort_scan(
- 		si->first_folio_idx = xfarray_idx(si->array,
- 				folio_pos(si->folio) + si->array->obj_size - 1);
- 
--		next_pos = folio_pos(si->folio) + folio_size(si->folio);
-+		next_pos = folio_next_pos(si->folio);
- 		si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
- 		if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
- 			si->last_folio_idx--;
-diff --git a/fs/xfs/xfs_aops.c b/fs/xfs/xfs_aops.c
-index 9845a5fcf8575..4c9afca35fefa 100644
---- a/fs/xfs/xfs_aops.c
-+++ b/fs/xfs/xfs_aops.c
-@@ -271,7 +271,7 @@ xfs_discard_folio(
- 	 * folio itself and not the start offset that is passed in.
- 	 */
- 	xfs_bmap_punch_delalloc_range(ip, XFS_DATA_FORK, pos,
--				folio_pos(folio) + folio_size(folio), NULL);
-+				folio_next_pos(folio), NULL);
+@@ -794,6 +794,46 @@ xfarray_sort_scan_done(
+ 	si->folio = NULL;
  }
  
++static int
++xfarray_sort_load_folio(
++	struct xfarray_sortinfo	*si,
++	xfarray_idx_t		idx,
++	loff_t			idx_pos)
++{
++	struct folio		*folio;
++	loff_t			next_pos;
++
++	folio = xfile_get_folio(si->array->xfile, idx_pos, si->array->obj_size,
++			XFILE_ALLOC);
++	if (IS_ERR(folio))
++		return PTR_ERR(folio);
++	si->folio = folio;
++
++	/* No folio?  Get the caller to read into the scratchpad. */
++	if (!si->folio)
++		return 0;
++
++	si->first_folio_idx = xfarray_idx(si->array,
++			folio_pos(si->folio) + si->array->obj_size - 1);
++
++	next_pos = folio_next_pos(si->folio);
++	si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
++	if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
++		si->last_folio_idx--;
++
++	/*
++	 * If this folio still doesn't cover the desired element, it must cross
++	 * a folio boundary.  Get the caller to read into the scratchpad.
++	 */
++	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
++		xfarray_sort_scan_done(si);
++		return 0;
++	}
++
++	trace_xfarray_sort_scan(si, idx);
++	return 0;
++}
++
  /*
+  * Cache the folio backing the start of the given array element.  If the array
+  * element is contained entirely within the folio, return a pointer to the
+@@ -819,33 +859,18 @@ xfarray_sort_scan(
+ 	    (idx < si->first_folio_idx || idx > si->last_folio_idx))
+ 		xfarray_sort_scan_done(si);
+ 
+-	/* Grab the first folio that backs this array element. */
++	/* Grab the folio that backs this array element. */
+ 	if (!si->folio) {
+-		struct folio	*folio;
+-		loff_t		next_pos;
+-
+-		folio = xfile_get_folio(si->array->xfile, idx_pos,
+-				si->array->obj_size, XFILE_ALLOC);
+-		if (IS_ERR(folio))
+-			return PTR_ERR(folio);
+-		si->folio = folio;
+-
+-		si->first_folio_idx = xfarray_idx(si->array,
+-				folio_pos(si->folio) + si->array->obj_size - 1);
+-
+-		next_pos = folio_next_pos(si->folio);
+-		si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
+-		if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
+-			si->last_folio_idx--;
+-
+-		trace_xfarray_sort_scan(si, idx);
++		error = xfarray_sort_load_folio(si, idx, idx_pos);
++		if (error)
++			return error;
+ 	}
+ 
+ 	/*
+-	 * If this folio still doesn't cover the desired element, it must cross
+-	 * a folio boundary.  Read into the scratchpad and we're done.
++	 * If we don't have a folio mapping the entire array element, read into
++	 * the scratchpad and we're done.
+ 	 */
+-	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
++	if (!si->folio) {
+ 		void		*temp = xfarray_scratch(si->array);
+ 
+ 		error = xfile_load(si->array->xfile, temp, si->array->obj_size,
 -- 
 2.53.0
 
