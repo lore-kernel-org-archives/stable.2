@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273858;
-	b=AzlutpqdKMsMWybcyAxQN8sQBQgPqi9PHPs1EJ31yacsLdxPeVcr0cS1SacafB4Yrz1A
-	 Bb2YZyWke8fyw70U60Cjq4JfZ065Id6tNfxNf+WnzIHPM5hZCJFzBVgGYzgtpUQm9El5C
-	 HWW3IUMyuhAQdlSj9JM46xrP97Va7jDkfwq/0nY+TTHvROcWAeQYosMtZRmR9YowGPOv2
-	 NevjmKhHJQE/CLdNJ9bEc+Xz4xaEmyM01/51qNuxaB/mxcGquWyBgfqaew0qE46FJ/OXN
-	 Jn8rQ7KAXic/JbzI8jw7OVMPkjwKK0Ie3pwCx1PCLn50ijzns+g3DJuPAszf6lq0PMQ==
+	t=1794273861;
+	b=AJYkTTpFzziXmN0+7JKh+zwyelxk+VD/QCG5tfiGqIef6qIBAHEJabisA845L6wKPjt/
+	 /pOtc6xetG1ODtp/CWptpnOC8ADLUeZhnrFWEz1WN213LyH7ivMZYJ+lb0clLciDbZY4d
+	 erz+abxTA7VQhTu3BBRpzKJbHJiCdKzEqxNFyex1TQWTzrKbW9n0WJID3BxOyecCj/3gb
+	 2TWS8gb2Wc/xgpqaELQoH2H/k657JOmTnwt9Dan0m587FrduFc8MNDi/e9hmnMoz3V+mM
+	 9Vp6b/becTo1ZF2sP5SckxpFlL9kBbj7ILiCT+4mk81nb9PthaQDfBbLZ5xAF1IN7PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273861;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X8BpAK1kMby/LMFmlDOJKcY1HBE0k2bocYyvVrzru2c=;
-	b=kf3Vj1wb9vKI6i5vMwFv/BZkgzWsQExpdxGay0/GcP08IFVOl9J1XAdQJabOCKfseDri
-	 7PihXJNneQ9T6eFYaxkk493P0r7/gKDitHt5B24aFc0iLHFqCYU66yUsso73UzSVlaHDr
-	 9vg+eiip5MGp9jedgcgI/XiSXrcpu7RJZVX5VsAQMgFcqvVH3X2iW0jveR0i9IjI/CyKB
-	 ISkpP53zEFYyMdasAuw4Ua6VMT3uaPH4+vrfwMYhgFndr0xqpmkT/wDlRG1F61JIDUjhO
-	 aZD3aLPPA9nijD4IlLHziCfFpS/nuPiR4EMPdWZNcFeRUuLOR9nzqfaZUmK+JjgF5fQ==
+	bh=+R1/41T4ngduSZlNY3q+E/cLJyhYV8ewDLoTsqehXHk=;
+	b=esrmUcwzqZydB4ugcmWQiDIyraRNaJCcAtQlqMnmXfXY2u6w5/LLkixvbJOjOgxStcM1
+	 KANN32OM6gIpGWUw9K/Z0SLB/w036vsMzXVb0wnJpYCsSbmgAU46zZjEtFEQJXo3vWBQA
+	 xdVisinvCq5s9oSZGhO8l2XvQ5DDAa/cT7XUNgUjePXyK4QI3t8NVP9+etgvELzzD6T1I
+	 ml75syn9BIUz1mR2BFrj70j158w4WkyGmQ5pDrTnH9EnEKO2YvwiQWe3UjL52Apt3Rc8m
+	 9/a2q4PQricc3gXncF2gG06adIfwXKmzQ+CrXd+gOMEtImq8zB2OWVdtv1YVyZrBwlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b3ypy84Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoyBRudy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA8160A3809
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C970760A2619
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b3ypy84Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2EC1F008A1;
-	Tue, 10 Nov 2026 01:24:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoyBRudy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403BF1F0089F;
+	Tue, 10 Nov 2026 01:24:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273858;
-	bh=X8BpAK1kMby/LMFmlDOJKcY1HBE0k2bocYyvVrzru2c=;
+	s=k20260515; t=1794273860;
+	bh=+R1/41T4ngduSZlNY3q+E/cLJyhYV8ewDLoTsqehXHk=;
 	h=From:To:Cc:Subject:Date;
-	b=b3ypy84Q9KA8F8TPd4d9NeCej6tOBv4ZloMeul1h15lUP4VmzDzF75fghNdOINXPD
-	 cPq5/zpH+1Sla50fYWfJQ6WAtayVAn1D0HhdmqxlFBNagFUxLjMwC0WWt7qHWQa2/Q
-	 pVhNNvn685jAG81JyvbEEuyB6YPvXJLgtgzaXtc0abIIwKBL8dNreng2C3BYXyGsER
-	 LgDkkRHCZDU2Jk5zCZP6OJ1SK4mdWCzWrR/BsDTvBpH/JVJMbEJCmpIvrR/6xGR+WM
-	 7n9cokmt7w407dQTVOmZfJPXeHDzgTUJsP2cwutojYWOTFJ7MA3mffCGWc0d5QtjeJ
-	 ESnwIKgOa6JNQ==
+	b=UoyBRudybrO/m1fzdB987yBaUVpNuFVzCKd7l034kK1dk7WsiyYxUV6hAMP/qcd1X
+	 52AJFNga7w1R3S8ST87C+gh+WXVFn0kHsHuloQ4fJEsb9uS15swTXbPXj209L7/SLm
+	 GV8+5BycSqTrSbsvBRV6EbmITk46xhwGoKnmU4MlG8shN0cPz4JBhkLWqDnmzXLrx9
+	 8SOdayvlUjRAQXn5he3hSll+tn8p79W/BWqNhMJCKiYdC6JqoRT3LPmsrSoheKGqzF
+	 hUH4yOUU/hnQae6lMpgKCpD9mO8uFcfpzc9iuuAI9rWbAjA+YZv6X62KwsaFIjoQ4D
+	 GW/1mWzXa8Qng==
 From: Sasha Levin <sashal@kernel.org>
-To: amir73il@gmail.com,
-	brauner@kernel.org,
-	edvard@tuta.io
+To: jesse.zhang@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:24:16 -0500
-Message-ID: <20261109202416-failed-5.15-323899b4ed23@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: parse CS IBs at the BO offset their VA mapping starts at" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:24:19 -0500
+Message-ID: <20261109202419-failed-5.15-63a596375176@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,120 +68,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 323899b4ed233d5b6e2fc160c16fbf39cf0317da
+git cherry-pick -x 63a59637517682a920f86da1a189a3e639dd4fb3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202416-failed-5.15-323899b4ed23@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202419-failed-5.15-63a596375176@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 323899b4ed233d5b6e2fc160c16fbf39cf0317da Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 30 Oct 2026 18:07:02 +0100
-Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
+From 63a59637517682a920f86da1a189a3e639dd4fb3 Mon Sep 17 00:00:00 2001
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+Date: Tue, 20 Oct 2026 17:53:16 +0800
+Subject: [PATCH] drm/amdgpu: parse CS IBs at the BO offset their VA mapping
+ starts at
 
-When fanotify hands a listener an fd for a permission event on an
-overlay directory, ovl_dir_open_realfile() opens the real directory via
-dentry_open(), not backing_file_open(), so the lower open could still
-raise FS_OPEN_PERM and deadlock a listener that also marks the backing
-filesystem.
+For rings which parse or patch the IBs on the CPU, like JPEG and VCN,
+the CS looks the IB up through its VA mapping and maps the BO, but
+ignores the offset in the BO the mapping starts at. It then parses
+other data than the GPU executes. On navi31, an IB of JPEG NOPs in the
+second page of a BO, mapped with offset_in_bo 4096, is parsed from the
+zeros in the first page and rejected:
 
-Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
-when the overlay user file must not generate events.  Ordinary
-ovl_path_open() callers are unchanged.
+  amdgpu 0000:03:00.0: Invalid packet [0x00000000]!
 
-Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
-Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
+while the same IB submitted through a mapping of the whole BO works.
+
+Add the mapping offset when locating the IB in the BO.
+
+Fixes: 4802ce117786 ("drm/amdgpu: fix UVD/VCE VM emulation")
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 74ba1d87d67d0a38d8248928241c3e1c73d0d53b)
 Cc: stable@vger.kernel.org
-Tested-by: Edvard Conrad <edvard@tuta.io>
-Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- fs/open.c                |  1 +
- fs/overlayfs/overlayfs.h |  9 ++++++++-
- fs/overlayfs/readdir.c   |  3 ++-
- fs/overlayfs/util.c      | 11 ++++++++++-
- 4 files changed, 21 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/open.c b/fs/open.c
-index e43f02ff64acb..bb484b07390ac 100644
---- a/fs/open.c
-+++ b/fs/open.c
-@@ -1172,6 +1172,7 @@ struct file *dentry_open_nonotify(const struct path *path, int flags,
- 	}
- 	return f;
- }
-+EXPORT_SYMBOL_GPL(dentry_open_nonotify);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index a703268ceebaa..ac32530c1b488 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1075,7 +1075,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
+ 		if (r)
+ 			return r;
  
- /**
-  * kernel_file_open - open a file for kernel internal use
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index e9389a10452e8..b5a672e8e4764 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -531,7 +531,14 @@ void ovl_dir_modified(struct dentry *dentry, bool impurity);
- u64 ovl_inode_version_get(struct inode *inode);
- bool ovl_is_whiteout(struct dentry *dentry);
- bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path);
--struct file *ovl_path_open(const struct path *path, int flags);
-+struct file *ovl_path_open_realfile(const struct file *user_file,
-+				    const struct path *path, int flags);
-+
-+static inline struct file *ovl_path_open(const struct path *path, int flags)
-+{
-+	return ovl_path_open_realfile(NULL, path, flags);
-+}
-+
- int ovl_copy_up_start(struct dentry *dentry, int flags);
- void ovl_copy_up_end(struct dentry *dentry);
- bool ovl_already_copied_up(struct dentry *dentry, int flags);
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index b862309eba4d1..5d21a328fad46 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -994,7 +994,8 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
- 					  const struct path *realpath)
- {
- 	with_ovl_creds(file_inode(file)->i_sb)
--		return ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
-+		return ovl_path_open_realfile(file, realpath,
-+					      O_RDONLY | (file->f_flags & O_LARGEFILE));
- }
+-		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
++		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE) + m->offset;
  
- /*
-diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 6c3fda047f94f..788c6870d67df 100644
---- a/fs/overlayfs/util.c
-+++ b/fs/overlayfs/util.c
-@@ -654,7 +654,8 @@ bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path)
- 		ovl_path_check_xwhiteout_xattr(ofs, path);
- }
- 
--struct file *ovl_path_open(const struct path *path, int flags)
-+struct file *ovl_path_open_realfile(const struct file *user_file,
-+				    const struct path *path, int flags)
- {
- 	struct inode *inode = d_inode(path->dentry);
- 	const struct mnt_idmap *real_idmap = mnt_idmap(path->mnt);
-@@ -682,6 +683,14 @@ struct file *ovl_path_open(const struct path *path, int flags)
- 	if (inode_owner_or_capable(real_idmap, inode))
- 		flags |= O_NOATIME;
- 
-+	/*
-+	 * Directory opens use dentry_open() here, not backing_file_open().
-+	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
-+	 * that also watches the real filesystem does not deadlock.
-+	 */
-+	if (user_file && FMODE_FSNOTIFY_NONE(user_file->f_mode))
-+		return dentry_open_nonotify(path, flags, current_cred());
-+
- 	return dentry_open(path, flags, current_cred());
- }
- 
+ 		if (ring->funcs->parse_cs) {
+ 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
 -- 
 2.53.0
 
