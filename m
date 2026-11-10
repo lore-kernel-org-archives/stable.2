@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352781;
-	b=chyq0oGOXyjja94c5gaE8glyrJV/WMVT6vQvy1IlL4XwEz+KGchtdAT94FXaMZqoJtuv
-	 ZIU+YmOOgGH4L8Q47nSPdrHwPUo19piIpetHY2i3PIzhAOqMfYid9zlUcHY+IRQhIJohA
-	 i28lcVZc1XWVpW+186Aa5vIO9bA3JoKcOR1SzzHAYUQWtD4UfwOAFTe3K4TFGup3Jt5Va
-	 8/b1ICMXsj4rs2Jg97SIa943tAbQDxO9NN8cJdLBbxC+sjVbWuBOtc0Vmphzrleqfi2XQ
-	 n39TuhElLmg6YTcU/X5QKHOzZCYtfohaHCwbLfP1pBJ+xZs06yULVZMUik8KdkKqPDw==
+	t=1794352784;
+	b=o9RnPart7F+dFQ9P4aGvm841FTlP4a3PP1wmphGF5oEUtpXfoDNexWbSRr3gpcQAbFQR
+	 EF6KM1lKCrxEEMgjMaog9JgsuT4PlvEXGGkefc1B7jmliz4qbR2KhT8IKFsRHFx0G8T80
+	 ncb+QFeU7/+m9vCYkJNdppYLvoawDpi1iLd8H2LNTnzFHObahjaX4yvK8XAt0Cf9lu8tM
+	 MULQoFMoVakHl8pTeqFZNQH2K+3iTKbVJewIpDXwrQs/dqgGq4cWxucSFY9ihlEh6s0Fs
+	 kkudM0coJS82kUzd2gwhu5PoMhQqXMrfetb8VjsZmzIzOsDyXb/b1qZDCpG46E9MzCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352784;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=V5fx/ZRVknXu1W3qGQ0NEeJSbhvu0JsIpOocnTFUJXE=;
-	b=M06lvXhIlZCc29N6zpBBSCQg28ARvcN2YkgOZO9jjvrMBZr0uC5K1yHmjxz0AyiAdNFH
-	 XdKxhZwmxZ03VwL1ThGD+MpCT+WgGC5mXV8sVEQlUahS7GIMvf0Z6y9XBYLkPFMDcQEJu
-	 kAgnIzfIt8OszpLOK4fgsnOqKwNDVewYIrPXUAsgIAfUO17rvHqvGCRNsDW0eIvRlIG6Q
-	 HSbq2LKsAvxQWoPAbE3kEgO3j/jmrOsOQ4frmFH3Uu3bU6IGF6wjEpAqtrECfDllm8TgP
-	 3kjzWDSv16fsWcUvvXQ/sbq8u86G2h1eANhiV9HPPeUZgCpWV5VTSkXCw6R38OcQ3NA==
+	bh=fRBgRbGVAmDKMu/C5YTsdZCfB0nJlMDh28VYzEJWsLI=;
+	b=YmPVjgvnM4onOujYKNWN/5g+og8Iu1tgE0/yujfypEPiohPTKkizXKkphyidxAk9vucU
+	 TwLEGx+YBlvS7rLowmr7QoqLZKzT5XCa4DsGNvMOdJ1NQ9TtiIa4gTzo4YwcMCg17ZdEI
+	 MjRLGoC2EESSeIlUYwYe9vpKn1B9AS9q5bAF/a4yl4zO4hGabgvYxnKMhvytu7dPCTC6o
+	 4R5lM7IGcstLn5eEoZ0UM89uoS0+Qp6b3kEf4C4qhIh/zmGleQF/w7TSxM23B2lultu0v
+	 u9FXnowtjF4V0dYn1YGGcV5U04TxJaXTPEOKVDaSukuUS6cObkMrU7qouCvimCFbB3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DpAQRddj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZGBvnbm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDF1606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55FF606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DpAQRddj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F108A1F00A06;
-	Tue, 10 Nov 2026 23:19:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZGBvnbm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B21F1F0093E;
+	Tue, 10 Nov 2026 23:19:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352780;
-	bh=V5fx/ZRVknXu1W3qGQ0NEeJSbhvu0JsIpOocnTFUJXE=;
+	s=k20260515; t=1794352783;
+	bh=fRBgRbGVAmDKMu/C5YTsdZCfB0nJlMDh28VYzEJWsLI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DpAQRddj1GOPbvHbOQgqWIuuswgMQbzIF1DK31ntFzBokVd4SPRUktVRwOCDLfLDo
-	 P9X0cM7gdRTDwo1Rnf+wB+Lo6Blg+zwUwZTbJaNWemH1577Vqa/UxZuznShnVa7Kgc
-	 Gi3iePSZseOtj/PY6/tcbi9cpi5jxar11ZwskCSUO07vbikewvt+iF80Tyxi+rTi8d
-	 h2uasgs8kPhMVYoPoxJy/R0Brz6uIr8rcQsqBhVs5ghgr1SMjkPxJG5M77UbZs8vT0
-	 2wr7Wpcl/bn5Yyds7G7jV7dni2ru0/Aq1LoWAHpJJivO5Vkmpd8jzKsloY7QKsroc1
-	 4KKd+axuVe67A==
+	b=WZGBvnbmax5P+Dc2a2xzfhhBCHgq9Jo1qh3T6JbrridgP/ep4JcZluvvJfm3Jfdr8
+	 6kG8P/dD1qmte41PIkgpCTs3x7yvQ+HC8YLZ0SM1JX+OIkCKI7FEl0L3ODrYxM02I5
+	 Frtw8YTqr+jH846PiwQZmTAZ6XYOptQU3kzbVixDujPMoEJJYgd6X/otvfGRM+4i1q
+	 tuiWva0WkyPc5JC+4B95JIUtz+zdTUGUpltk3lGIGiAcJ+ck0RVEjpXqadBlA53b09
+	 zRaD6sktyK7UUWLVQzYzBBMrRSXlr7h3aS1jF8xR4QOtfBaWCoTjRysLBRUHXaMGF0
+	 h/EycmUQ+h0zA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vaibhav Nagare <vnagare@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] bnxt_en: don't leave an XDP program installed when the open fails
+Subject: [PATCH 6.1.y 1/5] ALSA: emux: prune unused parameter from snd_soundfont_load_guspatch()
 Date: Tue, 10 Nov 2026 18:19:38 -0500
-Message-ID: <20261110231859.117518-1-sashal@kernel.org>
+Message-ID: <20261110231659.106262-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062507-failed-5.10-78731b46967e@kernel.org>
-References: <20261107062507-failed-5.10-78731b46967e@kernel.org>
+In-Reply-To: <20261107055202-failed-6.1-34e3e04b8a17@kernel.org>
+References: <20261107055202-failed-6.1-34e3e04b8a17@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,116 +61,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vaibhav Nagare <vnagare@redhat.com>
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[ Upstream commit 78731b46967e3e7102b5cd5062bef185f3404b5c ]
+[ Upstream commit 3f3e0dfc83d586fe9204936fccae771754a9dbc2 ]
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+The `client` parameter was not used, so eliminate it from the call
+chain.
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
-
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
-
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
-
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
-
-Restore the previous program when an attach or a replace fails, and
-recompute the page-mode and XDP TX ring configuration from it.  The
-configuration matters because bnxt_init_one_rx_ring() only assigns
-rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
-dev->max_mtu from the installed program.  Release the old program only
-once the change has been committed.
-
-A detach is not undone.  dev_xdp_detach_link() clears the core's record
-of the program even when the driver returns an error, so putting the
-program back would leave the driver running a program the core has
-already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
-therefore returns 0 with the device closed; bnxt_open_nic() has already
-logged the failure.
-
-Found in a crash dump; the change was not tested on hardware.
-
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: reused existing inline configuration through an apply_cfg label instead of introducing bnxt_xdp_apply_cfg() ]
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Message-ID: <20240406064830.1029573-3-oswald.buddenhagen@gmx.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 34e3e04b8a17 ("ALSA: emux: Fix UAF of soundfont zones at note-on")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 25 +++++++++++++++----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ include/sound/soundfont.h     | 2 +-
+ sound/synth/emux/emux_hwdep.c | 3 +--
+ sound/synth/emux/emux_oss.c   | 3 +--
+ sound/synth/emux/soundfont.c  | 7 +++----
+ 4 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index dc9afaa14da8f..2853386b89646 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -268,6 +268,7 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
+diff --git a/include/sound/soundfont.h b/include/sound/soundfont.h
+index e445688a4f4f9..98ed98d89d6de 100644
+--- a/include/sound/soundfont.h
++++ b/include/sound/soundfont.h
+@@ -89,7 +89,7 @@ struct snd_sf_list {
+ int snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
+ 		       long count, int client);
+ int snd_soundfont_load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+-				long count, int client);
++				long count);
+ int snd_soundfont_close_check(struct snd_sf_list *sflist, int client);
  
- 	if (prog && bp->dev->mtu > BNXT_MAX_PAGE_MODE_MTU) {
- 		netdev_warn(dev, "MTU %d larger than largest XDP supported MTU %d.\n",
-@@ -293,11 +294,12 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
+ struct snd_sf_list *snd_sf_new(struct snd_sf_callback *callback,
+diff --git a/sound/synth/emux/emux_hwdep.c b/sound/synth/emux/emux_hwdep.c
+index 81719bfb8ed73..fd8f978cde1c6 100644
+--- a/sound/synth/emux/emux_hwdep.c
++++ b/sound/synth/emux/emux_hwdep.c
+@@ -27,8 +27,7 @@ snd_emux_hwdep_load_patch(struct snd_emux *emu, void __user *arg)
  
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
+ 	if (patch.key == GUS_PATCH)
+ 		return snd_soundfont_load_guspatch(emu->sflist, arg,
+-						   patch.len + sizeof(patch),
+-						   TMP_CLIENT_ID);
++						   patch.len + sizeof(patch));
  
--	if (prog) {
-+apply_cfg:
-+	tc = netdev_get_num_tc(dev) ? : 1;
-+	if (bp->xdp_prog) {
- 		bnxt_set_rx_skb_mode(bp, true);
- 	} else {
- 		int rx, tx;
-@@ -315,8 +317,21 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	bnxt_set_tpa_flags(bp);
- 	bnxt_set_ring_params(bp);
+ 	if (patch.type >= SNDRV_SFNT_LOAD_INFO &&
+ 	    patch.type <= SNDRV_SFNT_PROBE_DATA) {
+diff --git a/sound/synth/emux/emux_oss.c b/sound/synth/emux/emux_oss.c
+index d8d32671f7038..04df46b269d37 100644
+--- a/sound/synth/emux/emux_oss.c
++++ b/sound/synth/emux/emux_oss.c
+@@ -205,8 +205,7 @@ snd_emux_load_patch_seq_oss(struct snd_seq_oss_arg *arg, int format,
+ 		return -ENXIO;
  
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (rc)
-+		return rc;
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* a detach cannot be undone, only an attach */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			tx_xdp = old_tx_xdp;
-+			goto apply_cfg;
-+		}
-+	}
-+
-+	if (old)
-+		bpf_prog_put(old);
+ 	if (format == GUS_PATCH)
+-		rc = snd_soundfont_load_guspatch(emu->sflist, buf, count,
+-						 SF_CLIENT_NO(p->chset.port));
++		rc = snd_soundfont_load_guspatch(emu->sflist, buf, count);
+ 	else if (format == SNDRV_OSS_SOUNDFONT_PATCH) {
+ 		struct soundfont_patch_info patch;
+ 		if (count < (int)sizeof(patch))
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index eed47e4830248..77144fe221cf2 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -944,8 +944,7 @@ int snd_sf_vol_table[128] = {
  
- 	return 0;
+ /* load GUS patch */
+ static int
+-load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+-	      long count, int client)
++load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
+ {
+ 	struct patch_info patch;
+ 	struct snd_soundfont *sf;
+@@ -1127,11 +1126,11 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+ /* load GUS patch */
+ int
+ snd_soundfont_load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+-			    long count, int client)
++			    long count)
+ {
+ 	int rc;
+ 	lock_preset(sflist);
+-	rc = load_guspatch(sflist, data, count, client);
++	rc = load_guspatch(sflist, data, count);
+ 	unlock_preset(sflist);
+ 	return rc;
  }
 -- 
 2.53.0
