@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338596;
-	b=0PHmRfcAyy9LH27wJgALIps6H54Rzav18czYJlsXAdSwPqJ2LPGD6KZvGmWitJq0uFTe
-	 /sD3OJ9Le9uuEqpoL2CRAfP5bImFyC8MoD9ZcCciFRpFYCUtSIGt0dJYrdPVkpx5MqUFN
-	 f875j1IWS9TaFd3GKwj+J6qEqudq8e07m28Yvz4i+m7J7pl/8peQvkHNdA2o1X0dUc56E
-	 dYc7poXYwXkpRW4Fo0u5VY0ZNfNtuot6pHy+++H5375TbWUbOAAKXjy3WOAENZkM8ld+K
-	 R79C461GxN/mbVRkDeY/uOyfs9ajelOxm2izP3jqSBwf/loLHwkwiAaLehUUDu+0c0g==
+	t=1794338669;
+	b=JHN2VtTeco6B/TVnLzm4CcOrr6qOcbsmFDUp8yrLQN2qVuRh4cM9YluULs1YnQl8qn2Q
+	 +1o0cEfPN+MgZyEwGA6S7Yqy1gvYLW2yEXEp+G/fInC4UURDxrZIlizEsvVQ1UfBiaVSf
+	 Bm0XeSYqAinEFOwTqtSvo9fCq+RUv4STUJvTmq97+KZ5l4ph20p+x9N6fHVBA4vP9L0vD
+	 KGyVJzNP2tnsKKbVJJrl0bWlsKC0ydrmg/pB3em8sXutZswv3Ciwaz4Zk/YY+8L6jUiV7
+	 bjyVJlr8TPiXn/sndZE6a6p5evRTmXVPS5xLITA5tQC/yXcqW7d2bV9iHlUfAQN+z9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338669;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BUX21rlUQrE7+iRB0Ubwz2n9WlMInWyZZAvHr23/uMQ=;
-	b=2hdxzsiqXPHrYxYo51ljVrj2Vs+lX5bBK5SpjQLM/1dmSQAUn53zzOwh6m+9qRCJwrRV
-	 lGwmLlrdaekabkFC1ffQSXTNT2SeuvJYgsby3Wuod9+LyLYp4oNQrpujEFzkuAFDTeRYd
-	 JzbWVvnl24DOOIF/qVbZzYhwWTqDPAGv/GxqRztjxwEXmZDaV53/DzCtxKzgiVmA3LDR4
-	 jpvNkhnWs0nDNXS58bWw4D3C3F5LCxnmapI46JpnbHXHqqXh7HwS9im1aqlJphoWYFaEk
-	 FbK6kXcEnDPc5/x5Xr7ggrmPnXG7iqa2AcwtwoPiOHHJWBSI4OX4Mxrn1068zQKMwTw==
+	bh=ajvbwhi0+aqEyn6SAbDvhcDNEQMuQIj+O4whjXx+Q8c=;
+	b=UQX4Q6hqY08zBEcqHiyvidb7lZ8PWd20G2YNwWp5ot5AiolWGIKybtrqFELcq365yAIf
+	 aCQToDESDtO4arPN2xdo3QjBBagMXIlS9NN5wDvBPZdApYRbo+0limdHLWWgfirKJc6wn
+	 cY/VNoT9rDaXwlP8/LHcJ7+0jkfD5hKnexOlC88Uv5yg6I2sE21wITQfrpQgD3bKN5+4Y
+	 uLzR13VpvH2Lzse5hBzm0W5W+WH9WiS3SSBVRoMZ9LSK1wCUJTyFk1UObPygr5Gs+fqX/
+	 fbGO+GLMy7Clju8U9zbypjeDxbi/MQqthusJCUURtD6kLN9/Y8US6IU4BbJYAE5HdOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwH2MkUF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Vf/23+XI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6CA606A32D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:23:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AF1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:24:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwH2MkUF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBDA1F008A1;
-	Tue, 10 Nov 2026 19:23:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vf/23+XI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2229C1F0089F;
+	Tue, 10 Nov 2026 19:24:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338595;
-	bh=BUX21rlUQrE7+iRB0Ubwz2n9WlMInWyZZAvHr23/uMQ=;
+	s=k20260515; t=1794338668;
+	bh=ajvbwhi0+aqEyn6SAbDvhcDNEQMuQIj+O4whjXx+Q8c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nwH2MkUFrQbhttU1fuY0U6L1CwGeSbUGHDaW5XdCg4+P9WaRD4etyAPYeIgbaulLP
-	 sIvzFtd+k+3LdCiAg1nTFLsZ3Jx35xCb9IoYYl8weQaDGJIyHLf1HlheocdhJ8v77z
-	 9eLtS63AgN+9lgwDR5b0zdHZvaIuEXkE12g78bAsZCGAnfTwvgxg4AH89ZIvEsrpHh
-	 EPJMrbFUpDUg3vVlMoCV6dVHVhjRW/b3KboSOs6JaSjnJuK8KZzrTsvOLCXddHHrNN
-	 nmLUCdUJ6IRgPpjV7YnoQVW+GR+SpT6XT5FJ1F22LdDSSW3vNoPECGrJOYM35ngwKb
-	 HBbJi30IVDobQ==
+	b=Vf/23+XIlCZL9lm+zxYxB2GWOf5p9e/cqvYivPLrfTsXnl0PPCBXTklFBscKYBnvM
+	 NgDD/ho2RCY0Kx7u8ySCakG4i9WAm7sMMn3T0Y264knFpdTOoG8KTXYcasGOYZx41u
+	 Knk1A9+fZ6lsmhsFe3DvSCS3wRB9lFD/pbuA84RzCicdzFE90WPnXe+hkqHV+JrrBJ
+	 B+62lLXwKEL6By+LDLlNlZ6C3QHeBcdwmwQmNsJhsQfjEsiRYjTvJxJXoQ7cPHeVQx
+	 mVLqtMPN2MvxiQoJcqeNtplNHJ0z96I/YyIGnHNQiDhjLeABTcXrSP/JeX72ID98Q6
+	 vwSHukNtmzQpg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
-	Dragan Simic <dsimic@manjaro.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+Cc: Yuto Ohnuki <ytohnuki@amazon.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
-Date: Tue, 10 Nov 2026 14:23:13 -0500
-Message-ID: <20261110192249.3537377-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] virtiofs: add FUSE protocol validation
+Date: Tue, 10 Nov 2026 14:24:25 -0500
+Message-ID: <20261110191324.3460613-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054811-failed-6.1-84d08ff902f1@kernel.org>
-References: <20261107054811-failed-6.1-84d08ff902f1@kernel.org>
+In-Reply-To: <20261107055034-failed-6.1-5364d081125a@kernel.org>
+References: <20261107055034-failed-6.1-5364d081125a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,96 +62,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
+From: Yuto Ohnuki <ytohnuki@amazon.com>
 
-[ Upstream commit 84d08ff902f1ec01177fef1a21a38934927f5aee ]
+[ Upstream commit 68b69fa0edb241a946cd4c850110990f30705164 ]
 
-Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
-speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
-Rockchip PCIe header.
+Add virtio_fs_verify_response() to validate that the server properly
+follows the FUSE protocol by checking:
 
-The reason is that Shawn Lin from Rockchip has reiterated that there may be
-danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
+- Response length is at least sizeof(struct fuse_out_header).
+- oh.len matches the actual response length.
+- oh.unique matches the request's unique identifier.
 
-While Rockchip has done so informally without issuing a proper errata, and
-the particulars are thus unknown, this may cause data loss or worse.
+On validation failure, set error to -EIO and normalize oh.len to prevent
+underflow in copy_args_from_argbuf().
 
-This change is corroborated by RK3399 official datasheet [1], which states
-maximum link speed for this platform is 2.5 GT/s.
+Addresses the TODO comment in virtio_fs_request_complete().
 
-[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
-
-Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
-Reported-by: Dragan Simic <dsimic@manjaro.org>
-Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
-Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
-Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Dragan Simic <dsimic@manjaro.org>
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
-[ sashal: adjusted context to match the existing Rockchip PCIe initialization code and HIWORD_UPDATE register macros ]
+Signed-off-by: Yuto Ohnuki <ytohnuki@amazon.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Stable-dep-of: 5364d081125a ("virtiofs: validate fixed-output response length")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
- drivers/pci/controller/pcie-rockchip.h |  3 ---
- 2 files changed, 6 insertions(+), 11 deletions(-)
+ fs/fuse/virtio_fs.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
-index bdce1ba7c1bc0..c1567a2ef1890 100644
---- a/drivers/pci/controller/pcie-rockchip.c
-+++ b/drivers/pci/controller/pcie-rockchip.c
-@@ -65,8 +65,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
- 	}
+diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+index 9e4f2ba0ef9d2..ab410ebe7c304 100644
+--- a/fs/fuse/virtio_fs.c
++++ b/fs/fuse/virtio_fs.c
+@@ -564,6 +564,27 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ 	req->argbuf = NULL;
+ }
  
- 	rockchip->link_gen = of_pci_get_max_link_speed(node);
--	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
--		rockchip->link_gen = 2;
-+	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
-+		rockchip->link_gen = 1;
-+		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
++/* Verify that the server properly follows the FUSE protocol */
++static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
++{
++	struct fuse_out_header *oh = &req->out.h;
++
++	if (len < sizeof(*oh)) {
++		pr_warn("virtio-fs: response too short (%u)\n", len);
++		return false;
 +	}
++	if (oh->len != len) {
++		pr_warn("virtio-fs: oh.len mismatch (%u != %u)\n", oh->len, len);
++		return false;
++	}
++	if (oh->unique != req->in.h.unique) {
++		pr_warn("virtio-fs: oh.unique mismatch (%llu != %llu)\n",
++			oh->unique, req->in.h.unique);
++		return false;
++	}
++	return true;
++}
++
+ /* Work function for request completion */
+ static void virtio_fs_request_complete(struct fuse_req *req,
+ 				       struct virtio_fs_vq *fsvq)
+@@ -574,10 +595,6 @@ static void virtio_fs_request_complete(struct fuse_req *req,
+ 	unsigned int len, i, thislen;
+ 	struct page *page;
  
- 	rockchip->core_rst = devm_reset_control_get_exclusive(dev, "core");
- 	if (IS_ERR(rockchip->core_rst)) {
-@@ -236,12 +238,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
- 		goto err_exit_phy;
- 	}
+-	/*
+-	 * TODO verify that server properly follows FUSE protocol
+-	 * (oh.uniq, oh.len)
+-	 */
+ 	args = req->args;
+ 	copy_args_from_argbuf(args, req);
  
--	if (rockchip->link_gen == 2)
--		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
--				    PCIE_CLIENT_CONFIG);
--	else
--		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
--				    PCIE_CLIENT_CONFIG);
-+	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
-+			    PCIE_CLIENT_CONFIG);
+@@ -633,6 +650,10 @@ static void virtio_fs_requests_done_work(struct work_struct *work)
+ 		virtqueue_disable_cb(vq);
  
- 	regs = PCIE_CLIENT_LINK_TRAIN_ENABLE | PCIE_CLIENT_ARI_ENABLE |
- 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index 049ad984a4164..4702caac56114 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -37,7 +37,6 @@
- #define   PCIE_CLIENT_MODE_RC		  HIWORD_UPDATE_BIT(0x0040)
- #define   PCIE_CLIENT_MODE_EP            HIWORD_UPDATE(0x0040, 0)
- #define   PCIE_CLIENT_GEN_SEL_1		  HIWORD_UPDATE(0x0080, 0)
--#define   PCIE_CLIENT_GEN_SEL_2		  HIWORD_UPDATE_BIT(0x0080)
- #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
- #define   PCIE_CLIENT_INT_IN_ASSERT		HIWORD_UPDATE_BIT(0x0002)
- #define   PCIE_CLIENT_INT_IN_DEASSERT		HIWORD_UPDATE(0x0002, 0)
-@@ -184,8 +183,6 @@
- 	(((x) & PCIE_CLIENT_DEBUG_LTSSM_MASK) == PCIE_CLIENT_DEBUG_LTSSM_L2)
- #define PCIE_LINK_UP(x) \
- 	(((x) & PCIE_CLIENT_LINK_STATUS_MASK) == PCIE_CLIENT_LINK_STATUS_UP)
--#define PCIE_LINK_IS_GEN2(x) \
--	(((x) & PCIE_CORE_PL_CONF_SPEED_MASK) == PCIE_CORE_PL_CONF_SPEED_5G)
- 
- #define RC_REGION_0_ADDR_TRANS_H		0x00000000
- #define RC_REGION_0_ADDR_TRANS_L		0x00000000
+ 		while ((req = virtqueue_get_buf(vq, &len)) != NULL) {
++			if (!virtio_fs_verify_response(req, len)) {
++				req->out.h.error = -EIO;
++				req->out.h.len = sizeof(struct fuse_out_header);
++			}
+ 			spin_lock(&fpq->lock);
+ 			list_move_tail(&req->list, &reqs);
+ 			spin_unlock(&fpq->lock);
 -- 
 2.53.0
 
