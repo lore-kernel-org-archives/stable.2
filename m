@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313303;
-	b=bplqL5rK3rS2pIUxgt5bb5W4J9Tjk7qv7T9KvbyNVc1c60HCJ6P2PjxORhYau2RoYbDp
-	 GO5OdALbKrkdA7U00AlMNpzukyOM2vARLUY9EcHxxCN2+QLOOvpEVrEelIIgegjR6i+BM
-	 SC1ONWh2bhNFwM7EXCB5tsWnBoWeBEXw+wu0I+ImMB4o+E/WU6uld/5MD1L2ARmXtsapV
-	 BeG5d1PdTfsX0q18/HA796uSdvcQimm0BFpY8ksWQfpeir5L4LkFmOExNVV45retN/LRI
-	 TJMAALgG2+XoLdZmnIy9o+LuZ7Coc8cC9qPJlD3Q58spMaf8D4LpaB+f/WYNSTIIiYw==
+	t=1794313304;
+	b=YeI2qzsva1g2smGuTBwpBRs98TcIZhsjh2vLE06M0Ye8GPRFyjEaUTA7/wg3gd9kK/HR
+	 K4NFEe/PKL0Sweu6GevirOPUOomhrFyVHG5r3d7fv6ma2Yw1fCq5mVazGowuIEQYHYnWS
+	 qmNHfJP3H+LOcSNai2rgexvvPVmp4V7e/bHY6/0Cr9bQ5h8TctOl2sT1l3l0jzeOp4Db8
+	 6Vm4MWkIB1L7HiSbY+dYcx4klrMe4xiVOp9b4z+QPKwhVLcZnPXpL/b5XKSlsGw3jIWFZ
+	 F3KV9krAZXvSNsZ1nnL7xWqrAI9ByhFcmGZ4xx35PBosdXzsZm0tiJBFp/JWSZHFgGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313304;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0KPPhYnrpAv8MiWpG1EDQv1RWw4nWMRNpPnLkdzM+Zg=;
-	b=OSDAAJdnihY0Ny3GTwNQTHohUjWM2TOYvV/ZKwsQ+H81YtDQgvf+vfhn8++bXuED848Q
-	 bUwRCMfz55FxmHA8favy/pPnS1HX4tQYVSi9f5CdEC0RU5aN7Tu5y8O9U+qVeZ+qRO1QN
-	 8u02Wm2Wxj7sUZDeXJ7WR+lPI9crptpQGyDkeB6L6x3tnSx0YUpFwCObc5U32vGK7PU9o
-	 Cny2tuL9bb10ynpNIUYjlK873F5FuV06Djk2QhHgaz+6kAcrfP0gt1H9FYm1cx/2EDPPY
-	 kqQrSRh9qjKyzV8/05SlF1A8Txn6QhN4SamC2tBz9hILd4dgjH3QGTjYieBImWc7+Og==
+	bh=2EC481Vv1Bxeob2YYspe1aqCf43SDS2FKyPskwhCtlU=;
+	b=dHKudA1Enf6k9z+Y/9wsIYe7zhmzvAID4m3Rkm7XqP5VE+i9D8jEVj0M5SEUaA3WDlK5
+	 IAEKDoDKEQq3HxV2gSx/sVuNdXi2vT/X/D87YNOwOpE2P9Yce2aH2hBPIwo4HyS9gnxfW
+	 HRYd5qwGlk4Ne6ReIs7ViSF/qgFTSPakgoHiqbbYrwHEiB3wcfwBnD3pr/Evn1Rt47U+H
+	 idBL0wWOJGtUQy1gypNq/y6kmNz2Bgjd4MK/vafV5W6XRVBXYt+jRUguCe+ltDA1RGh/G
+	 4eUwr1vc7AZ1d6qzca7XbrLm+FMB03t7ia9LwViTsaycUwB4j6fXZFWBg3sy2ciad6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCgUuo7R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5KoCV+r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC09606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEF7606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eCgUuo7R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05251F0089F;
-	Tue, 10 Nov 2026 12:21:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5KoCV+r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D121F008A1;
+	Tue, 10 Nov 2026 12:21:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313302;
-	bh=0KPPhYnrpAv8MiWpG1EDQv1RWw4nWMRNpPnLkdzM+Zg=;
+	s=k20260515; t=1794313303;
+	bh=2EC481Vv1Bxeob2YYspe1aqCf43SDS2FKyPskwhCtlU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eCgUuo7RIHlRlRFJhJRA645NYQzG2j3KGhGoR5aZpwbSZWlVJSw9Lm8ytUXb9hIHj
-	 hYr+sBchJrh2u/d0wsAPcF1F/3aYzhMRnytoSjfQ/t5exl9QxlcFl8hjmwEywbZeZt
-	 YhI/ioF8KG61oLjb6PKXWjgMA+peE+FKv3VZsi8rSm4Smw0SNT81t0s+/SCY0YJP70
-	 iXLcsF0Dh45P9V4/chPjSB1Vw5pILTzV8GpxUxi5XTxEm+aUpN8X2/kQ68LuVMvnxP
-	 dTn88m8GEcjSYTQVxmVFJjA4vofMYlsOPqcmRXIqHSACYMK266vntmiKlrOKI264AP
-	 +gNtiOTjaA9RA==
+	b=f5KoCV+rDDWj0iq7FMWBuZlymfpo6CSmLPX70aupKB1XEY0LZGF4fijE+efxZPlO/
+	 iLNykHesPXDpy3rMTcIs5wzrEt4EfzkzfDCx5f2GlUA4OpK3Ok5jZOjrWBDOP+3uuk
+	 tp0+v8Bw0B3Sq8Gx0EQZGB1B6vDr71elgwfZ3lJ3Rj3hCwvnIDNE4jBIRnzlv2qUir
+	 jrXbO1RADoDoDTU2HYL9GM1YP7JE+hv4erLqtH8tEW9OFblbTnDW2t9YI/UYlJ4XSM
+	 N4PQUZQqoHx50RkUT4/UegflfhWpdbDPWsbTE+fhz5cQbuP6YE2s//56dSRfx8Da/+
+	 D38f66h2wsmbA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] ASoC: codecs: wcd9335: Simplify with dev_err_probe
-Date: Tue, 10 Nov 2026 07:21:39 -0500
-Message-ID: <20261110122135.1110460-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()
+Date: Tue, 10 Nov 2026 07:21:40 -0500
+Message-ID: <20261110122135.1110460-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054310-failed-6.1-082723fee626@kernel.org>
+In-Reply-To: <20261110122135.1110460-1-sashal@kernel.org>
 References: <20261107054310-failed-6.1-082723fee626@kernel.org>
+ <20261110122135.1110460-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +62,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 67380533d450000699848e292d20ec18d0321f0e ]
+[ Upstream commit 082723fee626532f176727b6438b666a96d5246c ]
 
-Code can be a bit simpler with dev_err_probe().
+of_slim_get_device() returns a device with an elevated reference count,
+and wcd->slim_ifc_dev is intentionally kept for the codec lifetime on
+success. However, all the failure paths of wcd9335_slim_status() return
+without dropping that reference, leaking the SLIM interface device
+whenever the register maps cannot be created or the codec fails to come
+up.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Link: https://lore.kernel.org/r/20230417141453.919158-1-krzysztof.kozlowski@linaro.org
+Put the device on each of those error paths.
+
+Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260917164853.2163184-1-vulab@iscas.ac.cn
 Signed-off-by: Mark Brown <broonie@kernel.org>
-Stable-dep-of: 082723fee626 ("ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wcd9335.c | 27 +++++++++++----------------
- 1 file changed, 11 insertions(+), 16 deletions(-)
+ sound/soc/codecs/wcd9335.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index e810951f78600..4d7b9a8470fd2 100644
+index 4d7b9a8470fd2..a0f6b3aab2d4f 100644
 --- a/sound/soc/codecs/wcd9335.c
 +++ b/sound/soc/codecs/wcd9335.c
-@@ -5118,20 +5118,17 @@ static int wcd9335_irq_init(struct wcd9335_codec *wcd)
- 	 * INTR2 is a subset of first interrupt sources MAD, VBAT, and SVA
- 	 */
- 	wcd->intr1 = of_irq_get_byname(wcd->dev->of_node, "intr1");
--	if (wcd->intr1 < 0) {
--		if (wcd->intr1 != -EPROBE_DEFER)
--			dev_err(wcd->dev, "Unable to configure IRQ\n");
--
--		return wcd->intr1;
--	}
-+	if (wcd->intr1 < 0)
-+		return dev_err_probe(wcd->dev, wcd->intr1,
-+				     "Unable to configure IRQ\n");
- 
- 	ret = devm_regmap_add_irq_chip(wcd->dev, wcd->regmap, wcd->intr1,
- 				 IRQF_TRIGGER_HIGH, 0,
- 				 &wcd9335_regmap_irq1_chip, &wcd->irq_data);
- 	if (ret)
--		dev_err(wcd->dev, "Failed to register IRQ chip: %d\n", ret);
-+		return dev_err_probe(wcd->dev, ret, "Failed to register IRQ chip\n");
- 
--	return ret;
-+	return 0;
- }
- 
- static int wcd9335_slim_probe(struct slim_device *slim)
-@@ -5197,17 +5194,15 @@ static int wcd9335_slim_status(struct slim_device *sdev,
+@@ -5194,25 +5194,32 @@ static int wcd9335_slim_status(struct slim_device *sdev,
  	slim_get_logical_addr(wcd->slim_ifc_dev);
  
  	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
--	if (IS_ERR(wcd->regmap)) {
--		dev_err(dev, "Failed to allocate slim register map\n");
--		return PTR_ERR(wcd->regmap);
--	}
-+	if (IS_ERR(wcd->regmap))
-+		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
-+				     "Failed to allocate slim register map\n");
+-	if (IS_ERR(wcd->regmap))
++	if (IS_ERR(wcd->regmap)) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
+ 				     "Failed to allocate slim register map\n");
++	}
  
  	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
  						  &wcd9335_ifc_regmap_config);
--	if (IS_ERR(wcd->if_regmap)) {
--		dev_err(dev, "Failed to allocate ifc register map\n");
--		return PTR_ERR(wcd->if_regmap);
--	}
-+	if (IS_ERR(wcd->if_regmap))
-+		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
-+				     "Failed to allocate ifc register map\n");
+-	if (IS_ERR(wcd->if_regmap))
++	if (IS_ERR(wcd->if_regmap)) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
+ 				     "Failed to allocate ifc register map\n");
++	}
  
  	ret = wcd9335_bring_up(wcd);
  	if (ret) {
+ 		dev_err(dev, "Failed to bringup WCD9335\n");
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return ret;
+ 	}
+ 
+ 	ret = wcd9335_irq_init(wcd);
+-	if (ret)
++	if (ret) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return ret;
++	}
+ 
+ 	wcd9335_probe(wcd);
+ 
 -- 
 2.53.0
 
