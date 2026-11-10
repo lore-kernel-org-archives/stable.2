@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312542;
-	b=BCVcKjWF4hoc3xDk5O+puWo8VG/YnTXPb2cK/Qaj1icXx+pOZqzTkldWkmlmSWqEQpq2
-	 TJwMYlQ41dZo+436jmilF63no+JlUJmf+Cvrnpcaq+t3mCBmFJX9D4jfQG8ZabDy5UK/8
-	 URSdjB1dldUIcWUOT/nkgmotBNITuTpkcIeZN1ga4MVg+GQ6wVxp6amphQnHcDLPzTlUF
-	 mSsaTOrP29uUVB+wAG5X22GENexxDOfIjMWRiNtZ3Pbwvz4NzUN/da4FcONbE+aLBk3v+
-	 bXeNZCNGtCX8dkFeI1fga4GZ7Kl7KZxlv5TZTHeOJ1iz1xz9RUCo1c7AHBwC4/bhCBg==
+	t=1794312548;
+	b=ocsiiEJKOvVH3n/quYX/cS5/bQNHXPwrgj7A1EIdHL6VM+ehnt0fVJOIa/ZLXBBgqZzo
+	 I4bm/P1pw2ia/o36Kz6KfpTdKzvjugmcox74iy6VsTlsf3JuzhNXIzL2B9E5CXM7u2ZCg
+	 T65OCjMrJHR7/YKepBM34sIqUN17NrFAWwo98kBakFi9G+WOUdNMXggRTbyhGpWRW/nVQ
+	 tHJF8NUsf5nsSpBh6RidKF/R0PrP7uoks6dw6Hw3VQpRJCEpj58/rEmZj4oOftST0kZwJ
+	 B7KI+o+/cMrGyaGqMPGGKP7dbYqhaAViy+OFanWhSIoTjUxrWb+ivDnrRT7ivUUeqvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312542;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312548;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=guP3clj6UmrL//a8VRzSSJy+z3vmbvIQUWcVevs+qek=;
-	b=uwkCl3124iqbRhqtxy/2TDw5VTdr3tfcL42CzMLI2KSYaV1H6ozVxdCstnYsOXIHfl0R
-	 X3mdeBDWFQg74vO7WRe2/bnE3wqOplKzWzyAeFldFKxc0ngznjXJFbmufRPYCWIPMN7SM
-	 etSEV/exZmowMkpXQ8zTEYdHDU8j8y1+mdnQEmVleaIT3RdzzIdL9GIvgrwI8vq0usahc
-	 2nFozIgjtFceOV6pmXiSLY88uvozstSJ0/G4F9cwBXRdfdjeoZlWO05qolfwJ9qb1cFIP
-	 olJa/Fc5+ifJCDt3AEp5KkhZjy1AxMRJpeGTWKS+0hH+meRzzZ2lvn3nhNfomeGnV3g==
+	bh=w7HMsmxYIO13bK/Refvbmljtq9pQsyF+Q6QY660irtU=;
+	b=c+Uwhkfew1nhTW6wqd00a8sgi75I/oaX6Km8BntWo+kOSaWXU0LH9eGPpPgWfPa0/Vmu
+	 HgfZDSMJNnjHSXeCfNugyfc3s4pI+Q5P5BNUnhagHRoctCDu+mZa/QrMB1gHoQHGrcA8J
+	 UVJ+mvvgq/srPqvG/0+Eto+nDu834CQxtGJe2/hHPKA0J4HURrwJOGZHSKIDn43PyeDBP
+	 CBQ74k9s4roiO6GOLw6XtIdeXU1XsAjbCU3yD/s7iXKmbVf45J0sidktxHmMTqm82wudE
+	 yUzfU65rLZ0cjjIojCElxyOHc3Ta3quvNQP4t0u7jF6uyv+XqopG8Wc+mK1WiVJgcXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFwRFxc8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4yy8DIz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCBA60A3838
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7265460A6F70
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:09:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFwRFxc8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2D51F008A5;
-	Tue, 10 Nov 2026 12:09:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4yy8DIz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5554D1F008BF;
+	Tue, 10 Nov 2026 12:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312542;
-	bh=guP3clj6UmrL//a8VRzSSJy+z3vmbvIQUWcVevs+qek=;
+	s=k20260515; t=1794312548;
+	bh=w7HMsmxYIO13bK/Refvbmljtq9pQsyF+Q6QY660irtU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AFwRFxc8we/h8C5gYYNXq5cMJIY4RCCZpSfQqsbkuWW+Azx6d248zxGsXuiNMgea2
-	 mSUpfRK86SczlGUMGH5e64UHGrU/MXAr4ztfVKjbA6aFBXXUNFWJ6OY8rp1C3ksVyw
-	 x0SRgTlVeVXKWxoO+52fdkwmtvHKPvDpRriBkQaQB0WrrS3oPpkBCvwgNf9/tBKH/2
-	 q01GZ6s2Wl3OTuMJaF1k+UfFS901V2EXPKFMrVhX9mF4XaUcEWegtkJaYuo2SJKKT5
-	 Dd7LBW2ktfORTXdi2q5pg3/N/r7GV+hOiNbAQtsXplJY4dNFmOMeWhzhYrz2av7geI
-	 5fXmeP2+BZZQg==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.ams.internal (Postfix) with ESMTP id D0CF1198003A;
-	Tue, 10 Nov 2026 07:08:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-10.internal (MEProxy); Tue, 10 Nov 2026 07:09:00 -0500
-X-ME-Sender: <xms:WwnzaoPwZg1yABXhCDmQS_SXFpnw1frW7C9SZ4is6ybScSaHQ_zoTw>
-    <xme:Wwnzal_a3Ob4Dz-4yzIcwcudKuZLeYBi56pOo7qc-cFBGr07YjWB1X55nZao-Yko3
-    bGjUVGVc8pCeVXdGCXnMniNVYvARqk2y2CpZ_Ui5DaknKdf9O2xdaHN>
-X-ME-Received: <xmr:WwnzakRiuNd3o0DTT9twsrBXCC3K-NbQYXWlC6rAakhr-MTI8pwmojpHUxc>
-X-ME-Proxy-Cause: dmFkZTFW0BiM+2iQGSCiw8NWFu7EDBbogT/NSgL/82/lZd7c8drkacWsS90ovnyCwq+zZ4
-    nI59zLGsmfrOeYYf9Iy6pecD4JFktkYUAAJdCG1cL2bJzdfBvcsy/kIUuUgA63YzV2g6QD
-    E6Wj/y63V5nQZY512BXMM6S/SRnWVEeQl35Ujy6UL7OkQJLb0RcxZQCN8l0Msjz28mJla6
-    xYEHwg8P/AAbgpEuIYXoAX3CHAa+5299lWa/geKJU6aSspLAIa7da9+0StmGpfnFrL+W0h
-    2cMuYM5cXG+m+hzOrmi03WFCS2ACVbw7Gn6YMbcKrVsbOtnhQN1tO79kQcWSTNqTMv8NF2
-    /5bf43XfnHmrtHqdMF3JYIjG8yvup8vomgneiBkDwp6EA8vBMxdNsSC/MKMxWEOpII1+JP
-    tGPZmAgHtEqBF8rII9KorLuGyCL6mckxD6LbW99qWfmV122+yn0Mbs4DKYX3HQZBLpc0pr
-    3usuzIRLoqTCtrYoXMjftNmfFjIM6G/SxmqHLziLrfxnaeNkwVn219tqfDZgJTpPlP01nX
-    T2Ci4jVX40MGXNkkinNcEA7q6nbj2eySjQ21aRo5VNQEgDPOeL/Syh5AYvWENDvTHZZyQV
-    RtDBlYADSM6NPzCkTKICGBn1Md+8vjWqyZdtitRORC6FoGJlt64El56cIQpg
-X-ME-Proxy: <xmx:Wwnzavn8mumWtEplf6_uH8qjEqXJTef9xd_-eptItuA3yM_WNdSznQ>
-    <xmx:WwnzasShEofJwauE3upn3V0FQU0cJeM3mzFhqa3wl9z-Uv9x4SZ7hw>
-    <xmx:WwnzalNGi6ddMcfFwOvLgA-uNiIQ9d6y4HOWA-cgBZipHFTCYiOpqg>
-    <xmx:WwnzatWW6s14gdTAhLENvSfclUz_F80R59aPhUyKTDo36FsUeL6XkA>
-    <xmx:Wwnzakd97k1yyyjFtq6v4YJN0yWJazffPla3aL8T7b8EnuS_t-5Qe7tM>
+	b=G4yy8DIz84cZriRn8xfixt2ofz0QwaJgBWMoVAP/VcBUWUmOpd+yjtdYPIhkcGz+3
+	 qCGN3o6lIwpUX5hGAYElJfWpFN2l0BZIBa81Ihp+DPSn09SLgVX7QCkac2sqGqfBH0
+	 y+Kkng6ipROpkcdTJ+vLz/pIn8/I8JlEJ2wnktXJp2CHHzd0jfw61jhOJwmU03FvKO
+	 EjF9QOeQlAa1AHzMBw75beWo3hmdhPqBBLuTx/jwz59Ox4rg9pUB+9qnzthKx1PXJH
+	 SlUkTm5+TYXAT4DSHUo7nAUoGk+LtGnVPYVStGpjcgLxq8icifd+R5UwK90buMMy0x
+	 0z25yJAVLL8xA==
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 803B2198003A;
+	Tue, 10 Nov 2026 07:09:05 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-12.internal (MEProxy); Tue, 10 Nov 2026 07:09:05 -0500
+X-ME-Sender: <xms:YAnzaoiXUBKEarwXxua0rAoJuX4GNImA-g_FyrEX8KU4lvnZVSiULQ>
+    <xme:YAnzaoB1Azlr5DLuALZD9ybAD12qaryn3Mw-Yi9-Uj_P-rj9NWdkOA3q8a-4tlGPh
+    7LZd7_YPeNUah1LpKAKPofXSmxRMQrolXg1RdNslForuq8Rlwq1Du-E>
+X-ME-Received: <xmr:YAnzalEV9CGLdkOomlpCIEaxgLdQt9gYV3OtLjGf_MxwblMWu87BNaJGgFw>
+X-ME-Proxy-Cause: dmFkZTEG2QReU+pWTNduaklhlkyQmgA2xQd/4IsynuMn34X0smgSntMrkGGYnOu/UWJaW0
+    vpHAX2MtLLcpL+wM2+LoY27eKP5ZCUw7CEKEIhnlGCbfvM2buNLPmMf43G7Q6LpzGxpqYK
+    QxCOLZwlEZLonrmTUYjGqaxU0JUdCT/pJWYZNyVejQXMqZzX1METg/cTiLAVNkrSjKRFd8
+    mqwBX7XhqB9VGWuPNe9KXx8sVESZseQo2UOGi5HWojPvhxtOtUA1yEy6NthWmmG6c9TyS2
+    fR5gfVARf+E+DTwJ69pax7e2r5RLEjoyczu9XdmowWP/MDBAVHzmIbWEwFb75eZj63WiE2
+    swLSw42v3IPAg1FGQKEbEWJfSwuiuKqpl/HTHWH7sYyRR0We6KWa47OzBIZZHa4jAmVo21
+    lQWr28SNJROfc87RRC806enoIsnKwhUdC1i3iKNX/a+A2tlPdNbe8DwpE6bc6dbFHugAG/
+    wFf+Tb8841Yk981Aq7BZr5QGohgR3xyyDUKa2+U8Yc+81IQWF0G9VhZcG4xPo8jKqjVeGS
+    QLh3YNXKcyqXqsSPziXLwHoKf5xJMj/8rxDU0yvGap8hRWcQPy6Gv6XAGr7/W+IEV/jiJ6
+    ntQn/QedSS+WzbitiE2DUOAk0BVBBGiu1/C/HnQa8OqCCASQCq/qi9dmyN4A
+X-ME-Proxy: <xmx:YAnzaoLn333VCeVcZfoTULqB7ACYCGBm6OYsDSs0XajM8xti85tzfw>
+    <xmx:YQnzahmUbZfx3r6Jo9_1WUq2kw_85IMxkdj14KxjZ4CcWoWL_wR89A>
+    <xmx:YQnzaoTSWHD1aZ4Nzxj0hMyQEiLLGpLWJvOtCFd8lkINhNVTa6nfmQ>
+    <xmx:YQnzarJNj7QE7p7jdfzuPtXZNKRHp71P2CUvn8loc5BW9xa6iNupeQ>
+    <xmx:YQnzamDnFrgbhSZrjSHoQzpoSVJ5-qY18hIz7GPEZcWnAVejhDDlw9Ux>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 07:08:58 -0500 (EST)
+ 10 Nov 2026 07:09:04 -0500 (EST)
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Catalin Marinas <catalin.marinas@arm.com>,
 	Breno Leitao <leitao@debian.org>
-Subject: [PATCH 6.1.y 1/2] arm64: sdei: Run the event handler on the kernel vectors
-Date: Tue, 10 Nov 2026 12:08:38 +0000
-Message-ID: <20261110120845.373988-5-kas@kernel.org>
+Subject: [PATCH 6.6.y 1/2] arm64: sdei: Run the event handler on the kernel vectors
+Date: Tue, 10 Nov 2026 12:08:40 +0000
+Message-ID: <20261110120845.373988-7-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109201956-failed-6.1-9bf6ee7952c7@kernel.org>
-References: <20261109201956-failed-6.1-9bf6ee7952c7@kernel.org>
+In-Reply-To: <20261109201450-failed-6.6-9bf6ee7952c7@kernel.org>
+References: <20261109201450-failed-6.6-9bf6ee7952c7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -149,7 +149,7 @@ index 484cb6972e99..3b689185f371 100644
  unsigned long sdei_arch_get_entry_point(int conduit);
  #define sdei_arch_get_entry_point(x)	sdei_arch_get_entry_point(x)
 diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 27369fa1c032..833ad10421c2 100644
+index 5e8204d250b4..360cce9cbd9e 100644
 --- a/arch/arm64/kernel/entry-common.c
 +++ b/arch/arm64/kernel/entry-common.c
 @@ -26,6 +26,7 @@
@@ -160,7 +160,7 @@ index 27369fa1c032..833ad10421c2 100644
  
  /*
   * Handle IRQ/context state management when entering from kernel mode.
-@@ -854,6 +855,7 @@ asmlinkage void noinstr handle_bad_stack(struct pt_regs *regs)
+@@ -923,6 +924,7 @@ asmlinkage void noinstr __noreturn handle_bad_stack(struct pt_regs *regs)
  asmlinkage noinstr unsigned long
  __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
  {
@@ -168,7 +168,7 @@ index 27369fa1c032..833ad10421c2 100644
  	unsigned long ret;
  
  	/*
-@@ -878,10 +880,27 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+@@ -947,10 +949,27 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
  	else if (cpu_has_pan())
  		set_pstate_pan(0);
  
@@ -198,7 +198,7 @@ index 27369fa1c032..833ad10421c2 100644
  }
  #endif /* CONFIG_ARM_SDE_INTERFACE */
 diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
-index 48c6457b67db..544c3078f0a6 100644
+index 255d12f881c2..c867baa9f9f6 100644
 --- a/arch/arm64/kernel/sdei.c
 +++ b/arch/arm64/kernel/sdei.c
 @@ -208,16 +208,18 @@ unsigned long sdei_arch_get_entry_point(int conduit)
