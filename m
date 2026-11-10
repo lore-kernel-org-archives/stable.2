@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794347284;
-	b=MiUyrnq70PF15ewc+4IpfQYr+mI4Ry8v4gmJQV/1OHRGj+kZplWh+gJFxHiPNsAN8faC
-	 SASxZFfZM+jXc4MmEwCP1aV11lXFn502Xby3ThJfR0waWMhzS8EiWSeKehmNKFIPMtBBJ
-	 ypFgDi403/jYqZLkNk85Lx1ZeE5UTDApdFE4y91f6apLszC+QuWlWSkmNQ/CxcF/APDaB
-	 CQeW4/QwG7GsX8jwKC2IULTu/YDK+sRhrHgTlrcxpsRUEJtYo4NXV0cRHyUH9YwIgZg9U
-	 vivXpOmEddHaOwtAbQBHG/gp+mgQoVSeny+z9ge+739JJjMvIxICaofIEWFYwNZ1VxA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347284;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/WOcayzJUskhUHuQDojqHJCdJ99yTsrsphbc40waRqk=;
-	b=CkHv1ukJob0ME78jzmWgNYpjtuA5UaWRKpO451Q1pi1Zzla9JKytzf8gkJ/rvQPNJbDr
-	 5Yd/eWx4m1tn3/aVnOEywgCaLkanLphvc6bw7dsZyrXlI6+QNXW8KuUz6tsmHvBpFNLaR
-	 CBDTHxxqX10wDnaBzlPdy1nENQL4HmC3Iyp/7nqwJleHKBWzWkp5gkDB/ENIR0gtzR0s1
-	 dCodAgU1mQoFUq0CO6aZCf/EZbfr0k2rkItDYvVCAaz4hktzAHLDO9maa+mwMjGPvYeej
-	 GHyPPNjLmKmj8BK6hc45XRwTDpLkGf32HVVqnADqigsnDg7rv6SAUDPzjzKEWMdNcyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=grische.xyz;
-	spf=pass smtp.mailfrom=grische.xyz;
-	arc=fail smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794347373;
+	b=1fIeenGCOZySnfkyUhevsIddSnOvwgquv1U2WbM7S9xXRMISWqisDCzgXil9b8FyxNQt
+	 Oa474h+GDH85CJQn7BEgGRYZvUSX72/evcPvmU+w9tcAvkamC5uJtwIIVxgnOelHNkxk0
+	 P4R84iy1aaCVmXqV7kO9x+xTP7W2BJJxsMBH2yh0zcemtbX2JF9Qh21pdVQAlmWrSnEPU
+	 feW8CSl4K2F+rkHRxbc4DT0IAgMmUdp1emOo/sTc2vNNtP6FPL4zSoRCnehprGS3jH/T9
+	 rn1uRMG8OZeHjH5JAPdrAF1Zgd6e6qoyaOPegspIOkbZZO7qehyShErQxsp/FGKwcnQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347373;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=+DSRXW/S5aejnI712+BlOYSiXiuS9TouKAH2deXfxZA=;
+	b=MiMxhFt2kFymaVZMZAdolnnUJT+onWQ12BigaQsZhGUTHyUUmHS4QN1Sqz73wq8bwxpv
+	 FPIXdubDdRSkLUebsvU5KkADQ6y+nVXT/eGqha4jdc8FIfOn3kQIel2l3xWRMx5FUkkgn
+	 l82g0nNvnfbgX//vlo+3exybP01tRlq7kEqXDXReiEo/AUoZu1knEBH3oQctZSOeLVNyQ
+	 CYb5oPXMC8PZEoetQCuP3bQD20gH8il1Y5BSkd2gxXZLKDXwLgSdW4Jsm04qGYIRQXqHb
+	 6X13DitgF1ps97KoKi+DfnJkTTHc9RmAamAIuQIwja8j8D+2B9IgqByJMe9W/0m1wqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IINyKt8e;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236F2606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236F2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4d58c50743so204153866b.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:48:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794347282; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kTr37TjmIZQ5qUow0oshI+NbBd7kaDEYDJqTDpHxhp1r4M7NuS+XKBlfUJwzw2ZCLX
-         La4uFv/gHKlefXJhfB8G7sHdeIznNdIfmaURl8N8ko4C59QqQFKhy9v+NHrFcDYm2LDq
-         LupASq2joWY9qclGZmMzIGAo2fRFDtLpB8HN36YUc4xKJIMhPu2ZH+HZfZHVttuGPyJZ
-         cOOTt9+2xJpqJU/9zIjF8nNi1EvRAUp8/iU7R5eUbAiDJBX5OXUs7UrXTwNGiLcEYtKm
-         zL5T1kxMKE/jvQiaJU8F6czt+0BvGr5BbvNvfNbsQZ1QV6Cm0o3SQQnynuVr4m4MJTLF
-         uSVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version;
-        bh=/WOcayzJUskhUHuQDojqHJCdJ99yTsrsphbc40waRqk=;
-        fh=d/a561BSGXiTs7WyWNtQT1Dng+xzI8S+CAviZ24bxIE=;
-        b=nyAlNRJ+2HfZne3SwgrDOKWQumwQtMX0j9jKx6VwCyZUBVhvLGlyldYGGkJNHrxB69
-         gzi5Qd7npxyEsCwrqGc7esJJdNe+Dibuf623dyehZYfaZdQt73tT8jSR95GjXsn0pAoY
-         Z8apJxrBRserhrNbr0891k6ycerQe3iV9iS/Yw7gJJ+mUhKFDQnD1ALPop5GZ+96ns7R
-         rYbTbIl0C6PCgfJ4rovW5XGZhEF4FfnqwfbAYUnTOtIzUxJxqgbzWpTuHsqV9I/b4hGf
-         nc0QBuJTgiV624ldmudTDgzeO602VpRGqRB8CQg0AzVv4nIg87KJcowsujDbP4h/r68T
-         Xctg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794347282; x=1794952082;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/WOcayzJUskhUHuQDojqHJCdJ99yTsrsphbc40waRqk=;
-        b=izRIrL7ckKSiRz+LOrbO1+85tH8goz5ZKs8himt41Q5KygQo+ALha+nkyO1jn23Yku
-         koU6pTE8lBNWyMXNuGVOCmweFBmmGXhVONWRG9VoHATU6Yc1ppq8CY/pQE+y0frQFGht
-         Tu07jkMWNxSRR2IkVDITE7f73k4qEUdn6OK82aXIBmM3zz9udyEpsLhWLaSfIgLRdPX5
-         Pv0Aw0dX8atMYROu84n2LKWFbiNSSGShDz/vLLH/B1u8iPLfwddBvxVnoJS0OL/U/icR
-         8qtGVNroqKTwVatr1FS/aU9rLXLurMsq3a9OWPUUxHxsa46Y2KRMwR8IfFCrOcVxCMNi
-         T5qA==
-X-Forwarded-Encrypted: i=1; AL+hErFk/Neq4yAAAVeeLS5owCa5NdgrWEjxvu9X2TzVU7GsEdn0eixRQVfIJu8cPwT+q5yJIlS+0GQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8sKV65z1gTZYuxn/hd81n1txkEppDxpvvhKz8gALhDhpi6eLrv
-	1jT18OlKIuuEOBLsHFGHSPKauodAp/Xel5nbQWoUGv6Pite/GqGXvbFXuLWq9iZwh1GhD0mDf/r
-	WrWq2UPjecDfoBYcS96PMT0qPptpZG7fF+8I0ey51hg==
-X-Gm-Gg: AYBFou2Gqi4hGtAmvnHS95EIgpZ/LXZ0+Uk6xXjvjCddR/qkn6kR60z1YvqGWmGCNte
-	Bx53lrya1+nSn+NNNif1e5F5RWbjtyWkoa2X7r/gFUdxpsGfACNCBpbfNr/Mje994HsUQc43EfT
-	M7OX8pHYl3JdGyQ8Yqp055CXedoEkI7e6K4Z2SzEHTItcnQf/XneLEY0mdyQ9B1oGnp0rP3eT9J
-	mMzPQ0FCEZFFQi0+83nOs/s43vIbHY4HgHIdx4+PcmlC0ZtsLCrQsqTq/RoOFH+kYzc9RXIaYUI
-	j0up2n3KXGalY6Yc/XLXQbmW+RJ91T7mZf1CV2DvMir2g5ZKXKlNCa4u3AvuwqVBxPJ7RRU4jTE
-	ERFo2onqilSH3MaaYfDEVdYN3OvvkFmmwXtyRk0SGDoWtQc8pc/WowkY/m797Akxf7GI+UC9sTR
-	GHeZIQ9L9rH+ndRlo=
-X-Received: by 2002:a17:907:d311:b0:c40:cee7:3918 with SMTP id
- a640c23a62f3a-c5066d8cbc0mr27479766b.44.1794347281996; Tue, 10 Nov 2026
- 13:48:01 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E338C606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IINyKt8e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2F31F0089F;
+	Tue, 10 Nov 2026 21:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794347372;
+	bh=+DSRXW/S5aejnI712+BlOYSiXiuS9TouKAH2deXfxZA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IINyKt8eEKABfAWHvKrcos6l+fQHvhKOZFh4j+1QULSlknmRPRRRlRVjwF5ahYfbL
+	 160sESIixxEAW7ahRht5GhNSTkWNGpHVdNyJBzM2clJqbw6IuHzhL0xADNxKi4UNxY
+	 wro6F9+Gv1qynljf46oxbvr6WF7NHtEZ6AxAwD+UG6WAftuZlX91QdIna8JTWNKpyU
+	 yj3TJpq/oQTUXikwQPxjdcp8LTWKV/jBK7TWE7e3ndYfDdvLzhHMvBnp4kEtg2m0/X
+	 wZ341AoZ4nRcF942k951Ik80OulaaGtCBup9aRDGO0sGKLh/m7639NyryZO2vCyogF
+	 0RwRlWNoyFtHg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+Date: Tue, 10 Nov 2026 16:49:30 -0500
+Message-ID: <20261110214908.3967504-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053549-failed-6.6-080833a32fd5@kernel.org>
+References: <20261107053549-failed-6.6-080833a32fd5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,51 +61,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104151914.2651241-1-opensource@grische.xyz>
- <20261104151914.2651241-4-opensource@grische.xyz> <20261110122536.7cca85ce@kernel.org>
-In-Reply-To: <20261110122536.7cca85ce@kernel.org>
-From: Christian Schmidbauer <opensource@grische.xyz>
-Date: Tue, 10 Nov 2026 22:47:39 +0100
-X-Gm-Features: AclHuK-CLlMl769sSx84CkwDdaR-obj6arfB97PbP_3TdPcxS2uglw83nZZfEio
-Message-ID: <CALsH2cyxzm3OTzyyFhBk_LSkFk4sw+6xcAtUc3hVJoLr8WO03w@mail.gmail.com>
-Subject: Re: [PATCH net v2 3/3] net: stmmac: dwmac1000: stop hardware from
- dropping checksum-error packets
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	pabeni@redhat.com, Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 9:25=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> On Wed,  4 Nov 2026 16:19:13 +0100 Christian Schmidbauer wrote:
-> >  /* DMA operation mode defines (start/stop tx/rx are placed in common h=
-eader)*/
-> >  /* Disable Drop TCP/IP csum error */
-> > +#define DMA_CONTROL_DT               0x04000000
->
-> Maybe just me, since I don't know the HW, but what does _DT stand for
-> in this context? Other bits seem to be documented with a comment,
-> let's document the new one as well.
->
-> Not sure what the comment above the new define is deferring to, either.
-> Should it be removed?
->
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-DT is the Synopsys GMAC field name for bit 26 of the DMA Operation
-Mode register, see [1]. The line above the define is actually its
-description. The define was originally added in 47dd7a540b8a ("net:
-add support for STMicroelectronics Ethernet controllers.") with the
-comment on the same line, and when the define got removed in
-5a78fd3debad ("net: stmmac: remove unused definitions") earlier this
-year, the comment stayed behind.
+[ Upstream commit 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 ]
 
-I will move the comment back onto the line of the define in v3.
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-[1] https://docs.altera.com/v/u/resources/r642178/cyclone-v-hps-register-ma=
-p
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
+
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
+
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
+
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
+Cc: stable@kernel.org
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Replaced F2FS_BLKSIZE(sbi) with the constant macro F2FS_BLKSIZE in two expressions. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/super.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 433506ea5738c..a7c35c1cf76cf 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3649,6 +3649,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
+ 
+ 	total = le32_to_cpu(raw_super->segment_count);
+@@ -3780,6 +3781,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 		return 1;
+ 	}
+ 
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE;
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
+-- 
+2.53.0
+
