@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325206;
-	b=23jywYfu4tWDX4PL4EU58cd43BUMvd6pEoWvCLpJMQOVAliqOjGGFsuhhYNyVTImWEe0
-	 MWFYt0mGwg5+sH4ZTspZplk2wgubgB3Iz12mXmp16lXbMdh14jRhB3DkmbbJUCEy37u/l
-	 lKmfS0YD9K3o2jxKKtK/yq1EYIeyPZK3nT3R53Ro4vewxGXPKDKyAwS6OhBA84pu7y1HJ
-	 QlKjO8iHrh0QE9Ft9ahvOD6hFfs4oNXzJDCowADHvpqY+CKrQOW7Hxih8MiPzcuqY2UgJ
-	 V/k5OD/9LA2ucmgWm6eqNqkh3bQpY4+mkta/7Uvnl2nIOVHko0wnq2dQAKEmgiThnIA==
+	t=1794325241;
+	b=J37RGC9atOPj4bm33+uy2MGijtZFxEmE43J/NymOCZx5/CcD5DJINVyOJPlwooFAIpiq
+	 zLT4QnDorNhzpCNkZu7tEmDbXaRv0peGS7RW7yayMjVZRsSmOGDscTewVUPuWJsuCph19
+	 u4Or7BD5a9Pmqdi7LGksIIbp9OhK8spJ9+Cu0lZOUwonHXoy/TSkrtE1E+1tmeGpYj6rr
+	 DG+vDS+IPEy38iMyjqTAQL318S/xjvqkF9F06UmYYfcQNiYSSHzyLkSNZiDlvuFXW8L5t
+	 prWARuB6E6k1/n31QenhBVvATr6HVemgl+stir/eRTB1tEvIjHl0YgV91wRUoUPdW4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325206;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325241;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nPXN54qvbIkSSX3/s1oD2L8ssGfWhFTgof+Nfm2fi7g=;
-	b=ry8h4XOODyiHWLPnC9yxU8M/FklzJ2gW9j5hCCi8o18H0wFRaxbd/9woo5UNZ0c9CISw
-	 rpc6opNjqniiCjtMiu8uYVNpRA/+j4fQrkaWSGIWJ0brgYEbsHdfIh0dav7i4mBYNdB3b
-	 FmzaXUxMjhp8rJBTJAoPdEZLW7XTQ//6ewu5s5ePSjXppJ64BFt4dz5rxegM1X6rnNVV0
-	 0dwVbBHCjvEmPF8hLrO8FpS0eFiuMhjbv8gBQQPU7AY5Vw0BdxlEvmpvYwB6O+rtIN6zP
-	 9FUSRRRIbLG2guCxL0HazCVn/1VaNotvZyAhTfighwVev/SDpOHoL+fYPqM/L1HOksQ==
+	bh=VG0wcoSVXRGWHTPQWAWZrKUmMXN3kp4avbYwwWwaPRc=;
+	b=f+PHE+OQL1y70LDpqPZR6Z8UtMKAUeSwsftJVXbryBBTlv1XOTdDfqRB4ik7zGg/c4B3
+	 bq1fFCJnCGUWtcY0BWMmopqxx4/iv1aeE9phmAz20nPbZno4Auc05bQAO56lb3OAjNhSy
+	 MpvKTWVnvj1B4L4+2F7AYLOgQhlwtQvE9GYBEAEhN5se8wHXF9oe9i7hl2FRX5cpuqtaj
+	 SgHNE8afugwbUe6srzBnmtQuOKp8oJtwodeewEy3e1nuwgqqGnPmWz9FB1w/UEAdLsEJg
+	 AD9LCsFExA1OTIuod5/TUJeItR3ndXkBj90pb24aLAis5yMW9Rl9udgQDRDQXB3VnxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y13dwEGa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNp4AYoz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FCB606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:40:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D4F606A339
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:40:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y13dwEGa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73EA1F008A2;
-	Tue, 10 Nov 2026 15:40:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNp4AYoz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E861F008A6;
+	Tue, 10 Nov 2026 15:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325205;
-	bh=nPXN54qvbIkSSX3/s1oD2L8ssGfWhFTgof+Nfm2fi7g=;
+	s=k20260515; t=1794325240;
+	bh=VG0wcoSVXRGWHTPQWAWZrKUmMXN3kp4avbYwwWwaPRc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y13dwEGahaXFNjR2+MY5X6WhHwL/ysf7BnWOMIiCDoqIgp8LhbEo4lYORj62rNdRq
-	 cC0ngoduAkDIFdJsam1QSmcb68+u7VBHy/Tt1xJD2XB9yVKVPb64gJ8YBbB0xMVzqR
-	 0uW5HwDRCZ1lrUqUQejwKlUAB7xpWBF8mS2QrqSWVZ+BCWhdHM6BUAM8p6ptYl4GOK
-	 fhUTNqXHqYi7S2Of1BklhM0KJJvFm9Om6zH9/8kAypnuWSCRJ4grJKt/Pfh32QoZ1u
-	 H3+WcFVLY+91u1QI53tlQqghlb2cjl/mXCbw48QFeBGk0egfneJu+ARSKoUC3zqeUZ
-	 5D9i6k3te04iA==
+	b=QNp4AYoza5udclRQW/iplIhOg6rEyTU8OkuL/B4r4Fr3Ab7dIyzqR+5kBjjwwKjxE
+	 +xqLXgD3ymF8oOIYsil/nxkqdC3EOaxpBOX1x6QnFXVhqqbIcpRRuhv1pUHxV2olmE
+	 n2pzkVacPW0EfOJICXerVht9FsW+d1EZCmoQdlN566calwCyx4jKwCD922isr265WP
+	 L/6HAGOTaZvnlufJIYC/gGy7lS0TysbxmddduFZCpYdrH5as6NDyEeHZnzuKRNsmQ7
+	 urMsvMMydqr6MdGOfXKYVTWcq7zoeRSMX9IrnBlDDTeDVvuMC1qy7Jf7LkQKHzweRR
+	 +nzv66kOKXG9g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] f2fs: return -EIO for a lost inode block after cp_error
-Date: Tue, 10 Nov 2026 10:40:03 -0500
-Message-ID: <20261110153934.2310261-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] mfd: twl-core: Unregister the auxiliary platform device on unbind
+Date: Tue, 10 Nov 2026 10:40:38 -0500
+Message-ID: <20261110154014.2302728-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060707-failed-5.15-53b12b63304b@kernel.org>
-References: <20261107060707-failed-5.15-53b12b63304b@kernel.org>
+In-Reply-To: <20261110154014.2302728-1-sashal@kernel.org>
+References: <20261107051743-failed-6.12-3c5c55d979dd@kernel.org>
+ <20261110154014.2302728-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,62 +63,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 53b12b63304b34a3850a901c4de3cc6ad08e0aee ]
+[ Upstream commit 3c5c55d979ddcb0765ce531bc7ba173c87c8712a ]
 
-After cp_error, dirty node caches are dropped without being written.
-If such an inode was never written, its NAT entry is still NEW_ADDR,
-and reading its inode block returns -ENOENT.
+twl_probe() registers a standalone platform device named "twl", but keeps
+its pointer only in a local variable. Probe errors unregister the device,
+while successful probe leaves no way for twl_remove() to release it. The
+platform device therefore remains registered after the I2C driver unbinds.
 
-f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
-as a hole. Since the inode block is missing, the next offset can only
-advance one block, so fiemap walks block by block up to maxbytes,
-about 2^30 blocks, while holding the inode lock. It took hours in a
-power-off recovery test after shutdown and blocked unlink and umount
-on the file.
+Register a managed action on the I2C device immediately after adding the
+platform device. This unregisters it on probe failure and driver unbind,
+and also handles failure to register the action itself. Remove the manual
+error-path unregister to avoid releasing the device twice.
 
-Return -EIO instead of -ENOENT when the inode block itself is missing
-after cp_error or shutdown. A missing direct or indirect node is still
-reported as -ENOENT.
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-Cc: stable@kernel.org
-Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
+Signed-off-by: Lee Jones <lee@kernel.org>
+[ sashal: Adjusted context to preserve the separate TWL6032-only clock registration block. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/node.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/mfd/twl-core.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index e5a06a65a5398..65f3501b939e0 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -777,8 +777,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index c53be506311a3..8334066f8e22e 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -715,6 +715,11 @@ static const struct mfd_cell twl6032_cells[] = {
+ 	{ .name = "twl6032-clk" },
+ };
  
- 	if (!npage[0]) {
- 		npage[0] = f2fs_get_node_page(sbi, nids[0]);
--		if (IS_ERR(npage[0]))
--			return PTR_ERR(npage[0]);
-+		if (IS_ERR(npage[0])) {
-+			err = PTR_ERR(npage[0]);
-+			/*
-+			 * cp_error drops dirty node caches, so the inode block
-+			 * of an inode that was never written reads as NEW_ADDR
-+			 * and returns -ENOENT. It is not a hole; the inode is
-+			 * gone. Callers treat -ENOENT as a hole and keep
-+			 * looking block by block (e.g. fiemap up to maxbytes).
-+			 */
-+			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
-+					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
-+				err = -EIO;
-+			return err;
-+		}
++static void twl_unregister_device(void *data)
++{
++	platform_device_unregister(data);
++}
++
+ /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
+ static int
+ twl_probe(struct i2c_client *client)
+@@ -750,17 +755,22 @@ twl_probe(struct i2c_client *client)
+ 		return status;
  	}
  
- 	/* if inline_data is set, should not report any block indices */
++	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
++					  pdev);
++	if (status)
++		return status;
++
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
+ 		dev_dbg(&client->dev, "can't talk I2C?\n");
+ 		status = -EIO;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
+ 				GFP_KERNEL);
+ 	if (!twl_priv) {
+ 		status = -ENOMEM;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	if ((id->driver_data) & TWL6030_CLASS) {
+@@ -780,7 +790,7 @@ twl_probe(struct i2c_client *client)
+ 					 GFP_KERNEL);
+ 	if (!twl_priv->twl_modules) {
+ 		status = -ENOMEM;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	for (i = 0; i < num_slaves; i++) {
+@@ -868,7 +878,7 @@ twl_probe(struct i2c_client *client)
+ 					      ARRAY_SIZE(twl6032_cells),
+ 					      NULL, 0, NULL);
+ 		if (status < 0)
+-			goto free;
++			goto out;
+ 	}
+ 
+ 	if (twl_class_is_6030()) {
+@@ -886,10 +896,7 @@ twl_probe(struct i2c_client *client)
+ fail:
+ 	if (status < 0)
+ 		twl_remove(client);
+-free:
+-	if (status < 0)
+-		platform_device_unregister(pdev);
+-
++out:
+ 	return status;
+ }
+ 
 -- 
 2.53.0
 
