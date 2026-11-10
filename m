@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794300200;
-	b=TrQVGaHL70gAidEQAxg253Ngy25gFeHqiaJH7NajzgFYniKvbaBKfvPXkhB3Ij5iokB+
-	 L8CnwCuxri1GbOOfxavalaGXzov6YC5IBw9GZwEs7wLMyvnQyYSMsGAtd8u+XHQSPp0eE
-	 5RGmM0vtbCpsklkEENwJD0YUVZJYjlsSfZPaRA8RwE5oRdWMyLsGyLBnP16VczjA9agJd
-	 zLJxZbnTQ+iAqC5ukGMlYXML7KRmikjklqod7/fOBo/VsoCX1Pbi1vV1CmhRVYPipk5Xq
-	 3Rp/wGpvB3zmI1p42fyelOoFtZ8aujKJ8Hz4RK2sUfIsNR7L/4UOQ6Vn4itN+LV6aXQ==
+	t=1794300389;
+	b=c0jCwT/1RiI2BkuOs2qVFfZJTIrUhdhqzpntR/NODj2Oh67E3m5b9y9GVmVBAxjru4xu
+	 q2McSSeEaxTswTZUiINN9/8nrkOF5V/pe0snfYfHk6Yb39zUBJVgyMGLP65mHMnmDLxz8
+	 bZf1+QV7nwxjVzERcK/r7x9+fVWS5bRFF3wNScqOQScMBC40nKGTRldsf0MqqgKR3YQDu
+	 fKTT0vzWXwoWocl0IZW6S/y43CDaqshUVtr8TcMY+qIiE/knNbOc4MOQxxqSYqJZhZL8E
+	 VAMnqHsxlcbsmdfGfWlfe9btqsv1kIWhCzoLp0QdDmB4x2ZZAre8AuEsAgCHmHu0n/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794300200;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ceyp6qUlPkZr8sRjiOtI55f56LZSHpjTj8wP8Vp3EyI=;
-	b=TDYwzN08r7yO/QDbyzMfcJfJQ3Bjp8M9MSmhk7XVG9Imo9vL6vGzoaSeg2GG0cRU/RIj
-	 dGz3skgefCd5hTYBW5ZZNuaiqO+KoJbPe6OJbdJk/TpogOOa//LCOTobQU73bZt0tglBk
-	 rlhA8NhKDtHbzMRmLF+FSih4IlbfVln7Nw244+Myze6mMprp0CRTKBVjrdT6ppXboBWMm
-	 5Bh/GACxevFnUIL32YhulU0N/eoMW/LjZW4qox1gr9kfU6qG7n4BWMx35dlWcok7buFta
-	 sTlZ+QZ2wStfrnxwpOGfhbCTldrLraZjcnBSrlvsYeCXt0l+X985E128FMk8ZztLYeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300389;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=yTxQRIKb91hGqSfuLGVfd4S0vAmf1MtK/tZCS/84+4c=;
+	b=Rhvr2cag3G1hbD9J9d0jhpr8FtX8/7Lv/ypPRtT5qh76+bbEn2NCU+lrNgxSDmqDKcRT
+	 ezejZFajpdZUEHe90/VimOSY0dS0fyuqdHxTCFIJmqhFkmPewEh33zqFCBXSsQeOqULcB
+	 SCfaIQL1fcuGEkymGrA/gsFzcBKdBLWmDrnkSmMIKk/IoUVtNz/JNa5gnXePz4pqW3BCI
+	 OU3u147Rnvnj1E5uvSH71pmNFHVB5sDJuxxoJP7u+vIB9XLV0k8udTgzWkZZ6ly34j45n
+	 ZzES4WPrag+n6ZYch8fjOVUnu2F9oobsF0H+f2JPTZRPec/9OAuLRoxpoyIL3sWXAOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eoHPjw90;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E90606A321;
-	Tue, 10 Nov 2026 08:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E90606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eoHPjw90
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794300198; x=1825836198;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ceyp6qUlPkZr8sRjiOtI55f56LZSHpjTj8wP8Vp3EyI=;
-  b=eoHPjw90fdebjfz0myuVxN7ODdqvRfwVMxLbp0GSYFkNQB1c/74pQLTX
-   jn2hQ1+OGKEgjLcvOSB1QCIlOrkJ54poUJxeduL7wZOIkLOb+ZSvsdGA9
-   Wy/gxBSwp2Ui+AQIZeL9rJfoZlGHRDGCsW7gDYLCIGDvDhG26Z49VNyIS
-   NO0/TycAYeYAky8YLxu4meMc+rZgTWX86lvhp23cK9SfkuECNajviVZ7v
-   6A7BXH7dNzNzRjkyGuuixlL3AMBZ5WWjxssLEZS4CeYykaZSNn+dBlveR
-   mnrkwmTsJ9e9guuW2FaXonUDGO5zV6LNXaxwErl3NQ0CcrhabRR00iSeI
-   g==;
-X-CSE-ConnectionGUID: vtCIw+zJTxyr/AgaaoBMlQ==
-X-CSE-MsgGUID: ydey5/JCSzW7FDx+bRwPKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3053630"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3053630"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 00:43:16 -0800
-X-CSE-ConnectionGUID: nIFQ9jbdSVGDm8tLoiS2fA==
-X-CSE-MsgGUID: gmGvns63SEKcxV+ySiOZSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8241688"
-Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 00:43:12 -0800
-From: "Yu, Fei" <fei.yu@intel.com>
-To: christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org,
-	tursulin@ursulin.net,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85E1E606A31C;
+	Tue, 10 Nov 2026 08:46:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E1E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8AxntLi2fJqdB8eAA--.21158S3;
+	Tue, 10 Nov 2026 16:46:26 +0800 (CST)
+Received: from localhost.localdomain (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJCxe87e2fJqWXMzAA--.22061S3;
+	Tue, 10 Nov 2026 16:46:25 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
+	Pawel Chmielewski <pawel.chmielewski@intel.com>
+Cc: Len Brown <lenb@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
-	madhurkumar004@gmail.com,
-	stable@vger.kernel.org,
-	fei.yu@intel.com
-Subject: Re: [PATCH v3] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
-Date: Tue, 10 Nov 2026 16:49:06 +0800
-Message-ID: <20261110084906.2458016-1-fei.yu@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
-References: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
+	loongarch@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	acpica-devel@lists.linux.dev,
+	lixianglai@loongson.cn,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ACPI: LoongArch: Fix incorrect pointer argument in acpi_iovt_init()
+Date: Tue, 10 Nov 2026 16:46:12 +0800
+Message-Id: <20261110084613.2746641-2-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20261110084613.2746641-1-maobibo@loongson.cn>
+References: <20261110084613.2746641-1-maobibo@loongson.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,28 +61,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxe87e2fJqWXMzAA--.22061S3
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-From: Fei Yu <fei.yu@intel.com>
+In acpi_iovt_init(), hdr is of type struct acpi_table_iovt *. Passing
+&hdr results in a pointer to the local variable rather than a pointer
+to the IOVT table. Drop the address-of operator and pass hdr directly.
 
-On 11/9/26 12:54, Christian König wrote:
-> On 11/9/26 02:48, Yu, Fei wrote:
->> Signed-off-by: Fei Yu <fei.yu@intel.com>
->
-> Reviewed-by: Christian König <christian.koenig@amd.com>
->
-> Let me know if you need somebody to push this to drm-misc-next.
+Fixes: a9b0c34507eb ("ACPI: LoongArch: Add acpi_arch_[late]_init()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+---
+ drivers/acpi/loongarch/iovt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the review! Yes please, I don't have drm-misc commit
-access, so I'd be grateful if you could push it.
+diff --git a/drivers/acpi/loongarch/iovt.c b/drivers/acpi/loongarch/iovt.c
+index 87cee4f0fc80..6c5bcb4df7d8 100644
+--- a/drivers/acpi/loongarch/iovt.c
++++ b/drivers/acpi/loongarch/iovt.c
+@@ -184,7 +184,7 @@ void __init acpi_iovt_init(void)
+ 		return;
+ 	}
+ 
+-	iovt = (struct acpi_table_iovt *)&hdr;
++	iovt = (struct acpi_table_iovt *)hdr;
+ 	iommu = ACPI_ADD_PTR(struct acpi_iovt_iommu, iovt, iovt->iommu_offset);
+ 	for (i = 0; i < iovt->iommu_count; i++) {
+ 		iovt_enable_acs(iommu);
+-- 
+2.39.3
 
-Since it carries Fixes: and Cc: stable, drm-misc-fixes was what we
-discussed earlier, but drm-misc-next is fine with me too if you
-prefer, your call.
-
-I'll send the uAPI doc patch for the 1M limit against drm-misc-next
-once this has landed.
-
-Thanks,
-Fei
