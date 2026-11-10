@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354962;
-	b=isSEoXAiU1Ao23nYwu88A3KW/b2OOJX+cvtq95eb481N4pPJAYTaiKNTO4hNR7QoL4Dj
-	 lmvTaS5kNj2VWJYIkjVPUtPSdSIc9e4eDC0VKT+tb+L0stm3FnztgwU2PuX5BRvFLMkxE
-	 fvNaO3idzQPUrBKnIAgJdJRLCqk743dokBpgsIkns9RT6Obm9izqnMASdFafI1xJ2y1jl
-	 1oT++fijZWXy8/zLzrTLO67gKg/PMkjmp3jdgmA9r0izPbi0vxp+ThhLujm1EYoaAODZX
-	 Nvwhx5if11zfCHlZfF/g2fF888CUkorD3f0WQp4ghA3hJKyEdx1pAL8GgmuQfRxKTlg==
+	t=1794355172;
+	b=X27jxB7MxlPrXvkKOHfqO2gNUYQX+XB3S+JeYuNhB6j/DjkUdwC7ksCI2WcgpgG+XgdO
+	 Ldqf9KS5N6i2Y22sSkHCtKjUrjNsO0iief/rndqGuqWBujov5jguCTRV9UsALXdiE6y2c
+	 FAape8BbBVMzo2rVeH0lmdAF3laigT4Ro3GC+2dARbwqV6WmUClUxsyzuE0TOH+/ppmDD
+	 ya5tF7XWQ1kXmlEcf4J6AEJVu948IBcHKSXUnZQJmmngzCxovQrzN5AvSLMPBAA9mFSzp
+	 TeLvoJ9+vaj/TTF1p7Q9KGPxKHgf/RZ5HriIf51OWnXaSKPbpFHJRIoWpqs7+ErNigw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794355172;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XQZ288RnSi7+6VSVkRczUOvvaHC1CnXsp1eQjHgNkZ0=;
-	b=RtqJYgsKgrobPZ2xTswxP/8uzj4KcAQVgVOW6QpvbBGGMZsd2tGdvkwrFow+xgvwhSub
-	 ZITtfLCK8oKQU8DgOKsLod+IPUvs47F16mICKRgD72dY4c4aY7JI9m1rzCRI0BjsqoVkM
-	 runxvqyiqVxP1N5CrLSUa9M1UrIdV1MDZcf4WfrgsQuYKc72iC/1Vgr/1cuY8WXP3e3l9
-	 1ys4l62Q1aqYNYelsdowm6Xu5RYb+CbPK1is9ENZetDEruYrriKUZkWnf8gPoYf9IKDNr
-	 OvGslB3irJ6jPoFuN7xmtxjmmksrIDI/LJ/q52eGbUvYh83MfUvMykj7KGVLF9AtvRA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kd3WHtYBe0p/JEd1nYrwGS9G9hl17mtDaDCHfouK9qY=;
+	b=kvJMxqAmazLew6biEZ/16soRJg0iJtwAD0HE9O/IKKJLfT8k+F0yDOPpkxoTteGz5CJP
+	 AJBL8UdOlSAo4mhtWhyAzUphtQfC60H/8jv9TdSblouHLDRzIJe1l+cDRvkdxCHIfELtc
+	 S+S7eweVWWfSE8KhRSLUOgV+QAvHPVQ3PTQsgWL92Q74huFG3VNxFNenXQgnawpck0kP5
+	 a9Y81U+hVkcXT6vTPTeuhe2eo8dWyS94pRUcd8636z3+kLJp53Yg8wUlbA1Pgi2Gp73+O
+	 WFcOqWjkqQnWU0sKsObqBCCW/hA7JyNQ6HP21ldhddr9dnoAB2nYRo4XLXJcOTfFR4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtwQzyb1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgYpFPFu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34908606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:56:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EF5606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:59:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtwQzyb1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D2F1F0093C;
-	Tue, 10 Nov 2026 23:56:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgYpFPFu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689DE1F0093C;
+	Tue, 10 Nov 2026 23:59:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794354962;
-	bh=XQZ288RnSi7+6VSVkRczUOvvaHC1CnXsp1eQjHgNkZ0=;
+	s=k20260515; t=1794355172;
+	bh=kd3WHtYBe0p/JEd1nYrwGS9G9hl17mtDaDCHfouK9qY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dtwQzyb1TOlRj+2hKa7afUaJL49GLT7E/5z9NMTksPG7pTGqx7yh6A0nHxBEniatl
-	 IvGC00vKnA/naFi60dQlFG3zgHRjpqOsgjpYu3qQ93kaFvYsvejGIcFX21JPLTU7Vs
-	 7T2pBhWxdL6mPNuPhrxOIsdMd3nurhZBMxQsWdM35T6XiNVb5Jp8QIM5abItlEcNsw
-	 Bd5T9dMMg94hVbFufJuAi99gVJC7G4oCOT+AasoNDH7Ha8zCR1KgITgWDr1AKuwSIO
-	 5+UIij93yE1WbbCSgVUUjqdQ9zbs+CepiG6oM/vXMPBKXrZ9FDWlMV5k+s//pk9t/E
-	 XDXp4otOhEX8w==
+	b=jgYpFPFu2rwnw9Ye+/Gy8I5zZBBIKguZwkdCTJ+yuWcqvb23EKBQpn0xHRH7p3m8t
+	 g9S0Ykchu8nIsoO4OOmfLScBHuMKrWS+NDhxIYHSA1XKm70g6T7/Au1L5T/hrOiQrp
+	 SzEZO3d4IABt2Hj1WFBe8GoetioFPre0mGluZGngJ7irMO4T/O6Hz4WFm+0wqJ8vS+
+	 464U46fQUbHxE6BRKAYVuCrap4wUiyXNKrBOmI/Z7FNCm9D64P2jqCnX3ff5M5M3uS
+	 KjsjmruF2rV2ustEb+HEBHbUf8LwcAanKquAigTFbCYw3La6BSUFqVMrqXVHx4/7Z8
+	 iIs1jZvGhVvdA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bartu Alev <bartualev@gmail.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] platform/x86: asus-wmi: fix TUF keyboard power state shutdown naming
-Date: Tue, 10 Nov 2026 18:55:58 -0500
-Message-ID: <20261110235541.191333-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y] fbcon: Retry rotated font allocation after failure
+Date: Tue, 10 Nov 2026 18:59:30 -0500
+Message-ID: <20261110235712.204610-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110235541.191333-1-sashal@kernel.org>
-References: <20261107053801-failed-6.6-3d9a175707ee@kernel.org>
- <20261110235541.191333-1-sashal@kernel.org>
+In-Reply-To: <20261107051327-failed-6.18-7935db1a4a0f@kernel.org>
+References: <20261107051327-failed-6.18-7935db1a4a0f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,72 +60,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Bartu Alev <bartualev@gmail.com>
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-[ Upstream commit 3d9a175707eeb15a2d577af1e669b98e0236719b ]
+[ Upstream commit 7935db1a4a0f83a63590a222500e5016e2f6c85e ]
 
-The fourth state flag of kbd_rgb_state_index is named "keyboard" and has
-long been treated as having no effect.  In hardware the flag, BIT(7) of
-the payload sent to the TUF RGB state device, gates whether the keyboard
-backlight stays lit while the machine powers off: with the bit set the
-keyboard lights up white during the ACPI S5 sequence, with the bit clear
-the machine powers off dark.  Verified by A/B testing both values on a
-TUF Gaming A15 (FA507NV).
+fbcon_rotate_font() records the font, its geometry and the rotation in
+par->rotated before calling font_data_rotate(). If the allocation
+fails, the error path clears par->rotated.buf, but the recorded key
+already looks up to date, so the next call takes the early-out and
+never retries. The rotated putcs/cursor ops keep returning early on
+the NULL buffer, and the console stays blank even after memory is
+available again.
 
-Rename the fourth field and its index entry from "keyboard" to
-"shutdown".  The write format is unchanged, the value is still
-positional, and the diff is two variable names and one string, so it
-backports cleanly.
+Also test par->rotated.buf in the early-out, so a failed allocation
+is retried on the next call: at the next fbcon_switch(),
+fbcon_modechanged() or font change.
 
-Fixes: 61f64515299e ("platform/x86: asus-wmi: Implement TUF laptop keyboard power states")
+Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bartu Alev <bartualev@gmail.com>
-Link: https://patch.msgid.link/20261010101601.888709-3-bartualev@gmail.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: Adapted the par->rotated.buf check to use par->fontbuffer in the existing cache condition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/asus-wmi.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index 2701ab8270fdf..f1f159f974cab 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -931,10 +931,10 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
- 				 struct device_attribute *attr,
- 				 const char *buf, size_t count)
- {
--	u32 flags, cmd, boot, awake, sleep, keyboard;
-+	u32 flags, cmd, boot, awake, sleep, shutdown;
- 	int err;
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index a3f507825eed8..3105682075c87 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -27,7 +27,8 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	u8 *dst;
  
--	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboard) != 5)
-+	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &shutdown) != 5)
- 		return -EINVAL;
+ 	if (vc->vc_font.data == par->fontdata &&
+-	    par->p->con_rotate == par->cur_rotate)
++	    par->p->con_rotate == par->cur_rotate &&
++	    par->fontbuffer)
+ 		goto finished;
  
- 	if (cmd)
-@@ -947,7 +947,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
- 		flags |= BIT(3);
- 	if (sleep)
- 		flags |= BIT(5);
--	if (keyboard)
-+	if (shutdown)
- 		flags |= BIT(7);
- 
- 	/* 0xbd is the required default arg0 for the method. Nothing happens otherwise */
-@@ -961,7 +961,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
- static DEVICE_ATTR_WO(kbd_rgb_state);
- 
- static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
--			     "cmd boot awake sleep keyboard");
-+			     "cmd boot awake sleep shutdown");
- 
- static struct attribute *kbd_rgb_state_attrs[] = {
- 	&dev_attr_kbd_rgb_state.attr,
+ 	src = par->fontdata = vc->vc_font.data;
 -- 
 2.53.0
 
