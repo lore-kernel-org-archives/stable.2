@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330720;
-	b=CPkhjPfKu4GAKJ2/c8B0vh8jMdo/OXQnwa6GIw4sRRw6Ywu1guvL+pWuarNZM0XEESID
-	 +CC6zTUHcCG7Vj+Fp9NlEecJSpVrUMKIrdBN0EHIATP378ckv4KlRT1KbL8i0WesMNBVz
-	 LG6O5v/yR/uAXmzCe77HrexdQjweYjVSQTfKKSVQCr72Y+AFvBnJrlQozitxiLpkM1pyJ
-	 9+8ihaEdVTofGvMY3nv4OTFzzlUYrGUSmfXfhcunZJPMybZ7F+xCTPxBrtvYJNTbCeO/c
-	 BNPzPCfndwuuugSmICWGybM893d0I5OqO0/J5CQX569Hbc4qXhxPh0s/DHUTiJXWDjQ==
+	t=1794330765;
+	b=LxTq5iEhNiBjEG90IE7g8tYQW5UYj3g/4O7hNZfL2jevQ4q/y9F0cjW7TifSSe83t9RB
+	 qjeb4anYDNWYZfpoX/SlP0/2I5Ri5r0Oq0h1zhnrwuUEEuaN3ExvfoTnuq3Q0ahegG6eX
+	 e0s3hxo1uEt4K2+e8++L1aIAInouu+/DNoXyxCgiTXLWra0nzGtaye2ns3e4cqKJS2iQo
+	 6rRnJr9EkmpSSnKC7lh2OHGhFL/SRJVGsUJeytET7ZEYLVYxFop3+cA/Z3py65E2aAN8C
+	 QFVYRVdDukzQT1RjguMZVq5vm5xQAawhh9aIjyh/oaVcoGmdD87b58FxsBYPFeFWCcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330765;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TfMQXdNcWcFKv7jGYxMo7Z9rWJcLx/8LXHET/70M5tk=;
-	b=dw2eheZz62QlTYKycRqnJjGjCoSfDu8Md1A5iFfsls89z+K4S/isMxn4iH/o+F348CqK
-	 hsqaF/rla7F3WD1y6hR1PHdpJWcRwxJWVlJiimEkqz4VGRRkSHDDNy0W7tK8Ok2rLzvF4
-	 eBhBqoADweE8iSvAKxf4yXlywtOeP5FOpYmkNHiau8iFTmhP8hHHdxW26+PhaUM6W3iLg
-	 fJJEMGo0h/itgUgHstd2axfDrpVpm+7iCkkK9LqR7be9+P0UYcmk+wknEq5eaQh+Z3+6M
-	 jw21gW48e4XKr27nWbyU5LP0DkF4dGx0CU9+eLj+MgIspzsz/XtjjXnTcUCykuqoqLg==
+	bh=ia7Tj4i8iZdcMCBLGwIMGLnKy0VMg0Y9GoGxexyrqII=;
+	b=jJNWbD2oNTkNC/+/UourdKt4JvQ2mV2VgEG2KsAjwT9DNVexPpEr07Dxb3Few4dhYiSz
+	 OHw68Lyd5b24nxxja+qOoKEMypmisIkMURtl01BK5xpcIm4NiBtyihOkJlNc+mE57uvr6
+	 FJkyOZgpRDyCul0MiI7zXX8pYyR5kUTNkEyfYGTi/TbTCCoVmnLOfcHcQHb2MuWZ7ySxN
+	 omzuGL/0EBGWyP8BSvQ/jAXQGbtMCDDGOjBH6UcyMx+8208E28/M+VVBb21JWcSQHPdBb
+	 cLv+xKPKA0+5fCveUqrMOF7qjF7Ii/X4+Ex/c4O998TpPuPep/0fFa6RIwopH/N2nbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNfAIKdY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArsVgep5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B01606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:11:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A20D606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNfAIKdY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A841F008A1;
-	Tue, 10 Nov 2026 17:11:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArsVgep5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DEAD1F0089F;
+	Tue, 10 Nov 2026 17:12:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330719;
-	bh=TfMQXdNcWcFKv7jGYxMo7Z9rWJcLx/8LXHET/70M5tk=;
+	s=k20260515; t=1794330764;
+	bh=ia7Tj4i8iZdcMCBLGwIMGLnKy0VMg0Y9GoGxexyrqII=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nNfAIKdYyzQB2ObPdXrvvQU7FE9yztXZ81hGMUfysOZ3YG7h6fCkJXjSytBfHuqLQ
-	 ptS/az47t59GnBXwA36rts5yWz8Rdg2qkOzDjmB0B695sdMjOTEHJgcTGBhsTrEcks
-	 RStrbfxiyN1ohZgUtkwjK6VMfc6173tiwqclVFisxhUVB/biiukfDCmQzCbnfCN5/e
-	 yGJD9EhcnMwHo5MzpHbCqPJwHbvgEEHm8qgz0SmMggfpt6B5r7McGUs1wcy2OWEfeI
-	 FSlhPvRjD9stirg8WBUsFWRENyIjua3rn6qUDpCwDw+WI48+IrbgD41d63tqFhuNoE
-	 oLSaZ26g/3wsQ==
+	b=ArsVgep5knrWqap26LCVKV89AgrbM01BJ3ZMqegUnZXXO65A3aSbr+e1JuEWFjiIV
+	 CqyqtKAwTAdF7svKpNchh6mgkrqWzr3moqKB0N9DDiehA+J8DVxaOVOBuuwdwU93Ga
+	 tFEeUpdtg3o9jdh7ikOdVhER9q6h6zVh9OBoCwlgVKsnTbZJPGKv2U0fqbgPjyHigu
+	 WlTM2M70W2rBPUZ9gRss1WfmWXxWWlPvsd3rGdPZPFs8BE/cHdEzqDkrY8hGUNdx/n
+	 zvum6Yx4Xb6BNJy4QBMB8iabSdCyiOajD2TmGMmyBguEDqvAuppmANrdoaY1U9H7ST
+	 P+uuDJVcl4Sow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Imran Khan <imran.f.khan@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	David Airlie <airlied@linux.ie>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ALSA: mpu401: shut down timer before freeing MPU
-Date: Tue, 10 Nov 2026 12:11:57 -0500
-Message-ID: <20261110171136.2719130-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] lib, stackdepot: add helper to print stack entries
+Date: Tue, 10 Nov 2026 12:12:38 -0500
+Message-ID: <20261110171139.2520111-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054307-failed-6.1-9332af5220d4@kernel.org>
-References: <20261107054307-failed-6.1-9332af5220d4@kernel.org>
+In-Reply-To: <20261107060713-failed-5.15-56453199d28f@kernel.org>
+References: <20261107060713-failed-5.15-56453199d28f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +73,161 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Imran Khan <imran.f.khan@oracle.com>
 
-[ Upstream commit 9332af5220d42341bb1446a62c545c0518e990ef ]
+[ Upstream commit 505be48165fa2f2cb795659b4fc61f35563d105e ]
 
-When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
-input and output with a timer. During raw-MIDI teardown, the timer callback
-can already be running when snd_mpu401_uart_remove_timer() clears the last
-mode bit and calls timer_delete(). That API neither waits for a running
-callback nor prevents it from rearming the timer, and free_irq() does not
-synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
-mpu while the timer callback still uses it.
+To print a stack entries, users of stackdepot, first use stack_depot_fetch
+to get a list of stack entries and then use stack_trace_print to print
+this list.  Provide a helper in stackdepot to print stack entries based on
+stackdepot handle.  Also change above mentioned users to use this helper.
 
-Initialize the timer once when the MPU object is created and only rearm it
-while a timer mode is active. Shut it down synchronously after freeing the
-IRQ so an in-flight callback completes before mpu and its resources are
-released.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: adjusted context for explicit spin_lock_irqsave()/spin_unlock_irqrestore() calls instead of lock guards ]
+Link: https://lkml.kernel.org/r/20210915014806.3206938-3-imran.f.khan@oracle.com
+Signed-off-by: Imran Khan <imran.f.khan@oracle.com>
+Suggested-by: Vlastimil Babka <vbabka@suse.cz>
+Acked-by: Vlastimil Babka <vbabka@suse.cz>
+Reviewed-by: Alexander Potapenko <glider@google.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Stable-dep-of: 56453199d28f ("net: skbuff: don't BUG() on a bad csum_start in skb_copy_and_csum_dev()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ include/linux/stackdepot.h |  2 ++
+ lib/stackdepot.c           | 18 ++++++++++++++++++
+ mm/kasan/report.c          | 15 +++------------
+ mm/page_owner.c            | 13 ++++---------
+ 4 files changed, 27 insertions(+), 21 deletions(-)
 
-diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
-index f435b9b4ae241..e920a290ba1b6 100644
---- a/sound/drivers/mpu401/mpu401_uart.c
-+++ b/sound/drivers/mpu401/mpu401_uart.c
-@@ -161,14 +161,15 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
+diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+index 22919a94ca19d..02b055af4128b 100644
+--- a/include/linux/stackdepot.h
++++ b/include/linux/stackdepot.h
+@@ -19,6 +19,8 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
+ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+ 			       unsigned long **entries);
  
- 	spin_lock_irqsave(&mpu->timer_lock, flags);
- 	/*mpu->mode |= MPU401_MODE_TIMER;*/
--	mod_timer(&mpu->timer,  1 + jiffies);
-+	if (mpu->timer_invoked)
-+		mod_timer(&mpu->timer,  1 + jiffies);
- 	spin_unlock_irqrestore(&mpu->timer_lock, flags);
- 	if (mpu->rmidi)
- 		_snd_mpu401_uart_interrupt(mpu);
++void stack_depot_print(depot_stack_handle_t stack);
++
+ #ifdef CONFIG_STACKDEPOT
+ int stack_depot_init(void);
+ #else
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index d31f23570a867..f2a3e6f3207b2 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -213,6 +213,24 @@ static inline struct stack_record *find_stack(struct stack_record *bucket,
+ 	return NULL;
  }
  
- /*
-- * initialize the timer callback if not programmed yet
-+ * arm the timer if it is not already active
-  */
- static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
++/**
++ * stack_depot_print - print stack entries from a depot
++ *
++ * @stack:		Stack depot handle which was returned from
++ *			stack_depot_save().
++ *
++ */
++void stack_depot_print(depot_stack_handle_t stack)
++{
++	unsigned long *entries;
++	unsigned int nr_entries;
++
++	nr_entries = stack_depot_fetch(stack, &entries);
++	if (nr_entries > 0)
++		stack_trace_print(entries, nr_entries, 0);
++}
++EXPORT_SYMBOL_GPL(stack_depot_print);
++
+ /**
+  * stack_depot_fetch - Fetch stack entries from a depot
+  *
+diff --git a/mm/kasan/report.c b/mm/kasan/report.c
+index 8786cdfeaa917..b9587b2ec7d60 100644
+--- a/mm/kasan/report.c
++++ b/mm/kasan/report.c
+@@ -124,20 +124,11 @@ static void end_report(unsigned long *flags, unsigned long addr)
+ 	kasan_enable_current();
+ }
+ 
+-static void print_stack(depot_stack_handle_t stack)
+-{
+-	unsigned long *entries;
+-	unsigned int nr_entries;
+-
+-	nr_entries = stack_depot_fetch(stack, &entries);
+-	stack_trace_print(entries, nr_entries, 0);
+-}
+-
+ static void print_track(struct kasan_track *track, const char *prefix)
  {
-@@ -176,7 +177,6 @@ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ 	pr_err("%s by task %u:\n", prefix, track->pid);
+ 	if (track->stack) {
+-		print_stack(track->stack);
++		stack_depot_print(track->stack);
+ 	} else {
+ 		pr_err("(stack is not available)\n");
+ 	}
+@@ -206,12 +197,12 @@ static void describe_object_stacks(struct kmem_cache *cache, void *object,
+ 		return;
+ 	if (alloc_meta->aux_stack[0]) {
+ 		pr_err("Last potentially related work creation:\n");
+-		print_stack(alloc_meta->aux_stack[0]);
++		stack_depot_print(alloc_meta->aux_stack[0]);
+ 		pr_err("\n");
+ 	}
+ 	if (alloc_meta->aux_stack[1]) {
+ 		pr_err("Second to last potentially related work creation:\n");
+-		print_stack(alloc_meta->aux_stack[1]);
++		stack_depot_print(alloc_meta->aux_stack[1]);
+ 		pr_err("\n");
+ 	}
+ #endif
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index 62402d22539b8..eff29be1218bc 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -394,8 +394,6 @@ void __dump_page_owner(const struct page *page)
+ 	struct page_ext *page_ext = lookup_page_ext(page);
+ 	struct page_owner *page_owner;
+ 	depot_stack_handle_t handle;
+-	unsigned long *entries;
+-	unsigned int nr_entries;
+ 	gfp_t gfp_mask;
+ 	int mt;
  
- 	spin_lock_irqsave (&mpu->timer_lock, flags);
- 	if (mpu->timer_invoked == 0) {
--		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 		mod_timer(&mpu->timer, 1 + jiffies);
- 	} 
- 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
-@@ -490,6 +490,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
- 	struct snd_mpu401 *mpu = rmidi->private_data;
- 	if (mpu->irq >= 0)
- 		free_irq(mpu->irq, (void *) mpu);
-+	timer_shutdown_sync(&mpu->timer);
- 	release_and_free_resource(mpu->res);
- 	kfree(mpu);
- }
-@@ -544,6 +545,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
- 	spin_lock_init(&mpu->input_lock);
- 	spin_lock_init(&mpu->output_lock);
- 	spin_lock_init(&mpu->timer_lock);
-+	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 	mpu->hardware = hardware;
- 	mpu->irq = -1;
- 	if (! (info_flags & MPU401_INFO_INTEGRATED)) {
+@@ -423,20 +421,17 @@ void __dump_page_owner(const struct page *page)
+ 		 page_owner->pid, page_owner->ts_nsec, page_owner->free_ts_nsec);
+ 
+ 	handle = READ_ONCE(page_owner->handle);
+-	if (!handle) {
++	if (!handle)
+ 		pr_alert("page_owner allocation stack trace missing\n");
+-	} else {
+-		nr_entries = stack_depot_fetch(handle, &entries);
+-		stack_trace_print(entries, nr_entries, 0);
+-	}
++	else
++		stack_depot_print(handle);
+ 
+ 	handle = READ_ONCE(page_owner->free_handle);
+ 	if (!handle) {
+ 		pr_alert("page_owner free stack trace missing\n");
+ 	} else {
+-		nr_entries = stack_depot_fetch(handle, &entries);
+ 		pr_alert("page last free stack trace:\n");
+-		stack_trace_print(entries, nr_entries, 0);
++		stack_depot_print(handle);
+ 	}
+ 
+ 	if (page_owner->last_migrate_reason != -1)
 -- 
 2.53.0
 
