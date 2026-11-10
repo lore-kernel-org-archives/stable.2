@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316267;
-	b=X8P9ixKXuZfYld0j6LAqBkFcRDZbcnPxrAmHCDKnHoDdCqbgN9oLe72Gw8h3dpz60rwh
-	 yitYxTGiR6myKylCUOGRDOH/Q57/DiEcBefwoG3m7Y+abvga8rSdM3u5Y4WZFgqY5TLKS
-	 EnKIP9TaxYF1m8STgkkvcY5rg8l1Jl+Uaj9TLTf+OWCmv91QN+0FgcxHQqSOzxPhl7suy
-	 J3dY+Tzkai2bOZ8N4CDxn1nxukusbiLf6JvA08kQJMPU4gtypg6rLYSUjUnOzqJcUlCN5
-	 Jh5WybQBJQfTeHAshycLYUHPX3wcyI5JYPOQaPkLplz0LqESkdVoDkFCru0tB/0htoQ==
+	t=1794316289;
+	b=HcZ+L/MF2/JbnjjuKSFmrOHnc9QAEeFSc3zPYwB661StO4MJdbMq6hM+QixwRNQaqbxT
+	 4p+3aTvjMQ6QTm9k8ts4V/RjCNdwEFkC3awYuQB9UhhrvoFu1vSNoh+gEByfNywKjeBAU
+	 DQn875eOVsz4FElSoAuHMyzHJI3I8dWJJ3K3Ippw8LOenAjzhxfHjKOAKySntSU+sMSkV
+	 68Rra7RI5XttBrff6ZBIkZPfr/ZiCYOxSaD3IfEkCPOEjA4Ye+wh7uNXVH6PbZ7rjkZ+C
+	 UEEdoutU1Nex7RRrfxN73Ya8xMpWm4B3I7A3x22qldTWo13MQgMla8gJOnR0vnqKgRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316267;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HVwTPv0aAkMcnMSXVyynB+Ri9xfpkvP9QwlW++M+nbk=;
-	b=fmbcX41UWTIGtqPDAnJ9dP4Fpc8nq1UnGuJAIL1EoO7Z39vhiSFmo9qZBDr/GVByE8/y
-	 NPETx3DrV3z1wQK62JmygkrbjFtjfHpEwVwKPlTh0BAKUQB8p3BAsSdGMEwnbn6dTQIA8
-	 3SxFAZu2AwNLoyQ0m5GTw1/WlmmBPPg0xoejo8AuyNe6jnammyQhCQWl3hPqE9zjHjOGI
-	 aHQLJ/g1SQBLjnMghGtsPyaPI1S+U1hEW0ZsM2/m4bO6DG5gvthfmRLGRoCYoG4eQTXk3
-	 1wk7uzS8czudnrzudSCuo0EyWS2vRCk8Zpy9dSdFBhZ4k2N8PhenySgghpJXmJR2cHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316289;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YT/A2uORiz05DvX931y67/6/Yh84kLLkhN08w9DyWxo=;
+	b=Rvl22xAl3CTuTQMfRIMHYOsQZGhMhHsvpt74qKulpYgWVMQkFis8zkCzdftUlmK2fjV3
+	 iBSsNIsrlZMp8d/xTBejeUEScrpDyFPrFvK0jefIJmjsOvecYmCtHxW8/dPL69Of2izQr
+	 asCON01Az71lfQyovoidIVaN9Pf0R3BnMatFPeDrwRk2/mzO7WIw/WRlrM1Qy82jYNESp
+	 H0ZmwaIK7ctGDaC0qjDtLvpPQj5FyKmhM29tGktU9RP+PTvGU+cJMgvJfYrUB6WBfNBIp
+	 K6aQpcNTH01vR19dL4XfS0lOJ7u8pugGLCZg+YPxCNzjB2PXBu5A/yUJz/X1JgFbo5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AfwVAG+u;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B003606A7F1;
-	Tue, 10 Nov 2026 13:11:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B003606A7F1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqhPiJDT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BDF606A77F
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:11:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AfwVAG+u
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C0086339;
-	Tue, 10 Nov 2026 05:11:02 -0800 (PST)
-Received: from [10.57.10.132] (unknown [10.57.10.132])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9DC9B3F632;
-	Tue, 10 Nov 2026 05:11:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794316265; bh=thV59Vj2cTuwftZJRbXLZrc4Kc/P0jvK+3eu/9gZEUU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=AfwVAG+uI+ZgDWDEdxSg5XkJOwdNS/aY3MlutxrjVZp/Q3XZRJygBOXhxIwxGXAN3
-	 RRh3GxhbgiXoKOLWs8CEFT71TotYUP6HcbQoLq/UvtUPJYte9gSN1yQuenqv9rkngA
-	 GKltRZkoZPILdMvyX8VbrXZ9yX7a0oIf0o5PRseE=
-Message-ID: <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
-Date: Tue, 10 Nov 2026 13:11:37 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqhPiJDT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFFC61F0089F;
+	Tue, 10 Nov 2026 13:11:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794316289;
+	bh=YT/A2uORiz05DvX931y67/6/Yh84kLLkhN08w9DyWxo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nqhPiJDT+GmqpMeHHBQTehZt16PEx5nNR2FnzWWDniA1NpvqR1tGYjkEeQeeKkBoV
+	 6b9WzKTR1WXHKV4iN47k1ZD/UdHIZxtdML9f9PYv8i7DZO6Lj472uCXszUe2qpKmuS
+	 jjuEuTp2a3B2I/N7c/y8Z5SHM/RMKzKpoj9VfPGqNwCYo0GGQYu6UIWmYih8e6W6af
+	 VY9J2H1qMrX2fTm0e1JP3gymhBG8p9nCtYuwi7kQakPkQQsfqXBHI4VlWQBBj6gJjY
+	 dkwafMvfyRCf0F/tKaF9Iyp6FSWYvZ4M14J7WDJWW+tFOYze7LIJz7BKeSXO+zu/xT
+	 0lMb6DCCgPeyg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+	Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] dmaengine: qcom: bam_dma: Defer IRQ trigger type to device tree
+Date: Tue, 10 Nov 2026 08:11:26 -0500
+Message-ID: <20261110131121.1652499-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050416-failed-7.3-82eed160cfa7@kernel.org>
+References: <20261107050416-failed-7.3-82eed160cfa7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,85 +61,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
- ranking
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Guo Chen <guo.chen@oss.qualcomm.com>,
- Vincent Donnefort <vincent.donnefort@arm.com>,
- Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
- tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
- <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
- <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Rafael,
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
-> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com> wrote:
+[ Upstream commit 3cee6f79553202d7d3954555560ac38d719344b8 ]
 
-[snip]
+The driver hardcodes IRQF_TRIGGER_HIGH when registering the BAM
+interrupt, which overrides the trigger type specified in the device
+tree. On Qualcomm Shikra SoC, the A2 BAM signals an edge interrupt
+to the apps processor; registering it as level-high causes the
+interrupt to not fire, resulting in missed DMA completions.
 
+Use IRQF_TRIGGER_NONE instead, which causes the kernel to use the
+trigger type already configured by platform_get_irq() when it parsed
+the device tree interrupts property. This makes the driver
+platform-agnostic.
 
->>
->> That's fine, please continue.
-> 
-> I have a couple of questions though.
-> 
-> First, why is the ondemand governor mentioned in the changelog?  In
-> the mainline, the ondemand governor cannot work with EAS, so it
-> shouldn't matter for this issue, should it?
+Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260717-qcom-bam-dma-irq-trigger-v1-1-6405eac86f00@oss.qualcomm.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Stable-dep-of: 82eed160cfa7 ("dmaengine: qcom: bam_dma: free interrupt before the clock in error path")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma/qcom/bam_dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The ondemand is affected by the EM setup code and set 'inefficient'
-flags for some OPPs. The EM is also present for cooling devices
-and can work w/o EAS and schedutil, w/ just ondemand governor.
-
-Because EM marks the OPPs kind of 'globally' as inefficient, then
-they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
-In the EM code we have:
-cpufreq_table_set_inefficient(policy, table[i].frequency);
-
-
-Then ondemand check for CPUFREQ_RELATION_HE will skip them and
-pass to __cpufreq_driver_target() with that flags as well.
-
-
-> 
-> Second, why is the issue regarded as a defect in the code and not in
-> the energy model?  Arguably, boost frequencies should be more costly
-> than the non-boost ones.  At least the idea behind the boost is making
-> higher-cost OPPs temporarily available.  If they are sustainable,
-> treating them as boost OPPs is rather pointless.
-
-IMHO it was a bug in the commit mentioned in this patch fix tag.
-It is affecting more than just EAS or EM, since the EM is working with
-all generic code and all cpufreq governors.
-
-
-> 
-> TBH, I'm too comfortable with looking at cpufreq frequency from within
-> the EM code.  If that needs to be done, something is amiss at the
-> design level.
-
-I think this edge case is special, as I described above.
-
-I'm happy to hear your view on this EM influence to some global
-setting in cpufreq. Maybe it was too far to establish this
-'inefficiency' flags in there for many usage?
-
-Regards,
-Lukasz
-
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index 05a3b1f9e0c23..94cb957d4b187 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -1333,7 +1333,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 		bam_channel_init(bdev, &bdev->channels[i], i);
+ 
+ 	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+-			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
++			IRQF_TRIGGER_NONE, "bam_dma", bdev);
+ 	if (ret)
+ 		goto err_bam_channel_exit;
+ 
+-- 
+2.53.0
 
