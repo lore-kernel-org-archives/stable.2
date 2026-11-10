@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321498;
-	b=UVBflg1L5XWPxKJIH52tgUVYh4e5ZtJsGQWEO/E5H1IU3kikBbUBM47+RhKeMLoKnYZq
-	 BBMRwZ0u+9A4OTO4fr+YpsFAhIZW+dAiUxrtA5T9o34EOZvZ4bifVqDmvq9ZXk9W7b6if
-	 tgefmhGbYgUyEE5poc2kHNE5RbB8/QLLgxrKa4mMiaA00JgRoG09+AOAZFdBd5uu8M/cv
-	 Ey1Db4O/cryo+jEDWVZZO7iC6UOm9XkcRwMEel9rNSKIVPCEvGJmHhKrWaLCxkiTMVsXd
-	 45JD4RW6i4gO9osjVqZqbNAKz2eos1+4Zhm97Fk/TwxqNkyMhUW2kgUBtATRrjfVbbQ==
+	t=1794321501;
+	b=od+QYgmcxD80xNO2GzTAoEAfJKHw6cAVGTJDqvG97CPPxs1zvXhohuDFSZvdBj110kYF
+	 ijbC/UwAzu8E3sWUtUzLQVDVHgWM/VEIzJOcHKk9hXtxBgOTnoiFH8snNZ3pCPxPPBM3w
+	 6SJk+WCAmY/Ydx75YBPt87fFqqiRRG/CDa+C/3hplhlWB9iUtJgKDKO2ANAFlueDbuaux
+	 ZjuO2hjPRNzK9vAlj3GumJD0e6r5Pyd1REaTQP0ojbkXhSQrLNlMYpD1fpoCcf5Qt69CU
+	 KEa8Fx7psxJV0X8DpI4qe9ujN4sGK5UJyPhRyu03A9xgmXLRR7v/8g868uC5ZRVdB2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321501;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3xHTm2+sWMYD93fVwF3/HSZLrkT9R7Hlm4v1L1v2SWI=;
-	b=cvhmcpMw2QK60PXnc3QSKU3zeakRimCo5wsEiyv2nd/E5v6rGA1ZIepczw7BrcWGLHeA
-	 zSbcvdJY9XUC5T4XvTtkXNJoETTLG035V32dhAXIW6IQmpacZOtjwdi2YCdtWNw1f+lSF
-	 aZzQtavd403eSFI+t+S/xv4t+9gCMxJq1ZKzTdQj/ckgIBubAnTnLsB78nvaP6gRCMAH3
-	 3Ymg+g2L1137/9i9U9GE0uJ1JUyeppinMpV94Q2IU1AkjNJgL/fUdstKeP4M62DGK+J+4
-	 Afp8a/fFH1Uw3YhEiEgL+7nzy+Vj32/0e+aPnyeWfV1VWmN7FM9mz4btHHf52l6+HhQ==
+	bh=uXhzKX7QH8ModkaNynrnU+Vmfq5vgFTpvU8WQs8VqTk=;
+	b=nty/mRrRD/nI6rsAtjtYdh/eb9fGyNZGuTsSfpKf5ee8j2KHiBFh28Z9Jgp9k+46+Ewm
+	 l++2B7fv4GqRMjRwvanywaGq7lB/nEpPZOeZiv7WElqbuW94CQWMjjfGSK0+gq9X1/xDn
+	 B0F5QOU4+nQRdlp/QMXYmaL57GZg3MsLWcO3MXZzzqExkht7e9Bfqx5ie6R3gJlS4Bxck
+	 nj97fINzhKlFHka/5s1GYpfDiJdwfjWNFeSwk3viLpr96rl5PhfsQS0A2Mgxx8quosQuG
+	 311Oju6ogMVoI/12ahAOi2PjSUqmvlh7wfUJAaFNYafrvE1EugWmi3gHULXIwSgEN8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hL5Pv4Sy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCgV8syB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436F6606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:38:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A419606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hL5Pv4Sy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE491F0089F;
-	Tue, 10 Nov 2026 14:38:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCgV8syB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732DC1F0089F;
+	Tue, 10 Nov 2026 14:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321498;
-	bh=3xHTm2+sWMYD93fVwF3/HSZLrkT9R7Hlm4v1L1v2SWI=;
+	s=k20260515; t=1794321501;
+	bh=uXhzKX7QH8ModkaNynrnU+Vmfq5vgFTpvU8WQs8VqTk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hL5Pv4SydUU5NwaE5KOiEcL5/jlxvb/ihpsUBXw+KE6Bk9NM8+y0EQb6AdPYEnRCE
-	 JeSZbyQdUvB/fJa16akff+6hdNrS/yCnyTl1JtlZrEfbFUEEEBetwHJCoDHpyDRWj7
-	 QA9RZchuYF26F7OLlWdrJYZS2+Ppz5ZXGyE2Ol3SSQdbJvwWeCyutclCV9K3TFexiv
-	 99is3cTAmCOj+T9vZ98BaqJmQZa8k5xf9UCKw51tYcbPQcbIMu+UUBHNwzwdCCLP+3
-	 pnkMpLTo69KySmyOoYUlHGdYVCMEJrxUsK1lsASMlnYxGCeWs/nzfEMYXvlgtEML2W
-	 Aqb8hOi8/0LZw==
+	b=bCgV8syBPxQS/Il2oWxKbvRj/+uax6QWrYpjCEBxjD/xYAiVUi9FssdzHTJwkABlQ
+	 uID/VzBRBhYcbYyzpf/MNrC7dGdqc5mTAkdce4BgLdk2yayZ9JAF4Xkto0mIrUF3q7
+	 d/f0w/iXcg+HH4Ss3lkPORe52x3tjKFrNA/ZyGR74zLESMsefoz00tJ9aH7HlfXtB/
+	 a5M+vVDcnfdNWQNcXbSPlp5VYyfWFoo7tJZESNEWGyuQBMcB8yWrQn1ooQy5Ygng6S
+	 X3JPHle+cNP1xip0tgAp4SW2dwxYVa6hspSES0n5s9nhxdbtM/DFLzciEkclJcdCGx
+	 iI4cyKtWFXsOg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Fuad Tabba <tabba@google.com>,
-	Marc Zyngier <maz@kernel.org>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] KVM: arm64: Fix MMFR0 TGRAN advertisement for pVMs
-Date: Tue, 10 Nov 2026 09:38:15 -0500
-Message-ID: <20261110143744.1938826-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/msm/dsi: Fix VM leak in dsi_tx_buf_alloc_6g()
+Date: Tue, 10 Nov 2026 09:38:19 -0500
+Message-ID: <20261110143743.1919323-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054345-failed-6.1-6c29285e78b5@kernel.org>
-References: <20261107054345-failed-6.1-6c29285e78b5@kernel.org>
+In-Reply-To: <20261107053059-failed-6.6-ab91ba61871a@kernel.org>
+References: <20261107053059-failed-6.6-ab91ba61871a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +62,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 6c29285e78b5e4811145ebda382ac0ba732ce56a ]
+[ Upstream commit ab91ba61871a896ca2ecc6e048d80a152136da44 ]
 
-Protected VM ID register emulation leaves unlisted fields at 0. This
-creates two issues for TGRAN:
+dsi_tx_buf_alloc_6g() takes a reference to the kms VM with
+drm_gpuvm_get() and stores it in msm_host->vm.  If
+msm_gem_kernel_new() fails, the function returns early without
+dropping that reference.  Since msm_host->tx_gem_obj is cleared on
+the error path, msm_dsi_tx_buf_free() will never see a non-NULL
+tx_gem_obj and thus never calls drm_gpuvm_put(), leaking the VM
+reference.
 
-  * TGRAN16: 0 means non-implemented. It prevents 16KB protected VMs
-    from booting even when the hardware supports it.
+Drop the VM reference and clear msm_host->vm on the error path.
 
-  * TGRAN4|TGRAN64: 0 means implemented. This may falsely advertise the
-    feature even when the hardware does not support it.
-
-Advertise all the TGRAN fields in pvmid_aa64mmfr0 so that the hardware
-support is properly propagated.
-
+Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
 Cc: stable@vger.kernel.org
-Fixes: 6c30bfb18d0b ("KVM: arm64: Add handlers for protected VM System Registers")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <tabba@google.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
-Link: https://patch.msgid.link/20260928095454.3255918-2-vdonnefort@google.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: adapted MAX_FEAT table entries to mask-based feature restrictions with explicit signed-field clamping ]
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
+Patchwork: https://patchwork.freedesktop.org/patch/754332/
+Link: https://lore.kernel.org/r/20260916175738.2089950-1-vulab@iscas.ac.cn
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+[ sashal: Adapted VM reference handling from drm_gpuvm_put() and msm_host->vm to msm_gem_address_space_put() and msm_host->aspace. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/hyp/include/nvhe/fixed_config.h | 3 ++-
- arch/arm64/kvm/hyp/nvhe/sys_regs.c             | 9 +++++++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/fixed_config.h b/arch/arm64/kvm/hyp/include/nvhe/fixed_config.h
-index 37440e1dda930..fc765894f3f31 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/fixed_config.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/fixed_config.h
-@@ -90,7 +90,8 @@
-  */
- #define PVM_ID_AA64MMFR0_RESTRICT_UNSIGNED (\
- 	FIELD_PREP(ARM64_FEATURE_MASK(ID_AA64MMFR0_EL1_PARANGE), ID_AA64MMFR0_EL1_PARANGE_40) | \
--	FIELD_PREP(ARM64_FEATURE_MASK(ID_AA64MMFR0_EL1_ASIDBITS), ID_AA64MMFR0_EL1_ASIDBITS_16) \
-+	FIELD_PREP(ARM64_FEATURE_MASK(ID_AA64MMFR0_EL1_ASIDBITS), ID_AA64MMFR0_EL1_ASIDBITS_16) | \
-+	SYS_FIELD_PREP_ENUM(ID_AA64MMFR0_EL1, TGRAN16, IMP) \
- 	)
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index cdc964aaf405f..cfef8d9067157 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1184,6 +1184,8 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
  
- /*
-diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-index 3d5121ee39777..20ba05ff34209 100644
---- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-+++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-@@ -190,6 +190,15 @@ static u64 get_pvm_id_aa64mmfr0(const struct kvm_vcpu *vcpu)
- 	set_mask = get_restricted_features_unsigned(id_aa64mmfr0_el1_sys_val,
- 		PVM_ID_AA64MMFR0_RESTRICT_UNSIGNED);
- 
-+	set_mask |= SYS_FIELD_PREP(ID_AA64MMFR0_EL1, TGRAN4,
-+		min_t(int, cpuid_feature_extract_signed_field(id_aa64mmfr0_el1_sys_val,
-+							 ID_AA64MMFR0_EL1_TGRAN4_SHIFT),
-+		      ID_AA64MMFR0_EL1_TGRAN4_IMP));
-+	set_mask |= SYS_FIELD_PREP(ID_AA64MMFR0_EL1, TGRAN64,
-+		min_t(int, cpuid_feature_extract_signed_field(id_aa64mmfr0_el1_sys_val,
-+							 ID_AA64MMFR0_EL1_TGRAN64_SHIFT),
-+		      ID_AA64MMFR0_EL1_TGRAN64_IMP));
-+
- 	return (id_aa64mmfr0_el1_sys_val & PVM_ID_AA64MMFR0_ALLOW) | set_mask;
- }
+ 	if (IS_ERR(data)) {
+ 		msm_host->tx_gem_obj = NULL;
++		msm_gem_address_space_put(msm_host->aspace);
++		msm_host->aspace = NULL;
+ 		return PTR_ERR(data);
+ 	}
  
 -- 
 2.53.0
