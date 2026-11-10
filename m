@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344510;
-	b=lwtgbuFn0OrJzba8k9FKYqVhVbcPmRJ7U1HuqNtoIIu7LppEoZebr8QprbQ3kxYEKrQf
-	 L58IcD2Au9CTZCNXfFnw9vgcgHcjrDVLu80P6JMo3XsFtvbuCM/rU8K0pw+8Pbk0N5aTq
-	 kK3o37UrO2SPidh2MquJDGTbpn7S1YnpZPV7C2HgkeVtPYKl7KYr1mqZ4v+0PeBDx7HLR
-	 zOj7frlnc46LhOgJC1NRt2h6CXC7zSPSr0rqTk/WeLuQdKQ5zGiImDdjDIgtNWZotklWP
-	 5Ze7+i8ioOJyWWXC+7BLNMUJRzUHCpND3u+VS02UuCYxGlqGDC21lAKqsqLO5jWeOig==
+	t=1794344563;
+	b=KEaDrXXJDatlDPJJIcdo052E9FEdDCgfQ8vSpexYu63pcHCGGjXjkmvVBH9EyxGTFZLz
+	 Okx49R1rAUzDwObcpSUkX1Yq7ixjt8C/KKlObSBd6gvJIxtvSzsswNxGx+CvKTtwc3lo7
+	 1Fh6Ma6aBGGHcl4c12UbnlVxcAwpblfJrv1443sjs+xcplzVaEfeGISmbr+HHkSLWckaN
+	 iup9SbTxyJff+M1VlxOvQIq+FGVALvQBt/9cltx+IbVt2oF0W6q9ckwNxDzIiiJylpqQ3
+	 kjBxiVm/P3IlVWuzMV7nDMajAGeo3wjiBIbYJwkp87ef0hMGVMDAYsCAzh6t+SE75Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344510;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Vv52BUu+yHpTKvDsYRFb7+TNMQbw5WkkSHERM8Z9L2Q=;
-	b=HvhKPW6fco+GvDCIcOXxlV9B/jM1AZUmev4mvA3kCHJveimKg7ymJqcRCptFpx6Fd7Vu
-	 3by8P21IrCCCLhM9ckeEkju6rl2nPf1yL2Hw0MDZaLLzAwPWrVFX9Eqm+j5206KOb/lkF
-	 MFb2HoTjtCzNFARvARSYhYjyT/XM9E3BWBphBdTrahVpkgUqBt5ehF8lWO98KgVdUT2YX
-	 dnWux5MMU8hgENAgYpM/CdmwYINNZk3q8//vCBSR3LNlDQrq15brMNYDP2C7kb8ntk2Zr
-	 duQPlyBgDLzvQKatBX7Fv3fgdZ/P6qeFT3zbeFknNM2H9t52wCy4uVj5XtevM6Tbocg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344563;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=hpKPnv6LQCf20/ZkdM8jFTGSWfWUSzTRAK+io33NZfg=;
+	b=2x1vsGBCu+gPzbYdUwHlFLJslYNEYYgwL2XKIePZMcF9+eBd4ixSRZpZgcIjVTM/2x5e
+	 3voxGPtOqECPiDmvJzLL/x4cFV2JDRCiwn78ql4v6v1G+AUgTKiVs6YQ8Ve51m+fNj57z
+	 gZUe/W9aikPHFyMCEZ73CshPwA43AS5z0xcqZDcDGNOWLh5yqyaxVMF4eyR+3J5AQWj9E
+	 8J2NHmjf2pN6W61L7WOOdRH7TCjLiwuxyc05gqbIw/EKiixCOFOmhrjgsfEaoTBd1Y57e
+	 Cs4pqNhuN7IM25sLL/YmVUNZYigh06YPrOoCp4gicROeKnHiSxXYD051bqQWO4aEKzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2faPJcv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzGIh2AN;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03EF2606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:01:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB2F606A326;
+	Tue, 10 Nov 2026 21:02:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AB2F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2faPJcv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D05E1F0089F;
-	Tue, 10 Nov 2026 21:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344509;
-	bh=Vv52BUu+yHpTKvDsYRFb7+TNMQbw5WkkSHERM8Z9L2Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S2faPJcvgE3oDeV9f80ZvGNRW/gks9Sh1RkKtxF1Vki+Mhzoo7yFAAaa85bU+0+HS
-	 A9hZYIN633H1j7zJjYO4kOlJfIgBiC++vPmC1v6UUQ7mrYvAv1LmcqJybg1YXftF5r
-	 Zmrt58nO3yiB+HlUzllqGzNdRaUdhLJTceU36Ki7r9cBYzW7ut/7o9gBnoDLT8nGYZ
-	 EIxV3li5snS9H58OlUnExFWsxj41MH378yCFzVKdqJ/BhH5HAOIupGn0LjFS2hfcnI
-	 U1cBtSEvS1UTfoX4n5HAPWjHKnyhPuiZtX3qylTmCy6SJY/dUmY/76ZY8Up31lWNk8
-	 4YJdCs8u9C9yw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
-	Dragan Simic <dsimic@manjaro.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
-Date: Tue, 10 Nov 2026 16:01:47 -0500
-Message-ID: <20261110210127.3796812-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062224-failed-5.10-84d08ff902f1@kernel.org>
-References: <20261107062224-failed-5.10-84d08ff902f1@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzGIh2AN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794344563; x=1825880563;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=63+0yrmJwzlPZjE6WYIeaX8J9iDrfSQT6kKOvmN1rCI=;
+  b=WzGIh2ANPuLt0Scv5LqbZRwbLXECnYcWyrAJ9DwOEhtbN8hsNjRJi1p1
+   q4MfIHetFght8zssiF4mC7KNEYJGr+Jk2FyJmttf7k6i9woMX5Kczvn3L
+   4b32OjU+nY5NbB3rK9LygiURAXK9omk9rSObxw4Oy/saA95HZ/12ZbVg3
+   7BuJfEtTgjOsVLLsmfzEcba8e7b87/cHpR+jxOSbyfK4MU4f7qLWat0Mu
+   GDEAgmAVq6denWVVRfi1ZCWno5wNCqemmN8B4IWC6hkwfYaNENhCjRwxR
+   hXngC1zUKVmPIrgD5xuN3u1HQ4MqUg5jS7tRtYTiOzDhw1D9wqkgCEyam
+   Q==;
+X-CSE-ConnectionGUID: 4J13QXh9QnO98zNl5HjLXQ==
+X-CSE-MsgGUID: XhzOuGxST1GRwTHdotf0/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="2996545"
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="2996545"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 13:02:42 -0800
+X-CSE-ConnectionGUID: CU/3jIPSSwCRObP1Fv88Wg==
+X-CSE-MsgGUID: hOiKvxcgTryr9vIsbA7O6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
+   d="scan'208";a="8578905"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.78])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 13:02:38 -0800
+Date: Tue, 10 Nov 2026 23:02:36 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: lee@kernel.org, maz@kernel.org, andy@kernel.org, jic23@kernel.org,
+	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org,
+	mfd@lists.linux.dev, linux-iio@vger.kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mfd: mxs-lradc: Pass parent IRQs to child drivers
+Message-ID: <avOGbAYDCQyuzd6Q@ashevche-desk.local>
+References: <20261110141934.42490-1-festevam@gmail.com>
+ <20261110141934.42490-2-festevam@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,89 +82,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110141934.42490-2-festevam@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
+On Tue, Nov 10, 2026 at 11:19:34AM -0300, Fabio Estevam wrote:
+> The MFD driver stores raw DT interrupt indices in IRQ resources but
+> registers its child devices without an IRQ domain or IRQ base. The child
+> drivers consequently receive the indices as if they were mapped Linux
+> IRQ numbers. IRQ index 0 triggers the platform_get_irq_byname() warning:
+> 
+>   0 is an invalid IRQ number
+> 
+> The children then try to recover the indices from their resources and
+> map them against the parent OF node. Besides duplicating IRQ names in
+> the parent and children, this relies on invalid platform IRQ resources
+> and fails when IRQ 0 is rejected.
+> 
+> Resolve the interrupts with platform_get_irq() in the MFD parent and
+> store the mapped IRQs in the shared LRADC data. Drop the child IRQ
+> resources and duplicated name arrays, and have both child drivers
+> request the mapped IRQs directly. Use the MFD memory base support to
+> translate a single relative memory resource shared by both cells.
+> 
+> Tested on an i.MX28 EVK. The mxs-lradc-ts driver probes successfully,
+> touch events are reported, and the touch-detect and LRADC channel 7
+> interrupt counters increase as expected.
+> 
+> Cc: stable@vger.kernel.org
+> Suggested-by: Lee Jones <lee@kernel.org>
+> Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
 
-[ Upstream commit 84d08ff902f1ec01177fef1a21a38934927f5aee ]
+He-he, this rings a bell! I have still a copy of the mbox of this thread
+locally to maybe (likely never) look into that. So, I am so glad to see this
+being eventually addressed!
 
-Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
-speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
-Rockchip PCIe header.
+> Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
 
-The reason is that Shawn Lin from Rockchip has reiterated that there may be
-danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
+...
 
-While Rockchip has done so informally without issuing a proper errata, and
-the particulars are thus unknown, this may cause data loss or worse.
+>  	struct device_node *node = dev->parent->of_node;
+>  	struct mxs_lradc *lradc = dev_get_drvdata(dev->parent);
+>  	struct mxs_lradc_ts *ts;
+> -	int ret, irq, virq, i;
+> +	int ret, i;
+>  	u32 ts_wires = 0, adapt;
 
-This change is corroborated by RK3399 official datasheet [1], which states
-maximum link speed for this platform is 2.5 GT/s.
+Can we, while at it, kinda follow the reversed xmas tree order here?
 
-[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
+...
 
-Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
-Reported-by: Dragan Simic <dsimic@manjaro.org>
-Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
-Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
-Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Dragan Simic <dsimic@manjaro.org>
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
-[ sashal: adapted header cleanup to existing HIWORD_UPDATE macros where PCIE_LINK_IS_GEN2 is absent ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
- drivers/pci/controller/pcie-rockchip.h |  1 -
- 2 files changed, 6 insertions(+), 9 deletions(-)
+> -	lradc->soc = (kernel_ulong_t)device_get_match_data(&pdev->dev);
+> +	data = device_get_match_data(dev);
 
-diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
-index bdce1ba7c1bc0..c1567a2ef1890 100644
---- a/drivers/pci/controller/pcie-rockchip.c
-+++ b/drivers/pci/controller/pcie-rockchip.c
-@@ -65,8 +65,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
- 	}
- 
- 	rockchip->link_gen = of_pci_get_max_link_speed(node);
--	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
--		rockchip->link_gen = 2;
-+	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
-+		rockchip->link_gen = 1;
-+		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
-+	}
- 
- 	rockchip->core_rst = devm_reset_control_get_exclusive(dev, "core");
- 	if (IS_ERR(rockchip->core_rst)) {
-@@ -236,12 +238,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
- 		goto err_exit_phy;
- 	}
- 
--	if (rockchip->link_gen == 2)
--		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
--				    PCIE_CLIENT_CONFIG);
--	else
--		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
--				    PCIE_CLIENT_CONFIG);
-+	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
-+			    PCIE_CLIENT_CONFIG);
- 
- 	regs = PCIE_CLIENT_LINK_TRAIN_ENABLE | PCIE_CLIENT_ARI_ENABLE |
- 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index de78a3091b6a1..1708a5cc750fd 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -36,7 +36,6 @@
- #define   PCIE_CLIENT_MODE_RC		  HIWORD_UPDATE_BIT(0x0040)
- #define   PCIE_CLIENT_MODE_EP            HIWORD_UPDATE(0x0040, 0)
- #define   PCIE_CLIENT_GEN_SEL_1		  HIWORD_UPDATE(0x0080, 0)
--#define   PCIE_CLIENT_GEN_SEL_2		  HIWORD_UPDATE_BIT(0x0080)
- #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
- #define   PCIE_CLIENT_INT_IN_ASSERT		HIWORD_UPDATE_BIT(0x0002)
- #define   PCIE_CLIENT_INT_IN_DEASSERT		HIWORD_UPDATE(0x0002, 0)
+Is this driver affected by driver_override case? If so, this has to be checked
+against NULL and return -ENODATA.
+
+> +	lradc->soc = data->soc;
+
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
