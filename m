@@ -1,64 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272660;
-	b=BxaUzRV82VggDXDw0Lli+SnMcaBuJtYifj6HosKAYah47HbLe7Asp1HiZIpU4V97oHi1
-	 oev2eKpWIOstlvk1+O3IS5914hEUTFs71QfofwF7vONiWop3ZgwlvQj+ni9Hv2l6cfd+Q
-	 rsaxsVxdzonvvdy/BVCMVRw9R3FhqvLggsYjgYqdCYNqAGtHD/bo8mZZSCqZyXsj1377U
-	 LgvMfE+55O/mOufSSjWPsk1tjmX27DozUxRoQJRlSb+HGhQfvtPTah5hWwpDRqZZfASEi
-	 HjYh2NZ7lO0NpL68TKMJ181Ckz5QNLWHcjGCz4x07SrJ61SQ1NWPmQ19bxZ8cwzQJgA==
+	t=1794272666;
+	b=WiyC2ibzlcJ7ExR3Vsoi0kGxCttVFbXXF46c/smrRs1XOmMR9sLZ3qyoivqUja22AtXY
+	 oyLJ96eOl0qRqKSQ3euERxagoPlEy4uhKhngP6MboarUuxIervW/qlo54Xh1j2MuOw2hb
+	 yWxEP+9ABq7GUVQ1pAY/q5BmG5pXoMe3rQX7DQo6PZ8lOCuxyFLY29p0/VT0rxUt6o7Vb
+	 JjItp6qTdINZjEzii0Jbg1bP5Wtj072/Qg0YJfBJHK8HsRdWsWoHPBw3gq3Sn4PalbbvV
+	 hjGJlIg21/FEukPLD+2LgNcesHkmbyLJQEtEpiKj7GJMnetaTocQSr8MtD5i7fOLddw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272666;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rOvl8KCnupLPjls0zDdRtgBRCdCIaHtDakcsCEQBTyc=;
-	b=qa+iRFO6M4VH8oXP2N270Huy5OhxjRfnUU60YUXE1jxyMxndTaNgsIQfF1153KsUGzD3
-	 2zrPcoilaFaoDCtxcJeqgkj7JCisqX18NvNRtLr6AIq0ddLz2B+Fi+tk8HIvzDRBJhgKu
-	 2iUK/de+kzceoxWEJ5+pspNDKsAHvxZfKqXawEkQ2aDEbqw7UGSb+7UJEOk0heZgW+11z
-	 WkNuXOjnYDH022inRG9V/WNDplb7yS2YCa2h361XL4N2iTTuqS9TQaegZBatU40sMYJCy
-	 UBxuPMpFC7Usy77tjATqCgjRMieYzVZlng37tJ70wPa8zkz3OrXYnAwIF4yN6ajVjtA==
+	bh=SY0c4Wf4lGzf+HBT9fLeiJmNM8qXIIFzoFjs65rwpSo=;
+	b=MANUyi+ADW24vxQ8+c+emcucffkdNyXseA4qeveAqU+mIRmjFxnFBA9+3TSfaZYcGF+e
+	 E95jK6uJQcMi72g9IFVdfXKLVbXyg8fOF5tIwTD+7PkoB/6Yw6HjeYVlZaavbb8FIAIhX
+	 RWs1mMLMWSF5WJO8NjYq+zMGmBoEsEq8SKu1IXBRKeXLcHO7AUMsK4AYVxxZBRvg+2RZK
+	 OHTT12ZogG37dpmToTDwroRxIk++hn6tvDg0kU0DKvxP2hT1h/Jz61wfpIU3W44YAe52N
+	 S3zrWhHiDundLQD0pS/eLioxrclA8UJ/IcBnvSeXkhEDuIMuPK5OyKD+GuxBXK+OsXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS3rpUoq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EymiNdAw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28B9606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BA0606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS3rpUoq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F0B81F0089F;
-	Tue, 10 Nov 2026 01:04:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EymiNdAw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9904E1F0089F;
+	Tue, 10 Nov 2026 01:04:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272659;
-	bh=rOvl8KCnupLPjls0zDdRtgBRCdCIaHtDakcsCEQBTyc=;
+	s=k20260515; t=1794272665;
+	bh=SY0c4Wf4lGzf+HBT9fLeiJmNM8qXIIFzoFjs65rwpSo=;
 	h=From:To:Cc:Subject:Date;
-	b=bS3rpUoqztiUG2OYPvfIrefFYtBfVr+hcdrpVb/IkbjmGASjcqIbGlkzTv8VGYYik
-	 fCP+RJMyFbqbT1sq69VFG9RNcdFxgSXGZi1r3v3E8dxmmUhZEoiQwo+MxU9AutxSYN
-	 wu08YFqrpr85aIWsR05HiXF2oQLv7mUqZz7ZFz1jNL4AJtuiGKotGSNk2sExKc4tel
-	 jJsnAK9KZJ5f5A+gbNfxpO/8ab/nWG1gBEMrVXYfjUXSucVbfu5wR09lf/jXBXTHmw
-	 WnaVqD0zJzJXqBTDIIfaY11VE3ShWqWXk9/ujxuvu9DGCT7wTp0ATCkbzNFYR3fLA6
-	 IAgCCFD+wDcEA==
+	b=EymiNdAw06UtCESkKPcd/nSXYTkxOovoxl0R+DLhPbOh7CLl9AJW7YEq3DOZSzXyf
+	 3f4i5Gw2Z2NXlktKi02p274l9iW65oUfS5d/uB2VGIIfQ4Qz7fU4AjknHaZej+Bzp9
+	 TjkgONjN/9mH3EJznb72SiPPFHty3qBDEfkk+eZeJUG/Qr6S7NhaGMEHhPGyh6HFzv
+	 Kp+q6dRR4NskmNFfHpjqsi+VIbXBF6HjRI4/X3p5uNR6SA4YctF6GzWxowLiTPguyT
+	 OFhamdc8HgM/MMax9Bi8CHw9E0cGW6YVG7cRTcMCiuf8gc1GS3dnXSIJEHMdtL1qbf
+	 4A1Odjt73NujA==
 From: Sasha Levin <sashal@kernel.org>
-To: hannes@cmpxchg.org,
+To: lance.yang@linux.dev,
+	samarth.colleges@gmail.com,
 	akpm@linux-foundation.org,
-	sashiko-bot@kernel.org,
-	balbirs@nvidia.com,
-	vbabka@kernel.org,
-	willy@infradead.org,
-	dipiets@amazon.it,
-	hch@lst.de,
-	dgc@kernel.org,
-	matt@readmodwrite.com,
+	ljs@kernel.org,
+	kas@kernel.org,
+	david@kernel.org,
 	mgorman@techsingularity.net,
-	mhocko@suse.com,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
 	surenb@google.com,
-	brendan.jackman@linux.dev,
-	ziy@nvidia.com
+	mhocko@suse.com,
+	jglisse@redhat.com,
+	aarcange@redhat.com,
+	peterx@redhat.com,
+	bobbypowers@gmail.com,
+	bgeffon@google.com,
+	dplotnikov@virtuozzo.com,
+	dgilbert@interlog.com,
+	hughd@google.com,
+	hannes@cmpxchg.org,
+	cracauer@cons.org,
+	mcfadden8@llnl.gov,
+	gokhale2@llnl.gov,
+	xemul@openvz.org,
+	riel@surriel.com,
+	shli@fb.com,
+	jthoughton@google.com,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	sj@kernel.org,
+	ziy@nvidia.com,
+	med08elkadiri@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm: page_alloc: do not give all non-blocking requests reserve access" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:04:16 -0500
-Message-ID: <20261109200416-failed-6.18-6ee3d87b9408@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:04:20 -0500
+Message-ID: <20261109200420-failed-6.18-990d6c2194a9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,139 +102,158 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6ee3d87b940848aaed5d4e8d005c5f674bf2637a
+git cherry-pick -x 990d6c2194a938a19a8cf94c6cfd75171345089b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200416-failed-6.18-6ee3d87b9408@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200420-failed-6.18-990d6c2194a9@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6ee3d87b940848aaed5d4e8d005c5f674bf2637a Mon Sep 17 00:00:00 2001
-From: Johannes Weiner <hannes@cmpxchg.org>
-Date: Wed, 28 Oct 2026 13:15:53 -0400
-Subject: [PATCH] mm: page_alloc: do not give all non-blocking requests reserve
- access
+From 990d6c2194a938a19a8cf94c6cfd75171345089b Mon Sep 17 00:00:00 2001
+From: Lance Yang <lance.yang@linux.dev>
+Date: Mon, 26 Oct 2026 21:00:54 +0800
+Subject: [PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Patch series "mm: page_alloc: fix reserve access for non-blocking
-requests", v2.
+KSM loses userfaultfd protection when replace_page() builds a new PTE from
+vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+through ordinary COW instead of userfaultfd write protection handling.
+For RWP, a merged page also becomes readable without faulting.
 
-Two fixes for how non-blocking allocations interact with the highatomic
-reserve.  There are prerequisites for Salvatore's "mm/page_alloc: avoid
-direct reclaim and compaction for costly __GFP_NORETRY allocations" [0].
+Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+have to handle unmerging.  An existing KSM page can be protected with RWP
+before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+of preserving RWP during merging.
 
-Patch 1 narrows which requests may physically take highatomic pages,
-patch 2 narrows which requests may count them in their watermark check.
+Unsharing replaces a shared page with a private one and should leave
+userfaultfd protection in place, as do_wp_page() already does for write
+protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+can proceed to do_wp_page().
 
-Both are prerequisites for Salvatore's patch: it clears
-__GFP_DIRECT_RECLAIM for costly __GFP_NORETRY requests, which turns every
-large page cache folio allocation that reaches the slowpath into a
-non-blocking one.  Without patch 1, those requests may fall back to the
-highatomic freelists reserved for atomic requests.  Without patch 2, they
-count the free highatomic pages in their watermark check while being
-served from regular memory, so they can consume regular high-order blocks
-below the min watermark by the size of the reserve.  GFP_NOWAIT requests
-hit both paths today, so these are existing problems worthy of their own
-stable backports; but Salvatore's patch would widen them significantly.
+- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+  break_ksm() then reports success with a KSM page still merged.
 
-Patch 2 reproduction: a GFP_NOWAIT burst under memory pressure can drain
-regular free memory to zero while the highatomic reserve sits idle.
-Measured on a 32G box with an anonymous working set, swap, and a full 290M
-reserve, three synthetic bursts drove the 28G Normal zone's regular free
-memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
-its swap table allocation inside reclaim, reclaim scanned 13M pages to
-free 200k, and page faults stalled for tens to hundreds of milliseconds.
-With the fix the burst stops at the min watermark and nothing else
-happens.  This was found in review and reproduced synthetically; it has
-not been observed in production.
+- With asynchronous RWP, protection is cleared before unsharing.
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem:
-They are entitled to the reserve but are served regular memory first, so
-the fix there has to change the watermark check and the freelist order
-together.  Salvatore's change doesn't interact with this, though; fixing
-that is left for a separate patch.
+Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+private copy as well.  Unsharing can then complete with RWP still armed
+for a subsequent access.
 
-
-This patch (of 2):
-
-281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
-highatomic reserves") accidentally gave all non-blocking allocation
-requests access to highatomic reserves, which includes GFP_NOWAIT and
-other sites clearing __GFP_DIRECT_RECLAIM.
-
-While this improved atomic request success rate, it's unintentionally
-broad and can actually worsen highatomic requests by squandering the
-reserves on requests that don't need it.
-
-There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
-for costly order __GFP_NORETRY requests, which would then also fall
-into this exemption and deplete reserves even faster.
-
-What GFP_ATOMIC has over the others is __GFP_HIGH, which
-alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
-
-Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
-ALLOC_MIN_RESERVE.
-
-Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it [0]
-Link: https://lore.kernel.org/linux-mm/arFBWvzXPYrKuIYi@cmpxchg.org/ [1]
-Link: https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/ [2]
-Link: https://lore.kernel.org/20261028171719.2043421-1-hannes@cmpxchg.org
-Link: https://lore.kernel.org/20261028171719.2043421-2-hannes@cmpxchg.org
-Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
+Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
+Cc: Xu Xin <xu.xin@linux.dev>"
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
 Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jérôme Glisse <jglisse@redhat.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Bobby Powers <bobbypowers@gmail.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+Cc: Doug Gilbert <dgilbert@interlog.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Martin Cracauer <cracauer@cons.org>
+Cc: Marty McFadden <mcfadden8@llnl.gov>
+Cc: Maya Gokhale <gokhale2@llnl.gov>
+Cc: Pavel Emelyanov <xemul@openvz.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Shaohua Li <shli@fb.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: SJ Park <sj@kernel.org>
 Cc: Zi Yan <ziy@nvidia.com>
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page_alloc.c | 4 +++-
- mm/page_alloc.h | 3 +++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ mm/ksm.c    |  8 +++++++-
+ mm/memory.c | 14 ++++++++++----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 2b28553002175..de0b3acf3e50a 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3241,7 +3241,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
- 			 * reserves as failing now is worse than failing a
- 			 * high-order atomic allocation in the future.
- 			 */
--			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
-+			if (!page &&
-+			    ((alloc_flags & ALLOC_OOM) ||
-+			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
- 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 910a1307ac9f3..d6f736a1aa2f9 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -34,6 +34,7 @@
+ #include <linux/memory.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
++#include <linux/userfaultfd_k.h>
+ #include <linux/ksm.h>
+ #include <linux/hashtable.h>
+ #include <linux/freezer.h>
+@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
  
- 			if (!page) {
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index e238ee91ed245..9c3c2830acb0d 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -60,6 +60,9 @@
- /* Flags that allow allocations below the min watermark. */
- #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+-	/* Preserve soft-dirty when replacing the page. */
++	/* Preserve soft-dirty and uffd protection when replacing the page. */
+ 	if (pte_soft_dirty(orig_pte))
+ 		newpte = pte_mksoft_dirty(newpte);
++	if (pte_uffd(orig_pte)) {
++		newpte = pte_mkuffd(newpte);
++		if (userfaultfd_rwp(vma))
++			newpte = pte_modify(newpte, PAGE_NONE);
++	}
  
-+/* Flags that mean GFP_ATOMIC */
-+#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
-+
- /*
-  * Structure for holding the mostly immutable allocation parameters passed
-  * between functions involved in allocations, including the alloc_pages*
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+diff --git a/mm/memory.c b/mm/memory.c
+index 916637e8381da..b65b56fe97148 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4125,8 +4125,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		if (unlikely(unshare)) {
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
+-			if (pte_uffd(vmf->orig_pte))
++			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
++				if (userfaultfd_rwp(vma))
++					entry = pte_modify(entry, PAGE_NONE);
++			}
+ 		} else {
+ 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 		}
+@@ -6662,9 +6665,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+ 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+ 		 * NUMA hinting and must still fall through to do_numa_page().
+ 		 */
+-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+-			return do_uffd_rwp(vmf);
+-		return do_numa_page(vmf);
++		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
++			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
++				return do_uffd_rwp(vmf);
++		} else {
++			return do_numa_page(vmf);
++		}
+ 	}
+ 
+ 	spin_lock(vmf->ptl);
 -- 
 2.53.0
 
