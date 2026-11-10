@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296781;
-	b=w1zs0byYMYa6mNWEXvqSP4xCa7ARSYwEB8kOEso541svwPMVxMKGEJ72LKzbvU3qsjvP
-	 xzz6C0ipyW88Vau56a5KWy0Sbqmu9UG7ueFl/TGX9KfKlnVVPpzqOSIqA8r36FBveiIfp
-	 kZ32sb6vaWUIxuWkLexs3RvAyK+0NarEz9tSxR9Dn+13tjL9iZUbQGzqDFCemmNzadhUG
-	 0XRffuTqQ/wpg1fnAovSZ6xc72FEtLuuhsc8aRfRH9+WdgfhJwwR9WFMVC8LZ4+SJjXyS
-	 YPmkf+8BvMhzEuwNCHsTd9Gc1dlVska6yYzQHfIx5eRJu7k5HFxsevl9tyf+VaIMgMg==
+	t=1794296940;
+	b=Fv4qdNy64CkEx6KxHNbeh7wuXzlHLcOU1tAtrbrXL3WGTrDZk5AvvD4LmFYJxmprsnd7
+	 huiiJGhsEAcpKjrxwrrOZg0Knl+h0YaN1vhYBLpvNNS3iz1/Y5ssovxx/EXD/ok/9Eyvc
+	 rjtZNyUQ4eun67Szzlp3dOxAxQfxU8931Fdx1KvrflXebvcdSsZuaMTGgAysDEZ2hFwOw
+	 2vXozIIx2r67VQJa5hmO6fCSuARxSHTNQLag1m0nUGtHZiLhYUGRNQXFrQSQOedT+Cx+5
+	 ImAEg0mQmssVXqf4MmlZ2uyX+YRmJQ9Xc1Eq8cF9K1eOyoO847cEIDZ2DJUpUO0jfag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296781;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=g+rzLsEDtoHChRb3W0ywuz4TUSwIklWRQMltFUo1B7g=;
-	b=vsJ3yYN1mrRiY0ROmZ44vy9vSb0OHjp04retylnZ6DgUf96tKGcK/cX90i6jAyfg70DR
-	 9EHvPQdVvLukDqgOxsnIOpZKOvVoPF3CJSq8pDEu8QmvlsfhPN/SYAS0Kf7Om+KEMKYds
-	 EBLRm22jvjKwaEPd8jJtrYPck6GrKFxwLW47NO4upa/29Y2ConaOzdPbjSYgM65yBnMH0
-	 yuQ2+vJ0GCoN3U2WC9QDgbf1rEqqZvN+4/j5s0iwwZ+U9cBrEBvDig2qr71LWK/p5FrrA
-	 zmsCqDsqDBN9TrYu50hSuVAL8Am+ife3Z39ZGosQaJL55tr9PN/sXUlaEeaGdgRPWug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296940;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=cp7X0c4WXjjo9mje1g5wweHAAKqgSx/hmxnwsgmzy1Y=;
+	b=deRki0Uq2IKiFY1zrwDEH3CO4j79p5LbM3JXcSezzCtJVTxqauI14AbaItf1eUnCgrpl
+	 de+I2a3TAfmg6RBsExE9JZ0Fm1hW4y1xm9dSbUTf/YnhRYqlXvP5+6Ob1ADjUTgDmO8gY
+	 OZgOjDBmJa0Fc3xaE1fDov725a1H2bkJQ8OCDY8AP/V/J/FcdlFd+AH6JcJNTLS1P1Yaa
+	 jfaUIEfMWDsR1+xi9MMQlZEGXKeFXHFo5iYKxIGZKQeTBxK1Y+U9A70MVrPQPivX7qwBG
+	 AHSxtJObA/R4HBU3qXvLkTs1NXdBMBDfGCnYUHDXrzOtwBlFWeoEvEwJ9epsXEhUMMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jbjk7jBs;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=urXJOpg8;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ECC606A33D;
-	Tue, 10 Nov 2026 07:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96ECC606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3CC606B537;
+	Tue, 10 Nov 2026 07:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B3CC606B537
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jbjk7jBs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794296781; x=1825832781;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nFoWB/WLRdL9em8tNSimN1sn8Ih9yTU1vSklb3AvshY=;
-  b=jbjk7jBsZhoc72J3Y5Hfz9TFEqhM0oHAIbSlkfoJ64FWrh2BXMG3xhrJ
-   OfAF4sVVes7d4JPmt396YqBXSGPulyjebjazs9eHINYApOPIYz3JTT42K
-   1Hp3RmHbZ9zCM0mP3qbEl6ySRImkxE5QRoNqo8pHoBpPxdl8CItaIFjWF
-   e8EYPEl5tniFqCnqi6/TaxQDioOnLhfFweeyo//zQAbbAuJQPSjidoU5o
-   7vdxd9WiK5521dMTYnGCNVUIks2rOPSiENjKnwNKxifpEorvTeH7NYra0
-   VwJKRKQWoTCrVoykgZy10hlqP+lzpm7nHdfxnNCc90bM2nA79lMIZeikV
-   A==;
-X-CSE-ConnectionGUID: 7d9IbReBSCaOI8ABAnfAAQ==
-X-CSE-MsgGUID: krMm9I2JTgq9UUMHhLyN3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2912056"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2912056"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:46:20 -0800
-X-CSE-ConnectionGUID: hM/EFHwBQ/C1fSHcwXoazg==
-X-CSE-MsgGUID: rDlZ8xkqRGiDW+AkcbzicQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7900404"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:46:17 -0800
-Date: Tue, 10 Nov 2026 09:46:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sergey Khimich <serghox@gmail.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] dmaengine: dw-axi-dmac: preserve pending pause
- requests
-Message-ID: <avLLx7pNSiFLbxE-@ashevche-desk.local>
-References: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
- <20261109-submit-dw-axi-dma-stop-pause-v1-v2-3-64adc48df793@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=urXJOpg8
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 904B84E4153D;
+	Tue, 10 Nov 2026 07:48:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6740060012;
+	Tue, 10 Nov 2026 07:48:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1ECAF103293C1;
+	Tue, 10 Nov 2026 08:48:53 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794296934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=cp7X0c4WXjjo9mje1g5wweHAAKqgSx/hmxnwsgmzy1Y=;
+	b=urXJOpg87txNoTM8b6wAa7VK8IhU/G4A7pDT3uu0Ono4971w0SPOdLaj9/MvUgAgfD8rPf
+	QgzBmO5zy4aXms3tzImzik5lZUQdoiLNtrqmQt4VDb5g/V25cvxvkaFAmHZcOF8QzjzAVu
+	ryxE6UOdir/pqouhVxARXWzqbZL8st0f9LyiQF/gueMuQNQaxu2cjhc1Iu4mSDN/oNOIKu
+	ioYajZRM//NRFSHQvjHhesdQvE6qABluQFXQSIpqR4kA2SFqau6eVNJqDlpHEX7OazZBdW
+	4hKoM7bWBZrIpEaCBDCcs+scT03+NRa2BHiNn8fijWoaH6l6uSNUNbFz2IzJPg==
+Date: Tue, 10 Nov 2026 08:48:53 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: aiyengar1990@gmail.com
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds
+ down into the past
+Message-ID: <20261110074853cc5a8882@mail.local>
+References: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,115 +69,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-3-64adc48df793@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Nov 09, 2026 at 08:06:02PM -0700, James Hilliard wrote:
-> dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
-> can set that status after the last poll, including during the final
-> delay, and the unconditional clear then discards an acknowledgment the
-> caller never observed. Another channel's interrupt can also consume the
-> status because the shared IRQ handler clears every channel's status
-> before taking its lock.
+On 10/11/2026 07:13:47+0000, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
 > 
-> Leave SUSPENDED to the pause and resume paths. Track the suspend request
-> separately from its acknowledgment so a timeout can be followed by either
-> a pause retry or a resume. Wait for acknowledgment before clearing the
-> hardware request, since hardware ignores an earlier clear. If that wait
-> also times out, return -EAGAIN with the request still pending. Use the
-> atomic polling helper so an acknowledgment during the final delay is
-> observed.
+> For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds the
+> alarm down to the start of its minute, so that it never fires late. When
+> the alarm is less than a minute away and in the same minute as the
+> current time, the rounded time is already in the past.
+> rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
+> the timer from the irq work right away, and the hardware alarm is never
+> armed.
+
+This is the expected behaviour, userspace has to handle the error
+properly: the alarm can't be set, set it for a later time or stop there
+and don't suspend.
+
 > 
-> A completed transfer is also quiescent, but its completion handler may
-> still need to advance a cyclic descriptor. Defer that restart while a
-> pause is pending, and resume it without reprogramming the first LLI.
-> Track the active descriptor until its completion handler runs so that
-> resume and issue_pending cannot restart a completed cyclic segment or
-> reissue a completed noncyclic descriptor while its IRQ is pending.
-> Start queued work after the active descriptor is retired, respecting the
-> pause request.
+> That loses every short wake alarm. With a HYM8563, which has minute
+> resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
+> software before the system suspends, so nothing wakes it: with the
+> alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
+> "alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
+> suspend-to-idle until something else wakes it.
 > 
-> Clear stale suspension status at the start of a new descriptor rather
-> than at each cyclic restart. Reset the software state after successful
-> termination and when allocating a channel for a new client.
+> Round the alarm up to the next minute when rounding down would put an
+> alarm that is still in the future into the past. It then fires at most
+> 59 seconds late instead of never. Alarms that are already in the past,
+> or that round down to a time still in the future, are handled as before.
 
-...
+Never round up, you are going to miss deadlines.
 
-> +/* Called with vc.lock held. A timed-out request can still be acknowledged. */
-
-We have context checkers, please use __must_hold() or alike annotations.
-
-> +static int axi_chan_wait_for_suspend(struct axi_dma_chan *chan)
-> +{
-> +	bool suspended;
-> +	int ret;
-> +
-> +	if (chan->is_paused)
-> +		return 0;
-> +
-> +	ret = readx_poll_timeout_atomic(axi_chan_is_suspended, chan, suspended, suspended,
-> +				       2, 40);
-
-Again, fix indentation, reformat and split logically.
-
-	ret = readx_poll_timeout_atomic(axi_chan_is_suspended, chan,
-					suspended, suspended, 2, 40);
-
-(note no leading spaces in the second line, only tabs fit).
-
-> +	if (ret)
-> +		return -EAGAIN;
-> +
-> +	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-> +	chan->is_paused = true;
-> +	return 0;
-> +}
-
-...
-
-> -	do  {
-> -		if (axi_chan_irq_read(chan) & DWAXIDMAC_IRQ_SUSPENDED)
-> -			break;
-> -
-> -		udelay(2);
-> -	} while (--timeout);
-> -
-> -	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-> -
-> -	chan->is_paused = true;
-> -
-> +wait:
-> +	ret = axi_chan_wait_for_suspend(chan);
-
-You may split the conversion to readx_poll_timeout() into a separate patch.
-
-...
-
-> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-> @@ -52,7 +52,9 @@ struct axi_dma_chan {
->  	enum dma_transfer_direction	direction;
->  	bool				cyclic;
->  	/* these other elements are all protected by vc.lock */
-> +	bool				pause_requested;
->  	bool				is_paused;
-> +	bool				cyclic_restart;
-
-Probably making them bitfields will be a good idea to save some memory:
-
-	bool				pause_requested:1;
-	bool				is_paused:1;
-	bool				cyclic_restart:1;
-
->  };
-
-Just run `pahole` before and after (won't probably show you the gain,
-but before might show better position for "cyclic" member, which can
-be amended later).
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
