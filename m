@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273375;
-	b=zlQlUdvsihcS29mPgFTyNAzRQmPuwubpB4mvPPKgAnVKYH5MNxbSP6zRlqX3pNwRAs3d
-	 Ygs/qkHfG6kFLJ//pLlQGYiQUTHuZpCQgemTxwZksgpGeLIJax8vadgCJ8OuD2TyLVZnW
-	 HTEi7xg0hKugtBcr8Jo26tHem6uJkWEBKqWl7nlcwQy8C5BaAwlxVr39zYhl6TSVavep5
-	 7dbtkX6jRXKvWEERUPH2a0wsIFkHgVeT75Fth77NjthNkYb2ebdRksAQgfb9SSrLJJQsC
-	 7sQRkGHseAAiua+mewSlfF8JXR+g6pLMqqh9PtBadZ4lo+2AKn4c5equmOB61CjbjHw==
+	t=1794273379;
+	b=R8LHiVAJF1Ui7Qqt1LyKxpWiZuc0N+n8cvqt5GsdHsXyWMzwwJQDvqpUMih3NhVzT+tF
+	 i+Bdqcqs60LmWIMVbmyMl3h417gkBWnWr+9E+JmJNqsSJ41ijM/u+xvQA/YJqGpNmAAbU
+	 G3tIlcaEh45YoepZe7WMYQ6Eh4E3vc15bZzbSTkOd5b2dhUYKU3rqYlKOsrE24gjOvTrQ
+	 /B0jue83GkdnX2WBwUS3CyFiiMLEISkTree6Qk5psO+dINSBqzleDHNDfdUrEbGCzXxhQ
+	 DikugrCqSO8k/CmN/7tzlhoSeRRzwEUp3bhS2oQSd3WmZmOvhmeBW3iXH1y0M9YRbcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273375;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273379;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PE8c1Zt4CFOT7MElvkmFOqzjkyYjs572LfffgVHGzos=;
-	b=GK9GK2mDxqUQwHUbAN1gw4k+uN3ozOtO37nJBCIkSh5dzMnLo80pX/vCykL/9igs6PkW
-	 eMztFiTLeTleqzvwmiSYsIqGeUEVcCyekOfRLWFXIzEUTi5QyxMSj/Jbv/ZTRn4rzEwGG
-	 zx/fEDFmr9yu5zgW03kK4Pp66YmRKXT1ocz9CUthhQU8yz+bTe4eg9EddJc0tTWp+mmC6
-	 6nIPVk1nd8M/hp7pg4/6+00lu6JUAaqyq34JI/QU9krODTY1QFfWgUufntDV3kRc/cq08
-	 /HVxwidOIFcIScajd7LleVU1AnlZdP7zSgTVsB1JnsR5odoYO30O+gOdtxoXxxzHgIg==
+	bh=YQtyLJ3PBiPQnJAPmxHkGGxDBfO1JHCykN34d2PObuc=;
+	b=EOuiytKUeRfRDK/vee+N8JwjAW6LwZkvZDNgJgALPTc9AtswG/4pTe+jGUPELoCS9tm1
+	 Q8wBP1xpivL9Zs6bz/06glXfkVsqmjYMqHsrdEQSuRYKNxcW+bnO7kg5Mi5RIC0tfB1eY
+	 3U9E4j/Lk4/xVhq2z9yJ1FuYFmy6l7cpaq9ZP4eK21uKfuQmukt21aQu6zw3YsqPkEi2z
+	 zMh5klcQb0kwA01khUQDu+tZlKQujwuENkbdnK2kt82iocdViz3gbsrywjfsik/N5eI+L
+	 /H8228Yn0SI15YEkbXr/+g45axaKZdMx4OVu1Ny+7IqIufScXOh2oaIFmB+Deerq+Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sjd6uVvl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W3jSQLXw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5997F606A336
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129D0606A335
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sjd6uVvl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CAD1F008A1;
-	Tue, 10 Nov 2026 01:16:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W3jSQLXw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23DB11F0089F;
+	Tue, 10 Nov 2026 01:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273375;
-	bh=PE8c1Zt4CFOT7MElvkmFOqzjkyYjs572LfffgVHGzos=;
+	s=k20260515; t=1794273378;
+	bh=YQtyLJ3PBiPQnJAPmxHkGGxDBfO1JHCykN34d2PObuc=;
 	h=From:To:Cc:Subject:Date;
-	b=Sjd6uVvlKqImcKaY4A2ymlzVwNYZwcGiHNYCCVX2GUvxqZRZwRJOewsy1hZaK72c8
-	 kKnWGNOF8fjcgq+gprGrUG3VGMftQZHxVBjCw11n02XOOsvesy3WH+H6UpTtY+e649
-	 6TXPcJ7ID3Z9cfBBMpKbVTQJ5VkK/TNmhoifDOqCWZiiVJ4yAIlupr9AdUJ+7dk4s/
-	 XXOnht1A/sFoRZxxSanUejgaOvHy9y3mPDt3NkpI65yz1RTZd7zO3EWp1QcjksFoxL
-	 aO8MDUAdmxZyAtFNh+vpM6JUJUaBKKqXYn0msgKlvzK4O/2nySBpf5bnagY3FnADyC
-	 L5RI+L4Dw7e9Q==
+	b=W3jSQLXwoHICdbVwxY5bDHWL3N3LsnxRcDINgisw3Kig69KsXeXjtjEVM3S6uv0Pw
+	 KoxWc0IOQHo+f5CtI+btP+2VABDrhvVQdaKyfwVFptqtQexMiIFlwbjoNAhTrPOVMm
+	 ZWrL+foIl+gERj8exWxSX819nXx5gpMPPqp89b6jTgxLycx5Ieke6WUvtUOZT0aFsP
+	 Ijrlk6g/OckoY/Qp1Hn4burUqMvNlluv4ujNj88ccsHHW+JcLIAxILA3Gjy2S7i4CD
+	 h2WoRxRikOo5k2RqSkpr083Sqx2oQDU23AQ+0pIQYQvvhUxs5lDqFKbg8akC3LP4t1
+	 rujGySi58bU6Q==
 From: Sasha Levin <sashal@kernel.org>
-To: yaojiale02@163.com,
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
 	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (aquacomputer_d5next) reject short status reports" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:16:13 -0500
-Message-ID: <20261109201613-failed-6.1-cf8f81babd2e@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (sht15) Stop deferred work before releasing its resources" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:16:15 -0500
+Message-ID: <20261109201615-failed-6.1-5eab1e7f7ed1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,229 +69,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x cf8f81babd2e96087dedbb74985bc1781c98f73d
+git cherry-pick -x 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201613-failed-6.1-cf8f81babd2e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201615-failed-6.1-5eab1e7f7ed1@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cf8f81babd2e96087dedbb74985bc1781c98f73d Mon Sep 17 00:00:00 2001
-From: Jiale Yao <yaojiale02@163.com>
-Date: Wed, 21 Oct 2026 20:04:07 +0800
-Subject: [PATCH] hwmon: (aquacomputer_d5next) reject short status reports
+From 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Fri, 23 Oct 2026 21:40:44 -0400
+Subject: [PATCH] hwmon: (sht15) Stop deferred work before releasing its
+ resources
 
-The HID raw_event callback runs before HID core validates the received
-report length. aqc_raw_event() reads device-specific status fields at fixed
-offsets, including multi-byte values, without first ensuring that the
-received buffer contains every field. A truncated report can therefore
-cause out-of-bounds reads and update hwmon state with unrelated data.
+The IRQ handler and regulator notifier can leave work pending after a
+measurement or notification completes. Neither work item is drained before
+its resources are released on removal or probe failure.
 
-The required length differs between supported devices and cannot be
-derived from the HID report descriptor. Define the minimum length needed
-by each asynchronous status format, select it while configuring the
-device, and reject reports that do not contain the last field accessed by
-that format. Keep the published length zero until probe configuration is
-complete, which also excludes legacy devices whose status is retrieved
-through feature reports.
+Disable read_work before freeing the IRQ, since the worker can re-enable
+it. Use request_irq()/free_irq() for explicit teardown. Unregister the
+regulator notifier before cancelling update_supply_work and disabling the
+regulator. Apply the same ordering to probe failures.
 
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
-Fixes: 19692f17cd13 ("hwmon: (aquacomputer_d5next) Add support for Aquacomputer Aquastream XT")
+Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Link: https://patch.msgid.link/20261021120408.48495-1-yaojiale02@163.com
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
+[groeck: Dropped obsolete 'Assisted-by: tag]
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/aquacomputer_d5next.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/hwmon/sht15.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
-index 1ca70e7262988..341cce4347e24 100644
---- a/drivers/hwmon/aquacomputer_d5next.c
-+++ b/drivers/hwmon/aquacomputer_d5next.c
-@@ -132,6 +132,7 @@ static u8 aquaero_secondary_ctrl_report[] = {
- #define AQUAERO_FAN_CURRENT_OFFSET		0x06
- #define AQUAERO_FAN_POWER_OFFSET		0x08
- #define AQUAERO_FAN_SPEED_OFFSET		0x00
-+#define AQUAERO_MIN_STATUS_REPORT_SIZE		(0x18B + AQUAERO_FAN_POWER_OFFSET + sizeof(u16))
- static u16 aquaero_sensor_fan_offsets[] = { 0x167, 0x173, 0x17f, 0x18B };
+diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
+index 7bb2105d1ae22..48d93c61345c1 100644
+--- a/drivers/hwmon/sht15.c
++++ b/drivers/hwmon/sht15.c
+@@ -31,6 +31,7 @@
+ #include <linux/bitrev.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/of.h>
++#include <linux/workqueue.h>
  
- /* Control report offsets for the Aquaero fan controllers */
-@@ -155,6 +156,8 @@ static u16 aquaero_ctrl_fan_offsets[] = { 0x20c, 0x220, 0x234, 0x248 };
- #define D5NEXT_5V_VOLTAGE		0x39
- #define D5NEXT_12V_VOLTAGE		0x37
- #define D5NEXT_VIRTUAL_SENSORS_START	0x3f
-+#define D5NEXT_MIN_STATUS_REPORT_SIZE	(D5NEXT_PUMP_OFFSET + AQC_FAN_SPEED_OFFSET + \
-+					 sizeof(u16))
- static u16 d5next_sensor_fan_offsets[] = { D5NEXT_PUMP_OFFSET, D5NEXT_FAN_OFFSET };
- 
- /* Control report offsets for the D5 Next pump */
-@@ -179,11 +182,14 @@ static u16 d5next_ctrl_fan_offsets[] = { 0x97, 0x42 };	/* Pump and fan speed (fr
- #define AQUASTREAMULT_FAN_CURRENT_OFFSET	0x00
- #define AQUASTREAMULT_FAN_POWER_OFFSET		0x04
- #define AQUASTREAMULT_FAN_SPEED_OFFSET		0x06
-+#define AQUASTREAMULT_MIN_STATUS_REPORT_SIZE	(AQUASTREAMULT_PRESSURE_OFFSET + sizeof(u16))
- static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
- 
- /* Spec and sensor report offset for the Farbwerk RGB controller */
- #define FARBWERK_NUM_SENSORS		4
- #define FARBWERK_SENSOR_START		0x2f
-+#define FARBWERK_MIN_STATUS_REPORT_SIZE	(FARBWERK_SENSOR_START + \
-+					 FARBWERK_NUM_SENSORS * AQC_SENSOR_SIZE)
- 
- /* Specs of the Farbwerk 360 RGB controller */
- #define FARBWERK360_NUM_SENSORS			4
-@@ -193,6 +199,8 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
- /* Sensor report offsets for the Farbwerk 360 */
- #define FARBWERK360_SENSOR_START		0x32
- #define FARBWERK360_VIRTUAL_SENSORS_START	0x3a
-+#define FARBWERK360_MIN_STATUS_REPORT_SIZE	(FARBWERK360_VIRTUAL_SENSORS_START + \
-+					 FARBWERK360_NUM_VIRTUAL_SENSORS * AQC_SENSOR_SIZE)
- 
- /* Control report offsets for the Farbwerk 360 */
- #define FARBWERK360_TEMP_CTRL_OFFSET		0x8
-@@ -209,6 +217,7 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
- #define OCTO_SENSOR_START		0x3D
- #define OCTO_VIRTUAL_SENSORS_START	0x45
- #define OCTO_FLOW_SENSOR_OFFSET		0x7B
-+#define OCTO_MIN_STATUS_REPORT_SIZE	(0xD8 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
- static u16 octo_sensor_fan_offsets[] = { 0x7D, 0x8A, 0x97, 0xA4, 0xB1, 0xBE, 0xCB, 0xD8 };
- 
- /* Control report offsets for the Octo */
-@@ -229,6 +238,7 @@ static u16 octo_ctrl_fan_offsets[] = { 0x5B, 0xB0, 0x105, 0x15A, 0x1AF, 0x204, 0
- #define QUADRO_SENSOR_START		0x34
- #define QUADRO_VIRTUAL_SENSORS_START	0x3c
- #define QUADRO_FLOW_SENSOR_OFFSET	0x6e
-+#define QUADRO_MIN_STATUS_REPORT_SIZE	(0x97 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
- static u16 quadro_sensor_fan_offsets[] = { 0x70, 0x7D, 0x8A, 0x97 };
- 
- /* Control report offsets for the Quadro */
-@@ -248,6 +258,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
- #define HIGHFLOWNEXT_CONDUCTIVITY	95
- #define HIGHFLOWNEXT_5V_VOLTAGE		97
- #define HIGHFLOWNEXT_5V_VOLTAGE_USB	99
-+#define HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE	(HIGHFLOWNEXT_5V_VOLTAGE_USB + sizeof(u16))
- 
- /* Specs of the Leakshield */
- #define LEAKSHIELD_NUM_SENSORS		2
-@@ -263,6 +274,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
- #define LEAKSHIELD_FLOW_IN		111
- #define LEAKSHIELD_RESERVOIR_VOLUME	313
- #define LEAKSHIELD_RESERVOIR_FILLED	311
-+#define LEAKSHIELD_MIN_STATUS_REPORT_SIZE	(LEAKSHIELD_RESERVOIR_VOLUME + sizeof(u16))
- 
- /* Specs of the Aquastream XT pump */
- #define AQUASTREAMXT_SERIAL_START		0x3a
-@@ -554,6 +566,7 @@ struct aqc_data {
- 	const char *name;
- 
- 	int status_report_id;	/* Used for legacy devices, report is stored in buffer */
-+	u16 min_report_size;
- 	int ctrl_report_id;
- 	int secondary_ctrl_report_id;
- 	int secondary_ctrl_report_size;
-@@ -1333,6 +1346,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 		return 0;
- 
- 	priv = hid_get_drvdata(hdev);
-+	if (!priv->min_report_size || size < priv->min_report_size)
-+		return 0;
- 
- 	/* Info provided with every report */
- 	priv->serial_number[0] = get_unaligned_be16(data + priv->serial_number_start_offset);
-@@ -1518,6 +1533,7 @@ static void aqc_debugfs_init(struct aqc_data *priv)
- static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- {
- 	struct aqc_data *priv;
-+	u16 min_report_size = 0;
- 	int ret;
- 
- 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
-@@ -1585,6 +1601,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_fan_power;
- 		priv->voltage_label = label_fan_voltage;
- 		priv->current_label = label_fan_current;
-+		min_report_size = AQUAERO_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_D5NEXT:
- 		priv->kind = d5next;
-@@ -1610,6 +1627,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_d5next_power;
- 		priv->voltage_label = label_d5next_voltages;
- 		priv->current_label = label_d5next_current;
-+		min_report_size = D5NEXT_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_FARBWERK:
- 		priv->kind = farbwerk;
-@@ -1620,6 +1638,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->temp_sensor_start_offset = FARBWERK_SENSOR_START;
- 
- 		priv->temp_label = label_temp_sensors;
-+		min_report_size = FARBWERK_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_FARBWERK360:
- 		priv->kind = farbwerk360;
-@@ -1636,6 +1655,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 		priv->temp_label = label_temp_sensors;
- 		priv->virtual_temp_label = label_virtual_temp_sensors;
-+		min_report_size = FARBWERK360_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_OCTO:
- 		priv->kind = octo;
-@@ -1665,6 +1685,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_fan_power;
- 		priv->voltage_label = label_fan_voltage;
- 		priv->current_label = label_fan_current;
-+		min_report_size = OCTO_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_QUADRO:
- 		priv->kind = quadro;
-@@ -1694,6 +1715,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_fan_power;
- 		priv->voltage_label = label_fan_voltage;
- 		priv->current_label = label_fan_current;
-+		min_report_size = QUADRO_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_HIGHFLOWNEXT:
- 		priv->kind = highflownext;
-@@ -1711,6 +1733,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->speed_label = label_highflownext_fan_speed;
- 		priv->power_label = label_highflownext_power;
- 		priv->voltage_label = label_highflownext_voltage;
-+		min_report_size = HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_LEAKSHIELD:
- 		/*
-@@ -1730,6 +1753,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 		priv->temp_label = label_leakshield_temp_sensors;
- 		priv->speed_label = label_leakshield_fan_speed;
-+		min_report_size = LEAKSHIELD_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_AQUASTREAMXT:
- 		priv->kind = aquastreamxt;
-@@ -1760,6 +1784,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_aquastreamult_power;
- 		priv->voltage_label = label_aquastreamult_voltages;
- 		priv->current_label = label_aquastreamult_current;
-+		min_report_size = AQUASTREAMULT_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_POWERADJUST3:
- 		priv->kind = poweradjust3;
-@@ -1833,6 +1858,8 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		break;
+ /* Commands */
+ #define SHT15_MEASURE_TEMP		0x03
+@@ -976,25 +977,22 @@ static int sht15_probe(struct platform_device *pdev)
+ 		goto err_release_reg;
  	}
  
-+	priv->min_report_size = min_report_size;
+-	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
+-			       sht15_interrupt_fired,
+-			       IRQF_TRIGGER_FALLING,
+-			       "sht15 data",
+-			       data);
++	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
++			  IRQF_TRIGGER_FALLING, "sht15 data", data);
+ 	if (ret)
+ 		goto err_release_reg;
+ 	disable_irq_nosync(gpiod_to_irq(data->data));
+ 	ret = sht15_connection_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_free_irq;
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_free_irq;
+ 
+ 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "sysfs create failed\n");
+-		goto err_release_reg;
++		goto err_free_irq;
+ 	}
+ 
+ 	data->hwmon_dev = hwmon_device_register(data->dev);
+@@ -1007,9 +1005,13 @@ static int sht15_probe(struct platform_device *pdev)
+ 
+ err_release_sysfs_group:
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
++err_free_irq:
++	disable_work_sync(&data->read_work);
++	free_irq(gpiod_to_irq(data->data), data);
+ err_release_reg:
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ 	return ret;
+@@ -1023,12 +1025,16 @@ static void sht15_remove(struct platform_device *pdev)
+ 	hwmon_device_unregister(data->hwmon_dev);
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
+ 
++	disable_work_sync(&data->read_work);
++	free_irq(gpiod_to_irq(data->data), data);
 +
- 	if (priv->buffer_size != 0) {
- 		priv->checksum_start = 0x01;
- 		priv->checksum_length = priv->buffer_size - 3;
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
+ 
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ }
 -- 
 2.53.0
 
