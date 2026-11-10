@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794283752;
-	b=dh1PaoFqXkkHRFG4kVIEG/jM+GERL6H7DY/7UoeZhaYV8nCDWw3j4kphIYq2/tGS9Urp
-	 Ceq4zKptfbXqIVbJKK8E9X1upRxt+AyQpx0tZeTTD71EhWHr7AoxTu/cZgB9aWSlFIKl8
-	 UmYSJpjxBTUXaAn7hEucbMsyP+EjvsnUmEigB97tNhVC+AbUgVP2sOg1HrZv6iyyor/Uw
-	 dHpdS9rRSHzN9dEqjZEID3acgRC+/GsXTa2nwq8SiJgJkmt2AYoe1nmlj7x3SA0yG01K7
-	 vPCOqkdCxAjau5KUKnkerm4y8yNFyE8o2LKKjlJbCNe5r9JHAJvcEC2pUpnH3o8rLrA==
+	t=1794283820;
+	b=Pb+90vxXXuRurGBodX0fkaqwdTzQOEW0Fwi/LBrFEZ6sLZrsS/WE4QwlnV3EJWYFP9X8
+	 h66/g6Q6hnafBaHQYuLJZyZQCEt8/hwSpToowwEyZqbVRijinIcHQulrMasNm/T6h8iMg
+	 lsDRStwE6FzobqsHNRwQMd5S1O7hthHxIAvup1U/N2SMNCiZB5+VZ6h9zolwdj5A93HDI
+	 6Vv2Eg4s4Ku2nutWZC94pt/EJ7wVaEwnyElR5L43WFSjI/Y0HrKrRVK20b1VKd4kH0Spv
+	 ji/6p34PIQTt8ePSOLeQVd91+AQNR/38qOobV50m1CEykYHckpCMlJcELdmUoVm//ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283820;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uIg9BmWQAnrz47gSq3Vz9mkjB1byyfzr0QI4srhIF7I=;
-	b=5WL9LrjQUPgez9/z+vnOAqav5PSxzN9U39YNiz6It8lzjAjoh4K+AAja4t7EDy9/54Xi
-	 9bXwxKL3Yc9qOuH2AtUUAgyMm0elleSlEAssQU6DInw6juVghqhcpUwZ0I3Q+10I2N744
-	 msMXmBoPJuNE7Jer6KMQR4pzK9D8qDm4QxEIPFQocjK1pTojWTCWhc1Df5HDZ3gfI9QKp
-	 ahHill1GhBQFxsdKQazMO4x8bPT15sVc8SpaYaCbR5hbP9g18QNJZB/2ECX5pQV0ppdyb
-	 r9pMS2M6rFuTasS/1eOQZw37cevN1h63MJC6oLfhY/RZrWyr5F7bBYG7yq1yFSlhyWA==
+	bh=Qn25Dw8i8n3ICbelYvOJYiedvZKnS5YUhUoqH1/KllQ=;
+	b=smUXEXMPuqOtzXI0kaUEhGrJTbWjucmYbxOpEFkmEbbkV8OlDTCfIIuK8CFO2R7IEF9C
+	 yZNifwF59eDZLJYDu1ndvri8Hu5pLA7+RZpFMJSL3MVjcLHWPSXUdGWOm/cHZqI8yvi2k
+	 fBDbRIGcvl2mlJsJr/2YLRV58Z7JoLOTfwqzseO/Z/EQtmN+vhktJKeqq3h3IOq1dRbZy
+	 ZLPhQiwYApAdXeLFqtgW/0Kw1JRTMofEqmA4nQLG5eCM8stYVmoWcycpmXaVxwa66KrJJ
+	 OI2yk2wW33mS/ocIHOikpYS6pJ57SI4mEj17JbUWKl0kdW/ozXjgjFBaVj/GRABA9ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSJR6otF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YbNCkRQK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76BA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:09:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118B8606CF03
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:10:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSJR6otF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74201F008A2;
-	Tue, 10 Nov 2026 04:09:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YbNCkRQK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B731F00907;
+	Tue, 10 Nov 2026 04:10:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794283751;
-	bh=uIg9BmWQAnrz47gSq3Vz9mkjB1byyfzr0QI4srhIF7I=;
+	s=k20260515; t=1794283819;
+	bh=Qn25Dw8i8n3ICbelYvOJYiedvZKnS5YUhUoqH1/KllQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BSJR6otFdOdNsoCy16XA46Us+EKybG694Xq8x2wkdMa8Az+s4E2TrveqEBhAgboOD
-	 jO65TrDP4VBavgTUdj55GYYWnFJ6czu3kiBRpDa0t2kUsGQ/cDmn1u7Vr8qkIDfw3Q
-	 ph8WjZVq7E5zSAjOU0eaF+b8V3rtc/kEH/xcFDAqWHEUxzXWFzYxEmCWYuu8uBgM49
-	 DWfs1VmhzGNWtpLWCDlS98jzaso95Wak3OSLdq8tL6wlEIYyvsXFk5aKXamqp/SMcD
-	 8c1uqqsHz6wXobRtYstdjlMp5VrNkwQoZJD2f2nM4/3tdXc90syOqm65R9oXOX48Do
-	 TihUJwUCZsMmQ==
+	b=YbNCkRQKTzGwIoASWFHXhY5Lj0eKyM8QsBCPHBTMOMCNSACElOkqPTBwfKNJpJ6D5
+	 /PcvJYoW4II1pX1JMXIxxJwAtZjaaic+3Mwj2f839pZGitMHqjSYTD9XFt2XSo8jcq
+	 8y5yYlZCkSqJ8EVlvDqkHjNolMjv4I+GqhkVXyRRtPRp7QJiwsZRHT/J3bWCLom70g
+	 wvhOwPDxNPpulNqmnw0NhIiHOG6vZ+oGT2DVvhIJ3KtAdVPFYA00xKo2bvhkP9fH7G
+	 r+1i65xy2gHomEyyCZHNI90Y/bi5FjPEKPRktKtDjF3oGwjwNc3WTUxo9sLGK1zHyM
+	 ZJiCX9zgmdp2A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stanislaw Gruszka <stf_xl@wp.pl>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Esben Haabendal <esben@geanix.com>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] wifi: mac80211: queue frames while off-channel
-Date: Mon,  9 Nov 2026 23:09:09 -0500
-Message-ID: <20261110040852.320508-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] iio: light: ltr501: Power down chip if request irq fails
+Date: Mon,  9 Nov 2026 23:10:17 -0500
+Message-ID: <20261110041005.4067822-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061449-failed-5.10-13e51269b665@kernel.org>
-References: <20261107061449-failed-5.10-13e51269b665@kernel.org>
+In-Reply-To: <20261107061415-failed-5.10-8a9bcd587d7d@kernel.org>
+References: <20261107061415-failed-5.10-8a9bcd587d7d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,144 +63,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanislaw Gruszka <stf_xl@wp.pl>
+From: Esben Haabendal <esben@geanix.com>
 
-[ Upstream commit 13e51269b6656768dc595ed6025e4974f2026543 ]
+[ Upstream commit 8a9bcd587d7d768e6c8e9fff88bb89645e412731 ]
 
-Drivers without FAST_XMIT and hardware scan support currently drop TX
-frames during software scanning while being off-channel. This happens
-in ieee80211_tx_h_check_assoc() before frames reach internal TX queue.
+In case devm_request_threaded_irq() failed, we were leaving the chip
+powered instead of powering it down again. Power down the chip switching
+ALS and PS modes to standby.
 
-Move the off-channel check to invoke_tx_handlers_late(), after
-ieee80211_queue_skb(). Frames can then remain queued and be transmitted
-when the interface returns on-channel. This how TX works currently when
-code goes via ieee80211_xmit_fast() path.
-
-Below is rt2x00 driver ping output example while scanning, before and
-after the fix. After the fix, packets are no longer lost. Some have
-increased latency, what is expected behavior.
-
-BEFORE:
-64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.61 ms
-64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=3.33 ms # Missed 30
-64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.03 ms
-64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=3.10 ms # Missed 33
-64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=3.04 ms # Missed 35
-64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.05 ms # Missed 37
-64 bytes from 192.168.0.1: icmp_seq=40 ttl=64 time=4.14 ms # Missed 39
-64 bytes from 192.168.0.1: icmp_seq=41 ttl=64 time=4.50 ms
-
-AFTER:
-64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.40 ms
-64 bytes from 192.168.0.1: icmp_seq=30 ttl=64 time=6.10 ms
-64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=4.69 ms
-64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.49 ms
-64 bytes from 192.168.0.1: icmp_seq=33 ttl=64 time=148 ms
-64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=6.83 ms
-64 bytes from 192.168.0.1: icmp_seq=35 ttl=64 time=8.66 ms
-64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=13.0 ms
-64 bytes from 192.168.0.1: icmp_seq=37 ttl=64 time=4.78 ms
-64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.85 ms
-
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
-Link: https://patch.msgid.link/20260908124651.2995-1-stf_xl@wp.pl
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: retained the existing out_free cleanup path in ieee80211_8023_xmit() ]
+Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
+Cc: stable@vger.kernel.org
+Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: adjusted context for existing dev_err() logging in the IRQ failure path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mac80211/tx.c | 50 ++++++++++++++++++++++++++---------------------
- 1 file changed, 28 insertions(+), 22 deletions(-)
+ drivers/iio/light/ltr501.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index 73b79a9611011..6c9df5e2a0d64 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -291,7 +291,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
- static ieee80211_tx_result debug_noinline
- ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
- {
--
- 	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
- 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
- 	bool assoc = false;
-@@ -299,23 +298,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
- 	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
- 		return TX_CONTINUE;
- 
--	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
--	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
--	    !ieee80211_is_probe_req(hdr->frame_control) &&
--	    !ieee80211_is_any_nullfunc(hdr->frame_control))
--		/*
--		 * When software scanning only nullfunc frames (to notify
--		 * the sleep state to the AP) and probe requests (for the
--		 * active scan) are allowed, all other frames should not be
--		 * sent and we should not get here, but if we do
--		 * nonetheless, drop them to avoid sending them
--		 * off-channel. See the link below and
--		 * ieee80211_start_scan() for more.
--		 *
--		 * http://article.gmane.org/gmane.linux.kernel.wireless.general/30089
--		 */
--		return TX_DROP;
--
- 	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
- 		return TX_CONTINUE;
- 
-@@ -801,6 +783,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
- 	return TX_CONTINUE;
- }
- 
-+static ieee80211_tx_result debug_noinline
-+ieee80211_tx_h_check_offchannel(struct ieee80211_tx_data *tx)
-+{
-+	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
-+	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
-+
-+	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
-+		return TX_CONTINUE;
-+
-+	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
-+	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
-+	    !ieee80211_is_probe_req(hdr->frame_control) &&
-+	    !ieee80211_is_any_nullfunc(hdr->frame_control)) {
-+		/*
-+		 * When software scanning only nullfunc frames (to notify
-+		 * the sleep state to the AP) and probe requests (for the
-+		 * active scan) are allowed, all other frames should not be
-+		 * sent and we should not get here, but if we do
-+		 * nonetheless, drop them to avoid sending them
-+		 * off-channel. See __ieee80211_start_scan() for more.
-+		 */
-+		return TX_DROP;
-+	}
-+
-+	return TX_CONTINUE;
-+}
-+
- static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
- {
- 	u16 *seq = &sta->tid_seq[tid];
-@@ -1825,6 +1834,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
- 		goto txh_done;
- 	}
- 
-+	CALL_TXH(ieee80211_tx_h_check_offchannel);
- 	CALL_TXH(ieee80211_tx_h_michael_mic_add);
- 	CALL_TXH(ieee80211_tx_h_sequence);
- 	CALL_TXH(ieee80211_tx_h_fragment);
-@@ -4282,10 +4292,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- 		skb_get_hash(skb);
- 	}
- 
--	if (unlikely(test_bit(SCAN_SW_SCANNING, &local->scanning)) &&
--	    test_bit(SDATA_STATE_OFFCHANNEL, &sdata->state))
--		goto out_free;
--
- 	memset(info, 0, sizeof(*info));
- 
- 	tid = skb->priority & IEEE80211_QOS_CTL_TAG1D_MASK;
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 379236a806fac..77cb094d5753c 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -1510,7 +1510,7 @@ static int ltr501_probe(struct i2c_client *client,
+ 		if (ret) {
+ 			dev_err(&client->dev, "request irq (%d) failed\n",
+ 				client->irq);
+-			return ret;
++			goto powerdown_on_error;
+ 		}
+ 	} else {
+ 		indio_dev->info = data->chip_info->info_no_irq;
 -- 
 2.53.0
 
