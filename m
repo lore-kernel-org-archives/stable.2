@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293144;
-	b=j4QFmYTLg8q+02b+nxGJUrjNbypzDcCZwIEJUYiuGuur0nEpfscGcSszHhCicd4iJ7aH
-	 zXGgtGtupI6t6Kgka9Zfa6TbBZryYcHbPwfgMgldJaZi+FVEgmCb+Tn1xgFuXEy/Z2BRf
-	 y8PQYMVNYqf9gdGaicazO/nvlXWcqtS4wi7WQ3zEnyzFgX92RfjVOzC0z1A3LhQLNxOVZ
-	 BlcjhjQELeROSmrm4jnU+xXr9Sj3hnzKvKSdaffpcIbAj8e9ECCm2EloTnB0CL2uzcEDz
-	 VITvJeLfNq7wCtjcIc6uxJ23bi9DSuSAqj9APRfwsfTsJx+R/TvffOp0kx3R6PegYAA==
+	t=1794293137;
+	b=MvhACkdGRA1VLZvYAUjdA4fpcRSjYDdf/KdlV/GoMgFA8lM0B3rJ+yf5LRnv0x3MifNU
+	 1iOHCI30vdy485gWgLJj8eh+cUi1cTc2bz19oZrA/T89TZPii8om0qPH/xSH/abg1JGBk
+	 Z5Iod70wEBDch/KUQ6Z+z+2imE0AAOjAuTjaZujL+ZcQaJ39Ek6uOG8TYKxgsBl7wlSXM
+	 CfINSvQ63d9HwlyVIsy87a+ATtnIP/wbl1/9eldEyr+rIH3to4MYSPNUiYUuEAqKkemWr
+	 lhMWgxObhbYK4elBzDIcnzVwZh7+AEvFZNck4vproKquhpucLsw53etaxCmRTjpG1kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293137;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=FukdQzOEUB4Tgss4rcL2RLCVGboee34cgVLQmwK8Dqg=;
-	b=DjgpXwYy84wsZiNsGEuOccH2wvnD+QBnyn0Z1vFSbcqXFQCD+7/++jGlIu6BVEdeNrFV
-	 4nf9lxe9qBYD/v4aWxAEnryi8m7T+oBx7sRdvLcs9qutS7NWWlGeH00k9KW/toz5wUVeO
-	 G3yRiNlH9t6e43ZqVLMyrpfkJs+KJk/OJOEhjULwMGT4FsYQ6evnl3wuRK8tGEbfFU8i3
-	 WmUWMH9pw4pV195PTuIunacVUtq2/TWzLsh3eKtX2WKJtffBAYcxAaxt8BVtELQ2jcX4+
-	 2COWHKEi/Rpz451EWv+iMw0qGR8kWnHlRRKb9gKO0apRxPCP4yYpo5BbphiZbRUJ5Uw==
+	bh=rcB4w2OeFL9QwrJnpScwYDFe02N+HdX+VjYuzdDMku8=;
+	b=bpqgB8b3BozmpKkGjM+iYC6XSFAI84eilQyovfgsHc3qyNoZWsmYUYXnzBYwHH+vy541
+	 Qn6B/ouyCO+8oRodiEpiHiPB4sUYXMBD6ueEpdt1EAtBvjkMzgpHu5uOWZAZ6ML7F5Rwx
+	 4bbliLefOED4jIGcZMAIr4GOzG02T7HPMdS+s6dsa6+GqI+3Diunt7vfKjzXKEYidXo0L
+	 vpP+nxaYIoSF0NHbdIC9EzpyNnbHaw+E0kCCK5OfsQzCDR6uQnWxyMWIaIC0qnI1PAJn8
+	 5Amv7sdWu7X/J+EGxNF8cqK74fQQRPj9+uh+fwU8N1Ei0O1T0Bl5eNd9e1PV4B60jig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nhgY9lhg;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zXYyEGXW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9430606CB30;
-	Tue, 10 Nov 2026 06:45:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355C46070341;
+	Tue, 10 Nov 2026 06:45:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nhgY9lhg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735511F0089F;
-	Tue, 10 Nov 2026 06:45:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zXYyEGXW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43AD1F0089F;
+	Tue, 10 Nov 2026 06:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293143;
-	bh=FukdQzOEUB4Tgss4rcL2RLCVGboee34cgVLQmwK8Dqg=;
+	d=linux-foundation.org; s=korg; t=1794293137;
+	bh=rcB4w2OeFL9QwrJnpScwYDFe02N+HdX+VjYuzdDMku8=;
 	h=Date:To:From:Subject;
-	b=nhgY9lhgOyc8KY5vzsz9TS6yhPIor092xHs1lMnuTSKbxz3JTpqfNaDqWS0ZdduAa
-	 T3me8hqOP9aUrTNz2nVRV5Xib23osGAyIzSfPj1m9RTFoPieJmHvqLkPiQQwXBKc+k
-	 ePEFOmQ7T+PpJtAnPiUxIPEEUKZXcZi9oFgJYrL4=
-Date: Mon, 09 Nov 2026 22:45:43 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mason@kernel.org,
-	ljs@kernel.org,andrewjballance@gmail.com,aliceryhl@google.com,
-	liam@infradead.org,akpm@linux-foundation.org
+	b=zXYyEGXW/b/v+uERu7FGqetHmeqbvZjbeJn0h4U8sc87VpYtRmhOWngrlK11xiWrO
+	 5qePesp6hr9ZlYG6UfylGJEkAXOYzV8xPbXy1S4gBZuHCBYYPBOVgFUVTUSg09ceAM
+	 fa4KMW2z97oc7OzbCw6rsxvHeaHIL3gb5J15TUOg=
+Date: Mon, 09 Nov 2026 22:45:36 -0800
+To: mm-commits@vger.kernel.org,xiaoleiwangxiaolei@gmail.com,
+	stable@vger.kernel.org,shuah@kernel.org,jm5905938@gmail.com,sj@kernel.org,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch removed from -mm tree
-Message-Id: <20261110064543.735511F0089F@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch removed from -mm tree
+Message-Id: <20261110064536.E43AD1F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,273 +53,71 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: maple_tree: fix rcu reader NULL dereference after the tree is emptied
+     Subject: selftests/damon/sysfs_memcg_path_leak: define ksft_skip
 has been removed from the -mm tree.  Its filename was
-     maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch
+     selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Liam R. Howlett (Google)" <liam@infradead.org>
-Subject: maple_tree: fix rcu reader NULL dereference after the tree is emptied
-Date: Mon, 02 Nov 2026 21:07:22 -0500
+From: SJ Park <sj@kernel.org>
+Subject: selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+Date: Mon, 02 Nov 2026 06:46:26 -0800
 
-Patch series "maple_tree fixes for 7.3", v2.
+sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
+result, the test is marked as passed while it was skipped, like below.
 
-Two bugs found by an LLM review, and one problem Lorenzo Stoakes
-reported off list.
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    0
 
-An RCU reader that restarts after its node dies can dereference NULL if
-the tree was emptied, or holds a single entry in the root pointer.
-Patch 1 fixes it and patch 2 adds a test.
+Users who run the test could therefore wrongly believe the test was run
+and passed while it was skipped.
 
-With CONFIG_DEBUG_MAPLE_TREE, MT_WARN_ON() and the other WARN macros
-print the tree and call dump_stack() rather than WARN(), so syzbot never
-sees them.  Patch 3 makes them WARN once per call site, after the dump,
-and makes the BUG macros BUG() after theirs.  The userspace tests make
-WARN() fatal to keep failing as they did on dump_stack().
+Define the value at the beginning of the test.  After this patch, the
+exit code reflects the skip.
 
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    4
 
-This patch (of 3):
-
-RCU readers may hit a NULL dereference if the tree is emptied while the
-walker is restarted from a dead node.  Avoid the NULL dereference by
-checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
-set the maple state limits correctly.
-
-A reader of /proc/<pid>/maps racing with an munmap() of the whole
-address space can hit this.  The first implementation has the same
-problem in both directions.
-
-Initial fix was generated by LLM and sent by Chris Mason in private.
-
-[akpm@linux-foundation.org: fix reverse iterator state when the root disappears]
-  Link: https://lore.kernel.org/20261104104137.2058705ac29734a7ab5666c1@linux-foundation.org
-Link: https://lore.kernel.org/20261103020724.2614498-1-liam@infradead.org
-Link: https://lore.kernel.org/20261103020724.2614498-2-liam@infradead.org
-Fixes: 54a611b60590 ("Maple Tree: add new data structure")
-Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+Link: https://lore.kernel.org/20261102144627.88843-4-sj@kernel.org
+Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>
-Cc: Andrew Ballance <andrewjballance@gmail.com>
-Cc: <stable@vger.kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Cc: <stable@vger.kernel.org> # 6.17.x
 ---
 
- lib/maple_tree.c |  120 ++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 93 insertions(+), 27 deletions(-)
+ tools/testing/selftests/damon/sysfs_memcg_path_leak.sh |    3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/lib/maple_tree.c~maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied
-+++ a/lib/maple_tree.c
-@@ -3891,14 +3891,64 @@ retry:
- 		goto retry;
- }
+--- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh~selftests-damon-sysfs_memcg_path_leak-define-ksft_skip
++++ a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
+@@ -1,6 +1,9 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
  
--static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
--		struct maple_node *node, const unsigned long index)
-+/*
-+ * mas_next_no_node() - Finish a next walk that restarted into a tree without
-+ * nodes.
-+ * @mas: The inactive maple state (ma_none or ma_root)
-+ *
-+ * The arrival here is either because there is a root value or nothing.  Either
-+ * way, the next entry is nothing.  So set the limits and overwrite the status.
-+ *
-+ * Return: NULL
-+ */
-+static inline void *mas_next_no_node(struct ma_state *mas)
- {
--	if (unlikely(ma_dead_node(node))) {
--		mas_rewalk(mas, index);
--		return true;
-+	if (mas_is_ptr(mas))
-+		mas->index = 1;
-+	else
-+		mas->index = 0;
++# Kselftest framework requirement - SKIP code is 4.
++ksft_skip=4
 +
-+	mas->last = ULONG_MAX;
-+	mas->status = ma_none;
-+	return NULL;
-+}
-+
-+/*
-+ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
-+ * nodes.
-+ * @mas: The inactive maple state (ma_none or ma_root)
-+ * @index: The start of the range the walk left
-+ * @min: The lowest index to return
-+ *
-+ * The arrival here is either because there is a root value or nothing.  With
-+ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
-+ * sits at 0: stop on it as mas_prev_setup() does, unless the walk was at 0.
-+ *
-+ * Return: The root entry if @index and @min allow it, NULL otherwise.  A node
-+ * if the root changed again since the walk; the caller restarts.
-+ */
-+static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long index,
-+		unsigned long min)
-+{
-+	void *entry;
-+
-+	mas->index = 0;
-+	if (mas_is_none(mas)) {
-+		mas->last = ULONG_MAX;
-+		return NULL;
- 	}
--	return false;
-+
-+	mas->last = 0;
-+	if (!index || min)
-+		return NULL;
-+
-+	entry = mas_root(mas);
-+	if (!entry) {
-+		mas->status = ma_none;
-+		mas->last = ULONG_MAX;
-+	}
-+
-+	return entry;
- }
- 
- /*
-@@ -4006,14 +4056,14 @@ retry:
- 	node = mas_mn(mas);
- 	type = mte_node_type(mas->node);
- 	pivots = ma_pivots(node, type);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (mas->min <= min) {
- 		pivot = mas_safe_min(mas, pivots, mas->offset);
- 
--		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--			goto retry;
-+		if (unlikely(ma_dead_node(node)))
-+			goto dead;
- 
- 		if (pivot <= min)
- 			goto underflow;
-@@ -4028,10 +4078,8 @@ again:
- 		if (mas->index <= min)
- 			goto underflow;
- 
--		if (mas_prev_node(mas, min)) {
--			mas_rewalk(mas, save_point);
--			goto retry;
--		}
-+		if (mas_prev_node(mas, min))
-+			goto dead;
- 
- 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
- 			return NULL;
-@@ -4045,8 +4093,8 @@ again:
- 
- 	slots = ma_slots(node, type);
- 	entry = mas_slot(mas, slots, mas->offset);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (likely(entry))
- 		return entry;
-@@ -4063,6 +4111,17 @@ again:
- underflow:
- 	mas->status = ma_underflow;
- 	return NULL;
-+
-+dead:
-+	mas_rewalk(mas, save_point);
-+	if (likely(mas_is_active(mas)))
-+		goto retry;
-+
-+	entry = mas_prev_no_node(mas, save_point, min);
-+	if (unlikely(xa_is_node(entry))) /* The root changed again */
-+		goto dead;
-+
-+	return entry;
- }
- 
- /*
-@@ -4176,8 +4235,8 @@ retry:
- 	node = mas_mn(mas);
- 	type = mte_node_type(mas->node);
- 	pivots = ma_pivots(node, type);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (mas->max >= max) {
- 		if (likely(mas->offset < mas->end))
-@@ -4185,8 +4244,8 @@ retry:
- 		else
- 			pivot = mas->max;
- 
--		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--			goto retry;
-+		if (unlikely(ma_dead_node(node)))
-+			goto dead;
- 
- 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
- 			mas->status = ma_overflow;
-@@ -4208,10 +4267,8 @@ again:
- 			return NULL;
- 		}
- 
--		if (mas_next_node(mas, node, max)) {
--			mas_rewalk(mas, save_point);
--			goto retry;
--		}
-+		if (mas_next_node(mas, node, max))
-+			goto dead;
- 
- 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
- 			return NULL;
-@@ -4226,8 +4283,8 @@ again:
- 
- 	slots = ma_slots(node, type);
- 	entry = mt_slot(mas->tree, slots, mas->offset);
--	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
--		goto retry;
-+	if (unlikely(ma_dead_node(node)))
-+		goto dead;
- 
- 	if (entry)
- 		return entry;
-@@ -4244,6 +4301,13 @@ again:
- 	}
- 
- 	return entry;
-+
-+dead:
-+	mas_rewalk(mas, save_point);
-+	if (likely(mas_is_active(mas)))
-+		goto retry;
-+
-+	return mas_next_no_node(mas);
- }
- 
- /*
-@@ -5450,7 +5514,9 @@ void *mas_find(struct ma_state *mas, uns
- 	/* Retries on dead nodes handled by mas_next_slot */
- 	entry = mas_next_slot(mas, max, false);
- 	/* Ignore overflow */
--	mas->status = ma_active;
-+	if (mas_is_overflow(mas))
-+		mas->status = ma_active;
-+
- 	return entry;
- }
- EXPORT_SYMBOL_GPL(mas_find);
+ if [ $EUID -ne 0 ]
+ then
+ 	echo "Run as root"
 _
 
-Patches currently in -mm which might be from liam@infradead.org are
+Patches currently in -mm which might be from sj@kernel.org are
 
-maple_tree-test-emptying-tree-while-rcu-reading.patch
-maple_tree-update-internal-warning-and-bug_on-code.patch
+mm-damon-core-copy-only-installed-probe-in-damon_split_region_at.patch
+mm-damon-core-add-damos_filter_type_age_ms.patch
+mm-damon-sysfs-schemes-support-damos_filter_type_age_ms.patch
+docs-mm-damon-design-update-for-age_ms-damos-core-filter-type.patch
+docs-admin-guide-mm-damon-usage-update-for-age_ms-damos-core-filter.patch
 
