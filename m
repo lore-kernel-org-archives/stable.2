@@ -1,56 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794275812;
-	b=fAmJZR30KhLshfzZ+/AtAqVqAcJa38EEpnc7dFB/RqpBWm4EEX2jJ7lv8H+GCVINU1fk
-	 8PiA8aXTSFsjGSAh112kuoxHjpQioEq3gx+A3z8BsPNx25GZG758XZdBRioF7EaaOqH01
-	 0otiF8JFEo1xH5Cq22ic0kMUT+UxR0nkGf5zFZp/fbXhVFjzVDXulrPfZDKyopc7cuHTq
-	 I5zKGcDWnAbq96qX55xrtA+Aoj19bE1/OgugyOM2C3xatOHWEm7qWrqZKV3jOiLWR6ca9
-	 ixEt4/HvkF2dqnAy0Kihh0ilp9c1slBVv6NFGwYa/QAXCTzhY7Y/dnq1Z2ko58yB+ng==
+	t=1794276477;
+	b=Ts13IBuEJACXRzB3Inim3GQRcFKukXSBxQuxeINo5OL0McAFnyMnMq2OpzDL3keL4uxa
+	 6DTFKuTUyasGJdzTqIBGRQjESA37hpK8bwPpS4jI6hdpt6VtLvqVoRBfcVZ7+B+5A8iio
+	 rp0kqVXKOVp1QHRJiByxts2BLKrEjGT4fkbhKIVcRg0Myu5dzsyOWx5eyT3vp53rl5To4
+	 iRWJjLd+/i/CyZqzRpEy9sm4wd8WoYlHpFe0bCpGL7jzrEvHfq8AO/oQk/L2ecqfLHacO
+	 JFdmYLpkLXbIv0GoLNmad8ZaRCW2h5ylMT3jxkohX1+sdwnSZ6rPY+jPZcTQ9jWtUxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794275812;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5oDTq2OfUlfoRI1bbJGNzuKYrNtXbaS/uqrQjxiFdjM=;
-	b=vXDURTVDyqIVV+hTGcajzPcctHD8opcCB34sZOt4C57urJCkq2z/weYb2O8/Mx8lAHiQ
-	 R0QbQ1ai94CZxrwjy9twLvD2uGcART+NsERJBV9SxnetUlW+pk8pUZT7g0DUhGufm/0Z+
-	 hRRUt7CLZrduCOteCmw9v2haIS4G2o1INdhjkahc+3T3u/ixXkCUP+iDJ3cJAJ9KFwj+2
-	 gcKt6KxoWtwBdM80r3TBQokianytSZ4xNV/s5tgj6Tu4WNO+DHhaWd2RLVxXTxGexnsFp
-	 EUhNfui/oKhImoNYRjJuFwgO4iyqB/FtuYK5vTLii499vNASk0q/3OxbJP9EIW+mYZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794276477;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=Z4fiPdjuryHoPrnsvdKYYlxnv3G1wnCz9WlJstxSDKo=;
+	b=iQtnWEbA86e72ELQYdhv9/FuwRS4CzObHHG+8Zztn9wN5w8ByHNj4qlsD04LiL8js0qc
+	 LMfRtrMueTcM+hw3JvzFo8+YdWko+35XYnyuLgw46R/bxmppMFfiVW5uC1sZIK1g1PN14
+	 FYxlulPpupJdS2wL6cQ2EPuWT7p0fcT6ls1AQJr4rKcxX0p64BGI00nXQNeM8ncC3tueU
+	 JDwB1OOhXeGNkNDHQPfq4u296NbsX+8tHNJbCjpFP9QfL59Z5yxJZ8lsiSNnis6tWcwEl
+	 qhjbtF+u+KE7aTFnzV5Cmx+eEpmGWe0GIpWhrdfh8POmlCR02Gyp1xw7PY+0zN0MtpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IKaxsMZD;
-	arc=none smtp.remote-ip=115.124.28.122
-Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com [115.124.28.122])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=BmRTNTCA;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80AD60A260A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:56:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80AD60A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C06606A321;
+	Tue, 10 Nov 2026 02:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C06606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IKaxsMZD
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794275804; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=5oDTq2OfUlfoRI1bbJGNzuKYrNtXbaS/uqrQjxiFdjM=;
-	b=IKaxsMZDmbGZ3TLNAO48Fd4TnxziYe7aOZD+yXwdba1idamEIH6Wu9DvT6c0mzDaz8/bhrPxb3YdeTLZB7gz/o4LAlrID0mi/Cmrwik3QiKKDhqBCcZ7w/iExLgG2dTBcfRT0PS3KHX0/Jd6IHOYNMYHb4srYNkAdfq4qHoW+qA=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1056134|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00517068-0.000127727-0.994702;FP=4424367230260155508|1|1|2|0|-1|-1|-1;HT=maildocker-contentspam033037034254;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=2;RT=2;SR=0;TI=SMTPD_---.k-WC2Kc_1794275803;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k-WC2Kc_1794275803 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 09:56:44 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: stable@vger.kernel.org
-Cc: John Johansen <john.johansen@canonical.com>
-Subject: [PATCH 6.6.y v2] apparmor: check accept index + 1 is in bounds
-Date: Tue, 10 Nov 2026 09:56:43 +0800
-Message-ID: <20261110015643.469519-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109030616.419429-1-zhugl3@xiaopeng.com>
-References: <20261109030616.419429-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=BmRTNTCA
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jNqml0Jmqz57HS2;
+	Tue, 10 Nov 2026 10:07:51 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794276471;
+	bh=d9FkNtdpXKsoqZFBPF8zP0zgE5utmCIsm4jF9JD3q/s=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=BmRTNTCAqXyNfvatUR416oMS98Ce9H+sFH7R/GM2yhzeM7v6TTeE4mEHbzKq7rVou
+	 quA9EoRRrC8XsQj6OIV253XXou1Wfy+7Wh+QOud0Jqo2yJ3BtGVf1AsGhAYJNyTDiV
+	 ghiGBP5P5J181PvpqGuWL+bFrasUvqroYpxgfH1qj1apa283Oyf1KM8zwDVMLWnmRb
+	 3ubQ+vwDilJ76XyYpikMeV/nUko43RTBMfi5uMA28RByN1viorHoWgs/AdXtx6Zofy
+	 HHuTNeDJijsoKHkBNky/vEXlxgTy+EnTCZxOFKmuGdHn7Zp8o7dwRvlBpPmB6Cb8T4
+	 OD7QVc/LTb/og==
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6AA27gew014253;
+	Tue, 10 Nov 2026 10:07:42 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 10 Nov 2026 10:07:43 +0800 (CST)
+X-Zmail-TransId: 2afc6af27c6f35d-33e6a
+X-Mailer: Zmail v1.0
+Message-ID: <20261110100743207gue5TpQyWMj3Sw1Fuwd6c@zte.com.cn>
+In-Reply-To: <avIjXxp3hu7xd_s9@ryzen>
+References: avHknBRJnZPpAIke@ryzen,20261110000234827nXRPQjzsInWFXaAaxeF6N@zte.com.cn,avIjXxp3hu7xd_s9@ryzen
+Date: Tue, 10 Nov 2026 10:07:43 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,60 +72,28 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <cassel@kernel.org>
+Cc: <dlemoal@kernel.org>, <linux-ide@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gYXRhOiBhaGNpX2R3YzogcmVqZWN0IGludmFsaWQgZGV2aWNlIHRyZWUgcG9ydCBudW1iZXJz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6AA27gew014253
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 10 Nov 2026 10:07:51 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF27C77.000/4jNqml0Jmqz57HS2
 
-[ Upstream commit afe5d5a747393cb3d00795db31d7fce5108a766a ]
+On Mon, Nov 09, 2026 at 08:47:43PM +0100, Niklas Cassel wrote:
+> I think it is okay to keep his tag, since the only change is a dropped
+> warning.
 
-aa_lookup_fperms() returns perms[index + 1] when the current fsuid
-does not match cond->uid, so such an entry consumes two slots in the
-perms table.  But verify_dfa_accept_index() only checks that index is
-within the perms table, so a policy whose last accept entry is reached
-with a non-matching fsuid reads perms[index + 1] one entry past the
-end of the table.
+Thanks, agreed.  I will keep Damien's Reviewed-by on the v2 and send it
+as patch 2/2, with the libahci_platform fix as patch 1/2.
 
-The perms table is allocated by unpack_perms_table() with a u16 size
-read from the policy blob, so a crafted policy can place an accept
-entry at index size - 1 to reach the out-of-bounds read.
-
-Check that index + 1 is also in bounds.
-
-Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ Adapted for 6.6.y: this tree predates ACCEPT_FLAG_OWNER (2e12c5f06017), and aa_lookup_fperms() here reads perms[index + 1] whenever fsuid does not match cond->uid, with no flag to narrow the check to, so every accept index gets the pair bound. ]
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-v2: drop the ACCEPT_FLAG_OWNER reference (absent here -
-    2e12c5f06017 is not in this tree, so it broke the build)
-    and check index + 1 unconditionally: aa_lookup_fperms()
-    in this tree reads perms[index + 1] whenever fsuid does
-    not match cond->uid, with no flag to narrow the check
-    to, per review.
-
- security/apparmor/policy_unpack.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 589b43c..b033a3f 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -1201,6 +1201,14 @@ static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
- 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
- 		if (ACCEPT_TABLE(dfa)[i] >= table_size)
- 			return false;
-+			/*
-+			 * Conditional permission entries consume two slots:
-+			 * aa_lookup_fperms() reads perms[index] when fsuid matches
-+			 * cond->uid and perms[index + 1] otherwise, so index + 1
-+			 * must also be in bounds.
-+			 */
-+			if (ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
-+				return false;
- 	}
- 	return true;
- }
--- 
-2.43.0
-
+Best,
+Shao Mingyin
