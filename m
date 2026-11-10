@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296423;
-	b=23kO7SE69o7yxqpO6AqvxK6xfmZ/XAY6n3+xVIMl4lHUeFCAc1FuliK3i/aueywtpMgb
-	 uaunWGc5TinOUk7P94z+UycNONmP3qAlcTrhRl8bCLmwYE3NLNty5UBHHfD+z9xCLAAeN
-	 r5bYwsk04ou9XN9RT1u1Wyen6EV6sd4k+YdlYQWa4OHD3mjQQSz7NdrQHCh7QnDoweIit
-	 hPbwqMwoB7qZ4z9VtBUd5mQRJgKYnbJt8frI+rlf1gTRvz3WbtxkTS39HTTKZupU9YyyP
-	 IMlDi0ldO7i/0SLKhOOyOx11GgFUfUSHUycdJsKV528qOxSk5EZkMrBhKQMEE9tNgEw==
+	t=1794296669;
+	b=hHIaLDfHSwxRyg0W+GbYBS51GvDvPm4eR8boMv1XfsIvWKECwyShE6qQ7iTKVc5kfiOC
+	 Tzi8rBCvKJELU0ik4IXehlanAHugkmFf+KbKEmQGar0kA9Gf845LLX5iMKWCr0XQadS5p
+	 e3qINH6wGJn7RpRHaRiWSs9Sri8NPsDS1xFgToAov1Nox8K7Fk/CZvp+hVphK1n12fds2
+	 dr0bnUJKpFYfRFYIEpUljrQkzmBtm5pCmWF1QAYbLPOVIKZDS5ZR+4089FL7stQXQ+p2y
+	 CQj32RKYV3U81s/gGwq8gu15d3Q/AGCC426x9uRWagTsq9h9LQdSGbI1g3q0JvZHK1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296423;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=SPioMWxnOdL+kHQp1jq1nkOF4l5e1JQvIQjfz7QTuc8=;
-	b=abdMbtQRhRB8ZiGRSyUPlfb7g+KSggenhEr7EWk7m1GNLyLZ3WdDLrw6a/MYZrVYW+y4
-	 cHpY4+hOGDlwEh+8kC6iu3AUgdqz0T6hRlUnAVaz5Towd/WaON0FAxVaHtP547MxeOAy+
-	 /QhU/k6AG9typXnn5CPeBgvxQfsT8Ju2M2G1gLH9XF3+woxvMoFHyspzI+AkSWe/mlph+
-	 cOBLH0UeyxiO5g5KeeQQ6eRcrtkIGMHyYBRFPi0s+ViqkRKGARND486a/PG3wtGsXY5z/
-	 JsPLzKoGo88yeF5TSiPgX0H2p5qqh/nJMNhOfL8iBupjGo/Yk5xlvlr1LI3/j74Ynxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296669;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=xFdE8yf6cblcOWjvx3EruOisINuPezb/B7MTHToCHSM=;
+	b=G+zY64ayyWbxeJ50mPVtlsRmt2amGEdtmAtZhgD0bWT9uhDUwYla1WcF8yymcOZvoNOF
+	 WXWnRPkzv7VAaRe7R+mH03qzjM/Pii82fAXoWm4dHc8AHmZ1e+nnl+xyNFqql+kkhhmz+
+	 Dqbhhtplz+xxZZIsZfPeeuKR13fRzlcF6Qv8QCCfiEwpe2pBxepGLnR71V6rfRomBG3sP
+	 WN+/uRzITO/EuJdvL7FKSOc4LloDBEjZH8/r+5wjY80Ni29KaDObal3is0WMSEr824iXA
+	 0tfCloXjrfxi5IoL5zMqVgGPrE7KMyuqR1RkKaMjD4BueoHCg7LyU9G84wXExNp/pMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="eSzsyQ/v";
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkkBLpO5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF22606A321;
-	Tue, 10 Nov 2026 07:40:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF22606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C9A606A33E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:44:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSzsyQ/v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794296423; x=1825832423;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tsMJE1u1zkJ1guWFYeYlwA88vKlxU9m6hwnX+/cYyKc=;
-  b=eSzsyQ/vteLzUIqO3NfMtFg4PeflpBEQGzHXKRDwwGShtylmnJDhfgR5
-   BOAUHnMxpdlcY5lbKQ5+6Zs2WL3DsKcHVh0zq8JUb1JnHvngBUxRrY9uw
-   jviWXBg9QQfJoKM8PpMGmxWxgRaEXVn2mAyC5QAOOMDbuQG3HR8iCpYY6
-   lYGLyRSbNC+E7njE2QrKPjI/Swg/mJLYLiDhyeUV+3dYv1/tP+yHLIrH2
-   Ba+qrKKJ96X5af09mUvgfVCAz7duXnXUhViXFcVtdNBSy7gqBbApNF8AV
-   mVImg1Yc8+kxo/dvDQJ5CVka14XPrAJ4j+r23gL1d7BOfB63nO8R3gzvh
-   A==;
-X-CSE-ConnectionGUID: tnT62/9YQ4SfY/21FIzKCA==
-X-CSE-MsgGUID: cy17/cyMT56V+fVWJkfsLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3033782"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3033782"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:40:22 -0800
-X-CSE-ConnectionGUID: 4NJFKSjrQo2YrxYyMR6ZYg==
-X-CSE-MsgGUID: jkNbAVZPTtqzNkEWSS5nEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="8409269"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:40:19 -0800
-Date: Tue, 10 Nov 2026 09:40:13 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sergey Khimich <serghox@gmail.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] dmaengine: dw-axi-dmac: retain descriptors when
- termination times out
-Message-ID: <avLKXWPp7Q4Z2uSH@ashevche-desk.local>
-References: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
- <20261109-submit-dw-axi-dma-stop-pause-v1-v2-2-64adc48df793@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkkBLpO5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D37B1F00902;
+	Tue, 10 Nov 2026 07:44:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794296669;
+	bh=xFdE8yf6cblcOWjvx3EruOisINuPezb/B7MTHToCHSM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AkkBLpO5yXsXXXeQwnB3FLyZtViKIRpQxJ3r3aQ9oMFJ6sjrgOVIODA1DcrDVCcXs
+	 eho5zCY+qof3QjDWEfHQ7Pi1DISNVZJPfeE3quSM7eOmzPdjywhIj/cQh41PZ2AAiz
+	 UafCg5nVNQYBXaJRWjPmrsUyrzws1Dxh55MNaEYQQZytVLNmk1Y3UMdzA85mznr57y
+	 F0QBfBiRuu3S3T7oOXBUFTz5x+BOdbWwpIHGhZRlhlw8mDgdXNrUGCh3AMAaf1pZWt
+	 NCTHzojE0VCpY8A9jOQ/5RptWBHg/ZFe/yh0H+5N92eIH2uC3I5IfPFIUYkpPNFzq0
+	 Yd5hk1lgHZvbw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode without PAE enabled
+Date: Tue, 10 Nov 2026 02:44:26 -0500
+Message-ID: <20261110074259.559852-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061520-failed-5.10-115f9405a2ed@kernel.org>
+References: <20261107061520-failed-5.10-115f9405a2ed@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,44 +59,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-2-64adc48df793@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 08:06:01PM -0700, James Hilliard wrote:
-> dma_chan_terminate_all() warns when the channel enable bit does not clear,
-> but then frees the descriptors and returns success. Its synchronize
-> callback only drains virtual-channel callbacks, so terminate_sync() can
-> also report success while hardware still accesses the transfer.
-> 
-> Return the polling error before detaching descriptors or changing the
-> peripheral routing. This keeps the transfer resources available while
-> the channel remains enabled and lets the caller retry termination without
-> treating the timeout as a successful stop.
-> 
-> Hold the channel lock across disabling, polling and descriptor detachment
-> so an interrupt handler cannot restart the channel between the stop check
-> and cleanup.
+From: Sean Christopherson <seanjc@google.com>
 
-...
+[ Upstream commit 72e2fb24a0b0528bcc16a8f6ad2cf336ac361525 ]
 
->  	ret = readx_poll_timeout_atomic(axi_chan_is_hw_enable, chan, enabled, !enabled,
->  				       1 * USEC_PER_MSEC, 50 * USEC_PER_MSEC);
-> -	if (ret == -ETIMEDOUT)
-> +	if (ret) {
+Promote the ASSERT(), which is quite dead code in KVM, into a KVM_BUG_ON()
+for KVM's sanity check that CR4.PAE=1 if the vCPU is in long mode when
+performing a walk of guest page tables.  The sanity is quite cheap since
+neither EFER nor CR4.PAE requires a VMREAD, especially relative to the
+cost of walking the guest page tables.
 
-Just noticed, this should be part of the previous patch.
+More importantly, the sanity check would have prevented the true badness
+fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency checks
+for CR0 and CR4").  The missed consistency check resulted in some versions
+of KVM corrupting the on-stack guest_walker structure due to KVM thinking
+there are 4/5 levels of page tables, but wiring up the MMU hooks to point
+at the paging32 implementation, which only allocates space for two levels
+of page tables in "struct guest_walker32".
 
-> +		spin_unlock_irqrestore(&chan->vc.lock, flags);
->  		dev_warn(dmaengine_chan_dev(dchan),
->  			 "%s failed to stop\n", axi_chan_name(chan));
-> +		return ret;
-> +	}
+Queue a page fault for injection if the assertion fails, as both callers,
+FNAME(gva_to_gpa) and FNAME(walk_addr_generic), assume that walker.fault
+contains sane info on a walk failure.  E.g. not populating the fault info
+could result in KVM consuming and/or exposing uninitialized stack data
+before the vCPU is kicked out to userspace, which doesn't happen until
+KVM checks for KVM_REQ_VM_DEAD on the next enter.
 
+Move the check below the initialization of "pte_access" so that the
+aforementioned to-be-injected page fault doesn't consume uninitialized
+stack data.  The information _shouldn't_ reach the guest or userspace,
+but there's zero downside to being paranoid in this case.
+
+Link: https://lore.kernel.org/r/20230729004722.1056172-9-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 115f9405a2ed ("KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the MMU has")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/mmu/paging_tmpl.h | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 3778070381a8b..0db6414300d2d 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -351,7 +351,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	}
+ #endif
+ 	walker->max_level = walker->level;
+-	ASSERT(!(is_long_mode(vcpu) && !is_pae(vcpu)));
+ 
+ 	/*
+ 	 * FIXME: on Intel processors, loads of the PDPTE registers for PAE paging
+@@ -361,6 +360,17 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	nested_access = (have_ad ? PFERR_WRITE_MASK : 0) | PFERR_USER_MASK;
+ 
+ 	pte_access = ~0;
++
++	/*
++	 * Queue a page fault for injection if this assertion fails, as callers
++	 * assume that walker.fault contains sane info on a walk failure.  I.e.
++	 * avoid making the situation worse by inducing even worse badness
++	 * between when the assertion fails and when KVM kicks the vCPU out to
++	 * userspace (because the VM is bugged).
++	 */
++	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
++		goto error;
++
+ 	++walker->level;
+ 
+ 	do {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
