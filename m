@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794322304;
-	b=cw83VdurWXnAF+6CksccvVEGCJLWOL77IJbzcBEqOvIuWzex2nDhesWbfmdwplffBx7s
-	 trGdPPle0lhG8PnY9JHeczjMT0KQURcmZPEyjiLLBcEPvkHLtfrfAVwCelzsVXtbcI5Os
-	 NdZXKL/vYSMzclCakKb+AeNyibOiAJYaoPEwi1fEip0587nAfN2or99+1NpzMEVPLqMC5
-	 s3yzjj9jWek3J3fuUj8ty3R8n4qJdT/vdl8s/E3piS/qDEBnJ9EUl9ZRESKolK/1XQ7BI
-	 dkFEBkmw6ytpfcUyCya8SulQxZYjE7eKfxDvDnon8yLH6hdqR34fGJ7Va5sb1BC9NPg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322304;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PXqi9+oAKFvDZXDHBvU0pPg5upNM7EyCnjhoXmEOydk=;
-	b=BvdGcawMhQwUizst7J7tX+DTVqeDQ1fdq94K5x5OqcOB1KeWmHWTCL40kL1rMHrPRKP7
-	 oKZ0YR22IFGYb+lJ9UX5dWbY6yg77nu6cJqQLe0eR4jVw1UxDtc6TDUeb5xmoOI40fbh5
-	 ZSEw6pFsG0MuDgZDOch2QK8grIh4SHZJ5am76tfTdf7fh3qVkPPEf+xGSqcMCcNIR4Y63
-	 eJWEFZAOixhLbOg/prbS5bKf//iFkyRI8KCJ55doryucvlWpxrXbbmKJL0CDs7+bZwg/8
-	 IllVe1C2mWgAfVk5Tz9sAF3lML/G7tQnTYx9mG+lKMyy3VNLiFWUqKGp7lchU8a1FGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=IL+8xDhW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794322345;
+	b=l4pftHWBl6TS6/fwTJpuMLmEcIjpS7l5Eyz6FP4cQ8r2Cm07HLJc5oqt8FNZEBJDtTTM
+	 rRPK6n3TBD7HqHl42fbgf1Wi3yb9eGN9cIqSPzcpF1d+ijd7QSuQgj7SFjcw2dugpei7+
+	 jCw84Fp5yLMUNFkXLm2SK8ALXt+7A2Ru3AEWxHFPWXOTRPd17Z2vPRey9E7aC6tFXjgG7
+	 zYqDwLjqva9Hc1Ebh1HegBTYtR0G9hBqmdx1YpPfEhhY/j5M0sFFoTtkJMbFo6GJZXMpi
+	 Itvdr5jDxpcTdNFum58ziVHKndjjQPMZAGuNgMrdQ37G4frweFbJFKTxS94EzEB21Nw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322345;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=O9bE4e5sDdC7BMTl807mOt/4deXWIXdq6e2nAdNe0sQ=;
+	b=WRvmOuxk0rf+Yy+rAUs+Hp/jNKkoXtLrHbKfvT/NpSR4ERdkVtddandiFGPPMBZgqkVF
+	 mjd04+eqzfRfz0LWEZnDj2vPcnv0dnzYW+6Qg57xK7ReaUcJKGssMZJSaUXFqzpKiKLLa
+	 rtK3JwOL2mdh+pkV8X604HfSSMQ9p1+FJDWN6FfBdPAjSrcnwOd25+WbqqZ/YsXSxaqQm
+	 HY6Brw/3Fom6bu9VB8k+fUacxRhlzEv3dKgHfqKkZ998Jo3QBkanDJZxi5MFa12etE9XX
+	 KKqZ5pwi8ZTvAkM3b37tZEepoht/V0avR8J6p1XmYps3gslHqI1wnDtWslCNzKNh2XA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mv66SGvz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D663606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:51:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D663606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C3606A33A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:52:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=IL+8xDhW
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so1197695a91.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:51:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794322303; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f+IeZKIEcF1LeHRw6ROaWs3OoTfaWOHIBOj3HxaMi3um/VQLMlf5sm2F2+LQVGyn/l
-         L/Tp8/azHQX59DSgWphDCv4DYjbsT3AqciYf5JjS5HDIfUl6Pqq38VSvbYVBReklLClu
-         nr/uNOH8pC38KT2YzcdoCqfKjq3rQtKcal+vbHIEep8FWYwaWvDw7wwYaZn12zSuIcGa
-         xCDa3Jd2HqU2LhE8cFZwhR4a5/SFwKKvw9QfO9TT3nkorc8fqMCBT4Eg/XeZwwra8VTQ
-         jHxcP33LAXQQm1QSGfmrgUEfYTnhtAGZfRPfxBBNQWUBbkWTGdA708zyXYHykt2WtETp
-         KKug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PXqi9+oAKFvDZXDHBvU0pPg5upNM7EyCnjhoXmEOydk=;
-        fh=xwX/DzAHDjlk8CBDGpm5U2KoYHFc+luY/AjwLIpUzLY=;
-        b=JthJntscW62o8LCakE1QPZIlkAc0J9WaEjceE9efbSChXQJCTLre0IDNKeq5TccfHq
-         WisB0UjmioKgw4N0HUN0Q2vhhfXoIJ1t87b68j9D0/3LYnz9sdc54BNg282DW0iS0Nyn
-         xuxjh5amjmxHG64kgAfaFqhDBPcLP+2pScheO0Hquc7fPT+dSXzg35ZbaHMo8B347S3l
-         HHgg2MbFQz6QfH7i1QLzUVIH1JlCFFT95lXtsnMnhCCZdCvygD3pf1llkZwRUH0MSdaE
-         plaIcdHQ3jOjPIfGR1f+GhXYhkC39P1pvmNiuP6D80qEgzczOxvfTX7RiGOEEHd3HMVd
-         h4jA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1794322303; x=1794927103; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PXqi9+oAKFvDZXDHBvU0pPg5upNM7EyCnjhoXmEOydk=;
-        b=IL+8xDhWvbsY97lbmrxhet0Jxm/GEejFE1wA+kHdDdoy3r2HY0qfy9+Zo5tDyA1HCU
-         92dTAWSC18xJKt+nqY3o9ZEOwugPfnvfyKVxgXTJccL+yGQZq3uA5w6FcKOdBgNjQCVS
-         07UkwU1Ush9oWU9aQSyczjXfKDIKK13bz1vvPKKKZnAAbDJNUxO90oBj9mzTVwalm6uJ
-         MzZxNoOFc+uElONJCp/htKG7NEjYziL9FbA761f4NJZqOMyMijk6azV7Si9VVAUAXV+J
-         Tep1WbavDGNkRYBusn+me12VrKAKvlJoaba+qozCGl1bDCWa2Ghni1rfY8UzwuCjm2U4
-         /4Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794322303; x=1794927103;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PXqi9+oAKFvDZXDHBvU0pPg5upNM7EyCnjhoXmEOydk=;
-        b=1Qk5FWnTzzL8Joci3Qyxla8pGTfzSygjaVYSrOhOfoMlK7e0W81bWD2We9kyaTLP70
-         AcgWHIVIJMNp1OR5UoeZvXIGeZlkRE5u+gjsrGSjjkRS4y6kBY8bTE9D8EtxTWLK7ym5
-         xdz4LYAzIrovrGAnLRjpvwdXk0dHoAfozQTkk11UBrB1YXxkvTobLvsf+o+qBy3LKIoC
-         8fvK6nR1k4FaQ//i77aNXnSfYj5fmkkBjT0rJZJRV6wWmdKLT+dSN0CrdkH8d+7KqP1C
-         Qw9x28jEWjF+JzhHr7YO0mO3zoBbV0GIM+SU8wwwDzALkfDC5CU/xU//8l1yNDDShe7Y
-         flfw==
-X-Forwarded-Encrypted: i=1; AL+hErEKNws1jDQzPdmrTAhHk81hkZa9eamHWcXJadgKyv61BQYQe9WvzkKdrhspnBbRXP7uepUEoqs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TwzBK21XFs7IPsyLWOYboYNm8CHQ8r74nuHh3XEVK89mD1DR3
-	kVejzKL5ZIYcc0wz3eEUf4F3WUsyyA8kf7mZkufsbyh96GWdpGC8aLZ7sTMJSAtBFpNKpffCoFK
-	gJ3MbYqfuafB7CcRom9kjLt3LvKzS5rVnL5uaffXW
-X-Gm-Gg: AYBFou1fcgUtnz9I6Vzs7etC5h+q9152tcUR1n5lQerMYqUNT0MgyvyTaCV8HWgWaEj
-	Q4thCL7klmXIsl9Q0r7hDrZJRRRhBArCpiZYjdUnN2m3ekmn1EnnaI4YFdNXA6vRlexXrImSh5r
-	6EVyIdTn2A3Rptlr5pQmHTpeIfWIRD8qgqm6CoaqbM9BxU+6g9GEUoRWLZV6zGrRYsOKzD9BgWu
-	wyberdBq5htqtarhG8h3/vKX7vObDCm+buJ0cbnKrjR/VcahXuoPBCFj7e28rV/U4MttBpQhlcQ
-	wqOa1gP1F8dQA3sgl9MJxHdjq7eXQz8Zea3f1Bo8hoVyN9gL8l8++ky0VFwFzbKG2F8pczO/rLc
-	o2qZ6TF9cJPnXllFu5H41AklBamPUvaXvu6ySjdnWRHANusIVvHk/8isrj8FjN9PipWkU
-X-Received: by 2002:a17:90b:4a47:b0:3ac:17c:6e89 with SMTP id
- 98e67ed59e1d1-3b166cd4924mr2650628a91.19.1794322302909; Tue, 10 Nov 2026
- 06:51:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mv66SGvz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DB81F0089F;
+	Tue, 10 Nov 2026 14:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322344;
+	bh=O9bE4e5sDdC7BMTl807mOt/4deXWIXdq6e2nAdNe0sQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mv66SGvzgGHMDKtkLBY6vEZxmKzXbegHamDKtIIac3brH9HlaVoUNrCtYRRdd1kk+
+	 a8R52Ci6nIvpJ5moAD0wmabnfo7El10AgkK9ZK0FW5+Zs1j8+ST8ksQ+sxMCk9goQd
+	 UeMpV9heGUJsqHiyfogtybMiFv3qp/1Tz4v6RLQb/8hbt8iVplaH+FXcSTYaibrUds
+	 2Lyx9Mk2GGRTlodY2oPr+/7NWw0oijK5lUfKI7ApCH/AXm5kCDsqo8ZHbgUuJ4Q2HC
+	 ilGwM1T1LS+0oggphveBZBZGbTA3Wl5nqOnWOPdH9sp0EZMF1rds8zK+/W+jBR0P4s
+	 WAR+ZxO3+fk2A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kumari Pallavi <kumari.pallavi@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] misc: fastrpc: Rename phys to dma_addr for clarity
+Date: Tue, 10 Nov 2026 09:52:21 -0500
+Message-ID: <20261110145217.1998136-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050955-failed-6.18-09fa66ec1b48@kernel.org>
+References: <20261107050955-failed-6.18-09fa66ec1b48@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,72 +60,288 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110144205.2404088-1-mic@digikod.net>
-In-Reply-To: <20261110144205.2404088-1-mic@digikod.net>
-From: Paul Moore <paul@paul-moore.com>
-Date: Tue, 10 Nov 2026 09:51:31 -0500
-X-Gm-Features: AclHuK9azAwCWCYb7rf35P_Qkz1YTwRFSpYVlH2tFTGhGa4I1jRp_1554UKlQOk
-Message-ID: <CAHC9VhQ7xMe8J+wRYK98Lw-Ff8dg=wJNEWgJp-MOqFixeZkiZQ@mail.gmail.com>
-Subject: Re: [PATCH] userns: Let LSMs deny the CAP_SETFCAP snapshot for
- mapping uid 0
-To: =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>
-Cc: Josef Bacik <josef@toxicpanda.com>, Serge Hallyn <serge@hallyn.com>, 
-	Christian Brauner <brauner@kernel.org>, James Morris <jmorris@namei.org>, 
-	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
-	"Andrew G. Morgan" <morgan@kernel.org>, Serge Hallyn <sergeh@kernel.org>, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 9:42=E2=80=AFAM Micka=C3=ABl Sala=C3=BCn <mic@digik=
-od.net> wrote:
->
-> Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-> records in parent_could_setfcap whether the creator of a user namespace
-> had CAP_SETFCAP, because a creator writing its own uid_map only has
-> capabilities in the new namespace.  The snapshot uses cap_raised(), so a
-> task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
-> namespace it creates.
->
-> Use security_capable() against the parent namespace instead: the
-> creator's credentials still belong to it at this point, so commoncap
-> returns the same result, and only LSM denials are added.
->
-> Do not audit this check: creating a user namespace does not use
-> CAP_SETFCAP, and most namespaces never map uid 0.  The uid_map write
-> that later fails has no LSM audit record.
->
-> Checking CAP_SETFCAP when the map is written would not work: the
-> writer's credentials then belong to the new namespace, where commoncap
-> grants the creator all capabilities.
->
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Josef Bacik <josef@toxicpanda.com>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Serge Hallyn <serge@hallyn.com>
-> Cc: stable@vger.kernel.org
-> Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-> Signed-off-by: Micka=C3=ABl Sala=C3=BCn <mic@digikod.net>
-> ---
->
-> This is independent from Josef Bacik's series, which reworks this code
-> to close other ways around the CAP_SETFCAP rule:
-> https://patch.msgid.link/20261027-b4-setfcap-userns-v8-0-2674adc63f3c@tox=
-icpanda.com
->
-> That series still computes the creator's CAP_SETFCAP with cap_capable()
-> and cap_raised() in cap_setfcap_level(), so it would need the same
-> change.
-> ---
->  include/linux/user_namespace.h | 5 +++--
->  kernel/user_namespace.c        | 8 +++++++-
->  2 files changed, 10 insertions(+), 3 deletions(-)
+From: Kumari Pallavi <kumari.pallavi@oss.qualcomm.com>
 
-Looks reasonable to me.
+[ Upstream commit 428b2f2b60c37f69e0723a225135da1f352d2602 ]
 
-Acked-by: Paul Moore <paul@paul-moore.com> (LSM)
+The fields buf->phys and map->phys currently store DMA addresses
+returned by dma_map_*() APIs, not physical addresses. This naming
+is misleading and may lead to incorrect assumptions about the
+address type and its translation.
+Rename these fields from phys to dma_addr to improve code clarity
+and align with kernel conventions for dma_addr_t usage.
 
---=20
-paul-moore.com
+Signed-off-by: Kumari Pallavi <kumari.pallavi@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Link: https://patch.msgid.link/20251226070534.602021-3-kumari.pallavi@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 09fa66ec1b48 ("misc: fastrpc: fix double-free in fastrpc_map_attach() error path")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/misc/fastrpc.c | 77 ++++++++++++++++++++++--------------------
+ 1 file changed, 41 insertions(+), 36 deletions(-)
+
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 29f9003999a07..891f28e933537 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -106,7 +106,7 @@
+ #define miscdev_to_fdevice(d) container_of(d, struct fastrpc_device, miscdev)
+ 
+ struct fastrpc_phy_page {
+-	u64 addr;		/* physical address */
++	dma_addr_t addr;	/* dma address */
+ 	u64 size;		/* size of contiguous region */
+ };
+ 
+@@ -171,7 +171,7 @@ struct fastrpc_msg {
+ 	u64 ctx;		/* invoke caller context */
+ 	u32 handle;	/* handle to invoke */
+ 	u32 sc;		/* scalars structure describing the data */
+-	u64 addr;		/* physical address */
++	dma_addr_t addr;	/* dma address */
+ 	u64 size;		/* size of contiguous region */
+ };
+ 
+@@ -194,7 +194,7 @@ struct fastrpc_buf {
+ 	struct dma_buf *dmabuf;
+ 	struct device *dev;
+ 	void *virt;
+-	u64 phys;
++	dma_addr_t dma_addr;
+ 	u64 size;
+ 	/* Lock for dma buf attachments */
+ 	struct mutex lock;
+@@ -217,7 +217,7 @@ struct fastrpc_map {
+ 	struct dma_buf *buf;
+ 	struct sg_table *table;
+ 	struct dma_buf_attachment *attach;
+-	u64 phys;
++	dma_addr_t dma_addr;
+ 	u64 size;
+ 	void *va;
+ 	u64 len;
+@@ -322,11 +322,12 @@ static void fastrpc_free_map(struct kref *ref)
+ 
+ 			perm.vmid = QCOM_SCM_VMID_HLOS;
+ 			perm.perm = QCOM_SCM_PERM_RWX;
+-			err = qcom_scm_assign_mem(map->phys, map->len,
++			err = qcom_scm_assign_mem(map->dma_addr, map->len,
+ 				&src_perms, &perm, 1);
+ 			if (err) {
+-				dev_err(map->fl->sctx->dev, "Failed to assign memory phys 0x%llx size 0x%llx err %d\n",
+-						map->phys, map->len, err);
++				dev_err(map->fl->sctx->dev,
++					"Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
++					&map->dma_addr, map->len, err);
+ 				return;
+ 			}
+ 		}
+@@ -397,7 +398,7 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
+ static void fastrpc_buf_free(struct fastrpc_buf *buf)
+ {
+ 	dma_free_coherent(buf->dev, buf->size, buf->virt,
+-			  FASTRPC_PHYS(buf->phys));
++			  FASTRPC_PHYS(buf->dma_addr));
+ 	kfree(buf);
+ }
+ 
+@@ -416,12 +417,12 @@ static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
+ 
+ 	buf->fl = fl;
+ 	buf->virt = NULL;
+-	buf->phys = 0;
++	buf->dma_addr = 0;
+ 	buf->size = size;
+ 	buf->dev = dev;
+ 	buf->raddr = 0;
+ 
+-	buf->virt = dma_alloc_coherent(dev, buf->size, (dma_addr_t *)&buf->phys,
++	buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
+ 				       GFP_KERNEL);
+ 	if (!buf->virt) {
+ 		mutex_destroy(&buf->lock);
+@@ -447,7 +448,7 @@ static int fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
+ 	buf = *obuf;
+ 
+ 	if (fl->sctx && fl->sctx->sid)
+-		buf->phys += ((u64)fl->sctx->sid << 32);
++		buf->dma_addr += ((u64)fl->sctx->sid << 32);
+ 
+ 	return 0;
+ }
+@@ -740,7 +741,7 @@ static int fastrpc_dma_buf_attach(struct dma_buf *dmabuf,
+ 		return -ENOMEM;
+ 
+ 	ret = dma_get_sgtable(buffer->dev, &a->sgt, buffer->virt,
+-			      FASTRPC_PHYS(buffer->phys), buffer->size);
++			      FASTRPC_PHYS(buffer->dma_addr), buffer->size);
+ 	if (ret < 0) {
+ 		dev_err(buffer->dev, "failed to get scatterlist from DMA API\n");
+ 		kfree(a);
+@@ -789,7 +790,7 @@ static int fastrpc_mmap(struct dma_buf *dmabuf,
+ 	dma_resv_assert_held(dmabuf->resv);
+ 
+ 	return dma_mmap_coherent(buf->dev, vma, buf->virt,
+-				 FASTRPC_PHYS(buf->phys), size);
++				 FASTRPC_PHYS(buf->dma_addr), size);
+ }
+ 
+ static const struct dma_buf_ops fastrpc_dma_buf_ops = {
+@@ -841,10 +842,10 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 	map->table = table;
+ 
+ 	if (attr & FASTRPC_ATTR_SECUREMAP) {
+-		map->phys = sg_phys(map->table->sgl);
++		map->dma_addr = sg_phys(map->table->sgl);
+ 	} else {
+-		map->phys = sg_dma_address(map->table->sgl);
+-		map->phys += ((u64)fl->sctx->sid << 32);
++		map->dma_addr = sg_dma_address(map->table->sgl);
++		map->dma_addr += ((u64)fl->sctx->sid << 32);
+ 	}
+ 	for_each_sg(map->table->sgl, sgl, map->table->nents,
+ 		sgl_index)
+@@ -871,10 +872,11 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 		dst_perms[1].vmid = fl->cctx->vmperms[0].vmid;
+ 		dst_perms[1].perm = QCOM_SCM_PERM_RWX;
+ 		map->attr = attr;
+-		err = qcom_scm_assign_mem(map->phys, (u64)map->len, &src_perms, dst_perms, 2);
++		err = qcom_scm_assign_mem(map->dma_addr, (u64)map->len, &src_perms, dst_perms, 2);
+ 		if (err) {
+-			dev_err(sess->dev, "Failed to assign memory with phys 0x%llx size 0x%llx err %d\n",
+-					map->phys, map->len, err);
++			dev_err(sess->dev,
++				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
++				&map->dma_addr, map->len, err);
+ 			goto map_err;
+ 		}
+ 	}
+@@ -1056,7 +1058,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 			struct vm_area_struct *vma = NULL;
+ 
+ 			rpra[i].buf.pv = (u64) ctx->args[i].ptr;
+-			pages[i].addr = ctx->maps[i]->phys;
++			pages[i].addr = ctx->maps[i]->dma_addr;
+ 
+ 			mmap_read_lock(current->mm);
+ 			vma = vma_lookup(current->mm, ctx->args[i].ptr);
+@@ -1083,7 +1085,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 				goto bail;
+ 
+ 			rpra[i].buf.pv = args - ctx->olaps[oix].offset;
+-			pages[i].addr = ctx->buf->phys -
++			pages[i].addr = ctx->buf->dma_addr -
+ 					ctx->olaps[oix].offset +
+ 					(pkt_size - rlen);
+ 			pages[i].addr = pages[i].addr &	PAGE_MASK;
+@@ -1115,7 +1117,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+ 		list[i].num = ctx->args[i].length ? 1 : 0;
+ 		list[i].pgidx = i;
+ 		if (ctx->maps[i]) {
+-			pages[i].addr = ctx->maps[i]->phys;
++			pages[i].addr = ctx->maps[i]->dma_addr;
+ 			pages[i].size = ctx->maps[i]->size;
+ 		}
+ 		rpra[i].dma.fd = ctx->args[i].fd;
+@@ -1197,7 +1199,7 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
+ 	msg->ctx = ctx->ctxid | fl->pd;
+ 	msg->handle = handle;
+ 	msg->sc = ctx->sc;
+-	msg->addr = ctx->buf ? ctx->buf->phys : 0;
++	msg->addr = ctx->buf ? ctx->buf->dma_addr : 0;
+ 	msg->size = roundup(ctx->msg_sz, PAGE_SIZE);
+ 	fastrpc_context_get(ctx);
+ 
+@@ -1357,13 +1359,15 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 		if (fl->cctx->vmcount) {
+ 			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+ 
+-			err = qcom_scm_assign_mem(fl->cctx->remote_heap->phys,
++			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+ 							(u64)fl->cctx->remote_heap->size,
+ 							&src_perms,
+ 							fl->cctx->vmperms, fl->cctx->vmcount);
+ 			if (err) {
+-				dev_err(fl->sctx->dev, "Failed to assign memory with phys 0x%llx size 0x%llx err %d\n",
+-					fl->cctx->remote_heap->phys, fl->cctx->remote_heap->size, err);
++				dev_err(fl->sctx->dev,
++					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
++					&fl->cctx->remote_heap->dma_addr,
++					fl->cctx->remote_heap->size, err);
+ 				goto err_map;
+ 			}
+ 			scm_done = true;
+@@ -1381,7 +1385,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	args[1].length = inbuf.namelen;
+ 	args[1].fd = -1;
+ 
+-	pages[0].addr = fl->cctx->remote_heap->phys;
++	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+ 	pages[0].size = fl->cctx->remote_heap->size;
+ 
+ 	args[2].ptr = (u64)(uintptr_t) pages;
+@@ -1410,12 +1414,12 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 
+ 		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+ 		dst_perms.perm = QCOM_SCM_PERM_RWX;
+-		err = qcom_scm_assign_mem(fl->cctx->remote_heap->phys,
++		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+ 						(u64)fl->cctx->remote_heap->size,
+ 						&src_perms, &dst_perms, 1);
+ 		if (err)
+-			dev_err(fl->sctx->dev, "Failed to assign memory phys 0x%llx size 0x%llx err %d\n",
+-				fl->cctx->remote_heap->phys, fl->cctx->remote_heap->size, err);
++			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
++				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
+ 	}
+ err_map:
+ 	fastrpc_buf_free(fl->cctx->remote_heap);
+@@ -1505,7 +1509,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
+ 	args[2].length = inbuf.filelen;
+ 	args[2].fd = init.filefd;
+ 
+-	pages[0].addr = imem->phys;
++	pages[0].addr = imem->dma_addr;
+ 	pages[0].size = imem->size;
+ 
+ 	args[3].ptr = (u64)(uintptr_t) pages;
+@@ -1945,7 +1949,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	args[0].ptr = (u64) (uintptr_t) &req_msg;
+ 	args[0].length = sizeof(req_msg);
+ 
+-	pages.addr = buf->phys;
++	pages.addr = buf->dma_addr;
+ 	pages.size = buf->size;
+ 
+ 	args[1].ptr = (u64) (uintptr_t) &pages;
+@@ -1973,11 +1977,12 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
+ 		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+ 
+-		err = qcom_scm_assign_mem(buf->phys, (u64)buf->size,
++		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
+ 			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
+ 		if (err) {
+-			dev_err(fl->sctx->dev, "Failed to assign memory phys 0x%llx size 0x%llx err %d",
+-					buf->phys, buf->size, err);
++			dev_err(fl->sctx->dev,
++				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
++				&buf->dma_addr, buf->size, err);
+ 			goto err_assign;
+ 		}
+ 	}
+@@ -2091,7 +2096,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
+ 	args[0].ptr = (u64) (uintptr_t) &req_msg;
+ 	args[0].length = sizeof(req_msg);
+ 
+-	pages.addr = map->phys;
++	pages.addr = map->dma_addr;
+ 	pages.size = map->len;
+ 
+ 	args[1].ptr = (u64) (uintptr_t) &pages;
+-- 
+2.53.0
+
