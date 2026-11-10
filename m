@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794350851;
-	b=m/9R8GzuAICqJPb9xV9px0zIIsYh2B8zFG8DST4l+SWpa0B4tkmlovdpUiwRr2e9zCqc
-	 FGoHA6ucV71jSwf2k60ZnSSlaoEBro65fZGGOS3oYvNOzgBtX9tlRNAdgrjsBatYwTi4A
-	 AAft+dbOaPaklHcm8oXD0aoielbRDeIg1kj4i2QFCV1bN5VzeL6CSb7P+3wGKIfRAqbqN
-	 2sf9iohHDZu1LYHjU09ZrtX0ff2qi9tHZnLdkthvTe8XWM8rwXBgWK9sjUGCOh04vV7wt
-	 ATf7yK/DVjKlCzDR5HiL7nACpVfQT4gzc9gV/c7ER6APH8e7S1aIHitqKvbGveLDrMw==
+	t=1794350863;
+	b=ckKJiL4NHHpMZAw1DOJhNIixEhqQ0wF14MM+b1FLEqr6CNR3aSlP5kiO6qMf/4bDDhWW
+	 h8P0Fz/NhhOyMfgrpirAwTJswnCeWz556l/k8wdRm2zmD2jBgFxpOZO0O2Bh5O4h25hCk
+	 CsT5FdytaXoUgjgqD/twtwtto20ooromvo4i/9utpbSpzd4OodUjtgscm0wBgMrLIxo7J
+	 9uqPxhCCmG+iiWBmy8WJN0+VOORqoboEv4C1+2qPZvMiv0pnXFnVCZtMEVO4K1PzpGsDE
+	 bvwfm5GNCquEqE/GVZCEg/H29bP8J3i6t2HN8/6CryDcBlLoaY+Ub+0rK8KZ8aBrmfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794350851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794350863;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iMsgkDlXltx/+TR6cw2Xj/ZYXteD+Dovm4bDK2Usvn8=;
-	b=JB8qKCoH+rv3dfE2B2iZmJt4zsFN3JqROxRRawXDTgON0uzrrZE4haX2MuXUvRbEkz7Y
-	 xwtVqecLbwNq7QmYzwVuRIiMIQRPBajON31QZR/Kddt5F+tjIBvI5jXLA65vp7dKVkfy0
-	 XZRZae5hGb/ppnYaUtTLZBCFr4ssHXDyMf0MXRk3TaoG3PRG5BNw9GCAZGxgA3mLRt4Te
-	 BfJCMC9Bntor2W+zWHHhdI5BVIurKQk++sVS0C7s0LK5+RV3hhYHxqDLi3HUg+DTMi9sb
-	 Y1/rOD8rE5cLdVJJCFugnmP4/0YdhOYnDcofpbelNmhMCmedpdKzsd1rkLEKLIQesOg==
+	bh=qJj/+8bgADY+BnIS0f9UJKb14WsnfjaAXmyzYxMb6zk=;
+	b=VsO/NGuPE1cgozQkyeWq+3K4ejup67VjEj/pe4+i6K3Nds4gpUKQV5zRO1xw55ZtKrnx
+	 S8gJGgeK5T5mJZ/VeCejyPJGtx5lM9UJnStfSnltXJVGULW4TLmpV01S7XmjZNU5V11IQ
+	 AxdN7w1uW+4opd6egtQKmfTbTy9mYLBHtj2WrCMZsoO+fssWaHfBQs9hft35kjdgk3t3P
+	 aGY3SujpAacVAMTtEzbRMFA2u9QV3z73+AaYeyJfPbe9FDymdxrys+3wOkumMw0N2Gbh6
+	 yceHcUXhJ3U2TTKtxifRcnOb0ETdDIqVqjMmrrkpn31/nhQ1yKJCwOj9IWClgRgyQ+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShsSojXg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exJxqRT0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B2A606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:47:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D3A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ShsSojXg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931971F0093C;
-	Tue, 10 Nov 2026 22:47:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exJxqRT0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7221F0093C;
+	Tue, 10 Nov 2026 22:47:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794350851;
-	bh=iMsgkDlXltx/+TR6cw2Xj/ZYXteD+Dovm4bDK2Usvn8=;
+	s=k20260515; t=1794350863;
+	bh=qJj/+8bgADY+BnIS0f9UJKb14WsnfjaAXmyzYxMb6zk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ShsSojXgBV9gZgrfvqE+QT8BK9rBaOMSUM703J3jugiIaxn9A2Kj9mgNoZVTJ4Hfr
-	 vUpvg5JnUGROkZwfpApf9CUplH5wR/VhMP0qnyfIaHWH55Sj7AZbROO65/b1Bq8Axi
-	 ThKX4Jj4mML+uwor+X/Rrn1hUJORxna3YJim9tbzU6JifHCCwFi7jJOGlZ65b9C6nm
-	 s0HSnIrHF9YzEXfzZvp6HNo77UQ4b1p/1XPe9b8fa2zQsOb7+7NWESao6wJMP/+fvs
-	 zhd0BAObpXACBGg5zzLiWtIlQO0lE6cArwZKeSGZBDo6Zc07EsNm2p0u38eJG40Yl4
-	 KlwKQ8DPrueGg==
+	b=exJxqRT0+ukx+Ihn3f6/xNrnMi2pLW3MWHk9OTaYGIICd2Kargvovd0PxcKWympCo
+	 ixibrY9JOq5CWQ7kbp0WqNjsVniOt7SxhdX5I/V51PBiIypa+dmBpzIgtsOMhp/kgC
+	 drGFjCyixjmSN+KKLIB5Oe/04ktsxL7VyrHW6IfFvbfve0dVhsEfVztZg5nw+29V5F
+	 33tqn01jSZzbUZDot4sCiC3OBZPGbkaZLPHSIFcmdE/l77GWXIfwDa0eg/7g/OnDDD
+	 4bNzSQf9CRfY/MD52OHLmfXLBfDlxBwwnXFVd2vB4iCIMCafkhnvYRMtpSA18eAoiK
+	 /BdqQoehqYZKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Siwei Zhang <oss@fourdim.xyz>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Vaibhav Nagare <vnagare@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Date: Tue, 10 Nov 2026 17:47:29 -0500
-Message-ID: <20261110223554.4048044-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] bnxt_en: don't leave an XDP program installed when the open fails
+Date: Tue, 10 Nov 2026 17:47:41 -0500
+Message-ID: <20261110224456.4061965-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062326-failed-5.10-a518b9a9ef6e@kernel.org>
-References: <20261107062326-failed-5.10-a518b9a9ef6e@kernel.org>
+In-Reply-To: <20261107052358-failed-6.12-78731b46967e@kernel.org>
+References: <20261107052358-failed-6.12-78731b46967e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,115 +62,145 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Siwei Zhang <oss@fourdim.xyz>
+From: Vaibhav Nagare <vnagare@redhat.com>
 
-[ Upstream commit a518b9a9ef6ee3b18ecdf6ba5360c608aaf969e9 ]
+[ Upstream commit 78731b46967e3e7102b5cd5062bef185f3404b5c ]
 
-An outgoing channel waits in BT_CONNECT until security
-and the feature mask exchange complete, and only then
-sends its connection request. A peer can answer it
-before that with a connection response matching our
-source CID. The channel then moves to BT_CONFIG,
-completes configuration and becomes connected before
-security has completed. If security then fails,
-l2cap_security_cfm() leaves the connected channel
-alone, so it stays up on a link that did not reach
-the required security level.
+bnxt_xdp_set() stores the new program and drops the reference on the old
+one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
+returns an error with the new program still in bp->xdp_prog.  The caller
+treats the error as "nothing was installed" and drops its own reference,
+so bp->xdp_prog is left pointing at a freed program and the next XDP
+update dereferences it:
 
-A connection response with a zero source CID is
-matched by identifier. Another channel can hold the
-same identifier for a response it still has to send,
-so the lookup can pick the wrong channel.
+  BUG: unable to handle page fault for address: ff78ecc80ddd1038
+  RIP: 0010:__bpf_prog_put+0x5/0x80
+  Call Trace:
+   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
+   dev_xdp_propagate+0x36/0xa0
+   bond_xdp_set+0xeb/0x2d0 [bonding]
+   dev_xdp_install+0x1b1/0x350
+   bpf_xdp_link_update+0xc5/0x1b0
+   link_update+0x104/0x1e0
+   __sys_bpf+0x662/0xcf0
 
-Only accept a connection response while our request
-is outstanding, and only look at such channels when
-matching by identifier.
+Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
+allocation on a fragmented host:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
+  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+
+Bonding is not required to hit this; a plain XDP attach on a bnxt
+interface takes the same path.
+
+Restore the previous program when an attach or a replace fails, and
+recompute the page-mode and XDP TX ring configuration from it.  The
+configuration matters because bnxt_init_one_rx_ring() only assigns
+rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
+dev->max_mtu from the installed program.  Release the old program only
+once the change has been committed.
+
+A detach is not undone.  dev_xdp_detach_link() clears the core's record
+of the program even when the driver returns an error, so putting the
+program back would leave the driver running a program the core has
+already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
+therefore returns 0 with the device closed; bnxt_open_nic() has already
+logged the failure.
+
+Found in a crash dump; the change was not tested on hardware.
+
+Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: adapted the checks to chan_lock-based locking while tracking pending requests in the existing AMP create-channel path ]
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: adapted XDP configuration to existing redirect-target APIs and an inline completion-ring calculation under RTNL locking. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/l2cap_core.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 54 ++++++++++++-------
+ 1 file changed, 36 insertions(+), 18 deletions(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index de97a746bb38c..564eaa1b3e24a 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -185,6 +185,29 @@ static struct l2cap_chan *l2cap_get_chan_by_ident(struct l2cap_conn *conn,
- 	return c;
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+index 2c16348d3b8cb..fcdffdc3ffa8c 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+@@ -380,12 +380,34 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
+ 	return nxmit;
  }
  
-+/* Our connection request has been sent and is still outstanding */
-+static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
++static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
 +{
-+	return chan->state == BT_CONNECT &&
-+	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+}
++	struct net_device *dev = bp->dev;
++	int tc = bp->num_tc ? : 1;
++	int tx_cp;
 +
-+/* Other channels may hold the same ident for a response they still have
-+ * to send, so only look at channels waiting for a connection response.
-+ */
-+static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *conn,
-+							    u8 ident)
-+	__must_hold(&conn->chan_lock)
-+{
-+	struct l2cap_chan *c;
-+
-+	list_for_each_entry(c, &conn->chan_l, list) {
-+		if (c->ident == ident && l2cap_chan_connect_pending(c))
-+			return c;
++	if (bp->xdp_prog) {
++		bnxt_set_rx_skb_mode(bp, true);
++		xdp_features_set_redirect_target(dev, true);
++	} else {
++		xdp_features_clear_redirect_target(dev);
++		bnxt_set_rx_skb_mode(bp, false);
 +	}
-+	return NULL;
++	bp->tx_nr_rings_xdp = tx_xdp;
++	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
++	tx_cp = bnxt_num_tx_to_cp(bp, bp->tx_nr_rings);
++	bp->cp_nr_rings = max_t(int, tx_cp, bp->rx_nr_rings);
++	bnxt_set_tpa_flags(bp);
++	bnxt_set_ring_params(bp);
 +}
 +
- static struct l2cap_chan *__l2cap_global_chan_by_addr(__le16 psm, bdaddr_t *src,
- 						      u8 src_type)
+ /* Under rtnl_lock */
+ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
  {
-@@ -1355,6 +1378,8 @@ static void l2cap_send_create_chan_req(struct l2cap_chan *chan, u8 amp_id)
+ 	struct net_device *dev = bp->dev;
+-	int tx_xdp = 0, tx_cp, rc, tc;
++	int tx_xdp = 0, rc, tc;
+ 	struct bpf_prog *old;
++	int old_tx_xdp;
  
- 	chan->ident = l2cap_get_ident(chan->conn);
+ 	if (prog && !prog->aux->xdp_has_frags &&
+ 	    bp->dev->mtu > BNXT_MAX_PAGE_MODE_MTU) {
+@@ -412,26 +434,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ 	if (netif_running(dev))
+ 		bnxt_close_nic(bp, true, false);
  
-+	set_bit(CONF_CONNECT_PEND, &chan->conf_state);
++	old_tx_xdp = bp->tx_nr_rings_xdp;
+ 	old = xchg(&bp->xdp_prog, prog);
+-	if (old)
+-		bpf_prog_put(old);
+-
+-	if (prog) {
+-		bnxt_set_rx_skb_mode(bp, true);
+-		xdp_features_set_redirect_target(dev, true);
+-	} else {
+-		xdp_features_clear_redirect_target(dev);
+-		bnxt_set_rx_skb_mode(bp, false);
++	bnxt_xdp_apply_cfg(bp, tx_xdp);
 +
- 	l2cap_send_cmd(chan->conn, chan->ident, L2CAP_CREATE_CHAN_REQ,
- 		       sizeof(req), &req);
- }
-@@ -4461,7 +4486,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 			goto unlock;
- 		}
- 	} else {
--		chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
-+		chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
- 		if (!chan) {
- 			err = -EBADSLT;
- 			goto unlock;
-@@ -4478,6 +4503,13 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 
- 	l2cap_chan_lock(chan);
- 
-+	/* Only accept a response to a connection request we sent and that
-+	 * is still outstanding. A channel waiting in BT_CONNECT for security
-+	 * or the feature mask has not sent one yet.
-+	 */
-+	if (!l2cap_chan_connect_pending(chan))
-+		goto done;
-+
- 	switch (result) {
- 	case L2CAP_CR_SUCCESS:
- 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
-@@ -4507,6 +4539,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 		break;
++	if (netif_running(dev)) {
++		rc = bnxt_open_nic(bp, true, false);
++		/* a detach cannot be undone, only an attach */
++		if (rc && prog) {
++			WRITE_ONCE(bp->xdp_prog, old);
++			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
++			return rc;
++		}
  	}
+-	bp->tx_nr_rings_xdp = tx_xdp;
+-	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
+-	tx_cp = bnxt_num_tx_to_cp(bp, bp->tx_nr_rings);
+-	bp->cp_nr_rings = max_t(int, tx_cp, bp->rx_nr_rings);
+-	bnxt_set_tpa_flags(bp);
+-	bnxt_set_ring_params(bp);
  
-+done:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
+-	if (netif_running(dev))
+-		return bnxt_open_nic(bp, true, false);
++	if (old)
++		bpf_prog_put(old);
  
+ 	return 0;
+ }
 -- 
 2.53.0
 
