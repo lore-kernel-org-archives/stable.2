@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345007;
-	b=k8JrJKAByru2UXsPcG6orVVLzt2JvVPNonhomPiQWNU9tJLcoQ5oFdBu9NGLoWYdBzcx
-	 DvPOFC4ThVlxNPDfuXE/kdIEkaEWdc9uKYva8krH/bq4GesVtUVp9fXptvdXI1lyPMk6C
-	 6qP47rijt+PcKdAwn5ZvGCTkDphkjCzM/JhoQ8IAn1INiUtTODL8+5x0WTTpTp8dElEYO
-	 oTHmmvkUPmTdL3yfwfuVoYrz8WDy9MVfHdr2I3w/OPoWmfbyCg/gg0YB9IZGA00slhcFB
-	 tW1z/6OauCG+3YuP++N2JIn16+cRq/vUhprFi0EpHvFVkDNEZov4c0nfccHtRnTfJ4Q==
+	t=1794345145;
+	b=FYGRKugCzkb3NSXXM0e0ngs2l2yAlJfL831KaCF/4GEYtLVXDGFoyIY7fNl81YB7Q5nj
+	 /5z/qjkUdtg0kJ3QoFoKjY91uCUhbN7EUk/pY7n62suSu1cyeUd1xGwHHOFQHdEQnzTGc
+	 D4wVLi8lNLu5ourIG2Z/g7FNur1zeEYJ4HKKlOfusYv+g9iNwollgTgcdz1B+jWEU7FvG
+	 9eBD1H3AFhweEos3r/2G9/SJe2r5Avl4pbBzq7e/4yTQMMAv0Sv+U4j6U7NYtNAKeCcq7
+	 SF9gjJ78/TopDPmzDvFLAf9MzUcttHIVmAJ3+ySiozj85mSRImUlHES5ZnIusbt/wwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345007;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=21EM9X5pIBmahVdjt5RqRtXxmEjqdolJteb3e5XsGZE=;
-	b=4sDiN+q5xaR2Rq5BFR52024TmIdbEiJkuvhfWdovZkVALs5dO06oW718LG2fQdCw/tEQ
-	 Vzm+C7mkBuf6qT1AHiSuT8afG082aWYEO0Fh3/kkOxRcddAsnviaXVa6D2YHaQDrGn+uo
-	 4pqTe5U5Mcnx6pdgn1hf2dkM5LwSmKZxFp8jjmytJKgScu67MHXHubCCkNE0cV5spbzva
-	 furiApuF9gdKIyli0pL946tbZ1YdhIh22ez8vA0ZkoaOSf4PlXwd7xpIm2jqprZ0S0lEi
-	 TdoJMsH5K/PRsEtekxFSfImZKwyWk700JaQ+QOf02LoQzlok6xTg+UlLb60YCbZRVig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345145;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kpMQjwToUtQMejhV8vNvA9vJE+DssTQ+ExQPhOzvSeY=;
+	b=0KlJivD6Ypienw/PIu2dFInmtgPKzXf2q4y4gumhkCcWyI0MHzTzcONErjYlhjz2MoY+
+	 bs4loN85s2IEUVq/rOsFEzidgx/IAnsd2Eo/i6rmpyprBlseTn7cVGXpgCYVBX2vKjYqo
+	 SJaXDNZnUSnBdCnvMlkEpDV/PmHhUe5GQJcgZaJxMdZhOGkhcV1P7zZfIJEHJGuNuEzfj
+	 /Fykv5TLB/1W1YGsx2vFqqteQ7YkFgfB08CMJIyw3ddlHjnuwl2TD7zTmAmL9FiTu26Uj
+	 pFAjybA1lNNfMxjRVwU1W3mUy3qLkpnvL8e2S5gxT5v6u8IsvJXXhr4q1b62h6sQKsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G68vQp0e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNknGzNT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C78606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152F7606A31C;
+	Tue, 10 Nov 2026 21:12:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G68vQp0e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA1D1F0089F;
-	Tue, 10 Nov 2026 21:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNknGzNT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1F61F0089F;
+	Tue, 10 Nov 2026 21:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794345006;
-	bh=21EM9X5pIBmahVdjt5RqRtXxmEjqdolJteb3e5XsGZE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G68vQp0eqmBRBSRw0Lcmz7BGCvE5OpeYAUvUGNpS8/xj4Pmn6YkfLsREPBe2MJzlY
-	 FP4vgLrx+BvDuCsUGDCmB3qt5AaqFxxHBTORDh8C2AgBHyvXBoUPFMVEvQvmxpEhuT
-	 zMzEFUZ/XyszASrika0zQfVsRPlx386XZh9+S44RqqS58LTPqgkqr4byq6gQMHgTWi
-	 Of150aIiYwIqrd23lpdgdF9lf+DfK19U4J+WurFVSDr8UUk5Ybsj1d+IHa4Lz9RJiu
-	 0mBQ9kHKNoJATlIic+oG7r1Kj5JQKz1U0ZwFnn6l69Vd5rneqckTKWnfsqiac5NDf/
-	 zQiXU9H41+Eig==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload
-Date: Tue, 10 Nov 2026 16:10:04 -0500
-Message-ID: <20261110210827.3733389-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061858-failed-5.10-6fff9de5c5b4@kernel.org>
-References: <20261107061858-failed-5.10-6fff9de5c5b4@kernel.org>
+	s=k20260515; t=1794345144;
+	bh=kpMQjwToUtQMejhV8vNvA9vJE+DssTQ+ExQPhOzvSeY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oNknGzNTaCB6b8xU+djU2aY+3o/AwDqMYCenobrc56U84Tan4nhEITPKTOnFUzWZM
+	 FMVIi7DYTtybcsKNLqZv321uHnIfLJkHRRvLZayGZdX4bZOMUWePllWxdeIJcGXlRZ
+	 dmK3LpNw0aRbreZbr+u21xCtGZhy3qEhxf5/IxMsjhzWscIX6SsIMfQs1sIv+Cp9pj
+	 O86QXxeDpJdUudiw3O1qDMvYtnwRfeeo7GEyKSTtDlwhB8rGBK7hJerpZuxS+q0LBG
+	 hnaVVjMhoynsCUT47uPbJhoRN49FNjyPhbMdYR1TLxpmuXm4x9CuafH5ownNxqUyuK
+	 F0IZIVCr5oj4g==
+Date: Tue, 10 Nov 2026 13:12:22 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Rishikesh Jethwani <rjethwani@purestorage.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, Jiayuan Chen
+ <jiayuan.chen@linux.dev>, syzbot@syzkaller.appspotmail.com, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Hannes Reinecke <hare@suse.de>, Sagi Grimberg
+ <sagi@grimberg.me>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v6] kcm: reject attaching sockets with a ULP, and
+ TLS on KCM sockets
+Message-ID: <20261110131222.7e228d44@kernel.org>
+In-Reply-To: <20261104183442.617519-1-rjethwani@purestorage.com>
+References: <20261104183442.617519-1-rjethwani@purestorage.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,72 +64,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Janne Grunau <j@jannau.net>
+On Wed,  4 Nov 2026 11:34:42 -0700 Rishikesh Jethwani wrote:
+> Holding a ULP also has visible side effects: getsockopt(TCP_ULP)
 
-[ Upstream commit 6fff9de5c5b425817588eeed42bd56d665751c13 ]
+This part does not feel right to me. It's not a real ULP yet we will
+start announcing it via all the ULP uAPI.
 
-Since commit 416386060 ("Mark authorization completed on driver
-indication during 4-way HS offload") [0] wpa_supplicant expects
-NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
-driver supports 4-way handshake offload.
-This was apparently never tested with the upstream brcmfmac driver as it
-does not report this. This broke authentication on Apple silicon devices
-(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
-2.11 was released [1]. This was initially dealt with by reverting the
-commit in Fedora [2] and other Linux distributions.
-Instead of carrying the revert over to wpa_supplicant 2.12 add the
-expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
-
-The "Fixes:" tag is not fully accurate as this has only became an issue
-after userspace changes years after the change. Since the change is
-expected to be required in all active stable branches for wpa_supplicant
-2.11 / 2.12 compatibility it is helpful even though
-BRCMF_PROFILE_FWSUP_SAE did not exists then.
-
-Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
-Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
-Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
-Cc: stable@vger.kernel.org
-Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
-Signed-off-by: Janne Grunau <j@jannau.net>
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: adapted authorization handling to inline SAE/PSK checks with the older three-argument cfg80211_port_authorized() API ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 3f6d4299965b2..361675045a67d 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -5973,6 +5973,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
- 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
- 	struct cfg80211_connect_resp_params conn_params;
-+	bool authorized;
- 
- 	brcmf_dbg(TRACE, "Enter\n");
- 
-@@ -5993,7 +5994,12 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		conn_params.req_ie_len = conn_info->req_ie_len;
- 		conn_params.resp_ie = conn_info->resp_ie;
- 		conn_params.resp_ie_len = conn_info->resp_ie_len;
-+		authorized = completed &&
-+			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
-+			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK);
- 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
-+		if (authorized)
-+			cfg80211_port_authorized(ndev, profile->bssid, GFP_KERNEL);
- 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
- 			  completed ? "succeeded" : "failed");
- 	}
+If you repost please try to trim the commit message and the
+documentation slop.
 -- 
-2.53.0
-
+pw-bot: cr
