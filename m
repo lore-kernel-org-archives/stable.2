@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273615;
-	b=fq7tv0i0fHN5TCDrQ++PoAOOxoUnmhnm84H4xEdpEWGbGBrEEcNzZW9vKj8aIqARyvNc
-	 a859PaHrYuW3+U+CRjeP15MSQiAehOVzo24d3Zdrsj9Ceqfld17kECmwOkQctAa8C+l+l
-	 ntGgamGBDjLP7+AXi06C+O40sEoq1RLILiEmwzq9cl91+o1xFZFuvo49hR1JANURkOp3h
-	 83w2dwqQpAfQHYl7qbH6r7M/1QEJOOJpsBdtGf4tNsB6ADz/6Gq/wjpZv2gX5dhJojIu0
-	 txGSw//vKndqomAQxLRZhHrJrsyC49Ab2nAIkYFJ2TfLktO377ZnwC4ReN50Byqo6WQ==
+	t=1794273617;
+	b=2gF0BpqBHkcyR7wMOlt1gUbQIp6BhSciuBQOOhmQHjRbTlZO5M+13cFSUmWTqd8faaHP
+	 ZBxJbOTaEgxniiyU7ItpN49ULpzBOrvaR0faRMSE4Po+uSwNJm/WkcyDYxIRsPCi2fZ8m
+	 S8SiEpT+YhAf78u9oCXgLCnz8nCOWXkOAYgEhz38Gwuwc+L05yv38zRQuGWlRTpp5dlWQ
+	 u8f88+6TmjA1GuZTOuLbzxp7OrHlP8q+aWn9TcAh0M010H6/bMYvuowDRUPSXaNh4YyOD
+	 5kdYDiFGEGVK88n1lIYb4mblOrd/WgIcYNZlHw4q2iAkSuJ0LERj2OxPLJVwlpDIcng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273617;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eW+HBXIsxjQsqJkePBjUESHyBcP95UbK4VKIUGP5Ekk=;
-	b=i8f/o0XRUJPxN0IuHcu7BuRy4DPruTqfS+bKNEWN0qsevNYsPMc8osSL1XULLs/ldHNA
-	 P0LIjvzyKuLGErd7IP1hblOvbrWhEHVypWHBwJ0VkHwuR/FybiWt/3convnSPu6I0s7sb
-	 ObUvihm5VzrawPp/1QmAGh70pl3ucLqFyglIrIItJ4nQtbkLuX8iaSRjGrechudxe0dAd
-	 NMy+OR7wQ1NWTzlyI1Q7C7GmyukF0itJXrRBNKm5wQqBXr2zH/xqjOFT6He313Pmyh8JC
-	 8PuUJ9bWfyUk23e6EmxHj7OBelR2IV23voj7O0G+v2y9clgVg5mB/xYCocyVCkhBmJA==
+	bh=eezJvlkF+4Tfn5ne72o/zOWXiW1k/HTVfzu7Jdh+6Qk=;
+	b=X6Dzm9fmcHo5kVy2WSpJxg+ZvQK6hug0zbTvwyfiIixQDzI9lpOeyMfYzil70uamvsDQ
+	 rMwHLeFpDOvBhKeP855Ecmk7aygLNNeFg9YHWt/i9BmPXejaHhmISvKu1MhOuV10Pudm4
+	 RoeP6YxwstWl07zxmkCO4LCDyaao1QZWAB0Yzvn9lJyRUWw5tGVlkAo8W8gvVhQC9iKZq
+	 XagOMa4C0m1sqmCyW1LL144zBkecl8qReGA8rinaWREzQR1RIKNsY9UEsjVhHQxl7HMeX
+	 rgQEyC78WsjQ8Fo6l+eZjdYeRlmW5VrF/Me+xDYgMjgE5krnMG1zBh3Ag5tIoViJRcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/KGobE5";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMy8xbBq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD5B606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA9060A2625
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/KGobE5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F421F008A7;
-	Tue, 10 Nov 2026 01:20:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bMy8xbBq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4FB21F008A5;
+	Tue, 10 Nov 2026 01:20:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273615;
-	bh=eW+HBXIsxjQsqJkePBjUESHyBcP95UbK4VKIUGP5Ekk=;
+	s=k20260515; t=1794273617;
+	bh=eezJvlkF+4Tfn5ne72o/zOWXiW1k/HTVfzu7Jdh+6Qk=;
 	h=From:To:Cc:Subject:Date;
-	b=A/KGobE5QVqrmmTEAMUBEuqhOFMf52ZlAkHcK4geyM2o3D5khdEwj7KGJFAJl5X6v
-	 mwqcUA1EAY2mJnEtaZQccsOOX1KqF3EUkFom9OXWIHhx2Qn6xo0BLJ5KDPW03I4Q5R
-	 tTADFfCbxqFve+c4e03P5ss4SLddc04AqdmUFRMNGgM64KW3Joc4IHWyfX+tNyQLOJ
-	 5QtXbCciRvEvo/Q8jvfSCqtrsfy0Nl0U2Ekt3mKWN/GKEFBby5S2K6NYUcwGH1+N6L
-	 4LjJ26VdA5GyI6gSRhmQfeWDmqVca9ilMJerpGRjwYcB4SVH7/kQu49siMwI9RRjS5
-	 FPAP7rqI6I3/w==
+	b=bMy8xbBqog4gbwIUJdG5y0OHuv3hPKPcGwGLkdZ1RFGEq1ZM98XkrLbCuhwmQy/ND
+	 /AUh1G3LUUjAcbfoOxImZvCU4pAqMekETURzOTMq+t+FkUR4gdK7MDa9rqIiPbjkRM
+	 5HsTKZxwEQXrFMB2qCdVLKoBDm8Phr09KFsCZQazu076vPHaJqVJYql0A2nTVZUxpW
+	 HCa5QXl7xEq63XuWIRN58Q9mJ/reLv2Ykk8tuUvVYj70TRfKzOTvJ1V5NCS26ImlCh
+	 bfOo5t8zYCsnn/dFVznPBOEwlTJKMPw3jw8gRasY1gi17StBfJgQ9CJ2IeWkwoxEPO
+	 SZwSjDy4TLFPA==
 From: Sasha Levin <sashal@kernel.org>
-To: yuz08559@gmail.com,
-	mkp@kernel.org
+To: nicoyip.dev@gmail.com,
+	sven@narfation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:13 -0500
-Message-ID: <20261109202013-failed-5.15-6a6e7d7230cd@kernel.org>
+Subject: FAILED: patch "[PATCH] batman-adv: Close OGM aggregation before transmission" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:15 -0500
+Message-ID: <20261109202015-failed-5.15-f91f64a91682@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,177 +68,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94
+git cherry-pick -x f91f64a91682c07e6c5f059804e709656364e8a6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202013-failed-5.15-6a6e7d7230cd@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202015-failed-5.15-f91f64a91682@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94 Mon Sep 17 00:00:00 2001
-From: Yu Zhang <yuz08559@gmail.com>
-Date: Wed, 14 Oct 2026 11:37:46 +1000
-Subject: [PATCH] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN
- teardown
+From f91f64a91682c07e6c5f059804e709656364e8a6 Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Sun, 27 Sep 2026 18:16:24 +0800
+Subject: [PATCH] batman-adv: Close OGM aggregation before transmission
 
-A demo-mode (generate_node_acls=1) login that allocates a dynamic NodeACL
-populates that ACL's per-LUN dev entries in core_tpg_add_node_to_devs()
-*before* the ACL is linked onto tpg->acl_node_list by
-target_add_node_acl():
+The OGM send worker leaves its forwarding packet on forw_bat_list until
+after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
+but emission reads and clones the packet without that lock.
 
-	core_tpg_check_initiator_node_acl():
-		...
-		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
-		target_add_node_acl(acl);                  /* only now listed */
+CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
+list lock, finds the same packet and appends another OGM. The sender can
+observe the new packet length before the corresponding direct-link flag
+is set, or clone the skb while its length and payload are being updated.
+This can transmit an OGM with incorrect flags or inconsistent data.
 
-The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
-tpg->acl_node_list, so a dev entry whose ACL is still in the window above
-is invisible to the sweep and is never disabled.  It is left on the
-se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun; when
-the same unpacked_lun is later re-added and the se_lun is reallocated at
-the same address, the stale dev entry is rediscovered by
-target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
-lun_deve_list:
+KCSAN reported:
 
-  BUG: KASAN: slab-use-after-free ...
-   core_enable_device_list_for_node+0x5ce/0x880
-   core_tpg_add_node_to_devs+0x169/0x190
-   core_dev_add_lun+0x146/0x190
-   target_fabric_port_link+0xe9/0x1b0
-   configfs_symlink+0x381/0xae0
-   __x64_sys_symlink+0x55/0x80
+  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
+  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
+  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
+  value changed: 0x00c0 -> 0x00d8
 
-The demo-mode login path that drives the ACL/dev-entry creation is
-reachable by an unauthenticated initiator; the colliding LUN add/remove is
-a local configfs operation.
+Mark the aggregate as full under forw_bat_list_lock before emission. This
+waits for any ongoing append and prevents further aggregation. Emission
+uses packet_len to walk the OGMs, so all queued packets are still sent.
+Keep the packet on the list so interface purging can find the worker,
+wait for it to finish and free the packet.
 
-Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun
-shutdown") introduced se_lun->lun_shutdown and guarded the *explicit* ACL
-MappedLUN path (target_fabric_mappedlun_link()), but the demo-mode
-automatic path, core_tpg_add_node_to_devs() ->
-core_enable_device_list_for_node(), was never given the equivalent guard,
-and the publish-after-populate ordering in
-core_tpg_check_initiator_node_acl() was left unchanged.
-
-Fix it in three cooperating parts:
-
- 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
-    dev entries, so the teardown sweep can observe them.
-
- 2) Refuse to attach a dev entry to an se_lun that is shutting down,
-    checked under nacl->lun_entry_mutex -- the same lock the sweep takes --
-    so once the sweep has passed an ACL any later enable for that LUN
-    observes lun_shutdown and skips it.
-
- 3) In core_enable_device_list_for_node(), insert the new dev entry onto
-    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
-    the replace and the new-entry branch.  Previously the entry was added
-    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list only
-    after dropping it; with the ACL now published early, the sweep could
-    take the mutex in that gap, find the entry on the hlist,
-    core_disable_device_list_for_node() it (list_del() on the not-yet-
-    linked lun_link succeeds and the entry is freed), and then the enable
-    would list_add_tail() the freed entry back onto lun_deve_list.  Linking
-    both lists under the mutex makes enable and the sweep mutually
-    exclusive, closing that window.
-
-core_tpg_add_node_to_devs() already ignores the return value of
-core_enable_device_list_for_node(), so a shutting-down LUN is simply
-skipped.
-
-Cc: stable@vger.kernel.org
-Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Tested-by: Yu Zhang <yuz08559@gmail.com>
-Link: https://patch.msgid.link/20261014013746.46705-1-yuz08559@gmail.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
+Cc: stable@vger.kernel.org # 4.10.x: 434becf57bdc ("batman-adv: Limit number of aggregated packets directly")
+Cc: stable@vger.kernel.org # 4.10.x
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+[ sven: drop assisted tag, document new meaning of num_packets ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/target/target_core_device.c | 18 +++++++++++++++---
- drivers/target/target_core_tpg.c    | 10 +++++++++-
- 2 files changed, 24 insertions(+), 4 deletions(-)
+ net/batman-adv/bat_iv_ogm.c | 5 +++++
+ net/batman-adv/types.h      | 8 +++++++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
-index 9db2201aa553f..c5d5d6a91fee7 100644
---- a/drivers/target/target_core_device.c
-+++ b/drivers/target/target_core_device.c
-@@ -349,6 +349,19 @@ int core_enable_device_list_for_node(
- 	new->attach_count++;
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index 158d2b8f04036..85e99506a53f5 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -1909,6 +1909,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
+ 		goto out;
+ 	}
  
- 	mutex_lock(&nacl->lun_entry_mutex);
-+	/*
-+	 * Do not attach a new dev entry to an se_lun that is being torn down.
-+	 * lun_shutdown is set by core_tpg_remove_lun() before its
-+	 * core_clear_lun_from_tpg() sweep; checking it here under the same
-+	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
-+	 * has passed this ACL no dev entry can be left dangling on the
-+	 * se_lun->lun_deve_list that is about to be freed.
-+	 */
-+	if (lun->lun_shutdown) {
-+		mutex_unlock(&nacl->lun_entry_mutex);
-+		ret = -ENODEV;
-+		goto free_stats;
-+	}
- 	orig = target_nacl_find_deve(nacl, mapped_lun);
- 	if (orig && orig->se_lun) {
- 		struct se_lun *orig_lun = orig->se_lun;
-@@ -375,12 +388,12 @@ int core_enable_device_list_for_node(
- 		new->se_lun_acl = lun_acl;
- 		hlist_del_rcu(&orig->link);
- 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
--		mutex_unlock(&nacl->lun_entry_mutex);
- 
- 		spin_lock(&lun->lun_deve_lock);
- 		list_del(&orig->lun_link);
- 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
- 		spin_unlock(&lun->lun_deve_lock);
-+		mutex_unlock(&nacl->lun_entry_mutex);
- 
- 		kref_put(&orig->pr_kref, target_pr_kref_release);
- 		wait_for_completion(&orig->pr_comp);
-@@ -393,11 +406,10 @@ int core_enable_device_list_for_node(
- 	new->se_lun = lun;
- 	new->se_lun_acl = lun_acl;
- 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
--	mutex_unlock(&nacl->lun_entry_mutex);
--
- 	spin_lock(&lun->lun_deve_lock);
- 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
- 	spin_unlock(&lun->lun_deve_lock);
-+	mutex_unlock(&nacl->lun_entry_mutex);
- 
- 	target_luns_data_has_changed(nacl, new, true);
- 	return 0;
-diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
-index ccff9f6e48266..e615e5e304273 100644
---- a/drivers/target/target_core_tpg.c
-+++ b/drivers/target/target_core_tpg.c
-@@ -266,6 +266,15 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
- 	kref_get(&acl->acl_kref);
- 	acl->dynamic_node_acl = 1;
- 
-+	/*
-+	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
-+	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
-+	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
-+	 * can observe and disable those dev entries.  Otherwise a dev entry can
-+	 * be left on an se_lun->lun_deve_list that is about to be freed.
-+	 */
-+	target_add_node_acl(acl);
++	/* Mark aggregate as full before forcing emit. */
++	spin_lock_bh(&bat_priv->forw_bat_list_lock);
++	forw_packet->num_packets = BATADV_MAX_AGGREGATION_PACKETS;
++	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
 +
- 	/*
- 	 * Here we only create demo-mode MappedLUNs from the active
- 	 * TPG LUNs if the fabric is not explicitly asking for
-@@ -275,7 +284,6 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
- 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
- 		core_tpg_add_node_to_devs(acl, tpg, NULL);
+ 	batadv_iv_ogm_emit(forw_packet);
  
--	target_add_node_acl(acl);
- 	return acl;
- }
- EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
+ 	/* we have to have at least one packet in the queue to determine the
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index c19caa84e6920..b3e6dbb360dae 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -2047,7 +2047,13 @@ struct batadv_forw_packet {
+ 	/** @direct_link_flags: direct link flags for aggregated OGM packets */
+ 	DECLARE_BITMAP(direct_link_flags, BATADV_MAX_AGGREGATION_PACKETS);
+ 
+-	/** @num_packets: counter for aggregated OGMv1 packets */
++	/**
++	 * @num_packets: counter for aggregated OGMv1 packets. Set to
++	 *  BATADV_MAX_AGGREGATION_PACKETS (independent of the real number of
++	 *  aggregated packets) by the send worker to prevent further
++	 *  aggregation while the packet is emitted. It must therefore not be
++	 *  used to iterate over the aggregated packets
++	 */
+ 	u8 num_packets;
+ 
+ 	/** @delayed_work: work queue callback item for packet sending */
 -- 
 2.53.0
 
