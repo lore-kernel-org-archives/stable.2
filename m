@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311795;
-	b=rWVS5PMCEgAHFKdQQld0XbCvAcDcgQBBFkEXIrJwydFwR79WKLFAmn9Tu0khaYzafGlf
-	 JR9NtB5/j6qsi5HUq4Oy5zq2OEc4z6MqSszxcA9gpK4bl6W5hPcmqZMG2DatDrXz9+xjA
-	 WybaDUijOAI5Cs1GNzrhaRy3MeKw8Bw74kWBxvet+5XgJ9h5w3rHlXA7aAv2m8WG/LTfE
-	 PG0TtfpFTlxJi/D5Z3PkEBIAop8/J11W9OGpEk6MHlYxXZSmC4YJ/vZjbBmU9xRVnMvL7
-	 zUq2K5pJKnFaNOSz/lbx1K6zgIDXxd7mCGp90luNXZ+xaArs98FTTqSrJGZxRw28w+Q==
+	t=1794311796;
+	b=351I6jlhiE3txgGlXO6rnn1eLID6KJPBA9gDCGbFMlPA6KPrmjeSIvEgMQ0OG3dERi84
+	 JEy9e37YOuaL0a0uYAOCgz1lMlK8tqS9hLLQMJLluNgeOaQyiVfUwcS1XVBWZJ3j62DvY
+	 NnjvL8eZNcFKlENbzsQz5imIB3Z2gK4AHswC6g0etmlAU2LLEr/3tSaxOqH4ZhboWNl5k
+	 eOlgzT5Rdqplqa/WlvdA+kqW/aDe3ZetiviFE77Vnd/wSMWB2vmaMXbSvvC8j5uGeN5r7
+	 zEiHx3TEqF42Jdf/mu2UmkN9cdURvt8T2AxiF4aHbgYuaqR5Rl/ppmKa+JTjqydjxLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311795;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311796;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ilb7lPLrUcCiFp9DQs8Sy8q6c3Os9gkD+V+anpE99bg=;
-	b=osE6FVmknJFIIfuYDyICr8I+N6U+35Z/UvHN6QMOH7QLq0TV/r9IQPSxy7yEQ0FpxatQ
-	 AZQWn2sBJuOcPkj7V46PmbusvQT3ik9dLGm4Mvao33mKeft2q8qYnVNwR3xK1Lu9ktnSn
-	 adFae1dN9LwNycwcYuNtu/ViuzuMq9Xe7WCcSY6/M2dKhDQTQEIdKpef9kn5EhJaSfENu
-	 onVY9Len5A0OXRxKLUUOSKGq9WWFIfP6hxcGP8fXv8bYlVx1/DeQhsiUy1EMxzAGLeWxY
-	 MJZV8c085m277HEgJYx4/iMteXe12Tp+ZMI+q0+I7qkCEgaACwkXoETQoEh7qFLFKtw==
+	bh=H1w5JJE4xsmMqV+dsFVUrTRIaN5v84Iy7CPPvG27Ow8=;
+	b=vhuS50zt21PPgeiopVoy0C2WTFE+RBaQAdZbNRtd02GS8xavf50or81t/7LTUKDKek9Q
+	 sMPyUKBRlmRrnw0QcggleV9+BNxjw36U2a6JZSIEr1AKad7s1P1qGay1S3BISjMN2V8So
+	 2aisAh2V3P5aKvQiceK2yV7yqcj2/P7O4rndtlRqdFQih/q+An6CwBxZ9qxHET550ej47
+	 UphFKfzJW7HNws1VIHJ7cGlJ0q5ARvAJj1GJeUm5nRYrN7n43VvchMvfEUBBkXUfLm86u
+	 ghcw+aEoBC/e1xxW8fcJqV75dDz933IoS0YurMxSjkw2oP97gT4DZQOD5oGWju21Ueg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=on4rh4un;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQvYDzWy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60F760A2606
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F58606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=on4rh4un
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFBB41F008A2;
-	Tue, 10 Nov 2026 11:56:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQvYDzWy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1BE1F008A3;
+	Tue, 10 Nov 2026 11:56:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311794;
-	bh=ilb7lPLrUcCiFp9DQs8Sy8q6c3Os9gkD+V+anpE99bg=;
+	s=k20260515; t=1794311796;
+	bh=H1w5JJE4xsmMqV+dsFVUrTRIaN5v84Iy7CPPvG27Ow8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=on4rh4un3t2obxK1bo9oc6lvhWVNDUHTVHGVtqZLQ/h+U5hBRgEiFNqUNC9M4Ssqt
-	 W+glbR9wIv9HSBQWyGZdyPnnrRJ7VtZRrnLSimByjjKSY17Y2k3g3z1h+HvCVAq581
-	 OZVNAy6sqljw+EeH+T0F2q1TQ9H04bThviXft2bIDwQTNvaY/mdevNK4NeYv2EJxh6
-	 EpRtb8raxu7yAH1XjMxKyJAFWfOAU3HEsbbAe8iO8Te/HdbohYJIMHQvR7kDLo8WR9
-	 PlA8RloE/JNcPK77KmEmrAumhKETiLrHhMBpNNkdwLU+KjTAUONRDczePcDHMUkVEG
-	 1JY5kkhOXQgaA==
+	b=aQvYDzWyHMcM0dd+6+NjAqmfHfGXIB9S/vbAkErPBmAjXoJ+/UePaF80CRzuHXWHs
+	 7elhgBlAfc2nf/5cBodFvvBcvSk+S0xIUOZJb0IamtJPP/10pbZsA4cfyvfyVJyfSS
+	 rKJWSgpSTXqCZ4w/i6UQlfbpjGk41sISmJkGO9fJOjXo//1pOxuLxe8pVCThicaFDZ
+	 ftbrvh5utJEYwzqbWSi0e4ckiyVxfWuaTy8PW+57LSc8j6gOkgh31enbVLMTWhSCtG
+	 j/9lKsENi0m4wkcmeWJ80gTRHb1v+75HAW5p6rSV/vSfCN1LoibGLc4IOQi2FeiAtc
+	 zGXezaBUy7esQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Jan Kara <jack@suse.cz>,
+	Robert Morris <rtm@csail.mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] media: microchip-isc: fix SBGGR10 Bayer pattern
-Date: Tue, 10 Nov 2026 06:56:30 -0500
-Message-ID: <20261110115623.918583-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] udf: Avoid invalid LVID used on mount
+Date: Tue, 10 Nov 2026 06:56:33 -0500
+Message-ID: <20261110115625.906950-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110115623.918583-1-sashal@kernel.org>
-References: <20261107050633-failed-6.18-bb96c78c5f87@kernel.org>
- <20261110115623.918583-1-sashal@kernel.org>
+In-Reply-To: <20261107052823-failed-6.6-a61fb39759d7@kernel.org>
+References: <20261107052823-failed-6.6-a61fb39759d7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,50 +61,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+From: Jan Kara <jack@suse.cz>
 
-[ Upstream commit bb96c78c5f87072913f8825faebe64bf711a503c ]
+[ Upstream commit c8f1140cb82dc843e72697dc6f8c7ee1acce5d28 ]
 
-SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
-causing red/blue channel swap.
+udf_load_logicalvolint() loads logical volume integrity descriptors.
+Since there can be multiple blocks with LVIDs, we verify the contents of
+only the last (prevailing) LVID found. However if we fail to load the
+last LVID (either due to IO error or because it's checksum fails to
+match), we never perform the verification of validity of the LVID we are
+going to use. If such LVID contains invalid data, we can hit
+out-of-bounds access or similar issues. Fix the problem by verifying
+each LVID we are potentially going to accept.
 
-Fixes: 1e8f401474d6 ("media: atmel: atmel-isc: reworked driver and formats")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Reported-by: Robert Morris <rtm@csail.mit.edu>
+Signed-off-by: Jan Kara <jack@suse.cz>
+Stable-dep-of: a61fb39759d7 ("udf: Make sure there's enough space for LVID implementation use field")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 +-
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/udf/super.c | 42 +++++++++++++++++++++++++-----------------
+ 1 file changed, 25 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 57a5aae3cabfb..5e41eee45dbd7 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -148,7 +148,7 @@ static struct isc_format sama5d2_formats_list[] = {
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
--		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index a841266ffc30f..9e78ea07b013a 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -157,7 +157,7 @@ static struct isc_format sama7g5_formats_list[] = {
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
--		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+diff --git a/fs/udf/super.c b/fs/udf/super.c
+index 8da1e24ed599d..67c9111624d84 100644
+--- a/fs/udf/super.c
++++ b/fs/udf/super.c
+@@ -1650,6 +1650,20 @@ static int udf_load_logicalvol(struct super_block *sb, sector_t block,
+ 	return ret;
+ }
+ 
++static bool udf_lvid_valid(struct super_block *sb,
++			   struct logicalVolIntegrityDesc *lvid)
++{
++	u32 parts, impuselen;
++
++	parts = le32_to_cpu(lvid->numOfPartitions);
++	impuselen = le32_to_cpu(lvid->lengthOfImpUse);
++	if (parts >= sb->s_blocksize || impuselen >= sb->s_blocksize ||
++	    sizeof(struct logicalVolIntegrityDesc) + impuselen +
++	    2 * parts * sizeof(u32) > sb->s_blocksize)
++		return false;
++	return true;
++}
++
+ /*
+  * Find the prevailing Logical Volume Integrity Descriptor.
+  */
+@@ -1660,7 +1674,6 @@ static void udf_load_logicalvolint(struct super_block *sb, struct kernel_extent_
+ 	struct udf_sb_info *sbi = UDF_SB(sb);
+ 	struct logicalVolIntegrityDesc *lvid;
+ 	int indirections = 0;
+-	u32 parts, impuselen;
+ 
+ 	while (++indirections <= UDF_MAX_LVID_NESTING) {
+ 		final_bh = NULL;
+@@ -1682,32 +1695,27 @@ static void udf_load_logicalvolint(struct super_block *sb, struct kernel_extent_
+ 		if (!final_bh)
+ 			return;
+ 
+-		brelse(sbi->s_lvid_bh);
+-		sbi->s_lvid_bh = final_bh;
+-
+ 		lvid = (struct logicalVolIntegrityDesc *)final_bh->b_data;
++		if (udf_lvid_valid(sb, lvid)) {
++			brelse(sbi->s_lvid_bh);
++			sbi->s_lvid_bh = final_bh;
++		} else {
++			udf_warn(sb, "Corrupted LVID (parts=%u, impuselen=%u), "
++				 "ignoring.\n",
++				 le32_to_cpu(lvid->numOfPartitions),
++				 le32_to_cpu(lvid->lengthOfImpUse));
++		}
++
+ 		if (lvid->nextIntegrityExt.extLength == 0)
+-			goto check;
++			return;
+ 
+ 		loc = leea_to_cpu(lvid->nextIntegrityExt);
+ 	}
+ 
+ 	udf_warn(sb, "Too many LVID indirections (max %u), ignoring.\n",
+ 		UDF_MAX_LVID_NESTING);
+-out_err:
+ 	brelse(sbi->s_lvid_bh);
+ 	sbi->s_lvid_bh = NULL;
+-	return;
+-check:
+-	parts = le32_to_cpu(lvid->numOfPartitions);
+-	impuselen = le32_to_cpu(lvid->lengthOfImpUse);
+-	if (parts >= sb->s_blocksize || impuselen >= sb->s_blocksize ||
+-	    sizeof(struct logicalVolIntegrityDesc) + impuselen +
+-	    2 * parts * sizeof(u32) > sb->s_blocksize) {
+-		udf_warn(sb, "Corrupted LVID (parts=%u, impuselen=%u), "
+-			 "ignoring.\n", parts, impuselen);
+-		goto out_err;
+-	}
+ }
+ 
+ /*
 -- 
 2.53.0
 
