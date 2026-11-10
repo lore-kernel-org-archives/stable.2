@@ -1,60 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272592;
-	b=hyhLjL/JYC3LL4MVEOXeR6uHwmQqp3tXe0oY4srUpVa5+4asxJ8w7cpvH0+uF5GsDWZ3
-	 XZVW2zM3qxP6M2jfDLQWK/cSMRCAknk8CnqufU2sMh9ggoou314Am1OYWUFkncBA3krVI
-	 3zwRg+IgTSWRodwjG2nlvNJtFMvtoztk3n6OU7HoXW9EBlehsfH15wuyZu6kV6mA6Vdpc
-	 ZuNDpETvOybHCmH4PA+OUt8tqr6W/xojIWfkxsKm8LJhZuGwqBKU7nZ0hbNQKW5in/wer
-	 DufNroXlDFuh5k9tssE9eNmwNrvci/ANF/6s8srASMfMabRKBtIu3Ci0BtJY4+rcCXg==
+	t=1794272595;
+	b=mAHANj8nDIJqs+eiE7YEmCQ0ZxmvCqQifV3XBDmV6HOh7pariDR4JkvcDccf42uqw/Gb
+	 TNbCWQ6FQ1xTo98hHWz90f3LW99BrXvOeYfOAvAooZ8Eej1+muNdYButxjsPXYNyQroU1
+	 otzxuIzismvqL53W9sGdwd0pGlupo+LwgPMWbBBDiFuDe8qLTYDOL/CufhlbEhylFadEp
+	 wXJSgZhy7hFQB09v+KR43JA4+IJwx6GIYAvAJxpgMIy8Et/Cc5mCOi/GhZyeBWfu6YBnm
+	 v3XGgnxknkrCxQD/kXBL0hM5PTiRhfDLZyz6bJIoC3pZfq1xwb2ShZgGkmdazURKT4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272595;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2SGyZTnKbQz37zsqzQ30wFIKtLMUc/rMf1FXSC/G/10=;
-	b=3muvrcEMrnyXasXaZHZnCrV4ScMgjipdOvmNWGDjU1iVZyTxAnIGYRpmHBJypY32CcPM
-	 wE/OqjPbe8GJptXYa3m1ovEcxUau8oj53YTODcvAufOAPuIStPVMKjL6vs/Hnje3ZoYTJ
-	 MXVuavCKxC4BHvCrvB3McpkrJ/pu2lDqXYMcVJVHSWew7Vx7FVckrqEu5dleURnRACZA9
-	 8HMKKCGexu2NKe7zoVe263Pm1n35e+Hb9QtzzmN8/t+qnVquPlagv24uoSMM2ocw9FD+Q
-	 W6pBHlqoEk+ELobDpim7xRC8XWAPKvVRi9hpGtqNOaBbkqF99xQhQyHLhf6XDxYsokQ==
+	bh=xWHw03RJZy3Xg/msVl08JTiFQ4wrxFURcLtSPUbEiXk=;
+	b=WCyfq4hfqxB0wqD4tOsc9UjFcSFkygEu7S4fOlvCNfeIGAxIYI+hV5jfzg5CmpuNhQPe
+	 ApB+EQkK63wBtu7KU3GUs1PpYGUi1N0JhkG2BNGCGQ4MWF7AoN+LoWv4gfR2/R8XMsH7g
+	 9mDa820XHFzionsSVqz8K3cWUTLTrwC/fO2h/gW91wLNJpDJQit6k1RYVB80cNoUsr8fo
+	 iAQeIFvp57K6Xm3P47YZP/xOjvp+utyjrwcUNXF6WP+h+uIJlpH39rlnRGUNSboLLpre+
+	 F7uVRkRBG1g+jF43/SQ97vIXlIo6Ti6pY/wGdn0qH/O9HgIth89GNa/4SBuZkMxrbog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdvd1yCG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFwv1FFj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54AEF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8817606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdvd1yCG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC10D1F0089F;
-	Tue, 10 Nov 2026 01:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFwv1FFj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2FE1F0089F;
+	Tue, 10 Nov 2026 01:03:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272592;
-	bh=2SGyZTnKbQz37zsqzQ30wFIKtLMUc/rMf1FXSC/G/10=;
+	s=k20260515; t=1794272594;
+	bh=xWHw03RJZy3Xg/msVl08JTiFQ4wrxFURcLtSPUbEiXk=;
 	h=From:To:Cc:Subject:Date;
-	b=fdvd1yCGrSXRuE+gRww4PKng99ro8zY6N5w8GhPq7o41cNLkXOx9iz5JecufspPmF
-	 J4DF+Mv6PJH3n6AFVM6KRzVY/q1y39xr6DzTzr14QvBFFw4yO02H9JaHK55ntfzeg/
-	 1KqgV9FX3DvnBQNcXMCxeBPIoTxqbJA8WeChzUOlzOgEbZbJkZOcjwZzdTIa0eUeYD
-	 rhvZzH3AzHsbxuKanFpUNxzS8vMwM/IL2CutSqB19AEW/1u+tUd+i9/oKISwAozr82
-	 zRtnPUivN/cQmBHM0jOA7TYtZZLv/Am0bK49Wv0RdSCvbC3HNf8Gm+8LP14tz5VTm2
-	 mjGfWEG6IMjbg==
+	b=NFwv1FFjs7IMA2Dm2TGKuzGGodEOANG1As7pv6Jdi0dOxxxFxjbS0N+LulQlIZhBa
+	 WbOL7YsIvdQEpwetjNikFuoEq5ymPb0QC/WSRgEVZ0BKwesjkZx6DPZ2MgSzOc/HGj
+	 yxFDmxdtZI7qS6YQoFJ0r+p64umjeKq5pz7T9Zbc5cIqUiYhByUKd30z1JxkSrvu55
+	 45kcsa64F15o9vU8l7nswUJ35lsXBZP5XnMTo0kmEfoku4AwQGSlQSgadOFnE90RPF
+	 z5/1WqJStLWjVG+6JBMY2/fitvsWmrAdFW00s0APytLz5d5q5nDl2DXAMUKYR+FQRt
+	 u8GOqFba2tW/A==
 From: Sasha Levin <sashal@kernel.org>
 To: david@kernel.org,
-	josef@toxicpanda.com,
-	ljs@kernel.org,
-	riel@surriel.com,
-	vbabka@kernel.org,
-	baohua@kernel.org,
-	pfalcato@suse.de,
-	harry@kernel.org,
-	kas@kernel.org,
-	sj@kernel.org,
-	usama.anjum@arm.com
+	mason@kernel.org,
+	pratyush@kernel.org,
+	baolin.wang@linux.alibaba.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fork: take mmap_lock before copying mm_struct" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:03:09 -0500
-Message-ID: <20261109200309-failed-6.18-ef694e2d2101@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/shmem: make shmem_file() check the file's inode" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:03:12 -0500
+Message-ID: <20261109200312-failed-6.18-d3710111839d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,139 +70,125 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ef694e2d210111cc08c52fd25da9ab130170bfa3
+git cherry-pick -x d3710111839d11339e414b1bb3fea3d05ab83f6e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200309-failed-6.18-ef694e2d2101@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200312-failed-6.18-d3710111839d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ef694e2d210111cc08c52fd25da9ab130170bfa3 Mon Sep 17 00:00:00 2001
+From d3710111839d11339e414b1bb3fea3d05ab83f6e Mon Sep 17 00:00:00 2001
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:31 +0100
-Subject: [PATCH] fork: take mmap_lock before copying mm_struct
+Date: Sat, 31 Oct 2026 10:39:32 +0100
+Subject: [PATCH] mm/shmem: make shmem_file() check the file's inode
 
-dup_mm() copies the parent's mm_struct before dup_mmap() takes the
-mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
-and newer heap mappings, causing later brk() requests to fail.
+shmem_file() only checks if file->f_mapping is a shmem mapping. This
+mapping can belong to another file, however, as with a Coda file backed
+by a tmpfs container after mmap().
 
-Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
-cause inconsistencies.
+So it does not guarantee that the file inode is an actual shmem inode.
 
-As a simple and robust fix, grab the parent's mmap_lock earlier. This
-way we don't need to update individual mm fields in dup_mmap() and
-keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
-exec_vm, stack_vm), as that is now no longer required.
+Seal handling and memfd preservation use this check before accessing
+shmem inode state, so they can access an inode of the wrong type.
 
-Keep releasing the parent's mmap_lock in dup_mmap(), before
-userfaultfd completion, to avoid moving the userfaultfd handling into the
-caller. This should get cleaned up later.
+Let's make shmem_file() check the inode's file operations instead, to
+identify shmem inodes reliably. This will identify regular shmem inodes,
+including memfds and ordinary tmpfs files, independently of wrapper file
+operations.
 
-Move uprobe_start_dup_mmap() to preserve the lock ordering.
+Use shmem_mapping() in collapse_file() instead to not change the behavior
+of collapse_file(): it operates on the page cache and uses mapping->host
+for shmem inode operations. Focusing on the file does not seem relevant.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-2-d6437171ecc3@kernel.org
+Reported-by: Chris Mason <mason@kernel.org>
+Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- kernel/fork.c | 20 ++++++++++++++------
- mm/mmap.c     |  8 +-------
- mm/nommu.c    |  2 +-
- 3 files changed, 16 insertions(+), 14 deletions(-)
+ include/linux/shmem_fs.h | 15 ++++++---------
+ mm/khugepaged.c          |  2 +-
+ mm/shmem.c               |  5 +++++
+ 3 files changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 8b108ed371529..5efceb8d58a78 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1533,12 +1533,19 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	if (!mm)
- 		goto fail_nomem;
- 
-+	uprobe_start_dup_mmap();
-+	if (mmap_write_lock_killable(oldmm)) {
-+		free_mm(mm);
-+		goto fail_uprobe;
-+	}
+diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+index a7c7a96a7cbf9..f89b4b1511332 100644
+--- a/include/linux/shmem_fs.h
++++ b/include/linux/shmem_fs.h
+@@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+ extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+ #ifdef CONFIG_SHMEM
++bool shmem_file(struct file *file);
+ bool shmem_mapping(const struct address_space *mapping);
+ #else
++static inline bool shmem_file(struct file *file)
++{
++	return false;
++}
 +
- 	memcpy(mm, oldmm, sizeof(*mm));
- 
--	if (!mm_init(mm, tsk))
--		goto fail_nomem;
-+	if (!mm_init(mm, tsk)) {
-+		mmap_write_unlock(oldmm);
-+		goto fail_uprobe;
-+	}
- 
--	uprobe_start_dup_mmap();
- 	err = dup_mmap(mm, oldmm);
- 	if (err)
- 		goto free_pt;
-@@ -1557,9 +1564,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	mm->binfmt = NULL;
- 	mm_init_owner(mm, NULL);
- 	mmput(mm);
--	if (err)
--		uprobe_end_dup_mmap();
--
-+	if (!err)
-+		return NULL;
-+fail_uprobe:
-+	uprobe_end_dup_mmap();
- fail_nomem:
- 	return NULL;
- }
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 148ba01c03739..7618e72766a52 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1713,8 +1713,7 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	LIST_HEAD(uf);
- 	VMA_ITERATOR(vmi, mm, 0);
- 
--	if (mmap_write_lock_killable(oldmm))
--		return -EINTR;
-+	mmap_assert_write_locked(oldmm);
- 	flush_cache_dup_mm(oldmm);
- 	uprobe_dup_mmap(oldmm, mm);
- 	/*
-@@ -1725,11 +1724,6 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	/* No ordering required: file already has been exposed. */
- 	dup_mm_exe_file(mm, oldmm);
- 
--	mm->total_vm = oldmm->total_vm;
--	mm->data_vm = oldmm->data_vm;
--	mm->exec_vm = oldmm->exec_vm;
--	mm->stack_vm = oldmm->stack_vm;
--
- 	/* Use __mt_dup() to efficiently build an identical maple tree. */
- 	retval = __mt_dup(&oldmm->mm_mt, &mm->mm_mt, GFP_KERNEL);
- 	if (unlikely(retval))
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 91ab65afda705..6c6f953296746 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -1887,7 +1887,7 @@ subsys_initcall(init_admin_reserve);
- 
- int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ static inline bool shmem_mapping(const struct address_space *mapping)
  {
--	mmap_write_lock(oldmm);
-+	mmap_assert_write_locked(oldmm);
- 	dup_mm_exe_file(mm, oldmm);
- 	mmap_write_unlock(oldmm);
- 	return 0;
+ 	return false;
+@@ -193,15 +199,6 @@ static inline struct page *shmem_read_mapping_page(
+ 					mapping_gfp_mask(mapping));
+ }
+ 
+-static inline bool shmem_file(struct file *file)
+-{
+-	if (!IS_ENABLED(CONFIG_SHMEM))
+-		return false;
+-	if (!file || !file->f_mapping)
+-		return false;
+-	return shmem_mapping(file->f_mapping);
+-}
+-
+ /* Must be called with inode lock taken exclusive. */
+ static inline void shmem_freeze(struct inode *inode, bool freeze)
+ {
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4b71d010b2aff..3a6f4b7b28453 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2230,6 +2230,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		struct file *file, pgoff_t start, struct collapse_control *cc)
+ {
+ 	struct address_space *mapping = file->f_mapping;
++	const bool is_shmem = shmem_mapping(mapping);
+ 	struct page *dst;
+ 	struct folio *folio, *tmp, *new_folio;
+ 	unsigned long new_pfn = -1;
+@@ -2238,7 +2239,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	enum scan_result result = SCAN_SUCCEED;
+ 	int nr_none = 0;
+-	bool is_shmem = shmem_file(file);
+ 
+ 	/*
+ 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 923957e5e6a24..e64704ac72222 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -276,6 +276,11 @@ static const struct vm_operations_struct shmem_vm_ops;
+ static const struct vm_operations_struct shmem_anon_vm_ops;
+ static struct file_system_type shmem_fs_type;
+ 
++bool shmem_file(struct file *file)
++{
++	return file && file_inode(file)->i_fop == &shmem_file_operations;
++}
++
+ bool shmem_mapping(const struct address_space *mapping)
+ {
+ 	return mapping->a_ops == &shmem_aops;
 -- 
 2.53.0
 
