@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273986;
-	b=xDizs+gK3yNTcYiEm7lNHLZmcgWrNuG113Fk97+Yk0BpTnC1WMBlHZxcKkrpWQkRRBYw
-	 daJxv8DLcyDe6glhPANn5kPKh1hTYU+2pnDQ6nZKVWAU9//3knigZ85PNI0SsvNbzC3vN
-	 PtdnsPMCDPuvDPCjxqUMjjSlgUjAvTGa2rxCB1HcrScIAk/i+LZv0+D1jcpSGaVRsyMXS
-	 deLk7f2n/pzyA3pdKSQmUdqxXLZ41aI0sI2whORi2bJXakfLaPhq/TdilQY95OwqggVpX
-	 wTSud9H2US2c2SJnQuhwRGQd1NyRugIZGoPiMgy49eL3FLUr/OVkNC6cXpS+K4FxYRg==
+	t=1794273988;
+	b=ua1bPdZ4rXjec2/8FE908B7ttXuKkzkVkzOH0+cbMmZo1Ao2Z2n0Go+SBCwLVlkJTUzj
+	 d7S+IDnei2N3AH7HiB68VtFfk1Ar/h0u/Y+qdBRFGRHG6mK/ybHu75ar5CG4JnDdDSSJY
+	 CjCWb1q6u7826OBB9YEhtXZ20VrHN69qLWAYcBPNFJh31rqlTW9t+P1LQCjRgkFBwpE/9
+	 7O71EbhMDyfdGQM9dWUyHvHSW54z/aEiataQIKz7QmZ5Kgz0hishzPWioQf8YpqYMHFvp
+	 G2F/jiQ4ELqTADKAMcaA2nfHV9Cw9CySnpwxhxrwOUTn4haKlQWp0MPb8Lpqmumvj8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273988;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Xy1UoFMDdrWFLdC7UrRrh1anZWLUnf+jq082YSfsjCc=;
-	b=w7OR4YGQXuGyelq2NznETGhiRToLqFEEMyEthoTPNPf9bJW8Uvd12uvYzq54sEo1zNJp
-	 czXnbwhdvybS3JIRBYLvE10qwzq8TDGCdykh5x0qxEovyn3molYMFNkE5cT5pn9P+qjwG
-	 csbAcjUk3SwmQoO30420xoTstdnRLqRd2ufsGAM7TByeDvJRrQCi+uDAUy598EPfjF2ft
-	 octIxOJqj/qX6Do5eNfd1O+PrIhpQWNtg3FGRcllpCg9g+XSLu8XeVriez0goNeSaohEr
-	 HgGpWf7yLXMVRcVuFo4OWVEUf58xc/JdL1MofSlnl3HkwX9crRGwewS/zIBHzrlSFcA==
+	bh=7KRZ0pO2OqYpvQIDR6mFHwASavs1bzhMcYp40X6SYlc=;
+	b=MvLIYiEwGKd0p0fNv7S4acS09V/94E0fixCCynb0KUjO4bXxE0WNSlACpj3aUvJsTHY2
+	 UQig3auAhbYWO6on0CDp/ctXu4gDaaHexjTk/X3P/WYyopzno8i3Sg75lnaKRemsP3+Av
+	 e6r6GFArH6mtQCxPIUUT8hwbPk/zPNiApL5nldVoQRpl3QDKka+Qkgtf1dv3ybvEDFpBl
+	 ZKkOozjX0CGUDGSQ7LdGLENsnUtFlEEuLs64JNLQYIAOscseOaff+lDvE9xnXrn2p3vcg
+	 tjgnkJLilm4OQrdceqz1518SJdY3kmfzI1u5hJ58ueudRLqgC786H2t+xypqVrnPCGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekeGN1VT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAcVps7F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F79606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437BA606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ekeGN1VT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ABB61F008A1;
-	Tue, 10 Nov 2026 01:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAcVps7F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534271F0089F;
+	Tue, 10 Nov 2026 01:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273985;
-	bh=Xy1UoFMDdrWFLdC7UrRrh1anZWLUnf+jq082YSfsjCc=;
+	s=k20260515; t=1794273987;
+	bh=7KRZ0pO2OqYpvQIDR6mFHwASavs1bzhMcYp40X6SYlc=;
 	h=From:To:Cc:Subject:Date;
-	b=ekeGN1VTwpLLeF7e3GpSrFWXxKIF7+Xo9rP+neVoNLeuFVK4JNee9NK6CqAEdeiZi
-	 6N/0trA4pL7xnuXkbOCi3ETwKUfDk3lxuR/c89BQh9IaqvyS9/DRR+jwK6JUC0XplS
-	 Rxxh40iJodt6AIpSbokmJvWdogsotUl8iRVrF+yeLTnhHSqvKxCRpa+F6vgGa/7S5J
-	 Mm9ejEKYEq0aPl6wn5mchI7zQWnZMDY7BCreawiO0AmasmNg6h2U3Dw0EFC3AL/Dvo
-	 /1nIDzX2n9L9FD62oatWdzzTFw2Om3wV+YEZJkSZ9tuU7U3sOQPP5SUb+il8npD4L4
-	 ABgYiKvLkRFcw==
+	b=jAcVps7Fdv5J81hnP5zm6BJW//703ALvFWyojT596ryLfC56BWsMUOT6r/MVlUUph
+	 eCSAE3aA8zJ7qhABkB8gkHdVmKeISCRREQDxRdkXvS7AfmAlSlxeBqdj7zaxsgcnxQ
+	 qMTJhcDgThQcuMKpP3BN50DkVrW2bpYvEsq62fvXjRQw42LnBdmIYTXdCSArocBxXm
+	 FTEXcr3E04AIfqILixdklcG1/auuwlMLotOuSKdTBriBM5wml02SzM2FLPzaToGwez
+	 RGEZOrdv9HjockJ7T3VsNtJu1nts4uEwXBMSXvj4Qc9U04IrSDhGlFZCMgPXur+Y+v
+	 UczNZg09tCcHA==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	linux@roeck-us.net
+To: tz2294@columbia.edu,
+	linfeng.sun.dev@gmail.com,
+	mst@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (sht15) Stop deferred work before releasing its resources" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:23 -0500
-Message-ID: <20261109202623-failed-5.10-5eab1e7f7ed1@kernel.org>
+Subject: FAILED: patch "[PATCH] vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error path" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:26 -0500
+Message-ID: <20261109202626-failed-5.10-fd1462c96baf@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,117 +69,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a
+git cherry-pick -x fd1462c96bafe2cb14e88c837b270f8990b717b5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202623-failed-5.10-5eab1e7f7ed1@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202626-failed-5.10-fd1462c96baf@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 23 Oct 2026 21:40:44 -0400
-Subject: [PATCH] hwmon: (sht15) Stop deferred work before releasing its
- resources
+From fd1462c96bafe2cb14e88c837b270f8990b717b5 Mon Sep 17 00:00:00 2001
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Sat, 31 Oct 2026 13:45:34 -0400
+Subject: [PATCH] vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error
+ path
 
-The IRQ handler and regulator notifier can leave work pending after a
-measurement or notification completes. Neither work item is drained before
-its resources are released on removal or probe failure.
+When pin_user_pages() or vhost_vdpa_map() fails, vhost_vdpa_pa_map()
+is supposed to unpin the pages pinned after the last successfully
+mapped chunk, i.e. the range [map_pfn, last_pfn]. The unpin is guarded
+by nchunks, but nchunks is reset to 0 every time a chunk is mapped from
+inside the current page list, so a failure after any such boundary
+leaves that pending range pinned forever. With physically scattered
+memory nearly every page list contains a boundary, so the leak happens
+on practically every failed IOTLB update.
 
-Disable read_work before freeing the IRQ, since the worker can re-enable
-it. Use request_irq()/free_irq() for explicit teardown. Unregister the
-regulator notifier before cancelling update_supply_work and disabling the
-regulator. Apply the same ordering to probe failures.
+The pending range is non-empty exactly when a page has been pinned,
+which last_pfn already tells us, so drop nchunks and test last_pfn.
 
-Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
+Fixes: ad89653f79f1 ("vhost-vdpa: fix page pinning leakage in error path (rework)")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
-[groeck: Dropped obsolete 'Assisted-by: tag]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Reported-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20261031-vhost-vdpa-unpin-v1-1-94ffc9683256@columbia.edu>
 ---
- drivers/hwmon/sht15.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/vhost/vdpa.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
-index 7bb2105d1ae22..48d93c61345c1 100644
---- a/drivers/hwmon/sht15.c
-+++ b/drivers/hwmon/sht15.c
-@@ -31,6 +31,7 @@
- #include <linux/bitrev.h>
- #include <linux/gpio/consumer.h>
- #include <linux/of.h>
-+#include <linux/workqueue.h>
+diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
+index ad3a157b40502..46169c8eb0220 100644
+--- a/drivers/vhost/vdpa.c
++++ b/drivers/vhost/vdpa.c
+@@ -1170,7 +1170,7 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
+ 	unsigned long list_size = PAGE_SIZE / sizeof(struct page *);
+ 	unsigned int gup_flags = FOLL_LONGTERM;
+ 	unsigned long npages, cur_base, map_pfn, last_pfn = 0;
+-	unsigned long lock_limit, sz2pin, nchunks, i;
++	unsigned long lock_limit, sz2pin, i;
+ 	unsigned long page_offset;
+ 	u64 start = iova;
+ 	long pinned;
+@@ -1206,7 +1206,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
  
- /* Commands */
- #define SHT15_MEASURE_TEMP		0x03
-@@ -976,25 +977,22 @@ static int sht15_probe(struct platform_device *pdev)
- 		goto err_release_reg;
- 	}
+ 	cur_base = uaddr & PAGE_MASK;
+ 	iova &= PAGE_MASK;
+-	nchunks = 0;
  
--	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
--			       sht15_interrupt_fired,
--			       IRQF_TRIGGER_FALLING,
--			       "sht15 data",
--			       data);
-+	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
-+			  IRQF_TRIGGER_FALLING, "sht15 data", data);
- 	if (ret)
- 		goto err_release_reg;
- 	disable_irq_nosync(gpiod_to_irq(data->data));
- 	ret = sht15_connection_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 	ret = sht15_soft_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
+ 	while (npages) {
+ 		sz2pin = min_t(unsigned long, npages, list_size);
+@@ -1221,7 +1220,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
+ 			}
+ 			goto out;
+ 		}
+-		nchunks++;
  
- 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
+ 		if (!last_pfn)
+ 			map_pfn = page_to_pfn(page_list[0]);
+@@ -1252,7 +1250,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
+ 
+ 				map_pfn = this_pfn;
+ 				iova += csize;
+-				nchunks = 0;
+ 			}
+ 
+ 			last_pfn = this_pfn;
+@@ -1267,7 +1264,7 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
+ 			     PFN_PHYS(map_pfn), perm, NULL);
+ out:
  	if (ret) {
- 		dev_err(&pdev->dev, "sysfs create failed\n");
--		goto err_release_reg;
-+		goto err_free_irq;
- 	}
+-		if (nchunks) {
++		if (last_pfn) {
+ 			unsigned long pfn;
  
- 	data->hwmon_dev = hwmon_device_register(data->dev);
-@@ -1007,9 +1005,13 @@ static int sht15_probe(struct platform_device *pdev)
- 
- err_release_sysfs_group:
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-+err_free_irq:
-+	disable_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
- err_release_reg:
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 	return ret;
-@@ -1023,12 +1025,16 @@ static void sht15_remove(struct platform_device *pdev)
- 	hwmon_device_unregister(data->hwmon_dev);
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
- 
-+	disable_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
-+
- 	ret = sht15_soft_reset(data);
- 	if (ret)
- 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
- 
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- }
+ 			/*
+@@ -1279,7 +1276,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
+ 			 * the corresponding unpinning will be handled by
+ 			 * vdpa_unmap().
+ 			 */
+-			WARN_ON(!last_pfn);
+ 			for (pfn = map_pfn; pfn <= last_pfn; pfn++)
+ 				unpin_user_page(pfn_to_page(pfn));
+ 		}
 -- 
 2.53.0
 
