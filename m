@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327019;
-	b=TvQlQ2uTOtQUfOhQhU/ROYTnfhMaWSS9JG2NeoMOWIZv8yBY0NUTQf/HtxGjZMg6Lv26
-	 JBVkfMb8Ih8i/3sBA+GjpP50buZW0ePCRcKOm/CnpkBfMViwLFXyfv3eel1VWUTySpXIa
-	 ZhF6meLsCW1WUxiADrXu6qB5wDSzmSeO9ckUFGZPxlUp5j61PX/SSWlcC31ndKOVS/3OX
-	 i+7+T5AVSogqq96BUvwGGZO/nGmmpMyzWXdVqbsCWyBpWtggfHvx6H5On1K8Wl1JQQiDF
-	 TrplPJOAL+7fRegt6zP7Afhs/oMw4gIe+J0Lfktq5JofiX2D55lYVElaDJuzjdPpTMQ==
+	t=1794327037;
+	b=Sb95nehDbUFt7cGelmhGWB6WP+X5Xk+IuhNrR5OZ5iVsUxfWMxdeSijSValCDG8KyG2W
+	 c2WBYE8KCCV1MzoQk4ErP8u5L+Qz7v52zXXQgbEcDnUTzVfpXZERpRaKdHBV5SlhrgSnG
+	 igQr26GBFXlpaWpezVFo8JL7SBSfHSrQj/nj37lvzEJDl34+Zk0XRoiQmUN+vw1pT+LMY
+	 U9HpjlA738Q4fsy9OTz0sK6fUIAi8zNRAK/Iji8YyOkXo/+4mECqE38Y/nt2w+S8GKffz
+	 c4TKTP+qxN1lETrzZrqUZPDYdpcVcvxzJ5PThohfCqBk/e8Hsmaay7RjR51j4rd716Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327019;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=FtgSy50ncFX8mtmhpa8fDaaHWvyfYPmRejYYMo9Zq54=;
-	b=a18OaAyqDxn3SNtjaFVvjzisUfM72vUzCZ/BkTHphn3ERb/SowZoNrj+866kaQrrG46M
-	 PKEZSfDmtBYwoZq/lCDaniilfwQ4IEFsYyXFNMKPK/piKr+TRCRNj5xVXXjhCffopn+JG
-	 dEDieRzEXYRgaAMQdee57zI9kfYUW9cVs0m3DM/PPq18dePBu7AyKzp2kV1x/OnnoT/eN
-	 tCDeNweZYwawXNHu8/Hk90MQkSP24mgYf7rz1Co6tXb7FS7N6H1X7klz0dUKhMMZ1Bxq/
-	 fbm3TFO7sXw5pNS6y3pHLn1go3KkSPPS1vYMv1rzE6bmch8SAs/G0sGgjXL2/yBv/Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327037;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1a+zgtRdc8PUcxWn2KHRMSUiihT3bBZYHW8A5jPSDIs=;
+	b=txAi3UYXoRcScLNxiekUKaExTxdGPYWW6dO1qAnXAODmbUJyvIlYxdyb1fhL4cuK2AU9
+	 NFZoE0PfU4jWuqelLRD4HiH/mTCUkBVt3eBrbEtqa4pBv8I77EZy7a663N9JwYt4gXnA1
+	 ZPrM9F+YXDkvuXMldr8nRFPoUzoriAks4YvC1iN/tCIpSQVfx97j5oCK4C91lEwDIzapc
+	 d06axLT5YKEARCNu8aWqthjUjW1wvswfUQeiLo9AC0oQnVaC62huuR5IX93hXpqUWuz+T
+	 uxmMVyawTSXr+wTMsyscvtsZIHUNXJ/jKvIMBq/OSBJ22FR35PpWefqGTkp+ruARCgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAHfvYZE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UOU2vJVj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0975D606A332;
-	Tue, 10 Nov 2026 16:10:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98C5606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:10:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAHfvYZE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59201F008A1;
-	Tue, 10 Nov 2026 16:10:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UOU2vJVj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6DD71F008A1;
+	Tue, 10 Nov 2026 16:10:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327018;
-	bh=FtgSy50ncFX8mtmhpa8fDaaHWvyfYPmRejYYMo9Zq54=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FAHfvYZEgvnG2OTMz/gTJHhj2QEtGKpZItyvU8aYui3AdU8f5mHsnwNhhilfvzK/Z
-	 Af4vt4rPu3fyk1Kuw9Mwe0UFvCMxkhIo8Dm4vzNSz+EvSRPd7c0ICiyfG+EjuoGWZh
-	 i6mIziLWHNqMe9WRUND9rOmHSStfs2pEbmUriyZ/GSKsj6/CUjaovOtbWbmNuQoMZg
-	 2L3/0Nwzyir1P1jQ/N29fDX5UVUcrFGSJ47vfNH5toFN+tJVoZ71d6W/J8pOjpTmHZ
-	 UVYoI2viqsHzEX0oG277p6cvLrBGN1nkWTsRv9UXs6wihgGLGMI+krtilAqG3dAwPd
-	 mQ04JI0kWI/dQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B07339D267B;
-	Tue, 10 Nov 2026 16:10:18 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794327036;
+	bh=1a+zgtRdc8PUcxWn2KHRMSUiihT3bBZYHW8A5jPSDIs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UOU2vJVjrlyTvuQ1tkRTRz8G+l91Nu4qm+cnbC+ai4XHTf0CojnJj1WzUBYz51bmR
+	 /R2Lo52QmD4RMjBkhVb8d9Hmhv+WbtQdpt8Cn4ZHDt4BxmH28QOnRmPI4e7oHEvb8s
+	 FojEL8XihX9u5nzXOUrlYaO+GktW6sEcJ85GK7BuMyBAuGDhwfJua7Y9XaZkoVFsGg
+	 pGhlF0MA/ippj/SlbWY3zyt6k8ueBOSuNW5SjV2KCxXDdDKE7Wy1QT9jMV9+ynrnr4
+	 9u1P+fFVAv4TJ0rCS+jT0zi1yEqkS/oX0i4x3h7AQpWf5iHg8OSbJDKP093Iowz8aN
+	 Xd9YPmyPS6xbw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Lee Jones <lee.jones@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] mfd: twl: Remove platform data support
+Date: Tue, 10 Nov 2026 11:10:32 -0500
+Message-ID: <20261110161015.2399183-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060010-failed-5.15-3c5c55d979dd@kernel.org>
+References: <20261107060010-failed-5.15-3c5c55d979dd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,48 +60,470 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] Bluetooth: hci_qca: clear qca_memdump when discarding
- dump
- packets
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179432701717.4062787.5293659281594260012.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 16:10:17 +0000
-References: <20261110-hci-qca-memdump-v1-1-239974fc4944@gmail.com>
-In-Reply-To: <20261110-hci-qca-memdump-v1-1-239974fc4944@gmail.com>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: luiz.dentz@gmail.com, marcel@holtmann.org, brgl@kernel.org,
- linux-bluetooth@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+[ Upstream commit 4a346a03a63cb45f7766d9d6559cf3fee783e926 ]
 
-On Tue, 10 Nov 2026 03:55:41 +0000 you wrote:
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> 
-> qca_controller_memdump() frees qca_memdump when a memdump packet with a
-> non-zero sequence number arrives while QCA_MEMDUMP_COLLECTION is not
-> set, but leaves qca->qca_memdump pointing at the freed object.
-> 
-> The next run of the work reads the stale pointer into its local
-> variable, skips the allocation and uses the freed memory.  Another
-> packet with a non-zero sequence number frees it a second time, and a
-> packet with sequence number 0 writes ram_dump_size, current_seq_no and
-> received_dump into it.
-> 
-> [...]
+There is no in-tree machine that provides a struct twl4030_platform_data
+since commit e92fc4f04a34 ("ARM: OMAP2+: Drop legacy board file for
+LDP"). So assume dev_get_platdata() returns NULL in twl_probe() and
+simplify accordingly.
 
-Here is the summary with links:
-  - Bluetooth: hci_qca: clear qca_memdump when discarding dump packets
-    https://git.kernel.org/bluetooth/bluetooth-next/c/45a25a1bfd26
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Link: https://lore.kernel.org/r/20220614152148.252820-1-u.kleine-koenig@pengutronix.de
+Stable-dep-of: 3c5c55d979dd ("mfd: twl-core: Unregister the auxiliary platform device on unbind")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/mfd/twl-core.c  | 323 +---------------------------------------
+ include/linux/mfd/twl.h |  55 -------
+ 2 files changed, 5 insertions(+), 373 deletions(-)
 
-You are awesome, thank you!
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index 289b556dede28..ae5f101167b45 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -656,309 +656,6 @@ static inline struct device *add_child(unsigned mod_no, const char *name,
+ 		can_wakeup, irq0, irq1);
+ }
+ 
+-static struct device *
+-add_regulator_linked(int num, struct regulator_init_data *pdata,
+-		struct regulator_consumer_supply *consumers,
+-		unsigned num_consumers, unsigned long features)
+-{
+-	struct twl_regulator_driver_data drv_data;
+-
+-	/* regulator framework demands init_data ... */
+-	if (!pdata)
+-		return NULL;
+-
+-	if (consumers) {
+-		pdata->consumer_supplies = consumers;
+-		pdata->num_consumer_supplies = num_consumers;
+-	}
+-
+-	if (pdata->driver_data) {
+-		/* If we have existing drv_data, just add the flags */
+-		struct twl_regulator_driver_data *tmp;
+-		tmp = pdata->driver_data;
+-		tmp->features |= features;
+-	} else {
+-		/* add new driver data struct, used only during init */
+-		drv_data.features = features;
+-		drv_data.set_voltage = NULL;
+-		drv_data.get_voltage = NULL;
+-		drv_data.data = NULL;
+-		pdata->driver_data = &drv_data;
+-	}
+-
+-	/* NOTE:  we currently ignore regulator IRQs, e.g. for short circuits */
+-	return add_numbered_child(TWL_MODULE_PM_MASTER, "twl_reg", num,
+-		pdata, sizeof(*pdata), false, 0, 0);
+-}
+-
+-static struct device *
+-add_regulator(int num, struct regulator_init_data *pdata,
+-		unsigned long features)
+-{
+-	return add_regulator_linked(num, pdata, NULL, 0, features);
+-}
+-
+-/*
+- * NOTE:  We know the first 8 IRQs after pdata->base_irq are
+- * for the PIH, and the next are for the PWR_INT SIH, since
+- * that's how twl_init_irq() sets things up.
+- */
+-
+-static int
+-add_children(struct twl4030_platform_data *pdata, unsigned irq_base,
+-		unsigned long features)
+-{
+-	struct device	*child;
+-
+-	if (IS_ENABLED(CONFIG_GPIO_TWL4030) && pdata->gpio) {
+-		child = add_child(TWL4030_MODULE_GPIO, "twl4030_gpio",
+-				pdata->gpio, sizeof(*pdata->gpio),
+-				false, irq_base + GPIO_INTR_OFFSET, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_KEYBOARD_TWL4030) && pdata->keypad) {
+-		child = add_child(TWL4030_MODULE_KEYPAD, "twl4030_keypad",
+-				pdata->keypad, sizeof(*pdata->keypad),
+-				true, irq_base + KEYPAD_INTR_OFFSET, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_TWL4030_MADC) && pdata->madc &&
+-	    twl_class_is_4030()) {
+-		child = add_child(TWL4030_MODULE_MADC, "twl4030_madc",
+-				pdata->madc, sizeof(*pdata->madc),
+-				true, irq_base + MADC_INTR_OFFSET, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_RTC_DRV_TWL4030)) {
+-		/*
+-		 * REVISIT platform_data here currently might expose the
+-		 * "msecure" line ... but for now we just expect board
+-		 * setup to tell the chip "it's always ok to SET_TIME".
+-		 * Eventually, Linux might become more aware of such
+-		 * HW security concerns, and "least privilege".
+-		 */
+-		child = add_child(TWL_MODULE_RTC, "twl_rtc", NULL, 0,
+-				true, irq_base + RTC_INTR_OFFSET, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_PWM_TWL)) {
+-		child = add_child(TWL_MODULE_PWM, "twl-pwm", NULL, 0,
+-				  false, 0, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_PWM_TWL_LED)) {
+-		child = add_child(TWL_MODULE_LED, "twl-pwmled", NULL, 0,
+-				  false, 0, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_TWL4030_USB) && pdata->usb &&
+-	    twl_class_is_4030()) {
+-
+-		static struct regulator_consumer_supply usb1v5 = {
+-			.supply =	"usb1v5",
+-		};
+-		static struct regulator_consumer_supply usb1v8 = {
+-			.supply =	"usb1v8",
+-		};
+-		static struct regulator_consumer_supply usb3v1 = {
+-			.supply =	"usb3v1",
+-		};
+-
+-	/* First add the regulators so that they can be used by transceiver */
+-		if (IS_ENABLED(CONFIG_REGULATOR_TWL4030)) {
+-			/* this is a template that gets copied */
+-			struct regulator_init_data usb_fixed = {
+-				.constraints.valid_modes_mask =
+-					REGULATOR_MODE_NORMAL
+-					| REGULATOR_MODE_STANDBY,
+-				.constraints.valid_ops_mask =
+-					REGULATOR_CHANGE_MODE
+-					| REGULATOR_CHANGE_STATUS,
+-			};
+-
+-			child = add_regulator_linked(TWL4030_REG_VUSB1V5,
+-						      &usb_fixed, &usb1v5, 1,
+-						      features);
+-			if (IS_ERR(child))
+-				return PTR_ERR(child);
+-
+-			child = add_regulator_linked(TWL4030_REG_VUSB1V8,
+-						      &usb_fixed, &usb1v8, 1,
+-						      features);
+-			if (IS_ERR(child))
+-				return PTR_ERR(child);
+-
+-			child = add_regulator_linked(TWL4030_REG_VUSB3V1,
+-						      &usb_fixed, &usb3v1, 1,
+-						      features);
+-			if (IS_ERR(child))
+-				return PTR_ERR(child);
+-
+-		}
+-
+-		child = add_child(TWL_MODULE_USB, "twl4030_usb",
+-				pdata->usb, sizeof(*pdata->usb), true,
+-				/* irq0 = USB_PRES, irq1 = USB */
+-				irq_base + USB_PRES_INTR_OFFSET,
+-				irq_base + USB_INTR_OFFSET);
+-
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		/* we need to connect regulators to this transceiver */
+-		if (IS_ENABLED(CONFIG_REGULATOR_TWL4030) && child) {
+-			usb1v5.dev_name = dev_name(child);
+-			usb1v8.dev_name = dev_name(child);
+-			usb3v1.dev_name = dev_name(child);
+-		}
+-	}
+-
+-	if (IS_ENABLED(CONFIG_TWL4030_WATCHDOG) && twl_class_is_4030()) {
+-		child = add_child(TWL_MODULE_PM_RECEIVER, "twl4030_wdt", NULL,
+-				  0, false, 0, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_INPUT_TWL4030_PWRBUTTON) && twl_class_is_4030()) {
+-		child = add_child(TWL_MODULE_PM_MASTER, "twl4030_pwrbutton",
+-				  NULL, 0, true, irq_base + 8 + 0, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_MFD_TWL4030_AUDIO) && pdata->audio &&
+-	    twl_class_is_4030()) {
+-		child = add_child(TWL4030_MODULE_AUDIO_VOICE, "twl4030-audio",
+-				pdata->audio, sizeof(*pdata->audio),
+-				false, 0, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	/* twl4030 regulators */
+-	if (IS_ENABLED(CONFIG_REGULATOR_TWL4030) && twl_class_is_4030()) {
+-		child = add_regulator(TWL4030_REG_VPLL1, pdata->vpll1,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VIO, pdata->vio,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VDD1, pdata->vdd1,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VDD2, pdata->vdd2,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VMMC1, pdata->vmmc1,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VDAC, pdata->vdac,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator((features & TWL4030_VAUX2)
+-					? TWL4030_REG_VAUX2_4030
+-					: TWL4030_REG_VAUX2,
+-				pdata->vaux2, features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VINTANA1, pdata->vintana1,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VINTANA2, pdata->vintana2,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VINTDIG, pdata->vintdig,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	/* maybe add LDOs that are omitted on cost-reduced parts */
+-	if (IS_ENABLED(CONFIG_REGULATOR_TWL4030) && !(features & TPS_SUBSET)
+-	  && twl_class_is_4030()) {
+-		child = add_regulator(TWL4030_REG_VPLL2, pdata->vpll2,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VMMC2, pdata->vmmc2,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VSIM, pdata->vsim,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VAUX1, pdata->vaux1,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VAUX3, pdata->vaux3,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-
+-		child = add_regulator(TWL4030_REG_VAUX4, pdata->vaux4,
+-					features);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_CHARGER_TWL4030) && pdata->bci &&
+-			!(features & (TPS_SUBSET | TWL5031))) {
+-		child = add_child(TWL_MODULE_MAIN_CHARGE, "twl4030_bci",
+-				pdata->bci, sizeof(*pdata->bci), false,
+-				/* irq0 = CHG_PRES, irq1 = BCI */
+-				irq_base + BCI_PRES_INTR_OFFSET,
+-				irq_base + BCI_INTR_OFFSET);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	if (IS_ENABLED(CONFIG_TWL4030_POWER) && pdata->power) {
+-		child = add_child(TWL_MODULE_PM_MASTER, "twl4030_power",
+-				  pdata->power, sizeof(*pdata->power), false,
+-				  0, 0);
+-		if (IS_ERR(child))
+-			return PTR_ERR(child);
+-	}
+-
+-	return 0;
+-}
+-
+ /*----------------------------------------------------------------------*/
+ 
+ /*
+@@ -987,8 +684,7 @@ static inline int unprotect_pm_master(void)
+ 	return e;
+ }
+ 
+-static void clocks_init(struct device *dev,
+-			struct twl4030_clock_init_data *clock)
++static void clocks_init(struct device *dev)
+ {
+ 	int e = 0;
+ 	struct clk *osc;
+@@ -1018,8 +714,6 @@ static void clocks_init(struct device *dev,
+ 	}
+ 
+ 	ctrl |= HIGH_PERF_SQ;
+-	if (clock && clock->ck32k_lowpwr_enable)
+-		ctrl |= CK32K_LOWPWR_EN;
+ 
+ 	e |= unprotect_pm_master();
+ 	/* effect->MADC+USB ck en */
+@@ -1067,7 +761,6 @@ static struct of_dev_auxdata twl_auxdata_lookup[] = {
+ static int
+ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ {
+-	struct twl4030_platform_data	*pdata = dev_get_platdata(&client->dev);
+ 	struct device_node		*node = client->dev.of_node;
+ 	struct platform_device		*pdev;
+ 	const struct regmap_config	*twl_regmap_config;
+@@ -1075,7 +768,7 @@ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 	int				status;
+ 	unsigned			i, num_slaves;
+ 
+-	if (!node && !pdata) {
++	if (!node) {
+ 		dev_err(&client->dev, "no platform data\n");
+ 		return -EINVAL;
+ 	}
+@@ -1165,7 +858,7 @@ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 	twl_priv->ready = true;
+ 
+ 	/* setup clock framework */
+-	clocks_init(&client->dev, pdata ? pdata->clock : NULL);
++	clocks_init(&client->dev);
+ 
+ 	/* read TWL IDCODE Register */
+ 	if (twl_class_is_4030()) {
+@@ -1213,14 +906,8 @@ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
+ 				 TWL4030_DCDC_GLOBAL_CFG);
+ 	}
+ 
+-	if (node) {
+-		if (pdata)
+-			twl_auxdata_lookup[0].platform_data = pdata->gpio;
+-		status = of_platform_populate(node, NULL, twl_auxdata_lookup,
+-					      &client->dev);
+-	} else {
+-		status = add_children(pdata, irq_base, id->driver_data);
+-	}
++	status = of_platform_populate(node, NULL, twl_auxdata_lookup,
++				      &client->dev);
+ 
+ fail:
+ 	if (status < 0)
+diff --git a/include/linux/mfd/twl.h b/include/linux/mfd/twl.h
+index 8871cc5188a09..e426938eafd56 100644
+--- a/include/linux/mfd/twl.h
++++ b/include/linux/mfd/twl.h
+@@ -694,61 +694,6 @@ struct twl4030_audio_data {
+ 	unsigned int irq_base;
+ };
+ 
+-struct twl4030_platform_data {
+-	struct twl4030_clock_init_data		*clock;
+-	struct twl4030_bci_platform_data	*bci;
+-	struct twl4030_gpio_platform_data	*gpio;
+-	struct twl4030_madc_platform_data	*madc;
+-	struct twl4030_keypad_data		*keypad;
+-	struct twl4030_usb_data			*usb;
+-	struct twl4030_power_data		*power;
+-	struct twl4030_audio_data		*audio;
+-
+-	/* Common LDO regulators for TWL4030/TWL6030 */
+-	struct regulator_init_data		*vdac;
+-	struct regulator_init_data		*vaux1;
+-	struct regulator_init_data		*vaux2;
+-	struct regulator_init_data		*vaux3;
+-	struct regulator_init_data		*vdd1;
+-	struct regulator_init_data		*vdd2;
+-	struct regulator_init_data		*vdd3;
+-	/* TWL4030 LDO regulators */
+-	struct regulator_init_data		*vpll1;
+-	struct regulator_init_data		*vpll2;
+-	struct regulator_init_data		*vmmc1;
+-	struct regulator_init_data		*vmmc2;
+-	struct regulator_init_data		*vsim;
+-	struct regulator_init_data		*vaux4;
+-	struct regulator_init_data		*vio;
+-	struct regulator_init_data		*vintana1;
+-	struct regulator_init_data		*vintana2;
+-	struct regulator_init_data		*vintdig;
+-	/* TWL6030 LDO regulators */
+-	struct regulator_init_data              *vmmc;
+-	struct regulator_init_data              *vpp;
+-	struct regulator_init_data              *vusim;
+-	struct regulator_init_data              *vana;
+-	struct regulator_init_data              *vcxio;
+-	struct regulator_init_data              *vusb;
+-	struct regulator_init_data		*clk32kg;
+-	struct regulator_init_data              *v1v8;
+-	struct regulator_init_data              *v2v1;
+-	/* TWL6032 LDO regulators */
+-	struct regulator_init_data		*ldo1;
+-	struct regulator_init_data		*ldo2;
+-	struct regulator_init_data		*ldo3;
+-	struct regulator_init_data		*ldo4;
+-	struct regulator_init_data		*ldo5;
+-	struct regulator_init_data		*ldo6;
+-	struct regulator_init_data		*ldo7;
+-	struct regulator_init_data		*ldoln;
+-	struct regulator_init_data		*ldousb;
+-	/* TWL6032 DCDC regulators */
+-	struct regulator_init_data		*smps3;
+-	struct regulator_init_data		*smps4;
+-	struct regulator_init_data		*vio6025;
+-};
+-
+ struct twl_regulator_driver_data {
+ 	int		(*set_voltage)(void *data, int target_uV);
+ 	int		(*get_voltage)(void *data);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
