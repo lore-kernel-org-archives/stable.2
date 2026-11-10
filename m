@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312911;
-	b=l+AVHv4/CP/sohu7tA501+1PTNgBOY0287AhZXDkBG/V/b0el0xm2B3FfemNQ5J4CYeS
-	 k0ijQNHM3IWleqUOqHrVfBYcdM/ZMRY0v3SG1SnLJW9NBneiC1MuIMNU0Mww7s+224NC3
-	 5BUNWKiDYcp/oOjroYruJYm6PgXzs4F/AePDETW+rTKs9iX2YR3LJ1EPatdWfHyxBrI1B
-	 sifIDfRDMn7ow7wVy/7puhcIQv5mfjGLbGMqVvr3qRs4/onLIZFQwHy1LWEaspOV7fw2b
-	 tDjHwwKjHfgnZEID7br/1gEN62oLusQbinGKJPSQp1C+NJuLU6eFO04j6Dj0SP4+jTw==
+	t=1794312930;
+	b=YLtKS5g+vCsF6ZB0bonEWj31qeC51eUCMOnC1AaIGfQWILB88E+RL40FVdhkYPN9Zbdb
+	 O1MgseLEVYGSsl7WHNLem0Rjy6Q++9u5yYx+X+Wj3BtaPYvVVJ+o/EfvHb1GNCPzEEU1J
+	 X8DlSULB2MMHyGVvYVJhKvNxfz8pIqB5ragLelx7cPkNAJFWzm2DAxC0GUxvxlL3+fsJR
+	 CmWSnCHXfY64w/bRbPB9CqOKm2zgA5PZNJ3kIW+syNz0UuOYDv6pkx8uLeKfBEMe/vDsr
+	 LHAtgl/eNGtoDL9mHPoUTtwtEAzaRRheIK5mIgczBSAyFpPWJZDw3bxbpiqYAnDDuVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312930;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=v7yl1n21ACReAMKJKH/uMluRb+RJeSDOvbh7oCq/RMA=;
-	b=Yx69wsC4zPXUrfIKnTEpm474qeBUdY5jfdrYCjsbgoBmIkqCvc8+5puR2nP3is5lMW0f
-	 sw6drKmAzSxO9wLwRHc7fjfyf+6RKNXsrniA9jEydcwhzUNBM+11iOm72YeklN2y+0i4N
-	 0VzN1CdEdvxD/CIQGnxYcBJS26sHmBTZ3NuO15daJhakDqoosT+Uicy2YdAKNOhNwsje0
-	 nvhLLZ0dN/SOjjASGvCpGX/iJ/35jDmWarnpaEPX/Ulw3Tlrdo5ExvNU1H/ZYvVbAZqkn
-	 FeqaGAzVHF+QLYYO/qOua+D7+8MQvvCokZXt5SAQNsz5sd5DsE8SQRBSDQnD+NSVU5w==
+	bh=WzIOTOeRL7eXIL7F/lcUvu4nC4GFvHX4msRnKY583k0=;
+	b=XNbuQk/BETrheroeTZXTivdxBvyPld79ug2J8RwlRYKQXE5JV6g83jSPHOQiTWC/pyU4
+	 CDYfJ4g2JLdFB7K698dif1rkmmhw4CyQ7zbOGifU4ZeJsmKJ/RYLbrglHR8SqRjsdO6oy
+	 cpCRKjlDlq+T9v6JGVqOqkVX0vQxwuk0IqCpUCuB3dx9utLc45BKJeTuvlaKBlLeJ+SFN
+	 icohgv7ajiShObQM536iMZP9Um2YgpW4+hihrnLV8BuNkTPKnXsISGv0MbPhdaV+hOpoB
+	 dyyA0lMwa/FNzS61BhQ3v+oeOh0CvPCA8S5DA5Bkklg4QQOG2RbcT0Hem0npUqanRaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yj3In3hS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JaNIn9YR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14420606A33E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:15:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E15606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:15:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yj3In3hS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153001F008A5;
-	Tue, 10 Nov 2026 12:15:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JaNIn9YR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E571F0089F;
+	Tue, 10 Nov 2026 12:15:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312910;
-	bh=v7yl1n21ACReAMKJKH/uMluRb+RJeSDOvbh7oCq/RMA=;
+	s=k20260515; t=1794312930;
+	bh=WzIOTOeRL7eXIL7F/lcUvu4nC4GFvHX4msRnKY583k0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yj3In3hS6faEhPIx4T5/3MYQVgSgqojfKBP3DZ8BypnbWbf2F2SRQkR/5WM18xf6U
-	 AzO0vqtIqcqLBnjXXylWd9ZgoV24508QqYrDJMI7tQ7OI14HydASNYPoOsTMj8gvk9
-	 3qq4IRUcbBeTtYQT/PuF74KP2iPgxwW978ZlGKemSTZKkXKXROqv6KMCZYgi/CNaof
-	 7oahJFeZPt6ZYh8XrDnqE03uJ87TSiUwGyX8I0f8y3cm1RRozrFng943T5bck2OFfT
-	 A8Ob/4r5lG/HJqGuzsQv3JpSoQRoPRwX9hOPcrcf6PkjHQRVCfPqatlXzpKzOO+ywY
-	 eFnWTlRnnLnCQ==
+	b=JaNIn9YR4CGefPc0BmrSKtibxO58qG/9+cJfr6w7JLmtWeSc2odZAKNnJ5gG30k+8
+	 FTjb7zgxxEnGvgqxuJ5n1/u0Oi1ueaUuSiFF17Gc9ero+JzX3pS9FlWwzWiO3tl61e
+	 f5ozitVubL/HNQpkS2/Sn7+znJXL2a9+TRngEeHJi3MqTYjLq/EXn6iOyArt3ro1G0
+	 ZuwqYXeoryauEyOM8cd1UscLxGV6cyO90H4HG8KpYn7QVWzqggvPTwOZP/qZy8qJ8a
+	 3tRXfOcTRwVJ1eeCSUn98qJ9wxNLKGLA2UM4Pyu1osBoKgOyW/hudFPjYha5U8NpWP
+	 HtartVALjWdrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
+Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()
-Date: Tue, 10 Nov 2026 07:15:08 -0500
-Message-ID: <20261110121426.970220-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] media: microchip-isc: fix ISC_PFG_CFG0_BPS macro name typo
+Date: Tue, 10 Nov 2026 07:15:27 -0500
+Message-ID: <20261110121513.981491-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054259-failed-6.1-62ee3da38f41@kernel.org>
-References: <20261107054259-failed-6.1-62ee3da38f41@kernel.org>
+In-Reply-To: <20261107052849-failed-6.6-bb96c78c5f87@kernel.org>
+References: <20261107052849-failed-6.6-bb96c78c5f87@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,45 +62,189 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-[ Upstream commit 62ee3da38f41bef83c1cf250f6816a0ee187674b ]
+[ Upstream commit 96defd0723fc893db6ccf5f4968323db4af0b0aa ]
 
-mtd_get_sb() is called with a reference to the MTD device already
-taken by the caller.  When sget_dev() fails, the function returns the
-error without dropping that reference, so the device is never released
-and its refcount never reaches zero.  Every mount attempt on an MTD
-device whose superblock cannot be set up leaks a reference.
+The BPS field macros for ISC_PFE_CFG0 were spelled ISC_PFG_CFG0_BPS_*
+(NINE, TEN, ELEVEN, TWELVE). The register is PFE, not PFG. Rename them
+to ISC_PFE_CFG0_BPS_* to match the register and the EIGHT and MASK
+macros. No functional change.
 
-Restore the put_mtd_device() that the fs_context conversion dropped on
-this path.
-
-Fixes: 0f071004109d ("mtd: Provide fs_context-aware mount_mtd() replacement")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-[ sashal: Adjusted context to retain sget_fc() with MTD callbacks instead of sget_dev(). ]
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: bb96c78c5f87 ("media: microchip-isc: fix SBGGR10 Bayer pattern")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mtd/mtdsuper.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Depends on <20261110043626.355449-1-sashal@kernel.org>
 
-diff --git a/drivers/mtd/mtdsuper.c b/drivers/mtd/mtdsuper.c
-index 5ff001140ef4a..2b1fc3fc5fb25 100644
---- a/drivers/mtd/mtdsuper.c
-+++ b/drivers/mtd/mtdsuper.c
-@@ -64,8 +64,10 @@ static int mtd_get_sb(struct fs_context *fc,
+ .../platform/microchip/microchip-isc-regs.h    |  8 ++++----
+ .../platform/microchip/microchip-sama5d2-isc.c | 18 +++++++++---------
+ .../platform/microchip/microchip-sama7g5-isc.c | 18 +++++++++---------
+ 3 files changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
+index cabecf128b37a..fe145b142b826 100644
+--- a/drivers/media/platform/microchip/microchip-isc-regs.h
++++ b/drivers/media/platform/microchip/microchip-isc-regs.h
+@@ -32,10 +32,10 @@
+ #define ISC_PFE_CFG0_MODE_MASK          GENMASK(6, 4)
  
- 	fc->sget_key = mtd;
- 	sb = sget_fc(fc, mtd_test_super, mtd_set_super);
--	if (IS_ERR(sb))
-+	if (IS_ERR(sb)) {
-+		put_mtd_device(mtd);
- 		return PTR_ERR(sb);
-+	}
+ #define ISC_PFE_CFG0_BPS_EIGHT  0x4
+-#define ISC_PFG_CFG0_BPS_NINE   0x3
+-#define ISC_PFG_CFG0_BPS_TEN    0x2
+-#define ISC_PFG_CFG0_BPS_ELEVEN 0x1
+-#define ISC_PFG_CFG0_BPS_TWELVE 0x0
++#define ISC_PFE_CFG0_BPS_NINE   0x3
++#define ISC_PFE_CFG0_BPS_TEN    0x2
++#define ISC_PFE_CFG0_BPS_ELEVEN 0x1
++#define ISC_PFE_CFG0_BPS_TWELVE 0x0
+ #define ISC_PFE_CFG0_BPS_MASK   GENMASK(30, 28)
  
- 	if (sb->s_root) {
- 		/* new mountpoint for an already mounted superblock */
+ #define ISC_PFE_CFG0_COLEN	BIT(12)
+diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+index 583d3c4dca54f..9b74c92ca6eb8 100644
+--- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+@@ -147,49 +147,49 @@ static struct isc_format sama5d2_formats_list[] = {
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
+ 	},
+ 	{
+@@ -210,7 +210,7 @@ static struct isc_format sama5d2_formats_list[] = {
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_Y10,
+ 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 	},
+ 
+ };
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index d2e1899869c43..15ec519f61870 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -156,49 +156,49 @@ static struct isc_format sama7g5_formats_list[] = {
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
+ 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
+ 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
+ 	},
+ 	{
+@@ -224,7 +224,7 @@ static struct isc_format sama7g5_formats_list[] = {
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_Y10,
+ 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
+-		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
++		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+ 	},
+ };
+ 
 -- 
 2.53.0
 
