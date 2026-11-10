@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273974;
-	b=A48kWCOhuA82rdnOxil7w8/mpAe58Xfju1V9anG0QOvQqvE6dO91TtUzmJdiqwSUEzGZ
-	 VjCUlgEIX9tPXHBYgFaaDSTDIy2HAtQRB+fjSRoa5b6V5W4M9B302dqwoAH6DxKYirBxa
-	 cCmjhyhuzA65q1BmIanOY/+rjYYhdMCZhh9K7UNXvbofUrVEZqjMwxTPu0CcrxGAYYwf3
-	 pWTJwsNxj6kq+nmwxb1j47t7B7x9GVUeF2mYTzCBl5djeys7mJ9p8J/d1OCdkM8FE63X6
-	 zEVez8tcZPXCPpTFTNEbq8IqPPwrnLbSvvrYPRCzxaLbBO+dISOKkjHnaobmMCmuuVA==
+	t=1794273977;
+	b=PBIkfFSOoQIxRRJ5SKh1xPkeWaNCCVNIjB023hr3nqrmwo0rtlew0sAJ7xAuxap3ijbo
+	 Gt+6REwdeGTs5BiGApq9/2wjFhB22MRdqOIMNq1K4KS+BHD2f/isrqDStKm5i3rQMfxUU
+	 53XF09RA4YcavvRGbap+pfZeG/aRZ4FrQLHTu1hwk0umVtrJ2MoKPZYddqZFEAvxng4ns
+	 fl5BkGb/8rERGXsBTuXeumMswxuzgaBEcM7UDsNg/ts+7+zYABox8He/1g+snBRBlLMiG
+	 HuezRo8BkLdza8Yc7mHRAIBDjUUEX4HSQWM5PrbHXZIGHZv7mRXdRcBEDcC/PY6YPgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273977;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eN7ADaGsK2XSCQdeIPPz5epgY6txwDwO6N7W0SEJBuI=;
-	b=Y+TZri9exleBSuBm5LK6y0tKmIzn5ZstLu9SBSfP02N3N1Jwke+R5rlcZLuHE9kyBPdf
-	 2zDMjwLiabEZ4v/YQBuS6c4QJNubvp+MHEeanmJh8bTbnv1nOeQd4paP/L0hpLs3Msdkl
-	 jN0SNh8tH+/jG4vuF+itAUvtgqlwAzu63r9d0k0fm6E0mMOwQzJ33nkoGJzT/+w1MeXCL
-	 tynUdwWOPySCZVN1hYsQpZYiXJi0uttOfknMxrEL0rFRI/m/8l9/stBH2GOEDbeGLFVd9
-	 cQdPdG6IjIyjsfZZ9KAZlfA4nsyYWRlPIwQad0V3ixjpaElkvlJ7i4Wjxkiu1cqYoOQ==
+	bh=r1fZ8EUvS3Ys9QmJ34bvAKcq6QzhoF1ynI96WFMuwFk=;
+	b=dBvkwmYy8XxMuVDeUb532pTPnQMroMtFHhhLUvd6u6Iebt5m0c//qyTrD2k2ohcldKUm
+	 SUPP0yi6mr3TPuePgm9JcR2SDQYn0lqMNz4jnYkwI4M1c7QHo+RAd4UPn2nwpp+4Kyh/1
+	 NOnEqJbsFXBlgegvI9ulqHjB8shG1Dd9/BJ3WWhOHcGlbehGNZ0rBCyslaJr3I74JBIFG
+	 halpVNJCwUzZGz6RG+7VrwVXDD+gR+BCpCVbSmhzgXqvW8TM0zQu3CJNZJ0hJlhmd2M2h
+	 ScnXooxU/dLq+jE6+wlCCilXr0FxlZ5rRqb7zcpvJooOepVTldPuAKwv0m4lpJpmNKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcPFt2Nj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cpSH2U/O";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E4B60A261F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C450B606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcPFt2Nj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90F71F008A2;
-	Tue, 10 Nov 2026 01:26:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpSH2U/O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78B71F008A1;
+	Tue, 10 Nov 2026 01:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273973;
-	bh=eN7ADaGsK2XSCQdeIPPz5epgY6txwDwO6N7W0SEJBuI=;
+	s=k20260515; t=1794273976;
+	bh=r1fZ8EUvS3Ys9QmJ34bvAKcq6QzhoF1ynI96WFMuwFk=;
 	h=From:To:Cc:Subject:Date;
-	b=ZcPFt2NjoK1nmA1MXoXzd1C+00XtArlrbpcPRnM2EjKq8h3Bwy2Xdyf5iBcXQmW1l
-	 f8fjzWLWa+eTXp0n4VPAWKtQs4YYruqg3Tld7GoUQIHBATn9EZDgE8fV2g9xqyyZK3
-	 Mxui/NfWxJH6nHlWyfP5tcoJbJbXTov9w67DO9PyNhDjBx3r1C4LIj4Ebh/Xo/NESM
-	 5vW1XYALoeVZ6oxYB78ksHHxWaqY/Pz/F7vZSqiRLNgjdgCABot1LcU3G7AopuAOqF
-	 /j9BJkipq0oLIsEvja7atUrL2TWGsjBFrf4ZV4aGQxPdIEAsc4eSjLy0kv3ybNOtmW
-	 IJsTQGK1/TVyA==
+	b=cpSH2U/OhL+9Bilv3kuozOri2RdJ5Ddfvi+OV4XoTKPUg6iD/w1FGm80hItecDrJa
+	 zccd794jmVsM8yoizhX+paKHDKb85U/44BcDPpz806oe+16VVqb9ZWZPb8QtQTUxnM
+	 Nx2OxMR/163UnnvFzP3rtCto1N6B2K+l+JYxQtlI+WS7upLm2FdzUZF4neLjVlgzRg
+	 LJOeTTmfm05UNd1fZSfi40Qia5bR5TB9UdoaBIFFS8siLuqYcn1hEGkdrIW3i8xJIV
+	 +GkXkyA1C9S+zs7twSn9KyPkJGnor0uwTk2nyb8gL2BSAC3M8YHT4WltnMaV5jw36Q
+	 mQEHymN1G4I9A==
 From: Sasha Levin <sashal@kernel.org>
 To: josef@toxicpanda.com,
 	riel@surriel.com,
-	pfalcato@suse.de,
 	usama.anjum@arm.com,
+	ziy@nvidia.com,
 	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/filemap: don't lose a folio lock wakeup to a signal" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:11 -0500
-Message-ID: <20261109202611-failed-5.10-8ccb6ded6a47@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:14 -0500
+Message-ID: <20261109202614-failed-5.10-dc24e273244e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,80 +71,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8ccb6ded6a47b59b4907ed4f8c293cf8122de889
+git cherry-pick -x dc24e273244e9d712257d5a6c20a32c7f5ca84e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202611-failed-5.10-8ccb6ded6a47@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202614-failed-5.10-dc24e273244e@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8ccb6ded6a47b59b4907ed4f8c293cf8122de889 Mon Sep 17 00:00:00 2001
+From dc24e273244e9d712257d5a6c20a32c7f5ca84e6 Mon Sep 17 00:00:00 2001
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:39:36 +0100
-Subject: [PATCH] mm/filemap: don't lose a folio lock wakeup to a signal
+Date: Sat, 31 Oct 2026 10:39:35 +0100
+Subject: [PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock
 
-An exclusive waiter in folio_wait_bit_common() can leave the wait loop
-because of a fatal signal, then be woken by folio_unlock() before
-finish_wait(). If the waker did not hand over the lock, the waiter returns
--EINTR without trying to acquire it.
+memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+after the inode has been freed. Once the folio is deleted from the
+pagecache it no longer pins the mapping, so after i_lock is dropped
+e.g., a concurrent final iput() can evict and free the inode before
+filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-folio_wake_bit() stops after waking the first exclusive waiter, so this
-loses the wakeup and can leave other waiters asleep indefinitely on an
-unlocked folio.
+Most callers hold a reference on the inode, but not all.
 
-After finish_wait(), let a waiter woken without a lock handoff try once
-more to acquire the lock. If successful, return success so the caller's
-eventual unlock wakes the next waiter. Otherwise, the current lock owner
-will do so.
+Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
+must not assume the original address_space mapping still exists.
+
+Fix it by loading ->free_folio while i_lock is still held, similar to
+what folio_unmap_invalidate() does.
+
+Inline filemap_free_folio() into its remaining caller such that
+delete_from_page_cache_batch() also just loads the callback before
+dropping the i_lock.
+
+The bug was found by code inspection and has not been reproduced.
 
 Fix generated by an LLM and sent by Josef Bacik in private.
 
-Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
+Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
 Cc: stable@vger.kernel.org
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: clarify and simplify comment + description ]
+[ david: get rid of filemap_free_folio() entirely; improve patch description ]
 Reviewed-by: Rik van Riel <riel@surriel.com>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-7-d6437171ecc3@kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/filemap.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ mm/filemap.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
 diff --git a/mm/filemap.c b/mm/filemap.c
-index 906b013c11eb3..6b5e1d866a9e0 100644
+index b74bc1e5015c6..906b013c11eb3 100644
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -1373,10 +1373,22 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
- 	 * return value based on that state without races.
- 	 *
- 	 * Also note that WQ_FLAG_WOKEN is sufficient for a non-exclusive
--	 * waiter, but an exclusive one requires WQ_FLAG_DONE.
-+	 * waiter, but an exclusive one must also acquire the bit.
- 	 */
--	if (behavior == EXCLUSIVE)
--		return wait->flags & WQ_FLAG_DONE ? 0 : -EINTR;
-+	if (behavior == EXCLUSIVE) {
-+		if (wait->flags & WQ_FLAG_DONE)
-+			return 0;
-+		/*
-+		 * We might have just been woken up and the waker will not
-+		 * wake up anybody else. If we ignore that now, the remaining
-+		 * waiters may not get woken up: take the bit now if it is
-+		 * still free.
-+		 */
-+		if ((wait->flags & WQ_FLAG_WOKEN) &&
-+		    !test_and_set_bit(bit_nr, folio_flags(folio, 0)))
-+			return 0;
-+		return -EINTR;
-+	}
- 
- 	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
+@@ -227,18 +227,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
+ 	page_cache_delete(mapping, folio, shadow);
  }
+ 
+-static void filemap_free_folio(const struct address_space *mapping,
+-		struct folio *folio)
+-{
+-	void (*free_folio)(struct folio *);
+-
+-	free_folio = mapping->a_ops->free_folio;
+-	if (free_folio)
+-		free_folio(folio);
+-
+-	folio_put_refs(folio, folio_nr_pages(folio));
+-}
+-
+ /**
+  * filemap_remove_folio - Remove folio from page cache.
+  * @folio: The folio.
+@@ -250,6 +238,7 @@ static void filemap_free_folio(const struct address_space *mapping,
+ void filemap_remove_folio(struct folio *folio)
+ {
+ 	struct address_space *mapping = folio->mapping;
++	void (*free_folio)(struct folio *folio);
+ 
+ 	BUG_ON(!folio_test_locked(folio));
+ 	spin_lock(&mapping->host->i_lock);
+@@ -258,9 +247,12 @@ void filemap_remove_folio(struct folio *folio)
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	filemap_free_folio(mapping, folio);
++	if (free_folio)
++		free_folio(folio);
++	folio_put_refs(folio, folio_nr_pages(folio));
+ }
+ 
+ /*
+@@ -320,6 +312,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ 				  struct folio_batch *fbatch)
+ {
++	void (*free_folio)(struct folio *folio);
+ 	int i;
+ 
+ 	if (!folio_batch_count(fbatch))
+@@ -337,10 +330,16 @@ void delete_from_page_cache_batch(struct address_space *mapping,
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	for (i = 0; i < folio_batch_count(fbatch); i++)
+-		filemap_free_folio(mapping, fbatch->folios[i]);
++	for (i = 0; i < folio_batch_count(fbatch); i++) {
++		struct folio *folio = fbatch->folios[i];
++
++		if (free_folio)
++			free_folio(folio);
++		folio_put_refs(folio, folio_nr_pages(folio));
++	}
+ }
+ 
+ int filemap_check_errors(struct address_space *mapping)
 -- 
 2.53.0
 
