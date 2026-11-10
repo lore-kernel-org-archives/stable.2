@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273906;
-	b=X1vbQy0DbRj2US0RghMwTHsa/32UgOC7D9nh5yiFTiK5i323Ln7ZG54N6WtXAD9T+kJF
-	 oHmzEiybW+tcIkJGPHuL43MYeRXmcqXpUTCamsq9TPZEkmQt6wyybDE9J68dBTo9eS/qi
-	 KnFQMcPMoxEQgENcTdYcWFrFsyl7pP/PzcO8yDiWhyiMqoOqfPAViGRLB2oFwytDk9uNS
-	 GxMjYIOOIY707GWt6R78yd+W5K49dcKbHaIVNsq+SQl3vEr8TzkEuP6E1bLuDmVpvcEPv
-	 4WcO13CdPdoJXY9quWICCjv+Jj2BoYmqf+uf1jxULvvpCJUPYDEf29MOOzGyXLU5FTg==
+	t=1794273908;
+	b=kBu5EP3SnObVPoU1J/wXlmCj2kHOwf0naF/xTkMZMqq84UVwB14TiPBrgTAs2fALwkmF
+	 M9IEkvBY2T3ypIDzfrn82VMMYwTzW2DZiADFVwVabJkJHqiVw0qaqKrCbxsBp53a92Xoh
+	 039xHxOk87GxcCHtQmDiwhs7rUqeJjeOvDCdr76IX8tS/kdt6QpMAP6ehdzPmkeQZdBGF
+	 V2I2JOmmizTh6oEr+MzGRMq0V+sDvik3MBzWFiKHxJ5Vev2muqX8BKbVDBza4ymqEjTyz
+	 ijbV23oLVwmO5ukacDF4EliHz3Mk0FMKobZ8dpMyJn1SzIE6FyM4K0zaalBJjg9X7Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273908;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UeRTWvkCTwLSK0jam8M/idbTilMiyhy73sOnPIYVwtE=;
-	b=pfASb/hSUgjixBXQ0B8gGPO9AmFzgyunTYBY7tncezZlbQTEahbFiw6eDmxKenzOLktH
-	 GR7NfghIGjqevYITIgKv0ay/CG5d4PrbPh77rNBfVkbC8dW4O19f3FOrp557Ii5Kit+DD
-	 d9EHIndKvBUBUmX4OYRATSfkHt4SPol7p3VNa8CJJIG7V3m/OEjBkkdC7Dcv3y9lTOMBQ
-	 1WluKgJvrC99H90LGhRNqVKAMqRUnBBfZzbtulNTHOM+QT5tjdri8gijK0aXyiD96Jjit
-	 cLFoZkK1Wzl3qJGCb0Zj1cU8N0zFf253ZYzmgT6Lel4+O1q+RYGcoT40DNcAGs1A2Lw==
+	bh=ps+1QQOoRKuqnGX3M7Xi/qVusuXMf48jY3Jir3Hfuzc=;
+	b=swM0RR5GpWVjSgIsEMVm92EZ24MrEjRI+s2kXtQLw0CrdxuEA2Q5qyKS41eKgI30iW2e
+	 i6ayyyo2O/WUXdpv+dUcGLuvLQ3zKKo43whDsROKJMY14orjLP0FNPcTWpnUBhRYqYGe2
+	 JH+3VuiGIztjbm1qd/o20Id8lgvBnViUhG6mP4OieHKVOKEamoXSEW4XgPozIvxKYXXzl
+	 1OIga0mY5dIV/ETnA9/dQonI9Klt1nNYvlpy5KGMu+g/1K+pABwX/XeS+5jNHw3PgH0bo
+	 Mdap4BnSHvdf0dn5ud45DdlCNpeHzP1YFUQ0kTqkCC4cJnpfRwIZbwrciwP6n660lvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mHqNPTDP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTwVlo0h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10AB3606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AF6606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mHqNPTDP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DD81F0089F;
-	Tue, 10 Nov 2026 01:25:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTwVlo0h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF141F0089F;
+	Tue, 10 Nov 2026 01:25:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273905;
-	bh=UeRTWvkCTwLSK0jam8M/idbTilMiyhy73sOnPIYVwtE=;
+	s=k20260515; t=1794273908;
+	bh=ps+1QQOoRKuqnGX3M7Xi/qVusuXMf48jY3Jir3Hfuzc=;
 	h=From:To:Cc:Subject:Date;
-	b=mHqNPTDProNdYbw2kNk0iPlHe98aAx56vdUv3v6tu0j4dvb7jYiXdJhR+s9ldwAXk
-	 jzmAUfopz4IcpA72r3W/baQmRJ/P2V4tPDLXtkFGtwbUrpkFiKrbrKAq6Rf81Vv9P3
-	 0s1/10OhIO21/o11X9JeVIw4IdVnxIvXD2PWqVlbqDyQON/Cg1TfYFlpKvJ4M4BQhq
-	 AKzAbdrYRH0Qx4TpWeEVTh46jiQiu8RnPuEOOSh00s4woK+w1tZmb9K1c98tBcvqVr
-	 NcPES9z3KY6QZ2bJdIqDGx53i7mZQvLIs6sCNO7nJJM4uw64wpheSk3R84TATLSMXk
-	 dKV78cOe6Oo4A==
+	b=UTwVlo0h/sw//OPWBmKvFIPASaW+JR7lNZj7y4Rbpv4gMv4fyC7jhWpWYQms2irCs
+	 UvOQu2+omefQ/OV5x90xmciVMUyxg9FayxAXqlpMnWRLf8gexh54gb1JGSm3q7N0Ae
+	 nGKTdD6n1WW3G7XIZu6lkZcJ2E+hUdeOR5QHEHPj2RjHIVBDpiHqwD7YOYF7eU06au
+	 CcC28jOTqMGsP+OppI/yhtrRb9VbK17a4xktqwq7E1BrlLe7X5dFxftDiGrXhhh3aK
+	 aARRJNMKfTxrBDmA/NPn/w8TwbfDpZXkd18hOQz8oKrx6Qsk6GznjC5E+EHrWVvIJv
+	 Xa/KyuVap4CCg==
 From: Sasha Levin <sashal@kernel.org>
-To: zhaogongyi@bytedance.com,
-	cassel@kernel.org,
-	dlemoal@kernel.org
+To: nicoyip.dev@gmail.com,
+	steffen.klassert@secunet.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ata: libata-scsi: reject data-in commands with a data-out buffer" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:25:04 -0500
-Message-ID: <20261109202504-failed-5.15-a4845f077415@kernel.org>
+Subject: FAILED: patch "[PATCH] xfrm: retry inexact policy lookup after node reinsertion" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:25:06 -0500
+Message-ID: <20261109202506-failed-5.10-868f63c8bfaf@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,113 +59,104 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x a4845f077415ef32fe672c841e2fc58ae9e28273
+git cherry-pick -x 868f63c8bfafa9b827168c9126f85264c39c02ec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202504-failed-5.15-a4845f077415@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202506-failed-5.10-868f63c8bfaf@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a4845f077415ef32fe672c841e2fc58ae9e28273 Mon Sep 17 00:00:00 2001
-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Date: Wed, 4 Nov 2026 21:06:38 +0800
-Subject: [PATCH] ata: libata-scsi: reject data-in commands with a data-out
- buffer
+From 868f63c8bfafa9b827168c9126f85264c39c02ec Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Thu, 3 Sep 2026 22:57:34 +0800
+Subject: [PATCH] xfrm: retry inexact policy lookup after node reinsertion
 
-SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
-scatterlist can then contain pages pinned without write access.
-ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
-in the reported case, the copy tried to write the shared zero page
-and faulted in the kernel.
+An inexact policy lookup first records pointers to candidate hlist heads
+and then traverses the lists.  A concurrent policy insertion can merge
+inexact tree nodes between those operations:
 
-The same mismatch can affect SG_IO commands translated by libata.
-ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
-the receive buffer even if the drive aborts the command. For ATAPI,
-the successful INQUIRY completion also rewrites the buffer in
-atapi_fixup_inquiry().
+  lookup                         policy insertion
+  ------                         ----------------
+  find inexact candidates
+    save obsolete hlist head
+                                 write_seqcount_begin(&bin->count)
+                                 merge inexact tree nodes
+                                   hlist_del_rcu(&policy->bydst)
+                                   reinsert policy->bydst in survivor
+                                 write_seqcount_end(&bin->count)
+  evaluate saved candidate list
+    miss the moved policy
 
-Reject these mismatched commands before the buffer is written or the
-command is issued. Report ABORTED COMMAND / DATA IN BUFFER ERROR because
-the CDB itself can be valid; the supplied transfer direction is wrong.
+The merge immediately reinserts the same hlist node into the surviving
+tree node.  RCU keeps the policy alive, but it does not provide a
+consistent view while its list node is moved.  A lookup that selected the
+obsolete list can observe it empty.  A lookup already traversing a moved
+policy can instead follow the next pointer rewritten by the reinsertion.
+Either case can return an incorrect IPsec policy result.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
+The per-bin sequence counter already brackets calls to
+xfrm_policy_inexact_insert_node(), including node merges.  The read side,
+however, currently validates the counter only while searching an
+individual rb-tree.  A successful search returns without validation, and
+the later candidate-list traversal is outside that read-side section.
+
+Snapshot the per-bin sequence before discovering candidate heads and
+validate it after evaluating all candidate lists.   Retry the lookup if
+the inexact policy tree changes while it is being searched.
+
+Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20261104130638.37882-1-zhaogongyi@bytedance.com
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
 ---
- drivers/ata/libata-scsi.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ net/xfrm/xfrm_policy.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index b1d5d822a9a20..87a57495d2e4b 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	if (xlat_func(qc))
- 		goto done;
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index 513c9f2283347..f6f40ba713d5a 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -2157,6 +2157,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 	struct xfrm_pol_inexact_bin *bin;
+ 	struct xfrm_policy *pol, *ret;
+ 	struct hlist_head *chain;
++	unsigned int inexact_sequence;
+ 	unsigned int sequence;
+ 	int err;
  
-+	/*
-+	 * A data-out request may contain pages pinned without write access.
-+	 * Reject a translated data-in command before issuing it, since its
-+	 * completion handler may write to the buffer even if the device fails.
-+	 */
-+	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-+		     ata_is_data(qc->tf.protocol) &&
-+		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		goto done;
-+	}
+@@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
+ 		goto skip_inexact;
+ 
+ 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
+-	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
+-							 daddr))
++	if (!bin)
++		goto skip_inexact;
 +
- 	return ata_scsi_qc_issue(ap, qc);
++	inexact_sequence = read_seqcount_begin(&bin->count);
++	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
+ 		goto skip_inexact;
  
- done:
-@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
- 
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		return;
-+	}
+ 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
+ 					  family, if_id);
++	if (read_seqcount_retry(&bin->count, inexact_sequence))
++		goto retry;
 +
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
- 
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-@@ -3173,6 +3193,14 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
- 
- 	qc->complete_fn = atapi_qc_complete;
- 
-+	/* atapi_fixup_inquiry() writes to the buffer on successful completion. */
-+	if (scmd->sc_data_direction == DMA_TO_DEVICE &&
-+	    scmd->cmnd[0] == INQUIRY) {
-+		ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		return 1;
-+	}
-+
- 	qc->tf.flags |= ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE;
- 	if (scmd->sc_data_direction == DMA_TO_DEVICE) {
- 		qc->tf.flags |= ATA_TFLAG_WRITE;
+ 	if (pol) {
+ 		ret = pol;
+ 		if (IS_ERR(pol))
 -- 
 2.53.0
 
