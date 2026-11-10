@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351368;
-	b=y2KvLWpJs2MrHoy7gWgwoQKtGbW9MnKYuc1061LPPAuhkTC/V0Y6VWISteCu5CUkFaj3
-	 Kzr6mUqRguyJ09YCU1VXhRDeuqd2V5GiOwC7eyqY1NoRJ9yiVXu+ljlOg9rK/8P8ULmd7
-	 ueOn8JBJIJ+4Yu4RCL9mnMeI+1jZBAnvNtbv6BFkGW0RUSJuNaUZQyd2ywhTUgKZejcZB
-	 7w75FH2ZlUDPZih9NijjX8RDpA5l/hfGUMvKfOwvH9ekddVioJxN51rcnrtrAEanIkkof
-	 lYrwgprquMVKyoOAsNBzAwGeHDfAIqI6DSpFV1OlNDNMzA4GJ/VapGZs+kA/UK0xflQ==
+	t=1794351476;
+	b=Cn7KgFCoWXGbi+xtIfgeFScB8QnRoHfItX/odTpi++0iSUlsF7thVM/gIuWFOmvgPoCW
+	 xnNOrTk+TB4W5sacIfk1ywmaa9p9BJdrbM/xmwEOrzOOZm0xcPBD0TER19mgmYgng+xCx
+	 4Z0P66rqsxpyp2rlkbqOW1NeIciILazhJtTkNxO9sP+Jzt2MnqaGmeeIRv/EEqqedi5eO
+	 X88Ij2s+djNCnnsa2slebnEtMV2jhUF5zS579+86302b4tHNMHSug91A+nB/Qu36Hj1NQ
+	 ZhdUf/Vy8ZbjjqcX9T/oIYJJ9HbokVMse0fHzea8TQCSfXo0+ycA5wuRR55I91OzcYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351476;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zzKQFokzJBOFZqaAPShO8YURV3hDxFlJ7m9hEAnzTsU=;
-	b=GC9cX+WiZw17zeAgxS9FWBBV5UTbFk0p2G+1Kbl67p+OntjRKXo+OvlAfnknFXQEJiLq
-	 Fdz2wtxBHnmyOBKjBn3KnYXwiDjYy46jTpXZp5P6K0fpRchY1jvn8on83k5EhENKNS6KX
-	 +IeyOKTIKWdPPYSG2T3NkikvocWtuPlOvJFdhh+rOb12sJBkr9tTJPtE2D4bnLOI1A9OU
-	 9jDM99MbXPFc9qM8sI0mhQMvg+/yoj8ZxaNdbiuNl0a2q7XESuCXKXOu/VNzkXptnu2z0
-	 OqeGzZDpr3wBHq9nm4bMlBAqb/b7QEvNr1a0EY8Wi+sLbYbKze2TDVO6uCw0qu8cZJw==
+	bh=QjEXXGi0cnyHSn0Vmlkr43DRMSa9IcIn46/K7rv9Kus=;
+	b=YQoT7AUqxcHygO7IXNwTNcnirF4yZt8mCorGmzgKBdiN8xkPDlM7JvAzXUiKRsvHJNrk
+	 99EemKLTRse2nVK678uPFQl3pymPGnHvFFE8aE2STIK6SovWeVK04Srdn6z3L3cgdOq6B
+	 FEKAJZTjalzuu0xM3/a8XVRPnxjBHA1QRd9y/QMDkc9uZ8xEX3aWpVOLxCAVOD0MRtEzO
+	 zbJyxgal3aMWoOQQ7uQzsN24RiB4IjvxqmAwrMTZrinWtJnn5rrg2+AmXRWO9G9Z63Odw
+	 zHeK9lLzTuj6fE2lwIcwWdvHDeebDhA//Sj/8rZJIac30nYqLS3jH5U2eudgFUV1GoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+Ztc6Tl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYYaRsR8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BFC606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:56:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942C8606A327
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:57:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+Ztc6Tl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D434C1F0093C;
-	Tue, 10 Nov 2026 22:56:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HYYaRsR8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E292B1F0093D;
+	Tue, 10 Nov 2026 22:57:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794351367;
-	bh=zzKQFokzJBOFZqaAPShO8YURV3hDxFlJ7m9hEAnzTsU=;
+	s=k20260515; t=1794351476;
+	bh=QjEXXGi0cnyHSn0Vmlkr43DRMSa9IcIn46/K7rv9Kus=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N+Ztc6Tl0m4HEhl6xKyZcHa5ZlVLTPF9p6ODoTpKy7W5+NcO7fyiL5uDPvC+VM0Xt
-	 x6vpCC7Z3NH9p7RUmeFzgqBXbwPTOk1C9bRiGfWZawzHbB5R3BbwxKmF9ekm1dqoZs
-	 NoAHWvE8cRop+AsvFhAFt/4ttim+VDDvGOcPwc7K4zB5e9Poexde2MRJGqTqQyzer6
-	 bGk1HUp2yWGH7KuKMZVwehn90V/OmqYrAtNMAnZ8z9Jzqd+WvMd9LRu1tuWvlZSfwo
-	 fuDuU0AEa19ZhMAM0LuC3w7r540hdkWaSG4XpyOPqSKolE9pWUl7g3zgS84AmP3io1
-	 9EzxVoQqok9Yg==
+	b=HYYaRsR8CrYechCMMb3O0FIl9oMehgbfcIRiY+Q+4PEYgrDxlkfG8T8577nduX7pM
+	 bS1Zn2gLaYsxtqogG4E+D2TrrcynWbQXzGg7hsyr9yaodaJC893R16+OH/SqDpmb5t
+	 BI5c74dOjy/qRZYfy8J6z0nF9yvjTsjSSTEH7zVRALsrzyJHXV56hBOnXyquD6Ux2O
+	 /8ZFgYQZQA+1yl6PyDbeM+HAcb8T+cT3YxePuVKSW8NO30VvXFLXHH3QQD2pbOq1qn
+	 lIZwXg/HzNMm8uOeEUz/Lu8iCWK810+Mv872HrComdAMjF7Pcim2ieoVV1r30abU4+
+	 DYKPJvsVqhdKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com,
-	Horst Birthelmer <hbirthelmer@ddn.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] fuse: don't launder folios of a bad inode
-Date: Tue, 10 Nov 2026 17:56:05 -0500
-Message-ID: <20261110225533.4163752-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/7] power: supply: generic-adc-battery: drop jitter delay support
+Date: Tue, 10 Nov 2026 17:57:48 -0500
+Message-ID: <20261110225738.4066560-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053605-failed-6.6-01d0f3d294af@kernel.org>
-References: <20261107053605-failed-6.6-01d0f3d294af@kernel.org>
+In-Reply-To: <20261110225738.4066560-1-sashal@kernel.org>
+References: <20261107055053-failed-6.1-8ae5a3f40045@kernel.org>
+ <20261110225738.4066560-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +62,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Sebastian Reichel <sre@kernel.org>
 
-[ Upstream commit 01d0f3d294af126f517d92c11e100525537f8be4 ]
+[ Upstream commit c8f573f312f36861db8e40d9953b6d4b84f1321b ]
 
-fuse_flush() and fuse_writepages() reject writing back dirty data for
-any inode that has been marked bad, but fuse_launder_folio() doesn't.
+Drop support for configuring IRQ jitter delay by using big
+enough fixed value.
 
-This can cause the following warning in fuse_write_file_get() to
-trigger, as reported by syzbot:
-
-WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
-WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-Call Trace:
-    iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
-    fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
-    folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
-    invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
-    fuse_open+0x5a6/0x770 fs/fuse/file.c:297
-
-This can be hit on a writeback cache mount:
-1) a writeable file is open and a buffered write dirties some pages
-2) another thread opens the same file read-only. fuse_open() passes the
-   bad inode check and sends OPEN to the server.
-3) a SETATTR reply with the wrong file type marks the inode bad
-4) the writeable file is closed. Flush and release skip writeback
-   because the inode is bad. The pages stay dirty but the file gets
-   removed from write_files.
-5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
-   fuse_open() calls invalidate_inode_pages2().
-6) the invalidation finds the dirty pages and calls
-   fuse_launder_folio(), which finds no wriable file and hits the
-   WARN_ON in fuse_write_file_get().
-
-Instead of trying to write back dirty data for the bad inode,
-fuse_launder_folio() should return -EIO.
-
-Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
-Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
-Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: replaced wpc.inode with folio->mapping->host in the bad-inode check ]
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Signed-off-by: Sebastian Reichel <sre@kernel.org>
+Stable-dep-of: 8ae5a3f40045 ("power: supply: generic-adc-battery: fix status with no supplier")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/power/supply/generic-adc-battery.c | 13 ++++---------
+ include/linux/power/generic-adc-battery.h  |  3 ---
+ 2 files changed, 4 insertions(+), 12 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index aa8c93b38601c..791824a4273a0 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -2476,6 +2476,10 @@ static int fuse_write_end(struct file *file, struct address_space *mapping,
- static int fuse_launder_folio(struct folio *folio)
+diff --git a/drivers/power/supply/generic-adc-battery.c b/drivers/power/supply/generic-adc-battery.c
+index 535972a332b32..e20894460d7fb 100644
+--- a/drivers/power/supply/generic-adc-battery.c
++++ b/drivers/power/supply/generic-adc-battery.c
+@@ -227,12 +227,10 @@ static void gab_work(struct work_struct *work)
+ static irqreturn_t gab_charged(int irq, void *dev_id)
  {
- 	int err = 0;
-+
-+	if (fuse_is_bad(folio->mapping->host))
-+		return -EIO;
-+
- 	if (folio_clear_dirty_for_io(folio)) {
- 		struct inode *inode = folio->mapping->host;
+ 	struct gab *adc_bat = dev_id;
+-	struct gab_platform_data *pdata = adc_bat->pdata;
+-	int delay;
  
+-	delay = pdata->jitter_delay ? pdata->jitter_delay : JITTER_DEFAULT;
+ 	schedule_delayed_work(&adc_bat->bat_work,
+-			msecs_to_jiffies(delay));
++			      msecs_to_jiffies(JITTER_DEFAULT));
++
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -358,14 +356,11 @@ static int __maybe_unused gab_suspend(struct device *dev)
+ static int __maybe_unused gab_resume(struct device *dev)
+ {
+ 	struct gab *adc_bat = dev_get_drvdata(dev);
+-	struct gab_platform_data *pdata = adc_bat->pdata;
+-	int delay;
+-
+-	delay = pdata->jitter_delay ? pdata->jitter_delay : JITTER_DEFAULT;
+ 
+ 	/* Schedule timer to check current status */
+ 	schedule_delayed_work(&adc_bat->bat_work,
+-			msecs_to_jiffies(delay));
++			      msecs_to_jiffies(JITTER_DEFAULT));
++
+ 	return 0;
+ }
+ 
+diff --git a/include/linux/power/generic-adc-battery.h b/include/linux/power/generic-adc-battery.h
+index c68cbf34cd342..50eb4bf28286b 100644
+--- a/include/linux/power/generic-adc-battery.h
++++ b/include/linux/power/generic-adc-battery.h
+@@ -11,13 +11,10 @@
+  * @battery_info:         recommended structure to specify static power supply
+  *			   parameters
+  * @cal_charge:           calculate charge level.
+- * @jitter_delay:         delay required after the interrupt to check battery
+- *			  status.Default set is 10ms.
+  */
+ struct gab_platform_data {
+ 	struct power_supply_info battery_info;
+ 	int	(*cal_charge)(long value);
+-	int     jitter_delay;
+ };
+ 
+ #endif /* GENERIC_ADC_BATTERY_H */
 -- 
 2.53.0
 
