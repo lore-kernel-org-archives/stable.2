@@ -1,59 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337799;
-	b=5c29xH2SC59Hgt2ZuNvh1V117uLx5a4FqBmTm+38OM+9su8aC0pWbq5hezSXgJ5JACYM
-	 4QbHxA7ChTmDJ4MwORDICsF0F0lsFFenpnI6ljd7dosJChFp2Uzkxsns9mvcad4dLb2wC
-	 2K3GhdInAKk0gxfGd3iEtiMT0thAZXg9b9EDAd1Gi+X3YmhmIy+bNyPOljuOTEAPf70rJ
-	 B7ucQNfnIecIs3mxuMDAqjvUSx61o1RAmSzi8CHVdC8W3eNLz1+zIUkB+hrjmKNU4tauu
-	 jLLAHpbkMOVeV5ff0XDTIyTZ4LRgiwqFIsay0D6RcXX5t6MhcmHjI5dAy7jXqwv2BxQ==
+	t=1794337882;
+	b=03R8ZBwwvpKlWCcF4D+JjLm9f31B955UIjIOiE0tG+daQxB6t5NsRP/Pi7GR3656LTzv
+	 8feraDvdz5WjTFUqCXq2CWOslEmI543DcaXltbQqv0hK0EzTwzVjjuuPmDihLiRKDQ17O
+	 3A46MAxuMpHQSisiAibTfItww1MfVSyRUzJOcSZfkjMcYv0DuLpBwbf54RpScWydgW2dj
+	 CT1OFsIhPvzfrU7cQMCcd3s1t/3Qz6CJFdce8FvEmdmmdhb3bfZ5H9ucVsM67wUuYom/J
+	 ZD7JPW+nNhpfieXIudno4Uovl0hFS0T0DuqKFjW4dv9gaFA+7HQ/OaakQtmpqYn6XCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337799;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PV9cT+NwleDr5HTpf8v503qccMjspP+Pn5PQRUifZas=;
-	b=whHVeBJGJMeB461WxIqOx8GJALq+wKbn+dxO+SMlKltZYJtpLqv6bIL6/p6HrrObQXL+
-	 UgFmL9f4meZvakvIYhZOc80R5Jz0PhkDRBDjLbCAjjLWymOhmrLTwkdZiPhPmTxlUxkIs
-	 XMyoFhNk9krZhuyJd/35iuPjBN0hgGbxywVL8k5zElIgaeSlmnTKWsB70hTOKrG5BsIUA
-	 aBWjkvnN73hxmbGeMcmujl0z0EgaUgrQMiy7TD8zKEqEqzOPpMP/fnr7BAdxh8t7qXwPV
-	 zNRaiTCbivupqSJBkrG85yES2nFmgOpUMh8ci3nV7RSvPaoH1G3JNGqHsbEfsZBiSCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337882;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=sHsQ3qLswmfivBErON5DJnbJhLOdQU4tFwJN4Yg+YSo=;
+	b=Z8ZOdWH7FSJwZ7xzxFNRgbIsMlyrPZMyg27zWYlCmnKZXzah8/TShY672UyrWpkXamNA
+	 U6s8XnCjIaSaKJRC8JIJfBFUknxRP25JVB3nir80Oni0gnLmL6vMdJsZlMaDMkNYDLnxr
+	 JrfynpGr2LSyhXRTischNZ+MRJ+foIaZ0C92QQdRU4kwy6ays1BIcAr1oo/5tX2b1jdQU
+	 VV24VsuBF/bUvBrsnu8S63QG5+2/pb+xD5/t2Sc0UKSk2koy14Q7dPSUF5IXg/GFLPB+X
+	 TBn+vCh40dZuefRmureMiIjM5UR6aveeyDGgvX39MwkdqSaSPI3WL3vzToJLIRh6rjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J/gAZSW4";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fourdim.xyz;
+	spf=pass smtp.mailfrom=fourdim.xyz;
+	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=UDE1mQjg;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1ZIpGJyg;
+	arc=none smtp.remote-ip=103.168.172.155
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25940606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:09:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD04606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAD04606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J/gAZSW4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9431F008A1;
-	Tue, 10 Nov 2026 19:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337799;
-	bh=PV9cT+NwleDr5HTpf8v503qccMjspP+Pn5PQRUifZas=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J/gAZSW4rUqvIyeZxMlY0buJ5Ovj6Gu3RIqs0/VHRe9+6c2I83lgn9jk8VvXvVWen
-	 U0c0JX9WM0fTXRCqdi0hBR2eoUtdWIqtJRAGRdp7UZMWKQJL/sEf/DnR4Cy1Ud68vb
-	 QIwmVyJ6pXGd4ZulLejQhvp4Bl17H9gQvlCIY5NC5I4YgFj1+x9ALENTHMzofnbb9b
-	 RlAP1ZwecE4DI9eKkChB6VvntBulm4jcoAimeckntUa6Ch+t/qnvDK7DezcBoRm5eL
-	 lWxbd0JiPnJkUUeaFWdE1fXAMCT4kF0EynL4F842ydd4Lr3cTl65kUWDKSaOqRcPd3
-	 v05/CPfOjhngQ==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=UDE1mQjg;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1ZIpGJyg
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id D550A140012C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:11:20 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Tue, 10 Nov 2026 14:11:20 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1794337880; x=
+	1794424280; bh=sHsQ3qLswmfivBErON5DJnbJhLOdQU4tFwJN4Yg+YSo=; b=U
+	DE1mQjgA3sV/aWUPr/KR9SdLg/JbwvBnO3vN4eWpE2eQfHh/UeOUAmJgJhwb631U
+	xwsJ94L7v6ECV5nv87nbrWcmwrmcVUENGTL7zJajV/syammEC2e9WI+7R6Os899S
+	f9plD7iWCISnJd1f6Wh9lY+nVOdECLiph8iK9vWzb1eDrmYQmm7rkO9THajsGt3T
+	fCNekuSMHlx7FiD89yYqOqrwQOk2A6kBlB7x47cuAyvk52mjFTdWVJ1REdN9XWqD
+	p2fmE79/xtpIlvOrbzfH1ngl0qdCLNK+/w0sX8sA717awfYm2kDV+rX0mQRYw5Mz
+	wadAREhBKdDUm+DErkpJQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794337880; x=1794424280; bh=s
+	HsQ3qLswmfivBErON5DJnbJhLOdQU4tFwJN4Yg+YSo=; b=1ZIpGJygaCqkd/JoH
+	pImv5VdYXDW2GSa6/0JU/ducnF4DNm+GK2LBV2U9GxEGne9+HRnCeiKcZ7+stOUb
+	pwcQRloRE8KM2Xuc14uM5Aqser1+w/rOfMETr7XhAh9Xx8UlhkQLXtXYm5vS4Dp3
+	8PAJqnwZnxD9x0HT0Rx5hBvTbYsQS9vK4nbAgY1z4TiCoVWdo6wCilyG+onC3BjE
+	PhJ/8kzNDdJvle5PuqnJCgJvsQsexzFmYYOldYaEoCW4a+GzL4rznsBkuXIJ/Se3
+	azPEV19Ti+1CL5JqSwLfNT3Z68de/TQaO4I+FTeNYeQ5ivuhwQIjsJ/upe4yuZIr
+	oFk2Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fourdim.xyz a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794337880; d=fourdim.xyz;
+	mf=PG9zc0Bmb3VyZGltLnh5ej4=;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:lDJnijlrvbHSUw/ymvNWzJfRzLWtby+h4VsGmv22IekuO/G
+	aJ1dQeqaLZAkIIbD2Vf8wYZ5ENIc3qEAhzk1nkLg0PlzetWhB+JAb4fYtT4MTMdP
+	4Kr3P1uA2kHopSMBn1Ow3BMzI+1E3tiRKe5ciLzIollyFDorqRTPFYobogzk5Khh
+	g4YUeVwnk3mQUKm8cUUnfZMccOwLfVnH2UAAtFBbmHtWEiKqFUZx3S8diBO0x740
+	Q0lXH1yBiqu1jAumgfrZTT4ND8YWF7FbEkLunQiJ/E7sCigowpwePHOKKurCfq7H
+	Pvn33uHu7DOSAiVFlDnyoBxd68P4B5YcP7wVHVQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:zw5/8791dUR3nOT3h0eAYCLzVZBqOt5v+GGap4lxa8o=:juPyU7CnXuaMgULhYnTBCSZlxlqG9YQU2H2qANxqWxU=;
+X-ME-Sender: <xms:WGzzaniQB5wXqFCtrJhoUSPKE0h5bIPEp2Z5Em-NT3viNHu4WnBL1g>
+    <xme:WGzzaqDyN1KwbgE2TylcNSJeM-N0QdqNRE9wnLVNL_MR6zzsCudCHkpRBNzMok-D2
+    SknkaqRf5gtWx1hmz1eaw8eoPpetebrMhXsNPE7DC771RHZJcpIBbzx>
+X-ME-Received: <xmr:WGzzaksEl-WAP2nVVzJx9mvsDwndWvrAHM2qAar9h9aDwZnJxWxmxEZnfgKz8gF_i1JX-Xc>
+X-ME-Proxy-Cause: dmFkZTF6g3OKTu9bmuykajJtT5GgxaU5t37f15cAatcYA61qhwtOFXktfE5PEf8GNbAts/
+    LzG0Di3rxgfD0YFcr858wOKsDGKfn0LU8S9v2Ly3d2I0u1G8myBJvsXKuwU7CAW8ZGMJQN
+    9FLPlPXZF2KXtaHhFTY+4B5eJylexix4DFZKy5TK9FmCzCfy+SJC6HopYXUKcs/+3bJ9vy
+    gK1EhT1BKCqr7z7uDPw99BqXxWnwyIUJFOzccMvZvfRmgW/qpz8oOJWuuR78bYrBwcuV4X
+    Gaqa9xKwJWu2A5RwHssqixKQ6AraAJYMTCVUX5zVofgmegWvsrmoLPLCFfF2rzpEiBqLIX
+    hH3cXGWVnCNqTgCpWvYJGb5QtyNpx823bIMQ8ZwJfKyDa/t76l7SDDk/6LO/bRRcdBHfj5
+    L8CQrwXmjB+W0LYC6sSHMyT54uhgKGJXJ7uITsbJXnXLDMPrfoupcqx2m+FLrcCZ35PrMj
+    h4yVaPp9pEUZVj8FOnty5GXwd3PWkZcjMHBPfAbh9GtA+UFRY5P66O2s03C80NZM6Hxlj5
+    GTcMRMSp0DsMtiKLFFu6Ds/kevBlWZoavv/wiGzZdOYVhaYu57eSLlkA4oqfJ+5/mEFEw/
+    HZxasOmwar5vaxy53nDDOIGqIf4TIjLb+G3v8cwM0/IakCZXLm3FccHUQy7g
+X-ME-Proxy: <xmx:WGzzavZ-JpYQ0kjYZVfY5bKUhEqtCUFbm4N1K90eVdKUEXYO_Ql9HQ>
+    <xmx:WGzzanWQA82hvKx7TxQGC-a35MJ3J5P4VR_6cHrEv7Ph4LzIpPx1vg>
+    <xmx:WGzzaj6Lwb32hvyXg6tTf-NrEYBe2F0Ca7G4xPNkXpowMbBqA4-jJQ>
+    <xmx:WGzzaiiwPqueVgsOFvvxmC4NYOAdn-iofZtc7VTkgt-uGI95zvCtcw>
+    <xmx:WGzzaoCt_Rois1sWBYlNCYDQOqZ6bUi7LDa4A1uYF_lWrOc1VX7jsFU3>
+Feedback-ID: if72e4b10:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 14:11:20 -0500 (EST)
+From: Siwei Zhang <oss@fourdim.xyz>
 To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mptcp: fix MP_CAPABLE token migration when cloning reqsk
-Date: Tue, 10 Nov 2026 14:09:56 -0500
-Message-ID: <20261110190829.3442804-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060753-failed-5.15-2093bc7fa500@kernel.org>
-References: <20261107060753-failed-5.15-2093bc7fa500@kernel.org>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Subject: [PATCH 5.15.y v3 0/3] Bluetooth: L2CAP: signalling response fixes
+Date: Tue, 10 Nov 2026 14:10:49 -0500
+Message-ID: <20261110191058.1747963-1-oss@fourdim.xyz>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107060628-failed-5.15-6320736af7dc@kernel.org>
+References: <20261107060628-failed-5.15-6320736af7dc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,251 +126,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ruide Cao <caoruide123@gmail.com>
+Backports of
 
-[ Upstream commit 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d ]
+  6320736af7dc ("Bluetooth: L2CAP: Reject signalling responses in invalid states")
+  a518b9a9ef6e ("Bluetooth: L2CAP: Only accept connection responses to outstanding requests")
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_CAPABLE requests this byte-copies the
-token_node hlist state into the clone even though the token table still
-names the original request, and the following warning can be seen:
+which failed to apply to the 5.15-stable tree:
 
-  WARNING: net/mptcp/token.c:364 at mptcp_token_destroy_request+0x2b0/0x330, CPU#2: swapper/2/0
-  CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
-  RIP: 0010:mptcp_token_destroy_request (net/mptcp/token.c:364 (discriminator 1))
-  Call Trace:
-   <IRQ>
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-   call_timer_fn (kernel/time/timer.c:1748)
+  https://lore.kernel.org/stable/20261107060628-failed-5.15-6320736af7dc@kernel.org/
+  https://lore.kernel.org/stable/20261107060634-failed-5.15-a518b9a9ef6e@kernel.org/
 
-Move token request ownership from the original request to the clone under
-the token bucket lock.  Make mptcp_token_accept() and
-mptcp_token_destroy_request() re-check token_node under the same lock and
-treat an already moved or removed request as a normal race instead of
-warning.  This also keeps token bucket chain_len accounting balanced.
+Patch 3 is a9f9eeb5344f ("Bluetooth: L2CAP: Ignore connection responses
+with wrong ident"), which tightens the check added by patch 2 and only
+applies on top of it.
 
-If a passive MP_CAPABLE socket cannot claim the token, destroy the
-provisional MPTCP socket and let the subflow fall back rather than
-installing a socket with mismatched token ownership.  Mark that path as a
-passive handshake fallback so MPCapableFallbackACK records the downgrade.
+The series goes on top of the three L2CAP patches already queued for
+5.15.y:
 
-If the speculative clone later loses the inet_ehash_insert() ownership
-arbitration, the original request may find that its token was already moved
-and fall back to plain TCP.  The clone destructor then releases the token
-reservation and keeps chain_len balanced.  This trades an exceptionally
-rare fallback for eliminating the warning and persistent accounting drift.
+  c1398cf11b31 ("Bluetooth: L2CAP: Reject mode changes on connected channels")
+  c5ebb0245fe9 ("Bluetooth: L2CAP: Reject invalid TxWindow in configuration requests")
+  226fa3b676cb ("Bluetooth: L2CAP: Use default TxWindow for zero socket option")
 
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/86e2514b533bf4d55d4aa2fdbf1404022e8c9430.1776149210.git.caoruide123%40gmail.com
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-4-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adapted token acceptance failure handling to subflow_syn_recv_sock() using the existing mptcp_force_close() cleanup ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mptcp/protocol.h   |  4 ++-
- net/mptcp/subflow.c    | 10 ++++++-
- net/mptcp/token.c      | 65 ++++++++++++++++++++++++++++++++++++++----
- net/mptcp/token_test.c |  4 +--
- 4 files changed, 73 insertions(+), 10 deletions(-)
+5.15.y still has AMP and A2MP, which upstream removed in e7b02296fb40
+("Bluetooth: Remove BT_HS"). This version leaves that code alone, so
+the patches only carry the upstream changes, with context adjusted as
+described at the top of each commit message. The changes are the same
+as in the 6.1.y and 6.6.y backports.
 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 913d9b1474b05..7fd7ee90c0e50 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -712,9 +712,11 @@ static inline void mptcp_token_init_request(struct request_sock *req)
- }
- 
- int mptcp_token_new_request(struct request_sock *req);
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req);
- void mptcp_token_destroy_request(struct request_sock *req);
- int mptcp_token_new_connect(struct sock *sk);
--void mptcp_token_accept(struct mptcp_subflow_request_sock *r,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *r,
- 			struct mptcp_sock *msk);
- bool mptcp_token_exists(u32 token);
- struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token);
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 73580bf40aca8..c0fb2400b907d 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -81,6 +81,8 @@ void mptcp_subflow_reqsk_clone(struct request_sock *req,
- 	}
- 
- 	new_subflow_req->msk = msk;
-+
-+	mptcp_token_move_request(req, new_req);
- }
- 
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
-@@ -779,6 +781,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 				goto dispose_child;
- 			}
- 
-+fallback:
- 			if (fallback)
- 				SUBFLOW_REQ_INC_STATS(req, MPTCP_MIB_MPCAPABLEPASSIVEFALLBACK);
- 
-@@ -803,13 +806,18 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			if (mp_opt.deny_join_id0)
- 				WRITE_ONCE(mptcp_sk(new_msk)->pm.remote_deny_join_id0, true);
- 
-+			if (!mptcp_token_accept(subflow_req, mptcp_sk(new_msk))) {
-+				WRITE_ONCE(mptcp_sk(new_msk)->first, NULL);
-+				fallback = true;
-+				goto fallback;
-+			}
-+
- 			/* new mpc subflow takes ownership of the newly
- 			 * created mptcp socket
- 			 */
- 			new_msk->sk_destruct = mptcp_sock_destruct;
- 			mptcp_sk(new_msk)->setsockopt_seq = ctx->setsockopt_seq;
- 			mptcp_pm_new_connection(mptcp_sk(new_msk), child, 1);
--			mptcp_token_accept(subflow_req, mptcp_sk(new_msk));
- 			ctx->conn = new_msk;
- 			new_msk = NULL;
- 
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index e581b341c5beb..7a9dd2ade92b7 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -178,6 +178,43 @@ int mptcp_token_new_connect(struct sock *sk)
- 	return 0;
- }
- 
-+/**
-+ * mptcp_token_move_request - move request token ownership to a clone
-+ * @req: original request socket
-+ * @new_req: cloned request socket
-+ *
-+ * Move the token hash entry from the original request to its clone.
-+ */
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_subflow_request_sock *pos;
-+	struct token_bucket *bucket;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+		return;
-+	}
-+
-+	bucket = token_bucket(subflow_req->token);
-+	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+	} else {
-+		pos = __token_lookup_req(bucket, subflow_req->token);
-+		if (pos == subflow_req)
-+			hlist_nulls_replace_init_rcu(&subflow_req->token_node,
-+						     &new_subflow_req->token_node);
-+		else
-+			mptcp_token_init_request(new_req);
-+	}
-+	spin_unlock_bh(&bucket->lock);
-+}
-+
- /**
-  * mptcp_token_accept - replace a req sk with full sock in token hash
-  * @req: the request socket to be removed
-@@ -185,22 +222,33 @@ int mptcp_token_new_connect(struct sock *sk)
-  *
-  * Called when a SYN packet creates a new logical connection, i.e.
-  * is not a join request.
-+ *
-+ * Return: true on success.
-  */
--void mptcp_token_accept(struct mptcp_subflow_request_sock *req,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *req,
- 			struct mptcp_sock *msk)
- {
- 	struct mptcp_subflow_request_sock *pos;
- 	struct token_bucket *bucket;
-+	bool ret = false;
- 
- 	bucket = token_bucket(req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&req->token_node))
-+		goto unlock;
- 
--	/* pedantic lookup check for the moved token */
- 	pos = __token_lookup_req(bucket, req->token);
--	if (!WARN_ON_ONCE(pos != req))
--		hlist_nulls_del_init_rcu(&req->token_node);
-+	if (pos != req)
-+		goto unlock;
-+
-+	hlist_nulls_del_init_rcu(&req->token_node);
- 	__sk_nulls_add_node_rcu((struct sock *)msk, &bucket->msk_chain);
-+	ret = true;
-+
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
-+
-+	return ret;
- }
- 
- bool mptcp_token_exists(u32 token)
-@@ -349,16 +397,21 @@ void mptcp_token_destroy_request(struct request_sock *req)
- 	struct mptcp_subflow_request_sock *pos;
- 	struct token_bucket *bucket;
- 
--	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node))
- 		return;
- 
- 	bucket = token_bucket(subflow_req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+		goto unlock;
-+
- 	pos = __token_lookup_req(bucket, subflow_req->token);
--	if (!WARN_ON_ONCE(pos != subflow_req)) {
-+	if (pos == subflow_req) {
- 		hlist_nulls_del_init_rcu(&pos->token_node);
- 		bucket->chain_len--;
- 	}
-+
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
- }
- 
-diff --git a/net/mptcp/token_test.c b/net/mptcp/token_test.c
-index 5d984bec1cd86..8fbf69b8172d3 100644
---- a/net/mptcp/token_test.c
-+++ b/net/mptcp/token_test.c
-@@ -91,7 +91,7 @@ static void mptcp_token_test_accept(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 	KUNIT_EXPECT_PTR_EQ(test, msk, mptcp_token_get_sock(&init_net, msk->token));
- 
- 	/* this is now a no-op */
-@@ -114,7 +114,7 @@ static void mptcp_token_test_destroyed(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 
- 	/* simulate race on removal */
- 	refcount_set(&sk->sk_refcnt, 0);
+One side effect on AMP: the response to an L2CAP Create Channel
+Request also goes through l2cap_connect_create_rsp(), but
+l2cap_send_create_chan_req() does not set CONF_CONNECT_PEND. Patch 2
+therefore ignores that response, and an outgoing channel can no longer
+be set up over an AMP controller.
+
+Changes in v3:
+- Drop the AMP and A2MP changes from all three patches. They are not
+  upstream and did not get the maintainer ack asked for in the v2
+  review.
+  https://lore.kernel.org/stable/2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org/
+
+Changes in v2:
+- Patch 2: a2mp_discover_rsp() now pulls the payload of an unsolicited
+  Discover Response before returning, so a2mp_chan_recv_cb() does not
+  parse it as the next A2MP command header. Dropped again in v3 with
+  the other AMP changes.
+  https://lore.kernel.org/stable/2026-11-08-1-daily-reply-0003-l2cap-a2mp-5-15@kernel.org/
+
+v2: https://lore.kernel.org/stable/20261109015902.3034747-1-oss@fourdim.xyz/
+v1: https://lore.kernel.org/stable/20261108000542.1969015-1-oss@fourdim.xyz/
+
+Jinwang Li (1):
+  Bluetooth: L2CAP: Ignore connection responses with wrong ident
+
+Siwei Zhang (2):
+  Bluetooth: L2CAP: Reject signalling responses in invalid states
+  Bluetooth: L2CAP: Only accept connection responses to outstanding
+    requests
+
+ net/bluetooth/l2cap_core.c | 47 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 45 insertions(+), 2 deletions(-)
+
 -- 
-2.53.0
+2.56.0
 
