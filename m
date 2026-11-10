@@ -1,99 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794325293;
-	b=fZLTeG+NGLzivHsdSW4fpg6h8DV1bO7Ix/NJHVvnbe+ONBW1oVzPtIk7Ke0z0nOr8zx0
-	 lFVBgmsOpq50JWx6AKpLhLUt8yg/VOVCj3XeLsrQcIDfU7+gRngl/VFQR8M/3NzmahoSi
-	 s+hF0K9lhyP3Yma4bYuaa+qJgC/znJV2LZA173wjDea3N/bIugBqfHVDYE7t1nuaMvth7
-	 EYsVGmRc0GzTVgmtYySYb+gZOO7BUyZHs4g3FDjGeYeMvN0ORi/NHRAtkHXLC9EzqZe5E
-	 J91Jgt/mXQ7eOhXj27Gvl8BU/5Wg8+tDYXs1MWwnYY5EByBeAEnr3ipKh/jjb/bToAw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325293;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sDaOEtmUA9SW2kk5s6sMwAYSmfuUpK+42EoUsqnGhNE=;
-	b=ByJao3gWvgtuS9vEbmOaRxaES52DFjh9SASBJUiiCk4O77shH+OOMJugPQYP09pDm9LW
-	 EEFocFbYwC6TYELMTg9K+5QHZMnUFFEk2bONoNHLUahcbN3wAgrgYm7A0g//O2NGSPfpf
-	 dFLFgy3dcpCoZu/FRUVU73wTKsDn1G+hHCp1wcEvaqrhXBFyzikrKrbT5DM77pSfpUKcX
-	 joFh7uxICgPd/rYxdmPEfxlS6Cp9i4D49TLmCqEfq7kE0EPUCJg4edM/vXTDEKrlodXFB
-	 t/dM9HGpwz4KxFxKmPEQwFP2ZG/XwN5eEuVdmD4PNlBC99+K4YQTCJmsuCGxBAnfL8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hTTQLVhJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794325332;
+	b=eCohNW1VgBIsmDBAG0E57bmNyaHxOCjIUN3RLnlcFvFB/fIwgLSjn+lHbNlSTl1m05ee
+	 gJSKDf4Jt69URyhJc2dT95gticQEKT3DGvlDTJawkwf0j/WLq/MqokE2GpJh+B44D8ef6
+	 AJQr7QrSy+5D4T1HCF7Lwy/Zyard9Jzl0zzEuGVLav5k6sBQ/ctGMTZILCqHxZHRa3nlN
+	 ubtE+HUDL8PWu5IdgU5BOaYp/n8cV7bBcShX9VUGqKv8VEMt6bhbEoKm4LG7VkB16sRDs
+	 TT9qLfMOhGk3PlVoL29newNpbK1FJ3An+PqwmtiLup3JMeVrWNBOygJbBXE9aN+VYOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325332;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=x+4vLy+9USPKTI8mun5204dpIrEL4Ku81mbzIxZDywM=;
+	b=NAD/dQ0KrdR3ynZywNtAc7KSTGnlu5msv9wdOH+GaaxIxoUsVT6kNCYHyrMGdyqoj7Oc
+	 sx4Pcd2hP4oiymdVJ1EHxW/5NmHuaVEeHmwqJaFUYdFsxHKg3DEUSmckKnmsSmfVs9ImN
+	 +TUbndVt0eD3mvl+6ngtRgDnA55oOyh+kkQ9bOihZIwtgZyI/RroLfzzS2jaRKRaZD2+7
+	 fChD2bRCiP5yIannKdmjIcQFD9APNoax+VwITjxi7m7LCkJ56vEOfIrWzRseFKP5PQX/q
+	 CCHGftO9h3a4USSdmO700jQUe5+zcmp20oN65CUoZnXRTz/oJa7wg/vIr8jSGvhafhw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UhiHyDb/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C597A60A3801
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:41:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C597A60A3801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900B7606C401
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:42:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hTTQLVhJ
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b56c428212so2917992a12.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:41:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794325291; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Om3cBFS73tg7qHmayuqWUuOt5SM0MdBSKuxULzBqMtC9wmeMrK/4gFBVEfzhZ/FlPe
-         K/LdWp/tL5hbtS44tjBrdo8dOLEVtxj0ksrHuVcfFwaqPpAVscjcS/xY7M/tnMSjEhp2
-         yEFn27jLkNWM0JAa+tStzsbix7pCqBL6Wfh8/yS1hDT+ZUES83st/xuVYGVUQqsTkC76
-         vJMmH43g7a9m2vBHab0TBr83itbO7Rgz5m2gAvNJD4x4SfN4u4Am5rDV6GE8oXYsmkuF
-         jhC8ps3KFb2+gtORDrcxy+qLQwUf6xIqzGXKWA96Xp+WObWgmi/NnXvnxIGc3ctYO894
-         yTvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sDaOEtmUA9SW2kk5s6sMwAYSmfuUpK+42EoUsqnGhNE=;
-        fh=a3UD+BIoQvYDhcpihvLZI5xHdB6cT8fVj6vKTy+WTz8=;
-        b=Rr/30dLi7LBe4x2DMeePSM6h+w3cWlsyiHh+OXBTKFDWiVPA7XU/3A+lX/TdSUGvOu
-         NW8YoupBkTd1mxtzzYhpTTvWZc2fg8PWfgwFT+uPy2ECRL4GqwP1NxjoHEljvM8rti+4
-         SWt/adyyScMVYZfx4Z+c9UGmKwqzqAiHUjMeyAfbGbTaXY+xGvjhpRpiS3rLmeMiZ6W5
-         +oKmsqkCSC8gq0uC2lrZwsVpoRHuLNPTIueMUhQdzjDtUFMAEU2EKxPRTeAiZpL+x+gl
-         VpkXZ4K51fk2HXcrEK7BhN2D0I4xrUSX3tEg3Cie+slULZlG/De6GOOaE74MlOirJGgC
-         itUA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794325291; x=1794930091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sDaOEtmUA9SW2kk5s6sMwAYSmfuUpK+42EoUsqnGhNE=;
-        b=hTTQLVhJqWxpXgoJAd/yRKVKC3xKgQ62c0jgMpgh69adQHuT6sHFxZ+7FlabF0pqC4
-         gkWzno+ZRY94vu4dKTeinaAqjO6gxI9jD2GRmOt3yYgYID6Yiz7WG6G/Pjf+naCLX1o2
-         eK7X/m1Vv9RN5XfgYnbdYjpjkUXD1IircUh1zCwLKlEZzrj/D0hG/NYQwcTkFWNj9vu5
-         LTYYDgFwVk4KZNhexasA+6B7PUtRA6hFm6g4csmIf0d2QanT29wMgSTWQKk0fVafzcEl
-         IJN5jDXxs8k8bGjyDNxniJiUHVUBhicDOEfVfkGjF0NdoXwb7OcDBR/jspVdtcniJeqr
-         ektQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794325291; x=1794930091;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sDaOEtmUA9SW2kk5s6sMwAYSmfuUpK+42EoUsqnGhNE=;
-        b=LHBshd51M30aTU7iy8wKjsr9SZ195R9SqyGuCyz+SNcdRlQgPjbf1tsLML8wPmaCJJ
-         6BJp1O9CYijYp5bNxNAYlBtjjOW8In2rFJCPHsqPu89uLg2wvRcQ5VCl4gozwBzObAV5
-         euj1KIIKaxR2CWqIwv0Aapy5zucVPKxIO5WyLMdaNiN38soxB7U5M0pnbHF6+LLB2EcC
-         4HkoC6Vl7l/IqEVn9xllJr1SjA1T8iv0t3jiCjw+MAe3gvGyyh3V3izXzbjOaSU2FsSo
-         a8QqwHrPkKQn5a2I6CNur5rdHuCg7tN/LmwqIAiw6ja1+SpbMEoUSYxNK2X629hcfgyI
-         V53A==
-X-Gm-Message-State: APuU4Z8ZTSRzM1r7D1nQP5Ba/U4fKH0HeORnVKGlTmx/jdBNW3/atcLY
-	RBTgQTqVmPWx2gqOt9PHrdsNRdLMLDGe6kJXSL6/76Pe67/7ZniT4AMzg3iynBUpoKfZKP2RU1L
-	3n0rAE7kcOd4Aa99Lv100BdRDGePXiBU=
-X-Gm-Gg: AYBFou2yOFArH9DH8N8OlcBKxe6bgSoSTnFanHPeJWvBdoHF5lrJyjOBIffVDn/Jwg9
-	gl/XKdJ/YhaXHvwdaEACU+OLk4nt5QzzsTenRbl4eKCq+pEhOnzhXxk8KNUEKrqeGgrL5Qjo32t
-	ihkWhDvUhNC1hstFTJv2EVszQrzeueIMKJuyuiNB3nifa3S4FueXM+BasPwH/oS6FUUR4vq8vqz
-	OtcC6kgtNaimSe6me2LE6qo08EPntAx8rOyuERmxImdDgIeKwNcWLv6t3ftRJ5FtQfDE+B8/Nrn
-	nA8eSwH/cOPFuzj/KHKXjcvMBUU5v8tLdwZ7Zha02/mDPeLROC8TOAeQGRu+z3AWlNjqsz+Q6eq
-	nb/rAHv+WW0EyODmX1hGm7HGlBYrbMKIenI3jf/wuzluMn2flzB3KYJQmYgTSM1i0IqieuQ==
-X-Received: by 2002:a17:907:5cc:b0:c40:231:6ea1 with SMTP id
- a640c23a62f3a-c504959d8afmr262842166b.43.1794325290979; Tue, 10 Nov 2026
- 07:41:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhiHyDb/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726641F008A1;
+	Tue, 10 Nov 2026 15:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794325332;
+	bh=x+4vLy+9USPKTI8mun5204dpIrEL4Ku81mbzIxZDywM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UhiHyDb/PeCaDVJGu4kTY5tTMdF0fSfW/70Tp08OqA/7Qy5ORBeMNUL8Ly5rYyHu0
+	 pkpIRveB1oX9Yqznu3p1RkZZCQH/t+WtIh5JmE1+KKL9VqxLVUKAYUAtpCngWse865
+	 QFOaDelFqYN913CIEJ+L8u6ovS/i/6g2T+A1FrirEmYhNbSvR4874XWQHtRuTcu3ka
+	 Y8FKLTnZXz1pT1a4xg/Z1b+9Cmvy3U1YhxnGkioPnkdtsV7YfyY9/PluFj3f1g0xKk
+	 f6HK/z/QJ5geALkgI8ONcBzKWZYUi8eq801B0syfTRb7VbgrOc1uNh90y5W05ZE2vR
+	 jlf4zysNR9OAQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Seungjin Bae <eeodqql09@gmail.com>,
+	stable <stable@kernel.org>,
+	Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: typec: ucsi: ccg: Validate altmode index in GET_CURRENT_CAM response
+Date: Tue, 10 Nov 2026 10:42:10 -0500
+Message-ID: <20261110154146.2333804-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060407-failed-5.15-02ee864e8d21@kernel.org>
+References: <20261107060407-failed-5.15-02ee864e8d21@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,48 +62,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107052836-failed-6.6-669bb5af15d4@kernel.org>
- <20261110032904.180619-1-sashal@kernel.org> <CAOQ4uxi7xkQiYtjQNuso0MC6KGGpwGbd+xST5NQ_aYOtaoAixg@mail.gmail.com>
- <20261110152402.2141028-2-sashal@kernel.org>
-In-Reply-To: <20261110152402.2141028-2-sashal@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 10 Nov 2026 16:41:19 +0100
-X-Gm-Features: AclHuK9dEoBHEXsoXwjPKzfLikFNIN-y-Skm3C5Y5GMEwxg6s49WaOu112dznV8
-Message-ID: <CAOQ4uxhZL=uKo2xENubKOtpfz+O0JDxC_qxZYg541OJO1nCgkw@mail.gmail.com>
-Subject: Re: [PATCH 6.6.y] fs: make sure to call fsnotify_inoderemove() only
- once when inode is dead
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Daehyeon Ko <4ncienth@gmail.com>, Jan Kara <jack@suse.cz>, 
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 4:24=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> On Tue, Nov 10, 2026 at 09:10:17AM +0100, Amir Goldstein wrote:
-> > Please drop this patch from all stable kernels or apply only together
-> > with the followup fix.
->
-> For 7.3, 6.18 and 6.12 the backport tooling picked a522dd871024 together =
-with
-> 669bb5af15d4. Both were added to those queues in the same commit, a522dd8=
-71024
-> sits after 669bb5af15d4 in each series, and both are in the current 7.3.4=
--rc1,
-> 6.18.63-rc1 and 6.12.117-rc1.
->
-> The 6.6.y backport you replied to was a manual one after the patch failed=
- to
-> apply.
+From: Seungjin Bae <eeodqql09@gmail.com>
 
-OK so the problem was a missing upstream check in the manual apply process,
-which is what I was trying to point out.
+[ Upstream commit 02ee864e8d2142c5648998944c3306ea6a763c26 ]
 
-> a522dd871024 won't apply to it as-is, so I'm holding the 6.6.y backport
-> until there is a matching backport of a522dd871024.
+When the PPM reports more than one DisplayPort alternate mode for a
+connector, ucsi_ccg_update_altmodes() merges them into a single entry
+in uc->updated[] and sets uc->has_multiple_dp. In that case,
+ucsi_ccg_update_get_current_cam_cmd() rewrites the response of the
+GET_CURRENT_CAM command. The response is a single byte holding the
+index of the currently active alternate mode, and it is provided by
+the PPM firmware.
 
-FWIW IMO it is not so important to invest in this specific backport.
+The function uses this byte directly as an index into uc->orig[], and
+then uses the linked_idx read from that entry as the translated index
+into uc->updated[]. Both arrays have UCSI_MAX_ALTMODES entries, but
+neither index is checked against that size.
 
-Thanks,
-Amir.
+If a malicious or buggy PPM reports a value of UCSI_MAX_ALTMODES or
+larger, e.g. 0xFF, uc->orig[cam].linked_idx reads over the end of
+uc->orig[]. The byte read from there is then used as the index for
+writing cam into uc->updated[new_cam].active_idx, so the out-of-bounds
+read is followed by an out-of-bounds write. This happens without any
+userspace action, since the UCSI core issues GET_CURRENT_CAM on its own
+when handling connector changes.
+
+Fix this by rejecting responses whose index is out of range, printing an
+error and returning -EPROTO, so that the caller cannot accept this.
+Also check linked_idx before using it as an index, so that the write into
+uc->updated[] is always within bounds.
+
+The response is now only processed when the command completed without
+an error. ucsi_sync_control_common() only reads the response when the
+CCI reports command completion, so otherwise the buffer is not filled
+and must not be mistaken for an invalid index.
+
+This bug was found with a Python script that traces where firmware input
+is used.
+
+Fixes: 170a6726d0e2 ("usb: typec: ucsi: add support for separate DP altmode devices")
+Cc: stable <stable@kernel.org>
+Reported-by: Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>
+Assisted-by: LLM
+Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20261003215520.611083-2-eeodqql09@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: adapted GET_CURRENT_CAM error handling to ucsi_ccg_read() without the upstream CCI status checks ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/typec/ucsi/ucsi_ccg.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index b50933cd4babf..2caef7d02cbb6 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -351,14 +351,28 @@ static int ucsi_ccg_init(struct ucsi_ccg *uc)
+ 	return -ETIMEDOUT;
+ }
+ 
+-static void ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
++static int ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
+ {
+ 	u8 cam, new_cam;
+ 
+ 	cam = data[0];
++	if (cam >= UCSI_MAX_ALTMODES) {
++		dev_err(uc->dev, "PPM returned invalid alternate mode index %u\n",
++			cam);
++		return -EPROTO;
++	}
++
+ 	new_cam = uc->orig[cam].linked_idx;
++	if (new_cam >= UCSI_MAX_ALTMODES) {
++		dev_err(uc->dev, "invalid linked alternate mode index %u for %u\n",
++			new_cam, cam);
++		return -EPROTO;
++	}
++
+ 	uc->updated[new_cam].active_idx = cam;
+ 	data[0] = new_cam;
++
++	return 0;
+ }
+ 
+ static bool ucsi_ccg_update_altmodes(struct ucsi *ucsi,
+@@ -541,7 +555,7 @@ static int ucsi_ccg_read(struct ucsi *ucsi, unsigned int offset,
+ 	switch (UCSI_COMMAND(uc->last_cmd_sent)) {
+ 	case UCSI_GET_CURRENT_CAM:
+ 		if (uc->has_multiple_dp)
+-			ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)val);
++			ret = ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)val);
+ 		break;
+ 	case UCSI_GET_ALTERNATE_MODES:
+ 		if (UCSI_ALTMODE_RECIPIENT(uc->last_cmd_sent) ==
+-- 
+2.53.0
+
