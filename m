@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352392;
-	b=TkLqI5XyU1+f89WKERDzXfCHRxKvSB+3WzGnn3uzmXpxW4bPppNDO8wjYl8nzusBANxS
-	 MuVCUzgZEOrGG5Hr3j0na3g+h173uSvzOmjjX3w/krKW3I66KK/TBhcBYnGSHomPdBa+g
-	 BPxaPXoEjScJv5HvvybR6ykLmF2+WSM4ixXhAm5IeSnlub4UrUNUQUeupTQxlHgYOZ46b
-	 0F7vE061THKbhR28xMlyVR9xBKj4X3UqQsYzXEUW1/jqZKSXbVLIYM/XzgFxVGN32fpMr
-	 uwLx9sp0owqYLKWV3fvNH0iKEO80b4EfallzM7zCvQFm3oMXgphfZ0fRTt+i4zoTBCg==
+	t=1794352430;
+	b=QG6sUOVfmgAhUaj04mOs3/W93PNo9J6mXEPxzAfujGxv8LD7JjwlvhJil3SInva7N2m/
+	 mV/B+XnStYKgGZC4lovCOEgOQy356/S3eirr3ecSqwekPp/+MAZBep59LVtTe8rTRPi13
+	 +fkuIjVC43woSShwxDlYwK+xZvybNLJMye7OZi29CTODuESaNqZLki+UxNy70OJmgZ4s1
+	 lr8qqTUqfp3a3TY/04CRXjQq9H4fEPDjm0WVlgWA8Ytxj9DIFQ0r/EJrqALfQ6oKUT0oo
+	 yHtC693o0E1bnakocm+hPrLONkFKH1uroR5UZuaGJwbUPdiR5awuJ7mKQdX0tUkGCvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352430;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mQNSbAy/UczgGILOzDvsHnA+WoapF2BiH0kYqI3U9bI=;
-	b=w38eZE8icinguhKLD/GAzducHcqMQfrPkVQB3r8y5QwhjZIvPi/SEc1z/1MR++4vTOUQ
-	 aZvHcjfK4bgkce2uqSixmacY2NB0QcPxavYvaCNXojeLhC9gOp9lFR92Tob4gHLXAj9lK
-	 tfWdmqDeEeuZQO0iVR8+jtwodQmxehgF0Oq3IBtBlg5l7OsDOFLcSpnslBAEG7c7W84pg
-	 HOoFFvmLLLU2KXbSH6PJmET7ClPTlm5CiFv6kduEF8xHGVkrlmYy9RQyLBAi22vCNJOX9
-	 lZRpydW9koWq6rhbVjGH7KOMa6Zrds6tz1gY8RGOQDz9WiQZZ+MoQmfz7ilbIkOPadw==
+	bh=u2WJxeO0xXOIEz1FUiQ0+48PpXYiAMNR+pqNicR1hzc=;
+	b=lJyQqnzEuLSpfQK9mEcuEuB8Kk1inDDY8L0OuG6rdjDFbUfa0PAzCd4uHPV2/yTsz/7J
+	 fPUehrfAPR3ft3h/18fxyE09IQVNXO2xeQEg8zonvufwTtA5GBFo11XgP21gRnUIWJP2k
+	 /FgLjnqFruPonuvy/8dZf3wdNYXBQcQG9aeXLQDvJBdADKSWNovPTbLJPMrTjXToJ1xhl
+	 EyqvaLL8UUSS2nfffOA6LfaBOYhdAFKsXGSCk8czo7FWq+rwquuvjhsYVLOPAeDbGEVf1
+	 7hEgO0Fbisbo3HjjpEo/ylBZObYsRbYYpMI57rgAqoRxNSz/L/HBHmKjE2peMkZnEOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vif9IjXW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KlQ0bzQn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E183F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:13:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CAC606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vif9IjXW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CCA41F0093C;
-	Tue, 10 Nov 2026 23:13:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KlQ0bzQn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CD221F0093C;
+	Tue, 10 Nov 2026 23:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352391;
-	bh=mQNSbAy/UczgGILOzDvsHnA+WoapF2BiH0kYqI3U9bI=;
+	s=k20260515; t=1794352430;
+	bh=u2WJxeO0xXOIEz1FUiQ0+48PpXYiAMNR+pqNicR1hzc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vif9IjXWOvZFr2Bxr1gFFPssvEGLQHYyGht4+PTqHzzYdf1FBLLqwlikRRTb6xD3e
-	 TmkoFOnNBUH38yn737iSbr3aG2HBs6aNhHdmTFby5SOlRnOGt4f3p7XZLdSCeLfKSu
-	 IJMrleg4BJX9DWYIG0XwVwoElljmwNTpAKkcEjle3bcWQTrIOzojworsGAUpI6vAl1
-	 T/LIRJRVv3UASzTOpO/Lj8mWBN3sGo7abl7MNZ1MTJ9oZotb9r3VLnAoZyNO70f6PC
-	 q8QuizACZ7c7R+GUT5sBTlI8UeDY1JZHtFDJwc32C/oAnc9YYOmufJrVbK0/Wf2Rwy
-	 8/Vc4JiJqABNg==
+	b=KlQ0bzQnOySOfQgrqBqXGZGuQI1ghPaAwUje1fTyn+jjdwMyuV/96iLWaHd5mSwn0
+	 FdlV4Z8JbPORslZ0zQWb9Ne8Jy3w48bzIW/bAgzHiEwJtZdghPqIHEvn2kerJDXa/F
+	 X6E+RWkO3IbYzMsXOBE+DeKqCT7L5/DGWJYXHyKb8mOS3YGqYHQtUdSahs5Ymf2kqE
+	 jNL4Tcpa7SyJi9b9mR2aAzSNetu9MpvnO1BDNcYlkLHrIW7HMytdEiXKFjaEgbaPUl
+	 e+jIIEXJD9aCzEIBbIFWDNCn+cwRe9+mmaylEopPEelWb1FNeynrLiFmwhoy+hdW+0
+	 LQGjG0VUNZkwA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
-Date: Tue, 10 Nov 2026 18:13:09 -0500
-Message-ID: <20261110231246.13787-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] leds: ktd2692: Pass context to regulator cleanup
+Date: Tue, 10 Nov 2026 18:13:48 -0500
+Message-ID: <20261110231325.58909-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050454-failed-7.3-a1b4bd2c2c26@kernel.org>
-References: <20261107050454-failed-7.3-a1b4bd2c2c26@kernel.org>
+In-Reply-To: <20261107055927-failed-5.15-c73e9f04445f@kernel.org>
+References: <20261107055927-failed-5.15-c73e9f04445f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,58 +62,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit a1b4bd2c2c262b8094c86afb99364d16ac08cb66 ]
+[ Upstream commit c73e9f04445f361d5f19ca2edfde742ce18348ef ]
 
-Disabling LPIs is pretty nasty, as it directly messes with the AP list
-of the affected CPU, which could be running... This has the potential to
-lead to really bad behaviours, and we should not be doing that.
+regulator_disable_action() retrieves the driver context from device
+driver data.  However, ktd2692_parse_dt() registers the action before
+ktd2692_probe() stores the context with platform_set_drvdata().
 
-Take example on the way the Active state is handled and simply pause the
-the vcpu so that we are sure it is in a quiescent state, and the state be
-safely manipulated.
+If devm_add_action_or_reset() cannot allocate the action, it invokes the
+callback immediately.  A later probe failure also invokes it during
+managed-resource unwinding.  Both paths dereference a NULL context.
 
-Nobody has any expectation of performance for this anyway.
+Pass the already allocated context directly to the action and retain the
+device pointer in it for error reporting.  The context is allocated before
+the action is registered, so reverse-order devres unwinding keeps it alive
+through the callback.
 
-Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
-Co-developed-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: ee78b9360e14 ("leds: ktd2692: Fix an error handling path")
 Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: Replaced per-vCPU pause/resume helpers with kvm_arm_halt_guest() and kvm_arm_resume_guest(), which pause all vCPUs. ]
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260910194525.99654-1-mhun512@gmail.com
+Signed-off-by: Lee Jones <lee@kernel.org>
+[ sashal: adjusted context for the driver layout without common ExpressWire properties ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/leds/flash/leds-ktd2692.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index 5ab789accc9d4..9e6200c5adcef 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -303,9 +303,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
- 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
- 			return;
+diff --git a/drivers/leds/flash/leds-ktd2692.c b/drivers/leds/flash/leds-ktd2692.c
+index f341da1503a49..5ef8b3c530084 100644
+--- a/drivers/leds/flash/leds-ktd2692.c
++++ b/drivers/leds/flash/leds-ktd2692.c
+@@ -72,6 +72,8 @@ struct ktd2692_led_config_data {
+ };
  
-+		/*
-+		 * Yes, disabling LPIs is painful, since it can be done from
-+		 * a *remote* vcpu! So let's not take any chance, and make
-+		 * sure that the target vCPU has written their LRs back to the
-+		 * irq structures, and release any reference they would have.
-+		 *
-+		 * If it hurts, don't do it.
-+		 */
-+		kvm_arm_halt_guest(vcpu->kvm);
- 		vgic_flush_pending_lpis(vcpu);
- 		vgic_its_invalidate_all_caches(vcpu->kvm);
- 		atomic_set_release(&vgic_cpu->ctlr, 0);
-+		kvm_arm_resume_guest(vcpu->kvm);
- 	} else {
- 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
- 					      GICR_CTLR_ENABLE_LPIS);
+ struct ktd2692_context {
++	struct device *dev;
++
+ 	/* Related LED Flash class device */
+ 	struct led_classdev_flash fled_cdev;
+ 
+@@ -258,13 +260,12 @@ static void ktd2692_setup(struct ktd2692_context *led)
+ 
+ static void regulator_disable_action(void *_data)
+ {
+-	struct device *dev = _data;
+-	struct ktd2692_context *led = dev_get_drvdata(dev);
++	struct ktd2692_context *led = _data;
+ 	int ret;
+ 
+ 	ret = regulator_disable(led->regulator);
+ 	if (ret)
+-		dev_err(dev, "Failed to disable supply: %d\n", ret);
++		dev_err(led->dev, "Failed to disable supply: %d\n", ret);
+ }
+ 
+ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
+@@ -301,7 +302,7 @@ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
+ 			dev_err(dev, "Failed to enable supply: %d\n", ret);
+ 		} else {
+ 			ret = devm_add_action_or_reset(dev,
+-						regulator_disable_action, dev);
++						regulator_disable_action, led);
+ 			if (ret)
+ 				return ret;
+ 		}
+@@ -359,6 +360,7 @@ static int ktd2692_probe(struct platform_device *pdev)
+ 	if (!led)
+ 		return -ENOMEM;
+ 
++	led->dev = &pdev->dev;
+ 	fled_cdev = &led->fled_cdev;
+ 	led_cdev = &fled_cdev->led_cdev;
+ 
 -- 
 2.53.0
 
