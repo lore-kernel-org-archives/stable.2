@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794277777;
-	b=adfKlYQ5xwAPRhCIFh8TVgixPDbTi0Ma5XwWt/qlLdtqH0yAtWkPI96MtWBqOOg+iW2n
-	 S3pwh5dSw6SKtqD2bms8tKCGxPsE+A+Le23U+WUVdzEmv7bnZD9rJDaxd3eBsfV9db/8B
-	 rdEX64mNP2TcJaNZ1kWAXaacFQfafpKkVmaJcCbHF+9j2FuJl31FBG300k86UeP7IxemV
-	 eFZjY+eSwrfd9HXiqgNksEvnYGrKvuGxa2eZpWLSu06eneUwre/tupFFyhFEG4KtO+So9
-	 Pz8Y/i1cqgwitNLadE+27+koU/jaRM0jgJAU9q1R7FvT9i0OB8MdCH7Ef+0pOy+zkwQ==
+	t=1794277802;
+	b=kRdROeAJoWvPtVBm6L8Gf+93II17yzf9U6U73hgz0LWNtZBO+jYMDkwGaFxfey2jZtJN
+	 o+i/rGnA1X4AAEaIGhXaGPBOrDY00cjudp4n3WvmHKEczZgyRiWGaum/1XjAY+wR3TwD4
+	 whAERjEDrX47Ln617/AjpLIpPaH8S340dyEE6QiTaJZ2bIipe8c1OsxGlIf1G+J6ASEuo
+	 K3AYd+5BVx383G5Qcdjg/kkZzXQNPIDgg0nPmbVDW4wqDIEEV9F1xAA7VGCT/Xww6z8C7
+	 DtcpQQDm20k5YR8A3uV/kzu5qeOFldZUIRppb5NFxxs2PuKg7lq+hqDFel3tvYydB0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794277777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794277802;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lYxPH1s3j7NymSUn5H4vCRp+bnEOR+4MdhHPZkbHfzI=;
-	b=rpdn+zl8P1vqfpzr71ejwqfJ1HXYY/UyTuxndgC6C4d/6d77tUrWyzltl+ZH+4WLrk0Y
-	 nfdm/nrGb6j1ETsmV/lSUtQKZ4W5Zb/2I+8CaqDaw6F2Q/H7ZuSEszv8esXblrxYJywfg
-	 uB/CiuChXPfusQpeUn9j6YDbBtj0CPgf8NnOZQGTiN6u9LrSktTFmHD0//0bBcxMhkuWa
-	 r8qT3KFG8d083pXLOah8/dTfPx4Ln2ny87Y8OJPJmYugbQ+MzCbcQ/mbOGDyzUa+37czE
-	 TdYFGcMiMDxKCvhQXzhaFAQQ4hpGYx72J8ByK6WJVp2CP2tSTLT56sakXHSKlzufIjQ==
+	bh=fOgy9MTgN+VbdVKKUFYIzC1AoRvCYKAJRP3EWNvnA8k=;
+	b=cA1m+Il7i2VpUaVh6D5d6h+ex7i9aHWFgtH6l9x5t+5deCNSypvi4NNk6kj9gMhVsBXf
+	 jeoOS1w7dqA+E7r/kisw+zn534Lj1dRyLOuPJ6skIOYvI2MPO33YX5CBROuTWegq+VCzB
+	 AI//SJ/pAmfjh7Hx8QO0hx/ML6fmi4uDJihOuy98pvkqz5WUbwOKObJ/P1PXxzSw8T2l0
+	 I0uM1nQ3awbwKZyuQw+dbB/cJeL5IQjCDHec3GDlpPuRM4A0MUd/YmP6GrHJCJ4+de8WW
+	 bIzsuLaTsqTcx8RfKlmns6ymBEGxpr8g97rrN5N+c5pZ3jRMvinlxidllcH4SSvoFwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqLfRzLw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3d09ibn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C024606A31C;
-	Tue, 10 Nov 2026 02:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE33606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:30:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MqLfRzLw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2CC1F0089F;
-	Tue, 10 Nov 2026 02:29:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3d09ibn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A31D1F0089F;
+	Tue, 10 Nov 2026 02:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794277777;
-	bh=lYxPH1s3j7NymSUn5H4vCRp+bnEOR+4MdhHPZkbHfzI=;
+	s=k20260515; t=1794277801;
+	bh=fOgy9MTgN+VbdVKKUFYIzC1AoRvCYKAJRP3EWNvnA8k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MqLfRzLwWeunB4gF4YprwOEGCBTuv5dyrpEBFlLh2Or5FjcxWYmwurKpefk+tT9jf
-	 vbqt4BKKSP+1QQQZSwVcKqfRm0az5s6YNunX/giKqwgFkkdBeJEuWvUPLzapra1bO4
-	 iETRRW5rgL7FpRTqlqOrr5pzRyLRLDsvsMnMpY4JbU1MoJ5/6mWHyCP9txyTtB+tfn
-	 YFp31tQYcp+BRNdEBuZKu8DQETiyzk7p66K26JXhzrtjm+ottwAuCseGqILkIHEbQN
-	 cXRFpfhfqhOIjrXdvJJv95wr72UALHh6WPNwx54CV33Yeyn/W7MoMKvOL99YDSO3bE
-	 e5+Yw+RBij8mA==
-From: SJ Park <sj@kernel.org>
+	b=g3d09ibnEunh25kbPh+iNVaOTKsVKuE/OSSZrt2kzlOn6RttHtEDcgpcYbqd8ivYS
+	 gWh2cxyac/Svxgd3iWyVLJZFOE+VvtnoohUvPq7OwRRhf9PxYCpxAjC5TRuHl8OIec
+	 NP5uWDuieGfw5UtgQo/qLGsUrWPp86yzZWKCA2Tif4BMXi61ywJg8NRej1ZowvQSC5
+	 aOyOtgYBvkBOudOIjp4UkW0ZwnJtbPZQMdUPIE7BZkb1TdXQh24Aa84LNBnuqU/jud
+	 S1tla/3b/OchGb5RSdihAY+3IF4vuc3RNVefAio9i8G6Qcy1OPvJlrJ8uwuQb8RAC8
+	 1iW0EhQELJSCQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Fernand Sieber <sieberf@amazon.com>,
-	SeongJae Park <sjpark@amazon.de>
-Subject: [PATCH 6.12.y] mm/damon/core: move static variable last_nr_regions to damon_ctx
-Date: Mon,  9 Nov 2026 18:29:24 -0800
-Message-ID: <20261110022924.115699-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200803-failed-6.12-26ae50a0901a@kernel.org>
-References: <20261109200803-failed-6.12-26ae50a0901a@kernel.org>
+Cc: Pan Chuang <panchuang@vivo.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] iio: light: Remove redundant dev_err()/dev_err_probe()
+Date: Mon,  9 Nov 2026 21:29:58 -0500
+Message-ID: <20261110022951.3819474-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050601-failed-6.18-8a9bcd587d7d@kernel.org>
+References: <20261107050601-failed-6.18-8a9bcd587d7d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,80 +63,341 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kdamond_split_regions() uses a static variable last_nr_regions, to infer
-if the region boundaries are too stable.  If it looks too stable, it
-does a more aggressive region split because it might be a fake stability
-coming from non-aggressive split.  Because the variable is static, the
-inference can be racy and wrong when multiple kdamonds are running in
-parallel.
+From: Pan Chuang <panchuang@vivo.com>
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort monitoring accuracy can be degraded when multiple kdamonds
-are used in parallel and the workload has certain access patterns. Still
-it is a bug that is better to fix.
+[ Upstream commit 9cf89c342bc2508b79b4ab8823df90da8f77f1f1 ]
 
-Move the variable into the damon_ctx struct to fix the problem.
+Since commit
+55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()"),
+devm_request_irq() and devm_request_threaded_irq() automatically log
+detailed error messages on failure. Remove the now-redundant
+driver-specific dev_err() and dev_err_probe() calls.
 
-Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
-Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: <stable@vger.kernel.org> # 5.15.x
-(cherry picked from commit 26ae50a0901a44f7d50053f87dc38abd9f9a269c)
-Signed-off-by: SJ Park <sj@kernel.org>
+Standardize error check on if (ret) rather than if (ret < 0).
+
+Signed-off-by: Pan Chuang <panchuang@vivo.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Stable-dep-of: 8a9bcd587d7d ("iio: light: ltr501: Power down chip if request irq fails")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/damon.h | 5 +++++
- mm/damon/core.c       | 5 ++---
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ drivers/iio/light/adux1020.c       | 4 +---
+ drivers/iio/light/apds9160.c       | 7 ++-----
+ drivers/iio/light/apds9300.c       | 4 +---
+ drivers/iio/light/apds9306.c       | 3 +--
+ drivers/iio/light/apds9960.c       | 4 +---
+ drivers/iio/light/bh1745.c         | 3 +--
+ drivers/iio/light/cm3605.c         | 4 +---
+ drivers/iio/light/gp2ap002.c       | 4 +---
+ drivers/iio/light/ltr390.c         | 3 +--
+ drivers/iio/light/ltr501.c         | 5 +----
+ drivers/iio/light/opt4060.c        | 2 +-
+ drivers/iio/light/rpr0521.c        | 5 +----
+ drivers/iio/light/si1145.c         | 4 +---
+ drivers/iio/light/st_uvis25_core.c | 5 +----
+ drivers/iio/light/stk3310.c        | 5 +----
+ drivers/iio/light/tsl2563.c        | 2 +-
+ drivers/iio/light/tsl2772.c        | 5 +----
+ drivers/iio/light/veml6030.c       | 4 +---
+ drivers/iio/light/vl6180.c         | 2 +-
+ 19 files changed, 20 insertions(+), 55 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 4688a10eca89b..dfd0295104d37 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -641,6 +641,11 @@ struct damon_ctx {
+diff --git a/drivers/iio/light/adux1020.c b/drivers/iio/light/adux1020.c
+index 66ff9c5fb66a2..df8a85826d19f 100644
+--- a/drivers/iio/light/adux1020.c
++++ b/drivers/iio/light/adux1020.c
+@@ -808,10 +808,8 @@ static int adux1020_probe(struct i2c_client *client)
+ 					NULL, adux1020_interrupt_handler,
+ 					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+ 					ADUX1020_DRV_NAME, indio_dev);
+-		if (ret) {
+-			dev_err(&client->dev, "irq request error %d\n", -ret);
++		if (ret)
+ 			return ret;
+-		}
+ 	}
  
- 	struct list_head adaptive_targets;
- 	struct list_head schemes;
-+	/*
-+	 * number of regions after last merge.  Read kdamond_split_regions()
-+	 * for more details.
-+	 */
-+	unsigned long last_nr_regions;
- };
+ 	return devm_iio_device_register(&client->dev, indio_dev);
+diff --git a/drivers/iio/light/apds9160.c b/drivers/iio/light/apds9160.c
+index 9b8af11b7b67a..fc8a9fbd09746 100644
+--- a/drivers/iio/light/apds9160.c
++++ b/drivers/iio/light/apds9160.c
+@@ -1545,11 +1545,8 @@ static int apds9160_probe(struct i2c_client *client)
+ 						apds9160_irq_handler,
+ 						IRQF_ONESHOT, "apds9160_event",
+ 						indio_dev);
+-		if (ret) {
+-			return dev_err_probe(dev, ret,
+-					     "request irq (%d) failed\n",
+-					     client->irq);
+-		}
++		if (ret)
++			return ret;
+ 	} else {
+ 		indio_dev->info = &apds9160_info_no_events;
+ 		indio_dev->channels = apds9160_channels_without_events;
+diff --git a/drivers/iio/light/apds9300.c b/drivers/iio/light/apds9300.c
+index 05ba216750632..7053b310cb92b 100644
+--- a/drivers/iio/light/apds9300.c
++++ b/drivers/iio/light/apds9300.c
+@@ -432,10 +432,8 @@ static int apds9300_probe(struct i2c_client *client)
+ 				NULL, apds9300_interrupt_handler,
+ 				IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 				"apds9300_event", indio_dev);
+-		if (ret) {
+-			dev_err(&client->dev, "irq request error %d\n", -ret);
++		if (ret)
+ 			goto err;
+-		}
+ 	}
  
- static inline struct damon_region *damon_next_region(struct damon_region *r)
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 3142776e2e0ee..ec7f22ad33e1d 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1932,7 +1932,6 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
- {
- 	struct damon_target *t;
- 	unsigned int nr_regions = 0;
--	static unsigned int last_nr_regions;
- 	int nr_subregions = 2;
+ 	ret = iio_device_register(indio_dev);
+diff --git a/drivers/iio/light/apds9306.c b/drivers/iio/light/apds9306.c
+index fc07518faec77..dbcd8939e0716 100644
+--- a/drivers/iio/light/apds9306.c
++++ b/drivers/iio/light/apds9306.c
+@@ -1286,8 +1286,7 @@ static int apds9306_probe(struct i2c_client *client)
+ 						apds9306_irq_handler, IRQF_ONESHOT,
+ 						"apds9306_event", indio_dev);
+ 		if (ret)
+-			return dev_err_probe(dev, ret,
+-					     "failed to assign interrupt.\n");
++			return ret;
+ 	} else {
+ 		indio_dev->info = &apds9306_info_no_events;
+ 		indio_dev->channels = apds9306_channels_without_events;
+diff --git a/drivers/iio/light/apds9960.c b/drivers/iio/light/apds9960.c
+index 79b202c59a0f1..ddcc94d398cde 100644
+--- a/drivers/iio/light/apds9960.c
++++ b/drivers/iio/light/apds9960.c
+@@ -1098,10 +1098,8 @@ static int apds9960_probe(struct i2c_client *client)
+ 					IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 					"apds9960_event",
+ 					indio_dev);
+-	if (ret) {
+-		dev_err(&client->dev, "request irq (%d) failed\n", client->irq);
++	if (ret)
+ 		goto error_power_down;
+-	}
  
- 	damon_for_each_target(t, ctx)
-@@ -1942,14 +1941,14 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
- 		return;
+ 	ret = iio_device_register(indio_dev);
+ 	if (ret)
+diff --git a/drivers/iio/light/bh1745.c b/drivers/iio/light/bh1745.c
+index 10b00344bbedb..31e94813b111b 100644
+--- a/drivers/iio/light/bh1745.c
++++ b/drivers/iio/light/bh1745.c
+@@ -784,8 +784,7 @@ static int bh1745_setup_triggered_buffer(struct iio_dev *indio_dev,
+ 						IRQF_ONESHOT,
+ 						"bh1745_interrupt", indio_dev);
+ 		if (ret)
+-			return dev_err_probe(dev, ret,
+-					     "Request for IRQ failed\n");
++			return ret;
+ 	}
  
- 	/* Maybe the middle of the region has different access frequency */
--	if (last_nr_regions == nr_regions &&
-+	if (ctx->last_nr_regions == nr_regions &&
- 			nr_regions < ctx->attrs.max_nr_regions / 3)
- 		nr_subregions = 3;
+ 	return 0;
+diff --git a/drivers/iio/light/cm3605.c b/drivers/iio/light/cm3605.c
+index 0c17378e27d19..1690e3ce42839 100644
+--- a/drivers/iio/light/cm3605.c
++++ b/drivers/iio/light/cm3605.c
+@@ -233,10 +233,8 @@ static int cm3605_probe(struct platform_device *pdev)
  
- 	damon_for_each_target(t, ctx)
- 		damon_split_regions_of(t, nr_subregions);
+ 	ret = devm_request_threaded_irq(dev, irq, cm3605_prox_irq,
+ 					NULL, 0, "cm3605", indio_dev);
+-	if (ret) {
+-		dev_err(dev, "unable to request IRQ\n");
++	if (ret)
+ 		goto out_disable_aset;
+-	}
  
--	last_nr_regions = nr_regions;
-+	ctx->last_nr_regions = nr_regions;
- }
+ 	/* Just name the trigger the same as the driver */
+ 	led_trigger_register_simple("cm3605", &cm3605->led);
+diff --git a/drivers/iio/light/gp2ap002.c b/drivers/iio/light/gp2ap002.c
+index bb17ef2a829b7..0a8eee74c494a 100644
+--- a/drivers/iio/light/gp2ap002.c
++++ b/drivers/iio/light/gp2ap002.c
+@@ -580,10 +580,8 @@ static int gp2ap002_probe(struct i2c_client *client)
+ 	ret = devm_request_threaded_irq(dev, client->irq, NULL,
+ 					gp2ap002_prox_irq, IRQF_ONESHOT,
+ 					"gp2ap002", indio_dev);
+-	if (ret) {
+-		dev_err(dev, "unable to request IRQ\n");
++	if (ret)
+ 		goto out_put_pm;
+-	}
+ 	gp2ap002->irq = client->irq;
  
- /*
+ 	/*
+diff --git a/drivers/iio/light/ltr390.c b/drivers/iio/light/ltr390.c
+index a2b804e9089aa..d40bd98dfd111 100644
+--- a/drivers/iio/light/ltr390.c
++++ b/drivers/iio/light/ltr390.c
+@@ -838,8 +838,7 @@ static int ltr390_probe(struct i2c_client *client)
+ 						"ltr390_thresh_event",
+ 						indio_dev);
+ 		if (ret)
+-			return dev_err_probe(dev, ret,
+-					     "request irq (%d) failed\n", client->irq);
++			return ret;
+ 	}
+ 
+ 	ret = ltr390_pm_init(data);
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index 022e0693983bd..36fe40fec2329 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -1538,11 +1538,8 @@ static int ltr501_probe(struct i2c_client *client)
+ 						IRQF_ONESHOT,
+ 						"ltr501_thresh_event",
+ 						indio_dev);
+-		if (ret) {
+-			dev_err(&client->dev, "request irq (%d) failed\n",
+-				client->irq);
++		if (ret)
+ 			return ret;
+-		}
+ 	} else {
+ 		indio_dev->info = data->chip_info->info_no_irq;
+ 	}
+diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
+index 9be752535d750..70aa8b46784a5 100644
+--- a/drivers/iio/light/opt4060.c
++++ b/drivers/iio/light/opt4060.c
+@@ -1223,7 +1223,7 @@ static int opt4060_setup_trigger(struct opt4060_chip *chip, struct iio_dev *idev
+ 					IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 					name, idev);
+ 	if (ret)
+-		return dev_err_probe(chip->dev, ret, "Could not request IRQ\n");
++		return ret;
+ 
+ 	init_completion(&chip->completion);
+ 
+diff --git a/drivers/iio/light/rpr0521.c b/drivers/iio/light/rpr0521.c
+index 9341c1d58cbe3..13e498492092b 100644
+--- a/drivers/iio/light/rpr0521.c
++++ b/drivers/iio/light/rpr0521.c
+@@ -988,11 +988,8 @@ static int rpr0521_probe(struct i2c_client *client)
+ 			rpr0521_drdy_irq_handler, rpr0521_drdy_irq_thread,
+ 			IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 			"rpr0521_event", indio_dev);
+-		if (ret < 0) {
+-			dev_err(&client->dev, "request irq %d for trigger0 failed\n",
+-				client->irq);
++		if (ret)
+ 			goto err_pm_disable;
+-			}
+ 
+ 		ret = devm_iio_trigger_register(indio_dev->dev.parent,
+ 						data->drdy_trigger0);
+diff --git a/drivers/iio/light/si1145.c b/drivers/iio/light/si1145.c
+index ef0abc4499b74..a36d1d0346a8e 100644
+--- a/drivers/iio/light/si1145.c
++++ b/drivers/iio/light/si1145.c
+@@ -1251,10 +1251,8 @@ static int si1145_probe_trigger(struct iio_dev *indio_dev)
+ 			  IRQF_TRIGGER_FALLING | IRQF_NO_THREAD,
+ 			  "si1145_irq",
+ 			  trig);
+-	if (ret < 0) {
+-		dev_err(&client->dev, "irq request failed\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	ret = devm_iio_trigger_register(&client->dev, trig);
+ 	if (ret)
+diff --git a/drivers/iio/light/st_uvis25_core.c b/drivers/iio/light/st_uvis25_core.c
+index bcd729a9924ea..94d5261b26634 100644
+--- a/drivers/iio/light/st_uvis25_core.c
++++ b/drivers/iio/light/st_uvis25_core.c
+@@ -196,11 +196,8 @@ static int st_uvis25_allocate_trigger(struct iio_dev *iio_dev)
+ 					st_uvis25_trigger_handler_thread,
+ 					irq_type | IRQF_ONESHOT,
+ 					iio_dev->name, hw);
+-	if (err) {
+-		dev_err(dev, "failed to request trigger irq %d\n",
+-			hw->irq);
++	if (err)
+ 		return err;
+-	}
+ 
+ 	hw->trig = devm_iio_trigger_alloc(dev, "%s-trigger",
+ 					  iio_dev->name);
+diff --git a/drivers/iio/light/stk3310.c b/drivers/iio/light/stk3310.c
+index 3be6934218866..ca1cb5dd776a6 100644
+--- a/drivers/iio/light/stk3310.c
++++ b/drivers/iio/light/stk3310.c
+@@ -661,11 +661,8 @@ static int stk3310_probe(struct i2c_client *client)
+ 						IRQF_TRIGGER_FALLING |
+ 						IRQF_ONESHOT,
+ 						"stk3310_event", indio_dev);
+-		if (ret < 0) {
+-			dev_err(&client->dev, "request irq %d failed\n",
+-				client->irq);
++		if (ret)
+ 			goto err_standby;
+-		}
+ 	}
+ 
+ 	ret = iio_device_register(indio_dev);
+diff --git a/drivers/iio/light/tsl2563.c b/drivers/iio/light/tsl2563.c
+index f2af1cd7c2d1f..4e3daae227ae1 100644
+--- a/drivers/iio/light/tsl2563.c
++++ b/drivers/iio/light/tsl2563.c
+@@ -755,7 +755,7 @@ static int tsl2563_probe(struct i2c_client *client)
+ 					   "tsl2563_event",
+ 					   indio_dev);
+ 		if (err)
+-			return dev_err_probe(dev, err, "irq request error\n");
++			return err;
+ 	}
+ 
+ 	err = tsl2563_configure(chip);
+diff --git a/drivers/iio/light/tsl2772.c b/drivers/iio/light/tsl2772.c
+index ffbde15401141..e54265f605ddf 100644
+--- a/drivers/iio/light/tsl2772.c
++++ b/drivers/iio/light/tsl2772.c
+@@ -1837,11 +1837,8 @@ static int tsl2772_probe(struct i2c_client *clientp)
+ 						IRQF_ONESHOT,
+ 						"TSL2772_event",
+ 						indio_dev);
+-		if (ret) {
+-			dev_err(&clientp->dev,
+-				"%s: irq request failed\n", __func__);
++		if (ret)
+ 			return ret;
+-		}
+ 	} else {
+ 		indio_dev->channels = chip->chip_info->channel_without_events;
+ 	}
+diff --git a/drivers/iio/light/veml6030.c b/drivers/iio/light/veml6030.c
+index da8c32cabfd68..ad3bf9ab07e7c 100644
+--- a/drivers/iio/light/veml6030.c
++++ b/drivers/iio/light/veml6030.c
+@@ -925,9 +925,7 @@ static int veml6030_set_info(struct iio_dev *indio_dev)
+ 						IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+ 						indio_dev->name, indio_dev);
+ 		if (ret < 0)
+-			return dev_err_probe(&client->dev, ret,
+-					     "irq %d request failed\n",
+-					     client->irq);
++			return ret;
+ 
+ 		indio_dev->info = &veml6030_info;
+ 	} else {
+diff --git a/drivers/iio/light/vl6180.c b/drivers/iio/light/vl6180.c
+index c1314b144367f..127904704df3c 100644
+--- a/drivers/iio/light/vl6180.c
++++ b/drivers/iio/light/vl6180.c
+@@ -722,7 +722,7 @@ static int vl6180_probe(struct i2c_client *client)
+ 						IRQF_ONESHOT,
+ 						indio_dev->name, indio_dev);
+ 		if (ret)
+-			return dev_err_probe(&client->dev, ret, "devm_request_irq error\n");
++			return ret;
+ 
+ 		init_completion(&data->completion);
+ 
 -- 
-2.47.3
+2.53.0
 
