@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347654;
-	b=Hpy2gTa47RzFf7KZe8WNW3opA8d8ila6MEQwVsMZiHm6h0ni6eI/L9USBlFBsmG5Xeqo
-	 uaBh5cLYAV9t8kXZSmfV/MV4In22zYjJa0RsUecIhveXhjjM1C5IfZfRL+69Ohp6RYzgA
-	 qnuUIBbjHRyZoY+Xhe9p1K4bYGD8NhBfW4dz0LoITLcf3TJwISRoPM+3++mkuAuwoYuYe
-	 fg4bGSZ5YnSr+6ur8MrORe3jmcYjQwTEfM0omVe7u3z/knNXbCYtKjzV8EffP0ObkkUJ6
-	 wFI3Smv1JOeSm7HfbU1edlDEkzylpP7hmCxjcf9UJ9x68j7Vu4ILdWknqiX/ZZRgfcQ==
+	t=1794347669;
+	b=wFTqfFxA2/CFVMqR12RKYbvKUKsiAPVe1hkxIO++w/oGKVj7nOskrOY6NX1QGSH0kdsc
+	 7hS0s/QDt4ZJHS3nHAH7xLeC/LSmDSLBCTykNVFiHAJZz0xI2iI1iz6ZVgzOTSHSfD+CC
+	 O6HogwcxnmDyiw/b5IjlGahNCwHIH6jFPs5NK8b8fdOSohYSvv0DGGLFntuYSG7KkHTP+
+	 Ajza3a6qulGCEh3yfKiNxY6FrZy0b+GDXaRxP8YIvDzwqTl2eZYL9U49eIZkCO3ewIA1V
+	 YjlZua5jXPmoEHSXCaorJtPdSuywTLVUVrERqdeSHBlM10wtH9IDvDXrromyv1TdSeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347654;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794347669;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CsvWyDfjQnKVUtXqRV+SiMfXSH+JqmAfV1fsoWfsjdI=;
-	b=KkQmXDojP9aJxEJ6zOGVT2Cy11Af9vXtkn9rovfeThCOAt9iBUxH+DcTDcWSF917NuLr
-	 HtH56Zm3yIcBipS8ZwjL5ZkOIAHxIX5B6RTmAvaHUmWCwxoNC4aN+EjzzDA5bNWj0OKPI
-	 rW+l5tP1xANnm3mNifRNLX7IIQWN4CqdvJDsVsNkn3r78/+8UMNLoitIqrL0Lu9IqJAyB
-	 s0Z6Rj+IckU1n43O6nHUpkoHJmFhoItZTUXXxnrA4JqZJ6UuSEWQf9RnuvvgTqWQDFRi6
-	 OE/6j/oLfD6we6bSrjvy4SzgXVGIcMK6h58ILpb+9z1w1mK8CgVMwzXvGLJK14Gj+PA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=L4BLHG89Bgd/xsayo1sYfbzCzsfL+BMr8SFXjVahQG0=;
+	b=1BmtmGIoMsyfyQ8skt6IQpawTeYS3o998ivfe3vAA+nkMFL6XF7CkXbTCHUjPMJXO1Y7
+	 DjBpclc15ZotOsvU2Fzx9ZV+pAn1bvT/1rAcu4bpYISSo368usvnAIhl/N7ruF6rKVNQ4
+	 Hc6I87H3auovEwaYs+UJneiHT00XiqeBs9BJHet8WBe6kSgJ8eANrdPaLgKC9DDt69wxO
+	 MeLMgxv4RAgc94bY6XQE728QfucL1e/2aODxbU+mVTOLcrfFQqYtFn/nyG/oyKcVsMONo
+	 rQw0gLteQRw4ZuycUMqGOIDITfKNTIv550E7b7z1+2e0LBGtcIQ8czRZOkh3U6/e8xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eq7dT32w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5pGqm1z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3DD606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:54:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79738606A32A;
+	Tue, 10 Nov 2026 21:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eq7dT32w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7991F008A4;
-	Tue, 10 Nov 2026 21:54:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5pGqm1z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B21F1F0089F;
+	Tue, 10 Nov 2026 21:54:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794347653;
-	bh=CsvWyDfjQnKVUtXqRV+SiMfXSH+JqmAfV1fsoWfsjdI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eq7dT32wsSsYu83MH4hDO4dRXFQUGu70gCAGyu37OPqpJZLvPzpZ4jRpxMQq2lAvK
-	 CsIxmjchqwlWtmw00Bu/2Uk9vhB/8a6aMIE8YR5MJajJFY0Y0DquLmw9B1W9o06KUd
-	 2gAgcnBGIfp5m2M+t4qBLsOsx9khGICIoffTPkJqMKV8BD6rh8pzUBz7kCMHTi+MPe
-	 wYPNFcOsNlIP8dYs+JWdvaIATcpYKKVTYmZXkhpzv+lOLh3Mz37/LXM1Fi5rxyBsoH
-	 eMKjNWaf9hEqHW31feCGdzdEHtNJW3DlSje0NAe+geeSY3qUOOw05TlZ8c6QnHSm5E
-	 Yz9Z2Ci7fEkJA==
-From: Sasha Levin <sashal@kernel.org>
+	s=k20260515; t=1794347669;
+	bh=L4BLHG89Bgd/xsayo1sYfbzCzsfL+BMr8SFXjVahQG0=;
+	h=From:To:Cc:Subject:Date;
+	b=e5pGqm1z4Ywft2fbXZc6HGmYLlV8iXItXj9IBDaJrchRoYXTkvs3T2w9frNvXQs2n
+	 uEJJYM7zEuV8w0CkoIGkQlVuexLIDkWm9jkmIZCP1GSCY5BABdykm2jbssiSxCvAHK
+	 wR8yXCkcqaroOzrgxP3hbUjx791bm8vq2drBYn5RMz8MvY3NnjN38jndWHNImvI5KG
+	 2uVPCNSnTMkFJwR2rkUneHgz2ayA3F0NCM0YUjH2kSwotBNojPB4ocoBpTWAuQBeml
+	 WfrjGeXDYljWXBXlNmCLXwHeon3H7t8efOCJVfOuMxsyPt+RasTbHp3yEbYsvO4i6g
+	 TM4dKeNHX3Ayg==
+From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
-Date: Tue, 10 Nov 2026 16:54:12 -0500
-Message-ID: <20261110215136.3962883-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054841-failed-6.1-a605d5d71a6d@kernel.org>
-References: <20261107054841-failed-6.1-a605d5d71a6d@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>
+Subject: [PATCH 6.12,6.6,6.1] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels
+Date: Tue, 10 Nov 2026 13:54:04 -0800
+Message-ID: <20261110215404.37415-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,76 +60,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+commit dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4 upstream.
 
-[ Upstream commit a605d5d71a6d280c43c7ede9778dda63fb5c3f22 ]
+Kernels built for the MIPS64-based Cavium Octeon SoCs are normally
+big-endian, but little-endian builds are also supported.  Currently, the
+SHA-1, SHA-256, and SHA-512 code using the Octeon crypto co-processor is
+enabled in both builds.
 
-f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
-whether it is safe to sleep, the result is passed down as @in_task to:
-- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
-  -> vm_unmap_ram(), which may sleep.
-- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
-  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
-  wait_on_bit_lock().
+This code is untestable without the hardware.  However, based on the
+code itself, it is implausible that it computes hash values correctly in
+little-endian builds.  Such builds write many incorrect values to COP2:
 
-However, the check still treats below task contexts as sleepable:
-- with spinlock held via spin_lock(), i.e. preempt count != 0 while
-  irqs are enabled.
-- with BH disabled via local_bh_disable().
-- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
-- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
+  - SHA-1 and SHA-256: The 64-bit integer that contains the last two
+    32-bit message words of each block is written to COP2 entirely
+    byte-reflected, due to missing endianness conversion in
+    octeon_sha1_start() and octeon_sha256_start() to compensate for
+    using native 64-bit loads from the message bytes.  This differs from
+    all the earlier message words which are written correctly.
 
-So the "sleeping function called from invalid context" issue fixed by
-commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
-invalid context") can still be triggered.
+    Furthermore, the state is written to COP2 with each 32-bit word
+    byte-reflected within each 64-bit integer, due to incorrect use of
+    64-bit endianness conversion in write_octeon_64bit_hash_dword() when
+    the state is kept in memory in native-endian 32-bit words.
 
-The block layer provides bio_in_atomic() for exactly this purpose, it
-checks rcu_preempt_depth() and preemptible(), and conservatively returns
-true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
-difference is as below:
+  - SHA-512: All the 64-bit message words are written to COP2
+    byte-reflected, due to missing endianness conversion in
+    write_octeon_64bit_block_sha512() and octeon_sha512_start().  The
+    SHA-512 state words seem to be written correctly.
 
- old: intask = in_task() && !irqs_disabled()
- new: intask = !bio_in_atomic()
+Big-endian kernels aren't affected by these bugs.  These bugs also
+aren't new; this code has been broken on little-endian ever since it and
+Octeon little-endian support were first added in v4.1.
 
- Context                              | old intask     | new intask
- -------------------------------------+----------------+----------------
- Hard IRQ / softirq                   | false          | false
- IRQs disabled                        | false          | false
- spin_lock() held, IRQs enabled       | true (wrong)   | false
- BH disabled by local_bh_disable()    | true (wrong)   | false
- RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
- Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
+Commit d2a948d2db68 ("MIPS: Octeon: Make octeon-md5 driver
+endian-agnostic") made the MD5 code work on little-endian kernels by
+adding 64-bit endianness conversions to the COP2 macros used by MD5
+(some of which are shared by SHA-1 and SHA-256, despite those algorithms
+keeping the state words in native-endian instead of MD5's little-endian,
+causing some of the strange behavior described above).  However, SHA-1,
+SHA-256, and SHA-512 were never fixed to work on little-endian kernels.
 
-Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
-always returns true, so dic freeing will always be offloaded to sbi->wq,
-and compressed pages will not be cached in f2fs_read_end_io(); this is
-the price of correctness, since there is no way to tell whether the
-current context can sleep.
+Therefore, disable the Octeon SHA-1, SHA-256, and SHA-512 code in
+little-endian kernels.  This causes the generic code that actually
+computes hash values correctly to be used instead.
 
-Cc: stable@kernel.org
-Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: replaced !bio_in_atomic() with equivalent inline RCU and preemption checks because the helper is unavailable ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 82be2dcfa6a1 ("crypto: octeon - add SHA1 module")
+Fixes: c3d0def62001 ("crypto: octeon - add SHA256 module")
+Fixes: fbaa4dfd51a0 ("crypto: octeon - add SHA512 module")
+Cc: stable@vger.kernel.org
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Link: https://patch.msgid.link/20261022054450.20746-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- fs/f2fs/data.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/mips/crypto/Kconfig | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6384ac931bb7d..ea27184c4af6b 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -273,7 +273,8 @@ static void f2fs_read_end_io(struct bio *bio)
- {
- 	struct f2fs_sb_info *sbi = F2FS_P_SB(bio_first_page_all(bio));
- 	struct bio_post_read_ctx *ctx;
--	bool intask = in_task() && !irqs_disabled();
-+	bool intask = !(IS_ENABLED(CONFIG_PREEMPTION) && rcu_preempt_depth()) &&
-+		IS_ENABLED(CONFIG_PREEMPT_COUNT) && preemptible();
+diff --git a/arch/mips/crypto/Kconfig b/arch/mips/crypto/Kconfig
+index ee9604fd20372..f951a75dfef32 100644
+--- a/arch/mips/crypto/Kconfig
++++ b/arch/mips/crypto/Kconfig
+@@ -34,7 +34,7 @@ config CRYPTO_MD5_OCTEON
  
- 	iostat_update_and_unbind_ctx(bio, 0);
- 	ctx = bio->bi_private;
+ config CRYPTO_SHA1_OCTEON
+ 	tristate "Hash functions: SHA-1 (OCTEON)"
+-	depends on CPU_CAVIUM_OCTEON
++	depends on CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
+ 	select CRYPTO_SHA1
+ 	select CRYPTO_HASH
+ 	help
+@@ -44,7 +44,7 @@ config CRYPTO_SHA1_OCTEON
+ 
+ config CRYPTO_SHA256_OCTEON
+ 	tristate "Hash functions: SHA-224 and SHA-256 (OCTEON)"
+-	depends on CPU_CAVIUM_OCTEON
++	depends on CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
+ 	select CRYPTO_SHA256
+ 	select CRYPTO_HASH
+ 	help
+@@ -54,7 +54,7 @@ config CRYPTO_SHA256_OCTEON
+ 
+ config CRYPTO_SHA512_OCTEON
+ 	tristate "Hash functions: SHA-384 and SHA-512 (OCTEON)"
+-	depends on CPU_CAVIUM_OCTEON
++	depends on CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
+ 	select CRYPTO_SHA512
+ 	select CRYPTO_HASH
+ 	help
+
+base-commit: d3417611a3b40b7f04a29e558cebac2bf69889d7
 -- 
-2.53.0
+2.56.0
 
