@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325202;
-	b=p76z1LGyhv6N4dVUvtkFnnJIURw6POcvISYJKdFP4JeAVfff+687JnFwAdj791rJqdoC
-	 1F9mWxbkJvvfygK7knrwXzKVmkTblbeX2w3uC+bFrakWfm0eBnQdtswUsvPRKakoMMXLn
-	 77ZwiUQCHgxBAdQ/bLs+mpPu4v0E1kaT02YSoz/7hises7uY8PjCTihkyPeb5c+jpGNQ8
-	 YuPvFIZyERQNs0gjLTTMcW8z2JqX+9IV9+OJeFX2wvtjvaHG/03fD5Axo+TMXcBlbduBa
-	 yP41u8ib9+OLwYPYWgvQjmzDoI5yc/hx0/osmcuKPmhFJ3Ym22KtNsqD4jO5pA7OaiA==
+	t=1794325206;
+	b=23jywYfu4tWDX4PL4EU58cd43BUMvd6pEoWvCLpJMQOVAliqOjGGFsuhhYNyVTImWEe0
+	 MWFYt0mGwg5+sH4ZTspZplk2wgubgB3Iz12mXmp16lXbMdh14jRhB3DkmbbJUCEy37u/l
+	 lKmfS0YD9K3o2jxKKtK/yq1EYIeyPZK3nT3R53Ro4vewxGXPKDKyAwS6OhBA84pu7y1HJ
+	 QlKjO8iHrh0QE9Ft9ahvOD6hFfs4oNXzJDCowADHvpqY+CKrQOW7Hxih8MiPzcuqY2UgJ
+	 V/k5OD/9LA2ucmgWm6eqNqkh3bQpY4+mkta/7Uvnl2nIOVHko0wnq2dQAKEmgiThnIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325206;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=r+d4tl+Pp3xYxHDTfZRL1+/TNXuvbUP+Qww6KOb+ahU=;
-	b=t4Q+cks8fBQwwd3G0nHdkerWEbAUa9761GHClxrdS0FHfTVr5C5vqERa2YfT7jhYn7v/
-	 zrHZ9WYTkI8DgoLZuwqs4jB3KDJ689jQLYsinv0Vju4DSm6/vc+8SlA3HH/gK+Gv625Ih
-	 rofM7F2NNqHKsdh05I2tpg0VnloRLTqV8HxCJ5ndOtB8tkEv2aPBfhRVu3X9rJ4EVm91u
-	 u905BdUjaFelYw4owP0XmY/wQZl39F0VFFqCQRKMsyNcr7jeWSGo17+w1WKlgWP/YUDaH
-	 mHGevw2dHBkfQEm1Sz1TBe+OpAZwr4ylru/bcgXoHdeXtyYxz2LJPgovyzgxC7tT25A==
+	bh=nPXN54qvbIkSSX3/s1oD2L8ssGfWhFTgof+Nfm2fi7g=;
+	b=ry8h4XOODyiHWLPnC9yxU8M/FklzJ2gW9j5hCCi8o18H0wFRaxbd/9woo5UNZ0c9CISw
+	 rpc6opNjqniiCjtMiu8uYVNpRA/+j4fQrkaWSGIWJ0brgYEbsHdfIh0dav7i4mBYNdB3b
+	 FmzaXUxMjhp8rJBTJAoPdEZLW7XTQ//6ewu5s5ePSjXppJ64BFt4dz5rxegM1X6rnNVV0
+	 0dwVbBHCjvEmPF8hLrO8FpS0eFiuMhjbv8gBQQPU7AY5Vw0BdxlEvmpvYwB6O+rtIN6zP
+	 9FUSRRRIbLG2guCxL0HazCVn/1VaNotvZyAhTfighwVev/SDpOHoL+fYPqM/L1HOksQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gH2RY9pT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y13dwEGa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291FF606A336
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:40:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FCB606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gH2RY9pT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035281F008A2;
-	Tue, 10 Nov 2026 15:40:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y13dwEGa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73EA1F008A2;
+	Tue, 10 Nov 2026 15:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325201;
-	bh=r+d4tl+Pp3xYxHDTfZRL1+/TNXuvbUP+Qww6KOb+ahU=;
+	s=k20260515; t=1794325205;
+	bh=nPXN54qvbIkSSX3/s1oD2L8ssGfWhFTgof+Nfm2fi7g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gH2RY9pTj/RsSgB7f5UnthAwOHC1W0nBmDarCFZQUSDn3yipkPZMYt0O7UH7PIEtF
-	 S0iFtCLRXTjxOLhqSPQ5GYMDhy2OD5Rka3WQZZmAZy1pzQb17OQ5LZEFOSi4ESL0ym
-	 scjarG++3tUF1xRCMHHtB8q6Drvwl2tRDxWqsiHElA4blkTnLiC9tGSyHrkC0L1Lxx
-	 1/2mJGSMZYZxxeiqZMFiG87k1b/UD9oWyMrfAHscbnlBGnVGUFG9/6lnFj1Mhuq939
-	 BMisl2dsmVPm9dVrtwZue67AQ/5t8J8kdkfa2a00UWPsF6jFkXMNghiOvFbsSdFKau
-	 2MsXl8AI+IdfA==
+	b=Y13dwEGahaXFNjR2+MY5X6WhHwL/ysf7BnWOMIiCDoqIgp8LhbEo4lYORj62rNdRq
+	 cC0ngoduAkDIFdJsam1QSmcb68+u7VBHy/Tt1xJD2XB9yVKVPb64gJ8YBbB0xMVzqR
+	 0uW5HwDRCZ1lrUqUQejwKlUAB7xpWBF8mS2QrqSWVZ+BCWhdHM6BUAM8p6ptYl4GOK
+	 fhUTNqXHqYi7S2Of1BklhM0KJJvFm9Om6zH9/8kAypnuWSCRJ4grJKt/Pfh32QoZ1u
+	 H3+WcFVLY+91u1QI53tlQqghlb2cjl/mXCbw48QFeBGk0egfneJu+ARSKoUC3zqeUZ
+	 5D9i6k3te04iA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Francesco Orlando <francesco.orlando99@libero.it>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] Input: xpad - add GameSir Nova Lite support
-Date: Tue, 10 Nov 2026 10:39:59 -0500
-Message-ID: <20261110153944.2331158-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] f2fs: return -EIO for a lost inode block after cp_error
+Date: Tue, 10 Nov 2026 10:40:03 -0500
+Message-ID: <20261110153934.2310261-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062307-failed-5.10-2e6f2e5799f3@kernel.org>
-References: <20261107062307-failed-5.10-2e6f2e5799f3@kernel.org>
+In-Reply-To: <20261107060707-failed-5.15-53b12b63304b@kernel.org>
+References: <20261107060707-failed-5.15-53b12b63304b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,43 +63,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Francesco Orlando <francesco.orlando99@libero.it>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit 2e6f2e5799f328ca0879dad14d7f3709c7f7496b ]
+[ Upstream commit 53b12b63304b34a3850a901c4de3cc6ad08e0aee ]
 
-Add vendor and product ID for GameSir Nova Lite (0x3537:0x1040) in
-XInput mode to enable force feedback rumble support.
+After cp_error, dirty node caches are dropped without being written.
+If such an inode was never written, its NAT entry is still NEW_ADDR,
+and reading its inode block returns -ENOENT.
 
-Signed-off-by: Francesco Orlando <francesco.orlando99@libero.it>
-Link: https://patch.msgid.link/20261011165821.72698-1-francesco.orlando99@libero.it
-Cc: stable@vger.kernel.org
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-[ sashal: added the missing XPAD_XBOX360_VENDOR(0x3537) entry to the USB device ID table ]
+f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
+as a hole. Since the inode block is missing, the next offset can only
+advance one block, so fiemap walks block by block up to maxbytes,
+about 2^30 blocks, while holding the inode lock. It took hours in a
+power-off recovery test after shutdown and blocked unlink and umount
+on the file.
+
+Return -EIO instead of -ENOENT when the inode block itself is missing
+after cp_error or shutdown. A missing direct or indirect node is still
+reported as -ENOENT.
+
+Cc: stable@kernel.org
+Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/joystick/xpad.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/f2fs/node.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index b5c3b8f73011e..f3d32527d7527 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -354,6 +354,7 @@ static const struct xpad_device {
- 	{ 0x31e3, 0x1300, "Wooting 60HE (AVR)", 0, XTYPE_XBOX360 },
- 	{ 0x31e3, 0x1310, "Wooting 60HE (ARM)", 0, XTYPE_XBOX360 },
- 	{ 0x3285, 0x0607, "Nacon GC-100", 0, XTYPE_XBOX360 },
-+	{ 0x3537, 0x1040, "GameSir Nova Lite", 0, XTYPE_XBOX360 },
- 	{ 0x3767, 0x0101, "Fanatec Speedster 3 Forceshock Wheel", 0, XTYPE_XBOX },
- 	{ 0xffff, 0xffff, "Chinese-made Xbox Controller", 0, XTYPE_XBOX },
- 	{ 0x0000, 0x0000, "Generic X-Box pad", 0, XTYPE_UNKNOWN }
-@@ -482,6 +483,7 @@ static const struct usb_device_id xpad_table[] = {
- 	XPAD_XBOX360_VENDOR(0x2f24),		/* GameSir Controllers */
- 	XPAD_XBOX360_VENDOR(0x31e3),		/* Wooting Keyboards */
- 	XPAD_XBOX360_VENDOR(0x3285),		/* Nacon GC-100 */
-+	XPAD_XBOX360_VENDOR(0x3537),		/* GameSir Controllers */
- 	{ }
- };
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index e5a06a65a5398..65f3501b939e0 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -777,8 +777,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
  
+ 	if (!npage[0]) {
+ 		npage[0] = f2fs_get_node_page(sbi, nids[0]);
+-		if (IS_ERR(npage[0]))
+-			return PTR_ERR(npage[0]);
++		if (IS_ERR(npage[0])) {
++			err = PTR_ERR(npage[0]);
++			/*
++			 * cp_error drops dirty node caches, so the inode block
++			 * of an inode that was never written reads as NEW_ADDR
++			 * and returns -ENOENT. It is not a hole; the inode is
++			 * gone. Callers treat -ENOENT as a hole and keep
++			 * looking block by block (e.g. fiemap up to maxbytes).
++			 */
++			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
++					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
++				err = -EIO;
++			return err;
++		}
+ 	}
+ 
+ 	/* if inline_data is set, should not report any block indices */
 -- 
 2.53.0
 
