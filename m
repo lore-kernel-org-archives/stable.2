@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322902;
-	b=s5fL46kt5qaHHh+0kPJI77mGRp0Rto3mCghJMxOWt3uDwh2Q0ruk0M+ROaqAJS4o4i8j
-	 Pzj4gc7YACF7Sr+gt0XhivdEHM6cFH7olq0c6nUC3kEHLIGNzVWHs3HnvwLtYrEMvv+7L
-	 JHd6n2HpJW8sAcOp7wMJIdXPzhkRUEhqQO1d07UGifziiKPPkCBLGb2Z5NGIVlTMP2P1B
-	 suWXr9MwUUh4nYHVsO9bEaIFyOcN9Dih/PsCWkZtor9U8pug4B1Vp+Gt4piU0WuKf9gtx
-	 iqf5gAwVoK4y0BN3GakSr9ralPowoJ+BBvPqRH6jcONKVTwkTVwDeGJd3Co/9HrlQBA==
+	t=1794322945;
+	b=Vq2uPeh/L2d1gZFQK3Bu9jgo8c0M3mWQ/zSqeOAa0L8huqVYHqkAefoi6s2taBTa9Lgh
+	 ON9qwUT3xBPwpXufI+l1N1oWPigvrlnXdvtn+6/rad1i/HwtC/wX5e7J1HnyufC9wSh7i
+	 OnnoYlSd1GBoYk1GK3NtqshPTmVagi3nk/mGV+Z4hy8Gy4lRuOdJWkrrwlU+kavv6l5/K
+	 4WstBqJ/0paar8h451F1V20+clf9l3t6d1zNbn7bc/iAadNSlGMGxLcClxMl7Lnr9GLoS
+	 MwRiGOyxPPkAdmnsqHiu2qfO6SqyMKnEcEW2dehyjP5rAOJnQjdXkVasla4ZPIIBC4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322945;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5iya5ZMYkFZCXErh9mcCUzaXfrkf3MQDS+ES+8g94MI=;
-	b=HVqzu6w4qxERs2HddBfAcm8DkdW5ek2u1xEmG+tOFuJavN1R8YLi3OFgUkYKSt4oAl+C
-	 nUxgAgEFv/XEkVVURkySOE2t4wQaw0azC0YMA3YQEgO8vq76Fm5MW6y7U+kTyjlmklBVW
-	 kpQtzFpiHK+HLIbu4xoplVL8EpCU0ZwcWzB9++zlmUJLp/nI0aH+1s46Ny+PwUM4VEtcz
-	 dzaRWt1KO/+Mr7kOdw19Y47UdAQXzuNzDCA0ugOKgfV5A8l+S5ymRCVBZxMhfsTer98Wv
-	 f401NGxGTLd7fCU0vhKUSapzEjog4Tc8ytYDmP9MoTUP/BjYwn0aKydF5Y6Zrb5CG3w==
+	bh=6wfzhmFvH2WgKdDfLPSjTZHvmLnSaUsqNAKtOLW5Tic=;
+	b=auf+PIt+xl6DnglkDwPDiR/AWVhD8G7I0TN8IpCQo/Xt1VE7OaBdE9copU8p62FTXKVO
+	 MQGnOW6lwc4V97TRGkToMzhJyYGeg9rl4d7oeoIyj8yl1kaTJr3YDvFqaZeqc3/i4NoE8
+	 QDxIt71mt2xG6Hcj8f7ZiGX+hT//oFUorn2eWHOhl8CQybuvs5vACq7eEC++gCH3WJjmB
+	 cA2GuMMqaVqI3xfdYrg/Wt5JBjOVWhfx5FnoGRnlQHfxUPzXtiGvpdKaSmN41xBdb0oXR
+	 oTnRKqOvRajKoRq6IJxCyWgl0t0b5Dsby1AiXW6JYNQgcaH3uvMnjDZGWn5eyBLrddQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UD7nHiWD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dmk1YNzS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15223606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:01:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE08560A2613;
+	Tue, 10 Nov 2026 15:02:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UD7nHiWD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6462F1F0089F;
-	Tue, 10 Nov 2026 15:01:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dmk1YNzS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE211F0089F;
+	Tue, 10 Nov 2026 15:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322901;
-	bh=5iya5ZMYkFZCXErh9mcCUzaXfrkf3MQDS+ES+8g94MI=;
+	s=k20260515; t=1794322944;
+	bh=6wfzhmFvH2WgKdDfLPSjTZHvmLnSaUsqNAKtOLW5Tic=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UD7nHiWDLpckKR0/fM8zmvSLfSysqpUs871Rxh9WzDoqfYDQfb1X5eU2tYMuIiT2Q
-	 eKMjJo2g9peFagOFMAZ21SIS1tNhzo6gVhuaUYzwIk97PUc/aPmzoZ/EBYHzvxaboy
-	 31LnuyU+m0YZxt651cC8qdxhAWoogRiOamvIOvhYD4xFMqE8dqotixzzwKq/Ua2Yzc
-	 Qwme8hNoTTfuUrJqU3CEnplf+uqmfOjw7N7diyqwLkeP4r3D+CxhR3M9UvQue7jK84
-	 30NBny3B6fyFNmt868to1+Xv3V1gsW/ghtb4BITEq8dUe1ZI2P/GULOj67zfTESRmI
-	 ZJTW+8WxXFodg==
-From: Sasha Levin <sashal@kernel.org>
+	b=Dmk1YNzSjHduNWsO8al9cecTz4YXl8TNi6tMk2K3GMtJuzgYM1NidmnDYrmdhtc0R
+	 XfQ1rBwFqV0u6zrKxxfWrxG4xkbK2aSX832bR8ogPI15vt+LWXXGVjRTENHd6Bll8G
+	 LvVHq9pVoCNOCkNdN6rKgdnTBMs9wDNIEAipic2dPQHpwxakQzMlCiKSsfbd7OWkB3
+	 +/MeJl5Y61m3cvZnXg65J9tz/NzImT780osZc7yWwJrlbmeajvC+tZ29rgjWIjXKwR
+	 SUSS/lHhk+7E+jes3/9j9aOUI9xNEFIZ0kwMSKPWdYPdzpfMfKOqCEOo7f4M+RX0z1
+	 J7ckpIA7XcUpA==
+From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] f2fs: zone: fix to avoid bio split on sequential zone
-Date: Tue, 10 Nov 2026 10:01:40 -0500
-Message-ID: <20261110150114.1980356-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050412-failed-7.3-b9b036bd1e2c@kernel.org>
-References: <20261107050412-failed-7.3-b9b036bd1e2c@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Fernand Sieber <sieberf@amazon.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	damon@lists.linux.dev
+Subject: [PATCH 6.12.y v2] mm/damon/core: move static variable last_nr_regions to damon_ctx
+Date: Tue, 10 Nov 2026 07:02:16 -0800
+Message-ID: <20261110150218.145605-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200803-failed-6.12-26ae50a0901a@kernel.org>
+References: <20261109200803-failed-6.12-26ae50a0901a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,115 +63,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+kdamond_split_regions() uses a static variable last_nr_regions, to infer
+if the region boundaries are too stable.  If it looks too stable, it
+does a more aggressive region split because it might be a fake stability
+coming from non-aggressive split.  Because the variable is static, the
+inference can be racy and wrong when multiple kdamonds are running in
+parallel.
 
-[ Upstream commit b9b036bd1e2cfbc189d5811d62d8711e216c40b3 ]
+The user impact is not critical.  No crash, no leak.  DAMON's
+best-effort monitoring accuracy can be degraded when multiple kdamonds
+are used in parallel and the workload has certain access patterns. Still
+it is a bug that is better to fix.
 
-In the block layer, bio_split_to_limits() splits a bio if it exceeds
-any underlying queue limits:
-1. queue_max_sectors: Splits bios larger than the transfer limit. This
-   limit is set by the device driver/DMA controller (max_hw_sectors) and
-   device-mapper targets. When flushing dirty pages (governed by VFS
-   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
-   contiguous pages into bios up to 512KB (1024 sectors) or more without
-   checking queue_max_sectors, which will be split if the device or DM
-   target enforces a smaller limit.
-2. queue_max_segments: Splits bios exceeding scatter-gather segment
-   limits. f2fs allocates bios with up to 256 pages, exceeding the
-   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
-   are discontiguous.
-3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
-   section_size strictly matches zone_size, and block allocation never
-   spans across section boundaries, so bios never cross chunk_sectors.
+Move the variable into the damon_ctx struct to fix the problem.
 
-Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
-submits the tail half via submit_bio_noacct() before returning the head
-half to the caller. On a sequential zoned device, this causes the tail
-bio to arrive at the zone write plug before the head:
-
-  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
-  != wp_offset 248, len 248
-
-The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
-f2fs_stop_checkpoint() and remounting the filesystem read-only:
-
-2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
-2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
-2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
-2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
-2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
-2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
-2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
-
-To prevent write bios destined for sequential zones from being split:
-1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
-   sequential zone areas.
-2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
-   for sequential zone areas, so f2fs will not merge beyond the queue limits.
-
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Changed F2FS_BLKSIZE(sbi) to F2FS_BLKSIZE to match the existing constant definition. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
+Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
+Cc: Fernand Sieber <sieberf@amazon.com>
+Cc: SeongJae Park <sjpark@amazon.de>
+Cc: <stable@vger.kernel.org> # 5.15.x
+(cherry picked from commit 26ae50a0901a44f7d50053f87dc38abd9f9a269c)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- fs/f2fs/data.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Changes from v1
+- v1: https://lore.kernel.org/20261110022924.115699-1-sj@kernel.org
+- Mark last_nr_regions as a private field to avoid kernel-doc warning.
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index cfd81bfc28a22..aa6e869d057ab 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -500,6 +500,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
- 	struct bio *bio;
+ include/linux/damon.h | 6 ++++++
+ mm/damon/core.c       | 5 ++---
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 4688a10eca89b..b05c626f6479a 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -641,6 +641,12 @@ struct damon_ctx {
  
- 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
-+	/* avoid reversed IO if bio is split due to exceeding max_segments */
-+	if (npages > 1 && !is_read_io(fio->op) &&
-+	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
-+		npages = min_t(int, npages, bdev_max_segments(bdev));
- 	bio = bio_alloc_bioset(bdev, npages,
- 				fio->op | fio->op_flags | f2fs_io_flags(fio),
- 				GFP_NOIO, &f2fs_bioset);
-@@ -790,7 +794,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
- 		return false;
- 	if (last_blkaddr + 1 != cur_blkaddr)
- 		return false;
--	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
-+	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
-+		return false;
-+	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
-+	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
-+		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
-+
-+		if (bio->bi_vcnt >= queue_max_segments(q))
-+			return false;
-+		if (bio_sectors(bio) + (F2FS_BLKSIZE >> SECTOR_SHIFT) >
-+				queue_max_sectors(q))
-+			return false;
-+	}
-+	return true;
+ 	struct list_head adaptive_targets;
+ 	struct list_head schemes;
++/* private: */
++	/*
++	 * number of regions after last merge.  Read kdamond_split_regions()
++	 * for more details.
++	 */
++	unsigned long last_nr_regions;
+ };
+ 
+ static inline struct damon_region *damon_next_region(struct damon_region *r)
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 3142776e2e0ee..ec7f22ad33e1d 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1932,7 +1932,6 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
+ {
+ 	struct damon_target *t;
+ 	unsigned int nr_regions = 0;
+-	static unsigned int last_nr_regions;
+ 	int nr_subregions = 2;
+ 
+ 	damon_for_each_target(t, ctx)
+@@ -1942,14 +1941,14 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
+ 		return;
+ 
+ 	/* Maybe the middle of the region has different access frequency */
+-	if (last_nr_regions == nr_regions &&
++	if (ctx->last_nr_regions == nr_regions &&
+ 			nr_regions < ctx->attrs.max_nr_regions / 3)
+ 		nr_subregions = 3;
+ 
+ 	damon_for_each_target(t, ctx)
+ 		damon_split_regions_of(t, nr_subregions);
+ 
+-	last_nr_regions = nr_regions;
++	ctx->last_nr_regions = nr_regions;
  }
  
- static bool io_type_is_mergeable(struct f2fs_bio_info *io,
--- 
-2.53.0
+ /*
 
+base-commit: a100533c838bab5a555d92e082e38e092f2b4ea6
+-- 
+2.47.3
