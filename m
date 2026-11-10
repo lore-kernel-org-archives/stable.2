@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313051;
-	b=mymV2gnfWw23m4ekwu4x82KEqim/m0iP6rHmfkpokVZrwouSisrWF4i/eyFJQ0ec5uQq
-	 ZJ70pCllAfhvbQ/6zMrvwiecSh5tnUOTcBqNkv/RUhH2b+VPvOtOkrnTJGvAVNDbswiIO
-	 CBGz+MCAcDQcICNyGVCaE4vkJntjuAUajXJjIlLkmMBqW7/oefs5qPrv/UemsFyABFFCG
-	 6G4BzhcXovvE/sCJg+WnpGF2Pi5oWxrK8Uctk6M0zrelwfEgQKFzi+VpktF+9l+8Rjn8y
-	 683d0rsEnKb0N0IO/HdX88j6Cnwst9W0FAY5KicH9S4+teAtB+0kYkjG3rjQ4wM6a+A==
+	t=1794313061;
+	b=AN3cqLnDjxhtzjIKIhHM3MdO0BpmZRmm95z3FpkWWIGuNdnrOgJZBWyegQ8Y6178pYge
+	 cxyFzVvkrpQcPOkZcZUUucPb/gVAAjuJzhtxR9cvrBl35LGunU4Eggc2jdICo0p+X55k5
+	 7Kn5KYLcvo0KeVwz2WkdxQMlUvOci9j9LPLPMC+T+pBMpTZlv216/khBum8N6oCdSlLz+
+	 hxY1dcSdnvV2aRe1VoKiza9aCj0xYhx9hnTfD6dWVuA1A8kcqvQNvqR2TV1FBfCBd1Kkj
+	 gj7DClw5O7FAPy57+ib//NNa7TsCD1lY4ZBdhQ41ZqhcLxIrPPlS9oPvYNkCyVftfeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313061;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nbFtZ7gOB5j6qiRJZKzp5iNtdAtDCyFMPeRBpkaG3So=;
-	b=ofU3gGu5+tn7j+Kjvzx7SZ+F30bgz7w6ufdN3nyDIy/4Wv+FL9Y49rjP8Yips/oyriKK
-	 0BUBFOhG4vaUTaOt3kgANiGPLSYqqB9iiSF3fF9NxLe/8A0QEQt13OFjqNc8AxYu1TVaM
-	 G5pgvJ3E0bLCy8WxItNpSQp1JNZpUzscia/iAjjeFBjRZrf9Ns/rg1v/KPavM0zJDgfO3
-	 p6XYESl6KWDGgHEXZrTO7T75120AwnK7GmLrUpIQBA3q5TMV0YrcXMpK3A5VfbTKQf7tE
-	 DRjAy4xmbSYz4okik+s7/pg4tXbEe/ByA2c52Ynhq243GNYMOlYpbCvJVeu09cdPYNQ==
+	bh=KX6JlV6IGQsim866vXuaXSCrlmq6erpyhhkX1Qh3NNA=;
+	b=QFlA54tCTL7Hmx7t/NsNJDdNFvAAgFuPihfLylFCYiCDcowIKtSzV1YvYP0KJ6I5z+EA
+	 hCuWwcRSPZFxokJ98Rl19DYuusB7O7GXUag0OCIUstgug04FD7hK0XK/nXeZsdmwE8AHU
+	 ZOSji1DE4u23oudCuiaR2r8RmnjBXrXprGUswsiw29T2J3DhTqrz5RkMZdnN2IxKLyuXg
+	 ycz2J9xwmpWka7VF2eIoMTSYbgmhk+OEThaT9fGzRWbdeGZGeC3up0jqnayX5k5eKIMJm
+	 ZPFydmkyTldB+t2iVzj5b+ZiilhrD1eS6kdiKsdbCBGYgPH3xXv82T8DEgUkvs7XF3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UTi/qhaY";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1Btq6bR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239A3606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09174606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTi/qhaY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0271F008A3;
-	Tue, 10 Nov 2026 12:17:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1Btq6bR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4E551F0089F;
+	Tue, 10 Nov 2026 12:17:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313050;
-	bh=nbFtZ7gOB5j6qiRJZKzp5iNtdAtDCyFMPeRBpkaG3So=;
+	s=k20260515; t=1794313060;
+	bh=KX6JlV6IGQsim866vXuaXSCrlmq6erpyhhkX1Qh3NNA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UTi/qhaYq6gstAHDsImEWBvlIuJqpqmwJFzFActFqzmnntTo3ETtvSQH+nBHN4iz2
-	 VMzZLlRCnZI4ptUqBs8Z0L2cokGrEDH0l9zZR3ki3mWCRIT5FQ5GZKR+l34uB4AlaP
-	 v1XLnLLEnW+1kX8GDiOcxEJPr2FsIMRNxVEDpxX00Aqsw7knPNEq/+04BCG5R73Qd9
-	 tKnKaoLRM1EyJ+MrxV3VGghfpnOYEYL592dW3QezrFep0fodB1X+LrjKUB7KyR9hd8
-	 /o2ZvtT8notHUjRNpL3QuLKUb1IwFWagq5rn1YJ+YMV5oOxVpmzrzT9n90njhHVFIU
-	 z97IPl/DcP5hw==
+	b=T1Btq6bRkGddDRf7J+DqlWd2JTuqxDdCYGx6aKn3uVpbFl01G2ozyTpTI3NqrLxpF
+	 qwUk98lXYofwvPw3r4OPB7fF04FxT3+lVgEbbYXEPFFMJbCgyoAQaH8VVcWbxTTuie
+	 JV7k6JCmCVupjBkGW7mZ3XRIRfol0ir8S5OcqRJb+xVHUxwYfHot6kHWuvKM7ijIvB
+	 iAFaOlZDq3m8l8Z3ASDApt0wORZRjjYZnkCiwr38QzbWqYNk8eT+stTJ9ku1FBNOuO
+	 edIgD23efWwuiNIvnKDxzyad0WO70ZqCR+515/QxtA2yZezl6vsZtaKdqmzi1d3usb
+	 PInyI9Z2/TUfA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] iio: adc: ad7192: reject devices without match data
-Date: Tue, 10 Nov 2026 07:17:28 -0500
-Message-ID: <20261110121716.1065395-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] media: mtk-vpu: Remove redundant 'flush_workqueue()' calls
+Date: Tue, 10 Nov 2026 07:17:37 -0500
+Message-ID: <20261110121716.1071164-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110121716.1065395-1-sashal@kernel.org>
-References: <20261107051802-failed-6.12-7f7a119a370e@kernel.org>
- <20261110121716.1065395-1-sashal@kernel.org>
+In-Reply-To: <20261107061833-failed-5.10-2c50b58d4105@kernel.org>
+References: <20261107061833-failed-5.10-2c50b58d4105@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,44 +62,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiale Yao <yaojiale02@163.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 7f7a119a370ecf6c8d4ab9e9ee0a8cdd77afedd3 ]
+[ Upstream commit 360c887a39cb56e75be4f558b16f1b6409ecb93f ]
 
-SPI driver_override allows a device to bind to this driver without
-matching either the OF or SPI device ID table. In that case,
-spi_get_device_match_data() returns NULL.
+'destroy_workqueue()' already drains the queue before destroying it, so
+there is no need to flush it explicitly.
 
-ad7192_probe() immediately dereferences the returned chip information
-to initialize the IIO device, causing a NULL pointer dereference.
+Remove the redundant 'flush_workqueue()' calls.
 
-Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
-data") fixed the same driver_override issue in another SPI driver.
-Reject devices without match data before using the chip information.
+This was generated with coccinelle:
 
-Fixes: c3708c829a06 ("iio: adc: ad7192: Convert from of specific to fwnode property handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+@@
+expression E;
+@@
+- 	flush_workqueue(E);
+	destroy_workqueue(E);
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Stable-dep-of: 2c50b58d4105 ("media: mediatek: vpu: free IRQ before destroying watchdog workqueue")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad7192.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/media/platform/mtk-vpu/mtk_vpu.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/iio/adc/ad7192.c b/drivers/iio/adc/ad7192.c
-index 02328b9115756..ef8268ad353e0 100644
---- a/drivers/iio/adc/ad7192.c
-+++ b/drivers/iio/adc/ad7192.c
-@@ -1394,6 +1394,9 @@ static int ad7192_probe(struct spi_device *spi)
- 	st->int_vref_mv = ret == -ENODEV ? avdd_mv : ret / MILLI;
- 
- 	st->chip_info = spi_get_device_match_data(spi);
-+	if (!st->chip_info)
-+		return -ENODATA;
-+
- 	indio_dev->name = st->chip_info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 	indio_dev->info = st->chip_info->info;
+diff --git a/drivers/media/platform/mtk-vpu/mtk_vpu.c b/drivers/media/platform/mtk-vpu/mtk_vpu.c
+index 663694dff3ddb..98f043f1c8749 100644
+--- a/drivers/media/platform/mtk-vpu/mtk_vpu.c
++++ b/drivers/media/platform/mtk-vpu/mtk_vpu.c
+@@ -938,10 +938,8 @@ static int mtk_vpu_remove(struct platform_device *pdev)
+ #ifdef CONFIG_DEBUG_FS
+ 	debugfs_remove(vpu_debugfs);
+ #endif
+-	if (vpu->wdt.wq) {
+-		flush_workqueue(vpu->wdt.wq);
++	if (vpu->wdt.wq)
+ 		destroy_workqueue(vpu->wdt.wq);
+-	}
+ 	vpu_free_ext_mem(vpu, P_FW);
+ 	vpu_free_ext_mem(vpu, D_FW);
+ 	of_reserved_mem_device_release(&pdev->dev);
 -- 
 2.53.0
 
