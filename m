@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272508;
-	b=VQnVec5ERH2JKz8CR8lJmqzR7nK+jZM8Ly0UqhQqu/xfYnM0dnmEg7EgqynTWtxPxKvu
-	 4jFQRaE8Jkm2g+WpRpMzHbGUQ1zn5CiGJKCAs0zmGRtmbYtt9QjUJKULsMuSWedTe+Ts6
-	 DIHbJgMz7It7q+SoiZGtHdk8IopAw7AStJBUFex5r+J8YpNQOQNmQWw7FmZBwfV/lTitZ
-	 v9nbxxd3c22FQsO3SR1KZu/PSDf7LrdlKsz3USoMFg1qM2OWObYH4uRy6z/mGwUL0lKQN
-	 LPW7c3RUCKj/gIjEXAObOLNRZbTLFERho06nP102Hae4U7vpUzAx1BMqB2+7YC59D6A==
+	t=1794272511;
+	b=Jz1YJ7rO3um9amy450zoFoZGiOKPLrWC7BMoM53gAHiXjuGXhmNu/tX/WL19dTH9J7uJ
+	 1DE36e3HbSlHSszHxV8V3kNOdIr2w6hlkTQIrR/K8mS1Mp/NEO/hvz6Cbu9P2Y6YVbzXe
+	 JHwE7pkdn5vtGH/g76L9oi0BXXFFSZI9GFMx/n8wprwrMnLRdFAckbr6m9NyWlD57YGL5
+	 Ch/kwVXNSVQNGYS7fpQToACla5b8gqhZel5B9g0m4ZHHIDAjf9I5lIpOhYQlR1XZ3zmrm
+	 ItA4nccONRGfHOfLMFUeXtFNYo+F/8BEftHbRKdNM/ITeMmLwGp+q2nZG6nE7EEj+dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272511;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1xNSuHR7koeUjrlC99dUhr3ciQ6umpoduUVZMmCBGtg=;
-	b=5khpkhsxeVL1ysx3/QryvOxiZLzx3DJYrhqcAGSqnvsfpV/zBTh/pAVFcHxCR2pz464m
-	 F8YT9EFh4B1ivLf+K12Ejv+daPUO/3RL3ZDxq1Y++a9R1Ve5orKrTQVKyrRieQ13agdYL
-	 JTi9KM9+dMa55+727B8TnTy1yFDKNUIOYzNOGepMh8Kd/aSgPCTdv8JWAHM01kdxPJclM
-	 N/8gqKIoEgXR5VlKHQy8K1uOWA4wb1qDQFqSmQfop0DyXN0pM8kiDUUtrd4+k+etabeIL
-	 UUp8z5BTarS2836e1kxjVs3fUdEWduHU48zEvtxB8KuNDPa/wIPurj3mU/OvAunuG2Q==
+	bh=F2yQYvpuHjE8B1NVeerdB8s0zMWoazYcVuewXW/4dI8=;
+	b=l32JpxpCoXxzbbvKuFiYPMA3wMUyUoNuqkqDtwUue/g5yg8qVfjbHyn9ro84QQPCg7K3
+	 fdDEVGbdNfYYzpqwPViTAzKT3r2lhl4788s6dNhtkHnrIo9G4oStS4/2iatUQYwEaQ8hs
+	 KMaBwEz8zi0kSQv1sh0Gub/GLyL87L7W+2a/WBS7yFsGVwXn64mvpVeEbNCItCU+XsMVc
+	 lU39Uy0XilZar9nE/s+lpGTC0u8+zKC87DPQS+0ICOAQTAI4bpYbCaqQKsatMbavwpS/E
+	 c5lQV+E4dgxnQG13JnlRPo6QQU8q2CQWShtA/timOV3zhB9rW++dh68E0nt7ykdNiYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGxtgxA5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNbuunz3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F7D606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519C6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGxtgxA5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A401F008A2;
-	Tue, 10 Nov 2026 01:01:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNbuunz3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 350C11F008A1;
+	Tue, 10 Nov 2026 01:01:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272508;
-	bh=1xNSuHR7koeUjrlC99dUhr3ciQ6umpoduUVZMmCBGtg=;
+	s=k20260515; t=1794272511;
+	bh=F2yQYvpuHjE8B1NVeerdB8s0zMWoazYcVuewXW/4dI8=;
 	h=From:To:Cc:Subject:Date;
-	b=fGxtgxA5XvKOew/YmC/sVuibV424dNlVbdxuZvTcLrHYaeEzmNIe8hBxh8Szik5AT
-	 bRHUQPRpw/tVu0bujh81xAGgmnQpi83yT3XEMepcySZp4e+hJD3K8UL04ibYPKXTKb
-	 vbyebDg1ltQHCuOPmXI6I9FKSNTufTtgxqCJrHzwzCNy2B1jH9zyaERA2IKv1KpFZD
-	 uYvhQpS5Y/unFDJvi3yBuYnM8rskNLyVNrn12w9ETk6ZiZk5+m6tJNaguXSpvTUEj2
-	 fivlyqpP7JCTaHCXvmvh/OOhjQRPUB5E9NP8hvmv6n6kBieetfMu7q/AwKpOtW9Ra/
-	 w9Bw/4v3QUA6Q==
+	b=VNbuunz3PHcB7ORNmZN/FWxoARLNmT/J4Cdyv3RbBpnUSHB1us4pstl6ye48G02P5
+	 vEX0DynRJIfQxW1toQ5iUB3oQUt87GTM13pE1V6wPdky7TcqmBQ3ZfMMFfm/+riXLj
+	 kDJUG9ybJxhUgFXmampHJX4Id2hnkBuv1KYOwgXS1ztDaUKd5nj5w+DFX/VRdbn2Wm
+	 mNfhRa5I8kiCw/PcCArVZx40hILtB6EcrhXGgMwvHblsXLRx8QS1WBjiWi4us1FGs0
+	 IOpLCUTrNT2J8mtHsBBHEhjOzIRd4eEtNpGwSXc83FF8AjJ6jEUvYOUPcNWhE1lf7V
+	 uAPqklmrsYe1g==
 From: Sasha Levin <sashal@kernel.org>
-To: ljs@kernel.org,
-	david@kernel.org,
+To: eklavyasingh2106@gmail.com,
 	akpm@linux-foundation.org,
-	surenb@google.com,
-	azpijr@gmail.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	shakeel.butt@linux.dev,
-	sj@kernel.org
+	joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	heming.zhao@suse.com,
+	kartikey406@gmail.com,
+	zzzccc427@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:01:45 -0500
-Message-ID: <20261109200145-failed-7.3-ee1afc5539b6@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:49 -0500
+Message-ID: <20261109200149-failed-7.3-0a8f258c0f01@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,316 +74,194 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x ee1afc5539b6fe03569a5855b6041b13343b0993
+git cherry-pick -x 0a8f258c0f012314c36b9e4818cdc0178c68f891
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200145-failed-7.3-ee1afc5539b6@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200149-failed-7.3-0a8f258c0f01@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ee1afc5539b6fe03569a5855b6041b13343b0993 Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 27 Oct 2026 14:08:26 +0000
-Subject: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps
- and friends
+From 0a8f258c0f012314c36b9e4818cdc0178c68f891 Mon Sep 17 00:00:00 2001
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+Date: Wed, 21 Oct 2026 02:53:39 +0530
+Subject: [PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's
+ dev attribute
 
-Reading /proc/PID/maps under per-VMA locks can skip continuously mapped
-address ranges during concurrent VMA splits or merges. This violates the
-guarantee in Documentation/filesystems/proc.rst:
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
 
-"If there is something at a given vaddr during the entirety of the
-life of the smaps/maps walk, there will be some output for it."
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
 
-lock_next_vma() reuses a tree iterator across calls under RCU. The iterator
-remembers the range of its last entry. When its node is replaced,
-mas_next_slot() walks the tree again at the last index of that range, then
-advances past the entry containing that index. If VMA boundaries changed,
-this can skip a range that has not been reported:
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
 
-- A lookup finds [A, C), then mprotect() splits it into [A, B) and [B, C)
-  before vma_start_read() locks the first VMA. The reader reports [A, B),
-  but the iterator still covers [A, C). The next call starts from B yet
-  advances past C, omitting [B, C).
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
 
-- The reader reports [A, B) and unlocks it. A concurrent mprotect() then
-  merges it with [B, C). On the next call, the iterator resumes at B - 1,
-  which now belongs to [A, C), and advances past C. Again, [B, C) is lost.
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
 
-Checking the mmap_lock sequence only within the next call misses writers
-that completed before that call began. Also, a NULL result is currently
-accepted without validation, so a race can terminate the walk early.
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). The mutex
+is dropped while dev_store() waits for the heartbeat to become steady,
+which takes seconds, so a read of dev doesn't stall behind a start.
+hr_bdev_file is already set at that point, so other writers still get
+-EINVAL, and the cleanup after the wait retakes the mutex.
 
-Even a fresh lookup can skip a mapping. Suppose it finds a gap before
-[B, C). A writer inserts an adjacent VMA at the end of that gap, then
-merges it into [B, C), replacing the node. The lookup resumes at the old
-gap's last index, now inside the merged VMA, and steps past it. The
-original [B, C) remains mapped throughout. Repeating the forward lookup
-is insufficient: another merge can make it skip the same mapping again,
-returning the same later VMA or NULL.
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported. So did a second one, with a working loop device,
+that interrupts starts during the wait while other threads read and
+write the attributes.
 
-The fresh-lookup race also affects /proc/PID/smaps, numa_maps and
-smaps_rollup. Resetting the iterator after gathering each VMA's statistics
-does not prevent a merge during the next lookup. Fixing lock_next_vma()
-also prevents omitted entries and incomplete rollup statistics.
-
-Tie VMA iterator state with the current mm and the write generation at the
-point of last mm speculation in vma_rcu_iter, whose values we call 'rvmi'.
-
-This allows us to neatly abstract the existing priv->iter logic alongside
-query_vma_find_by_addr() which uses its own VMA iterator.
-
-Then, provide helpers that act on the rvmi - vma_rcu_iter_[maybe_changed,
-may_have_skipped]() to determine whether any VMAs may have
-been altered since last mm speculation.
-
-Additionally introduce vma_range_is_empty(), used by
-vma_rcu_iter_may_have_skipped(), to determine conclusively whether VMAs
-exist in a set range, needing to be traversed.
-
-Original fix generated by an LLM and sent by Josef Bacik in private, then
-amended by David Hildenbrand, and Lorenzo Stoakes added additional
-abstraction.
-
-Link: https://lore.kernel.org/20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org
-Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
-Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
-Fixes: d9d1c2d81797 ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: SJ Park <sj@kernel.org>
+Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- fs/proc/internal.h        |  1 +
- fs/proc/task_mmu.c        | 13 +++++----
- include/linux/mmap_lock.h | 22 ++++++++++++--
- mm/mmap_lock.c            | 61 +++++++++++++++++++++++++++++----------
- 4 files changed, 72 insertions(+), 25 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c | 40 ++++++++++++++++++++++++++++++------
+ 1 file changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index df873df9afc56..9af1f63258b71 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -393,6 +393,7 @@ struct proc_maps_private {
- 	struct inode *inode;
- 	struct task_struct *task;
- 	struct vma_iterator iter;
-+	struct vma_rcu_iter rvmi;
- 	loff_t last_pos;
- 	struct proc_maps_locking_ctx lock_ctx;
- #ifdef CONFIG_NUMA
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index f68673a917564..b87d3e86442d0 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -160,7 +160,7 @@ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
- 		return vma_next(&priv->iter);
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index b45adc39aacca..7a18e71b507b3 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -269,6 +269,8 @@ struct o2hb_region {
+ 	struct list_head	hr_handler_list;
+ 	/* Serializes timeout arming against failed-start and teardown. */
+ 	struct mutex		hr_arming_mutex;
++	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
++	struct mutex		hr_dev_mutex;
+ 	bool			hr_stopping;
  
- 	unlock_ctx_vma(lock_ctx);
--	vma = lock_next_vma(lock_ctx->mm, &priv->iter, last_pos);
-+	vma = lock_next_vma(&priv->rvmi, last_pos);
- 	if (!IS_ERR_OR_NULL(vma))
- 		lock_ctx->locked_vma = vma;
+ 	/* last hb status, 0 for success, other value for error. */
+@@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
  
-@@ -265,7 +265,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
- 	 */
- 	if (last_addr > 0)
- 		*ppos = last_addr = priv->last_pos;
--	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
-+	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, (unsigned long)last_addr);
- 	hold_task_mempolicy(priv);
- 	/*
- 	 * If seq_file had to flush its collected data right after m_next() set
-@@ -515,6 +515,7 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
- 	struct mm_struct *mm = lock_ctx->mm;
- 	struct vm_area_struct *vma;
- 	struct vma_iterator vmi;
-+	struct vma_rcu_iter rvmi;
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
  
- 	if (lock_ctx->mmap_locked)
- 		return find_vma(mm, addr);
-@@ -522,8 +523,8 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
- 	/* Unlock previously locked VMA and find the next one under RCU */
- 	unlock_ctx_vma(lock_ctx);
- 	rcu_read_lock();
--	vma_iter_init(&vmi, mm, addr);
--	vma = lock_next_vma(mm, &vmi, addr);
-+	vma_rcu_iter_init(&rvmi, mm, &vmi, addr);
-+	vma = lock_next_vma(&rvmi, addr);
- 	rcu_read_unlock();
+@@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	ssize_t ret;
  
- 	if (!vma)
-@@ -1416,7 +1417,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
- 	rcu_read_lock();
- 	reset_lock_ctx(lock_ctx);
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
  
--	vma_iter_init(&priv->iter, mm, 0);
-+	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, 0);
- 	vma = proc_get_vma(m, &pos);
- 	if (unlikely(!vma))
- 		goto empty_set;
-@@ -1465,7 +1466,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
- 			reset_lock_ctx(lock_ctx);
- 			/* Resume from the last position. */
- 			pos = last_vma_end;
--			vma_iter_init(&priv->iter, mm, pos);
-+			vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, pos);
- 		}
- 		vma = proc_get_vma(m, &pos);
- 	}
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index 11b3ffef3966e..9ccbbcbd7aca0 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -17,6 +17,13 @@ extern int rcuwait_wake_up(struct rcuwait *w);
- #define MMAP_LOCK_INITIALIZER(name) \
- 	.mmap_lock = __RWSEM_INITIALIZER((name).mmap_lock),
+@@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	int ret;
  
-+/* Tie a VMA iterator to mm write lock state at iterator initialisation. */
-+struct vma_rcu_iter {
-+	struct mm_struct *mm;
-+	struct vma_iterator *vmi;
-+	unsigned int mm_wr_seq;
-+};
-+
- DECLARE_TRACEPOINT(mmap_lock_start_locking);
- DECLARE_TRACEPOINT(mmap_lock_acquire_returned);
- DECLARE_TRACEPOINT(mmap_lock_released);
-@@ -509,6 +516,16 @@ static inline void vma_mark_detached(struct vm_area_struct *vma)
- struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
- 					  unsigned long address);
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
  
-+static inline void vma_rcu_iter_init(struct vma_rcu_iter *rvmi,
-+		struct mm_struct *mm, struct vma_iterator *vmi,
-+		unsigned long addr)
-+{
-+	vma_iter_init(vmi, mm, addr);
-+	rvmi->mm = mm;
-+	rvmi->vmi = vmi;
-+	rvmi->mm_wr_seq = UINT_MAX; /* Start odd so changed by default. */
-+}
-+
- /*
-  * Locks next vma pointed by the iterator. Confirms the locked vma has not
-  * been modified and will retry under mmap_lock protection if modification
-@@ -516,9 +533,8 @@ struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
-  * Returns either a valid locked VMA, NULL if no more VMAs or -EINTR if the
-  * process was interrupted.
-  */
--struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *iter,
--				     unsigned long address);
-+struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
-+				     unsigned long from_addr);
+@@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
  
- static inline void vma_assert_can_modify(struct vm_area_struct *vma)
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
  {
-diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
-index 83b7d3ded0dc7..834bbf86e0044 100644
---- a/mm/mmap_lock.c
-+++ b/mm/mmap_lock.c
-@@ -13,6 +13,8 @@
- #include <linux/trace_events.h>
- #include <linux/local_lock.h>
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
  
-+#include "internal.h"
+-	if (to_o2hb_region(item)->hr_bdev_file)
+-		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev_file)
++		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+ 
+ 	return ret;
+ }
+@@ -1872,11 +1879,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
+  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+  * nothing
+  */
+-static ssize_t o2hb_region_dev_store(struct config_item *item,
+-				     const char *page,
+-				     size_t count)
++static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
++				       const char *page, size_t count)
+ {
+-	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
+ 	long fd;
+ 	int sectsize;
+@@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	lockdep_assert_held(&reg->hr_dev_mutex);
 +
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_start_locking);
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_acquire_returned);
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_released);
-@@ -428,21 +430,53 @@ static struct vm_area_struct *lock_next_vma_under_mmap_lock(struct mm_struct *mm
- 	return vma;
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 
+ 	wake_up_process(hb_task);
+ 
++	/*
++	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
++	 * hr_bdev_file is already set, so other writers still get -EINVAL.
++	 */
++	mutex_unlock(&reg->hr_dev_mutex);
+ 	ret = wait_event_interruptible(o2hb_steady_queue,
+ 				atomic_read(&reg->hr_steady_iterations) == 0 ||
+ 				reg->hr_node_deleted);
++	mutex_lock(&reg->hr_dev_mutex);
+ 	if (ret) {
+ 		atomic_set(&reg->hr_steady_iterations, 0);
+ 		reg->hr_aborted_start = 1;
+@@ -2041,6 +2054,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	return ret;
  }
  
--struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *vmi,
-+/* Is there no VMA in [start, last]? */
-+static bool vma_range_is_empty(struct mm_struct *mm, unsigned long start,
-+		unsigned long last)
++static ssize_t o2hb_region_dev_store(struct config_item *item,
++				     const char *page,
++				     size_t count)
 +{
-+	VMA_ITERATOR(vmi, mm, start);
++	struct o2hb_region *reg = to_o2hb_region(item);
++	ssize_t ret;
 +
-+	return !vma_iter_load(&vmi) && vma_iter_end(&vmi) - 1 >= last;
++	mutex_lock(&reg->hr_dev_mutex);
++	ret = __o2hb_region_dev_store(reg, page, count);
++	mutex_unlock(&reg->hr_dev_mutex);
++
++	return ret;
 +}
 +
-+/* Might the VMA tree have been modified since last mm speculation? */
-+static bool vma_rcu_iter_maybe_changed(const struct vma_rcu_iter *rvmi)
-+{
-+	return (rvmi->mm_wr_seq & 1) || /* Odd implies write-lock. */
-+	       mmap_lock_speculate_retry(rvmi->mm, rvmi->mm_wr_seq);
-+}
-+
-+/* Could the VMA iterator have skipped a VMA due to the tree changing? */
-+static bool vma_rcu_iter_may_have_skipped(const struct vma_rcu_iter *rvmi,
-+		unsigned long from, unsigned long to)
-+{
-+	return vma_rcu_iter_maybe_changed(rvmi) &&
-+	       !vma_range_is_empty(rvmi->mm, from, to);
-+}
-+
-+struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
- 				     unsigned long from_addr)
+ static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
  {
-+	struct mm_struct *mm = rvmi->mm;
-+	struct vma_iterator *vmi = rvmi->vmi;
- 	struct vm_area_struct *vma;
--	unsigned int mm_wr_seq;
--	bool mmap_unlocked;
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+@@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
  
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "no rcu read lock held");
- retry:
--	/* Start mmap_lock speculation in case we need to verify the vma later */
--	mmap_unlocked = mmap_lock_speculate_try_begin(mm, &mm_wr_seq);
-+	/* Only trust the iterator's position if the tree cannot have changed. */
-+	if (vma_rcu_iter_maybe_changed(rvmi)) {
-+		vma_iter_set(vmi, from_addr);
-+		mmap_lock_speculate_try_begin(mm, &rvmi->mm_wr_seq);
-+	}
- 	vma = vma_next(vmi);
--	if (!vma)
--		return NULL;
-+	if (!vma) {
-+		/* No reason to fallback if nothing left in range. */
-+		if (!vma_rcu_iter_may_have_skipped(rvmi, from_addr, ULONG_MAX))
-+			return NULL;
-+
-+		rcu_read_unlock();
-+		goto fallback;
-+	}
- 
- 	vma = vma_start_read(mm, vma);
- 	if (IS_ERR_OR_NULL(vma)) {
-@@ -471,14 +505,9 @@ struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
- 	 * installed ahead of it. Otherwise we might observe a gap that should
- 	 * not be there.
- 	 */
--	if (from_addr < vma->vm_start) {
--		/* Verify only if the address space might have changed since vma lookup. */
--		if (!mmap_unlocked || mmap_lock_speculate_retry(mm, mm_wr_seq)) {
--			vma_iter_set(vmi, from_addr);
--			if (vma != vma_next(vmi))
--				goto fallback_unlock;
--		}
--	}
-+	if (from_addr < vma->vm_start &&
-+	    vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start - 1))
-+		goto fallback_unlock;
- 
- 	return vma;
- 
+ 	INIT_LIST_HEAD(&reg->hr_all_item);
+ 	mutex_init(&reg->hr_arming_mutex);
++	mutex_init(&reg->hr_dev_mutex);
+ 	reg->hr_stopping = true;
+ 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+ 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 -- 
 2.53.0
 
