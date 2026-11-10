@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341482;
-	b=sF4O8++6yH9Z/mU49+ULJu+OYceKOxuYf3nsb+KWiovFQ8QunZz35fIUefakyh/RaUdI
-	 U5P6hj+KdfoiEVWHTUW8ywtnGe/E0C6bPu+Vo9xNsAkKkYILbPmlbY8jlYKG/yB0cNZNg
-	 Azoigkx7XmtRUtv3efqIqMGiBxylWyn72yEk6JZoN1IoPYE9p0BnT1OUtoEjaTGkw3iAa
-	 qlJEMYNT1f/HaYIu0Z+ouzvAHzbfoeyqI3vDpzc0gwsd1fZd4VqwkJREVPeZPAoxUBwfx
-	 mJN8kV7xj0GeVewmmdt+BBV0v+bYqvHCn+GrS6hz3dDJDGPUfOejm+4dBsRtI3AXuHA==
+	t=1794341483;
+	b=rF/3XcNpgZG5bMix9vJjWjiSV96kj+X0PTHMBHsBQv4qhnfj/VBAD1dqw8SZCnvZzAFn
+	 pNLzAEcT7oU3MSKy+RycXiFg7uuRSILHyKc/VIoCnpmJX880aoXzfTquxSHWH1eCSWL+k
+	 2QvtMon7QbOAUK4/9FNGboxXeuUA4gHuF49p8t5W4ckY6ROqDZoHEzNuzm++jkLm/PsdT
+	 s4JEKGkv3PoEwPqK1D6+Bg44o2cx8UMUCFvxvY2gM6snSOrmyv9LInF5tixYd6PJU0Ggg
+	 Y4eOsRr3eTo7vx5fneiz3jB4irI54cJ8vrYRHg47qBG4snXZ1duG46GQggqw/34lROw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341483;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EuAL+9cHbx7j9914yzuZfSc28LjNpYAUuLeRMc2T+u8=;
-	b=Laxria28ibgcymk3Iot8XYu5pqlENf3JTH8ZCOpPXJshLsfqk21RMGCnDshEb57qHKIp
-	 Gn3F6EbrQ3sjfLTSjENCmkWwWu9llIDWHV+yEO0RUDbUQctWKqlQkQNlfOQmOXrQvhnUy
-	 pQzFN8Jb5qSjDA+8SVnEPDkX9fv1nTOhCz81AY3AFE2aeRGtX9hEeYwDIRcpYXvu4qx4J
-	 oNE2JzyqIf6WXpsVJq5ahiZ2nlTZlZQIG61l/XedBirE+j8x8aPf08f2z6C6jv+wVRFLD
-	 /p6miie3pKOg0VeWawSjl4C3WSN2TY1vC+/nULD9Ej2qR7RZ6FMgxqDZ4B2PqK8OO8w==
+	bh=hlWOT1mmQ1ELiRZnc0uqyCs5IstElllfy8yf+CNjx0M=;
+	b=gNfNY2Bwql2gujZ1xH1yjJNYN+0Z1yOtXUu2KS61eecvse24P+Jdnwt0aY1A1n4vVGBu
+	 6BYultph/t/9O+7yDdyPMB3GihVD17wvuf4omfJjYEvQwosovS25OVsX4d/P1nWzzGOmC
+	 uBoALOt5GpSGeGX1KnN/9lDy5T1M3u4+ZaqI45BLYNM26n6zJZ33/97Fzip1iSw1qomUC
+	 8dFSc2lHBiH64JzFX76l4SH5kO9pYg5hlUZJ7PRHbIgFNJ7AZY67vSOykRQJVxtqXcBOG
+	 UnezyygOozvsU0dWOg6wpPXRkJZSy/NtXbpadhcTikkPmj1yBMXXgV4RUnRHwg5S+6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LH2oREEx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbIp9pCa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B55606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F29606A325
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:11:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LH2oREEx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7B01F0089F;
-	Tue, 10 Nov 2026 20:11:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbIp9pCa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25AC71F008A3;
+	Tue, 10 Nov 2026 20:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341481;
-	bh=EuAL+9cHbx7j9914yzuZfSc28LjNpYAUuLeRMc2T+u8=;
+	s=k20260515; t=1794341482;
+	bh=hlWOT1mmQ1ELiRZnc0uqyCs5IstElllfy8yf+CNjx0M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LH2oREExmOTvA1XsZu0U/UGXlzkMtBKueH5W4kgEZrnNNox87yaOWmhvBJOuxi04B
-	 BGzYyDms8NaZzpuHT7fWmsJEqWlt45a1mM58gi8yS5v3TOEKsQf6mMpRh3yyKTkp2W
-	 YXfvdFnT2PQOqr9FkHt3Guw5SKJefqnXhQ9RGTkxWF4WiQ/PUqHg5Y55hhBRywxPaz
-	 uPHkjJ6HyXMyaGpU8b3p1wPdf/sz76npmimmnCAjEcM733a0hBRAVeDPQ4o5IUz6Kp
-	 jV/lM50TJZSOm4/7ubpYeMMuaJgiSJkbGthnKrqAgl0us7IrRTiiexCTvQgm8ntUgP
-	 RaYkmlyBh3uMg==
+	b=AbIp9pCaDoniYvdpnO+uQb24BXN0IEkAaLA1vjquyBdLkBks3+M544KwzBRZEOPe3
+	 r4Lgf9skBRz6TtOu/3bNt8VmxSY2U6gobIgBuznucwFQAnMJ+HqKXZZ7sAy35qnefI
+	 jZkqznL1G7nTYEs/+7W2+Ssm2ZwKN32aidxj1d7Dj53g9xbT8M5Xw0/iGSYkULx/b7
+	 XjcYhT9R7Kx+HHEXrQRbOOwEoZT3nFvMiDplw2A3EDW/5Oj+jYQszusjqtEoWhfCyW
+	 5pp7mKimnUTs0LVyO1LT549BkO+MSsq0SEAdImKgsFi00gjK0kPZO8YSx40wmJNZv+
+	 BQ073lHfvQ2zw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chintan Patel <chintanlike@gmail.com>,
 	Helge Deller <deller@gmx.de>,
-	Andy Shevchenko <andy@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] fb: Add dev_of_fbinfo() helper for optional sysfs support
-Date: Tue, 10 Nov 2026 15:11:18 -0500
-Message-ID: <20261110200947.3702749-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] fbdev: sh_mobile_lcdc: Make FB_DEVICE dependency optional
+Date: Tue, 10 Nov 2026 15:11:19 -0500
+Message-ID: <20261110200947.3702749-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051054-failed-6.18-317a8be73091@kernel.org>
+In-Reply-To: <20261110200947.3702749-1-sashal@kernel.org>
 References: <20261107051054-failed-6.18-317a8be73091@kernel.org>
+ <20261110200947.3702749-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,47 +65,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Chintan Patel <chintanlike@gmail.com>
 
-[ Upstream commit 39b65316fe9d6d3f730632408ace28d49c5845a4 ]
+[ Upstream commit c2925992232fdc4e90f030b77e7867921db071b5 ]
 
-Add dev_of_fbinfo() to return the framebuffer struct device when
-CONFIG_FB_DEVICE is enabled, or NULL otherwise.
+The sh_mobile_lcdc driver exposes overlay configuration via sysfs, but the
+core driver does not require CONFIG_FB_DEVICE.
 
-This allows fbdev drivers to use sysfs interfaces via runtime checks
-instead of CONFIG_FB_DEVICE ifdefs, keeping the code clean while
-remaining fully buildable.
+Make overlay sysfs optional so that the driver can build and operate
+even when FB_DEVICE is disabled. The kernel naturally ignores the
+missing attribute group, preserving buildability and type safety.
 
 Suggested-by: Helge Deller <deller@gmx.de>
-Reviewed-by: Helge Deller <deller@gmx.de>
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
 Signed-off-by: Chintan Patel <chintanlike@gmail.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Helge Deller <deller@gmx.de>
 Stable-dep-of: 317a8be73091 ("fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs attributes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/fb.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/video/fbdev/sh_mobile_lcdcfb.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index f622f5f520cf0..e50fc8f0801e6 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -631,6 +631,15 @@ static inline void unlock_fb_info(struct fb_info *info)
- 	mutex_unlock(&info->lock);
- }
+diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+index c6da5a62f8c5f..1b7b9dd19b623 100644
+--- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
++++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
+@@ -1346,14 +1346,17 @@ static DEVICE_ATTR_RW(overlay_mode);
+ static DEVICE_ATTR_RW(overlay_position);
+ static DEVICE_ATTR_RW(overlay_rop3);
  
-+static inline struct device *dev_of_fbinfo(const struct fb_info *info)
-+{
-+#ifdef CONFIG_FB_DEVICE
-+	return info->dev;
-+#else
-+	return NULL;
-+#endif
-+}
+-static struct attribute *overlay_sysfs_attrs[] = {
++static struct attribute *overlay_sysfs_attrs[] __maybe_unused = {
+ 	&dev_attr_overlay_alpha.attr,
+ 	&dev_attr_overlay_mode.attr,
+ 	&dev_attr_overlay_position.attr,
+ 	&dev_attr_overlay_rop3.attr,
+ 	NULL,
+ };
 +
- static inline void __fb_pad_aligned_buffer(u8 *dst, u32 d_pitch,
- 					   u8 *src, u32 s_pitch, u32 height)
- {
++#ifdef CONFIG_FB_DEVICE
+ ATTRIBUTE_GROUPS(overlay_sysfs);
++#endif
+ 
+ static const struct fb_fix_screeninfo sh_mobile_lcdc_overlay_fix  = {
+ 	.id =		"SH Mobile LCDC",
 -- 
 2.53.0
 
