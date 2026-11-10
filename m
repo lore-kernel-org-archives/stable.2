@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339146;
-	b=3azKV05ScGQj8ehdlSyS4ruCk1xLkAVzO9P1YJq04WzSuHCUt0wuveDyenhKc8LF7jxP
-	 Jkx/9c730DhZIgc4y/hDbHUdf7q1jBl1eESA5pr0WJTlFOS2a2pqiAikCrb8iHXOQnxG1
-	 oRbaW9ia6niikNkgOUTWvEhUuv1a61ZTMnQxJIeyKQUwbhQ8DZ7WyXZez0SSh1jWZvOj6
-	 nmHeLj+f2kOWUaD+J6JxJlolb+8KSlciqeuywNiPaI6meFxkBLBCXINq75eglTbHTpa6d
-	 UvOUF/uT0zgj1KrTjr00UlUHlFKsPmKXFtlM1ps6SvJ1MS6JNg0rXgnLpu9gx4yZi3w==
+	t=1794339172;
+	b=uw0RQ/nY5lEIHY0CQ7Lr3oNdMAM+tSRfYS8S74mMYSCA1IZJ77X9+U14+5jzNdhAr8i7
+	 4eXzOSjQZaJIuAqJ5r+stpDnKjlsxicOQnY7BwEGggHP5KqoPcgL62hWlHSh/W9jzrrtt
+	 ucdmI9RRnc6T2eNX/hwLtC2QK/gjJKPZJlgwMpR2+Q5d/FUE8mjPv/HoBETnJie4Ez8Ur
+	 fttocd6NoUoQSfBiUga3nG9UgWsBR0YUc/owbp9JLmbmhWygTgVqBxfeNCkx6ui4sZ38H
+	 CFxzdURvT4Nejf7K96l4hIyvztxvisSbkvkyMfq8cW/zpTF7RHm7wc/NkB4JliVbl7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339146;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JPLB8f2K3yHQlQjNvkp3sPDMx1e/k+IxNBI1w3uMSto=;
-	b=bWvgohuYwMeFd4RQeMQQiwpYNnfqcKRlh8yVdVjCa82hNc6tNrHm6xOJcGMrFl4e9kpA
-	 lqy7O28iLZnWcuMkTPgCc8/6uhDuwSe4957u7eehgzBOtIGHDeMg1HCBERxwWo2k3vxEP
-	 iinvGM0wO9qQCLxF6EOStDpQkE88fWbOb2zUdZ8Zdig54sVl3O54qyQVABCxRdv2HVpiA
-	 1WGT/5IQA56FgvSS1/3qQH8H/hAFXQhSuSjnZduwk/muorwWZS42umu8MsfEfYx5UL00N
-	 eXGk00r4XTHDPhu1Ea6BFEmuYNcRIxcnWXPb8J8mRruObkkmQOrYm/U5Xs89qDvpFEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339172;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wjTC2K64N7qmn+TNqRXG3UtxQIOgvMjWdqXqErv49g8=;
+	b=N12ZQiOzwYWu0QoMKm0/O0qjsKIcP+7AHzuEX7vEc1Jp0JksRfUJZBR6XHQgjxtE/NKD
+	 TrPjgcFp5ej8aB1XXLdj+hbMrKjOvUTJF90GEkIxBeC92+QnV0Dh1pPCvlTxQ+b0ytU+d
+	 DYSn6AmiFVjdkqWMVZZj0Bx258sbico/CjdtP+Z7Vfnn2GEq1UWK0y5j+8XxNcns21ask
+	 zFjTCD9T7p80q5xVZMj8R25kUIJCJRWTJLfR1kNlkt0/hrtyAEFxqRUmevcU/LzAOo/f2
+	 q/vdaJZij0Lv4AH864PHc+fEUXDMScbry8AngyDIxpxSTpcDQ4d8y6wP2kSlwxqtGTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=JzsPIOiO;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=huFJWdUP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DA9A1606A333
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA9A1606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A72606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:32:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=JzsPIOiO
-Received: by dvalin.narfation.org (Postfix) id DEF3120292;
-	Tue, 10 Nov 2026 19:32:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794339143;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JPLB8f2K3yHQlQjNvkp3sPDMx1e/k+IxNBI1w3uMSto=;
-	b=JzsPIOiOS54gpEv6xzYgOxCUbVqOH3S6dNGhRc1d9JrRS+5anvx0YvYHdf1cqN3E8W2dAD
-	KHp6R3FhDoCRXXPLu29QpCerqFbe99ulLlXNONU9F3/MfB4cAPFsZMOwHthQzuzCaWSo0X
-	xvbXydUo+gvDBzKcRSUZzpPcQKUZei0=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=huFJWdUP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BAD01F0089F;
+	Tue, 10 Nov 2026 19:32:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339172;
+	bh=wjTC2K64N7qmn+TNqRXG3UtxQIOgvMjWdqXqErv49g8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=huFJWdUP6a2oEywmN+V/YrB5ForCtWEVzUpX8WhOAL7/ZftYZAdQ8zLfn3xvwk4a9
+	 cbA+HPazImXfMjfzxnsOHAvVgcY+mJekDCmlOHc9UNeKftjm5T3AoDbfNdfZjidaJj
+	 BwLC2U49TmC/7wrQNgNvsTkjNwmo+RSP0UUSASUkHAut0KGsZ4OhWel2fBJtYICnh9
+	 gOSKAjVYjdFQOUFZuDNr4vTmzdcNfEPC/4E9wfrLhIWVex7g1qrxO2V1t/XM4rGQMn
+	 /Sz8ruezhBZJ9tgmmpCEEFJxC4ZGEc+31LpnlgX042arpcTI5QswKTHhCHM8rFz8K7
+	 6ORmykDNX4YOQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.1.y] batman-adv: tt: ignore ROAM flag of received ADD changes
-Date: Tue, 10 Nov 2026 20:32:15 +0100
-Message-ID: <20261110193215.248474-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109201522-failed-6.1-c5d68abe6e7f@kernel.org>
-References: <20261109201522-failed-6.1-c5d68abe6e7f@kernel.org>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] IB/hfi1: Shutdown self-rearming timers before freeing
+Date: Tue, 10 Nov 2026 14:32:49 -0500
+Message-ID: <20261110193146.3540418-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051824-failed-6.12-9d3259e41ccd@kernel.org>
+References: <20261107051824-failed-6.12-9d3259e41ccd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,67 +61,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit c5d68abe6e7f1dbd132a602cb696fe1fff0389eb upstream.
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-A received TT change (OGM diff or full table response) with the ROAM flag
-but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
+[ Upstream commit 9d3259e41ccd5016cd2c6d013232b89df6d73011 ]
 
-* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
-  therefore excluded from the global CRC. The sender has it in its local
-  CRC and the receiver has to request the full table again
-* batadv_tt_global_purge_local() removes the local entry of the
-  receiver. The receiver's own client is considered as roamed to the sender
-  and frames for it are rerouted
+The HFI1 receive error and synthetic counter timers rearm themselves from
+their callbacks. Their cleanup paths use timer_delete_sync(), which only
+waits for a running callback and does not prevent a concurrent or
+subsequent rearm.
 
-The ROAM flag only has a meaning together with DEL. Drop it on reception to
-keep it from populating the global table with a temporary ROAMING entry
-which is not part of the CRC - and therefore causing a CRC mismatch.
+Use timer_shutdown_sync() when releasing these timers. This prevents a
+callback from enqueueing either timer after cleanup begins, before the
+containing hfi1_devdata is freed.
 
+Preserve the existing work cancellation and workqueue destruction ordering
+for synthetic counters.
+
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260930070455.2934286-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+[ sashal: Adapted the replacements to target del_timer_sync() instead of timer_delete_sync(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/infiniband/hw/hfi1/chip.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index a2b38e5980615..8ff98e5dbdbb3 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -3339,20 +3339,29 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
+diff --git a/drivers/infiniband/hw/hfi1/chip.c b/drivers/infiniband/hw/hfi1/chip.c
+index db96a7547fb7c..721f0d367281d 100644
+--- a/drivers/infiniband/hw/hfi1/chip.c
++++ b/drivers/infiniband/hw/hfi1/chip.c
+@@ -5576,7 +5576,7 @@ static int init_rcverr(struct hfi1_devdata *dd)
+ static void free_rcverr(struct hfi1_devdata *dd)
  {
- 	int i;
- 	int roams;
-+	u8 flags;
+ 	if (dd->rcverr_timer.function)
+-		del_timer_sync(&dd->rcverr_timer);
++		timer_shutdown_sync(&dd->rcverr_timer);
+ }
  
- 	for (i = 0; i < tt_num_changes; i++) {
--		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
--			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
-+		flags = (tt_change + i)->flags;
-+
-+		if (flags & BATADV_TT_CLIENT_DEL) {
-+			roams = flags & BATADV_TT_CLIENT_ROAM;
- 			batadv_tt_global_del(bat_priv, orig_node,
- 					     (tt_change + i)->addr,
- 					     ntohs((tt_change + i)->vid),
- 					     "tt removed by changes",
- 					     roams);
- 		} else {
-+			/* an announced client cannot have roamed away from
-+			 * orig_node. Only a ROAMING_ADV is allowed to add a
-+			 * global entry with the ROAM flag
-+			 */
-+			flags &= ~BATADV_TT_CLIENT_ROAM;
-+
- 			if (!batadv_tt_global_add(bat_priv, orig_node,
- 						  (tt_change + i)->addr,
- 						  ntohs((tt_change + i)->vid),
--						  (tt_change + i)->flags, ttvn))
-+						  flags, ttvn))
- 				/* In case of problem while storing a
- 				 * global_entry, we stop the updating
- 				 * procedure without committing the
+ static void handle_rxe_err(struct hfi1_devdata *dd, u32 unused, u64 reg)
+@@ -12308,7 +12308,7 @@ static void free_cntrs(struct hfi1_devdata *dd)
+ 	int i;
+ 
+ 	if (dd->synth_stats_timer.function)
+-		del_timer_sync(&dd->synth_stats_timer);
++		timer_shutdown_sync(&dd->synth_stats_timer);
+ 	cancel_work_sync(&dd->update_cntr_work);
+ 	ppd = (struct hfi1_pportdata *)(dd + 1);
+ 	for (i = 0; i < dd->num_pports; i++, ppd++) {
 -- 
-2.47.3
+2.53.0
 
