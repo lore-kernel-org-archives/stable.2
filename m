@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272570;
-	b=T90cvA4jp0IJ7+CGppyga9WzqzneFatiTXLTAshnNYGuSw+WDsxYUuP53OFq/pSKL1BO
-	 P/KMlRHpPxIGndbbmHgZT0jxwkCNRfA18BFuMzpuuY5nm3KlNjmmf4Rt1WgkUStoAm8PH
-	 OkRBACWgvLDTu49EGjC8GIYHV1UpwOTJkRaP2dpFrpgHRPU30iU9JpvJMDibpPF3+bom2
-	 IAj/65bkE2HYWYx9uqtSsYNkDpiuHz4vGfP3s89jBm0bKO98R5ZehxsTRL6bxa89vgQ9s
-	 6bGQ90pQ5VdegqtE+5kdjzsKNB9jXLEVhjLPZxxveYoiqXVBtt20XHHEDOcLLIKSFrQ==
+	t=1794272572;
+	b=EgW81xw9bDdUuyox2df2E41Cmw8kxkfSxHoMFA9bGzdfT813p5DSoOA4EScZsnw7wJG5
+	 rx9X/QlKEZdH7nKk4xwN7ZiySzWqDlxXxUtGZfd/XUTQm3NyDppVpPzvUuDKu0px5Q0Qq
+	 /lnjgdbbSiBRxxuf5UdQck8WoSD1uH8JU7Ny/0cmemxKT0GnbO6TM5G6orK1firR3sBxf
+	 qsSPsAWSiuC47/v2Ldd0rSpwDX2Z7wux9Sh6V89rh0XVPK9dlyrqCd5z0PzBhjnjW+qAg
+	 cTQzdCubrQ7IUInPiumVbg1tVpLv0BAWEx9JMSsBHMWKEH+i4hXHuLt/mvUe78lmAgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272572;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GkzSXapzC1YuPL8wLJbtBGcaSAW0/Hr0JwP75UpPWpI=;
-	b=0g+ax0DLQXh31REHQuj+wp2GuWMpwWPjgzQ2zA8IuueAAMxhzoqhurIsT5AIzJtL/shj
-	 hF0HH70NJbMlIqUzEyXL2/QnerESPRMQJd3FGkvSA+tQjdpULIbl81k76FrvhXD1KbTQx
-	 KBF9iWe9Y5Bn1o46knaLbADyQcl/tMZdWqKKLqPfdCHUoxIbIQWZljSRUmf46HZ7LqU9J
-	 OftLHl4SIU1Xy4HTY6wmRTFP48fTXpsa0VtbEsMUiBh2VbTzh4m5MU6H1/xwMI0dGAGYF
-	 QnaNe+Cvg9a6MWjsJv3vi23B0zoUuuEK9Ox6Raz280SYF/9X9/rbeZhMyjMyWxhq6rg==
+	bh=vosnIYo84JaQ5StJYSI1cV9rveJDyXFjkV02o0N5OWM=;
+	b=z6Hk7XtY0YmkGRnnWo0T8HNjTwVskGmmGBUvRfuClNA3wUDbaY7goBpM54RAVlGQiL4b
+	 xSmQ0ZRh+JewXtN48DZyDvvN295bcUWiMCjUtOVnkXct79k/rHW3x+C/8iwL8TuvdvU2F
+	 zaXI7RZv+FaitZoDZuRqbDauphT/Cr4RensnswXweooXvVq3pXlxI2BJXiUToYILLP+Ex
+	 M5MzhIZWKmBF0NL85o4jAP6Oj8dyIzlteLUms1jZlJfCPaX04kCJYsFhSpDUfYAZAY10v
+	 lgNGhF2EyTPupzlHPjr8QcOR67gf1R0rlLQlRkBYens4aosMMVego5LLkyB8ZpX83WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7QmxCXA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNGsUDhP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C700606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA8F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a7QmxCXA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6851F0089F;
-	Tue, 10 Nov 2026 01:02:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dNGsUDhP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55E21F0089F;
+	Tue, 10 Nov 2026 01:02:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272570;
-	bh=GkzSXapzC1YuPL8wLJbtBGcaSAW0/Hr0JwP75UpPWpI=;
+	s=k20260515; t=1794272572;
+	bh=vosnIYo84JaQ5StJYSI1cV9rveJDyXFjkV02o0N5OWM=;
 	h=From:To:Cc:Subject:Date;
-	b=a7QmxCXAnTuhkdGDk7SQ4Aiq99UKggoJ+aKOBmcu90tPEQRM4B8n5v+SltSXDQmcn
-	 l0kz6FMXbkxk2ye8LV905DqSq6XZ84P6j+7Y52o+w0mOcUnbAzfq3QPtmP7J+AiRJd
-	 v7B1tIgqKmwy1sY6hDC2TySr43nTzuBDgRfG6CbferjdmOUF3vsYP07/5Fxs5fe7P7
-	 AlW0PYSoWPx6cB/S4CxC0lLJ/lq6oOmzU/QFNEVe3a8SCZ6AHI1wvcDlBFjWJfqPtG
-	 Txv03eD1o6ZcfiWnRkroKaQKEqLLCPY4Q+xHOVBT7zaH8gZrocBWkOoy12sWDYMVvU
-	 FSiCGj5q0bWSA==
+	b=dNGsUDhP4k3AaOOxzWi6Sn8SHcOswyABBHf0MJ4hhjwm8X1M2OAakdoku71ewHVcx
+	 uT1Se1IEurufbfThs0X3Nl/ky3Xn+lzExLwDtR3EftkT/ocRiZYMTgOItSIm3W5qja
+	 ae+tJU+jkTvnG/Eu3PpKfS4J1s0rfjO+fTOGnBpjH5VRDWyc9vGMO971oIdJTN6vu6
+	 rBOd1GhYm6P2K35JMohnfybC5ak8qYW3Ez6z9M26hXDMO5If50VqhYvj9KdW0YKnlH
+	 EZuKtJmefGjccCFpYKlqAsqZC5i4BRM/ZKqfZpd7Toa3oFu92hx2EzWjO84FfrTher
+	 1xONC4PJufUwQ==
 From: Sasha Levin <sashal@kernel.org>
-To: vidya.srinivas@intel.com,
-	charlton.lin@intel.com,
-	uma.shankar@intel.com,
-	joonas.lahtinen@linux.intel.com
+To: icb@fastmail.org,
+	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/display: Disable pipe joiner on WCL" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:02:48 -0500
-Message-ID: <20261109200248-failed-6.18-b42b656db138@kernel.org>
+Subject: FAILED: patch "[PATCH] ksmbd: let the owner read and change the DACL when no ACE names it" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:02:50 -0500
+Message-ID: <20261109200250-failed-6.18-ffc855fe16af@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,60 +68,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x b42b656db1384255044754cd2163d370d766b776
+git cherry-pick -x ffc855fe16afe02b22305111aa68cd8d07360941
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200248-failed-6.18-b42b656db138@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200250-failed-6.18-ffc855fe16af@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b42b656db1384255044754cd2163d370d766b776 Mon Sep 17 00:00:00 2001
-From: Vidya Srinivas <vidya.srinivas@intel.com>
-Date: Wed, 28 Oct 2026 12:34:04 +0530
-Subject: [PATCH] drm/i915/display: Disable pipe joiner on WCL
+From ffc855fe16afe02b22305111aa68cd8d07360941 Mon Sep 17 00:00:00 2001
+From: Ian Bridges <icb@fastmail.org>
+Date: Mon, 2 Nov 2026 00:15:36 -0600
+Subject: [PATCH] ksmbd: let the owner read and change the DACL when no ACE
+ names it
 
-Pipe joining is not supported in the WCL display configuration.
-Report no joiner support on WCL so that modes which would require
-joining are rejected, matching the 4k 60Hz maximum resolution
-documented for the platform.
+smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
+the POSIX ACL fallback matches. The owner then cannot read or replace
+the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
+WRITE_DAC unless an OWNER RIGHTS ACE applies.
 
-v2: Rebase onto latest upstream
-v3: Fix up the commit message
-v4: Split the scaler and joiner changes into separate patches (Jani)
+An empty DACL allows the owner's explicit requests for these rights but
+refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
+access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
+it asks for that reply.
 
-Bspec: 74286
-Fixes: f8e1c3e07db1 ("drm/i915/xe3lpd: Add support for display version 30.02")
+Grant the owner's implicit rights on both paths, for explicit requests
+and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Suggested-by: Charlton Lin <charlton.lin@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-Link: https://patch.msgid.link/20261028070404.1913843-3-vidya.srinivas@intel.com
-(cherry picked from commit 917676a55a690319a01b45d3956eaf94ba564df8)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/smb/server/smbacl.c | 34 ++++++++++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d8c0d9381471d..47741957935ae 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -477,9 +477,9 @@ bool intel_dp_has_joiner(struct intel_dp *intel_dp)
- 	    !connector->panel.vbt.edp.pipe_joiner_enable)
- 		return false;
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 66fbf5537321e..ab76c5c9e0ea8 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1477,6 +1477,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	int i, found = 0;
+ 	unsigned int access_bits = 0, denied = 0;
+ 	struct smb_ace *others_ace = NULL;
++	bool or_ace = false;
+ 	struct posix_acl_entry *pa_entry;
+ 	unsigned int sid_type = SIDOWNER;
+ 	unsigned short ace_size;
+@@ -1509,6 +1510,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
  
--	return DISPLAY_VER(display) >= 12 ||
-+	return ((DISPLAY_VER(display) >= 12 && DISPLAY_VERx100(display) != 3002) ||
- 		(DISPLAY_VER(display) == 11 &&
--		 encoder->port != PORT_A);
-+		 encoder->port != PORT_A));
- }
+ 	if (!pdacl->num_aces) {
++		unsigned int allowed = 0;
++
+ 		/*
+ 		 * An empty (present, zero-ACE) DACL grants no access to
+ 		 * anyone except the object owner's implicit READ_CONTROL
+@@ -1517,9 +1520,14 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		 * not let trailing bytes after a zero-ACE DACL become an
+ 		 * implicit grant.
+ 		 */
+-		if (!is_owner ||
+-		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
++		if (is_owner)
++			allowed = READ_CONTROL | WRITE_DAC;
++		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++			requested |= allowed;
++		if (!allowed || requested & ~allowed)
+ 			rc = -EACCES;
++		else
++			*pdaccess = cpu_to_le32(requested);
+ 		goto err_out;
+ 	}
  
- static int dg2_max_source_rate(struct intel_dp *intel_dp)
+@@ -1604,6 +1612,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 			found = 1;
+ 			break;
+ 		}
++		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
++		    !(ace->flags & INHERIT_ONLY_ACE))
++			or_ace = true;
+ 		if (!compare_sids(&sid_everyone, &ace->sid) ||
+ 		    !compare_sids(&sid_authusers, &ace->sid))
+ 			others_ace = ace;
+@@ -1648,8 +1659,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		if (others_ace) {
+ 			ace = others_ace;
+ 		} else {
+-			ksmbd_debug(SMB, "Can't find corresponding sid\n");
+-			rc = -EACCES;
++			unsigned int allowed = 0;
++
++			/*
++			 * No ACE names the owner, who may still read and
++			 * change the DACL unless OWNER RIGHTS applies
++			 * (MS-DTYP 2.5.3.2).
++			 */
++			if (is_owner && !or_ace)
++				allowed = READ_CONTROL | WRITE_DAC;
++			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++				requested |= allowed;
++			if (!allowed || requested & ~allowed) {
++				ksmbd_debug(SMB, "Can't find corresponding sid\n");
++				rc = -EACCES;
++				goto err_out;
++			}
++			*pdaccess = cpu_to_le32(requested);
+ 			goto err_out;
+ 		}
+ 	}
 -- 
 2.53.0
 
