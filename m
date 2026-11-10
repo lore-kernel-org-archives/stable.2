@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344383;
-	b=rum6pHHYFtREpjocx6LLo6hoyTljiv510vQtRUeCWq2fYViTZnXzbC4Xvy+AV38UQZdl
-	 l5IHlNZofanAzUBRl8JgfwnRsv2iNeDeB7y/y78922rdhpKqtSfxrj6TZ8yWs+XE8xg8t
-	 EI5DeBV2pnr+6kKgzO7JI+x/3CBE+ZFcKfaXOp3z+yh/bnLBNwps90GBhGti28VbV0dZ2
-	 pLavK/8c3R2/gyFUM5bZce4nRo6BsoVLG+71FGGKrlF/MHxMnZd22Nltn9XdrO3eanqfV
-	 G/tWdtUgvOgD1EoXqhBeqwVWSxuQJH879ZP7QPUbGwbqXiICr2uCGAyOoYT7lz9QmUw==
+	t=1794344384;
+	b=joB/0N0orzMw3YYKEktlabsVX4AI2++7jnIVYNrbZU6XPsyhE3sJLTNgBwpwZbPzm2Mi
+	 ne/bWIumXij9bg6bnzBeUKs4B25G54026I+rrjsyktG6gbYroGNm9kxSjIDaBXPQFsuDV
+	 P6r+caFho6xucjBVur/mgDWvSqX5vV2d7PRUt4jMmYtyVFVn8JDVx4NoIOLhzOdc8vebH
+	 3kEo4NphZQtQ/RcsRVKGxSeyx2bkQNIJ+B9Ad4NbsTO1Fuaa7tar7u2PCLJewdsT8l05K
+	 kIczWd4XdNHCZC53Ux11skxdkzZMFb5ZTCGtAmU1YrLzVMpCA5Wksne/BHAd2OaxDmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344384;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SvDAtH/JwM3DeoG4H2x9y63kqFLwTXOfr8/w9opbDq4=;
-	b=NFZkbF9n8r22MVm+7i9oQv6UBjib1efSElHO8W64odNUN+0+EZndCKY9BASc729dlgZa
-	 MGW61wheDl8VjHVGr/unVRd8zNsEaIx7KXWMNElekKwMYN39QNx5/5Q6qbwn5p7c38x1i
-	 TnKRQ4pM6S8HZgJFP947wv4/ZxR5eOXT1HQE6kM6EQcGB5VKCjirtofjqrOQ4FmaVNEai
-	 MUo+7kkSoPFPjABTyOnm/5GDe436yojIdNA1Nve2z5f8TGFvTbXw3kN1reQ/ajuM5x7bF
-	 PVxL/Ccvn50YreupffQ1pKXLTraXNOwDkRyn4XYBWXpuHrPFooERhGHkIXTVJYFlATw==
+	bh=Nvnj33XjuZfq25lQMHb6sViLFzw8bJbeA5Ji/iMWa5Y=;
+	b=h/XR9aVkbDraaUdFXGIa76BUAyjZAnd5VjlYplLeJHfMnyceHKsxqVqZsIy7KKXXsNv4
+	 DfZ/CjIpJMWC//A5IskUmP0O4KVu94UHltHGU4Fzr8yUbNrobUxskeMN5YzVvCPj+hHTI
+	 XOCnTPx1faNCcKePs5QIcht5PcryvB+W9BznpUcvlMRLqLt5YyUGQN09LJLZ4t3TEMWY5
+	 W89KrnPVSQEqDTw2h3O+q6T4FuGpJlvXBS9BAlKwH/cUTNBCUS49JvhDER8kXp9O4cIoX
+	 Cv/wX6owgeRW0Vb6jK4frtXXT/7OtNkqjdxOjwsuOoddoD+whrl75gjzGoE7h7DN5pA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SecDpxdf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBqT9pe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F41E606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07CA606A330
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SecDpxdf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1481F0089F;
-	Tue, 10 Nov 2026 20:59:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBqT9pe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9631F008A1;
+	Tue, 10 Nov 2026 20:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344382;
-	bh=SvDAtH/JwM3DeoG4H2x9y63kqFLwTXOfr8/w9opbDq4=;
+	s=k20260515; t=1794344383;
+	bh=Nvnj33XjuZfq25lQMHb6sViLFzw8bJbeA5Ji/iMWa5Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SecDpxdfGrKd1P4S8rrxkkKkOUJeS+n1jUr3POukRnrtIZdVaci3IYjVS/7GqNkWm
-	 RPavbp5xKo4Sc/pYnqG3s82jL3RnDMh7Dw1LhMn+A25lMufTI3bD07iK/OMBOqDB8l
-	 B/k4m+kBgYQhOA6y2LgmlVVmWuNn9QizHjkNFVm+nju0BBjYg6WIa5uxcUaUpw3eDV
-	 sjZrfTwUse3BXlUfsYRhUEtZHMzr0Ldz+oOtiZh2/BC0+c0nI6GxP9KA+C3FHxWUb3
-	 e85ifEIvSaByTatItprlXR3Lg+KGnuGHe36aqWHy6v4Gz0X+nXkeh11Ll9cjwYnU0q
-	 uqLNqwuTf3u/g==
+	b=HJBqT9peX5nljdAGj28I2sYeCpqE9NURrccLa5la6u8u/X1JUFLt12dPBPb5IPM5H
+	 nQ3lOnTUDaO04hdxRjaEDJEEiOBprU8MrrnbiRgUUZNmVFF1otuULNO1sw+bNheFeK
+	 HXN54j1LQATSUvPN447u6QamoTQj5sS68nCf63Of3YuTlqD+7MFCbenY34mxD+2q0l
+	 FaAOQj/EW58BwcLDlOYZKoStZsYcASLmFk7dzrmGj+CY0PxH5hem31tCEijWzB0P8X
+	 XuG4IZlkWeVxLJL7+IsNXoJyduXU3RB52vsIu7gmSvP/ZKcVXCQdayIrjPvbm/HTFf
+	 wCfSB/uBF73Zg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ran Xiaokai <ran.xiaokai@zte.com.cn>,
-	ranxiaokai627@163.com,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Michal Hocko <mhocko@suse.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Mauricio Faria de Oliveira <mfo@igalia.com>,
-	linux-mm@kvack.org,
-	Hamid Nassiby <hamid.nassiby@nokia.com>
-Subject: Re: [PATCH 6.18.y] Revert "mm/page_owner: fix memory leak in page_owner_stack_fops->release()"
-Date: Tue, 10 Nov 2026 15:59:05 -0500
-Message-ID: <2026-11-10-1-daily-reply-0009-page-owner-revert-6.18@kernel.org>
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH 6.12.y 1/2] arm64: sdei: Run the event handler on the kernel vectors
+Date: Tue, 10 Nov 2026 15:59:06 -0500
+Message-ID: <2026-11-10-1-daily-reply-0010-arm64-sdei@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109141527.2880867-1-hamid.nassiby@nokia.com>
-References: <20261109141527.2880867-1-hamid.nassiby@nokia.com>
+In-Reply-To: <20261110120845.373988-9-kas@kernel.org>
+References: <20261110120845.373988-9-kas@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,9 +62,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Revert "mm/page_owner: fix memory leak in page_owner_stack_fops->release()"
+> arm64: sdei: Run the event handler on the kernel vectors
 
-Queued for 6.18, thanks.
+Queued the series for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
