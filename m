@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794316042;
-	b=uGZ0WNB37Pp4vLKwuzMhv4jc1sMvkP5AjKZjfVnu0Aqsv00q1BXkHHW355g6bAlDCiJS
-	 Y6LXZYjjFZF4fU/chasOhL1LF3vTKd7oOLwqQ9FudhZ4ldfhDhYPRo2LRacgw6TOn6zyJ
-	 fz5GcflHeHQn4L8QvJitpYgv3gfZiTjY0uaHc1CT+59K9WzJhlH7Cwbh3xrVIDhF/9DmT
-	 qd0St5Z14RRHffOYhN5+/GX4PUjvmfcIZ7eMHPNfgt4W44gjPOQA3ABgKgRmH6REmHftV
-	 folGVDei+FjEsm6x2BnHz7SmDKpQGIc/b3L02J2dxWaLyhfs3+xpe2TbM9seRctYu1g==
+	b=dXu13+Le/y3GPp18VbpL8/RozoP7mkwUPAH+diHAzdrsZrmPcMklxzX1u5rhzx0gSkZS
+	 BMistKujSZgGKpqqD3Hl9dXEpLB148tsK4x22nqNiZtlPs3L4JhpEW+xE9wpxukt78GB6
+	 BLPlx+X7jCGeGQahphZnUaQqSL2zv1vIoTeT7osuzC3BqE7iRMLvQQFEN+0yYKaIp6y+S
+	 nEAoJlMTF2vhsmIRnj32sPzLIcfoyO1cXiMDcGDfT/HDKv7PZ1NeMC+JgRWoY8G08ajR8
+	 GgWiZ+2axqUpPoRImr4j/9GVoyS9XDpqKlwaQ8R+5x8+dEtia6yOSBNIpEsXVCRM1Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794316042;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AzSXXdPBuS6PY38ldBy9Mvq2CcaygFYn3oLsatZd/jw=;
-	b=LmYW5sN6Bg+QaNMxgLmwsVIyRp7XPILWEdaKVqCeZoZBafaij729SyQyBWPYhk3dt1Cn
-	 ILVm1M956uHaTSND+rbfmNxxm42exF0Sekuc8o0w8sSaoNVv6HXL6lWkGZLhOIBIHJz0G
-	 ZTMV65MPEnjN4lWSKOCFeBQuaYaxLZJxjT4JsoTBfPOcNJYhQTmEc8CA91gXbpHejliXY
-	 RrzacvCJtUtii0SAalZX3AKb2grhRRGcJerwN5t1BxF72Tvzb0h25iAm6tFEYm85n0HXa
-	 XGT1eo2ioJM/PN+icLaylEsZLAq6dGt6wI1UEcTfrgClnafGWllw1OuZtnnCmwapnSQ==
+	bh=Zi58X+5CTp9st5c5/BcgNqrSAxiaxHrvcBXu12nWXD8=;
+	b=tCFiHbDDOzqb8botWAXZeQdeeb8LC9CovT4UOlovjwkqs/mkInBTf7FFIRKuK9cn/KpA
+	 cfN+C1oRjALc9/FHhCAKEa+HKduQ7v+M1NB1SAxACZuhiqEmTtXk+IdiMyAy0/ofXI2Pg
+	 1q/uyetDowFo3qou31RrPU2rKzYAJM2DAXRmT/k3DU6I/jK/JxBvTOXnnklstC2x5kIaN
+	 16MwtbZZUKKgCM13Y97fozQ8f7nhLpPlUUZBNn15QsYivLE3K/APjohJBJP3ko+PV4/jw
+	 015k3Sk1kNVDgtbmWhkZKIzUTF5n6gHq8pH9Vwf/BBO1urWhsi1lCjAc72EQBxiWsbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2SJTftN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nn5eAFfn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C265A606BFDF
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9822F606BFDF
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2SJTftN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD51F1F008A3;
-	Tue, 10 Nov 2026 13:07:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nn5eAFfn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19E51F008A4;
+	Tue, 10 Nov 2026 13:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316041;
-	bh=AzSXXdPBuS6PY38ldBy9Mvq2CcaygFYn3oLsatZd/jw=;
+	s=k20260515; t=1794316042;
+	bh=Zi58X+5CTp9st5c5/BcgNqrSAxiaxHrvcBXu12nWXD8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H2SJTftNjAurJkBUTGvz3m+JxA3zPNKbFbOkJA1w6u6sYUATKlvNAwvFekEHtO6T/
-	 SlPh8w9n037vIKvDklN1RyMl4pfLYngSFrxheqQNowFD/nQ6EzwPjK8TOP/VV6afbt
-	 Ze6qNwiLi0nVGdVDP7pc3vJO2HCIaHw+75sU4bv/ZTxYRs0NAs/ZI8x86EPt/xEd7m
-	 TT98gm1pN4pyxeS5cpJyfybVBUDNom9ykUkpxWBE+AEilydQJD/+ttJMens8MGbCqT
-	 0BT6iiBut3zs6hVxEuzht8TmUy0Cu65vV+nosWEUvB+VV1T33Av9Q626c+BfLQjUbd
-	 VQZ5Emhv7uAVA==
+	b=Nn5eAFfn8Sq2ceQhU2BoigV/dIYktCLJgLfRHeeL4/OmTUfVutl1L5QK4vyxH9rlF
+	 LIWcg5bRCYt45PAR1cQGlp+QfrH59RetsradsIUrvhGu/50iJTfDhDEgDe4WqC8iiu
+	 3Rh3cFcBJfi7qJCJ3Zez0LojEQYdOT/zgTG6P81Ceo05GY5ZuKhdoqA/lPIyyvu0G0
+	 vO6gStCOKAImHVnjJDkSAK/wBwIpOWi/MNCqRDnwaf/4B5MWRuu/2vMqWQnTFYeK1J
+	 3GsfGyEJNd0bY+rALMWqTTeCfqtZvgzZg/xRsz5ZFTzhad1B1U/0v7y0JTrnzXQsbg
+	 82LyNqL67hy4g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daniel Palmer <daniel@0x0f.com>,
-	Christoph Plattner <christoph.plattner@gmx.at>,
-	Greg Ungerer <gerg@kernel.org>,
+Cc: Christopher Lusk <clusk@northecho.dev>,
+	Andreas Schwab <schwab@linux-m68k.org>,
+	Greg Ungerer <gerg@linux-m68k.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] m68k: Fix task info flags handling for 68000
-Date: Tue, 10 Nov 2026 08:07:18 -0500
-Message-ID: <20261110130712.1651427-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] m68k: Fix seccomp filtering on ColdFire and 68000
+Date: Tue, 10 Nov 2026 08:07:19 -0500
+Message-ID: <20261110130712.1651427-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053339-failed-6.6-48859f8018d9@kernel.org>
+In-Reply-To: <20261110130712.1651427-1-sashal@kernel.org>
 References: <20261107053339-failed-6.6-48859f8018d9@kernel.org>
+ <20261110130712.1651427-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,83 +63,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daniel Palmer <daniel@0x0f.com>
+From: Christopher Lusk <clusk@northecho.dev>
 
-[ Upstream commit 2c6805145e1605cef39459f78979f7edee251b41 ]
+[ Upstream commit 48859f8018d93bd93ef35f7430fdf5b97f2f9715 ]
 
-The logic for deciding what to do after a syscall should be checking
-if any of the lower byte bits are set and then checking if the reschedule
-bit is set.
+m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
+ColdFire and 68000 syscall entry paths only branch to
+syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
+through to syscall dispatch, leaving installed filters ineffective.
 
-Currently we are loading the top word, checking if any bits are set
-(which never seems to be true) and thus jumping over loading the
-whole long and checking if the reschedule bit is set.
+Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
+and route either flag through the existing slow path. Leave the classic
+MMU syscall entry implementation unchanged.
 
-We get the thread info in two places so split that logic out in
-a macro and then fix the code so that it loads the byte of the flags
-we need to check, checks if anything is set and then checks if
-the reschedule bit in particular is set.
+Validated the combined test under QEMU mcf5208evb (ColdFire): filters
+denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
+classic-MMU control (q800) denied the filtered getpid syscall both before
+and after this change. The 68000 path shares the same source-level
+omission and receives the identical masked test but was not separately
+emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
+m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
+built arch/m68k/68000/entry.o and vmlinux.
 
-Reported-by: Christoph Plattner <christoph.plattner@gmx.at>
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-Signed-off-by: Greg Ungerer <gerg@kernel.org>
-Stable-dep-of: 48859f8018d9 ("m68k: Fix seccomp filtering on ColdFire and 68000")
+Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
+Cc: stable@vger.kernel.org # v6.3+
+Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
+Assisted-by: Claude:claude-opus-4-8
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/m68k/68000/entry.S | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ arch/m68k/68000/entry.S    | 3 ++-
+ arch/m68k/coldfire/entry.S | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-index 7d63e2f1555a0..37926b4b205af 100644
+index 37926b4b205af..6fc2971463695 100644
 --- a/arch/m68k/68000/entry.S
 +++ b/arch/m68k/68000/entry.S
-@@ -21,6 +21,13 @@
+@@ -82,7 +82,8 @@ ENTRY(system_call)
  
- .text
- 
-+/* get thread_info pointer into a2 */
-+ .macro getthreadinfo
-+	movel	%sp,%d1
-+	andl	#-THREAD_SIZE,%d1
-+	movel	%d1,%a2
-+ .endm
-+
- .globl system_call
- .globl resume
- .globl ret_from_exception
-@@ -73,9 +80,8 @@ ENTRY(system_call)
- 
- 	movel	%sp@(PT_OFF_ORIG_D0),%d0
- 
--	movel	%sp,%d1			/* get thread_info pointer */
--	andl	#-THREAD_SIZE,%d1
--	movel	%d1,%a2
-+	/* Doing a trace ? */
-+	getthreadinfo
- 	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
+ 	/* Doing a trace ? */
+ 	getthreadinfo
+-	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
++	moveb	%a2@(TINFO_FLAGS+2),%d1
++	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
  	jne	do_trace
  	cmpl	#NR_syscalls,%d0
-@@ -99,16 +105,15 @@ Luser_return:
- 	/* heavy interrupt load*/
- 	andw	#ALLOWINT,%sr
+ 	jcc	badsys
+diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
+index 35104c5417ff4..95d98dead6245 100644
+--- a/arch/m68k/coldfire/entry.S
++++ b/arch/m68k/coldfire/entry.S
+@@ -75,7 +75,8 @@ ENTRY(system_call)
+ 	movel	%d2,%a0
+ 	movel	%a0@,%a1		/* save top of frame */
+ 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
+-	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
++	moveb	%a0@(TINFO_FLAGS+2),%d2
++	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
+ 	bnes	1f
  
--	movel	%sp,%d1			/* get thread_info pointer */
--	andl	#-THREAD_SIZE,%d1
--	movel	%d1,%a2
-+	getthreadinfo
- 1:
--	move	%a2@(TINFO_FLAGS),%d1	/* thread_info->flags */
-+	/* check if any of the flags are set */
-+	moveb	%a2@(TINFO_FLAGS + 3),%d1	/* thread_info->flags (low 8 bits) */
- 	jne	Lwork_to_do
- 	RESTORE_ALL
- 
- Lwork_to_do:
--	movel	%a2@(TINFO_FLAGS),%d1	/* thread_info->flags */
-+	/* check if reschedule needs to be called */
- 	btst	#TIF_NEED_RESCHED,%d1
- 	jne	reschedule
- 
+ 	movel	%d3,%a0
 -- 
 2.53.0
 
