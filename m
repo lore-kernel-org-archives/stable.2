@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282322;
-	b=uZ8yGpmTtyQAgaCrveA1xpQMViO/ca4QmbjOvrCl6Exwguw7r7Tr7Wc0mA2NWZR+p8h4
-	 BXtHSEmnfEXFJRuZYN54j2BXkyJxVJ2aKmDvYQFheDKwtLaRKaMpzWwB1IZle28ECAlOa
-	 illoSMFpWps6OLKB0rmxpmCwRjgJ8OS9iOGVtECfFPO3Dfyg/knDryKofQWE7s9AMhi0h
-	 RU+M0xalQv31POVVrdW0ZP3gUNWQy0nTYAxEwlb8fI4nJeAORCQGlNi+v6jefJSdtmH5X
-	 Een/NiFKyKXCNr+0vNFphaqBBpe2QVjZaDZ+OYm/4jFGf3WFnBmSSCUs7EjDq6bwYrQ==
+	t=1794282323;
+	b=eC/oNzGPRFOKqnK7Sj/v8ynZlLKmKTj9TV0EppXjNmEF+4qIUur+8nKfRE15poDk3Coz
+	 C3fhOLQmMT3BNUBc9dcVTJr9KFb5NMR0UuKeVdvk+9JFGM5O3UsDWh98Xx4PbSSN7mGFa
+	 CDFCrPaqwsYhG+V+g8Yv68M6jqRHDuAdrdSUcNr+FF2u1LF+KuQcXaaemUePTBfGqUAJ+
+	 CNiE9EhEfFhUdR+eoPBKLi4iNjmRrV1IxXeNmRpOKi1xSQYmNAc2tSWI5bdzJ1eN8kFJD
+	 +NwTQGQAiSJuayVnvBxgKoGthuX/0pSDckuyM+AOXo7AuS0Ifycj4TiBtNw7AwZgzqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282322;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794282323;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ig0An5X/cpi8XT1pmU3BIMv5l2G6WyLnjo1QEXsgDxU=;
-	b=uX6yhfuK0WCNMfA5+K/6GKYwOwGMaIRiRIqbZjKyDSMdj6iknwW2wS0mvhiW7+GQcWSD
-	 fKIFM/9qtY3Bc4Tqxr+GDRUjMSXWrAeUGdqItG9xTKrm4o+j4nYh2+/mc8n895c+Hlrzt
-	 bXW8xmXez4krDKBEOb3GpRRy9djn/L9M64PAOLDQfF+I/8xyZlmVXpwClCIMXu4jIAT52
-	 VE05GhMVg0BDDQEi1ItzOCXX86kW1TU534f35l/MwNO9944Z1ZHx5RWiX9vjBGc0xVdj1
-	 PGKZlcRwmBV4xeEoUI8QMRyHQe/jvI9EwyoBbGBtXhZMx9keuyo5mh2Sp6Zdj6i91mQ==
+	bh=gXYgU0DjAK5KX2q2HqeIGb9XOA2xHoJERFPwbgwT8dA=;
+	b=oCN4i6B6CiOHJzMOPORlqDNif59GFlrhqu+Fbt/pW0NblNUj5lupJQg2v401CdAXPjHE
+	 hFO9LKHDG2vBjHuosWJYf4yLEja2HvRld56lZQb3Lj93f13E+z7xn6kbKTtZmHXmYvRpg
+	 Y19vY2BbEWXZlCzYjXhn6ijgHIUFBmbyLKUxe8SCgDYQZXbINE0ks7wXKWJdG8VywSMlt
+	 Xa9XbvML3AN3Hh+ImHzLWyqKKaKnQrbRY05Tv9Nlim8+CXwc6mUdqmkDvxU6bxn67lsUy
+	 Br6Rn61gfwpnlLGT403YA28Hygjm1+I6P86YLSmj+SFyR/94n9L6PwqETP7HJrb3tgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faPtgsdL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrVehWBB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BFD606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6094606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:45:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=faPtgsdL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF8931F008A2;
-	Tue, 10 Nov 2026 03:45:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrVehWBB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70EA1F008A1;
+	Tue, 10 Nov 2026 03:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794282321;
-	bh=ig0An5X/cpi8XT1pmU3BIMv5l2G6WyLnjo1QEXsgDxU=;
+	s=k20260515; t=1794282322;
+	bh=gXYgU0DjAK5KX2q2HqeIGb9XOA2xHoJERFPwbgwT8dA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=faPtgsdLJPtxHpOW7KKBi6tvWEt1OPb9DZ4odc/vyGJL/cyYgd2bqkJO0Yo/8oy2c
-	 +qd3zgI9LKXljTC08MvCxBZpo7qv0XwgcoYsbTw1lnCNaewVjt5SoqsnpV42lAgz+Y
-	 VfonejyZPoQiTCnM4Z/0wWL0xBiq/RhLFOAdTvIqlFEQ8s76SA1PcnyMkdjVi1y3fd
-	 z+W6b4p4XETKFXrRW2RyP6DU6G/FRbz7IfGpigZG/ZHtZ0RxmhD6i3X1cfvCpg5g9z
-	 BK6qJ6ZX+wktTdoBwacEJ8e6xO5qXLANo3hlUOdQhoyMWoUz5oAxTUl3cbRopYEf9d
-	 agof+1bAsVMbQ==
+	b=hrVehWBByq/Dv/0VkGiAzh+fEPTLM2E+9dwIQOrK5V99YYD6Iw6VDcGpC2Q92t3ha
+	 2/k/27T758pIUDd1M2Q70NebtFIdRDJhJNH1HqgqFmYhjdJj/d0Gz3t1cRWxxi4kYG
+	 xeqrfDaPZeWYJcG9LzAZyxmjQf7GQ+zoP+EQAOQ/dY5zVFMu+K56Ed97i9eaiqgEuB
+	 O8Jh6IY4t8szYQXR+gmOfLd8QUj7PA1CA1PlVy3+7XzEjUGxHY0lkxx1IEpaHuxxoV
+	 Whc5zMLGE/tFKrlKJFAgNxaoMipkF3w2kHM3L/+Trgsdfv4DtwOIBVYCNrBS59tvmw
+	 QmJMzRMfWcsqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Meng Yu <yumeng18@huawei.com>,
 	Zaibo Xu <xuzaibo@huawei.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/4] crypto: hisilicon/hpre - add algorithm type
-Date: Mon,  9 Nov 2026 22:45:16 -0500
-Message-ID: <20261110034443.239021-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/4] crypto: ecc - expose ecc curves
+Date: Mon,  9 Nov 2026 22:45:17 -0500
+Message-ID: <20261110034443.239021-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110034443.239021-1-sashal@kernel.org>
 References: <20261107061637-failed-5.10-40ec9605cb19@kernel.org>
@@ -65,10 +65,10 @@ Content-Transfer-Encoding: 8bit
 
 From: Meng Yu <yumeng18@huawei.com>
 
-[ Upstream commit 9b94ae729068f6608ec7364dea891ee86dd3dad2 ]
+[ Upstream commit 14bb76768275a056a91d249525a717019fd46663 ]
 
-Algorithm type is brought in to get hardware HPRE queue
-to support different algorithms.
+Move 'ecc_get_curve' to 'include/crypto/ecc_curve.h', so everyone
+in kernel tree can easily get ecc curve params;
 
 Signed-off-by: Meng Yu <yumeng18@huawei.com>
 Reviewed-by: Zaibo Xu <xuzaibo@huawei.com>
@@ -76,117 +76,158 @@ Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Stable-dep-of: 40ec9605cb19 ("crypto: hisilicon/hpre - fix GFP flags for dma_alloc_coherent")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/hisilicon/hpre/hpre.h        | 10 +++++++++-
- drivers/crypto/hisilicon/hpre/hpre_crypto.c | 12 ++++++------
- drivers/crypto/hisilicon/hpre/hpre_main.c   | 11 +++++++++--
- 3 files changed, 24 insertions(+), 9 deletions(-)
+ crypto/ecc.c               |  5 +++-
+ crypto/ecc.h               | 37 ++------------------------
+ include/crypto/ecc_curve.h | 53 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 59 insertions(+), 36 deletions(-)
+ create mode 100644 include/crypto/ecc_curve.h
 
-diff --git a/drivers/crypto/hisilicon/hpre/hpre.h b/drivers/crypto/hisilicon/hpre/hpre.h
-index e784712b50c1f..7c7bfdd124e0e 100644
---- a/drivers/crypto/hisilicon/hpre/hpre.h
-+++ b/drivers/crypto/hisilicon/hpre/hpre.h
-@@ -10,6 +10,14 @@
- #define HPRE_PF_DEF_Q_NUM		64
- #define HPRE_PF_DEF_Q_BASE		0
+diff --git a/crypto/ecc.c b/crypto/ecc.c
+index 09067e4b320f5..c8b21c76496c1 100644
+--- a/crypto/ecc.c
++++ b/crypto/ecc.c
+@@ -24,6 +24,7 @@
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  */
  
-+/*
-+ * type used in qm sqc DW6.
-+ * 0 - Algorithm which has been supported in V2, like RSA, DH and so on;
-+ * 1 - ECC algorithm in V3.
++#include <crypto/ecc_curve.h>
+ #include <linux/module.h>
+ #include <linux/random.h>
+ #include <linux/slab.h>
+@@ -42,7 +43,8 @@ typedef struct {
+ 	u64 m_high;
+ } uint128_t;
+ 
+-static inline const struct ecc_curve *ecc_get_curve(unsigned int curve_id)
++
++const struct ecc_curve *ecc_get_curve(unsigned int curve_id)
+ {
+ 	switch (curve_id) {
+ 	/* In FIPS mode only allow P256 and higher */
+@@ -54,6 +56,7 @@ static inline const struct ecc_curve *ecc_get_curve(unsigned int curve_id)
+ 		return NULL;
+ 	}
+ }
++EXPORT_SYMBOL(ecc_get_curve);
+ 
+ static u64 *ecc_alloc_digits_space(unsigned int ndigits)
+ {
+diff --git a/crypto/ecc.h b/crypto/ecc.h
+index d4e546b9ad79e..38a81d404821d 100644
+--- a/crypto/ecc.h
++++ b/crypto/ecc.h
+@@ -26,6 +26,8 @@
+ #ifndef _CRYPTO_ECC_H
+ #define _CRYPTO_ECC_H
+ 
++#include <crypto/ecc_curve.h>
++
+ /* One digit is u64 qword. */
+ #define ECC_CURVE_NIST_P192_DIGITS  3
+ #define ECC_CURVE_NIST_P256_DIGITS  4
+@@ -33,43 +35,8 @@
+ 
+ #define ECC_DIGITS_TO_BYTES_SHIFT 3
+ 
+-/**
+- * struct ecc_point - elliptic curve point in affine coordinates
+- *
+- * @x:		X coordinate in vli form.
+- * @y:		Y coordinate in vli form.
+- * @ndigits:	Length of vlis in u64 qwords.
+- */
+-struct ecc_point {
+-	u64 *x;
+-	u64 *y;
+-	u8 ndigits;
+-};
+-
+ #define ECC_POINT_INIT(x, y, ndigits)	(struct ecc_point) { x, y, ndigits }
+ 
+-/**
+- * struct ecc_curve - definition of elliptic curve
+- *
+- * @name:	Short name of the curve.
+- * @g:		Generator point of the curve.
+- * @p:		Prime number, if Barrett's reduction is used for this curve
+- *		pre-calculated value 'mu' is appended to the @p after ndigits.
+- *		Use of Barrett's reduction is heuristically determined in
+- *		vli_mmod_fast().
+- * @n:		Order of the curve group.
+- * @a:		Curve parameter a.
+- * @b:		Curve parameter b.
+- */
+-struct ecc_curve {
+-	char *name;
+-	struct ecc_point g;
+-	u64 *p;
+-	u64 *n;
+-	u64 *a;
+-	u64 *b;
+-};
+-
+ /**
+  * ecc_is_key_valid() - Validate a given ECDH private key
+  *
+diff --git a/include/crypto/ecc_curve.h b/include/crypto/ecc_curve.h
+new file mode 100644
+index 0000000000000..19a35dae88a1b
+--- /dev/null
++++ b/include/crypto/ecc_curve.h
+@@ -0,0 +1,53 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2021 HiSilicon */
++
++#ifndef _CRYTO_ECC_CURVE_H
++#define _CRYTO_ECC_CURVE_H
++
++#include <linux/types.h>
++
++/**
++ * struct ecc_point - elliptic curve point in affine coordinates
++ *
++ * @x:		X coordinate in vli form.
++ * @y:		Y coordinate in vli form.
++ * @ndigits:	Length of vlis in u64 qwords.
 + */
-+#define HPRE_V2_ALG_TYPE	0
-+#define HPRE_V3_ECC_ALG_TYPE	1
++struct ecc_point {
++	u64 *x;
++	u64 *y;
++	u8 ndigits;
++};
 +
- enum {
- 	HPRE_CLUSTER0,
- 	HPRE_CLUSTER1,
-@@ -90,7 +98,7 @@ struct hpre_sqe {
- 	__le32 rsvd1[_HPRE_SQE_ALIGN_EXT];
- };
- 
--struct hisi_qp *hpre_create_qp(void);
-+struct hisi_qp *hpre_create_qp(u8 type);
- int hpre_algs_register(struct hisi_qm *qm);
- void hpre_algs_unregister(struct hisi_qm *qm);
- 
-diff --git a/drivers/crypto/hisilicon/hpre/hpre_crypto.c b/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-index 8142a30a52315..7501092463354 100644
---- a/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-+++ b/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-@@ -152,12 +152,12 @@ static void hpre_rm_req_from_ctx(struct hpre_asym_request *hpre_req)
- 	}
- }
- 
--static struct hisi_qp *hpre_get_qp_and_start(void)
-+static struct hisi_qp *hpre_get_qp_and_start(u8 type)
- {
- 	struct hisi_qp *qp;
- 	int ret;
- 
--	qp = hpre_create_qp();
-+	qp = hpre_create_qp(type);
- 	if (!qp) {
- 		pr_err("Can not create hpre qp!\n");
- 		return ERR_PTR(-ENODEV);
-@@ -422,11 +422,11 @@ static void hpre_alg_cb(struct hisi_qp *qp, void *resp)
- 	req->cb(ctx, resp);
- }
- 
--static int hpre_ctx_init(struct hpre_ctx *ctx)
-+static int hpre_ctx_init(struct hpre_ctx *ctx, u8 type)
- {
- 	struct hisi_qp *qp;
- 
--	qp = hpre_get_qp_and_start();
-+	qp = hpre_get_qp_and_start(type);
- 	if (IS_ERR(qp))
- 		return PTR_ERR(qp);
- 
-@@ -674,7 +674,7 @@ static int hpre_dh_init_tfm(struct crypto_kpp *tfm)
- {
- 	struct hpre_ctx *ctx = kpp_tfm_ctx(tfm);
- 
--	return hpre_ctx_init(ctx);
-+	return hpre_ctx_init(ctx, HPRE_V2_ALG_TYPE);
- }
- 
- static void hpre_dh_exit_tfm(struct crypto_kpp *tfm)
-@@ -1100,7 +1100,7 @@ static int hpre_rsa_init_tfm(struct crypto_akcipher *tfm)
- 		return PTR_ERR(ctx->rsa.soft_tfm);
- 	}
- 
--	ret = hpre_ctx_init(ctx);
-+	ret = hpre_ctx_init(ctx, HPRE_V2_ALG_TYPE);
- 	if (ret)
- 		crypto_free_akcipher(ctx->rsa.soft_tfm);
- 
-diff --git a/drivers/crypto/hisilicon/hpre/hpre_main.c b/drivers/crypto/hisilicon/hpre/hpre_main.c
-index 8da9d6dc6e87a..87acec1597764 100644
---- a/drivers/crypto/hisilicon/hpre/hpre_main.c
-+++ b/drivers/crypto/hisilicon/hpre/hpre_main.c
-@@ -201,13 +201,20 @@ static u32 vfs_num;
- module_param_cb(vfs_num, &vfs_num_ops, &vfs_num, 0444);
- MODULE_PARM_DESC(vfs_num, "Number of VFs to enable(1-63), 0(default)");
- 
--struct hisi_qp *hpre_create_qp(void)
-+struct hisi_qp *hpre_create_qp(u8 type)
- {
- 	int node = cpu_to_node(smp_processor_id());
- 	struct hisi_qp *qp = NULL;
- 	int ret;
- 
--	ret = hisi_qm_alloc_qps_node(&hpre_devices, 1, 0, node, &qp);
-+	if (type != HPRE_V2_ALG_TYPE && type != HPRE_V3_ECC_ALG_TYPE)
-+		return NULL;
++/**
++ * struct ecc_curve - definition of elliptic curve
++ *
++ * @name:	Short name of the curve.
++ * @g:		Generator point of the curve.
++ * @p:		Prime number, if Barrett's reduction is used for this curve
++ *		pre-calculated value 'mu' is appended to the @p after ndigits.
++ *		Use of Barrett's reduction is heuristically determined in
++ *		vli_mmod_fast().
++ * @n:		Order of the curve group.
++ * @a:		Curve parameter a.
++ * @b:		Curve parameter b.
++ */
++struct ecc_curve {
++	char *name;
++	struct ecc_point g;
++	u64 *p;
++	u64 *n;
++	u64 *a;
++	u64 *b;
++};
 +
-+	/*
-+	 * type: 0 - RSA/DH. algorithm supported in V2,
-+	 *       1 - ECC algorithm in V3.
-+	 */
-+	ret = hisi_qm_alloc_qps_node(&hpre_devices, 1, type, node, &qp);
- 	if (!ret)
- 		return qp;
- 
++/**
++ * ecc_get_curve() - get elliptic curve;
++ * @curve_id:           Curves IDs:
++ *                      defined in 'include/crypto/ecdh.h';
++ *
++ * Returns curve if get curve succssful, NULL otherwise
++ */
++const struct ecc_curve *ecc_get_curve(unsigned int curve_id);
++
++#endif
 -- 
 2.53.0
 
