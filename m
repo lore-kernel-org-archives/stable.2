@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339404;
-	b=KNcwggjT/nWZ5PXd5BYruzOKnJLv/u9oUFmTgH4cYrA9IXdI1WgEcTf5x9KCctd2mdph
-	 vqsRMujFBQu7bH3CD5XY6SwPUtL29U9aopAuPHB9bc3PwonGym4i0OZ2GHTQhx1/Za8ka
-	 8cC4f5LkzRYlu0W4u+keJmjz2eA7UAupRw/EBEnpEAJmvzNWVhAs+CvnjfTHhYFQFUlVL
-	 gERUg4AU6UHP74iDE5ZS039fsNTBz8jmZAxhO32NzmBX59WD01/j1fjtzOM63O20Cjue9
-	 UExysXDe1Zce8/n4ot0NxuCQ6kmAUgNKYypmkv9FRC9qvnWjF7LzyIZbcezqd4B5J4Q==
+	t=1794339423;
+	b=HEk9mtpBt+4zqQe+m+maFG3f3T28ezXe8k6ewjSoSyYxqqRyOzx/VAwBP30cATqCWLQL
+	 akydGGH/gs9XSxnM56iAiCjwll2JtfA/AKI/7pl+ySW1yHumlX1n9Z3qJ3xusi102lhxa
+	 rDkLfZ483PgC+P3qGugBHmL2XINmbAEkpifNDZxBPbhEsLUSS09FqGpCoy0FQu+qgnfRh
+	 TVAHy/uQhytShSGjJoJZU85NPriZCQPUFgoa088UtHE1tzr9uHGuxku/DwSDzebD7ooKI
+	 wusMKlbYkcC1Re8OkryEo50ZcQlYb/AUnLwiCfXvi83hVCxmeJAgfkHWjur2uz/uoIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339404;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339423;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=B6V02g+MA05LwZf6qpx2sF5cRI0F+MCxf09747s+nKU=;
-	b=GauiwXE30DEaWmlln2XioKfs6XgpBZfVUwq5ACdz6zYleOPk9xoBNUo8JMr0X6+GO+4M
-	 NoA/vArTk9tDw1Ut4Tu6xXC7KSVa08zxmHGtLqSdhfBaXdTUabkzTQrTO3gxD6dswnwpY
-	 0OHefLXE3DZqLpFZBqcAMlAy6goC9Skfemtyl/BvhgOlpPvWZAwNObEHkOz2TzzOjsJ2N
-	 GYGyIjrA8IH6rXBAW+iu1zDdRLcgFMRrWqYz7RQBAxHb3AWInCaZ4PRcO01IC04wJj3Z5
-	 mYR49mZc9/SyTp1+x4lXElLX9FwSmRd9+4nItB0EU7LNg9ZTcQSmuGZfPstm0MNf5yw==
+	bh=FHZb6FOB1JdmeSWuwGDui+mmapxERiMD7x3PMl/e15k=;
+	b=lq0xAUBGtgXJyagyppSl6ESUQ7Pgth0/D94G60rGuJ1tz65gR5Q3RNteu7Osxcuh+AlC
+	 0z6DTP4MVi8I+LmDBAwb81g6bX772flJlTEKzzp54O2BcluWZDkOoJIrzoNEONAdBzsh4
+	 caCHqYBI2aHHR5LDGdTSXh4+H4wyp9oyNfc7G6Ca4T4dz2Yfz6Lbsu7ypXNAI7Yxv077C
+	 jhFuRIYV+ePAbkFAJ3pJ29pmksf9i2jHpTcrX73fXCr5CgtOFEt5yCwyAjo70LKnBl3f9
+	 yK4Dc36Ns173dqpzwUR3Zfr7PkJa9rY936YmHX8vUz3JpW4TGg0ljrLsAVGeBX4L3Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsBM0zbn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyUZbKsf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38E9606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EE7606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsBM0zbn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05C31F0089F;
-	Tue, 10 Nov 2026 19:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyUZbKsf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A9C1F008A1;
+	Tue, 10 Nov 2026 19:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794339403;
-	bh=B6V02g+MA05LwZf6qpx2sF5cRI0F+MCxf09747s+nKU=;
+	s=k20260515; t=1794339423;
+	bh=FHZb6FOB1JdmeSWuwGDui+mmapxERiMD7x3PMl/e15k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IsBM0zbnAh6jD43bG38IqmY8RfJtGUepHMNem2IDiNLEEGE2lPcLpPjGzZZzLOS/Y
-	 QbirWvs3m0QSQCrWthZJwa8OBQ+HBr+E/d1AdQge+8GUBzpJT/Xv/Sm8ZsdC9UvD/A
-	 2uce/YdmRxeF+BNxyC/SxY5L/MiVCWgiI9x5ZyQbUEETBxfsdsFSZWQ/PbjmuHLEs5
-	 ZdeEhbxtwSBliWEl75acFhLjHt5U9zioyy7vfzs5vecsG0xtIXQre7bUYNWFXsGJ/C
-	 KC7qIHfGYe8EE6MWOPOPDL/E1fbmjDgoBkYAD96+lAnSUQ+ewh4ibZLyATW/T8OWPF
-	 Ou+yvocLQOkBg==
+	b=EyUZbKsfOXh56+Q3obYADzYRGSAiBEU+eVeNQqaVbYvbu1v9B59edIiYUOIYYPiZp
+	 MvqUMtcAD0V1ovmmpS4UHhDknQqYSkQbFEScEP5U4slk/4nktiN2ImHN1iX3lpT+rw
+	 IFjO6kX5A8xxlSZ5jiukvTMCfJbo1NryHe3/bA4GD3uqsKQ88PpZLlCWyz8t+X9m8z
+	 Q8ajcIN9l2ToiWjNv34FEsb/X3boV4tTn5K2g3GoUDrd1wfpFQFlDHmUpKZJBZgXxR
+	 ja/emZ66MPpyckUHIxhSsIP5I32fIOZtZTGzIdRAJTWPjBKwq6p0qGWRe7i/2/bsoP
+	 ij9A8Lbm3rvWg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henry Martin <bsdhenrymartin@gmail.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amdkfd: fix doorbell allocation race creating duplicate allocations
-Date: Tue, 10 Nov 2026 14:36:41 -0500
-Message-ID: <20261110193604.3555386-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] IB/hfi1: Shutdown self-rearming timers before freeing
+Date: Tue, 10 Nov 2026 14:37:00 -0500
+Message-ID: <20261110193629.3617821-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055241-failed-6.1-bebad4505094@kernel.org>
-References: <20261107055241-failed-6.1-bebad4505094@kernel.org>
+In-Reply-To: <20261107053055-failed-6.6-9d3259e41ccd@kernel.org>
+References: <20261107053055-failed-6.6-9d3259e41ccd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,193 +61,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Henry Martin <bsdhenrymartin@gmail.com>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit bebad45050945a3d668d6701fb77ae2571c5d44b ]
+[ Upstream commit 9d3259e41ccd5016cd2c6d013232b89df6d73011 ]
 
-The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-lockless at every call site of kfd_alloc_process_doorbells():
-kfd_get_process_doorbells() (mmap of /dev/kfd),
-kfd_ioctl_create_queue() and the CRIU restore path each test the
-pointer under different locking (or none), so two racing threads can
-both observe NULL and each allocate a doorbell BO and bitmap,
-orphaning one allocation and handing the two mappings different
-backing pages.
+The HFI1 receive error and synthetic counter timers rearm themselves from
+their callbacks. Their cleanup paths use timer_delete_sync(), which only
+waits for a running callback and does not prevent a concurrent or
+subsequent rearm.
 
-Move the serialization into kfd_alloc_process_doorbells() itself,
-using a new per-process-device mutex so all three call sites are
-covered regardless of their own locking.  The device-global
-kfd->doorbell_mutex is not suitable here: it is acquired under
-dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-the sleeping allocations above would create a lock-ordering
-inversion with dqm->lock via TTM eviction, and it would also
-serialize doorbell setup of unrelated processes behind a
-device-wide lock for per-process state.
+Use timer_shutdown_sync() when releasing these timers. This prevents a
+callback from enqueueing either timer after cleanup begins, before the
+containing hfi1_devdata is freed.
 
-This issue was discovered by Tencent CodeBuddy Security.
+Preserve the existing work cancellation and workqueue destruction ordering
+for synthetic counters.
 
-v3 (Felix Kuehling):
-- Removed unlocked check in kfd_get_process_doorbell flagged as
-  problematic by Sashiko Bot. Fall back to the locked check inside
-  kfd_alloc_process_doorbells
-- Added missing mutex_destroy
-v4 (Felix Kuehling):
-- Removed unlocked checks around other kfd_alloc_process_doorbells calls
-
-Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 4e27ba5ad5f76932d4f6cbacd25c81c2dd40ec4a)
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
 Cc: stable@vger.kernel.org
-[ sashal: Adapted doorbell allocation locking for numeric indices instead of buffer objects. ]
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260930070455.2934286-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+[ sashal: adjusted context for existing del_timer_sync() calls instead of timer_delete_sync() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  6 ++---
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c     | 23 +++++++++++--------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  3 +++
- .../amd/amdkfd/kfd_process_queue_manager.c    |  3 +--
- 5 files changed, 24 insertions(+), 16 deletions(-)
+ drivers/infiniband/hw/hfi1/chip.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 43bfd668c5480..a08c84556ace4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -333,8 +333,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		goto err_bind_process;
- 	}
- 
--	if (!pdd->doorbell_index &&
--	    kfd_alloc_process_doorbells(dev, &pdd->doorbell_index) < 0) {
-+	if (kfd_alloc_process_doorbells(dev, pdd) < 0) {
- 		err = -ENOMEM;
- 		goto err_alloc_doorbells;
- 	}
-@@ -2203,8 +2202,7 @@ static int criu_restore_devices(struct kfd_process *p,
- 			goto exit;
- 		}
- 
--		if (!pdd->doorbell_index &&
--		    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
-+		if (kfd_alloc_process_doorbells(pdd->dev, pdd) < 0) {
- 			ret = -ENOMEM;
- 			goto exit;
- 		}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index 3ac599f74fea8..a38e3e917c437 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -277,35 +277,40 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
- 
- phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+diff --git a/drivers/infiniband/hw/hfi1/chip.c b/drivers/infiniband/hw/hfi1/chip.c
+index 00a054007822f..c40ae27e9a94b 100644
+--- a/drivers/infiniband/hw/hfi1/chip.c
++++ b/drivers/infiniband/hw/hfi1/chip.c
+@@ -5576,7 +5576,7 @@ static int init_rcverr(struct hfi1_devdata *dd)
+ static void free_rcverr(struct hfi1_devdata *dd)
  {
--	if (!pdd->doorbell_index) {
--		int r = kfd_alloc_process_doorbells(pdd->dev,
--						    &pdd->doorbell_index);
--		if (r < 0)
--			return 0;
--	}
-+	if (kfd_alloc_process_doorbells(pdd->dev, pdd) < 0)
-+		return 0;
- 
- 	return pdd->dev->doorbell_base +
- 		pdd->doorbell_index * kfd_doorbell_process_slice(pdd->dev);
+ 	if (dd->rcverr_timer.function)
+-		del_timer_sync(&dd->rcverr_timer);
++		timer_shutdown_sync(&dd->rcverr_timer);
  }
  
--int kfd_alloc_process_doorbells(struct kfd_dev *kfd, unsigned int *doorbell_index)
-+int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *pdd)
- {
- 	int r = 0;
+ static void handle_rxe_err(struct hfi1_devdata *dd, u32 unused, u64 reg)
+@@ -12308,7 +12308,7 @@ static void free_cntrs(struct hfi1_devdata *dd)
+ 	int i;
  
-+	mutex_lock(&pdd->doorbell_mutex);
-+
-+	/* Another thread may have won the check-and-allocate race */
-+	if (pdd->doorbell_index) {
-+		mutex_unlock(&pdd->doorbell_mutex);
-+		return 0;
-+	}
-+
- 	if (!kfd->shared_resources.enable_mes)
- 		r = ida_simple_get(&kfd->doorbell_ida, 1,
- 				   kfd->max_doorbell_slices, GFP_KERNEL);
- 	else
- 		r = amdgpu_mes_alloc_process_doorbells(
- 				(struct amdgpu_device *)kfd->adev,
--				doorbell_index);
-+				&pdd->doorbell_index);
- 
- 	if (r > 0)
--		*doorbell_index = r;
-+		pdd->doorbell_index = r;
- 
- 	if (r < 0)
- 		pr_err("Failed to allocate process doorbells\n");
- 
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index cdcaba185052c..04f8098b8ba3d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -712,6 +712,9 @@ struct kfd_process_device {
- 	/* per-process-per device QCM data structure */
- 	struct qcm_process_device qpd;
- 
-+	/* Serializes process doorbell allocation for this device */
-+	struct mutex doorbell_mutex;
-+
- 	/*Apertures*/
- 	uint64_t lds_base;
- 	uint64_t lds_limit;
-@@ -1017,7 +1020,7 @@ unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
- 					unsigned int doorbell_id);
- phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd);
- int kfd_alloc_process_doorbells(struct kfd_dev *kfd,
--				unsigned int *doorbell_index);
-+				struct kfd_process_device *pdd);
- void kfd_free_process_doorbells(struct kfd_dev *kfd,
- 				unsigned int doorbell_index);
- /* GTT Sub-Allocator */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index fd7fecaa9254b..db0689c23e6ad 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1065,6 +1065,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 			pdd->runtime_inuse = false;
- 		}
- 
-+		mutex_destroy(&pdd->doorbell_mutex);
-+
- 		kfree(pdd);
- 		p->pdds[i] = NULL;
- 	}
-@@ -1613,6 +1615,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 		memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
- 	}
- 
-+	mutex_init(&pdd->doorbell_mutex);
- 	p->pdds[p->n_pdds++] = pdd;
- 
- 	/* Init idr used for memory handle translation */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 7c85bb9e270e7..b28b15e2d14c1 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -868,8 +868,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 
- 	*priv_data_offset += q_extra_data_size;
- 
--	if (!pdd->doorbell_index &&
--	    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
-+	if (kfd_alloc_process_doorbells(pdd->dev, pdd) < 0) {
- 		ret = -ENOMEM;
- 		goto exit;
- 	}
+ 	if (dd->synth_stats_timer.function)
+-		del_timer_sync(&dd->synth_stats_timer);
++		timer_shutdown_sync(&dd->synth_stats_timer);
+ 	cancel_work_sync(&dd->update_cntr_work);
+ 	ppd = (struct hfi1_pportdata *)(dd + 1);
+ 	for (i = 0; i < dd->num_pports; i++, ppd++) {
 -- 
 2.53.0
 
