@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315259;
-	b=gxrcocZ7/J2cVRvn7zi+yirEfZVY9cTlVsxJ096u2TA03DFmJvSwpYXZmWcI+Wtxloxr
-	 t8/1iYngip0H33rGKcyLh+K90pjECndnDPRv2Hg9V/3Ts5aSDCMMHjj0c/637d1/mVq1K
-	 oKqKuUqNPCpxSAkgrNYRa0hCayVxGeBQQtQePO4GPJnU/A7+8lZZO2AHHA1TY+43kY3Ew
-	 6jCcOJ5jf1Yr02QZ1zig0SgM1TO/H3sD7uCWYO4N2znSknn3oqV3j+oMSPMNDc2hWiFu0
-	 w4gynQ3wtmAi4rX5p/2JbzmsU3nP/USrOwg/EKDVkZAkFMU9Q2ObrwuyRyYYG6uBu+g==
+	t=1794315310;
+	b=GfmbYtoulsOoc05KPbFitdVX6O0M+Go7WfS3JryiwuYcZLLnLsSUBJLab3pv0RhAcoKE
+	 rZEFPkU7V+sJAuh3kt/8L5nfcphvmQLAZ+ToC6A6R6imKEjfpJAz0av7gXdUC0HL3zZCs
+	 ShTKpO5DyaRJZzGTxERPxYgZE9u7wEQsg1DOtDp4r3sQc4RSmS5V9nL/ZpOn4hM9gubR4
+	 yg+DEVPEgokDxwHIVHYNOEf4vJRU01KzD5MQBoCpKmoOnefgjtnpKKa5YkeFTAiSt7agV
+	 lBvSfbbkx1ENyQ5VvUIEuiE1HKEOM7YnaXS8OF2qzMMWRoQ3hSXRfa2koSSzzQuguFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315310;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zKwpaGvbZ8rvbfB58yIvXUrDq+wsg7dPuCuFxjZMUP0=;
-	b=g8a6ghmyzBTZi38dmYFZGiZaGmfGbL8gcGZxxAwZQ4Sk0IHVOQxrstYfZTw0xtJaHsR2
-	 73Kdpx/HZkpUy09+EcnpUnw9lYemGc1NoybqQ9Ppv0K5lFtZQZq/65ZZuYsvHbZjtjWbz
-	 d3ocOhbU31CJ+Mo1AcWy+vEYl7jdI/FCrU/a9Qz4ghGDlh5+KdJKhKfjEKS4u3va4lPMa
-	 ug/CYN7ItVcZhzlCkK0ahQDOg+8KwyhMDwIzGvDemiAqLQvj7/YPmT0Xc4NdwjLUdpQfl
-	 uRfXKE7TKnpeIzRtAswODuXchZKXe6rHASALzwmzgrU2iaeM4458mEgELEY6PEqxwcw==
+	bh=VnVgPcvZQYH9Bb2Y06JT8fiCgew8JY0jabFdehxiU8U=;
+	b=DOlAXWs1TjCaSohhNP08Q0f3MYgddp/h/EPh4jn8RyqzlcC3auAHJ1nHGMEo53bUmgYv
+	 DIQbiS2xmqHDlq0xqxfIKNC2EsKmBKX8rE3/YeIqSzi+EaKnQE384+pzLZcU40Oce7DpE
+	 hb2NKdhpF94XFmyzG4joFYiNcC1F/GtuoGShogFy/SqATPZK5cS8wTtJb4g3kkPJwx/c0
+	 e9CzWGPAKiWMNoTmVSKHQk27DZOtnjVs88iirX/nPgZt15F42sv6qCNd+aHutJrNFX8FM
+	 po2CNRbgk0ygRvm+BGlv5DB0pTOwWfY6AA0Hnhm/wFB5jSmrpQyPy0Tguwo80KCAcpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpRSnRfg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmKjid2W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA28606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:54:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F7C60A2622
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:55:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpRSnRfg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303721F008A1;
-	Tue, 10 Nov 2026 12:54:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmKjid2W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A561F008A2;
+	Tue, 10 Nov 2026 12:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315259;
-	bh=zKwpaGvbZ8rvbfB58yIvXUrDq+wsg7dPuCuFxjZMUP0=;
+	s=k20260515; t=1794315310;
+	bh=VnVgPcvZQYH9Bb2Y06JT8fiCgew8JY0jabFdehxiU8U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IpRSnRfgF1qKGGBjniEC0G37mVqPEf7uxj/YM7Ty34HXyU0ovcAk3QXT+s5EnDMkT
-	 gzDpEjSxdy2l/a3ULnOz4Pklay4lAC61Qi8cJ2uZgjdJMJKr9G2M+osRDjitmO9ssW
-	 EoCSFQXNWyRvvOhs4NpMUbntxO2fuLRTxudVl4w6MMwVmyO/h3UMIjN+ccWBXIBF3J
-	 hKERhOWqtJIbxXEejurtGmqyauI+3rmKeUKkf1SxK0h6WMG1Z6OF9KIetdGogms62x
-	 QUBL2Cy6b9G+09NC/ZG8g3r7vcPhoTnV/EiJfx9GS7iYZfHlX5rC3SuXZ/RnnRonh9
-	 6hJt0jIqmhJ9Q==
+	b=cmKjid2W0fUCwu9k3aI065DM0LwLQkRcZQy4uOzKYAmq5uR2aT49BG96DSH5KRW0r
+	 cq9TbbpHfZh/fHwHvyQYY50EipvakwdQp7CH9bAfPLZcUb6zh8AFNLrl0vX+OqU87K
+	 EHnCVG4jxK4p6H4wWku7tWYuN9CP6dJf/5vpieuUBFa7bJuNteDk0GRmXNW7HiiUkZ
+	 gptE2NFaX8o1ZrXWWregiZHNs69bSYF30x5PNNBJ0BloKPzmgeFz2Rj3D4uYYJO4Bw
+	 pO22vpnR7dHLin5FNZZv/PvUsMzNpqlXBd/Hznl4yoNmQBTLptRv8anlhUnuEXJ7U9
+	 dK5D4zELWueZw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Pranjal Shrivastava <peaan@google.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Will Deacon <will@kernel.org>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] iommu/arm-smmu-v3: Handle ARM erratum for CONT under invalidation with SVA
-Date: Tue, 10 Nov 2026 07:54:17 -0500
-Message-ID: <20261110125352.1494113-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: usb-audio: Protect Roland control activation
+Date: Tue, 10 Nov 2026 07:55:07 -0500
+Message-ID: <20261110125450.1544189-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050403-failed-7.3-84c6089a365f@kernel.org>
-References: <20261107050403-failed-7.3-84c6089a365f@kernel.org>
+In-Reply-To: <20261107060059-failed-5.15-19b42c1fff7f@kernel.org>
+References: <20261107060059-failed-5.15-19b42c1fff7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,271 +61,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jason Gunthorpe <jgg@nvidia.com>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 84c6089a365ff5547f9ea30cb407dc5fe3124fd3 ]
+[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
 
-The erratum (MMU-700: #3777127, S3: #3673557) deals with under
-invalidation of a CONT PTE grouping in the SMMU. The recommended work
-around is to use a range invalidation that spans the entire CONT. The only
-user of CONT in the kernel right now is through SVA sharing a CPU page
-table that contains a CONT created by the mm.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-Previously it was thought that this errata was dealt with because the
-driver always uses range invalidation. However, there is a subtle detail
-in the errata that the invalidation range must fully enclose the entire
-CONT for it to work.
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-It seems that two sequential range invalidations, with a split point
-falling inside a CONT grouping, will not prevent the errata.
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-The SMMU's range invalidation generation algorithm does not produce a
-single invalidation for a single SVA invalidation request, nor does the mm
-carefully align the SVA invalidation ranges to accommodate the splitting
-of the invalidation into several ranges.
-
-Thus, when processing a SVA invalidation, the range invalidation splitting
-routine can generate a range invalidation that is split in the middle of
-the CONT and risk under invalidation from this errata. This condition
-could be triggered by a malicious userspace manipulating the TLB gathers
-via mmap/mprotect/munmap.
-
-Update the errata list to the include the S3 variation, detect the IOMMUs
-that have it, and then have SVA invalidations use a simplified version of
-the over invalidation algorithm from the tlbi rework series. This ensures
-that a single range invalidation is issued for a single MMU notifier
-callback and now the range invalidation is guarenteed to cover any posible
-CONT.
-
-Future work to add CONT to iommu_domain page tables should either use this
-one-invalidate/one-range invalidation algorithm or disable CONT support in
-the iommu_domain.
-
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
-Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Fixes: 3f1ce8e85ee0 ("iommu/arm-smmu-v3: Share process page tables")
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
-Reviewed-by: Pranjal Shrivastava <peaan@google.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Pranjal Shrivastava <praan@google.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Will Deacon <will@kernel.org>
-[ sashal: Adjusted header context to account for the missing ARM_SMMU_OPT_OVR_INSTCFG_DATA definition. ]
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adapted guard-based locking to explicit mutex and rwsem lock/unlock calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/arch/arm64/silicon-errata.rst   |  3 +-
- .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   |  7 ++
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 89 +++++++++++++++----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  5 ++
- 4 files changed, 87 insertions(+), 17 deletions(-)
+ sound/usb/midi.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index 99a1eb4b833dd..95faec78b7f70 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -273,7 +273,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | MMU L1          | #3878312        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
--| ARM            | MMU S3          | #3995052        | N/A                         |
-+| ARM            | MMU S3          | #3995052,       | N/A                         |
-+|                |                 | #3673557        |                             |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | GIC-700         | #2941627        | ARM64_ERRATUM_2941627       |
- +----------------+-----------------+-----------------+-----------------------------+
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-index 0a429c64fbf3e..3f50298a1c14c 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-@@ -215,6 +215,13 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
- 	if (system_supports_haft())
- 		feat_mask |= ARM_SMMU_FEAT_HAFT;
- 
-+	/*
-+	 * The workaround for ARM_SMMU_OPT_FULL_CONT_RANGE_INV requires range
-+	 * invalidation support.
-+	 */
-+	if (smmu->options & ARM_SMMU_OPT_FULL_CONT_RANGE_INV)
-+		feat_mask |= ARM_SMMU_FEAT_RANGE_INV;
-+
- 	if ((smmu->features & feat_mask) != feat_mask)
- 		return false;
- 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 81baafaffc410..b510dd47f2315 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -2538,6 +2538,37 @@ static void arm_smmu_cmdq_batch_add_range(struct arm_smmu_device *smmu,
- 	}
- }
- 
-+/*
-+ * Generate a range invalidation for ARM_SMMU_OPT_FULL_CONT_RANGE_INV by
-+ * ensuring the entire SVA requested range is covered with a single range
-+ * invalidation command. The scale is adjusted so that the range invalidation
-+ * may extend past the end of the requested range. This ensures that any CONT
-+ * the MM is invalidating is covered by a single range invalidation. TTL and
-+ * LEAF are always 0 because this is only used by SVA.
-+ */
-+static bool arm_smmu_cmdq_batch_add_range_inv(struct arm_smmu_device *smmu,
-+					      struct arm_smmu_cmdq_batch *cmds,
-+					      struct arm_smmu_cmd *cmd,
-+					      unsigned long iova, size_t size,
-+					      u8 tgsz_lg2)
-+{
-+	u64 cur_tg = iova >> tgsz_lg2;
-+	u64 num_tg = ((iova + size - 1) >> tgsz_lg2) - cur_tg + 1;
-+	unsigned int scale = fls64((num_tg - 1) / 32);
-+
-+	if (scale > 31)
-+		return false;
-+
-+	cmd->data[0] |=
-+		FIELD_PREP(CMDQ_TLBI_0_NUM,
-+			   DIV_ROUND_UP_ULL(num_tg, 1ULL << scale) - 1) |
-+		FIELD_PREP(CMDQ_TLBI_0_SCALE, scale);
-+	cmd->data[1] = FIELD_PREP(CMDQ_TLBI_1_TG, (tgsz_lg2 - 10) / 2) |
-+		       (cur_tg << tgsz_lg2);
-+	arm_smmu_cmdq_batch_add_cmd_p(smmu, cmds, cmd);
-+	return true;
-+}
-+
- static bool arm_smmu_inv_size_too_big(struct arm_smmu_device *smmu, size_t size,
- 				      size_t granule)
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 4738d70ed75f3..70084be58f0fa 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1152,7 +1152,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
  {
-@@ -2565,21 +2596,30 @@ static bool arm_smmu_inv_size_too_big(struct arm_smmu_device *smmu, size_t size,
- static void arm_smmu_inv_to_cmdq_batch(struct arm_smmu_inv *inv,
- 				       struct arm_smmu_cmdq_batch *cmds,
- 				       struct arm_smmu_cmd *cmd,
--				       bool leaf,
-+				       bool single_range_inv, bool leaf,
- 				       unsigned long iova, size_t size,
- 				       unsigned int granule)
- {
--	if (arm_smmu_inv_size_too_big(inv->smmu, size, granule)) {
--		struct arm_smmu_cmd nsize_cmd = *cmd;
-+	struct arm_smmu_cmd nsize_cmd;
-+
-+	if (arm_smmu_inv_size_too_big(inv->smmu, size, granule))
-+		goto full_inv;
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
--		u64p_replace_bits(&nsize_cmd.data[0], inv->nsize_opcode,
--				  CMDQ_0_OP);
--		arm_smmu_cmdq_batch_add_cmd_p(inv->smmu, cmds, &nsize_cmd);
-+	if (single_range_inv && size > granule) {
-+		if (!arm_smmu_cmdq_batch_add_range_inv(inv->smmu, cmds, cmd,
-+						       iova, size, inv->pgsize))
-+			goto full_inv;
- 		return;
- 	}
- 
--	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, leaf,
--				      iova, size, granule, inv->pgsize);
-+	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, leaf, iova, size,
-+				      granule, inv->pgsize);
-+	return;
-+
-+full_inv:
-+	nsize_cmd = *cmd;
-+	u64p_replace_bits(&nsize_cmd.data[0], inv->nsize_opcode, CMDQ_0_OP);
-+	arm_smmu_cmdq_batch_add_cmd_p(inv->smmu, cmds, &nsize_cmd);
- }
- 
- static inline bool arm_smmu_invs_end_batch(struct arm_smmu_inv *cur,
-@@ -2600,7 +2640,8 @@ static inline bool arm_smmu_invs_end_batch(struct arm_smmu_inv *cur,
- 
- static void __arm_smmu_domain_inv_range(struct arm_smmu_invs *invs,
- 					unsigned long iova, size_t size,
--					unsigned int granule, bool leaf)
-+					unsigned int granule,
-+					bool single_range_inv, bool leaf)
- {
- 	struct arm_smmu_cmdq_batch cmds = {};
- 	struct arm_smmu_inv *cur;
-@@ -2630,14 +2671,16 @@ static void __arm_smmu_domain_inv_range(struct arm_smmu_invs *invs,
- 		case INV_TYPE_S1_ASID:
- 			cmd = arm_smmu_make_cmd_tlbi(cur->size_opcode,
- 						     cur->id, 0);
--			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd, leaf,
--						   iova, size, granule);
-+			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd,
-+						   single_range_inv, leaf, iova,
-+						   size, granule);
- 			break;
- 		case INV_TYPE_S2_VMID:
- 			cmd = arm_smmu_make_cmd_tlbi(cur->size_opcode,
- 						     0, cur->id);
--			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd, leaf,
--						   iova, size, granule);
-+			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd,
-+						   single_range_inv, leaf, iova,
-+						   size, granule);
- 			break;
- 		case INV_TYPE_S2_VMID_S1_CLEAR:
- 			/* CMDQ_OP_TLBI_S12_VMALL already flushed S1 entries */
-@@ -2684,6 +2727,9 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
- 			       unsigned int granule, bool leaf)
- {
- 	struct arm_smmu_invs *invs;
-+	bool single_range_inv =
-+		smmu_domain->stage == ARM_SMMU_DOMAIN_SVA &&
-+		(smmu_domain->smmu->options & ARM_SMMU_OPT_FULL_CONT_RANGE_INV);
- 
- 	/*
- 	 * An invalidation request must follow some IOPTE change and then load
-@@ -2723,10 +2769,12 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
- 		unsigned long flags;
- 
- 		read_lock_irqsave(&invs->rwlock, flags);
--		__arm_smmu_domain_inv_range(invs, iova, size, granule, leaf);
-+		__arm_smmu_domain_inv_range(invs, iova, size, granule,
-+					    single_range_inv, leaf);
- 		read_unlock_irqrestore(&invs->rwlock, flags);
- 	} else {
--		__arm_smmu_domain_inv_range(invs, iova, size, granule, leaf);
-+		__arm_smmu_domain_inv_range(invs, iova, size, granule,
-+					    single_range_inv, leaf);
- 	}
- 
- 	rcu_read_unlock();
-@@ -5009,11 +5057,20 @@ static void arm_smmu_device_iidr_probe(struct arm_smmu_device *smmu)
- 				/* Arm errata 2268618, 2812531 */
- 				smmu->features &= ~ARM_SMMU_FEAT_NESTING;
+ 	down_read(&umidi->disc_rwsem);
+ 	if (umidi->disconnected) {
+@@ -1164,11 +1166,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 	if (open) {
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = false;
+ 				update_roland_altsetting(umidi);
  			}
-+			/* Arm errata 3777127 */
-+			smmu->options |= ARM_SMMU_OPT_FULL_CONT_RANGE_INV;
- 			break;
- 		case IIDR_PRODUCTID_ARM_MMU_L1:
-+			/* Arm errata 3878312 */
-+			smmu->features &= ~ARM_SMMU_FEAT_BTM;
-+			break;
- 		case IIDR_PRODUCTID_ARM_MMU_S3:
--			/* Arm errata 3878312/3995052 */
-+			/* Arm errata 3995052 */
- 			smmu->features &= ~ARM_SMMU_FEAT_BTM;
-+			/* Arm errata 3673557 */
-+			if (variant < 1 || (variant == 1 && revision < 1))
-+				smmu->options |=
-+					ARM_SMMU_OPT_FULL_CONT_RANGE_INV;
- 			break;
  		}
- 		break;
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-index dd2fee2f560e6..094ce28c862f5 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-@@ -934,6 +934,11 @@ struct arm_smmu_device {
- #define ARM_SMMU_OPT_MSIPOLL		(1 << 2)
- #define ARM_SMMU_OPT_CMDQ_FORCE_SYNC	(1 << 3)
- #define ARM_SMMU_OPT_TEGRA241_CMDQV	(1 << 4)
-+/*
-+ * Range invalidation is mandatory and one range invalidation must fully span an
-+ * invalidated CONT
-+ */
-+#define ARM_SMMU_OPT_FULL_CONT_RANGE_INV (1 << 6)
- 	u32				options;
- 
- 	struct arm_smmu_cmdq		cmdq;
+@@ -1181,15 +1181,15 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			snd_usbmidi_input_stop(&umidi->list);
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = true;
+ 			}
+ 		}
+ 	}
+ 	mutex_unlock(&umidi->mutex);
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	up_read(&umidi->disc_rwsem);
+ 	return 0;
+ }
 -- 
 2.53.0
 
