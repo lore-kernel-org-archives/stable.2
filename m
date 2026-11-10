@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273281;
-	b=4bbaAIV2ngS464+vl2QkSfh2rY837ThxmZVZEd1722KitpjH8FBUU6yJOUUIW4JZp3TI
-	 ofZXrz1sgrVHqC3hNNe50Ai0wL8NliB4kITtJeKwrMccIgurPw31s4aJoTLgpiar3Htca
-	 6PkcIdvDjpFAHYe3bumouxLnEsiKU25d1OwtNt88d8DaLh6EyaRtlTVARuGeSt9tNMEcF
-	 7mwqVTIOdS0yEp1Wkg6QGForv3X42+qQBYhRn80b25L+SYaWDKA/dVMb0mt+89K1DCknK
-	 m2rwLYodt2m8wGtNg8kXKwZZt0yS1OHwpR3Rl+ltA8aC1A/dhRU8a5tXjvepjWXh0vg==
+	t=1794273283;
+	b=iqojzc2AMpmS1AXJ4GhK2Dgu5W59m3+Pp9sS9yq6tpMokl/17RaOm6jR9uU8TlPZlVll
+	 h78tvjSoRUKdiEtRdI7u2/nHI2tttl8RIydxJJnLPjtJd8hAtSDWTIkZyufk8Y76NVoDS
+	 ZZBfPC9gmhtC8m1pJxkQnHD+wQiwwZ3sspCNtquyyHI/vsGtt/ioGiht0373zEOiFlP/l
+	 ybzUkkY0rYhHEGT2dTiUD5boP6jrk0nVxUP4TsHK4hXRH2Da1OiSOBU5fGRd8knNQqq7L
+	 Px1AZwjyIEuEHzLEsBbNHemvatRLoWdRLjeX3il/hJsNbaPY682bQs7E3TdSsC59wVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273283;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xeeNxwqbnxydkHOIrieqdOJsBOI2dVB+Vej5XMafU/8=;
-	b=MKOobaasfufyI4K03Qqhb1UofGo1yefWS2RYHiBP7onAzHGSVxpKb9zUXp/4QkFlJSvt
-	 Uut7GlifAWsQL2y8fQfjQTPNLmknQcHpTGKCTX54Q3vNK6EdD1xGzAuPOCrgyyHvXW6OS
-	 GAn+JjL6YJp3nc+Zf39R8IVM0bkyTnchTpyaHb0ttFrfd/X/cwoNx2Run3a/ipPfP7GEX
-	 aotFA0i8Stg4JyxSaBMbmQrAkMMuGvxs2LyzHLu/DMKtXimMaCVSFuXZpeRSs+qXQev63
-	 f26fRmy0RKW0Cc7uVbjknIdHNpBEhCjaKVOsKXOeC4aRp/aYjiEZcObr+8sNRjN840A==
+	bh=tD8ub0IYLaJCLNGOdZTadrZSf0Zco//+jS5NSugtRm4=;
+	b=pUSWGzpoKZmP6QhqXWt0S/YOaEYx6r7sHHPV/oUNe+vPatdGdDQ5fQZQmHjxl2D9B/eW
+	 NLtwf5RpLjQkOO/ydEejOZhHRrn8bEBbHZHaX9fsxEaM2iGvendj9hVMg4Mx4YKZCVobl
+	 mXnZNA1odJ3fTm7C7HHtVpvM7DRwaXFKj0QKfXyn33yM/f76QpQbNGeToF+w/EGy2cS3p
+	 +sHkfu7buwBr6fVCYsyiu7Js1Ec6wI4kiTijujpOn4ky9D1PY9SIx3S+F1aUHsGa7oS6G
+	 TrP5czp9lk596lOlplF7b0eHwRp2ClawMoNUoCuMRTgBr9ltusq/SAecQk4bfXnaWGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ueol5tGc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9UDZvTn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA4D606A33A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1F8606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ueol5tGc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8BF1F0089F;
-	Tue, 10 Nov 2026 01:14:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9UDZvTn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD5F1F0089F;
+	Tue, 10 Nov 2026 01:14:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273280;
-	bh=xeeNxwqbnxydkHOIrieqdOJsBOI2dVB+Vej5XMafU/8=;
+	s=k20260515; t=1794273282;
+	bh=tD8ub0IYLaJCLNGOdZTadrZSf0Zco//+jS5NSugtRm4=;
 	h=From:To:Cc:Subject:Date;
-	b=Ueol5tGcLhHjtYMuEFTvNsg5HtwaFNY8IDRVE9vpLInGz3mME5j+WpRmfskNr1JoB
-	 NlQLJl0JIL5PqK/k+ngo/Endz8kdQchVYfWRRcZdFMAq3cufvVa7KqcjLa15C3mQhR
-	 ke3yDD+KEG4Ib/BeIJfcyyPwXedVEov6nUxe4PTymm6/LHOv4sllbqh2iBaXKja5UU
-	 kNKf9zTi9O2QbhySqIpujfJOR2UYLBCEhxaGWIyDgO5OcNqTBKvMjs3WAxHn01ye/d
-	 lbD8Uh4dLfmTcIYUpkoMjSHVOpcsTvZ1TSOsBOA90wQT6S8+RUJN660cAjQrNgCwR1
-	 O2O6T+eIkVaFg==
+	b=M9UDZvTnS9kx+PyV6xq5qP5wWogOCdlhEaZMv3wuPOc0D6e0cGPStzfiEJHvPs9iC
+	 uwHiOM/TfC8KTwkLL07jzDyncK17unDD42pJJXHtO/ynbtI8WSDOlvbe6qgBB09osC
+	 XyjD7Zl83rt1CxgJzVZWZ9bzca2seSukeLb1QIopKROZG0JDsDqvejXlEI3on2t/HW
+	 /o+Gshl0f9PfPtAt7s6ggeb7C2E2cSH79YFUUjtxXbFL3ZO0YuKkMwiemh9NTDjHPc
+	 WzeikyYe3K3BUxevED91xDEXTWJlmYYuitggNSBsjGOt6nvy3KHjidGYQf2L/O1rmU
+	 kuqf1ckHYDuJg==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	amir73il@gmail.com
+To: tiwai@suse.de,
+	treebacker@foxmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ovl: look up the index by the decoded origin" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:14:38 -0500
-Message-ID: <20261109201438-failed-6.6-520ef67f47f6@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:14:41 -0500
+Message-ID: <20261109201441-failed-6.6-9017bc3d13da@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,158 +68,92 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 520ef67f47f69255695859b0008281a384d0bc20
+git cherry-pick -x 9017bc3d13da0ea4e63be618c87143a7b69185e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201438-failed-6.6-520ef67f47f6@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201441-failed-6.6-9017bc3d13da@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 520ef67f47f69255695859b0008281a384d0bc20 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Fri, 16 Oct 2026 21:17:22 +0000
-Subject: [PATCH] ovl: look up the index by the decoded origin
+From 9017bc3d13da0ea4e63be618c87143a7b69185e6 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 3 Nov 2026 16:58:40 +0100
+Subject: [PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams
 
-A file opened by file handle on an overlay with nfs_export=on can show
-the stale lower data of a file that was copied up to the upper layer.
-While the file opened this way stays in the inode cache, a lookup of the
-copied up file by path fails with ESTALE for all users. The open can
-also succeed for a file that was removed, where it has to fail with
-ESTALE. This happens with a handle that has one byte changed. The handle
-comes from an NFS client, or from a process that calls
-open_by_handle_at() with CAP_DAC_READ_SEARCH in the initial user
-namespace.
+ALSA PCM core accepts to re-use the existing stream when O_APPEND is
+passed, and it's been used for dmix, etc.  However, this mode isn't
+supposed to be used for OSS: the OSS stream allows re-configuration
+via its hw_params/hw_refine procedure even while it's being mmapped,
+so it implies the usage of only a single stream.  Because of this
+assumption, the sanity check is skipped for OSS streams, and if user
+may attach to an existing OSS stream with O_APPEND, it may result in a
+UAF of the mapped pages which could be used as a privilege escalation
+exploit.
 
-When a file in a lower layer is about to be modified, overlayfs first
-copies it to the upper layer (copy up). With nfs_export=on, each copy up
-also creates an entry in the index directory, a directory that overlayfs
-keeps for itself on the upper filesystem.
+For addressing it, this patch simply prohibits the O_APPEND behavior
+on the OSS stream.  O_APPEND is never used for OSS layer itself, so
+this can't break for the right applications.
 
-The handle of an overlay file that comes from a lower layer wraps the
-handle of its lower inode. Overlayfs calls this lower inode the origin.
-The overlay handle stays valid after a copy up.
-
-To decode such a handle, ovl_lower_fh_to_d() first decodes the wrapped
-handle to the origin. If no overlay inode is cached for the origin, it
-looks in the index directory:
-
-- An index entry there leads to the upper file.
-- A whiteout, the marker that overlayfs uses for a removed file, means
-  that the overlay file was removed.
-
-The name of an index entry is the handle that copy up encoded for the
-origin, as a hex string.
-
-ovl_lower_fh_to_d() builds the name for this lookup from the bytes that
-the caller passed in. But handles with different bytes can decode to the
-same inode:
-
-- Overlayfs ignores some flag bits of the handle.
-- A lower filesystem can accept a different fid type, extra bytes, or
-  generation 0 for any generation.
-
-Such a handle decodes to the origin but misses the index entry or the
-whiteout. So the decode returns an overlay inode that has only the lower
-file.
-
-While that inode is cached, a path lookup of a copied up file fails with
-ESTALE, since the upper file that the lookup finds does not match the
-cached inode, which has none.
-
-Reproduced on tmpfs and on ext4 with open_by_handle_at(), after a copy
-up and a mount cycle. A handle in which one flag bit, the fid type, the
-length or the generation was changed read the old lower data, and path
-lookups returned ESTALE.
-
-Fix this by re-encoding the decoded origin and building the index name
-from that handle.
-
-Fixes: f71bd9cfb692 ("ovl: decode indexed non-dir file handles")
+Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Reported-by: Bo Cao <treebacker@foxmail.com>
+Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
+Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- Documentation/filesystems/overlayfs.rst |  3 ++-
- fs/overlayfs/export.c                   |  4 ++--
- fs/overlayfs/namei.c                    | 13 ++++++++++---
- fs/overlayfs/overlayfs.h                |  2 +-
- 4 files changed, 15 insertions(+), 7 deletions(-)
+ sound/core/pcm.c        | 2 ++
+ sound/core/pcm_local.h  | 6 ++++++
+ sound/core/pcm_native.c | 6 ------
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
-index 16c35b491dad4..4c241d220bc23 100644
---- a/Documentation/filesystems/overlayfs.rst
-+++ b/Documentation/filesystems/overlayfs.rst
-@@ -731,7 +731,8 @@ When decoding an overlay file handle, the following steps are followed:
- 
-  1. Find underlying layer by UUID and path type information.
-  2. Decode the underlying filesystem file handle to underlying dentry.
-- 3. For a lower file handle, lookup the handle in index directory by name.
-+ 3. For a lower file handle, encode the decoded underlying inode again and
-+    lookup that handle in index directory by name.
-  4. If a whiteout is found in index, return ESTALE. This represents an
-     overlay object that was deleted after its file handle was encoded.
-  5. For a non-directory, instantiate a disconnected overlay dentry from the
-diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
-index 9aae20c59608a..bd998a3d8b95c 100644
---- a/fs/overlayfs/export.c
-+++ b/fs/overlayfs/export.c
-@@ -713,9 +713,9 @@ static struct dentry *ovl_lower_fh_to_d(struct super_block *sb,
- 		}
- 	}
- 
--	/* Then lookup indexed upper/whiteout by origin fh */
-+	/* Then lookup indexed upper/whiteout by origin */
- 	if (ovl_indexdir(sb)) {
--		index = ovl_get_index_fh(ofs, fh);
-+		index = ovl_get_index_origin(ofs, origin.dentry);
- 		err = PTR_ERR(index);
- 		if (IS_ERR(index)) {
- 			index = NULL;
-diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index c6127edb9be95..64d63b260709c 100644
---- a/fs/overlayfs/namei.c
-+++ b/fs/overlayfs/namei.c
-@@ -781,14 +781,21 @@ int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
- 	return err;
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 064df4cd3b50e..6c8274414c226 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -929,6 +929,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
+ 			return -ENODEV;
+ 		if (! SUBSTREAM_BUSY(substream))
+ 			return -EBADFD;
++		if (is_oss_stream(substream))
++			return -EINVAL;
+ 		substream->ref_count++;
+ 		*rsubstream = substream;
+ 		return 0;
+diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
+index ecb21697ae3a4..4b134d435c24f 100644
+--- a/sound/core/pcm_local.h
++++ b/sound/core/pcm_local.h
+@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
+ 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
  }
  
--/* Lookup index by file handle for NFS export */
--struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh)
-+/*
-+ * Lookup index by decoded origin for NFS export.
-+ *
-+ * The name of an index is the hex of the file handle that copy up encoded.
-+ * The bytes of the handle to decode cannot be used as the name, because a
-+ * lower fs may decode many handles to the same inode.  For example, it may
-+ * ignore the fid type, extra fid bytes or a zero generation.
-+ */
-+struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin)
++#if IS_ENABLED(CONFIG_SND_PCM_OSS)
++#define is_oss_stream(substream)	((substream)->oss.oss)
++#else
++#define is_oss_stream(substream)	false
++#endif
++
+ #endif	/* __SOUND_CORE_PCM_LOCAL_H */
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 35152fae74ca2..bec797398acf7 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -749,12 +749,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
+ 
+-#if IS_ENABLED(CONFIG_SND_PCM_OSS)
+-#define is_oss_stream(substream)	((substream)->oss.oss)
+-#else
+-#define is_oss_stream(substream)	false
+-#endif
+-
+ static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
  {
- 	struct dentry *index;
- 	struct qstr name;
- 	int err;
- 
--	err = ovl_get_index_name_fh(fh, &name);
-+	err = ovl_get_index_name(ofs, origin, &name);
- 	if (err)
- 		return ERR_PTR(err);
- 
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index b5a672e8e4764..e42543d4c1080 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -750,7 +750,7 @@ int ovl_verify_index(struct ovl_fs *ofs, struct dentry *index);
- int ovl_get_index_name_fh(const struct ovl_fh *fh, struct qstr *name);
- int ovl_get_index_name(struct ovl_fs *ofs, struct dentry *origin,
- 		       struct qstr *name);
--struct dentry *ovl_get_index_fh(struct ovl_fs *ofs, struct ovl_fh *fh);
-+struct dentry *ovl_get_index_origin(struct ovl_fs *ofs, struct dentry *origin);
- struct dentry *ovl_lookup_index(struct ovl_fs *ofs, struct dentry *upper,
- 				struct dentry *origin, bool verify);
- int ovl_path_next(int idx, struct dentry *dentry, struct path *path,
+ 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
 -- 
 2.53.0
 
