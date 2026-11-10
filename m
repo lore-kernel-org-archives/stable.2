@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316677;
-	b=ogEex/Tj1LviQl5DkI39BwkJORKGU2L3XFCBsYXbKeCQVuzT3azwxalcAGccLTeeGn4k
-	 kSYSlFMP3GgooTkhL/tHO9Ge1NeVd5oX1EeIOrNvAago/LecKBZ5FgOXNJkr7KXsfd+B6
-	 eDUEP2j0wsqE6tP+2FIaqSIxexQdn3QYp4UME0YY8foF9XGlxbRbXF9GNKkn4Pdl+nIL2
-	 be/9wnfFnnAgHQkXaP30/QoA3ny6HKKnF7ET0QHdKEovuFNm3FiLzLANwE1tTqUp9wNSi
-	 j1vq1tFeXf6SOAYQmONlRhqnHC3/Fdof9DdIc9++ixm5DzFOhRhEjzWmdgTOg3ZI0Uw==
+	t=1794316693;
+	b=xW/v0PX3yWQAydsKjMPtmV3QnRxWq89mm+mdLvIPO/5PB9qxt/Pt9XZxjx6sR9mn7BL0
+	 gihGqMT20jxTlTJSJwajTxAxlAgd6e1R4kT27jAmrZhhRnxrgARqS+mLRAD1BlRu39U4a
+	 d/VPxlhKGdfKP2RWyNe6+QUCHV0Cutvb/Y30YTYI1u6adQ+cJFiQx0FBmL36KNGuHy+j2
+	 eWeeDEYYm6RwTdHxp3YXTTN0Xrn7JlbEycFVIjT0lZIjx3vRY6C4LuzmK+++7s4Vldbbt
+	 fc9V1OBXppXTvm+vXuiv99szT0IZv95bM+dFxdkIRGvsLoIASvnbyLI0eOAJYtFx60A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316677;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316693;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9qKONuwmndGO48uuneCTs7oyk9EhUV0ajOAkOlUlsW4=;
-	b=zrOlqucgY5J7Shh0GEd4v0d9KHBg/kSy4C5YhcZ2H1itLW52LhH61CoqCdJo3N9jLr7I
-	 9Iggl7WegkzpHQjAEcKHrr9aMdrtZwidiqSlHmRXuXBp41SSrIidw5Svy0kdhkg9/z/uO
-	 XXVqwvZL6k+mmAMrGxTTfqhYX+LjhFPgkySNHSo1iWni3ayzMVk0Z9ys8aSYIK4W0qZ10
-	 VMUKGIhVj6jD9bY6QAvprLeHWjEonMlKnrtHnWIuhL3axS0mke6i7jljp6LuvWb7RriCL
-	 N50PJJYP5lPb6aPDXZLnrYMNZW84SKGhwR8zQ8ZDERKQSSVT5BZEpSNlDrybI8+rhAg==
+	bh=JoDaipnOTgvtUGsKK/9IThiIcUBMG9JBuG9PWQ/GiGs=;
+	b=Vfbgfackbs8HzG3JxDkwcfx3vOrUrZ1dsgRQ6k6ps0Phxt179L8yn9CyRDQSnTYHgN4P
+	 Q619KawxzMiVzufDPyHNzJDoFOb72zHTbWIKPIxBE9kYBUtp0cbz/md5kVg0AhMsgZiBG
+	 obYz5KbwwCSStzeJ7BS8ChwKfMjsfnMBBBiYcDvEOdnzDoEKo6au2AhX/4eJjyiXCqQYW
+	 pND1fNjbtiLEdx4GsPvu7bwEjshy4Fc92o9P/bj7092CppDQADrKXZlcGWTSTCj3bddIW
+	 OR2tEWYAEGt4MjCgjYTwwzBBxJymVjSG2FKyscYWs3wrNxiuVuGboZYcAjH4dJqFR/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSJJ2ctE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IH7BSHLQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DE46072A36
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BDFB606B6E3
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSJJ2ctE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45661F008A3;
-	Tue, 10 Nov 2026 13:17:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IH7BSHLQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52D681F0089F;
+	Tue, 10 Nov 2026 13:18:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316677;
-	bh=9qKONuwmndGO48uuneCTs7oyk9EhUV0ajOAkOlUlsW4=;
+	s=k20260515; t=1794316693;
+	bh=JoDaipnOTgvtUGsKK/9IThiIcUBMG9JBuG9PWQ/GiGs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hSJJ2ctEvAoZWgsxO4oaxETazLZP7yuEAfZjM3GnA5pVvXo9MUeif+ydy/fPgMbpQ
-	 xNCu3aAkYeTjjoIqt/4zNWBmzooDddAjxWMQgZ/f4bzsl4JMLaM9yVOStGJAUgdZn9
-	 SvzzGun5dZGAcVW7MQs6QiaJ8Bl3b4DPDx8IKFEZPW6PAjqfFI5YALKeaWSTt+pXWm
-	 71kmPVB5IPiDdBavrH1ffV+qJZMYx6Do2vqSYi+tgt38sbKM2ybyEwXaEy+PI7pEju
-	 AvGNf69nCEnRE4k6/tY8Nh8Apq+S2p6LVsLciz6VGkBSjYFFAFeVfUVq0efOvc+Bci
-	 xI2IdRgaeHQmg==
+	b=IH7BSHLQ2LEEZXZ+JJbpaSKNkUrTgbi/WU7+VxDZE42kGz/WUKb3hOCxIrsIXSfqU
+	 plEGJFC3l8V2ca0RJ6ErFx/+t/gkjX6L3CXa9v2CbTDEnekyxuqXRsSHmUvTAmyURu
+	 h0oKBCN9tsio3KQbvo0TGUam8CfUgZ1LRUiVWM+hRfRSfxQlBDtxMSRx57qEz4NLkG
+	 os8Xw39WIRESdukVbqYe14nHxJolwuC6y/7NOkdL9WQCeRRsX0IjxzwoOD9T+Mcg3m
+	 +f8s7D8aMrBSKyX6ln3cdGnYusjU4WG3o6oHp8y5fo0WqhLHB+3VnMoHbF6MdgBvAo
+	 +zQcxuDlJNqUA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] crypto: omap-sham - fix crypto engine cleanup
-Date: Tue, 10 Nov 2026 08:17:54 -0500
-Message-ID: <20261110131746.1696961-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] f2fs: fix to check continuousness in f2fs_sync_meta_pages() correctly
+Date: Tue, 10 Nov 2026 08:18:11 -0500
+Message-ID: <20261110131759.1710950-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110131746.1696961-1-sashal@kernel.org>
-References: <20261107052928-failed-6.6-be51ea091c65@kernel.org>
- <20261110131746.1696961-1-sashal@kernel.org>
+In-Reply-To: <20261107053107-failed-6.6-1383cff4ccf3@kernel.org>
+References: <20261107053107-failed-6.6-1383cff4ccf3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,45 +62,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit be51ea091c6563158531e8c74e040552fdb1e28c ]
+[ Upstream commit 1383cff4ccf3c8833c6255edffa29eb67c6419bb ]
 
-omap_sham_probe() allocates and starts a crypto engine, but the remove
-path does not call the matching crypto_engine_exit(). The probe failure
-path already performs this cleanup.
+In f2fs_sync_meta_pages(), whenever i becomes zero inside while loop,
+below check may be skipped, it failed to check the continuousness:
 
-crypto_engine_alloc_init() creates a kthread worker for processing
-requests. Without crypto_engine_exit() during driver removal, the
-worker is left running after the device is removed.
+	if (nr_to_write != LONG_MAX && i != 0 &&
+		folio->index != prev +
+		folio_nr_pages(fbatch.folios[i-1])) {
 
-Call crypto_engine_exit() after unregistering the algorithms and before
-tearing down the remaining request handling resources. This stops the
-engine and destroys its worker.
-
-This issue was found by manual code inspection.
-
-Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: stable@kernel.org
+Fixes: 580e7a492608 ("f2fs: convert f2fs_sync_meta_pages() to use filemap_get_folios_tag()")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adapted cache-entry handling to folio batches using folio_nr_pages() for index increments ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/omap-sham.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/f2fs/checkpoint.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
-index f1aa6996a13ff..19b0e7e6255ec 100644
---- a/drivers/crypto/omap-sham.c
-+++ b/drivers/crypto/omap-sham.c
-@@ -2222,6 +2222,7 @@ static int omap_sham_remove(struct platform_device *pdev)
- 	list_del(&dd->list);
- 	spin_unlock_bh(&sham.lock);
- 	omap_sham_unregister_algs(dd->pdata);
-+	crypto_engine_exit(dd->engine);
- 	cancel_work_sync(&dd->done_task);
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 74bdce66f866d..ff8d336c8bffd 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -406,7 +406,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
+ 				long nr_to_write, enum iostat_type io_type)
+ {
+ 	struct address_space *mapping = META_MAPPING(sbi);
+-	pgoff_t index = 0, prev = ULONG_MAX;
++	pgoff_t index = 0, next = ULONG_MAX;
+ 	struct folio_batch fbatch;
+ 	long nwritten = 0;
+ 	int nr_folios;
+@@ -427,9 +427,8 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
+ 		for (i = 0; i < nr_folios; i++) {
+ 			struct folio *folio = fbatch.folios[i];
+ 
+-			if (nr_to_write != LONG_MAX && i != 0 &&
+-					folio->index != prev +
+-					folio_nr_pages(fbatch.folios[i-1])) {
++			if (nr_to_write != LONG_MAX && next != ULONG_MAX &&
++					folio->index != next) {
+ 				folio_batch_release(&fbatch);
+ 				goto stop;
+ 			}
+@@ -458,7 +457,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
+ 				break;
+ 			}
+ 			nwritten += folio_nr_pages(folio);
+-			prev = folio->index;
++			next = folio->index + folio_nr_pages(folio);
+ 			if (unlikely(nwritten >= nr_to_write))
+ 				break;
+ 		}
 -- 
 2.53.0
 
