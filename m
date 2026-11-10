@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337414;
-	b=FrQHw+N/J/uyBtK/Hgcxl0C4CsUp497tNSelF7fJUkNftI3mRw4NqWkPT+56KWfMUQGA
-	 UpxByMQvPSQB4Ihp1O1k6LcVujdrcc3YvK0p8Fp29r/pYy6aq4zu4NAhbuOGup4GQOzWz
-	 kBKRBdbjG0VudP4iWlSKjXZ4OvjSQlPbRr6LmTJuxfbkw9ej4GDbmNmAZi1iBYJI9CZ74
-	 ABuidXibTw8KXUiKKrR/a9BOnKXLImsA7SsGmigfhJgovWPC044aSOfX7XoFkCnXTtlLt
-	 1LAxtj7CkSjLe9HeuRBd3armKeQ5qMPRkNHrRyGHWj0xOHvRhaYN0iUCwawk9eRCytQ==
+	t=1794337479;
+	b=5Up721UJPQxeY6z2YZuxFgClv0cFVrKSRu9qdXxDHrcNciGzxX3RRsJTe9EH7XGcr2sE
+	 /pUZAWsDCs3y7J3gI9sFyv3lsj+2PZ5/66ucTl5RDgP1T74D7pmonIPklf99/6la96fUp
+	 sDa3+wZJTXV/2OnC+hyjyTHBGcqGum5HDJLVw2jQktx7r/j7bggN8zjX50yKAZm4dh9u5
+	 KwEENokkviLmCa/0AAynC9XtIArHaYrcjLZiPziXck1nZ1Tq90neSxQ4Dqm4gv+nCy4Or
+	 MFoXnLy4ZjzgToLqSoDQ1Cha/iP1JObiS7pxjSQRCd2adOf32ez+Qn6Gk3IE90nqFnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337479;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zApXQKKuDKZssS5suFdpCnwlR9opXQim6rkPH8ml6Ik=;
-	b=4wD2/1RHNW/SOH8qnp/RD8coXkwNnq62oUzgWm+NLpwRpxVFbNFdV8AohgxRiUwv4Ush
-	 CYQJczH7aGwNVfUllXDalAMT0dTbasozp4zf8E/IUErwhjcmKagyi3p+FmqKNo4U7UpKS
-	 d3mQ6pkRpmJASztKp0+/2S/ncBHmppnVUXYsyh1Ax3X8E65TyUCg4hz7aHJjWApwREe2F
-	 vZIuNRHYA0IXgjopHZkBNaJ/VBfE7rrrjC/oI6Y5Mq+p6eM9x7xreyc780X/n82yKeYbT
-	 LllIFijf9WRJ7ObYjOnhCBjCoHCYCkIRMCAPzIbYwkFrABWXQT974eeVpy28b3s54rQ==
+	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
+	b=ShAsv6flfFgoRiuIwECeyj7NLx46d2P6Vm2c+se/XL1Hi3X5NJdo9qbZM2QOviNJYSJq
+	 y7iTY9EOqXXTNaofbgB7rY/v4tncci55SAamzZfwtIn9zKEh62qQA3BRqHy80YsCDxpeX
+	 jCX9m8wVunu5FzQpNY9ScVrMh2d1c26LlWlfV9dLeIF9Y+TLDHqat4QOH2rBpWhoogeXM
+	 EKQc0HiEtbnZNh23o6fLMqQQEpM3fvW3dAiuciePf8Ng06QKZ/UyVRcwAFGkoCMV0t2ah
+	 FfnpJtIYimQfgLsppk9l+gUib9OlFolkkP3xj0KxOkMcC9s6MyQ4aUdjofhs9rdMPmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=narfation.org;
 	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Lg76N1hP;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=JAA4AuHR;
 	arc=none smtp.remote-ip=213.160.73.56
 Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B2545606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:03:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2545606A321
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1F8C360A2639
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8C360A2639
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Lg76N1hP
-Received: by dvalin.narfation.org (Postfix) id E19B020281;
-	Tue, 10 Nov 2026 19:03:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=JAA4AuHR
+Received: by dvalin.narfation.org (Postfix) id 52CD41FD16;
+	Tue, 10 Nov 2026 19:04:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794337412;
+	s=20121; t=1794337477;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zApXQKKuDKZssS5suFdpCnwlR9opXQim6rkPH8ml6Ik=;
-	b=Lg76N1hP289YwY1niWlMPtC2wMETS1lPXOkhuqWEfKOwTp68AH3bCRnc8aRPHoyOly+wq5
-	tOJHxUMoA6JxpLFb8BUrv50m++eYOwHt2k9qQ3aRv8g9o5VRvuvZk2BPappBdwhGp/u5GS
-	nmx0Khr0YFLDE5vL2JA8fHFh5110wBY=
+	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
+	b=JAA4AuHRlmgDKw/nIjzQZelcMf3ohuHwq+qVPKWqhtKO+nRsEzUjUfr2HqIOGGV55SGw+W
+	FGltyD/Al074Ic3k2ORWBBNbNBj7REeP+0Pkh7fLMa1cEVf6NfkGY8DVrrsd/0Abv8ET3w
+	gxaOffS/zhfk974fO+jdIzb/5ANC6IM=
 From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
 Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.12.y] batman-adv: tt: send ROAM_ADV on each roamed back client
-Date: Tue, 10 Nov 2026 20:03:28 +0100
-Message-ID: <20261110190328.112717-1-sven@narfation.org>
+Subject: [PATCH 6.12.y] batman-adv: tt: ignore ROAM flag of received ADD changes
+Date: Tue, 10 Nov 2026 20:04:34 +0100
+Message-ID: <20261110190434.114342-1-sven@narfation.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200623-failed-6.12-aff4d5d10f2d@kernel.org>
-References: <20261109200623-failed-6.12-aff4d5d10f2d@kernel.org>
+In-Reply-To: <20261109200625-failed-6.12-c5d68abe6e7f@kernel.org>
+References: <20261109200625-failed-6.12-c5d68abe6e7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,46 +65,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit aff4d5d10f2dcb4a9b604e27414dafa1d51b6406 upstream.
+commit c5d68abe6e7f1dbd132a602cb696fe1fff0389eb upstream.
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_roam_tvlv_unicast_handler_v1() creates a global entry with the
-BATADV_TT_CLIENT_ROAM flag set.
+A received TT change (OGM diff or full table response) with the ROAM flag
+but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
 
-If the client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_roam() is expected to announce this return via a
-ROAM_ADV frame. But this doesn't happen because the global entry (created
-by the first ROAMING_ADV) carries BATADV_TT_CLIENT_ROAM until the new
-originator announces the client.
+* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
+  therefore excluded from the global CRC. The sender has it in its local
+  CRC and the receiver has to request the full table again
+* batadv_tt_global_purge_local() removes the local entry of the
+  receiver. The receiver's own client is considered as roamed to the sender
+  and frames for it are rerouted
 
-Let batadv_tt_local_add_roam() always handle a roamed back client -
-independent of the ROAM flag of the global entry:
-
-* trigger sending of the ROAM_ADV frame(s)
-* remove the (with the roaming) associated global entry
+The ROAM flag only has a meaning together with DEL. Drop it on reception to
+keep it from populating the global table with a temporary ROAMING entry
+which is not part of the CRC - and therefore causing a CRC mismatch.
 
 Cc: stable@vger.kernel.org
 Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ adjust code still in batadv_tt_local_add ]
+[ Context ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/translation-table.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/batman-adv/translation-table.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index c148127799c1b..8397b9edb5aea 100644
+index 8397b9edb5aea..96d67ec1a8af9 100644
 --- a/net/batman-adv/translation-table.c
 +++ b/net/batman-adv/translation-table.c
-@@ -775,7 +775,8 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 	/* Check whether it is a roaming, but don't do anything if the roaming
- 	 * process has already been handled
- 	 */
--	if (tt_global && !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM)) {
-+	if (tt_global &&
-+	    (roamed_back || !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM))) {
- 		/* These node are probably going to update their tt table */
- 		head = &tt_global->orig_list;
- 		rcu_read_lock();
+@@ -3339,20 +3339,29 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
+ {
+ 	int i;
+ 	int roams;
++	u8 flags;
+ 
+ 	for (i = 0; i < tt_num_changes; i++) {
+-		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
+-			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
++		flags = (tt_change + i)->flags;
++
++		if (flags & BATADV_TT_CLIENT_DEL) {
++			roams = flags & BATADV_TT_CLIENT_ROAM;
+ 			batadv_tt_global_del(bat_priv, orig_node,
+ 					     (tt_change + i)->addr,
+ 					     ntohs((tt_change + i)->vid),
+ 					     "tt removed by changes",
+ 					     roams);
+ 		} else {
++			/* an announced client cannot have roamed away from
++			 * orig_node. Only a ROAMING_ADV is allowed to add a
++			 * global entry with the ROAM flag
++			 */
++			flags &= ~BATADV_TT_CLIENT_ROAM;
++
+ 			if (!batadv_tt_global_add(bat_priv, orig_node,
+ 						  (tt_change + i)->addr,
+ 						  ntohs((tt_change + i)->vid),
+-						  (tt_change + i)->flags, ttvn))
++						  flags, ttvn))
+ 				/* In case of problem while storing a
+ 				 * global_entry, we stop the updating
+ 				 * procedure without committing the
 -- 
 2.47.3
 
