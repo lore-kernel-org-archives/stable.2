@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338451;
-	b=FSjK8spL1JB/7x9HKdQWU2Bxk3W7T5GBK/j41NpMRQDFV3gYRrklRVu90fS3g7pnmkDK
-	 Crq65nNZSzLSJCpVWaCgR7r5/4KYFSFIx967C0/gtfj6W84wvgPrfP4iBHm3Pqo9MVq/E
-	 OFH6DJk6fZPVRKmTTywmcYdk/J+BQCL46FCOAcenBTvanSKcvNiXQqJ5CMcJD6yoSmV9H
-	 17pOl+SoPF2YQU1/eWGQGmbi7mGPqKIugKrwuUQQeGUDaLSlbjfe0OHCFW29vi9rkvZPP
-	 tJp01qDWdXqosvY89CdwnXDwl/bHcWm2cKNn9wuYeMBrTsYSksKvGTdMchIvsK/KBNA==
+	t=1794338470;
+	b=qE7/tXZP/gbAWkV9hNFbEvpQ4RcWkD9/c1Zdh+LU6CT0Al+7gvEClbDzUDQX3yzUSBgh
+	 DgLa5URVpbb/1E77RILagIE3yddMTiTd8pEc7H00hFTu2gOsbh485W9fzPja+ddkBNBoB
+	 4/R1jLIfJeZE7se3NaOVNuaE7k2NSnSwJegXHNiiiXpd37y904sd25NHFQqKeF7UKHZ7U
+	 XXDyfMEqpc8gVUl+va2/IIHDQ6RyyrPEoLeSZJfdSXab/7kTR+i1417LGe0nQjyiEGxI9
+	 XPetaHjuLI48U/ua0vVoKZt+euYoYpduDz3wYhFHM8Cvbg5lbAI9WtnuWJ9KkvxJ6vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338451;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TswJ++Iu7H22CtooflhXQo0hHoBWF2UtI4SQN410ngs=;
-	b=OFBhSKpNYHlEaBNdhxMG43FTIzbKQwF8R3ENFrqBZXSt+U9r+fipwYR5sIz+vQmwqci0
-	 KHQDMsI3jHJ0TpUdrhGb2DdqB97UAMQzY0A8eX7RW4+wyLVim+C2+cwqVl+ROMmXADqwy
-	 2nCmWhZJx7185hX0WuMkk7Ll8TSODIF1BPNSVYBeHvfDXhag4LeJPN+65A+XVv1I1gY1w
-	 W4VBFwzvFUb8e+dZmaW07D+77eQUgYu79ivze5ncSozAhWEdPX60+Q8A33LvIwV2VXbDI
-	 xzNEqavqRVHFa20b/h4dW3TA6y2Auk5BIv/sMZjOnoRpCSS4MChwQ91FwAIE7RO4CEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338470;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
+	b=nvPtPMUQVBYpbb6x4wtFcEWDvJQvFA6+o00kwuIKZ796qovYlHGg8k5nSNKIv0zD1fLT
+	 r8uf/RziBCCHjVsCHFCtcs6SKgwQfqfwZhboroSkR9f8WcFfc9gEt49phx5DskSWh97rl
+	 NhsXKyKyFWnthqo2PTaSozbGniM1Jk2hlfXdSBrINwZeHHxzJJx//PW94gscVh/uVylEJ
+	 UiWHGd4l4TdEa/Z+06CLgwHJvMWrcWWtuP8hVgeb9OGrrBBg9A2fPjQbRDlPaVMRbzSqG
+	 gxvB5twa1gH4ruFZ0XxLMXBlDO9YC79dv7yXSQadxjPTFDCgor9sAm80fCQUvG8cvyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGK+nhH1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b="aH/Ln5O8";
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D27606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 62F96606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:21:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F96606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGK+nhH1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6A0A1F0089F;
-	Tue, 10 Nov 2026 19:20:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338450;
-	bh=TswJ++Iu7H22CtooflhXQo0hHoBWF2UtI4SQN410ngs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WGK+nhH1FiTBK/twVYDO4sJlDvyFWkLGTqW4aKba8b6ADO+cJ+30LO1OSFz6ODKez
-	 VrjCB2H6T1kuMWT4SjH3bXEAEhdMscPcGV+/sGyytGttB3WawdL7gps+Ad+2l7LHjT
-	 xqo/IejNT1WI3ngcGazYZW15LHlu7kdYZfkH6g7sczqZHCYvfo8fG9MmwUo9/go/wH
-	 BQuRN8FsVrJZ28i8Vo8IF3TTUstnYyhCuQxXWpbNDzQ1cerkEmJLr3bCjSqHYwXW+D
-	 7GpaHP2uEOQvyePCmJ4B7gpuJUS3wLVPNrij18gsNa3dFASaGUIQKiSWJBV0oJ3q22
-	 1Cgd4EtJo8A/A==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=aH/Ln5O8
+Received: by dvalin.narfation.org (Postfix) id 8B14E216C6;
+	Tue, 10 Nov 2026 19:21:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794338468;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
+	b=aH/Ln5O8ye84WnZzTKnDd0KY/ZRIeFXduV5ZsdDlLpGrxuwEBBJAGkiNwQTMBfwhzKcsgC
+	zxOz6C1Uc3i1Oh1co8RNBc9N555lFuexKm6MTmsFUCoOgVEDBi3Gs1pW0Kj/tNN1PsBAqM
+	JwOV/r7syHiNNz8V4AVcw5rqJK6JzS0=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
-Date: Tue, 10 Nov 2026 14:20:48 -0500
-Message-ID: <20261110191015.3414229-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051147-failed-6.18-0ea3e0b196f9@kernel.org>
-References: <20261107051147-failed-6.18-0ea3e0b196f9@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.6.y] batman-adv: tt: ignore ROAM flag of received ADD changes
+Date: Tue, 10 Nov 2026 20:20:55 +0100
+Message-ID: <20261110192055.157139-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109201039-failed-6.6-c5d68abe6e7f@kernel.org>
+References: <20261109201039-failed-6.6-c5d68abe6e7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,75 +65,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+commit c5d68abe6e7f1dbd132a602cb696fe1fff0389eb upstream.
 
-[ Upstream commit 0ea3e0b196f9dcc17b40ac881a6efef06459975b ]
+A received TT change (OGM diff or full table response) with the ROAM flag
+but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
 
-q6apm_dai_pointer() turns the number of period buffers the DSP has
-returned in the current lap, 1..periods, into a position and reports
-one frame less than that. Commit a93dad6f4e6a ("ASoC: q6apm-dai: make
-use of q6apm_get_hw_pointer") added the "- 1" so that the end of the
-ring is not reported as a position equal to the buffer size.
+* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
+  therefore excluded from the global CRC. The sender has it in its local
+  CRC and the receiver has to request the full table again
+* batadv_tt_global_purge_local() removes the local entry of the
+  receiver. The receiver's own client is considered as roamed to the sender
+  and frames for it are rerouted
 
-One frame short has a cost once the application stops feeding the
-stream. The DSP returns the last queued buffer and the position stops
-at appl_ptr - 1, so avail stays at buffer_size - 1, below the default
-stop_threshold. The DSP sends nothing more as its queue is empty, so
-no period interrupt comes either: ALSA never detects the underrun and
-the stream stays RUNNING. A poll-driven application that missed its
-last wakeup waits forever, and drain only ends on its timeout, with
--EIO. On capture, the last frame of each period is held back until
-the next one.
+The ROAM flag only has a meaning together with DEL. Drop it on reception to
+keep it from populating the global table with a temporary ROAMING entry
+which is not part of the CRC - and therefore causing a CRC mismatch.
 
-Before that commit the position wrapped to 0 at the end of the ring.
-Do that again. A full lap is the start of the ring, and
-snd_pcm_update_hw_ptr0() accounts for the wrap: the position cannot
-move by more than one lap between two updates, as each returned buffer
-calls snd_pcm_period_elapsed() and the DSP holds at most periods
-buffers.
-
-Seen on a OnePlus Pad 3 (SM8750) with PipeWire in interrupt-driven
-scheduling: after a stall the PCM sat at hw_ptr 78239, appl_ptr 78240
-(avail 3839 of 3840) for two hours.
-
-Fixes: a93dad6f4e6a ("ASoC: q6apm-dai: make use of q6apm_get_hw_pointer")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Tested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261014162703.10172-2-tvlad744@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: Adjusted context in q6apm_dai_pointer() because the push/pull-mode branch is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ Context ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ net/batman-adv/translation-table.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index 54c1a33f9f937..4ea2c9869d5a1 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -442,11 +442,15 @@ static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
- 	struct q6apm_dai_rtd *prtd = runtime->private_data;
- 	snd_pcm_uframes_t ptr;
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 8397b9edb5aea..96d67ec1a8af9 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -3339,20 +3339,29 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
+ {
+ 	int i;
+ 	int roams;
++	u8 flags;
  
--	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) * runtime->period_size;
--	if (ptr)
--		return ptr - 1;
-+	/*
-+	 * The hw pointer counts the period buffers the DSP has returned in
-+	 * this lap, 1..periods. A full lap is the start of the ring again:
-+	 * report 0 rather than one frame less, so that the position of a
-+	 * drained buffer reaches appl_ptr and ALSA sees the underrun.
-+	 */
-+	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) % runtime->periods;
- 
--	return 0;
-+	return ptr * runtime->period_size;
- }
- 
- static int q6apm_dai_hw_params(struct snd_soc_component *component,
+ 	for (i = 0; i < tt_num_changes; i++) {
+-		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
+-			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
++		flags = (tt_change + i)->flags;
++
++		if (flags & BATADV_TT_CLIENT_DEL) {
++			roams = flags & BATADV_TT_CLIENT_ROAM;
+ 			batadv_tt_global_del(bat_priv, orig_node,
+ 					     (tt_change + i)->addr,
+ 					     ntohs((tt_change + i)->vid),
+ 					     "tt removed by changes",
+ 					     roams);
+ 		} else {
++			/* an announced client cannot have roamed away from
++			 * orig_node. Only a ROAMING_ADV is allowed to add a
++			 * global entry with the ROAM flag
++			 */
++			flags &= ~BATADV_TT_CLIENT_ROAM;
++
+ 			if (!batadv_tt_global_add(bat_priv, orig_node,
+ 						  (tt_change + i)->addr,
+ 						  ntohs((tt_change + i)->vid),
+-						  (tt_change + i)->flags, ttvn))
++						  flags, ttvn))
+ 				/* In case of problem while storing a
+ 				 * global_entry, we stop the updating
+ 				 * procedure without committing the
 -- 
-2.53.0
+2.47.3
 
