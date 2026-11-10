@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794280991;
-	b=fYdCflzPe9Bez3pfWznxTuYAzWtpNvdjacnDQhoGa30fWbMDmfJpfpFc0TRW4iTo8P2o
-	 sk/7RzGcmdeUD5SA1ZpxFVbmxqFUfxMsxiqD38qsyyv7tcLddj180/B6kTbKnQhJQgR78
-	 d2SVc77BRxHZFUvhUfAV+DWSaM5RdffJ1STka9FWli8IsG/3gn9vgOYldzcY/1BFLn32s
-	 RdAK5TdMcPvolLCJwwJAK0qGybXcIqtPushKDg8kIvXeZtRUwa5EnxvGT6OpIImRWOuYd
-	 oth7NDhmBKZVLqw7n/gKfPw9kxWmMu2hnodNN51PiU2I9ws7YBFTHPU1D+vvCRuQD6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280991;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=xTuKFjOL9MLyUlSMODi8Yn1X8Zb1+J3mhD6YlkzKV8A=;
-	b=uzskKy8cvLnED9mXD7shX6kiaclGE+3GKRtaRfjwYPG4WxoimsPvenAfnFjIsPsMO6pc
-	 N6PyjjeRedsarVwYXOIsxDRDFktK8znAKKFLM5DIM2hBkAbv2S6yOutiyRniwcduXjEo5
-	 bCOdure6mehZna9KDyUtCX5lCuJadJgxOBxOkpjaVj/g9pVOLspH+yyEYNl8bMLtV1q0T
-	 4RhT/Mm8Ov+8P6wyjdgdzjjm8RW1KE5ahwZceJ8Sc9iCqsdsP1ZUNJpeZABWRJvHUQf95
-	 MXJt9k8cnI/riII/4DQK2IPjQuBKbDj3QWxYMfccsuPWECF49XMPpz42RLs5cFsCbKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ryg05WLm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794281032;
+	b=nsBsf6OjD7Spk9X1jmJDvfcD+FGcPWcdebckfRQ+C67IwUcNVN+uNWeaKqcbx1z1m0z+
+	 bo4w8fjJhOGpgyHdutMx46DarKK65NrXWVjqHMjgQtEWXmYEW7wLJBgVAN4T3c2xLaa2+
+	 0t0nvZSZuhIYgh8zcTlowOiodVTS1pSLBl7xE5PTnzkgq3vpA+mWCdyPhChllhfJJdwtK
+	 u4pgCfw0hdP0ETV467FYhxMiXrhaDojbucy1Tl+Lohbujy6DjOhm3oI5VrwzXUKaKp8zx
+	 KhgvX3D5pI3XpH7lyvkkq1nnOWlvn4fCg0R61x95jv2e4hjqQxvms0tqGaBgY35BHkg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281032;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ELgAkiC7MISL+N8wtXNIiUezMcEORJm1wqRNL/KmIYg=;
+	b=TtlxnO+PHG2BPHAyf8iUmnSzxjvo3bZsKmJyomHByhU2T4FLbCYk3KbcGrMd83u5uMH2
+	 czittPP23+eX/fMiX1PRMjv1jSXuOZZ+ZkbZujeP4UqHM3ZQkmjoq7FRmQazwVtvkDOJh
+	 SXPDjjPgNdMI4DWk46cT3iQ/vTROvXGuP1NRypC2K3J0C6UnUM2a+8wOWvfK/i++P8/FR
+	 l4rWN6x6CU8O4+xAJf6awfy9+iBiXRP5PxQhUEEJhSfDwNxEHrMi325dhgZNb96HRJEyo
+	 UqgeGPcO0P5rRny6JaBRE4mwV1zIdauDbbdXNGwqk4+dBnoFOqPUo/GQjA6qAzbWzrw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1A11leD;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3502A60A2639;
-	Tue, 10 Nov 2026 03:23:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B288606A336
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:23:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ryg05WLm
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794280990;
-	b=Q/5jBBc1olXGDe24M9axKgSeU8VwZxxw0U2QiVnKAipfDv92lMp5+ki5GK7paaJDwkmX
-	 YalwOZsta/oWGkj/YUFZj934/ymSRC9X6/C0IhAPJwuSaK/m3RyvH6LFYudJtSxg6q2Be
-	 D1UBAltJxkYxHlIMLJbOmU3+P2mhmjGRsuvyQxIRKYbputVscE+2hnSHiI6eRUzD8t1A+
-	 wNful94rFCiePIWGY/WTA5JaArWuEJSYJ2ktJwa/hMNfy5ms8VsFAA4js2A8ZMMyQQCtX
-	 o3JnJ7fQLFEJb4abLeslf7TWiZg73NX7rpT8IT08JG9Ez+96kWYsyQtjCvKNuXroF9w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794280990;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=xTuKFjOL9MLyUlSMODi8Yn1X8Zb1+J3mhD6YlkzKV8A=;
-	b=3esVU2aSf0IhVsv4L+aIrmdWjUpUgZl0lNW7GGlm6IyKuONdG1Ep/Vs74uQ8DmUG9ZQo
-	 I4B1MUKu15Hkhaf57lUOUmP0TI043ufZ52VvH1PSGWs46HloZ0QpvDTssCHZsEDhFYELq
-	 7e5RHSrm3JJjg8MA7SmHUmyRDeWD2I4P68IAEC48M75xVXfUC+RNoeE0KvRdKeW/8fvqz
-	 1SnhlpYPWpp9wMlI5gmJVIxMA62ojv7lmFOEEYjmX/n4mAqCgE8sgFzXWmRErgET/EPJI
-	 ANEXQs5m91b4C0z0Af1LCUtKA+POkreTHKdGYe2a9/3hVrRcNF5xVtDPZVpj+HhAQoQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7460C1F00904;
-	Tue, 10 Nov 2026 03:23:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1A11leD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0601F0089F;
+	Tue, 10 Nov 2026 03:23:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280990;
-	bh=xTuKFjOL9MLyUlSMODi8Yn1X8Zb1+J3mhD6YlkzKV8A=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Ryg05WLmpQX+r8e+OX0Qaiw31e+/MMoeF8SSpMkHJe1qAG4QsOJtC84qtbnuHKAcC
-	 68WrYyiYzcSr5UHJzXYHfY9h7QduPfQioalVzKJ8BPgSvAnLYgDp+MzqF7IpF8r3SS
-	 C1gJqA6J2fRyUDud3qSkkXqW4uCSIUlXvKGjFwIiVnKKtE68XCFKHHqNWOA4wOKrpF
-	 gXE2nwQq1dPupEOT+WDMdVHvEdZKUlb5Oy51LUVBz5cgSDIGS67JTbtHInJFjBk4cK
-	 IHSMJVNtJOl4X27N+wU5IWO1yFJ0/n48C8POyM76UK/Dxv7PdhQStRl+J2tCek2vjl
-	 kQ/7611KM2LqQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0AD86487A2;
-	Tue, 10 Nov 2026 03:23:08 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 03:23:08 +0000
-Subject: [PATCH RESEND v2] nfc: s3fwrn5: validate firmware header pointers
- against file size
+	s=k20260515; t=1794281032;
+	bh=ELgAkiC7MISL+N8wtXNIiUezMcEORJm1wqRNL/KmIYg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=B1A11leDaiy8J5tZ5woQ7enNdYAcgKGxADVrlwEKTOjFBG2teBnt4bW6A2F2HhRc2
+	 LekG86d9/+hQJTXLUy8Sj+1jSo5q4fboGlBLrHMoN7cfShKMPaCn15P0sHfbVYasZp
+	 mGpK+2VLTOJ251IXvRvZUR5LrOU4qh7U/pMJj9M1V7cOC33lzXre8w3PFZoXQp5kct
+	 5/ChIf7uYhoTCzv7Y1n3w0ZqTKzVn8U8ac/oj6YO72pskv6NY47v4KY+k2hD0XaUh1
+	 RDAyQY1sbbW6Ya9ahkQpLt5JL06Huzsn9zuYvoRIIdfEO7GyNAzes5r199xDT06NTs
+	 b+PwfuA+r/LCg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
+	Isaac Scott <isaac.scott@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] media: i2c: imx219: Propagate errors from control range updates
+Date: Mon,  9 Nov 2026 22:23:49 -0500
+Message-ID: <20261110032344.182965-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050657-failed-6.18-47576c541e9b@kernel.org>
+References: <20261107050657-failed-6.18-47576c541e9b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,162 +62,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-s3fwrn5-v2-v2-1-e8f154a5613e@gmail.com>
-To: joasantonio108@gmail.com, david@ixit.cz, krzk@kernel.org
-Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794280987; l=4877;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=dxYNaHNtIiX2P2fjyRdVjd+WIyE9HNkEJiNNzya94jE=;
- b=J/wuNCjog6Vx3vtgf987hnzfOkLQu2fNFol5fIMuQrETBU6OQNPiTF+y6UbESV7JDU42on+in
- GFl2A7NttqNAuKi7SnnmkARJp/PscAnrnzy0z88t7SWKEbkY2EHPlr2
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+From: Tarang Raval <tarang.raval@siliconsignals.io>
 
-s3fwrn5_fw_request_firmware() reads six offsets and sizes from the
-firmware file header and uses them to set pointers and lengths without
-checking that they fall within the file:
+[ Upstream commit dff10c7044e8777bd14bba99444ff8a69d9bb2fe ]
 
-  sig_off / sig_size       (0x14 / 0x18)
-  image_off / image_sectors (0x1C / 0x20)
-  custom_sig_off / custom_sig_size (0x24 / 0x28)
+Propagate return values from __v4l2_ctrl_modify_range() and
+__v4l2_ctrl_s_ctrl() in imx219_set_ctrl() and imx219_set_pad_format().
+This ensures proper error handling instead of ignoring possible
+failures. Also return the result of imx219_set_pad_format() from
+imx219_init_state().
 
-s3fwrn5_fw_enter_update_mode() then sends sig_size bytes starting at
-sig_off through skb_put_data(), and s3fwrn5_fw_download() hashes and
-sends sector_size * image_sectors bytes starting at image_off.  A
-crafted firmware file with out-of-range offsets causes heap buffer
-over-reads.
-
-Validate that every offset + size pair fits within the firmware file
-before setting the pointers, using check_add_overflow() to prevent
-u32 wraparound.  Also check that the GET_BOOTINFO response is long
-enough before copying boot information out of it, and that the total
-image area (including the 16 * 256 bytes per sector that
-s3fwrn5_fw_update_sector() sends) lies within the file.
-
-Found by LLM-assisted source review.
-
-Fixes: c04c674fadeb ("nfc: s3fwrn5: Add driver for Samsung S3FWRN5 NFC Chip")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+Reviewed-by: Isaac Scott <isaac.scott@ideasonboard.com>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: 47576c541e9b ("media: imx219: The horizontal blanking step is 8")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-s3fwrn5_fw_request_firmware() reads six offsets and sizes from the
-firmware file header and uses them to set pointers and lengths without
-checking that they fall within the file.  A crafted firmware file with
-out-of-range offsets causes heap buffer over-reads.
+ drivers/media/i2c/imx219.c | 61 +++++++++++++++++++++++++-------------
+ 1 file changed, 40 insertions(+), 21 deletions(-)
 
-Validate that every offset + size pair fits within the firmware file
-before setting the pointers, using check_add_overflow() to prevent
-u32 wraparound.
-
-    file size (sashiko); restructure request_firmware() to read all header
-    fields first, then validate, then set pointers
-
-v2: validate sig_off+sig_size and custom_sig_off+custom_sig_size against
----
- drivers/nfc/s3fwrn5/firmware.c | 33 ++++++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/nfc/s3fwrn5/firmware.c b/drivers/nfc/s3fwrn5/firmware.c
-index 9145deec7f6c..e2b1c932e039 100644
---- a/drivers/nfc/s3fwrn5/firmware.c
-+++ b/drivers/nfc/s3fwrn5/firmware.c
-@@ -12,6 +12,7 @@
- 
- #include "s3fwrn5.h"
- #include "firmware.h"
-+#include <linux/overflow.h>
- 
- struct s3fwrn5_fw_version {
- 	__u8 major;
-@@ -93,7 +94,8 @@ static int s3fwrn5_fw_get_bootinfo(struct s3fwrn5_fw_info *fw_info,
- 		return ret;
- 
- 	hdr = (struct s3fwrn5_fw_header *) rsp->data;
--	if (hdr->code != S3FWRN5_FW_RET_SUCCESS) {
-+	if (hdr->code != S3FWRN5_FW_RET_SUCCESS ||
-+	    rsp->len < S3FWRN5_FW_HDR_SIZE + 10) {
- 		ret = -EINVAL;
- 		goto out;
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 00aec91e3d499..ffb04a56419ad 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -463,10 +463,14 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		exposure_max = format->height + ctrl->val - 4;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+ 			exposure_max : IMX219_EXPOSURE_DEFAULT;
+-		__v4l2_ctrl_modify_range(imx219->exposure,
+-					 imx219->exposure->minimum,
+-					 exposure_max, imx219->exposure->step,
+-					 exposure_def);
++		ret = __v4l2_ctrl_modify_range(imx219->exposure,
++					       imx219->exposure->minimum,
++					       exposure_max,
++					       imx219->exposure->step,
++					       exposure_def);
++		if (ret)
++			return ret;
++
  	}
-@@ -285,6 +287,7 @@ int s3fwrn5_fw_request_firmware(struct s3fwrn5_fw_info *fw_info)
- 	u32 sig_off;
- 	u32 image_off;
- 	u32 custom_sig_off;
-+	u32 end;
- 	int ret;
  
- 	ret = request_firmware(&fw->fw, fw_info->fw_name,
-@@ -303,17 +306,27 @@ int s3fwrn5_fw_request_firmware(struct s3fwrn5_fw_info *fw_info)
- 	memcpy(&fw->version, fw->fw->data + 0x10, 4);
+ 	/*
+@@ -858,6 +862,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 	struct v4l2_rect *crop;
+ 	u8 bin_h, bin_v, binning;
+ 	u32 prev_line_len;
++	int ret;
  
- 	memcpy(&sig_off, fw->fw->data + 0x14, 4);
--	fw->sig = fw->fw->data + sig_off;
- 	memcpy(&fw->sig_size, fw->fw->data + 0x18, 4);
+ 	format = v4l2_subdev_state_get_format(state, 0);
+ 	prev_line_len = format->width + imx219->hblank->val;
+@@ -893,19 +898,28 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 		int pixel_rate;
  
- 	memcpy(&image_off, fw->fw->data + 0x1C, 4);
--	fw->image = fw->fw->data + image_off;
- 	memcpy(&fw->image_sectors, fw->fw->data + 0x20, 4);
- 
- 	memcpy(&custom_sig_off, fw->fw->data + 0x24, 4);
--	fw->custom_sig = fw->fw->data + custom_sig_off;
- 	memcpy(&fw->custom_sig_size, fw->fw->data + 0x28, 4);
- 
-+	if (check_add_overflow(sig_off, fw->sig_size, &end) ||
-+	    end > fw->fw->size ||
-+	    image_off > fw->fw->size ||
-+	    check_add_overflow(custom_sig_off, fw->custom_sig_size, &end) ||
-+	    end > fw->fw->size) {
-+		release_firmware(fw->fw);
-+		return -EINVAL;
-+	}
+ 		/* Update limits and set FPS to default */
+-		__v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
+-					 IMX219_FLL_MAX - mode->height, 1,
++		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
++					       IMX219_FLL_MAX - mode->height, 1,
++					       mode->fll_def - mode->height);
++		if (ret)
++			return ret;
 +
-+	fw->sig = fw->fw->data + sig_off;
-+	fw->image = fw->fw->data + image_off;
-+	fw->custom_sig = fw->fw->data + custom_sig_off;
++		ret = __v4l2_ctrl_s_ctrl(imx219->vblank,
+ 					 mode->fll_def - mode->height);
+-		__v4l2_ctrl_s_ctrl(imx219->vblank,
+-				   mode->fll_def - mode->height);
++		if (ret)
++			return ret;
 +
+ 		/* Update max exposure while meeting expected vblanking */
+ 		exposure_max = mode->fll_def - 4;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+ 			exposure_max : IMX219_EXPOSURE_DEFAULT;
+-		__v4l2_ctrl_modify_range(imx219->exposure,
+-					 imx219->exposure->minimum,
+-					 exposure_max, imx219->exposure->step,
+-					 exposure_def);
++		ret = __v4l2_ctrl_modify_range(imx219->exposure,
++					       imx219->exposure->minimum,
++					       exposure_max,
++					       imx219->exposure->step,
++					       exposure_def);
++		if (ret)
++			return ret;
+ 
+ 		/*
+ 		 * With analog binning the default minimum line length of 3448
+@@ -916,9 +930,12 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 		imx219_get_binning(state, &bin_h, &bin_v);
+ 		llp_min = (bin_h & bin_v) == IMX219_BINNING_X2_ANALOG ?
+ 				  IMX219_BINNED_LLP_MIN : IMX219_LLP_MIN;
+-		__v4l2_ctrl_modify_range(imx219->hblank, llp_min - mode->width,
+-					 IMX219_LLP_MAX - mode->width, 1,
+-					 llp_min - mode->width);
++		ret = __v4l2_ctrl_modify_range(imx219->hblank,
++					       llp_min - mode->width,
++					       IMX219_LLP_MAX - mode->width, 1,
++					       llp_min - mode->width);
++		if (ret)
++			return ret;
+ 		/*
+ 		 * Retain PPL setting from previous mode so that the
+ 		 * line time does not change on a mode change.
+@@ -927,13 +944,17 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 		 * mode width subtracted.
+ 		 */
+ 		hblank = prev_line_len - mode->width;
+-		__v4l2_ctrl_s_ctrl(imx219->hblank, hblank);
++		ret = __v4l2_ctrl_s_ctrl(imx219->hblank, hblank);
++		if (ret)
++			return ret;
+ 
+ 		/* Scale the pixel rate based on the mode specific factor */
+ 		pixel_rate = imx219_get_pixel_rate(imx219) *
+ 			     imx219_get_rate_factor(state);
+-		__v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
+-					 pixel_rate, 1, pixel_rate);
++		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
++					       pixel_rate, 1, pixel_rate);
++		if (ret)
++			return ret;
+ 	}
+ 
  	return 0;
+@@ -982,9 +1003,7 @@ static int imx219_init_state(struct v4l2_subdev *sd,
+ 		},
+ 	};
+ 
+-	imx219_set_pad_format(sd, state, &fmt);
+-
+-	return 0;
++	return imx219_set_pad_format(sd, state, &fmt);
  }
  
-@@ -409,11 +422,21 @@ int s3fwrn5_fw_download(struct s3fwrn5_fw_info *fw_info)
- {
- 	struct device *dev = &fw_info->ndev->nfc_dev->dev;
- 	struct s3fwrn5_fw_image *fw = &fw_info->fw;
-+	size_t image_avail = fw->fw->data + fw->fw->size -
-+			     (const u8 *)fw->image;
-+	u64 total = (u64)fw_info->sector_size * fw->image_sectors;
- 	u8 hash_data[SHA1_DIGEST_SIZE];
- 	u32 image_size, off;
- 	int ret;
- 
--	image_size = fw_info->sector_size * fw->image_sectors;
-+	if (!fw_info->sector_size || total > image_avail ||
-+	    (fw->image_sectors &&
-+	     total - fw_info->sector_size + 16 * 256 > image_avail)) {
-+		dev_err(dev, "Invalid firmware image size\n");
-+		return -EINVAL;
-+	}
-+
-+	image_size = total;
- 
- 	/* Compute SHA of firmware data */
- 	sha1(fw->image, image_size, hash_data);
-
----
-base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
-change-id: 20261108-s3fwrn5-v2-001b98a2b6ac
-
-Best regards,
+ static const struct v4l2_subdev_video_ops imx219_video_ops = {
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+2.53.0
 
