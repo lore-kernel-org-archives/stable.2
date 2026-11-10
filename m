@@ -1,56 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279266;
-	b=hfznUHhJRatBXR8p9y5scCHvcS0c1lqyksr4/4nEPodixoNba3uobT1VNcspabYpPOFE
-	 RYUDXqvsZqLbmtImboqMGYNOVp89mgi72V2SxqHh7jynKQwZUh+43BT2DzBPLSan0xYyz
-	 CJyQAXK3Jp+FlcEDVGno7qUdKLbOsdGk69RgnQt/Lnvn+yhwR7dF9dCmYCzScI1JRob2q
-	 GYp2r4rXM3eQj4J6WLCdeajiLkykx/ILD91iM9BYfMOUViL4o0DQa3jhEVQ/KdDLDemVX
-	 IXDE9QxfhhrMM6lDOm/ykKZ2MXHzFT7FAU9f4oERpFhMcUzc2BVdvedfpNW/a00aL5Q==
+	t=1794279284;
+	b=IHoGlxeg/w5ZnK9LpuP5G/7LNlZD/yUm50MLpV9ic0OCX3e3kFmpWGU9Yu3THx79zoM5
+	 v6kJqNe2zA5YzQRboqaiR8MDGZEdFWBZTrczSTmP67Mcd+4WMlbL8YkJMVVhvvlLzHpp9
+	 uXMVPSYaoxBvRyUbRVKzzg9ZuEsPAFnPowzkJoVSsyqJcVAzez3GvB9kf5Fo9A2b2oDVG
+	 WsHb18NZrq0f5vCiLiSnfScmmeUbtpn1A53Lil+ABrKanaQL5dFTzROMQ5mG8k8R8LxqK
+	 IZ1fcPcZ6PD17rS8QMzbMOtf61VTJd4+enF1xwCpyNhlhIvoHaKDO8ZMJXNQfDJ7IJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279266;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hAJqK4rg6LMZIqGmBmBqgzj2iZkEo3peRYww/W032IU=;
-	b=w4pqeEcfzonE8NddAR/H6IWyAHGDHBd3gH45EpAUQkTc6lLIs8gYAvyw43U8F3Ee9ibD
-	 8DhMR3GeuRQV4Hy4rQ4ax7oRXq6H18R+6rayRTPJdw6ZNKqmYR0ZGcRRXCSOWDbbVmADo
-	 z92OiETzt19tjRZBRNdDXURMpAkrXaOBPtwDy2MH5E6WMx0JnWmeI3h3CPrmQnXidLfw+
-	 FRCJ873zNgdOiG7VMW9oXL2Xj1g9LiONPQkQvGCu8apnw6BvCX5zFOyP8ljzUeFRqgoXz
-	 XZrAVh4ioYy65/0x43/9wvpa/DBM7wQLp6gzqJwjyW8zfpcvdkABfL/L8Swo84sh3hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279284;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=kLvh7tubLXt3zphZJJDCBQWndhkqnqxKlZmt/Xu44wc=;
+	b=KBn8H3fgZZ+lmO2SF7duNafv3Db4cPR4wmMjW71Cg1EYRZe8IGT1qKWze+K1BI4qqWWA
+	 ftuFkX3UebMLbTiJgHoDaj3CJDMjOJ0PiK0wcAU6f+wj52Z8xwn4vq40H/Tg5ZNi6wOrv
+	 wBgvxoNNRzuSh5n63eqmv6CPQRma4vrscmHDq/1TLmuxCreqq9DKLDXr12zxJNwLWpCGk
+	 Tn4Jr5VuqJ0wbzGauUp5oapk+Kdedb3QheOkw+NWQFr2bbuBLELDZ+ftue679YX/qnolF
+	 TPb1RgW5zIPzNZm8BAhv/xqaGxFlpj7J81kUzwWyngDmLovJZHmf2waP4T/6kx8IIDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZK5fHr4y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8K8CueU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE63A606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:54:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28E7606A338;
+	Tue, 10 Nov 2026 02:54:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZK5fHr4y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3784F1F0089F;
-	Tue, 10 Nov 2026 02:54:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8K8CueU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3B871F008A2;
+	Tue, 10 Nov 2026 02:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279265;
-	bh=hAJqK4rg6LMZIqGmBmBqgzj2iZkEo3peRYww/W032IU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZK5fHr4yyopvZLPIWJuLgkt76qdfbwRTE+VbChgcoyH8iSmhPkNU3/z9wTS+tDqMq
-	 pj2l1kA2+Y/CAUGF7U+qV4V9TYl/xYszfLJmzkXXrYyjj/4Gm2kEGeh4IAqRROSfvS
-	 kCOTlQmo/FNUy7wH6B10E8oH2wB/0TJdAHf8kN/6JdprgbMwUbnBRUJeRqfQ0TOOcy
-	 7O1pk5FPntTrDgWrHHSxlj6MWNuhpSIJOnAX/AjaDzrUCn0ol8ocRX1+zRedL9UxTb
-	 4UlB+dBvMgdfu8r0kH2k6m5j1q4ffSVq4vXhvaSEZYR6gMVGa+BaZPxxFzFBM0U789
-	 v4BaH7WALPUZQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhenhao Wan <whi4ed0g@gmail.com>,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/nouveau/svm: drain fault handler before freeing svmm
-Date: Mon,  9 Nov 2026 21:54:23 -0500
-Message-ID: <20261110025400.3851438-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055706-failed-5.15-b46ddaf08234@kernel.org>
-References: <20261107055706-failed-5.15-b46ddaf08234@kernel.org>
+	s=k20260515; t=1794279283;
+	bh=kLvh7tubLXt3zphZJJDCBQWndhkqnqxKlZmt/Xu44wc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=V8K8CueUa+6xjowSiaNRMxVZs8lztAZ7vRCatxa0tl5NkVniMWQxcEU/GcYV7Jcnw
+	 oY1vOVluIx1tPe1uWXfi1PXCTQwJJ3oWmZ6HOwr5hFrsZjloYpP5ZHOjxuVmZTtaNV
+	 8e9oqVh7BezJmfSTVmLhckjxsTTSXp3eB1C1hBRMagcmsRL22q0rjPzntUyUK10VRx
+	 fzM9cVrGz82s+tk/5UDy2SZnRboutchcVBa4IlLh2xy83V+n+Ysmcf34w7WyEPrZmh
+	 /mBPJ3XfF2hqz3iJ5VTUM8MReAOUDveKLNtC0WcAWb66ZqSKDewIlIrBwLwZgQULOb
+	 PSAxu6VCEw8qQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B03E391AFCB;
+	Tue, 10 Nov 2026 02:54:43 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,68 +54,47 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: wait for in-flight device unregistrations before
+ netns dismantle
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179427928217.3612825.16476819658097015103.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 02:54:42 +0000
+References: <20261105144543.1624238-1-edumazet@kernel.org>
+In-Reply-To: <20261105144543.1624238-1-edumazet@kernel.org>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
+ bsdhenrymartin@gmail.com, kuniyu@google.com, namangulati@google.com,
+ pablo@netfilter.org, fw@strlen.de
 
-From: Zhenhao Wan <whi4ed0g@gmail.com>
+Hello:
 
-[ Upstream commit b46ddaf0823405f81e681eb26ec98508f3eb9a07 ]
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-The SVM fault handler nouveau_svm_fault() looks up each fault's
-nouveau_svmm under svm->mutex, caches it in the fault array, then drops
-svm->mutex and dereferences the svmm across blocking faults
-(mmu_interval_notifier_insert(), hmm_range_fault()).
+On Thu,  5 Nov 2026 15:45:43 +0100 you wrote:
+> A device can be unregistered by a context other than the cleanup_net()
+> of its own netns, for instance a veth whose peer in another netns is
+> deleted. If references on it are still held, it stays in
+> netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
+> second.
+> 
+> Meanwhile its netns can be dismantled: default_device_exit_batch()
+> only takes care of devices still listed in the netns, then pernet exit
+> handlers free their state, and finally struct net is freed while the
+> device still points to it.
+> 
+> [...]
 
-nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
-mmu_notifier_put() frees it asynchronously via call_srcu() without
-waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
-flush_work() on the fault buffer otherwise runs only at device removal
-and suspend, never on close, so a fault handled concurrently with a close
-can dereference a freed svmm.
+Here is the summary with links:
+  - [net] net: wait for in-flight device unregistrations before netns dismantle
+    https://git.kernel.org/netdev/net/c/c164a431a646
 
-The instance is already unlinked by nouveau_svmm_part() earlier in the
-same close, so no new fault can resolve to it. Drain the handler in
-nouveau_svmm_fini() before the free, guarding the flush with a NULL check
-on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
-drm->svm (NULL) after blocking the notify and flushing the buffer, so the
-handler is already drained; on per-client close drm->svm is alive and the
-flush runs.
-
-Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index 9985bfde015a6..4cbd5c4ce8267 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -305,6 +305,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
- {
- 	struct nouveau_svmm *svmm = *psvmm;
- 	if (svmm) {
-+		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
-+
-+		/* The fault handler caches svmm pointers under svm->mutex and
-+		 * dereferences them after dropping it, across blocking faults.
-+		 * The instance is already unlinked (nouveau_svmm_part), so drain
-+		 * the handler before the free to release any in-flight reference.
-+		 *
-+		 * On device teardown nouveau_svm_fini() ran first and freed
-+		 * drm->svm (NULL) after draining the buffer; nothing to flush.
-+		 */
-+		if (svm)
-+			flush_work(&svm->buffer[0].notify.work);
-+
- 		mutex_lock(&svmm->mutex);
- 		svmm->vmm = NULL;
- 		mutex_unlock(&svmm->mutex);
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
