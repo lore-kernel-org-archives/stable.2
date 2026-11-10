@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272502;
-	b=Sc3OVuUHfTbLzE7mepSKcDrPItxYxyoN0GyrPTEsIwxtrDoCyozvl7BntC+KWksfzEsi
-	 TzzmqrO3mjf0OFKPW8L+YQIjlKKZ/uiAZoC7GdanIrhvytoRosne/CRQZmEoPvxjOcexh
-	 oyJx1vUrR53aBDT507puejzXiNaqqVF0Y5Cn4wE3/1XZkjWlmS88zSlKeOdqqg/hZFquy
-	 e0nZbRNPPDrtet+NpGAw26k/bOURMXUoGSzwCEfofPboRcsgdX609vUZNZl7T4Pf3G/lf
-	 DOScSappuxqkaKuQ9T66FPpBc11p8hxBOqUj3gdmeX6P8R0J+XG/karohCiSjoRxN9g==
+	t=1794272505;
+	b=1RjFFHCExSCRM3wPFrF/lXVN/tIr0PpqrgL8TMKL8iwR8P88iZ+ZpFz6oY0I+mmhXwgd
+	 6vwxIZMPNtMBuzsEsbYliEAqB7vv/boFxcQf1niqfs1FDnJdueihu1jAJp9U5k6hn2QpG
+	 skPH/ruDqpdebhUBLHFozNJXnCEh79Gil7/uXmlCwNXZHzPJwaKYRJJhrOL8VDr/JaXjL
+	 2DZ1Fc5jUIOxSOFHOalgi1D/1b6Er/VBoobaeSEgGqrkneyp7AobJSO2mDTcxgSS8UyYE
+	 uqEpcR+1EZ+VfARt4YGFifVIkBvGA8L+XH1C2JUeAGhxF4cg3T/SG+BYP+bijNsSUeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272502;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272505;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=V6QI+dRSgg2JgnLCUtGgato343/dqRjVKycgIyYaLho=;
-	b=nfImlpJSPmM+sGWzQrlImNhSoB/Z1CBtmam+cERau+o0hyefUPOoImMO53DxAuXzwmWv
-	 MkkRLEbkFb1padKQpkr6hBhrD7IebllMdT9oCg9dDbQeVmpwV9f5ZSZ/rAqAdh2w5W66E
-	 5v9yzZ1cui74hvPr71Bskdyfy1krcEP5g4ObNNtjrht4wkOu7VERF87MTadu5tfEzKyVI
-	 Ov42mIDGG6AnTTFX/d7o0AkngZgaCr9/T03vV3fLlWlb8u2iF9WC2MvJwZwLrp+99qA9u
-	 zzaXf2jiPnU7jyQtiFBvzySyAljlpXlL9Kx7VzMNcFA7+zBtNE58Uo8DJa6DBVnUOaQ==
+	bh=RRTpVMCTihhC1/G2CdaLfRMJvtLF8zyW6z2kOMLh9L0=;
+	b=rIgBc3ZofraerQdsMUc4+6wWAamZLQM+WMAEXvtuK6ub+NGUu5rR0WQaBIA3O3svrKPk
+	 e7zqS4KmnGOAqwlZC017Pza5ez6BRxU2FMPCnx9fmLG9DjmxDLW0OexZeDCzr4wnn14F0
+	 cJ/h+co8fdoZQ809UsZjvTO/Bgk4h2bU5ygvsW9JawI3q0KIdhL+4LuglZ5gWS7/ohcjd
+	 shN1DGnFX57W3IppxThY7BiLVPzPAG4anUnzepaSa0XTszKOBxaFR3bturiIUjH0XDdq8
+	 9dqr9aw3htOnpiy3fV44WYDBdyPeKWoMyuoM+Qd+DpiDytDONxDx1n8Ef6Fsii/2b4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrhEklUt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baEBdJVV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2F6606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4136F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrhEklUt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8231F0089F;
-	Tue, 10 Nov 2026 01:01:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baEBdJVV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746791F0089F;
+	Tue, 10 Nov 2026 01:01:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272501;
-	bh=V6QI+dRSgg2JgnLCUtGgato343/dqRjVKycgIyYaLho=;
+	s=k20260515; t=1794272505;
+	bh=RRTpVMCTihhC1/G2CdaLfRMJvtLF8zyW6z2kOMLh9L0=;
 	h=From:To:Cc:Subject:Date;
-	b=DrhEklUtoFmLP3bF8wb05VtJN9CHojhzo5Tj2vqCiJks656dLgB8zo/lJr+SO5Elp
-	 hJu5lBpeYbFFDIS3dEsQISyEraiIxGvEGK/4UQ3/kuMCi5xhYXZWZ3FQLsYJaqR2YG
-	 azVgvfHrb0Dc79YHyKh5PRujOiU9J3uThLTzflR3gxn6MEMSkWVqnQkBV6UwTDo3Y0
-	 tRPZyxeobzEQH1BXe6j73Y8fCE6HZpySZVAq/vglGwgYKh7kkOjPhgpS3RHNqh6X1u
-	 DuBP6RaYufJC15ttRgNmH9HsYncBG0erBATAJCQjegj/oHfYvC70SUwHsYqj60Gz5f
-	 F9Fem92olRtyw==
+	b=baEBdJVV4mdEMuCJqRGTqYTCOumJweCHVrKBKgIa/b1Kaz5VlvagfIfXjcKGIYdYx
+	 qZ2rvXlc7josS2I2DaQJqPO0iL/Be7kDc/vws/NoS7GgU6hutBOB3PNtuTHKvFjVgS
+	 NfxKw6mEgvbsJSw5cwcyUVz5XKxfsqn/sXeE25I+w9H2dGc4YDDR+WuH7JuvJ4p6Jg
+	 7bkZQgF7bUlak7RnOSS9WcLLSOYHLVYQideIusGXZwojabAzN3m8J8cyd/HqjTvU7Y
+	 /gY8iZPFMh/x4LIw41T/tjaCN9ThBc6EW8hjbYhXLtbprv71beNJWEg61acO/vArD3
+	 3dQzR9L/WY7Ig==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	ljs@kernel.org,
+To: ljs@kernel.org,
 	akpm@linux-foundation.org,
+	david@kernel.org,
 	pfalcato@suse.de,
 	gourry@gourry.net,
 	liam@infradead.org,
@@ -56,9 +56,9 @@ To: david@kernel.org,
 	kees@kernel.org,
 	ccross@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:01:38 -0500
-Message-ID: <20261109200138-failed-7.3-652f15be3c11@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:42 -0500
+Message-ID: <20261109200142-failed-7.3-c386d799f423@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,41 +81,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 652f15be3c11415725694ccea317c51e35c0b582
+git cherry-pick -x c386d799f423685952138cab8d89f0331825bdee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200138-failed-7.3-652f15be3c11@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200142-failed-7.3-c386d799f423@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 652f15be3c11415725694ccea317c51e35c0b582 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 23 Oct 2026 14:47:29 +0100
-Subject: [PATCH] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing
- anonymous names
+From c386d799f423685952138cab8d89f0331825bdee Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 23 Oct 2026 14:47:30 +0100
+Subject: [PATCH] mm/vma: avoid losing atomic VMA flags when setting sticky VMA
+ flags
 
-When changing the anonymous VMA name, madvise_update_vma() calls
-vma_modify_name() to possibly merge with adjacent VMAs. We don't call
-vma_modify_flags() and consequently don't obtain the new VMA flags.
+vma_merge_existing_range() merges an existing VMA (middle) when its
+attributes have changed to match those of one or both adjacent VMAs.
 
-Later in the function we update the VMA flags to the stale new_vma_flags
-we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
-flag set on a VMA we just merged with.
+Sticky flags are propagated if they are set in any of the merged VMAs. They
+are initialised from vmg->vma_flags, which is assumed to contain middle's
+sticky flags when the function is invoked.
 
-There is no need to update the VMA flags at all, so just exit early. This
-skips calling khugepaged_enter_vma(), but since the flags didn't change
-this is fine.
+However, the VMA write lock is not held for middle when they are first
+populated, so concurrent updates to atomic VMA flags may occur, which will
+be lost upon merge.
 
-[ljs@kernel.org: minor edit of commit message, rebased]
-Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
-Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+This can result in fork failing to propagate guard region markers and (if
+file-backed) THP collapse discarding them.
+
+Resolve this by propagating the sticky flags after middle is locked.
+
+Make life easier by factoring this into propagate_sticky_flags(), which
+treats vmg->vma_flags as its base (in case any sticky flags are set there),
+updating it as sticky flags are accumulated from merged VMAs.
+
+Also update vma_expand() to use propagate_sticky_flags() so all merge paths
+utilise it.
+
+propagate_sticky_flags() also asserts that the VMA write lock is held for
+the VMA whose sticky flags are being read, with a comment explaining why.
+
+Another means by which atomic VMA flags can fail to be observed is when the
+merge is finalised in commit_merge().
+
+rmap locks are dropped in vma_complete() before the sticky flags are
+written, meaning an rmap walker can observe the VMA without sticky flags
+set, which can also result in retract_page_tables() discarding guard
+markers.
+
+Resolve this by assigning the sticky flags before dropping rmap locks,
+factored into commit_sticky_flags() with a write assert on the VMA being
+written to.
+
+Also remove the vma_set_flags_mask() invocation at the end of
+vma_merge_existing_range() as this was introduced by commit
+64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
+which is now redundant with the introduction of commit_sticky_flags().
+
+The vma_set_flags_mask() invocation at the end of vma_expand() setting
+sticky flags only is also removed for the same reason.
+
+Also update vma_merge_existing_range()'s comment to reflect the fact that
+vmg->vma_flags gets updated.
+
+Finally, update the userland VMA tests to reflect a previously missed
+const-ification in vma_assert_write_locked() which would otherwise cause a
+warning when building them.
+
+Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org
+Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
+Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Cc: Liam R. Howlett <liam@infradead.org>
@@ -130,31 +171,178 @@ Cc: Kees Cook <kees@kernel.org>
 Cc: Colin Cross <ccross@google.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/madvise.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/vma.c                          | 55 +++++++++++++++++--------------
+ tools/testing/vma/include/dup.h   |  2 +-
+ tools/testing/vma/include/stubs.h |  2 +-
+ 3 files changed, 32 insertions(+), 27 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index b2e00efcaa542..e9fa4f71efeac 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -177,6 +177,9 @@ static int madvise_update_vma(vm_flags_t new_flags,
+diff --git a/mm/vma.c b/mm/vma.c
+index 0325b39793136..af8e65ada23b2 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -783,6 +783,27 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
+ 	}
+ }
  
- 	/* vm_flags is protected by the mmap_lock held in write mode. */
- 	vma_start_write(vma);
-+	if (set_new_anon_name)
-+		return replace_anon_vma_name(vma, anon_name);
++static void propagate_sticky_flags(struct vma_merge_struct *vmg,
++		const struct vm_area_struct *vma)
++{
++	const vma_flags_t sticky =
++		vma_flags_and_mask(&vma->flags, VMA_STICKY_FLAGS);
 +
- 	vma_overwrite_flags(vma, new_vma_flags);
- 	/*
- 	 * If the vma become good for khugepaged to scan,
-@@ -186,9 +189,6 @@ static int madvise_update_vma(vm_flags_t new_flags,
- 	if (vma_flags_test(&new_vma_flags, VMA_HUGEPAGE_BIT))
- 		khugepaged_enter_vma(vma, vma_flags_to_legacy(new_vma_flags));
++	/* Write lock prevents concurrent atomic VMA flag updates. */
++	vma_assert_write_locked(vma);
++	vma_flags_set_mask(&vmg->vma_flags, sticky);
++}
++
++static void commit_sticky_flags(struct vma_merge_struct *vmg)
++{
++	const vma_flags_t sticky =
++		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
++	struct vm_area_struct *target = vmg->target;
++
++	vma_assert_write_locked(target);
++	vma_set_flags_mask(target, sticky);
++}
++
+ /*
+  * Actually perform the VMA merge operation.
+  *
+@@ -818,6 +839,8 @@ static int commit_merge(struct vma_merge_struct *vmg)
+ 		return -ENOMEM;
  
--	if (set_new_anon_name)
--		return replace_anon_vma_name(vma, anon_name);
+ 	vma_prepare(&vp);
++	/* Must be made visible before vma_complete() for rmap walkers. */
++	commit_sticky_flags(vmg);
+ 	/*
+ 	 * THP pages may need to do additional splits if we increase
+ 	 * middle->vm_start.
+@@ -857,8 +880,8 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+  * merge.
+  *
+  * As part of this operation, if a merge occurs, the @vmg object will have its
+- * vma, start, end, and pgoff fields modified to execute the merge. Subsequent
+- * calls to this function should reset these fields.
++ * vma, start, end, pgoff and vma_flags fields modified to execute the merge.
++ * Subsequent calls to this function should reset these fields.
+  *
+  * Returns: The merged VMA if merge succeeds, or NULL otherwise.
+  *
+@@ -872,8 +895,6 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
+ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 		struct vma_merge_struct *vmg)
+ {
+-	vma_flags_t sticky_flags = vma_flags_and_mask(&vmg->vma_flags,
+-						      VMA_STICKY_FLAGS);
+ 	struct vm_area_struct *middle = vmg->middle;
+ 	struct vm_area_struct *prev = vmg->prev;
+ 	struct vm_area_struct *next;
+@@ -966,24 +987,18 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 
+ 	/* No matter what happens, we will be adjusting middle. */
+ 	vma_start_write(middle);
++	propagate_sticky_flags(vmg, middle);
+ 
+ 	if (merge_right) {
+-		vma_flags_t next_sticky;
 -
+ 		vma_start_write(next);
+ 		vmg->target = next;
+-		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, next_sticky);
++		propagate_sticky_flags(vmg, next);
+ 	}
+ 
+ 	if (merge_left) {
+-		vma_flags_t prev_sticky;
+-
+ 		vma_start_write(prev);
+ 		vmg->target = prev;
+-
+-		prev_sticky = vma_flags_and_mask(&prev->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, prev_sticky);
++		propagate_sticky_flags(vmg, prev);
+ 	}
+ 
+ 	if (merge_both) {
+@@ -1054,7 +1069,6 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+ 	if (err || commit_merge(vmg))
+ 		goto abort;
+ 
+-	vma_set_flags_mask(vmg->target, sticky_flags);
+ 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
+ 	vmg->state = VMA_MERGE_SUCCESS;
+ 	return vmg->target;
+@@ -1241,16 +1255,11 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	struct vm_area_struct *target = vmg->target;
+ 	struct vm_area_struct *next = vmg->next;
+ 	bool remove_next = false;
+-	vma_flags_t sticky_flags =
+-		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
+-	vma_flags_t target_sticky;
+ 	int ret = 0;
+ 
+ 	mmap_assert_write_locked(vmg->mm);
+ 	vma_start_write(target);
+ 
+-	target_sticky = vma_flags_and_mask(&target->flags, VMA_STICKY_FLAGS);
+-
+ 	if (next && target != next && vmg->end == next->vm_end)
+ 		remove_next = true;
+ 
+@@ -1265,7 +1274,7 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	VM_WARN_ON_VMG(target->vm_start < vmg->start ||
+ 		       target->vm_end > vmg->end, vmg);
+ 
+-	vma_flags_set_mask(&sticky_flags, target_sticky);
++	propagate_sticky_flags(vmg, target);
+ 
+ 	/*
+ 	 * If we are removing the next VMA or copying from a VMA
+@@ -1282,18 +1291,14 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 		return ret;
+ 
+ 	if (remove_next) {
+-		vma_flags_t next_sticky;
+-
+ 		vma_start_write(next);
+ 		vmg->__remove_next = true;
+ 
+-		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
+-		vma_flags_set_mask(&sticky_flags, next_sticky);
++		propagate_sticky_flags(vmg, next);
+ 	}
+ 	if (commit_merge(vmg))
+ 		goto nomem;
+ 
+-	vma_set_flags_mask(target, sticky_flags);
  	return 0;
+ 
+ nomem:
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index a139774054828..dc4927d26296c 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1212,7 +1212,7 @@ static inline void vma_assert_detached(struct vm_area_struct *vma)
+ 	WARN_ON_ONCE(vma_is_attached(vma));
+ }
+ 
+-static inline void vma_assert_write_locked(struct vm_area_struct *);
++static inline void vma_assert_write_locked(const struct vm_area_struct *);
+ static inline void vma_mark_attached(struct vm_area_struct *vma)
+ {
+ 	vma_assert_write_locked(vma);
+diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+index f786a585caf05..8d030a3ace848 100644
+--- a/tools/testing/vma/include/stubs.h
++++ b/tools/testing/vma/include/stubs.h
+@@ -320,7 +320,7 @@ static inline void anon_vma_lock_write(struct anon_vma *anon_vma)
+ {
+ }
+ 
+-static inline void vma_assert_write_locked(struct vm_area_struct *vma)
++static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
+ {
  }
  
 -- 
