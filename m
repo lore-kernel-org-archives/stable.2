@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331253;
-	b=mEYqJtfXEqPIszN4We4ivEUm0Ht6qIdTlKtVomF7JrvJMfaIhrqenaJN9eokw+kXuAqv
-	 xWM18RD8Bqv6Qr95HNQsWhSaOWsa63bnrygMJ2oAYJ+NSejhS+S0CABvqLkUkaexzqcXU
-	 C8Se4wLjXZijCj9N2eoSe6tn4ob9o21izD9FasVHgD55f7YTFA2TFwrkH0gKM5ccnJrLW
-	 rf5kopk5Y4A9ifB3fo9vHzAEHe+/WWrf031ZV7f8JkTseG5EuQJ3cWokn2EZU/cUvyDpO
-	 6fAJMZ7Wgoek7yiGAPfjXHFHyDuMTcG9Qly82YW37EDnSgCVG15ESqni+MBWegzlClw==
+	t=1794331275;
+	b=gGVap9llVoXH1kVPtDEnfkgcLTwb/rTwsD0OvEsWyiwr5K/Xx2IX+OkETrYp96mWye1p
+	 OekavY+WQFqiqhApS810C5WHWwsAWBNONJknkjof7jGvqjYQZIDfqkSJ2NGxxLDHCX5dA
+	 0Tnf3ok5/TUkczmZdQOuLN6TBNJxNLfCmZvoSNdNKccJKOO5DvOTllW7PY0H8ffvg0Jzq
+	 2/WbeCLhScx31jXPL4hQKmDBMMX7x9z0gwIIkFXpA8hMAdczxApLc5l1e99C07uDWeTlY
+	 0CaFcyUCWf8L9Ls+PZuPpGDhdHnfUqKoG8gkEwd1OWRuC3aaZlWUBpzvihbruQx6jDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331253;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331275;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=C87OChDp7G2+aJozreR1hNtaqpBVNZw1zN6hZH+bwZg=;
-	b=LPQ6/yZ1VggHcmV8gdRJv9p9NK5bEEVdWnB+hPEuanQil6t3FIiNJK8ZbSU40cHc/Xvs
-	 hYmtjLg39q6SoSJDiHS3/f1Szsbf7KShLlP3vWueURGlHhklOWRqDewNBD8MxcJRwUx8p
-	 cSQrTygv5hyPpTj1VTpF+MDZ6KTxfz/lpOfD7JH8kJ8f6ORDvHLGB3rsV7Ytr4b7MQXdn
-	 0242Ej++zjszEcbPVScpHMa12E9g199tpZPQ/LvOExxtG46Dfjh5BAEfn2cG9avg6HooJ
-	 CLKB40XBFnT1Dma+n4iW4t0ztnf0sc/lpA40xt9jrCap7H/tZkbdY+JOw/nbtkPgJ2Q==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=njQZGFdRoYvTrafRgWKeXjjvHXLzmD4TVeFb/Ci9zSc=;
+	b=UxRr2Vw58nifkTT5me4WoNMJ4VLexgQMo0smLBE1QQMBEisXaNbRNI5vktJmMipEZT5f
+	 yY/83xcz8J/Nh3JVo0gk7v2fvyonLNb9p313GKaBk29ZW/u+3L3dVfvrVkhiQTMLtFyFK
+	 IG4MGx2APaSmuqDF3HCBvE1n6Su29YecN/lq4oWsYolwq0fJnhzBRO74A9on1/4y9i7fs
+	 s08QPdRyUxXPAWS4wwnPUr9dCHUZ7ncEg8B+m/ckZBfjhyiFb1o/YeTjeGwWUL0HKRKe3
+	 puN0gwaUb7nzYN+IBcUDdihLFOAurcP4I3GFxaAerRRUfJ43mfuP9U1umDPR9JGSsyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMCLCPgq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZNifP0t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF21606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:20:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1B2606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMCLCPgq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54AD91F0089F;
-	Tue, 10 Nov 2026 17:20:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZNifP0t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619571F008BE;
+	Tue, 10 Nov 2026 17:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331253;
-	bh=C87OChDp7G2+aJozreR1hNtaqpBVNZw1zN6hZH+bwZg=;
+	s=k20260515; t=1794331274;
+	bh=njQZGFdRoYvTrafRgWKeXjjvHXLzmD4TVeFb/Ci9zSc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eMCLCPgq2cE7bWrXsUCLde8sV+233j0sVPVlTWq0quxmsJTM9TgxpR0qC38M16nrt
-	 nMFLrWBQ1Ign7ZMNXoLKd/wR8PTGQBJp/jM0UM+bn92ofK5FY/emPAsSWC+flsZZpG
-	 7fWv3CcEuskakV56yX6l/sNfwKc8EzFdm7htSdQ5aDOrK56B77iH6tKGi6dAapL1oC
-	 Kq/IxwU5Rsf+cV/B9BoRhR8PYLribyXzSswVAilyjpRokdXBG1lVnt7OljdXy4PutJ
-	 EA870tTBtSx5IwZE6qIBgImxKJM1FaVOO60aF4HYC1E95tSf6xAZ/7FEXT6MNTPglN
-	 B9pw73jgiGhgw==
+	b=FZNifP0tiV0SiXHYv6URXYK0u3HdfOkNIsKsQEsujDJa+lkvMuvjOIropHspn5CNv
+	 E/IEk2L+xpPbtL1cIfEcWbBFykR60CXMfH6Aya5GaYby0sZ+vVRcA1Q/nvlyWURUwd
+	 veTc/IYyuua9+qKqy2TJkFRfTYGLI0wqsdXUzGjgdmgI4b93dxNqnXTJBaxi99btgN
+	 89JYcmJ1pyKKcWHErQ1RRYSHTXeYOxV8LsTLeBKzShrI3UGp8+pkqF3LM2ZvpOAjVz
+	 mr56+1ppKzcjiCqM5j5QQD0Zuadp76YbOP7PpJuuVgkh1PPbaI9fXHHyt/wjytlc4d
+	 luwQeCOzQnSsA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joe Damato <joe@dama.to>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming
-Date: Tue, 10 Nov 2026 12:20:51 -0500
-Message-ID: <20261110172030.2733216-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/7] power: supply: core: remove opencoded string_lower()
+Date: Tue, 10 Nov 2026 12:21:07 -0500
+Message-ID: <20261110172014.2622013-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051933-failed-6.12-374f65b14819@kernel.org>
-References: <20261107051933-failed-6.12-374f65b14819@kernel.org>
+In-Reply-To: <20261107053127-failed-6.6-6bd80f22c764@kernel.org>
+References: <20261107053127-failed-6.6-6bd80f22c764@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,123 +60,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Joe Damato <joe@dama.to>
+From: Thomas Weißschuh <linux@weissschuh.net>
 
-[ Upstream commit 374f65b1481992eb6b9c6bffd53f3afa5c2e94cf ]
+[ Upstream commit 0ce51459c8353b2b18ad3a430dbebf29af8b579c ]
 
-Charges that exceed memory.max and return through the nomem label can
-raise no event and simply return -ENOMEM.
+string_lower from string_helpers.h can be used to modify the string
+in-place. Use it to get rid of the custom str_to_lower().
 
-A non-blocking charge can hit the limit, get rejected, but is not visible
-in memory.events.
-
-This was noticed in a production setting where bpf_mem_alloc() attempted
-to refill its per-cpu freelists, which triggered a non-blocking charge
-while at the limit.
-
-Commit d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for
-enforced allocations") added raised_max_event to cover charges that are
-force charged without ever reaching reclaim, but charges that are rejected
-outright were left out.  Getting an allocation failure without the
-corresponding MEMCG_MAX event is unexpected and makes debugging and
-monitoring harder.
-
-Raise the event on the way out for rejected charges as well, by routing
-the -ENOMEM return through the same exit path that already covers forced
-charges.  The existing behavior of raising a MEMCG_MAX event on every
-charge/reclaim/retry iteration is left unchanged.
-
-Tested with a module that performs accounted GFP_NOWAIT page allocations
-from a task in a cgroup at its memory.max, and measures the resulting
-memory.events:max delta.  Without this patch the rejected charges raise no
-event at all; with it the delta matches the number of rejected charges
-exactly.  A GFP_KERNEL|__GFP_NORETRY control, which reaches reclaim,
-raises the same two events per failed charge before and after, confirming
-the existing charge/reclaim/retry accounting is unchanged.
-
-Link: https://lore.kernel.org/20260831174836.3102406-1-joe@dama.to
-Fixes: d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for enforced allocations")
-Signed-off-by: Joe Damato <joe@dama.to>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
-[ sashal: Replaced __memcg_memory_event(..., allow_spinning) with the existing memcg_memory_event() helper. ]
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+Link: https://lore.kernel.org/r/20230929-power_supply-string_lower-v1-1-3141a2634d53@weissschuh.net
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Stable-dep-of: 6bd80f22c764 ("power: supply: core: Honor supplied-from with CONFIG_OF=y")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memcontrol.c | 28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/power/supply/power_supply_sysfs.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 4d1caa4faf69f..46769bce0603a 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -2182,10 +2182,11 @@ int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	bool drained = false;
- 	bool raised_max_event = false;
- 	unsigned long pflags;
-+	int ret = 0;
+diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/power_supply_sysfs.c
+index d483a81560ab0..977611e163739 100644
+--- a/drivers/power/supply/power_supply_sysfs.c
++++ b/drivers/power/supply/power_supply_sysfs.c
+@@ -15,6 +15,7 @@
+ #include <linux/power_supply.h>
+ #include <linux/slab.h>
+ #include <linux/stat.h>
++#include <linux/string_helpers.h>
  
- retry:
- 	if (consume_stock(memcg, nr_pages))
--		return 0;
-+		return ret;
+ #include "power_supply.h"
  
- 	if (!do_memsw_account() ||
- 	    page_counter_try_charge(&memcg->memsw, batch, &counter)) {
-@@ -2297,16 +2298,11 @@ int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	 * put the burden of reclaim on regular allocation requests
- 	 * and let these go through as privileged allocations.
- 	 */
--	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
--		return -ENOMEM;
-+	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH))) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
- force:
--	/*
--	 * If the allocation has to be enforced, don't forget to raise
--	 * a MEMCG_MAX event.
--	 */
--	if (!raised_max_event)
--		memcg_memory_event(mem_over_limit, MEMCG_MAX);
+@@ -398,14 +399,6 @@ static const struct attribute_group *power_supply_attr_groups[] = {
+ 	NULL,
+ };
+ 
+-static void str_to_lower(char *str)
+-{
+-	while (*str) {
+-		*str = tolower(*str);
+-		str++;
+-	}
+-}
 -
- 	/*
- 	 * The allocation either can't fail or will lead to more memory
- 	 * being freed very soon.  Allow memory usage go over the limit
-@@ -2316,7 +2312,15 @@ int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	if (do_memsw_account())
- 		page_counter_charge(&memcg->memsw, nr_pages);
+ void power_supply_init_attrs(struct device_type *dev_type)
+ {
+ 	int i;
+@@ -420,7 +413,8 @@ void power_supply_init_attrs(struct device_type *dev_type)
+ 				__func__, i);
+ 			sprintf(power_supply_attrs[i].attr_name, "_err_%d", i);
+ 		} else {
+-			str_to_lower(power_supply_attrs[i].attr_name);
++			string_lower(power_supply_attrs[i].attr_name,
++				     power_supply_attrs[i].attr_name);
+ 		}
  
--	return 0;
-+out:
-+	/*
-+	 * Don't forget to raise a MEMCG_MAX event for forced or rejected
-+	 * requests.
-+	 */
-+	if (!raised_max_event)
-+		memcg_memory_event(mem_over_limit, MEMCG_MAX);
-+
-+	return ret;
- 
- done_restock:
- 	if (batch > nr_pages)
-@@ -2375,7 +2379,7 @@ int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
- 	    !(current->flags & PF_MEMALLOC) &&
- 	    gfpflags_allow_blocking(gfp_mask))
- 		mem_cgroup_handle_over_high(gfp_mask);
--	return 0;
-+	return ret;
- }
- 
- /**
+ 		attr = &power_supply_attrs[i].dev_attr;
 -- 
 2.53.0
 
