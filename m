@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273945;
-	b=n7E6zy35877HA8/LkWDGTdxo+FE4LjkGVwdXDr/cCxiA9/fgwqlmNeC9bwpYYO2/aFvH
-	 1g0x6bk7hB+u1ZRqd9W/SQOwHKAjafeIJCU+fUK3/CROEO2hWDxNOFsm4VnUGxrRgUHk2
-	 ROMCU+Ghn9CHkYZrUV/qPdtqmC5gppQeSrNfraBIgUoTeJBwNRinkbc0wJ6ilti3q5St/
-	 tpU5v14t5PzC1LYPU5ct+jT0r8Oauy8b7wu1xnoRO4weC4rztBSUgdyDavcahxbV8IlY8
-	 A1h3XtSRgjB+w8oekJKDvaPXETLz+JW/XyMgTMuXB3Dwbp9ZqncrlONVRaUWBcix+dA==
+	t=1794273948;
+	b=CXas+hoEJDYdujMshztmcY2sJ6S+CplE48QubZHhtUIxtan7rzXUcvD7zjSglXZAVfe7
+	 /vUUFmzdQ1j2oqo7FkzqMBeCZzS8+eQACBepHbBQPUXqs6z0UytnIIWm/hD8+d68df0IY
+	 XEwlQZUSnvwRZURMxxtQ2/XrzPgKzbk0h7mciZgcjC4MpXSkh3KDOq7dGadZ+fB3BJauj
+	 UI1Z/27XvOrL5hHFgW08cPRDx7g5shx1x8o9ET/FA9qsmbiWo8zNbIh1s/OWgLGMsGgoT
+	 8qaUnb/L2tj5DFj1imt5SARMNXnNoRCJGFx0gqvHoKf8h+ZQ8ipt/PcsyqBSD9tzbXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273945;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273948;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nWi+OqiW7QaS1/2YCosXMSTCwVd8SpRzFtXgJgJ1P4w=;
-	b=MhHNmCM9zQMlGjqg/6KxaWzjp3vWfRKz9OcGnXytxlEcMONtOVFx7/E8LBuZTbUqHeIH
-	 AnQGa5jd/9YBO/993urxzKlHj+Zui35XcvLoD6hWUAAtD8qkHBbYwZC+vxX6CHc+bG0YX
-	 C71OsLDpt0x1eIyLQaRBxcx4LGHXrkl8W+U6koaFXjURfOZnZgPf+WYAgFxu2DtYp3ul7
-	 aXid0biwsZpfc68XUYbHO78cVYIEpstqJAtcL3VvUPZ2UYKXY3FLemQf9uHoiZ1SI6Z7f
-	 AYGGUDG4R0gMOR8YEglEHvDPXE/xUSC9+fwoNUc3pqsGpqk2YbmZk+/nRGfrrS2gOSA==
+	bh=7MsAUHeto0LLGlMvy5kbUKmFAQiQIfZhohf1kTfRTL0=;
+	b=4WYWlrhkhzXFx7/oIxKmJIijdAxWT+Cw6Toc1AQuwvWsWBOgdViR7e+Eq/3ji+g/Ucs3
+	 aETSobxuQIhPDQLqLoe1bGfKyA3NdokyUdzJU0ch/zV+j0cmfgTqHJowUEtO6Fn/gPp01
+	 c0eYKmcBWmhh8UEsQr10e7O5+/Ag0lEPyEPqN6MaMKyvb3+smeeqddHWC6iFaC+3hjdBe
+	 xhl+YM5sO8k02WBOD61fpwMbZm37qJa2DfKv3DH/X58IEHSJPMQeSbDFnMtqM7fvYiI5V
+	 hEb/U89ofwSkE5LqiAsDOozv2qdIpCE9PG2X1il+rzq73otvQc1EIl0r43Hf03bwn8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iQstaJj/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYhAWTv9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E246C6071874
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:25:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC11606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:25:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iQstaJj/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA8111F0089F;
-	Tue, 10 Nov 2026 01:25:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CYhAWTv9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50F901F0089F;
+	Tue, 10 Nov 2026 01:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273944;
-	bh=nWi+OqiW7QaS1/2YCosXMSTCwVd8SpRzFtXgJgJ1P4w=;
+	s=k20260515; t=1794273947;
+	bh=7MsAUHeto0LLGlMvy5kbUKmFAQiQIfZhohf1kTfRTL0=;
 	h=From:To:Cc:Subject:Date;
-	b=iQstaJj/BBNFbwUS4On107qBgsTkQKM1dCnDOhnIxCItaXZNKsH+IZej8l21Ju99L
-	 ZXdID6MzWrVIztCQ5jV6p0pM6FLEqY2htvGwtqVGCeHjvxwDE7gedRRE384EaHve4d
-	 dLRKBAIcBoi7IXtTM7QD1aOBJx6NpK7Dipj/S39pQ7pnarZhNKPncS2/MW/zPdmuRx
-	 MRUZZlj0tJILR+Oi/VFZxE5f3LVdZ6afHjD+IIUtpDYChsYdgVGd+xhHslhEbMRdKP
-	 JIBqOD8MYp3pbHUQ+HVfqKK3viY2AKHfHF87LEmg8/nwKIKf4WeexMHueh7s+KM5J4
-	 uciIjhHMKEvGQ==
+	b=CYhAWTv9EBUuJGLFsZrU8g5aD7uRmJ56bhnNreuyshWQ7xOaEn9LhIGjj8ljLi59q
+	 ULBLns0+GzU5rv4V7u3448a8sAGR50ViWMO+b/ndTr9ZsB3/AWlQJEV1ymdTth1zs/
+	 Q4kaaq+UQgDyTMGcddn3cO39b4c49I2Od785Gw+rX/XGXvustLH4bkziZqEfGkpUP4
+	 Mgwk8mvbR0Z3Go9HMw80o6iFCaSiZ5J0kcAnOs0Jyss6OBbfJNB3vADTSELL9PW1O2
+	 ASxHAyHinVytoAyK6JQlQCB/psWl50qFpTsAHrdalteOWb/5OJppl3CElnXB6vsxQY
+	 cZ3mECi4CLfvA==
 From: Sasha Levin <sashal@kernel.org>
-To: sven@narfation.org,
-	sashiko-bot@kernel.org
+To: franck.baur.67@gmail.com,
+	davem@davem-thinkpadp1gen8.ibmlond.csb
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] batman-adv: tt: don't drop local events queued during TVLV update" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:25:42 -0500
-Message-ID: <20261109202542-failed-5.10-ed7a0dfdd370@kernel.org>
+Subject: FAILED: patch "[PATCH] net: jme: keep RX MAC clock enabled for WoL" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:25:46 -0500
+Message-ID: <20261109202546-failed-5.10-ed9179fc7228@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,196 +68,161 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ed7a0dfdd370acb48be7a281df732c1bebcc7f1d
+git cherry-pick -x ed9179fc7228315fb745dc3b111bae446e6894d2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202542-failed-5.10-ed7a0dfdd370@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202546-failed-5.10-ed9179fc7228@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ed7a0dfdd370acb48be7a281df732c1bebcc7f1d Mon Sep 17 00:00:00 2001
-From: Sven Eckelmann <sven@narfation.org>
-Date: Thu, 8 Oct 2026 17:41:24 +0200
-Subject: [PATCH] batman-adv: tt: don't drop local events queued during TVLV
- update
+From ed9179fc7228315fb745dc3b111bae446e6894d2 Mon Sep 17 00:00:00 2001
+From: Franck Baur <franck.baur.67@gmail.com>
+Date: Sat, 24 Oct 2026 14:40:44 +0200
+Subject: [PATCH] net: jme: keep RX MAC clock enabled for WoL
 
-batadv_tt_tvlv_container_update() read the number of local changes without
-holding changes_list_lock. batadv_tt_local_event() is not serialized by
-the commit_lock and can queue new events before the changes_list is
-flushed:
+On the JMicron JMC250 revision 03, the MAC reset performed during
+suspend leaves GPREG1_RXCLKOFF set. Although the driver enables Magic
+Packet detection, the gated RX MAC clock prevents wake-up from ACPI S3.
 
-  CPU0                          CPU1
-  batadv_tt_tvlv_container_update()
-    num = ...local_changes;
-                                batadv_tt_local_event()
-                                  list_add_tail(...);
-                                  ...local_changes++;
-    spin_lock_bh(&...changes_list_lock);
-    /* only num events copied but all freed */
+Keep the RX MAC clock enabled while WoL is armed. Restore the gated
+clock state immediately after disabling WoL during resume, preserving
+the RX engine initialization ordering.
 
-The additional events were freed without ever being sent. Other nodes will
-only notice this via a CRC mismatch and must request the full table.
+Prevent concurrent link-change work from gating the clock again after
+WoL has been armed. Quiesce interrupt-driven link-change scheduling,
+synchronize pending interrupts, and cancel outstanding link-change
+work before programming WoL in suspend and shutdown paths.
 
-The number of changes and the changes_list must therefore be taken
-atomically. Events queued afterwards then stay in the tt.changes_list for
-the next TT round.
+Restore the deferred processing state before requesting link
+reinitialization on resume.
 
-The changes can no longer be kept for the next round when the TVLV buffer
-allocation fails. But they would be sent with a skipped TTVN anyway, so the
-other nodes have to request the full table in this case either way. The
-last changeset is only dropped in this case when the TTVN was incremented.
-Without new changes, it still describes the current TTVN.
+Tested on an ASUS K42JE with JMC250 [197b:0250] rev 03 using a
+Debian 6.12.111 kernel and an externally built module. ACPI S3 wake
+with a Magic Packet completed in 19 seconds, while a control without
+a Magic Packet resumed through the RTC alarm after 123 seconds.
+Ethernet and SSH recovered after resume.
 
-Previously, the unconsumed changes caused a retry of the TVLV container
-update in the next commit round. Since the changes are now consumed, the
-next round would only take the path without changes and wait for
-BATADV_TT_OGM_APPEND_MAX rounds before updating the container again. Until
-then, the outdated container with the previous TTVN would still be
-announced. The ogm_append_cnt is therefore reset on failure to retry the
-update in the next OGM interval.
+S4 and S5 wake behaviour has not been validated with this revision.
 
-This doesn't make the CRC consistent with the announced changeset. The
-local table modifications are still not serialized with the commit and
-batadv_tt_local_transition_new() can still make a client part of the CRC
-for which the event is only part of the next TT round. Such an
-inconsistency is detected by the CRC check of the other nodes and solved
-via a full table request.
-
+Fixes: 854a2e7c331a ("jme: Safer MAC processor reset sequence")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-fc286ddd-5bed-4683-b842-ee7a307eeb19
-Fixes: a73105b8d4c7 ("batman-adv: improved client announcement mechanism")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Assisted-by: LLM
+Signed-off-by: Franck Baur <franck.baur.67@gmail.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 ---
- net/batman-adv/translation-table.c | 61 +++++++++++++++++++++++-------
- 1 file changed, 48 insertions(+), 13 deletions(-)
+ drivers/net/ethernet/jme.c | 37 ++++++++++++++++++++++++++++++++-----
+ drivers/net/ethernet/jme.h |  1 +
+ 2 files changed, 33 insertions(+), 5 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index fa5ead248f192..f0100ccf93deb 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -1323,22 +1323,24 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
-  * batadv_tt_tvlv_container_update() - update the translation table tvlv
-  *  container after local tt changes have been committed
-  * @bat_priv: the bat priv with all the mesh interface information
-+ * @changes_list: list of committed changes which will be consumed
-+ * @tt_diff_entries_num: number of entries in @changes_list
-  */
--static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
-+static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv,
-+					    struct list_head *changes_list,
-+					    int tt_diff_entries_num)
- {
- 	struct batadv_tvlv_tt_change *tt_change;
- 	struct batadv_tt_change_node *entry;
- 	struct batadv_tvlv_tt_data *tt_data;
- 	struct batadv_tt_change_node *safe;
- 	int tt_diff_entries_count = 0;
--	int tt_diff_entries_num = 0;
- 	bool drop_changes = false;
- 	size_t tt_extra_len = 0;
- 	int tt_change_len = 0;
- 	int tt_diff_len;
- 	u16 tvlv_len;
- 
--	tt_diff_entries_num = READ_ONCE(bat_priv->tt.local_changes);
- 	tt_diff_len = batadv_tt_len(tt_diff_entries_num);
- 
- 	/* if we have too many changes for one packet don't send any
-@@ -1356,19 +1358,39 @@ static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
- 
- 	tvlv_len = batadv_tt_prepare_tvlv_local_data(bat_priv, &tt_data,
- 						     &tt_change, &tt_diff_len);
--	if (!tvlv_len)
-+	if (!tvlv_len) {
-+		/* the changes are lost and the other nodes have to request the
-+		 * full table. Don't answer TT requests for the new TTVN with
-+		 * the stale changeset of the previous TTVN. Without changes, the
-+		 * TTVN was not incremented and the last changeset is still valid
-+		 */
-+		if (drop_changes || tt_diff_entries_num > 0) {
-+			list_for_each_entry_safe(entry, safe, changes_list,
-+						 list) {
-+				list_del(&entry->list);
-+				kmem_cache_free(batadv_tt_change_cache, entry);
-+			}
-+
-+			spin_lock_bh(&bat_priv->tt.last_changeset_lock);
-+			kfree(bat_priv->tt.last_changeset);
-+			bat_priv->tt.last_changeset = NULL;
-+			bat_priv->tt.last_changeset_len = 0;
-+			spin_unlock_bh(&bat_priv->tt.last_changeset_lock);
-+		}
-+
-+		/* announce the already committed TTVN in the next OGM interval
-+		 * instead of waiting for BATADV_TT_OGM_APPEND_MAX idle rounds
-+		 */
-+		atomic_set(&bat_priv->tt.ogm_append_cnt, 0);
- 		return;
-+	}
- 
- 	tt_data->flags = BATADV_TT_OGM_DIFF;
- 
- 	if (!drop_changes && tt_diff_len == 0)
- 		goto container_register;
- 
--	spin_lock_bh(&bat_priv->tt.changes_list_lock);
--	WRITE_ONCE(bat_priv->tt.local_changes, 0);
--
--	list_for_each_entry_safe(entry, safe, &bat_priv->tt.changes_list,
--				 list) {
-+	list_for_each_entry_safe(entry, safe, changes_list, list) {
- 		if (tt_diff_entries_count < tt_diff_entries_num) {
- 			memcpy(tt_change + tt_diff_entries_count,
- 			       &entry->change,
-@@ -1378,7 +1400,6 @@ static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
- 		list_del(&entry->list);
- 		kmem_cache_free(batadv_tt_change_cache, entry);
- 	}
--	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
- 
- 	tt_extra_len = batadv_tt_len(tt_diff_entries_num -
- 				     tt_diff_entries_count);
-@@ -4429,11 +4450,25 @@ static void batadv_tt_local_purge_pending_clients(struct batadv_priv *bat_priv)
-  */
- static void batadv_tt_local_commit_changes_nolock(struct batadv_priv *bat_priv)
- {
-+	LIST_HEAD(changes_list);
-+	int changes_num;
-+
- 	lockdep_assert_held(&bat_priv->tt.commit_lock);
- 
--	if (READ_ONCE(bat_priv->tt.local_changes) == 0) {
-+	/* atomically get the list of changes. The TTVN decision and the
-+	 * announced changeset must cover the same events. Events queued
-+	 * afterwards stay in the tt.changes_list for the next TT round
-+	 */
-+	spin_lock_bh(&bat_priv->tt.changes_list_lock);
-+	list_splice_init(&bat_priv->tt.changes_list, &changes_list);
-+	changes_num = READ_ONCE(bat_priv->tt.local_changes);
-+	WRITE_ONCE(bat_priv->tt.local_changes, 0);
-+	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
-+
-+	if (changes_num == 0) {
- 		if (!batadv_atomic_dec_not_zero(&bat_priv->tt.ogm_append_cnt))
--			batadv_tt_tvlv_container_update(bat_priv);
-+			batadv_tt_tvlv_container_update(bat_priv, &changes_list,
-+							changes_num);
- 		return;
+diff --git a/drivers/net/ethernet/jme.c b/drivers/net/ethernet/jme.c
+index 25ec5f757c682..acb4d41f56e10 100644
+--- a/drivers/net/ethernet/jme.c
++++ b/drivers/net/ethernet/jme.c
+@@ -1502,7 +1502,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
+ 		 * all other events are ignored
+ 		 */
+ 		jwrite32(jme, JME_IEVE, intrstat);
+-		schedule_work(&jme->linkch_task);
++		if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
++			schedule_work(&jme->linkch_task);
+ 		goto out_reenable;
  	}
  
-@@ -4450,7 +4485,7 @@ static void batadv_tt_local_commit_changes_nolock(struct batadv_priv *bat_priv)
- 
- 	/* reset the sending counter */
- 	atomic_set(&bat_priv->tt.ogm_append_cnt, BATADV_TT_OGM_APPEND_MAX);
--	batadv_tt_tvlv_container_update(bat_priv);
-+	batadv_tt_tvlv_container_update(bat_priv, &changes_list, changes_num);
+@@ -1546,7 +1547,8 @@ jme_intr_msi(struct jme_adapter *jme, u32 intrstat)
+ 	/*
+ 	 * Re-enable interrupt
+ 	 */
+-	jwrite32f(jme, JME_IENS, INTR_ENABLE);
++	if (!test_bit(JME_FLAG_WOL_QUIESCE, &jme->flags))
++		jwrite32f(jme, JME_IENS, INTR_ENABLE);
  }
  
- /**
+ static irqreturn_t
+@@ -1892,6 +1894,7 @@ jme_powersave_phy(struct jme_adapter *jme)
+ 		jme_set_100m_half(jme);
+ 		if (jme->reg_pmcs & (PMCS_LFEN | PMCS_LREN))
+ 			jme_wait_link(jme);
++		jme_mac_rxclk_on(jme);
+ 		jme_clear_pm_enable_wol(jme);
+ 	} else {
+ 		jme_phy_off(jme);
+@@ -3158,6 +3161,21 @@ jme_shutdown(struct pci_dev *pdev)
+ 	struct net_device *netdev = pci_get_drvdata(pdev);
+ 	struct jme_adapter *jme = netdev_priv(netdev);
+ 
++	if (netif_running(netdev)) {
++		set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
++		netif_device_detach(netdev);
++		netif_stop_queue(netdev);
++		jme_stop_irq(jme);
++		synchronize_irq(pdev->irq);
++		jme_stop_irq(jme);
++		cancel_work_sync(&jme->linkch_task);
++		tasklet_disable(&jme->pcc_task);
++		napi_disable(&jme->napi);
++		tasklet_disable(&jme->txclean_task);
++		tasklet_disable(&jme->rxclean_task);
++		tasklet_disable(&jme->rxempty_task);
++	}
++
+ 	jme_powersave_phy(jme);
+ 	pci_pme_active(pdev, true);
+ }
+@@ -3172,11 +3190,16 @@ jme_suspend(struct device *dev)
+ 	if (!netif_running(netdev))
+ 		return 0;
+ 
+-	atomic_dec(&jme->link_changing);
+-
++	set_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
+ 	netif_device_detach(netdev);
+ 	netif_stop_queue(netdev);
+ 	jme_stop_irq(jme);
++	synchronize_irq(jme->pdev->irq);
++	jme_stop_irq(jme);
++	cancel_work_sync(&jme->linkch_task);
++	tasklet_disable(&jme->pcc_task);
++	napi_disable(&jme->napi);
++	atomic_dec(&jme->link_changing);
+ 
+ 	tasklet_disable(&jme->txclean_task);
+ 	tasklet_disable(&jme->rxclean_task);
+@@ -3215,6 +3238,7 @@ jme_resume(struct device *dev)
+ 		return 0;
+ 
+ 	jme_clear_pm_disable_wol(jme);
++	jme_mac_rxclk_off(jme);
+ 	jme_phy_on(jme);
+ 	if (test_bit(JME_FLAG_SSET, &jme->flags))
+ 		jme_set_link_ksettings(netdev, &jme->old_cmd);
+@@ -3226,8 +3250,11 @@ jme_resume(struct device *dev)
+ 
+ 	atomic_inc(&jme->link_changing);
+ 
+-	jme_reset_link(jme);
++	napi_enable(&jme->napi);
++	tasklet_enable(&jme->pcc_task);
++	clear_bit(JME_FLAG_WOL_QUIESCE, &jme->flags);
+ 
++	jme_reset_link(jme);
+ 	jme_start_irq(jme);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/jme.h b/drivers/net/ethernet/jme.h
+index 860494ff37144..ec5dfddf73227 100644
+--- a/drivers/net/ethernet/jme.h
++++ b/drivers/net/ethernet/jme.h
+@@ -450,6 +450,7 @@ enum jme_flags_bits {
+ 	JME_FLAG_SSET		= 2,
+ 	JME_FLAG_POLL		= 5,
+ 	JME_FLAG_SHUTDOWN	= 6,
++	JME_FLAG_WOL_QUIESCE	= 7,
+ };
+ 
+ #define TX_TIMEOUT		(5 * HZ)
 -- 
 2.53.0
 
