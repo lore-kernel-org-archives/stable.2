@@ -1,67 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329822;
-	b=SmwDrsKmK8Mz2e1SUdsBsFLqkox7juSdEiKI8Ssg8cx/g+nJ81Ge9+RsfuEkin8eB7LS
-	 AXMQUvK9jcDdvGvYUSwUNsP8fng/D4OXqIi0LNEBHOVHfbvI8OICBi7R5FsLv++65j224
-	 HI64xVPIppggInQ4FC3WjuHbwCcSwHrcbAyetmAIBuK17V6h7KxeMo4+mSQTgrFr/P8UV
-	 XSO+HrGoP/wJLZiBvsTX8DI4RUv18EYjH3726ROL4ESyTtqcWNI5C+SwVwsyuTN6V3/DG
-	 xyLeoeuUzuUDkpD+1HXuIKHFN2JLSw/K1QJa/QilFVqsrfJOvop6g2768uChb1M00qA==
+	t=1794329852;
+	b=a4DaMW2sFNUYTQOPekTguKqoX0o+BNZFOYIHOoTHIHawXTQhNXlAEwnvJt8wERsZ5Xtn
+	 n1MKOm+5ETIzBBwwVFSWLxV3O6btl+21h9khRqipx3ftDTDm2bkbXGEZEo3FDRaLnosZ5
+	 QpQqm0BBlAdPmJNxlBK4PpCrJD5KZeB3tecGG2qH0YEUok7Z/NBqZ01VjqZ6NA+qDDLOm
+	 x+OPQLSOU3x0FG53O3FRReovgpXqnqFGaLl+JZAyPY8CXJ5oJFIloKplrVvl8TVAXN59P
+	 PEEUL33S2H9UwPSnZmaFRp/pOIMnsL+n4d8aL0jEx0xkyB4cIYfjYqhYp3K9tcJPz0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329822;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Beeqtp5OVXOe0tTGMQfdFPhbl+k2SX9mz5TzeNe2+TI=;
-	b=HjJY4UKRsquZcI0cMvh7MVdDy4AUB9Uk/eGLWFLHMa2mxLAIdEEZeB09GmYHJBp19cNA
-	 2CDGS6DQLpR+FkFOjQaimN3U0pHuYOaJyx7+DqIJyFUF0uOwP93ANGz3BepO++9yxcvZy
-	 rQDOS3+K22udh1NTQUdu2IaMl35OF0DWCeG8rB+QaqQtBMI853/SuX6VBrXf82zEN9xsO
-	 KTwz6gHHTBwDghlR47gzG4ufnoHi+eiupEMUqSNFLfs9h9F8dvwVaSjwjSwrJdWEKFT37
-	 RM31THBm1ghV0WlDcB/sz4MucL+bBJARkUBYzpRBZ9yF6/8sCRB3J3p/ba3GNO6vofA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329852;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FSVjfbOy+6Li8/mrEmgfTAZk9pjE0e6I6pX2kMrymD0=;
+	b=o/efK5yZv+5cSca0/wbooDlvE7+y0TBh2fPbDk1kI3zE3bE6Z0RQXQmOQDvWnz4j6NXd
+	 KcjAmmxuQkC83eIK0k0UXUV9So2XoQJDo2m2lqQ8lp6ZF0vr3DSi+cG7gN0crs0PgJMFR
+	 M1K0mboU0+FynPLNJkeLWtgX60HKLZ5Hj1sDG92r9vF6IaXA0yZq36+P5np4iErRZ6RYO
+	 PPfrc/4x3IJgW9CLGUYV2pr4/GEit5Q4B292ISE1hr1aiFUsNLJGEwh2CvvF0n0eNL4vT
+	 addb4B4r07TwV/eMuFHSb0pGDZzopszpl3dj+zI0/qPIdsqjBLrSawY41qDq17d/smQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtkpgLM1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=zx2c4.com;
+	spf=pass smtp.mailfrom=zx2c4.com;
+	dkim=pass header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=igskeO0d;
+	arc=none smtp.remote-ip=74.125.82.230
+Received: from mail-dy1-f230.google.com (mail-dy1-f230.google.com [74.125.82.230])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7F3606A9D6
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:57:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7D3606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:57:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7D3606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zx2c4.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zx2c4.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtkpgLM1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A441F008A1;
-	Tue, 10 Nov 2026 16:56:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794329821;
-	bh=Beeqtp5OVXOe0tTGMQfdFPhbl+k2SX9mz5TzeNe2+TI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WtkpgLM1q1YDmSe6waNUTAP7R0ibp4Azdb2En3Elesq85e41IUr+JRCWp5DwzKNnd
-	 ET4kRtmE3hXPAgwrPDpXNL4zwhu3hmKW4E66eJFAMvmSF2ZlrTEyxN7RDQs5NL6Q5Y
-	 okf3eJNXwjuyeckZlmliwQRl69Gf6+hcLaEkKKtEFatoktZdo7JsLWIZF2bJuMr8pj
-	 8t2YXNgfB/ADG3caA/DVNxFRuRo/hMhpLsVCrcn6hVhgh9xsslxVomeUL0p1b6F/kq
-	 DpVoEyJ8AcrWhrqrhj9+K0ZnXe8YRVXHNrSBTcYnAQqxRLJhV2+LKYvyPZZwyY+Cme
-	 GOTweU475VX3w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Peter Zijlstra <a.p.zijlstra@chello.nl>,
-	Rik van Riel <riel@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
-Date: Tue, 10 Nov 2026 11:56:58 -0500
-Message-ID: <20261110165630.2620914-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061132-failed-5.15-4590752e20aa@kernel.org>
-References: <20261107061132-failed-5.15-4590752e20aa@kernel.org>
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=igskeO0d
+Received: by mail-dy1-f230.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so4437796eec.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 08:57:32 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794329851; x=1794934651;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:dkim-signature
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FSVjfbOy+6Li8/mrEmgfTAZk9pjE0e6I6pX2kMrymD0=;
+        b=eMFQ4RXdtewFPWFDhSdPOK2IiWQ7lcvprE4WU5f0y4e/aEnV/7cv44e1B9cQNjZC3z
+         gmc3zZOhrZA+/AlVrhbMsPEt0DRdlOto7zfqIhgsIjSOENQejP/a/AWr6GgHsEW24ylz
+         1j9K/+4Q/oujv7E/1/Jkq+rcPLI1Gy+XCTTZfx0nv5haOQ5FFcfGCfMFtKqXzi4WCnOI
+         b+T05JBWeDPOSzh+nESom313bNfjSNFk8Z8er/mZP3SFUdL08YrXnMF0e++4l7ykRUnp
+         kLZehqO72dz4UWtTiMehVLV3KP31wdgUGRo54PPgbbjmkYsmXKxNdM7NAky2wsSLkGlK
+         BmUg==
+X-Forwarded-Encrypted: i=1; AL+hErHlM2vEqndrCfq2vdUvdcEyek/IWdVo7gvh/6YkUA4KQnO9D03ocmVxsf79w3m5SUahl5jkEZc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MkQLWpnlwfHK643gbCgEBKYHH/vGaETrtnGaqsXZIFWjPlhKN
+	2scBY+V3qQ6sq+HVDFw5zuWXfcntZvoHgI1CcTfZXbLsKMBEhj6yujiaycoMIP7nRQCExS7R+bZ
+	z62Qf4M9yDQBzJyY55DKx7jV+hz2a5aGc7QyQuAw=
+X-Gm-Gg: AYBFou3dVnCUsv4oc10njO3ilzVic2OUOBlhUmYpNXovb8qXUAmYFDPZJBXUEdFwYwO
+	/ublgY8Xm7dwWohSBTYMCmpv2WdC4Ua7PkpCJU7rwRPFtks4xczXTicyMvERP8p5CRGPB3nUL+k
+	GxaHkMZmW92np3wEUuF4cX0jSKfzfuKFpx9Gz33ri4xWL3DAiW8C44CYps5tQrIKk5WL1ai9wVj
+	5gfmwQH19yAbMZp+0HcLqJXDx2DAiIsVOL7ZsSYNv6C58qxefiflCd9J7Eybb4okiw9JoeV4wYG
+	2zaMfsj1SzOtJVpKY5WGWvxuTkENI+LrBsuRHMhPKLxYVtreEcUHXIy794m3ImfdLueQbFkpRLg
+	LYg==
+X-Received: by 2002:a05:693c:8357:b0:36e:c07a:426f with SMTP id 5a478bee46e88-37520218a2dmr3752045eec.39.1794329851138;
+        Tue, 10 Nov 2026 08:57:31 -0800 (PST)
+Received: from zx2c4.com (mail.zx2c4.com. [104.131.123.232])
+        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-3751fc3a433sm26539eec.9.2026.11.10.08.57.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 08:57:31 -0800 (PST)
+X-Relaying-Domain: zx2c4.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1794329848;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FSVjfbOy+6Li8/mrEmgfTAZk9pjE0e6I6pX2kMrymD0=;
+	b=igskeO0dU3czlXFLU3ba5Ctyixi/3mpmhqAyoR0afH1i5cZtn9wxirqKTypweqxdarSCf0
+	nm+3JYM7Npe+xc+vRZSGXIqiuK/nnDRDiONzihYmVdv+yteq6kdi3HIfWWkoB2UwyhP5tR
+	ek4m/meE/BlTy3JjB9lznpSNB9RYcpU=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 919b48b2 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Tue, 10 Nov 2026 16:57:28 +0000 (UTC)
+Date: Tue, 10 Nov 2026 17:57:25 +0100
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Alexander Ildiyarov <alex@badcode.im>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net 1/2] wireguard: account peer and allowedips
+ allocations to memcg
+Message-ID: <avNM9dfdW1uULJUf@zx2c4.com>
+References: <20261105141006.95083-1-alex@badcode.im>
+ <20261105141006.95083-2-alex@badcode.im>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,100 +101,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105141006.95083-2-alex@badcode.im>
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-
-[ Upstream commit 4590752e20aa393cc0d4fe538c0747d14a98c97a ]
-
-generic_access_phys() can end up getting called on CoW PFNMAP mappings,
-resulting in it trying to ioremap anonymous folios, which especially
-the x86 code doesn't enjoy, and which is in general just odd/wrong.
-
-E.g., with a CoW mapping of a PCI BAR:
-
-ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
-  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
-  Call Trace:
-   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
-   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
-   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
-   mem_rw+0x2a1/0x670 fs/proc/base.c:912
-
-But more generically, we should disallow access to anything that looks
-like ordinary RAM in the system: including allocating memory (e.g.,
-alloc_pages) and mapping them in a VM_PFNMAP.
-
-For pages with an online memmap, allow only pages marked as reserved
-(PageReserved). This also includes memblock allocations, however,
-distinguishing them from other MMIO is tricky, and nobody should really
-be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
-do not care about).
-
-So only allow access if there is no online memmap, or if the pages are
-marked reserved. Reject other pages with -EINVAL.
-
-Note that, just like other pfn_to_online_page() users, we won't care about
-concurrent memory offlining; mapping memory that can concurrently get
-offlined is highly dubious.
-
-Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
-Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
-Cc: Rik van Riel <riel@redhat.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted args.pfn and follow_pfnmap_end() to pte_pfn(pte) and pte_unmap_unlock() for the existing follow_pte() interface ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/memory.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index e5c54f39e7e04..3c5abd02aca64 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5150,6 +5150,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	resource_size_t phys_addr;
- 	unsigned long prot = 0;
- 	void __iomem *maddr;
-+	struct page *page;
- 	pte_t *ptep, pte;
- 	spinlock_t *ptl;
- 	int offset = offset_in_page(addr);
-@@ -5162,6 +5163,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if (follow_pte(vma->vm_mm, addr, &ptep, &ptl))
- 		return -EINVAL;
- 	pte = *ptep;
-+
-+	/*
-+	 * Reject anything that looks like ordinary RAM, including anonymous
-+	 * folios in CoW mappings or allocated kernel memory. Note that we
-+	 * cannot distinguish memblock allocations from non-RAM reliably, so
-+	 * we cannot easily reject them here.
-+	 */
-+	page = pfn_to_online_page(pte_pfn(pte));
-+	if (page && !PageReserved(page)) {
-+		pte_unmap_unlock(ptep, ptl);
-+		return -EINVAL;
-+	}
-+
- 	pte_unmap_unlock(ptep, ptl);
+On Thu, Nov 05, 2026 at 05:10:05PM +0300, Alexander Ildiyarov wrote:
+> Peers, allowed IP trie nodes, the per-peer dst_cache and the per-device
+> hashtables are all allocated in the context of the process that
+> configures the device over netlink, but none of these allocations are
+> charged to that process's memory cgroup: the wg_peer and allowedips_node
+> caches are created without SLAB_ACCOUNT, and the hashtables and
+> dst_cache use plain GFP_KERNEL.
+> 
+> The amount of memory is bounded only by MAX_PEERS_PER_DEVICE (2^20) per
+> device, with no limit on the number of devices or on the number of
+> allowed IPs per peer. Since WG_CMD_SET_DEVICE uses GENL_UNS_ADMIN_PERM,
+> any user who can create a user and network namespace can do this, and
+> thereby escape the memory limits of the cgroup it runs in.
+> 
+> For example, a process in a cgroup with memory.max=64M that adds 100000
+> peers with 20 /128 allowed IPs each grows Slab by ~790 MiB, yet the
+> cgroup's memory.current stays below 1 MiB and its memory limit is never
+> hit.
+> 
+> Fix this by creating the two caches with SLAB_ACCOUNT and using
+> GFP_KERNEL_ACCOUNT for the hashtables and the dst_cache. The keypair
+> allocations are left alone, as they happen from the handshake worker and
+> are bounded to three per peer.
  
- 	prot = pgprot_val(pte_pgprot(pte));
--- 
-2.53.0
-
+I wasn't aware of this trick, I think mostly because most drivers don't
+use this. Does any other part of the networking stack do this? Is this a
+normal thing?
