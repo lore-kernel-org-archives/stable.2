@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317166;
-	b=NNplKX+H+sIsDrGO9ZQi1J1R8vLP9KIBYoT15y/8w0lt2aay3tGMxR9EGhMZPwiRh8hA
-	 ymuqeyQZMoMyIpq3c1IJBZMS0nOtHyLqx1xk5KL9HC3xCKQB6ynkDJjtlls8CUDfWLCc7
-	 ZibZgDp1kWvHzDIHg8IssljuLYSciZvfiXBHlBIFlyYQm1WWo4gFY5EuNka8jvyE/QngX
-	 8MxumBdZPvAX1ahKr7c5HoG8wcR4KfbOv2vbG9b1zkWGripurnCTXns8WUhdIsQH/WdC2
-	 EoenVsJpoBUHnrVHmm4zBMi5ENJzmtwnZYHVQ1LoHU46l3xTsVYgmaOAWdPNGqb5wjA==
+	t=1794317225;
+	b=I3vTUuLZoTb5gSIufrr19WNKb49CUKCcaFYpm4giLRKzd0QdsQnrYpIWpW4gQsRNG+3r
+	 X4fBtrs7gTFSzoU5KGPGCZ33VyM/YqqcbeBK/VN0zTDF1Du6do1NfgF1VnwEWItj6Dpk/
+	 +ZntTQFgdyT3zmmpfJU0IU/y1jbd4LBym7P2Pn2sMmY7AV09WLmKOcAgZENnR0X5iEZRB
+	 5gYTgEVzi6pnWJ6r7Q6bDnVg0GgLgepOuq24D4d4BVlE7UCszI/yfRoQUSTWeKIhmKTje
+	 ++je4f/iriilq+kZIsg/VQrsNmT4WNPsez0kaHMfnebjOgMJHiEz+aM0B2jPA2r2V5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317225;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cE/0I+S/kjsFQb8qbnbmx7nBlJlMy9VDY882XBbWEhQ=;
-	b=N6vAafI2nxXKw9LfcivCqFaVpeNU5+MMSyRpVjGWXXQ7vhqbMkcDwD/ElVG5NJ8OmUnX
-	 /vvDbDU6EJcnbZH0e7i7fNnLfXJwbBLeVpWBX5ZEWge0LwzbeG3qgEsJFydoAHlHQg3MJ
-	 BHRjhwyqyDezdI+S+8BZFxSroibGE/htJB4sLYbe+DFhL+4jfRy+4oRtQEKZ2ucxdH/QB
-	 62jqccWiVzGrKtHRaAVv3jJoZlbu+p5icdohbv8IYt881gWGtIadHDiqGJtLCHeWBwL3O
-	 lVTQdWtEaFJI0Kl5c+O/agB1Pl943m/ZsnbAwYwHb1O3gklo/YX8cSQypNdH/yWulPg==
+	bh=ohCN1Rx51KwrB2hqupbuAjljEHF0I8b4r+9J7PlAJ7c=;
+	b=5PecnpeBmGW3yeoqJJIOV7nU5VNaSl3mr3RbHstkTWUehCtUDN7i143gZ4YUq/vrRUot
+	 HTE8c4Iux9Zohr3o05KQOtibk+hEVihNcddEo7oMwMOVptzlN4Kd9hmmYGWzNGg8rysdH
+	 U2rQjOxvUEM7YTE+qTj+qUemzAP5+o/wm09ksBnxPohqG0aqFYcGFEvn70F3v4Bbf8dUd
+	 WDZ151DgXdfbPKkIGTBXIKQWqa9qpr4pDNVrnaS15JovIuCeA4zsqsvHz+0QadE7ffK9J
+	 K12JsXZsi1hPTw030ICPr0iXWszOUUH8YBT8WyvVLMqMi+QWwpgrxM4rmSdXJv+2C6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GdTF+BUg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjPgzOE7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A21A6072A3F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:26:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD63606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GdTF+BUg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517211F008A2;
-	Tue, 10 Nov 2026 13:26:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjPgzOE7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8561F0089F;
+	Tue, 10 Nov 2026 13:27:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317165;
-	bh=cE/0I+S/kjsFQb8qbnbmx7nBlJlMy9VDY882XBbWEhQ=;
+	s=k20260515; t=1794317225;
+	bh=ohCN1Rx51KwrB2hqupbuAjljEHF0I8b4r+9J7PlAJ7c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GdTF+BUguJylaBxBV/QIF+5CW1TycWf36kTl/Oz8wyZSO4zJ9HfkFc8Ql9JNDwFR+
-	 D6lJGddA0MSc1TTdB7SwVILX4aiUpfQAhXYBJKomn+is2TG+Xp7A9gwhNUUa7xMGbo
-	 5o00osiHVD8SO/je4esOCvcq67un2EUMRdi4GoAzq9I8YiR/DeDjrzUxKPqhdh4uTY
-	 Dcc4+KUeni13Fc0cQYR0huF5SgRBnT3T1/fXK34UlYDXsSp/raG9KGZniha4L50ET4
-	 DcUO4K4GSrkluQ6kWBlijwYY0srZMx6wFRPwJuEzVoUVYR/kNBPw+UAaUStoU5OwpA
-	 JLGWaQts7Kqeg==
+	b=MjPgzOE76tM3xhSaveaThKkWGTDf4OgfCeo/ncZeiQxeCp86Kr2sXsNlRPI6F+9f+
+	 VU6RT06H97CzLWH1phJRfKGPmNruAz6gxz11A32KrY13QzN5JCwPzFXYkcdhCNA/Ip
+	 XtOswnM8veOrTAY70OZm9ttvxez2adzHg1QOJ79qwTUWONUqu+NLt/ifGcSZ1dKTL+
+	 BAE7y7NdhLwuEXVSpHZxqDWFlC/tq3FHTYFRVy0a0k/qLjDgNfO9//HJDS/lPRsPBf
+	 8maqNEZzs7DvhfPPWcYXdB5UMmyNSZiFYufRKYkT0N5+bZavBsxbmpcIv3UVCpUSzw
+	 9YfuF93sXbKug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Linmao Li <lilinmao@kylinos.cn>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] crypto: omap-sham - fix crypto engine cleanup
-Date: Tue, 10 Nov 2026 08:26:03 -0500
-Message-ID: <20261110132556.1723904-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] media: chips-media: wave5: Handle polling IRQ thread failure
+Date: Tue, 10 Nov 2026 08:27:03 -0500
+Message-ID: <20261110132647.1725405-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110132556.1723904-1-sashal@kernel.org>
-References: <20261107054212-failed-6.1-be51ea091c65@kernel.org>
- <20261110132556.1723904-1-sashal@kernel.org>
+In-Reply-To: <20261107051848-failed-6.12-1d563e3d718a@kernel.org>
+References: <20261107051848-failed-6.12-1d563e3d718a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,45 +62,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Linmao Li <lilinmao@kylinos.cn>
 
-[ Upstream commit be51ea091c6563158531e8c74e040552fdb1e28c ]
+[ Upstream commit 1d563e3d718a1c7c16355843374fbdd4c798ac66 ]
 
-omap_sham_probe() allocates and starts a crypto engine, but the remove
-path does not call the matching crypto_engine_exit(). The probe failure
-path already performs this cleanup.
+When falling back to polling mode, wave5_vpu_probe() does not check the
+return value of kthread_run().  On failure, dev->irq_thread holds an
+error pointer instead of a valid task pointer.
 
-crypto_engine_alloc_init() creates a kthread worker for processing
-requests. Without crypto_engine_exit() during driver removal, the
-worker is left running after the device is removed.
+Both the probe error path and the remove path only check
+dev->irq_thread against NULL before calling kthread_stop() on it, so an
+error pointer passes the check and kthread_stop() crashes on it.
 
-Call crypto_engine_exit() after unregistering the algorithms and before
-tearing down the remaining request handling resources. This stops the
-engine and destroys its worker.
+Check the kthread_run() result, clear dev->irq_thread and unwind the
+probe on failure.
 
-This issue was found by manual code inspection.
-
-Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
+Fixes: e66ff2b08e4e ("media: chips-media: wave5: Fix Null reference while testing fluster")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Adjusted context to preserve hrtimer_init() with separate callback assignment and kthread_create_worker(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/omap-sham.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/platform/chips-media/wave5/wave5-vpu.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
-index cc11bcc10e279..c57d6bb5c4aba 100644
---- a/drivers/crypto/omap-sham.c
-+++ b/drivers/crypto/omap-sham.c
-@@ -2223,6 +2223,7 @@ static int omap_sham_remove(struct platform_device *pdev)
- 	list_del(&dd->list);
- 	spin_unlock_bh(&sham.lock);
- 	omap_sham_unregister_algs(dd->pdata);
-+	crypto_engine_exit(dd->engine);
- 	cancel_work_sync(&dd->done_task);
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu.c b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
+index 5ec14a7c70c7c..d38be4761d4e9 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
+@@ -300,6 +300,13 @@ static int wave5_vpu_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "failed to get irq resource, falling back to polling\n");
+ 		sema_init(&dev->irq_sem, 1);
+ 		dev->irq_thread = kthread_run(irq_thread, dev, "irq thread");
++		if (IS_ERR(dev->irq_thread)) {
++			ret = PTR_ERR(dev->irq_thread);
++			dev_err(&pdev->dev, "failed to create irq thread\n");
++			dev->irq_thread = NULL;
++			goto err_vdi_release;
++		}
++
+ 		hrtimer_init(&dev->hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_REL_PINNED);
+ 		dev->hrtimer.function = &wave5_vpu_timer_callback;
+ 		dev->worker = kthread_create_worker(0, "vpu_irq_thread");
 -- 
 2.53.0
 
