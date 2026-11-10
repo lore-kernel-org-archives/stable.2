@@ -1,56 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794277813;
-	b=FpM2G6vKZ1SQ34zwe0AtUS7mSurUKPlGq5Ai7yDEBycX20L4n9a9G7Z3at4Z+D+Y66Kv
-	 fB/bDYJte860N1SvsnNdrqJy7DcdXtL2GnSFPk/j5wkrQbIL/Jc69NlrIaJSWvSOY3g2D
-	 +h4JAqukpPLtIoAWtfDlyYmv+NKSO1rpmbPmrLIxJ95j/s7e53+m+WxKcjJNzth8Tczr/
-	 Ow8qnAK+IpkE84HR5H8eVbsQ7U5HSiFRBb2tkImNjEpv3kck3a0RHmt4c6AbzGlKFisTo
-	 /8MfKumavS1BSMnlnETkLs630BIa+JEitmwFqeyMStq3gGZkP7AFo98Xvlcp15gnjNQ==
+	t=1794278036;
+	b=pC8PNanfRdgcCDjnNAsuJEXCY4Fd1N/gTPFUEnnvm2WGaElToUOeu5KxJYPQxRtve6OP
+	 uVjKseOptMsqPjyCX9qKrnbKeY4dF+KEg3/9t278rLZ1XAxjAo6fEcvPDjwBJwc6mp4XD
+	 Us+eE10Jz8euIQyVKwg6a8VUg1pG8wnCHFlFva6uRh30y5V7+nOmByYZpM9J4b5y71Nm3
+	 da5gcHzp6b+jqVM66XprZHX8+6E7jeBHmn0tWJ77mGMhoduMsV63ldxVe1oQtjbJRFunD
+	 8TK+bBQoOyj0cYXBQMgos9l6pMu8HjRqlVDrsxe74vMDYYAyj4GWNKsOMrBJE29KtnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794277813;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+otYdCm2morbchruc3afFNrp/Rhr/Ayc5NQneL5aO78=;
-	b=ywXpOeu86SWxJ1i8IsZm+IjAYibcuCipYdoAw+RuyqNnHaGETOJPiexQwxCXa/JQvlG1
-	 kLiS+gvLYqM84/AEDkuH+PRjJJZ+1vJQ6n4Az6naHtEFuYDF4k86gEk+eOikexCxzbiGx
-	 6AwSprTducZFktATQpXLPWno4fCsQL8iODT3Yg8oCIP6msmf13zbt4Eb8EL8NlJsfTbP9
-	 XfqrT71rpaBiCDZYMfC+Exy+5sCuFI2pUcpdlKLC8m8LMImGbKwyoydoP/IBgJJkaPDT2
-	 H+5YuOV9b6fPzzO8ZEZiJGpLQfjQ2qMx/ATkn7au/vMYHGcm/xkl+RN36trULeoSRTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278036;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=g1VIsYyLXpbp2selItXnLHOrtqqaZK6VFKqYqk+/4fE=;
+	b=AmXIgRnFwxyaYnRYDiuzW/OYCJO/cc1kXnFKhPrazPa/ly0jzNiosXH63ZDyfTpfbTls
+	 BWCGs+s+kb7sq4P8ooNGRNovceQHlagO0l+PxeWqpM7pzO4pibBPaq3uwwk6RClrbo+RC
+	 iht9tfhnr3gserrWjPLd/s9zDzMKHwlVENggKBPISsBz3YysU514sf1SMcC6N5xt3/+1O
+	 oaYH3V78uSXhtLufqv2w0nPDlsImAK+CveUvC9SdTKO4xwXh83IXoYZmIOnvkRKsH1UB+
+	 h/ekzGHq79ZKr9q7MJmUYzJ4vEAwf8434ytzTcXNdRo+nuPRj1tQeLaqerQ5w0j4yeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4zHwxJE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=bXj8nXao;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jMVi2CE1;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE38606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB25606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:33:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FB25606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4zHwxJE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984031F0089F;
-	Tue, 10 Nov 2026 02:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794277813;
-	bh=+otYdCm2morbchruc3afFNrp/Rhr/Ayc5NQneL5aO78=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B4zHwxJEMNBGbjairN3oEs1QSdE+oYfNuKKVUZ1UUuzGF3thcC9awr1NmrJf1KUa7
-	 AZ74HeuahATVpnkLLZ3gN77EK7ojeAvIGiHfZEHuiwooLMxqhTuecBY3/W7o5oJ1pa
-	 4kyBzA1eRfIy/w82aJHeUW1tVAD67XNqksBIH6br8/52sWwAZgKirUhp+FY91QkTU7
-	 HToYI7jFWGBZTfzvmM4WPDKKNnwlZAvzuECwrEIfxHIEvs1D3JkKfJ3CrNWwS0iN2a
-	 mPjfv66J6rRZriGXyqCz9WqpkJuOsafP+IAWCKHs/Hr9O9dZfoHCHpKC6C+t8Eb8z1
-	 gMVTBVugSn0Pg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhenhao Wan <whi4ed0g@gmail.com>,
-	Yuhao Jiang <danisjiang@gmail.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/nouveau/svm: drain fault handler before freeing svmm
-Date: Mon,  9 Nov 2026 21:30:11 -0500
-Message-ID: <20261110022953.3763851-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054047-failed-6.1-b46ddaf08234@kernel.org>
-References: <20261107054047-failed-6.1-b46ddaf08234@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=bXj8nXao;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=jMVi2CE1
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 9A62DEC0591
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 21:33:54 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 09 Nov 2026 21:33:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794278034; x=1794364434; bh=g1VIsYyLXpbp2selItXnL
+	HOrtqqaZK6VFKqYqk+/4fE=; b=bXj8nXaohzoFelziePzf868blggMXjkn3fFaB
+	TWioAAfimNfjcAImsdDK04HlGQOUUqj6nc2pL4ziDM4HbyVZ6VEw4LjT8AHhmFfz
+	bystM9WZ9Zu/Etdn11YBPp8ypipJ6z18GRr+r8oSU2Xaus10ghsvN2bFgdcsAp2t
+	x1agSYOdu453w5//r/TSYD7dGcZ+onFw/MD7Anm2y2NSCGPik5CtWY3AfbV17Tbr
+	3PSZERX4YZIdTiiTvd1UDjBRniaWT1AKapfp5H1oyNAIzf0+waArqmCbO0OHH03D
+	Em7v7vj7L8W/HwKeCmAywUhYsA1Dp53Z9xiQSPcOV+/DN+uHw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794278034; x=1794364434; bh=g1VIsYyLXpbp2selItXnLHOrtqqaZK6VFKq
+	Yqk+/4fE=; b=jMVi2CE1TxaDXYqFBo4/thZmhetcJD7HexhKqPekN9byw2tUjfV
+	qJ3StqdgeK/giP/DfQ6b9A9QW6T2yAZCgihAZi32E99aaWH5ilIlGaAJeY8MS+lC
+	AR/9Aim2nFLZn3Roezx+aS5P5//u1XPXQkpAtLhZAm7LkuP1bphnPisNSm4NzZ5O
+	9J1cqSAFitBvRpXZh4V/Kn1dOJkurPgNwEUCrHf16LbM/e7guoi5KFmn9+qMZEfI
+	k1qcwcelJWZ2gxmGEbZmNwAHex8hXw7AN+xd5tJhx2v1vx1cg9VW5ZbQcZL0ESvO
+	ftUf5T24PNX3sZYtXDBDph3XxsKhqtzzS/A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794278034; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:BnqO5/HmBMvBMhxxQ6h89g8MLx1AJp5sYCmj7zs5EOfr1be
+	ZNVZcwc6AcBCRlJzt6uEnpZ9rmtTLh66d2MrhUu0nOqoNvURl1J5lEBI1OEoALqv
+	aS5BY5/VXVG5L3401FyeWUw03VezCNzdYyXOAWJT83khM7L8quTTJpafqrO0l9N4
+	0puH+IqpLX96gzcctPaCs0EkBsz5R0Pm8np04Phe8QoneNaDZ4vCGiBxpN8PqrIO
+	uug6TaT/EU1Y6c3DjtRf0k0kXfwxT1yYVROHwzabjPY9um6OE9RCRLY99ZePG9I+
+	mSSe4ZTJ+QpHsba0MWszOTxqP3BgsUWKSYaZEig==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:kMWAz0Y7LcfoM4kZwhM6zeRlTGJLvTg9J/ndnRR9zuM=:sG0Hqyd7/PCaADqMeTD+NKc9g3wk445JcBSTksY5AEg=;
+X-ME-Sender: <xms:kYLyak2SpphrsDGHgHi_zG1synKO2rSTajgKkWNXosZo59WkX7Nc7g>
+    <xme:kYLyavgu-1y2yuLOIUa1a9pWNhi019eU5WZNVM-8fYJfwGYbTPGebciNfxlq9BXyR
+    4Uw1yjBaA2kS3coQKZUkkiNKgnLGtGE8frMd2XCFGiQHSizioYKF-LG>
+X-ME-Received: <xmr:kYLyatnLzGjdqQ_B26sgqUfJlzC7QUOd_8gbby5l4UVyU2uMLItjbpVjXvQ6odtV>
+X-ME-Proxy-Cause: dmFkZTEaFI12Qo/RXtAOqBnkLtQHGnHF3OoWfQsLrjLl2B3nKseZbWYD1SlSSdLYdT6M+o
+    e8hnVKv2IA1quSLS0a1l1PpLXpODgHN4VcCJ9WoTKIq1WjgSRLm3GowCs7pYS30cp7MtUe
+    BYEHO17M2s0d+tj+GXIFjnmffkE7+g8EC3xvIigL/ydpa46T3Y+FPXzcsDAMlKkceYMykW
+    WWBFDuqK9pWlFelMeEvubbZ/9UgUxuDOVxrz3Ouni6rwUDOXHG7Dph3x9nLByj6FzCFCFn
+    Mvtx0HfMKKHE0uGqNXN01wCzdGg3kR+xZsb9M5+AdOuipFxxcUyRaFs9FQkLV/6aojAnqn
+    456z3MHg4CaXnU8SMVPMr3/Ez3Sc3sRRTiqQKC0yFdJSfjJkPMUASqwGVIcnePTq0OdoUL
+    M08KGvbdOblfzU8m8EwCwhA0SD7Xh1cb5ImOXxt7UVHAbgR9f30ADUztiq5X8wKVx/3DMa
+    erTmuZKKwjf0bbIC1VUxc/FT6kboeMDq0Qi2hOujQMmq/jMEQ81hNVOQcF8cUQR3qI70yQ
+    SGqIgf42tR1BGi2kuXwjuEhHO4icLs+1G+CknaoHOr3hWkpQhZDrWU/x+R0YJK41k035xh
+    +Q2H+v7WKdhly0GyVOl//KZzv7MewIXA69+RCKROK/chCsBb0bWy2P3QsL0w
+X-ME-Proxy: <xmx:kYLyalaoLzDAlroJXNqKbMXziVTww2WGupcqne2RtUJqqxCy6ZVdxQ>
+    <xmx:kYLyaoEpdow6vX0TeSPPwSeZCQx_kIBA82t6s70WmYf0k5BmL16SkA>
+    <xmx:kYLyakaT-kjGqL77QE9BH7mf5UIHmLdjczuC1QZdQWxrRJY0qr3yAw>
+    <xmx:kYLyasxwpwcSTV8QzA3TB8RJzkD4w4Iwx37ATu_wMBmnZJkGmYaejg>
+    <xmx:koLyatMymf-G8UNhPl_lVw5h1N8FX9hPa-yDvwK4PlXDLjK1azMGv6fd>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 21:33:52 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: keep group denials when a POSIX ACL entry decides access
+Date: Mon,  9 Nov 2026 20:33:44 -0600
+Message-ID: <20261110023344.2105916-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,67 +129,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhenhao Wan <whi4ed0g@gmail.com>
+When no ACE names the caller, Everyone or Authenticated Users,
+smb_check_perm_dacl() lets a POSIX ACL entry for the caller decide
+access. The entry's rights replace the result of the DACL walk. Deny
+ACEs for the caller's groups, and OWNER RIGHTS for the owner, are then
+lost.
 
-[ Upstream commit b46ddaf0823405f81e681eb26ec98508f3eb9a07 ]
+For example, a deny of FILE_WRITE_DATA for one of the caller's groups
+should refuse writes. A POSIX ACL entry that gives the caller write
+access still lets the caller write.
 
-The SVM fault handler nouveau_svm_fault() looks up each fault's
-nouveau_svmm under svm->mutex, caches it in the fault array, then drops
-svm->mutex and dereferences the svmm across blocking faults
-(mmu_interval_notifier_insert(), hmm_range_fault()).
+Remove the requested rights that those ACEs deny from the entry's
+rights. The DACL walk already records them in grp_denied.
 
-nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
-mmu_notifier_put() frees it asynchronously via call_srcu() without
-waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
-flush_work() on the fault buffer otherwise runs only at device removal
-and suspend, never on close, so a fault handled concurrently with a close
-can dereference a freed svmm.
-
-The instance is already unlinked by nouveau_svmm_part() earlier in the
-same close, so no new fault can resolve to it. Drain the handler in
-nouveau_svmm_fini() before the free, guarding the flush with a NULL check
-on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
-drm->svm (NULL) after blocking the notify and flushing the buffer, so the
-handler is already drained; on per-client close drm->svm is alive and the
-flush runs.
-
-Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
+Fixes: 42ac1f1917ae ("ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261102200353.884509-1-icb%40fastmail.org
+Link: https://sashiko.dev/#/patchset/20261103150458.11591-1-icb%40fastmail.org
+Link: https://sashiko.dev/#/patchset/20261107062233.1579198-1-icb%40fastmail.org?part=1
+Link: https://sashiko.dev/#/patchset/20261107231941.1824289-1-icb%40fastmail.org?part=1
+Link: https://sashiko.dev/#/patchset/20261108182011.1888520-1-icb%40fastmail.org?part=1
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
- drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index d0bff13ac758d..75218519c29e0 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -306,6 +306,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
- {
- 	struct nouveau_svmm *svmm = *psvmm;
- 	if (svmm) {
-+		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
-+
-+		/* The fault handler caches svmm pointers under svm->mutex and
-+		 * dereferences them after dropping it, across blocking faults.
-+		 * The instance is already unlinked (nouveau_svmm_part), so drain
-+		 * the handler before the free to release any in-flight reference.
-+		 *
-+		 * On device teardown nouveau_svm_fini() ran first and freed
-+		 * drm->svm (NULL) after draining the buffer; nothing to flush.
-+		 */
-+		if (svm)
-+			flush_work(&svm->buffer[0].notify.work);
-+
- 		mutex_lock(&svmm->mutex);
- 		svmm->vmm = NULL;
- 		mutex_unlock(&svmm->mutex);
+Notes:
+    A POSIX ACL entry that decides can still drop rights that ACEs for
+    the caller's groups grant. The implicit allowances that every
+    non-strict check adds are also unchanged.
+    
+    For MAXIMUM_ALLOWED, only the rights named in the request are
+    checked against these denials. Group deny ACEs still do not limit
+    the rights that MAXIMUM_ALLOWED adds, as on the other paths of this
+    check.
+    
+    Tested with KASAN on ksmbd-for-next 4ab80fd4d1f1, and over SMB on a
+    kernel whose fs/smb/server tree is identical to it. smbtorture
+    results are unchanged.
+    
+    This patch was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 1b387c262d59..45f70a05e21f 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1764,6 +1764,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 					if (!access_bits)
+ 						access_bits =
+ 							SET_MINIMUM_RIGHTS;
++					/*
++					 * Only ACEs for the caller's groups,
++					 * or OWNER RIGHTS for the owner, apply
++					 * here. The POSIX ACL entry does not
++					 * grant an explicitly requested right
++					 * that they deny first in DACL order.
++					 */
++					access_bits &= ~(grp_denied &
++							 requested);
+ 					posix_acl_release(posix_acls);
+ 					goto check_access_bits;
+ 				}
+
+base-commit: 4ab80fd4d1f1c4363b336ddb3d8818ea37c4997d
 -- 
-2.53.0
+2.47.3
 
