@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272973;
-	b=tb0HVy8J2/QsM6qP0cpZCWCrugqLbBAB3X8ym9m01jTwCLMk2NfroRc1JAZtWkZlulZu
-	 vp2op16oh2ixdMyoQR5Yzi4Xq435/TSf7oEXoHeInKqgJk/R6Q2NWiCMcZJSMooFL2wSB
-	 /YUnyfiaRBbAuRPyG/MNCKqf2UtpDSeQV0WIpP9h1aDr5a+OLsctLQjgHjcq8l9jC01Ss
-	 fWtEF6uTrJHeLfgznH/Bpx4F8fOiIxacMcqCxfIN2yoLJwXjkth6/Nowo6lKsCJ9bdrw2
-	 or1ypczc3BWZNwljUmu7SnjningmoK9YsRoRka4yT8IO2aLXgfSVPZzUe2dGRH9R5jg==
+	t=1794272976;
+	b=bmf0/gaNpt4LqBFftvzaFi/MsmdW8d/AcNUgUQfvClKX/6KJh6J6IP7pGL2EtOijgLne
+	 5UL8OJHCef1RmkrAJU42/N0ZztcuAW+lvG0ZSK+/QRImNv44STSeGNuAPhB5g6MCHQqdn
+	 6gfc/jAf7cm52tR36i13SAmJftOiWJt7qLViSZ7KLnCnqB+4yxXLAgSwNvICK3GfeB8HG
+	 X16iavggOhpIQywiAtO72XML+M7s3HmeLggWDT9LN6/51H7LHXYgQSD+6x4r40T2wbhiB
+	 a+RfE0zAQugBlx9scmxUZZst+SOYXWBEmg03iuh5XsqVz3IJbZpJPK4RDsDwwbDGpJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272973;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272976;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=egTCdZSfH9yG211bZ28sGwL7/Oa8jek+l5VkQOacLCQ=;
-	b=Q5/ehgWVt58x8nFy1hMvj6FrWCSbk6+zcUrwFDC8nUvy34oDjynPLycxCEEAzF3HvYq2
-	 EG5+gCv3ZFV1y1kYZ8myA4yyzRMVfM43hieB9//IuxOlG/oMlX/DOZX/ZcKObHkn1i1vR
-	 ftfHgt3uJSipLd22BoKWwCGrIGUxRGgRVf4/U+haukvu3GLSNaZsqrctSfGorIWpD9kMq
-	 4PbLsbKEjV9lGzQFHv2NFF5E/5QHWZ1eUmJxjhmSJrDG44z59pJFwUXcxUAbH69WXlc4/
-	 o+fcWXlFdy7sJZiJnfUI4TKhVMXGUzRV5McNYx7KeoPx7L/npqW5pEbXnWaiWBPypQQ==
+	bh=TWQrRjtS0vRGLH//kSfJnCtMCyQeLkKNcf6q45TsRk4=;
+	b=oU1M2S88uBfDDq2AVh2LVXY7C2eezD/+mxb7+RqJmvi4yMAs96jd3bpPRUhlqIW7s7W/
+	 XwwP9YJZWaxNeFip7t7qUGACBdmDn9VrbLN22na1CpEhZSHfgtGTbP8JmAS0m5d9M86F1
+	 VnPYlNf3GxesyaMfQ3di7nV707pwETHOPehaL1cvSq2fEH3YjJyTtLf/4zKIslEu76gYf
+	 fwRrEZwtwwm9xDIr9X1dCZVnaVAZxa4+2Qw0NekE+KzGYCP+yuq8vMWq7+x38mNPtZ/Zm
+	 O0djNzO0YePNsmRewunXr3lwvPbdCLbLmqZ7tMkxjncNA2S3KHnOjyF0hr5KxVw5BTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WO/FY3RH";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ns7Y3ORG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5520606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2059D606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WO/FY3RH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2A71F0089F;
-	Tue, 10 Nov 2026 01:09:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ns7Y3ORG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EA31F0089F;
+	Tue, 10 Nov 2026 01:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272972;
-	bh=egTCdZSfH9yG211bZ28sGwL7/Oa8jek+l5VkQOacLCQ=;
+	s=k20260515; t=1794272976;
+	bh=TWQrRjtS0vRGLH//kSfJnCtMCyQeLkKNcf6q45TsRk4=;
 	h=From:To:Cc:Subject:Date;
-	b=WO/FY3RHBaOqC6L0VYzzTH06E1koxJQmUOeic0PC6X8ykBE6EWTwMvU4/70NBxsFp
-	 taj8SpyW+kKtih77bCMGQPMPd5r4KGLqJ25rATbH51/u6zNPMTZm8gM2m8YHqFBEXc
-	 8RNFq+XXwOQJ74tRZMfT+qKwLbatRal3veepzaldc7JWwxDftTNUG2AY2v/pQ6J/aC
-	 lCCeiZsIh/tpDrXKOJwqFe2ZguAWX0z0lXY47tF8MPaCFLImBpHI0wy5abimpXaap2
-	 jjGiu7v8LySocL5ZWU3gpd5EY+qbatSyyGup2wV2HtjwaPN9QI4BMUa62ynm1cDXrk
-	 TaXctPvJDQFxg==
+	b=Ns7Y3ORGqviTa3w+tpRSYDltNhjrSksmP8LhRtejNHp+wu9LkTn2A3alRMJuGnxia
+	 4Ov19odedeny/1mLe0Ev+6o/gKqCefgNSRBXZjki4kJr99QgkumTXsrBPHa9NF5bCu
+	 fO95jgz+swA9pKhIkl4aQPCQFvAu14KHXdDTQFLisU1LTT5a+iEM20RI2MxsW6+SIS
+	 z8qHLqa3IZv06mdY2x+7sNQ2X0wL71WAttexv7FrP62UcPw6iYuUXW+MNR1BsMArtw
+	 BttNiTIl8XqdegIhFpyRJ1fPgOVhLH5kfKE2XQhPNJ/cjwJjNtFvShT+vO5cwqKOLq
+	 Dt28E352i8OnQ==
 From: Sasha Levin <sashal@kernel.org>
-To: amir73il@gmail.com,
-	edvard@tuta.io
+To: lance.yang@linux.dev,
+	pfalcato@suse.de,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:09:31 -0500
-Message-ID: <20261109200931-failed-6.12-9ff338af0e00@kernel.org>
+Subject: FAILED: patch "[PATCH] khugepaged: fix readahead lock inversion in collapse_file()" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:09:33 -0500
+Message-ID: <20261109200933-failed-6.12-eadce52a9ef6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,190 +71,130 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9ff338af0e002fe217cfa16b1289b76f6b21fc72
+git cherry-pick -x eadce52a9ef657d561b3e76c9b5f178bd99735f5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200931-failed-6.12-9ff338af0e00@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200933-failed-6.12-eadce52a9ef6@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9ff338af0e002fe217cfa16b1289b76f6b21fc72 Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 30 Oct 2026 18:07:02 +0100
-Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers
+From eadce52a9ef657d561b3e76c9b5f178bd99735f5 Mon Sep 17 00:00:00 2001
+From: Lance Yang <lance.yang@linux.dev>
+Date: Mon, 26 Oct 2026 23:20:13 +0800
+Subject: [PATCH] khugepaged: fix readahead lock inversion in collapse_file()
 
-Listing a merged or impure overlay directory opens the real layer
-directories from ovl_dir_read(), when the readdir cache is filled.
-Those opens use plain ovl_path_open(), so when the directory fd is
-one that fanotify created for a permission event, they can still raise
-FS_OPEN_PERM.  A listener that also marks the backing filesystem and
-calls getdents() on the event fd before answering then deadlocks the
-same way as with the directory open fixed by the previous commit.
+collapse_file() can call page_cache_sync_readahead() while still holding
+source folios locked. If truncate holds mapping->invalidate_lock
+exclusively and waits for one of those folios, readahead waits for
+invalidate_lock and neither side can make progress.
 
-Store the overlay user file in struct ovl_readdir_data and pass it to
-ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
-the impure cache.  Internal readers such as ovl_check_empty_dir() and
-the mount-time workdir cleanup still pass no user file.
+We need to release those folio locks before starting readahead. On a page
+cache miss, roll back first, populate the collapse range, and retry once.
+Doing readahead after rollback avoids an extra pass when all folios are
+already present. If another miss occurs on retry, give up rather than keep
+retrying while truncate or reclaim removes folios.
 
-A note about severity and real world impact: The FAN_OPEN_PERM event is
-traditionally used by anti-malware protection agents and security/audit
-agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
-and agents typically monitor multiple mounts in a mount namespace.
-FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
-It is often not the case that anti-malware agents monitor open of
-directories. Security/audit engines are more likely to opt-into
-FAN_OPEN_PERM on directories, but are less likely to list the content
-of a directory within the scope of FAN_OPEN_PERM event, so the real
-world impact of this bug is likely not significant.
+Keep page_cache_sync_readahead() and wait for read I/O with
+filemap_lock_folio(), releasing each folio before moving to the next. The
+existing uptodate check during collapse still handles read errors.
 
-Reported-by: Edvard Conrad <edvard@tuta.io>
-Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
+Shmem uses shmem_get_folio() for swapin and fallocated folios without
+taking mapping->invalidate_lock, so it is unaffected.
+
+Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 Cc: stable@vger.kernel.org
-Tested-by: Edvard Conrad <edvard@tuta.io>
-Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
-Co-developed-by: Edvard Conrad <edvard@tuta.io>
-Signed-off-by: Edvard Conrad <edvard@tuta.io>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/overlayfs/readdir.c | 29 +++++++++++++++++------------
- 1 file changed, 17 insertions(+), 12 deletions(-)
+ mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index 5d21a328fad46..4cd4af097e5c1 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -43,6 +43,7 @@ struct ovl_dir_cache {
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index ce794d9760a87..6d5a44cf3a00b 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2240,6 +2240,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	enum scan_result result = SCAN_SUCCEED;
+ 	int nr_none = 0;
++	bool do_readahead = false;
++	bool readahead_done = false;
  
- struct ovl_readdir_data {
- 	struct dir_context ctx;
-+	const struct file *user_file;
- 	struct dentry *dentry;
- 	bool is_lowest;
- 	struct rb_root *root;
-@@ -377,7 +378,8 @@ static inline int ovl_dir_read(const struct path *realpath,
- 	struct file *realfile;
- 	int err;
+ 	/*
+ 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+@@ -2257,6 +2259,10 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
  
--	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
-+	realfile = ovl_path_open_realfile(rdd->user_file, realpath,
-+					  O_RDONLY | O_LARGEFILE);
- 	if (IS_ERR(realfile))
- 		return PTR_ERR(realfile);
+ 	mapping_set_update(&xas, mapping);
  
-@@ -421,13 +423,14 @@ static void ovl_dir_reset(struct file *file)
- }
++retry:
++	result = SCAN_SUCCEED;
++	do_readahead = false;
++	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
+ 	__folio_set_locked(new_folio);
+ 	if (is_shmem)
+ 		__folio_set_swapbacked(new_folio);
+@@ -2321,17 +2327,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 			}
+ 		} else {	/* !is_shmem */
+ 			if (!folio || xa_is_value(folio)) {
+-				xas_unlock_irq(&xas);
+-				page_cache_sync_readahead(mapping, &file->f_ra,
+-							  file, index,
+-							  end - index);
+-				/* drain lru cache to help folio_isolate_lru() */
+-				lru_add_drain();
+-				folio = filemap_lock_folio(mapping, index);
+-				if (IS_ERR(folio)) {
+-					result = SCAN_FAIL;
+-					goto xa_unlocked;
+-				}
++				do_readahead = !readahead_done;
++				result = SCAN_FAIL;
++				goto xa_locked;
+ 			} else if (folio_test_dirty(folio)) {
+ 				/*
+ 				 * This page is dirty because it hasn't
+@@ -2654,6 +2652,30 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	new_folio->mapping = NULL;
  
- static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
--	struct rb_root *root)
-+	struct rb_root *root, const struct file *user_file)
- {
- 	int err;
- 	struct path realpath;
- 	struct ovl_readdir_data rdd = {
- 		.ctx.actor = ovl_fill_merge,
- 		.ctx.count = INT_MAX,
-+		.user_file = user_file,
- 		.dentry = dentry,
- 		.list = list,
- 		.root = root,
-@@ -498,9 +501,10 @@ static struct ovl_dir_cache *ovl_dir_cache_check(struct inode *inode,
- 	return cache;
- }
- 
--static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
-+static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
- {
- 	int res;
-+	struct dentry *dentry = file->f_path.dentry;
- 	struct ovl_dir_cache *cache;
- 	struct inode *inode = d_inode(dentry);
- 
-@@ -521,7 +525,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
- 	INIT_LIST_HEAD(&cache->entries);
- 	cache->root = RB_ROOT;
- 
--	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
-+	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
- 	if (res) {
- 		ovl_cache_free(&cache->entries);
- 		kfree(cache);
-@@ -665,8 +669,8 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
- 	return true;
- }
- 
--static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
--			       struct rb_root *root)
-+static int ovl_dir_read_impure(const struct path *path, struct list_head *list,
-+			       struct rb_root *root, const struct file *user_file)
- {
- 	int err;
- 	struct path realpath;
-@@ -674,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
- 	struct ovl_readdir_data rdd = {
- 		.ctx.actor = ovl_fill_plain,
- 		.ctx.count = INT_MAX,
-+		.user_file = user_file,
- 		.list = list,
- 		.root = root,
- 	};
-@@ -710,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
- 	return 0;
- }
- 
--static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
-+static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
- {
- 	int res;
-+	const struct path *path = &file->f_path;
- 	struct dentry *dentry = path->dentry;
- 	struct inode *inode = d_inode(dentry);
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
-@@ -731,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
- 		return ERR_PTR(-ENOMEM);
- 
- 	cache->is_refcounted = false;
--	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
-+	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
- 	if (res) {
- 		ovl_cache_free(&cache->entries);
- 		kfree(cache);
-@@ -852,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
- 	dput(parent);
- 
- 	if (ovl_is_impure_dir(file)) {
--		rdt.cache = ovl_cache_get_impure(&file->f_path);
-+		rdt.cache = ovl_cache_get_impure(file);
- 		if (IS_ERR(rdt.cache))
- 			return PTR_ERR(rdt.cache);
- 	}
-@@ -866,14 +872,13 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
- static int ovl_iterate_merged(struct file *file, struct dir_context *ctx)
- {
- 	struct ovl_dir_file *od = file->private_data;
--	struct dentry *dentry = file->f_path.dentry;
- 	struct ovl_cache_entry *p;
- 	int err;
- 
- 	if (!od->cache) {
- 		struct ovl_dir_cache *cache;
- 
--		cache = ovl_cache_get(dentry);
-+		cache = ovl_dir_cache_get(file);
- 		if (IS_ERR(cache))
- 			return PTR_ERR(cache);
- 
-@@ -1120,7 +1125,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
- 	struct rb_root root = RB_ROOT;
- 
- 	with_ovl_creds(dentry->d_sb)
--		err = ovl_dir_read_merged(dentry, list, &root);
-+		err = ovl_dir_read_merged(dentry, list, &root, NULL);
- 	if (err)
- 		return err;
- 
+ 	folio_unlock(new_folio);
++
++	/* Readahead may take invalidate_lock; source folios are unlocked. */
++	if (do_readahead) {
++		for (index = start; index < end;) {
++			folio = filemap_lock_folio(mapping, index);
++			if (IS_ERR(folio)) {
++				page_cache_sync_readahead(mapping, &file->f_ra,
++							  file, index, end - index);
++				folio = filemap_lock_folio(mapping, index);
++				if (IS_ERR(folio)) {
++					result = SCAN_FAIL;
++					goto out_put;
++				}
++			}
++			index = folio_next_index(folio);
++			folio_unlock(folio);
++			folio_put(folio);
++		}
++		/* Drain the local LRU batch before retrying isolation. */
++		lru_add_drain();
++		readahead_done = true;
++		goto retry;
++	}
++out_put:
+ 	folio_put(new_folio);
+ out:
+ 	VM_BUG_ON(!list_empty(&pagelist));
 -- 
 2.53.0
 
