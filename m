@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344376;
-	b=zv4VWTm0CL743SpVezMURBr9zv2LlLnfEAvbY2SzhttRI3AQ8uKVj+pVd6JkPkYJBw8l
-	 BsRMkKpVVj4IAD/Dqhh10CRxRZsU3ScZqoEptpL02Y5kntiPuvRZGqibudY8MDyVDidPp
-	 34gYLZ7tz1ITlnCQrm/i6IhvSSQaRvebhL4neK0Gt0vDk6nohPSNVrkHKCqo2P4SN2fhe
-	 24ForEtkiMnyxryod3dQ3Gel4zytHygfriLMxcH+qVUDY7uFSI69pdDI73BS/TPFpzhwy
-	 RBC7vzjGduC3YIUa6YtnyyQMfSJDToiHq1FqMGLpYTo2IXQxVTmSihgMY3nJ8mPJDdg==
+	t=1794344377;
+	b=5SSbN6yzwvq6rQXMrDKh+6xVx1tZPXIYzqeTfCYUaB6eyHxkhhEB57f9pPD1TxMHl50L
+	 7ZCDfKjCo74rHM57ywtKmUXEK2GbGe6N+h7Fv3m/RcIAZYrrML7o7zS/EXRL8ekOAc1h9
+	 Wbd5cnyiHEYfrHeDXFBfPM9od9doaU04OzNwS5Y1p0Pz7S2emuuOtCou062aa8cCYzUzV
+	 beMY/U6pevqS8+OnJ+OP4S3zvKfwkxUXqLzVrrxkI37PDWrkhiAtKQnRyxdB6iC2K1UdW
+	 r2mmikxG8EJRQiZPnXoWxZvatQbvgzH0QoAv7ixuDmwUi0gAhQkQw5hEAkF6xft3/kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344377;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=T/Z0jxuuX3n/2CXRqait/lGKghuiYRxR4K9hyRBnDKY=;
-	b=4xUv7bbpOHzJZa+d/cGldS80ULNm2I55N8eD3+BHKCHQ4tIcfDhyYklOlFlpYU4/gfc+
-	 1rNKvuOHf9Q/9eB2y8MEr6VsohKr4t1X0h0zOsfLcr306NaJR5czKTJ0J/kP/J1SWasDF
-	 V+rOvRO08Yw4olUxtSogCc8OQVbKJSTayjyFHUSjs6iFe+c38SnT/jZ1fYZgxKVnTT4wM
-	 QawN4XaFYfW9Kt02eAuKlKyPdnH5bKBZclE07idf4b7erQSH2PwMhvSkNRGg0nzA2jVzF
-	 MSOckfAJfdyd+Z4kxrz29LOUlvZRMucR5TBebsQ5l8OH+9Ih1kWe3qZhFV0GvN4z7xw==
+	bh=Ht+c272NuP+IN/yp5mXpYUqK6Dyn9bjb2OsGo33p4oQ=;
+	b=tSnZbZg1na2kxG6wK8jJVAH55uybYuk/C5o6f3HT3HUkFGc97+T0mQnMD7Ah2CUjuvQ7
+	 30PzpjkjemY8Xx6qEgZk1FUiP8Q7qLO7ggy5ZAgieDHVGBIKKDW2kJA2S/oXmH8al2wFX
+	 T/wDi5/A/nYhGqz9dd5/QZVxOUzn1mj8kI6ccfBKnaJPMcr0gnUwwO5VnyU6LaPjC7P7S
+	 6AGCOKws4jbcso4DjTBBsZSQs7kHNC3ac5eZfXEc96pEfDncohSBMYG3zX+fQgFDTaHpi
+	 RkzEyj42OwZnAmp8R9girL6fKvRvzJ0RGzkmQwS8sFPSfCV5XAAIEC5jYu0vb9wZL/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RenRUrD6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0LgQewp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3D7606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5E8606A32D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RenRUrD6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF511F008A7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0LgQewp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F6E1F0089F;
 	Tue, 10 Nov 2026 20:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344375;
-	bh=T/Z0jxuuX3n/2CXRqait/lGKghuiYRxR4K9hyRBnDKY=;
+	s=k20260515; t=1794344376;
+	bh=Ht+c272NuP+IN/yp5mXpYUqK6Dyn9bjb2OsGo33p4oQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RenRUrD6W3/ymRY4Giv1hX7GpXQjtlKNtIsNXIPYBJoKSJMfkh/nla6KBq/3y5MCX
-	 SSJrrynx4e/6KVTiBeF66cQE+hbjDOEnjql07HaRrHpG4bLVgTiIgARHEykUs4yged
-	 LybLgPARdcapqwTLrOusDYIesTc2XA0jH/novw5ci2blwzyY4S9Iph5KNCYIizR3+8
-	 gCXNEgmfAdsSj7AOVEXPay6wJk2pnrSbIc5vMHpsjJVwkc4jt8/u0x6KLYiA5UZUHw
-	 P3+8FGPX/qv2esGqkhRtZ1RPGRdcfnYO3Skj52bCbj9igJ6YF1sDTgD3Qr9RwsQnr8
-	 vs+Xr6xSwbupQ==
+	b=T0LgQewppw7ZfTs+bkTa4W1TceHRSdTa+KB2LiIfeVKJPMTkn4iiOkgFFfk6tbIv3
+	 mEdECQEA1xuMBKLTJV+k6/2obLTOcvpJ9r+TVPacyyc4QI2aKKe2KfCsmOCNfUjbfD
+	 8o+hp+v2ao80TeUlMiO8UwUbVJRjS+FHw/VBa/IL89j3feDSG98zMpYc5ooagxHcSA
+	 2Ehd6uRtNwg8UuWog+R80gOAtFEsHA2CbT5OX4duF7l5R49chHMA0WY/K2CREzptp7
+	 MFWTFLwbr8vNX165UZRJtsqmptgjl3NFX5EyTiMc8GfoLUmRtadRZYU718vHn/9ohw
+	 ksad593AJtQ7w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Marc Kleine-Budde <mkl@pengutronix.de>,
 	Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: Re: [PATCH 6.18.y] can: replace ARPHRD_CAN type checks with can_get_ml_priv()
-Date: Tue, 10 Nov 2026 15:58:58 -0500
-Message-ID: <2026-11-10-1-daily-reply-0002-can-ml-priv@kernel.org>
+Subject: Re: [PATCH 6.18.y] can: protect the receive lists with a per-device lock
+Date: Tue, 10 Nov 2026 15:58:59 -0500
+Message-ID: <2026-11-10-1-daily-reply-0003-can-rx-lock@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110175714.791740-1-socketcan@hartkopp.net>
-References: <20261110175714.791740-1-socketcan@hartkopp.net>
+In-Reply-To: <20261110175757.791794-1-socketcan@hartkopp.net>
+References: <20261110175757.791794-1-socketcan@hartkopp.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,9 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> can: replace ARPHRD_CAN type checks with can_get_ml_priv()
+> can: protect the receive lists with a per-device lock
 
-Queued for 6.18, 6.12, 6.6, 6.1 and 5.15, thanks.
+Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
