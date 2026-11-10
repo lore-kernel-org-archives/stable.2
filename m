@@ -1,121 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306575;
-	b=IIqmU4SjOuePGaB+aU95t0SS+FacWzUYROG35ddpEOfw43Qf1n54uWLrRurmuV1dxrO1
-	 oM9Ly1CKEeE/ne6UaLQywr/05SaWpI9PE6ggJNfxQCfX/Vpi+O4h3b935wzx9zIBknWp+
-	 SVx4PoCgXkAF4jUdnIOtGpzfic2zsw9gOW86VD7TPrzfzczc+LaEgMthFfAvGAPNcusVk
-	 DLJjzkCAicKzoTXKeqRCvNt812HLpvaOWTLQ5zfpefQInKXmOJsJaKfQ36m5FonOIUyrg
-	 QB5SFvbsfM+3fwxNhUycvEXFCDhpgMQycCff7VRJvXalMGe221YDGMjs9fPYXmrwZQg==
+	t=1794306790;
+	b=BPk8sIE1izJeQEktHr8x9U3/jpAtzlOfjEPBpg20UMZ6oZeclRl3HYx0ltxu2PQXHCEe
+	 M6WerZ7U/kZNL7jVU3tB8qoshWrY6x/qaNZzaVkbEMQ3RjoAGlFx9SS/LA0TM0QixNCU5
+	 C9S9lwB1t4F7+b5rw9bnpLKYvdkSznydPRUhBg5SCH8VnScoINNW+BWhXfDsDOtFwMDXa
+	 EVvsKk/t748kGR4miYu2IFUO0JeOJ8KFoSQy/nNhSaBCeponsH+DwZT3pIdLJcuFqa8mr
+	 js7NcOv7HaugbXi328qpxmmreucq0hRlPgzFyayIwEAMNZdbbefl7PtOjpsaCaw/KWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306575;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=;
-	b=PY9VWeceyU0v0EoBnpHyZsu8mZT8pFCniFvvaGU7GCtVJv+4e/w3U6G+WhQC67SouWFd
-	 6rXrZzInn841ataq9XCyvnbz2gV00l3TtD9QoIHo+L9N2jcorrzCWXbDxfiPdzT1eRrAj
-	 3qjiVfq6KE8kBUA1+2CAhI2+D+Q8PLKY2mv58+cETDTSm6o6mDkQZ5Z6hJoxSnW1JXURo
-	 kVuhXvFJmEPCrmMPhti4VwGHLYPb4indTreFkH6d+75Ja3HIJOLpABLHlBaE3/OJVyO/v
-	 8xk/kItVKLvKDeZhBhuQ7sVSQbl5O9FLrnK4mbdrH7kWqeyG3HZ6jy6J7GnA0jqKTiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306790;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=6ch4xXQ7StUnbjm3wHzXSplK8uCVJPHj9zvM+WcPtS8=;
+	b=lugDJVL8AOlx/OuEBzSJXHTcPgFRuqXR1xoza2eop3cwQuJwmmGD7OAj91pTfiv6T7p5
+	 cQJRYGXHkGn+7kx/GAKdFnrcpq4eE6GJ2t6cJxsa3S8srSnxxLL9cdV5O9pmWLVtiu778
+	 jdIFoXTshoRFGOCbuBet7tQQkVikv3M8CVYuKPkyVEsjOBcex305oGfA6bO+Rj7ks5GO+
+	 qgwkosV8gt/6Rr/JO2vr3anWzmhe4zbsafloD9HeCnN6+awz74w/+S7BCRT3wGNxLz9Rg
+	 mFwsgoTzZQA/9X0pXmZlbC6j9TsVxUvWwHDZ8Bv+mccBm++Iwf1IJROEnbUAqD8+4rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="bDueU7W/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q+g24FZT;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Ea3pU+9l;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LfEvdBOH;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Ea3pU+9l;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LfEvdBOH;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92072606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92072606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A7A606A33C;
+	Tue, 10 Nov 2026 10:33:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A7A606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bDueU7W/;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q+g24FZT
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l4q21155019
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:29:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=; b=bDueU7W/JI6jwGLN
-	ZOUmqB+utVWSdOUpxhz9dOE3rK7LMcX0hOIEsmN0ZZZWhHKqmBxzZZ1CNU0ltor2
-	vcu9GQTbEZJXv2h2tm74wzdPrljskM2MecQnyWLKeuL1EwCbhGGp4uUaoMcKfGl0
-	sP5eUDR0NNLvJa/VcMgd1RZShikqgwMRIPVjlp/eVFjf84uCnBBvnsnRfcEZ8Zbf
-	22rX++tHWmyxU6PShVpwBGow3UggUQycXO5/DZxE7XAJ4fkhwGyS3uEmsDDLIGHj
-	wViyKL1KC7+D+ViUb2MMKaiuGSsVyH8/STmrt4Y8EHYR3eriLYQJOq94hZOmNxUD
-	oAM5GA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hutv49p2t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:29:33 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-943e8ff02d0so189645885a.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:29:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794306573; x=1794911373; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=;
-        b=Q+g24FZTmOYxIIE47+dlBYfIyC0J5BCPWmjo73l8rbJxOD+f9TRASBGPbq0Sy3YLxa
-         dSVKMjaxmsF3+u94NHxhTA2ze2gbJaAgytsQfyMJYJKKobVJPP+hNt1jXw1zFxteqXOJ
-         NWWgRPMO4EGXkPqkyQTTn/r4q/E+1qvEeecglRgGCQZWq3yhjfkJnnieYCdwBo2/JxoY
-         FX5bezTlau+Y2qAEM/19Nw/wuTi1WkAfSIiPEwJegvOnVfdYJfXgphJiOFiOU6/xw7hI
-         c1LIuP7EXx4VoDXg183hXpEnW6H8N2ce4eOk9LVRJCubz6FDjcPiljG3ibwUGwF0RbFo
-         puRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794306573; x=1794911373;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=;
-        b=RFYvE+xdIlUePybYUUXYwZL0t8F3EnSp0aclk0MxqwjaU7MNPBE2m77s088exCHe20
-         2gMmpbbSV2DnTISlLLP1IpJMCkPRes70u+evmaMAFy7JW4UpRAN3mjQUouoI83GWnp8Q
-         A5fvVrAw3rtyNFtOQc82wzePJ804OmYP4rlec0b5bcoZ+RsEZgOTz1MukcuwU0ORJSuE
-         9OQDOOJFhlqGVIbIzACdvVTqM+PcQUjDvB5ZRNiz6+ZzkWzGlYdSjyZy87hq6KQR2s3b
-         aI4XdG517wYfi6J5AkFD+Bzk/dErhsXuY8OxkfqpBXEUFiZQXLrjo0JJ22/OoyL9ly+S
-         0etA==
-X-Forwarded-Encrypted: i=1; AL+hErFMnFseTWWhDgCCbYRTEhNnFgSTceRBkv5az0ORq1c0BtLkD6YRGwyxktal00n6M+XzNXtqnlY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tPHS89bIVKrn39xheiKzEvh/Af3Cj2Cud47VMufA3bhyLrcEn
-	eDCNaIm1SKjjRE6dJKe5eiKKLjYaRd/maGAn3mpcHCndmKJt4YPJcXIJqscQ6JpLu5MtxNI8PGZ
-	xijRSfkGMK6wqfrdRVnNs8TD4J4KGLecDlc5rby6DxkX5VgK2HYBNCulc//4=
-X-Gm-Gg: AYBFou1Tz7zZpJfoTwZa4ec9mtP6QpBDxehlfbSeqXPDULraRT1LTTTLNas/wAJGSVQ
-	QGx+tHf5+FSiC8DnHUjLRr44IW5LdzwdZh0gZ4S25bTX9qRNdhu2NFRdtzJX1gK8T33/sWE5klv
-	6snLhbuHxkafRWB7ZJ2BX7veCNvy9r6j5yBfLegqUSuGzJOKt4kylu9wSu+95mCsCcbG/3+2X5e
-	XZzfrSdptobByJAJA9V8o3a6Z3kVbIN5YAXclpShPu/9KYhqFBjzAotxQVSYYJvAwj6BAyg0WFF
-	bx32J+9W+VXtoI9vuvvuJ20meWfnwLSXyy5YIGI/dluB+tkNPALWQKb3uOH++B5CzzQ5VrnqSJx
-	sQBX0PBWz7bJkfSECiXxcb+D3FZltEaFrwFyCMw7CFcDKm2wRYLPr6WAh+mBJHH11dLk8z+k/hD
-	yw4MWMILF1ZIig8quDe3G56G10v+i4jE5iXDsKqUB5k/6nCVja2bc2GZ/ZmQ0NDQ==
-X-Received: by 2002:a05:620a:4514:b0:93f:211b:a7a with SMTP id af79cd13be357-9479f2c42b0mr351214285a.29.1794306572798;
-        Tue, 10 Nov 2026 02:29:32 -0800 (PST)
-X-Received: by 2002:a05:620a:4514:b0:93f:211b:a7a with SMTP id af79cd13be357-9479f2c42b0mr351210785a.29.1794306572282;
-        Tue, 10 Nov 2026 02:29:32 -0800 (PST)
-Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0234a5dcsm54994175e9.2.2026.11.10.02.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:29:31 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] power: sequencing: fix serdev controller reference leak
-Date: Tue, 10 Nov 2026 11:29:29 +0100
-Message-ID: <179430656698.56244.5559839363678053917.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105-pwrseq-pcie-m2-serdev-ref-leak-v1-1-e2e022ca17ec@oss.qualcomm.com>
-References: <20261105-pwrseq-pcie-m2-serdev-ref-leak-v1-1-e2e022ca17ec@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Ea3pU+9l;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LfEvdBOH;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Ea3pU+9l;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LfEvdBOH
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2128B21E04;
+	Tue, 10 Nov 2026 10:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794306788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6ch4xXQ7StUnbjm3wHzXSplK8uCVJPHj9zvM+WcPtS8=;
+	b=Ea3pU+9ly03VW1w2imW7KzCHztcdJNFMUhpnUlaos4f8qlZlK2Iyf7nOmwmBsXBqob9T+t
+	8Cui50ntHFw3yF5Z0C7lmk6hykto8fJsA6tf0sWPwCgN1mBJ7aC51SApbx8gUc5h9nYtqe
+	+KsjvFMX5CwhkzBc64PXczkNvx0CNBs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794306788;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6ch4xXQ7StUnbjm3wHzXSplK8uCVJPHj9zvM+WcPtS8=;
+	b=LfEvdBOHdpNmcCrxSpDK/TCe23UdXe0e4qifp9xJNNRY++c569uAGTCEPITc4fy2cSB07K
+	q6uQOla7sO6xzyCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Ea3pU+9l;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=LfEvdBOH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794306788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6ch4xXQ7StUnbjm3wHzXSplK8uCVJPHj9zvM+WcPtS8=;
+	b=Ea3pU+9ly03VW1w2imW7KzCHztcdJNFMUhpnUlaos4f8qlZlK2Iyf7nOmwmBsXBqob9T+t
+	8Cui50ntHFw3yF5Z0C7lmk6hykto8fJsA6tf0sWPwCgN1mBJ7aC51SApbx8gUc5h9nYtqe
+	+KsjvFMX5CwhkzBc64PXczkNvx0CNBs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794306788;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6ch4xXQ7StUnbjm3wHzXSplK8uCVJPHj9zvM+WcPtS8=;
+	b=LfEvdBOHdpNmcCrxSpDK/TCe23UdXe0e4qifp9xJNNRY++c569uAGTCEPITc4fy2cSB07K
+	q6uQOla7sO6xzyCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA7FF1339F;
+	Tue, 10 Nov 2026 10:33:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id B5ZuMOPy8mr4LwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 10:33:07 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 7843822483; Tue, 10 Nov 2026 11:33:07 +0100 (CET)
+Date: Tue, 10 Nov 2026 11:33:07 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC v3 08/14] fs: set I_METADATA_WRITEBACK in
+ mmb_mark_buffer_dirty()
+Message-ID: <32pdmqc6zljbhiz2zvci5phqnzlh4ej2jeoymqepdggiwoatse@3xzb226r2au3>
+References: <20261109-work-inode-metadata_writeback-v3-0-91ac6c024018@kernel.org>
+ <20261109-work-inode-metadata_writeback-v3-8-91ac6c024018@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -125,52 +116,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA0MSBTYWx0ZWRfXyfy0agbeYB2b
- HhNkFur3ARc4Z4WMLpW6CHyHV0ZGoZPyhSAXiY12Gjzw/fA1J5j1D65henfFy24WiSQlC1iJNp3
- J7hYtkDUmrkiThXenkOcSToL7mfbYOU=
-X-Proofpoint-ORIG-GUID: bvVfNGIAMgCWswrlS1YQWb-reutRfK7H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA0MSBTYWx0ZWRfXzfpF69C9yMsZ
- CNTuGh/fNYuSnY3jlxaUfcLj+5pRjr3apDywLbNS0yjSFj5O1uTbXS9MlqEJfqL3FJTYk7Msjk0
- NvE76mVNbTA7sFS9dQBL2GYi/cdTzW2XwWE2YY/ZjWi6MEQpufgFquPjzBqj+PVVY8AZLgGxnIb
- CApXpQYoK1Rdkwk+4NWwVQRnNyzQX/uSF2NYFhXIVDwu48a+97Zpet8RSQBlxirJY5RdhuVzTnP
- W0kMbD78dz9+CRM+yZzQ0Xvyyi1JIh2pXAN9j/2du4hS3SfulPjRFgFzy8oe01jF3FMAZRufmcg
- z7s38ORUYas9O1iBYhmFNu98sTauP9y794HviT1iD7pC7x6kcKMWYb8xDLAckDzR5Nu7PWrwXNA
- 8m4KosiPFzMWkrAVDGwrqbi0Eh+yfxhxMgf40uSfyXqOaR+5Rn7FZw5DYDBkuPxvMOa1YoUTgrY
- tJdBIARzJOWE0Arg1ew==
-X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6af2f20d cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=heQ8kAePCfxZzHD31_sA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: bvVfNGIAMgCWswrlS1YQWb-reutRfK7H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
- malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100041
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-work-inode-metadata_writeback-v3-8-91ac6c024018@kernel.org>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim,suse.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 2128B21E04
 
-
-On Thu, 05 Nov 2026 16:46:45 +0100, Bartosz Golaszewski wrote:
-> In pwrseq_pcie_m2_create_serdev_one(), if serdev_ctrl->serdev is NULL but
-> pdev is already tracked in ctx->pci_devices, we return early from the
-> loop and skip the serdev_controller_put(), leaking the reference.
+On Mon 09-11-26 17:51:23, Christian Brauner wrote:
+> ext2, ext4 without a journal, fat, udf and minix track the metadata
+> buffers of an inode in a mapping_metadata_bhs list and sync them from
+> ->sync_inode_metadata() and ->evict_inode(). The inode block itself is
+> only tracked by I_METADATA_WRITEBACK which ->write_inode() sets after
+> copying the inode into its buffer.
 > 
-> Initialize ret to 0 and jump directly to the label that ensures the
-> reference is released.
+> Set the bit in mmb_mark_buffer_dirty() as well so that it covers all
+> the metadata an inode may still have to write out. Set it after the
+> buffer is on the list. An fsync() that sees the bit then also finds the
+> buffer when it walks the list, and one that cleared the bit before we
+> set it leaves it set for the next one.
 > 
-> [...]
+> The inode itself may never have been dirtied. fat for example tracks
+> the FAT buffers on a private inode that nothing marks dirty. So attach
+> the inode to a wb before setting the bit, the way ext4_mark_iloc_dirty()
+> does, or writeback_single_inode() has no wb to lock once evict() syncs
+> it.
+> 
+> That lets evict() write out everything the bit tracks in one place
+> instead of every ->evict_inode() calling mmb_sync() itself.
+> 
+> Suggested-by: Jan Kara <jack@suse.cz>
+> Cc: stable@vger.kernel.org # v7.3
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Applied, thanks!
+Looks good, just one nit below. Feel free to add:
 
-[1/1] power: sequencing: fix serdev controller reference leak
-      https://git.kernel.org/brgl/c/073f01043e79fd76f4fa648e58061c80329a6eef
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Best regards,
+> @@ -641,6 +644,15 @@ void mmb_mark_buffer_dirty(struct buffer_head *bh,
+>  		list_move_tail(&bh->b_assoc_buffers, &mmb->list);
+>  		spin_unlock(&mmb->lock);
+>  	}
+> +	/*
+> +	 * The inode itself may never have been dirtied, so attach it to a wb
+> +	 * before setting the bit or writeback_single_inode() has nothing to
+> +	 * lock when evict() syncs it.
+> +	 */
+> +	spin_lock(&inode->i_lock);
+> +	inode_attach_wb(inode, NULL);
+> +	inode_state_set(inode, I_METADATA_WRITEBACK);
+> +	spin_unlock(&inode->i_lock);
+>  }
+
+I'd wrap this all in:
+
+	if (!(inode_state_read_once(inode) & I_METADATA_WRITEBACK))
+
+so that we save i_lock round-trip for the common case where
+I_METADATA_WRITEBACK is already set.
+
+								Honza
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
