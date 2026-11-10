@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336844;
-	b=H3JUiSHWO8vQQ+ZB8APS8jRiYCW+xo5dNdWNslWvJ0UUyzAJtO0TEmo8VXfg/gumWJes
-	 9NY+SCNNMGQTIEv21RUMnUZuVmnOKC4iMK34db8VHFsXyR7kCG0rXcpV/I31ZuUjxTSLK
-	 iWD8Gz0FY22zONCcRFmT+MOyslR/QfYbr9vHFdbtqe3C2NcE5YK6Mar+DSy5FGyLlMory
-	 VtXa3f6Ar2XQnSGrkJczDa4SwikeG1FN28J5KWSioZMyNJSKnmhGZS4hEgEy82GiGZLOC
-	 H3xHmD1y/LK6iQcmE1zQ/4R83+b/EI27qpRv1WY/ezr8FGZblP3zES1TTecfuc1lPQQ==
+	t=1794336887;
+	b=X1OX9UqPegpErC/nlB9fANGtklbD6xMzRakK8ZDBGNmbcftvPcH5GPHS/2VWtWDIiLjP
+	 fGZW/As+3kjTSgGpR/dOi5W8w/3PEetXK3GSx5W92Ab/VAjMqJxNfIjOZtWgSyziJLKEU
+	 24x9SV94QHEHjqoHaC3vl7k5vKv5+ZJb+ITYkpMCbf5jbVGpnDfqw5ikznVGppy/WYPA+
+	 KKidMrtuzu+m2Xdaw6EvLG2YaWX6QwlRsP3oxAl82Bz3OkaDu/MobigbrH752TmaLjJJE
+	 lPvgFzUAN4qQD0/suPf4edTEiyCZ3qJ0Y4g3dutxXWlnR0StIDtdkjrgMAgA9ahAFkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336844;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1MzKz9QSxfF6XoW6plJVcSeplaY593DkXWqJV7OytsA=;
-	b=q05un5z3WHYiFn8MJN1bOuPyOi+3PGlvGQxKpAeY9GiO3lAkDu/mtkSb7N/iSyYHcgS5
-	 ueEv2DgAwGeRVQcBx9jIZx5BCmKbxJd0mFeqqdLoWpIdJLhczHTcqBEjoVY/4TYbBl9R4
-	 uRLNaNOPDY29HBRNKfl0DR73ceeIVLP9dNFcCvewNqqp//FIXNHwgXGMoxUGPVXLLY2aJ
-	 ouY8xnOti9iMCmIEB0h07/ScB3R4QwOclx69Tm8TPkqqK/aJiUfAhTnRgbqtkvneUHhnC
-	 W1bZ/Cv4t9d2wIkHNrXz4+9m1171If+r97UjZ2eAq1co9FJ9JJhamhK1gYFAA4ir4KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336887;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=52NDmUlT/C1NnGu+Dq/AZOz+hWzBvu1Wfp+thafpfXc=;
+	b=2vu9OZ/qgZvR1285OtpTLlTuQxE2d8XXt7yYp0JrWEDvRFOKHTBC+RGfCI0ZabvELmtV
+	 cUfMlnb38e4PrilQp4TzuVj6I5Ibll2T1CAA4vg9MMDt+LHrJo1K3C7GmW/nT7BgcYlPl
+	 HWawY/zAbH/brTLH0VRt/C/GwAtzg9M/lMc+3QVZ69FtulvnDj3vwEezPCmbq4zcFwvPi
+	 1bkVBZxJrSmGnfpR21dAtrCg6dHdSugRHWqwRLwXHnUgASovSsPynIwICue41X0RDsung
+	 2+63rcae7J2pVHm2UExsedfKR9lhM+LSoKb2TkpZeE343Na9xHa+4rT+IymQkI7vUjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=FIi6U770;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOn77Q1Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EB24C606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:54:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB24C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E16260A261E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:54:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=FIi6U770
-Received: by dvalin.narfation.org (Postfix) id 89C8C20FF9;
-	Tue, 10 Nov 2026 18:54:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794336841;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1MzKz9QSxfF6XoW6plJVcSeplaY593DkXWqJV7OytsA=;
-	b=FIi6U770cvask3Q0G/CrwXirURG1RH/c6shQJzwNFZmHIUTXjpq1jqkkM9lPLPjCwsVC70
-	wgFKds39oxWiArTdV6ExEo+91ny3W1Ri+iq0mJa1QEx/jdh1bZaRKpD1LASbCEMDCmqeq3
-	F6PcdWpn/ZbB84ZFX7pp4hvnAIxm3Io=
-From: Sven Eckelmann <sven@narfation.org>
-To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 6.18.y] batman-adv: tt: don't drop local events queued during TVLV update
-Date: Tue, 10 Nov 2026 19:53:57 +0100
-Message-ID: <20261110185357.79794-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200231-failed-6.18-ed7a0dfdd370@kernel.org>
-References: <20261109200231-failed-6.18-ed7a0dfdd370@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOn77Q1Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276211F008BC
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:54:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794336886;
+	bh=52NDmUlT/C1NnGu+Dq/AZOz+hWzBvu1Wfp+thafpfXc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LOn77Q1Q4FdQNPQHTCyBLDRVJc2OVxlu3IQSi3abYY96Yq71PSG7F/TEVoy/NyWzb
+	 6ZZ8JMgypJzK/cI+aPJQtG8QxRq27xYLoUexcHQhssamVujEko5pL2j8l9Xk5r1UDF
+	 fg6EMW/hpUVwdlWj7P/7r/PpqnxM7CCUEq2B3KCS3fXmKrU0AeKB0kcNol6YvVtkWD
+	 EFe51t8kzprPyw9dxOkb+SBmRlpAFlmtMn1G2VVZLzW8IioMKG9Lg58zzRg3ECHbNw
+	 U2ea60g7BU9XProPMSBPhJSPrIB34HlnYgmh7yz/2ywg+yhLuIaLkQP2PocVVzj3fq
+	 vxNvvUWxQIgJg==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3accd1ff4c3so18424631fa.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:54:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEf8A7HdudX3XP+yzyvesLcyCZK7nIlogiZ9UBm0gZOjqOU+Jf+S7A4x6kVjm1lrv/aj6T70sE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sBDvV17u0OywO/EOiCK3MkvTU4cXkmXjW67RGqlgiz+mAEZNa
+	BhjWw9KAWP+sl6ElZDUop3UvESyktueesw9wD4Edtu89AXFWGNErDBwCc1iLazPHGz8fX0adLKf
+	YlnZXLGM1KmzdSueWto/GojtPtTtR4b0=
+X-Received: by 2002:a05:651c:1606:b0:3ac:4da3:864f with SMTP id
+ 38308e7fff4ca-3ae0961bddcmr8184521fa.4.1794336884424; Tue, 10 Nov 2026
+ 10:54:44 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,183 +59,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110135814.621355-1-zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20261110135814.621355-1-zhongqiu.han@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 10 Nov 2026 19:54:32 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hHLdd0X-r7HG24TrALGccHNZ37JUyeu=rHg9-6YAR7gQ@mail.gmail.com>
+X-Gm-Features: AclHuK9AWEuL5vf0QrXIUa41RCa4KBaWPSXD-wUP0068_a0rEgmBvhB9KueRF5I
+Message-ID: <CAJZ5v0hHLdd0X-r7HG24TrALGccHNZ37JUyeu=rHg9-6YAR7gQ@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: Skip inactive policies in cpufreq_driver_target()
+To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Cc: rafael@kernel.org, viresh.kumar@linaro.org, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, andrew-sh.cheng@mediatek.com, 
+	rex-bc.chen@mediatek.com, jia-wei.chang@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit ed7a0dfdd370acb48be7a281df732c1bebcc7f1d upstream.
+On Tue, Nov 10, 2026 at 2:58=E2=80=AFPM Zhongqiu Han
+<zhongqiu.han@oss.qualcomm.com> wrote:
+>
+> A policy obtained with cpufreq_cpu_get() may become inactive before
+> cpufreq_driver_target() acquires its rwsem, which may lead to a NULL
+> pointer dereference:
+>
+>   CPU X                      CPU Y (last CPU in policy)
+>   cpufreq_cpu_get()
+>                              cpufreq_offline()
+>                                __cpufreq_offline()
+>                                  ->exit()  /* frees freq_table */
+>                                  policy->freq_table =3D NULL
+>   cpufreq_driver_target()
+>     __cpufreq_driver_target()
+>       __target_index()
+>         policy->freq_table[index]  /* NULL dereference */
+>
+> Before commit 2372784542cb ("cpufreq: Drop 'freq_table' argument of
+> __target_index()"), __cpufreq_driver_target() returned an error if
+> policy->freq_table was NULL. Since the offline path clears it under the
+> policy rwsem, which cpufreq_driver_target() also holds, that check was
+> sufficient to prevent the crash.
+>
+> The race has been reachable in-tree since commit c210063b40ac
+> ("cpufreq: mediatek: Add opp notification support"), which added the
+> first caller of cpufreq_driver_target() that can run concurrently with
+> CPU offline.
+>
+> Address this by making cpufreq_driver_target() return -EBUSY if the
+> policy is inactive after acquiring its rwsem, in analogy with the checks
+> in cpufreq_get(), refresh_frequency_limits() and the sysfs show() and
+> store() callbacks.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261104153042.3987338-1-zhongqiu.=
+han%40oss.qualcomm.com
+> Fixes: 2372784542cb ("cpufreq: Drop 'freq_table' argument of __target_ind=
+ex()")
+> Fixes: c210063b40ac ("cpufreq: mediatek: Add opp notification support")
+> Cc: stable@vger.kernel.org # v5.19+
+> Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> ---
+> Fix the issue discussed at:
+> https://lore.kernel.org/all/a4b320d9-ade6-4f39-9e9a-e9a82b13152e@oss.qual=
+comm.com/
+>
+>  drivers/cpufreq/cpufreq.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+> index 54dde8419bdc..352ee4a1f085 100644
+> --- a/drivers/cpufreq/cpufreq.c
+> +++ b/drivers/cpufreq/cpufreq.c
+> @@ -2403,6 +2403,14 @@ int cpufreq_driver_target(struct cpufreq_policy *p=
+olicy,
+>  {
+>         guard(cpufreq_policy_write)(policy);
+>
+> +       /*
+> +        * The last CPU in the policy may have gone offline after the cal=
+ler
+> +        * obtained it, in which case the policy is inactive and must not=
+ be
+> +        * used for changing the frequency.
+> +        */
+> +       if (unlikely(policy_is_inactive(policy)))
+> +               return -EBUSY;
+> +
+>         return __cpufreq_driver_target(policy, target_freq, relation);
+>  }
+>  EXPORT_SYMBOL_GPL(cpufreq_driver_target);
+> --
 
-batadv_tt_tvlv_container_update() read the number of local changes without
-holding changes_list_lock. batadv_tt_local_event() is not serialized by
-the commit_lock and can queue new events before the changes_list is
-flushed:
-
-  CPU0                          CPU1
-  batadv_tt_tvlv_container_update()
-    num = ...local_changes;
-                                batadv_tt_local_event()
-                                  list_add_tail(...);
-                                  ...local_changes++;
-    spin_lock_bh(&...changes_list_lock);
-    /* only num events copied but all freed */
-
-The additional events were freed without ever being sent. Other nodes will
-only notice this via a CRC mismatch and must request the full table.
-
-The number of changes and the changes_list must therefore be taken
-atomically. Events queued afterwards then stay in the tt.changes_list for
-the next TT round.
-
-The changes can no longer be kept for the next round when the TVLV buffer
-allocation fails. But they would be sent with a skipped TTVN anyway, so the
-other nodes have to request the full table in this case either way. The
-last changeset is only dropped in this case when the TTVN was incremented.
-Without new changes, it still describes the current TTVN.
-
-Previously, the unconsumed changes caused a retry of the TVLV container
-update in the next commit round. Since the changes are now consumed, the
-next round would only take the path without changes and wait for
-BATADV_TT_OGM_APPEND_MAX rounds before updating the container again. Until
-then, the outdated container with the previous TTVN would still be
-announced. The ogm_append_cnt is therefore reset on failure to retry the
-update in the next OGM interval.
-
-This doesn't make the CRC consistent with the announced changeset. The
-local table modifications are still not serialized with the commit and
-batadv_tt_local_transition_new() can still make a client part of the CRC
-for which the event is only part of the next TT round. Such an
-inconsistency is detected by the CRC check of the other nodes and solved
-via a full table request.
-
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-fc286ddd-5bed-4683-b842-ee7a307eeb19
-Fixes: a73105b8d4c7 ("batman-adv: improved client announcement mechanism")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
----
- net/batman-adv/translation-table.c | 61 +++++++++++++++++++++++-------
- 1 file changed, 48 insertions(+), 13 deletions(-)
-
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index e7242706e3345..dfec5cce5fe50 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -978,20 +978,22 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
-  * batadv_tt_tvlv_container_update() - update the translation table tvlv
-  *  container after local tt changes have been committed
-  * @bat_priv: the bat priv with all the mesh interface information
-+ * @changes_list: list of committed changes which will be consumed
-+ * @tt_diff_entries_num: number of entries in @changes_list
-  */
--static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
-+static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv,
-+					    struct list_head *changes_list,
-+					    int tt_diff_entries_num)
- {
- 	struct batadv_tt_change_node *entry, *safe;
- 	struct batadv_tvlv_tt_data *tt_data;
- 	struct batadv_tvlv_tt_change *tt_change;
- 	int tt_diff_len, tt_change_len = 0;
--	int tt_diff_entries_num = 0;
- 	int tt_diff_entries_count = 0;
- 	bool drop_changes = false;
- 	size_t tt_extra_len = 0;
- 	u16 tvlv_len;
- 
--	tt_diff_entries_num = READ_ONCE(bat_priv->tt.local_changes);
- 	tt_diff_len = batadv_tt_len(tt_diff_entries_num);
- 
- 	/* if we have too many changes for one packet don't send any
-@@ -1009,19 +1011,39 @@ static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
- 
- 	tvlv_len = batadv_tt_prepare_tvlv_local_data(bat_priv, &tt_data,
- 						     &tt_change, &tt_diff_len);
--	if (!tvlv_len)
-+	if (!tvlv_len) {
-+		/* the changes are lost and the other nodes have to request the
-+		 * full table. Don't answer TT requests for the new TTVN with
-+		 * the stale changeset of the previous TTVN. Without changes, the
-+		 * TTVN was not incremented and the last changeset is still valid
-+		 */
-+		if (drop_changes || tt_diff_entries_num > 0) {
-+			list_for_each_entry_safe(entry, safe, changes_list,
-+						 list) {
-+				list_del(&entry->list);
-+				kmem_cache_free(batadv_tt_change_cache, entry);
-+			}
-+
-+			spin_lock_bh(&bat_priv->tt.last_changeset_lock);
-+			kfree(bat_priv->tt.last_changeset);
-+			bat_priv->tt.last_changeset = NULL;
-+			bat_priv->tt.last_changeset_len = 0;
-+			spin_unlock_bh(&bat_priv->tt.last_changeset_lock);
-+		}
-+
-+		/* announce the already committed TTVN in the next OGM interval
-+		 * instead of waiting for BATADV_TT_OGM_APPEND_MAX idle rounds
-+		 */
-+		atomic_set(&bat_priv->tt.ogm_append_cnt, 0);
- 		return;
-+	}
- 
- 	tt_data->flags = BATADV_TT_OGM_DIFF;
- 
- 	if (!drop_changes && tt_diff_len == 0)
- 		goto container_register;
- 
--	spin_lock_bh(&bat_priv->tt.changes_list_lock);
--	WRITE_ONCE(bat_priv->tt.local_changes, 0);
--
--	list_for_each_entry_safe(entry, safe, &bat_priv->tt.changes_list,
--				 list) {
-+	list_for_each_entry_safe(entry, safe, changes_list, list) {
- 		if (tt_diff_entries_count < tt_diff_entries_num) {
- 			memcpy(tt_change + tt_diff_entries_count,
- 			       &entry->change,
-@@ -1031,7 +1053,6 @@ static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
- 		list_del(&entry->list);
- 		kmem_cache_free(batadv_tt_change_cache, entry);
- 	}
--	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
- 
- 	tt_extra_len = batadv_tt_len(tt_diff_entries_num -
- 				     tt_diff_entries_count);
-@@ -3695,11 +3716,25 @@ static void batadv_tt_local_purge_pending_clients(struct batadv_priv *bat_priv)
-  */
- static void batadv_tt_local_commit_changes_nolock(struct batadv_priv *bat_priv)
- {
-+	LIST_HEAD(changes_list);
-+	int changes_num;
-+
- 	lockdep_assert_held(&bat_priv->tt.commit_lock);
- 
--	if (READ_ONCE(bat_priv->tt.local_changes) == 0) {
-+	/* atomically get the list of changes. The TTVN decision and the
-+	 * announced changeset must cover the same events. Events queued
-+	 * afterwards stay in the tt.changes_list for the next TT round
-+	 */
-+	spin_lock_bh(&bat_priv->tt.changes_list_lock);
-+	list_splice_init(&bat_priv->tt.changes_list, &changes_list);
-+	changes_num = READ_ONCE(bat_priv->tt.local_changes);
-+	WRITE_ONCE(bat_priv->tt.local_changes, 0);
-+	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
-+
-+	if (changes_num == 0) {
- 		if (!batadv_atomic_dec_not_zero(&bat_priv->tt.ogm_append_cnt))
--			batadv_tt_tvlv_container_update(bat_priv);
-+			batadv_tt_tvlv_container_update(bat_priv, &changes_list,
-+							changes_num);
- 		return;
- 	}
- 
-@@ -3716,7 +3751,7 @@ static void batadv_tt_local_commit_changes_nolock(struct batadv_priv *bat_priv)
- 
- 	/* reset the sending counter */
- 	atomic_set(&bat_priv->tt.ogm_append_cnt, BATADV_TT_OGM_APPEND_MAX);
--	batadv_tt_tvlv_container_update(bat_priv);
-+	batadv_tt_tvlv_container_update(bat_priv, &changes_list, changes_num);
- }
- 
- /**
--- 
-2.47.3
-
+Applied as 7.4-rc material, thanks!
