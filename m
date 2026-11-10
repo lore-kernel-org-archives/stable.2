@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312632;
-	b=l2U6n6O6HBALwMkJ0kQf2pbPLjPrRKQfMkRLLuShBU5PwW/EJ4IQKuoYuS+fBL+jF6lp
-	 4Y1iJr2FWzP/aBTBfcqphMWQtwSVyUkEQw939VxOaYcWTNpgErIpjY2XCYPB1l/cb+KuP
-	 ojDlgIsjXC2h+yJJ8yaGULQq1ves4RGHM9HV3QZmW8k8a3vOFubznMUjqlGED37D/t4Zg
-	 GcDbLY/yTUZ4INz3Xz4yHZIpcEQA2pF86nIj+uQe1L0jlgl2GMwYMcW9YUds/nPTI+23a
-	 8BMF1kWca/uVKh+QS8eBAWTl3MPim4H3O3Pt6ZilSUT2uJtmYiahv3FvkdL+LCEiUNw==
+	t=1794312633;
+	b=QC/Xi0WGi8anhujBfHsc4H9gn3rFpgky2QvxSLgs9Z3zPK9OZ2+/j9I7u+/4YFFdyzuo
+	 hig7eMdbLCytLpSGBYKdnVN2kPm4bxc+LoKw8uVId8nU1UfAKHpwPNJOyv8G5Puf1Md+m
+	 VgdOwf9jc5+67qxCy+lottmDbkGxrJ+wL4WEp2HvFJ0edEoWkHVM6FErEi1dByPAmDB3p
+	 pBtM1SGodSAw3DJrDuLZgBu3uxH3te+S3ddmjkT1UzM9NdobPeughTAUF76WsitkFMMW4
+	 qCXntDrF9KjJIDxS4fgyMEn0LafwBRhZ/EhOvH1j5ZifCGsS1u4qe1Lzh/0xKoV8DaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312633;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YlRrfyuE+6f7gdC28HC5UAKJt2tWPNlcyG1lgSoZDZA=;
-	b=axsR+yhjv0KSBdvWCs21U/gu98FXpcLA+C55EN2w9hUa+CjBGTvpPt9X/dWUNd2iYafm
-	 4YP7CLTz6wYahn1yh9Ui/CidUs87LbQ+7MkFth8CTe+a7dQ7FSvlzHKwtc5KAIJIrD/4f
-	 iWWPjxuIgJbAG2Dvq12Fti2bdNl4ZN2O4WIyyPzxALElzsbbU4YZK1KCwkQEMvHrmqhp5
-	 KBYDcPNE7driuzIto5NuGI6Zl9H+DQMDriMwZw+nz4w+tPUNJ8vDZsfPOdLyJbj8Gzoys
-	 9SvQ4+j4fGaKRvvPlealypncmjSZNbstPs54/RXKet84VExYpQ4lira9jlySLFd7WMQ==
+	bh=rCox+Cfz2K7YJ9mhH4ZnTTcUR0nfUZtZxBr1n2ts0z4=;
+	b=msD+o9pviPGhvivNidq7cgRtFl/U+mePagJ7l9MKXDKjDqIn8t3lz35cX/AJTJ32QCD8
+	 ALosbA5So0aVmVIPLzXtKts3bqm22vDmZ/Cs8roIXxLQ5nvHAMSKMhs1Mu0e5ZGG36l3r
+	 s9Fy5/75oDJQaVGDYFjlF4NSVs1q0dQUcugMJrXENlJYahVpZLKJ8jrwnmalHqExSI0tp
+	 d9RdBSPjrEPY0mKmbusE0oBlIM39cw2RhZozYOuSb5kQDORk9KqPvIgLKWBWotiWNrTtM
+	 OKx2jcMD0hYdJDjfyKl7n+UwVPWz0RsUnAAjnCSN7vyUEtmJHmnFq2VurdnAjW5+TWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WlcZXoyr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtWK4NDB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F6F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3308606D503
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:10:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WlcZXoyr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580F11F0089F;
-	Tue, 10 Nov 2026 12:10:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AtWK4NDB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F2D1F008A2;
+	Tue, 10 Nov 2026 12:10:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794312632;
-	bh=YlRrfyuE+6f7gdC28HC5UAKJt2tWPNlcyG1lgSoZDZA=;
+	bh=rCox+Cfz2K7YJ9mhH4ZnTTcUR0nfUZtZxBr1n2ts0z4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WlcZXoyrYZkKxeuiDKC5rN1gyxj8XBoEXcH2vZkK3zJW1b+o0e6D32te2+ODn88KB
-	 BNkfNaf6aOMnrw2Ou8KIhHnJ6UkVdn/95vqZoPsXNWZ9MmwI4qP0ZlKuxRxk9C4Xh2
-	 b1nzb4sVaBc7Iy4z6WLsB3zR/V4Sk0ussqnKCboztKoYlTQriQHOInJOsaW+481K42
-	 0jdh1OZsWMM/ZtJiQ5GQwKp7QVrTCu+fQT9bK4C5fCTnCBGkkmDE8S2Rq3qJWAQMxE
-	 JlDGnhWIXi3+sjbC9q+UT0KF8JrE8PhwO9msWyhQqdaWv+ngG71J/gvWXTDN/ZJ65c
-	 n0zH3ms8WfM2w==
+	b=AtWK4NDBdy311caUUtygPTEdkW5EYRkhi4Ms/o4MkX8TfUzjzgz5l2WEvoCwy064p
+	 JnaX+8pN3Imda1ppH/AcIyegKdfvTUT+bTQNth7haiaXmmaip+lCsXq22wsQZMf1GI
+	 Q2dmoZqTRyxiS/sfXS1Zv8VTKe3Fk9OauvXv32bS4tYzpwNdzzsC0sjcQyoEsCdOcX
+	 TYTXdT4fmHqHJsUHcAkV2QMhJnd2yVFYSUzWLqEFRlBSc2D4H5BzKq2d64NqCzIOa8
+	 8rzcBSeV2sP4wA8rfoq9V9+be2mR3PYDa81TzRxcm6pdVDJ/I/Dx7u+8JikFOf+prA
+	 buLr9LJhebQdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+Cc: Jiale Yao <yaojiale02@163.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] iio: adc: ad7192: Revert "properly check spi_get_device_match_data()"
-Date: Tue, 10 Nov 2026 07:10:28 -0500
-Message-ID: <20261110121017.969666-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] iio: adc: ad7192: reject devices without match data
+Date: Tue, 10 Nov 2026 07:10:29 -0500
+Message-ID: <20261110121017.969666-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050733-failed-6.18-7f7a119a370e@kernel.org>
+In-Reply-To: <20261110121017.969666-1-sashal@kernel.org>
 References: <20261107050733-failed-6.18-7f7a119a370e@kernel.org>
+ <20261110121017.969666-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,39 +62,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Jiale Yao <yaojiale02@163.com>
 
-[ Upstream commit 0309e66abea141f3ec339b064b8f8b8003d2a634 ]
+[ Upstream commit 7f7a119a370ecf6c8d4ab9e9ee0a8cdd77afedd3 ]
 
-This reverts commit b7f99fa1b64af2f696b13cec581cb4cd7d3982b8.
+SPI driver_override allows a device to bind to this driver without
+matching either the OF or SPI device ID table. In that case,
+spi_get_device_match_data() returns NULL.
 
-The added code is currently a dead code. Moreover, the driver is not
-designed to have any defaults effectively making driver data a mandatory
-information to work with. Taking all together, revert unneeded change.
+ad7192_probe() immediately dereferences the returned chip information
+to initialize the IIO device, causing a NULL pointer dereference.
 
-Discussion at #1 concluded in agreeing a new policy on this for IIO.
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data before using the chip information.
 
-Link: https://lore.kernel.org/linux-iio/20260217080514.1288115-1-andriy.shevchenko@linux.intel.com/ #1
-Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: 7f7a119a370e ("iio: adc: ad7192: reject devices without match data")
+Fixes: c3708c829a06 ("iio: adc: ad7192: Convert from of specific to fwnode property handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad7192.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/iio/adc/ad7192.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/iio/adc/ad7192.c b/drivers/iio/adc/ad7192.c
-index 530e1d307860e..8b1664f6b102c 100644
+index 8b1664f6b102c..394137a127abb 100644
 --- a/drivers/iio/adc/ad7192.c
 +++ b/drivers/iio/adc/ad7192.c
-@@ -1402,9 +1402,6 @@ static int ad7192_probe(struct spi_device *spi)
+@@ -1402,6 +1402,9 @@ static int ad7192_probe(struct spi_device *spi)
  	st->int_vref_mv = ret == -ENODEV ? avdd_mv : ret / MILLI;
  
  	st->chip_info = spi_get_device_match_data(spi);
--	if (!st->chip_info)
--		return -ENODEV;
--
++	if (!st->chip_info)
++		return -ENODATA;
++
  	indio_dev->name = st->chip_info->name;
  	indio_dev->modes = INDIO_DIRECT_MODE;
  	indio_dev->info = st->chip_info->info;
