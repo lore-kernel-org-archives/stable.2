@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274154;
-	b=Ryi1WS7vZfF3NDnmiEdYC9QMmp6VPjMbuKdyw7fKAFZ9VoY15tEexir08sTVRV7MtAH6
-	 1+R8egD66NXPG6uwNPCvPjfd6gXKp+cq+m/sm/Ph+c+uwu/2w1iZyn67QEy44m6tzDK/N
-	 s25iUuOlQVgdwNIob+iRmnWkQetXgvM/dYEBrSetHGvf7ib0KxGYmpnO8Hs9UZ6M/lksj
-	 jvU7PsH/ozAtpisgV8Q6A7TaViLBf2kOxRVuzqboQqJqjkRYQl9ANVL3FO6tOpmk2k5nv
-	 FF66wWE+/EEqG9M7qXzhUD94RBdXGclTjUk6zl4aK9GZECrFUp6m8dvCp6x2zJ/C7/Q==
+	t=1794274156;
+	b=wmnE2xN3VOVW70+8HTQWTr/RxYnXgbu2p3btW/yuiEE7iUTwKFjOF0ao1OzlvGuhVeZ6
+	 7Fgu/a1YvBoYr0ZlCs4mioLaG/hsdFGbhGUJWf6QWbLBiyxetmCTDMff+aoJLH02Dxtg1
+	 vHQNoo6ftHwHxrI1DmeakxyuJm8Etf+0437PtISHgmADmFXUUP6kQwHJA8OP2D6Lp1Wch
+	 t6YB9+aLuxdQP731XlE/VGtZS5ay84IM9CXWkpBaJ8lG3OU530h4aJMr45/ZTvxF3jEJi
+	 YumyKEB4Q6doHJUu8Aj+GLfDVKgAo0h8gvZSDV6cr31b6CixQOOBkzQCvH1fVdQsAog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274156;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LsheQbVvW4vRpMmoaheMbO0/exU422pzREf1j/UW3Xw=;
-	b=N1Xg6sgV1E0otU1z4jEPIKy2bzbbr/1fOd4qcWo+YJ27x/ihf1Uf5DTCUvR0EkuIB3fu
-	 bKOE+Q/LvHe59O8QdAcfH2PUe2ncmzP2UOC/NCFraNQFQcysXTk6j9OOaEE+0t47edHzL
-	 3iYlxfok8WICtaetqhUYVXCHNy18f3R9s6+EBqGbvKaE/W5Y/IeMMk+9Spw++MuToTwwD
-	 wanqPGafG6C/kc065uAmpV7w9OuAB72aoi1EfPaXEqHTj2vCEd2gSc6gKm2hBH7fUqN/6
-	 p9155a0ajsNWFPB0ydekaiD5sDOIgUpQUAxCkniGszGUgxgL/cXAJSirbr8w3Timg/A==
+	bh=fQ4sO9j0P/Yp4zAuynqRkJ7lhKusBx/jjMLH+hzpCvY=;
+	b=CFnhvDQpdZcK82Nenmm42ki1PSwgsvTz3bN0MWk9CwfDFSMGhpxcnuYkeAGWV7aIgOn7
+	 U9JXyHDmsBF4KAC2py2mHN8XKTeni8dzDrg7psitEyrTxsJ8pkBmTRFFglFXKk6YGL1kN
+	 544xYcflIs+rqAI5Yu4dSRs1MT3Av6LCYKYwp+l6cTCKPicwQmOXH+al8uJjhiTkWC/Pc
+	 FxHyTqbhe9gbexOhIIJCMI1faRdA6Au/XFcSP7H9tXnfu7LRH3nweuuD3X7y9pFR1nthy
+	 XY0HjoVeF5ZcFmUviu7IbgTPWeHm1UAgw52zgmbkKvHKv1I1dDWYrHiEevqOWXsfikg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0YpKscC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRp8gPLx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FC5606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:29:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8A0606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:29:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0YpKscC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4241F0089F;
-	Tue, 10 Nov 2026 01:29:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SRp8gPLx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1021A1F008A1;
+	Tue, 10 Nov 2026 01:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274154;
-	bh=LsheQbVvW4vRpMmoaheMbO0/exU422pzREf1j/UW3Xw=;
+	s=k20260515; t=1794274156;
+	bh=fQ4sO9j0P/Yp4zAuynqRkJ7lhKusBx/jjMLH+hzpCvY=;
 	h=From:To:Cc:Subject:Date;
-	b=V0YpKscCi8bHdhJk8NZzsuDhl0Z+ly1O/E19w6jc+aTey0+1Ag0W9TEEoIRBkaiPh
-	 LwrEEA0NIe2R9AdWnnggYMb3+kNzCMPj1Q59JQlte6907eDCUmPjAalZZ3nwaS8Qix
-	 wFJ2L9X3nPUCUr+v3LdzOIifFPKs8kZvEvKu3BjB2OlQkhdPpy5spDVjd5/2B4K0SO
-	 CiuOXsvet1MRvB6pjr0e/Ystjx+0sIc2OS8r/dGMn6n5l/ZDkzn7X2aSwX2SF0mD3N
-	 JfrgfvMvgaGnCH9h2ZDbSshKrQElBnwUegaBT9Ad/GYqJkut/lK1gTORAqyHxwdOKw
-	 KTWGi+iWurtvw==
+	b=SRp8gPLxmRxMHms6O02amh9MxUC0/vRTz1fPHZpWEKtKUPOCENG9wAxvWZAzOcbMU
+	 c13XmKc7M+enLRF/438Xm7kadsoBD87CpcJ7Xu4vTw3696hDSVN28nc5458iLb+Jdu
+	 kS2ixMhxh/PUaafXk/NAc6rdbp/jn1tWNrSas6OKr+YHmgoyPpfSDrex9aHA+6SpEy
+	 Rmb+00FG9Cj4T7Uf5amPw+ztvmpI6Rr1oTHAcYmkxnVWw53qG6T3yIS4JAX/kkLqwK
+	 Mombyvg1wGPNlJZte7+yyjhqB0PQvSMTwI7pIboyPcLqbQQ10VfRCEmHRPBfGnD96S
+	 bEqhLtvsoCN4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: matthias.goergens@gmail.com,
 	jack@suse.cz
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] udf: check the unallocated space table when it is loaded" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:29:12 -0500
-Message-ID: <20261109202912-failed-5.10-e614c3e35a66@kernel.org>
+Subject: FAILED: patch "[PATCH] udf: don't use eloc after the end of the unallocated space table" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:29:14 -0500
+Message-ID: <20261109202914-failed-5.10-94401199df90@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,174 +68,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e614c3e35a6699ed691b4d17e1ec4230e34aa3eb
+git cherry-pick -x 94401199df90e1c2a50c6e4b73618ac5a4ba83ba
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202912-failed-5.10-e614c3e35a66@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202914-failed-5.10-94401199df90@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e614c3e35a6699ed691b4d17e1ec4230e34aa3eb Mon Sep 17 00:00:00 2001
+From 94401199df90e1c2a50c6e4b73618ac5a4ba83ba Mon Sep 17 00:00:00 2001
 From: Matthias Goergens <matthias.goergens@gmail.com>
-Date: Fri, 30 Oct 2026 22:05:35 +0800
-Subject: [PATCH] udf: check the unallocated space table when it is loaded
+Date: Fri, 30 Oct 2026 22:05:37 +0800
+Subject: [PATCH] udf: don't use eloc after the end of the unallocated space
+ table
 
-udf_table_new_block() hands out the first block of the extent closest
-to its goal and trusts that the extent covers at least one whole block
-inside the partition.  Nothing checks that.  A zero-length extent makes
-it return the block the extent points at, which need not be free, and
-the subtraction of one block then underflows the length into the type
-bits, turning the entry into a bogus continuation.  An extent running
-past the end of the partition makes it return blocks behind the
-partition.
+When udf_next_aext() returns 0, its eloc, elen and etype outputs hold
+no defined value.  Two walks of the unallocated space table still use
+eloc after the walk has reached the end of the table.
 
-Such tables are not only found on crafted images: until the previous
-commit, udf_table_new_block() itself left zero-length extents behind
-in tables written by mkudffs, and then converted them into extents
-running past the partition.
+udf_table_prealloc_blocks() looks for a free extent starting at
+first_block and decides whether it found one by comparing eloc with
+first_block after the walk.  If the table's list ends in a continuation
+descriptor that leads to an empty allocation extent, eloc is then the
+block of that allocation extent, which is in use, and if that is
+first_block, the block is handed out as preallocation.  Once
+udf_discard_prealloc() no longer frees the wrong block, this is what
+still makes fsx in generic/091 and generic/263 read back bad data on a
+table, in about one run in four.  Only take the extent if the walk
+stopped at it.
 
-Check every extent once when the table is loaded, and refuse
-read-write access if one is empty, is not a whole number of blocks, or
-does not lie inside the partition, in the same way as for other
-allocation information the kernel cannot use.  Check first that the
-table is an Unallocated Space Entry at all: the walk starts at the
-offset of the allocation descriptors in one, and for a file entry that
-offset lies before the inode's in-memory copy of the descriptors.
-Treat a chain of allocation extent descriptors that leads back to
-itself the same way: the walk would otherwise return the same extents
-forever, and the mount would never finish.  Let a fatal signal
-interrupt the walk and fail the mount.
-
-Refusing read-write access to an empty extent is deliberate.  It shows
-that an old kernel took the last block but left the entry behind.  If
-consumed again, the entry returns an in-use block and turns into a huge
-bogus extent.  Refusing the table before that
-happens avoids this second allocation; the filesystem can still be
-mounted read-only.  The check cannot detect every overlap that may
-already exist in a damaged table.
-
-This patch should be backported together with the previous one: that
-patch stops creating new empty extents, and this one rejects existing
-ones before they are consumed again.
+When udf_table_free_blocks() cannot merge the freed blocks into an
+existing extent, it appends a new one and sets only its block number,
+so the partition reference comes from whatever eloc held after the
+walk, and with long allocation descriptors it is written to disk.  For
+a table without extents, eloc was never set.  Take the partition
+reference from the freed blocks instead.  Short allocation descriptors
+do not store the partition reference, which is why this half remains a
+latent long-descriptor fix rather than a reproduced failure.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-Link: https://patch.msgid.link/81233decd91f4a48bf4d74e3d15b547c7711e39f.1793349907.git.matthias.goergens@gmail.com
+Link: https://patch.msgid.link/fd9ca4c4ba98c00c012ec861f6c0bc08a3b1d07b.1793349907.git.matthias.goergens@gmail.com
 Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- fs/udf/super.c | 80 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 79 insertions(+), 1 deletion(-)
+ fs/udf/balloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index 2335c31cde314..a81a8509524a9 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1106,6 +1106,73 @@ static int check_partition_desc(struct super_block *sb,
- 	return 0;
- }
+diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
+index 2ec577b4321c9..75124188e7452 100644
+--- a/fs/udf/balloc.c
++++ b/fs/udf/balloc.c
+@@ -457,6 +457,7 @@ static void udf_table_free_blocks(struct super_block *sb,
  
-+/*
-+ * Check the Unallocated Space Table once when it is loaded: the allocator
-+ * hands out blocks from the start of each extent and trusts that every
-+ * extent covers at least one whole block inside the partition.
-+ */
-+static int udf_check_unalloc_table(struct super_block *sb,
-+				   struct inode *table, u32 partition_len)
-+{
-+	struct extent_position epos = {
-+		.block = UDF_I(table)->i_location,
-+		.offset = sizeof(struct unallocSpaceEntry),
-+	};
-+	struct kernel_lb_addr eloc;
-+	uint32_t elen, blocks;
-+	struct kernel_lb_addr seen_block = {};
-+	uint32_t seen_offset = 0;
-+	u64 steps = 0, period = 1;
-+	int8_t etype;
-+	int ret;
-+
-+	/* The walk below assumes the layout of an Unallocated Space Entry */
-+	if (!UDF_I(table)->i_use) {
-+		udf_err(sb, "unallocated space table is not an unallocated space entry\n");
-+		return -EFSCORRUPTED;
-+	}
-+
-+	while ((ret = udf_next_aext(table, &epos, &eloc, &elen, &etype, 1)) > 0) {
-+		blocks = elen >> sb->s_blocksize_bits;
-+		if (!blocks || (elen & (sb->s_blocksize - 1)) ||
-+		    eloc.logicalBlockNum >= partition_len ||
-+		    blocks > partition_len - eloc.logicalBlockNum) {
-+			udf_err(sb, "invalid unallocated space table extent (block %u, length %u)\n",
-+				eloc.logicalBlockNum, elen);
-+			ret = -EFSCORRUPTED;
-+			break;
-+		}
-+		/*
-+		 * A chain of allocation extents can lead back to itself, and
-+		 * then the walk returns the same extents forever.  Remember a
-+		 * position at doubling intervals; a walk that comes back to it
-+		 * is in a loop.
-+		 */
-+		if (epos.block.logicalBlockNum == seen_block.logicalBlockNum &&
-+		    epos.block.partitionReferenceNum ==
-+				seen_block.partitionReferenceNum &&
-+		    epos.offset == seen_offset) {
-+			udf_err(sb, "unallocated space table loops back on itself\n");
-+			ret = -EFSCORRUPTED;
-+			break;
-+		}
-+		if (++steps == period) {
-+			seen_block = epos.block;
-+			seen_offset = epos.offset;
-+			steps = 0;
-+			period <<= 1;
-+		}
-+		if (fatal_signal_pending(current)) {
-+			udf_err(sb, "interrupted while checking the unallocated space table\n");
-+			ret = -EINTR;
-+			break;
-+		}
-+		cond_resched();
-+	}
-+	brelse(epos.bh);
-+	return ret;
-+}
-+
- static int udf_fill_partdesc_info(struct super_block *sb,
- 		struct partitionDesc *p, int p_index)
- {
-@@ -1166,6 +1233,16 @@ static int udf_fill_partdesc_info(struct super_block *sb,
- 				  p_index);
- 			return PTR_ERR(inode);
- 		}
-+		err = udf_check_unalloc_table(sb, inode, map->s_partition_len);
-+		if (err) {
-+			iput(inode);
-+			if (err == -EINTR)
-+				return err;
-+			if (!sb_rdonly(sb))
-+				return -EACCES;
-+			UDF_SET_FLAG(sb, UDF_FLAG_RW_INCOMPAT);
-+			return 0;
-+		}
- 		map->s_uspace.s_table = inode;
- 		map->s_partition_flags |= UDF_PART_FLAG_UNALLOC_TABLE;
- 		udf_debug("unallocSpaceTable (part %d) @ %llu\n",
-@@ -2243,8 +2320,9 @@ static int udf_fill_super(struct super_block *sb, struct fs_context *fc)
- 				/*
- 				 * EACCES is special - we want to propagate to
- 				 * upper layers that we cannot handle RW mount.
-+				 * EINTR means that a fatal signal is pending.
- 				 */
--				if (ret == -EACCES)
-+				if (ret == -EACCES || ret == -EINTR)
- 					break;
- 			} else
- 				break;
+ 		int adsize;
+ 
++		eloc.partitionReferenceNum = bloc->partitionReferenceNum;
+ 		eloc.logicalBlockNum = start;
+ 		elen = EXT_RECORDED_ALLOCATED |
+ 			(count << sb->s_blocksize_bits);
+@@ -532,7 +533,7 @@ static int udf_table_prealloc_blocks(struct super_block *sb,
+ 			  eloc.logicalBlockNum, elen, first_block);
+ 	}
+ 
+-	if (first_block == eloc.logicalBlockNum) {
++	if (ret > 0 && first_block == eloc.logicalBlockNum) {
+ 		epos.offset -= adsize;
+ 
+ 		alloc_count = (elen >> sb->s_blocksize_bits);
 -- 
 2.53.0
 
