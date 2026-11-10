@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312641;
-	b=COsNK8Yq3xWNGj3yK4j5CKEhQKWjgbrBgv1OTlnU4Uo9F87GLWFmVge44mzTfG+RY832
-	 /1bOv9AhwLgtyiB93dljKivyFB2Hc4fS3TcKA0kXgZCLaptEcshnlo9D8+AvVGmsgKzmA
-	 uKWi1i3JtHELQUmEGYKcZCsXhS/JxLcMMlWriCPGPbSeK0/fdBVvL9kGTn0bY1p+Qz5Zt
-	 5PUwO/2fFGJ6X/jHkrV1PeUWUTtnOz0cDvyUGdavZ3Z7DGk318E5BLIzVqTNyDFRx2aTZ
-	 7W1qq8xYfO2popEulU4kNd5+4Epoa4gpVl/OKjO64x2JZUBueKmxTrwqNlAwD+hPBiw==
+	t=1794312649;
+	b=FQtK+2AdTeqpsXEWJ6MTWCobmWacKH6MY6MZImbIOUB5q59u7gHlkX3GIALncIEtdsue
+	 sov1Uo1FlJoblezJSvGZcYZOdaMxvXi4291FNv/UARysFV7q/bs6kt2Ij0SFTQ/Bozj4N
+	 LmDfTQJU6C8/QGotI19AhFk4j8M0bgLLXeOB0FpqBjDUfJRrj9tftTGYFOrFw8jedlVhm
+	 XCx3j3/rqP4y7nLcZokgTcM/lnjsdGsEWd1adILdvzvaDznrUXi5+M9xh7q0wmfcK6zBs
+	 TtzX7NYH5Ip6WmPghoXyMA/IZwCPW/W/Ys4dRtX2w4qFcQK90oqrYONZFnKdehWt7+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312641;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312649;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kHUeGlyC1eB7IOqu+eOnOYNVXmgNs4R0Ze18IPK34Zw=;
-	b=id3CF+vv2FFI/d5eKvs1jx+iWuweqUv+r8mxI6xJuHX7JDOALv9ztv4kAHQp3fUk637w
-	 stSZFC8qb+t17wzSuI0nwJNmKvXplEGQLRy2u/KWG/LzGj1Wd0zuP5xprh1qZf9N/42gt
-	 Ny0AqkBhGGXrdAd/makX5T8F8yAm5aMPDFEOuCkXVq8tcABH3Pm97wFcaLRRQX7+uYA1c
-	 xlB06WulbewL4NsSec8qF4ML05RtqwRDLWbafTP4uJI8jpswG0FNwCdUs/hWWNGN28/vm
-	 r+6hJ0rEETof65sZ0emJN4QEu3ixZ6gsgd8L7jgg4gSngBnXc7h1R6LsSv2VV4WnxWA==
+	bh=+x3H0SnwirXUyw+PofM1WNqAxgSzHIdenhzye+vb8Mc=;
+	b=zw8QTHLByL1T0QigTT6xPaXTbyj6FvEbeOLw6ZL8jltoM2rW2l19TlO08FOrijfdMbOC
+	 roZJMMA/AbFQfWICDJTVuhE6WQ75LetonTTDlmD/van6cIZXH6cp/Wql1BYiN2V93IvH5
+	 crv3bcCQaesrStdH8/m7/qz4YScgJEjklM81uoKnQtiK+ECGcMGM5lJILE7MZsYeZfL+z
+	 7jjQ+NJTyCncuh5VOmrGTyyJkErAu2BMCvAZKtuZa0bqlquM5/oji9R8PMbnZq3ksmJS/
+	 qyP8Pe4ywAbTc22IlN3tZXGkMdkIkXXPHhQ/UE6YLQk0NAA3XqERbRU5njez366Is4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkP4djRl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W4bIikyj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A68606A335
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:10:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82DC606A945
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kkP4djRl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB2B91F0089F;
-	Tue, 10 Nov 2026 12:10:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W4bIikyj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9246A1F0089F;
+	Tue, 10 Nov 2026 12:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312640;
-	bh=kHUeGlyC1eB7IOqu+eOnOYNVXmgNs4R0Ze18IPK34Zw=;
+	s=k20260515; t=1794312648;
+	bh=+x3H0SnwirXUyw+PofM1WNqAxgSzHIdenhzye+vb8Mc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kkP4djRl6uZhEfGWmOA0vnYLnpwALEcbklCBPqIZETz5vi8EI77y8za8o1yoq4iY1
-	 lITGEZK0gU8AMiFsvwv9BLZMlYQiUwnDdtvu/a+4J6Wc3cRXOHYNp0Ac4w+MLRwW3q
-	 i/xE7wMV4hMRob04buqaFvCpLNAWdWeethvtB6j+EIBWv4kGOl4M97muQwPql7Lh4X
-	 b0vNOJ8cPihasntDHtmfEEXeqGoEpOn+47Tm4ZKYUBiAHM3ctMqfTKfnZH2ZF4bZac
-	 RPclGOSpSNfBS5YJIb28K7PH1uMwDQVvGqk04XE/RapaNKbgGjhj9TA/k5/YMwv2F9
-	 qGIcu8DvQxk2Q==
+	b=W4bIikyjLQH/T+t6quhC4bGO1hVJUnwIsoqZD4HjTLItGcSxVlcN6L/WxtY48p45d
+	 eoH/CeMvZYIeYp/1fYRDhT0r1Z4MX8O+fN3RhhyhCgWb94U1EqtoMGZtKWHs4Pr9j6
+	 iYSbNPi61RIkLtKTRuV+dbxouQtWEToqgXbw3GRQzM1NMe2V9LgT39yOKIFylq/rUK
+	 D7lO/Q5MsTCotDGB3XqOld8jsf06CLoU5L/V5EovsCjI7Ke3kZ/eo5UZ/H7fUnhL2N
+	 yJ8FMhDJszHN4mjk0vYh5qzn055HvwzVa19xl0ifbTRzAhNDnPeVGa7S797WfSWxSk
+	 /k41O6Siq7dNA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>,
-	Yunpeng Tian <shionthanatos@gmail.com>,
-	Gongming Wang <gmwgg05@gmail.com>,
-	Mingda Zhang <npczmd@qq.com>,
-	Qinrun Dai <jupmouse@gmail.com>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] udf: Make sure there's enough space for LVID implementation use field
-Date: Tue, 10 Nov 2026 07:10:37 -0500
-Message-ID: <20261110121023.978616-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] media: mtk-vpu: Remove redundant 'flush_workqueue()' calls
+Date: Tue, 10 Nov 2026 07:10:45 -0500
+Message-ID: <20261110120942.969538-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110121023.978616-1-sashal@kernel.org>
-References: <20261107055724-failed-5.15-a61fb39759d7@kernel.org>
- <20261110121023.978616-1-sashal@kernel.org>
+In-Reply-To: <20261107060149-failed-5.15-2c50b58d4105@kernel.org>
+References: <20261107060149-failed-5.15-2c50b58d4105@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,45 +62,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jan Kara <jack@suse.cz>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit a61fb39759d719a4f4966742b4d28387e33d81c4 ]
+[ Upstream commit 360c887a39cb56e75be4f558b16f1b6409ecb93f ]
 
-udf_lvid_valid() verifies that the LVID has enough space for all the
-tables and the reported length of ImplementationUse field. However it
-doesn't make sure the reported length is large enough to contain
-logicalVolIntegrityDescImpUse structure which OSTA specification
-requires. This can thus lead to accesses beyond the end of LVID buffer
-for suitably corrupted UDF filesystem. Add the length check.
+'destroy_workqueue()' already drains the queue before destroying it, so
+there is no need to flush it explicitly.
 
-Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reported-by: Gongming Wang <gmwgg05@gmail.com>
-Reported-by: Mingda Zhang <npczmd@qq.com>
-Reported-by: Qinrun Dai <jupmouse@gmail.com>
-Cc: stable@vger.kernel.org
-Fixes: 781d2a9a2fc7 ("udf: Check LVID earlier")
-Signed-off-by: Jan Kara <jack@suse.cz>
+Remove the redundant 'flush_workqueue()' calls.
+
+This was generated with coccinelle:
+
+@@
+expression E;
+@@
+- 	flush_workqueue(E);
+	destroy_workqueue(E);
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Stable-dep-of: 2c50b58d4105 ("media: mediatek: vpu: free IRQ before destroying watchdog workqueue")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/super.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/platform/mtk-vpu/mtk_vpu.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index f9fe3f950de85..6857c15f5a0f4 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1582,7 +1582,10 @@ static bool udf_lvid_valid(struct super_block *sb,
- 
- 	parts = le32_to_cpu(lvid->numOfPartitions);
- 	impuselen = le32_to_cpu(lvid->lengthOfImpUse);
--	if (parts >= sb->s_blocksize || impuselen >= sb->s_blocksize ||
-+	if (sizeof(struct logicalVolIntegrityDescImpUse) > impuselen ||
-+	    impuselen >= sb->s_blocksize)
-+		return false;
-+	if (parts >= sb->s_blocksize ||
- 	    sizeof(struct logicalVolIntegrityDesc) + impuselen +
- 	    2 * parts * sizeof(u32) > sb->s_blocksize)
- 		return false;
+diff --git a/drivers/media/platform/mtk-vpu/mtk_vpu.c b/drivers/media/platform/mtk-vpu/mtk_vpu.c
+index 87da09148b266..1657575346735 100644
+--- a/drivers/media/platform/mtk-vpu/mtk_vpu.c
++++ b/drivers/media/platform/mtk-vpu/mtk_vpu.c
+@@ -966,10 +966,8 @@ static int mtk_vpu_remove(struct platform_device *pdev)
+ #ifdef CONFIG_DEBUG_FS
+ 	debugfs_remove(vpu_debugfs);
+ #endif
+-	if (vpu->wdt.wq) {
+-		flush_workqueue(vpu->wdt.wq);
++	if (vpu->wdt.wq)
+ 		destroy_workqueue(vpu->wdt.wq);
+-	}
+ 	vpu_free_ext_mem(vpu, P_FW);
+ 	vpu_free_ext_mem(vpu, D_FW);
+ 	of_reserved_mem_device_release(&pdev->dev);
 -- 
 2.53.0
 
