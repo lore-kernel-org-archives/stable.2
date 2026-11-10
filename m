@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272621;
-	b=TM6JNWYXvdG2redD5DpQlmqCSahZDceKqtSot6wrG6pWUm+po8NS0Gz/+z6CH7TTI49y
-	 8ULYMxfNk1wSdbiEr3kEMGFfQasvJh/eBBPbqPVA6HZiGRWBD5yjK5I3MXSB5qGPeaQYA
-	 n73PR1XIk6B4sNgdxybzDJWdAf88Ql4LqLym3W67mJdhaBco4QFn3ZHdlN9edxESe+OLO
-	 GVweldd4WiLwzOsv+BN4DIgyu1bx/0EyB7hJ4mV4E848YVJzrXkQ3c2NrzVBSAyrtQQ8c
-	 1Xc05jAPBUBJX5SCEHgq19Gay+VxgMvdhJ2/UBxLBuIwrRQCsvSCp5YUQFJdBMXKgZw==
+	t=1794272623;
+	b=11lLWID7vWbY0PODTak6w+0YoOjYtmZiZlkg0JFw/jTZbKY7CJYsSB9YutDC4Kmtks9D
+	 ijpXGKFnXViw0KDZuVV7ohvwssO2Lu4uxqMYBcD3wlefSO3QO1K91sTE+MFClnLoTEDuD
+	 KfSsYQHT6nVq3UrgQjU24FVx7l0683LjhZ4HJ/XFQg1nCruPQGu3OYJp9f40k3TAn9w7W
+	 nUPgfGa1O0+TldJa9mEe7txGKj66jkmfqHvjQpxDd7s6CQlhwTbsEE/ijPJ9eDzgj3f6i
+	 0Pf5WOWKpRh59y4IcvnLy8Dnui6TQhIlYHHu2Yvk2UmmFcg2A5P/PGUej7ALLv+q+dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272621;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qcHvp0w5ArLZSTEtbl8CEu/NVqZsXzTy32wqj05S/oI=;
-	b=y/Wh4PzEDgb/AHHZQ6pcPvjRYE6eGPrcEfcbMmPZ5T2U6P8GKldls34SF/yDkPARy+81
-	 15vNYQJPX5PtJ2v+b61FNG2H6BL3WBl/XsQySQ9e5r7WUjeuo7uWVFHS1aGsUFQEGkA9i
-	 PGEp5zguRUxJaQ+Zksw4hg4sO5k/ENjkUqcqdo7HcAz6GhhRjwbO1X6QB60F5jSSOprz1
-	 YLohuBnRmmSvwwziGBOz2OjQitDnZ/V+FJ52QGgcmz49c1d9CD2nuFqHxBUdpAGEwdm1R
-	 X2CtWj+//5sLQ4DuyLsehiLOg62pz24o3723dDtCK4xW1MApj+AgXoVvZNzBYtF7PzA==
+	bh=4dCLNhvc6yFFw7EfnR7xId474enpbtqIfh5IKYP/anc=;
+	b=3m6C4qurgTGuZRRBqQxi6jUWH5nfgQQqnnkgxXyjnTQZiWtvW4CXQgaQtKHvGnQryC/1
+	 25Bb6Q1usF64K51Zci1mRd3+Vr9amxzKQ7N2tZr0eQC2mhG6WA9guoE1F0AGNPH1asJRe
+	 X2PWnxnWuE5XDq6fYH5eGMqctLBkp/8Jgjx99azkEo8PBD72q3U69JP5oGYXDcBAzo/bH
+	 W4ktPh93r9iUAWacCIywTKuN1PemVOu9xbP7GYcvx9kilbWc8Sli0Q7CGowV9+qKW22ON
+	 6CQiq9GqNv0yOliuCMKS760XVi+Vn1UrDY/I5m/0eH7dRk0DEu7YQT2yYqZT5BjGBgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMS7qFb0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIivbt3h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BE6606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D4F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMS7qFb0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FC81F0089F;
-	Tue, 10 Nov 2026 01:03:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UIivbt3h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EDD81F0089F;
+	Tue, 10 Nov 2026 01:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272620;
-	bh=qcHvp0w5ArLZSTEtbl8CEu/NVqZsXzTy32wqj05S/oI=;
+	s=k20260515; t=1794272623;
+	bh=4dCLNhvc6yFFw7EfnR7xId474enpbtqIfh5IKYP/anc=;
 	h=From:To:Cc:Subject:Date;
-	b=KMS7qFb0fyYh3Y3JH+eLsFJwcyWrLaLqFGf1h+wble4MPwLdDgEgknRbpe4zwP1iA
-	 fdRbn3MYu3VUCdNk1e1wx44JB0PDxGEQVIhsaZ9Pi65VwW/sqNLsxrypmc4LEUJsis
-	 G/JSE8z0T/7I/rUn5riHhJ92sXzGKFggSt206XypBQPu1jDpVKbu+Jllhzgl/e8wdj
-	 DUo97GBjsAXj+PmkdVpSMVQCWgMwmDv1l0R+zbT6eMcwavgWcWPzlCQ/PaIhO1nWOS
-	 ST803KBLGGnAaRsTYm8RuUgwT/4EYtD4J9QR41cn4J3kTr8zAznM7TpicJM5uIQZZY
-	 Tz5Au+zjuw59g==
+	b=UIivbt3hBIKo1Eaw6+s9QBLnkT2mb+CRkdLTOGwMDtwQLsnEKjtdPDGH8NGzIGVAx
+	 lCa7D5dHG421fIGOTE2NwoeIRxvvVhBmngRVsZ+WPdRcZkQv2Cc33btocUZ/wwLQPr
+	 knbcW08vatTH9ca7ATGXukun7iz+XW+Fkyl2x7a9nAJtB6O0dGuzI7GC8C1+SGFeyU
+	 R1qRNxSoMnfQyE9Cx7o1WEBqytYBukj0lguNnxKaYLW0JyFkCAGbZQszxpoYZUHSiI
+	 FYFNesxxPSHELxzRF9Tn9EtnVKmufjVU93wQ9A72hiywqgELuJD6RCWDuPsLHPXnKk
+	 0Fikvozw1quKw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux@roeck-us.net,
 	sashiko-bot@kernel.org,
 	ycistak@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Set nr_cores only after core_data allocation succeeds" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:03:39 -0500
-Message-ID: <20261109200339-failed-6.18-95638f1f05ce@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:03:41 -0500
+Message-ID: <20261109200341-failed-6.18-9a6aa085c94c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,69 +69,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 95638f1f05ced75a82e83f610cd01b636d2a21b1
+git cherry-pick -x 9a6aa085c94c7f2817c4d50a7264e6fb51286f40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200339-failed-6.18-95638f1f05ce@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200341-failed-6.18-9a6aa085c94c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 95638f1f05ced75a82e83f610cd01b636d2a21b1 Mon Sep 17 00:00:00 2001
+From 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 Mon Sep 17 00:00:00 2001
 From: Guenter Roeck <linux@roeck-us.net>
-Date: Sat, 31 Oct 2026 03:08:32 +0000
-Subject: [PATCH] hwmon: (coretemp) Set nr_cores only after core_data
- allocation succeeds
+Date: Sat, 31 Oct 2026 03:09:14 +0000
+Subject: [PATCH] hwmon: (coretemp) Fix 32-bit jiffies wraparound in
+ show_temp()
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In init_temp_data(), pdata->nr_cores is populated from
-topology_num_cores_per_package() before allocating pdata->core_data. If
-that allocation fails, init_temp_data() returns NULL with
-pdata->core_data still NULL and pdata->nr_cores set to a positive value.
+show_temp() rate-limits MSR reads by storing tdata->last_updated as an
+unsigned long and comparing it against jiffies using
+time_after(jiffies, tdata->last_updated + HZ).
 
-coretemp_add_core() logs the error without failing coretemp_cpu_online(),
-so the CPU still comes online with pdata->hwmon_dev registered. When the
-CPU is later taken offline (or the module is unloaded),
-coretemp_cpu_offline() calls get_temp_data(pd, cpu), which loops up to
-pdata->nr_cores and dereferences the NULL pdata->core_data pointer.
+time_after() relies on signed long subtraction, which only produces the
+expected result while the two timestamps are within LONG_MAX jiffies of
+each other. On 32-bit kernels, if tempX_input is not read for more than
+LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
+sign and time_after() evaluates to false. Because tdata->last_updated is
+only refreshed when time_after() succeeds, subsequent reads remain
+blocked from refreshing for another ~24.85 days until jiffies wraps
+past tdata->last_updated + HZ again, returning either a stale cached
+temperature or -ENODATA if the sensor had never been read since
+initialization.
 
-Store the core count in a local variable and assign pdata->nr_cores only
-after pdata->core_data is allocated, preserving the invariant that
-pdata->nr_cores is zero whenever pdata->core_data is NULL.
+Store tdata->last_updated as a u64 and use get_jiffies_64() with
+time_after64(), which does not wrap in any practical uptime.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 1a793caf6f69 ("hwmon: (coretemp) Use dynamic allocated memory for core temp_data")
+Fixes: bebe467823c0 ("hwmon: New coretemp driver")
 Cc: stable@vger.kernel.org
 Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/coretemp.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/hwmon/coretemp.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index eb74ecd12310a..7fced0e2abeba 100644
+index 7fced0e2abeba..96d57fe12de6d 100644
 --- a/drivers/hwmon/coretemp.c
 +++ b/drivers/hwmon/coretemp.c
-@@ -491,11 +491,12 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
- 	struct temp_data *tdata;
+@@ -76,7 +76,7 @@ struct temp_data {
+ 	int temp;
+ 	bool temp_valid;
+ 	int tjmax;
+-	unsigned long last_updated;
++	u64 last_updated;
+ 	unsigned int cpu;
+ 	int index;
+ 	u32 cpu_core_id;
+@@ -407,7 +407,7 @@ static ssize_t show_temp(struct device *dev,
+ 	mutex_lock(&tdata->update_lock);
  
- 	if (!pdata->core_data) {
--		pdata->nr_cores = topology_num_cores_per_package();
--		pdata->core_data = kzalloc_objs(struct temp_data *,
--						pdata->nr_cores);
-+		int nr_cores = topology_num_cores_per_package();
-+
-+		pdata->core_data = kzalloc_objs(struct temp_data *, nr_cores);
- 		if (!pdata->core_data)
- 			return NULL;
-+		pdata->nr_cores = nr_cores;
+ 	/* Check whether the time interval has elapsed */
+-	if (time_after(jiffies, tdata->last_updated + HZ)) {
++	if (time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
+ 		tjmax = get_tjmax(tdata, dev);
+ 		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
+ 		/*
+@@ -417,7 +417,7 @@ static ssize_t show_temp(struct device *dev,
+ 		 */
+ 		tdata->temp_valid = (val.l >> 31) & 1;
+ 		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
+-		tdata->last_updated = jiffies;
++		tdata->last_updated = get_jiffies_64();
  	}
  
- 	tdata = kzalloc_obj(struct temp_data);
+ 	valid = tdata->temp_valid;
+@@ -521,11 +521,8 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 	tdata->cpu = cpu;
+ 	tdata->cpu_core_id = topology_core_id(cpu);
+ 	tdata->attr_size = MAX_CORE_ATTRS;
+-	/*
+-	 * A zero timestamp does not look stale on 32-bit, where jiffies
+-	 * starts just short of wrapping. Backdate it instead.
+-	 */
+-	tdata->last_updated = jiffies - HZ - 1;
++	/* Backdate to force a refresh on the first read */
++	tdata->last_updated = get_jiffies_64() - HZ - 1;
+ 	mutex_init(&tdata->update_lock);
+ 	return tdata;
+ }
 -- 
 2.53.0
 
