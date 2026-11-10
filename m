@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353322;
-	b=YLjdnNiuDlwMRpHhAkMzoz5tDs9nePm0oVmNnTzhjPnykvRSk18yGJ9W6B7B6F6TV61o
-	 GrrPFAPzZ7hvUBvwT2nt5nlb9ZHYYL0Bnw7dUfYMzMUe/4ASnwf3JEIX+KDEVNRFHcNij
-	 ZxkSFLdRqURrQ2tvAKK0yWcbRVcNdC0+jl+pDizuUvkEMzob2x8lbszGCg+B50AaTjxqj
-	 IPzlHkDJOPYAOnmzNULlG59EaqdipbfR4HUdOBymClHH/XfupzxDNcI7MPgI/8OqpVokl
-	 tImhBkiow2xAuFVCnUaADCC3JdLLHL5xMqVtldcsEXdteuSj1SQGOwtqxzQ0D4UmLIQ==
+	t=1794353513;
+	b=wog8c7rB62buWOI5MA29ZBTLCpvr0Nqs6/FqMguyFev0zTeCfztm2eUdE2KwURPS3N8u
+	 TiWv6anqYEs858254fDK/Ldme9p3RyccXoKo90SRVFVXUFlSjUpgNUFMoC+qWAELltqw1
+	 L3q2NEhwSErjFOg3DICgHeClRxbnwJgRgDvMEoUVolJTbFZYdS1tm338GSOtiTeKPUufp
+	 HvLwkLxkM2+tSUPEtdvLVRFN1n7Ya9CYUa/CcigmrtNbc6RCTp1fo7MzYBkB87zgIK8xe
+	 Qe+n/3q5iJ9oPsuaUuYhWziode7pPjGzrM7F4OAemDz1eEQ1iprz5orven4ivIx1OHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353322;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353513;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TEY/yufRcWpDpZ1Ielq8gN62LSc24FZGq3pRocTI+AA=;
-	b=uQZW0D1OHIeZlyBPdqvvntVKftj+XQkUHJwi7hSRgsPNCYRl8yBuL6RSyf/kAwRM5jZl
-	 qQ5rdvbhGyF03FVmncQ79lVJmy8JT4iOvgxr77AP4XWkICyJgxfs7EUGIDY7EhCuoRgSE
-	 ebVdWBXl/1ngPS9J6E6Uk/Q2GEoMQNMh6uhZ8FOl7Jz58ioisdeAlyvFUak8x0qJnpGoB
-	 zaDpUsNUO/rTqJEO1MpTPUlLumSeVvhRYBaN1hp4Qkxq6dz6STrsZLOIWKruE1dHzPveB
-	 tIuVF22T69KTLvqPo4jbRe7x2y96RjR+iJwSOZlQKg30AyDxuP3z6ChbQ9IA7tJX3jw==
+	bh=1eJbvmIwPNaUQfAx///XZfvA4g45rOIfE3G2WKjM6ls=;
+	b=BtVmlL8LspqTFqr5pLFnRrBMBTckiMjoD3k36Wc//+BW8fkMpnjG3Q67LxxubGc8XXOl
+	 khKDQ4638Cs9lFrrcXz6FoSXLUXFiqjBXWwz0sp4Ym6F2MxhGDrmf3AE4A4rSAW0HmoYp
+	 wS4IM6hCclSmusErBW1vD2pN/ordxO9AhRirg4MxLtmR7Hqbhy/aNc9QhaVB+u9asOm16
+	 WIE9juVwYECZtARx5GGAHjGQR0vGVRqyHaoOKUF48oEFUlv5jHsgXRa2QcU85wr2Jbnat
+	 WXME0TT4R2jRgfEo1chB83/reEmukl8D6xpe2fk7jgBHPpkoJ+fNNzt1bMzCrK/roeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abJNS8gj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5MW63Hk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8678606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:28:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9346C606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=abJNS8gj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5911F0093C;
-	Tue, 10 Nov 2026 23:28:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5MW63Hk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F771F0093C;
+	Tue, 10 Nov 2026 23:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794353321;
-	bh=TEY/yufRcWpDpZ1Ielq8gN62LSc24FZGq3pRocTI+AA=;
+	s=k20260515; t=1794353513;
+	bh=1eJbvmIwPNaUQfAx///XZfvA4g45rOIfE3G2WKjM6ls=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=abJNS8gjofavs+OrMb6nFh5Uo+HC/cXIfLnHX1/gDD+dPFiiWsg3NyERXAWGSx7kx
-	 SfCsxR1yBd/MXr5pM5XANXo9RCxWPJE6/zOudm6oBM6Co5uX2t0eEHRNX8TFftFnvv
-	 L1kFmmnhKVmQ71DLINuU3wkJNQOP9Fd2SzqgZKsYAZorgyq/4o/LLBXfwFYTDbxDW2
-	 8Pt0pqCTQmnsjBtkjKlZMy02n0C6PpyN60oOFJzvbIarY7brvhaD6B+wdxw9kYGoUs
-	 vsPp7aSDZufgjy4smYCkdPds8T4fIQHIYtSWJ6cvDUr8PFP9UewEvTFV6TBZlBrc4B
-	 IgmxdhjAClZYg==
+	b=g5MW63HkkpmOxUSFmID8e9M2/7600Q5lzg0Mc6IpK6hBMcEoiRxKfcee/DeXsL03R
+	 3NyeyyZkCxnf9wPzJD5hfn5CZ/q6KlP2HQ7yQl8mt+ruQhz7Re75p8OUJBt0NXCo3p
+	 ouhKdRp+Ve7/VHruVQHBUyTlxhVkA9nEuHUjoxopUyBL37CAjobzvJvBLIvxj9hCy/
+	 QzndF/gMYjaJn8Stz7HIplABP+/R4a4v3/ECmyHZl+a41JLdZhXnCyUYFqmSFuJ8ls
+	 0FOEmbrjESiLQYwj0sY1o4XUAQQNh6ZOXrsHrqrMsFCx98NnRB1hPBzgHjYyqUwoU1
+	 bRtvHCuBII88g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] f2fs: expose resizable_tail feature via sysfs
-Date: Tue, 10 Nov 2026 18:28:39 -0500
-Message-ID: <20261110232636.128574-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: emux: Fix UAF of soundfont zones at note-on
+Date: Tue, 10 Nov 2026 18:31:51 -0500
+Message-ID: <20261110233132.129145-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050516-failed-7.3-714f97f477fe@kernel.org>
-References: <20261107050516-failed-7.3-714f97f477fe@kernel.org>
+In-Reply-To: <20261107060910-failed-5.15-34e3e04b8a17@kernel.org>
+References: <20261107060910-failed-5.15-34e3e04b8a17@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,66 +61,117 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 714f97f477fe2834ac9e9e66979ae52824b9f914 ]
+[ Upstream commit 34e3e04b8a1731a773797542f0781e99ce7cd755 ]
 
-Userspace has no way to know whether the kernel supports the
-resizable_tail_secno mount option before mounting. Passing it to a
-kernel without the support fails the mount with -EINVAL, and checking
-/sys/fs/f2fs/<disk>/pinned_area_max_secno requires an f2fs instance
-to be mounted already.
+snd_emux_note_on() looks up the matching zones via
+snd_soundfont_search_zone(), which takes sflist->lock only during the
+lookup and returns the raw zone pointers after releasing it.  The
+caller then stores them in vp->zone without any protection.
+Meanwhile, a concurrent SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES ioctl may
+unlink and free those zones in snd_soundfont_remove_unlocked(); this
+leads to a use-after-free in snd_emux_note_on(), and later at
+accessing the cached vp->zone, e.g. in snd_emux_send_effect().
 
-Export /sys/fs/f2fs/features/resizable_tail so that userspace can check
-the support before formatting or mounting a filesystem that relies on
-resizable_tail_secno, e.g. a filesystem whose tail is going to be shrunk
-online later.
+Fix it by holding sflist->lock in snd_emux_note_on() over the whole
+zone lookup and voice setup, and let snd_soundfont_search_zone()
+require the caller to hold the lock, instead.
+snd_soundfont_lock_preset() takes sflist->lock for setting
+presets_locked, so the removal path now syncs with the note-on finish.
 
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-697212bb-a434-4ff5-8778-25a84f5dad89
 Cc: stable@vger.kernel.org
-Fixes: c966d29e01bb ("f2fs: support resizable tail section and unify pinned allocation")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Placed resizable_tail entries after fserror because metadata_cache is absent. ]
+Link: https://patch.msgid.link/20261020101624.205638-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: replaced the scoped spinlock guard with explicit lock/unlock calls using a shared unlock path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/ABI/testing/sysfs-fs-f2fs | 2 +-
- fs/f2fs/sysfs.c                         | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ sound/synth/emux/emux_synth.c |  9 +++++++--
+ sound/synth/emux/soundfont.c  | 15 +++++++--------
+ 2 files changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
-index 0cebc89799dd1..4f3915948176f 100644
---- a/Documentation/ABI/testing/sysfs-fs-f2fs
-+++ b/Documentation/ABI/testing/sysfs-fs-f2fs
-@@ -271,7 +271,7 @@ Description:	Shows all enabled kernel features.
- 		inode_crtime, lost_found, verity, sb_checksum,
- 		casefold, readonly, compression, test_dummy_encryption_v2,
- 		atomic_write, pin_file, encrypted_casefold, linear_lookup,
--		fserror.
-+		fserror, resizable_tail.
+diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
+index a5385efcedb6c..195cb58fd428f 100644
+--- a/sound/synth/emux/emux_synth.c
++++ b/sound/synth/emux/emux_synth.c
+@@ -49,7 +49,7 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	int i, key, nvoices;
+ 	struct snd_emux_voice *vp;
+ 	struct snd_sf_zone *table[SNDRV_EMUX_MAX_MULTI_VOICES];
+-	unsigned long flags;
++	unsigned long flags, sf_flags;
+ 	struct snd_emux_port *port;
  
- What:		/sys/fs/f2fs/<disk>/inject_rate
- Date:		May 2016
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 811e350a14302..5ee12547171cc 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1404,6 +1404,7 @@ F2FS_FEATURE_RO_ATTR(linear_lookup);
- #endif
- F2FS_FEATURE_RO_ATTR(packed_ssa);
- F2FS_FEATURE_RO_ATTR(fserror);
-+F2FS_FEATURE_RO_ATTR(resizable_tail);
+ 	port = p;
+@@ -61,9 +61,12 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 		return;
  
- #define ATTR_LIST(name) (&f2fs_attr_##name.attr)
- static struct attribute *f2fs_attrs[] = {
-@@ -1574,6 +1575,7 @@ static struct attribute *f2fs_feat_attrs[] = {
+ 	key = note; /* remember the original note */
++
++	/* hold sflist->lock for protecting against concurrent free */
++	spin_lock_irqsave(&emu->sflist->lock, sf_flags);
+ 	nvoices = get_zone(emu, port, &note, vel, chan, table);
+ 	if (! nvoices)
+-		return;
++		goto unlock;
+ 
+ 	/* exclusive note off */
+ 	for (i = 0; i < nvoices; i++) {
+@@ -136,6 +139,8 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 		}
+ 	}
  #endif
- 	BASE_ATTR_LIST(packed_ssa),
- 	BASE_ATTR_LIST(fserror),
-+	BASE_ATTR_LIST(resizable_tail),
- 	NULL,
- };
- ATTRIBUTE_GROUPS(f2fs_feat);
++unlock:
++	spin_unlock_irqrestore(&emu->sflist->lock, sf_flags);
+ }
+ 
+ /*
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index eed47e4830248..0a788fe8bb8e0 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -1231,6 +1231,9 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
+  * The found zones are stored on 'table' array.  max_layers defines
+  * the maximum number of elements in this array.
+  * This function returns the number of found zones.  0 if not found.
++ *
++ * The caller must hold sflist->lock, and keep holding it as long as
++ * the returned zones are accessed.
+  */
+ int
+ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+@@ -1239,17 +1242,14 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+ 			  struct snd_sf_zone **table, int max_layers)
+ {
+ 	int nvoices;
+-	unsigned long flags;
+ 
+-	/* this function is supposed to be called atomically,
+-	 * so we check the lock.  if it's busy, just returns 0 to
++	lockdep_assert_held(&sflist->lock);
++
++	/* if the presets are being modified, just returns 0 to
+ 	 * tell the caller the busy state
+ 	 */
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	if (sflist->presets_locked) {
+-		spin_unlock_irqrestore(&sflist->lock, flags);
++	if (sflist->presets_locked)
+ 		return 0;
+-	}
+ 	nvoices = search_zones(sflist, notep, vel, preset, bank,
+ 			       table, max_layers, 0);
+ 	if (! nvoices) {
+@@ -1258,7 +1258,6 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+ 					       def_preset, def_bank,
+ 					       table, max_layers, 0);
+ 	}
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+ 	return nvoices;
+ }
+ 
 -- 
 2.53.0
 
