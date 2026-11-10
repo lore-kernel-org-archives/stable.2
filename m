@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312649;
-	b=cSdMHH2oBJ+tcMMILHrTokCZxMJABtjaAcf1qf2LdTKlQWFJby0sbY7xQx2wfmr1RxeR
-	 RXSaOf81IoDyXHlwnT1yflAbAtkqxNT3JvxDRxW7VUF1eGS7HGJGTDqNTy5z9yufnCe1r
-	 FAvBdqtP3TpI9sO543VETX2ugykg8EoX/6pWq4jkcUSBTEweYjbKlRXR9tmvSU/qkwVt+
-	 TtgkuDlOvCOvENTkxgFBpPGG2knigrKJqLe3bdHviLXFFtf3Ub3pi2axIeQC3O/OGgGHi
-	 l2VYzNLPcWoRumTuUcKc7R3GAXW0BvITpD5cAstJT6c9uzxnP9/uF/15D+WHcXrpaBw==
+	t=1794312693;
+	b=YAIqVVuVmQQQmJHwhKmq8jv6cal6aZh7h8VVQM2HxOpe71FFELD7XICxqcWQtItuPKSn
+	 DJlPTLphBjgdvGYjejJOewZfdbVfeXHscW2zCvIhtvyIO8hE1umpxGJGMkTPxyBDFsPZa
+	 JhVe+D+I3+U+w+IDpy6G1G3cvoz6/8rtQobQIsFhp49jH1aggLwIVZQq2RcWvdE643kv/
+	 67vb9IGMFpX1DqofQj/VfxokW8CqgettIkvVmFeELSRU14ZOyA+8cRkMJoY/uYxrZSYoa
+	 LiD8avUQ3jCUFafjpBaXBRyAiEqOCV+ycz2Ax+bdgyJgVzlp9Nhb3bFxd+9C5khvEyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312649;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312693;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gVSc7m1qOGvW0kJ8iTaNHPYaZunvUHHoF0PLPOvuuy8=;
-	b=PBsyuGI+gFVzk9qB5NyV59fYEvizkV5Epx2pC4SsLpXO/0fHLa9aDgJrQjzxkSkb/fuy
-	 xoPB5DY2MKBuevYzQet0h7bmttabWO4EV2OpJqYc+mB0V+FTVJ2r8K44PjfPyIUy5waWQ
-	 y1P1AiBGPKChXiIivrdAWwArGaaR1YS9YNGCZA45kMMn9c3Scz/F9glY+Mx0uFbmmYBrF
-	 WT4WjqIgA4/KpeNUVVpTk2/Eq+IGl9eD/IVJJEhJ5GxLr0l6WmaqkzL2s6yc0jU2R27hZ
-	 hn99YGCLUNhti6TBZ3pFWCmz5xEpwHAeHLNU+isLbQ92ZYcd+v9gEuOYzQ2wdw2LyqQ==
+	bh=jJ1rPix6G8cC+kqkIZroHB0ZW7atIcOYmK51fZjLgO8=;
+	b=v3/IVMzwyDydJmwHUvCTwvHxgLhvEvs8VibOoG/5eVOLcEkqTj3xzAUSFZuNyy/dfCB6
+	 HW5cgFKp9msmwQcq5fWE7FUbXywO4yXhwZMPcd3lJeCJW/ccGRXBDYgPAleoITB3zAuH/
+	 U3teA3hdx36CLLXq8TJvrGp/5sQOSV5GMnDWpKOvOTT/sGpjsa/KaClAtYybsD5eOu6uw
+	 /+YcqacD/z9Gi514lBcEygj+pcn1f0xayddUz6AXCXN6pPa3klSw1rmKMlXhGxukYsavQ
+	 uMvfGR2JkR0MT1ELqsB6tOqO/aK8PjMuMmy3axio5Fy5KSEMoAbuvWPcQw9Pe63/Bjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecI1VUxN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GdzMrV2k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F8A606A945
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76AC606A507
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ecI1VUxN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 762311F008A3;
-	Tue, 10 Nov 2026 12:10:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GdzMrV2k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 185821F0089F;
+	Tue, 10 Nov 2026 12:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312649;
-	bh=gVSc7m1qOGvW0kJ8iTaNHPYaZunvUHHoF0PLPOvuuy8=;
+	s=k20260515; t=1794312692;
+	bh=jJ1rPix6G8cC+kqkIZroHB0ZW7atIcOYmK51fZjLgO8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ecI1VUxN4sSn14q1OqvUhnPPG0IBAVIx5Sw2l4bgzfsBqGQfd18QQYDZAWdzSYqfx
-	 pfBqpkOlIRrVw74HSQz7Vu8EzvZSG1n6AQ6z/fr0NFLQFmsL3owyd/ayMqwACLeR0k
-	 rHj+ofWCEJDHh/6A+PR5NvVStok5JH0hAjmN0Q5XD4PcOFasaC8E5iecIOtUQPPWrS
-	 OqIFUHGIo6QTweA2czh6WJCaBG9nJ4NYRncXhhmUhBNBSn616bYyWxYh4VHSDniya2
-	 dyQHROgQb7CYvsKehaHEig4YrfS4QYV88BFvrCAq0iKmLdVoUTVwii/rAeGX5DzTpZ
-	 1CSB0i6z+siTA==
+	b=GdzMrV2kRCxJvJ3TZtAbg2IO8tHAB6oNHb+9LGFn4DRJoukhhRmoQQErSUv2G8+rI
+	 /YF4bqHWa+XuozdFxz2n59lirl6LExjpO1IQWZfXLSrKlUmLNWmYO/oki7oXTFoorU
+	 DGHa021swh82oFVD/tcJ7EQlsQ/OBwjKtOYkjoOB9rT1DVz+jw4aliBS2lVT4Fik6j
+	 Wl2bCb7mjMujMb2w3e016dk6PpcZI8PNSa5QQzHbRPbjAXldTNvOg9nWZh6Od+NITy
+	 qKBmt3otom20KUt6394hZL3StBlGe13NGupgtKV9zoCNkyzXarOUBMoltXEqgDA9m8
+	 YAdcDwCfdnIAA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+Cc: Punnay Sharma <punnaysharma805@gmail.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] media: mediatek: vpu: free IRQ before destroying watchdog workqueue
-Date: Tue, 10 Nov 2026 07:10:46 -0500
-Message-ID: <20261110120942.969538-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] staging: media: av7110: fix sp8870 initialization failure state
+Date: Tue, 10 Nov 2026 07:11:30 -0500
+Message-ID: <20261110121056.971270-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110120942.969538-1-sashal@kernel.org>
-References: <20261107060149-failed-5.15-2c50b58d4105@kernel.org>
- <20261110120942.969538-1-sashal@kernel.org>
+In-Reply-To: <20261107061452-failed-5.10-30684fa98394@kernel.org>
+References: <20261107061452-failed-5.10-30684fa98394@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,47 +61,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Punnay Sharma <punnaysharma805@gmail.com>
 
-[ Upstream commit 2c50b58d4105f6dbaa36d6306087954b9100e9ae ]
+[ Upstream commit 30684fa98394bc0eb4362282908612aab7d4dad9 ]
 
-mtk_vpu_remove() destroys the watchdog workqueue while the interrupt
-handler requested with devm_request_irq() is still registered: the
-devres core frees the interrupt only after remove() has returned. If
-the VPU watchdog fires in that window, vpu_irq_handler() queues
-vpu->wdt.ws on the already destroyed vpu->wdt.wq.
+The SP8870 DVB frontend driver prematurely flags the device as
+initialized at the very beginning of the sp8870_init() routine, prior
+to requesting the firmware (dvb-fe-sp8870.fw) and executing the I2C
+upload sequence.
 
-Fix this by calling devm_free_irq() before destroy_workqueue(), which
-releases the interrupt and waits for a running handler, so no new work
-can be queued while the workqueue is drained and freed.
+If request_firmware() times out or sp8870_firmware_upload() encounters
+an I2C bus error, the function aborts and returns -EIO. However,
+because `state->initialised` is already set to 1, all subsequent
+invocations of `fe->ops.init()` by the DVB core will immediately return
+0 (success) without attempting to load the firmware again. This leaves
+the demodulator microcontroller halted and the frontend permanently dead
+until the module is forcibly reloaded.
 
-This issue was found by an in-house static analysis tool.
+Relocate the `state->initialised = 1` assignment to the end of
+sp8870_init(), ensuring the flag is only set after the firmware is
+successfully uploaded and the system controller is actually restarted.
 
-Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Adjusted the patch for the driver's older location and surrounding source context. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/mtk-vpu/mtk_vpu.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/dvb-frontends/sp8870.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/mtk-vpu/mtk_vpu.c b/drivers/media/platform/mtk-vpu/mtk_vpu.c
-index 1657575346735..b10102e093f4d 100644
---- a/drivers/media/platform/mtk-vpu/mtk_vpu.c
-+++ b/drivers/media/platform/mtk-vpu/mtk_vpu.c
-@@ -966,6 +966,7 @@ static int mtk_vpu_remove(struct platform_device *pdev)
- #ifdef CONFIG_DEBUG_FS
- 	debugfs_remove(vpu_debugfs);
- #endif
-+	devm_free_irq(&pdev->dev, vpu->reg.irq, vpu);
- 	if (vpu->wdt.wq)
- 		destroy_workqueue(vpu->wdt.wq);
- 	vpu_free_ext_mem(vpu, P_FW);
+diff --git a/drivers/media/dvb-frontends/sp8870.c b/drivers/media/dvb-frontends/sp8870.c
+index f68479e75e462..3e05ef983fafb 100644
+--- a/drivers/media/dvb-frontends/sp8870.c
++++ b/drivers/media/dvb-frontends/sp8870.c
+@@ -297,7 +297,6 @@ static int sp8870_init (struct dvb_frontend* fe)
+ 
+ 	sp8870_wake_up(state);
+ 	if (state->initialised) return 0;
+-	state->initialised = 1;
+ 
+ 	dprintk ("%s\n", __func__);
+ 
+@@ -336,6 +335,8 @@ static int sp8870_init (struct dvb_frontend* fe)
+ 	sp8870_writereg(state, 0x0D00, 0x010);
+ 	sp8870_writereg(state, 0x0D01, 0x000);
+ 
++	state->initialised = 1;
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
