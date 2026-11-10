@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272700;
-	b=e1KBDgfHbJ7peIwpTomyyVopCkqkzeBXLV6A+D5UKBlgMlTQxfuC19DGRYTYldTWLzdi
-	 v0niw+lS2s01w45y0y+0NVrFqBc5MnnLLu9ovSg6GyXt0HvIsbB+3eXeZQekLVctgSMp+
-	 YqQXY/o4e6alkGr8AvvbEhwCEPWwnMAPBOjgPNjSQlJomyHlLIFXo7qALIZkWADOn0BUr
-	 Hm5vosNs5c2H9+CWEQIuS3SXY4azB9QzYPdiWlMUTPkgb6owkC95/Yxdug0SQfv/S03hf
-	 vmSYzyxfzi65ukMioR5sGhYNX0cv/wYXc/DBhbW6MmqYedqNalneIuSDFKvEXwB+X6w==
+	t=1794272702;
+	b=oMWcjsmu+hIJQJf5Mbvx6BZOgPWohrCxU+ZF9i/OfTQs+Hfhj2pCKX0YWNr5bprtFS13
+	 kZqqt1z0rihgVSgQ8t82CDsIxRzK3drEqwJ7uL1zqZj1f4tXapzTF4N5iEbeQHpkcT2rS
+	 L2pWiev0HJ/pHbPYbgBrK/tjsMX8EwLkuikO+B7PXo3QylGCsFM2UXNd6tKyQJ7OcEoLM
+	 Y35x2cqC4Uzxz9AdstTJTaRpc8scZ//OnnWJzousqKujkCwk+Gw+4tzoiTrzpcsYu9Efq
+	 354ay7rwKFo4lnWdRRMsyV7bwnpanN1kwbdLgVVHxUzzalIdN5gt0xfT2UmgsNdJejQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272702;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PJoem8rsTZPVaH1EMPkhycYJe/SXScaAJGrvoswRZho=;
-	b=mGUgneqPetdYcTyI9xA22bUVvhD0UT4V/lenvHv5Tk6GeJ/VmMmT3+62RBVHnCDoeM15
-	 smHbHWm8zzYt+rkNNcKvmHt1I0uj12IJGfWiifa442VDd7htKcrGHmOMGm0OT01izOmqX
-	 670q/bXhfvmKHTtPidC8hVqeC+eFK3MSpVcSDunESpMDieC+YCtL/5/TZVNYuuNO+Fwp/
-	 76cqMJ7POQOWfCgsatz69N5zyKXXfA+ULWJHmTGrxd/XbZ+jXFMisdf6vky3vAmzVnp4z
-	 qNGcUN9CwMZpBmnA9j+5mFraR06VPQkeMu99x/Rd3q+FdMGU0gdVV0W0zApnqR3nkNQ==
+	bh=zvkiQ63aMW/ySylvoN/JocbmSuuZYXxoG0ehqQixAvA=;
+	b=0NbKXMPy0zNSyC14G6XY2IjupzosvlElEiVJwSeyKH4MqnwsJnV0MP22b7058GPxZaDX
+	 AGAtRNXwJQieeCH5SotH/OZml28wNF+CYfboscvEu5lx4V3u8g7QdimUBpWLqGpkc4sFQ
+	 R0JfT+XhqJc8v42zmSK1vYq7cDxh9VA757iy02dTs1GwcD1mwxQvp3QyzUOKGN4g3J0Ih
+	 YYBK1E6rcsyihQm8O7yUS5+I5VwNO2hooqN3y8NlkfgLipZ0J83u/tDHv+Z0o5QsA6DaQ
+	 c4Tb1h+Z8zFGLpcaSiQROQR3rFzAiqFa6F/SK0pAVh58Q/l2W6Nxkm4NTnoF3ur21Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmhk1cVX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFwyT8OD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD280606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF45606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmhk1cVX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE95D1F0089F;
-	Tue, 10 Nov 2026 01:04:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFwyT8OD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D64C1F0089F;
+	Tue, 10 Nov 2026 01:05:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272699;
-	bh=PJoem8rsTZPVaH1EMPkhycYJe/SXScaAJGrvoswRZho=;
+	s=k20260515; t=1794272702;
+	bh=zvkiQ63aMW/ySylvoN/JocbmSuuZYXxoG0ehqQixAvA=;
 	h=From:To:Cc:Subject:Date;
-	b=mmhk1cVXuxTNzhO51qWgzABdjmWPA0FXcgXnC+7ibCXsA9Mjrps0Q36EhaAenXq74
-	 BdyGH6uqu9/f/6qmQPjYt2kkvWiyNJ7D1AqGQjPYK4qxEuW2KOROUC2sbR8U+iy3e4
-	 HDp5Yqi4aQw2p91s02qpSCTAMxW9Lv2QaRC79RjMrRYB5j5F4xachBp24iDwIf5woN
-	 9zTLHQMwOcz1+rta3sCI8+mav8PxhDni0O0lHKuVlrUjU9GI3hUuWnASrTUGLu4PGc
-	 D9hl0vBw8uIfGmSB1svpAl9hadBkLE7pM3jH3Sh1aV8booRTp/i4oFv1UKmiW79l+N
-	 crblxMo4/oxqw==
+	b=fFwyT8OD6otg+0vV5j6zVRx/2D8y1WSIk6FXysH01EmUWiYtiKE824N2vpQ2geOlM
+	 /u5hvvOGanXS7WzM7zOp4C2TBTyo+E1JcSaXaWQufcORrvWFGoUy8QFgjwfSRlOIwf
+	 u7Zlkl08XU9UW5iUywFc/BQdvNI96VY0h7kYlRYZzcBRFPNCOmjF1G1wGltZa/X4pW
+	 wFEND5r88Ufk4pB3jCwNPRM/et4IPZNmFvA7NOfM2qjOX1ISaBCPoEkOpguCOdMQd2
+	 TYKxNJMy93pGhTC7FfUOR0wYv/m4Pb1/2yhAE1lGf9oKlPCEiOhjAw1wDykf9VPzRP
+	 U+4i5kagjAsFA==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	gourry@gourry.net,
-	usama.anjum@arm.com,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org
+To: david@kernel.org,
+	josef@toxicpanda.com,
+	rppt@kernel.org,
+	ljs@kernel.org,
+	surenb@google.com,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/huge_memory: fix truncate racing with PMD zapping" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:04:57 -0500
-Message-ID: <20261109200457-failed-6.18-e6a07d29b0a6@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: write-lock the VMA before waking waiters when unregistering" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:05:00 -0500
+Message-ID: <20261109200500-failed-6.18-35f7ecd55ce7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,78 +72,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4
+git cherry-pick -x 35f7ecd55ce7e51cb6d5ef49e6dd51f3c80f61e4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200457-failed-6.18-e6a07d29b0a6@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200500-failed-6.18-35f7ecd55ce7@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:42 +0100
-Subject: [PATCH] mm/huge_memory: fix truncate racing with PMD zapping
+From 35f7ecd55ce7e51cb6d5ef49e6dd51f3c80f61e4 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:52 +0100
+Subject: [PATCH] mm/userfaultfd: write-lock the VMA before waking waiters when
+ unregistering
 
-zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
-If this was the last mapping, truncation can skip unmapping the folio
-and proceed without waiting for the PMD lock, racing with dirtying.
+userfaultfd_unregister() wakes pending missing faults before clearing the
+VMA's userfaultfd registration. With per-VMA fault locking, holding
+mmap_lock for write does not prevent another fault from queuing after
+the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+waiter can then remain asleep indefinitely.
 
-ifs_set_range_dirty() can oops if MADV_DONTNEED races with
-ftruncate() on XFS, when we get the folio set dirty after it was found
-to not be mapped anymore.
+Call vma_start_write() before waking waiters. Existing fault handlers
+queue themselves before dropping the VMA read lock, and new readers are
+excluded until mmap_write_unlock().
 
-Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
-matching the PTE zap path. This keeps the folio mapped while updating
-its state, so truncation must wait for the page table lock.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
+Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-23-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/huge_memory.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ mm/userfaultfd.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 283c4bc8b927c..ce52962db16b9 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2495,10 +2495,6 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- {
- 	const bool is_device_private = folio_is_device_private(folio);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 928ad95eeb2ba..3ca04b582329f 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+ 			start = vma->vm_start;
+ 		vma_end = min(end, vma->vm_end);
  
--	/* Present and device private folios are rmappable. */
--	if (is_present || is_device_private)
--		folio_remove_rmap_pmd(folio, &folio->page, vma);
--
- 	if (folio_test_anon(folio)) {
- 		add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
- 	} else {
-@@ -2512,6 +2508,13 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- 			folio_mark_accessed(folio);
- 	}
- 
-+	/*
-+	 * Present and device private folios are rmappable. Remove the
-+	 * rmap after transferring young+dirty to the folio.
-+	 */
-+	if (is_present || is_device_private)
-+		folio_remove_rmap_pmd(folio, &folio->page, vma);
++		/* Prevent new userfaults from being queued after the wakeup. */
++		vma_start_write(vma);
 +
- 	/* Device private folios are pinned. */
- 	if (is_device_private)
- 		folio_put(folio);
+ 		if (userfaultfd_missing(vma)) {
+ 			/*
+ 			 * Wake any concurrent pending userfault while
 -- 
 2.53.0
 
