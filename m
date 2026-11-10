@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273409;
-	b=oKP8zDmoAyrLxug5hU3f2UQBVoJsov7CE6mP/qxJ4fLIsF3PDWGanR5ycvkJQwBb8Pwu
-	 Lp2kH1Y5bRGqngV4PXhlG5usvQ87HxRn30rIzxXV2OWg2483jxEDI5RZCFq5bgwQUcJOo
-	 ICqZT6D5OwObzePsLX0Ig8NQrqNzdmTLuOM68uYCTtd5hM8EFf32bqLPv46hYTVjWub7h
-	 2RpclHuIbfxWBFSVY+VIQvSAOTWkeNePWJF+KNIXoGaTHjkf4BjhsVVI24iVxs1gA2Nbt
-	 OMa6NlsghPuNq2Bs2QJ3MpuiiqkIdeEJ2a5PvtE9A0qGS0bcOhgYqZ047qTFej+K6Fg==
+	t=1794273412;
+	b=zCT26G10AxRLC1hxhemJqE9rzTAZQ+tF/eHGHT06Rf0CH/p6dp9N+OeBy3nX/jlBEltf
+	 nWxgq8JAyaXrzR+fJqosE5AyK/ZoXbiAk2y0r4Dc13qKZaS+A5ygr+M8xKHGq76Y6QDHT
+	 5dIKB5/0avlDw7dwlZPg/Ps+vM/1/ZDwt3/CKfLQ+l3VwZ+RduKLUqz0NulOMn7qvPQx9
+	 SgZtbu7gQ1Tk6OwKVOp3p4+pqbi7tUK7RyKLAWAZGza6o+eHn3GEfXt1tDk5hXklAPVvd
+	 /cFVPsX/4L82bOl5oVM2om1xsYfWE6Y+OW9WVLO9MSfK8l8Gky22IoZixsRVgdoU8AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273412;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4cqOeXfBOVN/drgNZ6obbKGOCckx8A+hqYjYHq0uplU=;
-	b=4U+KuUlOyzLr9tsC5+M7QhSvMghVWD4m8pGkyNyYe5E/+/khYXV1P5TNKcTnkDQVX1p9
-	 9Pcv0nhuaNxDDbRZp4ivK1uHRDrWI1T4s0x/gK0CWK1lZHQeacX4qIR6eDHc4VYU/C40m
-	 7dJ7fwIzEjJATon56VJAL8BFgVpNkeQ5d/n7WQyUGMB5oyTRXjdtbzWyZhhaZjdHE2JPG
-	 DaVwunDUIQLVn6hB+wNdZxbOyE3UKVEoUbkYGMrHALghf4Xuhys+6H+AD1Wly+SNWZOcE
-	 PdBkotiBre5aUgfX7soBiHD2Jz3K9+SKuomMwwoqqOn9WSxDtK5SAdKJPa6EbSqMLZA==
+	bh=+M5QON0drYCV2Veq4sMb9tV4DT/5WmBEbDI9PAk8VmY=;
+	b=lCxr8oU6RP7F0kbZBzw9KLXfYX0T+Vr76XRiWOl4IzVudV2XkW9uUex32D+ED9B+dzpj
+	 t9k6mTWu6hT8ohsk5wULZoRwYNhQxsMfZbCsI/0OfUxS6/7L8DiUFv2cuOaiHhEAQPqzH
+	 MxAdu9tnSYDvA5Pb8Pwrf+KBKj/BtfJupo3QQlbBCLU6fVgOJYJzvcFlTwZo8gBmJRzzf
+	 oHKe/Qlyny9QaUI1mRctjFmjxTRG9F1+NO6MuGOEdz3ZLRERHpX93XiGZ1p5snDUnpUKR
+	 2f8uRoMLAIngvUctPmP9ejFnKKNB4vUru4l4mXwFn+x85uUvaKu/ETJkT2sKhiXciiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8pWhvzU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dd7eApWD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DC0606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873EB606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8pWhvzU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44241F0089F;
-	Tue, 10 Nov 2026 01:16:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dd7eApWD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF551F0089F;
+	Tue, 10 Nov 2026 01:16:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273409;
-	bh=4cqOeXfBOVN/drgNZ6obbKGOCckx8A+hqYjYHq0uplU=;
+	s=k20260515; t=1794273412;
+	bh=+M5QON0drYCV2Veq4sMb9tV4DT/5WmBEbDI9PAk8VmY=;
 	h=From:To:Cc:Subject:Date;
-	b=J8pWhvzUoNmuKpIO1O4dFcxRTIOdFERz4/wIVhhd14AoD4nA7yvQ9WAlFCY3aslA0
-	 HEizzgSLA5EwC+qn6s7mq7DBJBeUohB7eWJI7+IyG+pNQxE9bYbhEpe7Z/UN1+DVke
-	 P5mKIbLi99fMmyaGOU6uPh/746//ifs4n7e33aYarpSepG+IUlbVT4fgB50IQzeq3p
-	 +ftzjGb3Mk1zzeRRU5mqz2BQ3wQejZxEDMQQp5kWPX95PBne9BVNW2NSTJ4P5kwB82
-	 MxW+ySZ8OfFpML1TnkNbSRNRTthv1T4YZX8/MDvQ/tf8Ra64J0v+OaJHvhYZ6vwLgh
-	 UqMBKkURebe3A==
+	b=Dd7eApWD97ra9wepNHJ7QRAc2iLHBaxG6cFq5Xapbyp6tLhVvm8SIpXSV8F9Jv7qR
+	 BZjDMVFyLXiw+qSDEr5BG40hljG6e6hUTjhHSBwzi1BaiW8oypeMh5oU/gp3ITVes3
+	 vE7DQyEqgzuCEmdrkWBMtReui1udx6bZ5ebzdaz7sKsYMjesyEgFXv7cpvzPYXrAWl
+	 uZIN8wK3Kt6D2a1TPIB4GnVjX02aC+05gBE2WE9NS4XEvKsNOYyKbXuqG9dWbUixf+
+	 TkDz4DE2wERY87eK6jtrvS36hi4rvmXPDxKmO/kT5T2K8H6vWs99OxlEqLgvbO83Up
+	 OtiTFSOJElF3g==
 From: Sasha Levin <sashal@kernel.org>
-To: kylebot@openai.com,
+To: lizhe.67@bytedance.com,
 	akpm@linux-foundation.org,
 	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	hughd@google.com,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	kas@kernel.org,
-	lance.yang@linux.dev,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	usama.arif@linux.dev,
-	willy@infradead.org
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	peterx@redhat.com,
+	rppt@kernel.org,
+	azpijr@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/khugepaged: flush deferred unmaps before dropping a failed folio" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:16:46 -0500
-Message-ID: <20261109201646-failed-6.1-854e5ff8b3ce@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/hugetlb: fix mremap move length truncation" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:16:50 -0500
+Message-ID: <20261109201650-failed-6.1-dfb190302d2b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,89 +74,121 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 854e5ff8b3ce2a776586cabebaeae645c992345b
+git cherry-pick -x dfb190302d2b4af86c6ae48af0d3b09f28b35460
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201646-failed-6.1-854e5ff8b3ce@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201650-failed-6.1-dfb190302d2b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 854e5ff8b3ce2a776586cabebaeae645c992345b Mon Sep 17 00:00:00 2001
-From: Kyle Zeng <kylebot@openai.com>
-Date: Tue, 6 Oct 2026 21:10:01 -0700
-Subject: [PATCH] mm/khugepaged: flush deferred unmaps before dropping a failed
- folio
+From dfb190302d2b4af86c6ae48af0d3b09f28b35460 Mon Sep 17 00:00:00 2001
+From: Li Zhe <lizhe.67@bytedance.com>
+Date: Thu, 22 Oct 2026 11:45:41 +0800
+Subject: [PATCH] mm/hugetlb: fix mremap move length truncation
 
-collapse_file() can fail its reference-count or dirty-folio check after
-unmapping with TTU_BATCH_FLUSH.  Both paths put back the isolated folio,
-then unlock it and drop the lookup reference before reaching the common
-try_to_unmap_flush().
+Patch series "mm/hugetlb: fix mremap bugs", v3.
 
-The page-cache reference does not keep the folio stable once the lock is
-released.  Another collapse can replace and free it.  With its PTEs
-already gone, that collapse cannot flush the first task's per-task TLB
-batch, and retract_page_tables() skips short or unaligned VMAs.  A CPU can
-therefore retain a user translation to the freed folio.  This has been
-reproduced with unprivileged MADV_COLLAPSE on a memfd.
+This series fixes a few hugetlb mremap bugs.
 
-Flush at out_unlock while the lookup reference and folio lock are still
-held.  The common flush continues to cover the accumulated pagelist on
-both success and rollback, preserving batching on successful collapses.
+Patch 1 fixes the return type of move_hugetlb_page_tables(), so large
+hugetlb moves cannot be truncated when reported back to the generic
+mremap code.
 
-Link: https://lore.kernel.org/20261007041001.43181-1-kylebot@openai.com
-Fixes: 6d9df8a5889c ("mm/thp: collapse_file() do try_to_unmap(TTU_BATCH_FLUSH)")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Patch 2 disables hugetlb PMD sharing for UFFD missing mode, so
+UFFDIO_POISON markers cannot become visible through shared PMD page
+tables.
+
+Patch 3 fixes the recursive i_mmap_rwsem deadlock in the hugetlb mremap
+path by avoiding the destination PMD sharing allocation path while the
+mapping lock is already held for write.
+
+
+This patch (of 3):
+
+move_hugetlb_page_tables() returns the number of bytes moved, but
+its return type is int while the generic move_page_tables() path uses
+unsigned long lengths.
+
+A hugetlb mremap() move length above INT_MAX can therefore be
+misreported to copy_vma_and_data(). The out-of-range conversion to int
+is implementation-defined; on common 64-bit builds, for example, a
+4 GiB move can be reported as zero, making the caller treat the move as
+a failure and use the wrong length for rollback.
+
+Return unsigned long from move_hugetlb_page_tables(), matching
+move_page_tables() and preserving the full byte count.
+
+Link: https://lore.kernel.org/20261022034543.51226-1-lizhe.67@bytedance.com
+Link: https://lore.kernel.org/20261022034543.51226-2-lizhe.67@bytedance.com
+Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Hugh Dickins <hughd@google.com>
-Assisted-by: LLM
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/khugepaged.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ include/linux/hugetlb.h | 15 ++++++---------
+ mm/hugetlb.c            |  7 +++----
+ 2 files changed, 9 insertions(+), 13 deletions(-)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4b71d010b2aff..da91762f6358f 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2467,6 +2467,11 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 		index += folio_nr_pages(folio);
- 		continue;
- out_unlock:
-+		/*
-+		 * The folio may have been unmapped with TTU_BATCH_FLUSH.
-+		 * Flush before releasing the lock and our last reference.
-+		 */
-+		try_to_unmap_flush();
- 		folio_unlock(folio);
- 		folio_put(folio);
- 		goto xa_unlocked;
-@@ -2477,9 +2482,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- xa_unlocked:
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 5029c72418631..58f755e70e966 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -121,10 +121,9 @@ void hugepage_put_subpool(struct hugepage_subpool *spool);
  
- 	/*
--	 * If collapse is successful, flush must be done now before copying.
--	 * If collapse is unsuccessful, does flush actually need to be done?
--	 * Do it anyway, to clear the state.
-+	 * Flush before copying the folios, or releasing them in rollback.
-+	 * This is a no-op if out_unlock already flushed the batch.
- 	 */
- 	try_to_unmap_flush();
+ void hugetlb_dup_vma_private(struct vm_area_struct *vma);
+ void clear_vma_resv_huge_pages(struct vm_area_struct *vma);
+-int move_hugetlb_page_tables(struct vm_area_struct *vma,
+-			     struct vm_area_struct *new_vma,
+-			     unsigned long old_addr, unsigned long new_addr,
+-			     unsigned long len);
++unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
++		struct vm_area_struct *new_vma, unsigned long old_addr,
++		unsigned long new_addr, unsigned long len);
+ int copy_hugetlb_page_range(struct mm_struct *, struct mm_struct *,
+ 			    struct vm_area_struct *, struct vm_area_struct *);
+ void unmap_hugepage_range(struct vm_area_struct *,
+@@ -338,11 +337,9 @@ static inline int copy_hugetlb_page_range(struct mm_struct *dst,
+ 	return 0;
+ }
  
+-static inline int move_hugetlb_page_tables(struct vm_area_struct *vma,
+-					   struct vm_area_struct *new_vma,
+-					   unsigned long old_addr,
+-					   unsigned long new_addr,
+-					   unsigned long len)
++static inline unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
++		struct vm_area_struct *new_vma, unsigned long old_addr,
++		unsigned long new_addr, unsigned long len)
+ {
+ 	BUG();
+ 	return 0;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index da5d04edf7c10..506729ebaee75 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5195,10 +5195,9 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
+ 	spin_unlock(dst_ptl);
+ }
+ 
+-int move_hugetlb_page_tables(struct vm_area_struct *vma,
+-			     struct vm_area_struct *new_vma,
+-			     unsigned long old_addr, unsigned long new_addr,
+-			     unsigned long len)
++unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
++		struct vm_area_struct *new_vma, unsigned long old_addr,
++		unsigned long new_addr, unsigned long len)
+ {
+ 	struct hstate *h = hstate_vma(vma);
+ 	struct address_space *mapping = vma->vm_file->f_mapping;
 -- 
 2.53.0
 
