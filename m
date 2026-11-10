@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274031;
-	b=cB83zXWlL5u2sRkE0pvK/VoKjOSwZ87y6DXN2yy7SHbk5Rtx4JGXqzjK+THxMABZv3bP
-	 3UNa/47SWoM4MttzFXwGlfP5EsoNKEgUmERvgCY7bwgJ3S5HPYtXtIfKoiRmxK05aZ7CC
-	 2vzqrG1uJBvFCeGyuExqfUEXteG5fVKlcyZrXy0epUjnXBrziWKwauOEyB0Bp9OXRmhY1
-	 8aCsfSw4xCMrORi9k9+LgwXQgWwZ91AacLtlfw81TTWlYO10VULJyZl0kwKweZW9HRVNo
-	 jvMz5D37c8YJLW3VpfsIZPhUcaMx7JU7rTTHMGtiCpcWtBSV0CooMfmJFKysOaxtE8Q==
+	t=1794274034;
+	b=M4ebchW9FoIQDjPZ6IRmYu0Ff87/6ZKz4n08ZD9cWawFjlnVnkd5PEeSxBP8t1sh/b7H
+	 IZXtqduUH7fNEP4lMp99XP5MI0zvDgCZBm+p0iJfsKCCwdaK3bnY7RIWQnLrJiNFRQKCh
+	 evyasHicKAXbTSjyfDDqn3gMtjK70Youp9wWGexOem9865i5IhN1pyUayBKXJkEv0BqzT
+	 VQjDddYcrlNgCYYOPgSC7Ku3cx3DjVNUMWOURPnloDKUIZcu4HhRZA99rYy5zCwvF6SPD
+	 vdjX+sH/kHULCGwUeyxEGpIK28WoMJXpkfeh3UVUDOlyWqboMnSkx365PH8dbBbxi6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274034;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mGDrS7b0HaU+evON7Burw0hsU4sG3D9g4MxpyeGP4Hw=;
-	b=d65ebBEUfrC7KS4VH9e19bNQtzKiIQSHs+yB78XyGN0RPkT9AzTM3rdBIsI5gqTtSfpc
-	 81qsv12WEyEDT+d/jjO88rLO7WH0RyMTkzPJMyOJbRK7k3IzmYzYZpfSfiERs6JCWu87B
-	 KeBeHSMSU4YOf2nvXp5pDF88CPJCkIEkcTwfPPyiTx1MNshhRUfvVUKpXmNb0TFzwgRRz
-	 YTCKx+lfnQBp2ZycqPS6HQ7TfJFaVYWkKa5HR/8rz7tKmCUVry0zsRdX7qxaCuGNN9Mvn
-	 nUI3vjnDZeo18KKnx+QJ0Q4qAsJPgHhxUXjBLgz9tJr4+Re0RLkIMTiLT68zcbDI5VA==
+	bh=v0xYHwq7yE5STrH+7Bmm/hfKnLvmJKTTYsTcFiw106A=;
+	b=fzuD5V7NuEVZTj6EWW1R86MPgmuAl/cgjXkbXavNrU0FNR+13Xln1R4o65azZARsXARB
+	 PJs74GqO39xldTesJ1hc6ewjNxhIkRZJYp2oOUvNnEa0DWVRo68CnP+GL6GQwiDKZAGsH
+	 agnj7vNFSmMYqkUBDSCt+CZ+vQ7wLPhKYUY7Hk9265CPgXCAg/TU3GhN9FVZFuQLQa/MQ
+	 GazoE/Be6lopNhYHhqI0BOPnKlss+dy6EoNavxxI57MmYXPOWp1OD5oddVjKcdbng9yfq
+	 mgtBZmgKBFMag8QHLSbr05o5OUbSUDNCeMs5WeG2myhImumsNiespP86u+nYE/y1pTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6huwhYV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+BfoX16;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCE1606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDFF606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6huwhYV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E54C1F008A1;
-	Tue, 10 Nov 2026 01:27:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+BfoX16
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074221F0089F;
+	Tue, 10 Nov 2026 01:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274031;
-	bh=mGDrS7b0HaU+evON7Burw0hsU4sG3D9g4MxpyeGP4Hw=;
+	s=k20260515; t=1794274034;
+	bh=v0xYHwq7yE5STrH+7Bmm/hfKnLvmJKTTYsTcFiw106A=;
 	h=From:To:Cc:Subject:Date;
-	b=i6huwhYVd8t74PY/wLtxC+JskvWMt1wlizbsPvCKmvMEuZVwHxsdoSGiqSxXmRvg5
-	 RigDBCJbmvq20nwErUBTu3hqsJkMAHFrz4EK+RNS/XCkHDD4Rx22nFKeQbkL1u4Gp4
-	 zB8u26XiW1UWzZ9z37hBWS2SZkifYBNqLome/3rK4K+A17hexWCmXezB9R0ktDTx65
-	 sauj6ql1/exl5NgIQbc58Eo8YouVWGqjs4CxX1qexJAiFc7+TI5GxYJwVSoOtcQdLO
-	 G3xeWZ1XY7P4Bjkqvm4CIGv+kf2d5pXxT/6nOlQ1aDFSHGIHuHE/1i+FOOLhKz+/Qj
-	 TsEg1zCCeE9ZQ==
+	b=R+BfoX16vxAXqePepvQZ7+yYQynztOPa5KiEMXwnX9fS81iRVLgnIP6JMOuRSnXAd
+	 XNV8/eKnRSSZGmOxx54ojuXcVhe/UTSKreAlm1KrXx4uKDOHcDwdEXYxMHK18pY6pq
+	 MgtX9QGW6QZm3DbtBBFRBV1g8qxRLD25z9SFmUeBvrV7lwZXxNPgVjvxnPXyImbr6A
+	 OUnlite+FA/uaO2Zoe5CB//U0LHUp/43Pds+LzW0AE2mwMTyHTezodSfBsg19uUVEU
+	 sug+pPO/jrKFlHRIJz5DovNqwHBPxXn/eEEJ1/7/KLti8ZDeOCzY9aZZuUenEcClpR
+	 T37thl6T+W5Ig==
 From: Sasha Levin <sashal@kernel.org>
 To: zzzccc427@gmail.com,
 	akpm@linux-foundation.org,
@@ -49,9 +49,9 @@ To: zzzccc427@gmail.com,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ocfs2: validate move extents against a stable EOF" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:27:09 -0500
-Message-ID: <20261109202709-failed-5.10-84db6619cb70@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2: cache the mount context for dentry lock callbacks" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:27:11 -0500
+Message-ID: <20261109202711-failed-5.10-5b4696e0bfc3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,65 +74,53 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 84db6619cb702c37cf848b450c21b9c9706b0775
+git cherry-pick -x 5b4696e0bfc358619adaeab25ad35b4979af8331
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202709-failed-5.10-84db6619cb70@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202711-failed-5.10-5b4696e0bfc3@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 84db6619cb702c37cf848b450c21b9c9706b0775 Mon Sep 17 00:00:00 2001
+From 5b4696e0bfc358619adaeab25ad35b4979af8331 Mon Sep 17 00:00:00 2001
 From: Cen Zhang <zzzccc427@gmail.com>
-Date: Mon, 26 Oct 2026 19:04:00 +0800
-Subject: [PATCH] ocfs2: validate move extents against a stable EOF
+Date: Tue, 20 Oct 2026 22:25:53 +0800
+Subject: [PATCH] ocfs2: cache the mount context for dentry lock callbacks
 
-The move-extents range must be bounded by the inode size used for extent
-movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
-taking the local inode and cluster locks in ocfs2_move_extents().  It also
-uses separate i_size_read() calls for the range check and subtraction.
+ocfs2_drop_dentry_lock() drops the inode reference before releasing the
+DENTRY lock.  This lets inode eviction release the local inode and open
+locks before a remote unlink can proceed past the DENTRY lock.
 
-A concurrent truncate can invalidate the first check and make the later
-unsigned subtraction underflow:
+A DLM callback can still arrive before the DENTRY lock has been dropped.
+ocfs2_get_dentry_osb() obtains the mount context through dl_inode->i_sb,
+which can access a freed inode when the downconvert thread drops the
+last inode reference in its post-unlock callback:
 
-  Move-extents ioctl                  Truncate
-  ------------------                  --------
-  check me_start <= i_size
-                                      take inode and cluster locks
-                                      shrink EOF below me_start
-                                      release locks
-  compare me_start + me_len with EOF
-  set me_len = EOF - me_start
-    [unsigned underflow]
-  acquire inode and cluster locks
-  select extents using the bad range
+  Downconvert thread                     DLM callback thread
+  ------------------                     -------------------
+  ocfs2_process_blocked_lock()
+    ocfs2_dentry_post_unlock()
+      ocfs2_dentry_lock_put()
+        ocfs2_drop_dentry_lock()
+          iput(dl->dl_inode)
+          [inode reclaimed after RCU]
+                                         ocfs2_blocking_ast()
+                                           ocfs2_get_dentry_osb()
+                                             dl->dl_inode->i_sb
+          ocfs2_simple_drop_lockres()
 
-A truncate after clamping can also leave the range extending beyond EOF.
-Conversely, the cached size may be smaller than the size refreshed when
-the cluster inode lock is acquired.  Early validation can then reject a
-valid start or permanently shorten the requested length and threshold.
-The me_start + me_len comparison can also wrap for a large input length.
+Store the mount context in the DENTRY lock resource's l_priv field and use
+the default mount-context lookup.  Recover the containing dentry lock with
+container_of(), as already done for refcount locks, and remove
+ocfs2_get_dentry_osb().  ocfs2_dismount_volume() shuts down the DLM before
+freeing the mount context, so callbacks can use it without accessing the
+inode.  Preserve the existing iput-before-unlock order to avoid delaying
+local inode and open lock release until after the DENTRY lock is released.
 
-Validate and adjust the original request once, after inode_lock(), the
-exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
-size.  Read EOF once, reject a start beyond it, and bound the length by
-EOF minus start.  Normalize the threshold using the same EOF snapshot.
-This keeps zero as the default-threshold sentinel until validation uses
-the size that will govern extent movement.
-
-Move goal validation after range adjustment as well.  Its allocation-group
-capacity check uses me_len and must see the EOF-clamped length.  Both
-validation failures use the existing inode-lock unwind path before any
-extent movement or transaction starts.
-
-Range errors now reach the ioctl's normal copyout path, as goal errors
-already did.  Unlike the old early rejection, a failed copyout can
-therefore override -EINVAL with -EFAULT.
-
-Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
-Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0012-v9-eeb9084fb29577971229@gmail.com
+Fixes: 8ed6b23709b3 ("ocfs2: revert iput deferring code in ocfs2_drop_dentry_lock")
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
@@ -145,118 +133,89 @@ Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
 Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- fs/ocfs2/move_extents.c | 70 +++++++++++++++++++++++------------------
- 1 file changed, 39 insertions(+), 31 deletions(-)
+ fs/ocfs2/dcache.h  |  5 ++---
+ fs/ocfs2/dlmglue.c | 16 ++++------------
+ 2 files changed, 6 insertions(+), 15 deletions(-)
 
-diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
-index ad1678ee7cc46..93b45531bf7d8 100644
---- a/fs/ocfs2/move_extents.c
-+++ b/fs/ocfs2/move_extents.c
-@@ -907,6 +907,30 @@ static int __ocfs2_move_extents_range(struct buffer_head *di_bh,
- 	return ret;
+diff --git a/fs/ocfs2/dcache.h b/fs/ocfs2/dcache.h
+index 7f246c5692d82..046ab9a807692 100644
+--- a/fs/ocfs2/dcache.h
++++ b/fs/ocfs2/dcache.h
+@@ -17,9 +17,8 @@ struct ocfs2_dentry_lock {
+ 	u64			dl_parent_blkno;
+ 
+ 	/*
+-	 * The ocfs2_dentry_lock keeps an inode reference until
+-	 * dl_lockres has been destroyed. This is usually done in
+-	 * ->d_iput() anyway, so there should be minimal impact.
++	 * The inode reference is dropped before dl_lockres is unlocked.
++	 * Callbacks must not use it to find the mount context during teardown.
+ 	 */
+ 	struct inode		*dl_inode;
+ 	struct ocfs2_lock_res	dl_lockres;
+diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+index 412ab0808c59c..c281902e3bece 100644
+--- a/fs/ocfs2/dlmglue.c
++++ b/fs/ocfs2/dlmglue.c
+@@ -58,7 +58,6 @@ struct ocfs2_mask_waiter {
+ #endif
+ };
+ 
+-static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres);
+ static struct ocfs2_super *ocfs2_get_inode_osb(struct ocfs2_lock_res *lockres);
+ static struct ocfs2_super *ocfs2_get_file_osb(struct ocfs2_lock_res *lockres);
+ static struct ocfs2_super *ocfs2_get_qinfo_osb(struct ocfs2_lock_res *lockres);
+@@ -258,7 +257,6 @@ static const struct ocfs2_lock_res_ops ocfs2_orphan_scan_lops = {
+ };
+ 
+ static const struct ocfs2_lock_res_ops ocfs2_dentry_lops = {
+-	.get_osb	= ocfs2_get_dentry_osb,
+ 	.post_unlock	= ocfs2_dentry_post_unlock,
+ 	.downconvert_worker = ocfs2_dentry_convert_worker,
+ 	.flags		= 0,
+@@ -309,7 +307,7 @@ static inline struct ocfs2_dentry_lock *ocfs2_lock_res_dl(struct ocfs2_lock_res
+ {
+ 	BUG_ON(lockres->l_type != OCFS2_LOCK_TYPE_DENTRY);
+ 
+-	return (struct ocfs2_dentry_lock *)lockres->l_priv;
++	return container_of(lockres, struct ocfs2_dentry_lock, dl_lockres);
  }
  
-+static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
-+						struct ocfs2_move_extents *range)
-+{
-+	u64 i_size = i_size_read(inode);
-+
-+	if (range->me_start > i_size)
-+		return -EINVAL;
-+
-+	if (range->me_len > i_size - range->me_start)
-+		range->me_len = i_size - range->me_start;
-+
-+	/*
-+	 * The default threshold for defragmentation is 1 MiB, which
-+	 * matches the maximum OCFS2 cluster size.
-+	 */
-+	if (!range->me_threshold)
-+		range->me_threshold = 1024 * 1024;
-+
-+	if (range->me_threshold > i_size)
-+		range->me_threshold = i_size;
-+
-+	return 0;
-+}
-+
- static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ static inline struct ocfs2_mem_dqinfo *ocfs2_lock_res_qinfo(struct ocfs2_lock_res *lockres)
+@@ -610,13 +608,6 @@ static __u64 ocfs2_get_dentry_lock_ino(struct ocfs2_lock_res *lockres)
+ 	return be64_to_cpu(inode_blkno_be);
+ }
+ 
+-static struct ocfs2_super *ocfs2_get_dentry_osb(struct ocfs2_lock_res *lockres)
+-{
+-	struct ocfs2_dentry_lock *dl = lockres->l_priv;
+-
+-	return OCFS2_SB(dl->dl_inode->i_sb);
+-}
+-
+ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+ 				u64 parent, struct inode *inode)
  {
- 	int status;
-@@ -936,6 +960,21 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
- 		goto out_rw_unlock;
- 	}
+@@ -624,6 +615,7 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+ 	u64 inode_blkno = OCFS2_I(inode)->ip_blkno;
+ 	__be64 inode_blkno_be = cpu_to_be64(inode_blkno);
+ 	struct ocfs2_lock_res *lockres = &dl->dl_lockres;
++	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
  
-+	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
-+	if (status) {
-+		mlog_errno(status);
-+		goto out_inode_unlock;
-+	}
-+
-+	/* The goal check depends on the adjusted range length. */
-+	if (!context->auto_defrag) {
-+		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
-+		if (status) {
-+			mlog_errno(status);
-+			goto out_inode_unlock;
-+		}
-+	}
-+
- 	/*
- 	 * remember ip_xattr_sem also needs to be held if necessary
- 	 */
-@@ -1028,27 +1067,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
- 		goto out_free;
- 	}
+ 	ocfs2_lock_res_init_once(lockres);
  
--	if (range.me_start > i_size_read(inode)) {
--		status = -EINVAL;
--		goto out_free;
--	}
--
--	if (range.me_start + range.me_len > i_size_read(inode))
--			range.me_len = i_size_read(inode) - range.me_start;
--
- 	context->range = &range;
+@@ -652,9 +644,9 @@ void ocfs2_dentry_lock_res_init(struct ocfs2_dentry_lock *dl,
+ 	memcpy(&lockres->l_name[OCFS2_DENTRY_LOCK_INO_START], &inode_blkno_be,
+ 	       sizeof(__be64));
  
--	/*
--	 * ok, the default threshold for the defragmentation
--	 * is 1M, since our maximum clustersize was 1M also.
--	 * any thought?
--	 */
--	if (!range.me_threshold)
--		range.me_threshold = 1024 * 1024;
--
--	if (range.me_threshold > i_size_read(inode))
--		range.me_threshold = i_size_read(inode);
--
- 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
- 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
- 		status = -EINVAL;
-@@ -1060,23 +1080,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+-	ocfs2_lock_res_init_common(OCFS2_SB(inode->i_sb), lockres,
++	ocfs2_lock_res_init_common(osb, lockres,
+ 				   OCFS2_LOCK_TYPE_DENTRY, &ocfs2_dentry_lops,
+-				   dl);
++				   osb);
+ }
  
- 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
- 			context->partial = 1;
--	} else {
--		/*
--		 * first best-effort attempt to validate and adjust the goal
--		 * (physical address in block), while it can't guarantee later
--		 * operation can succeed all the time since global_bitmap may
--		 * change a bit over time.
--		 */
--
--		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
--		if (status)
--			goto out_copy;
- 	}
- 
- 	status = ocfs2_move_extents(context);
- 	if (status)
- 		mlog_errno(status);
--out_copy:
- 	/*
- 	 * movement/defragmentation may end up being partially completed,
- 	 * that's the reason why we need to return userspace the finished
+ static void ocfs2_super_lock_res_init(struct ocfs2_lock_res *res,
 -- 
 2.53.0
 
