@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320826;
-	b=2x3l3yLQYkpFoK68OtiC+W7ja74VjO0tw727awH9N1Kmk9pFiTlTIJ71mc8F2jV6kOcJ
-	 ja4BI9ZQaoq99x6s2cmWV+wrH15OVeM2hG9VC5p5hC/YDJJ41QkpKozDp1OUavEBS+23z
-	 JLuCBjpUHtAUNt2zl2Cyew9Ckr0eFKSRYvNnzWC3gOklFbxHtY+xi0jmLl3GXBIY2siBI
-	 wSsBPI2LIRPZzj4KW5fAVwcifTuvqUEgPp+Bkocds72Ste5hY6cfzTY5wWX8RNimYN98T
-	 G9KbW/OCpknz70Tbk8rCIUAxq0lWOr7OlIDzVp5YASJHLioDSqgISipkmXVwmlCE2Lg==
+	t=1794320833;
+	b=pXtltj2OYR3Ao7k3sKQgShbkCYBsYYpxFs0VbL9/mt70a3y34QDP0lKWTTVotLvckVVE
+	 fS+aIunlEpflKzDR6mfEZZWzpRksb7K8twVDsKZcLbTziBoVUbCHpz89e3FC973iu9rpd
+	 dC+03pOk31ZBgAqEWkeHJSXoAH85N3jFekITmO9gXzm9pmmLbG2I4Fi036nj0z2na3uNB
+	 j4/3iY9zOzavlTZfinahr1qr0LJrD7uBVEZrfYhSaap0r7YV6ivg7wVVIx6UWYNOo9e0F
+	 NWgxLg3lLDVEDU/F+2bnofyfusR9HkOYQ46iLg6xKLNkeLHl4hmdS4oQmUm8fximgfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320833;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8cwtTP/cP2BIFCMbNjoHR5BovC6tPnIS6SlB8tplJqc=;
-	b=fz27hsnUv7htGQ1Gr+/QefUGBnjrfFS9KFkE8n4tZ6Oz2rdotz+pvsp0OHkjb3Q7ss03
-	 wvgmONxnPzEEwaJDNU7dHaWiJzdnaCrPTGiZJxj7WPVsTkdzdANxjvu3L/dDaDmYRHqMk
-	 YST+BHxHlR8PrxeX61fKvaivbV8QBAN2sN0lQC+ps3pateuF+ThIaucasp/Yvv934iOsb
-	 X1U06+xgCcImux28wvtRMmY66BkJTlUWUqTAl5yTO14DDSSIYBRVpK14/dczf8TCCyMYR
-	 3iZUEDZzHgrcC82g/anrG0wz8p7PknA3JGBlmg7sVrIPRH2RekIr9Pmd3jxX3KUnHaw==
+	bh=6E+/kQQ4kHnCd3SMS5uPNQMx96UrRXPD/XNn3NgbOOE=;
+	b=juFEx02FvRlI3Y5tgGxZgjMqZ3itCe+Euj4mjekUqYh1jmvoV1mcq+kkJJfxbNyKNiuA
+	 8nhE2vDKvTc906QyYIuP1x7JY/pMK8YHulHwOsboVljnp9BgJetsh7qJh76UX3frxhgLe
+	 fGvv4LAP8Dtx/p/HSOnFKdr/2wDCHBaEIlqol0szKIl3XECF9Quuh7JYZqo1kRgK0/R8j
+	 unmze8B9Sg9BFL5BKdymHkhdnh/ADm5uxutSRhG7W6jtDn6LqQNlnzNJktWjCsdrx+lOb
+	 uj9z3h8c3D+AhCd4Go+av47PusRR5IEf0NjfvZz3Zll+YLHi59sD6LLCDBSpzTewR1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0hrfcxM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZ9TMXtd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B41A606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:27:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11B4606A339
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:27:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0hrfcxM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CB41F0089F;
-	Tue, 10 Nov 2026 14:27:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZ9TMXtd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4C21F008A4;
+	Tue, 10 Nov 2026 14:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320825;
-	bh=8cwtTP/cP2BIFCMbNjoHR5BovC6tPnIS6SlB8tplJqc=;
+	s=k20260515; t=1794320833;
+	bh=6E+/kQQ4kHnCd3SMS5uPNQMx96UrRXPD/XNn3NgbOOE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e0hrfcxMA5t4tMms7LiqaEQLnm9SlqudEJ4EOYvbFzg39iA8KWwBKLlnhrJ5vjs9d
-	 ppFvtXN9TpiaaGLW+17H/1xFjR65sX5bm0iUoh+XTDrBNSRVmIg9zfrXlkkXJkgA6z
-	 bql1mVd2vck/KH9By3DSVPiM1e4fKdU1DpQO1Gdz2teXZsZE7nAQPZ0py6C2Bpt8kg
-	 dQFu8+3g3uU4a10s0s6j/QT1joPsIXA2UieqrodnPA8eUjt3zogqnjRCJqAS1l1/fI
-	 xvY/93iyMQKCFzZrwKfRKJnrX1CCGQZMLUNbvhrvc4KHQy92jZnX/yFGQfO+ivu4SX
-	 kjLmuNRKIrLKQ==
+	b=WZ9TMXtdOM5Z9b1PCeD69ptfoM4Gb/xkvJJd1qP5MgxT46WP5chnVsz6lpyY0449F
+	 qUhEF0UqZ3gSHfKBSnEUESLBoHblMiFZ5VYXk3oIDsYTnAcFpITua1cVawLC+nWSw+
+	 b5hqut2eUDZfQCdsF096+5DgiRuJmFBBQFQZL0L2/GY67/+Xbh0EKjLmVyhaJyYAsv
+	 9GDOa4gkfNEbuE1Tf6beR/miV5Cdj8siB+w9Tx1cuoMwop+Eyf3ckVhD/8pMEVCRXb
+	 nwRfeCWgoeyUWdy9rYqk4+KB+j/SOLIvpFDLWeJhCO6AtE1U1W/M13Mw8kLhc+DYrM
+	 gTqPJ5jk4IPdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Rob Clark <rob.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/msm/dsi: Fix VM leak in dsi_tx_buf_alloc_6g()
-Date: Tue, 10 Nov 2026 09:27:03 -0500
-Message-ID: <20261110142638.1874788-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
+Date: Tue, 10 Nov 2026 09:27:11 -0500
+Message-ID: <20261110142652.1886873-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051828-failed-6.12-ab91ba61871a@kernel.org>
-References: <20261107051828-failed-6.12-ab91ba61871a@kernel.org>
+In-Reply-To: <20261107053229-failed-6.6-7907d5270dc5@kernel.org>
+References: <20261107053229-failed-6.6-7907d5270dc5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,46 +62,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit ab91ba61871a896ca2ecc6e048d80a152136da44 ]
+[ Upstream commit 7907d5270dc5c13b6a95754c08a77d5b06bbc786 ]
 
-dsi_tx_buf_alloc_6g() takes a reference to the kms VM with
-drm_gpuvm_get() and stores it in msm_host->vm.  If
-msm_gem_kernel_new() fails, the function returns early without
-dropping that reference.  Since msm_host->tx_gem_obj is cleared on
-the error path, msm_dsi_tx_buf_free() will never see a non-NULL
-tx_gem_obj and thus never calls drm_gpuvm_put(), leaking the VM
-reference.
+mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
+before allocating and registering the secondary PHY. If allocation,
+EEPROM override, or PHY registration fails, it returns without restoring
+the primary PHY capabilities. The EEPROM override failure also leaks the
+newly allocated ieee80211_hw.
 
-Drop the VM reference and clear msm_host->vm on the error path.
+Route all failures through common labels that free the secondary hardware
+when it was allocated and restore the primary PHY capabilities.
 
-Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/754332/
-Link: https://lore.kernel.org/r/20260916175738.2089950-1-vulab@iscas.ac.cn
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-[ sashal: Adapted GPU VM cleanup to use the older msm_gem_address_space_put() API and msm_host->aspace member. ]
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+[ sashal: Omitted error handling for mt76_eeprom_override() because it returns void. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/wireless/mediatek/mt76/mt7615/init.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index cd605c75cef8e..ebd9dfca6459b 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1205,6 +1205,8 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+index 129350186d5d5..e50dcfc8bcf2e 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+@@ -545,8 +545,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
  
- 	if (IS_ERR(data)) {
- 		msm_host->tx_gem_obj = NULL;
-+		msm_gem_address_space_put(msm_host->aspace);
-+		msm_host->aspace = NULL;
- 		return PTR_ERR(data);
- 	}
+ 	mt7615_cap_dbdc_enable(dev);
+ 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
+-	if (!mphy)
+-		return -ENOMEM;
++	if (!mphy) {
++		ret = -ENOMEM;
++		goto error;
++	}
  
+ 	phy = mphy->priv;
+ 	phy->dev = dev;
+@@ -591,7 +593,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+ 	ret = mt76_register_phy(mphy, true, mt76_rates,
+ 				ARRAY_SIZE(mt76_rates));
+ 	if (ret)
+-		ieee80211_free_hw(mphy->hw);
++		goto error_free_hw;
++
++	return 0;
++
++error_free_hw:
++	ieee80211_free_hw(mphy->hw);
++error:
++	mt7615_cap_dbdc_disable(dev);
+ 
+ 	return ret;
+ }
 -- 
 2.53.0
 
