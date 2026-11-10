@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272970;
-	b=yuN0fumo+AY16za5rR3vuFM1NLuOxT2S03HV0q9Mz0aFGi9qqnilrfKlw18RkRwShq8y
-	 LzEfhYA585FIG259N440JuLFLQBslbqg5ru50+O3JQIx9OfGvrRBdSDRGDGKyQVhvCQ9B
-	 T7ZpEHLapL9B01vuzEjYquDxIpkKYPkrFcOCg9kBLLr4tEVCuubICGjfzGz7by7E9a12o
-	 qIWNIuBsZ6r1dntKDpAoCQTDAImfBPq1FeeDPrwaB0MHx3uCgU+MUZyS86i0b/oO7i96k
-	 JUVsV3WchBQk9HyBymo68O4I59mwNh3CqCOF8ooiQdZT0Pb9dWkEYp1O/ULWYebeS1A==
+	t=1794272973;
+	b=tb0HVy8J2/QsM6qP0cpZCWCrugqLbBAB3X8ym9m01jTwCLMk2NfroRc1JAZtWkZlulZu
+	 vp2op16oh2ixdMyoQR5Yzi4Xq435/TSf7oEXoHeInKqgJk/R6Q2NWiCMcZJSMooFL2wSB
+	 /YUnyfiaRBbAuRPyG/MNCKqf2UtpDSeQV0WIpP9h1aDr5a+OLsctLQjgHjcq8l9jC01Ss
+	 fWtEF6uTrJHeLfgznH/Bpx4F8fOiIxacMcqCxfIN2yoLJwXjkth6/Nowo6lKsCJ9bdrw2
+	 or1ypczc3BWZNwljUmu7SnjningmoK9YsRoRka4yT8IO2aLXgfSVPZzUe2dGRH9R5jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272970;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272973;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=R3w9pbFmXk4U/1P2NDDd6Igr3BYs7y1NecncpK2dlMY=;
-	b=xtCPXsHZwRfTLQW3eWMnOfkw2oX736b54mbNxMDCgObh9cRpiWyo0hoocdpxEW2K687O
-	 NopZZFhIB24lGCLJDOQppITAOiTAezWfgaWDejlThsz9aPBXZN+29ibm+ZtASfWJqMJmA
-	 GtvMTLYycfnKaK7bcQs4fbRZfzLGmJovRtfjyGHn5smbL+BnaD9xHlCfHC/ISGMvRLGYe
-	 XoCiZoWFq7o/zMb31TUTKLCaLkxn2sSBeEIPVtywWRFy2xKxQkOvvkViLjrEt2EVhO7xi
-	 1eKVJQrE8hgzPJq4qUZLaSLw4MYh93BhyQcOPahT8qM92ODkll2zxh9CVC/jYKvUovQ==
+	bh=egTCdZSfH9yG211bZ28sGwL7/Oa8jek+l5VkQOacLCQ=;
+	b=Q5/ehgWVt58x8nFy1hMvj6FrWCSbk6+zcUrwFDC8nUvy34oDjynPLycxCEEAzF3HvYq2
+	 EG5+gCv3ZFV1y1kYZ8myA4yyzRMVfM43hieB9//IuxOlG/oMlX/DOZX/ZcKObHkn1i1vR
+	 ftfHgt3uJSipLd22BoKWwCGrIGUxRGgRVf4/U+haukvu3GLSNaZsqrctSfGorIWpD9kMq
+	 4PbLsbKEjV9lGzQFHv2NFF5E/5QHWZ1eUmJxjhmSJrDG44z59pJFwUXcxUAbH69WXlc4/
+	 o+fcWXlFdy7sJZiJnfUI4TKhVMXGUzRV5McNYx7KeoPx7L/npqW5pEbXnWaiWBPypQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DVCNURjT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WO/FY3RH";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA89606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5520606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DVCNURjT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D071F0089F;
-	Tue, 10 Nov 2026 01:09:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WO/FY3RH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2A71F0089F;
+	Tue, 10 Nov 2026 01:09:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272970;
-	bh=R3w9pbFmXk4U/1P2NDDd6Igr3BYs7y1NecncpK2dlMY=;
+	s=k20260515; t=1794272972;
+	bh=egTCdZSfH9yG211bZ28sGwL7/Oa8jek+l5VkQOacLCQ=;
 	h=From:To:Cc:Subject:Date;
-	b=DVCNURjTRGakg3+SSJ8tV9Ymtm69ljlOGjS36o9J3evYKjgzc6obSFcr3N5czwZns
-	 rAJEspHv5K6APcn0dFHRfymlPHJHvkERrjxrt43i+IC/WdMtbgpQRcB/UvdE8sDMuI
-	 lB8rRLLnbPTihqIMQ5D//UlglmNLXRUSvQQzXrk85ttocNmrsrB9YOS8wM1mC7eeVY
-	 o1iPpiq4qnW4x52YUC/lAbhwidk9fDBlxVt6SEV0TgHWg0UWnM957iL2JoFVZnFtqZ
-	 te66Rp4t6GEhovEBkLkIe0eBAlbjc4qsRH4n6HYO2qyUdMKIqBmBavsXQmaDJ5+mS4
-	 ox9x9S/rZfdCA==
+	b=WO/FY3RHBaOqC6L0VYzzTH06E1koxJQmUOeic0PC6X8ykBE6EWTwMvU4/70NBxsFp
+	 taj8SpyW+kKtih77bCMGQPMPd5r4KGLqJ25rATbH51/u6zNPMTZm8gM2m8YHqFBEXc
+	 8RNFq+XXwOQJ74tRZMfT+qKwLbatRal3veepzaldc7JWwxDftTNUG2AY2v/pQ6J/aC
+	 lCCeiZsIh/tpDrXKOJwqFe2ZguAWX0z0lXY47tF8MPaCFLImBpHI0wy5abimpXaap2
+	 jjGiu7v8LySocL5ZWU3gpd5EY+qbatSyyGup2wV2HtjwaPN9QI4BMUa62ynm1cDXrk
+	 TaXctPvJDQFxg==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	usama.anjum@arm.com,
-	kas@kernel.org
+To: amir73il@gmail.com,
+	edvard@tuta.io
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/huge_memory: split huge PUDs when adjusting VMA boundaries" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:09:28 -0500
-Message-ID: <20261109200928-failed-6.12-23e570927421@kernel.org>
+Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:09:31 -0500
+Message-ID: <20261109200931-failed-6.12-9ff338af0e00@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,140 +68,190 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 23e570927421d569fdc510d5f3f29542a43eeda5
+git cherry-pick -x 9ff338af0e002fe217cfa16b1289b76f6b21fc72
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200928-failed-6.12-23e570927421@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200931-failed-6.12-9ff338af0e00@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 23e570927421d569fdc510d5f3f29542a43eeda5 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:12 +0100
-Subject: [PATCH] mm/huge_memory: split huge PUDs when adjusting VMA boundaries
+From 9ff338af0e002fe217cfa16b1289b76f6b21fc72 Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 30 Oct 2026 18:07:02 +0100
+Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers
 
-PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
-allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
-only handles PMDs.
+Listing a merged or impure overlay directory opens the real layer
+directories from ovl_dir_read(), when the readdir cache is filled.
+Those opens use plain ovl_path_open(), so when the directory fd is
+one that fanotify created for a permission event, they can still raise
+FS_OPEN_PERM.  A listener that also marks the backing filesystem and
+calls getdents() on the event fd before answering then deadlocks the
+same way as with the directory open fixed by the previous commit.
 
-After faulting a writable PUD-sized VFIO BAR mapping, changing its first
-page to read-only with mprotect() makes the PMD walk treat the PUD leaf
-as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
-the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
+Store the overlay user file in struct ovl_readdir_data and pass it to
+ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
+the impure cache.  Internal readers such as ovl_check_empty_dir() and
+the mount-time workdir cleanup still pass no user file.
 
-Walk the page tables once at each adjusted boundary and split a huge
-PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
-PMD-aligned.
+A note about severity and real world impact: The FAN_OPEN_PERM event is
+traditionally used by anti-malware protection agents and security/audit
+agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
+and agents typically monitor multiple mounts in a mount namespace.
+FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
+It is often not the case that anti-malware agents monitor open of
+directories. Security/audit engines are more likely to opt-into
+FAN_OPEN_PERM on directories, but are less likely to list the content
+of a directory within the scope of FAN_OPEN_PERM event, so the real
+world impact of this bug is likely not significant.
 
-Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
+Reported-by: Edvard Conrad <edvard@tuta.io>
+Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
 Cc: stable@vger.kernel.org
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-43-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+Co-developed-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- mm/huge_memory.c | 70 +++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 60 insertions(+), 10 deletions(-)
+ fs/overlayfs/readdir.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index f10a199548d8f..7de94775a3598 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3504,16 +3504,66 @@ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
- 	__split_huge_pmd(vma, pmd, address, freeze);
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 5d21a328fad46..4cd4af097e5c1 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -43,6 +43,7 @@ struct ovl_dir_cache {
+ 
+ struct ovl_readdir_data {
+ 	struct dir_context ctx;
++	const struct file *user_file;
+ 	struct dentry *dentry;
+ 	bool is_lowest;
+ 	struct rb_root *root;
+@@ -377,7 +378,8 @@ static inline int ovl_dir_read(const struct path *realpath,
+ 	struct file *realfile;
+ 	int err;
+ 
+-	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
++	realfile = ovl_path_open_realfile(rdd->user_file, realpath,
++					  O_RDONLY | O_LARGEFILE);
+ 	if (IS_ERR(realfile))
+ 		return PTR_ERR(realfile);
+ 
+@@ -421,13 +423,14 @@ static void ovl_dir_reset(struct file *file)
  }
  
--static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
-+static bool pud_split_required(const struct vm_area_struct *vma,
-+		unsigned long address)
+ static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
+-	struct rb_root *root)
++	struct rb_root *root, const struct file *user_file)
  {
-+	if (!IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
-+		return false;
-+	if (IS_ALIGNED(address, HPAGE_PUD_SIZE))
-+		return false;
- 	/*
--	 * If the new address isn't hpage aligned and it could previously
--	 * contain an hugepage: check if we need to split an huge pmd.
-+	 * Only selected VMAs support mapping PUDs for now. Lift the
-+	 * restriction once this changes.
- 	 */
--	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
--	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
--			 ALIGN(address, HPAGE_PMD_SIZE)))
--		split_huge_pmd_address(vma, address, false);
-+	if (!vma_is_dax(vma) && !vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT))
-+		return false;
-+	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PUD_SIZE),
-+			    ALIGN(address, HPAGE_PUD_SIZE));
-+}
-+
-+static bool pmd_split_required(const struct vm_area_struct *vma,
-+		unsigned long address)
-+{
-+	if (IS_ALIGNED(address, HPAGE_PMD_SIZE))
-+		return false;
-+
-+	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
-+			    ALIGN(address, HPAGE_PMD_SIZE));
-+}
-+
-+static void split_huge_leaf(struct vm_area_struct *vma,
-+		unsigned long address)
-+{
-+	const bool split_pud = pud_split_required(vma, address);
-+	const bool split_pmd = pmd_split_required(vma, address);
-+	pgd_t *pgd;
-+	p4d_t *p4d;
-+	pud_t *pud;
-+	pmd_t *pmd;
-+
-+	/*
-+	 * mmap, VMA and rmap write locks protect the walk; the split helpers
-+	 * take the page table locks.
-+	 */
-+	if (!split_pud && !split_pmd)
-+		return;
-+
-+	pgd = pgd_offset(vma->vm_mm, address);
-+	if (!pgd_present(*pgd))
-+		return;
-+
-+	p4d = p4d_offset(pgd, address);
-+	if (!p4d_present(*p4d))
-+		return;
-+
-+	pud = pud_offset(p4d, address);
-+	if (pud_leaf(*pud))
-+		__split_huge_pud(vma, pud, address);
-+	if (!split_pmd || !pud_present(*pud))
-+		return;
-+
-+	pmd = pmd_offset(pud, address);
-+	__split_huge_pmd(vma, pmd, address, false);
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_merge,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.dentry = dentry,
+ 		.list = list,
+ 		.root = root,
+@@ -498,9 +501,10 @@ static struct ovl_dir_cache *ovl_dir_cache_check(struct inode *inode,
+ 	return cache;
  }
  
- void vma_adjust_trans_huge(struct vm_area_struct *vma,
-@@ -3522,14 +3572,14 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
- 			   struct vm_area_struct *next)
+-static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
++static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
  {
- 	/* Check if we need to split start first. */
--	split_huge_pmd_if_needed(vma, start);
-+	split_huge_leaf(vma, start);
+ 	int res;
++	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_dir_cache *cache;
+ 	struct inode *inode = d_inode(dentry);
  
- 	/* Check if we need to split end next. */
--	split_huge_pmd_if_needed(vma, end);
-+	split_huge_leaf(vma, end);
+@@ -521,7 +525,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
+ 	INIT_LIST_HEAD(&cache->entries);
+ 	cache->root = RB_ROOT;
  
- 	/* If we're incrementing next->vm_start, we might need to split it. */
- 	if (next)
--		split_huge_pmd_if_needed(next, end);
-+		split_huge_leaf(next, end);
+-	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
++	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -665,8 +669,8 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
+ 	return true;
  }
  
- /*
+-static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++static int ovl_dir_read_impure(const struct path *path, struct list_head *list,
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+@@ -674,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -710,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	const struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+@@ -731,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	cache->is_refcounted = false;
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -852,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
+ 	}
+@@ -866,14 +872,13 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ static int ovl_iterate_merged(struct file *file, struct dir_context *ctx)
+ {
+ 	struct ovl_dir_file *od = file->private_data;
+-	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_cache_entry *p;
+ 	int err;
+ 
+ 	if (!od->cache) {
+ 		struct ovl_dir_cache *cache;
+ 
+-		cache = ovl_cache_get(dentry);
++		cache = ovl_dir_cache_get(file);
+ 		if (IS_ERR(cache))
+ 			return PTR_ERR(cache);
+ 
+@@ -1120,7 +1125,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+ 	struct rb_root root = RB_ROOT;
+ 
+ 	with_ovl_creds(dentry->d_sb)
+-		err = ovl_dir_read_merged(dentry, list, &root);
++		err = ovl_dir_read_merged(dentry, list, &root, NULL);
+ 	if (err)
+ 		return err;
+ 
 -- 
 2.53.0
 
