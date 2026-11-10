@@ -1,38 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.185.58.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334122;
-	b=4/MtNkdO1P9SrNZhf3jLpTBK3SRhiIiSss5jWA3UWx8dX1ktUwZybMHd6QLPUjCh3Y7Q
-	 cBxGz+y3RbSj0nxW/E1f4nr0hqPWZtLWrn7odn5ArqcZRJYHVL2DqS/6BGSfXqo8cjcoR
-	 Ro4XXh4YbEo18lbiUZbGydpWJaXY+Uj9i3Wq5SZLPB7zwp3VbxEx9Rq/mOCTox3EITYP0
-	 r7tGE9qF9002rINyMk7LKldjsIWZ+ZtYTecuwd5LmVTUZgN+IpHgL738+CO4yN3/ajuGM
-	 XSyb2XrNNKWxcJFIVyluXwTkBJtUUeVhncak2gq5brfX/ybKuljcwRmIhDs3vWvjh5A==
+	t=1794334245;
+	b=JlXYE6L1eW3m6CO40kGFd75BiMlrsbINJPS3wZJo2DIbpbsUjHgA32/b6dIXqfWZT1sX
+	 XAEIH1DXRSiTetzXiA8zSLyKfrfooJKFMYr+hfTvplDTCk7UFdCPtMxMqv0WPrvJq7p20
+	 XOV7TfUfUeEfAjJ8+DM4cjt9emCuCWp4TU5Wqpf9Ct9QnGXXZgPZbMRWOHgA2LYepHD5h
+	 KrV06+X4LQ3+es1BCEVUz411c59Mvn6AwPqbEFvmDgrZjqmvVJXsA/KpQgXsZppyTqr3P
+	 iro/gvJKmyjkQJpfTLpWuOoF7j2bYE4zBabt35Ry/7U+XZOP5iRMZGQ6XnIn/55DxZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334122;
-	h=DMARC-Filter:MIME-Version:DKIM-Signature:Date:From:To:Cc:Subject:
-	 In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Spamd-Bar;
-	bh=5hIUGEpD7xu25o65xOT4OWyzlA6UEfLQ8Gsc3unD4x0=;
-	b=fQBjXBpccpggkO+kdaZd4cE/5Qzfz5NWBgg8bp8LVHW3USko0bOeEWAASw8xVXHEQ8C3
-	 nE98h3lO6anLOtiDx3HD51/hCNXAa+Oym5IfaDwCW7iiZ2Hk6q5APzfxwckvqwNs6kp4K
-	 iDCNdtflzrZ3rtQRLjVAJlR7Ns7pYBGfBlPmIqzLHGMVBAHEap5AsyNrGxQSEG5HrZYws
-	 VTiF2J/1RR3/TROSDZJzNLk+cZPpgYHCqQgTWAazpuJnerXQtrBFrJvYFYalJz1Ml7qRR
-	 oF++ZRv4Cwv/XuEserugQmRQ46JXdEO+4uHExjapv5XIicdFoi3wSEydCe7Pct9OOVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334245;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AVeHV/0ig34Jvn/XnhURaJvAE59/0nVBt0wdtY1TPbs=;
+	b=rpqLE4FPb0U86RwYKX4Jm2rvMvK3uJ2AhAe8dpDqGWUwIR15EFchV2Lbrtm8MFu1Iz3N
+	 YKP9XM2zkEhcBDvpLJHqCNbw75U/QYMx45/v7z/fdlj6e7JDSOCtoKm6QZveTSEToCaPh
+	 4bi/B2jCAKruZeANi5Aq6HcXwcNFarz6pt6zrE4jxlIYqN97t2vQWkld+ess1bXGIGTE6
+	 2uPLMttPLZDPH8Yase6ORUEV3Dh4nJz5CCSkj/QweY6FzpKlPwC5xMpkgH+aSM4BqTibz
+	 XhVEqpTpnJ6pt9nh9OHdbECpR2qguHtMKR4OfT/w+b4zIMT6Xmr/w5k9W7K6xTKWT5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=badcode.im;
-	spf=pass smtp.mailfrom=badcode.im;
-	dkim=pass header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=XFvnO4PQ;
-	arc=none smtp.remote-ip=185.185.58.180
-Received: from badcode.im (badcode.im [185.185.58.180])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqRNYstW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2444606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2444606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=badcode.im
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=badcode.im
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1703606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=XFvnO4PQ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqRNYstW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607461F0089F;
+	Tue, 10 Nov 2026 18:10:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794334245;
+	bh=AVeHV/0ig34Jvn/XnhURaJvAE59/0nVBt0wdtY1TPbs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bqRNYstWTbYsjgY5TcvDF+tctoy+dcG5/+CCtX80rMEX5RbEHHjkJh+XAtj915Ipx
+	 5b1XiucCry9t1IKHR2xzKFPdtdQwiYq0AuzocdcxD06sGJkAD1NLgrUKt9GzdVQOXX
+	 iRP0aqzjWM7K9PT/cxQgNEW6zYtyTcrL3RoY2Cnrh5HraN2tU34FHq8nK4jjpKA0/X
+	 7vLdLv3JQFLFBG2pXy6K17wwTDSHcrvyLshlcc+ctG5wTZrOV6zlAMrBX1uTDVpDh7
+	 30yTWoMd+EMmxMKH7vfkKS7UKKL4KQai4S/eCCG5/o06F6Ta2nQKTdttf4lNg2vhxh
+	 9BHvW0jIyWEWg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zhiling Zou <roxy520tt@gmail.com>,
+	Ren Wei <enjou1224z@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vega <vega@nebusec.ai>,
+	Ye Liu <liuye@kylinos.cn>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/page_table_check: skip zero pages
+Date: Tue, 10 Nov 2026 13:10:43 -0500
+Message-ID: <20261110181016.3096221-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053208-failed-6.6-33afd07412a1@kernel.org>
+References: <20261107053208-failed-6.6-33afd07412a1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -42,99 +62,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=badcode.im; s=dkim;
-	t=1794334119;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5hIUGEpD7xu25o65xOT4OWyzlA6UEfLQ8Gsc3unD4x0=;
-	b=XFvnO4PQB2Z7FZKzl6GwGDc0qzJnZNX9QquVhkbhdYO7XsuUtrn6Ox4etDyROTT0PtPWaD
-	y+TvtlebNkj8X8Y8oI6OFx2wOhnaitgB1PMDAaR/huBtRkYK5Vw+Rpmskhc1UEmENJ5GVa
-	Iwak7U1w55988XI3RI7qY4sOhip129JAkGTa0i7peCSv0Q7rBxkwRGWgD26WpbeztuOVgH
-	4S0VEo6G6G8Nf5mP3k0in6/06KEmJSyjMlwy3YA3crLAtuocHvVic42DvmjyBI1LANz7TG
-	kTDp0hLri9lGw321M7Zu2CK9JySa09MmTaHOVGVGfubcoGzJgX7NvXYsubZ/dQ==
-Authentication-Results: badcode.im;
-	auth=pass smtp.mailfrom=alex@badcode.im
-Date: Tue, 10 Nov 2026 18:08:38 +0000
-From: alex@badcode.im
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: alexvancasper@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH net 2/2] wireguard: noise: recheck replay and flood under
- write lock on initiation
-In-Reply-To: <avNLlkTOYf_yYTHE@zx2c4.com>
-References: <20261105140815.92841-1-alex@badcode.im>
- <20261105140815.92841-3-alex@badcode.im> <avNLlkTOYf_yYTHE@zx2c4.com>
-Message-ID: <0770649757ee4a30024424f66a16b964@badcode.im>
-X-Sender: alex@badcode.im
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Bar: /
 
-I don't think it changes which packets take the exclusive lock. Before
-this patch, every initiation that passed the read-locked check already
-went on to take down_write() unconditionally to copy the new state into
-the handshake. With the patch, exactly the same set of packets reaches
-down_write(). The only difference is that a packet that lost the race
-now sees the updated latest_timestamp/last_initiation_consumption and
-bails out right away, instead of overwriting the handshake state and
-generating a second response. So the time spent under the write lock
-goes down for those packets, not up.
+From: Zhiling Zou <roxy520tt@gmail.com>
 
-Everything else is still filtered under the read lock as before. Once
-the first copy has stored its timestamp and consumption time, later
-replays, and any initiation within the next 1/INITIATIONS_PER_SECOND,
-are rejected at the down_read() fast path and never touch the write
-lock. Only copies of the same initiation that are processed truly in
-parallel, so at most one per CPU, can get to down_write(), and that was
-already the case before.
+[ Upstream commit 33afd07412a1efe5b750a3fd5eb0272ebdd12761 ]
 
-This is the same pattern the response side uses after 2a73c9b2c0ca:
-check under the read lock as a fast path, then check again after
-down_write() before committing.
+page_table_check_set() accounts pages by whether they are PageAnon().  The
+shared zero page is a special page, not an ordinary file-backed page.
+Read faults on private anonymous mappings can install many read-only PTEs
+that point at the zero page, but page_table_check currently accounts them
+in file_map_count.
 
-Thanks,
-Alexander
+That lets an unprivileged process populate enough zero-page mappings to
+overflow file_map_count and trip the BUG_ON() in page_table_check_set().
 
--------- Исходное сообщение --------
-Тема: Re: [PATCH net 2/2] wireguard: noise: recheck replay and flood 
-under write lock on initiation
-Дата: 10.11.2026 16:51
-От: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Кому: Alexander Ildiyarov <alex@badcode.im>
+Skip zero pages in page_table_check accounting.  They do not need the
+anonymous/file mapping conflict checks that page_table_check performs for
+ordinary pages, and this keeps the existing counter size and page_ext
+layout unchanged.
 
-On Thu, Nov 05, 2026 at 05:08:15PM +0300, Alexander Ildiyarov wrote:
-> wg_noise_handshake_consume_initiation() checks the initiation's
-> timestamp against latest_timestamp, and last_initiation_consumption
-> against the current time, while holding handshake->lock for reading.
-> It then drops the lock and takes it again for writing to store the new
-> state, without repeating the checks.
-> 
-> Incoming handshake packets are spread round-robin over all online CPUs,
-> so two copies of the same initiation, received back to back, are
-> processed in parallel. Both copies can pass the checks before either of
-> them updates latest_timestamp and last_initiation_consumption, so the
-> replay and flood protection is bypassed. The responder then creates two
-> responses, each with a new ephemeral key, and installs the keypair of
-> the last one, while the initiator accepts whichever response arrives
-> first. When those differ, the session is unusable until the initiator
-> gives up on it and starts a new handshake, and an attacker who can see
-> and duplicate initiations can repeat this for every handshake.
-> 
-> The window is narrow, since the expensive DH computations happen before
-> the check, so it is between up_read() and down_write() only. With netem
-> duplicating every initiation between two namespaces, no double response
-> was observed in 200 handshakes on a 4-CPU VM. With a usleep_range(1000,
-> 2000) inserted before down_write() to widen the window, 30 of 50
-> duplicated initiations produced two responses, and in 12 of 50 cases
-> the session was unusable after the handshake. With this patch applied,
-> and the same delay, every duplicate was rejected and all 50 sessions
-> worked.
-> 
-> Fix this by doing the checks again once the write lock is held, keeping
-> the read-locked check as a fast path for rejecting replays.
+Link: https://lore.kernel.org/1f8848512d2e3ded944f8d595c29faee8fdaeab0.1784645969.git.roxy520tt@gmail.com
+Fixes: df4e817b7108 ("mm: page table check")
+Signed-off-by: Zhiling Zou <roxy520tt@gmail.com>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: Codex:gpt-5.4
+Cc: Ye Liu <liuye@kylinos.cn>
+Cc: <stable@vger.kernel.org>
+[ sashal: Replaced unavailable is_huge_zero_pfn() with is_huge_zero_page(compound_head(pfn_to_page(pfn))). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/page_table_check.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-The downside, though, is that now it means there's potential to do flood
-attacks that take the exclusive lock, which is what was trying to be
-avoided, right?
+diff --git a/mm/page_table_check.c b/mm/page_table_check.c
+index 75269bc47547f..4356aa8563c5b 100644
+--- a/mm/page_table_check.c
++++ b/mm/page_table_check.c
+@@ -67,7 +67,8 @@ static void page_table_check_clear(unsigned long pfn, unsigned long pgcnt)
+ 	unsigned long i;
+ 	bool anon;
+ 
+-	if (!pfn_valid(pfn))
++	if (!pfn_valid(pfn) || is_zero_pfn(pfn) ||
++	    is_huge_zero_page(compound_head(pfn_to_page(pfn))))
+ 		return;
+ 
+ 	page = pfn_to_page(pfn);
+@@ -107,7 +108,8 @@ static void page_table_check_set(unsigned long pfn, unsigned long pgcnt,
+ 	unsigned long i;
+ 	bool anon;
+ 
+-	if (!pfn_valid(pfn))
++	if (!pfn_valid(pfn) || is_zero_pfn(pfn) ||
++	    is_huge_zero_page(compound_head(pfn_to_page(pfn))))
+ 		return;
+ 
+ 	page = pfn_to_page(pfn);
+-- 
+2.53.0
+
