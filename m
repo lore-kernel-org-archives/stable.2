@@ -1,116 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323656;
-	b=D8MMu8W4ITvW2nZw8H0Cl2x7CzwvwuiuCCXi6aLiZFwjcxKeRB19FzJ4M+JDdc2iKBnp
-	 zc9qdxN4xhE5pOqrJvL99xA+2LJksYUl+AjXEtmogO4PB9X9V84N9F4Gl2X2X9XZ1fbJw
-	 Imu4yZSlySaCuWdNKHz4r2KkdQjE5q1p5O9NyZutX4woiWnYwr6g2QwfLhatUMy3nxrpa
-	 Za309N3AGf49i/lMZ6M9myixksPKaN+7MCqC9XTvQAcI0m0x/FwJobij2QjbS/dMILOjA
-	 TP9gok4gfcacCcOPwICoQN7hpEM++hxZbj/oGp8biSJfycZtDrqFH9t7XCkite6nYUA==
+	t=1794323669;
+	b=d8GyZH+QXQd3zX+p4Es434vqvVqGi53VbnPVTJL9y4Fnw2NlUIAvLQHM5wVsMyXXjBjd
+	 7Yrz1MAmn8Yg5qplMBeeQ8aVHFlaxImY0lJJaMyF2pTXW+qIFiL40NzgbInm0zyRbhy86
+	 LjQE6F9JZJ7xt3VRgagUYg4hG0PicN1CFg29Aus8/Bg3w+VtJU5ZcFgvv7JicI/4NSahc
+	 udM9ilSyihUAPvRxhrgWn4Yn93KFlhxT7XH1IwvAxvh1omCAy+pvXeJaSpeCARUCJlLTU
+	 vQCtiM5lzhTdhx7sGGQB94rnFNAIHPcCGumYLnlWpB+0Ou8R3ZyBHWyd9LizgDTsPMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323656;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=C7mcOM+n5OQpUfop9CP8BUGmScJoc5ssQWRuOnotN9Q=;
-	b=Vzr9TbANsFHeSSyxbrEcWRvKSS6XgD6QnQNS9rMdKXdkFTNZD+46gKxlTvN31a+nR11q
-	 mc3eV17JZgpOdRJJ/pGzELQRFYMEQ2C/8MOhHCpXvahMD8pjVURbmjqj5pezFvkkXlEW/
-	 oMLeHG8vQt3WjJ18e9MHquq/zCD24hveZoOXI6E8gFcd78FHOaDmuo4YAvFRsu/oYlAbT
-	 UiqI4C7YJOdFuiLEblRSHyKTuMOj19zalz6FH3wIuEr112GZmhG9JAALJpDUyAsmGA68f
-	 MyL6c4EMqrTyGODcqXYropnF03brto14TeN/1yigV9TTTIHX8xZX8RoGIvcCyOPhVDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323669;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gERlYnqMraEDZsYQky6xL2HjZPffZDUJmiECrM+pxkI=;
+	b=peRNKliX0ljPCVqJ6/H8UEJ+sn1U0ZXv3YBCdujnEu2H7ETsRpkfHZBoPmm1mpfkyTGD
+	 TAISVb4i/6lKEsSuqc8kWJ0QWSnnOU0Sm7gN8iDlzeX+4ZNun7dI5b5m5WH0HwsRNSnWh
+	 rdMmJNt1t6AyqB0TCs6uSea3TQ5XEylKXKsz5SHIw1eqKMqg6/OfxTXjuMl0mI8ZRl5bK
+	 Et6PUrdjgeHdS0TIuKSLm+QLnZdyfFtUqX/pXtr1n/zRMiJYs+ZT2oUtckmFklgxQ/3YS
+	 Ltgc1a/5N3N3gf9qW4J4qQjIKLDclt6cxM5UGk42iR3ypUxxShaxvSrMQ1Ldc5yCzCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UQtkm1d4;
-	arc=none smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e2MLxo4i;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T5V89kE2;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABC560A2635
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:14:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ABC560A2635
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B077C60A381E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:14:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B077C60A381E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UQtkm1d4
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-675617e81f9so1992505d50.3
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:14:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e2MLxo4i;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T5V89kE2
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAF0KDn2619465
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:14:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=gERlYnqMraEDZsYQky6xL2
+	HjZPffZDUJmiECrM+pxkI=; b=e2MLxo4iS/q0ToCm+puRAkVllrVerwoJKzEhJn
+	SINSMVzJSTBcrgc3m4vxAe7e5zIPzjI42w5XVATd0nWntJsX1WtqEIGYS2eznIRk
+	+/t8Hd4aGqoX+7yEJtXCBBTQaK5hLJs+9DfHdNkdnTahJvcH0tggzMkXXQ7v4QBc
+	z9GQCBNoAMbjDs2kzrqEIdBJYGs/AKpS/es3FYl4415LVzVZQwnbjHO+HBwF3ckP
+	sBt1L4uxjbN6lOZzx9wwA31LTXuwt9PwXnwl1+mcGcr0fRtGw7Acmll4mQ4lTNxg
+	x+JYTPcyTBBQjKW3Y+G7bscp2iRh5JSfuk/y1KR1ISOy4SEw==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hunwkkqsv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:14:27 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7d2dd8c5aeeso400315137.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:14:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794323655; x=1794928455; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C7mcOM+n5OQpUfop9CP8BUGmScJoc5ssQWRuOnotN9Q=;
-        b=UQtkm1d4FoNvK0Zsa+dWzOF7EgInHiEfjTI/iU0wl6bhOF/jOcC3kECFeX4k8ehaSR
-         I4QMLoLGWLnSzxIc54xVCD+sjucplQTn+z0Z+QqdWk+7nCYJwHdy7zfRwbiFmizJyz3x
-         B3JiyNzzP66sOfP5xAMJcOS3Nz5KsCJfWwkU9yvFlE/6swtd7Jr56QOhRmkIkAi6nl3k
-         MqFwcriSpMNGKcJ8Bd7OKKjf6Gi+pKX+bnb7rA9uftEC2fWY/UZoC0GkxMcRftdKY7Eh
-         NeT/GOJTWS4TAVsJNAU25m9MbbJOB/m+iSXmL4vD+9aFeAEg6OBWvWhjQyXPKbp+Bmb4
-         q/8Q==
+        d=oss.qualcomm.com; s=google; t=1794323666; x=1794928466; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gERlYnqMraEDZsYQky6xL2HjZPffZDUJmiECrM+pxkI=;
+        b=T5V89kE2YuJEVkUouEA1s75vF/ZdXVkFNK81Ral0RC5Hlf5rtGL/NGcsT7PcZ0TPcr
+         lLLDnpiSSJSoO9te81WlODQD+CrUqFi8Zk55jfjzwwq9ypSZwXAXk7XHlkLL4XKy7PEI
+         P3OXbgUSiUhpn33jEHXzTct1iLQgNCw/nx9uqYhY5oC7aX5bEbwIf9pYWtv9bLb6exAJ
+         kl7DFGKsqva6Ab7ppjK+PP83oPeTqF/MF8Fil8MP9qU4miuYjFEqTZbbo64zFr6yJsIT
+         yRcACz4tPCiu84AYFvcK1hktJwncfZsVdPk4vjNZGf8La4xIeoQWYtXWldIA5pfGhFdf
+         /bJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794323655; x=1794928455;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C7mcOM+n5OQpUfop9CP8BUGmScJoc5ssQWRuOnotN9Q=;
-        b=sMvpJP7P/1o44zrEnxrxGaScIo87HR4vJctF4MhXF+woMHw8bXZp4yLyKYmy9yDJhF
-         3o+xbkOkQ+AiXGhgOvIjJ6V5cz2hW3UoM7lOnYNrEjg53r4vZn8IS+6Qlhsr50fVfCRQ
-         QUNwnWcd1UOrSrAquD8Ku58NGlgm88oW+urAqrX9oG8NmnJgtyfZIWs5wUV7usj8dF1d
-         1wxmmdGZusopEXOY+YWDjRhgPlbRVj1QFsmaryskccXpxC/MDhdUevXk7DAZnhJd/enC
-         72O6nKTpwq2re+OLWyksw2iNoilxymu1L1lRFR8EJ+dlIb1wox1ioEdfxVAAz7ye+rs3
-         4fFw==
-X-Forwarded-Encrypted: i=1; AL+hErHRN9av3Zdzuat+blBCkfpCmRoCqcVUJzDvwxl+S6dF7+lOyvnN7SDISAlPvZhjHrlBhkgewds=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eql1urO45nBiBIb/2JiovFRRFiSHcJZbxzjQXWhXI4utTV8SB
-	4WUYKvb6wVuX7OxbW/qKomE30tdCW3UGmmFfP96/7HQnFk8kcltzqemF
-X-Gm-Gg: AYBFou3xqNZFPPISWEdTdbpbLR/JZBEv1IHxy4U7a85CnBTAq/PjVUNbw+YtFH4tHf4
-	b2aKNYbzgA+fQjfzjRkU5sSFa7p1Vn5uvS/XBkVSiXh+HNNF6/azaAf56XDePHzYWVO+o+RYFzg
-	PiobjNOCOkNuWNH4200f9Uagul17bGZyK0tPMUubAvTL1UVbmx8nla8oZIq3An63YgB1iBKX6yn
-	uK2zjmkenWtF5eNK361Bxftyv2FsYLkPkWWFzF3Gn/985U6dEBMAYIUAGbbLpuVWoohbhCn8Wm5
-	2ZrxSKANgW390XwztxgaMeQy0j5SvCWk4oZa17Ylkka9LmYUHD9qmgaJ8PlgReCLm9hTJh0sTtn
-	JewvMxjxG6idCtW5pmj8QyRHyUzvZhKCMmcESbqbEFJe7zIlKBn2R1OOoHz86+DXbZ/2iegaRBi
-	kiyvRf1++IJYl1Vbm0u4hemdSzh2NFoyRHSHbyMQEDqQY7Wi43EZUck8fES6UxFRsEhnyL2STyJ
-	uPNkcXr7RhZu8oItcUFJS0HOkb6IIW+DZ127RpEudSmMCeQX1o0bSiBlRhjlHtSaq4LRSklpfBx
-	Se7Bgv2V24KbqiCQytoVakK8snXruiL+8lGyufwf32+EjnrM6jymFrBVDmh6KMJcZbAjFuNVNuD
-	1Ka2vdfLcO0chmV/1mUgF2492wU5oa9FnRGVT
-X-Received: by 2002:a05:690e:480f:b0:679:b86d:6977 with SMTP id 956f58d0204a3-67c568b644emr1317770d50.73.1794323655270;
-        Tue, 10 Nov 2026 07:14:15 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:a::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c58a1f11esm2086933d50.20.2026.11.10.07.14.14
+        d=1e100.net; s=20260707; t=1794323666; x=1794928466;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=gERlYnqMraEDZsYQky6xL2HjZPffZDUJmiECrM+pxkI=;
+        b=WOmpEY6OaUi/ijM28eACxnKXTxI99jo/VjeWSbT7S6m6mjLbxngD0gUrmcSz3T6R32
+         XO1QkVw0pEK+l7gN/Olz8vz6zEf5ZHHqhrtEvvb/fEl/EOf2/P4a+qfylujBww1N3AYI
+         vrBtPAjhmxXB0IO0/zd+9wEAq62pOLpoQckC2cm8Om9hPWzHHNCIRoDE0Nt27MgX8Zwg
+         Evz5/vnChSpCH6Ij96RwFo89SLYrGFdYLPkooimj595iqAifMH0KcPGtcksgZaSYB3ep
+         ukUu4byl93ugzhlud1AEm6yJwmh162CHt8tTU5MshFoLkmrROWNCSAT+QoU6B4r4RDfP
+         jCPg==
+X-Forwarded-Encrypted: i=1; AL+hErFARzouiagpMdD88tDKPnSviNCmLiy8GGxoIe972+LY3UNUUDUm7wv5eAW7AR26WbscwXH+psA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WwNHv4zZrc73SFooWSZK/a5x7okxj2xu5uAfJITgxjiSsvT6f
+	UNa6XsA7KSnTMqtC45C59It8vmkwFfNmgiwEX/x8f4eSjdgB4TDDlXF9zGaeqkpdNIs30aVMwIF
+	Stwq0OGiCxVvdVG4zQ8mCng6BVdFYvQwuXX97YhHSNPnDdLsvZqjWdV2K4UH/SyVgfFE=
+X-Gm-Gg: AYBFou1qT1OCtQHlXvr4jVvwVXaANLQv4jOS5vzsd78aaLYwHTKZ3HsumnEoMiPy3li
+	/mjMEL8ff+GS4mFHYFEAYjDNu5jfOfZvGCZ8agD1EmX2cY/71DfEXUVdeM3AppUAfGmVEMBTm8E
+	Jn353vyy47eLUg2Ua3c7S/liqpUtn0iXsok6ZxA4QG0lCo0qHwqw+G46xCPZTLBOkW+m8OC7ygJ
+	tzrXr91K+1G6D5K7p947rde2/Yc6Omup+R7KQgIEFj34altXomGqmxiTnThIZTqaK8O6FOyJfj7
+	+HgktbparBBXRLGKiBRihg6FSnvz0pz4GpzlNGxwUlZ4l3nKvH5gv7uJgMRWtG+2tEPwtnFhAtV
+	ckEu/Jn3WM8GwaPaBXbKa5frG4tnp8osiK82LQCR95nPcYyeGNfy68okM1Wdfq1P/+2mMdtrq2w
+	KRKDCmcbVa3LwCEDSYY1e8EnS/e8UXrONlAmsIXkqKWI9yjr5lZ/gxDZP5Tc/zih4=
+X-Received: by 2002:a05:6102:6f07:b0:7d2:da5c:6f73 with SMTP id ada2fe7eead31-7d301bdacf3mr846976137.26.1794323665685;
+        Tue, 10 Nov 2026 07:14:25 -0800 (PST)
+X-Received: by 2002:a05:6102:6f07:b0:7d2:da5c:6f73 with SMTP id ada2fe7eead31-7d301bdacf3mr846961137.26.1794323665153;
+        Tue, 10 Nov 2026 07:14:25 -0800 (PST)
+Received: from brgl-qcom.local (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba023a1fcfsm29388665e9.4.2026.11.10.07.14.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:14:14 -0800 (PST)
-From: Nhat Pham <nphamcs@gmail.com>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	david@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	willy@infradead.org,
-	brauner@kernel.org,
-	linux-kernel@vger.kernel.org,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	ryncsn@gmail.com,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/3] mm/swap: skip relocation of tableless clusters
-Date: Tue, 10 Nov 2026 07:14:07 -0800
-Message-ID: <20261110151407.789960-4-nphamcs@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110151407.789960-1-nphamcs@gmail.com>
-References: <20261110151407.789960-1-nphamcs@gmail.com>
+        Tue, 10 Nov 2026 07:14:24 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 16:14:19 +0100
+Subject: [PATCH] pinctrl: qcom: spmi-gpio: don't cache new config until we
+ know it's applied
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,71 +115,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-qcom-spmi-gpio-cache-sync-v1-1-190440d0ef3e@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMo082oC/x3MwQqDMAyA4VeRnBcwpRb0VWQHl8Wag23XwFDEd
+ 1/Z8Tv8/wUmVcVg6i6o8lXTnBro0QFvS4qC+m4G17tARD1+OO9oZVeMRTPywpugnYkxjJ5eKw3
+ ODyO0vlRZ9fi/5+d9/wBeY7dEawAAAA==
+X-Change-ID: 20261110-qcom-spmi-gpio-cache-sync-6941bf152459
+To: Bjorn Andersson <andersson@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>,
+        "Ivan T. Ivanov" <iivanov@mm-sol.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2145;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=AGIBWyVLxOcee3LP0QFchKj3y11Zq68hX0i5sAO9N4w=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq8zTPwpa9C7UysIkP3amubYJsjDnBP1JBD1TGw
+ 8xNAGrtTGqJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavM0zwAKCRAFnS7L/zaE
+ w5qmD/wNGYXeofKHZyfg4uDHBdwphbjUi5BXcppbofa7dLzcF9ihdFXVJdzakcW79SNmbY1axWF
+ 8INVJk+/bfuVHzbuXXZeldzDJ4e9tYg06TDPVzy1mVtXXtiYS1PzugwAl0lPpOPT5GpdKSO/snZ
+ iJXwaut4grWGf/SvsO/FroNGpIB683ULB9gWXkF7oczNszpIxUaesb8MrCsnxe/qYFI42L83Sbt
+ v2+jipdDoLfWXv8BvN7rsTsRPfVFcy+1IvYyAHIPOJuX+JcjUUmHBwOUZlh05u5/88z1KLnLNLr
+ ZTBngLBP2AS8EBIEFCHMgv+geeSxPeCN4aNfhu1VELUBnJIqiE2km2VXrfIo6NBdQAKFldRNz9L
+ CM/0LExU/ReSPaWUiWv3A6sjQAzqXsJo00KXb82oqRepXhZ5xnuW0k7YTusvuaAbUeHQdOucpbc
+ IPSVoGlEUTICJ15GWELYRNkjnZIPCFsrgbMZ8cwnu0zJESt1JfHUmUlpl/DDVUL1G7nmIlVEjzK
+ JuWDPaqLBldLnZO2bjUMsrhjBVT42tUmfX5AZg4KoifZrDxVvza42OXpds3WDR6VXVfw/1YHqy+
+ NlRX6QtXtv2CGHmthosNe6pzJE4G2xkA1dWRZCOOpDZOsI21/adEjD15eX7K5yEOiSdyQic/DOE
+ h9YV1WBE4bwhu3g==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-GUID: 6ElpwAXd_VY6RO9DjzDxwStAGUQIKbpT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2MCBTYWx0ZWRfXwuJcaY36VyTN
+ crBEhJRKNUmqZ7JQ7PXpKAyfo5hHONwU4Lf8Dp8xhXAU7JmTifCQRrVktUGJ+CrnzbQoLp5EQOx
+ RoQqrUZwVwUbfZEKtUfpA0sdXnUtwog=
+X-Authority-Analysis: v=2.4 cv=TOrQ2Fla c=1 sm=1 tr=0 ts=6af334d3 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Gx8430QjnXqzkbs9h0IA:9 a=QEXdDO2ut3YA:10
+ a=ODZdjJIeia2B_SHc_B0f:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: 6ElpwAXd_VY6RO9DjzDxwStAGUQIKbpT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2MCBTYWx0ZWRfX9wDWotXdaVEo
+ mOtQLXoa95JnAVWsL5NZBXCO2WkMO0SPZ053smTEndRW9WnmUiG5+hlsuUjAihWLrObq15jeo8R
+ 63DxlkPkK/Ba2URhMvblye3R8+vqmTHdm9Bx/sFqisEgxDYNYLQQbTMzfUcNJ+AYW5UCLw42PB/
+ 1oQyeCSb8T30xo2/YSXPKmukuj8738QGlwinQHdNpqBc9vO8dqJzjIjhNB+gPQlaCDObJaMRb5C
+ uFlY1Ig1Gg12+SOyaDUeR6KxiCQmR2CkCzY0K2QOkNhy822RM6SeK+Bfm4lKLpS92qHXWKN5Ugt
+ xqW8FbIdp08UjixO2Scc6IDbj9EB8kNQ/IuRbm1ri8p0DfS16vRqWpZjTX8pecezPRM9IlESwSp
+ 2IfCjapyK+WP3AYdHKAKjl0EEP7RpkNAa6iNSYw5W4AMsRs1N22TQ+hKs0naBh3svbSqFu7ziNR
+ yuxaoEzSbpObELbM/lA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ phishscore=0 clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100060
 
-A stale reclaimer can reach relocate_cluster() after another allocator
-re-isolates an emptied cluster and drops its locks to populate the table.
-The cluster has zero count, CLUSTER_FLAG_NONE and no table, so relocation
-can free it again and dereference NULL in the DEBUG_VM empty check.
+pmic_gpio_config_set() modifies the in-memory settings cache before
+performing any register writes. If any of the calls to pmic_gpio_write()
+fails, the modifications are never reverted and the real state diverges
+from what linux stores in memory.
 
-    CPU0                                    CPU1
-    Reclaimer                               Allocator
-    alloc_swap_scan_cluster()
-      cluster_reclaim_range()
-        spin_unlock(&ci->lock)
-        __try_to_reclaim_swap()
-          swap_cache_del_folio()
-            __swap_cache_del_folio()
-              __swap_cache_do_del_folio()
-                __swap_cluster_free_entries()
-                  free_cluster()
-                    __free_cluster()
-                      swap_cluster_free_table()
-            swap_cluster_unlock(ci)
-                                            isolate_lock_cluster()
-                                              swap_cluster_populate()
-                                                drop ci and outer locks
-                                                swap_cluster_alloc_table()
-        spin_lock(&ci->lock)
-      relocate_cluster()
-        free_cluster()
-          __free_cluster()
-            swap_cluster_assert_empty()
-              __swap_table_get()  /* NULL table */
+Work on a local copy of the relevant pad and only modify the cache after
+all writes succeeded.
 
-Leave tableless clusters to the allocator under ci->lock. This also stops
-a stale reclaimer from returning a cluster to the free list while table
-population is pending, avoiding the resulting FREE-to-NONE state cycle.
-The existing cluster lock serializes the table check and relocation with
-population.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/sashiko-outbox-203018@kernel.org/
-Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap table")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Fixes: eadff3024472 ("pinctrl: Qualcomm SPMI PMIC GPIO pin controller driver")
+Closes: https://sashiko.dev/#/bug/linux-49f0403d-732b-497d-980c-109c36c92597
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- mm/swapfile.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 32639f65f13c..9fd62e4ca7a0 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -815,6 +815,13 @@ static void relocate_cluster(struct swap_info_struct *si,
- 	if (cluster_is_discard(ci))
- 		return;
+diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+index 05291b7397d6b15531e66f073b8771ed318ed5fd..7c4266efaa27619508f0cc3cee8f8a607f7bda57 100644
+--- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
++++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+@@ -480,12 +480,14 @@ static int pmic_gpio_config_set(struct pinctrl_dev *pctldev, unsigned int pin,
+ 				unsigned long *configs, unsigned nconfs)
+ {
+ 	struct pmic_gpio_state *state = pinctrl_dev_get_drvdata(pctldev);
+-	struct pmic_gpio_pad *pad;
++	struct pmic_gpio_pad *old, *pad, cpy;
+ 	unsigned param, arg;
+ 	unsigned int val;
+ 	int i, ret;
  
-+	/*
-+	 * An allocator may still be preparing the table.
-+	 * Leave the cluster to it.
-+	 */
-+	if (!cluster_table_is_alloced(ci))
-+		return;
-+
- 	if (!ci->count) {
- 		if (ci->flags != CLUSTER_FLAG_FREE)
- 			free_cluster(si, ci);
+-	pad = pctldev->desc->pins[pin].drv_data;
++	old = pctldev->desc->pins[pin].drv_data;
++	cpy = *old;
++	pad = &cpy;
+ 
+ 	pad->is_enabled = true;
+ 	for (i = 0; i < nconfs; i++) {
+@@ -651,8 +653,11 @@ static int pmic_gpio_config_set(struct pinctrl_dev *pctldev, unsigned int pin,
+ 	val = pad->is_enabled << PMIC_GPIO_REG_MASTER_EN_SHIFT;
+ 
+ 	ret = pmic_gpio_write(state, pad, PMIC_GPIO_REG_EN_CTL, val);
++	if (ret < 0)
++		return ret;
+ 
+-	return ret;
++	*old = cpy;
++	return 0;
+ }
+ 
+ static void pmic_gpio_config_dbg_show(struct pinctrl_dev *pctldev,
+
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+change-id: 20261110-qcom-spmi-gpio-cache-sync-6941bf152459
+
+Best regards,
 -- 
-2.53.0-Meta
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
