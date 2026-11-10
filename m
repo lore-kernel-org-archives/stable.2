@@ -1,49 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794292685;
-	b=Wsq+y/0CMuQX9gKKZvk0FPSZ06a/N6GW06xhRI2PNwrvNq3EmOuZbUCXTHmWpgesEP7J
-	 YTtYJiJoGJCWKhVU3Mg5VNOZ7R399tjpP1k5ofJpRr3fLbU2ivvTH4Z7CKbxRY+9a2/v2
-	 rJBjLoqwAZtxm9BL8zrkuzzHI2HTEwct5Kzj5EWFLbIYKzw1GHxVbS/qYDFgiGC/7CN8t
-	 Z+LdyUvyF3j/dT0pYBL6RRzVCka1yUfriu5e/qMODHtRvp994fj5ItXa9mUQ/1gUKvUY1
-	 5IGwHVzxbcBQf/M6+IIzX1shC6WV8Q13XUpHkVJdlhyNMA12nh6D5EzKTSFZ9rRcoaQ==
+	t=1794293105;
+	b=COyRds/3fAElQ8A8XgujWgOAEqxuQ0OtcDbgf//HTczlzok/9Iv7yB5PbdAsx00bJosh
+	 AxBlf6a50jmfWC94i16AIS6cnd033EKnwkFoHrxWYkT5wQtJpbUWmugQxG8DRh/8tqaOg
+	 uultZt4m8YdW9Rvx3+Cf3h3oxxSQwrbFdjP7nwlaxJya9T3xo/kY1QzJZmOwmgCzy6eWH
+	 oGJbL/MbNoKM6Pk5KICyNvWdENJzTai0TeVAy7ZFzGw/m9wQhp0FWDx3eDwIFsHNgo/G7
+	 3cZe2air0SJ+rlIms9yLIwAvVrNTwudbM3iAy7LddIb58/s6cguoyhEObQAws3D4hdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794292685;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=788eD6EYFiPFkFjsWwu7gXMD/5pQr2HRYw9Oa5iyE+c=;
-	b=NVPxuc+Acdrc/ajOtv0Xy3FIZxHrPcs3XBEY/Y7k9d9bscqqXxRVdTn+MWELZAJv7oO7
-	 10gD0OHpvVwF7962nP5r8cv+1P7x23CLYztj4oaUdntj1MGZR8g8bLaM00ZSdFCT877sA
-	 /i/d+HHRvEy5q5EMajokZ+x3n8MSCc752BOkUvwdXhVRleXIraxW0jse6IBeTmOFbiTWY
-	 u7NYeEgyMceslraWviA2j+CeSI2Y7ZulYjZDEmikKZ29aWtZQsdqJ8De8AFBEin+bX02K
-	 dPue6uX3GoFMy8PgnmnCTKB/bWs70Wazb3gD3CQB4TYYrilMxINfM9nNuv/TrnueP/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293105;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=S58tf/jAxFi+VXZl7vSQovGhIoE4bWl4uFVFcrKkgJE=;
+	b=ovKGK5IQosQMHVFCsCEZ2GRw5ekAMMRInUnxbpVkhvnqPVwWr/vAhdJU2SAhixDJfhXr
+	 XaRAbkCuJrrhqWEvWgXWU3VFLyFBYy0NaMwSo9o0hEHvv+M2Etmmlvo4RlGG9HUqDmTrq
+	 +rBKVm79yqUMoa2Oj1hNWVVuFgQcrdXG6E1inivBlbH9EFvl7wyzb7+rwtF9qgqSqXBoM
+	 pp6vBvMN2KJ0zVoMYw/DAPnXUUlQCdNyWGifwNWPUCZTCxTYYfXBwhfSGmWFLEq9FFE+5
+	 9xoVqk3ig0xwyXEzjoofjOQw061fqJbFgNX+wth/lZsmiSkyKVe/HTaLWbumExBH9wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fdMM5zPn;
-	arc=none smtp.remote-ip=115.124.30.99
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=i+ekGCXv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB42606A31C;
-	Tue, 10 Nov 2026 06:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB42606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89632606BD58;
+	Tue, 10 Nov 2026 06:45:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fdMM5zPn
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794292681; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=788eD6EYFiPFkFjsWwu7gXMD/5pQr2HRYw9Oa5iyE+c=;
-	b=fdMM5zPnLkC66yxP9Oz6oBKyzALrZKMlKpF10HZlg6pyVrVAiRf5jEx25KkQVvEQTPYi6k0/b+9bBG6G13BO/plE/f5dlQ6ZCDx7fT9woTVfEZdKSCIrAsI4R5Z4PJC1NKUzjOoQySScn7nKhiXzkq0dEIZbvtRo1lFqgX6sjuc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XEUOs81_1794292679;
-Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEUOs81_1794292679 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 14:38:00 +0800
-Message-ID: <f0ff3284-53a6-4555-9e8b-fc6198be84eb@linux.alibaba.com>
-Date: Tue, 10 Nov 2026 14:37:58 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=i+ekGCXv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51DBD1F008A5;
+	Tue, 10 Nov 2026 06:45:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794293105;
+	bh=S58tf/jAxFi+VXZl7vSQovGhIoE4bWl4uFVFcrKkgJE=;
+	h=Date:To:From:Subject;
+	b=i+ekGCXvd3cPayxkc7yueIB5n6nPm/c46Enp/tGPdCOFQa6DngOWnjfqw5rCRowcO
+	 /H1T+Po54UZ13y3KFs8a0T4G2szKo3Euc4VyThzcKcayO0Xh+P/mbb+vTYTQPxEubm
+	 GkFj9DYY4vYgBxLz9eiwDLh6fkfg5cG7esjUMDaY=
+Date: Mon, 09 Nov 2026 22:45:04 -0800
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,tz2294@columbia.edu,
+	stable@vger.kernel.org,shikemeng@huaweicloud.com,ryncsn@gmail.com,
+	nphamcs@gmail.com,kasong@tencent.com,chrisl@kernel.org,baoquan.he@linux.dev,
+	baohua@kernel.org,mt4022@columbia.edu,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-hotfixes-stable] mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch removed from -mm tree
+Message-Id: <20261110064505.51DBD1F008A5@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,52 +51,121 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by
- do_set_pmd()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
- <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
 
+The quilt patch titled
+     Subject: mm, swap: stop cluster list scans once swapoff clears SWP_WRITEOK
+has been removed from the -mm tree.  Its filename was
+     mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch
 
-On 11/6/26 8:36 PM, David Hildenbrand (Arm) wrote:
-> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-> deposited page table, such as PowerPC with the hash MMU. If the PMD is
-> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-> without consuming that table.
-> 
-> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-> userfaultfd operation can install a PTE table before taking the folio
-> lock. If that races with set_huge_pmd(), the unused preallocated table
-> is lost when its local vm_fault goes out of scope.
-> 
-> Track whether do_set_pmd() allocated the table and free it after dropping
-> the PMD lock if it was not consumed. Preserve any preallocated table
-> supplied by the caller for PTE fallback. Successful PMD installation
-> consumes the table and clears the pointer.
-> 
-> Returning without a preallocated table matches the existing behavior on
-> architectures that do not need a deposited table. All callers
-> already handle that case.
-> 
-> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+This patch was dropped because it was merged into the mm-hotfixes-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+------------------------------------------------------
+From: Mani Tofigh <mt4022@columbia.edu>
+Subject: mm, swap: stop cluster list scans once swapoff clears SWP_WRITEOK
+Date: Mon, 26 Oct 2026 11:19:22 -0400
+
+SWP_WRITEOK is cleared under si->lock when swapoff starts so that no
+new swap entries are allocated from the device, and try_to_unuse()
+then waits for writeback of the folios that still use the device.
+
+However, an order-0 allocation that chose the device can race with
+swapoff clearing the flag and then loop forever.  It takes a cluster
+from the fragment cluster list of a higher order with
+isolate_lock_cluster(), the allocation from that cluster fails because
+SWP_WRITEOK is clear, and relocate_cluster() puts the cluster back on
+the same list, so the loop keeps finding clusters on it.
+
+The looping task is in reclaim, and it may have set writeback on a
+folio whose write has been queued but not yet submitted.  swapoff then
+waits for that folio, while the reclaiming task, stuck in the loop,
+never reaches the point where it submits the write:
+
+  CPU0 (reclaim)                          CPU1 (swapoff)
+  --------------                          --------------
+  shrink_folio_list()
+    pageout(F)
+      /* F under writeback,
+         write not submitted */
+    folio_alloc_swap(G)  /* order 0 */
+      swap_alloc_slow()
+                                          del_from_avail_list(si, true)
+                                            si->flags &= ~SWP_WRITEOK
+                                          try_to_unuse()
+                                            folio_wait_writeback(F)
+        cluster_alloc_swap_entry()
+          isolate_lock_cluster()
+          /* allocation fails:
+             !SWP_WRITEOK */
+          relocate_cluster()
+          /* repeats forever */
+    swap_write_submit()
+    /* never reached */
+
+This results in a soft lockup on CPU0 and a swapoff that never returns.
+
+isolate_lock_cluster() used to check SWP_WRITEOK under si->lock until
+commit 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap
+table") removed that check.  Restore the check.  Since swapoff clears
+the flag under the same lock, isolate_lock_cluster() then returns NULL,
+which ends the scan; the swap slot allocation for G fails, and reclaim
+goes on to submit the write of F.
+
+Given that this is a race, its reproducibility is non-deterministic.
+We reproduce it by using a non-rotational swap device that is not
+synchronous, with 64K mTHP enabled, where one CPU repeatedly pages out
+two 64K folios and a 4K page with madvise(MADV_PAGEOUT), while other
+CPUs run swapoff and swapon on the same device.  In my tests it
+triggers within 20s in each run, and with the fix applied, it runs for
+300s without any hang/kernel report.  This bug was found and
+reproduced deterministically using a deterministic hypervisor that is
+currently under development.
+
+Link: https://lore.kernel.org/20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu
+Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap table")
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Kairui Song <kasong@tencent.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Kairui Song <ryncsn@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/swapfile.c |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/mm/swapfile.c~mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok
++++ a/mm/swapfile.c
+@@ -635,6 +635,10 @@ static struct swap_cluster_info *isolate
+ 	u8 flags = CLUSTER_FLAG_NONE;
+ 
+ 	spin_lock(&si->lock);
++
++	if (unlikely(!(si->flags & SWP_WRITEOK)))
++		goto out;
++
+ 	list_for_each_entry(ci, list, list) {
+ 		if (!spin_trylock(&ci->lock))
+ 			continue;
+@@ -650,6 +654,7 @@ static struct swap_cluster_info *isolate
+ 		found = ci;
+ 		break;
+ 	}
++out:
+ 	spin_unlock(&si->lock);
+ 
+ 	/* Cluster's table is freed when and only when it's on the free list. */
+_
+
+Patches currently in -mm which might be from mt4022@columbia.edu are
+
+mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch
+mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte.patch
+
