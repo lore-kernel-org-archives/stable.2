@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330637;
-	b=AZnnB4aIH622wlT3NhdXepKP/Purf+DowlgjFW0n8jxztwUn2NUifv7wvdwdGILnJWam
-	 CNz1RdjL+kMfJ2hgi6cfoAhB05uDrIJrbipdDGtGfKp/JaI1IlgKXpRhDJqFL33U78JqX
-	 F0vJ3eFWqAvy0urkgPmGnYnXuILkxBzsWrgiFoyJCp3ptirTvEdFlsm4DvqcZo4qZhkGw
-	 CYJFqMSKXXkw31sVUKxGczNVtKu4E4sworbi0VVNfiLBEfipZTLacEStUHygFyVDV1gGM
-	 MaKSOnwZsuN2aXq8RUXdMwHD9CC9R5YkjyBy5BQi1loCYaWhrsIxNWrH1UXGJVOKXCg==
+	t=1794330720;
+	b=CPkhjPfKu4GAKJ2/c8B0vh8jMdo/OXQnwa6GIw4sRRw6Ywu1guvL+pWuarNZM0XEESID
+	 +CC6zTUHcCG7Vj+Fp9NlEecJSpVrUMKIrdBN0EHIATP378ckv4KlRT1KbL8i0WesMNBVz
+	 LG6O5v/yR/uAXmzCe77HrexdQjweYjVSQTfKKSVQCr72Y+AFvBnJrlQozitxiLpkM1pyJ
+	 9+8ihaEdVTofGvMY3nv4OTFzzlUYrGUSmfXfhcunZJPMybZ7F+xCTPxBrtvYJNTbCeO/c
+	 BNPzPCfndwuuugSmICWGybM893d0I5OqO0/J5CQX569Hbc4qXhxPh0s/DHUTiJXWDjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330637;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=przLLxAqFqjpDdZgtU4TWcmHK4UDhoFC4j8tCCnZGaQ=;
-	b=5CnyF+oEN1ApRidV4SxIVF0lXtel6Hsi3DnBrokP5885oCok3V0xCDPWYwXM+EatXyBQ
-	 NnN53lYIMqd1kGU6ZRoGlXgZes65JSAN6lgHZQ88c1OYXmWcFr1j5WuKlh6Lr/03wMEI6
-	 rD3ja4sxhUqO//3z4TofYl7gPltgrX3xKZcztIROnxA6m3Vr1tOIupKLdKCYTCo7K6xSu
-	 kyTQMvsCgKxfpKYX28r0ApUeVnvyR4FrtAGsgXtChTJxOYK8OemQgNCHKpC1fmkgvI1K1
-	 rJrWqetUV9TVXphlIJX6ZrC8OAJBIEo1SKIFEQTIR9RNT7BoLqHwKl73maIJj0xMujw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330720;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TfMQXdNcWcFKv7jGYxMo7Z9rWJcLx/8LXHET/70M5tk=;
+	b=dw2eheZz62QlTYKycRqnJjGjCoSfDu8Md1A5iFfsls89z+K4S/isMxn4iH/o+F348CqK
+	 hsqaF/rla7F3WD1y6hR1PHdpJWcRwxJWVlJiimEkqz4VGRRkSHDDNy0W7tK8Ok2rLzvF4
+	 eBhBqoADweE8iSvAKxf4yXlywtOeP5FOpYmkNHiau8iFTmhP8hHHdxW26+PhaUM6W3iLg
+	 fJJEMGo0h/itgUgHstd2axfDrpVpm+7iCkkK9LqR7be9+P0UYcmk+wknEq5eaQh+Z3+6M
+	 jw21gW48e4XKr27nWbyU5LP0DkF4dGx0CU9+eLj+MgIspzsz/XtjjXnTcUCykuqoqLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbfk1z6W;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNfAIKdY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61F2606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B01606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:11:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hbfk1z6W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8E81F008A1
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:10:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNfAIKdY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A841F008A1;
+	Tue, 10 Nov 2026 17:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330636;
-	bh=przLLxAqFqjpDdZgtU4TWcmHK4UDhoFC4j8tCCnZGaQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hbfk1z6WpzUrIO1EAAZQWi4nOjH/1V2YeFK8X+dld2Yt2c07hZRfPl8UhEAzVNtqX
-	 6qe+pzgHyVRW0MsaR77Q1GI8QzWmHmySYcwKkxn6eaugbU0FKCm3spfNzprEWayuBR
-	 Dc/HJN6lpMqnEC1fMSfgGGDxGxbj+KSUn6TjkTkU36iJp1VaYhHI8lGxvqkV3iyEfP
-	 b65RqtvpOr85l1t9ObninIYhXQYu3cxVgXMYbaseduASqkKfpxsnKYL045CYECEzsV
-	 FTM1QeExIXCc9/2z4TaGSQICMQmcIH4UQl8pRyLb1zgepZeOoDClyfmwbIShhGh/Pf
-	 qijr9rX2ItIOQ==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ae0eb56ba1so5582311fa.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:10:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHiMIF4M5ZubrkbHWXpSk8O5hv+L/NvEyvmIt15XDZmDCUjyzUuYa2m4lOvDTXcfu+YPSzuXSg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8nSNMoN5EiBuCWFKpAG4I4Fu+YAfT9wnCfYa02WklA6/5y1G14
-	vlNO6JxAFEnp5bx4meUa12DpeCM++4V2yOLdxRSBVcXMz6aRD4w6PJjGnSfMLy2qgbcbWufZORq
-	8jbZ71vvKuTdHXgXChxhSMp7Jb/kmzJ4=
-X-Received: by 2002:a05:6512:1288:b0:5c0:b5c:4052 with SMTP id
- 2adb3069b0e04-5c156e37b7cmr1034036e87.2.1794330635114; Tue, 10 Nov 2026
- 09:10:35 -0800 (PST)
+	s=k20260515; t=1794330719;
+	bh=TfMQXdNcWcFKv7jGYxMo7Z9rWJcLx/8LXHET/70M5tk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nNfAIKdYyzQB2ObPdXrvvQU7FE9yztXZ81hGMUfysOZ3YG7h6fCkJXjSytBfHuqLQ
+	 ptS/az47t59GnBXwA36rts5yWz8Rdg2qkOzDjmB0B695sdMjOTEHJgcTGBhsTrEcks
+	 RStrbfxiyN1ohZgUtkwjK6VMfc6173tiwqclVFisxhUVB/biiukfDCmQzCbnfCN5/e
+	 yGJD9EhcnMwHo5MzpHbCqPJwHbvgEEHm8qgz0SmMggfpt6B5r7McGUs1wcy2OWEfeI
+	 FSlhPvRjD9stirg8WBUsFWRENyIjua3rn6qUDpCwDw+WI48+IrbgD41d63tqFhuNoE
+	 oLSaZ26g/3wsQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ALSA: mpu401: shut down timer before freeing MPU
+Date: Tue, 10 Nov 2026 12:11:57 -0500
+Message-ID: <20261110171136.2719130-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054307-failed-6.1-9332af5220d4@kernel.org>
+References: <20261107054307-failed-6.1-9332af5220d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,69 +59,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031144115.4189-1-zakat1984@gmail.com>
-In-Reply-To: <20261031144115.4189-1-zakat1984@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 18:10:22 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0h+hO6Vb3fw=VJeZ0PNAHMv_TtUSUUBy04xV=wKwGQqOA@mail.gmail.com>
-X-Gm-Features: AclHuK9kE2PCOKFFc9C_M4-O18Red5IDQN9yUpwGjs2Ud0CSIUQUEgtFAYYck_Q
-Message-ID: <CAJZ5v0h+hO6Vb3fw=VJeZ0PNAHMv_TtUSUUBy04xV=wKwGQqOA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: resource: Do IRQ override on MECHREV GM7RG7M
-To: Andrei Galiant <zakat1984@gmail.com>
-Cc: linux-acpi@vger.kernel.org, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Len Brown <lenb@kernel.org>, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 3:41=E2=80=AFPM Andrei Galiant <zakat1984@gmail.com=
-> wrote:
->
-> The MECHREV Jiaolong17 Series GM7RG7M (TongFang GM7RG7M, Ryzen 7
-> 6800H) describes the PS/2 keyboard interrupt in its DSDT as
-> edge-triggered, active-low and shared:
->
->     IRQ (Edge, ActiveLow, Shared) {1}
->
-> The keyboard controller actually asserts IRQ 1 active-high.  On AMD
-> Zen systems acpi_dev_irq_override() skips the ACPI IRQ override for
-> GSI 1, so the IO-APIC redirection entry is programmed with the DSDT's
-> active-low polarity and the interrupt is never delivered: the embedded
-> controller still scans the matrix and places scancodes in port 0x60,
-> but atkbd_receive_byte() is never called and the internal keyboard is
-> dead under Linux, while it works in the firmware setup, in GRUB and in
-> Windows.
->
-> Add the board to irq1_edge_low_force_override[] so that the standard
-> edge/high override is applied, matching the already-listed sibling
-> GM7XG0M (Jiaolong17KS).
->
-> Fixes: 9946e39fe8d0 ("ACPI: resource: skip IRQ override on AMD Zen platfo=
-rms")
-> Cc: stable@vger.kernel.org
-> Tested-by: Andrei Galiant <zakat1984@gmail.com>
-> Signed-off-by: Andrei Galiant <zakat1984@gmail.com>
-> ---
->  drivers/acpi/resource.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/acpi/resource.c b/drivers/acpi/resource.c
-> index 56df459..0a944ba 100644
-> --- a/drivers/acpi/resource.c
-> +++ b/drivers/acpi/resource.c
-> @@ -553,6 +553,12 @@ static const struct dmi_system_id irq1_edge_low_forc=
-e_override[] =3D {
->                         DMI_MATCH(DMI_BOARD_NAME, "GM7XG0M"),
->                 },
->         },
-> +       {
-> +               /* MECHREVO Jiaolong17 Series GM7RG7M */
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_BOARD_NAME, "GM7RG7M"),
-> +               },
-> +       },
->         {
->                 /* XMG APEX 17 (M23) */
->                 .matches =3D {
-> --
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Applied as 7.5 material, thanks!
+[ Upstream commit 9332af5220d42341bb1446a62c545c0518e990ef ]
+
+When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
+input and output with a timer. During raw-MIDI teardown, the timer callback
+can already be running when snd_mpu401_uart_remove_timer() clears the last
+mode bit and calls timer_delete(). That API neither waits for a running
+callback nor prevents it from rearming the timer, and free_irq() does not
+synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
+mpu while the timer callback still uses it.
+
+Initialize the timer once when the MPU object is created and only rearm it
+while a timer mode is active. Shut it down synchronously after freeing the
+IRQ so an in-flight callback completes before mpu and its resources are
+released.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adjusted context for explicit spin_lock_irqsave()/spin_unlock_irqrestore() calls instead of lock guards ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
+index f435b9b4ae241..e920a290ba1b6 100644
+--- a/sound/drivers/mpu401/mpu401_uart.c
++++ b/sound/drivers/mpu401/mpu401_uart.c
+@@ -161,14 +161,15 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
+ 
+ 	spin_lock_irqsave(&mpu->timer_lock, flags);
+ 	/*mpu->mode |= MPU401_MODE_TIMER;*/
+-	mod_timer(&mpu->timer,  1 + jiffies);
++	if (mpu->timer_invoked)
++		mod_timer(&mpu->timer,  1 + jiffies);
+ 	spin_unlock_irqrestore(&mpu->timer_lock, flags);
+ 	if (mpu->rmidi)
+ 		_snd_mpu401_uart_interrupt(mpu);
+ }
+ 
+ /*
+- * initialize the timer callback if not programmed yet
++ * arm the timer if it is not already active
+  */
+ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ {
+@@ -176,7 +177,6 @@ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ 
+ 	spin_lock_irqsave (&mpu->timer_lock, flags);
+ 	if (mpu->timer_invoked == 0) {
+-		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 		mod_timer(&mpu->timer, 1 + jiffies);
+ 	} 
+ 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
+@@ -490,6 +490,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
+ 	struct snd_mpu401 *mpu = rmidi->private_data;
+ 	if (mpu->irq >= 0)
+ 		free_irq(mpu->irq, (void *) mpu);
++	timer_shutdown_sync(&mpu->timer);
+ 	release_and_free_resource(mpu->res);
+ 	kfree(mpu);
+ }
+@@ -544,6 +545,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
+ 	spin_lock_init(&mpu->input_lock);
+ 	spin_lock_init(&mpu->output_lock);
+ 	spin_lock_init(&mpu->timer_lock);
++	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 	mpu->hardware = hardware;
+ 	mpu->irq = -1;
+ 	if (! (info_flags & MPU401_INFO_INTEGRATED)) {
+-- 
+2.53.0
+
