@@ -1,54 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344398;
-	b=5l41tKb4jklOUofaHRnCiEwZbXnnVhVoveH0Yiw6ZxuIyV3OOtK7KXULYwp10HFaXm8U
-	 DOkraaA+Pyau+GxmNwV8rGEcmwV79cK98IwXLiRdRVRDIyaPk1wrJ2cnM/HBQa9ZTVFm7
-	 nK8cSK54/+D83qxaYZ1cYbk1IJgATp32AKcOoHqXqEhr8ST8nDTYvYqHzmD01K1fC+pZd
-	 QoaUpgFgFD0DVQBcBjpxjd1/t2Ye8xtdXjuTKNFH51LMaObxpt2LN7lUR/vOp0G2litXm
-	 XC+onD1A0dPQ8tFUgt6/mQItw1//kYk7mcjYSlamDkfb0xUCQduNJbUrX8YAu43HWrA==
+	t=1794344400;
+	b=Iu9x++1bqYB29mAb6qMSFXw72Y0aNewZ0j8hRD2Dhn/BHjKnmD7PD+2BSbZ8zRqvJ7rb
+	 AYJ6k7+XEYc9adMmEraThCO7VQZpAFXaUyhIF9q25wYBVD1Am128wLSzYC4ZU59+pSLWZ
+	 h6Qg1bltN1CIef9dusIa0XIqoB+U5VbQCn285FsxKpBhHSLfkKsaVKyLWfn6zRXo2c+Nz
+	 NUn7/Hl6d9/tZothO1hUCIjJHuOzKsw5WQe//CGVMypBYug19Xu+rZsIKxODQIZqLPMJk
+	 XqRGdF1s7HeMHwz5RECv3pCWD8q2HIw1e4qHIy9neQrWjykxWdKE1KmhW7ai0IVnOGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344400;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=glOwsEYmKhlMNpUk27Xoyt5cx/Nlp6c1lt4NQcSc3S4=;
-	b=XtfvZmTuFCYDjv+3dz87bZ5JM7qHuVttbmhNge+h96prUeF4c7lAsD2KPzLmk6TGfRXv
-	 t3NfmcFyr0i14BTv1pbRPFNCh5THQg5voIQqU1ktNjLsaWLXR5g+E7Ea3r7nKX0d6vonz
-	 SlbQCz2EciyhF7kEGtdzbMc6gIeIs0T8ybC2OMNJq0iXgCsxyyNFNAMk2rD6g8aDvlLOg
-	 7md8uhVqYoGGYGTVyLlhOxmb+IH2QSBV5EwJheQk2FRXX6Ae2+s0HTm8jCXebFtueWHtc
-	 gToo1Rhjqa9PcoNHi9vPEMv4vjwTndhWd9f9duKxiWsH4TY2qNBRWa7p8UXHbBFATfA==
+	bh=S/FeE+RC3DzmhiiSy3tAczDptJXTBkeu9oA2OuyOpIM=;
+	b=IPab0MADyO4bha9hWoikILWj9aT9Rjc1mePY0JZ4Csa1iImzvYG30hsHYNjKya2AQ0Nw
+	 7TjYgZOfZ/9xgtCwvv6KUxwi9JZcZKzEyw2wc3n2YGG8lEFhKo6B5ADiiuYa2tTgFnMLf
+	 Vzi+vf36A8FkW3hLD00pfAa2BBciF+Xga34kbuJdIVkwtEaY/vtMmrpHSHqq3kydXuQnN
+	 ZfmvSy8IhNGmrlokQYoKd9fQ2QsVaxTWtcryu8DxyZF5uUNCHnCNPE50U8QenYLFkSx4i
+	 jqjuujue/5PIVZqL2SSmuxdjn1H9CtDSziByemrxLNvkHMfH2R6xOeRXR5xBATbClPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDLPXjhe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zz69psnD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6216A60A260D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927AD606A32E;
+	Tue, 10 Nov 2026 21:00:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDLPXjhe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A651F0089F;
-	Tue, 10 Nov 2026 20:59:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zz69psnD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8037D1F008A1;
+	Tue, 10 Nov 2026 20:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344398;
-	bh=glOwsEYmKhlMNpUk27Xoyt5cx/Nlp6c1lt4NQcSc3S4=;
+	s=k20260515; t=1794344400;
+	bh=S/FeE+RC3DzmhiiSy3tAczDptJXTBkeu9oA2OuyOpIM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RDLPXjhevvKxCOA1xiP2BOXJI6O1AUmzocw1KOYDIpmx0HyJwf1efVJvmBa/YwdWl
-	 P1zTy1r0zpIo6TWAThFlHR2nsoHDix2HOGAC/PAqO1mlegq3vNsqvdiL33X07LAJla
-	 5Jnj/AnHlPgYxEktNyZ2hBfi5+ZJv82cGS2XAUqRoGtQiBsQGRqZsZCFrJr80LSTUK
-	 iqZElPxL4T+Pk6WWi0ZybDtXhw9k+4clJOFUBGOLrxdsJ8VoVdkY+EnEWjfFNkvzNl
-	 7Hn/aqIH/EgcWrp/ltkxfdyAH8gngVPyH/UFRKUcKdEsHtuZXOYiwtB2CIVT6XyXzp
-	 GGnsF+h4MXgpw==
+	b=Zz69psnDyoNEEep/IIPTPO3nm/3MiE7qpYfXKD1yzl1Ow9Slp8S/8WuCXpr0ImfoY
+	 NiKqYpjGejyRiBDwKEmfRZ1ZzTEEC91J4wAKAAKdGaS051VAcGTcJ23vJj097yBcov
+	 XI3ILLsfxBpN1Nw4BeKL0kPf3otzE75cm5eipl7Wlxj2rzjOsSsdNg4uHicYLDLSwE
+	 pS4+8NJPPXyksEvfqWyW9HDjPvWNlkywMGEgVknH0a69Va7bOSt53ZXSTFu85i3qW0
+	 2ugdgeTKhd+5vVe2u45TPPJKf8BtyfuhN1prRSs5Gpi4zrbk5CVSADo2big55tpYww
+	 bQDZ5XcE8wPTg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
-Subject: Re: [PATCH 5.10.y] can: dev: can_fill_info(): don't wake up controller if interface is down
-Date: Tue, 10 Nov 2026 15:59:23 -0500
-Message-ID: <2026-11-10-1-daily-reply-0027-can-fill-info-5.10@kernel.org>
+	Paschalis.Mpeis@arm.com,
+	aaupov@meta.com,
+	acme@redhat.com,
+	corbet@lwn.net,
+	irogers@google.com,
+	james.clark@linaro.org,
+	jolsa@kernel.org,
+	leo.yan@arm.com,
+	linux-doc@vger.kernel.org,
+	mike.leach@arm.com,
+	namhyung@kernel.org,
+	patches@lists.linux.dev,
+	robert.walker@arm.com,
+	skhan@linuxfoundation.org,
+	suzuki.poulose@arm.com,
+	amelie.delaunay@foss.st.com,
+	valentin.caron@foss.st.com
+Subject: Re: [PATCH 6.6.y] perf cs-etm: fix a compilation issue in cs_etm_decoder__set_tid()
+Date: Tue, 10 Nov 2026 15:59:24 -0500
+Message-ID: <2026-11-10-1-daily-reply-0028-perf-cs-etm-6.6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110084318.223328-1-chunyuzhiqiang@yinhe.ht>
-References: <20261110084318.223328-1-chunyuzhiqiang@yinhe.ht>
+In-Reply-To: <20261109171457.1233670-1-valentin.caron@foss.st.com>
+References: <20261109171457.1233670-1-valentin.caron@foss.st.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,9 +77,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> can: dev: can_fill_info(): don't wake up controller if interface is down
+> perf cs-etm: fix a compilation issue in cs_etm_decoder__set_tid()
 
-Queued for 5.10, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
