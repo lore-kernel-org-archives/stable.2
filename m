@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272535;
-	b=KAjtnpHxw+ThSyz6BVNnWCBYcd2ClsIXb7ptlyhTJwJxbODkLOIGNNI69zRrAgzXt6hd
-	 QiXZ1BOGd7suB3KfszaLHWcVa1Yp1/jM6lH/pJRSctLF6q2+k8gyGGQSXXSQh2DdqLzQp
-	 PIkeXEAELemOBkfsMVXniQHMzll0IlQSaK7lhiK/D2zfHhk6E9y0kwzAsj3uZXema6+fz
-	 HPbUQWB0DhTBN+/ASMYr0sAmDWpQyAv/fHZHvOiYykerDcKluXggNsaiNLdMNz+h52F7G
-	 pj30iVTESpjw2itND0TPlrNjRMlkYv0pzDE5U3vYIdpbPnpbIy49SKdobjlwR9xZHJg==
+	t=1794272538;
+	b=0/IxcmTQ6Zc6fN6JjCPqU5+SOKp7CrRoC2UewMWwmBsMw9doDBAa6p5TX6ozFq7PftC/
+	 XcGQdC3nbhVDja5OjhZCjO7JxSdcrs96GsYONj3eBFEIBPE/iSzh1cCyXaIreF3TQtCOg
+	 rTfgoEtbNiq9XCXgP+8+z/ca7iQYEA3vqDLAlldoWnfnOK1csEG1pXycynMm2bISWbNAX
+	 MUeZl3GH73x0XPyEjGjSUusjm6BFpzCi59iYmnac2iqh4+DfpDNzN75qfaiKd9HK8D4oo
+	 EpWU6e/Hkf4rYsRqiC0ZSCG95/ZlmEUpqRZ4ePkZpT9piT/Sar3c8ro37PULMrArHZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272538;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=b5sPBhabR7LuoMTYlan9aWdkcHc03uEjS7us2Qyjuas=;
-	b=DcfurgBnyWBbIiFZnTty+gmsk+sV76mM6d2XWCwz/TF3mnyfj3MT/8Jl1z84LMLpIvHj
-	 huEOWA4+naRHGVvBq2skf7+cVjL71Pc+PdLLdnWMkYpPKjOZAZpt5NFd6GOWXglfWmVJU
-	 85CYZvivUNurSJPIFiPO0hWr2L+2kTklMU5yTYjPF79IbZEMWzYp/DFQHA0nPBgO/4d4m
-	 G/jWktRvGPRd0I3nYDz2Z/p8tDGjHykSNpZ+oTBBOKx3rYsytzDZ5q+s/ARb0vWtg28Qt
-	 NIjNNmGouYiKP1KfdJ5ShorfGlz9ar0AgkKjYRXzmaMgFwFCf6eHPadEPvUvjAMAWEg==
+	bh=nwrbRTu2cOzoATU21Id6hzmvkJzd62kmY8yAZbSa9h4=;
+	b=0SO50qBt8qMGfHxWqqD/kN0xXWbTn5u1mJEfSKmKgcuOZL2WyVkE927bOP3Y2wzM3lLj
+	 NNoVx/WAxBQWeOnxVN/q1FMLtDe8GN1bSthj5/FMtxMcnJIe2zToxidHMXtUu/aWoUjWM
+	 JZfLIsbqrZosU8R8r1AgoYbvbhGwrNcQ6OekuRiFwvXP4BQTd6zKqkDjSQdQuNxXgDi/7
+	 FqTEBw2mD7Py5qfaC+4byWBPQeDScEb8rWOHfXlacAbITYNOAf1LK7M34QqQfcTjzQOIH
+	 kgOXZIaE6gBr7XKzgMPz2FFxJUdLdMB2rry1Pq4CX4F8aXOfXIO4uJNVCTQRZsqpaXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ox2yoGXG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BzAqqXjk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D72606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EEA606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ox2yoGXG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B74D71F0089F;
-	Tue, 10 Nov 2026 01:02:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BzAqqXjk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFD771F0089F;
+	Tue, 10 Nov 2026 01:02:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272535;
-	bh=b5sPBhabR7LuoMTYlan9aWdkcHc03uEjS7us2Qyjuas=;
+	s=k20260515; t=1794272537;
+	bh=nwrbRTu2cOzoATU21Id6hzmvkJzd62kmY8yAZbSa9h4=;
 	h=From:To:Cc:Subject:Date;
-	b=ox2yoGXGaH/QVW64Yq8THLkR9LGuwqiBSbnhXdasVyIF8BXqQhuEoJ1FBApT6zDSJ
-	 ItQtfoFnme5RaCrw2zBHMIn7HU+MeVRz/TAwSLrrwWx8/zjnyOpAS0d2fsapmuqO8L
-	 lQOqmdjiQVhh3F2WoCrz+6pnZGT28TpeIepP0VBJnztNNWO+zxLOxd25HTkX/JR4nz
-	 /uGI0Uy3G7gLNTb09MRrZVm1IosptqPK6o2xw+D7f8eI7YfAQi7k+ockmYK3Jo2FaR
-	 qk9J78tGpEOAQlGFKvK0brycPxCeSxi+DtEuuIqvzUTrvaumJX9jqV7aqjewMYQUuX
-	 37PqNwgY4C1WA==
+	b=BzAqqXjklRSM8qi8BnLnhQZNt3gdgRCBGBofjfx2psaFSLfyULkx9YY2q4xAeBbBE
+	 Kh9yZk9JwU8x0HC5BATzho+3N57MqnIobup83pSJbhjuKsdAyyyvaSzbrMQc6j/0Se
+	 yXXoRfqP9u4nTcgaXFLHXZqXd+lOpxHsgvawSYKlkGgPhNoY6WXZZcPLu9+r9nX1GK
+	 iN90PbY18k0VMzmmWrWYEJAmnDqPGD8F9z5xlDZ1hrTvAEyuWN0XNU+yqRn8WKHjyX
+	 JrvpfgNEbHnnov7wdMAl5TTVZu50bxPj0QV0MwlgqvOLH46yyy40R0sEhq/zyWxMGD
+	 XHoJJMYdp1Qdg==
 From: Sasha Levin <sashal@kernel.org>
-To: ebiggers@kernel.org,
-	ardb@kernel.org
+To: youyouyu@amazon.com,
+	dgj@amazon.com,
+	gunnarku@amazon.com,
+	jack@suse.cz
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:02:13 -0500
-Message-ID: <20261109200213-failed-6.18-dd2a4edb26e1@kernel.org>
+Subject: FAILED: patch "[PATCH] quota: initialize dquot cache before mounting rootfs" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:02:15 -0500
+Message-ID: <20261109200215-failed-6.18-e21a6f39aa6d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,106 +70,144 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4
+git cherry-pick -x e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200213-failed-6.18-dd2a4edb26e1@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200215-failed-6.18-e21a6f39aa6d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Wed, 21 Oct 2026 22:44:50 -0700
-Subject: [PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian
- kernels
+From e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 Mon Sep 17 00:00:00 2001
+From: YouYou Yu <youyouyu@amazon.com>
+Date: Wed, 21 Oct 2026 18:12:17 +0000
+Subject: [PATCH] quota: initialize dquot cache before mounting rootfs
 
-Kernels built for the MIPS64-based Cavium Octeon SoCs are normally
-big-endian, but little-endian builds are also supported.  Currently, the
-SHA-1, SHA-256, and SHA-512 code using the Octeon crypto co-processor is
-enabled in both builds.
+On some systems, a tmpfs backed rootfs is extensively used throughout
+system's lifecycle. tmpfs quotas are needed to limit per user rootfs
+usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
+and "initramfs_options=usrquota" panics at boot:
 
-This code is untestable without the hardware.  However, based on the
-code itself, it is implausible that it computes hash values correctly in
-little-endian builds.  Such builds write many incorrect values to COP2:
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:dqget+0x1ac/0x490
+  Call Trace:
+   __dquot_initialize
+   dquot_initialize
+   shmem_get_inode
+   shmem_fill_super
+   ...
+   mnt_init
+   vfs_caches_init
+   start_kernel
 
-  - SHA-1 and SHA-256: The 64-bit integer that contains the last two
-    32-bit message words of each block is written to COP2 entirely
-    byte-reflected, due to missing endianness conversion in
-    octeon_sha1_start() and octeon_sha256_start() to compensate for
-    using native 64-bit loads from the message bytes.  This differs from
-    all the earlier message words which are written correctly.
+The rootfs is mounted from mnt_init(), but the dquot hash table and
+cache are only set up later by dquot_init(), an fs_initcall. Creating
+the root inode of a quota enabled rootfs thus dereferences the NULL
+dquot_hash in dqget().
 
-    Furthermore, the state is written to COP2 with each 32-bit word
-    byte-reflected within each 64-bit integer, due to incorrect use of
-    64-bit endianness conversion in write_octeon_64bit_hash_dword() when
-    the state is kept in memory in native-endian 32-bit words.
+Rename dquot_init() to dquot_cache_init() and call it from
+vfs_caches_init() before mnt_init(). The slab, percpu and early
+workqueue code it relies on is available there, and the workqueue
+rescuer and shrinker debugfs entries are set up later by their own
+subsystems. Keep the sysctl registration in an fs_initcall, as done
+for the dcache, inode and mount sysctls. This only moves existing
+allocations earlier in boot.
 
-  - SHA-512: All the 64-bit message words are written to COP2
-    byte-reflected, due to missing endianness conversion in
-    write_octeon_64bit_block_sha512() and octeon_sha512_start().  The
-    SHA-512 state words seem to be written correctly.
-
-Big-endian kernels aren't affected by these bugs.  These bugs also
-aren't new; this code has been broken on little-endian ever since it and
-Octeon little-endian support were first added in v4.1.
-
-Commit d2a948d2db68 ("MIPS: Octeon: Make octeon-md5 driver
-endian-agnostic") made the MD5 code work on little-endian kernels by
-adding 64-bit endianness conversions to the COP2 macros used by MD5
-(some of which are shared by SHA-1 and SHA-256, despite those algorithms
-keeping the state words in native-endian instead of MD5's little-endian,
-causing some of the strange behavior described above).  However, SHA-1,
-SHA-256, and SHA-512 were never fixed to work on little-endian kernels.
-
-Therefore, disable the Octeon SHA-1, SHA-256, and SHA-512 code in
-little-endian kernels.  This causes the generic code that actually
-computes hash values correctly to be used instead.
-
-Fixes: 82be2dcfa6a1 ("crypto: octeon - add SHA1 module")
-Fixes: c3d0def62001 ("crypto: octeon - add SHA256 module")
-Fixes: fbaa4dfd51a0 ("crypto: octeon - add SHA512 module")
+Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
 Cc: stable@vger.kernel.org
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Link: https://patch.msgid.link/20261022054450.20746-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Assisted-by: LLM
+Co-developed-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: YouYou Yu <youyouyu@amazon.com>
+Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
+Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- lib/crypto/Kconfig | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/dcache.c              |  2 ++
+ fs/quota/dquot.c         | 10 ++++++----
+ include/linux/quotaops.h |  5 +++++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/lib/crypto/Kconfig b/lib/crypto/Kconfig
-index 56f308dd02731..83b4a211c15d6 100644
---- a/lib/crypto/Kconfig
-+++ b/lib/crypto/Kconfig
-@@ -237,7 +237,7 @@ config CRYPTO_LIB_SHA1_ARCH
- 	depends on CRYPTO_LIB_SHA1 && !UML
- 	default y if ARM
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if PPC
- 	default y if S390
- 	default y if SPARC64
-@@ -255,7 +255,7 @@ config CRYPTO_LIB_SHA256_ARCH
- 	depends on CRYPTO_LIB_SHA256 && !UML
- 	default y if ARM && !CPU_V7M
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if PPC && SPE
- 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
- 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
-@@ -275,7 +275,7 @@ config CRYPTO_LIB_SHA512_ARCH
- 	depends on CRYPTO_LIB_SHA512 && !UML
- 	default y if ARM && !CPU_V7M
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
- 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
- 	default y if S390
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 37d021d22a7da..a9a919bc91976 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -33,6 +33,7 @@
+ #include <linux/rculist_bl.h>
+ #include <linux/list_lru.h>
+ #include <linux/namei.h>
++#include <linux/quotaops.h>
+ #include "internal.h"
+ #include "mount.h"
+ 
+@@ -3683,6 +3684,7 @@ void __init vfs_caches_init(void)
+ 	inode_init();
+ 	files_init();
+ 	files_maxfiles_init();
++	dquot_cache_init();
+ 	mnt_init();
+ 	bdev_cache_init();
+ 	chrdev_init();
+diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+index 3ad19d7e472f6..a3d5035918714 100644
+--- a/fs/quota/dquot.c
++++ b/fs/quota/dquot.c
+@@ -2958,7 +2958,7 @@ static const struct ctl_table fs_dqstats_table[] = {
+ 	},
+ };
+ 
+-static int __init dquot_init(void)
++void __init dquot_cache_init(void)
+ {
+ 	int i, ret;
+ 	unsigned long nr_hash;
+@@ -2966,8 +2966,6 @@ static int __init dquot_init(void)
+ 
+ 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
+ 
+-	register_sysctl_init("fs/quota", fs_dqstats_table);
+-
+ 	dquot_cachep = kmem_cache_create("dquot",
+ 			sizeof(struct dquot), sizeof(unsigned long) * 4,
+ 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
+@@ -3008,7 +3006,11 @@ static int __init dquot_init(void)
+ 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
+ 	if (!quota_unbound_wq)
+ 		panic("Cannot create quota_unbound_wq\n");
++}
+ 
++static int __init init_fs_dquot_sysctls(void)
++{
++	register_sysctl_init("fs/quota", fs_dqstats_table);
+ 	return 0;
+ }
+-fs_initcall(dquot_init);
++fs_initcall(init_fs_dquot_sysctls);
+diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
+index 0c64ca674e778..7346efc85d436 100644
+--- a/include/linux/quotaops.h
++++ b/include/linux/quotaops.h
+@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
+ /*
+  * declaration of quota_function calls in kernel.
+  */
++void dquot_cache_init(void);
+ int dquot_initialize(struct inode *inode);
+ bool dquot_initialize_needed(struct inode *inode);
+ void dquot_drop(struct inode *inode);
+@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
+ 	return 0;
+ }
+ 
++static inline void dquot_cache_init(void)
++{
++}
++
+ static inline int dquot_initialize(struct inode *inode)
+ {
+ 	return 0;
 -- 
 2.53.0
 
