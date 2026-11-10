@@ -1,65 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333877;
-	b=R0RLqRmtdEReN5Jr1ZcR1Jdrdl7KaVGhBNB8Q0mqP976ySwqazlc1ZMaElNnuhhzoZDL
-	 T/cZ+tTvFsNztp0crNBK8yBxxTAkofRRoa3fr0DJ4qmenFmiLBnfEY1+p2MoCwKOmCSHL
-	 jFy7wdJctP4w5zHnppoUtNqEAZjRh1vnvGKbauAhWMjYi0gzbuDaPHs8wcmTO+JOeJFjR
-	 RPDyWP9ztj97XZYl+FV7sq81lDcDOc6o8KKzqNHOMGjy9spWhJ7YZGqCDXJnXFLQDELpR
-	 RCNwwLdDYGdBkXZS8sLTWLvA0GR8daBnYNPXAZVvcbid2prVsdGux/jICPO5DXSFy9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333877;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=S/FqL5qsrSDyBfTUxrvxQ8Ttte02sRNdxfzvppAPpJc=;
-	b=htctMWMZcN5xnAWZQeYMs+ELPxYbLqKlkEz1kzwzgWXkpPGLtH22ldIPULolIITiZpza
-	 fkq94hBi2WQXu5fsqFrZnLfW1N+k5rXTxhZjRlr5detz5hzSes2/dFixkI5RFX7L5Aqr2
-	 82u5/XzX0zCKUjH4FWtJ0G/bDU8pzuaJ/Mx7P2+BT2XQqGKGvvVRohUncur/08dmUoRZJ
-	 53lD29Iez09lboqt6ezcnzwTX1qFSVrgiXc7wANRFjxFE5Cxvme1J72DDQIbtCgoCzq0V
-	 Y2xhs0sUa6bg11Tl4oODCS0hY4GYgmrJAtqwQk9Fl/aSotbaKQCA3AzWRpTirCOw1Ng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sk25a6Dm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.83
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794333881;
+	b=Wk+9exqbP3lX2j/akKIeXQeceeGXZsaCfFPVlmQC1HkAsJY+2rHWaCkS/xoFxinQB+cs
+	 R1uwDEHcf31TiXBZDiWioSOpDmhW1ULZye9K0K2iX4iftSi4bFF4R44DdeTJXOkVofLYJ
+	 RhUEIFY374V3wCWZobVNyIeK/lv8NNqdJ4VqWKUXrRIMgy2n8BEHlepwqKCFsRd77ebcI
+	 RMnch5Hn1fjgxLQGJWQHbf0mCFoOe8b7fr4Fca092uZJGNTYSJJkZFgpArUIn1A8xnqap
+	 9qiZC5JFnmjBjABkFopuuIMu+Fnnh7uXQmI3xHu49QImMang0JTJLhsJOoGLU1/ux/Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333881;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=F6ct81QTqEkvHFMRxHuJIHGVfpgVQmeZyl8NDIie8yc=;
+	b=UVkvipYnRgKS8kGg5HFGMuoGR/8fFw9Hbr6vX9BDW53/NMqj2a3MvmwZS/gotVCD9PXK
+	 38HIF8siJspOA/wuDonAOs7HgP3Z3MMAxHSwuHJYeGPzVHeH6K1UtIbUYjfzRwyR6k264
+	 zQhes15hZZn+S+Dq4+S8WcbEo36DHd/zIdywjW6payG8cpmQTRedINaE+2pkOxGlt5J8z
+	 MU5AwouNrauMKEEzUNM0MNSxf9fyhcQeCMuHkkidl5MP4ahbImNrfk99MmVduso1IlddF
+	 sgGgQryf+u7iZLG0EFzhU3Efmb8juQHD33vI0VB1d3heV4pVMwZZxbf82DZPn8wRn/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=YVrbXi+y;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=gMgZPNAu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.83
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.83])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2073606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:04:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A49606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:04:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11A49606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sk25a6Dm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1530F1F0089F;
-	Tue, 10 Nov 2026 18:04:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333876;
-	bh=S/FqL5qsrSDyBfTUxrvxQ8Ttte02sRNdxfzvppAPpJc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sk25a6DmMfTusvk9rWm1ZQWsROBPXGvIrMiDmetx4fulWvL+Q7yVLF/Xz8zIJNUVO
-	 lPYCKRis502K6qNFtDg726dm9L/NHZRQrsFdW2SoYeOlraos3NILFK9+h7GxWaZT7f
-	 sVftmjl/vQSrtODGoXFO/4c5HsmZfUg/N+CDPZNKdkx5uxQ2yC9b+ebQJwTkVB8LZ5
-	 vbIBfMcpMMZW/+ozZXHWl/OcnXS/arwxGYoa49itR/DRb5PxV6BHKgwwuSQGfPBqCF
-	 6BWyGvf4+4D2oL5uXlb/o7HX+ZhD3bAv2tGnIEEFq3RLhzEKyBXCZhm+a8xpkt2s9Z
-	 PoUj1rAT6axeg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=YVrbXi+y;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=gMgZPNAu
+ARC-Seal: i=1; a=rsa-sha256; t=1794333870; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=VqcQWnQsgHqaVuDHfrs7m5wGjQ+G9zsk2+eyzNf9v8+PvpQzEOaOG/v1wNVYYBR9TX
+    3qY/AF57NEbQim7Yva/7KsbnwwkN+Drr+cNUfL7+OekPA25yep/TxoKobBEP/R9qg7Ix
+    12MrhTEqjtD3lRt7Vm7wWbWhYyZzQ6HEHf4D2DIkWf+ygbx47RQVhg3xXaAZjVsEEIhM
+    tIP3+EarDkz3qlx94U4ymmKIEruIgA+olic18wnrMP0tlU90yHn/LMpkvGU3hJ3y31/y
+    bjfUFwxIsFNRrMJ2CJ7XVEHgSC+pMwsy7BndKkvuyXIH64QJya9Wu51A8gn8N8AQEvih
+    S4iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794333870;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=F6ct81QTqEkvHFMRxHuJIHGVfpgVQmeZyl8NDIie8yc=;
+    b=DldZNyIlUwZLkByIHL0E+eA4mTLwHgqVl1BFfQdjf7CTFkx+TLtrRUCkwr++7GHUIz
+    j0k4GbZJCUEtyOVgK/QXonqK0EwMZofxB5uVs8FIyO5YSuBwTQh2ULNaWWH49OZ0GNv6
+    k9du30N4RBOrQk/wJWuKB+WX8IkLCcOTslGmVfnXRtE7KbZu3bEU3erShivOXERrw65k
+    F3F2V62ZuZ1JmxAEwHCSZFzNweEL9Q5+H3rOmlNygfzvq9hF0O8CF5PPWCJS1b1LLen+
+    hKbrDKU/PzkIeRIhiISpj82r0b1dAXgyGLmIUgq+Vs+rLLUntHPKYLVsg/QTGHZPBmZR
+    GpXg==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794333870;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=F6ct81QTqEkvHFMRxHuJIHGVfpgVQmeZyl8NDIie8yc=;
+    b=YVrbXi+yejTSQMf++xx+tMbRlxVREgkQYCuizB7P3szj+cISME+NyJiXmaOQD72wRi
+    K8/3vd2s/btcur1OY25vUrc6Dcnxl8Pm1H9jAShPtc1R/iwY9a8rZN+rpYkS6FzZxY5S
+    5az2t2J6+WY85t1K6nZi4+JeMlp7L6h/HU/AZp/uGqLNhdGxTAj4EcRA2MDTLe5i+MWa
+    muaSpeyytWBWAyIsD7XUK7P/nu07OmVH+3jzjoxl/65WH65xH/QrEaeVznvhAEcIjVWG
+    lgDriHzm609VVNKJrZuQEQoGVD0cAqYcs5YtalYuun04P6KfQk4YZ1ZvAFUddutATvNc
+    xCqQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794333870;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=F6ct81QTqEkvHFMRxHuJIHGVfpgVQmeZyl8NDIie8yc=;
+    b=gMgZPNAuQld/WSkojlBP1LQMgZkDiAM1nEZwXnFwPyvQkNpLUNDKK2OOTNdPb7JUPI
+    UB7/Zp9H5vmDWnAScXAw==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a2AAI4T1dO
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 10 Nov 2026 19:04:29 +0100 (CET)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
-Cc: Luxiao Xu <rakukuip@gmail.com>,
-	Ren Wei <weir@nebusec.ai>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vega <vega@nebusec.ai>,
-	David Hildenbrand <david@kernel.org>,
-	Grazvydas Ignotas <notasas@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/memory: constrain generic_access_phys() to page boundary
-Date: Tue, 10 Nov 2026 13:04:33 -0500
-Message-ID: <20261110180205.3057093-1-sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: [PATCH 5.15.y] can: raw, isotp: copy socket options outside of lock_sock()
+Date: Tue, 10 Nov 2026 19:04:22 +0100
+Message-ID: <20261110180422.792240-1-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052020-failed-6.12-ae0298a5fbef@kernel.org>
-References: <20261107052020-failed-6.12-ae0298a5fbef@kernel.org>
+In-Reply-To: <20261109202310-failed-5.15-43c973a0887d@kernel.org>
+References: <20261109202310-failed-5.15-43c973a0887d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,93 +104,275 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-From: Luxiao Xu <rakukuip@gmail.com>
+commit 43c973a0887d3d7b2ee0a446603c97bf0f38c58e upstream.
 
-[ Upstream commit ae0298a5fbeff32951c0d31398ccec97ec6aa0ea ]
+The CAN_RAW and CAN_ISOTP specific socket options are copied from and
+to user space while holding lock_sock(). A copy that faults or stalls,
+e.g. on a userfaultfd or FUSE backed mapping, holds lock_sock() for its
+whole duration.
 
-This patch addresses an issue in generic_access_phys() where accessing
-memory across page boundaries in PFNMAP VMAs assumes physical pages are
-contiguous, which can lead to accessing unintended physical memory or
-exceeding VMA boundaries.
+raw_notify() and isotp_notify() take lock_sock() of a socket that is
+bound to the vanishing device while holding RTNL. As the CAN_RAW
+options can also be changed on a bound socket, a stalled copy can block
+RTNL on an unregistration or namespace change of the bound device.
+Before "can: protect the receive lists with a per-device lock",
+raw_setsockopt() even held RTNL itself during the copy. CAN_ISOTP only
+copies its options for unbound sockets, which isotp_notify() skips
+without taking lock_sock().
 
-generic_access_phys() improperly validates the memory access range: it
-only validates the start address using follow_pfnmap_start() and passes
-PAGE_ALIGN(len + offset) to ioremap_prot().
+Keep the user space copies out of the locked sections: Check the option
+name and length and copy the option values, including the CAN_RAW_FILTER
+filters, to kernel memory before lock_sock(). raw_setsockopt_locked()
+and isotp_setsockopt_locked() get the copied values directly and drop
+their now redundant length checks and copies. As a side effect, a
+failing copy can not leave partially overwritten options behind
+anymore. In raw_getsockopt() duplicate the filters under lock_sock() and
+copy them to user space after release_sock().
 
-This poses two problems:
-1. In PFNMAP VMAs, consecutive virtual pages are not guaranteed to be
-   physically contiguous, and individual PTEs may have different access
-   permissions or writability.
-2. The mapping may cross VMA boundaries if len extends beyond vma->vm_end.
+As the option name and length are now checked before lock_sock(), the
+order of the checks in isotp_setsockopt() and accordingly the order of
+the returned error values changes. This is in line with POSIX, which
+does not define an order in which multiple error conditions are
+detected and reported.
 
-Constrain the access in generic_access_phys() to at most the current page
-boundary (PAGE_SIZE - offset) and map only a single PAGE_SIZE via
-ioremap_prot().  Since the caller __access_remote_vm() already loops over
-the requested length and handles partial transfers, it will naturally
-iterate over the remaining pages.
+The generic SOL_SOCKET options in sk_setsockopt() are not affected by
+this patch.
 
-Also add a missing (resource_size_t) cast during PFN re-validation to
-avoid truncation on 32-bit PAE systems.
-
-Link: https://lore.kernel.org/e06e28a46c2a176238f03b5740df0913e57c2861.1788842306.git.rakukuip@gmail.com
-Fixes: 9cb12d7b4cca ("mm/memory.c: actually remap enough memory")
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Grazvydas Ignotas <notasas@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: Adjusted context to retain prot != pgprot_val(args.pgprot) for the unsigned long protection API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: c18ce101f2e4 ("[CAN]: Add raw protocol")
+Fixes: 1e5185c09058 ("can: raw: add locking for raw flags bitfield")
+Cc: stable@vger.kernel.org # depends on "can: protect the receive lists with a per-device lock"
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20261027-can-rx-lock-v12-4-eb5afc2d8b9b@hartkopp.net
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+[ backport to 5.15: This tree has no raw_setsockopt_locked() from commit
+  1e5185c09058 ("can: raw: add locking for raw flags bitfield").
+  raw_setsockopt() already copies all option values from user space
+  before lock_sock() here, so only the raw_getsockopt() and isotp parts
+  apply. raw_getsockopt() uses copy_to_user() and put_user() instead of
+  the getsockopt_iter interface in this tree. Duplicate the filters
+  under lock_sock() and copy them with copy_to_user() after
+  release_sock(). Also move the put_user() of the needed filter space
+  for -ERANGE behind release_sock(), which upstream writes to the kernel
+  side opt->optlen. ]
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
 ---
- mm/memory.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+This backport depends on the backports of
+  962947b69589 ("can: replace ARPHRD_CAN type checks with can_get_ml_priv()")
+  0f3ad9ab40e3 ("can: protect the receive lists with a per-device lock")
+sent in reply to
+  <20261109202308-failed-5.15-962947b69589@kernel.org>
+  <20261109202312-failed-5.15-0f3ad9ab40e3@kernel.org>
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 564c0ce0aa6d7..b452d3c91e25a 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -6572,6 +6572,12 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	bool writable;
- 	struct follow_pfnmap_args args = { .vma = vma, .address = addr };
+ net/can/isotp.c | 100 +++++++++++++++++++++++++++---------------------
+ net/can/raw.c   |  25 +++++++++---
+ 2 files changed, 76 insertions(+), 49 deletions(-)
+
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index cd9bb2629420..5d8a44c27696 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -1642,8 +1642,8 @@ static int isotp_getname(struct socket *sock, struct sockaddr *uaddr, int peer)
+ 	return ISOTP_MIN_NAMELEN;
+ }
  
-+	/*
-+	 * Limit access to one page at a time, as that's what follow_pfnmap_start()
-+	 * guarantees; expect the caller to retry to read larger ranges.
-+	 */
-+	len = min_t(int, len, PAGE_SIZE - offset);
+-static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+-			    sockptr_t optval, unsigned int optlen)
++static int isotp_setsockopt_locked(struct socket *sock, int optname,
++				   const void *val)
+ {
+ 	struct sock *sk = sock->sk;
+ 	struct isotp_sock *so = isotp_sk(sk);
+@@ -1654,11 +1654,7 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 
+ 	switch (optname) {
+ 	case CAN_ISOTP_OPTS:
+-		if (optlen != sizeof(struct can_isotp_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->opt, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->opt, val, sizeof(so->opt));
+ 
+ 		/* no separate rx_ext_address is given => use ext_address */
+ 		if (!(so->opt.flags & CAN_ISOTP_RX_EXT_ADDR))
+@@ -1683,55 +1679,37 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 		break;
+ 
+ 	case CAN_ISOTP_RECV_FC:
+-		if (optlen != sizeof(struct can_isotp_fc_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->rxfc, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->rxfc, val, sizeof(so->rxfc));
+ 		break;
+ 
+ 	case CAN_ISOTP_TX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_tx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_tx_stmin = *(const u32 *)val;
+ 		break;
+ 
+ 	case CAN_ISOTP_RX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_rx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_rx_stmin = *(const u32 *)val;
+ 		break;
+ 
+-	case CAN_ISOTP_LL_OPTS:
+-		if (optlen == sizeof(struct can_isotp_ll_options)) {
+-			struct can_isotp_ll_options ll;
+-
+-			if (copy_from_sockptr(&ll, optval, optlen))
+-				return -EFAULT;
++	case CAN_ISOTP_LL_OPTS: {
++		const struct can_isotp_ll_options *ll = val;
+ 
+-			/* check for correct ISO 11898-1 DLC data length */
+-			if (ll.tx_dl != padlen(ll.tx_dl))
+-				return -EINVAL;
++		/* check for correct ISO 11898-1 DLC data length */
++		if (ll->tx_dl != padlen(ll->tx_dl))
++			return -EINVAL;
+ 
+-			if (ll.mtu != CAN_MTU && ll.mtu != CANFD_MTU)
+-				return -EINVAL;
++		if (ll->mtu != CAN_MTU && ll->mtu != CANFD_MTU)
++			return -EINVAL;
+ 
+-			if (ll.mtu == CAN_MTU &&
+-			    (ll.tx_dl > CAN_MAX_DLEN || ll.tx_flags != 0))
+-				return -EINVAL;
++		if (ll->mtu == CAN_MTU &&
++		    (ll->tx_dl > CAN_MAX_DLEN || ll->tx_flags != 0))
++			return -EINVAL;
+ 
+-			memcpy(&so->ll, &ll, sizeof(ll));
++		memcpy(&so->ll, ll, sizeof(*ll));
+ 
+-			/* set ll_dl for tx path to similar place as for rx */
+-			so->tx.ll_dl = ll.tx_dl;
+-		} else {
+-			return -EINVAL;
+-		}
++		/* set ll_dl for tx path to similar place as for rx */
++		so->tx.ll_dl = ll->tx_dl;
+ 		break;
++	}
+ 
+ 	default:
+ 		ret = -ENOPROTOOPT;
+@@ -1745,13 +1723,49 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 
+ {
+ 	struct sock *sk = sock->sk;
++	union {
++		struct can_isotp_options opt;
++		struct can_isotp_fc_options rxfc;
++		struct can_isotp_ll_options ll;
++		u32 stmin;
++	} val;
++	unsigned int size;
+ 	int ret;
+ 
+ 	if (level != SOL_CAN_ISOTP)
+ 		return -EINVAL;
+ 
++	/* copy the option values from user space before lock_sock() */
++	switch (optname) {
++	case CAN_ISOTP_OPTS:
++		size = sizeof(val.opt);
++		break;
 +
- retry:
- 	if (follow_pfnmap_start(&args))
++	case CAN_ISOTP_RECV_FC:
++		size = sizeof(val.rxfc);
++		break;
++
++	case CAN_ISOTP_TX_STMIN:
++	case CAN_ISOTP_RX_STMIN:
++		size = sizeof(val.stmin);
++		break;
++
++	case CAN_ISOTP_LL_OPTS:
++		size = sizeof(val.ll);
++		break;
++
++	default:
++		return -ENOPROTOOPT;
++	}
++
++	if (optlen != size)
++		return -EINVAL;
++
++	if (copy_from_sockptr(&val, optval, size))
++		return -EFAULT;
++
+ 	lock_sock(sk);
+-	ret = isotp_setsockopt_locked(sock, level, optname, optval, optlen);
++	ret = isotp_setsockopt_locked(sock, optname, &val);
+ 	release_sock(sk);
+ 	return ret;
+ }
+diff --git a/net/can/raw.c b/net/can/raw.c
+index 62adfa4b5d00..d63334da1fcf 100644
+--- a/net/can/raw.c
++++ b/net/can/raw.c
+@@ -755,31 +755,44 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
  		return -EINVAL;
-@@ -6583,7 +6589,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if ((write & FOLL_WRITE) && !writable)
- 		return -EINVAL;
  
--	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
-+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
- 	if (!maddr)
- 		return -ENOMEM;
+ 	switch (optname) {
+-	case CAN_RAW_FILTER:
++	case CAN_RAW_FILTER: {
++		struct can_filter *filter = NULL;
++		int fsize = 0;
++
+ 		lock_sock(sk);
+ 		if (ro->count > 0) {
+-			int fsize = ro->count * sizeof(struct can_filter);
++			fsize = ro->count * sizeof(struct can_filter);
  
-@@ -6591,7 +6597,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 		goto out_unmap;
+ 			/* user space buffer to small for filter list? */
+ 			if (len < fsize) {
+ 				/* return -ERANGE and needed space in optlen */
+ 				err = -ERANGE;
+-				if (put_user(fsize, optlen))
+-					err = -EFAULT;
+ 			} else {
+ 				if (len > fsize)
+ 					len = fsize;
+-				if (copy_to_user(optval, ro->filter, len))
+-					err = -EFAULT;
++				/* copy to user space after release_sock() */
++				filter = kmemdup(ro->filter, len, GFP_KERNEL);
++				if (!filter)
++					err = -ENOMEM;
+ 			}
+ 		} else {
+ 			len = 0;
+ 		}
+ 		release_sock(sk);
  
- 	if ((prot != pgprot_val(args.pgprot)) ||
--	    (phys_addr != (args.pfn << PAGE_SHIFT)) ||
-+	    (phys_addr != ((resource_size_t)args.pfn << PAGE_SHIFT)) ||
- 	    (writable != args.writable)) {
- 		follow_pfnmap_end(&args);
- 		iounmap(maddr);
--- 
-2.53.0
-
++		if (err == -ERANGE) {
++			if (put_user(fsize, optlen))
++				err = -EFAULT;
++		} else if (filter) {
++			if (copy_to_user(optval, filter, len))
++				err = -EFAULT;
++			kfree(filter);
++		}
++
+ 		if (!err)
+ 			err = put_user(len, optlen);
+ 		return err;
++	}
+ 
+ 	case CAN_RAW_ERR_FILTER:
+ 		if (len > sizeof(can_err_mask_t))
