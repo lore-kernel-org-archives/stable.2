@@ -1,135 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794339608;
-	b=CVBpyT1xSBSSzV91wb/y1d047NGkp9xUYOGPy9+vksG1viXADGD8uERXz9TYYVOxYllb
-	 oh51sGA2W0eFf4AsKqjzLI802/sHyI2LYYsGfq52U0ZngZLXnOlp6SALKKgrkvf0lk9VI
-	 HGUz3+dRPxSNpP0Pj+ZEMb4p5yms3/80jEf/NjR4Gm4T5DhLe3IIg38FRAYOUV5DLzsz4
-	 rIy+Xy594nCHOqjpLS+AYaCX/T6jASMYTeDYSYdgMgAdzVj30M6iG2tqspwgnLX5IbjTZ
-	 UFA/XMyrR3EXC/0Rd32ndeG0bQaam4I2xRW8kwoiwNQZRXJwLLe11//KaVPMC9y7NyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339608;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=B4cacyDtESQUP31McQx/3bN3CkZMh68G+hoRdl5LTLs=;
-	b=sA2Nxzngnm3/+9ujEtsryvCAflsQUCllR9ZwyQTR5SH6lqEbN02t45soKAXUdKa+ruIO
-	 RW0EIAVtJG/jh1U7IcWlETC0UhM1TVuYsT8+CyNbZIDtLVq4wotfndySf/3t7plwLTLHM
-	 sW0z2cuCYKRhLLJoPHtqIBsoeZqXZ6tRwNCPuSfq5i4YO7xtDKUbzwtoFEEKUb2QJF36q
-	 x1hAOcQJqDgUhrIt3iOIZwOjGumcJDbRikOU92Wbe4JS/70pQDLVDjYRvnV+UhNi0RC4g
-	 SSQ6w8Ffaul8UAtCf0ClEjd4oafYGydbUtk6LWljpX3qgbrb/5PPw/Q9RYuiifS6CXw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fTMexmft;
-	arc=fail smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794339697;
+	b=DRY538H8e6A3rq7BVAwMqdYkdzTY4DmiVpvyJ+Skwgae0cHRYR14d0duWoDb8Xzpmjxt
+	 RoCah6ZBQk2f1VeXJB4wi1Z70qZL1pjwbibIJZnwnxhHTY3c+DP/CP1LnI/SWT7aPzJRb
+	 xUvB732yXMTjtu4Weatwwv3Lt2kkxVEZJfsjmFzeOknsHnGbLwgGQenZfOhW26Ekl86kL
+	 rcPpfcjoeeqHQz6dhc8/mumMJLwwOx64HKcDNNK/lZ2ua6hwsdhmrbYCT04vmzaHDX9Kk
+	 u2U/E3Vhndk7ncOS7wjr+teTKqophIqDM5wXEfync/kHDwiAz/80Fxl+NzHQSHiq4dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339697;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DpmgAT1XZ85JchZmurn/0ljS8KxaszwvT6tzeK0uvJo=;
+	b=GvFxqiIZ3qQXrJHwb43ZDaHrBR+eWKlgVVwSBjW9Ww9F1x46beGMgHcbFnQLp1SDBqOF
+	 wX3UK6zYzeIE9yKif5BQfbi2pFHqgHLDlxJHk6IgLXjeewL9xhICnaiuenYoGbJOgqouy
+	 GAzE7aANb2amvuhK7QDcH4UbXWXc6FJID1lPxnZj9zaWlAGbepIxO3U26Tp6huXjadMfp
+	 Ensn9fJGiUgx++UyPsBalY1sjoDlKTOp8ye17UPeOm2Wi4AEiT2oKIMB0/JcU6qtDJn00
+	 gGQNF2a+MSE7qREv2EumNTp83Zb35MpoEV/lkddopUH8B6iCnm+nqTAM0fDPISS25ZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VKudkYB/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704A0606A31C;
-	Tue, 10 Nov 2026 19:40:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 704A0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1A6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fTMexmft
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794339607; x=1825875607;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=B4cacyDtESQUP31McQx/3bN3CkZMh68G+hoRdl5LTLs=;
-  b=fTMexmft9eYenerBmQEhPXY/KoMDNV9ubexM9j66O918i/Uoh26UiyjQ
-   Hw3vPlgOx9Sjq9m5G6Gdwe9ayyu/eC+faZboZJ8kYrgE4Ck2cSASk/38b
-   dT3mkauYx8qNu83WGYOM8kOdF+XuMKDgeMHHM5UBabM/wrF4BKCl+nYod
-   yAlhYcUffqysPHAuYz3cP4ZjmZA3Fl4ZEtijElagYH6vcbJNJyS85gsRY
-   Fjpad20x95lMU6W4+f2MAYwHEWAtRfO0URiyQnaZymV8UV5uR/HPKUYJK
-   pDExhkR5vR0LFwgkD1K/SEniNxN8tvSac5VBBkRnOrdyKj2RGKx2xowlw
-   w==;
-X-CSE-ConnectionGUID: MN0CmpmoQpGcpU6Z3FQ7Dg==
-X-CSE-MsgGUID: iIiwmXjgSqu5CavKNNPidQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3016938"
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="3016938"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 11:40:06 -0800
-X-CSE-ConnectionGUID: jVoukwsrSuqQiDwHCTUXPQ==
-X-CSE-MsgGUID: /g1s2oqwRmG32WSO9J2ymw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,206,1787036400"; 
-   d="scan'208";a="8671061"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 11:40:07 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 11:39:45 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Tue, 10 Nov 2026 11:39:45 -0800
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.70) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 10 Nov 2026 11:39:00 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sLJl1twh99WqM8O/tcTN07FCNBPa/jHtDAboeD3aw7uLcPDu/oy98MRxxXIQm4y1WRMz+h2kbTF7NHI0nk1Wwrh8lC2WmKIzfHTUJCwynsbsN2m9RYBiHVKCOzJcfcTCE3Nuz2phO5ansipG1buXJrzl3lFGvq7KR13DD8kyi9Xl01b/yFzLVIjqpvcVE6HGpcyNHQVhN+5Kbh8ERA7DR6+Tc0Jz91de3SlfkwxMLHaVSgPp2QOh5/9Y7nKqlC1N2ROQRUz6DAY2SaDeCKR4xqsXqR6Z9URfcwPwEL5QknKy2ctbD4jaOcIVpFxO0eDe/iXnjDdnNE4PDdleLA/UCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B4cacyDtESQUP31McQx/3bN3CkZMh68G+hoRdl5LTLs=;
- b=Hj+ZR5UXxm9sa1NnPdnA4nBjrAGFO0HhT+/anp6plJ6ZdPB6Nl6h3DU6gtc9TZnGIzse6w41Rb2Lo3dUfPvaQN1KTG+AtnCDPVcAs2I0/0tJg0VZGK+7o5pVtSFyv/1drjbMrDHL2sQ2Iw9CnpWfWV0neuCbyMpStvKfEWothQAz5lQWCtP8TEEGTlnj0Bd7UcTZLvm0ts6oXvEkzCtksBxvl63rNeoK4jgI4tIhttsnHt81EUV8oN9vPzQxbnoyRzFm6lw+W9pO+rqC4jlERgvExvTPXH9fZpNcz5cKeLUPLZljvx4SNiDfsJrK5kWqyrHt8ufX3tSeCok+MZEi5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB6469.namprd11.prod.outlook.com (2603:10b6:8:c3::19) by
- SJ0PR11MB8295.namprd11.prod.outlook.com (2603:10b6:a03:479::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 19:38:57 +0000
-Received: from DS0PR11MB6469.namprd11.prod.outlook.com
- ([fe80::ee3c:8422:6754:29b0]) by DS0PR11MB6469.namprd11.prod.outlook.com
- ([fe80::ee3c:8422:6754:29b0%3]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 19:38:56 +0000
-Message-ID: <cdc9ded1-c765-49bf-99bf-a36341af8a7d@intel.com>
-Date: Tue, 10 Nov 2026 11:38:53 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] igb: do not let a VF set other VMOLR bits through its
- frame size
-To: Paolo Abeni <pabeni@redhat.com>, <tkusters@aweta.nl>, Przemek Kitszel
-	<przemyslaw.kitszel@intel.com>
-CC: <intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, Alexander Duyck <alexander.h.duyck@intel.com>, "Eric
- Dumazet" <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>,
-	"Jakub Kicinski" <kuba@kernel.org>
-References: <20261104-igb-vf-rlpml-v1-1-729621b60eee@aweta.nl>
- <984a9f14-d8d3-41d4-a846-6750f710c741@redhat.com>
-Content-Language: en-US
-From: Tony Nguyen <anthony.l.nguyen@intel.com>
-In-Reply-To: <984a9f14-d8d3-41d4-a846-6750f710c741@redhat.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0094.namprd04.prod.outlook.com
- (2603:10b6:303:83::9) To DS0PR11MB6469.namprd11.prod.outlook.com
- (2603:10b6:8:c3::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKudkYB/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF741F0089F;
+	Tue, 10 Nov 2026 19:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339697;
+	bh=DpmgAT1XZ85JchZmurn/0ljS8KxaszwvT6tzeK0uvJo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VKudkYB/ImeeyaT07iHoMnUgrfLWuDsi5MlwqWWBCZCXzOrhjTSdD3gt993SwRPd6
+	 jsRIgabwBmFbfdpYniQO4OTBnUzugmLRZXYS9qhy7GEYzqjnxLQAjp4lX7nxvBZpvm
+	 +Pw7HX2UiHfSAiwx7gljN3FjUcGtK+GfewlKkouZ2lf4vEufHsj7DBrERJuYY0PY/W
+	 A8rQRnPZANlqQnaHR5EUy8lOJ+N1Ci6+/wZoYAYLQ+rvDVHGsUvirdeY4Pzh8uamj1
+	 H2HkbOj6h3bwcYm1oTU2QD/xfik45P7LCqGSgIDk+or4qvX6jbRE/Tm+PAKtTMbW8y
+	 TZ7pOej4qUNMA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jiaming Zhang <r772577952@gmail.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] nilfs2: force clear dirty state when restoring from the shadow map
+Date: Tue, 10 Nov 2026 14:41:34 -0500
+Message-ID: <20261110194015.3594251-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052932-failed-6.6-cb6702e63e0a@kernel.org>
+References: <20261107052932-failed-6.6-cb6702e63e0a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -139,83 +60,217 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB6469:EE_|SJ0PR11MB8295:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc6f2226-f412-4ddc-bdf8-08df3f624268
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|11063799006|4143699003|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: FNRxo4KU6yvFH8KeGC1zxm/TTmzzIddVYiy4xr3wbEGzuNzS0A7CHvey3RntB14jXl5FIND5Yp+xtaXy4l7cVHTE9vs/zUG1KgNypcv7KxVLxO+WIyb+BzzeBR7KxGvkiWfzWeC8U/2R5b9YhAPwA26aw3N23wV8wGUhln1SdpCwodNIs9EDiD2RAXL9e1+cthsE8VxMhtCpaH/K1tetFO/coTseqaqKjF7C+ETId5XqwqIN2sk2zk5F627n9RFMRwxs1BxfOghm5AunvA97ZlyjOKSSjBMXZ82ddoEijtWmD+9fUOVQNYlsewcBDXYfFCVV/7RTY2Ys6UpT4E24Geq+dNMnXBggwH+FoA7ZxEor1KqC4lotsKK0HrajOtknKr0RIv5h5GS1b+9aKpmVcdqlgzURXQZ9T2zSs4OXYjglfnfSD1r0l6OOCGAu8AebJyBv+UdJHeObgQgyKCOYOxpYDXDoiwWLy1w5kNp5EbId79mcJa6oeUKQp0QyNJFRcXju9by2pmgmJKAzc9IJH90yjoScvYTm4jtkXso+BmPBvr7PzTs3CM+htmFHQLxxBGa4YmCTlzpgeoINcVqymunug7LdXmjOzvaX2ITVHXuv1oz0yKydNcZiw+c1+mEMrCWHrzfTGlo9yUmmkDxN0cRdVv8c+ZLLhov47YAooCw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB6469.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFhoSDlybnc2MnFoVTRrR2x2bmlxaHhTUk95TExpcm8yNVp2NWRKMlI1dC9j?=
- =?utf-8?B?YnRlaDZNNTRTQlZpMTNFSUI1ZzVpYnByREh1dnpUWDBWZjA1SEVtcGtZekQr?=
- =?utf-8?B?L2wxNzRWRWtTYWhBc1FzbndROHRwYW9IRUJNdFA4aElqTUw1T0ROc1AvVWI3?=
- =?utf-8?B?M0tmcDVNM1kzeXR2eGt5bDBVVDEwanJBKzJvNi9XdjR4NmJEMWlVQ2xER2FJ?=
- =?utf-8?B?eHZST0JMY3IzOXZHY2FFMERldkJkS0NneDI2L2xicXNKL2dPZEY3Y2c0d2xK?=
- =?utf-8?B?Y2JRUGQyRnViRHdKR3Z6cUpFNHRHSXNpd29hQnByVEFPaE9BcUVHTlV5YW1i?=
- =?utf-8?B?djN3VHo3RXJtMWRFcnJFdlBwZDZIY203Q3lnU1FneHNORHNvTHpQbllNeTVa?=
- =?utf-8?B?bVJkaEY1RjFvTlhBZVBlV0ZLNFVFb0czZys0QnNMMHVlcFBCRGhCT3J2bU9m?=
- =?utf-8?B?NTliWHZOTGY3d1ZBYnNySmNzQm41Rlh0V3c3Vm9ZTTZEMk5YcTY5M1BJYTNQ?=
- =?utf-8?B?TUZFc0hNRENaZVU2aWdlMWQva2lxSVpvZi9TR3hyVm5HdHJJcUMvRitNS0lm?=
- =?utf-8?B?bnFyb0Jjc0kyNWZrUWwyYVl6NjY3WGU2MHk4ampnZEdtS1kxL3I0a29jVTNC?=
- =?utf-8?B?NVc2VldHcEEzb00rK0Z0M3JOcU5vc2xtYnZSVXRrRUtuSndZQ2w4QkJLYTRt?=
- =?utf-8?B?RXBkZDczRWczVHhvOVlqOHNTZ0M2YU9oUENPWDV0R0V5VnJ6ZFpaRWtNa1ln?=
- =?utf-8?B?ZUExY0lYS1RzdXRJTFdPZGNYT0tWc2JiN2lsUDVBRE5FemhuRXh0QUJEa0Qw?=
- =?utf-8?B?UlNLV29NdUExSWhBZzE3S3ZoT1dMZUR1WFpyK21RRFRCRXlYNWZFMDVhWHhJ?=
- =?utf-8?B?c3FzVXNjdlE2TnpvMmMrKzBkOU8wMWJocjlZUkhlNmtjcmNmYTBLK2pBMWFK?=
- =?utf-8?B?cVp3MFUvaXErTURja1FPN0xBRWpwbll4aSs0UWh3elhQQllkU3dhM0s4QVdO?=
- =?utf-8?B?dlM1VkFQYTg4c0VXSkRlMURKd2huMFd0SjJGcEVPa3drUTQyS0tza0hROXZo?=
- =?utf-8?B?azBlbjRINWxPSkYvZ1EyRGxxVVQ4VFh4b3krK1AxNDdnUlM4dndVQ1VVdEx4?=
- =?utf-8?B?UVdvTkN4a1Q0dElpTUw1NmdpdWF3VGdMUEpvc3dydmFlN2ZWRkZBZm0zeVdF?=
- =?utf-8?B?enFkL3J2QzNBNmdBbXg0L1VzaDBaLzk0NnYxVWdrKzhKZkJ4RHYxS3NpVyty?=
- =?utf-8?B?OWN4M28vZndqR0F1U1B1T2hUV3MzSjA5UDBDZnVFcDF5VklndlN2UVh6dXRi?=
- =?utf-8?B?eVhCdmVoOENEVk1Hc1pUblR2RWozWGlCdGVBQitmWWRGT3o2aUxPajlRZEFX?=
- =?utf-8?B?ZVozVzlBbkhydDhRdmRybE1pUUtlcUtyeVNrZVJHV25tZWx4S2xsL1VFM1ZF?=
- =?utf-8?B?UHh5Tnd4dStzN2RXc2pkZis2dmFrV1hLS1VYVFhRNXBWeHdwbWJ6cjJMMnhp?=
- =?utf-8?B?bGxsajIwNmNZVVhIM1dyZUJsVUxiTFhMSUp3RFN4ODlMMEQ2OTY5NkpXZkNj?=
- =?utf-8?B?T2d6SVh6WWw0dzlPTXFVOXZQUHdEZjNhVkg3c1R1Um8zNkFVV1NDT1MwY2tN?=
- =?utf-8?B?bVplY0kyanZZcGVzUzFzWC9ONEh6K1o4bmdDV2NTbmFLUDR6cXpIalgySEVn?=
- =?utf-8?B?OGxIazNLc3hINUVjZG9SdXJQV2svTndFRmVNNkJOcGVETXNwMm16VGdRUUxv?=
- =?utf-8?B?aVBKK0JRV0FBQVpuaW5lZGp6UlhERmJScktVdlM1aFpkT29DVXh6R0kra2hY?=
- =?utf-8?B?L0ZPN0p5bGcyWmVQWXBLMjc1UHZSMFByanovWXYwQlgyTTFKOWpPL2VWc0xT?=
- =?utf-8?B?blkxV2NLZUFSMFRZNVFucHN4VHl2U2hXdEFRVVNGSUk4NmpuZUpVL2c2QTYx?=
- =?utf-8?B?N2lQZXFMU1krYVhQZGpiSFNscjRNeEk2Y3EzdFRrZTJZQVNqL05UdXIyUVJG?=
- =?utf-8?B?WUZncjF5VTJQbUxvTlFmZEJURkpVTWJFZ3VhSnFsT0pFUEhMN01wWXRvVUV0?=
- =?utf-8?B?b1ErNUFodDVzTThjaE5VWWlQRW5RQ292djlDL3lNbzZzMzl4WEVwZ2ZYTzNR?=
- =?utf-8?B?YU0xYmg4ZlJUTjF4OGxVK0xUM25QRytkMzVVUVF4LzNDNkhKd09xMTRONUx5?=
- =?utf-8?B?SXhPOU9LSCtBdmtzVStTcDBGd2xBUVdOaDl4dmcxSVVuVXRjeDhkTGFuNU1S?=
- =?utf-8?B?bEE4VTA4ZDJzdEtyWS9tQ1lqeUpsL05uKzJZOEMrczB1MFptVUxBc0gxYW5h?=
- =?utf-8?B?RHRYUDFLMFJTRzAxMWo2QjNKQk5UUGEvbVBFazZMMEU1RU5GOEdmVmFmWklY?=
- =?utf-8?Q?wBWe1vC1fXm9BzGU=3D?=
-X-Exchange-RoutingPolicyChecked: NW0w9b/Gu9G9wsiwTXVJN9Iwcqcs1PhHx/yPrm1ZX8dJxidZ/1jQyHIE6WDkvU8aUNd29jYcPvUDc941chTmHu31evLWwf0VzT5SZy4XCO4Yillve4tx8Z6S5F8y8uWouKauiaOzmIJL0T4+UE20niJbM72Va5vsNlwt1oMoe0EvYaM0QzavXcqur3FqOVzo0pym/k/e/d5h24DCrdmNFNu+zFqzlm3NkEO/pZey6oqnwRecDaDb7DlGVPlTrMUG+QgibamEtB8pJKraYZHMFbgizmX5pg3aLOoz1B57ux15Tke6BGagxRnxaNZZZAaACv02MSgHHgUtuHTm/Cbcyw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc6f2226-f412-4ddc-bdf8-08df3f624268
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB6469.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 19:38:56.7884
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jl+GQLQQsJk0BhQyX9n9/ezCsIzxv9OCuEfiXY7C6KH4EE3VY/ecl5LmAL75M3sR9lzlQjIGC213clUjtf7SFlB2ZbEs2PqaxDDJ4AZPVR0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB8295
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
+From: Jiaming Zhang <r772577952@gmail.com>
 
+[ Upstream commit cb6702e63e0a16afd83875294e5ce53becdd1b1f ]
 
-On 11/10/2026 6:48 AM, Paolo Abeni wrote:
+When garbage collection fails, nilfs2 rolls the DAT metadata file's page
+cache back to a shadow copy taken before GC started.
+nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
+cache, then nilfs_copy_back_pages() overwrites them with the saved
+contents and warns if one is still dirty:
 
-...
+	/* overwrite existing folio in the destination cache */
+	WARN_ON(folio_test_dirty(dfolio));
 
-> I still assume this one will go via the intel tree first. Please LMK
-> if I should apply it directly, thanks!
+nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
+which is safe here because the rollback runs with the log writer
+stopped, so nothing else can dirty the cache while it runs.  The same
+helper is also used when writeback finds dirty folios after the
+filesystem has degraded to read-only, where it does run concurrently
+with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
+folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
+folio if any of its buffer heads is busy.  The rollback caller shares
+that helper, so its clearing step can now return with a folio still
+dirty.
 
-Hi Paolo,
+A DAT folio can hold a busy buffer head without anyone modifying the
+folio: nilfs_mdt_read_block() submits read-ahead for the blocks
+following the one it was asked for and waits only for the first, so the
+read-ahead buffers are still locked when it returns.  With a block size
+smaller than the page size, a locked read-ahead buffer can share a folio
+with a block that GC dirtied and keep the whole folio dirty past the
+clearing step.
 
-Yea, I'll take it through IWL.
+Add a force flag to nilfs_clear_dirty_pages() and
+nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
+in the two calls from nilfs_mdt_restore_from_shadow_map().  The
+read-only fallback callers keep passing false, so that commit still
+protects them and the WARN_ON() is left alone.
 
-Thanks,
-Tony
+Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
+Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+[ sashal: adapted nilfs_clear_folio_dirty() to nilfs_clear_dirty_page() while preserving the separate silent argument ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nilfs2/inode.c |  4 ++--
+ fs/nilfs2/mdt.c   |  6 +++---
+ fs/nilfs2/page.c  | 51 ++++++++++++++++++++++++++++-------------------
+ fs/nilfs2/page.h  |  5 +++--
+ 4 files changed, 38 insertions(+), 28 deletions(-)
 
-> Paolo
+diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+index 410da542a3b90..ec5d3e82f52e0 100644
+--- a/fs/nilfs2/inode.c
++++ b/fs/nilfs2/inode.c
+@@ -162,7 +162,7 @@ static int nilfs_writepages(struct address_space *mapping,
+ 	int err = 0;
+ 
+ 	if (sb_rdonly(inode->i_sb)) {
+-		nilfs_clear_dirty_pages(mapping, false);
++		nilfs_clear_dirty_pages(mapping, false, false);
+ 		return -EROFS;
+ 	}
+ 
+@@ -185,7 +185,7 @@ static int nilfs_writepage(struct page *page, struct writeback_control *wbc)
+ 		 * have dirty pages that try to be flushed in background.
+ 		 * So, here we simply discard this dirty page.
+ 		 */
+-		nilfs_clear_dirty_page(page, false);
++		nilfs_clear_dirty_page(page, false, false);
+ 		unlock_page(page);
+ 		return -EROFS;
+ 	}
+diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
+index 75a2ed5ee6e09..c0c1e217bd384 100644
+--- a/fs/nilfs2/mdt.c
++++ b/fs/nilfs2/mdt.c
+@@ -411,7 +411,7 @@ nilfs_mdt_write_page(struct page *page, struct writeback_control *wbc)
+ 		 * have dirty pages that try to be flushed in background.
+ 		 * So, here we simply discard this dirty page.
+ 		 */
+-		nilfs_clear_dirty_page(page, false);
++		nilfs_clear_dirty_page(page, false, false);
+ 		unlock_page(page);
+ 		return -EROFS;
+ 	}
+@@ -634,10 +634,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode *inode)
+ 	if (mi->mi_palloc_cache)
+ 		nilfs_palloc_clear_cache(inode);
+ 
+-	nilfs_clear_dirty_pages(inode->i_mapping, true);
++	nilfs_clear_dirty_pages(inode->i_mapping, true, true);
+ 	nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping);
+ 
+-	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
++	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true, true);
+ 	nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
+ 			      NILFS_I(shadow->inode)->i_assoc_inode->i_mapping);
+ 
+diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
+index 2dbf74936a7ed..c664cf867e9d6 100644
+--- a/fs/nilfs2/page.c
++++ b/fs/nilfs2/page.c
+@@ -370,8 +370,10 @@ void nilfs_copy_back_pages(struct address_space *dmap,
+  * nilfs_clear_dirty_pages - discard dirty pages in address space
+  * @mapping: address space with dirty pages for discarding
+  * @silent: suppress [true] or print [false] warning messages
++ * @force: whether to clear the dirty state regardless of busy buffer heads
+  */
+-void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent)
++void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent,
++			     bool force)
+ {
+ 	struct folio_batch fbatch;
+ 	unsigned int i;
+@@ -392,7 +394,7 @@ void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent)
+ 			 * was acquired.  Skip processing in that case.
+ 			 */
+ 			if (likely(folio->mapping == mapping))
+-				nilfs_clear_dirty_page(&folio->page, silent);
++				nilfs_clear_dirty_page(&folio->page, silent, force);
+ 
+ 			folio_unlock(folio);
+ 		}
+@@ -405,13 +407,16 @@ void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent)
+  * nilfs_clear_dirty_page - discard dirty page
+  * @page: dirty page that will be discarded
+  * @silent: suppress [true] or print [false] warning messages
++ * @force: whether to clear the states regardless of busy buffer heads
+  *
+  * nilfs_clear_dirty_page() clears working states including dirty state for
+- * the page and its buffers.  If the page has buffers, clear only if it is
+- * confirmed that none of the buffer heads are busy (none have valid
+- * references and none are locked).
++ * the page and its buffers.  If the page has buffers and force is false,
++ * clear only if it is confirmed that none of the buffer heads are busy (none
++ * have valid references and none are locked).  If force is true, the states
++ * are cleared unconditionally, the caller should guarantee that the page is
++ * not being modified concurrently.
+  */
+-void nilfs_clear_dirty_page(struct page *page, bool silent)
++void nilfs_clear_dirty_page(struct page *page, bool silent, bool force)
+ {
+ 	struct inode *inode = page->mapping->host;
+ 	struct super_block *sb = inode->i_sb;
+@@ -429,24 +434,28 @@ void nilfs_clear_dirty_page(struct page *page, bool silent)
+ 			 BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
+ 			 BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected) |
+ 			 BIT(BH_Delay));
+-		bool busy, invalidated = false;
++
++		if (!force) {
++			bool busy, invalidated = false;
+ 
+ recheck_buffers:
+-		busy = false;
+-		bh = head;
+-		do {
+-			if (atomic_read(&bh->b_count) | buffer_locked(bh)) {
+-				busy = true;
+-				break;
++			busy = false;
++			bh = head;
++			do {
++				if (atomic_read(&bh->b_count) |
++				    buffer_locked(bh)) {
++					busy = true;
++					break;
++				}
++			} while (bh = bh->b_this_page, bh != head);
++
++			if (busy) {
++				if (invalidated)
++					return;
++				invalidate_bh_lrus();
++				invalidated = true;
++				goto recheck_buffers;
+ 			}
+-		} while (bh = bh->b_this_page, bh != head);
+-
+-		if (busy) {
+-			if (invalidated)
+-				return;
+-			invalidate_bh_lrus();
+-			invalidated = true;
+-			goto recheck_buffers;
+ 		}
+ 
+ 		bh = head;
+diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
+index bff6257ef83bd..bce9a1b5c8f02 100644
+--- a/fs/nilfs2/page.h
++++ b/fs/nilfs2/page.h
+@@ -41,8 +41,9 @@ void nilfs_folio_bug(struct folio *);
+ 
+ int nilfs_copy_dirty_pages(struct address_space *, struct address_space *);
+ void nilfs_copy_back_pages(struct address_space *, struct address_space *);
+-void nilfs_clear_dirty_page(struct page *, bool);
+-void nilfs_clear_dirty_pages(struct address_space *, bool);
++void nilfs_clear_dirty_page(struct page *page, bool silent, bool force);
++void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent,
++			     bool force);
+ unsigned int nilfs_page_count_clean_buffers(struct page *, unsigned int,
+ 					    unsigned int);
+ unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
+-- 
+2.53.0
 
