@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327067;
-	b=5ljLOzgIrLFEtnMHCwL7ml/LO09zE946NaiPe6ACShffWg/MnIQR7IjWYqPyL1Ajx3nX
-	 9vjvvGs5khnc5Ay1UgE5rRfF9DRn2S8QiloU37y6/0FeIvDL+QCWDKkj2BaS3T85HWr0G
-	 VVKbcBZuWH124kPi+cr8f0oD7MB6oNYsTnVZB3CRFKPxPxxxU5Zdr4zUKzcQ1+uwR3Ww5
-	 H+dfFx3f+TSxQuRrvjOoRhn7/UbgJ/NffLciQQ7ADi7Zzky5+j9/2TbKoC7SRQ8dP/8zp
-	 cCKDf9qHnyT5TSwCMuvGU6iTSLYm7LaEI7CAKqOphd4jLI6nhdwgX7HWWX9JRtB2T2Q==
+	t=1794327212;
+	b=Ms+PlzrktMjU0XrwEnYQHkmyXZ+4PKWlFHM7SKITL3Mg9MJ2rNsG5dla19hZR8DIKn7B
+	 2e5BLiRmWxe6tAZZz0pZJ1Kk3Mn+A1v0OwjGZM/IP/YHxfJ5zgpI4cxBCyy71m3deMzUb
+	 B8jdWiY3+nnGI0fNSr2Y3JkVHxZ7oncBA5CzQSDqbFjqxFbcLZonwkL54Adcl+xou5NLs
+	 dw80j88EinZDC8lnCCJSbQZnrFuZf/OWHutDFBUGzMzMdwpv5geCzZsrjlVPE1Sz4Jft7
+	 PfOJeQmCMg7WxWfdgS/IMmPDO7LgzZqjPz2Xqr1dKTacllAIoI8nHVmp/HWd8U3TICA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327212;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PiMjIs0UNW1h9ZUVjrgbHLxkCCGQJdXg3AkqLB6RtuY=;
-	b=pl1psKfGs2zXWaP4G+71JVkPHBQ/y5iV8+OkYZnF1/3sQvhjadX6rZ+55dzZy585mOXJ
-	 uaZk9x1gHey3qCjw2cXUDPhNjWWTcHs0z1I9ckEfdfAx2jLKow9utm+CU+tH+k4pcxPrN
-	 rxjmjZScv8EEmrrGZSVk1QB6OQ3b/oG214SCj7T7ihxZ5kOU98CMOBVZG99pPus2hk9rs
-	 dq0SuYD4Gj3F5/kGGcYUU0pgaSRpjQinQRyxHCnxB3JtuCWUcStYKkYefftIii0jTeUi3
-	 5yMcY62BG0BKpQQcWxtuC23iAzu0x+SjFvOduyUppaT02FRxNbiU/Sd0YOLxFWU7/Kw==
+	bh=DD6q8QZEKN6O1rA4twGRX0t2VtIxl48PvlLu6hY7XHk=;
+	b=amjn2pp2AZzwhl4BIUcZKY2o8gO8LwQyNXuRqmTGXp4qJ3cG3KIkzzZprNfSXCymgP7R
+	 HndfmJohIDcUvosMsO7AXOkN/XkWjMXN+sdCdaYGZ8RIgqBrVmjSZ3FIdZScm5vuk3msC
+	 RT8Gzv+IG/CaDVdY01a9ScgRVefo0ESCy6THTZEpL1U99AaSVLcY1UP7EDIqB0A2CZ31P
+	 lgWugDBh6/G3RnwxKIWSbg209cNvMnI+2VrmywMUJBD2ZOXdUCxMTOXtjX7YL1UA1xpUB
+	 qn+msc4IzPa6B3UP2/q2GIGJXYtHq9JHlFQYu1+fjtorWSdtzqhVcE6icJwcEAH6epg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebkjCyAR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6+f+bvH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7233B606D798
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:11:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844ED606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:13:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebkjCyAR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4DA1F008A3;
-	Tue, 10 Nov 2026 16:11:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y6+f+bvH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F0C01F0089F;
+	Tue, 10 Nov 2026 16:13:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327067;
-	bh=PiMjIs0UNW1h9ZUVjrgbHLxkCCGQJdXg3AkqLB6RtuY=;
+	s=k20260515; t=1794327212;
+	bh=DD6q8QZEKN6O1rA4twGRX0t2VtIxl48PvlLu6hY7XHk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ebkjCyARs+O/BPYsl3nY6hr8pWneZGa5cHG8uGwmbMATFiUUJRUyAHd1vMlSGEfwn
-	 LWACl+oM5qqxavdvZaduzc6hH7czcFh7EOQZf/Pgjj6UvYXfLiTXWQq9QwsozzsAHQ
-	 l/9Q0iXf8kEIdhnRZnZRst0/h9B5GQsBpjGAICHzOLbPHX+BJ06Hjdqf0Kee+uKthn
-	 4Eu4MC5kJFAC2j+Z/PSdB+qEhcyViglPNQna6UKJFE9y21YXclH/3ADMvEBW9FTpA4
-	 9ixAG6OJkBo9Cfs3F8CtAaPiDPlKya0UJfKyHPeRECqUO5yBokP8xCJw2/BcQnodDQ
-	 25gKtFiSgVeEg==
+	b=Y6+f+bvH0U/FLdNZo6qciLlaGcp8pdD4nktQInZ+F6Ov6ebA4AMlwiFQtRNl59yQQ
+	 m+gCwPBvuka2VU/3yH3BaszmeYjQtjTQRr/6l51VQdibW3jRPIl3DFYBrKWyOJlQnm
+	 HcvhLgfj5lHeWvluQPVNnWJizXdjN/d/4SyalMVOwuHCAe61DoakioYD/25eF0Wsro
+	 ZJfzx0NEQwbOs+BPqzYOr+Myeh1XT9LroZcP98E7NNCwXXbc0v7vu0XAzaxPn/95XA
+	 6nPNVoi9XKM1WkpUEgXxlTwDXidLSuXz+0gO8zZk5hgsOQ9GbFJLStwRMKmBde/jFT
+	 wccmWaU68sNJA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ma Ke <make_ruc2021@163.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: David Lee <david.lee@trailofbits.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
-Date: Tue, 10 Nov 2026 11:11:04 -0500
-Message-ID: <20261110161057.2400674-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] sctp: hold shkey across socket migration
+Date: Tue, 10 Nov 2026 11:13:29 -0500
+Message-ID: <20261110161323.2411320-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110161057.2400674-1-sashal@kernel.org>
-References: <20261107051020-failed-6.18-8d70e364e866@kernel.org>
- <20261110161057.2400674-1-sashal@kernel.org>
+In-Reply-To: <20261107055009-failed-6.1-52ffeaa358d1@kernel.org>
+References: <20261107055009-failed-6.1-52ffeaa358d1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,92 +63,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ma Ke <make_ruc2021@163.com>
+From: David Lee <david.lee@trailofbits.com>
 
-[ Upstream commit 8d70e364e866bdfca81eee24d0688fac9472cfb9 ]
+[ Upstream commit ad1320865b1826ffa2e81e37c49535751e81335c ]
 
-cs35l41_hda_probe() takes an acpi_device through
-cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. Only the
-failures that happen later reach the err: label, which is where that
-reference and cs35l41->acpi_subsystem_id are released, so the early
-return taken when cs35l41_hda_read_acpi() fails leaves both behind.
+sctp_sock_migrate() transfers queued DATA skbs from the old socket to the
+new one. skb_orphan() invokes sctp_wfree() during that transfer and drops
+the skb-owned shared-key reference.
 
-Keep the ownership in the caller instead of dropping the reference
-inside cs35l41_hda_read_acpi(). That removes the need to work out
-whether a given failure path has already released it, and with it the
-double put that cs35l41_hda_parse_acpi() would otherwise cause when it
-fails after having released the device itself.
+If userspace has removed that key from the association, this can be the
+final reference. The following sctp_set_owner_w() then dereferences the
+freed chunk->shkey while trying to take the new owner reference.
 
-cs35l41_hda_parse_acpi() and the !physdev path no longer put the
-reference, and the early failure enters the existing err: cleanup tail
-through a new err_acpi label.
+Take a temporary shared-key reference before orphaning the skb and release
+it after the new owner has taken its reference. This preserves the selected
+authentication key throughout the ownership transfer.
 
-The label sits between the reset of the codec and the gpio cleanup, so
-an early failure also releases the reset and chip-select descriptors
-that cs35l41_hda_parse_acpi() may already have taken, while still
-skipping cs35l41_safe_reset() on a codec that was never brought up.
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
 
-cs35l41->dacpi comes from devm_kzalloc() and is only assigned once the
-ACPI device has been found, so the put is a no-op when the lookup
-itself failed.
-
-Found by code review.
-
-Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
-Link: https://patch.msgid.link/20261012084152.3740340-1-make_ruc2021@163.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261009074244.3718-2-juny24602@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 52ffeaa358d1 ("sctp: re-point retained control chunks on association migration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/codecs/side-codecs/cs35l41_hda.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ net/sctp/socket.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-index a7fc4ba35e3a1..d9f687967be51 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-@@ -1921,7 +1921,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
- 	hw_cfg->valid = false;
- 	hw_cfg->gpio1.valid = false;
- 	hw_cfg->gpio2.valid = false;
--	acpi_dev_put(cs35l41->dacpi);
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index e9e13ba9ae4c7..04c3b8a8d2dd2 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -147,9 +147,19 @@ static inline void sctp_set_owner_w(struct sctp_chunk *chunk)
  
- 	return ret;
+ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ {
++	/* Keep the shkey alive until the new owner takes its reference. */
++	if (chunk->shkey)
++		sctp_auth_shkey_hold(chunk->shkey);
+ 	skb_orphan(chunk->skb);
  }
-@@ -1942,10 +1941,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
- 	cs35l41->dacpi = adev;
- 	struct device *physdev __free(put_device) =
- 		get_device(acpi_get_first_physical_node(adev));
--	if (!physdev) {
--		acpi_dev_put(adev);
-+	if (!physdev)
- 		return -ENODEV;
--	}
  
- 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
- 	if (IS_ERR(sub))
-@@ -2000,8 +1997,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- 	dev_set_drvdata(dev, cs35l41);
++static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
++{
++	sctp_set_owner_w(chunk);
++	if (chunk->shkey)
++		sctp_auth_shkey_release(chunk->shkey);
++}
++
+ #define traverse_and_process()	\
+ do {				\
+ 	msg = chunk->msg;	\
+@@ -9692,7 +9702,7 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
+ 	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
+ 	sctp_assoc_migrate(assoc, newsk);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w);
++	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
  
- 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
--	if (ret)
--		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+	if (ret) {
-+		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-+		goto err_acpi;
-+	}
- 
- 	if (IS_ERR(cs35l41->reset_gpio)) {
- 		ret = PTR_ERR(cs35l41->reset_gpio);
-@@ -2088,6 +2087,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
- err:
- 	if (cs35l41_safe_reset(cs35l41->regmap, cs35l41->hw_cfg.bst_type))
- 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
-+err_acpi:
- 	gpiod_put(cs35l41->reset_gpio);
- 	gpiod_put(cs35l41->cs_gpio);
- 	acpi_dev_put(cs35l41->dacpi);
+ 	/* If the association on the newsk is already closed before accept()
+ 	 * is called, set RCV_SHUTDOWN flag.
 -- 
 2.53.0
 
