@@ -1,101 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794271226;
-	b=CWCXFYs1s3WWzpFSPUTWf+RKjVNL8XnZ9NWwuYtP5/nutORaJbQ6XEXFKCizo4HDCw5g
-	 s8RN6/1blWaqSh/kPwBGyQA/cwf6HJ4TyE//nh/R+9aeew3tF3hM5ISsojlvFrBKm95Qa
-	 0aEUZePSrba8JJKZTmgs49ZK72Hd4ADyz5ntrf9hdeuQ/wOc7NP5+LVq/9xkv6Rd7KbJ2
-	 HWkrQSpLhDG+AdDFD2raI6l1QFLRxqoteSYEQzXQCbof3BbzGsRyJ1UWiQY9jIEzKM/KE
-	 m7RR1SzofSLsaHIGZxVE+jBJeZq2TJiQFBsKwwSr/6zVV5FBHvNWvVeq//w8UXmdFGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794271226;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jIHm29cyLSNyacJjUA9APKy30FWwePpOgwq8IJn4zQs=;
-	b=JTJMkXmtycYdmQlq4/OIqowdYP9/pLhUuWQM7NroBRK/snTdX7NZzAwgryv0x+dlzOEB
-	 oAQy6icU9ylzNfgFG2SMBiiF2N+76jiA+oYBkNv+Ccy13PSOh3LpRZsVhdh9mVNhZxQE7
-	 VdaxgaVQ/7V7/Kb3v97Kat3fVwUK1wdrKkolAXbPYQ1nzwPhThSaljPpK9Rbd+QZnjcBV
-	 k3bn9297B16eduy5LVV0NldA2ijteZ2W1y2v9XE2O1Nhlt1M9UJzqdhZfg1dsrEQ6vob/
-	 NOYurPhpX2kcvQ6aOzxJFKKyYT7B4Ub0BZ1PNSe6jTkhjOTIm8NBMcUP0viHKAYJUfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XZvS35ee;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794271343;
+	b=r4iNhpp4M7k09gLSqb7BLcQTca+tlbn/APXrSXynjBSVS0fH7M9F8VQW8bN/qvEWWoQP
+	 iUWYSXlLfi8nNlX+uYjtq6mdoEFIxj99i5FHwXMGX5sKM/ZR/PZSPj0y9RetSfQgtX84f
+	 CAXyLHNZUavL+oaI9T2RQKZIMQstb05ahGsmIw+gE9CMZMbqckFb+5Vk1Oqkebo2+fOZq
+	 yz7gvN6/+7gXG/Cys03wkR/wdWnmEAPjFHp7N/5kKOT3LYZSis9dvhAvNtmCEI7ucSj5c
+	 5kXqiEE1eSNk/b8JlBGx+JEYrM+2NbGSrEiuI4woo2Ni0au1cqmlyCoBn+0LY1bqSPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794271343;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=nb8/3651PQi+wnO5xWDWcO+y3y5ytYQlH20uezfH+ZU=;
+	b=YtwJGBt+16uqRVP36wpc348ldCP5mACoXYNdr+XdZBwRHX58QyTH/TBRAiYO7LwzrDIo
+	 18Ka5khg7IAwcwmexCsDbl78oDp/jP/ZcVEVWsT7kaEe6Wxpuz56cI7/QA8/x5tZAjNih
+	 d8jXtYv6TBznSIiuLe1Bka2iHY9cl3EHbnQS/MnPOHs3Wdfjvw9rqBGm02aCrfFumFDFX
+	 Lp6rk4HjfNk49kGhJS4AsGIjsfqJx0ryUvoneeXh+xzFdG8db0YL+rFxU7GpFn+FMvBeT
+	 E4wNibs/WuGZIpxpnNj3AicWMJH2Rz+J+h8ELa2TCEmXVysYbqmETQaaBA9ABjDdWWA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g46Ipwb0;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13E7606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 00:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13E7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8835606A31C;
+	Tue, 10 Nov 2026 00:42:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8835606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XZvS35ee
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67c0ffaae1dso1673545d50.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 16:40:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794271225; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YGlgoF4TXBjyyMuEN5hRQAEK/kpv0iq1bPx3FROp3O4h0SOTq6h3rY0W8NxVL0YMlH
-         PG4EaGOKfae60EcrHDG55+6uBDz3utaiy7BkA+O5vNpkf+xLgh/SMBUJmyrVaBf7DBmH
-         qXTHoXOtIM7NcAu6qxLtTZwIBlm/GPDoW7ZyHmextaLmVcBm3vcy4E60jp6t5J5icble
-         4hO0WOG0kzFKMN15uAJbAjlwXu0beKW2UCIHYsqDrDPXirra3W28p6yZ68iUVNwOw01p
-         BPRS2a3IliE4/cA3DbX/h5QWpm27SO+0IwDC8z+P0G5n7+ncy6SkyJyz0H1W+11WYRrY
-         mH0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jIHm29cyLSNyacJjUA9APKy30FWwePpOgwq8IJn4zQs=;
-        fh=aPGy2VHTY8OPclRldpxs2u7I0xig3n0t8m9bdSaCOT8=;
-        b=hnwJxcT6/QqLf1j4dwXFNRbQ+w7n+oCtpknMJt4559f+ybVTDtQR1G5erMdAQ+Rd0l
-         tOPN0kRfU/4EfYMrwetNsszF3laPmRKOLVZJbrZqErXnY98CsKkwhtFaZMZ//RhyPrRN
-         jXUSP1IKA2klADdO5ttNwM+iREFEc0NcBmSQoLepcefIhHMUFyfPRLr0ZF7fGtK2ZcQ+
-         KtNclYDiOwDMYfjz0vtWJ92aboRU0NI9p/rabzTopm17dThohYF/x0eRxwTd1ENWdnuz
-         7+Fv4mZLUMjRMGC3u08TrJRnAUqmPiSYCK2Cdol+33024Z8IWFatCup83L0U+bwvtQNA
-         AaUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794271225; x=1794876025; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jIHm29cyLSNyacJjUA9APKy30FWwePpOgwq8IJn4zQs=;
-        b=XZvS35eeaK/HyQHAK4CF0VPDalq9PdsGuF13vpv1mDwl1hP7asO2uEAesuqd1S4T5U
-         1LUabBjUyjFKZUelakH8/V/CmG+PPGXW60/MSNDH1eKKYjI/MGEfEKm8Y8lLGMMO71Bx
-         n7O5sHgaflDu7YqtTwxDAwQhsOj2Os1Yfh0H6CWNsOR60dwodXKFLdUD8T4nMu2raQU8
-         R9HFYLPax8Bgh+b6AlJ8BG/Xiyz5uVNNl/XZ1kAfrsHDOq4jny5EYDuaCqBYqNOPEZpU
-         TjATZrbT+lz32KJjKbodMnOd0K8iCvO4/IO6CsJ8jJKG0Uh9P9bml3kSnG4HZ4aCW3gP
-         7hzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794271225; x=1794876025;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jIHm29cyLSNyacJjUA9APKy30FWwePpOgwq8IJn4zQs=;
-        b=gAmbhSlEvwzX94TprnwFOkT4H8pYvTPJgI9DhMmB/F+r3I+iY2Z3rArTo4I2C+RE86
-         Uusec+SAVDEEHfcMi6LV4skFxp3Or4uMyCbJpBnGR9j1KI9iTanun+aF3P5V/QXlk5eq
-         WXLVwTJqX3W9Psc+CTLcCeyPEQuShvgH/BKPcEBucjzKzv8P24e3CPc5GT4OuqUg5S1j
-         2XnX7aeVOKBB4TXWQ4VPSBLOJPIMmTh8ON1RH1LnYxg2BOXQFttsrCKWpCME9Pdj73sJ
-         lA+XYD7OXFbmnzfGshQYbhTFFODR2cVzo08NIzsG2b/aDQTfxUqrcaKFqZlNqzCZ2F1n
-         QApw==
-X-Forwarded-Encrypted: i=1; AL+hErGirrs8fdSEndsxiRqQoucGNd6dpYm/cEQ9klcIS/tNSwSm1TgaZeb81IJp+GlxLo8VgXsAnvc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1JZ56isDKS4jj84MSFLesuYjEnipbKSqHccpQCwP3ss9U2D94
-	MUwjm7UdIoPOdyuOXaZ744Bio9jfKMisD2yQ5K822cGkpR+9dstE6EqiTtAIWNuayIm7pC9tAIr
-	uAqc7kGGNJZdPNKPwdlJur6BbTG3/+T0=
-X-Gm-Gg: AYBFou2KIThyZTODiwR6VTg39fuH+nPtRK9DcKBQ0xzDXGnjjGtQcMzbKebmoGrU1Yc
-	XTavu1osX1W26Ey6DLpP7DAVjopMuaD+EmHIv/IRe7WLam1NpXeW5FNW5/vsvBBlMhAJsDdbVcR
-	Tu2QWNMhrnc5xLOWJq/wBrH6NjWVwkN7fMavBSjIu0ALOdrQJKBnEsZvYRzczB+uFPfBrkDGD/j
-	J96l+gX770bNks0eryk0SGwoEZjNeMt5zxjNl64TsPkiZLY/aLMQHZmZhaqjFMiR/lq5r+XRl/V
-	mZpyJwvaNPFMxcpX7YZtW+FrOvWG30/OscsfHOb4N59LLQCgVgtI8ybfe0eVzQe7gXVeKJz3MIq
-	Q9XFI2TFi8DrjWD51ankDlQsQ469zyce1fFnD/V16xYv1lNsV5T5JzHy1FULE9v+9hD6wsixVoy
-	JRxSD5s5nJwI9/vPpUtO+iW+G/
-X-Received: by 2002:a05:690e:1689:b0:67b:f2b4:5598 with SMTP id
- 956f58d0204a3-67c5721ba80mr634363d50.47.1794271224699; Mon, 09 Nov 2026
- 16:40:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=g46Ipwb0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794271341;
+	bh=jelWMB/DBj38lxtsoeFn4zfXVqb37rYafHvCTADg8do=;
+	h=From:Date:Subject:To:Cc:From;
+	b=g46Ipwb0jR4wdsoxeI1/IuKY3ruRNQ6s2IslOn/OrWU8KUUBc9z3xcC/umjL4slnX
+	 nbh4NDNiOTFTpcSVeChDAzlqmXMKyRaVyUyv05jhhjkACerJ9mr5GFv+agnob7n1WZ
+	 uvIrb2oXUNtIe8odRRyap1Mdb9lQFd5HhhasoDv/CkbWubfYko5BxIr7H4WBh9Nq0T
+	 WGhWaAX9dPWlKqEK0LZdEzDIcbhLkDW6uJvNwjl3S+ss2FHwcfvZx5zGF6dC1FGe12
+	 d/iX24t3xZSaLA1gHv0zWYQa+heMuwOctMGJ1m9Cb3MElupRd7dF/gON9gIYSUwJNj
+	 r3tp3BYq3Pq0A==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id F01B117E04E5;
+	Tue, 10 Nov 2026 01:42:20 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id B1B6148002C; Tue, 10 Nov 2026 01:42:20 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 10 Nov 2026 01:41:58 +0100
+Subject: [PATCH] spi: Fix runtime PM imbalance on pump transfer message
+ error
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,62 +66,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107134939.482764241@linuxfoundation.org> <20261108040721.203040-1-navonjohnlukose@gmail.com>
-In-Reply-To: <20261108040721.203040-1-navonjohnlukose@gmail.com>
-From: =?UTF-8?B?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Date: Mon, 9 Nov 2026 21:40:12 -0300
-X-Gm-Features: AclHuK9SHgHcicUs2AUaH2zErP3Dq7iLJexRZNx6FYTyrctQbb6uYGleUviNq6g
-Message-ID: <CAHBRX4FXKxphkMUzBsV0Scqo5ZbFryUa7MfYa+6_wD5f_vDh-w@mail.gmail.com>
-Subject: Re: [PATCH 7.3 0001/1257] drm/xe: Implement Wa_22016122933
-To: Navon John Lukose <navonjohnlukose@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
-	patches@lists.linux.dev, 
-	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Sasha Levin <sashal@kernel.org>, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDtgRlLUq4iLGqc6gjFkYimId
+ ze2y+/B+w9QjsIKbXFA5I+obD7DPApw88tPjDJmA5X0NMaUqEEw7j7JyhhWfMsXLTUVWUfW1gT
+ 5GCLn+Rft+r91HxZ26S7BeV7IM5zedgAAAA==
+X-Change-ID: 20261110-spi-runtime-pm-fix-529325c25582
+To: Mark Brown <broonie@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Mark Hasemeyer <markhas@chromium.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ kernel@collabora.com, Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ stable@vger.kernel.org, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2294;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=jelWMB/DBj38lxtsoeFn4zfXVqb37rYafHvCTADg8do=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGryaGhpQIC8Xs2xQCf2WNxWILLEANG2wd/+H
+ r6D1fb9Mj2nmokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq8mhoAAoJENju1/PI
+ O/qaX14P/3c6UYpoe1cZY32PTKyEzxN4atoVcyQYaq99xgbTUKYYpP6JTNLg54d4ld2haBuxRfj
+ o+qDsMYJ4gUWyQ4V2H0pIFq0GX3TEjZS+VRKGSJUGbwoazuuBJylvkTVmTlo3wH1zO7hdBaNF3A
+ yW6lHSpKLN9YXXSwao9+pPoy3DjScR7AwviIdzeuv6If/Bts61DbiRe3/YiMgoGvsacqpcWzSKg
+ bfhjyaTG7+k722HYMemRegBTfEGK6oWuh+zuG5T2/fkjle51SkVrtuNh2LNWPe/QUwSCOYYQ+IS
+ ui05x0irNBtOKAeQ/UD2UWooaaRGGK3PHx5xATJLJkziEerOUk+FUfkcl3F7tKgdvfP2bFOmK5Q
+ fY91hRBL+Fb0LGTPl0an8D6UZdUoXoPQk2Gi9Rl3AqoFWo3bLn6xipYTxcD9JlE0lGLcJ+Ugzoi
+ 2mPEONJaj0pj7hYabsTHnSmkpx0jatPj5xeucNaz0XTHwAwyP8+6ksNQLGzA8YviYa3YmZ6l3i5
+ cwRuPvsOSng6VlFwIz1qvuzzYoJa5n9NTiwHkbeXPXCGV5byHZ4h87IB50VwFvYRFhZP7TzBAZ6
+ KHauBdXSwOLBV6AhY/0uruImRt59Wt5nPvD34CnH+w/Y6314OpxcCu+iIRyCdYXdI0LVO3saqXc
+ 28Lkv86asTjXrLg60mQguCA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Hi Greg, Navon,
+The current SPI message pumping code may drop the runtime PM twice when
+an SPI message cannot be sent:
 
-From my side I'd prefer this goes in now: it fixes real platform
-freezes on MTL/ARL (TLB invalidation stalls on the media GT), and the
-probe/resume cost Navon measured is the price of the stricter UC
-mapping, not a functional regression.
+spi_master spi2: noqueue transfer failed
+rockchip-spi feb20000.spi: Runtime PM usage count underflow!
 
-Navon's follow-up keeps the fix with a WC CPU mapping and removes that
-cost. I've reviewed and tested it, and it carries a Fixes: tag for this
-commit, so it should reach stable on its own once it lands.
+Fix the problem by always keeping the runtime PM count increased when
+exiting __spi_pump_transfer_message(), as the caller handles decreasing
+it.
 
-Thomas, Rodrigo: could you take a look at the follow-up when you have a cha=
-nce?
+Note, that the function already keeps the RPM usage counter increased
+for the error paths following after the prepare_transfer_hardware step.
 
-https://lore.kernel.org/intel-xe/20261003222145.67240-1-navonjohnlukose@gma=
-il.com/
+Cc: stable@vger.kernel.org
+Fixes: bef4a48f4ef7 ("spi: Fix null dereference on suspend")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+I noticed this with RK3588 system suspend/resume, which uses SPI based
+PMIC and runs into SPI transmission problems when the PM domain driver
+tries to disable regulators required by e.g. NPU or GPU domain. I've not
+yet checked too closely, but suspect Heiko's atomic SPI transmission
+support series might also help with fixing the actual failure.
 
-Thanks,
-Tales
+My patch is not really a v2, but Alexander Shiyan probably ran into the
+same issue before and came up with a way different patch and rationale:
 
-Em dom., 8 de nov. de 2026 =C3=A0s 01:07, Navon John Lukose
-<navonjohnlukose@gmail.com> escreveu:
->
-> On ARL-H at least, this commit adds about 3 s to xe probe and 2.5 s to
-> every s2idle resume, because the GuC buffers are now mapped UC on the CPU
-> side. A follow-up maps them WC and keeps the TLB fix. It has Tales's
-> Reviewed-by and Tested-by and a Fixes: tag for this commit, but is not
-> merged yet:
->
-> https://lore.kernel.org/intel-xe/20261003222145.67240-1-navonjohnlukose@g=
-mail.com/
->
-> Whether to take this now or wait for the follow-up is up to you and the
-> xe maintainers (added to Cc).
->
-> Thanks,
-> Navon
+https://lore.kernel.org/linux-rockchip/20260806191854.922530-1-eagle.alexander923@gmail.com/
+---
+ drivers/spi/spi.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index ce257b3ec530..4d9c5d026ff6 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -1967,7 +1967,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
+ 	if (!was_busy && ctlr->auto_runtime_pm) {
+ 		ret = pm_runtime_get_sync(ctlr->dev.parent);
+ 		if (ret < 0) {
+-			pm_runtime_put_noidle(ctlr->dev.parent);
+ 			dev_err(&ctlr->dev, "Failed to power device: %d\n",
+ 				ret);
+ 
+@@ -1988,9 +1987,6 @@ static int __spi_pump_transfer_message(struct spi_controller *ctlr,
+ 				"failed to prepare transfer hardware: %d\n",
+ 				ret);
+ 
+-			if (ctlr->auto_runtime_pm)
+-				pm_runtime_put(ctlr->dev.parent);
+-
+ 			msg->status = ret;
+ 			spi_finalize_current_message(ctlr);
+ 
 
+---
+base-commit: 059518f775baecc9803fc97787bd0b17558f8047
+change-id: 20261110-spi-runtime-pm-fix-529325c25582
 
---=20
-Tales A. Mendon=C3=A7a
-talesam.org | communitybig.org
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
+
