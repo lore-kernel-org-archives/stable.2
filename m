@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339031;
-	b=RJJnELJ9EKOJQqxFzmJVFlwPt2uk8MvAzzbth1JjVdnPeYzJkKMxvbZNPsFOIWBiAddJ
-	 eIHFiBC60XXK8MoyZCMlPPRP1nFiuXnDIKYSf0SU0hLQuLDZaTWl6wO4vzgEZV0C3WtxU
-	 JZna601EhJgtFMbG3Z5xIU8gs9AMePFXlzow5bvniL/57Go4/bsRBwLfrRB5kQT8T0Txf
-	 /Pd6SWFdZtAZfq7Twr3Bu9yhrJ541cjh8jjV/rwGFiDSNiegy0KWKKP3NaOjU2klT345J
-	 LwVcdjQPQ0LbaomeG0Zb5EKftg9bTomL1g5uOtm9X3u/H03V6ExlgXrlU5XXRVSdvOw==
+	t=1794339044;
+	b=D8eahJMCLRtcDl9IS4N3yGm/KGOCrWTM7NDWlrD2FgQEv6ah0hdz+ep/doArVoVY1tQh
+	 Sa3M4MRdq1rypN1sIVXLq3ame+AJWicE7xtth1iv6uCrJER7LpMNzOzACYSp+7zTvjJIE
+	 NfeL17TWRm3coSyjm72y3MLiLJ2FGgBKzHDKK8NweIJYULppC5qlmBbgYyNWTulRr1GqK
+	 7dtfokIt9o28NIeuh95LpzAnfZNQvfblrvAdgJLgyIUNSfPuMIZXwmb6PzLw0X3+3e2Bx
+	 JoCJO5EkEr/SA1SVLtzZRWOxwKF4agTIZKkvbMwi9GeQo7B8cZVMj2ROtQ5mXRxE6zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339031;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339044;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3vfetRICya6PZJyABvRdhZynx3I9ywbecXzF/ydNf1I=;
-	b=qSuOtF/vUMBdrz/ILPgQ1dqd1aE5RxtdW8g+BTG8pVvpfWiCPnD8kMNUs+rmqpSocbcs
-	 DwlXJGodylNKcmPoWu+GR0Wm4a2IJJTTag3magSszMTu+6dqSpIsK5SiRQX5oQstQRWET
-	 nOxGF92NIi1M47ZVPTk2JECeYBV+NLV6xJCs+TXttGVAUSWWEbod3KFsSZZAzvUGD9C3A
-	 za/0OARuLQ+owmTHLr/hdInU4h7T63JxAVT7OEMSb6ADkp00fHvVcY2iMbdWiWvZfk57T
-	 uG+e78WwA4uwH4K87bN/wxQY3eQuajlbishrfMKAEaT5ByE3aczF8NPE8qlZsLr3nYw==
+	bh=8XOHJfhlH3wc/sqAlRGdknPsoLnsZr7v7XRfDuWyJ3U=;
+	b=AWpFKxLOTHPVOxh3Gpc1OTEDn/0Pbu9GJAaNUCFA9cPNi9XyHPSojWT4lg74EYpZ3hTw
+	 JxdoGnhWQzkpoqENxgDOc9pDggo3AHhaDPVmt+ekZ6xFX7EpHYWArX0I/3v9QHYU1DmVN
+	 Gph4llJwHmu0xOfX0NVuXVfN8VyPWfa29sJIgipVMYRlFL72Puh+L0An1z4P1DxhodK+6
+	 zr9EjPHtlaTF1OmqSiUQMQzcyE+1wBiz1eyGwCtDnr48kE4bGzGPb8Br+GgwHwTQ8sXC8
+	 9gmCz9pXDtU9x4KAnkbPCiaQXt2W8/yvT/4v9X/CsnMepUJ10JMxkepRqtQT/VJ97UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=baLbWAii;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6a3MD61;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 53D99606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:30:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53D99606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46480606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:30:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=baLbWAii
-Received: by dvalin.narfation.org (Postfix) id 84ECA20292;
-	Tue, 10 Nov 2026 19:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794339029;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3vfetRICya6PZJyABvRdhZynx3I9ywbecXzF/ydNf1I=;
-	b=baLbWAiicn3YW+6GDhvhupGgsfbyPscqdxAsMeJ5OphYsh9zO3ot5kHUZ2D9OnOExgyL1Z
-	gfZhjRMErY/tJu07QCGVdBl6Fmik+mrE4kxye+a7j5exeagzrnpF6R9trqNGelvFli97df
-	fp9nha5D3OddKfUYmb2rGbL0zdyo3sQ=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6a3MD61
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3815A1F008AB;
+	Tue, 10 Nov 2026 19:30:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339043;
+	bh=8XOHJfhlH3wc/sqAlRGdknPsoLnsZr7v7XRfDuWyJ3U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=G6a3MD61vqryYggQuJRcRXOgs9InW+eS6qEkUMwFIJFsU+P2q0w51OWb5yYWumUWh
+	 gN+H5AZ7LTN8dcgwtEpwp3hLkyrUQmY52MX4oKVrJG/MNH3mvbKslYuiN+Q4R90PpE
+	 hgfT61l44rWK7tO31cluTUjaoU1TUINhvn3e+pHypvCSgtQfZ8MOiCQk6iVCRcQd+P
+	 BaqpuKgwigLCO7Hi1anNULVT/TKvE+NR6HBgOdvsKnaGj2+ecTLq7D8DeC5xCws17e
+	 Yj0v719DW76U3P0CPlgChebsD80QykFLxL/M2OoQe14Z+B63QSd8VaulPa3WuX8cvZ
+	 AQ+vGb92tamSw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.1.y] batman-adv: tt: send ROAM_ADV on each roamed back client
-Date: Tue, 10 Nov 2026 20:30:26 +0100
-Message-ID: <20261110193026.243218-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109201526-failed-6.1-aff4d5d10f2d@kernel.org>
-References: <20261109201526-failed-6.1-aff4d5d10f2d@kernel.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
+Date: Tue, 10 Nov 2026 14:30:41 -0500
+Message-ID: <20261110193008.3536115-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053404-failed-6.6-325bcc126cf7@kernel.org>
+References: <20261107053404-failed-6.6-325bcc126cf7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,48 +60,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-commit aff4d5d10f2dcb4a9b604e27414dafa1d51b6406 upstream.
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_roam_tvlv_unicast_handler_v1() creates a global entry with the
-BATADV_TT_CLIENT_ROAM flag set.
+[ Upstream commit 325bcc126cf7a512a0e2da0efddad665f69badac ]
 
-If the client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_roam() is expected to announce this return via a
-ROAM_ADV frame. But this doesn't happen because the global entry (created
-by the first ROAMING_ADV) carries BATADV_TT_CLIENT_ROAM until the new
-originator announces the client.
-
-Let batadv_tt_local_add_roam() always handle a roamed back client -
-independent of the ROAM flag of the global entry:
-
-* trigger sending of the ROAM_ADV frame(s)
-* remove the (with the roaming) associated global entry
+The AMDI0112 ID is used to bind the PMF driver to some platforms.
+It doesn't have any Linux side code changes relative to the most
+similar AMDI0105.
 
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ adjust code still in batadv_tt_local_add ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260826163611.2268377-1-mario.limonciello@amd.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+[ sashal: Adjusted ACPI table context to insert AMDI0112 after AMDI0103 because the intervening upstream entries are absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/platform/x86/amd/pmf/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 6e41824db11c8..a2b38e5980615 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -775,7 +775,8 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 	/* Check whether it is a roaming, but don't do anything if the roaming
- 	 * process has already been handled
- 	 */
--	if (tt_global && !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM)) {
-+	if (tt_global &&
-+	    (roamed_back || !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM))) {
- 		/* These node are probably going to update their tt table */
- 		head = &tt_global->orig_list;
- 		rcu_read_lock();
+diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+index 78ed3ee22555d..19dbc189ee17d 100644
+--- a/drivers/platform/x86/amd/pmf/core.c
++++ b/drivers/platform/x86/amd/pmf/core.c
+@@ -342,6 +342,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
+ 	{"AMDI0100", 0x100},
+ 	{"AMDI0102", 0},
+ 	{"AMDI0103", 0},
++	{"AMDI0112", 0},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
 -- 
-2.47.3
+2.53.0
 
