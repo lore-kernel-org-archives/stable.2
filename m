@@ -1,90 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279974;
-	b=MHk/DBtt1rwJqqJ7JSpM6FfICQZWrvm6ikjGmSz1rQB13l8eUhNPbuOfZzMxD+OySoib
-	 FwnuaoglXsiVUrreN8m+5KPy2odc/W3Asb8cC/ez8573ZaGNfDRmthXWdEyq0dVoPU1uv
-	 PxwxfNZ/r/ohyulDWlWnqRINoVBTES19Ksl+tS/qoGltfyKTWmmNJxao/lvQ6jMDsRUaH
-	 UIP96WGEh/9jmBDJvewiQffN19FWJPKmIhBpIYzdLZeznxso6FpXaqlB7Ju96GyuKZAac
-	 AxEsOSkT8mxu8CzbdDBR5YsyCKRnDrVL5CqyCfsoQjajsDmuBL705ZoYKHuE20ahlhQ==
+	t=1794280014;
+	b=3x9GFZ+IOwJhp4ixk/7oLwPBFd190KdiSrxdR7wxVjyly1Bi/7aX9VdrvoMJfUFAEzBE
+	 Bot5uEXyeKq0/yQj0sEEaOZ6HXdqTAfc/vGhKPAJCbHvgYY83G/d6g+uoy+rJo3NmTEN+
+	 Ctg4ZGMNIBb+kdZnvjDgrntJmPbIDCtVCnURL9oqFFDK1E9bHtYHnzNv9/7E1m/v1l1Ny
+	 NyStiJ+g2rgtyBsxuopbyeZ+XQ6L/csMpRqUReCyQ2Cc/wzcddQO+Sr1+Ps0jAwiOUgIB
+	 IIL3wPFd5pqdXKUzHARf+xOTueXnd2grZWcZzZYCR1F+6/yty4fAeqqNQR+7O2/lQyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=L5RBou/wH7W3yruKU0mo8RfLDeMK/TCy1QAXcInHKoU=;
-	b=sTJT6/90L4PhjnUBLDaplpiEfs/kttuVKrlFEWBHo9PjvFBtXnNUEZf0Mn5a/6EGN3vf
-	 0Kiu2L1JrqmeNkGQYzQSl+nMKa0YCCSC5Cvs11l5EjrgBthKK6nnhzZKED0TBSBddaZU+
-	 jSL1ZH0s7qu1w6uQ1kMIyZi832m7TrCR/XOA2uQ/1/bhcCEaUQSHoFhJlb/3d39+IlTAy
-	 g0kUjysk5m2MLwXQzwO9vEChAVl3Lq6NmQbS5t7UOceoawMrQF1uod0byT4uqaURW+Ene
-	 2QcQiYb9htyfQOQJHNIgSqXr2dIdsE8qjqFGzzu0nA5gTtUW4djoTGsjOZKZULap8yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280014;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=VpHh1kd277yKFf5MC/BkwYGydR5nOY8UTwF98UtBjBw=;
+	b=AK/rtjEuCI+1rGnDu9vgSjjraE3NvmZLypPW4PakF+eN7AxeyZnjLdRLobr+hmbz7fUZ
+	 MIEsM7M7pIHx7ZZXq99ms8x2BOtvfcnZtnjrLuZo6r3ulGUQyVNGIi6unPg/VtkgLWM2+
+	 0EZWq0VwJjUgPTMzAjHnE4lWDxV5PKVOz+LfCrgUES/uPG2elZ2skG4TbMIstVSEz7K6W
+	 gvEAJ0CggXaRSUqJgybUSQ0hZkJ4y/JYMVuAp+cV5azFFi/CYx4p2XSsYDYmZ+mHLBAQc
+	 MdsbrUL6SOb9ReNisZLQwqeBsQuC8xQkKnJ8HRTi5AR7KQZfRTVSlhLXi94b3y7z1Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zpZ83bBH;
-	arc=none smtp.remote-ip=209.85.160.45
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcH9hZDG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFCD260A2610
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:06:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFCD260A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 28456606A31C;
+	Tue, 10 Nov 2026 03:06:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zpZ83bBH
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-483d290f398so930152fac.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 19:06:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794279973; x=1794884773; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L5RBou/wH7W3yruKU0mo8RfLDeMK/TCy1QAXcInHKoU=;
-        b=zpZ83bBHPjitTsbXQSBxAveULYnRjdbE2GCb8MBC/DTfSjGrK1Sg+CNmJlp/34qXmO
-         CDr6ESQwnI3xMSk0pvIKebgMf1VJaOf7E2pO0K1CMy2nz0qNu+W/iF2MdcYbtxDylroe
-         6iL1L2CDh/KzUgT5dLJi/v2RSHneIhTB8ofs1iPgWkD3po2glqrUJ4W6tJKt2kLXYrb7
-         6SnNtCWgDLC59K0YJzy+D1Y9qr4jpuBi103ZcBQnxMvTa+gJUGuDbY+uyQh2TdlJNjrB
-         GzUY4arOeKQZUK8BMhg6lZhKFVKjcjrYSkROVySBigBqo83KNsqq5brJZqaOEEtY1aFt
-         Axeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794279973; x=1794884773;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L5RBou/wH7W3yruKU0mo8RfLDeMK/TCy1QAXcInHKoU=;
-        b=S/k4PDa5fdXvX0u//5gloE9l1b3tAE96fI5a6x+SWKVKGGvn7K5DzWB5sKxNs7v+SX
-         ra089no4eqDIkCP8rJ2nap41oi8Hy0timGra0gbhDlZQdi6msIruL7QZT+jUjIC6lE4K
-         BevgHMWGYnFzT7ggVQxwfviVqfE23HFH51LNFE9rp1ZQmVKsWjObUijh6pG/tHXJ5iU2
-         gl5e52LcURA/7Kj2rMTCyI9aEUkH3rL7Dh8Ms0nDOkr0qqfgrmyfhjKqwvNHMroAfLuk
-         +rccagf3WZIzm8OTe4TW/npvaIPdJcBgXZNp/finCL/rsxy3f8qbdbFc23X1KE7qYR8i
-         vw9A==
-X-Forwarded-Encrypted: i=1; AL+hErGSQHl5253hxzxNd7V2PjR1w+wNu2cWLXkvz94k9nUKsU6dkfPSoIujIBjfNzH05bKTBQxarJ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97T6Sdxcf8ekNOnfgkSUIFS4vkdU2hpxpxoAi1ISUnPw7hJhps
-	PpRavljmzUYx7iE6O2F4wWUE0sU+iuT1HYw5rRUIp0ltc0RVpSETwWTD
-X-Gm-Gg: AYBFou2/7T48mDYMvxkOfcxMRT3A4nDDp1U+r6VdVh6OrU+yiJaJ7ZMD7QE0SsZ7WWn
-	qj3cG9qFLaLrAy9E8KkyRbvEEF22IXI3Cj1Sxot46r1hquAKwpyFZw99eCcTY2c6+OEneimczbG
-	qpkcKF0mfjp6olYMPauSHvcKN97JtvuTfKWBeagH/nPjwq1P5fDf51ayJeEi06kOFd2FhTzoe6q
-	NbPZgliD1b1QlIsAU41VHI3T8DqabpsZ/sIVhRmlpIBvWZs0ot1J1n1GuC/3FEFTHMNJ1ONpHSw
-	8S8nw5+Y3QcxPy92HcLfLaJijRyO4yDwfQG7U0e8MMUXft4qy/LgfmYeEZFChdViWS2GXlUFO33
-	AtjpqHf1eEX94RUApR7KPIwthu3SgxqxI8vQo0Ckhs8FHsbx9q/3eQPFXDY672HBtSr549XuxaO
-	XrH8Oxw4zRr3LV1bu/daBUv8dDMjQwnSG2R6Pf7Fd732STekw+2xmV7dDFcwPil6+k4iBS+pb/Z
-	gXuBjrXHPOLe+DD6Btlv4IqtuHHJd4UcR8gHosF5iYhSOCwboVekfKSVgW9NHGGSzPtmA5zlmXC
-	XNKvxdXI6o/n441DhIEJIphU/p860+4byRPHjLeueQO0zoQao8XMTtsPS4WzEd2Xc9I51c/UJoy
-	Ga2QoN4hQld05FPXVCL6xwrCM3u+XLWM8f8IfkceRzOyKMJuxqLaoOucjsox2XLDd1s/jx6RpaF
-	lkRrnWw5s20PrOhYB81OazPc0bLCNB5tKpKfMCKpP5Q0ROFSfPuKvn
-X-Received: by 2002:a05:6870:f616:b0:4a7:6dc:af5f with SMTP id 586e51a60fabf-4ae22743a94mr748298fac.53.1794279972710;
-        Mon, 09 Nov 2026 19:06:12 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22fcdc93sm683389fac.10.2026.11.09.19.06.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 19:06:12 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 09 Nov 2026 20:06:02 -0700
-Subject: [PATCH v2 3/3] dmaengine: dw-axi-dmac: preserve pending pause
- requests
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcH9hZDG
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6FED41F0089F;
+	Tue, 10 Nov 2026 03:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794280014;
+	bh=VpHh1kd277yKFf5MC/BkwYGydR5nOY8UTwF98UtBjBw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CcH9hZDGXg+xllmvR+wFdPTOdRsoO5R8qMO4ZSwLdgGB25PqgmO3lwWAenITs9Omf
+	 EQBtDG1HblKbkyIOAVIJpSie8pmt5ILFWcJGBOymH7MIt9iyIs54j1AfGoVZB2/A9o
+	 QOhZxt1OPizuTrw637T3AgLQAFEYyBHq3UA4F39/XzMNF/qcOgX4qnXOG5iSbaU/ld
+	 f/LQpb5ah8MSS4YVfqTAwbwJitPF5Q3aqyZGvg1KqpwLl3yOM3ED1z0IovaUUKV77v
+	 XdDzvFKcRmr00CP8Uu9s1aSBHeiLbRqdbE+Hvr1aveAfYjoIcf3Ltz984KYCK+70yc
+	 vrFCwME6tWI6Q==
+Date: Tue, 10 Nov 2026 05:06:50 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Yuansheng Yang <0xbeac@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v7] KEYS: Protect pkey method checks against type removal
+Message-ID: <avKKSj0TeITLlZhp@kernel.org>
+References: <avJ4KM-Erci0FkgZ@kernel.org>
+ <20261110030252.9979-1-0xbeac@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,274 +60,303 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-3-64adc48df793@gmail.com>
-References: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
-In-Reply-To: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
-To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Sergey Khimich <serghox@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Sia Jee Heng <jee.heng.sia@intel.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110030252.9979-1-0xbeac@gmail.com>
 
-dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
-can set that status after the last poll, including during the final
-delay, and the unconditional clear then discards an acknowledgment the
-caller never observed. Another channel's interrupt can also consume the
-status because the shared IRQ handler clears every channel's status
-before taking its lock.
+On Tue, Nov 10, 2026 at 11:02:52AM +0800, Yuansheng Yang wrote:
+> keyctl_pkey_query(), keyctl_pkey_e_d_s() and keyctl_pkey_verify() check
+> that key->type has the ->asym_*() method they need and call it later,
+> without holding key->sem.  A reference keeps the key alive, but does not
+> pin the module that provides its type.
+> 
+> When that module is unloaded, unregister_key_type() waits for the key GC
+> to process every remaining key of the type.  For each such key, the GC
+> takes key->sem for writing, switches key->type to key_type_dead, whose
+> ->asym_*() methods are NULL, and destroys the payload.  If that happens
+> between the check and the call, the keyctl calls a NULL method; if it
+> happens while the method runs, the method returns into freed module text.
+> In-tree, turris-signing-key provides ->asym_query() and ->asym_eds_op()
+> and can be built as a module.
+> 
+> Take key->sem for reading around each method call, and check the method
+> again under it, right before the call.  While the lock is held the GC
+> cannot switch the key to key_type_dead, so unregister_key_type() and the
+> module unload cannot complete until the method returns.  If the type is
+> already gone, the check finds key_type_dead and the keyctl fails with
+> -EOPNOTSUPP, as it does for any key type without the method.
+> 
+> memdup_user() and copy_to_user() stay outside key->sem, as in
+> keyctl_read_key(), so no page fault is taken with key->sem held.  The
+> in-tree ->asym_*() methods do not take key->sem themselves.  Nothing else
+> in the kernel calls these methods, so these four call sites are the full
+> coverage:
+> 
+>  - keyctl_pkey_query(): ->asym_query() for KEYCTL_PKEY_QUERY
+>  - keyctl_pkey_params_get_2(): ->asym_query(), and the op-specific check
+>    for KEYCTL_PKEY_ENCRYPT, _DECRYPT, _SIGN and _VERIFY
+>  - keyctl_pkey_e_d_s(): ->asym_eds_op() for _ENCRYPT, _DECRYPT and _SIGN
+>  - keyctl_pkey_verify(): ->asym_verify_signature() for _VERIFY
+> 
+> This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
+> ("keys: Protect the read method check against type removal") and for
+> key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
+> against type removal").
+> 
+> Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+> ---
+> Changes in v7:
+> - Restore the early ->asym_query() check in keyctl_pkey_params_get().
+>   Removing it was not part of the bug fix (Jarkko).  The function is now
+>   identical to 7.4-rc1 again, so the diff does not touch it at all.
+>   Sashiko flagged that unlocked read on v5; it is pre-existing code and
+>   is left alone here, as asked.  The locked rechecks at the call sites
+>   are what the fix relies on.
+> - Make the commit message more compact (Jarkko).
+> 
+> Changes in v6:
+> - Address the Sashiko review of v5: keyctl_pkey_e_d_s() and
+>   keyctl_pkey_verify() still read a ->asym_*() method pointer without
+>   key->sem in their early checks.  Move those op-specific checks into
+>   keyctl_pkey_params_get_2(), in the same key->sem critical section that
+>   calls ->asym_query(), and after the buffer size validation, so a key
+>   type without the method still fails with -EOPNOTSUPP before
+>   memdup_user() and the error precedence is unchanged.
+> - Drop the LLM paragraph from the commit message (Jarkko).
+> 
+> Tested on x86_64 under QEMU/KVM, with KASAN, lockdep and
+> DEBUG_ATOMIC_SLEEP, on 7.4-rc1 with and without this patch.  The
+> test-only key type module is not for merging.
+> 
+>   race_sign, race_verify: the module is unloaded while the keyctl waits
+>   in memdup_user() after the type check.  Without the patch: NULL call
+>   from keyctl_pkey_e_d_s() / keyctl_pkey_verify().  With the patch: both
+>   return -EOPNOTSUPP and delete_module() has returned first.
+> 
+>   inop: the module's ->asym_eds_op() sleeps in module text while the
+>   module is unloaded.  Without the patch: return into freed module text.
+>   With the patch: delete_module() returns only after the method has
+>   returned (about 3.1 s).
+> 
+>   func_asym, func_fake: KEYCTL_PKEY_QUERY, _ENCRYPT, _DECRYPT, _SIGN and
+>   _VERIFY on a real RSA-2048 asymmetric key and on the test type; the
+>   CASE lines are identical with and without the patch.
+> 
+>   errno: a type with ->asym_query() but no ->asym_verify_signature()
+>   returns -EOPNOTSUPP before reading the input; a request with an
+>   oversized length still returns -EINVAL first, as before.  The CASE
+>   lines are identical with and without the patch.
+> 
+> In the forced races lockdep can report "bad unlock balance" for
+> key->sem.  Its lock class is the type's lock_class, which lockdep drops
+> when the module is freed, so any key->sem user on a key whose type was
+> unregistered can hit this, e.g. keyctl_read_key().  KASAN reports
+> nothing.  Not tested on Turris hardware.
+> 
+> v6: https://lore.kernel.org/all/20261109055204.31673-1-0xbeac@gmail.com/
+> v5: https://lore.kernel.org/all/20261108131417.77287-1-0xbeac@gmail.com/
+> v4: https://lore.kernel.org/all/20261105193632.34363-1-0xbeac@gmail.com/
+> v3: https://lore.kernel.org/all/9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com/
+> v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
+> v1: https://lore.kernel.org/all/20261103032940.51826-1-0xbeac@gmail.com/
+> 
+>  security/keys/keyctl_pkey.c | 100 +++++++++++++++++++++++++++---------
+>  1 file changed, 76 insertions(+), 24 deletions(-)
+> 
+> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+> index 15b6bf6399..e7121523b9 100644
+> --- a/security/keys/keyctl_pkey.c
+> +++ b/security/keys/keyctl_pkey.c
+> @@ -129,45 +129,77 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	down_read(&params->key->sem);
+> +
+> +	if (!params->key->type->asym_query) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params->key->type->asym_query(params, &info);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto out_up_key_sem;
+>  
+>  	switch (op) {
+>  	case KEYCTL_PKEY_ENCRYPT:
+>  		if (uparams.in_len  > info.max_dec_size ||
+> -		    uparams.out_len > info.max_enc_size)
+> -			return -EINVAL;
+> +		    uparams.out_len > info.max_enc_size) {
+> +			ret = -EINVAL;
+> +			goto out_up_key_sem;
+> +		}
+>  
+>  		params->out_len = info.max_enc_size;
+>  		break;
+>  	case KEYCTL_PKEY_DECRYPT:
+>  		if (uparams.in_len  > info.max_enc_size ||
+> -		    uparams.out_len > info.max_dec_size)
+> -			return -EINVAL;
+> +		    uparams.out_len > info.max_dec_size) {
+> +			ret = -EINVAL;
+> +			goto out_up_key_sem;
+> +		}
+>  
+>  		params->out_len = info.max_dec_size;
+>  		break;
+>  	case KEYCTL_PKEY_SIGN:
+>  		if (uparams.in_len  > info.max_data_size ||
+> -		    uparams.out_len > info.max_sig_size)
+> -			return -EINVAL;
+> +		    uparams.out_len > info.max_sig_size) {
+> +			ret = -EINVAL;
+> +			goto out_up_key_sem;
+> +		}
+>  
+>  		params->out_len = info.max_sig_size;
+>  		break;
+>  	case KEYCTL_PKEY_VERIFY:
+>  		if (uparams.in_len  > info.max_data_size ||
+> -		    uparams.in2_len > info.max_sig_size)
+> -			return -EINVAL;
+> +		    uparams.in2_len > info.max_sig_size) {
+> +			ret = -EINVAL;
+> +			goto out_up_key_sem;
+> +		}
+>  
+>  		params->out_len = info.max_sig_size;
+>  		break;
+>  	default:
+> -		return -EOPNOTSUPP;
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+>  	}
+>  
+>  	params->in_len  = uparams.in_len;
+> -	return 0;
+> +
+> +	switch (op) {
+> +	case KEYCTL_PKEY_VERIFY:
+> +		if (!params->key->type->asym_verify_signature)
+> +			ret = -EOPNOTSUPP;
+> +		break;
+> +	case KEYCTL_PKEY_ENCRYPT:
+> +	case KEYCTL_PKEY_DECRYPT:
+> +	case KEYCTL_PKEY_SIGN:
+> +		if (!params->key->type->asym_eds_op)
+> +			ret = -EOPNOTSUPP;
+> +		break;
+> +	}
+> +
+> +out_up_key_sem:
+> +	up_read(&params->key->sem);
+> +	return ret;
+>  }
+>  
+>  /*
+> @@ -185,7 +217,16 @@ long keyctl_pkey_query(key_serial_t id,
+>  	if (ret < 0)
+>  		goto error;
+>  
+> +	down_read(&params.key->sem);
+> +	if (!params.key->type->asym_query) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params.key->type->asym_query(&params, &res);
+> +
+> +out_up_key_sem:
+> +	up_read(&params.key->sem);
+>  	if (ret < 0)
+>  		goto error;
+>  
+> @@ -230,10 +271,6 @@ long keyctl_pkey_e_d_s(int op,
+>  	if (ret < 0)
+>  		goto error_params;
+>  
+> -	ret = -EOPNOTSUPP;
+> -	if (!params.key->type->asym_eds_op)
+> -		goto error_params;
+> -
+>  	switch (op) {
+>  	case KEYCTL_PKEY_ENCRYPT:
+>  		params.op = kernel_pkey_encrypt;
+> @@ -260,7 +297,16 @@ long keyctl_pkey_e_d_s(int op,
+>  	if (!out)
+>  		goto error_in;
+>  
+> +	down_read(&params.key->sem);
+> +	if (!params.key->type->asym_eds_op) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params.key->type->asym_eds_op(&params, in, out);
+> +
+> +out_up_key_sem:
+> +	up_read(&params.key->sem);
+>  	if (ret < 0)
+>  		goto error_out;
+>  
+> @@ -305,31 +351,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
+>  	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
+>  				       &params);
+>  	if (ret < 0)
+> -		goto error_params;
+> -
+> -	ret = -EOPNOTSUPP;
+> -	if (!params.key->type->asym_verify_signature)
+> -		goto error_params;
+> +		goto out_free_params;
+>  
+>  	in = memdup_user(_in, params.in_len);
+>  	if (IS_ERR(in)) {
+>  		ret = PTR_ERR(in);
+> -		goto error_params;
+> +		goto out_free_params;
+>  	}
+>  
+>  	in2 = memdup_user(_in2, params.in2_len);
+>  	if (IS_ERR(in2)) {
+>  		ret = PTR_ERR(in2);
+> -		goto error_in;
+> +		goto out_free_in;
+>  	}
+>  
+>  	params.op = kernel_pkey_verify;
+> +	down_read(&params.key->sem);
+> +	if (!params.key->type->asym_verify_signature) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params.key->type->asym_verify_signature(&params, in, in2);
+>  
+> +out_up_key_sem:
+> +	up_read(&params.key->sem);
+>  	kfree(in2);
+> -error_in:
+> +
+> +out_free_in:
+>  	kfree(in);
+> -error_params:
+> +
+> +out_free_params:
+>  	keyctl_pkey_params_free(&params);
+>  	return ret;
+>  }
+> -- 
+> 2.43.0
+> 
 
-Leave SUSPENDED to the pause and resume paths. Track the suspend request
-separately from its acknowledgment so a timeout can be followed by either
-a pause retry or a resume. Wait for acknowledgment before clearing the
-hardware request, since hardware ignores an earlier clear. If that wait
-also times out, return -EAGAIN with the request still pending. Use the
-atomic polling helper so an acknowledgment during the final delay is
-observed.
+Thanks for quick response.
 
-A completed transfer is also quiescent, but its completion handler may
-still need to advance a cyclic descriptor. Defer that restart while a
-pause is pending, and resume it without reprogramming the first LLI.
-Track the active descriptor until its completion handler runs so that
-resume and issue_pending cannot restart a completed cyclic segment or
-reissue a completed noncyclic descriptor while its IRQ is pending.
-Start queued work after the active descriptor is retired, respecting the
-pause request.
 
-Clear stale suspension status at the start of a new descriptor rather
-than at each cyclic restart. Reset the software state after successful
-termination and when allocating a channel for a new client.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Fixes: 1fe20f1b8454 ("dmaengine: Introduce DW AXI DMAC driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 101 ++++++++++++++++++++-----
- drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |   2 +
- 2 files changed, 86 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index 281d7c79246e..5c1eb120a28b 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -481,6 +481,8 @@ static void axi_chan_block_xfer_start(struct axi_dma_chan *chan,
- 	irq_mask |= DWAXIDMAC_IRQ_SUSPENDED;
- 	axi_chan_irq_set(chan, irq_mask);
- 
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->desc = first;
- 	axi_chan_enable(chan);
- }
- 
-@@ -489,6 +491,9 @@ static void axi_chan_start_first_queued(struct axi_dma_chan *chan)
- 	struct axi_dma_desc *desc;
- 	struct virt_dma_desc *vd;
- 
-+	if (chan->desc || chan->pause_requested)
-+		return;
-+
- 	vd = vchan_next_desc(&chan->vc);
- 	if (!vd)
- 		return;
-@@ -543,6 +548,10 @@ static int dma_chan_alloc_chan_resources(struct dma_chan *dchan)
- 		pm_runtime_put(chan->chip->dev);
- 		return -ENOMEM;
- 	}
-+	chan->desc = NULL;
-+	chan->pause_requested = false;
-+	chan->is_paused = false;
-+	chan->cyclic_restart = false;
- 	dev_vdbg(dmaengine_chan_dev(dchan), "%s: allocating\n", axi_chan_name(chan));
- 
- 	return 0;
-@@ -1087,6 +1096,8 @@ static noinline void axi_chan_handle_err(struct axi_dma_chan *chan, u32 status)
- 	vchan_cookie_complete(vd);
- 
- 	/* Try to restart the controller */
-+	chan->desc = NULL;
-+	chan->cyclic_restart = false;
- 	axi_chan_start_first_queued(chan);
- 
- out:
-@@ -1135,12 +1146,19 @@ static void axi_chan_block_xfer_complete(struct axi_dma_chan *chan)
- 				}
- 			}
- 
--			axi_chan_enable(chan);
-+			if (chan->pause_requested) {
-+				chan->is_paused = true;
-+				chan->cyclic_restart = true;
-+			} else {
-+				axi_chan_enable(chan);
-+			}
- 		}
- 	} else {
- 		/* Remove the completed descriptor from issued list before completing */
- 		list_del(&vd->node);
- 		vchan_cookie_complete(vd);
-+		chan->desc = NULL;
-+		axi_chan_start_first_queued(chan);
- 	}
- 
- out:
-@@ -1162,6 +1180,8 @@ static irqreturn_t dw_axi_dma_interrupt(int irq, void *dev_id)
- 	for (i = 0; i < dw->hdata->nr_channels; i++) {
- 		chan = &dw->chan[i];
- 		status = axi_chan_irq_read(chan);
-+		/* Leave suspension status for the pause and resume paths. */
-+		status &= ~DWAXIDMAC_IRQ_SUSPENDED;
- 		axi_chan_irq_clear(chan, status);
- 
- 		dev_vdbg(chip->dev, "%s %u IRQ status: 0x%08x\n",
-@@ -1207,6 +1227,11 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
- 
- 	vchan_get_all_descriptors(&chan->vc, &head);
- 
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->desc = NULL;
-+	chan->pause_requested = false;
-+	chan->is_paused = false;
-+	chan->cyclic_restart = false;
- 	chan->cyclic = false;
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
-@@ -1217,15 +1242,49 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
- 	return 0;
- }
- 
-+static bool axi_chan_is_suspended(struct axi_dma_chan *chan)
-+{
-+	if (!axi_chan_is_hw_enable(chan)) {
-+		/* A completed transfer cannot acknowledge a new suspend request. */
-+		axi_chan_disable(chan);
-+		return true;
-+	}
-+
-+	return axi_chan_irq_read(chan) & DWAXIDMAC_IRQ_SUSPENDED;
-+}
-+
-+/* Called with vc.lock held. A timed-out request can still be acknowledged. */
-+static int axi_chan_wait_for_suspend(struct axi_dma_chan *chan)
-+{
-+	bool suspended;
-+	int ret;
-+
-+	if (chan->is_paused)
-+		return 0;
-+
-+	ret = readx_poll_timeout_atomic(axi_chan_is_suspended, chan, suspended, suspended,
-+				       2, 40);
-+	if (ret)
-+		return -EAGAIN;
-+
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->is_paused = true;
-+	return 0;
-+}
-+
- static int dma_chan_pause(struct dma_chan *dchan)
- {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
- 	unsigned long flags;
--	unsigned int timeout = 20; /* timeout iterations */
-+	int ret;
- 	u64 val;
- 
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 
-+	chan->pause_requested = true;
-+	if (chan->is_paused || !axi_chan_is_hw_enable(chan))
-+		goto wait;
-+
- 	if (chan->chip->dw->hdata->nr_channels >= DMAC_CHAN_16) {
- 		val = axi_dma_ioread64(chan->chip, DMAC_CHSUSPREG);
- 		if (chan->id >= DMAC_CHAN_16) {
-@@ -1252,20 +1311,11 @@ static int dma_chan_pause(struct dma_chan *dchan)
- 		}
- 	}
- 
--	do  {
--		if (axi_chan_irq_read(chan) & DWAXIDMAC_IRQ_SUSPENDED)
--			break;
--
--		udelay(2);
--	} while (--timeout);
--
--	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
--
--	chan->is_paused = true;
--
-+wait:
-+	ret = axi_chan_wait_for_suspend(chan);
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
--	return timeout ? 0 : -EAGAIN;
-+	return ret;
- }
- 
- /* Called in chan locked context */
-@@ -1299,6 +1349,8 @@ static inline void axi_chan_resume(struct axi_dma_chan *chan)
- 		}
- 	}
- 
-+	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
-+	chan->pause_requested = false;
- 	chan->is_paused = false;
- }
- 
-@@ -1306,15 +1358,30 @@ static int dma_chan_resume(struct dma_chan *dchan)
- {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
- 	unsigned long flags;
-+	int ret = 0;
- 
- 	spin_lock_irqsave(&chan->vc.lock, flags);
- 
--	if (chan->is_paused)
--		axi_chan_resume(chan);
-+	if (!chan->pause_requested)
-+		goto out;
-+
-+	/* Hardware ignores resume until the suspend request is acknowledged. */
-+	ret = axi_chan_wait_for_suspend(chan);
-+	if (ret)
-+		goto out;
-+
-+	axi_chan_resume(chan);
-+	if (chan->cyclic_restart) {
-+		chan->cyclic_restart = false;
-+		axi_chan_enable(chan);
-+	} else {
-+		axi_chan_start_first_queued(chan);
-+	}
- 
-+out:
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
--	return 0;
-+	return ret;
- }
- 
- static int axi_dma_suspend(struct axi_dma_chip *chip)
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-index d8dd07efe60f..c61fcf070958 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-@@ -52,7 +52,9 @@ struct axi_dma_chan {
- 	enum dma_transfer_direction	direction;
- 	bool				cyclic;
- 	/* these other elements are all protected by vc.lock */
-+	bool				pause_requested;
- 	bool				is_paused;
-+	bool				cyclic_restart;
- };
- 
- struct dw_axi_dma {
-
--- 
-2.53.0
-
+Br, Jarkko
