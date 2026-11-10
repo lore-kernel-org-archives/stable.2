@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351361;
-	b=fRKVKBLZ4PSgk5fOAHSa32SLSBNZYLDjk41TcDbtuIIAquXSP9uXu78UbJGLmiaVX7Sx
-	 wMcg9vz8VqA5dhJieIRtDVN8DJCxSefvlM8V4Rkky6AiG4H0inL5Gx3ONGNpL91YYuJFz
-	 jAmKakQIdwsWFqRelIIyeMfzcGOHq+lYK/vZXzTh5JzBX+S6LiBkC5K6URas9tCYcq+gR
-	 Zla2DE/qBODLB9qRLlGwTBSoXjOezOGUqvJ28kplNCi2KoCWH+59zo+Aianivr06BFP0x
-	 ff//EpYt+CM609mtvA8UzCXlJ+VdvwQDz9gEB4cwZDNGhry8QYAYHapYeo/RqYSCJFw==
+	t=1794351368;
+	b=y2KvLWpJs2MrHoy7gWgwoQKtGbW9MnKYuc1061LPPAuhkTC/V0Y6VWISteCu5CUkFaj3
+	 Kzr6mUqRguyJ09YCU1VXhRDeuqd2V5GiOwC7eyqY1NoRJ9yiVXu+ljlOg9rK/8P8ULmd7
+	 ueOn8JBJIJ+4Yu4RCL9mnMeI+1jZBAnvNtbv6BFkGW0RUSJuNaUZQyd2ywhTUgKZejcZB
+	 7w75FH2ZlUDPZih9NijjX8RDpA5l/hfGUMvKfOwvH9ekddVioJxN51rcnrtrAEanIkkof
+	 lYrwgprquMVKyoOAsNBzAwGeHDfAIqI6DSpFV1OlNDNMzA4GJ/VapGZs+kA/UK0xflQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351368;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=L+T2cirJt1pzPy7aqC+/EBVrccE/Wg01qoqdcXKunUc=;
-	b=NGeJ+WDbvYjRS3IWXh6KC6Je0VXTGl54r03mGqUjvjQdvyz93tqdM/rccpgXv6eGqXBi
-	 j+X/z2dqB55Th3AdldWe/BOPeeR8OJvfYqLAtzb5gMuvi5Ni0dFph8PiwKxhp/GMViv8N
-	 /+Y+mYVEq6djgO0YLk658fH1+Jqa3mRVLgRi0cjH7hbUXIs0cXMRrALvEsfHeOGf3vyqb
-	 sun8NL8HPcTV0e2A6g4r3x2DFmaAjOFHlUCoR1bI9vlrAC3FWIC6m7Itd6/nTvcOfSsAA
-	 kSSfo4mZUoAHShzEZ5RlAkIp3tHGVg/yxH21sJ46MsaI7r1coGEyx+TpTQcZYADZHnw==
+	bh=zzKQFokzJBOFZqaAPShO8YURV3hDxFlJ7m9hEAnzTsU=;
+	b=GC9cX+WiZw17zeAgxS9FWBBV5UTbFk0p2G+1Kbl67p+OntjRKXo+OvlAfnknFXQEJiLq
+	 Fdz2wtxBHnmyOBKjBn3KnYXwiDjYy46jTpXZp5P6K0fpRchY1jvn8on83k5EhENKNS6KX
+	 +IeyOKTIKWdPPYSG2T3NkikvocWtuPlOvJFdhh+rOb12sJBkr9tTJPtE2D4bnLOI1A9OU
+	 9jDM99MbXPFc9qM8sI0mhQMvg+/yoj8ZxaNdbiuNl0a2q7XESuCXKXOu/VNzkXptnu2z0
+	 OqeGzZDpr3wBHq9nm4bMlBAqb/b7QEvNr1a0EY8Wi+sLbYbKze2TDVO6uCw0qu8cZJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSwzjr7y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+Ztc6Tl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DFF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BFC606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:56:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSwzjr7y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804901F0093C;
-	Tue, 10 Nov 2026 22:56:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+Ztc6Tl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D434C1F0093C;
+	Tue, 10 Nov 2026 22:56:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794351361;
-	bh=L+T2cirJt1pzPy7aqC+/EBVrccE/Wg01qoqdcXKunUc=;
+	s=k20260515; t=1794351367;
+	bh=zzKQFokzJBOFZqaAPShO8YURV3hDxFlJ7m9hEAnzTsU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iSwzjr7yWbO+3Vn7R/d2Tlue6ozNMo/5w2GN4HF8TjIEp0C7ADiP+173DPJsBCRec
-	 8Bbb8+jnben5Em3fLF0fYQXZfcxQVMImMD1loKlOwxSE6ZsB5A4igO98CeIc+Lq53+
-	 NX/NFqy2P9BCvxEHaFqVaUM2Lg7TnlbG1oAkJnRrkohOoGzCXV050HSwf159qw7jG4
-	 ozl1cvLAm9Xw3RGDbFTwjE6hxrEPSFuxqawHPGq+6dtAjD8Iax9FOXhWXmlM/6Awwi
-	 FLrgOuOdRBfQ5JLAb7floaKcA2wyi567YXj+asaP4qVCsAYGuFCTdJvdhw0eN74pvl
-	 xNVxwWWo0vXSg==
+	b=N+Ztc6Tl0m4HEhl6xKyZcHa5ZlVLTPF9p6ODoTpKy7W5+NcO7fyiL5uDPvC+VM0Xt
+	 x6vpCC7Z3NH9p7RUmeFzgqBXbwPTOk1C9bRiGfWZawzHbB5R3BbwxKmF9ekm1dqoZs
+	 NoAHWvE8cRop+AsvFhAFt/4ttim+VDDvGOcPwc7K4zB5e9Poexde2MRJGqTqQyzer6
+	 bGk1HUp2yWGH7KuKMZVwehn90V/OmqYrAtNMAnZ8z9Jzqd+WvMd9LRu1tuWvlZSfwo
+	 fuDuU0AEa19ZhMAM0LuC3w7r540hdkWaSG4XpyOPqSKolE9pWUl7g3zgS84AmP3io1
+	 9EzxVoQqok9Yg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Joanne Koong <joannelkoong@gmail.com>,
+	syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com,
+	Horst Birthelmer <hbirthelmer@ddn.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] block: amiflop: synchronize flush timer before track flush
-Date: Tue, 10 Nov 2026 17:55:59 -0500
-Message-ID: <20261110225524.4193210-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] fuse: don't launder folios of a bad inode
+Date: Tue, 10 Nov 2026 17:56:05 -0500
+Message-ID: <20261110225533.4163752-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053109-failed-6.6-9690943353ce@kernel.org>
-References: <20261107053109-failed-6.6-9690943353ce@kernel.org>
+In-Reply-To: <20261107053605-failed-6.6-01d0f3d294af@kernel.org>
+References: <20261107053605-failed-6.6-01d0f3d294af@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,185 +63,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Joanne Koong <joannelkoong@gmail.com>
 
-[ Upstream commit 9690943353cec1690a715e000ba6a74e5139f530 ]
+[ Upstream commit 01d0f3d294af126f517d92c11e100525537f8be4 ]
 
-The amiflop track buffer is shared with the timer callback. timer_delete()
-does not wait for an in-flight callback, and that callback can rearm itself
-when it cannot acquire the floppy controller. A synchronous track flush can
-therefore race with the callback.
+fuse_flush() and fuse_writepages() reject writing back dirty data for
+any inode that has been marked bad, but fuse_launder_folio() doesn't.
 
-Stop the timer before synchronous track writes and use timer_delete_sync()
-to wait for any callback already running. Keep callback rearming disabled
-until the write is complete. Apply this to the FDFMTTRK path as well.
+This can cause the following warning in fuse_write_file_get() to
+trigger, as reported by syzbot:
 
-FDFLUSH, FDFMTTRK and close-time flushes run outside the blk-mq
-request callback. Freeze their queues so an in-flight request cannot
-change the shared track buffer while it is encoded and written. Restart
-the timer if a track remains dirty after a failed flush.
+WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
+WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
+Call Trace:
+    iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
+    fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
+    folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
+    invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
+    fuse_open+0x5a6/0x770 fs/fuse/file.c:297
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+This can be hit on a writeback cache mount:
+1) a writeable file is open and a buffered write dirties some pages
+2) another thread opens the same file read-only. fuse_open() passes the
+   bad inode check and sends OPEN to the server.
+3) a SETATTR reply with the wrong file type marks the inode bad
+4) the writeable file is closed. Flush and release skip writeback
+   because the inode is bad. The pages stay dirty but the file gets
+   removed from write_files.
+5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
+   fuse_open() calls invalidate_inode_pages2().
+6) the invalidation finds the dirty pages and calls
+   fuse_launder_folio(), which finds no wriable file and hits the
+   WARN_ON in fuse_write_file_get().
+
+Instead of trying to write back dirty data for the bad inode,
+fuse_launder_folio() should return -EIO.
+
+Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
+Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260930065951.2932739-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: adapted blk_mq_freeze_queue() and blk_mq_unfreeze_queue() calls to the older API without memflags ]
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
+Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+[ sashal: replaced wpc.inode with folio->mapping->host in the bad-inode check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/amiflop.c | 69 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 61 insertions(+), 8 deletions(-)
+ fs/fuse/file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/block/amiflop.c b/drivers/block/amiflop.c
-index 2b98114a9fe09..909fce1a431be 100644
---- a/drivers/block/amiflop.c
-+++ b/drivers/block/amiflop.c
-@@ -264,6 +264,8 @@ static struct fd_data_type data_types[] = {
- static struct amiga_floppy_struct unit[FD_MAX_UNITS];
- 
- static struct timer_list flush_track_timer[FD_MAX_UNITS];
-+static DEFINE_SPINLOCK(flush_track_timer_lock);
-+static bool flush_track_timer_stopped[FD_MAX_UNITS];
- static struct timer_list post_write_timer;
- static unsigned long post_write_timer_drive;
- static struct timer_list motor_on_timer;
-@@ -1369,11 +1371,22 @@ static void flush_track_callback(struct timer_list *timer)
- 					sizeof(flush_track_timer[0]);
- 
- 	nr&=3;
-+	spin_lock(&flush_track_timer_lock);
-+	if (flush_track_timer_stopped[nr]) {
-+		spin_unlock(&flush_track_timer_lock);
-+		return;
-+	}
-+	spin_unlock(&flush_track_timer_lock);
-+
- 	writefromint = 1;
- 	if (!try_fdc(nr)) {
- 		/* we might block in an interrupt, so try again later */
--		flush_track_timer[nr].expires = jiffies + 1;
--		add_timer(flush_track_timer + nr);
-+		spin_lock(&flush_track_timer_lock);
-+		if (!flush_track_timer_stopped[nr]) {
-+			flush_track_timer[nr].expires = jiffies + 1;
-+			add_timer(flush_track_timer + nr);
-+		}
-+		spin_unlock(&flush_track_timer_lock);
- 		return;
- 	}
- 	get_fdc(nr);
-@@ -1420,6 +1433,35 @@ static int non_int_flush_track (unsigned long nr)
- 	return 1;
- }
- 
-+static void flush_track_timer_stop(unsigned int drive)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&flush_track_timer_lock, flags);
-+	flush_track_timer_stopped[drive] = true;
-+	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
-+
-+	timer_delete_sync(flush_track_timer + drive);
-+}
-+
-+static void flush_track_timer_start(unsigned int drive)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&flush_track_timer_lock, flags);
-+	flush_track_timer_stopped[drive] = false;
-+	if (unit[drive].dirty)
-+		mod_timer(flush_track_timer + drive, jiffies + 1);
-+	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
-+}
-+
-+static void flush_track_timer_sync(unsigned int drive)
-+{
-+	flush_track_timer_stop(drive);
-+	non_int_flush_track(drive);
-+	flush_track_timer_start(drive);
-+}
-+
- static int get_track(int drive, int track)
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index aa8c93b38601c..791824a4273a0 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -2476,6 +2476,10 @@ static int fuse_write_end(struct file *file, struct address_space *mapping,
+ static int fuse_launder_folio(struct folio *folio)
  {
- 	int error, errcnt;
-@@ -1434,8 +1476,7 @@ static int get_track(int drive, int track)
- 	}
- 
- 	if (unit[drive].dirty == 1) {
--		del_timer (flush_track_timer + drive);
--		non_int_flush_track (drive);
-+		flush_track_timer_sync(drive);
- 	}
- 	errcnt = 0;
- 	while (errcnt < MAX_ERRORS) {
-@@ -1561,6 +1602,12 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	case FDFMTTRK:
- 		if (param < p->type->tracks * p->type->heads)
- 		{
-+			flush_track_timer_stop(drive);
-+			if (unit[drive].dirty == 1 &&
-+			    !non_int_flush_track(drive)) {
-+				flush_track_timer_start(drive);
-+				return -EIO;
-+			}
- 			get_fdc(drive);
- 			if (fd_seek(drive,param) != 0){
- 				memset(p->trackbuf, FD_FILL_BYTE,
-@@ -1569,6 +1616,7 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			}
- 			floppy_off(drive);
- 			rel_fdc();
-+			flush_track_timer_start(drive);
- 		}
- 		else
- 			return -EINVAL;
-@@ -1590,8 +1638,7 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	case FDDEFPRM:
- 		return -EINVAL;
- 	case FDFLUSH: /* unconditionally, even if not needed */
--		del_timer (flush_track_timer + drive);
--		non_int_flush_track(drive);
-+		flush_track_timer_sync(drive);
- 		break;
- #ifdef RAW_IOCTL
- 	case IOCTL_RAW_TRACK:
-@@ -1610,9 +1657,14 @@ static int fd_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			     unsigned int cmd, unsigned long param)
- {
- 	int ret;
-+	bool freeze_queue = cmd == FDFMTTRK || cmd == FDFLUSH;
- 
- 	mutex_lock(&amiflop_mutex);
-+	if (freeze_queue)
-+		blk_mq_freeze_queue(bdev->bd_disk->queue);
- 	ret = fd_locked_ioctl(bdev, mode, cmd, param);
-+	if (freeze_queue)
-+		blk_mq_unfreeze_queue(bdev->bd_disk->queue);
- 	mutex_unlock(&amiflop_mutex);
- 
- 	return ret;
-@@ -1712,9 +1764,9 @@ static void floppy_release(struct gendisk *disk)
- 	int drive = p - unit;
- 
- 	mutex_lock(&amiflop_mutex);
-+	blk_mq_freeze_queue(disk->queue);
- 	if (unit[drive].dirty == 1) {
--		del_timer (flush_track_timer + drive);
--		non_int_flush_track (drive);
-+		flush_track_timer_sync(drive);
- 	}
-   
- 	if (!fd_ref[drive]--) {
-@@ -1724,6 +1776,7 @@ static void floppy_release(struct gendisk *disk)
- #ifdef MODULE
- 	floppy_off (drive);
- #endif
-+	blk_mq_unfreeze_queue(disk->queue);
- 	mutex_unlock(&amiflop_mutex);
- }
+ 	int err = 0;
++
++	if (fuse_is_bad(folio->mapping->host))
++		return -EIO;
++
+ 	if (folio_clear_dirty_for_io(folio)) {
+ 		struct inode *inode = folio->mapping->host;
  
 -- 
 2.53.0
