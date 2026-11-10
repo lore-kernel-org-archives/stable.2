@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316224;
-	b=AWWvz7Vjnj/MD/cplUcW3S7Ib7jAr75j1Ux0KWtnp8yNmCrx/PyDSsRKK+0w7GeNafjz
-	 9K2rBQtI5S2Bul4wqGsyWf2yWM3qyowxaeZdK1sVj+chOhOBGSHlzxOpytWVeqVvAZf5t
-	 8wrpgDPSYv8g/Je/+D/pKXyaMtWAsJYF+Q04x2NueygJabwfx45ywkxhpEC+89eXGOeo2
-	 XgUl7DKkpJ4r8JC29kXy5zvvKUjHiC6z60NcB10VZshG3yL9KsYBvysWh0+6mPvM0wCMi
-	 H6OI15kHQ1LqVZA4o9HoZhiMWZstvnnl7zOOr7pE/Q1ZIDPDRMPxKmg6SuBZZWNYKhA==
+	t=1794316222;
+	b=sUScXFEDG6XfAho4thOMV/1xFqmqKHW/8mcVvHgs/fBjpKw2+q8Yd23CpRma+yyLib1o
+	 7A1SxafIsnrOXbyYawcPM8cRRzPw5XjPN6uuIt447igF++3CLzfVo4r0eoR2scgTCzpUZ
+	 X1HDFyLTDpNgr9Pg2XKyHagIHJRefGNlT8OvY9Xfcw2CCxK531lIm0OU5G5TazFnRAT/E
+	 P/d8lEKWRXy40uj7zf2MUi5B1xAzEQlOyEtpyOi5EZc6hOQMoWRN4qoKM7O1teJicpHVD
+	 jgud0t0+BN6mb7nM6lBCU6TQKnZJuTRvx1eD8XrM/ldpd9moPB0VZBmAt0yVKZ5cZMQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316224;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316222;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received;
-	bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
-	b=qohRidahAIScct9iOhnob6+aXEUoatF9z7iXLfhyrbfjonEsYaHDUzl6QPnMRiisLc4x
-	 FbHFv/be/8LUAKKjBZ214XHDdkU6Bg/8tXwHEvHU6y+UhjBjPa8AdVfNxFjQrdzCDmsOU
-	 VuuZbQlCMA4pOHSRd8dNl5DRXGuy12YbSxSHUsXUz69jpyTeBt7vd9o0t9ehlkQf2odsC
-	 cqxStVeo5EcCel2Jn26DZd/TF7z0WnTLPvQFbuVnIDwcZURGYcd3cF2UeCPOoyvNLHlHa
-	 xQq5t29bbOtEjXOS+pULMNmrM1Z4cugIHOS94lbxLfOyYgEKrnrqgKskF8RinD71BSg==
+	bh=tFhGeWPMb1PBc86u5Bnfejx9Gi5hzNkST1rc5EOHv4o=;
+	b=gkcIdvSQZBJDI3xujajCVYRjFtp+U5/ouiTai/hJkA0lG9Q5ayVRlib7LsOc7BLGLcDl
+	 OdV/daNkxigTC7GNWcgEdxXAUNZXZaO1uRSK6/e7k/gR6BubifR0eYrU41KZAk+22sHM0
+	 1FI4p43ikYYl1CgNnLXA776GsNs+3cUPpRqgJ39twzcimryTtlybnynuIHhgPedx4gDmg
+	 oa6d0FCd66DfbVOR/gP0DR7uyhtmTashLfXEe79LFNiV6YtqMJcXoj/hm/Q3ySSyONVBY
+	 5JTYLuFFapcHOS9c5QfkPYwUZOerVBvTKPn6wNQalreTSDE4ZC+If9pq1DR3l4AmC8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b="UeOo/oFt";
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=t3ZJAWRd;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB550606A776;
-	Tue, 10 Nov 2026 13:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D26606A321;
+	Tue, 10 Nov 2026 13:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=UeOo/oFt
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=t3ZJAWRd
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794316223;
-	b=gnCnQbfGFYwtS/f5PM7iVFVnO3iwpEgeNQLYScusesT1xtzY9GaDui8J9E62VTTZT/h6
-	 qXFauVZ26Ci2x8ekk+lUrWNH3PQ3WgpmhifEeSrdLgVPkOVflcPYT8UqmpRkTNoEeGOe5
-	 xJLrGeeM8EvNnqFpyQ6Spef0Ek21NXrf8FcVuvT2J9XUiGMdtiApE/xAH3LQ3F+CLeCex
-	 DQ3i/2uSxsvX0816kwasZo/rRBDcv5CjGnvRpvIi4k8xmPE9kiDI5v5oDjY56M7XJAZiq
-	 YF7sCFh9Zqk4S4KZXLyp1em+C8Ku4xkjBtByU7TytfzvSiMwHYz+2jsLNUPd8Y1dFqA==
+	t=1794316222;
+	b=nbT8Vec70bO3T9seZyumw6lM25/QkipxEUMmiz0Qs0iSjnINZsQD+V1z09mc1IqW4JBA
+	 KI/U3Ib1D/OQV4CL+kXqLbCTl7bGjPSkFyZAiy4jocv9FyNWRr4aN5eOm6pdR15MasGpr
+	 amOSDhoGYeQyssTlOUPlnLN+J97oXn6NN0fNJ8y8SJPMSnw6sdWwLUgJ+PSEUNvGFrtYE
+	 iJs03PqCNEByW7BxdHossXoIhYqgxwTARizTqw55aLh6iHv74eSBM0fJIMdmrRMu/OEOL
+	 RC2RUXIhRmuVOZido16UDKDGLUiSDOdttle7gP7xp/YjyMwkbfkAkRTfa5pG12UB4Rw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794316223;
+	c=relaxed/relaxed; t=1794316222;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
-	b=uD/PaVEYK+HIVj7eZ8w1lCUwkqrpfuoiOH3x7/TUOShy+DRT+t7+vF/J2iYHvGy5IkrF
-	 tqY2jWDvR92JdXKWK933pOB2LDskNgBHZh9U1JDh7aQrp5dS/aVj8FsgdLtq5Tlr5qT1K
-	 6YdxKvEDQToynPnXITmNoIzxpxkZQSCJjheNq2a8ss3Kop+DM29/7VnPw0frx1cwhWxYM
-	 gbZUPhQfKesJWDQDZIW0JYQbCDgApa8bjpV+PMlqp3R83T+vv405QMPT27PN8jkR7bbWo
-	 GafC5MLlypovKjU8PDXouGiVMq3iOuB4CFAb1x/HwgGuwQOKj6oNF67jPX5NUORX8ug==
+	bh=tFhGeWPMb1PBc86u5Bnfejx9Gi5hzNkST1rc5EOHv4o=;
+	b=ZyN5JPQlnc9ouv/aCloJY3CAsmJSgmaNU8KDVib6QMqzzCj9PZKYtAz9pDuANVa7MhPa
+	 W44tfSfsSd/1vjqrA5ZiqaUEsqkXeSmBDZXnfNdX/lEGDk8YXCifKGS7FQQeeHTu2tHJr
+	 hZ0UEgd9F2zo588QnKYT0l4O85jzwTgtaA0ZZXMTOEtqgbKRmlf7twE0rsRluq8e8WhVY
+	 O+5JtYeb7bTA9hY/I5GhvaITwQ96ekBlSe3t/yW+RAnjcfvNToWpR7yayw3EiNuCRqvj+
+	 XgkC0t3HBLRtd5u6hMjs7PrN/FfCuHF9L84mfa8ZP3DmTft3ZA2GFAdQjW/whRes1RA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 782341F008A3;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6ED7F1F008A2;
 	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794316223; bh=AnHw7XXRUHp9Mp0ZPEBPnMwy+2oxoVKw7fR1LwyvpIo=;
+	t=1794316222; bh=tFhGeWPMb1PBc86u5Bnfejx9Gi5hzNkST1rc5EOHv4o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UeOo/oFt6DmjMV9mNkp98srMuU5js9JpxKjS/gh8MBLiorKlfzj6l2AOT9eRnREIA
-	 yz37ErYRwTtb6SXNSeQPl4mYm2H3mFZCaU849tWNgv0Lru76mzYUUWagxTQY7wRnWT
-	 Cp1lnL8rpC4Qi5O5GWHmaf97Bq5bv7BtgdM2Dq9I=
+	b=t3ZJAWRdjFB98XDAr6LcrckmwDth4hSK1/Yjma75dS0CUpE2u0IqgrTy0q0/06q7n
+	 dGwVX0fx7YdEwXDjFXsxy3X+dTPDlTXFAvrPquG0cNbc6qzklH8dniBUPvhRwKLMrs
+	 Qrevhg1zEXEpXGsn4dhUXCD8Xph2FeEbBiQjB2/c=
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 013B148B6A;
-	Tue, 10 Nov 2026 13:10:21 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E42AC48B5E;
+	Tue, 10 Nov 2026 13:10:20 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 10 Nov 2026 14:10:11 +0100
-Subject: [PATCH v3 2/8] media: i2c: ov9282: fix pixel rate and line time
- calculation
+Date: Tue, 10 Nov 2026 14:10:10 +0100
+Subject: [PATCH v3 1/8] media: i2c: ov9282: handle error from exposure
+ range update
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,8 +79,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261110-ov9282-fixes-v3-2-cb6df80cbc22@linux.dev>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-ov9282-fixes-v3-1-cb6df80cbc22@linux.dev>
 References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -97,127 +97,44 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=4128;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794316220; l=1053;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=vEUkcmhrgbccMnrDYbK6Bg1byQZHGlfGlZNdCKAMiuU=;
- b=mEqQuSHLSwfITSoGjXfDyvKub52W7OZOymcD+YY09BUBQkTWVW01eU4cOX0ErxhtOY+8AXVHQ
- cSx2x3kBY2zD2N3Zrmda0yGMKy20sl4bqgqg9rMicZnP7GSLjf/Wdt4
+ bh=b3Jbh3NXBCORRMCvX19hEQQG/dyvlyW8ukNEV55mjLk=;
+ b=0LYX0WlBpqGTpmcWQoTr02nPDBI8Qozf5gOjnEVM+uzVkF/oAlMZI5BT5QSU/HRlsNEDJHjvP
+ S0Z7x2+EW0HBA5OoNg9mHiy0laO0w0fmlb8okJtkKr9enMoyJjgEGjN
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-The OV9282_PIXEL_RATE_8BIT is calculated incorrectly from the
-OV9282_LINK_FREQ. The hardware scales the pixel rate by changing the
-multiplier from 0x50 (for 10 bit) to 0x60 (for 8 bit). Resulting in a
-x1.2 factor.
+When setting V4L2_CID_VBLANK the V4L2 range for the exposure control is
+updated by v4l2_ctrl_modify_range(). This range update missed a return
+value check, which resulted in ov9282_set_ctrl() not returning on an error
+from that function call.
 
-The current OV9282_PIXEL_RATE_8BIT calculation scales from /10
-(for 10 bit) to /8 (for 8 bit). This results in a x1.25 factor.
+Fix this by checking the return value and returning it on error.
 
-As all the inputs to the pixel rate calculation are constant in this
-driver also define the OV9282_PIXEL_RATE_{8,10}BIT as constants.
-Additionally introduce a new function to calculate the current
-line time in nanoseconds and use it in ov9282_exposure_to_us().
-
-Kudos to Dave Stevenson for pointing me into the right direction!
-
-Link: https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbinSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
-Fixes: df60764ea5210 ("media: i2c: ov9282: dynamic flash_duration maximum")
-Fixes: 43ac0cac18f41 ("media: i2c: ov9282: Add support for 8bit readout")
-Cc: stable@vger.kernel.org
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Fixes: 14ea315bbeb75 ("media: i2c: Add ov9282 camera sensor driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- drivers/media/i2c/ov9282.c | 50 +++++++++++++++++++++++++++++++++-------------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+ drivers/media/i2c/ov9282.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 546b43c209097..d60396e46ab0f 100644
+index 039a47c1918cb..546b43c209097 100644
 --- a/drivers/media/i2c/ov9282.c
 +++ b/drivers/media/i2c/ov9282.c
-@@ -10,10 +10,12 @@
- #include <linux/delay.h>
- #include <linux/i2c.h>
- #include <linux/math.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time64.h>
+@@ -608,6 +608,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 					       ov9282->cur_mode->height -
+ 					       OV9282_EXPOSURE_OFFSET,
+ 					       1, OV9282_EXPOSURE_DEFAULT);
++		if (ret)
++			return ret;
+ 		break;
+ 	}
  
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
-@@ -111,11 +113,14 @@
- #define OV9282_LINK_FREQ	400000000
- #define OV9282_NUM_DATA_LANES	2
- 
--/* Pixel rate */
--#define OV9282_PIXEL_RATE_10BIT		(OV9282_LINK_FREQ * 2 * \
--					 OV9282_NUM_DATA_LANES / 10)
--#define OV9282_PIXEL_RATE_8BIT		(OV9282_LINK_FREQ * 2 * \
--					 OV9282_NUM_DATA_LANES / 8)
-+/*
-+ * Pixel rate: Derived from the PLL2 clock tree.
-+ * For 10 bit it's exactly the same as the sample PLL configuration.
-+ * For 8 bit the PLL2 multiplier (REG_PLL_CTRL_0D) is changed 0x50 -> 0x60,
-+ * which results in x1.2 and therefore 160 MHz x 1.2 = 192 MHz.
-+ */
-+#define OV9282_PIXEL_RATE_10BIT	160000000
-+#define OV9282_PIXEL_RATE_8BIT	192000000
- 
- /*
-  * OV9282 native and active pixel array size.
-@@ -472,6 +477,32 @@ static inline struct ov9282 *to_ov9282(struct v4l2_subdev *subdev)
- 	return container_of(subdev, struct ov9282, sd);
- }
- 
-+/**
-+ * ov9282_line_time_ns() - Calculate duration of one sensor line.
-+ * @ov9282: pointer to ov9282 device
-+ *
-+ * Return: line time in nanoseconds.
-+ */
-+static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-+{
-+	u64 hts = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-+
-+	return div_u64(hts * NSEC_PER_SEC, *ov9282->pixel_rate->p_cur.p_s64);
-+}
-+
-+/**
-+ * ov9282_exposure_to_us() - Convert an exposure register value to microseconds
-+ * @ov9282: pointer to ov9282 device
-+ * @exposure: exposure register value to convert
-+ *
-+ * Return: microsecond representation of the given exposure register value.
-+ */
-+static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-+{
-+	return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-+		       NSEC_PER_USEC);
-+}
-+
- /**
-  * ov9282_update_controls() - Update control ranges based on streaming mode
-  * @ov9282: pointer to ov9282 device
-@@ -510,15 +541,6 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- 					mode->vblank_max, 1, mode->vblank);
- }
- 
--static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
--{
--	/* calculate exposure time in µs */
--	u32 frame_width = ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
--	u32 trow_us = frame_width / (ov9282->pixel_rate->val / 1000000UL);
--
--	return exposure * trow_us;
--}
--
- /**
-  * ov9282_update_exp_gain() - Set updated exposure and gain
-  * @ov9282: pointer to ov9282 device
 
 -- 
 2.53.0
