@@ -1,67 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289848;
-	b=nDgtslHMw1RaDeVDCOg478ldWRPTDLLWzhVUjH2G0iqPLeqxdMKdzwJPN6KvttApopxx
-	 pBdvsiqkTlfQ7MKk0QJrwedNAp1O2ejJoUoXdukBNdj7Xym8VwzMWFHKQNEWH55X8w3fx
-	 92nPzDcpvMjFei0GTaPWLP+XuTJPUvYb4xA9vOtwAvsssn8OsFttUmszD1k3Kqv9mCv/s
-	 IlcU1ksEoLpDL/XlmYuDmdMYuDg6RVU7booqghx35sf1OdHu6ScEECQPg4Zft0ubfUrZo
-	 Nwm2jUBS1lnL6UdZeiDfAFogUJBDCNNnrkU06aTALHSQLIxE86+4NqhFmUwKytOqQMQ==
+	t=1794289927;
+	b=YkGjcg8KPIC5sEblAcAKZEaPwFI5A+eBdiAwQNPvgeBB54viiOo19Isg/1ylCreQ3P4S
+	 64On3MHD4cdrUU1U1zzUzdPCJ/9XXK9Wzpzm3FuhTef5/3QTkxjMWVCXoP6cI7kkHg2H2
+	 LtlYT7x+4UgphZBLv+vyOvijJdUZNOxWnadZX5S1ENjfW/K3b9plyNcDwiQEPOwdUQsdw
+	 hJs/beWHF+owXZ2ZlWJpE4uBADACMGOR1NzThRtb0Koc6Zj2ODqKhMuQOgWJTsnPZ8BUe
+	 imWpTgLZJyp10a8JdCqe2zjrs52QZJGumhmkpKeYVeFAPRn8ANF6JICBa0lpvbZlWow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289848;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=GQhdVSS7zODy0kJ7ys7A6cBk+yn7TDp6NFcxMO+tZ0A=;
-	b=G7za19XX4BJtSe6Z/AvRYqmeAF3aAl8spR7CJS0Z4jOIPsYdAV4+W9Bh3S9TX2DF+B3g
-	 zBmSMf++JHfRB4//6svNwjN4pMNiKFJ4M/l59R+TBL3e9qM49lNwy8ruz110kRCCzltHy
-	 YrV6qe+02xvgSdph/05cuhQATzxrQShEIDOkm3DowXqRPC9lpKUeViGL64vGM3UqXj1jG
-	 I2MKVf9nEK0QrCrQW13GBS2FZIsIdfCxZ5JilZiD3xmM4ERLW39vhRGkVpwWEstF/+npN
-	 JwN3fZ0MQ5nfreaoZVMtdpaMt87BcNJPwMIXEmjdCWoIWBcqS50RKiHwc4lG+nkuRFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794289927;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8V7I5kEXQgM5T60Xv4Tu/syE9fA4049xfM2+mKNSkQg=;
+	b=EYBDXndQDdA1v23qnGQ5BY74LQXhlQJ8A0Z43zR/SXhRxJ3UW3WtXKiRWIVBnBIWcn+s
+	 uBobvOiJ1oxbA7qAzKMplIHvRuOB51xU7sGYuvGPqCHD7WHT4JyeGj52mUBM5tXIbDoiR
+	 ApOnl2si6Cbfl+14/bBhcERIrUVQZBCt8sTgS7M7AIbXBUkdh8WLXT0ShWz4irYqzmRqV
+	 NdlzG37dl8m6R4zIpOCXuxDXUjSZBlsZqHK+B05SVrb+5zFADWdTlcTu6s6LREsLSAzIf
+	 adBapYRrwkFqgPy65eSNBqEyeIlyudDLM90yClRWYYCPlrf003o12hF18kE7/FPFORw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="Y9/pnu1a";
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcZbV+rC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367C3606A31C;
-	Tue, 10 Nov 2026 05:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 367C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E540606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Y9/pnu1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794289828;
-	bh=GQhdVSS7zODy0kJ7ys7A6cBk+yn7TDp6NFcxMO+tZ0A=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Y9/pnu1auoAwgfZcn8yFKJWSWzddCq1JjBFGhufKd8fv9VYN4cyi3JErZEoepfxlm
-	 yWH+yHcCtq7/1pApIJMNEG7A8QFywmS2bL09Qbwb0HO3M7P/BAWrQyxg6+es7Jj9wH
-	 uK1SOCx5QeyNV2HjGR0E2kwa0dJI0h2oQkpv5xF8=
-X-QQ-mid: esmtpgz13t1794289824ted8b4a7e
-X-QQ-Originating-IP: OTEMxqyzXc7rWMgb1H/tkZN8A+JjhUSoicioysD1g+k=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 10 Nov 2026 13:50:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11791463934339592707
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: sre@kernel.org
-Cc: linusw@kernel.org,
-	robh@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] power: supply: gpio-charger: Keep properties per device
-Date: Tue, 10 Nov 2026 13:50:21 +0800
-Message-ID: <91858196CE770E42+20261110055021.263296-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcZbV+rC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD481F0089F;
+	Tue, 10 Nov 2026 05:52:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794289927;
+	bh=8V7I5kEXQgM5T60Xv4Tu/syE9fA4049xfM2+mKNSkQg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XcZbV+rC8k9yNlBvACQSzHuPrBcBrkX4f37ZzUaZ2oboZ0cluwkxz45FpewxtKQaF
+	 tzezKZQcRHldlsAujJySYs0v6IGbx20w4KVFxwEP19z+d9BWb7Naj3bX5K2SoStERs
+	 zjGVNND8/H8jn8Vhz1soKusTUNILiNU+b+InmRcSQu5J9jdj4HjeoW85vtuAUBS046
+	 ZDvToX6JV7Snd4IgPBVpx5sUAw2o7c3eJnQHRLaVFFrW/AT8g9b/kxJX/Rgfw+qp15
+	 izHbkGjiZKx4nts638qhrgR44XPHl0mDcBnChfmM/Csx1FbUGrpuuUQ65VHSl1EXdv
+	 bkovzoo3wHHlA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Judith Mendez <jm@ti.com>,
+	Moteen Shah <m-shah@ti.com>,
+	Nishanth Menon <nm@ti.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] arm64: dts: ti: k3-am625-sk-common: Set eMMC clock pin as OUTPUT
+Date: Tue, 10 Nov 2026 00:52:05 -0500
+Message-ID: <20261110055155.475907-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053000-failed-6.6-8ef8a0e38d13@kernel.org>
+References: <20261107053000-failed-6.6-8ef8a0e38d13@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,109 +61,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NU4e3V92LJuQ4czWvYlTU8cSWUqMasLWaZNi01iuWh41TU7M/TS77+fe
-	4TKqS6cXa3iVgQ/czjiWnFnRVu7tWWRux70UOfCsWmePbuf5sWbR9WuaXsC58h5faQkiM5+
-	1lrRWWe9H4NWc0R6YcEBwI+u4KR8cATkpr4sTENB2usm7t1nDnmOUp6kk9W3H5HB2f4+vge
-	ccJJP22GgcG90fZnPrsiAh/qz6EDiLPAJgyu0ut6M0lXZCbpyKx79FHZ/TKDQO/ywXrbo9y
-	qA0R1Cwaiexo6WfSitbz9S5/MsurI0C00wrom3bFQlzBueG9xaxQiDmq7BmZlma9iIehs6N
-	yk/aaVoQxjlGrKKVSiTx3pXR56HB0wgaQJyaDJFmrshm+6TeiC9N9q+FTN9spdVYET5NP0y
-	qrV0fG3f5dvyb4/CAT9lN7AxT1YllO+e49WFO6a8N/PCZwIeZcXLoeTbGSzOGwZk9gW4Aoz
-	8bsTDa9WqX0eaBmqOvDXC2mrHw64HUKP4PZDjeCIZcO2l/Ii9Cjd1qVY2384bOF5ltFZo5h
-	z3HaEKAmsez4aYl4u6tH04tWeQsdvOKfe6tBYNBwg1AT41qq96Ga8saPv7asuCdzDoeEkUu
-	/6pr/ffnseuA/kPtf3EgSCLfeNLtuy9b65pyvcYjfvsf2A66jYnFe0nJxL1x8oLwrk2ZEiM
-	mLfZI4yw0d1zKJUwLdArQvT9x5oDHuMXAovrUuKCXQL5JNICRJn5eNNB5l1JbcBHT2adlXs
-	vBKi++yEn1uoxfow4hffA17YuR9M1WhAPe6InVQzU4LZusxklmL7niOu14X/Rh1jB+TutnL
-	6o+ByR5gvrnvFeAqHpHqn3fTu2sPWd81AXTdTYN/ozAcCD68+cLadrAXlhOgAX/tYjINN0F
-	mAA6gx4YwnjEtRsKB660JRywBL4OD0lGio7hRU/SnVpBfmzCatj3P1gR6WHoLBP5c17wHRP
-	LRNw8LVZdoNK3gWVqzspmqBoRUexYulT8eIniF78GZjP7CCHxGemYSTx5Z9kJYFv3X+LpaQ
-	ZMuxci0EWnsHlQ9KS96BRB5wkTZxASfip6p4fzNgyQkKyRlfvZQ9eSLXCOpX8=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Judith Mendez <jm@ti.com>
 
-gpio_charger_properties is a global array that is overwritten during
-each device probe according to the optional GPIO features present on
-that device. When more than one gpio-charger is registered, a later
-probe can therefore change the property list referenced by an already
-registered power supply.
+[ Upstream commit 8ef8a0e38d1377c6d51c06f95c64d87641b2c717 ]
 
-Store the property array in struct gpio_charger so each power supply
-keeps the property list built for its own device.
+MMC clock pins must be configured as OUTPUT-only per TRM [0] with
+receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
+PIN_INPUT to PIN_OUTPUT to match documentation.
 
-Fixes: 1d85f6d1b0c1 ("power: supply: gpio-charger: Make gpios optional")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+[0] https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals
+
+Fixes: d19a66ae488a ("arm64: dts: ti: k3-am625-sk: Enable on board peripherals")
 Cc: stable@vger.kernel.org
+Signed-off-by: Judith Mendez <jm@ti.com>
+Reviewed-by: Moteen Shah <m-shah@ti.com>
+Link: https://patch.msgid.link/20260909214743.899477-11-jm@ti.com
+Signed-off-by: Nishanth Menon <nm@ti.com>
+[ sashal: adapted to the older shared device-tree layout, where AM625 SK and AM62 LP SK share the pinmux block ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/gpio-charger.c | 20 +++++---------------
- 1 file changed, 5 insertions(+), 15 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/gpio-charger.c b/drivers/power/supply/gpio-charger.c
-index 1dad49acc424..99c1af99dd88 100644
---- a/drivers/power/supply/gpio-charger.c
-+++ b/drivers/power/supply/gpio-charger.c
-@@ -30,6 +30,7 @@ struct gpio_charger {
-
- 	struct power_supply *charger;
- 	struct power_supply_desc charger_desc;
-+	enum power_supply_property properties[3];
- 	struct gpio_desc *gpiod;
- 	struct gpio_desc *charge_status;
-
-@@ -262,17 +263,6 @@ static int init_charge_current_limit(struct device *dev,
- 	return 0;
- }
-
--/*
-- * The entries will be overwritten by driver's probe routine depending
-- * on the available features. This list ensures, that the array is big
-- * enough for all optional features.
-- */
--static enum power_supply_property gpio_charger_properties[] = {
--	POWER_SUPPLY_PROP_ONLINE,
--	POWER_SUPPLY_PROP_STATUS,
--	POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX,
--};
--
- static int gpio_charger_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -307,7 +297,7 @@ static int gpio_charger_probe(struct platform_device *pdev)
- 	}
-
- 	if (gpio_charger->gpiod) {
--		gpio_charger_properties[num_props] = POWER_SUPPLY_PROP_ONLINE;
-+		gpio_charger->properties[num_props] = POWER_SUPPLY_PROP_ONLINE;
- 		num_props++;
- 	}
-
-@@ -316,7 +306,7 @@ static int gpio_charger_probe(struct platform_device *pdev)
- 		return PTR_ERR(charge_status);
- 	if (charge_status) {
- 		gpio_charger->charge_status = charge_status;
--		gpio_charger_properties[num_props] = POWER_SUPPLY_PROP_STATUS;
-+		gpio_charger->properties[num_props] = POWER_SUPPLY_PROP_STATUS;
- 		num_props++;
- 	}
-
-@@ -324,13 +314,13 @@ static int gpio_charger_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 	if (gpio_charger->current_limit_map) {
--		gpio_charger_properties[num_props] =
-+		gpio_charger->properties[num_props] =
- 			POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX;
- 		num_props++;
- 	}
-
- 	charger_desc = &gpio_charger->charger_desc;
--	charger_desc->properties = gpio_charger_properties;
-+	charger_desc->properties = gpio_charger->properties;
- 	charger_desc->num_properties = num_props;
- 	charger_desc->get_property = gpio_charger_get_property;
- 	charger_desc->set_property = gpio_charger_set_property;
---
-2.50.1
+diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi b/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi
+index 8d608c7ee2b12..1483c361807eb 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi
+@@ -169,7 +169,7 @@ AM62X_IOPAD(0x0b4, PIN_INPUT_PULLUP, 1) /* (K24/H19) GPMC0_CSn3.I2C2_SDA */
+ 	main_mmc0_pins_default: main-mmc0-default-pins {
+ 		pinctrl-single,pins = <
+ 			AM62X_IOPAD(0x220, PIN_INPUT, 0) /* (Y3/V3) MMC0_CMD */
+-			AM62X_IOPAD(0x218, PIN_INPUT, 0) /* (AB1/Y1) MMC0_CLK */
++			AM62X_IOPAD(0x218, PIN_OUTPUT, 0) /* (AB1/Y1) MMC0_CLK */
+ 			AM62X_IOPAD(0x214, PIN_INPUT, 0) /* (AA2/V2) MMC0_DAT0 */
+ 			AM62X_IOPAD(0x210, PIN_INPUT, 0) /* (AA1/V1) MMC0_DAT1 */
+ 			AM62X_IOPAD(0x20c, PIN_INPUT, 0) /* (AA3/W2) MMC0_DAT2 */
+-- 
+2.53.0
 
