@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273661;
-	b=Rtt87b2upNXyN5gwx8VyBsesX5yGajN030uHa4YlKQzgliZnSbLmm9Z2XjZh8HhLNzxA
-	 2+qJ2W/6ruO08+7ecpaLiFuV4JG8vCzFBmZCfUuIK/YIDImloaDviacVytsv9eNH6MK1B
-	 BUTu7suUvuXm+fSDWOmrQLRKPv/ZNr5iRT79hkKCOC0TLw4jgsqBT0a5k8fGLDrnSljXD
-	 THM/RgTUKuypRDfIeRuwzrrtKFDcS4ns90t4pXdkYGn8HyIOObruilL9r4jzAW/ghpZ3e
-	 JHKMByOpPwNoIH0CbTzHFgTO52r9bTNbqfv8Av75khnjZZA2GCw2u9ahiHTjAL1hdlA==
+	t=1794273664;
+	b=dfCjuZdktO69MeDhHw1e7MGfSz7qjP5P51IX/2Z2mfroxmYCdoDoVSK2td++QZVQGziJ
+	 Fvb978A4rS9PsF9jrhmswiyONEmfomQTG8ud+Z6M2u1j7hcei4cYKEk7OskA4TGvMVJ+G
+	 9c3SrcL+Z9hruR79bAIky2B3sRbKy6J5rRwr15QTD/FkOHSsQhLr5pqfEaUlO62H34g+b
+	 nYUXfB/g4JS7Mbgb98QcrSWQPA3vsQp8o3c6iWb3fA8pi0dwH+RZnKkfITi7g2aJTiVGj
+	 DmzzYoWQGWWW0rdx5qggQ6PYvbGuzHkrz3jCdsG1NrCNOcd9en7HY4vL9+CP7V6irAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273661;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273664;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ShfF+Llmz8hvl2XDRSWPeimkAq5oO1ocTNqMoG8sFL8=;
-	b=Go8biEuFNDTZ/Kx4lih93a55Z5n5JwE9GxaY1ljYrjO0nrEtzmrCPEqxVnf47SZCsSqv
-	 2awYDm58Hn2uX4R1Go9+iQ12kMcUYKbeEZgqk1IQ5eTKNzarJEWU2tzprirLqLKjRml+/
-	 f4Ko7JBxYE5ytxBOiofN943oyHeWuDInWNQRBIBAQ5UB8gj1bQVtbZOgvRvwpmsB9E7RZ
-	 Q+4gz6dwoKuWHr/odvwG/pKD5MkEvGg/E+UnTetGFlICCvJPK9N+YpJlUhwzfASV/SFzT
-	 Kfdya/AR588SlW2jrvvYqFux2jV0J5kmc5SyhsOZpt1K9qRAwhrH3qy3tOK2wPZuoNQ==
+	bh=paMSTZy90ULDoKPtkGHNipBJCNLsrFcYuYcT3Zk437k=;
+	b=Y/SRdr16FE71VXqlu36dKLJIg3rkQcZ2yhTa1D5jFuHMKt+7w7bbFVsa1h4zgTtbcgLC
+	 e/JNJdczHWfr/9cRlMMu7FkfNmIBtJxbh9L9OsmUqvYLo8IsNlT/pymVDUbBSCcpvB1Vd
+	 E6r0qINJGIlI4GnugPIOQbYVAAh4blXZAR8HT2f9ANeIRrOEHlbRT6/6AmS1Juv6gGMDj
+	 swOf6HfKqevmc8Nt9mt8paIvKbLcYbMki4dxowARV4apaqacntRk8ytool23shw2tHpt9
+	 ozc1U72b2sxVLzJGm8oyYORdMWgyCZCfYdSZPVk4dwuFd8PJNhF9KlLWcTnSz9PnNGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYhW1VaJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSO1jULe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9740860A2607
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239F960A2621
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYhW1VaJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEAE1F0089F;
-	Tue, 10 Nov 2026 01:21:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSO1jULe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A3061F0089F;
+	Tue, 10 Nov 2026 01:21:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273661;
-	bh=ShfF+Llmz8hvl2XDRSWPeimkAq5oO1ocTNqMoG8sFL8=;
+	s=k20260515; t=1794273664;
+	bh=paMSTZy90ULDoKPtkGHNipBJCNLsrFcYuYcT3Zk437k=;
 	h=From:To:Cc:Subject:Date;
-	b=jYhW1VaJ6YAkM2D23my2gipsc1qdRzlLi5uRfpsDvp12eGMko9y53Eyqr+51TsQS0
-	 qLyM51cJNJS+D9wrzNO3KVXtSSyHkeyUKbxyc68Ftq2zoyibC0BoY1CkqqazkU6XwX
-	 MuP9qv6rdaHymeECQJi6c7/5iKSwntHK0zld5AExJfdz5SLvJz29TLn8DbNh+ubSoJ
-	 CeD4iAcku4T0ytliueBRPdqvXq2ThyVBCIcUV0XH3NaJBPix876OD+KLcbBsT56+cW
-	 /do9uaNWAMyacvIw+SI7j2I/5gXWdSCylOJOiXEEg3MQykno5A4BFbE9Iekz2LdxOl
-	 It50VKEGpvEgw==
+	b=gSO1jULe1sCpQSjQiUmL4g/d5Of33s+UTFOscynDI7JuTwjK/N+QXOUDeqWbsCZzM
+	 MX92SKYJObG+IVJYtmk3p8vtnUjhHEmybBVGHe28ld2WkniUiVwUS4iPjG8XvOlAsG
+	 htk6CbBwZrFbtZeFw4VElr7MWdpCgMMMGzCdMKyOzpYx/5NuibEuwC2TWaWI3V79Rb
+	 Jwbg/Z9fgiR34FUCROlsOzEGmOl9riytKK8ey0FsK9bMh9eNzLIjWGbtIU+3u8itWW
+	 9Cag7bjdIfVrCtUtcnkoctrXmWouN4+DsOj4NyQ+gMN0r4gx8FBwR8o2+iF6XtK+iu
+	 4+mxb0hZBRq5Q==
 From: Sasha Levin <sashal@kernel.org>
-To: federico@rimpianto.com,
-	davem@davem-thinkpadp1gen8.ibmlond.csb
+To: david@kernel.org,
+	mason@kernel.org,
+	pratyush@kernel.org,
+	baolin.wang@linux.alibaba.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: atl1c: drop oversized RX frames instead of panicking" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:59 -0500
-Message-ID: <20261109202059-failed-5.15-c4ba1716853d@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/shmem: make shmem_file() check the file's inode" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:02 -0500
+Message-ID: <20261109202102-failed-5.15-d3710111839d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,106 +70,125 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x c4ba1716853de5178a9df785844ebb5e397a80e6
+git cherry-pick -x d3710111839d11339e414b1bb3fea3d05ab83f6e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202059-failed-5.15-c4ba1716853d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202102-failed-5.15-d3710111839d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c4ba1716853de5178a9df785844ebb5e397a80e6 Mon Sep 17 00:00:00 2001
-From: Federico Musto <federico@rimpianto.com>
-Date: Tue, 27 Oct 2026 12:51:51 +0100
-Subject: [PATCH] net: atl1c: drop oversized RX frames instead of panicking
+From d3710111839d11339e414b1bb3fea3d05ab83f6e Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:32 +0100
+Subject: [PATCH] mm/shmem: make shmem_file() check the file's inode
 
-atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
-overheads, which comes to 1522 bytes at the default MTU.  A link partner
-that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
-whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
-- makes the length reported by the RX return descriptor exceed what the
-hardware wrote, and skb_put() then either includes bytes that were never
-received or trips skb_over_panic and takes the host down.
+shmem_file() only checks if file->f_mapping is a shmem mapping. This
+mapping can belong to another file, however, as with a Coda file backed
+by a tmpfs container after mmap().
 
-Compare the descriptor length against buffer_info->length, the length the
-hardware was given, rather than against skb_tailroom(): the skb carries 64
-bytes of slack for the DMA erratum, so tailroom is larger than the DMA
-buffer and a frame in between would pass the check and still be delivered
-with a tail the device never wrote.  The same test rejects frames shorter
-than ETH_HLEN + ETH_FCS_LEN; before this change a reported length below
-ETH_FCS_LEN underflowed in skb_put().
+So it does not guarantee that the file inode is an actual shmem inode.
 
-The frame is dropped with kfree_skb_reason(SKB_DROP_REASON_PKT_TOO_BIG) so
-drop_monitor and the kfree_skb tracepoint see it, and counted through
-dev_core_stats_rx_dropped_inc(), which survives atl1c_get_stats()
-overwriting the hardware counters on every read.  It also counts as work:
-atl1c_clean_rfd() has already recycled the RFD, and the refill at the end
-of the poll only runs when work_done is non-zero, so sustained oversized
-traffic would otherwise drain the ring and stop RX.
+Seal handling and memfd preservation use this check before accessing
+shmem inode state, so they can access an inode of the wrong type.
 
-Tested on a MikroTik CCR2004-1G-2XS-PCIe (4x AR8151) in a Proxmox VE host,
-with atl1c built from a DKMS tree carrying this change: the l2mtu-1600
-traffic that panics the stock driver is dropped and counted with the patch
-applied, and received normally once the host MTU is raised to match.
+Let's make shmem_file() check the inode's file operations instead, to
+identify shmem inodes reliably. This will identify regular shmem inodes,
+including memfds and ordinary tmpfs files, independently of wrapper file
+operations.
 
-This complements commit 36c2009d90f2 ("net: atl1c: fix soft lockup on
-out-of-range tpd_cons read"), which fixed the TX side of the same
-"host dies while the card resets" problem.
+Use shmem_mapping() in collapse_file() instead to not change the behavior
+of collapse_file(): it operates on the page cache and uses mapping->host
+for shmem inode operations. Focusing on the file does not seem relevant.
 
-Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
 Cc: stable@vger.kernel.org
-Signed-off-by: Federico Musto <federico@rimpianto.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Reported-by: Chris Mason <mason@kernel.org>
+Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- .../net/ethernet/atheros/atl1c/atl1c_main.c   | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ include/linux/shmem_fs.h | 15 ++++++---------
+ mm/khugepaged.c          |  2 +-
+ mm/shmem.c               |  5 +++++
+ 3 files changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-index e58f1d2c26bdf..eddd8406867f7 100644
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -1934,6 +1934,39 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
- 			break;
- 		}
- 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+index a7c7a96a7cbf9..f89b4b1511332 100644
+--- a/include/linux/shmem_fs.h
++++ b/include/linux/shmem_fs.h
+@@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+ extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+ #ifdef CONFIG_SHMEM
++bool shmem_file(struct file *file);
+ bool shmem_mapping(const struct address_space *mapping);
+ #else
++static inline bool shmem_file(struct file *file)
++{
++	return false;
++}
 +
-+		/* A link partner whose l2mtu is larger than ours can hand us a
-+		 * frame that does not fit the buffer the hardware was given:
-+		 * the descriptor reports the untruncated length while at most
-+		 * buffer_info->length bytes were written.  skb_put() of such a
-+		 * length would pull in whatever the tail of the buffer holds
-+		 * and, past the end of the skb, trips skb_over_panic and takes
-+		 * the host down.  Bound it by what the device actually wrote
-+		 * rather than by skb_tailroom(): the skb carries 64 bytes of
-+		 * slack for the DMA erratum, so the two are not the same.
-+		 *
-+		 * Frames shorter than an Ethernet header plus its FCS are
-+		 * rejected by the same test; before this, a length below
-+		 * ETH_FCS_LEN underflowed in skb_put().
-+		 */
-+		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN ||
-+			     length > buffer_info->length)) {
-+			dev_core_stats_rx_dropped_inc(netdev);
-+			if (netif_msg_rx_err(adapter))
-+				dev_warn_ratelimited(&pdev->dev,
-+						     "dropped rx frame: %u bytes, buffer %u\n",
-+						     length, buffer_info->length);
-+			kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_BIG);
-+			/* atl1c_clean_rfd() has already recycled the RFD, so
-+			 * count the drop as work: the refill at the end of the
-+			 * poll only runs when work_done is non-zero, and
-+			 * sustained oversized traffic would otherwise drain the
-+			 * ring and stop RX for good.
-+			 */
-+			work_done++;
-+			continue;
-+		}
+ static inline bool shmem_mapping(const struct address_space *mapping)
+ {
+ 	return false;
+@@ -193,15 +199,6 @@ static inline struct page *shmem_read_mapping_page(
+ 					mapping_gfp_mask(mapping));
+ }
+ 
+-static inline bool shmem_file(struct file *file)
+-{
+-	if (!IS_ENABLED(CONFIG_SHMEM))
+-		return false;
+-	if (!file || !file->f_mapping)
+-		return false;
+-	return shmem_mapping(file->f_mapping);
+-}
+-
+ /* Must be called with inode lock taken exclusive. */
+ static inline void shmem_freeze(struct inode *inode, bool freeze)
+ {
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4b71d010b2aff..3a6f4b7b28453 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2230,6 +2230,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 		struct file *file, pgoff_t start, struct collapse_control *cc)
+ {
+ 	struct address_space *mapping = file->f_mapping;
++	const bool is_shmem = shmem_mapping(mapping);
+ 	struct page *dst;
+ 	struct folio *folio, *tmp, *new_folio;
+ 	unsigned long new_pfn = -1;
+@@ -2238,7 +2239,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	enum scan_result result = SCAN_SUCCEED;
+ 	int nr_none = 0;
+-	bool is_shmem = shmem_file(file);
+ 
+ 	/*
+ 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 923957e5e6a24..e64704ac72222 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -276,6 +276,11 @@ static const struct vm_operations_struct shmem_vm_ops;
+ static const struct vm_operations_struct shmem_anon_vm_ops;
+ static struct file_system_type shmem_fs_type;
+ 
++bool shmem_file(struct file *file)
++{
++	return file && file_inode(file)->i_fop == &shmem_file_operations;
++}
 +
- 		skb_put(skb, length - ETH_FCS_LEN);
- 		skb->protocol = eth_type_trans(skb, netdev);
- 		atl1c_rx_checksum(adapter, skb, rrs);
+ bool shmem_mapping(const struct address_space *mapping)
+ {
+ 	return mapping->a_ops == &shmem_aops;
 -- 
 2.53.0
 
