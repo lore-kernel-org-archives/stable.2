@@ -1,57 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331971;
-	b=ezhShBWBKjb0cuP2R+0Tq9MPyEQGWOl6ujj5J3sgKtv3yeMAh6PK02tvj1nKUO1qzycL
-	 Mx1EpovA853p90gYClkGCUnUgzzLfzpH3/mNaOlvDL4SaRtuDSbwa9Ut/YC92h3OVePmD
-	 7uox6BDmS403W28uyu642MNxtdNCeFZ7d+lqYId48WbRXc3UvA3yIzew0wJIAIBFCm0hL
-	 MFUIGA4m2mUWviBytSSvrk9TsPL+5/xbqiZxuJYTbluFmPdiCNWjc33mjjO7KAM76KJNE
-	 rzeayTyfZ8o946m70t03cYIeeUn5yjBihW2n1hvHhR4HpbZPB/G6PfPU6wSGqSnYndw==
+	t=1794332079;
+	b=tUPCTuKw/XTXnz5dfYFf4iaOjBiYwGHr2WQMZHgsC7xc9QKMRJ2fx7nWg9MH2zuq2l+s
+	 ZlV+nUb9/j0n4mnHzyWMnF7x8O2GeD5vXJ0vjHnfpeATHAxdYG+DZM/VJhVF9YGpF3ZFf
+	 3qkE0YDDFNraY7W1JsxC7NlrdwnBeOLX76gTVA0lCnh4SLL42CMy6ugJ81XXRL+MAMZ2l
+	 Zhz0fWdwB2yKovoAMg3qhsyC/L9QJeKr3TNVKHrV+cBiwHJrnN8XAByVKKH9wH3KgcPMD
+	 djL07hkIL+Y2XDyn4wX+iqw1YNtt1meCErF8XGG8uBYpcOZ9qN2H0EZwjE5AU2HT6YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331971;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=I/luCiaSCVMEME0/OzS2BscHD8dCk7xIPmKkJUVyeZM=;
-	b=gX0t/7DCCSBILLkHi6VfzsyI3rN4uknHFXVRD/KDLYUbGFbupl05fFjmRmxJuaN/Nm88
-	 XjKBHgU1j23pOCGcQN++t32SqtLLuuYagciaqW/Tb9Xv7DHa+JO99l0rR4GcIV7cyhGS0
-	 WR1VxFYfuiGX2Xt9dN+HlvPbPsoPutH5hEmphKC2MWoZlOT4ZdptcgDHG6ujY0a0bbLpt
-	 3ADdU1Ku9HbK4LRujqsd6uEAj72bDyXE5fUYE4QW2mpVQNqLevmlxfTud5Xj3HhH81F5q
-	 MHq26fxb/uBTbwbxQR8aUbG9eM+F6Zkz660idvaI2d894343Kb4vY8UeHD1/+Tb+KhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794332079;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=;
+	b=qmtua/Og3Gh52Nek22xOHgUjK+qILo1Lyx33ha0pvQjuG2hG1cIF6uZ9leoCsixYVPie
+	 7mqGCiJL6hRqeFsvbCqaZGjg6W7Wx+Opx1CVq6buGVvy7qAyaCeeiZspQgct/eOfei/5a
+	 qffoJmQj0jbcKXTPHO7y3lgEfmSM6bLHNMaVqJUG4g8tn4RF1f947ok1TeNJo60N2DtBU
+	 aMTkZJ3kjBf2J1rCtETN3dnMxLFq82tZsAlRVx3GLqW4NMV/FIAWkfr5f0jkeeAH8pRkx
+	 Lnhjff67ODRKSV0lFBswwPdOF7npy7XFG+nJQcFr8Zrz0EYA8cMGDHh8lg2AANg1h0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vqh9EwJq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=1kkmLxfe;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c2X0TOdI;
+	arc=none smtp.remote-ip=103.168.172.148
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D6D606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:32:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2B0606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:34:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F2B0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vqh9EwJq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BD861F008A2;
-	Tue, 10 Nov 2026 17:32:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331970;
-	bh=I/luCiaSCVMEME0/OzS2BscHD8dCk7xIPmKkJUVyeZM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vqh9EwJqwI1SSPkai2qYbrUA+wecuVV1zPedDN1QSAkziClrY5AEBF6XUbXVHx3N4
-	 wf1Dk6hc2rUeSS67Xuazz3UcOM1e6rCuQ707mKlI9Ho/GjA4DT7oytgLL/JBFwYCVt
-	 FGM4Llsvwwqdz0Ks87U4eVRMKQ/fGYq2jN+e9zbSMQaB+SOKzMzgR6OMq9KGLRg6sB
-	 SOC7kQt746S6qOGrz6pPxwKo1MFCwxbBkXzK71WoVYXOwZqtp2W6r6I0c7dyWI4XHU
-	 Hvu7UsLrWA3zFfQvDfnpwMGJRjhGH9uWStrMU79Ysv/tsIBehmI12V/rlb8/KOJHju
-	 U3/w0MCYb/kSg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] fbdev: nvidia: Release write-combining handle on probe failure
-Date: Tue, 10 Nov 2026 12:32:48 -0500
-Message-ID: <20261110173235.2968169-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110173235.2968169-1-sashal@kernel.org>
-References: <20261107052149-failed-6.12-8710af6a3520@kernel.org>
- <20261110173235.2968169-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=1kkmLxfe;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=c2X0TOdI
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id 53599EC0622
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:34:37 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 10 Nov 2026 12:34:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794332077;
+	 x=1794418477; bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=; b=
+	1kkmLxfefJ1GOpeQDRHT5oyBPcD39lMZN4OoMlQzflxHNyJZBPrtkzINXhLdGsfp
+	PyCVT8c4Ro4fKiD1GQpm1HfJ+cvSRmiKfw4Ii0cUBQt1sYMgp532GQihIJbXVUCq
+	XxUi8yP5aGH31M/cYzaq7OwyC+z46Mpd7I4rel1T83EMFzLA/qmbuqJGbxL+h6Qj
+	a2tDRIKc0r6cmTt40gbeNtGGyygvqRzgstqa1PRJ0VmUdgCX0mV5cMjLuAJ3+LJs
+	rufS3QW03ytSU5o2np56onR6nUbNJjCDvLAI9UVoQWfo5y5twIOB5uItBpjHg55p
+	64tg1lh1d2D8Sm5ZGpxKEQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794332077; x=
+	1794418477; bh=34ODEgh3+FAJD5JbhVVbTI9a7jDrFzMiTcv8klwjWlM=; b=c
+	2X0TOdIo/hvbcYO8lUEIzueX7J63fTGyOnpl83eqvV2hDFNZQkMwGpyEOjymlz1P
+	/oskVMvWUT6DrfatMjpOtGYjWWDumVMdqbvCvGHrNCnSizezWGWpgEnLnZBwCwsN
+	VdV7LYVsAYwo/MdGLFlBZZu3YMkD17N1Gzu+aIfFkZADjS9Zw24uwIhbO7yao3C/
+	f6InulNT/3xtqprnd4AzOM5Mfn0yVXMw6gWkoZt5zTABmd6BzHZYYSMhvkqyhnCX
+	O1CRLioG371jQIgURocPFeyfEg9soTeXn3/aguoNC0fyh1JXVZZP41CflfhJ/GJI
+	fDOk9lHT5JSRCykwaBT6A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794332077; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:HoJtw9SOYp7sVY1RLRDE/7u6VNxrDUqM3xgAxo1+igytY/R
+	jFJt2GvR/iR21QkLGEyLxbhTW2NuqRfBKL5dj69TXQkMDqecNTILtqrg7SZ0GKiv
+	M44JS5ou2Gyhnvoo5JQRbKF18ovd5sJokGCXQ2kPkLstcKViAhqp0wNVyUgRkatN
+	xOdN2GlhPD0NwGfxp4fkOkwpeKJBdi+ExCxqaIyA6EB/i8mr9GQbqbPntyoAv97N
+	ijpiL4fbk/Ug3gzu32kNU5+nw7owvjITnC+4X0lpp80KQcIeN8awVZONeha4KjCG
+	HWDjP+VpOZouSPqX4QdazCERYzZgruYG/f2hDUA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:j5EGXVVw93SNBXUJJ2dE05PR0u71RYfBjN/3IoGlRkc=:OizvlOtUbcQjOUuDe6QmyFt73nQXIcMPGe5y0Z0BmS8=;
+X-ME-Sender: <xms:rFXzaklCw_4KhbgHn5Xfc4Vb1NKY3xPGCSkAjXPuk_UGWfo2-9vF4w>
+    <xme:rFXzavgHo8MF8TRhu-QnIMVztHSFcvmgRp7yd97xzZ2M9vU5ASATyC3cpg5HPXUvH
+    KNHF7amjxl0lOTTn-ngSK-cGHpIU9gSrOPhUoKGJbWPcWHbRfHK444>
+X-ME-Received: <xmr:rFXzavE1qF5hjtOqtdHvCjrs7W1QwtVy1afVmXR0HylPdSWDRo8zPaDTsvFtnw>
+X-ME-Proxy-Cause: dmFkZTGCd/In14w3y25iKTyFC3yOKrM7gSzH5eAyn8BNxBG+Q329vrnfJ+I9l/0vqPLDdt
+    wg3SVRYPpsxeJoVRXLa++PDjg/lC5Wfg8aFVaR1E4E0D9baFoXNFtTv8dn/n96TvQBYKB7
+    ezwYSNLTJOeosVGKnKp7IDvk+e1NJdZzxdH2j2Of6rnk6JKaTuzfJcgEZoLhTabZ3mbbn3
+    wx6wsF/FK04d3hCyKsWaW4R3OCDlHU0VuHL9GZ0TixTITLQGgxvsq+dmcKbgRg5Av9qMIr
+    y5EpX2PKOyHOOb+4EMLtMD1i5pfKlHcGHudbQQkZrfadKJMo6LXTTRYk4RJ2U+UNxAEsTS
+    se/yc+qkpzsbZHQpTOJR5RNDtksWihVCLIY1n4hJ6Txz4tJ5ArdOMTBivJRuCemZGDyMs0
+    3vD07PCrYDsx2mZ93bQfUHzAHeLdlfIUbF74Tekuq7ZJyz5uSlR33rpgsWFlmM65Hd+/wx
+    v3Gvfa5wNrKiGFlGDK2i9rGPOTR8Rg1uwoODrkND7ux1vygGMIC3dG7dCov37mS8TYiI9F
+    HhyTG0sQ2+uFWDmBiofyDmcerqUt9S+SAVDl/kUU7PuBWlUGhTDY31amus4JRYJa4Y+t9e
+    KyhbQpqXsp2G7H7qGtO8IOBNS/jNyqC0MEo022ppWLkO4KGuocCOSsX3WCCw
+X-ME-Proxy: <xmx:rFXzaptVX4JX5D5shB0tRw2sj1TPIuakCWrt1Ild_iDOD0JpslheGQ>
+    <xmx:rFXzaocsZ1cRzbpfip9cgMs4FYtWdKYichEjJqMcX03iVAXD43hiAA>
+    <xmx:rFXzanmoI5vW4PT2ac2kO-hX1a3Z5Ba3FXIwrXn9AX_s0ySlKtpv-Q>
+    <xmx:rFXzajCCiRf4Ecb887FMZnry0KIc-O8rIAJ8NCKt4GDENh40XEdDnA>
+    <xmx:rVXzavIlDOEBxljooTqE24OwAE7Bv5ZkikK2fPOS1UD5KEKuueks_MN7>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 12:34:36 -0500 (EST)
+Date: Tue, 10 Nov 2026 10:34:34 -0700
+From: Alex Williamson <alex@shazbot.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, stable@vger.kernel.org, Abhishek Sahu
+ <abhsahu@nvidia.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah
+ Khan <shuah@kernel.org>, alex@shazbot.org
+Subject: Re: [PATCH 4/5] vfio: selftests: Add sysfs_kernel_warn_count_get()
+Message-ID: <20261110103434.48709eba@shazbot.org>
+In-Reply-To: <20261029203324.1637772-5-dmatlack@google.com>
+References: <20261029203324.1637772-1-dmatlack@google.com>
+	<20261029203324.1637772-5-dmatlack@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,45 +128,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+On Thu, 29 Oct 2026 20:33:23 +0000
+David Matlack <dmatlack@google.com> wrote:
 
-[ Upstream commit 8710af6a35201a6d01b5af8f7e4bad29cc40467f ]
+> Add a helper to read /sys/kernel/warn_count, which counts the number of
+> warnings (e.g. WARN(), KASAN, and UBSAN reports) the kernel has
+> encountered since boot. Return a negative value if the file does not
+> exist, e.g. on kernels that predate it.
+> 
+> Factor the code to read an integer from a sysfs file out of
+> sysfs_val_get_int() so that it can be shared by both helpers.
+> 
+> This will be used in a subsequent commit to detect kernel warnings
+> triggered by tests.
+> 
+> Signed-off-by: David Matlack <dmatlack@google.com>
+> ---
+>  .../vfio/lib/include/libvfio/sysfs.h          |  7 +++++++
+>  tools/testing/selftests/vfio/lib/sysfs.c      | 19 +++++++++++++++----
+>  2 files changed, 22 insertions(+), 4 deletions(-)
 
-Failures in nvidia_set_fbinfo() or register_framebuffer() leave the handle
-from arch_phys_wc_add() allocated. Release it in the shared error path,
-as nvidiafb_remove() already does on normal removal.
+I have a concern with this approach.  I run selftests in parallel as
+much as possible, using multiple devices, each targeted at specific
+tests, with other functional and performance tests running
+concurrently.  When wiring this into my harness, I initially saw a
+failure, but can't reproduce and have no log from the original event.
 
-The missing cleanup was already present in the initial Git import,
-when the driver used mtrr_add() directly.
+I've updated my local CI to keep a console log so that I might have a
+chance of chasing the next instance, but I don't much like the fact
+that any warning occurring concurrently with this test can trigger a
+failure and the test doesn't provide anything to go on in the test logs
+themselves.  Thanks,
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/video/fbdev/nvidia/nvidia.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
-index d298ba71ee0e3..bd4a6dd573dd4 100644
---- a/drivers/video/fbdev/nvidia/nvidia.c
-+++ b/drivers/video/fbdev/nvidia/nvidia.c
-@@ -1419,6 +1419,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
- 	return 0;
- 
- err_out_iounmap_fb:
-+	arch_phys_wc_del(par->wc_cookie);
- 	fb_destroy_modelist(&info->modelist);
- err_out_free_base1:
- 	fb_destroy_modedb(info->monspecs.modedb);
--- 
-2.53.0
-
+Alex
