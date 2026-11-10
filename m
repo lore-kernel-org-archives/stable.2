@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273526;
-	b=eBDs9DwzrgrdoKPVWAFdUx08cI85IOtuEu54DGqnKcrFDgkJEZHNnN2PMQO71fkd14N6
-	 /ZxbQ+rQTRTYBz0VUpQROCIshdwmdy1sWWdzaWPGjCW0YUECZj1kSSWfBWPcoVrqMmv5i
-	 rgXvr/9R87Qdw2xXOxdIQVfOEevm2PHBui4trABKIYUcxfRuse7lodDzjWrJWahv2mz+M
-	 rdfHXMOZ4bO3ugz8rS9reFqaw7pGpDQb8aLSMZzvhQ+QLU8k+GR+NIiU/XxlUjBR/EFJc
-	 jZRjAvVmUcLVAhmqsEX824USJQV9I/gYObBi/+I3OWG5yntJKOB8Q30AvWbkSNtoBRA==
+	t=1794273528;
+	b=zqOOmGVd3rwuTS0tQvCKI+hKfq2SeQKE0uywf1+qVZH4vnxqfxE7gupXWzfx3uUtUeZU
+	 vt9rc7fxh97ue+ithG67TgshjoJPuOoSHCi/zJg+0go3wRHXedTMiooUNL955K/MwUUT3
+	 k7e9qrsqOEsN/0Hpkjk5topwemXsGvDsY1nqfnIVVvHCkx7qydYQvThBUw2rpFwuN7l3k
+	 qReU5plmX281KBHcxYVDODbx3V4bm/O5/Zgof1uOIKbS4HKMNFD1TS/dW5pcfPZyy0QIZ
+	 ljbtipQC5TyddX3CnOBbAvah4YFf4mIMXawBMJ753gPiUwnj6lXyU+QSU5z4UYno46g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273528;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qADCaUCHUyrv6J6sKrklxk8CWquIiPmVq9H7+2pr340=;
-	b=E8lvqWuGXEX4zOtJZnJ0k0SlVlUuxWTHhX1ErcKmEvHjMQ+a5riiIYh6trfh9Z5vAyVD
-	 c5nzrpwnELJ5K8pdJrQqW3MvF8SpKa3/KiQX7Tvo5Hk//C9/B9P3/3WUasZ/BiYcNPzbx
-	 /Mm9BYu8hJk5MvxpzGki9/4zbri3lfJB9djeQQwPpkOddHvITEZJieodKORks0mzQS74T
-	 GYWcVGOltvkyKgW2Z3UbAqEjwLumEsgxvhdUIHUdjWSigc3c3isePZ3aKysfv5zQmnGUk
-	 kH8DERJRmuMRn1gEuBgXZ1imByPITWXsXuPaoal/vSlNpalGSVrQuiSI9oWwgGkpmKg==
+	bh=s21kFDEaW6LFppwm+qO4YxYZQHt23WNlBE3OCHPlMf0=;
+	b=Fe80TWoZNFLRtVdR82utez4HOO+rnpUy6Xu0eS8qJamt/w8FAbVLk+rCSIo5BNashCIM
+	 Vp8+oxTyqKozuDsM544P/SiE7UgBcEXcB+Ji26DPWIqzjTkzsDiZ7LrhDCU4qvdIG7yYX
+	 Le2gykLNpUdX3GcziTaptnmwlAPA6g8E6MDFfpdP9lvyKzp5F5mdwrvl25LM94ZWngTnd
+	 SAjZC4/8eHzzq3SBHuLLP6aIPZ3zIwBqtCTZSg5eREKJPPl8/3jgCH807Rb3C7fxXbBgh
+	 IgHTgOv0Gq1YhSoqrPu0C+JraUXI9N7ISELR35MOn85oU5oGPqEZ4wWVrVLW6B+Ia3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FCBiavPA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D6VoSsrs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041FF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA45606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FCBiavPA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E631F0089F;
-	Tue, 10 Nov 2026 01:18:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D6VoSsrs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0121F0089F;
+	Tue, 10 Nov 2026 01:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273525;
-	bh=qADCaUCHUyrv6J6sKrklxk8CWquIiPmVq9H7+2pr340=;
+	s=k20260515; t=1794273528;
+	bh=s21kFDEaW6LFppwm+qO4YxYZQHt23WNlBE3OCHPlMf0=;
 	h=From:To:Cc:Subject:Date;
-	b=FCBiavPA/nqTxa4fZY8e5LatNOH3t5qzG0SYsHsK0KHvnrBFzqeRGe/RkyHCwGhVk
-	 HVUcMeWHKb4/NYGLx/sb2G1x0/go1IlMlL4zhLvoZMM+91FnzvITxYFHz0vFhZK60d
-	 9iO7MmgZ8/tcm5QFu3CS29JYHQBOipQIx0Ga4I5QbA9ZExie0doVNR/aVtIrMABgjX
-	 IlL3dLKivUt5jNSjO6Ax+tCOOkgW8OLwX/i+VnSQV2DCI0eMQYKI5ANAa3autCoE+G
-	 vjqiMefzY/lNZye5hnizVhoi2l3UWOuf276QUGgP6Vybw+NZUFP19P90FD0GiJh4SX
-	 U6ajaRdws85UQ==
+	b=D6VoSsrsUy5URQg13dnJXQbHhfulH9p/QpJWfQSulO0FlXXXCqpn3O+iLjBELQt6s
+	 YGZ3XtVUlQItKtjb16ZKgm1WN8faqW9E1TDVSi05XzrEPG65fushmzfYlo40p8q+RB
+	 Dw760SO+2iwzXblKx507f7BM0j1ZhYuflTspC4/q43lGmRPqLhz4yjjHvjRsfHlXbb
+	 uzDlb24LZu82puQKoivq5LVNqmffxcOXXkC6IHycnMc9KIKpH+hp4rAx/+orwixwPO
+	 IuiBd9SPNYcwGQEO8s0JIwZ6irxieQ9oQbwrEd1UB2YU/5DCN1ogXm8jsxQNNLXAdx
+	 7/Ci4xXlpcL8w==
 From: Sasha Levin <sashal@kernel.org>
 To: david@kernel.org,
-	josef@toxicpanda.com,
+	mason@kernel.org,
 	ljs@kernel.org,
 	xu.xin@linux.dev,
 	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/madvise: fix data loss from MADV_FREE on a KSM page" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:44 -0500
-Message-ID: <20261109201844-failed-6.1-22d043c1da48@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/ksm: fix use of a freed anon_vma at swap-in" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:46 -0500
+Message-ID: <20261109201846-failed-6.1-4c2dec1dce36@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,67 +71,190 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 22d043c1da48d6c7274f9dd900714b6d58b7b9c6
+git cherry-pick -x 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201844-failed-6.1-22d043c1da48@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201846-failed-6.1-4c2dec1dce36@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 22d043c1da48d6c7274f9dd900714b6d58b7b9c6 Mon Sep 17 00:00:00 2001
+From 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e Mon Sep 17 00:00:00 2001
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:03 +0100
-Subject: [PATCH] mm/madvise: fix data loss from MADV_FREE on a KSM page
+Date: Sat, 31 Oct 2026 10:40:09 +0100
+Subject: [PATCH] mm/ksm: fix use of a freed anon_vma at swap-in
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
-folio remains in the stable tree and can gain new mappings without being
-dirtied again. Once marked lazyfree, reclaim can discard data that those
-mappings still need.
+A folio read from a swap slot previously shared by KSM can remain in the
+swap cache after the process that first mapped it exits. Its anon_vma
+can then be freed, so ksm_might_need_to_copy() must not dereference it
+to compare roots.
 
-KSM always marks a folio dirty when converting it to a KSM folio in
-try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
-but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
-PG_swapbacked instead of discarding the folio. This also protects folios
-that were already lazyfree when KSM converted them.
+Doing so can result in some false-positives, resulting in the reverse
+mapping missing the new folio mapping, preventing migration and reclaim.
 
-Skip KSM folios before clearing their dirty flag, checking under the
-folio lock to serialize with KSM conversion.
+SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
+immediately after freeing. A stale pointer can then refer to another
+anon_vma whose root matches, even though the target VMA is not linked
+to that anon_vma.
 
-Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
+Move the anonymous rmap compatibility checks into
+folio_anon_rmap_compatible(). Keep the page-index check and compare the
+folio's anon_vma pointer against the VMA's own anon_vma and root first.
+
+If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
+The VMA keeps these anon_vmas alive, and finding a match guarantees that
+reverse mapping can find the new mapping.
+
+Lorenzo Stoakes says in a private discussion:
+
+  "This isn't quite equivalent to the existing check.
+
+  Every anon_vma in an anon_vma_chain shares the same root, but if you
+  split a VMA then fork both of them like this:
+
+                  VMA A
+               /        \         <split>
+            VMA B      VMA C
+               \        /
+        root <- anon_vma 1
+               ----^ ^----        <fork>
+              /   parent  \
+        anon_vma 2   anon_vma 3
+             |            |
+           VMA D        VMA E
+
+  VMA's D and E both get their own new
+  anon_vma's such that:
+
+  VMA D: anon_vma 2 -> anon_vma 1 -> root
+  VMA E: anon_vma 3 -> anon_vma 1 -> root
+
+  And if you found a folio referencing anon_vma 2, the existing check:
+
+	anon_vma->root == vma->anon-vma->root
+
+  Would be true for VMA's B, C, D & E.
+
+  However after your change it'd be true for VMA D only, as it's the only
+  one with anon_vma 2 in its anon_vma_chain.
+
+  Whether or not that could actually happen in practice... 🙂 I don't
+  know.
+
+  [...] after your change it'd be true for VMA D only, as it's the only
+  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
+  you are making the test stricter but more correct.
+"
+
+If this affects performance when KSM was never even involved, we could
+just track whether KSM ever merged anything and just skip these checks.
+
+There isn't really a lot we can do otherwise: for mapped folios we might
+be able to use folio_get_anon_vma(), but for unmapped folios there really
+is no easy way to see if the anon_vma is still valid.
+
+Document the (confusing) lifetime requirements of folio_anon_vma().
+
+Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reported-by: Chris Mason <mason@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Xu Xin <xu.xin@linux.dev>
+Acked-by: Xu Xin <xu.xin@linux.dev>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-34-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-40-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/madvise.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
+ mm/util.c | 13 +++++++++++++
+ 2 files changed, 44 insertions(+), 5 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 75b409e97dbf2..a16e3cb256b7b 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -756,6 +756,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
- 			if (!folio_trylock(folio))
- 				continue;
-+			/*
-+			 * KSM folios can gain new mappings at any time, so we must
-+			 * not clear their dirty flag.
-+			 */
-+			if (folio_test_ksm(folio)) {
-+				folio_unlock(folio);
-+				continue;
-+			}
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 9c51925825cbf..e050b1bdf810d 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -3137,11 +3137,40 @@ void __ksm_exit(struct mm_struct *mm)
+ 	trace_ksm_exit(mm);
+ }
+ 
++static bool folio_anon_rmap_compatible(const struct folio *folio,
++		struct vm_area_struct *vma, unsigned long addr)
++{
++	const struct anon_vma *anon_vma = folio_anon_vma(folio);
++	struct anon_vma_chain *avc;
 +
- 			/*
- 			 * If we have a large folio at this point, we know it is
- 			 * fully mapped so if its mapcount is the same as its
++	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
++	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
++	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
++	vma_assert_stabilised(vma);
++
++	if (!anon_vma)
++		return true;
++	if (folio->index != linear_anon_page_index(vma, addr))
++		return false;
++
++	/*
++	 * Careful: anon_vma might have been freed, so we cannot safely
++	 * dereference it. Add a fast path before we walk the anon_vma chain.
++	 */
++	if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
++		return true;
++
++	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
++		if (avc->anon_vma == anon_vma)
++			return true;
++	}
++	return false;
++}
++
+ struct folio *ksm_might_need_to_copy(struct folio *folio,
+ 			struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	struct page *page = folio_page(folio, 0);
+-	struct anon_vma *anon_vma = folio_anon_vma(folio);
+ 	struct folio *new_folio;
+ 
+ 	if (folio_test_large(folio))
+@@ -3151,10 +3180,7 @@ struct folio *ksm_might_need_to_copy(struct folio *folio,
+ 		if (folio_stable_node(folio) &&
+ 		    !(ksm_run & KSM_RUN_UNMERGE))
+ 			return folio;	/* no need to copy it */
+-	} else if (!anon_vma) {
+-		return folio;		/* no need to copy it */
+-	} else if (folio->index == linear_anon_page_index(vma, addr) &&
+-			anon_vma->root == vma->anon_vma->root) {
++	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
+ 		return folio;		/* still no need to copy it */
+ 	}
+ 	if (PageHWPoison(page))
+diff --git a/mm/util.c b/mm/util.c
+index 8acfe2148ba52..80f6c714844f2 100644
+--- a/mm/util.c
++++ b/mm/util.c
+@@ -697,6 +697,19 @@ void *vcalloc_noprof(size_t n, size_t size)
+ }
+ EXPORT_SYMBOL(vcalloc_noprof);
+ 
++/**
++ * folio_anon_vma - Get a folio's raw anon_vma pointer.
++ * @folio: The folio.
++ *
++ * The returned pointer may be stale for an unmapped folio. The caller
++ * must ensure the anon_vma stays alive before dereferencing it. A folio
++ * reference or lock alone is insufficient; use folio_get_anon_vma() when
++ * the anon_vma's lifetime is not otherwise protected. Note that
++ * folio_get_anon_vma() is only useful for folios that are still mapped.
++ *
++ * Return: The raw anon_vma pointer for an anonymous, non-KSM folio, or
++ * %NULL otherwise.
++ */
+ struct anon_vma *folio_anon_vma(const struct folio *folio)
+ {
+ 	unsigned long mapping = (unsigned long)folio->mapping;
 -- 
 2.53.0
 
