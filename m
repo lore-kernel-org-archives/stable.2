@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794343375;
-	b=aLUCLRgFwDYMBQaQY8qPjIVWLSBk8TmzIhyuVDz89XWlYFNv6abgynDEwkG3zfleRxZX
-	 5HU6tD90y4+5XSeh01MamB3pek0jVn7Bs25hFevJttdez7RJKCdvsN568o3ALKp2XJ433
-	 j9xoUO7wXF2AvLjzO6+T5DSHUzEgnppTX1NItYWhLYyoIdbDOrkeLYV4AczdXfcnUsDqR
-	 hoqRLjZXBrIrRx/WPdVrSgTq8qJkeBqNtl/QiJrptyWV8uLQXk3066vaRpy67EhihJ64m
-	 XD74a7VtZAEQ809cdhJvGkFev1gB2Rk8Je7Uc0ArGO/UCsBIwCWJcSinEQoiVB6ThGA==
+	t=1794343391;
+	b=5BTwawrGv07cizpqOdUiccERNFudGpyr7m7wQ7pvFuCwYFNyfYyoQf3IAWwbAplqS5v0
+	 tnECeDUmvqHG3RA2fHoSTsltMFdWKf782NL8tM3R829DqTHErITbUbFaONeBfRx+tFe4Z
+	 1uG4MrzYyz4zN7Or4DTjZNs9Un3iEh4UUvxtqaF9Jtw0WjZ6E5qDqjAzyBu/ovrXdS+lS
+	 xGqCxHn00JyO4IiGDvtaaxww/E1Qg6xHL45fwECjneZ2FBpFBxL3PLpddsSPQvHWIfRKc
+	 rA5JEh5y6K/8UQxU6/OszICNXpNBZKEyY3hO+5zwZkbHcTbDwCOEaGNVADNiSGq/Bcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794343375;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794343391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=becI3p+sQNx/eEVjlWgUndzwQKXlj80fI+ex6CDMkM8=;
-	b=RnpNDdBnerFIVn1V1FvfHr+MRga3INTOhz1XfAfuWOO5FIG3f3jUe1rwT3g7+JR4tF0v
-	 h/ex97oUqe3T7abxV/fsWuF++/x62tbS1U8QQ22LW6jV1rk9eBghOelWD9MJtfdLNaC5/
-	 UWH5KRLyGh/pB32Qfj2NosDcxlLVAi4yKP7QN8VOYfuwlHYIqs8afpaITTHWXRiEcT5KJ
-	 Ba0eI/Ct+YPidbvBAyavqJO8r1Csx8NGN4P3VAXjLEk0ygvpaOWFIlzkLWKunOWRjEdLW
-	 gbAf9gQZCMC++BNJKw6XG3wTj/PQtZ408VoNmFrivt8bMNoccTJciDWgTJ6WRN4vtVg==
+	bh=TBXP3CUX0OT9nsyShcEgbbH1Z6IzpLV3S1MPROc/x4o=;
+	b=vkHZiq/0UiiQupIqNSEQtpJCn/e61ZjSSdi9FwGnJvgnp1PpvygNCQPiTUMF0TRAn3QI
+	 FLdXcNmxehyfnRmDXRgoQqTaHEoCBdDNLFpmYm3PFWsVIidcyXdQT5XRsTCFzpqqSKPFV
+	 hGlX+K0dTIOAy0zWT1h4377vir8UB5TC8Va1ziPDIRjroM9yKTA9X7bFR8zL7iSnXe4vy
+	 eUZCnxU+PlDVIrSdp5CyqGSLvQkZpUTPLT6pbmLSOgvoIZ8SEXLfXlnnbESvIejqBsWF9
+	 jyRTi4KKzBjKiTXxU8qHY+yrEqFYKfAq3ZoxpJCfUEp7zW4RrCqsFD7GLQOIKi+Hh3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf2GJrQP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X00/zfFb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7F7606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:42:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA22B606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf2GJrQP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8065C1F008A1;
-	Tue, 10 Nov 2026 20:42:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X00/zfFb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F3B1F0089F;
+	Tue, 10 Nov 2026 20:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794343375;
-	bh=becI3p+sQNx/eEVjlWgUndzwQKXlj80fI+ex6CDMkM8=;
+	s=k20260515; t=1794343390;
+	bh=TBXP3CUX0OT9nsyShcEgbbH1Z6IzpLV3S1MPROc/x4o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jf2GJrQPo4fGWb+hKORpAIAoD/v/IcGAv3ZM/lVXTGEx8ZHgu+Oj57CLTtXFJjofY
-	 YFfonz1LfWiSHsC8aSHyiSnVwtB6XtBcZXC2MSYOyC5/Gjgna2eJ+hbC8Vhr8qCjKy
-	 tfOr/xDx1pgAWiVJGoHe4G29cjb4S414+mm4l0fEt0GzUAT6/OaBLHtnLBLxUCVHFA
-	 I2Mx4v/L0pg+NWj6/cM5nTkKaCVV1F8yBVw0Nskpru1OWFlEwbTx80yO9tiIfoSatN
-	 p8gGrjavDFt5vOnK96O7CNTII9+AIWmQexGYxfLY3XrTcwLNYtffgXiv5applkhIc2
-	 UyNzDaHsqUK9A==
+	b=X00/zfFbkMbq5YmVNnOEPhK4hfwNVmFeQve6Xzcg4zhdHmR4k/CI2ZZvMiA0GijA0
+	 FnuhL7ZrIZNG4Al2QQ0sLBFgi2MJSySUZlbU94JuSvf9oe5BIc54bM3uNwCcobxg0+
+	 hLUvNPHIrxo1kWTmQDvCUPXvn6CeL3fRsxKx3bJePvnYvD1L3QrYbI08DIeDI/3//F
+	 XAJEL/PWV3ZENFeK4BwVlTIFcvcOs9ifbSzbi1jICWLARsOnxYLmRHFX/kRYhEuVcF
+	 Z0F5d8K9rVlDkYAkFKPbr2tyCxJDUpoNm94PxQRdZQVR3srH0r0XUhzGyDqhA5Fr7a
+	 uQsr3hEox0xdA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] serial: 8250_exar: store the GPIO platform device in struct exar8250
-Date: Tue, 10 Nov 2026 15:42:51 -0500
-Message-ID: <20261110204132.3796786-4-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mptcp: fix subflow bitfield misuse
+Date: Tue, 10 Nov 2026 15:43:08 -0500
+Message-ID: <20261110204253.3819167-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110204132.3796786-1-sashal@kernel.org>
-References: <20261107054802-failed-6.1-33d337816e00@kernel.org>
- <20261110204132.3796786-1-sashal@kernel.org>
+In-Reply-To: <20261107055050-failed-6.1-7538fa33bb2f@kernel.org>
+References: <20261107055050-failed-6.1-7538fa33bb2f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,148 +62,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+From: Paolo Abeni <pabeni@redhat.com>
 
-[ Upstream commit 33d337816e00994daaf670243186d9e537ee090d ]
+[ Upstream commit 7538fa33bb2f66b8b809ff39d58308be48e197a0 ]
 
-The GPIO platform device is registered via platform->register_gpio()
-when port 0 is being set up. It is stored to port->port.private_data of
-the on-stack uart template (and from there it is copied into every
-registered port). pci_xr17v35x_exit() then fetches it back by
-serial8250_get_port(priv->line[0]).
+The subflow status bitfield is protected by the subflow socket lock,
+with one notable exception: the `close_event_done` bit is actually under
+the msk socket lock protection.
 
-But port 0 does not have to exist at that point. If
-serial8250_register_8250_port() fails for port 0, priv->line[0] holds a
-negative error code. The probe still succeeds (it only breaks the loop),
-so on unbind, priv->line[0] (a negative value) is passed to
-serial8250_get_port(). The GPIO device is never unregistered and a
-bogus port is accessed.
+As reported by Clashiko [1], flipping the latter bit may corrupt other
+entries in the same bitfield.
 
-The same problem would also occur after the planned conversion of
-serial8250_register_8250_port() to return a uart port instead of a
-line. As Sashiko pointed out in that case:
-  If board->setup() fails for the first port (i=0) in exar_pci_probe(),
-  priv->uport[0] remains NULL. If serial8250_register_8250_port() fails,
-  it returns an ERR_PTR. In either case, the loop breaks and probe
-  returns success. When the device is later unbound,
-  pci_xr17v35x_exit() unconditionally passes priv->uport[0] to
-  platform->unregister_gpio(), which will dereference it without
-  checking for validity.
+Move the `close_event_done` outside the bitfield, in a 32bit hole.
 
-The GPIO device belongs to the PCI device, not to any particular port.
-So store it in a new struct exar8250::gpio member. Pass priv to both
-->register_gpio() and ->unregister_gpio(), so that pci_xr17v35x_exit()
-does not need to look up any port at all.
-
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Fixes: d0aeaa83f0b0 ("serial: exar: split out the exar code from 8250_pci")
-Link: https://lore.kernel.org/all/sashiko-outbox-166269@kernel.org/
-Assisted-by: LLM
+Link: https://lore.kernel.org/178959153492.22033.1944011998010756543@kernel.org
+Fixes: d82809b6c5f2 ("mptcp: avoid duplicated SUB_CLOSED events")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/03a8b5c71614fc672fef1e55c083bda6c73b5bf3.1791873876.git.jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-2-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: adjusted context to place close_event_done after pm_listener instead of fully_established ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/8250/8250_exar.c | 36 ++++++++++++++---------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ net/mptcp/protocol.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
-index 9326a7bd4e2a1..7645cbf6b4d2e 100644
---- a/drivers/tty/serial/8250/8250_exar.c
-+++ b/drivers/tty/serial/8250/8250_exar.c
-@@ -169,8 +169,9 @@ struct exar8250_platform {
- 	int (*rs485_config)(struct uart_port *port, struct ktermios *termios,
- 			    struct serial_rs485 *rs485);
- 	const struct serial_rs485 *rs485_supported;
--	int (*register_gpio)(struct pci_dev *pcidev, struct uart_8250_port *port);
--	void (*unregister_gpio)(struct uart_8250_port *port);
-+	int (*register_gpio)(struct exar8250 *priv, struct pci_dev *pcidev,
-+			     struct uart_8250_port *port);
-+	void (*unregister_gpio)(struct exar8250 *priv);
- };
- 
- /**
-@@ -194,6 +195,7 @@ struct exar8250 {
- 	unsigned int		nr;
- 	struct exar8250_board	*board;
- 	void __iomem		*virt;
-+	struct platform_device	*gpio;
- 	int			line[];
- };
- 
-@@ -448,22 +450,21 @@ static const struct software_node exar_gpio_node = {
- 	.properties = exar_gpio_properties,
- };
- 
--static int xr17v35x_register_gpio(struct pci_dev *pcidev, struct uart_8250_port *port)
-+static int xr17v35x_register_gpio(struct exar8250 *priv, struct pci_dev *pcidev,
-+				  struct uart_8250_port *port)
- {
- 	if (pcidev->vendor == PCI_VENDOR_ID_EXAR)
--		port->port.private_data =
--			__xr17v35x_register_gpio(pcidev, &exar_gpio_node);
-+		priv->gpio = __xr17v35x_register_gpio(pcidev, &exar_gpio_node);
- 
- 	return 0;
- }
- 
--static void xr17v35x_unregister_gpio(struct uart_8250_port *port)
-+static void xr17v35x_unregister_gpio(struct exar8250 *priv)
- {
--	if (!port->port.private_data)
--		return;
--
--	__xr17v35x_unregister_gpio(port->port.private_data);
--	port->port.private_data = NULL;
-+	if (priv->gpio) {
-+		__xr17v35x_unregister_gpio(priv->gpio);
-+		priv->gpio = NULL;
-+	}
- }
- 
- static int generic_rs485_config(struct uart_port *port, struct ktermios *termios,
-@@ -546,8 +547,9 @@ static const struct software_node iot2040_gpio_node = {
- 	.properties = iot2040_gpio_properties,
- };
- 
--static int iot2040_register_gpio(struct pci_dev *pcidev,
--			      struct uart_8250_port *port)
-+static int iot2040_register_gpio(struct exar8250 *priv,
-+				 struct pci_dev *pcidev,
-+				 struct uart_8250_port *port)
- {
- 	u8 __iomem *p = port->port.membase;
- 
-@@ -556,8 +558,7 @@ static int iot2040_register_gpio(struct pci_dev *pcidev,
- 	writeb(IOT2040_UARTS_ENABLE, p + UART_EXAR_MPIOLVL_15_8);
- 	writeb(IOT2040_UARTS_GPIO_HI_MODE, p + UART_EXAR_MPIOSEL_15_8);
- 
--	port->port.private_data =
--		__xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
-+	priv->gpio = __xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
- 
- 	return 0;
- }
-@@ -631,7 +632,7 @@ pci_xr17v35x_setup(struct exar8250 *priv, struct pci_dev *pcidev,
- 		/* Setup Multipurpose Input/Output pins. */
- 		setup_gpio(pcidev, p);
- 
--		ret = platform->register_gpio(pcidev, port);
-+		ret = platform->register_gpio(priv, pcidev, port);
- 	}
- 
- 	return ret;
-@@ -641,9 +642,8 @@ static void pci_xr17v35x_exit(struct pci_dev *pcidev)
- {
- 	const struct exar8250_platform *platform = exar_get_platform();
- 	struct exar8250 *priv = pci_get_drvdata(pcidev);
--	struct uart_8250_port *port = serial8250_get_port(priv->line[0]);
- 
--	platform->unregister_gpio(port);
-+	platform->unregister_gpio(priv);
- }
- 
- static inline void exar_misc_clear(struct exar8250 *priv)
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index 31ea91b45363c..9d53b4ae9fa44 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -492,11 +492,13 @@ struct mptcp_subflow_context {
+ 		disposable : 1,	    /* ctx can be free at ulp release time */
+ 		stale : 1,	    /* unable to snd/rcv data, do not use for xmit */
+ 		valid_csum_seen : 1,        /* at least one csum validated */
+-		close_event_done : 1,       /* has done the post-closed part */
+ 		resetting : 1,	    /* subflow is resetting */
+-		__unused : 8;
++		__unused : 9;
+ 	enum mptcp_data_avail data_avail;
+ 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
++	bool	close_event_done;   /* has done the post-closed part,
++				     * protected by msk socket lock
++				     */
+ 	u32	remote_nonce;
+ 	u64	thmac;
+ 	u32	local_nonce;
 -- 
 2.53.0
 
