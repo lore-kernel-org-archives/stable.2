@@ -1,51 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273694;
-	b=xvJF2qeOeXSjl9cntG3MttAm6VkCqy7IlRhuXPQfPpE8U2U3Pv8VHTRi0VjcJs+xUElV
-	 PFcT9LTsDFR7bzZBUx7g/AoU/DkdZl9V85NEFwqa5uWz24wExiVgFDkX8Qz8eDF3xF6AH
-	 d1RrlEj9+/IJlCTdJBV3hf55/6PAwQBJ49PNWCkRypUAK5yqMpNAYyK5XRQWX8GZg5G5p
-	 fQH3UBzTz6CC8Dy4VbsBvXXHTv1QouCx/9A9nYSOAWUe8+R9QjR//PZq4xkq6cuGRaXUB
-	 oyhiPDRZ+HeHPuiTOSuMtNZwAVBcaAbhFNXP2ZrgAcn5BIO7yLxksUq7+1kWAiqaphQ==
+	t=1794273697;
+	b=iSfgHlMG4832y8tmg574NqyYVzBnsgso6DAx9wrIZZWsbJeFuy+O7ky9zJJosHeKmNSV
+	 skfCGh7KLBjvz+Db0V86fZgR62tu0f2lRldbYFBST6jojZM11oEN5PDgG5bNuOOT7hmTm
+	 Z2kPXJWtVhBnnojY62wXYc3cV+p+I7LuSCrVlOdx+cdU8Yur85aIbAUWaCwE7m1qAioO/
+	 nj1dxxBe91LxBO1SSq5AxbPLmfRmJq8Vg6W0mJkYXcg5tH8avY9ltTr7HjCtYHXJov/BE
+	 wNby8nhr2Y/7MhVnadPa5+nZs50fHybH/CyL4K/dd8fZmzt0KxEQqZ8uHArEF1CFfVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273697;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Tp0cHSBm9HHiGXGxRN0UPYgWE0UFpknDLhcIvTcxBD4=;
-	b=lGFX1JtcuYzlHtGSGx4hfiz/Mcbqnc8ElmyPxJg2taI4KKWheTw7h+VTJIVLAQwFYhKI
-	 TBqx1lkstscUJjYbsklRI9edqdLHSL90F7ivM8NTf1tc78Ne5YPi8NqWwf8tAoC4DkF6y
-	 t0UXAd2DCke/Xugy+1UnXWjKetzj1MoYRVK4Ckb4F/Dtiz9BfvPFsD2qittVRiwYIXfIv
-	 WY3GlZ0HMHko7HyHP1xApbCMHFUfjM3ePQhN3Sqy2XucbyODOCA5S12Aed4JVQyxNKsm6
-	 litA0fEjvIGbNNF3AQbDmSF8f6u4OIvlsG8x/pK72TtacASFjG30nBqsC6Q7NskUVvg==
+	bh=j+M08EKoOb1V/VV3Pc4No/koD+iLN1eqqdi/kQ5JyxI=;
+	b=KRHpPZE0WtMnKTcCA4xIJt2153qtUGtonwNp7d6T4qRmzFQf+1DVe/VRu8LDjNGmUHYU
+	 OV7hoq5eZO/0Br9tl0PvEZDQZeq/89lPntt81O0yEIZqqUdrM302yK/alyByo6RWD+N5O
+	 3Z9lrmY70PP9M7TdpPK+wZLPI1Fiex0swXy0We0b/jXJ7xIVRrOVblLYP3E+DwUHfaaLl
+	 cv+a3ww63ZjX7fkSClPpUrY0TGruMCyOK50VX6F924d7i7whDkjqbLGMeqBOU/SoSMDHA
+	 Xf79Rt10zWhO+pqPf/Evu1jPjGM+QW7ycBztNuiKofgd7I8ZkN4Gwjqy+gbUzwF4FbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xti4GqH2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0odb6p5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68575606A339
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFE3606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xti4GqH2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D628F1F008A1;
-	Tue, 10 Nov 2026 01:21:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0odb6p5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24BE01F0089F;
+	Tue, 10 Nov 2026 01:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273694;
-	bh=Tp0cHSBm9HHiGXGxRN0UPYgWE0UFpknDLhcIvTcxBD4=;
+	s=k20260515; t=1794273697;
+	bh=j+M08EKoOb1V/VV3Pc4No/koD+iLN1eqqdi/kQ5JyxI=;
 	h=From:To:Cc:Subject:Date;
-	b=Xti4GqH2qmFPqO8tw2zQEwRjuYAMpx2Np6IdAxvo35EHXnOvQcouhkps/hZDOM1hh
-	 ZXmEoxasMDsVAxSIWzPKN+cjj/QUxtHiIa7aiWp5zRRvCVzmpVIHS9mhayC2k4K1tM
-	 xzFwzpJTsEP2q78pPCuEi+SGvLUsOgFVYpQjzcLh8agQZkH4x7KccT+xoTTBAf5TOe
-	 5AoqW3UVcJFJ1PZ9ZCfW6kzeaT4QNWzl5v6YAGpC/uQv2YY0VRAdGfK4FYWY20Syh9
-	 CEnWAkg9uPv8IxyjCg+xBcdtcv98tIyMM5yrvGHZhgLqeRrq8AcqslG6fjEpea5n6H
-	 cZi6UGduDRULQ==
+	b=T0odb6p5H0opaunSDyQzWdjVQ5DuLtH2Rb0k9kSKJMaS2edxQjLHMF7GLnfws4oq+
+	 giPPZYMna2YncLTq4QcCMZLCUc0myn7KF6BWx5oBb2BOb3hLeg1fAGgO908S1T2N/T
+	 j7H7AKDFhWOCQVb6JKS6YLNdQkV/+oWpKZEXL1IFwEksYJh2fR0e2uOKmWiYJOtrmc
+	 RDne6dpE8+i1JAz6ysgqKm5b9MQ1XsWnu7diRUHV47uWFtBu9RAKWF8Pvr/9YmJJ5c
+	 G4vSaLU4q9Z6kCkdeuCrdw2+DHqhJ6U2OsE2bFVydccqUt9slima7L4Le3fJRcHaJe
+	 +ehfokF8QasIA==
 From: Sasha Levin <sashal@kernel.org>
-To: yaojiale02@163.com,
-	linux@roeck-us.net
+To: seanjc@google.com,
+	jmattson@google.com,
+	jthoughton@google.com,
+	yosry@kernel.org,
+	dwmw2@infradead.org,
+	fane@google.com,
+	pbonzini@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (aquacomputer_d5next) reject short status reports" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:21:32 -0500
-Message-ID: <20261109202132-failed-5.15-cf8f81babd2e@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Cap number of parent PTEs per SP at 1000 (the arbitrary rmap limit)" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:35 -0500
+Message-ID: <20261109202134-failed-5.15-e4558c3d7198@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,229 +73,95 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x cf8f81babd2e96087dedbb74985bc1781c98f73d
+git cherry-pick -x e4558c3d7198ed9a0adc3304681f561f4e4d80e1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202132-failed-5.15-cf8f81babd2e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202134-failed-5.15-e4558c3d7198@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cf8f81babd2e96087dedbb74985bc1781c98f73d Mon Sep 17 00:00:00 2001
-From: Jiale Yao <yaojiale02@163.com>
-Date: Wed, 21 Oct 2026 20:04:07 +0800
-Subject: [PATCH] hwmon: (aquacomputer_d5next) reject short status reports
+From e4558c3d7198ed9a0adc3304681f561f4e4d80e1 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Tue, 27 Oct 2026 10:15:18 -0700
+Subject: [PATCH] KVM: x86/mmu: Cap number of parent PTEs per SP at 1000 (the
+ arbitrary rmap limit)
 
-The HID raw_event callback runs before HID core validates the received
-report length. aqc_raw_event() reads device-specific status fields at fixed
-offsets, including multi-byte values, without first ensuring that the
-received buffer contains every field. A truncated report can therefore
-cause out-of-bounds reads and update hwmon state with unrelated data.
+When potentially reusing a shadow page, zap the shadow page if its number
+of parent PTEs exceeds KVM's (mostly) arbitrary rmap recycling threshold.
+Letting the guest create a (mostly) unbounded number of parent PTEs allows
+the guest to coerce KVM into creating lists containing millions of PTEs,
+effectively bounded only by the maximum number of shadow pages.
 
-The required length differs between supported devices and cannot be
-derived from the HID report descriptor. Define the minimum length needed
-by each asynchronous status format, select it while configuring the
-device, and reject reports that do not contain the last field accessed by
-that format. Keep the published length zero until probe configuration is
-complete, which also excludes legacy devices whose status is retrieved
-through feature reports.
+Because PTE lists are simple singly linked lists, removal is O(n).  Even
+worse, if a list is constructed just so, teardown can be O(n^2), e.g. if
+SPTEs are built such that zapping child SPTEs always zaps the last entry
+in the list.  To cap things off, all paths that walk PTE lists do so
+while holding mmu_lock, without conditionally rescheduling.
 
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
-Fixes: 19692f17cd13 ("hwmon: (aquacomputer_d5next) Add support for Aquacomputer Aquastream XT")
+Using a doubly linked list would not address the issue, as removal would
+remain O(n) since KVM still wouldn't know where in the list to remove from.
+Removal could be made O(1) by storing a per-SPTE pointer, but that would
+largely defeat the purpose of reusing SPs, and would penalize well-behaved
+guests, especially for nested TDP where aliasing page tables is uncommon.
+
+So, cap the maximum number of parent PTEs at the rmap limit.  In practice,
+well-behaved guests will likely never run afoul of the limit.  E.g. when
+running Linux as L1 with TDP, the number of parent PTEs for a single SP
+tops out at under 200 (though undoubtedly obscure workloads can push it
+higher).  Deliberately use a "greater than or equal" as opposed to rmap's
+strictly "greater than", as the rmap code checks the threshold immediately
+*after* inserting into the list, i.e. the limit is 1000 for rmaps, KVM just
+very briefly blows past it.
+
+Apply the check to both indirect and direct SPs, because while a fully
+direct MMU naturally limits the number of parent PTEs to '1', direct SPs in
+indirect MMUs have no such constraint.  E.g. if the guest maps a huge PTE
+into many locations in its page tables, and KVM is backing the hugepage
+with a direct SP, i.e. with a series of smaller pages, then KVM could end
+up with a direct SP with many parents.
+
+Note, shadow_mmu_try_split_huge_pages() always restarts the rmap walk or
+bails entirely if it gets to the point where it tries to grab a SP, i.e.
+there is *no* pre-existing bug that would be tripped by zapping a SP and
+thus rmaps when getting a SP.
+
+Cc: Jim Mattson <jmattson@google.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Link: https://patch.msgid.link/20261021120408.48495-1-yaojiale02@163.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261027171518.1432557-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- drivers/hwmon/aquacomputer_d5next.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ arch/x86/kvm/mmu/mmu.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
-index 1ca70e7262988..341cce4347e24 100644
---- a/drivers/hwmon/aquacomputer_d5next.c
-+++ b/drivers/hwmon/aquacomputer_d5next.c
-@@ -132,6 +132,7 @@ static u8 aquaero_secondary_ctrl_report[] = {
- #define AQUAERO_FAN_CURRENT_OFFSET		0x06
- #define AQUAERO_FAN_POWER_OFFSET		0x08
- #define AQUAERO_FAN_SPEED_OFFSET		0x00
-+#define AQUAERO_MIN_STATUS_REPORT_SIZE		(0x18B + AQUAERO_FAN_POWER_OFFSET + sizeof(u16))
- static u16 aquaero_sensor_fan_offsets[] = { 0x167, 0x173, 0x17f, 0x18B };
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 5a2cc6a17a9b3..f4b12d6aef559 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2355,6 +2355,16 @@ static struct kvm_mmu_page *kvm_mmu_find_shadow_page(struct kvm *kvm,
+ 			continue;
+ 		}
  
- /* Control report offsets for the Aquaero fan controllers */
-@@ -155,6 +156,8 @@ static u16 aquaero_ctrl_fan_offsets[] = { 0x20c, 0x220, 0x234, 0x248 };
- #define D5NEXT_5V_VOLTAGE		0x39
- #define D5NEXT_12V_VOLTAGE		0x37
- #define D5NEXT_VIRTUAL_SENSORS_START	0x3f
-+#define D5NEXT_MIN_STATUS_REPORT_SIZE	(D5NEXT_PUMP_OFFSET + AQC_FAN_SPEED_OFFSET + \
-+					 sizeof(u16))
- static u16 d5next_sensor_fan_offsets[] = { D5NEXT_PUMP_OFFSET, D5NEXT_FAN_OFFSET };
- 
- /* Control report offsets for the D5 Next pump */
-@@ -179,11 +182,14 @@ static u16 d5next_ctrl_fan_offsets[] = { 0x97, 0x42 };	/* Pump and fan speed (fr
- #define AQUASTREAMULT_FAN_CURRENT_OFFSET	0x00
- #define AQUASTREAMULT_FAN_POWER_OFFSET		0x04
- #define AQUASTREAMULT_FAN_SPEED_OFFSET		0x06
-+#define AQUASTREAMULT_MIN_STATUS_REPORT_SIZE	(AQUASTREAMULT_PRESSURE_OFFSET + sizeof(u16))
- static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
- 
- /* Spec and sensor report offset for the Farbwerk RGB controller */
- #define FARBWERK_NUM_SENSORS		4
- #define FARBWERK_SENSOR_START		0x2f
-+#define FARBWERK_MIN_STATUS_REPORT_SIZE	(FARBWERK_SENSOR_START + \
-+					 FARBWERK_NUM_SENSORS * AQC_SENSOR_SIZE)
- 
- /* Specs of the Farbwerk 360 RGB controller */
- #define FARBWERK360_NUM_SENSORS			4
-@@ -193,6 +199,8 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
- /* Sensor report offsets for the Farbwerk 360 */
- #define FARBWERK360_SENSOR_START		0x32
- #define FARBWERK360_VIRTUAL_SENSORS_START	0x3a
-+#define FARBWERK360_MIN_STATUS_REPORT_SIZE	(FARBWERK360_VIRTUAL_SENSORS_START + \
-+					 FARBWERK360_NUM_VIRTUAL_SENSORS * AQC_SENSOR_SIZE)
- 
- /* Control report offsets for the Farbwerk 360 */
- #define FARBWERK360_TEMP_CTRL_OFFSET		0x8
-@@ -209,6 +217,7 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
- #define OCTO_SENSOR_START		0x3D
- #define OCTO_VIRTUAL_SENSORS_START	0x45
- #define OCTO_FLOW_SENSOR_OFFSET		0x7B
-+#define OCTO_MIN_STATUS_REPORT_SIZE	(0xD8 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
- static u16 octo_sensor_fan_offsets[] = { 0x7D, 0x8A, 0x97, 0xA4, 0xB1, 0xBE, 0xCB, 0xD8 };
- 
- /* Control report offsets for the Octo */
-@@ -229,6 +238,7 @@ static u16 octo_ctrl_fan_offsets[] = { 0x5B, 0xB0, 0x105, 0x15A, 0x1AF, 0x204, 0
- #define QUADRO_SENSOR_START		0x34
- #define QUADRO_VIRTUAL_SENSORS_START	0x3c
- #define QUADRO_FLOW_SENSOR_OFFSET	0x6e
-+#define QUADRO_MIN_STATUS_REPORT_SIZE	(0x97 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
- static u16 quadro_sensor_fan_offsets[] = { 0x70, 0x7D, 0x8A, 0x97 };
- 
- /* Control report offsets for the Quadro */
-@@ -248,6 +258,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
- #define HIGHFLOWNEXT_CONDUCTIVITY	95
- #define HIGHFLOWNEXT_5V_VOLTAGE		97
- #define HIGHFLOWNEXT_5V_VOLTAGE_USB	99
-+#define HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE	(HIGHFLOWNEXT_5V_VOLTAGE_USB + sizeof(u16))
- 
- /* Specs of the Leakshield */
- #define LEAKSHIELD_NUM_SENSORS		2
-@@ -263,6 +274,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
- #define LEAKSHIELD_FLOW_IN		111
- #define LEAKSHIELD_RESERVOIR_VOLUME	313
- #define LEAKSHIELD_RESERVOIR_FILLED	311
-+#define LEAKSHIELD_MIN_STATUS_REPORT_SIZE	(LEAKSHIELD_RESERVOIR_VOLUME + sizeof(u16))
- 
- /* Specs of the Aquastream XT pump */
- #define AQUASTREAMXT_SERIAL_START		0x3a
-@@ -554,6 +566,7 @@ struct aqc_data {
- 	const char *name;
- 
- 	int status_report_id;	/* Used for legacy devices, report is stored in buffer */
-+	u16 min_report_size;
- 	int ctrl_report_id;
- 	int secondary_ctrl_report_id;
- 	int secondary_ctrl_report_size;
-@@ -1333,6 +1346,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
- 		return 0;
- 
- 	priv = hid_get_drvdata(hdev);
-+	if (!priv->min_report_size || size < priv->min_report_size)
-+		return 0;
- 
- 	/* Info provided with every report */
- 	priv->serial_number[0] = get_unaligned_be16(data + priv->serial_number_start_offset);
-@@ -1518,6 +1533,7 @@ static void aqc_debugfs_init(struct aqc_data *priv)
- static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- {
- 	struct aqc_data *priv;
-+	u16 min_report_size = 0;
- 	int ret;
- 
- 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
-@@ -1585,6 +1601,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_fan_power;
- 		priv->voltage_label = label_fan_voltage;
- 		priv->current_label = label_fan_current;
-+		min_report_size = AQUAERO_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_D5NEXT:
- 		priv->kind = d5next;
-@@ -1610,6 +1627,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_d5next_power;
- 		priv->voltage_label = label_d5next_voltages;
- 		priv->current_label = label_d5next_current;
-+		min_report_size = D5NEXT_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_FARBWERK:
- 		priv->kind = farbwerk;
-@@ -1620,6 +1638,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->temp_sensor_start_offset = FARBWERK_SENSOR_START;
- 
- 		priv->temp_label = label_temp_sensors;
-+		min_report_size = FARBWERK_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_FARBWERK360:
- 		priv->kind = farbwerk360;
-@@ -1636,6 +1655,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 		priv->temp_label = label_temp_sensors;
- 		priv->virtual_temp_label = label_virtual_temp_sensors;
-+		min_report_size = FARBWERK360_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_OCTO:
- 		priv->kind = octo;
-@@ -1665,6 +1685,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_fan_power;
- 		priv->voltage_label = label_fan_voltage;
- 		priv->current_label = label_fan_current;
-+		min_report_size = OCTO_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_QUADRO:
- 		priv->kind = quadro;
-@@ -1694,6 +1715,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_fan_power;
- 		priv->voltage_label = label_fan_voltage;
- 		priv->current_label = label_fan_current;
-+		min_report_size = QUADRO_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_HIGHFLOWNEXT:
- 		priv->kind = highflownext;
-@@ -1711,6 +1733,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->speed_label = label_highflownext_fan_speed;
- 		priv->power_label = label_highflownext_power;
- 		priv->voltage_label = label_highflownext_voltage;
-+		min_report_size = HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_LEAKSHIELD:
- 		/*
-@@ -1730,6 +1753,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 		priv->temp_label = label_leakshield_temp_sensors;
- 		priv->speed_label = label_leakshield_fan_speed;
-+		min_report_size = LEAKSHIELD_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_AQUASTREAMXT:
- 		priv->kind = aquastreamxt;
-@@ -1760,6 +1784,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		priv->power_label = label_aquastreamult_power;
- 		priv->voltage_label = label_aquastreamult_voltages;
- 		priv->current_label = label_aquastreamult_current;
-+		min_report_size = AQUASTREAMULT_MIN_STATUS_REPORT_SIZE;
- 		break;
- 	case USB_PRODUCT_ID_POWERADJUST3:
- 		priv->kind = poweradjust3;
-@@ -1833,6 +1858,8 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		break;
- 	}
- 
-+	priv->min_report_size = min_report_size;
++		/*
++		 * Note!  Unlike fully direct MMUs, direct SPs in indirect MMUs
++		 * can have an arbitrary number of parents, e.g if the guest is
++		 * mapping a huge PTE at many points in its page tables.
++		 */
++		if (pte_list_count(&sp->parent_ptes) >= RMAP_RECYCLE_THRESHOLD) {
++			kvm_mmu_prepare_zap_page(kvm, sp, &invalid_list);
++			break;
++		}
 +
- 	if (priv->buffer_size != 0) {
- 		priv->checksum_start = 0x01;
- 		priv->checksum_length = priv->buffer_size - 3;
+ 		/* unsync and write-flooding only apply to indirect SPs. */
+ 		if (sp->role.direct)
+ 			goto out;
 -- 
 2.53.0
 
