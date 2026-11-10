@@ -1,154 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.79
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794325680;
-	b=naskizUV38Rq6f8e41KPi+DwSgQv0A2LWftkqYrddWL5lDAS59AVoyGLZeHF/O/kgN6X
-	 vPJ4SpB1YNYPSEsDxhW1Y/4OrnijOrulh9+AFSEve2DR80K3NnFa57JW3PCHAJ4TTZcjY
-	 n+6YrjuGNXeaDQ4clZpo6XOAZrj2glc6FSlKH9TZR4Fr6/5TzuetUfV5r+A9WaFC16aqw
-	 MD0EjGgAJYYl+tR4opUYTPp34CMkqpSYBQ0abbyEjo7whLkHKan/hw1zgOrc3IrCvQBDF
-	 V50gJPDeNHPjtersJvOBR3y6bVfdkW2Ww0GZiTqp2ImRuaJSKwVtAyFU6CzlTyPZt0w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325680;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=58Df+rIzBq5xgTYTiEYK5PU8HD9/K/WFi6VRDWxHkts=;
-	b=zoMnZOmPCHqnyu9CPrwKXkWOUslv1402+QnVLXZy+THplTqcKUBiC8wXsVSB+sjvL3Gg
-	 k2XFoXStXkhcAhx+4vouRyjAB2YqAisrZuatncVDOOaBtFPqrMp0L/uGTPct2JNO8fXMU
-	 xgt6Ct+P7AbPrCD6HtTthjkhrrOidm+lu68A5Vt1y9Use337+IENuBZ7D1H5bYFsQASwY
-	 uQBqKboY5J9tyl3n5HnvFTERhUbHAThZrBVsiCjRIX6WdyOwgQlskwclslSez3qKu6mOz
-	 lCQJruwh5t7A1wlyKvmiCuMmwWlALJCGxFzlEPMYVzVtKfgDSGRDBleED5Gww9zhSvQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=mAqWHQc+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.79
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013079.outbound.protection.outlook.com [52.103.7.79])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794325719;
+	b=12T55CVyeDhZMnXkC8EsXKaiM29Uq53T4YJ0W2jKHVvuKOSBzBym6aXbtAxhrXzu7y2e
+	 /PgAYqR1NvcJm+6JlyYXuyNX3/3mvGVCFFGgfidp8dsHrbfLltoW6kyOBdjMJQqzsRRT9
+	 vWTD+KQDuqoEx7oPaGJwzdLXd6CZpeel6zJxCCWUhX/mrSteq57xugBFQbdmh1c8AKTsu
+	 AXPA8NoGvDfxC7IPn6wX95jkRI5UayK2HluollFq0F2+HgiqFChFV76Y2iZufQT6c7qQX
+	 YPEf2c1PvqTQVmT6EqCQ7LOJPOC95jg9+fmKjokrxL66P72t29L5TyaShxeSDd+x2Ug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325719;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=bQiz3lmF4ZPa/tnN2J54HfKuyq2KU8EZblNgx51hF/U=;
+	b=ucVhNiAnTSZB6O9kw348D2B2CN3FEugGKb9QPl7yj0L6DjvAqUurev7ro8JBIoEXmC4/
+	 Cgi1GZF9M3F8qwM/b338UJiXYLpcHX7zfnEMZSqe9/EdpGJXvzrdHCjMHo/LCYuABzS5o
+	 Ly/9AdMsC8vBEGDZPHj4ovYTB7Psqw7AxtN77C7deLaOmah/YUCSQbNp3CXqMxyzn4Jrb
+	 C5GXvhbQIpQx33Ig5q0/X5TyulvslwFF+8YK85tItV2hcIPW8i7EWVV4/zbGZ+l9KP+t+
+	 J5FjexQtw/sFpo2SF4RxxPAlchPswWhHx8FBgl0haNgLagSJOXLsdQiMbDedobfAmvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nxX3whdE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DAC606A330;
-	Tue, 10 Nov 2026 15:48:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50DAC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7AB60A260A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:48:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=mAqWHQc+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gZFcB5duvhPMkIM6XvEaCvfRqV1lKsXlKhAbH1NvVIfliZGeiHvR8eo7SI1w7Np/FjfYY/Zd2Fvl3x7vd8KSvr+jnmukMPAdVdnAxoJ8gQueMpIyXJmCMU9yBxwvhh5/RL9JirJG7BhCJNwiXhDb9H31oZCP6+kcFDHw04NdFwO8NiqpquA8ON9pRL7Q8loWYkoToRWBVF6Z/8ik2cMSelt6qpzAL7MEPG5I3LFVFqdDEBAB3fUOrVBV+8PJaD+DTA5YuFaxCICJJ+r+vT7LG6/NWRgSlgWJ8GCkVgVd7Ox1wZpUVCCO/Y5WqjZvsPB3QUWcZTXKomSvaWcBaHWfnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=58Df+rIzBq5xgTYTiEYK5PU8HD9/K/WFi6VRDWxHkts=;
- b=ZFmaTfE7m5ANaMkyoLJjF/mVgMjAsx+Bs04zCJiF15CFs432mgkMh++Emvass2eBEWXhyxW0QD+T6LHmFdoZkD6SgdkG/UDjAyx77Jzaj6s7x29WaNPWybz1/0K2mEHi7T7f/0y/1bJSl0ePwVyl/rxE4k7qdNACbkO3CVONBBbvmImkNmFGRy059VW9sg9JOb2zVholK8a7tdeqK6vkMBpcX0GvGqNxiLOrCRoNtsmPyjGCuwy6qM2CClmvGhLijjEfDrCChYS/QAGdjTT4lX2V5aH/hywAsCme1pTIoE8r+K0bUSP8aiaf2qOG+N8UX+GSDWRLE+rlkuwgI1IExg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=58Df+rIzBq5xgTYTiEYK5PU8HD9/K/WFi6VRDWxHkts=;
- b=mAqWHQc+mbiSyZCBIdS2WzJkX96ZJopUi68sss6Lfn8Bk84K96YdL8/jQ4mGfQ6IgNOYb8ZoeLOgJ9r2kxjWqTajY4medafJHQB2T5wDoPkTLzUC4v5Mr4QgHRZ5/P2VSNwTAcqhi7Nqp+0zi7xAHb7hdLOK/d5UC5Ucj11Jnq5aB+kGMV+CxB9q6jE8969negimB/icYWjIhsDJUxDXzYGzcBAeALF7fYTZXXzNzlC3fq/dfvCJe6FcJ5+2Lgd/UevzbAONuQ15cmbKUULUHI9KFz61wk6Rbo6tWGFgPwvkmrkzOab41fqD9fplHzMHVPpd6iWMHVI8O24u5ATv2A==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by SN7PR05MB7775.namprd05.prod.outlook.com
- (2603:10b6:806:105::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 15:47:58 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0615.007; Tue, 10 Nov 2026
- 15:47:58 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-CC: "mptcp@lists.linux.dev" <mptcp@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"edumazet@kernel.org" <edumazet@kernel.org>, "ncardwell@google.com"
-	<ncardwell@google.com>, "kuniyu@google.com" <kuniyu@google.com>,
-	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"horms@kernel.org" <horms@kernel.org>, "matttbe@kernel.org"
-	<matttbe@kernel.org>, "martineau@kernel.org" <martineau@kernel.org>,
-	"geliang@kernel.org" <geliang@kernel.org>, "ycheng@google.com"
-	<ycheng@google.com>, "weiwan@google.com" <weiwan@google.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [PATCH net 1/2] tcp: avoid wrapping Fast Open blackhole timeout
-Thread-Topic: [PATCH net 1/2] tcp: avoid wrapping Fast Open blackhole timeout
-Thread-Index: AQHdcSrbrMBlKf22GkaKiF/PgIzGQQ==
-Date: Tue, 10 Nov 2026 15:47:58 +0000
-Message-ID:
- <340d9f1f96e235642e8b47b5e7c836a18de8dd56.1794325665.git.x-professor@outlook.com>
-References: <cover.1794325665.git.x-professor@outlook.com>
-In-Reply-To: <cover.1794325665.git.x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|SN7PR05MB7775:EE_
-x-ms-office365-filtering-correlation-id: bb530568-1b35-4e9e-96f5-08df3f41fe6b
-x-microsoft-antispam:
- BCL:0;ARA:14566002|4140399003|24021099003|25010399006|31061999003|38102599003|24121999003|22091999003|41001999006|51005399006|8060799015|8062599012|19110799012|15080799012|40105399003|30101999006|26121999007|102099032|440099028|3412199025;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?OpxACHBxDS8TCxaqjjmt0x8p4TYmkwhz67/fsOJJulrrTfN+VXAjgltooj?=
- =?iso-8859-1?Q?syaX8rFYfv1gjvXPPYOi6/Z8YxB8lxwE6oEkPLb7lwIWaVLCLi+luMAaEh?=
- =?iso-8859-1?Q?MGn+42W/I/QkNYivdx98qvPl3hGDbVcUmmkE5lxLrW8+W9xqfRJHgaYEAX?=
- =?iso-8859-1?Q?fhvKhAxuUquRdxhUhLGprKavrzwkvmz0a9yPxltlm96W2dbV7crCk1/uTu?=
- =?iso-8859-1?Q?L4VGXSw38q+6n6Ljbt0XYA3ayGTa12FM2CfwfyqF2HmFNdR6TcBIRKP7pF?=
- =?iso-8859-1?Q?M2DFvNdhpVWFgiHmkzj6OPyjcYXdMmBKV/nDXlMace2yUGAY2fu447FuKG?=
- =?iso-8859-1?Q?ccmsdKTDqLrbMQEmdvvqLzTyg7voog9R3jXaavOeaj9hslTzzNNKIZ6XXb?=
- =?iso-8859-1?Q?BMoVr68OvQypONqzAOtg25ooSJo7Kmg7hGKARG4nS5U2M05tUWxVrp41I5?=
- =?iso-8859-1?Q?224weBx11Tk7WvLhUUxbNw3vkMCUsTJJ0iNrIpAIAiKqzIOEncEj9Ugx+W?=
- =?iso-8859-1?Q?/T1+c6h5cijJQpUyJQ+CrsXLWySu8xoJLuowgwileu7n7tIRpPbnJmf6Kf?=
- =?iso-8859-1?Q?pp/13Hkno8YeFP4qah5OnZBaIXo4aWfLlmcrgANqzBBzYpg7VK5Ju2/AUT?=
- =?iso-8859-1?Q?vAQD7/cZBnGl4corJvRjDCPHHLCYSGa9pRfTL+yL/yUoVvw0jp/ytHIYXP?=
- =?iso-8859-1?Q?EEACBz71oVWTGFYfqDAPKf/EUsfSl4HlED5DwxIAV6Z2wrNkMLwXo1iQzt?=
- =?iso-8859-1?Q?64bzeZwADMw77O133aoQ+GIAODwJtRdP4IX5MnTQ14jV40CIB88q35zTct?=
- =?iso-8859-1?Q?GxfD5ehhpUNDE4sJ2Dxrx6gsm3Ap5xYNyx75vKV1KCgamD0iDRM1cFXL7k?=
- =?iso-8859-1?Q?Llhq2z5jaZQgDDRIYzQlW7jiC+qlXlrHbgWSH6ZRYCpLcum5XVXDHGqYzA?=
- =?iso-8859-1?Q?aOZkssQ+AFGTuzbBvxOYjYu3xQotQnKMQerXRmrxAp7AGWOHvE8721jdtT?=
- =?iso-8859-1?Q?jrf6ZW6gB0Ml5w0IFXMtB8u7OaJ+GFngfEzVCboH+/UWLQ3H/TgF57PEfe?=
- =?iso-8859-1?Q?6aGkaAT557lAjRsWI+/f1Sp4D55SaSR3XJ66IAqdVe6WPkru2yEzI+PPik?=
- =?iso-8859-1?Q?YC16RrbjoRIUQFXIknm3WrknIHTVDnr6/FXv9XtxvcmGtishDl?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?HrQTqy3F8syBNbG1Mtl/iviUWptll6bw8Isidd5lZH2bCKSwq/YpRegJch?=
- =?iso-8859-1?Q?c/UWRz5e66omXB/vtJj9gktVpmoVOR56vkDJERw72j+HOgjBXvr2ZNWa+R?=
- =?iso-8859-1?Q?uD2U7oONY8LFVaXXicQi36JT9d4p9pn/VIbIlUCUeSl/ynQEZYHpfk06oE?=
- =?iso-8859-1?Q?NvnILRwm1/sSHIlzimdScmZK/AeS2RGKLyb1LeWRqLy+cwp+rJ0jcfclQ2?=
- =?iso-8859-1?Q?EZvN7DmEkvVJLqP3LQ9gI+YHcTa5QdS+HEEKXv3QvkINvM2iip4OW+WbsX?=
- =?iso-8859-1?Q?0AYiLiK0xLAJ8lg4b7Dw+JNKThd0P2Uv+QrxltzG9pXeMGFdwzMsJAhHZs?=
- =?iso-8859-1?Q?vmqnBgHBrPMBmlLIiiKWhjXSDir8kvl1DxLSOOdWy5OiozLRVHhLOvfkPF?=
- =?iso-8859-1?Q?rc3vgyIGo6QsAAFLm8sC5/3Pkrm5nGx+llFwRdA+fIWPpFPDJnAgEF6fdJ?=
- =?iso-8859-1?Q?kASyPRLpgOd9oKn+WEIZO/qvGjx57biNeHHsOEj4x1bgbDhbIALECSPZTI?=
- =?iso-8859-1?Q?zBJfASQGpA3QOOfm4lx3mTMIfIREAspKs/wfiq3rtB5T5YrON/MKX6pUwq?=
- =?iso-8859-1?Q?CWWXNM8TN2E2nIh/ByqXM8QVKMWt8/DMiCafvGXX07CIkjnXkV9/uo2RCK?=
- =?iso-8859-1?Q?/UU7g8Gqh694bZb/eq85Bz2nEXCk2zT7lt6MS4OvSU1GNIdnh47nzToz3w?=
- =?iso-8859-1?Q?j/N/zjMnHuKJ46/QWmlubveeOcbDNvXr2Vuee0BQk5Upl+EeTtZZjb8o9y?=
- =?iso-8859-1?Q?t4Waishg3wMfEBNgAwdQ8zuW+TnPZaJEboReRnWIF8h+RdQJ+kz857PT7k?=
- =?iso-8859-1?Q?8BeOqdVO/+vUf39Zp/ZDNREeVlB0+MblgcpYaanTEMTcfdFViTU+fRXUuI?=
- =?iso-8859-1?Q?VWbgdBy4+DI6Nu1kYHqSWRUNhnJl1QL7+rTI3FL+yowQpsvOtUiJPFfgHD?=
- =?iso-8859-1?Q?JOsQvZRJxgK7E+4VxM3Zl3Za7KvSwyeGrSz57l6R9KqHhI/24+iFcG+E2J?=
- =?iso-8859-1?Q?9UdGgacUXGPpgvkaqIXWq5D61/BXGwruXWbgJc6KnTZBNXK+pFMpvZM6jj?=
- =?iso-8859-1?Q?yXDu1k9Ad4IyGz5Bna0cS1jtxFRNra2oDt+C7mewjAJQHkeSU4LzRGa+dS?=
- =?iso-8859-1?Q?sfigrFCUVdzeZY2jWCfvcc46fh34EPmvzOM8Y0bBNUuSWHabNFhGsYSuyi?=
- =?iso-8859-1?Q?Z4PHej5rraOunYTxIg7cklZmEWbUmegNYE3KReZecb+mY4rXvdVcEnJbip?=
- =?iso-8859-1?Q?7PkbRC7huh3yo73duK460aH389fL6Psz2MzlOlX9NLM/rsqF1ArLSzP+E4?=
- =?iso-8859-1?Q?dSMKVFnkPG3MtrmWAzhZLaShuvRu9l8YaUlzoVYFxeCZE0jhoOoQfAjs3j?=
- =?iso-8859-1?Q?o+Te515+pvdMFFd/mZ/lCPFZqwZUDuLSMceg8CwgD2FU+Dw/OlCkdN9jxz?=
- =?iso-8859-1?Q?1J8Mx3i7IJpqGFAV?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nxX3whdE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6211F008A1;
+	Tue, 10 Nov 2026 15:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794325718;
+	bh=bQiz3lmF4ZPa/tnN2J54HfKuyq2KU8EZblNgx51hF/U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nxX3whdEmF8FPaZrR7YD0lLFkhtR0BK2wN+qGSeQfxWJnpvfbRG19GHyfZgYrsenU
+	 J5zYUWQqQz+pZzFZZUncPAQTBtHH4wmvpG9hG+dmM/8QlR22ZoeBPDzB+ogDF4qkW+
+	 0+RCVBYUpC52RMbuPpP93Vtr8fUOv+8cUAgD5OQMcj7vlICoh6NuRjmjNpsxFDYI3Z
+	 qiv6VVm4GQD56i9WkeBlBxaaHHrliD60nrdxnJ993S4eTLRcGo0xlZ1jWO1NJtvGJU
+	 fsxwwPGDtmPkCG775tuY2zcVRruJbOKSCeHvK2UkZwVm6d1ikKJHq989CcSSnj0GiW
+	 mCnlWVmwMrNsQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ALSA: hda/hdmi: extract common interface for ELD handling
+Date: Tue, 10 Nov 2026 10:48:35 -0500
+Message-ID: <20261110154828.2333180-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052016-failed-6.12-b3e7ddd694f8@kernel.org>
+References: <20261107052016-failed-6.12-b3e7ddd694f8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -158,75 +59,1110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb530568-1b35-4e9e-96f5-08df3f41fe6b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Nov 2026 15:47:58.3763
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR05MB7775
+Content-Transfer-Encoding: 8bit
 
-tcp_fastopen_active_should_disable() calculates the active-disable=0A=
-interval as multiplier * tfo_bh_timeout * HZ. Since all operands are=0A=
-32-bit, a large tcp_fastopen_blackhole_timeout_sec can wrap the delay=0A=
-even on 64-bit kernels and re-enable active Fast Open too soon.=0A=
-=0A=
-For example, with HZ=3D1000, a timeout of 6912213 seconds and the maximum=
-=0A=
-multiplier of 64 should produce 442381632000 jiffies, but the current=0A=
-calculation truncates it to 512 jiffies.=0A=
-=0A=
-This issue was found using a static analysis tool. A loopback reproducer=0A=
-induced 12 Fast Open blackholes and waited 1.2 seconds before opening=0A=
-another connection. The unpatched kernel retried active Fast Open, while=0A=
-the patched kernel kept Fast Open disabled and used a regular TCP=0A=
-handshake. The reproducer required neither kernel modifications nor=0A=
-fault injection.=0A=
-=0A=
-Compute the interval in u64 and cap it at MAX_JIFFY_OFFSET before adding=0A=
-it to the saved timestamp. This preserves the existing exponential=0A=
-backoff for representable intervals and prevents large values from=0A=
-wrapping into short timeouts.=0A=
-=0A=
-Fixes: cf1ef3f0719b ("net/tcp_fastopen: Disable active side TFO in certain =
-scenarios")=0A=
-Cc: stable@vger.kernel.org=0A=
-Signed-off-by: Yingjie Wang <x-professor@outlook.com>=0A=
----=0A=
- net/ipv4/tcp_fastopen.c | 4 +++-=0A=
- 1 file changed, 3 insertions(+), 1 deletion(-)=0A=
-=0A=
-diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c=0A=
-index 7f7eb3cc1c04..aeefd605414f 100644=0A=
---- a/net/ipv4/tcp_fastopen.c=0A=
-+++ b/net/ipv4/tcp_fastopen.c=0A=
-@@ -613,6 +613,7 @@ bool tcp_fastopen_active_should_disable(struct sock *sk=
-)=0A=
- 	unsigned long timeout;=0A=
- 	int tfo_da_times;=0A=
- 	int multiplier;=0A=
-+	u64 delay;=0A=
- =0A=
- 	if (!tfo_bh_timeout)=0A=
- 		return false;=0A=
-@@ -626,10 +627,11 @@ bool tcp_fastopen_active_should_disable(struct sock *=
-sk)=0A=
- =0A=
- 	/* Limit timeout to max: 2^6 * initial timeout */=0A=
- 	multiplier =3D 1 << min(tfo_da_times - 1, 6);=0A=
-+	delay =3D (u64)multiplier * tfo_bh_timeout * HZ;=0A=
- =0A=
- 	/* Paired with the WRITE_ONCE() in tcp_fastopen_active_disable(). */=0A=
- 	timeout =3D READ_ONCE(sock_net(sk)->ipv4.tfo_active_disable_stamp) +=0A=
--		  multiplier * tfo_bh_timeout * HZ;=0A=
-+		  min(delay, MAX_JIFFY_OFFSET);=0A=
- 	if (time_before(jiffies, timeout))=0A=
- 		return true;=0A=
- =0A=
--- =0A=
-2.43.0=0A=
-=0A=
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+
+[ Upstream commit 1b0e9d7f76c9bb6bd1a345ef033ae7fe5e77649c ]
+
+Other HDMI-related cards (e.g. hdmi-codec) are also using the ELD.
+Exrtact common set of interfaces for handling the ELD.
+
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20250124-alsa-hdmi-codec-eld-v1-1-bad045cfaeac@linaro.org
+Stable-dep-of: b3e7ddd694f8 ("ALSA: hda/hdmi: clamp sad_count in ELD proc write handler")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/sound/pcm_drm_eld.h |  91 +++++++++
+ sound/core/pcm_drm_eld.c    | 387 ++++++++++++++++++++++++++++++++++++
+ sound/pci/hda/Kconfig       |   1 +
+ sound/pci/hda/hda_eld.c     | 385 +----------------------------------
+ sound/pci/hda/hda_local.h   |  49 +----
+ sound/pci/hda/patch_hdmi.c  |   6 +-
+ 6 files changed, 494 insertions(+), 425 deletions(-)
+
+diff --git a/include/sound/pcm_drm_eld.h b/include/sound/pcm_drm_eld.h
+index 28a55a8beb287..5a38413ada916 100644
+--- a/include/sound/pcm_drm_eld.h
++++ b/include/sound/pcm_drm_eld.h
+@@ -2,6 +2,97 @@
+ #ifndef __SOUND_PCM_DRM_ELD_H
+ #define __SOUND_PCM_DRM_ELD_H
+ 
++enum eld_versions {
++	ELD_VER_CEA_861D	= 2,
++	ELD_VER_PARTIAL		= 31,
++};
++
++enum cea_audio_coding_types {
++	AUDIO_CODING_TYPE_REF_STREAM_HEADER	=  0,
++	AUDIO_CODING_TYPE_LPCM			=  1,
++	AUDIO_CODING_TYPE_AC3			=  2,
++	AUDIO_CODING_TYPE_MPEG1			=  3,
++	AUDIO_CODING_TYPE_MP3			=  4,
++	AUDIO_CODING_TYPE_MPEG2			=  5,
++	AUDIO_CODING_TYPE_AACLC			=  6,
++	AUDIO_CODING_TYPE_DTS			=  7,
++	AUDIO_CODING_TYPE_ATRAC			=  8,
++	AUDIO_CODING_TYPE_SACD			=  9,
++	AUDIO_CODING_TYPE_EAC3			= 10,
++	AUDIO_CODING_TYPE_DTS_HD		= 11,
++	AUDIO_CODING_TYPE_MLP			= 12,
++	AUDIO_CODING_TYPE_DST			= 13,
++	AUDIO_CODING_TYPE_WMAPRO		= 14,
++	AUDIO_CODING_TYPE_REF_CXT		= 15,
++	/* also include valid xtypes below */
++	AUDIO_CODING_TYPE_HE_AAC		= 15,
++	AUDIO_CODING_TYPE_HE_AAC2		= 16,
++	AUDIO_CODING_TYPE_MPEG_SURROUND		= 17,
++};
++
++enum cea_audio_coding_xtypes {
++	AUDIO_CODING_XTYPE_HE_REF_CT		= 0,
++	AUDIO_CODING_XTYPE_HE_AAC		= 1,
++	AUDIO_CODING_XTYPE_HE_AAC2		= 2,
++	AUDIO_CODING_XTYPE_MPEG_SURROUND	= 3,
++	AUDIO_CODING_XTYPE_FIRST_RESERVED	= 4,
++};
++
++/*
++ * CEA Short Audio Descriptor data
++ */
++struct snd_cea_sad {
++	int	channels;
++	int	format;		/* (format == 0) indicates invalid SAD */
++	int	rates;
++	int	sample_bits;	/* for LPCM */
++	int	max_bitrate;	/* for AC3...ATRAC */
++	int	profile;	/* for WMAPRO */
++};
++
++#define ELD_FIXED_BYTES	20
++#define ELD_MAX_SIZE    256
++#define ELD_MAX_MNL	16
++#define ELD_MAX_SAD	16
++
++#define ELD_PCM_BITS_8		BIT(0)
++#define ELD_PCM_BITS_16		BIT(1)
++#define ELD_PCM_BITS_20		BIT(2)
++#define ELD_PCM_BITS_24		BIT(3)
++#define ELD_PCM_BITS_32		BIT(4)
++
++/*
++ * ELD: EDID Like Data
++ */
++struct snd_parsed_hdmi_eld {
++	/*
++	 * all fields will be cleared before updating ELD
++	 */
++	int	baseline_len;
++	int	eld_ver;
++	int	cea_edid_ver;
++	char	monitor_name[ELD_MAX_MNL + 1];
++	int	manufacture_id;
++	int	product_id;
++	u64	port_id;
++	int	support_hdcp;
++	int	support_ai;
++	int	conn_type;
++	int	aud_synch_delay;
++	int	spk_alloc;
++	int	sad_count;
++	struct snd_cea_sad sad[ELD_MAX_SAD];
++};
++
+ int snd_pcm_hw_constraint_eld(struct snd_pcm_runtime *runtime, void *eld);
+ 
++int snd_parse_eld(struct device *dev, struct snd_parsed_hdmi_eld *e,
++		  const unsigned char *buf, int size);
++void snd_show_eld(struct device *dev, struct snd_parsed_hdmi_eld *e);
++
++#ifdef CONFIG_SND_PROC_FS
++void snd_print_eld_info(struct snd_parsed_hdmi_eld *eld,
++			struct snd_info_buffer *buffer);
++#endif
++
+ #endif
+diff --git a/sound/core/pcm_drm_eld.c b/sound/core/pcm_drm_eld.c
+index 1cdca4d4fc9cd..688eefce82fa3 100644
+--- a/sound/core/pcm_drm_eld.c
++++ b/sound/core/pcm_drm_eld.c
+@@ -5,8 +5,10 @@
+ #include <linux/bitfield.h>
+ #include <linux/export.h>
+ #include <linux/hdmi.h>
++#include <linux/unaligned.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_eld.h>
++#include <sound/info.h>
+ #include <sound/pcm.h>
+ #include <sound/pcm_drm_eld.h>
+ 
+@@ -162,3 +164,388 @@ int snd_pcm_hw_constraint_eld(struct snd_pcm_runtime *runtime, void *eld)
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_hw_constraint_eld);
++
++#define SND_PRINT_RATES_ADVISED_BUFSIZE	80
++#define SND_PRINT_BITS_ADVISED_BUFSIZE	16
++#define SND_PRINT_CHANNEL_ALLOCATION_ADVISED_BUFSIZE 80
++
++static const char * const eld_connection_type_names[4] = {
++	"HDMI",
++	"DisplayPort",
++	"2-reserved",
++	"3-reserved"
++};
++
++static const char * const cea_audio_coding_type_names[] = {
++	/*  0 */ "undefined",
++	/*  1 */ "LPCM",
++	/*  2 */ "AC-3",
++	/*  3 */ "MPEG1",
++	/*  4 */ "MP3",
++	/*  5 */ "MPEG2",
++	/*  6 */ "AAC-LC",
++	/*  7 */ "DTS",
++	/*  8 */ "ATRAC",
++	/*  9 */ "DSD (One Bit Audio)",
++	/* 10 */ "E-AC-3/DD+ (Dolby Digital Plus)",
++	/* 11 */ "DTS-HD",
++	/* 12 */ "MLP (Dolby TrueHD)",
++	/* 13 */ "DST",
++	/* 14 */ "WMAPro",
++	/* 15 */ "HE-AAC",
++	/* 16 */ "HE-AACv2",
++	/* 17 */ "MPEG Surround",
++};
++
++static const char * const cea_speaker_allocation_names[] = {
++	/*  0 */ "FL/FR",
++	/*  1 */ "LFE",
++	/*  2 */ "FC",
++	/*  3 */ "RL/RR",
++	/*  4 */ "RC",
++	/*  5 */ "FLC/FRC",
++	/*  6 */ "RLC/RRC",
++	/*  7 */ "FLW/FRW",
++	/*  8 */ "FLH/FRH",
++	/*  9 */ "TC",
++	/* 10 */ "FCH",
++};
++
++/*
++ * SS1:SS0 index => sample size
++ */
++static const int cea_sample_sizes[4] = {
++	0,			/* 0: Refer to Stream Header */
++	ELD_PCM_BITS_16,	/* 1: 16 bits */
++	ELD_PCM_BITS_20,	/* 2: 20 bits */
++	ELD_PCM_BITS_24,	/* 3: 24 bits */
++};
++
++/*
++ * SF2:SF1:SF0 index => sampling frequency
++ */
++static const int cea_sampling_frequencies[8] = {
++	0,			/* 0: Refer to Stream Header */
++	SNDRV_PCM_RATE_32000,	/* 1:  32000Hz */
++	SNDRV_PCM_RATE_44100,	/* 2:  44100Hz */
++	SNDRV_PCM_RATE_48000,	/* 3:  48000Hz */
++	SNDRV_PCM_RATE_88200,	/* 4:  88200Hz */
++	SNDRV_PCM_RATE_96000,	/* 5:  96000Hz */
++	SNDRV_PCM_RATE_176400,	/* 6: 176400Hz */
++	SNDRV_PCM_RATE_192000,	/* 7: 192000Hz */
++};
++
++#define GRAB_BITS(buf, byte, lowbit, bits)		\
++({							\
++	BUILD_BUG_ON(lowbit > 7);			\
++	BUILD_BUG_ON(bits > 8);				\
++	BUILD_BUG_ON(bits <= 0);			\
++							\
++	(buf[byte] >> (lowbit)) & ((1 << (bits)) - 1);	\
++})
++
++static void hdmi_update_short_audio_desc(struct device *dev,
++					 struct snd_cea_sad *a,
++					 const unsigned char *buf)
++{
++	int i;
++	int val;
++
++	val = GRAB_BITS(buf, 1, 0, 7);
++	a->rates = 0;
++	for (i = 0; i < 7; i++)
++		if (val & (1 << i))
++			a->rates |= cea_sampling_frequencies[i + 1];
++
++	a->channels = GRAB_BITS(buf, 0, 0, 3);
++	a->channels++;
++
++	a->sample_bits = 0;
++	a->max_bitrate = 0;
++
++	a->format = GRAB_BITS(buf, 0, 3, 4);
++	switch (a->format) {
++	case AUDIO_CODING_TYPE_REF_STREAM_HEADER:
++		dev_info(dev, "HDMI: audio coding type 0 not expected\n");
++		break;
++
++	case AUDIO_CODING_TYPE_LPCM:
++		val = GRAB_BITS(buf, 2, 0, 3);
++		for (i = 0; i < 3; i++)
++			if (val & (1 << i))
++				a->sample_bits |= cea_sample_sizes[i + 1];
++		break;
++
++	case AUDIO_CODING_TYPE_AC3:
++	case AUDIO_CODING_TYPE_MPEG1:
++	case AUDIO_CODING_TYPE_MP3:
++	case AUDIO_CODING_TYPE_MPEG2:
++	case AUDIO_CODING_TYPE_AACLC:
++	case AUDIO_CODING_TYPE_DTS:
++	case AUDIO_CODING_TYPE_ATRAC:
++		a->max_bitrate = GRAB_BITS(buf, 2, 0, 8);
++		a->max_bitrate *= 8000;
++		break;
++
++	case AUDIO_CODING_TYPE_SACD:
++		break;
++
++	case AUDIO_CODING_TYPE_EAC3:
++		break;
++
++	case AUDIO_CODING_TYPE_DTS_HD:
++		break;
++
++	case AUDIO_CODING_TYPE_MLP:
++		break;
++
++	case AUDIO_CODING_TYPE_DST:
++		break;
++
++	case AUDIO_CODING_TYPE_WMAPRO:
++		a->profile = GRAB_BITS(buf, 2, 0, 3);
++		break;
++
++	case AUDIO_CODING_TYPE_REF_CXT:
++		a->format = GRAB_BITS(buf, 2, 3, 5);
++		if (a->format == AUDIO_CODING_XTYPE_HE_REF_CT ||
++		    a->format >= AUDIO_CODING_XTYPE_FIRST_RESERVED) {
++			dev_info(dev,
++				   "HDMI: audio coding xtype %d not expected\n",
++				   a->format);
++			a->format = 0;
++		} else
++			a->format += AUDIO_CODING_TYPE_HE_AAC -
++				     AUDIO_CODING_XTYPE_HE_AAC;
++		break;
++	}
++}
++
++/*
++ * Be careful, ELD buf could be totally rubbish!
++ */
++int snd_parse_eld(struct device *dev, struct snd_parsed_hdmi_eld *e,
++		  const unsigned char *buf, int size)
++{
++	int mnl;
++	int i;
++
++	memset(e, 0, sizeof(*e));
++	e->eld_ver = GRAB_BITS(buf, 0, 3, 5);
++	if (e->eld_ver != ELD_VER_CEA_861D &&
++	    e->eld_ver != ELD_VER_PARTIAL) {
++		dev_info(dev, "HDMI: Unknown ELD version %d\n", e->eld_ver);
++		goto out_fail;
++	}
++
++	e->baseline_len = GRAB_BITS(buf, 2, 0, 8);
++	mnl		= GRAB_BITS(buf, 4, 0, 5);
++	e->cea_edid_ver	= GRAB_BITS(buf, 4, 5, 3);
++
++	e->support_hdcp	= GRAB_BITS(buf, 5, 0, 1);
++	e->support_ai	= GRAB_BITS(buf, 5, 1, 1);
++	e->conn_type	= GRAB_BITS(buf, 5, 2, 2);
++	e->sad_count	= GRAB_BITS(buf, 5, 4, 4);
++
++	e->aud_synch_delay = GRAB_BITS(buf, 6, 0, 8) * 2;
++	e->spk_alloc	= GRAB_BITS(buf, 7, 0, 7);
++
++	e->port_id	  = get_unaligned_le64(buf + 8);
++
++	/* not specified, but the spec's tendency is little endian */
++	e->manufacture_id = get_unaligned_le16(buf + 16);
++	e->product_id	  = get_unaligned_le16(buf + 18);
++
++	if (mnl > ELD_MAX_MNL) {
++		dev_info(dev, "HDMI: MNL is reserved value %d\n", mnl);
++		goto out_fail;
++	} else if (ELD_FIXED_BYTES + mnl > size) {
++		dev_info(dev, "HDMI: out of range MNL %d\n", mnl);
++		goto out_fail;
++	} else
++		strscpy(e->monitor_name, buf + ELD_FIXED_BYTES, mnl + 1);
++
++	for (i = 0; i < e->sad_count; i++) {
++		if (ELD_FIXED_BYTES + mnl + 3 * (i + 1) > size) {
++			dev_info(dev, "HDMI: out of range SAD %d\n", i);
++			goto out_fail;
++		}
++		hdmi_update_short_audio_desc(dev, e->sad + i,
++					     buf + ELD_FIXED_BYTES + mnl + 3 * i);
++	}
++
++	/*
++	 * HDMI sink's ELD info cannot always be retrieved for now, e.g.
++	 * in console or for audio devices. Assume the highest speakers
++	 * configuration, to _not_ prohibit multi-channel audio playback.
++	 */
++	if (!e->spk_alloc)
++		e->spk_alloc = 0xffff;
++
++	return 0;
++
++out_fail:
++	return -EINVAL;
++}
++EXPORT_SYMBOL_GPL(snd_parse_eld);
++
++/*
++ * SNDRV_PCM_RATE_* and AC_PAR_PCM values don't match, print correct rates with
++ * hdmi-specific routine.
++ */
++static void hdmi_print_pcm_rates(int pcm, char *buf, int buflen)
++{
++	static const unsigned int alsa_rates[] = {
++		5512, 8000, 11025, 16000, 22050, 32000, 44100, 48000, 64000,
++		88200, 96000, 176400, 192000, 384000
++	};
++	int i, j;
++
++	for (i = 0, j = 0; i < ARRAY_SIZE(alsa_rates); i++)
++		if (pcm & (1 << i))
++			j += scnprintf(buf + j, buflen - j,  " %d",
++				alsa_rates[i]);
++
++	buf[j] = '\0'; /* necessary when j == 0 */
++}
++
++static void eld_print_pcm_bits(int pcm, char *buf, int buflen)
++{
++	static const unsigned int bits[] = { 8, 16, 20, 24, 32 };
++	int i, j;
++
++	for (i = 0, j = 0; i < ARRAY_SIZE(bits); i++)
++		if (pcm & (ELD_PCM_BITS_8 << i))
++			j += scnprintf(buf + j, buflen - j,  " %d", bits[i]);
++
++	buf[j] = '\0'; /* necessary when j == 0 */
++}
++
++static void hdmi_show_short_audio_desc(struct device *dev,
++				       struct snd_cea_sad *a)
++{
++	char buf[SND_PRINT_RATES_ADVISED_BUFSIZE];
++	char buf2[8 + SND_PRINT_BITS_ADVISED_BUFSIZE] = ", bits =";
++
++	if (!a->format)
++		return;
++
++	hdmi_print_pcm_rates(a->rates, buf, sizeof(buf));
++
++	if (a->format == AUDIO_CODING_TYPE_LPCM)
++		eld_print_pcm_bits(a->sample_bits, buf2 + 8, sizeof(buf2) - 8);
++	else if (a->max_bitrate)
++		snprintf(buf2, sizeof(buf2),
++				", max bitrate = %d", a->max_bitrate);
++	else
++		buf2[0] = '\0';
++
++	dev_dbg(dev,
++		"HDMI: supports coding type %s: channels = %d, rates =%s%s\n",
++		cea_audio_coding_type_names[a->format],
++		a->channels, buf, buf2);
++}
++
++static void snd_eld_print_channel_allocation(int spk_alloc, char *buf, int buflen)
++{
++	int i, j;
++
++	for (i = 0, j = 0; i < ARRAY_SIZE(cea_speaker_allocation_names); i++) {
++		if (spk_alloc & (1 << i))
++			j += scnprintf(buf + j, buflen - j,  " %s",
++					cea_speaker_allocation_names[i]);
++	}
++	buf[j] = '\0';	/* necessary when j == 0 */
++}
++
++void snd_show_eld(struct device *dev, struct snd_parsed_hdmi_eld *e)
++{
++	int i;
++
++	dev_dbg(dev, "HDMI: detected monitor %s at connection type %s\n",
++		e->monitor_name,
++		eld_connection_type_names[e->conn_type]);
++
++	if (e->spk_alloc) {
++		char buf[SND_PRINT_CHANNEL_ALLOCATION_ADVISED_BUFSIZE];
++
++		snd_eld_print_channel_allocation(e->spk_alloc, buf, sizeof(buf));
++		dev_dbg(dev, "HDMI: available speakers:%s\n", buf);
++	}
++
++	for (i = 0; i < e->sad_count; i++)
++		hdmi_show_short_audio_desc(dev, e->sad + i);
++}
++EXPORT_SYMBOL_GPL(snd_show_eld);
++
++#ifdef CONFIG_SND_PROC_FS
++static void hdmi_print_sad_info(int i, struct snd_cea_sad *a,
++				struct snd_info_buffer *buffer)
++{
++	char buf[SND_PRINT_RATES_ADVISED_BUFSIZE];
++
++	snd_iprintf(buffer, "sad%d_coding_type\t[0x%x] %s\n",
++			i, a->format, cea_audio_coding_type_names[a->format]);
++	snd_iprintf(buffer, "sad%d_channels\t\t%d\n", i, a->channels);
++
++	hdmi_print_pcm_rates(a->rates, buf, sizeof(buf));
++	snd_iprintf(buffer, "sad%d_rates\t\t[0x%x]%s\n", i, a->rates, buf);
++
++	if (a->format == AUDIO_CODING_TYPE_LPCM) {
++		eld_print_pcm_bits(a->sample_bits, buf, sizeof(buf));
++		snd_iprintf(buffer, "sad%d_bits\t\t[0x%x]%s\n",
++							i, a->sample_bits, buf);
++	}
++
++	if (a->max_bitrate)
++		snd_iprintf(buffer, "sad%d_max_bitrate\t%d\n",
++							i, a->max_bitrate);
++
++	if (a->profile)
++		snd_iprintf(buffer, "sad%d_profile\t\t%d\n", i, a->profile);
++}
++
++void snd_print_eld_info(struct snd_parsed_hdmi_eld *e,
++			struct snd_info_buffer *buffer)
++{
++	char buf[SND_PRINT_CHANNEL_ALLOCATION_ADVISED_BUFSIZE];
++	int i;
++	static const char * const eld_version_names[32] = {
++		"reserved",
++		"reserved",
++		"CEA-861D or below",
++		[3 ... 30] = "reserved",
++		[31] = "partial"
++	};
++	static const char * const cea_edid_version_names[8] = {
++		"no CEA EDID Timing Extension block present",
++		"CEA-861",
++		"CEA-861-A",
++		"CEA-861-B, C or D",
++		[4 ... 7] = "reserved"
++	};
++
++	snd_iprintf(buffer, "monitor_name\t\t%s\n", e->monitor_name);
++	snd_iprintf(buffer, "connection_type\t\t%s\n",
++				eld_connection_type_names[e->conn_type]);
++	snd_iprintf(buffer, "eld_version\t\t[0x%x] %s\n", e->eld_ver,
++					eld_version_names[e->eld_ver]);
++	snd_iprintf(buffer, "edid_version\t\t[0x%x] %s\n", e->cea_edid_ver,
++				cea_edid_version_names[e->cea_edid_ver]);
++	snd_iprintf(buffer, "manufacture_id\t\t0x%x\n", e->manufacture_id);
++	snd_iprintf(buffer, "product_id\t\t0x%x\n", e->product_id);
++	snd_iprintf(buffer, "port_id\t\t\t0x%llx\n", (long long)e->port_id);
++	snd_iprintf(buffer, "support_hdcp\t\t%d\n", e->support_hdcp);
++	snd_iprintf(buffer, "support_ai\t\t%d\n", e->support_ai);
++	snd_iprintf(buffer, "audio_sync_delay\t%d\n", e->aud_synch_delay);
++
++	snd_eld_print_channel_allocation(e->spk_alloc, buf, sizeof(buf));
++	snd_iprintf(buffer, "speakers\t\t[0x%x]%s\n", e->spk_alloc, buf);
++
++	snd_iprintf(buffer, "sad_count\t\t%d\n", e->sad_count);
++
++	for (i = 0; i < e->sad_count; i++)
++		hdmi_print_sad_info(i, e->sad + i, buffer);
++}
++EXPORT_SYMBOL_GPL(snd_print_eld_info);
++#endif /* CONFIG_SND_PROC_FS */
+diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
+index fd9391e61b3d9..18db022c1f4f0 100644
+--- a/sound/pci/hda/Kconfig
++++ b/sound/pci/hda/Kconfig
+@@ -251,6 +251,7 @@ comment "Set to Y if you want auto-loading the codec driver"
+ config SND_HDA_CODEC_HDMI
+ 	tristate "Build HDMI/DisplayPort HD-audio codec support"
+ 	select SND_DYNAMIC_MINORS
++	select SND_PCM_ELD
+ 	help
+ 	  Say Y or M here to include HDMI and DisplayPort HD-audio codec
+ 	  support in snd-hda-intel driver.  This includes all AMD/ATI,
+diff --git a/sound/pci/hda/hda_eld.c b/sound/pci/hda/hda_eld.c
+index 3017304323757..d3e87b9c1a4f1 100644
+--- a/sound/pci/hda/hda_eld.c
++++ b/sound/pci/hda/hda_eld.c
+@@ -17,11 +17,6 @@
+ #include <sound/hda_codec.h>
+ #include "hda_local.h"
+ 
+-enum eld_versions {
+-	ELD_VER_CEA_861D	= 2,
+-	ELD_VER_PARTIAL		= 31,
+-};
+-
+ enum cea_edid_versions {
+ 	CEA_EDID_VER_NONE	= 0,
+ 	CEA_EDID_VER_CEA861	= 1,
+@@ -30,95 +25,12 @@ enum cea_edid_versions {
+ 	CEA_EDID_VER_RESERVED	= 4,
+ };
+ 
+-static const char * const eld_connection_type_names[4] = {
+-	"HDMI",
+-	"DisplayPort",
+-	"2-reserved",
+-	"3-reserved"
+-};
+-
+-enum cea_audio_coding_types {
+-	AUDIO_CODING_TYPE_REF_STREAM_HEADER	=  0,
+-	AUDIO_CODING_TYPE_LPCM			=  1,
+-	AUDIO_CODING_TYPE_AC3			=  2,
+-	AUDIO_CODING_TYPE_MPEG1			=  3,
+-	AUDIO_CODING_TYPE_MP3			=  4,
+-	AUDIO_CODING_TYPE_MPEG2			=  5,
+-	AUDIO_CODING_TYPE_AACLC			=  6,
+-	AUDIO_CODING_TYPE_DTS			=  7,
+-	AUDIO_CODING_TYPE_ATRAC			=  8,
+-	AUDIO_CODING_TYPE_SACD			=  9,
+-	AUDIO_CODING_TYPE_EAC3			= 10,
+-	AUDIO_CODING_TYPE_DTS_HD		= 11,
+-	AUDIO_CODING_TYPE_MLP			= 12,
+-	AUDIO_CODING_TYPE_DST			= 13,
+-	AUDIO_CODING_TYPE_WMAPRO		= 14,
+-	AUDIO_CODING_TYPE_REF_CXT		= 15,
+-	/* also include valid xtypes below */
+-	AUDIO_CODING_TYPE_HE_AAC		= 15,
+-	AUDIO_CODING_TYPE_HE_AAC2		= 16,
+-	AUDIO_CODING_TYPE_MPEG_SURROUND		= 17,
+-};
+-
+-enum cea_audio_coding_xtypes {
+-	AUDIO_CODING_XTYPE_HE_REF_CT		= 0,
+-	AUDIO_CODING_XTYPE_HE_AAC		= 1,
+-	AUDIO_CODING_XTYPE_HE_AAC2		= 2,
+-	AUDIO_CODING_XTYPE_MPEG_SURROUND	= 3,
+-	AUDIO_CODING_XTYPE_FIRST_RESERVED	= 4,
+-};
+-
+-static const char * const cea_audio_coding_type_names[] = {
+-	/*  0 */ "undefined",
+-	/*  1 */ "LPCM",
+-	/*  2 */ "AC-3",
+-	/*  3 */ "MPEG1",
+-	/*  4 */ "MP3",
+-	/*  5 */ "MPEG2",
+-	/*  6 */ "AAC-LC",
+-	/*  7 */ "DTS",
+-	/*  8 */ "ATRAC",
+-	/*  9 */ "DSD (One Bit Audio)",
+-	/* 10 */ "E-AC-3/DD+ (Dolby Digital Plus)",
+-	/* 11 */ "DTS-HD",
+-	/* 12 */ "MLP (Dolby TrueHD)",
+-	/* 13 */ "DST",
+-	/* 14 */ "WMAPro",
+-	/* 15 */ "HE-AAC",
+-	/* 16 */ "HE-AACv2",
+-	/* 17 */ "MPEG Surround",
+-};
+-
+ /*
+  * The following two lists are shared between
+  * 	- HDMI audio InfoFrame (source to sink)
+  * 	- CEA E-EDID Extension (sink to source)
+  */
+ 
+-/*
+- * SS1:SS0 index => sample size
+- */
+-static const int cea_sample_sizes[4] = {
+-	0,	 		/* 0: Refer to Stream Header */
+-	AC_SUPPCM_BITS_16,	/* 1: 16 bits */
+-	AC_SUPPCM_BITS_20,	/* 2: 20 bits */
+-	AC_SUPPCM_BITS_24,	/* 3: 24 bits */
+-};
+-
+-/*
+- * SF2:SF1:SF0 index => sampling frequency
+- */
+-static const int cea_sampling_frequencies[8] = {
+-	0,			/* 0: Refer to Stream Header */
+-	SNDRV_PCM_RATE_32000,	/* 1:  32000Hz */
+-	SNDRV_PCM_RATE_44100,	/* 2:  44100Hz */
+-	SNDRV_PCM_RATE_48000,	/* 3:  48000Hz */
+-	SNDRV_PCM_RATE_88200,	/* 4:  88200Hz */
+-	SNDRV_PCM_RATE_96000,	/* 5:  96000Hz */
+-	SNDRV_PCM_RATE_176400,	/* 6: 176400Hz */
+-	SNDRV_PCM_RATE_192000,	/* 7: 192000Hz */
+-};
+-
+ static unsigned int hdmi_get_eld_data(struct hda_codec *codec, hda_nid_t nid,
+ 					int byte_index)
+ {
+@@ -132,159 +44,6 @@ static unsigned int hdmi_get_eld_data(struct hda_codec *codec, hda_nid_t nid,
+ 	return val;
+ }
+ 
+-#define GRAB_BITS(buf, byte, lowbit, bits) 		\
+-({							\
+-	BUILD_BUG_ON(lowbit > 7);			\
+-	BUILD_BUG_ON(bits > 8);				\
+-	BUILD_BUG_ON(bits <= 0);			\
+-							\
+-	(buf[byte] >> (lowbit)) & ((1 << (bits)) - 1);	\
+-})
+-
+-static void hdmi_update_short_audio_desc(struct hda_codec *codec,
+-					 struct cea_sad *a,
+-					 const unsigned char *buf)
+-{
+-	int i;
+-	int val;
+-
+-	val = GRAB_BITS(buf, 1, 0, 7);
+-	a->rates = 0;
+-	for (i = 0; i < 7; i++)
+-		if (val & (1 << i))
+-			a->rates |= cea_sampling_frequencies[i + 1];
+-
+-	a->channels = GRAB_BITS(buf, 0, 0, 3);
+-	a->channels++;
+-
+-	a->sample_bits = 0;
+-	a->max_bitrate = 0;
+-
+-	a->format = GRAB_BITS(buf, 0, 3, 4);
+-	switch (a->format) {
+-	case AUDIO_CODING_TYPE_REF_STREAM_HEADER:
+-		codec_info(codec, "HDMI: audio coding type 0 not expected\n");
+-		break;
+-
+-	case AUDIO_CODING_TYPE_LPCM:
+-		val = GRAB_BITS(buf, 2, 0, 3);
+-		for (i = 0; i < 3; i++)
+-			if (val & (1 << i))
+-				a->sample_bits |= cea_sample_sizes[i + 1];
+-		break;
+-
+-	case AUDIO_CODING_TYPE_AC3:
+-	case AUDIO_CODING_TYPE_MPEG1:
+-	case AUDIO_CODING_TYPE_MP3:
+-	case AUDIO_CODING_TYPE_MPEG2:
+-	case AUDIO_CODING_TYPE_AACLC:
+-	case AUDIO_CODING_TYPE_DTS:
+-	case AUDIO_CODING_TYPE_ATRAC:
+-		a->max_bitrate = GRAB_BITS(buf, 2, 0, 8);
+-		a->max_bitrate *= 8000;
+-		break;
+-
+-	case AUDIO_CODING_TYPE_SACD:
+-		break;
+-
+-	case AUDIO_CODING_TYPE_EAC3:
+-		break;
+-
+-	case AUDIO_CODING_TYPE_DTS_HD:
+-		break;
+-
+-	case AUDIO_CODING_TYPE_MLP:
+-		break;
+-
+-	case AUDIO_CODING_TYPE_DST:
+-		break;
+-
+-	case AUDIO_CODING_TYPE_WMAPRO:
+-		a->profile = GRAB_BITS(buf, 2, 0, 3);
+-		break;
+-
+-	case AUDIO_CODING_TYPE_REF_CXT:
+-		a->format = GRAB_BITS(buf, 2, 3, 5);
+-		if (a->format == AUDIO_CODING_XTYPE_HE_REF_CT ||
+-		    a->format >= AUDIO_CODING_XTYPE_FIRST_RESERVED) {
+-			codec_info(codec,
+-				   "HDMI: audio coding xtype %d not expected\n",
+-				   a->format);
+-			a->format = 0;
+-		} else
+-			a->format += AUDIO_CODING_TYPE_HE_AAC -
+-				     AUDIO_CODING_XTYPE_HE_AAC;
+-		break;
+-	}
+-}
+-
+-/*
+- * Be careful, ELD buf could be totally rubbish!
+- */
+-int snd_hdmi_parse_eld(struct hda_codec *codec, struct parsed_hdmi_eld *e,
+-			  const unsigned char *buf, int size)
+-{
+-	int mnl;
+-	int i;
+-
+-	memset(e, 0, sizeof(*e));
+-	e->eld_ver = GRAB_BITS(buf, 0, 3, 5);
+-	if (e->eld_ver != ELD_VER_CEA_861D &&
+-	    e->eld_ver != ELD_VER_PARTIAL) {
+-		codec_info(codec, "HDMI: Unknown ELD version %d\n", e->eld_ver);
+-		goto out_fail;
+-	}
+-
+-	e->baseline_len = GRAB_BITS(buf, 2, 0, 8);
+-	mnl		= GRAB_BITS(buf, 4, 0, 5);
+-	e->cea_edid_ver	= GRAB_BITS(buf, 4, 5, 3);
+-
+-	e->support_hdcp	= GRAB_BITS(buf, 5, 0, 1);
+-	e->support_ai	= GRAB_BITS(buf, 5, 1, 1);
+-	e->conn_type	= GRAB_BITS(buf, 5, 2, 2);
+-	e->sad_count	= GRAB_BITS(buf, 5, 4, 4);
+-
+-	e->aud_synch_delay = GRAB_BITS(buf, 6, 0, 8) * 2;
+-	e->spk_alloc	= GRAB_BITS(buf, 7, 0, 7);
+-
+-	e->port_id	  = get_unaligned_le64(buf + 8);
+-
+-	/* not specified, but the spec's tendency is little endian */
+-	e->manufacture_id = get_unaligned_le16(buf + 16);
+-	e->product_id	  = get_unaligned_le16(buf + 18);
+-
+-	if (mnl > ELD_MAX_MNL) {
+-		codec_info(codec, "HDMI: MNL is reserved value %d\n", mnl);
+-		goto out_fail;
+-	} else if (ELD_FIXED_BYTES + mnl > size) {
+-		codec_info(codec, "HDMI: out of range MNL %d\n", mnl);
+-		goto out_fail;
+-	} else
+-		strscpy(e->monitor_name, buf + ELD_FIXED_BYTES, mnl + 1);
+-
+-	for (i = 0; i < e->sad_count; i++) {
+-		if (ELD_FIXED_BYTES + mnl + 3 * (i + 1) > size) {
+-			codec_info(codec, "HDMI: out of range SAD %d\n", i);
+-			goto out_fail;
+-		}
+-		hdmi_update_short_audio_desc(codec, e->sad + i,
+-					buf + ELD_FIXED_BYTES + mnl + 3 * i);
+-	}
+-
+-	/*
+-	 * HDMI sink's ELD info cannot always be retrieved for now, e.g.
+-	 * in console or for audio devices. Assume the highest speakers
+-	 * configuration, to _not_ prohibit multi-channel audio playback.
+-	 */
+-	if (!e->spk_alloc)
+-		e->spk_alloc = 0xffff;
+-
+-	return 0;
+-
+-out_fail:
+-	return -EINVAL;
+-}
+-
+ int snd_hdmi_get_eld_size(struct hda_codec *codec, hda_nid_t nid)
+ {
+ 	return snd_hda_codec_read(codec, nid, 0, AC_VERB_GET_HDMI_DIP_SIZE,
+@@ -346,155 +105,27 @@ int snd_hdmi_get_eld(struct hda_codec *codec, hda_nid_t nid,
+ 	return ret;
+ }
+ 
+-/*
+- * SNDRV_PCM_RATE_* and AC_PAR_PCM values don't match, print correct rates with
+- * hdmi-specific routine.
+- */
+-static void hdmi_print_pcm_rates(int pcm, char *buf, int buflen)
+-{
+-	static const unsigned int alsa_rates[] = {
+-		5512, 8000, 11025, 16000, 22050, 32000, 44100, 48000, 64000,
+-		88200, 96000, 176400, 192000, 384000
+-	};
+-	int i, j;
+-
+-	for (i = 0, j = 0; i < ARRAY_SIZE(alsa_rates); i++)
+-		if (pcm & (1 << i))
+-			j += scnprintf(buf + j, buflen - j,  " %d",
+-				alsa_rates[i]);
+-
+-	buf[j] = '\0'; /* necessary when j == 0 */
+-}
+-
+-#define SND_PRINT_RATES_ADVISED_BUFSIZE	80
+-
+-static void hdmi_show_short_audio_desc(struct hda_codec *codec,
+-				       struct cea_sad *a)
+-{
+-	char buf[SND_PRINT_RATES_ADVISED_BUFSIZE];
+-	char buf2[8 + SND_PRINT_BITS_ADVISED_BUFSIZE] = ", bits =";
+-
+-	if (!a->format)
+-		return;
+-
+-	hdmi_print_pcm_rates(a->rates, buf, sizeof(buf));
+-
+-	if (a->format == AUDIO_CODING_TYPE_LPCM)
+-		snd_print_pcm_bits(a->sample_bits, buf2 + 8, sizeof(buf2) - 8);
+-	else if (a->max_bitrate)
+-		snprintf(buf2, sizeof(buf2),
+-				", max bitrate = %d", a->max_bitrate);
+-	else
+-		buf2[0] = '\0';
+-
+-	codec_dbg(codec,
+-		  "HDMI: supports coding type %s: channels = %d, rates =%s%s\n",
+-		  cea_audio_coding_type_names[a->format],
+-		  a->channels, buf, buf2);
+-}
+-
+-void snd_hdmi_show_eld(struct hda_codec *codec, struct parsed_hdmi_eld *e)
+-{
+-	int i;
+-
+-	codec_dbg(codec, "HDMI: detected monitor %s at connection type %s\n",
+-			e->monitor_name,
+-			eld_connection_type_names[e->conn_type]);
+-
+-	if (e->spk_alloc) {
+-		char buf[SND_PRINT_CHANNEL_ALLOCATION_ADVISED_BUFSIZE];
+-		snd_hdac_print_channel_allocation(e->spk_alloc, buf, sizeof(buf));
+-		codec_dbg(codec, "HDMI: available speakers:%s\n", buf);
+-	}
+-
+-	for (i = 0; i < e->sad_count; i++)
+-		hdmi_show_short_audio_desc(codec, e->sad + i);
+-}
+-
+ #ifdef CONFIG_SND_PROC_FS
+-
+-static void hdmi_print_sad_info(int i, struct cea_sad *a,
+-				struct snd_info_buffer *buffer)
+-{
+-	char buf[SND_PRINT_RATES_ADVISED_BUFSIZE];
+-
+-	snd_iprintf(buffer, "sad%d_coding_type\t[0x%x] %s\n",
+-			i, a->format, cea_audio_coding_type_names[a->format]);
+-	snd_iprintf(buffer, "sad%d_channels\t\t%d\n", i, a->channels);
+-
+-	hdmi_print_pcm_rates(a->rates, buf, sizeof(buf));
+-	snd_iprintf(buffer, "sad%d_rates\t\t[0x%x]%s\n", i, a->rates, buf);
+-
+-	if (a->format == AUDIO_CODING_TYPE_LPCM) {
+-		snd_print_pcm_bits(a->sample_bits, buf, sizeof(buf));
+-		snd_iprintf(buffer, "sad%d_bits\t\t[0x%x]%s\n",
+-							i, a->sample_bits, buf);
+-	}
+-
+-	if (a->max_bitrate)
+-		snd_iprintf(buffer, "sad%d_max_bitrate\t%d\n",
+-							i, a->max_bitrate);
+-
+-	if (a->profile)
+-		snd_iprintf(buffer, "sad%d_profile\t\t%d\n", i, a->profile);
+-}
+-
+ void snd_hdmi_print_eld_info(struct hdmi_eld *eld,
+ 			     struct snd_info_buffer *buffer,
+ 			     hda_nid_t pin_nid, int dev_id, hda_nid_t cvt_nid)
+ {
+-	struct parsed_hdmi_eld *e = &eld->info;
+-	char buf[SND_PRINT_CHANNEL_ALLOCATION_ADVISED_BUFSIZE];
+-	int i;
+-	static const char * const eld_version_names[32] = {
+-		"reserved",
+-		"reserved",
+-		"CEA-861D or below",
+-		[3 ... 30] = "reserved",
+-		[31] = "partial"
+-	};
+-	static const char * const cea_edid_version_names[8] = {
+-		"no CEA EDID Timing Extension block present",
+-		"CEA-861",
+-		"CEA-861-A",
+-		"CEA-861-B, C or D",
+-		[4 ... 7] = "reserved"
+-	};
+-
+ 	snd_iprintf(buffer, "monitor_present\t\t%d\n", eld->monitor_present);
+ 	snd_iprintf(buffer, "eld_valid\t\t%d\n", eld->eld_valid);
+ 	snd_iprintf(buffer, "codec_pin_nid\t\t0x%x\n", pin_nid);
+ 	snd_iprintf(buffer, "codec_dev_id\t\t0x%x\n", dev_id);
+ 	snd_iprintf(buffer, "codec_cvt_nid\t\t0x%x\n", cvt_nid);
++
+ 	if (!eld->eld_valid)
+ 		return;
+-	snd_iprintf(buffer, "monitor_name\t\t%s\n", e->monitor_name);
+-	snd_iprintf(buffer, "connection_type\t\t%s\n",
+-				eld_connection_type_names[e->conn_type]);
+-	snd_iprintf(buffer, "eld_version\t\t[0x%x] %s\n", e->eld_ver,
+-					eld_version_names[e->eld_ver]);
+-	snd_iprintf(buffer, "edid_version\t\t[0x%x] %s\n", e->cea_edid_ver,
+-				cea_edid_version_names[e->cea_edid_ver]);
+-	snd_iprintf(buffer, "manufacture_id\t\t0x%x\n", e->manufacture_id);
+-	snd_iprintf(buffer, "product_id\t\t0x%x\n", e->product_id);
+-	snd_iprintf(buffer, "port_id\t\t\t0x%llx\n", (long long)e->port_id);
+-	snd_iprintf(buffer, "support_hdcp\t\t%d\n", e->support_hdcp);
+-	snd_iprintf(buffer, "support_ai\t\t%d\n", e->support_ai);
+-	snd_iprintf(buffer, "audio_sync_delay\t%d\n", e->aud_synch_delay);
+-
+-	snd_hdac_print_channel_allocation(e->spk_alloc, buf, sizeof(buf));
+-	snd_iprintf(buffer, "speakers\t\t[0x%x]%s\n", e->spk_alloc, buf);
+-
+-	snd_iprintf(buffer, "sad_count\t\t%d\n", e->sad_count);
+-
+-	for (i = 0; i < e->sad_count; i++)
+-		hdmi_print_sad_info(i, e->sad + i, buffer);
++
++	snd_print_eld_info(&eld->info, buffer);
+ }
+ 
+ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
+ 			     struct snd_info_buffer *buffer)
+ {
+-	struct parsed_hdmi_eld *e = &eld->info;
++	struct snd_parsed_hdmi_eld *e = &eld->info;
+ 	char line[64];
+ 	char name[64];
+ 	char *sname;
+@@ -556,7 +187,7 @@ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
+ #endif /* CONFIG_SND_PROC_FS */
+ 
+ /* update PCM info based on ELD */
+-void snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
++void snd_hdmi_eld_update_pcm_info(struct snd_parsed_hdmi_eld *e,
+ 			      struct hda_pcm_stream *hinfo)
+ {
+ 	u32 rates;
+@@ -574,17 +205,17 @@ void snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
+ 	maxbps = 16;
+ 	channels_max = 2;
+ 	for (i = 0; i < e->sad_count; i++) {
+-		struct cea_sad *a = &e->sad[i];
++		struct snd_cea_sad *a = &e->sad[i];
+ 		rates |= a->rates;
+ 		if (a->channels > channels_max)
+ 			channels_max = a->channels;
+ 		if (a->format == AUDIO_CODING_TYPE_LPCM) {
+-			if (a->sample_bits & AC_SUPPCM_BITS_20) {
++			if (a->sample_bits & ELD_PCM_BITS_20) {
+ 				formats |= SNDRV_PCM_FMTBIT_S32_LE;
+ 				if (maxbps < 20)
+ 					maxbps = 20;
+ 			}
+-			if (a->sample_bits & AC_SUPPCM_BITS_24) {
++			if (a->sample_bits & ELD_PCM_BITS_24) {
+ 				formats |= SNDRV_PCM_FMTBIT_S32_LE;
+ 				if (maxbps < 24)
+ 					maxbps = 24;
+diff --git a/sound/pci/hda/hda_local.h b/sound/pci/hda/hda_local.h
+index 763f79f6f32e7..4714057dba854 100644
+--- a/sound/pci/hda/hda_local.h
++++ b/sound/pci/hda/hda_local.h
+@@ -10,6 +10,8 @@
+ #ifndef __SOUND_HDA_LOCAL_H
+ #define __SOUND_HDA_LOCAL_H
+ 
++#include <sound/pcm_drm_eld.h>
++
+ /* We abuse kcontrol_new.subdev field to pass the NID corresponding to
+  * the given new control.  If id.subdev has a bit flag HDA_SUBDEV_NID_FLAG,
+  * snd_hda_ctl_add() takes the lower-bit subdev value as a valid NID.
+@@ -675,61 +677,18 @@ int snd_hda_enum_helper_info(struct snd_kcontrol *kcontrol,
+ #define snd_hda_enum_bool_helper_info(kcontrol, uinfo) \
+ 	snd_hda_enum_helper_info(kcontrol, uinfo, 0, NULL)
+ 
+-/*
+- * CEA Short Audio Descriptor data
+- */
+-struct cea_sad {
+-	int	channels;
+-	int	format;		/* (format == 0) indicates invalid SAD */
+-	int	rates;
+-	int	sample_bits;	/* for LPCM */
+-	int	max_bitrate;	/* for AC3...ATRAC */
+-	int	profile;	/* for WMAPRO */
+-};
+-
+-#define ELD_FIXED_BYTES	20
+-#define ELD_MAX_SIZE    256
+-#define ELD_MAX_MNL	16
+-#define ELD_MAX_SAD	16
+-
+-/*
+- * ELD: EDID Like Data
+- */
+-struct parsed_hdmi_eld {
+-	/*
+-	 * all fields will be cleared before updating ELD
+-	 */
+-	int	baseline_len;
+-	int	eld_ver;
+-	int	cea_edid_ver;
+-	char	monitor_name[ELD_MAX_MNL + 1];
+-	int	manufacture_id;
+-	int	product_id;
+-	u64	port_id;
+-	int	support_hdcp;
+-	int	support_ai;
+-	int	conn_type;
+-	int	aud_synch_delay;
+-	int	spk_alloc;
+-	int	sad_count;
+-	struct cea_sad sad[ELD_MAX_SAD];
+-};
+-
+ struct hdmi_eld {
+ 	bool	monitor_present;
+ 	bool	eld_valid;
+ 	int	eld_size;
+ 	char    eld_buffer[ELD_MAX_SIZE];
+-	struct parsed_hdmi_eld info;
++	struct snd_parsed_hdmi_eld info;
+ };
+ 
+ int snd_hdmi_get_eld_size(struct hda_codec *codec, hda_nid_t nid);
+ int snd_hdmi_get_eld(struct hda_codec *codec, hda_nid_t nid,
+ 		     unsigned char *buf, int *eld_size);
+-int snd_hdmi_parse_eld(struct hda_codec *codec, struct parsed_hdmi_eld *e,
+-		       const unsigned char *buf, int size);
+-void snd_hdmi_show_eld(struct hda_codec *codec, struct parsed_hdmi_eld *e);
+-void snd_hdmi_eld_update_pcm_info(struct parsed_hdmi_eld *e,
++void snd_hdmi_eld_update_pcm_info(struct snd_parsed_hdmi_eld *e,
+ 			      struct hda_pcm_stream *hinfo);
+ 
+ int snd_hdmi_get_eld_ati(struct hda_codec *codec, hda_nid_t nid,
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 8b68386e1ac94..514d0853587d8 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1520,8 +1520,8 @@ static void update_eld(struct hda_codec *codec,
+ 
+ 	if (eld->eld_valid) {
+ 		if (eld->eld_size <= 0 ||
+-		    snd_hdmi_parse_eld(codec, &eld->info, eld->eld_buffer,
+-				       eld->eld_size) < 0) {
++		    snd_parse_eld(hda_codec_dev(codec), &eld->info,
++				  eld->eld_buffer, eld->eld_size) < 0) {
+ 			eld->eld_valid = false;
+ 			if (repoll) {
+ 				schedule_delayed_work(&per_pin->work,
+@@ -1564,7 +1564,7 @@ static void update_eld(struct hda_codec *codec,
+ 		pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
+ 
+ 	if (eld->eld_valid)
+-		snd_hdmi_show_eld(codec, &eld->info);
++		snd_show_eld(hda_codec_dev(codec), &eld->info);
+ 
+ 	eld_changed = (pin_eld->eld_valid != eld->eld_valid);
+ 	eld_changed |= (pin_eld->monitor_present != eld->monitor_present);
+-- 
+2.53.0
+
