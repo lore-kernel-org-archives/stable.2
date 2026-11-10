@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274135;
-	b=momt117zPCNguODA/u4nIYyVBdA/73R3EItK+o1hs7cy98zc879oIJ0yqkOKBR2uCM88
-	 3N9ObDQ3YJ7IwvRDl5F+CXX8Sss0eQEXc9i9uAsXGe8xg2cLgv0oBL8OJTkhUA+/P+9Cn
-	 DfIk+MHq7af/DjjsdATSniPKSmHhJRRcLtjV1TjhNpxgZ9/TCBP8A0J+3Borb4DSWHH7t
-	 p1ApM0VTmwbPfW1pPOPkE3c1I6CNYi7MInJYFOsAg+xkAqntLo1zhMplltRR2pF5PO6/P
-	 23JyAmkXslXKRhqxPtkGP/1rdFPB8HFuwOgi/R1TyRyWYQA9J6LRRwWEjypqzyJWBFQ==
+	t=1794274138;
+	b=RWFsikaJJwGznG4xBlEBnBNaFCa0PKQXUx+hcjPignBEwZDzMhkxZFDi8HgLAIsfJjgX
+	 o9AF2lrPaGTFko34hc6166MJho4IUxq6h4iyE7kG3TrEnBDzP0lEOzjSmAlbdudUdogVY
+	 Uk5iY19i+izPLpBSU3WyqIPRme89TgUroz/UehDeTbKE5TOhXWxRy8mEX+JpCLc+kLxfG
+	 G0z5NEIvVO+3uwO3BuIGbMFqPErpvetZeusBnktqrOYjzLyyAUoTdAog0Wyd4zgXmz1Q0
+	 K+avCxxl8c4uuis9HP7AzYG09oVGTgcBn6hWFhDwFAzcgQSeZtrfEEXG/ipjiA4+qeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274138;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QAv0UGaTe98w20xH5Ilpp1Glya1uryxaVv95q/ZPSAY=;
-	b=CHOkTChUWEA2yRi265m0SXZlCqxWq0m+VtXEjXuBWfumCrQjBoq1TzwdnmaVvQBMX1wJ
-	 uOrSeK8b8chAcWwQ8Ajk+WsPNvozDLkyeCfndaYrZ0ETaW/HwQtM7kSwZsQNJkV6s2L3D
-	 unZz1tG90Ep9iuchj9Wokox6aCbn3bilxfGv1QYjRRvz7O9YIHkCioDlLottRQrC4QIQt
-	 pUCnDVIGAkBMpadA0PQ6X25rYkCHzzIQ8fvvu13qhomnBBSlmJFYJS8tIQDrhQPIRX2kx
-	 0ri5RRk2u+1KXkUwod7CRDWHf9pRkLiJC0DGTunsdQgo22XP/lXw0a2Kn9kEgE6FPTQ==
+	bh=t8l5nLF4hO8HRXALMstdamnS66KOJepBihFfIR1HUTo=;
+	b=hZNQzs+7LdLkzBlzZSgMlrNCttbJSAriaPv4tua97DhS45LvjBmhC+auZRKMCb2poFkF
+	 O4BC3yznaEdrmi+R8/RQbVZ3TPHMiRvQxok0Ex2ty06sccBVk5oEs9DrSwPWvhqQ4xz68
+	 wDCKQijRJI+tGoVM3PwycuCTuhUS7ftnNz3v+uWo1BuWN4N7mxnWEm2A3lsI1Zx2tCt4h
+	 t2SQL/sbYAIj3gOd7jLrmH9X48CFyGY5ToW4Wiz59BQHvxSbtC1P9VU3G8F7ppe97MEB/
+	 umgjaImX4BoEVHwRzIlSHoLHud+OYyJWiHZkxJ3lB6Vn0FrtcdnUwsm18Kf1gS/u0WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcxOImlw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WreBxbaF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D50606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76FE606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcxOImlw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989731F0089F;
-	Tue, 10 Nov 2026 01:28:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WreBxbaF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4387D1F008A7;
+	Tue, 10 Nov 2026 01:28:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274135;
-	bh=QAv0UGaTe98w20xH5Ilpp1Glya1uryxaVv95q/ZPSAY=;
+	s=k20260515; t=1794274137;
+	bh=t8l5nLF4hO8HRXALMstdamnS66KOJepBihFfIR1HUTo=;
 	h=From:To:Cc:Subject:Date;
-	b=IcxOImlw19jIV91LW8eMFHfzuyWXZAf18BkPAl+pxiJjR4eX9eAjJF9Z1WIhRu2TS
-	 q9mesTO2Vu79HTGtZMywE700uhYfUw5PtXqzoSkLjxRMGEO+CNwkItSsYaV0CPASue
-	 oOz7dVscpbuXfSXI6QUKDwT2OU8wUBveSk0MZ1TRAufqwzLZnLXRahPq4zJl9LWW3q
-	 SDaBY+8rsdvAkj9UoSOhElcMffGYUfQFkyvkOEzYcmBydr6pqv7KxEeA7903wRiLy2
-	 cOcZvjVYouWh4cXpLm6xsGEIaWvI/vL4TZ10JB4P7kRfQMLTvTNu9qqHd/sttwMiFE
-	 7QOp5DZXhKpoQ==
+	b=WreBxbaF7Y+xixwdmsXR/pXliKEvtWcpaRnHVEdRICzotELqk7mHhX49O+PJSWTdr
+	 gSojb1z11AJupYPKlnYz8hfM+w4lCyoPzD4JiJSSNr4nxsvC+yOmmAhcXw1aL/naV9
+	 +cJ/gqgTo2zfsc3WOopVTxUKEDXOlakB6JxtJCiFYB5tQ/NocpWLI5r2Krd8OILu4a
+	 QoN+K+6FqdNX/7a6mUUbM2TH9wpXbemT2FAmoRjlRi+s8uqM4jH8I3zZddhPTzbJQU
+	 yTJqlfvBs1g4xaKMwatAWCtDuz0ahh/60of65H+6Syft6ZX0B5kRlDygC4giwLD3BO
+	 T/ncFcmJ7nyuQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mwen@igalia.com,
-	pgriffais@valvesoftware.com,
-	alex.hung@amd.com,
+To: renpanpan@kylinos.cn,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:28:53 -0500
-Message-ID: <20261109202853-failed-5.10-81f923b06580@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Only enable HDMI audio if display supports it" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:28:56 -0500
+Message-ID: <20261109202856-failed-5.10-0de95c96655c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,98 +68,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 81f923b065801c7d30042bcda31ccb9449b4f58b
+git cherry-pick -x 0de95c96655c8a12df62e47871016f49e5cd8618
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202853-failed-5.10-81f923b06580@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202856-failed-5.10-0de95c96655c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 81f923b065801c7d30042bcda31ccb9449b4f58b Mon Sep 17 00:00:00 2001
-From: Melissa Wen <mwen@igalia.com>
-Date: Wed, 21 Oct 2026 14:29:25 +0200
-Subject: [PATCH] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP
- HDR
+From 0de95c96655c8a12df62e47871016f49e5cd8618 Mon Sep 17 00:00:00 2001
+From: renpanpan <renpanpan@kylinos.cn>
+Date: Mon, 2 Nov 2026 17:49:29 +0800
+Subject: [PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
 
-Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
-infoframe") created the app_tf interface for FreeSync HDR and commit
-c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
-PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
-never made use of this interface: DM ignores what userspace sets
-regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
-PQ bit is never set in the infopacket received by the eDP panel.
+The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
+audio_enable(pin, true) at the end of afmt_setmode(), regardless of
+whether the connected display advertises audio support in its EDID.
 
-Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
-infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
-on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
-other VRR-capable panels that advertise Replay in its AMD VSDB.
+This causes a phantom HDMI audio output to appear for displays that
+have no audio capability (no basic audio bit, no Audio Data Block in
+EDID), because the GPU sets the AUDIO_ENABLED register bit, which
+drives the HDA codec's ELDV pin sense, making the codec report the
+jack as audio-available.
 
-It doesn't affect color/EOTF bits on infopackets for SDR and native
-HDMI.
+The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
+display_info.has_audio. Apply the same check to amdgpu's DCE
+afmt_setmode functions.
 
-Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
-Signed-off-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: renpanpan <renpanpan@kylinos.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
+(cherry picked from commit 842a45c68e0355eea47796551c8761c0c77e8ce0)
 Cc: stable@vger.kernel.org
 ---
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 4620135437c5e..0be4506e9ae5b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -173,6 +173,18 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 7de7adc8f225c..05d7da888f492 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1705,8 +1705,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
+ 
+-	/* enable audio after to setting up hw */
+-	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
  }
- EXPORT_IF_KUNIT(amdgpu_dm_get_freesync_config_for_crtc);
  
-+#define DP_HDR_SDP_EOTF_IDX 2
-+
-+static bool dm_dp_in_hdr_mode(const struct dc_stream_state *stream)
-+{
-+	const struct dc_info_packet *hdr = &stream->hdr_static_metadata;
-+
-+	if (!dc_is_dp_signal(stream->signal) || !hdr->valid)
-+		return false;
-+
-+	return hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084;
-+}
-+
- void amdgpu_dm_update_freesync_state_on_stream(
- 	struct amdgpu_display_manager *dm,
- 	struct dm_crtc_state *new_crtc_state,
-@@ -189,6 +201,7 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 	bool pack_sdp_v1_3 = false;
- 	struct amdgpu_dm_connector *aconn;
- 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
-+	enum color_transfer_func app_tf;
- 
- 	if (!new_stream)
- 		return;
-@@ -240,12 +253,16 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 					&new_stream->adaptive_sync_infopacket);
+ static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 3c1d6901127d1..f0722bdaeab61 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1748,8 +1748,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
+ 		dce_v6_0_audio_dp_enable(encoder, 1);
  	}
  
-+	app_tf = dm_dp_in_hdr_mode(new_stream) ?
-+		 TRANSFER_FUNC_PQ2084 :
-+		 TRANSFER_FUNC_UNKNOWN;
-+
- 	mod_freesync_build_vrr_infopacket(
- 		dm->freesync_module,
- 		new_stream,
- 		&vrr_params,
- 		packet_type,
--		TRANSFER_FUNC_UNKNOWN,
-+		app_tf,
- 		&vrr_infopacket,
- 		pack_sdp_v1_3);
+-	/* enable audio after setting up hw */
+-	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+ }
  
+ static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index a17944d5e8434..3f5247314edee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1653,8 +1653,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
+ 
+-	/* enable audio after setting up hw */
+-	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+ }
+ 
+ static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
 -- 
 2.53.0
 
