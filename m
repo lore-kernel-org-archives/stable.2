@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.117
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.118
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794303513;
-	b=u+VuJg6WcTlV8flVUuNSbtHRK9BCt1+2fyjYf7+RYOYz5Pkn4ENVVX3HuYkMIxEowhHW
-	 b+E0mZjDxlaOc5VxYzI53uRz21pVxrgBTsYndI9eofPEmNn/Za5V1+oV+PQx88NnjQCbU
-	 8XYRLFBx1pVkoeVUvm1dTR9KtROYbgI0yQSkDa9gAAxjG0iYVwPL/xkAB5JI+T2phGaPE
-	 aToq/w3ZbmwAHdIBo3qx3RG9gDJwu7IfK8691uqcgy3jfSZf3r9aAV/z9fLKQ7EVhhhYC
-	 T4YGVVOLwdghBg96JhAfNq+IiQXsMfX1BwAlitCVyT5AY9K1oTNwwX+fi5w7AOT9/eg==
+	t=1794303742;
+	b=tqBwUs6GvtGSZDLKMnnYj4PgW8JS+Cy0MDCZKHaUdT342gIyFIDEt/GDwnyCeYJNhEpw
+	 kqraIdvE0F6nixOtGxBW6XDnbi8VzmrmnIkjfm5k4FEBeFwd7sVdqse4LuSjgbMt4yM5G
+	 oAV5htpDC5LRGggb3a4MJdfvdps1klaQZ+lEhed0V6pTOLLi66nh83EP95+il/kYiuL7c
+	 c8bGvCRzm6j3daj8CoFT45t5RPwjvjNjyIoSRfklvZabnO6eBe5ulLNOR2rTwjamFFcl0
+	 tULNdqYL49dD0TL7kheF/YdWZXg0a1AH85ggE9NwutxU4WZESjf6nyCaT2/awbpeDwQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794303513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794303742;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
 	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,66 +24,66 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XQrNE9oupNUEgjTNYKEyHp4XB39VxDcvpAouIE2Na5Y=;
-	b=YVimRc8q1bjl0Dp1QcOhRx7zAj/VrDh+w2Wyq7B/TiS8y0zjkhmEebO4t3a0fBjTk0Xe
-	 iFVicaq8LnuNWXwDVWi+W3XGgfPtUXBTQ+lrtdwPnpzeBm9KoZCsfCxnTjxtHNhoSE8GK
-	 ZCvS1/WsbG4Rxa3XCy5T/j2IOv/O0IZTS9VgMn/ExyXYuuWbqHCwl9iG/fPq1p1tP9Ehs
-	 wl8BHJAfDavWfEcfAnV1/EmBoVUMma91ZVi6YaftRi+3/Pw1t7a8pyWE5kJmWyB/lpQoJ
-	 BBvINLEiXN0PZBTtQr7MtUCcMPIv4lRcCZu3CkJ8/CYmVKJXe6kt39TBc8oXuOea7zA==
+	bh=vxsktPIKyMucM0Bz/Paxx4q9YnJdiDyVZzrNC55CRlw=;
+	b=JqzDEMhPXcIclCDxMXiaGU9syRL3i6iVuBe+Zhv2TEfGlCaIfho/pigYOZFMnEc15RlX
+	 TaYmOLNjnASNq6N/pPe9YkgnG1gmqTtPAE0GthHbf7b+pcU7mQqJJuhO5lBFupj33HPrS
+	 QjRwzq+4lPhLBUHifkuKBcS/ywC/bgHnIGNuvzF3Uja+zz6/M90qY4dd3jyAOebLZAfry
+	 naQGtjbtGEbgF5PhslASQ09Xy6F3kA+lCLGmjPNTfXyF6IUXPBPgm9QFxDoFKX4WycIQL
+	 pVI3zBilmG1S5OqcNOnp90fOnbKza2KDyRsPH92qcEcwnKBLVckGNUjzJQup0eWmJVg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=yacoub.de;
 	spf=pass smtp.mailfrom=yacoub.de;
-	dkim=pass header.d=yacoub.de header.i=@yacoub.de header.a=rsa-sha256 header.s=selector1 header.b=R7bAiAHM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.117
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023117.outbound.protection.outlook.com [40.107.162.117])
+	dkim=pass header.d=yacoub.de header.i=@yacoub.de header.a=rsa-sha256 header.s=selector1 header.b=GgBa9Lqp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.118
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023118.outbound.protection.outlook.com [52.101.83.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92434606EEFC
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:38:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92434606EEFC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E129606B14B
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:42:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E129606B14B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yacoub.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yacoub.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yacoub.de header.i=@yacoub.de header.a=rsa-sha256 header.s=selector1 header.b=R7bAiAHM
+	dkim=pass (2048-bit key, unprotected) header.d=yacoub.de header.i=@yacoub.de header.a=rsa-sha256 header.s=selector1 header.b=GgBa9Lqp
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KcyGx/NGV3jOvH8+DPf6EsMt8Mr/6qQjjJ8QEUV+O71wU0tWjYy4ZeAELAusFo8ZA6/l/peITJlX+wfJU09Cei2NMymIAgp8bldFCagUaFp2Ie40YHq99385F4KH1+8PfD3LQg837FRPBTNgxMvOry8yFfSXR8uVy8VT8pueeVwPsTx8vbIvQX6lg9NNpFlDRfD4kazu/i1w9ithC5+ewzxAlNGQ6PV3KYY8jbBww0ECPrsxnYx6yE3aaH5lTIlfiBIKiq4UiuoKVRneFaZ95/IfEXR/38R65Ewfwd+6MG5BYB9pTomB+XXInad4KsFqzZw+j1i9MuLFPrJCvNwaSg==
+ b=JnhYY8UCSJxj4RVVH4Jt79qF/nHxTib6Ri9aVE50QOZ91FSN1UzDv3K4UMLFjeV1DvnSMtQ70HZIvBtZ7xhxCkl1ppwuatWYXWY4/UVDHPah4KI3nMgeJIat1BSMKC951uw35iCzFD6Hu/F3WG3tsNUQ+YCiBc9FsN5OYIcQ3EGvs3hCQGkbMzXXbkcJcUER9M6LkuLcPLwft4at4WfsLDpE6iG0ZIXZAD4JYzmYCbJggHO2VxCphPwjtSYCQyKAcVSTyy34o0Hyg4QwXv/EehuoVzioSJ6u1+n0/DLYKRpn91rvVc7+iRMc3OzYPEvELi1k7g6ONmOuR2SKaa2ZOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XQrNE9oupNUEgjTNYKEyHp4XB39VxDcvpAouIE2Na5Y=;
- b=gHAnB6aKIkoUi3tKtezGEQnqNSH9eYojbPLB0X4+5N0g8NAxoqR+XGD/7W2isWbXbhv0xSKK+6t/JBmWO5OBoY0YD7rM3irnsbqzv0k6x/Ec7hNduf663XDPpBqZTAArlwGXklHzYlXVMkqq0Bqt7xM0h+myqoYjyHPLdZF7X9cho1UJipKk2OnJlEduWVEYQQba9vxgTEbhJ9k0LJkb24WZo8PhrO5Fuv8E+RAUBHy5hSsWiwtuv9jJPU8RV2A+l/iP5ejWq+ZyfTFWGopjUvcL+T/fzpbYw5F9YbfPNk2dkKXKIeI0BZhvynBttuFp96DWdMx2xaIS3GWXkCudaw==
+ bh=vxsktPIKyMucM0Bz/Paxx4q9YnJdiDyVZzrNC55CRlw=;
+ b=k7hLTP9/ye0KSETCJNDWuc95+ituWyDYSX1x5Oq2hfOfYZiwNyQfQJLbr5yfngANR3jgZyDWwoGSBX/p1Rrg2+I2MBmLqOi1BjdA7V7OWrWDHGJtBOZ17JOyOsX3TPKbt4AZlafiDbgnX8HXga80wjP60MPR0kor/gGg6y3033xr3oqD9IDEfJ7WZCxxoKJkaoH0wfsRtcyuc8q6tu85ZXvbPTvKtQEEVd7Fo0sLfCm4TfDsyv1h8MMcg3O5sz5UUlpb+Q+Jqlq1rSCYS/NTo97epNOuCU9GKiysT/86Jnf9iFFZZ6iZs7DdZso50KcxNuxf/nyZuo1RfLdAZaBByg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=yacoub.de; dmarc=pass action=none header.from=yacoub.de;
  dkim=pass header.d=yacoub.de; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yacoub.de;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XQrNE9oupNUEgjTNYKEyHp4XB39VxDcvpAouIE2Na5Y=;
- b=R7bAiAHMkawiveY6X67EwrDNj6oiK50MvgkYhuQ6wCuuGGYXcskatBdAPD5CRr5om/0+KVEweDJ94uapUpsen03U4YR3Y5orF5Umbqp36EELRRUObb9P9w8M4gA0Vv2k/Y25Snxkpi2TUfSLm42b+UnfYPpWSk0V6kFkJ0irvTdJAcquvWMaZzdiR1x39VKA03Yke/19Zay7RqV9gMoejXPzBkpvEoZO3pMzLVIc5YbOCAblPOME3QIyN36kS6kory45ishfOoBlX9n4WYtMr/AlrwQOGiYsA4yn16s5eVcSJnrpZk/t2Vqb2NlM2kWBFjKJlQozwNg00vNiOOwLdw==
+ bh=vxsktPIKyMucM0Bz/Paxx4q9YnJdiDyVZzrNC55CRlw=;
+ b=GgBa9Lqp4A5ljuKZ6/L9CCV63pIuJGVYNS4+wQe33V65vf4dHHjk6rBX7qUZ3ZWv0QrEs+HfpJGEscA4RtT2LUpcA6zMYPfEZZmtsBZlMY/WdJEkT6A8i0RoW0xxfJm+Cu6YV89m9e9rvU/inZ4dKuthpVzqwurJptGS+kqzDY5vdGtevQwlsxdvbkahp6NLeXKo/7bfwkYKLsX/Yrj17g7y6hBbAAZXyh2SJCaOzv+wv94KDPnpm7ZRDyE6HayjmANBB2O5uM5kOYp7foTjdUhgQc4WGSNCs6ZjrHf0FdqGsM9bGMx988Vl9Ac/JPoHlFgxnt7O6UP6RGOx3xUYRw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=yacoub.de;
 Received: from MRWPR04MB12069.eurprd04.prod.outlook.com (2603:10a6:501:99::13)
- by AMBPR04MB820487.eurprd04.prod.outlook.com (2603:10a6:20b:799::24) with
+ by PA1PR04MB11407.eurprd04.prod.outlook.com (2603:10a6:102:4f7::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Tue, 10 Nov
- 2026 09:38:29 +0000
+ 2026 09:42:17 +0000
 Received: from MRWPR04MB12069.eurprd04.prod.outlook.com
  ([fe80::37b9:4b72:7864:5809]) by MRWPR04MB12069.eurprd04.prod.outlook.com
  ([fe80::37b9:4b72:7864:5809%3]) with mapi id 15.21.0592.012; Tue, 10 Nov 2026
- 09:38:28 +0000
+ 09:42:17 +0000
 From: Ramin Moussavi <ramin.moussavi@yacoub.de>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y] microblaze: restore the ABI argument home area below pt_regs (PTO)
-Date: Tue, 10 Nov 2026 10:38:22 +0100
-Message-ID: <20261110093822.425757-1-ramin.moussavi@yacoub.de>
+Subject: [PATCH 5.15.y] microblaze: restore the ABI argument home area below pt_regs (PTO)
+Date: Tue, 10 Nov 2026 10:42:11 +0100
+Message-ID: <20261110094211.427348-1-ramin.moussavi@yacoub.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054100-failed-6.1-c35d40a3efd2@kernel.org>
-References: <20261107054100-failed-6.1-c35d40a3efd2@kernel.org>
+In-Reply-To: <20261107055734-failed-5.15-c35d40a3efd2@kernel.org>
+References: <20261107055734-failed-5.15-c35d40a3efd2@kernel.org>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0252.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f5::17) To MRWPR04MB12069.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0001.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c8::15) To MRWPR04MB12069.eurprd04.prod.outlook.com
  (2603:10a6:501:99::13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -95,59 +95,59 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MRWPR04MB12069:EE_|AMBPR04MB820487:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39df0d98-73db-416f-96e6-08df3f0e600f
+X-MS-TrafficTypeDiagnostic: MRWPR04MB12069:EE_|PA1PR04MB11407:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0804aa00-11ce-4973-9c6b-08df3f0ee881
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|260925022911599003|260925021911599003|260925021311599003|5023799004|11063799006|56012099006|261022113327099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261021135927099003|261026121527099003|261028144727099003|261102123227099003|261009223027099003|261026140227099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|260925021911599003|260925021311599003|260925022911599003|5023799004|11063799006|261021135927099003|56012099006|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261022113327099003|261026140227099003|261009223027099003|261028144727099003|261102123227099003|261026121527099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	7Z+7DaH2Of2rwq6xsr6l9Nc3KOotRyMSwFT/8K8pn6qBrsXBeiUh3pOu271aRPfubYgjbKGNxCtURBa1/cPpKhFfoOagP5TMBEkfub7pZ9ai/+1XyWjRpJ/cxDo6hrkJThM/2l5LCqOAeFskPjQN+6l4iCd+iXkf7C1tbFNzZm76kSUcwmFjCt+1//qmshpkBRWRgg86wdHHLAqxB2F7A74hFxW09vWQhhfjoPaIz5s7cLK3PugAh5ND2rF+E0sSqfPHAuKjGPtCNTxJy8A4fvR3V6zY5bd6Nn08owKybWwt9XLV0Ar2bo1xxoTqlhNAZt6Ne0UgBqB6Rkf9g808rdKXVNqnqQviOLC+oPSYZme+RAsEjcjIV5M+D5cpqQCBQCl8beaeqA4KoKLCeF6/KtKoDrEqmy71afSbVNsUTIXL82S8ic85CRPtP7e/sbQpl/fEXozo+HYwX/0Nd6n8lxMUyP9MNyjuom0nPqiFkSiBb/ei82S4UZ94H405mr5Dz41z7NK/te0rRASRI7kgV1FtAd6S+wNL3SVVhOH9AnMxmo5L6JJYcY0hHF6K3eTXQS5gu9sDJKHkV3L+Zsl8IsZlJ9hV95IE6gpBn27hQVo=
+	OGaws6ueJnP6G/nkRtgAvb85IrB3HLrayNRRYMmnHEM/ZfCxdxhTJo9Ltr824Jno5/fm+cTFUPn9vIA2k+PIiu33M2InrLHwwrEz+Bt0Nkq36lWhEQ/YP9ClfaoIxwb6v8H5jsriqw8i302UjA5e3ksM6n679PZa3ukmL6ihutAE3zpMc8jkcUKQ1it0HU1eq3wP837S5GAeeKKWB4JMven/GAO+XhjSXBBzqqwNZGUpQNRa6kBH76XcwkFqHkOalQrH6S20lb/rWVKek0dUbAo8ItaitJ3tZFF051ECcdqYWzQiD8wTUpG80H3beoib7YhtKu0+VM8hvnsrsNbwGIGsnUGrtkeFCgxqD+5hE6fj/yAUjW/ahEtqjUblvci5NlIwUEHXDiIYaIVE/j8ozgyyMRrqlszfOegrnmLHS4ek9TKX/1GIb87ROlhGK7jA6gieoa6jwHP7U9NbD29IFtyglSw+cBtwdiIjhibo5hI4AOmOU29KxkZ5Vrzpjy5Ds6zC8tCgXxAzXto4grL7go63V7SF2TqmvEJoSj63HoPu4/218yVgTJtucEdwGkJr2Z7trx7kyFDY+aMg5xYMSJ31l2MSZoboVm3WNidY8IM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRWPR04MB12069.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(260925022911599003)(260925021911599003)(260925021311599003)(5023799004)(11063799006)(56012099006)(261022113327099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261021135927099003)(261026121527099003)(261028144727099003)(261102123227099003)(261009223027099003)(261026140227099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRWPR04MB12069.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(260925021911599003)(260925021311599003)(260925022911599003)(5023799004)(11063799006)(261021135927099003)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261022113327099003)(261026140227099003)(261009223027099003)(261028144727099003)(261102123227099003)(261026121527099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?J0EzjHpEqRr5FUXO14WJ9EmTS16EMAaiJ/PG2XWyZXveseAPgjySZc5zI96g?=
- =?us-ascii?Q?xHt+ftQvGtJ7vOteIpKRPFWoCodjZdTIucTc3seoUwc3r2aQZkR5XK3+Glv+?=
- =?us-ascii?Q?v8ZcIulyzugHqeEMXvfrPMBX4wGzeLtSUT/ujkBIMaJLPVMz5TzVIum4EY3V?=
- =?us-ascii?Q?Gqz78punBnd3ibIzmxsxOaeqsZoM9hN6rtoXgki+oWJAKGkK4KGEuJ5TyAhj?=
- =?us-ascii?Q?TEQgoMwlPcXKdutLzsSUxDdiIFBCRZGfYuRbqG5UoFaNIo1k0zBDRxoL1fj5?=
- =?us-ascii?Q?0FSdUZJn9/7NHLUXTzMJQyBXdTBtMzdQWbDVBEoJ4u/veHSO9tG2yBw8hZw3?=
- =?us-ascii?Q?ETQz7n+7v6ipyUOLR/Kr1L9tuAPq1uO/3Ve1lxpEsnCCJd74y3mx/erq9Nvy?=
- =?us-ascii?Q?XNA6Q6k3yuFdo2EtrI+fTydrlE8GfUcA4Yhrrzeq3zZMlcKzYJMBEXsvJ1UC?=
- =?us-ascii?Q?SjOrb3CQ9Tb7QzevpubFe5pbMvN9ZzNG3mLlzpP0IsSSK4yzvtV6lMyIDpo1?=
- =?us-ascii?Q?hC8+/JyOFX3SnC7ltwqmgRW94+JnbcUgQR6c3eawd9tpXwubgXCBY4yl/BfX?=
- =?us-ascii?Q?wb7aD5S5LhqHl25NMFMAs0+Sa2oZ08EYd5m3vE3omR34AQPWaqxnWNf5IpVo?=
- =?us-ascii?Q?Z8/gNhSbtxRXeZ+f/efbxLbJhYm2G1LrngrWjUG+HWfkppRg5ZMfOf86C7Ip?=
- =?us-ascii?Q?GuRWOZtFaqUtcE0rZTkR7FBrWsrN/No2BlCjLIrhZT0/0BxhJFmbKsGlNvpC?=
- =?us-ascii?Q?gKvNYGMnOUXROB4TMMhYniErg2pp3vUl7FzKqZcPO1ouI0muEneMr7UDj85v?=
- =?us-ascii?Q?rJ+3aciLNWUfttUMH0KUolo6TvXjlPUdb/TXZl4g65VS0GfPGMSx8M6VtdaQ?=
- =?us-ascii?Q?QcT0wD7wyURAd2LoDojjrSIqC8lejVGfo6r1t3Og22kMPsBxskEAdk7+B6zg?=
- =?us-ascii?Q?rM1f1BC/wJ+FMUkexRLxVzjupiFIsS//x+maAvMtq8COTmO2pOWRhiFLF2tX?=
- =?us-ascii?Q?g3EMhkSb2pZrZMcl+ZsfjUZgchLsX6zelAzbqnsgceaJm95ljZxLjA/YDtqi?=
- =?us-ascii?Q?55SgJPI+wyZ4EtOSMTT+4COlpXLQsnLfCTfQyC7kbREX/fpo9ReftDabn3An?=
- =?us-ascii?Q?ZgmksWBZaXuZI4mDqm5XWMZAXb8nQ1npXf4dt0t41HzcxtyXxJzxbBPLJ5Xx?=
- =?us-ascii?Q?7a8RKdAF+4TlZDxDGYI4gD/RD2uY5liFchjaNVcRNSNkNo5nr6zVR8X3NEpU?=
- =?us-ascii?Q?CM+p3LC8mhF02N4+UWVWH2trosYbyfpcS0ZRVMYsj+Or0g7xuVExq2MOr97z?=
- =?us-ascii?Q?9JY108pY6RepIWdu9ViPSIHD/GgveuzVXXC2IUnzSv6Kf7U2F2QRD7JzGOs2?=
- =?us-ascii?Q?fTZwD2QM8SLegx28YT3YSrA1rPsRywiaflwwEdzUk3hn8tLoZABvidKp1mpS?=
- =?us-ascii?Q?ryNvRu3BA7FeltTMPAwH8xwYDXx9QAVAgTMhAwLD0uPBkKxGs3uBxlAXUuPT?=
- =?us-ascii?Q?8Q77nUVzS0EsKe6ylJD+S0Tyvsch0RNrNb+sS8IwwMH+tDi7I89rNa6xdxBO?=
- =?us-ascii?Q?DQiG9Yejqw0wR/+G35DvBjJ/6oFRKIqfkZ2iBArOZJbkk3fFeUwc5TbsRZ+u?=
- =?us-ascii?Q?dUy+Qqf1rHFGiF91D9D2RcNRZCfzDQukMXt4WwEsu6639Kedxr7zw81S2bdj?=
- =?us-ascii?Q?9qu1+zUo8h0zOqd6KIz57tk1rqBE9ouodYXKTVsJ8SK83VFkhyJNDpA+BLZ2?=
- =?us-ascii?Q?kplWvyGhpbYOP+sQ9pAr4hllI+yOL7E=3D?=
+	=?us-ascii?Q?0wAsn/TNyUnEuBm3R5dnpIq2b+xJtaUI/BE0VKdbHNwj4DS20xVPaqbjBOtR?=
+ =?us-ascii?Q?VbCK2rZbso6LuRh6tAusjXEMyYkPQtvrS4VV8lYOcxFGcjl6IO08fPeQyGvD?=
+ =?us-ascii?Q?OyYEThr5VAvdK8SDFXcda8CuVHSDaS8kP+GLBgB1wVHUhmoU8Qw+kkdk1VqY?=
+ =?us-ascii?Q?KSJG4ZMSqEMwX86jYZPdANjYIELGnjy/rhRs98kF+bq4Cb1I7941tgGZVLG7?=
+ =?us-ascii?Q?8QCMY/Jzakk8GPrt4wbBfH8uxno0Pat2vmwSbkEqRZhxc12+N80S9Padhutb?=
+ =?us-ascii?Q?eUEvwU7o71NfUuINvJ828d5NLGyqid0t9nGqmCuuHKivvZSCQGEZIYYqxZhj?=
+ =?us-ascii?Q?IHG7lUdSiwnhApjXeWAQfRtrZGLJcYG5pPMAphTEaW3m6+XHvw9Z03jjYOui?=
+ =?us-ascii?Q?M/z7QwI7u1lY+4K92eu0Fbh35ZTPOa3eVh2WxvRWl+52HyXsAP0iGwtY7S+B?=
+ =?us-ascii?Q?BoKNwLfpLYhBoHhGOgWsGMinB1Amqv+BcVWyIujNytYEUr9PHJsv0JbvS34f?=
+ =?us-ascii?Q?RcuqAsIBkt6hEPdYM6Uiru3DO2/6Tlyi+5KNjwDxJTkR/wtlpkhHPkPF2394?=
+ =?us-ascii?Q?P7zveWpftA9Hi01koSQhrvCZwK/4BVT1p4kG5lhCaSabccRfE/sEEDl2ChfF?=
+ =?us-ascii?Q?5bvFjveuanT6aMWDGQCxraqab3Ve7W9YMe6iUkD9kUG6Z6VooUJ5JZt3efoM?=
+ =?us-ascii?Q?bUBsG4nZvlm/8Gx0aa5QUXJdPxjfURFFla4ySlqypN/PDII1Usw9ZZ7yYvlB?=
+ =?us-ascii?Q?mvldncDKP0A/RRO1GkVzvaZjcQR5k8Yr1RUDI63AmzMZshLYd48H+DcwbHlx?=
+ =?us-ascii?Q?+NGS0lvrE4nfkW5mW9maTqtaGgZ7CZ7rqRVfHUP/kaLnpkOHt4JG64qE37WD?=
+ =?us-ascii?Q?G3sOY3dSra/UlNX5TLYpYAaEzgcNvlOe73VmiE2sCbOw5nBwJv/nc4VLe5Fs?=
+ =?us-ascii?Q?n93AxAmktRIoeHqx0TUdV6DsVtzGeDHmIBR1WbTLPW/+DcqKMAb40H9TtkA7?=
+ =?us-ascii?Q?axtrFLupDqW36ORtcg+DzT4wBASAM0tdy7wsVobQQHfr6tcvRIWBIL3b/sCL?=
+ =?us-ascii?Q?oDYGs4hzxNZ4PWASl+QkJT8dP9AphNlh5ndg22r4fEqchCIGT0a1qFAzwyxc?=
+ =?us-ascii?Q?bIw7d8LUj/4bQ4ORgRNH00G07v0mt5jOvwV2po9lqtxICwieaiKWhrfHdVUh?=
+ =?us-ascii?Q?ge8HeXbAC5tpIA7ZW8sxXuyHz4roVN+U2VmecCY4GO1gWDS6vndLnfYqrCaV?=
+ =?us-ascii?Q?h1LGeM5eRIB8QGPlPtjFOi6OA7N09cv0pYPOavMwlRvDl6AIBZWcVHCKyfJ4?=
+ =?us-ascii?Q?rz4iSPeZPLvdJ4d0NzaPkHVycwRkIaGuIJ8x4nkXZVXGB9FRRzx/JvGz+Ud8?=
+ =?us-ascii?Q?1Kwqv4b/U7XTf5TEXpgrlZ6Fq3VT+GbLO8zRl9YE6Qdz5LmCXOJfVOXwsN4J?=
+ =?us-ascii?Q?l/4PB52e0rboQJZkXh1uZtzbEY9wOPIFYXH6cSaaRY81yLhSPhv6MMZJ31Lc?=
+ =?us-ascii?Q?8JmBdbaoYmfmxYl6PqNgeUkw9xbRJR9tkRyqUSpOfvjbAXqCfk1dabB+tw5r?=
+ =?us-ascii?Q?jPts7tNFWdxuBZFaHxgJtQ7E4AIIFZryrGPBd8DCLOf2OmGbRcc16Hmd7qsS?=
+ =?us-ascii?Q?3PAbutq4iwwW2IeIRCK+A2n+dXOjv1GQKce4VXPlW2bsc6I485zzKLMODRGq?=
+ =?us-ascii?Q?9zvTrTCy5mOYXCEpR/y/oY/Za8PGr8HS/9FfJuShiiMBVZJKTwqp/1b1tAfP?=
+ =?us-ascii?Q?xUUagGVMTJmFSUdOlcPxxJW2mfKMIVM=3D?=
 X-OriginatorOrg: yacoub.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39df0d98-73db-416f-96e6-08df3f0e600f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0804aa00-11ce-4973-9c6b-08df3f0ee881
 X-MS-Exchange-CrossTenant-AuthSource: MRWPR04MB12069.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:38:28.5898
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 09:42:17.4377
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 2e96c4fa-c0f0-4eed-b0b5-8f85f5e8376c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I+uRn6nuaGb36mE0eGko/QzeCeHrWkNXcPxOMpgsntQckhzWwrU8y2S+UTJhQy7AzPoWaC3E3FWTbSYz3aFX3h6ocwF1HPfhyycFx4ht7yE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB820487
+X-MS-Exchange-CrossTenant-UserPrincipalName: WSOjTE7w2t0YXmYK0dzQ4o5xAOs0N5SXCIMaomRJ4L317m53RcZ+z9ocR1GIUtKjAN9366S+9kw2MKW7tGnaVu1hZVATQTZIx0s1uM55UXs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11407
 
 commit c35d40a3efd2e575ef51a761e983f2bf7113be6c upstream.
 
@@ -201,30 +201,45 @@ Tested-by: Waldemar Brodkorb <wbx@openadk.org>
 Link: https://patch.msgid.link/20260821151809.1233057-5-ramin.moussavi@yacoub.de
 Signed-off-by: Michal Simek <michal.simek@amd.com>
 ---
-Prerequisites on this branch, to be applied before this patch, in this order:
+Prerequisites on this branch.  Two are needed for this patch to apply:
 
   c5947d28c209 ("microblaze: reserve the ABI argument-home area in the
                  signal frame")
   da6829138a39 ("microblaze: don't clobber r3/r4 restored by rt_sigreturn")
 
-Both are queued for this branch but not in it yet.  With them applied entry.S
-needs no adjustment at all; without them the cherry-pick conflicts there, which
-is what the failure report was about.
+in that order.  Both are queued for this branch but not in it yet.  With them
+applied entry.S needs no adjustment at all; without them the cherry-pick
+conflicts there, which is what the failure report was about.
+
+Two more are needed before the result can be tested:
+
+  95fee37be45f ("microblaze: Do loop unrolling for optimized memset
+                 implementation")
+  8f0f265e6cf5 ("microblaze: Use simple memset implementation from
+                 lib/string.c")
+
+Without them this branch does not boot at all when built with gcc 10 or later,
+so the result cannot be verified: the "while (n--)" loop left in
+arch/microblaze/lib/memset.c is turned into a call to memset by
+-ftree-loop-distribute-patterns, so memset calls itself and never returns --
+no oops, no console output.  Both are in v5.19-rc1 and cherry-pick cleanly.
 
 Tested: built with gcc 16.2.0 and booted under qemu-system-microblaze 11.1.50
 (-M petalogix-s3adsp1800,endianness=little); the kernel reaches userspace and
 the test suite runs to completion.
 
-Backport change: only the guard name in asm/entry.h, which is still
-__ASSEMBLY__ on this branch (mainline renamed it to __ASSEMBLER__).  entry.S
-applies unchanged.
+Backport changes: the asm/entry.h guard is still __ASSEMBLY__ here; three
+entry.S hunks are dropped because the code does not exist on this branch yet
+(mb_flush_dcache/mb_invalidate_icache, the CONFIG_MB_MANAGER block and
+xmb_inject_err); in process.c only the "- PTO" is taken, since copy_thread
+still has usp/arg instead of args->fn/args->fn_arg.
 
  arch/microblaze/include/asm/entry.h           |  13 +
  arch/microblaze/include/asm/processor.h       |   2 +-
- arch/microblaze/kernel/entry.S                | 329 +++++++++---------
+ arch/microblaze/kernel/entry.S                | 277 +++++++++---------
  arch/microblaze/kernel/hw_exception_handler.S |   5 +
  arch/microblaze/kernel/process.c              |   5 +-
- 5 files changed, 189 insertions(+), 165 deletions(-)
+ 5 files changed, 163 insertions(+), 139 deletions(-)
 
 diff --git a/arch/microblaze/include/asm/entry.h b/arch/microblaze/include/asm/entry.h
 index 6c42bed41166..74c5a99a37f8 100644
@@ -251,10 +266,10 @@ index 6c42bed41166..74c5a99a37f8 100644
  DECLARE_PER_CPU(unsigned int, KSP); /* Saved kernel stack pointer */
  DECLARE_PER_CPU(unsigned int, KM); /* Kernel/user mode */
 diff --git a/arch/microblaze/include/asm/processor.h b/arch/microblaze/include/asm/processor.h
-index 4e193c7550df..fe82fdb49f27 100644
+index 7e9e92670df3..03a2ae782827 100644
 --- a/arch/microblaze/include/asm/processor.h
 +++ b/arch/microblaze/include/asm/processor.h
-@@ -73,7 +73,7 @@ unsigned long __get_wchan(struct task_struct *p);
+@@ -78,7 +78,7 @@ unsigned long __get_wchan(struct task_struct *p);
  #  define task_regs(task) ((struct pt_regs *)task_tos(task) - 1)
  
  #  define task_pt_regs_plus_args(tsk) \
@@ -264,10 +279,10 @@ index 4e193c7550df..fe82fdb49f27 100644
  #  define task_sp(task)	(task_regs(task)->r1)
  #  define task_pc(task)	(task_regs(task)->pc)
 diff --git a/arch/microblaze/kernel/entry.S b/arch/microblaze/kernel/entry.S
-index fea235f139d7..dfca6ce2d628 100644
+index 18028809250f..7a86ec90295c 100644
 --- a/arch/microblaze/kernel/entry.S
 +++ b/arch/microblaze/kernel/entry.S
-@@ -177,78 +177,78 @@ syscall_debug_table:
+@@ -175,78 +175,78 @@ syscall_debug_table:
  1:
  
  #define SAVE_REGS \
@@ -409,7 +424,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	andni	r11, r11, MSR_EIP;          /* clear EIP */             \
  	ori	r11, r11, MSR_EE | MSR_BIP; /* set EE and BIP */        \
  	mts	rmsr , r11;						\
-@@ -265,11 +265,11 @@ syscall_debug_table:
+@@ -263,11 +263,11 @@ syscall_debug_table:
  	lwi	r1, r0, TOPHYS(PER_CPU(ENTRY_SP));			\
  	/* FIXME: I can add these two lines to one */			\
  	/* tophys(r1,r1); */						\
@@ -424,7 +439,7 @@ index fea235f139d7..dfca6ce2d628 100644
  1:	/* User-mode state save.  */					\
  	lwi	r1, r0, TOPHYS(PER_CPU(CURRENT_SAVE)); /* get saved current */\
  	tophys(r1,r1);							\
-@@ -277,12 +277,13 @@ syscall_debug_table:
+@@ -275,12 +275,13 @@ syscall_debug_table:
  	/* MS these three instructions can be added to one */		\
  	/* addik	r1, r1, THREAD_SIZE; */				\
  	/* tophys(r1,r1); */						\
@@ -442,40 +457,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	/* MS: I am clearing UMS even in case when I come from kernel space */ \
  	clear_ums; 							\
  2:	lwi	CURRENT_TASK, r0, TOPHYS(PER_CPU(CURRENT_SAVE));
-@@ -292,7 +293,7 @@ syscall_debug_table:
- .extern cpuinfo
- 
- C_ENTRY(mb_flush_dcache):
--	addik	r1, r1, -PT_SIZE
-+	addik	r1, r1, -STATE_SAVE_SIZE
- 	SAVE_REGS
- 
- 	addik	r3, r0, cpuinfo
-@@ -305,12 +306,12 @@ C_ENTRY(mb_flush_dcache):
- 	addk	r9, r9, r8
- 
- 	RESTORE_REGS
--	addik	r1, r1, PT_SIZE
-+	addik	r1, r1, STATE_SAVE_SIZE
- 	rtsd	r15, 8
- 	nop
- 
- C_ENTRY(mb_invalidate_icache):
--	addik	r1, r1, -PT_SIZE
-+	addik	r1, r1, -STATE_SAVE_SIZE
- 	SAVE_REGS
- 
- 	addik	r3, r0, cpuinfo
-@@ -323,7 +324,7 @@ C_ENTRY(mb_invalidate_icache):
- 	addk	r9, r9, r8
- 
- 	RESTORE_REGS
--	addik	r1, r1, PT_SIZE
-+	addik	r1, r1, STATE_SAVE_SIZE
- 	rtsd	r15, 8
- 	nop
- 
-@@ -350,18 +351,18 @@ C_ENTRY(_user_exception):
+@@ -310,18 +311,18 @@ C_ENTRY(_user_exception):
  	addik	r1, r1, THREAD_SIZE;
  	tophys(r1,r1);
  
@@ -500,7 +482,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	tovirt(r1,r1)
  
  /* where the trap should return need -8 to adjust for rtsd r15, 8*/
-@@ -380,18 +381,18 @@ C_ENTRY(_user_exception):
+@@ -340,18 +341,18 @@ C_ENTRY(_user_exception):
  	beqi	r11, 4f
  
  	addik	r3, r0, -ENOSYS
@@ -527,7 +509,7 @@ index fea235f139d7..dfca6ce2d628 100644
  4:
  /* Jump to the appropriate function for the system call number in r12
   * (r12 is not preserved), or return an error if r12 is not valid.
-@@ -432,8 +433,8 @@ C_ENTRY(_user_exception):
+@@ -392,8 +393,8 @@ C_ENTRY(_user_exception):
  /* Entry point used to return from a syscall/trap */
  /* We re-enable BIP bit before state restore */
  C_ENTRY(ret_from_trap):
@@ -538,7 +520,7 @@ index fea235f139d7..dfca6ce2d628 100644
  /*
   * Entry point for returns that must not store r3/r4 back into pt_regs,
   * i.e. rt_sigreturn, which has already restored them from the signal
-@@ -441,7 +442,7 @@ C_ENTRY(ret_from_trap):
+@@ -401,7 +402,7 @@ C_ENTRY(ret_from_trap):
   * so it stays correct if the number of stores above ever changes.
   */
  ret_from_trap_no_rval:
@@ -547,7 +529,7 @@ index fea235f139d7..dfca6ce2d628 100644
  /* See if returning to kernel mode, if so, skip resched &c.  */
  	bnei	r11, 2f;
  	/* We're returning to user mode, so check for various conditions that
-@@ -453,7 +454,7 @@ ret_from_trap_no_rval:
+@@ -413,7 +414,7 @@ ret_from_trap_no_rval:
  	beqi	r11, 1f
  
  	brlid	r15, do_syscall_trace_leave
@@ -556,7 +538,7 @@ index fea235f139d7..dfca6ce2d628 100644
  1:
  	/* We're returning to user mode, so check for various conditions that
  	 * trigger rescheduling. */
-@@ -472,7 +473,7 @@ ret_from_trap_no_rval:
+@@ -432,7 +433,7 @@ ret_from_trap_no_rval:
  	andi	r11, r19, _TIF_SIGPENDING | _TIF_NOTIFY_RESUME;
  	beqi	r11, 4f;		/* Signals to handle, handle them */
  
@@ -565,7 +547,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bralid	r15, do_notify_resume;	/* Handle any signals */
  	add	r6, r30, r0;		/* Arg 2: int in_syscall */
  	add	r30, r0, r0		/* no more restarts */
-@@ -484,7 +485,11 @@ ret_from_trap_no_rval:
+@@ -444,7 +445,11 @@ ret_from_trap_no_rval:
  	VM_OFF;
  	tophys(r1,r1);
  	RESTORE_REGS_RTBD;
@@ -578,7 +560,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	lwi	r1, r1, PT_R1 - PT_SIZE;/* Restore user stack pointer. */
  	bri	6f;
  
-@@ -493,7 +498,7 @@ ret_from_trap_no_rval:
+@@ -453,7 +458,7 @@ ret_from_trap_no_rval:
  	VM_OFF;
  	tophys(r1,r1);
  	RESTORE_REGS_RTBD;
@@ -587,7 +569,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	tovirt(r1,r1);
  6:
  TRAP_return:		/* Make global symbol for debugging */
-@@ -534,7 +539,7 @@ C_ENTRY(sys_rt_sigreturn_wrapper):
+@@ -494,7 +499,7 @@ C_ENTRY(sys_rt_sigreturn_wrapper):
  	 */
  	addik	r15, r0, ret_from_trap_no_rval - 8
  	brid	sys_rt_sigreturn	/* Do real work */
@@ -596,7 +578,7 @@ index fea235f139d7..dfca6ce2d628 100644
  
  /*
   * HW EXCEPTION rutine start
-@@ -545,7 +550,7 @@ C_ENTRY(full_exception_trap):
+@@ -505,7 +510,7 @@ C_ENTRY(full_exception_trap):
  	addik	r17, r17, -4
  	SAVE_STATE /* Save registers */
  	/* PC, before IRQ/trap - this is one instruction above */
@@ -605,7 +587,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	tovirt(r1,r1)
  	/* FIXME this can be store directly in PT_ESR reg.
  	 * I tested it but there is a fault */
-@@ -555,7 +560,7 @@ C_ENTRY(full_exception_trap):
+@@ -515,7 +520,7 @@ C_ENTRY(full_exception_trap):
  	mfs	r7, rfsr;		/* save FSR */
  	mts	rfsr, r0;	/* Clear sticky fsr */
  	rted	r0, full_exception
@@ -614,7 +596,7 @@ index fea235f139d7..dfca6ce2d628 100644
  
  /*
   * Unaligned data trap.
-@@ -581,14 +586,14 @@ C_ENTRY(unaligned_data_trap):
+@@ -541,14 +546,14 @@ C_ENTRY(unaligned_data_trap):
  	lwi	r11, r0, TOPHYS(PER_CPU(ENTRY_SP));
  	SAVE_STATE		/* Save registers.*/
  	/* PC, before IRQ/trap - this is one instruction above */
@@ -631,7 +613,7 @@ index fea235f139d7..dfca6ce2d628 100644
  
  /*
   * Page fault traps.
-@@ -611,30 +616,30 @@ C_ENTRY(unaligned_data_trap):
+@@ -571,30 +576,30 @@ C_ENTRY(unaligned_data_trap):
  C_ENTRY(page_fault_data_trap):
  	SAVE_STATE		/* Save registers.*/
  	/* PC, before IRQ/trap - this is one instruction above */
@@ -667,7 +649,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bnei	r11, 2f;		/* See if returning to kernel mode, */
  					/* ... if so, skip resched &c.  */
  
-@@ -666,7 +671,7 @@ C_ENTRY(ret_from_exc):
+@@ -626,7 +631,7 @@ C_ENTRY(ret_from_exc):
  	 * complete register state.  Here we save anything not saved by
  	 * the normal entry sequence, so that it may be safely restored
  	 * (in a possibly modified form) after do_notify_resume returns. */
@@ -676,7 +658,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bralid	r15, do_notify_resume;	/* Handle any signals */
  	addi	r6, r0, 0;		/* Arg 2: int in_syscall */
  	bri	1b
-@@ -678,7 +683,7 @@ C_ENTRY(ret_from_exc):
+@@ -638,7 +643,7 @@ C_ENTRY(ret_from_exc):
  	tophys(r1,r1);
  
  	RESTORE_REGS_RTBD;
@@ -685,7 +667,7 @@ index fea235f139d7..dfca6ce2d628 100644
  
  	lwi	r1, r1, PT_R1 - PT_SIZE; /* Restore user stack pointer. */
  	bri	6f;
-@@ -687,7 +692,7 @@ C_ENTRY(ret_from_exc):
+@@ -647,7 +652,7 @@ C_ENTRY(ret_from_exc):
  	VM_OFF;
  	tophys(r1,r1);
  	RESTORE_REGS_RTBD;
@@ -694,7 +676,7 @@ index fea235f139d7..dfca6ce2d628 100644
  
  	tovirt(r1,r1);
  6:
-@@ -720,10 +725,10 @@ C_ENTRY(_interrupt):
+@@ -680,10 +685,10 @@ C_ENTRY(_interrupt):
  	tophys(r1,r1); /* MS: I have in r1 physical address where stack is */
  	/* save registers */
  /* MS: Make room on the stack -> activation record */
@@ -707,7 +689,7 @@ index fea235f139d7..dfca6ce2d628 100644
  1:
  /* User-mode state save. */
   /* MS: get the saved current */
-@@ -733,23 +738,23 @@ C_ENTRY(_interrupt):
+@@ -693,23 +698,23 @@ C_ENTRY(_interrupt):
  	addik	r1, r1, THREAD_SIZE;
  	tophys(r1,r1);
  	/* save registers */
@@ -736,7 +718,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bnei	r11, 2f;
  
  1:
-@@ -765,7 +770,7 @@ ret_from_irq:
+@@ -725,7 +730,7 @@ ret_from_irq:
  5:	andi	r11, r19, _TIF_SIGPENDING | _TIF_NOTIFY_RESUME;
  	beqid	r11, no_intr_resched
  /* Handle a signal return; Pending signals should be in r18. */
@@ -745,7 +727,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bralid	r15, do_notify_resume;	/* Handle any signals */
  	addi	r6, r0, 0; /* Arg 2: int in_syscall */
  	bri	1b
-@@ -778,7 +783,7 @@ no_intr_resched:
+@@ -738,7 +743,7 @@ no_intr_resched:
  	VM_OFF;
  	tophys(r1,r1);
  	RESTORE_REGS
@@ -754,7 +736,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	lwi	r1, r1, PT_R1 - PT_SIZE;
  	bri	6f;
  /* MS: Return to kernel state. */
-@@ -801,7 +806,7 @@ restore:
+@@ -761,7 +766,7 @@ restore:
  	VM_OFF /* MS: turn off MMU */
  	tophys(r1,r1)
  	RESTORE_REGS
@@ -763,105 +745,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	tovirt(r1,r1);
  6:
  IRQ_return: /* MS: Make global symbol for debugging */
-@@ -820,29 +825,29 @@ C_ENTRY(_xtmr_manager_reset):
- 	lwi	r1, r0, xmb_manager_stackpointer
- 
- 	/* Restore MSR */
--	lwi	r2, r1, PT_MSR
-+	lwi	r2, r1, PTO+PT_MSR
- 	mts	rmsr, r2
- 	bri	4
- 
- 	/* restore Special purpose registers */
--	lwi	r2, r1, PT_PID
-+	lwi	r2, r1, PTO+PT_PID
- 	mts	rpid, r2
- 
--	lwi	r2, r1, PT_TLBI
-+	lwi	r2, r1, PTO+PT_TLBI
- 	mts	rtlbx, r2
- 
--	lwi	r2, r1, PT_ZPR
-+	lwi	r2, r1, PTO+PT_ZPR
- 	mts	rzpr, r2
- 
- #if CONFIG_XILINX_MICROBLAZE0_USE_FPU
--	lwi	r2, r1, PT_FSR
-+	lwi	r2, r1, PTO+PT_FSR
- 	mts	rfsr, r2
- #endif
- 
- 	/* restore all the tlb's */
- 	addik	r3, r0, TOPHYS(tlb_skip)
--	addik	r6, r0, PT_TLBL0
--	addik	r7, r0, PT_TLBH0
-+	addik	r6, r0, PTO+PT_TLBL0
-+	addik	r7, r0, PTO+PT_TLBH0
- restore_tlb:
- 	add	r6, r6, r1
- 	add	r7, r7, r1
-@@ -868,9 +873,9 @@ ret_from_reset:
- 	VM_OFF
- 	/* MS: Restore all regs */
- 	RESTORE_REGS
--	lwi	r14, r1, PT_R14
--	lwi	r16, r1, PT_PC
--	addik	r1, r1, PT_SIZE + 36
-+	lwi	r14, r1, PTO+PT_R14
-+	lwi	r16, r1, PTO+PT_PC
-+	addik	r1, r1, STATE_SAVE_SIZE + 36
- 	rtbd	r16, 0
- 	nop
- 
-@@ -885,11 +890,11 @@ C_ENTRY(_xmb_manager_break):
- 	 * Reserve memory in the stack for context store/restore
- 	 * (which includes memory for storing tlbs (max two tlbs))
- 	 */
--	addik	r1, r1, -PT_SIZE - 36
-+	addik	r1, r1, -STATE_SAVE_SIZE - 36
- 	swi	r1, r0, xmb_manager_stackpointer
- 	SAVE_REGS
--	swi	r14, r1, PT_R14	/* rewrite saved R14 value */
--	swi	r16, r1, PT_PC; /* PC and r16 are the same */
-+	swi	r14, r1, PTO+PT_R14	/* rewrite saved R14 value */
-+	swi	r16, r1, PTO+PT_PC; /* PC and r16 are the same */
- 
- 	lwi	r6, r0, TOPHYS(xmb_manager_baseaddr)
- 	lwi	r7, r0, TOPHYS(xmb_manager_crval)
-@@ -903,25 +908,25 @@ C_ENTRY(_xmb_manager_break):
- 
- 	/* Save the special purpose registers  */
- 	mfs	r2, rpid
--	swi	r2, r1, PT_PID
-+	swi	r2, r1, PTO+PT_PID
- 
- 	mfs	r2, rtlbx
--	swi	r2, r1, PT_TLBI
-+	swi	r2, r1, PTO+PT_TLBI
- 
- 	mfs	r2, rzpr
--	swi	r2, r1, PT_ZPR
-+	swi	r2, r1, PTO+PT_ZPR
- 
- #if CONFIG_XILINX_MICROBLAZE0_USE_FPU
- 	mfs	r2, rfsr
--	swi	r2, r1, PT_FSR
-+	swi	r2, r1, PTO+PT_FSR
- #endif
- 	mfs	r2, rmsr
--	swi	r2, r1, PT_MSR
-+	swi	r2, r1, PTO+PT_MSR
- 
- 	/* Save all the tlb's */
- 	addik	r3, r0, TOPHYS(tlb_skip)
--	addik	r6, r0, PT_TLBL0
--	addik	r7, r0, PT_TLBH0
-+	addik	r6, r0, PTO+PT_TLBL0
-+	addik	r7, r0, PTO+PT_TLBH0
- save_tlb:
- 	add	r6, r6, r1
- 	add	r7, r7, r1
-@@ -978,28 +983,28 @@ C_ENTRY(_debug_exception):
+@@ -784,28 +789,28 @@ C_ENTRY(_debug_exception):
  	lwi	r1, r0, TOPHYS(PER_CPU(ENTRY_SP)); /* Reload kernel stack-ptr*/
  
  	/* BIP bit is set on entry, no interrupts can occur */
@@ -901,7 +785,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	addik	r15, r0, dbtrap_call; /* return address */
  	rtbd	r0, microblaze_kgdb_break
  	nop;
-@@ -1015,16 +1020,16 @@ C_ENTRY(_debug_exception):
+@@ -821,16 +826,16 @@ C_ENTRY(_debug_exception):
  	addik	r1, r1, THREAD_SIZE;	/* calculate kernel stack pointer */
  	tophys(r1,r1);
  
@@ -923,7 +807,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	addik	r15, r0, dbtrap_call;
  dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
  	rtbd	r0, sw_exception
-@@ -1032,7 +1037,7 @@ dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
+@@ -838,7 +843,7 @@ dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
  
  	/* MS: The first instruction for the second part of the gdb/kgdb */
  	set_bip; /* Ints masked for state restore */
@@ -932,7 +816,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bnei	r11, 2f;
  /* MS: Return to user space - gdb */
  1:
-@@ -1051,7 +1056,7 @@ dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
+@@ -857,7 +862,7 @@ dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
  5:	andi	r11, r19, _TIF_SIGPENDING | _TIF_NOTIFY_RESUME;
  	beqi	r11, 4f;		/* Signals to handle, handle them */
  
@@ -941,7 +825,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	bralid	r15, do_notify_resume;	/* Handle any signals */
  	addi  r6, r0, 0;	/* Arg 2: int in_syscall */
  	bri	1b
-@@ -1062,7 +1067,7 @@ dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
+@@ -868,7 +873,7 @@ dbtrap_call: /* Return point for kernel/user entry + 8 because of rtsd r15, 8 */
  	tophys(r1,r1);
  	/* MS: Restore all regs */
  	RESTORE_REGS_RTBD
@@ -950,7 +834,7 @@ index fea235f139d7..dfca6ce2d628 100644
  	lwi	r1, r1, PT_R1 - PT_SIZE; /* Restore user stack pointer */
  DBTRAP_return_user: /* MS: Make global symbol for debugging */
  	rtbd	r16, 0; /* MS: Instructions to return from a debug trap */
-@@ -1073,9 +1078,9 @@ DBTRAP_return_user: /* MS: Make global symbol for debugging */
+@@ -879,9 +884,9 @@ DBTRAP_return_user: /* MS: Make global symbol for debugging */
  	tophys(r1,r1);
  	/* MS: Restore all regs */
  	RESTORE_REGS_RTBD
@@ -963,24 +847,6 @@ index fea235f139d7..dfca6ce2d628 100644
  	tovirt(r1,r1);
  DBTRAP_return_kernel: /* MS: Make global symbol for debugging */
  	rtbd	r16, 0; /* MS: Instructions to return from a debug trap */
-@@ -1173,7 +1178,7 @@ ENTRY(_switch_to)
- .ent xmb_inject_err
- .type xmb_inject_err, @function
- xmb_inject_err:
--	addik	r1, r1, -PT_SIZE
-+	addik	r1, r1, -STATE_SAVE_SIZE
- 	SAVE_REGS
- 
- 	/* Switch to real mode */
-@@ -1197,7 +1202,7 @@ xmb_inject_err:
- 	nop;
- 1:
- 	RESTORE_REGS
--	addik	r1, r1, PT_SIZE
-+	addik	r1, r1, STATE_SAVE_SIZE
- 	rtsd	r15, 8;
- 	nop;
- .end xmb_inject_err
 diff --git a/arch/microblaze/kernel/hw_exception_handler.S b/arch/microblaze/kernel/hw_exception_handler.S
 index 07ea23965f81..4693916be526 100644
 --- a/arch/microblaze/kernel/hw_exception_handler.S
@@ -998,27 +864,27 @@ index 07ea23965f81..4693916be526 100644
  	/* Save date to kernel memory. Here is the problem
  	 * when you came from user space */
 diff --git a/arch/microblaze/kernel/process.c b/arch/microblaze/kernel/process.c
-index 3c6241bcaea8..7430752481c3 100644
+index 5e2b91c1e8ce..578aa49a06e7 100644
 --- a/arch/microblaze/kernel/process.c
 +++ b/arch/microblaze/kernel/process.c
-@@ -19,6 +19,7 @@
- #include <linux/bitops.h>
+@@ -20,6 +20,7 @@
  #include <linux/ptrace.h>
+ #include <linux/uaccess.h> /* for USER_DS macros */
  #include <asm/cacheflush.h>
 +#include <asm/entry.h>
  
  void show_regs(struct pt_regs *regs)
  {
-@@ -65,7 +66,7 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+@@ -64,7 +65,7 @@ int copy_thread(unsigned long clone_flags, unsigned long usp, unsigned long arg,
  		 * the registers. That's OK for a brand new thread.*/
  		memset(childregs, 0, sizeof(struct pt_regs));
  		memset(&ti->cpu_context, 0, sizeof(struct cpu_context));
 -		ti->cpu_context.r1  = (unsigned long)childregs;
 +		ti->cpu_context.r1  = (unsigned long)childregs - PTO;
- 		ti->cpu_context.r20 = (unsigned long)args->fn;
- 		ti->cpu_context.r19 = (unsigned long)args->fn_arg;
+ 		ti->cpu_context.r20 = (unsigned long)usp; /* fn */
+ 		ti->cpu_context.r19 = (unsigned long)arg;
  		childregs->pt_mode = 1;
-@@ -79,7 +80,7 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+@@ -78,7 +79,7 @@ int copy_thread(unsigned long clone_flags, unsigned long usp, unsigned long arg,
  		childregs->r1 = usp;
  
  	memset(&ti->cpu_context, 0, sizeof(struct cpu_context));
