@@ -1,56 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280286;
-	b=KxMp5XXtjA1W2wRnLBqMthJoPGPXRTqPGXiCI0q2gfsQwwh51QmFGEFV4Q/i7naTQT6H
-	 WOjZwWQ2u3DhYPIUVzs4VHqNnsg038mcpvHltCeF1bAO8smSQvg4Qk6Qsd7brUXH319St
-	 wOgrINpAGM0rq9HB2k/G3CJb01inSnStYYbkWAnZ76VLN5ltszTYk1yMpt2A9FXNxLh08
-	 wNr9uOzwAs0jm6zsKUKB4HLG1EQYonltJDOgNO9SzpMHVm89VljqVY4Wb+vnOE/1tNGLk
-	 s2WjdUnp9wFixk09M7K1qPilkb5o+pI4KqwJyivpRUDOowVTohTodp0yTvftuFzUT4g==
+	t=1794280291;
+	b=s4Zi0Xa7GW2ttKk+TaJvDWQvPddz3PZhvPMOHcPijbjcEO47uVc6tu0SW+jUjBJN/Jgw
+	 30zH6Q7MAKrcI6DTQIQ2uK8iLHWge6QSeY+VA7FGI0Md4LbwdqcNnvplGkFxaNxazp4d/
+	 q0itB3TyKiJAILgU2Y5Uao8I5pAVn13EIE7HMSoJO1avd9RICaTGNoIG3D5PfTxF/D3v/
+	 4WY/1gISHXv5V3GnXD1LyZa/dI39htAkhDQbYr/5yyUrGU376Tro//x4SGcuvzbMXQrxY
+	 UmSrwq3MhyWq1UkhhUbTW0Rg7GeBOviL/PdPknLWKKBdJm4ICpzvCyoXNTCP917TXew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280286;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CeWtNCF1qRN8PVkO0IhCYPzr6OObHHWIz9AdckJk8Eg=;
-	b=m3jP5FMrJbOOqtdu7PyCdsc6f80zip/rU0Vx/R8OXFaIfEZK2hibA2r4TW2mE9xjz5qq
-	 LkKxZv/7BGRiOYRsCzr8axdR1GQeZDc/50+eAE2HLukSmy/uSLp/cr1TlmjEUZhVpyjuK
-	 T7FegQgc63TMcHVBLj1r5vStSvWQeDut11fcw3zwFt3mqDhLCjhjNEoD9ukX/3t7oHZ0H
-	 5zZYs4dquH7A5lYnUkJHGROJj7LzJNIFWc/YEKHcLurA4gAOR13ruqNOe4Hdw7mRahU0X
-	 36HveaE779rOrJVN2XuaL2u4YXbw+0oOEtvSjRRtomccSnj4l1nLYoOMV1YH0or71Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280291;
+	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=FIpvMa3wn5FZQAdDiPNRSToi7YmcTP1ItKtt8a5mV10=;
+	b=R1/V9dwzIhiW1phBom7i88bV8qBE7AY2m+T+HNhbx4uyb4gSeRRlRXb4VuDHNNgmFbaW
+	 FZbqpGAAxf1jrNNsUR34XPc7SrtFuAlyHj6PjQc0jtXbKy6wy1ToSB94qYgR1bFX4Na/G
+	 8JGOLPp+oEIs8o7Uhw4EdAjJDQIaT2pxaRXL+OdEM8ZYgWxzOcLNDn6tBHzvG3TnUvAit
+	 tZPg71+tsSuIyN8KTgUBjngj1l2PG1YclMN+kKtnGvlLlxtyXwvKWC/CYrqkD3DSDHR45
+	 iDcQe1DOHxI/xrkWQRU9TMcXU8MIAqP536kUrQYX3xI57FNeDAi0/REkKyyTV2pUBYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chkvOaAU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amlogic.com;
+	spf=pass smtp.mailfrom=amlogic.com;
+	arc=none smtp.remote-ip=64.106.246.77
+Received: from mailsc.amlogic.com (unknown [64.106.246.77])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F75606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chkvOaAU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6F31F008A2;
-	Tue, 10 Nov 2026 03:11:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280285;
-	bh=CeWtNCF1qRN8PVkO0IhCYPzr6OObHHWIz9AdckJk8Eg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=chkvOaAUuW0aiHNZDtrQxiOME13x/NSlzZFzl65qtJ0AeMOQQ4sHkixgNc7lErE1H
-	 3gUIz/071Mca5EPgK+rZWpzwT9m6duh3eKt1sd+mGWBROwMAnuQk64jqD44LkrZxFB
-	 pYeZoHaI/UwjE1kW6ONOWPHh4ybxkIbspyClDFK4l77Pk1LOlm7CVcCQhEC807Wn3u
-	 GD7h8Utw60B2uaixpMNg+k00LCGjjti55LappfCNJD6ndC82jRQluTZYjsLybKZ6QW
-	 HTnxZQFvTai+msdvxj8lFHQOvKc2la26tlkYcGaFG+bRP1dNHAFVCo426o/L9ibHSA
-	 KTeakGv7/oXew==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Cheng Ming Lin <chengminglin@mxic.com.tw>,
-	Michael Walle <mwalle@kernel.org>,
-	Russell Senior <russell@personaltelco.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] mtd: spi-nor: macronix: Restore fallback parameters for MX25L12805D
-Date: Mon,  9 Nov 2026 22:11:24 -0500
-Message-ID: <20261110031102.5377-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050255-failed-7.3-01739ccea21b@kernel.org>
-References: <20261107050255-failed-7.3-01739ccea21b@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31ED9606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:11:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31ED9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
+ (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 9 Nov
+ 2026 19:11:22 -0800
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+To: <stable@vger.kernel.org>
+CC: Jiucheng Xu <jiucheng.xu@amlogic.com>, <stable@kernel.org>, Chao Yu
+	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>
+Subject: [PATCH 6.6.y] f2fs: force out-place update for all writes on compressed file
+Date: Tue, 10 Nov 2026 11:10:56 +0800
+Message-ID: <20261110031056.1641-1-jiucheng.xu@amlogic.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261107052913-failed-6.6-a64a3fec11e7@kernel.org>
+References: <20261107052913-failed-6.6-a64a3fec11e7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +53,66 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
+ (10.8.11.35)
 
-From: Cheng Ming Lin <chengminglin@mxic.com.tw>
+commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4 upstream.
 
-[ Upstream commit 01739ccea21b69818dc071096a249e6f84a6b13d ]
+For compressed file, compressed write may fail and fall back to raw
+write.
 
-In a previous effort to drop flash_info fields and rely on SFDP, the
-static size and no_sfdp_flags were removed from the MX25L12805D entry
-(JEDEC ID 0xc22018).
+-Thread A                                         - Thread B
+  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
+   - f2fs_write_compressed_pages                    - ...
+    - f2fs_trylock_op                               - ...
+     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
+   - f2fs_write_raw_pages                           - ...
 
-At that time, the legacy MX25L12805D was already EOL and unavailable
-for physical testing. Verification was inadvertently performed using
-the newer MX25L12833F, which shares the same JEDEC ID but supports
-SFDP. As a result, the probe succeeded during testing, leading to
-the mistaken removal of the fallback parameters.
+Thread B acquires the lock first, which causes Thread A to fail lock
+acquisition and fall back to raw-data write.
+IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
+so f2fs_write_raw_pages() overwrites the original compressed data
+in-place.
 
-Since the actual MX25L12805D lacks SFDP support entirely, it strictly
-requires these static parameters.
+The in-memory node has been updated with raw-data addresses, while the
+node metadata stored on eMMC still remains in compressed state.
+If a power-cut occurs before the node is flushed to disk, on-disk
+inconsistency arises: disk data is raw, yet metadata treats it as a
+compressed cluster, leading to decompression failure.
 
-Restore .size = SZ_16M and .no_sfdp_flags = SECT_4K to this entry
-to fix the probe failure for the legacy part.
+To eliminate this risk completely, force out-place update for all
+write operations on compressed file.
 
-Fixes: 947c86e481a0 ("mtd: spi-nor: macronix: Drop the redundant flash info fields")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
-Reviewed-by: Michael Walle <mwalle@kernel.org>
-Tested-by: Russell Senior <russell@personaltelco.net>
-Signed-off-by: Michael Walle <mwalle@kernel.org>
-[ sashal: Adjusted patch context to account for the absent mx25l12805d_4pp3b_fixups hook. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@kernel.org
+Fixes: 4c8ff7095bef ("f2fs: support data compression")
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+(cherry picked from commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4)
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
 ---
- drivers/mtd/spi-nor/macronix.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/f2fs/data.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/mtd/spi-nor/macronix.c b/drivers/mtd/spi-nor/macronix.c
-index e97f5cbd9aad2..c854a1163a475 100644
---- a/drivers/mtd/spi-nor/macronix.c
-+++ b/drivers/mtd/spi-nor/macronix.c
-@@ -132,7 +132,9 @@ static const struct flash_info macronix_nor_parts[] = {
- 	}, {
- 		/* MX25L12805D */
- 		.id = SNOR_ID(0xc2, 0x20, 0x18),
-+		.size = SZ_16M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_4BIT_BP,
-+		.no_sfdp_flags = SECT_4K,
- 	}, {
- 		/* MX25L25635E, MX25L25645G */
- 		.id = SNOR_ID(0xc2, 0x20, 0x19),
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index b0c633c5deb7..65f933d24fe8 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2629,6 +2629,13 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
+ 		return true;
+ 	if (f2fs_used_in_atomic_write(inode))
+ 		return true;
++	/*
++	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
++	 * If IO comes from compressed write path and fallback to raw write,
++	 * force out-place to prevent metadata-data inconsistency.
++	 */
++	if (f2fs_compressed_file(inode))
++		return true;
+ 
+ 	/* swap file is migrating in aligned write mode */
+ 	if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
 -- 
-2.53.0
+2.55.0
 
