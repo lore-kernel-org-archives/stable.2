@@ -1,56 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273023;
-	b=tVVZX0Um3GwHMMyK8uBgWdRByamJ0rOZgBf+9gH6A0BsZ3ZZUlf2ztVbCTqLtOhvsMnp
-	 WH02YlLM7t0y25QXUzgiGuaefLb36n1X9DKwHlRUug5D4Hvi45ymfmaGa+EX4TkTlvdSx
-	 XUPBC/C80OPz5fwfkdqTS2PrCOAApZKSMDrEF0M8Jf8XXg3ZEkHCB/KzTMwYAux4NZ0bB
-	 M01f+04zv8+16E/8z9h2zkh9jEybZ/YNOw2AhTHp4SutCAh8l1cpjCT1Dcbx1ILLu1l+y
-	 GNmn4ZAz59l/DnD1dgO3R28j0HfOVMKwluaQF40Pmaqisq4r1o4UboanKGEpBsfJv9A==
+	t=1794273025;
+	b=BbYFI4ZllM0WCnYbB7ol2OQZ6QvWB3SxMe3VBKYgcQ3sdJzN8/l/WtEWGB71jcKZukwM
+	 n4pXrBA0UlJVcdIkueWhXGMzr/QUPw28h7bexPR70xCNeyCh9QtMjiejIyJAqpBDYU1fY
+	 /bMVa1aUZS5nIen84oPQ6DJ8SsFVpme/exsbyONMMAKsnmwT3jD8KRLUOHrezjjIs7fkV
+	 swg4WKAkuyy3xOrOC12X7urZz1kk3nyPby3oLqx+ppa4BFPwJRWGc5x0jxTfurkhv6s7+
+	 tzPfNBiRt5uzHoU5j7Qa1xdamEOZ9wbfgzunw1CdCY1eqAUrQ/0Y/YNRmb3mBrJdahg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273025;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PK5Mhrm7EWvqku1ww/c06623M3e5OXB2VPDI7UgnJxY=;
-	b=oyBzAn0BW2Y1eq4YPTLd72K0qSyGI3uhmqyQYoYEeuRYSLFJdT4FuGFNWpO2oQi+mDrX
-	 yhgzncvKcpeaww75gIMEVLVFEgjIONFHkDvGWXYJjI3ORpPWq3U/zsrBD01uy0C81vz/q
-	 SX5KG+OY9nDt4Y6S4LtyYnCQ7kACbcbeLHkwASls+KF8LSWzR2X8CquShEz7bVTf+ou0j
-	 nHSA58Ao6F/tSeS6cPr3bNr15ebxIFVf/Fc8DtLSXWQqj6W3vlOXKpho2TklnbTNt1oVK
-	 5CChGfp0Xu4Q9S5WeQ/rdmeT+/7pdmwTvXqLnoV0fV4P3MVHdrkmLQmtDV18sbyx9tw==
+	bh=qwTg3OWRT3dkgYGA7REsSTNJY3Atm9s9tnVEeCI3VgI=;
+	b=dPul/X81yoQXHpP2zIkRxJT4n0OKLh/ddgbAS5f5uu/vBa6l3jkPrUNhsF6ebXl7IkgN
+	 XLpTh/EA1NbLmL051Kamb0bc2VYNTxbeaC+bWYDMjw6MhiZ1LoyHJNqKcbaak+Davr7T2
+	 azRS/LDut7OzeH7ExHF6wCdD7xp4TihbZZORYBA7dFzZSoIGNI5BQK8idqxzNSaIT62IO
+	 JEk6kRQwA3LFMVyQWaKSGxQ7CA78HH/FV7Va8LjZOItK4iscV86GllwrCDjBBiWuMH+E1
+	 W3V4iInj7VNmUaf6eGwp6dtqacR+xBcisVbzLOFKlJfmnIQ0R4fzpgrkN7cMpim5RiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeSrZ8G2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrR1QexS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0EF606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:10:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2536A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeSrZ8G2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71A81F0089F;
-	Tue, 10 Nov 2026 01:10:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrR1QexS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891161F0089F;
+	Tue, 10 Nov 2026 01:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273022;
-	bh=PK5Mhrm7EWvqku1ww/c06623M3e5OXB2VPDI7UgnJxY=;
+	s=k20260515; t=1794273025;
+	bh=qwTg3OWRT3dkgYGA7REsSTNJY3Atm9s9tnVEeCI3VgI=;
 	h=From:To:Cc:Subject:Date;
-	b=XeSrZ8G2h+8MftlwG37mSQFdajW84cwZ5B7m8bHhjk1pFOiAsYl3oNG2USnsyEnZC
-	 fz4y6jWVtqcVnHVMoyzh6EB77ox6xWouUfarUo2XmCCaFsFAlrisHExY6WFJfcrtNA
-	 EkKLOyVa66iXvq7+wr4e5DTHytVb/8st+Pga1H7ZjEaWOgXVX1jArRA8wqyiO1DxA8
-	 TE1O4CvX8S1Fj5iXQwHAOcaGx/0SnjH+3ONj09ai1+6z6UhABEoa/VxIx1TeVQG4rt
-	 oJiDCTwMYnRc0VFWlSm39y1WKoJhwV0fdArw2KMmx6vGvog/FS9/GNlDyF/cRouoWJ
-	 Fz+Ay+0Nb9HUg==
+	b=XrR1QexSuIScN62+0FtFmGT5riL+3AnK9t9tFq4sOPS82D/S17FCrGCBe4t6uxnt0
+	 blcpVEPAmUigwUc7JE3CSA6FGCQNQt2qpcqdXtfxy0YX16mP0kj3hwTaKX0EtCNK7m
+	 lPTE9dYo8sERCjV8MO1JlOI68o+6nxbkImiJnG26RlTPa13asc3gqsi097IhMbmxWE
+	 k+MGDNw871R5TqGqBVH29DScl9Va3R625rusw5Cazt8v3yqF6LjWi79tW0N6gJ/jv6
+	 2atmNsqOc4BX0BruWquNE65TDFm62wwQNNtSecXUh5bcTwfFXm0vCfKDSa0GqbVTSa
+	 lpIo46T2/Rj9w==
 From: Sasha Levin <sashal@kernel.org>
-To: zhaoyz24@mails.tsinghua.edu.cn,
-	yangyx22@mails.tsinghua.edu.cn,
-	wangao@seu.edu.cn,
-	fengxw06@126.com,
-	qli01@tsinghua.edu.cn,
-	xuke@tsinghua.edu.cn,
-	asmadeus@codewreck.org
+To: yuz08559@gmail.com,
+	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] 9p/xen: drain response work after unbinding IRQ" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:10:20 -0500
-Message-ID: <20261109201020-failed-6.6-7b6f2e3c29fb@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:10:23 -0500
+Message-ID: <20261109201023-failed-6.6-6a6e7d7230cd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,76 +68,177 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7b6f2e3c29fb4d76f1e4973280792eabbd526602
+git cherry-pick -x 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201020-failed-6.6-7b6f2e3c29fb@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201023-failed-6.6-6a6e7d7230cd@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7b6f2e3c29fb4d76f1e4973280792eabbd526602 Mon Sep 17 00:00:00 2001
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Date: Tue, 9 Jun 2026 23:52:01 +0800
-Subject: [PATCH] 9p/xen: drain response work after unbinding IRQ
+From 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94 Mon Sep 17 00:00:00 2001
+From: Yu Zhang <yuz08559@gmail.com>
+Date: Wed, 14 Oct 2026 11:37:46 +1000
+Subject: [PATCH] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN
+ teardown
 
-commit ea4f1009408e ("9p/xen : Fix use after free bug in
-xen_9pfs_front_remove due to race condition") added cancel_work_sync()
-to keep xen_9pfs_front_free() from freeing a ring while
-p9_xen_response() is still running.
+A demo-mode (generate_node_acls=1) login that allocates a dynamic NodeACL
+populates that ACL's per-LUN dev entries in core_tpg_add_node_to_devs()
+*before* the ACL is linked onto tpg->acl_node_list by
+target_add_node_acl():
 
-The work is currently drained before the event channel IRQ is unbound.
-That leaves a race window where xen_9pfs_front_event_handler() can run
-after cancel_work_sync() returns and queue p9_xen_response() again.  The
-following unbind_from_irqhandler() synchronizes with the IRQ handler, but
-it does not cancel work that the handler already queued.  The teardown
-can then free the ring and private data while the response work remains
-pending, and the worker later dereferences ring->priv and priv->client.
+	core_tpg_check_initiator_node_acl():
+		...
+		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
+		target_add_node_acl(acl);                  /* only now listed */
 
-Unbind the event channel IRQ before draining the work.  Once the IRQ is
-unbound, no new response work can be queued by the backend event channel,
-and cancel_work_sync() waits for any work that was queued before or
-during the unbind.  It is then safe to release the ring resources.
+The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
+tpg->acl_node_list, so a dev entry whose ACL is still in the window above
+is invisible to the sweep and is never disabled.  It is left on the
+se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun; when
+the same unpacked_lun is later re-added and the se_lun is reallocated at
+the same address, the stale dev entry is rediscovered by
+target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
+lun_deve_list:
 
-Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
+  BUG: KASAN: slab-use-after-free ...
+   core_enable_device_list_for_node+0x5ce/0x880
+   core_tpg_add_node_to_devs+0x169/0x190
+   core_dev_add_lun+0x146/0x190
+   target_fabric_port_link+0xe9/0x1b0
+   configfs_symlink+0x381/0xae0
+   __x64_sys_symlink+0x55/0x80
+
+The demo-mode login path that drives the ACL/dev-entry creation is
+reachable by an unauthenticated initiator; the colliding LUN add/remove is
+a local configfs operation.
+
+Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun
+shutdown") introduced se_lun->lun_shutdown and guarded the *explicit* ACL
+MappedLUN path (target_fabric_mappedlun_link()), but the demo-mode
+automatic path, core_tpg_add_node_to_devs() ->
+core_enable_device_list_for_node(), was never given the equivalent guard,
+and the publish-after-populate ordering in
+core_tpg_check_initiator_node_acl() was left unchanged.
+
+Fix it in three cooperating parts:
+
+ 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
+    dev entries, so the teardown sweep can observe them.
+
+ 2) Refuse to attach a dev entry to an se_lun that is shutting down,
+    checked under nacl->lun_entry_mutex -- the same lock the sweep takes --
+    so once the sweep has passed an ACL any later enable for that LUN
+    observes lun_shutdown and skips it.
+
+ 3) In core_enable_device_list_for_node(), insert the new dev entry onto
+    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
+    the replace and the new-entry branch.  Previously the entry was added
+    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list only
+    after dropping it; with the ACL now published early, the sweep could
+    take the mutex in that gap, find the entry on the hlist,
+    core_disable_device_list_for_node() it (list_del() on the not-yet-
+    linked lun_link succeeds and the entry is freed), and then the enable
+    would list_add_tail() the freed entry back onto lun_deve_list.  Linking
+    both lists under the mutex makes enable and the sweep mutually
+    exclusive, closing that window.
+
+core_tpg_add_node_to_devs() already ignores the return value of
+core_enable_device_list_for_node(), so a shutting-down LUN is simply
+skipped.
+
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: GLM:GLM-5.1
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Tested-by: Yu Zhang <yuz08559@gmail.com>
+Link: https://patch.msgid.link/20261014013746.46705-1-yuz08559@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- net/9p/trans_xen.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/target/target_core_device.c | 18 +++++++++++++++---
+ drivers/target/target_core_tpg.c    | 10 +++++++++-
+ 2 files changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index 5a0b5b83e8ab4..9ee1ac9143d43 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -282,14 +282,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
- 	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
- 		struct xen_9pfs_dataring *ring = &priv->rings[i];
+diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
+index 9db2201aa553f..c5d5d6a91fee7 100644
+--- a/drivers/target/target_core_device.c
++++ b/drivers/target/target_core_device.c
+@@ -349,6 +349,19 @@ int core_enable_device_list_for_node(
+ 	new->attach_count++;
  
--		cancel_work_sync(&ring->work);
+ 	mutex_lock(&nacl->lun_entry_mutex);
++	/*
++	 * Do not attach a new dev entry to an se_lun that is being torn down.
++	 * lun_shutdown is set by core_tpg_remove_lun() before its
++	 * core_clear_lun_from_tpg() sweep; checking it here under the same
++	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
++	 * has passed this ACL no dev entry can be left dangling on the
++	 * se_lun->lun_deve_list that is about to be freed.
++	 */
++	if (lun->lun_shutdown) {
++		mutex_unlock(&nacl->lun_entry_mutex);
++		ret = -ENODEV;
++		goto free_stats;
++	}
+ 	orig = target_nacl_find_deve(nacl, mapped_lun);
+ 	if (orig && orig->se_lun) {
+ 		struct se_lun *orig_lun = orig->se_lun;
+@@ -375,12 +388,12 @@ int core_enable_device_list_for_node(
+ 		new->se_lun_acl = lun_acl;
+ 		hlist_del_rcu(&orig->link);
+ 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		spin_lock(&lun->lun_deve_lock);
+ 		list_del(&orig->lun_link);
+ 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 		spin_unlock(&lun->lun_deve_lock);
++		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		kref_put(&orig->pr_kref, target_pr_kref_release);
+ 		wait_for_completion(&orig->pr_comp);
+@@ -393,11 +406,10 @@ int core_enable_device_list_for_node(
+ 	new->se_lun = lun;
+ 	new->se_lun_acl = lun_acl;
+ 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-	mutex_unlock(&nacl->lun_entry_mutex);
 -
- 		if (!ring->intf)
- 			break;
- 		if (ring->irq >= 0) {
- 			unbind_from_irqhandler(ring->irq, ring);
- 			ring->irq = -1;
- 		}
-+		cancel_work_sync(&ring->work);
+ 	spin_lock(&lun->lun_deve_lock);
+ 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 	spin_unlock(&lun->lun_deve_lock);
++	mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 	target_luns_data_has_changed(nacl, new, true);
+ 	return 0;
+diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
+index ccff9f6e48266..e615e5e304273 100644
+--- a/drivers/target/target_core_tpg.c
++++ b/drivers/target/target_core_tpg.c
+@@ -266,6 +266,15 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	kref_get(&acl->acl_kref);
+ 	acl->dynamic_node_acl = 1;
+ 
++	/*
++	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
++	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
++	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
++	 * can observe and disable those dev entries.  Otherwise a dev entry can
++	 * be left on an se_lun->lun_deve_list that is about to be freed.
++	 */
++	target_add_node_acl(acl);
 +
- 		if (ring->data.in) {
- 			for (j = 0; j < (1 << ring->intf->ring_order); j++) {
- 				grant_ref_t ref;
+ 	/*
+ 	 * Here we only create demo-mode MappedLUNs from the active
+ 	 * TPG LUNs if the fabric is not explicitly asking for
+@@ -275,7 +284,6 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
+ 		core_tpg_add_node_to_devs(acl, tpg, NULL);
+ 
+-	target_add_node_acl(acl);
+ 	return acl;
+ }
+ EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
 -- 
 2.53.0
 
