@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.160
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794333519;
-	b=Oagpf+l2v33bVvb/VyMazgd9ZA19frimtdF8lwg/9QoyuNgZJXVMFd0TkCsxZpKK7Y7X
-	 ZE/4bvUbKlA4a1zhLzusWgzw374hj31Pnemlnn6tu1MxKL5gCd7Q0lBhO+2d1nNkMM4M6
-	 aeaYlaKOm3Y5Fff2X9QrWen88LQ50rby3Ybb1avWY0ATXEkqV63Dt36Yf5gtOyChubxca
-	 /j88ryGhUl9S93S5Nz466CqUbl210TElhWiR9JS9RbY41bmkAZq2XCPsBRX7QpTsohoWE
-	 n6CBIGjed/v5TBa54u9RoMecSln7WZvr4JxCIQEfA5ig7s6B6V8IHRRObz6cq7loDog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333519;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
-	bh=91ZO41d7H0+dW2VNP72zLun4sr3NQXsXCIwMlqhJHJ0=;
-	b=1FZp/qEn00Gs4vlpiv+RybrKEO5DolyfBUI+e0wFnTYMr7LJhBiHMU8LKML25El+LDiA
-	 V7848+Zc/r0EvJohJcvaTQ73VidL/7slaGRVc8xla8CXrJ6EuXDC2ybSLgbWHAxRazDZF
-	 TUH4OX0phlnCfZMSn8VyCpZ4ztgiQx80n6iMcDROVyjxSLNwCpFkj58XNKaFXJlLtLVpM
-	 2BAv5nQWQr0XB2cfSKAb5USOlC3d1SGiiI4au5BLpttlwU26Ul0hD2ObWEx3SyrP76yCQ
-	 DNXlCFehLneIRZJGQc6/FWutDb7qouLI32a7kGUbj6Bs4BXTWYstmn95zTy8l457F/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hartkopp.net;
-	spf=fail smtp.mailfrom=hartkopp.net;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=QwL+uOv4;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=sm6UTqx6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.160
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [81.169.146.160])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794333525;
+	b=WhScJEIIyYOiRK945NDWKPyfestPHCWhniz8ytUT4TtShW9MrKcMnLDHF1ULLK6fz7I6
+	 jSB8Y/zDM9M4JK0B5YiYDnzZOP6VIrcJGfFFZEsoxLfj7TqBNoubyaOj+AgKu6zeHc16T
+	 IWwOqgAt1ILP9TpzCTzneSCMEW53k8hDntXBQqWOQt8lTpjUUBbBohCe/QoVOhjsUMjB+
+	 ErUdvFn9CxTJYKteaIFq3VblXswG99sRw0cP0dscnHzTJ7FU2DIJFKQovWfZV2kXoa3+D
+	 oh75PFemlVectV7iKGDR2Z4zE/MujdfAUtkZMAXvmPE0G9xzt69oaQm7fWhroYhY6hw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333525;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=nQq8xlJ1FDEHO18xK8Zu6BCYUECzuyJ7qWnFg+SyxOc=;
+	b=TF5FVlkt0gwcJe5bbRb/LZMSBlVmuD2APNe/RNURg1q5HJPOv3XoJ4AL45qRnXqNYbLF
+	 NtcfjgtszS1oN7RMdkQyj+6oKxw7G4oqF9yn0sNuHtjOxACl1zGBaHu35oRBxZKAa4/xv
+	 Ucq5NHNbGNmllbiem0VS0wzrZC8uoTNGoINloOZABrKgVD+qjyqrUeajcWcmgiI5EZalh
+	 97B6XZW8GqutGMFwPt4Ex4hjv/+Qj8tdVxgx1eOZMaLo5dZbfCJCqWFMrbb6xuHRdpwGn
+	 +84dkkJkOMyug980iqoQv0RiBsRqx9NnoEScoeZwpYQ5j0lX9GcDytDZAlK5Z90Sf0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKB2HcFo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF05E606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF05E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952DE606A33A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=QwL+uOv4;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=sm6UTqx6
-ARC-Seal: i=1; a=rsa-sha256; t=1794333494; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=CgP32Cx5/wMGHrzewKt06k7xozMPwv1MjGL3oNo5eY5vGp7KSWuKxU0h/9R3DM1trN
-    Ojqhho3fa+3JVej28uc1TawxiJg3Ayh6AWtLHFL5a0M4vK2l0tKijsBmWffsEdBB2pUd
-    bHdTrxNDwKkdHUBtelyWXs3sR7dVxamZjoDM/K3w0mOinufgbMvoVqWzlNtJ+VVDKWkU
-    vGgd52HSf9MHbPPxZRNztLlS0Tdd7iMK7oebelxs1GD54co/hbulIvOQhcsc0CQibLM7
-    um4vt0r4grNDCzfHCEUaC7Gay7uFCx8ay78TpNq/qRBKDwPoN6ezN6Dm4G+CfI7ILUfM
-    JTOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794333494;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=91ZO41d7H0+dW2VNP72zLun4sr3NQXsXCIwMlqhJHJ0=;
-    b=HBZ8Mqch+QFnw3rEN7EhruNp6SpW9kN2o27xhcEX4QCowvrd3jU5EjhKZls5sTr/iL
-    ZihZofNBlVFuCQ/FhtMZD+p387QB8pKD1yOObt8B/wSwFLxpSMX3vMLM/V/SryDzL6bB
-    /nJ0WcvkHUueyIsi20zKhizDYwh+0mZdt8q9ulDA+F/uczCbml2oFdfMWBq5WRHjzW2x
-    Vy+gqQch1yaLKqBkVAmv/YKU3CiVfIcmSnd4145k1X1oJ2bGhCu8piDE/fJ2YkQQXJJS
-    JtjfHbR2iGk9PofM8lf11lTXFXdDmHnoKDkrHuee9ejJBLiZOotpUtRL1ZMS3iw4H6r1
-    0NHA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794333494;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=91ZO41d7H0+dW2VNP72zLun4sr3NQXsXCIwMlqhJHJ0=;
-    b=QwL+uOv4+J/Cog8keDF6F0o9fz283pFi2AB1zhZLuyNQKpDByzqiNzryp+l9np1S5Z
-    KD2s4kUi81rooXRB4bRYfr0/nv230vi/hh/G+mpQcoVPimxO8P7W+LC9aWi7i5C6bKYW
-    2WBPYY+2Se4G/Ohe7jjhVeCULh3A6PJ7zQnIolgwASIWOTHDdGx5fIHatb7PTDA6wxFF
-    grvF30fjDBN1Hycr9rWk34pG0H5RdcGTswIg0XhCEQTvkJFBN8wRg98rzoK3aCpUX7Ej
-    xWjXGQND9vm/gvVKIhgZqoUN4Q2DP5HxPUX3npScwR6k9XuvQx4zU/73iVcGPA9ZE6cA
-    1XcA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794333494;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
-    From:Subject:Sender;
-    bh=91ZO41d7H0+dW2VNP72zLun4sr3NQXsXCIwMlqhJHJ0=;
-    b=sm6UTqx6ND1rXtBAzmzZNCVE5oQNa16Mw7ogntjPT7Bj8jpRk7CI0hfFtiKJeGEFTS
-    PKuIK1EPXlxAjVE0DWBw==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from vivo.lan
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Kfdf2a2AAHwE1cQ
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 10 Nov 2026 18:58:14 +0100 (CET)
-From: Oliver Hartkopp <socketcan@hartkopp.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKB2HcFo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0821F008A1;
+	Tue, 10 Nov 2026 17:58:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794333525;
+	bh=nQq8xlJ1FDEHO18xK8Zu6BCYUECzuyJ7qWnFg+SyxOc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RKB2HcFo+rT/9+pU6nmqkrIBbBrkAi9U75wuFRgCpaaxmRoVtDMsNRnSiM/n6KOH+
+	 OAdiejOogNkio9eMJZr8cb2H3aCAasJY2ZUuMiEac01LlIwxpHVOEfdO1pfvF1TGk5
+	 WZFjzffRqjYn9LLAQ6N2E+OsrR8KTp+4sEvPw1MelGdVv+gEOtiKt8/34SSpCVoPn5
+	 jA8Dz/9oMYCZxzrh2RVaqgkaquz4PrSy5/yd104MLkBKy/3IeeB+m6KcvJcVs6PAI7
+	 LFTIoD2lH+tRt40J5y7u6tL7mIiQErKN8O5a+jIt0XciSnPc3flhP9iHECtrSBvhkA
+	 vK4c+vTxbWKlw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>
-Subject: [PATCH 6.18.y] can: protect the receive lists with a per-device lock
-Date: Tue, 10 Nov 2026 18:57:57 +0100
-Message-ID: <20261110175757.791794-1-socketcan@hartkopp.net>
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] power: supply: core: Honor supplied-from with CONFIG_OF=y
+Date: Tue, 10 Nov 2026 12:58:43 -0500
+Message-ID: <20261110175825.3021841-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200455-failed-6.18-0f3ad9ab40e3@kernel.org>
-References: <20261109200455-failed-6.18-0f3ad9ab40e3@kernel.org>
+In-Reply-To: <20261107060208-failed-5.15-6bd80f22c764@kernel.org>
+References: <20261107060208-failed-5.15-6bd80f22c764@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,757 +60,175 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
 
-commit 0f3ad9ab40e3dad06d5c0693806e07935ceedbc3 upstream.
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 
-The receive lists of a CAN device are located in the device's
-can_ml_priv and travel with the device when it is moved to another
-network namespace. But they are protected by the per-netns
-rcvlists_lock. So can_rx_unregister() needs dev_net(dev) to pick the
-right lock and silently returns when the passed namespace does not
-match dev_net(dev) anymore.
+[ Upstream commit 6bd80f22c764fe8c56c62c118387f86a3ca98cff ]
 
-isotp_release() and bcm_release() leave their notifier list before they
-take any lock that serializes against the netdev notifier, which runs
-under RTNL. When the bound device is moved to another namespace in this
-window, the notifier skips the socket and the release path has to remove
-the filters itself. isotp_release() passes the socket's namespace, which
-does not match dev_net(dev) anymore. bcm_rx_unreg() passes dev_net(dev),
-which can_rx_unregister() reads again for its check, so a namespace
-change between both reads makes the check fail as well. In both cases
-can_rx_unregister() silently returns. As can_rx_register() stores
-rcv->sk without a reference, the remaining receivers point to the freed
-socket (isotp) or the freed op (bcm):
+The supplied-from device property is the name-based counterpart to
+firmware-node power-supplies references. It was added for non-DT platforms,
+but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
+a global kernel option, so x86 systems commonly enable it even when
+individual power supplies are described by software nodes.
 
-  BUG: KASAN: use-after-free in isotp_rcv+0x1570/0x24d0
-  Read of size 1 at addr ffff888118130552 by task isotp_ns_uaf/578
-   can_rcv_filter+0x4af/0x8c0
-   can_receive+0x28d/0x3c0
-   can_rcv+0x2a9/0x310
-   __netif_receive_skb_one_core+0x21a/0x260
-   process_backlog+0x210/0x760
+Consequently, these consumers never populate supplied_from and supplier
+notifications do not reach their external_power_changed() callbacks. On a
+Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
+notification running without invoking the BQ25892 callback, leaving the
+input current limit at its boot-time value.
 
-Besides this, the lists of a device are protected by the rcvlists_lock
-of the namespace that is passed in. Callers which pass dev_net(dev) read
-it at different times, so the same lists may be modified under the locks
-of different namespaces while the device is moved.
+Use a single power_supply_check_supplies() implementation for all
+configurations. Preserve firmware-node power-supplies references as the
+preferred firmware description and use the name-based supplied-from
+property only when no references are specified. Continue to honor an
+explicitly provided supplied_from list first and propagate errors from
+specified firmware references.
 
-Taking RTNL in these release paths is no option: raw_bind(),
-raw_setsockopt() and raw_release() already hold RTNL while adding and
-removing up to CAN_RAW_FILTER_MAX filters per socket, which unprivileged
-users can trigger repeatedly and which makes RTNL a global bottleneck.
+With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
+test changes its input current limit from 500 mA to 2 A.
 
-Instead fix the root cause and add a spinlock to struct
-can_dev_rcv_lists, which protects the receive lists of a CAN device or
-the 'any' CAN device lists of a namespace. It is initialized in
-can_set_ml_priv(), which is used by all CAN network devices. With this,
-can_rx_unregister() finds the subscription independently of the
-current namespace of the device. The protocols keep the device valid
-with their tracked references. The per-netns rcvlists_lock only protects
-the receive list statistics anymore, and CAN_RAW, CAN_BCM and CAN_ISOTP
-pass the namespace that has been used for can_rx_register().
-
-So isotp_release() and bcm_release() now remove their filters correctly
-without RTNL, and raw_release(), raw_setsockopt(), raw_bind() and
-isotp_bind() do not need RTNL anymore and add and remove their filters
-under lock_sock(). To serialize bind() with NETDEV_UNREGISTER, bind()
-publishes the device inside the RCU section of its lookup, and
-raw_notify() and isotp_notify() recheck the bound device under lock_sock().
-As RTNL does not keep NETDEV_DOWN out of bind() anymore, bind() checks
-IFF_UP after publishing the bound device, with a barrier pair against
-raw_notify() and isotp_notify(), so a down transition during bind() is
-still reported with ENETDOWN.
-
-Fixes: 20bab8b88baa ("can: isotp: fix use-after-free race with concurrent NETDEV_UNREGISTER")
-Fixes: 8e8cda6d737d ("can: initial support for network namespaces")
-Reported-by: Norbert Szetei <norbert@doyensec.com>
-Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
 Cc: stable@vger.kernel.org
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20261027-can-rx-lock-v12-3-eb5afc2d8b9b@hartkopp.net
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-[ backport to 6.18: Adapt the can_pernet_init() context to kzalloc() as
-  this tree has no kzalloc_obj(). ]
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Assisted-by: LLM
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Link: https://patch.msgid.link/20260924225152.985489-1-mauriziocasciano7@gmail.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+[ sashal: Replaced generic firmware-node reference parsing with of_parse_phandle_with_fixed_args() to fit the existing device-tree model. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-This backport depends on the backport of
-  962947b69589 ("can: replace ARPHRD_CAN type checks with can_get_ml_priv()")
-sent in reply to
-  <20261109200450-failed-6.18-962947b69589@kernel.org>
+ drivers/power/supply/power_supply_core.c | 81 +++++++++++-------------
+ 1 file changed, 38 insertions(+), 43 deletions(-)
 
- include/linux/can/can-ml.h |  3 ++
- include/net/netns/can.h    |  2 +-
- net/can/af_can.c           | 39 +++++++++++------
- net/can/bcm.c              | 43 +++++-------------
- net/can/isotp.c            | 89 +++++++++++++++++++++++---------------
- net/can/raw.c              | 88 +++++++++++++++++++++++++++----------
- 6 files changed, 160 insertions(+), 104 deletions(-)
-
-diff --git a/include/linux/can/can-ml.h b/include/linux/can/can-ml.h
-index 8afa92d15a66..f10444c6115f 100644
---- a/include/linux/can/can-ml.h
-+++ b/include/linux/can/can-ml.h
-@@ -45,6 +45,7 @@
- #include <linux/can.h>
- #include <linux/list.h>
- #include <linux/netdevice.h>
-+#include <linux/spinlock.h>
- 
- #define CAN_SFF_RCV_ARRAY_SZ (1 << CAN_SFF_ID_BITS)
- #define CAN_EFF_RCV_HASH_BITS 10
-@@ -53,6 +54,7 @@
- enum { RX_ERR, RX_ALL, RX_FIL, RX_INV, RX_MAX };
- 
- struct can_dev_rcv_lists {
-+	spinlock_t lock; /* protects the receive lists and entries */
- 	struct hlist_head rx[RX_MAX];
- 	struct hlist_head rx_sff[CAN_SFF_RCV_ARRAY_SZ];
- 	struct hlist_head rx_eff[CAN_EFF_RCV_ARRAY_SZ];
-@@ -74,6 +76,7 @@ static inline struct can_ml_priv *can_get_ml_priv(struct net_device *dev)
- static inline void can_set_ml_priv(struct net_device *dev,
- 				   struct can_ml_priv *ml_priv)
- {
-+	spin_lock_init(&ml_priv->dev_rcv_lists.lock);
- 	netdev_set_ml_priv(dev, ml_priv, ML_PRIV_CAN);
+diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
+index 2ebf838fbf9d3..0701bf34e850e 100644
+--- a/drivers/power/supply/power_supply_core.c
++++ b/drivers/power/supply/power_supply_core.c
+@@ -154,7 +154,6 @@ static void power_supply_deferred_register_work(struct work_struct *work)
+ 		mutex_unlock(&psy->dev.parent->mutex);
  }
  
-diff --git a/include/net/netns/can.h b/include/net/netns/can.h
-index 48b79f7e6236..54f23681e0d4 100644
---- a/include/net/netns/can.h
-+++ b/include/net/netns/can.h
-@@ -29,7 +29,7 @@ struct netns_can {
+-#ifdef CONFIG_OF
+ static int __power_supply_populate_supplied_from(struct device *dev,
+ 						 void *data)
+ {
+@@ -229,71 +228,68 @@ static int power_supply_find_supply_from_node(struct device_node *supply_node)
  
- 	/* receive filters subscribed for 'all' CAN devices */
- 	struct can_dev_rcv_lists *rx_alldev_list;
--	spinlock_t rcvlists_lock;
-+	spinlock_t rcvlists_lock; /* protects the rcv_entries(_max) stats */
- 	struct timer_list stattimer; /* timer for statistics update */
- 	struct can_pkg_stats *pkg_stats;
- 	struct can_rcv_lists_stats *rcv_lists_stats;
-diff --git a/net/can/af_can.c b/net/can/af_can.c
-index 539e9ba06ccc..c1e0569f777b 100644
---- a/net/can/af_can.c
-+++ b/net/can/af_can.c
-@@ -462,9 +462,10 @@ int can_rx_register(struct net *net, struct net_device *dev, canid_t can_id,
- 	if (!rcv)
+ static int power_supply_check_supplies(struct power_supply *psy)
+ {
+-	struct device_node *np;
+-	int cnt = 0;
++	struct device *parent = psy->dev.parent;
++	struct of_phandle_args args;
++	int cnt, nval, ret;
+ 
+ 	/* If there is already a list honor it */
+ 	if (psy->supplied_from && psy->num_supplies > 0)
+ 		return 0;
+ 
+-	/* No device node found, nothing to do */
+-	if (!psy->of_node)
+-		return 0;
+-
+-	do {
+-		int ret;
++	for (cnt = 0; psy->of_node; cnt++) {
++		ret = of_parse_phandle_with_fixed_args(psy->of_node,
++						       "power-supplies", 0, cnt,
++						       &args);
++		if (ret) {
++			if (ret != -ENOENT)
++				return ret;
+ 
+-		np = of_parse_phandle(psy->of_node, "power-supplies", cnt++);
+-		if (!np)
+ 			break;
++		}
+ 
+-		ret = power_supply_find_supply_from_node(np);
+-		of_node_put(np);
++		ret = power_supply_find_supply_from_node(args.np);
++		of_node_put(args.np);
+ 
+ 		if (ret) {
+ 			dev_dbg(&psy->dev, "Failed to find supply!\n");
+ 			return ret;
+ 		}
+-	} while (np);
+-
+-	/* Missing valid "power-supplies" entries */
+-	if (cnt == 1)
+-		return 0;
+-
+-	/* All supplies found, allocate char ** array for filling */
+-	psy->supplied_from = devm_kzalloc(&psy->dev, sizeof(psy->supplied_from),
+-					  GFP_KERNEL);
+-	if (!psy->supplied_from)
+-		return -ENOMEM;
+-
+-	*psy->supplied_from = devm_kcalloc(&psy->dev,
+-					   cnt - 1, sizeof(char *),
+-					   GFP_KERNEL);
+-	if (!*psy->supplied_from)
+-		return -ENOMEM;
++	}
+ 
+-	return power_supply_populate_supplied_from(psy);
+-}
+-#else
+-static int power_supply_check_supplies(struct power_supply *psy)
+-{
+-	int nval, ret;
++	if (cnt) {
++		/* All supplies found, allocate char ** array for filling */
++		psy->supplied_from = devm_kzalloc(&psy->dev,
++						  sizeof(psy->supplied_from),
++						  GFP_KERNEL);
++		if (!psy->supplied_from)
++			return -ENOMEM;
++
++		*psy->supplied_from = devm_kcalloc(&psy->dev,
++						   cnt, sizeof(char *),
++						   GFP_KERNEL);
++		if (!*psy->supplied_from)
++			return -ENOMEM;
++
++		return power_supply_populate_supplied_from(psy);
++	}
+ 
+-	if (!psy->dev.parent)
++	/* Fall back to the name-based property if no references were specified. */
++	if (!parent)
+ 		return 0;
+ 
+-	nval = device_property_read_string_array(psy->dev.parent,
+-						 "supplied-from", NULL, 0);
++	nval = device_property_string_array_count(parent, "supplied-from");
+ 	if (nval <= 0)
+ 		return 0;
+ 
+ 	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
+-						sizeof(char *), GFP_KERNEL);
++						sizeof(*psy->supplied_from),
++						GFP_KERNEL);
+ 	if (!psy->supplied_from)
  		return -ENOMEM;
  
--	spin_lock_bh(&net->can.rcvlists_lock);
--
- 	dev_rcv_lists = can_dev_rcv_lists_find(net, dev);
-+
-+	spin_lock_bh(&dev_rcv_lists->lock);
-+
- 	rcv_list = can_rcv_list_find(&can_id, &mask, dev_rcv_lists);
+-	ret = device_property_read_string_array(psy->dev.parent,
+-		"supplied-from", (const char **)psy->supplied_from, nval);
++	ret = device_property_read_string_array(parent, "supplied-from",
++						(const char **)psy->supplied_from,
++						nval);
+ 	if (ret < 0)
+ 		return ret;
  
- 	rcv->can_id = can_id;
-@@ -478,6 +479,9 @@ int can_rx_register(struct net *net, struct net_device *dev, canid_t can_id,
- 	hlist_add_head_rcu(&rcv->list, rcv_list);
- 	dev_rcv_lists->entries++;
+@@ -301,7 +297,6 @@ static int power_supply_check_supplies(struct power_supply *psy)
  
-+	spin_unlock_bh(&dev_rcv_lists->lock);
-+
-+	spin_lock_bh(&net->can.rcvlists_lock);
- 	rcv_lists_stats->rcv_entries++;
- 	rcv_lists_stats->rcv_entries_max = max(rcv_lists_stats->rcv_entries_max,
- 					       rcv_lists_stats->rcv_entries);
-@@ -509,6 +513,14 @@ static void can_rx_delete_receiver(struct rcu_head *rp)
-  *
-  * Description:
-  *  Removes subscription entry depending on given (subscription) values.
-+ *  The receive lists of a CAN device are protected by a per-device lock,
-+ *  so the subscription is found even when the device has been moved to
-+ *  another network namespace after can_rx_register(). The caller has to
-+ *  ensure that @dev stays valid, e.g. by holding a reference to @dev or
-+ *  RTNL. @net should be the namespace that has been used for
-+ *  can_rx_register(). It selects the 'any' CAN device lists for
-+ *  @dev == NULL and is otherwise only used for the receive list
-+ *  statistics, which become imprecise when another namespace is passed.
-  */
- void can_rx_unregister(struct net *net, struct net_device *dev, canid_t can_id,
- 		       canid_t mask, void (*func)(struct sk_buff *, void *),
-@@ -522,12 +534,10 @@ void can_rx_unregister(struct net *net, struct net_device *dev, canid_t can_id,
- 	if (dev && !can_get_ml_priv(dev))
- 		return;
- 
--	if (dev && !net_eq(net, dev_net(dev)))
--		return;
-+	dev_rcv_lists = can_dev_rcv_lists_find(net, dev);
- 
--	spin_lock_bh(&net->can.rcvlists_lock);
-+	spin_lock_bh(&dev_rcv_lists->lock);
- 
--	dev_rcv_lists = can_dev_rcv_lists_find(net, dev);
- 	rcv_list = can_rcv_list_find(&can_id, &mask, dev_rcv_lists);
- 
- 	/* Search the receiver list for the item to delete.  This should
-@@ -547,26 +557,26 @@ void can_rx_unregister(struct net *net, struct net_device *dev, canid_t can_id,
- 	 * a warning here.
- 	 */
- 	if (!rcv) {
-+		spin_unlock_bh(&dev_rcv_lists->lock);
- 		pr_warn("can: receive list entry not found for dev %s, id %03X, mask %03X\n",
- 			DNAME(dev), can_id, mask);
--		goto out;
-+		return;
- 	}
- 
- 	hlist_del_rcu(&rcv->list);
- 	dev_rcv_lists->entries--;
- 
-+	spin_unlock_bh(&dev_rcv_lists->lock);
-+
-+	spin_lock_bh(&net->can.rcvlists_lock);
- 	if (rcv_lists_stats->rcv_entries > 0)
- 		rcv_lists_stats->rcv_entries--;
--
-- out:
- 	spin_unlock_bh(&net->can.rcvlists_lock);
- 
- 	/* schedule the receiver item for deletion */
--	if (rcv) {
--		if (rcv->sk)
--			sock_hold(rcv->sk);
--		call_rcu(&rcv->rcu, can_rx_delete_receiver);
--	}
-+	if (rcv->sk)
-+		sock_hold(rcv->sk);
-+	call_rcu(&rcv->rcu, can_rx_delete_receiver);
+ 	return 0;
  }
- EXPORT_SYMBOL(can_rx_unregister);
+-#endif
  
-@@ -797,6 +807,7 @@ static int can_pernet_init(struct net *net)
- 		kzalloc(sizeof(*net->can.rx_alldev_list), GFP_KERNEL);
- 	if (!net->can.rx_alldev_list)
- 		goto out;
-+	spin_lock_init(&net->can.rx_alldev_list->lock);
- 	net->can.pkg_stats = kzalloc(sizeof(*net->can.pkg_stats), GFP_KERNEL);
- 	if (!net->can.pkg_stats)
- 		goto out_free_rx_alldev_list;
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 5f3321ede520..1c7c4ad3b759 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -957,7 +957,7 @@ static void bcm_remove_op(struct bcm_op *op)
- static void bcm_rx_unreg(struct net_device *dev, struct bcm_op *op)
- {
- 	if (op->rx_reg_dev == dev) {
--		can_rx_unregister(dev_net(dev), dev, op->can_id,
-+		can_rx_unregister(sock_net(op->sk), dev, op->can_id,
- 				  REGMASK(op->can_id), bcm_rx_handler, op);
- 
- 		/* mark as removed subscription */
-@@ -983,21 +983,10 @@ static int bcm_delete_rx_op(struct list_head *ops, struct bcm_msg_head *mh,
- 			/* disable automatic timer on frame reception */
- 			op->flags |= RX_NO_AUTOTIMER;
- 
--			/*
--			 * Don't care if we're bound or not (due to netdev
--			 * problems) can_rx_unregister() is always a save
--			 * thing to do here.
--			 */
- 			if (op->ifindex) {
--				/*
--				 * Only remove subscriptions that had not
--				 * been removed due to NETDEV_UNREGISTER
--				 * in bcm_notifier()
--				 *
--				 * op->rx_reg_dev is a tracked reference taken
--				 * when the subscription was registered, so it
--				 * stays valid here even if a concurrent
--				 * NETDEV_UNREGISTER already unlisted the dev.
-+				/* Only remove subscriptions that had not been
-+				 * removed in bcm_notify(). op->rx_reg_dev keeps
-+				 * the device's receive lists accessible.
- 				 */
- 				if (op->rx_reg_dev)
- 					bcm_rx_unreg(op->rx_reg_dev, op);
-@@ -1923,6 +1912,7 @@ static int bcm_release(struct socket *sock)
- 	list_del(&bo->notifier);
- 	spin_unlock(&bcm_notifier_lock);
- 
-+	/* bcm_notify() can not access this socket anymore */
- 	lock_sock(sk);
- 
- #if IS_ENABLED(CONFIG_PROC_FS)
-@@ -1936,29 +1926,20 @@ static int bcm_release(struct socket *sock)
- 		bcm_remove_op(op);
- 	}
- 
--	list_for_each_entry_safe(op, next, &bo->rx_ops, list) {
--		/*
--		 * Don't care if we're bound or not (due to netdev problems)
--		 * can_rx_unregister() is always a save thing to do here.
--		 */
-+	list_for_each_entry(op, &bo->rx_ops, list) {
- 		if (op->ifindex) {
--			/*
--			 * Only remove subscriptions that had not
--			 * been removed due to NETDEV_UNREGISTER
--			 * in bcm_notifier()
--			 *
--			 * op->rx_reg_dev is a tracked reference taken
--			 * when the subscription was registered, so it
--			 * stays valid here even if a concurrent
--			 * NETDEV_UNREGISTER already unlisted the device.
-+			/* Only remove subscriptions that had not been removed
-+			 * in bcm_notify(). op->rx_reg_dev keeps the device's
-+			 * receive lists accessible.
- 			 */
- 			if (op->rx_reg_dev)
- 				bcm_rx_unreg(op->rx_reg_dev, op);
--		} else
-+		} else {
- 			can_rx_unregister(net, NULL, op->can_id,
- 					  REGMASK(op->can_id),
- 					  bcm_rx_handler, op);
--
-+		}
-+		cond_resched();
- 	}
- 
- 	synchronize_rcu();
-diff --git a/net/can/isotp.c b/net/can/isotp.c
-index dfe3fd47e220..c1c78f2d2893 100644
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -1116,7 +1116,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
- 	int off;
- 	int err;
- 
--	if (!so->bound || READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN)
-+	if (!READ_ONCE(so->bound) || READ_ONCE(so->tx.state) == ISOTP_SHUTDOWN)
- 		return -EADDRNOTAVAIL;
- 
- 	/* claim the socket under so->rx_lock: this serializes the claim
-@@ -1161,7 +1161,7 @@ static int isotp_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
- 	/* so->bound is only checked once above - a wakeup may have
- 	 * unbound/rebound the socket meanwhile => recheck
- 	 */
--	if (!so->bound) {
-+	if (!READ_ONCE(so->bound)) {
- 		err = -EADDRNOTAVAIL;
- 		goto err_out_drop;
- 	}
-@@ -1401,7 +1401,7 @@ static int isotp_recvmsg(struct socket *sock, struct msghdr *msg, size_t size,
- 	if (flags & ~(MSG_DONTWAIT | MSG_TRUNC | MSG_PEEK | MSG_CMSG_COMPAT))
- 		return -EINVAL;
- 
--	if (!so->bound)
-+	if (!READ_ONCE(so->bound))
- 		return -EADDRNOTAVAIL;
- 
- 	skb = skb_recv_datagram(sk, flags, &ret);
-@@ -1475,11 +1475,11 @@ static int isotp_release(struct socket *sock)
- 	list_del(&so->notifier);
- 	spin_unlock(&isotp_notifier_lock);
- 
--	rtnl_lock();
- 	lock_sock(sk);
- 
- 	/* remove current filters & unregister
--	 * tracked reference so->dev is taken at bind() time with rtnl_lock
-+	 * the tracked reference so->dev keeps the device's receive lists
-+	 * accessible, even after a namespace change
- 	 */
- 	if (so->bound && so->dev) {
- 		if (isotp_register_rxid(so))
-@@ -1494,11 +1494,9 @@ static int isotp_release(struct socket *sock)
- 	}
- 
- 	so->ifindex = 0;
--	so->bound = 0;
-+	WRITE_ONCE(so->bound, 0);
- 	so->dev = NULL;
- 
--	rtnl_unlock();
--
- 	/* Always wait for a grace period before touching the timers below.
- 	 * A concurrent NETDEV_UNREGISTER may have already unregistered our
- 	 * filters and cleared so->bound in isotp_notify() without waiting
-@@ -1565,7 +1563,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 	if (!addr->can_ifindex)
- 		return -ENODEV;
- 
--	rtnl_lock();
-+	/* lock_sock() serializes the binding with isotp_notify() */
- 	lock_sock(sk);
- 
- 	if (so->bound) {
-@@ -1591,19 +1589,24 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 		goto out;
- 	}
- 
--	dev = dev_get_by_index(net, addr->can_ifindex);
--	if (!dev) {
--		err = -ENODEV;
--		goto out;
--	}
--	if (!can_get_ml_priv(dev)) {
-+	/* Publish the device inside the RCU section of the lookup: When it
-+	 * is unlisted concurrently, either isotp_notify() sees so->dev after
-+	 * synchronize_net() or the lookup fails. Check the device before
-+	 * publishing it.
-+	 */
-+	rcu_read_lock();
-+	dev = dev_get_by_index_rcu(net, addr->can_ifindex);
-+	if (!dev || !can_get_ml_priv(dev))
- 		err = -ENODEV;
--		goto out_put_dev;
--	}
--	if (READ_ONCE(dev->mtu) < so->ll.mtu) {
-+	else if (READ_ONCE(dev->mtu) < so->ll.mtu)
- 		err = -EINVAL;
--		goto out_put_dev;
-+	if (!err) {
-+		dev_hold(dev);
-+		WRITE_ONCE(so->dev, dev);
- 	}
-+	rcu_read_unlock();
-+	if (err)
-+		goto out;
- 
- 	/* switch to new settings */
- 	so->ifindex = dev->ifindex;
-@@ -1630,35 +1633,39 @@ static int isotp_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 		}
- 	}
- 
--	/* report a down device only for a successful bind() */
--	if (!(dev->flags & IFF_UP))
--		notify_enetdown = 1;
--
--	so->bound = 1;
-+	WRITE_ONCE(so->bound, 1);
- 
- 	/* bind() ok -> hold a reference for so->dev so that isotp_release()
- 	 * can safely reach the device later, even if a concurrent
- 	 * NETDEV_UNREGISTER has already unlisted it by ifindex.
- 	 */
--	so->dev = dev;
- 	netdev_hold(so->dev, &so->dev_tracker, GFP_KERNEL);
- 
-+	/* Either isotp_notify() sees so->dev on NETDEV_DOWN or we see the
-+	 * cleared IFF_UP, pairs with isotp_notify()
-+	 */
-+	smp_mb();
-+	if (!(READ_ONCE(dev->flags) & IFF_UP))
-+		notify_enetdown = 1;
-+
- out_put_dev:
--	if (err)
--		so->ifindex = 0; /* reset on failed bind() */
-+	/* revert so->ifindex and so->dev on failed bind() */
-+	if (err) {
-+		so->ifindex = 0;
-+		WRITE_ONCE(so->dev, NULL);
-+	}
- 
--	/* remove potential reference from dev_get_by_index() */
-+	/* remove reference from the device lookup */
- 	dev_put(dev);
- out:
--	release_sock(sk);
--	rtnl_unlock();
--
- 	if (notify_enetdown) {
- 		sk->sk_err = ENETDOWN;
- 		if (!sock_flag(sk, SOCK_DEAD))
- 			sk_error_report(sk);
- 	}
- 
-+	release_sock(sk);
-+
- 	return err;
- }
- 
-@@ -1854,12 +1861,21 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
- 	if (!net_eq(dev_net(dev), sock_net(sk)))
- 		return;
- 
--	if (so->dev != dev)
-+	if (msg == NETDEV_DOWN)
-+		smp_mb(); /* pairs with isotp_bind(), see raw_notify() */
-+
-+	/* lockless fast path, see raw_notify() */
-+	if (READ_ONCE(so->dev) != dev)
- 		return;
- 
- 	switch (msg) {
- 	case NETDEV_UNREGISTER:
- 		lock_sock(sk);
-+		if (so->dev != dev) {
-+			release_sock(sk);
-+			break;
-+		}
-+
- 		/* remove current filters & unregister */
- 		if (so->bound) {
- 			if (isotp_register_rxid(so))
-@@ -1874,16 +1890,19 @@ static void isotp_notify(struct isotp_sock *so, unsigned long msg,
- 		}
- 
- 		so->ifindex = 0;
--		so->bound  = 0;
--		so->dev = NULL;
--		release_sock(sk);
-+		WRITE_ONCE(so->bound, 0);
-+		WRITE_ONCE(so->dev, NULL);
- 
- 		sk->sk_err = ENODEV;
- 		if (!sock_flag(sk, SOCK_DEAD))
- 			sk_error_report(sk);
-+		release_sock(sk);
- 		break;
- 
- 	case NETDEV_DOWN:
-+		if (!READ_ONCE(so->bound))
-+			break;
-+
- 		sk->sk_err = ENETDOWN;
- 		if (!sock_flag(sk, SOCK_DEAD))
- 			sk_error_report(sk);
-diff --git a/net/can/raw.c b/net/can/raw.c
-index 26c8cf15d60e..94d9b3659166 100644
---- a/net/can/raw.c
-+++ b/net/can/raw.c
-@@ -85,6 +85,7 @@ struct raw_sock {
- 	struct sock sk;
- 	struct net_device *dev;
- 	netdevice_tracker dev_tracker;
-+	struct net_device *bind_dev; /* hint for raw_notify(), no reference */
- 	struct list_head notifier;
- 	int ifindex;
- 	unsigned int bound:1;
-@@ -220,6 +221,7 @@ static int raw_enable_filters(struct net *net, struct net_device *dev,
- 	int i;
- 
- 	for (i = 0; i < count; i++) {
-+		cond_resched();
- 		err = can_rx_register(net, dev, filter[i].can_id,
- 				      filter[i].can_mask,
- 				      raw_rcv, sk, "raw", sk);
-@@ -254,9 +256,11 @@ static void raw_disable_filters(struct net *net, struct net_device *dev,
- {
- 	int i;
- 
--	for (i = 0; i < count; i++)
-+	for (i = 0; i < count; i++) {
- 		can_rx_unregister(net, dev, filter[i].can_id,
- 				  filter[i].can_mask, raw_rcv, sk);
-+		cond_resched();
-+	}
- }
- 
- static inline void raw_disable_errfilter(struct net *net,
-@@ -301,16 +305,31 @@ static void raw_notify(struct raw_sock *ro, unsigned long msg,
- 		       struct net_device *dev)
- {
- 	struct sock *sk = &ro->sk;
-+	struct net_device *bind_dev;
- 
- 	if (!net_eq(dev_net(dev), sock_net(sk)))
- 		return;
- 
--	if (ro->dev != dev)
-+	if (msg == NETDEV_DOWN)
-+		smp_mb(); /* IFF_UP is cleared before, pairs with raw_bind() */
-+
-+	/* Lockless fast path, ro->bind_dev covers a concurrent bind().
-+	 * Read it before ro->dev, pairs with smp_store_release() in
-+	 * raw_bind(). A stale ro->bind_dev only costs a lock_sock().
-+	 */
-+	bind_dev = smp_load_acquire(&ro->bind_dev);
-+	if (READ_ONCE(ro->dev) != dev &&
-+	    (msg != NETDEV_UNREGISTER || bind_dev != dev))
- 		return;
- 
- 	switch (msg) {
- 	case NETDEV_UNREGISTER:
- 		lock_sock(sk);
-+		if (ro->dev != dev) {
-+			release_sock(sk);
-+			break;
-+		}
-+
- 		/* remove current filters & unregister */
- 		if (ro->bound) {
- 			raw_disable_allfilters(dev_net(dev), dev, sk);
-@@ -322,13 +341,13 @@ static void raw_notify(struct raw_sock *ro, unsigned long msg,
- 
- 		ro->ifindex = 0;
- 		ro->bound = 0;
--		ro->dev = NULL;
-+		WRITE_ONCE(ro->dev, NULL);
- 		ro->count = 0;
--		release_sock(sk);
- 
- 		sk->sk_err = ENODEV;
- 		if (!sock_flag(sk, SOCK_DEAD))
- 			sk_error_report(sk);
-+		release_sock(sk);
- 		break;
- 
- 	case NETDEV_DOWN:
-@@ -377,6 +396,7 @@ static int raw_init(struct sock *sk)
- 	ro->bound            = 0;
- 	ro->ifindex          = 0;
- 	ro->dev              = NULL;
-+	ro->bind_dev         = NULL;
- 
- 	/* set default filter to single entry dfilter */
- 	ro->dfilter.can_id   = 0;
-@@ -427,13 +447,15 @@ static int raw_release(struct socket *sock)
- 	list_del(&ro->notifier);
- 	spin_unlock(&raw_notifier_lock);
- 
--	rtnl_lock();
- 	lock_sock(sk);
- 
--	/* remove current filters & unregister */
-+	/* remove current filters & unregister
-+	 * the tracked reference ro->dev keeps the device's receive lists
-+	 * accessible, even after a namespace change
-+	 */
- 	if (ro->bound) {
- 		if (ro->dev) {
--			raw_disable_allfilters(dev_net(ro->dev), ro->dev, sk);
-+			raw_disable_allfilters(net, ro->dev, sk);
- 			netdev_put(ro->dev, &ro->dev_tracker);
- 		} else {
- 			raw_disable_allfilters(net, NULL, sk);
-@@ -452,7 +474,6 @@ static int raw_release(struct socket *sock)
- 	sock->sk = NULL;
- 
- 	release_sock(sk);
--	rtnl_unlock();
- 
- 	sock_prot_inuse_add(net, sk->sk_prot, -1);
- 	sock_put(sk);
-@@ -475,14 +496,25 @@ static int raw_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 	if (addr->can_family != AF_CAN)
- 		return -EINVAL;
- 
--	rtnl_lock();
-+	/* lock_sock() serializes the binding with raw_notify() */
- 	lock_sock(sk);
- 
- 	if (ro->bound && addr->can_ifindex == ro->ifindex)
- 		goto out;
- 
- 	if (addr->can_ifindex) {
--		dev = dev_get_by_index(sock_net(sk), addr->can_ifindex);
-+		/* Publish the device inside the RCU section of the lookup:
-+		 * When it is unlisted concurrently, either raw_notify() sees
-+		 * ro->bind_dev after synchronize_net() or the lookup fails.
-+		 */
-+		rcu_read_lock();
-+		dev = dev_get_by_index_rcu(sock_net(sk), addr->can_ifindex);
-+		if (dev) {
-+			dev_hold(dev);
-+			/* pairs with smp_load_acquire() in raw_notify() */
-+			smp_store_release(&ro->bind_dev, dev);
-+		}
-+		rcu_read_unlock();
- 		if (!dev) {
- 			err = -ENODEV;
- 			goto out;
-@@ -492,9 +524,6 @@ static int raw_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 			goto out_put_dev;
- 		}
- 
--		if (!(dev->flags & IFF_UP))
--			notify_enetdown = 1;
--
- 		ifindex = dev->ifindex;
- 
- 		/* filters set by default/setsockopt */
-@@ -513,7 +542,7 @@ static int raw_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 		if (ro->bound) {
- 			/* unregister old filters */
- 			if (ro->dev) {
--				raw_disable_allfilters(dev_net(ro->dev),
-+				raw_disable_allfilters(sock_net(sk),
- 						       ro->dev, sk);
- 				/* drop reference to old ro->dev */
- 				netdev_put(ro->dev, &ro->dev_tracker);
-@@ -524,24 +553,32 @@ static int raw_bind(struct socket *sock, struct sockaddr *uaddr, int len)
- 		ro->ifindex = ifindex;
- 		ro->bound = 1;
- 		/* bind() ok -> hold a reference for new ro->dev */
--		ro->dev = dev;
-+		WRITE_ONCE(ro->dev, dev);
- 		if (ro->dev)
- 			netdev_hold(ro->dev, &ro->dev_tracker, GFP_KERNEL);
-+
-+		if (dev) {
-+			/* Either raw_notify() sees ro->dev on NETDEV_DOWN or
-+			 * we see the cleared IFF_UP, pairs with raw_notify()
-+			 */
-+			smp_mb();
-+			if (!(READ_ONCE(dev->flags) & IFF_UP))
-+				notify_enetdown = 1;
-+		}
- 	}
- 
- out_put_dev:
--	/* remove potential reference from dev_get_by_index() */
-+	/* remove reference from the device lookup */
- 	dev_put(dev);
- out:
--	release_sock(sk);
--	rtnl_unlock();
--
- 	if (notify_enetdown) {
- 		sk->sk_err = ENETDOWN;
- 		if (!sock_flag(sk, SOCK_DEAD))
- 			sk_error_report(sk);
- 	}
- 
-+	release_sock(sk);
-+
- 	return err;
- }
- 
-@@ -595,8 +632,13 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 				return -EFAULT;
- 		}
- 
-+		/* The reg_state check is only a shortcut: On a concurrent
-+		 * unregistration or namespace change raw_notify() waits for
-+		 * lock_sock() and removes the filters set here.
-+		 */
- 		dev = ro->dev;
--		if (ro->bound && dev && dev->reg_state != NETREG_REGISTERED) {
-+		if (ro->bound && dev &&
-+		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED) {
- 			if (count > 1)
- 				kfree(filter);
- 			return -ENODEV;
-@@ -644,8 +686,10 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 
- 		err_mask &= CAN_ERR_MASK;
- 
-+		/* lockless shortcut, see CAN_RAW_FILTER */
- 		dev = ro->dev;
--		if (ro->bound && dev && dev->reg_state != NETREG_REGISTERED)
-+		if (ro->bound && dev &&
-+		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED)
- 			return -ENODEV;
- 
- 		/* remove current error mask */
-@@ -752,13 +796,11 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
- 	if (level != SOL_CAN_RAW)
- 		return -EINVAL;
- 
--	rtnl_lock();
- 	lock_sock(sk);
- 
- 	err = raw_setsockopt_locked(sock, optname, optval, optlen);
- 
- 	release_sock(sk);
--	rtnl_unlock();
- 
- 	return err;
- }
+ struct psy_am_i_supplied_data {
+ 	struct power_supply *psy;
+-- 
+2.53.0
+
