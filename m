@@ -1,52 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273105;
-	b=DHb69+zHwze2iOHwSyX22HBoKMOa92d8lzi+hsw6NfiUz3eABTi/fWt5oAt2EybvHHLu
-	 0Lr4wztX9UjEYgcMoIYzd3qMMyOjg80kMIdbIZZBQEuF1ity0kszxY++Wqk9MgyCBq7GG
-	 2RltFYPLh/vZ2STi+grYOdgLMDNiHairg6QaaklBwSVZqw3fZhqgnYxpOyS0T3IqDUAJf
-	 8S8UylpU77hcOZMA3xOThLxKGawbgiGI5kk5MyNSXFXLEeGsGrJzLvHn4jtyyliYAzEx7
-	 Fl0CM9CBXOvNcTVDJIOObAxlprLlGZdJMLZtywzfxFJWxD2FhL/cEE+hMJ7qX2Q4czA==
+	t=1794273107;
+	b=06M21bLw/JmSJ4mknpcB9c62klgd0U5jmCa81R8xRrFFeJaP0fukxjTbwt+9eBTtbvHB
+	 FArCTdGfTXbkcn3p/rlgwfPNIbpELhUEuEy40fF1uB1VHKqpqIRwAgltbuE0xz89DcFkM
+	 oFVZosQyzFIolrHNEsg8sBgFRzWa30UinTT1gYQDU8Bbctn/d6rDu58GmecNHV16KLlBk
+	 BaqgY+pwxZ9sUBtsYoA5WjQr3TEi8d3xOT25v+Cc/i8IMJjWcBfBYWxUApH94Sk5FeDLK
+	 nO4Mgk9icjGb382M9/keJNNR1CcUQK54BKGh+vZkJm9zuXy+ojKzDm2NPw+BGHkq8yA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273107;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ADXheSnePHEVAlP3zfApiK8ZuRUo7z/LCrn85iK1fA4=;
-	b=Svul6J/ax0hKaPgcKQcJhkaXUZsOJTqf/TaymguhRq9llo0idzkwm9szTJ7R0R2rZQ5Y
-	 tLkklzhesxZ7lNY9UrNAq+ohFPttEl2zVXir5F8D4EtrTVFRYTHwM4om/HTAJ9G+rzUfv
-	 EWGt1703w9ewtDbZmtBOkAnwahBeEFSrgG5PWuCmPWzBqc2VeaeMV8bsJBZ1S7iloufw1
-	 l5r5qu2PlyB+512OS3L3n4P44VejCd0zXpsC6YR+X0VkwjVuefxbOhBZQLzPXfIRsF9ST
-	 JKcC28ZzVxxjm9uD3OUS1qtf4D08HbvpwEy0/+34yrvfkLMnw/c+ZF7rYoe1EWwS6CA==
+	bh=dw9NrsH78nSsZkDOH5CCb/Qr7sSieyG40HpE6+aK6wU=;
+	b=piEHAsuFmFFH8CZmYuvdflgu+u5VaGsQ/9bV5b1LRXsLfkKUsUCXDJVzw1OHimS0YXCl
+	 61Xhxa6uSPP73BVKFfrmI9I5aYQoNirULvzxs3BMesY2ENf32ZI7TU1kfY40zHdTGh32g
+	 U/R5RlBaBrhRMqmg14AmI6cl7ycJ+yoFAPdbZ9ddS/shVC836TPRTONkA1uaMtygQxulS
+	 /RLKub9hdSv8pAsWWkFcHcWtMsTTVgI802VKNNdFkFD3Ds1YF0l6OpcTqr6W/DDAZwaSl
+	 4BlEDBNY83QC+Msnqo2Ngm3TsbYR1g7/tOlmHu4GSnB0mvt48LiJjppquHK4NU87H3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJYUUxaG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NLNyyREI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FB3606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5201606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJYUUxaG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053A71F0089F;
-	Tue, 10 Nov 2026 01:11:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NLNyyREI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC6A1F0089F;
+	Tue, 10 Nov 2026 01:11:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273104;
-	bh=ADXheSnePHEVAlP3zfApiK8ZuRUo7z/LCrn85iK1fA4=;
+	s=k20260515; t=1794273106;
+	bh=dw9NrsH78nSsZkDOH5CCb/Qr7sSieyG40HpE6+aK6wU=;
 	h=From:To:Cc:Subject:Date;
-	b=ZJYUUxaGhzh9g1aQWqysjDjAAoX4cIDIgJjWgKH+ZAi9ojrkD2G2blk2TN1trbCfR
-	 vymV/yhmmkf04OhK/7djKpMSqTU/1kmZud5qEzU6mMpWDcjj96rb/kudnduB71GPTH
-	 9Yqz4yQb/11DNueUotz5sMUPki9fCX8m3fAH4MVglMNQMY/oFyjeYAoKxJT+JYr3A/
-	 633PD3OpjEwsObchwThEoWHuGMnVjDB7WtvWtVgM6dkzsssrCTjfbhwRTMNMSxegp2
-	 jxQhf9yAQ7Pzieq6BjK28qU+n8tiqx/EQrKqpBAogWe/aD4N87SBVGzBYLQXcDHJaq
-	 NFvl2Nzi69vFA==
+	b=NLNyyREIQYi3HpCYEbIdQh8KsAI8B5mtOh36uQyk71yxj1zrHZ//Iwqs/vXNDT6Di
+	 N0wu07bh2j2pDeLTz6B+Pb7lbZBg0vBuN0kX0+j/i5N9zKOC8IiYrqB3jlqSw7bYtO
+	 UW1AX7maszj8BYXJG7HhpP/TnWV6JKEQiDj8lbLZvBdtfULuHtXC63imKLu0knEtvw
+	 Avhpak5HX5YNRPpbbZbDXVtpl3DOCS56wPnR9n5/oy5FQsEj6LniGcFpFIZNeJrniF
+	 V5C8oWCkh6vKH0r1vegzMzuPGBbniezIX/AXan80zPkLsUOmECmu2Zh6F3hDuiK6kG
+	 NLzA34W2ooxSw==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	linux@roeck-us.net
+To: linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (sht15) Stop deferred work before releasing its resources" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:11:42 -0500
-Message-ID: <20261109201142-failed-6.6-5eab1e7f7ed1@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (pmbus) Check return value from pmbus_thermal_add_sensor()" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:11:45 -0500
+Message-ID: <20261109201145-failed-6.6-11dfbd835b17@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,117 +67,165 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a
+git cherry-pick -x 11dfbd835b17b75f7cc7a4a969f33ff702b1b081
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201142-failed-6.6-5eab1e7f7ed1@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201145-failed-6.6-11dfbd835b17@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 23 Oct 2026 21:40:44 -0400
-Subject: [PATCH] hwmon: (sht15) Stop deferred work before releasing its
- resources
+From 11dfbd835b17b75f7cc7a4a969f33ff702b1b081 Mon Sep 17 00:00:00 2001
+From: Guenter Roeck <linux@roeck-us.net>
+Date: Thu, 29 Oct 2026 23:34:04 -0700
+Subject: [PATCH] hwmon: (pmbus) Check return value from
+ pmbus_thermal_add_sensor()
 
-The IRQ handler and regulator notifier can leave work pending after a
-measurement or notification completes. Neither work item is drained before
-its resources are released on removal or probe failure.
+During PMBus device probe, if registering a temperature sensor with the
+thermal subsystem fails, pmbus_add_sensor() silently ignores the error and
+returns success.
+When a valid temperature sensor is detected (class PSC_TEMPERATURE and type
+"input"), pmbus_add_sensor() invokes pmbus_thermal_add_sensor() to hook it
+into the kernel's thermal framework. However, the return value of this call
+is completely discarded. If thermal registration fails, such as from an
+-ENOMEM allocation failure or an invalid device tree configuration like a
+malformed #thermal-sensor-cells property, no error is propagated.
 
-Disable read_work before freeing the IRQ, since the worker can re-enable
-it. Use request_irq()/free_irq() for explicit teardown. Unregister the
-regulator notifier before cancelling update_supply_work and disabling the
-regulator. Apply the same ordering to probe failures.
+Because the hardware monitor probe falsely succeeds despite the failure to
+register the thermal zone, the system is left without thermal mitigation
+for the affected PMBus device. This silently blinds the system to actual
+PMIC temperatures, preventing the execution of necessary cooling mechanisms
+or emergency shutdowns and risking localized overheating.
 
-Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
+Pass the return value from pmbus_thermal_add_sensor() to the calling code
+to fix the problem. To enable passing the actual error, change the error
+return from pmbus_add_sensor() from NULL to ERR_PTR() and extract the error
+from in the calling code.
+
+Fixes: 3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
-[groeck: Dropped obsolete 'Assisted-by: tag]
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/sht15.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/hwmon/pmbus/pmbus_core.c | 42 ++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
-index 7bb2105d1ae22..48d93c61345c1 100644
---- a/drivers/hwmon/sht15.c
-+++ b/drivers/hwmon/sht15.c
-@@ -31,6 +31,7 @@
- #include <linux/bitrev.h>
- #include <linux/gpio/consumer.h>
- #include <linux/of.h>
-+#include <linux/workqueue.h>
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index af13408c62f9b..9bccbf41c8844 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -1551,10 +1551,11 @@ static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
+ {
+ 	struct sensor_device_attribute *a;
+ 	struct pmbus_sensor *sensor;
++	int err;
  
- /* Commands */
- #define SHT15_MEASURE_TEMP		0x03
-@@ -976,25 +977,22 @@ static int sht15_probe(struct platform_device *pdev)
- 		goto err_release_reg;
- 	}
+ 	sensor = devm_kzalloc(data->dev, sizeof(*sensor), GFP_KERNEL);
+ 	if (!sensor)
+-		return NULL;
++		return ERR_PTR(-ENOMEM);
+ 	a = &sensor->attribute;
  
--	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
--			       sht15_interrupt_fired,
--			       IRQF_TRIGGER_FALLING,
--			       "sht15 data",
--			       data);
-+	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
-+			  IRQF_TRIGGER_FALLING, "sht15 data", data);
- 	if (ret)
- 		goto err_release_reg;
- 	disable_irq_nosync(gpiod_to_irq(data->data));
- 	ret = sht15_connection_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 	ret = sht15_soft_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
+ 	if (type)
+@@ -1579,14 +1580,17 @@ static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
+ 			pmbus_set_sensor, -1);
  
- 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
- 	if (ret) {
- 		dev_err(&pdev->dev, "sysfs create failed\n");
--		goto err_release_reg;
-+		goto err_free_irq;
- 	}
+ 	if (pmbus_add_attribute(data, &a->dev_attr.attr))
+-		return NULL;
++		return ERR_PTR(-ENOMEM);
  
- 	data->hwmon_dev = hwmon_device_register(data->dev);
-@@ -1007,9 +1005,13 @@ static int sht15_probe(struct platform_device *pdev)
+ 	sensor->next = data->sensors;
+ 	data->sensors = sensor;
  
- err_release_sysfs_group:
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-+err_free_irq:
-+	disable_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
- err_release_reg:
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 	return ret;
-@@ -1023,12 +1025,16 @@ static void sht15_remove(struct platform_device *pdev)
- 	hwmon_device_unregister(data->hwmon_dev);
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
+ 	/* temperature sensors with _input values are registered with thermal */
+-	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
+-		pmbus_thermal_add_sensor(data, sensor, seq);
++	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0) {
++		err = pmbus_thermal_add_sensor(data, sensor, seq);
++		if (err)
++			return ERR_PTR(err);
++	}
  
-+	disable_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
-+
- 	ret = sht15_soft_reset(data);
- 	if (ret)
- 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
- 
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
+ 	return sensor;
  }
+@@ -1687,8 +1691,8 @@ static int pmbus_add_limit_attrs(struct i2c_client *client,
+ 						page, 0xff, l->reg, attr->class,
+ 						attr->update || l->update,
+ 						l->readonly, l->writeonly, true);
+-			if (!curr)
+-				return -ENOMEM;
++			if (IS_ERR(curr))
++				return PTR_ERR(curr);
+ 			if (l->sbit && (info->func[page] & attr->sfunc)) {
+ 				ret = pmbus_add_boolean(data, name,
+ 					l->alarm, index,
+@@ -1727,8 +1731,8 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
+ 	}
+ 	base = pmbus_add_sensor(data, name, "input", index, page, phase,
+ 				attr->reg, attr->class, true, true, false, true);
+-	if (!base)
+-		return -ENOMEM;
++	if (IS_ERR(base))
++		return PTR_ERR(base);
+ 	/* No limit and alarm attributes for phase specific sensors */
+ 	if (attr->sfunc && phase == 0xff) {
+ 		ret = pmbus_add_limit_attrs(client, data, info, name,
+@@ -2401,8 +2405,8 @@ static int pmbus_add_fan_ctrl(struct i2c_client *client,
+ 				  0xff, PMBUS_VIRT_FAN_TARGET_1 + id, PSC_FAN,
+ 				  false, false, false, true);
+ 
+-	if (!sensor)
+-		return -ENOMEM;
++	if (IS_ERR(sensor))
++		return PTR_ERR(sensor);
+ 
+ 	if (!((data->info->func[page] & PMBUS_HAVE_PWM12) ||
+ 	      (data->info->func[page] & PMBUS_HAVE_PWM34)))
+@@ -2412,15 +2416,15 @@ static int pmbus_add_fan_ctrl(struct i2c_client *client,
+ 				  0xff, PMBUS_VIRT_PWM_1 + id, PSC_PWM,
+ 				  false, false, false, true);
+ 
+-	if (!sensor)
+-		return -ENOMEM;
++	if (IS_ERR(sensor))
++		return PTR_ERR(sensor);
+ 
+ 	sensor = pmbus_add_sensor(data, "pwm", "enable", index, page,
+ 				  0xff, PMBUS_VIRT_PWM_ENABLE_1 + id, PSC_PWM,
+ 				  true, false, false, false);
+ 
+-	if (!sensor)
+-		return -ENOMEM;
++	if (IS_ERR(sensor))
++		return PTR_ERR(sensor);
+ 
+ 	return 0;
+ }
+@@ -2437,6 +2441,7 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
+ 		int f;
+ 
+ 		for (f = 0; f < ARRAY_SIZE(pmbus_fan_registers); f++) {
++			struct pmbus_sensor *sensor;
+ 			int regval;
+ 
+ 			if (!(info->func[page] & pmbus_fan_flags[f]))
+@@ -2457,10 +2462,11 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
+ 			    (!(regval & (PB_FAN_1_INSTALLED >> ((f & 1) * 4)))))
+ 				continue;
+ 
+-			if (pmbus_add_sensor(data, "fan", "input", index,
+-					     page, 0xff, pmbus_fan_registers[f],
+-					     PSC_FAN, true, true, false, true) == NULL)
+-				return -ENOMEM;
++			sensor = pmbus_add_sensor(data, "fan", "input", index,
++						  page, 0xff, pmbus_fan_registers[f],
++						  PSC_FAN, true, true, false, true);
++			if (IS_ERR(sensor))
++				return PTR_ERR(sensor);
+ 
+ 			/* Fan control */
+ 			if (pmbus_check_word_register(client, page,
 -- 
 2.53.0
 
