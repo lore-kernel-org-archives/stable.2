@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273006;
-	b=z0n8RI3T3A0z39gQVQXIksLRo4hmoerEu/qWCAFlyyBZaedn3ACkfGCqoSx/6GXlPVu6
-	 2XImwefzazVcfG8p74pl1GuXzfmfjMDPK7XtdYcm2kDMamGWiXDhF/6hxP5Mzc081wrhS
-	 943cNrp7O3hXgtHZEKlV6uwNaghDPW8xTaHeIIq3BL4iYU73dI7SndGhRi5uq1genqvVf
-	 w6jjcbyBTrDE9dXErcMbaE8U4MMiRIhigjUUeRdgB99MilRJ/OgYspqK4nEnZkU00+DFE
-	 z/tuKFcj0CPrsE4lPB0F5AYEgC/UtTDLPSxXkSJeLML+e/U6hJjPUn00kHVvBQfOAZg==
+	t=1794273008;
+	b=hjvQOnRMd6P/YpGYO1psniIY2nxzJuaCeTLdOj33xCDRUgwXe3UTVGUb6g8LKULK7zNq
+	 8DJwoPiLTPwvBBo33I3oNdtsAUAiqvqu1KmxGDTbOgsHg8s58T7mvROzYWzi1CFmeeIcW
+	 51aoW9k1IwzCpMdpjMR42ZWSmDNJnXrNyN2UZb0YFiyyrxwS/DrxBF4ClOP4omybk1DCi
+	 xd2sHMtdE5lM7BNbCaLQFUXDX78Q7obaT6xYxNPMDfTM72MeuMY8m5ox7H5PbwrjX+oZV
+	 FGCNDDjoVmcZkZbUrnhBrm+C5vW5nr1kq5B/h19ZQxU5hLnbtrz2IHUMtG/48Wzq64g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273008;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8lEzrTTPabwhmUWy7eUFVcnBz9PcNR53xTJW4AiIOxQ=;
-	b=ua4MtMgsYfKmrEADmr+IUJMVcvVbwZiBPCnuOHo+qZttvzl1F1hXM4KaMl9XuNx27aSq
-	 rmFAYtefzuQWMQdCziXCLXQEVQnROD/4j4hkhnGyTPw85SYPLlhsnKWezjzFNCRT4vD9o
-	 BpkPk8hz71750d8GYakN+641b583GhpnmrYlnTQg3TIhHlGV6ZIawdyv2koxVMfKA80Td
-	 aWQ0e61rOWj2bH4xF8cPT7ZUXl7lIXh8ak4fScYg85pmK0izNTsWKK7Zfr9ugi1icnbp7
-	 ArzY57sOINPKfLfYPVqvaDMXaa3+Q/atsF+fQ9Hcj2QCxiXFaX5JDmASeG00HavbaOg==
+	bh=mFlWKOjgXQ9MHj2o871sYkt/LFhToFM0XE7SR9uAVvY=;
+	b=YjJ+E60CMRXnoRmG98KI5OqcBmtfJa9ghagSuNZm9rB1OkfKiYgjwyjmde+qRRLXu1b1
+	 H3wZwTBIC76DELDJ2cpPFuaalrsS9Xr7CfJuR8tYoVTJTphW1CyGfNrs/6XVn2wSS7VXm
+	 AMbKgX+aVqWRRllT+ZDsMMKPicHOt4UW21ZqNf6aRadYXhogSLTjSuPui9uLXqRKgUfHf
+	 4Oiutj2F9BMDkSEg5gtncBQAx00wZktQ2uupEAlvTGUxFZxNikGqEiYKR4GO6dwfCVMWp
+	 KgwnVy8AaAj43BKGXKQdyK9BkxK0iArYiIOyHKGY7cXGRj+ZB5cd3j6hudBbgfN6m+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKiXRH+C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4xCICbg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC56606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47304606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKiXRH+C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB581F0089F;
-	Tue, 10 Nov 2026 01:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4xCICbg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A461F0089F;
+	Tue, 10 Nov 2026 01:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273005;
-	bh=8lEzrTTPabwhmUWy7eUFVcnBz9PcNR53xTJW4AiIOxQ=;
+	s=k20260515; t=1794273008;
+	bh=mFlWKOjgXQ9MHj2o871sYkt/LFhToFM0XE7SR9uAVvY=;
 	h=From:To:Cc:Subject:Date;
-	b=gKiXRH+C0gNFc0FX1MtWOpaBzSsYIjwUnsHjD5I7XJ507eLksEg0lBPXTkkvTXYTY
-	 ul3TNLVj//twARIEtyoo9Q9ExzQnkUfVdrMMH2nJA9YafzsUG4PLynXtz7fgpKMibv
-	 mFvEb+2BRL9XLOYW5pz6sbU38nyIHkgMddiju9YX+etHXqnpWl0+WmxZAlwn1X0DTN
-	 8bo98HzxyIPjV8wlWqI9lgs/sm84o24eM3SR9niuaqDAcxcMF7bCyLfd7mwQJYWwAf
-	 9aYpqeHSlIkA/R7kXDM3LgWuLiz7zbGBLnvWSDTRUUhVBoze4qxS+Sd97N8J4P/h8r
-	 DeSxfnktIBu8Q==
+	b=I4xCICbgoK5jlo4m45XIxGq1ciuMVTCtHb2pw/hChU5y2718zHVeZTqwpjchebuNZ
+	 kR28HJVfuGAUV0YEeIzTuIapq6FtVLjyHGchqMsnbkkbqNvs+pSPDjS9sjJyd81f9L
+	 iYzczcRyTDK1DakvGayKymgOx6l5L/J4qForQHgYajmwu91cxn//ox3vS5u3jlaNp6
+	 TRCRieu4lqTLxqlltDgE8GWE5aC78IQAJSKog8wjeEqTmZC5ydVZs39RVcbTM8PsCj
+	 FQ952t6b8kpQmf5N6Vu3YRk9sgFkbg2JAGQoLTA3lsAEyT/ANt3y8Z22DkcnDB2mR7
+	 nrUwnAEicKo9Q==
 From: Sasha Levin <sashal@kernel.org>
-To: kevin.wang@amd.com,
-	kenneth.feng@amd.com,
+To: jesse.zhang@amd.com,
+	christian.koenig@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/pm: populate unique ID for smu 13.0.7" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:10:04 -0500
-Message-ID: <20261109201004-failed-6.12-079f9103d9cd@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: don't walk the CS chunks when allocating them failed" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:10:06 -0500
+Message-ID: <20261109201006-failed-6.12-ade92d50aad6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,76 +69,68 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 079f9103d9cde68fb2ccc414e94520f43ee102de
+git cherry-pick -x ade92d50aad6799a5a9d7e73cd1604fd0576e656
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201004-failed-6.12-079f9103d9cd@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201006-failed-6.12-ade92d50aad6@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 079f9103d9cde68fb2ccc414e94520f43ee102de Mon Sep 17 00:00:00 2001
-From: Kevin Wang <kevin.wang@amd.com>
-Date: Thu, 29 Oct 2026 11:50:31 +0800
-Subject: [PATCH] drm/amd/pm: populate unique ID for smu 13.0.7
+From ade92d50aad6799a5a9d7e73cd1604fd0576e656 Mon Sep 17 00:00:00 2001
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+Date: Tue, 3 Nov 2026 15:05:12 +0800
+Subject: [PATCH] drm/amdgpu: don't walk the CS chunks when allocating them
+ failed
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The smu 13.0.7 backend does not register get_unique_id, leaving
-adev->unique_id at zero and KFD topology without the stable GPU
-identifier consumed by HIP.
+amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
+allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
+frees the kdata of nchunks chunks from a NULL array. On navi48 with the
+chunk array allocation failed through failslab:
 
-The failure is observed at:
-    auto ierr = hipDeviceGetUuid(&uuid, 0);
+  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
+   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
+   drm_ioctl_kernel+0x180/0x320 [drm]
 
-Fixes: 113cc31dde66 ("drm/amd/pm: add SMU_13_0_7 ppt_funcs for SMU_13_0_7")
-Signed-off-by: Kevin Wang <kevin.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Set nchunks once the array exists.
+
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 5e2585daaf8336d9ce1bf52e55a9b7a8cdbf625b)
+(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
 Cc: stable@vger.kernel.org
 ---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 8285d4a91589a..13e7e33fa0eb2 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -2912,6 +2912,25 @@ static int smu_v13_0_7_mode1_reset(struct smu_context *smu)
-    return ret;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index f51a6c00f6ff0..1ba36dd87637b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -203,12 +203,13 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	if (IS_ERR(chunk_array))
+ 		return PTR_ERR(chunk_array);
  
-+static void smu_v13_0_7_get_unique_id(struct smu_context *smu)
-+{
-+	SmuMetricsExternal_t metrics_external;
-+	SmuMetrics_t *metrics = &metrics_external.SmuMetrics;
-+	struct amdgpu_device *adev = smu->adev;
-+	u32 upper32 = 0, lower32 = 0;
-+	int ret;
-+
-+	ret = smu_cmn_get_metrics_table(smu, &metrics_external, false);
-+	if (ret)
-+		goto out;
-+
-+	upper32 = metrics->PublicSerialNumberUpper;
-+	lower32 = metrics->PublicSerialNumberLower;
-+
-+out:
-+	adev->unique_id = ((u64)upper32 << 32) | lower32;
-+}
-+
- static void smu_v13_0_7_init_msg_ctl(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -2995,6 +3014,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
- 	.enable_uclk_shadow = smu_v13_0_enable_uclk_shadow,
- 	.set_wbrf_exclusion_ranges = smu_v13_0_set_wbrf_exclusion_ranges,
- 	.interrupt_work = smu_v13_0_interrupt_work,
-+	.get_unique_id = smu_v13_0_7_get_unique_id,
- };
+-	p->nchunks = cs->in.num_chunks;
+-	p->chunks = kvmalloc_objs(struct amdgpu_cs_chunk, p->nchunks);
++	/* parser_fini() walks nchunks chunks, set it once they exist */
++	p->chunks = kvmalloc_objs(struct amdgpu_cs_chunk, cs->in.num_chunks);
+ 	if (!p->chunks) {
+ 		ret = -ENOMEM;
+ 		goto free_chunk;
+ 	}
++	p->nchunks = cs->in.num_chunks;
  
- void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
+ 	for (i = 0; i < p->nchunks; i++) {
+ 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
 -- 
 2.53.0
 
