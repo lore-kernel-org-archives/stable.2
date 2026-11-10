@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273787;
-	b=e/0bdjIl7IC1ZxdqGZ5NHElFez6CSVki5QNpZDkY3bjw000mhs5eJZl0BI226NYdquQx
-	 hXxGN1GdrKbwYsUKkohW0kM1M4Qi7R5BQX1u5VhYARcovatVNKBWpk5Yg71E5EYn53Vdw
-	 6uHVwZ3c1E/j5g0VNGe5Uwf34+ZUFry1EPEZIobbnVWrIW/+PjNMuBZTPJ4VVCMc3dXFL
-	 1/ubsaMmpdmbOxrHor/DcYzKv7Elcyy0AZhs5eSkrfwqqkEhQp45GzYAt5mwiRNhcDsSn
-	 J5aeEGNEiy6dTPfDqqfzfuundiqtsrhyRquvAC7G5Mol38nUNBcv2DuhY4LvUad76RA==
+	t=1794273792;
+	b=m7lWnBWBYh5BBuXO8ONO3U1nHPy7xshHEX+nfExS3LdS/VVP+mt/lsFQwXfx+dAxFUwm
+	 Mhy8REtxqmDOkpJlkQ/6blG0mMLXXnvYwcngICHWXcMNVvl2SdLF5kZ5neGa7AuZAE6Yq
+	 bvaq3PCTBWtauAGgPcm3jU+PvkBOdi7RnljVxXhz/Jwh8ESbXs8aoJvQ8Fe7iq1iJ4mVh
+	 b2YveCjLoPOHiOxv67YpM4dOPRzFmZj6fCkYgGEI6OVCX9QZRtKOB/osakCS6oBy3rWfg
+	 vQXz87vjj2QWWnGkQf7p30cPqQ4ZsD0pP4xYY9W6jDYnVwBzrlc/OitMsUcPKymf+Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273792;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zbVOg/XLUXpV+xMqSCHdG7lHtgjdiz6TtpEbtVu8C24=;
-	b=feSMZPYZztBSOjh6CKjgvZjDqjJi2DOH90tpBUMIVMTkduJsTLypN0gL60BMMA67QVOQ
-	 AJX0qOyiQjO1HOQR4VKnFYtaFw4cg8dTuFlMlvD4R0nQ9xOOwDDulKm3IiOeXBEOFZkOY
-	 /4tzug39ACCwdckJSxDoAUQAyzT7qe8VBsXLeoUANBdDNvhBnQU5K+QNvGBpogGNhUuHh
-	 N5o9g8MPI3FZsqaM2VtW6JERW470ofgys7ZgH3j/xF+0sosGzE3yXgMSkjjjKUNzRkGeT
-	 opNpYwbRYblmCV1ATDesSOTaocB+0dcAVKez3VKneFCq2E1i9gQXxqbTy9d5B8PWwVA==
+	bh=Ml08+JnSut6e6idp2/jDgzDkO6GiVKwRQ0y6q0SAi/Y=;
+	b=ExS5nnI8meI/GDzzJtcXfQvggfL1pd0AtelkIQkhNnTqdbTvbQuZt/JyrSSCplE22vsw
+	 lxWFstRTzhhJAJUQVCUhMPJUkedoWWGTKwUolEDB2odDTIXN6LlQtq8lsXrOVmeL2OIsu
+	 Ho+bh5RVLIfHPSZcMCTmQXoaqd2BGDJsjf2zU8pKQa36/pUYnl3uRQZ/2RxHQJe/pih+W
+	 fudgkrgqV/MoEU5L5KpN7emsjOojNquSWaHJBUrdp6nnATSQ7KRG9Ewej872TqZfY1hJA
+	 3H+/VuRFhbToHPBo94Gic5gF2X4bkInPVvVw3uTrbwspAfPOhaxBEHYFc09A6aHoqFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfJ0hKQr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJY4pqEx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC2607184A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50BEC6071855
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfJ0hKQr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06E61F008A5;
-	Tue, 10 Nov 2026 01:23:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJY4pqEx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53D01F0089F;
+	Tue, 10 Nov 2026 01:23:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273787;
-	bh=zbVOg/XLUXpV+xMqSCHdG7lHtgjdiz6TtpEbtVu8C24=;
+	s=k20260515; t=1794273792;
+	bh=Ml08+JnSut6e6idp2/jDgzDkO6GiVKwRQ0y6q0SAi/Y=;
 	h=From:To:Cc:Subject:Date;
-	b=IfJ0hKQrK01npASscMv/y3LlQmTS+cDxZ752HN2TcZh4zkQpZQV/8YfGI7LAPzOeH
-	 j+dmRyUZjM3pog1QjozHKUxEqXF8kiXKRV58nbCLoP1KyhG5PNFI/BCj5yoF1BKKJq
-	 2k83sC3gq74H8e7gWTsssAORiJY1WTl8D1+tHysx3xfYTQR/PlulwY+5e12+0tHWr6
-	 0+E7QdOmcyltEfQK7jw4jIv6LqUdMad9p0qxcFehTU/KAeuLyUGyqdt1Ujr9kl2Jj4
-	 WFaBu23GIpix+5CSH6aR3hcTenyXZ536TIbKHVawSgOFBlyA6EdiXXiwwBGDE3b7WS
-	 2M9RpcvXfEh0w==
+	b=aJY4pqExnGG7jQmOY4A3+it2QWPhR8E4KXBblJpF/HMNr0NOj5D2czMN8An2TvBlQ
+	 C+/3E0dE7U7ABFR/s1gEaxWXpTfJtu3XV/m1EsGsnhvF7K3uuXwUQ6BEveUAyd8oB7
+	 WXmzIPUw+p1TxbNhv+83MLIhshSdZXyr5c2+vxyD1PixpkOKQF94pB5CNfxZ5EOKrd
+	 TA39H3cX+7Pxi7prEUjw7AUmq+UyF54i+rV3QUOmXFwkLeBgYTpx9eZK+EzzfFgjHu
+	 p+BG3BdZSTxkPrfrRd0SBDwndQTPxHm807iQG5T4wSPqg7ynLAMGTpd7DLaA26VwS6
+	 Wtepw0fZVwD0w==
 From: Sasha Levin <sashal@kernel.org>
-To: 1075151112@qq.com,
-	hch@lst.de,
-	kbusch@kernel.org
+To: socketcan@hartkopp.net,
+	mkl@pengutronix.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvmet: reject keep-alive timeouts that would overflow" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:23:05 -0500
-Message-ID: <20261109202305-failed-5.15-96ae13f40ce5@kernel.org>
+Subject: FAILED: patch "[PATCH] can: raw, isotp: copy socket options outside of lock_sock()" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:23:10 -0500
+Message-ID: <20261109202310-failed-5.15-43c973a0887d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,122 +68,517 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 96ae13f40ce5930cd58c43128e385131476f2a66
+git cherry-pick -x 43c973a0887d3d7b2ee0a446603c97bf0f38c58e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202305-failed-5.15-96ae13f40ce5@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202310-failed-5.15-43c973a0887d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 96ae13f40ce5930cd58c43128e385131476f2a66 Mon Sep 17 00:00:00 2001
-From: Yingjie Wang <1075151112@qq.com>
-Date: Fri, 30 Oct 2026 16:46:22 +0800
-Subject: [PATCH] nvmet: reject keep-alive timeouts that would overflow
+From 43c973a0887d3d7b2ee0a446603c97bf0f38c58e Mon Sep 17 00:00:00 2001
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+Date: Tue, 27 Oct 2026 15:31:08 +0100
+Subject: [PATCH] can: raw, isotp: copy socket options outside of lock_sock()
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
+The CAN_RAW and CAN_ISOTP specific socket options are copied from and
+to user space while holding lock_sock(). A copy that faults or stalls,
+e.g. on a userfaultfd or FUSE backed mapping, holds lock_sock() for its
+whole duration.
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+raw_notify() and isotp_notify() take lock_sock() of a socket that is
+bound to the vanishing device while holding RTNL. As the CAN_RAW
+options can also be changed on a bound socket, a stalled copy can block
+RTNL on an unregistration or namespace change of the bound device.
+Before "can: protect the receive lists with a per-device lock",
+raw_setsockopt() even held RTNL itself during the copy. CAN_ISOTP only
+copies its options for unbound sockets, which isotp_notify() skips
+without taking lock_sock().
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+Keep the user space copies out of the locked sections: Check the option
+name and length and copy the option values, including the CAN_RAW_FILTER
+filters, to kernel memory before lock_sock(). raw_setsockopt_locked()
+and isotp_setsockopt_locked() get the copied values directly and drop
+their now redundant length checks and copies. As a side effect, a
+failing copy can not leave partially overwritten options behind
+anymore. In raw_getsockopt() duplicate the filters under lock_sock() and
+copy them to user space after release_sock().
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+As the option name and length are now checked before lock_sock(), the
+order of the checks in isotp_setsockopt() and accordingly the order of
+the returned error values changes. This is in line with POSIX, which
+does not define an order in which multiple error conditions are
+detected and reported.
+
+The generic SOL_SOCKET options in sk_setsockopt() are not affected by
+this patch.
+
+Fixes: c18ce101f2e4 ("[CAN]: Add raw protocol")
+Fixes: 1e5185c09058 ("can: raw: add locking for raw flags bitfield")
+Cc: stable@vger.kernel.org # depends on "can: protect the receive lists with a per-device lock"
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20261027-can-rx-lock-v12-4-eb5afc2d8b9b@hartkopp.net
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 8 +++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- 3 files changed, 21 insertions(+), 2 deletions(-)
+ net/can/isotp.c | 100 +++++++++++++++-----------
+ net/can/raw.c   | 186 +++++++++++++++++++++++++-----------------------
+ 2 files changed, 155 insertions(+), 131 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 26028be8fe4d8..a06cff8304db0 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -1227,8 +1227,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 1e40825b58cb7..5e2de051fc5ec 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -1709,8 +1709,8 @@ static int isotp_getname(struct socket *sock, struct sockaddr *uaddr, int peer)
+ 	return ISOTP_MIN_NAMELEN;
+ }
+ 
+-static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+-			    sockptr_t optval, unsigned int optlen)
++static int isotp_setsockopt_locked(struct socket *sock, int optname,
++				   const void *val)
  {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
+ 	struct sock *sk = sock->sk;
+ 	struct isotp_sock *so = isotp_sk(sk);
+@@ -1721,11 +1721,7 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
  
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
+ 	switch (optname) {
+ 	case CAN_ISOTP_OPTS:
+-		if (optlen != sizeof(struct can_isotp_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->opt, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->opt, val, sizeof(so->opt));
+ 
+ 		/* no separate rx_ext_address is given => use ext_address */
+ 		if (!(so->opt.flags & CAN_ISOTP_RX_EXT_ADDR))
+@@ -1750,55 +1746,37 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 		break;
+ 
+ 	case CAN_ISOTP_RECV_FC:
+-		if (optlen != sizeof(struct can_isotp_fc_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->rxfc, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->rxfc, val, sizeof(so->rxfc));
+ 		break;
+ 
+ 	case CAN_ISOTP_TX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_tx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_tx_stmin = *(const u32 *)val;
+ 		break;
+ 
+ 	case CAN_ISOTP_RX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_rx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_rx_stmin = *(const u32 *)val;
+ 		break;
+ 
+-	case CAN_ISOTP_LL_OPTS:
+-		if (optlen == sizeof(struct can_isotp_ll_options)) {
+-			struct can_isotp_ll_options ll;
+-
+-			if (copy_from_sockptr(&ll, optval, optlen))
+-				return -EFAULT;
++	case CAN_ISOTP_LL_OPTS: {
++		const struct can_isotp_ll_options *ll = val;
+ 
+-			/* check for correct ISO 11898-1 DLC data length */
+-			if (ll.tx_dl != padlen(ll.tx_dl))
+-				return -EINVAL;
++		/* check for correct ISO 11898-1 DLC data length */
++		if (ll->tx_dl != padlen(ll->tx_dl))
++			return -EINVAL;
+ 
+-			if (ll.mtu != CAN_MTU && ll.mtu != CANFD_MTU)
+-				return -EINVAL;
++		if (ll->mtu != CAN_MTU && ll->mtu != CANFD_MTU)
++			return -EINVAL;
+ 
+-			if (ll.mtu == CAN_MTU &&
+-			    (ll.tx_dl > CAN_MAX_DLEN || ll.tx_flags != 0))
+-				return -EINVAL;
++		if (ll->mtu == CAN_MTU &&
++		    (ll->tx_dl > CAN_MAX_DLEN || ll->tx_flags != 0))
++			return -EINVAL;
+ 
+-			memcpy(&so->ll, &ll, sizeof(ll));
++		memcpy(&so->ll, ll, sizeof(*ll));
+ 
+-			/* set ll_dl for tx path to similar place as for rx */
+-			so->tx.ll_dl = ll.tx_dl;
+-		} else {
+-			return -EINVAL;
+-		}
++		/* set ll_dl for tx path to similar place as for rx */
++		so->tx.ll_dl = ll->tx_dl;
+ 		break;
 +	}
-+
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
  
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index a8171b88035c5..1dede04c204a6 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1620,6 +1620,12 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 	u8 dhchap_status;
+ 	default:
+ 		ret = -ENOPROTOOPT;
+@@ -1812,13 +1790,49 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 
+ {
+ 	struct sock *sk = sock->sk;
++	union {
++		struct can_isotp_options opt;
++		struct can_isotp_fc_options rxfc;
++		struct can_isotp_ll_options ll;
++		u32 stmin;
++	} val;
++	unsigned int size;
  	int ret;
  
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		args->status = NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+		args->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NULL;
+ 	if (level != SOL_CAN_ISOTP)
+ 		return -EINVAL;
+ 
++	/* copy the option values from user space before lock_sock() */
++	switch (optname) {
++	case CAN_ISOTP_OPTS:
++		size = sizeof(val.opt);
++		break;
++
++	case CAN_ISOTP_RECV_FC:
++		size = sizeof(val.rxfc);
++		break;
++
++	case CAN_ISOTP_TX_STMIN:
++	case CAN_ISOTP_RX_STMIN:
++		size = sizeof(val.stmin);
++		break;
++
++	case CAN_ISOTP_LL_OPTS:
++		size = sizeof(val.ll);
++		break;
++
++	default:
++		return -ENOPROTOOPT;
 +	}
 +
- 	args->status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(args->port, args->subsysnqn);
- 	if (!subsys) {
-@@ -1694,7 +1700,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
- 		kato = NVMET_DISC_KATO_MS;
- 
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
- 
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index d7804bf91aaa8..3cd58e813aa7f 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
- 
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -714,6 +715,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
- 
-+/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
-+ */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++	if (optlen != size)
++		return -EINVAL;
 +
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
++	if (copy_from_sockptr(&val, optval, size))
++		return -EFAULT;
++
+ 	lock_sock(sk);
+-	ret = isotp_setsockopt_locked(sock, level, optname, optval, optlen);
++	ret = isotp_setsockopt_locked(sock, optname, &val);
+ 	release_sock(sk);
+ 	return ret;
+ }
+diff --git a/net/can/raw.c b/net/can/raw.c
+index d6517f71cadeb..0926d5686e419 100644
+--- a/net/can/raw.c
++++ b/net/can/raw.c
+@@ -604,63 +604,36 @@ static int raw_getname(struct socket *sock, struct sockaddr *uaddr,
+ }
  
+ static int raw_setsockopt_locked(struct socket *sock, int optname,
+-				 sockptr_t optval, unsigned int optlen)
++				 const void *val, struct can_filter *filter,
++				 int count)
+ {
+ 	struct sock *sk = sock->sk;
+ 	struct raw_sock *ro = raw_sk(sk);
+-	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
+-	struct can_filter sfilter;         /* single filter */
+ 	struct net_device *dev = NULL;
+-	can_err_mask_t err_mask = 0;
+-	int count = 0;
++	can_err_mask_t err_mask;
+ 	int flag;
+ 	int err = 0;
+ 
+ 	switch (optname) {
+ 	case CAN_RAW_FILTER:
+-		if (optlen % sizeof(struct can_filter) != 0)
+-			return -EINVAL;
+-
+-		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
+-			return -EINVAL;
+-
+-		count = optlen / sizeof(struct can_filter);
+-
+-		if (count > 1) {
+-			/* filter does not fit into dfilter => alloc space */
+-			filter = memdup_sockptr(optval, optlen);
+-			if (IS_ERR(filter))
+-				return PTR_ERR(filter);
+-		} else if (count == 1) {
+-			if (copy_from_sockptr(&sfilter, optval, sizeof(sfilter)))
+-				return -EFAULT;
+-		}
+-
+-		/* The reg_state check is only a shortcut: On a concurrent
++		/* @filter has been copied by raw_setsockopt(). It is linked
++		 * to the socket on success and freed by the caller on error.
++		 *
++		 * The reg_state check is only a shortcut: On a concurrent
+ 		 * unregistration or namespace change raw_notify() waits for
+ 		 * lock_sock() and removes the filters set here.
+ 		 */
+ 		dev = ro->dev;
+ 		if (ro->bound && dev &&
+-		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED) {
+-			if (count > 1)
+-				kfree(filter);
++		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED)
+ 			return -ENODEV;
+-		}
+ 
+ 		if (ro->bound) {
+ 			/* (try to) register the new filters */
+-			if (count == 1)
+-				err = raw_enable_filters(sock_net(sk), dev, sk,
+-							 &sfilter, 1);
+-			else
+-				err = raw_enable_filters(sock_net(sk), dev, sk,
+-							 filter, count);
+-			if (err) {
+-				if (count > 1)
+-					kfree(filter);
++			err = raw_enable_filters(sock_net(sk), dev, sk, filter,
++						 count);
++			if (err)
+ 				return err;
+-			}
+ 
+ 			/* remove old filter registrations */
+ 			raw_disable_filters(sock_net(sk), dev, sk, ro->filter,
+@@ -674,7 +647,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		/* link new filters to the socket */
+ 		if (count == 1) {
+ 			/* copy filter data for single filter */
+-			ro->dfilter = sfilter;
++			ro->dfilter = *filter;
+ 			filter = &ro->dfilter;
+ 		}
+ 		ro->filter = filter;
+@@ -682,13 +655,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_ERR_FILTER:
+-		if (optlen != sizeof(err_mask))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&err_mask, optval, optlen))
+-			return -EFAULT;
+-
+-		err_mask &= CAN_ERR_MASK;
++		err_mask = *(const can_err_mask_t *)val & CAN_ERR_MASK;
+ 
+ 		/* lockless shortcut, see CAN_RAW_FILTER */
+ 		dev = ro->dev;
+@@ -715,31 +682,15 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_LOOPBACK:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->loopback = !!flag;
++		ro->loopback = !!*(const int *)val;
+ 		break;
+ 
+ 	case CAN_RAW_RECV_OWN_MSGS:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->recv_own_msgs = !!flag;
++		ro->recv_own_msgs = !!*(const int *)val;
+ 		break;
+ 
+ 	case CAN_RAW_FD_FRAMES:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
++		flag = *(const int *)val;
+ 
+ 		/* Enabling CAN XL includes CAN FD */
+ 		if (ro->xl_frames && !flag)
+@@ -749,13 +700,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_XL_FRAMES:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->xl_frames = !!flag;
++		ro->xl_frames = !!*(const int *)val;
+ 
+ 		/* Enabling CAN XL includes CAN FD */
+ 		if (ro->xl_frames)
+@@ -763,11 +708,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_XL_VCID_OPTS:
+-		if (optlen != sizeof(ro->raw_vcid_opts))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&ro->raw_vcid_opts, optval, optlen))
+-			return -EFAULT;
++		memcpy(&ro->raw_vcid_opts, val, sizeof(ro->raw_vcid_opts));
+ 
+ 		/* prepare 32 bit values for handling in hot path */
+ 		ro->tx_vcid_shifted = ro->raw_vcid_opts.tx_vcid << CANXL_VCID_OFFSET;
+@@ -776,13 +717,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_JOIN_FILTERS:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->join_filters = !!flag;
++		ro->join_filters = !!*(const int *)val;
+ 		break;
+ 
+ 	default:
+@@ -795,17 +730,84 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
+ 			  sockptr_t optval, unsigned int optlen)
+ {
+ 	struct sock *sk = sock->sk;
++	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
++	struct can_filter sfilter;         /* single filter */
++	union {
++		can_err_mask_t err_mask;
++		int flag;
++		struct can_raw_vcid_options vcid_opts;
++	} val;
++	unsigned int size = 0;
++	int count = 0;
+ 	int err;
+ 
+ 	if (level != SOL_CAN_RAW)
+ 		return -EINVAL;
+ 
++	/* Copy the option values from user space before lock_sock(), so a
++	 * stalled copy can not block raw_notify() waiting for lock_sock()
++	 * under RTNL.
++	 */
++	switch (optname) {
++	case CAN_RAW_FILTER:
++		if (optlen % sizeof(struct can_filter) != 0)
++			return -EINVAL;
++
++		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
++			return -EINVAL;
++
++		count = optlen / sizeof(struct can_filter);
++
++		if (count > 1) {
++			/* filter does not fit into dfilter => alloc space */
++			filter = memdup_sockptr(optval, optlen);
++			if (IS_ERR(filter))
++				return PTR_ERR(filter);
++		} else if (count == 1) {
++			if (copy_from_sockptr(&sfilter, optval, sizeof(sfilter)))
++				return -EFAULT;
++			filter = &sfilter;
++		}
++		break;
++
++	case CAN_RAW_ERR_FILTER:
++		size = sizeof(val.err_mask);
++		break;
++
++	case CAN_RAW_XL_VCID_OPTS:
++		size = sizeof(val.vcid_opts);
++		break;
++
++	case CAN_RAW_LOOPBACK:
++	case CAN_RAW_RECV_OWN_MSGS:
++	case CAN_RAW_FD_FRAMES:
++	case CAN_RAW_XL_FRAMES:
++	case CAN_RAW_JOIN_FILTERS:
++		size = sizeof(val.flag);
++		break;
++
++	default:
++		return -ENOPROTOOPT;
++	}
++
++	if (size) {
++		if (optlen != size)
++			return -EINVAL;
++
++		if (copy_from_sockptr(&val, optval, size))
++			return -EFAULT;
++	}
++
+ 	lock_sock(sk);
+ 
+-	err = raw_setsockopt_locked(sock, optname, optval, optlen);
++	err = raw_setsockopt_locked(sock, optname, &val, filter, count);
+ 
+ 	release_sock(sk);
+ 
++	/* on error free the filters allocated for CAN_RAW_FILTER above */
++	if (err && count > 1)
++		kfree(filter);
++
+ 	return err;
+ }
+ 
+@@ -826,6 +828,7 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
+ 
+ 	switch (optname) {
+ 	case CAN_RAW_FILTER: {
++		struct can_filter *filter = NULL;
+ 		int err = 0;
+ 
+ 		lock_sock(sk);
+@@ -840,15 +843,22 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
+ 			} else {
+ 				if (len > fsize)
+ 					len = fsize;
+-				if (copy_to_iter(ro->filter, len,
+-						 &opt->iter_out) != len)
+-					err = -EFAULT;
++				/* copy to user space after release_sock() */
++				filter = kmemdup(ro->filter, len, GFP_KERNEL);
++				if (!filter)
++					err = -ENOMEM;
+ 			}
+ 		} else {
+ 			len = 0;
+ 		}
+ 		release_sock(sk);
+ 
++		if (filter) {
++			if (copy_to_iter(filter, len, &opt->iter_out) != len)
++				err = -EFAULT;
++			kfree(filter);
++		}
++
+ 		if (!err)
+ 			opt->optlen = len;
+ 		return err;
 -- 
 2.53.0
 
