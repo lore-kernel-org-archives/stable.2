@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272978;
-	b=LyM62j0SsOG+dO+0xK6w1/RKeQ1zEX6kRIAu2zJfM8Yp/bknI6taKfnXkkIR7tUO+QeJ
-	 irmoN5ltGWabJsJ9mqzMrZ3SPKTm4Sc/Wujw7PWoh793PYjyIDw8zv+uro0cIsY/llLpI
-	 hHIaTDt75CS5SeqyPTdDZJXfEojDEenWztEf10D59p1bJSyijXR+DmSxEIkmF9Olbptoo
-	 ngKYUy2bIcRDoFPfsFWZOXfwwM4kfBgbbhW9BJiL99uFsEnoV8Kpcy/LxnySUkrrPX5rY
-	 H4LTg+UFDzDblcixcp5IwJQoT7Qj2PmJeigF9BCpHRF2xWj9RqWsRNS4M+MEbp8KXpA==
+	t=1794272981;
+	b=MO/209S3VGoJpyWyzJSHaw50FPJjdPXG1f2yE8GD/GeZHoZQ/oSNepeSvxi4yyHmP7wV
+	 YAd6Ut3nDJuh/k7R+xroJ6N+m7niLYmf236303nr2979z7QZQkHSJZmD6TS5MCT4PpPNs
+	 eJlG//9wLf662ECxD/AQXRj387FRsAWwmQLpzqb8Bzs74tl2bS194Oz4+qKGRAeYpLW5v
+	 3jPpF+Oj8bAtHdtBynjCH9EhskUGHj2HbWT++Fw6e/0QlnrLSKoW5Z24nLikA7Yr/c9Hx
+	 vuR5Lf4Fck8gh+Etrj0wF5K+jno6CAyGlNd4/AgaZ3GyknMsaKvlxjLT8pT6P/BgDIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272981;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YFZ933FVHlyDd1eGIvbuNExuRwiaJCIAKdxJwObKXrU=;
-	b=XaIJrhIZ/B0XbktsjiK11GTnfJ1OoEs6QgOJmSVkAE/cg6g7bRKsZZXJHMTbeDq23Z5j
-	 4QiuKjKcKJhmqqBbyoFnbNgxYqTzl1eVQnHInfoVTh6kXir8kFSOQGVAAbzZJS2lzGtJv
-	 I5gGoVSHUdC1sn1ccLTbodlfSJA9xZqVfsBXnZy0QsG7A9Jf1SNOwMq49+eFwHK/KhiQV
-	 fMkpH7suzwhxeURhs7RqAmv4z1A8ukS5urhmaBpmbMaws6fLM9hNbDewINerskNiIkmGl
-	 Djky35rKishzzrsdBEn5pEcg7DXRddgQJaUGiW04AlGY9QcICk211qE0pWzzUd0uttw==
+	bh=fe+6Ua30rDbGGnDW/MyNrD2GWrLvb6Oi9hPCXt/4zbg=;
+	b=q2xpvXFBfAGMvNPB+NfaqqQBEvPgaUKFXcl0baviM4LEiTiPzk94qWX3BH3nIO1JqXew
+	 qs7JhgbwAmzBw9e0HJtdRzW7Vi276U8KiH3TS3grGxv0u+DVddCmLHs/j8u81/51bDhUB
+	 5hqGvQJaQ0zl9XRQ1QupdOHZhDM/mPItUkol721YBC/yKX65edaefM1HMDGuLnQRBmWZR
+	 TsRzsgMk7/F5SpreopHTa409+OYmeSwVkEozl5u2Ozw/SeUD1tPCgPe8o2XpEt6QAXYkJ
+	 VmAlXTy+EmnOaFB9Q/tO7kJ/4nzSDY4fUbbvfeD5RaWBWRleUF+5AQq06njHBeRW+TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nXniAQQZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW+HBs85;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6787B606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D28B60A2608
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nXniAQQZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A911F008A1;
-	Tue, 10 Nov 2026 01:09:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OW+HBs85
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C6A1F008A1;
+	Tue, 10 Nov 2026 01:09:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272978;
-	bh=YFZ933FVHlyDd1eGIvbuNExuRwiaJCIAKdxJwObKXrU=;
+	s=k20260515; t=1794272980;
+	bh=fe+6Ua30rDbGGnDW/MyNrD2GWrLvb6Oi9hPCXt/4zbg=;
 	h=From:To:Cc:Subject:Date;
-	b=nXniAQQZzrHjEOUXudGhGBpHvntGOLgdpSEmFamvwWfvBG8TRLynbJdX7Cm4UI2wk
-	 phT8DCnbUcNETfATvbM2TuPt92yDZtpFnr/L55fQJLNqeA7cGtqkK8dy6KvrpMY9JS
-	 nKYvPfQoqquhU5YfSvLA2JKqkadcQFTZXSvaHDp4eMxu/ItuqZkMv5dxB2wlQoLFq2
-	 SokYmpMSh+yxjDiBUS1NxW1ap25v6TWp6xqEsw2/E+x4xWv8tqYlW4aThQ9dQd84Ri
-	 rIbsjJPlY4jnpc6sOVyfo0x8H0YYOfqQnSO/F0s/2DPvfCPgjACyNezbIweSjFWdtV
-	 hJyDakF9I1/PQ==
+	b=OW+HBs85Eq1Zq4lRjleEDDwDVEbd1Oh1gyDL7zmnWiaW7RpeI05ce45uWjtbdIO8C
+	 xwbavSKjXJm6MljvCnujW2lAN0Byi4WSMpMjl5vfFY/vDf9RdXQAIc7Q9sJV/ACt2q
+	 V1up5CbI3hW2jzASR2kQIHZRIhn0E+lqoc4PRzTFAFKzydsk9FHaRoBPBJNzZCSVMb
+	 +Nj8LwukZSIRT6yfUODslCrPpIhw0py3htafvog93/CDOEpvfpCwoVr2ZuRuORSjS0
+	 O0Jfvc70uD8uS/HnkFbT3rwLkdMyLkJlopiS+vTgS6rgjA++Asz4/bkpwsuNKmsnuJ
+	 jDtpHzRieXQ/A==
 From: Sasha Levin <sashal@kernel.org>
-To: skhawaja@google.com,
-	luto@amacapital.net,
-	david@kernel.org
+To: bas@basnieuwenhuizen.nl,
+	faith.ekstrand@collabora.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/gup: check folio->mapping under folio lock in memfd_pin_folios()" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:09:36 -0500
-Message-ID: <20261109200936-failed-6.12-71555ae8c757@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Check cs flags." failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:09:38 -0500
+Message-ID: <20261109200938-failed-6.12-f5ea64f9fcd9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,115 +69,51 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 71555ae8c7572fd99158013ca2e29187c5d2508d
+git cherry-pick -x f5ea64f9fcd921bc4e2307a262e19450b8a58524
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200936-failed-6.12-71555ae8c757@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200938-failed-6.12-f5ea64f9fcd9@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 71555ae8c7572fd99158013ca2e29187c5d2508d Mon Sep 17 00:00:00 2001
-From: Samiullah Khawaja <skhawaja@google.com>
-Date: Sat, 31 Oct 2026 20:35:40 +0000
-Subject: [PATCH] mm/gup: check folio->mapping under folio lock in
- memfd_pin_folios()
+From f5ea64f9fcd921bc4e2307a262e19450b8a58524 Mon Sep 17 00:00:00 2001
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Thu, 22 Oct 2026 01:30:54 +0100
+Subject: [PATCH] drm/amdgpu: Check cs flags.
 
-memfd_pin_folios() pins folios from the page cache without taking the
-folio lock. khugepaged or MADV_COLLAPSE can therefore replace a folio
-after checking its refcount while memfd_pin_folios() still pins the old
-folio. The caller then receives a folio which is no longer part of the
-memfd.
+Had no validation before. libdrm_amdgpu memsets this, even
+for the raw/raw2 functions.
 
-For udmabuf and iommufd, this can cause data corruption: DMA accesses
-the detached folio rather than the live memfd contents. DMA reads can
-return stale data, while DMA writes update the detached copy and are
-lost from the live memfd. The detached folio remains pinned, so these
-accesses do not constitute a use-after-free or target another
-application's memory. For memfd live update, the stale contents can
-reappear in the memfd after handover.
+We have a lot of functions touching the ioctl struct, no
+strong opinion on where this is placed, but I thought
+early would be good.
 
-Lock the folio and recheck folio->mapping before pinning it, like other
-page cache users do. If the folio was removed, retry the folio lookup
-from the index that was removed.
-
-Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
-Reported-by: Andy Lutomirski <luto@amacapital.net>
-Closes: https://lore.kernel.org/all/CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com/
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 4d01e15e76358f60ef6734462d2b6d9972b9dfbc)
 Cc: stable@vger.kernel.org
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-Reviewed-by: Andy Lutomirski <luto@amacapital.net>
-Link: https://patch.msgid.link/20261031203540.2282507-1-skhawaja@google.com
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/gup.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index ba4907b352323..2b405cce2ca5c 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -3471,7 +3471,7 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- {
- 	unsigned int flags, nr_folios, nr_found;
- 	unsigned int i, pgshift = PAGE_SHIFT;
--	pgoff_t start_idx, end_idx;
-+	pgoff_t start_idx, end_idx, retry_idx;
- 	struct folio *folio = NULL;
- 	struct folio_batch fbatch;
- 	struct hstate *h;
-@@ -3512,6 +3512,7 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- 			 * reason, we try to allocate them and add them to the
- 			 * page cache.
- 			 */
-+			retry_idx = start_idx;
- 			nr_found = filemap_get_folios_contig(memfd->f_mapping,
- 							     &start_idx,
- 							     end_idx,
-@@ -3524,7 +3525,21 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- 			for (i = 0; i < nr_found; i++) {
- 				folio = fbatch.folios[i];
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index d69018a14d96d..a703268ceebaa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -189,6 +189,9 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	int ret;
+ 	int i;
  
-+				/*
-+				 * The folio might have been removed from the
-+				 * page cache (e.g., truncated or collapsed)
-+				 * after the lookup. Recheck under the folio
-+				 * lock.
-+				 */
-+				folio_lock(folio);
-+				if (unlikely(folio->mapping != memfd->f_mapping)) {
-+					folio_unlock(folio);
-+					start_idx = retry_idx;
-+					break;
-+				}
++	if (cs->in.flags)
++		return -EINVAL;
 +
- 				if (try_grab_folio(folio, 1, FOLL_PIN)) {
-+					folio_unlock(folio);
- 					folio_batch_release(&fbatch);
- 					ret = -EINVAL;
- 					goto err;
-@@ -3535,14 +3550,12 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- 				 * page cache that were never cleared.
- 				 */
- 				if (!folio_test_uptodate(folio)) {
--					folio_lock(folio);
--					if (!folio_test_uptodate(folio)) {
--						folio_zero_range(folio, 0, folio_size(folio));
--						flush_dcache_folio(folio);
--						folio_mark_uptodate(folio);
--					}
--					folio_unlock(folio);
-+					folio_zero_range(folio, 0, folio_size(folio));
-+					flush_dcache_folio(folio);
-+					folio_mark_uptodate(folio);
- 				}
-+				retry_idx = folio_next_index(folio);
-+				folio_unlock(folio);
- 
- 				if (nr_folios == 0)
- 					*offset = offset_in_folio(folio, start);
+ 	chunk_array = memdup_array_user(u64_to_user_ptr(cs->in.chunks),
+ 					cs->in.num_chunks,
+ 					sizeof(uint64_t));
 -- 
 2.53.0
 
