@@ -1,112 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794306496;
-	b=IHM6QSg9N+UbEz9NI5TyS2HC0Jx0Q+3GbOocqIA5+hliS3rJ1XS1SalhQacFqKU/Vd7z
-	 s/va1lYqXsjZGXo1U7R/DiT6q1eQ83aSulqkZ3Xg6Obv62+FHo8G6Ixl9bfrkTEP9afIK
-	 ye8UN+o/wK883Lx0yI9WUHhWy0eMUjumkbVQZYVNMpVWvJyqLwO3P2/AozDq1PtOFywXf
-	 d4hTXJr1dRz9Q+gaUw/Atkj4treEdy8bTO5SENbPFcLOTMuiI500mQpfNEtccaXJARWEc
-	 k/Y5pZ5KWN6zG/HR2dtUBLxB2QKH9wvQXtVbyFlySYnPyjG7D20eOizI81S+H37vehg==
+	t=1794306575;
+	b=IIqmU4SjOuePGaB+aU95t0SS+FacWzUYROG35ddpEOfw43Qf1n54uWLrRurmuV1dxrO1
+	 oM9Ly1CKEeE/ne6UaLQywr/05SaWpI9PE6ggJNfxQCfX/Vpi+O4h3b935wzx9zIBknWp+
+	 SVx4PoCgXkAF4jUdnIOtGpzfic2zsw9gOW86VD7TPrzfzczc+LaEgMthFfAvGAPNcusVk
+	 DLJjzkCAicKzoTXKeqRCvNt812HLpvaOWTLQ5zfpefQInKXmOJsJaKfQ36m5FonOIUyrg
+	 QB5SFvbsfM+3fwxNhUycvEXFCDhpgMQycCff7VRJvXalMGe221YDGMjs9fPYXmrwZQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794306496;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=AK+s3hJWcXrj5GwLU+M5YKfblnSJS/J6580o8fqd44g=;
-	b=uY3HJFdRSMM/6vHX73PdVO4OI7oeiD4tk4EtDc2YY6ygszfG6gqBmqGp8INPNdc4fhAM
-	 NFkdkMcPj0n+qM+7FRYuoP+5Ba43snIBJzP/8TOYSzxhDfYlHjq86tztDbxnBLh6A7pdV
-	 kYoUPcnvV8pGqSoG5lTfyajZdug8t3sBLxWYg4zzEIuVjPZ08sGT9sLWjQhzTgJ1ghrRQ
-	 zUA85rPljS8xOrHwYNNrFHaUL/5WW/POeJ5TMn34eaxG7yTZxjtViS5SlEAF003Qorqys
-	 nNdM9t+X178pEUlSt5Gg0ZLqQakgifAQ6gGW8weAAX99CHeNFDWByfWeBXnAHrkRwnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794306575;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=;
+	b=PY9VWeceyU0v0EoBnpHyZsu8mZT8pFCniFvvaGU7GCtVJv+4e/w3U6G+WhQC67SouWFd
+	 6rXrZzInn841ataq9XCyvnbz2gV00l3TtD9QoIHo+L9N2jcorrzCWXbDxfiPdzT1eRrAj
+	 3qjiVfq6KE8kBUA1+2CAhI2+D+Q8PLKY2mv58+cETDTSm6o6mDkQZ5Z6hJoxSnW1JXURo
+	 kVuhXvFJmEPCrmMPhti4VwGHLYPb4indTreFkH6d+75Ja3HIJOLpABLHlBaE3/OJVyO/v
+	 8xk/kItVKLvKDeZhBhuQ7sVSQbl5O9FLrnK4mbdrH7kWqeyG3HZ6jy6J7GnA0jqKTiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xRU7nHP4;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iL0HhHjT;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xRU7nHP4;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iL0HhHjT;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="bDueU7W/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q+g24FZT;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE2A606A31C;
-	Tue, 10 Nov 2026 10:28:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE2A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92072606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:29:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92072606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xRU7nHP4;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iL0HhHjT;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xRU7nHP4;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iL0HhHjT
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 24E7C1F7BF;
-	Tue, 10 Nov 2026 10:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794306493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AK+s3hJWcXrj5GwLU+M5YKfblnSJS/J6580o8fqd44g=;
-	b=xRU7nHP4qFkLaCrEWZvsPTpiU1AMFgsmgpXy927ohTCd+lq2zr8V8IkEIK/VNRNziP2C+z
-	iekI1oZpCSel/o9mVnkP/MJMJtNl/IE4vMgXDU9S418RTIa/qO/rdLuKJKHlXLlAIVbyV5
-	pdoYXuwLHJ4cq1kX1Hiecw8MeAyjojI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794306493;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AK+s3hJWcXrj5GwLU+M5YKfblnSJS/J6580o8fqd44g=;
-	b=iL0HhHjToBK6x6Nj9e8t/FKiF3KCRcgzUpwrX7uZYyZyGKe/RJLjzQcxOMfsxZzdm0TqEx
-	pMjGSXnxLRK4zrAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=xRU7nHP4;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=iL0HhHjT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794306493; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AK+s3hJWcXrj5GwLU+M5YKfblnSJS/J6580o8fqd44g=;
-	b=xRU7nHP4qFkLaCrEWZvsPTpiU1AMFgsmgpXy927ohTCd+lq2zr8V8IkEIK/VNRNziP2C+z
-	iekI1oZpCSel/o9mVnkP/MJMJtNl/IE4vMgXDU9S418RTIa/qO/rdLuKJKHlXLlAIVbyV5
-	pdoYXuwLHJ4cq1kX1Hiecw8MeAyjojI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794306493;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AK+s3hJWcXrj5GwLU+M5YKfblnSJS/J6580o8fqd44g=;
-	b=iL0HhHjToBK6x6Nj9e8t/FKiF3KCRcgzUpwrX7uZYyZyGKe/RJLjzQcxOMfsxZzdm0TqEx
-	pMjGSXnxLRK4zrAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EE75F1339F;
-	Tue, 10 Nov 2026 10:28:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hSGBMrzx8moAKwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 10:28:12 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 7727F22471; Tue, 10 Nov 2026 11:28:12 +0100 (CET)
-Date: Tue, 10 Nov 2026 11:28:12 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC v3 09/14] fs: don't strand I_METADATA_WRITEBACK
- inodes outside the LRU
-Message-ID: <4rwugltieam6t5fw3ovurnt5xpc73xevt5z3h5egza4no77jvm@3eekprthhshj>
-References: <20261109-work-inode-metadata_writeback-v3-0-91ac6c024018@kernel.org>
- <20261109-work-inode-metadata_writeback-v3-9-91ac6c024018@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bDueU7W/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Q+g24FZT
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AA7l4q21155019
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:29:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=; b=bDueU7W/JI6jwGLN
+	ZOUmqB+utVWSdOUpxhz9dOE3rK7LMcX0hOIEsmN0ZZZWhHKqmBxzZZ1CNU0ltor2
+	vcu9GQTbEZJXv2h2tm74wzdPrljskM2MecQnyWLKeuL1EwCbhGGp4uUaoMcKfGl0
+	sP5eUDR0NNLvJa/VcMgd1RZShikqgwMRIPVjlp/eVFjf84uCnBBvnsnRfcEZ8Zbf
+	22rX++tHWmyxU6PShVpwBGow3UggUQycXO5/DZxE7XAJ4fkhwGyS3uEmsDDLIGHj
+	wViyKL1KC7+D+ViUb2MMKaiuGSsVyH8/STmrt4Y8EHYR3eriLYQJOq94hZOmNxUD
+	oAM5GA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hutv49p2t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:29:33 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-943e8ff02d0so189645885a.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:29:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794306573; x=1794911373; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=;
+        b=Q+g24FZTmOYxIIE47+dlBYfIyC0J5BCPWmjo73l8rbJxOD+f9TRASBGPbq0Sy3YLxa
+         dSVKMjaxmsF3+u94NHxhTA2ze2gbJaAgytsQfyMJYJKKobVJPP+hNt1jXw1zFxteqXOJ
+         NWWgRPMO4EGXkPqkyQTTn/r4q/E+1qvEeecglRgGCQZWq3yhjfkJnnieYCdwBo2/JxoY
+         FX5bezTlau+Y2qAEM/19Nw/wuTi1WkAfSIiPEwJegvOnVfdYJfXgphJiOFiOU6/xw7hI
+         c1LIuP7EXx4VoDXg183hXpEnW6H8N2ce4eOk9LVRJCubz6FDjcPiljG3ibwUGwF0RbFo
+         puRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794306573; x=1794911373;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dILZ68T7wp/M0o8943hftgoIWcEo2YDH5FXujf4WAwU=;
+        b=RFYvE+xdIlUePybYUUXYwZL0t8F3EnSp0aclk0MxqwjaU7MNPBE2m77s088exCHe20
+         2gMmpbbSV2DnTISlLLP1IpJMCkPRes70u+evmaMAFy7JW4UpRAN3mjQUouoI83GWnp8Q
+         A5fvVrAw3rtyNFtOQc82wzePJ804OmYP4rlec0b5bcoZ+RsEZgOTz1MukcuwU0ORJSuE
+         9OQDOOJFhlqGVIbIzACdvVTqM+PcQUjDvB5ZRNiz6+ZzkWzGlYdSjyZy87hq6KQR2s3b
+         aI4XdG517wYfi6J5AkFD+Bzk/dErhsXuY8OxkfqpBXEUFiZQXLrjo0JJ22/OoyL9ly+S
+         0etA==
+X-Forwarded-Encrypted: i=1; AL+hErFMnFseTWWhDgCCbYRTEhNnFgSTceRBkv5az0ORq1c0BtLkD6YRGwyxktal00n6M+XzNXtqnlY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/tPHS89bIVKrn39xheiKzEvh/Af3Cj2Cud47VMufA3bhyLrcEn
+	eDCNaIm1SKjjRE6dJKe5eiKKLjYaRd/maGAn3mpcHCndmKJt4YPJcXIJqscQ6JpLu5MtxNI8PGZ
+	xijRSfkGMK6wqfrdRVnNs8TD4J4KGLecDlc5rby6DxkX5VgK2HYBNCulc//4=
+X-Gm-Gg: AYBFou1Tz7zZpJfoTwZa4ec9mtP6QpBDxehlfbSeqXPDULraRT1LTTTLNas/wAJGSVQ
+	QGx+tHf5+FSiC8DnHUjLRr44IW5LdzwdZh0gZ4S25bTX9qRNdhu2NFRdtzJX1gK8T33/sWE5klv
+	6snLhbuHxkafRWB7ZJ2BX7veCNvy9r6j5yBfLegqUSuGzJOKt4kylu9wSu+95mCsCcbG/3+2X5e
+	XZzfrSdptobByJAJA9V8o3a6Z3kVbIN5YAXclpShPu/9KYhqFBjzAotxQVSYYJvAwj6BAyg0WFF
+	bx32J+9W+VXtoI9vuvvuJ20meWfnwLSXyy5YIGI/dluB+tkNPALWQKb3uOH++B5CzzQ5VrnqSJx
+	sQBX0PBWz7bJkfSECiXxcb+D3FZltEaFrwFyCMw7CFcDKm2wRYLPr6WAh+mBJHH11dLk8z+k/hD
+	yw4MWMILF1ZIig8quDe3G56G10v+i4jE5iXDsKqUB5k/6nCVja2bc2GZ/ZmQ0NDQ==
+X-Received: by 2002:a05:620a:4514:b0:93f:211b:a7a with SMTP id af79cd13be357-9479f2c42b0mr351214285a.29.1794306572798;
+        Tue, 10 Nov 2026 02:29:32 -0800 (PST)
+X-Received: by 2002:a05:620a:4514:b0:93f:211b:a7a with SMTP id af79cd13be357-9479f2c42b0mr351210785a.29.1794306572282;
+        Tue, 10 Nov 2026 02:29:32 -0800 (PST)
+Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0234a5dcsm54994175e9.2.2026.11.10.02.29.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 02:29:31 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] power: sequencing: fix serdev controller reference leak
+Date: Tue, 10 Nov 2026 11:29:29 +0100
+Message-ID: <179430656698.56244.5559839363678053917.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105-pwrseq-pcie-m2-serdev-ref-leak-v1-1-e2e022ca17ec@oss.qualcomm.com>
+References: <20261105-pwrseq-pcie-m2-serdev-ref-leak-v1-1-e2e022ca17ec@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,145 +125,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-work-inode-metadata_writeback-v3-9-91ac6c024018@kernel.org>
-X-Rspamd-Queue-Id: 24E7C1F7BF
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.51
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA0MSBTYWx0ZWRfXyfy0agbeYB2b
+ HhNkFur3ARc4Z4WMLpW6CHyHV0ZGoZPyhSAXiY12Gjzw/fA1J5j1D65henfFy24WiSQlC1iJNp3
+ J7hYtkDUmrkiThXenkOcSToL7mfbYOU=
+X-Proofpoint-ORIG-GUID: bvVfNGIAMgCWswrlS1YQWb-reutRfK7H
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA0MSBTYWx0ZWRfXzfpF69C9yMsZ
+ CNTuGh/fNYuSnY3jlxaUfcLj+5pRjr3apDywLbNS0yjSFj5O1uTbXS9MlqEJfqL3FJTYk7Msjk0
+ NvE76mVNbTA7sFS9dQBL2GYi/cdTzW2XwWE2YY/ZjWi6MEQpufgFquPjzBqj+PVVY8AZLgGxnIb
+ CApXpQYoK1Rdkwk+4NWwVQRnNyzQX/uSF2NYFhXIVDwu48a+97Zpet8RSQBlxirJY5RdhuVzTnP
+ W0kMbD78dz9+CRM+yZzQ0Xvyyi1JIh2pXAN9j/2du4hS3SfulPjRFgFzy8oe01jF3FMAZRufmcg
+ z7s38ORUYas9O1iBYhmFNu98sTauP9y794HviT1iD7pC7x6kcKMWYb8xDLAckDzR5Nu7PWrwXNA
+ 8m4KosiPFzMWkrAVDGwrqbi0Eh+yfxhxMgf40uSfyXqOaR+5Rn7FZw5DYDBkuPxvMOa1YoUTgrY
+ tJdBIARzJOWE0Arg1ew==
+X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6af2f20d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=heQ8kAePCfxZzHD31_sA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: bvVfNGIAMgCWswrlS1YQWb-reutRfK7H
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100041
 
-On Mon 09-11-26 17:51:24, Christian Brauner wrote:
-> Since commit c474bc56b6d1 ("fs: Provide way for filesystem to wait for
-> metadata writeback") ext2, ext4 without a journal, fat, udf and minix
-> set I_METADATA_WRITEBACK on an inode whose metadata was copied into a
-> buffer that might not have reached the disk yet. Only data integrity
-> writeback, i.e. fsync() and friends, clears it again. The flusher and
-> sync(2) leave it alone.
-> 
-> inode_lru_isolate() treats every state bit other than I_REFERENCED as a
-> reason not to reclaim the inode right now. It takes the inode off the
-> LRU and relies on iput(), writeback completion or the removal of the
-> last page from the page cache to put it back once the reason is gone.
-> 
-> But I_METADATA_WRITEBACK doesn't go away on its own. iput() puts the
-> inode back on the LRU with the bit still set and the next scan takes it
-> off again. So neither memory pressure nor drop_caches can free these
-> inodes. Only fsync() and friends or unmounting the filesystem get rid
-> of them.
-> 
-> On ext4 without a journal ext4_mark_iloc_dirty() sets the bit on every
-> ext4_mark_inode_dirty(), so even an atime update is enough. An
-> unprivileged user creating or touching lots of files grows the inode
-> cache without bound until the OOM killer comes along.
-> 
-> The inode can't just be thrown away though. An fsync() after the inode
-> was read back in wouldn't know that its metadata still has to be
-> written out. So let the shrinker reclaim inodes with
-> I_METADATA_WRITEBACK like any other clean inode and make evict() write
-> out what the bit tracks unless the inode is being deleted. Since the
-> previous patch the bit covers the tracked metadata buffers as well, and
-> since the lookup patches ->sync_inode_metadata() doesn't read anything
-> from disk for that. It writes and waits for whatever is still dirty or
-> under writeback. The mmb_sync() calls in ->evict_inode() are redundant
-> with that and the following patches drop them.
-> 
-> Handing these inodes to a work item that syncs them and puts them back
-> on the LRU would work too. But that's a second inode reclaim offload
-> mechanism next to the deferred inode reclaim that is being worked on,
-> and it needs a reference on the inode which leaks into remount, freeze
-> and umount.
-> 
-> For stable this needs the previous patches as well. Without the lookup
-> changes evict() ends up reading inode blocks from disk with
-> __GFP_NOFAIL allocations from reclaim. v7.3 also still has bfs which
-> sets I_METADATA_WRITEBACK too and reads the inode block in
-> bfs_sync_inode_metadata(), so the backport needs the cache-only lookup
-> for bfs as well.
-> 
-> Fixes: c474bc56b6d1 ("fs: Provide way for filesystem to wait for metadata writeback")
-> Cc: stable@vger.kernel.org # v7.3; see patch description
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Looka good! Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  fs/inode.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
+On Thu, 05 Nov 2026 16:46:45 +0100, Bartosz Golaszewski wrote:
+> In pwrseq_pcie_m2_create_serdev_one(), if serdev_ctrl->serdev is NULL but
+> pdev is already tracked in ctx->pci_devices, we return early from the
+> loop and skip the serdev_controller_put(), leaking the reference.
 > 
-> diff --git a/fs/inode.c b/fs/inode.c
-> index 1cb6293b237a..332108961df6 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -818,6 +818,14 @@ static void evict(struct inode *inode)
->  	inode_wait_for_writeback(inode);
->  	spin_unlock(&inode->i_lock);
->  
-> +	/*
-> +	 * fsync() can't find what I_METADATA_WRITEBACK tracks anymore once the
-> +	 * inode is gone, so write it out unless the inode is being deleted.
-> +	 */
-> +	if (inode->i_nlink &&
-> +	    (inode_state_read_once(inode) & I_METADATA_WRITEBACK))
-> +		sync_inode_metadata(inode, 1);
-> +
->  	if (op->evict_inode) {
->  		op->evict_inode(inode);
->  	} else {
-> @@ -947,9 +955,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
->  	 * they're already on the LRU, and this can make them
->  	 * unreclaimable for a while. Remove them lazily here; iput,
->  	 * sync, or the last page cache deletion will requeue them.
-> +	 * Nothing requeues them for I_METADATA_WRITEBACK, evict() writes
-> +	 * that out instead.
->  	 */
->  	if (icount_read(inode) ||
-> -	    (inode_state_read(inode) & ~I_REFERENCED) ||
-> +	    (inode_state_read(inode) &
-> +	     ~(I_REFERENCED | I_METADATA_WRITEBACK)) ||
->  	    !mapping_shrinkable(&inode->i_data)) {
->  		list_lru_isolate(lru, &inode->i_lru);
->  		spin_unlock(&inode->i_lock);
+> Initialize ret to 0 and jump directly to the label that ensures the
+> reference is released.
 > 
-> -- 
-> 2.53.0
-> 
+> [...]
+
+Applied, thanks!
+
+[1/1] power: sequencing: fix serdev controller reference leak
+      https://git.kernel.org/brgl/c/073f01043e79fd76f4fa648e58061c80329a6eef
+
+Best regards,
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
