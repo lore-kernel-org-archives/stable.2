@@ -1,84 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794305202;
-	b=nr6YiqvFnSHHTW2M3ZoCgI3e2CBtyMGW9tJ4jviInuhuiJOyGGtA/3Y632A5u/p0JP/F
-	 gM0esJM0jzYp+/tOjYL1dSqG9e/zkW4KeXLV4O/ywf/4j4mEaDyUWnfM2LARSy/mcqxMm
-	 JlnUZObEkS5LRFqaMvcviBTcr3QZCMBSCEsOvEuvKKFu8xs663I1AU76wRcRRlmE7OxCL
-	 fq8f5TJlLagddSv1QET1XWbIOBFIwPWh+Nh3kakSVC2rwUNffcmeQbLGcIcuZgVT1H20l
-	 NAdK8l/FFffFDqKrXVoDUpLP/EyqLCtcyqVa18fnustI1zP/aKJSgd2Qe4ZOL0Cm3IQ==
+	t=1794305214;
+	b=xW3DKqiWPNHNPumu5Dq+XJXSJo2HfQ7nYf4ZDneorc1hJBgmYLrBwUVnHtG4C0PA+X+P
+	 iKpOp2D7kw0xYQr9RRuUVmC//dPl4F99o+9Glk+VLkk4gA9jfzUB3uJZRgnadcseJGopu
+	 xx2jH2onWP1ALVS1Y51hAP7wbAI0vTLrJc9ftqG1zzLtzUwcIFyDJFZq9lj8k8N68L5Di
+	 xPPjanyAkCHTVwu3Pa3PK3BAu4LoBnXYtTVxh+QBQ6Jmh1QnynkCzoSp5X0bTjyuJwfGQ
+	 ZGywP2/v/+zQ/4FVwXOnaWDdBf2oh0ngVIz0V7PhYLn3uHJLVfARKFDZaGkTer46eAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794305202;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=0+56BmH46cTzz6cgAVlQ2fzvLFOPeYUgDkfm7Fk/6qk=;
-	b=ab0fGi/HZwL0ez8goGZB6AnORqjRMZIRCHiCw67Tdtffjpty+UaCxan3qmH5puIc86vP
-	 O5nNe4egTFASf95ub9PLnvXBDRj2oXRI7t8ba7owYQF6eyg7ENL+g8XSPQ8y6v+ktHms6
-	 UcJFLM0FokV+uTEcr6kfYeGecM2GnZoAYAJZov1W/2OcF5TD3zPL2shr/HepaYEYMNkRA
-	 fRnsqjAh1dB7lthNZIKyVYBxlKqO2h+Jk85mZHHwuetc/XAsghgt7uGkQBCYXNQ9v4bQv
-	 rK3GtFgnNRMan4iOiKRCwLJ/I4DBt512RhAB+gnNjhMl8IJNhArZbMl/uo1RJEWZ3Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305214;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=zplHw4CyhkN1xiivaHt7M4tXKh7ixIes8nGWweBU8PgFNWNNEQeaK6KNpxeGkcnBM971
+	 9fSKQ/d8ngQuDP4HipIKFEFnQPqXkk7bpZxMI1JIsf3YNg2FHCS8/tP64vKXVV9hzXn7O
+	 I2A3TstfMFdphwM4KRJq3cnYWZq7NDdGX7C+dEmgYHmaOjDK8DMOqri3R1uZfzogyk+5G
+	 XWiVXpgeKjw6HQcrVmDtMjJpifnvUSuPsMBiC9tQjNM0XS3sqMQGCULmealdn6JxhSrjF
+	 IcLIQK1LySauoyHOQO7KaB/jx3/imh/3eWnoIV9pa13G1WWBCAVgCJnGrlgpGRVNhTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="NwD/ThYC";
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFlfhp9b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614BA606A325;
-	Tue, 10 Nov 2026 10:06:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 614BA606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1410660A2613;
+	Tue, 10 Nov 2026 10:06:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NwD/ThYC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794305202; x=1825841202;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hPyoBw1zcnjyYyX+GWkyUwYoq6TCM3E4M22B/6C4Ed4=;
-  b=NwD/ThYCEmBc5Zs9ar2Vq4hl1pxmD9AtOj8iHNcSBYeqGyymZwsueUnv
-   sNSqeeb4lmwJD8AIXBLrPBoYiLKOIlY+rrdgKpPT5/rrL0xDWkZle/iQk
-   JomEF1lpWh4Cbp7/wHMf4lWz/jCgrfwZMagWoIK7cfB7U3YT38ANd28ns
-   HkbloCcfBfkD/wwvnzsZrKxrm4j6Ir1As+CVDAJ9rBoUhDSrfbPNq0NvC
-   F7Zqu5DwrOcjhnX9sB63I+Lj9FlAGl8hoFr7UcPmGF6vJNbC+sD+Ww74u
-   uRyr8ibPP7RAtoCgRnneqObYev/8kDpKQ5dIVGAtkaagp5n3fWFgxqjZ+
-   g==;
-X-CSE-ConnectionGUID: zux3HgRHRHKvhopm6dRszg==
-X-CSE-MsgGUID: BLM4AXdHR1ql4J4jvRhfLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3035498"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="3035498"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:06:41 -0800
-X-CSE-ConnectionGUID: lHQLPFhaT8WI8G9crvQsXw==
-X-CSE-MsgGUID: eiwTZ/71QaS3vGs1UpQTTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7944534"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:06:38 -0800
-Date: Tue, 10 Nov 2026 12:06:36 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] gpiolib: don't overwrite the entire flags field
- in gpiod_free_commit()
-Message-ID: <avLsrOqdXSFSH6WM@ashevche-desk.local>
-References: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
- <20261109-gpio-desc-flags-atomic-v2-4-c4c54b476628@oss.qualcomm.com>
- <avJAv_3ACjvyc9VU@ashevche-desk.local>
- <gw26q2blrbmmxwzv7vfjxwc5bzqzfgt57zs7bvt2kdx7x6a6qk@6i5z3a3crqft>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFlfhp9b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66DFC1F0089F;
+	Tue, 10 Nov 2026 10:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794305213;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AFlfhp9bdZDdIkhShsQEy/LhhmK4cn9CcXySEINdQoGaYL1XN2LZIfwVCWgmnt497
+	 EYzswdUlpYfMp2HgMVKtemXEMr+HAHU8JsOF+nfr4DiaEvEB1mW8Po2FQjOYKLsiNR
+	 wH+x8ztP8265qW5805nrHf+aQj6iNC7RJUfms7EeZbL3Ao7AXVkXWa6GT+m+e79HRm
+	 sIz2NKzYqk7yuXToAkGts1aJSCahes0dcGZn7Aj3O6nyViyFqnGsjZ3TIfyOYVhUZP
+	 nn6ko2LaXopCLNv1j57Bx9J1KqV3IvXlzb7Am1AAq4eh+tl27iuxVj7tDQ90OM7ybO
+	 cP/1AbCLyj8bg==
+From: netdev-bot+sinfo@kernel.org
+To: Johan Hovold <johan@kernel.org>
+Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ stable@vger.kernel.org, Hans-Frieder Vogt <hfdevel@gmx.net>
+Subject: 
+ Re: [PATCH net] net: tn40xx: fix swnode use-after-free on probe failure
+Date: Tue, 10 Nov 2026 10:06:52 +0000
+Message-ID: <179430521299.488859.1743918211448248351@kernel.org>
+In-Reply-To: <20261110100051.2567443-1-johan@kernel.org>
+References: <20261110100051.2567443-1-johan@kernel.org>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,41 +65,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <gw26q2blrbmmxwzv7vfjxwc5bzqzfgt57zs7bvt2kdx7x6a6qk@6i5z3a3crqft>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 10, 2026 at 09:54:11AM +0100, Bartosz Golaszewski wrote:
-> On Mon, Nov 09, 2026 at 11:53:03PM +0200, Andy Shevchenko wrote:
-> > On Mon, Nov 09, 2026 at 11:27:08AM +0100, Bartosz Golaszewski wrote:
+Hi!
 
-...
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-> > >  #include <linux/acpi.h>
-> > >  #include <linux/array_size.h>
-> > >  #include <linux/bitmap.h>
-> > > +#include <linux/bitops.h>
-> > >  #include <linux/cleanup.h>
-> > >  #include <linux/compat.h>
-> > >  #include <linux/debugfs.h>
-> > 
-> > No need, bitmap API implies all bitops.
-> 
-> I honestly have no idea what the policy is on "proxy" headers. In some
-> cases people advise against them, in others they say to include them.
-> 
-> Is this documented anywhere?
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-No, but feel free to start such a documentation. In IIO we did a huge work
-to enforce IWYU principle, and there we have some tribe knowledge about
-the dependencies and guarantees. (Cc'ed some people.) In this case the
-bitops.h inclusion is guaranteed by bitmap.h. If it stops doing like this
-it will be a flag day.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
--- 
-With Best Regards,
-Andy Shevchenko
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
