@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330870;
-	b=JaqeV92XWYWuO6PDaEDW3O8L5edttoBa2SOqNXfiCsXCCFmN/DLdixivKufc+ts0SBtM
-	 Iml1rOAkahjpzzLrF28Y2VVYwVtSpfwTlMcyMJzeeIXt2w5krbhzwqHkuYaEoFHo59VBJ
-	 aivffymf93xBeobQlDvbIi/EBRMdWWXpmN+Engw8aTGkHoJg2SZ3zhqdJdcEnw6mKr3KM
-	 oPVMbXWek7OdUXy4FYOkFcvOiRn9+0nCTM3zd+Yx18jx+Mx3XCtQLRnBFYZD2LsSYAqUF
-	 0XBTapgkUnnCrMlC4Ly7u2oABMe2T8bH3nkXTHeZ02yDVIDBsWHYqt/mYPdNiD7wzjA==
+	t=1794330901;
+	b=vpnRGcO7iVD+dIDRIpcned3Vcb2xCK5T+EyuB2d5GpO440n8Q4L4PrXj0Yp2kSwvfFxs
+	 9hUiJWKWLQVenJ6gJ7ULKP3qfAEHNbnucWe769gELabHOODdZRDhbcWHKwtCMjg/oLKCD
+	 600CthMUp9oi7//hfIF8GonguCdCSFQWHCjNwF/ZcaIi15Qx+TPe1StIaapbntyEMTnKL
+	 g/7fflAH6/97it65smesNwpaWkCmRNrXsjpA49x6nKnaqu0azb46qnFyo2PbX7ojbirvC
+	 POLDJ5HxnYI4E1zxaMUHxeymQKEXfapRvQ57pQ50Hwb40Y8ddXPkqQqUH07BoGmJHaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330901;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DmJLPbmPgVdctrixntEeI8sHoaTUEIR5Q9306ybYuoU=;
-	b=xYV+Dr+lJjEQB49ryrmQ4spHq1f7cq55y+q7sXHN2DNfAPSPG72UufKSdpIaxxT2wWrk
-	 aTYL/jeAabV3LaQIg2SkDDccVPaa/GGrDUZDETJ7kIT8g3G4tBq+30nMbcMddi/RzsOE0
-	 5jB7QMi6HwLWU5eygKq/wDGLdKFAwpBk+k+fKk+dl2OFwLsaRVuXY1qcmtll8lJIkVt1U
-	 vA3pQXDav5WfWYgpakk17BqRjbxepm7VylGB0MWzd3gcwkpZso54q8RYRQgyzbkVYZvz8
-	 6OZHbLGiVqdaKUHHbif9ZXLHgt0jXShaHAMJx3ywQ/Cu/EL5BUKYKFXKJtqPQDihzQw==
+	bh=EFfRqSHE31Zeqw/gRV+ghlc1mWVDiA4w5gqX0LAKKWg=;
+	b=qgMODWbuZEYiQ/yQzdUbVe8K9RcFdE5b21Te+M+3iakpReFUA9hK/rn77tZG4M0KggFJ
+	 wnnpmIC71zOy0XY6y39ZHZ5frWz30ZrYJNJM6t/670+1+qwsRM4wEwHeEesmJj6FEJ4/e
+	 YrNKgpjPKYZhsy13aw+6d3E8542ApJMfFlfHtu6PPyebrI7l2qGWWtaOlFAPo7C7SnYA6
+	 eq85NprAkw57LcKmoABbHRGWnhmYAb3mTEusZ3b14pdYa2W8cMKewbfuDEaahqLxRGQSB
+	 vwAZRHFGmcf5U5sf29siVye03ZbYj9EOFTrfiV1rAScioUdFVzegaDgbPOcrBmiXn6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGCN+PRz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j71NyCX4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFEB606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693B2606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:15:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JGCN+PRz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62C61F0089F;
-	Tue, 10 Nov 2026 17:14:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j71NyCX4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68921F0089F;
+	Tue, 10 Nov 2026 17:15:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330870;
-	bh=DmJLPbmPgVdctrixntEeI8sHoaTUEIR5Q9306ybYuoU=;
+	s=k20260515; t=1794330901;
+	bh=EFfRqSHE31Zeqw/gRV+ghlc1mWVDiA4w5gqX0LAKKWg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JGCN+PRzM5q7mtrHt7xXlrKSWx5GS26sCM6bGVBAWDUAwLtjbCzHc/lFwdSD3ipGR
-	 nuc9Q8yR8lpZ0t2e04nEjydoARSquXAA7fW+AHhrTCYBa0xRrqG2FsVuEY28RlN51r
-	 17yhTfVBiuieydI5WqAd5aTjyNYB6xteDkscRGskLm4oI15kjLoJLrZm3ZTsYAhsap
-	 JlTuywmv/tRkBJIdtyzjn43tntQO0RK5R2YoqSiE6aZnvTEmZGB+6D2IAngcJKDDVU
-	 Ijs2C67Dwykh/T8N9tmCRXWBZ3kbiMJFtsfCMT8Lmt+gf0ophQ9vkLXnbPKvif346t
-	 pacipFFiKOt1A==
+	b=j71NyCX4tj4QHMhoN+16w37w+RB2Zu7fqAN2r/EbcDWyhMZGqPBkHfFY+M8JgBUbt
+	 rJjj1okA6SyjwGRNVdQEKxRk3i/69pWtvQBbtDO6iX+k2IXXDrFjnshsT09ye03t+M
+	 9KtYHAR1YxW/24gatNfkXsyTzVhNmblwziqezY85BUtxQwuBfcsET48b20Bx3Iqduv
+	 m9VczZpvAcSd2gTKZch/32cJ2iPgp6FCJ6fEdWrDeej7bXOV+AK/+FBLn2Vb/8OLIi
+	 TCL0/OCld7HHK01yfDWQOVmNAWROypQV6QR+RamL2+4fmMdKF7Huc4pBz9/wx3jolU
+	 90RbBChAqpf0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Helge Deller <deller@gmx.de>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] fbdev: smscufx: check for fb_deferred_io_init() error
-Date: Tue, 10 Nov 2026 12:14:28 -0500
-Message-ID: <20261110171409.2486673-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] KVM: arm64: Move IN_GUEST_MODE ahead of state being loaded
+Date: Tue, 10 Nov 2026 12:14:58 -0500
+Message-ID: <20261110171430.2677289-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062205-failed-5.10-8ea6c6e77ccf@kernel.org>
-References: <20261107062205-failed-5.10-8ea6c6e77ccf@kernel.org>
+In-Reply-To: <20261107062344-failed-5.10-22b6557ad05b@kernel.org>
+References: <20261107062344-failed-5.10-22b6557ad05b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,66 +61,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 8ea6c6e77ccf887f3e68c64f4c261071a345da1e ]
+[ Upstream commit 22b6557ad05bf05c73246f62c19af3e04017270e ]
 
-fb_deferred_io_init() allocates deferred I/O state, populating
-info->fbdefio_state, or leaving it NULL if an error occurs.
+IN_GUEST_MODE is advertised too late, when state has already been moved
+onto CPU registers and cannot be observed by another CPU anymore.
 
-Currently ufx_ops_open() ignores its return value.
+Move the IN_GUEST_MODE publication ahead of the state being loaded, and
+immediately check for pending request. This ensures that there is no
+window of opportunity for another CPU to observe OUTSIDE_GUEST_MODE and
+yet for state to be loaded.
 
-Therefore if an error arises in fb_deferred_io_init() (for instance, due to
-an allocation failure) info->fbdefio_state is left NULL.
+This also simplifies the "state rollback", which solely amounts to
+synchronising the timer when no irqchip is present.
 
-fb_open() will then dereference a NULL pointer (calling
-fb_deferred_io_open()) as soon as ufx_ops_open() returns.
-
-Additionally, if the allocation of info->fbdefio itself fails,
-ufx_ops_open() sets info->fbdefio to NULL and invokes
-fb_deferred_io_init() regardless, hitting BUG_ON(!fbdefio).
-
-Fix this by only invoking fb_deferred_io_init() if the allocation
-succeeded, and checking for the error.
-
-The driver already supports operating without deferred I/O, so in either
-case fall back to that by setting info->fbdefio to NULL.
-
-The ignored return value was introduced in commit 56c134f7f1b5 ("fbdev:
-Track deferred-I/O pages in pageref struct").
-
-However, the BUG_ON() issue originates from the earlier
-commit 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display
-adapters"), so target that for the fix.
-
-Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ sashal: Omitted the fb_deferred_io_init() return-value check because the function returns void. ]
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261015100539.1011760-4-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: adapted guest-entry changes to existing inline exit checks instead of kvm_vcpu_exit_request() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/video/fbdev/smscufx.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/arm64/kvm/arm.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
-index 08a4ce3dfb1d8..6d9121570f343 100644
---- a/drivers/video/fbdev/smscufx.c
-+++ b/drivers/video/fbdev/smscufx.c
-@@ -1096,10 +1096,10 @@ static int ufx_ops_open(struct fb_info *info, int user)
- 		if (fbdefio) {
- 			fbdefio->delay = UFX_DEFIO_WRITE_DELAY;
- 			fbdefio->deferred_io = ufx_dpy_deferred_io;
--		}
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 528229636c635..ccf31a749c827 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -716,8 +716,6 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
  
--		info->fbdefio = fbdefio;
--		fb_deferred_io_init(info);
-+			info->fbdefio = fbdefio;
-+			fb_deferred_io_init(info);
-+		}
- 	}
+ 		local_irq_disable();
  
- 	pr_debug("open /dev/fb%d user=%d fb_info=%p count=%d",
+-		kvm_vgic_flush_hwstate(vcpu);
+-
+ 		/*
+ 		 * Exit if we have a signal pending so that we can deliver the
+ 		 * signal to user space.
+@@ -747,22 +745,27 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		 * interrupts and before the final VCPU requests check.
+ 		 * See the comment in kvm_vcpu_exiting_guest_mode() and
+ 		 * Documentation/virt/kvm/vcpu-requests.rst
++		 *
++		 * Requests to self must be posted before this point, or
++		 * won't be taken into account until the next exit. No state
++		 * loading other than what happens at vcpu_load() time can
++		 * be done before we have checked for pending requests.
+ 		 */
+ 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
+ 
+ 		if (ret <= 0 || need_new_vmid_gen(&vcpu->arch.hw_mmu->vmid) ||
+ 		    kvm_request_pending(vcpu)) {
+ 			vcpu->mode = OUTSIDE_GUEST_MODE;
+-			isb(); /* Ensure work in x_flush_hwstate is committed */
+-			kvm_pmu_sync_hwstate(vcpu);
+ 			if (static_branch_unlikely(&userspace_irqchip_in_use))
+ 				kvm_timer_sync_user(vcpu);
+-			kvm_vgic_sync_hwstate(vcpu);
+ 			local_irq_enable();
+ 			preempt_enable();
+ 			continue;
+ 		}
+ 
++		/* From here onwards, we are commited to entering the guest */
++		kvm_vgic_flush_hwstate(vcpu);
++
+ 		kvm_arm_setup_debug(vcpu);
+ 
+ 		/**************************************************************
 -- 
 2.53.0
 
