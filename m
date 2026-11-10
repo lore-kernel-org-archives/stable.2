@@ -1,56 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328171;
-	b=4BzGM5kraoZ096FLXjQQJQa3IP38/BVowNt9baepwO6jyMwzKExWNMkrZj85f2N3xtBG
-	 96viuDNCin5c6DkpTTe+ASmhfcsKLqvrLuVtJTuLinKu3iS9IdBpXiJY/s/hHF7XqQB1f
-	 AjnZ0eBuSC7giHVR2R1MrlQenuhnfvjyshIfVVluR57+6PNVF/Q+7LgYbaSJyRB5EfKsE
-	 L2/M2w7XfSzQdTC3TRtPMHrZzAPXUOceWl1ZhtEhczFWGjoQJ7Wrd/p1PQXsbR/Zv5FF7
-	 TqjwmigX7PgpoMjSrvXA3TyllVuZTMZl7MOQbUNlky9Mpu0jT7VNf0UPR80PPoH6KEw==
+	t=1794328191;
+	b=rfy3kEs/1W++ktX5uKfri/pYsu2R+gDzo5UkLE/xmr9BzZ81D1USc8D2a+wbi5vO+rZ2
+	 6gX5VOOMyYxMx3Msa2G3UzOGTVqpBAFErEhY1mXnSLzVeG5HZlsvQDXnqWO6JRuifB2R1
+	 hSN+RXxT1+WtPUo5qZYERyONaCldkpDXPTXftvOvpgKkoRJgJKguFNjG/H55RyiY9WZqA
+	 reaVnxEGJgLxbnNNbNICuGrIanfkVBDOppg57wzeOLmrjUn56St87rJkou0jo09b4zcQ/
+	 VcD+3ddkGUgGLcm/FjWzqA8HEx76ldHcw2/ltLpVgjgAJfpkoGWIsJeNeiTo648F87g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328171;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fB0KB3Q1ErExdTyBgaBt/5dGhg69AYQyv5i3z55GbhA=;
-	b=JuKwtTwN7i7EDWUW6Roq2yG7w7gI9y0R1kmVap0OZrs4oKb5b7q/VMaO4+05NV5UaAQK
-	 TG6c1eya646E0Og6IsnMgqcPHIg0v6qw3AYxfHDwP6psRDT7fNJ7Fwm2k0615DW4cOKdR
-	 BZ4hbHilVh6M0Bemjr6PFFDHuEuMxIp2BbuskazSHNcea4SR2RevvnUfQLj4EFUmhW6py
-	 YRPh4WjaYQ5scl5Cflz4LuMUvqbL7oXsposHCnfFvoHmrDOpKi3s5FR9p2RtYzQZUaD7D
-	 /198T7WBwzXcEf36VLqitlIguKA3Jmke+948G5FqwOQov6p7YZEyA54jCLPOL6ZD4EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ghno+hRQROva7hSCWNdu9qZqAtG4kns6STUVUD10r1E=;
+	b=QD/bTXaUP49+ghYRKpBfsEv2NNFRDOp47ZQdoInIFdKoY5nsfgZE9ney6HqQaUUVQW7s
+	 /Gr1IfEYtc3O12xd42mtaVLN/O4dau0NgV3sazvCg95GnSkTk2XzZ2CJx0MHN3+JYvEB5
+	 WlbtX99fUdgJ33O+7gFZmeRzGwtty8Mxp/sU+fYAyz/qyknUc5POq2RHzScXXSd7fVMgd
+	 U3eNxqvDMHbYrrpQ9P7n5yHSrZYLDLIc6BrNXhJK3MXBNj5IQr4kpo9bsbXcyAPzEcXJp
+	 dltm5DJfBgm+Bj5CUkQXjUQjLp4s+yOcEp+dQmbmerP+sF4q9DDjmEe26w1HQIo3Lng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgx8Y+PS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CafID1kN;
+	arc=none smtp.remote-ip=209.85.208.71
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D5B60A2619
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:29:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346B2606C6F8
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 346B2606C6F8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lgx8Y+PS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C238E1F0092A;
-	Tue, 10 Nov 2026 16:29:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794328170;
-	bh=fB0KB3Q1ErExdTyBgaBt/5dGhg69AYQyv5i3z55GbhA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lgx8Y+PSfmPzsQkGClsOorDf41nNCsrQoOWLc+X9MgcRpTPqccihqdbzXNDMBbpCW
-	 yIHxikM+IwYCvaRsohlDnGI/fLrEF3D1UcS0YkkHmvmxeg8YlOrm8tFKM8Iyl+eeY8
-	 UdQRqnDVnrNSnQUTxh6km13LsHW/AcH9naJSa7si+gv29hksJM6IUNi8MAkfas6RgN
-	 M0OCPQFI03WqLKWjyTL9sREwU3gpe5IILJ9ZM59Wjua8zeuPZONiPdPz8mqAw2mKdk
-	 szspApKzPqTPfh45eZm0SFSKXVKgqKdvyiwCETHjgtXdzr8IHYvorksJW39risHJmK
-	 lAtsOCdJ/v8Mw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] cxl/acpi: Check ACPI companion before use
-Date: Tue, 10 Nov 2026 11:29:28 -0500
-Message-ID: <20261110162851.2487363-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060040-failed-5.15-371c2ad16242@kernel.org>
-References: <20261107060040-failed-5.15-371c2ad16242@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CafID1kN
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6b56221d367so2132011a12.1
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 08:29:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794328189; x=1794932989; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ghno+hRQROva7hSCWNdu9qZqAtG4kns6STUVUD10r1E=;
+        b=CafID1kNa5rZv0DUMSqdxQBGAE+CQGaguFTQCJHFAqC68QM3fibXTw0pAIrf4nkGM+
+         f3YNO1QNEEPJFiHhYKOpKOVmTzFQng6or9wdo43jBfzK9pmdKr2EUtegJtQHOOCFiD+X
+         tpPlnd3xBu2/qYgOFdBpQCC3XecRC8nNulC4NjCvQEtJjREVnfskTaySOBFDzxQXA6sA
+         PbHu0SCUyhJgIw3kHqf59HNoiN+9/txl1QR2stjyaFEe1/fEB8d/9MwhYKeeWHp5mzDM
+         eJXzayu9j89T36nPNJh8WFWaEBKKl/hZC0OETeXFlD8oBtKd+tWhfbYJGdH+KcSklvuS
+         6ogA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794328189; x=1794932989;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ghno+hRQROva7hSCWNdu9qZqAtG4kns6STUVUD10r1E=;
+        b=QxvsfP8iqkL9mGcaxHgnQ3ZkRfKNuU7+cStJdLnzmbR3QW4QVPHj9ibpvXTWF8OR1Y
+         1OnY9BNArEYhkH+sRUg3sS+ucMEoB0rIJKT/NmqfkBtgJ2Zcnj+t9YxzQqS/NhUL/drN
+         wX4IgxmLmUQmKsDzsa8ZXmdBpsEZOu86Ad2G1TrIS6OF8xYt0V6y3diIE2IwhxuYjj4s
+         wfyO30EAKmv1cabJLQCyrUycPnm30lj+FpgTq/8dzaZVOr0G54ekNZaV2YYglamMHh9h
+         omtPqHIqIQaiA3SzxQe/0tMN9Nz4ig5YRbvudc+BpGqLRY0y/QYdLgzARXXZxMSry0YF
+         NEbg==
+X-Gm-Message-State: APuU4Z/wPS+r/zBypNtAaiWLiITIYDeYTz3rbbW+l5lM3ZPO+XdsvuOV
+	aDQphrMcvPeEcXfU6K7oXcDtr3hgTHo1AOkaaNfiFvE1EkYwC2YR1eicdWxun2hvvlYtVFIgHYu
+	a6QjmPNeNlp/2rYM1jd/ITX7dPCOQjsTtz9tHQrUjkQPNZjjjgYu/XF/mDz8CyTfKeVqSkA+ZqR
+	hf5SUBBh3MwWBIcTj3e2VzEyyK7DpPBgqosS2SKeDvGLV6El+okIrm
+X-Received: from edvj8.prod.google.com ([2002:aa7:de88:0:b0:6b5:80a6:e6cc])
+ (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:15cc:b0:6ab:7700:9371 with SMTP id 4fb4d7f45d1cf-6b756aead38mr1888199a12.25.1794328189201;
+ Tue, 10 Nov 2026 08:29:49 -0800 (PST)
+Date: Tue, 10 Nov 2026 16:29:46 +0000
+In-Reply-To: <20261107051240-failed-6.18-993e8fbfecbb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,70 +77,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261107051240-failed-6.18-993e8fbfecbb@kernel.org>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+Message-ID: <20261110162946.2141451-1-michalblk@google.com>
+Subject: [PATCH 6.18.y] sched_ext: Reset runnable_at when a task leaves its scheduler
+From: Michal Blaszczyk <michalblk@google.com>
+To: stable@vger.kernel.org
+Cc: Tejun Heo <tj@kernel.org>, Andrea Righi <arighi@nvidia.com>, 
+	Michal Blaszczyk <michalblk@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Jiale Yao <yaojiale02@163.com>
+The watchdog measures how long a task has been waiting from
+p->scx.runnable_at, which set_task_runnable() resets when the task becomes
+runnable after it last ran. ops_dequeue() never asks for a reset, as the
+dequeue of a waiting task is temporary, e.g. for a migration or an
+attribute change.
 
-[ Upstream commit 371c2ad1624283b6c7a62a28199f5161d388a738 ]
+Leaving the scheduler isn't temporary. A task which is switched out of
+SCHED_EXT while it's waiting keeps its runnable_at. When it's switched back
+and becomes runnable, its wait appears to have started before it left, and
+the time it spent in another class counts towards the timeout. If the
+watchdog checks before the task runs, it aborts the scheduler:
 
-Platform drivers can be forced to match devices outside their ID tables
-through driver_override.  cxl_acpi_probe() assumes that every bound device
-has an ACPI companion and dereferences adev->dev.bus without checking the
-result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-without a companion therefore causes a NULL pointer dereference.
+  sched_ext: class_switch_stall: runner[418] failed to run for 3.010s
 
-This was reproduced by setting the driver override for the pcspkr platform
-device to cxl_acpi and binding it through sysfs:
+Here, the task waited for a few milliseconds before it was switched to
+SCHED_OTHER, slept outside of SCHED_EXT for three seconds, and was charged
+for all of it as soon as it woke up on SCHED_EXT again.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000280
-  #PF: supervisor read access in kernel mode
-  RIP: cxl_acpi_probe+0xf4/0x220
-  Call Trace:
-   platform_probe+0x4d/0x80
-   really_probe+0x106/0x370
-   device_driver_attach+0x4c/0xa0
-   bind_store+0xd0/0x100
+The same happens when scx_sub_enable_workfn() hands a waiting task over to
+a new sub-scheduler, which can then be blamed for time the task waited
+under the parent. scx_rehome_task() isn't affected, as it moves the task
+through SCX_TASK_INIT, which resets runnable_at. The stale runnable_at also
+skews the default core-sched ordering in scx_prio_less().
 
-Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-companion before use") fixed the same force-binding issue in another
-platform driver.  Check the companion before setting up the CXL root and
-return -ENODEV when it is absent.
+Reset runnable_at in scx_disable_task(), when the task leaves the control
+of its scheduler.
 
-Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260926071605.3013893-1-yaojiale02@163.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-[ sashal: Adjusted cxl_acpi_probe() declaration context to preserve the required acpi_status status variable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 8a010b81b3a5 ("sched_ext: Implement runnable task stall watchdog")
+Cc: stable@vger.kernel.org # v6.12+
+Assisted-by: LLM
+Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+(cherry picked from commit 993e8fbfecbbf284b9644c6f10741b28fb914094)
+[ michalblk: applied to kernel/sched/ext.c; adjusted context ]
+Signed-off-by: Michal Blaszczyk <michalblk@google.com>
 ---
- drivers/cxl/acpi.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ kernel/sched/ext.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-index 54e9d4d2cf5f5..f2203f14af2cd 100644
---- a/drivers/cxl/acpi.c
-+++ b/drivers/cxl/acpi.c
-@@ -377,11 +377,15 @@ static int add_root_nvdimm_bridge(struct device *match, void *data)
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index 78f15ddc0aa5a..3117d1ef869c5 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -1438,7 +1438,11 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+ 	struct scx_sched *sch = scx_root;
+ 	unsigned long opss;
  
- static int cxl_acpi_probe(struct platform_device *pdev)
- {
--	int rc;
- 	acpi_status status;
-+	struct acpi_device *adev;
- 	struct cxl_port *root_port;
- 	struct device *host = &pdev->dev;
--	struct acpi_device *adev = ACPI_COMPANION(host);
-+	int rc;
+-	/* dequeue is always temporary, don't reset runnable_at */
++	/*
++	 * Don't reset runnable_at. If @p is waiting, the wait continues across
++	 * temporary dequeues, e.g. for a migration or an attribute change.
++	 * scx_disable_task() ends it if @p leaves its scheduler.
++	 */
+ 	clr_task_runnable(p, false);
+ 
+ 	/* acquire ensures that we see the preceding updates on QUEUED */
+@@ -2959,6 +2963,14 @@ static void scx_disable_task(struct task_struct *p)
+ 	if (SCX_HAS_OP(sch, disable))
+ 		SCX_CALL_OP_TASK(sch, SCX_KF_REST, disable, rq, p);
+ 	scx_set_task_state(p, SCX_TASK_READY);
 +
-+	adev = ACPI_COMPANION(host);
-+	if (!adev)
-+		return -ENODEV;
++	/*
++	 * If @p is runnable but not running, its wait started at runnable_at,
++	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
++	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
++	 * doesn't count the time @p spends elsewhere.
++	 */
++	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
+ }
  
- 	root_port = devm_cxl_add_port(host, host, CXL_RESOURCE_NONE, NULL);
- 	if (IS_ERR(root_port))
+ static void scx_exit_task(struct task_struct *p)
 -- 
-2.53.0
+2.56.0.506.g506a7eabc5-goog
 
