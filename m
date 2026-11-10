@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336103;
-	b=DdzcLJw2SonN5fbTAGr4FarOGzwm6mr4P0lg0dXA2R9ho/Op4/3TKYXehis0wmZQX4TZ
-	 hGELUnCMO3plDQECAVVsGNPHMOU0ha1/IItK6WwRzTzcWxG1fKQ+b5vjFPmjZD2b+JRcv
-	 iyaFwu2taX1IkwaG0ni5+w5jY9m4DM0sRyPFH22c0IQ/gBHjHntdnxWrF4G0TSnZnB6nT
-	 0bzj22c+0/urEPFk3eZLEONvkIvsCHVdoGAbCURGEbJUAw3MjCT0iz2SnV3+QJvXpFsv7
-	 iWRS2Bp+OHQVKD1q9gccqxUrU0OyQACxpaFgw0L4NO5EgvDoJByqGBDM/NxwDqsUT9w==
+	t=1794336114;
+	b=rsxn7nxJmDvckGt6WpojxYo6K3TZoV4ZZj/fcARgiAOlNYuKXeWK43anZq0BS8/EUHxe
+	 KqCCnhWdwCItxb9QDnb1pR6ZZB/mGNJW5e7pUqRAB/z6EgWaIsFT7jwUWB4FbRn7iY3as
+	 7hm7AeU4rAzprZQxRmT7Tng0azVhZgOkeFLDEZQGiAkl+ePGhhy/DzTBfxJl/XOD2UUF/
+	 OrfgvW3taL5KifyfdBxAyNX/SnFG7pFZPa2+qWGq14HMzzY5lD5hpL/lkGMoyCwtcGt3y
+	 nOiFt8t3mmYkBsEhwBapRSIpW+2BtLi1FJ0gCxTBQcP0RKwocGtYYJAFiGyBQui1HPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336103;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hxRf8whrXGLetCHBrJ6e1C3oIkTkwpG5Ny6Kk54iEMs=;
-	b=Zm8gA6T0yT3yKcZqqUjG1WQ+0ZKr3vbHnc+Pb+IzlITM6wBfQq05x76tHiG//EEtA2+U
-	 7Iu9kbsK3oMGRoJQJBkXHoXpZTJDKdefza+dhXHeI0gehO44B8FuL1FJqloLZ2dGcDJFs
-	 kWPwqDpv6WzmM/DbaoRhNt8gsB4kEM+86WVp5Hx/vZyudGSgf45NbmUgEYU7Tdwpg5ykq
-	 KRkB0iPejOJ3xAVqhacEXE1bsmjuJHy9h+pFC94PzG2sqxxR+/Qa4vJqyGDpHo5UOqYBI
-	 Qn6o7NgXG4P8Isn2MqdidNNoK/JL9DpTDCCVgEcvk0E5fgWLSiVAvOL0f2EJEuvzwqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336114;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KHGhKy9qQThvzKbSGMvLB6JXGIfC9R9vmwfyx4ZB7Ko=;
+	b=iU9+DT7zY6izfBWHRPHOWtRCahK+NuYYPNB5YyFBw2+vK8KPbSw79kAj7f0QorT6x+9W
+	 Ucfm7n8aGXDfoJqR6WgCJyazzmTZrHDsISoShTduGNKwOq7Q98R+v7XUMb6e2dAgbS71s
+	 aP1GqNbZT7AiegieWOwUCWo8v8shwUXkBSYZTj9PhTK/M7lZhK1Sg3NSTPhg7OYF7cHAE
+	 GZesx+XhM9WRAeuPsNdD4rWwe7CA4vGl0P0kJb82IumG2bgfEBGfKQ+Ie2VfZi8Tg5W03
+	 wgTrdQ6BWZCjSXw3+Wbb8B4wpS/Kvk6fAgq/+5lMExUwof5TJMT/OAjWbA/lg0V9b4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYduN6LR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=v5xtsPXE;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398F1606C6DF
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 82A2F606A32D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:41:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A2F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYduN6LR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C231F0089F;
-	Tue, 10 Nov 2026 18:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336103;
-	bh=hxRf8whrXGLetCHBrJ6e1C3oIkTkwpG5Ny6Kk54iEMs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VYduN6LR0ng5Vx+fJyP5/nLg8550FMolenvcC2ZnLf564bu/1ycVnvgy+MOel47Cu
-	 cVRY7T5XYmcKUGq27Fk8BbgPVppbOFyb+k7y5P3YQ+5tq2MFm/AQdyzF6ixKLIHMxc
-	 BjZhNjOWvy/BnvXJht30hamgMIETrPL57LSmDHa3bkZ99YF0rDIASaVwAQAiiDfSvF
-	 P5143x4+t7aa5jyL3/YsBoL+rVCnOCSoekzZfcB74zI6CCydqfer4QStT+c6e9RfKo
-	 y/0No68nQQfKS6CwjgKEenuA43lnos2VH/Tzq4u1Id2WoeO5wYaivb5qEy/APJG6tG
-	 2acGHn6W82Szg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=v5xtsPXE
+Received: by dvalin.narfation.org (Postfix) id 6E6341FE32;
+	Tue, 10 Nov 2026 18:41:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794336111;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KHGhKy9qQThvzKbSGMvLB6JXGIfC9R9vmwfyx4ZB7Ko=;
+	b=v5xtsPXEowZ0PJ5cs0bSrw0Q1lkCfHu0RsJRM6QmdhelaOFJHVp49JPxE9Da0WFnKvE8tQ
+	YFbISxhg08XHUMw7SNOe7xd57Ju1qOTDlPLmS4TqynSuHPcxS4PJZxYkn9v6ftWD7wRJkD
+	J7rkJNFtcPHUD0o+OBAmfV1JE98m7CI=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: mpu401: shut down timer before freeing MPU
-Date: Tue, 10 Nov 2026 13:41:41 -0500
-Message-ID: <20261110184015.2886320-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061719-failed-5.10-9332af5220d4@kernel.org>
-References: <20261107061719-failed-5.10-9332af5220d4@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 7.3.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
+Date: Tue, 10 Nov 2026 19:41:41 +0100
+Message-ID: <20261110184141.42827-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200104-failed-7.3-cc2186d78547@kernel.org>
+References: <20261109200104-failed-7.3-cc2186d78547@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +65,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+commit cc2186d7854785b30d423f5d43757b086b300e55 upstream.
 
-[ Upstream commit 9332af5220d42341bb1446a62c545c0518e990ef ]
+When a ROAMING_ADV is received for an announced local client,
+batadv_tt_local_mark_removed() sets BATADV_TT_CLIENT_ROAM, queues a
+DEL|ROAM change and marks the entry as BATADV_TT_CLIENT_PENDING. If the
+client sends a frame again before the next TTVN commit,
+batadv_tt_local_add_existing() only clears the PENDING flag and returns
+early. The ADD cancels the queued DEL, but the entry keeps the ROAM flag:
 
-When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
-input and output with a timer. During raw-MIDI teardown, the timer callback
-can already be running when snd_mpu401_uart_remove_timer() clears the last
-mode bit and calls timer_delete(). That API neither waits for a running
-callback nor prevents it from rearming the timer, and free_irq() does not
-synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
-mpu while the timer callback still uses it.
+* batadv_is_my_client() reports the client as not served by this node
+* batadv_tt_local_client_is_roaming() reroutes unicast frames for it to
+  the node which sent the ROAMING_ADV
 
-Initialize the timer once when the MPU object is created and only rearm it
-while a timer mode is active. Shut it down synchronously after freeing the
-IRQ so an in-flight callback completes before mpu and its resources are
-released.
+The ROAM flag is only removed with the next frame of the client.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Since BATADV_TT_CLIENT_ROAM is set together with BATADV_TT_CLIENT_PENDING,
+it has to be cleared also at the same time with BATADV_TT_CLIENT_PENDING
+when the client roamed back.
+
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Replaced unavailable timer_shutdown_sync() with timer_delete_sync(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ adjust code still in batadv_tt_local_add ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ net/batman-adv/translation-table.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
-index 65982d6babfc6..b8df6bf288ad4 100644
---- a/sound/drivers/mpu401/mpu401_uart.c
-+++ b/sound/drivers/mpu401/mpu401_uart.c
-@@ -161,14 +161,15 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 15566ae255c9e..4523daec6de5c 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -632,6 +632,7 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
+ 	bool iif_is_wifi = false;
+ 	struct hlist_head *head;
+ 	int packet_size_max;
++	bool added = false;
+ 	bool ret = false;
+ 	u8 remote_flags;
+ 	int hash_added;
+@@ -664,7 +665,7 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
+ 			 * flag can be reset like it was never enqueued
+ 			 */
+ 			tt_local->common.flags &= ~BATADV_TT_CLIENT_PENDING;
+-			goto add_event;
++			added = true;
+ 		}
  
- 	spin_lock_irqsave(&mpu->timer_lock, flags);
- 	/*mpu->mode |= MPU401_MODE_TIMER;*/
--	mod_timer(&mpu->timer,  1 + jiffies);
-+	if (mpu->timer_invoked)
-+		mod_timer(&mpu->timer,  1 + jiffies);
- 	spin_unlock_irqrestore(&mpu->timer_lock, flags);
- 	if (mpu->rmidi)
- 		_snd_mpu401_uart_interrupt(mpu);
- }
+ 		if (tt_local->common.flags & BATADV_TT_CLIENT_ROAM) {
+@@ -745,10 +746,12 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
+ 		goto out;
+ 	}
  
- /*
-- * initialize the timer callback if not programmed yet
-+ * arm the timer if it is not already active
-  */
- static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
- {
-@@ -176,7 +177,6 @@ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+-add_event:
+-	batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
++	added = true;
  
- 	spin_lock_irqsave (&mpu->timer_lock, flags);
- 	if (mpu->timer_invoked == 0) {
--		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 		mod_timer(&mpu->timer, 1 + jiffies);
- 	} 
- 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
-@@ -484,6 +484,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
- 	struct snd_mpu401 *mpu = rmidi->private_data;
- 	if (mpu->irq >= 0)
- 		free_irq(mpu->irq, (void *) mpu);
-+	timer_delete_sync(&mpu->timer);
- 	release_and_free_resource(mpu->res);
- 	kfree(mpu);
- }
-@@ -537,6 +538,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
- 	spin_lock_init(&mpu->input_lock);
- 	spin_lock_init(&mpu->output_lock);
- 	spin_lock_init(&mpu->timer_lock);
-+	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 	mpu->hardware = hardware;
- 	mpu->irq = -1;
- 	if (! (info_flags & MPU401_INFO_INTEGRATED)) {
+ check_roaming:
++	if (added)
++		batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
++
+ 	/* Check whether it is a roaming, but don't do anything if the roaming
+ 	 * process has already been handled
+ 	 */
 -- 
-2.53.0
+2.47.3
 
