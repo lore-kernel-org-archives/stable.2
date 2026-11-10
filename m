@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335959;
-	b=r7WvEC4PwboDi3K9/UZ+xmJQrGig+5V+8qqbjDPb1+YFtLqZAEZ3ctz6eCOduu3mX3+/
-	 SEeQ7qOC3vLf8ja/NjALT0GSi7pGbuCmW/XS3ekQNsA8Vwmy+PbR+h8Zhd7e/hIwOoKbE
-	 UOKwxq2NmAXycUpFHTyYFZSoFimFIs8Of6ZtNACIBiWku/OFDVugI8ts3qq2VVqPG7JpC
-	 FBkTp9AGZNSVocxBRa/Vc6NRYKW6uA9OBOQMMz2nLguDBEeTu9/CPe94jVLd4SgZi387M
-	 Ca5ms/J0qywVz1pqYd+wHilcJ3NLnZQmFI8eX9dcWIUjTsVngvqbFi7L24pvIJWdbbA==
+	t=1794335981;
+	b=IbVZ9dOnce7rV5GjhKQI6ezt2sQfaTETXj1cpC2MPNAMtcKvLCYUhFkFyMXVgNdnQyyO
+	 pAjuZSZwMzL6vo+6WiO/d4hHnIBPDZKTEMFUIf6e9dWZmnpQW9RgJOAJ4XH7I94swxAe1
+	 nzCYgh0DMEur/7c4/VqdukYMmNDPGO2IzbaB4lOMgsOzlbFfOtHA6sMfa67ZyqDrBvdQK
+	 yCchIgwIDvVIyCoAs92RsSB12F808hKUJ6k17THMJ83Mh1+NohYUk2AM0zgfo2H70mAKm
+	 bTDnMmYmyvqtracq42pSU4kpP2wZleQuIGacDrc16pSQjfXMzxwPxFN/nkLp5B2BBXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335959;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335981;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=I2KxrSa9qRcP/kEpiBbc8uLhgQ89+RnbagNPtkXGqHc=;
-	b=XQnZEsFU3dZ7eqXA9PKzD5KNDPMD5g5+iTA7ureDDkxLIDtNcecGAZVoWNfMRg9TWsQF
-	 24z9QyLwA0enp4YmJoKBjbZTZf2LXqErpSM97psgYtNbs0M89VLsv01h7apYdiUKDqvU9
-	 oTwprOQXxrXJpwgu5ScwHqvlYk1iKqoGfz/a7GxfSe7BI9mHNq+/QPgSyKTBIcru+9r7o
-	 gC+HEYBWTP8iiQFcITU7oe4By8eoz99e8/0fl3YNmeH7JAVLnP8ZviOLavv99c3zPFQEa
-	 fK2mpDLT3DDbfwRaIa3NRHQKyMAG8T84jeRERTJ9cPtZfuclY8sY4XlpbSz/ZnlcMLA==
+	bh=2cWMqfj6UqmpO5lP97vfc+Yrj9XmSBRxTjRD6pc6nys=;
+	b=PXd6o9a4h4ZRkTev26QaSI4D2oL1nWcHKyU0cnpjN0lOPWZamWkE6bAnn7rzG75iY+ia
+	 QP9xdEM0NAAyYONqNRAITSiMNNL1EQtHZ2oxBEET+JWTpkdicWzdHB0qnKGhpupMG3xW6
+	 dAwjw0fnbuwZzsQYHTCKKl+RMQl+MxpF22O5mPFNy4mEw0HAyci1KGFxHnHOgyq3rhyxX
+	 QbSBDnL5HEOEhI4ec5sPtQelj5ay8Qix39F8R9aLX8TZ/IGG5s86pdjCdYzqaZu9CgMUI
+	 Sklpxa5Mj1pHItuiKshA4vjc+4mEIBfhos+HAlF265i6GBYU3wBRato16AQqYPUi9Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dM65F08l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqR5w+wS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DE6606A32D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11DF60A2610
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:39:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dM65F08l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894DA1F008A4;
-	Tue, 10 Nov 2026 18:39:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqR5w+wS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51E51F0089F;
+	Tue, 10 Nov 2026 18:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794335958;
-	bh=I2KxrSa9qRcP/kEpiBbc8uLhgQ89+RnbagNPtkXGqHc=;
+	s=k20260515; t=1794335980;
+	bh=2cWMqfj6UqmpO5lP97vfc+Yrj9XmSBRxTjRD6pc6nys=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dM65F08lXdJSOswFuJe1y6ctb4bhyebpvaR85r4tcbgJ6LrrL1a+DiWSrKoXfXQ/z
-	 /p0BNay/jljFKvsimoOZNGhmKpC8PwJJVNjb0B+mnewbKeoONcqHVYgU8CPJFmGjgB
-	 hKHCKy3JlOVRZCGSn0u8yTW4FmzmEiimosBI/Ai7Nv2rtfmqWiU/UNG4DZt0ifyQxr
-	 o1wFnF6U5oojcal9a7zgE6cpHLZUPN9dRRSynyab8cZHzL4jSnPtDPTJQl8KhMmUps
-	 N1X8pc2Q3qYoANMeHivxHvPbEziR158EoooHeSSsKZD/C+dyToIMARaSznLXxr7m0o
-	 4CW6YjkZEsX0w==
+	b=CqR5w+wSw4t4XIgdjdNi+vXYszJfqV6gfmstdLusqZimnKwpgnUGwYZEXCL81taw7
+	 OxQOENeMO+pV4qwhpGV7Ny+sI44U/2Xw+K+rtWIMq7RO296tqK+RnELuCNevNhQPFu
+	 KyS2FyQ2PVLnT8VPg74OGLHOjNzEtS+968dnnvN+aiFT0HaXpdMV1Fapyx4kZUDWOg
+	 ifC4gu2mJ5jAzcTyeSlW6o5nT/drbJgSjKmkyOrmYxI2Ed7bkMcGxXyeQp5xRSz2Hx
+	 YvBuCJkyA0b+BKsiYvYeEyUsgnfNxPprXFDAzDbhMvFynYk+I2W9AE1SggnWYH1fID
+	 lVYAsPkoKZ4cA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Guenetr Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Wang Jinchao <wangjinchao600@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] panic: flatten nmi_panic control flow
-Date: Tue, 10 Nov 2026 13:39:11 -0500
-Message-ID: <20261110183723.3255298-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] irqchip/atmel-aic[5]: Disable interrupts in the irq_pm_shutdown() callbacks
+Date: Tue, 10 Nov 2026 13:39:38 -0500
+Message-ID: <20261110183723.3302809-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110183723.3255298-1-sashal@kernel.org>
-References: <20261107052209-failed-6.12-75eb687ff2bc@kernel.org>
- <20261110183723.3255298-1-sashal@kernel.org>
+In-Reply-To: <20261107054944-failed-6.1-0ca21fe11145@kernel.org>
+References: <20261107054944-failed-6.1-0ca21fe11145@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +62,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bradley Morgan <brads@mainlining.org>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 75eb687ff2bcec9fba31bbe266e5f91e5c283efe ]
+[ Upstream commit 0ca21fe111457c843624a835641bb490e704bb2f ]
 
-panic() is __noreturn, so the else after panic_try_start() is dead.  Drop
-it so the force_cpu path can be added cleanly on top.
+irq_gc_shutdown() calls the irq_pm_shutdown() callbacks from
+syscore_shutdown() with interrupts enabled. aic_pm_shutdown() and
+aic5_pm_shutdown() take the generic chip lock with raw_spin_lock(), and
+irq_gc_eoi() takes the same lock from the interrupt handler. An
+interrupt from the chip while the lock is held spins in irq_gc_eoi()
+and hangs the reboot.
 
-Link: https://lore.kernel.org/20260916182957.7788-3-brads@mainlining.org
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Cc: Guenetr Roeck <linux@roeck-us.net>
-Cc: Sashiko <sashiko-bot@kernel.org>
-Cc: Wang Jinchao <wangjinchao600@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: <stable@vger.kernel.org>
+Lockdep reports this on every reboot of a SAM9X75 Curiosity board:
+
+  WARNING: inconsistent lock state
+  inconsistent {IN-HARDIRQ-W} -> {HARDIRQ-ON-W} usage.
+  busybox/101 [HC0[0]:SC0[0]:HE1:SE1] takes:
+  c1c2b434 (&gc->lock){?.-.}-{2:2}, at: aic5_pm_shutdown+0x34/0xd8
+  {IN-HARDIRQ-W} state was registered at:
+    ...
+    irq_gc_eoi+0x28/0x60
+    handle_fasteoi_irq+0x120/0x214
+  ...
+   aic5_pm_shutdown from irq_gc_shutdown+0x4c/0x58
+   irq_gc_shutdown from syscore_shutdown+0x5c/0x9c
+   syscore_shutdown from kernel_restart+0x34/0x78
+   kernel_restart from sys_reboot+0x180/0x25c
+
+Use the irqsave guard, as
+commit 33517881ede7 ("irqchip/brcmstb-l2: Use _irqsave locking variants in non-interrupt code")
+did for brcmstb-l2.
+
+Fixes: b1479ebb7720 ("irqchip: atmel-aic: Add atmel AIC/AIC5 drivers")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: LLM
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260926004124.88221-1-kmehltretter@gmail.com
+[ sashal: replaced scoped spinlock guards with explicit irq_gc_lock_irqsave() and irq_gc_unlock_irqrestore() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/panic.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/irqchip/irq-atmel-aic.c  | 5 +++--
+ drivers/irqchip/irq-atmel-aic5.c | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index b4db7f62b8ed5..16c21189c8da9 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -250,7 +250,8 @@ void nmi_panic(struct pt_regs *regs, const char *msg)
+diff --git a/drivers/irqchip/irq-atmel-aic.c b/drivers/irqchip/irq-atmel-aic.c
+index 4631f68479537..120ec1ae95d7b 100644
+--- a/drivers/irqchip/irq-atmel-aic.c
++++ b/drivers/irqchip/irq-atmel-aic.c
+@@ -126,11 +126,12 @@ static void aic_resume(struct irq_data *d)
+ static void aic_pm_shutdown(struct irq_data *d)
  {
- 	if (panic_try_start())
- 		panic("%s", msg);
--	else if (panic_on_other_cpu())
-+
-+	if (panic_on_other_cpu())
- 		nmi_panic_self_stop(regs);
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
++	unsigned long flags;
+ 
+-	irq_gc_lock(gc);
++	irq_gc_lock_irqsave(gc, flags);
+ 	irq_reg_writel(gc, 0xffffffff, AT91_AIC_IDCR);
+ 	irq_reg_writel(gc, 0xffffffff, AT91_AIC_ICCR);
+-	irq_gc_unlock(gc);
++	irq_gc_unlock_irqrestore(gc, flags);
  }
- EXPORT_SYMBOL(nmi_panic);
+ #else
+ #define aic_suspend		NULL
+diff --git a/drivers/irqchip/irq-atmel-aic5.c b/drivers/irqchip/irq-atmel-aic5.c
+index 145535bd75605..61636866b4916 100644
+--- a/drivers/irqchip/irq-atmel-aic5.c
++++ b/drivers/irqchip/irq-atmel-aic5.c
+@@ -224,15 +224,16 @@ static void aic5_pm_shutdown(struct irq_data *d)
+ 	struct irq_domain_chip_generic *dgc = domain->gc;
+ 	struct irq_chip_generic *bgc = irq_get_domain_generic_chip(domain, 0);
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
++	unsigned long flags;
+ 	int i;
+ 
+-	irq_gc_lock(bgc);
++	irq_gc_lock_irqsave(bgc, flags);
+ 	for (i = 0; i < dgc->irqs_per_chip; i++) {
+ 		irq_reg_writel(bgc, i + gc->irq_base, AT91_AIC5_SSR);
+ 		irq_reg_writel(bgc, 1, AT91_AIC5_IDCR);
+ 		irq_reg_writel(bgc, 1, AT91_AIC5_ICCR);
+ 	}
+-	irq_gc_unlock(bgc);
++	irq_gc_unlock_irqrestore(bgc, flags);
+ }
+ #else
+ #define aic5_suspend		NULL
 -- 
 2.53.0
 
