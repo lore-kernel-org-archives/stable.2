@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326548;
-	b=MahjmF3ZhaQYzyTshSK8Wg/KZLinGYW5rGBTgHs3gsKfHzrg+nmvkW5UabAoFAAk0y6M
-	 UlDYGLp+MGKYVNRKBZMm8vRnkLsMDrHfL+1qqWPYATinYxMBkwE5ZNRfrluq/7cxsFuHK
-	 YlbzbPaL80FdRv72JtjOijXcj1fHn9F3PafC3d3vZxKKmGbyNntzrJeJyfIsF0a7D1Snv
-	 H0UL+/rWyVwjQ5t1PjnQ/NOW2/xVA6ZZQC0TKp7YYq0d9YohA6z9z4/+yUZRvtOEtW7J5
-	 RLA66ahDzMWNMtOl3mte7vjFMSq5GKkFQVhfTRi1rU5MEd+FQ0adSIJREgYRGPtQE8g==
+	t=1794326551;
+	b=Pdh3Wfia2id5bkR3Hefsir/Gy1d6mCPwnYxu+AzJG/uxgDh6BV7aG4x2OIIS/gWsK15v
+	 Cswo/18kMBaH42UnyAtU/dubOG95cU2khkUIkg19VbM9sKbWg7jQT2P/itwUDUhaRpaPc
+	 baPiPLhMCXoZAFyTvIGQh8h7RKYO/hUL8wPAR9FQ1h2xIF4LzLRNLoo+Gpqj6UfnIzEmG
+	 3uTk69c14eUkyh4Lt/T1PCty3W9/tY8ReiIlnOFvc7XFjqrHNXOBGpq//r6CiS3zSrds0
+	 OaCfXCUX88ZNI688EBlxvevJCrgxgkrOMsM5rB7hnQKGc1oVtxYmo+MCveWdPdP3zlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326551;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Y+Dm/oDupbMZFnnm4R4Tia831mGuYz9Atax42vL79sI=;
-	b=Jtc+Jc7yb/pzZHDdv7pY0tW+viallciJCLTHZXmjOJKfhNRnMjLTD7o6TtnLD19Ps5jp
-	 w6lCEMOMjZFNt5UREKijOQThpDaIqXjJDsuRJOsBWvOqrbM1Wgdc3NMVEasnSQekyAz4G
-	 gyzmjWb7e5oDSaFjL5bbGmEoD/38feVTUHqjl8OY8o53SypUsvA6vpUZK4BE1z8EOXOJJ
-	 b7ST65RKOVV8OazlruVm8wgtxJFsMfOi8GYS7jhoex2KDD9SgEemgjgugVqWsI+YUoma1
-	 uJUVZronDp8RTlE7A0kQQ0EarKwdv2LS5RhVU2XaOBZS0Iw3DPACgqhjsCcCwKGGdFg==
+	bh=5zlBQsCEdTTul3aN3PEWw7tbbm8ClwVf24QzTH8myhA=;
+	b=ZoUOVbfZrGZ1fhY++G0gYGNHZVZk/ssbH6iWCH8bK28AYys/7z9P2fVcCvrn9U682iYK
+	 l8E0jYQjmH4buQNJPr+aJhzjdO8ygM4RISE+vbw1KiRT/ccsbRMG4ykIlob3Nj7Mz53PC
+	 yRM2jtSn2Kr+gdtLCYISI2ysP3ltDpwAbkqMZXtxNEBg2sZ/yNBvg5FKAWKES1IsuFopg
+	 auFQoIN6fSup70YEW7UH6lOOeWkUNCGZdSoYCCSJHvjaTD7hRHvZCODaD+7fzfT6dzfPh
+	 Wwz/KcASZdvhBK2HfCOp7Ti9wAndXs3r03HPwYwZF7hQlN7qivh6uNZrcLZOc0HJ/bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6T7A9IX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZuZlAWs2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE16606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3489B606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:02:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R6T7A9IX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A18D1F008A1;
-	Tue, 10 Nov 2026 16:02:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZuZlAWs2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B80E1F008A2;
+	Tue, 10 Nov 2026 16:02:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326547;
-	bh=Y+Dm/oDupbMZFnnm4R4Tia831mGuYz9Atax42vL79sI=;
+	s=k20260515; t=1794326548;
+	bh=5zlBQsCEdTTul3aN3PEWw7tbbm8ClwVf24QzTH8myhA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R6T7A9IXYjwfShLVOseU6W/2KIuoBOecpQSgjf4n2fcN+aVHf4hcnKgUy4JARWCPQ
-	 poid2qtuV3x8z3+r86Iz3b6dOTkjKiVhSERQ+qlJB7dpa/afpsh/A3Fx65Bhvn3lwB
-	 YBvNfAGlTcq451dG9W8TM10EwiuDOlFQRFfV/ZUPNCnNJOajLhof6UjsH54yIvWpWF
-	 +ZzCvYJ/b6IqsNB1UuwlzIDqhE8OZh+SnIaPSYnRL7LjdAfV57YJvU9UxWEaglLtKo
-	 GnBxaJwcmJoqgmeE2UegkTaYziGrY3JGRKIlQ3EggwwFwIBEygt8VBYydJmg1W98F7
-	 rjFjuJc7y0J4g==
+	b=ZuZlAWs2xGJwYy3w3ApKDoiunglrdfZtZCVVbTZ2GJFq/l5LhsTp+2/JjQt+4LIOu
+	 w/hm0Y2Z0TD95OY4NXoLgpF6Iu0S9F67/vUNyvXzkAOiOiD8y6Y6mASo7glD8UqW4y
+	 jqNtefpNt8ulg08yZq42A/IlLm4X5YhK1S73ATHjxms28IUD7PGmPl9WzmxOjFrVTq
+	 BqcLzDaQ0IX+RQtI0WERdgcnH8FEeFu7T7ARMnEkFsM3dK/zjc4GLUTIAkLVPVYIip
+	 vkiGLdQq5IrfAQS1uRBM/5vANDkhYg0dFpExOyvBXBsv+B+aBebPPiFwhHP3V3bwcX
+	 l22HLqbx5aYgw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Lee <david.lee@trailofbits.com>,
-	Kyle Zeng <kylebot@openai.com>,
+Cc: Jun Yang <junvyyang@tencent.com>,
+	stable@kernel.org,
+	TencentOS Corvus AI <corvus@tencent.com>,
 	Xin Long <lucien.xin@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] sctp: hold shkey across socket migration
-Date: Tue, 10 Nov 2026 11:02:24 -0500
-Message-ID: <20261110160216.2383568-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] sctp: re-point retained control chunks on association migration
+Date: Tue, 10 Nov 2026 11:02:25 -0500
+Message-ID: <20261110160216.2383568-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052316-failed-6.12-52ffeaa358d1@kernel.org>
+In-Reply-To: <20261110160216.2383568-1-sashal@kernel.org>
 References: <20261107052316-failed-6.12-52ffeaa358d1@kernel.org>
+ <20261110160216.2383568-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,67 +65,157 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Lee <david.lee@trailofbits.com>
+From: Jun Yang <junvyyang@tencent.com>
 
-[ Upstream commit ad1320865b1826ffa2e81e37c49535751e81335c ]
+[ Upstream commit 52ffeaa358d1f3d91aa87a26ad90d77769cff74b ]
 
-sctp_sock_migrate() transfers queued DATA skbs from the old socket to the
-new one. skb_orphan() invokes sctp_wfree() during that transfer and drops
-the skb-owned shared-key reference.
+sctp_sock_migrate() transfers DATA chunk ownership but leaves retained
+control chunks pointing at the old socket. A later retransmission can
+therefore access the socket after it has been freed.
 
-If userspace has removed that key from the association, this can be the
-final reference. The following sctp_set_owner_w() then dereferences the
-freed chunk->shkey while trying to take the new owner reference.
+Extend the migration walk to cover retained control chunks and use
+sctp_control_set_owner_w() to assign their new owner. Reuse the DATA
+ownership check so each chunk is processed once per pass, even when it
+is reachable through multiple lists or retained pointers.
 
-Take a temporary shared-key reference before orphaning the skb and release
-it after the new owner has taken its reference. This preserves the selected
-authentication key throughout the ownership transfer.
+Preserve a control chunk's existing authentication key across migration
+so its final release can still generate SCTP_AUTH_FREE_KEY when needed.
 
-Bug found and triaged by OpenAI Security Research and
-validated by Trail of Bits.
-
-Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: David Lee <david.lee@trailofbits.com>
+Fixes: d04adf1b3551 ("sctp: reset owner sk for data chunks on out queues when migrating a sock")
+Cc: stable@kernel.org
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
 Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20261009074244.3718-2-juny24602@gmail.com
+Link: https://patch.msgid.link/20261009074244.3718-3-juny24602@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 52ffeaa358d1 ("sctp: re-point retained control chunks on association migration")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sctp/socket.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ include/net/sctp/sm.h    |  1 +
+ net/sctp/sm_make_chunk.c |  5 ++--
+ net/sctp/socket.c        | 53 ++++++++++++++++++++++++++++++----------
+ 3 files changed, 44 insertions(+), 15 deletions(-)
 
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index e2885a994314a..3d45188488b97 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -149,9 +149,19 @@ static inline void sctp_set_owner_w(struct sctp_chunk *chunk)
- 
- static void sctp_clear_owner_w(struct sctp_chunk *chunk)
- {
-+	/* Keep the shkey alive until the new owner takes its reference. */
-+	if (chunk->shkey)
-+		sctp_auth_shkey_hold(chunk->shkey);
- 	skb_orphan(chunk->skb);
+diff --git a/include/net/sctp/sm.h b/include/net/sctp/sm.h
+index 64c42bd56bb24..84e71381e19bc 100644
+--- a/include/net/sctp/sm.h
++++ b/include/net/sctp/sm.h
+@@ -253,6 +253,7 @@ struct sctp_chunk *sctp_make_fwdtsn(const struct sctp_association *asoc,
+ 				    struct sctp_fwdtsn_skip *skiplist);
+ struct sctp_chunk *sctp_make_auth(const struct sctp_association *asoc,
+ 				  __u16 key_id);
++void sctp_control_set_owner_w(struct sctp_chunk *chunk);
+ struct sctp_chunk *sctp_make_strreset_req(const struct sctp_association *asoc,
+ 					  __u16 stream_num, __be16 *stream_list,
+ 					  bool out, bool in);
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 6d0df43e08a86..6dae9831613ab 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -95,7 +95,7 @@ static void sctp_control_release_owner(struct sk_buff *skb)
+ 	}
  }
  
-+static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
-+{
-+	sctp_set_owner_w(chunk);
-+	if (chunk->shkey)
-+		sctp_auth_shkey_release(chunk->shkey);
+-static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
++void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ {
+ 	struct sctp_association *asoc = chunk->asoc;
+ 	struct sk_buff *skb = chunk->skb;
+@@ -108,7 +108,8 @@ static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ 	 *  For now don't do anything for now.
+ 	 */
+ 	if (chunk->auth) {
+-		chunk->shkey = asoc->shkey;
++		if (!chunk->shkey)
++			chunk->shkey = asoc->shkey;
+ 		sctp_auth_shkey_hold(chunk->shkey);
+ 	}
+ 	skb->sk = asoc ? asoc->base.sk : NULL;
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 3d45188488b97..7734ca92335aa 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -157,9 +157,24 @@ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ 
+ static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
+ {
+-	sctp_set_owner_w(chunk);
+-	if (chunk->shkey)
+-		sctp_auth_shkey_release(chunk->shkey);
++	struct sctp_shared_key *shkey = chunk->shkey;
++
++	if (chunk->msg)
++		sctp_set_owner_w(chunk);
++	else
++		sctp_control_set_owner_w(chunk);
++
++	if (shkey)
++		sctp_auth_shkey_release(shkey);
 +}
 +
++static void sctp_process_tx_chunk(struct sctp_association *asoc,
++				  struct sctp_chunk *chunk, bool clear,
++				  void (*cb)(struct sctp_chunk *))
++{
++	if ((clear && asoc->base.sk == chunk->skb->sk) ||
++	    (!clear && asoc->base.sk != chunk->skb->sk))
++		cb(chunk);
+ }
+ 
  #define traverse_and_process()	\
- do {				\
+@@ -167,17 +182,14 @@ do {				\
  	msg = chunk->msg;	\
-@@ -9707,7 +9717,7 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	if (msg == prev_msg)	\
+ 		continue;	\
+-	list_for_each_entry(c, &msg->chunks, frag_list) {	\
+-		if ((clear && asoc->base.sk == c->skb->sk) ||	\
+-		    (!clear && asoc->base.sk != c->skb->sk))	\
+-			cb(c);	\
+-	}			\
++	list_for_each_entry(c, &msg->chunks, frag_list)	\
++		sctp_process_tx_chunk(asoc, c, clear, cb);	\
+ 	prev_msg = msg;		\
+ } while (0)
+ 
+-static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+-				       bool clear,
+-				       void (*cb)(struct sctp_chunk *))
++static void sctp_for_each_tx_chunk(struct sctp_association *asoc,
++				   bool clear,
++				   void (*cb)(struct sctp_chunk *))
+ 
+ {
+ 	struct sctp_datamsg *msg, *prev_msg = NULL;
+@@ -200,6 +212,21 @@ static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+ 
+ 	list_for_each_entry(chunk, &q->out_chunk_list, list)
+ 		traverse_and_process();
++
++	list_for_each_entry(chunk, &q->control_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->asconf_ack_list, transmitted_list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->addip_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	if (asoc->strreset_chunk)
++		sctp_process_tx_chunk(asoc, asoc->strreset_chunk, clear, cb);
++
++	if (asoc->addip_last_asconf)
++		sctp_process_tx_chunk(asoc, asoc->addip_last_asconf, clear, cb);
+ }
+ 
+ static void sctp_for_each_rx_skb(struct sctp_association *asoc, struct sock *sk,
+@@ -9715,9 +9742,9 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	 * paths won't try to lock it and then oldsk.
+ 	 */
  	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
- 	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
+-	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
++	sctp_for_each_tx_chunk(assoc, true, sctp_clear_owner_w);
  	sctp_assoc_migrate(assoc, newsk);
--	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w);
-+	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
++	sctp_for_each_tx_chunk(assoc, false, sctp_set_owner_w_migrate);
  
  	/* If the association on the newsk is already closed before accept()
  	 * is called, set RCV_SHUTDOWN flag.
