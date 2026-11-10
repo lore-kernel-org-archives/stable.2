@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272885;
-	b=Voob8EX3TAiVOuu+iFMVOClujGuYKnFGkIghJzl4WGbeBR7VyR8ZkKLkWvGx3pjnzdBt
-	 Xj1ZcCXJP0HhqRma220Xub3Q+wREBlOMg4aXo9AURytv79lW4vfVseicS/6AYVVCQE+BR
-	 yjnR3LCjfmUsckQn82bKDHC3p+JFqkYi9Mu9K4UtUHRItNN5h92LIRYvSaLYcbGDTrprw
-	 6XcNQ3ZiXihgVS2faMxAfmU0Sm5PXyptbd00ti8/sFDZ2isR7Uwet2wtje3RxCH3nwpXG
-	 5l+OSYgpzeIltvX5aW1ebJcjjDR+RcLkJGO0y8YlL8vZmdrsynh2yrfuDGW0uCTetbg==
+	t=1794272888;
+	b=ZSljVYwXd/vCa5gNpanl9TSlSmgEyLrzD8Eg+QAKWgzZ+YxgPwnIguW9V/h0QJMnF1aD
+	 ocQySZZcZ0nu+QhzFDVGkZOHN/1l1u3Fp4oNjVraL430e1mCVKh4hjS5/xQn+SH35Feu0
+	 CLJaJusDwwqnEgcVDCDqIC1YJUi7lU45ffg7iZjjMlHFaEvrSuAPpablGPgMQPc/uKNZB
+	 h2BVV4yKtqiy0QNIDhCe523RhCzoFVYchve932t2HScaprepKDNTup0VOkwegVQYUETjn
+	 PwisY8i5akkRryi8UOI5pN523azZnzyIxENtSG4harD8gOf36QgTTsveFPMmY6noDmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272885;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272888;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2qGOrPwI9df0Q8rdGfL9HhS4FvPCwejxCfdXKwTvM+M=;
-	b=JFAXjZagR2N4oeTiw6NNC9WKjMM5IKf2k2YcxA2YQgkJnrAG4TngtAFqeqvgTpLeLGFM
-	 +N10OQITT0gXmKss6OMNU7rkoaRsFQkwkvtCQc6OcsRmrkCOI/ySrlDvDvvpqMShE3UrV
-	 wc9spNQ6vfkga2UAOZid5yFF0tkaVX6hxXyhgkPu9H0mKP9i6mcvcZMPpiXTBHUhhX2Oo
-	 werArQd3jC3ZQ4wDUB0g9woacBiPSyTjdTJsy3EwQuHp7snkSAqbqAA+Z5h1W3+bg5N6N
-	 yyte9tSbKjeqMFhy0tVAkPJV3ZqvlYUYLGXm6XWWEum6aiQkzNF1WMbGvIJ4sHLQLyw==
+	bh=7QqGcsiW7UChmHZNzKi9rFxGcu2hwE9yTeWJIoORpqo=;
+	b=SMTXNy6fxpvYPv8JE5Jjg+ZydkfVi6TPCmdCaQ7zsNTwh8HkhFarJnNmEH37CgUYoaym
+	 mFDsIxorC/ZYfH2QmkK15dJEZuX1bCuonlLqmuMDiPU3ZmVxs7wD6mxwsk76fE80wP99C
+	 asIpCBxdCRpaCG674bbQqYWSzmucp94/E/rzbuYN53+oVdi4AmtIfTeQH3fTxJaNsjI5N
+	 zffck7T4vvvrhme44C0y2LRJ/wLFrSQgGTI8eDFZbrBbCF13agZO2YItdzKrqqrsrJQ5V
+	 pxIB2E0o5JB+QNrNyiuGI+cZbYju6KvGyz1uVhv2MDmDnGnxbptnnUNEeC8EFLAi4dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IxPqzTW/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENQl69Vx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2A5606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:08:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C36C606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxPqzTW/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4BF51F0089F;
-	Tue, 10 Nov 2026 01:08:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ENQl69Vx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11C681F0089F;
+	Tue, 10 Nov 2026 01:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272885;
-	bh=2qGOrPwI9df0Q8rdGfL9HhS4FvPCwejxCfdXKwTvM+M=;
+	s=k20260515; t=1794272888;
+	bh=7QqGcsiW7UChmHZNzKi9rFxGcu2hwE9yTeWJIoORpqo=;
 	h=From:To:Cc:Subject:Date;
-	b=IxPqzTW/m7VAWbOENaWIFctnl4KfUNORZsG/EHGASuiA3hXTIp/63yUtiASoNla44
-	 KCUuHuxD0wpx06fXoYgA8ol6i12NfhfJCi4V6xGEd6tC3/C5IXaV4NzDG6q3l2ZJjw
-	 NMrLf1xGV9bdvPmDLXDmRf4HBvLO2JAQHYSIclI3/U084AsHBPsGlIh1yWa83bTRwP
-	 ByA0kDITJnyUi2ouadNHCZR4i6EppCLYX5/4rSoYZS/caOKLTLGawegqq/+oQ1uNm9
-	 X+F83/5BxpP114jw4HyHDQpbHYv9eIhpSriYXIOJGGNpJgYA3FOn5hd96i29Ou+f6y
-	 P1jvI39ATWDig==
+	b=ENQl69Vx0Z4bJSv1ic3yZWcPTTV8FBznZ/2ZYHCynXVp6x7N2dfyw82PbdEghji61
+	 rSUb1Hop+zr3AmmHeSMaPl5CA4ZzKEDNbz/Yc+oN69JBO6EM12+L78/ygd4Jz4LdJv
+	 1HsBtJLAORgfg0zw6+b3DmdYb4MECGOc4rO5A/F/hhkEjv2RnG24EJQG0IRkYxtPzC
+	 syW6OY0wg/r6mPzF1xRn3bzow3pDwaU+dif1eumpaZGiRtqKD3pwZzOywcMs15Iyb7
+	 iDZj20mjRHDXlhU2PXkLextAQy1M62LXQPn6/W9vyq1G/epfJAedVXhvN3h2Rin4ZQ
+	 8BuXY/zNQHD6Q==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
+To: ljs@kernel.org,
 	akpm@linux-foundation.org,
-	sieberf@amazon.com,
-	sjpark@amazon.de
+	jinyue.li@linux.alibaba.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core: move static variable last_nr_regions to damon_ctx" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:08:03 -0500
-Message-ID: <20261109200803-failed-6.12-26ae50a0901a@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vma: update VMA iterator state on error in new VMA merge" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:08:05 -0500
+Message-ID: <20261109200805-failed-6.12-168ed9c5d5ec@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,95 +73,134 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 26ae50a0901a44f7d50053f87dc38abd9f9a269c
+git cherry-pick -x 168ed9c5d5ec2fd326715eba5750c2b69e559ff3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200803-failed-6.12-26ae50a0901a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200805-failed-6.12-168ed9c5d5ec@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 26ae50a0901a44f7d50053f87dc38abd9f9a269c Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Sun, 25 Oct 2026 09:48:05 -0700
-Subject: [PATCH] mm/damon/core: move static variable last_nr_regions to
- damon_ctx
+From 168ed9c5d5ec2fd326715eba5750c2b69e559ff3 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 27 Oct 2026 11:25:20 +0000
+Subject: [PATCH] mm/vma: update VMA iterator state on error in new VMA merge
 
-kdamond_split_regions() uses a static variable last_nr_regions, to infer
-if the region boundaries are too stable.  If it looks too stable, it
-does a more aggressive region split because it might be a fake stability
-coming from non-aggressive split.  Because the variable is static, the
-inference can be racy and wrong when multiple kdamonds are running in
-parallel.
+Commit cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs") shared
+code between vma_merge_new_range() and vma_expand().
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort monitoring accuracy can be degraded when multiple kdamonds
-are used in parallel and the workload has certain access patterns. Still
-it is a bug that is better to fix.
+However in doing so, it failed to correctly restore the VMA iterator when
+vma_expand() errors out.
 
-Move the variable into the damon_ctx struct to fix the problem.
+This is a problem when the immediately preceding VMA is mergeable and
+vmg->just_expand isn't specified, at which point the VMA iterator is moved
+to the previous VMA.
 
-Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
-Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
-Signed-off-by: SJ Park <sj@kernel.org>
+(Note that vmg->just_expand is a special case for brk(), where the
+iterator will already be positioned at the VMA to be expanded.)
+
+Resolve things by restoring the VMA iterator on error. Use
+vma_iter_next_range() to do this, so it will correctly stop on the gap
+after the previous VMA, rather than skip to the next VMA after it (this is
+a new VMA merge, so is being applied at a gap).
+
+To isolate the error handling, return early when a merge isn't
+possible (what the vmg->target check was doing before), then handle the
+merge success/failure case explicitly.
+
+While here, update vma_expand() to jump to the nomem case when
+dup_anon_vma() fails, so vmg->state is correctly updated.
+
+This doesn't impact anything in practice, but is the correct course and
+since it's part of the error path that this patch addresses, it makes sense
+to update it also.
+
+Users are very unlikely to have observed the issue this patch addresses in
+practice, as it is near-impossible to fail an allocation for an anon_vma,
+but a process under memory pressure that receives a fatal signal could
+trigger it.
+
+This issue was originally reported by Li Jinyue for which I am grateful. He
+indicated this was uncovered by a private syzkaller instance.
+
+Link: https://lore.kernel.org/20261027-fix-new-merge-bug-v1-1-7023a787e6b9@kernel.org
+Fixes: cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: <stable@vger.kernel.org> # 5.15.x
+Reported-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+Closes: https://lore.kernel.org/all/20261025093921.1011927-1-jinyue.li@linux.alibaba.com/
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: <stable@vger.kernel.org>
 ---
- include/linux/damon.h | 5 +++++
- mm/damon/core.c       | 5 ++---
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ mm/vma.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 63050eb2206a0..cb6a50032a1eb 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -958,6 +958,11 @@ struct damon_ctx {
+diff --git a/mm/vma.c b/mm/vma.c
+index af8e65ada23b2..d416ba58eb4c2 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1141,6 +1141,7 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 	struct vm_area_struct *next = vmg->next;
+ 	unsigned long end = vmg->end;
+ 	bool can_merge_left, can_merge_right;
++	bool move_iter_back = false;
  
- 	/* @rnd_state:	Per-ctx PRNG state for damon_rand(). */
- 	struct rnd_state rnd_state;
-+	/*
-+	 * number of regions after last merge.  Read kdamond_split_regions()
-+	 * for more details.
-+	 */
-+	unsigned long last_nr_regions;
- };
+ 	mmap_assert_write_locked(vmg->mm);
+ 	VM_WARN_ON_VMG(vmg->middle, vmg);
+@@ -1182,23 +1183,30 @@ struct vm_area_struct *vma_merge_new_range(struct vma_merge_struct *vmg)
+ 			vmg->end = end;
  
- /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index eb1fcdabc0075..09722257ce736 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3795,7 +3795,6 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
- 	struct damon_target *t;
- 	unsigned long nr_regions = 0;
- 	unsigned long max_nr_regions = ctx->attrs.max_nr_regions;
--	static unsigned long last_nr_regions;
- 	int nr_subregions = 2;
- 
- 	damon_for_each_target(t, ctx)
-@@ -3811,7 +3810,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+ 		/* In expand-only case we are already positioned at prev. */
+-		if (!vmg->just_expand) {
+-			/* Equivalent to going to the previous range. */
+-			vma_prev(vmg->vmi);
+-		}
++		if (!vmg->just_expand)
++			move_iter_back = true;
  	}
  
- 	/* Maybe the middle of the region has different access frequency */
--	if (last_nr_regions == nr_regions &&
-+	if (ctx->last_nr_regions == nr_regions &&
- 			nr_regions < max_nr_regions / 3)
- 		nr_subregions = 3;
++	if (!can_merge_left && !can_merge_right)
++		return NULL;
++
++	if (move_iter_back)
++		vma_prev(vmg->vmi);
++
+ 	/*
+ 	 * Now try to expand adjacent VMA(s). This takes care of removing the
+ 	 * following VMA if we have VMAs on both sides.
+ 	 */
+-	if (vmg->target && !vma_expand(vmg)) {
+-		khugepaged_enter_vma(vmg->target, vmg->vm_flags);
+-		vmg->state = VMA_MERGE_SUCCESS;
+-		return vmg->target;
++	if (vma_expand(vmg)) {
++		/* Error occurred, restore iterator. */
++		if (move_iter_back)
++			vma_iter_next_range(vmg->vmi);
++		return NULL;
+ 	}
  
-@@ -3820,7 +3819,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
- 				       ctx->min_region_sz);
- 
- done:
--	last_nr_regions = nr_regions;
-+	ctx->last_nr_regions = nr_regions;
+-	return NULL;
++	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
++	vmg->state = VMA_MERGE_SUCCESS;
++	return vmg->target;
  }
  
  /*
+@@ -1288,7 +1296,7 @@ int vma_expand(struct vma_merge_struct *vmg)
+ 	if (!ret && vmg->copied_from)
+ 		ret = dup_anon_vma(target, vmg->copied_from, &anon_dup);
+ 	if (ret)
+-		return ret;
++		goto nomem;
+ 
+ 	if (remove_next) {
+ 		vma_start_write(next);
 -- 
 2.53.0
 
