@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319423;
-	b=j3aNs53qQ3WVL15SVfnjKTXgWUfCvWMxbEtAae2GHUsHOvx/2PmH1ChmY1QYpzskV3BW
-	 ArhzZQXRkGb4bwwh4UJVMGXseXy/T2wK+vAAPBOH9ljg5QbK53tL1+DSKpnaNfHVJfpg4
-	 negRWEhBeVGhym6ODJt9JYEbSgEd277345hCNX7BJTrmWlbioOrZpeMg6qbnMl1SXIMyP
-	 zOLkQhczEyqSCnTQiDbWZOKK07MjUoNShP4Xn59bLBKn+MYD99uufvn0+kfom9hxo7vV3
-	 vUkitwt+XG/YA+eIeR+1vwGDRcqKBaanLletZa6n9cEAtpJRizh5mZ4Ymy2amAT43yw==
+	t=1794319486;
+	b=WDiX/+riF7K+xGUSiS4j3QHNO7N5gz/rAHwiUkJ1CaC7xVjGkXmvWddptHRblK/2/XnZ
+	 wt7w8iCrHIGYohEwNbvRl0DuCt6o+Lkl8osAWUfvA9wI54NjDoX5pSoaEZs/NyczS+WnG
+	 yFBiHzcHu3xcMSm8dbggUY5qqVYejLwZqQo9oHVgpiUdHpAMQzlchkNcFqjQekQHkO4NH
+	 nanzhN++lOVuRQAfvaYhYBN+N3UhWOQ4EOIXz79p4cfdAhOd053mh67VK8e0cyG3Y/Yfa
+	 wn6Z4jEpCQebU8T5o88qx8mbUEsT4aY33hvPwucGJBxdMSb9Wouu891OLHoTUdRM/QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319423;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7hOMnB/VbWg/0xXq5zwBqhYcBW9E8nf2GYQFTSGcv2k=;
-	b=IIa/rBgBbehzK9Xithj0G7YJ1BpKMg7Z27mZhtGhFufiTY4xL/m8/OSZ8Xq6VKawVlt5
-	 Yxo5bA2Sfs9N/S6iO1ZJ3zbD1Sz6w5ibXNboW1gimr5MmFUkCMs5cJo9cD1PP3qBiuWOm
-	 /ARzRXuoTIM96Ob3m3LcWFaGNu5tf9C22Z7f7cd8jkcvoslyBnwXiiuaRziaGkhIBIm+f
-	 Sfliiycy7nCL6eAMGvkMPe7DIShtX6wZVddNW/EI81U2LzoQSBgW5KngFaNlw0agB65SB
-	 ApNJnS9jJTHsgNj6duaCxQoUZxZnIq7tGVeRkapsjZ+pOz+D4uv/hHP+XhZ6E5QC4hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319486;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=i3BnkwwX1QpJuZSXpGnT1o2/p8maiFIvIlJFgd8ousU=;
+	b=0ZBwK/bditIvjGJ7OgSs502h/yV/xhtqNsULRZEEUpcAKUMmB0POXIxbFhJuexLA0oXx
+	 aaiLa0+Jf/wqIUT4CBr5lEiqDUXbXZ7TsJhYEifGaM8D5W7BXTltsDlURmGB7OTxBhzYn
+	 oyqoftahnQNpRCqlFuT7lnW+/NeKnNwGDfOVNEy+925GMIUQtmokw7odvnfSS2BJhRCQ8
+	 7HJIbCl7bGrIOjP9ngbsx8u8+8YCiHp8hKDWsPAcGwb09kUeiCaXjwRf85yuYj+Pas9VL
+	 UuMh9PEdIRq+brPP26FwQOfTDsSAaMLBRkbBqmHb/pNaQdMJyUskWO+p8lz8LeFUp1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZPVcyn59;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D6760A2633
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:03:43 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="dv/Ghu2h";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 71CA0606A32A;
+	Tue, 10 Nov 2026 14:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71CA0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZPVcyn59
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F210B1F008A3;
-	Tue, 10 Nov 2026 14:03:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319423;
-	bh=7hOMnB/VbWg/0xXq5zwBqhYcBW9E8nf2GYQFTSGcv2k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZPVcyn59aThPDx+IWrEM7lxOyZbpbL0HRpEk2S+KhvXbNeS/Htn2SElq7Tr4nhMqf
-	 2VUEfkJ28RcXdOZEXB8rbegLRM34wsESUI/+x9BgiDc0P/eQvZMiY2BAUawd9nmQ3W
-	 bEzl38bs1mY4RCJpGoLmXKgPjsLY9n/795cnd9Oc5wc+6ZNH6uonaQJDfDxemUfi4V
-	 3+UrZqMg3GmMDV0BX59roZTHvlCioAflacy2PVOEDPocBSu0/ti9qLrBidJC47BboT
-	 Zelxlxdv1p/8UnNNZTV0S7/28w+glG+sgpbnRjUzXXBGcZk1HX3GoNL4OD++yC1CS9
-	 OlEFKjeRtbtIA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] ALSA: core: Check shutdown flag at D0 power-state, too
-Date: Tue, 10 Nov 2026 09:03:40 -0500
-Message-ID: <20261110140334.1822546-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110140334.1822546-1-sashal@kernel.org>
-References: <20261107060043-failed-5.15-ad63c5b62843@kernel.org>
- <20261110140334.1822546-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dv/Ghu2h
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B314F143D;
+	Tue, 10 Nov 2026 06:04:41 -0800 (PST)
+Received: from [10.57.10.132] (unknown [10.57.10.132])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A51853F632;
+	Tue, 10 Nov 2026 06:04:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794319484; bh=BlHcBR7XX57WikFwdYmvtykbeUsCkBngls9+R/yKh6Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dv/Ghu2hcXhyZsdzum0Qj+KYMSpRnrdxXFCaVwePrPvToPowei/9jMA30yVCil2dK
+	 49YFj+/dj03TnWCuz3fzCHb54refDhICi9kVBS42rqgHZdXMjO3Vmh92IDnY4sG6/s
+	 sg7dxeAcKd5AvJ2pG41DCd3as0OkbuWM47N62woc=
+Message-ID: <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
+Date: Tue, 10 Nov 2026 14:05:16 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,52 +53,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
+ ranking
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+ Guo Chen <guo.chen@oss.qualcomm.com>,
+ Vincent Donnefort <vincent.donnefort@arm.com>,
+ Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+ tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
+References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
+ <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
+ <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
+ <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
+ <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
+ <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
+ <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
+ <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
+ <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit ad63c5b62843895e8c3cd7291ed07cc659df0355 ]
 
-The snd_power_ref_and_wait() skips the card->shutdown check when the
-card is already in D0 state and immediately returns as successful, by
-assuming the all-green in D0.  This assumption makes the code after
-this sync point behaving as if all power is up and ready, even though
-actually it might have been already at the disconnected state.
+On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
+> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> wrote:
+>>
+>> Hi Rafael,
+>>
+>> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
+>>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com> wrote:
+>>
+>> [snip]
+>>
+>>
+>>>>
+>>>> That's fine, please continue.
+>>>
+>>> I have a couple of questions though.
+>>>
+>>> First, why is the ondemand governor mentioned in the changelog?  In
+>>> the mainline, the ondemand governor cannot work with EAS, so it
+>>> shouldn't matter for this issue, should it?
+>>
+>> The ondemand is affected by the EM setup code and set 'inefficient'
+>> flags for some OPPs. The EM is also present for cooling devices
+>> and can work w/o EAS and schedutil, w/ just ondemand governor.
+>>
+>> Because EM marks the OPPs kind of 'globally' as inefficient, then
+>> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
+>> In the EM code we have:
+>> cpufreq_table_set_inefficient(policy, table[i].frequency);
+> 
+> So maybe this is the one that needs to be fixed?  What about simply
+> skipping boost frequencies in it?
+> 
+>> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
+>> pass to __cpufreq_driver_target() with that flags as well.
+> 
+> Thanks for explaining and all of that needs to be said in the patch changelog.
+> 
+>>>
+>>> Second, why is the issue regarded as a defect in the code and not in
+>>> the energy model?  Arguably, boost frequencies should be more costly
+>>> than the non-boost ones.  At least the idea behind the boost is making
+>>> higher-cost OPPs temporarily available.  If they are sustainable,
+>>> treating them as boost OPPs is rather pointless.
+>>
+>> IMHO it was a bug in the commit mentioned in this patch fix tag.
+>> It is affecting more than just EAS or EM, since the EM is working with
+>> all generic code and all cpufreq governors.
+> 
+> To be precise, the EM initialization may affect cpufreq in general
+> because inefficient frequencies are used for CPU cooling.  Fair
+> enough, but I'm not talking about this.
+> 
+> I'm talking about a reason for giving boost frequencies lower or equal
+> cost relative to non-boost frequencies in the energy model because
+> this doesn't make sense to me TBH.
+> 
+> And I get that such energy models were there before the commit in
+> question and now they are not working properly, but IMO they are
+> broken, not that commit.
+> 
+>>>
+>>> TBH, I'm too comfortable with looking at cpufreq frequency from within
+>>> the EM code.  If that needs to be done, something is amiss at the
+>>> design level.
+>>
+>> I think this edge case is special, as I described above.
+>>
+>> I'm happy to hear your view on this EM influence to some global
+>> setting in cpufreq. Maybe it was too far to establish this
+>> 'inefficiency' flags in there for many usage?
+> 
+> There's nothing wrong with using the information from the energy
+> model, when available, to amend cpufreq, but the patch goes the other
+> way around: It tries to amend the energy model with information taken
+> from cpufreq (in order to avoid making mistakes later when amending
+> cpufreq with the energy model information).
+> 
+> I think that cpufreq should simply refuse to set
+> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
 
-Add the missing check of shutdown flag there for the more consistent
-behavior.
+I see your point now, about the direction. Yes, you're right.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260929125346.1478631-2-tiwai@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/core/init.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Since we are taking the information about 'boost' from the
+cpufreq, then refusing to set OPPs inefficient in the first
+place makes more sense.
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 0cd775e913bb7..be04e64490ebc 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -1155,12 +1155,12 @@ EXPORT_SYMBOL(snd_card_file_remove);
- int snd_power_ref_and_wait(struct snd_card *card)
- {
- 	snd_power_ref(card);
--	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
--		return 0;
--	wait_event_cmd(card->power_sleep,
--		       card->shutdown ||
--		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
--		       snd_power_unref(card), snd_power_ref(card));
-+	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
-+		wait_event_cmd(card->power_sleep,
-+			       card->shutdown ||
-+			       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
-+			       snd_power_unref(card), snd_power_ref(card));
-+	}
- 	if (card->shutdown) {
- 		snd_power_unref(card);
- 		return  -ENODEV;
--- 
-2.53.0
 
