@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278481;
-	b=NFkHDgQCjrzE4DrPJQpWwh5D9OOM6zhoPeN6p1HZhI+EoHrCvA9uiihco1J169FvDTRL
-	 RnmmiwAs6wd2KbcwLsidf1aJ9rz7fpieAFbLz40vleaGm7ZvbVpuLCFS16ds4zpvVaCsZ
-	 SbjbEjzPIqcN1W+7cdCpncX0y/AJUou2CXOSKXHkhjTaI+0tN/6HZqpTZ8KRGc2D5a2fj
-	 DWvJRQc1tTIY3xImbw3MjNP3N7ojsb/x4WvVs6t4eexD+CvJKwtipusK6HZQEt3ziHgQK
-	 o/A0hvB6zYdMq91zZFUzKGzw4YIzR0eeWb+R/RmAULpiIoN4wxmkDjSuKdmhq/Tjdkw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278481;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0+CEVYuj+xLV8rl3BnGIpVdgmdAcSAMyVq4sxjr25VQ=;
-	b=qMmK4NsxsEdXnqYlVwgF/27638F7VIdKsQl6bEHg5fryLsY1uKa2S+v+ybu42lTI2RHk
-	 Npr9xw3U8vv3pd9DYvFnWI/Terltd7IKmQZfXKwSvBUgn33GGOFfASO4r8K9GXOlOb48D
-	 Qmiz0X0hSYwPCC3celO3VJS07TRf4jUVJ3Zf+buVuDQhRDEQAsd5Y6kLPWhKycqc0YgaO
-	 geZHr6cvjOm+YcZXM14HLMjTnKLtJpTm/2A4PV/VCOha+WFalQGMDBP/y0Xhqjc4BtsN6
-	 qoozAB6XWLppEx5SbUF1cGiOzRHsZilUuG7sil0bd6oIzj7rx1HlNeIj1+oYW5lgovg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTAOn921;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794278517;
+	b=Wdd39Bd80qf7Xl4aH/2OKQa08YFBwWqH0iLCuzgDBFMzNn+jWjMROohhMKtYujPhDTdT
+	 /5sQhq6j7r2YnucRxWxwj77B9BwHpAvLuo8l0VwiCtAFdt40hHts+uqalRUQ8LIML6Voc
+	 pGAFPd9D3sURedZlDrpAXHTycqwXqQWGZLsAIIGnTvXeogGpPKiyYKj5JkrihCXHRdkYt
+	 ymaOXdYaTPduM3HQ2DVgzzP1Pms6o1nJ/MGlk9WXyV+zRANMJlep/mRMjc+dtO2rvRImD
+	 sZBlnhxz+97fIG8T8zzUcOj2gkmXRYyy37uq21eFC7KEnsQ5g7xaUfFkx6EtJ/xcK6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278517;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	b=RUJxYo8UZSRt4GOcIPKswd2uGW5zrp51P4KoBfBfIHpL9HTrPeWUwR3BjMFq9oDWlEwB
+	 QF1//zbFLtaDSJuagIXWr6rRz6TPE/we+IZeximfDS/Y2nfbLqDuVHtO+MBLHOlE4vcIK
+	 R7UDzZKBTim4k037wP+gy4YkUjOaeLNj1sg6cFhM5Qii7XuiKrVJUX6Wqneb7c2Unuyau
+	 kJ1rIIR0A/FyZTNVeawO7OBNgMLS6OTBYCH5lYM3pY6HxFfUhN+fVuM2H9r5e25QlGos2
+	 xEocYt6WouGfp3q/Lu25ZmMoth6MQcGarZTH44HjcyinIi/uQAhww+oZRhdl//Tbz4w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ06U85j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E62606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5E6606A321;
+	Tue, 10 Nov 2026 02:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iTAOn921
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B893E1F0089F;
-	Tue, 10 Nov 2026 02:41:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ06U85j
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794278516;
+	b=Gr3MTbSM4RccOy5tyuv3roHYZ6Oh7BB6xLm4v4HBGEgi3iFxfRDgCD99rSP1hjbJCNgi
+	 ndp3G6QIZIrmjJ++Ej5Ty4rT303Cs2cjRxOBrabBw3EEovaKyfttcvMeGnxy6M6rkUkZI
+	 UBvc1aBNz1G5Ws9ONnmsLZe5Km7A/da6XWwkkuBUOXycUPUzywGDgzlaDd86yJ5+DJcsF
+	 qOU7iYxiMBnb3dpN2AYYh3YKCUgr+ezMA5+aD3vckyo1i8aDGFOS/ZUlbf6v56gpUAItZ
+	 YeRP+ghhteSfmomk6VdOJbD7IhlaufO39MN4MUrmZvioT0Xq2VJt/EUOqNwG3Mouaxg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794278516;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	b=MDlf9Bv2EFy6D09SnA+SnEo8aAtp+DuvZ9w38n9A9C7q4fYTmYcB8H1EZnw8gZFu4aDy
+	 3DBUT2rGGmIsARlQhOrKufrHg8I1msst2dj7rs+wmXzSelbs4oQ5Lfz1A5oCdRWG6E4oF
+	 a8mCiIf00vosYRZOjZ/0pljsxSMg7ztkNoM5pkeo1N4yOQzQTnRa0S6xAMo97/XFgJufu
+	 Yxs12a/OE94oleLG3JweX4vRwLlE0v70d2cvOEN2Fd4HDcFfS718Wae5+TnsR19WVt0/X
+	 DTjeWd/NCFCrfrHSZXn955PStPXkKXC4rKOD2IdkFO0h4QDCSIZaz65T2LdqlBXxspg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C51341F008A3;
+	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794278480;
-	bh=0+CEVYuj+xLV8rl3BnGIpVdgmdAcSAMyVq4sxjr25VQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iTAOn921PzBbbJLeCD5kTlJLeEJFOazI5wgGVmarcBeNb3e2acNMF72ML4mJWubbh
-	 u/ygqqdDafHMfYnWYyUptacFStSE060N07GPCZc910iQp+x+y5gbLeEOGdb5+aSE1K
-	 G7DhnHRFBi1ONGhBXdogMqp1T2f8S40VXCnNotUxpKWRm0QpJLpiYVZ/mJhyA9Xiuk
-	 kG6euJrzXh6ziHK2okGPithw+xec6zqqs8zi9pvqKIVh50DlA70TQizfpcmRt6mKdh
-	 IYl7On2t3kNVWr/ePC1m6yYhH1ygHTPQJJipPN1Kt/8laERS4xI8mfw7XOnJ9J8v+6
-	 4Qyz9h3Qhdykw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iio: light: ltr501: Power down chip if request irq fails
-Date: Mon,  9 Nov 2026 21:41:17 -0500
-Message-ID: <20261110024106.3879067-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052814-failed-6.6-8a9bcd587d7d@kernel.org>
-References: <20261107052814-failed-6.6-8a9bcd587d7d@kernel.org>
+	s=k20260515; t=1794278516;
+	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hJ06U85jtJeqmavRozNBRQZ0Bi3SJ3ftGqRpqfOURiAHY9iCaxmIL5XesjoECQ9M2
+	 VAtCkfDt6UeLQS45NVca2BaBo6qkUIrpLds2eMFjg2YdszkdqzX3QoA1CbcP8W8XRt
+	 /x/lZxapOd/WseQ19ZBNDfZNKLSsH3z+2Lvkp/nqbqEfIlrBFfM4gaqP+1TfpASmT0
+	 uw4SjBvJPFr58s2K6y6iQq56jD/DyQxQwtYX3ZF7isEMSg+KDvUC++c28jpU0zY7hJ
+	 unfYEHmgL87PWi31n/rhd9aXw+rpnKNIsmJHBG42bpgxZHe4omX/Xcg89cUWz91U7S
+	 rGKj8Qz0fPxmQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 50C6A4878E;
+	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
+From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 11:40:49 +0900
+Subject: [PATCH v7 3/4] usb: gadget: gadgetfs: prevent ep0 event counter
+ underflow
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,41 +83,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-gadgetfs-v7-v7-3-6d05409cc61a@gmail.com>
+References: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
+In-Reply-To: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jing Lin <kayano050408@gmail.com>, stable@vger.kernel.org, 
+ linux-usb@vger.kernel.org, 
+ syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+ Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278513; l=2000;
+ i=kayano050408@gmail.com; s=p600; h=from:subject:message-id;
+ bh=lkYUW+XIlbdK/rh+1VF/WDnE3MNRdwNCKjzdXPE9Fvo=;
+ b=xdV0LO301dIjt70LNgqdbL4X13NcnfFZpK9haUSjFq+MHE5dxKccphBn6t20Z9TFL1xps3SyL
+ 3ncoWLRvj3+CnWTSA/aWLb4bOQGY+J9s1z2a8W6ru7qBn7ZTm3M9N1H
+X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
+ pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
+X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/p600 with
+ auth_id=1475
+X-Original-From: Jing Lin <kayano050408@gmail.com>
+Reply-To: kayano050408@gmail.com
+Content-Transfer-Encoding: 7bit
 
-From: Esben Haabendal <esben@geanix.com>
+From: Jing Lin <kayano050408@gmail.com>
 
-[ Upstream commit 8a9bcd587d7d768e6c8e9fff88bb89645e412731 ]
+ep0_read() snapshots dev->ev_next, drops dev->lock while copy_to_user()
+runs directly from dev->event[], and subtracts the snapshot afterwards.
+A concurrent disconnect, connect, setup, or another reader can reset,
+deduplicate, or consume the queue in that window.  This races on
+dev->event[], can drop newly arrived GADGETFS_SETUP events, and wraps
+dev->ev_next if the queue shrinks below the snapshot.
 
-In case devm_request_threaded_irq() failed, we were leaving the chip
-powered instead of powering it down again. Power down the chip switching
-ALS and PS modes to standby.
+Dequeue the events into the local buffer and update dev->ev_next before
+dropping dev->lock for copy_to_user().
 
-Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: adjusted context to preserve existing IRQ request failure logging ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Jing Lin <kayano050408@gmail.com>
 ---
- drivers/iio/light/ltr501.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/gadget/legacy/inode.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index 498cff9327132..deaa18d88e47a 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -1557,7 +1557,7 @@ static int ltr501_probe(struct i2c_client *client)
- 		if (ret) {
- 			dev_err(&client->dev, "request irq (%d) failed\n",
- 				client->irq);
--			return ret;
-+			goto powerdown_on_error;
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index 6514220ef..0b3210f87 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1266,25 +1266,19 @@ scan:
+ 				break;
+ 			}
  		}
- 	} else {
- 		indio_dev->info = data->chip_info->info_no_irq;
+-		spin_unlock_irq (&dev->lock);
+-		len = n * sizeof (struct usb_gadgetfs_event);
+-		if (copy_to_user (buf, &dev->event, len))
++		len = n * sizeof(struct usb_gadgetfs_event);
++		memcpy(tmp, &dev->event, len);
++		if (dev->ev_next > n) {
++			memmove(&dev->event[0], &dev->event[n],
++				sizeof(struct usb_gadgetfs_event)
++					* (dev->ev_next - n));
++		}
++		dev->ev_next -= n;
++		spin_unlock_irq(&dev->lock);
++		if (copy_to_user(buf, tmp, len))
+ 			retval = -EFAULT;
+ 		else
+ 			retval = len;
+-		if (len > 0) {
+-			/* NOTE this doesn't guard against broken drivers;
+-			 * concurrent ep0 readers may lose events.
+-			 */
+-			spin_lock_irq (&dev->lock);
+-			if (dev->ev_next > n) {
+-				memmove(&dev->event[0], &dev->event[n],
+-					sizeof (struct usb_gadgetfs_event)
+-						* (dev->ev_next - n));
+-			}
+-			dev->ev_next -= n;
+-			spin_unlock_irq (&dev->lock);
+-		}
+ 		return retval;
+ 	}
+ 	if (fd->f_flags & O_NONBLOCK) {
+
 -- 
-2.53.0
+Git-155)
+
 
