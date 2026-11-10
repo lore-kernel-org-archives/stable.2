@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311797;
-	b=KjXb2txZZ9gWGhIvXg0tjwTvgmVtj9N+ZNSnqpxuZuuGCWAqYAXXcg3tJgoFJV4Ib8Wk
-	 jSnqGN2X3KiRogdxDAjGrmlI5RX6j9hgq2GgQJdQCDBqDwgFsI016Z6uNNlL7ccELSNqa
-	 jOBhHAZyxekh04JQO3rBntg/EmhFfNRbNO5VyZBVV44yyQxAni/wOkd5VGXqMMQ8WqThh
-	 eIuu6cvjFLBA40WWXFQTruzQ+o9hKA60a8qwfT9hrXswcCouDiW/4t5FNqr2LL+keZ5yB
-	 3lL/E3Cit85Iba4LkCIe/i+7uZo3PUQnQjK2PkNKAc+i8aElhYJn9HFwmDN33qpdCWw==
+	t=1794311881;
+	b=MhX9sKQ3KLL7DIErIuLeTO23Emq+r4GlZOmACoLQNNjhqP3hRxfkHBOI4gqKqN8lRhes
+	 3pV2lyelIYTEKROiLts73yexFXvCfz1SD/owc+h/FvFeIAUyyQ6ScHPUuYb7HhrPaOjwi
+	 1mJG14NkEwBgxI47ozdycPRfwImQQ0NBXwxPNp7rEnXrrog9q0esdQH/weoW34MxIT4Oh
+	 zDzg1MC1e3VvgAi6cDxlp687PZLtxTAqCAtuwOv6eFOkRdnmVIBVooBu3/de0I0yuXrJ1
+	 BxHFhzTyv7n5wN1enMtkcXmIgIfw1OJg6WZ3ILc7gfPJee/0yS3cxK7U9UUOUKd4rrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311881;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iPdoBRKyDaV4poBXYoEa6S8T6oYCIbQ0TgoRnLNBvco=;
-	b=ToiGgtt2YeCGv4I6GO0F6VmDwVvviUkY8e/b9+zwJqbW6SdJqQf81pA7SwmAz+2WhFZM
-	 De9GeUgFm145pclSBAfHNeWqPHkl0MYJekoCuMTE6YAvSqOSBuvHcz2jBLNscvZmn6ner
-	 ATHn8UUxb8w/J+Qo8EvYODAltdrNk5WJCooEq4/y9yqMRyey051x6EsTvISfS0haBeN6b
-	 T005ZNeQfGwtk8+xrLiDTR64XguJH7COw4RtShC4KJjpdlAcad0XqoTFATnHeOslKvUYl
-	 tfDSAsYkSxYmYdybz2uaBK9rPMCT5N/LBqYifPGBkb2vnC3sZkZKvwwbQ6CI6q2yS5A==
+	bh=MRlcBsYEXfLTOLgnYBNwCH31rRgWf3VIsXtcqykQo3Q=;
+	b=maFxWBYSjUJG8RAh/c7cq/sww2otPofZome2i7i1Nb9DWv4iTfsfwYQLSOz+TFUlafM3
+	 tkXG4v+DKSE8Tf2EemYvAUAfA7Q8gJ6fzTx+RdgMBjRAUF+qvObXQf+glQanOn8jT0604
+	 6WjjxBNE2CSN873v7A0OPtj5O6Yh5hsfqua/iIFSI61Py2TTnYLE/GC3bPPeVmzoltZc2
+	 GAS+r9Dr37tPBilNuitgSTwsqes8QyxyLmpIBHTOzN1HB6KeQ2I+ni5sVVsTbQAsxUceu
+	 xn/jxQ6uW9AuiVbz4YjYuewf8cF3+qXk/HpOD5LE5CMRJRKeufx0uHTnqHrQkYHJdMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dox8atky;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7WZbjpJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E526606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:56:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93DB606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:58:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dox8atky
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0561F008A2;
-	Tue, 10 Nov 2026 11:56:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7WZbjpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62161F0089F;
+	Tue, 10 Nov 2026 11:57:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311797;
-	bh=iPdoBRKyDaV4poBXYoEa6S8T6oYCIbQ0TgoRnLNBvco=;
+	s=k20260515; t=1794311880;
+	bh=MRlcBsYEXfLTOLgnYBNwCH31rRgWf3VIsXtcqykQo3Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dox8atkyRGNqPr8lvz+ICYWwHKawZOgC+dVQ5jshU2fe9CMmy6MzTmF4NK/inY+0V
-	 GkEl8mMyNZNCw3nU8RTHNuXFGBIJm4yX1STqfQmdCXyaMtPIYnu+krts012CSI1VTK
-	 W90caqBSZ35nquQeg3Z9eOmATJT+SlekWp1zKZ8JEb+OCAaWJwSN8Qik7lR4Sh9yhx
-	 QAKgaqrZiwZE3U1AA95VHiMG9OkZ6VwFCChJAoncKf4LmAZzp2pjJ+4MO/5xsE84yV
-	 WlG+hn+FUlxGb295i+8VE/iBZSBezg7b7SaxOSHwJfq4w8uIzxGpT4y+kASWfhOrMj
-	 7PLe3Wtp4IzQw==
+	b=G7WZbjpJ+lEmTcO/XsFbMuwTmnfEWUc4dBB+y/rj7kgAckqiLyKrpEunF9fuhcN78
+	 Cb/vWJ41CHFdx7mm/C9NiNAazx88xEV/W2kd4amvPvn61AM1xH1aTBEXY796hmJX0w
+	 yUW7iaT3ChVKjdh/2Rgi3ptFlPSXncwdhDsuwl2jboUQipEw/MdgHcbwJzOVrcw761
+	 Yr+nHaG/14hHPLnIciCiAC8e9G20nMXjfqnce4vUqCQuUOjtjTJSskgkTQlUsnj3Pv
+	 Ixy8kgv+MO5PkkN0f4uDd9KFw8TY+WrGg9v3jo+vx+jm5wVFbMJnatyGQaCEZN4N45
+	 m52Kb1LqGfcfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>,
-	Yunpeng Tian <shionthanatos@gmail.com>,
-	Gongming Wang <gmwgg05@gmail.com>,
-	Mingda Zhang <npczmd@qq.com>,
-	Qinrun Dai <jupmouse@gmail.com>,
+Cc: Fabio Cesari <fabio.cesari@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] udf: Make sure there's enough space for LVID implementation use field
-Date: Tue, 10 Nov 2026 06:56:34 -0500
-Message-ID: <20261110115625.906950-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iio: light: isl29028: fix runtime PM reference leak on error paths
+Date: Tue, 10 Nov 2026 06:57:58 -0500
+Message-ID: <20261110115747.940255-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110115625.906950-1-sashal@kernel.org>
-References: <20261107052823-failed-6.6-a61fb39759d7@kernel.org>
- <20261110115625.906950-1-sashal@kernel.org>
+In-Reply-To: <20261107052910-failed-6.6-0e30d15b1564@kernel.org>
+References: <20261107052910-failed-6.6-0e30d15b1564@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,45 +62,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jan Kara <jack@suse.cz>
+From: Fabio Cesari <fabio.cesari@gmail.com>
 
-[ Upstream commit a61fb39759d719a4f4966742b4d28387e33d81c4 ]
+[ Upstream commit 0e30d15b15647df786e60022650613e16dd70645 ]
 
-udf_lvid_valid() verifies that the LVID has enough space for all the
-tables and the reported length of ImplementationUse field. However it
-doesn't make sure the reported length is large enough to contain
-logicalVolIntegrityDescImpUse structure which OSTA specification
-requires. This can thus lead to accesses beyond the end of LVID buffer
-for suitably corrupted UDF filesystem. Add the length check.
+isl29028_read_raw() and isl29028_write_raw() take a runtime PM reference
+with pm_runtime_resume_and_get() but return directly on their error
+paths without dropping it. The usage count never balances again and the
+device stops entering autosuspend for good. In isl29028_read_raw() this
+needs a regmap access to fail; in isl29028_write_raw() one rejected
+sysfs write is enough, for example
 
-Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reported-by: Gongming Wang <gmwgg05@gmail.com>
-Reported-by: Mingda Zhang <npczmd@qq.com>
-Reported-by: Qinrun Dai <jupmouse@gmail.com>
+  echo 200 > in_proximity_sampling_frequency
+
+which is outside the [1:100] range and returns -EINVAL with the
+reference still held.
+
+Take the reference with PM_RUNTIME_ACQUIRE_AUTOSUSPEND() instead, so it
+is released on every return path.
+
+This also stops the return value of pm_runtime_put_autosuspend() from
+reaching userspace. That value only says whether the device could be
+suspended right away, so -EAGAIN or -EPERM turns a successful access
+into a failure, and with CONFIG_PM=n the stub returns -ENOSYS on every
+access.
+
+Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
+Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Cc: stable@vger.kernel.org
-Fixes: 781d2a9a2fc7 ("udf: Check LVID earlier")
-Signed-off-by: Jan Kara <jack@suse.cz>
+Assisted-by: LLM coccinelle
+Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: replaced scoped runtime PM guards with explicit isl29028_set_pm_runtime_busy() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/super.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/iio/light/isl29028.c | 23 ++++-------------------
+ 1 file changed, 4 insertions(+), 19 deletions(-)
 
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index 67c9111624d84..7f71ce6b9b491 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1657,7 +1657,10 @@ static bool udf_lvid_valid(struct super_block *sb,
+diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
+index 90099e467b707..15b4cd3555434 100644
+--- a/drivers/iio/light/isl29028.c
++++ b/drivers/iio/light/isl29028.c
+@@ -407,14 +407,9 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
  
- 	parts = le32_to_cpu(lvid->numOfPartitions);
- 	impuselen = le32_to_cpu(lvid->lengthOfImpUse);
--	if (parts >= sb->s_blocksize || impuselen >= sb->s_blocksize ||
-+	if (sizeof(struct logicalVolIntegrityDescImpUse) > impuselen ||
-+	    impuselen >= sb->s_blocksize)
-+		return false;
-+	if (parts >= sb->s_blocksize ||
- 	    sizeof(struct logicalVolIntegrityDesc) + impuselen +
- 	    2 * parts * sizeof(u32) > sb->s_blocksize)
- 		return false;
+ 	mutex_unlock(&chip->lock);
+ 
+-	if (ret < 0)
+-		return ret;
++	isl29028_set_pm_runtime_busy(chip, false);
+ 
+-	ret = isl29028_set_pm_runtime_busy(chip, false);
+-	if (ret < 0)
+-		return ret;
+-
+-	return 0;
++	return ret;
+ }
+ 
+ static int isl29028_read_raw(struct iio_dev *indio_dev,
+@@ -423,7 +418,7 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+ {
+ 	struct isl29028_chip *chip = iio_priv(indio_dev);
+ 	struct device *dev = regmap_get_device(chip->regmap);
+-	int ret, pm_ret;
++	int ret;
+ 
+ 	ret = isl29028_set_pm_runtime_busy(chip, true);
+ 	if (ret < 0)
+@@ -476,17 +471,7 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+ 
+ 	mutex_unlock(&chip->lock);
+ 
+-	if (ret < 0)
+-		return ret;
+-
+-	/**
+-	 * Preserve the ret variable if the call to
+-	 * isl29028_set_pm_runtime_busy() is successful so the reading
+-	 * (if applicable) is returned to user space.
+-	 */
+-	pm_ret = isl29028_set_pm_runtime_busy(chip, false);
+-	if (pm_ret < 0)
+-		return pm_ret;
++	isl29028_set_pm_runtime_busy(chip, false);
+ 
+ 	return ret;
+ }
 -- 
 2.53.0
 
