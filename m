@@ -1,52 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272950;
-	b=j6GL15tqwWziNEKDhzjNCp+aiUeKtOgtajvQe7lQjgl/OaJFB4CWXww0B+ZJLP9xuG1P
-	 yxhFsGIUjOPj2NwTfkXfesLXTwsCpNR52FUa222MWBN9xlz0h8hbTwy5hreJvD5Y4LH9u
-	 lfv260cqDFuByVd/tqbDU8f8Qx5TCnDB/cRYShgQNRr3d1I1L/cvr73HSoNDQxANf0AIa
-	 je8wYS/M9VslDUcABtcjJa7k7H15fXcA41wunl3k9BABXvYH1rqV8nHQAe+cO3RmoZyig
-	 1XG1GsiThf3cRK9NyNsVKdNATKCLUoqHl/h00i3H8cn46J8Bt69iwMHfp24tGVrhhVA==
+	t=1794272953;
+	b=GUCo0qqOq/+OKxXxgO5lWAFKR1selPCaOnCG0D5mLjjqvfzEtsHfSTMRBMSHDOyPhWXc
+	 XtsUDm1wsHYHPIDLfX8+B2XHq9EDIzW4CMaJynKmXhPV9aPzfMY1UJQ6kdQ9Iojf9NSIJ
+	 I4anzgFey6HZPMwW4cV6bu8wjaEtPlKuy+wY6/Lq/Q8//+M5Ek051skFK5uKrSImqitXh
+	 sk7umzU0A2IXqmZyHLx0/E0kZy7CkxqRNB2iVcg6fbgfbi0hnVNWynihE7Lq3XkoqJjhj
+	 SbR9f/XZcW69dZF1sNqnMULzzkBpR5NWKeLJ7+4h8QizUgHCT4qDp9J2HA5lfypvNNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272953;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wFWRiiecKgHUwz7/WpmTBYT6NiqQAp84rqYeZTbKBic=;
-	b=F9dWTkDtSv3wjjtjB6eeh7J7u7k8X6PtLHWRIbxfEtY9iopLu+qKaMsAnzRUwDf06LDk
-	 T4ktVlHotAiLtCQlb/Yi1mSdS4Ku+s2CHHb/DOJirhVTI+LKGzH8hRYaOAXzSizV4jbdP
-	 bC8LzDrkZkhjrZLRXyMAgzuS/M3YCpond23MHQ2Ke6ea8TgIDxmTJBDwo/VpSqkilW3P4
-	 vvVA9L0nYOxbdJD3f87sPjC02k49Dqh+ZojYpF4iiMru7I6bcxpvgfI9R9Q/ZvV5mbXli
-	 X+1TfwKiWZze06t7XYI/9qjZ9sFQiFCI+Opccs4Pfu7eY3fe9sazNWttLtL+OcL67xw==
+	bh=KvEQ8YbqcwKCR6YENq1V2CFQo6ebfTSdSccUR467r4c=;
+	b=KH6tCWSMYGgKWsGDcNBFfa6zvFpyHdjBFCT0rHOhjKiEhee9Dx5BbR0kq5XjPI/9/vmo
+	 smd9nnojjStik4swYKhLPZtKkne6bJgsm7YIekBjBYkUkvhMfjtAADwXc/M7g72OZSA2d
+	 1A7na1ctH9dDKGDS6hWuIK1gE+CNhazGd/HTsGGIQcJjcGKckDQ9soAQnvea2YezS+40G
+	 +k22QAxMEbfqGIcQRWWOFYsbQEKx6rlSEiMmSbpmUlXKhLVYkeFgXkTU6fIBo+zdyfGt7
+	 lMUiUNQ5l7XqkaRMPrSinDDy0/7ZLw/GGPI45jwcAXTAsWOoqppS/igg/oSPwYEkCaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnWjNRIR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dceyUZjq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E693606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD14606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnWjNRIR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9AA1F0089F;
-	Tue, 10 Nov 2026 01:09:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dceyUZjq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6311F0089F;
+	Tue, 10 Nov 2026 01:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272950;
-	bh=wFWRiiecKgHUwz7/WpmTBYT6NiqQAp84rqYeZTbKBic=;
+	s=k20260515; t=1794272952;
+	bh=KvEQ8YbqcwKCR6YENq1V2CFQo6ebfTSdSccUR467r4c=;
 	h=From:To:Cc:Subject:Date;
-	b=mnWjNRIRIbjFDFolFQaWx3GdAwehqbrv0Upouz5/ytuHHp9On+P9tNkB6i1VcXyX1
-	 MJeD7EYBo/TZUlX6QxygtHXjqYRWxLY3etlavw4LrVCJXas7cTkim2yu+zMk4SlJOs
-	 p9k01MEeMYfm03Sbt8hgxjLCswyfqVwCNlSQmkwCWLzOQtR7OiIApCRFRVybWT5Jr9
-	 Kg5iX9YVvAYDR3VV9nDiAdwFRBukFNmDmZxMPjoNIad+5BbtyIjZ0wqIMtG1Ay2HlN
-	 vnv0ad35GuaLPeGBm7uNBY6jBuFTRiZ45MoDO2SQHkiFDlBosTKBZ1skNU81UIhDP9
-	 HqAmWOReQbFcw==
+	b=dceyUZjq7690UdFu16nqG92fkVKm8oX4pcEfHCTWGc+3i1qLaGNXsilJmJywRsFqD
+	 KsodnFPfIoEl72bZCROlkbQfo2+w3Zt6IncyKsaINVD93VtPqr21DT1T9bNZjX+xaP
+	 +GlnBbdLUjedUElOmD5LIYiktpAvzA4nTs61qAz2xPdmjzLGe0uqxuU38uUL36GqmQ
+	 AvQEsuKLgAniam+XrmgbW8euyarsODapW0Dbb7GmA3rMVpdHQRPzkuYPrqIEyLyzOk
+	 oCdqbKDzdsRQ4C+jqgkhkHv3vQ4GXaP6ytCF1UEuME1NCGKkZCL4Ixtbr9wfYMD6+h
+	 zFn+hyn6beLng==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
+To: david@kernel.org,
+	ljs@kernel.org,
+	pfalcato@suse.de,
+	dev.jain@arm.com,
 	usama.anjum@arm.com,
-	david@kernel.org
+	lance.yang@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: compare exact registration modes before skipping" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:09:08 -0500
-Message-ID: <20261109200908-failed-6.12-05f64f211a25@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:09:10 -0500
+Message-ID: <20261109200910-failed-6.12-b4417d08034a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,61 +72,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 05f64f211a25f7d9771d4fde109aad97174a1cf3
+git cherry-pick -x b4417d08034a7b4a3083e0e2d95429d4542524f2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200908-failed-6.12-05f64f211a25@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200910-failed-6.12-b4417d08034a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 05f64f211a25f7d9771d4fde109aad97174a1cf3 Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Sat, 31 Oct 2026 10:39:55 +0100
-Subject: [PATCH] mm/userfaultfd: compare exact registration modes before
- skipping
+From b4417d08034a7b4a3083e0e2d95429d4542524f2 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:59 +0100
+Subject: [PATCH] mm/mremap: use pudp_huge_get_and_clear() when moving huge
+ PUDs
 
-Changing registration from MISSING|WP to WP returns success but leaves
-MISSING enabled. The no-op check sees that WP is already set and skips
-the update, so later accesses to missing pages still wait for userspace.
+move_huge_pud() reads the old PUD and clears it in separate operations.
+Hardware accessed or dirty updates between those operations can be lost
+when the saved entry is installed at the new address.
 
-Skip the update only when the current and requested UFFD modes match
-exactly.
+The raw pud_clear() also bypasses page_table_check_pud_clear(), while
+set_pud_at() accounts for the destination mapping. This leaves the
+checker counts unbalanced for mappings tracked by page table checking.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+To fix it, simply use pudp_huge_get_and_clear().
+
+Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: apply fixup from Lorenzo ]
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-30-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/mremap.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 03f1b15bfe63e..dac696bda19f0 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2291,6 +2291,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 0d06d7f37f19a..16e736c72d9cb 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -509,8 +509,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
  
- 	for_each_vma_range(vmi, vma, end) {
- 		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+		const vma_flags_t curr_vma_flags = vma_flags_and_mask(&vma->flags, __VMA_UFFD_FLAGS);
+ 	/* Clear the pud */
+-	pud = *old_pud;
+-	pud_clear(old_pud);
++	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
  
- 		cond_resched();
+ 	VM_BUG_ON(!pud_none(*new_pud));
  
-@@ -2304,7 +2305,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 * userfaultfd and with the right tracking mode too.
- 		 */
- 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
--		    vma_test_all_mask(vma, vma_flags))
-+		    vma_flags_same_pair(&curr_vma_flags, &vma_flags))
- 			goto skip;
- 
- 		/*
 -- 
 2.53.0
 
