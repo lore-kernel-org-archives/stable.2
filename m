@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296670;
-	b=5nku3VDj+Ur7+DDFOkJQwDMPWWUtHny0pG4AW7XU16gNc3r7Fiy9xt61Jo7v79StOeHs
-	 Pdk3m100QgJ5uuVVbsxrhVRyFAOT5j3pM/Z/KCGNMoNSMFmGKhrJtomcFqkfVbFb96Nyu
-	 pzMRq43vBdnVw0Wj2S8ypVKKUfmI4sVrPcNhDQYf8Zy2ScCUd5EoOcmZfj5iBmTr2Iyxs
-	 V0agLzfY9mSwg4tfNoUbbXVZK1xtfoc2A6voEzTgOBxxHB5OJRXwp+80O0xiQNT0vhFlb
-	 nqk9JCG8VBB3NMDyET9muVsLyuOvKTfo3sj/N6DgzwGVlTENT6dERKW5l+iFoQ47lwA==
+	t=1794296781;
+	b=w1zs0byYMYa6mNWEXvqSP4xCa7ARSYwEB8kOEso541svwPMVxMKGEJ72LKzbvU3qsjvP
+	 xzz6C0ipyW88Vau56a5KWy0Sbqmu9UG7ueFl/TGX9KfKlnVVPpzqOSIqA8r36FBveiIfp
+	 kZ32sb6vaWUIxuWkLexs3RvAyK+0NarEz9tSxR9Dn+13tjL9iZUbQGzqDFCemmNzadhUG
+	 0XRffuTqQ/wpg1fnAovSZ6xc72FEtLuuhsc8aRfRH9+WdgfhJwwR9WFMVC8LZ4+SJjXyS
+	 YPmkf+8BvMhzEuwNCHsTd9Gc1dlVska6yYzQHfIx5eRJu7k5HFxsevl9tyf+VaIMgMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296670;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=j7hB9UmgE5bE7phPFIfa4zIRob+FNIkKK3B6AzXiIoo=;
-	b=Kb1XEPNatCqgUWiQSXr+O07N0JaBuiaxZh2RB5Xlpa0h34IV3JW4Cw1AePGXFbrOZXNw
-	 zZG61FQmz5zsYg02gsz5wYGld4a205gGtD92qgHRM0TU+N2qcp/L3IwVWJbFC3jt3okpn
-	 Tik5RXbvPPplATD0LwAEzr3dojgIUGcoFnkP/5TgzElyHwDVrrllH29bhceTAnDGv13Db
-	 jmVNaUwoSSc3FSnS9qZCmG6D1KZY9XYby/advPeAfDGzqxGIyH04B9i85rv2NDu17FtBP
-	 7uRiC7ea6hAY96TJXIZFpSgnzwg2mc7igEGbMpwmtJbfwF5QPlgJ3HwOYWwN6d4fNvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296781;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=g+rzLsEDtoHChRb3W0ywuz4TUSwIklWRQMltFUo1B7g=;
+	b=vsJ3yYN1mrRiY0ROmZ44vy9vSb0OHjp04retylnZ6DgUf96tKGcK/cX90i6jAyfg70DR
+	 9EHvPQdVvLukDqgOxsnIOpZKOvVoPF3CJSq8pDEu8QmvlsfhPN/SYAS0Kf7Om+KEMKYds
+	 EBLRm22jvjKwaEPd8jJtrYPck6GrKFxwLW47NO4upa/29Y2ConaOzdPbjSYgM65yBnMH0
+	 yuQ2+vJ0GCoN3U2WC9QDgbf1rEqqZvN+4/j5s0iwwZ+U9cBrEBvDig2qr71LWK/p5FrrA
+	 zmsCqDsqDBN9TrYu50hSuVAL8Am+ife3Z39ZGosQaJL55tr9PN/sXUlaEeaGdgRPWug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eP+97yF6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jbjk7jBs;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE71E60A2636
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:44:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ECC606A33D;
+	Tue, 10 Nov 2026 07:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96ECC606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eP+97yF6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5615C1F008A1;
-	Tue, 10 Nov 2026 07:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794296669;
-	bh=j7hB9UmgE5bE7phPFIfa4zIRob+FNIkKK3B6AzXiIoo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eP+97yF6ICj3ru+J2WVi/Fz9AhfbYb+Cq/dWuG0kNkQ/xBR+53VaFG7QfW9BH28Pb
-	 pUwT/gCukKZBzZsi1QQ1Q4yqZ3cw/KPm3QxM95gz5AXsv+ebAgO2o/C2AoPeQjm16e
-	 McrYSHVYogsiTS3Or60xKcK/AhLWcwUR+6IPqBtqlJuu2cWwZtYmfAkaij4qz5EZj9
-	 ncXUzbCFGBHQDpesxBkju9rMQ9iT8mZXxJ9fzMvhSRdvCyBLGMfWxud+9a9HXotYlo
-	 EoHzSTpFUG/mmRYFR1Vz9IYIpPQwaY8Vfk9NBN5EUOfDqdXoxkwJ0a9QonXV4SUPXo
-	 KhzYV1UGreA8w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the MMU has
-Date: Tue, 10 Nov 2026 02:44:27 -0500
-Message-ID: <20261110074259.559852-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110074259.559852-1-sashal@kernel.org>
-References: <20261107061520-failed-5.10-115f9405a2ed@kernel.org>
- <20261110074259.559852-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jbjk7jBs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794296781; x=1825832781;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nFoWB/WLRdL9em8tNSimN1sn8Ih9yTU1vSklb3AvshY=;
+  b=jbjk7jBsZhoc72J3Y5Hfz9TFEqhM0oHAIbSlkfoJ64FWrh2BXMG3xhrJ
+   OfAF4sVVes7d4JPmt396YqBXSGPulyjebjazs9eHINYApOPIYz3JTT42K
+   1Hp3RmHbZ9zCM0mP3qbEl6ySRImkxE5QRoNqo8pHoBpPxdl8CItaIFjWF
+   e8EYPEl5tniFqCnqi6/TaxQDioOnLhfFweeyo//zQAbbAuJQPSjidoU5o
+   7vdxd9WiK5521dMTYnGCNVUIks2rOPSiENjKnwNKxifpEorvTeH7NYra0
+   VwJKRKQWoTCrVoykgZy10hlqP+lzpm7nHdfxnNCc90bM2nA79lMIZeikV
+   A==;
+X-CSE-ConnectionGUID: 7d9IbReBSCaOI8ABAnfAAQ==
+X-CSE-MsgGUID: krMm9I2JTgq9UUMHhLyN3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2912056"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2912056"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:46:20 -0800
+X-CSE-ConnectionGUID: hM/EFHwBQ/C1fSHcwXoazg==
+X-CSE-MsgGUID: rDlZ8xkqRGiDW+AkcbzicQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7900404"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 23:46:17 -0800
+Date: Tue, 10 Nov 2026 09:46:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Sergey Khimich <serghox@gmail.com>,
+	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] dmaengine: dw-axi-dmac: preserve pending pause
+ requests
+Message-ID: <avLLx7pNSiFLbxE-@ashevche-desk.local>
+References: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
+ <20261109-submit-dw-axi-dma-stop-pause-v1-v2-3-64adc48df793@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,57 +83,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-3-64adc48df793@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Sean Christopherson <seanjc@google.com>
+On Mon, Nov 09, 2026 at 08:06:02PM -0700, James Hilliard wrote:
+> dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
+> can set that status after the last poll, including during the final
+> delay, and the unconditional clear then discards an acknowledgment the
+> caller never observed. Another channel's interrupt can also consume the
+> status because the shared IRQ handler clears every channel's status
+> before taking its lock.
+> 
+> Leave SUSPENDED to the pause and resume paths. Track the suspend request
+> separately from its acknowledgment so a timeout can be followed by either
+> a pause retry or a resume. Wait for acknowledgment before clearing the
+> hardware request, since hardware ignores an earlier clear. If that wait
+> also times out, return -EAGAIN with the request still pending. Use the
+> atomic polling helper so an acknowledgment during the final delay is
+> observed.
+> 
+> A completed transfer is also quiescent, but its completion handler may
+> still need to advance a cyclic descriptor. Defer that restart while a
+> pause is pending, and resume it without reprogramming the first LLI.
+> Track the active descriptor until its completion handler runs so that
+> resume and issue_pending cannot restart a completed cyclic segment or
+> reissue a completed noncyclic descriptor while its IRQ is pending.
+> Start queued work after the active descriptor is retired, respecting the
+> pause request.
+> 
+> Clear stale suspension status at the start of a new descriptor rather
+> than at each cyclic restart. Reset the software state after successful
+> termination and when allocating a channel for a new client.
 
-[ Upstream commit 115f9405a2ed6d78ee7ad8436bdd638743f6d1d4 ]
+...
 
-Extend the "EFER.LMA && !CR4.PAE" check, which exists largely to guard
-against KVM configuring a paging32 MMU with more than 2 levels of paging,
-with a very explicit check for exactly that: that KVM isn't trying to walk
-more levels of paging than the MMU template provides.  I.e. harden KVM
-against all bugs that would cause KVM to generates accesses beyond the
-bounds of guest_walker's arrays, regardless of how KVM ended up with the
-misconfigured MMU.
+> +/* Called with vc.lock held. A timed-out request can still be acknowledged. */
 
-Note, don't use w->cpu_role.base.level directly as the paging64 template
-only provides two levels of page tables for PAE paging on 32-bit hosts, and
-handles the third level by manually emulating the PDPTR access.
+We have context checkers, please use __must_hold() or alike annotations.
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260902232028.2767071-4-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/kvm/mmu/paging_tmpl.h | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+> +static int axi_chan_wait_for_suspend(struct axi_dma_chan *chan)
+> +{
+> +	bool suspended;
+> +	int ret;
+> +
+> +	if (chan->is_paused)
+> +		return 0;
+> +
+> +	ret = readx_poll_timeout_atomic(axi_chan_is_suspended, chan, suspended, suspended,
+> +				       2, 40);
 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 0db6414300d2d..37fa59aa0a3ec 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -362,13 +362,14 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	pte_access = ~0;
- 
- 	/*
--	 * Queue a page fault for injection if this assertion fails, as callers
--	 * assume that walker.fault contains sane info on a walk failure.  I.e.
--	 * avoid making the situation worse by inducing even worse badness
--	 * between when the assertion fails and when KVM kicks the vCPU out to
--	 * userspace (because the VM is bugged).
-+	 * Queue a page fault for injection if any of the below assertions fail,
-+	 * as callers assume that walker.fault contains sane info on a walk
-+	 * failure.  I.e. avoid making the situation worse by inducing even
-+	 * worse badness between when the assertion fails and when KVM kicks
-+	 * the vCPU out to userspace (because the VM is bugged).
- 	 */
--	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
-+	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm) ||
-+	    KVM_BUG_ON(walker->max_level > PT_MAX_FULL_LEVELS, vcpu->kvm))
- 		goto error;
- 
- 	++walker->level;
+Again, fix indentation, reformat and split logically.
+
+	ret = readx_poll_timeout_atomic(axi_chan_is_suspended, chan,
+					suspended, suspended, 2, 40);
+
+(note no leading spaces in the second line, only tabs fit).
+
+> +	if (ret)
+> +		return -EAGAIN;
+> +
+> +	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> +	chan->is_paused = true;
+> +	return 0;
+> +}
+
+...
+
+> -	do  {
+> -		if (axi_chan_irq_read(chan) & DWAXIDMAC_IRQ_SUSPENDED)
+> -			break;
+> -
+> -		udelay(2);
+> -	} while (--timeout);
+> -
+> -	axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> -
+> -	chan->is_paused = true;
+> -
+> +wait:
+> +	ret = axi_chan_wait_for_suspend(chan);
+
+You may split the conversion to readx_poll_timeout() into a separate patch.
+
+...
+
+> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> @@ -52,7 +52,9 @@ struct axi_dma_chan {
+>  	enum dma_transfer_direction	direction;
+>  	bool				cyclic;
+>  	/* these other elements are all protected by vc.lock */
+> +	bool				pause_requested;
+>  	bool				is_paused;
+> +	bool				cyclic_restart;
+
+Probably making them bitfields will be a good idea to save some memory:
+
+	bool				pause_requested:1;
+	bool				is_paused:1;
+	bool				cyclic_restart:1;
+
+>  };
+
+Just run `pahole` before and after (won't probably show you the gain,
+but before might show better position for "cyclic" member, which can
+be amended later).
+
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
