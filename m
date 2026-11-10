@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273772;
-	b=497x7tBdScAnTCCharEo3tci5y/993qFhRMi5iR6+EhAKZwBPedNrhisxiw/qGgvU+UW
-	 HXAgfXExyWK+pNk6wy/6EnxzR9zeDbkcM0ACH6YAk0bZRrLvUvKINoFkaNT/0HtL8sNAl
-	 UWZVFp0p4XFaUZ6gvJxWIE1PzQu2UGClekK4SPZSibk1ihnAHPetbOxs/Jq5UvIMESpKY
-	 m1BUrIBrpM2PsIYEOpsmow8qBHrmviXIvqKmgK6N0Udu6V+0+j9worYZ75ulnFD0AKyuA
-	 QOSY5qqMsmSjl0VlivT5VCLcY1RQZPutCBgk2lv2O4tMcEiLqkkYUMEVs55/SIzVKhg==
+	t=1794273775;
+	b=1ONsp3LOt4jHiOuu3eXTDMUP5PPZijzbzufXO5/UcNXL6dIo+VqhJwLELy6c/Lu6tVBB
+	 5MhirNTIg9G93/rFw7oLvvFQp88t+VPTdwBXccDIJsD8JWzBYWPW/hzPpSeQsi/lnI8UX
+	 rDXbIyeSX2Akc4vwsNCpK45Iluj+woLx45iNRJrhysbdcJ/KSn/QohLUDqgco4prjVjlb
+	 IbhxR52V5029eoa4nIi4wovsmCVi7sMSrAI28g+WY1jFqYTpWMLslAmA7uAfaO4G5/mYt
+	 dRN2adkGT0KlWIMeI4H5GsBO6Vl4iyQ9qfeSUI8LaFNrzy2OUodpMiqiy2mYirPeCIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273772;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273775;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=htW4nWX0FF9+L9CpYZZZs2+vweS9dp8v0sHbxMrIUEk=;
-	b=Nfo8XTvPFoO87OkmvNGiVl+HpTQIq3N0IyH9ZlozJObj7cQd+m2IC/HsqmXpEjOLTsO1
-	 6VAtW3djAGP9yagu7hCOM6iZd9kSe3L4qqJO+GP//PJIURRthE01pBoS7tqWWEXCM0Rih
-	 mgRJP0rLlWku3Hc5wRsqTvmsdaDjriL+BGOKQKGeE2Si7jQKsplaBlTF1ub3IlM9377rM
-	 E/6HxEK3mQbhC29NvVL2pL8nYLUxIzRF/lmClpM55DMYL6A2UuwEh8fIzaKD4lZrnBbs8
-	 lF3Oq3+CesQn1+yrGw4DQ6OupuEP//Iv8N0z4PTxIhtHEgNxah1Zrm2OuQk8oIJEcZw==
+	bh=KNj4henBFfwAlmVIW3yenuY7AIOl+/7fYrzVSYvcMq0=;
+	b=zNFwbcsmGN4LXj+c9CulNLOOgd/uc8jBJWZ5vQw9rMP3ph28wjmj6QNBXAWv15Y7SIj3
+	 Dd8HAemUsq/yH0jn7/6UkTGr5cIKIYYh5jDSQKvSDj5KmkuN4JvEcDurLDeW5cWhiVBt/
+	 LZeh7sbKWOHQvKblmhAc064aEDkm+1vZB60AEk2PY248RKbeD+tpWTFNm3V9OY3oqZnLw
+	 dMBqWCYQpko3AvrJZoU3Q7Iq+6yYxl1IYxtU7hPuBWt9AJ7Zlb4qA5n95KpBovWJgXXN6
+	 0vFQNVzUPAtJHwoD5gsdUFwbtDkBTidN8+uU6idg+SJzYzaYEPpu3ZaneOC3+7Dkc5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WV+EWjtJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b5a/Lxp8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A140D606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F149E60A380E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WV+EWjtJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FAF31F008A1;
-	Tue, 10 Nov 2026 01:22:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5a/Lxp8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186D41F008A2;
+	Tue, 10 Nov 2026 01:22:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273772;
-	bh=htW4nWX0FF9+L9CpYZZZs2+vweS9dp8v0sHbxMrIUEk=;
+	s=k20260515; t=1794273774;
+	bh=KNj4henBFfwAlmVIW3yenuY7AIOl+/7fYrzVSYvcMq0=;
 	h=From:To:Cc:Subject:Date;
-	b=WV+EWjtJo3OVQXr+ggJdAo3PdvSnH6gvl7sNN+WlllYj5DCYBJBPEaD4D0cmNlxOP
-	 VyBukc1z7d7EnDfKtEsfaztjAgzn4tV7CwkiTKVWMCL51r3KYcsQQk5Gevc4jNrBN7
-	 8vfRvg0nNv0p6lIDmdHKpbZqMgFqtLuYQr9fY6qNWVjHuim5RJWf/ni2z7G23i4Ksu
-	 Ye4Ktis88l2O5FzjQKcXHLm5wLoQV+5OpzweKJzw0wUnZ4+jQfoLZgBd5vQ8xktT7z
-	 nFaxT7L12kuPepJgpXb4pX2m+ha9ujysEWW2sVnfZ134mGr+7Y0DKVijlLWss+lTcX
-	 m9B2Fb6zZjMlg==
+	b=b5a/Lxp8tJJgY+aHP0xjZAPkmZXi5cHQHDJenroq+wVsF7yReoDef/T6h8ToYARku
+	 XMbz4Zl5TAK6n7BVYBKMSUewk0AiGseM0+z0viRZ5s+/JSl6YyIPDoya70EynSs2PG
+	 hlTFrAeDGu7G+POoz+X4JMeZm+mcORROUnx3/awT4ph69TrMdQhH3Njh36waqFJoW/
+	 eJkviuY5j3YO1yUHQMZ1muHeVwBbp5tc16sejTPZHWiDgG6DNU7a15rUQ3YaIwfR4i
+	 klXf7TEp1uzX85oN6EXEbsJKF1OpzGavfqQlqZoOibXqoQ0w2NGdpNwO5QTXyCrPYg
+	 0VYLuiYQHVNrw==
 From: Sasha Levin <sashal@kernel.org>
-To: cong.zhang@oss.qualcomm.com,
-	jasowangio@gmail.com,
-	stefanha@redhat.com,
-	axboe@kernel.dk
+To: daejun7.park@samsung.com,
+	cel@kernel.org,
+	hch@lst.de,
+	p.raghav@samsung.com,
+	cem@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:22:50 -0500
-Message-ID: <20261109202250-failed-5.15-6c6dec7883f8@kernel.org>
+Subject: FAILED: patch "[PATCH] xfs: mark the inode preallocated for pNFS write layouts past EOF" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:22:52 -0500
+Message-ID: <20261109202252-failed-5.15-8b8e26599155@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,65 +71,106 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6c6dec7883f8eb10b326bc9d109a4990c885d949
+git cherry-pick -x 8b8e265991556d99b6d721697f148975a7c68767
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202250-failed-5.15-6c6dec7883f8@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202252-failed-5.15-8b8e26599155@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6c6dec7883f8eb10b326bc9d109a4990c885d949 Mon Sep 17 00:00:00 2001
-From: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 18:32:21 +0800
-Subject: [PATCH] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()
+From 8b8e265991556d99b6d721697f148975a7c68767 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Thu, 29 Oct 2026 11:22:58 +0900
+Subject: [PATCH] xfs: mark the inode preallocated for pNFS write layouts past
+ EOF
 
-blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-while the flag is clear. It can then be preempted before it gets a
-request. At that time, it has no queue usage reference, so
-blk_mq_freeze_queue() does not wait for it.
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC only when it
+allocates blocks for a write layout. A write layout past EOF can also
+hand out allocated blocks, such as speculative preallocation. blockgc
+then frees them under the layout, and another file may get them.
 
-virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-dispatcher can run again, use its old flag check, get the new request,
-and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-reset the device, delete the virtqueues, and free vblk->vqs. The old
-dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-kernel can crash.
+Mark the inode whenever a write mapping ends past EOF.
 
-Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
-that was already running. Keep the existing freeze and unfreeze order.
-The queue remains quiesced until virtblk_restore_priv() calls
-blk_mq_unquiesce_queue().
-
-Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
-Acked-by: Jason Wang <jasowangio@gmail.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Link: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
-Link: https://patch.msgid.link/20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- drivers/block/virtio_blk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/xfs/xfs_pnfs.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index c8bfbf8435ac7..10ba8b0b863b8 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -1596,7 +1596,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index ab385617003a2..a9f0b472f3076 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -110,7 +110,15 @@ xfs_fs_map_update_inode(
+ 	ip->i_diflags |= XFS_DIFLAG_PREALLOC;
  
- 	/* Ensure no requests in virtqueues before deleting vqs. */
- 	memflags = blk_mq_freeze_queue(q);
--	blk_mq_quiesce_queue_nowait(q);
-+	blk_mq_quiesce_queue(q);
- 	blk_mq_unfreeze_queue(q, memflags);
+ 	xfs_trans_log_inode(tp, ip, XFS_ILOG_CORE);
+-	return xfs_trans_commit(tp);
++	error = xfs_trans_commit(tp);
++	if (error)
++		return error;
++
++	/*
++	 * Force the log so that the blocks handed out to the client are
++	 * guaranteed to be present even after a server crash.
++	 */
++	return xfs_log_force_inode(ip);
+ }
  
- 	/* Ensure we don't receive any more interrupts */
+ /*
+@@ -134,6 +142,7 @@ xfs_fs_map_blocks(
+ 	uint			lock_flags;
+ 	int			error = 0;
+ 	u64			seq;
++	bool			update_inode = false;
+ 
+ 	if (xfs_is_shutdown(mp))
+ 		return -EIO;
+@@ -221,20 +230,27 @@ xfs_fs_map_blocks(
+ 				end_fsb - offset_fsb, 0, &imap, &seq);
+ 		if (error)
+ 			goto out_unlock;
++		update_inode = true;
++	} else {
++		xfs_iunlock(ip, lock_flags);
+ 
+ 		/*
+-		 * Ensure the next transaction is committed synchronously so
+-		 * that the blocks allocated and handed out to the client are
+-		 * guaranteed to be present even after a server crash.
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
+ 		 */
++		if (write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip)))
++			update_inode = true;
++	}
++
++	if (update_inode) {
+ 		error = xfs_fs_map_update_inode(ip);
+-		if (!error)
+-			error = xfs_log_force_inode(ip);
+ 		if (error)
+ 			goto out_unlock;
+-
+-	} else {
+-		xfs_iunlock(ip, lock_flags);
+ 	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
+ 
 -- 
 2.53.0
 
