@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349928;
-	b=sCU+DxAo+x2njyhI1jgKMl4j0M9kFwpl0mJz+gAMSazkCqYTgeZlWRc8IuoRyuTL5WT4
-	 efqQKwid5PqXdCjn7LeB2y5qsEJR+mtEPftWwasERHiptrqU729myUtRNslAzridOuRAy
-	 Y71zCmGBoiaphan+AVMF+qabYPKm1n9SP+shUeD7wun/R1+fLIjjghzW0aBkcoXc4KAb0
-	 +zWFics0xlzU4iRZ06Rh9okoj1hjFQkPXy9UySu+hAAP2KwD/NBhV8fYO5bIw9emcOOCx
-	 eV/nBdoX3bg+nS/uQLJqGIRIIZDUOtlCoN/aon215lWFTW6WvejwaAHF5qlsf9NAWvg==
+	t=1794349956;
+	b=u2FyDEeSdwUnVPeP3iJ+ZUX7LCD4iXIhh434N+DSVgSMThtVziWD4p89vQpW9UmFF9G8
+	 cUlNu9D8jutfyQVNXsL1IRPyTl67YFyr/w/JwWKQfjcYmN/7mmKs9YAsi/e6iJmw9lfbT
+	 JhFrG/piTu5Wv8etxJCPAl/IiwKrmh29KomrAlOBVX8szcDCdq39hgRRWCY7eqrjTOuEl
+	 83J2NvPYmIPi7G3WG6b9bJOl7X+xSzg40+4R8yXuYskOAVZ36oAULef5snWfLX3SeeQUS
+	 sBRf5prF0dMVMX9hKGU/kk9C/DWU7pRCkgp0xUzGxWJLzRVMZoh8yGhphEfxRSmraFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349956;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=np53B/ddyI5rVrBFX8ic1dIFLsOeGpGh50vAOwPehNE=;
-	b=WOGShl9DI2sIk4zGF2JVp37KM+1dQ/Yfn9CPENZER+7zb2UFXdb0+bqKT2XbCt/CMotN
-	 D8cD9huqR8t6/+7lQphDeLE2BjZf7/Mq4nwYb+4eEq9stgvjhunempv911UpCHpvLpnJ9
-	 2NK4nrdtin4LC/31+Dv5j7AbQIJwN70GKQLgE5WtbND6V2rh4mx57QaDy0vTC7DgvQo9a
-	 gnCBko6Szi1VLEXW9sa4HJm3X16T5zaBhMBtj757A2sIZUA4jOvc8MthzBMR+tFYKHgEm
-	 OZbrUQP9nWdr5OxZPQ1AEg82umaBK7fbFMkruYbLZa/dP1/33CblMJFEW4BTYM9aMeQ==
+	bh=DN9YyLAHFEeZtkSI1xaRdnRxY+jclMNX6wFckRPNz1E=;
+	b=VIkIBh/wLOUpM7A1YzKUe0VYQ31ck7TNl1dVLDMh77iN9Z4wnWhq3SQoxoKmJfCcZqaV
+	 Yai0a07Tp37oV4LZMkWaDV2HMsn/GmSbtfNqpyLNa0E39SC4CIft9MJGqSPL94Oxe+Qpw
+	 xfYB4LNS5CQ9v0mTCs/96al5crnEX3uL/eD/DgB/fP/iEpq+MVXDqAeT2CSqIOgp73C2o
+	 sOCXmRUloqpi3+9umHkI5xoCAmFvhFSb8UWBr8sWSCnEVuYm672AIxMKRWo1qR7msuK6S
+	 ZEXiTQ/jxD5lgR1TJsR6WzWXyZu3QyENPlw6dN51dJnUm79UIuIhv6ypUIyf6ukdreA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sy+l4hXb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRmM+5e7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28988606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:32:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DBE606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sy+l4hXb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668DE1F008A4;
-	Tue, 10 Nov 2026 22:32:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRmM+5e7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675021F008A2;
+	Tue, 10 Nov 2026 22:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794349928;
-	bh=np53B/ddyI5rVrBFX8ic1dIFLsOeGpGh50vAOwPehNE=;
+	s=k20260515; t=1794349956;
+	bh=DN9YyLAHFEeZtkSI1xaRdnRxY+jclMNX6wFckRPNz1E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sy+l4hXbtyggna+kLJJX9OkvwTMhrH5PC58PJ7tInU+bSqTOJ5M3BQyRQrftWehMc
-	 7vMVQ69vN1NPwtQr2oRkUDk6Xe5vK5+m8ufXqyDR5P0LZsReMJzB/oOyl2Xb+dN5f6
-	 qYfZhYKsXjvK5t/oGoi2wFdOF+vANVn7+9cquZkqzCZsYH+bwuMEb424U7E/yAi53A
-	 tDBtQ2PdYYc0NAIeCsgOB4ZO/fLJY9xUGmwWq8bo01X66/w1uygwuI+hL3jNAuvonL
-	 Y82dMVs9g/O37ET1d0G8GbWfGRXRVdYtgmAG/pYeZZerGyI5AC9XE5oBMjb2KfWouz
-	 M1rBTRu2+S8Bw==
+	b=HRmM+5e7iu0qc0R32W1RqS40fQX8WR29Az8iaKXYZts4s8zK5mvzBkytZ+iXK4Aol
+	 thq3miogvlVQGitUHi3VUFs2XdV7RD+PlSHnUeiLsKr9Yt0SQeZnIssQd4Os42eIDy
+	 Q+k3zF2YbIOPET/BoB4ib18csrgvfE5i38Wv7WzmqAuk5j1/IBQPVnjmG8OML1yHL+
+	 6EFV/dUslcOSy/2czOFxMkCQuas3M0nOGT9KWLnsQT6S2c96PrCuOOD/UrDs8SpxrX
+	 fNX1AgugkHerc1OcmKCq1iFMkvgvaAKZfBf74Wnta5tDXxkMZkGIWRfPqaxanYhXHG
+	 nlPyFRZ0q5LBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vaibhav Nagare <vnagare@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
+	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Tue, 10 Nov 2026 17:32:04 -0500
-Message-ID: <20261110222955.4046112-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+Date: Tue, 10 Nov 2026 17:32:34 -0500
+Message-ID: <20261110223036.4040558-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110222955.4046112-1-sashal@kernel.org>
-References: <20261107051234-failed-6.18-78731b46967e@kernel.org>
- <20261110222955.4046112-1-sashal@kernel.org>
+In-Reply-To: <20261107062405-failed-5.10-080833a32fd5@kernel.org>
+References: <20261107062405-failed-5.10-080833a32fd5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,139 +63,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vaibhav Nagare <vnagare@redhat.com>
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-[ Upstream commit 78731b46967e3e7102b5cd5062bef185f3404b5c ]
+[ Upstream commit 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 ]
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
 
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
-
-Restore the previous program when an attach or a replace fails, and
-recompute the page-mode and XDP TX ring configuration from it.  The
-configuration matters because bnxt_init_one_rx_ring() only assigns
-rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
-dev->max_mtu from the installed program.  Release the old program only
-once the change has been committed.
-
-A detach is not undone.  dev_xdp_detach_link() clears the core's record
-of the program even when the driver returns an error, so putting the
-program back would leave the driver running a program the core has
-already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
-therefore returns 0 with the device closed; bnxt_open_nic() has already
-logged the failure.
-
-Found in a crash dump; the change was not tested on hardware.
-
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
+Cc: stable@kernel.org
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: replaced both F2FS_BLKSIZE(sbi) uses with the existing F2FS_BLKSIZE constant ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
- 1 file changed, 33 insertions(+), 16 deletions(-)
+ fs/f2fs/super.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index bebe37e139c94..2db8cfcf922f3 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
- 	return nxmit;
- }
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index ad0f29f579463..56ee5a097c864 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3030,6 +3030,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
  
-+static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
-+{
-+	struct net_device *dev = bp->dev;
-+	int tc = bp->num_tc ? : 1;
-+
-+	if (bp->xdp_prog) {
-+		bnxt_set_rx_skb_mode(bp, true);
-+		xdp_features_set_redirect_target_locked(dev, true);
-+	} else {
-+		xdp_features_clear_redirect_target_locked(dev);
-+		bnxt_set_rx_skb_mode(bp, false);
-+	}
-+	bp->tx_nr_rings_xdp = tx_xdp;
-+	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
-+	bnxt_set_cp_rings(bp, true);
-+	bnxt_set_tpa_flags(bp);
-+	bnxt_set_ring_params(bp);
-+}
-+
- static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- {
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
- 
- 	netdev_assert_locked(dev);
- 
-@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
--
--	if (prog) {
--		bnxt_set_rx_skb_mode(bp, true);
--		xdp_features_set_redirect_target_locked(dev, true);
--	} else {
--		xdp_features_clear_redirect_target_locked(dev);
--		bnxt_set_rx_skb_mode(bp, false);
-+	bnxt_xdp_apply_cfg(bp, tx_xdp);
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* a detach cannot be undone, only an attach */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-+			return rc;
-+		}
+ 	total = le32_to_cpu(raw_super->segment_count);
+@@ -3148,6 +3149,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 		return 1;
  	}
--	bp->tx_nr_rings_xdp = tx_xdp;
--	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
--	bnxt_set_cp_rings(bp, true);
--	bnxt_set_tpa_flags(bp);
--	bnxt_set_ring_params(bp);
  
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE;
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
 -- 
 2.53.0
 
