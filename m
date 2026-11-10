@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273556;
-	b=49lkKUtQTcXbvTpZW28f11mSiB6LomsltVzM8KI/9GsCYoTkV7ak+aW+Ru54uk7Vaybk
-	 tynuAHbsWgOd8Oy2cc8TmhoU0F9B9srPYAgybX8XAiq6Th9lmAZIhraGBMbhvRXylO89X
-	 sOjkSA+a1HxgyScaCmJdqCiJMu/7hqYjbA5JBXB2HMfFul4K86efGF/yXx+/GN+AiQLoC
-	 I0qMd1gGnqrUwccxWnCWEdgDqTWjtavIZSkZ4Apz/uCW1Li7oqkISDfnd84wk5COuoBDK
-	 2DikYwrFiS0/w33eHEtczQo+f2iHcgcHHMaKT4Qj1PxfkEYBrrVvOs1s5eCzLJb4HxA==
+	t=1794273558;
+	b=Mc1IjTVylX638nFbHHWZdV5Tl8bdEyo18eHygC5q+2x6axrl7TiuBcYGewEFo/EOwVWJ
+	 14qxLguvLWr4dLsFdJO9X1mQ1xyHtSWj/bDCswsV+gAvcD6NA1Fetp7tq0lA8EYv1viPh
+	 oINU62Vr+Ch+XmB0xrE11aKmrMXVgUxN9ny1aEHlo3KmsT7zMByX+osYxPKQS6XgM6u0z
+	 NtoX1+SFO7Tfx2QInB3WJxtUpboDg+T2DvSgSP+tRZtXwDpCGPvw53z8W5SKqoPBLtkKj
+	 /AT9iXjM8VWQfGPGnH5JYtZJ1YWM9yjX3B1LRLnRIF1j2AVA1VcLc+QOK0NGI/9lRlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273556;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273558;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RkeuNVStR7j3foqB2D6KlFqes1eQE3Fj6ZXulVBKcOA=;
-	b=xRlZbpWxcxS1xdM4jd9bQzLIE9jJRMrGe+b2usj1J4Rzm/dV7+eXP6WCXASH+LFFcsOD
-	 Im6uOjIIOQQtgOHEr5gxyce2EjW0esWxmvH6P0LhtD5wPF5AjjgjmU66zWo3PSsuQHLNf
-	 I1w917JM3bI/BOXKkYu1uZiPd5jBZfiv3xiaDiTUqooolFLF7Wp84MjsFbcbCt4bQ65F0
-	 egHGAQ0AZdHEMiKFOdVMEpPMMWKynWqkQ9K1GSWWixcQOylwHnt9WFXA/668bmTzXBmQB
-	 2G0kIjzX9FnDOCUUWt+Os62tv6tSImsVYg4nnmdMRtt2L0oHRPWDp41jZ0Wdmufjgvw==
+	bh=GPNuEwInqy6m9ZBeZq9IO2zBTYiVKKTyrQMjdW6/CK0=;
+	b=hy0lDIM4B9ogTFH80RHCDBiqsmxBB7DSppnScmFMvVk3XruNXNLzdlaoO/STmrqCEW9P
+	 NiYT2k/VNCj/lVe4zY08svy7OeS6yqVMphH7SZSYAbGWefkYCAXhIMQvgNwKVvah7eQAz
+	 jY+BSZ2XYApYtgzhAD4gTEKmziKsIEWzOlELJiWdTdgku3xYy65fmp+FPOUhZyIklaHpp
+	 eZ1ArAPSeiwqB/gG1W7LNW1HKCau2usCwWRQM8iq5dc1ueJTV0InK47hnWqkZrCRdI3Eb
+	 /V5H+zxTR36faVcSoaRv2mVJ+24Gpf47XoIPlBQmpDfXrIH2v+vvqixiwjOMUdROD0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQh7d7wC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFSDBwzd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF726606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA73606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQh7d7wC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD14A1F0089F;
-	Tue, 10 Nov 2026 01:19:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFSDBwzd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572A51F0089F;
+	Tue, 10 Nov 2026 01:19:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273555;
-	bh=RkeuNVStR7j3foqB2D6KlFqes1eQE3Fj6ZXulVBKcOA=;
+	s=k20260515; t=1794273558;
+	bh=GPNuEwInqy6m9ZBeZq9IO2zBTYiVKKTyrQMjdW6/CK0=;
 	h=From:To:Cc:Subject:Date;
-	b=KQh7d7wCak9P2ZHN35PSfYwaETB2fQFY5mYv0QmrZqu9bhvlxMvkmbC6FKLt0xPIE
-	 vv+guSQVeGy22/WAELg2k4SIbxaWu2y62BaUZ+4e4ZHXt3so2uYN3EPgVz5FN26gFW
-	 zOPl27lW9pR1fswMfDRRgojqCRrjTvId4kZob3C9T/cbvfAHdfwLbT58hlTyOe64r9
-	 +/2kzvHAcQoPOwWnC5YeBJ5+Lt6POKONNnLPN0cJTjLaQUonPL2vX90y1scZUpOb7q
-	 5dIad9rW85tTgchIAoGSPivaJRdeivmWaAfNyF2AQxHvJ7dD0prkFt7qZWzUHLRGNt
-	 +ACQ7/0hgzQqg==
+	b=cFSDBwzdDrzeHQgFT0SUV1tBTECZeE5H4PbV3iWNm+U3qGSTANDjfUdHSLmKnbn3/
+	 E1rVCZL8DRBMEWxLugWUhq2a3xpUNmTf/lb9QBTdbeZug5vFg603JE2VkiqyPjROow
+	 L3FAVioatWWY+DQaM3zMgYDbCC9egoEGkCipnptwvO6SABiHrQech22LiQUcVkiGNW
+	 IRl5cBOVQjLE39YaBB7YA1n6RKBxl8kCmcXFVpv0SdWOdrKz68rLyHx2IpR8YzcHpb
+	 hqWMipoGzJim19GlNjqFBgMsvHlDX+4JpgZNozLftqVtTgMSAjV3//LOtkUHLIZdnE
+	 DyN8SBaRAraZw==
 From: Sasha Levin <sashal@kernel.org>
-To: alex.hung@amd.com,
-	jerry.zuo@amd.com,
-	mario.limonciello@amd.com,
-	alexander.deucher@amd.com,
-	daniel.wheeler@amd.com,
-	sunpeng.li@amd.com
+To: 4ncienth@gmail.com,
+	sgarzare@redhat.com,
+	mst@redhat.com,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Avoid closing unowned DDC pins" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:13 -0500
-Message-ID: <20261109201913-failed-6.1-e7ba638b8116@kernel.org>
+Subject: FAILED: patch "[PATCH] vhost/vsock: size receive SKBs from declared payload" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:16 -0500
+Message-ID: <20261109201916-failed-6.1-d5e912448cd9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,63 +70,118 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e7ba638b8116cb5f1a5690f543052371215f1626
+git cherry-pick -x d5e912448cd98b261eba8e35ab838f2dc69a79f5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201913-failed-6.1-e7ba638b8116@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201916-failed-6.1-d5e912448cd9@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e7ba638b8116cb5f1a5690f543052371215f1626 Mon Sep 17 00:00:00 2001
-From: Alex Hung <alex.hung@amd.com>
-Date: Tue, 27 Oct 2026 17:17:04 -0600
-Subject: [PATCH] drm/amd/display: Avoid closing unowned DDC pins
+From d5e912448cd98b261eba8e35ab838f2dc69a79f5 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Mon, 5 Oct 2026 08:51:01 +0900
+Subject: [PATCH] vhost/vsock: size receive SKBs from declared payload
 
-[WHY]
-dal_ddc_open() cleans up pins it acquires on later failures. If the
-data-pin open fails, this attempt acquired nothing. If opening the
-clock pin or configuring fails, dal_ddc_open() closes the pins it
-opened. An extra dal_ddc_close() is unnecessary and unsafe:
-GPIO_RESULT_ALREADY_OPENED can mean AUX owns the existing handles,
-and closing them here would disrupt AUX.
+vhost_vsock_alloc_skb() sizes the skb from iov_length(), the total guest
+descriptor length.  virtio_transport_inc_rx_pkt() instead adds hdr->len to
+rx_bytes and buf_used, and budgets each queued skb as SKB_TRUESIZE(0).  The
+guest controls the descriptor length and hdr->len independently.
 
-[HOW]
-Remove the extra dal_ddc_close() from the failed-open path.
+A guest can therefore provide a 64 KiB descriptor while declaring a zero
+payload.  The descriptor-sized skb remains queued, rx_bytes and buf_used
+remain unchanged, and only the fixed queue-entry budget limits retention.
+This is not a lifetime leak: the skb is freed when dequeued or at socket
+teardown.  Repeating this across connections can nevertheless exhaust host
+memory.  On Linux v7.2, 455 such descriptors retained 30,255,680 bytes for
+a 262,144-byte receive buffer; a full-payload control retained 265,984
+bytes.
 
-Cc: Jerry Zuo <jerry.zuo@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 175ae7772b68757b4932f34ff862923cab7abe21)
+Vhost previously read hdr->len and allocated pkt->buf from that value.  The
+conversion from virtio_vsock_pkt to sk_buff instead allocated receive skbs
+from the descriptor length, introducing the allocation-accounting mismatch.
+
+Copy the header into a stack object and validate hdr->len before allocating
+the skb.  Size the allocation as sizeof(hdr) + payload_len so descriptor
+capacity no longer determines queued memory.  Check payload_len against
+len - sizeof(hdr) to avoid addition overflow on 32-bit hosts.
+
+Fixes: 71dc9ec9ac7d ("virtio/vsock: replace virtio_vsock_pkt with sk_buff")
 Cc: stable@vger.kernel.org
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Link: https://patch.msgid.link/20261004235101.1464007-1-4ncienth@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- .../drm/amd/display/dc/link/protocols/link_dp_capability.c  | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/vhost/vsock.c | 34 ++++++++++++++++------------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d2..c487c5b87dfd7 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -2602,12 +2602,8 @@ bool dp_is_sink_present(struct dc_link *link)
- 	 * which indicates we need additional delay
- 	 */
+diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
+index 0cb87971d7491..88a310390eb0a 100644
+--- a/drivers/vhost/vsock.c
++++ b/drivers/vhost/vsock.c
+@@ -360,7 +360,7 @@ static struct sk_buff *
+ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
+ 		      unsigned int out, unsigned int in)
+ {
+-	struct virtio_vsock_hdr *hdr;
++	struct virtio_vsock_hdr hdr;
+ 	struct iov_iter iov_iter;
+ 	struct sk_buff *skb;
+ 	size_t payload_len;
+@@ -378,34 +378,32 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
+ 	    len > VIRTIO_VSOCK_MAX_PKT_BUF_SIZE + VIRTIO_VSOCK_SKB_HEADROOM)
+ 		return NULL;
  
--	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
--			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
--		dal_ddc_close(ddc);
+-	/* len contains both payload and hdr */
+-	skb = virtio_vsock_alloc_skb(len, GFP_KERNEL);
+-	if (!skb)
+-		return NULL;
 -
-+	if (dal_ddc_open(ddc, GPIO_MODE_INPUT, GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK)
- 		return present;
--	}
+ 	iov_iter_init(&iov_iter, ITER_SOURCE, vq->iov, out, len);
  
- 	/*
- 	 * Read GPIO: DP sink is present if both clock and data pins are zero
+-	hdr = virtio_vsock_hdr(skb);
+-	nbytes = copy_from_iter(hdr, sizeof(*hdr), &iov_iter);
+-	if (nbytes != sizeof(*hdr)) {
++	nbytes = copy_from_iter(&hdr, sizeof(hdr), &iov_iter);
++	if (nbytes != sizeof(hdr)) {
+ 		vq_err(vq, "Expected %zu bytes for pkt->hdr, got %zu bytes\n",
+-		       sizeof(*hdr), nbytes);
+-		kfree_skb(skb);
++		       sizeof(hdr), nbytes);
+ 		return NULL;
+ 	}
+ 
+-	payload_len = le32_to_cpu(hdr->len);
++	payload_len = le32_to_cpu(hdr.len);
++
++	/* The pkt is too big or the length in the header is invalid */
++	if (payload_len > len - sizeof(hdr))
++		return NULL;
++
++	/* Allocate only for the payload declared in the header. */
++	skb = virtio_vsock_alloc_skb(payload_len + sizeof(hdr), GFP_KERNEL);
++	if (!skb)
++		return NULL;
++
++	memcpy(virtio_vsock_hdr(skb), &hdr, sizeof(hdr));
+ 
+ 	/* No payload */
+ 	if (!payload_len)
+ 		return skb;
+ 
+-	/* The pkt is too big or the length in the header is invalid */
+-	if (payload_len + sizeof(*hdr) > len) {
+-		kfree_skb(skb);
+-		return NULL;
+-	}
+-
+ 	virtio_vsock_skb_put(skb, payload_len);
+ 
+ 	if (skb_copy_datagram_from_iter(skb, 0, &iov_iter, payload_len)) {
 -- 
 2.53.0
 
