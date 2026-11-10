@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273708;
-	b=Am92LBk66//a/AmuZ1KrG5ZLwlFkxMXFN3gRjyZqsRzXFzxVAIEOapIpK/i21YNuU43o
-	 S+Hsy9ktE8LJKp57HxzjcyvKyaY2ny3XVt5nhN12RdAigxT6Z+4LuEyt7XgLuKRzohk72
-	 bHFZhblAhPcXht5cMJb1jt0iiqYzT7aLNjkDtL0PfOc3GtqRznugd3djr+womBqSppl+n
-	 MyGSRkbUcjsAvng2b0ojF07ct7/QDNMFixw6Eg8SGN9HdF58UMz550as0s0m924JYngcH
-	 U080s0G1FuyrAnjFKEzmd4Ue5x+KemnJdwZjAOCfIUVZmWteAcgnOfxtzs4wfSG5A8w==
+	t=1794273711;
+	b=HTd+UDK7sanzzmYRZy3dyRQHj44AvXt4neyXsxJ5XiMuTaj6uD5OBsxjWSum6mjFrmqd
+	 /I0XVJE223iPLUzSN7h3rvdCTIvNk3wJFmNqbrJ+hiDdgm9D9lBD1zLup82ce84iXLpSa
+	 TvvXZOexyDNY/y2l21MXIN9UOtiSuP2v+2KnjIt9yDCmIqiIHQxVmNvOku8NvE19d7Vdt
+	 trSQotxN3FOffc+KPzTEm9uX2JBOBhsCLVmnFmhgzMFMSDgUJnOcOZXOa9kzLxcuo3s96
+	 XSPg/+NeDdp6yMSiSYbP0acCz33W7e33AQq8vVaQQxSTjTR9t1atWZQW6OThFM/VavA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273711;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1U6pXmYm1KSBI+qTmw9T4a8QbyuXYarp0nf5OlYlZYw=;
-	b=22ql6zC4Z8FO1LHUnluTIXDqC+tvfaLdhVTQ2eN+NbW9vzN2+EEFx+zLYa7cd5zGgm8p
-	 FpdC3eHA2fEaqQQPEIp7GjFCST464MgWFUrd7VqVJ/qIQhIE/ElZjV4G+RLFKvkt4rKpK
-	 9V6vGBiPaR6Fp5wxpHfUHNkBsal1jFdVkCwZnrg1V3wyUezpFwxCyrgCH6AoCd63YHvK3
-	 OEtDJZw6t4O7wjmqr2I1qKJLSAdBn32AhaqhICXxKeX3ddX/H6T4eJK7ruLy/i1iYCNpI
-	 VZomJzkrIrHkaTWS8ey+qRlH8lGd8kYWJWf2F0lHJp4JvQAt9yZE/f55BYdhqF6Qd+w==
+	bh=N8p5sXyeIAWBzF7nl86pU4ANlw/KMVAXvR6Rr4S7/+Q=;
+	b=ikR5WPg+aUgAaw1CdU+Odb2hNGu1NSA1S9HvgvEru1vYp36BJ/NGbjzWGwHDcMSJ4sxc
+	 Wk7CWX/UuCWbcVjP+lqe9yiFZYsfguty1cCrPU5iDPfkziNic0eNpGREVYZG05k8kcKEk
+	 DArZ80TUYQmSk66GWFpIvsJd9FgLVYdyKMdbKIxFquYCSjhaYJDBpwjeHCF5NwpHz1OVL
+	 Y8Pd2GatHQlS4B5tZV6Jy4G3kXjoIsa9g/tcYHt5wpIXAFR6NtoQYjAOV0WUPOEvtR5EY
+	 kIynBZfsChp9+Nh2LqS5WnQvQjWtEqyXzXue/o5FQ96izKCbia0qf2CVsGTbJiX/QZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UeNBJ69j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HqOz+gv5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16BA60A261D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5836606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UeNBJ69j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0A91F008A2;
-	Tue, 10 Nov 2026 01:21:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HqOz+gv5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9575D1F008A2;
+	Tue, 10 Nov 2026 01:21:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273707;
-	bh=1U6pXmYm1KSBI+qTmw9T4a8QbyuXYarp0nf5OlYlZYw=;
+	s=k20260515; t=1794273710;
+	bh=N8p5sXyeIAWBzF7nl86pU4ANlw/KMVAXvR6Rr4S7/+Q=;
 	h=From:To:Cc:Subject:Date;
-	b=UeNBJ69j3qDRSTQ10/WXx5jNLGf9wPb7uVNXDXb9gKkHwJWDvVNVMyzuFFQLcYVxQ
-	 dL0qLBv6jv6MGiE1gENXQFNg3t5585uztd+Qukr9NB4DIBM6+mpYwjiu0yrMV5iXkI
-	 E65ixD2s0CQFWfxpqgCU4tiaAUBvQbvP7gOKVALpEcF+AgKE+d/xu/nw+7Yg4QPYmk
-	 kjcrVRfKfytdGtXmRYSrAhWjw6p+bRuKISwQV49DTExvf6rsRNRyX7ulhOeDhP4lpS
-	 EzDaqpXAc3lNNX6KlOh2hBm8ivNfzQuKKU+A7jK6Iz9VpUexUqBOT4+4rhvTHZecwl
-	 Tx1odDsT4gLsg==
+	b=HqOz+gv5ppJyT7vkMhcaSIVjdIqR6sAC2TslzKg2wRvNOMjkquOsO5qIrH1DCR+IL
+	 3+tL2Wg+gMq1xqn4c43QsLrOuuzEvL03+qJjTWHjICrHYnNTaBYhy7xA56CaZiP0br
+	 LRJH16Iujnyvou6fDnwbeQ4aFQ8LjMh/hRWP06H7deX983tNOMDONA09fuVZHTql0y
+	 6Tr9k3c0pfxC6dBP/JfmQYr1tJDLCRCRdjQqg8yYnG4b6mUIDolQFI0Pua+tVAd6jX
+	 U/0iEvOGKSw0VPpFmYURDUusicSHP9j7SgPn1QwocNhmATH5BEslIkctcqVJsibbly
+	 oSWhgHywVXMQg==
 From: Sasha Levin <sashal@kernel.org>
-To: idosch@nvidia.com,
-	sf@techfak.net,
-	razor@blackwall.org,
-	pabeni@redhat.com
+To: seanjc@google.com,
+	morbo@google.com,
+	fane@google.com,
+	pbonzini@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] vxlan: Stop rejecting dynamic FDB entries with a nexthop ID" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:21:45 -0500
-Message-ID: <20261109202145-failed-5.15-7308ef8b4a67@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:48 -0500
+Message-ID: <20261109202148-failed-5.15-053621535f01@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,225 +70,145 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7308ef8b4a6779a39f68d053c19b53a5c584a663
+git cherry-pick -x 053621535f014085c935879582dd3b65964a0dce
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202145-failed-5.15-7308ef8b4a67@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202148-failed-5.15-053621535f01@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7308ef8b4a6779a39f68d053c19b53a5c584a663 Mon Sep 17 00:00:00 2001
-From: Ido Schimmel <idosch@nvidia.com>
-Date: Fri, 30 Oct 2026 15:37:50 +0200
-Subject: [PATCH] vxlan: Stop rejecting dynamic FDB entries with a nexthop ID
+From 053621535f014085c935879582dd3b65964a0dce Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Wed, 21 Oct 2026 19:10:46 -0700
+Subject: [PATCH] KVM: nSVM: Check validity of vmcs01 save area copied from
+ SMRAM on RSM
 
-Commit 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a
-nexthop id") started rejecting FDB entries that point to FDB nexthops
-unless they are configured as "permanent" or "static". The intent was to
-prevent such entries from being aged out by vxlan_cleanup(), which runs
-without RTNL and can therefore race with other VXLAN devices that modify
-the same per-nexthop FDB list.
+When doing RSM to L2, validate L1's state after copying it back into vmcb01
+from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
+guest.  Failure to validate L1's state is especially problematic for inputs
+to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
+without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
 
-However, FRR installs remote MACs that are behind a multihomed Ethernet
-Segment (EVPN-MH) as dynamic FDB entries that point to an FDB nexthop
-group. Since the above commit, these entries are rejected and traffic
-towards the corresponding MACs is flooded to all the remote VTEPs.
+  ------------[ cut here ]------------
+  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
+  index 3 is out of range for type 'u32 [2]'
+  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5f/0x90
+   dump_stack+0x10/0x18
+   ubsan_epilogue+0x9/0x39
+   __ubsan_handle_out_of_bounds.cold+0x50/0x55
+   paging32_walk_addr_generic+0x889/0x970
+   paging32_page_fault+0x79/0xa60
+   kvm_mmu_do_page_fault+0x125/0x270
+   kvm_mmu_page_fault+0x88/0x7b0
+   npf_interception+0xc8/0x220 [kvm_amd]
+   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
+   svm_handle_exit+0xb7/0x160 [kvm_amd]
+   vcpu_enter_guest+0x428/0x16a0
+   kvm_arch_vcpu_ioctl_run+0x479/0x920
+   kvm_vcpu_ioctl+0x316/0xb00
+   __x64_sys_ioctl+0xa3/0x100
+   x64_sys_call+0x281/0x23d0
+   do_syscall_64+0xba/0x550
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+  RIP: 0033:0x79bb30deb04b
+   </TASK>
+  ---[ end trace ]---
 
-These entries are also marked as externally learned ("extern_learn")
-and are therefore skipped by vxlan_cleanup(), but exempting externally
-learned entries from the checks is not enough: vxlan_cleanup() reads
-the state and flags of an entry without the hash lock, so an entry that
-is concurrently changed from dynamic and externally learned to static
-can still be aged out.
-
-Instead, remove the checks added by the above commit and make
-vxlan_cleanup() skip FDB entries that point to FDB nexthops. Such
-entries can only be configured from user space, cannot be learned and
-cannot roam, so there is no reason to age them out. The nexthop pointer
-of an FDB entry is set before the entry is linked and is only cleared
-after it was unlinked and an RCU grace period has passed, so it can be
-checked without the hash lock.
-
-Adjust the test cases added by the above commit and add a test case
-that checks that dynamic FDB entries that point to FDB nexthops are not
-aged out. Without the fix:
-
- # ./fib_nexthops.sh -t "ipv4_fdb_grp_fcnal ipv6_fdb_grp_fcnal"
-
- IPv4 fdb groups functional
- --------------------------
- [...]
- TEST: Fdb mac add with nexthop group and dynamic state              [FAIL]
- TEST: Fdb mac add with nexthop group and extern_learn               [FAIL]
- TEST: Fdb mac without nexthop group aged out                        [ OK ]
- TEST: Fdb mac with nexthop group not aged out                       [FAIL]
- [...]
-
- IPv6 fdb groups functional
- --------------------------
- [...]
- TEST: Fdb mac add with nexthop group and dynamic state              [FAIL]
- TEST: Fdb mac add with nexthop group and extern_learn               [FAIL]
- TEST: Fdb mac without nexthop group aged out                        [ OK ]
- TEST: Fdb mac with nexthop group not aged out                       [FAIL]
- [...]
-
- Tests passed:  44
- Tests failed:   6
- Tests skipped:  0
-
-With the fix:
-
- # ./fib_nexthops.sh -t "ipv4_fdb_grp_fcnal ipv6_fdb_grp_fcnal"
-
- IPv4 fdb groups functional
- --------------------------
- [...]
- TEST: Fdb mac add with nexthop group and dynamic state              [ OK ]
- TEST: Fdb mac add with nexthop group and extern_learn               [ OK ]
- TEST: Fdb mac without nexthop group aged out                        [ OK ]
- TEST: Fdb mac with nexthop group not aged out                       [ OK ]
- [...]
-
- IPv6 fdb groups functional
- --------------------------
- [...]
- TEST: Fdb mac add with nexthop group and dynamic state              [ OK ]
- TEST: Fdb mac add with nexthop group and extern_learn               [ OK ]
- TEST: Fdb mac without nexthop group aged out                        [ OK ]
- TEST: Fdb mac with nexthop group not aged out                       [ OK ]
- [...]
-
- Tests passed:  50
- Tests failed:   0
- Tests skipped:  0
-
-Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
-Fixes: 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a nexthop id")
+Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
 Cc: stable@vger.kernel.org
-Reported-by: Sascha Frey <sf@techfak.net>
-Closes: https://lore.kernel.org/netdev/20261028142928.GA8406@techfak.de/
-Tested-by: Sascha Frey <sf@techfak.net>
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
-Link: https://patch.msgid.link/20261030133750.28668-1-idosch@nvidia.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reported-by: Bill Wendling <morbo@google.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Tested-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261022021046.295001-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- drivers/net/vxlan/vxlan_core.c              | 14 ++------
- tools/testing/selftests/net/fib_nexthops.sh | 40 ++++++++++++++-------
- 2 files changed, 31 insertions(+), 23 deletions(-)
+ arch/x86/kvm/svm/nested.c | 23 ++++++++++++++++-------
+ arch/x86/kvm/svm/svm.c    |  2 ++
+ arch/x86/kvm/svm/svm.h    |  2 ++
+ 3 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 2235390997786..d11028b374721 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -1005,12 +1005,6 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
- 		return -EOPNOTSUPP;
- 	}
- 
--	if (rcu_access_pointer(f->nh) &&
--	    !(state & (NUD_PERMANENT | NUD_NOARP))) {
--		NL_SET_ERR_MSG(extack, "Cannot make a nexthop fdb dynamic");
--		return -EOPNOTSUPP;
--	}
--
- 	/* Do not allow an externally learned entry to take over an entry added
- 	 * by the user.
- 	 */
-@@ -1274,11 +1268,6 @@ static int vxlan_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
- 	if (err)
- 		return err;
- 
--	if (nhid && !(ndm->ndm_state & (NUD_PERMANENT | NUD_NOARP))) {
--		NL_SET_ERR_MSG(extack, "A nexthop fdb cannot be dynamic");
--		return -EINVAL;
--	}
--
- 	cfg = rtnl_dereference(vxlan->cfg);
- 	if (cfg->remote_ip.sa.sa_family != ip.sa.sa_family)
- 		return -EAFNOSUPPORT;
-@@ -2947,6 +2936,9 @@ static void vxlan_cleanup(struct timer_list *t)
- 		if (f->flags & NTF_EXT_LEARNED)
- 			continue;
- 
-+		if (rcu_access_pointer(f->nh))
-+			continue;
-+
- 		timeout = READ_ONCE(f->updated) + cfg->age_interval * HZ;
- 		if (time_before_eq(timeout, jiffies)) {
- 			spin_lock(&vxlan->hash_lock);
-diff --git a/tools/testing/selftests/net/fib_nexthops.sh b/tools/testing/selftests/net/fib_nexthops.sh
-index 431d7bed76224..adbec51917eb8 100755
---- a/tools/testing/selftests/net/fib_nexthops.sh
-+++ b/tools/testing/selftests/net/fib_nexthops.sh
-@@ -425,6 +425,14 @@ stop_ip_monitor()
- 	return $rc
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index af0ef678433d7..07554089ec05b 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1889,6 +1889,21 @@ static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
+ 	/* 'clean' and 'hv_enlightenments' are not changed by KVM */
  }
  
-+fdb_entry_aged()
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save)
 +{
-+	local mac=$1
-+	local dev=$2
++	struct vmcb_save_area_cached save_cached;
 +
-+	! $BRIDGE fdb get to $mac dev $dev self &> /dev/null
++	if (!(save->cr0 & X86_CR0_PG) ||
++	    !(save->cr0 & X86_CR0_PE) ||
++	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
++		return false;
++
++	__nested_copy_vmcb_save_to_cache(&save_cached, save);
++	return nested_vmcb_check_save(vcpu, &save_cached, false);
 +}
 +
- check_nexthop_fdb_support()
- {
- 	$IP nexthop help 2>&1 | grep -q fdb
-@@ -538,14 +546,18 @@ ipv6_fdb_grp_fcnal()
- 	log_test $? 0 "Fdb mac add with nexthop group and static state"
+ static int svm_get_nested_state(struct kvm_vcpu *vcpu,
+ 				struct kvm_nested_state __user *user_kvm_nested_state,
+ 				u32 user_data_size)
+@@ -1968,7 +1983,6 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 		&user_kvm_nested_state->data.svm[0];
+ 	struct vmcb_control_area *ctl;
+ 	struct vmcb_save_area *save;
+-	struct vmcb_save_area_cached save_cached;
+ 	struct vmcb_ctrl_area_cached ctl_cached;
+ 	bool use_separate_l2_pat;
+ 	unsigned long cr0;
+@@ -2040,12 +2054,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	 * KVM_GET_NESTED_STATE, and (b) it is not loaded at emulated
+ 	 * #VMEXIT.
+ 	 */
+-	__nested_copy_vmcb_save_to_cache(&save_cached, save);
+-	if (!(save->cr0 & X86_CR0_PG) ||
+-	    !(save->cr0 & X86_CR0_PE) ||
+-	    (save->rflags & X86_EFLAGS_VM) ||
+-	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+-	    !nested_vmcb_check_save(vcpu, &save_cached, false))
++	if (!nested_svm_check_vmcb01_save(vcpu, save))
+ 		goto out_free;
  
- 	run_cmd "$BRIDGE fdb add 02:02:00:00:00:16 dev vx10 nhid 102 self dynamic"
--	log_test $? 255 "Fdb mac add with nexthop group and dynamic state"
-+	log_test $? 0 "Fdb mac add with nexthop group and dynamic state"
-+
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self dynamic extern_learn"
-+	log_test $? 0 "Fdb mac add with nexthop group and extern_learn"
+ 	/*
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 487897ef11dd6..581bc3a23c95a 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -5219,6 +5219,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
+ 	 */
  
--	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self"
--	run_cmd "$BRIDGE fdb replace 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
--	log_test $? 255 "Fdb mac replace with nexthop group and dynamic state"
-+	run_cmd "$IP link set dev vx10 up type vxlan ageing 1"
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:18 dev vx10 dst 2001:db8:91::11 self dynamic"
-+	slowwait 20 fdb_entry_aged 02:02:00:00:00:18 vx10
-+	log_test $? 0 "Fdb mac without nexthop group aged out"
+ 	svm_copy_vmrun_state(vcpu, &svm->vmcb01.ptr->save, m_save.map.hva + 0x400);
++	if (!nested_svm_check_vmcb01_save(vcpu, &svm->vmcb01.ptr->save))
++		return 1;
  
--	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
--	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
-+	run_cmd "$BRIDGE fdb get to 02:02:00:00:00:16 dev vx10 self"
-+	log_test $? 0 "Fdb mac with nexthop group not aged out"
+ 	/*
+ 	 * Enter the nested guest now
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index 4b0b2ee13a3a5..b9f7786bf17ce 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -911,6 +911,8 @@ void nested_copy_vmcb_control_to_cache(struct vcpu_svm *svm,
+ void nested_copy_vmcb_save_to_cache(struct vcpu_svm *svm,
+ 				    struct vmcb_save_area *save);
+ void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save);
+ void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
  
- 	run_cmd "$IP -6 ro add 2001:db8:101::1/128 nhid 66"
- 	log_test $? 2 "Route add with fdb nexthop"
-@@ -688,14 +700,18 @@ ipv4_fdb_grp_fcnal()
- 	log_test $? 0 "Fdb mac add with nexthop group and static state"
  
- 	run_cmd "$BRIDGE fdb add 02:02:00:00:00:16 dev vx10 nhid 102 self dynamic"
--	log_test $? 255 "Fdb mac add with nexthop group and dynamic state"
-+	log_test $? 0 "Fdb mac add with nexthop group and dynamic state"
-+
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self dynamic extern_learn"
-+	log_test $? 0 "Fdb mac add with nexthop group and extern_learn"
- 
--	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self"
--	run_cmd "$BRIDGE fdb replace 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
--	log_test $? 255 "Fdb mac replace with nexthop group and dynamic state"
-+	run_cmd "$IP link set dev vx10 up type vxlan ageing 1"
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:18 dev vx10 dst 10.0.0.3 self dynamic"
-+	slowwait 20 fdb_entry_aged 02:02:00:00:00:18 vx10
-+	log_test $? 0 "Fdb mac without nexthop group aged out"
- 
--	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
--	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
-+	run_cmd "$BRIDGE fdb get to 02:02:00:00:00:16 dev vx10 self"
-+	log_test $? 0 "Fdb mac with nexthop group not aged out"
- 
- 	run_cmd "$IP ro add 172.16.0.0/22 nhid 16"
- 	log_test $? 2 "Route add with fdb nexthop"
 -- 
 2.53.0
 
