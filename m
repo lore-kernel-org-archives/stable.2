@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293107;
-	b=qwHVHkOCa4xuc38c5eNlZi6V3ZoUvAoxv7D14G1CHe13kjQnd7dkhJlcTK269/R3gkO2
-	 QRZmToAQLfNTE7LseF39nAeLA8CrU8qmV4+VUh81iHH5LYWfnXI/Y9fJdYjySTR3LRtfV
-	 xbTKAR9JLC1Z84SZULoc6BTFDffGD0h1hqqPA8CL4naVKxO8BeNnywETfHPsPLZFY1VYb
-	 NYCrrQb0qBhAkHYtlWdxZR9e2jxSsddJk6NpkN7FxUq8v16MP31NdTcJJuK0DQ5sxdv5d
-	 lOV3GGk9ASSXdpB4nXejFOZRlrUfs+DJHrsUtPY9pOS47xPfWJ14J0I+u3+n3UWE/MA==
+	t=1794293108;
+	b=l/FadmYFxXWCJa0z1gFd4VMBBtdXfCba81pC5sznqzaL8hpWbtAvwLWJ8GK02G+wxsav
+	 JwN+dWN/SDQFLV/iBssGH1pPJlntBBIjhhvYWWaZMFdS+c7U1GpZy6sBJpI75RPX7awhr
+	 iiK8we95mcpd7MUIipGKMh/KI0qREvRL61P0LOY6agNTnhlaYDvHJyPRBLbPpiEDY6ytV
+	 17XKtYxeLVF8kDr11tacLgf6ca89UT7UOe1F9+AFd0B6v6M3RCmsjzOBXvU3nbxc9i85d
+	 vN4vPF+PM1AxjXBB1Rmq+FJ/sQ+5JGYKs/morXP9i+CckqeYlmurTO0ZWg3QBwCgtQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293108;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=8SPIuC7JNmyFrwJK+NGl1yIa0CNge/s333PngePxXaQ=;
-	b=VYkn3LyC5AxLOwGb4X9LXveN85xd4gY0SZss4OElnq2doX1FtDkRXwXxvu6/ZHL1wYfb
-	 T35rNGVznPGzH7nITi38fWF4KNFPgHLFGm89lyIQez/r25kBobZeCbKEzzdh5Z5wRG3/S
-	 av1snZkfnj+tlrSgJHytBK4OfYKzIMBN7dLv4cpgDoO9Q/0qrlBF3mW7cdj9CkBwEqC4N
-	 VuE+/qQa10umqkP+ciWG1KhBth0QTSDbWlVqDaMu3fpJ4+goNUkCJUlgj9zdwFYIlgCDg
-	 NY1m/oHmmJ806EodCB/c7+NCmNRndQ9TWtkMij0OLFr0HwmtFi9ZrEi/WWBUaTCKRIw==
+	bh=1+EWMG1s4PtNLGMTM7gtsLhW6vrqjRkE1/MQE+IymZA=;
+	b=Gg6jUWBS+o3wBfmZidfT0N6PCKRwKb9gc3ZiL49rG0UeO92wFTt/FPUMjb6L2hylzYjU
+	 EBKuTVsReoxbqgnLwEogxat8eeBXSZ2J6iMnm7482naVpZFTviSkbU/Hm+Notr2CI3sXk
+	 Db57UO79qK/9WFopnyEjzvxR9sJRBh9RONz2WVEzYtrUvuxjf2MEv03B5BF9VLtccKRWP
+	 tLdXqb2//WFCagAUzXzyla/xivR8TgTYJ/l/l1zWY/RP0iOEzszSJgls8OSCsQbV+Wdhn
+	 r+SldzOi9WscsjaDMANEsWpuBdyNWYa0QACL4VReHRZZKZgRV1aoipjzDQuHSUFo7cA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Cc6ONljU;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0ss6A5T5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13E8606BD72;
-	Tue, 10 Nov 2026 06:45:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FAE606CB02;
+	Tue, 10 Nov 2026 06:45:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Cc6ONljU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B75A1F00A05;
-	Tue, 10 Nov 2026 06:45:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0ss6A5T5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32C61F008A3;
+	Tue, 10 Nov 2026 06:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293106;
-	bh=8SPIuC7JNmyFrwJK+NGl1yIa0CNge/s333PngePxXaQ=;
+	d=linux-foundation.org; s=korg; t=1794293107;
+	bh=1+EWMG1s4PtNLGMTM7gtsLhW6vrqjRkE1/MQE+IymZA=;
 	h=Date:To:From:Subject;
-	b=Cc6ONljUz422Wy0yqXGlK58i5LVQeossdco8Bt5zbiY1kXaIf0T0sdptAEcfsLx5R
-	 YzPtwLlBFZuEfzbnoc/4+7kU07CkDAoVzV4g93rYDWCX+5KsPekbUykF9UolTRm8g9
-	 iQidPg4HGjFWOq0NvxzL29OOOJRgDAVX/JUQj6RE=
-Date: Mon, 09 Nov 2026 22:45:06 -0800
+	b=0ss6A5T5OJa/842uN05Dof3gh2G0GChIP+yvamq8rOzY4lRAvoCJS4Lx+V8TPpgJA
+	 7cy31gwUe+o82gawlNsVsXiHojKb2HG5eCaRg938aGGd1V9VVKQ95jlrQtknEWPPmW
+	 FXGzvIPya4Wai05kw44377yrtB/92kWwP6BBFwy4=
+Date: Mon, 09 Nov 2026 22:45:07 -0800
 To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
-	willy@infradead.org,stable@vger.kernel.org,shivankg@amd.com,
+	stable@vger.kernel.org,shivankg@amd.com,shakeel.butt@linux.dev,
 	matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,
-	david@kernel.org,byungchul@sk.com,apopple@nvidia.com,chenridong@xiaomi.com,
-	akpm@linux-foundation.org
+	david@kernel.org,byungchul@sk.com,boris@bur.io,apopple@nvidia.com,
+	chenridong@xiaomi.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-migrate-move-nr_file_thps-on-cross-node-migration.patch removed from -mm tree
-Message-Id: <20261110064506.8B75A1F00A05@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration.patch removed from -mm tree
+Message-Id: <20261110064507.C32C61F008A3@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,101 +55,103 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/migrate: move NR_FILE_THPS on cross-node migration
+     Subject: mm/migrate: move NR_KERNEL_FILE_PAGES on cross-node migration
 has been removed from the -mm tree.  Its filename was
-     mm-migrate-move-nr_file_thps-on-cross-node-migration.patch
+     mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Ridong Chen <chenridong@xiaomi.com>
-Subject: mm/migrate: move NR_FILE_THPS on cross-node migration
-Date: Sun, 25 Oct 2026 19:02:09 +0800
+Subject: mm/migrate: move NR_KERNEL_FILE_PAGES on cross-node migration
+Date: Tue, 27 Oct 2026 12:32:14 +0800
 
-When a page cache folio is migrated to another node,
-__folio_migrate_mapping() moves the per-node and per-memcg counters
-that are keyed off the folio's node: NR_FILE_PAGES, NR_SHMEM,
-NR_SHMEM_THPS, NR_SWAPCACHE and NR_FILE_DIRTY.  NR_FILE_THPS is not
-moved, although __filemap_add_folio() charges it to the source node and
-filemap_unaccount_folio() takes it off whatever node the folio lives on
-when it is removed.
+NR_KERNEL_FILE_PAGES counts page cache folios of mappings flagged
+AS_KERNEL_FILE (currently the btrfs btree inode).  It is a per-node
+counter: filemap_add_folio() adds to folio_pgdat() of the new folio and
+filemap_unaccount_folio() subtracts from folio_pgdat() of the folio
+being removed.
 
-Commit 0b52c420350e ("mm: fix shmem THP counters on migration") added
-the NR_SHMEM_THPS case but not its file-backed counterpart.  Now that
-ext4, xfs, btrfs and erofs can all have PMD-sized page cache folios,
-migrating them via NUMA balancing, mbind(), migratepages, demotion or
-memory offlining leaks FileHugePages on the source node and underflows
-it on the destination, in both /sys/devices/system/node/nodeN/meminfo
-and memory.numa_stat.  The global value is unaffected, which is why this
-went unnoticed.
+__folio_migrate_mapping() does not move it when such a folio is
+migrated to another node, so the source node keeps the count forever
+and the destination node underflows once the folio is freed.  btree
+folios are migratable through btree_migrate_folio(), so demotion,
+DAMON-based migration (DAMOS_MIGRATE_{HOT,COLD}) or memory offlining
+all hit this.
 
-Reproducer, on a 2-node QEMU guest with THP set to "always":
+Reproducer, on a QEMU guest with two memory tiers (node0 is DRAM with
+all CPUs, node1 is a CPU-less slower node described via HMAT) and
+/sys/kernel/mm/numa/demotion_enabled set:
 
-  1. read a 256M ext4 file through a MADV_HUGEPAGE mapping while bound
-     to node 0, so its page cache is 128 PMD-sized folios on node 0;
-  2. move the mapping to node 1 with mbind(MPOL_MF_MOVE);
-  3. unmap the file and drop its page cache.
+  1. mount a btrfs and create 20000 empty files, so that btree folios
+     are cached on node0;
+  2. echo 2G > /sys/devices/system/node/node0/reclaim, which demotes
+     them to node1;
+  3. umount and drop caches.
 
-nr_file_hugepages in /sys/devices/system/node/nodeN/vmstat after each
-step (in units of PMD-sized folios):
+nr_kernel_file_pages in /sys/devices/system/node/nodeN/vmstat after
+each step:
 
-                    without this patch     with this patch
-                     node0     node1       node0     node1
-  1. cached           128         0         128         0
-  2. migrated         128         0           0       128
-  3. dropped          128         0 (*)       0         0
+                  without this patch     with this patch
+                   node0     node1       node0     node1
+  1. cached         1868         0        1868         0
+  2. demoted        1868         0          36      1832
+  3. dropped        1832         0 (*)       0         0
 
-  (*) the counter has underflowed to -128; negative values read as 0.
+  (*) the counter has underflowed to -1832; negative values read as 0.
 
-Without the patch the 128 folios stay accounted to node 0 forever, and
-every further round adds another 128.  The same happens to the per-memcg
-per-node counter: after step 3, memory.stat of the cgroup shows
-"file_thp 0", while memory.numa_stat still shows
-"file_thp N0=268435456 N1=0".  With the patch both are 0.
+The global value in /proc/vmstat is 0 after step 3 in both cases.
 
-Move NR_FILE_THPS together with NR_FILE_PAGES, using the same condition
-filemap_unaccount_folio() uses to take it off, so that THPs in the swap
-cache are left alone.
+Move it together with the other node-keyed page cache counters.  It is
+a node-only counter, so use the node accessor, matching how it is
+accounted elsewhere.  Interrupts are disabled here, as for the zone
+counters below.
 
-Link: https://lore.kernel.org/20261025110209.4105994-1-ridong.chen@linux.dev
-Fixes: d68eccad3706 ("mm/filemap: Allow large folios to be added to the page cache")
+This was pointed out by Shivank while reviewing the NR_FILE_THPS fix
+for the same function.
+
+Link: https://lore.kernel.org/20261027043214.2248986-1-ridong.chen@linux.dev
+Fixes: e3a9ac4e866e ("mm: add vmstat for kernel_file pages")
 Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Shivank Garg <shivankg@amd.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Shivank Garg <shivankg@amd.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
 Cc: Byungchul Park <byungchul@sk.com>
 Cc: Gregory Price <gourry@gourry.net>
 Cc: Ying Huang <ying.huang@linux.alibaba.com>
 Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: "Garg, Shivank" <shivankg@amd.com>
+Cc: Boris Burkov <boris@bur.io>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/migrate.c |    4 ++++
- 1 file changed, 4 insertions(+)
+ mm/migrate.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
---- a/mm/migrate.c~mm-migrate-move-nr_file_thps-on-cross-node-migration
+--- a/mm/migrate.c~mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration
 +++ a/mm/migrate.c
-@@ -700,6 +700,10 @@ static int __folio_migrate_mapping(struc
- 				mod_lruvec_state(old_lruvec, NR_SHMEM_THPS, -nr);
- 				mod_lruvec_state(new_lruvec, NR_SHMEM_THPS, nr);
- 			}
-+		} else if (!folio_test_swapbacked(folio) &&
-+			   folio_test_pmd_mappable(folio)) {
-+			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
-+			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
+@@ -705,6 +705,12 @@ static int __folio_migrate_mapping(struc
+ 			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
+ 			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
  		}
++		if (test_bit(AS_KERNEL_FILE, &mapping->flags)) {
++			__mod_node_page_state(oldzone->zone_pgdat,
++					      NR_KERNEL_FILE_PAGES, -nr);
++			__mod_node_page_state(newzone->zone_pgdat,
++					      NR_KERNEL_FILE_PAGES, nr);
++		}
  #ifdef CONFIG_SWAP
  		if (folio_test_swapcache(folio)) {
+ 			mod_lruvec_state(old_lruvec, NR_SWAPCACHE, -nr);
 _
 
 Patches currently in -mm which might be from chenridong@xiaomi.com are
 
-mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration.patch
 mm-memcontrol-drop-unused-vmscan-tracepoint-include.patch
 mm-vmscan-move-vmscan-tracepoints-to-a-local-header.patch
 mm-vmscan-move-struct-scan_control-to-a-dedicated-header.patch
