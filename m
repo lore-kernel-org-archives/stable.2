@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273733;
-	b=L6xT0BpdtLkR6/pSPdL3xVHCjMTDj9DKrxyz/iiuAQgyTV2TevylYi5L/m6sjoo92yr0
-	 r5Yli4jy3VKBqZ95f1NRnQxfuYJEFkMAoXRuXTWt3Br45i5qvgkrI6+mIEJSm0g9GCOJM
-	 qZrB7sYQyNBGSCnKwnEA2f3xRDIYQTbCiT2NnB9UWv2tr3zx2nDBTKiYi/4m8si2Rs+l2
-	 m1dEKOUwSnCqgagH2/8qI2pJ5YMov7OoXl057dWSVPXdO8z/fTBzBwTFETg9K0FhFCZjb
-	 0suxghO/wTymVeggkOb2JhvvHxUt233E2mYiT1i+4UZeXk03ZBFAVNbZE+MfXyDec3A==
+	t=1794273737;
+	b=hEh7bTUPFGJgya2rQ1qJebMh82lC7N+doEdZR/S4aqqKupLqBL7BTT5cObblyRc/6yer
+	 mkUwuLKuBAaclZwMb0CKMxSWFX1n1QrrAgcNC9dPLgG8oungbGtVlJLoi6T0Ykeo1LyBn
+	 stcqtJZU9RIZwTOReWZ9gAjgNlaYklmPyw2bRTBI0W/lOpPNmrmEeFJLBFn5nYG6nsh9B
+	 WOqupT/EFfMbqYYnDDH4Oaryg+HJuQ0ya81Gfsdpqq5bjnF/vioXGcTJEE8rSGy4FDv5W
+	 wJrBX07Ql2zhHmXNnX0ahWWWaDaKUwOgCMhNy+HydIKjS/TX9N1sehgGhrFKwB2Blcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273733;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273737;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/iw81Ukno+/GFpNxlOFNQ6IEIPGlD9QMDmHYLD8gZC8=;
-	b=4gLbRT7kVjJFYzhpTF6skZnaMANrF4+Pdwwzl8jqHoQ4/2gTcGoDmJ4TtvUeE+VT+lmS
-	 +KKEf6qy0XvM/MACMIhSzkRRThqbZuliZkDi8AI8lbN+e5T+HqU1KEVf89F5YDOKkcJYQ
-	 /QPhjOmjntTcRrVb8ISXSuwbPbuTs4WfIAb3w21F5nj8uT08I3MFHYLddqwOFj8XbS7jR
-	 yPbg4hevtJG/ZD1U4OZ8hPgeQisstlrURNate7Wbnfnj7g6uHVa8ji3AHXkLR16sdc6Bh
-	 Ttq2hn20nCszhY3gapg4K3zJHZRUXTd3mdzwDKbecxK+sRzUzaJRxPx/l0v5cd9/9Mw==
+	bh=EPAzKwB9QesYf1b+lwLZpNi0rcTiKBmFjQWrkTrMbHk=;
+	b=Fdnn+FilenOffz0dTdCuhpHzKOiiRdwGKwTmX4XCJkPn+b16WNdqnjReJtTI6GAiXViO
+	 ux2I/74WeKP7VUWQByL+QEhouRyUU95JktGsNXFo+jhNnSgFZlI9jEQq2xxChtwwiSMLK
+	 It/VA9UmkV3b4wwcpRuBGi226f7fEs7+lzibcv+0FxeEYcr3iH5iR4y5PHR75mZsnyG10
+	 zQrgT+a5PuHSCxwqIQVgqul5LNPeSz785OxvGSYQTa04lxZSicI8sRH4ys2dgAMWIBfg0
+	 T7kwvYtSLKoxtS3IQcv2w36RvrOHC1CqeIr/P623ZpOZ9/Ak++CH6VyarmX3T0UPE2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NuFkjV/w";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNb9KzuA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C33A60A5BD4
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6E0606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NuFkjV/w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FBE31F008A2;
-	Tue, 10 Nov 2026 01:22:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNb9KzuA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C9B1F008A2;
+	Tue, 10 Nov 2026 01:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273733;
-	bh=/iw81Ukno+/GFpNxlOFNQ6IEIPGlD9QMDmHYLD8gZC8=;
+	s=k20260515; t=1794273736;
+	bh=EPAzKwB9QesYf1b+lwLZpNi0rcTiKBmFjQWrkTrMbHk=;
 	h=From:To:Cc:Subject:Date;
-	b=NuFkjV/w/SeSWOxt5tVhKPQ7SEQk1Dggc//AVEHya/yFu01Jnm8XHAKDwCn7pdxk8
-	 qCJ51h/cYivAzfVwHYA8pxE4uhDC/IOxy+bAOFG19L7oVNEBh/V/8KBTIZ3h4mEQVG
-	 fZt/fjKlH5RGUcik9d2B440+SMcNbJ5amtrutpqdshAACS7Uxfxj4aF6skbhUbIhcB
-	 gs8pyzOyHt5eEaI+2XGDQSmRXkiMAdFeJhPcR+b+a7EJchmhnLj8PIL6MwsuqQWVw4
-	 6vVlIbbec/yaCCOvldQtofGvut8nivWEST/E9blixdbkwEUU/Z/e4R0Grep1edea3f
-	 ni5X1grjFb/0A==
+	b=hNb9KzuAbSlhM0B2XKJDsSkOk0UWO8FwxlOMfxdK156jZZGM3YF83EfSOtL8YxZnz
+	 DNPCSzhP6zDTN7uyBvyWcLvkkgoXooK+R2fVJ0FqHLsDnTvU3pJ8xofirNZgPMiT8C
+	 XATwJjDOzyladnXanVe8OFyZWGqmtTgmHRGKBI9DBY9m8QHINmfgnBO70OFsuR5ZOZ
+	 XvWy7YocDw9bUGaeuhpS4ApDo/0HQafbH0Y+AtgKmTsQknMVvZAilEBRrSblnVAYKy
+	 L5kgpM68eZr+GmqhSwamwRODqN61Ufu5I/RUpMq0p8690DZMLGIM1gBEs5foVXeK4G
+	 +ajh0iZkxN/bg==
 From: Sasha Levin <sashal@kernel.org>
-To: samarth.colleges@gmail.com,
+To: dennylin0707@gmail.com,
 	akpm@linux-foundation.org,
-	lance.yang@linux.dev,
+	sashiko-bot@kernel.org,
+	ziy@nvidia.com,
 	david@kernel.org,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org
+	catalin.marinas@arm.com,
+	matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,
+	byungchul@sk.com,
+	gourry@gourry.net,
+	ying.huang@linux.alibaba.com,
+	apopple@nvidia.com,
+	andreyknvl@gmail.com,
+	vincenzo.frascino@arm.com,
+	odys.yuan@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/ksm: keep soft-dirty when merging a page" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:22:10 -0500
-Message-ID: <20261109202210-failed-5.15-2efc6332f18b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/migrate: untag addresses when querying page nodes" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:22:13 -0500
+Message-ID: <20261109202213-failed-5.15-7d8746d7dc9c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,60 +81,66 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2efc6332f18bfd848f74f3d5ba45b31450601faa
+git cherry-pick -x 7d8746d7dc9cc4003661011424e5880ea7ae364b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202210-failed-5.15-2efc6332f18b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202213-failed-5.15-7d8746d7dc9c@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2efc6332f18bfd848f74f3d5ba45b31450601faa Mon Sep 17 00:00:00 2001
-From: Samarth Narang <samarth.colleges@gmail.com>
-Date: Wed, 21 Oct 2026 11:21:57 -0700
-Subject: [PATCH] mm/ksm: keep soft-dirty when merging a page
+From 7d8746d7dc9cc4003661011424e5880ea7ae364b Mon Sep 17 00:00:00 2001
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Mon, 26 Oct 2026 19:53:29 +0000
+Subject: [PATCH] mm/migrate: untag addresses when querying page nodes
 
-replace_page() maps the KSM page with a PTE built from scratch, so the
-soft-dirty bit of the PTE it replaces is lost.  A page written since
-"clear_refs 4" then no longer shows as soft-dirty once it is merged, and a
-soft-dirty based dumper treats it as unchanged.
+When move_pages() is used with nodes == NULL, do_pages_stat_array() passes
+each page address directly to vma_lookup().  A valid tagged address
+therefore fails the VMA lookup and gets -EFAULT in its status entry,
+instead of the node reported for the corresponding untagged address.
 
-Copy the soft-dirty bit from the original PTE to the new PTE.
+The tagged address ABI permits these pointers, and the migration path
+already removes their tags.  Apply the target mm's untagging rules to the
+query path as well, while holding its mmap read lock.
 
-Link: https://lore.kernel.org/20261021182157.1873726-1-samarth.colleges@gmail.com
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Link: https://lore.kernel.org/20261026195330.46757-1-dennylin0707@gmail.com
+Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
+Acked-by: Zi Yan <ziy@nvidia.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Xu Xin <xu.xin@linux.dev>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: <odys.yuan@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/migrate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b1892..910a1307ac9f3 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 7bdcdb57652f8..d649a6cfce6c0 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2461,7 +2461,7 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+ 	mmap_read_lock(mm);
  
-+	/* Preserve soft-dirty when replacing the page. */
-+	if (pte_soft_dirty(orig_pte))
-+		newpte = pte_mksoft_dirty(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
+ 	for (i = 0; i < nr_pages; i++) {
+-		unsigned long addr = (unsigned long)(*pages);
++		unsigned long addr = (unsigned long)untagged_addr_remote(mm, *pages);
+ 		struct vm_area_struct *vma;
+ 		struct folio_walk fw;
+ 		struct folio *folio;
 -- 
 2.53.0
 
