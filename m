@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314001;
-	b=YVw6khGrtJD2ZNkTjVzEn9X90UO1pU8cPLQwLOO8jJa9yoA93Ab/8UNLxKOeBFWH/3Nu
-	 vKsS5Y62hgdCcE0uyAPm1ohnNKvPjvgYcmcw47TFcfPxzc5mGFMB/oa7S2Pn3tNgzttmm
-	 7yV973XZdwjLBetIF+R5wbEvV0ZRCMPogd9NDqbezQ7LkCZ0JyW5DGmhZa1w9ZdEbu1Ml
-	 aCsiBSAKy4kVoE4h7fbymRo4/vgz0U3OyKbnL3dIP6kUYVs5qxmDOUn4eYkZHo5tzTdbU
-	 jThQHKRQQgFhB4Byb19URL+jCG0bCULdGXWA4f1SSg5VsyVUtYgmz9UBE2tLIDzTJvg==
+	t=1794314045;
+	b=h6bJIZ8x/sFomWiEvZ1fc7rhnq8EkTRYtd/o1/t2/VzzjT6FvzgljS3aRjRuZXqY7riR
+	 M/qqiZtx1aHaQbtYm8A8G3H06shn51gjJBt/rhwH992SMHZ4ct+hDv40tPxWnl4QZ7uxi
+	 +09ReRv86M31f2hDKQYep1r5lK7WuQ3zEri8z2SnqBHZtjCvEsUPL2oId3+k3f2zz0v8G
+	 khj1GlWZ7poxZmhSeVslaOw1vjnrsy54S2612Z+Kw/pTCEb2a7J/jpKaOa6PO3FZ6k5IZ
+	 aEpL9r1Qf3FgV4M+KC8RO4onmczSFQzUgNN1B73/xgf5K7Mn3oXcji2yPXGa0gzvxRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314045;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PQSFCk8F/tm1ykpB/kjpTNbyxDoKgsdlMcxijCRQj5Y=;
-	b=BdLpFBhNI1ibN/La9rhauOnGofOpvQSdtBpY9vKLDsMRvmHRoSk//qL+3iiDpN2ZpyHO
-	 XsozU++hjybR84dNTBDCDaI4oOIyufo3UJJPmrZTiIUDcL/WrBzWEm/DRHKRJleqIDO6m
-	 2hXCWhmzefY/prVyH0G/q8i/csxLCBnJ5N24Ut48DDsdSdz8otxSr1o9TInqielI3npfA
-	 jCAufuoGLNsUNiORtoY26RavkqBAydgycewSYVYTFA+/WUBha/U2xy5F7jAU3rj2QgfJ5
-	 vuXYJ6SF0lPipdhMn9Q/lJav7YGf8UFlgXr+zjGOFkI+1Rubt5hFAYQRhRrRkSzhkVA==
+	bh=hQQt12HIKOvm35LUIZZkpU/hUhx2h13LoET6a38F53Y=;
+	b=2CaRQgmiqOePqSPfn08vlS/WbiZdSk0N8boX8988UOXyCr0nslsKpf39dQiJwfPb87JL
+	 wtbj1fvl3bxA4toxmvhfn2u6Mv/A0GFOlixPmnoNpNPCXFlOy+to99RB0gxVI2IzVIhum
+	 keIed0jP3lcp8TJ9/BcTeNQa8pk/I5K5GfqqgUye8A7KCETOwK8XUBMPTEtrc7aq7eOpF
+	 TiviF1NAMvJ2wD4pyJauWT1CehDenW+aUjliw/gt6ontCs7cGzGdD6txtNF0imUt8z8jE
+	 vdsUtQY+eSJr/Q3i6MyGeVusk1Y8MAfhkKGsLcf5bOtoPvt399RbK+yq/iwIZ1JJyrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEHR0mqh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Drww0I9R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942E9606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE99606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEHR0mqh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3FBA1F0089F;
-	Tue, 10 Nov 2026 12:33:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Drww0I9R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730161F008A1;
+	Tue, 10 Nov 2026 12:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314001;
-	bh=PQSFCk8F/tm1ykpB/kjpTNbyxDoKgsdlMcxijCRQj5Y=;
+	s=k20260515; t=1794314045;
+	bh=hQQt12HIKOvm35LUIZZkpU/hUhx2h13LoET6a38F53Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YEHR0mqhLqW1UYjvPVzKsNcw+TxZAtkabtTR4duBE+5WBDK6G4lN6ffsMOu3GBAyC
-	 eTPjISIgfpXLtFDMgwG9ifnDVZQA7uCvwwIKHWXXzYhbiz8tcXwxRXUvPF6croSGiv
-	 ncbqlFKp3HSFiFGRhD0NiPAG7PUObVWcxKW4GAXg053mEanHrdCu69wM/MgGqwzBY8
-	 CXAHN5mnODYwEa6u6q2KVAtezETW6Ryc5pHo9IkRCPHeLW5AY/rAJLOiFMYHoZV1BX
-	 hNm9yIsOocaPKlY6qiH/XUoS/2yWCrhQwjlCEb4u0Q7CeVBfYPZ8Z/W7sXMLW08r7c
-	 XjIPtrDESxrrA==
+	b=Drww0I9R82h7aOJv8R9Ra0zp7sP51Q4cFV7sJK8a2J5grWmZZSoxP/UkpNMMooESB
+	 jWAwvPOHcmRlgHruK1Q27dF9kgWcfbk6myZzSGvVaUUVogkmE3I39eHjvQpnnXaLlj
+	 jkUsK4VUxws1kLPtQM+fsMD1GF2THwuCp9VrN6S6Foo2tHNNAKq4H3m2FZo79t2CqV
+	 GuOwILmeWzrUPfd9Liwm3n08itg/sHLuYouahNvNShVmfjG26eIMEpBqWIEPZ6R9GR
+	 eSaXytrh30TRbW/4R3wC9EmvISYK4+4hlTyAOoEpx5rEJVUItMfMmsiyFYErJDyazK
+	 5l2qFm23DAABw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()
-Date: Tue, 10 Nov 2026 07:33:18 -0500
-Message-ID: <20261110123310.1277074-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
+Date: Tue, 10 Nov 2026 07:34:03 -0500
+Message-ID: <20261110123339.1219530-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110123310.1277074-1-sashal@kernel.org>
-References: <20261107061722-failed-5.10-082723fee626@kernel.org>
- <20261110123310.1277074-1-sashal@kernel.org>
+In-Reply-To: <20261107050724-failed-6.18-6b8b1d1d7bc7@kernel.org>
+References: <20261107050724-failed-6.18-6b8b1d1d7bc7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +61,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Tom Verdonck <tom.verdonck@inspiral.be>
 
-[ Upstream commit 082723fee626532f176727b6438b666a96d5246c ]
+[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
 
-of_slim_get_device() returns a device with an elevated reference count,
-and wcd->slim_ifc_dev is intentionally kept for the codec lifetime on
-success. However, all the failure paths of wcd9335_slim_status() return
-without dropping that reference, leaking the SLIM interface device
-whenever the register maps cannot be created or the codec fails to come
-up.
+tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
+and, on every temperature read, refuses the read with -EAGAIN while
+time_before(jiffies, ready_time) is true, in order to skip the initial
+conversion.
 
-Put the device on each of those error paths.
+->ready_time is an unsigned long compared with time_before(), whose
+signed difference is only meaningful while the two values are within
+LONG_MAX jiffies of each other. Because ->ready_time is set once and
+never refreshed, jiffies keeps advancing away from it, and after 2^31
+jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+happens ~248.5 days after boot: time_before() then permanently reports
+"not ready" and the driver returns -EAGAIN on every read, without ever
+touching the sensor, until the next reboot. The continuous-mode path,
+which sets ->ready_time to jiffies with no added conversion delay, wraps
+the same way.
 
-Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
+Store the deadline as a 64-bit jiffies value and compare it with
+get_jiffies_64()/time_before64(), which does not wrap in any practical
+uptime.
+
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917164853.2163184-1-vulab@iscas.ac.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Adjusted struct tmp108 context to account for the missing params field. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wcd9335.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ drivers/hwmon/tmp108.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index 1f4a3407effd9..ed550dd2666ec 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -5208,25 +5208,32 @@ static int wcd9335_slim_status(struct slim_device *sdev,
- 	slim_get_logical_addr(wcd->slim_ifc_dev);
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index a971ff628435b..b298fae9296c6 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -74,7 +74,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	unsigned long ready_time;
++	u64 ready_time;
+ };
  
- 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
--	if (IS_ERR(wcd->regmap))
-+	if (IS_ERR(wcd->regmap)) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
- 				     "Failed to allocate slim register map\n");
-+	}
- 
- 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
- 						  &wcd9335_ifc_regmap_config);
--	if (IS_ERR(wcd->if_regmap))
-+	if (IS_ERR(wcd->if_regmap)) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
- 				     "Failed to allocate ifc register map\n");
-+	}
- 
- 	ret = wcd9335_bring_up(wcd);
- 	if (ret) {
- 		dev_err(dev, "Failed to bringup WCD9335\n");
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return ret;
+ /* convert 12-bit TMP108 register value to milliCelsius */
+@@ -125,7 +125,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+ 		/* Is it too early to return a conversion ? */
+-		if (time_before(jiffies, tmp108->ready_time)) {
++		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+ 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+ 				__func__);
+ 			return -EAGAIN;
+@@ -362,7 +362,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+ 		return err;
  	}
  
- 	ret = wcd9335_irq_init(wcd);
--	if (ret)
-+	if (ret) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return ret;
-+	}
+-	tmp108->ready_time = jiffies;
++	tmp108->ready_time = get_jiffies_64();
+ 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+ 	    TMP108_MODE_SHUTDOWN)
+ 		tmp108->ready_time +=
+@@ -413,7 +413,7 @@ static int tmp108_resume(struct device *dev)
  
- 	wcd9335_probe(wcd);
- 
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = jiffies +
++	tmp108->ready_time = get_jiffies_64() +
+ 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
+ 	return err;
+ }
 -- 
 2.53.0
 
