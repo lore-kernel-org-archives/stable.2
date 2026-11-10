@@ -1,57 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323335;
-	b=X4h/EjIxXgmFUR9GpwoP+m0wdoS208pkvYwHBigzZb1LWj3YSX/FUfDraaDDH93P+rM0
-	 vA1gDvOOnbj16rGcro9zzaAi4h4nIDYkUGVzVFHqadokKrU2ZlsbIh3UtxXe/13ee6xdu
-	 S9cM4Kq1dcxMG6StY8XQS8EFwe+9ybhPy6oAtnoXly6k0EsaZ/28Ok4cJgYFbQV8YRcdY
-	 UNU+wrTPgjaBvN98oK24TYyudQEx4LOvwfBGBfc6dzWhOPh9pVIhM6qe2SDqVPTknmvJl
-	 womLVudIJp3dzRp8xb0i6xYZE+7iar6HLF3KVC+jI4PFjKevN5hIB2oV7RmqgX3wvbw==
+	t=1794323344;
+	b=m/RM1VvuN6kiTH6aJPToeSQ1jFne9p4e1bDfmr3V5qJeyDKUWaj4nL2eBuaw8Uj/vzJV
+	 DY2tLQl4dqWYBXauNFYdVJXBnDd1V3TSUUufwyOQQaIqHPrYJmEpRcrbKTO+HOBKZUonL
+	 rXwF7ULyR03vohGX/JR8T0MO1aJdwBXIUAmv/7MqTa5Wr58NHJzRbTw4aTs81HKC0NkYw
+	 PYlXaS4ZkNuiAN0UU4p970kmpddSL2zN7kY+BWBKNR4BiDNAz+FZ4iIJVRymcWwdK7o8+
+	 2po1lqnP+goAKT9hfOpLCJdirooR52hy539jc4hIAxZKSK+R3EjFW8AVYWEdfJ/gLHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323335;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WIA6+aq2BFsonqdZL1do34wo6rMa13vPzf97dHEwv5s=;
-	b=CiMs7+DiOlMSQevKKKnvnqDcV0evnGNEJdgyseBMbmMAu1MHhyfNgIXQ861SA4zII7+y
-	 dRyEsxvqUo6laffwegolBHU2O3RMfEOdCYAnzL4NT9vA5QKndP5FSJcEic49f6pqHTx/7
-	 ObyDrR/+zBuflyEsUC0Jz3OZp8a6qlPlVh9uzqVqZYttZyDW+q6CUGnlfp1VvNI3+5WOL
-	 QoqavvMW07MFu5DVbQkQwXGWpdHESGe0ns8Lp6qRDFHAAT/paOEZ0XPktdbmrG60vUL4F
-	 RgeYpUICGHLQxtYd7/STs7zVvNQLeGZUt2xZ07V2+2TdrmKBismzC3VamjnWD+l0pAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323344;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=tPmTt0WU2o1nYWlwdFqyeJkX0bhZcQyilyXObznn64k=;
+	b=zd1kKrcQX7f+pV/jkWm7Zb4L/SjXg7r1Zz6KsFSQC+GG+8DUbe/Zlb5NaP0d6dMAbFmG
+	 B/+TCYRaL3Uo4sY2Fg7tp527g+2dPaa9FhZLJAiaHm4aTQDrxZD7ZaDuO33cfwSCzmbIL
+	 opST2mGRtv4Fay/60w9oMYKQrRxPEwza//5sj2u+XPN8GGwRS+s0QT6gy9eVjqKJm5x0e
+	 1LVdYrpD91t/RuS8CGwQadlFfhyLgXI9Zj2R0wUjwjLXZ7XPqyy6SAOLQEw6GN0QZpKyr
+	 Xb8Qz2rzvptQLqNC723xSRCPSrEZoPVUwMUGWOxiYQH5wM4RPyJn4qK9MQvHfMAK/6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QSxMQgOk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fourdim.xyz;
+	spf=pass smtp.mailfrom=fourdim.xyz;
+	dkim=temperror header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=eKac4iRT;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=31JuktLA;
+	arc=none smtp.remote-ip=103.168.172.159
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80B8606A334
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:08:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF83660A2600
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:08:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF83660A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QSxMQgOk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CE6F1F0089F;
-	Tue, 10 Nov 2026 15:08:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323334;
-	bh=WIA6+aq2BFsonqdZL1do34wo6rMa13vPzf97dHEwv5s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QSxMQgOkBucdVCZkw3Eh5Dx/+gHCD216cIuRR+iQRmBIpdPF0EYf9Hd17v3tPBxm7
-	 cX+1Pe8HjM/cmmxF3hPiYuC08bIJAJF6rxBeWM/QLcZaoYBVnaOuUqEnOB5WDmPZXr
-	 4xC5yrU48Ur0jHTmSamGDbSXl1LW4NT7IzofjmQRcQTND4AuzlhqmTcXZ9JFk7NHP3
-	 pq13TeNfjbZw6ZJtBFDW0lerSg7JWBmBRvWd8bG4arJtZQd0f+A+THu1OJiZAJkK81
-	 mXoawzCFhjayPT2S9IHlJFaXEVXprg0FLuil3Vwo1ZmOkkwKgCz/L+0jh0hO/pZWYl
-	 0M9e1/tCF5xDg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] f2fs: return -EIO for a lost inode block after cp_error
-Date: Tue, 10 Nov 2026 10:08:52 -0500
-Message-ID: <20261110150805.2030492-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050458-failed-7.3-53b12b63304b@kernel.org>
-References: <20261107050458-failed-7.3-53b12b63304b@kernel.org>
+	dkim=temperror header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=eKac4iRT;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=31JuktLA
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id ED4E41400170
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:08:57 -0500 (EST)
+Received: from phl-imap-10 ([10.202.2.85])
+  by phl-compute-03.internal (MEProxy); Tue, 10 Nov 2026 10:08:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794323337;
+	 x=1794409737; bh=tPmTt0WU2o1nYWlwdFqyeJkX0bhZcQyilyXObznn64k=; b=
+	eKac4iRTstPz0pLWL3ORPCZPelZdiQeLwtZDzRgGOPpTGPv1WzmKE8WMUe2zPabQ
+	4qaEDwXASEiNBZ5PkhvpIknRHWiwcHcakqrjhNLwb0HRlGINMPKmWxBcXMi/c45R
+	kyPpvy5f2E5/EXcBz/wtAvhyTMTgfowEjth/9m836ur7oML4X43//bRXdfqIEL21
+	gO8MUXOPcCcNifZLVnUsfcq7GFI0fYbEenLSKArfr3xOe10vPh50XhW4HV2Z8yoJ
+	eR9jmb+IhGHeUjODJO31aUhYzlU4BKCVWvHrSbwgSfoW0KcPrMfouNCYnNpN/F/r
+	EcRMBzkBYUQ6DrbtFmM3Rw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794323337; x=
+	1794409737; bh=tPmTt0WU2o1nYWlwdFqyeJkX0bhZcQyilyXObznn64k=; b=3
+	1JuktLAdNUCP8cF28whFStojW5C7I+muQi2ZlKtWYm91og0sVvPIVXnMBtBTqU5W
+	jEIXATVEfJsvyJm9R6TDN3lTwenVyaS5F8Xo0tmt0P4UqdjVOJmbFUbjgTcBx38i
+	ZWZ8uhZasNRFa+w6iYusor6TewzsLE4hHWvxHrPHzvnVlmCTe22+bcRr+WWutg3j
+	9Djy8wnff9Vfq7MAfudqlH9LsyYzBkxkKcTgeFETXMxVdwrgmjV6GHJFkjZCasGg
+	pCDGyI1160DoFcQkXVZbM5mhm1X3FuSOMU3l6g0cR3HLlYP+WXCzwFBU4aWsrgyW
+	tmvR9f4KhTlvcLCweuHnw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fourdim.xyz a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794323337; d=fourdim.xyz;
+	mf=PG9zc0Bmb3VyZGltLnh5ej4=;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:rFkEDmKsGeBwOGfjBV2w1ArKPHfjKWTc8br3FunNfDVtkrT
+	jCDWWlhNCLfVDM2NbXzaO6DZgAa29mPdJ3E5LYuQEYRwXWClzKL7KqwZ5L1Og9Dr
+	oQXWRvww9Bp9QBFmipNr/pZURXxDomWbCG6J8CyOu5Dl37dIxfPUyKsvRRtiLxUV
+	A8wJ2Z1VSAws5rMrKEBKO0KDpcOiZnbJceX9o5eUU0wWF8cGYXCxr1pFDXTc/MqX
+	GSnWrmuRodHl7ucmw/T3KPGClkwb2Xp9xhmSv0iQa8iqI8uGu/7K71yvspLELZou
+	bueBsVs7lZndpasmNoD5eBpYuim/hi8EjzohX9g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:+7WJ0626dh8Hn1nzGQk+mEQ+UiDt0pZ6wW+u2qjUYqA=:V2BOroXsBIamJEfpPzkHclj6DwYpFx5TBP6iUjVqd+Q=;
+X-ME-Sender: <xms:iTPzanNSpMY5klqOziG28Lu6WjIThwa4XnHDfmVd2k6RH4WxwXNFzA>
+    <xme:iTPzasxAnc2uYs9Ge46RHkNqbjEa_qlFp3ykCUtvKRSJKcj5l_tzBL753p541MzD5
+    M6lBPjXbfXJ5vIFWc7Z4PIA_O301mCDicwwfLB_JlBUimBrg8k2dPY6>
+X-ME-Proxy-Cause: dmFkZTFk1pexQypjrQfLV+J/jlcvJoDW7B7ZXwHUYgviRebFPYyMWbfukYAZk1WOfwpGt5
+    dRLYMwuzWdrCy/aKkvcOjbHhz/r+9v/H/Tc9SOzITYulMFQkwsYW0BZfqU34wfyoabeItZ
+    TNsZDPpNphtuMzSazPm56cRhJYoBFXDNNbFVEVSziSz2MeVcl7QCKqMUYo4m6MtxSX4LHf
+    xnicY05eGfmmv2vKEEB3SlbQgNf5IFk0rjt5rBbiNyk3Xr+OvHjPEoCKu2vf/XZdS92hdD
+    +ixwF5I8VDg/s6lIzrRtXvhtSwv27zlAM6aO8m0V/nsujM/z0wbqVQO+c4CY3SMr2ylkLA
+    MwE9nTOGgNBfyfbJe+28phIM169eGmra0Glh5SaW5CqUhSJ4sY7TU6cl79RXqf3hQDLcXr
+    TVkOmnrgiOVwooFw+nfDcdiytef0QAynwWMrOCgbwMmzagh5fr4psEPNM8PlqXv0z8AVj9
+    t4v8AKCm+cL4lhgRI9MrmSlDb9+eXHTKUG5QGs+xdRHu171AlpC9DBlpj86FqT/3Uilzy/
+    59Hh/wWfShR/hjAt+zsAE49eDa3rv8KhH/hZxZyLEH0ZxWwbFt3CNta/HBT5i2ilpdbJnj
+    AsqyFPUWSXc7lxQXEqdbeGQEX7850gYFjzVlRVEX64hMkeWzvljD2T/oUjaA
+X-ME-Proxy: <xmx:iTPzapVO3_X-WNbyDjfm_rYkWpiOJ_n80FWOEDJ9u5Y8akgaTP4svA>
+    <xmx:iTPzalChoEancqVzmAGGFZVDxfO3m1NO06b5LFFs_420-lZDJsTOCg>
+    <xmx:iTPzao6i_QDy1UhIWEOrLt1hcmB-cNG7LHkZ_PAqPpmMpp29TxN1xQ>
+    <xmx:iTPzagyxHmZBUQ6g1zr08GGO-St2nd0YlNUCZDs1V_ao1eOuDVwzLw>
+    <xmx:iTPzalb2gz2lwybhUEUhzcqVEDTd5OIp72R4aWtRCHqpxaNQD4zdIdaN>
+Feedback-ID: if72e4b10:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 9A20E216008A; Tue, 10 Nov 2026 10:08:57 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,65 +115,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A27n4ETjY7Bw
+Date: Tue, 10 Nov 2026 10:08:00 -0500
+From: "Siwei Zhang" <oss@fourdim.xyz>
+To: "Sasha Levin" <sashal@kernel.org>, stable@vger.kernel.org
+Cc: "Luiz Augusto von Dentz" <luiz.von.dentz@intel.com>,
+ linux-bluetooth@vger.kernel.org
+Message-Id: <93c80552-6d35-44b4-bddf-b08f69800c13@app.fastmail.com>
+In-Reply-To: <2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org>
+References: <20261109015902.3034747-1-oss@fourdim.xyz>
+ <2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org>
+Subject: Re: [PATCH 5.15.y v2 0/3] Bluetooth: L2CAP: signalling response fixes
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit 53b12b63304b34a3850a901c4de3cc6ad08e0aee ]
 
-After cp_error, dirty node caches are dropped without being written.
-If such an inode was never written, its NAT entry is still NEW_ADDR,
-and reading its inode block returns -ENOENT.
+On Mon, Nov 9, 2026, at 10:53 AM, Sasha Levin wrote:
+>> Bluetooth: L2CAP: signalling response fixes
+>
+> Thanks for the v2. The 5.15 and 5.10 series add AMP/A2MP hunks that are not in
+> 6320736af7dc ("Bluetooth: L2CAP: Reject signalling responses in invalid
+> states"), a518b9a9ef6e ("Bluetooth: L2CAP: Only accept connection responses to
+> outstanding requests") or a9f9eeb5344f ("Bluetooth: L2CAP: Ignore connection
+> responses with wrong ident").
+>
+> Luiz, could you ack those AMP extras? I will queue both series once there is an
+> ack.
 
-f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
-as a hole. Since the inode block is missing, the next offset can only
-advance one block, so fiemap walks block by block up to maxbytes,
-about 2^30 blocks, while holding the inode lock. It took hours in a
-power-off recovery test after shutdown and blocked unlink and umount
-on the file.
+CC linux-bluetooth for better visibility.
 
-Return -EIO instead of -ENOENT when the inode block itself is missing
-after cp_error or shutdown. A missing direct or indirect node is still
-reported as -ENOENT.
+Original thread link:
+https://lore.kernel.org/stable/2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org/
 
-Cc: stable@kernel.org
-Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Adapted node-cache access to the existing folio interface. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/node.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+Patches for 5.15:
+https://lore.kernel.org/stable/20261109015902.3034747-1-oss@fourdim.xyz/
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 86c2e67e43b6a..5f3ea61325914 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -835,8 +835,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
- 
- 	if (!dn->inode_folio) {
- 		nfolio[0] = f2fs_get_inode_folio(sbi, nids[0]);
--		if (IS_ERR(nfolio[0]))
--			return PTR_ERR(nfolio[0]);
-+		if (IS_ERR(nfolio[0])) {
-+			err = PTR_ERR(nfolio[0]);
-+			/*
-+			 * cp_error drops dirty node caches, so the inode block
-+			 * of an inode that was never written reads as NEW_ADDR
-+			 * and returns -ENOENT. It is not a hole; the inode is
-+			 * gone. Callers treat -ENOENT as a hole and keep
-+			 * looking block by block (e.g. fiemap up to maxbytes).
-+			 */
-+			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
-+					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
-+				err = -EIO;
-+			return err;
-+		}
- 	} else {
- 		nfolio[0] = dn->inode_folio;
- 	}
--- 
-2.53.0
+Patches for 5.10:
+https://lore.kernel.org/stable/20261109020039.3035406-1-oss@fourdim.xyz/
 
+>
+> -- 
+> Thanks,
+> Sasha
+
+Best,
+Siwei
