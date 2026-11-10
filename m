@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336129;
-	b=rpvHUc9VnSoqYoK0BI6UxnTsoef7FYU0TVwLXHBZR7pJjaIKtwaz/TFnS4kyDI+mytMh
-	 MUfw/wKXcIcGXEhN3DPX4v3BIVBqL1TDXLNNYoRAL+Nhy5Dl3erE6Dy2532p4YHmZZ6b/
-	 zuVNWeFm5V3G3D5JfHljdIImeby5IAUqx9C3oHJMHwxgKq3nju1TxOi1J9wVwIuZwkPFK
-	 fRYo6IWA8K6KP8869odB7Q75tyfphzQ9BmA69Soqze7dCs3OAdAQ7DtXul808YdBa/vYq
-	 keI2FDb23TZ4DRf01+8iV5Ho/ud6gWuh/D7jGaCg4yg7j60isj6HqG8TGkCxOkdRBqw==
+	t=1794336171;
+	b=SwzcQz7U10P1CWwMq2fHVB8H7XoNEjuO0nYH/6hAbAPDmrhViSdrDBXpFhuMytYiD0yy
+	 CQ87ine/8KnW6sWlsLgiX98k/KKFVF581yLAAT2M8nIf7fdo7IOv9wbexxaVuVKLRbQ0m
+	 8T8rqxMqb3nmrW/8m4lwobYAiRODG63HPQd1fCm6jV42uVqfzuTythjP3F9DAwN5VW8QM
+	 0Jhqyp6WuGbaHGs81bjjZ0wZdXLa0maSDtn1vDGstJ2P/Xl5J7ZzynKrFwRwBj2TH33A1
+	 hzjinTheHRpiMSekseICRFQsFGQpGsBK7WVqh059RM1g9wPLx42UqAnO/hzhCzskOjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336129;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=daTlajkgODrhOY+iBMOF42M57kKzY4A//4nTrW18SWM=;
-	b=qthj6POrq/R/zqYBZNR+qd0kDv1yuIEFtyWqLAIm2Z4/7SoYSIy8zlE8GF7rjWGBlVss
-	 86b5ti4o0dB/uASoqdwb7gl3VoZkle9UMqKuTDDawQ7GANRIY3WoDBMoc5m/Zi2CDloNZ
-	 nHkMyED4hSc/mgKr/R1hy7fy5nN/qDn4T0N2r7XjXWqhvdJ7CAPHyC2zOlx+y91aBsAaj
-	 ipQhBxml7aaj4u+rsotq+C5GNnku+SkFGJELQTENtU9nXhjPrEys+1K7O/+UBdkJYiaia
-	 Cb7u/AIqOuOMV04FBBwt336xU5OMtoBk9pj0lOs//tBuORqyuwQQsKj82RnWvGJFwgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336171;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WxfQ+pRuh/49QByqzzGitGu7v8i7RifW8RlBjXlKUnQ=;
+	b=AMAFuYcBW+cgJfTi5y4sJK0UpgZdSRdmH8ZGzb0h+4NE8tuVV/0vC18s+J7E8Dj4LvfE
+	 5ysLZz8KCaA+oyXh+pu9SydO61XA5L5sGKKAQVSjvE16/F7uIwqT4Wcjtzyqpxk0FfT2p
+	 PyPDyDK2Upooj9UyiHquohdOwcLxPv5vBBNULBWqwDjWP2wc04w8m+cF3sIrmKluG6Jxf
+	 NxV9Z7O6t3bV5r51vVSKiTYqe2h5w+e0h0/cR2I46dp2mmKrHeywfRboNCgpVv0lsF4lr
+	 nZIrqsU/y2039WODRL/lREceghBYVaWEzXUJMYho28lcUqgPU1oozlDHsMRngslQwNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWzYUZw5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=GzYTE63F;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61374606A91C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 39364606A92B
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:42:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39364606A92B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWzYUZw5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347D81F008A3;
-	Tue, 10 Nov 2026 18:42:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336129;
-	bh=daTlajkgODrhOY+iBMOF42M57kKzY4A//4nTrW18SWM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PWzYUZw5XOYwc4/3LqUt7refs99XEKyGUjpJut83pLXponhjcnf4EvsqEjscYil0B
-	 lATYz5qUP06+zCZtOazcxc+JvfyIMRGL0LD6jWFNIHXFsiOyKkxj1C9oge5SCW7zlp
-	 s3sHxCaXr+JG/fRjoTMkTdZma9JIen1ksCNvDIbW+ExzO7sreVwO9ElMjXd6W+hwAq
-	 XJvdMPXsOTM8Rh1TaQWMghktsEu9I6CgnA8tlvmQwxwgPmv+BTh5oaVKac7OsX8bum
-	 MCx4sFxPPL4LylUDAV+8nxcmJz29ApxuQYCvB7H2sQbzykqkfq8j7ic5hbSv9FOUly
-	 BXyElPhdNSgYA==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=GzYTE63F
+Received: by dvalin.narfation.org (Postfix) id 3F6CF216C6;
+	Tue, 10 Nov 2026 18:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794336169;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WxfQ+pRuh/49QByqzzGitGu7v8i7RifW8RlBjXlKUnQ=;
+	b=GzYTE63FD+ujkJxIZIcTI0kG8wiGHFd0AGMsYtlJXGnEqlkyh4IMW3igF76dz81yykjh+9
+	1wKxd0Cr/PiloK61J9JxXdHyo4ruqx9mprvuzQuSHag4ZDJgBjuKsz3ES8UACuzHU55rXC
+	PZDZuig8iW6MRGw6N5NKF0/V0keXwWU=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Radu Rendec <radu@rendec.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] irqchip/imx-intmux: Fix runtime PM teardown on remove
-Date: Tue, 10 Nov 2026 13:42:05 -0500
-Message-ID: <20261110184112.3296356-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110184112.3296356-1-sashal@kernel.org>
-References: <20261107054940-failed-6.1-b167c1a30e9e@kernel.org>
- <20261110184112.3296356-1-sashal@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 7.3.y] batman-adv: tt: send ROAM_ADV on each roamed back client
+Date: Tue, 10 Nov 2026 19:42:40 +0100
+Message-ID: <20261110184240.44536-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200106-failed-7.3-aff4d5d10f2d@kernel.org>
+References: <20261109200106-failed-7.3-aff4d5d10f2d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,81 +65,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+commit aff4d5d10f2dcb4a9b604e27414dafa1d51b6406 upstream.
 
-[ Upstream commit b167c1a30e9e020e4c5e102c7a555943742c024b ]
+When a ROAMING_ADV is received for an announced local client,
+batadv_roam_tvlv_unicast_handler_v1() creates a global entry with the
+BATADV_TT_CLIENT_ROAM flag set.
 
-imx_intmux_probe() enables the IPG clock and then drops its runtime PM
-reference with pm_runtime_put(). With CONFIG_PM enabled, the runtime
-suspend callback disables the IPG clock. With CONFIG_PM disabled, the
-clock remains enabled after probe.
+If the client sends a frame again before the next TTVN commit,
+batadv_tt_local_add_roam() is expected to announce this return via a
+ROAM_ADV frame. But this doesn't happen because the global entry (created
+by the first ROAMING_ADV) carries BATADV_TT_CLIENT_ROAM until the new
+originator announces the client.
 
-imx_intmux_remove() accesses the CHANIER registers without first making
-sure that the device is runtime active. The device may therefore be
-runtime suspended with the IPG clock disabled when these registers are
-accessed. In addition, the remove path only calls pm_runtime_disable()
-and does not balance the clock enable when CONFIG_PM is disabled.
+Let batadv_tt_local_add_roam() always handle a roamed back client -
+independent of the ROAM flag of the global entry:
 
-Resume the device and acquire a runtime PM reference before accessing
-the registers. If resume fails, skip the register accesses but still
-tear down the chained handlers and IRQ domains. Disable runtime PM
-afterwards, drop the acquired reference without triggering another
-runtime suspend, and explicitly disable the IPG clock.
+* trigger sending of the ROAM_ADV frame(s)
+* remove the (with the roaming) associated global entry
 
-This keeps the clock enabled while the hardware registers are accessed
-and balances the clk_prepare_enable() performed during probe for both
-CONFIG_PM configurations.
-
-This issue was found by manual code inspection.
-
-Fixes: bb403111e017 ("irqchip/imx-intmux: Implement intmux runtime power management")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Radu Rendec <radu@rendec.net>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914134211.1734163-1-lgs201920130244@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ adjust code still in batadv_tt_local_add ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/irqchip/irq-imx-intmux.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ net/batman-adv/translation-table.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
-index c7bf73dcb7a10..87061eac27e91 100644
---- a/drivers/irqchip/irq-imx-intmux.c
-+++ b/drivers/irqchip/irq-imx-intmux.c
-@@ -284,12 +284,16 @@ static int imx_intmux_probe(struct platform_device *pdev)
- static void imx_intmux_remove(struct platform_device *pdev)
- {
- 	struct intmux_data *data = platform_get_drvdata(pdev);
--	int i;
-+	int i, ret;
-+
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
-+	if (ret < 0)
-+		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
- 
- 	for (i = 0; i < data->channum; i++) {
- 		/* disable all interrupt sources of this channel */
--		writel_relaxed(0, data->regs + CHANIER(i));
--
-+		if (ret >= 0)
-+			writel_relaxed(0, data->regs + CHANIER(i));
- 		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
- 						 NULL, NULL);
- 
-@@ -297,6 +301,11 @@ static void imx_intmux_remove(struct platform_device *pdev)
- 	}
- 
- 	pm_runtime_disable(&pdev->dev);
-+	if (ret >= 0) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		clk_disable_unprepare(data->ipg_clk);
-+		pm_runtime_set_suspended(&pdev->dev);
-+	}
- }
- 
- #ifdef CONFIG_PM
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 4523daec6de5c..6fbd96fa08e03 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -755,7 +755,8 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
+ 	/* Check whether it is a roaming, but don't do anything if the roaming
+ 	 * process has already been handled
+ 	 */
+-	if (tt_global && !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM)) {
++	if (tt_global &&
++	    (roamed_back || !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM))) {
+ 		/* These node are probably going to update their tt table */
+ 		head = &tt_global->orig_list;
+ 		rcu_read_lock();
 -- 
-2.53.0
+2.47.3
 
