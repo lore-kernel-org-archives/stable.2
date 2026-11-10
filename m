@@ -1,50 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272556;
-	b=KzyYs4N47xgkAsx9g4VsS8OU93kotxU/3SRFG1OMtY2dTjtzTbE0IwGTScyITyHe2n5e
-	 HdWqiFkMtJCG74K8BmwGgmDysJABZv9die3gfzIK1r+Qh7YJoecAvMb2V8+GIjPub1umO
-	 vvpqOaLQlbsX9JVWAH7yDlu2aXSpwV7qj3nuSaAfxhjBYF5Y6kK25JsTRlwAJCawYHzU5
-	 SBiIQvh/WXHzdwoJqZxvPnrudigIRyFR52wUe8O5EKJhrh7GcKWiWwsRwv4oXvU4henj9
-	 yr3Hqb6yvwv0z0PBzZusf7u0O4Uz8jD125aBuE9/2vhxt/l2F4eXvoPwYK8Nm8BDxQA==
+	t=1794272558;
+	b=eHCGKseMQQbAaA0HN/hWxUK2t2PrxdCytxJwR3VxR8jJGXBXr6P5Fcej6a781gi21RbM
+	 qYSDXd+WGmsFnTQuBJDCrcTrPuA3c4UJJm0aV8vCAscTRSJ7HtyLi95KOlgQ2HYDzxmnN
+	 prsWAz6dtJisJM0vxfMpwSd7J5E3EUkBd/CQrmkWYyiyBDw3kysxk3mCW8uXevvAujvre
+	 nguJd+/YriYOYLUwk+otBa8+p1tI70v69jR2CUte5sMIkrp1jckMB3hlwROgXmpRCnwSc
+	 42hbfxmQab6N0HUdaGlImIFD/udgfmxTcXrctAiK3I5/lDxQ9sXfPpKGtN2VJahgUHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272556;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272558;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4tf7Q4OQX61HyktNQTFKvtb6zaXHJFzA9uo6uKBfIWo=;
-	b=L6KVHaR9mKjRre9xu+xsn807qAPqQS2hhI4TdFGR18ImiLMGvWQ7Nc+ncG5IA8QsgplI
-	 K4XVESi1JktmLg6Uqj2BDs4xlooPPZNd7OV4s+RpyugiHAuh41Tsl6BnMRArHnQzveQC5
-	 pgEwOJCgAWwUIUaq/hnxNEmbwndhxOLmV8DKiRbrPZ5NkQRs7ZekDTLMV8JNChO0vFOVm
-	 tWhh7qYR2rus82Mvg3WCIxHda452PlaHu5Ilwvi4IDrq8UkX95Sg1NL5KU1Giq8jxFBCJ
-	 w7a98+AMSmOcdcirqDNQhPOMGHluW8CMJ5jByXS94vHPz2ke/Oqd1/469sHrU38XwWw==
+	bh=r9OJf4S5ieMMw+vdRg0gwqP1+0gpfsj3jUAdzC8g/yo=;
+	b=ogtj5bq1/s49srBUsS/0IHoJOdh2qd+qmCrI05mxfTd0tNH3Dbz6XiewEiJsrOn41y+h
+	 evoqGXXlzOK/hWXywdylKC27Rb6kBoD+F8mP2YrFtCUZ21DHEJx0xGIg6y7Qf78s6UaQD
+	 qRKTdPWzgbS40KF4f5Jr3oeKuLs4SmGme+g/anaVhU/+sITsj0FToXUjq+1ERwzsTrqNI
+	 bpG9RSypjZRlvVvXDAKA+4vNYUFEohq/LTlEhZwNbXHlHpJcnFuRNycHrH7KirypY+Vd2
+	 naK9Ddv9RJOJJYj5po0ow85MFYqdDwMPWhZ6OjiHXhh1dz0vot76DSw5c18NRUL593g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fc+Z34Rp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DghbeDQ6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32EB606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32750606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fc+Z34Rp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C50B1F0089F;
-	Tue, 10 Nov 2026 01:02:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DghbeDQ6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A861F0089F;
+	Tue, 10 Nov 2026 01:02:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272555;
-	bh=4tf7Q4OQX61HyktNQTFKvtb6zaXHJFzA9uo6uKBfIWo=;
+	s=k20260515; t=1794272558;
+	bh=r9OJf4S5ieMMw+vdRg0gwqP1+0gpfsj3jUAdzC8g/yo=;
 	h=From:To:Cc:Subject:Date;
-	b=Fc+Z34RpFvrt+/qLiKfCbgW/mRacMuwG+M62tQWeHi1zoj9EMVLhSYHDVX3Gy+27w
-	 K39XA5MMM7jcKUAQaSAlUGK9kJIkirNHbm3Dpe+mfyrzgTCetRNy60W2ScHR9lkXgF
-	 bI4FBWY8QOGKmWbujcbORUZQ0FojEsaO7IZKxmryhxQTVKtfaRO2hacrUBB4Sgh+LZ
-	 +ieKPtThofeSlFv1Q01+iejh511Ko3cAfIZgez9wSK+WRW7Ci7vUu7dUPN6Kj2RGX0
-	 Eu0UwD7wcAbfRl70GSi0dsnvX2E+u22yx3U1CGP1BQD3befvlJsMnNFEHju5vw/ecP
-	 dlxbydtHHX/WQ==
+	b=DghbeDQ6qQb5AojAAR6EL9zaL0Lb5/dn5Ji0z+ksBuU5/S4wYRFUDNHwEp6i4jcm1
+	 MN+sJm61dSdIcOZOb2WbdPtrDTHzYtgK7/fX8Fk9YOR+fpz35zVa1W8mg2TqLDB9ip
+	 zP2cOQqHaAGAIJCCF7AsrS53lls10tTK8o46ZDQXeL9uVTgiaTp8BmWoN06M0lG3eS
+	 wvwWazq8zQLLJLXPcb5a8d1/KPL6U6fB42p5spzMQ3nt29nVkWnFygx/QnNqntFniC
+	 B8u33pNzXkNL8VAgngiWtKkb0awRUVRtdKPpB7d/LoW95nts/ITdJVK3dzsCvZlNYW
+	 8Vem8zBjJnskw==
 From: Sasha Levin <sashal@kernel.org>
-To: sven@narfation.org
+To: guolingxing@tju.edu.cn,
+	wqu@suse.com,
+	dsterba@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] batman-adv: tt: send ROAM_ADV on each roamed back client" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:02:34 -0500
-Message-ID: <20261109200234-failed-6.18-aff4d5d10f2d@kernel.org>
+Subject: FAILED: patch "[PATCH] btrfs: prevent deleting the wrong subvolume by ID" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:02:36 -0500
+Message-ID: <20261109200236-failed-6.18-1960146913b3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,76 +69,71 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x aff4d5d10f2dcb4a9b604e27414dafa1d51b6406
+git cherry-pick -x 1960146913b31b288ed2cd607d103ee3b41681d4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200234-failed-6.18-aff4d5d10f2d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200236-failed-6.18-1960146913b3@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From aff4d5d10f2dcb4a9b604e27414dafa1d51b6406 Mon Sep 17 00:00:00 2001
-From: Sven Eckelmann <sven@narfation.org>
-Date: Thu, 8 Oct 2026 12:00:27 +0200
-Subject: [PATCH] batman-adv: tt: send ROAM_ADV on each roamed back client
+From 1960146913b31b288ed2cd607d103ee3b41681d4 Mon Sep 17 00:00:00 2001
+From: guolingxing <guolingxing@tju.edu.cn>
+Date: Sun, 18 Oct 2026 15:38:10 +0000
+Subject: [PATCH] btrfs: prevent deleting the wrong subvolume by ID
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_roam_tvlv_unicast_handler_v1() creates a global entry with the
-BATADV_TT_CLIENT_ROAM flag set.
+When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
+resolves the requested ID to a name, then looks up that name again
+under the parent directory lock.
 
-If the client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_roam() is expected to announce this return via a
-ROAM_ADV frame. But this doesn't happen because the global entry (created
-by the first ROAMING_ADV) carries BATADV_TT_CLIENT_ROAM until the new
-originator announces the client.
+A concurrent rename can change which subvolume is associated with
+the name between these operations. Since the deletion path does not
+verify the ID of the resolved subvolume, it can delete a different
+subvolume while leaving the requested one intact.
 
-Let batadv_tt_local_add_roam() always handle a roamed back client -
-independent of the ROAM flag of the global entry:
+This was reproduced by repeatedly exchanging the names of two
+subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
+them by ID. The wrong subvolume was deleted in 9 out of 14 independent
+tests.
 
-* trigger sending of the ROAM_ADV frame(s)
-* remove the (with the roaming) associated global entry
+Fix this by checking that the resolved subvolume ID matches the
+requested ID while holding the parent directory lock. Return -EAGAIN
+on a mismatch so that userspace can retry the operation instead of
+being told that the requested subvolume does not exist.
 
-Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
+CC: stable@vger.kernel.org
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Signed-off-by: David Sterba <dsterba@suse.com>
 ---
- net/batman-adv/translation-table.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ fs/btrfs/ioctl.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index e13c2828da475..0df51523dcf0c 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -819,14 +819,21 @@ static void batadv_tt_local_add_roam(struct batadv_priv *bat_priv,
- 	if (!tt_global)
- 		return;
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 43a945345cbe1..847fdc19bd402 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -2393,6 +2393,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
  
--	/* Check whether it is a roaming, but don't do anything if the roaming
--	 * process has already been handled
-+	/* Handle newly roamed client - but not roamed back client.
-+	 *
-+	 * A client which roamed back must always be reclaimed from the
-+	 * originator(s) which sent the ROAMING_ADV. The global entry created by
-+	 * this ROAMING_ADV might still carry BATADV_TT_CLIENT_ROAM because the
-+	 * new originator did not yet announce the client.
- 	 */
--	scoped_guard(spinlock_bh, &tt_global->common.flags_lock) {
--		if (tt_global->common.flags & BATADV_TT_CLIENT_ROAM)
--			return;
-+	if (!roamed_back) {
-+		scoped_guard(spinlock_bh, &tt_global->common.flags_lock) {
-+			/* Check whether it is a roaming, but don't do anything
-+			 * if the roaming process has already been handled.
-+			 */
-+			if (tt_global->common.flags & BATADV_TT_CLIENT_ROAM)
-+				return;
- 
--		if (!roamed_back) {
- 			/* The global entry has to be marked as ROAMING and has to be
- 			 * kept for consistency purpose.
- 			 *
+ 	inode = d_inode(dentry);
+ 	dest = BTRFS_I(inode)->root;
++
++	/*
++	 * A concurrent rename may have changed which subvolume the name
++	 * refers to. Verify that the resolved ID still matches the requested ID.
++	 */
++	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
++	    btrfs_root_id(dest) != vol_args2->subvolid) {
++		ret = -EAGAIN;
++		goto out_end_removing;
++	}
++
+ 	if (!capable(CAP_SYS_ADMIN)) {
+ 		/*
+ 		 * Regular user.  Only allow this with a special mount
 -- 
 2.53.0
 
