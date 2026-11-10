@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273889;
-	b=0cWhFeoggOUJelkqHis1Y8C6/AEeu3lPA3MDD5fvj4/AsUcZ/rNSqdVF7+bTnS53AOFO
-	 a1MmuGHVty/74ezDQjZOg540DUGfDK6Kr3aMCgwuPDoxWMBR47WBKRh+siZvzPJqx9j53
-	 2JZkdnOcTkJt+Siitoc/ozg3XfgcsTEN5fd61igLiJoG/Umxn7FI7mWGidYf2uXzJNH4+
-	 SyJ5e8lfeQGIB8b3SK305b1aJvE2FYYJ+YJvDzJIoxR3eJoXJwHJOKlHby+v5Pac9lXuZ
-	 +nw08Slb7J4usRd6ExLc9pFjgRg9vs1LFYqvORCQon8zteb6cJr0iW5QkVkb5INhD3g==
+	t=1794273892;
+	b=SoNMnB8uLnGbDUOggfflDjzmh1J7Kt6aI+AHOsp0FHap2fFlAkG3fY6Cgne5uGzryvP4
+	 trVivLI6yizb3/ZMmgZeQ8F8sOX+XaGfaSh3MXi6ICgYT7ESTBQaQOFbTHmLdfF7ibIKw
+	 jsbnFKsOP1tnbVJ7W41C8+TYrDnUL3gmAW03ER1TF2roiiAFD3AtzXnVRuNuIzhMswBTS
+	 Dt3fUIqR5EmOmh39Y9DhVCgS5nfmRHBfnn+kxaQUXpyI9c9N/sIchBaMghICs8vlfrtbR
+	 vGIwhYA5HMHzkBvM5q7ImlCZzwFuUVxnDijRPaM+uYW+9DUgRy7ycm97vFZuBq/wlQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273889;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273892;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eZWq64qLd740K6oTt0BewqCVvewpUyI18hOybgaivA4=;
-	b=oEhhNjZkzvK3eWwPrDO6um9w0TkMfCVsCXlxM14QQ8sFely7gqjP3C60osBJGsv79Jbg
-	 D4p/kGKHmPS0bLDLm2iY/CVqiHXv9H+B0k6FnBxMvZhQXa+jLl40TPWuH/157vxUlh9rb
-	 IoiXBs3+fpt23S2sPxBs8pIbAp5sEp92qmZZf+bCwt8ECbiUQHsxwu4b1LeW3GqGeE1/K
-	 a6w+VlSqlEXZ1xJPf1FmfpYUHhp6tGhAJXkZd+1kh5OMpXR+SJ6RtOqk/eMDh9m6bt7ny
-	 BniHwAt0ArGSQJ5mnHzGiZmPZlTbkeMFNPFiBKCVaBO41SkVfRAKsAyxCIOmNOyY4wg==
+	bh=VMRJDsizkCliTPgYUv9N9trYSD/O/bH5jmkJyjsm+2A=;
+	b=l4IttzV8vMT0UIDSHBN5IGoL5kmkc14lNMIOqe4VK0iMBGfe0g+++vxk8M8VEeX+Ix/1
+	 G4YTI2gV6vjZLkhaIi2J+dj6mKdIi/2IPzSqf19NRiRcPvWXO0Dis7qIobPVyUN5z4DnP
+	 1QlzctpKsgYg7jgwRL89+VZuSHGC8va5MvcPcCIpKc+1vN3/hVk+rPxJIyZrpo0h/uqja
+	 nmp7BEPgMB8uwaFtuMXsSDYdw9yjzMZ5eOuZy3SjhyaCe2WqqOHPCXFRjM2YMiv1hzVjy
+	 6E0yo3rFsaJtYOcO7/mpM8A6pnRgRcGMn/qPSsTFdNNwa8kdQPvI6H7cIl0JoTw4bEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoJEuMVG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1KljhYT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B7B606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFE2606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoJEuMVG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0779F1F0089F;
-	Tue, 10 Nov 2026 01:24:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1KljhYT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 601DE1F0089F;
+	Tue, 10 Nov 2026 01:24:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273889;
-	bh=eZWq64qLd740K6oTt0BewqCVvewpUyI18hOybgaivA4=;
+	s=k20260515; t=1794273892;
+	bh=VMRJDsizkCliTPgYUv9N9trYSD/O/bH5jmkJyjsm+2A=;
 	h=From:To:Cc:Subject:Date;
-	b=CoJEuMVGg/m3zuBJ3Q+XKyC0vT9jyZphB34BhXKLTwNQqSecaKV2h7Aktfl0rUbMi
-	 9pdUoGwwFljyUUeIrallo78pOVRuhygd8sVAevi/qqF5B+Mu/+BD4yLvddme3Locx9
-	 XH7kOwmTwrCTu++op1hl0PwlTfCROb0JL25IIExslMUKsq5efholw15ny+XmZWHLmn
-	 JfneYglevkkSU/NYp2EfyB8XGmDG9ZxO1rAYwSe3KEdeGzOs6eLPQMkBlFJXsfOryY
-	 QifDg7hrCwyIWOqlGAQYLTZGC/CxfwQ761TMz6mDDguxcWYYuZI4qMfin/y97yLrc4
-	 +FLW3k9zHdyJg==
+	b=P1KljhYTUSnk4Dvt7hyABORUWWrbrUoxM/o1hzq4ZoSApzcvYbLK8XSUPXo0bAdQI
+	 wPPJs4xgSvUu8olpJr4X/T8583DFs8KViOLOEdi6m/G/d2BHiYBXjNXYQN3ZXzFFIe
+	 /QA+/dozRUBczltNgejyg5WPtie4x5wMQGxTPw0ZkYL44dAbMcnqihAAr7H7veTfrs
+	 dft2nYc7rUpTGBqEX2IVuVZZJ9kgmP/ZQaqVnqWJdTfw6nwpB8+KGdDOAJvkFWEo9j
+	 +Gjfn/5yxjCWZF8X/fgN5r+3Qtwzmn/Gsv6g2vivefBNEaXPzjhLm4dWeGOjNdrWiy
+	 +fYtUPDYXUq/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: matthias.goergens@gmail.com,
-	jack@suse.cz
+To: kylebot@openai.com,
+	matttbe@kernel.org,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] udf: don't use eloc after the end of the unallocated space table" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:24:47 -0500
-Message-ID: <20261109202447-failed-5.15-94401199df90@kernel.org>
+Subject: FAILED: patch "[PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:24:50 -0500
+Message-ID: <20261109202450-failed-5.15-49b09ae0bf57@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,76 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94401199df90e1c2a50c6e4b73618ac5a4ba83ba
+git cherry-pick -x 49b09ae0bf57b4230187d4cdd0a370558e44a6e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202447-failed-5.15-94401199df90@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202450-failed-5.15-49b09ae0bf57@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94401199df90e1c2a50c6e4b73618ac5a4ba83ba Mon Sep 17 00:00:00 2001
-From: Matthias Goergens <matthias.goergens@gmail.com>
-Date: Fri, 30 Oct 2026 22:05:37 +0800
-Subject: [PATCH] udf: don't use eloc after the end of the unallocated space
- table
+From 49b09ae0bf57b4230187d4cdd0a370558e44a6e8 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Thu, 29 Oct 2026 21:22:55 -0700
+Subject: [PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners
 
-When udf_next_aext() returns 0, its eloc, elen and etype outputs hold
-no defined value.  Two walks of the unallocated space table still use
-eloc after the walk has reached the end of the table.
+mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
+instead of going through mptcp_listen(). It consequently misses setting
+SOCK_RCU_FREE on the parent MPTCP socket.
 
-udf_table_prealloc_blocks() looks for a free extent starting at
-first_block and decides whether it found one by comparing eloc with
-first_block after the walk.  If the table's list ends in a continuation
-descriptor that leads to an empty allocation extent, eloc is then the
-block of that allocation extent, which is in use, and if that is
-first_block, the block is handed out as preallocation.  Once
-udf_discard_prealloc() no longer frees the wrong block, this is what
-still makes fsx in generic/091 and generic/263 read back bad data on a
-table, in about one run in four.  Only take the extent if the walk
-stopped at it.
+tcp_child_process() can invoke the listener's subflow_data_ready()
+callback without holding the MPTCP parent lock or a reference to the
+parent. An authenticated MP_JOIN racing with endpoint teardown can
+therefore access the parent after its last reference has been dropped.
+The ADD_ADDR error path can also close an already published listener.
 
-When udf_table_free_blocks() cannot merge the freed blocks into an
-existing extent, it appends a new one and sets only its block number,
-so the partition reference comes from whatever eloc held after the
-walk, and with long allocation descriptors it is written to disk.  For
-a table without extents, eloc was never set.  Take the partition
-reference from the freed blocks instead.  Short allocation descriptors
-do not store the partition reference, which is why this half remains a
-latent long-descriptor fix rather than a reproduced failure.
+Set SOCK_RCU_FREE before __inet_listen_sk() publishes the TCP listener,
+matching mptcp_listen(). This protects the parent on every subsequent
+close path, including a failed endpoint addition.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
 Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-Link: https://patch.msgid.link/fd9ca4c4ba98c00c012ec861f6c0bc08a3b1d07b.1793349907.git.matthias.goergens@gmail.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261030042255.74216-1-kylebot@openai.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- fs/udf/balloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/mptcp/pm_kernel.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
-index 2ec577b4321c9..75124188e7452 100644
---- a/fs/udf/balloc.c
-+++ b/fs/udf/balloc.c
-@@ -457,6 +457,7 @@ static void udf_table_free_blocks(struct super_block *sb,
- 
- 		int adsize;
- 
-+		eloc.partitionReferenceNum = bloc->partitionReferenceNum;
- 		eloc.logicalBlockNum = start;
- 		elen = EXT_RECORDED_ALLOCATED |
- 			(count << sb->s_blocksize_bits);
-@@ -532,7 +533,7 @@ static int udf_table_prealloc_blocks(struct super_block *sb,
- 			  eloc.logicalBlockNum, elen, first_block);
- 	}
- 
--	if (first_block == eloc.logicalBlockNum) {
-+	if (ret > 0 && first_block == eloc.logicalBlockNum) {
- 		epos.offset -= adsize;
- 
- 		alloc_count = (elen >> sb->s_blocksize_bits);
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index 1a77508132354..f7396628490e3 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -906,6 +906,7 @@ static int mptcp_pm_nl_create_listen_socket(struct sock *sk,
+ 	 * old status is known (TCP_CLOSE).
+ 	 */
+ 	inet_sk_state_store(newsk, TCP_LISTEN);
++	sock_set_flag(newsk, SOCK_RCU_FREE);
+ 	lock_sock(ssk);
+ 	WRITE_ONCE(mptcp_subflow_ctx(ssk)->pm_listener, true);
+ 	err = __inet_listen_sk(ssk, backlog);
 -- 
 2.53.0
 
