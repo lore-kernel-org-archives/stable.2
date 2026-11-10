@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330039;
-	b=cVqUkGUY/q//y6dM60kZmG5qRmDPf37ozMelvYjv2wKx4N+R6jUfyFpamzq+SfODtcN4
-	 clYe5BKCmINIPF+2wf9G9LdAqjgEZCY3/LHW2FchTy9baKdenSzVnU9WdvslMtSlrx/Zo
-	 ndYLw9pjNS1Z1wpP3KIaMddLxP+sTmQ0o6tECNWeyTqQaJnYFuTPo8I2rg/ZMAtPTtcpu
-	 kA7bXroPpgrmEt+JCrtJYPeHKdlSp/J0urflF9TpKzv1bolcg1NsL4+HT89xdA9huZNjk
-	 fiUhBpgjomjd+2JM5pNNUn2yR4MpoBP9eNe0YYLLVZjM61bf7jXw+tOnSmGSTkl4drg==
+	t=1794330106;
+	b=nCgHrRG56jO1/kVe7WiJP2WW/20p/FN/5yDAL8McJRtt3G25Ev0HhLZ2Fi1DwEpDCBrb
+	 tDnM1tUHsitCt9YdGq0zNjCzVW4GI5INtxo6VrVcceHHko1ScZ/+qqm4bpufkie7Weqtd
+	 wTVct26A5HHAuFGNnwKTprc6r2MT6opPKYxgihEuL2uDUrZXLQ9WraOvS4XQprEGyWCQy
+	 4uOTZVwilh7J/ObicCYdxbYZ3xd1bYjcFGPiOaw0+bl/KaiCrLjePtCVguBcqbgu0ntQm
+	 KMu4J4pXz/LxyiVeItPAX5oSTT4kr7YErM2jy0YymbnhQ2ilLLohTJikpBZ3uvYkCWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330039;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330106;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kH3UcFmrwxkDGAeD2iWgxponZM8SAKQZP8HB8fctwzg=;
-	b=TsBUS1Z3SzSO/9Rm28+/0QL5613iEJABdtS85pUYp7/nfruqkavQCLuVTaVkvZ/YzmnD
-	 6rH+2eo+oSNDP6bwGCD52+45/W9qTKmhhHlES9SyZZsy/qdKEREugLXZYPgmr1tyZAkI9
-	 VSCdAW1xGhJ2wNvb6lqCkk3//LdfQp7m2cvYzoi5tz7WZH7De2N+jzODy785KSz/WEBE9
-	 BawMChlG0La5xIyHVBoi+Mf7iG+436NQ8QHnq5dY4n5Hyr+Isz177Gv0mM8mZHw3egzMO
-	 o8dFHlGSRI956zBCoJOYPty8CveH+c2AmSMbsF4gWdoNo59UsMDSqhxKTBWoAohDFDQ==
+	bh=ZEfJ+FoBZE/WPYeBgWFbac0JSzMWG12Id7xGOgbY0Tc=;
+	b=lvSgbsUfwz8MCgxEsfz5UeLTEcxzAIyZUyoj5LBcSkWgSvqoW1M0+OotunZB5Ns18610
+	 SSvO7WCf/2mOTjsKztFJYNZJuAWT81Htk9XY5h7xkfIfeZ/HD14MCN/+XZDvhGjKQKwik
+	 ci1A+hD01IkHh11XjVF3SI7UGWnGpukHoqChpUWyNaDhoWHBwVIGQXQtKqZve8GS36fVX
+	 7lcIieWAqyPTyhksTXaUWgVPiqASn4latomR7gtTYVOGeTmexBEP6kPnfH+orEkPEGHk/
+	 ObPUHFqYoKP3bX/MRQ9sgRn6p7O9WqNuZjkKUPGjyyUYsTA1diklL7a7blPMdJb7pmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V/gCCZbd";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QjyJr583;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22472606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE50606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V/gCCZbd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C0D1F0089F;
-	Tue, 10 Nov 2026 17:00:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QjyJr583
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0C21F0089F;
+	Tue, 10 Nov 2026 17:01:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330038;
-	bh=kH3UcFmrwxkDGAeD2iWgxponZM8SAKQZP8HB8fctwzg=;
+	s=k20260515; t=1794330106;
+	bh=ZEfJ+FoBZE/WPYeBgWFbac0JSzMWG12Id7xGOgbY0Tc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V/gCCZbdAtGk0WSSNw3NEq6n/nClPKkhtInJJUe0/9h6ytwu+1q/uqFt377R7dwIb
-	 EO10sgvQ//I5bIy3cI/vteg2C85yMJ23A/lQV+dDFj7kUzRvWX1E5xR8SHJbOrAejA
-	 vCCNYpT6M7crXQv9UG+JesOu3Ui560BeZagu2XMSWZ33wIh7U6r0x3hCf5/+l74poR
-	 mL3Q5F5xTEIBcGQtbvvthDfQOd++Zd1ckjxsh9CBbBZHk6eCcOW/g8YbXTceuBC32F
-	 /v1ompe9ri4mj8GBWvHYdwuJt3kuBvbHE1jsfy2iD5/B0VHiopYjZW3BoRE62HIwsQ
-	 lLE8uDf6feFRA==
+	b=QjyJr583MbXWqFk5NEICoILgaQSK47orGBWFrKaG2QyUS7sdY7PM3Gpv5MdDDNPO+
+	 MkXqxHXpbVGnmiERnFXPL7ZSpDZA6q5rzkhT85RrWUCVrmeh4W2bu+NXgu1oiAQudF
+	 PEr6SqKtepF84p19dPBmanb4Ov44+Yk8OEDi1eP9I7Wiwz93JHREYWDPGNF+E+zXN9
+	 BImJVsadSj5ZjnpSU0Cx4P1SqPFJRMpcS7eCGkTsZolEsaFXLXCDg+S+m+UW3w7iLY
+	 MIJbF8bho8LbYLSk0DBviH/mbQFfjfTz4V50KygG9Cy0B0xGn1Q6W8qd5Iw0aZuup3
+	 4EclWLdcuCCpA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] KVM: arm64: Move IN_GUEST_MODE ahead of state being loaded
-Date: Tue, 10 Nov 2026 12:00:37 -0500
-Message-ID: <20261110170016.2611406-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ALSA: mpu401: shut down timer before freeing MPU
+Date: Tue, 10 Nov 2026 12:01:44 -0500
+Message-ID: <20261110170127.2610182-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060646-failed-5.15-22b6557ad05b@kernel.org>
-References: <20261107060646-failed-5.15-22b6557ad05b@kernel.org>
+In-Reply-To: <20261107051758-failed-6.12-9332af5220d4@kernel.org>
+References: <20261107051758-failed-6.12-9332af5220d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,73 +61,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 22b6557ad05bf05c73246f62c19af3e04017270e ]
+[ Upstream commit 9332af5220d42341bb1446a62c545c0518e990ef ]
 
-IN_GUEST_MODE is advertised too late, when state has already been moved
-onto CPU registers and cannot be observed by another CPU anymore.
+When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
+input and output with a timer. During raw-MIDI teardown, the timer callback
+can already be running when snd_mpu401_uart_remove_timer() clears the last
+mode bit and calls timer_delete(). That API neither waits for a running
+callback nor prevents it from rearming the timer, and free_irq() does not
+synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
+mpu while the timer callback still uses it.
 
-Move the IN_GUEST_MODE publication ahead of the state being loaded, and
-immediately check for pending request. This ensures that there is no
-window of opportunity for another CPU to observe OUTSIDE_GUEST_MODE and
-yet for state to be loaded.
+Initialize the timer once when the MPU object is created and only rearm it
+while a timer mode is active. Shut it down synchronously after freeing the
+IRQ so an in-flight callback completes before mpu and its resources are
+released.
 
-This also simplifies the "state rollback", which solely amounts to
-synchronising the timer when no irqchip is present.
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-4-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: Omitted relocation of kvm_pmu_update_vcpu_events() because the helper is absent. ]
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Adapted scoped_guard() locking to the existing spin_lock_irqsave() and spin_unlock_irqrestore() calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/arm.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 6bff7fd323872..a621dd31d9213 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -836,28 +836,31 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
+index 8e3318e177179..86235aefab02d 100644
+--- a/sound/drivers/mpu401/mpu401_uart.c
++++ b/sound/drivers/mpu401/mpu401_uart.c
+@@ -162,14 +162,15 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
  
- 		local_irq_disable();
+ 	spin_lock_irqsave(&mpu->timer_lock, flags);
+ 	/*mpu->mode |= MPU401_MODE_TIMER;*/
+-	mod_timer(&mpu->timer,  1 + jiffies);
++	if (mpu->timer_invoked)
++		mod_timer(&mpu->timer,  1 + jiffies);
+ 	spin_unlock_irqrestore(&mpu->timer_lock, flags);
+ 	if (mpu->rmidi)
+ 		_snd_mpu401_uart_interrupt(mpu);
+ }
  
--		kvm_vgic_flush_hwstate(vcpu);
--
- 		/*
- 		 * Ensure we set mode to IN_GUEST_MODE after we disable
- 		 * interrupts and before the final VCPU requests check.
- 		 * See the comment in kvm_vcpu_exiting_guest_mode() and
- 		 * Documentation/virt/kvm/vcpu-requests.rst
-+		 *
-+		 * Requests to self must be posted before this point, or
-+		 * won't be taken into account until the next exit. No state
-+		 * loading other than what happens at vcpu_load() time can
-+		 * be done before we have checked for pending requests.
- 		 */
- 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
+ /*
+- * initialize the timer callback if not programmed yet
++ * arm the timer if it is not already active
+  */
+ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ {
+@@ -177,7 +178,6 @@ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
  
- 		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
--			isb(); /* Ensure work in x_flush_hwstate is committed */
--			kvm_pmu_sync_hwstate(vcpu);
- 			if (static_branch_unlikely(&userspace_irqchip_in_use))
- 				kvm_timer_sync_user(vcpu);
--			kvm_vgic_sync_hwstate(vcpu);
- 			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
- 			local_irq_enable();
- 			preempt_enable();
- 			continue;
- 		}
- 
-+		/* From here onwards, we are commited to entering the guest */
-+		kvm_vgic_flush_hwstate(vcpu);
-+
- 		kvm_arm_setup_debug(vcpu);
- 
- 		/**************************************************************
+ 	spin_lock_irqsave (&mpu->timer_lock, flags);
+ 	if (mpu->timer_invoked == 0) {
+-		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 		mod_timer(&mpu->timer, 1 + jiffies);
+ 	} 
+ 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
+@@ -493,6 +493,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
+ 	struct snd_mpu401 *mpu = rmidi->private_data;
+ 	if (mpu->irq >= 0)
+ 		free_irq(mpu->irq, (void *) mpu);
++	timer_shutdown_sync(&mpu->timer);
+ 	release_and_free_resource(mpu->res);
+ 	kfree(mpu);
+ }
+@@ -547,6 +548,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
+ 	spin_lock_init(&mpu->input_lock);
+ 	spin_lock_init(&mpu->output_lock);
+ 	spin_lock_init(&mpu->timer_lock);
++	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 	mpu->hardware = hardware;
+ 	mpu->irq = -1;
+ 	mpu->rmidi = rmidi;
 -- 
 2.53.0
 
