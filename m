@@ -1,51 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273605;
-	b=jRaQHF6xWljawfGcQE6GcbIhIXF7pBu0DYpa3yUeryjXjs8M7bHzjTYJLlWQxw392znR
-	 YruwKxcNqMcLnYHLkmjuX8DEeFsq7fJwmQNHNeEO9d9UdYDvdKU3Q13BF86UVgYIptgw/
-	 mY6E77c/een+7+wxJheWkTz/xA5/He1YNjJMLdomiMSQp4zRWBI9Oso1c93GbjwdWgKnJ
-	 r7eCIKvTNiWBeOmIeNSQs84dtmt1doTWXe5ZwzW1cYT55n/dbckL9SMP92ptJrBGAk+ub
-	 DhdMQLu2Vq7lgcE2+IkQgrY7jgEGlZfK6NGrrYtYPkYoJEn6KDj46ZWl3bwmh+5+W4g==
+	t=1794273608;
+	b=JKwP55eVPhb6YHdR2Nnfq46C3GVxz398BL4vjnYYltE6el29UHnNslz9lmfNJIOsGgw8
+	 48Y5QlDc+7NQVcsWnrl+JALWSMlC0zE0odilsmSHmOceFBdOGmovkK3u0gdACu6dwu4Mm
+	 Mo5n/fEBbVRzM0fhMnQH1aVQ1Kxy1xV8KEpLed5beSQwNleifhEkLk/tJqHbnfLYyeVny
+	 TSSVoHTYNxWwf9jcGWlSUwVyPqylBmshPZpXZKPQzQi4GGLe2Qku7+lSKNd2323y8SFuS
+	 O9WaG9zT741e/JRaOc+WMWtbBrLZEU5ftyvk+80k7Ljvjpqw8Wsc0hGlvF/2Sadkj9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273605;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273608;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o7dl4RCvql0zK4vfWYKEVi9Aj0+hU9LdWoWApzABsg0=;
-	b=l8CxFljgeaxb5KWmfOKu0LG8l+OTeg5leu/C4+oSMTkiK6vhWsoC2Lqe6nnlmcgTF7lS
-	 0ROpyN5nNmECppLXzUMTmS4ThC412PMol6SxiXcqyg9AeHxC/HpenC8nYUIH9phbk6KOA
-	 rheWubj5gOAnl9APOyMygG8XSZbUYE/AROVcDgSswOif5DXreVPGrKkiwGpIOu0nyQoJb
-	 GeGFCxiUOZbI6/91DKanF8OHL3i/poD93mXDPiFnvjgva/NuVrTLRIHFgAGjOzX5oodtH
-	 UPBSRhpigsEUpKMyBJn3R1tAm2nRIu/d8CltugB/f8GsoFyueMiLLTemIbjZeWhsE3Q==
+	bh=C8DZTjUdtL/4/mCL9TdWmwRYITvNwby4e2zBKne/oGc=;
+	b=QiOpZoPTPOmu3fPJJzNhAN85JQ5jmOB+WFnu4et4txsDVuZb+FBHmqQTKvuq1Kx4hPAi
+	 nZ9j1NlCTAIGrR1pO+GDoYE8X/Waxrd5QniJ5tvuW+aHy6M4pm+GoOi9P2haFkhckdYMs
+	 OcNXCdeJZIL1MKccXn6ASOrwPenK/vjN/XA3NsOnhH3HC46DGT9UP9LXw5QEDp/SFVgDi
+	 rt5ieMSXZGk0HW0B6rAK/Pvo92cG+k3xhobizpf1J3bkjLoyKJAxxY1PWHY7yUiNLN2iH
+	 6xyWx7wwJwEUU5aS1Ynjj9+dSBWW6cQBU/Eb/5+uwo5rqQskHvSiyh+ut5Xkk6tDy1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ju8Nc3Fm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwvHmUsr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CC3606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203DF60A2610
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ju8Nc3Fm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2351F008A1;
-	Tue, 10 Nov 2026 01:20:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NwvHmUsr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E5A1F008A2;
+	Tue, 10 Nov 2026 01:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273605;
-	bh=o7dl4RCvql0zK4vfWYKEVi9Aj0+hU9LdWoWApzABsg0=;
+	s=k20260515; t=1794273608;
+	bh=C8DZTjUdtL/4/mCL9TdWmwRYITvNwby4e2zBKne/oGc=;
 	h=From:To:Cc:Subject:Date;
-	b=ju8Nc3Fmt89qCk+yqV12zk6t0g951rc/k6GM/PBW3iVuz+SAoTjspqIyt9dWPNzOI
-	 QG0z+fWjLLdvhggVwhwRaV1s6ofkrx45QLcDBbpQYqXaHHx9kAlVjK/8z7lfAx10UK
-	 8+wQnIk3j8z+oF6RuB90DUVmdK1LS+lpVxOUUc5nZrNoi9tQgy4luCb93gY6mZxUiY
-	 yfRJfkLdhPP7EhTCXFti9NnBL3y95OC2ipWb3RkA7d3nzZEaz8Xw7qkuqV6yb5Q/zF
-	 BdtrUBN6Y8BMSf8JEgyVS7RtqkTbXxE135fXSiRfqSLmHVG8taRlycyd48+xgGUp2K
-	 j2KBtqJF8ympw==
+	b=NwvHmUsrGTQIGMJRBHUcI4JdfXJCBkapizv4i5gkrMSvP9J2lpeg6G3aJuTPxU+rZ
+	 xywS0Q90E/e2lSBgJliTAybznAgw5izB4LG6Z0IOf+CY2ufS0hnuPeEnhGMY++w4cd
+	 a8cTcwRkRDzcLUFegTp7hPGy4rUK2wtqYbpY1rMWSfJxcXxuJ39SxvdOj4q6A0a35j
+	 u70/InQp+ZmdAVS/l1ewaQWfa/UXIEZYd4yX6rB84RNEt2I/e/kbGm6oJ04rdkntkK
+	 KMiATdYh87+ivAkU+Vzt24ovMCikUv0WBVbneuNIz9LzK3CEluNlJV6FXnpkX6NEgq
+	 aZ0mW90J0T8nw==
 From: Sasha Levin <sashal@kernel.org>
-To: nicoyip.dev@gmail.com,
-	steffen.klassert@secunet.com
+To: zhaoyz24@mails.tsinghua.edu.cn,
+	yangyx22@mails.tsinghua.edu.cn,
+	wangao@seu.edu.cn,
+	fengxw06@126.com,
+	qli01@tsinghua.edu.cn,
+	xuke@tsinghua.edu.cn,
+	asmadeus@codewreck.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xfrm: retry inexact policy lookup after node reinsertion" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:03 -0500
-Message-ID: <20261109202003-failed-5.15-868f63c8bfaf@kernel.org>
+Subject: FAILED: patch "[PATCH] 9p/xen: drain response work after unbinding IRQ" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:05 -0500
+Message-ID: <20261109202005-failed-5.15-7b6f2e3c29fb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,95 +73,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 868f63c8bfafa9b827168c9126f85264c39c02ec
+git cherry-pick -x 7b6f2e3c29fb4d76f1e4973280792eabbd526602
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202003-failed-5.15-868f63c8bfaf@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202005-failed-5.15-7b6f2e3c29fb@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 868f63c8bfafa9b827168c9126f85264c39c02ec Mon Sep 17 00:00:00 2001
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Thu, 3 Sep 2026 22:57:34 +0800
-Subject: [PATCH] xfrm: retry inexact policy lookup after node reinsertion
+From 7b6f2e3c29fb4d76f1e4973280792eabbd526602 Mon Sep 17 00:00:00 2001
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Date: Tue, 9 Jun 2026 23:52:01 +0800
+Subject: [PATCH] 9p/xen: drain response work after unbinding IRQ
 
-An inexact policy lookup first records pointers to candidate hlist heads
-and then traverses the lists.  A concurrent policy insertion can merge
-inexact tree nodes between those operations:
+commit ea4f1009408e ("9p/xen : Fix use after free bug in
+xen_9pfs_front_remove due to race condition") added cancel_work_sync()
+to keep xen_9pfs_front_free() from freeing a ring while
+p9_xen_response() is still running.
 
-  lookup                         policy insertion
-  ------                         ----------------
-  find inexact candidates
-    save obsolete hlist head
-                                 write_seqcount_begin(&bin->count)
-                                 merge inexact tree nodes
-                                   hlist_del_rcu(&policy->bydst)
-                                   reinsert policy->bydst in survivor
-                                 write_seqcount_end(&bin->count)
-  evaluate saved candidate list
-    miss the moved policy
+The work is currently drained before the event channel IRQ is unbound.
+That leaves a race window where xen_9pfs_front_event_handler() can run
+after cancel_work_sync() returns and queue p9_xen_response() again.  The
+following unbind_from_irqhandler() synchronizes with the IRQ handler, but
+it does not cancel work that the handler already queued.  The teardown
+can then free the ring and private data while the response work remains
+pending, and the worker later dereferences ring->priv and priv->client.
 
-The merge immediately reinserts the same hlist node into the surviving
-tree node.  RCU keeps the policy alive, but it does not provide a
-consistent view while its list node is moved.  A lookup that selected the
-obsolete list can observe it empty.  A lookup already traversing a moved
-policy can instead follow the next pointer rewritten by the reinsertion.
-Either case can return an incorrect IPsec policy result.
+Unbind the event channel IRQ before draining the work.  Once the IRQ is
+unbound, no new response work can be queued by the backend event channel,
+and cancel_work_sync() waits for any work that was queued before or
+during the unbind.  It is then safe to release the ring resources.
 
-The per-bin sequence counter already brackets calls to
-xfrm_policy_inexact_insert_node(), including node merges.  The read side,
-however, currently validates the counter only while searching an
-individual rb-tree.  A successful search returns without validation, and
-the later candidate-list traversal is outside that read-side section.
-
-Snapshot the per-bin sequence before discovering candidate heads and
-validate it after evaluating all candidate lists.   Retry the lookup if
-the inexact policy tree changes while it is being searched.
-
-Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
+Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: GLM:GLM-5.1
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 ---
- net/xfrm/xfrm_policy.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ net/9p/trans_xen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 513c9f2283347..f6f40ba713d5a 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -2157,6 +2157,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 	struct xfrm_pol_inexact_bin *bin;
- 	struct xfrm_policy *pol, *ret;
- 	struct hlist_head *chain;
-+	unsigned int inexact_sequence;
- 	unsigned int sequence;
- 	int err;
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index 5a0b5b83e8ab4..9ee1ac9143d43 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -282,14 +282,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+ 		struct xen_9pfs_dataring *ring = &priv->rings[i];
  
-@@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 		goto skip_inexact;
- 
- 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
--	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
--							 daddr))
-+	if (!bin)
-+		goto skip_inexact;
+-		cancel_work_sync(&ring->work);
+-
+ 		if (!ring->intf)
+ 			break;
+ 		if (ring->irq >= 0) {
+ 			unbind_from_irqhandler(ring->irq, ring);
+ 			ring->irq = -1;
+ 		}
++		cancel_work_sync(&ring->work);
 +
-+	inexact_sequence = read_seqcount_begin(&bin->count);
-+	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
- 		goto skip_inexact;
- 
- 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
- 					  family, if_id);
-+	if (read_seqcount_retry(&bin->count, inexact_sequence))
-+		goto retry;
-+
- 	if (pol) {
- 		ret = pol;
- 		if (IS_ERR(pol))
+ 		if (ring->data.in) {
+ 			for (j = 0; j < (1 << ring->intf->ring_order); j++) {
+ 				grant_ref_t ref;
 -- 
 2.53.0
 
