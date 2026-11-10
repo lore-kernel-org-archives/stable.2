@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794277803;
-	b=3/hbRaQGSDFN9Bt71hLde7AI71jh5qAT5g95dT6D/79A42H2f7QgMUwwuRQazNG5kGmm
-	 murYw1qIgg4r2s70iVZzIkgu/ET5F03o1MtQWfthPtptc8JkrsbrqcU52FtTqDN+Q4Hki
-	 G0pFRqoHDvYsZTlmxYZRjYT1qBcUAE2kjBxcUVQAPzjP5iUoJ+02x7XOSNyOZ6m8Ra3d8
-	 l1Uf0rCrwpWSG797Ei2ynMJ6wWgf02KItx4zBrXmNJhcbEz/Ig9YzMtyQmTHzc3TtYhOK
-	 4F1psGfISDDHhRRrDay9TO8Rucp1gst/r96UlRvM/03YBYfKeyKkZyDSzhlMN2T3P8Q==
+	t=1794277813;
+	b=FpM2G6vKZ1SQ34zwe0AtUS7mSurUKPlGq5Ai7yDEBycX20L4n9a9G7Z3at4Z+D+Y66Kv
+	 fB/bDYJte860N1SvsnNdrqJy7DcdXtL2GnSFPk/j5wkrQbIL/Jc69NlrIaJSWvSOY3g2D
+	 +h4JAqukpPLtIoAWtfDlyYmv+NKSO1rpmbPmrLIxJ95j/s7e53+m+WxKcjJNzth8Tczr/
+	 Ow8qnAK+IpkE84HR5H8eVbsQ7U5HSiFRBb2tkImNjEpv3kck3a0RHmt4c6AbzGlKFisTo
+	 /8MfKumavS1BSMnlnETkLs630BIa+JEitmwFqeyMStq3gGZkP7AFo98Xvlcp15gnjNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794277803;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794277813;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5vGcgdCyILPd/lC67XcqBA+Yz6HgZP4xfuU6fcK9QLk=;
-	b=u0LbYwy2AzKRNbvef6mkYvoWI6SvF23ZOh6bzD1ixesg4g16kEn7F0/VjCvBXZO9cOtt
-	 R93BfU8G+KxrWx2UBF8IKe5TDdyWBrJgte1fSyDeyhc4BC6hAyFMGMfxt3QadbhNuzk52
-	 jyQE30Tk1SNwTzcKojgtnOjlUO+kTz35PJyutv+VZLCLrTy1kb4rhA6WnLk4bRvpa0jNc
-	 nS6Wyej/8h/5Rur8nqjXP3MJkUnlxQxP0I1mDSsUOinmKK/kMnYj3HJk24uOSN11v5SIx
-	 aeZ4lBJtpbqo2Tx3iXG2U+yvGv5hYfblYTcwA86jtpvMYbNVRWYd9pf+G35n1sAuNeQ==
+	bh=+otYdCm2morbchruc3afFNrp/Rhr/Ayc5NQneL5aO78=;
+	b=ywXpOeu86SWxJ1i8IsZm+IjAYibcuCipYdoAw+RuyqNnHaGETOJPiexQwxCXa/JQvlG1
+	 kLiS+gvLYqM84/AEDkuH+PRjJJZ+1vJQ6n4Az6naHtEFuYDF4k86gEk+eOikexCxzbiGx
+	 6AwSprTducZFktATQpXLPWno4fCsQL8iODT3Yg8oCIP6msmf13zbt4Eb8EL8NlJsfTbP9
+	 XfqrT71rpaBiCDZYMfC+Exy+5sCuFI2pUcpdlKLC8m8LMImGbKwyoydoP/IBgJJkaPDT2
+	 H+5YuOV9b6fPzzO8ZEZiJGpLQfjQ2qMx/ATkn7au/vMYHGcm/xkl+RN36trULeoSRTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jM0Fm905;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4zHwxJE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C191C606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:30:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE38606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jM0Fm905
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B41F1F008A1;
-	Tue, 10 Nov 2026 02:30:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B4zHwxJE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984031F0089F;
+	Tue, 10 Nov 2026 02:30:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794277802;
-	bh=5vGcgdCyILPd/lC67XcqBA+Yz6HgZP4xfuU6fcK9QLk=;
+	s=k20260515; t=1794277813;
+	bh=+otYdCm2morbchruc3afFNrp/Rhr/Ayc5NQneL5aO78=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jM0Fm905LKCRwCWaK3takg8EnfM/+S0QtzJX5QVnGmS5CZW095FgnISUHCyZJD0ad
-	 ezixr424mFJToRvUvxKTg5SWkGlgBZ5QzACC8Ac7AL2Lmsxzw+g9BVJz+ymqCOjZTQ
-	 7HHf4o7vl5PnKwPdo4178wPs11P1dB5Ou6GZiUvdO9ZdD4HyZZXlvf3+c0WBxxJlNv
-	 DMaU/nQNNGfi0xNmO77pQPCfzboH+agtPH+lysS86g+OWQUZm1Uu8gkFlDaZp9AxOd
-	 viU5xseMSXTZEZZvFg1S2K3v9TDsTo/jmAMXlmu6vvrzlJPTmPg2UPYNEhpP1+MXJh
-	 kgqv936Fw1VZQ==
+	b=B4zHwxJEMNBGbjairN3oEs1QSdE+oYfNuKKVUZ1UUuzGF3thcC9awr1NmrJf1KUa7
+	 AZ74HeuahATVpnkLLZ3gN77EK7ojeAvIGiHfZEHuiwooLMxqhTuecBY3/W7o5oJ1pa
+	 4kyBzA1eRfIy/w82aJHeUW1tVAD67XNqksBIH6br8/52sWwAZgKirUhp+FY91QkTU7
+	 HToYI7jFWGBZTfzvmM4WPDKKNnwlZAvzuECwrEIfxHIEvs1D3JkKfJ3CrNWwS0iN2a
+	 mPjfv66J6rRZriGXyqCz9WqpkJuOsafP+IAWCKHs/Hr9O9dZfoHCHpKC6C+t8Eb8z1
+	 gMVTBVugSn0Pg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Zhenhao Wan <whi4ed0g@gmail.com>,
+	Yuhao Jiang <danisjiang@gmail.com>,
+	Lyude Paul <lyude@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] iio: light: ltr501: Power down chip if request irq fails
-Date: Mon,  9 Nov 2026 21:29:59 -0500
-Message-ID: <20261110022951.3819474-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/nouveau/svm: drain fault handler before freeing svmm
+Date: Mon,  9 Nov 2026 21:30:11 -0500
+Message-ID: <20261110022953.3763851-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110022951.3819474-1-sashal@kernel.org>
-References: <20261107050601-failed-6.18-8a9bcd587d7d@kernel.org>
- <20261110022951.3819474-1-sashal@kernel.org>
+In-Reply-To: <20261107054047-failed-6.1-b46ddaf08234@kernel.org>
+References: <20261107054047-failed-6.1-b46ddaf08234@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,38 +62,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Esben Haabendal <esben@geanix.com>
+From: Zhenhao Wan <whi4ed0g@gmail.com>
 
-[ Upstream commit 8a9bcd587d7d768e6c8e9fff88bb89645e412731 ]
+[ Upstream commit b46ddaf0823405f81e681eb26ec98508f3eb9a07 ]
 
-In case devm_request_threaded_irq() failed, we were leaving the chip
-powered instead of powering it down again. Power down the chip switching
-ALS and PS modes to standby.
+The SVM fault handler nouveau_svm_fault() looks up each fault's
+nouveau_svmm under svm->mutex, caches it in the fault array, then drops
+svm->mutex and dereferences the svmm across blocking faults
+(mmu_interval_notifier_insert(), hmm_range_fault()).
 
-Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
+nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
+mmu_notifier_put() frees it asynchronously via call_srcu() without
+waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
+flush_work() on the fault buffer otherwise runs only at device removal
+and suspend, never on close, so a fault handled concurrently with a close
+can dereference a freed svmm.
+
+The instance is already unlinked by nouveau_svmm_part() earlier in the
+same close, so no new fault can resolve to it. Drain the handler in
+nouveau_svmm_fini() before the free, guarding the flush with a NULL check
+on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
+drm->svm (NULL) after blocking the notify and flushing the buffer, so the
+handler is already drained; on per-client close drm->svm is alive and the
+flush runs.
+
+Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
-Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/light/ltr501.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index 36fe40fec2329..a38cf1490e13b 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -1539,7 +1539,7 @@ static int ltr501_probe(struct i2c_client *client)
- 						"ltr501_thresh_event",
- 						indio_dev);
- 		if (ret)
--			return ret;
-+			goto powerdown_on_error;
- 	} else {
- 		indio_dev->info = data->chip_info->info_no_irq;
- 	}
+diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
+index d0bff13ac758d..75218519c29e0 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_svm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+@@ -306,6 +306,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
+ {
+ 	struct nouveau_svmm *svmm = *psvmm;
+ 	if (svmm) {
++		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
++
++		/* The fault handler caches svmm pointers under svm->mutex and
++		 * dereferences them after dropping it, across blocking faults.
++		 * The instance is already unlinked (nouveau_svmm_part), so drain
++		 * the handler before the free to release any in-flight reference.
++		 *
++		 * On device teardown nouveau_svm_fini() ran first and freed
++		 * drm->svm (NULL) after draining the buffer; nothing to flush.
++		 */
++		if (svm)
++			flush_work(&svm->buffer[0].notify.work);
++
+ 		mutex_lock(&svmm->mutex);
+ 		svmm->vmm = NULL;
+ 		mutex_unlock(&svmm->mutex);
 -- 
 2.53.0
 
