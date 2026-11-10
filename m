@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273768;
-	b=zsMQybQ/gLhVUKEkJTRxQSB5BgI8jPFGme2lPXuokPFenhHjGfkI8TDvyTrZQcesqNiS
-	 +ocuaPegJe4WsJ3M1faThzE/R18bc/oL/ckfX7uQenpXaNAF63+gzEzQi3DpCMveG/vTV
-	 iU8de/KxmQT9xGhQ0za4ffEv4Conoc67AEE7Leh8MYsH6+WF9PNSHLLLLpTAaaiffdmeW
-	 Cr0fI2hjULdX7U9+o+EoSvjil7+Mt+fIBkqbKMrD0qvdgsMrnCjw+HZC3ifNWoYeSrWjA
-	 cYHROuTg4HLb1iNnPmcDVwLBaQdHLmGozIv6EELlL/noVOsnIJd84/psAqtR8pEPIgQ==
+	t=1794273770;
+	b=zUfneZtRt9SmnAy2hCu7YBQ2It87vtOv89IX4Eshzdn17G0H64WeFW1SYxLGK+yb2XTY
+	 44HR0Ncb9t5Kn+O7FkjCtSvS0KI6cFmfD4r7IoVrzihXaG+30xlWApHsWuALPoYnIEk87
+	 J7njpzt8bTZInhwAW9F7yngmVfHOsH1pSms+20+czpP2KG/7iyAyjSbdKv2ZxCsMsUx2g
+	 hKZhIkiqgIsLclr8EmAw2tEZ7kDYUoe6A8TkmyyIbKpAst+5V6OPw3ZP9HiRBaAqzqgjd
+	 mITnR/G2xy4+UAAq0HNhSugr9Vh2dRkET9we0M/whqdfD58wIrRFomfVMpIoaX6GzOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273770;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZOqavrM09P//gdreE5dvfGk4z/SJxEqpSI/c5Dht9fI=;
-	b=lUOYjl37eUWG7Ey+VGbokayLhuR9L8DCp0XryLr7XSArTv0yaAJ7V6k7eIixbouOrVXa
-	 doe3jWD6pC10EzVdvMJzQVwp4SEjO4gk5uUGAKroIcDYrFcFTwcwdi2wlYb225xwl3Kan
-	 N/iLmmM+P76cIY7sMSAWoo1XYvCy7BTp5QSoQbARWVlQvkNLlI7rCaz7fXgsOVxEvARD9
-	 aRq82M5iFJjSB//0qhCNL/oflIpg0O6GaHdUj6xab/hs/jbYRYp48vZ/Ffg7iDI3+FRUd
-	 xrs0CRyDVgit+kjfdg4QeLEzNLV945RgaUv0HrKufIMOVoBBlQTiqnUCPIn/gKrqhWQ==
+	bh=2P9KBZgj2rFrhRTAih40+D5NmEE9HNLC5D8G7F3cpBw=;
+	b=xJTHe/VUEfFSF52+bFK+ZeZ8as9P7rUeuBZIbexT65I/TXS0inR9bvgRJU5JRtdGBwXF
+	 P8dbj0v20CPHWlTFfZ6E6Srt9gwaulzwslWo7J9N3kT4DKmRGTOlUClwbJi6sQviO8vdf
+	 Dr7g4RAuiNgS3JOEvqb76cpYld/Xf/8EBgSbcvH7JsTgtDmUPgjApsMVxo+9KfgV5tDXG
+	 ECkpJp3aQJjsI9rcF2thJdKs6ELPdIG7eCRJo+nOyyPNAulEzRPGwACEVXnOIRZ5RRKyH
+	 ydS4QejZqsVOsv5Q6D1nVtHnVmpBh9xMzNL2qF/uTU8B0/o+QMYfA+UxZ4fuwbMoesg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7+DmFyV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9meNbtm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ED9606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7725606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7+DmFyV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1921F0089F;
-	Tue, 10 Nov 2026 01:22:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z9meNbtm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324B61F008A1;
+	Tue, 10 Nov 2026 01:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273767;
-	bh=ZOqavrM09P//gdreE5dvfGk4z/SJxEqpSI/c5Dht9fI=;
+	s=k20260515; t=1794273769;
+	bh=2P9KBZgj2rFrhRTAih40+D5NmEE9HNLC5D8G7F3cpBw=;
 	h=From:To:Cc:Subject:Date;
-	b=I7+DmFyV3zD6dzsYJPDMq84AXhxrCRvhQ4DumRRLkbkqQR64PySuDiS17MWBAC0x5
-	 E2FO0JUBplRApwWfkJ4WYeu2nlHA7MnAP8ulTwZmfPnEs+DmBmOnzVPeOGiFXEdln8
-	 eujoksxcfu3Ekh9b89pcbgkkKEvq1qocti7ERQ0kJozJOJdQR6uhpmE+LhUJwU/P+w
-	 qa8zNT4sJqHMQbjunMwkj7icrvyebL1aPPQuR0CoQ/ApaVDRtGN0bisbGMKIbILoiZ
-	 3bnCau0f3DeFtE3mTL4eFsJLJvsW2doAnmAAXgkU5EFlV3vWBeifRPdB3cl4OZOZ5t
-	 y2zlp/iiVD7XA==
+	b=Z9meNbtmuThkS4+4N3kW7Y8rPNR37UuQs6s634AZu1thrvxTszZ8NZ1ieWpMvXygJ
+	 B9OxN2b/njTG9oehw0QMORylz2lymsScy+zvwlY9kCxOyJreGce1QbBdkWqs9eFJDd
+	 /98TKWGCFsizOXds8BLsehhCf/WdsUgnDmPLFvzQD9pAvAeXSSodlfmTeNUAtCD9i+
+	 y9WY+f0s4d3CoFR++zdFws70FOflNUyN/XVrNR21tDtVHJJM6NwYMSREVgf94nBpb+
+	 Iv9dJUTabl9UE0QTRbxc81qHRgGoUGAaKUcXx++RJ9UxR8VF9SKqKmS+OsHCEvTK5p
+	 qI1OHnx5c+3mA==
 From: Sasha Levin <sashal@kernel.org>
-To: longpareto@gmail.com,
-	xieyongji@bytedance.com,
-	mst@redhat.com,
-	noreply@anthropic.com
+To: blum@kernel.org,
+	prasannatsmkumar@gmail.com,
+	mst@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] vduse: fix VA/PA confusion in the coherent page fault path" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:22:45 -0500
-Message-ID: <20261109202245-failed-5.15-bb2e6f166547@kernel.org>
+Subject: FAILED: patch "[PATCH] hwrng: virtio - prevent use-after-free after a failed restore" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:22:48 -0500
+Message-ID: <20261109202248-failed-5.15-0f7bf47f5a0c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,95 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x bb2e6f166547838fd7c320b01c90918b736f76e2
+git cherry-pick -x 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202245-failed-5.15-bb2e6f166547@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202248-failed-5.15-0f7bf47f5a0c@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bb2e6f166547838fd7c320b01c90918b736f76e2 Mon Sep 17 00:00:00 2001
-From: "chenglong.ma" <longpareto@gmail.com>
-Date: Mon, 2 Nov 2026 12:08:55 -0500
-Subject: [PATCH] vduse: fix VA/PA confusion in the coherent page fault path
+From 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <blum@kernel.org>
+Date: Fri, 16 Oct 2026 12:36:40 +0200
+Subject: [PATCH] hwrng: virtio - prevent use-after-free after a failed restore
 
-vduse_domain_get_coherent_page() assumes that iotlb entries above
-bounce_size were installed by vduse_domain_alloc_coherent(), so it
-treats map->addr as a physical address. But vduse registers with
-use_va = true, and when the device is bound to vhost_vdpa,
-vhost_vdpa_va_map() stores a userspace virtual address in map->addr,
-which vduse_domain_set_map() then copies into the same iotlb. A
-process holding the domain file descriptor across a rebind can
-therefore fault in an arbitrary physical page with read/write
-access, ignoring the entry permissions.
+remove_common() frees the driver data during freeze, but does not clear
+vdev->priv, which points to freed memory. If probe_common() then fails
+during restore, a later remove or freeze can dereference the dangling
+pointer.
 
-Additionally, since the domain file mmap lacks VM_IO, the domain
-file itself can be mapped and passed to vhost_vdpa_va_map(),
-producing self-referential entries that bypass the coherent path
-check.
+Clear vdev->priv on the probe_common() error cleanup path and before
+freeing the driver data in remove_common(). Also reset the device and
+return early from remove_common() if vdev->priv is already NULL for a
+safe teardown after a failed restore.
 
-To fix, only translate entries whose backing file is the domain
-file itself in vduse_domain_get_coherent_page(), reject such
-entries in vduse_domain_set_map() since only external mappings
-should be imported, and set VM_IO on the domain file mmap so
-vhost_vdpa_va_map() refuses to map it in the first place.
-
-Fixes: 8c773d53fb7b ("vduse: Implement an MMU-based software IOTLB")
-Cc: Xie Yongji <xieyongji@bytedance.com>
+Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
 Cc: stable@vger.kernel.org
-Reported-by: chenglong.ma <longpareto@gmail.com>
-Signed-off-by: chenglong.ma <longpareto@gmail.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Co-Authored-By: Claude Code <noreply@anthropic.com>
+Message-ID: <20261016103640.4989-2-blum@kernel.org>
 ---
- drivers/vdpa/vdpa_user/iova_domain.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/char/hw_random/virtio-rng.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
-index b6c958224b7ce..28a977248a0d3 100644
---- a/drivers/vdpa/vdpa_user/iova_domain.c
-+++ b/drivers/vdpa/vdpa_user/iova_domain.c
-@@ -76,6 +76,10 @@ int vduse_domain_set_map(struct vduse_iova_domain *domain,
- 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
- 	     map = vhost_iotlb_itree_next(map, start, last)) {
- 		map_file = (struct vdpa_map_file *)map->opaque;
-+		if (!map_file || map_file->file == domain->file) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
- 		ret = vduse_iotlb_add_range(domain, map->start, map->last,
- 					    map->addr, map->perm,
- 					    map_file->file,
-@@ -226,6 +230,7 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
+diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+index f9982217247dd..45d87c0614a5e 100644
+--- a/drivers/char/hw_random/virtio-rng.c
++++ b/drivers/char/hw_random/virtio-rng.c
+@@ -190,6 +190,7 @@ static int probe_common(struct virtio_device *vdev)
+ err_find:
+ 	ida_free(&rng_index_ida, index);
+ err_ida:
++	vdev->priv = NULL;
+ 	kfree(vi);
+ 	return err;
+ }
+@@ -198,6 +199,11 @@ static void remove_common(struct virtio_device *vdev)
  {
- 	u64 start = iova & PAGE_MASK;
- 	u64 last = start + PAGE_SIZE - 1;
-+	struct vdpa_map_file *map_file;
- 	struct vhost_iotlb_map *map;
- 	struct page *page = NULL;
+ 	struct virtrng_info *vi = vdev->priv;
  
-@@ -234,6 +239,10 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
- 	if (!map)
- 		goto out;
- 
-+	map_file = (struct vdpa_map_file *)map->opaque;
-+	if (!map_file || map_file->file != domain->file)
-+		goto out;
++	if (!vi) {
++		virtio_reset_device(vdev);
++		return;
++	}
 +
- 	page = pfn_to_page((map->addr + iova - map->start) >> PAGE_SHIFT);
- 	get_page(page);
- out:
-@@ -579,7 +588,7 @@ static int vduse_domain_mmap(struct file *file, struct vm_area_struct *vma)
- {
- 	struct vduse_iova_domain *domain = file->private_data;
- 
--	vm_flags_set(vma, VM_DONTDUMP | VM_DONTEXPAND);
-+	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
- 	vma->vm_private_data = domain;
- 	vma->vm_ops = &vduse_domain_mmap_ops;
+ 	vi->hwrng_removed = true;
+ 	vi->data_avail = 0;
+ 	vi->data_idx = 0;
+@@ -207,6 +213,7 @@ static void remove_common(struct virtio_device *vdev)
+ 	virtio_reset_device(vdev);
+ 	vdev->config->del_vqs(vdev);
+ 	ida_free(&rng_index_ida, vi->index);
++	vdev->priv = NULL;
+ 	kfree(vi);
+ }
  
 -- 
 2.53.0
