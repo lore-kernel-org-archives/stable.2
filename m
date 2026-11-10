@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314376;
-	b=J0Xby2duH9IRl0GGCNZ9yDMdsn2YRT7OKp8eT9DTKa3LdU2ABuUj9DigFq8hlnRQyDpz
-	 UM077uVSWolqCkF9hTi42fPi6xNd9UPsBiwBifbMqM9cVhNSlxHeoD4q5Avs/990fl1Ho
-	 5CTd7EksJnWKZ/QwRngdSEY1QwTb6lwiRQIF7FP4sCycAfPOaOwIMsMcPvG68sRoBniMK
-	 5LzMH5B98Rt9lCNa3UN+C/sntvHx4oWRvFQxrdc20h157W45YCTuKLhFlffv1jx+O0mrG
-	 mfT6GEAdeE9W+PKahzGwhnWj2k2pjZA/+ozH+5yA6dG5AVxqPaeLL6P7oi2OSce9q8w==
+	t=1794314425;
+	b=K8nr46VIIyiTipEfDwZ/taPBcKoqgzjk6MfSrp4tSCJlzrvHB7P5l4izEnXJ8FmXp/K7
+	 wNAAaBGnep2oq+XmTOorn8AGi+zYYBlfWVs2nWOcI56ap+MItIznBtf1n2uSpUujZJwZb
+	 aF0Diqf5g68A6OAJLYVRIdkG8TE6rSMkfeTbxKtX1ssIqRtwfu8x1IwtrrqzAuxUDPih/
+	 gQbqHnw+bLjEKxYz+7zim5U7GdIcB4C9tjkjdEzv8LCQ92USiKyDuxMLjoUFJwd08KItr
+	 i2+uqpiE4XHm3sogXtuyKibYZRS1Yc7ZiRfjHr6B+QtswY0yrY3bTrTg146oGgLtCwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314425;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XZkohOBCNW/myDH3lC/RvZjkNbDjctQKn+HUHOtEmOY=;
-	b=rmKWGs75/37HB7S4q16Ko32SSb306w+jEkURjVQzhIGucGQmLuJSnsGKfoZCh+mvLUti
-	 LMnxCILjsatPD26wbotGyLfLA45LtHBqE777TrXIZq59ibhZ/wc28F7AQHvc49bU1Y4Q7
-	 2seYALMlSXm7QEDQY0CKFxDLPRR/qYNwKl1x+u9ywW/DpsHW9urGVr8vSorLGzy0I8d0G
-	 Sla1PKHlCTz0N61RzTiYduLWv+w5hNWZWVt4UEGPglhbtFD0qUrTs6FPW1u4lHRqGjmGA
-	 Y73So1EyasTecOBYvGKMLBlcOX6WLNGBptHosHYlntTTbcuy6iwU12UUSd3wvh28Gsw==
+	bh=zFJ/S0+JEf/6tSbYvlYrb5+miveH3EIj6YC7ZoHeGnM=;
+	b=UbgvAZ5QYpyyqDEZORQHY2xVOsZeoDKM+B2H4F4xZnMXicX+KMK5QLr0gmboBV+6IrjZ
+	 jqWvOUxUUPy/YSxHc/5Vqi01/g2PoZjaPKTarNeVOSAGpQsLsmU8t5FIBmX8P/q6cxWTy
+	 qPs/LdtB2TxndNoX0uieSWO+3UDk4mpbBtSxsbgWqiIBuMDLAZfSVzDQ4+UZXHT/vwuci
+	 btIk7CJcSfHNp/q+kg2dHxuK0BLHlw0JeHkbGrAjEf3RAbB3OhqnOsCbO1i9Rl+wSsmJD
+	 +USMAUVE6HlDCFCzekHbdO9QZ9jiPU9jTd3ehUJjOT+iVPflV8p0SsdZt2KY5xL5CsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdY4CJFJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DZmCS/8f";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F16A606A339
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:39:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B0660A263D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:40:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SdY4CJFJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E03B1F008A3;
-	Tue, 10 Nov 2026 12:39:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DZmCS/8f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43391F008A4;
+	Tue, 10 Nov 2026 12:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314376;
-	bh=XZkohOBCNW/myDH3lC/RvZjkNbDjctQKn+HUHOtEmOY=;
+	s=k20260515; t=1794314424;
+	bh=zFJ/S0+JEf/6tSbYvlYrb5+miveH3EIj6YC7ZoHeGnM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SdY4CJFJzodP0tM+eiBVBdxTkMVebBUBIFdvRYU+TM5cUvNNXBCKRXqAKwwlu1yI7
-	 wFJu+WmFrB+ud7kdUAP3O0h7i4otj6Qrycfd0ZAglitqvGZ0eAmPjwcBCca+EKTNei
-	 EWtSGBwqUgnsH18R050I7WryAXbtCzfcy6Ot0elX1WVTm8tngXZjIuuW+MbC4JuSAc
-	 z+HvjsZprlqjfRDwHAM8IMmFkMXlzrbYHUtLjCdsooM/u2CgVb3pZVhJwKExlnWPre
-	 s0vh8x5aOVZEshz1bX3zV5sUNS53xb0aTA+3xUBR5s1oofGjezpAJ84l3Ezyn6WfnQ
-	 TdMYAR0hI9cVg==
+	b=DZmCS/8fMdR0oTWKhPvDlmRaD+Vv6DVPLiPs17FG8Jn6QLkT+5wZh+N6qQBRt9jEp
+	 d8V6rH0BbSr2gaDPOt10kkovxmex3KNNnKqWPQINri962CHKVyVKA/r8TKXQswW70r
+	 j+5JB4hdXotC8eEFkgCWGn1FzmjpZvBYZGBuNuPIO6vs43bIfYsS49T1d2oJul8DqH
+	 mN09D4mNHIrAVIcRx4pNfdKkQJdVjq7EoEwOWpqd+OpzxG7z8gcU+9kWhjKQNqnIEX
+	 CN1eyU4rv+Qo6vXPwoy/9PW4jpEAIZw7ZRk13X0dyL7WQkMMUxWiTcct2VCKNbhgeJ
+	 l2ov6rBjviUkQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tharit Tangkijwanichakul <tharitt97@gmail.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] media: hantro: disable runtime PM before hardware teardown
-Date: Tue, 10 Nov 2026 07:39:33 -0500
-Message-ID: <20261110123927.1392922-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
+Date: Tue, 10 Nov 2026 07:40:22 -0500
+Message-ID: <20261110124006.1286707-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110123927.1392922-1-sashal@kernel.org>
-References: <20261107054409-failed-6.1-8e26d4c20ed2@kernel.org>
- <20261110123927.1392922-1-sashal@kernel.org>
+In-Reply-To: <20261107050726-failed-6.18-56c1d32323e7@kernel.org>
+References: <20261107050726-failed-6.18-56c1d32323e7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,96 +61,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+From: Tom Verdonck <tom.verdonck@inspiral.be>
 
-[ Upstream commit 8e26d4c20ed218db6c3123480a4a4e2545680566 ]
+[ Upstream commit 56c1d32323e773b8b927316f8beeae9238576335 ]
 
-Removing the Hantro driver may trigger an SError on RK3588:
-	SError Interrupt on CPU6, code 0x00000000be000011 -- SError
-	...
-	do_serror+0x5c/0x74
-	el1h_64_error_handler+0x34/0x50
-	el1h_64_error+0x6c/0x70
-	regmap_mmio_read32le+0x10/0x20 (P)
-	_regmap_bus_reg_read+0x6c/0xb4
-	_regmap_read+0x60/0xdc
-	regmap_read+0x4c/0x80
-	rockchip_pd_power+0xe4/0x600
-	rockchip_pd_power_off+0x1c/0x60
-	_genpd_power_off+0x98/0x198
-	genpd_power_off.part.0+0x178/0x288
-	genpd_runtime_suspend+0x210/0x300
-	__rpm_callback+0x48/0x1e0
-	rpm_callback+0x74/0x80
-	rpm_suspend+0x10c/0x580
-	rpm_idle+0x134/0x1b8
-	update_autosuspend+0x30/0xc4
-	__pm_runtime_use_autosuspend+0x48/0x64
-	hantro_remove+0x8c/0xa8 [hantro_vpu]
-	...
+tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
+and, on every temperature read, refuses the read with -EAGAIN while
+time_before(jiffies, ready_time) is true, in order to skip the first
+~35 ms conversion.
 
-hantro_remove() currently asserts the device resets before disabling
-runtime PM.
+->ready_time is an unsigned long compared with time_before(), whose
+signed difference is only meaningful while the two values are within
+LONG_MAX jiffies of each other. Because ->ready_time is set once and
+never refreshed, jiffies keeps advancing away from it, and after 2^31
+jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+happens ~248.5 days after boot: time_before() then permanently reports
+"not ready" and the driver returns -EAGAIN on every read, without ever
+touching the sensor, until the next reboot.
 
-Calling pm_runtime_dont_use_autosuspend() causes an idle device to be
-runtime-suspended immediately. At that point the Hantro hardware has
-already been torn down, while the generic power-domain genpd code
-still performs the power-off sequence. genpd regmap_mmio_read causes panic
-subsequently because the reset lines were asserted.
+Store the deadline as a 64-bit jiffies value and compare it with
+get_jiffies_64()/time_before64(), which does not wrap in any practical
+uptime.
 
-Disable runtime PM before asserting the reset lines so that no runtime-PM
-transition can race with hardware teardown.
-
-Apply the same ordering to the probe error paths as well.
-
-Fixes: ea71631b7129 ("media: hantro: add support for reset lines")
+Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Reviewed-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+Link: https://patch.msgid.link/2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: Adjusted struct tmp102 context to account for the missing sample_time field. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/verisilicon/hantro_drv.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/hwmon/tmp102.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index df81ca3903ca5..d0ae492e51e6e 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -1119,7 +1119,7 @@ static int hantro_probe(struct platform_device *pdev)
- 	ret = clk_bulk_prepare(vpu->variant->num_clocks, vpu->clocks);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to prepare clocks\n");
--		goto err_rst_assert;
-+		goto err_pm_disable_assert_reset;
- 	}
+diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
+index 376e0eac8cc1c..62a7bee9e4b95 100644
+--- a/drivers/hwmon/tmp102.c
++++ b/drivers/hwmon/tmp102.c
+@@ -56,7 +56,7 @@ struct tmp102 {
+ 	const char *label;
+ 	struct regmap *regmap;
+ 	u16 config_orig;
+-	unsigned long ready_time;
++	u64 ready_time;
+ };
  
- 	ret = v4l2_device_register(&pdev->dev, &vpu->v4l2_dev);
-@@ -1175,8 +1175,11 @@ static int hantro_probe(struct platform_device *pdev)
- 	v4l2_device_unregister(&vpu->v4l2_dev);
- err_clk_unprepare:
- 	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
--err_rst_assert:
-+err_pm_disable_assert_reset:
-+	pm_runtime_dont_use_autosuspend(vpu->dev);
-+	pm_runtime_disable(vpu->dev);
- 	reset_control_assert(vpu->resets);
-+	return ret;
- err_pm_disable:
- 	pm_runtime_dont_use_autosuspend(vpu->dev);
- 	pm_runtime_disable(vpu->dev);
-@@ -1196,9 +1199,9 @@ static void hantro_remove(struct platform_device *pdev)
- 	v4l2_m2m_put(vpu->m2m_dev);
- 	v4l2_device_unregister(&vpu->v4l2_dev);
- 	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
--	reset_control_assert(vpu->resets);
- 	pm_runtime_dont_use_autosuspend(vpu->dev);
- 	pm_runtime_disable(vpu->dev);
-+	reset_control_assert(vpu->resets);
+ /* convert left adjusted 13-bit TMP102 register value to milliCelsius */
+@@ -91,7 +91,7 @@ static int tmp102_read(struct device *dev, enum hwmon_sensor_types type,
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+ 		/* Is it too early to return a conversion ? */
+-		if (time_before(jiffies, tmp102->ready_time)) {
++		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
+ 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
+ 			return -EAGAIN;
+ 		}
+@@ -270,7 +270,7 @@ static int tmp102_probe(struct i2c_client *client)
+ 	 * Mark that we are not ready with data until the first
+ 	 * conversion is complete
+ 	 */
+-	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
++	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+ 
+ 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
+ 							 tmp102,
+@@ -303,7 +303,7 @@ static int tmp102_resume(struct device *dev)
+ 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
+ 				 TMP102_CONF_SD, 0);
+ 
+-	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
++	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+ 
+ 	return err;
  }
- 
- #ifdef CONFIG_PM
 -- 
 2.53.0
 
