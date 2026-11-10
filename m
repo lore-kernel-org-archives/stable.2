@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331588;
-	b=NnIgWKt9aiukEUS0v5fws2IO726sFadwzfAh5R8D5xksfQ0hKJgfsuY+OX1CWuKzu8xo
-	 U5mYKvgBZP6ylwITMC7J1p3XjUpSVPe4+Io7k6iltcoP11+IzlngT1Ut7ivsktgv+S+1G
-	 7k7wzdvehK3veAySxccpkezYcmz6pvzZcIv+0qcyyRtZW3uLc0hcGUu4vH48APINTzn/k
-	 heA0QIV7S3QUyqB7QGjouPFz25GtrM0fo11a9UksGfg+QUUNzoe8MKTJmsCzRhe244Smq
-	 /NkZiWlnj0KZvbG1NzytymEwL8TnRi50GRGqFIio6TqvhsREShOCONIyzWzK+O/oBQQ==
+	t=1794331607;
+	b=U/ZQuzTMSdqpZlXq9UJQ44ew9gHTVW2nfLlDYKzbLRZRbv+R96SFBVBpvOxsIIN3o/9Y
+	 HhH5cFCLgJrEY1+8IOQpYKKKAXfdth9E/RcRr9tG1nR9fUHS3RAMO1+ODeTe9KNXq9EZ+
+	 TFdhfzHsdyob8yND3TNRw88sVU7liKwhc0TBkuoIQpRL5fhy70G40+z6tXaC+oOK5B8S/
+	 I2n/E7wg44+LF3Wht3OUKQ5mQwvjSLd8v1sEPgeSv8J0xMJysp91nA5WxySY3vHO5ty79
+	 IHAehzhTJyxamWQH+IJSI44cN4jkXrYJT5Pm0Ko1XuWSzlA53RTTPmTeh77Z5/cdigg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331607;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GXjgNNX+v8W7SSL6EObie3si22fGdNCC4Fq9X3e5m9Q=;
-	b=LGyXQK8DXtlsel1bBMJzfT8TlbpK4rtNd5UEQns1JnaLmI+eewszWqXlU0B+p3s2szIt
-	 brlMowaHQOtF6MjDfWD3eX+o32Lv8TL2vXx2c72l5KDDUe4N6b0J7jorjuiPWuVSGnEb4
-	 b7oCM50s40DqzQeHX0Qj+DNeVBxGnfiJa41BiXEU6kOfkfF1f79CBljSkWzVaoe1VRDp5
-	 7UXMLSZAOvWB77Z00enbWHR42hwyPzlZiotJ9DJ2rrJEMdl1vZAbhSLruT81khgI+Qabk
-	 gGGPCK1g1nW2oxrS5rSXg03MwNKBiIMrFZ4yMf5r4LcQASl/dMGHWMRm+Zhm5DFNFOA==
+	bh=MtNPY4OeG6Tl6D8nImJKqxMdfvQPJNn4v37rVIby1/I=;
+	b=GkcQSt8N3zz+Mdks8aRmo1UefHMD0ZdOLmo2bEtme9yDzKTIACvevRfMe3nDaUT5ptJJ
+	 oE7AaGp2SwHl00/RSN4dyig8D7bJW72MqUss3XIGg+E9yGP39PLVlLDEt4aXL1I7ctS2w
+	 kVFWR2EUb/BMrqGW9uNZVObyOXxz0RxOVS0BiDcRCW+W5ujuSRPtZcfS3coaWYrwNoN6D
+	 HoyJaLN8Mf8Kl8DQptV+gRaRNQ2TajmrhAMtVEA9vwaaLPuD9PZjuVMIKZ9RaGHK+vqW1
+	 2HLYelcEcsYeykXTQ5VNfzWNVfr/S+sYCh9uFAPr910bheMEHnc9Q93gtj9DB7P3gdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUp1QM3c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mScFVI8n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B92C606A32D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:26:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52EB606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:26:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUp1QM3c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9801F0089F;
-	Tue, 10 Nov 2026 17:26:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mScFVI8n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB6F1F0089F;
+	Tue, 10 Nov 2026 17:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331587;
-	bh=GXjgNNX+v8W7SSL6EObie3si22fGdNCC4Fq9X3e5m9Q=;
+	s=k20260515; t=1794331606;
+	bh=MtNPY4OeG6Tl6D8nImJKqxMdfvQPJNn4v37rVIby1/I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gUp1QM3c/qmksmFIulBGKs3tXOqwTOwucaccdp6spWeJIu3fH6XtQobFm89T7TNr8
-	 yWYmvmJPwC+KW23sITFhASsJGuP/UwAnxtAHy+4S691dK5jMBBnaNNsIfb5cN7x1kS
-	 GCdLiF5iqeEr16MhlZYUKQz03oysNRZgFK3fPqRjy9O9EFqV/I7uim7RNiT/F+hzpX
-	 Of96OvOVWU+Nn2NTOkBOo5CPWvn1R/7uC6g73C6vTtamsNHzcrKZFnGjXmQNb+jllt
-	 NJbRIVruKML/HXLn8yrDSPuwuuHmXmsOWx5OwK2Hdjm9PJgD7AbzakdzWhR+A+0MkY
-	 o22kxEYvUubLg==
+	b=mScFVI8n8H9dFHNMfuxz7KGRNdrlmqNuJi/3d6gZWJHeIuc53CT4Lml+YrUREZ3Ds
+	 E1518KPfe+PQDpWA/vvpekpyo0e1/gMkMaxvepsbP1IvtL/nu9fdkpwmhlYjpg25zl
+	 qeyoJV4gnWrRqcHS+59Qzz/ZNvl7m4SmQN/tg/brMgVj4nLzsrGrkdUuYRidrD7xYF
+	 x/eH2qROCs1oo7gtpBKskmvw1Hc25uFX7hziE5j2DCSHU+Sz+Lx7/8P2GYA/KWuHED
+	 Jmti55YKThZd3hCGXemUlOAHeVZTq3eBsM+09A5ItNunhdgm91nqJKp1rnkk1dlu9u
+	 LEftZkt/xiVDw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Andrey Misiurov <andrey.misyrov@gmail.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net: skbuff: don't BUG() on a bad csum_start in skb_copy_and_csum_dev()
-Date: Tue, 10 Nov 2026 12:26:24 -0500
-Message-ID: <20261110172536.2769260-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] fbdev: core: Initialize modelist in framebuffer_alloc()
+Date: Tue, 10 Nov 2026 12:26:44 -0500
+Message-ID: <20261110172619.2916167-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062414-failed-5.10-56453199d28f@kernel.org>
-References: <20261107062414-failed-5.10-56453199d28f@kernel.org>
+In-Reply-To: <20261107062202-failed-5.10-0c9cb9321cb3@kernel.org>
+References: <20261107062202-failed-5.10-0c9cb9321cb3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,63 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
 
-[ Upstream commit 56453199d28f0072a8196fba14b2d702632e2219 ]
+[ Upstream commit 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e ]
 
-skb_copy_and_csum_dev() copies everything up to the checksum start out
-of the linear area, and BUG()s if the checksum start is past the end of
-the linear area.  It misses the other direction: a CHECKSUM_PARTIAL skb
-that has been pulled past its csum_start gives a negative offset, which
-gets past the check and becomes a ~4GB copy.  It also trusts
-csum_offset when it stores the folded checksum.  So far
-skb_copy_and_csum_bits() BUG()ing on a short skb has covered for that,
-but once it returns instead, a bad csum_offset would write past the end
-of the caller's buffer.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-The function returns void and its callers are drivers copying a frame
-into a bounce buffer just before handing it to the hardware.  There's
-nothing for them to back out of, so check both ends of csum_start and
-that the checksum field fits in the frame, and if not, copy the whole
-frame with skb_copy_bits() without filling in the checksum, with a
-DEBUG_NET_WARN_ON_ONCE() for debug kernels.  The frame
-goes out with a bad checksum and is dropped by the receiver.  If even
-that copy fails, zero the buffer so the driver doesn't send stale bytes.
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Cc: stable? The trailers only have Assisted-by: and Signed-off-by:. No
-Link: https://patch.msgid.link/20261007-b4-skbuff-bug-on-v2-5-b9a5f732895b@toxicpanda.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Replaced unavailable DEBUG_NET_WARN_ON_ONCE(1) with WARN_ON_ONCE(IS_ENABLED(CONFIG_DEBUG_NET)). ]
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
+
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
+
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
+
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
+
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: adjusted framebuffer_alloc() context due to the missing info->blank initialization ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/skbuff.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/video/fbdev/core/fbsysfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 224348001368c..394eef0c7c4a1 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3149,7 +3149,18 @@ void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
- 	else
- 		csstart = skb_headlen(skb);
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index 65dae05fff8e6..30798dc64aa89 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -56,6 +56,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
  
--	BUG_ON(csstart > skb_headlen(skb));
-+	if (unlikely(csstart < 0 || csstart > skb_headlen(skb) ||
-+		     (skb->ip_summed == CHECKSUM_PARTIAL &&
-+		      csstart + skb->csum_offset + sizeof(__sum16) >
-+		      skb->len))) {
-+		WARN_ON_ONCE(IS_ENABLED(CONFIG_DEBUG_NET));
-+		/* Send the frame without the checksum filled in, or send
-+		 * zeroes if we can't even copy it.
-+		 */
-+		if (skb_copy_bits(skb, 0, to, skb->len))
-+			memset(to, 0, skb->len);
-+		return;
-+	}
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
++	INIT_LIST_HEAD(&info->modelist);
  
- 	skb_copy_from_linear_data(skb, to, csstart);
- 
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
 2.53.0
 
