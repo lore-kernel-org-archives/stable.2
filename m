@@ -1,124 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794316887;
-	b=nth1GG6uYtZcadsjixEcIg1Lo/J1yRBnjDbM64+nI0iVONaZo7rr0oz5UPiMCDbzpgIA
-	 bgprk5MHuPon2l/Kt5GEOBre0B0MaXPgqf5kmtBOIMojJ8INqe/M4KCsjI/P8vVeTlmto
-	 hXOj4tBsTqkIal+HvK8ZBHM6PrH+BmgJP4IqxQrE7vqXzQggjeAF+EtIHalpALB29+Gy1
-	 m2ihTYE2fe4AzEEBJn44iRbR9afz/9hPXQosA5oUYWgVkaKrswLSJ8X1kOBKHmYZloLwo
-	 NWM2dX3mL7AFIP1Ox8gMb8b5vdCEiFDV5aMifRGLUWW8y4ZZI2roNYmZC8i6mcN0Gag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316887;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=IIzXasZdl3uuF8A0Q0l5RjhqjxVPq2XhnRyfILIPfK8=;
-	b=o9RCsMm9H31gbBwIMJiUCcKaqv2vSc6w5jYmrsQhbidpKZueI5pIRNxTaAVsSXMFR56L
-	 8XIsGT4Q3S89oP/ld2BTICv0k9F7ZtAR0K6U+QBtGt9GXr6EvxBtHtHsrIV7uMsBdL007
-	 48lDTBpA/BudWfBvmt8HIJ2lJlRrsl6tgQxUO/cRVS5hMHgSQmIDsL/w92CYyJ7G8Dfon
-	 iPHXT1bkJf+nSWK25GhGpULagg2MVG6bESEGzgoK14yMgbYQeXGfh188AacAgtwMy13bQ
-	 55FTbnSoqXoiDsrZNwMQGj1oXVVcIH7TF1HxORtCRSfKpPNGb2GSjSVDL+X7iVDfLeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V1UKZCwp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="P/mZPHOO";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794316965;
+	b=V6qGOGl3UH9Aeta6ZJG0Pq+qh7LTcl/s/jQBl5NKkM3TlChiECx9HfoNlLNN9WScG2+o
+	 G8A10drotzqD0tn5JxrKLKZnDA22a99FCCQ1NdDg9SI+DTIiB3Eh4paMVc+owDGgFX2A1
+	 8z7Mf3HmPaPBXjEbeNkTl2UGtWrx5oexQv2y52My1Xww5GjJcpvAxlTmNMNCN7Lo1RpP+
+	 O2iZPb6Q1R8VBlqnMNfrgkkiVPBAfm9fZ6jFkD0+rvszhV/2suDLrOWclBfMqJ62pS8MF
+	 XrhL+opHdBaR3/bMCPNO8k9i3LsY2EEvzNcyHwUzRmryqLlOlC30mRWg8bRTJv2JlHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316965;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8xevGjgv1zTvXHcRa8whBYw2zPFvB75xa37MH7F94aI=;
+	b=nmHn6E6nB/38WTP3IgLXnQCl2dl/Hk+689J/auulrAtqYwnaR0G5E+ZDHangdr9QOFB/
+	 5urOoaYXhW7WwrHGfLwVqWu+M8LgAwY1PSan91p1ln2pz1OIgwuHiTcfP264imCjzDSCY
+	 4d/kTLPLLFKdlq3eUM57ftjBSJTl9/5Pbxo9/gBjCMDQFL9WMzVH7dz9GAAdMs/tgYVFV
+	 vCJrNUpQv3rb0eGIYJG1s08iGToGGus1askdKWUD8MhkbmbXpTvCMbp5lVqK5fRYwXN10
+	 Pr88dnAg2UHicV+HN2WFq3PebH0v4qAMQUwb8LnTbtKhqbohoZMMxMs6dyzvM/HZ9Fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHWWcYpl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31533606B1AE
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31533606B1AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08581606A7D4
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:22:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=V1UKZCwp;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P/mZPHOO
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAB9tO52253399
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:21:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IIzXasZdl3uuF8A0Q0l5RjhqjxVPq2XhnRyfILIPfK8=; b=V1UKZCwp63kvPwhf
-	h41rxT74ANn20jC0bJ7s5PzBJwU6CkrHC6q0sEYzYdGtr5Ek0IVoBAKlsJ4fMLnl
-	1xGGn3OWdFrxgSaU+sHBh6jb3kVp94TeHjSqMQzdrJaLl/755YTrKYgWuXldP9pS
-	HAQ+IsiMSSdaP9BiWu5osSt7prpr6d787+aQH+GVXx6eCnHrK821xTSxZI+vJlol
-	pa0oWwC3KELJhfE69Ax1XTcDcW4+m5kSWESYFXKPY/RzVhnXh+5QCIeae+7W56iA
-	2y92KF6Sl8OvEDOehmNz+dBoIdTTlBLb8uaKJJBb4aBMkoULWz2Sa0Ah0bTp0x19
-	MDAnXA==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huyw48y7h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:21:26 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b342ff3967so31148497b3.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:21:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794316886; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jaDacHYSb46USxv+ZWu04Ifj/O/bJNFA6i1Zz9awgS6EHmXwJP+0haoOCltbe5Tr7r
-         V5w6x7ybz0sO6Qh2cgmgHLjqa7ZXUdD4xcmV8h0c3+tZb08fLz95Kark9GmY4CWhhvNb
-         AqlfGQ7kJCaLNJ2JShkuMxRHWOZJ1cSrzlrElwHt4bslO7jzouC/Qgxu4NTuhqNMqnrJ
-         1RD7DDjPs1n6EYqD7SzvWK11gP8VsGpR3xgwHh2ATw9OTj6NezSd/6TGmbL+WnLWdzRZ
-         6ZvzVyexFir8zzJ3S28O/dC03J2pQAooNKbxRgS/x8MYQ6NyuGcioO8/nDpt9QU5wLlW
-         fAPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IIzXasZdl3uuF8A0Q0l5RjhqjxVPq2XhnRyfILIPfK8=;
-        fh=/wlfNxzKQL+LYdI9eJFY43Pte+NS3IjeMKoolpZsddM=;
-        b=C6PgsslGtN5BrP0vAEdytxpSSqY7gVpgI61U/v08QM4Slq0IDV5oWsBe/hEuAn5AKE
-         pxiJc95dUswDuRHfUpAIog6UNdOoRBMZALxwS6ud38i9aiuPsYufPeEwouX2Zsuqs02N
-         s+9atCiG7MT9bOuZp1i+Ud1Z7JYADwP5L3sCxCQ3OZ1ab7kh7yDmZND0Y0NonqSKi1lI
-         8XDXZfRdCFhehvTVtU6Jig3c4F3S5MTxOzneEE6FXivm52NLrRPxJh4t/EdcxHIRkGQJ
-         clTQS6w6qa7QcbeG00AnAfUXMcWN6qiSYzGhBH9Jyp7csrOIWjuvWjGJMJhXq8uYhwCx
-         tMEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794316886; x=1794921686; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IIzXasZdl3uuF8A0Q0l5RjhqjxVPq2XhnRyfILIPfK8=;
-        b=P/mZPHOO45ZLtSNxsW+6+zOvv6LIRH1HnF0/rtBItZpifLNA9MLu8xEsOeSwcYp4XG
-         6Yqi0QZb7r1cSpQ3TyEhyVEhdY3SpK5CGI8jLhhvuu7L5fcR1DLJ4w9oCGQ+gvFUioyK
-         p1qfg25zEG7TqAR3TRZvxk7rhhpjzeUyfLX8cvHcx5TSUjxMkG4rUWSBEHFf/9VC7jPv
-         AHcovPYnDl6ToMbqkBIaw3mXRzQDPuMflciMcqxG8HkNrVWhD9KZwO0oiIGk1kVLPe+O
-         zAka1Vi1QQi/2TEbBzTkW04yI51hJ/cArze/D/s3h53WLIR4a7yyeJ18ZMDmaJ3GUT3F
-         bfTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794316886; x=1794921686;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IIzXasZdl3uuF8A0Q0l5RjhqjxVPq2XhnRyfILIPfK8=;
-        b=H42abi8Qy6+TgmmVZZ1dC+nW8RIi9bfWx9QinMKoVdp4y/Z4Ja+N24IU9Zo9DOwRpz
-         HfnEsvHO57yg1tCPlQLS0JxCSbqUTlxDBu2G+p+UHl1m6lJoktCc/EjnD9amhyGzb5dj
-         8lryVALzh0PloQ30FSCSUceqQ4NxQZI6ZeB/ZyuL75+DmD02GEKhGj9mj/f1exFIxW3L
-         uROK5ZodjxOcznisceeBUsQL9anw0RwbFCK7I4TW3sQcy9p4LswWmguo3HczWnOFGeO6
-         2/BkIzZVYdMaxlcLNUqM4ipOhOrOsTJ41TJGL1cNCvC35i3suAfuDJDyv7aL6FguTij9
-         WEMg==
-X-Forwarded-Encrypted: i=1; AL+hErE4cEWBHAS7k7nsOLEprNaMuwCMgeKGt/tAFk4nnr2DL9ZgE+XGJbVgx3DaXJH1/vZwA15SHmw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+98XW1imL02fCYI9U3xWA4G+8HUXIEj/liHGlZuQ5t5AOwztHL
-	16M1mNLLdtSPNHu9lmf06QzQ+ELBQohiOIx/ErcMGqkX+V9FfvAXOqL5IJS77QFEOKcCff93IGB
-	KRes5ZAdx+rZ2xFqHqsUokD/7CHFdwIBkhLn297nKNLfbKG9j3FZBxvkbRN0Accc6ISJHVDbwUT
-	hYnRaDxcMt89yYzxifEqhw2DEfb1bwrao+zw==
-X-Gm-Gg: AYBFou2kB+cLOmqMh4CQG0uKXExS6+Vw5MXjRTh3iWVbKtrFwc6CH1ofyMa+KJHyqdP
-	m7RPcUE7vI5xhFfdWG9wvBmA26gHHdB7sbkbqqGOmyEdGkBanBRXaWcxAQHh9oYVOdp/9Ixhv/U
-	4O6SYPB7wZ2+H+oF23jIynxs8saYomrDA9D9DWLUosY0qYc5/bPcwJMf+I2PEXrsOc6ieg/3bri
-	AqAee0yku+pSkpdXtsRbof2zu0UMz9cY3OVw0ky
-X-Received: by 2002:a05:690c:f04:b0:8b3:615b:71d5 with SMTP id 00721157ae682-8b392be3ceemr13387597b3.107.1794316885528;
-        Tue, 10 Nov 2026 05:21:25 -0800 (PST)
-X-Received: by 2002:a05:690c:f04:b0:8b3:615b:71d5 with SMTP id
- 00721157ae682-8b392be3ceemr13387437b3.107.1794316885060; Tue, 10 Nov 2026
- 05:21:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHWWcYpl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092341F008BE;
+	Tue, 10 Nov 2026 13:22:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794316964;
+	bh=8xevGjgv1zTvXHcRa8whBYw2zPFvB75xa37MH7F94aI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DHWWcYplfuOI9nCCJ8ULI1l2NK4Z8yFay2PGfqhG4NTL35FC9e/2ShtVVelTuj/W5
+	 5LAp27N45t9cQgbAxvICcydcte9meAWlRFuM+Fi88CbG0CpI8tPrhXosGep/fDlyAp
+	 bJhOAfxhThBAwGLA4yjwU2789+NDa2aw23l80nbSjmE9vRlQLKQQ8dJpluyE/nQ6PS
+	 /3BKFRvNNpQcbDiDVs0AFeeKH071Q7nVWK/HneMtLud1Wl6b1NGrorPXkJO7GtmZZr
+	 Nxe0TuXZeRrvzkehZb1hXOzZ+gaUeg/Q+fdXBGOdBA7STis/NQM0SdUGu5LKtqN5mI
+	 NXXamZDiZNZNg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	"Brian G ." <gissf1@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] nilfs2: correct return value kernel-doc descriptions for the rest
+Date: Tue, 10 Nov 2026 08:22:41 -0500
+Message-ID: <20261110132237.1722151-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054332-failed-6.1-7131aaa74bcc@kernel.org>
+References: <20261107054332-failed-6.1-7131aaa74bcc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,94 +60,300 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026150345.284404-1-g.osokin@auroraos.dev>
-In-Reply-To: <20261026150345.284404-1-g.osokin@auroraos.dev>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Tue, 10 Nov 2026 14:21:14 +0100
-X-Gm-Features: AclHuK_f3vyqMLgyBVux__eXfDzVIlzPHxEDHotsqfEZeO9lB7Q4GjX6bk6lk-o
-Message-ID: <CAGgiveUr_1OX3qvq=kH9sdVggtgK8LyiSF5KDtCfGwqdxkRXew@mail.gmail.com>
-Subject: Re: [PATCH v2] tee: shm: don't warn on oversized request in tee_dyn_shm_alloc_helper()
-To: Georgiy Osokin <g.osokin@auroraos.dev>, Sumit Garg <sumit.garg@kernel.org>
-Cc: Jens Wiklander <jenswi@kernel.org>, op-tee@lists.trustedfirmware.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        lvc-project@linuxtesting.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1MyBTYWx0ZWRfX2YiuS1QzQS1/
- sMaKro1ztYQ2kezjlDfkc68bc0JjddzIqvGg4ZgEphLBKM0GPIWsy5ZE+OMXsN0dgCPzXf4UZtg
- uiJ44YYIGw2ZBV173/4/l8XEEyZedL1E3Jm0CCC/t/8n3lFCDaCypNPVk52vAmcprGbrSeCNI8X
- Ovq9ZgE8h5VJ+ZPceAHoilaHbCJFI/BthsJozuxf4wZ1du8PR+hsA2Kfv35nqOW3+AXr5cYMIx5
- JeeTknPiPgScerjZDUGDHh7W0QgA00zp3oEMP1vi0UgbyfnbLB9PgFWnoDJ3NtY173GGM3zLazu
- Nbn2HnKQ5tGxHdwB7bAgdGrvtLb1rvvKhwD/eScjTv0tqQujELFYrkSk7lhGQ4FUzRPkfUGrjV5
- j5NQ8n07xDRdypDtsD4d+aMNeo57Wc1psmp5t848w4Ub3gNDj9nSaEnZwQ5F8uKHr2D97r/0pcz
- wgSXkZp5QLEgk+RrT+A==
-X-Authority-Analysis: v=2.4 cv=Ee1d0/mC c=1 sm=1 tr=0 ts=6af31a56 cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=HH5vDtPzAAAA:8
- a=Uqf-NjlQ7lL-qC9IIjUA:9 a=QEXdDO2ut3YA:10 a=kLokIza1BN8a-hAJ3hfR:22
- a=QM_-zKB-Ew0MsOlNKMB5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1MyBTYWx0ZWRfX+M5qu2JaFlR6
- dUG9sgiT24lv0T85ofQOdQKtyLPzH2V4ASMjaomHtjj70wiecuFC1aRt/VTEppS6SvP9s2yoops
- 1GwX8J8IKI1bYfKSbLacLamOaM/QDi0=
-X-Proofpoint-GUID: yVHKcsKcIZkLnpHu03QfWr36sm4I707V
-X-Proofpoint-ORIG-GUID: yVHKcsKcIZkLnpHu03QfWr36sm4I707V
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1015 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100053
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 4:04=E2=80=AFPM Georgiy Osokin <g.osokin@auroraos.d=
-ev> wrote:
->
-> tee_dyn_shm_alloc_helper() passes the size from TEE_IOC_SHM_ALLOC to
-> alloc_pages_exact(), which needs one physically contiguous block. A size
-> above 4 MiB (MAX_PAGE_ORDER with 4 KiB pages) is more than the page
-> allocator can serve, so it trips its order warning; on a panic_on_warn
-> kernel that is a panic.
->
-> The size comes from userspace and the request fails with -ENOMEM anyway,
-> so pass __GFP_NOWARN.
->
-> Fixes: abd135ba215c ("tee: optee: add optee-specific shared pool implemen=
-tation")
-> Cc: stable@vger.kernel.org
-> Cc: lvc-project@linuxtesting.org
-> Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
-> ---
-> v2: Fixes now points to abd135ba215c, the commit that introduced the
->     unchecked allocation; cf4441503e20 only moved the code.
-> v1: https://lore.kernel.org/all/20261026105209.161195-1-g.osokin@auroraos=
-.dev/
->
->  drivers/tee/tee_shm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-> index daa4af1..8b117d6 100644
-> --- a/drivers/tee/tee_shm.c
-> +++ b/drivers/tee/tee_shm.c
-> @@ -352,7 +352,7 @@ int tee_dyn_shm_alloc_helper(struct tee_shm *shm, siz=
-e_t size, size_t align,
->          * and there's no need for any larger alignment.
->          */
->         shm->kaddr =3D alloc_pages_exact(nr_pages * PAGE_SIZE,
-> -                                      GFP_KERNEL | __GFP_ZERO);
-> +                                      GFP_KERNEL | __GFP_ZERO | __GFP_NO=
-WARN);
->         if (!shm->kaddr)
->                 return -ENOMEM;
->
-> --
-> 2.54.0
->
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-I missed this one, confusing it with the other "don't warn" patch.
-Looks good. Sumit, do you agree?
+[ Upstream commit 343d4a33f26d048fde4b02cfc3681f766b3f1b12 ]
 
-Cheers,
-Jens
+Similar to the previous changes to fix return value descriptions, this
+fixes the format of the return value descriptions of functions for the
+rest.
+
+Link: https://lkml.kernel.org/r/20250110010530.21872-6-konishi.ryusuke@gmail.com
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: "Brian G ." <gissf1@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 7131aaa74bcc ("nilfs2: ignore non-fatal signals during synchronous log write wait")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nilfs2/gcinode.c   | 24 +++++++++-------------
+ fs/nilfs2/inode.c     | 12 +++--------
+ fs/nilfs2/recovery.c  | 32 +++++++++++------------------
+ fs/nilfs2/segbuf.c    | 12 ++---------
+ fs/nilfs2/segment.c   | 48 ++++++++++++++++---------------------------
+ fs/nilfs2/the_nilfs.c | 12 +++++------
+ 6 files changed, 50 insertions(+), 90 deletions(-)
+
+diff --git a/fs/nilfs2/gcinode.c b/fs/nilfs2/gcinode.c
+index 8cdb1dc76f612..1e7de19e58306 100644
+--- a/fs/nilfs2/gcinode.c
++++ b/fs/nilfs2/gcinode.c
+@@ -46,14 +46,11 @@
+  * specified by @pbn to the GC pagecache with the key @blkoff.
+  * This function sets @vbn (@pbn if @vbn is zero) in b_blocknr of the buffer.
+  *
+- * Return Value: On success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error.
+- *
+- * %-ENOMEM - Insufficient amount of memory available.
+- *
+- * %-ENOENT - The block specified with @pbn does not exist.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO	- I/O error (including metadata corruption).
++ * * %-ENOENT	- The block specified with @pbn does not exist.
++ * * %-ENOMEM	- Insufficient memory available.
+  */
+ int nilfs_gccache_submit_read_data(struct inode *inode, sector_t blkoff,
+ 				   sector_t pbn, __u64 vbn,
+@@ -114,12 +111,11 @@ int nilfs_gccache_submit_read_data(struct inode *inode, sector_t blkoff,
+  * specified by @vbn to the GC pagecache.  @pbn can be supplied by the
+  * caller to avoid translation of the disk block address.
+  *
+- * Return Value: On success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error.
+- *
+- * %-ENOMEM - Insufficient amount of memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO	- I/O error (including metadata corruption).
++ * * %-ENOENT	- Invalid virtual block address.
++ * * %-ENOMEM	- Insufficient memory available.
+  */
+ int nilfs_gccache_submit_read_node(struct inode *inode, sector_t pbn,
+ 				   __u64 vbn, struct buffer_head **out_bh)
+diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+index a20d52951f1ef..eaf4e61113afd 100644
+--- a/fs/nilfs2/inode.c
++++ b/fs/nilfs2/inode.c
+@@ -676,10 +676,7 @@ struct inode *nilfs_iget_for_gc(struct super_block *sb, unsigned long ino,
+  * or does nothing if the inode already has it.  This function allocates
+  * an additional inode to maintain page cache of B-tree nodes one-on-one.
+  *
+- * Return Value: On success, 0 is returned. On errors, one of the following
+- * negative error code is returned.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or %-ENOMEM if memory is insufficient.
+  */
+ int nilfs_attach_btree_node_cache(struct inode *inode)
+ {
+@@ -740,11 +737,8 @@ void nilfs_detach_btree_node_cache(struct inode *inode)
+  * in one inode and the one for b-tree node pages is set up in the
+  * other inode, which is attached to the former inode.
+  *
+- * Return Value: On success, a pointer to the inode for data pages is
+- * returned. On errors, one of the following negative error code is returned
+- * in a pointer type.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: a pointer to the inode for data pages on success, or %-ENOMEM
++ * if memory is insufficient.
+  */
+ struct inode *nilfs_iget_for_shadow(struct inode *inode)
+ {
+diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+index ce30b51ac593c..b5207e4c50007 100644
+--- a/fs/nilfs2/recovery.c
++++ b/fs/nilfs2/recovery.c
+@@ -741,18 +741,13 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
+  * @sb: super block instance
+  * @ri: pointer to a nilfs_recovery_info struct to store search results.
+  *
+- * Return Value: On success, 0 is returned.  On error, one of the following
+- * negative error code is returned.
+- *
+- * %-EINVAL - Inconsistent filesystem state.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOSPC - No space left on device (only in a panic state).
+- *
+- * %-ERESTARTSYS - Interrupted.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EINVAL		- Inconsistent filesystem state.
++ * * %-EIO		- I/O error.
++ * * %-ENOMEM		- Insufficient memory available.
++ * * %-ENOSPC		- No space left on device (only in a panic state).
++ * * %-ERESTARTSYS	- Interrupted.
+  */
+ int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
+ 			      struct super_block *sb,
+@@ -817,14 +812,11 @@ int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
+  * segment pointed by the superblock.  It sets up struct the_nilfs through
+  * this search. It fills nilfs_recovery_info (ri) required for recovery.
+  *
+- * Return Value: On success, 0 is returned.  On error, one of the following
+- * negative error code is returned.
+- *
+- * %-EINVAL - No valid segment found
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EINVAL	- No valid segment found.
++ * * %-EIO	- I/O error.
++ * * %-ENOMEM	- Insufficient memory available.
+  */
+ int nilfs_search_super_root(struct the_nilfs *nilfs,
+ 			    struct nilfs_recovery_info *ri)
+diff --git a/fs/nilfs2/segbuf.c b/fs/nilfs2/segbuf.c
+index 6e59dc19a7324..7416fb6e3fd4b 100644
+--- a/fs/nilfs2/segbuf.c
++++ b/fs/nilfs2/segbuf.c
+@@ -403,12 +403,7 @@ static int nilfs_segbuf_submit_bh(struct nilfs_segment_buffer *segbuf,
+  * @segbuf: buffer storing a log to be written
+  * @nilfs: nilfs object
+  *
+- * Return Value: On Success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: Always 0.
+  */
+ static int nilfs_segbuf_write(struct nilfs_segment_buffer *segbuf,
+ 			      struct the_nilfs *nilfs)
+@@ -449,10 +444,7 @@ static int nilfs_segbuf_write(struct nilfs_segment_buffer *segbuf,
+  * nilfs_segbuf_wait - wait for completion of requested BIOs
+  * @segbuf: segment buffer
+  *
+- * Return Value: On Success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error
++ * Return: 0 on success, or %-EIO if I/O error is detected.
+  */
+ static int nilfs_segbuf_wait(struct nilfs_segment_buffer *segbuf)
+ {
+diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
+index a412abdfbbf3e..92631394c8d29 100644
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -191,12 +191,10 @@ static int nilfs_prepare_segment_lock(struct super_block *sb,
+  * When @vacancy_check flag is set, this function will check the amount of
+  * free space, and will wait for the GC to reclaim disk space if low capacity.
+  *
+- * Return Value: On success, 0 is returned. On error, one of the following
+- * negative error code is returned.
+- *
+- * %-ENOMEM - Insufficient memory available.
+- *
+- * %-ENOSPC - No space left on device
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-ENOMEM	- Insufficient memory available.
++ * * %-ENOSPC	- No space left on device (if checking free space).
+  */
+ int nilfs_transaction_begin(struct super_block *sb,
+ 			    struct nilfs_transaction_info *ti,
+@@ -2286,18 +2284,13 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
+  * nilfs_construct_segment - construct a logical segment
+  * @sb: super block
+  *
+- * Return Value: On success, 0 is returned. On errors, one of the following
+- * negative error code is returned.
+- *
+- * %-EROFS - Read only filesystem.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOSPC - No space left on device (only in a panic state).
+- *
+- * %-ERESTARTSYS - Interrupted.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO		- I/O error (including metadata corruption).
++ * * %-ENOMEM		- Insufficient memory available.
++ * * %-ENOSPC		- No space left on device (only in a panic state).
++ * * %-ERESTARTSYS	- Interrupted.
++ * * %-EROFS		- Read only filesystem.
+  */
+ int nilfs_construct_segment(struct super_block *sb)
+ {
+@@ -2321,18 +2314,13 @@ int nilfs_construct_segment(struct super_block *sb)
+  * @start: start byte offset
+  * @end: end byte offset (inclusive)
+  *
+- * Return Value: On success, 0 is returned. On errors, one of the following
+- * negative error code is returned.
+- *
+- * %-EROFS - Read only filesystem.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOSPC - No space left on device (only in a panic state).
+- *
+- * %-ERESTARTSYS - Interrupted.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO		- I/O error (including metadata corruption).
++ * * %-ENOMEM		- Insufficient memory available.
++ * * %-ENOSPC		- No space left on device (only in a panic state).
++ * * %-ERESTARTSYS	- Interrupted.
++ * * %-EROFS		- Read only filesystem.
+  */
+ int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
+ 				  loff_t start, loff_t end)
+diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+index f9b10b4e22c01..013aea9dc355d 100644
+--- a/fs/nilfs2/the_nilfs.c
++++ b/fs/nilfs2/the_nilfs.c
+@@ -50,8 +50,8 @@ void nilfs_set_last_segment(struct the_nilfs *nilfs,
+  * alloc_nilfs - allocate a nilfs object
+  * @sb: super block instance
+  *
+- * Return Value: On success, pointer to the_nilfs is returned.
+- * On error, NULL is returned.
++ * Return: a pointer to the allocated nilfs object on success, or NULL on
++ * failure.
+  */
+ struct the_nilfs *alloc_nilfs(struct super_block *sb)
+ {
+@@ -202,8 +202,7 @@ static int nilfs_store_log_cursor(struct the_nilfs *nilfs,
+  * exponent information written in @sbp and stores it in @blocksize,
+  * or aborts with an error message if it's too large.
+  *
+- * Return Value: On success, 0 is returned. If the block size is too
+- * large, -EINVAL is returned.
++ * Return: 0 on success, or %-EINVAL if the block size is too large.
+  */
+ static int nilfs_get_blocksize(struct super_block *sb,
+ 			       struct nilfs_super_block *sbp, int *blocksize)
+@@ -546,7 +545,7 @@ static int nilfs_valid_sb(struct nilfs_super_block *sbp)
+  * area, or if the parameters themselves are not normal, it is
+  * determined to be invalid.
+  *
+- * Return Value: true if invalid, false if valid.
++ * Return: true if invalid, false if valid.
+  */
+ static bool nilfs_sb2_bad_offset(struct nilfs_super_block *sbp, u64 offset)
+ {
+@@ -677,8 +676,7 @@ static int nilfs_load_super_block(struct the_nilfs *nilfs,
+  * reading the super block, getting disk layout information, initializing
+  * shared fields in the_nilfs).
+  *
+- * Return Value: On success, 0 is returned. On error, a negative error
+- * code is returned.
++ * Return: 0 on success, or a negative error code on failure.
+  */
+ int init_nilfs(struct the_nilfs *nilfs, struct super_block *sb, char *data)
+ {
+-- 
+2.53.0
+
