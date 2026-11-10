@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272918;
-	b=GLnIEAxHHyXIICujXZcGD6O5crWyXegkbsr+4aGBL2gxBkw0KNW6Thn5jkjYb58eLiEt
-	 19rehQyLz0giDX25x2J1G8VOJOrGcRENJJ73qHklFtAvliHoMnUdNFSttN030WHzy7BvH
-	 Xmq6n5C33oIv5NyrCdo9XknnBdJjwnXanhPl5P3CuLrZsj6NmBiA++XH2SFpMYA9PABOS
-	 B2JA9NqU61mwmoCwejec6bRFRp12O4idw+uNtZEPoROA00GZCnf7eiT7wymIQE4zVtKEy
-	 rFkT4Cf++yrOCiqXjUNleb/MHrpJkfLFHxcDK5YZjFn49rUVpNKBpldV8flNlVfSjbw==
+	t=1794272920;
+	b=D+xYunVX0JbwbDmsr4XXEkXAwEXqlN9reWphHN7bOqtYkvIs/7MxcrCnuKbXCqHqCgRj
+	 apxsr+bVuIE4PmBoceH5+tSIzvdtZOD1pV8WW7uur3B6B5cArB6Y8JmbPalZ08FCYDMr2
+	 Es5xbj1O8/Fo33lD31EimWbX/9IaHL53wO9NnpqFdZG0NelxDZWHZxU41L8n0BshOxgSw
+	 m7lM/sbvIUCxd9W9DJVG1KG9Y0qvnYoltKbT6vEVo9y6E++B3ZZWC7fZ4FB3nlNHuqEDF
+	 KV0UBeDSfKZ0iQCeH26yPVLoYns/UBPuBX6VBZgj7NXowCiwgVGBNLH7+3oyeLKHIFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272918;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272920;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=syjjzJ0tVaVGlBSBq58YcLeCazllcnPSnSrEvu8vAUU=;
-	b=i0/hx5ljs3iyTjRiKPe5nc9675/pZIse7V5HoIiv7a/mMhq0HTNSUV3haQESZ2qL6UPU
-	 4k1pKEBnFQNDv/VrmCYT5JYMmihQOPyg4RPb+c5na7vlq6PWxEVPvVobhUlfgRSyPFJ+G
-	 LeQk8O5tZMZWtIfkv9WdjIUK+B8cKWLQPLC1ag/Z6V7EONPpa8a6MIW+OPkSVTHZ5g/Z1
-	 P79oFjoiEYpgINx4nrkHcCFqGYfNv0vojl1DGIGQSoXdu3R5i/GSHJGz9CFonsYqv9Dv/
-	 r9uCdAo9StZwhck0jbS1GTRnVdM6dipnSS5rPRqn4xHfChGJZKgqhvUHbihicnlkMGw==
+	bh=CyNM2kI/lSQFZ1tLGKkkGRWCcis1F13FBbg/tExCQq4=;
+	b=x88v3NOPrfbbaMHR7ugtvDDM1d8xvkboHNLIJibmaBcUYhlE394IbAqQco7xUIzn7Ljx
+	 FYkwyuvSdqSYkZO20a+NxvZ0ErJ9+J9sJTbDCDVvJrcAkOUX9xLuX7RcFbyp7C7XnH2QZ
+	 HsKdRoPy2yA0bsTspqalI4riMBBJMf75vtfqqIVqt9TdzUuoRzb2AZY5glqH2EwRUnx2E
+	 64wFa4+TAdNouiZzs60sof0UYH4mioB2RfeLO3KZpKhS3JGaY16o1F2gMFiUjAz/jM1xl
+	 KkN89C1cq937E6L5F6yeMeYqrO4dd+isSb8kf+TE/0QLhU3l8wlbq4+HiT6zeaLxYtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lTRvQfwI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2YPF3y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D010606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:08:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D488606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:08:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lTRvQfwI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4722B1F0089F;
-	Tue, 10 Nov 2026 01:08:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ka2YPF3y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97F91F0089F;
+	Tue, 10 Nov 2026 01:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272917;
-	bh=syjjzJ0tVaVGlBSBq58YcLeCazllcnPSnSrEvu8vAUU=;
+	s=k20260515; t=1794272920;
+	bh=CyNM2kI/lSQFZ1tLGKkkGRWCcis1F13FBbg/tExCQq4=;
 	h=From:To:Cc:Subject:Date;
-	b=lTRvQfwIV/BsCI4v0W/lveuJxqRuzgvVaIVdUOe0D+DqJI9E3MSp9RsT11wK9OXB1
-	 TBeUl42AI5PJ5dWKvc3fWjElLk4o5JHO3qkXnOnUg6ngZay3x3VKujbGJe0Tcb5/tv
-	 IFxzrfQIRZU1tL6U0Wyhy9Kx7WCoeySS2FGQeQJS3DLV6Rslv+HaZ5TSYARKazcyeF
-	 4AlYVq7cKNp0ZN02tWFYAaEpUQ121AsU6foMmKhq8nUJOkckUyaEll9sB+6qZkL7tL
-	 0GGy/EEJvIhjf3cIAnLTCmrcy/f7sq01PQoMqlHkNgHYs5Ur1Gu3FHif78QGxp+2r8
-	 BGhBC/QN9eIQQ==
+	b=ka2YPF3yYvv6SAdKspI/fmAI/SyPnC0JYIC52vwCBBOoIA4ZPnT2o8oPw04a2kp3E
+	 sH7FU1PvL8PznFTUtN9AbbnOFjwfu/FjwEanfOQu/Q2l7b3AjigE7iLiSKY06cbs+G
+	 EZkd7z2sVyxjGf9lyj2+L0zHCkldwb5XrAjGflppeWmU0E5DjLc7XtR/UorD6vTAt2
+	 g2NJhgQZ9LZeRmBEajhiKbxJknYoaLnbmlFjuBhHqCin4x8g6RrAPigCf6ja8iGSRC
+	 ugUfWguCg2+GFe1+8k88E/QJr9tdckhUlVvu/ZmgUDeQSfy7Btq0KpCvAn04nhS/vm
+	 N5lzyPFXbLrzQ==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
+To: 1075151112@qq.com,
 	hch@lst.de,
-	cem@kernel.org
+	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:08:36 -0500
-Message-ID: <20261109200836-failed-6.12-bcf0b7f18ad1@kernel.org>
+Subject: FAILED: patch "[PATCH] nvmet: reject keep-alive timeouts that would overflow" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:08:38 -0500
+Message-ID: <20261109200838-failed-6.12-96ae13f40ce5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,140 +69,122 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x bcf0b7f18ad11e1d410e82ffef678705eff0a317
+git cherry-pick -x 96ae13f40ce5930cd58c43128e385131476f2a66
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200836-failed-6.12-bcf0b7f18ad1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200838-failed-6.12-96ae13f40ce5@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bcf0b7f18ad11e1d410e82ffef678705eff0a317 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 29 Oct 2026 11:23:00 +0900
-Subject: [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
+From 96ae13f40ce5930cd58c43128e385131476f2a66 Mon Sep 17 00:00:00 2001
+From: Yingjie Wang <1075151112@qq.com>
+Date: Fri, 30 Oct 2026 16:46:22 +0800
+Subject: [PATCH] nvmet: reject keep-alive timeouts that would overflow
 
-A client can commit a hole in a LAYOUTCOMMIT, because nfsd does not
-check the extents against its layouts. xfs_iomap_write_unwritten() then
-allocates written blocks there. A large hole overruns the block
-reservation and shuts XFS down. A small one exposes stale data.
+nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
+millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
+The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
+4294966296 ms wraps around and rounds to 0 seconds. A Set Features
+command with KATO 0xffffffff then succeeds but disables the keep-alive
+timer: Get Features returns 0 and Keep Alive fails with Keep Alive
+Timeout Invalid. A Connect command with such a KATO creates a controller
+without a keep-alive timer.
 
-Refuse such a range with -EIO, using XFS_BMAPI_CONVERT_ONLY.
+The converted value has more consumers that can overflow. Get Features
+multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
+and arm a delay that must not exceed MAX_JIFFY_OFFSET.
 
-Link: https://lore.kernel.org/r/20261014130834.GB15773@lst.de
-Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Reject a KATO whose rounded value does not fit all of these. Return Keep
+Alive Timeout Invalid from both Set Features and Connect. Validate Set
+Features before stopping the current timer so a failed update leaves its
+timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
+meaning.
+
+Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- fs/xfs/xfs_file.c  |  2 +-
- fs/xfs/xfs_ioend.c |  2 +-
- fs/xfs/xfs_iomap.c | 20 +++++++++++++++++---
- fs/xfs/xfs_iomap.h |  3 ++-
- fs/xfs/xfs_pnfs.c  |  9 ++++++++-
- 5 files changed, 29 insertions(+), 7 deletions(-)
+ drivers/nvme/target/admin-cmd.c | 7 ++++++-
+ drivers/nvme/target/core.c      | 8 +++++++-
+ drivers/nvme/target/nvmet.h     | 8 ++++++++
+ 3 files changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 1eab6dbb4c5f1..d2a2124bff547 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -666,7 +666,7 @@ xfs_dio_write_end_io(
- 	 * they are converted.
- 	 */
- 	if (flags & IOMAP_DIO_UNWRITTEN) {
--		error = xfs_iomap_write_unwritten(ip, offset, size, true);
-+		error = xfs_iomap_write_unwritten(ip, offset, size, true, 0);
- 		goto out;
- 	}
- 
-diff --git a/fs/xfs/xfs_ioend.c b/fs/xfs/xfs_ioend.c
-index 48becc3bf6088..7f4a4a95afe50 100644
---- a/fs/xfs/xfs_ioend.c
-+++ b/fs/xfs/xfs_ioend.c
-@@ -237,7 +237,7 @@ xfs_end_ioend_write(
- 	if (ioend->io_flags & IOMAP_IOEND_SHARED)
- 		error = xfs_reflink_end_cow(ip, offset, size);
- 	else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
--		error = xfs_iomap_write_unwritten(ip, offset, size, false);
-+		error = xfs_iomap_write_unwritten(ip, offset, size, false, 0);
- 
- 	if (!error &&
- 	    !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
-diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-index 329c745e31204..99d48081c5ac3 100644
---- a/fs/xfs/xfs_iomap.c
-+++ b/fs/xfs/xfs_iomap.c
-@@ -614,7 +614,8 @@ xfs_iomap_write_unwritten(
- 	xfs_inode_t	*ip,
- 	xfs_off_t	offset,
- 	xfs_off_t	count,
--	bool		update_isize)
-+	bool		update_isize,
-+	uint32_t	bmapi_flags)
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 26028be8fe4d8..a06cff8304db0 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -1227,8 +1227,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
  {
- 	xfs_mount_t	*mp = ip->i_mount;
- 	xfs_fileoff_t	offset_fsb;
-@@ -676,8 +677,21 @@ xfs_iomap_write_unwritten(
- 		 */
- 		nimaps = 1;
- 		error = xfs_bmapi_write(tp, ip, offset_fsb, count_fsb,
--					XFS_BMAPI_CONVERT, resblks, &imap,
--					&nimaps);
-+					XFS_BMAPI_CONVERT | bmapi_flags,
-+					resblks, &imap, &nimaps);
-+		if (error == -ENOSR && (bmapi_flags & XFS_BMAPI_CONVERT_ONLY)) {
-+			/*
-+			 * Nothing was mapped: the rest of the range starts
-+			 * with a hole or a delalloc extent. Nothing was
-+			 * changed either, but xfs_iext_count_extend() may
-+			 * have logged the inode, and cancelling a dirty
-+			 * transaction shuts the filesystem down. Commit it,
-+			 * as xfs_alloc_file_space() does on -ENOSR.
-+			 */
-+			error = xfs_trans_commit(tp);
-+			xfs_iunlock(ip, XFS_ILOCK_EXCL);
-+			return error ? error : -EIO;
-+		}
- 		if (error)
- 			goto error_on_bmapi_transaction;
+ 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
  
-diff --git a/fs/xfs/xfs_iomap.h b/fs/xfs/xfs_iomap.h
-index f2520a9b3a13e..8fc0c6fc8bea5 100644
---- a/fs/xfs/xfs_iomap.h
-+++ b/fs/xfs/xfs_iomap.h
-@@ -15,7 +15,8 @@ struct xfs_zone_alloc_ctx;
- int xfs_iomap_write_direct(struct xfs_inode *ip, xfs_fileoff_t offset_fsb,
- 		xfs_fileoff_t count_fsb, unsigned int flags,
- 		struct xfs_bmbt_irec *imap, u64 *sequence);
--int xfs_iomap_write_unwritten(struct xfs_inode *, xfs_off_t, xfs_off_t, bool);
-+int xfs_iomap_write_unwritten(struct xfs_inode *ip, xfs_off_t offset,
-+		xfs_off_t count, bool update_isize, uint32_t bmapi_flags);
- xfs_fileoff_t xfs_iomap_eof_align_last_fsb(struct xfs_inode *ip,
- 		xfs_fileoff_t end_fsb);
++	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		req->error_loc = offsetof(struct nvme_common_command, cdw11);
++		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++	}
++
+ 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
+-	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
++	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
+ 	nvmet_start_keep_alive_timer(req->sq->ctrl);
  
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index a9f0b472f3076..7ff83274a5135 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -344,7 +344,14 @@ xfs_fs_commit_blocks(
- 					(end - 1) >> PAGE_SHIFT);
- 		WARN_ON_ONCE(error);
+ 	nvmet_set_result(req, req->sq->ctrl->kato);
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index a8171b88035c5..1dede04c204a6 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1620,6 +1620,12 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+ 	u8 dhchap_status;
+ 	int ret;
  
--		error = xfs_iomap_write_unwritten(ip, start, length, false);
-+		/*
-+		 * A client may only write to blocks that a layout handed out,
-+		 * and xfs_fs_map_blocks() allocates blocks for any hole in a
-+		 * write layout, so refuse to allocate blocks for a hole or a
-+		 * delalloc extent in the committed range.
-+		 */
-+		error = xfs_iomap_write_unwritten(ip, start, length, false,
-+				XFS_BMAPI_CONVERT_ONLY);
- 		if (error)
- 			goto out_drop_iolock;
- 	}
++	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
++		args->status = NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
++		args->error_loc = offsetof(struct nvmf_connect_command, kato);
++		return NULL;
++	}
++
+ 	args->status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
+ 	subsys = nvmet_find_get_subsys(args->port, args->subsysnqn);
+ 	if (!subsys) {
+@@ -1694,7 +1700,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+ 		kato = NVMET_DISC_KATO_MS;
+ 
+ 	/* keep-alive timeout in seconds */
+-	ctrl->kato = DIV_ROUND_UP(kato, 1000);
++	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
+ 
+ 	ctrl->err_counter = 0;
+ 	spin_lock_init(&ctrl->error_lock);
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index d7804bf91aaa8..3cd58e813aa7f 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -7,6 +7,7 @@
+ #define _NVMET_H
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/jiffies.h>
+ #include <linux/types.h>
+ #include <linux/device.h>
+ #include <linux/kref.h>
+@@ -714,6 +715,13 @@ void nvmet_add_async_event(struct nvmet_ctrl *ctrl, u8 event_type,
+ #define NVMET_KAS		10
+ #define NVMET_DISC_KATO_MS		120000
+ 
++/*
++ * Largest keep-alive timeout in seconds that can be reported back in
++ * milliseconds and converted to jiffies without overflowing.
++ */
++#define NVMET_MAX_KATO	\
++	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
++
+ int __init nvmet_init_configfs(void);
+ void __exit nvmet_exit_configfs(void);
+ 
 -- 
 2.53.0
 
