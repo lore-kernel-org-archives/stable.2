@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318341;
-	b=lqCiwDUjSIhMpm7khozI4BTnA9OLVALLYEkYYJcaBtT63aJ3fbEtnPv63oyoEhtKze3O
-	 VbyCtqJhE8mby8WUOh5k72q0kXP/ePNJRmjuizAnisTV1B1TwTrhRuC/DOlxKRSzSXa47
-	 c3XD20ThZQe4A8HC4yJ9d+McLekfyDsjxgZwLZaR0R/4tX85p0hfpzLvIdzjh/3GJrJsK
-	 rhbHd6KsdT0DqnuyeoPe43nMF23W9A7g4tp9I7AzwNLHxWP5U0HDigHRbj16G3qNrm8LH
-	 geXzqoUa8ZcoR6njZf03Uhrmk1rhiM9TmdkC2mX92rswS32gkfqHzsAvnsmZkMSu1iQ==
+	t=1794318392;
+	b=mG68C/ouomfRjPcB6vu7YkYH0QgwEZgeYkhUuStOdiZhRsZAx8yukWbbgFVp3DGLxs62
+	 C2sD/OCY3ju4xOtgEkuoqrd51DVDhTNA1GYW//Ve745/o3DqHgGQO6pW48zrGawcjMn7e
+	 HPWKXwx4ZfGgksYnBefS9OZw/DGwgAOCF0jhvhT2ViVhkKaHqvCW+xvfRcJGAX/ZQ2Ce9
+	 DXdyOIxrxOuVtsmQGqEA/Tly/bLLsCXuA/V6aUCw4NxTF9qMbDECXfVy4WKVRrXHpuFbf
+	 N9QuklBwwT6XR7+eOl54NO688WQ2sRT4kjQCbu0RsDHbdGpBF+RP/u3lGxPWEfbNCww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318392;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ycYvR3vVfarx8mdA622tJE/2QomwViUUX8J1OZevYLo=;
-	b=M1JrDCslWyGHTV0spfl0dyVek6hgBwJGZviM2QIFWQxhcu24RnUZyVMcBzuieYUDZhbC
-	 5N9fg9xJZMwARqQaCBnUWPZkHu7E+9W3A5eKeK66FXJRF2t7laLx9YRI4+9w2yOjoaUf7
-	 Uly2u9C45yynlki+9tQ/xXw1OEpHdk5+kjTZBmcXCaRtWVjgGgBXcRUtm/C6cnC+gUQ2O
-	 3foXZQS1KKZhnWV5awlSxJ/t9P+hYmeag/rvqgiOQhJrbPVqgJklfFB5BYkiNGcjwuMbQ
-	 SDFdp1vODunTnELBGe9By8QGa0k50nPYKukHxvc/q8EvJVN8niXbrunSELy9osdqITw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KSVJhvzcdgPdfp5xUb7UN9DLdLwRAQ0PoV3NkqL0rwU=;
+	b=hGYEZgS15EDhHZOfZnZ78kPf+yefw0eZTETUECo6txuwILygfXCTnFlzJmVI6+DC5rvd
+	 zv2yVqXrTqcBXjQuenh5X2MuoKp3n58ucHk+ovDwU3WSYSu0uE7HXtaJEL4J3qGEe56kj
+	 kBorxhs+BX1iZFElZXxaD7BeOdbtkr4hXh7rtRPr1IzCIvsyfGdF9FyEOC07XwCzZCLYk
+	 Z2EM+7hznNaq91ZMJxEUC6U9yu+q01gzQiFVivdrf9f3SjwDqDHFizrMqVRyPc2l8gSDX
+	 FBi+QrRqinR5BWcQrb+09GU2wC3zj7svjAN5/j9XK3TQYmGuZsYAgwf2K3kumxu12zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LmcSe54S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMT2mjFB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F23160A3804
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:45:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B15B6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LmcSe54S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89BC1F0089F;
-	Tue, 10 Nov 2026 13:45:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMT2mjFB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 972D71F0089F;
+	Tue, 10 Nov 2026 13:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318341;
-	bh=ycYvR3vVfarx8mdA622tJE/2QomwViUUX8J1OZevYLo=;
+	s=k20260515; t=1794318391;
+	bh=KSVJhvzcdgPdfp5xUb7UN9DLdLwRAQ0PoV3NkqL0rwU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LmcSe54Ss1clYYEM6Glo493NmVvC1Y//ItbprOVimLbi57FImO/4Hfkxgbht/QSY8
-	 y/6jCuGjj8riBhNRz0yLjaomSM6dloxHQOHuhAHRIV6zRAlpcft7e/A67xSVVVLEBv
-	 Ld9NdBiripD0+bZMyIPjAuHwj5R22o7C4CGV1NRCCa2t+E+tvpwBK3x0mzA60UeXEW
-	 LRAakOi88qAutn2uUDs2LUzSmiv9LpkgkTTF8WnGihhf5x7sNPy4n5aSLKZq+SQX+x
-	 ew52crz+dUBSBf9KPnQxe42QlT3xTBoyVmuHSHif7tK2qymW9XyMXyWc/aBRIhlLxN
-	 Xcjw6SO07PDiQ==
+	b=aMT2mjFBmapa6FkhiKYLzXR6kXtECMxH5Qv/OLzj0y/+/BLRbpJsRDcZLNndxtXkZ
+	 AeuBDvF8b5NbcYepDzaZpsVQqXj5VF99vx5Bnxvlh+ojCtXqBSNheBmBcQAuxc5t5c
+	 rI2uMMVuxgEVCbaFyfWPZRIN7R522DBk/aAWHVJeQ5GiMKVC0zL6aw3GQC2rnBO6Pc
+	 N/3grOfNLJfaTLstCWrWM47yT2u+WBk7S2yU3KWLQvr/bNVFG5g/NI8NqXrzX3+LQ2
+	 NigAMZEPj3YEG+DDnxwMVtBoRnvndgsePfg1KBoUrH03glSMcMUj+ZZ45WqsWSnBfS
+	 ENL2Rvr8IFOqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Aishwarya Kothari <aishwarya.kothari@toradex.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200
-Date: Tue, 10 Nov 2026 08:45:37 -0500
-Message-ID: <20261110134505.1778565-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] media: davinci: Init async notifier after registering V4L2 device
+Date: Tue, 10 Nov 2026 08:46:28 -0500
+Message-ID: <20261110134623.1784694-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110134505.1778565-1-sashal@kernel.org>
-References: <20261107052042-failed-6.12-874323b68c93@kernel.org>
- <20261110134505.1778565-1-sashal@kernel.org>
+In-Reply-To: <20261107054244-failed-6.1-b00fbdad64d4@kernel.org>
+References: <20261107054244-failed-6.1-b00fbdad64d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,48 +64,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-[ Upstream commit 874323b68c93c6808e034dc0113681e822e6fb42 ]
+[ Upstream commit 2c62a9b8e4d5515638dc2f5e31969675b98c3de0 ]
 
-The C200 (046d:0802) reports a mic capture volume range of
-1536..7680 with a resolution of 1 (6144 steps), triggering
-"Warning! Unlikely big volume step count (=6144), linear volume or
-wrong cval->res?" at probe and exposing a uselessly fine-grained
-mixer control.  This is the same firmware behavior as the other
-UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
-(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
-quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
-if the device-specific entry did not short-circuit the lookup) plus
-MIC_RES_384.
+Initialise the V4L2 async notifier after registering the V4L2 device, just
+before parsing DT for async sub-devices. This way the device can be made
+available to the V4L2 async framework from the notifier init time onwards.
+A subsequent patch will add struct v4l2_device as an argument to
+v4l2_async_nf_init().
 
-Verified on real hardware: with the quirk the warning disappears and
-the driver logs "set resolution quirk: cval->res = 384".
-
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Tested-by: Philipp Zabel <p.zabel@pengutronix.de> # imx6qp
+Tested-by: Niklas Söderlund <niklas.soderlund@ragnatech.se> # rcar + adv746x
+Tested-by: Aishwarya Kothari <aishwarya.kothari@toradex.com> # Apalis i.MX6Q with TC358743
+Tested-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com> # Renesas RZ/G2L SMARC
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Stable-dep-of: b00fbdad64d4 ("media: vpif_capture: Fix i2c adapter reference leak in vpif_probe()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../media/platform/ti/davinci/vpif_capture.c  | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index cfcf9f845ee36..5a69bd87628a9 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2160,6 +2160,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_DISABLE_AUTOSUSPEND),
- 	DEVICE_FLG(0x045e, 0x070f, /* MS LifeChat LX-3000 Headset */
- 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
-+	DEVICE_FLG(0x046d, 0x0802, /* Logitech Webcam C200 */
-+		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
- 	DEVICE_FLG(0x046d, 0x0807, /* Logitech Webcam C500 */
- 		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
- 	DEVICE_FLG(0x046d, 0x0808, /* Logitech Webcam C600 */
+diff --git a/drivers/media/platform/ti/davinci/vpif_capture.c b/drivers/media/platform/ti/davinci/vpif_capture.c
+index ced6392c46d2e..7592216177b50 100644
+--- a/drivers/media/platform/ti/davinci/vpif_capture.c
++++ b/drivers/media/platform/ti/davinci/vpif_capture.c
+@@ -1609,18 +1609,12 @@ static int vpif_probe(struct platform_device *pdev)
+ 	int res_idx = 0;
+ 	int i, err;
+ 
+-	pdev->dev.platform_data = vpif_capture_get_pdata(pdev);
+-	if (!pdev->dev.platform_data) {
+-		dev_warn(&pdev->dev, "Missing platform data.  Giving up.\n");
+-		return -EINVAL;
+-	}
+-
+ 	vpif_dev = &pdev->dev;
+ 
+ 	err = initialize_vpif();
+ 	if (err) {
+ 		v4l2_err(vpif_dev->driver, "Error initializing vpif\n");
+-		goto cleanup;
++		return err;
+ 	}
+ 
+ 	err = v4l2_device_register(vpif_dev, &vpif_obj.v4l2_dev);
+@@ -1647,13 +1641,19 @@ static int vpif_probe(struct platform_device *pdev)
+ 			goto vpif_unregister;
+ 	} while (++res_idx);
+ 
++	pdev->dev.platform_data = vpif_capture_get_pdata(pdev);
++	if (!pdev->dev.platform_data) {
++		dev_warn(&pdev->dev, "Missing platform data. Giving up.\n");
++		goto vpif_unregister;
++	}
++
+ 	vpif_obj.config = pdev->dev.platform_data;
+ 
+ 	subdev_count = vpif_obj.config->subdev_count;
+ 	vpif_obj.sd = kcalloc(subdev_count, sizeof(*vpif_obj.sd), GFP_KERNEL);
+ 	if (!vpif_obj.sd) {
+ 		err = -ENOMEM;
+-		goto vpif_unregister;
++		goto probe_subdev_out;
+ 	}
+ 
+ 	if (!vpif_obj.config->asd_sizes[0]) {
+@@ -1696,14 +1696,13 @@ static int vpif_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ probe_subdev_out:
++	v4l2_async_nf_cleanup(&vpif_obj.notifier);
+ 	/* free sub devices memory */
+ 	kfree(vpif_obj.sd);
+ vpif_unregister:
+ 	v4l2_device_unregister(&vpif_obj.v4l2_dev);
+ vpif_free:
+ 	free_vpif_objs();
+-cleanup:
+-	v4l2_async_nf_cleanup(&vpif_obj.notifier);
+ 
+ 	return err;
+ }
 -- 
 2.53.0
 
