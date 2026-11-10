@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322649;
-	b=mYx4pYypbbkhyibUCO93Yco5xxn6Ey7alsb0bfvgwyJVQFme0epUKSEBZwHejQfj/9Cq
-	 Vw3A0usGaSiLsP2FNOQ7L36+r4e360E4+2IEf+vEzSEd1Xk0vhvv0dSLAOO+c2ALUe2KR
-	 f2L3ISSbOiprB0SSnmn3FZjEQni25aEBeas0JTuQrNFCf2q6VcLL60cK61XgtfgZuaGhi
-	 2t4X5LXCkE/Qi1Ht+wMRpN2IjF1NWJ3aVs4qAznCefVaKjO+LBIAeaLYIQsbiVxXr3qdw
-	 NcO6VmkTW9QXiDtk9N6SEgip5dfT6hzAOBlWG3erqLgxOqEqVJlmhQkzFtTNzUBpZlQ==
+	t=1794322695;
+	b=zZ+DHHyt8dXmxSEQaHEaDICc45wVGyaTrvXVXkV3f1V8iNVB+LJ0679qRGSfis733q0M
+	 CgbhnQPeaIH/ktn8Liwp/qksUPctdvFJEYb4QSYcMbY1DFwOLHmccMS2YRkivrjNzLtSX
+	 E9+rpI2rCjkixsxyIRPRHelyf+JRsE97zeMx9rkbR8LlevkAGf1GsAhgNrn02w5unnhSS
+	 6T1rpm5Ib6D0ByaPCIDuxyvGOWjBjMFNdzpz/tjfyUXrgjBxJAHG3dM1mgQRAtbx70n6q
+	 7rUhgphJxfyIjKBmoZmFn+fKoSrzxzTuFBJeSREWC9dCdmtlddVw+CiC+au1daI/uSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322649;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322695;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oh4yG9NOUAfpCtnzTEnP89jyoSqnXOuZC9TM1PcPNdg=;
-	b=xp2HDczt6AiGZaH8I30t07fyCyAcIfwuCAOHvVBg1MSG+qbSj0QZO2ZL2dQfVHk7Sq2G
-	 7WFz5JgOeGgmglQYlZTsYIpDJmU6mtUBWC/3gVRSfe8123atblTKHhJf3OrG+m0JMqJnP
-	 Ii3/3Yq+0E0Y3v3I53HXJJmYDvUlRkNVDGgWJolmlGR0YFVj/cBllp8BdIH8gJhGu/BNj
-	 njVc2uelzsqKPmi6gUdnC9Y40OaI55uuKal2PbPheh5UFtQmxKv7jpyqLOafs4KQQ/zoe
-	 gIR8X+tywU54roCrqFmDjKSdMNt6mCOn6s7XajYEZ8/zA1J92VNcStO4J1+w3Vql89A==
+	bh=WnkJ8LXf/bgZJNIPyQGBBjaA78zgoKgnkLMT97HZ4hM=;
+	b=tWArq+DvAIknX9tts1DeOz/fKERrJ10WeeCnDt75pbP31XM42iocLzTjwf6B1EOGKjql
+	 8QUOG3syRnV312bBw+1FjNjlxywxH3iUpQc4QeUsHqZQ7HLnozy9cMr8a4z/jTQb+ifc1
+	 1GrjfSHztTnU4yQNs8IW0DTc19HR36ipvjG6uhVQjQrVLFMT9TAtlpZ7C8QgrejS/nelN
+	 rBQKWHnxEhTYKdNHUeeuuWdMspSCTLLrWvMJaqPa5zKKaeRlKJUTeiJj0E4QOHYig/9G8
+	 WQ4aIxxcC/eq5m2YaEhHqUEW57bRu63kfL7SCsiZumMSVMo8K4oc3NWxCND1LEaXJ0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhk0ABiv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvPtbBbp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC1B606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6126C606A33E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhk0ABiv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ACF1F008A2
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:57:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvPtbBbp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8151F00903
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322648;
-	bh=oh4yG9NOUAfpCtnzTEnP89jyoSqnXOuZC9TM1PcPNdg=;
+	s=k20260515; t=1794322694;
+	bh=WnkJ8LXf/bgZJNIPyQGBBjaA78zgoKgnkLMT97HZ4hM=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lhk0ABivNnU3S88s1ukwtFAklNxvgs9TICfGSJEmgriy2JBWGxvwGSL0tfZlA3+5S
-	 xzFIHN9J9KNwRJeLxRpgTfo2uw5PVfJGPGDHwX7k+pe8Z3t4bAHJ4MY/QIg/xUNMXT
-	 +S4ARy7RhXxCnlzcYLLautoMbFFoS4udN2EzKmgnUjQUIZP9WjWzxsRy9IPkTBzp0k
-	 QivVyLdoULNB2z9q/b0ZO0/CVsb9z5BArdcYHmoJGEMJfPOO5LiRZ7WYWTdT1vDnsY
-	 gwDBKYzp3BgxvuW7KRrSWw7P2uH55onQBqjtFMlKXgfePrJk5pL7fe8XPrYWnYdlH4
-	 fBKsxPPEQkbNg==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b570ff3dfdso2328368a12.3
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:57:28 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEgDFbD3Sw6Vj/hPMsNcB12zLSpaWklAwDI4x+5qCLxc5Xv3oxA31ScswY9+onBpz/PGr00VmE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9E9nUOR0eX2kvEyjlGDBgW32ObBr7TLLOY4SLTkDXaxHpB8AX/
-	aGNpZI/QZhAI9xDXQ60+htcLzZZegZGzmbdcwb9+XSKrrBBqGVztGFmEA53eTYjlgTOwh8mWrLS
-	kJBAGelz7z1fXPcxcBy+vkCoPakKoZkI=
-X-Received: by 2002:aa7:d58c:0:b0:6b3:c422:9257 with SMTP id
- 4fb4d7f45d1cf-6b756ae1e9fmr1840057a12.25.1794322647248; Tue, 10 Nov 2026
- 06:57:27 -0800 (PST)
+	b=EvPtbBbpY0MjDrJNm/qEfHVLVqDPeNiRukmRUFa4wWsRoo6sCSQw+dMYY0H3/TdIo
+	 5rGBDNsi9o8CXMflRBCr3XSY0eF6h4mL4dZFLwCe5xGnvbOpH/4YndZsn5IZLaOa/v
+	 iSkQ6Pr18uxngCNjGJnx8fe5XPUSAgFwzndWaN99yG0r66WVa89QAHjROZqlQzesFL
+	 r9DBjPRvtBZwST8/tzlm/7BHBGo04X2tKXGG+JlIRHGIigH/76hZVR4S8c5eLr/mn8
+	 cb7I1uW2JG21uHuTSx4xq5fmw1kzmKwZfpeEni0vRhWxHbjyov7ZyTXy3mat1NnXKT
+	 ymgwxGi3mFHHA==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so17330661fa.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:58:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErESHAcc6L8Cs16Xu5AW0hcRoZaweNeu6wPZzdMTm7dXeL14IZ4w3KlpL2XX0hpMAQ53Slc/sEs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xXUhIVxTyfRoQIzLS/575u04kZBXZPm/pUNxt3xMqgJWtK6my
+	oioUnDednPMHrHKxPyisjwuucxZuw7CxGXY0kRjkfho22THjx2w9JjUpzR7+8kGjYQmD5jGW/IQ
+	wzTYHZoJw86kdOeVWYsbStoOqB+TpeHI=
+X-Received: by 2002:a2e:a9a5:0:b0:3ab:4f5e:3edc with SMTP id
+ 38308e7fff4ca-3ae09632513mr5987871fa.15.1794322692389; Tue, 10 Nov 2026
+ 06:58:12 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,51 +59,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110023344.2105916-1-icb@fastmail.org>
-In-Reply-To: <20261110023344.2105916-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 10 Nov 2026 23:57:14 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_cmLv7bM6ZQJNS=CU9MHGPJkZjBD4RNTnaSGS_1oz1=w@mail.gmail.com>
-X-Gm-Features: AclHuK8yUXWZTkmnwrOZJOIyVL-xjDKwS1ouvX_skQFgof_Rc-YmlA5vKTXAMwQ
-Message-ID: <CAKYAXd_cmLv7bM6ZQJNS=CU9MHGPJkZjBD4RNTnaSGS_1oz1=w@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: keep group denials when a POSIX ACL entry decides access
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261110101246.3665797-1-sumitg@nvidia.com> <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
+In-Reply-To: <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 10 Nov 2026 15:58:00 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jgUnFO5FsDU64bE9ArzTQaGcU=2ocRJ2QpsJb_octG8w@mail.gmail.com>
+X-Gm-Features: AclHuK8X5hMi8jD3gHPYYnsPSCyrp4PzOzFf8JJiGs5yNkckX-k7Tw8xtv2KRhU
+Message-ID: <CAJZ5v0jgUnFO5FsDU64bE9ArzTQaGcU=2ocRJ2QpsJb_octG8w@mail.gmail.com>
+Subject: Re: [PATCH v2] cpufreq: CPPC: Set CPPC Enable register in cpu_init
+To: Christian Loehle <christian.loehle@arm.com>, Sumit Gupta <sumitg@nvidia.com>
+Cc: viresh.kumar@linaro.org, zhanjie9@hisilicon.com, zhenglifeng1@huawei.com, 
+	jbenc@redhat.com, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com, 
+	vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com, 
+	mochs@nvidia.com, bbasu@nvidia.com, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 11:33=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
-te:
+On Tue, Nov 10, 2026 at 11:58=E2=80=AFAM Christian Loehle
+<christian.loehle@arm.com> wrote:
 >
-> When no ACE names the caller, Everyone or Authenticated Users,
-> smb_check_perm_dacl() lets a POSIX ACL entry for the caller decide
-> access. The entry's rights replace the result of the DACL walk. Deny
-> ACEs for the caller's groups, and OWNER RIGHTS for the owner, are then
-> lost.
+> On 11/10/26 10:12, Sumit Gupta wrote:
+> > As per ACPI 6.x s8.4.6.1.4 (CPPC Enable Register):
+> >   "If supported by the platform, OSPM writes a one to this register
+> >    to enable CPPC on this processor. If not implemented, OSPM assumes
+> >    the platform always has CPPC enabled."
+> >
+> > The driver never writes this register. CPPC therefore stays disabled
+> > on platforms such as NVIDIA GB10 that wait for OSPM to enable it.
+> >
+> > Call cppc_set_enable() in cppc_cpufreq_cpu_init(). Fail init if
+> > enabling CPPC fails. If init fails after CPPC is enabled, disable it
+> > again. The register is optional, so -EOPNOTSUPP is not an error.
+> >
+> > This relies on commit ab482f1bac6b ("ACPI: CPPC: Refactor register
+> > value get and set ABIs") from v6.16. Before it, cppc_set_enable()
+> > returned -EFAULT instead of -EOPNOTSUPP when the Enable register is
+> > not implemented. On an older kernel this change would make init fail
+> > on every platform without the register, so the stable range starts
+> > at v6.16.
+> >
+> > Fixes: 5477fb3bd1e8 ("ACPI / CPPC: Add a CPUFreq driver for use with CP=
+PC")
+> > Cc: stable@vger.kernel.org # v6.16+
+> > Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
 >
-> For example, a deny of FILE_WRITE_DATA for one of the caller's groups
-> should refuse writes. A POSIX ACL entry that gives the caller write
-> access still lets the caller write.
+> Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+
+Applied as 7.4-rc material, thanks!
+
+> > ---
+> > v1 -> v2:
+> > - Fail init if enabling CPPC fails and disable CPPC again if init
+> >   fails after enabling it (Christian).
+> > - Move enable after the policy->shared_type check, so cppc_set_perf()
+> >   is the only failure after it.
+> > - Mention NVIDIA GB10 in the commit message (Christian).
+> >
+> > v1: https://lore.kernel.org/lkml/20261105123244.3132560-1-sumitg@nvidia=
+.com/
+> >
+> >  drivers/cpufreq/cppc_cpufreq.c | 14 +++++++++++++-
+> >  1 file changed, 13 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpuf=
+req.c
+> > index 957fa7775260..b2af24ae5008 100644
+> > --- a/drivers/cpufreq/cppc_cpufreq.c
+> > +++ b/drivers/cpufreq/cppc_cpufreq.c
+> > @@ -714,7 +714,17 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_po=
+licy *policy)
+> >               pr_debug("Unsupported CPU co-ord type: %d\n",
+> >                        policy->shared_type);
+> >               ret =3D -EFAULT;
+> > -             goto out;
+> > +             goto out_put;
+> > +     }
+> > +
+> > +     /*
+> > +      * Enable CPPC. The Enable register is optional - some platforms
+> > +      * may not support it.
+> > +      */
+> > +     ret =3D cppc_set_enable(cpu, true);
+> > +     if (ret && ret !=3D -EOPNOTSUPP) {
+> > +             pr_err("Failed to enable CPPC for CPU%u (%d)\n", cpu, ret=
+);
+> > +             goto out_put;
+> >       }
+> >
+> >       policy->fast_switch_possible =3D cppc_allow_fast_switch(policy->c=
+pus);
+> > @@ -742,6 +752,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_pol=
+icy *policy)
+> >       return 0;
+> >
+> >  out:
+> > +     cppc_set_enable(cpu, false);
+> > +out_put:
+> >       cppc_cpufreq_put_cpu_data(policy);
+> >       return ret;
+> >  }
 >
-> Remove the requested rights that those ACEs deny from the entry's
-> rights. The DACL walk already records them in grp_denied.
->
-> Fixes: 42ac1f1917ae ("ksmbd: grant a caller what its groups and OWNER RIG=
-HTS ACEs allow")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20261102200353.884509-1-icb%40fastma=
-il.org
-> Link: https://sashiko.dev/#/patchset/20261103150458.11591-1-icb%40fastmai=
-l.org
-> Link: https://sashiko.dev/#/patchset/20261107062233.1579198-1-icb%40fastm=
-ail.org?part=3D1
-> Link: https://sashiko.dev/#/patchset/20261107231941.1824289-1-icb%40fastm=
-ail.org?part=3D1
-> Link: https://sashiko.dev/#/patchset/20261108182011.1888520-1-icb%40fastm=
-ail.org?part=3D1
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
