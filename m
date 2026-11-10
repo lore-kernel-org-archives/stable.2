@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330952;
-	b=NHShvkEXdI8dAboC0eojdCUHI3cRX4JfvmeFNjDTQ9veyKtaZ2xfaPvqTEPQ9JFlhTPC
-	 1HNs+I80QCZ0qT+L8YXO5/yztMuAyOh794m8kxD5AS9WS6aFnPKw8FtwBNAo13q51mEUL
-	 C0fAUKiwTfjHFv2+DdV8WSqhkulKrMGklYIRXPgM0znostAjtYFcu2qe583tYUquCyXgQ
-	 84edkbbWbCPitrduNiJbEksHstF5qqWq2WdRTWqveFj3y/M8xSFZurRtCpbyMPoNC/O9M
-	 gE240OfstPCDualVUTskegDC/Wfez+2n3NSwDWEjuc4Are4y1Xk3kJVtuXgwqmuiQxQ==
+	t=1794330982;
+	b=oNviECZyZGcQParKKbfdRZEBYyYXzHk5+VHWb2TQa+3h0JldR3/Cz7aRpLZhAHpum7be
+	 YyZIeyd4DcA7WOarZt+HSHkZ2mdzlbO5LeljAlMIQsVAn1rFCru5oDlD1CRlcuh+zTq0r
+	 gT6747/kTAOju/Ue79Wddq80s/JiL2n7hQYKbRNPzDpJedshDTWGCPXcWWhfTRdWPPmaO
+	 Kv7J13uuvUj/NGFnVu1NolSFleh0b1QBaG+xo3FVR/ox5EAeDplrrwjXrKCQZvDqgmSKr
+	 +yyOsXtFomuPDjQbA78U/HHzTjmmsZLFWwnN6QVhGbytROiedIj29P6R+5tU9Qkcx1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330982;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vtuHy6jvbktSiyM4/wGY117xUnty90W7uRaDmT5Xbw4=;
-	b=g9n1u+FEfPrro5o3Icn3lkoI5zoWoDxMjoNTSGTMRQ8u61TOQvM0/QAaNawinnngQlmI
-	 jILTYQWpQIptyalgIKz+Q9e+f0SH4C77kV6jsssqUpsL0qID8uRrYGBWACPh/73GdrpgE
-	 69pMibfVJe+igH8xnU1mbhCP3rCALjlNpTmVESUalNIJde4qkfh1zxYgXId80pr4cu19g
-	 qtChFQP7kEp9DzFl2R5krUApT/TQyVcsgBbXt9K4RxmLGo9WhdqZZROr3KdQbZKPZ4SOC
-	 Jg+2fhmpfct24q/AYx+k0L6VMHv626Q/bpE5HZOEzuM0tXQqcB4mkwgsDwHAqCfdocg==
+	bh=BLK2O9rXwgSZDWWqMNGjMZVTI3Xyd+pBgLOdNjiGy5s=;
+	b=ZNa+MhJ7N+2r0P/u1XwFPyAnw4dPeg9NSTAyiE2aqBCYXDtShqiy/O4DnofDQSYecXT1
+	 NmhNCmCFv5OTSvRPU48j0xtSnJWH64enn5nQg1yfhsxVNknoUEQZRTO8w9AzUZxhDjk2O
+	 tjURhn5+WjA1IsnIlDLo7ooF8Doev94sFwYbKJSQBEaCBVMjb+eT9yL5CDdOC/KX3oC1c
+	 tpmbupNnIKpUS2iz+LSDWXCSshMAkUVJ+U6513KGlE+0MZUB6vqF4lgpuyS6MPUbhrgkJ
+	 oPnDvlOSccZKr0mMMsZf8tPYKQQ82p7GUq0KD2QwxH9dSdx890W7v20YakQmT2GfUSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFoWQqLt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClJkpr6r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812EA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:15:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1543606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFoWQqLt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9268D1F0089F;
-	Tue, 10 Nov 2026 17:15:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ClJkpr6r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEF81F0089F;
+	Tue, 10 Nov 2026 17:16:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330952;
-	bh=vtuHy6jvbktSiyM4/wGY117xUnty90W7uRaDmT5Xbw4=;
+	s=k20260515; t=1794330981;
+	bh=BLK2O9rXwgSZDWWqMNGjMZVTI3Xyd+pBgLOdNjiGy5s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QFoWQqLtNATIUNRzkF+mQ/C35CeIw/ILo9LAgyJjp0Y7HCq9gRs5VRBPRCCMJsPhz
-	 xAXrXeUXdjz6Vtco7DCUIni6q5QuudCA1n1ayurxKlwSvL3zNHewSaZGUD4EAoknPc
-	 MyLgj61/aD3uMIowir/vGK+O8ttiFr5rcSdWX6QSSrrIjpXJw1ta6qZGkW5UmUrQQE
-	 x4oxoP13+Lngb+PvJx21EcBv5TO1YKyk5/k5PENWzzcOISVsChM3UE5yAY4wUuFAMV
-	 NFnZIuVFiMDhnwg8AVjPrTT+TUU14fZ737roXiE9r3uCyO+ym3+KmbzWYH2LtzNPa9
-	 TdMEc/IlrCqLA==
+	b=ClJkpr6rUvA3u8Ve1UZxH6LSFVNAmWbJzxn4xsLihULEMFzSBAt4AAOaQugTSGvDP
+	 lfNLm3xDCTZNyspoZl64JHJhyJzjg3C9DY+neu0anVNwzvSXZNe/0Ye3hDzS8Xtmq5
+	 YoOps+SQ0rn35gVu2pzHqY7Ow4xYjZn7Hx5sqJMKNTYNHHGrLX8fRTK8pfeycGszqC
+	 TQIqAKuS4cUlel4AmG1qeDk29DloyytFBC5Ij8igV/nFL2wVI5RFRtata701wk1WqT
+	 TtU73JOX1ARskW6LW+b/4WjRNUPkubICE2NFkwi1J1kuWjfGfu54LjAo77Y9WKO6oD
+	 kCMtZLBw33SkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Andrey Misiurov <andrey.misyrov@gmail.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: mpu401: shut down timer before freeing MPU
-Date: Tue, 10 Nov 2026 12:15:50 -0500
-Message-ID: <20261110171516.2731239-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] fbdev: core: Initialize modelist in framebuffer_alloc()
+Date: Tue, 10 Nov 2026 12:16:19 -0500
+Message-ID: <20261110171545.2633383-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060031-failed-5.15-9332af5220d4@kernel.org>
-References: <20261107060031-failed-5.15-9332af5220d4@kernel.org>
+In-Reply-To: <20261107054753-failed-6.1-0c9cb9321cb3@kernel.org>
+References: <20261107054753-failed-6.1-0c9cb9321cb3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
 
-[ Upstream commit 9332af5220d42341bb1446a62c545c0518e990ef ]
+[ Upstream commit 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e ]
 
-When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
-input and output with a timer. During raw-MIDI teardown, the timer callback
-can already be running when snd_mpu401_uart_remove_timer() clears the last
-mode bit and calls timer_delete(). That API neither waits for a running
-callback nor prevents it from rearming the timer, and free_irq() does not
-synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
-mpu while the timer callback still uses it.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-Initialize the timer once when the MPU object is created and only rearm it
-while a timer mode is active. Shut it down synchronously after freeing the
-IRQ so an in-flight callback completes before mpu and its resources are
-released.
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
+
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
+
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
+
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
+
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: adjusted context for explicit spin_lock_irqsave()/spin_unlock_irqrestore() calls instead of guard-based locking ]
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ sashal: Applied the change to framebuffer_alloc() in its original location because the upstream file split is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/video/fbdev/core/fbsysfs.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
-index f435b9b4ae241..e920a290ba1b6 100644
---- a/sound/drivers/mpu401/mpu401_uart.c
-+++ b/sound/drivers/mpu401/mpu401_uart.c
-@@ -161,14 +161,15 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
+diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
+index 5ced9e5510c5d..ef6c3c45ba9e1 100644
+--- a/drivers/video/fbdev/core/fbsysfs.c
++++ b/drivers/video/fbdev/core/fbsysfs.c
+@@ -56,6 +56,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
  
- 	spin_lock_irqsave(&mpu->timer_lock, flags);
- 	/*mpu->mode |= MPU401_MODE_TIMER;*/
--	mod_timer(&mpu->timer,  1 + jiffies);
-+	if (mpu->timer_invoked)
-+		mod_timer(&mpu->timer,  1 + jiffies);
- 	spin_unlock_irqrestore(&mpu->timer_lock, flags);
- 	if (mpu->rmidi)
- 		_snd_mpu401_uart_interrupt(mpu);
- }
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
++	INIT_LIST_HEAD(&info->modelist);
  
- /*
-- * initialize the timer callback if not programmed yet
-+ * arm the timer if it is not already active
-  */
- static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
- {
-@@ -176,7 +177,6 @@ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
- 
- 	spin_lock_irqsave (&mpu->timer_lock, flags);
- 	if (mpu->timer_invoked == 0) {
--		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 		mod_timer(&mpu->timer, 1 + jiffies);
- 	} 
- 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
-@@ -490,6 +490,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
- 	struct snd_mpu401 *mpu = rmidi->private_data;
- 	if (mpu->irq >= 0)
- 		free_irq(mpu->irq, (void *) mpu);
-+	timer_shutdown_sync(&mpu->timer);
- 	release_and_free_resource(mpu->res);
- 	kfree(mpu);
- }
-@@ -544,6 +545,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
- 	spin_lock_init(&mpu->input_lock);
- 	spin_lock_init(&mpu->output_lock);
- 	spin_lock_init(&mpu->timer_lock);
-+	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 	mpu->hardware = hardware;
- 	mpu->irq = -1;
- 	if (! (info_flags & MPU401_INFO_INTEGRATED)) {
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
 2.53.0
 
