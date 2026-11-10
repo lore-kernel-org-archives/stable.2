@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314599;
-	b=UR8R+LcnESJXRznnR+ATBvzwTdCtEXz3zUR3AxNjkOoPx4tTJoWpeUGBAO2k3z0REOXD
-	 3Zo+UcC3y3DQlxDbxhc1PGv6XNzp9GwnOnhoXEjktgB70KaP3Lbl6iL6vC+3hh/I6SFA3
-	 P2LiNiGO8jizQINWx+vKUWUXIOzXXtx89eShU9vI8WZhLJFVvuCsnWAG88OUpsoy5YJ7K
-	 c5+2qCjwCoLlDCDw74ovty7qPZnFU1H9uxgWHhfN/iPfYLl18onb/3zpVQsirzfL98Fis
-	 mWY/NIn33MimTCJUTPj6HNg9LLk9c4pJZBKEN2O1XI5d7sbypmnweDWgyuJHyDf6FjQ==
+	t=1794314622;
+	b=CyQtmD/J0o6kw+EtzAi9mEOUYVpoDdz4hIEQ5s/6OiCHDs/rYa8cpAL/ySvHapVhAjMV
+	 B0BRNKjxn0muCNmh4Wk1GKNcK/2eehbtZ2/6fkoIPk6QnY+aYC8vI2e56Ligmq7Pf+0Wb
+	 depo5VSEnS59w7KW4tABwWS+ZZRbCpIJx0aAR2JdHF9fzz2gBz0SEOR7H+I+8IRNqfaA4
+	 qW0K7AuEum8UrYKDkjPNuTJ+wVTRQXvZcbdcaIYxjSWeFfJr0AoRAbqNM7gwa5mARBqlt
+	 ZaYZg2CSyHjhKFgeuB0r9zlSGz/W2qHBTSGxp0paIBlQ05+6HuOkB5MFGAxh0PCrE2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314599;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314622;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bAnug0O0syBmln9Rohl3zvYr0dXHtbNxflH5S5g3KSs=;
-	b=1vsJeIiFhmbT4Njlbjn6LahFZK+bMQ+BpBmQiVS95cLc7CcGnyeC/0BnJ8QSEtCE/wfW
-	 UY8yIFp0VthBbdNa0vkPAWkifYKR2QsJZhuGjY2Tz3vBrycpcE5EY4qHjdwrB8t7dNJXK
-	 KPtB43P+HjcDHZURGmxTLYLejVS+U1NflxnDZYUilo6AyPdAwEOUFpgpdi7D4k2kH5MQj
-	 IUWrmVMUIHteoJCGPP/48a1qVw8+YI3L4do2tdNY7RCdCgl47KVm4QbCv6WoZ027ngcDe
-	 e36rYRgM1fNSHfTgI7a9MKR0OANsZ+1TB8OaknEt3yAckQsZwObbd89VlPNPo6ACD4Q==
+	bh=vyUTx1fuD9qmAGc1vQirKpXhRdg/OykJgCixZ6wtr3Q=;
+	b=VnHsNjwnMNMbSqtmBlzfRjMCPFX/C6toyrSRMpLyUXMbRSJpI5EMkWfDkeV5G9ZeuzjG
+	 yT4txM48PC7lBfytH1e+D3oqK1ElMJCfDxvKbpGFoABD1HwOtIuN9/XYXYFCduVPGPXG+
+	 C8Vb4oy19ATBp0+HrkJpy3wQft2OeGQGROPL1dYgEnVFEASjuzxS3sm4dhaJo927C39M7
+	 tSFg99lIR9YNBnugnfaNgJDw4JKetOBUJW2DwpA1hZAjtLvCEJwn+fzecixdt8c12gDwz
+	 g7lcFxpKMjvQCTWXw36o4Mc3yARc3KqMfey9mpXiNNKUzqCvgmej2yBPk6bGg7nTWBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QSJVbiWF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cTyrBLeJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68153606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57080606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:43:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QSJVbiWF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3CEE1F008A3;
-	Tue, 10 Nov 2026 12:43:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cTyrBLeJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A63B91F008A6;
+	Tue, 10 Nov 2026 12:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314599;
-	bh=bAnug0O0syBmln9Rohl3zvYr0dXHtbNxflH5S5g3KSs=;
+	s=k20260515; t=1794314622;
+	bh=vyUTx1fuD9qmAGc1vQirKpXhRdg/OykJgCixZ6wtr3Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QSJVbiWFMHo5b9UIToY//DW0eqv0P1kiEWxyY6elE6do5NJIC8Adlja0Ed+SNrKcg
-	 n4FCSNe6/cCOS+cAn34a0vkXS9mmnlIN6p/1xy7LW80sXzYqVV/jjATBOU50SVihdy
-	 XxIkMPMp6cTIshDMdln/pGXy2eQNHoiwMAmYWamtdWJe/D1SQVtO/OUhDQ+KrleXse
-	 FeIglk7dtaoQ1cRTdSgYNoKwy2ypw7yJ3EUpaeh0QTcJ5eh+ta/akNPf9gla4rfmKf
-	 Yrdk2kH+6G6wTSjIj9rQ2qEDjMhlWkf3XlpEqodTSMhfSflKTnR4PZkrVI6qzMI0ne
-	 Sciy/p9FVax7Q==
+	b=cTyrBLeJd+SgjMtwaz40bXQsXd7uiXXISfUXEiQcLNef/8NlBpIEKEDXTGy33nLrW
+	 BXtOo8lBFNAcaB03/V6jH2A94AtiBGs1HuDVTDKwTJMH2vYRhuxaT0RydkKYfJ8DY2
+	 caD730dZhhfOazHqCl539c9C386JNqAJCXaP49Ai1ST9WGkYmjzdz3L2GUOC8LtBxO
+	 xM0eFDj7bMeowyCB/0DFS4vk1eKYZSo1vIiPf4U386h1YTZOsiVNN4WzEtVb2ibb1N
+	 SkkNQ8CsQmlx8Djk+VceNbUhRaQLoKw/5hrHggPNp+VFeVROfgyiIzPNtO0rMp3yXi
+	 FICGi4VEmQaWQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] media: i2c: og01a1b: power off sensor on remove
-Date: Tue, 10 Nov 2026 07:43:16 -0500
-Message-ID: <20261110124246.1444734-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ALSA: usb-audio: Protect Roland control activation
+Date: Tue, 10 Nov 2026 07:43:40 -0500
+Message-ID: <20261110124315.1507464-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110124246.1444734-1-sashal@kernel.org>
-References: <20261107050650-failed-6.18-a26c5ac46191@kernel.org>
- <20261110124246.1444734-1-sashal@kernel.org>
+In-Reply-To: <20261107053042-failed-6.6-19b42c1fff7f@kernel.org>
+References: <20261107053042-failed-6.6-19b42c1fff7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,53 +61,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit a26c5ac46191ae34b3413f7a45d6241f63e15d42 ]
+[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
 
-og01a1b_probe() powers the sensor on explicitly before identifying and
-initializing it. After a successful probe, runtime PM is enabled and
-pm_runtime_idle() is used to allow the runtime suspend callback to
-power the sensor off.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-The probe error path explicitly calls og01a1b_power_off(), but the
-normal remove path only disables runtime PM. pm_runtime_disable() does
-not guarantee that an active device is runtime suspended, so the
-sensor can remain powered when the driver is removed. This also leaves
-the xvclk enable performed by og01a1b_power_on() unbalanced.
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-After disabling runtime PM, check whether the device is already
-suspended. If it is still active, power the sensor off explicitly and
-update the runtime PM state accordingly. Avoid powering it off again
-when runtime suspend has already done so.
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-This issue was found by manual code inspection.
-
-Fixes: a95ffde28783 ("media: i2c: og01a1b: Add support of xvclk supply clock in power management")
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adapted scoped mutex locking to the existing mutex_lock()/mutex_unlock() sequence ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/og01a1b.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/usb/midi.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/media/i2c/og01a1b.c b/drivers/media/i2c/og01a1b.c
-index 4b6b9ac24594b..68ebf44876781 100644
---- a/drivers/media/i2c/og01a1b.c
-+++ b/drivers/media/i2c/og01a1b.c
-@@ -1026,6 +1026,11 @@ static void og01a1b_remove(struct i2c_client *client)
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(og01a1b->dev);
-+
-+	if (!pm_runtime_status_suspended(og01a1b->dev)) {
-+		og01a1b_power_off(og01a1b->dev);
-+		pm_runtime_set_suspended(og01a1b->dev);
-+	}
- }
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 156b16e48373f..0758422e949bd 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1152,7 +1152,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
+ {
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
- static int og01a1b_probe(struct i2c_client *client)
+ 	down_read(&umidi->disc_rwsem);
+ 	if (umidi->disconnected) {
+@@ -1164,11 +1166,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 	if (open) {
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = false;
+ 				update_roland_altsetting(umidi);
+ 			}
+ 		}
+@@ -1181,15 +1181,15 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			snd_usbmidi_input_stop(&umidi->list);
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = true;
+ 			}
+ 		}
+ 	}
+ 	mutex_unlock(&umidi->mutex);
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	up_read(&umidi->disc_rwsem);
+ 	return 0;
+ }
 -- 
 2.53.0
 
