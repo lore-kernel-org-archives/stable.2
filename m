@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344866;
-	b=vqSI/WO3bd7OWTaEYDvXrkqawkICi7Hj6X8lrE2MG+7Ni73Un6e34y5OzAx0djVoaw/X
-	 VrfRsiRc/INu56IucD8/Us7eNgLRsZeTEJBNbF0JP4osGnPdeSw9Kltl3NKduMjAc6jbW
-	 2WoQAf0QRpHspcCTSefeAjkCEsY9xvsWPKwd02N27D41QsNeE2V1sEw6nNwCcEbL5uRnH
-	 LoDDh1q/wTOpj2EDhITfMbSy9o7Fk8+R4mwhLsGJGCthRcQyKbwYxIJFTbrJit1jzUCY9
-	 gToXydnrsRJx6Puxr2eGqKoyGUHJOJUEBzIJIAjOv4PFznDrL9EUyuFb/MQt4DYTgzA==
+	t=1794345007;
+	b=k8JrJKAByru2UXsPcG6orVVLzt2JvVPNonhomPiQWNU9tJLcoQ5oFdBu9NGLoWYdBzcx
+	 DvPOFC4ThVlxNPDfuXE/kdIEkaEWdc9uKYva8krH/bq4GesVtUVp9fXptvdXI1lyPMk6C
+	 6qP47rijt+PcKdAwn5ZvGCTkDphkjCzM/JhoQ8IAn1INiUtTODL8+5x0WTTpTp8dElEYO
+	 oTHmmvkUPmTdL3yfwfuVoYrz8WDy9MVfHdr2I3w/OPoWmfbyCg/gg0YB9IZGA00slhcFB
+	 tW1z/6OauCG+3YuP++N2JIn16+cRq/vUhprFi0EpHvFVkDNEZov4c0nfccHtRnTfJ4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345007;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SwNDXWvY61sIhRbsn4aW3DA1SpN7C+L1Y9iOhEs2Wlg=;
-	b=YUhyhc7eZh3b+NPV/nLc31r1KvRGBl5aoJiZvblK5TLRBXYBs+ZiKm4Rk5I0dWGTpr2K
-	 OCaatU89BLeDBBmtWjxE8XpO1iHnL8ZA23QcOThRloKUKDb0/EOYTG+Q5OAPcryRiSZ5V
-	 x2FVxKisu+8mkMIWyPioy5rLe76r0GEuLvQbMsZS5VghScV+lGiOuadcoykug3ZS1fA+K
-	 Tl9BMrVvk3heh97aVF8OChiWn46Z/TGJ/pYRRAlzT2jvZ9UytERMZ2sUtt0N00BKulQ5m
-	 wvUw/sN7+XxDAQ4PQyieemawgUx4+p7+kiQv89YYdP2tsmF8onNWa9OVtDjk8SNSXVg==
+	bh=21EM9X5pIBmahVdjt5RqRtXxmEjqdolJteb3e5XsGZE=;
+	b=4sDiN+q5xaR2Rq5BFR52024TmIdbEiJkuvhfWdovZkVALs5dO06oW718LG2fQdCw/tEQ
+	 Vzm+C7mkBuf6qT1AHiSuT8afG082aWYEO0Fh3/kkOxRcddAsnviaXVa6D2YHaQDrGn+uo
+	 4pqTe5U5Mcnx6pdgn1hf2dkM5LwSmKZxFp8jjmytJKgScu67MHXHubCCkNE0cV5spbzva
+	 furiApuF9gdKIyli0pL946tbZ1YdhIh22ez8vA0ZkoaOSf4PlXwd7xpIm2jqprZ0S0lEi
+	 TdoJMsH5K/PRsEtekxFSfImZKwyWk700JaQ+QOf02LoQzlok6xTg+UlLb60YCbZRVig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ix/F46Zk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G68vQp0e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FD1606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:07:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C78606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ix/F46Zk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E9901F008A2;
-	Tue, 10 Nov 2026 21:07:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G68vQp0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA1D1F0089F;
+	Tue, 10 Nov 2026 21:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344865;
-	bh=SwNDXWvY61sIhRbsn4aW3DA1SpN7C+L1Y9iOhEs2Wlg=;
+	s=k20260515; t=1794345006;
+	bh=21EM9X5pIBmahVdjt5RqRtXxmEjqdolJteb3e5XsGZE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ix/F46Zka1MejgFGLOLsPIXGFQ0B1vJkpsiqqkb+R/3wEueNr+/yiew3QaTF9dXX2
-	 fl6EAlPY6FxjDRIzYSRDwkuI2RT83ub93RWu2JIUZFJiAIDSUfmHcHCfcvyHMgvk1L
-	 vUapGJR69N9fwt/LFzvw1tLrLtycpbuRWvf28dhOPGYS4oBTk1iymsrFBlYK5vCnT9
-	 ITZsUFJiOqsuH6L9ccxr+ep+EUsp0uopPm3G08rNRhM3oO5Ex24gao1iS8Effx2DYY
-	 7A9TCrSuO8TiXC5/r3tI8Bh6a1Mp2UTzzrCcUcY8FTjxZvLU3i+wdZtumicU/Wqa6j
-	 JhEXMNjnzsY/g==
+	b=G68vQp0eqmBRBSRw0Lcmz7BGCvE5OpeYAUvUGNpS8/xj4Pmn6YkfLsREPBe2MJzlY
+	 FP4vgLrx+BvDuCsUGDCmB3qt5AaqFxxHBTORDh8C2AgBHyvXBoUPFMVEvQvmxpEhuT
+	 zMzEFUZ/XyszASrika0zQfVsRPlx386XZh9+S44RqqS58LTPqgkqr4byq6gQMHgTWi
+	 Of150aIiYwIqrd23lpdgdF9lf+DfK19U4J+WurFVSDr8UUk5Ybsj1d+IHa4Lz9RJiu
+	 0mBQ9kHKNoJATlIic+oG7r1Kj5JQKz1U0ZwFnn6l69Vd5rneqckTKWnfsqiac5NDf/
+	 zQiXU9H41+Eig==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] serial: 8250_exar: store the GPIO platform device in struct exar8250
-Date: Tue, 10 Nov 2026 16:07:41 -0500
-Message-ID: <20261110210731.3853158-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload
+Date: Tue, 10 Nov 2026 16:10:04 -0500
+Message-ID: <20261110210827.3733389-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110210731.3853158-1-sashal@kernel.org>
-References: <20261107060524-failed-5.15-33d337816e00@kernel.org>
- <20261110210731.3853158-1-sashal@kernel.org>
+In-Reply-To: <20261107061858-failed-5.10-6fff9de5c5b4@kernel.org>
+References: <20261107061858-failed-5.10-6fff9de5c5b4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,148 +63,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+From: Janne Grunau <j@jannau.net>
 
-[ Upstream commit 33d337816e00994daaf670243186d9e537ee090d ]
+[ Upstream commit 6fff9de5c5b425817588eeed42bd56d665751c13 ]
 
-The GPIO platform device is registered via platform->register_gpio()
-when port 0 is being set up. It is stored to port->port.private_data of
-the on-stack uart template (and from there it is copied into every
-registered port). pci_xr17v35x_exit() then fetches it back by
-serial8250_get_port(priv->line[0]).
+Since commit 416386060 ("Mark authorization completed on driver
+indication during 4-way HS offload") [0] wpa_supplicant expects
+NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
+driver supports 4-way handshake offload.
+This was apparently never tested with the upstream brcmfmac driver as it
+does not report this. This broke authentication on Apple silicon devices
+(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
+2.11 was released [1]. This was initially dealt with by reverting the
+commit in Fedora [2] and other Linux distributions.
+Instead of carrying the revert over to wpa_supplicant 2.12 add the
+expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
 
-But port 0 does not have to exist at that point. If
-serial8250_register_8250_port() fails for port 0, priv->line[0] holds a
-negative error code. The probe still succeeds (it only breaks the loop),
-so on unbind, priv->line[0] (a negative value) is passed to
-serial8250_get_port(). The GPIO device is never unregistered and a
-bogus port is accessed.
+The "Fixes:" tag is not fully accurate as this has only became an issue
+after userspace changes years after the change. Since the change is
+expected to be required in all active stable branches for wpa_supplicant
+2.11 / 2.12 compatibility it is helpful even though
+BRCMF_PROFILE_FWSUP_SAE did not exists then.
 
-The same problem would also occur after the planned conversion of
-serial8250_register_8250_port() to return a uart port instead of a
-line. As Sashiko pointed out in that case:
-  If board->setup() fails for the first port (i=0) in exar_pci_probe(),
-  priv->uport[0] remains NULL. If serial8250_register_8250_port() fails,
-  it returns an ERR_PTR. In either case, the loop breaks and probe
-  returns success. When the device is later unbound,
-  pci_xr17v35x_exit() unconditionally passes priv->uport[0] to
-  platform->unregister_gpio(), which will dereference it without
-  checking for validity.
-
-The GPIO device belongs to the PCI device, not to any particular port.
-So store it in a new struct exar8250::gpio member. Pass priv to both
-->register_gpio() and ->unregister_gpio(), so that pci_xr17v35x_exit()
-does not need to look up any port at all.
-
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Fixes: d0aeaa83f0b0 ("serial: exar: split out the exar code from 8250_pci")
-Link: https://lore.kernel.org/all/sashiko-outbox-166269@kernel.org/
-Assisted-by: LLM
+Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
+Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
+Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/03a8b5c71614fc672fef1e55c083bda6c73b5bf3.1791873876.git.jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
+Signed-off-by: Janne Grunau <j@jannau.net>
+Reviewed-by: Neal Gompa <neal@gompa.dev>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: adapted authorization handling to inline SAE/PSK checks with the older three-argument cfg80211_port_authorized() API ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/8250/8250_exar.c | 36 ++++++++++++++---------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
-index b5275cad4a69b..b531d34b06387 100644
---- a/drivers/tty/serial/8250/8250_exar.c
-+++ b/drivers/tty/serial/8250/8250_exar.c
-@@ -168,8 +168,9 @@ struct exar8250;
- struct exar8250_platform {
- 	int (*rs485_config)(struct uart_port *, struct serial_rs485 *);
- 	const struct serial_rs485 *rs485_supported;
--	int (*register_gpio)(struct pci_dev *pcidev, struct uart_8250_port *port);
--	void (*unregister_gpio)(struct uart_8250_port *port);
-+	int (*register_gpio)(struct exar8250 *priv, struct pci_dev *pcidev,
-+			     struct uart_8250_port *port);
-+	void (*unregister_gpio)(struct exar8250 *priv);
- };
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 3f6d4299965b2..361675045a67d 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -5973,6 +5973,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
+ 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
+ 	struct cfg80211_connect_resp_params conn_params;
++	bool authorized;
  
- /**
-@@ -193,6 +194,7 @@ struct exar8250 {
- 	unsigned int		nr;
- 	struct exar8250_board	*board;
- 	void __iomem		*virt;
-+	struct platform_device	*gpio;
- 	int			line[];
- };
+ 	brcmf_dbg(TRACE, "Enter\n");
  
-@@ -447,22 +449,21 @@ static const struct software_node exar_gpio_node = {
- 	.properties = exar_gpio_properties,
- };
- 
--static int xr17v35x_register_gpio(struct pci_dev *pcidev, struct uart_8250_port *port)
-+static int xr17v35x_register_gpio(struct exar8250 *priv, struct pci_dev *pcidev,
-+				  struct uart_8250_port *port)
- {
- 	if (pcidev->vendor == PCI_VENDOR_ID_EXAR)
--		port->port.private_data =
--			__xr17v35x_register_gpio(pcidev, &exar_gpio_node);
-+		priv->gpio = __xr17v35x_register_gpio(pcidev, &exar_gpio_node);
- 
- 	return 0;
- }
- 
--static void xr17v35x_unregister_gpio(struct uart_8250_port *port)
-+static void xr17v35x_unregister_gpio(struct exar8250 *priv)
- {
--	if (!port->port.private_data)
--		return;
--
--	__xr17v35x_unregister_gpio(port->port.private_data);
--	port->port.private_data = NULL;
-+	if (priv->gpio) {
-+		__xr17v35x_unregister_gpio(priv->gpio);
-+		priv->gpio = NULL;
-+	}
- }
- 
- static int generic_rs485_config(struct uart_port *port,
-@@ -547,8 +548,9 @@ static const struct software_node iot2040_gpio_node = {
- 	.properties = iot2040_gpio_properties,
- };
- 
--static int iot2040_register_gpio(struct pci_dev *pcidev,
--			      struct uart_8250_port *port)
-+static int iot2040_register_gpio(struct exar8250 *priv,
-+				 struct pci_dev *pcidev,
-+				 struct uart_8250_port *port)
- {
- 	u8 __iomem *p = port->port.membase;
- 
-@@ -557,8 +559,7 @@ static int iot2040_register_gpio(struct pci_dev *pcidev,
- 	writeb(IOT2040_UARTS_ENABLE, p + UART_EXAR_MPIOLVL_15_8);
- 	writeb(IOT2040_UARTS_GPIO_HI_MODE, p + UART_EXAR_MPIOSEL_15_8);
- 
--	port->port.private_data =
--		__xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
-+	priv->gpio = __xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
- 
- 	return 0;
- }
-@@ -632,7 +633,7 @@ pci_xr17v35x_setup(struct exar8250 *priv, struct pci_dev *pcidev,
- 		/* Setup Multipurpose Input/Output pins. */
- 		setup_gpio(pcidev, p);
- 
--		ret = platform->register_gpio(pcidev, port);
-+		ret = platform->register_gpio(priv, pcidev, port);
+@@ -5993,7 +5994,12 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 		conn_params.req_ie_len = conn_info->req_ie_len;
+ 		conn_params.resp_ie = conn_info->resp_ie;
+ 		conn_params.resp_ie_len = conn_info->resp_ie_len;
++		authorized = completed &&
++			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
++			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK);
+ 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
++		if (authorized)
++			cfg80211_port_authorized(ndev, profile->bssid, GFP_KERNEL);
+ 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
+ 			  completed ? "succeeded" : "failed");
  	}
- 
- 	return ret;
-@@ -642,9 +643,8 @@ static void pci_xr17v35x_exit(struct pci_dev *pcidev)
- {
- 	const struct exar8250_platform *platform = exar_get_platform();
- 	struct exar8250 *priv = pci_get_drvdata(pcidev);
--	struct uart_8250_port *port = serial8250_get_port(priv->line[0]);
- 
--	platform->unregister_gpio(port);
-+	platform->unregister_gpio(priv);
- }
- 
- static inline void exar_misc_clear(struct exar8250 *priv)
 -- 
 2.53.0
 
