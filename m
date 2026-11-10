@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342067;
-	b=UWLHk2Cq6Ulv755QR4pt+OODry8/r1haBBOVK0XlJSXt2SiEkYWas9cTE21w2+O+G+Rv
-	 EHe5DHRa2l8Oy/YDQWIxktj+hhOlToZgGSEHTBOUPTbO6cxabKxq5tM8DJoXB2AlskaD/
-	 IyQ5IlUCCh+77OTnRlUV772GPgsgjqdPmwuBqHoGOVfL0sNR/1G9zcNQp53a7z7xWt1Q6
-	 JpQW2ltKKYKB3JC3L3a5NED1OnCAqc5AvR7YRiPcPuUOOF79kdRLUXdihLQVJWsCPIh7C
-	 YL3LH0dnRTc5zh4rgMgkuNcC4ecnt75onJY1EIfBDb1LZ7+7OLWJVNUvW6pTjovvwtA==
+	t=1794342068;
+	b=jtgnXxKoAG5yARFcKJkJKhP5EI1xp+ttVkyG13cTv/dIJaRyUrR+5tYRSEiLJstIgGot
+	 00ugTKztrfNWGaV3qhTWCI4lFvou4eadQ9Kq21Msta0MO6EWP0kcWGSXrjNQEjwPpAML5
+	 4ThU9/OA1wIdvrC4PlvErqCpolZCc7/7U5GlK8DN6/FNX7h2FGewKFIJlgGU/xzZHj9Sm
+	 64663/kjbPzT9gfg/6mP2Y89VyjZq+tns7Duw5LcqONw+lK5JN8B0qRl7YInGvXidFt3X
+	 h5jgW6yMtnsboKnuYCOobvt98IxnKLM/DKNKE9D4Ckayz1GPLVMkz/QoI5dvT3oO1OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342068;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OnSG3k2hqxkxZB3IevfH7sBqErCAgQcjtQFeoWNFTTo=;
-	b=S/NoHmBk/dxGnoa60MQ3Lni/bRfA5FwkFfr+qwC0DK+1nn0PX8MJWBiI58fsJWvf350b
-	 InY1EvDwxKj7wS7dCUyxFUxfS1Coxv71vHqa+zcVINzttjjbjKROuBOJU7MQo1aBJSKSx
-	 YWTP1fjhrOc+G549KiMl884IRyV5go7ElHZysAoF6V1ZJVtrNeLkQ6JYBpnPFyI1EbLYy
-	 H9nRSEvXlbs2YVpWK0kYaYzMjBomgFrsgn4If4ASZGFIHjkF5tZ/y63MV33u69g51qYwV
-	 SkLJFhIGYhU3qNDyiXPWTZOKTQoNaH2QoOiB323uIPGk+uqLqG6TvE98W9V3poWfnJQ==
+	bh=norbfPPpR7IFMld/Kjt0j6uXDOLDqJHuA6BIj0crn+U=;
+	b=0bqASzoXsSmOIZaScg2omd73iDBaq643a12hLESCG7LEEwDcxPdav3KqqPjvNy2+J9Ng
+	 yGq/toO9A+HZz3yGqFjtxgj4h4oTWFLixiqmCuGZhHsGJxKXysEFNdS0+i0ZuvtPuuK43
+	 tpD20wqtBVTcwhA9MrpHx6+7VgxOyyA9Ag6Jd/AbQgXfVSSEz3RhOBr8WzohPLwPcluKL
+	 qp7rXgcne0cXgsphySSpGSjSzMEVOxRE6+sNC1SOAKGnOgIIctytTMzdCb+Zmxg1mBqHN
+	 Dmn6PWrQp8IayxT8Uu51jZSws6nUQ7NGU+Ox/jdXxuyCvTRfXpddqYhPrbrQswNpkvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9rYHFmX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="C4/Ub8id";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5232B606AE07
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D43E606AE0A
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:21:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9rYHFmX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678AF1F008BF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4/Ub8id
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09921F00900;
 	Tue, 10 Nov 2026 20:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794342066;
-	bh=OnSG3k2hqxkxZB3IevfH7sBqErCAgQcjtQFeoWNFTTo=;
+	s=k20260515; t=1794342067;
+	bh=norbfPPpR7IFMld/Kjt0j6uXDOLDqJHuA6BIj0crn+U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i9rYHFmXQ2QuOT1w/dPIP25J7vvQwyZ6iIgYdKz2hKB0mVgRB63uf/Wi7ahu/LuAZ
-	 B5ZGcOjO4+TR5TuC0oDjUfJ2NWzx63lNDrcdCgeEaqVJ/byIcFtUxANXeBNPCNOWt1
-	 b4Z7mXP7oKKxZE3Ua2votos4DSIcmiJcWHJCa1zWeEzoTxamtnwHTw3zgsZUjea7vg
-	 22IpzusVi4MCI55nMXsWmFwJ3ZHX03rQRS1hF9TnMdnR2GR7622XgsvFIU1/fp14y0
-	 U4/RVJ8s2TUnQ85Zt3hFeU49pS+7s3FVzrzD/05a/9xWZzfUjbhHB7DuR6gefQm5k0
-	 7+NGyaiNr+YMg==
+	b=C4/Ub8idfeKUx3Yiw/j4g4D9BmBAZy5WerajZ1ePhImCH1KteyWfr7CGBuNCZGVZT
+	 dEskWAD78bEXX0eITl38eT6tZJSF73lbK2ruxqrZP3qQM0ODS/ARNDxKx9tXIIDvxd
+	 93zoPmbONSEgc9iuf/2lYLwfOp+3KTzIpNY349dSGCICHGjMtdRjq4TbRrecDEXiaD
+	 irWDYBjbMkIBri0bso0Aljp6/zXP4/joNmhIKb1z/DY118OiT7yIRw5ndmfbLmv+QN
+	 smxWE1A0nOU2vPjG2FlRvfVnpXbd3GGiEHovEiRNH6liwKU8lkXc0giVLSTkun/u2l
+	 uz25dchMvSI6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
+	Dragan Simic <dsimic@manjaro.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] serial: 8250_exar: store the GPIO platform device in struct exar8250
-Date: Tue, 10 Nov 2026 15:21:02 -0500
-Message-ID: <20261110202051.3754797-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
+Date: Tue, 10 Nov 2026 15:21:05 -0500
+Message-ID: <20261110202039.3563960-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110202051.3754797-1-sashal@kernel.org>
-References: <20261107053424-failed-6.6-33d337816e00@kernel.org>
- <20261110202051.3754797-1-sashal@kernel.org>
+In-Reply-To: <20261107060530-failed-5.15-84d08ff902f1@kernel.org>
+References: <20261107060530-failed-5.15-84d08ff902f1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,148 +64,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-[ Upstream commit 33d337816e00994daaf670243186d9e537ee090d ]
+[ Upstream commit 84d08ff902f1ec01177fef1a21a38934927f5aee ]
 
-The GPIO platform device is registered via platform->register_gpio()
-when port 0 is being set up. It is stored to port->port.private_data of
-the on-stack uart template (and from there it is copied into every
-registered port). pci_xr17v35x_exit() then fetches it back by
-serial8250_get_port(priv->line[0]).
+Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
+speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
+Rockchip PCIe header.
 
-But port 0 does not have to exist at that point. If
-serial8250_register_8250_port() fails for port 0, priv->line[0] holds a
-negative error code. The probe still succeeds (it only breaks the loop),
-so on unbind, priv->line[0] (a negative value) is passed to
-serial8250_get_port(). The GPIO device is never unregistered and a
-bogus port is accessed.
+The reason is that Shawn Lin from Rockchip has reiterated that there may be
+danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
 
-The same problem would also occur after the planned conversion of
-serial8250_register_8250_port() to return a uart port instead of a
-line. As Sashiko pointed out in that case:
-  If board->setup() fails for the first port (i=0) in exar_pci_probe(),
-  priv->uport[0] remains NULL. If serial8250_register_8250_port() fails,
-  it returns an ERR_PTR. In either case, the loop breaks and probe
-  returns success. When the device is later unbound,
-  pci_xr17v35x_exit() unconditionally passes priv->uport[0] to
-  platform->unregister_gpio(), which will dereference it without
-  checking for validity.
+While Rockchip has done so informally without issuing a proper errata, and
+the particulars are thus unknown, this may cause data loss or worse.
 
-The GPIO device belongs to the PCI device, not to any particular port.
-So store it in a new struct exar8250::gpio member. Pass priv to both
-->register_gpio() and ->unregister_gpio(), so that pci_xr17v35x_exit()
-does not need to look up any port at all.
+This change is corroborated by RK3399 official datasheet [1], which states
+maximum link speed for this platform is 2.5 GT/s.
 
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Fixes: d0aeaa83f0b0 ("serial: exar: split out the exar code from 8250_pci")
-Link: https://lore.kernel.org/all/sashiko-outbox-166269@kernel.org/
-Assisted-by: LLM
+[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
+
+Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
+Reported-by: Dragan Simic <dsimic@manjaro.org>
+Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
+Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
+Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Dragan Simic <dsimic@manjaro.org>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/03a8b5c71614fc672fef1e55c083bda6c73b5bf3.1791873876.git.jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
+[ sashal: adapted header changes to existing HIWORD_UPDATE helpers while retaining PCIE_LINK_IS_GEN2 for the host driver ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/8250/8250_exar.c | 36 ++++++++++++++---------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
+ drivers/pci/controller/pcie-rockchip.h |  1 -
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
-index aa72d252c6bcb..c15cf3cc87144 100644
---- a/drivers/tty/serial/8250/8250_exar.c
-+++ b/drivers/tty/serial/8250/8250_exar.c
-@@ -169,8 +169,9 @@ struct exar8250_platform {
- 	int (*rs485_config)(struct uart_port *port, struct ktermios *termios,
- 			    struct serial_rs485 *rs485);
- 	const struct serial_rs485 *rs485_supported;
--	int (*register_gpio)(struct pci_dev *pcidev, struct uart_8250_port *port);
--	void (*unregister_gpio)(struct uart_8250_port *port);
-+	int (*register_gpio)(struct exar8250 *priv, struct pci_dev *pcidev,
-+			     struct uart_8250_port *port);
-+	void (*unregister_gpio)(struct exar8250 *priv);
- };
- 
- /**
-@@ -194,6 +195,7 @@ struct exar8250 {
- 	unsigned int		nr;
- 	struct exar8250_board	*board;
- 	void __iomem		*virt;
-+	struct platform_device	*gpio;
- 	int			line[];
- };
- 
-@@ -452,22 +454,21 @@ static const struct software_node exar_gpio_node = {
- 	.properties = exar_gpio_properties,
- };
- 
--static int xr17v35x_register_gpio(struct pci_dev *pcidev, struct uart_8250_port *port)
-+static int xr17v35x_register_gpio(struct exar8250 *priv, struct pci_dev *pcidev,
-+				  struct uart_8250_port *port)
- {
- 	if (pcidev->vendor == PCI_VENDOR_ID_EXAR)
--		port->port.private_data =
--			__xr17v35x_register_gpio(pcidev, &exar_gpio_node);
-+		priv->gpio = __xr17v35x_register_gpio(pcidev, &exar_gpio_node);
- 
- 	return 0;
- }
- 
--static void xr17v35x_unregister_gpio(struct uart_8250_port *port)
-+static void xr17v35x_unregister_gpio(struct exar8250 *priv)
- {
--	if (!port->port.private_data)
--		return;
--
--	__xr17v35x_unregister_gpio(port->port.private_data);
--	port->port.private_data = NULL;
-+	if (priv->gpio) {
-+		__xr17v35x_unregister_gpio(priv->gpio);
-+		priv->gpio = NULL;
-+	}
- }
- 
- static int generic_rs485_config(struct uart_port *port, struct ktermios *termios,
-@@ -550,8 +551,9 @@ static const struct software_node iot2040_gpio_node = {
- 	.properties = iot2040_gpio_properties,
- };
- 
--static int iot2040_register_gpio(struct pci_dev *pcidev,
--			      struct uart_8250_port *port)
-+static int iot2040_register_gpio(struct exar8250 *priv,
-+				 struct pci_dev *pcidev,
-+				 struct uart_8250_port *port)
- {
- 	u8 __iomem *p = port->port.membase;
- 
-@@ -560,8 +562,7 @@ static int iot2040_register_gpio(struct pci_dev *pcidev,
- 	writeb(IOT2040_UARTS_ENABLE, p + UART_EXAR_MPIOLVL_15_8);
- 	writeb(IOT2040_UARTS_GPIO_HI_MODE, p + UART_EXAR_MPIOSEL_15_8);
- 
--	port->port.private_data =
--		__xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
-+	priv->gpio = __xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
- 
- 	return 0;
- }
-@@ -635,7 +636,7 @@ pci_xr17v35x_setup(struct exar8250 *priv, struct pci_dev *pcidev,
- 		/* Setup Multipurpose Input/Output pins. */
- 		setup_gpio(pcidev, p);
- 
--		ret = platform->register_gpio(pcidev, port);
-+		ret = platform->register_gpio(priv, pcidev, port);
+diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
+index bdce1ba7c1bc0..c1567a2ef1890 100644
+--- a/drivers/pci/controller/pcie-rockchip.c
++++ b/drivers/pci/controller/pcie-rockchip.c
+@@ -65,8 +65,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
  	}
  
- 	return ret;
-@@ -645,9 +646,8 @@ static void pci_xr17v35x_exit(struct pci_dev *pcidev)
- {
- 	const struct exar8250_platform *platform = exar_get_platform();
- 	struct exar8250 *priv = pci_get_drvdata(pcidev);
--	struct uart_8250_port *port = serial8250_get_port(priv->line[0]);
+ 	rockchip->link_gen = of_pci_get_max_link_speed(node);
+-	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
+-		rockchip->link_gen = 2;
++	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
++		rockchip->link_gen = 1;
++		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
++	}
  
--	platform->unregister_gpio(port);
-+	platform->unregister_gpio(priv);
- }
+ 	rockchip->core_rst = devm_reset_control_get_exclusive(dev, "core");
+ 	if (IS_ERR(rockchip->core_rst)) {
+@@ -236,12 +238,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
+ 		goto err_exit_phy;
+ 	}
  
- static inline void exar_misc_clear(struct exar8250 *priv)
+-	if (rockchip->link_gen == 2)
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
+-				    PCIE_CLIENT_CONFIG);
+-	else
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
+-				    PCIE_CLIENT_CONFIG);
++	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
++			    PCIE_CLIENT_CONFIG);
+ 
+ 	regs = PCIE_CLIENT_LINK_TRAIN_ENABLE | PCIE_CLIENT_ARI_ENABLE |
+ 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
+diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
+index 2dcf242d1c4c5..9f11b789cfad0 100644
+--- a/drivers/pci/controller/pcie-rockchip.h
++++ b/drivers/pci/controller/pcie-rockchip.h
+@@ -37,7 +37,6 @@
+ #define   PCIE_CLIENT_MODE_RC		  HIWORD_UPDATE_BIT(0x0040)
+ #define   PCIE_CLIENT_MODE_EP            HIWORD_UPDATE(0x0040, 0)
+ #define   PCIE_CLIENT_GEN_SEL_1		  HIWORD_UPDATE(0x0080, 0)
+-#define   PCIE_CLIENT_GEN_SEL_2		  HIWORD_UPDATE_BIT(0x0080)
+ #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
+ #define   PCIE_CLIENT_INT_IN_ASSERT		HIWORD_UPDATE_BIT(0x0002)
+ #define   PCIE_CLIENT_INT_IN_DEASSERT		HIWORD_UPDATE(0x0002, 0)
 -- 
 2.53.0
 
