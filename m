@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273523;
-	b=TWik54gKkDsp2lCgFyc/pyVOOBhLiQAlw8RRXJfZX/Y6SPFGxQCwIxiVokTvdXhpvmqr
-	 2jiwlxRM6JoYg5VrqPSf3o0mTnkqmCxUbOy4qOMCkWKVrSaMkKlN6sPvToLL0kFOylBKf
-	 E0C390lN2LNIWgbU0SboEHwTmQLWN+4Iy9cUlFcGMeDq3p14t/2NU76b1Dqugg3Fu/tHb
-	 4uzuIjX/Pml9WSjdVzql5Has2ph40hZHeANrr813qoivtkAfL/HZqpLPVvpIXfPHm08Tx
-	 oiuyJBsl9DFahbKALPTObDv7yKDTN6KZ240PMkxCTofV+Vn0hYqXWWbPmdEUMRwDKRQ==
+	t=1794273526;
+	b=eBDs9DwzrgrdoKPVWAFdUx08cI85IOtuEu54DGqnKcrFDgkJEZHNnN2PMQO71fkd14N6
+	 /ZxbQ+rQTRTYBz0VUpQROCIshdwmdy1sWWdzaWPGjCW0YUECZj1kSSWfBWPcoVrqMmv5i
+	 rgXvr/9R87Qdw2xXOxdIQVfOEevm2PHBui4trABKIYUcxfRuse7lodDzjWrJWahv2mz+M
+	 rdfHXMOZ4bO3ugz8rS9reFqaw7pGpDQb8aLSMZzvhQ+QLU8k+GR+NIiU/XxlUjBR/EFJc
+	 jZRjAvVmUcLVAhmqsEX824USJQV9I/gYObBi/+I3OWG5yntJKOB8Q30AvWbkSNtoBRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273526;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YRzLo2vim+x16bSb1Nxsgn4V8pnixkO7kQrri3QooTM=;
-	b=4HcJC+/QdyUX4WAoYKMzrE31aB39a/enW9FlWXxL7OegqdwvRzwDofWF5/HOc0MQM7J/
-	 vSTNLeA3LiqQ3YvRFfj1vE/377R5qEyHkJAwcbDDyDR5EhGqB7zQkTq6jo30o10ICrm/v
-	 xAmuDOQhoFSlpD0VlvPy4nPdWQoaGOCOrjAMDw5Y8nYg45jsfyKTEFnZgWWsz8hkFY8i5
-	 RetX1vrnjmx0a8FJ2aHCFelfHrHISC10fzdtUDQfse/80xTS+/2mblbepUfLUkmXa8bBc
-	 oobxSaDauyRmZGpiyVEWfqKDH4pQ0ESP+/axStzqwkQtBe2vX2CXizFUhGebcbScx1g==
+	bh=qADCaUCHUyrv6J6sKrklxk8CWquIiPmVq9H7+2pr340=;
+	b=E8lvqWuGXEX4zOtJZnJ0k0SlVlUuxWTHhX1ErcKmEvHjMQ+a5riiIYh6trfh9Z5vAyVD
+	 c5nzrpwnELJ5K8pdJrQqW3MvF8SpKa3/KiQX7Tvo5Hk//C9/B9P3/3WUasZ/BiYcNPzbx
+	 /Mm9BYu8hJk5MvxpzGki9/4zbri3lfJB9djeQQwPpkOddHvITEZJieodKORks0mzQS74T
+	 GYWcVGOltvkyKgW2Z3UbAqEjwLumEsgxvhdUIHUdjWSigc3c3isePZ3aKysfv5zQmnGUk
+	 kH8DERJRmuMRn1gEuBgXZ1imByPITWXsXuPaoal/vSlNpalGSVrQuiSI9oWwgGkpmKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oe2hF9UI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FCBiavPA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725D1606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041FF606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oe2hF9UI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B501F0089F;
-	Tue, 10 Nov 2026 01:18:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FCBiavPA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E631F0089F;
+	Tue, 10 Nov 2026 01:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273523;
-	bh=YRzLo2vim+x16bSb1Nxsgn4V8pnixkO7kQrri3QooTM=;
+	s=k20260515; t=1794273525;
+	bh=qADCaUCHUyrv6J6sKrklxk8CWquIiPmVq9H7+2pr340=;
 	h=From:To:Cc:Subject:Date;
-	b=oe2hF9UIjFjgi70g9MAZW7WEh6ap/fm6KhkYFgXaEoxEskBdkPmXcVJDgElEV2e81
-	 M7pDN3Zn4aZHESeYtE1Ernp/jCcZaVjXOH5n3ufK64Y3YYENX7ToZFMinAsZZfXyTo
-	 0Abe4BA5JZOMVlFfCoFxsg5hFMhvF+al4qkVR+9NKQS5XkUpSVlXrTc0VYsyxPbb49
-	 qxyR4oR3ST21vtFHUZJxTwsAtpG54HESdUHcZhE2Wgij6lUmJG1IeDW875VbnOl4Ln
-	 SMzqNrh04tu09LUI4wHO2zJGtNg9taesWL1YuI11Y6i/OvkS7S4gl6wh7fwoHxy7q9
-	 6rPUQcujSfHxg==
+	b=FCBiavPA/nqTxa4fZY8e5LatNOH3t5qzG0SYsHsK0KHvnrBFzqeRGe/RkyHCwGhVk
+	 HVUcMeWHKb4/NYGLx/sb2G1x0/go1IlMlL4zhLvoZMM+91FnzvITxYFHz0vFhZK60d
+	 9iO7MmgZ8/tcm5QFu3CS29JYHQBOipQIx0Ga4I5QbA9ZExie0doVNR/aVtIrMABgjX
+	 IlL3dLKivUt5jNSjO6Ax+tCOOkgW8OLwX/i+VnSQV2DCI0eMQYKI5ANAa3autCoE+G
+	 vjqiMefzY/lNZye5hnizVhoi2l3UWOuf276QUGgP6Vybw+NZUFP19P90FD0GiJh4SX
+	 U6ajaRdws85UQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
+To: david@kernel.org,
+	josef@toxicpanda.com,
 	ljs@kernel.org,
-	pfalcato@suse.de,
-	usama.anjum@arm.com,
-	david@kernel.org
+	xu.xin@linux.dev,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/memory: reject remote COW faults on PFN mappings" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:41 -0500
-Message-ID: <20261109201841-failed-6.1-8db6921cc07b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/madvise: fix data loss from MADV_FREE on a KSM page" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:44 -0500
+Message-ID: <20261109201844-failed-6.1-22d043c1da48@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,82 +71,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8db6921cc07b74197a3866d62ed262b68aeadcf3
+git cherry-pick -x 22d043c1da48d6c7274f9dd900714b6d58b7b9c6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201841-failed-6.1-8db6921cc07b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201844-failed-6.1-22d043c1da48@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8db6921cc07b74197a3866d62ed262b68aeadcf3 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:04 +0100
-Subject: [PATCH] mm/memory: reject remote COW faults on PFN mappings
+From 22d043c1da48d6c7274f9dd900714b6d58b7b9c6 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:40:03 +0100
+Subject: [PATCH] mm/madvise: fix data loss from MADV_FREE on a KSM page
 
-When handling a COW fault without a normal source page (PFN mappings),
-__wp_page_copy_user() copies from the faulting user address. For remote
-faults, this accesses the wrong address space, resulting in wrong data
-getting copied.
+MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
+folio remains in the stable tree and can gain new mappings without being
+dirtied again. Once marked lazyfree, reclaim can discard data that those
+mappings still need.
 
-For example, user_events updates an enable bit in the registering
-process's memory. If that memory needs to be faulted in,
-user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
-item. Placing the enable bit in a private PFN mapping can trigger this
-remote COW path.
+KSM always marks a folio dirty when converting it to a KSM folio in
+try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
+but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
+PG_swapbacked instead of discarding the folio. This also protects folios
+that were already lazyfree when KSM converted them.
 
-Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
-current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
+Skip KSM folios before clearing their dirty flag, checking under the
+folio lock to serialize with KSM conversion.
 
-The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
-the VM_UNPAGED logic"); likely, actual ways to get remote faults in
-there on COW PFN mappings appeared afterwards. But the fix is simple and
-straight forward.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
+Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Xu Xin <xu.xin@linux.dev>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-34-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/memory.c | 9 +++++++++
+ mm/madvise.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 5392bcb1d24d6..ae8d567bc6ba3 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -3761,6 +3761,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
- 		return 0;
- 	}
- 
-+	/*
-+	 * __copy_from_user_inatomic() only works as expected for local faults.
-+	 * Reject remote faults.
-+	 */
-+	if (unlikely(mm != current->mm))
-+		return -EFAULT;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 75b409e97dbf2..a16e3cb256b7b 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -756,6 +756,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
+ 			if (!folio_trylock(folio))
+ 				continue;
++			/*
++			 * KSM folios can gain new mappings at any time, so we must
++			 * not clear their dirty flag.
++			 */
++			if (folio_test_ksm(folio)) {
++				folio_unlock(folio);
++				continue;
++			}
 +
- 	/*
- 	 * If the source page was a PFN mapping, we don't have
- 	 * a "struct page" for it. We do a best-effort copy by
-@@ -4086,6 +4093,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 				folio_put(old_folio);
- 
- 			delayacct_wpcopy_end();
-+			if (err == -EFAULT)
-+				return VM_FAULT_SIGBUS;
- 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
- 		}
- 		kmsan_copy_page_meta(&new_folio->page, vmf->page);
+ 			/*
+ 			 * If we have a large folio at this point, we know it is
+ 			 * fully mapped so if its mapcount is the same as its
 -- 
 2.53.0
 
