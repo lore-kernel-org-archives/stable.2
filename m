@@ -1,70 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344375;
-	b=FtmssTRF5aHWNNJi2O+1zp1IouWlOw9DV1/bvoMJA52tEb639u9zlooxl45g0UqU8um+
-	 b+XD4jVQsCOmk3uwogG9T+dMmkGanc8pefENJ5V9WSOeMhPCDiqs3yTluOr2VzfEbwUww
-	 24CFOb/D4D5z4fzlIGF6pCrgHAJK/64ONrprngwoQL7qf/vJcKdzGqoDClPtZVy0YLLqM
-	 G8nTAq+pvYCAKL8xoMPevygd0xk68t4lgUwRpZ93a8eNEEkGgu4JpyDSWZeb6BYWxjqEl
-	 EKk6FK8X9p8RKL53+MUdQNXoaFqQydG3oDC+FuHm+wbMhcpVyekQscTE3E9nUdBSGUA==
+	t=1794344376;
+	b=zv4VWTm0CL743SpVezMURBr9zv2LlLnfEAvbY2SzhttRI3AQ8uKVj+pVd6JkPkYJBw8l
+	 BsRMkKpVVj4IAD/Dqhh10CRxRZsU3ScZqoEptpL02Y5kntiPuvRZGqibudY8MDyVDidPp
+	 34gYLZ7tz1ITlnCQrm/i6IhvSSQaRvebhL4neK0Gt0vDk6nohPSNVrkHKCqo2P4SN2fhe
+	 24ForEtkiMnyxryod3dQ3Gel4zytHygfriLMxcH+qVUDY7uFSI69pdDI73BS/TPFpzhwy
+	 RBC7vzjGduC3YIUa6YtnyyQMfSJDToiHq1FqMGLpYTo2IXQxVTmSihgMY3nJ8mPJDdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344375;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344376;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dW1tCDyKiV0sPPNs/wl091QtUhWD6tfCj4ANQBc4Yj0=;
-	b=a2eQeLqD71hRlROzWB2R4zzh25DdYGNYA8UIRgp/3iW5ILgb9kmbwU6aY4O26C2xrAGr
-	 1NF7wzQY/EOLnKYYOGduhdATcHO3PewBVBn+7DcSrofmvQqjMl+o66+Y8nGZvwQe4MA6g
-	 pkJIQGBJYd/TEoMCpqbbWJQnIlqzB7LyXMTphyaEOfgvbC0K2R5EO81i5YX5YqWMbo12C
-	 QNycqkW4KU1tFnyhsFAqGLGS3mV54Yp2Z7DAhojPHwL+Ach1S219lc/xgl/bs5MoXBzyF
-	 sdI1irou4lM4vKFSwIyNGXG7gq46u9dt07aabcnXdlKN17R/9516HT5jDIG9/imR5gQ==
+	bh=T/Z0jxuuX3n/2CXRqait/lGKghuiYRxR4K9hyRBnDKY=;
+	b=4xUv7bbpOHzJZa+d/cGldS80ULNm2I55N8eD3+BHKCHQ4tIcfDhyYklOlFlpYU4/gfc+
+	 1rNKvuOHf9Q/9eB2y8MEr6VsohKr4t1X0h0zOsfLcr306NaJR5czKTJ0J/kP/J1SWasDF
+	 V+rOvRO08Yw4olUxtSogCc8OQVbKJSTayjyFHUSjs6iFe+c38SnT/jZ1fYZgxKVnTT4wM
+	 QawN4XaFYfW9Kt02eAuKlKyPdnH5bKBZclE07idf4b7erQSH2PwMhvSkNRGg0nzA2jVzF
+	 MSOckfAJfdyd+Z4kxrz29LOUlvZRMucR5TBebsQ5l8OH+9Ih1kWe3qZhFV0GvN4z7xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGIKkNe5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RenRUrD6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FAD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3D7606A325
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGIKkNe5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E571F0089F;
-	Tue, 10 Nov 2026 20:59:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RenRUrD6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF511F008A7;
+	Tue, 10 Nov 2026 20:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794344375;
-	bh=dW1tCDyKiV0sPPNs/wl091QtUhWD6tfCj4ANQBc4Yj0=;
+	bh=T/Z0jxuuX3n/2CXRqait/lGKghuiYRxR4K9hyRBnDKY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WGIKkNe5mUYfyy9gO1iY66qsKRqlKGtlfhMHIm+J2wT4xPuX432d5WcuzxUh4KxaC
-	 /6f/MpiqrM5aI8FficU7yLk9vEzgYVrSf2w5CW2Jhp0GOOdN4vNfvNmsj4BJdAdgUh
-	 iGVfoT14R/VXnIqtpluXTY2nonS3q+wm7SeUugBpIiR9idYLm0XkdayJ62SCdIizgs
-	 MZKEgIzZv+DIm79WTCI6YpEz/XURXs7OZg5POIZ+cv9kvSaHqIUBJ9LgPh9wH5Ahvd
-	 joITL0B9qa8Hqyq6ykMF2vU6jCUQPYMYPQCZApE+BpNKvxpdmM3NkMO9RA+xvr2ofO
-	 W72I6nXF5/Cqg==
+	b=RenRUrD6W3/ymRY4Giv1hX7GpXQjtlKNtIsNXIPYBJoKSJMfkh/nla6KBq/3y5MCX
+	 SSJrrynx4e/6KVTiBeF66cQE+hbjDOEnjql07HaRrHpG4bLVgTiIgARHEykUs4yged
+	 LybLgPARdcapqwTLrOusDYIesTc2XA0jH/novw5ci2blwzyY4S9Iph5KNCYIizR3+8
+	 gCXNEgmfAdsSj7AOVEXPay6wJk2pnrSbIc5vMHpsjJVwkc4jt8/u0x6KLYiA5UZUHw
+	 P3+8FGPX/qv2esGqkhRtZ1RPGRdcfnYO3Skj52bCbj9igJ6YF1sDTgD3Qr9RwsQnr8
+	 vs+Xr6xSwbupQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	peterz@infradead.org,
-	fvdl@google.com,
-	willy@infradead.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] mm/hugetlb_vmemmap: map the shared tail page writable" failed to apply to 6.18-stable tree
-Date: Tue, 10 Nov 2026 15:58:57 -0500
-Message-ID: <2026-11-10-1-daily-reply-0001-hugetlb-revert-6.18@kernel.org>
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: Re: [PATCH 6.18.y] can: replace ARPHRD_CAN type checks with can_get_ml_priv()
+Date: Tue, 10 Nov 2026 15:58:58 -0500
+Message-ID: <2026-11-10-1-daily-reply-0002-can-ml-priv@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avMJ1sVDviavKjQu@thinkstation>
-References: <avMJ1sVDviavKjQu@thinkstation>
+In-Reply-To: <20261110175714.791740-1-socketcan@hartkopp.net>
+References: <20261110175714.791740-1-socketcan@hartkopp.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,10 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> But 6.18.y has its sibling, 01b1d0ffb6f7 ("hugetlb: remove
-> VMEMMAP_SYNCHRONIZE_RCU"), picked up in 6.18.51 as a Stable-dep-of
+> can: replace ARPHRD_CAN type checks with can_get_ml_priv()
 
-Queued the revert for 6.18, thanks.
+Queued for 6.18, 6.12, 6.6, 6.1 and 5.15, thanks.
 
 -- 
 Thanks,
