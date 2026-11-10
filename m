@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274003;
-	b=dRz5SLPPx8Z/8463KmLN1sKD6tydnBkscqvR4NiXwgrKLgYe5uJPO0QQ0lnQg+eQXEM0
-	 MJ4Tt1Qih9wCg0W4YYKCfMgddaq+mdtx0mJQ3u2U4BjzzrYZQDj5BmpbLnlhzt8taiBqd
-	 n+nMVrdoUd6cFRc2JQlHQT338wZeB+VLy7FWx9biCTeXTHpQveaX5/SOPOGDaTcYQkR+5
-	 yemU3L0PUTKR3AUTetrhaSbjbTcq4a9ETyfELrK0Y/vCLRuvASakr1wvr7/ydfXtwQlER
-	 dUuzEXlVWynsMGJITNk+S3wBfUs9isrbjYSn0AZY/Qk414HYvobZxEyghZBjQ3oM4ng==
+	t=1794274005;
+	b=3aH2ISwu+nBcko7atiSZmzV/Y1iS0B2fSyR4b/Q1Y3Vb7i6osNMx0/q5pd4AouQHlxck
+	 eoE/et4DjQx51iPn2adjrO6722+ftNoYZDGaoiDAGDm0T0Pf5Y0R3wUCdn6ArOihle+Tj
+	 O/DwpAPwVjokgVbeaJMAADplHzpCU0Jd0/Ebkk/ELNosRy69qlUI2zQXMm3IWaYAV5A0e
+	 sbUwBiS0qyxrAHwdxubIC9DVkcj7y/OdOCtlehB6ZZ72oh+G4OeHvPe/LnKIz6Wh62kh/
+	 zJBIpVWEE7zDd74UwJV1EwQwVtoLSlJVg0JOk2iqyoAqsgdoJeYMlyjVxvM6NiVXHBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ulDGRdlEhRhdVf5P9BUE+whNbCjWFMzoanwf9zNWFqg=;
-	b=LY0i20Q0/eHIiDbuJzyGVVPAyMaKlYf7HyvrWV43IEkFLBtMosoZ4R5wD54301SHMlFw
-	 hnfFEq0FaOuC1Zs/6vdMMzasVArpTrCyNZZyjaH9Xu6027J0NGgWF8A0716UxDmQT99En
-	 PqegOah0xh1Ny5JJXQ5r6vR5W5iHlNVs9sKQTmnl/xEaT6EKeTciLQTI5SxYk6xKY5jay
-	 AMFgTgK6YCn8io1fOA//plg+f/spNZNJk3Dxjfg2mb4aZShEY5hQ48/ilYyDeugEUSuf2
-	 GmOP7HIYnvriXMu3k8IV03EjnZv+qBlf9Yqn+TQFbvYvtMpfSxnqaiweoRoZc6TtKCA==
+	bh=F/HI6SxyJjV0EyqCjqLA+0Kc37emhG3cY5/6IjWK2Iw=;
+	b=hSWZqEnUfdUErc8z7yPmdurDMsmlFRpBUgsQefUcwcJvdWiEq8bykdJUvKHp3JRhWpsb
+	 VrnCPebGRvgI8N3T3Lf/1kcqnXCtlwfWTqEejTt4VlFYiPoPHTrnbf8j7cUIqVi4IGZLE
+	 gcoDVgjxDnFdZpJIb+Wl/Y4oTIJgz0KfYw+cqof5/TNpGkOB/QFwYNpqNzZP7vJ53ilTb
+	 I3cmGPjxgMzWYeVWicAH9rrFav9d0Qn9R1stJeCwMXr/2zwzVRHNN0MBVUL75fsr6UZUV
+	 EthUMX6COg+2ac6gecl5ibogt4eaX/Pvn6zZeaxzG3Y3qn2s+7ZVK4Vkza6pP5lSENA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oXGNeM/k";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvsllEum;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB415606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA78606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXGNeM/k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2834D1F0089F;
-	Tue, 10 Nov 2026 01:26:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvsllEum
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D00B1F0089F;
+	Tue, 10 Nov 2026 01:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274002;
-	bh=ulDGRdlEhRhdVf5P9BUE+whNbCjWFMzoanwf9zNWFqg=;
+	s=k20260515; t=1794274005;
+	bh=F/HI6SxyJjV0EyqCjqLA+0Kc37emhG3cY5/6IjWK2Iw=;
 	h=From:To:Cc:Subject:Date;
-	b=oXGNeM/k9jCUkJCAwzyYvqmlmHXtXoQdfwUryAZxbKxeoL6Sni1AVLT92Jt0yHzB+
-	 4qjjKsB04sIug9ihEAK2C8CaMfqAPfhK72gfWJCGaA574sI5MiV+qN8ul4Is9RIm08
-	 KmfZPJSyHk/eX5ypbpHwwDOxeK08DNLgQ1vdsogWoLBoMrGYOiYQDj8C/AfWItSaP+
-	 lhHI9lX0bxHCySzCcvcNH/GCdPLv5gEUzlQ6cPX/i0dXULD+Z+Mmryzf/3x0WP7Meo
-	 F+RT+AzMRTsedJedCYab9j68Lndu5ysPc2ZcfqxEQZfQJQ1veD7agT/fcUwxh3/xXX
-	 pejGDDYKz7WjQ==
+	b=WvsllEums1nF3zNyd22rF2kUVqC5hbhY65sIe0NyGwXg5sFRmsPLJHrcbqaKj+6jM
+	 JS7YBPVZe7Qzj3VXqFdE4QLdZ9s27bWsJWtXG87WfO6Ge/CTER06xCWlTCLED/hBnw
+	 jPb3khX3CQniulJqaqTGoVrRZDWoNCppMBEPChRz6OLF2TzB2LY0phmyCSAiPObkLb
+	 Swy2MUsiNUEValhDOLr2WNWzCCCnefJIQK8I9TjrqlrNiSa/EBVi2J4CK0dQTyC/Z6
+	 2MuMuCqYwQDGwPrTZuUVmIoqHHfYhexBSqm0RnE1YV2JmsneynrKIqnLbRoJ6/sad8
+	 cyfKkogpWeM1Q==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	hch@lst.de,
-	kbusch@kernel.org
+To: seanjc@google.com,
+	dwmw2@infradead.org,
+	fane@google.com,
+	pbonzini@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme: unregister when pr_register() is given a zero new key" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:41 -0500
-Message-ID: <20261109202641-failed-5.10-a9d431124fb2@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: x86: Conditionally resched when restarting REP string emulation" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:43 -0500
+Message-ID: <20261109202643-failed-5.10-ae85ac25eb67@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,60 +70,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x a9d431124fb2e58215daf0299d6fcf47bbc2d6b1
+git cherry-pick -x ae85ac25eb671d174811cc3101549448671fd505
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202641-failed-5.10-a9d431124fb2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202643-failed-5.10-ae85ac25eb67@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 29 Oct 2026 09:51:24 +0900
-Subject: [PATCH] nvme: unregister when pr_register() is given a zero new key
+From ae85ac25eb671d174811cc3101549448671fd505 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Wed, 28 Oct 2026 10:36:38 -0700
+Subject: [PATCH] KVM: x86: Conditionally resched when restarting REP string
+ emulation
 
-The block layer PR API defines a zero new_key in pr_register() as
-unregistering old_key. nvme_pr_register() sends Replace Reservation
-Key with a zero NRKEY instead. The host stays registered with key 0,
-and its next registration with another key fails with Reservation
-Conflict.
+When restarting emulation, e.g. of a REP-prefixed string instruction,
+conditionally reschedule as emulating guest writes can be deceptively slow
+and expensive, e.g. when shadow paging is in use and each write can trigger
+write tracking.
 
-The pNFS SCSI layout client unregisters this way at umount. A later
-mount cannot register and sends all I/O through the metadata server.
+In a perfect world, restarting emulation (or not) would be less arbitrary,
+e.g. would honor not only host events (NEED_RESCHED, signals, etc.) but
+also guest events (e.g. by checking kvm_vcpu_has_events()).  Unfortunately,
+as pointed out by Sashiko, pio_in_emulated()'s read-ahead logic is baked
+into the restart logic, as KVM relies on restarting emulation to drain the
+cache and avoid duplicate reads from the I/O port.  I.e. re-entering the
+guest on kvm_vcpu_has_events() or __xfer_to_guest_mode_work_pending() would
+introduce architecturally-incorrect, guest-visible changes.
 
-Send Unregister Reservation Key when new_key is zero.
-
-Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
+Fixes: 5cd21917da24 ("KVM: x86 emulator: restart string instruction without going back to a guest.")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Suggested-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261028173638.1765329-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- drivers/nvme/host/pr.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/x86/kvm/x86.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
-index fe7dbe2648158..d8b6ac4d83bb9 100644
---- a/drivers/nvme/host/pr.c
-+++ b/drivers/nvme/host/pr.c
-@@ -128,8 +128,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old_key, u64 new_key,
- 	data.crkey = cpu_to_le64(old_key);
- 	data.nrkey = cpu_to_le64(new_key);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 32563a91fba99..c4a06214cde69 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6558,10 +6558,12 @@ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 	} else if (vcpu->arch.complete_userspace_io) {
+ 		writeback = false;
+ 		r = 0;
+-	} else if (r == EMULATION_RESTART)
++	} else if (r == EMULATION_RESTART) {
++		cond_resched();
+ 		goto restart;
+-	else
++	} else {
+ 		r = 1;
++	}
  
--	cdw10 = old_key ? NVME_PR_REGISTER_ACT_REPLACE :
--		NVME_PR_REGISTER_ACT_REG;
-+	if (!new_key)
-+		cdw10 = NVME_PR_REGISTER_ACT_UNREG;
-+	else if (old_key)
-+		cdw10 = NVME_PR_REGISTER_ACT_REPLACE;
-+	else
-+		cdw10 = NVME_PR_REGISTER_ACT_REG;
- 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? NVME_PR_IGNORE_KEY : 0;
- 	cdw10 |= NVME_PR_CPTPL_PERSIST;
- 
+ writeback:
+ 	if (writeback) {
 -- 
 2.53.0
 
