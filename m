@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333991;
-	b=GXHEEJbNIQfgfpe3D8TfVuqicN9BEAatO+DRE7wOifJoUJCup/SBZYI10kY9kK5KSfI6
-	 FwueyceFTCuQcsy7RXYNQMJwMt3EF8tDRMqZY5oLtEDjYTf4Gwx1z8wvH3mUaR3GBUg2A
-	 vZz6PFwB/pq1nbWlpBq47Zcu7b8Z0aHZ+UIKU5ihk3+T3hHJSGzKwBqAlojjPQFslyLKb
-	 QsiMVqHE43w8gphJUSZMCv3lcQ9xOHVILa8kyAOLuQiAH0ZORfccvT54Sibryym+yewUL
-	 QYPE63aM7eksnxNFvmZ9jNoTR+VHRUmYctJQAfDBfxuX7Ml5E0vur9TCIFHl3E4rzTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333991;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=12PTd/6Pp2GXmH1FksLbbJ56lhHXgLf+F7jZdkRnKy0=;
-	b=vvLVPBZLoYOCb8IafaiablvdccRCR7u11D3buNbh0/MbwSDvXuaNKuCjmNx18+lBqM9q
-	 fL46UfYBy+mH47+fboIC17shCwIod4xZlUfQX4TOAjnIrLelANaSDclzjCB3gBctLoyz7
-	 wGI/zovWTRdCPbZhBuvm1TGMbhjhsj/lDpDRGUBu9vac6n2ETDFHfLJ5RzNCQOpn+dX+8
-	 aUXgdYwy+kJR0qnvEwXzp3fuH0UYbsJHgWtByyjBGrW6aMR7F3OuCG3sVLpJECEgOC7yl
-	 d3kaZKER7oiuti7SUNIUwZfeIJuovQiHJTBdW76IxaQanL91N58LB8mqyjovKt9vtVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nngIBkap;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794333998;
+	b=M3YNNNYstYz7k9xf+C/XPPOHM8BZwAwI58NpVXv1avjCg9uGl5aQ/lq7z0m3r8llQVMw
+	 x/00iKqXz8Q8hbKbAnt0DS6zCvDyCLSWWak/94I0cs1vEvltWOcjHz9fBvr9qlC/y6yiZ
+	 CtrUMkJHUjqgWYYuzCtxhr33eeAnc6gC3oWYsBC3KKLuyPk5G77P5O0V+rH/peVcKVewD
+	 PgPUPDptQt1C0HUMqcSbC96ZNZYQtEEOHhyWNaeFKgYjy4n9J+IWM6gDNCF2P+BiAnGx/
+	 9478rBUicUH0mzbCyvXMsqw9F8PMojTxtlT1YkxnqMtd4hZIQRZeldu23obel74X0BA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333998;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=GzOxYTq7EHxh8VUxt5+RHjpcCv/SzSEIP5xLxXIbEDA=;
+	b=GjNrxLO0FNGvuqqo3NQgaYGIyfYO/2NXxBb2WpL0v+KwLItxNV8LGW6yprjV+T/xeaTj
+	 hWNzdzMxkQLLBpojXq13xuLaIdRr5f8ZVPo5pMfguxMAzRxBFjnRM3npfmkaYgpD9zDGR
+	 xW9LOLwB6ksxv8A/N3UvayZ2twzjf2ecFwL+UsMhqADMT0g9VIHy0igrPMg4qYgnSQs1m
+	 P4K1RjhPMNtGlZFMfZHoo20RxB7djeJjmSzBvAexcHnAqwUG4uXd56tXboq3t1kJptkEP
+	 rzo9E1jxWkNzSeQCPP5+BTe5qPw1mG9ZjzzeLwMPHGzHd5utIIpRUGBuQtv560JZj/A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zx2c4.com;
+	spf=pass smtp.mailfrom=zx2c4.com;
+	dkim=pass header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20261015.g header.b=a0rPiWb6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C15A60A261F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:06:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A23D606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A23D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zx2c4.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zx2c4.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nngIBkap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9884A1F008A3;
-	Tue, 10 Nov 2026 18:06:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333991;
-	bh=12PTd/6Pp2GXmH1FksLbbJ56lhHXgLf+F7jZdkRnKy0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nngIBkapmiGk1P+BuKFDmh853ZISBiHoutLarImRn6bbtlvEYY7bAJU+3+SK7EIYe
-	 cy0dHgWRMS6oAXDaK98dG7MprZF2LEZQ46PxOH70NE6XMYOwAnePBO99FIYKIiNK/A
-	 xT9j29e/txFRppiyW5+VKuAw8EgEMm+sZWh89bj8+FkxEUfz396nVGBGwdJI6JByBs
-	 Wi6ikhWmN6/WKcirdgLBl84xT7DNOS0sbd5ay+AUOD3fTPcOSThCgalUVfcE9os+8g
-	 1VkJE3eHYFCpx2xf83ij0RktxZYFLE/ccQulZ3m/SQ1R01KcpbcClYq1Kn2i78wtAJ
-	 4jwFCKE37D7cg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] f2fs: disallow mmap write and data-modifying fallocate on atomic files
-Date: Tue, 10 Nov 2026 13:06:28 -0500
-Message-ID: <20261110180356.3017239-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054834-failed-6.1-06dfe4a7eb69@kernel.org>
-References: <20261107054834-failed-6.1-06dfe4a7eb69@kernel.org>
+	dkim=pass (2048-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20261015.g header.b=a0rPiWb6
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c411e139259so119519966b.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:06:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794333996; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GUfnmDzhasJvXIP1tIm2kCcOYc9zPa/dlXJ+h6Z3LAaLjYi4Hx+u0hE3N3Kwx5vB0C
+         79rF/lb0NyRccNEhTQ7zUWmjoMjzR4UPGTP6aryEjx9BH3PbnwObRwu06daKDeKGWy7I
+         Nryik7Dd0ek8241DcVC3t0MDMiINvldAURKIio46EvV5BImM4EDTKDXdpisdi+i2UdpF
+         KrCKJms3RmvLPSVnGD+H3EeutI2lu0ESaoRDr0jFmDbOm8topH3wSkx5VzLlkwDJCoYY
+         t6e2o8LYgJ3mfxYYrKOR+kO0jB6Bg9+8Gqobl5JbVKrTZ5gx8XSEXrBpt9fxTXtuYyxs
+         Vi+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=GzOxYTq7EHxh8VUxt5+RHjpcCv/SzSEIP5xLxXIbEDA=;
+        fh=X6FHuVfMqtAPhqN+6h3kiZzSBIe+d3R2BtR1SBZGbYE=;
+        b=RydcmyLMPlB97/wAo4slPECUVBJf4MS93ieXFx/hJhdsuMc/XpczReLKyq6iZ9EZ8D
+         rG0iQLCPhedAmQiJ8RVcflKmnqT9VYzTiVKiGbdzfbYLHOGnX5NGdZKh+oARnt/rCt8U
+         e9omFStk8SZtU5ZIdw/9gG7p4whL7tAFpdOMwh0SqRMfRqrCnlIIxTw+z1T81wGP5enG
+         82Aysht2QS202bvJ0AQCrCxRF/Cb6KtEkC3V42f4xPfnMjKtTVHp4dkYzqOYFqjX6j1s
+         1dwxuc0EBtCA/0xRf59z+r5NfBiLFmFZN9eA13gmJ+JLzfvhgbz0KvsN5WjL4fmZfqNO
+         CZmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=zx2c4.com; s=20261015.g; t=1794333996; x=1794938796; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GzOxYTq7EHxh8VUxt5+RHjpcCv/SzSEIP5xLxXIbEDA=;
+        b=a0rPiWb66uhhooRgzJb6oHoMppMYrookK7xJNcUPFqJzEdVi2grND7+FILrWsx3Tss
+         DzH9+GbDDHk/x+Xs0CZnsU7ZqKbULUo8QQktzl0lJMGks0WReik5niHTV3KMUB2O3Sfy
+         D0TBp9ZRWvTT4L/KdmoJXszwet4OBZFoF6w215gtaA+OvCgSms2uFRyFsjFUC8eraVVb
+         rl+FoCcvVkWgCk7kWPlg+fID0tE9x9FZYeRYue2e/R6S5y8NmHODTwia47wNVYIR9JYM
+         kKlylL8qVRUwEftxMj692gnTfUkAZbmXB8EFnYbgH9UbFsILIBp4ueE0excjSF9wT7Jz
+         lPsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794333996; x=1794938796;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GzOxYTq7EHxh8VUxt5+RHjpcCv/SzSEIP5xLxXIbEDA=;
+        b=xNHG2apn4H4kRgiZh6linocoQNp1P55LKn5TMwyBD1qVNKA6wrxu2eP4U2+SJ4iJyP
+         Cze0VXL7lsw9gh37rWBCUrV8Ogmk8sYA7VAwdYOp+yCCX0r13S7Xd7y2yr6SfU6JonAR
+         j8RPURY7j6c+k8WTUlNYAItI6p7vDBYLS15EEQuy6kozlcHdTr5VqNO7zBEaJCTrEgjH
+         6Pu+KVrkqQBd7cwWVUng8XlioxGSkMQ5EO8H5DHkfdxRWp6N9KLPDsMK6+HxwoD0vJRF
+         D7k141KPXoBCGq7Ps5LgC5G3/M/mskzGtavZjk9DHUTH6m8IR2RPi70oTERAj1wLrP7G
+         Zt0w==
+X-Forwarded-Encrypted: i=1; AL+hErHjBJ+OmgvMkp9r8MGe/Wfp80aU2LSPvzTPI+qLXzZuAHbqJ69z2a8SP51Be7o+ljLJBpzVo7k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fS6qYYvPT6u1+BDKs/LBh4FZHeAF0+9cWYVoRv50wm1H+rrgr
+	dvpobdfOxJHA28SprsFbCVhgqhz/QDKb4HyIfcJc0Kg+rKcyw/r8IzW/otHSnryhoEp+6I8f1Ta
+	ra7RilWhfC95ka2iIHy4F6cNKOHzNIMCiTwZxGPTpsWYYcS8qpxVNd3iUqZk=
+X-Gm-Gg: AYBFou1atBDySRxWxHf5pYH0r8o6XqZ0rIy3BjnmYwmTTectyxf1Gf7y2WmJ5Rsdmc1
+	nIhS2W5BQ7nE53j86rusPPfkx3G45kq22kLDP39k/YL2tvV+plyGHeAOX2mdO13r0g7hsxiHi48
+	LZ08s9duBeNDHzsEeEwOjJITQV2rNNRgBql9lKsh/L41Z2rF/dbIvtfegxFF9FL+2JZLQe8l9pN
+	kVPpowdg/+tj6+xYhUqaWbrCyVZCTEqPb/gVVcivZVKBHqYEhn/P7xXtXoTw6pj9w/RrzHAQOwd
+	mCOozFyWIBvpVW+9zfXu1Sen7HJOh0hGs/RCRkcakZ9l1ooFtFg71vYPo0fOuTZFEIhPQLbKoXd
+	tNKYUe7KtYWcTfwCzE9ImozczCSV6SAadCtWkZYHSxdjsTPuzSIi7Y715IrCAfre8uw0FipS82I
+	l8BN9YKD1pzku7nFBtRj0hCLNxkVtIwDLYM56FDp9TepIhej5pycHyYlzjjE8DD1N+MBfdzqjse
+	2lF
+X-Received: by 2002:a17:906:1248:b0:c50:4a70:b7f5 with SMTP id
+ a640c23a62f3a-c504a70c977mr195279766b.17.1794333995965; Tue, 10 Nov 2026
+ 10:06:35 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,126 +105,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105141006.95083-1-alex@badcode.im> <20261105141006.95083-2-alex@badcode.im>
+ <avNM9dfdW1uULJUf@zx2c4.com> <a979d36bb97608275f9f8884764afd41@badcode.im>
+In-Reply-To: <a979d36bb97608275f9f8884764afd41@badcode.im>
+From: "Jason A. Donenfeld" <jason@zx2c4.com>
+Date: Tue, 10 Nov 2026 19:06:25 +0100
+X-Gm-Features: AclHuK-z5kRyS093UsqlUbVg9AjVDqYIwR1bFV-l3asgu02YzQT6xz0LvKo0raw
+Message-ID: <CAHmME9pMKKw-1dQRG5OEYrGA4K0GGFbpvN3Go8ZuVKLuaNMA1A@mail.gmail.com>
+Subject: Re: [PATCH net 1/2] wireguard: account peer and allowedips
+ allocations to memcg
+To: alex@badcode.im
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Daeho Jeong <daehojeong@google.com>
-
-[ Upstream commit 06dfe4a7eb696d868b196c2a49873142f19bd862 ]
-
-Stores through a shared writable mapping and fallocate with
-FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
-FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
-the COW inode and modify the original inode directly. Reject them while
-the file is in atomic write mode, as fallocate already does for pinned
-and compressed files. A write fault gets SIGBUS and fallocate gets
--EOPNOTSUPP.
-
-fallocate without these flags only preallocates blocks and stays
-allowed.
-
-f2fs_vm_page_mkwrite() cannot take inode_lock, so check the flag under
-invalidate_lock, and hold invalidate_lock in
-f2fs_ioc_start_atomic_write() from the flush until the flag is set.
-Otherwise a fault could check the flag, then start_atomic_write could
-flush and set the flag, and the fault would dirty the folio afterwards.
-
-Cc: stable@kernel.org
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: replaced the shared out_unlock cleanup with explicit invalidate_lock releases on all error exits ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/file.c | 25 +++++++++++++++++++++++--
- 1 file changed, 23 insertions(+), 2 deletions(-)
-
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index bde1c9cfe1df4..13a61e6ef448f 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -102,6 +102,18 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 
- 	file_update_time(vmf->vma->vm_file);
- 	filemap_invalidate_lock_shared(inode->i_mapping);
-+
-+	/*
-+	 * mmap stores bypass the COW inode and would break atomicity. Check
-+	 * under invalidate_lock: f2fs_ioc_start_atomic_write() holds it while
-+	 * flushing dirty pages and setting FI_ATOMIC_FILE, so either it sees
-+	 * our dirty page and writes it back, or we see the flag.
-+	 */
-+	if (unlikely(f2fs_is_atomic_file(inode))) {
-+		err = -EOPNOTSUPP;
-+		goto out_sem;
-+	}
-+
- 	lock_page(page);
- 	if (unlikely(page->mapping != inode->i_mapping ||
- 			page_offset(page) > i_size_read(inode) ||
-@@ -1888,9 +1900,11 @@ static long f2fs_fallocate(struct file *file, int mode,
- 
- 	/*
- 	 * Pinned file should not support partial truncation since the block
--	 * can be used by applications.
-+	 * can be used by applications. Atomic files should not either, since
-+	 * these modify the original inode directly and break atomicity.
- 	 */
--	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &&
-+	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
-+	     f2fs_is_atomic_file(inode)) &&
- 		(mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
- 			FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) {
- 		ret = -EOPNOTSUPP;
-@@ -2174,6 +2188,8 @@ static int f2fs_ioc_start_atomic_write(struct file *filp)
- 		goto out;
- 
- 	f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
-+	/* serialize with f2fs_vm_page_mkwrite(), see the comment there */
-+	filemap_invalidate_lock(inode->i_mapping);
- 
- 	/*
- 	 * Should wait end_io to count F2FS_WB_CP_DATA correctly by
-@@ -2184,6 +2200,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp)
- 			  inode->i_ino, get_dirty_pages(inode));
- 	ret = filemap_write_and_wait_range(inode->i_mapping, 0, LLONG_MAX);
- 	if (ret) {
-+		filemap_invalidate_unlock(inode->i_mapping);
- 		f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 		goto out;
- 	}
-@@ -2193,6 +2210,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp)
- 		/* Create a COW inode for atomic write */
- 		pinode = f2fs_iget(inode->i_sb, fi->i_pino);
- 		if (IS_ERR(pinode)) {
-+			filemap_invalidate_unlock(inode->i_mapping);
- 			f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 			ret = PTR_ERR(pinode);
- 			goto out;
-@@ -2201,6 +2219,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp)
- 		ret = f2fs_get_tmpfile(mnt_userns, pinode, &fi->cow_inode);
- 		iput(pinode);
- 		if (ret) {
-+			filemap_invalidate_unlock(inode->i_mapping);
- 			f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 			goto out;
- 		}
-@@ -2215,6 +2234,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp)
- 
- 		ret = f2fs_do_truncate_blocks(fi->cow_inode, 0, true);
- 		if (ret) {
-+			filemap_invalidate_unlock(inode->i_mapping);
- 			f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 			goto out;
- 		}
-@@ -2229,6 +2249,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp)
- 	stat_inc_atomic_inode(inode);
- 
- 	set_inode_flag(inode, FI_ATOMIC_FILE);
-+	filemap_invalidate_unlock(inode->i_mapping);
- 	f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 
- 	f2fs_update_time(sbi, REQ_TIME);
--- 
-2.53.0
-
+Okay, I guess I was just looking for some judgement discussion, not
+more output from the LLM. I'll look into this myself on the slow track
+for a little bit.
