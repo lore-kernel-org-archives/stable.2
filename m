@@ -1,58 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.154.241.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317242;
-	b=G8LAyBiWYays1QhJxFVrayzkLWT/PiG93txcivJP5dG8ydZzk/CC20LcwtnqNLOTg1Cb
-	 FLaIPiBoUjd0E4gsGFvOzwgnXCZdCB1gm7Q5dt4jVygDqd0vxIrsJ2IfvoRYn9zmU+6Po
-	 HBHva/wwWQjP/GoREDI4lQCh2YduFGMcyhRKvyLnfiqyFNptnL5uB6TJJDb5l/2I+KBxC
-	 lynuy3MK5+bdNIr2iUgC/a7T5QoOP03gBrbcq3j0cMkCaC61aE4d5GqfyD3zWGvdZQwQC
-	 5eWEaUM1fYauE+43bPBLFJ/dpIHeJUBA7nuZffve3ACcMf+HfwrH7u1uEtpKYyhXANw==
+	t=1794317297;
+	b=3NuFmpUmD/frkBTLp8OmogTVWRFt0+h+rZLWDpjf/4eNPVMvhwkdkqMA0uEstD87I8UV
+	 3M5/uUXkcIZKShKyfKmkJ+PCWMeTanF1rROSGAG/Ex0tl/DwzUW/W9H1cjvzTdR/KJmsD
+	 JKAS6233ahS2RQI3ydr7d97G6KrLk7RrfVfebSNAEAQ+IYitAyEDrkq656Ndlrzivcu/O
+	 uqMzfDpRQDtMgMjG1gKbuL18d3p21YPKK0l58G/EWPluCmmSc6J0ZSXS9ges/2Q2E5AYP
+	 imdTp77qGN7/XJQKnlnzlW/LftYZEYEgs2siqLWKyJofqMFWCqkLqpFDMyFd5/TQx0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317242;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=edaLXm6QCGx2QuvsaZzcl5Q80kfX+oQWzIkVBROPALw=;
-	b=VPq6dJSOwdBMqmetcgEa04XoKPCPbHdxif8vHauwpuO9LGQYtVb7oPFTpQ2Dk+JaCzfN
-	 /GeaorG4FbqUfryBcfjzXQzgiiM4M+48a5TpXM20a3KQLhK2MYMX/OPUk/FqijMH2wXcJ
-	 GeKfPKGVvn29UI0rtrUKc2Gu+JxF5dMp94qJKA/Z/ARi84RnVfsITNj+L4qQFM7SioPsy
-	 umE0PQfun4sHHrRL0QHZ8m52ajIDQS/4wcPAsJJUq51WjUFpOKcwdy2pUtTGZZEU95Q/6
-	 ACvXd1pQe+7WywqZBmvIthPtGASvw41ZvsYTR5E/bBFNpQCnWD4UZGJYzQWHm/RjZkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317297;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:Organization:X-Mailer:MIME-Version:Content-Type:
+	 X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
+	bh=l14YgoDj6UsUcAbDEsM0PgXfMBZOn3CoIGk61o/gzMk=;
+	b=4w8XTkCKj3QUMJc3W7OtBMMAkHU21rw+0QTrz+vCrpB5cXbPDwv5qaWujiaOHATC6sXD
+	 ckAkqRcheEmMKWQK8OvJZ3f6BPf0ovueQbgOt4xXz22PAsxbnTNp5iWLZYzW2fE4VR41z
+	 ZREoClil6s2Epgie03yqStt4VmqNr6bTzB7k4ZLjRYoVybz+5fffzJotUBP2sdoqlCWdE
+	 AlMDYo4y3YthdQBSIQMCd1B1bHkJ1/11R09AzJBXAOe6XPTxMZxkT5zwHFUIcjMlMg++z
+	 ooiwl91+R2jl4DuhehWAQ8Yi11sL7Xaxoerai36JoFVvybMV8cbmcLVyklifrgJqxSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbKWgYdH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=lauterbach.com;
+	spf=pass smtp.mailfrom=lauterbach.com;
+	arc=none smtp.remote-ip=62.154.241.218
+Received: from bm.lauterbach.com (bm.lauterbach.com [62.154.241.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B22F606A9CF
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbKWgYdH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 878001F0089F;
-	Tue, 10 Nov 2026 13:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317242;
-	bh=edaLXm6QCGx2QuvsaZzcl5Q80kfX+oQWzIkVBROPALw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QbKWgYdHnxz8JsCLfxCOT/8EmiPF4mIDQIfSviU2oRMMQTBomJFJPCjqrBE+g70eD
-	 3LXYEloQM2VIoVCoKPsVNXjYEfGuzHkx6AqAS61PFAH5oeDEgp8qYIjlWlRc2zFulk
-	 k8wI7GU0VSAVIWRYgO390J9DgNxFgnGuuJmHrd7LJTYRD7ScaI3ZTn92XzsI9m1rGc
-	 1EFYfhythGe79xlbX3QEWRAY3EcJtxeN0my+pVuACbzLZ1NXS9cX1ILw9hPvJy1Xye
-	 9Z4Jx1i5pzyz/xhuCfaSP+98XjRbZmn/rbQI7qTlCFHn1ckbM56j6Kake8bQ52c2Ri
-	 ppQiPYKLgseuA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com,
-	Wang Jianjian <wangjianjian3@huawei.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] nilfs2: ignore non-fatal signals during synchronous log write wait
-Date: Tue, 10 Nov 2026 08:27:19 -0500
-Message-ID: <20261110132713.1736389-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110132713.1736389-1-sashal@kernel.org>
-References: <20261107060105-failed-5.15-7131aaa74bcc@kernel.org>
- <20261110132713.1736389-1-sashal@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C4D606A325;
+	Tue, 10 Nov 2026 13:28:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C4D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lauterbach.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lauterbach.com
+Received: from ingpc2.intern.lauterbach.com (unknown [10.2.10.44])
+	(Authenticated sender: ingo.rohloff@lauterbach.com)
+	by bm.lauterbach.com (Postfix) with ESMTPSA id 96B701A2EE074;
+	Tue, 10 Nov 2026 14:28:06 +0100 (CET)
+Date: Tue, 10 Nov 2026 14:28:06 +0100
+From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+To: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
+Cc: brianellis@gotenna.com, Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: dwc3: apply XCVRDLY after PHY init
+Message-ID: <20261110142806.6c3aed36@ingpc2.intern.lauterbach.com>
+In-Reply-To: <20261109-dwc3-xcvrdly-after-phy-init-v1-1-488ed0a0c7da@gotenna.com>
+References: <20261109-dwc3-xcvrdly-after-phy-init-v1-1-488ed0a0c7da@gotenna.com>
+Organization: Lauterbach GmbH
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-unknown-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,137 +55,261 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="MP_/pW_pSM03sPOE5BUUld6eaQX"
+X-Bm-Milter-Handled: 166a2dfb-2e12-4590-8fa5-72e30323519f
+X-Bm-Transport-Timestamp: 1794317286637
 
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+--MP_/pW_pSM03sPOE5BUUld6eaQX
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-[ Upstream commit 7131aaa74bcc7c9da1f1d1c8724da75c775557a0 ]
+Hello Brian,
 
-Based on a syzbot report, Wang Jianjian pointed out that following a
-successful directory operation in nilfs_rename(), a synchronous write
-requested within nilfs_transaction_commit(), triggered by a sync flag
-set by nilfs_commit_chunk(), could be interrupted by a user signal.
-This interruption leaves in-memory metadata updates intact while
-returning an error, causing inconsistency with the VFS dentry cache and
-ultimately triggering a kernel warning.
+> Each link enumerates at 480 Mbps and passes traffic, 
+> then drops 2.20-2.23 s after enumeration, and the host's
+> attempts to re-enumerate the device fail.
 
-According to "signal(7)", local disks are not classified as "slow
-devices" (such as terminals, FIFOs, or pipes) and their I/O operations
-on disk devices are not interrupted by signals.  In kernel space,
-waiting for such disk I/O should therefore not be aborted by ordinary
-(non-fatal) signals.
+I have a hypothesis what the problem is:
+USB 2.0 LPM (Low Power Management).
+Please try the attached patch.
+If this helps: That's the origin why you loose the link.
 
-Suppress this issue by modifying nilfs_segctor_sync(), which waits for
-the log writer thread to complete synchronous writes, to catch only
-fatal signals via fatal_signal_pending() and return -EINTR rather than
--ERESTARTSYS.  To complement this change and prevent the wait loop from
-busy-looping when schedule() returns immediately due to a pending
-non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
-TASK_KILLABLE.
+It seems USB344x + DWC3 don't support USB 2.0 LPM in this combination.
 
-This serves as an effective interim stabilization measure without
-structural changes until a comprehensive fix for metadata consistency
-is implemented.
+Note: This problem only appears when your HOST USB Controller also
+supports USB 2.0 LPM.
+Meaning: Depending on your exact Host PC you might not see this effect.
+Only recent PCs support USB 2.0 LPM; on my PC here only some specific
+USB ports support USB 2.0 LPM. So on my PC it depends to which USB port
+you connect the device to.
 
-Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
-Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
-Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Cc: Wang Jianjian <wangjianjian3@huawei.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nilfs2/ioctl.c    |  2 +-
- fs/nilfs2/recovery.c |  2 +-
- fs/nilfs2/segment.c  | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index baa43a13b7a87..3f3909b77bcdf 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -960,10 +960,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EFAULT		- Failure during execution of requested operation.
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 10c59d2c83447..0f5161df0709b 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -743,11 +743,11 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EINVAL		- Inconsistent filesystem state.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  */
- int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
- 			      struct super_block *sb,
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index a1a091a20d041..3efadc2c6a031 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2234,7 +2234,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 	wake_up(&sci->sc_wait_daemon);
- 
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_KILLABLE);
- 
- 		/*
- 		 * Synchronize only while the log writer thread is alive.
-@@ -2248,11 +2248,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			err = wait_req.err;
- 			break;
- 		}
--		if (!signal_pending(current)) {
-+		if (!fatal_signal_pending(current)) {
- 			schedule();
- 			continue;
- 		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
- 		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2286,10 +2286,10 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_segment(struct super_block *sb)
-@@ -2318,10 +2318,10 @@ int nilfs_construct_segment(struct super_block *sb)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
+> Ingo, if your USB3340 board is still to hand, it would help to know
+> whether its high-speed links stay up for more than a few seconds, with
+> and without this change.
+
+Yes this board is very much on hand ;-)
+The high-speed link there stays up indefinitely.
+
+> Not addressed here: on our board the ULPI ID read that a28de6335657 uses
+> to detect the USB3340 fails when no cable is attached at boot, because
+> this PHY only clocks ULPI with VBUS present, so the bit is never set and
+> the port runs at full speed.
+
+At least for my board this is not the case.
+
+I get a completely stable 60Mhz ULPI clock regardless of if 
+VBUS is present or not.
+
+Which of course in turn means the ULPI ID can be read out without
+any problems.
+
+This very likely depends on how exactly you use the USB344x.
+On my board I am using a USB3346 with the circuit described in
+
+https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/00001880A.pdf
+
+Figure 8-1 USB333X DEVICE APPLICATION DIAGRAM
+(CONFIGURED FOR ULPI CLOCK OUTPUT MODE)
+
+What kind of circuit does your board use?
+
+> Fixing that needs a DT property and a binding update, so it is not part of this fix.
+
+That was my original patch proposal: Use a DT property.
+I got push-back on that idea. 
+The auto-detection via using the ULPI ID is a lot nicer.
+Of course this doesn't work if you don't have a stable ULPI CLK signal.
+
+> What matters is when the bit is written, not its value.  Written at the
+> end of dwc3_core_init() instead, GUSB2PHYCFG holds the same value
+> (0x00022710 on this board), and high-speed links on the same board stay
+> up: one ran continuously for over 1000 s with no receive errors, and 60
+> re-enumeration cycles completed without a failure.
+
+Where did the 60 re-enumeration cycles came from?
+If the link "stays up", then why do you get a re-enumeration?
+
+It might have something to do with what happens with the
+ULPI PHY when USB 2.0 LPM gets active.
+When the host looses the link (which should not happen in the first place)
+because of USB 2.0 LPM, then it re-enumerates.
+Depending on where you put the "dwc3_ulpi_setup(dwc);"
+this re-enumeration after link loss (because of USB 2.0 LPM)
+might then work.
+
+But again the link should not be lost in the first place.
+
+with best regards
+  Ingo
+
+
+
+
+
+On Mon, 09 Nov 2026 10:22:31 -0700
+Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org> wrote:
+
+> From: Brian Ellis <brianellis@gotenna.com>
+> 
+> Commit a28de6335657 ("usb: dwc3: Support USB3340x ULPI PHY high-speed
+> negotiation.") sets GUSB2PHYCFG.XCVRDLY in dwc3_ulpi_setup(), which
+> dwc3_core_init() calls straight after ULPI init.  That is before
+> dwc3_core_get_phy(), dwc3_phy_init(), dwc3_core_soft_reset() and
+> dwc3_phy_power_on(), so the bit is already asserted while the PHY is
+> brought up.
+> 
+> On a ZynqMP board (DWC3 2.90a, peripheral mode) with a USB3340, that
+> ordering breaks high-speed links.  Each link enumerates at 480 Mbps and
+> passes traffic, then drops 2.20-2.23 s after enumeration, and the host's
+> attempts to re-enumerate the device fail.  We measured 12 such links on
+> two host root ports; every one died in that window.
+> 
+> What matters is when the bit is written, not its value.  Written at the
+> end of dwc3_core_init() instead, GUSB2PHYCFG holds the same value
+> (0x00022710 on this board), and high-speed links on the same board stay
+> up: one ran continuously for over 1000 s with no receive errors, and 60
+> re-enumeration cycles completed without a failure.
+> 
+> Move the dwc3_ulpi_setup() call to the end of dwc3_core_init().  The bit
+> is still set well before any high-speed chirp, which only happens when a
+> host enumerates the device.
+> 
+> Fixes: a28de6335657 ("usb: dwc3: Support USB3340x ULPI PHY high-speed negotiation.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Brian Ellis <brianellis@gotenna.com>
+> ---
+> How this was tested: not on mainline.  The failure and the fix were both
+> measured on our board running AMD's 6.6-based vendor kernel (through
+> ADI's tree), with a28de6335657 backported.  The backport calls
+> dwc3_ulpi_setup() from the same place and differs only in handling a
+> single USB2 port.  The 12 failing links were attached directly to two
+> host root ports.  The 1000 s run was through a hub, on a kernel carrying
+> this change plus five other local dwc3, ULPI and extcon patches.  The 60
+> re-enumeration cycles were direct to two root ports, on a later build
+> with more of our local USB fixes.  On mainline the change is
+> compile-tested only (x86_64 allmodconfig, W=1, no new warnings).
+> 
+> Not established: why the ordering matters.  The outcome follows whether
+> XCVRDLY is asserted before dwc3_phy_init(), not the value written, but
+> we have not identified which step of PHY bring-up is sensitive to it.
+> 
+> Ingo, if your USB3340 board is still to hand, it would help to know
+> whether its high-speed links stay up for more than a few seconds, with
+> and without this change.
+> 
+> Not addressed here: on our board the ULPI ID read that a28de6335657 uses
+> to detect the USB3340 fails when no cable is attached at boot, because
+> this PHY only clocks ULPI with VBUS present, so the bit is never set and
+> the port runs at full speed.  Fixing that needs a DT property and a
+> binding update, so it is not part of this fix.
+> 
+> Tool use: an LLM coding assistant (Claude) helped run the investigation
+> and keep its record, wrote the code change, and drafted this changelog
+> and these notes from that record.  The measurements were taken on our
+> hardware.
+> ---
+>  drivers/usb/dwc3/core.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+> index fd5c2cd36c..9b37ceda9a 100644
+> --- a/drivers/usb/dwc3/core.c
+> +++ b/drivers/usb/dwc3/core.c
+> @@ -1371,8 +1371,6 @@ int dwc3_core_init(struct dwc3 *dwc)
+>  		dwc->ulpi_ready = true;
+>  	}
+>  
+> -	dwc3_ulpi_setup(dwc);
+> -
+>  	if (!dwc->phys_ready) {
+>  		ret = dwc3_core_get_phy(dwc);
+>  		if (ret)
+> @@ -1534,6 +1532,9 @@ int dwc3_core_init(struct dwc3 *dwc)
+>  		dwc3_writel(dwc, DWC3_GUCTL3, reg);
+>  	}
+>  
+> +	/* XCVRDLY must not be asserted across PHY init, so set it last. */
+> +	dwc3_ulpi_setup(dwc);
+> +
+>  	return 0;
+>  
+>  err_power_off_phy:
+> 
+> ---
+> base-commit: 3149e8b3237f58d4dd440fc64c45c93404c4b064
+> change-id: 20261109-dwc3-xcvrdly-after-phy-init-509803f4b0c8
+> 
+> Best regards,
+
+
+
 -- 
-2.53.0
 
+-------------------------------------------------------------------------
+Dipl.-Inform.
+Ingo ROHLOFF
+Senior Staff Engineer
+phone +49 8102 9876-142 - ingo.rohloff@lauterbach.com
+
+Lauterbach Engineering GmbH & Co. KG
+Altlaufstrasse 40, 85635 Hoehenkirchen-Siegertsbrunn, GERMANY
+www.lauterbach.com
+
+Registered Office: Hoehenkirchen-Siegertsbrunn, Germany,
+Local Court: Munich, HRA 87406, VAT ID: DE246770537, 
+Managing Directors: Stephan Lauterbach, Dr. Thomas Ullmann
+
+-------------------------------------------------------------------------
+
+--MP_/pW_pSM03sPOE5BUUld6eaQX
+Content-Type: text/x-patch
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename=0001-usb-gadget-composite-Disable-USB-2.0-LPM-Low-Power-M.patch
+
+From 58bd9ce416687c35ead5245820e42e74dc349018 Mon Sep 17 00:00:00 2001
+From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+Date: Fri, 28 Aug 2026 19:06:31 +0200
+Subject: [PATCH] usb: gadget: composite: Disable USB 2.0 LPM (Low Power Mode)
+
+Make sure, that the BOS descriptor sent to the host indicates, that there
+is no USB 2.0 LPM support.
+
+Note 1: DONT'T do this via
+   dwc->gadget->lpm_capable = false;  // in dwc3_gadget_init()
+because this would also disable LPM (Low Power Mode) for SuperSpeed; but
+LPM for SuperSpeed seems to work without a problem.
+
+Note 2: USB 2.0 LPM seems to be a mess!
+=> There seem to be LOTs of (SuperSpeed capable) devices which have non
+working USB 2.0 LPM.
+
+Signed-off-by: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+---
+ drivers/usb/gadget/composite.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/gadget/composite.c b/drivers/usb/gadget/composite.c
+index 1b2238147cfe..59dcf5788f96 100644
+--- a/drivers/usb/gadget/composite.c
++++ b/drivers/usb/gadget/composite.c
+@@ -769,8 +769,10 @@ static int bos_desc(struct usb_composite_dev *cdev)
+ 		usb_ext->bLength = USB_DT_USB_EXT_CAP_SIZE;
+ 		usb_ext->bDescriptorType = USB_DT_DEVICE_CAPABILITY;
+ 		usb_ext->bDevCapabilityType = USB_CAP_TYPE_EXT;
+-		usb_ext->bmAttributes = cpu_to_le32(USB_LPM_SUPPORT |
+-							USB_BESL_SUPPORT | besl);
++//		usb_ext->bmAttributes = cpu_to_le32(USB_LPM_SUPPORT |
++//							USB_BESL_SUPPORT | besl);
++		// No USB 2.0 LPM support whatsoever please!
++		usb_ext->bmAttributes = 0;
+ 	}
+ 
+ 	/*
+-- 
+2.55.0
+
+
+--MP_/pW_pSM03sPOE5BUUld6eaQX--
