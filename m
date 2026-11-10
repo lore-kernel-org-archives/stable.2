@@ -1,65 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279946;
-	b=gylIjEyUGTk0wS8dm4hlEWUnW50A+ZkQobtByRA6U7/KPKylURPJ5BRkZpKEhmT68ALc
-	 x4Q5tbWQaIXF0XPMk7T69bLXOdyDNZm+tK+xTlHjUoagR25r81cGT/8gviiLgGWlXOILT
-	 WYeDnoC98c/9XL5RNaUrtcQ7QThHtoIb/v+HPF94IOfl8SboLDsjiDTjwnYcFM6XewuCt
-	 PqxRDxfnwJR/vYi+S9WxZsvFAqzWe9YWNPR2R18DMAEYddkdfRu30b5/FDwNzAcphGDkL
-	 lns0YMO4bm5pGO9t9xrLrm8G7xiD7ZYsDrlkLQY3+7tefI8DoYigGXqs5QUY+kVLKQA==
+	t=1794279970;
+	b=Ld9H2s24dNXjV8V+YfFJsBuYJpOf8Sd5JPk4zEvB9/ur3V5rNcI8NBdkxPpjefDwumht
+	 d24J6Hfgwq228JSSVjiKYIqmH/Paj8dYv4URxm2t8GWiqjJFFe/lRHxnQG89UKvayl0D/
+	 24BAd52duAsrSCcOM1lWOwz7cvkK0UGdRVFtYARb/UX0dPcqFHjoJ2p+j5jI6gBFV65Rv
+	 PoNu6rR3kTSbCSr1RnUNQlqu6hZ+NXXwsrHct7GKjVwH6K5uyPFo8dzr3Wcm7wOFuy9mJ
+	 e3h7oTZCErDbDUSPtST4bKMZBoB6ZZAXdEGcp5QD7DcjO6wCBeg2pSFsVAd9DXwubaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279946;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=q9XOYK7wX+00B6FBPgLD2vBKMAkmDiR49f/zui5qQz0=;
-	b=3vDU9sKAApMvUPJsFGxZhvRJqniXZpLE2kfyKQP4C/rUjNXQ64zYiaWhbknYz9BLO2wj
-	 vXYHmC2npZE8jmFlK4xXi/tz3KMGvdpBdlENqNAOLhyF/Xfk8rA9nhwlbibBWtrOYZvhq
-	 60hRal3BncvIjE9UXucRnugO8EZkiIWscZqnEjIVPVP9w3mMhEaTKqL7f9txOGl0KyV/y
-	 GeMFZBv/jXqoUlpLd/AZkZ7IjQfXrN/KiUzqZS0s7IUpKqsdjolg5c9AOE10JrtcwwoSC
-	 7EoOT6Vb4mYxthc2R4WWN3A7msNtXpKNXfxkBJ5ufHK88gSJhRqg3ts1Qyq7JVVwOPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279970;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=/SYARMV8I8wsqdjQWYUWZSLyGBS+FqhbkB8i/PouCPA=;
+	b=s0CZaO3L6MPy36BcJrLZag/z9VWM9IQAMHrMLIEa8O0Wy7YUfdYEhdxdqzulks2uk29D
+	 cSZMhhO8OD6ck2+mjvqtZB2zx1x8dzd7yeHn2Lp6fQTvP/VrQNoky1Ee0+iUCRzWW4elu
+	 nwaMkjpU7GPQaB5e5Y3uznKTvj0L+nCQutLDtK7dKxzG/08zUX+jod8BjqW0YzohojwrG
+	 HKzwMCmWz2MM6L5qVR4RJxOWjVCUIHOJFU660FIWSA4Mq6jKaBLoKDOR2CVHcdrJlWQRV
+	 Sp3s0AaVSBMOt/ij7bMqmHa955Ek/0zeRbKMhRbnQEiyHZRz7nQoEed5x5I8R33PHCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fZUfxXVy;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X2hZugRe;
+	arc=none smtp.remote-ip=209.85.160.43
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63EB606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:05:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C63EB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257A6606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:06:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 257A6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fZUfxXVy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794279939; bh=q9XOYK7wX+00B6FBPgLD2vBKMAkmDiR49f/zui5qQz0=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=fZUfxXVyc6DAD15Sv5X4swqN9j/GmjL8dRnoagW1DhD+O/L6QRUMlsggANFnRQ0Bj
-	 D5veAtp3I1xww6mVMV1Tr+z5flqP62yg5Y/LzHau/FXDztMX9+63fkAMDnicnryiiA
-	 RfwgTnlQNClTOqf3FGIO1LhVf7JathlzAxx97xHI=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-XMAILINFO: MzHbHz6ky8ylxXRwvpD01xe5vfDxiM5d4sy1mzo5PARKG0efZTjt8CVhuRmRZB
-	 X916dvvbNf6mSP72RiWNcNkqCoNPOcxgBWOr5TCZcXnrUl9jCXlBL7sN0QJ4T5Y3UdWVhkCbnXnpG
-	 vdp9c5eNmkQygDx70y3v0fP7PLOER3IGW5zxJhXPUmUgyxGfqZwX2rtwe3Jtn8xzOde1dGcyuBCqu
-	 B3CmRyVm7R4LWQcm8jyBLfeacUa7dugB4ZvW+mqQuK17Ml+y8ub7YPpJctk25Nys2Mvv769EMSsdn
-	 gyFpV4NtYY5QzHMlFVwUMf61TfKrDif+QvN+eKFykf8fTRr4P6tUAMX8EjrmxtXe08M0wJY2zcUsV
-	 ZCbbeAv7i2dpy57uuj5FAmeBEfOhOs1aeSEH0H8cMnzrL5dxPYAS/1QrmLQ0Tnz/MFmRldWYiA+AG
-	 caiEA5CJiQ34zO8hIgYLPotpS0901vK+WlSahYTacdWKy7Xxs8wr9JFeu4ioN5jSZWUXuuGtEd6Cl
-	 CCMNpacI0piTaP6oj8dLwYr0Q9s2ZbZuL8q0lDeZOUh53rJLmlKt00fsxUCrOkTvd3utbbRA09EXR
-	 q22YlOFFUVDNvtHFy0LzEi6f3c9jZsOK34FYUDLWr2avoGfnlcSFvpxriZBvxtK3CsV2toP3ohc8y
-	 NMr0xO1FEC1hRQsL77+9TGn1IKzFmrjJJbkuQS4DIcFfsC5fXcYtBCnC/y355xwQqk95Ic+wvYhYN
-	 as5k0cJeG2my4Jt7nJ6eEx/rYbxpgRw5gK4DODp4ef2+JhCC1cgOW3at0NnbaX0f450vYnOJHZEBU
-	 HRoPJhcnehr04GJlF3dwm1u3UCTrR3iDsI5b57xBHS3Aw+ZocdVTg9dcE/M2hyvEV8Hc9ZGCS1eXg
-	 onxDMmUiVaEXvBtajFT5QG0P+nx0d2HHMnE7cURCbigcGOWiCt1GLo+jsbEua2PJZlr7qnaVKSEbf
-	 1i9qJJwVhsoLAP1jhHQzWj1nNX9WYsvWLk6T5wFS+mI9dsL6xI77tQvxdJFZ1pPERKAYtrirzDYJO
-	 fpiPE+5B/T4uxxl4WF2yiIWequDXJkDxKHdZr
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>
-Cc: "=?utf-8?B?TWFyYyBLbGVpbmUtQnVkZGU=?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?VmluY2VudCBNYWlsaG9s?=" <mailhol@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?T2xpdmVyIEhhcnRrb3Bw?=" <socketcan@hartkopp.net>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?U2ltb24gSG9ybWFu?=" <horms@kernel.org>, "=?utf-8?B?Sm9uYXRoYW4gQ29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?U2h1YWggS2hhbg==?=" <skhan@linuxfoundation.org>, "=?utf-8?B?UmFuZHkgRHVubGFw?=" <rdunlap@infradead.org>, "=?utf-8?B?V29sZmdhbmcgR3JhbmRlZ2dlcg==?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, 
-	"=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v8 00/10] can: fix Rockchip TX stalls and bus-off restart/close races
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X2hZugRe
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4a77dcc4ca0so1018374fac.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 19:06:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794279969; x=1794884769; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/SYARMV8I8wsqdjQWYUWZSLyGBS+FqhbkB8i/PouCPA=;
+        b=X2hZugRewfOJgt4gy5Y4JYZOmHxUH8N047o0reWVoO/+9T3InzQM1JpUL3dZ8nWIOk
+         OjEhESJNnXehBIqTvZvJoxqh3flahsh1fuhpD9/XnH4i7gf0sn7+S2F+BjlozaoZPNsB
+         xAMWWePGkg3YIxa8s8Vxd6IsUXIrH7bWaHR6iMQ7t8qcSy26b4tsMj67iDBReK4xeB76
+         ZvVs2xWNZq28VkAqaIWUBvYL5d7kK7n4l+FC7LpwuA3bc2c/TcArBw0+wkMIHCipf90P
+         FNsjek7M34NRS11/J2Ccx8cV3SARTsbSW28y7CbjzHYwxU+4kWB1Iy4NypY2YnoukTch
+         4mow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794279969; x=1794884769;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/SYARMV8I8wsqdjQWYUWZSLyGBS+FqhbkB8i/PouCPA=;
+        b=N0v42qHu4we51lZxCSmhs3XKHIz923lFi59VbvjgfgO5hyVCzoGmQzIF9FuXP0PaIU
+         aYxh0nIf0LE2opZSMw1HTAW3DovC6+cS03nnLO0zUrLR9RmT2ujKFNOIXpHvuEMUXUq1
+         Q2t9HE9O0wNP/oaYyzA6cs1GB7G8iPbIIrjripY+dy66Kzak3OKI77f9baA8wwuXsOMy
+         71BxyI7EgxSEHj11nFO47NEoFVNSu83xaZrefHPBB5IAVU4dyoC0kEfOD+qI7d1I6mGQ
+         6RifC6vUGH4hv/mxxlF9Ryyt/rsda0fH+gZgFVsovvtvJZpPbP2x2GCN0qOg2IK+34gi
+         Rprw==
+X-Forwarded-Encrypted: i=1; AL+hErFCjuBwFvSSquG//Mczk9Umf4fnDDBAavKa13eaPCJJxEi8oMDzx2RYyZsEr3+FuE8Xzrk40Mw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BpqPDDttn41sShAdvR4rGLG3+8on+t6G3AXlsxHIzj/xBjAOc
+	V8FAzF7TSD7tgcygBzY38YYrwixGX/FxwmdOo9R5osiWHnoKmdIc/vyH
+X-Gm-Gg: AYBFou1UlqAkgzFfvTpV4bfOMALobGdsq6DhUipoYsT6ffmSeUkGUlAJYc0acmlazwa
+	2hmpjobynS46a8yJ3V9FfwhsU7TecVUx17ZQICuB9lETUMd4IqOggIZ6wLcKxAZNE+2EQPxJYBZ
+	Det75rkjKsOg1+L3G/BdwZnT4iiBnxY4Pk6LAuPBUcuGkl5bQSYLMx6nPltjj7ZBpt3zX4jgYN2
+	whEDE2Ek9lWJr1TUdw4pDHkwizLgQ0nn8HRVaMIwCMmXX/etUizLLwJhOdPzvt9DwNb5tAEviQ6
+	9hTXjuZr4Bjjit4rqKmsoRxfgJqFK4+dZfJTo43Ke/xBJMICwKJjQbga/puu0i6Y5Lpt1S1IUhF
+	MLfBCq7g942qjbI3eF7xLGajmIkZVttt/0zhuKcH0nUsDcCeAHSd8kJNbGR3BlX7+zAY1NRJLxq
+	FZxEHqCQt9Lu34uJaa3LVsBrzL3FT1PEINvj3cyPYvX4Q3LNq092f8/vVdid41zflM1YChSMTe2
+	bD5e+l+dX+/JkbI6sGiNpgARKhXverq4tHnnu6YwrA5sniJdsQAXwMuGPtypgM+fLIqPbpRILrn
+	aYOtLIGDu3NALjhDM76pPQ+tv5e503mcr/cJ79JXZlErN5hCxycX1ZOFQZzfExjm2WCOUAIqlzB
+	8Ltc5iYu4Lrg+cR4QYAtCja7jKA23l0G5neD1BlcMGU+zPl6khMPt1FbHK1STSobCvNVUSwP1PM
+	wTH3TLr9CWML1p1bxGDfu4S60elCwSpP43HMnN3YgAvvzcfOIEK1qP
+X-Received: by 2002:a05:6871:5826:b0:48f:e107:317e with SMTP id 586e51a60fabf-4ae2271656cmr758240fac.49.1794279969033;
+        Mon, 09 Nov 2026 19:06:09 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae22fcdc93sm683389fac.10.2026.11.09.19.06.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 19:06:08 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v2 0/3] dmaengine: dw-axi-dmac: fix termination and pause
+ acknowledgment
+Date: Mon, 09 Nov 2026 20:05:59 -0700
+Message-Id: <20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,30 +93,73 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 10 Nov 2026 11:05:37 +0800
-X-Priority: 3
-Message-ID: <tencent_F59D327809C523BE014488357EEF4D163408@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
-	<20261109112402.283c16a3@kernel.org>
-In-Reply-To: <20261109112402.283c16a3@kernel.org>
-X-QQ-mid: xmsezb41-0t1794279937tom1cqfol
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OwQ6CMBBEf8X07CpFAtST/2E4lLLAGimkBcQQ/
+ t0t/IDJXmYz82ZW4dERenE/rcLhTJ56yyI+n4RptW0QqGIt4ihOpYxy8FPZ0QjVB/RCUHUa/Ng
+ PMOjJI8wSjLrVErM0k6kSTBkc1rTsDc/i0Ix4oRkDNjhKzcnSaWva8GIk2oYsXo8cO1riDvfdR
+ 84ykP7fwxeBSXI0UqFCTB5Np+l9MX0nim3bfkDiaRwCAQAA
+X-Change-ID: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Sergey Khimich <serghox@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-SGksCgo+ID7CoFN1YmplY3Q6wqBbUEFUQ0jCoG5ldMKgdjjCoDAwLzEwXcKgY2FuOsKgZml4
-wqBSb2NrY2hpcMKgVFjCoHN0YWxsc8KgYW5kwqBidXMtb2ZmwqByZXN0YXJ0L2Nsb3NlwqBy
-YWNlcwo+Cj4gcGxlYXNlwqB1c2XCoGdldF9tYWludGFpbmVyLnBsLMKgZG/CoG5vdMKgQ0PC
-oG5ldGRldsKgb27CoENBTsKgcGF0Y2hlc8KgZGlyZWN0bHkuCgpJIHVzZWQgYjQgcHJlcCAt
-LWF1dG8tdG8tY2MsIHdoaWNoIGludm9rZXMgZ2V0X21haW50YWluZXIucGwuClRoZSBzZXJp
-ZXMgbW9kaWZpZXMgRG9jdW1lbnRhdGlvbi9uZXR3b3JraW5nL2Nhbi5yc3QsIHdoaWNoIG1h
-dGNoZXMKRG9jdW1lbnRhdGlvbi9uZXR3b3JraW5nLyB1bmRlciBORVRXT1JLSU5HIFtHRU5F
-UkFMXSBhbmQgaXMgbm90CmV4Y2x1ZGVkIHRoZXJlLCBzbyBuZXRkZXZAdmdlci5rZXJuZWwu
-b3JnIHdhcyBhZGRlZCBhdXRvbWF0aWNhbGx5LgoKSSB3aWxsIG1hbnVhbGx5IHJlbW92ZSBu
-ZXRkZXZAdmdlci5rZXJuZWwub3JnIGZyb20gQ2MgZm9yIHRoZSBuZXh0CnJldmlzaW9uLgoK
-QmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
+Use the layout-aware channel enable check during termination and retain
+transfer resources when the channel does not stop. Preserve suspension
+status for the pause and resume paths, including acknowledgments that
+arrive after a polling timeout or during another channel's interrupt.
+
+Keep a pending pause across cyclic segment completion and resume the
+segment only after the client releases the pause. Track the active
+descriptor until completion so queued work cannot reissue it while its
+interrupt is pending.
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- Use readx_poll_timeout_atomic() for the single-argument status helpers
+  and express the termination polling interval and timeout in milliseconds,
+  following Andy's review.
+- Track pending suspend requests separately from confirmed suspension so
+  resume can handle acknowledgments received after a pause timeout.
+- Use the atomic polling helper, including its final status check, and
+  report -EAGAIN if resume cannot yet cancel a pending suspend request.
+- Defer cyclic restart while paused and track the active descriptor until
+  completion, preventing resume or issue_pending from reissuing it.
+- Reset pause state on successful termination and channel allocation;
+  clear stale status when starting a new descriptor.
+- Link to v1: https://patch.msgid.link/20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com
+
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Sergey Khimich <serghox@gmail.com>
+To: Sia Jee Heng <jee.heng.sia@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (3):
+      dmaengine: dw-axi-dmac: poll the correct enable bit during termination
+      dmaengine: dw-axi-dmac: retain descriptors when termination times out
+      dmaengine: dw-axi-dmac: preserve pending pause requests
+
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 118 ++++++++++++++++++++-----
+ drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |   2 +
+ 2 files changed, 96 insertions(+), 24 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
