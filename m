@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323977;
-	b=l4osYR+GaYK8hP8rMOqo4wKvqfEx2s6vE0uTWWkNcyl0Y+0p0+Jv3QES3CyHwgqhxBRt
-	 WT0fr/44v25QxKLDbYqFu9VxK8jE7GyxrxcD8+qgGiwHSauqAxGxb2PGlhR7zafXwtedw
-	 jQCyoXrJnWJ6e2ehWoOcVZwjNoJZ24eRd87iVAHGeVWfZ51KvjrXnGZucJBcVaDcaiGv6
-	 Kka0nKjxU+x0Kq0ffsU5ZuMl6EWV8xGlMpOYPw9dj9YI1tGWfNlqOT/Yc9RL5KtbEKT9u
-	 B41B8OfqveF9+NMeXNrxILli090LMEPN+7PxQBjXw913jN+DAFI4V4VHwD17Ob4qQFw==
+	t=1794323984;
+	b=ccJe+csxbeunaIaeq/5f0haXi4oTiowEG/G40wF8ESLvFm6/mqHH7yBXnmjOVRp1fMLp
+	 ikUnijQAA2nvxPOgCksu1QKZTrI2cfz8PrPyIfIhwhmtQo4FnqA/SmTzo1CZ1SGj4eWO7
+	 kWVd5slyHSgGUj2SzNaU+6w8q8zD2E/XnDU59Qukf+fUsQ/JHErn+1OvYSsHSGk3H9qeH
+	 PhOnzv71gg5dukkiWEkSYkkUuB5QpND1DyCyxm5i/A285C7wdyvXWn96dAtM+/EQq9eiT
+	 mEg+ZUD6xIJA9Ddn88pgOdPdPFS7fKxIttAAcFLzGYkCV4T318hdkHLbvLttaxF2hYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323977;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323984;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PCAWNzL1cvfVcJ1evLQxJn+oYYrJ86Z4hoDytTewJdc=;
-	b=Qdvq99EguzH5+ky1ASI0QZ5NmThpMbeXoJe/ToTe0LASACaXJBhDzTUsQcpK7TfzmSar
-	 gmPmvgBmZDRWvvsf5Jhb3ncJlaLY56PS5BJfFLh2bpi7SanjhOpRZRrtA7txO4NfBiiN6
-	 luNQqdcvTmJr7G76tANlNE9S/0ltKIs+Oq5pS1iyVsZmZnRLXHz2tZYuocbuW3w6lk/MT
-	 JhIobqSAIuAonhN8+x6s/EyjRBcpAVGcI4OSWj+L0NLzEHMTrIjgv4yTVm4oS1pztay6T
-	 Sd4OCT3YoJ47h8KFIzOp6R7cHcO4yb9ta1qWRmDsJYnX8xPVjV4OHwUV2yr9l3Y663A==
+	bh=jkT0R3xzSk1k0xVZerf1wG7TP4osNpZIjJLZLTNovb0=;
+	b=mUATlcmSs5SBIych3VqGYjeLX+A2Yl1+qJpc8ZjoSWZEeUyW17ZduKfzc7yOtJcLq/ek
+	 LVAivJd3aH/gw7KxhNmWbIGRVWRDzJ1Klp24xM7wZzO5vDvFBWg4lyNQ56vPKopLyrX1L
+	 UIZ/EchNxCjm+2lxqRHh6i/H7Fw+KO0zJ8Yqm/FzheGKu9wc8VOm7Xd97Jn5g9+oOGSmb
+	 GWfH614jDW2V+RhY4ZjoyA6NPJg3SLCixivNcVsO8CXIDgwVycRSUdmosGRw+w1j1I2o7
+	 f8i3X6pQtGsWkl5toJ8dVhKRuNgyhOjp8I47klafxFZ7gK3ZQ2k/tECHHKWA3FqBwog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PokqkXyE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzvDGfYM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD1B606A320;
-	Tue, 10 Nov 2026 15:19:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C041606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:19:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PokqkXyE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8278E1F0089F;
-	Tue, 10 Nov 2026 15:19:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzvDGfYM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A41C1F0089F;
+	Tue, 10 Nov 2026 15:19:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323976;
-	bh=PCAWNzL1cvfVcJ1evLQxJn+oYYrJ86Z4hoDytTewJdc=;
+	s=k20260515; t=1794323983;
+	bh=jkT0R3xzSk1k0xVZerf1wG7TP4osNpZIjJLZLTNovb0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PokqkXyE276PTXpE8nAJDY4Jc6TYyfM5lEA2F8gcVbpGkNCsZ+yzOWeNIdARlUhDM
-	 rvw9a1dw0qeGJRN3SaNEVXIQr3CcbT17gGeJtq6JvKxKD5rumexJKSetUQ0BihYcJ+
-	 TiBmQG9JMt+DhnRS4KK0BVCkODx5y6BI3LH2ZXRiVsIWbCoPvWUXzTNdAjBGTpGnd7
-	 M4W8i4Rbcw7NvnA5yprNxjmtw9j4HgSafG1do8Jq8pwqvbtINlQ9+LNo68ZEbwnn+e
-	 ZxHd8JltWWZ2s3iOjGOCwRqglraCiyw5dNzMpkG+SYwvwj8YmcLe6qOsAhQfSOMsPW
-	 ctgPF7vQn+Dyw==
-From: SJ Park <sj@kernel.org>
+	b=DzvDGfYMJddmEP9pbdUUSntK77exMAAj7sT/l+xPk7kY/NG4LAdr5extRjDAgyPF6
+	 x4+cjN/LxFYgFHDbg5RHS3ncBEHqYd8U8HVzog1eAcqW6vVgKIQQ7tpc6+k+lt7VZG
+	 XBC22R7oImPy/x75I+xvfZ5c3ZcjWz+eHBzTNjZjfq+2x2dLMs/8fU6OS7ZAIhHh/r
+	 wrILIitgkStN2Q8bcxoQtHvpXGzyI/v460K2nO21dWqFrZWuzwJaaU41RQqxHsfdUO
+	 34Tk8GraZUTiOB9rD95SpLxy6sIPpLkbxUvslAdPjlP3N2dgSLahWOmQSgwmAzGD+3
+	 FVox+bTHJ4UJQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Fernand Sieber <sieberf@amazon.com>,
-	SeongJae Park <sjpark@amazon.de>
-Subject: [PATCH 5.15.y] mm/damon/core: move static variable last_nr_regions to damon_ctx
-Date: Tue, 10 Nov 2026 07:19:27 -0800
-Message-ID: <20261110151927.158140-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109202159-failed-5.15-26ae50a0901a@kernel.org>
-References: <20261109202159-failed-5.15-26ae50a0901a@kernel.org>
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
+	Nikolay Borisov <nik.borisov@suse.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: VMX: Make handle_bus_lock_vmexit() a shared helper
+Date: Tue, 10 Nov 2026 10:19:41 -0500
+Message-ID: <20261110151928.2074971-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051725-failed-6.12-326fa2c9b4d3@kernel.org>
+References: <20261107051725-failed-6.12-326fa2c9b4d3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,81 +62,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kdamond_split_regions() uses a static variable last_nr_regions, to infer
-if the region boundaries are too stable.  If it looks too stable, it
-does a more aggressive region split because it might be a fake stability
-coming from non-aggressive split.  Because the variable is static, the
-inference can be racy and wrong when multiple kdamonds are running in
-parallel.
+From: Xiaoyao Li <xiaoyao.li@intel.com>
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort monitoring accuracy can be degraded when multiple kdamonds
-are used in parallel and the workload has certain access patterns. Still
-it is a bug that is better to fix.
+[ Upstream commit 326fa2c9b4d3e6cab58c139eb55aaabd7179192e ]
 
-Move the variable into the damon_ctx struct to fix the problem.
+Move handle_bus_lock_vmexit() from vmx.c to main.c to make it a shared
+helper so that TDX can use it for Bus Lock VM exit handling as well.
+Rename it to add vt_ prefix to reflect that it is a helper for both VMX
+and TDX.
 
-Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
-Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: <stable@vger.kernel.org> # 5.15.x
-(cherry picked from commit 26ae50a0901a44f7d50053f87dc38abd9f9a269c)
-Signed-off-by: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Link: https://patch.msgid.link/20260819094903.3060020-8-xiaoyao.li@intel.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: Replaced to_vt() with to_vmx() to access exit_reason in the existing vCPU structure. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/damon.h | 6 ++++++
- mm/damon/core.c       | 5 ++---
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ arch/x86/kvm/vmx/common.h |  2 ++
+ arch/x86/kvm/vmx/main.c   | 12 ++++++++++++
+ arch/x86/kvm/vmx/vmx.c    | 13 +------------
+ 3 files changed, 15 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index d68b67b8d458d..bc0cdd67e2473 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -203,6 +203,12 @@ struct damon_ctx {
- 	unsigned long min_nr_regions;
- 	unsigned long max_nr_regions;
- 	struct list_head adaptive_targets;
-+/* private: */
-+	/*
-+	 * number of regions after last merge.  Read kdamond_split_regions()
-+	 * for more details.
-+	 */
-+	unsigned long last_nr_regions;
- };
- 
- #define damon_next_region(r) \
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 3a50ced2efc0f..1ce0438328b94 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -603,7 +603,6 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
- {
- 	struct damon_target *t;
- 	unsigned int nr_regions = 0;
--	static unsigned int last_nr_regions;
- 	int nr_subregions = 2;
- 
- 	damon_for_each_target(t, ctx)
-@@ -613,14 +612,14 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
- 		return;
- 
- 	/* Maybe the middle of the region has different access frequency */
--	if (last_nr_regions == nr_regions &&
-+	if (ctx->last_nr_regions == nr_regions &&
- 			nr_regions < ctx->max_nr_regions / 3)
- 		nr_subregions = 3;
- 
- 	damon_for_each_target(t, ctx)
- 		damon_split_regions_of(ctx, t, nr_subregions);
- 
--	last_nr_regions = nr_regions;
-+	ctx->last_nr_regions = nr_regions;
+diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+index 27beb9d431e00..86d6753a0d867 100644
+--- a/arch/x86/kvm/vmx/common.h
++++ b/arch/x86/kvm/vmx/common.h
+@@ -31,4 +31,6 @@ static inline int __vmx_handle_ept_violation(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 	return kvm_mmu_page_fault(vcpu, gpa, error_code, NULL, 0);
  }
  
- /*
++int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu);
++
+ #endif /* __KVM_X86_VMX_COMMON_H */
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index 8a922ce0d19c4..089a544cba862 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -3,10 +3,22 @@
+ 
+ #include "x86_ops.h"
+ #include "vmx.h"
++#include "common.h"
+ #include "nested.h"
+ #include "pmu.h"
+ #include "posted_intr.h"
+ 
++int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
++	 * VM-Exits. Unconditionally set the flag here and leave the handling
++	 * to .handle_exit() callback.
++	 */
++	to_vmx(vcpu)->exit_reason.bus_lock_detected = true;
++	return 1;
++}
++
+ #define VMX_REQUIRED_APICV_INHIBITS				\
+ 	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
+ 	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 8e23e901a7593..a5614dd74e8cf 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -6051,17 +6051,6 @@ static int handle_encls(struct kvm_vcpu *vcpu)
+ }
+ #endif /* CONFIG_X86_SGX_KVM */
+ 
+-static int handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
+-{
+-	/*
+-	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
+-	 * VM-Exits. Unconditionally set the flag here and leave the handling to
+-	 * vmx_handle_exit().
+-	 */
+-	to_vmx(vcpu)->exit_reason.bus_lock_detected = true;
+-	return 1;
+-}
+-
+ static int handle_notify(struct kvm_vcpu *vcpu)
+ {
+ 	unsigned long exit_qual = vmx_get_exit_qual(vcpu);
+@@ -6144,7 +6133,7 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
+ 	[EXIT_REASON_VMFUNC]		      = handle_vmx_instruction,
+ 	[EXIT_REASON_PREEMPTION_TIMER]	      = handle_preemption_timer,
+ 	[EXIT_REASON_ENCLS]		      = handle_encls,
+-	[EXIT_REASON_BUS_LOCK]                = handle_bus_lock_vmexit,
++	[EXIT_REASON_BUS_LOCK]                = vt_handle_bus_lock_vmexit,
+ 	[EXIT_REASON_NOTIFY]		      = handle_notify,
+ };
+ 
 -- 
-2.47.3
+2.53.0
 
