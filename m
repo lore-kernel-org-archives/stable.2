@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322722;
-	b=C5tAzlfem1jqF/CxJBOBSu1QTzSJZcpxvFRb3cNgAAAO8BtNFTyN/l39HLxFKbxVpwop
-	 pFjptBXI11mAkMa7dLgWYnIEipVNwFnpyrtUs9GDwiOvxlOq3CVv9DSfB5Upx4kIN+IV3
-	 bjiRSfp0Sh/RRSwsrmPJm1qBnqn7LHbrYDLHbsKZOKkjCFE68+D5Cezs2VjXcnOve/7he
-	 KuaWBqjf8UqORp8gcLKnDyYWXB7Ej9t7l4TQ5UWzuM8TKGm0ahudfXYath/EY3NvEfzL8
-	 hTpkzVgDGz5ZGSczc0WELqA1dgV8FTWIvf+Unm0NNr9SUfXormtDYURnmVus99/XB5Q==
+	t=1794322728;
+	b=RmS3z1RdsyEj35peIAX872awEhgcsEetpSN9XEbY3E7Ksv96XwGnMpOE4XXDvwL9MG8b
+	 rN1YVVfLJm/B7dEH50g+rxvuJdWzcJdn/NN/8X1ge6croQNMMxzrtz8+iV4/eDv+uj+HG
+	 M0sqwE+wMWfFD1jnSlVD5mjS/F8+Zu+lDGPuwPI+Xa76PT/TX8sIHpyhVhueZBGLiQo5z
+	 luDDYBn0UO9ArSUxgSX74dpAFDGadFgBQc6loDlZpgB/1mgibK3owevN4yTj1n0lK/BYC
+	 L/ObowgJr6nRJsZSVN7gxuW+EhlDIFTtuR0c45J/bEMHnjpYWBuCX5ZJrJvoOiV0ftQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322722;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k3X7KTbafhEj4o/vNSx4l13TgV1n6orwx43ZlhXLS1k=;
-	b=iJ7qOqZA21YvyUOIIvPihdEZJZ6IRq/QE6cCRHS0EXQERVHvTdrNoW01L/ZkwPGLGqMD
-	 HttICyY3di8g1PBOExHZAcIiT4T80OulGqip6Wdwy9cbZ6h1Yz4rsjE7jhQ+lZDhXeTEq
-	 lmr1j38u4DYn4tx+vFmv25j5PdUxq5+GyKFvOoP4vNmjQ962fYR7BGCbH+8sdgppera6p
-	 WJ44GpBEIYa/VLwjfhtfNvdkHpkQf4M7Fz9uSTJmjsxvqsU4/vZO2OqFreHrlhoQDvmcK
-	 htjyx2Ep/7MLeS1Cf1qJasrqPTgUxf+BL43JCmvgq7MpwGP3VshOiFOY9FlN3hfTe/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322728;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=bJyBkipq/8VnHVmxuZdWoeSnkdnAYGFqTisHEUQIoBA=;
+	b=Kxlt7dFRF8ELOyfNDvqWCVJQAXCw1mwgF1PnOt35r/Ffhp2uVJ69DMdtkDd1BYFX/qMQ
+	 MoS9OY2YYxVXfH8Gaoxjw0HK4AMH9SBNBqf43/QQkHoZ4RPK7HXgQkRCj/owjVP4wClhs
+	 PrwZ045GpzkVApdewFTQWU4IN5SAQg8m4XeXV7w/Ap5lfL6nOzgGSjIYUwItaGWAnXCEV
+	 for2/u1ikJkByGMcfyi3CfJUVKDbGGAyA3lz8Vwi+gLL//5rjepMCfG+VPcv4hnBMPqsu
+	 4TyIC/lbAQ6lN8bGPKIqECRfAkeUPAbBvlNb4QupE49ldQ0Gb+W7QLUqiAuAvZmRc/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVWtDAj+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6jI6pro;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A59D606A323
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:58:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A01606A333;
+	Tue, 10 Nov 2026 14:58:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVWtDAj+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351EB1F008A7;
-	Tue, 10 Nov 2026 14:58:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6jI6pro
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7FC1F0089F;
+	Tue, 10 Nov 2026 14:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322721;
-	bh=k3X7KTbafhEj4o/vNSx4l13TgV1n6orwx43ZlhXLS1k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HVWtDAj+s4NkkJugg98NKjNzLWhiu8DsDKj492/vm+p9X7Ip4G0stoDlQ7B9+iZcV
-	 6jST4ScBXnawdc9/A/X3dbrXSTeeUfQaukHkKDmilSopSgklGSt1FldVlO84ixa6tZ
-	 cb9gfNcPuOI3vc85FtEvM3c9P1vsnAfVtfZzFw5IcJeo3JWvImePPnpAxBh/bE36Fd
-	 +MlkuneyxcxzKKpkVVQjonkFCks8ugw98Xtb0s9w70TLkn9d+Nk3n+RZEWAbQIDAGQ
-	 1/Q7thaaJ1Qwabt+f6rTxjmEkH2jdWRCbIamRkGJ1f1F27/BGHhdt1hP4fTmTmYJBI
-	 Fy3AfRC2fJ3vQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200
-Date: Tue, 10 Nov 2026 09:58:39 -0500
-Message-ID: <20261110145827.1816925-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060327-failed-5.15-874323b68c93@kernel.org>
-References: <20261107060327-failed-5.15-874323b68c93@kernel.org>
+	s=k20260515; t=1794322727;
+	bh=bJyBkipq/8VnHVmxuZdWoeSnkdnAYGFqTisHEUQIoBA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=A6jI6procODsK7CeA6/g4xeAEWNpqcON0ofARkE55EJ2hB1JdvmLmKKoFakGh63q0
+	 Wk5DMd+w91TKjwQYD9uXZuDPqt5Jhep0B/CMAOySR3NlwmaY1Og3ygrdvKUV8xYGHw
+	 qLZ7fmPtWFMw2CmChiunRs7uE5dw+qscmLBQpyYUrtk3/BpmbKujthYqm+kiW61sAT
+	 ITbmLeOVUPO2H+7xzIw1mtjqb6dizzdUaaClCg/ZeYLvwLIbGSTmPhOZIlTu+6SpIR
+	 D1h+Ew4jEeOiIxevjnUPig5D8kAQ+0HZvSo2slFq8aGREYPKwhHBJPnjaUWd8bRphm
+	 KLVV3AgHsnYyQ==
+From: Christian Brauner <brauner@kernel.org>
+To: jaharkes@cs.cmu.edu, Hungyu Lin <dennylin0707@gmail.com>
+Cc: coda@cs.cmu.edu, codalist@coda.cs.cmu.edu, viro@zeniv.linux.org.uk, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261105051406.52442-1-dennylin0707@gmail.com>
+References: <20261105051406.52442-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH v2] coda: honor the append state of each write
+Message-Id: <20261110-finte-gebiss-human-e05dd6b47c78@brauner>
+Date: Tue, 10 Nov 2026 15:58:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,48 +59,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+On Thu, 05 Nov 2026 05:14:06 +0000, Hungyu Lin wrote:
+> coda_open() adds O_APPEND to the container file's f_flags after it has
+> been opened, without updating its cached f_iocb_flags. An O_APPEND write
+> can therefore overwrite existing data instead of appending. For example,
+> writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
+> 
+> Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
+> incoming IOCB_APPEND state. This also honors changes made with F_SETFL
+> and per-write append overrides instead of relying on the container's
+> open-time flags.
+> 
+> [...]
 
-[ Upstream commit 874323b68c93c6808e034dc0113681e822e6fb42 ]
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-The C200 (046d:0802) reports a mic capture volume range of
-1536..7680 with a resolution of 1 (6144 steps), triggering
-"Warning! Unlikely big volume step count (=6144), linear volume or
-wrong cval->res?" at probe and exposing a uselessly fine-grained
-mixer control.  This is the same firmware behavior as the other
-UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
-(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
-quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
-if the device-specific entry did not short-circuit the lookup) plus
-MIC_RES_384.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Verified on real hardware: with the quirk the warning disappears and
-the driver logs "set resolution quirk: cval->res = 384".
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Replaced the flag-based device entry with a USB_ID case in volume_control_quirks(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/usb/mixer.c | 1 +
- 1 file changed, 1 insertion(+)
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index fa2c740249e33..fdd3efd297c2b 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1169,6 +1169,7 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
- 		}
- 		break;
- 
-+	case USB_ID(0x046d, 0x0802): /* Logitech Webcam C200 */
- 	case USB_ID(0x046d, 0x0807): /* Logitech Webcam C500 */
- 	case USB_ID(0x046d, 0x0808):
- 	case USB_ID(0x046d, 0x0809):
--- 
-2.53.0
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] coda: honor the append state of each write
+      https://git.kernel.org/vfs/vfs/c/644cf7b4af68
 
