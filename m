@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354541;
-	b=tJ4ALjuIsq3Qa1ciBl7Vs5S070hnZ90RFgq6yh+sDmAkg+BTE67xOeizHLyx1lMotklw
-	 QPKoDVPe4QsnEjbWmQBJXKSFTfhVDeeYiQAv2GCvJ2aSaqFoC++ia9J49dWZiS+HYT8v3
-	 T1WaXyI3YacRITfZ/M88DrtFhx5O5+jYdVnAwsJMvtwYyj9XcUtZF//GUzrD5xAs9gj4E
-	 Y0iaURHR5pID8g4ASnQhrJBZ1NEwZ4Tp6J/ORw14wJTSl4W7BgLvl0h1zZNBuvLTvRg10
-	 jAW7bX/P6635Qubs3UOgqaTpCSDOU7EaN4+CIhMbUB5I+5Vf5r+onWlEkhi6cf6toVg==
+	t=1794354900;
+	b=SGopTU6+l2oakWkyUqeVO9+4qdcZakA+JYivylc/ynbm1RIAFCYUWRuev2seXy7FH61Z
+	 xMx/0fqlyRN1bzOUsoTdDFnINA1ea+phFFdN0NIgl1TMIgNGTva1W85AlVWujrS+8r6yK
+	 hEEjvgZh5urfnapBbEHJMYcFMgbpRTuPyHBuZiJ5WzZvI0Sf3pUAIjTImZ9ZfzjmHoQn3
+	 poyCWXWusKcmYcZzQReqPgqZhTt8ebBx4zDw7ky9kpyz7kQ2w7M68L+T2VnQVs7X+imXr
+	 dWfnb55HAinaqeWbenNJmrE4lgq+f0iTZBwYB8EQ3S6ijumRNASh25feFjLGueKPGcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354541;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354900;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W/Z8HddXRhulnDOv7WB6GJf9/tiBNFZLPLdOuvDbWkM=;
-	b=Z+dTtnoyXgbaqhD4ER+Y3TO4TPJrma1Wsg7pSwixopgpJBhLB6EywaKbiOkgekt7Jugt
-	 I+lyCkFhwcgJTxPxN3gcTwnV/USw2/b2PUTSMyAPPvvlSu+O+YewbNlVhgSNYAQfAvnK3
-	 +Y1qZhoLlm4PTetnb0BKeNOd3bMHF1YdC1FJtIMtgUFeRiJEW4pB1Pea3kbYPAG6M4scY
-	 RDy/yMwa1z+FyF00xjjQq39s0+NFqVokn92Za4t78aFE9h1H+cZXECCFOqxfvkORqlrRY
-	 KtPAi7rpUs0FhJuyd913UZOPJsUyXKhHb2VCAX6ziJ3p3Ie7PLZWS0E8eFHRnYyut4g==
+	bh=E88DP839KsO3q/PeGenCpw7k3nbCAZ3yGkwpK1bteWI=;
+	b=0uMCYeHoJHPEf237YA7wn9I52Mvgxye72l6b3xWUp3YyS8RTr3oN2zvvzRX+/6RW+LK6
+	 rrO/QrB9jtE+85Lc5O+yPPhU8DSaoVH7sHHJKeqN8Qdc7dq7qN3MGKBdIa8YugjONxDoA
+	 xbqgMhdMEh8a+9A4u93yk8xJxeZA0QGCALsCga+x4CeSwesaqIu5q8my8RLRtOxWQ762F
+	 AbCTPJmdBzGjoEsRZORm8reiivvCrdqqb1wmEYC161HILgHCVL7ZjNcBIHm+BbP9PoEK3
+	 AA6UhNpoYwpDmiDih4kzcwzJhkFbFBtyjoFzh3oibHOFILDVqTDjI/TzZ+co9UvdJ1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOhDv4v+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2PFfjac;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44B6606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZOhDv4v+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9F41F0093C;
-	Tue, 10 Nov 2026 23:49:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2PFfjac
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FBF1F0093C;
+	Tue, 10 Nov 2026 23:54:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794354541;
-	bh=W/Z8HddXRhulnDOv7WB6GJf9/tiBNFZLPLdOuvDbWkM=;
+	s=k20260515; t=1794354900;
+	bh=E88DP839KsO3q/PeGenCpw7k3nbCAZ3yGkwpK1bteWI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZOhDv4v+qPDNwZl2caz3Tjgt01VonMnZdB7lJ4/Co8cpiM+X+yFoXoM4wqSBIraBn
-	 FcUZWULvGecp9FrYcKctRuuFSkNb5XB60LfafSpHvBYx1ApF7WH5QnbeexZgvRWfiL
-	 ntXmv4/p6mTfQtWjg7UiufFyx1Vj+ZE0zLJSt2BgP+2GuHBpPzAE4ThEhoIKtbdfR6
-	 iT6aIquMljg7ZiSuHQnpwBfu+Gf11XP1jFltNZzUN5i2jZW0yKOEr7abyE6poCjpic
-	 1VoOxWwFS1Jem7YwZv4QszTeLz1MRZt3pOvIBAOIIU/cw6xiuSziFurJ5DrIUBSRo5
-	 zoQ2mg4uV5/9w==
+	b=h2PFfjacqId4f7fIaEUZYK+0mpDVrO/j831gqqiUeOZ9Sq54PIleTtrbSsV+DbkJ2
+	 5V9QyYZpPj0B62KPbdCDuUVEYlJkf7o5LffDKt0f9KDKGfGO5hQophjJjFzBjifWjm
+	 WE7A3ZBF0+efzCUJOZdkGoCE9B1+WwKp9mjJLYe99znsx8leo9V8XmPIj8SgHwue0F
+	 XAHuNfLPeGZ3FJJy0y5n62wnMQF5mMJWLSS9yFr+XudztrCll8NnV5td64kqgSiU79
+	 FfNt07U/30W3yqsyqNaNxZkjDJ7fd64PiCDgl5Mavl9cfCX9/raTW/j+sm+EFB3zjw
+	 Ldg9dPjQB5eWg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Keita Morisaki <kmta1236@gmail.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Roman Li <roman.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/amd/display: Fix swap in median3() for DSC rate control
-Date: Tue, 10 Nov 2026 18:48:59 -0500
-Message-ID: <20261110234820.186732-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
+Date: Tue, 10 Nov 2026 18:54:58 -0500
+Message-ID: <20261110235439.186414-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062650-failed-5.10-7b23bf82ccbd@kernel.org>
-References: <20261107062650-failed-5.10-7b23bf82ccbd@kernel.org>
+In-Reply-To: <20261107053536-failed-6.6-a1b4bd2c2c26@kernel.org>
+References: <20261107053536-failed-6.6-a1b4bd2c2c26@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,58 +62,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Keita Morisaki <kmta1236@gmail.com>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 7b23bf82ccbdb4cf0752f2b8686e7319a7ce497f ]
+[ Upstream commit a1b4bd2c2c262b8094c86afb99364d16ac08cb66 ]
 
-median3() is meant to return the median of three values, but its last
-compare-and-swap step swaps b and c instead of a and b. When c is
-smaller than both a and b, it returns max(a, b) instead of min(a, b).
-For example, median3(2, 3, 1) returns 3 instead of 2.
+Disabling LPIs is pretty nasty, as it directly messes with the AP list
+of the affected CPU, which could be running... This has the potential to
+lead to really bad behaviours, and we should not be doing that.
 
-_do_calc_rc_params() always passes 0 as the first argument, and the
-second argument is never below 12. So whenever the third argument is
-negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
-is set to the second argument instead of 0.
+Take example on the way the Active state is handled and simply pause the
+the vcpu so that we are sure it is in a quiescent state, and the state be
+safely manipulated.
 
-Fix this by swapping a and b in the last step, as intended.
+Nobody has any expectation of performance for this anyway.
 
-Note that this change does not affect valid DSC configurations. The
-third argument is negative only when bits per pixel exceeds the
-uncompressed rate of the colour format:
-
- - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
-
- - 2 * bpc for 4:2:2
-
- - 1.5 * bpc for 4:2:0
-
-Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
-Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1ddc4bc97a62fc89d9d3681413d9f977e1fa1a83)
+Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
+Co-developed-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Oliver Upton <oupton@kernel.org>
 Cc: stable@vger.kernel.org
-[ sashal: Adjusted the target source location because median3() has not been relocated. ]
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: Replaced kvm_pause_vcpu()/kvm_resume_vcpu() with whole-guest kvm_arm_halt_guest()/kvm_arm_resume_guest() calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
-index 4da21966ddcec..c860e536e98e2 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
-@@ -169,7 +169,7 @@ static int median3(int a, int b, int c)
- 	if (b > c)
- 		swap(b, c);
- 	if (a > b)
--		swap(b, c);
-+		swap(a, b);
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index 33ff9fcfcfb08..1dab5298ae9e7 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -276,9 +276,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
+ 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
+ 			return;
  
- 	return b;
- }
++		/*
++		 * Yes, disabling LPIs is painful, since it can be done from
++		 * a *remote* vcpu! So let's not take any chance, and make
++		 * sure that the target vCPU has written their LRs back to the
++		 * irq structures, and release any reference they would have.
++		 *
++		 * If it hurts, don't do it.
++		 */
++		kvm_arm_halt_guest(vcpu->kvm);
+ 		vgic_flush_pending_lpis(vcpu);
+ 		vgic_its_invalidate_cache(vcpu->kvm);
+ 		atomic_set_release(&vgic_cpu->ctlr, 0);
++		kvm_arm_resume_guest(vcpu->kvm);
+ 	} else {
+ 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
+ 					      GICR_CTLR_ENABLE_LPIS);
 -- 
 2.53.0
 
