@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321095;
-	b=XfFobo0EazeNZUjCh9811pxiABJ7tRz7/JUlSf7imiP70V4nt7KNGoD52EQ2OiBPF+Yx
-	 beEkef7Iu0O/LwGocRRixL6hV9yEpDcWbF6/9SOt4iL8BVyvhSEQnzu/Szznmgcqbyyd8
-	 2UyN331VVC96AOV1nokEaRGCvks+NBAVq0FGBsa2SQihdGPd+51lES6Fudi2xETzDLakN
-	 ZjxvPbw+yUC2EunzIpvfaGhk2aEiW49Zu88FBpQMl9gIOisnt9VLJZ91rpaGrb94R0RvA
-	 AahnBYVARn9uJC35tFi3g0d531T04fAGxJDYVkj3OeTH6WkijEGJ9UQXoF22122GtKg==
+	t=1794321107;
+	b=GsGOr2iLHG/jrPONh8iiiizFhb1lGj9WbvRSfP7Tp0yUf2ymNLbQ5TNUfKbkkZw4o06d
+	 ZRW76DhBtZu9qb0XAjidKHBK5oqxy6e0LdLj1sQltJgrYA21wZ9vzA2GhPO3oC53aUNAh
+	 dyBm1jdUenf9d2ptlO5yv4cUsWpHRGGS4FT+9feaHbumvwKZmuMQrJj6SgCzwLK5UVk4E
+	 /LjdXpsZMwntWkFSZeLxetXh7AHD8+HZHOQzz9qDMRLfNKH5FSDSBUCPXq+iEVPqPxkFh
+	 JCcNE8/TduaL27NVipBT5gBGbuBrX2DXXCn+Y58TkZomq20HQyuHr5MD/1KN2OePIVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321095;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321107;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=msh1AWpq3zPxJUG9yN+IS+TEgC0i10NhoeOOq9d3EPs=;
-	b=F2v94bOug8vN4yOTI3X1sQBQvhNX23bJNOqOlunI+0L5UZk9ca0mbWckxKyZ9zs1I8NH
-	 tH4vkKmbHRJ6vmkrSAyaXiT/eGBDLfAocPdSC4EfqEiXeLuj+63VSse8CtHjXeLcyjt6U
-	 8rhDycMS3/YSUieTnuhutgLQE2Tct4U12a5aLLy1jWOitFfF6zkNiGj+MIDEa6Kybmeep
-	 qLPSC+H5Yj3rD+KJAQeZN9n6r14cuqSyh+qqBe3q1uloWrnhmMqQWDAgaQE0wSRAKwmDC
-	 7Q5NwEqmC7JYRSEh8b7EdJyHCyTTzPAKozxZTY8uJ75/URBoJUMqu8BnPf4niwKrKkw==
+	bh=JBDDNV6lQ59reBnxPt4erQrBPA152YekVwx7tBl7MZU=;
+	b=Uy4/Wc3wSWNOhRy1lrq9sBfy1WuolCXuidRlnvpj1a/8LXaPXaJ5MDIFsDgwL1s9Yqf3
+	 Gbge8NIDXvHUyPvf2EJ0wUBSL5T74aWYsnSSpjLYJzbxICqcxftrhWirnT1XMr3VhoN7Y
+	 YphAfRfLRwJ5CRP8jnDl3xcIdGem2VWjODV0myo3O56piKbq3ytxbrem1zGwNYC8dOuiX
+	 buxuj+Nu5ju3/LmMYVeOh+6pRNGMslAwdjif7+hRtAh4NBYb8ujlJ+DI8dg4DQAPtzRsQ
+	 7S6U1FKKZt3WV07sF4MLGOmy5qbD1cUAgWyxqgKKhCmOHtuz/azxtax6NiGU7HP//3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8wHUA3g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZGMGgg1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F987606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:31:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF30606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:31:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8wHUA3g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2007C1F008BD;
-	Tue, 10 Nov 2026 14:31:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZGMGgg1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66BA1F008A1;
+	Tue, 10 Nov 2026 14:31:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321095;
-	bh=msh1AWpq3zPxJUG9yN+IS+TEgC0i10NhoeOOq9d3EPs=;
+	s=k20260515; t=1794321106;
+	bh=JBDDNV6lQ59reBnxPt4erQrBPA152YekVwx7tBl7MZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M8wHUA3gGNUK4Sg+L7Qp5f7sw0xUDLw2uj70uc/AvpC5sRTSUfukEWDStuXD8iGG1
-	 UyMrIvbr0v207+hHzgJgkYxAWK7jVRp4xX5qa3kaNoVCcF21PPwVhYOAFP6qPtnyV0
-	 P4/sKjgc/01EDGHDOcYJ2uxecDWiixhDS8WURERqFPA31BR6+nvAo2y7OnSMPQ+Q7d
-	 gZucqrts8UHgfAbf3FARbvqJeQrRtPThUMEWn2Eto6FZo7s5nUWzxRUKR+W1TC5k/0
-	 caNrr0nPr8bRsE46IUw87CvthAc9s1LmkLEWWRlpAjMTFlrkHky8oi5Mtfpd4SUxhT
-	 OtwhBIVpTptxg==
+	b=NZGMGgg13p6B46fJKni6qkLQK+2cAi2kKjKokbq1WWZbhUKYk/4u9uHod62kNZEuW
+	 K3LbsnzIvINLzQsJini72Rh6uP4aSwkKz1AVIP4S0NnfWAw/l/jqjaJ7o9Va7dyM4J
+	 Pw2vQVA4xFlVSEpOFL+uwxjiTnWJYbaRfdFgXczCt70vsTIuvDNuyIJ3hC/pJKsNzR
+	 B0ChDHJpt2yRjBnDYHVWdXN2k3OZMPrUMj8BRVBKXybrYKuZac+o/mJu6ZAjinqyYk
+	 yt7y3uzb0FaGPTwhGsgwD3TzNZcJ4IGi8sXhV6iBy3r7gbPudQumyNiWEAwX8TPk89
+	 7qWfux8In0OXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	stable@kernel.org,
-	Sarthak Kukreti <sarthakkukreti@google.com>,
-	Jan Kara <jack@suse.cz>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] ext4: fix ABBA deadlock in ext4_rmdir()
-Date: Tue, 10 Nov 2026 09:31:31 -0500
-Message-ID: <20261110143124.1907093-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
+Date: Tue, 10 Nov 2026 09:31:44 -0500
+Message-ID: <20261110143128.1919615-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110143124.1907093-1-sashal@kernel.org>
-References: <20261107054551-failed-6.1-19e16597f9ba@kernel.org>
- <20261110143124.1907093-1-sashal@kernel.org>
+In-Reply-To: <20261107054521-failed-6.1-7907d5270dc5@kernel.org>
+References: <20261107054521-failed-6.1-7907d5270dc5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,115 +62,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 19e16597f9baf1b5719a3a6c710486446f6808fd ]
+[ Upstream commit 7907d5270dc5c13b6a95754c08a77d5b06bbc786 ]
 
-We observe the following ABBA deadlock (casefolding enabled):
+mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
+before allocating and registering the secondary PHY. If allocation,
+EEPROM override, or PHY registration fails, it returns without restoring
+the primary PHY capabilities. The EEPROM override failure also leaks the
+newly allocated ieee80211_hw.
 
- INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
- task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
- Call Trace:
-  <TASK>
-  __schedule+0xc2c/0xe60
-  schedule+0x40/0xe0
-  jbd2_journal_wait_updates+0x8f/0xf0
-  jbd2_journal_commit_transaction+0x321/0x1850
-  kjournald2+0xa9/0x230
-  kthread+0x226/0x2a0
-  ret_from_fork+0x101/0x1e0
-  ret_from_fork_asm+0x1a/0x30
+Route all failures through common labels that free the secondary hardware
+when it was allocated and restore the primary PHY capabilities.
 
- INFO: task Thread-10:4161 blocked for more than 720 seconds.
- task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
- Call Trace:
-  <TASK>
-  __schedule+0xc2c/0xe60
-  schedule+0x40/0xe0
-  wait_transaction_locked+0x8c/0xd0
-  start_this_handle+0x252/0x870
-  jbd2__journal_start+0x120/0x280
-  __ext4_journal_start_sb+0x11a/0x250
-  ext4_evict_inode+0x208/0x760
-  iput+0x222/0x5c0
-  dput+0x293/0x690
-  ____fput+0x145/0x2b0
-  task_work_run+0x7a/0xb0
-  exit_to_user_mode_loop+0xc0/0xd0
-  do_syscall_64+0x14b/0xf10
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
- NMI backtrace for cpu 0
- CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
- RIP: 0010:d_walk+0x0/0x290
-[..]
- Call Trace:
- <TASK>
-  shrink_dcache_parent+0xb2/0x100
-  d_invalidate+0x50/0x110
-  ext4_rmdir+0x3a2/0x3d0
-  vfs_rmdir+0x9d/0x1d0
-  do_rmdir+0xf0/0x330
-  __x64_sys_unlinkat+0x34/0x50
-  do_syscall_64+0x61/0xf10
-
-The problem is that ext4_rmdir() calls d_invalidate() before stopping
-the jbd2 transaction handle.  Because d_invalidate() traverses child
-dentries it can encounter dying or in-use dentries.  If a concurrent
-thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
-it requests a new transaction handle via ext4_journal_start(), which
-waits for all running handles to close.  However, the thread executing
-ext4_rmdir() still holds its active transaction handle while looping
-in shrink_dcache_parent() waiting for the dying child dentry to complete
-eviction.
-
-Stop transaction handle in ext4_rmdir() before calling d_invalidate().
-
-Cc: stable@kernel.org
-Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
-Co-developed-by: Sarthak Kukreti <sarthakkukreti@google.com>
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://patch.msgid.link/20260827125158.4030598-1-senozhatsky@chromium.org
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+[ sashal: Omitted the mt76_eeprom_override() error-path change because that call is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/namei.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mt7615/init.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index e38770a7ce444..42cc5c8778444 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -3258,19 +3258,20 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
- 	ext4_fc_track_unlink(handle, dentry);
- 	retval = ext4_mark_inode_dirty(handle, dir);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+index cb5965700dfbb..333e33189c4e8 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+@@ -463,8 +463,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
  
-+end_rmdir:
-+	brelse(bh);
-+	if (handle)
-+		ext4_journal_stop(handle);
+ 	mt7615_cap_dbdc_enable(dev);
+ 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
+-	if (!mphy)
+-		return -ENOMEM;
++	if (!mphy) {
++		ret = -ENOMEM;
++		goto error;
++	}
+ 
+ 	phy = mphy->priv;
+ 	phy->dev = dev;
+@@ -503,7 +505,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+ 	ret = mt76_register_phy(mphy, true, mt76_rates,
+ 				ARRAY_SIZE(mt76_rates));
+ 	if (ret)
+-		ieee80211_free_hw(mphy->hw);
++		goto error_free_hw;
 +
- 	/* VFS negative dentries are incompatible with Encoding and
- 	 * Case-insensitiveness. Eventually we'll want avoid
- 	 * invalidating the dentries here, alongside with returning the
- 	 * negative dentries at ext4_lookup(), when it is better
- 	 * supported by the VFS for the CI case.
- 	 */
--	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
-+	if (!retval && IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
- 		d_invalidate(dentry);
++	return 0;
++
++error_free_hw:
++	ieee80211_free_hw(mphy->hw);
++error:
++	mt7615_cap_dbdc_disable(dev);
  
--end_rmdir:
--	brelse(bh);
--	if (handle)
--		ext4_journal_stop(handle);
- 	return retval;
+ 	return ret;
  }
- 
 -- 
 2.53.0
 
