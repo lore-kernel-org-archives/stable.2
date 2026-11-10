@@ -1,56 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313476;
-	b=t5Mi2d61vacGAYCq8TFuK27d1BzejaEn0J+aA88vqr2fuWTEcPH5D5QP3KIfcJLIt4GV
-	 mFBIJIhHDKMYPcY6mJBZ3qSQ5kLa1C84kRD9rL+V2eWMzsMdDyMo4Dn3Pr1Anpaeny8X9
-	 7EJcY++csyMd4F+h9YS76XKo8ZeVD5f+1HD8OiekbqGxfppZsd1ZcHsua2pDw277kt/M1
-	 nXvgCW6yl78gpmLhYNP3V2edSoyGW40NEJIBSj+ReTbWeXus/JZHOhhlpPmafKooPsEna
-	 Pn22eZVYBC/mU64wYqhu+kJUA2Q1ASdPZc1tuqphDHnwIM+D1EypkTQekXHR3GRK5QQ==
+	t=1794313536;
+	b=Slz9pHLSgfJDT+1dX4T4nZT+MIthv4+fCBkeM4R++VkbAvdS29UVHlnXw1rIW9zSZAMM
+	 XHHm5c/meI2nC/9XsEBQuPaawFl6j2DACsGfqUi4fYGkZdn9HI6j1IyvmWt57zzKg1ngJ
+	 h/zugw2FYEit68S5jjHYFdHNJ5508DSJEtMW4TI73J5FcePKaNMu927fpLaZzVmLpt358
+	 1wVbSPXLp/+p+3ipEBCyb2XRbB3dpIK/V/vcuW8GIqxzh+/HwmAeTIYAJrfM2bDOcSPYt
+	 EClQ1z4XCKFYNYcT2ITyE6ZaRlvwQnfsI1uKQumgj8TIz1xcWWhF+3YB4GfHuy643Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313476;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uffTXyNgS/uKOyXHd0pY2fVdZuFQ7maeq/k4jt4vt1g=;
-	b=ZreCStixLcA5RueSZjGqM1at+18Hs3P8JKNB0NBIOcS9XTCFTLmmzvk/S0qDqan7DKYG
-	 PK+e0a4VO/DV2QZ+wUv1twTIpBpal2NNT889kfRYZC9X5eLUZIwcs2bcb2y5RPZI/SRPK
-	 LRBTxYMPzD1adgiK0Mj+W4A4NiCsVPTmW4gLtTI6s+slEIrB7rJG3Enkb1mY4lygXkhnK
-	 cOpfZinwEdv0nQUBfVdGN/8Fte5vO4UxrvAnmF4WwmJkPkAbYM/7tczw7bPkADpYrLIiA
-	 FCT2SgrfDkUQ8r/bhVGm4IkEosiDImRSU8cnxdFfy6oc6XXg1FlGqcqsjPpn09I/hqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313536;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=8lWCiB0JHEA7qzkmIFqBVO/U/0hIioLfNPjh2IrIufs=;
+	b=bm/4GTjkXfE+PK0RGXN4fZljO6A8yHcWyHwbhWp45n5Vsy58CQ6yxbAudx7fl77QyAfU
+	 rGVlFPd8M8Axgg8uN4VKLejYnCZJVErJXeOxofnXS+E8YA5xKWD2OpeuJi74Pb+e7f5O4
+	 f1OU/nX9UcRgK/Qnx2599t1IeNmf52KZw+fKuBlxV/3zj61fb0/U+hq9gxetk1MMVmOOf
+	 k/qDoKzX3MwfU+m3Gm6KLK1fJm1Dh/CDwzxe2uPhfBYmV1IFlUyyzfKpcvCIf4Sbb2sEp
+	 jZrvNgyEbSWfldaoi5jZSXalX86QITXJEfMvU/yrCdx3J9RedKba0wrYI5PMrC1busw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sfmvo+3c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=SI4Wmh9i;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2319A606A334
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:24:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E58B606A31C;
+	Tue, 10 Nov 2026 12:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E58B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sfmvo+3c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528AA1F008A3;
-	Tue, 10 Nov 2026 12:24:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313476;
-	bh=uffTXyNgS/uKOyXHd0pY2fVdZuFQ7maeq/k4jt4vt1g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sfmvo+3c/kj837hffHxUxENw7YtYGVGrG6IYGOEjVLW6zkEcmbaACAWxB0ZJvLOKN
-	 id5ziG6Zj63bo3vIpShjCiYIR59tX6Uan9iaU5UlyzFGNG6bRao71O3oqXM2a2We5D
-	 Bq1192l+9uxYVYONmdtgBl1VT08MYSwQHtP6TbiiUC1HBSiE/3PLiKH177a6wr11C4
-	 MxTP60Z4UTr9bM2HcJO0MKQfZf//ARhXkUvriqdUd/w4K8xK1MpMIYImqFNXMFVdWL
-	 XVrRscKl+ixfEUY4YMUwbkB6U72zDHwQwjmGOaH92jH19SB30H+OfQLbPpyFEjeItX
-	 y7gs+tam7U3ng==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] KVM: arm64: timers: Compute an offset-applied CVAL from the current count
-Date: Tue, 10 Nov 2026 07:24:34 -0500
-Message-ID: <20261110122414.1181293-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053224-failed-6.6-49930b1b557c@kernel.org>
-References: <20261107053224-failed-6.6-49930b1b557c@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=SI4Wmh9i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794313477;
+	bh=8lWCiB0JHEA7qzkmIFqBVO/U/0hIioLfNPjh2IrIufs=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=SI4Wmh9iiZypCLWl2/XmG5ygxz0S3I5Z10l+nJIgGIVpILB4LN2UlWwSRzb31TfoQ
+	 x/B+HSOe+aDRdA5c9OzxJvq/SBnj3tP9j1rHR9EJEUjmEr5dxQvZON4ThYtB+Beu1H
+	 TBxAbaI6dNtJYDvkK+tHjnEdiyr/7dxfu37cS3GY=
+X-QQ-mid: zesmtpgz8t1794313460t52fdad64
+X-QQ-Originating-IP: 7YJuLs4em+I2CqTud3IbnSVjn7y41TF7S7cgnCx37EU=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 10 Nov 2026 20:24:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 10375027920850177401
+EX-QQ-RecipientCnt: 16
+From: raoxu <raoxu@uniontech.com>
+To: jic23@kernel.org
+Cc: dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	luiz.von.dentz@intel.com,
+	pengpeng@iscas.ac.cn,
+	pmenzel@molgen.mpg.de,
+	brgl@kernel.org,
+	u.kleine-koenig@baylibre.com,
+	lars@metafoo.de,
+	mike.looijmans@topic.nl,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org,
+	Joshua Crofts <crofts@kernel.org>
+Subject: [PATCH v3] iio: adc: ltc2471: Fix LTC2473 differential offset
+Date: Tue, 10 Nov 2026 20:24:14 +0800
+Message-ID: <B29B7229F9C3B748+20261110122414.373459-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,135 +80,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: Nc4Sv39/e83WFeryTqrHNtJMOj01Y+f0ORTzGpEKG9K0/C7vSde8aTRX
+	y/qMc8n/tgq+FMlEVe/lRS9F0KkGjR3APk0ev9oxRLubtn3yqwsgYusnb8cVywJaE4UZvwV
+	i5E5xqio9BD2SAQA9BmhyHwIctS/G304cjq9Ompv9GKJgdwAHLT7J2BTpmJKcgknghVshgw
+	tkf5eFiuFk+CpFBnoshnkwle3c+keK+tQJIzLZbpiAH3VcUK/iSkdxgK+SG6ii+izKmNHoF
+	ulmGGT0f+0a7dYEWzI1I3AWepIao5fTPgXbVQWoho0de2byMm9OIKda7QMo8DkdXfzxk/A5
+	1+xquYHAlIXNwGmUJh33GCQmqD5ALlcMCbphGzXdiRVPcxET5YTlV0dRrbtdGagXSiS7Zy6
+	yR70M3Ec9jBLjTY+ZZsz04VWHgBAfbQRxdxKTUyg8vmIuSe8154gFZMvYewJnXUg2A88STa
+	jv0ddqh1t3FVg9TN+vYkH0kVdMcYhaqGZywYbEcIga/l4XuGiqiaNopkQEoztvzS58bbqv3
+	X3kZRDDRH+ywiABL53LcCmr9nf2g6PkkhqfKSw7f7TjW6tdITacG6LzVVOCIIcd25q4K1PP
+	baCGg3AIwvuHUdL8jdq++7xWjFSij+b/alWWX0dxd+Ct35wiuDcl5hr8x4NmwzxGZ96twF1
+	Xismda0KS0Ie09Pu7I9KswrbzhrOSbziulVOJQ5nT6L/GGQvUyK7+AqKY2zuYHNBaETd5UN
+	TadUTiXM2cq38YPRi8ul5RoyRWDcDCbh8w0oKywt/h46VNxODnr38k6+w+iIaAV+l/Q1RJV
+	go0t2TyLIhS5fLo3YYy3adv9TKUvE2N5nQXcACAs14e+EFjzrNw9YqbisSB2uu8/dTE3phq
+	t0OcPDPw6FWKf+EuBN9ISVASKVVXbHJ/IT4GWFUuYOtnTLejMSOKDmeIk5MUrmj9WP9xTNd
+	IDMT+p4Kw36e+p1Cbd27YC/1hl7cR+qQgFdP9/m+4C/gP652tXy+10VSmQmirXpmRuBf2Oo
+	QKXpkgkQx0SUUjhVtXqGegBCBtjX+PZOGz/poUvMQOvayUvoUmT+wS6IUnjpzpHUcdjQR38
+	fhES24ep8VKgzg0e8r1J/5oTLJNMnc/0+Nt8zPOgx2e
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit 49930b1b557ceb698e0ab7f985ea41c99dc8bf22 ]
+The LTC2473 reports its differential conversion result as an unsigned
+16-bit value spanning -VREF to +VREF. The IIO scale is consequently
+reported as 2 * VREF divided by 2^16.
 
-When the hardware won't apply a timer's offset, KVM programs CVAL +
-offset and lets it compare that against the raw counter. The compare is
-unsigned (IsTimerConditionMet, DDI0487M_c J1.4.3.29):
+IIO offsets are expressed in raw codes, but the driver currently returns
+-LTC2471_VREF, which is a millivolt value. This makes the processed
+reading incorrect: with a 1.25 V reference, the midpoint raw code is
+shifted by 1250 instead of 32768 codes.
 
-  condition_met = (UInt(PhysicalCountInt() - offset) -
-                   UInt(compare_value)) >= 0;
+Return the raw-code offset so that the midpoint maps to 0 mV and the
+endpoints map to -VREF and +VREF as intended. The single-ended LTC2471
+does not expose the offset attribute and is unaffected.
 
-so adding the offset to both sides holds only while both sums wrap or
-neither does. A guest whose counter is ahead of the host's by more than
-CVAL has an expired timer that never fires, and one behind it can have
-a far-future timer fire at once.
-
-On a CNTPOFF_EL2 host the first case livelocks: each entry reloads the
-guest's CVAL, the timer fires, and the exit rewrites it as CVAL + offset
-before the host can take the interrupt. Without CNTPOFF_EL2 the timer
-hangs until the vCPU is next loaded, which is what Zenghui reported on
-a Kunpeng920.
-
-Program the value from the current count instead: CVAL + offset while
-the deadline is ahead, 0 once the timer has expired for the guest, ~0
-past the counter's wrap. KVM recomputes it at load, at exit and on a
-trapped CVAL write, and an expired timer stays expired in between. The
-value can't be inverted, so with an offset timer_save_state() keeps the
-memory copy, and kvm_hyp_handle_timer() returns that copy for a guest
-hypervisor's read of its physical CVAL rather than subtracting the
-offset back out.
-
-Fixes: c605ee245097 ("KVM: arm64: timers: Allow physical offset without CNTPOFF_EL2")
-Fixes: 9404673293b0 ("KVM: arm64: timers: Correctly handle TGE flip with CNTPOFF_EL2")
-Fixes: 0bc9a9e85fcf ("KVM: arm64: Work around x1e's CNTVOFF_EL2 bogosity")
-Reported-by: Zenghui Yu <yuzenghui@huawei.com>
-Closes: https://lore.kernel.org/r/460258be-0102-e922-c342-4e87cd94b9e5@huawei.com
+Fixes: 1d3eacbfa644 ("iio: Add LTC2471/LTC2473 driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261007074343.324269-2-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: omitted changes to virtual timer offset workarounds and trapped CVAL reads ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
 ---
- arch/arm64/kvm/arch_timer.c     | 16 ++++++++--------
- arch/arm64/kvm/hyp/vhe/switch.c |  3 ++-
- include/kvm/arm_arch_timer.h    | 15 +++++++++++++++
- 3 files changed, 25 insertions(+), 9 deletions(-)
+Changes in v3:
+- Add Reviewed-by tags from Nuno Sá and Joshua Crofts.
+- Move the AI assistance disclosure out of the commit message.
+- No code changes from v2.
 
-diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
-index a795dad2b99ab..0911f81206585 100644
---- a/arch/arm64/kvm/arch_timer.c
-+++ b/arch/arm64/kvm/arch_timer.c
-@@ -507,8 +507,6 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 		goto out;
- 
- 	switch (index) {
--		u64 cval;
--
- 	case TIMER_VTIMER:
- 	case TIMER_HVTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTV_CTL));
-@@ -538,11 +536,12 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 	case TIMER_PTIMER:
- 	case TIMER_HPTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTP_CTL));
--		cval = read_sysreg_el0(SYS_CNTP_CVAL);
--
--		cval -= timer_get_offset(ctx);
--
--		timer_set_cval(ctx, cval);
-+		/*
-+		 * With an offset, memory already holds the guest's CVAL (the
-+		 * trap handler or __deactivate_traps() wrote it).
-+		 */
-+		if (!timer_get_offset(ctx))
-+			timer_set_cval(ctx, read_sysreg_el0(SYS_CNTP_CVAL));
- 
- 		/* Disable the timer */
- 		write_sysreg_el0(0, SYS_CNTP_CTL);
-@@ -627,7 +626,8 @@ static void timer_restore_state(struct arch_timer_context *ctx)
- 		cval = timer_get_cval(ctx);
- 		offset = timer_get_offset(ctx);
- 		set_cntpoff(offset);
--		cval += offset;
-+		if (offset)
-+			cval = timer_apply_offset(cval, offset, kvm_phys_timer_read());
- 		write_sysreg_el0(cval, SYS_CNTP_CVAL);
- 		isb();
- 		write_sysreg_el0(timer_get_ctl(ctx), SYS_CNTP_CTL);
-diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-index 31304da0d6173..83169192d0b98 100644
---- a/arch/arm64/kvm/hyp/vhe/switch.c
-+++ b/arch/arm64/kvm/hyp/vhe/switch.c
-@@ -116,7 +116,8 @@ static void __deactivate_traps(struct kvm_vcpu *vcpu)
- 		offset = read_sysreg_s(SYS_CNTPOFF_EL2);
- 
- 		if (map.direct_ptimer && offset) {
--			write_sysreg_el0(val + offset, SYS_CNTP_CVAL);
-+			val = timer_apply_offset(val, offset, arch_timer_read_cntpct_el0());
-+			write_sysreg_el0(val, SYS_CNTP_CVAL);
- 			isb();
- 		}
- 	}
-diff --git a/include/kvm/arm_arch_timer.h b/include/kvm/arm_arch_timer.h
-index e748bc957d832..f63a2229a3d26 100644
---- a/include/kvm/arm_arch_timer.h
-+++ b/include/kvm/arm_arch_timer.h
-@@ -152,4 +152,19 @@ static inline bool has_cntpoff(void)
- 	return (has_vhe() && cpus_have_final_cap(ARM64_HAS_ECV_CNTPOFF));
- }
- 
-+/*
-+ * CVAL to program when the hardware won't apply the timer's offset, so that
-+ * its compare against the raw counter matches the guest's at 'now'. An
-+ * expired timer stays expired; one past the wrap never fires.
-+ */
-+static inline u64 timer_apply_offset(u64 cval, u64 offset, u64 now)
-+{
-+	u64 hw = cval + offset;
-+
-+	if (now - offset >= cval)
-+		return 0;
-+
-+	return hw > now ? hw : U64_MAX;
-+}
-+
- #endif
--- 
-2.53.0
+Changes in v2:
+- Replace the raw -32768 literal with the named LTC2473_DIFF_OFFSET
+  macro.
 
+The supplied fix was reviewed and this commit message prepared with
+OpenCode AI assistance.
+
+ drivers/iio/adc/ltc2471.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/adc/ltc2471.c b/drivers/iio/adc/ltc2471.c
+index 369af700969f..eb418c0fa732 100644
+--- a/drivers/iio/adc/ltc2471.c
++++ b/drivers/iio/adc/ltc2471.c
+@@ -25,6 +25,7 @@ struct ltc2471_data {
+
+ /* Reference voltage is 1.25V */
+ #define LTC2471_VREF 1250
++#define LTC2473_DIFF_OFFSET (-32768)
+
+ /* Read two bytes from the I2C bus to obtain the ADC result */
+ static int ltc2471_get_value(struct i2c_client *client)
+@@ -69,7 +70,7 @@ static int ltc2471_read_raw(struct iio_dev *indio_dev,
+
+ 	case IIO_CHAN_INFO_OFFSET:
+ 		/* Only differential chip has this property */
+-		*val = -LTC2471_VREF;
++		*val = LTC2473_DIFF_OFFSET;
+ 		return IIO_VAL_INT;
+
+ 	default:
+--
+2.50.1
