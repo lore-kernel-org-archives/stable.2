@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273834;
-	b=iacRHE84k7z14g/pC18L1pdu7WUoNU1jwEPjNfvAwNIwuv+/Wk1eGv2Y9fUhhO/Y8Sor
-	 gjF/U3FGf4XdwUJDT2FBDkikFv8O9tAWrHMnOqAMcpPjKB0bA+7D/l6uwat5ueEBW+SlT
-	 UTXZfKf1OuVfnmLUJ+XMIo+etf6Dh0iwiupd+Xx0ZjHNFyDCzy01EjXBiZyJ45qTRtb6q
-	 PUKLI2Vna+d0tBst9md9OzxCWwWVNuxBQIqe+Gt7jzBcH3wlB+HIxUSreumBzUjp6X7OP
-	 cntlcMybm6RDmydUfVB9c59JM1EL6F3A2qCeCLN52/uc6Smj8aVcl2ndT3LAJO8om8g==
+	t=1794273836;
+	b=H0KPqXYPvIxvwx8k43Gt26bd/GaLY+0lj4ZLrdbCwuUvWGfQGBW/oQjNfrjMXQKnx/9m
+	 U3rsavIJjqyMsdN2iO+e4xaS+gTEs8cPj1d7Qd3K8NFuYb3o05uIKgN8ftxhTkdybCYp6
+	 /eEH7Igj8JzjjRUcdPYIK91dXcsSfYv6dSP7qnQrvxoJNg2UNLEJLQQi9FiPPs55Rk85D
+	 LQAwMRzUUQhrr+zIvYBYpsHMAYNPNvPyMW8sa3GD3t4ovrupF+jThPBA6LK7kr4RAP/e6
+	 R6qmRxVZH0dhguGUxJbrIaDULwX3WxxzYC0fMuZJKCr2atjdP615h5oi232d/qRdMmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273836;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=v83SnwBPhnPTYxoGrmWewiC4y/b2dap1usb6w3/sVWg=;
-	b=v9sXmddpjuZ1Drk2LRU0pTfOGSeSzsaU8JfsbFUnKoDuBTsY6NP9I3nQlEC+BZtNCJXw
-	 JU5ESx8Tx7SabyUsqZSOw8qU/uBRSGH06NEys/shPyORrVslwGUyrTfouwj4HKjRenjhr
-	 a+9Vgp1fT0qF2PAxDAqGj+tct1Dly83ZdIQROj2G7EyUaef10X0/rWJTQTB7rMUS6NNoh
-	 FtKuoOq586M6Urr+oTfkxnrMISeQCINHWIshxQ9AhLIM1Qr2JCgLzdWIX3EhJ429Migtt
-	 JqcWHaFxl5KoMkkWvEVWGrLKNp+lMYIlLZKjiXS0m5j1gqfs+3YS0oKYuUCvT4iAukw==
+	bh=2PYZhqVIkHAeCq9ZkQ5BMty4/l3fj/mdxH4P+8qAhqI=;
+	b=wayOSWAYuktMyH4mRGFiA2WSDEm8u5xvZlOW4V/QWYZC1pSxNQNSmSF61YYIS6RdQ8Oi
+	 adjz72Q/pJMp97MXI3Y8X0T7+UTIhQ3mcmtXj0XMK9DehuleKC+SnrJ9XpKluz5ErpFUZ
+	 ui6q5EsB/gsqc+h/RZ9237q5sjDZvqAuk3U2cyCwh0vzGuYKZ/ptJa+Ea4k0Hmci7VxEC
+	 jlYERHSaMJdwFoZadbM1uB9Atvt8fzVx2sISxoW0zwtL5EfxuLBW4xs7DyVjNHuS28x0y
+	 foudcCFMB0tDOlz2wp7DDhTqqs1ROsdZZyE74ZeCywklgDQdpBs0z5k/I/AvO+C5ZwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzPsKlk4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZMaGIkw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AFA60A260F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C4F460A3837
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzPsKlk4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D689C1F0089F;
-	Tue, 10 Nov 2026 01:23:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZMaGIkw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 766E71F008A2;
+	Tue, 10 Nov 2026 01:23:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273833;
-	bh=v83SnwBPhnPTYxoGrmWewiC4y/b2dap1usb6w3/sVWg=;
+	s=k20260515; t=1794273835;
+	bh=2PYZhqVIkHAeCq9ZkQ5BMty4/l3fj/mdxH4P+8qAhqI=;
 	h=From:To:Cc:Subject:Date;
-	b=kzPsKlk43wCd0D6JUPui1olYENwyCVlvFDpLpqF/R/vX382j3Z0G1buLA5Ubmhlvk
-	 RRcPYIX0aUiLZb6Jy32QRpA5AprfhMaeubIychUtBUC/k1hzQ66zSOqf3arjYQhYqQ
-	 KXR0c54zr50pbtkkOWoQKZLp2ACO+KuABdib+akKVgHSQo8qctvgjAUcLxQQdXAdI2
-	 p2Pe2mXAHnjHgEOxXtF+ck30l3lC4HbuxHH7UL2eqoAf77p6Dqb6QlHErPPLY2vHzg
-	 z3DBrN+WxavHk5gfgOCPzW8Xm8qDTHbluKC54znltNLjePF5SceBUuhiZoO5lvufeI
-	 C6lNm5EHckVXA==
+	b=PZMaGIkwMPVPZvDtUerY1gTNGr/jH2mo95yXrc2Ib7KRzweQkktAstjXfh+CZQLq4
+	 xQp3oijKGxiVnJ1GNgzoKLkx+pYpZ3jcUHyivbr+aGEjXfgAKK3+/JPoqzuCb8JwOk
+	 1k8TRQ0uMCMh4DZSSSgoKnYKBuLUhgis4y4m4bWgHKqQnKgkWqmDkbNcAmLDSWTIfb
+	 R95ozzyXy8haVcuuVaB22WXDLl9x6ViOFUZ8cYmYY2S1WMDXrXYazZlU4UqKLmMNpT
+	 DMev8c1zHPtur2LOmsC/UXtFHkgkmtx6MJfGZT8/ikfvfT7M7yfYjor1gyTxt1MgRx
+	 ahRYkrO+Ym20w==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	mason@kernel.org,
-	ljs@kernel.org,
-	xu.xin@linux.dev,
-	usama.anjum@arm.com
+To: amir73il@gmail.com,
+	edvard@tuta.io
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/ksm: fix use of a freed anon_vma at swap-in" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:23:51 -0500
-Message-ID: <20261109202351-failed-5.15-4c2dec1dce36@kernel.org>
+Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:23:54 -0500
+Message-ID: <20261109202354-failed-5.15-9ff338af0e00@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,190 +68,190 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e
+git cherry-pick -x 9ff338af0e002fe217cfa16b1289b76f6b21fc72
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202351-failed-5.15-4c2dec1dce36@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202354-failed-5.15-9ff338af0e00@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:09 +0100
-Subject: [PATCH] mm/ksm: fix use of a freed anon_vma at swap-in
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 9ff338af0e002fe217cfa16b1289b76f6b21fc72 Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 30 Oct 2026 18:07:02 +0100
+Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when reading directory layers
 
-A folio read from a swap slot previously shared by KSM can remain in the
-swap cache after the process that first mapped it exits. Its anon_vma
-can then be freed, so ksm_might_need_to_copy() must not dereference it
-to compare roots.
+Listing a merged or impure overlay directory opens the real layer
+directories from ovl_dir_read(), when the readdir cache is filled.
+Those opens use plain ovl_path_open(), so when the directory fd is
+one that fanotify created for a permission event, they can still raise
+FS_OPEN_PERM.  A listener that also marks the backing filesystem and
+calls getdents() on the event fd before answering then deadlocks the
+same way as with the directory open fixed by the previous commit.
 
-Doing so can result in some false-positives, resulting in the reverse
-mapping missing the new folio mapping, preventing migration and reclaim.
+Store the overlay user file in struct ovl_readdir_data and pass it to
+ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
+the impure cache.  Internal readers such as ovl_check_empty_dir() and
+the mount-time workdir cleanup still pass no user file.
 
-SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-immediately after freeing. A stale pointer can then refer to another
-anon_vma whose root matches, even though the target VMA is not linked
-to that anon_vma.
+A note about severity and real world impact: The FAN_OPEN_PERM event is
+traditionally used by anti-malware protection agents and security/audit
+agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
+and agents typically monitor multiple mounts in a mount namespace.
+FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
+It is often not the case that anti-malware agents monitor open of
+directories. Security/audit engines are more likely to opt-into
+FAN_OPEN_PERM on directories, but are less likely to list the content
+of a directory within the scope of FAN_OPEN_PERM event, so the real
+world impact of this bug is likely not significant.
 
-Move the anonymous rmap compatibility checks into
-folio_anon_rmap_compatible(). Keep the page-index check and compare the
-folio's anon_vma pointer against the VMA's own anon_vma and root first.
-
-If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-The VMA keeps these anon_vmas alive, and finding a match guarantees that
-reverse mapping can find the new mapping.
-
-Lorenzo Stoakes says in a private discussion:
-
-  "This isn't quite equivalent to the existing check.
-
-  Every anon_vma in an anon_vma_chain shares the same root, but if you
-  split a VMA then fork both of them like this:
-
-                  VMA A
-               /        \         <split>
-            VMA B      VMA C
-               \        /
-        root <- anon_vma 1
-               ----^ ^----        <fork>
-              /   parent  \
-        anon_vma 2   anon_vma 3
-             |            |
-           VMA D        VMA E
-
-  VMA's D and E both get their own new
-  anon_vma's such that:
-
-  VMA D: anon_vma 2 -> anon_vma 1 -> root
-  VMA E: anon_vma 3 -> anon_vma 1 -> root
-
-  And if you found a folio referencing anon_vma 2, the existing check:
-
-	anon_vma->root == vma->anon-vma->root
-
-  Would be true for VMA's B, C, D & E.
-
-  However after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain.
-
-  Whether or not that could actually happen in practice... 🙂 I don't
-  know.
-
-  [...] after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
-  you are making the test stricter but more correct.
-"
-
-If this affects performance when KSM was never even involved, we could
-just track whether KSM ever merged anything and just skip these checks.
-
-There isn't really a lot we can do otherwise: for mapped folios we might
-be able to use folio_get_anon_vma(), but for unmapped folios there really
-is no easy way to see if the anon_vma is still valid.
-
-Document the (confusing) lifetime requirements of folio_anon_vma().
-
-Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
+Reported-by: Edvard Conrad <edvard@tuta.io>
+Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Xu Xin <xu.xin@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-40-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+Co-developed-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
- mm/util.c | 13 +++++++++++++
- 2 files changed, 44 insertions(+), 5 deletions(-)
+ fs/overlayfs/readdir.c | 29 +++++++++++++++++------------
+ 1 file changed, 17 insertions(+), 12 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 9c51925825cbf..e050b1bdf810d 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -3137,11 +3137,40 @@ void __ksm_exit(struct mm_struct *mm)
- 	trace_ksm_exit(mm);
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 5d21a328fad46..4cd4af097e5c1 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -43,6 +43,7 @@ struct ovl_dir_cache {
+ 
+ struct ovl_readdir_data {
+ 	struct dir_context ctx;
++	const struct file *user_file;
+ 	struct dentry *dentry;
+ 	bool is_lowest;
+ 	struct rb_root *root;
+@@ -377,7 +378,8 @@ static inline int ovl_dir_read(const struct path *realpath,
+ 	struct file *realfile;
+ 	int err;
+ 
+-	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
++	realfile = ovl_path_open_realfile(rdd->user_file, realpath,
++					  O_RDONLY | O_LARGEFILE);
+ 	if (IS_ERR(realfile))
+ 		return PTR_ERR(realfile);
+ 
+@@ -421,13 +423,14 @@ static void ovl_dir_reset(struct file *file)
  }
  
-+static bool folio_anon_rmap_compatible(const struct folio *folio,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+	const struct anon_vma *anon_vma = folio_anon_vma(folio);
-+	struct anon_vma_chain *avc;
-+
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
-+	vma_assert_stabilised(vma);
-+
-+	if (!anon_vma)
-+		return true;
-+	if (folio->index != linear_anon_page_index(vma, addr))
-+		return false;
-+
-+	/*
-+	 * Careful: anon_vma might have been freed, so we cannot safely
-+	 * dereference it. Add a fast path before we walk the anon_vma chain.
-+	 */
-+	if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
-+		return true;
-+
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+		if (avc->anon_vma == anon_vma)
-+			return true;
-+	}
-+	return false;
-+}
-+
- struct folio *ksm_might_need_to_copy(struct folio *folio,
- 			struct vm_area_struct *vma, unsigned long addr)
+ static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
+-	struct rb_root *root)
++	struct rb_root *root, const struct file *user_file)
  {
- 	struct page *page = folio_page(folio, 0);
--	struct anon_vma *anon_vma = folio_anon_vma(folio);
- 	struct folio *new_folio;
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_merge,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.dentry = dentry,
+ 		.list = list,
+ 		.root = root,
+@@ -498,9 +501,10 @@ static struct ovl_dir_cache *ovl_dir_cache_check(struct inode *inode,
+ 	return cache;
+ }
  
- 	if (folio_test_large(folio))
-@@ -3151,10 +3180,7 @@ struct folio *ksm_might_need_to_copy(struct folio *folio,
- 		if (folio_stable_node(folio) &&
- 		    !(ksm_run & KSM_RUN_UNMERGE))
- 			return folio;	/* no need to copy it */
--	} else if (!anon_vma) {
--		return folio;		/* no need to copy it */
--	} else if (folio->index == linear_anon_page_index(vma, addr) &&
--			anon_vma->root == vma->anon_vma->root) {
-+	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
- 		return folio;		/* still no need to copy it */
+-static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
++static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
+ {
+ 	int res;
++	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_dir_cache *cache;
+ 	struct inode *inode = d_inode(dentry);
+ 
+@@ -521,7 +525,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
+ 	INIT_LIST_HEAD(&cache->entries);
+ 	cache->root = RB_ROOT;
+ 
+-	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
++	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -665,8 +669,8 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
+ 	return true;
+ }
+ 
+-static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++static int ovl_dir_read_impure(const struct path *path, struct list_head *list,
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+@@ -674,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
+ 		.ctx.count = INT_MAX,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -710,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	const struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+@@ -731,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	cache->is_refcounted = false;
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -852,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
  	}
- 	if (PageHWPoison(page))
-diff --git a/mm/util.c b/mm/util.c
-index 8acfe2148ba52..80f6c714844f2 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -697,6 +697,19 @@ void *vcalloc_noprof(size_t n, size_t size)
- }
- EXPORT_SYMBOL(vcalloc_noprof);
- 
-+/**
-+ * folio_anon_vma - Get a folio's raw anon_vma pointer.
-+ * @folio: The folio.
-+ *
-+ * The returned pointer may be stale for an unmapped folio. The caller
-+ * must ensure the anon_vma stays alive before dereferencing it. A folio
-+ * reference or lock alone is insufficient; use folio_get_anon_vma() when
-+ * the anon_vma's lifetime is not otherwise protected. Note that
-+ * folio_get_anon_vma() is only useful for folios that are still mapped.
-+ *
-+ * Return: The raw anon_vma pointer for an anonymous, non-KSM folio, or
-+ * %NULL otherwise.
-+ */
- struct anon_vma *folio_anon_vma(const struct folio *folio)
+@@ -866,14 +872,13 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ static int ovl_iterate_merged(struct file *file, struct dir_context *ctx)
  {
- 	unsigned long mapping = (unsigned long)folio->mapping;
+ 	struct ovl_dir_file *od = file->private_data;
+-	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_cache_entry *p;
+ 	int err;
+ 
+ 	if (!od->cache) {
+ 		struct ovl_dir_cache *cache;
+ 
+-		cache = ovl_cache_get(dentry);
++		cache = ovl_dir_cache_get(file);
+ 		if (IS_ERR(cache))
+ 			return PTR_ERR(cache);
+ 
+@@ -1120,7 +1125,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+ 	struct rb_root root = RB_ROOT;
+ 
+ 	with_ovl_creds(dentry->d_sb)
+-		err = ovl_dir_read_merged(dentry, list, &root);
++		err = ovl_dir_read_merged(dentry, list, &root, NULL);
+ 	if (err)
+ 		return err;
+ 
 -- 
 2.53.0
 
