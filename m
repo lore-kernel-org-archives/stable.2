@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794351734;
-	b=YgtF1M6/cQEGoS/rpXRsKk2xbKryjcTn+LcJEaQZQA4w4WgrELLVMEczK2QpUAQ5wL0M
-	 cKQtzlqhVrasBWsvr4uj+9cDUg5CoQ88hyqWZhxAaZ9S6Q+ucLxyMDIgFcDGWOIurN5Vn
-	 pAFTL+JU6+Nxc32h4fsRbRLlf5ehvX0wGdyfYP0Atkbt3qaCZ4B5gIAmBqkpv7/B9tq5I
-	 CzF6r7wkjO57VCels5dx5nlClox0Zzb0XXYwbMPPPtDOHHpBI/pVsHNKgKrA3Mx8kfujv
-	 l+0hCbI5QpNhj9KSskv0kcfL13W7Nf+M96W8sZIXvn/ELzFu81BmAJLCsJlVmuWT2aw==
+	t=1794351740;
+	b=Omai6+8VT0oshHrnLkD+zy6sZVe7JfuQ8zv/50MhUEj2IM/hhFfANVFZXmjewhA4pskK
+	 FFAncVpAOPVYlChY99WriN4YR7/CfWwEPU+PgEXy85Wd/J+Zvvr36wChLqmQKIUG9BiVX
+	 EdVxbBxN9L48D6z5QhjR2109Z/nSaf+/gIrmsKf8t/uOwiDgdpAM7noyuLmfdNr32Z+T1
+	 oKuTQ5dcsyltMgxj4tYSRwG38NHhAffn+j2YzdVSvuYYx7JW0LpHHUFMQuEXkBCD4NiA1
+	 3Vp10YJ/codRZqv70i0EFOajnOLaRPlTHfeMsBlZOMZ45gB/7LKFNHFGIzRkEHloBXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794351734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794351740;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5fOSIvthq/RCXyFDLzVDFVVqiArlVzvTEHqI19l1pRc=;
-	b=tHlkKA9E6iRbC9gHS2poNsUEGSkWoNbHQob8MpR7SKVhEebWjr29NvWW4Zsp45rip4wJ
-	 g31B3CmbcCvqqmX/osuysZ63nvxjnvo73hpGuzXpuNK6gEQxiu6Szcl3FZIJOeJM9GBze
-	 +CZ5LDyaeLHLz0M2TRWn+VmGJYklGjpKYgzqn7JaEyyx/IsnsUmvsgHXV+HdRFjvaBjH1
-	 gQgbbzV5t4V8FpriBWrHTZatMFqFl3biVSPBXZCCCbknqd5NyOrkrdr6bM/+UjLU0WuBT
-	 b6mbanZ2oE8f8lKdNeoCcVDt81HaYRbHhdMEMYpMSMx4rlB1wJNhFyqBarm6I/+W89w==
+	bh=I9rbP828K+3bUFsR4dpqDi4L6WvNBLBJqDaMK0uDfW4=;
+	b=Nlw62osavegP81sxq1JhHRfdLEXOWo/VZY1ylpSfNL/hdZc5Mjb5QbIlvXzlktzmTvev
+	 /GG4IidSw91MI5GgFZkKXbkIUFT8YNI9vskkCGYZWkfuGNQjS+tHMgbfZ6UgqLGlTqbtK
+	 Nr9aL2xZKX5lLGOR3pdiR1vHgbu/TVrNqMwzW8xY44WMHuJb7J+/PoOIkmlQYNpdO6Kua
+	 Jrrij0uyeQ8xBkm29mVzsv7YpHujggXC95GZwFFxUNqSlI/c5L6QDxx+Qv/sYn879GTLI
+	 KiTfEyH40TsDGUpT5M4ToI5iK4d/GTaMZ+qsK5ubrzcws5GvUmAk54fFRfRsgjThLEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHAZj6Le;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LuN0gp4a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D244606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:02:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39338606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHAZj6Le
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC3B1F0093C;
-	Tue, 10 Nov 2026 23:02:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LuN0gp4a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717AC1F0093C;
+	Tue, 10 Nov 2026 23:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794351734;
-	bh=5fOSIvthq/RCXyFDLzVDFVVqiArlVzvTEHqI19l1pRc=;
+	s=k20260515; t=1794351739;
+	bh=I9rbP828K+3bUFsR4dpqDi4L6WvNBLBJqDaMK0uDfW4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MHAZj6LerevsGsmvV+nHiwxzpKmxG2ib0fhoO0lXyhzSiTD5UQ1zQ1C4xgCIymera
-	 6aVP1T9eGeUA54AHwcFF0z0KT7gF//6IIIjJcUdBRVkntuntKHNCu3/hLMjB2ALiV8
-	 cHCdAUEIba6NppTLaQAEXat8zPlvrKL6Yp7kS/XQqj4rNcCN9l4H2Xj7Dbri8lhlXe
-	 YKN5cTRdqWa4DQptk5bv2Y5BKPvgJXObsgtAdYFKaZcvOicETkG4jwQDOhbJpMBdmr
-	 aLVt8uIveojymipr5X/s9W0F6MefXVjsjouqdmoSoeLAAnkEe0dPki24KnmDUp/KwE
-	 uEoeNklD+xX/w==
+	b=LuN0gp4axRJAqJh8BNjwGl9vYIGAbi/pY48qy0wAK5mfUxsmnHMXD+CrosFJKz23n
+	 tZwxsSkdPWEGdQJ1ZuvdAibneFWKBsZFI38eNWa8aZl+eagMiXGvUdgm8kL7DCpEUH
+	 Go9fMT1xL7cKbZ3GzpSlisTy/tAB2LLipLXRHwDVGTXJ2SwUGJirwGv3yzJ933OASf
+	 axBHaPJhhMuC3Zl0n47Er8qeMZIxQ3ibjvuryw+8Kmpz7Ysz5xEdcmrK7ZY2pjGfjw
+	 vjqbPtBmpyz+tbwTx98KTCWwpXN8MBfZN1LJNjRVjYVwkVyEcAB8im7+1MmglhGe8s
+	 6iW3f88qUEbgA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com,
-	Horst Birthelmer <hbirthelmer@ddn.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] fuse: don't launder folios of a bad inode
-Date: Tue, 10 Nov 2026 18:02:12 -0500
-Message-ID: <20261110225940.48340-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ALSA: synth: Use guard() for spin locks
+Date: Tue, 10 Nov 2026 18:02:17 -0500
+Message-ID: <20261110230016.15530-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055031-failed-6.1-01d0f3d294af@kernel.org>
-References: <20261107055031-failed-6.1-01d0f3d294af@kernel.org>
+In-Reply-To: <20261107052436-failed-6.12-34e3e04b8a17@kernel.org>
+References: <20261107052436-failed-6.12-34e3e04b8a17@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,70 +60,502 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 01d0f3d294af126f517d92c11e100525537f8be4 ]
+[ Upstream commit 59ede7178d402b3bfa0266cbd9ad348d5612c295 ]
 
-fuse_flush() and fuse_writepages() reject writing back dirty data for
-any inode that has been marked bad, but fuse_launder_folio() doesn't.
+Clean up the code using guard() for spin locks.
 
-This can cause the following warning in fuse_write_file_get() to
-trigger, as reported by syzbot:
+Merely code refactoring, and no behavior change.
 
-WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
-WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-Call Trace:
-    iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
-    fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
-    folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
-    invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
-    fuse_open+0x5a6/0x770 fs/fuse/file.c:297
-
-This can be hit on a writeback cache mount:
-1) a writeable file is open and a buffered write dirties some pages
-2) another thread opens the same file read-only. fuse_open() passes the
-   bad inode check and sends OPEN to the server.
-3) a SETATTR reply with the wrong file type marks the inode bad
-4) the writeable file is closed. Flush and release skip writeback
-   because the inode is bad. The pages stay dirty but the file gets
-   removed from write_files.
-5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
-   fuse_open() calls invalidate_inode_pages2().
-6) the invalidation finds the dirty pages and calls
-   fuse_launder_folio(), which finds no wriable file and hits the
-   WARN_ON in fuse_write_file_get().
-
-Instead of trying to write back dirty data for the bad inode,
-fuse_launder_folio() should return -EIO.
-
-Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
-Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
-Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: adapted the bad-inode check to use folio->mapping->host instead of wpc.inode ]
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20250829151335.7342-5-tiwai@suse.de
+Stable-dep-of: 34e3e04b8a17 ("ALSA: emux: Fix UAF of soundfont zones at note-on")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/synth/emux/emux_effect.c | 29 ++++++++--------
+ sound/synth/emux/emux_synth.c  | 54 +++++++----------------------
+ sound/synth/emux/soundfont.c   | 63 ++++++++++++----------------------
+ 3 files changed, 49 insertions(+), 97 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 56774b31d5ff6..b1b82e6a72b1b 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -2438,6 +2438,10 @@ static int fuse_write_end(struct file *file, struct address_space *mapping,
- static int fuse_launder_folio(struct folio *folio)
+diff --git a/sound/synth/emux/emux_effect.c b/sound/synth/emux/emux_effect.c
+index 3c7314f5fb19c..bfe383fa90ba1 100644
+--- a/sound/synth/emux/emux_effect.c
++++ b/sound/synth/emux/emux_effect.c
+@@ -168,7 +168,6 @@ snd_emux_send_effect(struct snd_emux_port *port, struct snd_midi_channel *chan,
+ 	unsigned char *srcp, *origp;
+ 	struct snd_emux *emu;
+ 	struct snd_emux_effect_table *fx;
+-	unsigned long flags;
+ 
+ 	emu = port->emu;
+ 	fx = chan->private;
+@@ -195,22 +194,22 @@ snd_emux_send_effect(struct snd_emux_port *port, struct snd_midi_channel *chan,
+ 		offset++;
+ #endif
+ 	/* modify the register values */
+-	spin_lock_irqsave(&emu->voice_lock, flags);
+-	for (i = 0; i < emu->max_voices; i++) {
+-		struct snd_emux_voice *vp = &emu->voices[i];
+-		if (!STATE_IS_PLAYING(vp->state) || vp->chan != chan)
+-			continue;
+-		srcp = (unsigned char*)&vp->reg.parm + offset;
+-		origp = (unsigned char*)&vp->zone->v.parm + offset;
+-		if (parm_defs[i].type & PARM_IS_BYTE) {
+-			*srcp = *origp;
+-			effect_set_byte(srcp, chan, type);
+-		} else {
+-			*(unsigned short*)srcp = *(unsigned short*)origp;
+-			effect_set_word((unsigned short*)srcp, chan, type);
++	scoped_guard(spinlock_irqsave, &emu->voice_lock) {
++		for (i = 0; i < emu->max_voices; i++) {
++			struct snd_emux_voice *vp = &emu->voices[i];
++			if (!STATE_IS_PLAYING(vp->state) || vp->chan != chan)
++				continue;
++			srcp = (unsigned char *)&vp->reg.parm + offset;
++			origp = (unsigned char *)&vp->zone->v.parm + offset;
++			if (parm_defs[i].type & PARM_IS_BYTE) {
++				*srcp = *origp;
++				effect_set_byte(srcp, chan, type);
++			} else {
++				*(unsigned short *)srcp = *(unsigned short *)origp;
++				effect_set_word((unsigned short *)srcp, chan, type);
++			}
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ 
+ 	/* activate them */
+ 	snd_emux_update_channel(port, chan, parm_defs[type].update);
+diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
+index 02e2c69d7f18e..b3c8296840a56 100644
+--- a/sound/synth/emux/emux_synth.c
++++ b/sound/synth/emux/emux_synth.c
+@@ -49,7 +49,6 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	int i, key, nvoices;
+ 	struct snd_emux_voice *vp;
+ 	struct snd_sf_zone *table[SNDRV_EMUX_MAX_MULTI_VOICES];
+-	unsigned long flags;
+ 	struct snd_emux_port *port;
+ 
+ 	port = p;
+@@ -77,7 +76,7 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	terminate_note1(emu, key, chan, 0);
+ #endif
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < nvoices; i++) {
+ 
+ 		/* set up each voice parameter */
+@@ -124,7 +123,6 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 			vp->ontime = jiffies; /* remember the trigger timing */
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ 
+ #ifdef SNDRV_EMUX_USE_RAW_EFFECT
+ 	if (port->port_mode == SNDRV_EMUX_PORT_MODE_OSS_SYNTH) {
+@@ -147,7 +145,6 @@ snd_emux_note_off(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	int ch;
+ 	struct snd_emux *emu;
+ 	struct snd_emux_voice *vp;
+-	unsigned long flags;
+ 	struct snd_emux_port *port;
+ 
+ 	port = p;
+@@ -158,7 +155,7 @@ snd_emux_note_off(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	if (snd_BUG_ON(!emu || !emu->ops.release))
+ 		return;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (ch = 0; ch < emu->max_voices; ch++) {
+ 		vp = &emu->voices[ch];
+ 		if (STATE_IS_PLAYING(vp->state) &&
+@@ -180,7 +177,6 @@ snd_emux_note_off(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 				emu->ops.release(vp);
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ /*
+@@ -192,10 +188,9 @@ void snd_emux_timer_callback(struct timer_list *t)
  {
- 	int err = 0;
-+
-+	if (fuse_is_bad(folio->mapping->host))
-+		return -EIO;
-+
- 	if (folio_clear_dirty_for_io(folio)) {
- 		struct inode *inode = folio->mapping->host;
+ 	struct snd_emux *emu = from_timer(emu, t, tlist);
+ 	struct snd_emux_voice *vp;
+-	unsigned long flags;
+ 	int ch, do_again = 0;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (ch = 0; ch < emu->max_voices; ch++) {
+ 		vp = &emu->voices[ch];
+ 		if (vp->state == SNDRV_EMUX_ST_PENDING) {
+@@ -212,7 +207,6 @@ void snd_emux_timer_callback(struct timer_list *t)
+ 		emu->timer_active = 1;
+ 	} else
+ 		emu->timer_active = 0;
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ /*
+@@ -224,7 +218,6 @@ snd_emux_key_press(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	int ch;
+ 	struct snd_emux *emu;
+ 	struct snd_emux_voice *vp;
+-	unsigned long flags;
+ 	struct snd_emux_port *port;
+ 
+ 	port = p;
+@@ -235,7 +228,7 @@ snd_emux_key_press(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 	if (snd_BUG_ON(!emu || !emu->ops.update))
+ 		return;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (ch = 0; ch < emu->max_voices; ch++) {
+ 		vp = &emu->voices[ch];
+ 		if (vp->state == SNDRV_EMUX_ST_ON &&
+@@ -244,7 +237,6 @@ snd_emux_key_press(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 			update_voice(emu, vp, SNDRV_EMUX_UPDATE_VOLUME);
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ 
+@@ -257,7 +249,6 @@ snd_emux_update_channel(struct snd_emux_port *port, struct snd_midi_channel *cha
+ 	struct snd_emux *emu;
+ 	struct snd_emux_voice *vp;
+ 	int i;
+-	unsigned long flags;
+ 
+ 	if (! update)
+ 		return;
+@@ -266,13 +257,12 @@ snd_emux_update_channel(struct snd_emux_port *port, struct snd_midi_channel *cha
+ 	if (snd_BUG_ON(!emu || !emu->ops.update))
+ 		return;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		if (vp->chan == chan)
+ 			update_voice(emu, vp, update);
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ /*
+@@ -284,7 +274,6 @@ snd_emux_update_port(struct snd_emux_port *port, int update)
+ 	struct snd_emux *emu; 
+ 	struct snd_emux_voice *vp;
+ 	int i;
+-	unsigned long flags;
+ 
+ 	if (! update)
+ 		return;
+@@ -293,13 +282,12 @@ snd_emux_update_port(struct snd_emux_port *port, int update)
+ 	if (snd_BUG_ON(!emu || !emu->ops.update))
+ 		return;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		if (vp->port == port)
+ 			update_voice(emu, vp, update);
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ 
+@@ -365,16 +353,14 @@ terminate_note1(struct snd_emux *emu, int note, struct snd_midi_channel *chan, i
+ {
+ 	int  i;
+ 	struct snd_emux_voice *vp;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		if (STATE_IS_PLAYING(vp->state) && vp->chan == chan &&
+ 		    vp->key == note)
+ 			terminate_voice(emu, vp, free);
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ 
+@@ -407,9 +393,8 @@ snd_emux_terminate_all(struct snd_emux *emu)
+ {
+ 	int i;
+ 	struct snd_emux_voice *vp;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		if (STATE_IS_PLAYING(vp->state))
+@@ -424,7 +409,6 @@ snd_emux_terminate_all(struct snd_emux *emu)
+ 	}
+ 	/* initialize allocation time */
+ 	emu->use_time = 0;
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ EXPORT_SYMBOL(snd_emux_terminate_all);
+@@ -438,7 +422,6 @@ snd_emux_sounds_off_all(struct snd_emux_port *port)
+ 	int i;
+ 	struct snd_emux *emu;
+ 	struct snd_emux_voice *vp;
+-	unsigned long flags;
+ 
+ 	if (snd_BUG_ON(!port))
+ 		return;
+@@ -446,7 +429,7 @@ snd_emux_sounds_off_all(struct snd_emux_port *port)
+ 	if (snd_BUG_ON(!emu || !emu->ops.terminate))
+ 		return;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		if (STATE_IS_PLAYING(vp->state) &&
+@@ -459,7 +442,6 @@ snd_emux_sounds_off_all(struct snd_emux_port *port)
+ 				emu->ops.reset(emu, i);
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ 
+@@ -472,9 +454,8 @@ exclusive_note_off(struct snd_emux *emu, struct snd_emux_port *port, int exclass
+ {
+ 	struct snd_emux_voice *vp;
+ 	int  i;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		if (STATE_IS_PLAYING(vp->state) && vp->port == port &&
+@@ -482,7 +463,6 @@ exclusive_note_off(struct snd_emux *emu, struct snd_emux_port *port, int exclass
+ 			terminate_voice(emu, vp, 0);
+ 		}
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ /*
+@@ -916,9 +896,8 @@ snd_emux_init_voices(struct snd_emux *emu)
+ {
+ 	struct snd_emux_voice *vp;
+ 	int i;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	for (i = 0; i < emu->max_voices; i++) {
+ 		vp = &emu->voices[i];
+ 		vp->ch = -1; /* not used */
+@@ -929,23 +908,19 @@ snd_emux_init_voices(struct snd_emux *emu)
+ 		vp->emu = emu;
+ 		vp->hw = emu->hw;
+ 	}
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ /*
+  */
+ void snd_emux_lock_voice(struct snd_emux *emu, int voice)
+ {
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	if (emu->voices[voice].state == SNDRV_EMUX_ST_OFF)
+ 		emu->voices[voice].state = SNDRV_EMUX_ST_LOCKED;
+ 	else
+ 		dev_warn(emu->card->dev,
+ 			 "invalid voice for lock %d (state = %x)\n",
+ 			 voice, emu->voices[voice].state);
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ EXPORT_SYMBOL(snd_emux_lock_voice);
+@@ -954,16 +929,13 @@ EXPORT_SYMBOL(snd_emux_lock_voice);
+  */
+ void snd_emux_unlock_voice(struct snd_emux *emu, int voice)
+ {
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&emu->voice_lock, flags);
++	guard(spinlock_irqsave)(&emu->voice_lock);
+ 	if (emu->voices[voice].state == SNDRV_EMUX_ST_LOCKED)
+ 		emu->voices[voice].state = SNDRV_EMUX_ST_OFF;
+ 	else
+ 		dev_warn(emu->card->dev,
+ 			 "invalid voice for unlock %d (state = %x)\n",
+ 			 voice, emu->voices[voice].state);
+-	spin_unlock_irqrestore(&emu->voice_lock, flags);
+ }
+ 
+ EXPORT_SYMBOL(snd_emux_unlock_voice);
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index 47137cca50b8c..18a919d1cdb64 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -66,11 +66,9 @@ static void snd_sf_clear(struct snd_sf_list *sflist);
+ static void
+ lock_preset(struct snd_sf_list *sflist)
+ {
+-	unsigned long flags;
+ 	mutex_lock(&sflist->presets_mutex);
+-	spin_lock_irqsave(&sflist->lock, flags);
++	guard(spinlock_irqsave)(&sflist->lock);
+ 	sflist->presets_locked = 1;
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+ }
+ 
+ 
+@@ -80,10 +78,8 @@ lock_preset(struct snd_sf_list *sflist)
+ static void
+ unlock_preset(struct snd_sf_list *sflist)
+ {
+-	unsigned long flags;
+-	spin_lock_irqsave(&sflist->lock, flags);
++	guard(spinlock_irqsave)(&sflist->lock);
+ 	sflist->presets_locked = 0;
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+ 	mutex_unlock(&sflist->presets_mutex);
+ }
+ 
+@@ -94,14 +90,11 @@ unlock_preset(struct snd_sf_list *sflist)
+ int
+ snd_soundfont_close_check(struct snd_sf_list *sflist, int client)
+ {
+-	unsigned long flags;
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	if (sflist->open_client == client)  {
+-		spin_unlock_irqrestore(&sflist->lock, flags);
+-		return close_patch(sflist);
++	scoped_guard(spinlock_irqsave, &sflist->lock) {
++		if (sflist->open_client != client)
++			return 0;
+ 	}
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+-	return 0;
++	return close_patch(sflist);
+ }
+ 
+ 
+@@ -119,7 +112,6 @@ snd_soundfont_load(struct snd_card *card,
+ 		   long count, int client)
+ {
+ 	struct soundfont_patch_info patch;
+-	unsigned long flags;
+ 	int  rc;
+ 
+ 	if (count < (long)sizeof(patch)) {
+@@ -155,12 +147,10 @@ snd_soundfont_load(struct snd_card *card,
+ 	}
+ 
+ 	/* check if other client already opened patch */
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	if (sflist->open_client != client) {
+-		spin_unlock_irqrestore(&sflist->lock, flags);
+-		return -EBUSY;
++	scoped_guard(spinlock_irqsave, &sflist->lock) {
++		if (sflist->open_client != client)
++			return -EBUSY;
+ 	}
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+ 
+ 	lock_preset(sflist);
+ 	rc = -EINVAL;
+@@ -223,14 +213,11 @@ open_patch(struct snd_sf_list *sflist, const char __user *data,
+ {
+ 	struct soundfont_open_parm parm;
+ 	struct snd_soundfont *sf;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	if (sflist->open_client >= 0 || sflist->currsf) {
+-		spin_unlock_irqrestore(&sflist->lock, flags);
+-		return -EBUSY;
++	scoped_guard(spinlock_irqsave, &sflist->lock) {
++		if (sflist->open_client >= 0 || sflist->currsf)
++			return -EBUSY;
+ 	}
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+ 
+ 	if (copy_from_user(&parm, data, sizeof(parm)))
+ 		return -EFAULT;
+@@ -244,10 +231,10 @@ open_patch(struct snd_sf_list *sflist, const char __user *data,
+ 		return -ENOMEM;
+ 	}
+ 
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	sflist->open_client = client;
+-	sflist->currsf = sf;
+-	spin_unlock_irqrestore(&sflist->lock, flags);
++	scoped_guard(spinlock_irqsave, &sflist->lock) {
++		sflist->open_client = client;
++		sflist->currsf = sf;
++	}
+ 
+ 	return 0;
+ }
+@@ -305,12 +292,10 @@ is_identical_font(struct snd_soundfont *sf, int type, unsigned char *name)
+ static int
+ close_patch(struct snd_sf_list *sflist)
+ {
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	sflist->currsf = NULL;
+-	sflist->open_client = -1;
+-	spin_unlock_irqrestore(&sflist->lock, flags);
++	scoped_guard(spinlock_irqsave, &sflist->lock) {
++		sflist->currsf = NULL;
++		sflist->open_client = -1;
++	}
+ 
+ 	rebuild_presets(sflist);
+ 
+@@ -1287,17 +1272,14 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+ 			  struct snd_sf_zone **table, int max_layers)
+ {
+ 	int nvoices;
+-	unsigned long flags;
+ 
+ 	/* this function is supposed to be called atomically,
+ 	 * so we check the lock.  if it's busy, just returns 0 to
+ 	 * tell the caller the busy state
+ 	 */
+-	spin_lock_irqsave(&sflist->lock, flags);
+-	if (sflist->presets_locked) {
+-		spin_unlock_irqrestore(&sflist->lock, flags);
++	guard(spinlock_irqsave)(&sflist->lock);
++	if (sflist->presets_locked)
+ 		return 0;
+-	}
+ 	nvoices = search_zones(sflist, notep, vel, preset, bank,
+ 			       table, max_layers, 0);
+ 	if (! nvoices) {
+@@ -1306,7 +1288,6 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+ 					       def_preset, def_bank,
+ 					       table, max_layers, 0);
+ 	}
+-	spin_unlock_irqrestore(&sflist->lock, flags);
+ 	return nvoices;
+ }
  
 -- 
 2.53.0
