@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794348747;
-	b=IIEzCmJkwLnAu8vOlq0qBl+O3IaFvFdbpGrJPX6BkEnF7LW42H1ed2XxqlOb7ApXoewT
-	 SVdoAAiTZ5FBSHWxMzvW+jbViVDHi14sppGsYDtn7hIxS/MP6cpAG2YMylrJ+1oJkivXP
-	 2YOX/YlPPo15jvunRpM0XtLwE+hXcqHIb5RZMmW0iwCN3sAs2YZfg50q2YmwQoKyxGDBB
-	 EbX04+e040wvztnqxEpCSgx0ZGa389UgXRoCAQbtZntbqdSQibDx28Hdwrr5BAouinTOs
-	 2kxQQqqfmDn62cuVHsiPwhJSDdcSsA2HDjbvndgPyZE3DhPEPfK/FEkjgxuJHwIlxgw==
+	b=jmBrD1fbNcLb2nK5tm9fXiqSMXwjNYZSN1hHcWLZHMfyF2qusPqUPrfqUhyNVxSvPIMw
+	 YPNiFLvaK2nfW/y8OEpms8CXzp3yFoMxB43h+r8NhT991YE7t7j4Q3cbaGl/GkwlxEORf
+	 y+/gc7ouG9YZsbZJ0RCcAvHxkyizEkKdaSB/iMGfjXRqow94zRiS7ocIfNpYuFutHjgf6
+	 JtJvxRgLMvcX+eT8i8KzAdksawAjwvqDWHAt7nxqE1FGA1JG1K9pL0MM3tKCnHJkH+lQa
+	 MTIdO4P+/6Y4vEEkA5ZeuYufHI0hb9ltVJVqaoKQ46Rk6GXQvLHg46/RFmQl8i8KlcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794348747;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nduWT/CThWOdZ15t1shOVGT23Pdbq3QEhq8epJfEEXw=;
-	b=j5trPGtvAm0dnxZEh0LZrMdJH7f9WLd1k1BVxpVZVl2NkrxkxQ3wtnloZJvvSbKt+gTr
-	 R0kNnukbkBBgSRmmLZCuoiWbffTOj1wxX9N+ppwPnSucHnJO85vaClS9xehaCUFHvCVdM
-	 SEmJnctqAsUMg4aYmArrSMgzVyX3Fiu2ggXGDlk6ZhNw357vmV2M8utb2M/t7QLSkg/QZ
-	 cBS8pmLQT4Qz9/Nx/xZpL1BT907akXuzBIdYYtU511JVxTjFSezhg/FJb3foQJz70LntW
-	 bxe3htz+AMP5bAhgQRZU2+zK3wWKnGcO/JpWk5BnGgN2yEpmixV6DZu4Z3TFNgZyI1g==
+	bh=LlWPO3oIGkL3J0OTHmzYeJJI2pBbc8Wz//GRQx9Ftv8=;
+	b=g4cEyfHL1lJbChZtkcn8Y0OKjIaxp7zMBYLfkauptqqNTJ1K4mZIPKL3Jrw4OFTaRTeF
+	 MnxInSYiNji4ZQ9KxNkcD3GXyDvemJZHd1+h5Pr0gnOZeSzFyL1SMJERDvgjPW0jZhUxt
+	 jytewF1ThL6pPlxeRu+1dZjfceMK2668AlzZv3y3FxKxtsM/Zl5HDTl/buHUMORAgS4uz
+	 GCg4KVxfXnhO2UzBbV7SFTFOBilPDNQzNMkFl8H4ZomGs0xiwgbQVNHnJjxgJgQ2hX3n+
+	 nEF419VcCLNoxgM4pTRsvMNNPqU5D7AUqPHw6dfUaDmJc2p1cDy1PDNilsmpxFVIYBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2jaiqiI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BY340cGT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2716606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:12:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71335606A33B
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M2jaiqiI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060D21F0089F;
-	Tue, 10 Nov 2026 22:12:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BY340cGT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6F411F008A3;
+	Tue, 10 Nov 2026 22:12:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794348746;
-	bh=nduWT/CThWOdZ15t1shOVGT23Pdbq3QEhq8epJfEEXw=;
+	s=k20260515; t=1794348747;
+	bh=LlWPO3oIGkL3J0OTHmzYeJJI2pBbc8Wz//GRQx9Ftv8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M2jaiqiI8+02e/FGuI6QFeMf+sLx5TPznE0oFbVd7zHBi3Ef7PLNdL8iOgxSqilRO
-	 5UsT7dHGCMu2MbwXWPpOKdcB/kd6bX1oZdRxYA5LhS3oFMz6ma1EjJp9UWCUiocKwP
-	 w+aHAVdxmaj0aaN108sYfkhIuLCFcTuZbzOUZaNY0OJ4D6trkX7yXzOXM9JoQFC0xI
-	 KBHlOT5Bf+o7DGC2eX9Z5Ws12qLouV6rOG2X2iXAWaxoNMpmZeCKljEKELCZtVS7/q
-	 pkbSO8TBLY8OEAXo6RQrgW70B9jIPLaBiuwcptq1mJFE6xRneREeKgoIfVhxCGm1ze
-	 nrvNJiOwQw0BA==
+	b=BY340cGTAgUbEwEWnk91es6mzPFlT8gpX8YuL+g39YX3jSwp8/Hv9t41guTt0ygi4
+	 BrWXs6pPtPwc42HBL0s7EckVNMX2PIpwgPK3DhaSzoGV/Euxa8i6EZ4AklqN412Kkc
+	 2uk/WrfzhsY1yHnIKBg2l9AKrX0KFHlWHzTcCU03qe3AnNIc/dJIx1RgejT0KPz7BV
+	 UDZd+CRMoubprUZpst2eUv/GDCjWTblo3M16PFr25HzuKO5y2VoKwkOuV9xyh42MoL
+	 IXrWydk2jkKB20e1G4vPf7sMTtxBNqhcpuM9hPWL5BK298edw5mG/hjau2JBl/W4yh
+	 omnSMt9z1e1Cw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hasun Park <hasunpark@gmail.com>,
+Cc: Jasper Smet <josbeir@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/5] ASoC: amd: acp: add DMI override for ACP70 flag
-Date: Tue, 10 Nov 2026 17:12:20 -0500
-Message-ID: <20261110221157.3981579-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/5] ASoC: amd: acp: Add DMI quirk for ASUS Zenbook S16 UM5606GA
+Date: Tue, 10 Nov 2026 17:12:21 -0500
+Message-ID: <20261110221157.3981579-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052329-failed-6.12-38cb2ef26b64@kernel.org>
+In-Reply-To: <20261110221157.3981579-1-sashal@kernel.org>
 References: <20261107052329-failed-6.12-38cb2ef26b64@kernel.org>
+ <20261110221157.3981579-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,61 +62,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hasun Park <hasunpark@gmail.com>
+From: Jasper Smet <josbeir@gmail.com>
 
-[ Upstream commit d0426510a9e1fabf074e274ceff26ffc6500980a ]
+[ Upstream commit 6e4bfd9da8851f562f04503d8e43221957f96eeb ]
 
-Some ASUS ProArt PX13 systems expose ACP ACPI config flags that can
-select a non-working fallback path.
+The ASUS Zenbook S16 (UM5606GA) with AMD Ryzen AI 9 465 (Strix Point,
+ACP 7.0) has a BIOS that incorrectly sets the ACPI property
+'acp-audio-config-flag' to 0x10 (FLAG_AMD_LEGACY_ONLY_DMIC) for the ACP
+device. This prevents snd_pci_ps from probing the SoundWire bus, resulting
+in no internal audio (dummy output only).
 
-Add a DMI override in snd_amd_acp_find_config() for ACP70+ boards and
-return 0 so ACP ACPI flag-based selection is skipped on this platform.
+The hardware uses a Cirrus Logic CS42L43 (headphone/jack) and four CS35L56
+smart amplifiers (speakers), all on SoundWire link 1. The corresponding
+machine table entry (acp70_cs42l43_l1u0_cs35l56x4_l1u0123) already exists
+in amd-acp70-acpi-match.c and correctly describes this topology.
 
-This keeps machine driver selection on the intended SoundWire path.
+Add a DMI quirk to override the flag to 0, consistent with the existing
+entry for the HN7306EA.
 
-Signed-off-by: Hasun Park <hasunpark@gmail.com>
-Link: https://patch.msgid.link/20260308151654.29059-2-hasunpark@gmail.com
+Signed-off-by: Jasper Smet <josbeir@gmail.com>
+Link: https://patch.msgid.link/20260513052137.56703-1-josbeir@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Stable-dep-of: 38cb2ef26b64 ("ASoC: amd: acp-config: force SoundWire probe on Dell 14S DS14265")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/amd/acp-config.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ sound/soc/amd/acp-config.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
-index 653e8ce946082..8d7b968c4402c 100644
+index 8d7b968c4402c..cc3620db62bf1 100644
 --- a/sound/soc/amd/acp-config.c
 +++ b/sound/soc/amd/acp-config.c
-@@ -23,6 +23,16 @@
- 
- static int acp_quirk_data;
- 
-+static const struct dmi_system_id acp70_acpi_flag_override_table[] = {
+@@ -30,6 +30,13 @@ static const struct dmi_system_id acp70_acpi_flag_override_table[] = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "HN7306EA"),
+ 		},
+ 	},
 +	{
++		/* ASUS Zenbook S16 UM5606GA (Strix Point, ACP 7.0) */
 +		.matches = {
 +			DMI_MATCH(DMI_BOARD_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "HN7306EA"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Zenbook S16 UM5606GA"),
 +		},
 +	},
-+	{}
-+};
-+
- static const struct config_entry config_table[] = {
- 	{
- 		.flags = FLAG_AMD_SOF,
-@@ -200,8 +210,11 @@ int snd_amd_acp_find_config(struct pci_dev *pci)
- 	 */
- 	if (!pci->revision)
- 		return 0;
--	else if (pci->revision >= ACP_7_0_REV)
-+	else if (pci->revision >= ACP_7_0_REV) {
-+		if (dmi_check_system(acp70_acpi_flag_override_table))
-+			return 0;
- 		return snd_amd_acp_acpi_find_config(pci);
-+	}
+ 	{}
+ };
  
- 	for (i = 0; i < ARRAY_SIZE(config_table); i++, table++) {
- 		if (table->device != device)
 -- 
 2.53.0
 
