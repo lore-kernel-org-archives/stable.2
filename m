@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794291386;
-	b=rL+u36c9YYnB876a79tTKrdJ+eSdYD2K3XoTaCYQ4qZm0OoT/lmaC/lf9+5r10rwndKq
-	 yWZnnnJoeRWLjQvqTq4Tb5AzAXNLApoAAWoH72MZfmOaHsrIDytPkzUc+Sp1NKaA+/l5A
-	 ax1LYaKeKuSlx3ywCXDgWr1GMXOgGirhKNcBq54NSfgrOQvQxBxqBSrrPFLXTWvBpC/3C
-	 8vHIpuvIiwF/7ie3got6aHdgrPqMc+8CyaVcXlnLbsMpPBoybTgZeIictmsdHMTwTbGr8
-	 +RxZgXXWpzZ436/l6IZZhDS1foA96UOi56tDCCwdX+bMyOePIiv2F06pp3pAaX0TSOg==
+	t=1794291679;
+	b=u0i/jqAnYgiurMyMraOxONqebdc4Qr4jdyjjWhSRVMZ+o+0HDcOIrdQfIKQDkAoE9PMb
+	 wptPjrXqahs9Znkgxfyp8hnG8sCVYUD84jx01Z8MSe3X+nfJ9UgVcv+VkuaFtoB6/HojR
+	 6GrHuKCbS0ZKLqzNQg9Vkz3U/JT6ngsQGUxRO9677y+M5hOFw31XSHqhMzGQDQusYdBXv
+	 ALWKw47peXREt0axJ8gs6406ZIjKgzk2ueSDlrM/YJcN1E6QrX4fs9AXkm1+1rKt+jazM
+	 6N4/JrbU1QnZ2yCdEHwVnaPSZBgKoOxg0K1qyz33wXLUsBv/+F75iS7Rv3/IYMEYvxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794291386;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Ypmdc9LRw167gugGDg07KkUZquQ3UhxsSBuTy1wAvvk=;
-	b=ccd3CgXSCeB54rRu++hHHDPPiJ5IUiPYxVIYnpNFfn0MJwW0TXYMQ9gDRuip3srVzWjc
-	 LFHNieo4nExmERx+TaUA8oYgy/IuWtPXGKw5BbOgJwD7nudD0swHa1Dc8RMTVvXh1VweY
-	 BcUoMxuxf/KraAx9+Ltd2gi02Sn7dOhR+a2bxhx+5ppJvcgIErNxKTfOyRjobJmhAaaIi
-	 RMwzC13hBWSrWlRh7LkF7LZhTzZCdBbuKaWzvUl9SUSE3aPBT3f/wQyqnE9HoLOmka7Vl
-	 zynSXUGY+ePUfMCjOSVTtA4Wmm/feUw70GTZDurq8ACQWD/9T1MJ2Z7+4OaW4vmeMIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291679;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AO43z8OOLZpih4NLQwu7cfaQLJzm76ZwrofVqC2prTU=;
+	b=jcGUy/ah67uZsP00K1lgfC+GQww+mnIFFYaoX8SyuQRweE4o0tYDUbrRTRI41G3h8rKu
+	 VchTbKXDv6ixUK8jhG3nHbYp4Syut8Xqm2GuCnkmgAw4hMkSGjvooL+5OH+9Ucl1lUQ20
+	 qR4PcCRndCKxzGXFTEUy9AoQzjlygYcpYzbnEnV0Y14ZVai75pFTX9Bez0MltXgaGS2Rh
+	 S0mprmOVl+dindTRY1rcnqy97N9dSFddpwPjD0dQ8wtPFUZQiezcBv034gr7ymIE2yhyh
+	 dzlU+DVSGBPJ2FXUNAkBHH4Lc8HhXQlXxM5R7B/o/0OFXUp132nMSGBKuw5oAfyunTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grapheneos.org;
-	spf=pass smtp.mailfrom=grapheneos.org;
-	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=awO8h0OL;
-	arc=none smtp.remote-ip=206.220.120.4
-Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TY/mZdDH";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D598606A31C;
-	Tue, 10 Nov 2026 06:16:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D598606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7352606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:21:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=awO8h0OL
-Received: by mail.grapheneos.org (Postfix) id 891863C08EF80;
-	Tue, 10 Nov 2026 06:16:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
-	s=default; t=1794291384;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ypmdc9LRw167gugGDg07KkUZquQ3UhxsSBuTy1wAvvk=;
-	b=awO8h0OLfJTzQLAJ8FTFK1aRK/cgSbpFxHHrtwcyU9kTj9pExCZeRlHxw+UTWdZlpdt646
-	nQbVlZ2BJB15iklJRmFOuOEzVtkI3nhtIwuDcjkkkjJ2BHkAmhVGytuI14b68MS0j+6w/T
-	W6H4OXUGChe/xyyWMx/6ABQqTeXvJO2wLR3DO9KGa5ErF5N2fjJaF0928Xnq24mzJoG4G3
-	WzqB9JXppEb2d0u4vFRvxdSU6Dyu31MMocxJzh23pId8LwRuuYFkksopIQ+FUo+iCyI41Z
-	5LO1UoFvb/JSjQhzR/nOByt7DXVjD2T33Wr3hwtD/XSvc9P7Y+pNKRaZ80uvqw==
-From: liamsmith827 <liamsmith827@grapheneos.org>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liamsmith827 <liamsmith827@proton.me>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 3/4] selftests: net: test restricted on-link fallback
-Date: Tue, 10 Nov 2026 06:15:35 +0000
-Message-ID: <20261110061536.10811-4-liamsmith827@grapheneos.org>
-In-Reply-To: <20261110061536.10811-1-liamsmith827@grapheneos.org>
-References: <20261110061536.10811-1-liamsmith827@grapheneos.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TY/mZdDH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85BB1F008A1;
+	Tue, 10 Nov 2026 06:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794291678;
+	bh=AO43z8OOLZpih4NLQwu7cfaQLJzm76ZwrofVqC2prTU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TY/mZdDHxsTQULFQR06kA8TzMRa3T8NdoMBQncVyw7FQq9gHNoCaj0DFacBS0+MFa
+	 MUuapqB6Z/9E3KNyfZxmhJQuXZR23SI6I2922TICLhAPnvYDpQL/RLkOFOChog8nv6
+	 uzYTg8dwOR3zQ6tV0VV3lROn+3FcXNgOM4ULrWdt752Ouc6FrxfuAuUNNsY+CdWn1w
+	 2hpG8fa++NvPmdemazTDrWT/3XK7NwAQWJ73sdUM7wRUyMiBofi6O7kCUTEwSoYv69
+	 Emvhq8bopudIQg83f+dYvM3xYjt3l43HnG/9t7xpjyLQuTaBCMqyy6ZfQ6MF1w72c/
+	 V0HshS91iNu+g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: guest_memfd: Split bind() into prepare()+commit() phases
+Date: Tue, 10 Nov 2026 01:21:15 -0500
+Message-ID: <20261110062046.520447-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051731-failed-6.12-83411f32b8ad@kernel.org>
+References: <20261107051731-failed-6.12-83411f32b8ad@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,117 +61,200 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: liamsmith827 <liamsmith827@proton.me>
+From: Sean Christopherson <seanjc@google.com>
 
-Update tests now that the on-link fallback has been restricted to
-routing lookup misses for non-vrf unicast.
+[ Upstream commit 83411f32b8ad96c6b05b1511d1a588daab44bd25 ]
+
+Split binding a memslot to a guest_memfd instance into prepare() and
+commit() phases so that KVM can separate preparing the memslot from binding
+the memslot to the gmem instance, i.e. from committing the memslot.  This
+will allow waiting to commit the memslot+gmem binding until the memslot is
+fully prepared, which is necessary as the memslot becomes reachable when
+the binding is created.
+
+As a bonus, drop the unwind-on-failure from the commit phase (other than
+nullifying the bindings), as the only reason bind() did the full unwind is
+because it technically didn't own the memslot, i.e. "needed" to leave
+memslot in the same state it started in.
+
+No functional change intended (the unwinding down on bind() failure was
+effectively dead code since KVM simply deletes the memslot on failure,
+i.e. there was nothing that could actually observe the unwind).
 
 Cc: stable@vger.kernel.org
-Signed-off-by: liamsmith827 <liamsmith827@proton.me>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://patch.msgid.link/20260922001332.1121266-5-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: changed the fput() guard from CONFIG_KVM_GUEST_MEMFD to CONFIG_KVM_PRIVATE_MEM ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/net/fcnal-test.sh | 47 +++++++++++++----------
- 1 file changed, 26 insertions(+), 21 deletions(-)
+ virt/kvm/guest_memfd.c | 61 +++++++++++++++++++++++++-----------------
+ virt/kvm/kvm_main.c    | 18 ++++++++++++-
+ virt/kvm/kvm_mm.h      | 18 +++++++++----
+ 3 files changed, 66 insertions(+), 31 deletions(-)
 
-diff --git a/tools/testing/selftests/net/fcnal-test.sh b/tools/testing/selftests/net/fcnal-test.sh
-index a50609535fed..c048d5be139d 100755
---- a/tools/testing/selftests/net/fcnal-test.sh
-+++ b/tools/testing/selftests/net/fcnal-test.sh
-@@ -619,17 +619,29 @@ ipv4_ping_novrf()
- 	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
- 	log_test_addr ${a} $? 0 "ping local, device bind"
- 
--	# loopback addresses not reachable from device bind
--	# fails in a really weird way though because ipv4 special cases
--	# route lookups with oif set.
-+	# loopback addresses not reachable from device bind, unreachable default route
- 	for a in ${NSA_LO_IP} 127.0.0.1
- 	do
- 		log_start
- 		show_hint "Fails since address on loopback device is out of device scope"
- 		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
--		log_test_addr ${a} $? 1 "ping local, device bind"
-+		log_test_addr ${a} $? 2 "ping local, device bind, unreachable default route"
- 	done
- 
-+	# loopback addresses not reachable from device bind, route miss
-+	log_start
-+	setup_cmd ip route del unreachable default metric 8192
-+
-+	for a in ${NSA_LO_IP} 127.0.0.1
-+	do
-+		log_start
-+		show_hint "Fails since address on loopback device is out of device scope"
-+		run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+		log_test_addr ${a} $? 1 "ping local, device bind, route miss"
-+	done
-+
-+	setup_cmd ip route add unreachable default metric 8192
-+
- 	#
- 	# ip rule blocks reachability to remote address
- 	#
-@@ -643,10 +655,9 @@ ipv4_ping_novrf()
- 	run_cmd ping -c1 -w1 ${a}
- 	log_test_addr ${a} $? 2 "ping out, blocked by rule"
- 
--	# NOTE: ipv4 actually allows the lookup to fail and yet still create
--	# a viable rtable if the oif (e.g., bind to device) is set, so this
--	# case succeeds despite the rule
--	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+	log_start
-+	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+	log_test_addr ${a} $? 2 "ping out, device bind, blocked by rule"
- 
- 	a=${NSA_LO_IP}
- 	log_start
-@@ -671,10 +682,9 @@ ipv4_ping_novrf()
- 	run_cmd ping -c1 -w1 ${a}
- 	log_test_addr ${a} $? 2 "ping out, blocked by route"
- 
--	# NOTE: ipv4 actually allows the lookup to fail and yet still create
--	# a viable rtable if the oif (e.g., bind to device) is set, so this
--	# case succeeds despite not having a route for the address
--	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+	log_start
-+	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+	log_test_addr ${a} $? 2 "ping out, device bind, blocked by route"
- 
- 	a=${NSA_LO_IP}
- 	log_start
-@@ -692,10 +702,9 @@ ipv4_ping_novrf()
- 	run_cmd ping -c1 -w1 ${a}
- 	log_test_addr ${a} $? 2 "ping out, unreachable default route"
- 
--	# NOTE: ipv4 actually allows the lookup to fail and yet still create
--	# a viable rtable if the oif (e.g., bind to device) is set, so this
--	# case succeeds despite not having a route for the address
--	# run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+	log_start
-+	run_cmd ping -c1 -w1 -I ${NSA_DEV} ${a}
-+	log_test_addr ${a} $? 2 "ping out, device bind, unreachable default route"
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 88b7279f4634d..4f69260cafbb2 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -472,15 +472,13 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+ 	return __kvm_gmem_create(kvm, size, flags);
  }
  
- ipv4_ping_vrf()
-@@ -1602,10 +1611,6 @@ ipv4_udp_novrf()
- 	run_cmd nettest -D -d ${NSA_DEV} -S -r ${a} -U
- 	log_test_addr ${a} $? 0 "Global server, device client via IP_UNICAST_IF, local connection, with connect()"
+-int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, u64 offset)
++int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   unsigned int fd, u64 offset)
+ {
+ 	u64 size = slot->npages << PAGE_SHIFT;
+-	unsigned long start, end;
+ 	struct kvm_gmem *gmem;
+ 	struct inode *inode;
+ 	struct file *file;
+-	int r = -EINVAL;
  
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+@@ -501,40 +499,53 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+ 		goto err;
+ 
++	/*
++	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
++	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
++	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
++	 */
++	WRITE_ONCE(slot->gmem.file, file);
++	slot->gmem.pgoff = offset >> PAGE_SHIFT;
++
++	/*
++	 * Gift the caller a reference to the file.  The reference will be
++	 * dropped after bindings are established, or if installing the new
++	 * memslot ultimately fails.
++	 */
++	return 0;
++
++err:
++	fput(file);
++	return -EINVAL;
++}
++
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
++{
++	struct kvm_gmem *gmem = slot->gmem.file->private_data;
++	struct inode *inode = file_inode(slot->gmem.file);
++	unsigned long start, end;
++	int r;
++
++	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
++		return -EIO;
++
+ 	filemap_invalidate_lock(inode->i_mapping);
+ 
+-	start = offset >> PAGE_SHIFT;
++	start = slot->gmem.pgoff;
+ 	end = start + slot->npages;
+ 
+ 	if (!xa_empty(&gmem->bindings) &&
+ 	    xa_find(&gmem->bindings, &start, end - 1, XA_PRESENT)) {
+ 		filemap_invalidate_unlock(inode->i_mapping);
+-		goto err;
++		return -EEXIST;
+ 	}
+ 
+-	/*
+-	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+-	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
+-	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
+-	 */
+-	WRITE_ONCE(slot->gmem.file, file);
+-	slot->gmem.pgoff = start;
 -
--	# IPv4 with device bind has really weird behavior - it overrides the
--	# fib lookup, generates an rtable and tries to send the packet. This
--	# causes failures for local traffic at different places
- 	for a in ${NSA_LO_IP} 127.0.0.1
- 	do
- 		log_start
-@@ -1613,7 +1618,7 @@ ipv4_udp_novrf()
- 		run_cmd nettest -D -s &
- 		wait_local_port_listen ${NSA} 12345 udp
- 		run_cmd nettest -D -r ${a} -d ${NSA_DEV}
--		log_test_addr ${a} $? 2 "Global server, device client, local connection"
-+		log_test_addr ${a} $? 1 "Global server, device client, local connection"
+ 	r = xa_err(xa_store_range(&gmem->bindings, start, end - 1, slot, GFP_KERNEL));
+-	if (r) {
++	if (r)
+ 		xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
+-		slot->gmem.file = NULL;
+-		slot->gmem.pgoff = 0;
+-	}
++
+ 	filemap_invalidate_unlock(inode->i_mapping);
  
- 		log_start
- 		show_hint "Should fail since addresses on loopback are out of device scope"
+-	/*
+-	 * Drop the reference to the file, even on success.  The file pins KVM,
+-	 * not the other way 'round.  Active bindings are invalidated if the
+-	 * file is closed before memslots are destroyed.
+-	 */
+-err:
+-	fput(file);
+ 	return r;
+ }
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index c574cd2f4f722..699198ae1594c 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2103,7 +2103,23 @@ int __kvm_set_memory_region(struct kvm *kvm,
+ 	new->flags = mem->flags;
+ 	new->userspace_addr = mem->userspace_addr;
+ 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
+-		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
++		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
++						   mem->guest_memfd_offset);
++		if (r)
++			goto out;
++
++		r = kvm_gmem_commit_memory_region(kvm, new);
++
++		/*
++		 * Drop the reference to the file, even on success.  The file
++		 * pins KVM, not the other way 'round.  Active bindings are
++		 * invalidated if the file is closed before memslots are
++		 * destroyed.
++		 */
++#ifdef CONFIG_KVM_PRIVATE_MEM
++		fput(new->gmem.file);
++#endif
++
+ 		if (r)
+ 			goto out;
+ 	}
+diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
+index 15b2c728f7dd5..92ec2bde65324 100644
+--- a/virt/kvm/kvm_mm.h
++++ b/virt/kvm/kvm_mm.h
+@@ -41,8 +41,9 @@ static inline void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
+ #ifdef CONFIG_KVM_PRIVATE_MEM
+ void kvm_gmem_init(struct module *module);
+ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
+-int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, u64 offset);
++int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   unsigned int fd, u64 offset);
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
+ void kvm_gmem_unbind(struct kvm_memory_slot *slot);
+ #else
+ static inline void kvm_gmem_init(struct module *module)
+@@ -50,9 +51,16 @@ static inline void kvm_gmem_init(struct module *module)
+ 
+ }
+ 
+-static inline int kvm_gmem_bind(struct kvm *kvm,
+-					 struct kvm_memory_slot *slot,
+-					 unsigned int fd, u64 offset)
++static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
++						 struct kvm_memory_slot *slot,
++						 unsigned int fd, u64 offset)
++{
++	WARN_ON_ONCE(1);
++	return -EIO;
++}
++
++static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
++						struct kvm_memory_slot *slot)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
 -- 
-2.47.3
+2.53.0
 
