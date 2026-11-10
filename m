@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318932;
-	b=M4jc7IdkdKW2E7RkoLQNB96/yveO7/x4osklXg8pDYfhcungefDqsw65ib+DvCo+HyNv
-	 1f5jfRi1UwSUhYMeFdji6+ToJMZDtRdTYDm+gmKGyqAzZnsbypFwM3l5GV281UUFSsL1e
-	 wcEBJFfmzaXStPUjeURM3+q/A33YST3Puxh02QpJqrfL5OQUdmGNlDaINpWpfpnoW0CJ3
-	 B8wbyVrc0dYQ2kaqabPxJGHdMtdT1ESbYio6Y5g89oymOrd9/5RIYHtnUwUMpn4fiXPvX
-	 fK6ctf1kySb2yx2IqGJI2QO+RWHRn9HuWn8nSG6OnfXGlGyGda1CQ7IbQXLp6Bx8EVQ==
+	t=1794318957;
+	b=XBp/FjAodPJaCK3ogWf7I2V/Lh26C5AOfgnJ5izSFcaCIJY9katFhD303+8AnU8T//zX
+	 qiJX5tB0B6td1k/fJ+TzJ0/AW6sGgYSrItKKLlPtTiI/UJyCo0OiQsN8L7/v9DoMzk3Z4
+	 sYN5TfjM+ybZ+dfVM75tliIsB7gsag2UU5hDcMSNFPGe0PIgyvThY3kebJ15a1ES6O3ZW
+	 1vp3AAZ169QVncLli53+9SdCdLmkp1r3VAcR3ZGBClDiA4EYQxKMQJsSJ7+dM9sf+HHmo
+	 w68ubDpGBek/UUR7BYf8kUJDXaZH42HlGfYKiQTyYSuT3oDcXkF2vL6qEPdKNqoyAmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318932;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318957;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/TE1AvhiPSIlqKsGUA63cXvzqspUQdfV1vX00NRVyZ4=;
-	b=gRhb3qtVBLUiEJZr1BkVN17kPO9nYfP8IrOc4H5arfM3PZvjPNNSjg6fjWl5RpPmcubI
-	 bnluKhBZajR5jig3cp/fSKtWH2rzJS3o2l1Z7tX0ONwGOn3t//ZXEwRM8dJm9IAJEVk9y
-	 R+/WkMmvlKJryNO3pbyHg4Q+VW6h8HVFl44mFA+IZxexXriAw0Iv8T03iur5FrsYug03T
-	 Eu9eYoF9i9+2/0DIwGOk370kqpICFt5Ut0Mk8upn/+fq+GgpodfpYZNQEyAY1QLOPrGok
-	 fqQZFqrHBgHAjhf3Z9PueFVXlAcVhTI2TWI9h27JC/QxIjXM3pHpYgR4jJQJRLksnFw==
+	bh=4Ym6a+W/OezBUhqQ511/gYTOqfqihBLo1uCOq6yI1ZU=;
+	b=ekcspvvLVNdGTcjBr5S2Qnioe3L/U7ix911Hopimun89BJ7aEpbNu3LI0RwCCUIWGzPM
+	 Iszarm0QIff9uv5fYvrLQPOOwud28bsb7YY5NlD6uySqrPaB1DeeIiUaQuZH/TfF9Q9jc
+	 qQN1sgCCon/tPCHSiMungietomS0ufS7omlyKTZz+7SQu5HCINB16c6ohbQKnU05Mxto3
+	 DU17FG/P0AXu4ZZqXFOm8LFygLfeV6MQt70/g1NpMahT+ntsSWV5VGUy8x8X2vMWF2wJE
+	 BKy6Tm/jIeztxDMCa15V6pDhE5UFQoWunfxJJtoXx67yM4dotsf287+rk7OFAYdcv1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irvRuhTZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATL0lTzH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB74C606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:55:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44225606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irvRuhTZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD401F008A2;
-	Tue, 10 Nov 2026 13:55:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ATL0lTzH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 976B41F0089F;
+	Tue, 10 Nov 2026 13:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318931;
-	bh=/TE1AvhiPSIlqKsGUA63cXvzqspUQdfV1vX00NRVyZ4=;
+	s=k20260515; t=1794318957;
+	bh=4Ym6a+W/OezBUhqQ511/gYTOqfqihBLo1uCOq6yI1ZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=irvRuhTZHygnDQK+XgoLv1JYX0ySCn6yNThSdKlDDnARCpO6USbZFUipVkjmc+o1S
-	 fnIs8M3yafZT3SNrqIG9xEmiZNmrxluJOBtVUXTNDi9CvLnlvBzUJqjixCkd5gSUOy
-	 lf2M6y1Xv2klg3Jtji3/8Mnbet09S/eMW4dsXgWEGz1OdJvNNFif/N/+cHe1TaRyUd
-	 81wvouigQuFY69I9Rxz8CaRDn8Nnk7BU81wADeGJFIbGKFRAhkwlTzdZj42RwjBSLn
-	 n1h9Xkyg9Jxv5czKIVL/kQlJO6p+Yl6eEZ+Wux+UnC1qMGcCysWQxhbBevG0yemKHM
-	 nyBoSXT6TJ3Tw==
+	b=ATL0lTzHz7eY1zlkP43vIp4smpBRH6+sI49KUzM0Qm7WJq5zuGSipMS9CbEmLMBQj
+	 WjWD68AEij0mjcF1gWGlepfPM+ParJ2hbzNaVgitWof1sHLwP1y+O4+UWIHc3kgUpv
+	 uS2vNAv+xs5wtxsz8GICerqeeVTwr1+0un+dkZPKqLwib+KThEj/79Mny0rLh22aXg
+	 TAiH8pVz+LpyRQBHoCZ19Oz6Cu8bIL4BB2Z19c52SMjqp6cvOlOoNFvTk71s0uOxBT
+	 bsTRg2mZaTo7zf1nXquup69L2ryLQvV6Zdkq4jKPjSJvtal0wxcOinzVnc+zmX46pQ
+	 Vp1U1DopFUVNA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ping-Ke Shih <pkshih@realtek.com>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Josef Schlehofer <pepe.schlehofer@gmail.com>,
+Cc: Cryolitia PukNgae <cryolitia@uniontech.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] wifi: rtw88: TX report with long timeout for non-PCIE devices
-Date: Tue, 10 Nov 2026 08:55:28 -0500
-Message-ID: <20261110135441.1802824-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] ALSA: usb-audio: rename QUIRK_FLAG_MIXER_MIN_MUTE to QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE
+Date: Tue, 10 Nov 2026 08:55:53 -0500
+Message-ID: <20261110135524.1805283-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110135441.1802824-1-sashal@kernel.org>
-References: <20261107060102-failed-5.15-7cde94dab0e7@kernel.org>
- <20261110135441.1802824-1-sashal@kernel.org>
+In-Reply-To: <20261107054605-failed-6.1-874323b68c93@kernel.org>
+References: <20261107054605-failed-6.1-874323b68c93@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,70 +61,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ping-Ke Shih <pkshih@realtek.com>
+From: Cryolitia PukNgae <cryolitia@uniontech.com>
 
-[ Upstream commit 7cde94dab0e74434ccc0a387d7ad373fb3becda0 ]
+[ Upstream commit ace1817ab49b3f92b3e965caa63b4a78e69266cd ]
 
-Many USB and SDIO devices can't report TX status within 500 ms, and
-extending to 2500 ms as tested USB/SDIO devices can fix the problem [1].
-To avoid adding chip ID one by one, and this change looks harmless.
-Keep PCIE using short timeout, and others use long timeout.
+As a preparation of introduction QUIRK_FLAG_MIXER_CAPTURE_MIN_MUTE
 
-[1] https://lore.kernel.org/linux-wireless/20260921165343.8131-1-pepe.schlehofer@gmail.com/
+Also make it printing an info while applying
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Link: https://patch.msgid.link/20260924004637.9958-1-pkshih@realtek.com
-[ sashal: Adjusted context for a timeout condition without the rtw_is_8723bs() check. ]
+Signed-off-by: Cryolitia PukNgae <cryolitia@uniontech.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20250903-sound-v1-1-d4ca777b8512@uniontech.com
+Stable-dep-of: 874323b68c93 ("ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw88/tx.c | 9 +++++----
- drivers/net/wireless/realtek/rtw88/tx.h | 3 ++-
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ sound/usb/mixer_quirks.c |  7 +++++--
+ sound/usb/quirks.c       | 20 ++++++++++----------
+ sound/usb/usbaudio.h     |  4 ++--
+ 3 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
-index 3f868152955b0..a435468bb4e64 100644
---- a/drivers/net/wireless/realtek/rtw88/tx.c
-+++ b/drivers/net/wireless/realtek/rtw88/tx.c
-@@ -172,7 +172,7 @@ void rtw_tx_report_purge_timer(struct timer_list *t)
- void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
- {
- 	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
--	unsigned long timeout = RTW_TX_PROBE_TIMEOUT;
-+	unsigned long timeout;
- 	unsigned long flags;
- 	u8 *drv_data;
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 90de8ae32eb62..e3fda32bac1cb 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -3921,9 +3921,12 @@ void snd_usb_mixer_fu_apply_quirk(struct usb_mixer_interface *mixer,
+ 	}
  
-@@ -184,9 +184,10 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
- 	__skb_queue_tail(&tx_report->queue, skb);
- 	spin_unlock_irqrestore(&tx_report->q_lock, flags);
+ 	/* lowest playback value is muted on some devices */
+-	if (mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_MIN_MUTE)
+-		if (strstr(kctl->id.name, "Playback"))
++	if (mixer->chip->quirk_flags & QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE)
++		if (strstr(kctl->id.name, "Playback")) {
++			usb_audio_info(mixer->chip,
++				       "applying playback min mute quirk\n");
+ 			cval->min_mute = 1;
++		}
  
--	if (rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
--	    rtwdev->hci.type == RTW_HCI_TYPE_USB)
--		timeout = msecs_to_jiffies(2500);
-+	if (rtwdev->hci.type == RTW_HCI_TYPE_PCIE)
-+		timeout = RTW_TX_PROBE_TIMEOUT_SHORT;
-+	else
-+		timeout = RTW_TX_PROBE_TIMEOUT_LONG;
+ 	/* ALSA-ify some Plantronics headset control names */
+ 	if (USB_ID_VENDOR(mixer->chip->usb_id) == 0x047f &&
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 6dc54fd449f78..55453873524be 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2100,9 +2100,9 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x0556, 0x0014, /* Phoenix Audio TMX320VC */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x0572, 0x1b08, /* Conexant Systems (Rockwell), Inc. */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x0572, 0x1b09, /* Conexant Systems (Rockwell), Inc. */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x05a3, 0x9420, /* ELP HD USB Camera */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x05a7, 0x1020, /* Bose Companion 5 */
+@@ -2146,15 +2146,15 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x0b0e, 0x0349, /* Jabra 550a */
+ 		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
+ 	DEVICE_FLG(0x0bda, 0x498a, /* Realtek Semiconductor Corp. */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x0c45, 0x6340, /* Sonix HD USB Camera */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x0c45, 0x636b, /* Microdia JP001 USB Camera */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x0d8c, 0x000c, /* C-Media */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x0d8c, 0x0014, /* C-Media */
+-		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x0ecb, 0x205c, /* JBL Quantum610 Wireless */
+ 		   QUIRK_FLAG_FIXED_RATE),
+ 	DEVICE_FLG(0x0ecb, 0x2125, /* JBL Quantum650 Wireless */
+@@ -2166,7 +2166,7 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x1101, 0x0003, /* Audioengine D1 */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x12d1, 0x3a07, /* Huawei Technologies Co., Ltd. */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x1224, 0x2a25, /* Jieli Technology USB PHY 2.0 */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_MIC_RES_16),
+ 	DEVICE_FLG(0x1395, 0x740a, /* Sennheiser DECT */
+@@ -2212,7 +2212,7 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x1901, 0x0191, /* GE B850V3 CP2114 audio interface */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x19f7, 0x0003, /* RODE NT-USB */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x19f7, 0x0035, /* RODE NT-USB+ */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x1bcf, 0x2281, /* HD Webcam */
+@@ -2270,7 +2270,7 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x2912, 0x30c8, /* Audioengine D1 */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x2a70, 0x1881, /* OnePlus Technology (Shenzhen) Co., Ltd. BE02T */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x2b53, 0x0023, /* Fiero SC-01 (firmware v1.0.0 @ 48 kHz) */
+ 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
+ 	DEVICE_FLG(0x2b53, 0x0024, /* Fiero SC-01 (firmware v1.0.0 @ 96 kHz) */
+@@ -2282,13 +2282,13 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 	DEVICE_FLG(0x2d95, 0x8021, /* VIVO USB-C-XE710 HEADSET */
+ 		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
+ 	DEVICE_FLG(0x2d99, 0x0026, /* HECATE G2 GAMING HEADSET */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x2fc6, 0xf0b7, /* iBasso DC07 Pro */
+ 		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
+ 	DEVICE_FLG(0x30be, 0x0101, /* Schiit Hel */
+ 		   QUIRK_FLAG_IGNORE_CTL_ERROR),
+ 	DEVICE_FLG(0x339b, 0x3a07, /* Synaptics HONOR USB-C HEADSET */
+-		   QUIRK_FLAG_MIXER_MIN_MUTE),
++		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x413c, 0xa506, /* Dell AE515 sound bar */
+ 		   QUIRK_FLAG_GET_SAMPLE_RATE),
+ 	DEVICE_FLG(0x534d, 0x0021, /* MacroSilicon MS2100/MS2106 */
+diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index 17db6a7f3a844..67dfdc62a179f 100644
+--- a/sound/usb/usbaudio.h
++++ b/sound/usb/usbaudio.h
+@@ -180,7 +180,7 @@ extern bool snd_usb_skip_validation;
+  *  for the given endpoint.
+  * QUIRK_FLAG_MIC_RES_16 and QUIRK_FLAG_MIC_RES_384
+  *  Set the fixed resolution for Mic Capture Volume (mostly for webcams)
+- * QUIRK_FLAG_MIXER_MIN_MUTE
++ * QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE
+  *  Set minimum volume control value as mute for devices where the lowest
+  *  playback value represents muted state instead of minimum audible volume
+  */
+@@ -209,6 +209,6 @@ extern bool snd_usb_skip_validation;
+ #define QUIRK_FLAG_FIXED_RATE		(1U << 21)
+ #define QUIRK_FLAG_MIC_RES_16		(1U << 22)
+ #define QUIRK_FLAG_MIC_RES_384		(1U << 23)
+-#define QUIRK_FLAG_MIXER_MIN_MUTE	(1U << 24)
++#define QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE	(1U << 24)
  
- 	mod_timer(&tx_report->purge_timer, jiffies + timeout);
- }
-diff --git a/drivers/net/wireless/realtek/rtw88/tx.h b/drivers/net/wireless/realtek/rtw88/tx.h
-index 56371eff9f7ff..80b9dffc34bec 100644
---- a/drivers/net/wireless/realtek/rtw88/tx.h
-+++ b/drivers/net/wireless/realtek/rtw88/tx.h
-@@ -7,7 +7,8 @@
- 
- #define RTK_TX_MAX_AGG_NUM_MASK		0x1f
- 
--#define RTW_TX_PROBE_TIMEOUT		msecs_to_jiffies(500)
-+#define RTW_TX_PROBE_TIMEOUT_SHORT	msecs_to_jiffies(500)
-+#define RTW_TX_PROBE_TIMEOUT_LONG	msecs_to_jiffies(2500)
- 
- #define SET_TX_DESC_TXPKTSIZE(txdesc, value)                                   \
- 	le32p_replace_bits((__le32 *)(txdesc) + 0x00, value, GENMASK(15, 0))
+ #endif /* __USBAUDIO_H */
 -- 
 2.53.0
 
