@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794278517;
-	b=Wdd39Bd80qf7Xl4aH/2OKQa08YFBwWqH0iLCuzgDBFMzNn+jWjMROohhMKtYujPhDTdT
-	 /5sQhq6j7r2YnucRxWxwj77B9BwHpAvLuo8l0VwiCtAFdt40hHts+uqalRUQ8LIML6Voc
-	 pGAFPd9D3sURedZlDrpAXHTycqwXqQWGZLsAIIGnTvXeogGpPKiyYKj5JkrihCXHRdkYt
-	 ymaOXdYaTPduM3HQ2DVgzzP1Pms6o1nJ/MGlk9WXyV+zRANMJlep/mRMjc+dtO2rvRImD
-	 sZBlnhxz+97fIG8T8zzUcOj2gkmXRYyy37uq21eFC7KEnsQ5g7xaUfFkx6EtJ/xcK6Q==
+	b=WrE4Sy36UlmvWpaRQi8CRJMgFx6DoZkCuw8xwXMDe6n4COuOFAPplgmwXqNfSVqPBCpf
+	 P+Wl6qGZSPZj7jX9+DzPiifSai6+848z7+h5zcdME+4jaGSACoLeunjaDicztPk1cQdmA
+	 91LDKuJhv7+JEn1sFeyavzCShE1FzNZR54VtJwoIpViMvAPcgEbhVMIRo+H4QVloT/YGk
+	 3QsPLFxjYJwc53Ez8pCo15uZ6v0cVfGY6AEHN9o27x6Ed14q5E/bGc6fM/y3xXrXGxgTP
+	 goofiAsz7+Y31iAJgWOvlLLtdNxer6y1RgPIdHnQ6YQ/66rxoiRbRY1HHoBCHDIpvdg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794278517;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
-	b=RUJxYo8UZSRt4GOcIPKswd2uGW5zrp51P4KoBfBfIHpL9HTrPeWUwR3BjMFq9oDWlEwB
-	 QF1//zbFLtaDSJuagIXWr6rRz6TPE/we+IZeximfDS/Y2nfbLqDuVHtO+MBLHOlE4vcIK
-	 R7UDzZKBTim4k037wP+gy4YkUjOaeLNj1sg6cFhM5Qii7XuiKrVJUX6Wqneb7c2Unuyau
-	 kJ1rIIR0A/FyZTNVeawO7OBNgMLS6OTBYCH5lYM3pY6HxFfUhN+fVuM2H9r5e25QlGos2
-	 xEocYt6WouGfp3q/Lu25ZmMoth6MQcGarZTH44HjcyinIi/uQAhww+oZRhdl//Tbz4w==
+	bh=RQsONjRoXLg6EuvkW3CkhSlVC9XER7v6DGx4Vdolecw=;
+	b=ouYMNHxE8GXdiZe6tc7N3Ut0bfEKAbY5Sajc2Yd0PvDeiXpkTdCuugmtcr8kh7k0Dg+7
+	 XWJZ3Tef/8dMfg2OkPIcakeWB25nrMKkBA84aS6d+Rfk3J2bx5QWxzRWhNGoV8AecTMDD
+	 PFlhDlM03koA3cFmhXfrA9qa0EJIsULPxI15rtG//7uLpt+zwUEwyclJFlasKgsIKiYuz
+	 UfbVmKtlXsgwHaW5pVI7CNhOuzVMf1P5fcbqvVlhv0YyI6skbMYR6/eeljC/cHq5ttOcS
+	 YuwLO+PJpPjTeYpWytturx6gGZw0xe5fYK6FMa5HVfpZZr2/Tw23Ijz/8rfUKw9Mr9Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ06U85j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkkqIa3s;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5E6606A321;
-	Tue, 10 Nov 2026 02:41:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B19606A32E;
+	Tue, 10 Nov 2026 02:41:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJ06U85j
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkkqIa3s
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794278516;
-	b=Gr3MTbSM4RccOy5tyuv3roHYZ6Oh7BB6xLm4v4HBGEgi3iFxfRDgCD99rSP1hjbJCNgi
-	 ndp3G6QIZIrmjJ++Ej5Ty4rT303Cs2cjRxOBrabBw3EEovaKyfttcvMeGnxy6M6rkUkZI
-	 UBvc1aBNz1G5Ws9ONnmsLZe5Km7A/da6XWwkkuBUOXycUPUzywGDgzlaDd86yJ5+DJcsF
-	 qOU7iYxiMBnb3dpN2AYYh3YKCUgr+ezMA5+aD3vckyo1i8aDGFOS/ZUlbf6v56gpUAItZ
-	 YeRP+ghhteSfmomk6VdOJbD7IhlaufO39MN4MUrmZvioT0Xq2VJt/EUOqNwG3Mouaxg==
+	b=ryESLPQgKsm4kgoJ45vULWZkwyZq1s/oYXARWy9hg5dMmyygrLtxKVtOmoLpbUoG6Dm4
+	 CEo96Dua63iKYOb6AAtepmYMImjKZyfIpDn/U/A+xHhQl7mmpf3S5g9p12/FL6Aeu3z44
+	 bE8LLE0hg7WZG8LsuV12wEddlcA3KvE8V/gdt54EyERr6YNIRHzlN+Quzo9qfSNxnMBle
+	 T5aJTNCY1vO2Zk72PBS7f1girJULVpUKp3uQZQDlRY+hANvoVNCJ3yp1vmXJweaNrsgSu
+	 nhZ4yvk57v+Q0DSQaPUaQbgdpe6Z/7YXH/TMSiiIZDmmQ9FTZz6exnbriAuHRbjTHcw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794278516;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
-	b=MDlf9Bv2EFy6D09SnA+SnEo8aAtp+DuvZ9w38n9A9C7q4fYTmYcB8H1EZnw8gZFu4aDy
-	 3DBUT2rGGmIsARlQhOrKufrHg8I1msst2dj7rs+wmXzSelbs4oQ5Lfz1A5oCdRWG6E4oF
-	 a8mCiIf00vosYRZOjZ/0pljsxSMg7ztkNoM5pkeo1N4yOQzQTnRa0S6xAMo97/XFgJufu
-	 Yxs12a/OE94oleLG3JweX4vRwLlE0v70d2cvOEN2Fd4HDcFfS718Wae5+TnsR19WVt0/X
-	 DTjeWd/NCFCrfrHSZXn955PStPXkKXC4rKOD2IdkFO0h4QDCSIZaz65T2LdqlBXxspg==
+	bh=RQsONjRoXLg6EuvkW3CkhSlVC9XER7v6DGx4Vdolecw=;
+	b=xXIvVkJoUqHO948INHe63AncLwlQkVxYA0TlpM+1aGDv2bpkaEbnF2tW4JUcOzPYnUFg
+	 JER7YnR6UY9BBPM/pFSAqUfGi2hX5cZxWtRlyyQHNMrv0KFgrkS3+sZQqGx3dy8iqxQ+y
+	 +r97blwuWI/KIo3QQJ00KW2VgUBKuyTTWB+7zWSIOItKRcULwrcFwk/zIvtJX4jVjuZ3Y
+	 z3U1ShU0cVE26qw4WYEQfiStmtfKhd+w5y1JL4o4nOiWRM8oVHC527f3NX8OKbxcubx1h
+	 F6KiUa5Vb0/SpVvSya18OliNoGoQb5Onu1N1uNJLEP8HsMZpojnascGG5w0DFh1T3SQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C51341F008A3;
+	by smtp.kernel.org (Postfix) with ESMTPS id D7D131F008A4;
 	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794278516;
-	bh=P6zg6npAhreWicwc/FI9i2ATVZQoqseDoVJe2Yqx7LA=;
+	bh=RQsONjRoXLg6EuvkW3CkhSlVC9XER7v6DGx4Vdolecw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hJ06U85jtJeqmavRozNBRQZ0Bi3SJ3ftGqRpqfOURiAHY9iCaxmIL5XesjoECQ9M2
-	 VAtCkfDt6UeLQS45NVca2BaBo6qkUIrpLds2eMFjg2YdszkdqzX3QoA1CbcP8W8XRt
-	 /x/lZxapOd/WseQ19ZBNDfZNKLSsH3z+2Lvkp/nqbqEfIlrBFfM4gaqP+1TfpASmT0
-	 uw4SjBvJPFr58s2K6y6iQq56jD/DyQxQwtYX3ZF7isEMSg+KDvUC++c28jpU0zY7hJ
-	 unfYEHmgL87PWi31n/rhd9aXw+rpnKNIsmJHBG42bpgxZHe4omX/Xcg89cUWz91U7S
-	 rGKj8Qz0fPxmQ==
+	b=PkkqIa3smcaYcqQ+Z9HkY8UzSJaYP/TPnTJ/ah9hoC7GaCDTSJLqRwgH2elUiaddP
+	 zrsxO9Nwj2+7t03V+opB7IP3flUOOboLv3f7VzD4wLBdK48sfc1HwuL6IzPf4SkA4J
+	 NAwAOgR+QGtOXlpT+heEDLWEZVZg3zxlS44PUtkURnRfRhsNgtD02dlHr79bmKsXvf
+	 64ZiIZvf2zZUKEl69DenaSKyuJCtpY46kmU+xbzJaocXL+rwPs/iw6D6vA45JEMQr6
+	 NGbYIkWh+O0hKkoCpl2373VZ6RaVDyyATz4VAWhgzQ8ugWedppSb/I9k8f/ePtDmJC
+	 A+id06B6I78og==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 50C6A4878E;
+	by lkml.kernel.org (Postfix) with ESMTP id 62EE648792;
 	Tue, 10 Nov 2026 02:41:55 +0000 (UTC)
 From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 11:40:49 +0900
-Subject: [PATCH v7 3/4] usb: gadget: gadgetfs: prevent ep0 event counter
- underflow
+Date: Tue, 10 Nov 2026 11:40:50 +0900
+Subject: [PATCH v7 4/4] usb: gadget: gadgetfs: avoid writing through the
+ const setup pointer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-gadgetfs-v7-v7-3-6d05409cc61a@gmail.com>
+Message-Id: <20261110-gadgetfs-v7-v7-4-6d05409cc61a@gmail.com>
 References: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
 In-Reply-To: <20261110-gadgetfs-v7-v7-0-6d05409cc61a@gmail.com>
 To: Neill Kapron <nkapron@google.com>, 
@@ -94,11 +94,11 @@ Cc: Jing Lin <kayano050408@gmail.com>, stable@vger.kernel.org,
  syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
  Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278513; l=2000;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794278513; l=1583;
  i=kayano050408@gmail.com; s=p600; h=from:subject:message-id;
- bh=lkYUW+XIlbdK/rh+1VF/WDnE3MNRdwNCKjzdXPE9Fvo=;
- b=xdV0LO301dIjt70LNgqdbL4X13NcnfFZpK9haUSjFq+MHE5dxKccphBn6t20Z9TFL1xps3SyL
- 3ncoWLRvj3+CnWTSA/aWLb4bOQGY+J9s1z2a8W6ru7qBn7ZTm3M9N1H
+ bh=BRGg0GeWE86bbv0IxEfBEmu9UWVpi4xtBx5TMnNOtNU=;
+ b=zuIrGohD8/uC8cnt9yxToCKhQ7355VL5yMElq3Lw6aC1pOLx7emjXeBOgWaubXzz1uJFjoA+P
+ zjyVNzGRgXmBuwGLaqMMZhICmqw1EJByQv1KTVFStBk1ncBS4+yDsCJ
 X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
  pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
 X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/p600 with
@@ -109,63 +109,44 @@ Content-Transfer-Encoding: 7bit
 
 From: Jing Lin <kayano050408@gmail.com>
 
-ep0_read() snapshots dev->ev_next, drops dev->lock while copy_to_user()
-runs directly from dev->event[], and subtracts the snapshot afterwards.
-A concurrent disconnect, connect, setup, or another reader can reset,
-deduplicate, or consume the queue in that window.  This races on
-dev->event[], can drop newly arrived GADGETFS_SETUP events, and wraps
-dev->ev_next if the queue shrinks below the snapshot.
+gadgetfs_setup() receives the setup packet as const, but clamps an
+oversized control IN request by casting away the constness and writing
+the truncated length back into the caller's wLength field.
 
-Dequeue the events into the local buffer and update dev->ev_next before
-dropping dev->lock for copy_to_user().
+The setup() callback has no business modifying the setup packet, and
+ctrl->wLength is only used afterwards when initializing event->u.setup.
+Store the clamped w_length into event->u.setup.wLength directly instead.
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
 Signed-off-by: Jing Lin <kayano050408@gmail.com>
 ---
- drivers/usb/gadget/legacy/inode.c | 26 ++++++++++----------------
- 1 file changed, 10 insertions(+), 16 deletions(-)
+ drivers/usb/gadget/legacy/inode.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index 6514220ef..0b3210f87 100644
+index 0b3210f87..5970f0c85 100644
 --- a/drivers/usb/gadget/legacy/inode.c
 +++ b/drivers/usb/gadget/legacy/inode.c
-@@ -1266,25 +1266,19 @@ scan:
- 				break;
- 			}
- 		}
--		spin_unlock_irq (&dev->lock);
--		len = n * sizeof (struct usb_gadgetfs_event);
--		if (copy_to_user (buf, &dev->event, len))
-+		len = n * sizeof(struct usb_gadgetfs_event);
-+		memcpy(tmp, &dev->event, len);
-+		if (dev->ev_next > n) {
-+			memmove(&dev->event[0], &dev->event[n],
-+				sizeof(struct usb_gadgetfs_event)
-+					* (dev->ev_next - n));
-+		}
-+		dev->ev_next -= n;
-+		spin_unlock_irq(&dev->lock);
-+		if (copy_to_user(buf, tmp, len))
- 			retval = -EFAULT;
- 		else
- 			retval = len;
--		if (len > 0) {
--			/* NOTE this doesn't guard against broken drivers;
--			 * concurrent ep0 readers may lose events.
--			 */
--			spin_lock_irq (&dev->lock);
--			if (dev->ev_next > n) {
--				memmove(&dev->event[0], &dev->event[n],
--					sizeof (struct usb_gadgetfs_event)
--						* (dev->ev_next - n));
--			}
--			dev->ev_next -= n;
--			spin_unlock_irq (&dev->lock);
--		}
- 		return retval;
- 	}
- 	if (fd->f_flags & O_NONBLOCK) {
+@@ -1600,10 +1600,6 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 
+ 	if (w_length > RBUF_SIZE) {
+ 		if (ctrl->bRequestType & USB_DIR_IN) {
+-			/* Cast away the const, we are going to overwrite on purpose. */
+-			__le16 *temp = (__le16 *)&ctrl->wLength;
+-
+-			*temp = cpu_to_le16(RBUF_SIZE);
+ 			w_length = RBUF_SIZE;
+ 		} else {
+ 			spin_unlock(&dev->lock);
+@@ -1761,6 +1757,8 @@ delegate:
+ 			/* state changes when reader collects event */
+ 			event = next_event (dev, GADGETFS_SETUP);
+ 			event->u.setup = *ctrl;
++			/* Report the length we can actually handle */
++			event->u.setup.wLength = cpu_to_le16(w_length);
+ 			ep0_readable (dev);
+ 			spin_unlock (&dev->lock);
+ 			/*
 
 -- 
 Git-155)
