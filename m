@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794287482;
-	b=GszuOzKsMWRmrDqOm7Z+y/x9CmzWA3i0CfuprDUpckggdHqLOKcXCqyLaUAPpqQXBOg0
-	 QlYOZDJCSU3VsNIpRbJb5664nZ5Nq9fYmmWyblTSg1kcH+L0RIlX3Lhz08p7aWkWvFEMB
-	 cIN5oID/8D7JvLCxcPEvwGUUjmhq5sXS+C6Z8H94bEgOLw8aSmUWliGjmpkez9zoAKFxr
-	 1T9XaHwz1zgYin25CPgyhQQ+vqF6oquApY/v3fCHdW/AqnO16oBxSQjcOwpQ63917US9D
-	 CUY4Q8hqA7mZXLv9GA/Tx0pnttF5dHCJcit/2RVp8BClsz9Pk4vW8e2XIVe1jcafYmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287482;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=UPqJGVV4jp1LmqkmUXYB895e79jFhk7s8cA2OJitgaQ=;
-	b=Sg3gYk81v7LfZZHz0V10vGEMgGCoffLWBAwzxpipB79vlF15DpBzg1j8Ff2rcyJoM2mL
-	 Cninbs3jmaLmW4B8g3vtcOieygEqmuDxpV+QmRDRu5vneQzZcWYVO2mbPVzJK+HL6A3oK
-	 s2QIBTT0CwLLL+wTxTXvrBaMg5fNvU1KoZ1De2dTa/0mchCNvCJLyeP6DPsDYqWBF1un3
-	 Rw9BXm7T1Un85j502XnVgHeeXoirXl6mVRDAvg/WokqNLRaluMbJ3p/TLjYwO+uu8ZPFN
-	 Nlpl2cF17XJT/V6b3pb7Y5zgJweQqYFMKbXC1nbP2QuYRtj34xuieCyNYzDOJyS+Mzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bV+1yb9P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794287799;
+	b=fvOdMPPn485HBI7t5oY6bsqCe5QvOXWXsMJjfKqn4Y9niMAKE3YlgknYcQgQwH3AESm6
+	 SKwJoac1/lyEf+y9Oef8kQFtHBvfTI80qLcAYXqAlDgQ6zzYzt14ASMOPTsN0yyptmyal
+	 bDC7F9aT1u6fF++DyeLshJmBIMJgPGInx21eY5yxCG5hXtHQdOJ6zPcKwcaWszQsyugw5
+	 7CRniK0xlSP1LTBaoLg4Lmv18TuB3akqEoLSuXBa75E+N82G667qwuwlw3+RyQLRGKsyg
+	 +UUh5uNM4s1ILubtFzlF2l55UGzn6znioo3hohP+tvms2/KM1SoZnQuTZoF3GRtDFfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287799;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=qGHhiDY3Ex78ujp/CSizoosU96qjcE/fIED99T0APEQ=;
+	b=YNuQc6HcqkChN+XjD0rmttPoqJf3x3goLeIOi0+gtUX9Q3+yXt15ABV8oM52hoqZ/MzG
+	 OXB16t6Yjaco2Ml58oGPCsLYbaUoxIErqdRjnOpM0mV7l1iPLTh7bvZezDsoh9ZeLY+0+
+	 YkEoHTzPnwtezEnHyDRkOWnQC+U26qA8E5G6ewpsV0H/E6iGoEkQL2mEk+xKFXdyzqTbf
+	 a2/z7iGqBXdIFi9zwo+LKEBfiOGoTGLqoxuKV33MHJW7VOlKqJTyE0IoQEARMqCTkgzvo
+	 ImKDCzRWPrnO/m49meGl3gpE3NIMEhY2cV3URrBCM2IKof4M7dejeRfih1tnj+UObJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SfhEEWY3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8F6360A261E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:11:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8F6360A261E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1186F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:16:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bV+1yb9P
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91eed03da8bso11240346d6.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 21:11:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794287480; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HC9syWKqadzKIN56DbtZROJLOszJYruCUrMXPl2+lB4KzgEW/kyJVvwPfOlPBSOyS0
-         CAuKtE/u7ciPls/LkRo4bWqBlkYcyjRIWq8mf8OVG/5GDwN994udfANDFM7lWVxtGrJZ
-         TblG6SuWDqIPfHnpi1tBHsbJMOQVf03gKWF91hypKp6shn0LcgoupctYJQOrjdcYmATF
-         jsAVdGupYd5xTxRDz/sdmg63Dv8vdOlS93vNb/kQ8TS+br62vT+HAUbdLaXwcLYgczay
-         NhfsG6ufkKIPxv+yfQLr04KZ5FuddZKY2zhsM4u5MWOpJDrGJGXe31hBHxm+VjuslN00
-         Vd6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UPqJGVV4jp1LmqkmUXYB895e79jFhk7s8cA2OJitgaQ=;
-        fh=+XzNqVsqYLruLQMzqlHCCusgoXSdKzookF0frXPqDhQ=;
-        b=Qxk/sjzhWO5nbNIT8y5Mk+uVVuKggvXKILhaFW9DvjIOxNBZWrm0Q/phOmVNDEJN6d
-         /3YBuY8fgsGS0w38qXFWJMatYWwHnFpQ+oUdqNNWHqhk7WKyC7KUFy6XXOkOZLzSJWu6
-         BL/C/PeW50E3SIezPGThdpmLo1Q0j6J9N+oK7BFV/PEdizIZH+YDjzvTbqiRE5EIXttI
-         E5e4vsSEHIPWmwlQEE1XPL2KJVUUz1Enq0GLF99lc6VKXv82EKFPpxEf6Hvo7y60705X
-         gX+S1YEmVwZlVACBEN9CYGoaZGeDBlYdOP1ug3bSTViBhJ78RCYBAJaaFcbE0QRmAM5T
-         WQgg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794287480; x=1794892280; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UPqJGVV4jp1LmqkmUXYB895e79jFhk7s8cA2OJitgaQ=;
-        b=bV+1yb9PfRgp1o24sh5uZQeKCdtfcEjk8NX/TAclKxSmq0Qn8P2KBRX/LX//N/Y1Ps
-         OIaXLMYzRM6L/2i9eEgVptKGlgezm5/t81zlPVHAw/xC88B+TaG2OZKM69cIcDGqOxL/
-         DMdP6pu1a3tM9vhfiTMdTejq9xsp03LDWD1AvC/9VRZrdArV6g+B4lmUOmkIwcReWF1w
-         rPxBAU0XA867cVyTYWPH5k99p7vruESu+VgylEhIuAS2NN0onm/qcbfrs+TOVAJGBTqT
-         Oq6UsToLoLMpLSQjGzhoH+AoCyqyLMT9ndH48xGdiVxRaN7KhUR5eeKuUVhtVs8DLI3T
-         ZhNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794287480; x=1794892280;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UPqJGVV4jp1LmqkmUXYB895e79jFhk7s8cA2OJitgaQ=;
-        b=vZjcbLbAfXWBTPOJdYKvq0fqbfR3vZFpss6c76cbws/hoAGnQiImApmgipjQfmrAoh
-         P4GBcm4cwX5cpLmMdKt6q7lqVKF8kRBda2EBgIz4+T6AdpnPk+ZAsyzjbiCBzZqLAS/u
-         wngaBNRaMjP75XbRiaL6bqozwbXu13AvwzkJJNQSqqb3YE3NrMi5t1jKZ5pepJZ0ux4i
-         IKHD1Kw3b7dIUIflto9lxRbjL1JFSZjRolLB8sY13DEr5/IHF7x9BDhXnBCKMjlKpr+p
-         2u2aSiOBxwD7+bLhpZHZ+kVCr2kvQJyagv2QGex2f2Sub8mYcIkETBQhGpWMHnJMPluw
-         LJWw==
-X-Forwarded-Encrypted: i=1; AL+hErENnDhozdYj7yqe/bobDSsQ9fsHZhkvTozLHLdL1SQJJnLUW707gMl8R21wySu59fTCaybaoXo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KfmlzrnqT5TIa8yodqzr2ZdNNnkUghOjp0kp+ED36QL7T9p6V
-	lj17+Z237CRQXnA3u+YHhLHaqFPlGqNsiCRPYZgskVVRvGoJud/bR4zUa3Zt80qpMxWEWBFHR3R
-	Jxg23MA/vFmydvFnG2v4UNTbnBKlnJ7U=
-X-Gm-Gg: AYBFou1g7SZ6cpbbEFT6Z7YhHVZCLgpf1rIutR+a1GzcFZ//SmieKrlzg6kFKMHdojq
-	yZKYRUvXI1+SjZZ5RwWUIkyFsA6tq+oWfkRdrUwqQOWmWz8zTvtLv128JXWx86ardeg6rYp2gUZ
-	xgkE6iWzOcWTQomKIuDAqe1Dmcq3Jyrqyjeeo3Lywv8hWMGmIEuF2uzU7ydQ2Dt2kZFp/jvKJR5
-	GLVmhnGjB+5dwHo8NCcmBokgsRRtrEbneQz3UKb+hCD8TtF59Ca8z1m3lrecqG62txuHpGDUoEl
-	9OGLLXh+Qvlt/b+zkZAb69ivim8hWtOt6mwc+32fcEfjEScOeAK2XcE63sMQE3jP0nMId9l5BuK
-	q1a3HjU7f6PG+cu/eUUMd+FJSw4senj51NGmyBdOi5CAph2rIwnXj+Xbu6jFK3SHb
-X-Received: by 2002:a05:6214:4019:b0:91e:ee6d:753c with SMTP id
- 6a1803df08f44-91eef813853mr29247916d6.41.1794287480464; Mon, 09 Nov 2026
- 21:11:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SfhEEWY3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021DB1F0089F;
+	Tue, 10 Nov 2026 05:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794287798;
+	bh=qGHhiDY3Ex78ujp/CSizoosU96qjcE/fIED99T0APEQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SfhEEWY3GFiC4/QLMU6e+sASQZb+tAMIN/Nhiv5rIQ6J5lRw9v+5m0ou8CeO6hl3g
+	 rxEl3VzaOtTLSiClH2X0cE5ENBaQ1dL407iNpIvsEfpJCZwg8hd/S08tWG8NPsItc3
+	 qNzNTklNvgph8UhL4S4kZNwVqDoLFQfJ4qnjDUDYeiOrYVkNgnbmfu96Es3k7wCg2z
+	 RtLhSvTqWSQAiujmXcaaCdrUtcy9q8PuuYMOALyeZTbPqiHVCDLLHfdd3x4KPB+HvT
+	 N7Ta9ZzDnxHwhlLF2Bztbz1Ghu4K0tFyZ7ZiwjIydexu8iWK/57HoRo43zz5/b90rq
+	 jI2faqVnF+IMg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andrei Vagin <avagin@google.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Kees Cook <keescook@chromium.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] selftest/seccomp: add a new test for the sync mode of seccomp_user_notify
+Date: Tue, 10 Nov 2026 00:16:35 -0500
+Message-ID: <20261110051630.440456-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054224-failed-6.1-832b9b176be0@kernel.org>
+References: <20261107054224-failed-6.1-832b9b176be0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,37 +60,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105160209.1504867-1-ekffu200098@gmail.com>
-In-Reply-To: <20261105160209.1504867-1-ekffu200098@gmail.com>
-From: Akinobu Mita <akinobu.mita@gmail.com>
-Date: Tue, 10 Nov 2026 14:11:05 +0900
-X-Gm-Features: AclHuK8ikjvdRd9V8RuwzVdKjIe4FAsRE1P8Lc2SAhOxv_fN0Jy7rtPk86DfVSw
-Message-ID: <CAC5umyj1FkS5ZTQKhPsG3-6FfnjxwgKvgSnr6tpbtjxfriVnYQ@mail.gmail.com>
-Subject: Re: [PATCH] fault-inject: fix boot failure with fault injection boot parameters
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-2026=E5=B9=B411=E6=9C=886=E6=97=A5(=E9=87=91) 1:02 Sang-Heon Jeon <ekffu200=
-098@gmail.com>:
->
-> Since commit e9bc360b105c ("fault-inject: use prandom where
-> cryptographically secure randomness is not needed"), setup_fault_attr()
-> calls prandom_init_once(), which calls kmalloc() and schedule_work().
->
-> But setup_fault_attr() can be called from __setup handlers before slab
-> and workqueues are initialized, so any fault injection boot parameter
-> leads to boot failure.
->
-> So use DO_ONCE_LITE() instead.
->
-> Fixes: e9bc360b105c ("fault-inject: use prandom where cryptographically s=
-ecure randomness is not needed")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+From: Andrei Vagin <avagin@google.com>
 
-Thank you very much for fixing the problem.
+[ Upstream commit 8feae5adec17ec190118ad84da84a6ad9fa3e30b ]
 
-Reviewed-by: Akinobu Mita <akinobu.mita@gmail.com>
+Test output:
+ #  RUN           global.user_notification_sync ...
+ #            OK  global.user_notification_sync
+ ok 51 global.user_notification_sync
+
+Signed-off-by: Andrei Vagin <avagin@google.com>
+Acked-by: "Peter Zijlstra (Intel)" <peterz@infradead.org>
+Link: https://lore.kernel.org/r/20230308073201.3102738-6-avagin@google.com
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Stable-dep-of: 832b9b176be0 ("seccomp: restore knotif->state when SECCOMP_ADDFD_FLAG_SEND is interrupted")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ tools/testing/selftests/seccomp/seccomp_bpf.c | 55 +++++++++++++++++++
+ 1 file changed, 55 insertions(+)
+
+diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
+index b054bfef0f4f2..daf8e2872a9cb 100644
+--- a/tools/testing/selftests/seccomp/seccomp_bpf.c
++++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
+@@ -4246,6 +4246,61 @@ TEST(user_notification_addfd_rlimit)
+ 	close(memfd);
+ }
+ 
++#ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
++#define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
++#define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
++#endif
++
++TEST(user_notification_sync)
++{
++	struct seccomp_notif req = {};
++	struct seccomp_notif_resp resp = {};
++	int status, listener;
++	pid_t pid;
++	long ret;
++
++	ret = prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
++	ASSERT_EQ(0, ret) {
++		TH_LOG("Kernel does not support PR_SET_NO_NEW_PRIVS!");
++	}
++
++	listener = user_notif_syscall(__NR_getppid,
++				      SECCOMP_FILTER_FLAG_NEW_LISTENER);
++	ASSERT_GE(listener, 0);
++
++	/* Try to set invalid flags. */
++	EXPECT_SYSCALL_RETURN(-EINVAL,
++		ioctl(listener, SECCOMP_IOCTL_NOTIF_SET_FLAGS, 0xffffffff, 0));
++
++	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SET_FLAGS,
++			SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP, 0), 0);
++
++	pid = fork();
++	ASSERT_GE(pid, 0);
++	if (pid == 0) {
++		ret = syscall(__NR_getppid);
++		ASSERT_EQ(ret, USER_NOTIF_MAGIC) {
++			_exit(1);
++		}
++		_exit(0);
++	}
++
++	req.pid = 0;
++	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
++
++	ASSERT_EQ(req.data.nr,  __NR_getppid);
++
++	resp.id = req.id;
++	resp.error = 0;
++	resp.val = USER_NOTIF_MAGIC;
++	resp.flags = 0;
++	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_SEND, &resp), 0);
++
++	ASSERT_EQ(waitpid(pid, &status, 0), pid);
++	ASSERT_EQ(status, 0);
++}
++
++
+ /* Make sure PTRACE_O_SUSPEND_SECCOMP requires CAP_SYS_ADMIN. */
+ FIXTURE(O_SUSPEND_SECCOMP) {
+ 	pid_t pid;
+-- 
+2.53.0
+
