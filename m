@@ -1,57 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794350491;
-	b=jNhmBVCd3bdzMjf5trblreJry6UskjO5Olk0prtSWxMSGoXlOGx9UAjEX8JQbaRfv7NK
-	 ulSTkoB3Y3aXScGvcsFsWWsmNnnJwJVe96A/r9oljRTD+K0Xw0SJQkf5N1PhDfMRQhLSK
-	 9XUSX6ANlIJhIq/Jlco3VQtveVcci8W0rPR4GV6TEHtMK3yPSlX+PjvOd9AeDa4csXmaG
-	 dMQwhd7rtVob1jGGfg0Gfdcppt+yAQbf8rY4shup+bVPd3gQGdEk+I6z4SqGtN3vKLY+A
-	 bB48E4TvFupZV5c3Bl1OQWD31JBes2MB4gsZU5aX75lAPtmnB1o8O0R/bVNbWHd0FJg==
+	t=1794350492;
+	b=vVTLO8aKhx/wdI1Mkq8IK8YY2YKlpqmr89T9dspYU01cOGf/DE2IohstVDkSVpchVAet
+	 kAHUUoaXmCg5IMV/Rokhf7TFpLaK82rYgz1+BnTVc36qoThP7ReN49+U7szOXv0YBw8G7
+	 d85RQFACgCPMWorPEQHfiebSAq1oXWS9TCddHh0gKMc7Jem6zG5Xzgzapq3fboTOUpAu5
+	 JmU4qutA0ufWrSbHVIjF7S9YVwfveIp8FJ3j+FagVAU8LE2AhJ0Qj6jRaYEoMAnvfd4li
+	 g2K9TCb6mr+Y8z8eFf+ha/k0bxVi3JF0NijwoWNiOX1ZrpgbWZVVhfS4kqNKrpYp6KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794350491;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794350492;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=g9wm6/lCShYNXe+XTSX7mI6EGzIWaMRnExEbInoAULA=;
-	b=d8pcKKGD2pDmOJFL+gBbCEiVMUqXfujwgjYZKV4lGHf35pZHWHQ5jD42DgDMXyZKzbCk
-	 qjzMfeWcLpB4YZKmdW9BX9u9bMCN57QdVxfj4Y70Xl+2hDkqlNoo7du2nlgIPjIFkgXlc
-	 lsiyNH3WBWErAve1hi7dettBeSH89Zlcfm0XaMa6S8+W9LG8kmU7rhTiQKqO7RL8pMNs3
-	 PXuqvWBah3NO59mdRpVQlnB1t4dIjFo/1W+UYvVAt4De8izdtagYlMo8UimIqmVSldcZC
-	 1YB8wJxXDErJxj0oQ5+iRR2QhGadSiDW4Zmu+MG2dLSx5qZE/cUnX7YPjFbOedhhYBA==
+	bh=h7jvghGtppABB81+7QMaRUp4nlTTJhJsoXFeHS5e7Bk=;
+	b=Os6WHy3ormn7HEJ7Tl1Nkgg9kxYqOcsLk+s4bZaWlGzuC4VRhnjKL66qAtTkrFTXg3/d
+	 ibsP6qb19jnBZNbJohsKUxUfrw5gwxRUJJS3d3F8EX+jmEIGxctdarrpE/htryoCbne5D
+	 bwKBfo1KJtIuj5vpB1OGlT0CHHhlDJMMSn+4ykmdfuqeRwu6cG0/OsK5zEpmmOH0efDmK
+	 wB1o8s82qg3fnS1QRI9aDPTCv2Q3vjyc4xMHenNNA55CwMWl6bYzgk4KxsZXFR9eMF8fN
+	 HZwnOR4N3ySer+qRBa1k+lanw9Sry7SBIoKKRDtkqIVvZBO0k22hL9CWilJecy0I8PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGOxQN3Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIWrM5h3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B42606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:41:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C34606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGOxQN3Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F349A1F008A2;
-	Tue, 10 Nov 2026 22:41:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIWrM5h3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5C01F008A5;
+	Tue, 10 Nov 2026 22:41:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794350490;
-	bh=g9wm6/lCShYNXe+XTSX7mI6EGzIWaMRnExEbInoAULA=;
+	s=k20260515; t=1794350491;
+	bh=h7jvghGtppABB81+7QMaRUp4nlTTJhJsoXFeHS5e7Bk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AGOxQN3ZQHA9/xtOa0+HqSpdc9kLiYPnglGwqU830N9cSM1olOZg62H0tBT8Hql0x
-	 g23fCWWmjWJpKJTC0oSXE+Fr+WjJyO0jP89jLViamCbs/wDAbVdm5W4Lcwkae8jKwy
-	 B/BC3W59x3/6XvsZLHABrSQSYfkQKLnF6mRFO1pVqh2Pi/af3ezQ2SXAJh5EQNB+xQ
-	 tASJRsFAuFCO8CxNHAHxiwW2cUgcZNTyQduuphtgiWayd29HRGyBBr6k5HqHv3J4pQ
-	 APkeVStzxPEzaYu9fDX9uSXaZZBKj8Mwg93Ca039nvwR5qSXZxK3cbNrV8Qk8vS/97
-	 q0s15hWHfGOBw==
+	b=eIWrM5h3U5+03NmtkNtD7AAtuxDEpNIcOmiaxOdwWpAjsIVYxEf98yBvivE8ASQIq
+	 teRzQpZZjogNpFGWD4fIRU5LUgfFTyLkwTe9VwKLXltXbPT9CyHn2vVuWBiSZAqg0h
+	 GWj1usHcdcjBvrD0rD8e6wC/rqb2usOCa+yQgR/nGurtstR9znJwDFqqgP+T0qIXJc
+	 ror434syVwrhXpGI1kj2rlyrKq95pBwPsepj+blbAYrWtoN/3+RcAHBLs4RQ8jiuXZ
+	 vbS8ZGvr4TpvK7XP8vtBawe+AiMuR3Nws1QfTBKWF2kzFOc/pDb6YTTSwdUfz9IG1x
+	 mO1pnrp0ClUOA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Roman Gushchin <roman.gushchin@linux.dev>,
-	Andrei Vagin <avagin@google.com>,
-	Oleg Nesterov <oleg@redhat.com>,
+Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
 	Alexey Gladkov <legion@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/4] signal: restore the override_rlimit logic
-Date: Tue, 10 Nov 2026 17:41:24 -0500
-Message-ID: <20261110223252.3777469-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 4/4] ucount: take the rlimit reference before checking the limit
+Date: Tue, 10 Nov 2026 17:41:25 -0500
+Message-ID: <20261110223252.3777469-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110223252.3777469-1-sashal@kernel.org>
 References: <20261107061036-failed-5.15-b14fcabd34e0@kernel.org>
@@ -67,106 +63,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Roman Gushchin <roman.gushchin@linux.dev>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
 
-[ Upstream commit 9e05e5c7ee8758141d2db7e8fea2cab34500c6ed ]
+[ Upstream commit b14fcabd34e02c40f72d3cd1e9bd4fd18df40ff1 ]
 
-Prior to commit d64696905554 ("Reimplement RLIMIT_SIGPENDING on top of
-ucounts") UCOUNT_RLIMIT_SIGPENDING rlimit was not enforced for a class of
-signals.  However now it's enforced unconditionally, even if
-override_rlimit is set.  This behavior change caused production issues.
+inc_rlimit_get_ucounts() takes the reference that pins a ucounts level
+while its rlimit count is non-zero only in the walk whose increment is
+the 0 -> 1 transition, and only after that walk passed the limit check.
+A walk that raises the count from zero and then fails the limit backs
+out without the reference, while a concurrent walk that raised it past
+one keeps its increment and never takes one either:
 
-For example, if the limit is reached and a process receives a SIGSEGV
-signal, sigqueue_alloc fails to allocate the necessary resources for the
-signal delivery, preventing the signal from being delivered with siginfo.
-This prevents the process from correctly identifying the fault address and
-handling the error.  From the user-space perspective, applications are
-unaware that the limit has been reached and that the siginfo is
-effectively 'corrupted'.  This can lead to unpredictable behavior and
-crashes, as we observed with java applications.
+  CPU0 (obeys the limit)              CPU1 (overrides it)
+  new = add_return(1) -> 1
+                                      new = add_return(1) -> 2
+                                      new != 1, no get_ucounts()
+  new > max -> dec_unwind
+  sub_return(1) -> 1   (no put)
 
-Fix this by passing override_rlimit into inc_rlimit_get_ucounts() and skip
-the comparison to max there if override_rlimit is set.  This effectively
-restores the old behavior.
+The count is 1 with no reference held. When CPU1 drops its charge,
+dec_rlimit_put_ucounts() takes the count to 0 and puts a reference
+nobody took, which frees the live struct ucounts, and the user_namespace
+it pins, with kfree_rcu(). The mirror interleaving leaks the reference
+instead.
 
-Link: https://lkml.kernel.org/r/20241104195419.3962584-1-roman.gushchin@linux.dev
-Fixes: d64696905554 ("Reimplement RLIMIT_SIGPENDING on top of ucounts")
-Signed-off-by: Roman Gushchin <roman.gushchin@linux.dev>
-Co-developed-by: Andrei Vagin <avagin@google.com>
-Signed-off-by: Andrei Vagin <avagin@google.com>
-Acked-by: Oleg Nesterov <oleg@redhat.com>
+An unprivileged user reaches this on a kernel with CONFIG_USER_NS=y: in
+a user namespace with RLIMIT_SIGPENDING 0, one process taking
+synchronous SIGSEGVs (forced, so override_rlimit is set) races a second
+process in the same namespace and uid that queues real-time signals,
+which obey the limit. The two hold different sighand->siglock but charge
+the same per-namespace SIGPENDING ucounts. Unpatched, with rcuref
+debugging:
+
+  rcuref - imbalanced put()
+  WARNING: lib/rcuref.c:266 at rcuref_put_slowpath+0xf4/0x120
+   put_ucounts+0x5a/0x180
+   do_dec_rlimit_put_ucounts+0x70/0x90
+   __sigqueue_free+0x33/0xc0
+   get_signal+0x56f/0xd20
+   arch_do_signal_or_restart+0x87/0x380
+   irqentry_exit+0x243/0x650
+   asm_exc_page_fault+0x26/0x30
+
+Take the reference on the 0 -> 1 transition before the limit is checked,
+so the walk that raises the count from zero owns that level's reference
+even when its request is rejected, and unwind a rejected level through
+do_dec_rlimit_put_ucounts(), which releases the reference when the count
+returns to 0. The get_ucounts() failure path is unchanged. With the
+patch the same interleaving, forced some 80000 times in a KASAN build,
+produces no warning and no KASAN report.
+
+Fixes: 15bc01effefe ("ucounts: Fix signal ucount refcounting")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Link: https://patch.msgid.link/20261019185913.805378-1-nickolai@csail.mit.edu
 Acked-by: Alexey Gladkov <legion@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-override_rlimit is set.  This behavior change caused production issues.
-
-For example, if the limit is reached and a process receives a SIGSEGV
-signal, sigqueue_alloc fails to allocate the necessary resources for the
-signal delivery, preventing the signal from being delivered with siginfo.
-
-Stable-dep-of: b14fcabd34e0 ("ucount: take the rlimit reference before checking the limit")
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/user_namespace.h | 3 ++-
- kernel/signal.c                | 3 ++-
- kernel/ucount.c                | 6 ++++--
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ kernel/ucount.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
-index 45f09bec02c48..733f2a97589b2 100644
---- a/include/linux/user_namespace.h
-+++ b/include/linux/user_namespace.h
-@@ -131,7 +131,8 @@ static inline long get_rlimit_value(struct ucounts *ucounts, enum rlimit_type ty
- 
- long inc_rlimit_ucounts(struct ucounts *ucounts, enum rlimit_type type, long v);
- bool dec_rlimit_ucounts(struct ucounts *ucounts, enum rlimit_type type, long v);
--long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type);
-+long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
-+			    bool override_rlimit);
- void dec_rlimit_put_ucounts(struct ucounts *ucounts, enum rlimit_type type);
- bool is_rlimit_overlimit(struct ucounts *ucounts, enum rlimit_type type, unsigned long max);
- 
-diff --git a/kernel/signal.c b/kernel/signal.c
-index c4091812ea89b..5d110fd089d10 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -426,7 +426,8 @@ __sigqueue_alloc(int sig, struct task_struct *t, gfp_t gfp_flags,
- 	 */
- 	rcu_read_lock();
- 	ucounts = task_ucounts(t);
--	sigpending = inc_rlimit_get_ucounts(ucounts, UCOUNT_RLIMIT_SIGPENDING);
-+	sigpending = inc_rlimit_get_ucounts(ucounts, UCOUNT_RLIMIT_SIGPENDING,
-+					    override_rlimit);
- 	rcu_read_unlock();
- 	if (!sigpending)
- 		return NULL;
 diff --git a/kernel/ucount.c b/kernel/ucount.c
-index 2e2c9c2096781..1459c1c579dc0 100644
+index 1459c1c579dc0..f483f83fc750e 100644
 --- a/kernel/ucount.c
 +++ b/kernel/ucount.c
-@@ -301,7 +301,8 @@ void dec_rlimit_put_ucounts(struct ucounts *ucounts, enum rlimit_type type)
- 	do_dec_rlimit_put_ucounts(ucounts, NULL, type);
- }
+@@ -311,23 +311,26 @@ long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
  
--long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type)
-+long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type,
-+			    bool override_rlimit)
- {
- 	/* Caller must hold a reference to ucounts */
- 	struct ucounts *iter;
-@@ -314,7 +315,8 @@ long inc_rlimit_get_ucounts(struct ucounts *ucounts, enum rlimit_type type)
+ 	for (iter = ucounts; iter; iter = iter->ns->ucounts) {
+ 		long new = atomic_long_add_return(1, &iter->rlimit[type]);
+-		if (new < 0 || new > max)
++		/*
++		 * Take the extra reference on the 0 -> 1 transition before the
++		 * limit check: a rejected walk must not leave a concurrent one
++		 * holding the surviving increment with no reference.
++		 */
++		if (new == 1 && !get_ucounts(iter))
  			goto dec_unwind;
++		if (new < 0 || new > max) {
++			/* undo iter too, releasing the reference taken above */
++			do_dec_rlimit_put_ucounts(ucounts, iter->ns->ucounts, type);
++			return 0;
++		}
  		if (iter == ucounts)
  			ret = new;
--		max = get_userns_rlimit_max(iter->ns, type);
-+		if (!override_rlimit)
-+			max = get_userns_rlimit_max(iter->ns, type);
- 		/*
- 		 * Grab an extra ucount reference for the caller when
- 		 * the rlimit count was previously 0.
+ 		if (!override_rlimit)
+ 			max = get_userns_rlimit_max(iter->ns, type);
+-		/*
+-		 * Grab an extra ucount reference for the caller when
+-		 * the rlimit count was previously 0.
+-		 */
+-		if (new != 1)
+-			continue;
+-		if (!get_ucounts(iter))
+-			goto dec_unwind;
+ 	}
+ 	return ret;
+ dec_unwind:
++	/* get_ucounts() failed for iter: undo iter without a put */
+ 	dec = atomic_long_sub_return(1, &iter->rlimit[type]);
+ 	WARN_ON_ONCE(dec < 0);
+ 	do_dec_rlimit_put_ucounts(ucounts, iter, type);
 -- 
 2.53.0
 
