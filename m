@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273087;
-	b=gDiggfuwZjYjdzCj2NO0LZHuxd2t1c2eqTvVueeU9oPDpiwwJvza5RX1C9hoYRlWalwM
-	 G9boS82AZGBP6IEGank+g8eg4GpNdjEKFmWEWe+Q3RJ9EARNq9X8q7RufToYhmXaF51Rv
-	 FCnSJPhBu0MniVXIrk/GLCEJ51j/1TRApo9S1Rqf5EqP1NbF+nSoRRxZV9io6n5eSxCbi
-	 6A9e0YqNnEHX82mJz+hCouy8T/UCLBaKegaNSCHW5u/mNO/Ez7VU0kE+feabxlhvPVxBv
-	 dyEc0ZEEhqJYwgmXemBMu0Kh6Wb35SKPtgQEojeHDtkjC77sZu8HhuLG1VBs3EjU0DQ==
+	t=1794273090;
+	b=uZyD53nEtI/2ACAUqQPBGG+Sw+kKw16Y4h3URJK0VlfpyExtZ97d1qXFQRmZbGR+CvFq
+	 R5kYOWommQaSkFSDH62SBKNiOKeDrwU60MpPGnGoVZB3/gOtFF6Lu8FouYnSv3xZXo3+f
+	 gO5+TZnoDyhffaFuWFw5vFFlNeSfjIxWj9ywYEFFhLsyQMHBH4d+zAZX2NU/k7cFzVu5Z
+	 yKnOSUe7Ishk14BGR5i96HICyenD8NIa711dfZn6x0UjNI5KjXMQbuf/wksM/sgKgl9El
+	 szsFhCafcC6wgK0wuXf7j8q+MDEKqDeH4FPgRTqMtTw23bpHCHX2triWEcPbZMXJ+uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273090;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=br9y1HsXQex1SQywMPyA7ryhiBhuPcvS7mVWldlq16Q=;
-	b=B1/8SVOkMIPo3dT4ga73y4K18REnyxyTv4u9Ovx+QTWEIf+UFVCTJCTuk9EvWB6PK939
-	 tBEreDjZIQCJoabcuZQAdd95lTTQMcNJnbk8LOLtnSU9uNUSNAsTnLSX7hLB+/Eb2Vwd/
-	 rKrpCFc8roHDcqSDoHZOnpKnR82rugsRR2Kx9lkk0zh01OG0MqqIhajvkm7xVUB3Tyzrc
-	 lR81/tUsqqHaG7e8hPnw0n7xm/6KxzJi4Nz28soCJssdQ1J+PuMoRSrbZmb7zRVGEq/lD
-	 kWtP5a1C5PqAdxlglBCJOtyjQD6GQ+x+uLO/Q9TlmfH1hIfuiUsexyIJQo91aLgoJLA==
+	bh=lxTGjhtxuQp5ya3OAcIjXmpeK8Pw3kSRM3+rGtDu4NI=;
+	b=CcVRmDcL4JSGAJu+jGUys2HSkPcHMstcetlvMJBXj9C+4G9JKbQUr0TmCSVuDyscXjBb
+	 3j6QuXTmKDZ5ZrP0slTWavEhiwn2+UkOUnKN0ZMG/YNlOIYT2z8HEL7BNy6cPocY9CRpH
+	 NNhhaRQpudTgLikT2yRr+tn3y7kwErH8UvgLEiPl4LS5dVDPwsOGBHcEqP+VOGvO1Zebi
+	 Hxm4cdBSPQlfTMwxd26roufFYI8otscREb2c4O+ZczlYJTL1N9cfiGHXXxAh3gOURKPbW
+	 UCmwIgBcNqcJEakBHF91GWC6VocxUFjeE9WjzeSMo19iW7BaajPGp17hj0Cf3ASmRYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1N21w4i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RrFzIuCk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42178606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F75D606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1N21w4i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7850B1F0089F;
-	Tue, 10 Nov 2026 01:11:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RrFzIuCk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E689B1F0089F;
+	Tue, 10 Nov 2026 01:11:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273087;
-	bh=br9y1HsXQex1SQywMPyA7ryhiBhuPcvS7mVWldlq16Q=;
+	s=k20260515; t=1794273090;
+	bh=lxTGjhtxuQp5ya3OAcIjXmpeK8Pw3kSRM3+rGtDu4NI=;
 	h=From:To:Cc:Subject:Date;
-	b=Z1N21w4ivT1XLJDksZJp/a8wxIam4yYWrFqAHsSXxfrEsyfV7Dd5c8h+BEd078gx1
-	 A1BOwm03CqFIVUjcmvUEizJeqX1cGUy6pvs/zcF6PPWm45xjPaXCGpk0mNa/cuA498
-	 0fFw6O2leJlIZPnuUme80AJmDaWzQqUnqtY6/1vYqon+FGjV1Dmkd1EXnXWfP0+ZlF
-	 3yHesrfe/IeaMrYHmEFQpxYHc3o4Ij1wBSmD76xWylYS7SgB24Kc6NlDuWSxSyYg/s
-	 SbkjR7rlQj/iuhTxLSGZh03I2mhMGI0rmJ4zopOtZABhSqh9cEytg3L9s2k4DMfvlf
-	 gHW9bgvirC+mg==
+	b=RrFzIuCkm+WIXy+R3ZYFCDo56v3JY5YeMSeEAxl4EXd+351r9EXZlY3JDExlUPOWi
+	 pwq4XbMTp82RuXoPq037U3ukV1DyFshA8xmsPoLSpRaPN3gNdgpeuXmVNemE0nt6Bj
+	 L9ESO9AJhHTfPnhQEX9btra0uRw1sbS7cIfEEaxIxjos1OqsQv6rF1h59GAUHZyfi7
+	 EEzvvTbyoyYIr9GjnBqvTMmwFvbE+rmgKvw42g8WMUAnYuqkAwUyYiOMuN0Xui8WYQ
+	 WC94qAL4qhg47lh08NvSiboLHhjd2iLjfEkowKcKenzoV/vbSZNbiAya/k3IJ3IXys
+	 PZETw1r4PMEXg==
 From: Sasha Levin <sashal@kernel.org>
 To: david@kernel.org,
-	mason@kernel.org,
-	pratyush@kernel.org,
+	ljs@kernel.org,
+	josef@toxicpanda.com,
+	harry@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	usama.anjum@arm.com,
 	baolin.wang@linux.alibaba.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: make shmem_file() check the file's inode" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:11:25 -0500
-Message-ID: <20261109201125-failed-6.6-d3710111839d@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/rmap: handle device-exclusive entries in folio_referenced_one()" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:11:27 -0500
+Message-ID: <20261109201127-failed-6.6-f3c493d2f42b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,125 +74,109 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d3710111839d11339e414b1bb3fea3d05ab83f6e
+git cherry-pick -x f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201125-failed-6.6-d3710111839d@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201127-failed-6.6-f3c493d2f42b@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d3710111839d11339e414b1bb3fea3d05ab83f6e Mon Sep 17 00:00:00 2001
+From f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c Mon Sep 17 00:00:00 2001
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:32 +0100
-Subject: [PATCH] mm/shmem: make shmem_file() check the file's inode
+Date: Sat, 31 Oct 2026 10:39:38 +0100
+Subject: [PATCH] mm/rmap: handle device-exclusive entries in
+ folio_referenced_one()
 
-shmem_file() only checks if file->f_mapping is a shmem mapping. This
-mapping can belong to another file, however, as with a Coda file backed
-by a tmpfs container after mmap().
+page_vma_mapped_walk() can return non-present device-exclusive entries,
+but folio_referenced_one() passes them to PTE young-bit accessors that
+require present PTEs.
 
-So it does not guarantee that the file inode is an actual shmem inode.
+We must neither call clear_flush_young_ptes_notify() nor
+folio_pte_batch() with non-present entries. For example, clearing the
+young bit on non-present PTEs can corrupt the entry: on arm64
+PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
+entry into an ordinary swap entry.
 
-Seal handling and memfd preservation use this check before accessing
-shmem inode state, so they can access an inode of the wrong type.
+folio_pte_batch() will VM_WARN_ON_FOLIO.
 
-Let's make shmem_file() check the inode's file operations instead, to
-identify shmem inodes reliably. This will identify regular shmem inodes,
-including memfds and ordinary tmpfs files, independently of wrapper file
-operations.
+Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
+treat these entries as old from the CPU's perspective and obtain their
+young state through the MMU notifier.
 
-Use shmem_mapping() in collapse_file() instead to not change the behavior
-of collapse_file(): it operates on the page cache and uses mapping->host
-for shmem inode operations. Focusing on the file does not seem relevant.
+Skip PTE batching and MGLRU look-around for non-present entries, and
+don't modify non-present PTEs.
 
-Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/shmem_fs.h | 15 ++++++---------
- mm/khugepaged.c          |  2 +-
- mm/shmem.c               |  5 +++++
- 3 files changed, 12 insertions(+), 10 deletions(-)
+ mm/rmap.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index a7c7a96a7cbf9..f89b4b1511332 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
- extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
- #ifdef CONFIG_SHMEM
-+bool shmem_file(struct file *file);
- bool shmem_mapping(const struct address_space *mapping);
- #else
-+static inline bool shmem_file(struct file *file)
-+{
-+	return false;
-+}
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 1131b76bbbc28..0faef46806e5c 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
+ 	int ptes = 0, referenced = 0;
+ 	unsigned int nr;
++	pte_t pteval;
+ 
+ 	while (page_vma_mapped_walk(&pvmw)) {
+ 		address = pvmw.address;
+@@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
+ 			return false;
+ 		}
+ 
+-		if (pvmw.pte && folio_test_large(folio)) {
++		if (pvmw.pte)
++			pteval = ptep_get(pvmw.pte);
 +
- static inline bool shmem_mapping(const struct address_space *mapping)
- {
- 	return false;
-@@ -193,15 +199,6 @@ static inline struct page *shmem_read_mapping_page(
- 					mapping_gfp_mask(mapping));
- }
++		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
+ 			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
+ 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
+-			pte_t pteval = ptep_get(pvmw.pte);
  
--static inline bool shmem_file(struct file *file)
--{
--	if (!IS_ENABLED(CONFIG_SHMEM))
--		return false;
--	if (!file || !file->f_mapping)
--		return false;
--	return shmem_mapping(file->f_mapping);
--}
--
- /* Must be called with inode lock taken exclusive. */
- static inline void shmem_freeze(struct inode *inode, bool freeze)
- {
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4b71d010b2aff..3a6f4b7b28453 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2230,6 +2230,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 		struct file *file, pgoff_t start, struct collapse_control *cc)
- {
- 	struct address_space *mapping = file->f_mapping;
-+	const bool is_shmem = shmem_mapping(mapping);
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
- 	unsigned long new_pfn = -1;
-@@ -2238,7 +2239,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	enum scan_result result = SCAN_SUCCEED;
- 	int nr_none = 0;
--	bool is_shmem = shmem_file(file);
- 
- 	/*
- 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 923957e5e6a24..e64704ac72222 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -276,6 +276,11 @@ static const struct vm_operations_struct shmem_vm_ops;
- static const struct vm_operations_struct shmem_anon_vm_ops;
- static struct file_system_type shmem_fs_type;
- 
-+bool shmem_file(struct file *file)
-+{
-+	return file && file_inode(file)->i_fop == &shmem_file_operations;
-+}
+ 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
+ 		}
+@@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
+ 		 * are. —they could be on active/inactive lists or on MGLRU. So the
+ 		 * simplest approach is to disable this look-around optimization.
+ 		 */
+-		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
++		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
++		    pte_present(pteval)) {
+ 			if (lru_gen_look_around(&pvmw, nr))
+ 				referenced++;
+ 		} else if (pvmw.pte) {
+-			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
++			bool young = false;
 +
- bool shmem_mapping(const struct address_space *mapping)
- {
- 	return mapping->a_ops == &shmem_aops;
++			/*
++			 * PFN swap PTEs, such as device-exclusive ones, that
++			 * actually map pages are "old" from a CPU perspective.
++			 * The MMU notifier takes care of any device aspects.
++			 */
++			if (pte_present(pteval))
++				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
++			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
++								address + nr * PAGE_SIZE);
++			if (young)
+ 				referenced++;
+ 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
+ 			if (pmdp_clear_flush_young_notify(vma, address,
 -- 
 2.53.0
 
