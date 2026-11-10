@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323478;
-	b=mjUtVe4QUcwLZr96zKUlbzPpC+EevHdtTXPthJzGm69jkkjMx66E+c340jrgzmnwBoon
-	 xuxTpBzgCVYyjjgeP+hbaH9SUyHrmCqByDoK2itWXeUUxV+3abrPHCfEKaBaUqlb8NIyM
-	 znqiBu3xeEFM8mc+j3ScBP1E9JmTP4Bo8B7Ger1W3DD4hOyOPnJnlfcT2IutUb+NM+N2h
-	 tQ721DjPGOp1ErnR9392RE8hmjSjRUnOBs0+UBLCZqqOBUzXJ0P9imlbD1DjGYEIfcX8S
-	 hB9aScUdmBXOWv0tL12GbbMpgSI7sHSK2oJy6xW3gfagqsRKmcYTXEKGiyPR6pj1/4w==
+	t=1794323480;
+	b=19z02qLylmsUhwzuzcL16LayzzoruBmIisFUoQV0mLHJcTZ02SErxNury8rTcbO3EukF
+	 sUkDwURph4uJnrr0N194LoNphIuhMLb9nYTHRODdtzCM6eLHH3AUOjypUZzJIC9QETIDy
+	 4H/K9TO84gfc0wVefRzkNVYubtzAVWixl8iJeYTj9mHW0K0SkHalVFz9ZFpmWCnTKlS0d
+	 JGic7tHV0NhZN8E+4hpkHMu+p+Mtr9c+TiMshUy0qSM2Ika1Sy6CtKUo4YBS6sUMOBn3x
+	 ZJ/DfrxWbpIx0/NFR75ZYUF+/+GQy25auLvoKExWInEBKL9QR3pMWjxEw/y1jHRu5cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323480;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sin9+RXShimd6JYHdQjFZ3KA5rJFaUHE/vaPbVsVQyw=;
-	b=J9JxH0VCx5xQSmhaUxQDecIvdCaueI39XCmYWzdUcHUChaMSsWlMPTtkCGJLsGy4THml
-	 lI34yT2SxpHYnYxOA76iAm2Vnr/Pj4fEoZ4WrE0/4EGQfuWMxr29DcG0yj6nl+FE39q2A
-	 TVbWuTviFlz/JT0E7OI6z6idTlyi7j+pJSK6jxXUrCithEwcNpFIMiwvmc8BfRi+2GB4f
-	 iBE4jcnPGpf+uuvEI3LSv5BxWvFaEOWnHdDT2BeZJOJhpysO4+ThiAKK7y+Fq2mxzaxF+
-	 JvCphFWK8/bvUAy9z5KHcaYDacr6k9AAwbD7PFXMQXjS2nT80Ez+aYGqTbidAR8U5/w==
+	bh=fFtfEtcSpsmjN4ymDlyAbwugLqNAYnCG5/aGuFQwRVc=;
+	b=bBH1a4C4Qfl1I/qI29of2F/y7KMO6pUMHwQCpxVt0TwIE4t1OTb9SXPlQVtHFXcABOoM
+	 GA/g/Y3kvtHaV64r3oB3aSbRh1DZXK0iUNl1GC5OPmjBh3dCUEo9b/xO2Z4Vwxc7eSYlm
+	 912+4uP+9DdvzZZfAUVaKE5z8xqjFythXZaYjyEm/gvXE9xjORsTHhabF/LF/+YTXbBU8
+	 PHgoIzL/6zWecvqSbHG/nagce80g0Cb/Grm9GbOipniCFrSYsNl13vhnj21gFoGKj0W8Z
+	 yNKL8juGe3van76gRiRCmQAtV4hYda5qv1jo3nit06qang0jh6yq+BrjjXwGmN0NN0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvCAM9hp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkHFMygD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795C2606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:11:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A37606A33A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvCAM9hp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333061F008AB;
-	Tue, 10 Nov 2026 15:11:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SkHFMygD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E0C1F008BC;
+	Tue, 10 Nov 2026 15:11:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323478;
-	bh=sin9+RXShimd6JYHdQjFZ3KA5rJFaUHE/vaPbVsVQyw=;
+	s=k20260515; t=1794323479;
+	bh=fFtfEtcSpsmjN4ymDlyAbwugLqNAYnCG5/aGuFQwRVc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TvCAM9hpO6AaESUUlQ6t2lgt+Iy4PXZF3Q+7cXRAFkDz2K/uwvJzkxg2N7nWMoIeR
-	 iKRal1RSOKKTml3fObhsR6DmubYCbmQ3SgExU8momCjmsBPJ3LoG2e1+FMha3L8JZo
-	 R0kdb/904JDmDh5Z+WAG8e5wGxnCU7wGmmzfdR9pFPHe6RtwAiNa+V1Dj4GcnxOkdp
-	 ZZToEk7HH8nsHbfcjNC6OBnhBUbo/x+U7EjCSZXgq4q93X2TjvBrI7+v4oOthK36GR
-	 jxK7dp/zPSnHAzxFYWlrexz40UEt7/RROfu+Dh37ljh3zT06gTTpNTPdaEuDopGM1r
-	 DneqfHXYAf/bQ==
+	b=SkHFMygD/DIYysGOgFBH43clDydzT2q8EdTAhfzrHxN2ZsZRDh0iIfB6vzs/K9GRj
+	 gpDKPDNZ5eryeXqD2eO2a10rEO5rZ7pgs0k9c6h2bF7+xyVRVC+W2rR7gOtzDGqbnc
+	 nC9FwBRkyC6Q4lMqXIhsvI+eKpOFXhGIPJWM+PVD5UqEyIg7d4wH4H0sPdW1xR5Pqi
+	 jLTzYRvH7RVaSdiPoC3eI4uFxMulIZukucQ6BsLLvS5jZANRYC+ALi86eXdr79LuCi
+	 vMdzoVsDH+8ttrO1hEkBkh6COumtX4eBev6zLn9K2SILSJhoASFKOrYtzBcESJ1uGG
+	 v2VmST1Cq0p6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dan Williams <dan.j.williams@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Terry Bowman <terry.bowman@amd.com>,
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Li Ming <ming.li@zohomail.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Alison Schofield <alison.schofield@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] cxl/port: Cleanup handling of the nr_dports 0 -> 1 transition
-Date: Tue, 10 Nov 2026 10:11:13 -0500
-Message-ID: <20261110151026.2046421-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] cxl/port: Clear cached dport pointers when a dport is removed
+Date: Tue, 10 Nov 2026 10:11:14 -0500
+Message-ID: <20261110151026.2046421-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051004-failed-6.18-019560d23450@kernel.org>
+In-Reply-To: <20261110151026.2046421-1-sashal@kernel.org>
 References: <20261107051004-failed-6.18-019560d23450@kernel.org>
+ <20261110151026.2046421-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,114 +65,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dan Williams <dan.j.williams@intel.com>
+From: Dave Jiang <dave.jiang@intel.com>
 
-[ Upstream commit 47fec713d97fb6b823026f723435b58af541bd8d ]
+[ Upstream commit 019560d23450a320f4060ff235563a5277ea8033 ]
 
-There are multiple setup actions that can occur for a switch port after it
-is known that it has at least one active downstream link. That work is
-currently split between __devm_cxl_add_dport(), the add_dport() helper, and
-cxl_port_add_dport() where decoder setup occurs.
+Switch decoders cache dport pointers in cxlsd->target[], and nothing
+clears them when a dport is freed. Readers then dereference freed memory.
 
-Clean this up by moving all @dport object setup responsibilities into
-add_dport() and all port effects into cxl_port_add_dport().
+KASAN caught it under a cxl_test load/unload loop with concurrent sysfs
+reads (abbreviated).
 
-add_dport() handles taking a reference on @dport->dport_dev, and
-cxl_port_add_dport() grows the awareness to setup the port component
-registers. This removes an awkward open-coded xa_erase() from the middle of
-__devm_cxl_add_dport() and instead tasks cxl_port_add_dport() with calling
-the common @dport destruction path if anything goes wrong.
+Clear the matching slots from cxl_dport_remove(), walking the port's
+decoders the way cxl_port_update_decoder_targets() does on the add side.
+Scan all nr_targets slots, the target[] allocation size, and clear every
+hit.
 
-After this @port->nr_dports is always the count of @dports in the
-@port->dports xarray, and cxl_dport_remove() is symmetric with add_dport().
-With ->nr_dports now reliably tracking the number of dports the use of
-ida_is_empty() can be dropped. Recall that the ida is only cleared on
-"release" of decoder objects, and release can be arbitrarily delayed past
-unregistration.
-
-Lastly port->component_reg_phys is no longer reset to CXL_RESOURCE_NONE
-post setup, no reason is seen to carry that forward.
-
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-Tested-by: Terry Bowman <terry.bowman@amd.com>
-Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-Link: https://patch.msgid.link/20260131000403.2135324-2-dan.j.williams@intel.com
+Fixes: 8330671c57c7 ("cxl: Add helper to delete dport")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Li Ming <ming.li@zohomail.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+Link: https://patch.msgid.link/20261001154744.1095902-2-dave.jiang@intel.com
 Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-Stable-dep-of: 019560d23450 ("cxl/port: Clear cached dport pointers when a dport is removed")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/cxl/core/port.c | 31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ drivers/cxl/core/port.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
 diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 599aa9d9eddca..a7d3497f82c05 100644
+index a7d3497f82c05..01655eeb43a8f 100644
 --- a/drivers/cxl/core/port.c
 +++ b/drivers/cxl/core/port.c
-@@ -1073,11 +1073,15 @@ static int add_dport(struct cxl_port *port, struct cxl_dport *dport)
- 		return -EBUSY;
- 	}
- 
-+	/* Arrange for dport_dev to be valid through remove_dport() */
-+	struct device *dev __free(put_device) = get_device(dport->dport_dev);
-+
- 	rc = xa_insert(&port->dports, (unsigned long)dport->dport_dev, dport,
- 		       GFP_KERNEL);
- 	if (rc)
- 		return rc;
- 
-+	retain_and_null_ptr(dev);
- 	port->nr_dports++;
- 	return 0;
+@@ -1105,11 +1105,40 @@ static void cond_cxl_root_unlock(struct cxl_port *port)
+ 		device_unlock(&port->dev);
  }
-@@ -1106,6 +1110,7 @@ static void cxl_dport_remove(void *data)
+ 
++static int clear_decoder_target(struct device *dev, void *data)
++{
++	struct cxl_dport *dport = data;
++	struct cxl_switch_decoder *cxlsd;
++
++	if (!is_switch_decoder(dev))
++		return 0;
++
++	cxlsd = to_cxl_switch_decoder(dev);
++	guard(rwsem_write)(&cxl_rwsem.region);
++
++	/*
++	 * A dport can occupy more than one position of an interleave, so
++	 * scan the whole target list rather than stopping at the first hit.
++	 */
++	for (int i = 0; i < cxlsd->nr_targets; i++) {
++		if (cxlsd->target[i] != dport)
++			continue;
++		cxlsd->target[i] = NULL;
++		dev_dbg(dev, "dport%d removed from target list, index %d\n",
++			dport->port_id, i);
++	}
++
++	return 0;
++}
++
+ static void cxl_dport_remove(void *data)
+ {
  	struct cxl_dport *dport = data;
  	struct cxl_port *port = dport->port;
  
-+	port->nr_dports--;
++	/* counterpart of cxl_port_update_decoder_targets() */
++	device_for_each_child(&port->dev, dport, clear_decoder_target);
++
+ 	port->nr_dports--;
  	xa_erase(&port->dports, (unsigned long) dport->dport_dev);
  	put_device(dport->dport_dev);
- }
-@@ -1188,21 +1193,6 @@ __devm_cxl_add_dport(struct cxl_port *port, struct device *dport_dev,
- 	if (rc)
- 		return ERR_PTR(rc);
- 
--	/*
--	 * Setup port register if this is the first dport showed up. Having
--	 * a dport also means that there is at least 1 active link.
--	 */
--	if (port->nr_dports == 1 &&
--	    port->component_reg_phys != CXL_RESOURCE_NONE) {
--		rc = cxl_port_setup_regs(port, port->component_reg_phys);
--		if (rc) {
--			xa_erase(&port->dports, (unsigned long)dport->dport_dev);
--			return ERR_PTR(rc);
--		}
--		port->component_reg_phys = CXL_RESOURCE_NONE;
--	}
--
--	get_device(dport_dev);
- 	rc = devm_add_action_or_reset(host, cxl_dport_remove, dport);
- 	if (rc)
- 		return ERR_PTR(rc);
-@@ -1629,7 +1619,16 @@ static struct cxl_dport *cxl_port_add_dport(struct cxl_port *port,
- 
- 	cxl_switch_parse_cdat(new_dport);
- 
--	if (ida_is_empty(&port->decoder_ida)) {
-+	if (port->nr_dports == 1) {
-+		/*
-+		 * Some host bridges are known to not have component regsisters
-+		 * available until a root port has trained CXL. Perform that
-+		 * setup now.
-+		 */
-+		rc = cxl_port_setup_regs(port, port->component_reg_phys);
-+		if (rc)
-+			return ERR_PTR(rc);
-+
- 		rc = devm_cxl_switch_port_decoders_setup(port);
- 		if (rc)
- 			return ERR_PTR(rc);
 -- 
 2.53.0
 
