@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794315182;
-	b=ydwrb/lSMyvZvlI/BmuWK9ux0r4r5a/MqA+0vPJV37JL09HkLDhU+BjRrz9oZLOfOLnz
-	 t/x0mw4Zd5rpTay8lyY3N+7xiK9K7bUlju8XQrfEP7gsBKzc3sW4QItXEUeKP+t4KjLL5
-	 YC41lyyBbI65RVt07IfW6Tfu2IrdLs0eg7HIrggV8+pJ6WczTb4m09ke8cCE7ujSjO2dW
-	 ZtzjUq6m4mKzvDnUc+8StNsk7iItJY2wTOZhsObsbo1wXsI97b6VY/SBVBtcqJV2jG3/6
-	 /CqEVpD+LeinbdE9AWJYYFCH29z5sYd9WTGz1CRMAsbsdZ8yPgBX2LlsORlesc6+HzA==
+	b=GaF11UWR1msNfkainZhBgD5LtirNu86d1VWDoFEe/AewLJBQ/Mw4wuyBvzzVe+BId5Mg
+	 bQSrVwOLtQ2WrklRLtrQ76V1lcAHCu9/AR/yidAZiBQDuKL+QJ/cyyMabDyy2XTfMPzFF
+	 0K0ElbJ7KrBC9GN0Jfu8iwcGR4+icIrarsERQriBamsIhIFDDwiEeHwA58yRWn/9NR2bV
+	 Bks7Z8UF/pSVgNMmDPf1YXbzw/wEHRHCEcFbBiCAk8RYsTvL++soIy5O+WXM3N9mS9eIr
+	 +0aIMwf5QPfWd9oRVTUK7qErq7wYCbvxXf4QhuuP6OKoT9f5MxZyEvC0ylTMOzpSXZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794315182;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TS28Ff6lf1K7mhhAW8xkudReoccU1TzjI9w0k4KcBUo=;
-	b=GeFwayRjIvgP0fK0Nl7ypdXs713ylqGbXoghCyoBmPAecjocwF8ypC8RCdqfzHBo50AS
-	 4mavKTdAmHY7eKNjbFpP+2xvJEBVZQCudjNftqsOgb+LCySOFSMV5oTsR+RkYv5XTO94H
-	 wzRNPqxV3le4vooNcIshGy91CFtwdyracry0WtIC2aSo6xf0I6qQIHbprLvV85vZwsdSo
-	 T3W/9uPQPYnjPM4TYnO6bMLT99tm9cq8pP+MUmJE9EKuTKR95PDVsmqiEDXl+3XPeXQQf
-	 GgsLhzi8WBEAx7jeyoXJLB6XSylrtwJyld4rU3g1f/zO2CSKiUt+TXL5gq/hogTibTQ==
+	bh=I6OS/PsXXmtaHei0iazsVJcn43LqqmSBqpXuApul4j4=;
+	b=Gh3t07el/3W5wdsPASUi5j6/Z8a8cGrSd8klUE1WhRlvQXYUi+oH3yk93eO9dM57AhHV
+	 3eCclFv5Y3Q+kepGcQPQgXdOsz0GMMx0kIgDeDjprhne9fMfomykfESNWU8adv9zCw+H6
+	 ZdEHQHtR9CHE1fNkS2+jDTZGU+bzj21ncjmjUuQ95dJRpyfhBAd/RAgkRtMW1u5e7blcV
+	 Nee/xXN1J7GhlAOw0vV07ScJXsYXJ2FnhzQpq7iAIFC7CTbhEG6GKfv0OCoIrTL+15mUt
+	 iYVAaFsRqmID0paD1I5r+eR2Tj8QPnO5YfmK4VGrmiy05/nSHoRjjpS5Xz5wqKBmfMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIKz1iIw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VG++cJtx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7719606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:53:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5369C606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIKz1iIw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53F11F0089F;
-	Tue, 10 Nov 2026 12:53:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VG++cJtx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C83E1F008A2;
+	Tue, 10 Nov 2026 12:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315181;
-	bh=TS28Ff6lf1K7mhhAW8xkudReoccU1TzjI9w0k4KcBUo=;
+	s=k20260515; t=1794315182;
+	bh=I6OS/PsXXmtaHei0iazsVJcn43LqqmSBqpXuApul4j4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LIKz1iIwnIM12f8z9WwiSN2iUo2jBCXLXJoXck34alDAoDoALgAuAQknOy1a6IBMb
-	 XAFKoQxTCpNXvJtRVzlcB+JmxVxT5tJ71J52IM8m2csR7AIUmlG4YCIl768amO6BUV
-	 jzfxmIWZNUXrxP3w5U4cbnWa8Dd0edLheSgovKDBLdPi0UZkVuSd+XVpgxDSAkrwp5
-	 poLomhtPoX+2dwbNMDf9qKcbSdPum36sG86Z2CiJ4VEjDGdBbLqTmz4JiT3KB/sPSs
-	 AS9+LgacGA8QIxkY5ozaxDSh0tJM8sf82UIKzJ9V/5omTZUh1ecamkEUy4YCT13R5p
-	 j647MLrfMY+Fg==
+	b=VG++cJtxQ4digtJCVFiXz+jQeb+O3w8K0xK0EagP/uzEqvgIR13co3YHAYFc2GsPt
+	 R9qJuUwOH7RbtMdKousKhGvIJyn+TALBv9IkKRPKocvMYomkep/tmtkl3rPqhXUmsj
+	 dwXfzbOozM2Rlio4mRjHh67XPI9Tz+IfWkJoMEZgj4yHR7cZAuzxX4chj7xxpHsEnX
+	 hcdMih1l+cnokOZy/r4KDiFf5KjK3tiEVg/+fD+IrIhPm/O+0//P8KzLjh1o4baxax
+	 MkJ9ddmOvWfAht1y1LTIvsK6BAjvjPbvXIx6J/Z9DZM6zLXI4s3BfBVJXvA2KWNXXi
+	 s6/M44zS4QnrA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] media: i2c: og01a1b: Switch from .s_stream to .enable_streams/.disable_streams
-Date: Tue, 10 Nov 2026 07:52:58 -0500
-Message-ID: <20261110125223.1528685-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] media: i2c: og01a1b: power off sensor on remove
+Date: Tue, 10 Nov 2026 07:52:59 -0500
+Message-ID: <20261110125223.1528685-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051703-failed-6.12-a26c5ac46191@kernel.org>
+In-Reply-To: <20261110125223.1528685-1-sashal@kernel.org>
 References: <20261107051703-failed-6.12-a26c5ac46191@kernel.org>
+ <20261110125223.1528685-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,245 +62,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-[ Upstream commit 3a594bb454ba1ecb005f753007fa1bb5c5e68bae ]
+[ Upstream commit a26c5ac46191ae34b3413f7a45d6241f63e15d42 ]
 
-The change allows to simplify the driver code, in particular the explicit
-locking scheme for stream on/off or format update serialization can be
-dropped in favour to the one provided by the V4L2 core internals.
+og01a1b_probe() powers the sensor on explicitly before identifying and
+initializing it. After a successful probe, runtime PM is enabled and
+pm_runtime_idle() is used to allow the runtime suspend callback to
+power the sensor off.
 
-Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-[Sakari Ailus: Fix error handling for enable_streams callback.]
+The probe error path explicitly calls og01a1b_power_off(), but the
+normal remove path only disables runtime PM. pm_runtime_disable() does
+not guarantee that an active device is runtime suspended, so the
+sensor can remain powered when the driver is removed. This also leaves
+the xvclk enable performed by og01a1b_power_on() unbalanced.
+
+After disabling runtime PM, check whether the device is already
+suspended. If it is still active, power the sensor off explicitly and
+update the runtime PM state accordingly. Avoid powering it off again
+when runtime suspend has already done so.
+
+This issue was found by manual code inspection.
+
+Fixes: a95ffde28783 ("media: i2c: og01a1b: Add support of xvclk supply clock in power management")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Stable-dep-of: a26c5ac46191 ("media: i2c: og01a1b: power off sensor on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/og01a1b.c | 90 ++++++++++++++-----------------------
- 1 file changed, 34 insertions(+), 56 deletions(-)
+ drivers/media/i2c/og01a1b.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/media/i2c/og01a1b.c b/drivers/media/i2c/og01a1b.c
-index 68573122cd6ee..95ead31dda278 100644
+index 95ead31dda278..cc8ff6ffd29ac 100644
 --- a/drivers/media/i2c/og01a1b.c
 +++ b/drivers/media/i2c/og01a1b.c
-@@ -442,9 +442,6 @@ struct og01a1b {
- 
- 	/* Current mode */
- 	const struct og01a1b_mode *cur_mode;
--
--	/* To serialize asynchronus callbacks */
--	struct mutex mutex;
- };
- 
- static u64 to_pixel_rate(u32 f_index)
-@@ -616,7 +613,6 @@ static int og01a1b_init_controls(struct og01a1b *og01a1b)
- 	if (ret)
- 		return ret;
- 
--	ctrl_hdlr->lock = &og01a1b->mutex;
- 	og01a1b->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
- 						    &og01a1b_ctrl_ops,
- 						    V4L2_CID_LINK_FREQ,
-@@ -686,74 +682,66 @@ static void og01a1b_update_pad_format(const struct og01a1b_mode *mode,
- 	fmt->field = V4L2_FIELD_NONE;
- }
- 
--static int og01a1b_start_streaming(struct og01a1b *og01a1b)
-+static int og01a1b_enable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state, u32 pad,
-+				  u64 streams_mask)
- {
-+	struct og01a1b *og01a1b = to_og01a1b(sd);
-+	unsigned int link_freq_index = og01a1b->cur_mode->link_freq_index;
- 	const struct og01a1b_reg_list *reg_list;
--	int link_freq_index, ret;
-+	int ret;
- 
--	link_freq_index = og01a1b->cur_mode->link_freq_index;
--	reg_list = &link_freq_configs[link_freq_index].reg_list;
-+	ret = pm_runtime_resume_and_get(og01a1b->dev);
-+	if (ret)
-+		return ret;
- 
-+	reg_list = &link_freq_configs[link_freq_index].reg_list;
- 	ret = og01a1b_write_reg_list(og01a1b, reg_list);
- 	if (ret) {
--		dev_err(og01a1b->dev, "failed to set plls");
--		return ret;
-+		dev_err(og01a1b->dev, "failed to set plls: %d\n", ret);
-+		goto error;
- 	}
- 
- 	reg_list = &og01a1b->cur_mode->reg_list;
- 	ret = og01a1b_write_reg_list(og01a1b, reg_list);
- 	if (ret) {
--		dev_err(og01a1b->dev, "failed to set mode");
--		return ret;
-+		dev_err(og01a1b->dev, "failed to set mode: %d\n", ret);
-+		goto error;
- 	}
- 
- 	ret = __v4l2_ctrl_handler_setup(og01a1b->sd.ctrl_handler);
- 	if (ret)
--		return ret;
-+		goto error;
- 
- 	ret = og01a1b_write_reg(og01a1b, OG01A1B_REG_MODE_SELECT,
- 				OG01A1B_REG_VALUE_08BIT,
- 				OG01A1B_MODE_STREAMING);
- 	if (ret) {
--		dev_err(og01a1b->dev, "failed to set stream");
--		return ret;
-+		dev_err(og01a1b->dev, "failed to start streaming: %d\n", ret);
-+		goto error;
- 	}
- 
- 	return 0;
--}
- 
--static void og01a1b_stop_streaming(struct og01a1b *og01a1b)
--{
--	if (og01a1b_write_reg(og01a1b, OG01A1B_REG_MODE_SELECT,
--			      OG01A1B_REG_VALUE_08BIT, OG01A1B_MODE_STANDBY))
--		dev_err(og01a1b->dev, "failed to set stream");
-+error:
-+	pm_runtime_put_autosuspend(og01a1b->dev);
-+
-+	return ret;
- }
- 
--static int og01a1b_set_stream(struct v4l2_subdev *sd, int enable)
-+static int og01a1b_disable_streams(struct v4l2_subdev *sd,
-+				   struct v4l2_subdev_state *state, u32 pad,
-+				   u64 streams_mask)
- {
- 	struct og01a1b *og01a1b = to_og01a1b(sd);
--	int ret = 0;
--
--	mutex_lock(&og01a1b->mutex);
--	if (enable) {
--		ret = pm_runtime_resume_and_get(og01a1b->dev);
--		if (ret) {
--			mutex_unlock(&og01a1b->mutex);
--			return ret;
--		}
-+	int ret;
- 
--		ret = og01a1b_start_streaming(og01a1b);
--		if (ret) {
--			enable = 0;
--			og01a1b_stop_streaming(og01a1b);
--			pm_runtime_put(og01a1b->dev);
--		}
--	} else {
--		og01a1b_stop_streaming(og01a1b);
--		pm_runtime_put(og01a1b->dev);
--	}
-+	ret = og01a1b_write_reg(og01a1b, OG01A1B_REG_MODE_SELECT,
-+				OG01A1B_REG_VALUE_08BIT, OG01A1B_MODE_STANDBY);
-+	if (ret)
-+		dev_err(og01a1b->dev, "failed to stop streaming: %d\n", ret);
- 
--	mutex_unlock(&og01a1b->mutex);
-+	pm_runtime_put_autosuspend(og01a1b->dev);
- 
- 	return ret;
- }
-@@ -771,7 +759,6 @@ static int og01a1b_set_format(struct v4l2_subdev *sd,
- 				      height, fmt->format.width,
- 				      fmt->format.height);
- 
--	mutex_lock(&og01a1b->mutex);
- 	og01a1b_update_pad_format(mode, &fmt->format);
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
- 		*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-@@ -794,8 +781,6 @@ static int og01a1b_set_format(struct v4l2_subdev *sd,
- 					 h_blank);
- 	}
- 
--	mutex_unlock(&og01a1b->mutex);
--
- 	return 0;
- }
- 
-@@ -805,15 +790,12 @@ static int og01a1b_get_format(struct v4l2_subdev *sd,
- {
- 	struct og01a1b *og01a1b = to_og01a1b(sd);
- 
--	mutex_lock(&og01a1b->mutex);
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
- 		fmt->format = *v4l2_subdev_state_get_format(sd_state,
- 							    fmt->pad);
- 	else
- 		og01a1b_update_pad_format(og01a1b->cur_mode, &fmt->format);
- 
--	mutex_unlock(&og01a1b->mutex);
--
- 	return 0;
- }
- 
-@@ -849,18 +831,14 @@ static int og01a1b_enum_frame_size(struct v4l2_subdev *sd,
- 
- static int og01a1b_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- {
--	struct og01a1b *og01a1b = to_og01a1b(sd);
--
--	mutex_lock(&og01a1b->mutex);
- 	og01a1b_update_pad_format(&supported_modes[0],
- 				  v4l2_subdev_state_get_format(fh->state, 0));
--	mutex_unlock(&og01a1b->mutex);
- 
- 	return 0;
- }
- 
- static const struct v4l2_subdev_video_ops og01a1b_video_ops = {
--	.s_stream = og01a1b_set_stream,
-+	.s_stream = v4l2_subdev_s_stream_helper,
- };
- 
- static const struct v4l2_subdev_pad_ops og01a1b_pad_ops = {
-@@ -868,6 +846,8 @@ static const struct v4l2_subdev_pad_ops og01a1b_pad_ops = {
- 	.get_fmt = og01a1b_get_format,
- 	.enum_mbus_code = og01a1b_enum_mbus_code,
- 	.enum_frame_size = og01a1b_enum_frame_size,
-+	.enable_streams = og01a1b_enable_streams,
-+	.disable_streams = og01a1b_disable_streams,
- };
- 
- static const struct v4l2_subdev_ops og01a1b_subdev_ops = {
-@@ -1062,7 +1042,6 @@ static void og01a1b_remove(struct i2c_client *client)
+@@ -1042,6 +1042,11 @@ static void og01a1b_remove(struct i2c_client *client)
  	media_entity_cleanup(&sd->entity);
  	v4l2_ctrl_handler_free(sd->ctrl_handler);
  	pm_runtime_disable(og01a1b->dev);
--	mutex_destroy(&og01a1b->mutex);
++
++	if (!pm_runtime_status_suspended(og01a1b->dev)) {
++		og01a1b_power_off(og01a1b->dev);
++		pm_runtime_set_suspended(og01a1b->dev);
++	}
  }
  
  static int og01a1b_probe(struct i2c_client *client)
-@@ -1146,7 +1125,6 @@ static int og01a1b_probe(struct i2c_client *client)
- 		goto power_off;
- 	}
- 
--	mutex_init(&og01a1b->mutex);
- 	og01a1b->cur_mode = &supported_modes[0];
- 	ret = og01a1b_init_controls(og01a1b);
- 	if (ret) {
-@@ -1154,6 +1132,7 @@ static int og01a1b_probe(struct i2c_client *client)
- 		goto probe_error_v4l2_ctrl_handler_free;
- 	}
- 
-+	og01a1b->sd.state_lock = og01a1b->ctrl_handler.lock;
- 	og01a1b->sd.internal_ops = &og01a1b_internal_ops;
- 	og01a1b->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
- 	og01a1b->sd.entity.ops = &og01a1b_subdev_entity_ops;
-@@ -1194,7 +1173,6 @@ static int og01a1b_probe(struct i2c_client *client)
- 
- probe_error_v4l2_ctrl_handler_free:
- 	v4l2_ctrl_handler_free(og01a1b->sd.ctrl_handler);
--	mutex_destroy(&og01a1b->mutex);
- 
- power_off:
- 	og01a1b_power_off(og01a1b->dev);
 -- 
 2.53.0
 
