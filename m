@@ -1,57 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=206.220.120.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794291246;
-	b=Vvf8qIoAtifW4c7imQwhIpnGiuXoETckpfTL7svHhuojKkGROkFdEl7QY+e4aEapuaQC
-	 slVNMy0hZmTcoEfoxkHRjREkFKjJgU5Kk2TbkYrpWjj6LKiL+5hF0rPrBVvhE56/TZDce
-	 VVAnCozYlk6w01NPXpMzISVv/WoweTXIQjUPCHKnkV6eJlY5OGAiERnh5ww739k2B4t5W
-	 a/q1VhSY6jcVrwrHtmZI4CnVVR1+uTYE6EK+a+Z/yCkadOkihc5SmGq05b5n3f/Pc0gfu
-	 LmYCPuCt0sbNZfl1v4OFd4dB8zwH51Kf3unBOUarlpXClvH8jMbZQIHMvcydyWqmfZg==
+	t=1794291369;
+	b=H//40LJkfFk8LeAC4tWn7E1SX4NU68KyGhE0HuWp3TQ8i9NK0FPgd34PPAwSXNaE+j60
+	 ODyNdasuQwhRAWwljzxOO/YsPWXnwmPvFBYobFAgIz5DMDj4r8hRsZDv4OmrY7bShB3Q+
+	 ETn5EMzercmS3NCMYFRSla3u49qIIdBEAQOpQl9TU/J0xWJwmn0GmE8g+4j90jTo0R8Hi
+	 dWdXAsSdbARGycpx2qsyGyd1PdjkJs0lJuBtkcnzLH1do30mFKRsGM7BU3et/BQgNZE+u
+	 CieWl8RA7TWdB7YeXVO4PHNF+r8HKVnJyH/OL3ePBpFjH58fKhMnTnwiC1+/jO8Cu1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794291246;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291369;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=az9dHO+ROffgYCcGeIX8xLKy0nQpBMBrBMgW/jIJFOA=;
-	b=0hTOONFGcEOi2Mwuh7aDVQprbupe7Ak5EH/j2N/ahhHOMZE77iWtHPPEUDSvSR2fBmJ+
-	 YHqN2hCrLNbcEB2bclN5W1gGWTCBFVpd43qdIMZ3rf5R5S2KnsTn38Ok3SdNQMnLc0FnF
-	 2KtoH3vsOKnqoDItjgVK0HIGHEWIiYF2+Qm0v1qLpYrxQNzqSrw73rGqrpZdUpP4/3iNn
-	 92W6p7mGiyzrZx55VSoAcMAmAP4Y/39GrF8BqNi+mc0nwrgXExqmCLcdTan8EGl2pJOgs
-	 sw4aJ77KSPolQ4DRTclOKxAfHY+PqobKOnwV///26Y5NKwFiFuDhhgfCHZbY445SLCg==
+	bh=BrDzxLEbeU4uco9ipa6fnS9nVVE6+Zz5bW9TygcDdP8=;
+	b=LCWjo6xpDapl5+hdpwIjzHWgv1k3HqUXCKzbabQ9zZRxwwIWOm+sJIX/2bdh6DfErAwM
+	 /i9S1MK0YC10DQG01ZTXpinEojKpQ4BegUsqYlKVtjcRRsAv0Utoul5VtkhRQC7hIvVPy
+	 vJMkY8A5UGHICOGHPp4h6KN7C48Bvp8xILmWlUq0LjOiCLta8ywMoRMNVS0i3KmZ6eRYX
+	 1YcwvU9LnoqrJZPEy7mfbUPvlndSPVw8d8xLVGXlg6Ttnx7OIdvlWApc3Fp/7Z2U8A5YO
+	 9n5qtsyX+uPFDiqoa5cbjXCeTsnvw63kYu4YeK0Kyi7K9VAj8dsjUZfCr2cA+r5kpIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kaihong.com;
-	spf=pass smtp.mailfrom=kaihong.com;
-	arc=none smtp.remote-ip=115.124.28.50
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
+	dmarc=pass header.from=grapheneos.org;
+	spf=pass smtp.mailfrom=grapheneos.org;
+	dkim=pass header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=FrWjs+J5;
+	arc=none smtp.remote-ip=206.220.120.4
+Received: from mail.grapheneos.org (mail.grapheneos.org [206.220.120.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AD0606A31C;
-	Tue, 10 Nov 2026 06:14:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76AD0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07487006|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00782076-0.00132703-0.990852;FP=810859280924206831|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.k-d-.Og_1794291234;
-Received: from nj-vm-261.pxvirt.local(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k-d-.Og_1794291234 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 14:13:54 +0800
-From: Wang Xiaolei <wangxiaolei01@kaihong.com>
-To: mwen@igalia.com,
-	mcanal@igalia.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	tvrtko.ursulin@igalia.com,
-	wangxiaolei01@kaihong.com
-Cc: dri-devel@lists.freedesktop.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA63606A331;
+	Tue, 10 Nov 2026 06:16:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FA63606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grapheneos.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=grapheneos.org header.i=@grapheneos.org header.a=rsa-sha256 header.s=default header.b=FrWjs+J5
+Received: by mail.grapheneos.org (Postfix) id 4F2373C08EF80;
+	Tue, 10 Nov 2026 06:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=grapheneos.org;
+	s=default; t=1794291368;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BrDzxLEbeU4uco9ipa6fnS9nVVE6+Zz5bW9TygcDdP8=;
+	b=FrWjs+J5ueCOJCIkICiVuyqpFABQ8WPKZIfSyrrKh4eNLotdKUoaF18Dg3x3ex56P8KGoo
+	SFkLoFqDgz0QCWE9exFeK0HvCFbvNaoyte2CIN80/0gyrt6CEgwFv4VjY9RezMnbrphZ+i
+	oEJslQmciikQeBgJXTe1LF0xnKNY2bHV84dmxNeea7DDfYrOj0KyRSxxgocXEW1SOQRzis
+	ubn0riWWpH75duHAl7nDa3QJdvZ8TJZvU6WoNHSOVw0ElmtRGlSyBeO4S3hGagk7UPH/c0
+	NTbWy0VphK0G8QjPyieVwzuaai3zOi+ILGRHxXimnI8bO9dumtp+sQiReB9jew==
+From: liamsmith827 <liamsmith827@grapheneos.org>
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Iago Toral Quiroga <itoral@igalia.com>
-Subject: [PATCH] drm/v3d: Fix double free of query arrays when extension parsing fails
-Date: Tue, 10 Nov 2026 06:13:41 +0000
-Message-Id: <20261110061341.2075931-1-wangxiaolei01@kaihong.com>
-X-Mailer: git-send-email 2.34.1
+	liamsmith827 <liamsmith827@proton.me>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/4] ipv4: add FIB_LOOKUP_REPORT_MISS
+Date: Tue, 10 Nov 2026 06:15:33 +0000
+Message-ID: <20261110061536.10811-2-liamsmith827@grapheneos.org>
+In-Reply-To: <20261110061536.10811-1-liamsmith827@grapheneos.org>
+References: <20261110061536.10811-1-liamsmith827@grapheneos.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +75,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-v3d_get_cpu_timestamp_query_params() and v3d_copy_query_info() - the
-latter used by both performance query parsers - free the query array on
-their error paths through v3d_timestamp_query_info_free() /
-v3d_performance_query_info_free(), but leave query_info->queries
-pointing at the freed buffer.
+From: liamsmith827 <liamsmith827@proton.me>
 
-The same job is then released by v3d_submit_cpu_ioctl()'s failure path
-(v3d_submit_cleanup_jobs() -> v3d_job_cleanup() -> v3d_job_put() ->
-v3d_cpu_job_free()), which calls the same helpers on the same
-query_info. On these error paths query_info->count was never assigned -
-it is only written after the parsing loop completes - so the syncobj
-loop runs zero times and no syncobj is put twice, but the
-"if (query_info->queries)" test still succeeds and the dangling pointer
-is handed to kvfree() a second time.
+IPv4 FIB lookup maps a routing miss to -ENETUNREACH, which is also
+returned when an unreachable rule is encountered. This flag prevents the
+mapping, returning -ESRCH instead.
 
-Every failure inside the parsing loop takes this path: -ENOENT from
-drm_syncobj_find(), -EFAULT from get_user(), or -ENOMEM from
-kvmalloc_array() in v3d_copy_query_info(). The helpers are shared
-between that error path and the job release path.
-
-Clear the pointer once the buffer has been freed.
-
-Fixes: 0e50fcc20bd8 ("drm/v3d: Fix potential memory leak in the timestamp extension")
-Fixes: 32df4abc44f2 ("drm/v3d: Fix potential memory leak in the performance extension")
 Cc: stable@vger.kernel.org
-Cc: Maíra Canal <mcanal@igalia.com>
-Cc: Iago Toral Quiroga <itoral@igalia.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
+Signed-off-by: liamsmith827 <liamsmith827@proton.me>
 ---
- drivers/gpu/drm/v3d/v3d_sched.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/net/fib_rules.h | 5 +++++
+ include/net/ip_fib.h    | 6 +++---
+ net/ipv4/fib_rules.c    | 2 +-
+ 3 files changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
-index 1924e3440dc9..a96023b5dce0 100644
---- a/drivers/gpu/drm/v3d/v3d_sched.c
-+++ b/drivers/gpu/drm/v3d/v3d_sched.c
-@@ -106,6 +106,7 @@ v3d_timestamp_query_info_free(struct v3d_timestamp_query_info *query_info,
- 			drm_syncobj_put(query_info->queries[i].syncobj);
+diff --git a/include/net/fib_rules.h b/include/net/fib_rules.h
+index c6b94790fa81..bcb6809dbd10 100644
+--- a/include/net/fib_rules.h
++++ b/include/net/fib_rules.h
+@@ -59,6 +59,11 @@ struct fib_lookup_arg {
+ 	int			flags;
+ #define FIB_LOOKUP_NOREF		1
+ #define FIB_LOOKUP_IGNORE_LINKSTATE	2
++/* Return -ESRCH instead of mapping it to -ENETUNREACH. Only applies to IPv4
++ * lookups. When used with FIB_LOOKUP_NOREF, -ESRCH indicates the lookup
++ * exhausted all rules and tables without finding a usable route.
++ */
++#define FIB_LOOKUP_REPORT_MISS		4
+ };
  
- 		kvfree(query_info->queries);
-+		query_info->queries = NULL;
- 	}
- }
+ struct fib_rules_ops {
+diff --git a/include/net/ip_fib.h b/include/net/ip_fib.h
+index 92f4eb8b86d7..d0b4f261585a 100644
+--- a/include/net/ip_fib.h
++++ b/include/net/ip_fib.h
+@@ -318,7 +318,7 @@ static inline int fib_lookup(struct net *net, const struct flowi4 *flp,
+ 			     struct fib_result *res, unsigned int flags)
+ {
+ 	struct fib_table *tb;
+-	int err = -ENETUNREACH;
++	int err = -EAGAIN;
  
-@@ -122,6 +123,7 @@ v3d_performance_query_info_free(struct v3d_performance_query_info *query_info,
- 		}
+ 	rcu_read_lock();
  
- 		kvfree(query_info->queries);
-+		query_info->queries = NULL;
- 	}
- }
+@@ -327,7 +327,7 @@ static inline int fib_lookup(struct net *net, const struct flowi4 *flp,
+ 		err = fib_table_lookup(tb, flp, res, flags | FIB_LOOKUP_NOREF);
  
+ 	if (err == -EAGAIN)
+-		err = -ENETUNREACH;
++		err = (flags & FIB_LOOKUP_REPORT_MISS) ? -ESRCH : -ENETUNREACH;
+ 
+ 	rcu_read_unlock();
+ 
+@@ -398,7 +398,7 @@ static inline int fib_lookup(struct net *net, struct flowi4 *flp,
+ 		err = fib_table_lookup(tb, flp, res, flags);
+ 
+ 	if (err == -EAGAIN)
+-		err = -ENETUNREACH;
++		err = (flags & FIB_LOOKUP_REPORT_MISS) ? -ESRCH : -ENETUNREACH;
+ out:
+ 	rcu_read_unlock();
+ 
+diff --git a/net/ipv4/fib_rules.c b/net/ipv4/fib_rules.c
+index 060501b376a8..3d7dcb8d0865 100644
+--- a/net/ipv4/fib_rules.c
++++ b/net/ipv4/fib_rules.c
+@@ -101,7 +101,7 @@ int __fib_lookup(struct net *net, struct flowi4 *flp,
+ 		res->tclassid = 0;
+ #endif
+ 
+-	if (err == -ESRCH)
++	if (err == -ESRCH && !(flags & FIB_LOOKUP_REPORT_MISS))
+ 		err = -ENETUNREACH;
+ 
+ 	return err;
 -- 
-2.34.1
+2.47.3
 
