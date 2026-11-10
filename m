@@ -1,69 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320755;
-	b=if9KD9A4aUTo3ievFrHHqVs3I1WdC6r8EneahS2CThgYTG0c1FSDeHAWiZsUlUiBymQ0
-	 EOoTaN2FHd60rbskIZDQNGBHSCzTCcufWUI/DegYDEiLlmipon7WrPM+UCq04wuSEUeq1
-	 38OQj+wVQkpwdJn6q6gDuUI/DQU6LQx9Uevo6FYUIG/IONvO1/Yz2VKnGIVpv0Dvcgrt1
-	 SWzqBKukryOiERfeIo/1tkbA6dH0P0afdNmEEta3pEZkzba8w2i+diVkQ0E7aNGqVcXsl
-	 +bexP1w/2/63bODgphgMjEJBSdbpticEjbxgDFFs233+lzXvoH6mkMuKQQ6C2CSeqfA==
+	t=1794320761;
+	b=EcSlTZ0c01JM8gmRyaPOsBV8SekvERDvQx5Uc3srzLISQH3AyP18BeRcGmfimkT47CC2
+	 YXHKRoQ5jKAMmCtQV342W4tg5Q8aoQ3uNmF6Q9Y19G8Is78Ic+CNUo7m1aNMH0hHglAsB
+	 AAKuC5lV9k9PZoCqx1PUP0WyC7v03nrqmXNKZ+glngS0DNaXzClf6OlxmJ4EvG68/viuM
+	 LnqTexvl2zjkcmTgZMM3GRHx5uGpa3UNEgQaYOiOX/OclcRh8n2qbC//HuBxlnwJy1HRg
+	 b6NItQXfojgjot5s3sweHRiyg+tC3ZblHIvHskKwIHcFBL2/UJ8sQLZkjjucoDbEORA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320755;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1SdcJCc/iiKKfdxpjKj0mAt0eliJYcVIqUBY2Eb0LBs=;
-	b=Qh2wJMo2cJcM9G6dqnSW8BOvYK+qIS74DAxSoUUYCPiIusGrPf44lvE60RsPrHgubJXY
-	 PPQV0REcfAUH0nMYkwnT7FBGGqOCybeJ8TpG1whblUUa72WdI7E55KVxeh0PIlD0IOPKD
-	 SRsdahN+9MPnZ7ypNLzxcL6XgOQ4AYfUljl5WI4vKa6a54xJvd2PbD8el/fLsqZiekf0/
-	 ca5oHIyb6FlTdM90tExNuk4ok5EVXPery5RLRWWikM8ms55gQI60pWD7CQbXl6bd30lEe
-	 TjCZnkt4sdU1bajwlGolaANhY/DAaR3xG78PFiUaQ34syj4xmrTY8K300SONIs7XR5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320761;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=egXnEsCvFmBMqvCmv9HH9kd8vJnrfJ9Ue5/xXI2nE00=;
+	b=AnZk6LL65sBnQTZixtQ6ZCzMtP2mJtAwwqXw+QTw9jcICneeVCgYMq+dtrWxWIrIk1g1
+	 5vqMwMD8EUUoqewQxvMwFSsxIQHgYpnwNQYqzCxI0bZ2QQNpkSJ9twQMJ0fGM68hSvibR
+	 3nUS4wvGHG5NsUDOxMtVYBlhxk5KM8hy6nK+UPOaZqKEPINvQ+ydPOvBNh7dlGrc/9TzR
+	 89yeFd94r3nsBZi1vlvbziGpuguNb8iJpLulS3RVO4+V6whu0OEtUnehxO+AfMNjI/ZSO
+	 sFbXKoAr6YDW4fTZnuiGCXMS6RHSJIo9JU1ICas4/ZqKxyyRdWyg8dGwlJ+e4TfDrbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4ufB3bb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=oBjhitk8;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="Vw/QVACF";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fVAUQ5PS;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BO7HZIVN;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0BC60A3817
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD720606A334;
+	Tue, 10 Nov 2026 14:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD720606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4ufB3bb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B821F0089F;
-	Tue, 10 Nov 2026 14:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320754;
-	bh=1SdcJCc/iiKKfdxpjKj0mAt0eliJYcVIqUBY2Eb0LBs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L4ufB3bbcY0gOvWuTU+zyCOYr5mQfLh4rWyvXyYO5UDFZ4qYjZC3x/nTl2LwBszNt
-	 ksBFCsRFdx+bIWHJvxd3cifcAbwIOH/z3w/amJm0DNsc0p81M8u4iYS1AsFros3c36
-	 Lxk9qwsusSk3n5RYT7wU2ij5zk9U+PeUdMDMtmFnlY3oKs093Dw+CiUFOExHqnZ2jW
-	 1vI1ViWgEm1xzPNc94jslYyD4+YD0Bk70CxIopP3ijyMmnxw4P4KORJKVh6XBLl1qU
-	 nUtPbBERWYWFskjK+Gzzo3GI9St/A3UyFNM+qk/gikD7dqt3OmYJpMZ/VlwtxylELG
-	 zAE7PCAynjsbA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>,
-	Kairui Song <kasong@tencent.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/huge_memory: do not touch frozen folios in deferred_split_isolate()
-Date: Tue, 10 Nov 2026 09:25:51 -0500
-Message-ID: <20261110142541.1866536-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051938-failed-6.12-5da8ec3262bb@kernel.org>
-References: <20261107051938-failed-6.12-5da8ec3262bb@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=oBjhitk8;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Vw/QVACF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fVAUQ5PS;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BO7HZIVN
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C642A1F7E2;
+	Tue, 10 Nov 2026 14:25:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794320758; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=egXnEsCvFmBMqvCmv9HH9kd8vJnrfJ9Ue5/xXI2nE00=;
+	b=oBjhitk8jFawUrkG05h2U2d6qwNNErd89Rhw+PJckqwNXkTk3zz2i4ttxLTeNMd86D0dbV
+	1fmCUmpnly7cZTk1q59ThNg5qOHP9m1hxXj66TpO7swZ1BE7LjuqCeUHRH0qfMZyS0RfcG
+	iNlsaXvRZgtEcjBJefoFd/G80sUwmZE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794320758;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=egXnEsCvFmBMqvCmv9HH9kd8vJnrfJ9Ue5/xXI2nE00=;
+	b=Vw/QVACFHDjumXdMruYOArsE9+Vkzlfz9qDVwyjI8jTYCyy0mJZn5VEylbXtrRedkBw2Ar
+	fGLZmMkLtcoQMSDQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=fVAUQ5PS;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=BO7HZIVN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794320757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=egXnEsCvFmBMqvCmv9HH9kd8vJnrfJ9Ue5/xXI2nE00=;
+	b=fVAUQ5PS1m1D6ItuWR0tToaFJhyYQSNhZWwN6OqatIifxgMCS60C9O/EXuS4tXyW6iQD5S
+	c+V0Yn0Yhw+0nmMGn/2IEKt7bXYwwc85ll71tD+bDqaPygxea+ZjBJNsODcDg2GlSr/dDm
+	BtvTPuWmDogO1FcX2wJtc/7HNrmF5vI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794320757;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=egXnEsCvFmBMqvCmv9HH9kd8vJnrfJ9Ue5/xXI2nE00=;
+	b=BO7HZIVNR5RJE5+j39tUZK0aKhE3zAQvuFbgCP+XYeYJtTHzV7vqcshc80DAYsckGjLJ3h
+	Ejaj/NAVW6jsgcCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8714313479;
+	Tue, 10 Nov 2026 14:25:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HIGNGHUp82qIIQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 14:25:57 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id C3D822253C; Tue, 10 Nov 2026 15:25:52 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:25:52 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 31/51] proc: don't WARN about a name that is already
+ registered
+Message-ID: <63v7hayet7xecsfpueywjg4zhpmaalzrgpak4rxycvui75h7tj@klvxoibaltdt>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-31-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,150 +133,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-31-bbf7d5546809@kernel.org>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: C642A1F7E2
 
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On Wed 04-11-26 18:47:17, Christian Brauner wrote:
+> proc_register() WARNs when the directory already has an entry of the
+> same name and fails the registration. Callers that pick their names
+> themselves should never get there but some take names from userspace.
+> pktgen creates a file for each device a writer of "add_device" adds,
+> named after the device. A device can have any name, including "pgctrl"
+> or "kpktgend_0", the names of pktgen's own files:
+> 
+>   ip link set lo name pgctrl
+>   ip link set pgctrl up
+>   echo "add_device pgctrl" > /proc/net/pktgen/kpktgend_0
+> 
+>   proc_dir_entry 'pktgen/pgctrl' already registered
+>   WARNING: fs/proc/generic.c:404 at proc_register+0x555/0x8b0, CPU#0: bash/241
+>   Call Trace:
+>    proc_create_data+0x9f/0xf0
+>    pktgen_thread_write+0xd9b/0x1780
+>    proc_reg_write+0x1c2/0x3c0
+>    vfs_write+0x1cd/0xfa0
+> 
+> The files of a network namespace belong to the root of its user
+> namespace and none of this requires a capability. So once pktgen is
+> loaded an unprivileged user can taint the kernel, or crash it with
+> panic_on_warn, from namespaces of its own. pktgen itself copes with
+> the failed registration just fine.
+> 
+> So go back to what proc_register() did before commit 6c2f91e077f1
+> ("proc: use WARN() rather than printk+backtrace") and what
+> sysfs_warn_dup() does for sysfs: report the name with pr_warn() and
+> dump the stack. While at it, do that after dropping proc_subdir_lock
+> instead of printing a backtrace while holding the lock that every
+> lookup and readdir in procfs needs.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: 6c2f91e077f1 ("proc: use WARN() rather than printk+backtrace")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-[ Upstream commit 5da8ec3262bbb40f057f3b0dacc18f37bda06f95 ]
+Fair. Feel free to add:
 
-Patch series "Fix deferred_split_isolate() and drop the split workaround",
-v2.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-deferred_split_isolate() probes each queued folio with folio_try_get().
-folio_try_get() failure is treated as a lost race with folio_put().
+								Honza
 
-It leads to wrong results when !folio_try_get() was not caused by
-folio_put(): for a frozen folio, PG_partially_mapped gets wrongfully
-cleared and the folio dropped from the queue.
-
-It came up in the review of my collapse RFC series:
-
-  https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
-
-The bug is inert in upstream code:
-
-  - __folio_split() works around it;
-  - __folio_migrate_mapping() freezes a folio it is about to replace;
-  - reclaim freezes only what try_to_unmap() already unmapped.
-
-No cc:stable needed.  But my collapse rework steps on it, so it is worth
-fixing.
-
-The branch the first patch removes also hid an inert, pre-existing bug in
-the zone device path:
-
-  https://lore.kernel.org/all/20260827163838.1813081-1-usama.arif@linux.dev/
-
-The first patch fixes deferred_split_isolate().
-
-The second patch removes the workaround for this deferred_split_isolate()
-behaviour from __folio_freeze_and_split_unmapped().
-
-Tested in a VM: split_huge_page_test, folio_split_race_test and cow pass.
-
-Also ran a test that leaves 16 partially mapped THPs on the deferred split
-queue and drives thp-deferred_split through debugfs, checking
-nr_anon_partially_mapped.
-
-This patch (of 2):
-
-deferred_split_isolate() probes each queued folio with folio_try_get().
-folio_try_get() failure is treated as a lost race with folio_put(): clear
-PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take the
-folio off the queue.
-
-The folio_put() race is the most common case for !folio_try_get(), but it
-is not the only option.  Another scenario is folio_ref_freeze().
-
-A zero refcount in such cases does not mean the folio is going away.  It
-means "don't touch me" and current deferred_split_isolate() doesn't
-respect it.  It can lead to unqueueing folios from the deferred list for
-no reason:
-
-    CPU 0                            CPU 1
-    ---------------------------      ------------------------------
-    freeze a mapped folio            deferred_split_scan()
-      folio_ref_freeze()               folio_try_get() fails
-                                       folio_clear_partially_mapped()
-                                       NR_ANON_PARTIALLY_MAPPED--
-                                       folio off the queue
-    give up, put it back
-      folio_ref_unfreeze()
-
-The folio is still partially mapped, but it is no longer a split
-candidate.  Nothing queues it again until part of it is unmapped once
-more.
-
-Skip the folio instead: whoever freezes the folio, owns it and owner is
-responsible for its fate.  It also covers the folio_put() case:
-__folio_put() unqueues the folio via folio_unqueue_deferred_split().
-
-Nothing is lost by skipping.  Everything that frees a queued folio
-unqueues it first, and folio_unqueue_deferred_split() clears
-PG_partially_mapped and brings MTHP_STAT_NR_ANON_PARTIALLY_MAPPED down on
-the way:
-
-    __folio_put(), folios_put_refs()   mm/folio.c
-    __folio_migrate_mapping()          mm/migrate.c
-    shrink_folio_list()                mm/vmscan.c
-
-__folio_freeze_and_split_unmapped() does the same by hand, under the
-list_lru lock it holds across the freeze.  A freeze that ends in
-folio_ref_unfreeze() leaves a folio that is still partially mapped and
-still belongs on the queue.
-
-Link: https://lore.kernel.org/20260831091514.1879786-1-kirill@shutemov.name
-Link: https://lore.kernel.org/20260831091514.1879786-2-kirill@shutemov.name
-Fixes: 8422acdc97ed ("mm: introduce a pageflag for partially mapped folios")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Lance Yang <lance.yang@linux.dev>
-Closes: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: Claude-Code:claude-opus-5
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-[ sashal: Adapted deferred_split_isolate() changes to deferred_split_scan() because the list_lru conversion is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/huge_memory.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index d175e93988a92..7fdf980a49d67 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3860,18 +3860,8 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
- 	/* Take pin on all head pages to avoid freeing them under us */
- 	list_for_each_entry_safe(folio, next, &ds_queue->split_queue,
- 							_deferred_list) {
--		if (folio_try_get(folio)) {
-+		if (folio_try_get(folio))
- 			list_move(&folio->_deferred_list, &list);
--		} else {
--			/* We lost race with folio_put() */
--			if (folio_test_partially_mapped(folio)) {
--				folio_clear_partially_mapped(folio);
--				mod_mthp_stat(folio_order(folio),
--					      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
--			}
--			list_del_init(&folio->_deferred_list);
--			ds_queue->split_queue_len--;
--		}
- 		if (!--sc->nr_to_scan)
- 			break;
- 	}
+> ---
+>  fs/proc/generic.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+> index 6ac9c4c13897..9e59796349e1 100644
+> --- a/fs/proc/generic.c
+> +++ b/fs/proc/generic.c
+> @@ -402,9 +402,10 @@ struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
+>  	write_lock(&proc_subdir_lock);
+>  	dp->parent = dir;
+>  	if (pde_subdir_insert(dir, dp) == false) {
+> -		WARN(1, "proc_dir_entry '%s/%s' already registered\n",
+> -		     dir->name, dp->name);
+>  		write_unlock(&proc_subdir_lock);
+> +		pr_warn("proc_dir_entry '%s/%s' already registered\n",
+> +			dir->name, dp->name);
+> +		dump_stack();
+>  		goto out_free_inum;
+>  	}
+>  	write_unlock(&proc_subdir_lock);
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
