@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794283003;
-	b=bmyKNCebutFuvCmmfgAbh3uHgnOod8PHk91NHajnakkWYnPDgcwt/dHdXAdQI3+zlgJq
-	 /319XpKFyyNA7UvW15FwMXXfwLvNwjIt5n6RqhalbFZuHuQMIkYcW2bDMvSdlu+n1t3YT
-	 IIZa2oJ9vMxVCIjo+/HlteLoiYepcd0i2VtQv7YwZtpUJTG7BU9ahifqngm3tJHHFPA/p
-	 6gQsj1yJKpTwaSOM2LuCYoP5JUNuvBXPrmdvAualkKQhtGPazRjIl12NriXKd5eOTOmrK
-	 DwIaDbzYpVveAnFNXOUoY4zAOKymr3J7J0kjVrX28bW+NfdPPdpVuemYnEf7MI/UpZg==
+	t=1794283004;
+	b=eFP6F4gbC28oxrRdWOCvOry9XFt9aARouX0C/CHC0YBOCAH83QXTId45r0nEQFqDID+y
+	 xnTaxuwiUspWALaF496QLECLMztaCRVM7yUmLQ7GJo5ogzrCBwGLpUfYJCquAGp8TsNWP
+	 CfUemOBeSPRQHAeVL+mr6oHIE/+hVNlRRLFwSg/wud3P/j71UVN3Pz9C0aOgAFicZvkMR
+	 CKvFhi9XvTV4rsImoWsG1JDAhfSDJk4+0xwD0TomATc4enbGGqCQiE3wOfPaCeHkuoXvf
+	 7ON8bvt1EG0UV0GBmS68xWm1ibkymT7No411v/CFSJhEJO7usXqZP80y+/0nVxqYb5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283003;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=VZXNRW+cKea1EVRo3ETF1f7+1j624i4RqMAaOHXf7qI=;
-	b=YLm7LUZ/YsryiHZrGk2wGcSQTrN5xh3QvbTeEuLO5LMHs9N8Aqx14Bven6IMboW0dbBK
-	 B+DTKRo8FGnzvmN/MEbbrZns/BAmHl+2vIjPdXlaC3PzzrmhVPHRUTsrspEkdxWz67YRC
-	 K5K+fIYc9zRGRCICAvRoyIBSxpMh7Sb7prQ2nCXH5kceFtbAaVtKHXWngRclcCwW9JmDQ
-	 NkRxeGfcZ9dwqH2r7+rjoU16+oZIkvXOhQ+RoYYFEC4MfbYeIjtgWy7D+aHNkZbhlvEVI
-	 gJnuGW4cs7/obXHRIO1rDU3kx4tcCvq9dbt6gMciAg6XydEFSIfVEA8ZOukkIdVqW1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283004;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i5sGpWqYVpkBUVvcg2WSc+pyAI26BH5xnR/IRZaX0Sg=;
+	b=WsmzL86+glPNYSyuKinJBbR+Rr7O0Ts4VK4EHdFgGjqO7ZC7TRwtyGF3unbbCEePfX60
+	 QOp64UszexIaarYPj7RYq11mxWMGbMbHKZRPNjXUrN62qenpkj5zqyko8DAEP1s4QbAYX
+	 PerRIEUhw3nY3HqOFE/QXCCCGQaDd9YZtmjDcsIwisrKvVZMOtSL+tjz2luH5+uY6cOWO
+	 WQ+hVBUImDIOlj+GKBrVueSTucXSu9EAuUqapSnic3oPv4MENwvTSY/fmOF2TOhQtYmir
+	 jbIrf/xeMUJJqz5ItbgwENhhci8UmQSzgeaF9DjRUCLLI7yfNMEPzZBN6lZtetnesrw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PED++M/d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmN17FFs;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5093F606A331;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F0060A260E;
 	Tue, 10 Nov 2026 03:56:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PED++M/d
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmN17FFs
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794283003;
-	b=G6vBdmnW+16LRfDenE6Iz7Tjiayo7bd1gatdlFOvgMh+x0dleFNDR9fNAUBSz1FODPuu
-	 GiPDstvjRFvsQaamzrdWjFtcONITsmQ5wEsWHpr6KeXzqekIHDReafR13t81OpnQTw5MI
-	 0W4K4T9X6uk3kTKVDf5WYU0+OzI7XgU0zwgb2YW+Y/xba1UvW8oGitQmUo7Fgjq00f82C
-	 Av4yCBOR1vdLG9yH44oECsCoBbV+EAxOqs+TtP0wyeYzMcP0ThRLU3L2M8ZRcac25Weg8
-	 /aM/F6ueWGdZqzyqrm8yX8tOrrJhxWoQyEGQBAD/8bNpV7eqfyjzp1WQaG0bhw7+5Sg==
+	b=zvoDGuMouaZN6HXJ8FeO2QdRGspWVogCNypMSiQ3VCSWMFpiv2wH8fSIZTnVGzQrEfyy
+	 hES0afh3n+Ny0kQhFROI14hA1QgT7vHPqg4Jna3OtUQgUeUP6OIkFqZld5+PLeBI4ARQC
+	 hb5D371SpJ40FBB4wNh6ruWVQy5RWj2UZwCizQul84XsR/bkrskJ/HIWvhI7KnCLpOvX/
+	 HoAuNh98/xb0rVX2KiESCjNQgVYktjULy5KEcoNW3W3GKYK45kT3UV9Hhb6N9k+wjrKFe
+	 7bN1aaEH3PsYHUQtEH+Ixd35FxpxkwhzrIIMxTFASoyf4AD8yv6PWY0f9STXetuE2wg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794283003;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=VZXNRW+cKea1EVRo3ETF1f7+1j624i4RqMAaOHXf7qI=;
-	b=GvMvViUxItGLL07YLLWmshRp9wgZwXPDUg2QKAQOCQ7FjhHmqtBFBkdA4+GQo0S+QQk1
-	 /IGqDvEZputozB2T/xC5fgnrs0i6A2lSMb+lShMsxiRFtmY+pErEGJyPi/GAldAQ7o4ln
-	 T11tekXSm4keV5GjaaX61hnT6hV0sgIyU7o/6AngynwalRBd477ixoh227vPQdO2meSJ1
-	 B0Hwu0MiZpK3Lc96FhTLRh+UQZ41VW3rLoRF2Cqy+cH7ZOPTI28KT7Y31jTWtxWYyqRHy
-	 +MQqw0fBXY1T6VcYfDfIdDxs3B9os3N4Vwnw7J0msreMUWCM8Jzgh9pA7MLLBoK6vsA==
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i5sGpWqYVpkBUVvcg2WSc+pyAI26BH5xnR/IRZaX0Sg=;
+	b=vKlWz5nVc0+m2iQKAwHEOqhhBwNiF7SctmdlT7vm2xIQ4wSmlKw07xUINItOq6AOXgYw
+	 aHjTFbJ5iGK9tOG93Js4GdUUoGF0XB3gIDydjNtz1rYCMRNWPg0uXjpKJ/T5qxQAZJKfN
+	 cB+xtJHPkWSssH00025o4lTjr/YHPLTGyzsyBSSkC1stB1HbQ+YPZvBjPD2X8Ck3fTPdS
+	 XAMGDOiQP59MYty/1bDJQrN2MJ6UGaxSnfyN0h5lfqfJrGO+vDLU3haIn8tUhC1inblxW
+	 1fWR5JUVsryyryzLimRZ0RNnExlYFF1SRJvt4F9kWGbVH8yCWMVo91wnliafQyq8AFA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 874401F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id 962201F008A6;
 	Tue, 10 Nov 2026 03:56:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794283003;
-	bh=VZXNRW+cKea1EVRo3ETF1f7+1j624i4RqMAaOHXf7qI=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=PED++M/dpCIPdybyJkt7OmJuVvMvtcfVtcyihbDH5n+26ENeyK1dOHzcDM53HUyoD
-	 Qif8LSD1+2/amCS+3OJI/9BhyxG6+lEhhYmY/Zp/x3UN4IG0VefHyqvxrdhoU+ZRxn
-	 6anSLGfaQquaZF5yKcgHejV/isO1gRZoagsSO/aArdF06X3xb6KD2+VdebFSuww2k+
-	 CcuqgXB/OutpzyCXexz1aG9inn75L2tpu1JQ+x/pIP0QjwASH9HQ7CxnRoXX7/rJbo
-	 qdisfP0uKdPSo51CohnKeppVoNBV/xkFJKMou5ehQQK/SzfYi7B/YiPcR3PyFcrgpN
-	 Y9hyn4lXFAsGg==
+	bh=i5sGpWqYVpkBUVvcg2WSc+pyAI26BH5xnR/IRZaX0Sg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=DmN17FFsrw9xYVRrPVX+JE6wUyyV1gGSlVDBBjZy69oy1n2Lk+3xdLVNqWfzc8dJ4
+	 VmxVmZDD8iGhaKzqnf2WABH7fq1yQYgu5fQBX66KOZ0e0wSpclxbd3g7QDkbxBd5AI
+	 XLAP6DzuDyVjpbHq7z3s6gcUVaktV5D1mbWkTe3S8dtCupmhHbgcebef/nqO5Qnj7h
+	 gA+G07PdCxjPIgxsr6GOhEd5kGQEj+IR8qs2D6hg8N/5TDwuWPGsGmhCqh1R6Wk63a
+	 CYyhdCpCMJpFxFOcEh6V0vwDL9zBlImtHF9EdDeKYrJajrSXaHVGXvTyIxq/OA5f7b
+	 kPR7HNQxak6lg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 138BB487D7;
+	by lkml.kernel.org (Postfix) with ESMTP id 24236487F0;
 	Tue, 10 Nov 2026 03:56:42 +0000 (UTC)
 From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Subject: [PATCH 0/2] can: kvaser_usb: validate values received from the
- device
-Date: Tue, 10 Nov 2026 03:56:41 +0000
-Message-Id: <20261110-kvaser-usb-validate-v1-0-f266b85aa908@gmail.com>
+Date: Tue, 10 Nov 2026 03:56:42 +0000
+Subject: [PATCH 1/2] can: kvaser_usb: hydra: reject commands shorter than
+ the header
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,54 +84,87 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPmV8moC/x3MTQqAIBBA4avIrBvwJ1p0lWihNtVQWGhJEN49a
- fkW33shUWRK0IsXImVOfIQaqhHgVxsWQp5qg5a6U0pJ3LKtBO/kMNudJ3sRGuM1mdZ1xs1Q5Rl
- p5ue/DmMpH243goJlAAAA
+Message-Id: <20261110-kvaser-usb-validate-v1-1-f266b85aa908@gmail.com>
+References: <20261110-kvaser-usb-validate-v1-0-f266b85aa908@gmail.com>
+In-Reply-To: <20261110-kvaser-usb-validate-v1-0-f266b85aa908@gmail.com>
 To: mkl@pengutronix.de, mailhol@kernel.org, joasantonio108@gmail.com
 Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794283001; l=1136;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794283001; l=2462;
  i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=EPk1ni/Kaeh4ujfokyWdtrgUBNNRLNvf/WMEh31WoiY=;
- b=nkNiEMfXBkaVQ/nlluzDvnFqTBmhnBLKAMCzqrXuFqIE/imjRTn1LgKkuRcSHdQhGvzcbuHrE
- jdVyAqsUB13BICwH3ukTIUxgLf0vob/yTcOIz8AX/cl3KEUxgnS7uqE
+ bh=WQBZhSAEzA9EWg/6IUMTZ+5l64+D6iO6t2jMkcYHrcE=;
+ b=ng14H4NFwqtau2GbY5NiuCX/iT5hnlpAX9ifCs98whCYgnYAJrWT+AIcUZy8C0/5A0YRDe1L9
+ x10OoQtrEG/Bjci/MEbYlRuOCwcE4MDTnf9z9/2p/DRznsU4WRBih4H
 X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
  pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
 X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
  auth_id=1371
 X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Two fixes for values that kvaser_usb takes from the USB device without
-checking them.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Patch 1 rejects hydra commands whose length is shorter than the command
-header, which otherwise stall the command loops.
+kvaser_usb_hydra_cmd_size() returns the length field supplied by the
+device for extended commands.  Both command parsers advance through the
+received buffer by that length:
 
-Patch 2 rejects devices that report zero max outstanding tx, which
-otherwise leads to a division by zero.
+  kvaser_usb_hydra_wait_cmd()            pos += cmd_len;
+  kvaser_usb_hydra_read_bulk_callback()  pos += cmd_len;
 
-These issues were found with the help of an LLM-based code review tool
-(Claude).  I checked the code paths by hand against v7.4-rc3 and
-reviewed the fixes myself.  They are build-tested only (W=1, arm64); I
-do not have the hardware to test them at runtime.
+Neither checks that the length is non-zero.  A device that sends an
+extended command (cmd_no == CMD_EXTENDED) with a length of zero keeps
+pos unchanged, so the loop never terminates.  In
+kvaser_usb_hydra_read_bulk_callback() this happens in the URB completion
+handler, which also calls kvaser_usb_hydra_handle_cmd() on the same
+command in every iteration, and locks up the CPU.  In
+kvaser_usb_hydra_wait_cmd() the loop spins in process context without
+ever reaching the timeout check.
 
+A command can never be shorter than its header, so treat a shorter
+length as a format error in both parsers.
+
+A similar infinite loop in the leaf command parsers was fixed in
+commit 0c73772cd2b8 ("can: kvaser_usb: leaf: Fix potential infinite loop in command parsers").
+
+Found by LLM-assisted source review.
+
+Fixes: aec5fb2268b7 ("can: kvaser_usb: Add support for Kvaser USB hydra family")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
-Joas Antonio dos Santos (2):
-      can: kvaser_usb: hydra: reject commands shorter than the header
-      can: kvaser_usb: reject devices reporting zero max outstanding tx
-
- drivers/net/can/usb/kvaser_usb/kvaser_usb_core.c  | 6 ++++++
  drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c | 8 +++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
----
-base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-kvaser-usb-validate-33c2e34b63bf
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+index 687911d764de..92bfdcb04b01 100644
+--- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
++++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+@@ -676,7 +676,8 @@ static int kvaser_usb_hydra_wait_cmd(const struct kvaser_usb *dev, u8 cmd_no,
+ 
+ 			tmp_cmd = buf + pos;
+ 			cmd_len = kvaser_usb_hydra_cmd_size(tmp_cmd);
+-			if (pos + cmd_len > actual_len) {
++			if (cmd_len < sizeof(struct kvaser_cmd_header) ||
++			    pos + cmd_len > actual_len) {
+ 				dev_err_ratelimited(&dev->intf->dev,
+ 						    "Format error\n");
+ 				break;
+@@ -2156,6 +2157,11 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+ 
+ 		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
+ 
++		if (cmd_len < sizeof(struct kvaser_cmd_header)) {
++			dev_err(&dev->intf->dev, "Format error\n");
++			return;
++		}
++
+ 		if (pos + cmd_len > len) {
+ 			/* We got first part of a command */
+ 			int leftover_bytes;
+
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
+2.43.0
 
 
