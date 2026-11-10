@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272525;
-	b=MFF3thWzo2wD5IH0z+6LPaCjZ94dnR6uhjKycQ0A8UYArFAvXycGwJ2vsBxtcLGaLROp
-	 HAlMMQz7usj9CRAdUxTJAZ/QY5CFU1F54T6yILt5K8x6cQZ/HIiXddL+XKTUEOHvMyKY3
-	 bVGuGDKLC6tLBlEECLlwUQTuvjfNsAlCP3op6AfSzJJdQO+AmCHQpQeCKqF15ExKdFoWP
-	 3K64/MUMuNkda2d3piTr83U9e9HLX/a+aXnVaA8H7EcS13JOvdhJyLkAKJflYwQQIsMTs
-	 zCrhRZNlXDWTvZW8+gkzWczyI4sINMymswSf3OPPPUon/N7s9m6bxnRJiVH5oTSOSSw==
+	t=1794272528;
+	b=WGvq/KlHenMJoaE2Ekn6ApSPFZHwz86YwxsIXlMPjhQXoMAbJfap/aJIO1RQ/fqrqKZk
+	 2IKdQT/SjjzwNznzeY0E4xEPAUC2npRMCBtWdFtHblFDUTpbnR1whS5glTAUS2zZaXpa9
+	 MvvlV9FTTJZiGyAD2A0yTzK3KL2DLNSnmX8+ZobOvVpo5WEGv7a3A0gz6V4lBWMz8IxVP
+	 vsqLNN1fSpNRPPDJE7jDrk8IdOuCQ5YHoNrBZocUemH0HOflwu3Q9g1NZglCpAK06e36c
+	 30uRNaamrwHoOp8PSY5C57JpXhqfC/S6j8RWwZskeElJ0mv9uB/0QBhl0df1t8C05PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272528;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=G+hAoRTvUMkcWrBcwWOMmzRATiJw9YAEJLW56C1Zh9Y=;
-	b=pV5+DVBP3kYuBGKUhBlHYUz5eDA2H3bT5T+bKHheBXQhptFVQEP2NOoF2bH9pcwQZ+L7
-	 GmVTv4XvQQIO9lBMmArJl1u+9dJ/rNzfWYJGkn+myX//odalHykumSnbeUImdWO5uZFzo
-	 +rukxOcf1a57rUFx/fI/5r8QnxQdJN8GD6oJfgGx5gsHKSagGq1Sp6vRO87DtVHtPi/mY
-	 8dBrWRYiXNvWDnFXHr4M2oYhOD5gsJjk4FH6+H/BU9nYNLoN2aBE/gfChR8Ar1hUOg7xi
-	 9D6FrDvakiqKMFaWcxp6AfkHUyfV7MhIFfZsU5nNKcdnPIios59MdqFvA1BU/sat18A==
+	bh=UVYrMZS1ex0AyvvOVzH17P3eLYMqgNElRlnfPTXwjAM=;
+	b=uwx2qoXY0DK5ORnniir84xFi80htF4VqrJziWOl4v0WNd2yaJG/+FC+fMStvEUnecQfN
+	 mBw3aIKeIs1aec0Q7w5u2PxmBTVuH16z33Xy9b1pDnDuWt60MGkgG+Gu9lLhzK2MTkwom
+	 5hQ2+mYHIPPDazFngG+esbXrBN3EHWqMHd1spEWkAFpku9Rj7zEJt5HjIqXYpGlizwUEG
+	 Pi+Y9zzaglD3YlbRZ8ihni3mthrU8VZQ3eb8Y7UjLVgcV8sGgmVaWBmAWOAoYUrzsaXgI
+	 QdvjUSFBqWUfshNp/A4p/Ou0YGArjuzYeu+yuhvjcHFALNCoClIT5ArAr6iO6FHTDvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBxO0dh4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIgrWGtN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DBA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB12F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBxO0dh4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F047B1F0089F;
-	Tue, 10 Nov 2026 01:02:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIgrWGtN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D38E1F0089F;
+	Tue, 10 Nov 2026 01:02:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272525;
-	bh=G+hAoRTvUMkcWrBcwWOMmzRATiJw9YAEJLW56C1Zh9Y=;
+	s=k20260515; t=1794272527;
+	bh=UVYrMZS1ex0AyvvOVzH17P3eLYMqgNElRlnfPTXwjAM=;
 	h=From:To:Cc:Subject:Date;
-	b=QBxO0dh4NzZCXTO3WpBSyVlPARYxRl2fmpsa+qqZS2/NKHAe2VkjVLdOCx6gSzOfN
-	 4YjTDkG4vU4dv4EY1pXCtkVjqDKGRHWN7eqPjVeafE+VEawaYtrjeUaMEYGTk27Vu0
-	 a7LcbTGVKuMmRd5y7JXQ+ebtR4NHCm1HCGMwA9wcDpf2psWKvzhMwDnZk4kzP0U0WF
-	 Vkhz1Y58POC74ptS3XCBXFjBxIAywVJIm8anKJHr7yn2dqjSgzfGpy92nQsI5t2FBD
-	 dosJEWwhFMw/Dpz+qgBDZJ9PBkzAYnbJCVCM3o0kdI9q8N1a6WhkSDBjR00ahhGQql
-	 uSw+M35XKINiw==
+	b=gIgrWGtNfXGBpANDTgpK4WeJ0OxnQRRq1xML+4DYPi5i1MxFqFbCsbNGtYGbwux7G
+	 HDlKSwG3O6+bjku7ddO4mJHOW2Hgmc2d7ATiWij4iQT5Qh8aE82nRbsMsAwMD9AfWF
+	 sAPpkNnhlo5klkVTB8hdMm/9tNzNgEvaP/cbOYnj0cjP817nzdKN4a8hTH4VZlpJ2z
+	 pxNuaVQwr4viw78Sg7UDBHs40rlMos5jI4IDTaKKJUPVlKJIoVlE5fl26yo5/46NuU
+	 f2KSDwTeFCqt6ejm7wmpDwswJdk2rP2VyuoScxaT8ChJKAZcCkrulvXYjipQzud0OE
+	 5+wQBBvH1C+1A==
 From: Sasha Levin <sashal@kernel.org>
-To: calvin@wbinvd.org,
-	alexander.deucher@amd.com
+To: tiwai@suse.de,
+	treebacker@foxmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to GTT"" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:02:03 -0500
-Message-ID: <20261109200203-failed-7.3-5b3717a14ef6@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:02:06 -0500
+Message-ID: <20261109200206-failed-7.3-9017bc3d13da@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,118 +68,92 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5b3717a14ef602c961a4abeb2ce8039f0394bebb
+git cherry-pick -x 9017bc3d13da0ea4e63be618c87143a7b69185e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200203-failed-7.3-5b3717a14ef6@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200206-failed-7.3-9017bc3d13da@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5b3717a14ef602c961a4abeb2ce8039f0394bebb Mon Sep 17 00:00:00 2001
-From: Calvin Owens <calvin@wbinvd.org>
-Date: Tue, 27 Oct 2026 13:35:26 -0700
-Subject: [PATCH] Revert "drm/amd/display: Allocate DCN32/1 dmub memory to GTT"
+From 9017bc3d13da0ea4e63be618c87143a7b69185e6 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 3 Nov 2026 16:58:40 +0100
+Subject: [PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams
 
-After commit a637a140ab860310 ("drm/amd/display: Allocate DCN32/1 dmub
-memory to GTT"), a machine with a Radeon RX 7900 shows random garbage on
-the screen. It reproduces sporadically, but at times it is so bad the
-machine is more or less unusable.
+ALSA PCM core accepts to re-use the existing stream when O_APPEND is
+passed, and it's been used for dmix, etc.  However, this mode isn't
+supposed to be used for OSS: the OSS stream allows re-configuration
+via its hw_params/hw_refine procedure even while it's being mmapped,
+so it implies the usage of only a single stream.  Because of this
+assumption, the sanity check is skipped for OSS streams, and if user
+may attach to an existing OSS stream with O_APPEND, it may result in a
+UAF of the mapped pages which could be used as a privilege escalation
+exploit.
 
-The garbage is always horizontal bars extending across the entire
-screen, always approximately 200 pixels tall on a 3840x2160 screen,
-for what looks like a single frame. The bars are mostly black, but will
-sometimes exhibit striping and periodic artifacts which smell like
-non-framebuffer data is being rendered to the screen.
+For addressing it, this patch simply prohibits the O_APPEND behavior
+on the OSS stream.  O_APPEND is never used for OSS layer itself, so
+this can't break for the right applications.
 
-It took some patience on the "good" side, but I was able to nail it down
-to commit a637a140ab860310818a14fb4d37e39e51a06be4 with this bisect:
-
-  bad: [cee9395acd8043be0644b25c34bfa86623f2b935] Linux 7.3-rc1
-  good: [8d3ae59288f1e7d58d76558a6ee96d533bc5019f] Linux 7.2
-  good: [55ab7e14222e5f0b0fd9f7711ca391d2924b35e3] Merge tag 'for-7.3/block-20260819' of git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux
-  bad: [df51bdc5e80dae43cab81f6cc641e98638303c88] Merge tag 'mtd/for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux
-  bad: [29daacacf4cd84e6917f09de6a99fb170071c14c] Merge tag 'drm-rust-next-2026-08-08' of https://gitlab.freedesktop.org/drm/rust/kernel into drm-next
-  good: [fff648aec5e2790d117a0ec5c849a284d9d33d70] drm/amdgpu: include amdgpu_video_codecs.h only where needed
-  bad: [336e0cd576817ac64a4b394ca2b3680029f3e37f] Revert "drm/amdgpu: fix aperture mapping leak"
-  bad: [789f7486a384ca58b9d7a76abba5efa0e80e8dab] drm/amd/display: Test plane colorop helper walkers
-  good: [e0e426f10ad653c5e9dd33fb4a76d55f06101992] drm/amd/display: Test helper_check_state rejects
-  bad: [982b2a43682b55e7d9800000f2592832ff2865ba] drm/amdgpu: Fix IP block NULL check during soft reset
-  bad: [9102b39fa924dcc3dc75a3137bfa9633c40b88c0] drm/amdgpu/userq: fix indefinite fence wait during GPU reset
-  bad: [b23470a026afe64de5c1df4ad181587b49c22923] drm/amd/display: Exit LS for ISHARP before coefficient write
-  bad: [f02b2e47355e9d381a7f34acc997e1c47879ca21] drm/amd/display: Add KUnit test for wb jobs
-  bad: [c6a13d145cc811b19c8a0620f25868cf7d5700c0] drm/amd/display: remove unused dcn42 socbb values
-  good: [1d8327353de6f1f34063840f362c208c84064f54] drm/amd/display: Fix VABC Init and OLED Support
-  bad: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
-  first 'bad' commit: [a637a140ab860310818a14fb4d37e39e51a06be4] drm/amd/display: Allocate DCN32/1 dmub memory to GTT
-
-Sure enough, reverting a637a140ab860310818a14fb4d37e39e51a06be4 on top
-of v7.3 completely and totally eliminates the problem for me.
-
-Mikhail has separately reported this regression:
-
-  https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-
-...but it seems to be much more consistent for me than for Mikhail, it's
-never taken more than 30 minutes even when the machine is completely
-idle. I've also never been able to reproduce any artifact one single
-time without commit a637a140, despite a lot of effort.
-
-I'm not sure reverting this is the right way forward, since presumably
-this would re-regress the timing issue Fangzhi alluded to in the
-original commit. But nobody has proposed anything concrete yet... so
-let's start the discussion here.
-
-I'm happy to help test other better ideas as well :)
-
-Fixes: a637a140ab86 ("drm/amd/display: Allocate DCN32/1 dmub memory to GTT")
-Closes: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Calvin Owens <calvin@wbinvd.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 899489d2e2aa854cf5e933677d6561dfcbb94529)
+Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
 Cc: stable@vger.kernel.org
+Reported-by: Bo Cao <treebacker@foxmail.com>
+Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
+Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c    | 11 ++---------
- 1 file changed, 2 insertions(+), 9 deletions(-)
+ sound/core/pcm.c        | 2 ++
+ sound/core/pcm_local.h  | 6 ++++++
+ sound/core/pcm_native.c | 6 ------
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-index f4b0ced7d391c..383c53afd1f67 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c
-@@ -538,7 +538,6 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		DMUB_WINDOW_MEMORY_TYPE_FB,		/* DMUB_WINDOW_CURSOR_OFFLOAD */
- 	};
- 	int r;
--	int mem_domain = AMDGPU_GEM_DOMAIN_GTT;
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 064df4cd3b50e..6c8274414c226 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -929,6 +929,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
+ 			return -ENODEV;
+ 		if (! SUBSTREAM_BUSY(substream))
+ 			return -EBADFD;
++		if (is_oss_stream(substream))
++			return -EINVAL;
+ 		substream->ref_count++;
+ 		*rsubstream = substream;
+ 		return 0;
+diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
+index ecb21697ae3a4..4b134d435c24f 100644
+--- a/sound/core/pcm_local.h
++++ b/sound/core/pcm_local.h
+@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
+ 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
+ }
  
- 	switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
- 	case IP_VERSION(2, 1, 0):
-@@ -675,19 +674,13 @@ int dm_dmub_sw_init(struct amdgpu_device *adev)
- 		return -EINVAL;
- 	}
++#if IS_ENABLED(CONFIG_SND_PCM_OSS)
++#define is_oss_stream(substream)	((substream)->oss.oss)
++#else
++#define is_oss_stream(substream)	false
++#endif
++
+ #endif	/* __SOUND_CORE_PCM_LOCAL_H */
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 35152fae74ca2..bec797398acf7 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -749,12 +749,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
  
--	/* Limit to allocate dmub to GTT on DCN32/1
--	 * TODO: Other asics with GDDR7 may have worse latency
--	 */
--	if (dmub_asic != DMUB_ASIC_DCN32 &&
--	    dmub_asic != DMUB_ASIC_DCN321)
--		mem_domain |= AMDGPU_GEM_DOMAIN_VRAM;
+-#if IS_ENABLED(CONFIG_SND_PCM_OSS)
+-#define is_oss_stream(substream)	((substream)->oss.oss)
+-#else
+-#define is_oss_stream(substream)	false
+-#endif
 -
- 	/*
- 	 * Allocate a framebuffer based on the total size of all the regions.
- 	 * TODO: Move this into GART.
- 	 */
- 	r = dmub_bo_create_kernel(adev, region_info.fb_size, PAGE_SIZE,
--				  mem_domain,
-+				  AMDGPU_GEM_DOMAIN_VRAM |
-+				  AMDGPU_GEM_DOMAIN_GTT,
- 				  &adev->dm.dmub_bo,
- 				  &adev->dm.dmub_bo_gpu_addr,
- 				  &adev->dm.dmub_bo_cpu_addr);
+ static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
+ {
+ 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
 -- 
 2.53.0
 
