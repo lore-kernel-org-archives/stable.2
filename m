@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273642;
-	b=rlESESraXxEBFOb/o8Vi8w3KLaQnhHCIeEb/mtvEW1uombBmkbjXHBVixPdlb5NHGzav
-	 gklbUmJh1KeOBMwua+BkFaWJ+mUcEjnozEQk62MAxamcR5+kTVwh3E6Na4vc1Ts5PSWeD
-	 vLyiei/aSFjA7pWuJ3AHkwY/+pbfdB5ClFk/pCg+oDiR905kDK+Tcf5d0Lius9pmXeuph
-	 4gg1URLr05TQg3xfAiWVpeZQ3OtWy8J1JtFwZDVv2hBP5NLAT4RBDX0WM8SFq4PLMve4S
-	 dpaZoopkT+rjUxGvGhs2iMiRCapudvsu7sG3QGhjVGOvCh8/gzLHJlUPMS1X+OiLY8g==
+	t=1794273645;
+	b=VAqLD1O296ITUUJ7rwMO1OnxzJMa3lzObBWF3Y7mXYnovy/GQqA+1IbaJGHkhHW8lLeR
+	 xuzNBM4689ta5y3lxIfQ6hhCr0HZaCJQeCj0kfOCiCtf14kYGZPGGtssQprPlAMoM/ZTl
+	 w83Yn14vKD6j0PMJpOlDOIQht+t8CoixabelZ2FZ5WKk0kSPR9F6ZZP11upMtcnMgkujs
+	 cT6KCFZD/j7rYEDs/mm/1C63MjAq0BH7qG8UY0vlOpci3TQxZ8kJrloix/yksG/W6mB8c
+	 0meJuAvRKrdAmgCyltUrY6W9zZVdwlOSnae6Z8nz78nGss0KdLJOmjXmS7nByIqvxmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273645;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Sz1iLDRDBC1cGcXWwTUC7jlfI/+ylfexyAWkOmjSZ9s=;
-	b=Gaq4keXFFXIqb8cFlYQ46IxX9h5fnVSnd6IwpZM+iWq+LwUA8wwqjEFL8T9gmprGLQVa
-	 o29fxAA0pBc2Q5HwYQPt/EeVo8LtZt0htpHIIN8u6MIeB1FLmcfVQ+JI10ZCbahrFEpLz
-	 x90Ov9e6VDsXfX74OHsrf34q2V5gy0Hh0IFVQPoGa9LEZZt1p0P4h9LIKw5Ux3Hs2i4S6
-	 qKbgH9zkXMSmaewa+3/BA6POmQp36yg+968LAJac78LkbmvxNOWzJpgWtWRYgobCgMTaP
-	 Y3O+SyEVgQ0nPd+sOT8FD0YyCqb/ZWbrUKENHxHp4zGhaWmfNpZh2gAYhLfz+bX4JxA==
+	bh=0/oVev0zsR3lQOZYL5ciDWmNQvd9OOF+sQ0LkYMOMwo=;
+	b=2To9+hdQ3bk4oDkhwkgh8YCykk/yBFMu+2uCMxnNbWTEXAPJZoH2OmE/hsfiqXMAGl9+
+	 vhyMjqnkqPG4Onu+kwxAhp/95sjFTBQTiuZkSaVuASUpUPSh1mOnAx5p3aUtyuA5FFwIK
+	 x8bwRSMy1MH5JDwzQYUZTLukqLyfqIquvY23j1Y9wzGwkPiy7VaFf7x7AKS4eXoY1CW30
+	 7Iis9EAvBrmqhkh/AVz4TL6JLy/nPAbz448ipJYTBblfYsOZ3zX2YCSCHNHfXumQ80Lwr
+	 jXNMGXBDthZfuPk+em726NMzIXAAiWqIirwdlcB6r+KSDtAUtYVI1tH3U4/lxN7nRPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwcCdYq5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LT0PB6FM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4A5606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D688B606A331
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BwcCdYq5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8BEA1F0089F;
-	Tue, 10 Nov 2026 01:20:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LT0PB6FM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 319F01F0089F;
+	Tue, 10 Nov 2026 01:20:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273642;
-	bh=Sz1iLDRDBC1cGcXWwTUC7jlfI/+ylfexyAWkOmjSZ9s=;
+	s=k20260515; t=1794273644;
+	bh=0/oVev0zsR3lQOZYL5ciDWmNQvd9OOF+sQ0LkYMOMwo=;
 	h=From:To:Cc:Subject:Date;
-	b=BwcCdYq5RAPEeD5vfHIgn3VQW77QJnXWcjErsPhktdL5hjKWXaWp/VVHRT1pIH3TV
-	 xi3XKpHUB/VF3b+Ui3ETL7I9O27u78vJX6AGQGxFpknziAZwislN34L5nYwefcbYBd
-	 fV+K8yvxBqnzRBuyNWvMJB6OvOVtNr0Or2oxkeFeKPcvbQXCJPONr9yHzNeCtjdjS/
-	 DZv9IpkREXbcZ2OYDoaZIjBZPB0W4la10LUK9zW5YIvI0m/pC8f9gHPT+ziukyRDiD
-	 oKKh3iCGYQ7LWjNh2RvXoUQnKlHpsGVnSQucHSUjePcpoDFcR3o7JSAizamT0HH3nt
-	 txx0pI18KoraQ==
+	b=LT0PB6FM/nBRK5LLUjnVA6g9YR/L1vCBDLA6mOGQMU9QV44ulPkc+/6Hdzz2kkUfB
+	 zyDRjUBdDV5E1H4h6qir8J7iUik599EAJ97XsXTx71IuYiqWAf7FgSDimflpuBwieg
+	 gETKC8Ne/4l2C8l0eAHvBLGGq5p68CF8cXS/lhbvLNBt3RmFhndfHgIJT47NYPdaWX
+	 9cWFb2QmutZitjBQmqz6McQSRJGtP21nF9pMeU8MeSTbOrPVLtdGy1BKw461WdDq9S
+	 qZ9lzlVmEz8yq/7/Bqclh+9GhUnddH9YTaeCjvhFordPmg60Zchs02EwTR1dIWbORj
+	 jleeorGzrJv8Q==
 From: Sasha Levin <sashal@kernel.org>
-To: lucas.tanure@neat.no,
-	mcanal@igalia.com
+To: guolingxing@tju.edu.cn,
+	wqu@suse.com,
+	dsterba@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/vc4: hdmi: enable scrambling before the TMDS clock starts" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:40 -0500
-Message-ID: <20261109202040-failed-5.15-81383bd290a1@kernel.org>
+Subject: FAILED: patch "[PATCH] btrfs: prevent deleting the wrong subvolume by ID" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:43 -0500
+Message-ID: <20261109202042-failed-5.15-1960146913b3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +69,71 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 81383bd290a18f06ccf9b0bfb29e1a3ef73d9357
+git cherry-pick -x 1960146913b31b288ed2cd607d103ee3b41681d4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202040-failed-5.15-81383bd290a1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202042-failed-5.15-1960146913b3@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 81383bd290a18f06ccf9b0bfb29e1a3ef73d9357 Mon Sep 17 00:00:00 2001
-From: Lucas Tanure <lucas.tanure@neat.no>
-Date: Mon, 26 Oct 2026 16:40:28 +0000
-Subject: [PATCH] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 1960146913b31b288ed2cd607d103ee3b41681d4 Mon Sep 17 00:00:00 2001
+From: guolingxing <guolingxing@tju.edu.cn>
+Date: Sun, 18 Oct 2026 15:38:10 +0000
+Subject: [PATCH] btrfs: prevent deleting the wrong subvolume by ID
 
-HDMI 2.0 requires a source to suspend the TMDS clock, write the
-TMDS_Bit_Clock_Ratio bit in the sink's SCDC registers, wait at least
-1 ms and only then resume the clock. vc4 does the opposite: the PHY
-starts at the new rate first, and the SCDC bits are written tens of
-milliseconds later, at the very end of the enable sequence, together
-with the source side scrambler. On disable the bits are cleared while
-the clock is still running.
+When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
+resolves the requested ID to a name, then looks up that name again
+under the parent directory lock.
 
-Some sinks sample the bit only when the clock appears. One HDMI 2.0
-sink we tested then sets up its receiver for a 1/10 clock and never
-recovers: a Raspberry Pi 5 at 3840x2160@60 shows no picture, while
-1080p60 and 4K30 work and other sources work at 4K60 on the same sink.
-Writing the bit by hand before enabling the output makes the same mode
-lock every time.
+A concurrent rename can change which subvolume is associated with
+the name between these operations. Since the deletion path does not
+verify the ID of the resolved subvolume, it can delete a different
+subvolume while leaving the requested one intact.
 
-Enable scrambling, on the sink and in the controller, before the PHY is
-started, and disable it only after the PHY has been stopped. The SCDC
-helper already waits the required time after writing the ratio bit.
+This was reproduced by repeatedly exchanging the names of two
+subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
+them by ID. The wrong subvolume was deleted in 9 out of 14 independent
+tests.
 
-Cc: stable@vger.kernel.org
-Fixes: c85695a2016e ("drm/vc4: hdmi: Enable the scrambler")
-Link: https://github.com/raspberrypi/linux/issues/7693
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <lucas.tanure@neat.no>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-Link: https://patch.msgid.link/20261026164028.78792-4-lucas.tanure@neat.no
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Fix this by checking that the resolved subvolume ID matches the
+requested ID while holding the parent directory lock. Return -EAGAIN
+on a mismatch so that userspace can retry the operation instead of
+being told that the requested subvolume does not exist.
+
+Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
+CC: stable@vger.kernel.org
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+Signed-off-by: David Sterba <dsterba@suse.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/btrfs/ioctl.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index f58f645ec3c50..f2043f907dc52 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -917,8 +917,6 @@ static void vc4_hdmi_encoder_post_crtc_disable(struct drm_encoder *encoder,
- 		spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
- 	}
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 43a945345cbe1..847fdc19bd402 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -2393,6 +2393,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
  
--	vc4_hdmi_disable_scrambling(encoder);
--
- 	drm_dev_exit(idx);
- 
- out:
-@@ -946,6 +944,8 @@ static void vc4_hdmi_encoder_post_crtc_powerdown(struct drm_encoder *encoder,
- 	if (vc4_hdmi->variant->phy_disable)
- 		vc4_hdmi->variant->phy_disable(vc4_hdmi);
- 
-+	vc4_hdmi_disable_scrambling(encoder);
+ 	inode = d_inode(dentry);
+ 	dest = BTRFS_I(inode)->root;
 +
- 	clk_disable_unprepare(vc4_hdmi->pixel_bvb_clock);
- 	clk_disable_unprepare(vc4_hdmi->pixel_clock);
- 
-@@ -1553,6 +1553,8 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
- 		goto err_disable_pixel_clock;
- 	}
- 
-+	vc4_hdmi_enable_scrambling(encoder);
++	/*
++	 * A concurrent rename may have changed which subvolume the name
++	 * refers to. Verify that the resolved ID still matches the requested ID.
++	 */
++	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
++	    btrfs_root_id(dest) != vol_args2->subvolid) {
++		ret = -EAGAIN;
++		goto out_end_removing;
++	}
 +
- 	if (vc4_hdmi->variant->phy_init)
- 		vc4_hdmi->variant->phy_init(vc4_hdmi, conn_state);
- 
-@@ -1687,7 +1689,6 @@ static void vc4_hdmi_encoder_post_crtc_enable(struct drm_encoder *encoder,
- 	}
- 
- 	vc4_hdmi_recenter_fifo(vc4_hdmi);
--	vc4_hdmi_enable_scrambling(encoder);
- 
- 	drm_dev_exit(idx);
- 
+ 	if (!capable(CAP_SYS_ADMIN)) {
+ 		/*
+ 		 * Regular user.  Only allow this with a special mount
 -- 
 2.53.0
 
