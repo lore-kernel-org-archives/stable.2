@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295303;
-	b=dumOjD1+1BdvknKDjoZl0wVNOKi9tqCWsUM693fQ4oTqHzaCnuZT4tCL2dpHBlDwfmSl
-	 9TxRR/bMVXpwyG9L3PSwsCT4FXZ8MuUxT5+XTIQm+v0cgAFp83g4KxewvlmOP0h4TqN15
-	 OLCluKNcuCzdrygrf9B1215SM1NvgNLVmnQhZwAKkNjruO3vyz1yaZrin6rOKCEqD12T9
-	 a+fxWLXySR1p808jXvkL1b1gzsxuEfdrYETkCKGiA/Ici0SqtLKwTolZwieOd1Tj1dztw
-	 arzkWMUS+JvP2kYTUdnJCPcp3VotquHyjmbthjOrKmcjDbyjBGULcq1jYnuPto2LYCA==
+	t=1794295313;
+	b=V2NnSgJZVoQN1khX6oG/FyhsyC1BFBovf5CQCV45YSSUnOIO86mAuwvAnHGpPBbcJeJb
+	 y7cEcBZQIv1o7CvOaJDM2Ditchu4SUCTRswUhbYPquqnuoYP3/NIjAeXj879umWIFWPCK
+	 PZWpRKXE/VQhimh0mZe4k9lFKjYDYBqfBtLmgOYdyS2dRBmvr4UpXcZ0yF8fj2dssV4hn
+	 id45OnNKO0lnyAY9YQ9JRvQI0DMEmRKtY6lCK86JdQaVKkvlG3EuzwLCARDomfaPABBtB
+	 4iNhdNnrD2D4KgSDsjgju4tY1asWjKtiBmYiYfzVGJZpJOmNCsbHl3ftsqTj08qz0eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295303;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=DznOofe412VasY5NfottlhLZcx2QvPorpPeMVccyu8I=;
-	b=BZZezibfLT08t979XTeVkJzG1nM95+vwi5Pn2fuShTWx4mqxr7367OPz6Tcc0dHnWZJ8
-	 XIKDfBeTPz4ex4W1R3ZQVkRZgt4ZKTEJovlw2GUS9g80nSRBUj0WFvCz9Yh4BLPg2x0OY
-	 cUPoyfLr2Efg0rAld/tCdfKXWFjfDjhFphSvVybQBBFml1jeL+15FgCzSYoYQD3emOakl
-	 MfiQ4zO4VF+dnEKAbSFmxNCbsENCrJLfdYDZrhKVSMsh3F/pf2gOvk8Po9cFYUI2O5ZSd
-	 AGGbUunOBfhIGIOr5yzmr31dS9QUtiUPc29AlLtPjwQU/Fk6iBw+gkFMJ0x+qQHVlpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295313;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=BZAybHKPrp5cabZgbPg7Wb9TVLxchkkoh8bos8p+zE4=;
+	b=ucdQUzO1JNwYHUbPE6KuStHGRvoA6/BBteRduu8jkZwhxsSU0D3sCAbHh8utRMz4QQxj
+	 03b3eppGL58kYInv1GCcSZhOROBrdnQZYDbp3ZOyNiSI2VjUtbbHXIHSKAeJWAbKB3prY
+	 /P0dBKjS1IS3djdXbnn2P+GKDM3iIGQZvRqeZ3gbSa5+pSLanliZUQl17GMFFmP+Wn1DV
+	 0nDY6SmNZywCCYmTMKk2OcsjrMA+PEfsQv/GBD1WB88sysQP6/KuA4QEF+7mQzSe56LEx
+	 fdga8zEE8xVjHbC00hXXySgWivAsc+IHtFW/jMwN+8fTmyKNuRmrNRkU/FWtVpii3zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RLC0+r9T;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AN3dWK+H;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RLC0+r9T;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AN3dWK+H;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA2A606A32E;
-	Tue, 10 Nov 2026 07:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FA2A606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RLC0+r9T;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AN3dWK+H;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RLC0+r9T;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=AN3dWK+H
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9B69021E65;
-	Tue, 10 Nov 2026 07:21:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794295300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DznOofe412VasY5NfottlhLZcx2QvPorpPeMVccyu8I=;
-	b=RLC0+r9TTnJzZ+HeI5v+F7rATGZ+6b7e17nvnwxdDdAmpWm6qX2/KSqiktS30s/ZJ/Xapu
-	cwm2MMqIQUHBKuR4D+fl3wbh9zV3liuLUpBTtpL1Q5ZNG7qHaOx+jOCAlEojsZfPG8VwcE
-	t2mnFBPZ3j3BNLfJmT8GshcnBt9aS0A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794295300;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DznOofe412VasY5NfottlhLZcx2QvPorpPeMVccyu8I=;
-	b=AN3dWK+H2q5gKttAySoq+r4Zl2PEHrxEl4QTXBeS6rHLtVkJhJDaXUeC2UzVjU+y2q1cgo
-	NtvVDyxtBdgzO8Cw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794295300; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DznOofe412VasY5NfottlhLZcx2QvPorpPeMVccyu8I=;
-	b=RLC0+r9TTnJzZ+HeI5v+F7rATGZ+6b7e17nvnwxdDdAmpWm6qX2/KSqiktS30s/ZJ/Xapu
-	cwm2MMqIQUHBKuR4D+fl3wbh9zV3liuLUpBTtpL1Q5ZNG7qHaOx+jOCAlEojsZfPG8VwcE
-	t2mnFBPZ3j3BNLfJmT8GshcnBt9aS0A=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794295300;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DznOofe412VasY5NfottlhLZcx2QvPorpPeMVccyu8I=;
-	b=AN3dWK+H2q5gKttAySoq+r4Zl2PEHrxEl4QTXBeS6rHLtVkJhJDaXUeC2UzVjU+y2q1cgo
-	NtvVDyxtBdgzO8Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46DDF1339F;
-	Tue, 10 Nov 2026 07:21:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id pdnABwTG8mppagAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 07:21:40 +0000
-Message-ID: <c1c1d946-8692-43c8-86af-4eeccf692100@suse.de>
-Date: Tue, 10 Nov 2026 08:21:39 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2815606A33F
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:21:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2815606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8468290b866so2423919a34.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 23:21:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794295312; x=1794900112;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BZAybHKPrp5cabZgbPg7Wb9TVLxchkkoh8bos8p+zE4=;
+        b=B1I5cLzj9en7A72jJdt1M+13nEtR9ndAGjy5GJlKnwdV2k7lUwQX2TslqTGuyPD8rP
+         ItIvQ6VdeXQz6TuOyTMjo5AoH/WBavKatSZwHoS68Q05u64U7Z9tCJ2wtxcZBrba4FWW
+         Ktwj6Kpan3wnOBKM1pBGbxKW8xFe9eCwaW0Vnp/zCq7uOeEiPAk84Qiq3g3zRYsisTCa
+         7fMZiX01Et6mUG1mqpBNgXAiBpl6MKSTgyJptabvjecRttO/jFLY437BxkuGl7METj2i
+         SiRgQW9o0Q5cArBVhdo6kXL5BP+Bj+05HXQnJWNa7+Qospkxa7YjmVZPbd9dGDQOifNo
+         lwyQ==
+X-Forwarded-Encrypted: i=1; AL+hErHIEM2/Iq2dg2r2tbDw1BES2vNYRjgWzFxYAR/lkzfVVFz1iMSwoCyZc/OUZhOYPBj9Yu4n9Bw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9j/HiWS5Z04LbdDnPbK/JwaFiW1W9Vi3Ng7cyaV0meBlMJlPz
+	cy0B/1wI8cV5O6AaLUO6RP2DMmm3+QUIdQuEdMs4i1zz//6BS4n1FQmD7jiVsGPIQ0t+0AeoZm/
+	4qHbBlj9esfUEbPs6C+tQxLMwkv0BdX0wsN7z/Gr7tk7C5Ruz/LdF2Kk4XX8=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,120 +58,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] nvme-auth: use the parsed offset for the DH-CHAP key
-To: shao.mingyin@zte.com.cn, kbusch@kernel.org, axboe@kernel.dk, hch@lst.de,
- sagi@grimberg.me, linux-nvme@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261109225919740-DfVem3ttLxIAe7wl3Puh@zte.com.cn>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261109225919740-DfVem3ttLxIAe7wl3Puh@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-0.998];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+X-Received: by 2002:a05:6808:15a6:b0:540:5827:6d8c with SMTP id
+ 5614622812f47-5683cacf790mr1530702b6e.57.1794295311977; Mon, 09 Nov 2026
+ 23:21:51 -0800 (PST)
+Date: Mon, 09 Nov 2026 23:21:51 -0800
+In-Reply-To: <20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af2c60f.5a668245.1aceb6.02ce.GAE@google.com>
+Subject: [syzbot ci] Re: xfrm: fix IPv6 atomic fragment policy handling
+From: syzbot ci <syzbot+ci38d3d40fc327a9e2@syzkaller.appspotmail.com>
+To: davem@davemloft.net, dsahern@kernel.org, herbert@gondor.apana.org.au, 
+	idosch@nvidia.com, jeremy.jean@oss.cyber.gouv.fr, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org, 
+	steffen.klassert@secunet.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/9/26 3:59 PM, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> nvme_auth_parse_key() accepts the DH-HMAC-CHAP key with
-> 
-> 	if (sscanf(secret, "DHHC-1:%hhd:%*s:", &key_hash) != 1)
-> 		return -EINVAL;
-> 
-> and then skips a hardcoded ten characters:
-> 
-> 	key = nvme_auth_extract_key(secret + 10, key_hash);
-> 
-> The ten characters assume that the hash identifier is exactly two
-> characters long.  A string such as "DHHC-1:1:" still makes sscanf()
-> return 1, and secret + 10 then points one byte past the NUL terminator
-> of the buffer.  nvme_auth_extract_key() starts with
-> strlen(secret), so it reads past the end of the allocation.  The sysfs
-> dhchap_secret and dhchap_ctrl_secret stores only require seven
-> characters and a "DHHC-1:" prefix, so a short value reaches this code
-> (even though the nvme-fabrics option parser rejects secrets shorter than
-> eleven characters).
-> 
-> Use the %n conversion to obtain the real offset after the
-> "DHHC-1:<hash>:" prefix and reject a string where the prefix is not
-> complete.  This accepts both one and two character hash identifiers and
-> never starts the key past the terminator.
-> 
-> Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> Tested on 7.3.0-next-20261030 (QEMU/TCG guest, KASAN) with a live loop
-> controller and host DH-CHAP.
-> 
-> Writing the 9-byte secret "DHHC-1:1:" to the dhchap_secret sysfs
-> attribute makes the driver start the key ten bytes in, one byte past
-> the NUL terminator:
-> 
->    unpatched                            patched
->    KASAN slab-out-of-bounds in          write rejected (-EINVAL)
->    strlen/strrchr, nvme_auth_extract_key
-> 
-> diff --git a/drivers/nvme/common/auth.c b/drivers/nvme/common/auth.c
-> index e2e0c736540a..1fdc4e4ed0b9 100644
-> --- a/drivers/nvme/common/auth.c
-> +++ b/drivers/nvme/common/auth.c
-> @@ -489,17 +489,19 @@ int nvme_auth_parse_key(const char *secret, struct nvme_dhchap_key **ret_key)
->   {
->   	struct nvme_dhchap_key *key;
->   	u8 key_hash;
-> +	int offset = 0;
->   
->   	if (!secret) {
->   		*ret_key = NULL;
->   		return 0;
->   	}
->   
-> -	if (sscanf(secret, "DHHC-1:%hhd:%*s:", &key_hash) != 1)
-> +	if (sscanf(secret, "DHHC-1:%hhd:%n", &key_hash, &offset) != 1 ||
-> +	    !offset)
->   		return -EINVAL;
->   
->   	/* Pass in the secret without the 'DHHC-1:XX:' prefix */
-> -	key = nvme_auth_extract_key(secret + 10, key_hash);
-> +	key = nvme_auth_extract_key(secret + offset, key_hash);
->   	if (IS_ERR(key)) {
->   		*ret_key = NULL;
->   		return PTR_ERR(key);
+syzbot ci has tested the following series
 
-An easier fix would've been to check that the string is longer
-than 10 bytes. But anyway.
+[v3] xfrm: fix IPv6 atomic fragment policy handling
+https://lore.kernel.org/all/20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr
+* [PATCH net v3 1/2] xfrm: fix IPv6 first-fragment protocol decode
+* [PATCH net v3 2/2] xfrm: fix selector matching for IPv6 atomic fragments
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+and found the following issue:
+WARNING in __xfrm_decode_session
 
-Cheers,
+Full report is available here:
+https://ci.syzbot.org/series/9d92ff08-0b82-4440-b345-9628353f5181
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+***
+
+WARNING in __xfrm_decode_session
+
+tree:      net
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
+base:      2d2200551ccc3b9e444aecb59c4b53287e169266
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/fe2ead38-2a3d-497a-9bae-e5da0ee59933/config
+
+------------[ cut here ]------------
+len > ((int)(~0U >> 1))
+WARNING: ./include/linux/skbuff.h:2856 at __xfrm_decode_session+0xafb/0xed0, CPU#0: syz.0.121/6184
+Modules linked in:
+CPU: 0 UID: 0 PID: 6184 Comm: syz.0.121 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:__xfrm_decode_session+0xafb/0xed0
+Code: bf e0 00 00 00 4d 03 3e 4c 89 f8 48 c1 e8 03 42 0f b6 04 28 84 c0 0f 85 11 03 00 00 45 8b 37 e9 33 fd ff ff e8 c6 c7 30 f7 90 <0f> 0b 90 e9 8c f7 ff ff 44 89 ef 8b 5c 24 20 89 de e8 bf c9 30 f7
+RSP: 0018:ffffc9000e926b60 EFLAGS: 00010283
+RAX: ffffffff8a9849aa RBX: 1ffff92001d24d74 RCX: 0000000000080000
+RDX: ffffc90006ec1000 RSI: 0000000000000c7f RDI: 0000000000000c80
+RBP: ffffc9000e926c90 R08: ffff88816dd8bc00 R09: 0000000000000002
+R10: 000000000000000a R11: 0000000000000002 R12: ffffc9000e926bc0
+R13: 00000000fffffff8 R14: ffff888105f226d8 R15: dffffc0000000000
+FS:  00007fc136da96c0(0000) GS:ffff88818be0d000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000002cc0 CR3: 000000017256e000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ icmpv6_route_lookup+0x44a/0x610
+ icmp6_send+0x114c/0x1b50
+ icmpv6_param_prob_reason+0x32/0x50
+ ipv6_frag_rcv+0x927/0x2b40
+ ip6_protocol_deliver_rcu+0xe8c/0x1680
+ ip6_input_finish+0x191/0x370
+ NF_HOOK+0x336/0x3c0
+ ip6_input+0x16a/0x270
+ NF_HOOK+0x336/0x3c0
+ netif_receive_skb+0x278/0xbf0
+ tun_rx_batched+0x1de/0x790
+ tun_get_user+0x2b78/0x4470
+ tun_chr_write_iter+0x113/0x200
+ vfs_write+0x612/0xba0
+ ksys_write+0x150/0x270
+ do_syscall_64+0x166/0x520
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fc135f6974e
+Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+RSP: 002b:00007fc136da8fb8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fc136da96c0 RCX: 00007fc135f6974e
+RDX: 000000000000004a RSI: 0000200000000700 RDI: 00000000000000c8
+RBP: 00007fc136037f6d R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fc136226038 R14: 00007fc136225fa0 R15: 00007ffcfeaad798
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
