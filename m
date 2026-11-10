@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280217;
-	b=VvFLXGNiMNq9unzveZwxNXWsSmQrX1J228w79JnbnfkJL2qZ2ZNGofGWcSDqPA1AzTKt
-	 p3c0Dx3/Jy6ckLvs0Ycsler6lDrfID8kP5PWikvkCHOABHi3i/mq+grIYOpixAVgWcPTq
-	 +4AJ6KPyFearSqXu2uOp2VhNOrL/AR23yGnGjPQhjsKdY4H4mrxSwUFBT6pOSV/z0/UNC
-	 w2b7uRqG73/AQD0fbUtJMu5tBR/6xd6OB62vT/5w/bYIHatX0nj5MF3VrQnarU2G5mPTQ
-	 yCuph72Vh7Rad7dnPnaleChD1VSZC/BMncZHt4hIAc7aY+rmdgjyv57QmBgn3TySI1Q==
+	t=1794280265;
+	b=0XL8jvamF41eM7QROogUKJtBh0ix8dcfrOf7wlI0ok5CvMWwRHwKoLnoYiJjxnEzkEA5
+	 Ux3JmXsM84tiCxHhVntQ77Gdj+Z5vveSF5tlZbMa78rK7FgGzZL7EvgyOSnP5S+9hj/b6
+	 iyWQTpzWy5Xibk0PT8uJXjbRoVvbWkPAAVEUuSQ2PbpMWXIWktitgcPOqQb3PGY49n8jV
+	 UQf+LqTVD8ZKBfIRrHkebwWAzAoDTISEVxQ85pHULk2TraRcHChHuJws5o+dV5R04JTWg
+	 +8m8Af2obN4FVmygPBMH45L6Gx91ni20A8WqPRmNCfNeJj93C9upeK/B8wg+r3ZT6Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280217;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280265;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ady+daUUqycPozpaXUfChvYm9oCkjzXwVXjgWDE/pks=;
-	b=NGLlPz2oQGRCQ/whXIsqVYiMis2RT7ik2+heFRPBzIBhyhDTSbgs74q9d89ewHUrxPDj
-	 JFCg67u7SXGMZhiG+SSu/37/Y0tQxakUrgUddaeC53ioztWu2d+VOJ8mqPF2b91g8hJOo
-	 Az8z2/ekfHxBSIdesN8hc+t16Mz80UM/uZ0LOh+jrewVEBBtXhqlruBWuxgksD0xd9x0/
-	 vfM6m23c8FJR0LVFwb6iWKFAQp79PqIVXCfrQLSpI2+FXjb+sdwc9uX6zRTFpGAHszDup
-	 SeFvfalR8em928WCEpKX7lr43vjRKEalbWTQNsTzWyF6kQcMwRoiYQvvKrSCQk78HRg==
+	bh=lpIvUpIATYfjqV4N0Dhd8VyNGnZCCKg7kXMo8kDG1cg=;
+	b=sb6ZcKWhvIMwpRUWU6UyECYOs6nHboQGGYk3Jt2AF8rliWatFZlNKgM+a88S/KGP3bQk
+	 rjg/nkOo32bKGFxnzbSrftoreERMqDI+Ed+Dh01DccqI08b24DLXNKYsu7TyLshjAGV1I
+	 Z+mFI28lQJa7+sW8q51njeHm/Z5lmO1AeM/kaMSek9+2WTX80UJyVnIsc6YosDePs01+r
+	 5Dq18c8DcWZPnwUOjjzOZmresv2UD+jNDxo1e8ZzGejDV/0XzSbWN+1g49rVvEAK2bEHZ
+	 COQF9p4JxOf5HFs+vkbB98IBJECPIyNe2GtYdvrVzUMQ7pVetlhSX9uOSJWfYJ3wC2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYSdmkh5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVT3u2cN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7866160A260C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:10:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B0F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:11:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYSdmkh5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9627F1F008A2;
-	Tue, 10 Nov 2026 03:10:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVT3u2cN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168B51F0089F;
+	Tue, 10 Nov 2026 03:11:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280217;
-	bh=Ady+daUUqycPozpaXUfChvYm9oCkjzXwVXjgWDE/pks=;
+	s=k20260515; t=1794280264;
+	bh=lpIvUpIATYfjqV4N0Dhd8VyNGnZCCKg7kXMo8kDG1cg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PYSdmkh5VpAGZj3KW4ejVlYCG8nRfWkTwWSnuPxtDCO9Gsozbb+l8Z+mgE2Q/1TCa
-	 xtIYRjr+qFOj8CRF8LFW669KgBtrkL8dN5CL9ZY3sxbUSRMm7OCYbhdLJBF9aBW1Zp
-	 10ScFtptmUQ3fsc3rN7JQjd1gRTe4QoF4jjJLhEoqnONoytsqwGkoV9x1h/O4tQ4EY
-	 5/D14v07ayfE8fNX5b1W87K/yj0z9BBD7Xu/yiZ4vD8H/7okTAr5EeZ6iLUHxY3bnZ
-	 EWfgCMDk2vL7hIlivIL13+DW9VRdNH8QkHwgxEc35l/TaKHRmf7kG/zoLswhOa2E0m
-	 65T0NknWSRtnw==
+	b=ZVT3u2cNKCMKmJKsTw1i9Y7PXIe5ZCUnLFxQk1JdBNRtr0a0ki9dn6i7kHagts9rh
+	 +CyXysoTavWC7Gpicr+tV3OBgjUd8TTlCxGZ/rmD4l4Ljuunhr+rcKgK8W7xuvBCCn
+	 Sb8eN36zC3atnW5WGntQiF5DcK1erDLqKmo7V+2Rt0EneVcA84PvWhViuFYmfssYmF
+	 g/6LI1uQ1oWWYn85ZdHk5+pOGWJyLhziTPse5QtOeIukkNIIzbP8n2IhwqZNSLfMV7
+	 8RLbNMb1lLSNnfl9IXXDujUqZHmHBP7SenRTk9BTqbK3S86aqOcfVcx3L/Zerw6jCS
+	 XsW4WbB5NmJAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Harry Wentland <harry.wentland@amd.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Robert Mader <robert.mader@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single mode
-Date: Mon,  9 Nov 2026 22:10:15 -0500
-Message-ID: <20261110030951.3818176-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG
+Date: Mon,  9 Nov 2026 22:11:02 -0500
+Message-ID: <20261110031050.4118196-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051614-failed-6.12-38dbf24dfbd0@kernel.org>
-References: <20261107051614-failed-6.12-38dbf24dfbd0@kernel.org>
+In-Reply-To: <20261107061411-failed-5.10-2ffaa7c40506@kernel.org>
+References: <20261107061411-failed-5.10-2ffaa7c40506@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,209 +62,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[ Upstream commit 38dbf24dfbd0a73b89fa2871a7148429aef05531 ]
+[ Upstream commit 2ffaa7c4050605cb27756f5336f778d1b21268b9 ]
 
-When device is suspended and it is in single mode then changing
-datarate doesn't make it actually wait for new measurement, so to
-be sure that read after change is correct, functions that changes
-datarate and gain will wait for a new data.
+The ROM early-return checks for PQ, Gamma 2.2, and HLG in
+mod_color_calculate_degamma_params() do not consider the map_user_ramp
+parameter. When map_user_ramp is true (indicating a subsampled surface
+that requires post-scaler degamma via GAMCOR), the function still takes
+the ROM path, programming PRE_DEGAM instead.
 
-Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
-Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: replaced scoped PM guards with pm_runtime_resume_and_get() and explicit cleanup using pm_runtime_mark_last_busy() before pm_runtime_put_autosuspend() ]
+For subsampled formats the chroma channels must be upsampled by the
+scaler before degamma is applied. PRE_DEGAM sits before the scaler in
+the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
+Using the ROM for subsampled surfaces means degamma is applied to
+subsampled chroma before upsampling, producing incorrect results.
+
+Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
+forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
+is subsampled.
+
+Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
+Cc: stable@vger.kernel.org
+Assisted-by: Copilot:claude-opus-4.6
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Robert Mader <robert.mader@collabora.com>
+Link: https://patch.msgid.link/20260814211816.1219597-11-harry.wentland@amd.com
+[ sashal: Changed !map_user_ramp to !mapUserRamp to match the existing parameter name. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ti-ads1100.c | 121 +++++++++++++++++++++++++++++++++--
- 1 file changed, 115 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-index 1e46f07a9ca6a..bea727ff9d6ee 100644
---- a/drivers/iio/adc/ti-ads1100.c
-+++ b/drivers/iio/adc/ti-ads1100.c
-@@ -14,10 +14,12 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/i2c.h>
-+#include <linux/iopoll.h>
- #include <linux/mutex.h>
- #include <linux/property.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time.h>
- #include <linux/units.h>
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 3c4390d71a827..9093ad7750631 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1815,7 +1815,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
+ 			return true;
  
- #include <linux/iio/iio.h>
-@@ -42,6 +44,9 @@
- static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
- static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
+ 		if (dc_caps != NULL &&
+-			dc_caps->dpp.dcn_arch == 1) {
++			dc_caps->dpp.dcn_arch == 1 &&
++			!mapUserRamp) {
  
-+/* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
-+#define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
-+
- struct ads1100_data {
- 	struct i2c_client *client;
- 	struct regulator *reg_vdd;
-@@ -123,10 +128,86 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
- 	return 0;
- }
- 
-+static int ads1100_conversion_busy(struct ads1100_data *data)
-+{
-+	u8 buffer[3];
-+	int ret;
-+
-+	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-+}
-+
-+static int ads1100_wait_single_conversion(struct ads1100_data *data)
-+{
-+	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-+	int data_rate_Hz = ads1100_data_rate[data_rate_index];
-+	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
-+	int busy;
-+	int ret;
-+
-+	ret = readx_poll_timeout(ads1100_conversion_busy, data,
-+				 busy, busy <= 0,
-+				 poll_us, ADS1100_MAX_DRDY_TIMEOUT_US);
-+	if (busy < 0)
-+		return busy;
-+
-+	return ret;
-+}
-+
-+static int ads1100_start_single_conversion(struct ads1100_data *data)
-+{
-+	u8 config = data->config | ADS1100_CFG_SC;
-+	int ret;
-+
-+	ret = i2c_master_send(data->client, &config, sizeof(config));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-+		return ret;
-+	}
-+	/* Need to wait because of change from continuous to single mode */
-+	ret = ads1100_wait_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	config |= ADS1100_CFG_ST_BSY;
-+
-+	ret = i2c_master_send(data->client, &config, sizeof(config));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* No need to cache it, it's status bit */
-+	data->config = config & ~ADS1100_CFG_ST_BSY;
-+
-+	return 0;
-+}
-+
-+static int ads1100_poll_data_ready(struct ads1100_data *data)
-+{
-+	int ret;
-+
-+	ret = ads1100_start_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	ret = ads1100_wait_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS);
-+}
-+
- static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- {
- 	int microvolts;
- 	int gain;
-+	int ret;
- 
- 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
- 	if (val)
-@@ -135,6 +216,10 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (!val2)
- 		return -EINVAL;
- 
-+	ret = pm_runtime_resume_and_get(&data->client->dev);
-+	if (ret)
-+		return ret;
-+
- 	microvolts = regulator_get_voltage(data->reg_vdd);
- 	/*
- 	 * val2 is in 'micro' units, n = val2 / 1000000
-@@ -144,27 +229,51 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	 * bitshift so everything fits in 32-bits yields this formula.
- 	 */
- 	gain = DIV_ROUND_CLOSEST(microvolts, BIT(15)) * MILLI / val2;
--	if (gain < BIT(0) || gain > BIT(3))
--		return -EINVAL;
-+	if (gain < BIT(0) || gain > BIT(3)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
- 
--	return 0;
-+	ret = ads1100_poll_data_ready(data);
-+out:
-+	pm_runtime_mark_last_busy(&data->client->dev);
-+	pm_runtime_put_autosuspend(&data->client->dev);
-+
-+	return ret;
- }
- 
- static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- {
- 	unsigned int i;
- 	unsigned int size;
-+	int ret;
- 
- 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
- 	for (i = 0; i < size; i++) {
- 		if (ads1100_data_rate[i] == rate)
--			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
--						       FIELD_PREP(ADS1100_DR_MASK, i));
-+			break;
- 	}
- 
--	return -EINVAL;
-+	if (i == size)
-+		return -EINVAL;
-+
-+	ret = pm_runtime_resume_and_get(&data->client->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
-+				      FIELD_PREP(ADS1100_DR_MASK, i));
-+	if (ret)
-+		goto out;
-+
-+	ret = ads1100_poll_data_ready(data);
-+out:
-+	pm_runtime_mark_last_busy(&data->client->dev);
-+	pm_runtime_put_autosuspend(&data->client->dev);
-+
-+	return ret;
- }
- 
- static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
+ 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
+ 					dc_caps->dpp.dgam_rom_caps.pq == 1)
 -- 
 2.53.0
 
