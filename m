@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272758;
-	b=w1D+JwNKroiHs7rAs0G/MM0fHvjY1GcGwoNJcjvc74jEZNJTIyP+E43ev/GnGd4BaoE5
-	 vNYwDTS8F+LmqAhuLq1qLniG52PR9bpELDbGv3hVgw/qLrPBLEZezAXqaSZbt7eI81sxl
-	 lKI71chhpXrJMGyuZ0N8QfOJZsqZ4Z4Gke5+EPwMQQEJFh02faDwpwRODl/bYDU7z/e8i
-	 JcVnAa2fv35tPuRiH14A8zocNhzvKjQV9rrt8+nixoJ8Eqmdmo1GZYCzvrCxSjR8F592M
-	 eNPGIiA4AkHBoNU/6zBoBriBGknq80NaSXzJG7n91BlDO8JQRcdHjZGwvzBbhQkeDBA==
+	t=1794272761;
+	b=RJREGxmczeFGU15adf1AxdOk1N2xNqfP4eD6AkhT87lP6N+zbNyk/i/RV1wsLE0l8Gh5
+	 EDypap0AvX4UgC2iJjecKaVV5Z4wXeYnz6iJsQtVcLgTAK37L2GocZgNF68VNa9tQwGbn
+	 YYHmCsYjwTmymvXo4cLGypE2O9Hm9RKAmkGGGsImrkHtorqieMDn+wLAOKZ4/ohGD3zvK
+	 LWNuSlnSEAuSS8d7tYSQiON8ZlQbkRDkfr5aRDHymieHl7HvtK3zGFGhzK1b/hYe7xXjV
+	 4vg4da462uSlt8GgqWn+u+Rog6UCj3qT5ktDfZUF9mdMcvkdBIhKu/Qz25kwnWJ2brQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272761;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VHZK78ftECp16m/ZI2S3XEq6g+LWgxsAovGmzg8hfOQ=;
-	b=VlzVFHarqHIggiBsFeyjw5e2/X+qDRqiXqFW8H6oUB3nPALEMJPurZSVyfQP1g9tE3To
-	 t+47FLjbeUWRHP2qhr0TGx5JJvkrr1tZWr3vbt+ICSpMea1UnKyx95eC6ne6IVfm4m0Ha
-	 EQEBhn8fOCUSs8aVOMGKgdWaHtapU0Sd9coXBZOBdZ07CKvnLk1CZ0zbD+3keeb3KZG/1
-	 kf11y3FUjaYuPS7XJSv9HYioRWz7cm4VZpfqzViXvWU+2Qj8NLtLaYuamp1VyFBZfB6V8
-	 5+GdFGEZxbMz65mdfSPco0j2fnP91CTgl+xKIqSITMfD/iVbjrUnRLoE95DO/e2+8tw==
+	bh=xeETHbR/4mUu+1SxQCEL22frrz3AjHyV5ILmdrfiP0U=;
+	b=l8rTZeQBryhGGK19FZjdTaO6/LiFSSOkLxGndTnRswveON1tajGhr+smb7IXHZLZYIWE
+	 TsLmDSZ1ZvgrsquDFA4gHTIdGdSE3/NWuZlWCC1l06r9a2OXpyCNTU1WiDVRj8pq+sqjU
+	 SnXCoFHfzVbpp/GWLe7gLLdIQ+eyu3r+TVT12v6LByhmoPUtb5f/v58tPn+xjgGzgNu+Q
+	 tx6mQT/8TMDFmQxLGY+ssdaIOn1TDZqEGjWKFxj/vCQhKbnh+2mqkW5WDWqogX89gB512
+	 nkNYxR1gSuboEN2IsI/AILEvova+AJ51QSyzUtHzYV6pO7ymQ5sqddxC/Go6KxTZzBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BV4b15KS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OaJDFGc5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3CD606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20168606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BV4b15KS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C362B1F0089F;
-	Tue, 10 Nov 2026 01:05:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OaJDFGc5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DD1C1F0089F;
+	Tue, 10 Nov 2026 01:06:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272758;
-	bh=VHZK78ftECp16m/ZI2S3XEq6g+LWgxsAovGmzg8hfOQ=;
+	s=k20260515; t=1794272761;
+	bh=xeETHbR/4mUu+1SxQCEL22frrz3AjHyV5ILmdrfiP0U=;
 	h=From:To:Cc:Subject:Date;
-	b=BV4b15KSqwibtOlj5wKOwiwO3veZr8b7CqWt6jVzopM2Sb665/iA5LFveA1k0bn5P
-	 tCVmELPPveJli1/AZir5lQCXFRd4JNiUAeR4s3s8T8xKr9puvo0J8Y2Sxs9P9EjS5K
-	 iDwlqpr9NxCmGmXUv3jEZfU+Tclyl+uic9saTOPJsTxfNhQa/J90/XU1eSzfELCZW2
-	 JkS++3D0JOgOv9q7o6sj5U55BUxNdWR3FbylA54tm1SfC1PryzXVlgt7OF0Y3NcYf2
-	 695Rzide7QWztSORDFeJ51G5GQIuF89B3fMithNCaiWsU2Gg2ZcS77Cu2Y5+3vaeaf
-	 OnS+mpD96kKcA==
+	b=OaJDFGc5Cv4q1OLByOUeyXX0HU4RbvmHQfNc8CXX3cPGpg3qtQfyQFDsIdW5o7jiS
+	 0+lEejzMW72YKh7UcCclXH1D+0Q2lo4OxHpYk/L7Pzno0lzV8WrNpswUJD+4N5y6N9
+	 DkV/VMPL8F5US5N7A9QJ3GNh5kHcwUeoZnf2WDyZ0AU1jp772fOQDAt09aEiqX/4Bx
+	 swdfSSOiuFKXoKaxo5xd524xTTsvLFNe/P10FA5Mi3oJGHBgiHckRZEr+wGvkPIY0g
+	 AQcp50AEzhYUPIDRZf0BJItQ3/u72XKag/C9ISuTbj9o0n7eMs8kgjzGmPrDladwVv
+	 YqbOpAChZmaXA==
 From: Sasha Levin <sashal@kernel.org>
-To: 4ncienth@gmail.com,
-	peterz@infradead.org,
-	mingo@kernel.org,
-	ziqianlu@bytedance.com
+To: zhaogongyi@bytedance.com,
+	cassel@kernel.org,
+	dlemoal@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] sched/fair: Clear throttle state when leaving the fair class" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:05:56 -0500
-Message-ID: <20261109200556-failed-6.18-c282051fc2ca@kernel.org>
+Subject: FAILED: patch "[PATCH] ata: libata-scsi: reject data-in commands with a data-out buffer" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:05:59 -0500
+Message-ID: <20261109200559-failed-6.18-a4845f077415@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,80 +69,104 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c282051fc2cae2ea54770ebe435dbea090272c25
+git cherry-pick -x a4845f077415ef32fe672c841e2fc58ae9e28273
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200556-failed-6.18-c282051fc2ca@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200559-failed-6.18-a4845f077415@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c282051fc2cae2ea54770ebe435dbea090272c25 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Fri, 23 Oct 2026 08:52:33 +0900
-Subject: [PATCH] sched/fair: Clear throttle state when leaving the fair class
+From a4845f077415ef32fe672c841e2fc58ae9e28273 Mon Sep 17 00:00:00 2001
+From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Date: Wed, 4 Nov 2026 21:06:38 +0800
+Subject: [PATCH] ata: libata-scsi: reject data-in commands with a data-out
+ buffer
 
-Task-based CFS bandwidth throttling removes a task's fair sched_entity
-while the scheduler core still considers the task queued. p->throttled
-carries the fair-specific state across dequeue/enqueue operations.
+SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
+scatterlist can then contain pages pinned without write access.
+ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
+in the reported case, the copy tried to write the shared zero page
+and faulted in the kernel.
 
-DEQUEUE_CLASS removes the task from cfs_rq->throttled_limbo_list
-but retains the bit. If the last finite CFS quota is disabled while
-the task runs in another class, it is absent from the unthrottle walk and
-the bit survives.
-Returning to fair while cfs_bandwidth_used() is false then performs a real
-fair enqueue with p->throttled still set.
+The same mismatch can affect SG_IO commands translated by libata.
+ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
+the receive buffer even if the drive aborts the command. For ATAPI,
+the successful INQUIRY completion also rewrites the buffer in
+atapi_fixup_inquiry().
 
-After bandwidth is re-enabled, a class-change dequeue treats the
-stale bit as limbo state and skips __dequeue_task(). p->se.on_rq therefore
-remains set, and put_prev_task_fair() places the entity in the EEVDF tree
-while the task moves to RT. On exit, the fair picker can select the
-TASK_DEAD task. __schedule() then returns to do_task_dead(),
-which hits BUG().
+Reject these mismatched commands before the buffer is written or the
+command is issued. Report ABORTED COMMAND / DATA IN BUFFER ERROR because
+the CDB itself can be valid; the supplied transfer direction is wrong.
 
-Keep p->throttled across migrations and group moves, but clear it on
-DEQUEUE_CLASS because fair-specific state must not outlive fair-class
-membership. A later return to fair uses the normal enqueue path. That path
-still respects a throttled cfs_rq.
-
-A KASAN, LOCKDEP and DEBUG_LIST v7.3 kernel reproduced the do_task_dead()
-BUG in 3/3 root and 3/3 delegated uid-1000 runs with CapPrm=CapEff=0 and
-RLIMIT_RTPRIO=1. The fix passed both matrices plus a 3/3 class-switch
-control with bandwidth continuously enabled, without a scheduler warning,
-KASAN report, lockdep splat or crash.
-
-An AI coding assistant analyzed the state mismatch and drafted the initial
-reproducer, fix candidate and this changelog. The source paths, trigger,
-controls and results were rechecked against the cited revisions.
-
-Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Aaron Lu <ziqianlu@bytedance.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
+Suggested-by: Niklas Cassel <cassel@kernel.org>
+Suggested-by: Damien Le Moal <dlemoal@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261022235234.150957-1-4ncienth@gmail.com
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20261104130638.37882-1-zhaogongyi@bytedance.com
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 ---
- kernel/sched/fair.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/ata/libata-scsi.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc982205b98c..ad414539bc4f4 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6964,8 +6964,8 @@ static void dequeue_throttled_task(struct task_struct *p, int flags)
- 	WARN_ON_ONCE(p->se.on_rq);
- 	list_del_init(&p->throttle_node);
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index b1d5d822a9a20..87a57495d2e4b 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
+ 	if (xlat_func(qc))
+ 		goto done;
  
--	/* task blocked after throttled */
--	if (flags & DEQUEUE_SLEEP) {
-+	/* Task blocked after throttling or is leaving the fair class: */
-+	if (flags & (DEQUEUE_SLEEP | DEQUEUE_CLASS)) {
- 		p->throttled = false;
- 		return;
- 	}
++	/*
++	 * A data-out request may contain pages pinned without write access.
++	 * Reject a translated data-in command before issuing it, since its
++	 * completion handler may write to the buffer even if the device fails.
++	 */
++	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
++		     ata_is_data(qc->tf.protocol) &&
++		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
++		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
++				   DATA_IN_BUFFER_ERROR);
++		goto done;
++	}
++
+ 	return ata_scsi_qc_issue(ap, qc);
+ 
+ done:
+@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
+ 	unsigned long flags;
+ 	unsigned int len;
+ 
++	/* A data-out request may contain pages pinned without write access. */
++	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
++		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
++				   DATA_IN_BUFFER_ERROR);
++		return;
++	}
++
+ 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
+ 
+ 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
+@@ -3173,6 +3193,14 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
+ 
+ 	qc->complete_fn = atapi_qc_complete;
+ 
++	/* atapi_fixup_inquiry() writes to the buffer on successful completion. */
++	if (scmd->sc_data_direction == DMA_TO_DEVICE &&
++	    scmd->cmnd[0] == INQUIRY) {
++		ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
++				   DATA_IN_BUFFER_ERROR);
++		return 1;
++	}
++
+ 	qc->tf.flags |= ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE;
+ 	if (scmd->sc_data_direction == DMA_TO_DEVICE) {
+ 		qc->tf.flags |= ATA_TFLAG_WRITE;
 -- 
 2.53.0
 
