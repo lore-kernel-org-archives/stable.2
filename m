@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794294521;
-	b=l90Nrj7nqqsiprGSZrabzyVltC/tjZW2tBU+JQG9rjyRZn7rDN7OqUvYvciOYHxojDex
-	 yq5j7hZndEcjRmEsYy1skmMRSyw5v388OYxVYdOeQVH1ROaooYPJR6cVqnoXE3GpYBvca
-	 8hIRWv8uDnF+pLIwtsNa8kxJYoWCj73rbhOyfHU3sVLLJVLEVrdMjnLyXT6UY1+y+JAP2
-	 2UgC1Xla1fVU96zYagHR1fAJAQCCF28Knm6alcU4dDk9Ql6GVQuPa8KHlHbTZt0OCrWPB
-	 pHFm7A0McnqsZf1fLPoRywWo+f8REwPwa4zrenCF/9VIOdWE2wnUxpmy2CUwmVxTlUw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294521;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=6sCa3I8uqBY+mwKPbmC2PKEeRslYE8O+JX9d1UmOmt0=;
-	b=KkpmG4P2h1rSv3Yg2smLE75ikKccxgztJ0Vr1bxy9WqGCnT4ZWgbhqfZqDXuqSHBsxXX
-	 PoqmUiAQ2P3BBaPPwvC0cQzrlCaJ7P9GAN648/insI+hul0CFxKNmkNjY5IJcXfVsSMS3
-	 ASOhRVWAQQMkRSnt4o/Ob5VVoZPoHZxxsf8v9rYMt1rPfZ94IhMom17Fe/3sOHNWHopCr
-	 pgEbBX8IEb38jHd4eyhGRsxxVJ0H24j7z6c/YHunP3TVbWr+otnAagT+UVf3l5llsbM7p
-	 W392IVg/FNypraGMotu7449BkVyG68s/qWYq8a4gmrdiW3KIJD+Scoj96vlehWqONBQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=K+8WGg1C;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OGdzpwF0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=K+8WGg1C;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OGdzpwF0;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794294534;
+	b=a5xs+UjfvyrS1pKLAXru89JE2uZNOqvQ/o/iprKDNgAri3Wb8zSZOJBgVKDiCFg5F4AB
+	 hWmdoxdy5cHocjMvdmFVSwQeAVF4gx0N3XSsP9nEIvtmyIK1tR7OjQvphpWwvpjGLEyKS
+	 VkcKPE3MW5C4Lqc5hU+2V5xMEB9zjFDWX8Dlg98VN1Ck53z0rKaZL4Al7cJp3xpCYMLJz
+	 PGcy/6vJL/bA5rozlu4JBxCRpmN06Tcbhtyzrfxw+n8CMtc4GUbyvTLC09GOOpBtAgjyd
+	 nyy1Uu+Pjq/3s3N0mFjqttIaEiOEae/tu7dS0AfLWRVxiMsSGZpHwafrJKpw+iZfprg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294534;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=1zci30K6XDnk6LwA+I1Lc3l3JUyNgpA+En7a0rv3or0=;
+	b=DsihNkq8o+k8TBjGkTfew7cwZCVPNh/8eU6zk8QLts5CI6IJVQAYTWNfTSAINK84DBio
+	 IU7QalyJjYDiDfeCRqAQ/lotk8IwfaxVPQome6LkT8MCju4KHIAJRTTTNf+Q2cT+Z1xor
+	 ztEJiLE2RCh1m+iLFZFB3Wku5N7OhdK58+7QyN+PCNAo3IQN4QksuKccK0VwttT6+N2EG
+	 kK3oNPNpAjm4waDBWE0QbooBCTuH9b7Niy4muB/1j32zLTXjlAIfu+v1QyyZE6PYBrKWl
+	 1664T5goOywIPVl81vnva0Vyv7uece7Q0xPOMUYrlsI7hveEO3naDA1Gkx5l+/2PqIw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lK1FHumx;
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFAA606A31C;
+	Tue, 10 Nov 2026 07:08:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lK1FHumx
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794294533;
+	b=jXSbsFhtEM1cXGe2NwhKVxQcjhgtUwt2/ZDxKClCp62K2Y96k0SnJlmFWUvHQ+FJoKBj
+	 w5lZB8MWUQdA7BfeHotwnG5TdqentG8iEkQ1Lk55tyooXxdihX5op/Gv/obmj+l7kqxZE
+	 4t0eY4GVCzsUamCErj3XUHadO9OFtfonRjVbczbA3CnaJ8IoTRFjGl4XrdBjyftXvpQI/
+	 cXUGcqeXqR6FJKvvDkuWSSWnFPldWK8bORr6VNPzYEpIPuRMrrRMdNXG99SokMaM740RX
+	 cv/v8NFSsyhRb4WL01kSVjIvwYUP/S9DGEvX+TfVVRcLxsP9X+0ZtYQ1FP3jzWwmbZg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794294533;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=1zci30K6XDnk6LwA+I1Lc3l3JUyNgpA+En7a0rv3or0=;
+	b=xbgzStDbXSoSVHiOHIBvnqrSaaz8o6E+wVYUzWR0cH5trHv6v8FLlTFNj/lgMnecI+sq
+	 kcjs8jeLGrS0/rKYwvy6AbdvTmHApVNTV97a/LE7tYpZoarouAGpi/bd8iBXFP8gvdN4y
+	 jXRjGV5gA3qbh3/h2v754snU6PlCVdR1zWtGaoQ33B/9VlHWD2wZjgmTETTE7r718hrS+
+	 GCYwcXdqnMSBzfbiY9+mj0BINDyKQhL9zAxTlbX+VUSBO/clzdHiBwrKpOMBpO34ceFjM
+	 J8+EF5q++8ZchHEO3zKeNOcvyIOkCMI42PK7OafCuZpbO/U6miWtK7bcbQt2A8ndDnw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AAB606A321;
-	Tue, 10 Nov 2026 07:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43AAB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=K+8WGg1C;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OGdzpwF0;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=K+8WGg1C;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=OGdzpwF0
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3A8DF1F457;
-	Tue, 10 Nov 2026 07:08:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794294519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6sCa3I8uqBY+mwKPbmC2PKEeRslYE8O+JX9d1UmOmt0=;
-	b=K+8WGg1CV6bYfnxFH4W6t4xzeUFMUmmiQwagZA0P/InbAEbZmYUjsuRiVUErSLIRMJ/Hyt
-	LOkLtMrY5T+lIt1KL9GftvqfzqSC/OsdntBc9D/u2uYPhi8HyCcSYVTTWTEWz6CVypfCl8
-	u/elO9pFLx0Vk3Iaju0/lOGmP+Oh4cA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794294519;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6sCa3I8uqBY+mwKPbmC2PKEeRslYE8O+JX9d1UmOmt0=;
-	b=OGdzpwF0SdzKJ1PaLGYF2+JuZS9q1jaMOqUe81ra00GH2K24TaU12qfPF9hNOpwFToRbna
-	l4sDBa/mxPM2bfCw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794294519; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6sCa3I8uqBY+mwKPbmC2PKEeRslYE8O+JX9d1UmOmt0=;
-	b=K+8WGg1CV6bYfnxFH4W6t4xzeUFMUmmiQwagZA0P/InbAEbZmYUjsuRiVUErSLIRMJ/Hyt
-	LOkLtMrY5T+lIt1KL9GftvqfzqSC/OsdntBc9D/u2uYPhi8HyCcSYVTTWTEWz6CVypfCl8
-	u/elO9pFLx0Vk3Iaju0/lOGmP+Oh4cA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794294519;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6sCa3I8uqBY+mwKPbmC2PKEeRslYE8O+JX9d1UmOmt0=;
-	b=OGdzpwF0SdzKJ1PaLGYF2+JuZS9q1jaMOqUe81ra00GH2K24TaU12qfPF9hNOpwFToRbna
-	l4sDBa/mxPM2bfCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3CA31339F;
-	Tue, 10 Nov 2026 07:08:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QRpwHvbC8mqjXAAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 07:08:38 +0000
-Message-ID: <41aae956-1ece-4af3-99e0-1e9ee1f840d3@suse.de>
-Date: Tue, 10 Nov 2026 08:08:38 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id D94791F008A2;
+	Tue, 10 Nov 2026 07:08:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794294533;
+	bh=1zci30K6XDnk6LwA+I1Lc3l3JUyNgpA+En7a0rv3or0=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=lK1FHumxoGl9QnROk4S3uSWekbUoI4VYyVWXofmCb4hSVq+fpewUBkkRix0DwZ7B3
+	 iPEH5HzT3rDfx11OtVydtifwHy0e7Zw7AEidFfvufBsr9xhzLVPTQnSE2oR5LV8bqS
+	 7zot5Rj+wiBtd19YVzVkYNWYcwI2TWAgIR/p6NDQhzLS7kw1tOpI7+jUXDhpHAvQD7
+	 BKf7aSWVMD+2mkGbfrsDm+DXbG2Hc+Hlep779wFjpKUf4GicxOfGd5bX/2pcvR/BmL
+	 UHby3Qchv64EFewvjIy2jifdtER2OHuLd5SpftwteD9VVjjN8aeVlI8UkCmN1fiLjB
+	 0uX7GpgoVgTXA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 634864891A;
+	Tue, 10 Nov 2026 07:08:52 +0000 (UTC)
+From: Rajan Yadav via B4 Relay <devnull+rajanyadav0307.gmail.com@kernel.org>
+Subject: [PATCH 0/2] usb: musb: sunxi: Fix unbinding and rebinding
+Date: Tue, 10 Nov 2026 01:08:51 -0600
+Message-Id: <20261110-musb-sunxi-unbind-v1-0-d821584fc4a4@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,133 +83,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: libfc: Fix rport kref leak in
- fc_rport_enter_ready()
-To: weidongw@illinois.edu, "Martin K. Petersen" <mkp@kernel.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261108-h123-send-v1-1-b7672ff849f0@illinois.edu>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261108-h123-send-v1-1-b7672ff849f0@illinois.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-0.998];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAPD8moC/yXMwQqDMAyA4VeRnBdoi1TYq8gOps1mBmajWUUQ3
+ 91uO36H/9/BuAgbXLsdCq9i8tIGf+kgzZM+GCU3Q3Aheu8dLtUIreomWJVEM4aJ+uxypDREaN2
+ 78F2233O8/W2Vnpw+3xEcxwmkW2RHdQAAAA==
+X-Change-ID: 20261110-musb-sunxi-unbind-2ab4d0d6bc76
+To: Bin Liu <b-liu@ti.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>
+Cc: regressions@lists.linux.dev, Zijun Hu <zijun.hu@oss.qualcomm.com>, 
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Rajan Yadav <rajanyadav0307@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294532; l=1975;
+ i=rajanyadav0307@gmail.com; s=20261103; h=from:subject:message-id;
+ bh=ldGUp6lz3WZtjMz69tdwqzZtvWjZqidFlVH8uvgeKIc=;
+ b=MCB2MXQIdsbIGlvQgYsC0+8HOab+meeL5xETwA9UXFgrRetKIiqDkp3ZBmxw5ibeaoItFqvdY
+ SxhZe4UzrdbBNjvD868U2pKK9n2EYB1vzSaSz86Lk+g/UQm2F+QdMzd
+X-Developer-Key: i=rajanyadav0307@gmail.com; a=ed25519;
+ pk=4ZPeiP5qrv2b44q/Obxi2koUS70Q6npbttJnpUoTlgg=
+X-Endpoint-Received: by B4 Relay for rajanyadav0307@gmail.com/20261103 with
+ auth_id=1391
+X-Original-From: Rajan Yadav <rajanyadav0307@gmail.com>
+Reply-To: rajanyadav0307@gmail.com
 
-On 11/8/26 10:01 AM, Weidong Wang via B4 Relay wrote:
-> From: Weidong Wang <weidongw@illinois.edu>
-> 
-> fc_rport_enter_ready() takes a reference on the rport unconditionally,
-> but only queues event_work, whose handler drops that reference, when no
-> event is pending. If rdata->event is already set, the && short-circuits
-> past both queue_work() and the compensating kref_put(), so the reference
-> is leaked and the fc_rport_priv is never freed.
-> 
-> This is reachable from the wire: a PLOGI from a well-known address goes
-> straight to fc_rport_enter_ready(), and a second PLOGI for the same
-> S_ID while RPORT_EV_READY is still pending enters it again. After the
-> rport is logged out, kmemleak reports:
-> 
->    unreferenced object 0xffff888... (size 512):
->    backtrace:
->      __kmalloc_noprof
->      fc_rport_create
->      fc_rport_recv_req
->      fc_lport_recv_els_req
->      fc_lport_recv
->      fcoe_receive_work
-> 
-> Commit 823a65409c89 ("scsi: libfc: Skip additional kref updating work
-> event") fixed the same pattern in fc_rport_enter_delete(). Do the same
-> here: only take the reference when no event is pending, i.e. when the
-> work is actually going to be queued.
-> 
-> The issue was found with an LLM-based bug-finding tool; the reproducer,
-> fix and changelog were drafted with AI assistance (Claude), then
-> reviewed and tested by the submitter.
-> 
-> Fixes: 4d2095cc42a2 ("scsi: libfc: Revisit kref handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Weidong Wang <weidongw@illinois.edu>
-> ---
-> Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN + kmemleak, QEMU/KVM.
-> Reproducer: software FCoE instance on lo; raw FCoE ELS frames injected
-> with AF_PACKET (PLOGI from well-known S_IDs 0xfffc01.., a second PLOGI
-> for the same S_ID while RPORT_EV_READY is pending, then LOGO), 120 rports.
-> 
->                     2nd enter_ready with    kmemleak unreferenced
->                     event pending           fc_rport_priv (512 B)
->    unpatched        116                     99
->    patched          104                     0
-> 
-> READY/delete work events are processed the same with and without the
-> patch; no KASAN/UBSAN/WARN splats. checkpatch clean, no new W=1 warnings.
-> The reproducer can be shared on request.
-> ---
->   drivers/scsi/libfc/fc_rport.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
-> index c25979d96..7b0938544 100644
-> --- a/drivers/scsi/libfc/fc_rport.c
-> +++ b/drivers/scsi/libfc/fc_rport.c
-> @@ -550,10 +550,11 @@ static void fc_rport_enter_ready(struct fc_rport_priv *rdata)
->   
->   	FC_RPORT_DBG(rdata, "Port is Ready\n");
->   
-> -	kref_get(&rdata->kref);
-> -	if (rdata->event == RPORT_EV_NONE &&
-> -	    !queue_work(rport_event_queue, &rdata->event_work))
-> -		kref_put(&rdata->kref, fc_rport_destroy);
-> +	if (rdata->event == RPORT_EV_NONE) {
-> +		kref_get(&rdata->kref);
-> +		if (!queue_work(rport_event_queue, &rdata->event_work))
-> +			kref_put(&rdata->kref, fc_rport_destroy);
-> +	}
->   
->   	rdata->event = RPORT_EV_READY;
->   }
-> 
-> ---
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-> change-id: 20261108-h123-send-723aeb555069
-> 
-> Best regards,
-> --
-> Weidong Wang <weidongw@illinois.edu>
-> 
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Unbinding musb-sunxi crashes on current mainline: KASAN reports a
+use-after-free in devm_usb_phy_release(), followed by a NULL pointer
+dereference. This came back in v6.12 with commit 498dbd9aea20 ("usb:
+musb: sunxi: Fix accessing an released usb phy"), which removed the 2017
+fix for the same oops. Patch 1 lets devres unregister the generic PHY
+after the PHY reference has been dropped.
 
-Cheers,
+While testing it, binding the musb-hdrc child again, the case that
+498dbd9aea20 was about, turned out to fail with -EEXIST: since 2017 the
+extcon notifier is registered with devm on the glue device, so it is
+never unregistered when the child goes away. Patch 2 pairs the
+registration with sunxi_musb_init() and sunxi_musb_exit() again.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+The two patches are independent. Both were tested on a KickPi K5C
+(Allwinner A133) with v7.4-rc1 and KASAN, without out-of-tree modules,
+using the board's device tree, which is not in mainline yet. The
+details, and what was not tested, are in each patch.
+
+From reading the code only, drivers/usb/musb/mediatek.c seems to have
+the same problem as patch 1: mtk_musb_remove() unregisters the generic
+PHY while devm_usb_get_phy() still holds a reference to it. I have no
+hardware to test it.
+
+As in the patches, I used Claude Code (Anthropic) to find the causes,
+write the fixes and the commit messages, and help with the tests; I
+reviewed everything and ran the tests on the board.
+
+Signed-off-by: Rajan Yadav <rajanyadav0307@gmail.com>
+---
+Rajan Yadav (2):
+      usb: musb: sunxi: Unregister the generic PHY after dropping its reference
+      usb: musb: sunxi: Unregister the extcon notifier in sunxi_musb_exit()
+
+ drivers/usb/musb/sunxi.c | 43 +++++++++++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 12 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261110-musb-sunxi-unbind-2ab4d0d6bc76
+
+Best regards,
+--  
+Rajan Yadav <rajanyadav0307@gmail.com>
+
+
