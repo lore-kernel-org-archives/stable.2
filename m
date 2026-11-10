@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315854;
-	b=fgipLyImUAYDQa+Lg4DIXZeNWRzLz80y/9uYgMNxGRdevtbiLVIpx0fj1pfPxG6bwzSM
-	 Wqyb3qWvTGTy43HARrkvd/WDbwi1OKXFdkVbWjj9V+o4+t0KLcyrp/pq/984WORQ1gU8r
-	 D4m46Y/w8b1OKV9HKn8ERlIQJNNbIKoMGKHrysVWjgw7IKIxgeExJPPVbUsd0U4/M2YKG
-	 YuKm8lNLTT7U/D/8aqQiIqnjQ+nrywIQSPpAoTw33Iseiq0foZrohQ7O8HyRMeupZx+y6
-	 GZhVN4GwP7zlWhmZLwSl+4JdCAI/w0bqWF8znZQ7xXrZL4JxapbK7rcVMAhUhylbD6g==
+	t=1794315878;
+	b=mEIPzYGhiuJCY1cJ8pa4tqEtgH5JySCmgtHMZ5zkexUcDRoZf7PBI2TmeCNhRjFljeBZ
+	 VW8b+U1DE2YgMQmOcB17ry++bpuJRgh8Mi8UUPFQrhcPrYqJKAXAVq9XA6+1g0MuG5zsd
+	 4gKbHbHKQV1HrVElXPPfW/wv9eINANW/n6YjIaTcmuklJTPbpG9jFvzlrQ4A/giIbQ1Bv
+	 Tof0H7Csok1mK9iNO0eszeoMOooTI+H6BkaGVHVSuPVNnNLCXKCZVpgUG9hXeMzULaEW1
+	 XIxHdpWxNmeZ2zlrNWuV9r/fyfjlxLnUjh2Ki0SBw75KqqUZvfG/1OcT4XAYLfs+xwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315854;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WGrIwRnisMDu1MP41OJsjXxNtpTqoQjI86eriyZIYpU=;
-	b=JFgxB0beqgwLfywPkhdfQ6Inf/zt8UjY5Jy8132VoL8/j+AWX06ToR0MyKcLSLbczTPO
-	 G9maUnDzKkHWKqTkk1/15wFyx9KuH/SmABwqRVRpxg1WfSgktSp6TXI8u+5WPDQL7gZ6k
-	 ng5ccsY1CRDvUNsk2Lp9IzS6zQzTnDfRTAvDOl23t21Zs5XF8ehM9zfZRmz1kntDoCSyQ
-	 X8KF12UPIT6mDKyuWxby62M0OjpsLQ1YxUiPZyij1xh64bAczlNs15UceFmqMhX4ZcHay
-	 StXl7zfRUX3MKsFPmT3Kfg2/z074lZquW8fipAXezlbMcBLauviLwBtWunBLkA3wKmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315878;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=EnWbVDYQ/6puggi0QqXD0bxXsZrTtGcnJLqSymIBlOI=;
+	b=tTYli00ylTVCfTL1+M2Rc4/LLmdQw+0EG8G/9Nv6tVrfJ9fljmJc19G64mIyjwkmLz33
+	 kVKVLVqDGHv/4qwK+QuEdWpzhLwZJTyHdoqU4dkd+ucPfUmTPJQJ3RoigFCfKesYqi104
+	 qkDX3INJVSGpIzi6jCy+m2dnRb3jRIDhe4RZn//0mprHnKNcJ0/zhzQ17b1thrROtFjSy
+	 7sTXHahw38IG9tIMZUUgb1ltL1VJ9t07bDDWyduHsYzcSRYGW0Orknt8H8J5Xgzw4rmgH
+	 PXYm27s9CTlQgWxkXZIq0lqAcetRZMV05wIwN50MuxBbh4E9F5BZUK1VvxyxbT92/5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5KzcfRJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lDw8Liv9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239CC606A74B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:04:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4E3606A336;
+	Tue, 10 Nov 2026 13:04:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5KzcfRJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 654C71F008A3;
-	Tue, 10 Nov 2026 13:04:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lDw8Liv9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459E01F0089F;
+	Tue, 10 Nov 2026 13:04:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315854;
-	bh=WGrIwRnisMDu1MP41OJsjXxNtpTqoQjI86eriyZIYpU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T5KzcfRJXcOq2EvJL8LczddjVW0pA35zZrV/cHv/6dgfqb1a55UkEHc8Hu9dVahqC
-	 uOLyx9xse0A6SPj+o2g3nT/HRp9K9ZynDZOEBa96gG8fcaUmcQX7RhKjPQsFXcMllw
-	 BVDBs2hszgFqERG1qMGMtQ8flKi+LtW5sbU1iN5Fs3z1r6t/YGjNPftyYVszRXc9T4
-	 Jm/QAXZh9ugzkxznB/g4teeIHemZ22RPIZMWfK8jFbWYBwGH6lQtbymq4jhCXr7+1x
-	 ynMCwpvHt1ZNWQh/qvILdG5ei+t2JK311xsS7TmNyP32AGwOlq+w7z2p6dzTvWovME
-	 odHNhH//38HvA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 08:04:09 -0500
-Message-ID: <20261110130352.1644128-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053022-failed-6.6-56c1d32323e7@kernel.org>
-References: <20261107053022-failed-6.6-56c1d32323e7@kernel.org>
+	s=k20260515; t=1794315877;
+	bh=EnWbVDYQ/6puggi0QqXD0bxXsZrTtGcnJLqSymIBlOI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lDw8Liv9Ggm6qVu6iULhp3dA8tGCXo1zz7IlG3Z1ClryFeLIADN2w499Nvu34XeKI
+	 tlcdHc+3bb1iQp4Xs4EEV32OVK/zqc0JXsl5qRJJr2F9tbjSG5JO27KHxUBL3nPyU7
+	 2KkatvBT/FN4EQDfUoITl3Boswqr44ktlPlA6N+x1AuqmugRrACbB/k7uWZ/al2DTn
+	 OFwhNNUr42DYI+72hCCzrLGtpZWMuNYpP8v/iKQZ2i8a/TA2bTNwqWjLpdhduLhZDU
+	 DRSEibh9cMMf/OyGpG+rTUaJKPoQu/P5mFo/s3fz9Sy2+B2qw80vhoD1pbuLqu2b9Z
+	 2l29J8hWdPOGg==
+Subject: Re: [PATCH net] vlan: prevent cross-netns MII register writes
+From: netdev-bot+sashiko@kernel.org
+To: dennylin0707@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, n05ec@lzu.edu.cn, ylong030@ucr.edu,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 10 Nov 2026 13:04:36 +0000
+Message-ID: <179431587680.994134.9895439231970781828@kernel.org>
+In-Reply-To: <20261106124639.12584-1-dennylin0707@gmail.com>
+References: <20261106124639.12584-1-dennylin0707@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,81 +63,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-[ Upstream commit 56c1d32323e773b8b927316f8beeae9238576335 ]
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the first
-~35 ms conversion.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot.
+- [Medium] The patch only partly isolates the host PHY from the VLAN's
+  network namespace.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+--
 
-Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adjusted context because temperature reads are handled by tmp102_read() instead of tmp102_read_temp() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hwmon/tmp102.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+vlan: prevent cross-netns MII register writes
 
-diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
-index 2506c78590afe..be4ce0be9b7f2 100644
---- a/drivers/hwmon/tmp102.c
-+++ b/drivers/hwmon/tmp102.c
-@@ -54,7 +54,7 @@
- struct tmp102 {
- 	struct regmap *regmap;
- 	u16 config_orig;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
- 
- /* convert left adjusted 13-bit TMP102 register value to milliCelsius */
-@@ -79,7 +79,7 @@ static int tmp102_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp102->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
- 			return -EAGAIN;
- 		}
-@@ -245,7 +245,7 @@ static int tmp102_probe(struct i2c_client *client)
- 	 * Mark that we are not ready with data until the first
- 	 * conversion is complete
- 	 */
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
- 							 tmp102,
-@@ -278,7 +278,7 @@ static int tmp102_resume(struct device *dev)
- 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
- 				 TMP102_CONF_SD, 0);
- 
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	return err;
- }
+This commit makes vlan_dev_ioctl() reject SIOCSMIIREG when the VLAN
+device and its real device are in different network namespaces.
+SIOCGMIIPHY and SIOCGMIIREG are still forwarded across namespaces on
+purpose, and writes are still allowed when both devices share a
+namespace.
+
+> diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+> index bca0a3693636c..0d0904103302f 100644
+> --- a/net/8021q/vlan_dev.c
+> +++ b/net/8021q/vlan_dev.c
+> @@ -416,9 +416,12 @@ static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
+>  	ifrr.ifr_ifru = ifr->ifr_ifru;
+>
+>  	switch (cmd) {
+> +	case SIOCSMIIREG:
+> +		if (!net_eq(dev_net(dev), dev_net(real_dev)))
+> +			break;
+> +		fallthrough;
+>  	case SIOCGMIIPHY:
+>  	case SIOCGMIIREG:
+> -	case SIOCSMIIREG:
+>  		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
+>  		break;
+
+[Severity: Medium]
+Can the VLAN's namespace still change host PHY state through
+SIOCGMIIREG?
+
+The commit message describes the threat as letting the VLAN namespace
+"modify PHY registers on the host's real device". It also says the
+patch will "Preserve MII reads across namespaces". MII reads are not
+always free of side effects, though.
+
+For phylib drivers, the read path ends in phy_mii_ioctl() in
+drivers/net/phy/phy.c. That function does a raw bus read at a phy_id
+and reg_num chosen by the caller:
+
+drivers/net/phy/phy.c:phy_mii_ioctl() {
+    ...
+	case SIOCGMIIREG:
+		if (mdio_phy_id_is_c45(mii_data->phy_id)) {
+			...
+			ret = mdiobus_c45_read(phydev->mdio.bus, prtad, devad,
+					       mii_data->reg_num);
+		} else {
+			ret = mdiobus_read(phydev->mdio.bus, mii_data->phy_id,
+					   mii_data->reg_num);
+		}
+    ...
+}
+
+The BMSR link status bit is latched low, and genphy_update_link() in
+drivers/net/phy/phy_device.c depends on that latch:
+
+	/* The link state is latched low so that momentary link
+	 * drops can be detected. ...
+	 */
+
+Vendor interrupt and event status registers are also often
+clear-on-read. A read from inside the container could consume a
+latched link drop, or acknowledge a pending PHY interrupt, before the
+host's phylib state machine or IRQ handler sees it. Would the host
+then miss link-change events?
+
+The read also isn't limited to the PHY attached to real_dev.
+mii_data->phy_id can name any C22 or C45 address on the host's MDIO
+bus, including other PHYs or switches unrelated to the VLAN.
+
+The only privilege check on this path is in dev_ioctl() in
+net/core/dev_ioctl.c, and it is against the VLAN namespace's user
+namespace:
+
+	case SIOCGMIIPHY:
+	case SIOCGMIIREG:
+	case SIOCSIFNAME:
+		dev_load(net, ifr->ifr_name);
+		if (!ns_capable(net->user_ns, CAP_NET_ADMIN))
+			return -EPERM;
+
+Container root can satisfy this check once the VLAN has been moved
+into its namespace.
+
+The write side here follows the vlan_dev_hwtstamp_set()/get split,
+where only set has a net_eq() check. Hardware timestamp get has no
+hardware side effects, but MII reads can.
+
+Should SIOCGMIIPHY and SIOCGMIIREG also be rejected when
+dev_net(dev) and dev_net(real_dev) differ? If not, could the commit
+message explain why these cross-namespace reads are acceptable?
+
+>  	}
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106124639.12584-1-dennylin0707%40gmail.com
