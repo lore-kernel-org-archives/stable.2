@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794283723;
-	b=0/W6kHzMlKGy4BaInpL3t6tO6Bi9o4TJg/0ojcM4y/mXyNi0G/L4Vdhtil6YqrYe5Wde
-	 Eo+lcvd7mawHTuoGr1EY1Ox5rp9Zqo5nZ/WC5FuBGECHgJ06Owy0bRh1gukoFNZQ/R7ob
-	 CqCEF5qLoJnslm7rS2UuCE8Aq3A3muOtgIiixd2cZguaFvjmTAXjXTNHPzzpRI2uZ82Me
-	 TLnW7Kadk4XYa24TrXZ2CtKw1KFjOW/CLfvtMoDQujxhjFU0OygTDPvN8iMAeDm6r38xP
-	 cAbrpAwxeu31HbPFec8Dm9gTKEhkSvJ2Elr8YbSNc2fWk8wzjybsZ4PlIYtMxJpzooA==
+	t=1794283752;
+	b=dh1PaoFqXkkHRFG4kVIEG/jM+GERL6H7DY/7UoeZhaYV8nCDWw3j4kphIYq2/tGS9Urp
+	 Ceq4zKptfbXqIVbJKK8E9X1upRxt+AyQpx0tZeTTD71EhWHr7AoxTu/cZgB9aWSlFIKl8
+	 UmYSJpjxBTUXaAn7hEucbMsyP+EjvsnUmEigB97tNhVC+AbUgVP2sOg1HrZv6iyyor/Uw
+	 dHpdS9rRSHzN9dEqjZEID3acgRC+/GsXTa2nwq8SiJgJkmt2AYoe1nmlj7x3SA0yG01K7
+	 vPCOqkdCxAjau5KUKnkerm4y8yNFyE8o2LKKjlJbCNe5r9JHAJvcEC2pUpnH3o8rLrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283723;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283752;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Vh9owzbVSXKD6lkBE75OF6lyDe65E8wltR9te9c2PWs=;
-	b=41zryXG+w6XSX9aMedyrD7Eo5CdkvT+/B5wwi2msCx45WZkyyMMcQk2ddK1MbHnsk2ir
-	 hIH3Sbndy+zjgPs+f2c/c/doq0IKUtSYDP8eJmwX1EVYJ6Om9oiWlzbDXqdXu1hPUdVUH
-	 GUWjBN+6KA9ubN5sPJSppqTM2kDfPPbOOwFxUU+cMzEBqQrAiH/DpCAhTmpQ8GX4TtSXD
-	 EN9pK0PxXGSYFtNnxaIk4kzx5HFE7uxeQLhM7PTE9Oh+FFYtHvmyaUJt8ZlsMCF0wS4TJ
-	 EmmA3BiuwM3Ts3vICldk8MCTOYm7NenMKgQ6YIAEBTpBpRTk1mJTeQshWqLZWK4MF/g==
+	bh=uIg9BmWQAnrz47gSq3Vz9mkjB1byyfzr0QI4srhIF7I=;
+	b=5WL9LrjQUPgez9/z+vnOAqav5PSxzN9U39YNiz6It8lzjAjoh4K+AAja4t7EDy9/54Xi
+	 9bXwxKL3Yc9qOuH2AtUUAgyMm0elleSlEAssQU6DInw6juVghqhcpUwZ0I3Q+10I2N744
+	 msMXmBoPJuNE7Jer6KMQR4pzK9D8qDm4QxEIPFQocjK1pTojWTCWhc1Df5HDZ3gfI9QKp
+	 ahHill1GhBQFxsdKQazMO4x8bPT15sVc8SpaYaCbR5hbP9g18QNJZB/2ECX5pQV0ppdyb
+	 r9pMS2M6rFuTasS/1eOQZw37cevN1h63MJC6oLfhY/RZrWyr5F7bBYG7yq1yFSlhyWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mtuZ/x/b";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSJR6otF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8573B60A6F6B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76BA606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:09:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtuZ/x/b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEBEA1F0093B;
-	Tue, 10 Nov 2026 04:08:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSJR6otF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74201F008A2;
+	Tue, 10 Nov 2026 04:09:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794283723;
-	bh=Vh9owzbVSXKD6lkBE75OF6lyDe65E8wltR9te9c2PWs=;
+	s=k20260515; t=1794283751;
+	bh=uIg9BmWQAnrz47gSq3Vz9mkjB1byyfzr0QI4srhIF7I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mtuZ/x/bPFoQKZSzUIuWKUMYFYTXp/x5GhFs6iZMgd5qzZN3qI/zaA0JxKiH2hKhL
-	 +b90WpNXddX0XQikEJ2BRubKE7aAbrXyDo9kxQeDBlcRYHOPd2tkDpfs5OS0FEo1/o
-	 GTEsWpW2HYawb4Fj2dZUWepdVGbOwvJVerMDw74fxH4dfH/J1PjdlDibPLWBxV6xxa
-	 PkjaPs9ubCWfrp0OqTb6QzKD9qytNdHUzgLwEtzpeZFWS2DnzZ6YnaiT2Ng18Q8VF5
-	 EJ6UCvqxWsjxr2w1PO6Xu1+epjzvAa0ONQBI0bO5YShKutKGGrx1puRuZMn4Xhuamw
-	 wWt7xO8V644hw==
+	b=BSJR6otFdOdNsoCy16XA46Us+EKybG694Xq8x2wkdMa8Az+s4E2TrveqEBhAgboOD
+	 jO65TrDP4VBavgTUdj55GYYWnFJ6czu3kiBRpDa0t2kUsGQ/cDmn1u7Vr8qkIDfw3Q
+	 ph8WjZVq7E5zSAjOU0eaF+b8V3rtc/kEH/xcFDAqWHEUxzXWFzYxEmCWYuu8uBgM49
+	 DWfs1VmhzGNWtpLWCDlS98jzaso95Wak3OSLdq8tL6wlEIYyvsXFk5aKXamqp/SMcD
+	 8c1uqqsHz6wXobRtYstdjlMp5VrNkwQoZJD2f2nM4/3tdXc90syOqm65R9oXOX48Do
+	 TihUJwUCZsMmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
+Cc: Stanislaw Gruszka <stf_xl@wp.pl>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
-Date: Mon,  9 Nov 2026 23:08:41 -0500
-Message-ID: <20261110040815.314716-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] wifi: mac80211: queue frames while off-channel
+Date: Mon,  9 Nov 2026 23:09:09 -0500
+Message-ID: <20261110040852.320508-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052908-failed-6.6-5cdbd6d3a3a1@kernel.org>
-References: <20261107052908-failed-6.6-5cdbd6d3a3a1@kernel.org>
+In-Reply-To: <20261107061449-failed-5.10-13e51269b665@kernel.org>
+References: <20261107061449-failed-5.10-13e51269b665@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,214 +61,144 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Stanislaw Gruszka <stf_xl@wp.pl>
 
-[ Upstream commit 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 ]
+[ Upstream commit 13e51269b6656768dc595ed6025e4974f2026543 ]
 
-The virtual PCI driver registers an ntb_dev but has no remove callback.
-Unbinding the endpoint function can therefore free BARs while the NTB
-device and its client still use them. It also leaves the virtual PCI
-devices and root bus allocated.
+Drivers without FAST_XMIT and hardware scan support currently drop TX
+frames during software scanning while being off-channel. This happens
+in ieee80211_tx_h_check_assoc() before frames reach internal TX queue.
 
-Allocate an ntb_dev for each virtual PCI probe and unregister it from the
-matching remove callback. Start command processing only after registration.
-Publish the device for doorbell IRQs at the same point. During remove, stop
-the command work and drain IRQ handlers before unregistering the device.
+Move the off-channel check to invoke_tx_handlers_late(), after
+ieee80211_queue_skb(). Frames can then remain queued and be transmitted
+when the interface returns on-channel. This how TX works currently when
+code goes via ieee80211_xmit_fast() path.
 
-Retain the root bus returned by pci_scan_bus() so it can be removed on
-unbind. Unregister the virtual PCI driver before releasing endpoint
-resources. Stop and remove the root bus under the PCI rescan/remove lock,
-then release its host bridge.
+Below is rt2x00 driver ping output example while scanning, before and
+after the fix. After the fix, packets are no longer lost. Some have
+increased latency, what is expected behavior.
 
-Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Cc: stable@vger.kernel.org # 6.0+
-Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
-[ sashal: adapted lifetime handling to the polling-based doorbell implementation without MSI doorbell IRQ support ]
+BEFORE:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.61 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=3.33 ms # Missed 30
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.03 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=3.10 ms # Missed 33
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=3.04 ms # Missed 35
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.05 ms # Missed 37
+64 bytes from 192.168.0.1: icmp_seq=40 ttl=64 time=4.14 ms # Missed 39
+64 bytes from 192.168.0.1: icmp_seq=41 ttl=64 time=4.50 ms
+
+AFTER:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.40 ms
+64 bytes from 192.168.0.1: icmp_seq=30 ttl=64 time=6.10 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=4.69 ms
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.49 ms
+64 bytes from 192.168.0.1: icmp_seq=33 ttl=64 time=148 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=6.83 ms
+64 bytes from 192.168.0.1: icmp_seq=35 ttl=64 time=8.66 ms
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=13.0 ms
+64 bytes from 192.168.0.1: icmp_seq=37 ttl=64 time=4.78 ms
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.85 ms
+
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260908124651.2995-1-stf_xl@wp.pl
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: retained the existing out_free cleanup path in ieee80211_8023_xmit() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/endpoint/functions/pci-epf-vntb.c | 69 +++++++++++++++----
- 1 file changed, 55 insertions(+), 14 deletions(-)
+ net/mac80211/tx.c | 50 ++++++++++++++++++++++++++---------------------
+ 1 file changed, 28 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-index 22364ebd73ed7..3de4269155f67 100644
---- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-+++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-@@ -116,7 +116,7 @@ struct epf_ntb_ctrl {
- } __packed;
- 
- struct epf_ntb {
--	struct ntb_dev ntb;
-+	struct ntb_dev *ntb;
- 	struct pci_epf *epf;
- 	struct config_group group;
- 
-@@ -142,10 +142,15 @@ struct epf_ntb {
- 	void __iomem *vpci_mw_addr[MAX_MW];
- 
- 	struct delayed_work cmd_handler;
-+	struct pci_bus *vpci_bus;
- };
- 
- #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
--#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
-+
-+static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
-+{
-+	return ntb->pdev->sysdata;
-+}
- 
- static struct pci_epf_header epf_ntb_header = {
- 	.vendorid	= PCI_ANY_ID,
-@@ -171,7 +176,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
- 	else
- 		ntb->reg->link_status &= ~LINK_STATUS_UP;
- 
--	ntb_link_event(&ntb->ntb);
-+	ntb_link_event(ntb->ntb);
- 	return 0;
- }
- 
-@@ -259,7 +264,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
- 	for (i = 1; i < ntb->db_count; i++) {
- 		if (ntb->epf_db[i]) {
- 			ntb->db |= 1 << (i - 1);
--			ntb_db_event(&ntb->ntb, i);
-+			ntb_db_event(ntb->ntb, i);
- 			ntb->epf_db[i] = 0;
- 		}
- 	}
-@@ -771,7 +776,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
- 	}
- 
- 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
--	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
- 
- 	return 0;
- 
-@@ -1020,6 +1024,7 @@ static int vpci_scan_bus(void *sysdata)
- 		pr_err("create pci bus failed\n");
- 		return -EINVAL;
- 	}
-+	ndev->vpci_bus = vpci_bus;
- 
- 	pci_bus_add_devices(vpci_bus);
- 
-@@ -1064,7 +1069,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
- 	int ret;
- 	struct device *dev;
- 
--	dev = &ntb->ntb.dev;
-+	dev = &ndev->dev;
- 	barno = ntb->epf_ntb_bar[BAR_MW0 + idx];
- 	epf_bar = &ntb->epf->bar[barno];
- 	epf_bar->phys_addr = addr;
-@@ -1167,7 +1172,7 @@ static int vntb_epf_peer_db_set(struct ntb_dev *ndev, u64 db_bits)
- 				PCI_EPC_IRQ_MSI,
- 				interrupt_num + 1);
- 	if (ret)
--		dev_err(&ntb->ntb.dev, "Failed to raise IRQ\n");
-+		dev_err(&ntb->epf->dev, "Failed to raise IRQ\n");
- 
- 	return ret;
- }
-@@ -1250,13 +1255,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
- 
- static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index 73b79a9611011..6c9df5e2a0d64 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -291,7 +291,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
+ static ieee80211_tx_result debug_noinline
+ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
  {
--	int ret;
- 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
- 	struct device *dev = &pdev->dev;
-+	struct ntb_dev *ntb;
-+	int ret;
+-
+ 	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
+ 	bool assoc = false;
+@@ -299,23 +298,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ 	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
+ 		return TX_CONTINUE;
  
--	ndev->ntb.pdev = pdev;
--	ndev->ntb.topo = NTB_TOPO_NONE;
--	ndev->ntb.ops =  &vntb_epf_ops;
-+	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
-+	if (!ntb)
-+		return -ENOMEM;
-+
-+	ntb->pdev = pdev;
-+	ntb->topo = NTB_TOPO_NONE;
-+	ntb->ops = &vntb_epf_ops;
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
+-	    !ieee80211_is_probe_req(hdr->frame_control) &&
+-	    !ieee80211_is_any_nullfunc(hdr->frame_control))
+-		/*
+-		 * When software scanning only nullfunc frames (to notify
+-		 * the sleep state to the AP) and probe requests (for the
+-		 * active scan) are allowed, all other frames should not be
+-		 * sent and we should not get here, but if we do
+-		 * nonetheless, drop them to avoid sending them
+-		 * off-channel. See the link below and
+-		 * ieee80211_start_scan() for more.
+-		 *
+-		 * http://article.gmane.org/gmane.linux.kernel.wireless.general/30089
+-		 */
+-		return TX_DROP;
+-
+ 	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
+ 		return TX_CONTINUE;
  
- 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret) {
-@@ -1264,16 +1274,33 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		return -EINVAL;
- 	}
- 
--	ret = ntb_register_device(&ndev->ntb);
-+	ret = ntb_register_device(ntb);
- 	if (ret) {
- 		dev_err(dev, "Failed to register NTB device\n");
- 		return ret;
- 	}
- 
-+	/* Publish after ntb_register_device() succeeds */
-+	smp_store_release(&ndev->ntb, ntb);
-+	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
-+
- 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
- 	return 0;
+@@ -801,6 +783,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
+ 	return TX_CONTINUE;
  }
  
-+static void pci_vntb_remove(struct pci_dev *pdev)
++static ieee80211_tx_result debug_noinline
++ieee80211_tx_h_check_offchannel(struct ieee80211_tx_data *tx)
 +{
-+	struct epf_ntb *ndev = pdev->sysdata;
-+	struct ntb_dev *ntb;
++	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
++	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
 +
-+	/* Stop the work reader */
-+	cancel_delayed_work_sync(&ndev->cmd_handler);
++	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
++		return TX_CONTINUE;
 +
-+	ntb = xchg(&ndev->ntb, NULL);
-+
-+	ntb_unregister_device(ntb);
-+}
-+
- static struct pci_device_id pci_vntb_table[] = {
- 	{
- 		PCI_DEVICE(0xffff, 0xffff),
-@@ -1285,6 +1312,7 @@ static struct pci_driver vntb_pci_driver = {
- 	.name           = "pci-vntb",
- 	.id_table       = pci_vntb_table,
- 	.probe          = pci_vntb_probe,
-+	.remove         = pci_vntb_remove,
- };
- 
- /* ============ PCIe EPF Driver Bind ====================*/
-@@ -1365,12 +1393,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
-  */
- static void epf_ntb_unbind(struct pci_epf *epf)
- {
-+	struct pci_host_bridge *bridge;
- 	struct epf_ntb *ntb = epf_get_drvdata(epf);
- 
-+	pci_unregister_driver(&vntb_pci_driver);
-+
-+	if (ntb->vpci_bus) {
-+		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
-+
-+		pci_lock_rescan_remove();
-+		pci_stop_root_bus(ntb->vpci_bus);
-+		pci_remove_root_bus(ntb->vpci_bus);
-+		ntb->vpci_bus = NULL;
-+		pci_unlock_rescan_remove();
-+
-+		pci_free_host_bridge(bridge);
++	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
++	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
++	    !ieee80211_is_probe_req(hdr->frame_control) &&
++	    !ieee80211_is_any_nullfunc(hdr->frame_control)) {
++		/*
++		 * When software scanning only nullfunc frames (to notify
++		 * the sleep state to the AP) and probe requests (for the
++		 * active scan) are allowed, all other frames should not be
++		 * sent and we should not get here, but if we do
++		 * nonetheless, drop them to avoid sending them
++		 * off-channel. See __ieee80211_start_scan() for more.
++		 */
++		return TX_DROP;
 +	}
 +
- 	epf_ntb_epc_cleanup(ntb);
- 	epf_ntb_config_spad_bar_free(ntb);
--
--	pci_unregister_driver(&vntb_pci_driver);
- }
++	return TX_CONTINUE;
++}
++
+ static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
+ {
+ 	u16 *seq = &sta->tid_seq[tid];
+@@ -1825,6 +1834,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
+ 		goto txh_done;
+ 	}
  
- // EPF driver probe
++	CALL_TXH(ieee80211_tx_h_check_offchannel);
+ 	CALL_TXH(ieee80211_tx_h_michael_mic_add);
+ 	CALL_TXH(ieee80211_tx_h_sequence);
+ 	CALL_TXH(ieee80211_tx_h_fragment);
+@@ -4282,10 +4292,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 		skb_get_hash(skb);
+ 	}
+ 
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &sdata->state))
+-		goto out_free;
+-
+ 	memset(info, 0, sizeof(*info));
+ 
+ 	tid = skb->priority & IEEE80211_QOS_CTL_TAG1D_MASK;
 -- 
 2.53.0
 
