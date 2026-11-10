@@ -1,48 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293690;
-	b=oKkQw7/ePZ6aJr8UUeCQtHCpK82uSTO7hk0vUbgLxp5ZboF7R8pE4KmLzWkogm0LJLaO
-	 HmWLWVF/L4AZ3d69lHrfeEoQHJzE1XzvX65Do0mhWIcWMBR48zcyS8NfZvKYGFUEPhjwI
-	 VUyrseIiLr3/Lvh6YhxkaEc7P1fWYka2tgC0i/ksvZMwNXjMgncLXkvm9Hv9o/nkBWZKx
-	 eNCp7xhmalfXTjGn5dE00n7232nn1WjDd+ksKA77KdF8iBEstG8z4MTxtjhs4fp8wJ+x5
-	 1a1Zas4wqXMBJtObkYyJgW5UNGVGqJdtjqfLu880ZTzuw6+QbTlnaeuTOQDPfQ53Xrg==
+	t=1794293716;
+	b=QH8Gs6WQT7AYAZIf1XNh3ADbm3lJ2qG1XO63o0s3GZ/DeDmYtEPedJnPGMBxmUifpOB2
+	 FH+h1Gx0GQoz7W2EiekaYEq0EqEGnRZ2aXUTw7+SznaJrBmgHsQ+KQLlBYmw8Hc+nO+Lg
+	 sP2tj6cIb0PXfVkvlrWYHqgQWEw9+RS5JQX4VLXmyvYKd8fHqjD1Kykf9+aZ2C3TSqbbp
+	 sYjPWIoXUCH5LwH3EiuSEL0D4vN3PzcEC4E3Nxnzgklm5qRPsaKLDYZwDDO8CFDy8cIoP
+	 lmpU2NCLxkbaQ5kqeXIogWRwZsEgVPJA/DL8ldvdvkoWQooPvpO+KtiRTiZRq+o4QWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293690;
-	h=DMARC-Filter:DKIM-Signature:To:Mime-Version:X-Lms-Return-Path:
-	 Subject:X-Original-From:From:Content-Transfer-Encoding:Cc:Date:
-	 Message-Id:X-Mailer:Content-Type;
-	bh=Udri3NUNj6s1Pul0NrwZRQXTDB94EPtWXLDDQCFvQ+8=;
-	b=d/iQdTDx4CEKtuX7IUebpBQNFU8ggp9ORsqEYgxSTHCPTVKf1jNbanAD2/qfCNsURfi4
-	 UuYRGZ06mEdEzJbl/Gd1GsKswzn0Q76S6aNsEpgKMHco1wKQKVx7RgGRro5HolHV/9r8n
-	 /1CjImzivPFWjw17D0VD+tqPObcN2S490cB3HQtgJZd1/w4Ta8b2o16NsiPLYd3LY4YLR
-	 ibfwBF/la7y6DFN29TrfuegFK75fzCo5e5efUAf1uWWdEKANoNkdPTLMni4X/3b2p5NfT
-	 KpZlIuqwvkNOYbK7o8Yp9hIHz2rFv/VjxIKEdV9FQTR0MeiYyvZKD5BVP1pmqA4wfpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293716;
+	h=DMARC-Filter:DKIM-Signature:To:Mime-Version:X-Lms-Return-Path:From:
+	 Date:X-Original-From:Cc:Content-Transfer-Encoding:X-Mailer:Subject:
+	 Message-Id:Content-Type;
+	bh=W4Vv6xAH5fftGua5PU2aKr7s7xXExZ2LYx6GHi4wTmY=;
+	b=lBSqEK2EnnCbGBumoO0AGrGS4SYLjWF91Ww24Ct8/eCovESxuvLL/1KxQ/HG2Oqe6+O9
+	 I/ST/zyAsSF2AXXm3pVfDp3ACjrdiMiQ3KusTNcpnHTzfB+bg3Itb1ELeIXE79EXpbZwa
+	 8Dzi8kewjjUv/Z0k4qw62LtqJF4TmwW7XKQpnuNnO2Q5w4KdxY/sKBuNswb88PsUPzjVb
+	 Khb3cgZv8jQ7D50BOXIRG8q4EOBYlipfifGyGqXnkkKIOdd/Dng8oQuGe0JUyqY0QaAr9
+	 JMHpL0GXv2R3OcIAu0Q51gdKUQylidztzv00Ul1e/iVlNTp6u2nC3z24AUatrMHYe3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="SwOuEN/L";
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=owIrI37z;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CB5606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:54:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0CB5606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E404606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:55:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E404606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SwOuEN/L
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=owIrI37z
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794293683; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1794293703; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=Udri3NUNj6s1Pul0NrwZRQXTDB94EPtWXLDDQCFvQ+8=;
- b=SwOuEN/L58Kqix23fZDp7JouMZNK6leeQ5kYbYQKV2hiVO3qD+bWNhfkkDUWz/zkerDfAn
- 8tg0aapWoadk19pvg7MQV5r7H5253XySqs85DgADI8BjB3oSfHkJKcZASh0ecmjpGo2+Pe
- ibOCdY9ZPPvaMWjM3cB0830umV8b2biFJzz2TPLKc/LJc4pMoVgbuTT5a22g72nncHfODi
- 4+RxIfxxRb5D2pQDyXU+5U5Up1x9OtIeUhw37+R0zx2dGATDwXOBoZd9BT+EkYG7JaWWnu
- pBOYs+9IhRUUYHQDe/pqvRaiePNBb8YnYrCYoxe9S0/KeJ9PYjIYQNTkD8Ry9w==
+ bh=W4Vv6xAH5fftGua5PU2aKr7s7xXExZ2LYx6GHi4wTmY=;
+ b=owIrI37zbKoYqbjXbt/t9Yl7Pcsi27bP2sEuRBE1PA0srSMv66PFbnXAE7uwLDoHXD8e7W
+ 8esmJIyRhilv7vIdq7uKQ83jq7FNPFVHC2WrIXR3tE53I713jQlKFzZXvzw/wPVAEYhA8S
+ r6gNPW6g4eN427AaiAHW4w5dVV6ViYHjdpSKQWSTnKCRrBKjmJMyHP9yGRzI1Wyct+G5iy
+ kfiIEdAk8sxwlA2vvvGHCPNNkvmNHXwZzUCSvj1BtMRp4pT7XZif3Zw1LiivCjDS7IdavO
+ +Cr8SwLDWu8HfjQDy/ZZwoOrtj4nCnHY+o6IByIMlgPeo7Gtaqxfd3vq3cqFVA==
 To: <stable@vger.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,16 +53,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26af2bfb1+4332f1+vger.kernel.org+zhaogongyi@bytedance.com>
-Subject: [PATCH 5.15.y] ata: libata-scsi: reject data-in commands with a data-out buffer
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af2bfc4+929a9f+vger.kernel.org+zhaogongyi@bytedance.com>
 From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
+Date: Tue, 10 Nov 2026 14:54:43 +0800
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
 Cc: <cassel@kernel.org>, <dlemoal@kernel.org>, 
 	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-Date: Tue, 10 Nov 2026 14:54:23 +0800
-Message-Id: <20261110065423.46020-1-zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: [PATCH 6.1.y] ata: libata-scsi: reject data-in commands with a data-out buffer
+Message-Id: <20261110065443.46102-1-zhaogongyi@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
 
 [ Upstream commit a4845f077415ef32fe672c841e2fc58ae9e28273 ]
@@ -97,10 +97,10 @@ Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
  1 file changed, 25 insertions(+)
 
 diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 7ec130c..2e69ccc 100644
+index 3a49511..e18a437 100644
 --- a/drivers/ata/libata-scsi.c
 +++ b/drivers/ata/libata-scsi.c
-@@ -1766,6 +1766,18 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
+@@ -1911,6 +1911,18 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
  	if (xlat_func(qc))
  		goto done;
  
@@ -119,7 +119,7 @@ index 7ec130c..2e69ccc 100644
  	return ata_scsi_qc_issue(ap, qc);
  
  done:
-@@ -1802,6 +1814,12 @@ static void ata_scsi_rbuf_fill(struct ata_scsi_args *args,
+@@ -1947,6 +1959,12 @@ static void ata_scsi_rbuf_fill(struct ata_scsi_args *args,
  	struct scsi_cmnd *cmd = args->cmd;
  	unsigned long flags;
  
@@ -132,7 +132,7 @@ index 7ec130c..2e69ccc 100644
  	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
  
  	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-@@ -2629,6 +2647,13 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
+@@ -2772,6 +2790,13 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
  
  	qc->complete_fn = atapi_qc_complete;
  
