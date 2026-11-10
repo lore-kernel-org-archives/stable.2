@@ -1,56 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273300;
-	b=S7gPHqbdQm717/4oM67EWyKq96sj2WPRc8ZK1uppkpUW4PiqNidT5kq4sOabvWfa5CFJ
-	 Is/2dm4mZrKuoM+YospjzeJF63P58toEC7fTq/mrMKIP3/agOn4+tYKJBX7u3I7oyF75b
-	 j8g7K7CGYNoZ90+MseCXkK91hl2jz2nrq7f3WGv0ojmsFlNKf0QTBJi5Vu4AuZYlHO09q
-	 8lMBy1kEk9dH4Tw7YnwFSIe0VOgFyjb7jJP8JEkbFCeeyV9S8LWokBKQBIeN+Mu5JD6wq
-	 FEjll/6h/9uXFvHxtDBbk2EGMODbKUeFK4l/0PiygpIosmPyrc4hIlNGwJdzEq6Ez7A==
+	t=1794273303;
+	b=XQqy4ki8JISYiqHKMFnNkP0lRNTAMKXIocShf/T5JN7LAVEubKsX2PNUjptNaXJmnY6K
+	 D4vrJ+Rz31BhhZHnuc2mDOHQldU0ee1aRnY9ZfQDBBLkELkHimJH66LoGAgUStgKZh+af
+	 05USSFf0+pzAGLzFUQOgibPDzWb58qS/BG231AIfOwgDYGfrAqmLvFVRMT8qyTJ7ICTaN
+	 yEE3EsRKzYW651Ou9gLDp/oJVwiZJGhKkbiB2kXP1axnFyR5BGgaoY6YQGi8f6ToMmbPg
+	 Bkn6ow9FbCqAfTaKKlrjtjNiocls00829xSjSREheNnQeeanYUYEabzmGNoTkJILFnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273300;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273303;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5eH0cVXHUvpBtQl/d4AtlDe2COkCokHmPTaR4pHauKI=;
-	b=tsnwklWsftFtpN9nIgTUnMspN0i1tcuekgiNXgftUd0PMdIIhgvHHN0Ec7Su7Orajdwc
-	 dITNCtIC0yuhKbnNm9iFYlZxEV0vlrd7tJ2l06w5pwSfJirc5/Otb/W7hCXQprBRVRgV5
-	 i9xDJGlyLc4qBpaOACZFmi5HSkLIPCVKE/i8bs3SjbUQtEW0bi7uQMZZt/SNMS9MKo5ug
-	 JCR91nL29RChon8Tbj5mpmQ/aNfRaM5/wJBzkuNLzZo60TsNA8kWETSlNbS4QssnxLtDP
-	 jBTDb0UqxxSXxGz6VrGhCs1dg4+CkgR38tmiWyjSrrK7iaA/sIpbjZdqmFkE4wS1vuA==
+	bh=cUN30T5Ugtz63aTu5V5FNfxt6fWuVPf+wQCythiX7Ek=;
+	b=kxpE51fNOb/V6SsxjNyytwy7KnvQXoEJzokysKQGSAkjjknoSTGe54u0PUupMxaNXkg2
+	 iTRgw4RbwBMaggVyB4ASekesbif826/3XyJbGtWIS7CadzkuyyyIW8ZvXMw/kn8P+bV1U
+	 1XpOAN6TQXP8EGJV1uBEZaXVzJ5J45anDNvaAhEQFC4qII8SggwW5UcHLABNE3SGQR/IC
+	 gBb5edndAL++32bIbsBu85hFxRiXp9P5CwibQo6BX4J8u8Yceag1CYRE1n75yZg0uqsQ5
+	 AcaKYkW53K5TLk7tR5pTygtrhAks3D/FTSaDWK+35k6kZEfSb9rogEaLsrKJCCVPfEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeHu9Hud;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsjKIrCo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CF2606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310F7606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeHu9Hud
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8CA1F0089F;
-	Tue, 10 Nov 2026 01:14:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsjKIrCo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A9C1F0089F;
+	Tue, 10 Nov 2026 01:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273300;
-	bh=5eH0cVXHUvpBtQl/d4AtlDe2COkCokHmPTaR4pHauKI=;
+	s=k20260515; t=1794273302;
+	bh=cUN30T5Ugtz63aTu5V5FNfxt6fWuVPf+wQCythiX7Ek=;
 	h=From:To:Cc:Subject:Date;
-	b=XeHu9Hudkq8u36l2PAhaCgscWQjsU3oKbrTBtb7mEPSNRVGdhWKrQmy4FP7nzt6lc
-	 IDIRgcBq2gzEvhY2SKeJoC0yH4PQA5Y8d1I7CSyZ2ClYAKkaRXWOahK1x8oAs6Olwz
-	 Bw5MUtDzTyPiPDYTVFur9ObettohpKD2zlOEn+CBJrTNziWELyT7g/bw5VCXuL8/t0
-	 r1fKZmhOTMmyD5mP64Y215a5+GztaQPac1M0B29cgDScBm9Sm4CNd8mBEyQU0BInWl
-	 jLsSsnD6BOQGPTgjj+L5MAa6T9n/clDGUz3fCc0iHgl902X0C346W6hFwIJbRNcKfJ
-	 PzlxQXvRkI9sQ==
+	b=NsjKIrCobvjb60OmkUta52IxRI9fRTzwK0KxaNEVSa3cys/oHSGNj2jSLD+t6ECTa
+	 leZdZaeax1uSFiTs8JsUIh51T9fLJ2Lmlp4099smPkryTHNV3Liq2lF794ZZU+ZqV6
+	 8awxKWh/NqFzE1tdE3ibsOb7DwOhGLoiHwYTNDHx10P9Ixz+eqdD6+2XM1LGd6nzuM
+	 +u5g4YEYv+B/D51heMRH3Y7J2msW8vhbQJ0Zz4w7VXLUWhGc0F5Iy+Cqu4WTtXDjoZ
+	 gxIsTd9wWEs0kHHwWMye1SxIhI3Kma0pdQTCjE59Jv2FqQY4XPq5vOobYcrTjx8MCb
+	 1277p7NctFk+A==
 From: Sasha Levin <sashal@kernel.org>
-To: zhaoyz24@mails.tsinghua.edu.cn,
-	yangyx22@mails.tsinghua.edu.cn,
-	wangao@seu.edu.cn,
-	fengxw06@126.com,
-	qli01@tsinghua.edu.cn,
-	xuke@tsinghua.edu.cn,
-	asmadeus@codewreck.org
+To: ebiggers@kernel.org,
+	ardb@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] 9p/xen: drain response work after unbinding IRQ" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:14:58 -0500
-Message-ID: <20261109201458-failed-6.1-7b6f2e3c29fb@kernel.org>
+Subject: FAILED: patch "[PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:15:00 -0500
+Message-ID: <20261109201500-failed-6.1-dd2a4edb26e1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,76 +68,106 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7b6f2e3c29fb4d76f1e4973280792eabbd526602
+git cherry-pick -x dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201458-failed-6.1-7b6f2e3c29fb@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201500-failed-6.1-dd2a4edb26e1@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7b6f2e3c29fb4d76f1e4973280792eabbd526602 Mon Sep 17 00:00:00 2001
-From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Date: Tue, 9 Jun 2026 23:52:01 +0800
-Subject: [PATCH] 9p/xen: drain response work after unbinding IRQ
+From dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@kernel.org>
+Date: Wed, 21 Oct 2026 22:44:50 -0700
+Subject: [PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian
+ kernels
 
-commit ea4f1009408e ("9p/xen : Fix use after free bug in
-xen_9pfs_front_remove due to race condition") added cancel_work_sync()
-to keep xen_9pfs_front_free() from freeing a ring while
-p9_xen_response() is still running.
+Kernels built for the MIPS64-based Cavium Octeon SoCs are normally
+big-endian, but little-endian builds are also supported.  Currently, the
+SHA-1, SHA-256, and SHA-512 code using the Octeon crypto co-processor is
+enabled in both builds.
 
-The work is currently drained before the event channel IRQ is unbound.
-That leaves a race window where xen_9pfs_front_event_handler() can run
-after cancel_work_sync() returns and queue p9_xen_response() again.  The
-following unbind_from_irqhandler() synchronizes with the IRQ handler, but
-it does not cancel work that the handler already queued.  The teardown
-can then free the ring and private data while the response work remains
-pending, and the worker later dereferences ring->priv and priv->client.
+This code is untestable without the hardware.  However, based on the
+code itself, it is implausible that it computes hash values correctly in
+little-endian builds.  Such builds write many incorrect values to COP2:
 
-Unbind the event channel IRQ before draining the work.  Once the IRQ is
-unbound, no new response work can be queued by the backend event channel,
-and cancel_work_sync() waits for any work that was queued before or
-during the unbind.  It is then safe to release the ring resources.
+  - SHA-1 and SHA-256: The 64-bit integer that contains the last two
+    32-bit message words of each block is written to COP2 entirely
+    byte-reflected, due to missing endianness conversion in
+    octeon_sha1_start() and octeon_sha256_start() to compensate for
+    using native 64-bit loads from the message bytes.  This differs from
+    all the earlier message words which are written correctly.
 
-Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
+    Furthermore, the state is written to COP2 with each 32-bit word
+    byte-reflected within each 64-bit integer, due to incorrect use of
+    64-bit endianness conversion in write_octeon_64bit_hash_dword() when
+    the state is kept in memory in native-endian 32-bit words.
+
+  - SHA-512: All the 64-bit message words are written to COP2
+    byte-reflected, due to missing endianness conversion in
+    write_octeon_64bit_block_sha512() and octeon_sha512_start().  The
+    SHA-512 state words seem to be written correctly.
+
+Big-endian kernels aren't affected by these bugs.  These bugs also
+aren't new; this code has been broken on little-endian ever since it and
+Octeon little-endian support were first added in v4.1.
+
+Commit d2a948d2db68 ("MIPS: Octeon: Make octeon-md5 driver
+endian-agnostic") made the MD5 code work on little-endian kernels by
+adding 64-bit endianness conversions to the COP2 macros used by MD5
+(some of which are shared by SHA-1 and SHA-256, despite those algorithms
+keeping the state words in native-endian instead of MD5's little-endian,
+causing some of the strange behavior described above).  However, SHA-1,
+SHA-256, and SHA-512 were never fixed to work on little-endian kernels.
+
+Therefore, disable the Octeon SHA-1, SHA-256, and SHA-512 code in
+little-endian kernels.  This causes the generic code that actually
+computes hash values correctly to be used instead.
+
+Fixes: 82be2dcfa6a1 ("crypto: octeon - add SHA1 module")
+Fixes: c3d0def62001 ("crypto: octeon - add SHA256 module")
+Fixes: fbaa4dfd51a0 ("crypto: octeon - add SHA512 module")
 Cc: stable@vger.kernel.org
-Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-Reported-by: Ao Wang <wangao@seu.edu.cn>
-Reported-by: Xuewei Feng <fengxw06@126.com>
-Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-Assisted-by: GLM:GLM-5.1
-Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+Acked-by: Ard Biesheuvel <ardb@kernel.org>
+Link: https://patch.msgid.link/20261022054450.20746-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- net/9p/trans_xen.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ lib/crypto/Kconfig | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index 5a0b5b83e8ab4..9ee1ac9143d43 100644
---- a/net/9p/trans_xen.c
-+++ b/net/9p/trans_xen.c
-@@ -282,14 +282,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
- 	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
- 		struct xen_9pfs_dataring *ring = &priv->rings[i];
- 
--		cancel_work_sync(&ring->work);
--
- 		if (!ring->intf)
- 			break;
- 		if (ring->irq >= 0) {
- 			unbind_from_irqhandler(ring->irq, ring);
- 			ring->irq = -1;
- 		}
-+		cancel_work_sync(&ring->work);
-+
- 		if (ring->data.in) {
- 			for (j = 0; j < (1 << ring->intf->ring_order); j++) {
- 				grant_ref_t ref;
+diff --git a/lib/crypto/Kconfig b/lib/crypto/Kconfig
+index 56f308dd02731..83b4a211c15d6 100644
+--- a/lib/crypto/Kconfig
++++ b/lib/crypto/Kconfig
+@@ -237,7 +237,7 @@ config CRYPTO_LIB_SHA1_ARCH
+ 	depends on CRYPTO_LIB_SHA1 && !UML
+ 	default y if ARM
+ 	default y if ARM64
+-	default y if MIPS && CPU_CAVIUM_OCTEON
++	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
+ 	default y if PPC
+ 	default y if S390
+ 	default y if SPARC64
+@@ -255,7 +255,7 @@ config CRYPTO_LIB_SHA256_ARCH
+ 	depends on CRYPTO_LIB_SHA256 && !UML
+ 	default y if ARM && !CPU_V7M
+ 	default y if ARM64
+-	default y if MIPS && CPU_CAVIUM_OCTEON
++	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
+ 	default y if PPC && SPE
+ 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
+ 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
+@@ -275,7 +275,7 @@ config CRYPTO_LIB_SHA512_ARCH
+ 	depends on CRYPTO_LIB_SHA512 && !UML
+ 	default y if ARM && !CPU_V7M
+ 	default y if ARM64
+-	default y if MIPS && CPU_CAVIUM_OCTEON
++	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
+ 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
+ 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
+ 	default y if S390
 -- 
 2.53.0
 
