@@ -1,59 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794299631;
-	b=zhhv7neP+tYEW9UF8ZOjwLzZXDC9pBBwEuEZHl7YdM8TyDOcPwtG+8SeX8EmK55LtQsg
-	 Po63OytKBtsI1uZbk285xGy631K4gJniDc9obKi3e8lRuY6wBZgRL4PjLAiimNDXeFbkr
-	 b1Fln4WvoNQttXYgfOQkalK5oSzHdu7PU39h+bN9dcntMldBzaaVoMD5ZSO//ER+zLKgl
-	 a2wu+2pQsJasXPCfAqtYpkSq8V67nATSpb+h0coebgJGxrUDLEb/v49+CFC2f9xaKfWHx
-	 PLw/pR7HJPrtlvPDyn5Hs29TUMf6mICHCrDVqbOnKZBgFZHzVsOI9Zle2SYz5NFHUpQ==
+	t=1794300200;
+	b=TrQVGaHL70gAidEQAxg253Ngy25gFeHqiaJH7NajzgFYniKvbaBKfvPXkhB3Ij5iokB+
+	 L8CnwCuxri1GbOOfxavalaGXzov6YC5IBw9GZwEs7wLMyvnQyYSMsGAtd8u+XHQSPp0eE
+	 5RGmM0vtbCpsklkEENwJD0YUVZJYjlsSfZPaRA8RwE5oRdWMyLsGyLBnP16VczjA9agJd
+	 zLJxZbnTQ+iAqC5ukGMlYXML7KRmikjklqod7/fOBo/VsoCX1Pbi1vV1CmhRVYPipk5Xq
+	 3Rp/wGpvB3zmI1p42fyelOoFtZ8aujKJ8Hz4RK2sUfIsNR7L/4UOQ6Vn4itN+LV6aXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794299631;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:MIME-Version;
-	bh=Ah7DRRGif0ihNqUB0G/kpe9gLj4SKfyuQtnDg8TbPpA=;
-	b=R8mocjBULuHRWTTGvTyow14ze1j3bibZQcET/Nw/Vre+CSMHBsYo11EGpLrb3+axQP+u
-	 05nzmGjyhrcfn7R5MhEtd3QpLmE/wxOkQ4iMadoI+HasCsNKLIS4Axbj+sJpkEx3Lcxae
-	 GNWMcNikYhhzG2HbM1UdHDIMTlxLU55R2ssKNZkvRzHyqHNG4Tu03nzsJmV1+pLkawaMu
-	 rLlGKUQdxM63EAq4aLMVhkKqcA49pr6PC6QW07xD59u0jXwMj7M/MxnRXRqAr7LpHJ43u
-	 cwTKa4WxYu0VPGQ8FA88sHvKJ2jOZipPUVCwgvzXxJGC1P16fDMNyg/0EgZp08V9Lkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794300200;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ceyp6qUlPkZr8sRjiOtI55f56LZSHpjTj8wP8Vp3EyI=;
+	b=TDYwzN08r7yO/QDbyzMfcJfJQ3Bjp8M9MSmhk7XVG9Imo9vL6vGzoaSeg2GG0cRU/RIj
+	 dGz3skgefCd5hTYBW5ZZNuaiqO+KoJbPe6OJbdJk/TpogOOa//LCOTobQU73bZt0tglBk
+	 rlhA8NhKDtHbzMRmLF+FSih4IlbfVln7Nw244+Myze6mMprp0CRTKBVjrdT6ppXboBWMm
+	 5Bh/GACxevFnUIL32YhulU0N/eoMW/LjZW4qox1gr9kfU6qG7n4BWMx35dlWcok7buFta
+	 sTlZ+QZ2wStfrnxwpOGfhbCTldrLraZjcnBSrlvsYeCXt0l+X985E128FMk8ZztLYeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b="D/5GVdff";
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eoHPjw90;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89141606A33F;
-	Tue, 10 Nov 2026 08:33:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89141606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E90606A321;
+	Tue, 10 Nov 2026 08:43:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06E90606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=D/5GVdff
-Message-ID: <a69cd8605f2011f348c895a8d892463879f76823.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1794299628;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ah7DRRGif0ihNqUB0G/kpe9gLj4SKfyuQtnDg8TbPpA=;
-	b=D/5GVdffs4M+bd8nulnh4HMbJLDt2bagv+uLLG6+Qw1eNfYp9jVepe0T29uuGtXcCR0SC4
-	NqzpMoOqADzG9kznELEyijM3WE5+S7JLJaJGYVQ2ToHzhzaInoaNKWnAwSZWsmWe9NzNjH
-	RGBxZlC/pWHLNzvpZgGxW19zK9l/t/8=
-Subject: Re: [PATCH] xfs: read rmapbt high key offsets with get_unaligned()
- in scrub
-From: Stian Halseth <stian@itx.no>
-To: Dave Chinner <dgc@kernel.org>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, "Darrick J
- . Wong" <djwong@kernel.org>, sparclinux@vger.kernel.org, Jan Engelhardt
- <jengelh@inai.de>,  stable@vger.kernel.org
-Date: Tue, 10 Nov 2026 09:33:46 +0100
-In-Reply-To: <avI9zGQRG_kh0l2w@dread>
-References: <20261109134853.1659991-1-stian@itx.no> <avI9zGQRG_kh0l2w@dread>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-8W9Nb+LbcswGxvghoGqD"
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eoHPjw90
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794300198; x=1825836198;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ceyp6qUlPkZr8sRjiOtI55f56LZSHpjTj8wP8Vp3EyI=;
+  b=eoHPjw90fdebjfz0myuVxN7ODdqvRfwVMxLbp0GSYFkNQB1c/74pQLTX
+   jn2hQ1+OGKEgjLcvOSB1QCIlOrkJ54poUJxeduL7wZOIkLOb+ZSvsdGA9
+   Wy/gxBSwp2Ui+AQIZeL9rJfoZlGHRDGCsW7gDYLCIGDvDhG26Z49VNyIS
+   NO0/TycAYeYAky8YLxu4meMc+rZgTWX86lvhp23cK9SfkuECNajviVZ7v
+   6A7BXH7dNzNzRjkyGuuixlL3AMBZ5WWjxssLEZS4CeYykaZSNn+dBlveR
+   mnrkwmTsJ9e9guuW2FaXonUDGO5zV6LNXaxwErl3NQ0CcrhabRR00iSeI
+   g==;
+X-CSE-ConnectionGUID: vtCIw+zJTxyr/AgaaoBMlQ==
+X-CSE-MsgGUID: ydey5/JCSzW7FDx+bRwPKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3053630"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3053630"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 00:43:16 -0800
+X-CSE-ConnectionGUID: nIFQ9jbdSVGDm8tLoiS2fA==
+X-CSE-MsgGUID: gmGvns63SEKcxV+ySiOZSA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="8241688"
+Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 00:43:12 -0800
+From: "Yu, Fei" <fei.yu@intel.com>
+To: christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+	tursulin@ursulin.net,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	linux-kernel@vger.kernel.org,
+	syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+	madhurkumar004@gmail.com,
+	stable@vger.kernel.org,
+	fei.yu@intel.com
+Subject: Re: [PATCH v3] drm/syncobj: Limit the number of handles and use kvmalloc for user-sized arrays
+Date: Tue, 10 Nov 2026 16:49:06 +0800
+Message-ID: <20261110084906.2458016-1-fei.yu@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
+References: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,60 +90,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Fei Yu <fei.yu@intel.com>
 
---=-8W9Nb+LbcswGxvghoGqD
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+On 11/9/26 12:54, Christian König wrote:
+> On 11/9/26 02:48, Yu, Fei wrote:
+>> Signed-off-by: Fei Yu <fei.yu@intel.com>
+>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+>
+> Let me know if you need somebody to push this to drm-misc-next.
 
-Hi Dave,
+Thanks for the review! Yes please, I don't have drm-misc commit
+access, so I'd be grateful if you could push it.
 
-On Tue, 2026-11-10 at 08:40 +1100, Dave Chinner wrote:
->=20
-> That just looks wrong to begin with. Decoding an on-disk structure
-> without using be64_to_cpu() to get it in the correct endian order
-> first?
->=20
-> Oh... the code plays "I'm too smart for my own good" micro-
-> optimisation games by endian swapping the badflag variable to avoid
-> needing to endian swap the rm_offset field.
->=20
-> It seems to me that the correct fix here is to stop endian swapping
-> the badflag variable, and endian swap the rmap.rm_offset fetches for
-> both the low key and high keys, like all the other places that
-> dereference rmap.rm_offset direct from pointers returned by
-> xfs_btree_key_addr()/xfs_btree_high_key_addr().
->=20
+Since it carries Fixes: and Cc: stable, drm-misc-fixes was what we
+discussed earlier, but drm-misc-next is fine with me too if you
+prefer, your call.
 
-Thanks, I've looked a bit deeper than my one-line fix, based on your
-feedback.
+I'll send the uAPI doc patch for the 1M limit against drm-misc-next
+once this has landed.
 
-Yes, we can remove badflag. be64_to_cpu() alone doesn't fix the
-trap, though, since it's a no-op on big-endian. gcc still reads
-hkey->rmap.rm_offset with the same 8-byte ldx. I tried it on my
-T4-1 and the fault count didn't change.
-
-The other places get away with it because they go through a
-struct xfs_rmap_key pointer first (kp =3D &key->rmap in
-xfs_rmapbt_cmp_key_with_cur() and xfs_rmapbt_cmp_two_keys()), and since
-that struct is packed gcc uses byte loads.
-
-I suggest we do the the same here, with be64_to_cpu() and no badflag.
-That gets the faults to zero on=A0the T4-1. Can send that as a v2 later,
-if no one disagree with that approach.
-
-/Stian
-
---=-8W9Nb+LbcswGxvghoGqD
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCavLW6gAKCRDoeAEuJe36
-VpqIAQDwM38Ng2/+nJXWA1tqhydtdItszJQ5hauH3V4CYrtPMAEAtZQzI8evZy4n
-rg5ct3pDU1mwLbG4+LHtEOachYBVHgg=
-=Sgji
------END PGP SIGNATURE-----
-
---=-8W9Nb+LbcswGxvghoGqD--
+Thanks,
+Fei
