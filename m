@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327986;
-	b=2PNWiF0HMqmi6S9k520eeB7hWyjPn6AEsoog+WtV3iVCIXdPCnB6fWlA4qzAClzVOTB7
-	 7KntDoe6rHL/vowE/LlN8jwED9fRYvycVKs2esD+l9k6iQ3E6ifQGGDs/OtzS6bA/t0U+
-	 OUVNHHvb3+iWqPCVivTTormSnHxRXciGY10dVj1HRGJb36qPhsgy4qLJe2pmzAN0LJv1j
-	 VFDdJVsMJhfpEMzfNFonSojx50pcg9HGTVOZRv+/nlrHAzCRx7O46fBywxBtGHjmw79LM
-	 XYP9cxM9nkXYfWNjY4Z4DbWeSpBLFFNJP0GTwnIDK8cY1/wZpOzKvj0eUkJcDA3FJhg==
+	t=1794327995;
+	b=A3/1R07FsLNJF0Vg3fhVCO+Rj7pmZ8xo/2bAdTGRW8K8FO3YcIL0BiBYq1Q85OfL5Xdr
+	 DmaSAInQOcnq/vERDVOYZFghZvx+cc4q8Hgaq3xzp0QcN9cYdwm5PBNWG6esXTCWVJLyq
+	 YK+Cn1g5k7oGVG4Q/rYQ2B7An9H47G78L84yni6PZ4V+Id8/qC1N7KM/L+ZW3XKa+bdHA
+	 3oIzKMCfwC6kIn93HkGKmES0tiUciqFgctd+z4ZoII/zxMCeKW0BM6zrjNzPssFp9ZY31
+	 wxbIv53rH9LEAmwLRONlSFgJmDsQesFgAFft+mZjmvCvVqcx7Z3+SOHzpdytXew7knA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327995;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ErRvENinNZpBxDiY5OGV/AHxWO3QrFvLrqAD7FVahkk=;
-	b=C1aVXk51KN9Q+WUw6wDH1Xx2ixmOGKDO1yG3Apm7g7pcsSxa+CDDt9jCtJALwhnIYwzI
-	 kV8f8rk1auryDWGJqQs1bb35BquUoTNO2SnB8jtpfIIv/FQFEmucy2dDzu8bLKmZCcZO2
-	 PZn8H9pDJXATLqV0mYj6B05EnXEmUU9RQLF5bWq4+aR0XpRzT3Yahu3IbMbHIH7Zp9dvd
-	 H88nlF8ZW4xcW9kfkKLy2GLzRoplzCilwdDLCZwFkGrA3eqbHoQpvLEgDTtLWGzkgobYq
-	 rUEanKy3dt2zreKKM3u5xVON7JebkSbDPz8qIBf6B9VCfHBYUlsDfulScBPkHbEgjSA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=lI1fjWdnZj7GJO4o3WwU9IdBvoMbfrGdNk/WBV4xtLA=;
+	b=XyVLKX8S0/43y84sqdONakgl+yC5CdZFDOHz+5gD/M16BRLfnV7uTRZfpD7/0s31X6pl
+	 tXRfrEpCEQruoPfe4zXxFHVXyXrQEw06gmw1E4T1c9Kxp0tn3wgxPLTpDCuYnG8J+WrUN
+	 BRFJ4miPqvysd5N3gWznl/dY5zbaoybqYlhyC4Salbsz8LXlE9cvCczM6ROy4gXVdFVVg
+	 jgFZFvWsXqRJOYdqVy++oaNzK+pfUoA12rlpZJ03USIIixYdnCO8mwha5u7oI4fcxLiAH
+	 pn5atAC2u+rlwqXv4YVYgdNu4/0pWjJc4IaqssZCbMui1Wyo94dG+E8E8N7TMKQpDOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ia7bvp1w;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmQONUgQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53043606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1268C606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ia7bvp1w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDEE1F0089F;
-	Tue, 10 Nov 2026 16:26:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmQONUgQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66971F0089F;
+	Tue, 10 Nov 2026 16:26:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327986;
-	bh=ErRvENinNZpBxDiY5OGV/AHxWO3QrFvLrqAD7FVahkk=;
+	s=k20260515; t=1794327994;
+	bh=lI1fjWdnZj7GJO4o3WwU9IdBvoMbfrGdNk/WBV4xtLA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ia7bvp1wy4ZH1BMc1JW/vFqwu4KvfgPGjgBT/MVCDqXr1YvAed90ZxmLLpnAqF8/v
-	 HD2wWN1v5SgymH+7pC7xrZ1bMZTr31flIvUKPrJJj1plEWNozz79Akx1EqNSmXe7dT
-	 v5935s15QkjnygVf7YFjJu97p14lK6vEmf72WlJtyATA98u78KO+pr5vHtIYnKWEAh
-	 LTy5Jefk/HVPyLo8MKRctu86x+kOPtuWk6jqZ6hSqH0/OW7dMsyjh/3J1NJkRxoVMx
-	 N/f57+wTfKz0EIQjJpYU0yT4fCY6y69PTMis0QF7Yf2ABci9kHo30MjMOHJpxqBK6F
-	 uvNxIGUc9nTdQ==
+	b=jmQONUgQSLebWBnc+grzh8uL4PRkSK6mFh2zwLOIxdBe3LRiNmZHXv9CUPU+ZKdNn
+	 6DnYHQw/iNlJqZU4zLJUJR1jnejCFky97jsFKN7WQncD/U9SZsGrU7VHJZKfoKbcAX
+	 qkfNHFDz8smPcB4VokQAxmKMt7u7a0/km9A7aYG7BEs1hufvhJzmoWtDExcBdkgJTw
+	 ci00blV67RiS6BV0LFLSzaoIETCMfW6EMXv9KepMYTDirS3U8gqRkXQkm1zvteY676
+	 ACnSoBu+/8Uum7l+hLqsIb1hR7GHijtHPpDTc0t8tcfMEmYJhGY3jDAR6nO4K72XuA
+	 WuvrEJtFeaS/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marco Scardovi <scardracs@disroot.org>,
-	Denis Benato <denis.benato@linux.dev>,
-	Armin Wolf <W_Armin@gmx.de>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex
-Date: Tue, 10 Nov 2026 11:26:23 -0500
-Message-ID: <20261110162422.2501304-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] iommu/dma: Catch scatterlist length overflows
+Date: Tue, 10 Nov 2026 11:26:32 -0500
+Message-ID: <20261110162514.2440239-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053411-failed-6.6-b9428edaf410@kernel.org>
-References: <20261107053411-failed-6.6-b9428edaf410@kernel.org>
+In-Reply-To: <20261107062022-failed-5.10-1c8f6308e557@kernel.org>
+References: <20261107062022-failed-5.10-1c8f6308e557@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,135 +61,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Marco Scardovi <scardracs@disroot.org>
+From: Krzysztof Karas <krzysztof.karas@intel.com>
 
-[ Upstream commit b9428edaf4109e86a97254228d831767d0acc1f8 ]
+[ Upstream commit 1c8f6308e557f32412e9d4678b3f029f47f6d9aa ]
 
-Concurrent evaluations of ASUS WMI management methods (from ACPI notify,
-HID, userspace daemons, and debugfs) enter the BIOS ACPI/SMM interface
-simultaneously, triggering re-entrant SMIs or EC mailbox buffer corruption.
+It is possible, when a very large mapping uses only one
+scatterlist, that padding overflows scatterlist's length field.
+This results in:
+ 1) silently wrapping the value
+ 2) smaller than desired mappings produced by iommu_map_sg
+ 3) leaving mapped bytes in memory (no iommu_unmap)
 
-Fix this at the root by introducing a centralized evaluation helper
-(asus_wmi_evaluate_method_locked()) protected by a global mutex
-(asus_wmi_eval_lock) using guard(mutex). Route all evaluations of
-ASUS_WMI_MGMT_GUID (method3, method5, method_buf, and show_call) through
-this helper.
+Address this issue by adding overflow detection for scatterlist
+length field.
 
-A static mutex is required because asus_wmi_evaluate_method() is an
-exported symbol used by external modules (such as hid-asus and
-asus-armoury) that lack access to struct asus_wmi drvdata, and the
-underlying ASUS ACPI/EC management method is a single physical platform
-resource.
-
-The mutex is non-recursive: nested ACPI/WMI notify handlers must not call
-back into evaluate on the same task (defer via workqueue, as
-asus_rfkill_notify already does).
-
-The sysfs-versus-notify race predates the later export of
-asus_wmi_evaluate_method(), so Fixes points at the original shared
-evaluate helper rather than that export.
-
-Link: https://github.com/OpenGamingCollective/asusctl/issues/328
-Fixes: d33da3b68669 ("asus-wmi: factorise wmi_evaluate_method call")
+Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
 Cc: stable@vger.kernel.org
-Signed-off-by: Marco Scardovi <scardracs@disroot.org>
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
-Link: https://patch.msgid.link/b6a1981777e63f0c28bd719d8203ebbda57d6957.1789722252.git.scardracs@disroot.org
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-[ sashal: adjusted patch context for missing debug logging and different header includes ]
+Assisted-by: LLM
+Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+[ sashal: adapted overflow handling to use an unsigned int cast comparison while preserving zero-on-failure returns ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/asus-wmi.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+ drivers/iommu/dma-iommu.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index a76d43ca647d4..d83d3f4a56aab 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -15,6 +15,7 @@
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 62dd195d88062..321c2f34de4dc 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -864,6 +864,8 @@ static int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg,
+ 		sg_dma_len(s) = s_length;
+ 		s->offset -= s_iova_off;
+ 		s_length = iova_align(iovad, s_length + s_iova_off);
++		if (s_length != (unsigned int)s_length)
++			goto out_restore_sg;
+ 		s->length = s_length;
  
- #include <linux/acpi.h>
- #include <linux/backlight.h>
-+#include <linux/cleanup.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/dmi.h>
-@@ -27,6 +28,7 @@
- #include <linux/kernel.h>
- #include <linux/leds.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/pci.h>
- #include <linux/pci_hotplug.h>
- #include <linux/platform_data/x86/asus-wmi.h>
-@@ -316,6 +318,20 @@ struct asus_wmi {
- 
- /* WMI ************************************************************************/
- 
-+/*
-+ * Concurrent evaluations of ASUS WMI methods can re-enter firmware
-+ * SMI/EC mailbox handling and corrupt the mailbox.
-+ */
-+static DEFINE_MUTEX(asus_wmi_eval_lock);
+ 		/*
+@@ -880,7 +882,17 @@ static int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg,
+ 		 *   time through here (i.e. before it has a meaningful value).
+ 		 */
+ 		if (pad_len && pad_len < s_length - 1) {
+-			prev->length += pad_len;
++			unsigned int new_prev_len;
 +
-+static acpi_status asus_wmi_evaluate_method_locked(u32 method_id,
-+						   struct acpi_buffer *input,
-+						   struct acpi_buffer *output)
-+{
-+	guard(mutex)(&asus_wmi_eval_lock);
-+	return wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id, input, output);
-+}
++			/*
++			 * For large mappings spanning multiple GBs we
++			 * may not be able to fit all needed padding into
++			 * sg->length.
++			 */
++			if (check_add_overflow(prev->length, pad_len, &new_prev_len))
++				goto out_restore_sg;
 +
- static int asus_wmi_evaluate_method3(u32 method_id,
- 		u32 arg0, u32 arg1, u32 arg2, u32 *retval)
- {
-@@ -330,8 +346,7 @@ static int asus_wmi_evaluate_method3(u32 method_id,
- 	union acpi_object *obj;
- 	u32 tmp = 0;
++			prev->length = new_prev_len;
+ 			iova_len += pad_len;
+ 		}
  
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
- 
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
-@@ -373,8 +388,7 @@ static int asus_wmi_evaluate_method5(u32 method_id,
- 	union acpi_object *obj;
- 	u32 tmp = 0;
- 
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
- 
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
-@@ -412,8 +426,7 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
- 	union acpi_object *obj;
- 	int err = 0;
- 
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
- 
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
-@@ -4260,9 +4273,8 @@ static int show_call(struct seq_file *m, void *data)
- 	union acpi_object *obj;
- 	acpi_status status;
- 
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID,
--				     0, asus->debug.method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(asus->debug.method_id,
-+						 &input, &output);
- 
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
 -- 
 2.53.0
 
