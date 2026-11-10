@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273219;
-	b=C5PL9DHDX+Ltj2A0Sb3fz35s1wViGfFIkROa3hfVx8zOu+kR+RKxD5fXNUCbSLZJF2SW
-	 5IjTdptdoaxBIAQD8PSTSAtkIZeVF+222aNQyssnYu2P4oCoAddkD5wCYT7UrYedPBiLX
-	 5I6uPSHEp5/+wym3X1BSzyOZxooa2kuyVQN26nOgbzqTYmOC3t3jVq3ZpxBTAOYL/raHI
-	 O7wfemcFrw4fmXqktF9uBO1zAoYD9AqueveHW2ckBJzOBGoa8zdqa6bzC6Xzf1zhKFx3b
-	 t10yC+KxEUlGCF94YCGQ9rOmIEI1RXQMe6kID83Ui8A0v/hs4fjoegJUb6N5L1Xlx6w==
+	t=1794273221;
+	b=OUjarcbeiNmEl5uuIqffoJHezjCMXTsNDC1uUPa+9QONAmjuDGLETdFZV4uiPZwuqrns
+	 MliZnO0kpYtUFecSVi4crpMzyv6Pv+WjVyq5Q3AZKikd7Jw/d58yDN4ZKonWDqY8eObW+
+	 pMvDDST2qXw6dbK3/Rh2BHpF8eSQM7nreR4Pjziuld+yjgVcmCJR2bdto6ypiGJKhTsKB
+	 rBE8tVxiptpxorECP1Ir9KfTa9IOnVFUbEBdjaCDABe9MyhatUAXs5ngNJjyYTnLbIy9n
+	 jMbE7Kd6hU+i4SP9qkdpdvJwVUhZBa2xVIm4clIQZUkfnOrY0VdpgnFOALlVeSQvM4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273221;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cyNM7Iqa639LNBgkeaY+7ZnCRSDIK5nF0mHB0zBvfL4=;
-	b=gpaQsUdeIs5KAV5vHMKKpxIyQZAMYTcNq07aoXXCb+MjuvoBSPXTK7ULA1pDTsTV7dRo
-	 chdomnWKTA8BUxLqW1VFF7LMKmYnTYQRzMVlQcSpGFsoM8iJvJTZt+3pdNFPbB2ZFw5XG
-	 q7imcNtKy7cc2gkWsJu07lrK5czKp3mDJZDknePBK56trOFeuvamXjJE3ewqaQiYLyS64
-	 Lwez2tYKpT83Akkdt8l8VViWvYMFjuDuQvReMRWG6LYpZYjoLRy2N9wJWHJWkr1X+UJnj
-	 yFqV3X7y0ZNR2OrS0Sn+4d+QEx2LQCnwYl50KOnJOpDH8tJa67dysgvfqGrt29GbIBg==
+	bh=USD1ydA3EBA1Hm5A99bAlH+nnV3RH/VTqqprqYUT8XA=;
+	b=YZcXJrcPfXkOpKiO5r/6sxagiXgMD9yURG9yQPGykdfj5rwRUDLsBzM16d6Z5CjQKEyV
+	 dwd+y0RqJshwc3BaOlW9TtE+8Kj7VW5oY/3/NbxNiFVHyRVE2P16aa9+eUjFcnqxMAHgU
+	 ktBbOpF8gw7onWV8JtiAmQ3DHdXpd+s9e2Y5HSy4W2G0nDTm3dhXN4lHTKJT+CyUP8K8E
+	 oxZstwtMB3hNAXU7viFICs0dksf+uQjkXaUHgf9J5KSzaYcSrQ4IkAhfYcYmt12NuIXIV
+	 9A/nMBtDRvcEtx9VvJ/YtXdPgjK/kNhTT8BuXzG5CYRcA64SWLUMAk4+voHbQ25ZrZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWmT5FU1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ZPA1vY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A79606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3C1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gWmT5FU1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BE11F0089F;
-	Tue, 10 Nov 2026 01:13:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ZPA1vY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802961F0089F;
+	Tue, 10 Nov 2026 01:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273218;
-	bh=cyNM7Iqa639LNBgkeaY+7ZnCRSDIK5nF0mHB0zBvfL4=;
+	s=k20260515; t=1794273221;
+	bh=USD1ydA3EBA1Hm5A99bAlH+nnV3RH/VTqqprqYUT8XA=;
 	h=From:To:Cc:Subject:Date;
-	b=gWmT5FU13FwY054soOBHruD1IpJ8dH58gmpQd0HmzQu12kVr6pDfZbTLrdD+xU5MN
-	 m/0+yLelCtjZBL4Vj1XobiRYGkoRuvF/gjSH+UFv2tFXeLOESYhXqTZt22sFOl/9qD
-	 I2gtyqayOSsyyjNuPqHTSRKnvN8HZAaTupFytQ94xCkYcVs6ywqQOvBw9ugXbAwAqO
-	 1IZlkBIkGVjSsXOVbS5kDnzpyDp1ccQN87cLv5vY8XJjrUazggyLneARMC70MtGh7z
-	 I3ZW4abFg8PNGVPxmkXUyrI3JPgpLSOCvgvoCenLc559SmRqNGPKJX78zh7UftHxSw
-	 f24nR6QxQCxOQ==
+	b=A3ZPA1vYPmdqlgGj2kb7LDtaeZPOGwmUQV8kXlyv3UZm+zkZV0+MQfY8F1TOB/In5
+	 7tOpE0nNY2YBM7bQpHyE8u/LgLb/0goVi7OC+gXQT9hdUno+dD/e1B9dxtae2ykZFk
+	 elWbbrQW7iIUHhaqJbvV5m+u8t0A29JLWlRTtOOoIyho0eN3AhEsY4aIsObRLMfV+F
+	 vt/xrm/Xm6JBU+iD7J9tR7AW53wuGcXw3L+i3FStXhlLuBZHSLVnbbly2PreL9MiCH
+	 Wbrmf2ZETNu0ubHKdbAGqzcz1J2uRN8YBUmV0RccfIcKJI6YxY431HGz4+zlIJviGZ
+	 BDN7ElCmurgkg==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
+To: david@kernel.org,
+	gourry@gourry.net,
+	rppt@kernel.org,
 	ljs@kernel.org,
-	usama.anjum@arm.com,
-	david@kernel.org
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/mmu_notifier: finish non-blocking interval invalidation on error" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:13:36 -0500
-Message-ID: <20261109201336-failed-6.6-6d65925777ec@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake waiters when registration modes are removed" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:13:39 -0500
+Message-ID: <20261109201339-failed-6.6-4eee9c389b07@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,101 +71,102 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d65925777ecae9d7a571a327e41c63f3940a0c7
+git cherry-pick -x 4eee9c389b072e161549d46dcb1ae10b0222717e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201336-failed-6.6-6d65925777ec@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201339-failed-6.6-4eee9c389b07@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d65925777ecae9d7a571a327e41c63f3940a0c7 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:39:57 +0100
-Subject: [PATCH] mm/mmu_notifier: finish non-blocking interval invalidation on
- error
+From 4eee9c389b072e161549d46dcb1ae10b0222717e Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:54 +0100
+Subject: [PATCH] mm/userfaultfd: wake waiters when registration modes are
+ removed
 
-When an ordinary MMU notifier rejects a non-blocking invalidation, the
-interval invalidation started beforehand is left unfinished: the caller
-skips mmu_notifier_invalidate_range_end(). Subsequent interval notifier
-operations can then wait forever.
+UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
+faults that are already queued. For example, switching an anonymous
+range from MISSING to WP leaves a missing-fault waiter asleep until
+userspace explicitly wakes it.
 
-The only in-tree trigger is nouveau SVM, which uses both notifier types
-and rejects non-blocking invalidations. Reaping via the OOM reaper or
-process_mrelease() can therefore leave the GPU fault worker stuck,
-holding a reference that prevents the dying process's address space
-and memory from being freed.
+When a registration change removes a UFFD mode, wake waiters in the
+affected interval after updating the VMA. The VMA is write-locked at
+this point, so no new faults can queue under the old modes and woken
+threads cannot retry until mmap_write_unlock(). Waiters for retained
+modes in the same interval may also wake and refault.
 
-End the interval invalidation when an ordinary notifier fails a
-non-blocking invalidation, like mn_itree_invalidate() already does when
-an interval notifier fails. Make that handling clearer in the
-documentation of mmu_notifier_invalidate_range_start_nonblock().
+The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
+with both read and unread fault events.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 99cb252f5e68 ("mm/mmu_notifier: add an interval tree notifier")
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: simplify description, update function doc ]
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-28-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/mmu_notifier.h |  3 ++-
- mm/mmu_notifier.c            | 17 +++++++++++++----
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ mm/userfaultfd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index a11a44eef521e..5db78e5761c5c 100644
---- a/include/linux/mmu_notifier.h
-+++ b/include/linux/mmu_notifier.h
-@@ -483,7 +483,8 @@ mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- /*
-  * This version of mmu_notifier_invalidate_range_start() avoids blocking, but it
-  * can return an error if a notifier can't proceed without blocking, in which
-- * case you're not allowed to modify PTEs in the specified range.
-+ * case you're not allowed to modify PTEs in the specified range or call
-+ * mmu_notifier_invalidate_range_end().
-  *
-  * This is mainly intended for OOM handling.
-  */
-diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index df69ba6e797f7..2e20f88e162d7 100644
---- a/mm/mmu_notifier.c
-+++ b/mm/mmu_notifier.c
-@@ -569,16 +569,25 @@ int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- {
- 	struct mmu_notifier_subscriptions *subscriptions =
- 		range->mm->notifier_subscriptions;
--	int ret;
-+	const bool has_itree = subscriptions->has_itree;
-+	int ret = 0;
- 
--	if (subscriptions->has_itree) {
-+	if (has_itree) {
- 		ret = mn_itree_invalidate(subscriptions, range);
- 		if (ret)
- 			return ret;
- 	}
- 	if (!hlist_empty(&subscriptions->list))
--		return mn_hlist_invalidate_range_start(subscriptions, range);
--	return 0;
-+		ret = mn_hlist_invalidate_range_start(subscriptions, range);
-+
-+	/*
-+	 * On error, the non-blocking caller is not allowed to call
-+	 * invalidate_range_end(), as in mn_itree_invalidate().
-+	 */
-+	if (ret && has_itree && !mmu_notifier_range_blockable(range))
-+		mn_itree_inv_end(subscriptions);
-+
-+	return ret;
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index be630674fda9b..03f1b15bfe63e 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2270,6 +2270,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
+ 	return ret;
  }
  
- static void
++static void wake_userfault_range(struct userfaultfd_ctx *ctx,
++		unsigned long start, unsigned long end);
++
+ /* Assumes mmap write lock taken, and mm_struct pinned. */
+ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 			       struct vm_area_struct *vma,
+@@ -2287,6 +2290,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		prev = vma;
+ 
+ 	for_each_vma_range(vmi, vma, end) {
++		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++
+ 		cond_resched();
+ 
+ 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
+@@ -2332,6 +2337,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 */
+ 		userfaultfd_set_ctx(vma, ctx, vm_flags);
+ 
++		/* Retry faults for removed modes while the VMA is write-locked. */
++		if (any_mode_removed)
++			wake_userfault_range(ctx, start, vma_end);
++
+ 		if (vma_is_hugetlb(vma) && uffd_disable_huge_pmd_share(vma))
+ 			hugetlb_unshare_all_pmds(vma);
+ 
+@@ -3648,6 +3657,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
+ 		__wake_userfault(ctx, range);
+ }
+ 
++static void wake_userfault_range(struct userfaultfd_ctx *ctx,
++		unsigned long start, unsigned long end)
++{
++	struct userfaultfd_wake_range range = {
++		.start = start,
++		.len = end - start,
++	};
++
++	wake_userfault(ctx, &range);
++}
++
+ static __always_inline int validate_unaligned_range(
+ 	struct mm_struct *mm, __u64 start, __u64 len)
+ {
 -- 
 2.53.0
 
