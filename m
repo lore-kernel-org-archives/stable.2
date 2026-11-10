@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346504;
-	b=gVrHWE6T1PTywV5j+2yK/gl4/0Rplf+DakN9q0OVxVNHRxpxPewo41CMaKjt9MYjZ/dp
-	 6xVCDUeaOEMV0MLKjjAGyp9Aox04T9QU4XCPRsCkaO0ZUUCQ3pOdk8yNwWKbH1jr1QTYP
-	 vYjOwELtRHUcOetL9pCy3lpis2Uxd0bH+clW/5gc5uKljrlWqJPPYXNVScFtfgwMjsEz1
-	 Bryu7bHJiTpmFCMjO9NsWYEUHWu1wZbqmxMVp3W1m1ZgrQXWPQPlA4+imywRzmNdPqean
-	 wgJkycz/YVejzwKSDPHaiP/UAMpZLFyNJk16KV5IP1OfN1xpSmy8Fk5GXAiTCMK+9Qg==
+	t=1794346643;
+	b=5RrPLgWVvB3bMKm/dFZ0Uoj46oY5p8r9+31UZPsafgZafIsCZKM475Jpq/kmNvedqv2p
+	 5b3nzP12aMOFevmz+7LPVs8nY1ESEcHd5eUOot/7wCJaqGz321ZZ8EqSXntK9eN1sAK6a
+	 nsS7ANo7mBT9SKfuXOlTZh5D9BhXbsAlvGjYGVtqnbumvWA6Mgl67RQWpHJYlNcFewWQe
+	 vGTofF4fG/OHpLkk/1/8N6Cz3r0dUk42vy4iYeI0BkBRPjlAMxXPBCq0rZ2MJvvtGtmeX
+	 wlZ07hnjejubedgycvac/DkQqoTDvel6hrEQ76XoirWYLUMH9v4YppnsBIxHjNyqIuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346504;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346643;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f5QSNcBVrOlv9x2Tml4+VpZ5VEIGpug7AeLnNtguKKA=;
-	b=JBeLmLCYG9cO5N2sjkRa9zpNzQu29mn2NlIaBzEPFd5S0pJrq8b6XLNqHR3Eq5m5pVHF
-	 l5RfFiZt4qfKJHjmVW/4bFDn6SAQJhU5h5hFeZFd+IK+73eCi+L0tnSd/Tut0QbRBybI1
-	 dapQOb8jo03IeyuOX9Q0+e+Tt6Q8oIvkXYplh2C2tJiXx4wnxhAlM+mTEWWBuGaheB02L
-	 fSpDijWSzkpHX4bkmcP9ltW50bbTb9Pwmr8cu9S+gUqFmQm/gq0tJWPP2fgWhKLIX491Y
-	 nFarAdnQNA97pWlrs3o0XBDIpCF6db/Rj7N1cyoO1iuOOR3qsmADLQ0N3aMPh7Am0ag==
+	bh=JeAlVsVNVXxg5LJ1Nt9/PQy/ettNVIB2Xs3BGyBTOPw=;
+	b=TiELrHYY321T69gDtHHZQv+brcOsmP08dhuIoPOxodOYr3+EnmEBjuqUkdfxP6HGtFcJ
+	 gBNMslcLKfJkSNM4AxU6i6VgNnX/Tkvhsb2NEAcuQsxMcjnA6xkTXmSv0LdyfIDnsBbbX
+	 5sWjWaY7MzH2W35RFi08O7xFZk6dD9ebZVpsNiaXe1EuyedlP2EfnV6ArH+ihj7pVizZK
+	 7Lo0hlJiDME4/Qs7ZFHqgAOsaGxj9KvDyFSjVA29cPhGBuL3RHz09x0SM2/mg3I520k0r
+	 w0LB+l4agM6LfJ4IsudUuf8+QmZl5aq9xOftfWWhhyYWA8WT/dI+1vflNxbGzjXvURQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUMFpcI7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyOVwxGl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1DB606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:35:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E027C606A332
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUMFpcI7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2201F00900;
-	Tue, 10 Nov 2026 21:35:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyOVwxGl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29F11F008A1;
+	Tue, 10 Nov 2026 21:37:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346504;
-	bh=f5QSNcBVrOlv9x2Tml4+VpZ5VEIGpug7AeLnNtguKKA=;
+	s=k20260515; t=1794346642;
+	bh=JeAlVsVNVXxg5LJ1Nt9/PQy/ettNVIB2Xs3BGyBTOPw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XUMFpcI7Djajnfxn/jaWT++AAO7L6uKpM8cMsVAsV89a17ZQBIv2tS1McvsA//rk0
-	 WnaQ4KRsUXKKXWWsktpn+Aapgaep9YBmk7nRUmG0DGd3wts/cEq2IkkYm/rV948jx7
-	 xwC8QjoBUUUSwhsXJPOX+pPwszfc6wePrARC3GrLt2/bMghFS20Dah2kA/OiXM1vzp
-	 PoFmMYMPNg52JFCXEPvhTtPC4k1v4Q1NdwrMSPix6mXlDuAFh9YU2RDE2ak1pDw3ZB
-	 C6SquoF+VYpZu62EfC04E0b90+5fnnoeG/KC/Q2Ipof4AyixJl5/e2aRFvUTJ45Bux
-	 TORUKlYzFACrQ==
+	b=UyOVwxGlZAy7rJCCyVKzB67uqZJSK56IZXH7QmtQyNtpBntG8dwZBimKh5n8ABJjn
+	 WzIoAm1T6yMvSVGT0l5SoAHAAKQhwFdDD0R1NJUjXAHIzt5bfJOEi8x6FBkJT46ec0
+	 u7X3/QaU32MBu0mlc0WXdfsAZsi1tHI5y8jpuvMeIS/UBNPo4uJRz35A3g18rUEWt5
+	 kotdmOlOMXBEnfCOgTM8QURq1CMG5YKkOmc5bV7vDSIaGGRTVShu7d45lwmB/TaDTG
+	 J83dPzvLiQNkS5rtK/NCNHWn5UjWKiAWrzKvfDOpKKIH1aNiPePJUX8+CUUsE2t3Qe
+	 +EM9Yg3v6FBUg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
+Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
 	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
 	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
-Date: Tue, 10 Nov 2026 16:35:00 -0500
-Message-ID: <20261110213230.3939455-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+Date: Tue, 10 Nov 2026 16:37:19 -0500
+Message-ID: <20261110213551.3918808-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110213230.3939455-1-sashal@kernel.org>
-References: <20261107053451-failed-6.6-a605d5d71a6d@kernel.org>
- <20261110213230.3939455-1-sashal@kernel.org>
+In-Reply-To: <20261107052312-failed-6.12-080833a32fd5@kernel.org>
+References: <20261107052312-failed-6.12-080833a32fd5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,74 +63,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-[ Upstream commit a605d5d71a6d280c43c7ede9778dda63fb5c3f22 ]
+[ Upstream commit 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 ]
 
-f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
-whether it is safe to sleep, the result is passed down as @in_task to:
-- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
-  -> vm_unmap_ram(), which may sleep.
-- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
-  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
-  wait_on_bit_lock().
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-However, the check still treats below task contexts as sleepable:
-- with spinlock held via spin_lock(), i.e. preempt count != 0 while
-  irqs are enabled.
-- with BH disabled via local_bh_disable().
-- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
-- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
-So the "sleeping function called from invalid context" issue fixed by
-commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
-invalid context") can still be triggered.
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
 
-The block layer provides bio_in_atomic() for exactly this purpose, it
-checks rcu_preempt_depth() and preemptible(), and conservatively returns
-true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
-difference is as below:
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
 
- old: intask = in_task() && !irqs_disabled()
- new: intask = !bio_in_atomic()
-
- Context                              | old intask     | new intask
- -------------------------------------+----------------+----------------
- Hard IRQ / softirq                   | false          | false
- IRQs disabled                        | false          | false
- spin_lock() held, IRQs enabled       | true (wrong)   | false
- BH disabled by local_bh_disable()    | true (wrong)   | false
- RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
- Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
-
-Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
-always returns true, so dic freeing will always be offloaded to sbi->wq,
-and compressed pages will not be cached in f2fs_read_end_io(); this is
-the price of correctness, since there is no way to tell whether the
-current context can sleep.
-
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
 Cc: stable@kernel.org
-Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
-Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Replaced both F2FS_BLKSIZE(sbi) uses with the F2FS_BLKSIZE constant. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/super.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index b0c633c5deb75..f3992a728de69 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -288,7 +288,7 @@ static void f2fs_read_end_io(struct bio *bio)
- {
- 	struct f2fs_sb_info *sbi = F2FS_P_SB(bio_first_page_all(bio));
- 	struct bio_post_read_ctx *ctx;
--	bool intask = in_task() && !irqs_disabled();
-+	bool intask = !bio_in_atomic();
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 31724ab224d4a..ec3e20cd6c5eb 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -3773,6 +3773,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
  
- 	iostat_update_and_unbind_ctx(bio);
- 	ctx = bio->bi_private;
+ 	total = le32_to_cpu(raw_super->segment_count);
+@@ -3904,6 +3905,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 		return 1;
+ 	}
+ 
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE;
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
 -- 
 2.53.0
 
