@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274128;
-	b=Y86IH/gDECzSinyGBFLLde8mqFZUIB5X8XET9TWXaZD2pdC5Q/8PlvJ1AG7L87KiQViz
-	 f2EiuuYKJToDSje79A50/Tu3BzerQQf3pTC/vw7214QZnhlbLKKZEdplVfexc+9DEDKzk
-	 CtY8Zt5VUh/V15LnqrMzwQbWjU2ygrHn90+maeqLkzVReZVvU8Tub1n1ylKB+AKm7LmyK
-	 t/vurJoI++qBYtVzGd8zpaO7KbDR4kP/9CbQWo+QO8ekidUVWB/L2+LwDDqh2AP27X8u4
-	 12QtyZkBPmIWi24wEOn2mWOICEzmPi/lQa2st1UG99ZdZfhIha5bXKXCv+UIp0sBzXg==
+	t=1794274130;
+	b=Ve/WON1hamFeZRCEzCa/KYdKqQrQJlh+rIzLGE8n6c9rZ7iVhBOagmXn/iV7alLKygJd
+	 A0TDDEqO5m+k1Bs7ybVExwsEay7FB10UOq4YyRXDyS9+4AVYYNzinFajBUtA/Pj97oXR1
+	 adQ7aW9LTX4Y8a97ADIQRM5kgM+B5lo5DGo7f5ubpS8b8kqHcKYCpVfQecQuqRtHcr+Sz
+	 RShD4F9Xp/x7lRdRkuaZPaKFSJ0T39AqqCa9kvxzp/YhyXX1auxH6nVL2ZJttBkknBFfk
+	 s2KzMWKCRbkZ/KgeH0NtKFgmpvmlqmIYGEtnsw5y1Q/25MpMuGFDGNjL1+1zkZSITIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274128;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274130;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5BHXMpTIMJWtjEhlf/iI2Iv7d+gRnkLJpYp8QdRdl6A=;
-	b=UevNrJWVrTWuMY03TBsFDHnyq8baVFk6KHgIzlCZ6sw2EscpOGQ3gdxRtCowaFBTkFxQ
-	 il6bPyTWUwEr69d3Lmif/gXl+WoGKcr6caBu5beg2F/ksjO0RQk7Ax9JggjMofkgOJ6ac
-	 KvE3K2veHUxrfUxajR/HTUqWJSz+rUpMoTHawA1K7ik8CLGjltTTglHd8vX5hPF6w5z73
-	 GmZXJnCVtREsN6t8tkwG3YVoQ5BK6Jx76pU4l3XV8Dnd/ye9erHFVflo6sLbTIYH683p2
-	 D+tincAdO2sp0sIRjtI2CbMma9nhsqgz+soZv8IPHNrPtoxKrHJPcDlF15UL/NrhACg==
+	bh=nbrjB18s9w+8LNVWcneaabvk3Q/NbxdX/rQw2tevA/k=;
+	b=z7GvGOUJFvQe2slsx9gmdFoAD2j+l27KLqYRXDp0DSMzsC3OnRyWszv4geSFDV+7sFbN
+	 7dINkxYeBR0MYm2I33syj9mhHq3IFWlHkqr5igoCEoHDTKp6fi21xAr3sGS+tZVXKKFAW
+	 DahrKvwXOEPlfZk9xX6gx3Rn18SnlfF/Y7b/Olx2YO3nP2IgT0k6IjbAWT5Z8pSX9E7J+
+	 VpGKoM5T9Rl3lfFv8vDvHdHaV3ITSjgHGb5HQXtJgNzYjuXCcIdQ6d1J+8dUqU7ii3xnt
+	 wl0vtA9duTK5ftK5mP6MuY0aR9YLhfwuYDzdjT2OR2Vn6blCq3Oqa+6RTYZd1JRVp0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oE2wO0w4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/tkAowZ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F514606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94054606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oE2wO0w4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ED4D1F0089F;
-	Tue, 10 Nov 2026 01:28:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/tkAowZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82881F0089F;
+	Tue, 10 Nov 2026 01:28:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274128;
-	bh=5BHXMpTIMJWtjEhlf/iI2Iv7d+gRnkLJpYp8QdRdl6A=;
+	s=k20260515; t=1794274130;
+	bh=nbrjB18s9w+8LNVWcneaabvk3Q/NbxdX/rQw2tevA/k=;
 	h=From:To:Cc:Subject:Date;
-	b=oE2wO0w4P1ylsYltpWMFAjkxyC4UkefybP7IUbazDPk8AkX2iDFwQsEtXQUAYs0vS
-	 ykKDyJl/Q8mst7j6s+TNSRO5iq76pU0mW3idZZaRYOHJm10a6kJv8F+/81bpRs766S
-	 4t6z92OMWwIsTmO7engfEG7BNUmKp7GoVuzJQ7FbURDjxwy3UKKmRipO9hJDTS0Go4
-	 ABJ3fj+fzrigyIM+5IeNmMEKEZO9QNUJt/Yr4WoYNUiWhSPk6Gx6t+U6nWDGCnjSEF
-	 hW37c7QdJwFGjGpOVav0H8TGd3AUE7pjBUQAFOymNj+GH9JMHzUHF3ksrNkAVGb/tj
-	 qiQ3cBXf4NKxw==
+	b=M/tkAowZEjrUZFmE00jegCkgbtQc5hemD30kYXlmQE1oqnX8oy1jY9Z7rI1214PLs
+	 NE41TQaG6VGVixQnMS6beCaZ1iYpFFt3zjqfWSjU5jMOeTkw1qBlk/ngb8MoK0k93D
+	 xR2ED4Xn+bFeLEcynleykhNyf8GIj64lOiipuuKqRTSHHAq+bEMXjMOSvlFNP6biB3
+	 iZ34cWwOsrjIDQb+jp52DoxYDWfRuiGfkvBffH1PWVShItZXmcg9akX9GfOqEUquXM
+	 V7FBqhBS49unCX1yLjy7/YrQ9AN2M4dWd1YH91VuxRYJO1yiOP6MubPDV2feA4sj/v
+	 Nrd9cGVv7jVqA==
 From: Sasha Levin <sashal@kernel.org>
-To: alex.hung@amd.com,
-	jerry.zuo@amd.com,
-	mario.limonciello@amd.com,
-	alexander.deucher@amd.com,
-	daniel.wheeler@amd.com,
-	sunpeng.li@amd.com
+To: misha@nasledov.com,
+	alex.hung@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Avoid closing unowned DDC pins" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:28:46 -0500
-Message-ID: <20261109202846-failed-5.10-e7ba638b8116@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: Drop clock requirements on DCN32 when no displays are active" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:28:48 -0500
+Message-ID: <20261109202848-failed-5.10-bba4dc330648@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,63 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e7ba638b8116cb5f1a5690f543052371215f1626
+git cherry-pick -x bba4dc3306483335ddbe065c05b2d8359ec387a4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202846-failed-5.10-e7ba638b8116@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202848-failed-5.10-bba4dc330648@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e7ba638b8116cb5f1a5690f543052371215f1626 Mon Sep 17 00:00:00 2001
-From: Alex Hung <alex.hung@amd.com>
-Date: Tue, 27 Oct 2026 17:17:04 -0600
-Subject: [PATCH] drm/amd/display: Avoid closing unowned DDC pins
+From bba4dc3306483335ddbe065c05b2d8359ec387a4 Mon Sep 17 00:00:00 2001
+From: Misha Nasledov <misha@nasledov.com>
+Date: Mon, 19 Oct 2026 16:42:32 -0700
+Subject: [PATCH] drm/amd/display: Drop clock requirements on DCN32 when no
+ displays are active
 
-[WHY]
-dal_ddc_open() cleans up pins it acquires on later failures. If the
-data-pin open fails, this attempt acquired nothing. If opening the
-clock pin or configuring fails, dal_ddc_open() closes the pins it
-opened. An extra dal_ddc_close() is unnecessary and unsafe:
-GPIO_RESULT_ALREADY_OPENED can mean AUX owns the existing handles,
-and closing them here would disrupt AUX.
+amdgpu_dm builds the new dc_state as a copy of the old one. When the last
+stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
+never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
+dramclk/dcfclk/fclk requirements of the display that was just turned off.
+dcn32_update_clocks() then keeps those hard minimums applied.
 
-[HOW]
-Remove the extra dal_ddc_close() from the failed-open path.
+On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
+the monitor off, and the board idles at 28.4 W. With this change they
+drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
 
-Cc: Jerry Zuo <jerry.zuo@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Reset the clock requirements in that case, as calculate_dlg_params()
+already does when no HUBP is active and as the DML2 path does for
+stream_count == 0.
+
+Signed-off-by: Misha Nasledov <misha@nasledov.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 175ae7772b68757b4932f34ff862923cab7abe21)
+(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
 Cc: stable@vger.kernel.org
 ---
- .../drm/amd/display/dc/link/protocols/link_dp_capability.c  | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ .../display/dc/resource/dcn32/dcn32_resource.c    | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-index ad1a499b0d9d2..c487c5b87dfd7 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-@@ -2602,12 +2602,8 @@ bool dp_is_sink_present(struct dc_link *link)
- 	 * which indicates we need additional delay
- 	 */
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 3a6a489388435..619b9b3362fc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -1941,8 +1941,21 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
+ 	out = dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, validate_mode);
+ 	DC_FP_END();
  
--	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
--			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
--		dal_ddc_close(ddc);
--
-+	if (dal_ddc_open(ddc, GPIO_MODE_INPUT, GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK)
- 		return present;
--	}
+-	if (pipe_cnt == 0)
++	if (pipe_cnt == 0) {
++		/* The context is a copy of the previous state, so without this the
++		 * clocks the last display needed stay applied with all displays off.
++		 */
++		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.num_ways = 0;
+ 		goto validate_out;
++	}
  
- 	/*
- 	 * Read GPIO: DP sink is present if both clock and data pins are zero
+ 	if (!out)
+ 		goto validate_fail;
 -- 
 2.53.0
 
