@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280121;
-	b=HcaRy9tyab27U3F8O940ka97nExy11qvVhzdW7xN1z4CspIb+IS2IMeKX0YvKfLd1OuP
-	 UXB4uLTjQygu9EHvJbva8dVzQW2LTMN6kaCiYbqT0Us43RIdtwKC6FwTMCxBTg1YQYfEj
-	 zKMdIppMjOk/cJbvvOaWMsZumj8CLgGf7b5rUjKLmL9PDeQCDhrlebAuu+uCWBYUNfzH/
-	 l1/Mk2V8D/zGWsNopyKPiQxJVw5L00LjOhvE/vVvmHbWDPUG7hgQvq8hCkReyoXAtQXHF
-	 Gs+mf851iuFi+fIlC92rhlpZg7bb6PgXJ7aaLLc8cVVxesDBCVKcFI2+0DJjiut9F5w==
+	t=1794280167;
+	b=CknyLM2K8j+ykBpefFrWUpVsExBKnQfUlr9HOHYmyFb7f8e/7/isiuiMSIRT/3YqdPI1
+	 OUY9Kwxlik0BqTpS14M2A5KD40LRPvvB0aHkILSn4+7BoE/Tn3OzJfNouo0ADjtrtlrUp
+	 iurfWXQLc+TisLuhZcSDNAcOOGQrKYY8vPlHRhOqzPYWwI0W+8+4azTKCitc6tXV33loj
+	 gCWOPzOAtFeALl+DNd3cyJmoKcgKz9vJfwFs6qboFl/G+sKMxnqVah9Eh68DGp8SDOhla
+	 0OBtC9BQmHEMbV+bwFm/5pqaqkgVHcmhAJDeGI0tgW3JPl31tft4hN9ZeM10F6ERWsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280121;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=u0WexQiYcFsTUz3TiJp+BmJsyIFP85/+eNxRbuvwdeE=;
-	b=xXABzLo2sPkOEt3jJc2bpepMxeC4Tl1Npd7IQqggA/P62LTfPrFgJmPL3J5Vb2/Z1ig6
-	 YgLjg4TJtCYQdmaHZBmuqJghL2xzMS13WEFdPSPeW2pPZKd5wqPzL3bk8VT3i+M+FhQ90
-	 co5gqz4OKNKl/PBCo/c32VBOmZ7Qxd0Tj2zLLLcqrf6GznB0ECe2k4kWtQSOHbFWEpqlS
-	 7bJlRO3hOYPk14M9tGLt3xXws+Al53yFFzL6ysjZ1L7O8MsXFBr3XL1iyluzv6iE5y4rx
-	 6rC5i5M9xTWwMZINBlbkowwvy+230ickWcX7Nh9pR89Y9urxcevkG0tvK2hJXNRKWDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280167;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=sUE9pcvxpL4tqaQuDlpvJHAuMWMG1o2IFRUUg5+UyGc=;
+	b=ejSI58zPc0X8jvGgQhOccVoVDBL7ckwaBe+vqURBHK2FcSilYdsXHQ4kKytq75Fv97yD
+	 v3N0EsMrA+EsbJrkmgulsnS8O1ZkUaRkQlW0+sTDH5iLx/eme6YtpaBBNPRYBv2RxsHge
+	 yUgX6NJoJKFHTaq5aNbBKN5Q/Dd744kbJY1bV9toULm/eSfm0wKbD8VpfbTlmZHCXb5ky
+	 gZzm4Z27cA4WnnPavgj4mXrLDep3OzTj5ZGjngI8HZ9C9CBTSrw2VFCadLMFvgsZGW2b1
+	 gKbP1q52Pg1l94q8zUmgxdSpjgrtrXqtOobqfH5sCvihjfqQvQbF8T018e6enjYneOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="Fs0URh/P";
-	arc=none smtp.remote-ip=115.124.28.97
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HcMzdNdc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED45D606A334;
-	Tue, 10 Nov 2026 03:08:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED45D606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFABB606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:09:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=Fs0URh/P
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794280111; h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version;
-	bh=u0WexQiYcFsTUz3TiJp+BmJsyIFP85/+eNxRbuvwdeE=;
-	b=Fs0URh/PZ3u4XEEzSG/a/AQKAR/X6HgaCUBlNZnmdQqW5y3c+XyAxbMOFJJUmcDY3aSFfwTOpmMpDsNuIl2M4anr8xs9ASpjb/wKSqpVHGO3X8YaWGHvgaraBM6EsBAiHU+0XwLuZRTYE+P+c7cXjV+IPJDoZR2ghDHxF6ESp3w=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1069233|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0209474-0.00293205-0.976121;FP=16677591614755782120|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.k-dniAt_1794280109;
-Received: from 127.0.0.1(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.k-dniAt_1794280109 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 11:08:30 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Ard Biesheuvel <ardb@kernel.org>, Matthew Garrett <matthewgarrett@google.com>,
- linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: efi: reject a final events table with an oversized
- preboot log
-Date: Tue, 10 Nov 2026 11:08:29 +0800
-Message-ID: <179428010969.3920616.1180194759290419954@xiaopeng.com>
-In-Reply-To: <au3xN-7onNTtgceh@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HcMzdNdc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9CFE1F0089F;
+	Tue, 10 Nov 2026 03:09:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794280166;
+	bh=sUE9pcvxpL4tqaQuDlpvJHAuMWMG1o2IFRUUg5+UyGc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HcMzdNdcfU5h9El0TEVk82c7oYiziELSbRm3lsypeog8TQbJ5pYsdoh+gw9Rh4//T
+	 afBsplQP7S1DGBM0n0Xzh1zga1DttfVcQjsz39zufnoqkrMtmoX6UiQL7gPglSB4Li
+	 IMcdbrlfyTpGboorge39/2dwWM7b6orJ4jnzV9fe+dcFPKCmD1sJzh1vossgL9M3P/
+	 q+xKQ9SkuMVPB+VNKVfPlr5N0xjPX12v0+AwN0xkAQUfstomdZkjAlPrtjc66/Mt2U
+	 A/qUE7al6FoIzVm0TT6mMO5iT7AkgJAOQ4i5myfRVOoDmkc/C5F57KP6wqxxazOYbJ
+	 YBPGgtdLdmUKQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] media: microchip-isc: fix awb_mutex and lock lifecycle
+Date: Mon,  9 Nov 2026 22:09:24 -0500
+Message-ID: <20261110030903.41751-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054122-failed-6.1-5540b48c0702@kernel.org>
+References: <20261107054122-failed-6.1-5540b48c0702@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,42 +60,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Jarkko,
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-No bus interposer is involved: the threat here is firmware shipping a
-self-contradictory final events table (preboot size larger than the
-table itself), not tampering on the wire. So the quantitative
-question - does this actually happen - does have data.
+[ Upstream commit 5540b48c0702f6a1389db3d473d7fd0db930422a ]
 
-This area of efi.c has already needed fixes for real firmware tables
-four times:
+isc->lock and awb_mutex were initialised in isc_async_complete() and
+destroyed in isc_async_unbind(), tying their lifetime to the subdev
+bind/unbind cycle instead of the device:
 
-- 05c8c1ff81ed ("efi/tpm: Don't traverse an event log with no
-  events"): some machines return an unpopulated template table whose
-  contents are just garbage.
+ - isc_async_unbind() destroyed awb_mutex before cancel_work_sync(),
+   which takes it;
+ - a failed .complete() left them initialised, and isc->lock was
+   destroyed only on the .complete() error path, so the normal unbind
+   path leaked it;
+ - a rebind runs .complete() again and reinitialises a live mutex.
 
-- b4f1874c6216 ("tpm: check event log version before reading final
-  events"): several Dell models froze at boot because the firmware
-  event log and final events table did not match each other.
-  Fixes: includes 166a2809d65b.
+Initialise both with devm_mutex_init() at probe so they live for the
+whole device lifetime and are freed at remove, and drop the init and
+destroy from the .complete()/.unbind() callbacks.
 
-- 80a6c216b16d ("tpm/eventlog: Don't abort tpm_read_log on faulty
-  ACPI address"): a Framework laptop with an INSYDE BIOS shipped an
-  un-mappable TPM2 ACPI table.
+isc_async_complete_err then only returned ret, so drop the label and
+return directly at each error site.
 
-- 48cff270b037 ("tpm: efi: Use local variable for calculating final
-  log size"): this one is the closest. The same subtraction went
-  negative and hit __memcpy with a wrapped size, with a real oops in
-  the commit message. It carries Fixes: 166a2809d65b and went to
-  stable.
+Fixes: 314c96e5203d ("media: atmel: atmel-isc-base: use mutex to lock awb workq from streaming")
+Cc: stable@vger.kernel.org
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Changed the additional isc_formats_init() failure path to return directly after removal of the obsolete mutex cleanup label. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/atmel/atmel-isc-base.c  | 18 +++++-------------
+ .../media/platform/atmel/atmel-sama5d2-isc.c   |  9 +++++++++
+ .../media/platform/atmel/atmel-sama7g5-isc.c   |  9 +++++++++
+ 3 files changed, 23 insertions(+), 13 deletions(-)
 
-So the corrupted-table input and the negative-size memcpy path have
-both been observed in the wild, just not through this exact
-combination yet.
+diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
+index 9e91e4d948a24..a2e5030f0d597 100644
+--- a/drivers/media/platform/atmel/atmel-isc-base.c
++++ b/drivers/media/platform/atmel/atmel-isc-base.c
+@@ -1754,7 +1754,6 @@ static void isc_async_unbind(struct v4l2_async_notifier *notifier,
+ {
+ 	struct isc_device *isc = container_of(notifier->v4l2_dev,
+ 					      struct isc_device, v4l2_dev);
+-	mutex_destroy(&isc->awb_mutex);
+ 	cancel_work_sync(&isc->awb_work);
+ 	video_unregister_device(&isc->video_dev);
+ 	v4l2_ctrl_handler_free(&isc->ctrls.handler);
+@@ -1863,8 +1862,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 
+ 	isc->current_subdev = container_of(notifier,
+ 					   struct isc_subdev_entity, notifier);
+-	mutex_init(&isc->lock);
+-	mutex_init(&isc->awb_mutex);
+ 
+ 	init_completion(&isc->comp);
+ 
+@@ -1884,7 +1881,7 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 	if (ret < 0) {
+ 		v4l2_err(&isc->v4l2_dev,
+ 			 "vb2_queue_init() failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	/* Init video dma queues */
+@@ -1896,19 +1893,19 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 	if (ret < 0) {
+ 		v4l2_err(&isc->v4l2_dev,
+ 			 "Init format failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	ret = isc_set_default_fmt(isc);
+ 	if (ret) {
+ 		v4l2_err(&isc->v4l2_dev, "Could not set default format\n");
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	ret = isc_ctrl_init(isc);
+ 	if (ret) {
+ 		v4l2_err(&isc->v4l2_dev, "Init isc ctrols failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	/* Register video device */
+@@ -1928,15 +1925,10 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 	if (ret < 0) {
+ 		v4l2_err(&isc->v4l2_dev,
+ 			 "video_register_device failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	return 0;
+-
+-isc_async_complete_err:
+-	mutex_destroy(&isc->awb_mutex);
+-	mutex_destroy(&isc->lock);
+-	return ret;
+ }
+ 
+ const struct v4l2_async_notifier_operations isc_async_ops = {
+diff --git a/drivers/media/platform/atmel/atmel-sama5d2-isc.c b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+index ea3e8b86a7f31..629bb9ada4698 100644
+--- a/drivers/media/platform/atmel/atmel-sama5d2-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+@@ -30,6 +30,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+@@ -405,6 +406,14 @@ static int atmel_isc_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, isc);
+ 	isc->dev = dev;
+ 
++	ret = devm_mutex_init(dev, &isc->lock);
++	if (ret)
++		return ret;
++
++	ret = devm_mutex_init(dev, &isc->awb_mutex);
++	if (ret)
++		return ret;
++
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	io_base = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(io_base))
+diff --git a/drivers/media/platform/atmel/atmel-sama7g5-isc.c b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+index 4bc2f5c7f2f7d..2da0f7282d015 100644
+--- a/drivers/media/platform/atmel/atmel-sama7g5-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+@@ -33,6 +33,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+@@ -394,6 +395,14 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, isc);
+ 	isc->dev = dev;
+ 
++	ret = devm_mutex_init(dev, &isc->lock);
++	if (ret)
++		return ret;
++
++	ret = devm_mutex_init(dev, &isc->awb_mutex);
++	if (ret)
++		return ret;
++
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	io_base = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(io_base))
+-- 
+2.53.0
 
-I'm fine either way on the tag. If you still consider this one
-hardening, I'll send a v3 without Fixes - the change itself is not
-affected by that.
-
-Thanks.
