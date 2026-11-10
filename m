@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293108;
-	b=l/FadmYFxXWCJa0z1gFd4VMBBtdXfCba81pC5sznqzaL8hpWbtAvwLWJ8GK02G+wxsav
-	 JwN+dWN/SDQFLV/iBssGH1pPJlntBBIjhhvYWWaZMFdS+c7U1GpZy6sBJpI75RPX7awhr
-	 iiK8we95mcpd7MUIipGKMh/KI0qREvRL61P0LOY6agNTnhlaYDvHJyPRBLbPpiEDY6ytV
-	 17XKtYxeLVF8kDr11tacLgf6ca89UT7UOe1F9+AFd0B6v6M3RCmsjzOBXvU3nbxc9i85d
-	 vN4vPF+PM1AxjXBB1Rmq+FJ/sQ+5JGYKs/morXP9i+CckqeYlmurTO0ZWg3QBwCgtQA==
+	t=1794293118;
+	b=aNQS/pMFDvkXfvlQDUxH/S27aVzulNpPsXlk3dPm0RM2RRy1iR9DVTQcrQWqtlHvD0pE
+	 BLkouz6HNJQsbIZKCfqrQPWL//Te6/a02y7NtqhOJLH6S81hSP8jgIpy/KtrNy09dFP6g
+	 1gxsxwyI1FVkyCYzH89HkPGev5l3+XKgrmrlOGRr4+CUO/rZQI2VZhLphLW7EO743O/YB
+	 H0x4LSSAMwynan/lvwMuMhmy+w6IildtKBp5eFIW1Xk0XPtgKVbWhkIm6PZpN5MlaJFgv
+	 IHLKJEmef6kswPubmAuMC6664v/u/6bKMBztYQMnWi1TjdbkPxJ12uu9nMGte7SmQQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293108;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293118;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=1+EWMG1s4PtNLGMTM7gtsLhW6vrqjRkE1/MQE+IymZA=;
-	b=Gg6jUWBS+o3wBfmZidfT0N6PCKRwKb9gc3ZiL49rG0UeO92wFTt/FPUMjb6L2hylzYjU
-	 EBKuTVsReoxbqgnLwEogxat8eeBXSZ2J6iMnm7482naVpZFTviSkbU/Hm+Notr2CI3sXk
-	 Db57UO79qK/9WFopnyEjzvxR9sJRBh9RONz2WVEzYtrUvuxjf2MEv03B5BF9VLtccKRWP
-	 tLdXqb2//WFCagAUzXzyla/xivR8TgTYJ/l/l1zWY/RP0iOEzszSJgls8OSCsQbV+Wdhn
-	 r+SldzOi9WscsjaDMANEsWpuBdyNWYa0QACL4VReHRZZKZgRV1aoipjzDQuHSUFo7cA==
+	bh=/xhidG+1kdsh3WnxHszwMZDJsvfNMmYDQbrCvD+jyeI=;
+	b=MZzOfjgy8FdVpM4nBmNuB13uoJw7JmJJuGJEFK6mjDsDyJ0vWwZlf3NuHD8+F0v8bclV
+	 w3w7Xl9b1AI4mtwNxjfzeNeeRRlQX+WLP6uejSfx/1waA5FrAj2pBuQwy1h8OWifti7De
+	 gp+I4BoTJlLke89mwVVxERZ4g/cyDm3EQX8kuKi8Dht3SFQfvR9byqWHkXSUUyrS1AlSB
+	 /OUh588N67int1kA8ZrPF5UAe8N1Hduom8WffGdSEsMOCoCSCjwWpHHHb1qK3Eb+tNatY
+	 sJwk9PDUhsaOVGID039btsNRqTn/2bqWhHbFINTsh4wc6f9S8Dm+1AdII6WX1N8/hrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0ss6A5T5;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SUImvl4P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FAE606CB02;
-	Tue, 10 Nov 2026 06:45:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B400606CB12;
+	Tue, 10 Nov 2026 06:45:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0ss6A5T5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32C61F008A3;
-	Tue, 10 Nov 2026 06:45:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SUImvl4P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346311F0089F;
+	Tue, 10 Nov 2026 06:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293107;
-	bh=1+EWMG1s4PtNLGMTM7gtsLhW6vrqjRkE1/MQE+IymZA=;
+	d=linux-foundation.org; s=korg; t=1794293118;
+	bh=/xhidG+1kdsh3WnxHszwMZDJsvfNMmYDQbrCvD+jyeI=;
 	h=Date:To:From:Subject;
-	b=0ss6A5T5OJa/842uN05Dof3gh2G0GChIP+yvamq8rOzY4lRAvoCJS4Lx+V8TPpgJA
-	 7cy31gwUe+o82gawlNsVsXiHojKb2HG5eCaRg938aGGd1V9VVKQ95jlrQtknEWPPmW
-	 FXGzvIPya4Wai05kw44377yrtB/92kWwP6BBFwy4=
-Date: Mon, 09 Nov 2026 22:45:07 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
-	stable@vger.kernel.org,shivankg@amd.com,shakeel.butt@linux.dev,
-	matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,
-	david@kernel.org,byungchul@sk.com,boris@bur.io,apopple@nvidia.com,
-	chenridong@xiaomi.com,akpm@linux-foundation.org
+	b=SUImvl4Pvgi0eM0sBOQbwHJiravm9zC3UNL25tV4eMD0mCefUd1k9le2qBozruJ/c
+	 VfBws6nQa+wtL/aHYH9aWi/ogfxkAYdi6Oc1T55uVKFaQ6JiUS7/+eKK/olwxj1xKx
+	 vm2TBKQJdE+XJH/LSRB8TaXM/7qCJJw8Qu9ZjLuk=
+Date: Mon, 09 Nov 2026 22:45:17 -0800
+To: mm-commits@vger.kernel.org,will@kernel.org,stable@vger.kernel.org,
+	pjw@kernel.org,palmer@dabbelt.com,osalvador@suse.de,mark.rutland@arm.com,
+	kevin.brodsky@arm.com,david@kernel.org,dave.hansen@intel.com,
+	catalin.marinas@arm.com,bjorn@rivosinc.com,bjorn@kernel.org,
+	apopple@nvidia.com,aou@eecs.berkeley.edu,alex@ghiti.fr,
+	agordeev@linux.ibm.com,muchun.song@linux.dev,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration.patch removed from -mm tree
-Message-Id: <20261110064507.C32C61F008A3@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] riscv-mm-fix-missing-destructor-for-hotplug-pud-tables.patch removed from -mm tree
+Message-Id: <20261110064518.346311F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,109 +56,96 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/migrate: move NR_KERNEL_FILE_PAGES on cross-node migration
+     Subject: riscv/mm: fix missing destructor for hotplug PUD tables
 has been removed from the -mm tree.  Its filename was
-     mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration.patch
+     riscv-mm-fix-missing-destructor-for-hotplug-pud-tables.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Ridong Chen <chenridong@xiaomi.com>
-Subject: mm/migrate: move NR_KERNEL_FILE_PAGES on cross-node migration
-Date: Tue, 27 Oct 2026 12:32:14 +0800
+From: Muchun Song <muchun.song@linux.dev>
+Subject: riscv/mm: fix missing destructor for hotplug PUD tables
+Date: Fri, 23 Oct 2026 14:34:27 +0800
 
-NR_KERNEL_FILE_PAGES counts page cache folios of mappings flagged
-AS_KERNEL_FILE (currently the btrfs btree inode).  It is a per-node
-counter: filemap_add_folio() adds to folio_pgdat() of the new folio and
-filemap_unaccount_folio() subtracts from folio_pgdat() of the folio
-being removed.
+Commit 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel
+pgtable alloc") made alloc_pud_late() run the PUD page-table constructor.
+However, free_pud_table() still frees non-reserved PUD tables directly
+without decrementing NR_PAGETABLE.
 
-__folio_migrate_mapping() does not move it when such a folio is
-migrated to another node, so the source node keeps the count forever
-and the destination node underflows once the folio is freed.  btree
-folios are migratable through btree_migrate_folio(), so demotion,
-DAMON-based migration (DAMOS_MIGRATE_{HOT,COLD}) or memory offlining
-all hit this.
+Free PUD tables through the common free_pgtable_page() helper so that
+constructor-backed tables run the matching destructor before being
+freed.
 
-Reproducer, on a QEMU guest with two memory tiers (node0 is DRAM with
-all CPUs, node1 is a CPU-less slower node described via HMAT) and
-/sys/kernel/mm/numa/demotion_enabled set:
-
-  1. mount a btrfs and create 20000 empty files, so that btree folios
-     are cached on node0;
-  2. echo 2G > /sys/devices/system/node/node0/reclaim, which demotes
-     them to node1;
-  3. umount and drop caches.
-
-nr_kernel_file_pages in /sys/devices/system/node/nodeN/vmstat after
-each step:
-
-                  without this patch     with this patch
-                   node0     node1       node0     node1
-  1. cached         1868         0        1868         0
-  2. demoted        1868         0          36      1832
-  3. dropped        1832         0 (*)       0         0
-
-  (*) the counter has underflowed to -1832; negative values read as 0.
-
-The global value in /proc/vmstat is 0 after step 3 in both cases.
-
-Move it together with the other node-keyed page cache counters.  It is
-a node-only counter, so use the node accessor, matching how it is
-accounted elsewhere.  Interrupts are disabled here, as for the zone
-counters below.
-
-This was pointed out by Shivank while reviewing the NR_FILE_THPS fix
-for the same function.
-
-Link: https://lore.kernel.org/20261027043214.2248986-1-ridong.chen@linux.dev
-Fixes: e3a9ac4e866e ("mm: add vmstat for kernel_file pages")
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Link: https://lore.kernel.org/20261023063428.3658761-4-songmuchun@bytedance.com
+Fixes: 8472cc4503eb ("riscv: mm: call PUD/P4D ctor in special kernel pgtable alloc")
+Signed-off-by: Muchun Song <muchun.song@linux.dev>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Shivank Garg <shivankg@amd.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Shivank Garg <shivankg@amd.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Björn Töpel <bjorn@rivosinc.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
 Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Boris Burkov <boris@bur.io>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/migrate.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/riscv/mm/init.c |    5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
---- a/mm/migrate.c~mm-migrate-move-nr_kernel_file_pages-on-cross-node-migration
-+++ a/mm/migrate.c
-@@ -705,6 +705,12 @@ static int __folio_migrate_mapping(struc
- 			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
- 			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
- 		}
-+		if (test_bit(AS_KERNEL_FILE, &mapping->flags)) {
-+			__mod_node_page_state(oldzone->zone_pgdat,
-+					      NR_KERNEL_FILE_PAGES, -nr);
-+			__mod_node_page_state(newzone->zone_pgdat,
-+					      NR_KERNEL_FILE_PAGES, nr);
-+		}
- #ifdef CONFIG_SWAP
- 		if (folio_test_swapcache(folio)) {
- 			mod_lruvec_state(old_lruvec, NR_SWAPCACHE, -nr);
+--- a/arch/riscv/mm/init.c~riscv-mm-fix-missing-destructor-for-hotplug-pud-tables
++++ a/arch/riscv/mm/init.c
+@@ -1553,10 +1553,7 @@ static void __meminit free_pud_table(pud
+ 			return;
+ 	}
+ 
+-	if (PageReserved(page))
+-		free_reserved_page(page);
+-	else
+-		__free_pages(page, 0);
++	free_pgtable_page(page);
+ 	p4d_clear(p4d);
+ }
+ 
 _
 
-Patches currently in -mm which might be from chenridong@xiaomi.com are
+Patches currently in -mm which might be from muchun.song@linux.dev are
 
-mm-memcontrol-drop-unused-vmscan-tracepoint-include.patch
-mm-vmscan-move-vmscan-tracepoints-to-a-local-header.patch
-mm-vmscan-move-struct-scan_control-to-a-dedicated-header.patch
-mm-vmscan-pass-scan_control-to-the-vmscan-tracepoints.patch
-mm-mglru-add-tracepoint-for-scan_folios.patch
-mm-mglru-add-lruvec_gen_size-helper.patch
-mm-mglru-add-tracepoint-for-aging.patch
-mailmap-add-entries-for-ridong-chen.patch
+arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch
+mm-sparse-vmemmap-map-shared-vmemmap-tail-pages-as-read-only.patch
+powerpc-mm-map-shared-vmemmap-tail-pages-as-read-only.patch
+mm-hugetlb_vmemmap-remove-vmemmap_wrprotect_hvo.patch
+mm-hugetlb_vmemmap-remove-hugetlb_vmemmap_optimize_bootmem_folios.patch
+mm-generalize-kernel-pte-table-allocation.patch
+mm-generalize-pmd-page-table-allocation.patch
+mm-generalize-pud-page-table-allocation.patch
+mm-remove-pagetable_dtor_free.patch
+mm-remove-redundant-pagetable_dtor-calls.patch
+mm-hugetlb_vmemmap-remove-hugetlb-specific-vmemmap-optimization-macros.patch
+mm-hugetlb_vmemmap-unify-vmemmap_splitremap_no_tlb_flush.patch
+mm-hugetlb_vmemmap-simplify-vmemmap-head-page-handling.patch
+mm-hugetlb_vmemmap-generalize-vmemmap-page-allocation.patch
+mm-hugetlb_vmemmap-unify-writable-vmemmap-page-preparation.patch
+mm-hugetlb_vmemmap-rename-vmemmap_remap_pte-to-vmemmap_optimize_pte.patch
+mm-hugetlb_vmemmap-simplify-shared-tail-page-handling.patch
+mm-hugetlb_vmemmap-move-alloc_vmemmap_page_list-next-to-its-free-helper.patch
+mm-hugetlb_vmemmap-make-vmemmap-optimization-folio-oriented.patch
+mm-hugetlb_vmemmap-make-vmemmap-restoration-folio-oriented.patch
+mm-hugetlb_vmemmap-unify-vmemmap-range-restoration.patch
+mm-hugetlb_vmemmap-make-vmemmap-pte-conversion-folio-oriented.patch
+mm-hugetlb-fix-validation-of-unsupported-hugetlb-orders.patch
+powerpc-mm-make-vmemmap_populate_compound_pages-static.patch
+powerpc-mm-drop-powerpc-vmemmap_can_optimize.patch
+loongarch-mm-disable-device-dax-vmemmap-optimization.patch
+mm-sparse-vmemmap-drop-vmemmap_can_optimize.patch
+mm-sparse-vmemmap-drop-pgmap-from-vmemmap-population-apis.patch
 
