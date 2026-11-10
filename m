@@ -1,55 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272865;
-	b=wW4uGhvWQsaByWO0f42V+EeembPBCXSu4QZxsnlzYjKItDH4cPdJIN/ID/9gPiBeA83w
-	 VT5sSy/IyBeuOW8eogti2UG1nd42VfKEtrt+girqNbMWABQSknb1DigO5EnEfb8jSKXk7
-	 iSPDNtVVbCUg/zZdJq/U9fSWM7uQFqeYpi5Gq5ofS6aef7qELl5AcYk3UTXcuAy7pvsuP
-	 TCjYorX4pdJ03KpaHD3EDtY7idXcjAo4PjawPEB94d0SDVEAdqCzqdy7NeJIYvq/f5eLw
-	 uqS8ViumYWJ2ojDNOKoKQEkp6V/5OdIt1/WEvpH8iK5zTJJ/S/e950fyDfr5/3vR+WQ==
+	t=1794272868;
+	b=ImRAstslli/Fd1zbsJhA1l7jJ2AWyXnzE2xPWsZdOrs9y4yo/7271IBQ9RHZ+BFHkquv
+	 tpzVAYlow0ra7+tmmeSlkfG07RSWDrUDEDEtwy3TBC9hJaErSL2iBASr4+E8L0M7H5OBb
+	 71HM17UvgFhgHWI0F147ea8OScsygSo2kc6w0bg1VUQ7ZLjiE0vr+SYxOgNvEZFEwKdQL
+	 Hh23wN/lDlSxdsSGZToa0/rEdo6vXviGQ1aQ40V61lf6t2zUGnBc5ei2iYzE7b5GmQs1A
+	 AcEfncW/GOSieYdRQ3am69+NjvkY30vczR37RpWRz8vIqt7iPCVQhe8JH3hLEKVy6AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272865;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272868;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PAExQx/sX+Ypi0jYVws0O3idmZBstJGmS+zCtptkR34=;
-	b=UshpOLoHW9dEyB3AuIQj2jTG0UUobA84B5S9fBtfhvShTAdZdJYeMBSNHYms41WdHe3H
-	 Ejnjo9w5vrdtG233dWt7LdkS6pfom1YXthKYpLw7MLmhPErvbqiQjsbg1OaqKxGu/XeCf
-	 uhCbrqtfTDBEawPdCAI8k5QuHYrafkfV9PjfL7Tim40OXZiqBxySNYBFeqZ6CVQO9lEbs
-	 1WHEbAoUAWt0jPApmrcUMfirXx965WRvAnZpTyU2FZrycADn2XrWGc203sj4pz7aAJVMP
-	 Gu3+LzFYdJVP+dXXY65TvY/q8to42Ec9oO55b1PozRkWLKcjwkDcO4e0mpCw+CoPOdw==
+	bh=ZQiwWe+Yxe6ObHr8d9IRabLfglTi1D0sahuifWR7rMA=;
+	b=rUqloa68wzvbd6NLH9yLfUlqr3vmTHFVs/xoTi1G3lt8AuLggm23napk6ZSuok23NSru
+	 eolE9Rtprwmo08VkH9k+VQCC73dRtnFn/IrKkTlU+6LsmUhbiKd2XshcXQlDjbpNucoiP
+	 pzcidsoBglhCuwWZt0w2Fe9xGuMFnbDRo9RGpTCRWjFxVnEo8egimwSie41+gxX9DZOUF
+	 4PsX5EAC4y7dM0KNTB4nZrQyBBxWgW/jsKxr2TvSRmC9t4RFQouD1iOKDJLdk3Wc56rPo
+	 TLCKmm+uZWSN54/fwfuy7liR6ADvEIFe1srRhHk1WY5to116+Lz+jKJJDR9F4yufnHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W658M0yU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsGtjCdq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2EB606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BA41606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W658M0yU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54B01F0089F;
-	Tue, 10 Nov 2026 01:07:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsGtjCdq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BCF1F0089F;
+	Tue, 10 Nov 2026 01:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272864;
-	bh=PAExQx/sX+Ypi0jYVws0O3idmZBstJGmS+zCtptkR34=;
+	s=k20260515; t=1794272868;
+	bh=ZQiwWe+Yxe6ObHr8d9IRabLfglTi1D0sahuifWR7rMA=;
 	h=From:To:Cc:Subject:Date;
-	b=W658M0yUk6JfycxaaT3p11X9DEDqs4TlcfmzYsHNtcXlJ0b/x0Wc5e/n/Tq2PH3Bm
-	 sYldaIWbuHw9siyBdzrpMPkuC4wMiEHx3TjowggJbqbNfX0SMBE5S/6/PD+hkKs4RQ
-	 KmUaSvtq4ZBzYQDpN8OvFetGMBEm2YMe3lvGChpIeLG9f0aOim/CtlGnFq8cUNCkj0
-	 qWXh/NnmtuhwcxHDI01W93r4eaIyGk0Qu9gGouQLqIJLYcPhae/IYmJxnkr0B4do/9
-	 A1XuiiTY4EE5pDDr8Q+vKIFWYcO0k0qEmviig7PHTE7F/+OTLNqqBQwGA6oT/bP7UL
-	 NYjPnxjRPAjfA==
+	b=PsGtjCdq5i7olOD/TYbuxC7pXqcdnU0EJB3NVe3uhYJTW/hjG3d9KzRrcXfEbDzWP
+	 UgG3P3ILNer5QsBgyNGipgvwJZltmKndeNa/idkVMBzSq2BiSuA98tBowwW8a+N3hG
+	 Pme1mVdSBbrbK04NmNiufTaRhmz16ob9vU42q0N4wNQ7F9f0YdvX2SLbtCX1QmtPCh
+	 InvPPsZ3IXXwk43mzesiqqN1rInC7BlkxuvMcOG8I/F1yu5+aOwX5QINBQIJgOW/NE
+	 4aRdmLopyiMlceHbHf2eRqg5jwDvFMy0WPIna0sGI3bFCV6p/kMIKZwnSArTnzdkqz
+	 cZnxCDHgnC+xw==
 From: Sasha Levin <sashal@kernel.org>
-To: dennylin0707@gmail.com,
+To: david@kernel.org,
 	akpm@linux-foundation.org,
-	jack@suse.cz,
-	gourry@gourry.net,
-	willy@infradead.org,
-	shr@devkernel.io
+	kylebot@openai.com,
+	ljs@kernel.org,
+	kas@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	lance.yang@linux.dev,
+	baohua@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	huang.ying.caritas@gmail.com,
+	ryan.roberts@arm.com,
+	hanchuanhua@oppo.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold shares" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:07:42 -0500
-Message-ID: <20261109200742-failed-6.12-9597c2056e05@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: fix address wraparound when scanning large folio PTEs" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:07:45 -0500
+Message-ID: <20261109200745-failed-6.12-f681d4580d5c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,85 +82,142 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9597c2056e05bd79df9d343a9b42e84a54de1c52
+git cherry-pick -x f681d4580d5c3c749f623cda722a21aefd3147b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200742-failed-6.12-9597c2056e05@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200745-failed-6.12-f681d4580d5c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9597c2056e05bd79df9d343a9b42e84a54de1c52 Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Wed, 21 Oct 2026 06:06:54 +0000
-Subject: [PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold
- shares
+From f681d4580d5c3c749f623cda722a21aefd3147b3 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 14 Oct 2026 20:34:28 +0200
+Subject: [PATCH] mm: fix address wraparound when scanning large folio PTEs
 
-The ratios used by __wb_calc_thresh() are scaled to parts per million, but
-the threshold and ratio operands are unsigned long.  On 32-bit kernels,
-their multiplication can wrap before the result is assigned to u64.
+numa_rebuild_large_mapping() and do_swap_page() can be tricked into
+generating an address wraparound, crashing the kernel. All that's required
+is to map a tail page of a large folio close enough to the start/end of
+the address space to e.g., make
 
-For example, with a threshold of 25600 pages and the default maximum ratio
-of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.  The shared
-threshold and minimum share calculations can overflow in the same way,
-producing incorrect per-writeback dirty limits.
+	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
 
-Use a u64 threshold for the three ratio multiplications and div_u64() to
-retain the existing division order and rounding.
+to wrap around.
 
-Link: https://lore.kernel.org/20261021060654.27855-1-dennylin0707@gmail.com
-Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Let's fix it by providing a better helper, folio_scan_range(), that
+takes care of staying within VMA and page table boundaries while
+handling possible wraparounds.
+
+There are some nasty details, like not being able to use pmd_addr_end()
+in this context. Add some helpful comments for these cases.
+
+Link: https://lore.kernel.org/20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org
+Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
+Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Stefan Roesch <shr@devkernel.io>
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Ying Huang <huang.ying.caritas@gmail.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Chuanhua Han <hanchuanhua@oppo.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page-writeback.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ mm/memory.c | 50 ++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 499a35473e4f3..0694ec4098f6d 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+diff --git a/mm/memory.c b/mm/memory.c
+index 0fb676dd2bd63..591592bc5a941 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4933,6 +4933,34 @@ static void check_swap_exclusive(struct folio *folio, swp_entry_t entry,
+ 	} while (--nr_pages);
+ }
+ 
++/*
++ * Get the address range in which a folio might be mapped, assuming its pages
++ * are mapped consecutively and the folio page at the given idx is mapped at
++ * the given address.
++ */
++static void folio_pte_range(const struct folio *folio,
++		const struct vm_area_struct *vma, unsigned long addr,
++		unsigned long idx, unsigned long *start, unsigned long *end)
++{
++	/* Stay within the page table and VMA boundaries. */
++	const unsigned long pmd_start = addr & PMD_MASK;
++	const unsigned long pmd_end = pmd_start + PMD_SIZE;
++	const unsigned long lower = max(pmd_start, vma->vm_start);
++	/*
++	 * We cannot use pmd_addr_end(), as it does not clamp reliably. To
++	 * avoid wraparounds, compute using the inclusive end.
++	 */
++	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
++	const unsigned long offset = idx << PAGE_SHIFT;
++
++	/*
++	 * Avoid start/end addresses wrapping by not adding/subtracting more
++	 * than the lower/upper limits would allow.
++	 */
++	*start = addr - min(addr - lower, offset);
++	*end = addr + min(upper - addr, folio_size(folio) - offset);
++}
++
+ /*
+  * We enter with either the VMA lock or the mmap_lock held (see
+  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
+@@ -5121,16 +5149,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 	address = vmf->address;
+ 	ptep = vmf->pte;
+ 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
+-		int nr = folio_nr_pages(folio);
+-		unsigned long idx = folio_page_idx(folio, page);
+-		unsigned long folio_start = address - idx * PAGE_SIZE;
+-		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
++		const int nr = folio_nr_pages(folio);
++		const unsigned long idx = folio_page_idx(folio, page);
++		unsigned long folio_start, folio_end;
+ 		pte_t *folio_ptep;
+ 		pte_t folio_pte;
+ 
+-		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
+-			goto check_folio;
+-		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
++		folio_pte_range(folio, vma, address, idx, &folio_start,
++				&folio_end);
++		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
+ 			goto check_folio;
+ 
+ 		folio_ptep = vmf->pte - idx;
+@@ -6280,16 +6307,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
+ 				       struct folio *folio, pte_t fault_pte,
+ 				       bool ignore_writable, bool pte_write_upgrade)
  {
- 	struct wb_domain *dom = dtc_dom(dtc);
- 	struct bdi_writeback *wb = dtc->wb;
-+	u64 threshold = thresh;
- 	u64 wb_thresh;
- 	u64 wb_max_thresh;
- 	unsigned long numerator, denominator;
-@@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
- 			      &numerator, &denominator);
+-	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
++	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
+ 	unsigned long start, end, addr = vmf->address;
+-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+-	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
+ 	pte_t *start_ptep;
  
--	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
-+			    100 * BDI_RATIO_SCALE);
- 	wb_thresh *= numerator;
- 	wb_thresh = div64_ul(wb_thresh, denominator);
+-	/* Stay within the VMA and within the page table. */
+-	start = max3(addr_start, pt_start, vma->vm_start);
+-	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
+-		   vma->vm_end);
++	folio_pte_range(folio, vma, addr, idx, &start, &end);
+ 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
  
- 	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
- 
--	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
- 
- 	/*
- 	 * It's very possible that wb_thresh is close to 0 not because the
-@@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
- 	}
- 
--	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
-+	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
- 	if (wb_thresh > wb_max_thresh)
- 		wb_thresh = wb_max_thresh;
- 
+ 	/* Restore all PTEs' mapping of the large folio */
 -- 
 2.53.0
 
