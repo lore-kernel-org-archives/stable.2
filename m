@@ -1,54 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295313;
-	b=V2NnSgJZVoQN1khX6oG/FyhsyC1BFBovf5CQCV45YSSUnOIO86mAuwvAnHGpPBbcJeJb
-	 y7cEcBZQIv1o7CvOaJDM2Ditchu4SUCTRswUhbYPquqnuoYP3/NIjAeXj879umWIFWPCK
-	 PZWpRKXE/VQhimh0mZe4k9lFKjYDYBqfBtLmgOYdyS2dRBmvr4UpXcZ0yF8fj2dssV4hn
-	 id45OnNKO0lnyAY9YQ9JRvQI0DMEmRKtY6lCK86JdQaVKkvlG3EuzwLCARDomfaPABBtB
-	 4iNhdNnrD2D4KgSDsjgju4tY1asWjKtiBmYiYfzVGJZpJOmNCsbHl3ftsqTj08qz0eA==
+	t=1794295704;
+	b=jfao4CTT78/zTnlmN5heGtM+dVtwgeS8AMjbQ597jcdIJcLq066SbXHj7ovXX05bicnM
+	 2jZukTWnXrbQyIo51L9sJFz9Q7/tCHf6tTveLCKuKbFplJDQZHIKgbwo3tTYZ88w/5A0k
+	 GeVV/LChXmwOCdrODfd1RZZ/+Ne1U8lJZTbj9WGhybbO9bmeF2rhhoukv2Or/DQ1GCqJ+
+	 MDzwGmlqNys0ZwETK8fAkoCz0Ex2LCYLr1cMKQnGDVh2afskD8g1sUoxsnaiMkkcE5bD1
+	 in1XHTm36K3RoYBUPMWyRzYAviGWrx90/rqB6ZUtib7hcyETIYUryIY1m+TfGcxaUOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295313;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=BZAybHKPrp5cabZgbPg7Wb9TVLxchkkoh8bos8p+zE4=;
-	b=ucdQUzO1JNwYHUbPE6KuStHGRvoA6/BBteRduu8jkZwhxsSU0D3sCAbHh8utRMz4QQxj
-	 03b3eppGL58kYInv1GCcSZhOROBrdnQZYDbp3ZOyNiSI2VjUtbbHXIHSKAeJWAbKB3prY
-	 /P0dBKjS1IS3djdXbnn2P+GKDM3iIGQZvRqeZ3gbSa5+pSLanliZUQl17GMFFmP+Wn1DV
-	 0nDY6SmNZywCCYmTMKk2OcsjrMA+PEfsQv/GBD1WB88sysQP6/KuA4QEF+7mQzSe56LEx
-	 fdga8zEE8xVjHbC00hXXySgWivAsc+IHtFW/jMwN+8fTmyKNuRmrNRkU/FWtVpii3zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295704;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Vk30BszvLUvZQJPLVx7j5492Hw84BFg36On09QYj8+0=;
+	b=vZT2dTnx23ql/yNaatUARN/P8DIUQf/RrrEZNTPOeCt/tFHS4ycSzMaDnMEBcMKejpca
+	 ZS19XYWJjRlCnVwikvK+vSGSvDnF/JUng7r/pu4OngCSmhzMsNUdeK9sZi62UYuDL305B
+	 K6tZbCKM+NEuEJ1DDuuQNF/j2O9q0F4LgvstpPpEoo0uTmGbEtN3KLGP2twZfe6OOd7yf
+	 BzQA2GcKm8oJHhMRspUKJWnM32/HU5XNvyVyIfVP1k3OqmJ1Ltd5amZFXxHst1ucYIMFj
+	 RHuXA5fzg35Rg2Ftwuj/JO/37dXXm+fNSxdPXgCRlPxK+xybBjC6pRfFTJ8k5PodSjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.72
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="Mn5un6P/";
+	arc=none smtp.remote-ip=203.205.221.209
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2815606A33F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2815606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8468290b866so2423919a34.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 23:21:52 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794295312; x=1794900112;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BZAybHKPrp5cabZgbPg7Wb9TVLxchkkoh8bos8p+zE4=;
-        b=B1I5cLzj9en7A72jJdt1M+13nEtR9ndAGjy5GJlKnwdV2k7lUwQX2TslqTGuyPD8rP
-         ItIvQ6VdeXQz6TuOyTMjo5AoH/WBavKatSZwHoS68Q05u64U7Z9tCJ2wtxcZBrba4FWW
-         Ktwj6Kpan3wnOBKM1pBGbxKW8xFe9eCwaW0Vnp/zCq7uOeEiPAk84Qiq3g3zRYsisTCa
-         7fMZiX01Et6mUG1mqpBNgXAiBpl6MKSTgyJptabvjecRttO/jFLY437BxkuGl7METj2i
-         SiRgQW9o0Q5cArBVhdo6kXL5BP+Bj+05HXQnJWNa7+Qospkxa7YjmVZPbd9dGDQOifNo
-         lwyQ==
-X-Forwarded-Encrypted: i=1; AL+hErHIEM2/Iq2dg2r2tbDw1BES2vNYRjgWzFxYAR/lkzfVVFz1iMSwoCyZc/OUZhOYPBj9Yu4n9Bw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9j/HiWS5Z04LbdDnPbK/JwaFiW1W9Vi3Ng7cyaV0meBlMJlPz
-	cy0B/1wI8cV5O6AaLUO6RP2DMmm3+QUIdQuEdMs4i1zz//6BS4n1FQmD7jiVsGPIQ0t+0AeoZm/
-	4qHbBlj9esfUEbPs6C+tQxLMwkv0BdX0wsN7z/Gr7tk7C5Ruz/LdF2Kk4XX8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6F7606A33C;
+	Tue, 10 Nov 2026 07:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6F7606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Mn5un6P/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794295695; bh=Vk30BszvLUvZQJPLVx7j5492Hw84BFg36On09QYj8+0=;
+	h=From:To:Cc:Subject:Date;
+	b=Mn5un6P/5HVtiJgXYmFaBNp58tH1AhAg12BEvpWJv9VOZTaeq7NL6+2NPCmlX7Wwj
+	 l6BwE/azySih3xRSmMsKPbmMsJ3qKE+5P5EkNQ5Zg+Ei7XvN9Y4jIMEcXhQ0tEiyJv
+	 yyKT87FacandmrLXdnsuWVdJFOVE5sKmM/VH9BXM=
+Received: from ikun ([221.176.157.250])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 70486608; Tue, 10 Nov 2026 15:28:04 +0800
+X-QQ-mid: xmsmtpt1794295684t6um2b4rz
+Message-ID: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9X4fnIIPYZ1r3ekLU3NqbruqAiolIMcy7IyE5drRcj6ZxomTOTq1
+	 J4l+uUm3ZB4Fll4as9Dj+cOXv50XyLgfq/r1wEtOsx+L5WtS1TEkUkPGW7UYMSB5xmGodr2DYbpG
+	 btnDR1ee6dUEKP9W5LPMEGKXoWs+NuJpgLvi6bhM/OnDAjIVWowvtbJtM4FL7ENkXl9UrkbgrlgK
+	 o87wlczlLaqsVdtPswlXR4Mx1HdRGnTfNe7N4Iq3uVgLWTPYwgFn0dYAcOKgK8V5Uzl/441SpOWn
+	 QClZwrc6dVncUG5U/1lf4w768ngYhKO8Pa1w6bkRHvs/0g6OTEJ9DpMeOhgv/qrJuoZ+L1Tv2f7m
+	 /D399dsJEp2SZ2BGgUyxFW4Sd31HonaiHdHzMWE6e/K3Y6Z9m1eDJTkt7v/q8FoA638xkj4/Q6dA
+	 ov12ZJKnzkDvoJOgpLPF3OzALewlQ7jRVVFXbc7fAI1oYGgM+HSXypY7mpYKcCETMnLKCm1Fmlbg
+	 AnF3iIaPARO2mi9PVkYLZvTIAUNJao7AuW9fk2vEZ8oJ6IwBCeSS1Pi+tFFFgSMLcCEzuin+P1+g
+	 jPPy8npgjyj8WVXoniVYqY0CGo6teWxmfI7O9ZGo4FxMWtOwKMkho+pCjC7d97HJMduCoGjBjfwn
+	 wVPyRIWuDDWAgKRsufuoES6pB+4J8Sw0Ycys9T1m/aysguYtBSvWPwyJ8A+SQGB4E/fYGrrI101P
+	 4Qze55Zw7GlCcpkSfeqjgahzUx62ASmYGXv71NNlcPKY31E+WpZaqPWtBoZU3BJZlvCaldOkz++/
+	 W7uTE6ryApF1FYGOEKHgLbBzAPP3rdI+lClgrn37KqNUXcFqPseJvqvzNyn5EX+lds183/IRvfmI
+	 joCzAupG54TsMzTDty54prs1tPOzpIAD/E6qXruGzVFXpYmpMnHeMon8PxjvHqSuVDCphEhXbs1y
+	 sdkS3gEwrL5k+BzdLwKqzkF+CV06FVugX3TI+DHFcXJ7wBU+nxBwT/jUStnW7zkVq7hYkXdzaW9T
+	 7VUFzC2uoQkEA/aEVrVIR6+rWdojxuQJDfMzZMe24GDRaWN8XMeKjctb+Mgogj5/ZfhNpjNKba8d
+	 crvK/etK8/u1y485k=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Alan <3164729207@qq.com>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: Alan <3164729207@qq.com>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ext4: free the new extent block when getting its buffer fails
+Date: Tue, 10 Nov 2026 15:27:23 +0800
+X-OQ-MSGID: <20261110072757.86156-1-3164729207@qq.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,110 +85,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:15a6:b0:540:5827:6d8c with SMTP id
- 5614622812f47-5683cacf790mr1530702b6e.57.1794295311977; Mon, 09 Nov 2026
- 23:21:51 -0800 (PST)
-Date: Mon, 09 Nov 2026 23:21:51 -0800
-In-Reply-To: <20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af2c60f.5a668245.1aceb6.02ce.GAE@google.com>
-Subject: [syzbot ci] Re: xfrm: fix IPv6 atomic fragment policy handling
-From: syzbot ci <syzbot+ci38d3d40fc327a9e2@syzkaller.appspotmail.com>
-To: davem@davemloft.net, dsahern@kernel.org, herbert@gondor.apana.org.au, 
-	idosch@nvidia.com, jeremy.jean@oss.cyber.gouv.fr, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org, 
-	steffen.klassert@secunet.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot ci has tested the following series
+ext4_ext_grow_indepth() allocates and accounts a metadata block before
+calling sb_getblk_gfp(). If the buffer allocation fails, the new block
+has not been linked into the extent tree, but the error path returns
+without freeing it. This leaks the block and leaves i_blocks larger
+than the number of blocks reachable from the inode.
 
-[v3] xfrm: fix IPv6 atomic fragment policy handling
-https://lore.kernel.org/all/20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr
-* [PATCH net v3 1/2] xfrm: fix IPv6 first-fragment protocol decode
-* [PATCH net v3 2/2] xfrm: fix selector matching for IPv6 atomic fragments
+Commit 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+removed the implicit __GFP_NOFAIL from this allocation, making this
+error path reachable.
 
-and found the following issue:
-WARNING in __xfrm_decode_session
+Free the new metadata block before returning -ENOMEM. Use
+ext4_free_blocks() to undo both the allocation and inode accounting.
 
-Full report is available here:
-https://ci.syzbot.org/series/9d92ff08-0b82-4440-b345-9628353f5181
+Tested on Linux 6.12.1 by injecting a NULL result at the caller's buffer
+acquisition boundary. Before the fix, seven failed extent tree growth
+operations left seven allocated but unreachable blocks and i_blocks of
+40 instead of 32 on a filesystem with 4 KiB blocks. After the fix, the
+same failures leave i_blocks at 32, and e2fsck -fn passes after a normal
+unmount. Retrying the operation, truncating the file, and growing the
+tree without injection also succeed.
 
-***
-
-WARNING in __xfrm_decode_session
-
-tree:      net
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
-base:      2d2200551ccc3b9e444aecb59c4b53287e169266
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/fe2ead38-2a3d-497a-9bae-e5da0ee59933/config
-
-------------[ cut here ]------------
-len > ((int)(~0U >> 1))
-WARNING: ./include/linux/skbuff.h:2856 at __xfrm_decode_session+0xafb/0xed0, CPU#0: syz.0.121/6184
-Modules linked in:
-CPU: 0 UID: 0 PID: 6184 Comm: syz.0.121 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:__xfrm_decode_session+0xafb/0xed0
-Code: bf e0 00 00 00 4d 03 3e 4c 89 f8 48 c1 e8 03 42 0f b6 04 28 84 c0 0f 85 11 03 00 00 45 8b 37 e9 33 fd ff ff e8 c6 c7 30 f7 90 <0f> 0b 90 e9 8c f7 ff ff 44 89 ef 8b 5c 24 20 89 de e8 bf c9 30 f7
-RSP: 0018:ffffc9000e926b60 EFLAGS: 00010283
-RAX: ffffffff8a9849aa RBX: 1ffff92001d24d74 RCX: 0000000000080000
-RDX: ffffc90006ec1000 RSI: 0000000000000c7f RDI: 0000000000000c80
-RBP: ffffc9000e926c90 R08: ffff88816dd8bc00 R09: 0000000000000002
-R10: 000000000000000a R11: 0000000000000002 R12: ffffc9000e926bc0
-R13: 00000000fffffff8 R14: ffff888105f226d8 R15: dffffc0000000000
-FS:  00007fc136da96c0(0000) GS:ffff88818be0d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000200000002cc0 CR3: 000000017256e000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- icmpv6_route_lookup+0x44a/0x610
- icmp6_send+0x114c/0x1b50
- icmpv6_param_prob_reason+0x32/0x50
- ipv6_frag_rcv+0x927/0x2b40
- ip6_protocol_deliver_rcu+0xe8c/0x1680
- ip6_input_finish+0x191/0x370
- NF_HOOK+0x336/0x3c0
- ip6_input+0x16a/0x270
- NF_HOOK+0x336/0x3c0
- netif_receive_skb+0x278/0xbf0
- tun_rx_batched+0x1de/0x790
- tun_get_user+0x2b78/0x4470
- tun_chr_write_iter+0x113/0x200
- vfs_write+0x612/0xba0
- ksys_write+0x150/0x270
- do_syscall_64+0x166/0x520
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fc135f6974e
-Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
-RSP: 002b:00007fc136da8fb8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007fc136da96c0 RCX: 00007fc135f6974e
-RDX: 000000000000004a RSI: 0000200000000700 RDI: 00000000000000c8
-RBP: 00007fc136037f6d R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fc136226038 R14: 00007fc136225fa0 R15: 00007ffcfeaad798
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Fixes: 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alan <3164729207@qq.com>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+ fs/ext4/extents.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index ad0d80e33f6090..7358df54bcd4ae 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -1333,8 +1333,12 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
+ 		return err;
+ 
+ 	bh = sb_getblk_gfp(inode->i_sb, newblock, __GFP_MOVABLE | GFP_NOFS);
+-	if (unlikely(!bh))
++	if (unlikely(!bh)) {
++		/* The new block has not been linked into the extent tree yet. */
++		ext4_free_blocks(handle, inode, NULL, newblock, 1,
++				 EXT4_FREE_BLOCKS_METADATA);
+ 		return -ENOMEM;
++	}
+ 	lock_buffer(bh);
+ 
+ 	err = ext4_journal_get_create_access(handle, inode->i_sb, bh,
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.53.0
+
