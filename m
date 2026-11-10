@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316829;
-	b=UBbFPtz4ZkJOPisqX5xX2pTNL8dqhv+IfXm8wMRyMrY1rhy1Wv2fObmKmBRLBXEoGPdY
-	 VsnGmTjz1syAribRS1CVW0/wCDqTJMm8x4NrekDRdGuiPvlp3wifX0jrCYj0yuIq8w7yf
-	 ZQpyU58O388OGsPfTBe9J6c2RGKACo+JIg8Lt/melUxZCJCf6JTVDTwEern75UEgJPdoX
-	 KDA+qPNi4Fm4cccyRGZJCEmrh0ZVXI/iCE5gB7CgP937G99G5wSuIQqGHogL5x3jfbIll
-	 uBs0+axBjzSZOZM0UwIKnDQzRllnRgAdX8HyCo36GL5znRMZBNU6CU7EElR0fw4ceyA==
+	t=1794316844;
+	b=G03SHthSoCC4uElAUrnYYc2C09D70GBRBQpmeowV/g0ulXJRX9uPVb67PUOoMj5L8nmT
+	 3ICtdoJYVyjCfUXafGPqWzu0xxP2qDz4Gzey2uDgO2W2CmGAIoMwDgmIQl9oGGDT7HOuE
+	 bcLaqkbSsxBEn10gkFHGVjh8vfB/z3lKn8pXBjKFfY5gxDxdt8UeMilhvrDy7rt6jMytB
+	 WDU+ChWuWKilxqKDOU/za8Zl2YnrA7e0AS5jpB+7wIcVK/fbcqj2AflZCA6upA4oGtKrD
+	 xLdHuHnlIaaCmVf6XK6tD3LyPI5wmFQOTBC8nLsj9JH8oUQZrzMQ8tym5vL4UW71yWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316829;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gTHDsOKF1binJYCbeOk+Sfsv5oPiczj4gdpsZsnpp2o=;
-	b=ubCyVOzRpmvBFAXlqOVRZSG1ol21Z472XnG1+DxgveXNXr19d3uCfzUgDvG10cQHDDqJ
-	 x9w1EL6QkYWeROL6KGrJr5hOzmphgOUThJce98Mv8xY2L7adtBVQ6CpJkQRkyuS8qX+Mi
-	 jy6MTQ2j0VtC/l06NE/eJkjah8LZ4LOowBz2UxbXo0yvIbnzmIVEN2NEXS8hMv+qno4ps
-	 mexP+jG6cyQjld/8t7lJZh9SL1UeUmf8JAt0EB6Clt2lvl0silDqAUZ0zXT9s6D2u2N4R
-	 3u9KdRJYGDDwFwbsr5D2bJr+pUP3Ad4DqKaOUQQoRDQn9qL83bFhUUllK1s6YO/dXaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=HgEZ6R3QT14xsrDbsdojkQHFi4Tt+tUPqMpmTREpgRs=;
+	b=D+kAhpo0RY2OG59gUOn3vOkuZ7SJOGI5VKkjdyn220eZYA27v33jgMmO3sjBPE8RQUJy
+	 DUlPjLKcuBiTc7OFLGjGLf5a6iR8rptEzFj+CUmM76PslVQ4lWejZGF5d2yhbQ9cMTPIk
+	 OaER1n8KnJC/C+Xy71TyopovUG1HUxL16D9Mi3gmyU2jzpTITpJKcQKmsz2hQnW8M4TQ/
+	 Rf0joLDZGi3uoGKR72x6BGZ2pK5WSvr/LzxF+BLfgsxbM3tWdpHgtYBtcCK8nXtEEHtba
+	 4JfQ4OarqkjUflGK+Jeerb4guqxLivQhQqhZuOPiw0DkC5vh1P/T+8jAqjbaeIoEsEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqGtQNYD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="VHpMP4/j";
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807B0607681F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:20:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A126260798B0
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A126260798B0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqGtQNYD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A10A1F0092F;
-	Tue, 10 Nov 2026 13:20:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316829;
-	bh=gTHDsOKF1binJYCbeOk+Sfsv5oPiczj4gdpsZsnpp2o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CqGtQNYDN4KRkQV3OueDa/sDy54Ht1r1+KmOTQmbT9GeS75vxwS8XvmEt7v4Ee5xt
-	 r8x2lnuXSFmTxzW0HQCBA2iJpkXaH3O/+LSSBAZhHHrhqPCa/cmIMky00C0PdumIzl
-	 8Su5xtS/64MfCfuA8nCZZ/zraxocU9yhGEnU80ItjFXO9oGdz+ZvRAg3oYOECQ6W2+
-	 Sgf0JiXJdB2v12KOUES9kVXd87o4c0JFyuNPg2T3oDbx+2nqb5D41EMcmn3UD7hej8
-	 f74j43WJcLuJMLQX/7OhyIzP9v0kmJXS8nyXhKZMo9hFmDpp/b5xN/sAUw3iCglCqV
-	 GmdekUMjD/OGQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] dmaengine: qcom: bam_dma: free interrupt before the clock in error path
-Date: Tue, 10 Nov 2026 08:20:26 -0500
-Message-ID: <20261110132019.1716994-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110132019.1716994-1-sashal@kernel.org>
-References: <20261107052018-failed-6.12-82eed160cfa7@kernel.org>
- <20261110132019.1716994-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VHpMP4/j
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so16858855e9.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:20:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794316842; x=1794921642; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HgEZ6R3QT14xsrDbsdojkQHFi4Tt+tUPqMpmTREpgRs=;
+        b=VHpMP4/j4sBE/3GTsWVQXCxciymuJ7C3nxN5+Dp/83CDvcD79g8DhfK8zTD7Ivmg6i
+         67lH3Ulh4eABXI9QypW6gyGJdhevQT3cUO0D4gsxOrSN2TBJAGFjTCmosGKAmsbezZQP
+         2I1iFT+TIbq8d6EYGfEwV104xY1K3Hbt8xJ2SwGtblNfbti+36u7nsX9oq8qeor8/K+v
+         uaF059Jff6l639HK4RXNTwRqNy98Vxu2z6afcpsQUqh+LKG5NWFFuHaQOrhTa5uz3XrP
+         g6WsjwyjfzjhzaGseTGgYPYMkKmZFLmQZbul1cUcIhtMOK2/LBA2BYRyDQ1gkhRh0APK
+         t9Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794316842; x=1794921642;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HgEZ6R3QT14xsrDbsdojkQHFi4Tt+tUPqMpmTREpgRs=;
+        b=pNVecpAIiwPyxlkyRIeHn0pFSSdpmnpefsLfjQJzFhpXZsZwTHKxY9geTRkaapnYXo
+         +jEVOAQjVvWRK5svYBvTGf0GXQlckg2HWGAaLWrBb9wg7aZcgVylYm9W0tZe6wU7wa7e
+         FIHaJTb1Ec08BRACKLMwqtvOajCJb8abzecKxpUQ1/bVifvUaEOpgy5cqAZvrPFWFhHX
+         fNa0kEf5GIOYzSK7Ho2fRBOcB13f3HIsIO9I2ba2W4kTN3Fs2xt35fVWR/TTckMuYlON
+         eotke/1hHFfbaixEPwuqdy2Iz3hh8KzjRhWm9X1/6bVwf+B/Fn0D+1z3LWXTAVrhcqi2
+         W21A==
+X-Forwarded-Encrypted: i=1; AL+hErH81AegRF7ljm3OAwiBFkYf6VRjvV0y0mJmMCHF0S7HpIMBduq2KwVRXpKVteiCfT5P/gJ0FPw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+9x1iUYw9G9L6DExI6UwaKbHBqKJ8EL4l1QP8m7UYyliq4z9gt
+	ei+wz5lsMDnuc79K83gNJ16Eur60S+T2hJOxQHbndxNb+jTHZEnveXyztVePN8bQYukub13AqhB
+	ail7/CMQ=
+X-Gm-Gg: AYBFou2Wh3MUTsKMFA3MPiibM1scciilTYOPAkWgBm6Y8QyCnj3F9uNiuNO/U6zxdRF
+	ANDMHlcVJhrc1Ds2loOlTIdF8jPe/jhDIJbPtwBqv0SGPh0saGzYCqCgiJ48rZccppbxarVFq/l
+	/zEdc3waXDsSSfE8dPv7qhm6GxxTjo34ODae203BHUk5OYLgVwyoLaoy3Je994jOCjC+Mr6qgzK
+	HFjmNdd9DPbXiJBjU7twno6Vw0i86Qk1zLWXedYv0XBCFbjvojuNza6hJ/xELdkwdvVcFZU/kQY
+	IOxOE5GBuwcOmvfI25B6qaX4TW0uqOjZu+YDFtrdCKpoQOlmVBQ74aRjnxzIWg+eU6igT8sSBFj
+	Kl/+LdrDR9OYLmlbUCNLr3qqfcjcSDkXiNIN94VOTWljkw0YNiWjrdexym2g9a1DycCWDeaBYvY
+	GB3MSuZ0cBJJdNK5bqUMDiq0CPCmqjgIXQ/qxO19ezMHc+VE7b8Ti+nzIEs5UFkXZsZ8UldyM9H
+	dgwO7RoJipoomtH53uWMSI6NylQ24QZVkrFgYgyvcJbroQlRYh9b3jr1NsmcCJGdQchNFezEJ+J
+	GJuzKVSG8m/36aO3FK4RRdD2s/Vwyq5457xqd2j0vtQOvPGOrQpPw5F/IRo2dCTyanQ=
+X-Received: by 2002:a05:600c:6089:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4ba0234f9efmr39939615e9.30.1794316841996;
+        Tue, 10 Nov 2026 05:20:41 -0800 (PST)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3f4esm5435036f8f.53.2026.11.10.05.20.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 05:20:38 -0800 (PST)
+Date: Tue, 10 Nov 2026 14:20:34 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: rostedt@goodmis.org, andriy.shevchenko@linux.intel.com,
+	linux@rasmusvillemoes.dk, senozhatsky@chromium.org,
+	akpm@linux-foundation.org, linux-kernel@vger.kernel.org,
+	keithrteeple@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3] lib/vsprintf: Preserve the sign of seconds in %ptSp
+Message-ID: <avMaIj0DGI9yei5O@pathway.suse.cz>
+References: <20261109215445.43419-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,76 +99,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109215445.43419-1-dennylin0707@gmail.com>
 
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Mon 2026-11-09 21:54:45, Hungyu Lin wrote:
+> The documentation defines %ptSp as equivalent to %lld.%09ld, but
+> timespec64_str() formats tv_sec with default_dec_spec, which does not
+> have SIGN set. Negative seconds are therefore printed as unsigned
+> values: {-1, 0} produces "18446744073709551615.000000000" instead of
+> "-1.000000000".
+> 
+> Negative values can arise from time differences, for example in
+> fnic_get_stats_data() after the realtime clock steps backwards.
+> 
+> Use a signed decimal printf_spec for the seconds and add printf KUnit
+> coverage for zero, negative seconds and the signed limits.
+> 
+> Fixes: bccd5937447f ("lib/vsprintf: Add specifier for printing struct timespec64")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Tested-by: Keith Teeple <keithrteeple@gmail.com>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-[ Upstream commit 82eed160cfa7a296ae4eb5acb8dd8f493323eea7 ]
+The patch looks good to me:
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Signed-off-by: Petr Mladek <pmladek@suse.com>
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+I am going to queue it for 7.5.
 
-Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+I am sorry that it me so long to get to it and missing 7.4 merge
+window. My TODO list somehow exploded around the Plumbers conference
+and I am still catching up with it.
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 9f712e7c7e07f..d06f95f7868c1 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1322,8 +1322,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
- 
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
- 
-@@ -1356,7 +1356,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
- 	}
- 
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1375,6 +1375,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1400,7 +1402,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
--- 
-2.53.0
-
+Best Regards,
+Petr
