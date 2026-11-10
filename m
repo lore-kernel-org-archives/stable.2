@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272862;
-	b=vJpMOYoSFFFCtVrYQSoEMCcyBlzPV1VLhMEDcPPhMPCHchyQtF2grrz4DnFCsYRrbAeF
-	 GsZNnGPc8dD748OQJf9GLMbB3cTlQkz2vwsbEy3rnqw0DVoutty7oVUvEw5h0Wm2LrNJU
-	 Yv78nqbjHZ6P7/15Q3aseEvY6UCpuU7FX031fX3UryPSffwSFsb2i/xP7rPyVhhY0lpXl
-	 8OuRA8+RaL9BHVYXsJsAt3/fNp4L6HBySemPxWroPV8A4R1XZrS4Tn7R/epStteoAKY++
-	 W+GPvDFbuInhKlx+mDMUsU4ROStKn8PF87Q+8vNNlM0b5URpYaFnQiC5+LZCJEQhxfQ==
+	t=1794272865;
+	b=wW4uGhvWQsaByWO0f42V+EeembPBCXSu4QZxsnlzYjKItDH4cPdJIN/ID/9gPiBeA83w
+	 VT5sSy/IyBeuOW8eogti2UG1nd42VfKEtrt+girqNbMWABQSknb1DigO5EnEfb8jSKXk7
+	 iSPDNtVVbCUg/zZdJq/U9fSWM7uQFqeYpi5Gq5ofS6aef7qELl5AcYk3UTXcuAy7pvsuP
+	 TCjYorX4pdJ03KpaHD3EDtY7idXcjAo4PjawPEB94d0SDVEAdqCzqdy7NeJIYvq/f5eLw
+	 uqS8ViumYWJ2ojDNOKoKQEkp6V/5OdIt1/WEvpH8iK5zTJJ/S/e950fyDfr5/3vR+WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272862;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272865;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EsMIEn4jEF/doZa8lZQqojIv2dT+L5bj+eaTX5tfkOM=;
-	b=LVuELA/t/T7bw4vb05TEgRZ5QoOoQeXtAys9gmbnR8fQLVsii3YxTjf1zuMOLk6owc93
-	 jbukr4vhcme1umCYyHauAohz3CVTTvlW09KR+03GRAOYPoKS/qxiMi7U7w9RsaXRZ7Lx9
-	 evK9Sk9ueNroZ8xm0Frn/N4DtAxrBv86DDgMTdxu6LrSdX4R5TBND5m319Yo+eQbBFBT4
-	 IhwWeuL8Z9GisOafz0NlSAxF6v0ono2p+dRy9dMHsg7OBa/0PETkLdYlYJqNHTc3XuKIa
-	 ujAR2J/H8bdyXGgZmzOh96l0CDXomCT9Z+3qCve3LSuRNmpVJX5b74ieK7x7x1TmPNg==
+	bh=PAExQx/sX+Ypi0jYVws0O3idmZBstJGmS+zCtptkR34=;
+	b=UshpOLoHW9dEyB3AuIQj2jTG0UUobA84B5S9fBtfhvShTAdZdJYeMBSNHYms41WdHe3H
+	 Ejnjo9w5vrdtG233dWt7LdkS6pfom1YXthKYpLw7MLmhPErvbqiQjsbg1OaqKxGu/XeCf
+	 uhCbrqtfTDBEawPdCAI8k5QuHYrafkfV9PjfL7Tim40OXZiqBxySNYBFeqZ6CVQO9lEbs
+	 1WHEbAoUAWt0jPApmrcUMfirXx965WRvAnZpTyU2FZrycADn2XrWGc203sj4pz7aAJVMP
+	 Gu3+LzFYdJVP+dXXY65TvY/q8to42Ec9oO55b1PozRkWLKcjwkDcO4e0mpCw+CoPOdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=brkmZnpN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W658M0yU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41089606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2EB606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=brkmZnpN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EFFF1F0089F;
-	Tue, 10 Nov 2026 01:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W658M0yU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54B01F0089F;
+	Tue, 10 Nov 2026 01:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272862;
-	bh=EsMIEn4jEF/doZa8lZQqojIv2dT+L5bj+eaTX5tfkOM=;
+	s=k20260515; t=1794272864;
+	bh=PAExQx/sX+Ypi0jYVws0O3idmZBstJGmS+zCtptkR34=;
 	h=From:To:Cc:Subject:Date;
-	b=brkmZnpNRxE1jV8Qr1/uz9HDVzCpZBT+lpUFV152DTDNpX7UyjKWXAw19dF2Xvuen
-	 x+9DTCfmJNkKlWc1pQqNvrrKT73yacOFbcWd6PJwUsqM4ZgOnaNpoAyLezhuOpcQjo
-	 Dy+XSvzZcCBzTYkj6nu7qHt2nqf33iICPk1FELWiUNdmJVv1iPlWLCsCn42pIvtRU3
-	 uMoU2kJDHs+1XCdX/GiO9taCMG2DQJJ5ZUMuQ/evvGyo/He33WmYxb0wO0YK7Q8JJu
-	 5Ni4d2BADWOLYVi5iPnQzw+v6IC09wWFplG3WbYRUw8tGXcr7ZbfnB617Asv8zZzny
-	 YXAJoronmFwow==
+	b=W658M0yUk6JfycxaaT3p11X9DEDqs4TlcfmzYsHNtcXlJ0b/x0Wc5e/n/Tq2PH3Bm
+	 sYldaIWbuHw9siyBdzrpMPkuC4wMiEHx3TjowggJbqbNfX0SMBE5S/6/PD+hkKs4RQ
+	 KmUaSvtq4ZBzYQDpN8OvFetGMBEm2YMe3lvGChpIeLG9f0aOim/CtlGnFq8cUNCkj0
+	 qWXh/NnmtuhwcxHDI01W93r4eaIyGk0Qu9gGouQLqIJLYcPhae/IYmJxnkr0B4do/9
+	 A1XuiiTY4EE5pDDr8Q+vKIFWYcO0k0qEmviig7PHTE7F/+OTLNqqBQwGA6oT/bP7UL
+	 NYjPnxjRPAjfA==
 From: Sasha Levin <sashal@kernel.org>
-To: edumazet@kernel.org,
-	kylebot@openai.com,
-	fw@strlen.de,
-	idosch@nvidia.com,
-	jiayuan.chen@linux.dev,
-	wang.zhan@smartx.com,
-	pabeni@redhat.com
+To: dennylin0707@gmail.com,
+	akpm@linux-foundation.org,
+	jack@suse.cz,
+	gourry@gourry.net,
+	willy@infradead.org,
+	shr@devkernel.io
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] inet: frags: limit the truesize of a reassembly queue" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:07:40 -0500
-Message-ID: <20261109200740-failed-6.12-3ae20e4697eb@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold shares" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:07:42 -0500
+Message-ID: <20261109200742-failed-6.12-9597c2056e05@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,117 +72,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3ae20e4697eb969104fe4b1e98a675f0100382b6
+git cherry-pick -x 9597c2056e05bd79df9d343a9b42e84a54de1c52
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200740-failed-6.12-3ae20e4697eb@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200742-failed-6.12-9597c2056e05@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3ae20e4697eb969104fe4b1e98a675f0100382b6 Mon Sep 17 00:00:00 2001
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 30 Oct 2026 09:12:25 +0100
-Subject: [PATCH] inet: frags: limit the truesize of a reassembly queue
+From 9597c2056e05bd79df9d343a9b42e84a54de1c52 Mon Sep 17 00:00:00 2001
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Wed, 21 Oct 2026 06:06:54 +0000
+Subject: [PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold
+ shares
 
-The truesize of fragments in a reassembly queue is only bounded by
-the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+The ratios used by __wb_calc_thresh() are scaled to parts per million, but
+the threshold and ratio operands are unsigned long.  On 32-bit kernels,
+their multiplication can wrap before the result is assigned to u64.
 
-inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-adjustment of the socket owning the reassembled skb can cancel its own
-reference, leading to a use-after-free of this socket.
+For example, with a threshold of 25600 pages and the default maximum ratio
+of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.  The shared
+threshold and minimum share calculations can overflow in the same way,
+producing incorrect per-writeback dirty limits.
 
-This can be triggered from an unprivileged user/network namespace,
-raising ipfrag_high_thresh and using padded TUN packets, which keep
-a large truesize after being trimmed by ip_rcv_core().
+Use a u64 threshold for the three ratio multiplications and div_u64() to
+retain the existing division order and rounding.
 
-Track the sum of the truesize of fragments in each queue, and refuse
-a fragment that would make it bigger than INT_MAX / 2. Callers kill
-the queue on this error. This bound is far above the needs of
-legitimate traffic.
-
-Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Cc: Florian Westphal <fw@strlen.de>
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Tested-by: Wang Zhan <wang.zhan@smartx.com>
-Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Link: https://lore.kernel.org/20261021060654.27855-1-dennylin0707@gmail.com
+Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Stefan Roesch <shr@devkernel.io>
+Cc: <stable@vger.kernel.org>
 ---
- include/net/inet_frag.h  | 9 +++++++++
- net/ipv4/inet_fragment.c | 5 +++++
- 2 files changed, 14 insertions(+)
+ mm/page-writeback.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index b02d2472b003e..c1fb419a9cf03 100644
---- a/include/net/inet_frag.h
-+++ b/include/net/inet_frag.h
-@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
-  * @tstamp_type: stamp has a mono delivery time (EDT)
-  * @flags: fragment queue flags
-  * @max_size: maximum received fragment size
-+ * @truesize: sum of the truesize of queued fragments
-  * @fqdir: pointer to struct fqdir
-  * @rcu: rcu head for freeing deferall
-  */
-@@ -100,6 +101,7 @@ struct inet_frag_queue {
- 	u8			tstamp_type;
- 	__u8			flags;
- 	u16			max_size;
-+	unsigned int		truesize;
- 	struct fqdir		*fqdir;
- 	struct rcu_head		rcu;
- };
-@@ -172,6 +174,13 @@ extern const u8 ip_frag_ecn_table[16];
- #define IPFRAG_DUP	1
- #define IPFRAG_OVERLAP	2
- #define IPFRAG_MIXED_SECPATH	3
-+#define IPFRAG_TOOBIG	4
-+
-+/* Max sum of the truesize of fragments in a queue. This keeps the sums
-+ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
-+ * below INT_MAX. Legitimate traffic stays far below this limit.
-+ */
-+#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
- int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 			   int offset, int end);
- void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index c18da91c1f031..0b8d22ffafca6 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -336,6 +336,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
- 	q->rb_fragments = RB_ROOT;
- 	q->fragments_tail = NULL;
- 	q->last_run_head = NULL;
-+	q->truesize = 0;
- }
- EXPORT_SYMBOL(inet_frag_queue_flush);
+diff --git a/mm/page-writeback.c b/mm/page-writeback.c
+index 499a35473e4f3..0694ec4098f6d 100644
+--- a/mm/page-writeback.c
++++ b/mm/page-writeback.c
+@@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+ {
+ 	struct wb_domain *dom = dtc_dom(dtc);
+ 	struct bdi_writeback *wb = dtc->wb;
++	u64 threshold = thresh;
+ 	u64 wb_thresh;
+ 	u64 wb_max_thresh;
+ 	unsigned long numerator, denominator;
+@@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+ 	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
+ 			      &numerator, &denominator);
  
-@@ -446,6 +447,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 	if (last && !secpath_equal(last, skb))
- 		return IPFRAG_MIXED_SECPATH;
+-	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
++	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
++			    100 * BDI_RATIO_SCALE);
+ 	wb_thresh *= numerator;
+ 	wb_thresh = div64_ul(wb_thresh, denominator);
  
-+	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
-+		return IPFRAG_TOOBIG;
-+
- 	/* An IP fragment is never a GSO packet, but an untrusted source
- 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
- 	 * that reach the reassembled skb, whose head keeps the first
-@@ -510,6 +514,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 	if (offset)
- 		nf_reset_ct(skb);
+ 	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
  
-+	q->truesize += skb->truesize;
- 	return IPFRAG_OK;
- }
- EXPORT_SYMBOL(inet_frag_queue_insert);
+-	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
++	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
+ 
+ 	/*
+ 	 * It's very possible that wb_thresh is close to 0 not because the
+@@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+ 			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
+ 	}
+ 
+-	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
++	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
+ 	if (wb_thresh > wb_max_thresh)
+ 		wb_thresh = wb_max_thresh;
+ 
 -- 
 2.53.0
 
