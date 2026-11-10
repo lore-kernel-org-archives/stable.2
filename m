@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273184;
-	b=44K5qB408n2vdtc32vKG1jZnINRzt1mWtjOAC8AcFhWHWXUZ3Tr4u3O682V2ZEwlv7YU
-	 UaxTu77YVcUdgHIIZdQg7yCUcdEh+IBQwL9erQdbD1lcrQm2zokeMmkQu4U57p7TeWnTV
-	 6mum/RolSbwH4Yfixfx3hdOl5pBnStkHGSw3UwKK/2d2q0GFAsiXS+UAXQUbpZN/yw8kB
-	 g32DUSBus+G2tl28rCqHZ4CAJ4S/9IYo9gLoceE+7PeQ/vv9dy0TwW1CJk3G4jisb96/Y
-	 wfTQMlL8l7Wu9rU4fg3Im+8eLtZZb0YTXxn5noW1tSP6O1jZ+ay8Y84D7TlR41+rrXg==
+	t=1794273186;
+	b=mGphlutskgTMD8peDHWqU4B3Oic7sfd+Gzujf+/QfQudlkaEvx8a807M2mOQV2FLlfNV
+	 ZnARmOZoG+Fd42zOvSgqwa172IQ9P4WWJa/nNaJ3Pi3E78o2syXuq1DfVHO7HW4oVHrVc
+	 ffg0vu7x4IxZ21h0CxSCJOh8EnH5h7ScfXvdSp1ctfz1gNZYUyE7ASFFJ3j9HL7qKpiNK
+	 no+BECaBEUCDBpZ4C6adGrcRrZvEQMw3I8X5TAxScfXZkOAo+Rf2XBgHWoJBiD/Yp5dU+
+	 JL6aauzFI153ROMzft8qYHzok22/DVbXZFBbsp5eXNTU1JaeilcTTXE4kV9+9ZivC0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273186;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=e/PPq9g/i/i7ppXwqYgdQoC8BIemdoPd8U0QFhYvF4g=;
-	b=K78RZi6ULTnmWEQ8cdU2Q+LeAh4b4YKLa6OtwwIK6kNJldObmXoCjyPKkss1uiW9eC37
-	 pKSpYCgm0PdID/E7OJSJxI48lejFyqBaPdvXwp0WO0mxtcQBNlh2bz2mZnGzQUvMA/R+W
-	 7DBZKaFqgs+bgiqixWso1iBfnOoCk9qc4SZJXCTMltbs1fGvWx/mFiFVrS23RmL9PycnI
-	 H3aXgABvUAc3EG2OR56PW+Bwi3VujOng53ExkjEXyWvJZkiIXYB1hnfkZMLY7qo96HekO
-	 fuRk+BHtFCDnRyBJwjKh51WZxStWzng0CWpWT2UFuqq/jrFglnDIh49fZtVEEIpVajw==
+	bh=rvzLFB8+PE3bBj+1L8y4hMLC0KfKELRxcWP+JvJZ2wc=;
+	b=kbM/F4QA9FwAy9IXUDxxTzBYMRJlbZD9H62bGVdQorc6jPtYlrB3gmUi151s018tnNy1
+	 g3HVFmMpLvrFOPEuUg/FXNdCFkHmR6C+ULeRZUXuIenmt8jHRepQqXLuQuF/9OiHr+Pa9
+	 cIAYw6F9g251jzTQSIA11w68sFp/qOvB0/YeAoxyBXFZbjcQ3bnalEdwirSpWU37hJdnf
+	 uxTL4dxJSrZ2+ahTImWQaY80T741T/cAAnzaeh5upHIv+ALNo88KJPfNfJZ1cdJ2qBclR
+	 FdjDNp8Cew+Cnyyktjh7fkveTxVGZ5X8vXDv465cyhjXZtQnwC6bAFalQk/Lvce6/Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ti1bPaFk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1ef6rYT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195DB606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755A4606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ti1bPaFk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538D71F0089F;
-	Tue, 10 Nov 2026 01:13:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1ef6rYT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E341F0089F;
+	Tue, 10 Nov 2026 01:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273183;
-	bh=e/PPq9g/i/i7ppXwqYgdQoC8BIemdoPd8U0QFhYvF4g=;
+	s=k20260515; t=1794273186;
+	bh=rvzLFB8+PE3bBj+1L8y4hMLC0KfKELRxcWP+JvJZ2wc=;
 	h=From:To:Cc:Subject:Date;
-	b=Ti1bPaFkmHQnWbVa9gXOGIPhYN6e8rZn4Zw+/bmtgWXnyjeQji6/i68u6nWgiTJTD
-	 nAu/ch255uZMCJ2/9hEfDsl9BMmxwuY2m+dQK6cgCcNkMQL5T34T2CgOYl0xhIfZW4
-	 47hSmpoZV0AsUrevTVbx+3Z6l02OPDb6vuoTHgISXLzGtwPH3SfV0pSJSqXKVkYUlp
-	 0IPO34ztRt+ZDmmHvHUqPfHM0YPAqC222kk1GghvTXP8qPBtBCfZAfMtox03Dl44d4
-	 GEjcijLn9n17zDJ5SaEaHn6H/Jb2WyFgcrS8JcShTwostBhlZ4e2N9WwNC0WsL36yc
-	 A6hh5h5ehO2lg==
+	b=l1ef6rYTEJfBcD3RTSUCAakE5rG0QmBv2dHgR+cps8K0aQE8DZUtp57UQUVI3CK8H
+	 vnOKLZ1db7np638LFw9mBvJ6sV0OYwqOtvrsMbSRH/vbXO3bGlUQ9isiOi7So+wBMZ
+	 9X/RCm/LGv7HnzLjIBnjUbt1tEUS+9NK6n0jMUmYVffWkUa4fdthP+lCE+EJlboPIb
+	 IdCF6qO1JyXi7x1cfOTMfSvMC4TQ4qR6s+pTE0G/bsqYoDDzaJojTF3EeHVL5tQWuj
+	 Dlh2SdXIDi9Yazgo3flnuFfVMo3ba49kWJcakERKxggBg63menkqMuIhaavML53j8I
+	 Dplfu/rf6/PxA==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	ebiggers@kernel.org,
+To: daejun7.park@samsung.com,
 	hch@lst.de,
-	axboe@kernel.dk
+	cem@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] blk-mq: end the request if getting a keyslot fails" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:13:02 -0500
-Message-ID: <20261109201302-failed-6.6-e67cb6ed40e7@kernel.org>
+Subject: FAILED: patch "[PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:13:04 -0500
+Message-ID: <20261109201304-failed-6.6-bcf0b7f18ad1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,72 +69,140 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a
+git cherry-pick -x bcf0b7f18ad11e1d410e82ffef678705eff0a317
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201302-failed-6.6-e67cb6ed40e7@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201304-failed-6.6-bcf0b7f18ad1@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 29 Oct 2026 20:01:10 +0000
-Subject: [PATCH] blk-mq: end the request if getting a keyslot fails
+From bcf0b7f18ad11e1d410e82ffef678705eff0a317 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Thu, 29 Oct 2026 11:23:00 +0900
+Subject: [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
 
-When blk_crypto_rq_get_keyslot() fails, blk_mq_submit_bio() ends the bio
-by hand and frees the request. By then blk_mq_bio_to_request() has done
-the IO accounting, which blk_mq_free_request() doesn't undo, so the
-in_flight counter never drops and iostat shows a device that is 100%
-busy. If the bio went through zone write plugging the zone stays plugged
-as well, and every later write to it waits forever.
+A client can commit a hole in a LAYOUTCOMMIT, because nfsd does not
+check the extents against its layouts. xfs_iomap_write_unwritten() then
+allocates written blocks there. A large hole overruns the block
+reservation and shuts XFS down. A small one exposes stale data.
 
-Use blk_mq_end_request() like the dispatch path does for a request the
-driver rejected, after marking it for zone write plugging.
+Refuse such a range with -EIO, using XFS_BMAPI_CONVERT_ONLY.
 
-Move the call to blk_zone_write_plug_init_request() before
-blk_crypto_rq_get_keyslot() so that it doesn't need to be duplicated.
-It doesn't depend on the keyslot.
-
-Fixes: 99dc422335d8 ("block: support to account io_ticks precisely")
-Fixes: dd291d77cc90 ("block: Introduce zone write plugging")
+Link: https://lore.kernel.org/r/20261014130834.GB15773@lst.de
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20261029200110.1328103-1-ebiggers@kernel.org
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- block/blk-mq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ fs/xfs/xfs_file.c  |  2 +-
+ fs/xfs/xfs_ioend.c |  2 +-
+ fs/xfs/xfs_iomap.c | 20 +++++++++++++++++---
+ fs/xfs/xfs_iomap.h |  3 ++-
+ fs/xfs/xfs_pnfs.c  |  9 ++++++++-
+ 5 files changed, 29 insertions(+), 7 deletions(-)
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index d9ab295be4d92..e5b9898cede98 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3209,16 +3209,15 @@ void blk_mq_submit_bio(struct bio *bio)
- 
- 	blk_mq_bio_to_request(rq, bio, nr_segs);
- 
-+	if (bio_zone_write_plugging(bio))
-+		blk_zone_write_plug_init_request(rq);
-+
- 	ret = blk_crypto_rq_get_keyslot(rq);
- 	if (ret != BLK_STS_OK) {
--		bio_endio_status(bio, ret);
--		blk_mq_free_request(rq);
-+		blk_mq_end_request(rq, ret);
- 		return;
+diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
+index 1eab6dbb4c5f1..d2a2124bff547 100644
+--- a/fs/xfs/xfs_file.c
++++ b/fs/xfs/xfs_file.c
+@@ -666,7 +666,7 @@ xfs_dio_write_end_io(
+ 	 * they are converted.
+ 	 */
+ 	if (flags & IOMAP_DIO_UNWRITTEN) {
+-		error = xfs_iomap_write_unwritten(ip, offset, size, true);
++		error = xfs_iomap_write_unwritten(ip, offset, size, true, 0);
+ 		goto out;
  	}
  
--	if (bio_zone_write_plugging(bio))
--		blk_zone_write_plug_init_request(rq);
--
- 	if (op_is_flush(bio->bi_opf) && blk_insert_flush(rq))
- 		return;
+diff --git a/fs/xfs/xfs_ioend.c b/fs/xfs/xfs_ioend.c
+index 48becc3bf6088..7f4a4a95afe50 100644
+--- a/fs/xfs/xfs_ioend.c
++++ b/fs/xfs/xfs_ioend.c
+@@ -237,7 +237,7 @@ xfs_end_ioend_write(
+ 	if (ioend->io_flags & IOMAP_IOEND_SHARED)
+ 		error = xfs_reflink_end_cow(ip, offset, size);
+ 	else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
+-		error = xfs_iomap_write_unwritten(ip, offset, size, false);
++		error = xfs_iomap_write_unwritten(ip, offset, size, false, 0);
  
+ 	if (!error &&
+ 	    !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index 329c745e31204..99d48081c5ac3 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -614,7 +614,8 @@ xfs_iomap_write_unwritten(
+ 	xfs_inode_t	*ip,
+ 	xfs_off_t	offset,
+ 	xfs_off_t	count,
+-	bool		update_isize)
++	bool		update_isize,
++	uint32_t	bmapi_flags)
+ {
+ 	xfs_mount_t	*mp = ip->i_mount;
+ 	xfs_fileoff_t	offset_fsb;
+@@ -676,8 +677,21 @@ xfs_iomap_write_unwritten(
+ 		 */
+ 		nimaps = 1;
+ 		error = xfs_bmapi_write(tp, ip, offset_fsb, count_fsb,
+-					XFS_BMAPI_CONVERT, resblks, &imap,
+-					&nimaps);
++					XFS_BMAPI_CONVERT | bmapi_flags,
++					resblks, &imap, &nimaps);
++		if (error == -ENOSR && (bmapi_flags & XFS_BMAPI_CONVERT_ONLY)) {
++			/*
++			 * Nothing was mapped: the rest of the range starts
++			 * with a hole or a delalloc extent. Nothing was
++			 * changed either, but xfs_iext_count_extend() may
++			 * have logged the inode, and cancelling a dirty
++			 * transaction shuts the filesystem down. Commit it,
++			 * as xfs_alloc_file_space() does on -ENOSR.
++			 */
++			error = xfs_trans_commit(tp);
++			xfs_iunlock(ip, XFS_ILOCK_EXCL);
++			return error ? error : -EIO;
++		}
+ 		if (error)
+ 			goto error_on_bmapi_transaction;
+ 
+diff --git a/fs/xfs/xfs_iomap.h b/fs/xfs/xfs_iomap.h
+index f2520a9b3a13e..8fc0c6fc8bea5 100644
+--- a/fs/xfs/xfs_iomap.h
++++ b/fs/xfs/xfs_iomap.h
+@@ -15,7 +15,8 @@ struct xfs_zone_alloc_ctx;
+ int xfs_iomap_write_direct(struct xfs_inode *ip, xfs_fileoff_t offset_fsb,
+ 		xfs_fileoff_t count_fsb, unsigned int flags,
+ 		struct xfs_bmbt_irec *imap, u64 *sequence);
+-int xfs_iomap_write_unwritten(struct xfs_inode *, xfs_off_t, xfs_off_t, bool);
++int xfs_iomap_write_unwritten(struct xfs_inode *ip, xfs_off_t offset,
++		xfs_off_t count, bool update_isize, uint32_t bmapi_flags);
+ xfs_fileoff_t xfs_iomap_eof_align_last_fsb(struct xfs_inode *ip,
+ 		xfs_fileoff_t end_fsb);
+ 
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index a9f0b472f3076..7ff83274a5135 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -344,7 +344,14 @@ xfs_fs_commit_blocks(
+ 					(end - 1) >> PAGE_SHIFT);
+ 		WARN_ON_ONCE(error);
+ 
+-		error = xfs_iomap_write_unwritten(ip, start, length, false);
++		/*
++		 * A client may only write to blocks that a layout handed out,
++		 * and xfs_fs_map_blocks() allocates blocks for any hole in a
++		 * write layout, so refuse to allocate blocks for a hole or a
++		 * delalloc extent in the committed range.
++		 */
++		error = xfs_iomap_write_unwritten(ip, start, length, false,
++				XFS_BMAPI_CONVERT_ONLY);
+ 		if (error)
+ 			goto out_drop_iolock;
+ 	}
 -- 
 2.53.0
 
