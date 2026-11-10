@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337196;
-	b=RTmssqeNeshF4yrj9Bpe40byWzj3NQ6CVDfWRma0xl7nmzQ3b4C3lXV85C9r4ietg/8B
-	 w0+voqQNJqi4jJ6EsVRx9g27Xu0fEYh9Ul0I0sezJKLb9fTYhWO8LnzWFzIVaglDS6CoS
-	 FfgVarDrF+xrpOLVfg1ADVnFv6TZrAUSti/WsEt1TcXcc/01e8ZEUMQW/DIUsNpi+PSTv
-	 ZtDllPXds2nuOAX+0a8UzbElR1FAM9YMdfNfYjtM8QfUnlKVRDjCy4Haki6ZARuCWtoMu
-	 Q46wcQb997youh4MdCFNFaixcc6fXQP3dfKzqbQzyHUrpLklBtx9PGYcOZiDS9woWHg==
+	t=1794337237;
+	b=3Lx5DZa9yoYMrDuLvoG2/xBlcAvcD6fv7xwPx7ExODyTWNqD/lpBv3z9wV4dwEHRnc9G
+	 PlYzbvW1BkK9UaN1VOnAxb9bFKBt+R4q/Cr53IaVheq/WcNXuTEKC0cGEhwl3HcBUjot1
+	 p8qR+SRedEmp98qAVl5cdV+4d6Qt3cV0jFNalG8r6oAVsuDCJRxHDisj/cYC34XYxQcC8
+	 HcMw1MTLx7sJwFQVdtMEd1Jmnzo3TZkpESn+W0x1KiMzFMvg9N7zR+tEQtVCESptWUvFv
+	 mUP6hpQANz//e+CqA4M2YKkVZ4d+6gBcO5PH/etCdaoQvNikEP6fpxCcmjnUEQavpBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337196;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J0JCqOk9MsUlJRBcvMytjte58L2BcBKtsjrvqwHUUA0=;
-	b=fRdYZpDSu+tkpB9dvAS6FGqkGMsj57SyE0u8hBIvZC57la/1OHDuOcb70d8uZ5PK+XIn
-	 5csjk+kgFO0OSJHFdCRhg1q1wFVEa904X70Qh8wVSYlFp1BrPSiAamFzPhqy37qY31N8l
-	 uRsMQlo3SuIoOwOCLY7q9qvrQzHz/8JkiiynckpBPTUtqFRmz0SyYsQ+hLSNK25kY9vTR
-	 djwfi8Q1D9LUHVqbJ5jE7qYsk1b898Nj8YOl1ajBEekSktYPVvXjGJbLf1GFvsZ9CzsPr
-	 bhwj146WGkwiukR860+3qPxrJb3spFwzlMjFTKy4CAoD4q6zurzaa/vlvPu2aiieF+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337237;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jxaCg5OHxzq8jNOg7sbXGoZEdna2xg3/ywMmHVuK1jE=;
+	b=X8hfUIJMxdENHuqRv7djDpJTox/rDNNlC5Q6Ez8GvNc+O0lnlABbtbNci437qfGawb/y
+	 mURilqKyrnPn4YxmKN7j7bVDcBuEWWR2m0eha8XXPp+AEMiAV1TmsaCcXWYBAO6ei5Ol+
+	 I5dZkZNvJToR2uFZlitdGdY231pxEpz4x6J621ycmq8rQgTN8dAYdxnodaja5KL9sepAi
+	 fBTC1PXuZTe2w63KJoVKCVbhh7jTIMF5F6+ip6IAvrEuwgKZ/02YFXptd2LG4KGPm3ZkU
+	 np5xWFsZJh73VbqtLGighnumqa/Uje0RAQV4PMmQ4uEjrziRFW2R1ayTLRVL/CkvSFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axNWZXIM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b="Q7NwAg/S";
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D41D606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AF1A5606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:00:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1A5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axNWZXIM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F5AE1F008A2;
-	Tue, 10 Nov 2026 18:59:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337195;
-	bh=J0JCqOk9MsUlJRBcvMytjte58L2BcBKtsjrvqwHUUA0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=axNWZXIM3OzNp3JalhdBTN0tdT3hZx1jJ+gKcKKiW5m62NmYlnwoqi68AhjyA44zP
-	 PkR/migIfTpPp1+C5vOw/m8sgqh1Gd111SSbCjm57mb+iOaz7JFl0T2bMY/sY914Rd
-	 w4QybBatw9Wwk+mgG4UVd+0Jh22tJzMmPJIx/F1aS7gVsgEChTMKy/WX88NoYRotmy
-	 aAwiMx/6TxCQWdhdyBifHQZ4FWdN/E2NADVrOl4lXnxYmcWRvjo4780NIeI5polVXU
-	 bQuOJJHInIzqQDt6mK/USFMp5tmS/QjyE/8z/cgd24g09XxtUZXf0/QT6h4+knBe+H
-	 /NPAe+bUVmc/g==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Q7NwAg/S
+Received: by dvalin.narfation.org (Postfix) id 4BE681FD16;
+	Tue, 10 Nov 2026 19:00:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794337216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jxaCg5OHxzq8jNOg7sbXGoZEdna2xg3/ywMmHVuK1jE=;
+	b=Q7NwAg/SzuP2zTDSm9E4Bx2DLf8oz91JRVFdI7rGspvkJ7E+jG7HaabGeyYGzA29AB85Yq
+	sSxf7u0XGEZ1qpFej+Dzdacl2kSjC1lnxS/M/0igRwDhF2oUZetlpWr7rJ+SIWMEwngqw2
+	eRZX8djpYLevOB8E+axH2VO+TyMtQR8=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	Juergen Gross <jgross@suse.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] xen/pcifront: check that an AER callback exists before calling it
-Date: Tue, 10 Nov 2026 13:59:53 -0500
-Message-ID: <20261110185945.3425744-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110185945.3425744-1-sashal@kernel.org>
-References: <20261107062019-failed-5.10-3b4854b69ee7@kernel.org>
- <20261110185945.3425744-1-sashal@kernel.org>
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.12.y] batman-adv: Close OGM aggregation before transmission
+Date: Tue, 10 Nov 2026 20:00:13 +0100
+Message-ID: <20261110190013.106493-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200610-failed-6.12-f91f64a91682@kernel.org>
+References: <20261109200610-failed-6.12-f91f64a91682@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,65 +66,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 3b4854b69ee70fffb2fa7acac09e715a7efcbae1 ]
+commit f91f64a91682c07e6c5f059804e709656364e8a6 upstream.
 
-pcifront_common_process() handles an AER request from the backend by
-dispatching on aer_op.cmd to the bound driver's PCI error handler.  It
-only checks that err_handler and err_handler->error_detected are present,
-then for the mmio_enabled, slot_reset and resume commands it calls the
-corresponding callback unconditionally.  Those three callbacks are
-optional -- the PCI core NULL-checks each of them individually before
-use -- and many drivers (for example igb, igc, ice and ixgbevf) install
-error_detected without all of them.
+The OGM send worker leaves its forwarding packet on forw_bat_list until
+after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
+but emission reads and clones the packet without that lock.
 
-aer_op.cmd comes from the shared ring, so a malicious or buggy backend
-can send XEN_PCI_OP_aer_mmio (or _slotreset/_resume) for a device whose
-driver leaves that callback NULL and make the frontend call through a
-NULL pointer, crashing the guest.
+CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
+list lock, finds the same packet and appends another OGM. The sender can
+observe the new packet length before the corresponding direct-link flag
+is set, or clone the skb while its length and payload are being updated.
+This can transmit an OGM with incorrect flags or inconsistent data.
 
-Check each callback before calling it.  When mmio_enabled or slot_reset is
-absent, return PCI_ERS_RESULT_RECOVERED so recovery proceeds, as the PCI
-core does for a missing callback; returning PCI_ERS_RESULT_NONE would
-instead make xen-pciback tear the guest domain down.
+KCSAN reported:
 
-Fixes: 956a9202cd12 ("xen-pcifront: Xen PCI frontend driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20261006023443.338194-1-yhlee@isslab.korea.ac.kr>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
+  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
+  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
+  value changed: 0x00c0 -> 0x00d8
+
+Mark the aggregate as full under forw_bat_list_lock before emission. This
+waits for any ongoing append and prevents further aggregation. Emission
+uses packet_len to walk the OGMs, so all queued packets are still sent.
+Keep the packet on the list so interface purging can find the worker,
+wait for it to finish and free the packet.
+
+Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
+Cc: stable@vger.kernel.org # 4.10.x: 434becf57bdc ("batman-adv: Limit number of aggregated packets directly")
+Cc: stable@vger.kernel.org # 4.10.x
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+[ Use BITS_PER_TYPE(...) instead of BATADV_MAX_AGGREGATION_PACKETS ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/pci/xen-pcifront.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ net/batman-adv/bat_iv_ogm.c | 5 +++++
+ net/batman-adv/types.h      | 8 +++++++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-index 2ad209ba659bf..4bf3406dfb49e 100644
---- a/drivers/pci/xen-pcifront.c
-+++ b/drivers/pci/xen-pcifront.c
-@@ -609,11 +609,16 @@ static pci_ers_result_t pcifront_common_process(int cmd,
- 		case XEN_PCI_OP_aer_detected:
- 			return pdrv->err_handler->error_detected(pcidev, state);
- 		case XEN_PCI_OP_aer_mmio:
--			return pdrv->err_handler->mmio_enabled(pcidev);
-+			if (pdrv->err_handler->mmio_enabled)
-+				return pdrv->err_handler->mmio_enabled(pcidev);
-+			return PCI_ERS_RESULT_RECOVERED;
- 		case XEN_PCI_OP_aer_slotreset:
--			return pdrv->err_handler->slot_reset(pcidev);
-+			if (pdrv->err_handler->slot_reset)
-+				return pdrv->err_handler->slot_reset(pcidev);
-+			return PCI_ERS_RESULT_RECOVERED;
- 		case XEN_PCI_OP_aer_resume:
--			pdrv->err_handler->resume(pcidev);
-+			if (pdrv->err_handler->resume)
-+				pdrv->err_handler->resume(pcidev);
- 			return PCI_ERS_RESULT_NONE;
- 		default:
- 			dev_err(&pdev->xdev->dev,
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index b6fc03b61104c..cf6ff9848a7bc 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -1793,6 +1793,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
+ 		goto out;
+ 	}
+ 
++	/* Mark aggregate as full before forcing emit. */
++	spin_lock_bh(&bat_priv->forw_bat_list_lock);
++	forw_packet->num_packets = BITS_PER_TYPE(forw_packet->direct_link_flags);
++	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
++
+ 	batadv_iv_ogm_emit(forw_packet);
+ 
+ 	/* we have to have at least one packet in the queue to determine the
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index 1b8ab18dcf2c5..62fe0e29f6691 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -2208,7 +2208,13 @@ struct batadv_forw_packet {
+ 	/** @direct_link_flags: direct link flags for aggregated OGM packets */
+ 	u32 direct_link_flags;
+ 
+-	/** @num_packets: counter for aggregated OGMv1 packets */
++	/**
++	 * @num_packets: counter for aggregated OGMv1 packets. Set to
++	 *  BITS_PER_TYPE(forw_packet->direct_link_flags) (independent of the
++	 *  real number of aggregated packets) by the send worker to prevent
++	 *  further aggregation while the packet is emitted. It must therefore
++	 *  not be used to iterate over the aggregated packets
++	 */
+ 	u8 num_packets;
+ 
+ 	/** @delayed_work: work queue callback item for packet sending */
 -- 
-2.53.0
+2.47.3
 
