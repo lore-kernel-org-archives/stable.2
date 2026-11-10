@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273311;
-	b=J9S2NEqs4vlEbNnTcOrRtwdVJ8ZoxORVuUmQQ1Qx/HqLZCxbi+uCcT1vWta+9mrZbsHb
-	 DytCu+n/A/ASklRbXqcu561ahPVLshIMLEHu+FPQa/TBa5u/9PyWdPIO6gD6itbJOnYry
-	 k0WLJVOuH6SqOvJ3Bswl1OTh0JRD3n3jqjhLSVz24iq/L99gULEFi5FSZlnr3scF4SLpm
-	 /t5pvs5iGMiLH0KvvJiDAeKsUfrbfhm63EuYFgPET95wL8kZVPm78Wu3kgM8H7LGM68BJ
-	 XWsHT2xr+hNjRTS2RdULNmRqMyxmiagrdZ9FiYE5DqAtjoN644Wp3MGJPmOvHvd8n2g==
+	t=1794273314;
+	b=sZaKnERLhSbmx4i9lSGDfeIU+6JncoUL0t4L2UnGITas9hVmBh4E4S1+656Ostw7fkzY
+	 dZheMUssBYXTpR7jPbLz4torrQZomM3kRQ9lR1m2Of9AC0Sh5d9/y5smm3YME10Agmpw4
+	 4h1Caeou2Qj12JqAda4Mmc7kt1dycHh2ZiwbY73tNh2qhj4w3MXA9vYoBCBjFPWzGAF1q
+	 /ry84mmY+SRuPEP4Opsntjb5BTZttkS9Sr3054k1PttVwslxrHsQDxwslgkLyuNjkue8p
+	 MGgBP3YRdqK/fRKJ/zKWgm0VzOcfUkhbmKpkUTwCa4b2xHWPD983gBV+c95KwLb+ULw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273311;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273314;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OnC42V1GQmDmGzQZiSDWjMqFOdZeCJ6pe/0XwaNW+wk=;
-	b=1y+Q6uHlsYN6F4JfCATPgjgLZw1oRbVytQz/hw81TRefIkFDEbTSV7zAxFJ8LlFNxQYM
-	 1VnhY9/u8KLAG1Pg8m9HciuLpd5b6Z+ocQ/BagyIg9v3UMgXKHVHfRxIzYWf19NdGsytk
-	 SV5tpnyDVix+gsVE7yWfCXqXG3+/Gd5Nq5CJub9dSxD29Cm5Oi3TJCL1Q9iym88NLJIdK
-	 i+amPX0n4sRUAdfnlv50W4j3B03yJeAw761dlXN7dFMDQ74JsfJPA/03xS256UKLMM+af
-	 AMY0KMJwPiWnp6INi2vinCjEyqNTQRccjnOVk7GBo4bASBZS20DGh4qhgmUZNKUMmBA==
+	bh=6DA2On14Vror6PbMqVDhg887i1opxfwVbcR3EMH1D0o=;
+	b=ehg/WkErU8DUd/DHsUA3hu90y4CbfQbreACrZ8N9y8gWJ3xeKHWXcCGx7QbGujUa7d38
+	 QaG1Z/unVs9YtjVVZjv/Aos/ofQQ4bcmGKFFskHDhFjRfNy4dZRJVVNPiEIX6lVdm3O7c
+	 bz8eQIxy/Mbsh0DDJcoLuj5eRp6xXxtlWx+/Awqc46/QD9T2K4ajakGbpOABYmfzHtXmK
+	 zbLUi0J7bqzYfXSFK6ctzyB6/PLgo2ucSTdwfcUxmMh5cTpJ/i1pMl3cx6JrYRogIwXIP
+	 Ua2t8OxJW5SP3oLD5yxRt1emBjQerBqgHMTSkWxjdIEDJkntuxWcCqGuste74rjBivA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BahLI/kT";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfuBSa0T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5005E606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB486606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BahLI/kT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FFF41F0089F;
-	Tue, 10 Nov 2026 01:15:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfuBSa0T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B6E1F0089F;
+	Tue, 10 Nov 2026 01:15:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273311;
-	bh=OnC42V1GQmDmGzQZiSDWjMqFOdZeCJ6pe/0XwaNW+wk=;
+	s=k20260515; t=1794273313;
+	bh=6DA2On14Vror6PbMqVDhg887i1opxfwVbcR3EMH1D0o=;
 	h=From:To:Cc:Subject:Date;
-	b=BahLI/kT99Va3dMwlYjYrb8YETIT8yHCYHR7fFt9g71b5FfVaksMfjNgOkj9uqPwJ
-	 aRwVup3wwUFQN6FgmcvvuXNn9WjnK7b8VmPmdKvSlf0/9mqxKxbrnI6EghBAbFDUeV
-	 nDsz4I/4HbNVfe1joFkDIwTcCeEotWyDWNU6sT94BcGm0zscOXrENfTw2POzjWYAsZ
-	 H/B6BNvmNsOJQCT/FpU3N1hyv8cgs4yt2nfRzKXNlpmM9vNVjZDIR3Cl9UAWa926HK
-	 uMHg06V9fvjMkJN+wj+aYOCcEKdXihvDXx1WyLhevr0sl4YqU5VZSwPRjg5ODYBk1p
-	 5jHz7e1Fh4jew==
+	b=WfuBSa0TMazXm51YS5krg4Up/HeCrh9CbqBbUPL3ddcG5HS1l4Jx+t1FuAAGiXX1f
+	 WQU0p4tKta4bnjCAWu5IJ9v+ZI6uDgOiyDj4R8mgkGS7bU6guFCE56gtv09xqHaWyj
+	 tdz+6QrZ17fnvhUreMZ/AxJRk0PWnEUM138EKZAGnuZZpjdENL1UW7U9SB06tml0BT
+	 vYi02BETFfW+m809TmMVjbs/bDEgsZkRpKxn6bKWGQdOwXATGWAAjlM1qVEJgLFKA6
+	 xvmxtXmkNPoMmLtrDfq3G7RcTNESyqlfDicGH97/cAsoyBVPXCFn3/jGYKlKsuqrv9
+	 GC5fcz6mMmZDg==
 From: Sasha Levin <sashal@kernel.org>
-To: nicoyip.dev@gmail.com,
-	sven@narfation.org
+To: youyouyu@amazon.com,
+	dgj@amazon.com,
+	gunnarku@amazon.com,
+	jack@suse.cz
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] batman-adv: Close OGM aggregation before transmission" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:15:09 -0500
-Message-ID: <20261109201509-failed-6.1-f91f64a91682@kernel.org>
+Subject: FAILED: patch "[PATCH] quota: initialize dquot cache before mounting rootfs" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:15:11 -0500
+Message-ID: <20261109201511-failed-6.1-e21a6f39aa6d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,90 +70,144 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f91f64a91682c07e6c5f059804e709656364e8a6
+git cherry-pick -x e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201509-failed-6.1-f91f64a91682@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201511-failed-6.1-e21a6f39aa6d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f91f64a91682c07e6c5f059804e709656364e8a6 Mon Sep 17 00:00:00 2001
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Sun, 27 Sep 2026 18:16:24 +0800
-Subject: [PATCH] batman-adv: Close OGM aggregation before transmission
+From e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 Mon Sep 17 00:00:00 2001
+From: YouYou Yu <youyouyu@amazon.com>
+Date: Wed, 21 Oct 2026 18:12:17 +0000
+Subject: [PATCH] quota: initialize dquot cache before mounting rootfs
 
-The OGM send worker leaves its forwarding packet on forw_bat_list until
-after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
-but emission reads and clones the packet without that lock.
+On some systems, a tmpfs backed rootfs is extensively used throughout
+system's lifecycle. tmpfs quotas are needed to limit per user rootfs
+usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
+and "initramfs_options=usrquota" panics at boot:
 
-CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
-list lock, finds the same packet and appends another OGM. The sender can
-observe the new packet length before the corresponding direct-link flag
-is set, or clone the skb while its length and payload are being updated.
-This can transmit an OGM with incorrect flags or inconsistent data.
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:dqget+0x1ac/0x490
+  Call Trace:
+   __dquot_initialize
+   dquot_initialize
+   shmem_get_inode
+   shmem_fill_super
+   ...
+   mnt_init
+   vfs_caches_init
+   start_kernel
 
-KCSAN reported:
+The rootfs is mounted from mnt_init(), but the dquot hash table and
+cache are only set up later by dquot_init(), an fs_initcall. Creating
+the root inode of a quota enabled rootfs thus dereferences the NULL
+dquot_hash in dqget().
 
-  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
-  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
-  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
-  value changed: 0x00c0 -> 0x00d8
+Rename dquot_init() to dquot_cache_init() and call it from
+vfs_caches_init() before mnt_init(). The slab, percpu and early
+workqueue code it relies on is available there, and the workqueue
+rescuer and shrinker debugfs entries are set up later by their own
+subsystems. Keep the sysctl registration in an fs_initcall, as done
+for the dcache, inode and mount sysctls. This only moves existing
+allocations earlier in boot.
 
-Mark the aggregate as full under forw_bat_list_lock before emission. This
-waits for any ongoing append and prevents further aggregation. Emission
-uses packet_len to walk the OGMs, so all queued packets are still sent.
-Keep the packet on the list so interface purging can find the worker,
-wait for it to finish and free the packet.
-
-Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
-Cc: stable@vger.kernel.org # 4.10.x: 434becf57bdc ("batman-adv: Limit number of aggregated packets directly")
-Cc: stable@vger.kernel.org # 4.10.x
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-[ sven: drop assisted tag, document new meaning of num_packets ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: Dylan Johnson <dgj@amazon.com>
+Signed-off-by: YouYou Yu <youyouyu@amazon.com>
+Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
+Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- net/batman-adv/bat_iv_ogm.c | 5 +++++
- net/batman-adv/types.h      | 8 +++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ fs/dcache.c              |  2 ++
+ fs/quota/dquot.c         | 10 ++++++----
+ include/linux/quotaops.h |  5 +++++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 158d2b8f04036..85e99506a53f5 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1909,6 +1909,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
- 		goto out;
- 	}
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 37d021d22a7da..a9a919bc91976 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -33,6 +33,7 @@
+ #include <linux/rculist_bl.h>
+ #include <linux/list_lru.h>
+ #include <linux/namei.h>
++#include <linux/quotaops.h>
+ #include "internal.h"
+ #include "mount.h"
  
-+	/* Mark aggregate as full before forcing emit. */
-+	spin_lock_bh(&bat_priv->forw_bat_list_lock);
-+	forw_packet->num_packets = BATADV_MAX_AGGREGATION_PACKETS;
-+	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
+@@ -3683,6 +3684,7 @@ void __init vfs_caches_init(void)
+ 	inode_init();
+ 	files_init();
+ 	files_maxfiles_init();
++	dquot_cache_init();
+ 	mnt_init();
+ 	bdev_cache_init();
+ 	chrdev_init();
+diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
+index 3ad19d7e472f6..a3d5035918714 100644
+--- a/fs/quota/dquot.c
++++ b/fs/quota/dquot.c
+@@ -2958,7 +2958,7 @@ static const struct ctl_table fs_dqstats_table[] = {
+ 	},
+ };
+ 
+-static int __init dquot_init(void)
++void __init dquot_cache_init(void)
+ {
+ 	int i, ret;
+ 	unsigned long nr_hash;
+@@ -2966,8 +2966,6 @@ static int __init dquot_init(void)
+ 
+ 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
+ 
+-	register_sysctl_init("fs/quota", fs_dqstats_table);
+-
+ 	dquot_cachep = kmem_cache_create("dquot",
+ 			sizeof(struct dquot), sizeof(unsigned long) * 4,
+ 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
+@@ -3008,7 +3006,11 @@ static int __init dquot_init(void)
+ 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
+ 	if (!quota_unbound_wq)
+ 		panic("Cannot create quota_unbound_wq\n");
++}
+ 
++static int __init init_fs_dquot_sysctls(void)
++{
++	register_sysctl_init("fs/quota", fs_dqstats_table);
+ 	return 0;
+ }
+-fs_initcall(dquot_init);
++fs_initcall(init_fs_dquot_sysctls);
+diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
+index 0c64ca674e778..7346efc85d436 100644
+--- a/include/linux/quotaops.h
++++ b/include/linux/quotaops.h
+@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
+ /*
+  * declaration of quota_function calls in kernel.
+  */
++void dquot_cache_init(void);
+ int dquot_initialize(struct inode *inode);
+ bool dquot_initialize_needed(struct inode *inode);
+ void dquot_drop(struct inode *inode);
+@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
+ 	return 0;
+ }
+ 
++static inline void dquot_cache_init(void)
++{
++}
 +
- 	batadv_iv_ogm_emit(forw_packet);
- 
- 	/* we have to have at least one packet in the queue to determine the
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index c19caa84e6920..b3e6dbb360dae 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -2047,7 +2047,13 @@ struct batadv_forw_packet {
- 	/** @direct_link_flags: direct link flags for aggregated OGM packets */
- 	DECLARE_BITMAP(direct_link_flags, BATADV_MAX_AGGREGATION_PACKETS);
- 
--	/** @num_packets: counter for aggregated OGMv1 packets */
-+	/**
-+	 * @num_packets: counter for aggregated OGMv1 packets. Set to
-+	 *  BATADV_MAX_AGGREGATION_PACKETS (independent of the real number of
-+	 *  aggregated packets) by the send worker to prevent further
-+	 *  aggregation while the packet is emitted. It must therefore not be
-+	 *  used to iterate over the aggregated packets
-+	 */
- 	u8 num_packets;
- 
- 	/** @delayed_work: work queue callback item for packet sending */
+ static inline int dquot_initialize(struct inode *inode)
+ {
+ 	return 0;
 -- 
 2.53.0
 
