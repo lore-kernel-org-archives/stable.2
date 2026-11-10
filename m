@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325720;
-	b=btvl6qA1z19pg/wEdJWUXpE2H2jx+NRfhCEhV9dcDM88Voe3VcFlHhkztHI18f+LO6xc
-	 8NXGXW2opE7fAg7PWBvzRlhDJZFou9y4ufz7qa0U5GpUZivdogs1txRLFuhSuz2pdjjjD
-	 yjka+oW5HOPOR4qenJLYQo9knsv6r5jE3KgOyYAbJ4BiCTaKI0FYtAIHlOH/qUrb4Z9x1
-	 40BpBMiMv0wqXJEOg2SNer9OIlEP4DIbto38WZY8pzLv2/k9oKuwFD54rIMVbw1l+a4P2
-	 kIqR6xoXVzJoz+ehQCiyajnGeif9kyZwy7dnn1uKew/SX01NfB/+fB/dabZ6VkEqD2A==
+	t=1794325811;
+	b=J0eYUE9X/omrEnQbkn7KuGCQvygYGIZctBYZkVL7y0AYQPVj3Ts3OXKAM4qC9MtDfjJW
+	 XFwiSZi/eRbG5oM0hyc6QD9+JadTERVIhVt7kxsFRRBP1+eR6JvDNc/b4hdtQGn/N9Do1
+	 dSCsxTUS+hsPzHPU+XpWmaxEsfcUzsj/V0PZemFzHQ+zMnA1j6oip1FAQh4eGWVCUmaWd
+	 ulsvJk8Tyn3opLNo73XFeUpcdIcdgFwFs6GXQSNBVlYOyM+OnXzwJlusbY+OXLrKU6LcK
+	 MCSMUbhyopCnVPTzeG4MSg399oy6UMhl8gzlUhbXnkBO6GReYY+b0WiR/fbMA4ypRww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=6krrngdHCsjiOW3bLfxtRylPnkwePlq//L1F5r6HtXs=;
-	b=usTq8G+g14gnQjgXdPYFKSrmWw4V4T70XBONu7RcLJ85H38H+j4UvRZ7TNIy+AwpSLMW
-	 f0KtS9HYW/yAy036XbP7EaTiQ8A7ENR0j9t3mYuNz+fNTFSLB5B59r+TYVSNf+6eCWShl
-	 d8vskkkEB7blhAf6gQf9FuHg8TeCQ/TtIqPDsKUqEZVFuI8LGq0uqcg7j+eL9LBGccCAI
-	 yMsPG8sNqDrDI4KkbS2N2vuCilD755qbrlvwaugpW3MDGD1E51LcQXMdlrQw0N2bJXMQv
-	 fHjRAIeQTZZIhtphg3JHGxIxy3EdmL2qGOtMk4ZBHmqEgRQvqwDxSidpImusXGRvjqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325811;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=i4AzB4oZfvCEquUkhj34M0VCXbuwbN7+lnDJ7b+s/OY=;
+	b=179w6RSnSYG/FWERfKFoT1CUwKLKsLBL/KobkmVz7Wn+i03O0xqsav/4a1b976nYYyCw
+	 fVYILUQHN9Zg8isurcEd/lmeZ6kcNangpsylH2iHu28EejV+jzTYlVwoeZ9iUP4bxoSma
+	 V0Aq4wQ/n3wwPd9etZPDbzl5JBzeNLVPl8dQruinBVBjSeugJnMC8UEanpZsx5k2wPGQT
+	 mzx5/s8idUHyvCcvgNT/hA+QnZELRdgsuM8qiip4W0GtjR8awCLryZ1S6sxlbXsJhHAfE
+	 8EypyAuA8wds+cG2o4Cqx0jAoO1amPeOQRNcJZUjwTAyuVxT5zOL/YxiBKOn8xZkhbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yky04A3m;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWXOasCr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433E260A2605
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:48:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 433E260A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD29606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Yky04A3m
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2eaae8d29e0so29764885ad.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:48:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794325719; x=1794930519; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6krrngdHCsjiOW3bLfxtRylPnkwePlq//L1F5r6HtXs=;
-        b=Yky04A3mA+11IwDoahtA1u8/FozpA/pdBIB4fD9gb0UmTVifEKlT3Rp64lp1IqJ817
-         tb6XsukxZw2/1+130CHFVNOLKOV1B8zCZV1WPXy6rJvLYo/zAFSrofMg1jBKc2MQePIj
-         wQcgQvcltDi4D2kpLXSJlKK1Ac4jeCsAKhjBQe1vnZ+4NgWUnyi0zmS4tZSrBhVsrMTY
-         gucEwhnU+5P2/y+ebovH0/8DCp6Sin7c64argbJtEGLokTzg80WdHQ3tSV8MnhHpYPGa
-         JrTVs4Ikz3SNqODI7s8/EcS9BNqbaROVU39V5M+HcZoXhUFcSuB3wOD/z5CBqIqnemQQ
-         U5IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794325719; x=1794930519;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6krrngdHCsjiOW3bLfxtRylPnkwePlq//L1F5r6HtXs=;
-        b=GWxbhn1XtnHdlUkXThbZIDuW+hKz7/4usfETHWnllt/DsRNbTG3oImH6Xtu3izkZd7
-         Ss9BL9i7Fc7hphYAhAE7e1j8vSToEQpqI9HposIpI+6Ppu9hOb3eP1NBVWovtt2H5sHN
-         ZrHyS7qr6bM5ymbhyRQBLtXdG23ZN/DMuAsSi8W2AgO31+ZJ8yG3uOqfaFcSrWDiyNtN
-         MWJGdjSU2q7vGHAIFZIoD1pMP8hj7iG9lLoZK1Oy9AtlLaNEQiLH8Bwfcf73+gW3p/q5
-         pkj87wffvjlN7HiKWQAatyeP43sadE7j5Mn5oFuHA0Gt46ct7yCvpvO2CSWvET+6YpMK
-         DA1A==
-X-Forwarded-Encrypted: i=1; AL+hErHjsVJY/E4d8dRWBz8lCrZXAt0M2w8qfNRPkLBJXxA9lTpPVEvX9wS2eQNjM3GLZsu9zqF9Z5I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cXaxweQYONam4B3NO+Cz/k9p4EtsJ7pVE1up2+hPoh6LPrqdb
-	1LK7cnB5BjDj7Tle4eL2XzqSAtoo9IBM8IpCRpbxXxmDoQhGWyXNfH/r6sxFaw/wGue3czcQgMQ
-	ViHaD+g==
-X-Received: from plzu6.prod.google.com ([2002:a17:902:82c6:b0:2eb:809:b8ac])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d547:b0:2ed:218:6043
- with SMTP id d9443c01a7336-2edb93052e6mr23931165ad.59.1794325718280; Tue, 10
- Nov 2026 07:48:38 -0800 (PST)
-Date: Tue, 10 Nov 2026 07:48:37 -0800
-In-Reply-To: <20261110110724.3614412-2-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWXOasCr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D391F0089F;
+	Tue, 10 Nov 2026 15:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794325811;
+	bh=i4AzB4oZfvCEquUkhj34M0VCXbuwbN7+lnDJ7b+s/OY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cWXOasCrr1+3I+aD/5wFPmewF8SPmsNm6TbYN+88lndZM4eXlGADZJsU7Se5tfZs+
+	 tHr+H2ILYtGuooy3vh/f6yiKn34B+zX8JJZ+a7KadfyZz1vLNgCe+UpHmf+/6+nj49
+	 6ZdLIBt9Gk609TFBQtklrGiTCDNJ0yAfxAA27FZ4WtTo01slsomUVe8q/ba75pt6Mo
+	 FfYjhjVOp+eYRJ11HEVAh/ziUKaNMtEVAiFeKvWCdaEh/Kd9VOGwcul+JGPVWA8/A+
+	 tQVZ3GTi34WB68oNVnZ6GZ8pcZozGY/zBelu92DMT7LEgg5zoHREhxhT0Vy6bxEgsC
+	 I1deTnC117Zow==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] Bluetooth: hci_core: Move all debugfs handling to hci_debugfs.c
+Date: Tue, 10 Nov 2026 10:50:08 -0500
+Message-ID: <20261110154953.2337328-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060625-failed-5.15-2a3e2287877b@kernel.org>
+References: <20261107060625-failed-5.15-2a3e2287877b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,70 +58,320 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev> <20261110110724.3614412-2-fuad.tabba@linux.dev>
-Message-ID: <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
-Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
- ring is full
-From: Sean Christopherson <seanjc@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026, Fuad Tabba wrote:
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index cf4cb586f1407..da1b76ceb65e3 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
->  			break;
->  		}
->  
-> +		/* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-Please don't include AI comments verbatim.
+[ Upstream commit 8331dc487fc55963e853b6858af716907717e181 ]
 
-> +		if (vcpu->kvm->dirty_ring_size && kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
+This moves hci_debugfs_create_basic to hci_debugfs.c which is where all
+the others debugfs entries are handled.
 
-Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
-clobbering vcpu->run->exit_reason.
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
+Stable-dep-of: 2a3e2287877b ("Bluetooth: hci_debugfs: Pin module for debugfs file operations")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/bluetooth/hci_core.c    | 124 ------------------------------------
+ net/bluetooth/hci_debugfs.c | 123 +++++++++++++++++++++++++++++++++++
+ net/bluetooth/hci_debugfs.h |   5 ++
+ 3 files changed, 128 insertions(+), 124 deletions(-)
 
-Side topic, kvm_dirty_ring_check_request() is rather confusing (clears and then
-re-sets the requests).  AFAICT, it can be this instead:
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index c31919623d1b4..170389a36bd9e 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -61,130 +61,6 @@ DEFINE_MUTEX(hci_cb_list_lock);
+ /* HCI ID Numbering */
+ static DEFINE_IDA(hci_index_ida);
+ 
+-/* ---- HCI debugfs entries ---- */
+-
+-static ssize_t dut_mode_read(struct file *file, char __user *user_buf,
+-			     size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	char buf[3];
+-
+-	buf[0] = hci_dev_test_flag(hdev, HCI_DUT_MODE) ? 'Y' : 'N';
+-	buf[1] = '\n';
+-	buf[2] = '\0';
+-	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
+-}
+-
+-static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
+-			      size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	struct sk_buff *skb;
+-	bool enable;
+-	int err;
+-
+-	if (!test_bit(HCI_UP, &hdev->flags))
+-		return -ENETDOWN;
+-
+-	err = kstrtobool_from_user(user_buf, count, &enable);
+-	if (err)
+-		return err;
+-
+-	if (enable == hci_dev_test_flag(hdev, HCI_DUT_MODE))
+-		return -EALREADY;
+-
+-	hci_req_sync_lock(hdev);
+-	if (enable)
+-		skb = __hci_cmd_sync(hdev, HCI_OP_ENABLE_DUT_MODE, 0, NULL,
+-				     HCI_CMD_TIMEOUT);
+-	else
+-		skb = __hci_cmd_sync(hdev, HCI_OP_RESET, 0, NULL,
+-				     HCI_CMD_TIMEOUT);
+-	hci_req_sync_unlock(hdev);
+-
+-	if (IS_ERR(skb))
+-		return PTR_ERR(skb);
+-
+-	kfree_skb(skb);
+-
+-	hci_dev_change_flag(hdev, HCI_DUT_MODE);
+-
+-	return count;
+-}
+-
+-static const struct file_operations dut_mode_fops = {
+-	.open		= simple_open,
+-	.read		= dut_mode_read,
+-	.write		= dut_mode_write,
+-	.llseek		= default_llseek,
+-};
+-
+-static ssize_t vendor_diag_read(struct file *file, char __user *user_buf,
+-				size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	char buf[3];
+-
+-	buf[0] = hci_dev_test_flag(hdev, HCI_VENDOR_DIAG) ? 'Y' : 'N';
+-	buf[1] = '\n';
+-	buf[2] = '\0';
+-	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
+-}
+-
+-static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
+-				 size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	bool enable;
+-	int err;
+-
+-	err = kstrtobool_from_user(user_buf, count, &enable);
+-	if (err)
+-		return err;
+-
+-	/* When the diagnostic flags are not persistent and the transport
+-	 * is not active or in user channel operation, then there is no need
+-	 * for the vendor callback. Instead just store the desired value and
+-	 * the setting will be programmed when the controller gets powered on.
+-	 */
+-	if (test_bit(HCI_QUIRK_NON_PERSISTENT_DIAG, &hdev->quirks) &&
+-	    (!test_bit(HCI_RUNNING, &hdev->flags) ||
+-	     hci_dev_test_flag(hdev, HCI_USER_CHANNEL)))
+-		goto done;
+-
+-	hci_req_sync_lock(hdev);
+-	err = hdev->set_diag(hdev, enable);
+-	hci_req_sync_unlock(hdev);
+-
+-	if (err < 0)
+-		return err;
+-
+-done:
+-	if (enable)
+-		hci_dev_set_flag(hdev, HCI_VENDOR_DIAG);
+-	else
+-		hci_dev_clear_flag(hdev, HCI_VENDOR_DIAG);
+-
+-	return count;
+-}
+-
+-static const struct file_operations vendor_diag_fops = {
+-	.open		= simple_open,
+-	.read		= vendor_diag_read,
+-	.write		= vendor_diag_write,
+-	.llseek		= default_llseek,
+-};
+-
+-static void hci_debugfs_create_basic(struct hci_dev *hdev)
+-{
+-	debugfs_create_file("dut_mode", 0644, hdev->debugfs, hdev,
+-			    &dut_mode_fops);
+-
+-	if (hdev->set_diag)
+-		debugfs_create_file("vendor_diag", 0644, hdev->debugfs, hdev,
+-				    &vendor_diag_fops);
+-}
+-
+ static int hci_reset_req(struct hci_request *req, unsigned long opt)
+ {
+ 	BT_DBG("%s %ld", req->hdev->name, opt);
+diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
+index b4ff99a4e5318..be805c87619c7 100644
+--- a/net/bluetooth/hci_debugfs.c
++++ b/net/bluetooth/hci_debugfs.c
+@@ -27,6 +27,7 @@
+ #include <net/bluetooth/hci_core.h>
+ 
+ #include "smp.h"
++#include "hci_request.h"
+ #include "hci_debugfs.h"
+ 
+ #define DEFINE_QUIRK_ATTRIBUTE(__name, __quirk)				      \
+@@ -1270,3 +1271,125 @@ void hci_debugfs_create_conn(struct hci_conn *conn)
+ 	snprintf(name, sizeof(name), "%u", conn->handle);
+ 	conn->debugfs = debugfs_create_dir(name, hdev->debugfs);
+ }
++
++static ssize_t dut_mode_read(struct file *file, char __user *user_buf,
++			     size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	char buf[3];
++
++	buf[0] = hci_dev_test_flag(hdev, HCI_DUT_MODE) ? 'Y' : 'N';
++	buf[1] = '\n';
++	buf[2] = '\0';
++	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
++}
++
++static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
++			      size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	struct sk_buff *skb;
++	bool enable;
++	int err;
++
++	if (!test_bit(HCI_UP, &hdev->flags))
++		return -ENETDOWN;
++
++	err = kstrtobool_from_user(user_buf, count, &enable);
++	if (err)
++		return err;
++
++	if (enable == hci_dev_test_flag(hdev, HCI_DUT_MODE))
++		return -EALREADY;
++
++	hci_req_sync_lock(hdev);
++	if (enable)
++		skb = __hci_cmd_sync(hdev, HCI_OP_ENABLE_DUT_MODE, 0, NULL,
++				     HCI_CMD_TIMEOUT);
++	else
++		skb = __hci_cmd_sync(hdev, HCI_OP_RESET, 0, NULL,
++				     HCI_CMD_TIMEOUT);
++	hci_req_sync_unlock(hdev);
++
++	if (IS_ERR(skb))
++		return PTR_ERR(skb);
++
++	kfree_skb(skb);
++
++	hci_dev_change_flag(hdev, HCI_DUT_MODE);
++
++	return count;
++}
++
++static const struct file_operations dut_mode_fops = {
++	.open		= simple_open,
++	.read		= dut_mode_read,
++	.write		= dut_mode_write,
++	.llseek		= default_llseek,
++};
++
++static ssize_t vendor_diag_read(struct file *file, char __user *user_buf,
++				size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	char buf[3];
++
++	buf[0] = hci_dev_test_flag(hdev, HCI_VENDOR_DIAG) ? 'Y' : 'N';
++	buf[1] = '\n';
++	buf[2] = '\0';
++	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
++}
++
++static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
++				 size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	bool enable;
++	int err;
++
++	err = kstrtobool_from_user(user_buf, count, &enable);
++	if (err)
++		return err;
++
++	/* When the diagnostic flags are not persistent and the transport
++	 * is not active or in user channel operation, then there is no need
++	 * for the vendor callback. Instead just store the desired value and
++	 * the setting will be programmed when the controller gets powered on.
++	 */
++	if (test_bit(HCI_QUIRK_NON_PERSISTENT_DIAG, &hdev->quirks) &&
++	    (!test_bit(HCI_RUNNING, &hdev->flags) ||
++	     hci_dev_test_flag(hdev, HCI_USER_CHANNEL)))
++		goto done;
++
++	hci_req_sync_lock(hdev);
++	err = hdev->set_diag(hdev, enable);
++	hci_req_sync_unlock(hdev);
++
++	if (err < 0)
++		return err;
++
++done:
++	if (enable)
++		hci_dev_set_flag(hdev, HCI_VENDOR_DIAG);
++	else
++		hci_dev_clear_flag(hdev, HCI_VENDOR_DIAG);
++
++	return count;
++}
++
++static const struct file_operations vendor_diag_fops = {
++	.open		= simple_open,
++	.read		= vendor_diag_read,
++	.write		= vendor_diag_write,
++	.llseek		= default_llseek,
++};
++
++void hci_debugfs_create_basic(struct hci_dev *hdev)
++{
++	debugfs_create_file("dut_mode", 0644, hdev->debugfs, hdev,
++			    &dut_mode_fops);
++
++	if (hdev->set_diag)
++		debugfs_create_file("vendor_diag", 0644, hdev->debugfs, hdev,
++				    &vendor_diag_fops);
++}
+diff --git a/net/bluetooth/hci_debugfs.h b/net/bluetooth/hci_debugfs.h
+index 4444dc8cedc21..9a8a7c93bb12a 100644
+--- a/net/bluetooth/hci_debugfs.h
++++ b/net/bluetooth/hci_debugfs.h
+@@ -26,6 +26,7 @@ void hci_debugfs_create_common(struct hci_dev *hdev);
+ void hci_debugfs_create_bredr(struct hci_dev *hdev);
+ void hci_debugfs_create_le(struct hci_dev *hdev);
+ void hci_debugfs_create_conn(struct hci_conn *conn);
++void hci_debugfs_create_basic(struct hci_dev *hdev);
+ 
+ #else
+ 
+@@ -45,4 +46,8 @@ static inline void hci_debugfs_create_conn(struct hci_conn *conn)
+ {
+ }
+ 
++static inline void hci_debugfs_create_basic(struct hci_dev *hdev)
++{
++}
++
+ #endif
+-- 
+2.53.0
 
-	lockdep_assert_held(vcpu->mutex);
-
-	/*
-	 * The vCPU isn't runnable when the dirty ring becomes soft full.  Keep
-	 * the requests set until the dirty pages are harvested and the dirty
-	 * ring is reset by userspace.  Note, checking if the ring is soft-full
-	 * can get a false positive, but not a false negative, because only the
-	 * vCPU can add entries to the ring, and its mutex is held.
-	 */
-	if (kvm_test_request(KVM_REQ_DIRTY_RING_SOFT_FULL, vcpu) &&
-	    kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
-		vcpu->run->exit_reason = KVM_EXIT_DIRTY_RING_FULL;
-		trace_kvm_dirty_ring_exit(vcpu);
-		return true;
-	}
-
-	kvm_clear_request(KVM_REQ_DIRTY_RING_SOFT_FULL, vcpu);
-	return false;
-
-> +			r = -ENOSPC;
-> +			break;
-> +		}
-> +
->  		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
->  		if (WARN_ON_ONCE(r == 0 || r == -EIO))
->  			break;
-> -- 
-> 2.47.3
-> 
