@@ -1,56 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342401;
-	b=gcv6YvnZqmHrvuwz0PIyBEywmazSQAgO1KZB9/cvYYD5GVMB+4JKG0ior5j6KNJtb+N1
-	 THGqzr9qCIEigz3NXv1b9ttI5KrNqWYa1QkuK+iim50CpvST3g1HfuE72HgzA8Xq5l55V
-	 WSamVCVLxXQtCkInhoT2q/mzjq8UNSnmLC755amowmwJwCKZwiVzEENjETk0JVNAauW60
-	 NOrUXc5bAyPuA83qiCkIvtpoKX0VwdKmf9L7RfBvYQkwYo2RMXODntBvkCMnaOSlic7Ie
-	 fkw2pUuXCEHOUAKjSb5iSpus5FwA1Q2Faog3YkuXN81gcM1eMy/oPKZ3G5fNHJEORpg==
+	t=1794342502;
+	b=S1vViv6I5ouohDYoogeu5QZbLZwcGO9P1/3WBZM3xGemU31YHQh13lOM75/QWnAFHy1U
+	 MuEVEW4VRvWkF0eiE6kQu+k16i1ZhMDRVzrLDNu9VOzmuCGNuVdFCoVdG0pkOycDQZhmN
+	 uIw4L1KDoLIMjWXtcjeu7+0IEk9VJlAKjE4QWiOyXSjIvAe7JZnVPVeeYMEPtIQjcuWrh
+	 94LxN6aSCLJoziylHiu+GJ6PrA2KwF5Pfbu5XBWQtFmM733KzmBg90QNlD+X6ektdwQkC
+	 NDpXLEpdhY8OLoBHhMokX2t23Vegmt90yb3SE62miVxoOC06BYoGKpNiSZhv5hhudHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342401;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PgNNyS/T8zdf9SukFUT27rMGZTDebsQEgBTbaLD/Ad4=;
-	b=R5sQWcDtOt0CRwp9S+4U4oFkcVXjc9IVolNsy0BjoZZxYLyaxnH1omH+j7ezcUqUusbm
-	 +OMDtBzDw4rfNI+ZKwKrkfjM79Hzt3Pb4dzSVPuEaMOZ2G9eBuyvHkx3H3MiER3qgn6iF
-	 pYEH5SaMXqjVSzorubsHdqu3Sy96p8uj9gOzN90Cj2LKuc8giPHoWXT4+b/HgmqW05Xo5
-	 I8ykmQa6l6x/vBPgqE4/e/dHr54JMTQd4poAV3gxESCbok8E9lTgzQiwI51eI4Tpt+spr
-	 3gZLS41aHbRf4Fo9xRTbSOoMpWy2Al/ad+S/65UVg9VxHuFf1bHPAGQWwWJGjiYzPNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342502;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Infomaniak-Routing;
+	bh=ZIYDZloriPMk7SgdWjx1Bnwqinw66Jn4lozpHN9Yguo=;
+	b=ukG1ZM2CRUvQWeaCL2FsXeC7A7o/yItEseYrJAwuOtaXc56v8ssVK+/y+jIblESp2h+c
+	 Ausbp2IRx1hyfsq6gTfvoqhd5zEdEUQuUZuvXcgKz2jMyaOhpGd/YkNXADnYNTPN8hxEN
+	 wQkrU4XaUEy2Q9Ny7KZ1vF0AQBDN6fypND1VkBGUtTJYVoXtqKk4MDIg6ncr8QoS5Y2Ux
+	 /AGVG1chori/niL39kPVyCoKw1yNfxwe6IZTmXKtcdoY4ioPF7bFyRNBDybZ3Q8lVigpv
+	 oyxu88nm0qM5enbVjeVxQdPBF9p5bWDBeY4Owb5bxUXOB16ZlO7TDKjUArBHElmlX3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Uq/c1IBn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=YPc9tNKW;
+	arc=none smtp.remote-ip=45.157.188.14
+Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689BB60A6F7F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C21606A8A5
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C21606A8A5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uq/c1IBn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F481F008A4;
-	Tue, 10 Nov 2026 20:26:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794342401;
-	bh=PgNNyS/T8zdf9SukFUT27rMGZTDebsQEgBTbaLD/Ad4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uq/c1IBnBKLq+leOT6iU8eXwAxyYz96tcObYO2sdvqX8O00oWReA9GhMI6tOn15J9
-	 wmL33YoI+YbvE1l35pmnpau1x+u1KsH80KUgj3eaF1BMeb2CsZQ3lvXnkBs0ZE5ko4
-	 4JAOLOH7PwIDnXFsrXaz4FOfBuTgeW4GDwFC9m4Epm8/CJ992xyH9QikzKiIUNXdhb
-	 6pB+LWtnhuHvX07L8MkM8PbbWL9uGrKrUAGmNtrkTVXiEBkdDSFVIDSfU02ji1RQbp
-	 ax2J1Bn5YVpxmxNxxxsmZtgUg2r//N7oOrtiVFEA4zjhVz/yATaxUJ1WXFEzgJjgqO
-	 GKGcpm3NaiSag==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mptcp: fix subflow bitfield misuse
-Date: Tue, 10 Nov 2026 15:26:39 -0500
-Message-ID: <20261110202624.3776163-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053620-failed-6.6-7538fa33bb2f@kernel.org>
-References: <20261107053620-failed-6.6-7538fa33bb2f@kernel.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=YPc9tNKW
+Received: from smtp-4-0001 (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJBV6X0WzJF3;
+	Tue, 10 Nov 2026 21:28:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1794342498;
+	bh=ZIYDZloriPMk7SgdWjx1Bnwqinw66Jn4lozpHN9Yguo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YPc9tNKW7xsY1BBIeO1Cx5gpjT8dSyxOPcUoTyR3lQDDcPDtVTR8TSQq+SMwntDEx
+	 DV2HHv0sJNe+e6CXO+qh2LMm4iAuiUXrlpfDSCBmcX1Qy6pyFAMvVv09uuY07TuoqV
+	 tTZWl4MSLaXOe+d4EfRjyTTF9kWTYzbJUTL7aJJ0=
+Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jPJBT3nv1z4Nc;
+	Tue, 10 Nov 2026 21:28:17 +0100 (CET)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: James Morris <jmorris@namei.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Serge Hallyn <serge@hallyn.com>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Ada Smith <adasmithgt@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	John Johansen <john.johansen@canonical.com>,
+	KP Singh <kpsingh@kernel.org>,
+	Matt Bobrowski <matt@bobrowski.net>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	apparmor@lists.ubuntu.com,
+	bpf@vger.kernel.org,
+	kernel-team@cloudflare.com,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] capabilities: Check PR_SET_SECUREBITS with ns_capable()
+Date: Tue, 10 Nov 2026 21:28:06 +0100
+Message-ID: <20261110202811.2409395-2-mic@digikod.net>
+In-Reply-To: <20261110202811.2409395-1-mic@digikod.net>
+References: <20261110202811.2409395-1-mic@digikod.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,56 +78,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-From: Paolo Abeni <pabeni@redhat.com>
+Per-process securebits were introduced with a direct cap_capable() check
+for CAP_SETPCAP.  The capable LSM hook and SELinux capability policy
+already existed, and SELinux forwarded task_prctl operations to
+commoncap.  The direct call therefore bypassed SELinux policy from the
+start.  It now also bypasses AppArmor, Landlock, and BPF LSM programs
+attached to the capable hook.
 
-[ Upstream commit 7538fa33bb2f66b8b809ff39d58308be48e197a0 ]
+A task with CAP_SETPCAP in its effective set can consequently change
+privileged securebits despite an LSM denial.  This can alter how its
+capabilities evolve across UID and execution transitions without the
+expected LSM denial or audit record.
 
-The subflow status bitfield is protected by the subflow socket lock,
-with one notable exception: the `close_event_done` bit is actually under
-the msk socket lock protection.
+Use ns_capable(), as cap_prctl_drop() already does for PR_CAPBSET_DROP.
+Call it only for a no-op, which requires privilege for legacy reasons,
+or when a privileged bit changes.  Changes limited to
+SECURE_ALL_UNPRIVILEGED and their lock bits do not need the capability,
+so they must not invoke an LSM check or set PF_SUPERPRIV.  Successful
+privileged checks now set PF_SUPERPRIV, as other ns_capable() callers
+do.  Without other LSMs, the same requests remain allowed as before.
 
-As reported by Clashiko [1], flipping the latter bit may corrupt other
-entries in the same bitfield.
+The check now reaches every capable hook before commoncap commits the
+new credentials.  A later task_prctl hook cannot provide equivalent
+mediation because commoncap runs first and commits the change itself.
 
-Move the `close_event_done` outside the bitfield, in a 32bit hole.
-
-Link: https://lore.kernel.org/178959153492.22033.1944011998010756543@kernel.org
-Fixes: d82809b6c5f2 ("mptcp: avoid duplicated SUB_CLOSED events")
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Günther Noack <gnoack@google.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: John Johansen <john.johansen@canonical.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Cc: Matt Bobrowski <matt@bobrowski.net>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Serge Hallyn <serge@hallyn.com>
+Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-2-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adjusted __unused to 8 bits instead of 9 to match the existing mptcp_subflow_context bitfield layout ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Ada Smith <adasmithgt@gmail.com>
+Fixes: 3898b1b4ebff ("capabilities: implement per-process securebits")
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- net/mptcp/protocol.h | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ security/commoncap.c | 42 ++++++++++++++++++++----------------------
+ 1 file changed, 20 insertions(+), 22 deletions(-)
 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 1cf67a557ff0d..edc81ae550ca6 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -510,12 +510,14 @@ struct mptcp_subflow_context {
- 		stale : 1,	    /* unable to snd/rcv data, do not use for xmit */
- 		valid_csum_seen : 1,        /* at least one csum validated */
- 		is_mptfo : 1,	    /* subflow is doing TFO */
--		close_event_done : 1,       /* has done the post-closed part */
- 		resetting : 1,	    /* subflow is resetting */
--		__unused : 7;
-+		__unused : 8;
- 	bool	data_avail;
- 	bool	scheduled;
- 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
-+	bool	close_event_done;   /* has done the post-closed part,
-+				     * protected by msk socket lock
-+				     */
- 	u32	remote_nonce;
- 	u64	thmac;
- 	u32	local_nonce;
+diff --git a/security/commoncap.c b/security/commoncap.c
+index d47ab3022343..1947128396e2 100644
+--- a/security/commoncap.c
++++ b/security/commoncap.c
+@@ -1283,6 +1283,23 @@ static int cap_prctl_drop(unsigned long cap)
+ 	return commit_creds(new);
+ }
+ 
++/*
++ * Doing anything with securebits requires privilege (go read about the
++ * "sendmail capabilities bug"), except for unprivileged bits.  Indeed, the
++ * SECURE_ALL_UNPRIVILEGED bits are not restrictions enforced by the kernel but
++ * by user space on itself.  For legacy reasons, a non-change requires
++ * privilege too.  Only checking CAP_SETPCAP when it is needed keeps LSMs from
++ * seeing (and logging) a capability check for unprivileged changes.
++ */
++static bool securebits_need_setpcap(unsigned long old, unsigned long new)
++{
++	const unsigned long unpriv_and_locks = SECURE_ALL_UNPRIVILEGED |
++					       SECURE_ALL_UNPRIVILEGED << 1;
++	const unsigned long changed = old ^ new;
++
++	return !changed || (changed & ~unpriv_and_locks);
++}
++
+ /**
+  * cap_task_prctl - Implement process control functions for this security module
+  * @option: The process control function requested
+@@ -1346,28 +1363,9 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
+ 			/* cannot change a locked bit */
+ 			return -EPERM;
+ 
+-		/*
+-		 * Doing anything requires privilege (go read about the
+-		 * "sendmail capabilities bug"), except for unprivileged bits.
+-		 * Indeed, the SECURE_ALL_UNPRIVILEGED bits are not
+-		 * restrictions enforced by the kernel but by user space on
+-		 * itself.
+-		 */
+-		if (cap_capable(current_cred(), current_cred()->user_ns,
+-				CAP_SETPCAP, CAP_OPT_NONE) != 0) {
+-			const unsigned long unpriv_and_locks =
+-				SECURE_ALL_UNPRIVILEGED |
+-				SECURE_ALL_UNPRIVILEGED << 1;
+-			const unsigned long changed = old->securebits ^ arg2;
+-
+-			/* For legacy reason, denies non-change. */
+-			if (!changed)
+-				return -EPERM;
+-
+-			/* Denies privileged changes. */
+-			if (changed & ~unpriv_and_locks)
+-				return -EPERM;
+-		}
++		if (securebits_need_setpcap(old->securebits, arg2) &&
++		    !ns_capable(current_user_ns(), CAP_SETPCAP))
++			return -EPERM;
+ 
+ 		new = prepare_creds();
+ 		if (!new)
 -- 
-2.53.0
+2.56.0
 
