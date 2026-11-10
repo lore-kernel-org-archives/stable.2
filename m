@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338361;
-	b=V0hYCuoH8zpwfAABhe1iXsrNOMeY0ciG2BQtKPltRJAUYfDGtNhfcfb/sfWa5QdRRZLd
-	 iJDJsCfawfunF6U30vYegxNE6g3VU/OgxMqMnTdTHoXxwdpta+iotd5oEVo52jGmtd3aQ
-	 9sv1hsQH0npsbwdWOl0rXfP40hQ6MWdbNSVUFXAVjcCe388AjE1vZU38njBhfYRHZq8BW
-	 q0KNf9I4YFE2Q337tVvHRf30zufm4DqekoYF1fEvmzElz2ETFwTfrwW1V2cNdEezSAE8K
-	 ta/3LLmn3FjhpQsG2nwrho2iNOvKstzS5dnGcZJmfrYi92AMxmWlEtrYvu3mmrdgF5A==
+	t=1794338385;
+	b=Wz4t4X5PJ00ziahIWVy5homsIczfE0AUF/gAI7R45WtJfR8Al8ThRFd34t8GjeBhmDxf
+	 cadtmHZdvV+cOKOHCrUGVYAUi8470Ql4Pj7jQ8IslFFoYHfumJnuwj/nt1CxSGEKCUCmH
+	 hHqyQ0fQDi0FXRCHRKrYFCgdm1vjAAVt8bSZ1lH8AjuS55XutQitnSsWsHnafxDLyyNRu
+	 Xsk8NpDsgP4uHxenLey1ht1JQCOX1g+EpSGBitwqTh+eftPjN5GoKai0nryDGp592/wpE
+	 oK9AzAPhHmxv230Cj/p6cAnvrrDu9AtcsBRaqKLo1x+LoRk/Uc9qcACVqd2IhrPliWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338361;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zAns4FXCzfSAya9n3q83Qh1aTXvRPcb7a9FvmFLNz6U=;
-	b=WbcHF+uTORWN7AbvpEaUuru/ilM+NXiVWvWpDOH2D/0VjwO90T467UTmR9Zr/WeihZfJ
-	 zfcF56iMneOQgQgjgWZTZlqqyFv0+xduaCiFiiM++jDaEyuW3q9KmdtI0QQjoy92UYHe3
-	 oPvPuwbC1s98waAwJGHBZN1pc/qpuoz1B2jQj5B5YY7UH8E5fhzoCBzW8uT8BQzLSRuUW
-	 7mRVe76aJ0SnBBRkrkXIwEAvpNK0maQ8YxxG5/cOPhqqGQ/xp7eJNwtvdpMCvIhrwLGPT
-	 JWNi15RWjxekksFm7P8jmS9dsy2PgjrC+usxsi/6e/OvzfyBZR33+cJ7IWlOfpbiM7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338385;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1g6N+UiSFWtJXbhcz2hQ0sX5BzMJnPPhFYk09G5Egyo=;
+	b=VJUaSLs6BzkCntriFTv1wRhasjHe728arJs0+QRiO0XncLTEN9ZCPARL5La50qPwjzGI
+	 2mvdxLIiYkbaXgLrbINnj/kjUBPt/DQ8heYzsy+RXEiBsBaYQgPNNqHBdhf3XWMH5PqwO
+	 XtatQ2n2Zg12GeeYRucj0GyvtLeozGvCtq7TbUzmC+BQF1Wg2bwzsGkz8vfwmFMT9jyMh
+	 pB+7tXqpZJEe5fwtHhQpri9ftAopppHuPGnlZo1ZiAJhjX6x7ZK8SmrIpzE+/ND3mCW5a
+	 /WwR+gaDbjVWEzUYHp9ijKxIzR7EVvSaDpQOWCztcjEHYQkuvuUIIUFi/IS9eH6ezpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/aHthEm";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=qcEHHIFi;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BC0606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:19:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id AF679606A33E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF679606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/aHthEm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534851F0089F;
-	Tue, 10 Nov 2026 19:19:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338360;
-	bh=zAns4FXCzfSAya9n3q83Qh1aTXvRPcb7a9FvmFLNz6U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M/aHthEmwAQIQvGOogRCjSWPYo/dw8/tYTei4exhm+/ePtMBC8YZc/uytYipQsE4A
-	 hspxWIeJKWbsg8NjEJE45aH/aYXsUhDVLumRRWSsRtiSjbPBSV8ke32EeH22QJhhwz
-	 PvqWQjdVPnmBTbSIrmotTb+OE5Uwl6oqp0vUGnc40QBnkDPaFc09W2sNVETeIGT8gr
-	 1U7B0Uu76Zs2JKRIKZ5HpfkZ+4BrGUGkPoZFmDQ2GQjV6ENQQMg3jTIWMAtZZY98A9
-	 BwnM5xzDedDB9FwG6QqJPwKZPxYINN7XDXXu6wubUdrPaKnjpaG+B33Hu/vw7V5OQI
-	 i9cBCdKbVhLBg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=qcEHHIFi
+Received: by dvalin.narfation.org (Postfix) id BCD161FD16;
+	Tue, 10 Nov 2026 19:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794338382;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1g6N+UiSFWtJXbhcz2hQ0sX5BzMJnPPhFYk09G5Egyo=;
+	b=qcEHHIFimp51YDbK7DUOlMS3jIIfGOkgooycrImODX9YQG7sCQqLPiCSML8G01jYd1Cbn3
+	OXjvY/ub1QSmOP5LYD2O71mWqdK731d/+V5zt9D8qLBskDauxz2b3reWh/mg73rn8aAl6r
+	zspXi3xJSAHGRu91omr6YjpQ2h4byUQ=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] dm-bufio: fix non-working memory limit
-Date: Tue, 10 Nov 2026 14:19:18 -0500
-Message-ID: <20261110191534.3506041-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053426-failed-6.6-1190dbeaeaa0@kernel.org>
-References: <20261107053426-failed-6.6-1190dbeaeaa0@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.6.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
+Date: Tue, 10 Nov 2026 20:19:25 +0100
+Message-ID: <20261110191925.152797-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109201044-failed-6.6-cc2186d78547@kernel.org>
+References: <20261109201044-failed-6.6-cc2186d78547@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,98 +65,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+commit cc2186d7854785b30d423f5d43757b086b300e55 upstream.
 
-[ Upstream commit 1190dbeaeaa026a4879e675b8556a150c36a7ced ]
+When a ROAMING_ADV is received for an announced local client,
+batadv_tt_local_mark_removed() sets BATADV_TT_CLIENT_ROAM, queues a
+DEL|ROAM change and marks the entry as BATADV_TT_CLIENT_PENDING. If the
+client sends a frame again before the next TTVN commit,
+batadv_tt_local_add_existing() only clears the PENDING flag and returns
+early. The ADD cancels the queued DEL, but the entry keeps the ROAM flag:
 
-The function evict_old is supposed to loop and evict buffers while the
-allocated size is above the threshold. However if it hits one bufio
-client that is empty, it stops and doesn't attempt to scan other
-clients.
+* batadv_is_my_client() reports the client as not served by this node
+* batadv_tt_local_client_is_roaming() reroutes unicast frames for it to
+  the node which sent the ROAMING_ADV
 
-This commit fixes it, so that it skips empty clients and retries up to
-dm_bufio_client_count times.
+The ROAM flag is only removed with the next frame of the client.
 
-Fixes: 450e8dee51aa ("dm bufio: improve concurrent IO performance")
+Since BATADV_TT_CLIENT_ROAM is set together with BATADV_TT_CLIENT_PENDING,
+it has to be cleared also at the same time with BATADV_TT_CLIENT_PENDING
+when the client roamed back.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-5
-[ sashal: Adapted the oldest_buffer assignment to use params.last_accessed. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ adjust code still in batadv_tt_local_add ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/md/dm-bufio.c | 41 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 37 insertions(+), 4 deletions(-)
+ net/batman-adv/translation-table.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index 8f121a7e87bca..b8addbc3a3430 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -2499,6 +2499,13 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	init_waitqueue_head(&c->free_buffer_wait);
- 	c->async_write_error = 0;
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index b4c98ac6d338d..c148127799c1b 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -658,6 +658,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 	int hash_added, table_size, packet_size_max;
+ 	bool ret = false;
+ 	bool roamed_back = false;
++	bool added = false;
+ 	u8 remote_flags;
+ 	u32 match_mark;
  
-+	/*
-+	 * A client with no buffers yet is not holding the oldest buffer in
-+	 * the system; leaving this zeroed would claim exactly that and keep
-+	 * the client pinned at the front of dm_bufio_all_clients.
-+	 */
-+	c->oldest_buffer = jiffies;
-+
- 	c->dm_io = dm_io_client_create();
- 	if (IS_ERR(c->dm_io)) {
- 		r = PTR_ERR(c->dm_io);
-@@ -2828,9 +2835,23 @@ static unsigned long __evict_a_few(unsigned long nr_buffers)
- 	count = __evict_many(c, &params, LIST_CLEAN, nr_buffers);
- 	dm_bufio_unlock(c);
+@@ -684,7 +685,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 			 * flag can be reset like it was never enqueued
+ 			 */
+ 			tt_local->common.flags &= ~BATADV_TT_CLIENT_PENDING;
+-			goto add_event;
++			added = true;
+ 		}
  
--	if (count)
-+	if (count) {
- 		c->oldest_buffer = params.last_accessed;
--	__insert_client(c);
-+		__insert_client(c);
-+	} else {
-+		/*
-+		 * We evicted nothing, so 'oldest_buffer' tells us nothing new
-+		 * and the client keeps its old, possibly very stale, value.
-+		 * Requeue it at the back rather than by that value, otherwise
-+		 * __insert_client() would put it straight back at the front
-+		 * and every subsequent call would pop this same client again,
-+		 * never reaching any of the others.
-+		 *
-+		 * This leaves the list slightly out of order, which is fine -
-+		 * it is only ever an approximation.
-+		 */
-+		list_add_tail(&c->client_list, &dm_bufio_all_clients);
-+	}
- 
- 	return count;
- }
-@@ -2855,11 +2876,23 @@ static void evict_old(void)
- {
- 	unsigned long threshold = dm_bufio_cache_size -
- 		dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
-+	int unproductive = 0;
- 
- 	mutex_lock(&dm_bufio_clients_lock);
- 	while (dm_bufio_current_allocated > threshold) {
--		if (!__evict_a_few(64))
--			break;
-+		if (__evict_a_few(64)) {
-+			unproductive = 0;
-+		} else {
-+			/*
-+			 * This client had nothing to give.  Try the others
-+			 * before giving up: one idle client, or one whose
-+			 * buffers are all held, must not stop us evicting
-+			 * from everybody else.  Stop once a whole sweep of
-+			 * the client list has freed nothing.
-+			 */
-+			if (++unproductive >= dm_bufio_client_count)
-+				break;
-+		}
- 		cond_resched();
+ 		if (tt_local->common.flags & BATADV_TT_CLIENT_ROAM) {
+@@ -765,10 +766,12 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 		goto out;
  	}
- 	mutex_unlock(&dm_bufio_clients_lock);
+ 
+-add_event:
+-	batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
++	added = true;
+ 
+ check_roaming:
++	if (added)
++		batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
++
+ 	/* Check whether it is a roaming, but don't do anything if the roaming
+ 	 * process has already been handled
+ 	 */
 -- 
-2.53.0
+2.47.3
 
