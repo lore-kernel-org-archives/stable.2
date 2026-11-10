@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794288201;
-	b=ySI09knaKgxdWUG32lppNLKTZ3epj3/SNaZeobxH9z2K/ma09JFaT7/lvT6dvtMlJvwz
-	 3yR69PNGqij9qNrlZpLow2DIHb/UKpSarl25M1ppae3Mt4UvokKv90FnHh3Vg1G+8uhAP
-	 /OPTcmU2E6b/4ZvF882P+g4LtAtdFlB5pMuSzqfetrdPa+uF4K1NPTtVpqxE1M9yWAn8H
-	 wCGpkW86huBoBJEn4zrX5jVgITD8qw/KD83ilRtVHLuMEl5VEv75PAD6HzmiH2nQejM3e
-	 zdEjv828bmLi5Urkvch5UHv9ZtBvYV4ow3YZJBg5F1CqiDtBplVA6nwl4tcKjDjI68A==
+	t=1794288314;
+	b=XZCwQjJRBn1vcqApDmLbZQvXw2IR+vPNkG03saXSttI2Rq5tANQThsP338TIibrp3GEl
+	 1xX6yxqV18CoguHa5weNhAgraBv5VTZEQYCw/BNDYvrPjz3fv5G1Qdv4tfUmFjFYH+oRZ
+	 HTd+ui9RC2gnonDx1LB5PdsMMMqolFBKbxruF6QbfiBnrWq6ToM4+CaPxf8WhjMI7ZpVW
+	 HUErLK8PNqb5a8EmRk1BfvKtDUxn/1SJd8m+yBc5thQgDvL6F+3IjRAxkAyP8utIJgUqR
+	 Kqw+TKQwaH5+qzsoB4KtQu4xbJG96I65rVTg30S9/PGSSB7pjd1FE+dZcbNieg7/Jvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794288201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794288314;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=i5LxzyO5dpo5Ht8QcsUYRJlfUI1jl9o895e8PYOLqtg=;
-	b=D8vW4kUaI94ZckRvVpEe/tIZr/DmCVjpBxZgTei8ctrb/sxpvOFm50YWQxXDWYVPeRlz
-	 1wGYsEWaffqbJ3dMrZcnYoI9rrWTY0yQ2GGx+XW+rUNr/jtNJEGi8Lgxemla9jJaFiODZ
-	 gOcY0K+k1rtGm6gcVDmuTMABCGioPpxX3aQNlfF1NczTf8RCXuzd7xHOvMGgkmntNNLmw
-	 AC59a8kJ4kCBC3H382ckvUT1E9CTcQ1xr+HyHd+yX3978qnIDjcCr5L31j7Lh6TX45mGP
-	 K8immMyzFy8N5LW74ZTj0oQF0bCz0G/qsIL1Uv2dNIfGysiesoJQw1AwYguTXgvp83g==
+	bh=glIKqPh2ZmGsID2Q6xqplCfDwcHNEoaEaNPhMemU0Ec=;
+	b=KXa4eg5I4BRBOmDnklsTLgTn9JJw/DHqD6aO1ypAHi5an90ayjrCjLiK32kAm+dviD6J
+	 Q0JylXymuXDyxIUFUO27lDvtgRzxY0hyTsFy28kwYB+5kE8gslDkWB2Po4JHbROT/dT1t
+	 J7NZa88F+P5dkVOlT7ccwjXAWdzFwBjzSAWE7+PUDGCF6ZAJcb3Bz3qQQ3LoPQfqQ8zIu
+	 Ct6hCbICs76j6QrRflRuW3MRgY7lW9vngS66K/2Rc8flRHNnbBjesplwxAE+okK6LRqNz
+	 f75odmuO2dq082CBocH75ChuUC0UyxANNIz1Fu3ck+fDTFJPWDSSYTh6tIQsS9UExRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsRSLPSW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuhYaCYZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3908606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:23:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7AD606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hsRSLPSW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0223C1F008A2;
-	Tue, 10 Nov 2026 05:23:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuhYaCYZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A93B1F0089F;
+	Tue, 10 Nov 2026 05:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794288200;
-	bh=i5LxzyO5dpo5Ht8QcsUYRJlfUI1jl9o895e8PYOLqtg=;
+	s=k20260515; t=1794288313;
+	bh=glIKqPh2ZmGsID2Q6xqplCfDwcHNEoaEaNPhMemU0Ec=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hsRSLPSW5xt9L7bL96i5vOqSVvhBG/7p8NV8yR+xZUjTlof0+wd0kkYkCzQbcLbjw
-	 aP0BUb1uffFLC2m24CXBYFGMefY3r5nCUrGzqe+/l2/uBwzzBvpwNa88m4VRisvV36
-	 zNnh2SQOxDwaEBxnci/0UVN8v12b2mdpabzXI81d8wRUgP7HdAAvdGkmH3H53rgvQ9
-	 PO4/Z5MWPrGDKJXUkbF6pAZdRuCgbpvMFV2ubu6TsA2TiY3YW8Le6ckAtmYlvlV10E
-	 iDFA1XsTfTAJZASi/Nsf9so8WXG7IdtVXQd5ay2+s4w3LTGyw5i+PWgmIeyDI60hKt
-	 kwbbZliip6VQg==
+	b=kuhYaCYZuB8+FsX8FJGhNvt+9r+QXigpnxLiBkfWC8TctrBocjzI89qkYZwK6HnGZ
+	 wawAmsht/3zw579AIJQDeelwMcM99n4esIPczj9B808WLmYpVC9tVxWUWaWobMGURQ
+	 FJ8tvvIPfSkTTOPAM30tVuhIUZebVhVNKipNvt0m97qkZH2sa5+8MJOTiMdt+o4tHa
+	 26bcr8SAFzI1N8GZqFd7/Z9y/gypK02GD92AY5tFVjG4MjXLDN0GsJ48znzfZehIrF
+	 M3YNvZeVdtme38MAVUQgGLE3kzVeCPpMLo22ot02zhAajqXpkAPqEGy9Y8HJUy7A9G
+	 BnCYCrTA8lb7A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hui Peng <benquike@gmail.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Kees Cook <kees@kernel.org>,
+Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] seccomp: restore knotif->state when SECCOMP_ADDFD_FLAG_SEND is interrupted
-Date: Tue, 10 Nov 2026 00:23:17 -0500
-Message-ID: <20261110052309.446865-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: microchip-isc: synchronize the IRQ before disabling clocks on stop
+Date: Tue, 10 Nov 2026 00:25:10 -0500
+Message-ID: <20261110052454.389809-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110052309.446865-1-sashal@kernel.org>
-References: <20261107055933-failed-5.15-832b9b176be0@kernel.org>
- <20261110052309.446865-1-sashal@kernel.org>
+In-Reply-To: <20261107055805-failed-5.15-19fa5407da5e@kernel.org>
+References: <20261107055805-failed-5.15-19fa5407da5e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,276 +62,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hui Peng <benquike@gmail.com>
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-[ Upstream commit 832b9b176be06a20747a267db6bc0010a24b74f4 ]
+[ Upstream commit 19fa5407da5ef3e605cacfcd90f70d8b2c121cd7 ]
 
-In seccomp_notify_addfd(), when SECCOMP_ADDFD_FLAG_SEND is set in
-addfd.flags, knotif->state is optimistically transitioned from
-SECCOMP_NOTIFY_SENT to SECCOMP_NOTIFY_REPLIED before waking the tracee
-and waiting on kaddfd.completion:
+isc_stop_streaming() masks the DMA interrupt and then drops the runtime
+PM reference, which disables the ISC clocks. microchip_isc_interrupt()
+may still be executing on another CPU at that point; it reads ISC_INTSR
+over regmap, and touching the unclocked registers triggers an external
+abort.
 
-	if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND) {
-		knotif->state = SECCOMP_NOTIFY_REPLIED;
-		...
-	}
+Store the IRQ number at probe and call synchronize_irq() after masking
+the interrupt, before dropping the PM reference.
 
-If wait_for_completion_interruptible(&kaddfd.completion) is interrupted
-by a signal before the tracee dequeues the kaddfd request
-(!list_empty(&kaddfd.list)), seccomp_notify_addfd() removes kaddfd from
-knotif->addfd and returns -EINTR to the supervisor without having
-installed the file descriptor.
-
-However, knotif->state is left as SECCOMP_NOTIFY_REPLIED (with
-knotif->error == 0 and knotif->val == 0). This causes two problems:
-
-1. When the tracee runs in do_user_notif(), it checks
-   if (knotif.state != SECCOMP_NOTIFY_REPLIED) after calling
-   seccomp_handle_addfd(). Because knotif->state is already
-   SECCOMP_NOTIFY_REPLIED, the tracee exits the notification wait loop
-   prematurely and returns 0 from the trapped syscall without the file
-   descriptor ever having been installed.
-
-2. If the supervisor retries SECCOMP_IOCTL_NOTIF_ADDFD or
-   SECCOMP_IOCTL_NOTIF_SEND before the tracee runs, it fails with
-   -EINPROGRESS because knotif->state is no longer SECCOMP_NOTIFY_SENT.
-
-Fix this by restoring knotif->state back to SECCOMP_NOTIFY_SENT if
-SECCOMP_ADDFD_FLAG_SEND was set and kaddfd was not consumed before the
-interrupted wait. Also add a seccomp_bpf selftest
-(user_notification_addfd_send_interrupted) covering this race.
-
-Tested in QEMU against Linux 7.3.0-rc3 using the
-user_notification_addfd_send_interrupted selftest added in this patch
-(./seccomp_bpf -t user_notification_addfd_send_interrupted): on the
-unfixed kernel the test fails because the retry ioctl(listener,
-SECCOMP_IOCTL_NOTIF_ADDFD, &addfd) returns -EINPROGRESS (-1) and the
-tracee prematurely exits do_user_notif() with return value 0 instead of
-FD 42, whereas with this patch applied the test passes.
-
-Fixes: 0ae71c7720e3 ("seccomp: Support atomic "addfd + send reply"")
+Fixes: 106267444f12 ("[media] atmel-isc: add the Image Sensor Controller code")
 Cc: stable@vger.kernel.org
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
-Link: https://patch.msgid.link/20260922023204.2504832-1-benquike@gmail.com
-Signed-off-by: Kees Cook <kees@kernel.org>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adapted context to the older Atmel ISC driver naming ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/seccomp.c                              |   7 +-
- tools/testing/selftests/seccomp/seccomp_bpf.c | 179 ++++++++++++++++++
- 2 files changed, 184 insertions(+), 2 deletions(-)
+ drivers/media/platform/atmel/atmel-isc-base.c    | 3 +++
+ drivers/media/platform/atmel/atmel-isc.h         | 1 +
+ drivers/media/platform/atmel/atmel-sama5d2-isc.c | 2 ++
+ drivers/media/platform/atmel/atmel-sama7g5-isc.c | 2 ++
+ 4 files changed, 8 insertions(+)
 
-diff --git a/kernel/seccomp.c b/kernel/seccomp.c
-index db10e73d06e02..5127f6204f8a4 100644
---- a/kernel/seccomp.c
-+++ b/kernel/seccomp.c
-@@ -1663,10 +1663,13 @@ static long seccomp_notify_addfd(struct seccomp_filter *filter,
- 	 * We need to check again if the addfd request has been handled,
- 	 * and if not, we will remove it from the queue.
- 	 */
--	if (list_empty(&kaddfd.list))
-+	if (list_empty(&kaddfd.list)) {
- 		ret = kaddfd.ret;
--	else
-+	} else {
- 		list_del(&kaddfd.list);
-+		if (addfd.flags & SECCOMP_ADDFD_FLAG_SEND)
-+			knotif->state = SECCOMP_NOTIFY_SENT;
-+	}
+diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
+index eeaf91d80acd7..4d0164db30b4a 100644
+--- a/drivers/media/platform/atmel/atmel-isc-base.c
++++ b/drivers/media/platform/atmel/atmel-isc-base.c
+@@ -708,6 +708,9 @@ static void isc_stop_streaming(struct vb2_queue *vq)
+ 	/* Disable DMA interrupt */
+ 	regmap_write(isc->regmap, ISC_INTDIS, ISC_INT_DDONE);
  
- out_unlock:
- 	mutex_unlock(&filter->notify_lock);
-diff --git a/tools/testing/selftests/seccomp/seccomp_bpf.c b/tools/testing/selftests/seccomp/seccomp_bpf.c
-index cf53b982d8513..52a0827d1e61a 100644
---- a/tools/testing/selftests/seccomp/seccomp_bpf.c
-+++ b/tools/testing/selftests/seccomp/seccomp_bpf.c
-@@ -4191,6 +4191,185 @@ TEST(user_notification_addfd_rlimit)
- 	close(memfd);
- }
++	/* let a running IRQ handler finish before the clock is disabled */
++	synchronize_irq(isc->irq);
++
+ 	pm_runtime_put_sync(isc->dev);
  
-+/* Just take a signal and do nothing else. */
-+static void empty_handler(int signo)
-+{
-+}
+ 	/* Disable stream on the sub device */
+diff --git a/drivers/media/platform/atmel/atmel-isc.h b/drivers/media/platform/atmel/atmel-isc.h
+index 2bfcb135ef13b..f958da504dad3 100644
+--- a/drivers/media/platform/atmel/atmel-isc.h
++++ b/drivers/media/platform/atmel/atmel-isc.h
+@@ -257,6 +257,7 @@ struct isc_device {
+ 	u32			dcfg;
+ 
+ 	struct device		*dev;
++	int			irq;
+ 	struct v4l2_device	v4l2_dev;
+ 	struct video_device	video_dev;
+ 
+diff --git a/drivers/media/platform/atmel/atmel-sama5d2-isc.c b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+index cf96d40828ab5..5faa1c775f7c6 100644
+--- a/drivers/media/platform/atmel/atmel-sama5d2-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+@@ -415,6 +415,8 @@ static int atmel_isc_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	isc->irq = irq;
 +
-+/*
-+ * Verify that when SECCOMP_IOCTL_NOTIF_ADDFD with SECCOMP_ADDFD_FLAG_SEND is
-+ * interrupted by a signal before the tracee dequeues the addfd request,
-+ * knotif->state is restored from SECCOMP_NOTIFY_REPLIED back to
-+ * SECCOMP_NOTIFY_SENT so that:
-+ *   1. The woken tracee sees knotif->state == SECCOMP_NOTIFY_SENT in
-+ *      do_user_notif() and goes back to sleep instead of prematurely
-+ *      returning 0 from the trapped syscall without the FD installed.
-+ *   2. The supervisor can retry SECCOMP_IOCTL_NOTIF_ADDFD (or
-+ *      SECCOMP_IOCTL_NOTIF_SEND) instead of failing with -EINPROGRESS.
-+ *
-+ * To deterministically hit the race window where the supervisor sleeps in
-+ * wait_for_completion_interruptible(&kaddfd.completion) after waking the
-+ * tracee (complete(&knotif->ready)) but before the tracee runs
-+ * seccomp_handle_addfd(), pin all processes to a single CPU and enforce a
-+ * strict 3-tier scheduling priority hierarchy on that CPU:
-+ *   - Supervisor:            SCHED_FIFO priority 99 (highest)
-+ *   - Signal helper (sig_pid): SCHED_FIFO priority 50 (middle)
-+ *   - Tracee (pid):          SCHED_IDLE             (lowest)
-+ */
-+TEST(user_notification_addfd_send_interrupted)
-+{
-+	/*
-+	 * Save parent_pid before user_notif_syscall(__NR_getppid, ...) installs
-+	 * the seccomp filter on the calling process; children inherit that
-+	 * filter, so sig_pid must not call getppid().
-+	 */
-+	pid_t tracee_pid, sig_pid, parent_pid = getpid();
-+	long ret;
-+	int status, listener, memfd, err;
-+	struct seccomp_notif_addfd addfd = {};
-+	struct seccomp_notif req = {};
-+	struct sigaction sa = {};
-+	struct sched_param sp_zero = { .sched_priority = 0 };
-+	struct sched_param sp_fifo_high = { .sched_priority = 99 };
-+	struct sched_param sp_fifo_mid = { .sched_priority = 50 };
-+	struct timespec delay = { .tv_nsec = 15000000 };
-+	cpu_set_t cpuset;
-+	int cpu;
+ 	ret = devm_request_irq(dev, irq, isc_interrupt, 0,
+ 			       "atmel-sama5d2-isc", isc);
+ 	if (ret < 0) {
+diff --git a/drivers/media/platform/atmel/atmel-sama7g5-isc.c b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+index 3183ab2345c8b..7f0f635479bf1 100644
+--- a/drivers/media/platform/atmel/atmel-sama7g5-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+@@ -408,6 +408,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	isc->irq = irq;
 +
-+	/* Pin the supervisor (and its future child processes) to one CPU. */
-+	cpu = sched_getcpu();
-+	if (cpu >= 0) {
-+		CPU_ZERO(&cpuset);
-+		CPU_SET(cpu, &cpuset);
-+		sched_setaffinity(0, sizeof(cpuset), &cpuset);
-+	}
-+
-+	sa.sa_handler = empty_handler;
-+	ASSERT_EQ(sigaction(SIGUSR1, &sa, NULL), 0);
-+
-+	memfd = memfd_create("test", 0);
-+	ASSERT_GE(memfd, 0);
-+
-+	ret = prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
-+	ASSERT_EQ(0, ret) {
-+		TH_LOG("Kernel does not support PR_SET_NO_NEW_PRIVS!");
-+	}
-+
-+	/*
-+	 * Follow the convention of other user_notification_* tests in this
-+	 * file by trapping __NR_getppid: because the filter is installed on
-+	 * the supervisor before fork(), the trapped syscall must be a
-+	 * side-effect-free syscall that the supervisor itself never invokes.
-+	 * Even though getppid() does not normally return an FD,
-+	 * SECCOMP_ADDFD_FLAG_SEND replaces the trapped syscall's return value
-+	 * with the newly installed FD number (42).
-+	 */
-+	listener = user_notif_syscall(__NR_getppid,
-+				      SECCOMP_FILTER_FLAG_NEW_LISTENER);
-+	ASSERT_GE(listener, 0);
-+
-+	tracee_pid = fork();
-+	ASSERT_GE(tracee_pid, 0);
-+
-+	if (tracee_pid == 0) {
-+		/*
-+		 * Tracee: invoke __NR_getppid as a dummy trigger syscall to
-+		 * trap into do_user_notif(). Verify that the syscall returns
-+		 * the injected FD number (42) and that FD 42 is open.
-+		 */
-+		ret = syscall(__NR_getppid);
-+		exit(ret != 42 || fcntl(42, F_GETFD) < 0);
-+	}
-+
-+	/* Wait for the tracee to trap in do_user_notif(). */
-+	ASSERT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_RECV, &req), 0);
-+
-+	/*
-+	 * Demote the tracee to SCHED_IDLE and promote the supervisor to
-+	 * SCHED_FIFO(99) on the same CPU.
-+	 */
-+	ASSERT_EQ(sched_setscheduler(tracee_pid, SCHED_IDLE, &sp_zero), 0);
-+	if (sched_setscheduler(0, SCHED_FIFO, &sp_fifo_high) != 0) {
-+		kill(tracee_pid, SIGKILL);
-+		waitpid(tracee_pid, NULL, 0);
-+		SKIP(return, "SCHED_FIFO requires CAP_SYS_NICE");
-+	}
-+
-+	addfd.srcfd = memfd;
-+	addfd.newfd_flags = O_CLOEXEC;
-+	addfd.newfd = 42;
-+	addfd.id = req.id;
-+	addfd.flags = SECCOMP_ADDFD_FLAG_SETFD | SECCOMP_ADDFD_FLAG_SEND;
-+
-+	/*
-+	 * Fork a signal helper on the same CPU and set it to SCHED_FIFO(50).
-+	 * Because the supervisor is currently running at SCHED_FIFO(99) on
-+	 * this CPU, sig_pid is queued on the runqueue but cannot run until the
-+	 * supervisor blocks inside the kernel.
-+	 *
-+	 * When the supervisor invokes ioctl(SECCOMP_IOCTL_NOTIF_ADDFD) below:
-+	 *   1. seccomp_notify_addfd() sets knotif->state = SECCOMP_NOTIFY_REPLIED,
-+	 *      wakes the tracee (SCHED_IDLE), and blocks in
-+	 *      wait_for_completion_interruptible(&kaddfd.completion).
-+	 *   2. The CPU scheduler immediately runs sig_pid (SCHED_FIFO 50)
-+	 *      ahead of the woken tracee (SCHED_IDLE).
-+	 *   3. sig_pid sends SIGUSR1 to parent_pid, waking the supervisor
-+	 *      (SCHED_FIFO 99), which immediately preempts sig_pid, aborts the
-+	 *      wait with -ERESTARTSYS (-EINTR), removes kaddfd from
-+	 *      knotif->addfd, and restores knotif->state = SECCOMP_NOTIFY_SENT
-+	 *      before the tracee has executed a single instruction.
-+	 */
-+	sig_pid = fork();
-+	if (sig_pid < 0) {
-+		sched_setscheduler(0, SCHED_OTHER, &sp_zero);
-+		kill(tracee_pid, SIGKILL);
-+		waitpid(tracee_pid, NULL, 0);
-+	}
-+	ASSERT_GE(sig_pid, 0);
-+	if (sig_pid == 0) {
-+		if (sched_setscheduler(0, SCHED_FIFO, &sp_fifo_mid) != 0)
-+			_exit(1);
-+		kill(parent_pid, SIGUSR1);
-+		_exit(0);
-+	}
-+
-+	ret = ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd);
-+	err = errno;
-+
-+	/*
-+	 * Restore normal scheduling ASAP so the supervisor does not remain
-+	 * SCHED_FIFO on a single-CPU machine/VM/CI, then sleep briefly so the
-+	 * woken tracee runs in do_user_notif(). With knotif->state restored to
-+	 * SECCOMP_NOTIFY_SENT, the tracee must loop back to sleep waiting for
-+	 * the notification reply rather than returning 0 from __NR_getppid.
-+	 */
-+	ASSERT_EQ(sched_setscheduler(0, SCHED_OTHER, &sp_zero), 0);
-+	ASSERT_EQ(sched_setscheduler(tracee_pid, SCHED_OTHER, &sp_zero), 0);
-+
-+	EXPECT_EQ(ret, -1);
-+	EXPECT_EQ(err, EINTR);
-+	EXPECT_EQ(waitpid(sig_pid, &status, 0), sig_pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	nanosleep(&delay, NULL);
-+
-+	/*
-+	 * Retry SECCOMP_IOCTL_NOTIF_ADDFD. Because knotif->state is
-+	 * SECCOMP_NOTIFY_SENT, the retry succeeds (returns 42) instead of
-+	 * failing with -EINPROGRESS, installs FD 42 into the tracee, and wakes
-+	 * the tracee to complete the syscall with return value 42.
-+	 */
-+	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), 42);
-+
-+	EXPECT_EQ(waitpid(tracee_pid, &status, 0), tracee_pid);
-+	EXPECT_EQ(true, WIFEXITED(status));
-+	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	close(listener);
-+	close(memfd);
-+}
-+
- #ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
- #define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
- #define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
+ 	ret = devm_request_irq(dev, irq, isc_interrupt, 0,
+ 			       "microchip-sama7g5-xisc", isc);
+ 	if (ret < 0) {
 -- 
 2.53.0
 
