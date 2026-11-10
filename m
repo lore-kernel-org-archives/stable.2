@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794320353;
-	b=XiV/GsyaysSeEblj6iGAHmC+Xtoc4NVZe+VBTY8y3Y8z0bbVJTek5DcPToijdLhHi7q6
-	 PzThTvZnHybJaQxMRCRrxWeVNyCoxZrrggRYRHJXAeZkPXrtCo7gOb2GUH9UmtWLN0t6z
-	 cVlep9/Aa76ak1t8ik8Jdv2SXSd1r++Ssppstm5yMYIPqv0isRt4k5cXAy6CJJor2IDYp
-	 985gYCiIlf3Ixa4XYB45Z+Sd0mDs7etd37HyBUEiDepUYUqDJXGz5JzOkAAyjcmS8FATe
-	 UQM3ewMaMlkSD39tyzx68hdW8aw2IgeEBGB6ghOaHPFtm+7djfp7HUgrK54ZbDAURTA==
+	b=EFTCz9BlY0n8r1ZAauM2U++YjhLqtKGxzGxuxUCqD8GQc3NMYw40TL+QL7CQxs2WXmAz
+	 0fcHa0AUI0XdCgLR4DYwpsKisR/TyFw4td83X5VvM/modf9nafSU+1w1tCow1rfK0H1Em
+	 sjScXH2qvjlA/DZxfLrxnYzij61km3bRznP4hLLUtg97I8/9BidraxrhJbycQYv46ClXA
+	 yGtaAtV3u7dZA3npUvCYImMNby2AtMay1U6vGNlEdW4rYwuN+XD7mTmVXaS/mC34IVnr6
+	 pktFzCvzMSImCOmTEPWoxRoGNkitTglriqcBuqeKxj2O0srpZroNANLRvsqJ1FuJoKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794320353;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oGsE5c6XH3HHiDeuJIrz2mZoWl6z2j++YbZoOqXqDnE=;
-	b=e30T1ZMjoFB8Qjfq/lPEza97fvFKscwX/7Q4Dab9gcjlxvrydFSqD/jX5+mha1cdhNDF
-	 1tq59yCe+/gqFaZPFSAPBtv2SIWzXc4RBbLRi2V5cYEDkhVAvpVBGlMdKutqgJi2wCKkP
-	 +0W4u6kfXNgagqx9I5jvQnLqyNRImMXQIsZVklBuCub02uz2ZERdJSyG+uQa+386Sh0Vr
-	 8eoLM8SPHlntgSMud7Le/asLrKxN9flX3S+OkdKW1vOVzLV89tCB8tf3YuDrVKCaNm+E/
-	 VEyoXVRdh7ojrcCo/kbux5lMjJ8WPiiPnJaTRIth+WGM2j7dU6HxcnRHA1J0bKyfpVA==
+	bh=L+uc25INgXGPnWiudSZ6csjUHBw27vA/kBtTDTIkbAc=;
+	b=zwIed3PzHvfzLz12TdYQrnDicLMozBiJYv8qC+/XTqk6/ZIX/PRhk/p3+I4n1Uhi+3rX
+	 XIrav5BlKurMhriBepwSfMD5tMwlAgBuYrRcJ3/t83QsymxueozOUlMwCUtCGCV/GB0EZ
+	 x5nsRU4am8gFLq6RhorUIseqFghed3SKbH1M5REvrs8HMzCgjF7g/041/Tyed5vXCLP6i
+	 qmKjE3nx8k+Ml8Ke3xGLm6VthfZsQ6KXKGkLIbqopnLMV9tbM1EuRoSQmEO+bcg1zkLEK
+	 9OrNtZYeydROSsL1GlT2boeR/EFlhE5fBevIHZei+UF5EsjyoFOClORnrPERbL5DiOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUBbcUYM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1xte0Vj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0708606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C230F606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUBbcUYM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F34B1F008A1;
-	Tue, 10 Nov 2026 14:19:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k1xte0Vj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14CE1F0089F;
+	Tue, 10 Nov 2026 14:19:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320351;
-	bh=oGsE5c6XH3HHiDeuJIrz2mZoWl6z2j++YbZoOqXqDnE=;
+	s=k20260515; t=1794320352;
+	bh=L+uc25INgXGPnWiudSZ6csjUHBw27vA/kBtTDTIkbAc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DUBbcUYMPPgoVpvb0YVTK5K0RroA7FQwtVX7jh0sqO+f/AbR/92t87jMRT17NI4OM
-	 Kb/4fFKLQ+Tfrf1styvcdry39c+z7p2R9gWR0dq56GVIbbGFnHveavA6HiKcLMd6NF
-	 uq1XRKLkv71f7cFCSR4tdXuWnQAm7NqNXm+/U5C0gfoM+bv1Dpxg9KtmavLmZZatBw
-	 3G15LgqwLbViOa46uQxHreyb5Y6/sUTACynw4HD5jTGQImwruOsWuOX2T4gmL0O8ut
-	 1U7b/GeYHv9H2RQalZCV0P66jrQf3DFZJ0+RiozTtbs7QhzVnJbIWCFIgRvPbC6bP+
-	 xzpe2Epx5lYYg==
+	b=k1xte0Vj0MUZaDXUj57a9YQcr2HhfCzLB6744JMBi2LxHEHg+g+G/yuyA4pjPkALR
+	 WWHvOIk1XMHeHI6UUkh4aU2cGjoWEMXr7QldHXtVHLDihQ2t/CIuZmvDhc0kFwtJlX
+	 F+uzWMrMykN5Ggh8zpvHWOzCokwmrzK7TZF9vj0eQUpKUQg8zmV3yuucpqtl/pMwfM
+	 rCgEb56oHZpbDo7QES0G/iksPNCY3O/DC04Rs3pN4jNE7dDNq34NqPQY3wtpGVrfZt
+	 SjKRCPvaSCLE6wO4QTUO4d3WaIlORFD5E1WJd0WFYqsSjVc5fiACesqltcVNwVC9t6
+	 KOU2yowBrblgw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Robert Marko <robert.marko@sartura.hr>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] spi: atmel-quadspi: use init callback for gclk variants
-Date: Tue, 10 Nov 2026 09:19:08 -0500
-Message-ID: <20261110141901.1859701-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] spi: atmel-quadspi: balance runtime PM and pclk across system sleep
+Date: Tue, 10 Nov 2026 09:19:09 -0500
+Message-ID: <20261110141901.1859701-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110141901.1859701-1-sashal@kernel.org>
 References: <20261107050822-failed-6.18-717e45f97246@kernel.org>
@@ -62,95 +63,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Robert Marko <robert.marko@sartura.hr>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit b881f1d8d1dfbc4480776d3b16f80261a5a68cbc ]
+[ Upstream commit 717e45f97246d1070cdf86ccd7a0fb872b45933a ]
 
-Assign the existing SAMA7G5 initialization routine to every generic
-clock variant and dispatch initialization exclusively through the
-capability callback.
+On the controllers with a generic clock (SAMA7G5, SAMA7D65, SAM9X7 and
+LAN969x), atmel_qspi_suspend() takes a runtime PM reference and returns
+without dropping it or suspending the device. It disables the peripheral
+clock directly. atmel_qspi_resume() only prepares the peripheral clock
+and then reinitializes the controller with that clock still off.
 
-This keeps hardware capabilities separate from initialization selection
-and lets variants override the sequence explicitly.
+On a SAM9X75 Curiosity board, the tested standby and mem resumes
+failed:
 
-Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-Link: https://patch.msgid.link/20260709112006.390742-4-robert.marko@sartura.hr
+  atmel_qspi f0014000.spi: PM: failed to resume: error -110
+  spi-nor spi0.0: resume() failed
+
+Reading the flash afterwards returned no data. The runtime usage count
+grew by one with each cycle, and the second suspend disabled the
+peripheral clock again:
+
+  WARNING: drivers/clk/clk.c:1257 at clk_core_disable+0x6c/0xcc
+  qspi_clk already disabled
+
+Use the same runtime PM sequence as the other variants. Suspend disables
+the controller and forces a runtime suspend. Resume forces a runtime
+resume, which enables the peripheral clock, before it runs the init
+callback, and drops the reference afterwards. With this change the
+tested resumes succeed on the board in both modes, the controller
+returns to runtime suspend, and the flash reads back.
+
+Fixes: 5af42209a4d2 ("spi: atmel-quadspi: Add support for sama7g5 QSPI")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260709112006.390742-1-robert.marko%40sartura.hr?part=3
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://patch.msgid.link/20260923012950.15651-1-kmehltretter@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
-Stable-dep-of: 717e45f97246 ("spi: atmel-quadspi: balance runtime PM and pclk across system sleep")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/atmel-quadspi.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/spi/atmel-quadspi.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
-index 6c2d3c00409bb..a917530f81741 100644
+index a917530f81741..d3c14e2ec8c86 100644
 --- a/drivers/spi/atmel-quadspi.c
 +++ b/drivers/spi/atmel-quadspi.c
-@@ -1159,10 +1159,7 @@ static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
- 	/* The controller can communicate with a single peripheral device (target). */
- 	aq->target_max_speed_hz = spi->max_speed_hz;
+@@ -1543,12 +1543,14 @@ static int __maybe_unused atmel_qspi_suspend(struct device *dev)
  
--	if (aq->caps->init)
--		return aq->caps->init(aq);
+ 	if (aq->caps->has_gclk) {
+ 		ret = atmel_qspi_sama7g5_suspend(aq);
+-		clk_disable_unprepare(aq->pclk);
+-		return ret;
++		if (ret) {
++			pm_runtime_put_autosuspend(dev);
++			return ret;
++		}
++	} else {
++		atmel_qspi_write(QSPI_CR_QSPIDIS, aq, QSPI_CR);
+ 	}
+ 
+-	atmel_qspi_write(QSPI_CR_QSPIDIS, aq, QSPI_CR);
 -
--	return atmel_qspi_sama7g5_init(aq);
-+	return aq->caps->init(aq);
- }
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_force_suspend(dev);
  
- static int atmel_qspi_setup(struct spi_device *spi)
-@@ -1577,11 +1574,8 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
+@@ -1574,20 +1576,20 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
  		return ret;
  	}
  
--	if (aq->caps->init)
+-	if (aq->caps->has_gclk)
 -		return aq->caps->init(aq);
 -
- 	if (aq->caps->has_gclk)
--		return atmel_qspi_sama7g5_init(aq);
-+		return aq->caps->init(aq);
- 
  	ret = pm_runtime_force_resume(dev);
  	if (ret < 0)
-@@ -1639,6 +1633,7 @@ static const struct atmel_qspi_caps atmel_sam9x60_qspi_caps = {
+ 		return ret;
  
- static const struct atmel_qspi_caps atmel_sam9x7_ospi_caps = {
- 	.max_speed_hz = SAM9X7_QSPI_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.octal = true,
- 	.has_dma = true,
-@@ -1649,6 +1644,7 @@ static const struct atmel_qspi_caps atmel_sam9x7_ospi_caps = {
+-	atmel_qspi_init(aq);
+-
+-	atmel_qspi_write(aq->scr, aq, QSPI_SCR);
++	if (aq->caps->has_gclk) {
++		ret = aq->caps->init(aq);
++	} else {
++		atmel_qspi_init(aq);
++		atmel_qspi_write(aq->scr, aq, QSPI_SCR);
++	}
  
- static const struct atmel_qspi_caps atmel_sama7d65_ospi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI0_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.octal = true,
- 	.has_dma = true,
-@@ -1659,6 +1655,7 @@ static const struct atmel_qspi_caps atmel_sama7d65_ospi_caps = {
+ 	pm_runtime_put_autosuspend(dev);
  
- static const struct atmel_qspi_caps atmel_sama7d65_qspi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI1_SDR_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.has_dma = true,
- 	.has_2xgclk = true,
-@@ -1667,6 +1664,7 @@ static const struct atmel_qspi_caps atmel_sama7d65_qspi_caps = {
+-	return 0;
++	return ret;
+ }
  
- static const struct atmel_qspi_caps atmel_sama7g5_ospi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI0_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.octal = true,
- 	.has_dma = true,
-@@ -1676,6 +1674,7 @@ static const struct atmel_qspi_caps atmel_sama7g5_ospi_caps = {
- 
- static const struct atmel_qspi_caps atmel_sama7g5_qspi_caps = {
- 	.max_speed_hz = SAMA7G5_QSPI1_SDR_MAX_SPEED_HZ,
-+	.init = atmel_qspi_sama7g5_init,
- 	.has_gclk = true,
- 	.has_dma = true,
- 	.has_dllon = true,
+ static int __maybe_unused atmel_qspi_runtime_suspend(struct device *dev)
 -- 
 2.53.0
 
