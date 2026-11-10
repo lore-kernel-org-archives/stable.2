@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331067;
-	b=eKgrqDvrPleuWZDwA9bKvZAIDkEGBxuaGSel/GPBg3leF31rutHSXwo748u7Z5CTItQ3
-	 HkTleC3tOX5gHVKam3KzN2cC4sKxW7toKtcN4Dowf7pPeMim57n9bat4oP3HJPZFJgkzw
-	 xAqEtDzwWBDWtSkMVRFX03+MBmpSJzaIwSVQYgWAS0BWoF/rYOHXM3EaePF+xA4jav+SA
-	 IhEevMoxABy7JGtawZ2QdRXDI+h/+4eGCJJAm40hEzo8jifRN7plFMYyCBR8YypjJ/NrF
-	 vVLiPh1G9BkriTm2nhZUfyb+IZ1BLZIQK94ekMTDDSD5+qK0nyLS9gI27JEEKDEYqkQ==
+	t=1794331097;
+	b=m5tgmmW0rgvhN547/H4Q8sEmAiwStQGhZgNtWKVEWupd13z7MRLiAHPfVjuNHweBoxkA
+	 hec1/3W1BgH4f0nIFp9Z0jEmHINCAMDN30wVZxEKH5PxfTRUpQqRdOkD7426iztN39dpE
+	 pxD0dVNkzlrWpvSM+hMTsHLDN7pvCsMBV5eHQSZ0zNBS9gBV7BtzXm2En5nNP3nr6uAVH
+	 tE79YqENXmf1lBKebLSVsmCmEN0AdW04/CWpXRpNBpItE60OmRqlbT2LIVRDaRJIqEno0
+	 bVvQB71KbaQqv6eB/og1VF4pg6+UKUzaWSscrMzJ5Z5OpROA6iwZF8xvNznutBD2B3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331097;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qgAXz82GHg7Ntd4Cu9dua/sTn+j4JC3TK2QoR/fkQq0=;
-	b=0OONFnQbD5Pq/51eRRgf5WUDH2tVMWcWm4eb5r9vaOHyfiXywN5rqVuFE4bnh9yruhCQ
-	 c5dEpjl2sCADAVRc/AXWK13ha9AKCt2ZvkCJ1ND4xAvCK+2frevMuzv7tOYlDu96xm30J
-	 wAzKehBMLZ70jbvarUoclhoa0oOzkN+2ZsGGI4xIRPXceILlSf511MzigGTgRr3l8wARH
-	 ZR4kpQFUgoLKK6NRVLIHudtqiVALzw7iD8WOaBF2DK/06zJP3bwFSq/7wkgBgqi9f9irr
-	 Rb34oomJP37LvLkMiq13kD6fNGKS/o1xrgdILtNJBE0E/qEKVwlIzo1+rXb0/5KXzPg==
+	bh=9bx3ajom1jOcvAH8OA38jwM/1pQeH7lmDO/bOSvLBNk=;
+	b=0OGsJUIOCgJRpeWp5QILtIcwM2LtSPncPays1kzTZecnJmJMJcpznmrEnRjny5p7caQA
+	 yssnxD+D8Pc+IJl+cdiZaFQZRYPYYP8pZOdSrX71n7RQqrVfqTkXeKj6EIdIzktESKAnj
+	 EG2qxHEDez/tFz7JeV+Z2yWVW/oirkHVrkKPp5abEjQnbmf1IeSeTKEThOd80A1CmMBmi
+	 YDROg/XMYjn7X6h9ePkJEBJ4UOEdzNQreH3zbTqSYa/q0LkkUEG46moeM70UOtWtv7q1O
+	 IZhyDTOY5/WDOmTpm7XttWMhOdmv1XEGUZft9DVUWXxyPGCKk0jSsEuV9XXtUpNWiCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TppZLfHh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Folr+IM2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF0660A2600
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BED0606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TppZLfHh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52CF91F0089F;
-	Tue, 10 Nov 2026 17:17:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Folr+IM2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F3B1F008A2;
+	Tue, 10 Nov 2026 17:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331067;
-	bh=qgAXz82GHg7Ntd4Cu9dua/sTn+j4JC3TK2QoR/fkQq0=;
+	s=k20260515; t=1794331096;
+	bh=9bx3ajom1jOcvAH8OA38jwM/1pQeH7lmDO/bOSvLBNk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TppZLfHhQmSqDIuGn1FRtZhPDJB3zMMhouBOaN7kl1DoyyPh4Eh5ezUA2bsPH3QsV
-	 2aabHFkcD1VcwwgokXWYmqjGQ4k3DBaIN1gLD2RaF46WP2Z/M9bsinUi7Re1lwFfM0
-	 D6BvNg2RvT7+CqcptZQNCJF3FpE9NwMtoltUGYWd+olf0IgbqAsuwYbcFtz7/4ZCmc
-	 MKkKGiweaBmhC0sLcYxO3cZg9MBZGNlrhkaYXjr7x+nUH9DL+zSozJ9X5ePKhjhbOE
-	 jRjwbWAjuYEhfG5EY8HE0jmLE+co++75K8zsCk01wBuhwIAQnxwtxKZKkzmo2MnugD
-	 nHuM8ARVZEXgA==
+	b=Folr+IM2B2jdB0Q3OzoQPwU0Qa4D/xQBPv3Ycb2yv3Mi/zvDA5jmygRLvICrwu06a
+	 6MLPnb1CRpQgDEbJWqedTTPtudApJVpBNl55ILGJyp8TaizXdrwd/exe+DS4xIfaAw
+	 4VWkvbTv8l93Q8/HCf8ZJpk3T8at5gCfZDpBC1ftB1sLysHidj3dsDOo0Z1RYM3nAQ
+	 J1/HGucP7ZAoM1+oiJBy0Wqvce/R3GbOBJkiq2X4qi5MPV/T46fsJ3s3mIENqnm1Wz
+	 D6tIDGFkbOp4maiFCny1URdAIf/A26GY3BN0m1WfE7tCuiknBBaMNtB1sqJjX5C2cM
+	 Nk8wt7fO9aapw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] media: rockchip: rga: quiesce IRQ before releasing m2m state
-Date: Tue, 10 Nov 2026 12:17:43 -0500
-Message-ID: <20261110171735.2803139-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] f2fs: convert f2fs_mpage_readpages() to use folio
+Date: Tue, 10 Nov 2026 12:18:12 -0500
+Message-ID: <20261110171210.2630515-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110171735.2803139-1-sashal@kernel.org>
-References: <20261107061827-failed-5.10-a875c43dd95e@kernel.org>
- <20261110171735.2803139-1-sashal@kernel.org>
+In-Reply-To: <20261107053437-failed-6.6-b3c984358925@kernel.org>
+References: <20261107053437-failed-6.6-b3c984358925@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,65 +61,153 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d ]
+[ Upstream commit db92e6c729d87e6f5b0f467f01a96dbf1e452106 ]
 
-rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
-devm-managed and is only released once rga_remove() returns, so rga_isr()
-can still run while the m2m device state is being torn down.
+Convert f2fs_mpage_readpages() to use folio and related
+functionality.
 
-Store the IRQ number in struct rockchip_rga, unregister the video device
-first, and free the IRQ before releasing the m2m state so the handler
-cannot run against the freed state.
-
-Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Stable-dep-of: b3c984358925 ("f2fs: remove mappedtodisk flag usage in mmap write path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 4 +++-
- drivers/media/platform/rockchip/rga/rga.h | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ fs/f2fs/data.c | 80 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index f9da4ec3eb362..6787d82d457d8 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -776,6 +776,7 @@ static int rga_probe(struct platform_device *pdev)
- 		ret = irq;
- 		goto err_put_clk;
- 	}
-+	rga->irq = irq;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index b0c633c5deb75..3cb822e799be8 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2375,7 +2375,7 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
+  * Major change was from block_size == page_size in f2fs by default.
+  */
+ static int f2fs_mpage_readpages(struct inode *inode,
+-		struct readahead_control *rac, struct page *page)
++		struct readahead_control *rac, struct folio *folio)
+ {
+ 	struct bio *bio = NULL;
+ 	sector_t last_block_in_bio = 0;
+@@ -2395,6 +2395,7 @@ static int f2fs_mpage_readpages(struct inode *inode,
+ #endif
+ 	unsigned nr_pages = rac ? readahead_count(rac) : 1;
+ 	unsigned max_nr_pages = nr_pages;
++	pgoff_t index;
+ 	int ret = 0;
  
- 	ret = devm_request_irq(rga->dev, irq, rga_isr, 0,
- 			       dev_name(rga->dev), rga);
-@@ -887,8 +888,9 @@ static int rga_remove(struct platform_device *pdev)
+ 	map.m_pblk = 0;
+@@ -2408,64 +2409,63 @@ static int f2fs_mpage_readpages(struct inode *inode,
  
- 	v4l2_info(&rga->v4l2_dev, "Removing\n");
+ 	for (; nr_pages; nr_pages--) {
+ 		if (rac) {
+-			page = readahead_page(rac);
+-			prefetchw(&page->flags);
++			folio = readahead_folio(rac);
++			prefetchw(&folio->flags);
+ 		}
  
--	v4l2_m2m_release(rga->m2m_dev);
- 	video_unregister_device(rga->vfd);
-+	devm_free_irq(rga->dev, rga->irq, rga);
-+	v4l2_m2m_release(rga->m2m_dev);
- 	v4l2_device_unregister(&rga->v4l2_dev);
+-#ifdef CONFIG_F2FS_FS_COMPRESSION
+-		if (f2fs_compressed_file(inode)) {
+-			/* there are remained compressed pages, submit them */
+-			if (!f2fs_cluster_can_merge_page(&cc, page->index)) {
+-				ret = f2fs_read_multi_pages(&cc, &bio,
+-							max_nr_pages,
+-							&last_block_in_bio,
+-							rac != NULL, false);
+-				f2fs_destroy_compress_ctx(&cc, false);
+-				if (ret)
+-					goto set_error_page;
+-			}
+-			if (cc.cluster_idx == NULL_CLUSTER) {
+-				if (nc_cluster_idx ==
+-					page->index >> cc.log_cluster_size) {
+-					goto read_single_page;
+-				}
+-
+-				ret = f2fs_is_compressed_cluster(inode, page->index);
+-				if (ret < 0)
+-					goto set_error_page;
+-				else if (!ret) {
+-					nc_cluster_idx =
+-						page->index >> cc.log_cluster_size;
+-					goto read_single_page;
+-				}
++		index = folio_index(folio);
  
- 	pm_runtime_disable(rga->dev);
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index 0825622526c7b..a940919d4394a 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -69,6 +69,7 @@ struct rockchip_rga {
- 	struct device *dev;
- 	struct regmap *grf;
- 	void __iomem *regs;
-+	int irq;
- 	struct clk_bulk_data *clks;
- 	int num_clks;
- 	struct rockchip_rga_version version;
+-				nc_cluster_idx = NULL_CLUSTER;
+-			}
+-			ret = f2fs_init_compress_ctx(&cc);
++#ifdef CONFIG_F2FS_FS_COMPRESSION
++		if (!f2fs_compressed_file(inode))
++			goto read_single_page;
++
++		/* there are remained compressed pages, submit them */
++		if (!f2fs_cluster_can_merge_page(&cc, index)) {
++			ret = f2fs_read_multi_pages(&cc, &bio,
++						max_nr_pages,
++						&last_block_in_bio,
++						rac != NULL, false);
++			f2fs_destroy_compress_ctx(&cc, false);
+ 			if (ret)
+ 				goto set_error_page;
++		}
++		if (cc.cluster_idx == NULL_CLUSTER) {
++			if (nc_cluster_idx == index >> cc.log_cluster_size)
++				goto read_single_page;
+ 
+-			f2fs_compress_ctx_add_page(&cc, page);
++			ret = f2fs_is_compressed_cluster(inode, index);
++			if (ret < 0)
++				goto set_error_page;
++			else if (!ret) {
++				nc_cluster_idx =
++					index >> cc.log_cluster_size;
++				goto read_single_page;
++			}
+ 
+-			goto next_page;
++			nc_cluster_idx = NULL_CLUSTER;
+ 		}
++		ret = f2fs_init_compress_ctx(&cc);
++		if (ret)
++			goto set_error_page;
++
++		f2fs_compress_ctx_add_page(&cc, &folio->page);
++
++		goto next_page;
+ read_single_page:
+ #endif
+ 
+-		ret = f2fs_read_single_page(inode, page, max_nr_pages, &map,
++		ret = f2fs_read_single_page(inode, &folio->page, max_nr_pages, &map,
+ 					&bio, &last_block_in_bio, rac);
+ 		if (ret) {
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
+ set_error_page:
+ #endif
+-			zero_user_segment(page, 0, PAGE_SIZE);
+-			unlock_page(page);
++			folio_zero_segment(folio, 0, folio_size(folio));
++			folio_unlock(folio);
+ 		}
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
+ next_page:
+ #endif
+-		if (rac)
+-			put_page(page);
+ 
+ #ifdef CONFIG_F2FS_FS_COMPRESSION
+ 		if (f2fs_compressed_file(inode)) {
+@@ -2502,7 +2502,7 @@ static int f2fs_read_data_folio(struct file *file, struct folio *folio)
+ 	if (f2fs_has_inline_data(inode))
+ 		ret = f2fs_read_inline_data(inode, page);
+ 	if (ret == -EAGAIN)
+-		ret = f2fs_mpage_readpages(inode, NULL, page);
++		ret = f2fs_mpage_readpages(inode, NULL, folio);
+ 	return ret;
+ }
+ 
 -- 
 2.53.0
 
