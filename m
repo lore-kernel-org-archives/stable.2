@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274083;
-	b=leQCTCdx+bZ51lPomZARjQPGMsgJ4/icpNefGpt4sbL0X1t5z4mfNkoWWkbrHVHEUvSz
-	 z23H+SGVc4WNEgTTDfJsOvegurjyAcn/Qwd1GikrQaACWshfPXUD/1WigWn0ol2Qt9UVf
-	 92ZNXtgbWFTPF0i4e22hb+27wDOjVC1bomWZAzdsLWuPWtkdMISa0xt0u3h+Yea3ikPC2
-	 Z2J84SG0mcLZW4ebUwKwf2dUDu5eJoeMkB1QEiN1Dfp9j3KLqEwBoLOb3NjmoIkBTeOnR
-	 lW4lAyg9tUkXJaKSD/Xat3RhSNUOVtP4eulIZe+FTIBNdx8g+h6h7DArYZ10QZCrbuw==
+	t=1794274086;
+	b=u6glPLOVO50OE1taizK2eE8bYFfpc4kcP0cryGORU3OJiGjtVDN91IIaQZk6WrMYpB0q
+	 Lcth939xvn+5mPPBrnWVAx8mcEIDV7mlXTf4y4VFer82eIoQGGbpHFAnW8fxuzzWKQLSG
+	 xt4AWgq1VQ4r4hHcaZRtNbGgZ1EUQ+UMxyOaz15FSqDCqJ5PrVPPEW4Ge9erNX4AayB5y
+	 ztxXzBYbjyUha0BH+Wzi0c0OEppnbr4AEpfa5/kVjGJScOFiCYgv7eHrxgirrUHGxc6PF
+	 80Hr1yn6cRYvIvLeVQsJmZpJTvKQyR/GD9mOsA1aW8z91twCBxV8KoFm7h8QbTtZ6Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274086;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/WFCy3Z9K5F9o4z/9pIqc8KG9sMGZjs+a5cy9XK+Z4Q=;
-	b=PlBtJylpB0/bXYi2OPTMzxlW0LJJnBZJ+kCAuVNsiEdQ11D7q06Z6R4i0jdrRvs7gaNn
-	 EbdYlipK2ZsVixuHtLv0wuA0r7KfC5OuDAeE0Sf1OQ94YmNFm7A5xFkBmzE7mR3IncD8k
-	 PduYLDwstsrp+5FlBXj5AbcBpTCTTAbgC+qqYtt3WC5k7tN3c9c91oLqjIWyhUSHD8h9A
-	 Nm27t+FsVpdbZNCZMS9TurSe9yWzg0W9XH/pCEx+0lv57Jcvg8X5xuDf2AesLW6mTTkFZ
-	 keFw0D4bNk6+QPIsQ+CKL62yxwM+vd4QR4itxu5YepNpRUZvaisWGhbpaTgEdzei5Sw==
+	bh=7F66Sd6gHYIuLABtYbqo5ZmXQVS6A/aMy4RqkjUvwFA=;
+	b=UMHQQssJIOBoMM3B1mypw3WY0LGcaaz9O7Nl/2iN9Iu3ncVWaJT4+OE/G/3xz1X/NRQG
+	 KWFEqZ8+F/Wf1aoj9tQUfHkKBiOxmcow+D45tdwqaLUSoJdyY0k+h9QCmADYA3whgkVkO
+	 GUXRP9RBqkN3HV0s0w1wS1uzRe05plwP2VSlRJ1/a/WbxQtD9HtTrVvJjY1xYCKfrA9kn
+	 W0S80eupIDE19XEAPk+RFsRrLdbj4pn86nd4FnY5D1GYmYg7fkQ33GKy4/GszeQN6pbxQ
+	 4CXSXsm5KMy3WvgRdwJe3qrTOm49wlamfTmdJIYUrx/etnf54Cwc9tCjhIQWDShD3yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wevv4fmu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuTlPGLV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D836606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E599F606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wevv4fmu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5281F0089F;
-	Tue, 10 Nov 2026 01:28:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuTlPGLV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117AB1F0089F;
+	Tue, 10 Nov 2026 01:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274083;
-	bh=/WFCy3Z9K5F9o4z/9pIqc8KG9sMGZjs+a5cy9XK+Z4Q=;
+	s=k20260515; t=1794274085;
+	bh=7F66Sd6gHYIuLABtYbqo5ZmXQVS6A/aMy4RqkjUvwFA=;
 	h=From:To:Cc:Subject:Date;
-	b=Wevv4fmuLriJOuDp8SDs4obeEwIRelLRnZTyxly1NZKMMEKJqgvf7WSJQPLgkA/nb
-	 XYXg7IBDhMk80/NJNfax5GtfTxr/kN0oSJZNVXeF27KLt4tB8O7AttXseLIh7h2tHq
-	 cerLY7gnrciFz6TUl3NY0vsPZb4PgasOsjY+bdRz+He5hlTQjlV0ExpkvZK662Ms1B
-	 rH/92spAOTgT9/WiGFjCLpesGTA3jCyCoMnAksWMTdqfO3TUNdDy+oq9Pl8y4ZSBkT
-	 xHuSS7CuQY4If8Z5d+eV0g3R73mhpK3YO35a1rKGvojaYoXGOveuzIpVUrJe+/0olX
-	 5KDLmYVLEb8pg==
+	b=AuTlPGLVnutMyFE9hfzJqCFaaGV0Xjom08/VhpuG2oWZlPr+b1EasioqNuLTYnjQu
+	 krF88fSEYIKpGPazgwjcF4ANNUEzM1WmfSTdR8vasfb6srETTmCJgQCI5yRc33MA26
+	 ulQfi73k1mDQmjyYlfyV1UjrPq31/P6WI8wiC4vohtFeV6Ulmf1FnSwkktt4G/0o92
+	 9j2MVqbSF/4gxjH0nq1Glm9T6ug6yF5K7/wwwf9zEERXrHTrkvPBuDihURvqXUINo8
+	 JvD90p5BoSRe0k6NhF/NsnyxtQP8Ctaq8gKgpONVDhO4xeznGbf1MNTOSfGqZdw3Ib
+	 sMqrWnFLtXsJg==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	rppt@kernel.org,
+To: david@kernel.org,
 	ljs@kernel.org,
-	usama.anjum@arm.com,
-	david@kernel.org
+	muchun.song@linux.dev,
+	baohua@kernel.org,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake all waiters on unregister" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:28:01 -0500
-Message-ID: <20261109202801-failed-5.10-3afb19d68cc5@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:28:03 -0500
+Message-ID: <20261109202803-failed-5.10-21a3888d3d2f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,85 +71,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3afb19d68cc5e7851fdb1069c8094af97bd80417
+git cherry-pick -x 21a3888d3d2f87b7f15ccea1f0befd57346fe899
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202801-failed-5.10-3afb19d68cc5@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202803-failed-5.10-21a3888d3d2f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3afb19d68cc5e7851fdb1069c8094af97bd80417 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:39:53 +0100
-Subject: [PATCH] mm/userfaultfd: wake all waiters on unregister
+From 21a3888d3d2f87b7f15ccea1f0befd57346fe899 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:51 +0100
+Subject: [PATCH] mm/gup: check for overflow when converting nr_pages to bytes
+ in GUP-fast
 
-UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
-Threads waiting on write-protect, minor or RWP faults can therefore remain
-asleep after unregistering a range that does not track missing faults.
+The overflow check in gup_fast_fallback() only covers the addition to
+start. The preceding nr_pages << PAGE_SHIFT can already have truncated
+the length on 32bit.
 
-Wake pending faults regardless of the registration mode so they can retry
-without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
-the existing behavior for missing faults, including removing unread fault
-messages for the woken waiters.
+Users such as RapidIO's rio_dma_transfer() can derive such page counts
+from a 64-bit userspace length.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+Let's just check_shl_overflow() to reject any such overflow with
+-EOVERFLOW early.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: rebase; simplify description ]
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Barry Song <baohua@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-24-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-22-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+ mm/gup.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3ca04b582329f..be630674fda9b 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+diff --git a/mm/gup.c b/mm/gup.c
+index 1c2ac7c66c309..ba4907b352323 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -3225,8 +3225,8 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
+ 		might_lock_read(&current->mm->mmap_lock);
  
- 	ret = 0;
- 	for_each_vma_range(vmi, vma, end) {
-+		struct userfaultfd_wake_range range;
-+
- 		cond_resched();
- 
- 		/* VMA not registered with userfaultfd. */
-@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 		/* Prevent new userfaults from being queued after the wakeup. */
- 		vma_start_write(vma);
- 
--		if (userfaultfd_missing(vma)) {
--			/*
--			 * Wake any concurrent pending userfault while
--			 * we unregister, so they will not hang
--			 * permanently and it avoids userland to call
--			 * UFFDIO_WAKE explicitly.
--			 */
--			struct userfaultfd_wake_range range;
--			range.start = start;
--			range.len = vma_end - start;
--			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
--		}
-+		/*
-+		 * Wake any concurrent pending userfault while we unregister,
-+		 * so they will not hang permanently and it avoids userland to
-+		 * call UFFDIO_WAKE explicitly.
-+		 */
-+		range.start = start;
-+		range.len = vma_end - start;
-+		wake_userfault(ctx, &range);
- 
- 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
- 					    start, vma_end);
+ 	start = untagged_addr(start) & PAGE_MASK;
+-	len = nr_pages << PAGE_SHIFT;
+-	if (check_add_overflow(start, len, &end))
++	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
++	    check_add_overflow(start, len, &end))
+ 		return -EOVERFLOW;
+ 	if (end > TASK_SIZE_MAX)
+ 		return -EFAULT;
 -- 
 2.53.0
 
