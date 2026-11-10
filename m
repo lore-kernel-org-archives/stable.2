@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273130;
-	b=H3fC3H97M9LRzJr2Q2+Gy+28Ypk6Tsz4zskmpfY6Z6RhWpRtJNCzHsJJJmQNbkOSD/ew
-	 zu5Pqx50KHBf5Z0N5NLvprnLpk4CctITAe8sVDEN0K0o2xalNW+5h+8E3TZAL0WwC4ykY
-	 s36oZBsK5fWmGb546bP+3PldYYOKHNoxMCGHMWlAK6CX8YmoAPIpXFbcLKxRJgxlebY4r
-	 zz07qDmwB6DLzurz59aIJxP0iZZxOfJSTMIoxfmTDc3Ou5Mey6wSK+uUVNc34E0DER5/c
-	 KmMjqSPvrIj+BPTIG/HSTDhF2V06D2+Llop1VIQemqWsKrkPWVikiUPS9BRz/KQD5iQ==
+	t=1794273133;
+	b=eHuh4bX2yr0qY/wYPZngumOfOBlr0Dpj4Oe/BsKZ5y/JLAZ8WBHBjzBHpNlyy8htLLLT
+	 3Ul44OVYDzfLrIXwN1U1X9mLXhe5V6sc/RWjy2PO0vxSZsqWdH0ZnutI1sFakXoaimUxu
+	 xvnBFxCZkoFger/oQ1WVeLfHXYMA+uwzngZL3yX4ims7XFyBqcjFdyfStrR9/t5kYw0JI
+	 U68LdgY2cBWAVsc70ZKYdu2s/LWfMDDQFeHNUvc8Dpw054k/dWwWG9kVEUJ3YF5qGyJpo
+	 9N2+uHJyJd9Nr0nHDdgqIzO397N1dn2hQ0BBuSWZbcljEIQ5jHBdEzg2fqoBE36Kxkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273133;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eWCvhvB+sqO4Etwam/rA9+qcf0SC4IkANw+xU5j2+bc=;
-	b=yLJSgmYe2M1szA7SZK45mf3PP9vweI9WVu/Cmv0jMxd97YnvRp94+8flDRCYgUoTBWlf
-	 gyP+u4RYWLFm/zjBosCXkrYYyFV0om2mHAnZTURUxHZPHnpgIJFyQ4FyPsOCgaUj6Oehi
-	 7YkXsxDMLGbf2AJ7D5kxxKHEwyjBArwi1C8Cm7cFopmuTnMmbNPkZbkxkDb1KvQCHRlmg
-	 BhDF18dFicCZ7SupJcDlGDpTwfXEEeWJCQJISwqFqcwoZ3Ebu9CGv74wgcqbXidpmWFRo
-	 H5jk04k0/IvRa4k4C0m2Yc2UOeeBNW4i86wwu045hrKFchqqevmjv6l9NgXvBDeLBhQ==
+	bh=+LIIqpw5uo6EtBDedpjTb2CrFPDd+rtBls0f20y4ksw=;
+	b=MSI6D0N2oiZIyBNIvRLxaCo0NTT2eSFjRQDTIvJRKDcmAomdZFsEomOymiUIOlSY9thQ
+	 uJHQ5BkJGZ3UODfa9i4ouo9lybI4hqrFiXPkzcyLU2LLlX6F56+32XJuNGpsUNzMciSIo
+	 j3M2cZXxVI3N/T9anoaH+LkszP7bhqQ5ODfmrusnxoxc9BWsBow67oKLDezMzkB5bBv8d
+	 ePmqeuBYMxWhPB4SEkp33XgOJtG0l7MQ2lVH1UCa90bWjeECPuSiMB8z1yANsQuHgGzVZ
+	 ccvCTMrfk7xQa/C9JydbMjL2Ih4GZXAi0KhplMhf6Z08BKOhXuwe/5F8bEgf5KU1gqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gAVVYCXt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILBBnIIR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246DA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A386606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gAVVYCXt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F40A1F0089F;
-	Tue, 10 Nov 2026 01:12:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILBBnIIR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1B51F0089F;
+	Tue, 10 Nov 2026 01:12:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273130;
-	bh=eWCvhvB+sqO4Etwam/rA9+qcf0SC4IkANw+xU5j2+bc=;
+	s=k20260515; t=1794273133;
+	bh=+LIIqpw5uo6EtBDedpjTb2CrFPDd+rtBls0f20y4ksw=;
 	h=From:To:Cc:Subject:Date;
-	b=gAVVYCXtkvPLGjVaiAB7BEjZI3kI91sTWReRRi8bKPm4zYSxVgWcwYxOl6LWZuM4W
-	 mma/bwRPIRNYBMe8L6pTcyMMMvMMhJ9e+WVEV0O6L9+W1dzW5KgZc0eVwWBgZk9XFk
-	 lC/k7bBO5zWbvNUVDaUFTzUplmoBlMpvXxHFggkhvkb+qXIapr8Wbem1yygExoX7tt
-	 aUP/A25/Lp5DzTrJ2Kh/12pJPp57VTuK4RBPby2/lyyTzxMvg8SF+078cGaEHR7Ii1
-	 yG+OVpWxy6KKvDaiyHenNg6HjaJaBXEHS7fv6UwVLpdHCIjGcAUPlu4FH51FIKqlr6
-	 Vq9s6f/lWFzkQ==
+	b=ILBBnIIRVJblXkdlzf/Fz3jjR7Bo3GgfyQN3pkSwIlNtuApFdLL+cXczwnTdDif7w
+	 LNQP6Sit9UxH9tlnjbpvuAgGwpTkI7Ukb7e0EAeaA2zz7Ok0UUo1u/N/NCNd1FzLx2
+	 e9P+0+G3/uI1JFv6MxW9tXH2NWnq0SOkgyxEalOcLKNIiB0691seLBy5b4K+CCoTkR
+	 wDne6oOhlJg2onEVW8k4qt+YU1+VyksFPzys3iAu+3JCCP2PMQGUOIj66MB1tNNjBq
+	 tkGAvLIpd1FADMJz9ajqdx/7BqjfsT5EmEnu4IY/pXcjjUVdnKmx0Bgvjsso1sNBvN
+	 XgukSAloPWHYw==
 From: Sasha Levin <sashal@kernel.org>
-To: dennylin0707@gmail.com,
+To: lizhe.67@bytedance.com,
+	david@kernel.org,
 	akpm@linux-foundation.org,
-	jack@suse.cz,
-	gourry@gourry.net,
-	willy@infradead.org,
-	shr@devkernel.io
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	peterx@redhat.com,
+	rppt@kernel.org,
+	azpijr@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold shares" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:12:07 -0500
-Message-ID: <20261109201207-failed-6.6-9597c2056e05@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/hugetlb: fix mremap deadlock when PMD sharing is possible" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:12:10 -0500
+Message-ID: <20261109201210-failed-6.6-92daa8652f88@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,85 +74,151 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9597c2056e05bd79df9d343a9b42e84a54de1c52
+git cherry-pick -x 92daa8652f88c8cfc05f4899a8408a04b02f211e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201207-failed-6.6-9597c2056e05@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201210-failed-6.6-92daa8652f88@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9597c2056e05bd79df9d343a9b42e84a54de1c52 Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Wed, 21 Oct 2026 06:06:54 +0000
-Subject: [PATCH] mm/page-writeback: avoid 32-bit overflow in dirty threshold
- shares
+From 92daa8652f88c8cfc05f4899a8408a04b02f211e Mon Sep 17 00:00:00 2001
+From: Li Zhe <lizhe.67@bytedance.com>
+Date: Thu, 22 Oct 2026 11:45:43 +0800
+Subject: [PATCH] mm/hugetlb: fix mremap deadlock when PMD sharing is possible
 
-The ratios used by __wb_calc_thresh() are scaled to parts per million, but
-the threshold and ratio operands are unsigned long.  On 32-bit kernels,
-their multiplication can wrap before the result is assigned to u64.
+move_hugetlb_page_tables() holds the mapping's i_mmap_rwsem for
+write while moving hugetlb PTEs. This prevents races with truncation
+and protects huge_pmd_unshare(), but the move loop must not call
+helpers that can acquire the same rwsem for read.
 
-For example, with a threshold of 25600 pages and the default maximum ratio
-of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.  The shared
-threshold and minimum share calculations can overflow in the same way,
-producing incorrect per-writeback dirty limits.
+huge_pte_alloc() can do that when the destination can use PMD
+sharing: it may call huge_pmd_share(), which takes i_mmap_rwsem for
+read while searching for a shareable PMD table. Calling it while the
+move path already holds i_mmap_rwsem for write can deadlock.
 
-Use a u64 threshold for the three ratio multiplications and div_u64() to
-retain the existing division order and rounding.
+Avoid that path for PMD-sized hugetlb mappings that can use PMD
+sharing. Instead of allocating or sharing the destination page table
+while moving, zap the source range and let the destination fault path
+populate or share the PMD lazily.
 
-Link: https://lore.kernel.org/20261021060654.27855-1-dennylin0707@gmail.com
-Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Reuse the hugetlb unmap logic for the source-side zap by splitting
+the core loop out of __unmap_hugepage_range(). The wrapper keeps the
+existing tlb_start_vma(), tlb_end_vma() and huge_pmd_unshare_flush()
+behavior, while move_hugetlb_page_tables() can reuse the unmap loop
+with its existing mmu_gather.
+
+Link: https://lore.kernel.org/20261022034543.51226-4-lizhe.67@bytedance.com
+Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Stefan Roesch <shr@devkernel.io>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page-writeback.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ mm/hugetlb.c | 47 +++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 37 insertions(+), 10 deletions(-)
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 499a35473e4f3..0694ec4098f6d 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 8995f4cc4e65d..ec05e8c1d1f85 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -137,6 +137,10 @@ static int __huge_pmd_unshare(struct mmu_gather *tlb,
+ 		bool check_locks);
+ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
++static void hugetlb_unmap_range(struct mmu_gather *tlb,
++				struct vm_area_struct *vma, unsigned long start,
++				unsigned long end, struct folio *folio,
++				zap_flags_t zap_flags);
+ static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
+ 
+ static inline bool subpool_is_free(struct hugepage_subpool *spool)
+@@ -5227,6 +5231,8 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+ 		const unsigned long offset_to_last_entry =
+ 			(old_addr | last_addr_mask) - old_addr;
++		const unsigned long offset_to_last_dst_entry =
++			(new_addr | last_addr_mask) - new_addr;
+ 
+ 		src_pte = hugetlb_walk(vma, old_addr, sz);
+ 		if (!src_pte) {
+@@ -5243,6 +5249,24 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 			continue;
+ 		}
+ 
++		/*
++		 * Avoid entering the destination PMD sharing path while holding
++		 * i_mmap_rwsem for write. Leave destination page table
++		 * population to the fault path, which can share the PMD lazily.
++		 */
++		if (sz == PMD_SIZE && want_pmd_share(new_vma, new_addr)) {
++			const unsigned long unmap_size =
++				min(old_end - old_addr,
++				    offset_to_last_dst_entry + sz);
++
++			hugetlb_unmap_range(&tlb, vma, old_addr,
++					    old_addr + unmap_size, NULL,
++					    ZAP_FLAG_DROP_MARKER);
++			old_addr += unmap_size - sz;
++			new_addr += unmap_size - sz;
++			continue;
++		}
++
+ 		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
+ 		if (!dst_pte)
+ 			break;
+@@ -5262,9 +5286,10 @@ unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	return len + old_addr - old_end;
+ }
+ 
+-void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+-			    unsigned long start, unsigned long end,
+-			    struct folio *folio, zap_flags_t zap_flags)
++static void hugetlb_unmap_range(struct mmu_gather *tlb,
++				struct vm_area_struct *vma, unsigned long start,
++				unsigned long end, struct folio *folio,
++				zap_flags_t zap_flags)
  {
- 	struct wb_domain *dom = dtc_dom(dtc);
- 	struct bdi_writeback *wb = dtc->wb;
-+	u64 threshold = thresh;
- 	u64 wb_thresh;
- 	u64 wb_max_thresh;
- 	unsigned long numerator, denominator;
-@@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
- 			      &numerator, &denominator);
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	const bool folio_provided = !!folio;
+@@ -5282,13 +5307,6 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	BUG_ON(start & ~huge_page_mask(h));
+ 	BUG_ON(end & ~huge_page_mask(h));
  
--	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
-+			    100 * BDI_RATIO_SCALE);
- 	wb_thresh *= numerator;
- 	wb_thresh = div64_ul(wb_thresh, denominator);
- 
- 	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
- 
--	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
- 
- 	/*
- 	 * It's very possible that wb_thresh is close to 0 not because the
-@@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
+-	/*
+-	 * This is a hugetlb vma, all the pte entries should point
+-	 * to huge page.
+-	 */
+-	tlb_change_page_size(tlb, sz);
+-	tlb_start_vma(tlb, vma);
+-
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	address = start;
+ 	for (; address < end; address += sz) {
+@@ -5417,6 +5435,15 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 		if (folio_provided)
+ 			break;
  	}
++}
++
++void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
++			    unsigned long start, unsigned long end,
++			    struct folio *folio, zap_flags_t zap_flags)
++{
++	tlb_change_page_size(tlb, huge_page_size(hstate_vma(vma)));
++	tlb_start_vma(tlb, vma);
++	hugetlb_unmap_range(tlb, vma, start, end, folio, zap_flags);
+ 	tlb_end_vma(tlb, vma);
  
--	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
-+	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
- 	if (wb_thresh > wb_max_thresh)
- 		wb_thresh = wb_max_thresh;
- 
+ 	huge_pmd_unshare_flush(tlb, vma);
 -- 
 2.53.0
 
