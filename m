@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273177;
-	b=D67GHC4cUUWwOrBMcB2MbA0Wkm+gI4yaoHTQv1JARgmN82vrJ+QH2jNou6dyHP4fldUy
-	 xLqKlQH2oSkgA/Rj7nyOJMVKrjHGilRNffJwgiDs+VdDLz3jTF4G096JHbzYX5KpYAWk5
-	 JHmzgJ8kGLyeIiUb1YCAJRTJZOSvmIgwTyQHSkIoDDVqGeHK+JDHs1DEDAFxS66ItLO1R
-	 nBWRBD4gXLiQjhXklsJtkJm1WDcYO78q9SXEwxfe3MYvN9w8hJL7lnp/W5BLnj/Krn7qI
-	 GFaGHzihfM1g+sMXZyeFS0Pn+z67liABZT/etlnRELD/qp7xP3wq+I/8bIHxKDKenkw==
+	t=1794273179;
+	b=knlmGfjZNuFbEzVUFyf2PZ4J2TxgnLs+kPW/ZUeNID9c9POMPKNxNPw4ON2vqEsZZz4Q
+	 AtW5GdlBGb31Nhv9HUp9SEs0WgMTddaJ/bCL6Jb2Xfgj9i2PBPjOwC0uQi4wWe9OHAriX
+	 5Y2v/rW2Szi7UPO/qjSlycItNfWC1jnV56bZ3iJb1/c0ARwmg/bWN147TUsQ7BvzlkyiG
+	 FJ7YTOOQLrQBf8LHeF8IDAlhzWuT2EGYEJF3KDjZ4FH2Pkb/co/vSjjh8Lwl9bmm7kY/V
+	 FfRlO9X4Hg8vXsG/ue0cKlICEk9pYoIKmVIdW2sBo63WNXARCh5KHP0IuRlEe52QKnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273179;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6r3/BDoK0oTWpyJdUMjF2v0f9obqA3mJRNB82oNAVD0=;
-	b=js5GuxWuUBWZ0uTd2sQCDkxdwxIWV8iOB6Sugp/HFety3FPZgVVcPzIkkHNn6Sl+PQPL
-	 4QMG2jLm7TxRTkHe4q5c6dVTzesf5KFSWlGmxvUyP/rdW0xqPilyFiGKT30n8iSkhQPUL
-	 LUaiyY+h6gJ1iQ1nd7fOA7XbAWPQKGeA1JkZQlkjpf9PIG0q2yYVj2cTN8112DIi0+fH+
-	 ghacaaTOTJ8Ky6wyK8wOnKDPYSDHhm2LabLav6dmYSCA5dhLSfG6ROlkgd676srqK8nbQ
-	 w8wUQAhbRF+ANPCTtYjYfjw01dockPx86FV7F1K0Dt5bHR/N6VjXAAPefe8NlwyWvIA==
+	bh=d5XfuC91YL5tm5bA18E0Ea+514GCF5e7seXWR8/1mvE=;
+	b=ZCIXFRn97rYI03mKZVGq/5La6PlAd2FPqTNpeYHvUdvlZPB+9ofPrnPtIyDrZMkjv72+
+	 FkKizaZbU/E0A3BL008dPVRqvphNOD0Ret3aoQCewLIDCMas2x/xubVmgHDhCCr39C+9z
+	 V07mSxY/i8Pn1az6vXN5voME5hGzMvioGbD/BHShQ2dr6W9F9v2cz6ZHBWugdxKQEISqb
+	 ALPCKhjZzj3htW2o0EadL6kNOVpixvWjHNIwqB9uTFEfCNkRGNAIQPxS0xjDSZom+bATX
+	 oiL+U5FBhNGSWyGetIyLRsWsi8Ol83CjWaHv2Rz2K6bz863LyrHQUfSNMFg+jOIxd1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oCLTZPJB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtPAyAo7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CFE606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30577606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oCLTZPJB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED82D1F0089F;
-	Tue, 10 Nov 2026 01:12:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtPAyAo7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5D41F0089F;
+	Tue, 10 Nov 2026 01:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273176;
-	bh=6r3/BDoK0oTWpyJdUMjF2v0f9obqA3mJRNB82oNAVD0=;
+	s=k20260515; t=1794273179;
+	bh=d5XfuC91YL5tm5bA18E0Ea+514GCF5e7seXWR8/1mvE=;
 	h=From:To:Cc:Subject:Date;
-	b=oCLTZPJBl7G4x5r2y5Gp8mBetaRsjt6hOMfchcI4n7iz5rA/4fMCsl0CraVzu2kxa
-	 k2GBLxPQbE3ZgnMobgjU49b2vGyhalzpBGb+7P1uuorQmCVxbhBkavd7Ht/glGTLZT
-	 VytCmLdiYixLEQSs7eFkTBQKDKgTmCxDlXpDdKbT0jknWciXREXhF7MKtEWR2NQWwh
-	 3gVThBobTJa/rFE2i8L5/m7YJrepCbLXQUZpUnhze+pLAlhmQi+KWVASxwtiJehcxM
-	 BQaLrEzBAcphWYnY5gFM7CiwR9mfJt3FzJwYJfrmXWT7F8HNgar/Pf5PP896N9JIVb
-	 4Kr4xhipQjXEA==
+	b=jtPAyAo7e+gVen6PSGFvNdSUxczZzpPbHPQwh+xjNVP9VWbdQyIU9tAy//HrOuOaA
+	 0cGKwlJ7z13TDLwzNg+kG188PolU0So/sySiApVEn/lrGDj8jpVyVIzAMCVbswlrna
+	 UsF666vr9Ek+12FsqSK6X4AVdlmDYOwvyzM8KvktwU4oVutpRteB88USQUgSfasta9
+	 D8DJ2URZNEH1U6nHolpwPe4g0MnCMceqii/O0KAixktDxAmG1qtpCN3cSmWLRJoM59
+	 4W8vZ7ZyXAgjd2501x+swRY+lcvCm9SZIalorqYeyUCUZ4Z05wmrkttCMIv+t6fTnf
+	 fAmxxdhI6LI8Q==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	hch@lst.de,
-	p.raghav@samsung.com,
-	cem@kernel.org
+To: blum@kernel.org,
+	prasannatsmkumar@gmail.com,
+	mst@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xfs: add a flag to convert unwritten extents without allocating blocks" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:12:54 -0500
-Message-ID: <20261109201254-failed-6.6-f3ca3498dfe6@kernel.org>
+Subject: FAILED: patch "[PATCH] hwrng: virtio - prevent use-after-free after a failed restore" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:12:57 -0500
+Message-ID: <20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,119 +69,73 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3ca3498dfe624f9b604c934263538a3acd55af5
+git cherry-pick -x 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201254-failed-6.6-f3ca3498dfe6@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3ca3498dfe624f9b604c934263538a3acd55af5 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 29 Oct 2026 11:22:59 +0900
-Subject: [PATCH] xfs: add a flag to convert unwritten extents without
- allocating blocks
+From 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <blum@kernel.org>
+Date: Fri, 16 Oct 2026 12:36:40 +0200
+Subject: [PATCH] hwrng: virtio - prevent use-after-free after a failed restore
 
-xfs_bmapi_write() with XFS_BMAPI_CONVERT also allocates blocks for
-holes and delalloc extents in the range. Add XFS_BMAPI_CONVERT_ONLY for
-callers that may only convert already allocated blocks. It stops at a
-hole or delalloc extent, and returns -ENOSR if it stops before mapping
-anything.
+remove_common() frees the driver data during freeze, but does not clear
+vdev->priv, which points to freed memory. If probe_common() then fails
+during restore, a later remove or freeze can dereference the dangling
+pointer.
 
-Marked for stable because "xfs: refuse a pNFS LAYOUTCOMMIT of a range
-without blocks" needs it.
+Clear vdev->priv on the probe_common() error cleanup path and before
+freeing the driver data in remove_common(). Also reset the device and
+return early from remove_common() if vdev->priv is already NULL for a
+safe teardown after a failed restore.
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Link: https://lore.kernel.org/r/20261013120359.GB2944@lst.de
+Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20261016103640.4989-2-blum@kernel.org>
 ---
- fs/xfs/libxfs/xfs_bmap.c | 14 ++++++++++++--
- fs/xfs/libxfs/xfs_bmap.h | 10 +++++++++-
- 2 files changed, 21 insertions(+), 3 deletions(-)
+ drivers/char/hw_random/virtio-rng.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
-index ca49bf4a50c5f..050522c58b168 100644
---- a/fs/xfs/libxfs/xfs_bmap.c
-+++ b/fs/xfs/libxfs/xfs_bmap.c
-@@ -4130,6 +4130,8 @@ xfs_bmapi_finish(
-  * Returns a negative error code on failure, including -ENOSPC when it could not
-  * allocate any blocks and -ENOSR when it did allocate blocks to convert a
-  * delalloc range, but those blocks were before the passed in range.
-+ * With XFS_BMAPI_CONVERT_ONLY, it stops at a hole or a delalloc extent instead
-+ * of allocating blocks, and returns -ENOSR if it stops before mapping anything.
-  */
- int
- xfs_bmapi_write(
-@@ -4189,6 +4191,8 @@ xfs_bmapi_write(
- 	 */
- 	ASSERT((flags & (XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO)) !=
- 			(XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO));
-+	ASSERT(!(flags & XFS_BMAPI_CONVERT_ONLY) ||
-+	       (flags & XFS_BMAPI_CONVERT));
+diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+index f9982217247dd..45d87c0614a5e 100644
+--- a/drivers/char/hw_random/virtio-rng.c
++++ b/drivers/char/hw_random/virtio-rng.c
+@@ -190,6 +190,7 @@ static int probe_common(struct virtio_device *vdev)
+ err_find:
+ 	ida_free(&rng_index_ida, index);
+ err_ida:
++	vdev->priv = NULL;
+ 	kfree(vi);
+ 	return err;
+ }
+@@ -198,6 +199,11 @@ static void remove_common(struct virtio_device *vdev)
+ {
+ 	struct virtrng_info *vi = vdev->priv;
  
- 	if (XFS_IS_CORRUPT(mp, !xfs_ifork_has_extents(ifp)) ||
- 	    XFS_TEST_ERROR(mp, XFS_ERRTAG_BMAPIFORMAT)) {
-@@ -4237,6 +4241,9 @@ xfs_bmapi_write(
- 		 * that we found, if any.
- 		 */
- 		if (need_alloc || wasdelay) {
-+			if (flags & XFS_BMAPI_CONVERT_ONLY)
-+				break;
++	if (!vi) {
++		virtio_reset_device(vdev);
++		return;
++	}
 +
- 			bma.eof = eof;
- 			bma.conv = !!(flags & XFS_BMAPI_CONVERT);
- 			bma.wasdel = wasdelay;
-@@ -4332,10 +4339,13 @@ xfs_bmapi_write(
- 	 *
- 	 * To avoid a successful return with *nmap set to 0, return the magic
- 	 * -ENOSR error code for this particular case so that the caller can
--	 * handle it.
-+	 * handle it. The same goes for XFS_BMAPI_CONVERT_ONLY stopping at a
-+	 * hole or a delalloc extent at the start of the range, in which case
-+	 * nothing has been changed.
- 	 */
- 	if (!n) {
--		ASSERT(bma.nallocs >= *nmap);
-+		ASSERT((flags & XFS_BMAPI_CONVERT_ONLY) ? bma.nallocs == 0 :
-+							  bma.nallocs >= *nmap);
- 		return -ENOSR;
- 	}
- 	*nmap = n;
-diff --git a/fs/xfs/libxfs/xfs_bmap.h b/fs/xfs/libxfs/xfs_bmap.h
-index e9f5416e4c050..fb7481e8190c6 100644
---- a/fs/xfs/libxfs/xfs_bmap.h
-+++ b/fs/xfs/libxfs/xfs_bmap.h
-@@ -90,6 +90,13 @@ struct xfs_bmalloca {
- /* Try to align allocations to the extent size hint */
- #define XFS_BMAPI_EXTSZALIGN	(1u << 11)
+ 	vi->hwrng_removed = true;
+ 	vi->data_avail = 0;
+ 	vi->data_idx = 0;
+@@ -207,6 +213,7 @@ static void remove_common(struct virtio_device *vdev)
+ 	virtio_reset_device(vdev);
+ 	vdev->config->del_vqs(vdev);
+ 	ida_free(&rng_index_ida, vi->index);
++	vdev->priv = NULL;
+ 	kfree(vi);
+ }
  
-+/*
-+ * Use with XFS_BMAPI_CONVERT to convert unwritten extents without allocating
-+ * blocks. Stop at a hole or a delalloc extent: return the mappings found so
-+ * far, or -ENOSR if there are none.
-+ */
-+#define XFS_BMAPI_CONVERT_ONLY	(1u << 12)
-+
- #define XFS_BMAPI_FLAGS \
- 	{ XFS_BMAPI_ENTIRE,	"ENTIRE" }, \
- 	{ XFS_BMAPI_METADATA,	"METADATA" }, \
-@@ -102,7 +109,8 @@ struct xfs_bmalloca {
- 	{ XFS_BMAPI_COWFORK,	"COWFORK" }, \
- 	{ XFS_BMAPI_NODISCARD,	"NODISCARD" }, \
- 	{ XFS_BMAPI_NORMAP,	"NORMAP" },\
--	{ XFS_BMAPI_EXTSZALIGN,	"EXTSZALIGN" }
-+	{ XFS_BMAPI_EXTSZALIGN,	"EXTSZALIGN" }, \
-+	{ XFS_BMAPI_CONVERT_ONLY,	"CONVERT_ONLY" }
- 
- 
- static inline int xfs_bmapi_aflag(int w)
 -- 
 2.53.0
 
