@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315099;
-	b=Do2+0zOiR/i40hn/K3hGQXIhQSxbwgbQJlhvAFbNHmzhaCEv6EoqTSyrT3fx5G43X0E+
-	 N8YHEUwwkSlMkqnXTNIQd7+wVuUbVoUmvzdTAbco/uoMNMVgd2dEOcqQy5q83TfYFxttb
-	 rhQhIaPFkJQDDz4CARkhKZK0l5GA416wFz5uA7VOrYRdNu5u9TVRlSjxkHJQbVCYsv9nN
-	 8eDsXAQu4I1b5QG6isXTswWEPq7xyKFhWs+Gb0ZzgRAa4liTF+IYOthjRazIfMACMOAqA
-	 7gWikuyapRcTJ6qEwIW1f3AlRcg6T19Y+QgRPRWXv31yqrpoyb0twG4N9o3rHIlxqAw==
+	t=1794315115;
+	b=gwXTaTq/xqg9uRiTDQJDgnYGwY/MGmXE57X3l6/BxeVKfPJNDZ+N2gy04Krw/T3TwVt1
+	 e5W9FFCwX/nxc5zH7RFRqalCWkzJuaaBspf/dT3FuwF3lzNpLijKlxSJQmW4Co04dAvYI
+	 cUKfKMnBaKc5ht7Sfx6W0bYiKxnBtqV1HslSNxEHe/EfEyK/ypyOnRRFrjavXa9W+GDy4
+	 ZGNcq47aMP0d5NHr9lOI21DFWkpZZGyfj5LNAV4uSESZfmS2iEBhKJO1X76Tn4C0xrty/
+	 JXId8238yWMPGpA4o3e2JR2wsgYVsPI12J/7vN1Y32mrBc8fLolESb0++DCSBmU8aQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315099;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=btDHAf2MdVl/a/25PD/Q3fDljJaM4RkvS30U5hzsPHQ=;
-	b=Q9qI/ioYlWXgXxx02eEuIRmgC6z5LWt3A3+g8jo36ydtoqiXiz2+PhgB2gxBbu3FgxI1
-	 BWd4A9CqywcIElqL9UUp39EjgGU/5zhiGnVDfKG7h2IJYzrrDzlD/6u5VI9MZiwlRBfNC
-	 VAAc5QDjc1UtAENml0HOXt2IHKG7U6v4SEYztdCL4AR6rmn/T4nk7Tfs+E83aWHBV7WZW
-	 1rmyjvmUn7BfZ29GHLicOUNOzFen+M2so77PVU7hQUmCFBdZE6oW9bek2KSZ3mYIouaTS
-	 NUIGGoPl/OrYFGbfHfVTMzlJdx1Nwia2DuMSf8s/aYBltrdUrU+eRKLHR0ZLfdTbvQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315115;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=o6ZRq948QsADnFAUQY5GoxSIt3X/NH3XtT3nDaQJYOU=;
+	b=D9/ITU8zEEZGbOoEojA78r7y9bRMFcVVxPRyq4Gr2vMw5IHyhV8cA6CMixb2fiy7ATKi
+	 HtiAjJ/8PUTW/ExJDEKSpiszREHbSLSQTIXIR0lqr91UqWq5ClMY8NK2c0dWQunuyEa2r
+	 wTaAhBejgXmjPPvS2hOd+VRmHKOro9czC0qr3t97mf+LyoCs5ANu68ryzkmGIM7Uow9Xc
+	 VgB9cmQ8zTXFnS/7iV66GJLoQfKn+V7Wp99rC7I7ElP7EPWExRvrQ73Hl2k/Jm2jaPGJS
+	 j4tEZVQNY8prA6EZCp9/Bd1OKR+bFJeS3m5pR3djilFqSG9D+Y9Ql3+K4pyGgL2pl9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsGbWjl4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=v+hAuVRO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6812960A3816
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:51:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B770660A2619;
+	Tue, 10 Nov 2026 12:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B770660A2619
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsGbWjl4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8323E1F008A1;
-	Tue, 10 Nov 2026 12:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315099;
-	bh=btDHAf2MdVl/a/25PD/Q3fDljJaM4RkvS30U5hzsPHQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AsGbWjl4dj+Jb9QPfZGGYQIhPmb+OHZ+tTdld28RxXTtjcPmz8/uIMX1kKAnEj8oB
-	 iIH8cAAez0x8SgI/ErlEc4bEZObIHOJraVKV57ustHcieqz/5FQFvU1NtB6SYBdOqP
-	 Pfi4RBhZuYaniXGi8Gws0yjR/Zy3IhNX7Vh8fJM68SPpYzj4kpCF3TT6EEnm61LFgV
-	 5NXF0v+cE5peBdJ1bL4HGy42+BKBy5YGkKpuV+WfPkheJrp5wNdsWkJhqw1SysnJzo
-	 39yfwd3fkkxZCC8He6cIfp/G3m3rXPNF/R0HVSuPqvo6kjdNx08apaOt18PpbwXzED
-	 iGFyALIgKdqXQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Zhiguo Niu <zhiguo.niu@unisoc.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] f2fs: fix to avoid folio->mapping dereference in is_{meta, node}_folio()
-Date: Tue, 10 Nov 2026 07:51:37 -0500
-Message-ID: <20261110125127.1536509-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050646-failed-6.18-b5a71253c5c7@kernel.org>
-References: <20261107050646-failed-6.18-b5a71253c5c7@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=v+hAuVRO
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C7D5C14;
+	Tue, 10 Nov 2026 13:49:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794314970;
+	bh=tZg6m4kE4VjEb+t/13S1aUCh2EFh1x/sQctG+yZyfRo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=v+hAuVROC3MtMAaS+SJi2ko2AxdzxXDBQER/0lEIUTU3qBsYzKKsDZBnaDfS3NBVZ
+	 LNkoHyk49m27qj+DUCtiRSekFS7Ib7FmriHSxLJKXaSS9uhQqAZmRyGkeagahUxsMN
+	 +4jz6j1PtYvdxRvENK+gNldaKBkEgWA+4s1MrLCQ=
+Date: Tue, 10 Nov 2026 13:51:49 +0100
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Li Youhong <dayou5941@163.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Nayden Kanchev <nayden.kanchev@arm.com>, linux-media@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] media: mali-c55: Keep IRQ requested during suspend
+Message-ID: <avMP-y1B9K0cp4M8@zed>
+References: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,202 +62,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027-mali-c55-irq-supend-resume-v2-1-759b3f5b2cfd@kernel.org>
 
-From: Chao Yu <chao@kernel.org>
+Hi Linus
 
-[ Upstream commit b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7 ]
+On Tue, Oct 27, 2026 at 03:08:05PM +0100, Linus Walleij wrote:
+> The interrupt is currently freed on every runtime suspend and requested
+> again on runtime resume. Apart from tying interrupt ownership to the
+> power state rather than to the driver lifetime, this leaves remove to
+> guess whether an action is installed for the IRQ.
+>
+> Request the interrupt once during probe and free it during remove.
+>
+> Disable and synchronize the IRQ before powering the ISP off, and enable
+> it only after a successful power-on.
+>
+> Hold a runtime PM reference during probe until the IRQ is installed,
+> and stop runtime PM and drain the IRQ before unregistering the media
+> entities during remove.
+>
+> Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
+> This is essentially my reply with the "proper fix" for:
+> https://lore.kernel.org/linux-media/20260903025526.2657105-1-dayou5941@163.com/
+>
+> Keep the Mali-C55 interrupt requested for the driver's lifetime instead
+> of changing interrupt ownership along with the runtime power state.
+> Synchronize and disable the IRQ before power-off, and enable it after
+> power-on. Hold a PM reference until probe installs the IRQ, and stop
+> runtime PM and drain the IRQ before removing the media entities.
+>
+> Tested on the Renesas RZ/V2H board with the other in-flight patches
+> (DTS changes and the TPG enablement) doing full suspend/resume cycles
+> with wakeup from RTC and NMI and capturing images before and after
+> the test.
+>
+> This patch was authored with the assistance of an LLM.
+> ---
+> Changes in v2:
+> - Drop the wakeup-source binding patch and all ISP wakeup handling.
+> - Drop the patch retaining ISP power for wakeup; keep the IRQ lifetime fix.
+> - Link to v1: https://patch.msgid.link/20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org
+> ---
+>  .../media/platform/arm/mali-c55/mali-c55-core.c    | 44 ++++++++++++----------
+>  1 file changed, 24 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> index f28e9f4354ac..3c2816b6a96b 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -675,8 +675,7 @@ static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
+>  {
+>  	struct mali_c55 *mali_c55 = dev_get_drvdata(dev);
+>
+> -	if (irq_has_action(mali_c55->irqnum))
+> -		free_irq(mali_c55->irqnum, dev);
+> +	disable_irq(mali_c55->irqnum);
+>  	__mali_c55_power_off(mali_c55);
+>
+>  	return 0;
+> @@ -745,20 +744,9 @@ static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>
+> -	/*
+> -	 * The driver needs to transfer large amounts of register settings to
+> -	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
+> -	 * threaded IRQ to avoid disabling interrupts the entire time that's
+> -	 * happening.
+> -	 */
+> -	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
+> -				   IRQF_ONESHOT, dev_driver_string(dev), dev);
+> -	if (ret) {
+> -		__mali_c55_power_off(mali_c55);
+> -		dev_err(dev, "failed to request irq\n");
+> -	}
+> +	enable_irq(mali_c55->irqnum);
+>
+> -	return ret;
+> +	return 0;
+>  }
+>
+>  static const struct dev_pm_ops mali_c55_pm_ops = {
+> @@ -825,27 +813,42 @@ static int mali_c55_probe(struct platform_device *pdev)
+>  	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
+>  	pm_runtime_use_autosuspend(&pdev->dev);
+>  	pm_runtime_set_active(&pdev->dev);
+> +	pm_runtime_get_noresume(dev);
 
-Otherwise, it may cause NULL pointer dereference in race condition:
+Why is it relevant to hold a PM reference during the installation of
+the IRQ handler ?
 
-Thread A			Thread B
-				- f2fs_setattr
-				 - f2fs_truncate
-				  - f2fs_truncate_blocks
-			    	   - f2fs_do_truncate_blocks
-				    - f2fs_truncate_inode_blocks
-				     - truncate_dnode
-				      - truncate_node
-				       - invalidate_mapping_pages
-				        - folio->mapping = NULL
-- folio_lock
-- is_node_folio
- - F2FS_F_SB(folio): dereference on folio->mapping
+>  	pm_runtime_enable(&pdev->dev);
+>
+>  	ret = mali_c55_media_frameworks_init(mali_c55);
+>  	if (ret)
+>  		goto err_pm_runtime_disable;
+>
+> -	pm_runtime_idle(&pdev->dev);
+> -
+>  	mali_c55->irqnum = platform_get_irq(pdev, 0);
+>  	if (mali_c55->irqnum < 0) {
+>  		ret = mali_c55->irqnum;
+>  		goto err_deinit_media_frameworks;
+>  	}
+>
+> +	/*
+> +	 * The driver needs to transfer large amounts of register settings to
+> +	 * the ISP each frame, using either a DMA transfer or memcpy. We use a
+> +	 * threaded IRQ to avoid disabling interrupts the entire time that's
+> +	 * happening.
 
-Cc: stable@kernel.org
-Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
-Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: used the existing sbi parameter in f2fs_in_warm_node_list() without changing its signature or callers ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/checkpoint.c |  4 ++--
- fs/f2fs/data.c       |  5 +++--
- fs/f2fs/f2fs.h       |  8 ++++----
- fs/f2fs/gc.c         |  2 +-
- fs/f2fs/node.c       | 16 ++++++++--------
- 5 files changed, 18 insertions(+), 17 deletions(-)
+Does this comment still apply in your opinion ? I mean, thread_irq are
+pretty regular stuff, do we need to justify its usage ?
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 66d3714dda32a..4c54d75c8981e 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -93,7 +93,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
- 	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE);
- 
- 	folio_lock(folio);
--	if (unlikely(!is_meta_folio(folio))) {
-+	if (unlikely(!is_meta_folio(sbi, folio))) {
- 		f2fs_folio_put(folio, true);
- 		goto repeat;
- 	}
-@@ -439,7 +439,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_meta_folio(folio))) {
-+			if (unlikely(!is_meta_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index eba1e025b9d6e..a9a829315c305 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -153,7 +153,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
- 		dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
- 
- 		if (bio->bi_status == BLK_STS_OK &&
--			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
-+			F2FS_F_SB(folio)->node_inode &&
-+			is_node_folio(F2FS_F_SB(folio), folio) &&
- 			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
- 				folio, folio->index, NODE_TYPE_REGULAR, true))
- 			bio->bi_status = BLK_STS_IOERR;
-@@ -359,7 +360,7 @@ static void f2fs_write_end_io(struct bio *bio)
- 						STOP_CP_REASON_WRITE_FAIL);
- 		}
- 
--		if (is_node_folio(folio)) {
-+		if (is_node_folio(sbi, folio)) {
- 			f2fs_sanity_check_node_footer(sbi, folio,
- 				folio->index, NODE_TYPE_REGULAR, true);
- 			f2fs_bug_on(sbi, folio->index != nid_of_node(folio));
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index ec1b9831e5afe..82c3c4ebcb3e6 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -2222,14 +2222,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
- 	return sbi->node_inode->i_mapping;
- }
- 
--static inline bool is_meta_folio(struct folio *folio)
-+static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
- {
--	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
-+	return folio->mapping == META_MAPPING(sbi);
- }
- 
--static inline bool is_node_folio(struct folio *folio)
-+static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
- {
--	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
-+	return folio->mapping == NODE_MAPPING(sbi);
- }
- 
- static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index e85d7f239e7d0..e3ae70e297c82 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1418,7 +1418,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 							F2FS_BLKSIZE);
- 
- 		folio_lock(mfolio);
--		if (unlikely(!is_meta_folio(mfolio) ||
-+		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
- 			     !folio_test_uptodate(mfolio))) {
- 			err = -EIO;
- 			f2fs_folio_put(mfolio, true);
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 60969e5f1201b..1b67184df3dd6 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -327,7 +327,7 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
- 
- bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
- {
--	return is_node_folio(folio) && IS_DNODE(folio) && is_cold_node(folio);
-+	return is_node_folio(sbi, folio) && IS_DNODE(folio) && is_cold_node(folio);
- }
- 
- void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
-@@ -1266,7 +1266,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
- 			goto fail;
- 		if (offset[1] == 0 && get_nid(folio, offset[0], true)) {
- 			folio_lock(folio);
--			BUG_ON(!is_node_folio(folio));
-+			BUG_ON(!is_node_folio(sbi, folio));
- 			set_nid(folio, offset[0], 0, true);
- 			folio_unlock(folio);
- 		}
-@@ -1579,7 +1579,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
- 
- 	folio_lock(folio);
- 
--	if (unlikely(!is_node_folio(folio))) {
-+	if (unlikely(!is_node_folio(sbi, folio))) {
- 		f2fs_folio_put(folio, true);
- 		goto repeat;
- 	}
-@@ -1698,7 +1698,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_node_folio(folio))) {
-+			if (unlikely(!is_node_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-@@ -1930,7 +1930,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_node_folio(folio))) {
-+			if (unlikely(!is_node_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-@@ -1988,7 +1988,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
- 			   ino, last_folio->index);
- 		folio_lock(last_folio);
--		if (unlikely(!is_node_folio(last_folio))) {
-+		if (unlikely(!is_node_folio(sbi, last_folio))) {
- 			f2fs_folio_put(last_folio, true);
- 			ret = -EAGAIN;
- 			goto out;
-@@ -2066,7 +2066,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_node_folio(folio)))
-+			if (unlikely(!is_node_folio(sbi, folio)))
- 				goto unlock;
- 			if (!folio_test_dirty(folio))
- 				goto unlock;
-@@ -2138,7 +2138,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
- 			else if (!folio_trylock(folio))
- 				continue;
- 
--			if (unlikely(!is_node_folio(folio))) {
-+			if (unlikely(!is_node_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
--- 
-2.53.0
+> +	 */
+> +	ret = request_threaded_irq(mali_c55->irqnum, NULL, mali_c55_isr,
+> +				   IRQF_ONESHOT, dev_driver_string(dev), dev);
+> +	if (ret) {
+> +		dev_err(dev, "failed to request irq\n");
+> +		goto err_deinit_media_frameworks;
+> +	}
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+>  	return 0;
+>
+>  err_deinit_media_frameworks:
+>  	mali_c55_media_frameworks_deinit(mali_c55);
+>  err_pm_runtime_disable:
+> -	pm_runtime_set_suspended(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_set_suspended(&pdev->dev);
+>  	kfree(mali_c55->context.registers);
+>  err_power_off:
+>  	__mali_c55_power_off(mali_c55);
+> @@ -859,12 +862,13 @@ static void mali_c55_remove(struct platform_device *pdev)
+>  {
+>  	struct mali_c55 *mali_c55 = platform_get_drvdata(pdev);
+>
+> +	pm_runtime_disable(&pdev->dev);
 
+It amazes me how, after so many years, I still can't find a clear, firm
+indication of what is the intended call order for pm_runtime_disable()
+and the other pm_runtime calls is during a driver's remove.
+
+Media drivers seem to do different things with some disabling pm
+before setting the state to suspended, other doing the other way
+around.
+
+In the end, I think this doesn't make any difference, but in this
+specific occurance:
+
+1) Is this re-ordering required to support the new interrupt handling?
+or
+2) Is it a change that is worth doing anyway ? (and I should say "should
+go in a different patch on its own")
+
+> +	free_irq(mali_c55->irqnum, &pdev->dev);
+>  	mali_c55_media_frameworks_deinit(mali_c55);
+> -	if (!pm_runtime_suspended(&pdev->dev)) {
+> +	if (!pm_runtime_status_suspended(&pdev->dev)) {
+
+I guess this is required because you moved pm_runtime_disable() up
+
+Thanks
+  j
+
+>  		__mali_c55_power_off(mali_c55);
+>  		pm_runtime_set_suspended(&pdev->dev);
+>  	}
+> -	pm_runtime_disable(&pdev->dev);
+>  	kfree(mali_c55->context.registers);
+>  	of_reserved_mem_device_release(&pdev->dev);
+>  }
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260918-mali-c55-irq-supend-resume-30b507a20011
+>
+> Best regards,
+> --
+> Linus Walleij <linusw@kernel.org>
+>
