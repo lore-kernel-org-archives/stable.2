@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272739;
-	b=qpTdglLen4XFYv1JpBgNEUPzFaXJ8QwDvjdIfcO9lwuLMEARhu6ewdDJTnw+gpD4B5EM
-	 twayZMtrrd214Q5znIkFUeYrYeIQhJFs6vsMGxxk1wVrhO6qP10mn15WQEoxSQF1d8gZD
-	 OdIOKHYYNZ7PBD0oeWu4PX0zHOanwTg9K777wZ6BGASiwYOAzs1cRihWkQ1mqzca/XM/0
-	 kXJDBNY1uR25Bg3qOmSWXpVQv+W8iOdmPj8+TfqAWPLBjTCk/aNEdT3xTy5q8dBRjTH/S
-	 FWZCafkXVE1S+KjIhDPsV33iLY+z4Qxmy7tieDXPIYGWdcTBsQPb7yPV3v1bM5wgxUQ==
+	t=1794272742;
+	b=2pjUOd0pRHGIn/604qPK/03/sf3K6QYfW9Mv4lxhrFnhANymMZ13ncALp5ztzQ5Vkjcs
+	 fajFScguK2/Q7zZI+ehnv3M3tInyXzDgcjzHUF9b7Gih73fqNI8NothlC94Z/qwKc5xRR
+	 9sli7XOekRnMuWq5EOwMWweaJaq+D6YVF4EF2BV94pQ72r7ZjgCGsjc3nMPL+L7DoE3Vy
+	 nR+nHGzQnPJufEzaAjb3UMdap/klHBxFtzhQ//VNkRDDquiDy4cmEUjJrLQYaDNDe7ra/
+	 u7sssqWQdWCC2CyxrPA96nin4jWA8zvsAyWAxElstCFmU2snR0VtGVhdq7FEqkanIcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272742;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=htPi6/zEcd5ycHLExPFK7wk8vsCZ5PEs+JyS3O1ZR3o=;
-	b=dWWhLA0En/TvcRDhRhjWCOf3te/MAZBPFOXhkyTuSq/AgKrADYjoOHqFi+cczKJpV/QO
-	 m1AoOBdHJrckj7Ppg/ylyGijmxNC3Fq/7qHWvYrgqUEO8i8Z9MJT21gUCji8JnJZ2rLRr
-	 taKvAzxmQpBPnK8jWaHnHYYuTkZ1G/RTsk3Go9ZNh/MMn4x+OWluCxBS8NDLusRLqaWXI
-	 k+FegNdhzL4ZIuclDK43I5NS7VIwgqu+W6z+oviFOz37ir+4TPX5eQrxtisHeIRfb85V9
-	 A3dnyaneYx0YqDvLTcIfw0G2p/dnLiHqU9kILKneGTkZmKWLymobSeMbQLTjwbJYepw==
+	bh=+mB2bo0Xg8sUUs99dY3sAkRURS58sVP+QI8hHwdCSGc=;
+	b=gwb+1zV91nlfTbS/9xndEGTbRvaqsHTJOBn9gt81FJWLb99YXEZ+9rnlhMDOnuN4Hn0Z
+	 sZCUzejwFJpxJBICRMDsa/l71SZtfp7E5UKjAW+YUoDIKjWl1rllLZ7Q8jUyKOhBUjMrJ
+	 lf9WwjLw/uTGgzxeWtOpg1RocAOLVlZcc761+4N+FYkzqH+Iw47CcSMg5Gpo9wkN5rt3w
+	 okUadbcWnqZ2fnNUDCOc3SP7x2/XrCeAJ43ykjyxqlOSRRVgnYO2DtMERBx+25zFAuCgD
+	 BixaBD43F63kytsRRg668l2LoS4UWKP+TSzTYZEmO+OfO50TS3QtK7hzF1T7Am8Fa2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sn9BM8O0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMt0ymjn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF0F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F636606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sn9BM8O0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC931F0089F;
-	Tue, 10 Nov 2026 01:05:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMt0ymjn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D8E1F008A1;
+	Tue, 10 Nov 2026 01:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272739;
-	bh=htPi6/zEcd5ycHLExPFK7wk8vsCZ5PEs+JyS3O1ZR3o=;
+	s=k20260515; t=1794272741;
+	bh=+mB2bo0Xg8sUUs99dY3sAkRURS58sVP+QI8hHwdCSGc=;
 	h=From:To:Cc:Subject:Date;
-	b=Sn9BM8O0NgFe/CAuGkGonDegGlbXYGs9ewjPWjBA1DxUvvcQJj/oU6MDUn6QISSNt
-	 81g48ymUZ5haTR18jjr3n94qAONOsfpdYoSkz+BmBztdZc1COyqZyPvxQ6Q8FGVWhK
-	 vmrgdt90ohvt/o3nH75kKw8r7UPidWz4KIVtgz4luwSnspI41EhwTWzp/4YwF1TcKA
-	 quMMcYR2AKVfn+u7AH2znhz8pmgWL3l1KkTIj+rUeYbYqPaRCkxfP5t/xrchOgXigG
-	 TNYVq88BhWrxQbf+YcTUFlC8iwhLVZB+5t9pTHM/h9Nk037tiirsphn1/fnQ4/O0O3
-	 vGJsaGt/0lbIQ==
+	b=YMt0ymjnjHsmXqKwdP+pVBt8vmSmY9I93A0vr+8xGFDQkovrxU90Em6K27NM8WCWE
+	 UdsnjQYYsZ/fGhE3owfSJPb4w+VY7tPVJRXtaXMNN8yvOMFZIEZO0gFf4O2osl/k9t
+	 tf4qdXOl9lrUJoPOI/+Q6fqupXRjfyJmjsRrf+DUEmrZJ5akIl9zeWUs9nQnUoR1Z5
+	 65xIbWbWDaCpZb83kzYVrRGVOXdiguEdszHweH5JFMyAKV9Z6yt307NDt669FonK5R
+	 Th+lrtWry52EKgLN4XDixGcPdcpe8q2ezyOZHMSLEjxtIXSp2eYOmtiUhYYTjkKmxx
+	 /MKrENZCnXBQg==
 From: Sasha Levin <sashal@kernel.org>
-To: mwen@igalia.com,
-	pgriffais@valvesoftware.com,
+To: roman.li@amd.com,
+	dillon.varone@amd.com,
+	mario.limonciello@amd.com,
+	alexander.deucher@amd.com,
 	alex.hung@amd.com,
-	alexander.deucher@amd.com
+	daniel.wheeler@amd.com,
+	sunpeng.li@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:05:37 -0500
-Message-ID: <20261109200537-failed-6.18-81f923b06580@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: Reset DET of HUBPs without a plane before outstanding updates" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:05:39 -0500
+Message-ID: <20261109200539-failed-6.18-f3afbf7d832a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,97 +73,144 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 81f923b065801c7d30042bcda31ccb9449b4f58b
+git cherry-pick -x f3afbf7d832ab138655afc96bd42226775d03ce7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200537-failed-6.18-81f923b06580@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200539-failed-6.18-f3afbf7d832a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 81f923b065801c7d30042bcda31ccb9449b4f58b Mon Sep 17 00:00:00 2001
-From: Melissa Wen <mwen@igalia.com>
-Date: Wed, 21 Oct 2026 14:29:25 +0200
-Subject: [PATCH] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP
- HDR
+From f3afbf7d832ab138655afc96bd42226775d03ce7 Mon Sep 17 00:00:00 2001
+From: Roman Li <Roman.Li@amd.com>
+Date: Tue, 27 Oct 2026 17:17:10 -0600
+Subject: [PATCH] drm/amd/display: Reset DET of HUBPs without a plane before
+ outstanding updates
 
-Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
-infoframe") created the app_tf interface for FreeSync HDR and commit
-c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
-PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
-never made use of this interface: DM ignores what userspace sets
-regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
-PQ bit is never set in the infopacket received by the eDP panel.
+[WHY]
+DC asserts with:
+WARNING: dc/hubbub/dcn401/dcn401_hubbub.c at dcn401_program_compbuf_segments
+Call Trace:
+<TASK>
+dcn401_program_outstanding_updates+0x36/0x60 [amdgpu]
+hwss_process_outstanding_hw_updates+0x33/0x40 [amdgpu]
+commit_planes_for_stream+0x171f/0x1ff0 [amdgpu]
+dc_update_state_execute+0xaa/0x170 [amdgpu]
+dc_update_planes_and_stream+0x42/0x70 [amdgpu]
+amdgpu_dm_atomic_commit_tail+0x16a9/0x4020 [amdgpu]
+commit_tail+0xc3/0x1b0 [drm_kms_helper]
 
-Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
-infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
-on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
-other VRR-capable panels that advertise Replay in its AMD VSDB.
+The DET left by the VBIOS on a HUBP without a plane can be larger than
+the DET planned for the new state. The compbuf is sized for the planned
+DET, so DET + compbuf can exceed the CRB size. Programming the compbuf
+then triggers the ASSERT and sets CONFIG_ERROR in hardware.
 
-It doesn't affect color/EOTF bits on infopackets for SDR and native
-HDMI.
+[HOW]
+Release the DET of HUBPs without a plane before the compbuf is
+programmed.
 
-Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
-Signed-off-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Add hwss_reset_unused_det() and call it in the commit and flip paths,
+to cover both seamless and non-seamless boots.
+
+Fixes: 7a1eb6680939 ("drm/amd/display: Perform outstanding programming on full updates")
+Cc: Dillon Varone <dillon.varone@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
+(cherry picked from commit c93f6fc7175b445ba3b7c85a1fc31e4e4951bbc9)
 Cc: stable@vger.kernel.org
 ---
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  6 +++-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 +++++++++++++++++++
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  3 ++
+ 3 files changed, 39 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 4620135437c5e..0be4506e9ae5b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -173,6 +173,18 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- }
- EXPORT_IF_KUNIT(amdgpu_dm_get_freesync_config_for_crtc);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1143916391e79..348e8991f8701 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2484,6 +2484,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
+ 		 * update pending complete before optimizing bandwidth.
+ 		 */
+ 		hwss_wait_for_odm_update_pending_complete(dc, context);
++		/* No DET may stay allocated to a HUBP without a plane (e.g. left over from VBIOS) */
++		hwss_reset_unused_det(dc, context);
+ 		/* pplib is notified if disp_num changed */
+ 		dc->hwss.optimize_bandwidth(dc, context);
+ 		/* Need to do otg sync again as otg could be out of sync due to otg
+@@ -4870,8 +4872,10 @@ static void commit_planes_for_stream(struct dc *dc,
+ 	dc_exit_ips_for_hw_access(dc);
  
-+#define DP_HDR_SDP_EOTF_IDX 2
-+
-+static bool dm_dp_in_hdr_mode(const struct dc_stream_state *stream)
+ 	dc_z10_restore(dc);
+-	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required)
++	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required) {
++		hwss_reset_unused_det(dc, dc->current_state);
+ 		hwss_process_outstanding_hw_updates(dc, dc->current_state);
++	}
+ 
+ 	if (update_type != UPDATE_TYPE_FAST && dc->res_pool->funcs->prepare_mcache_programming)
+ 		dc->res_pool->funcs->prepare_mcache_programming(dc, context);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index da98afee558fb..55823bce5cf3c 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -3147,6 +3147,37 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc, struct dc_state *c
+ 	hwss_wait_for_all_blank_complete(dc, context);
+ }
+ 
++void hwss_reset_unused_det(struct dc *dc, struct dc_state *context)
 +{
-+	const struct dc_info_packet *hdr = &stream->hdr_static_metadata;
++	struct hubbub *hubbub = dc->res_pool->hubbub;
++	unsigned int i, j;
 +
-+	if (!dc_is_dp_signal(stream->signal) || !hdr->valid)
-+		return false;
++	if (!hubbub || !hubbub->funcs->program_det_segments)
++		return;
 +
-+	return hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084;
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct hubp *hubp = dc->res_pool->hubps[i];
++		bool hubp_in_use = false;
++
++		if (!hubp)
++			continue;
++
++		for (j = 0; j < dc->res_pool->pipe_count; j++) {
++			const struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[j];
++
++			/* A plane-less pipe renders from the DPG, its HUBP (assigned with the stream) needs no DET */
++			if (pipe->plane_state && pipe->plane_res.hubp &&
++					pipe->plane_res.hubp->inst == hubp->inst) {
++				hubp_in_use = true;
++				break;
++			}
++		}
++
++		if (!hubp_in_use)
++			hubbub->funcs->program_det_segments(hubbub, hubp->inst, 0);
++	}
 +}
 +
- void amdgpu_dm_update_freesync_state_on_stream(
- 	struct amdgpu_display_manager *dm,
- 	struct dm_crtc_state *new_crtc_state,
-@@ -189,6 +201,7 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 	bool pack_sdp_v1_3 = false;
- 	struct amdgpu_dm_connector *aconn;
- 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
-+	enum color_transfer_func app_tf;
+ void hwss_wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
+ {
+ 	int i;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 7800b0501c399..b413d1790a6b8 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -1829,6 +1829,9 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc,
+ void hwss_wait_for_no_pipes_pending(struct dc *dc,
+ 		struct dc_state *context);
  
- 	if (!new_stream)
- 		return;
-@@ -240,12 +253,16 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 					&new_stream->adaptive_sync_infopacket);
- 	}
- 
-+	app_tf = dm_dp_in_hdr_mode(new_stream) ?
-+		 TRANSFER_FUNC_PQ2084 :
-+		 TRANSFER_FUNC_UNKNOWN;
++void hwss_reset_unused_det(struct dc *dc,
++		struct dc_state *context);
 +
- 	mod_freesync_build_vrr_infopacket(
- 		dm->freesync_module,
- 		new_stream,
- 		&vrr_params,
- 		packet_type,
--		TRANSFER_FUNC_UNKNOWN,
-+		app_tf,
- 		&vrr_infopacket,
- 		pack_sdp_v1_3);
+ void hwss_wait_for_outstanding_hw_updates(struct dc *dc,
+ 		struct dc_state *dc_context);
  
 -- 
 2.53.0
