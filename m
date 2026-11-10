@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339697;
-	b=DRY538H8e6A3rq7BVAwMqdYkdzTY4DmiVpvyJ+Skwgae0cHRYR14d0duWoDb8Xzpmjxt
-	 RoCah6ZBQk2f1VeXJB4wi1Z70qZL1pjwbibIJZnwnxhHTY3c+DP/CP1LnI/SWT7aPzJRb
-	 xUvB732yXMTjtu4Weatwwv3Lt2kkxVEZJfsjmFzeOknsHnGbLwgGQenZfOhW26Ekl86kL
-	 rcPpfcjoeeqHQz6dhc8/mumMJLwwOx64HKcDNNK/lZ2ua6hwsdhmrbYCT04vmzaHDX9Kk
-	 u2U/E3Vhndk7ncOS7wjr+teTKqophIqDM5wXEfync/kHDwiAz/80Fxl+NzHQSHiq4dA==
+	t=1794339728;
+	b=Bmcj6SHPYRJh45y2+fgvq+PiYSyNwEqg3ui4Ss5gC8VOA+putfsZaHLIcRD+SsgiI40q
+	 Hvt5Xi/3soA4gjD7Wm8kQpqdaSyefa5KXKt0VoywgAvPumHTH2qIyTUoEABTCKz+Vy7qy
+	 Z6tAcMgr6bArtfpVgfYQp93KI5i4u2ruwHWScWeM1K9H6Y+rtU4PNc1v6W2kAYPnOUjDN
+	 +SIjWDtCWGCJ/rPMo/Fm47rqrN1m6xcIpwLp4hXJJd56P2EbccrriZ2P4Fn+jWZr7QdNB
+	 uTYZG59zO4JLbdpod7SpUtwozUPKVzHLdgxukeYslBLP+1FX6dTOQjhKLrGX7sTB8FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339697;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DpmgAT1XZ85JchZmurn/0ljS8KxaszwvT6tzeK0uvJo=;
-	b=GvFxqiIZ3qQXrJHwb43ZDaHrBR+eWKlgVVwSBjW9Ww9F1x46beGMgHcbFnQLp1SDBqOF
-	 wX3UK6zYzeIE9yKif5BQfbi2pFHqgHLDlxJHk6IgLXjeewL9xhICnaiuenYoGbJOgqouy
-	 GAzE7aANb2amvuhK7QDcH4UbXWXc6FJID1lPxnZj9zaWlAGbepIxO3U26Tp6huXjadMfp
-	 Ensn9fJGiUgx++UyPsBalY1sjoDlKTOp8ye17UPeOm2Wi4AEiT2oKIMB0/JcU6qtDJn00
-	 gGQNF2a+MSE7qREv2EumNTp83Zb35MpoEV/lkddopUH8B6iCnm+nqTAM0fDPISS25ZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339728;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FyuIR6D0H1eUshGvXn3nhcfN71rsd0VwjO7AOG7RVoU=;
+	b=YSUoVzsYyi83J0/t6apN+Klip62ADpx+D9jS8GpxFYOZ1O9NNXMZuN7wwUzMUFuO8Tfi
+	 A7F86Zpb4ChF3N/FkQmFO15AGwzDb2QRWjlS9Esd2fXBdKrV7Bqrkd5KEGV7AlG6TqhP+
+	 tLqt9QA+Od7tDvUYBFl98y4wiECJlC8KaK/Y6s1pLyuaW2O8SWKq6mkBbz09Ug83Zd86P
+	 keD3JyzJZ0E0WgTlrG63ncIykvynjczmWQZ/3v6WPx40lSWokDSo1WstivrD3a4OCYJsA
+	 3BljjV0t2Tx8bPC8IEYJbNz+i38JYwTpqvGcxh8+BYqWffyDY9dNog+XSW0+/knJmPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VKudkYB/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=lUccGktS;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1A6606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 349A6606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:42:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 349A6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VKudkYB/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF741F0089F;
-	Tue, 10 Nov 2026 19:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794339697;
-	bh=DpmgAT1XZ85JchZmurn/0ljS8KxaszwvT6tzeK0uvJo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VKudkYB/ImeeyaT07iHoMnUgrfLWuDsi5MlwqWWBCZCXzOrhjTSdD3gt993SwRPd6
-	 jsRIgabwBmFbfdpYniQO4OTBnUzugmLRZXYS9qhy7GEYzqjnxLQAjp4lX7nxvBZpvm
-	 +Pw7HX2UiHfSAiwx7gljN3FjUcGtK+GfewlKkouZ2lf4vEufHsj7DBrERJuYY0PY/W
-	 A8rQRnPZANlqQnaHR5EUy8lOJ+N1Ci6+/wZoYAYLQ+rvDVHGsUvirdeY4Pzh8uamj1
-	 H2HkbOj6h3bwcYm1oTU2QD/xfik45P7LCqGSgIDk+or4qvX6jbRE/Tm+PAKtTMbW8y
-	 TZ7pOej4qUNMA==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=lUccGktS
+Received: by dvalin.narfation.org (Postfix) id 3AC861FE32;
+	Tue, 10 Nov 2026 19:42:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794339726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FyuIR6D0H1eUshGvXn3nhcfN71rsd0VwjO7AOG7RVoU=;
+	b=lUccGktSPUFRh+C3cuNWgLwDeZmASQbAGnBbWCZbzbzDLxnpPAVk8CKXzhiWSUp2ByODrL
+	5hXW9lWwhQ1+NoGVsTNoPtargTPkqF/NqPL4VJiVyjM7oTG1WBwD+26BpH1uWPUikZGwvx
+	LBjFrIB4jW4DHD9NoKdoXKZU99gkP0s=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Jiaming Zhang <r772577952@gmail.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] nilfs2: force clear dirty state when restoring from the shadow map
-Date: Tue, 10 Nov 2026 14:41:34 -0500
-Message-ID: <20261110194015.3594251-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052932-failed-6.6-cb6702e63e0a@kernel.org>
-References: <20261107052932-failed-6.6-cb6702e63e0a@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 5.15.y] batman-adv: tt: only transmit local ROAM flag together with DEL
+Date: Tue, 10 Nov 2026 20:41:30 +0100
+Message-ID: <20261110194130.323069-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109202017-failed-5.15-10f24f058417@kernel.org>
+References: <20261109202017-failed-5.15-10f24f058417@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,215 +65,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiaming Zhang <r772577952@gmail.com>
+commit 10f24f058417024a2c19cb8d88a6a0678a58a21b upstream.
 
-[ Upstream commit cb6702e63e0a16afd83875294e5ce53becdd1b1f ]
+BATADV_TT_CLIENT_ROAM is part of BATADV_TT_REMOTE_MASK but on the wire it
+only has a defined meaning together with BATADV_TT_CLIENT_DEL: the
+originator no longer serves the client because it roamed to another node.
+Such a DEL is only relevant for events (non-full table requests).
 
-When garbage collection fails, nilfs2 rolls the DAT metadata file's page
-cache back to a shadow copy taken before GC started.
-nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
-cache, then nilfs_copy_back_pages() overwrites them with the saved
-contents and warns if one is still dirty:
+An ADD carrying ROAM is processed (by accident) by the receiver like a
+ROAMING_ADV: a newly created global entry is marked as roaming and is
+excluded from the global CRC. But the sender includes it in its local CRC.
 
-	/* overwrite existing folio in the destination cache */
-	WARN_ON(folio_test_dirty(dfolio));
+But such a behavior doesn't make sense for non-ROAM_ADV because a new TTVN
+is meant as announced commit of the local TT table of a node and should
+therefore not be used to create a temporary (roam) global entry in a node.
 
-nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
-which is safe here because the rollback runs with the log writer
-stopped, so nothing else can dirty the cache while it runs.  The same
-helper is also used when writeback finds dirty folios after the
-filesystem has degraded to read-only, where it does run concurrently
-with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
-folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
-folio if any of its buffer heads is busy.  The rollback caller shares
-that helper, so its clearing step can now return with a folio still
-dirty.
+At the moment, such an ADD with the BATADV_TT_CLIENT_ROAM flag set can
+happen due to two mechanisms:
 
-A DAT folio can hold a busy buffer head without anyone modifying the
-folio: nilfs_mdt_read_block() submits read-ahead for the blocks
-following the one it was asked for and waits only for the first, so the
-read-ahead buffers are still locked when it returns.  With a block size
-smaller than the page size, a locked read-ahead buffer can share a folio
-with a block that GC dirtied and keep the whole folio dirty past the
-clearing step.
+batadv_tt_local_valid() copies all flags of the local entry into a full
+table response. It is not synchronized with batadv_tt_local_mark_removed().
+An entry which was marked as ROAM|PENDING by a ROAMING_ADV is still part of
+the current TTVN and is sent with the ROAM flag set. The receivers then
+create a roaming global entry for it and detect a CRC mismatch, which
+causes them to request the full table again.
 
-Add a force flag to nilfs_clear_dirty_pages() and
-nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
-in the two calls from nilfs_mdt_restore_from_shadow_map().  The
-read-only fallback callers keep passing false, so that commit still
-protects them and the WARN_ON() is left alone.
+The same can happen for an ADD change which is queued for an entry which
+(still) has the ROAM flag set. For example when only the dynamic WIFI or
+ISOLA flags were updated.
 
-Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
-Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
+It is not triggered by batadv_send_other_tt_response() because
+batadv_tt_global_valid() is already taking care of filtering out
+BATADV_TT_CLIENT_ROAM entries.
+
+For the two problematic announcement mechanism, only send the ROAM flag of
+local entries together with a DEL.
+
+This only fixes the ROAM marking of the global entry and the resulting CRC
+mismatch. When the requester of the full table is the node which sent the
+ROAMING_ADV, the still announced entry will (independent of the ROAM flag)
+cause batadv_tt_global_purge_local() to remove the requester's own (new)
+local entry for the client. This is not addressed here.
+
 Cc: stable@vger.kernel.org
-Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-[ sashal: adapted nilfs_clear_folio_dirty() to nilfs_clear_dirty_page() while preserving the separate silent argument ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 27b37ebfa2d2 ("batman-adv: correctly pass the client flag on tt_response")
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ Context, use direct tt_common_entry->flags access ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- fs/nilfs2/inode.c |  4 ++--
- fs/nilfs2/mdt.c   |  6 +++---
- fs/nilfs2/page.c  | 51 ++++++++++++++++++++++++++++-------------------
- fs/nilfs2/page.h  |  5 +++--
- 4 files changed, 38 insertions(+), 28 deletions(-)
+ net/batman-adv/translation-table.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index 410da542a3b90..ec5d3e82f52e0 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -162,7 +162,7 @@ static int nilfs_writepages(struct address_space *mapping,
- 	int err = 0;
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 65b0d2284eaed..a6c92a34b999b 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -470,7 +470,6 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	if (!tt_change_node)
+ 		return;
  
- 	if (sb_rdonly(inode->i_sb)) {
--		nilfs_clear_dirty_pages(mapping, false);
-+		nilfs_clear_dirty_pages(mapping, false, false);
- 		return -EROFS;
- 	}
+-	tt_change_node->change.flags = flags;
+ 	memset(tt_change_node->change.reserved, 0,
+ 	       sizeof(tt_change_node->change.reserved));
+ 	ether_addr_copy(tt_change_node->change.addr, common->addr);
+@@ -478,6 +477,15 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
  
-@@ -185,7 +185,7 @@ static int nilfs_writepage(struct page *page, struct writeback_control *wbc)
- 		 * have dirty pages that try to be flushed in background.
- 		 * So, here we simply discard this dirty page.
- 		 */
--		nilfs_clear_dirty_page(page, false);
-+		nilfs_clear_dirty_page(page, false, false);
- 		unlock_page(page);
- 		return -EROFS;
- 	}
-diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
-index 75a2ed5ee6e09..c0c1e217bd384 100644
---- a/fs/nilfs2/mdt.c
-+++ b/fs/nilfs2/mdt.c
-@@ -411,7 +411,7 @@ nilfs_mdt_write_page(struct page *page, struct writeback_control *wbc)
- 		 * have dirty pages that try to be flushed in background.
- 		 * So, here we simply discard this dirty page.
- 		 */
--		nilfs_clear_dirty_page(page, false);
-+		nilfs_clear_dirty_page(page, false, false);
- 		unlock_page(page);
- 		return -EROFS;
- 	}
-@@ -634,10 +634,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode *inode)
- 	if (mi->mi_palloc_cache)
- 		nilfs_palloc_clear_cache(inode);
+ 	del_op_requested = flags & BATADV_TT_CLIENT_DEL;
  
--	nilfs_clear_dirty_pages(inode->i_mapping, true);
-+	nilfs_clear_dirty_pages(inode->i_mapping, true, true);
- 	nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping);
- 
--	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
-+	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true, true);
- 	nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
- 			      NILFS_I(shadow->inode)->i_assoc_inode->i_mapping);
- 
-diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
-index 2dbf74936a7ed..c664cf867e9d6 100644
---- a/fs/nilfs2/page.c
-+++ b/fs/nilfs2/page.c
-@@ -370,8 +370,10 @@ void nilfs_copy_back_pages(struct address_space *dmap,
-  * nilfs_clear_dirty_pages - discard dirty pages in address space
-  * @mapping: address space with dirty pages for discarding
-  * @silent: suppress [true] or print [false] warning messages
-+ * @force: whether to clear the dirty state regardless of busy buffer heads
-  */
--void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent)
-+void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent,
-+			     bool force)
- {
- 	struct folio_batch fbatch;
- 	unsigned int i;
-@@ -392,7 +394,7 @@ void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent)
- 			 * was acquired.  Skip processing in that case.
- 			 */
- 			if (likely(folio->mapping == mapping))
--				nilfs_clear_dirty_page(&folio->page, silent);
-+				nilfs_clear_dirty_page(&folio->page, silent, force);
- 
- 			folio_unlock(folio);
- 		}
-@@ -405,13 +407,16 @@ void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent)
-  * nilfs_clear_dirty_page - discard dirty page
-  * @page: dirty page that will be discarded
-  * @silent: suppress [true] or print [false] warning messages
-+ * @force: whether to clear the states regardless of busy buffer heads
-  *
-  * nilfs_clear_dirty_page() clears working states including dirty state for
-- * the page and its buffers.  If the page has buffers, clear only if it is
-- * confirmed that none of the buffer heads are busy (none have valid
-- * references and none are locked).
-+ * the page and its buffers.  If the page has buffers and force is false,
-+ * clear only if it is confirmed that none of the buffer heads are busy (none
-+ * have valid references and none are locked).  If force is true, the states
-+ * are cleared unconditionally, the caller should guarantee that the page is
-+ * not being modified concurrently.
-  */
--void nilfs_clear_dirty_page(struct page *page, bool silent)
-+void nilfs_clear_dirty_page(struct page *page, bool silent, bool force)
- {
- 	struct inode *inode = page->mapping->host;
- 	struct super_block *sb = inode->i_sb;
-@@ -429,24 +434,28 @@ void nilfs_clear_dirty_page(struct page *page, bool silent)
- 			 BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
- 			 BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected) |
- 			 BIT(BH_Delay));
--		bool busy, invalidated = false;
++	/* the ROAM flag is only meaningful for the receiver in combination
++	 * with a DEL. An ADD with ROAM would be interpreted as a roaming
++	 * advertisement
++	 */
++	if (!del_op_requested)
++		flags &= ~BATADV_TT_CLIENT_ROAM;
 +
-+		if (!force) {
-+			bool busy, invalidated = false;
- 
- recheck_buffers:
--		busy = false;
--		bh = head;
--		do {
--			if (atomic_read(&bh->b_count) | buffer_locked(bh)) {
--				busy = true;
--				break;
-+			busy = false;
-+			bh = head;
-+			do {
-+				if (atomic_read(&bh->b_count) |
-+				    buffer_locked(bh)) {
-+					busy = true;
-+					break;
-+				}
-+			} while (bh = bh->b_this_page, bh != head);
++	tt_change_node->change.flags = flags;
 +
-+			if (busy) {
-+				if (invalidated)
-+					return;
-+				invalidate_bh_lrus();
-+				invalidated = true;
-+				goto recheck_buffers;
- 			}
--		} while (bh = bh->b_this_page, bh != head);
--
--		if (busy) {
--			if (invalidated)
--				return;
--			invalidate_bh_lrus();
--			invalidated = true;
--			goto recheck_buffers;
- 		}
+ 	/* check for ADD+DEL or DEL+ADD events */
+ 	spin_lock_bh(&bat_priv->tt.changes_list_lock);
+ 	list_for_each_entry_safe(entry, safe, &bat_priv->tt.changes_list,
+@@ -2757,8 +2765,12 @@ static bool batadv_tt_local_valid(const void *entry_ptr,
+ 	if (tt_common_entry->flags & BATADV_TT_CLIENT_NEW)
+ 		return false;
  
- 		bh = head;
-diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
-index bff6257ef83bd..bce9a1b5c8f02 100644
---- a/fs/nilfs2/page.h
-+++ b/fs/nilfs2/page.h
-@@ -41,8 +41,9 @@ void nilfs_folio_bug(struct folio *);
++	/* the entry is (still) announced. A ROAM flag of an entry which is
++	 * pending to be removed must not be transmitted. Otherwise, the
++	 * receiver would handle it like a roaming advertisement
++	 */
+ 	if (flags)
+-		*flags = tt_common_entry->flags;
++		*flags = tt_common_entry->flags & ~BATADV_TT_CLIENT_ROAM;
  
- int nilfs_copy_dirty_pages(struct address_space *, struct address_space *);
- void nilfs_copy_back_pages(struct address_space *, struct address_space *);
--void nilfs_clear_dirty_page(struct page *, bool);
--void nilfs_clear_dirty_pages(struct address_space *, bool);
-+void nilfs_clear_dirty_page(struct page *page, bool silent, bool force);
-+void nilfs_clear_dirty_pages(struct address_space *mapping, bool silent,
-+			     bool force);
- unsigned int nilfs_page_count_clean_buffers(struct page *, unsigned int,
- 					    unsigned int);
- unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
+ 	return true;
+ }
 -- 
-2.53.0
+2.47.3
 
