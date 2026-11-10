@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315969;
-	b=hmRu8WbuMsfluVq0sD9XEZc+zGjFDkxbCMe8sKPCt1Y/1juG6MlT3y6X5vLxSxf/xkDR
-	 PRgxFKlus1R4ZlgH7oiv/KpwiZmfGktItvpXNDxTnLbvb8WvUDKM/Ui7MPD5MXsO7+/I9
-	 qqfKGbDi+KPoFfLTYTQUbALsPcIcKJIfIKS99RHWiWMlD0QhD1CXcA5M7vrS7pPNo614g
-	 3BiSIb4cUlbTmNdRsF2ze142xtv27t0BPLHLCq851bx9tCRn7T0+5BpljrnI3vSedDT1U
-	 IFIpU2kdhn/8SXvvLsMXGrwniPSRVa7oWCyDB7n9xNHhU9zElDpVMGTF01iWrXIwoWA==
+	t=1794315981;
+	b=2JHaYolDvld9L9dB4iZwTaOidGAbxZVznggslKvtHSiuQECPZl8NcWyjnEasJkZ/pxi9
+	 LI3MtH8uIkDFs66Hs1wvnhCPBYIDKaWQxY7PsCzuJ9lycoVTJk3lIjkEGQTN8nLUAvh7D
+	 i/ZHagrO52I1BeKyMpv/OU6uJkJRjgikhO0L2IsG2/+lNKofrJk1SIDHPwD4aJXZqKuik
+	 AZWfAA5aiDVaKQW/dXWwkit8NDJeacfOET0omAmGc2xwElPiYKeYxT6UyPMKRzpF4BHLa
+	 adDD5OaM8Vr3Fqmhbsc5uxV3NHXvWpcC3LsZzdye/crgEGrDpCqwO97dwjSsvNWpGew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315969;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315981;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=P/qve6AVg9tpQ8y3iDe8Le1ZT6EUOBsMVFQsGD4uA68=;
-	b=A8Hp3BYAScJxk97cNR4CDqrxI71BnDmUgetmgGAa4Z+sHPpskWe0fqufNMOEgaMJpDSV
-	 S3sOpwctUDa2HzoDtXD61LbqlDLwJgTU5Q0lvSXxqFwKZXWthnCPyCb5JY+3LJyvj7Npa
-	 ccBII8xMyFlFRYpvRjnBUNU75etzlrx327MTTGRhgRQ/+3nQ/8B76of3uNzuL+YBFHGmv
-	 GKts52p0rxu3ZQyjeGG1WiDFvOq0eJcZpjl13dLiuGDkNlPXF2OzOkwbbXczduf25gG7t
-	 v1iLtnwzbIvOaNxo/kFZw1gc1DDDoiXK4pYC+RUOkv1TEXMpX/OxpuYnFVK4uMpIbuw==
+	bh=RpDaW4XAi0T1fovdb3FW/J2KNgm0NP9j2ALnLaOOdHE=;
+	b=lrAhfLAz8bZfjcuYtV2CuiI81f2aNTLCTeUhPms5BW/a8Czd3mIlsK9JFzFu1/bGHPWU
+	 c8SzJl5LUF8FjzTFvm1Krc3erhzqpnWjYoSBYYptTP6mvKcn1JPJ+ym9nd1i/fP4iVANL
+	 G+oq1bA4igtj3KzVqc9wnzSSRaMNFFDGaSIOdeuDqByPBtdiF65GZag8Ie2iyPm/TOvv1
+	 wl+g7IuPVEQHqhikNyUdn9bKhXhXUxtNvbGTokJtjdQoEACoGEDgIP73JfwhOvUu9U/36
+	 lKfy4TFkzul/yZWghbV5G4ehR6cvxZ4lK1/9mwMauChFkzjo06L49M45Q75un1jMz5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONXPYxN5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbwYLHDC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15FB606A7D7
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:06:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203B2606A7D6
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:06:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONXPYxN5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E411F008A1;
-	Tue, 10 Nov 2026 13:06:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbwYLHDC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31B2C1F008A4;
+	Tue, 10 Nov 2026 13:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315968;
-	bh=P/qve6AVg9tpQ8y3iDe8Le1ZT6EUOBsMVFQsGD4uA68=;
+	s=k20260515; t=1794315981;
+	bh=RpDaW4XAi0T1fovdb3FW/J2KNgm0NP9j2ALnLaOOdHE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ONXPYxN5BGiROz7xXRADk+jCPb2QFWBqvI6+yIaEog8QqnjQrF/8g9FQGiIiSr6+O
-	 lnG/oT63UgbHJ7JRzyUWnv3ooxzIKhxa1T/VWPe2x+uP0x18ozP7k1pdG7gxEqb0eF
-	 NoNgpRw3Kg3fVJKtCsinCm87mYHDFg4mt0GAVuwpKJEGQepKjQbmfLm9OCNm9TjNU8
-	 H+a5eLonBW2t9H2A/4gXhX5mJm+vFwHrb63wFP9l/n0NkgfQ4dsT/JcmzGBWtBUvzP
-	 I9kx/mo8BnpUHu+zcHK2yTwaXDaaX/BKDEnRJrPKDa4KFfse4J8+Lnzf9DBtOYW/yL
-	 O4tbUYnNCGAzg==
+	b=FbwYLHDCsOosYlpDoYftL0rYz6Ou2C5V6WmlLQGlKG2WWr2GPGVOxlbA2bzSJUtc/
+	 kiiBZd14VpHJqVGrhu+jdnYwCp7sDwl7/lpZKMao3G/m496I5MoJoNUQAHYrdGUFvg
+	 tcBWv364IMX1XoiydvB3S20mUiQUa0S6hfjsby0372sLQH9MRp0IrdX6cPtJM/nG/D
+	 f/f94IDKfPMO1Ei8oa8YctUtvS4piXuOKQPfWuQh7ArxZC1zdrkAQMUP6s+eJnoSQW
+	 ZQK5rJVK8WWlFAOar6PZX34TmHm19EtOlL0osiBdTy27aPs/5hOQC/bHyGwn/4zTJF
+	 04bmOAWhurNoA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gaurav Batra <gbatra@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+Cc: Abhishek Dubey <adubey@linux.ibm.com>,
+	sashiko-bot@kernel.org,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Saket Kumar Bhaskar <skb99@linux.ibm.com>,
+	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
+	R Nageswara Sastry <rnsastry@linux.ibm.com>,
 	Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] powerpc/pseries/iommu: Add TCEs for 16GB pages when RAM is pre-mapped
-Date: Tue, 10 Nov 2026 08:06:06 -0500
-Message-ID: <20261110130522.1645996-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] powerpc/bpf: fix buffer overflow in JIT for large BPF programs
+Date: Tue, 10 Nov 2026 08:06:17 -0500
+Message-ID: <20261110130527.1549558-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051822-failed-6.12-0b8b0c17a899@kernel.org>
-References: <20261107051822-failed-6.12-0b8b0c17a899@kernel.org>
+In-Reply-To: <20261107054325-failed-6.1-78ce55b7913a@kernel.org>
+References: <20261107054325-failed-6.1-78ce55b7913a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,217 +66,162 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gaurav Batra <gbatra@linux.ibm.com>
+From: Abhishek Dubey <adubey@linux.ibm.com>
 
-[ Upstream commit 0b8b0c17a8998709ecb2852d56442ea981102941 ]
+[ Upstream commit 78ce55b7913a78e1687306668e078b86bc6508ee ]
 
-In powerPC, if Dynamic DMA Window is big enough, RAM is pre-mapped. To
-determine the size of RAM, a PAPR+ property "ibm,lrdr-capacity" is used.
-This OF property dictates what is the max size of RAM an LPAR can have,
-including DR added memory.
+During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
+is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
+as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
+epilogue instructions are not counted in alloclen.
 
-In PowerPC, 16GB pages can be allocated at machine level and then
-assigned to LPARs. These 16GB pages are added to LPAR memory at the time
-of boot. The address range for these 16GB pages is above MAX RAM an LPAR
-can have (ibm,lrdr-capacity). In the current implementation, these 16GB
-pages are being excluded from pre-mapped TCEs. A driver can have DMA
-buffers allocated from 16GB pages. This results in platform to raise an
-EEH when DMA is attempted on buffers in 16GB memory range.
+In later passes, if the real exit_addr falls outside the 32MB branch
+range, the full inline epilogue is emitted into the already-allocated
+buffer, writing past its end and corrupting adjacent memory.
 
-commit 6aa989ab2bd0 ("powerpc/pseries/iommu: memory notifier incorrectly
-adds TCEs for pmemory")
+Fix by ensuring exit_addr is non-zero before treating it as in-range,
+so pass-0 always falls through to bpf_jit_build_epilogue() and
+conservatively accounts for all epilogue instructions in alloclen.
+Also range check alt_exit_addr directly in the else-if condition.
 
-Prior to the above patch, memblock_end_of_DRAM() was being used to
-determine the MAX memory of an LPAR. This included 16GB pages as well.
-The issue with using memblock_end_of_DRAM() is that when pmemory is
-converted to RAM via daxctl command, the DDW engine will incorrectly try
-to add TCEs for pmemory as well.
+Since exit_addr handling now falls through to the epilogue, two
+related issues in bpf_int_jit_compile() must also be addressed:
 
-Below is the address distribution of RAM, 16GB pages and pmemory for an
-LPAR with max memory of 256GB, memory allocated 64GB, 2 16GB pages and
-assigned pmemory of 8GB.
+1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
+   Without this, a stale alt_exit_addr from the first pass causes the
+   second pass to emit a single jump instead of the full epilogue,
+   undercounting alloclen and reintroducing the overflow.
 
-RANGE                                 SIZE  STATE REMOVABLE     BLOCK
-0x0000000000000000-0x0000000fffffffff  64G online       yes     0-255
-0x0000004000000000-0x00000047ffffffff  32G online       yes 1024-1151
+2. Recompute addrs[fp->len] at the end of each code-generation pass.
+   The larger pass-0 body can shrink in later passes as out-of-range
+   exits settle into in-range jumps; a stale addrs[fp->len] would
+   leave exit branches targeting past the real (shrunken) epilogue.
 
-cat /sys/bus/nd/devices/region0/resource
-0x40100000000
-cat /sys/bus/nd/devices/region0/size
-8589934592
+Because shrinkage in a later pass can move the epilogue offset, the
+fixed two-pass loop is no longer sufficient: an exit that was out of
+range in an earlier pass may fall in range once the epilogue offset
+shrinks, shrinking the body further and overwriting the start of the
+epilogue. Convert the code-generation loop to iterate until the
+program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
+JIT if it does not converge.
 
-The approach to fix this problem is to revert back the code changes
-introduced by the above patch and to stash away the MAX memory of an
-LPAR, including 16GB pages, at the LPAR boot time. This value is then
-used whenever TCEs are needed to be pre-mapped - enable_DDW() or,
-iommu_mem_notifier()
-
-Fixes: 6aa989ab2bd0 ("powerpc/pseries/iommu: memory notifier incorrectly adds TCEs for pmemory")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gaurav Batra <gbatra@linux.ibm.com>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
+Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
 Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260806205027.86428-1-gbatra@linux.ibm.com
-[ sashal: retained the existing pmem_present and window-size checks around the bus_dma_limit update ]
+Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
+[ sashal: adapted nonconvergence error handling to use bpf_jit_binary_free() and the existing out_addrs cleanup path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/powerpc/platforms/pseries/iommu.c | 67 +++++++++++++++++---------
- 1 file changed, 45 insertions(+), 22 deletions(-)
+ arch/powerpc/net/bpf_jit.h      |  7 +++++++
+ arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
+ 2 files changed, 33 insertions(+), 8 deletions(-)
 
-diff --git a/arch/powerpc/platforms/pseries/iommu.c b/arch/powerpc/platforms/pseries/iommu.c
-index 4bcb6f2220658..aad5200b7bc1c 100644
---- a/arch/powerpc/platforms/pseries/iommu.c
-+++ b/arch/powerpc/platforms/pseries/iommu.c
-@@ -69,6 +69,8 @@ static struct iommu_table *iommu_pseries_alloc_table(int node)
- 	return tbl;
- }
+diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
+index a4f7880f959dd..5ea07464e4dfe 100644
+--- a/arch/powerpc/net/bpf_jit.h
++++ b/arch/powerpc/net/bpf_jit.h
+@@ -13,6 +13,13 @@
+ #include <asm/types.h>
+ #include <asm/ppc-opcode.h>
  
-+static phys_addr_t pseries_ddw_max_ram __ro_after_init;
++/*
++ * We need at least 2 passes for proper code generation, and may need
++ * additional passes if code size changes between passes.
++ */
++#define CODEGEN_MIN_PASSES    2
++#define CODEGEN_MAX_PASSES    3
 +
- #ifdef CONFIG_IOMMU_API
- static struct iommu_table_group_ops spapr_tce_table_group_ops;
- #endif
-@@ -1284,15 +1286,19 @@ struct failed_ddw_pdn {
+ #ifdef CONFIG_PPC64_ELF_ABI_V1
+ #define FUNCTION_DESCR_SIZE	24
+ #else
+diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+index 43e6341265148..e1f2cf1a6a169 100644
+--- a/arch/powerpc/net/bpf_jit_comp.c
++++ b/arch/powerpc/net/bpf_jit_comp.c
+@@ -93,11 +93,10 @@ static int bpf_jit_fixup_addresses(struct bpf_prog *fp, u32 *image,
  
- static LIST_HEAD(failed_ddw_pdn_list);
- 
--static phys_addr_t ddw_memory_hotplug_max(void)
-+static phys_addr_t __init ddw_memory_hotplug_max(void)
+ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
  {
--	resource_size_t max_addr;
-+	resource_size_t max_addr = memory_hotplug_max();
-+	struct device_node *memory;
- 
--#if defined(CONFIG_NUMA) && defined(CONFIG_MEMORY_HOTPLUG)
--	max_addr = hot_add_drconf_memory_max();
--#else
--	max_addr = memblock_end_of_DRAM();
--#endif
-+	for_each_node_by_type(memory, "memory") {
-+		struct resource res;
-+
-+		if (of_address_to_resource(memory, 0, &res))
-+			continue;
-+
-+		max_addr = max_t(resource_size_t, max_addr, res.end + 1);
-+	}
- 
- 	return max_addr;
- }
-@@ -1447,7 +1453,7 @@ static struct property *ddw_property_create(const char *propname, u32 liobn, u64
- static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mask)
- {
- 	int len = 0, ret;
--	int max_ram_len = order_base_2(ddw_memory_hotplug_max());
-+	int max_ram_len = order_base_2(pseries_ddw_max_ram);
- 	struct ddw_query_response query;
- 	struct ddw_create_response create;
- 	int page_shift;
-@@ -1617,12 +1623,12 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
- 		if (default_win_removed && pmem_present && !direct_mapping) {
- 			/* DDW is big enough to be split */
- 			if ((1ULL << ddw_sz) >=
--			    MIN_DDW_VPMEM_DMA_WINDOW + (1ULL << max_ram_len)) {
-+			    MIN_DDW_VPMEM_DMA_WINDOW + pseries_ddw_max_ram) {
- 
- 				direct_mapping = true;
- 
- 				/* offset of the Dynamic part of DDW */
--				dynamic_offset = 1ULL << max_ram_len;
-+				dynamic_offset = pseries_ddw_max_ram;
- 			}
- 
- 			/* DDW will at least have dynamic allocation */
-@@ -1669,7 +1675,7 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
- 
- 	if (direct_mapping) {
- 		/* DDW maps the whole partition, so enable direct DMA mapping */
--		ret = walk_system_ram_range(0, ddw_memory_hotplug_max() >> PAGE_SHIFT,
-+		ret = walk_system_ram_range(0, pseries_ddw_max_ram >> PAGE_SHIFT,
- 					    win64->value, tce_setrange_multi_pSeriesLP_walk);
- 		if (ret) {
- 			dev_info(&dev->dev, "failed to map DMA window for %pOF: %d\n",
-@@ -1774,8 +1780,7 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
- 	 * to directly map both RAM and vPMEM, then we need to set DMA limit.
+-	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
++	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
+ 		PPC_JMP(exit_addr);
+-	} else if (ctx->alt_exit_addr) {
+-		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
+-			return -1;
++	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
++			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
+ 		PPC_JMP(ctx->alt_exit_addr);
+ 	} else {
+ 		ctx->alt_exit_addr = ctx->idx * 4;
+@@ -200,6 +199,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
  	 */
- 	if (pmem_present && direct_mapping && len != MAX_PHYSMEM_BITS)
--		dev->dev.bus_dma_limit = dev->dev.archdata.dma_offset +
--						(1ULL << max_ram_len);
-+		dev->dev.bus_dma_limit = dev->dev.archdata.dma_offset + pseries_ddw_max_ram;
+ 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
+ 		cgctx.idx = 0;
++		cgctx.alt_exit_addr = 0;
+ 		if (bpf_jit_build_body(fp, 0, &cgctx, addrs, 0)) {
+ 			fp = org_fp;
+ 			goto out_addrs;
+@@ -250,10 +250,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
+ 		goto skip_codegen_passes;
+ 	}
  
- 	dev_info(&dev->dev, "lsa_required: %x, lsa_enabled: %x, direct mapping: %x\n",
- 			limited_addr_req, limited_addr_enabled, direct_mapping);
-@@ -2422,23 +2427,35 @@ static int iommu_mem_notifier(struct notifier_block *nb, unsigned long action,
- {
- 	struct dma_win *window;
- 	struct memory_notify *arg = data;
-+	unsigned long limit = arg->nr_pages;
-+	unsigned long max_ram_pages = pseries_ddw_max_ram >> PAGE_SHIFT;
- 	int ret = 0;
- 
- 	/* This notifier can get called when onlining persistent memory as well.
- 	 * TCEs are not pre-mapped for persistent memory. Persistent memory will
--	 * always be above ddw_memory_hotplug_max()
-+	 * always be above pseries_ddw_max_ram
- 	 */
-+	if (arg->start_pfn >= max_ram_pages)
-+		return NOTIFY_OK;
+-	/* Code generation passes 1-2 */
+-	for (pass = 1; pass < 3; pass++) {
++	/* Code generation passes 1-2+, loop until program size converges. */
++	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
++		u32 prev_proglen = proglen;
 +
-+	/* RAM is being DLPAR'ed. The range should never exceed max ram.
-+	 * Just in case, clamp the range and throw a warning.
-+	 */
-+	if (arg->start_pfn + limit > max_ram_pages) {
-+		limit = max_ram_pages - arg->start_pfn;
-+		WARN_ONCE(1, "Limiting Page Range %lx - %lx to Max Mem Pages: %lx\n",
-+					arg->start_pfn, arg->start_pfn + arg->nr_pages,
-+					max_ram_pages);
-+	}
- 
- 	switch (action) {
- 	case MEM_GOING_ONLINE:
- 		spin_lock(&dma_win_list_lock);
- 		list_for_each_entry(window, &dma_win_list, list) {
--			if (window->direct && (arg->start_pfn << PAGE_SHIFT) <
--				ddw_memory_hotplug_max()) {
-+			if (window->direct) {
- 				ret |= tce_setrange_multi_pSeriesLP(arg->start_pfn,
--						arg->nr_pages, window->prop);
-+						limit, window->prop);
- 			}
--			/* XXX log error */
+ 		/* Now build the prologue, body code & epilogue for real. */
+ 		cgctx.idx = 0;
++		cgctx.exentry_idx = 0;
+ 		cgctx.alt_exit_addr = 0;
+ 		bpf_jit_build_prologue(code_base, &cgctx);
+ 		if (bpf_jit_build_body(fp, code_base, &cgctx, addrs, pass)) {
+@@ -261,11 +264,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
+ 			fp = org_fp;
+ 			goto out_addrs;
  		}
- 		spin_unlock(&dma_win_list_lock);
- 		break;
-@@ -2446,12 +2463,10 @@ static int iommu_mem_notifier(struct notifier_block *nb, unsigned long action,
- 	case MEM_OFFLINE:
- 		spin_lock(&dma_win_list_lock);
- 		list_for_each_entry(window, &dma_win_list, list) {
--			if (window->direct && (arg->start_pfn << PAGE_SHIFT) <
--				ddw_memory_hotplug_max()) {
-+			if (window->direct) {
- 				ret |= tce_clearrange_multi_pSeriesLP(arg->start_pfn,
--						arg->nr_pages, window->prop);
-+						limit, window->prop);
- 			}
--			/* XXX log error */
- 		}
- 		spin_unlock(&dma_win_list_lock);
- 		break;
-@@ -2535,6 +2550,14 @@ void __init iommu_init_early_pSeries(void)
- 	register_memory_notifier(&iommu_mem_nb);
++		addrs[fp->len] = cgctx.idx * 4;
+ 		bpf_jit_build_epilogue(code_base, &cgctx);
  
- 	set_pci_dma_ops(&dma_iommu_ops);
++		proglen = cgctx.idx * 4;
 +
-+	/* During init determine the max memory an LPAR can have and set it. This
-+	 * will be used for pre-mapping RAM in DDW. memblock_end_of_DRAM() can
-+	 * change during the running of LPAR - daxctl can add pmemory as
-+	 * "system-ram". This memory range should not be pre-mapped in DDW since
-+	 * the address of pmemory can be much higher than the DDW size.
-+	 */
-+	pseries_ddw_max_ram = ddw_memory_hotplug_max();
- }
+ 		if (bpf_jit_enable > 1)
+ 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
+-				proglen - (cgctx.idx * 4), cgctx.seen);
++				prev_proglen - proglen, cgctx.seen);
++
++		/* Check if program size has converged, but ensure minimum passes */
++		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
++			break;
++
++		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
++			pr_err("BPF JIT: Program did not converge after %d passes\n",
++								CODEGEN_MAX_PASSES);
++			bpf_jit_binary_free(bpf_hdr);
++			fp = org_fp;
++			goto out_addrs;
++		}
+ 	}
  
- static int __init disable_multitce(char *str)
+ skip_codegen_passes:
+@@ -322,7 +340,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, int pass, struct code
+ 	u32 *fixup;
+ 
+ 	/* Populate extable entries only in the last pass */
+-	if (pass != 2)
++	if (pass < CODEGEN_MIN_PASSES)
+ 		return 0;
+ 
+ 	if (!fp->aux->extable ||
 -- 
 2.53.0
 
