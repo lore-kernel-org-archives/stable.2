@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335541;
-	b=ml8KZVqgStRiwKAaArywDLJ5pp3Dwux9BVSSNwWAhFatTZYrERKKSSoOstBIdDmoY3I6
-	 o1wLliMij5sITD4OVS9fn5gFoSsSr84BedeguhOxW0Dth6O/98ueLmmj6ffJOF/C/SyPc
-	 zyNFTC5tlFoWJu35PbNbeDoqrWkd39tbZ3uVaE3OhLocn1Qm5sOz9fCty1P6R39Up14bo
-	 AXodyXy4g/hkrLCfyjN24Nsei3HddPCZ83/cwzA+a4fwP0DPkBmSUs23vM1s3/9iaFgUM
-	 jmY0dBPg19ftDdjZhVFdMB+ZW8RK4c1ol3cAvVPT6zUjDuXThhM4uZEwLqXgVUAQNyw==
+	t=1794335607;
+	b=zPobCpRlSrI2QEbTBjQOrVy06zQ6PPUzJpqp1Zf4teaHqblp9B8tbp7jCfhVrpkLCxw1
+	 YqMIYYbb2qbCdl9pN6bM1AiVDLyvYTyl0bcLym16OhvuRWIXL1KruRA0hmfDbmORlXA7A
+	 2dWZGEVdG/Y2AY5VHQXqHVdzYb3rQoeiA45KAP3sC7vSrZSzzooSO1koZQhVJb6vKCWTz
+	 1ciw5HqFA02eMKz6olwnNKTrrdwvxUmnylqrKd2ibFNO1rdODKSZB+PtXhEmhq8Afof+N
+	 8LXLToxUhokwZdnBkUri+Pw0+PbsVH0YyDsWIM5CfBiu6gRkew7L8X9DVlyOMHhWT4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335541;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=v2KCY7m2LIQNOtRQIFxykWIbAEe2ELAmdUP5c2kD5Xg=;
-	b=5nYj/QMb1FNk3CFAXa6yhjmT7SFXQSUzC1FRgS7Xg41/2qFLgcoUJIG6WQCCuDj/p+f/
-	 VP0i3rjaE7ao1ul9HBAwkO/MXaanC94NHgg7KbNMC38lZmD5+Jcq+e1cvtSB5GiSdGI3i
-	 ARfEr4jnvGtK/wpJVSJu3WKpdO1cRwkFoWSgP4veDRG6oVOyU5KVHhNVEAoh/h8yTWIfx
-	 4PtWVG0rS15toQGk05aWTs870vUNTuE0NK4wk+USGT/BJCM3jaLKIRJY7/+xRYcCWNTCZ
-	 9kd9tmO2uMT777nHnMq6/lSDUnGb5VSP+5YEho9Z/y4dG6F4MXRscU6nNj6ZV7Ynp1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335607;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=QsGdKG/KD49x8kh/L/31jkdnS0AYzN1/NmNkRV4H86Q=;
+	b=V5kAMNTVlV4RZ+8yA75/Rza4PdsbTwphweTR6qtLnj/FJ+7HNqItThfKXo3NHz4cMrsx
+	 HKtB9kpy4bQk38T4TEw5x1I5Ym7QqA7OSXM9ziWCsrlWphQfJ1fl0mjueN3iL9/Bfxwv/
+	 BAZh02gnM0YmrAUIR+3RQEKotLwqQURBQVjXvHSSxPR93BHKi2esli37dwT6EsT0q1UPH
+	 dfa/phG8dgfoS0sG2HFLvqVUwIgGt4CWvjHlyj4WnoqjqSQjd01Oeul+Faj3vLqTDxPz8
+	 xFwzF7Gd+CiG4kEmELx1YQkJaTXv/Ts0/2UT1ze5GcQYzpNN0yfpkqTCwMkgpjzw74A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHOZ8OUV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F118606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:32:21 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qkdmn5b2;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8E6D3606A31C;
+	Tue, 10 Nov 2026 18:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6D3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHOZ8OUV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102EE1F0089F;
-	Tue, 10 Nov 2026 18:32:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794335540;
-	bh=v2KCY7m2LIQNOtRQIFxykWIbAEe2ELAmdUP5c2kD5Xg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SHOZ8OUVphYxbT1/YTOyurpiMG6W8muqKgKP+RufcW+Qim6gxH2muMuRYJ8/rwhwK
-	 qNVM/KPwMqZWmusIpFPNXBpuxLJvrxVwXwgHW2rG+WikK5kuMA+gzmSMNUZDOSOpH2
-	 Hq0Ii9FiI+Pkez2VE47+m6XV0KJ/AGUPFwUhYXHxB0uTmxjX4AddzphhoM36o4+0vk
-	 G+3fWxL+pwzEg1fn5aHq933XZX9Anh4lmI1IjK6CR4PQxZQKYHKBSSdRbTsiUXNkGc
-	 E8k86lJPTYRDRe7C45rZX6VGxbuntwJi98vBkWxbGGBl3I483pvsELwB2dRNN3kNBq
-	 YUpqtcMi8XF2A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhiling Zou <roxy520tt@gmail.com>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vega <vega@nebusec.ai>,
-	Ye Liu <liuye@kylinos.cn>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/page_table_check: skip zero pages
-Date: Tue, 10 Nov 2026 13:32:18 -0500
-Message-ID: <20261110183156.3135507-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054455-failed-6.1-33afd07412a1@kernel.org>
-References: <20261107054455-failed-6.1-33afd07412a1@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qkdmn5b2
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F3921477;
+	Tue, 10 Nov 2026 10:33:21 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 316683F85F;
+	Tue, 10 Nov 2026 10:33:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794335604; bh=wZpA4tSEkZzY5bAQjPtDXzsMjtvMfTAPE1zEhv36Z/U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qkdmn5b2WFR6H+pW4M0yFIkY8M/jdb7wwi3KaQDM0fXSoiXHNUIiBM1iJY+mjkVHT
+	 vLzDDTbB6NUbsjbVkGRFOHzbVG5NQ6/HnA981y2+MpBXQUrVQKPB+4dtYDFFxrKrhF
+	 FkxD5vu8FlMT/cYZlDI+Tm2lV/jNbEWsxKOZEV14=
+Date: Tue, 10 Nov 2026 18:33:20 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: =?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Peter Collingbourne <peter@pcc.me.uk>, stable@vger.kernel.org
+Subject: Re: [PATCH 01/24] arm64: Fix lazy TCO clear when enabling user MTE
+Message-ID: <avNjcKtuQkZW0_Sr@arm.com>
+References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
+ <20261107-mte-kasan-split-v1-1-d84ea5f30f94@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +62,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261107-mte-kasan-split-v1-1-d84ea5f30f94@google.com>
 
-From: Zhiling Zou <roxy520tt@gmail.com>
+On Sat, Nov 07, 2026 at 04:36:07PM +0100, Pierre-Clément Tosi wrote:
+> On kernel entry from EL0 with HW KASAN inactive and user MTE disabled or
+> in async mode, mte_disable_tco_entry() leaves PSTATE.TCO set to avoid an
+> expensive write, as it assumes that EL1 tag checks are not needed.
+> 
+> However, if the thread is in the process of enabling sync or asymm MTE,
+> set_mte_ctrl() updates SCTLR_EL1.TCF0 without clearing PSTATE.TCO! As a
+> result, kernel uaccesses miss tag faults until the next context switch.
 
-[ Upstream commit 33afd07412a1efe5b750a3fd5eb0272ebdd12761 ]
+Nit: next context switch or another syscall. I think this makes it
+clearer that the only potential missed tag accesses after the prctl() is
+a signal frame write as we don't have other uaccesses.
 
-page_table_check_set() accounts pages by whether they are PageAnon().  The
-shared zero page is a special page, not an ordinary file-backed page.
-Read faults on private anonymous mappings can install many read-only PTEs
-that point at the zero page, but page_table_check currently accounts them
-in file_map_count.
+> Clear TCO in set_mte_ctrl() immediately after setting the task's SCTLR.
+> 
+> Cc: Peter Collingbourne <peter@pcc.me.uk>
+> Cc: stable@vger.kernel.org
+> Fixes: 38ddf7dafaea ("arm64: mte: avoid clearing PSTATE.TCO on entry unless necessary")
+> Signed-off-by: Pierre-Clément Tosi <ptosi@google.com>
 
-That lets an unprivileged process populate enough zero-page mappings to
-overflow file_map_count and trip the BUG_ON() in page_table_check_set().
+The patch is correct but I wonder whether we need a cc stable.
 
-Skip zero pages in page_table_check accounting.  They do not need the
-anonymous/file mapping conflict checks that page_table_check performs for
-ordinary pages, and this keeps the existing counter size and page_ext
-layout unchanged.
-
-Link: https://lore.kernel.org/1f8848512d2e3ded944f8d595c29faee8fdaeab0.1784645969.git.roxy520tt@gmail.com
-Fixes: df4e817b7108 ("mm: page table check")
-Signed-off-by: Zhiling Zou <roxy520tt@gmail.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Cc: Ye Liu <liuye@kylinos.cn>
-Cc: <stable@vger.kernel.org>
-[ sashal: Replaced unavailable is_huge_zero_pfn() with is_huge_zero_page(compound_head(pfn_to_page(pfn))). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_table_check.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/mm/page_table_check.c b/mm/page_table_check.c
-index 451114bdc3401..631470b230358 100644
---- a/mm/page_table_check.c
-+++ b/mm/page_table_check.c
-@@ -64,7 +64,8 @@ static void page_table_check_clear(struct mm_struct *mm, unsigned long addr,
- 	unsigned long i;
- 	bool anon;
- 
--	if (!pfn_valid(pfn))
-+	if (!pfn_valid(pfn) || is_zero_pfn(pfn) ||
-+	    is_huge_zero_page(compound_head(pfn_to_page(pfn))))
- 		return;
- 
- 	page = pfn_to_page(pfn);
-@@ -105,7 +106,8 @@ static void page_table_check_set(struct mm_struct *mm, unsigned long addr,
- 	unsigned long i;
- 	bool anon;
- 
--	if (!pfn_valid(pfn))
-+	if (!pfn_valid(pfn) || is_zero_pfn(pfn) ||
-+	    is_huge_zero_page(compound_head(pfn_to_page(pfn))))
- 		return;
- 
- 	page = pfn_to_page(pfn);
--- 
-2.53.0
-
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
