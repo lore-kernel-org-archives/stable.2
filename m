@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338255;
-	b=G+znbgAz+KbvPjZT7XkiaBwCyIgUSutoPAu67fwwQG1WDEGVZcG3QIDTtTGGrRbWjiP0
-	 a7ma3U0nifcBk+2C1oHClex+2wiypiDyRT4imk540Tp8QnLyOtdFLo5uwdSi7HyHf8l/k
-	 Geuey84mjozWHHGi4Dbd09p7JqgziGr4C1Q3J7VgSZcvrDwoLWwfhTjG1Wzso1Vrc50wP
-	 kx8XAtOYd3eVOd8Cu2paENBXblwL3heby2T/0s91g/SR1ds6A4JRNtdpQN/TFShraOXbh
-	 QPv+Y8vbsm8i9Guq2hxJd9yWkwXvw27lBobIEim0mHeoybO0unUeXK4VLPCOfvDvNoQ==
+	t=1794338277;
+	b=efHAlxugDWaeHYF3hD4K843EFOH33bN51E9ilqReehCTX0KhrGjlBjENqU/ETzC6XhlF
+	 lLZp4lA6fSOYfS71WhhRGK+MfHH+IN8ASjopX78sVMmKaAIWtX0Sesqt5l0aZ3UISIZv1
+	 dYJ68I1GsCFBkQf4IKRob60/haY1TGIDNkfd4q8WwABLVI0lJPkbI/lweqUH1kvn0Iay3
+	 5zhXblxrroweslhscdFmiiMYH3zT2X8I1aw2Vt8bOwoDwsw34ju1gLwL0XFEyINGd37eN
+	 1V4MtTvndPfvRxn7WNMqSt8hIYnhrPpuFplPOAVXwjR/V4Pr8L2zEukETtm48qF6sCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338255;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NWHzOmzoGenyUxfNUvWTecDWhNzx1JmAQQJjRD7k5aA=;
-	b=zc7AZwpbbVHnZpua22D05IIjPacu023WWBcwLtdG0JmiS0ODOAPNZs2IxFavoOmHs/hV
-	 MWSxTevc5x//DL5Ub+k0ICfPFwLmm2fg5CJiiqSZm9/gFAr4v5ucbKZz0nX/igcgOkxkP
-	 JJf1EwXEK5e2Gv+7aWZzP0wz6wItqdoRlgK16C9w9G7JU0rEWXVlJgu1SIf85vH996TEu
-	 iAwx/KYEzdCFLSexGIpTz7N7R2daknzUlKg3Z2rOd328GKaBsdlYxB5mpGE/tj7wYtQ8b
-	 Yzb98oDTqtES1kSlisHW02nLTnhHXu0hpS3m64RZzrYu8Np3nWrh77Oca+CqC5C8kbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338277;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LPjtzC6A/O1Lqk0tKC+1j+Tf/YSsRo00l9clOnfxAss=;
+	b=PQ71XnkoAlBtZ+QCtuQ0lBJhOHKJQ0ejhSYTnr64SJTYW+6KWsYx4sR5U//4LjA8SR2N
+	 xW2yIP5/WahBf9T3BOUdJoLBWEs+YNMvikRs01uGTV2NCOB0ZwRJolykvgNwHfxZX0upU
+	 ub/OpMuZNjgAlo9UKGC+aPbkfhHAXQEiDRsqRWTJDQmTCc3DhZE4jprYxx5CF7UY0PiQe
+	 TrYQSTdBxw2lhx0NIcW48IZUtBwm5NpiBeFDxDm2kA3LFv4e/O4XHR/O+yCEDFVHds7qI
+	 kPzOhzzcibruVYttE3OsDx/JzxY7eY64vaXlQ72dQbMnJ/4kM6QTHK1XtDX2W397YGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AiYcBIYZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=uRI3OYv5;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E594B606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:17:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0C6E1606A33E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C6E1606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AiYcBIYZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268851F008A5;
-	Tue, 10 Nov 2026 19:17:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338254;
-	bh=NWHzOmzoGenyUxfNUvWTecDWhNzx1JmAQQJjRD7k5aA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AiYcBIYZxcruUUHMq1ZRaOZIFmwwRxFp1Cvs7dJvJZ56p+clcpLMP60QgaP+fovbe
-	 gXUhzU5VV5vnEb/gCTNwVsqRzAaeqzrh3hJAxAnHg+erIU3sIDBsMH5dtYvzmlLVK3
-	 TZZSTQNX2NGUQn1nasotE5ZXHVrhx+pgZyZ5H73lrZaOwsMEPy4NjtteNRb2a8R6Si
-	 TlxTarcBXrEyjnAEr1k8RsfevdbVpTQdc9wwc3qYE1+8YaCAwVOIR9Lm7YDipwnj9i
-	 /iKMzpduO1sIeJ7TL7PayafKXMOP7ixQ2Ra3fe7BIyd5tXNHdj9qeCrDAjJbcYR/Vx
-	 88oI+Xvlw2clA==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=uRI3OYv5
+Received: by dvalin.narfation.org (Postfix) id 3CD001FD16;
+	Tue, 10 Nov 2026 19:17:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794338275;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LPjtzC6A/O1Lqk0tKC+1j+Tf/YSsRo00l9clOnfxAss=;
+	b=uRI3OYv5mYQTK2P/4fJDDq5cJJnWRQf7HX6tPYRM/EucHxjn4lYbALy2OxC8tHVoeBsOMe
+	UMcaByc6sY7DjRsSfi3e/tQcztDtKk8BbrMppK8flDQXGIJZnzTqcqhozQRsiAgphXCaIo
+	iCWYZmMs7yEiTtZ8YfMtR91zVI/wlmQ=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] media: iris: Fix power-off ordering to disable power domain after clocks
-Date: Tue, 10 Nov 2026 14:17:29 -0500
-Message-ID: <20261110191435.3457367-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110191435.3457367-1-sashal@kernel.org>
-References: <20261107050739-failed-6.18-9cfae7726a9a@kernel.org>
- <20261110191435.3457367-1-sashal@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.6.y] batman-adv: tt: only transmit local ROAM flag together with DEL
+Date: Tue, 10 Nov 2026 20:17:37 +0100
+Message-ID: <20261110191737.150516-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109201035-failed-6.6-10f24f058417@kernel.org>
+References: <20261109201035-failed-6.6-10f24f058417@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,48 +65,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+commit 10f24f058417024a2c19cb8d88a6a0678a58a21b upstream.
 
-[ Upstream commit 9cfae7726a9a9f526e8905dbddde355be2674e3d ]
+BATADV_TT_CLIENT_ROAM is part of BATADV_TT_REMOTE_MASK but on the wire it
+only has a defined meaning together with BATADV_TT_CLIENT_DEL: the
+originator no longer serves the client because it roamed to another node.
+Such a DEL is only relevant for events (non-full table requests).
 
-In iris_vpu_power_off_hw(), iris_disable_power_domains() was called
-before the associated clocks (IRIS_BSE_HW_CLK, IRIS_HW_AHB_CLK,
-IRIS_HW_CLK) were disabled and unprepared. This reverses the correct
-power-down sequence: with the power domain already removed, the
-subsequent clk_disable_unprepare() calls end up operating on
-clock-controller hardware that is no longer powered, which can hang
-or behave unpredictably.
+An ADD carrying ROAM is processed (by accident) by the receiver like a
+ROAMING_ADV: a newly created global entry is marked as roaming and is
+excluded from the global CRC. But the sender includes it in its local CRC.
 
-Reorder the calls so iris_disable_power_domains() runs after all
-three clocks are disabled, ensuring clocks are always turned off
-while their power domain is still active, and mirroring the reverse
-of the power-on sequence.
+But such a behavior doesn't make sense for non-ROAM_ADV because a new TTVN
+is meant as announced commit of the local TT table of a node and should
+therefore not be used to create a temporary (roam) global entry in a node.
 
-Fixes: bb8a95aa038e ("media: iris: implement power management")
+At the moment, such an ADD with the BATADV_TT_CLIENT_ROAM flag set can
+happen due to two mechanisms:
+
+batadv_tt_local_valid() copies all flags of the local entry into a full
+table response. It is not synchronized with batadv_tt_local_mark_removed().
+An entry which was marked as ROAM|PENDING by a ROAMING_ADV is still part of
+the current TTVN and is sent with the ROAM flag set. The receivers then
+create a roaming global entry for it and detect a CRC mismatch, which
+causes them to request the full table again.
+
+The same can happen for an ADD change which is queued for an entry which
+(still) has the ROAM flag set. For example when only the dynamic WIFI or
+ISOLA flags were updated.
+
+It is not triggered by batadv_send_other_tt_response() because
+batadv_tt_global_valid() is already taking care of filtering out
+BATADV_TT_CLIENT_ROAM entries.
+
+For the two problematic announcement mechanism, only send the ROAM flag of
+local entries together with a DEL.
+
+This only fixes the ROAM marking of the global entry and the resulting CRC
+mismatch. When the requester of the full table is the node which sent the
+ROAMING_ADV, the still announced entry will (independent of the ROAM flag)
+cause batadv_tt_global_purge_local() to remove the requester's own (new)
+local entry for the client. This is not addressed here.
+
 Cc: stable@vger.kernel.org
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-[ sashal: Adjusted context to account for absent IRIS_HW_AHB_CLK and IRIS_BSE_HW_CLK clock-disable calls. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 27b37ebfa2d2 ("batman-adv: correctly pass the client flag on tt_response")
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ Context, use direct tt_common_entry->flags access ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/batman-adv/translation-table.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-index 8367540163f2d..437b9e921fd08 100644
---- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-+++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-@@ -220,8 +220,8 @@ int iris_vpu_power_off_controller(struct iris_core *core)
- void iris_vpu_power_off_hw(struct iris_core *core)
- {
- 	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN], false);
--	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
- 	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
-+	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
- }
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 7df77cca52a08..b4c98ac6d338d 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -470,7 +470,6 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	if (!tt_change_node)
+ 		return;
  
- void iris_vpu_power_off(struct iris_core *core)
+-	tt_change_node->change.flags = flags;
+ 	memset(tt_change_node->change.reserved, 0,
+ 	       sizeof(tt_change_node->change.reserved));
+ 	ether_addr_copy(tt_change_node->change.addr, common->addr);
+@@ -478,6 +477,15 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 
+ 	del_op_requested = flags & BATADV_TT_CLIENT_DEL;
+ 
++	/* the ROAM flag is only meaningful for the receiver in combination
++	 * with a DEL. An ADD with ROAM would be interpreted as a roaming
++	 * advertisement
++	 */
++	if (!del_op_requested)
++		flags &= ~BATADV_TT_CLIENT_ROAM;
++
++	tt_change_node->change.flags = flags;
++
+ 	/* check for ADD+DEL or DEL+ADD events */
+ 	spin_lock_bh(&bat_priv->tt.changes_list_lock);
+ 	list_for_each_entry_safe(entry, safe, &bat_priv->tt.changes_list,
+@@ -2757,8 +2765,12 @@ static bool batadv_tt_local_valid(const void *entry_ptr,
+ 	if (tt_common_entry->flags & BATADV_TT_CLIENT_NEW)
+ 		return false;
+ 
++	/* the entry is (still) announced. A ROAM flag of an entry which is
++	 * pending to be removed must not be transmitted. Otherwise, the
++	 * receiver would handle it like a roaming advertisement
++	 */
+ 	if (flags)
+-		*flags = tt_common_entry->flags;
++		*flags = tt_common_entry->flags & ~BATADV_TT_CLIENT_ROAM;
+ 
+ 	return true;
+ }
 -- 
-2.53.0
+2.47.3
 
