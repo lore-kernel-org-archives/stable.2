@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352360;
-	b=H2HbSOyW18Us0c2jaPNoo9Ffwrgc38n6ryuUNPVlpjOih/MQOoXz4KClWYxJ6/fBJTSR
-	 oNacz2EUgsMdYz+8aU8SgQBMgH+b5jbbuiVpS8AvKU2FXvrxXPIFxEvLeclNl3ox9fe0H
-	 Uor7tub2DIhky4MlsQvW7mDEBrf5AG9U882A8ZC7MJ4Vpptyht7Aiprr4bZVNd09VlcWD
-	 RbR4ixJ47FOyqmhObWdPR9D/ZYTZRb+kiAPRJLbW12NTI0bRe3uQeqDr1hur5A7CshsTd
-	 B/jU9VLo8zIDEGkACZSSGKICmXC/IVoYG6pbhlBO7F3vgmgMvAq6YxXy1pG+czpxQaw==
+	t=1794352392;
+	b=TkLqI5XyU1+f89WKERDzXfCHRxKvSB+3WzGnn3uzmXpxW4bPppNDO8wjYl8nzusBANxS
+	 MuVCUzgZEOrGG5Hr3j0na3g+h173uSvzOmjjX3w/krKW3I66KK/TBhcBYnGSHomPdBa+g
+	 BPxaPXoEjScJv5HvvybR6ykLmF2+WSM4ixXhAm5IeSnlub4UrUNUQUeupTQxlHgYOZ46b
+	 0F7vE061THKbhR28xMlyVR9xBKj4X3UqQsYzXEUW1/jqZKSXbVLIYM/XzgFxVGN32fpMr
+	 uwLx9sp0owqYLKWV3fvNH0iKEO80b4EfallzM7zCvQFm3oMXgphfZ0fRTt+i4zoTBCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352392;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3ZQe4SsxNRyaxWVn414RghY+JpIn3P/gHGA5fOfmeGU=;
-	b=N/NB6zAGvWJ3U+3TvT6ZgmqCgamKylMRfjbOk0KKrFe87dlx5Z902GMC5vxcNtm4iBOL
-	 21EmTkqgHidieb+Xpwhj9IvSMu2+ug1M3dPmZOVuBmk3yryqFAyesx6DgxzaXuW4eRS0v
-	 PP80Xc3FaPszks0fyq51caxG4mmXw+AKts//YI8RFheHcwk9XcIWeqWqxFft2JvBO43yD
-	 LosSt85agDU75r2JspwU1AeG7rZA9iqkKlI3821eRlsndSk4lrq7Bs++3R9agL8su9SZy
-	 52jB7NeTkscv5Iv/z8Vm5AJtdCEE8ztK9yDL5Di6Ga+EJbehF12aSWI/rI5MY0/XODA==
+	bh=mQNSbAy/UczgGILOzDvsHnA+WoapF2BiH0kYqI3U9bI=;
+	b=w38eZE8icinguhKLD/GAzducHcqMQfrPkVQB3r8y5QwhjZIvPi/SEc1z/1MR++4vTOUQ
+	 aZvHcjfK4bgkce2uqSixmacY2NB0QcPxavYvaCNXojeLhC9gOp9lFR92Tob4gHLXAj9lK
+	 tfWdmqDeEeuZQO0iVR8+jtwodQmxehgF0Oq3IBtBlg5l7OsDOFLcSpnslBAEG7c7W84pg
+	 HOoFFvmLLLU2KXbSH6PJmET7ClPTlm5CiFv6kduEF8xHGVkrlmYy9RQyLBAi22vCNJOX9
+	 lZRpydW9koWq6rhbVjGH7KOMa6Zrds6tz1gY8RGOQDz9WiQZZ+MoQmfz7ilbIkOPadw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bsoZlk/c";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vif9IjXW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA85606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E183F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:13:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsoZlk/c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBAC1F00A03;
-	Tue, 10 Nov 2026 23:12:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vif9IjXW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CCA41F0093C;
+	Tue, 10 Nov 2026 23:13:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352360;
-	bh=3ZQe4SsxNRyaxWVn414RghY+JpIn3P/gHGA5fOfmeGU=;
+	s=k20260515; t=1794352391;
+	bh=mQNSbAy/UczgGILOzDvsHnA+WoapF2BiH0kYqI3U9bI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bsoZlk/cg4P0HnJeMgDkNNqMB5pfqtfZw0M2rIUmhyLso4jaDXZylI0mimxq/GhM3
-	 R1/UTDAW1D41Xab1EPvL3lCGxfcKZh7dgxdlYSTmmFT6b3cn42FFowAO0u82BDuEHw
-	 DjugXTpgWfWgL4UKVxhHTZtOvHri+UGSB4wAkBUxJmqNkDgUusnV6Sn7evdMotgE0L
-	 YUeArRyRo82vI2hqEzY9/A0qHcMtiSGSNGseEMNblr+KxpnswNBGPEBplTI/fUiyeq
-	 Y6TX1E7TVHsvIRLT5nSi4p7zC4i6a7vveK3SvjK8LiB4wa0BfiIjGguOnDI4gmTJ2I
-	 iUb9J7yzHVHiA==
+	b=Vif9IjXWOvZFr2Bxr1gFFPssvEGLQHYyGht4+PTqHzzYdf1FBLLqwlikRRTb6xD3e
+	 TmkoFOnNBUH38yn737iSbr3aG2HBs6aNhHdmTFby5SOlRnOGt4f3p7XZLdSCeLfKSu
+	 IJMrleg4BJX9DWYIG0XwVwoElljmwNTpAKkcEjle3bcWQTrIOzojworsGAUpI6vAl1
+	 T/LIRJRVv3UASzTOpO/Lj8mWBN3sGo7abl7MNZ1MTJ9oZotb9r3VLnAoZyNO70f6PC
+	 q8QuizACZ7c7R+GUT5sBTlI8UeDY1JZHtFDJwc32C/oAnc9YYOmufJrVbK0/Wf2Rwy
+	 8/Vc4JiJqABNg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Sashiko <sashiko-bot@kernel.org>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] ALSA: emux: Fix UAF of soundfont zones at note-on
-Date: Tue, 10 Nov 2026 18:12:35 -0500
-Message-ID: <20261110231146.73238-5-sashal@kernel.org>
+Subject: [PATCH 7.3.y] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
+Date: Tue, 10 Nov 2026 18:13:09 -0500
+Message-ID: <20261110231246.13787-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110231146.73238-1-sashal@kernel.org>
-References: <20261107053717-failed-6.6-34e3e04b8a17@kernel.org>
- <20261110231146.73238-1-sashal@kernel.org>
+In-Reply-To: <20261107050454-failed-7.3-a1b4bd2c2c26@kernel.org>
+References: <20261107050454-failed-7.3-a1b4bd2c2c26@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,79 +62,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 34e3e04b8a1731a773797542f0781e99ce7cd755 ]
+[ Upstream commit a1b4bd2c2c262b8094c86afb99364d16ac08cb66 ]
 
-snd_emux_note_on() looks up the matching zones via
-snd_soundfont_search_zone(), which takes sflist->lock only during the
-lookup and returns the raw zone pointers after releasing it.  The
-caller then stores them in vp->zone without any protection.
-Meanwhile, a concurrent SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES ioctl may
-unlink and free those zones in snd_soundfont_remove_unlocked(); this
-leads to a use-after-free in snd_emux_note_on(), and later at
-accessing the cached vp->zone, e.g. in snd_emux_send_effect().
+Disabling LPIs is pretty nasty, as it directly messes with the AP list
+of the affected CPU, which could be running... This has the potential to
+lead to really bad behaviours, and we should not be doing that.
 
-Fix it by holding sflist->lock in snd_emux_note_on() over the whole
-zone lookup and voice setup, and let snd_soundfont_search_zone()
-require the caller to hold the lock, instead.
-snd_soundfont_lock_preset() takes sflist->lock for setting
-presets_locked, so the removal path now syncs with the note-on finish.
+Take example on the way the Active state is handled and simply pause the
+the vcpu so that we are sure it is in a quiescent state, and the state be
+safely manipulated.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-697212bb-a434-4ff5-8778-25a84f5dad89
+Nobody has any expectation of performance for this anyway.
+
+Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
+Co-developed-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Oliver Upton <oupton@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020101624.205638-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: Replaced per-vCPU pause/resume helpers with kvm_arm_halt_guest() and kvm_arm_resume_guest(), which pause all vCPUs. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/synth/emux/emux_synth.c | 3 +++
- sound/synth/emux/soundfont.c  | 9 ++++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
-index b3c8296840a56..537a7c47ef475 100644
---- a/sound/synth/emux/emux_synth.c
-+++ b/sound/synth/emux/emux_synth.c
-@@ -60,6 +60,9 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 		return;
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index 5ab789accc9d4..9e6200c5adcef 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -303,9 +303,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
+ 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
+ 			return;
  
- 	key = note; /* remember the original note */
-+
-+	/* hold sflist->lock for protecting against concurrent free */
-+	guard(spinlock_irqsave)(&emu->sflist->lock);
- 	nvoices = get_zone(emu, port, &note, vel, chan, table);
- 	if (! nvoices)
- 		return;
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index c124d6c27a945..2e37d91153a05 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -1220,6 +1220,9 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
-  * The found zones are stored on 'table' array.  max_layers defines
-  * the maximum number of elements in this array.
-  * This function returns the number of found zones.  0 if not found.
-+ *
-+ * The caller must hold sflist->lock, and keep holding it as long as
-+ * the returned zones are accessed.
-  */
- int
- snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
-@@ -1229,11 +1232,11 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
- {
- 	int nvoices;
- 
--	/* this function is supposed to be called atomically,
--	 * so we check the lock.  if it's busy, just returns 0 to
-+	lockdep_assert_held(&sflist->lock);
-+
-+	/* if the presets are being modified, just returns 0 to
- 	 * tell the caller the busy state
- 	 */
--	guard(spinlock_irqsave)(&sflist->lock);
- 	if (sflist->presets_locked)
- 		return 0;
- 	nvoices = search_zones(sflist, notep, vel, preset, bank,
++		/*
++		 * Yes, disabling LPIs is painful, since it can be done from
++		 * a *remote* vcpu! So let's not take any chance, and make
++		 * sure that the target vCPU has written their LRs back to the
++		 * irq structures, and release any reference they would have.
++		 *
++		 * If it hurts, don't do it.
++		 */
++		kvm_arm_halt_guest(vcpu->kvm);
+ 		vgic_flush_pending_lpis(vcpu);
+ 		vgic_its_invalidate_all_caches(vcpu->kvm);
+ 		atomic_set_release(&vgic_cpu->ctlr, 0);
++		kvm_arm_resume_guest(vcpu->kvm);
+ 	} else {
+ 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
+ 					      GICR_CTLR_ENABLE_LPIS);
 -- 
 2.53.0
 
