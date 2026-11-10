@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339804;
-	b=zQcs7cenbP/Uh90OddfSraWdbp8xL4DqBk5ps1wSRP5LUESQT2LOgy/i35kZRR+1frW5
-	 FByiNixN+BK5ggdo40IQJb5XiNeQj5rQpxWKywtgjhB1vNYJ0+rB3LhMDwIUxrKQq778F
-	 xcGYHQ9BdHLNZcD0hn/SlsByyRl4A3LT1tFOuAH+9sUI2aApxKIdSk9Aw9C94UZKMosPE
-	 u5L/o7KC+FgS1nO7rXMsIfbT9ut4ASXMOQGlMEaMV2sbcsThttFlwycTRcOiBqmtlPHI5
-	 vkhiAVGpENR/F4pyzDuV5PWm8vI4HgF/lzj1EKYouwNat/qpHMQTnkIRoDQ3FrFTjMA==
+	t=1794339809;
+	b=p6UrZRLd6e5Y/1Qdag5idB760GTJn6wjPpGtvuoCB41p+hqYWDUfEC6ecSA8G3CpvAc6
+	 8fKTOPIc7bObnufc872aWG/LW2bUmF1mc++ffKZUZ/Wz4EVMnKzSdOsA3efJ23Yq/cr8j
+	 LC669RBGqpG0IWtLMV6Ju3GKUV20oAaFakwQOAG3B7768LVyyu4jknEgs0vl9T9rNQ3l5
+	 9a0iHdMfnmqlbAbId6eQeSfJFczlRBsDz+1dZmJbeuiG6EFTC7BLCua2FVSDR5rJWPAwQ
+	 p0Yn70094tPYGFxBH8ImaGvQttWW4WwHYaRr4/PFdpCu9Iki1AyQC3CiqTplGPxV/Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339804;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=14T4P81bk02MF3zNi39neaHy0dH1PzDOFSqiOavLIBk=;
-	b=gdiqLzhGacQrTq2c27m7zxqjIIh8B9rTSjDWPhDK4AwMdFihLOyn4STBp2Suep6Nd4nY
-	 +7+YpRPZ2KWK+PqO/wBi/lgAM08UkXv1emK7T8Gtl7n03ZfUIqP99RTCSGGfBh8JKXhmv
-	 aE3PsIN8gsbj+32v/HoMVRIa9S6G+XmahTF6E85qD8ziKxJW4sDpo/WsYnhRGFy4i9upP
-	 YsWNdaAmmVP8gJGRaJ5RC8Yl3aGAjqouDwpNKn50Tv4cq3QeWF7Cmzx7Vv9dVIgmPV+WG
-	 6EYG3JWd2f5T3COWFr+KEDO1mbyYq4Z379iixh0jO5nmG7fOflGv1m1pKyDUKkg0WNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339809;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=hgTbk1yNjURPmCR9iUGjoH0moqlfJ36x4447cXBqUmM=;
+	b=cd3TICrprhWkahmMhNRL1Y9PU8Zv9vLAKk58wUhOVldIvN6/Lptxq4aEKKOqRdqlq+Vs
+	 OkjBo5O5ephR+4qvnFVQKoJ+qn0+77xJ3LtRGW/YhND1ZdqVgz6JOv61UlPcpez5oyeJc
+	 vkbyoZOazWqo0VnT04lx7Tw+RojsCmxBOeV7TrjfWPXC8zlyl9lsA5WwIGvBM5rq5dDaj
+	 mPdj7I4hfkZFV9azJMGSFgIVLOmuvQ+H/fjezNVkXcTk3a8hLgO46inBTu6T5iXTLmHnd
+	 k5ZLsmGR270YANyekwwiX+qTI39IkZYvrkXmiGG6AQVvxnVAdD4ho9Z6ZfrKjcGPhrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=tp41o3vp;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+iwYAs7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 48BF5606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:43:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48BF5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C7F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:43:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=tp41o3vp
-Received: by dvalin.narfation.org (Postfix) id 6827320292;
-	Tue, 10 Nov 2026 19:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794339802;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=14T4P81bk02MF3zNi39neaHy0dH1PzDOFSqiOavLIBk=;
-	b=tp41o3vpIQcKRhMAAH2X5etbgxdRVdVAZYH2YWDHSkiLVJBO7tjBj4Eg8uxA94TrQKW/Zr
-	bbJ/aFPueOY2STfm02ew5rlCrBevu0ecyJlMC/whUslQhFPxZP915PXBF6MjiPbUKTsakW
-	7OJePThFAga31HbbaU3zoWWyBBL4v7Q=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+iwYAs7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A881F0089F;
+	Tue, 10 Nov 2026 19:43:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339809;
+	bh=hgTbk1yNjURPmCR9iUGjoH0moqlfJ36x4447cXBqUmM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=R+iwYAs723joX+sKmIjF+zEP4iUyZAPZy1PqJEIOy2WK9dYS8N0f9NIN0pEfye3VU
+	 HHhL3IjqLk10Le00yY+2pE2Wu8z6A7TemJpDVjNtvMsW1jxnuJ6Sd9f+s+oHlUACXV
+	 UrDhYk5P11oPjflPlRmMhvRMMgYRqYdpzVlXIR1ZR5L1sUPnclqA0jFHG1HWQrUuGr
+	 bBxi2m9r+hfK6CdE3KYYlwMthyhKoMkboHKJ9wm9sg8G8y4Sc8wWje/CmGASgxiwhk
+	 mV4v8Jcg4nC2/NuVL1QXu1lDa7FQSAd30dQJnvscYE6aRiaegRa0VduKvMVxtLgss3
+	 dGR8oylBljBzw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.15.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
-Date: Tue, 10 Nov 2026 20:43:19 +0100
-Message-ID: <20261110194319.328801-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109202028-failed-5.15-cc2186d78547@kernel.org>
-References: <20261109202028-failed-5.15-cc2186d78547@kernel.org>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] IB/hfi1: Shutdown self-rearming timers before freeing
+Date: Tue, 10 Nov 2026 14:43:27 -0500
+Message-ID: <20261110194237.3634091-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054336-failed-6.1-9d3259e41ccd@kernel.org>
+References: <20261107054336-failed-6.1-9d3259e41ccd@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,69 +61,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit cc2186d7854785b30d423f5d43757b086b300e55 upstream.
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_tt_local_mark_removed() sets BATADV_TT_CLIENT_ROAM, queues a
-DEL|ROAM change and marks the entry as BATADV_TT_CLIENT_PENDING. If the
-client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_existing() only clears the PENDING flag and returns
-early. The ADD cancels the queued DEL, but the entry keeps the ROAM flag:
+[ Upstream commit 9d3259e41ccd5016cd2c6d013232b89df6d73011 ]
 
-* batadv_is_my_client() reports the client as not served by this node
-* batadv_tt_local_client_is_roaming() reroutes unicast frames for it to
-  the node which sent the ROAMING_ADV
+The HFI1 receive error and synthetic counter timers rearm themselves from
+their callbacks. Their cleanup paths use timer_delete_sync(), which only
+waits for a running callback and does not prevent a concurrent or
+subsequent rearm.
 
-The ROAM flag is only removed with the next frame of the client.
+Use timer_shutdown_sync() when releasing these timers. This prevents a
+callback from enqueueing either timer after cleanup begins, before the
+containing hfi1_devdata is freed.
 
-Since BATADV_TT_CLIENT_ROAM is set together with BATADV_TT_CLIENT_PENDING,
-it has to be cleared also at the same time with BATADV_TT_CLIENT_PENDING
-when the client roamed back.
+Preserve the existing work cancellation and workqueue destruction ordering
+for synthetic counters.
 
+Fixes: 7724105686e7 ("IB/hfi1: add driver files")
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ adjust code still in batadv_tt_local_add ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260930070455.2934286-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+[ sashal: adjusted context for existing del_timer_sync() calls instead of timer_delete_sync() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/infiniband/hw/hfi1/chip.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index a6c92a34b999b..300e3f9b60200 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -658,6 +658,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 	int hash_added, table_size, packet_size_max;
- 	bool ret = false;
- 	bool roamed_back = false;
-+	bool added = false;
- 	u8 remote_flags;
- 	u32 match_mark;
+diff --git a/drivers/infiniband/hw/hfi1/chip.c b/drivers/infiniband/hw/hfi1/chip.c
+index 3ef47ffd3859f..8d9a64637f2cf 100644
+--- a/drivers/infiniband/hw/hfi1/chip.c
++++ b/drivers/infiniband/hw/hfi1/chip.c
+@@ -5575,7 +5575,7 @@ static int init_rcverr(struct hfi1_devdata *dd)
+ static void free_rcverr(struct hfi1_devdata *dd)
+ {
+ 	if (dd->rcverr_timer.function)
+-		del_timer_sync(&dd->rcverr_timer);
++		timer_shutdown_sync(&dd->rcverr_timer);
+ }
  
-@@ -684,7 +685,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 			 * flag can be reset like it was never enqueued
- 			 */
- 			tt_local->common.flags &= ~BATADV_TT_CLIENT_PENDING;
--			goto add_event;
-+			added = true;
- 		}
+ static void handle_rxe_err(struct hfi1_devdata *dd, u32 unused, u64 reg)
+@@ -12306,7 +12306,7 @@ static void free_cntrs(struct hfi1_devdata *dd)
+ 	int i;
  
- 		if (tt_local->common.flags & BATADV_TT_CLIENT_ROAM) {
-@@ -765,10 +766,12 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
- 		goto out;
- 	}
- 
--add_event:
--	batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
-+	added = true;
- 
- check_roaming:
-+	if (added)
-+		batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
-+
- 	/* Check whether it is a roaming, but don't do anything if the roaming
- 	 * process has already been handled
- 	 */
+ 	if (dd->synth_stats_timer.function)
+-		del_timer_sync(&dd->synth_stats_timer);
++		timer_shutdown_sync(&dd->synth_stats_timer);
+ 	cancel_work_sync(&dd->update_cntr_work);
+ 	ppd = (struct hfi1_pportdata *)(dd + 1);
+ 	for (i = 0; i < dd->num_pports; i++, ppd++) {
 -- 
-2.47.3
+2.53.0
 
