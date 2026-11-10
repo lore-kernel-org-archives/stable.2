@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272797;
-	b=CEFqC2nJt2MLjj5fdFGrbQfiwkHjQ8ylxgNIF1Zl0Zyi4yNxPzCRYU/V3PdiI4tEfWur
-	 hDjCn0ZukPm6uh+yrGnzEKkUG4PueBqygCfpc8GnIlkESXS1FNfjHBu0Fsx871nnNtaD+
-	 WelOv7DEkj2iKTTFxTVtAzkSEVS3ccWDJubY9GVrpW2i3z9WXFn6v9k5sF2/SDeUvMuTe
-	 5sf1uaoJPCvEmE0plQLtwzGhsNrkpUGTMW/37UFWI5NxM0XUh7B1vALfr6KPJQVdR2ucz
-	 LPgm4laTVmh4qfWOxz+Xdevu8wdgxm1XRUZteDRT+ov1jeo1un0g1F1jybTlsnTciow==
+	t=1794272799;
+	b=xCKX8PqOyHIEGgY6exMBCI2FkRtnz91M7W0sSH6Hp3nKOlY6RZhSsx7jgjxOK0D8MV7M
+	 8TAyv6Mnd2BMYUKoloPp+DuYtBF23LX7kaMagdWkjyWZJIfpHCRijjeUhig9O/zUh384s
+	 3y9gKVd47e2/kOFBjMdilrMaTK3sek15A/oK9181bopqgHZ50KSEEIhEYhK/aFGAJaI0d
+	 Qw5KJGQ0c7TBlcNCtaRUiNLqHS5M3y+R9UPQaWqcCVnp0t+PTGdbcAWS+BRiJYCagdT/1
+	 GLdY+7uPAA+Le+kgtoypvpRdMakp8WDodMNJPufhwQMs6U6khSH+8L/lqG0RgjR4w0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272799;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CGt7F3Ur/qCZwbIXIHAOXNs4UDPtuAfy4OWJG4w21wA=;
-	b=5dyJCRUAKhTbfT2hivY3xSUe+oH4oFJ3G6Opg6WPTV5MtWhwFBnuBTNpaDp45C6aOGij
-	 7BYpXAh7Ega5DU9u5dOdNXHMAEm3n8PY+mPHKdypcjSfSw2kFJRyAikZQg+hsuGF9DfFj
-	 Qrf7dsloa03pOf1DyCnidZNcY+MEdiB++o74gZ021BDSJMNxqmbjs/vVv6wX1Nr6h/GnI
-	 rCZlgdQ039MRzrH3PSSQjb1kAOoPmOzDo3C6EmAMYz2HWGLYGhkDFK++Wbnua/fyLumyj
-	 f/tHIdfhabQWLsYLEa3zVlLrtrtczcmNHTRlosdY9m2nOp+yRSuOexJ4zThavMZy6qw==
+	bh=vO9ObLS5iRJDz6WjRJA/zrsc2kDtL61uZkNe61HgMKI=;
+	b=Z+wdLR0BU6nT7cP1prkNO+ikMZSuqfSVp2DJJOViws3Qyo80wy31H8rUB2a6zufGc3k1
+	 knfjyS9bXBw8pS5HjNUqeukX7OjvzK5Gw88nx93csfAfczkDCCMjiP9L6mppejGaGPAsc
+	 NMmxbuDsE5Gxc9CqxFxv/soyXKSOjPMQQnMxCXyZfVQaP3gI69rz1cvB9IeiYfakl14Oo
+	 iI6a0F0HLemezpJPYC7PkLK9cZQ+xEpx5QoeZWt8/yxy2yb2WotAATZ72vBNzStGbvC7h
+	 beR2W+1+8bN5oohIe0kmCLBm/2XcG3sVUtq/sNCSHzZvU829jjZKyrW4PMnEyd3NYyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=df2+xZ1B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLM+mKFA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93C1606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11128606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=df2+xZ1B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED141F008A1;
-	Tue, 10 Nov 2026 01:06:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLM+mKFA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7921F0089F;
+	Tue, 10 Nov 2026 01:06:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272796;
-	bh=CGt7F3Ur/qCZwbIXIHAOXNs4UDPtuAfy4OWJG4w21wA=;
+	s=k20260515; t=1794272798;
+	bh=vO9ObLS5iRJDz6WjRJA/zrsc2kDtL61uZkNe61HgMKI=;
 	h=From:To:Cc:Subject:Date;
-	b=df2+xZ1BDYJZzZCTzZtdsOaTCtP7udx/hBLZ8Map/n8yRLGw/2hgWojU9Ki2KSURY
-	 T6kqv0W4h0ObzrHjtjA0RuQWNFtzn4G61xXD2hMppvTORFH5z+RkRt3lKHWdVJE18e
-	 uwkq4XqxdWjJtz+XB74IPkkXLbO+mdQLMjnMAHodkQvbjY0cSNfuqKd8UW1mB3DkWU
-	 eVaqmto/QbyVL3H84HBAsLs2IuTWwmFYJYGwTFH7EUbQaZ6cG8EKmp0sLkV0gYtse4
-	 ZnzcH7kuVLuiCsiC6oMoKw0FeCYywTZTiZUlIJLFPuYY55ZQwAU91/6wDSqWm4kqNl
-	 hy+3dGjNFyTSA==
+	b=RLM+mKFAVsnetbTUReRfB/lrlBA4iD4pJlfbSn5xHUiuHX4csBAckt/5sfNUkPisX
+	 Lbx5o9XBtVo00kG8pQd07I6pff5uEfM/fRhQ38gzG33KIbTud9N3NwAAR3aQl7TC7o
+	 n82GqqtCiWyQ58R3SrayF1R1N8S3mJ+oFyOQ5FgiLN6wF1gbCha+Fc6mSZjVL238JQ
+	 hMu2CyhDQQ1/uVBVMNQhat9GgXmckOlgiqazuqeziwjdzbRdVV5+TyxUkCMbVWswmu
+	 ZfRGTroUv4oPT1F+pdvW1wUCeCq0yjixplHGfFvSedmkCL5cEqeVdL7AgKrd3b2DKm
+	 ucI3rAE2Q6bnQ==
 From: Sasha Levin <sashal@kernel.org>
-To: gianluca.balboni06@gmail.com,
-	vijendar.mukunda@amd.com,
-	broonie@kernel.org
+To: icb@fastmail.org,
+	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:06:35 -0500
-Message-ID: <20261109200634-failed-6.12-1e73257dff33@kernel.org>
+Subject: FAILED: patch "[PATCH] ksmbd: enforce the read-only share flag when creating a stream" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:06:37 -0500
+Message-ID: <20261109200637-failed-6.12-09139429fab3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,57 +68,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1e73257dff33ff851af60d5bb00d73893a8b6dc8
+git cherry-pick -x 09139429fab3a5114c18d7c15fb161511d4d66c9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200634-failed-6.12-1e73257dff33@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200637-failed-6.12-09139429fab3@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1e73257dff33ff851af60d5bb00d73893a8b6dc8 Mon Sep 17 00:00:00 2001
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Date: Sat, 31 Oct 2026 11:21:36 +0100
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop
- 16-by0xxx
+From 09139429fab3a5114c18d7c15fb161511d4d66c9 Mon Sep 17 00:00:00 2001
+From: Ian Bridges <icb@fastmail.org>
+Date: Wed, 28 Oct 2026 20:25:32 -0500
+Subject: [PATCH] ksmbd: enforce the read-only share flag when creating a
+ stream
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+When a share is read-only, smb2_open() rejects opens that would create
+or truncate a file. Creating a named stream on an existing file with
+streams_xattr sets neither O_CREAT nor O_TRUNC, so it passes this check,
+and smb2_set_stream_name_xattr() then creates the stream. On a Time
+Machine share, opening a missing AFP_AfpInfo stream also writes one. A
+user who can write a file at the filesystem level can therefore add
+streams to it through a read-only share.
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+Do not create a stream or synthesize AFP_AfpInfo when the share is not
+writable. Existing streams still open normally, and a missing stream
+opened with FILE_OPEN still returns STATUS_OBJECT_NAME_NOT_FOUND.
 
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: eaff8e924f60 ("ksmbd: synthesize empty AFP_AfpInfo xattr on first probe")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/smb/server/smb2pdu.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 1d06b2a16e58d..4908f4cc147a3 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -780,6 +780,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8DC2"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index c626cb3bece1e..528bb4ac97e16 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3566,7 +3566,8 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 	if (fp->cdoption == FILE_OPEN_LE) {
+ 		if (!strcmp(stream_name, "AFP_AfpInfo") &&
+ 		    test_share_config_flag(fp->tcon->share_conf,
+-					   KSMBD_SHARE_FLAG_TIME_MACHINE)) {
++					   KSMBD_SHARE_FLAG_TIME_MACHINE) &&
++		    test_tree_conn_flag(fp->tcon, KSMBD_TREE_CONN_FLAG_WRITABLE)) {
+ 			/*
+ 			 * Synthesize an empty AFP_AfpInfo xattr on first access.
+ 			 * type=0/creator=0 tells macOS to use the file extension
+@@ -3593,6 +3594,9 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
+ 		return -EBADF;
+ 	}
+ 
++	if (!test_tree_conn_flag(fp->tcon, KSMBD_TREE_CONN_FLAG_WRITABLE))
++		return -EACCES;
++
+ 	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
+ 	if (rc < 0)
+ 		pr_err("Failed to store XATTR stream name :%d\n", rc);
 -- 
 2.53.0
 
