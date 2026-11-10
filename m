@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293138;
-	b=gr2ZlyATQDymt0HzW9HjeWIvCa8N+GpU/w6DQubsjUZf5/5hsqwG1PpfBJelSlbDe8aA
-	 WefGFZr3024G0kDmN+oew8jI43B3Psi90uxKlkyhk9xineiuxPktqKHVpf9GXEW7MNgdZ
-	 UQg3rldUvj7OAo9HZd3T2sioNGNHYrE8ybJ+xquJUy7RuaLuBT94ppI+GUrN6Zb8Zl4GI
-	 jrhwylgIKnaN6yUiBy/Pq/KqlyneJ5XSYj17q8ysOES2hHyADLg6JrFkS1KXa/BluMlfi
-	 3w4h8elvVMvv/qNPwDSkpyFauJi0462kqkY16pLOF0UePXqkoQIK5VxqDC+vCFUiCoA==
+	t=1794293144;
+	b=j4QFmYTLg8q+02b+nxGJUrjNbypzDcCZwIEJUYiuGuur0nEpfscGcSszHhCicd4iJ7aH
+	 zXGgtGtupI6t6Kgka9Zfa6TbBZryYcHbPwfgMgldJaZi+FVEgmCb+Tn1xgFuXEy/Z2BRf
+	 y8PQYMVNYqf9gdGaicazO/nvlXWcqtS4wi7WQ3zEnyzFgX92RfjVOzC0z1A3LhQLNxOVZ
+	 BlcjhjQELeROSmrm4jnU+xXr9Sj3hnzKvKSdaffpcIbAj8e9ECCm2EloTnB0CL2uzcEDz
+	 VITvJeLfNq7wCtjcIc6uxJ23bi9DSuSAqj9APRfwsfTsJx+R/TvffOp0kx3R6PegYAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293144;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=HOYLQBuxQ2Bn0y8VKqkeifxH9V/1nz0VJYgLoAp65Y4=;
-	b=M2g9zDQ/+RdUQd4eCGdjx5mnuIar37cl+qLZcwm9lxbJWbgycG7Pdt50ja1RRvfiLsjm
-	 JmLFSKK4HDdO3YdMErpshBJoWasP/DadH0LtqB+dLCZbVY6V1VPSrUcDCeXwzXXl2Rje2
-	 ptJpSkL2mf7Ro3tQnhzzkYp/7iNGk2NClovmdvphdlFonbiALd9K7pPLCiF1yX0aHhfLA
-	 6UPj3pAZ6gSi5Xy8++j8lkzmVRuN74bu1sB9c96FEU/JWl+HQ3D/AYcCeuoeVSxgdZAzT
-	 m4gqH1SWkUpXYnXhnDkw/3j69Ne/cV0QVzP+u/vad1oSBPxF6QQtZNKY8aF0z+VzQ/g==
+	bh=FukdQzOEUB4Tgss4rcL2RLCVGboee34cgVLQmwK8Dqg=;
+	b=DjgpXwYy84wsZiNsGEuOccH2wvnD+QBnyn0Z1vFSbcqXFQCD+7/++jGlIu6BVEdeNrFV
+	 4nf9lxe9qBYD/v4aWxAEnryi8m7T+oBx7sRdvLcs9qutS7NWWlGeH00k9KW/toz5wUVeO
+	 G3yRiNlH9t6e43ZqVLMyrpfkJs+KJk/OJOEhjULwMGT4FsYQ6evnl3wuRK8tGEbfFU8i3
+	 WmUWMH9pw4pV195PTuIunacVUtq2/TWzLsh3eKtX2WKJtffBAYcxAaxt8BVtELQ2jcX4+
+	 2COWHKEi/Rpz451EWv+iMw0qGR8kWnHlRRKb9gKO0apRxPCP4yYpo5BbphiZbRUJ5Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1s75sSW2;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nhgY9lhg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AF7606A325;
-	Tue, 10 Nov 2026 06:45:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9430606CB30;
+	Tue, 10 Nov 2026 06:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1s75sSW2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D931F008A1;
-	Tue, 10 Nov 2026 06:45:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nhgY9lhg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735511F0089F;
+	Tue, 10 Nov 2026 06:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293138;
-	bh=HOYLQBuxQ2Bn0y8VKqkeifxH9V/1nz0VJYgLoAp65Y4=;
+	d=linux-foundation.org; s=korg; t=1794293143;
+	bh=FukdQzOEUB4Tgss4rcL2RLCVGboee34cgVLQmwK8Dqg=;
 	h=Date:To:From:Subject;
-	b=1s75sSW2Ky85XeWGxDOvWvcGOD28D4HeY3gTf1mouxjTQWTXmS6VavySkDviuQrAw
-	 SAatJf8rvWVqNcEXXPK719O6UHVnhCGaNTFX9wT+1/k9pH+hU129t81TuehRfnmr7T
-	 9tEgoQj4ghnQsqTBUhwgAEw1q2Av7KSRcIOzW0MA=
-Date: Mon, 09 Nov 2026 22:45:37 -0800
-To: mm-commits@vger.kernel.org,
-	syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com,stable@vger.kernel.org,
-	osalvador@suse.de,muchun.song@linux.dev,lihongbo22@huawei.com,
-	david@kernel.org,joasantonio108@gmail.com,akpm@linux-foundation.org
+	b=nhgY9lhgOyc8KY5vzsz9TS6yhPIor092xHs1lMnuTSKbxz3JTpqfNaDqWS0ZdduAa
+	 T3me8hqOP9aUrTNz2nVRV5Xib23osGAyIzSfPj1m9RTFoPieJmHvqLkPiQQwXBKc+k
+	 ePEFOmQ7T+PpJtAnPiUxIPEEUKZXcZi9oFgJYrL4=
+Date: Mon, 09 Nov 2026 22:45:43 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mason@kernel.org,
+	ljs@kernel.org,andrewjballance@gmail.com,aliceryhl@google.com,
+	liam@infradead.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch removed from -mm tree
-Message-Id: <20261110064538.00D931F008A1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch removed from -mm tree
+Message-Id: <20261110064543.735511F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,103 +53,273 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: hugetlbfs: move hugetlbfs_free_inode tracepoint to ->destroy_inode()
+     Subject: maple_tree: fix rcu reader NULL dereference after the tree is emptied
 has been removed from the -mm tree.  Its filename was
-     hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch
+     maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Subject: hugetlbfs: move hugetlbfs_free_inode tracepoint to ->destroy_inode()
-Date: Mon, 02 Nov 2026 13:03:56 +0000
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+Subject: maple_tree: fix rcu reader NULL dereference after the tree is emptied
+Date: Mon, 02 Nov 2026 21:07:22 -0500
 
-hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
-runs from an RCU callback (destroy_inode() queues i_callback() with
-call_rcu()), and Documentation/filesystems/porting.rst says that this
-callback "is *NOT* ordered wrt superblock destruction; as the matter of
-fact, the superblock and all associated structures might be already gone".
-put_super() frees the superblock with call_rcu() followed by a workqueue
-item (destroy_super_rcu() -> destroy_super_work()).  syzbot hit this with
-the event enabled:
+Patch series "maple_tree fixes for 7.3", v2.
 
-  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
-  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
-   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
-   i_callback+0x46/0x80 fs/inode.c:317
-   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
-  Allocated by task 6134:
-   alloc_super fs/super.c:326 [inline]
-   sget_fc+0x1ba/0x1f60 fs/super.c:874
-   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
-  Freed by task 855:
-   kfree+0x22b/0x6d0 mm/slub.c:6923
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+Two bugs found by an LLM review, and one problem Lorenzo Stoakes
+reported off list.
 
-Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
-calls ->destroy_inode() synchronously, before it queues the RCU callback,
-while the superblock is still alive; hugetlbfs_destroy_inode() already
-dereferences inode->i_sb there.  ->free_inode() is left with only the
-kmem_cache_free().
+An RCU reader that restarts after its node dies can dereference NULL if
+the tree was emptied, or holds a single entry in the root pointer.
+Patch 1 fixes it and patch 2 adds a test.
 
-Since the event no longer fires from ->free_inode(), rename it to
-hugetlbfs_destroy_inode so that its name matches where it is emitted, as
-suggested by David and Muchun.
+With CONFIG_DEBUG_MAPLE_TREE, MT_WARN_ON() and the other WARN macros
+print the tree and call dump_stack() rather than WARN(), so syzbot never
+sees them.  Patch 3 makes them WARN once per call site, after the dump,
+and makes the BUG macros BUG() after theirs.  The userspace tests make
+WARN() fatal to keep failing as they did on dump_stack().
 
-Found by syzbot; analysed and tested with the syzbot C reproducer on an
-arm64 KASAN kernel.
 
-Link: https://lore.kernel.org/20261102-b4-hugetlbfs-trace-v4-1-72371825bb5e@gmail.com
-Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+This patch (of 3):
+
+RCU readers may hit a NULL dereference if the tree is emptied while the
+walker is restarted from a dead node.  Avoid the NULL dereference by
+checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
+set the maple state limits correctly.
+
+A reader of /proc/<pid>/maps racing with an munmap() of the whole
+address space can hit this.  The first implementation has the same
+problem in both directions.
+
+Initial fix was generated by LLM and sent by Chris Mason in private.
+
+[akpm@linux-foundation.org: fix reverse iterator state when the root disappears]
+  Link: https://lore.kernel.org/20261104104137.2058705ac29734a7ab5666c1@linux-foundation.org
+Link: https://lore.kernel.org/20261103020724.2614498-1-liam@infradead.org
+Link: https://lore.kernel.org/20261103020724.2614498-2-liam@infradead.org
+Fixes: 54a611b60590 ("Maple Tree: add new data structure")
+Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com>
-Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Hongbo Li <lihongbo22@huawei.com>
+Reported-by: Chris Mason <mason@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Andrew Ballance <andrewjballance@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/hugetlbfs/inode.c             |    2 +-
- include/trace/events/hugetlbfs.h |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ lib/maple_tree.c |  120 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 93 insertions(+), 27 deletions(-)
 
---- a/fs/hugetlbfs/inode.c~hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode
-+++ a/fs/hugetlbfs/inode.c
-@@ -1187,12 +1187,12 @@ static struct inode *hugetlbfs_alloc_ino
- 
- static void hugetlbfs_free_inode(struct inode *inode)
- {
--	trace_hugetlbfs_free_inode(inode);
- 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
+--- a/lib/maple_tree.c~maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied
++++ a/lib/maple_tree.c
+@@ -3891,14 +3891,64 @@ retry:
+ 		goto retry;
  }
  
- static void hugetlbfs_destroy_inode(struct inode *inode)
+-static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
+-		struct maple_node *node, const unsigned long index)
++/*
++ * mas_next_no_node() - Finish a next walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ *
++ * The arrival here is either because there is a root value or nothing.  Either
++ * way, the next entry is nothing.  So set the limits and overwrite the status.
++ *
++ * Return: NULL
++ */
++static inline void *mas_next_no_node(struct ma_state *mas)
  {
-+	trace_hugetlbfs_destroy_inode(inode);
- 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
+-	if (unlikely(ma_dead_node(node))) {
+-		mas_rewalk(mas, index);
+-		return true;
++	if (mas_is_ptr(mas))
++		mas->index = 1;
++	else
++		mas->index = 0;
++
++	mas->last = ULONG_MAX;
++	mas->status = ma_none;
++	return NULL;
++}
++
++/*
++ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ * @index: The start of the range the walk left
++ * @min: The lowest index to return
++ *
++ * The arrival here is either because there is a root value or nothing.  With
++ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
++ * sits at 0: stop on it as mas_prev_setup() does, unless the walk was at 0.
++ *
++ * Return: The root entry if @index and @min allow it, NULL otherwise.  A node
++ * if the root changed again since the walk; the caller restarts.
++ */
++static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long index,
++		unsigned long min)
++{
++	void *entry;
++
++	mas->index = 0;
++	if (mas_is_none(mas)) {
++		mas->last = ULONG_MAX;
++		return NULL;
+ 	}
+-	return false;
++
++	mas->last = 0;
++	if (!index || min)
++		return NULL;
++
++	entry = mas_root(mas);
++	if (!entry) {
++		mas->status = ma_none;
++		mas->last = ULONG_MAX;
++	}
++
++	return entry;
  }
  
---- a/include/trace/events/hugetlbfs.h~hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode
-+++ a/include/trace/events/hugetlbfs.h
-@@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, hugetlbfs
- 	TP_ARGS(inode)
- );
+ /*
+@@ -4006,14 +4056,14 @@ retry:
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
  
--DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
-+DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
+ 	if (mas->min <= min) {
+ 		pivot = mas_safe_min(mas, pivots, mas->offset);
  
- 	TP_PROTO(struct inode *inode),
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
  
+ 		if (pivot <= min)
+ 			goto underflow;
+@@ -4028,10 +4078,8 @@ again:
+ 		if (mas->index <= min)
+ 			goto underflow;
+ 
+-		if (mas_prev_node(mas, min)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_prev_node(mas, min))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
+ 			return NULL;
+@@ -4045,8 +4093,8 @@ again:
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mas_slot(mas, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (likely(entry))
+ 		return entry;
+@@ -4063,6 +4111,17 @@ again:
+ underflow:
+ 	mas->status = ma_underflow;
+ 	return NULL;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	entry = mas_prev_no_node(mas, save_point, min);
++	if (unlikely(xa_is_node(entry))) /* The root changed again */
++		goto dead;
++
++	return entry;
+ }
+ 
+ /*
+@@ -4176,8 +4235,8 @@ retry:
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->max >= max) {
+ 		if (likely(mas->offset < mas->end))
+@@ -4185,8 +4244,8 @@ retry:
+ 		else
+ 			pivot = mas->max;
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
+ 			mas->status = ma_overflow;
+@@ -4208,10 +4267,8 @@ again:
+ 			return NULL;
+ 		}
+ 
+-		if (mas_next_node(mas, node, max)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_next_node(mas, node, max))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
+ 			return NULL;
+@@ -4226,8 +4283,8 @@ again:
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mt_slot(mas->tree, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (entry)
+ 		return entry;
+@@ -4244,6 +4301,13 @@ again:
+ 	}
+ 
+ 	return entry;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	return mas_next_no_node(mas);
+ }
+ 
+ /*
+@@ -5450,7 +5514,9 @@ void *mas_find(struct ma_state *mas, uns
+ 	/* Retries on dead nodes handled by mas_next_slot */
+ 	entry = mas_next_slot(mas, max, false);
+ 	/* Ignore overflow */
+-	mas->status = ma_active;
++	if (mas_is_overflow(mas))
++		mas->status = ma_active;
++
+ 	return entry;
+ }
+ EXPORT_SYMBOL_GPL(mas_find);
 _
 
-Patches currently in -mm which might be from joasantonio108@gmail.com are
+Patches currently in -mm which might be from liam@infradead.org are
 
+maple_tree-test-emptying-tree-while-rcu-reading.patch
+maple_tree-update-internal-warning-and-bug_on-code.patch
 
