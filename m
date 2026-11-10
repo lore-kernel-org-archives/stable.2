@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339423;
-	b=HEk9mtpBt+4zqQe+m+maFG3f3T28ezXe8k6ewjSoSyYxqqRyOzx/VAwBP30cATqCWLQL
-	 akydGGH/gs9XSxnM56iAiCjwll2JtfA/AKI/7pl+ySW1yHumlX1n9Z3qJ3xusi102lhxa
-	 rDkLfZ483PgC+P3qGugBHmL2XINmbAEkpifNDZxBPbhEsLUSS09FqGpCoy0FQu+qgnfRh
-	 TVAHy/uQhytShSGjJoJZU85NPriZCQPUFgoa088UtHE1tzr9uHGuxku/DwSDzebD7ooKI
-	 wusMKlbYkcC1Re8OkryEo50ZcQlYb/AUnLwiCfXvi83hVCxmeJAgfkHWjur2uz/uoIA==
+	t=1794339428;
+	b=x57HYLNnAo1FTSF+9o18VV4v4RwJayLayQc75RU9YOKSStGqaCy2nmEuYnJFfmEC2yL2
+	 svnhc3PJn2rSqNCGeeoWBryI+PgayrpiNFSSJyK5ZjelaD/2A/up89wsETcC3oQ4wuSMM
+	 AKud43pbp3/6Q8x+F8/XFfFdwAb2Xl2PuTiU05a/Wq8dHBUzlNX0fNRAvljqpdo8nFFHx
+	 +IS9CqByVLqZlToKe93xivLbdSxTwo5DYSDsQygH5fWptx9F/rwdoY9FpFQ3JpopR/D8j
+	 0Z1Y1pywa9oYOipDf49d6D4zRpGa4lwr8/zIfYVunCono1J8upcDOHFHP6ohOjmeGrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339428;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FHZb6FOB1JdmeSWuwGDui+mmapxERiMD7x3PMl/e15k=;
-	b=lq0xAUBGtgXJyagyppSl6ESUQ7Pgth0/D94G60rGuJ1tz65gR5Q3RNteu7Osxcuh+AlC
-	 0z6DTP4MVi8I+LmDBAwb81g6bX772flJlTEKzzp54O2BcluWZDkOoJIrzoNEONAdBzsh4
-	 caCHqYBI2aHHR5LDGdTSXh4+H4wyp9oyNfc7G6Ca4T4dz2Yfz6Lbsu7ypXNAI7Yxv077C
-	 jhFuRIYV+ePAbkFAJ3pJ29pmksf9i2jHpTcrX73fXCr5CgtOFEt5yCwyAjo70LKnBl3f9
-	 yK4Dc36Ns173dqpzwUR3Zfr7PkJa9rY936YmHX8vUz3JpW4TGg0ljrLsAVGeBX4L3Fg==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Xkq9mma51XUa9yb13B7yOe2Zra/nLX/ZbGjh9FPzGG0=;
+	b=ZyhyikXzsQ+B3YQ85OcihM2tAcI9/+ibWmhYZ8ariuys314eWYykEN9ysBwQr8jVmtQw
+	 eWptNZLeBlcmqyBsKiNsIL7icDwVleRmS/MgPmMw56AdMbd4OjJgIFFXwEZGCdoKpacEa
+	 hpRIo1Vhtu1rXHGRWeuZ1vN4gCRR+7C0vgAaIQhZMXSuz3Xxk42spl+UnnqUfwI8NWaRd
+	 /INikLsdW/BR5F3hS0WeeZoZPAoyePQOpPaEVu5jtcMVQ64y3goIXCPCfX0tLd7UuvaOF
+	 6nitAFpPjAMQTwkVWOfMhL7vabYDkzk8D5wnuMZU71gbnODNteS/AxRv9ZbPYslxl8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyUZbKsf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSouQEuB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EE7606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35531606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:37:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EyUZbKsf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A9C1F008A1;
-	Tue, 10 Nov 2026 19:37:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSouQEuB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE6B1F0089F;
+	Tue, 10 Nov 2026 19:37:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794339423;
-	bh=FHZb6FOB1JdmeSWuwGDui+mmapxERiMD7x3PMl/e15k=;
+	s=k20260515; t=1794339428;
+	bh=Xkq9mma51XUa9yb13B7yOe2Zra/nLX/ZbGjh9FPzGG0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EyUZbKsfOXh56+Q3obYADzYRGSAiBEU+eVeNQqaVbYvbu1v9B59edIiYUOIYYPiZp
-	 MvqUMtcAD0V1ovmmpS4UHhDknQqYSkQbFEScEP5U4slk/4nktiN2ImHN1iX3lpT+rw
-	 IFjO6kX5A8xxlSZ5jiukvTMCfJbo1NryHe3/bA4GD3uqsKQ88PpZLlCWyz8t+X9m8z
-	 Q8ajcIN9l2ToiWjNv34FEsb/X3boV4tTn5K2g3GoUDrd1wfpFQFlDHmUpKZJBZgXxR
-	 ja/emZ66MPpyckUHIxhSsIP5I32fIOZtZTGzIdRAJTWPjBKwq6p0qGWRe7i/2/bsoP
-	 ij9A8Lbm3rvWg==
+	b=eSouQEuBz7IPB2Wt5J233bmwEubNuc7dmIP+IkPQhX2EDDjNXD8uB9y8y8v7ANbAH
+	 3dkaupwZCjPdCEKDaDvBmSyMz8H98eXdfZ0cN4pYQ7PXnqX9rpKG9dLYE00lUQjt+O
+	 fVlYZZMn2mC4JA0zvRflklAugpM1f1ToLyr6dYb9utdRVDWL9mMB6lO3ef6WrtXfs9
+	 Zcp9EyLCOvwtfSDFf8+2+lW7hhSzwy7AnOdJqJK7QuS4L8xWNawFkqF6+BHzCpdvSY
+	 VXEIOR2yaWTmKzNueWcB0Qc4CUrNKCoLYsIuL6DJN8LiaZK/aCDeMua0UopkQ9AdcE
+	 VOBUR9rNP3cgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Leon Romanovsky <leon@kernel.org>,
+Cc: =?UTF-8?q?Nikolaj=20Klitlund=20B=C3=B8rty?= <nbn@sj.dk>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] IB/hfi1: Shutdown self-rearming timers before freeing
-Date: Tue, 10 Nov 2026 14:37:00 -0500
-Message-ID: <20261110193629.3617821-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] Bluetooth: btusb: Add device ID for Realtek RTL8761BUE (StarTech AV53C1)
+Date: Tue, 10 Nov 2026 14:37:05 -0500
+Message-ID: <20261110193636.3544595-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053055-failed-6.6-9d3259e41ccd@kernel.org>
-References: <20261107053055-failed-6.6-9d3259e41ccd@kernel.org>
+In-Reply-To: <20261107054859-failed-6.1-1430308fc9d4@kernel.org>
+References: <20261107054859-failed-6.1-1430308fc9d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,58 +60,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Nikolaj Klitlund Børty <nbn@sj.dk>
 
-[ Upstream commit 9d3259e41ccd5016cd2c6d013232b89df6d73011 ]
+[ Upstream commit 1430308fc9d47a801a305700cd444b1a0051d14a ]
 
-The HFI1 receive error and synthetic counter timers rearm themselves from
-their callbacks. Their cleanup paths use timer_delete_sync(), which only
-waits for a running callback and does not prevent a concurrent or
-subsequent rearm.
+Add the USB ID 0x14b0:0x047a for the StarTech AV53C1-USB-BLUETOOTH
+adapter, a Realtek RTL8761BUE based Bluetooth 5.3 dongle.
 
-Use timer_shutdown_sync() when releasing these timers. This prevents a
-callback from enqueueing either timer after cleanup begins, before the
-containing hfi1_devdata is freed.
+Without this entry btusb treats the device as a generic Bluetooth
+adapter and never loads the Realtek firmware, leaving the controller on
+its ROM firmware. In that state it advertises and scans actively, but
+never reports advertisements during passive scanning. LE connections
+initiated by the kernel wait for a passive-scan report before issuing
+LE Create Connection, so connecting and pairing from BlueZ time out
+without any error from the controller.
 
-Preserve the existing work cancellation and workqueue destruction ordering
-for synthetic counters.
+The same product is also sold with the ID 0x2c0a:0x8761, which is
+already supported.
 
-Fixes: 7724105686e7 ("IB/hfi1: add driver files")
+lsusb -v output for the device:
+
+Bus 001 Device 010: ID 14b0:047a StarTech.com Ltd. Bluetooth Radio
+Device Descriptor:
+  bcdUSB               1.10
+  bDeviceClass          224 Wireless
+  bDeviceSubClass         1 Radio Frequency
+  bDeviceProtocol         1 Bluetooth
+  idVendor           0x14b0 StarTech.com Ltd.
+  idProduct          0x047a
+  bcdDevice            2.00
+  iManufacturer           1 Realtek
+  iProduct                2 Bluetooth Radio
+  iSerial                 3 00E04C239987
+  bNumInterfaces          2
+    Interface Descriptor:
+      bInterfaceClass       224 Wireless
+      bInterfaceSubClass      1 Radio Frequency
+      bInterfaceProtocol      1 Bluetooth
+
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260930070455.2934286-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-[ sashal: adjusted context for existing del_timer_sync() calls instead of timer_delete_sync() ]
+Signed-off-by: Nikolaj Klitlund Børty <nbn@sj.dk>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+[ sashal: adapted the quirks_table insertion to the existing blacklist_table context because upstream's neighboring entries are absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/hw/hfi1/chip.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/infiniband/hw/hfi1/chip.c b/drivers/infiniband/hw/hfi1/chip.c
-index 00a054007822f..c40ae27e9a94b 100644
---- a/drivers/infiniband/hw/hfi1/chip.c
-+++ b/drivers/infiniband/hw/hfi1/chip.c
-@@ -5576,7 +5576,7 @@ static int init_rcverr(struct hfi1_devdata *dd)
- static void free_rcverr(struct hfi1_devdata *dd)
- {
- 	if (dd->rcverr_timer.function)
--		del_timer_sync(&dd->rcverr_timer);
-+		timer_shutdown_sync(&dd->rcverr_timer);
- }
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index 4702ab9aa9ca3..5ed1a89c090bc 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -692,6 +692,8 @@ static const struct usb_device_id blacklist_table[] = {
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x7392, 0xc611), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x14b0, 0x047a), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
  
- static void handle_rxe_err(struct hfi1_devdata *dd, u32 unused, u64 reg)
-@@ -12308,7 +12308,7 @@ static void free_cntrs(struct hfi1_devdata *dd)
- 	int i;
- 
- 	if (dd->synth_stats_timer.function)
--		del_timer_sync(&dd->synth_stats_timer);
-+		timer_shutdown_sync(&dd->synth_stats_timer);
- 	cancel_work_sync(&dd->update_cntr_work);
- 	ppd = (struct hfi1_pportdata *)(dd + 1);
- 	for (i = 0; i < dd->num_pports; i++, ppd++) {
+ 	/* Additional Realtek 8821AE Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info = BTUSB_REALTEK },
 -- 
 2.53.0
 
