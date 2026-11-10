@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273579;
-	b=FVZ3rXqbunA5AMHqjejAi9dCFwQzXJdEHYf6T+LUlKcpIuE6Iw5yrIcJiokz/tVGzzE3
-	 Xzbc1v+fNYJorNppPo9DyBwQwZwlDM4neL38xeEDU2/0wGuhpCLymy47yZ+SR68jo3JAV
-	 XdgMzRrsqBkcv0QyHEO2hUccBoMY7Qa8VQ+Q+oRG/QjpYwj8jGsWU/eg/me2NhdybwU+s
-	 k89AicCC1uXJkp/NpOxjDmPeEkSBZWGg86r7BqoKpBM8DfZwwafPriHeAF8DwmfalCQiC
-	 WEk5MurJoW5AAIZqZYv1D3W/DETQ/vcQrbOISk0qvRcQ6nPRb3aCm1FpplB8Ob1b75A==
+	t=1794273581;
+	b=TejzrKROm1fA+GF7x9uhDYN71pdocrA9Vcva45E2YO26Z2ExXy55RApY19MTHskGFKCs
+	 Xhvkv1O6Np7No9s0XYWgDcTgJltB3yxurTHPLeNxx4Kb1va3jwQo/yLgxENTXAthPGCaR
+	 ywL9ofZtGpkvsILeg5lQzJuOoLPLmysyvvXwbap0V2qX/AqIIBQJ3zeBZTm3I/q+njUfF
+	 zB2a6CfQzSIjft3+83eWjyZ8+pI/pNiTCCwcZMC0DN2Y1oLvPHenNV5K7CsNIvd/TpXa9
+	 PVz8Ov/ipz181P8j0uLEBujpBrpKEEip7cczysDuNbjCTh0z6e4rjA3bBmgV99ir0Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273581;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FqDkrTv1F56FGexJ+SqZKxM74yr99SBPc7C8UDAg0LQ=;
-	b=xInJvT1eIaor5brzBpCeUAlwDu2TW2eZGqlchVPB98qYgAmu7t21VXRKCwMNmfX5cLQ7
-	 5j2wadkN8Rjwox6WZE/M0jKm45VowLjOLXyTkOY1J3L/aDDG7/pxZouLkICm7T/uWjurX
-	 6Gy8d8iZR0Sat45DYBLY9lr10+r3OUrx84bDfXp+2nYvO7lyODZa7Vuf/lDyFHn3qL1z5
-	 F3TjymL8sndgxr+wRpt7o4l7OKARnbxXIDA+zwufCfxX1kbU3jv0tch/aPOaaQp6ruuNF
-	 riEOcV9r3feesclQC47pXpt5Ya/NGQ+DQAbEKvH1azlIvh5tp8qdV8XmFs7abkURXFA==
+	bh=wWsDnPpF/C0JjE6lk33cnF/w2L4cPsGqguefzwWuqNk=;
+	b=iVKZN3g0ZsMtY8uk2RwJrWdB2CXXR0YENCZPFCTCsv1STeyPo9M7EdBu8QCxgL0c8+wd
+	 wT29URXSL34217xqPt0Truv3e7zT33uDf8BKMl3/iQIM/1iQbgXyXz+0rYf8L6T1rxWRT
+	 83NIvqM9RxBg8y62XP/SxGfj1GnyCR7k1OMdXYvsTSg0AYdhzB+KRFlfHQOk3+RFMrsZy
+	 4qQr2L8GQjkRYfGNHnsHHSuJANS4rJpphSEyaIy95rXM/O51DU2VDxUwokpy2WRIVH9dO
+	 zV735N6bFM+EO4hWdSRTMU/ylXfT84pjw0DoyEHXDO/Y0Nq3YDJORsMVqwUDRC7bQSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lCFKIhp/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioZ4T+Cc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDE5606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94485606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCFKIhp/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4721F0089F;
-	Tue, 10 Nov 2026 01:19:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioZ4T+Cc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C69D1F0089F;
+	Tue, 10 Nov 2026 01:19:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273579;
-	bh=FqDkrTv1F56FGexJ+SqZKxM74yr99SBPc7C8UDAg0LQ=;
+	s=k20260515; t=1794273581;
+	bh=wWsDnPpF/C0JjE6lk33cnF/w2L4cPsGqguefzwWuqNk=;
 	h=From:To:Cc:Subject:Date;
-	b=lCFKIhp/Lg4JI7tHn965wHxBqoPJEqCzJaYaDPx2jDvOfP58LWViiYQyOPedLPI0M
-	 huuo8oAp8vfCLI0eNkzzMnzO3fEiAhUxu/vc3+2j34mlDYw3AFvVRXGfwVT5EKufS8
-	 xmTNROfutILdRvi8NqL7aOxK7bvEEQQiBCMP6T17q329tks/SQjbVaJb5GZ8BKni3G
-	 Ut3ipzVB8Y6i8t/ooQ+QPlp8SGfkDYz9YksU3CfU6I+a9Mhv8b8cWsevZIusWYVfA1
-	 BwEAMMSp1TfpIGi7g7ROZNXSIjphgpSDPCtJEoZTM47eu4hi5wyMnJEPt9nTWybM02
-	 FjUJgPGrcschQ==
+	b=ioZ4T+CcoqC5gTrSipCYt7ABy1CiL1BrLRWRg6ZKIDNN5Xn7HUA6tP57OtZ2c+r+f
+	 duC5sJRO3SKk0+c2zvxtF8VFMbHCqCh/TWBKvdAcA1phw7s1OzLFblf82yuMyJAC5z
+	 4hRGOQYbNYHk1rbMPniWWWDCi+thaeG9I0aAVcznggyjmce0BcywxCOTIaGSc0BVrN
+	 RCWbK6qoBkRo4oSMEKr7t7OdjcfqMm+eIWrR/y5p+GZd1nhUeT/QLgI2wW2Z9HOpB2
+	 hvNbrxVNy3VqWURSQx4JU4oNDSHR5VUjDmGkBrJkAzaO60O5nLn6/csoNxLMZnFtih
+	 Is4+qKnmGnw+w==
 From: Sasha Levin <sashal@kernel.org>
-To: wvw@google.com,
-	will@kernel.org,
-	broonie@kernel.org,
-	catalin.marinas@arm.com
+To: tiwai@suse.de,
+	treebacker@foxmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:37 -0500
-Message-ID: <20261109201937-failed-6.1-beeec0404622@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:39 -0500
+Message-ID: <20261109201939-failed-6.1-9017bc3d13da@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,81 +68,92 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x beeec04046227eba42b7cc5ab32498aa43da9632
+git cherry-pick -x 9017bc3d13da0ea4e63be618c87143a7b69185e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201937-failed-6.1-beeec0404622@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201939-failed-6.1-9017bc3d13da@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From beeec04046227eba42b7cc5ab32498aa43da9632 Mon Sep 17 00:00:00 2001
-From: Wei Wang <wvw@google.com>
-Date: Tue, 3 Nov 2026 17:59:41 +0000
-Subject: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU
- suspend
+From 9017bc3d13da0ea4e63be618c87143a7b69185e6 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 3 Nov 2026 16:58:40 +0100
+Subject: [PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams
 
-TPIDR2_EL0 is a live EL0 register on systems with SME, but
-cpu_do_suspend()/cpu_do_resume() don't preserve it. Its value is
-UNKNOWN after a warm reset, so the task that initiates suspend can
-return to userspace with a corrupted TPIDR2_EL0.
+ALSA PCM core accepts to re-use the existing stream when O_APPEND is
+passed, and it's been used for dmix, etc.  However, this mode isn't
+supposed to be used for OSS: the OSS stream allows re-configuration
+via its hw_params/hw_refine procedure even while it's being mmapped,
+so it implies the usage of only a single stream.  Because of this
+assumption, the sanity check is skipped for OSS streams, and if user
+may attach to an existing OSS stream with O_APPEND, it may result in a
+UAF of the mapped pages which could be used as a privilege escalation
+exploit.
 
-Save and restore it alongside TPIDR_EL0 and TPIDRRO_EL0. The new slot
-fits in existing padding, so sizeof(struct cpu_suspend_ctx) is
-unchanged.
+For addressing it, this patch simply prohibits the O_APPEND behavior
+on the OSS stream.  O_APPEND is never used for OSS layer itself, so
+this can't break for the right applications.
 
-Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
+Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
 Cc: stable@vger.kernel.org
-Acked-by: Will Deacon <will@kernel.org>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Wei Wang <wvw@google.com>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Reported-by: Bo Cao <treebacker@foxmail.com>
+Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
+Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- arch/arm64/include/asm/suspend.h | 2 +-
- arch/arm64/mm/proc.S             | 8 ++++++++
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ sound/core/pcm.c        | 2 ++
+ sound/core/pcm_local.h  | 6 ++++++
+ sound/core/pcm_native.c | 6 ------
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-index e9ce68d50ba45..a5abf0615594d 100644
---- a/arch/arm64/include/asm/suspend.h
-+++ b/arch/arm64/include/asm/suspend.h
-@@ -2,7 +2,7 @@
- #ifndef __ASM_SUSPEND_H
- #define __ASM_SUSPEND_H
+diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index 064df4cd3b50e..6c8274414c226 100644
+--- a/sound/core/pcm.c
++++ b/sound/core/pcm.c
+@@ -929,6 +929,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
+ 			return -ENODEV;
+ 		if (! SUBSTREAM_BUSY(substream))
+ 			return -EBADFD;
++		if (is_oss_stream(substream))
++			return -EINVAL;
+ 		substream->ref_count++;
+ 		*rsubstream = substream;
+ 		return 0;
+diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
+index ecb21697ae3a4..4b134d435c24f 100644
+--- a/sound/core/pcm_local.h
++++ b/sound/core/pcm_local.h
+@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
+ 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
+ }
  
--#define NR_CTX_REGS 14
-+#define NR_CTX_REGS 15
- #define NR_CALLEE_SAVED_REGS 12
++#if IS_ENABLED(CONFIG_SND_PCM_OSS)
++#define is_oss_stream(substream)	((substream)->oss.oss)
++#else
++#define is_oss_stream(substream)	false
++#endif
++
+ #endif	/* __SOUND_CORE_PCM_LOCAL_H */
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 35152fae74ca2..bec797398acf7 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -749,12 +749,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
+ }
+ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
  
- /*
-diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-index 12aacc74f7647..b1516630904d7 100644
---- a/arch/arm64/mm/proc.S
-+++ b/arch/arm64/mm/proc.S
-@@ -113,6 +113,10 @@ SYM_FUNC_START(cpu_do_suspend)
- alternative_if ARM64_HAS_TCR2
- 	mrs	x2, REG_TCR2_EL1
- 	str	x2, [x0, #104]
-+alternative_else_nop_endif
-+alternative_if ARM64_SME
-+	mrs_s	x2, SYS_TPIDR2_EL0
-+	str	x2, [x0, #112]
- alternative_else_nop_endif
- 	ret
- SYM_FUNC_END(cpu_do_suspend)
-@@ -152,6 +156,10 @@ alternative_if ARM64_HAS_TCR2
- 	ldr	x2, [x0, #104]
- 	msr	REG_TCR2_EL1, x2
- alternative_else_nop_endif
-+alternative_if ARM64_SME
-+	ldr	x2, [x0, #112]
-+	msr_s	SYS_TPIDR2_EL0, x2
-+alternative_else_nop_endif
- 
- 	msr	sctlr_el1, x12
- 	set_this_cpu_offset x13
+-#if IS_ENABLED(CONFIG_SND_PCM_OSS)
+-#define is_oss_stream(substream)	((substream)->oss.oss)
+-#else
+-#define is_oss_stream(substream)	false
+-#endif
+-
+ static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
+ {
+ 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
 -- 
 2.53.0
 
