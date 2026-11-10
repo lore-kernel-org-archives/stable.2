@@ -1,50 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293122;
-	b=Ek9qjZl8aQiGuJ2CrS503F5CpZkAuYeeieLHrsxoRc8QDqPwbZmuxL+LwL9e0reIZcmK
-	 btPOlWxqcCnZBqfIYfRpUn46/aUFi/oZJe3JKkbvuriUpdhlxEUnlWaHVcTbFHwP3FZ8a
-	 TpjKa7NLAbMZd7248Vcl8emoqe9vhkvmjH+gnPzv8DVUIfNqzoba+Majm+QdOVPnzZfSd
-	 rUUfeKe5eJp40D92Qi4gR/2rJ7+iITyFF6ijwk3Bzg+SH5bLV+gGhonhN66R7byplFZNs
-	 6hDEZUwsX7EwUVe/cc5sLcMsmHcl4TL/qisUruecgBMbJoiKxI8MFwVswn0JMnxlpXg==
+	t=1794293130;
+	b=pc8hJHxDgg+ORGlhYHLBuBg+WyFNB+hLpssHj9+qPaXojduf5yDh6Si8NtKcKfLdBewJ
+	 ExRUSg6hWKNy1Q0U/mvEttBabOlp3+CV3Ru9wkgEsao7YKUXCq1jfqRL3bmayPFE65mS7
+	 BaBnNnYCu/33TPxSpMuYP5gDvYtpjP5E/QU26KAi/f1sFEw9xKcDJDlitEa+PuHs0s5L/
+	 b9+9YjGgYJv4bESyfy5pMUUXeCBcVaC5m1rcoCI5NA4c8Z80Ho4xeyjSZM8CCdlqSGH5D
+	 1NJumy4lADPjp1ZQIc27Uaqw5m+etUAJjDkQpgyVfdAAQbHayYs4eEYcn2OG9UeA/5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293130;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=5C/Dt0omSofHasNhSwji9hwqILOVkgmTX5ilJiy6Nio=;
-	b=ULTmNlPMq21HTsBKpHRvTLEM/Fb5YiOPmkwwN4NdhDwKxe8czLvOwgZDp1mc/eSoBTyE
-	 IJq+TaMJugTSb+SM5Nq/1n8HoeHHzJR/TOWSk6muHvFxQJgFhs/FttUqqygIIkwEYpVas
-	 fdb9EHTpcKHECnR8lBhPc7xxTln8qJXuy/CBPZM4NKTz8rHwQOKUJ2oqcOzaxjAGyz8xM
-	 BtI0tL4Tr9lkxVv4A7maM+EVilpLECP7NTf2QVs6en4/6cur4mjYHyMYdEc9qxdmcLpw8
-	 ImmmMz35hZDWiJ2Fwy0eNSjkBdr9HyghNwBTk65nNzQJtsFOdzycHtv6fHqRxm5ibLA==
+	bh=PEvTXFY+gGzq/B6LumOWpO4at3M4hiYgB/BM4iAura8=;
+	b=Bi9Flje4ZP7Y/AOVEjHpll3SIVY8745dIUeKXCdKuzELXnDbcDJg91xnmO4CDCwPbSdZ
+	 g7gfPmuwgIXs/+tnu31SwM7qDJwDTG8ZiIrOALRJDMQjCsnLj73vaEawNab+pbcXbsV3Z
+	 K0QmGW9icmcYg/zVV68v07WoHFVRHMvLY4dNxeLZRliSafxHHIR+HiOjHVJkO8QTSyOMt
+	 pN0d0vx2XBHRr7Ui2NroYShsCRttriWIVf43I08Dg8kI9fFRYCRN8WKaYXLNko8jQogOr
+	 C7YEt0xJSoqf5LyYdXh8Ss/VbFCzPRtnURKh6BoAID4Iu3oG7lTrIrZwMXLfPyI7MAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=h6nB08i5;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="a/mKqXdw";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45741606CB19;
-	Tue, 10 Nov 2026 06:45:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E3A606CB17;
+	Tue, 10 Nov 2026 06:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=h6nB08i5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDBA51F008A1;
-	Tue, 10 Nov 2026 06:45:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a/mKqXdw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7921F0089F;
+	Tue, 10 Nov 2026 06:45:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293121;
-	bh=5C/Dt0omSofHasNhSwji9hwqILOVkgmTX5ilJiy6Nio=;
+	d=linux-foundation.org; s=korg; t=1794293129;
+	bh=PEvTXFY+gGzq/B6LumOWpO4at3M4hiYgB/BM4iAura8=;
 	h=Date:To:From:Subject;
-	b=h6nB08i5PJmHEYYYQnSELQd6ojuivh2l13I0iNABYalks/TKBxYCSKvpEM1+Uez9W
-	 7jMC5luKhySuKOS4mggf0C7TsBXbxts2e0yyOxZ++oWs22iTD5NaBsohf31PSzFTB5
-	 cwSm6HTs1kAX8F4l+fH8DLXKYm347MSCueDnB+hQ=
-Date: Mon, 09 Nov 2026 22:45:21 -0800
-To: mm-commits@vger.kernel.org,will@kernel.org,stable@vger.kernel.org,
-	pjw@kernel.org,palmer@dabbelt.com,osalvador@suse.de,mark.rutland@arm.com,
-	kevin.brodsky@arm.com,david@kernel.org,dave.hansen@intel.com,
-	catalin.marinas@arm.com,bjorn@rivosinc.com,apopple@nvidia.com,
-	aou@eecs.berkeley.edu,anshuman.khandual@arm.com,alex@ghiti.fr,
-	agordeev@linux.ibm.com,muchun.song@linux.dev,akpm@linux-foundation.org
+	b=a/mKqXdwRWwExfEXAkv5XrRaBtRaw2TxYcq8SzQ49aKH1/bXb42FxlE0KmQ5ASjRF
+	 vemAUoUuVamBu824ANxPT3I1Vr9/KPTofagMwYCwFPt6LrQWvUqKEh9Teoiow0f1en
+	 K28T9tjb3YTQlQL8JbJ/wZoYMVDJS0GU0PwrCvpc=
+Date: Mon, 09 Nov 2026 22:45:28 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,usama.arif@linux.dev,
+	tz2294@columbia.edu,stable@vger.kernel.org,ryan.roberts@arm.com,
+	richard.weiyang@gmail.com,nico.pache@linux.dev,nao.horiguchi@gmail.com,
+	mcgrof@kernel.org,ljs@kernel.org,liyouhong@kylinos.cn,linmiaohe@huawei.com,
+	liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,baohua@kernel.org,david@kernel.org,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch removed from -mm tree
-Message-Id: <20261110064521.BDBA51F008A1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch removed from -mm tree
+Message-Id: <20261110064529.5D7921F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,100 +57,210 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: arm64/mm: fix destructor for unconstructed hotplug page tables
+     Subject: mm/memory-failure: fix folio refcount leak and min_order_for_split() locking
 has been removed from the -mm tree.  Its filename was
-     arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch
+     mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Muchun Song <muchun.song@linux.dev>
-Subject: arm64/mm: fix destructor for unconstructed hotplug page tables
-Date: Fri, 23 Oct 2026 14:34:28 +0800
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: mm/memory-failure: fix folio refcount leak and min_order_for_split() locking
+Date: Fri, 30 Oct 2026 23:29:13 +0100
 
-Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
-hot-removed page tables") made free_hotplug_pgtable_page()
-unconditionally run the page-table destructor. This matches page tables
-allocated by the arm64 mapping code, which runs the corresponding
-constructors.
+hwpoison code can end up calling min_order_for_split() without holding the
+folio lock.  There isn't really something that would prevent concurrent
+truncation.  Consequently folio->mapping can get set to NULL after
+checking for "!folio->mapping", and if the compiler reloads
+folio->mapping, mapping_min_folio_order() would try to dereference NULL.
 
-However, arm64 also uses the generic sparse-vmemmap population code.
-Runtime intermediate page tables allocated by that code do not run a
-page-table constructor. Freeing one during memory hot-remove therefore
-runs a destructor without a matching constructor and corrupts
-NR_PAGETABLE accounting.
+While very unlikely to happen in practice, let's just enforce that
+min_order_for_split() is called with the folio lock held.  We can
+significantly cleanup the calling hwpoison code, and just get rid of
+try_to_split_thp_page() to hold the folio lock for a bit longer.
 
-Free intermediate page-table pages through pagetable_free(). It runs the
-destructor only for constructor-backed pages and then releases the page
-through the page-table freeing path.
+Just work on folios now, which further cleans up the code.  We just have
+to be careful about doing the page_folio() after splitting, which we have
+to do already either way.  Do not change the way we split for now, this
+needs more thought and should be done separately.
 
-Link: https://lore.kernel.org/20261023063428.3658761-5-songmuchun@bytedance.com
-Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
-Signed-off-by: Muchun Song <muchun.song@linux.dev>
+Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+would currently have leaked a folio reference.
+
+In min_order_for_split(), document and assert that we need the folio lock.
+Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+
+While updating the comment in soft_offline_in_use_page(), just drop the
+"NOTE" part that does not add any value to current code.
+
+The folio->mapping problem was identified by Sashiko, and Li Youhong
+reported it by sending a proposal fix.
+
+This likely does not really warrant CCing stable, but I expect little
+conflicts when doing the backport, so let's just CC stable because of the
+refcount leak.
+
+Link: https://lore.kernel.org/20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org
+Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Paul Walmsley <pjw@kernel.org>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Björn Töpel <bjorn@rivosinc.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Alistair Popple <apopple@nvidia.com>
+Reported-by: Li Youhong <liyouhong@kylinos.cn>
+Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Wei Yang <richard.weiyang@gmail.com>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Tal Zussman <tz2294@columbia.edu>
 Cc: <stable@vger.kernel.org>
 ---
 
- arch/arm64/mm/mmu.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ mm/huge_memory.c    |    4 ++
+ mm/memory-failure.c |   63 ++++++++++++++----------------------------
+ 2 files changed, 25 insertions(+), 42 deletions(-)
 
---- a/arch/arm64/mm/mmu.c~arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables
-+++ a/arch/arm64/mm/mmu.c
-@@ -1495,8 +1495,7 @@ static void free_hotplug_page_range(stru
- 
- static void free_hotplug_pgtable_page(struct page *page)
+--- a/mm/huge_memory.c~mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking
++++ a/mm/huge_memory.c
+@@ -4551,10 +4551,14 @@ int folio_split(struct folio *folio, uns
+  * If a file-backed folio is truncated, 0 will be returned. Any subsequent
+  * split attempt should get -EBUSY from split checking code.
+  *
++ * Context: @folio must be locked.
++ *
+  * Return: @folio's minimum order for split
+  */
+ unsigned int min_order_for_split(struct folio *folio)
  {
--	pagetable_dtor(page_ptdesc(page));
--	free_hotplug_page_range(page, PAGE_SIZE, NULL);
-+	pagetable_free(page_ptdesc(page));
++	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
++
+ 	if (folio_test_anon(folio))
+ 		return 0;
+ 
+--- a/mm/memory-failure.c~mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking
++++ a/mm/memory-failure.c
+@@ -1744,26 +1744,6 @@ static int identify_page_state(unsigned
+ 	return page_action(ps, p, pfn);
  }
  
- static bool pgtable_range_aligned(unsigned long start, unsigned long end,
+-/*
+- * When 'release' is 'false', it means that if thp split has failed,
+- * there is still more to do, hence the page refcount we took earlier
+- * is still needed.
+- */
+-static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+-		bool release)
+-{
+-	int ret;
+-
+-	lock_page(page);
+-	ret = split_huge_page_to_order(page, new_order);
+-	unlock_page(page);
+-
+-	if (ret && release)
+-		put_page(page);
+-
+-	return ret;
+-}
+-
+ static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+ 		struct address_space *mapping, pgoff_t index, int flags)
+ {
+@@ -2548,9 +2528,6 @@ try_again:
+ 	folio_unlock(folio);
+ 
+ 	if (folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-		int err;
+-
+ 		/*
+ 		 * The flag must be set after the refcount is bumped
+ 		 * otherwise it may race with THP split.
+@@ -2565,24 +2542,25 @@ try_again:
+ 		 * page is a valid handlable page.
+ 		 */
+ 		folio_set_has_hwpoisoned(folio);
+-		err = try_to_split_thp_page(p, new_order, /* release= */ false);
++
++		folio_lock(folio);
++		split_huge_page_to_order(p, min_order_for_split(folio));
++		folio = page_folio(p);
++		folio_unlock(folio);
++
+ 		/*
+ 		 * If splitting a folio to order-0 fails, kill the process.
+ 		 * Split the folio regardless to minimize unusable pages.
+ 		 * Because the memory failure code cannot handle large
+ 		 * folios, this split is always treated as if it failed.
+ 		 */
+-		if (err || new_order) {
+-			/* get folio again in case the original one is split */
+-			folio = page_folio(p);
++		if (folio_test_large(folio)) {
+ 			res = -EHWPOISON;
+ 			kill_procs_now(p, pfn, flags, folio);
+-			put_page(p);
++			folio_put(folio);
+ 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+ 			goto unlock_mutex;
+ 		}
+-		VM_BUG_ON_PAGE(!page_count(p), p);
+-		folio = page_folio(p);
+ 	}
+ 
+ 	/*
+@@ -2900,25 +2878,26 @@ static int soft_offline_in_use_page(stru
+ 		.reason = MR_MEMORY_FAILURE,
+ 	};
+ 
++	folio_lock(folio);
+ 	if (!huge && folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-
+ 		/*
+-		 * If new_order (target split order) is not 0, do not split the
+-		 * folio at all to retain the still accessible large folio.
+-		 * NOTE: if minimizing the number of soft offline pages is
+-		 * preferred, split it to non-zero new_order like it is done in
+-		 * memory_failure().
++		 * If we cannot split to order-0, do not split the folio at all
++		 * to retain the still accessible large folio.
+ 		 */
+-		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+-						       /* release= */ true)) {
++		if (!min_order_for_split(folio))
++			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
++		else
++			ret = -EBUSY;
++		folio = page_folio(page);
++
++		if (ret) {
++			folio_unlock(folio);
++			folio_put(folio);
+ 			pr_info("%#lx: thp split failed\n", pfn);
+-			return -EBUSY;
++			return ret;
+ 		}
+-		folio = page_folio(page);
+ 	}
+ 
+-	folio_lock(folio);
+ 	if (!huge)
+ 		folio_wait_writeback(folio);
+ 	if (PageHWPoison(page)) {
 _
 
-Patches currently in -mm which might be from muchun.song@linux.dev are
+Patches currently in -mm which might be from david@kernel.org are
 
-mm-sparse-vmemmap-map-shared-vmemmap-tail-pages-as-read-only.patch
-powerpc-mm-map-shared-vmemmap-tail-pages-as-read-only.patch
-mm-hugetlb_vmemmap-remove-vmemmap_wrprotect_hvo.patch
-mm-hugetlb_vmemmap-remove-hugetlb_vmemmap_optimize_bootmem_folios.patch
-mm-generalize-kernel-pte-table-allocation.patch
-mm-generalize-pmd-page-table-allocation.patch
-mm-generalize-pud-page-table-allocation.patch
-mm-remove-pagetable_dtor_free.patch
-mm-remove-redundant-pagetable_dtor-calls.patch
-mm-hugetlb_vmemmap-remove-hugetlb-specific-vmemmap-optimization-macros.patch
-mm-hugetlb_vmemmap-unify-vmemmap_splitremap_no_tlb_flush.patch
-mm-hugetlb_vmemmap-simplify-vmemmap-head-page-handling.patch
-mm-hugetlb_vmemmap-generalize-vmemmap-page-allocation.patch
-mm-hugetlb_vmemmap-unify-writable-vmemmap-page-preparation.patch
-mm-hugetlb_vmemmap-rename-vmemmap_remap_pte-to-vmemmap_optimize_pte.patch
-mm-hugetlb_vmemmap-simplify-shared-tail-page-handling.patch
-mm-hugetlb_vmemmap-move-alloc_vmemmap_page_list-next-to-its-free-helper.patch
-mm-hugetlb_vmemmap-make-vmemmap-optimization-folio-oriented.patch
-mm-hugetlb_vmemmap-make-vmemmap-restoration-folio-oriented.patch
-mm-hugetlb_vmemmap-unify-vmemmap-range-restoration.patch
-mm-hugetlb_vmemmap-make-vmemmap-pte-conversion-folio-oriented.patch
-mm-hugetlb-fix-validation-of-unsupported-hugetlb-orders.patch
-powerpc-mm-make-vmemmap_populate_compound_pages-static.patch
-powerpc-mm-drop-powerpc-vmemmap_can_optimize.patch
-loongarch-mm-disable-device-dax-vmemmap-optimization.patch
-mm-sparse-vmemmap-drop-vmemmap_can_optimize.patch
-mm-sparse-vmemmap-drop-pgmap-from-vmemmap-population-apis.patch
+mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
+mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch
 
