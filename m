@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321814;
-	b=0iWsY+aKo6n67caad2tCjoLxVQ7Xwa+ow11WjUiM+WS5zatvhX6+YILLgGzys5k7JmmZ
-	 5U1VqT01xdRYFRa5E3ngXRONgkJaiNgHgT+cQysuhIL+AoGE0qqBHs9ni9genptuIPa2W
-	 mx6opCln3AguLQ1aMadWem6v6JeiErWlXqVDZPh/vqv76rjx+YIlLJ2WeFeriba5OASxK
-	 bs0VVdxJRMxGxUfLYViKcaG1KdljeVdxos5PkPWRGdpkXMfrBNbcs5NiF0lcmBBDsq+t1
-	 0zRY0BahaLymyUi9vGNlZR2XqLlpAIpXnvU2cw6EHrBhPkavbL7wP0P92CUZtM4XT3g==
+	t=1794321899;
+	b=P/KmfbzXObriEQ/7fsyUndCnfRetorg+Slky49e0wsDspoziTvONqHHr8XvCYVKXrPWz
+	 EZwoZg+FsCjvYA47tQnPp993xpQGT/kMfinMyEN+Dlg4cmj/PT7T6zaI3boxT/MI4+73j
+	 VBnFFnD25pluE9KWqISzyqI1gUZ0bnAmArfZ9umylDyZO7OWoOMZQqUL1tx1EtXKMKXY/
+	 bh7cRxKEh2x8lMXHLSOb5v4INbWA0vZhIYFMNLRjSr5aQl7fHFIPlB+hqqG6utd4lSNlq
+	 F6GQKEPySWLnLGKAvMmaD0/DoryRg979o4LgwKIOBUbRuXVbSvn+m6tgS/a3J6lZryg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321814;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wX3bwwoXzMsxnSpxVwviRoqxZrpyJTHj8Yzx60K5w44=;
-	b=Alz31nQ8RgcuNFHxdqaJqJrLN5+YGicOgCGxTB4ORpwY+UTnvz3ELesys6kD2uLrvAr3
-	 9qbUmA1itCKV7JkyT+UDxa+2taYee7qDHOF6q7O71407sJS7a7XsvELiL7NJxUktdUUNF
-	 hp1ImOIWydttFGwgPpO3IcL7nWJNvKR0b38BJKSZalX2XFf1dDpRDC9geL1DMh/AgLpbq
-	 DKdGPA2Y+RiXoV4CvQy6TPAPPpRv0mIy0j7UrPakgcgVCI90zml0OtQC2iSvHs6WVRocn
-	 f65+AyMdPKxidcCYNDjZoVQ0UNUf0K2kjvWTy237c40BfEUX3RLQNlGFRXWiJOHzfCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321899;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=orsRB4SdYsft12+xEJaVNxxib74REtg/MP7hL7g3SzU=;
+	b=zJpjCNQnzrajLpUGCgMId6Ldnwof/IpnYohBO8Y4A0IKr0snYCAYZj1FjQx9Z4whYwfs
+	 mS9M98qMzXqu+2OzhDKlSfX38LnPpddoml345ia1jPwrC8jlGko8KQjiod0Gf6z056zBV
+	 p0+3pIZS+dzC+uci0HDP54GAU/9B6E/RyBk4uz9K0NcuPsohIxuwk7n/HELxDfioOZw3f
+	 KyKGvETTFKiC1U7uXg1UW7xHDmw0zL8hs7uCUlUuy7OEmAx1KziyIrmlI2RTNk6shl/QM
+	 FEy6k11qmBKrRav/oKkw11H3DXh11bLuRQ2nivWSee2QBQYlch4OAfpu/aMaWP1YK4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6gHgRYZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	arc=none smtp.remote-ip=79.135.106.116
+Received: from mail-106116.protonmail.ch (mail-106116.protonmail.ch [79.135.106.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D93606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d6gHgRYZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989C71F0089F;
-	Tue, 10 Nov 2026 14:43:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321814;
-	bh=wX3bwwoXzMsxnSpxVwviRoqxZrpyJTHj8Yzx60K5w44=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d6gHgRYZUAAVz/Dj8Ur4C9+8Oi0LPe21Hap3aqypL2WBRFVn4ZKswGRaohxizSjIS
-	 MTozj3U3CwlGNxK7ncVtXawoDEM6tFA5gaY78s+Y2iITxYaANiGORzNGrJH7iATTwp
-	 4nMynuMYfkJ7F3JGSFCEFSdjFADOlhm74oN6d5BXd18GgSSzuxTq3fDJKii9gnJ0Be
-	 pd148CqrBziGrfaMmpSq7EfRc8rkqEKjYcRcFmDxcHu3epF1H++6/ZB6j0ovHboZw1
-	 w1tMhLkETK9raAmX8E16ki8bYmK+n5h9y6U1NN5p/ptTxaGAMCW5W9KCO6Qe3qE3hQ
-	 lAWUDAywuQzbA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
-Date: Tue, 10 Nov 2026 09:43:32 -0500
-Message-ID: <20261110144309.1931564-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060245-failed-5.15-7907d5270dc5@kernel.org>
-References: <20261107060245-failed-5.15-7907d5270dc5@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B86F60A3809
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B86F60A3809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1794321889; x=1794581089;
+	bh=orsRB4SdYsft12+xEJaVNxxib74REtg/MP7hL7g3SzU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ZvFeDLjbEw4pWqeTCCYw72q2Nq3p5CRYVyRNTsxDDSjxe514susOPkA8YnvDt5k2L
+	 Wem14nR1P1CYjCsDe3E7ad4RNCvn8dbZSeWkjrrbbNfXUyFYp5AegomdTMvKDM3OAu
+	 nBAs7/wq8hHTJ6oxCq0ybBxx/ZEFB3eb/yJkdPN0YQBFfglhFaq3q0JPBityoKzBSK
+	 Mrwo7WJeRLvIGyzkNjENLHj8QYPaV/Lx+MO1tGZS86UH8VbtEp8YunfuVhhZ+l5hhO
+	 jAlEr9FsAHSqwk9k7HClY2euVFp8Hx63WTJNxDBQMx4Mt5vZumWhjCWNN2HVVz+b2M
+	 mLhzVPeQJ9KtA==
+Date: Tue, 10 Nov 2026 14:44:44 +0000
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, linux-acpi@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ACPI: pfr_telemetry: keep the state until the last file is closed
+Message-ID: <20261110144436.1529000-2-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: e366b8deae3080dff1d1831b66b09e3c25ff56cd
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,70 +58,280 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Myeonghun Pak <mhun512@gmail.com>
+struct pfrt_log_device is allocated with devm_kzalloc_obj() and embeds
+the miscdevice, so it is freed when the driver unbinds. A file that is
+open on the node outlives the unbind and nothing holds a reference for
+it: the next ioctl() or mmap() on that file uses freed memory.
+Unbinding the driver needs root.
 
-[ Upstream commit 7907d5270dc5c13b6a95754c08a77d5b06bbc786 ]
+Allocate the structure with kzalloc_obj() and reference count it:
+open() takes a reference, under misc_mtx, which misc_deregister() also
+takes, release() drops it, and a devm action drops the driver's own.
+The structure also holds a reference on the parent device it uses.
 
-mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
-before allocating and registering the secondary PHY. If allocation,
-EEPROM override, or PHY registration fails, it returns without restoring
-the primary PHY capabilities. The EEPROM override failure also leaks the
-newly allocated ieee80211_hw.
+Also make remove() wait for calls already running. The firmware calls
+in ioctl() and mmap() run under a mutex, and remove() sets a flag under
+it that makes any later call that would reach the firmware fail with
+-ENODEV. Without that, a call that started before remove() can
+evaluate _DSM after remove() has returned, while device_del() unbinds
+the parent's ACPI companion. The mutex also serializes the updates to
+the log settings, which concurrent ioctl() calls could interleave.
+ioctl() copies to and from user memory outside the lock, because mmap()
+is called with mmap_lock held.
 
-Route all failures through common labels that free the secondary hardware
-when it was allocated and restore the primary PHY capabilities.
+The problem was found with a Coccinelle script that reports device
+nodes in devm memory [1]. The fix, the reproducers and this message
+were written with an AI assistant (Claude) and checked by hand. The bug
+was reproduced and the fix tested in QEMU with KASAN and lockdep, using
+an SSDT whose _DSM stands in for the firmware. Hardware with this
+firmware interface was not tested.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+Link: https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com =
+[1]
+Fixes: b0013e037a8b ("ACPI: Introduce Platform Firmware Runtime Telemetry d=
+river")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-[ sashal: adapted to three-argument mt76_alloc_phy() and omitted error handling for void-returning mt76_eeprom_override() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Chad Aldreda <ca@modelmiser.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7615/init.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+Changes in v2:
+- remove() now waits for calls already running, under a new mutex, which
+  also serializes the log settings. Sashiko's review of v1, which Rafael
+  asked me to address, showed that a call that passed the removed check
+  can evaluate _DSM after remove() returns, while device_del() unbinds
+  the ACPI companion. The v1 notes said such a call finishes against
+  state that is still valid; that was wrong.
+- kzalloc_obj(), on top of the devm_kzalloc_obj() conversion in
+  linux-pm.
+v1: https://lore.kernel.org/r/20261108233900.4043941-3-ca@modelmiser.com
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-index b284e264d89a2..bae48fbed116f 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-@@ -461,8 +461,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 
- 	mt7615_cap_dbdc_enable(dev);
- 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops);
--	if (!mphy)
--		return -ENOMEM;
-+	if (!mphy) {
-+		ret = -ENOMEM;
-+		goto error;
-+	}
- 
- 	phy = mphy->priv;
- 	phy->dev = dev;
-@@ -501,7 +503,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 	ret = mt76_register_phy(mphy, true, mt76_rates,
- 				ARRAY_SIZE(mt76_rates));
- 	if (ret)
--		ieee80211_free_hw(mphy->hw);
-+		goto error_free_hw;
+Tested in QEMU 10.2.4 (q35, KASAN with kasan_multi_shot, lockdep) with
+the SSDT from v1, which adds a device with _HID INTC1081 and a _DSM that
+returns valid packages. With a file held open across a sysfs unbind,
+SET_INFO, GET_INFO, GET_DATA_INFO and mmap() all work before the unbind
+and fail with -ENODEV after it, a mapping made before the unbind stays
+readable, the same holds after a bind, and there are no KASAN or lockdep
+reports.
+
+For the race, a test-only msleep(2000) was put before the SET_INFO
+firmware call and the driver unbound 0.5 s into the call. With v1 the
+unbind returned at once and the firmware call completed 1.5 s after
+remove() returned. With v2 the unbind returned 2.0 s in, after the call
+completed. The test used a sysfs unbind, which keeps the ACPI companion
+bound; removal of the device itself was not tested.
+
+A test variant that calls copy_to_user() inside the lock makes lockdep
+report a cycle between the new lock, taken in pfrt_log_mmap(), and
+mmap_lock, which is why the user copies stay outside it.
+
+Mainline and stable still allocate with devm_kzalloc(), so a backport
+needs kzalloc(sizeof(*pfrt_log_dev), GFP_KERNEL) in that hunk.
+
+The same race exists in pfr_update; a matching patch on top of the one
+you applied will follow once that is in your tree.
+
+The code, changelog and reproducers were written with an AI assistant
+(Claude Opus 5.5), and the assistant ran the tests above. I ran the
+final version myself and got the same results.
+
+ drivers/acpi/pfr_telemetry.c | 102 +++++++++++++++++++++++++++++------
+ 1 file changed, 86 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/acpi/pfr_telemetry.c b/drivers/acpi/pfr_telemetry.c
+index 458cb99ae216..53d5e25497e9 100644
+--- a/drivers/acpi/pfr_telemetry.c
++++ b/drivers/acpi/pfr_telemetry.c
+@@ -15,10 +15,13 @@
+ #include <linux/errno.h>
+ #include <linux/file.h>
+ #include <linux/fs.h>
++#include <linux/kref.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/mm.h>
+ #include <linux/platform_device.h>
++#include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/uaccess.h>
+ #include <linux/uio.h>
+@@ -62,6 +65,14 @@ struct pfrt_log_device {
+ =09struct pfrt_log_info info;
+ =09struct device *parent_dev;
+ =09struct miscdevice miscdev;
++=09struct kref kref;
++=09/*
++=09 * Serializes the firmware calls and info of the file operations, and
++=09 * remove(), which sets removed under it and so waits for calls
++=09 * already running.
++=09 */
++=09struct mutex lock;
++=09bool removed;
+ };
+=20
+ /* pfrt_guid is the parameter for _DSM method */
+@@ -254,33 +265,49 @@ static long pfrt_log_ioctl(struct file *file, unsigne=
+d int cmd, unsigned long ar
+ =09=09if (copy_from_user(&info, p, sizeof(info)))
+ =09=09=09return -EFAULT;
+=20
+-=09=09if (valid_log_revid(info.log_revid))
+-=09=09=09pfrt_log_dev->info.log_revid =3D info.log_revid;
++=09=09scoped_guard(mutex, &pfrt_log_dev->lock) {
++=09=09=09if (pfrt_log_dev->removed)
++=09=09=09=09return -ENODEV;
+=20
+-=09=09if (valid_log_level(info.log_level)) {
+-=09=09=09ret =3D set_pfrt_log_level(info.log_level, pfrt_log_dev);
+-=09=09=09if (ret < 0)
+-=09=09=09=09return ret;
++=09=09=09if (valid_log_revid(info.log_revid))
++=09=09=09=09pfrt_log_dev->info.log_revid =3D info.log_revid;
+=20
+-=09=09=09pfrt_log_dev->info.log_level =3D info.log_level;
+-=09=09}
++=09=09=09if (valid_log_level(info.log_level)) {
++=09=09=09=09ret =3D set_pfrt_log_level(info.log_level, pfrt_log_dev);
++=09=09=09=09if (ret < 0)
++=09=09=09=09=09return ret;
 +
-+	return 0;
++=09=09=09=09pfrt_log_dev->info.log_level =3D info.log_level;
++=09=09=09}
+=20
+-=09=09if (valid_log_type(info.log_type))
+-=09=09=09pfrt_log_dev->info.log_type =3D info.log_type;
++=09=09=09if (valid_log_type(info.log_type))
++=09=09=09=09pfrt_log_dev->info.log_type =3D info.log_type;
++=09=09}
+=20
+ =09=09return 0;
+=20
+ =09case PFRT_LOG_IOC_GET_INFO:
+-=09=09info.log_level =3D get_pfrt_log_level(pfrt_log_dev);
+-=09=09info.log_type =3D pfrt_log_dev->info.log_type;
+-=09=09info.log_revid =3D pfrt_log_dev->info.log_revid;
++=09=09scoped_guard(mutex, &pfrt_log_dev->lock) {
++=09=09=09if (pfrt_log_dev->removed)
++=09=09=09=09return -ENODEV;
 +
-+error_free_hw:
-+	ieee80211_free_hw(mphy->hw);
-+error:
-+	mt7615_cap_dbdc_disable(dev);
- 
- 	return ret;
++=09=09=09info.log_level =3D get_pfrt_log_level(pfrt_log_dev);
++=09=09=09info.log_type =3D pfrt_log_dev->info.log_type;
++=09=09=09info.log_revid =3D pfrt_log_dev->info.log_revid;
++=09=09}
++
+ =09=09if (copy_to_user(p, &info, sizeof(info)))
+ =09=09=09return -EFAULT;
+=20
+ =09=09return 0;
+=20
+ =09case PFRT_LOG_IOC_GET_DATA_INFO:
+-=09=09ret =3D get_pfrt_log_data_info(&data_info, pfrt_log_dev);
++=09=09scoped_guard(mutex, &pfrt_log_dev->lock) {
++=09=09=09if (pfrt_log_dev->removed)
++=09=09=09=09return -ENODEV;
++
++=09=09=09ret =3D get_pfrt_log_data_info(&data_info, pfrt_log_dev);
++=09=09}
+ =09=09if (ret)
+ =09=09=09return ret;
+=20
+@@ -311,6 +338,10 @@ pfrt_log_mmap(struct file *file, struct vm_area_struct=
+ *vma)
+=20
+ =09pfrt_log_dev =3D to_pfrt_log_dev(file);
+=20
++=09guard(mutex)(&pfrt_log_dev->lock);
++=09if (pfrt_log_dev->removed)
++=09=09return -ENODEV;
++
+ =09ret =3D get_pfrt_log_data_info(&info, pfrt_log_dev);
+ =09if (ret)
+ =09=09return ret;
+@@ -337,8 +368,39 @@ pfrt_log_mmap(struct file *file, struct vm_area_struct=
+ *vma)
+ =09return 0;
  }
--- 
-2.53.0
+=20
++static void pfrt_log_free(struct kref *kref)
++{
++=09struct pfrt_log_device *pfrt_log_dev =3D
++=09=09container_of(kref, struct pfrt_log_device, kref);
++
++=09put_device(pfrt_log_dev->parent_dev);
++=09kfree(pfrt_log_dev);
++}
++
++static void pfrt_log_put(void *data)
++{
++=09struct pfrt_log_device *pfrt_log_dev =3D data;
++
++=09kref_put(&pfrt_log_dev->kref, pfrt_log_free);
++}
++
++/* misc_open() holds misc_mtx here, and misc_deregister() takes it. */
++static int pfrt_log_open(struct inode *inode, struct file *file)
++{
++=09kref_get(&to_pfrt_log_dev(file)->kref);
++=09return 0;
++}
++
++static int pfrt_log_release(struct inode *inode, struct file *file)
++{
++=09pfrt_log_put(to_pfrt_log_dev(file));
++=09return 0;
++}
++
+ static const struct file_operations acpi_pfrt_log_fops =3D {
+ =09.owner=09=09=3D THIS_MODULE,
++=09.open=09=09=3D pfrt_log_open,
++=09.release=09=3D pfrt_log_release,
+ =09.mmap=09=09=3D pfrt_log_mmap,
+ =09.unlocked_ioctl =3D pfrt_log_ioctl,
+ =09.llseek=09=09=3D noop_llseek,
+@@ -349,6 +411,8 @@ static void acpi_pfrt_log_remove(struct platform_device=
+ *pdev)
+ =09struct pfrt_log_device *pfrt_log_dev =3D platform_get_drvdata(pdev);
+=20
+ =09misc_deregister(&pfrt_log_dev->miscdev);
++=09scoped_guard(mutex, &pfrt_log_dev->lock)
++=09=09pfrt_log_dev->removed =3D true;
+ }
+=20
+ static void pfrt_log_put_idx(void *data)
+@@ -373,10 +437,17 @@ static int acpi_pfrt_log_probe(struct platform_device=
+ *pdev)
+ =09=09return -ENODEV;
+ =09}
+=20
+-=09pfrt_log_dev =3D devm_kzalloc_obj(&pdev->dev, *pfrt_log_dev);
++=09pfrt_log_dev =3D kzalloc_obj(*pfrt_log_dev);
+ =09if (!pfrt_log_dev)
+ =09=09return -ENOMEM;
+=20
++=09kref_init(&pfrt_log_dev->kref);
++=09mutex_init(&pfrt_log_dev->lock);
++=09pfrt_log_dev->parent_dev =3D get_device(&pdev->dev);
++=09ret =3D devm_add_action_or_reset(&pdev->dev, pfrt_log_put, pfrt_log_dev=
+);
++=09if (ret)
++=09=09return ret;
++
+ =09ret =3D ida_alloc(&pfrt_log_ida, GFP_KERNEL);
+ =09if (ret < 0)
+ =09=09return ret;
+@@ -387,7 +458,6 @@ static int acpi_pfrt_log_probe(struct platform_device *=
+pdev)
+ =09=09return ret;
+=20
+ =09pfrt_log_dev->info.log_revid =3D PFRT_DEFAULT_REV_ID;
+-=09pfrt_log_dev->parent_dev =3D &pdev->dev;
+=20
+ =09pfrt_log_dev->miscdev.minor =3D MISC_DYNAMIC_MINOR;
+ =09pfrt_log_dev->miscdev.name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL,
+--=20
+2.43.0
+
 
