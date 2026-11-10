@@ -1,54 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319679;
-	b=NSttMVMkP+r5QvlmTjrXt5dmoAML/MUZDzVdgR4nyWDG8H2Tcoh6aA+SA5APkrZX3f4z
-	 PUFk3Xgg4ba5YcVD31E+40ONj4S5kP99chFuRlbOPfIC9f96Pfl0DRIZHeJDisrQ3yr7+
-	 OLBH0+KCeIyi3Rpolctt7Z3j2yjdfLbe9p7elBcnD6L1Ho7FyZ0SMhd/hKvmt+geVFYQp
-	 ErdF0E4K3x++FFtVlWGGFvKREiuYgeuJ4WgthOf/vXCuFaa2d2lRMpxKXhVWnVC6oGbhw
-	 ctSfQe3TFSPoPiRVL+HVRRv6K0XCmYS3Hn99arrvcGBkObE9Sn5j6sdfolSYWcAWoTg==
+	t=1794319724;
+	b=sTpJPw3XxWf3jdgFySYzJ2gUomdCB1Arzzd5z/YXuQDrhg20WzFAxsnGuJfA+wXhsBPF
+	 FzU6Ol1P8yUgLYd6D6H/YahDxK2D5J7EEKgn92uUgaTXM62DKDZEJKVYIYLdiwCmzQjP6
+	 IJVRiWbm647rHiaPr6+1YnPmrMCg5VRz9IN9Ge8S2PEY17M58gZ4VAmhpTzYOC67Osz1G
+	 ualJds2sj22S52bcl0phyw/jY7KEKxtBBAs3C6hGLKKne+Y/btEblnSZqAuwTg/kKkfMx
+	 Rw4sSc0Zi90gL2sXNKKi/W+aP9XfTJyO+0pMzM/N8h2N2tKxMR8E9sBIDj4Z4lgsMvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319679;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794319724;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3i4b2tOVq5V+jbPNFyMXIlRN/ELRvWnO8Kpd2bFoQ0w=;
-	b=XtKFkIbnPrutwlIkLjN5pr9KSx18yPWlDLShIoEKvviWGIQ9zQaW6VTcPXe60rJQXTB6
-	 43Wdo0ys4X0fo0RbTxuTlvm1kiYxjGJK23S/Oso0uYetXVq4KaxKGDhTM0cODYv8wjWvO
-	 LqqqN6N4aMpjH81G/959wc641BNSkS/eD3HI7vcsbPnYAnPQN1nxyynYkmzmpQFyegGt9
-	 vTXwVQmWdD/LeJlYPz4OERbk5jM6GUDBSctrxOY1n7HEoT9RXaDI8JQIRXhCaFpN/QCEF
-	 aReFJm8+QEL9Xvnyx7hLiaxWsxzKnAHt9J/tiRDeUwOZtj7cBz0qxpfLx8fRHbehqZQ==
+	bh=LwC3ii33dsVPV4F1dBtmmbNDts8lCKrhAODAdleeMXI=;
+	b=tRzyvbhw+zsv6QpJqfXSnkcVgo9iFxI6cixL4oAjgk1xP7G8u8MUJX94PR9DmEukVhxp
+	 NpnB2Uu8dLtNCHYGHQ3eKwMadk6r/ylAyW6yYWIQefGk3sz7ib7TDa0JZzQ3s3HGv8WdK
+	 VreO/uq617Zjv0tlH2xzzNb4lQ/hjY1IEUa80v3t05sahhj9E4PEHeofBtKjtQ8kByXNN
+	 uFZflXpvyxNZ/zEI2vRhC62iAIUMoOZNnN2xJ8Yg23Zgy0yocrgxR73KQgHyFGZqgl1pi
+	 e/8dfzmUlSJohCrJynNI0rTpNCkgbbG0sHqLRQ2M8CiCyXZLg8vNwm862gUygwc6PHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ot5GQyhU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzoxUH6P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD11606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:07:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ACBB606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ot5GQyhU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 760BD1F0089F;
-	Tue, 10 Nov 2026 14:07:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzoxUH6P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D521F008A1;
+	Tue, 10 Nov 2026 14:08:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319678;
-	bh=3i4b2tOVq5V+jbPNFyMXIlRN/ELRvWnO8Kpd2bFoQ0w=;
+	s=k20260515; t=1794319723;
+	bh=LwC3ii33dsVPV4F1dBtmmbNDts8lCKrhAODAdleeMXI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ot5GQyhU8iwXsDkQOk7mOM5CP8ZbkCZsKAie9X3gUjO664jF2GYA9BNNFSTcQP9q7
-	 eYKPm/THwggd07qXnPxaiuKd0q2c988NutU6/2kaofxs7o5fPxmubnH843mORvxXv4
-	 CLCNRBiwYDvGKQ+djHS6b4YCqJKIFy6Wu6NfRr+pddTdTepgj5mXukz/sO7jwm3NEa
-	 EQsEkfhNFv8VMMzeUJzz8kVu5XXA/3RHQzm+GG2uMA3l3AysGO5XbYm6Tdgls5cXnY
-	 JAwz9hceGoqc2/8AD4pPLnes+DlyOJAvwBRfF+yDuvfaptgdZAJHklZjM0ldlN+icM
-	 4rMmMmAOwoZ8A==
+	b=hzoxUH6PEGAX3gDtblYHxgn+lnXOZu7pVyGBp0fTp4goIJAauNQBCyBacPIpOzvXG
+	 gBNpwdY/v0Rj4pbsFF1UFwnN4RludvIGzsQGOrdV8J35daEQjewLRDzR2r4MeF3zAL
+	 xwtUuAAzBARPF+8pV3L0yM4PWeFBwVIawONQBdBtaKSAy0TFR50whuASm2kOFmbmw4
+	 FtQREg2cJkRoe5kQR5AaV7FeMFM2emHfZXoPxEfQT90KPoLP4ge5PSCl2wsnVwOpSJ
+	 AQazoilQuiSFuofJnBIh4icd66vid0jdouIhOf3T70PDavnk1ZRWUFFJql/iEtJl6W
+	 U4/OcnEZ6qWgA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
+Cc: Yunpeng Tian <shionthanatos@gmail.com>,
+	Gongming Wang <gmwgg05@gmail.com>,
+	Mingda Zhang <npczmd@qq.com>,
+	Qinrun Dai <jupmouse@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] dm-writecache: report I/O error if flush failed
-Date: Tue, 10 Nov 2026 09:07:57 -0500
-Message-ID: <20261110140733.1828251-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] udf: validate the device specification EA before using it
+Date: Tue, 10 Nov 2026 09:08:41 -0500
+Message-ID: <20261110140749.1672140-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061802-failed-5.10-78a6afc2999d@kernel.org>
-References: <20261107061802-failed-5.10-78a6afc2999d@kernel.org>
+In-Reply-To: <20261107061430-failed-5.10-9a2390959685@kernel.org>
+References: <20261107061430-failed-5.10-9a2390959685@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,43 +64,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+From: Yunpeng Tian <shionthanatos@gmail.com>
 
-[ Upstream commit 78a6afc2999d26e5a30a56db77db34c22b88f5d5 ]
+[ Upstream commit 9a2390959685ac35a58c80c8016120849a2babf6 ]
 
-There was a bug that if writecache_flush fails due to I/O error, the
-error is not reported in the FUA bio. This commit fixes it.
+udf_get_extendedattr() bounds an extended attribute only against
+struct genericFormat, which is 12 bytes.  A type-12 device
+specification is struct deviceSpec, which is 24 bytes plus a flexible
+impUse array. Thus a corrupted filesystem can contain extended attribute
+that is accepted by udf_get_extendedattr() but udf_write_inode() or
+udf_read_inode() may access beyond the end of provided buffer.
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: opencode:big-pickle
+Provide a udf_device_spec_valid() check to validate correctness of
+extended attribute that is a deviceSpec. While here, check the result of
+udf_add_extendedattr() before dereferencing it as it can return NULL in
+case of error.
+
+[JK: Removed duplicated validity checks]
+
+Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
+Reported-by: Gongming Wang <gmwgg05@gmail.com>
+Reported-by: Mingda Zhang <npczmd@qq.com>
+Reported-by: Qinrun Dai <jupmouse@gmail.com>
 Cc: stable@vger.kernel.org
-Fixes: 48debafe4f2f ("dm: add writecache target")
-[ sashal: adapted the change to writecache_map() because writecache_map_write() has not been split out ]
+Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adapted write-side changes to udf_update_inode() instead of udf_write_inode() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/dm-writecache.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/udf/inode.c | 42 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-index 1b7d89794c6a3..f8b671299c854 100644
---- a/drivers/md/dm-writecache.c
-+++ b/drivers/md/dm-writecache.c
-@@ -1454,10 +1454,13 @@ static int writecache_map(struct dm_target *ti, struct bio *bio)
- 		} while (bio->bi_iter.bi_size);
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index 849fb64fdb8e5..f7ecee0a333fc 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -1284,6 +1284,26 @@ int udf_setsize(struct inode *inode, loff_t newsize)
+ 	return 0;
+ }
  
- 		if (unlikely(bio->bi_opf & REQ_FUA ||
--			     wc->uncommitted_blocks >= wc->autocommit_blocks))
-+			     wc->uncommitted_blocks >= wc->autocommit_blocks)) {
- 			writecache_flush(wc);
--		else
-+			if (writecache_has_error(wc))
-+				bio->bi_status = BLK_STS_IOERR;
-+		} else {
- 			writecache_schedule_autocommit(wc);
-+		}
- 		goto unlock_submit;
++/*
++ * Verify validity of struct deviceSpec on disk. udf_get_extendedattr() has
++ * already verified the generic header and made sure attribute fits in the
++ * inode so we just have to make sure attribute space is large enough for
++ * deviceSpec struct and required impUse information.
++ */
++static bool udf_device_spec_valid(struct deviceSpec *dsea)
++{
++	u32 attr_length, imp_use_length;
++
++	attr_length = le32_to_cpu(dsea->attrLength);
++	imp_use_length = le32_to_cpu(dsea->impUseLength);
++	if (attr_length < sizeof(struct deviceSpec) ||
++	    imp_use_length < sizeof(struct regid) ||
++	    imp_use_length > attr_length - sizeof(struct deviceSpec))
++		return false;
++
++	return true;
++}
++
+ /*
+  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
+  * arbitrary - just that we hopefully don't limit any real use of rewritten
+@@ -1598,13 +1618,12 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
+ 	if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode)) {
+ 		struct deviceSpec *dsea =
+ 			(struct deviceSpec *)udf_get_extendedattr(inode, 12, 1);
+-		if (dsea) {
+-			init_special_inode(inode, inode->i_mode,
++
++		if (!dsea || !udf_device_spec_valid(dsea))
++			goto out;
++		init_special_inode(inode, inode->i_mode,
+ 				MKDEV(le32_to_cpu(dsea->majorDeviceIdent),
+ 				      le32_to_cpu(dsea->minorDeviceIdent)));
+-			/* Developer ID ??? */
+-		} else
+-			goto out;
  	}
+ 	ret = 0;
+ out:
+@@ -1752,6 +1771,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 				udf_add_extendedattr(inode,
+ 						     sizeof(struct deviceSpec) +
+ 						     sizeof(struct regid), 12, 0x3);
++			if (!dsea) {
++				err = -ENOSPC;
++				goto out_unlock;
++			}
+ 			dsea->attrType = cpu_to_le32(12);
+ 			dsea->attrSubtype = 1;
+ 			dsea->attrLength = cpu_to_le32(
+@@ -1759,6 +1782,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 						sizeof(struct regid));
+ 			dsea->impUseLength = cpu_to_le32(sizeof(struct regid));
+ 		}
++		if (!udf_device_spec_valid(dsea)) {
++			err = -EFSCORRUPTED;
++			goto out_unlock;
++		}
+ 		eid = (struct regid *)dsea->impUse;
+ 		memset(eid, 0, sizeof(*eid));
+ 		strcpy(eid->ident, UDF_ID_DEVELOPER);
+@@ -1898,6 +1925,11 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 	brelse(bh);
  
+ 	return err;
++
++out_unlock:
++	unlock_buffer(bh);
++	brelse(bh);
++	return err;
+ }
+ 
+ struct inode *__udf_iget(struct super_block *sb, struct kernel_lb_addr *ino,
 -- 
 2.53.0
 
