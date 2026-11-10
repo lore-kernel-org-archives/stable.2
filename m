@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274130;
-	b=Ve/WON1hamFeZRCEzCa/KYdKqQrQJlh+rIzLGE8n6c9rZ7iVhBOagmXn/iV7alLKygJd
-	 A0TDDEqO5m+k1Bs7ybVExwsEay7FB10UOq4YyRXDyS9+4AVYYNzinFajBUtA/Pj97oXR1
-	 adQ7aW9LTX4Y8a97ADIQRM5kgM+B5lo5DGo7f5ubpS8b8kqHcKYCpVfQecQuqRtHcr+Sz
-	 RShD4F9Xp/x7lRdRkuaZPaKFSJ0T39AqqCa9kvxzp/YhyXX1auxH6nVL2ZJttBkknBFfk
-	 s2KzMWKCRbkZ/KgeH0NtKFgmpvmlqmIYGEtnsw5y1Q/25MpMuGFDGNjL1+1zkZSITIQ==
+	t=1794274133;
+	b=uwpgnMvD7yNrYkNqjKS7XuZXxF7cTyrKJ7TJSEY6FU111plY+oIDHMatHoREY+TvK2B2
+	 fcVXDUEnYCt6e7flF5fSQy4lqTVKMjYz2cMOJHIQ5lZj0ESE7WW1ZqCPNN6YiKft07rHp
+	 VooflWhdWOicDs5tR57CgIkRqcozm9EuRSPZYj4lMFLzRuMoFoK0Doj1MgYxzcDgrW5dk
+	 4KzUu8JN7BNs2y/vnyiO+h8we6dLKdiajmhtPP2HEV1/M4s1PZ69uuJSvFgpC8S1TOA5e
+	 6bm/d6b/KZkDYGanDgBBL2PVjLs6vdkpEgnuBZnfuM0sY3fhr8IVqMpuk63scvFF1vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274133;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nbrjB18s9w+8LNVWcneaabvk3Q/NbxdX/rQw2tevA/k=;
-	b=z7GvGOUJFvQe2slsx9gmdFoAD2j+l27KLqYRXDp0DSMzsC3OnRyWszv4geSFDV+7sFbN
-	 7dINkxYeBR0MYm2I33syj9mhHq3IFWlHkqr5igoCEoHDTKp6fi21xAr3sGS+tZVXKKFAW
-	 DahrKvwXOEPlfZk9xX6gx3Rn18SnlfF/Y7b/Olx2YO3nP2IgT0k6IjbAWT5Z8pSX9E7J+
-	 VpGKoM5T9Rl3lfFv8vDvHdHaV3ITSjgHGb5HQXtJgNzYjuXCcIdQ6d1J+8dUqU7ii3xnt
-	 wl0vtA9duTK5ftK5mP6MuY0aR9YLhfwuYDzdjT2OR2Vn6blCq3Oqa+6RTYZd1JRVp0Q==
+	bh=IEtYOXdujhhB8+1cQaXRs8HKzxPGlPe8xnXT8ltWZws=;
+	b=0lSsrnI4919K5q0XTdzgF6SCRmjSYdO6g6jO67JYCtaIHZQ0ReQqdGoiYMWYjfpeneCX
+	 snJkwAuS3WiCFYRSXYA70yqlzkKTrAfK3eYQJ37IL1MNaN440uHPDyMfzYJfmtFlt6Pn9
+	 e8OViC7u4376kNcFisSUBFU+N5ts33+yh8I/z6OFSCaBonO+K0ts1I7tSAwX/JB1psewf
+	 ELvt98WLMVrGjvAhqLLbZhwP/C9mGjZg3gTCPWfXeFjDnzhOmyqYb3w2uPiiu6RdW2xiR
+	 5IQ4Zvxa6WTYfBv6FL/3m4Lhu4ZAxuO0xVS7kq8husXISO5S25+9ipbvN/0vqAYY4eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/tkAowZ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTLf7jbf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94054606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE91D606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/tkAowZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82881F0089F;
-	Tue, 10 Nov 2026 01:28:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTLf7jbf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C151F0089F;
+	Tue, 10 Nov 2026 01:28:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274130;
-	bh=nbrjB18s9w+8LNVWcneaabvk3Q/NbxdX/rQw2tevA/k=;
+	s=k20260515; t=1794274132;
+	bh=IEtYOXdujhhB8+1cQaXRs8HKzxPGlPe8xnXT8ltWZws=;
 	h=From:To:Cc:Subject:Date;
-	b=M/tkAowZEjrUZFmE00jegCkgbtQc5hemD30kYXlmQE1oqnX8oy1jY9Z7rI1214PLs
-	 NE41TQaG6VGVixQnMS6beCaZ1iYpFFt3zjqfWSjU5jMOeTkw1qBlk/ngb8MoK0k93D
-	 xR2ED4Xn+bFeLEcynleykhNyf8GIj64lOiipuuKqRTSHHAq+bEMXjMOSvlFNP6biB3
-	 iZ34cWwOsrjIDQb+jp52DoxYDWfRuiGfkvBffH1PWVShItZXmcg9akX9GfOqEUquXM
-	 V7FBqhBS49unCX1yLjy7/YrQ9AN2M4dWd1YH91VuxRYJO1yiOP6MubPDV2feA4sj/v
-	 Nrd9cGVv7jVqA==
+	b=jTLf7jbfzuxloF5cTaSwe8pZjaBCwbZ93R4USukAt7gj5LR+x8+5vFJnwIYe765ed
+	 9z+keyMegwIwa4qaogX+KgPPXWPgpPXd7VjVo0m57MVeZvUyyCfaFz+qVX5PLmsr0L
+	 A31h+oqCzsq4991G5YVIPkBGPZIv3R4850yYOawtA99FRff86AyU0ltm8p/cbn5sA0
+	 R1JveOlSvNwiXyvfSvALihPpv+v808BbU1kFmO9aRp4Pv/Xd9nRentpiR7sTFHsOLC
+	 KI4rIOYGiGRujryokIp9P1GbfQNtMCYnOOTezg/eoxsuZXsoBSvl0LFbeMOEcfAL/3
+	 vvTh9goe5GkUg==
 From: Sasha Levin <sashal@kernel.org>
-To: misha@nasledov.com,
-	alex.hung@amd.com,
+To: jesse.zhang@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Drop clock requirements on DCN32 when no displays are active" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:28:48 -0500
-Message-ID: <20261109202848-failed-5.10-bba4dc330648@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: parse CS IBs at the BO offset their VA mapping starts at" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:28:51 -0500
+Message-ID: <20261109202851-failed-5.10-63a596375176@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,72 +68,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x bba4dc3306483335ddbe065c05b2d8359ec387a4
+git cherry-pick -x 63a59637517682a920f86da1a189a3e639dd4fb3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202848-failed-5.10-bba4dc330648@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202851-failed-5.10-63a596375176@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bba4dc3306483335ddbe065c05b2d8359ec387a4 Mon Sep 17 00:00:00 2001
-From: Misha Nasledov <misha@nasledov.com>
-Date: Mon, 19 Oct 2026 16:42:32 -0700
-Subject: [PATCH] drm/amd/display: Drop clock requirements on DCN32 when no
- displays are active
+From 63a59637517682a920f86da1a189a3e639dd4fb3 Mon Sep 17 00:00:00 2001
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+Date: Tue, 20 Oct 2026 17:53:16 +0800
+Subject: [PATCH] drm/amdgpu: parse CS IBs at the BO offset their VA mapping
+ starts at
 
-amdgpu_dm builds the new dc_state as a copy of the old one. When the last
-stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
-never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
-dramclk/dcfclk/fclk requirements of the display that was just turned off.
-dcn32_update_clocks() then keeps those hard minimums applied.
+For rings which parse or patch the IBs on the CPU, like JPEG and VCN,
+the CS looks the IB up through its VA mapping and maps the BO, but
+ignores the offset in the BO the mapping starts at. It then parses
+other data than the GPU executes. On navi31, an IB of JPEG NOPs in the
+second page of a BO, mapped with offset_in_bo 4096, is parsed from the
+zeros in the first page and rejected:
 
-On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
-the monitor off, and the board idles at 28.4 W. With this change they
-drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
+  amdgpu 0000:03:00.0: Invalid packet [0x00000000]!
 
-Reset the clock requirements in that case, as calculate_dlg_params()
-already does when no HUBP is active and as the DML2 path does for
-stream_count == 0.
+while the same IB submitted through a mapping of the whole BO works.
 
-Signed-off-by: Misha Nasledov <misha@nasledov.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Add the mapping offset when locating the IB in the BO.
+
+Fixes: 4802ce117786 ("drm/amdgpu: fix UVD/VCE VM emulation")
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
+(cherry picked from commit 74ba1d87d67d0a38d8248928241c3e1c73d0d53b)
 Cc: stable@vger.kernel.org
 ---
- .../display/dc/resource/dcn32/dcn32_resource.c    | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 3a6a489388435..619b9b3362fc6 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -1941,8 +1941,21 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
- 	out = dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, validate_mode);
- 	DC_FP_END();
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index a703268ceebaa..ac32530c1b488 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1075,7 +1075,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
+ 		if (r)
+ 			return r;
  
--	if (pipe_cnt == 0)
-+	if (pipe_cnt == 0) {
-+		/* The context is a copy of the previous state, so without this the
-+		 * clocks the last display needed stay applied with all displays off.
-+		 */
-+		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.num_ways = 0;
- 		goto validate_out;
-+	}
+-		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
++		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE) + m->offset;
  
- 	if (!out)
- 		goto validate_fail;
+ 		if (ring->funcs->parse_cs) {
+ 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
 -- 
 2.53.0
 
