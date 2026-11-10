@@ -1,54 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346002;
-	b=wqonFvqXZZ7QcmMi5bRU/Sv3grTWF8+ksNBnlHkrCQV4TAJNrLkj/ZwX7ETEX1eJUvHn
-	 dW1MQ4YO1Ew+9UbS90FupWmySHOgWhwoiEp2RGV3heQWsftnACLm01yz9d4WAVN5800aI
-	 D/X3RKjYZhuaAsNDRtvL1qm0DY5JrZLJbrpwvkxwdib4ztC3ME89smw2SRFgqMx1De5wz
-	 iBzt7KzGiNIoiWVOh+B/Nsba67kxyTZWllb0a7tZSyTywAbPCd8jUZ4xgYminkknTIMji
-	 v69pGPGhoEV64bl7E/D5dtDfmDMPMJzm2HhL+IEnUTnwRXbppSjQVVHcVPwo17J0YhA==
+	t=1794346123;
+	b=pMRcyBzLRRBC5szmYfYu1EhE90ipEXmzqLrTVBBn5Fzc3JnEtXdyTaJeXEL3BxBVh4GV
+	 OUI7MIKESd2NA++HRaTURZtFnCUhezs6K1uvwVD0zaCxoKFvN8gSpIumil4JOKHMnPQ5g
+	 KA2E3xRaTFGxrTqpUfGdeW6ZddcjftLzwNAbZXJ5cSbie9GoXV/bBf4InTvNuCUal4mla
+	 Bm3cAtwj/DXsVIF7ARBAoyF+LWPSOdfXI/vQ9zFYckzZxl7XERM1hKBgTFnEo1+Wuccda
+	 xhCBpZFHDNLH1KGoYDoMrmTXtJHf6qyiklqViJchDFq9psdee1rHrvoq7PHvc4pF2KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346123;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Q9ZzFflVO7mgT/5vT9SxQ6PvIks03h4y+p5OjTXEzxM=;
-	b=rhl8QEYeTxnbHPA3HQfe86uXJB0gudd4jKUf7U9NnpAs4RjfkH00a0HbFmXot6UtNoND
-	 Twq2APAbcoKN9H1BHFuMOWw3gVlX38ThJqO0jIJQRpWvQ+qd+RIPpHHllW0loeBurY/+F
-	 CBYO/T8+KyDd6K3lsMrZB4+unQfEYs4POw4+BElMFkGdk2r5ye7/YyoQXq2SYUWZydNdB
-	 5DVvC4WriZ3QptuGfNyCab/Q1P/tDtdgzSI0Na6hVaort8PgJ9doccAKcZWaegIuTTJo8
-	 L9+O5mT3dScZOW6vIt6wfMPwafWupcn56hFbznlQ+awKyi4hYgxc573k1lV8Y/g2Fyg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=EKT4tI2ge01dtfvhDaLe7hGRod+MiKD92LA8qx19wFk=;
+	b=j3qTK6gwmmWQ5aVzbevJRNzvywZXredG8NnB/Zm3GxLJfA3viae9pB/lswdLGyZ/+Eld
+	 8K8VQq7uSdeiSUESnLx0zuj0M/LttU1zxw0OCOB+MDEsDn8oMPcPZ6aFzHP5wG1kwC5gb
+	 XNICi+Hyy+KbtSeN+dPPxkzi+6ykLGqj+h+YyNoMtgRzOzq206WQKYMfjPYZJRl9ZvDvD
+	 8Sq1mVKcwkDyJ4tUuq2H5Emt5gnuJhgcT28suWrzYHYTLLJTsdHNQpPnZlKf4ddWavH7O
+	 5UlwTI4mQDLa7+KpR2ZlsG9pTnG8v6c2gh0G/3rxP8+deh32I0SQ8llw0IkKmArZy7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0JSVBew;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnPRKjtX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D347A606A325;
-	Tue, 10 Nov 2026 21:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ED0606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:28:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0JSVBew
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490371F0089F;
-	Tue, 10 Nov 2026 21:26:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnPRKjtX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C331F0089F;
+	Tue, 10 Nov 2026 21:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346001;
-	bh=Q9ZzFflVO7mgT/5vT9SxQ6PvIks03h4y+p5OjTXEzxM=;
-	h=From:To:Cc:Subject:Date;
-	b=X0JSVBewuufDvujfur89ffpeQiEPqUJfkO4ZJBR4LVARjd1Py/yrUp9xLfryC3yGT
-	 2gnytcemgFmiJ8vGKYulzXL3x/Ndv3NSuyhOtFSjuCvgKje60aEYyuTLkCt78v6rPN
-	 nW9iy1Pt5GZp3n4FOd5RGRlUlwShoRTzlalBmB4IroBvGM1+MYiChM4jhRYz4+wAYP
-	 eUPh1JpB4LqhQWb+JlTrbxaRDLU/IgctVFZ9siV3upABhLRf38e9JlfVWZjUdmQbky
-	 qC5vy/DnOjMCzGrtnAvYSWxoOJrQXyIRoRFqyIC43Q4EzJ0gqIx7YFBwXSdGwDWkIY
-	 LPSdjqkUPkUTA==
-From: Eric Biggers <ebiggers@kernel.org>
+	s=k20260515; t=1794346122;
+	bh=EKT4tI2ge01dtfvhDaLe7hGRod+MiKD92LA8qx19wFk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cnPRKjtX59QvsI1JZe6oOI6QPGJlLKT3i9uxFA2KjykkYHNyrkmaRfCC9+vo4IopU
+	 hJ5wBEO+fH399t5adwv+ZsL22mP/TWZ8H0LwYUohti1sED4sFu9jcKlHrTFI9wwmX2
+	 jGEDwOr9vosV9zi33wMBaPG9D071mR72Nx7JV7rooo8etD7jv0O7kVt08mn9/BlpoM
+	 kFL3l0eRDP56GNLhHbn27JtGgpqyaM5rU5fPUOhK0QDGZwsywFe3MWK/vpqpbHJL1o
+	 sVRQWqWp4VyfH5TRA1QVftDcv3hZ9VtMlN3SrF7xKWQJBJS24liRKH8Ie22gr04TTJ
+	 xx+QjwX+n1eZg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>
-Subject: [PATCH 6.18] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels
-Date: Tue, 10 Nov 2026 13:26:31 -0800
-Message-ID: <20261110212631.36307-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+Cc: Stanley Jhu <stanleyjhu@google.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+Date: Tue, 10 Nov 2026 16:28:39 -0500
+Message-ID: <20261110212756.3925664-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053827-failed-6.6-22d14117ec18@kernel.org>
+References: <20261107053827-failed-6.6-22d14117ec18@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,94 +64,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4 upstream.
+From: Stanley Jhu <stanleyjhu@google.com>
 
-Kernels built for the MIPS64-based Cavium Octeon SoCs are normally
-big-endian, but little-endian builds are also supported.  Currently, the
-SHA-1, SHA-256, and SHA-512 code using the Octeon crypto co-processor is
-enabled in both builds.
+[ Upstream commit 22d14117ec1845a81acb3a5c4be325f7e8332f70 ]
 
-This code is untestable without the hardware.  However, based on the
-code itself, it is implausible that it computes hash values correctly in
-little-endian builds.  Such builds write many incorrect values to COP2:
+ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
+clears bits in hba->outstanding_reqs under hba->outstanding_lock.
 
-  - SHA-1 and SHA-256: The 64-bit integer that contains the last two
-    32-bit message words of each block is written to COP2 entirely
-    byte-reflected, due to missing endianness conversion in
-    octeon_sha1_start() and octeon_sha256_start() to compensate for
-    using native 64-bit loads from the message bytes.  This differs from
-    all the earlier message words which are written correctly.
+Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
+__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
+functional change.
 
-    Furthermore, the state is written to COP2 with each 32-bit word
-    byte-reflected within each 64-bit integer, due to incorrect use of
-    64-bit endianness conversion in write_octeon_64bit_hash_dword() when
-    the state is kept in memory in native-endian 32-bit words.
-
-  - SHA-512: All the 64-bit message words are written to COP2
-    byte-reflected, due to missing endianness conversion in
-    write_octeon_64bit_block_sha512() and octeon_sha512_start().  The
-    SHA-512 state words seem to be written correctly.
-
-Big-endian kernels aren't affected by these bugs.  These bugs also
-aren't new; this code has been broken on little-endian ever since it and
-Octeon little-endian support were first added in v4.1.
-
-Commit d2a948d2db68 ("MIPS: Octeon: Make octeon-md5 driver
-endian-agnostic") made the MD5 code work on little-endian kernels by
-adding 64-bit endianness conversions to the COP2 macros used by MD5
-(some of which are shared by SHA-1 and SHA-256, despite those algorithms
-keeping the state words in native-endian instead of MD5's little-endian,
-causing some of the strange behavior described above).  However, SHA-1,
-SHA-256, and SHA-512 were never fixed to work on little-endian kernels.
-
-Therefore, disable the Octeon SHA-1, SHA-256, and SHA-512 code in
-little-endian kernels.  This causes the generic code that actually
-computes hash values correctly to be used instead.
-
-Fixes: 82be2dcfa6a1 ("crypto: octeon - add SHA1 module")
-Fixes: c3d0def62001 ("crypto: octeon - add SHA256 module")
-Fixes: fbaa4dfd51a0 ("crypto: octeon - add SHA512 module")
 Cc: stable@vger.kernel.org
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Link: https://patch.msgid.link/20261022054450.20746-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/crypto/Kconfig | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
+ 1 file changed, 36 insertions(+), 12 deletions(-)
 
-diff --git a/lib/crypto/Kconfig b/lib/crypto/Kconfig
-index fa882108ba62c..2f2edeaf9de3e 100644
---- a/lib/crypto/Kconfig
-+++ b/lib/crypto/Kconfig
-@@ -142,7 +142,7 @@ config CRYPTO_LIB_SHA1_ARCH
- 	depends on CRYPTO_LIB_SHA1 && !UML
- 	default y if ARM
- 	default y if ARM64 && KERNEL_MODE_NEON
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if PPC
- 	default y if S390
- 	default y if SPARC64
-@@ -160,7 +160,7 @@ config CRYPTO_LIB_SHA256_ARCH
- 	depends on CRYPTO_LIB_SHA256 && !UML
- 	default y if ARM && !CPU_V7M
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if PPC && SPE
- 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
- 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
-@@ -180,7 +180,7 @@ config CRYPTO_LIB_SHA512_ARCH
- 	depends on CRYPTO_LIB_SHA512 && !UML
- 	default y if ARM && !CPU_V7M
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
- 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
- 	default y if S390
-
-base-commit: 1cdda838e8475edf89b73ff0cc952005dd0b1fa7
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 3ffd18aa9675d..c70ffdd299a2c 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5601,6 +5601,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
+ 	}
+ }
+ 
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						     unsigned long mask,
++						     bool from_irq)
++	__must_hold(&hba->outstanding_lock)
++{
++	unsigned long completed_reqs = mask & hba->outstanding_reqs;
++
++	if (from_irq) {
++		/* Do not complete polled requests from interrupt context. */
++		ufshcd_clear_polled(hba, &completed_reqs);
++	}
++	hba->outstanding_reqs &= ~completed_reqs;
++
++	return completed_reqs;
++}
++
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						   unsigned long mask)
++{
++	guard(spinlock_irqsave)(&hba->outstanding_lock);
++	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
++}
++
+ /*
+  * Return: > 0 if one or more commands have been completed or 0 if no
+  * requests have been completed.
+@@ -5611,6 +5642,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	unsigned long completed_reqs, flags;
+ 	u32 tr_doorbell;
+ 	struct ufs_hw_queue *hwq;
++	bool from_irq;
+ 
+ 	if (is_mcq_enabled(hba)) {
+ 		hwq = &hba->uhq[queue_num];
+@@ -5620,12 +5652,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 
+ 	spin_lock_irqsave(&hba->outstanding_lock, flags);
+ 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+-	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+-	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+-		/* Do not complete polled requests from interrupt context. */
+-		ufshcd_clear_polled(hba, &completed_reqs);
+-	}
+-	hba->outstanding_reqs &= ~completed_reqs;
++	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
++	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
++							 from_irq);
+ 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+ 
+ 	if (completed_reqs)
+@@ -7694,7 +7723,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	struct ufshcd_lrb *lrbp = &hba->lrb[tag];
+ 	unsigned long flags;
+ 	int err = FAILED;
+-	bool outstanding;
+ 	u32 reg;
+ 
+ 	WARN_ONCE(tag < 0, "Invalid tag %d\n", tag);
+@@ -7786,11 +7814,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	 * Clear the corresponding bit from outstanding_reqs since the command
+ 	 * has been aborted successfully.
+ 	 */
+-	spin_lock_irqsave(&hba->outstanding_lock, flags);
+-	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
+-	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+-
+-	if (outstanding)
++	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
+ 		ufshcd_release_scsi_cmd(hba, lrbp);
+ 
+ 	err = SUCCESS;
 -- 
-2.56.0
+2.53.0
 
