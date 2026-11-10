@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274041;
-	b=QK/hzYy4blxjZzgkOhp4GsagfC9N18CjhRs9DZxWQ/xzehJcEZLpPNcA4DdAd4DzZS0/
-	 xE0NEAp5broCv7TvN5AbZQbX4zQh6wJHO9AY898enpghyDcAnoASeMbmIFOFNnPX0KEQF
-	 9eNuFp7zL4GYJXa4KSDdWPHFf7J/3k1cUPlcBK7UuLx4Lp/a1Qar9hcxj6s31wENjAvIp
-	 PIcEt/v1IIbhFHR0v1WX6Hnr14kijmHppR1Lrcq9cKzRAPyTPMRrqSv/eaRvWDn8FJbj/
-	 yFU4COc3QbS4PaPQ3eW3uPlQFiqBlN07XhiIOZZUhi+AuUDS/PpZjJTGH2t5xMHcsfw==
+	t=1794274044;
+	b=5QbKUYgAGrAmTx0QqgZBNgotifYRpkeEB/rW3fJnnu2LwO8mYa+XI72wU4HaFREFjCeo
+	 xaJBRCe9ZG0g0jF30EQbpYvVhatdFR0+2QCG/obvLxhQVb6brzzf1rkOAKb0UNw2TvhGX
+	 c1Vbtxmh0Iz9wmdW2oizoFve1DTOPsXhfTbmr4lSYDL9RTShENn956cTInGM6rl7hWE98
+	 CSb7oB9v5uXac/ARPUzhw7R+B4NbGC5NQNWqdeH7BYtDF2xWDCLDDVA6Lm3Y9nxQTIKLz
+	 F6BZXaU1wyWicKKYglfkd+hY0dCK1qpbyKaraqbf4NjPeF8Nmpv3pSVaLMjdci3w1Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274044;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PHcxV17WpDoJCTqRORTGJEiFiF1GQSTUcEmI+mhngwU=;
-	b=zAt9o7OO6pLbRmCLJMgIjQRxUgxoLgxcyTZF5yOGKcq0Aksqj+FkCOoWreHP+Wzvni0Q
-	 aL75him8cPBrFEiQgcIEPEt2tZX2KweQc82rC33dIJGxD5kC21GRQ/+0UvUQ03d7uDYmV
-	 kBPNWEjjtaoLpA222GyMyosTeHzxpGEj2btIqnTVy9cfDqwkrBu53JWahT07Aj2Qk2BAu
-	 lYuRdmQYeAXFIV4PoO4S1vJD43lCLMubfH/duHf7+ihVI2vnYecpa+ROnHjAxBNsf+Mo5
-	 VNuie3VyAYdx5apNW8Vn2xOikbyAFSAAiFfeL3XJ6zV2t28JFoyiZgpHUij/rkawD4A==
+	bh=OusW5ufg3B0yL+oG1N3jNtBX0HB7+vBM2Sku0h17I2k=;
+	b=PX0tR9789hiL3CRhI8Ygru4y+LuiCVLLE7WE/VjzELaOxVmFx7Osvl0LfzhrqsH7Pa58
+	 M6KPA758q13UKL94bm84rnYFMTAV7pceg10VP/tmn12+cuz5ujmkdXUNKMZBEcSJE+KZ4
+	 QBdNAl9QDBv15bvEkt5jWkebUbPL/W5Chof0tOti9bugysi++MbMeNauixnEV76kBHJTa
+	 KxIqLQm5zA4EE37UmXdASB6kdrBFy6I5OUm/B1vfhveeulLZS22atiZsY6Al/KGFi1MyV
+	 Iypg7Vd3CygsFcTmgRctIn2yhZ4Rpjx53CasM4Ky4E4tN1o3qmvByUz4aIEcso4VZaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPI6Fk24;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrB0bypj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C7F7606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEC7606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iPI6Fk24
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F330B1F0089F;
-	Tue, 10 Nov 2026 01:27:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrB0bypj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3EA1F0089F;
+	Tue, 10 Nov 2026 01:27:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274041;
-	bh=PHcxV17WpDoJCTqRORTGJEiFiF1GQSTUcEmI+mhngwU=;
+	s=k20260515; t=1794274043;
+	bh=OusW5ufg3B0yL+oG1N3jNtBX0HB7+vBM2Sku0h17I2k=;
 	h=From:To:Cc:Subject:Date;
-	b=iPI6Fk24yRjQnyUUTEXyX/BT1Y7SyUi8tYv0vHjx2olxvRxEB31lPDXjAa77pOP8y
-	 x590f2HchiQpNNSr/4VP+R/ZtRTr3gyI4PY9DW5YERA8XialQUYalYuD/0vjHEmrjf
-	 AJDt5gQbda7Lygv0+HMh2fNdHC9nCm37UZbPsFnpq5yE3R2+Fb/1DLDOCDQ7KlOB8f
-	 ToKg0WydGWAuFLD6n+B26xwtLRpflWwVCL9+XkFtobOjuNTGDiSTbfBon4vs/xbgge
-	 R2hlwG79MS5TLMCbjdc2LONRD+EzRCUXQiH8qBjvTxcLmVeRaV0vaXIsJ4BbP+/g3r
-	 eZfcs6jDjz19A==
+	b=OrB0bypjeDyXc6r75u/pQlW0xZ7aljuImLC92MvZFHNUH+4hqRZ1BRhVbE+Qh50Z9
+	 sKHUvUTQbddmwG1FEu54s2QOo17S/JH6sWOrObEPPblau7QVomeMVIoIFRVDYkNeGc
+	 2nUjPEF9jZ8QfGBb9dwfUTkHiVT5i13J4TDevy6wkSE6D3cMiOST09AJ1yogkJbSSv
+	 xDw7jT+RCEGj9aNJHbQvTxPJ8rQfgBfrjFCFVdRnmgGR5egffUvDVVn7+2g3kr+odg
+	 78dlS94HRcaN5LoSBXGOTTn3kLfHz4XIP9BNgRG+QKZI41lo2oIzglcdiGyEjEMlcj
+	 U1gXbJbMit1mA==
 From: Sasha Levin <sashal@kernel.org>
-To: oss.patchbox@gmail.com,
+To: blum@kernel.org,
+	prasannatsmkumar@gmail.com,
 	mst@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iommu/virtio: Reset device before deleting virtqueues on probe failure" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:27:19 -0500
-Message-ID: <20261109202719-failed-5.10-1f8efac19a08@kernel.org>
+Subject: FAILED: patch "[PATCH] hwrng: virtio - prevent use-after-free after a failed restore" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:27:22 -0500
+Message-ID: <20261109202722-failed-5.10-0f7bf47f5a0c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,72 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1f8efac19a0870cdfdf8477e447e5a07ddce9623
+git cherry-pick -x 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202719-failed-5.10-1f8efac19a08@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202722-failed-5.10-0f7bf47f5a0c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1f8efac19a0870cdfdf8477e447e5a07ddce9623 Mon Sep 17 00:00:00 2001
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Sun, 4 Oct 2026 14:21:10 -0400
-Subject: [PATCH] iommu/virtio: Reset device before deleting virtqueues on
- probe failure
+From 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <blum@kernel.org>
+Date: Fri, 16 Oct 2026 12:36:40 +0200
+Subject: [PATCH] hwrng: virtio - prevent use-after-free after a failed restore
 
-viommu_probe() marks the device DRIVER_OK before populating the event
-virtqueue and registering the IOMMU device in sysfs.  viommu_fill_evtq()
-hands the device a set of device-writable buffers through
-virtqueue_add_inbuf(), so from that point on the device may write into
-them and into the rings.
+remove_common() frees the driver data during freeze, but does not clear
+vdev->priv, which points to freed memory. If probe_common() then fails
+during restore, a later remove or freeze can dereference the dangling
+pointer.
 
-If either step fails, the error path deletes the virtqueues without
-resetting the device first.  The event buffers are allocated with
-devm_kmalloc_array() and are released as probe unwinds, so the device can
-go on writing to memory that has been freed.
+Clear vdev->priv on the probe_common() error cleanup path and before
+freeing the driver data in remove_common(). Also reset the device and
+return early from remove_common() if vdev->priv is already NULL for a
+safe teardown after a failed restore.
 
-Reset the device before deleting the virtqueues, the way viommu_remove()
-already does.
-
-Fixes: edcd69ab9a32 ("iommu: Add virtio-iommu driver")
+Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20261004182218.177343-1-oss.patchbox@gmail.com>
+Message-ID: <20261016103640.4989-2-blum@kernel.org>
 ---
- drivers/iommu/virtio-iommu.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/char/hw_random/virtio-rng.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/iommu/virtio-iommu.c b/drivers/iommu/virtio-iommu.c
-index 587fc13197f12..fa72ae23b8afa 100644
---- a/drivers/iommu/virtio-iommu.c
-+++ b/drivers/iommu/virtio-iommu.c
-@@ -1227,12 +1227,12 @@ static int viommu_probe(struct virtio_device *vdev)
- 	/* Populate the event queue with buffers */
- 	ret = viommu_fill_evtq(viommu);
- 	if (ret)
--		goto err_free_vqs;
-+		goto err_reset_vdev;
+diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+index f9982217247dd..45d87c0614a5e 100644
+--- a/drivers/char/hw_random/virtio-rng.c
++++ b/drivers/char/hw_random/virtio-rng.c
+@@ -190,6 +190,7 @@ static int probe_common(struct virtio_device *vdev)
+ err_find:
+ 	ida_free(&rng_index_ida, index);
+ err_ida:
++	vdev->priv = NULL;
+ 	kfree(vi);
+ 	return err;
+ }
+@@ -198,6 +199,11 @@ static void remove_common(struct virtio_device *vdev)
+ {
+ 	struct virtrng_info *vi = vdev->priv;
  
- 	ret = iommu_device_sysfs_add(&viommu->iommu, dev, NULL, "%s",
- 				     virtio_bus_name(vdev));
- 	if (ret)
--		goto err_free_vqs;
-+		goto err_reset_vdev;
- 
- 	vdev->priv = viommu;
- 
-@@ -1244,6 +1244,8 @@ static int viommu_probe(struct virtio_device *vdev)
- 
- 	return 0;
- 
-+err_reset_vdev:
-+	virtio_reset_device(vdev);
- err_free_vqs:
++	if (!vi) {
++		virtio_reset_device(vdev);
++		return;
++	}
++
+ 	vi->hwrng_removed = true;
+ 	vi->data_avail = 0;
+ 	vi->data_idx = 0;
+@@ -207,6 +213,7 @@ static void remove_common(struct virtio_device *vdev)
+ 	virtio_reset_device(vdev);
  	vdev->config->del_vqs(vdev);
+ 	ida_free(&rng_index_ida, vi->index);
++	vdev->priv = NULL;
+ 	kfree(vi);
+ }
  
 -- 
 2.53.0
