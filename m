@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321268;
-	b=wlRp3B1fd/kuHswcZCa70KfqhI4CQP2QtNt3W1FiBO3+pCKHFsp0Iq093e2UZAJXaN4T
-	 LJmCCAa0EwtLBaNY/kVuuKcjWprx5iB3FBRsgTmCZJFiQxv4bH22m0MibBIMwDKdi8jCn
-	 nV0OmPwOvpzfYl+1jcbyJJTBt46NoRtr92xtLb50sJgOR3WLkzyHO1ma3/doPmtYdryut
-	 IbEuPavrzDWatPlN9MlNfAqwZvdjS9lOLrnivvCJ2x4JFxoHjjy8x2PB2gAAhk9apPuYm
-	 63UsMhRMM2lLaTQHkVqQMeA7zHtemqB2YmkTcKcrU8ItTTHEpD3Qr36WCQ7DIOVMe+Q==
+	t=1794321276;
+	b=pICjsXvFlB+19ARgYxrt3pIvzwlQRIDte3Vf9XE/O3eniC3cDI3RN4mImyt/8VlVn3e9
+	 wt7XzaFcoTHv8rw5OS674zuephjQhVbv1oQXK/soaU5Yv6qIGOr9Z8kRvwBNkhegme+1Z
+	 8HN5gSt7S+KOqb1eqlUuOZlIkQ3GQ8s43q+MX6mC8QAhF5qFgeyEzTUWCkY53jEU/4AiQ
+	 qc76sFpeIy6jAkF6RSd2Id9V9JI7zIzcURHwUD/GNfocQU8m60mBmkSmmdKliuHIQl0JX
+	 yYtb80+YrE+HVpA+PrLtavt44BQFTel1QcUKP4IdmP7aAeKSKDNeHM/9VCM6l31DP2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321276;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rNZeXU4jLwWU3G8qj2PnTBiKeUXzo1+/0NSAXNJ2HvA=;
-	b=Ik7YtJD8/a3aG7KqR+XmegbgUgt8IcDqgV8PYXRUi+Fz2M7Q8fV3pLCNgyii9yFFxoBU
-	 87BOcN9q5Cyrx9OsN/1VolQLZwAHn7bGGnGkDjvrjj9dCEDGTx2FEGduxzKVV8SlNj1gg
-	 4NEy5P+CYXgRCgfvkzcn2ilNkdEUHVVZ3AlNxjPNiTez2UIWCwzmDz5Uj/glSTUBOJl7I
-	 Kd2X17Z0AwAWhjpHQ31tPZPWtHgcz3CoJT8Vj4TEkEye0i5h+5mXEfzC112CKzLleocpP
-	 UU5QCcRhlb7n0Kh5dpbpT6cEgHNHM6/qdacicSIxda9F067RP7z9qhD2NbCm5iX8BdA==
+	bh=KPSeGVzxp5KxZ1sAH46+6kU30fspga9Hakg5cc7doYA=;
+	b=04iY3bQpov7ndsrkM5XH5hyVStoN3sMPam96PEBuC2QIKXFkHqejC97yj1+75DzOkh3+
+	 J4d7i8GY6/djrG0UKdM3V7ee2uc1EiAqvOGOBhZfUl4tscgCAp6HfO1c/8p5JEf3H7Sd2
+	 DgBbQbBaZU24ZsDaKEklaaEVO/qkv+MmCSUsdNg7EnVrbJBcQlWKJg5OZFjwz2ekWAcp1
+	 Nn8mSSFw1ZPPD9Pbzj71qkml19P4V+VZ/a+pN15ftelr4Ba5jpJGhFsx7uJcPvJTPBuPx
+	 hK5wQuzzbVGV+XzYKKaeE4dRvHvHPNVIEIz4YwkUgw+Pc+DsnZxuY16IurM6lXuwsiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nm6cSgl/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SFt5LL/1";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC918606A339
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:34:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A47606A337
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nm6cSgl/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F4DB1F00901;
-	Tue, 10 Nov 2026 14:34:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFt5LL/1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E1C1F008A4;
+	Tue, 10 Nov 2026 14:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321267;
-	bh=rNZeXU4jLwWU3G8qj2PnTBiKeUXzo1+/0NSAXNJ2HvA=;
+	s=k20260515; t=1794321275;
+	bh=KPSeGVzxp5KxZ1sAH46+6kU30fspga9Hakg5cc7doYA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nm6cSgl/U3iSq2zIM9/02L4YYSQDszODN9p+Jc0cbxmq1HEjxTOpxsuIVCVEUsLCa
-	 ktPmqF5KzLh6DpZt9BfdFzbXqIgZwWYAe29kUyZCdLaHTxl1GoyNu2nRiRR5lS86kH
-	 Z9GyHZNB5S4CDPEVRksy3d23smJchZvdzhj1vYVH+ExVvx6UrvipTNC0Kcp6uTZpYN
-	 VSG9EInhXmQgKxXia1JBS2z0cr9sP14nrNks1uM6aaghjECLnpTnGMO57VWoWlGgVS
-	 Jha3YK2TaMhwUiEumotnuw8N4dT1AD40JmhnuBimiE/4uiXaO0QnqO5BjlIvTVpaGd
-	 8StEslo9Tgl1Q==
+	b=SFt5LL/1SVZTc7uTRB8Dp6zMRsXFvpCranNjfBh6QGzTjnQGxF1qQTkYgufqUiGLc
+	 UbR8Nk9p7RsiO5a8sNQtYRZEwJuImTrbHETbIr8lJIStaO+wud6r1JV/CnPZQP0DgF
+	 4DOR+tOw5+uHrRj6v1oHXAF2fs2hFbj+UB52pwE30a0JOstDL4M/YhP/zFiTeeiuF5
+	 cAiSo5x1Zro1gA89/UcPpI4sczUeUqzR2V0+/toZhhP0tmRX8G213UvKZ++Ws86d7o
+	 YJctwQWaEH9dnHhcOzSdQ4EY/uJhVR/xNNlnoyKZ6twEOazv+kbXEK4Y3nEkx8BYgX
+	 +7nrO/fPxkVBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hongfu Li <lihongfu@kylinos.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Colin Ian King <colin.i.king@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Mina Almasry <almasrymina@google.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
+Cc: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] mm/hugetlb_cgroup: move per-node usage on cgroup reparenting
-Date: Tue, 10 Nov 2026 09:34:19 -0500
-Message-ID: <20261110143410.1902001-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] ata: libahci: Free the IRQs when activating a multi-IRQ host fails
+Date: Tue, 10 Nov 2026 09:34:33 -0500
+Message-ID: <20261110143342.1911123-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110143410.1902001-1-sashal@kernel.org>
-References: <20261107054727-failed-6.1-23fac055c211@kernel.org>
- <20261110143410.1902001-1-sashal@kernel.org>
+In-Reply-To: <20261110143342.1911123-1-sashal@kernel.org>
+References: <20261107055900-failed-5.15-34a4a34431ed@kernel.org>
+ <20261110143342.1911123-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,50 +62,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+From: Niklas Cassel <cassel@kernel.org>
 
-[ Upstream commit 23fac055c21176f66ed453394b533bdfc00f7fba ]
+[ Upstream commit 34a4a34431ed81d85d14f8fb8035e5a25214ad39 ]
 
-hugetlb_cgroup_css_offline() hands the folios of a dying cgroup over to
-its parent with hugetlb_cgroup_move_parent(), which moves the page_counter
-charges and the hugetlb_cgroup pointer of the folio but not its per-node
-usage.  The parent's hugetlb.<size>.numa_stat is short by that usage while
-they are charged, and underflows once they are freed, exposing incorrect
-per-node usage values to userspace.
+ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
+not free them when requesting one of them, or when registering the host,
+fails. The IRQs are only freed by the driver core, when it releases the
+devres of the device after probe() has returned, while the caller of
+ahci_host_activate() releases the resources of the host in its probe()
+error path, e.g. ahci_probe() disables the clocks, regulators, resets and
+PHYs of the host. An IRQ handler running in that window would access the
+MMIO of a host which is no longer clocked.
 
-Move the per-node usage to the parent as well.  The folios keep their node
-here, so only the cgroup which holds the usage changes.
+ahci_host_activate_multi_irqs() did free the IRQs until commit
+0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
+removed the explicit free because devm makes it unnecessary. That is true
+for freeing the IRQs as such, but not for the window described above:
+devres is only released after probe() has returned, i.e. after the error
+path of the caller has released the resources of the host.
 
-Link: https://lore.kernel.org/20260918-for-hugetlb-charge-v2-2-2b6d8c2bdc36@kylinos.cn
-Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Cc: Colin Ian King <colin.i.king@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Mina Almasry <almasrymina@google.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
+Note that this window cannot be hit with the current users: the only user
+of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
+any resource in its probe() error path, and the ports of the host are
+still frozen, i.e. their interrupts are masked, when ata_host_register()
+fails.
+
+Free the IRQs explicitly again, like ata_host_activate() does, so that
+the IRQ handlers cannot run once ahci_host_activate() has failed.
+
+Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
+Cc: stable@vger.kernel.org
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20260915084127.692494-12-cassel@kernel.org
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb_cgroup.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/ata/libahci.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
-index f68829f1dabad..b5385068a6ad9 100644
---- a/mm/hugetlb_cgroup.c
-+++ b/mm/hugetlb_cgroup.c
-@@ -240,6 +240,8 @@ static void hugetlb_cgroup_move_parent(int idx, struct hugetlb_cgroup *h_cg,
- 	/* Take the pages off the local counter */
- 	page_counter_cancel(counter, nr_pages);
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index a30e17265e873..29ae34dd428d7 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2593,11 +2593,33 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
+ 				0, pp->irq_desc, host->ports[i]);
  
-+	hugetlb_cgroup_move_usage(h_cg, parent, folio, folio);
+ 		if (rc)
+-			return rc;
++			goto free_irqs;
+ 		ata_port_desc_misc(host->ports[i], irq);
+ 	}
+ 
+-	return ata_host_register(host, sht);
++	rc = ata_host_register(host, sht);
++	if (rc)
++		goto free_irqs;
 +
- 	set_hugetlb_cgroup(folio, parent);
- out:
- 	return;
++	return 0;
++
++free_irqs:
++	/*
++	 * Free the IRQs which have been requested, so that the handlers can no
++	 * longer access the MMIO of the host once we return, e.g. after the
++	 * caller has disabled the clocks of the host.
++	 */
++	while (--i >= 0) {
++		struct ahci_port_priv *pp = host->ports[i]->private_data;
++
++		if (!pp)
++			continue;
++
++		devm_free_irq(host->dev, hpriv->get_irq_vector(host, i),
++			      host->ports[i]);
++	}
++
++	return rc;
+ }
+ 
+ /**
 -- 
 2.53.0
 
