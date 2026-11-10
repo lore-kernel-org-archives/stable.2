@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273314;
-	b=sZaKnERLhSbmx4i9lSGDfeIU+6JncoUL0t4L2UnGITas9hVmBh4E4S1+656Ostw7fkzY
-	 dZheMUssBYXTpR7jPbLz4torrQZomM3kRQ9lR1m2Of9AC0Sh5d9/y5smm3YME10Agmpw4
-	 4h1Caeou2Qj12JqAda4Mmc7kt1dycHh2ZiwbY73tNh2qhj4w3MXA9vYoBCBjFPWzGAF1q
-	 /ry84mmY+SRuPEP4Opsntjb5BTZttkS9Sr3054k1PttVwslxrHsQDxwslgkLyuNjkue8p
-	 MGgBP3YRdqK/fRKJ/zKWgm0VzOcfUkhbmKpkUTwCa4b2xHWPD983gBV+c95KwLb+ULw==
+	t=1794273316;
+	b=KhgHdzs0oTrj+CAQ29aEztgk9/2cb7meyNowFlhgXOfhhCcFuhuErsRhoyn5Lk8nBybb
+	 uU3QAbrPOlqvUUVab7aZd9F2X2H8/juU2KSFwYntG2UwRLeYGQqLN/ycS2BPYWcpogFtj
+	 RGYgbN19WyOIXZvITc0JaTVRbXpiaJ4lG+FcKxuMIqBKMK/BaRQbxqbwTPoBNMBPcjpzs
+	 ICLZgLWgOvE275WAa7jIkD5gmgELBU3Bgqpzv+fgPHiznQe6T6R03M/PTiSFevvVUUxoD
+	 JHKNNtR8U787cVYi3SeewpxXdiTBPfi0eFUZPtL/N6wRzN/G6AJoXe9Cyd7Pivi0oMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273316;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6DA2On14Vror6PbMqVDhg887i1opxfwVbcR3EMH1D0o=;
-	b=ehg/WkErU8DUd/DHsUA3hu90y4CbfQbreACrZ8N9y8gWJ3xeKHWXcCGx7QbGujUa7d38
-	 QaG1Z/unVs9YtjVVZjv/Aos/ofQQ4bcmGKFFskHDhFjRfNy4dZRJVVNPiEIX6lVdm3O7c
-	 bz8eQIxy/Mbsh0DDJcoLuj5eRp6xXxtlWx+/Awqc46/QD9T2K4ajakGbpOABYmfzHtXmK
-	 zbLUi0J7bqzYfXSFK6ctzyB6/PLgo2ucSTdwfcUxmMh5cTpJ/i1pMl3cx6JrYRogIwXIP
-	 Ua2t8OxJW5SP3oLD5yxRt1emBjQerBqgHMTSkWxjdIEDJkntuxWcCqGuste74rjBivA==
+	bh=5ZNrM26OfKZ4oVaUqDQspfw2N3drC0l3O1qhEkNdbwU=;
+	b=ggapmOyclbv6A5aALwGpkZ5oBGKXlRdTnAyfzI2MVT1leMQnpNk0aAhNpykFzobdYMM1
+	 SZuAWyFs5pMpir3nTVSr6AmLxeWEK6K7jEzJnAVuJiKlBEJcPZ3KdC0ymHeeyIaQYHavG
+	 nFe/3TElatC1ofLy4oe1ZxhkqShVpu2ExnfLLhZXV/cga5I8rLxEwLahZJTR0mZ6ZLXCa
+	 HbCkuVC/wolmHqaeo2W/bOT9FVK38hm6sEOzhHPk/GUaWFkA8DKCzrR23UL9bmVom48oe
+	 Bcpd9NJlCdr4qhcJY2Txx12Q7cFb+LbO4K2IGkVcg+wb7x1A6gOHV5lPW+rnBS2bkww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfuBSa0T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Vk6k/twk";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB486606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73028606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WfuBSa0T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B6E1F0089F;
-	Tue, 10 Nov 2026 01:15:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk6k/twk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61001F0089F;
+	Tue, 10 Nov 2026 01:15:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273313;
-	bh=6DA2On14Vror6PbMqVDhg887i1opxfwVbcR3EMH1D0o=;
+	s=k20260515; t=1794273316;
+	bh=5ZNrM26OfKZ4oVaUqDQspfw2N3drC0l3O1qhEkNdbwU=;
 	h=From:To:Cc:Subject:Date;
-	b=WfuBSa0TMazXm51YS5krg4Up/HeCrh9CbqBbUPL3ddcG5HS1l4Jx+t1FuAAGiXX1f
-	 WQU0p4tKta4bnjCAWu5IJ9v+ZI6uDgOiyDj4R8mgkGS7bU6guFCE56gtv09xqHaWyj
-	 tdz+6QrZ17fnvhUreMZ/AxJRk0PWnEUM138EKZAGnuZZpjdENL1UW7U9SB06tml0BT
-	 vYi02BETFfW+m809TmMVjbs/bDEgsZkRpKxn6bKWGQdOwXATGWAAjlM1qVEJgLFKA6
-	 xvmxtXmkNPoMmLtrDfq3G7RcTNESyqlfDicGH97/cAsoyBVPXCFn3/jGYKlKsuqrv9
-	 GC5fcz6mMmZDg==
+	b=Vk6k/twkFNbE42dsZxEsGJOE1frnwXawAnTGYznvLpp/cO1Y0GZiKad5dx3euFabx
+	 gV2xdpMSfpqtiHxN1IQYrzu6jMnxPXxzIxHChuZFEKAYkAzb/rfZkNbD6y4Ng7ceCK
+	 Z/yZF5QMZv0vwFH1th6YwJzPtu/VHcgBIXrnJ0HzHfQA6c6Z+q7beL+klu44RgNjlX
+	 pTeksuUvI8hxWJfCbgInes7Z//54hvUkF6zu6f2mzlX7wghOYGCjuEn49XLOyG4LrO
+	 rcxVzTtwLQPV4MYhRAOmR4n8E2wMjoxc6HwAw4p7z0FJWAUh12QBe1LLF+WNJwrIom
+	 g9HuKNI9t8gog==
 From: Sasha Levin <sashal@kernel.org>
-To: youyouyu@amazon.com,
-	dgj@amazon.com,
-	gunnarku@amazon.com,
-	jack@suse.cz
+To: sven@narfation.org,
+	sashiko-bot@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] quota: initialize dquot cache before mounting rootfs" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:15:11 -0500
-Message-ID: <20261109201511-failed-6.1-e21a6f39aa6d@kernel.org>
+Subject: FAILED: patch "[PATCH] batman-adv: stop originator purge worker before freeing TT" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:15:14 -0500
+Message-ID: <20261109201514-failed-6.1-f89eda5a9ccf@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,144 +68,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773
+git cherry-pick -x f89eda5a9ccf82cba06b085b42ebc4886b8dfe9e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201511-failed-6.1-e21a6f39aa6d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201514-failed-6.1-f89eda5a9ccf@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 Mon Sep 17 00:00:00 2001
-From: YouYou Yu <youyouyu@amazon.com>
-Date: Wed, 21 Oct 2026 18:12:17 +0000
-Subject: [PATCH] quota: initialize dquot cache before mounting rootfs
+From f89eda5a9ccf82cba06b085b42ebc4886b8dfe9e Mon Sep 17 00:00:00 2001
+From: Sven Eckelmann <sven@narfation.org>
+Date: Thu, 8 Oct 2026 18:29:16 +0200
+Subject: [PATCH] batman-adv: stop originator purge worker before freeing TT
 
-On some systems, a tmpfs backed rootfs is extensively used throughout
-system's lifecycle. tmpfs quotas are needed to limit per user rootfs
-usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
-and "initramfs_options=usrquota" panics at boot:
+batadv_mesh_free() releases the translation tables via batadv_tt_free()
+before batadv_originator_free() stops orig_work. The purge worker can
+therefore still run while the TT is torn down. When an originator times
+out, batadv_purge_orig_ref() calls batadv_tt_global_del_orig(), which
+loads tt.global_hash and walks all buckets while taking their locks:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:dqget+0x1ac/0x490
-  Call Trace:
-   __dquot_initialize
-   dquot_initialize
-   shmem_get_inode
-   shmem_fill_super
-   ...
-   mnt_init
-   vfs_caches_init
-   start_kernel
+  CPU0                          CPU1
+  batadv_tt_free()              batadv_purge_orig()
+                                  batadv_tt_global_del_orig()
+                                    hash = ...tt.global_hash;
+    batadv_tt_global_table_free()
+      batadv_hash_destroy(hash);
+                                    spin_lock_bh(&hash->list_locks[i]);
 
-The rootfs is mounted from mnt_init(), but the dquot hash table and
-cache are only set up later by dquot_init(), an fs_initcall. Creating
-the root inode of a quota enabled rootfs thus dereferences the NULL
-dquot_hash in dqget().
+Disable orig_work at the beginning of batadv_mesh_free(), directly after
+the mesh was marked as deactivating. The second
+disable_delayed_work_sync() in batadv_originator_free() is harmless because
+it is free'd anyway.
 
-Rename dquot_init() to dquot_cache_init() and call it from
-vfs_caches_init() before mnt_init(). The slab, percpu and early
-workqueue code it relies on is available there, and the workqueue
-rescuer and shrinker debugfs entries are set up later by their own
-subsystems. Keep the sysctl registration in an fs_initcall, as done
-for the dcache, inode and mount sysctls. This only moves existing
-allocations earlier in boot.
-
-Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: YouYou Yu <youyouyu@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
-Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260708091821.314516-1-sw%40simonwunderlich.de?part=3
+Fixes: 9d31b3ce8168 ("batman-adv: fix potential TT client + orig-node memory leak")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- fs/dcache.c              |  2 ++
- fs/quota/dquot.c         | 10 ++++++----
- include/linux/quotaops.h |  5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ net/batman-adv/main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 37d021d22a7da..a9a919bc91976 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -33,6 +33,7 @@
- #include <linux/rculist_bl.h>
- #include <linux/list_lru.h>
- #include <linux/namei.h>
-+#include <linux/quotaops.h>
- #include "internal.h"
- #include "mount.h"
+diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
+index ced76942f33c5..3b9fa861be7be 100644
+--- a/net/batman-adv/main.c
++++ b/net/batman-adv/main.c
+@@ -295,6 +295,11 @@ void batadv_mesh_free(struct net_device *mesh_iface)
  
-@@ -3683,6 +3684,7 @@ void __init vfs_caches_init(void)
- 	inode_init();
- 	files_init();
- 	files_maxfiles_init();
-+	dquot_cache_init();
- 	mnt_init();
- 	bdev_cache_init();
- 	chrdev_init();
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 3ad19d7e472f6..a3d5035918714 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -2958,7 +2958,7 @@ static const struct ctl_table fs_dqstats_table[] = {
- 	},
- };
+ 	WRITE_ONCE(bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
  
--static int __init dquot_init(void)
-+void __init dquot_cache_init(void)
- {
- 	int i, ret;
- 	unsigned long nr_hash;
-@@ -2966,8 +2966,6 @@ static int __init dquot_init(void)
- 
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
- 
--	register_sysctl_init("fs/quota", fs_dqstats_table);
--
- 	dquot_cachep = kmem_cache_create("dquot",
- 			sizeof(struct dquot), sizeof(unsigned long) * 4,
- 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
-@@ -3008,7 +3006,11 @@ static int __init dquot_init(void)
- 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
- 	if (!quota_unbound_wq)
- 		panic("Cannot create quota_unbound_wq\n");
-+}
- 
-+static int __init init_fs_dquot_sysctls(void)
-+{
-+	register_sysctl_init("fs/quota", fs_dqstats_table);
- 	return 0;
- }
--fs_initcall(dquot_init);
-+fs_initcall(init_fs_dquot_sysctls);
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index 0c64ca674e778..7346efc85d436 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
- /*
-  * declaration of quota_function calls in kernel.
-  */
-+void dquot_cache_init(void);
- int dquot_initialize(struct inode *inode);
- bool dquot_initialize_needed(struct inode *inode);
- void dquot_drop(struct inode *inode);
-@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
- 	return 0;
- }
- 
-+static inline void dquot_cache_init(void)
-+{
-+}
++	/* the originator purge worker accesses (among others) the TT tables
++	 * and must therefore be stopped before any of them are freed
++	 */
++	disable_delayed_work_sync(&bat_priv->orig_work);
 +
- static inline int dquot_initialize(struct inode *inode)
- {
- 	return 0;
+ 	batadv_purge_outstanding_packets(bat_priv, NULL);
+ 	batadv_tp_stop_all(bat_priv);
+ 
 -- 
 2.53.0
 
