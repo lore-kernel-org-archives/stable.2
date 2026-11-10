@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287145;
-	b=SxsYwdJ0MnUY7+RQ2LcXARYN6C16QVyWTaErqiLPI1pKpr6tziFSvzlfbzlhz68dU5cG
-	 /hjnz28wTWQVl6t1g3lCSPwr943spjp17JwZQsew+Y6I+17dgYYbqPOMlZivxxeITW2oA
-	 6M6qSc+pGd7Ms/OkpzHt3U0LQR+vpVahpwBkn672QTDWDY/maBuiJ/jaREHNhJsEXYMuk
-	 bXwRUSjuBy8dcKgGH+HZ3C6l9/XRPu36X+Dtav4+ZCyWGTbKi6SxG0uYO28MReJthCWYv
-	 1FQgcb+rM/DejwJHFCcVX32ZGeSJrz/Eb0wM56RR4coPOlQCU8Ssjr6bDfp2QH2+BqA==
+	t=1794287152;
+	b=qS43F/dPmzVFe3u4XOyezbs1lEf+LZgChFgpYtH4fZXHlfygG2OsZ5OvNabacjSGOm2m
+	 +aiKU3lhhZ9SQ/UIH2cFXGXUpzqdsQLhzRT9phdcmzB9/QWZ7KTFZ2wRHXMY79BLwJ9Vq
+	 MbN4p+tP8/91o3oPao2NmJmE+HJrrfoIKzCZoqWJinHiuqi94wmjLytbgZCMYsezy7YeP
+	 1YGRcyvL+BPVg5/25Dqm2l3Kd7cVKJWQtQAlwszLgfvs0HDsc9we7+UjGk7Wm9dIZ98FK
+	 +DhLg4mn2stH66rJMw04T7qeHGMQYnDMCgGRoV/WJwb3BgKj64vBTVFBG88w+wqxLsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287145;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287152;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	b=JXud/i/G594RocafvzntSmc6cPRyxN8Ntjn9zxfaaixI+APml+LUC4xjGSJ1QdvMKlBD
-	 H5LSPQpYXCGKy1vwchtw0AsTRp9bDU3aWvJoiffeLhEjEmPoT597Oa1fj4yJCkYznVHf2
-	 I5Zp8MCUJ16kbTgRV+K7ugfWieCr51QVpSEdCbc9glwxkKCtm6cf8W9Ilfa+CpMdjNGpV
-	 jRhpgeYwV7UugpG+6mPZPXkUi/0RgeMvGiWPf8uIHZXYuCAf4E3m3jMwwwipTYjMHCLex
-	 OW6Ls8anfuiLxAaA5/5/0AP3f20GSRch8WiA3prwn0WUrPb8ybrduEbm4NXbACXwywA==
+	b=1XmXasxIXSEJO2sUq3tuMxLD9LWIEr1kOr8AuBTOFEfufNQVXU2vGBfpnEu3d1RTQexT
+	 HWRwkA0bFj0ScIC4ucOXEP39u+3SHpnNasIQtcJGEsP3JTApiX3Oi5EdwujYPKr1pf7f6
+	 jJPAZyn/0TRFKTBX1m8PeF9qB5PsLSdUkGIZ+DCyfac9mLcycmccAIZfeadl6pFvSH4w5
+	 T4w4CYupMcnWHH8NnozwNY70PJq5aN/RLi+joz054Aqc4+Y1owfr+GvQdY12Za4l0/ibW
+	 fl6zeLCOS1nYnOTZlEW+mukgQ/sJES/tQPnwIGNNBXkj3SvoTMGmB0njcThsm+ccGOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFsv2B1I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMuJDDBM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F60606B098;
-	Tue, 10 Nov 2026 05:05:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD10606B0B4;
+	Tue, 10 Nov 2026 05:05:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFsv2B1I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C11F0089F;
-	Tue, 10 Nov 2026 05:05:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMuJDDBM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD7E1F0089F;
+	Tue, 10 Nov 2026 05:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794287144;
+	s=k20260515; t=1794287151;
 	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AFsv2B1I3QyNnV7/JQ0jSizapoJW0uKmA7uOrhNWOqhM8zAJP3SXXlJ37nEYPPYyu
-	 YwSB32Hj2LreLe/NAOt/fCajjHI5LcKDN7MaqHbWMXmXqdPJ/DCDLVKMKAWTGVnKri
-	 PMQByd4QZtDjsd+Q38/SN1PYGkxrOsswG4LEPACt9EM/bwCRAB9OncCe/l44C54Wrv
-	 4zisxjVojRa9sQ+HqeHijLpIIWH2+mWRGeQz0M6GTfNORO83xw1q3EKvmBL3NUOqVQ
-	 f9pXlYRkL805m260ZYT9n5iTNwyYkLDo/I/rGGa3kJSQAIrR6j2gFkaLrm/D03XpB/
-	 hikRnxrQxt00A==
+	b=nMuJDDBMPRIYPEd2mroa1Zp8U2eClRwZMPCTbeJ1mYDJ+mJeDaCLH/c+BOFdNz7M7
+	 zUfFD5XdL7sjQTYhIzOf/6oQMxnUqpT7rP64lOe/oFNUxGvtKFpLFx3Skzfc2XJ4E8
+	 HbJLN/lJJfRLZ/6PSPFztfGhGsJC7AdRH9TJLFPZ1z5ZrGTLiAZmAqWNwa/3IMXlMA
+	 WcPpmNj3ZKBH9hpjujfx99hyhE9YZ5pzx5LYlhJXI4x6I4mVXiJSpUDv9295H6KX11
+	 5qUKjpBONJ8zbvdTA7DL1mSP7Lg3zp16ozzdtL6KQzrygmdWaLMIxW1q648KYUx//n
+	 fm6t1jcZtD+qA==
 From: netdev-bot+sinfo@kernel.org
 To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Sergey Ryazanov <ryazanov.s.a@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+Cc: Petko Manolov <petkan@nucleusys.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Johannes Berg <johannes@sipsolutions.net>, netdev@vger.kernel.org,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Ijae Kim <ae878000@gmail.com>
-Subject: 
- Re: [PATCH net] net: wwan: mhi_wwan_mbim: disable rx_refill work on removal
-Date: Tue, 10 Nov 2026 05:05:43 +0000
-Message-ID: <179428714382.488859.13396024041020604951@kernel.org>
-In-Reply-To: <20261110043006.56681-1-mhun512@gmail.com>
-References: <20261110043006.56681-1-mhun512@gmail.com>
+Subject: Re: [PATCH net] net: usb: rtl8150: fix rx tasklet use-after-free on
+ disconnect
+Date: Tue, 10 Nov 2026 05:05:50 +0000
+Message-ID: <179428715042.488859.1707985272279776234@kernel.org>
+In-Reply-To: <20261110043016.56986-1-mhun512@gmail.com>
+References: <20261110043016.56986-1-mhun512@gmail.com>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
