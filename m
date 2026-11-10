@@ -1,60 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273667;
-	b=bxxoT4eVK/QTPvwOVz1+WuSvket1jUwjaBuC60w+uJAMBbBPiFxAKCsI7HAEiYo6PUkC
-	 SNOyOUWXuOQGAbRlsWBawRbJ4K1a9jtjBkstxZB1FPI7j+5uVtWk2WZnXzoBJIvxjCsFe
-	 NbykZIZfIgZVCZf2NbeomDWeweYbqR3gthHbFZ+mzCTwqDJh4Ho+bPmTkua/PPScC10N4
-	 3TITZDwwnaca09/UGW1qZLWtAa5+TWqpSU1xPrsnus0z6nX89sCmNfC+lMpvInItGVo3K
-	 FqFwl8OWlxGdAYBu/LTTk0B/BIgZd1IKZqbtqHLm9YNCJMfRn0u6YkrFXwypTkEBn/w==
+	t=1794273673;
+	b=44bNym0AxaA4WpRkFAkWlZjFdIP8IUK0Nr7OEH2ggI15rncKi40klRen5AfajraNu8tx
+	 YZjlYwG9ZKMlRPxNStWvQKRqkjCqDSK6Y+urlBQzAfaY4Np+Iv0JKBpCxVVANmZDcshTQ
+	 rUUsEEoD7veMTDJpo3VJmBgE5VhImcL8RZbJm6uzmw5ibxiGCThCY6BmqJCwibWHU1Zyq
+	 506JAWdXXvdm1Un4z5ytFDnCru9XYEgSjixTFCBAkCeZ6XYA+zXVvq6sPUV0TGK6hNLU6
+	 EG4qEFqAyjuMZ+/dBAQ0hC46rnJBnBINaN8fiQ6MdcY11zIuprg7EwO/jluBF8GkAFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273673;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rtaUpEzL/+RQoGS//NDPg/RlSaz1eQNCygE+9esEz/0=;
-	b=jK1qLarQzIPMg6nwQZ4YehWOCf6oUdaHMKmcT9YK0uqAmZjNdRda7zN1ToZlbldO+YGd
-	 NIEOAwz9W42fKYb774UAwgpbu1Pmj5A4TIdMHWPuL8Q+5dQYHQRbEplR4UZd4U4GEAB/U
-	 4N+0jcpsN/rkMPIrAZ9ucIWH2Ywi6/Jb2Sx4k4CvhEN51vfmvu0VXdSn0+Uy40fiZDAWT
-	 SIfQjv63xNBFTAH8jD6tPHi6sJpo24HcM35PjbLqQPlqmT5RBaI+cyXawaOdl+2ak8jMG
-	 Hc1C+P5knAnoC8KZ6mVzj6+jY0TvlVu8bpRagqn5tAH6PpcbdHhnTIQuJ+/Pd2W2l3g==
+	bh=u3wCMOTkjQeEUOfTL1NzCQqnNAKfGzDHos80PTRRm2o=;
+	b=mI5YcaX80NNV4s26p/pUmfVNDLyg05cCTFqVrO8l+CQNXe4y+S4yWXHt7Caz6mYVEDBG
+	 bsTFuWX/onnU/9C3RcqQhBE4IpBd33vXbCBivdHqbV9p1WwK97oC94hWy7ZxxO2EKxy52
+	 6WFaL9ffBGUAJMrX5+KRLbFpxPyqG1oW2lnqAlZVTjLDm6zX9I/qHPqad2LmW5ULhMVB5
+	 9CZCXfCeeF/n6hzgVE5J56ri4cPPaEiZPiYNcu4r8s2NoGDkvYVtEsBvfhxBkIjF5nDDl
+	 C1o4zZAml2+rRmYijkomGeMEsq78fs808PIKWEkZt6k8VnnCb5J0fUyQcwwjEnzPXkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOkaRPqT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqZClKAJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453FB606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B22606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LOkaRPqT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD87F1F008A3;
-	Tue, 10 Nov 2026 01:21:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqZClKAJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AED1F008A1;
+	Tue, 10 Nov 2026 01:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273667;
-	bh=rtaUpEzL/+RQoGS//NDPg/RlSaz1eQNCygE+9esEz/0=;
+	s=k20260515; t=1794273673;
+	bh=u3wCMOTkjQeEUOfTL1NzCQqnNAKfGzDHos80PTRRm2o=;
 	h=From:To:Cc:Subject:Date;
-	b=LOkaRPqTxZKJKC2/s+viKEmLBufzLjbgzar1zX0ucGRYE+W/ARBJ/D35YnrQA+su8
-	 Ffn3KXiYz+4oGDtz/y2gtxaRofgDWtiMT2xRQWJuV3LQanJKSfh5F+M0cGnXJ6jh1a
-	 e5/eMRHT9wE3tPvjeRr/bPf640aJIkaXZtLD5dY5vMW6QDYxhNkOyWFq2UBo9rqqHB
-	 JXKN36zPMw/N3YydztQ8nLjdSeNabEKtP4zlb59IpT85tNycvJ5nku7GxXTQNqFJSy
-	 PKrZDOWfh7H07IZWdizzSp4HmvthUG69XqNny+i2hRmZueRft1yA4q7FIfz40gIDlB
-	 UHjRSdjfjXQrQ==
+	b=FqZClKAJEpa9kj6Tjc/mtOopqORCNsyOZ6vCIfER14kp3G2YCKNrjuZcGprren+H7
+	 Why95WS5H5Zfef/WLQ9vIZwvDvZ3+SMK46koZ4m+Er2JPqzaEgYKrGwyw4gVA1MZZH
+	 vkuBS8kIwYeRALg5ehFYfRlhz2xTnx+YthzS9tkl3mT5k2Xql+9rYOG3JnQdov2Yyz
+	 HgxkjOLod+WpOqPafGtFBzyWukTTwH1nCOPY1Hrhvu/i/JD62QoRSoqv6cJ8V0xxP9
+	 PZ1SBuBbQgbdqYTxUAj8jrLFeBzo5fLNvd9FC44lmOK9oO0cDbmAPlXewu/X0zTeaE
+	 dqqVZElBBPYRA==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	josef@toxicpanda.com,
-	ljs@kernel.org,
+To: josef@toxicpanda.com,
 	riel@surriel.com,
-	vbabka@kernel.org,
-	baohua@kernel.org,
-	pfalcato@suse.de,
-	harry@kernel.org,
-	kas@kernel.org,
-	sj@kernel.org,
-	usama.anjum@arm.com
+	usama.anjum@arm.com,
+	ziy@nvidia.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fork: take mmap_lock before copying mm_struct" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:21:04 -0500
-Message-ID: <20261109202104-failed-5.15-ef694e2d2101@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:07 -0500
+Message-ID: <20261109202107-failed-5.15-dc24e273244e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,139 +71,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x ef694e2d210111cc08c52fd25da9ab130170bfa3
+git cherry-pick -x dc24e273244e9d712257d5a6c20a32c7f5ca84e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202104-failed-5.15-ef694e2d2101@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202107-failed-5.15-dc24e273244e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ef694e2d210111cc08c52fd25da9ab130170bfa3 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:31 +0100
-Subject: [PATCH] fork: take mmap_lock before copying mm_struct
+From dc24e273244e9d712257d5a6c20a32c7f5ca84e6 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:35 +0100
+Subject: [PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock
 
-dup_mm() copies the parent's mm_struct before dup_mmap() takes the
-mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
-and newer heap mappings, causing later brk() requests to fail.
+memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+after the inode has been freed. Once the folio is deleted from the
+pagecache it no longer pins the mapping, so after i_lock is dropped
+e.g., a concurrent final iput() can evict and free the inode before
+filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
-cause inconsistencies.
+Most callers hold a reference on the inode, but not all.
 
-As a simple and robust fix, grab the parent's mmap_lock earlier. This
-way we don't need to update individual mm fields in dup_mmap() and
-keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
-exec_vm, stack_vm), as that is now no longer required.
+Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
+must not assume the original address_space mapping still exists.
 
-Keep releasing the parent's mmap_lock in dup_mmap(), before
-userfaultfd completion, to avoid moving the userfaultfd handling into the
-caller. This should get cleaned up later.
+Fix it by loading ->free_folio while i_lock is still held, similar to
+what folio_unmap_invalidate() does.
 
-Move uprobe_start_dup_mmap() to preserve the lock ordering.
+Inline filemap_free_folio() into its remaining caller such that
+delete_from_page_cache_batch() also just loads the callback before
+dropping the i_lock.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+The bug was found by code inspection and has not been reproduced.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: get rid of filemap_free_folio() entirely; improve patch description ]
 Reviewed-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-2-d6437171ecc3@kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- kernel/fork.c | 20 ++++++++++++++------
- mm/mmap.c     |  8 +-------
- mm/nommu.c    |  2 +-
- 3 files changed, 16 insertions(+), 14 deletions(-)
+ mm/filemap.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 8b108ed371529..5efceb8d58a78 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1533,12 +1533,19 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	if (!mm)
- 		goto fail_nomem;
- 
-+	uprobe_start_dup_mmap();
-+	if (mmap_write_lock_killable(oldmm)) {
-+		free_mm(mm);
-+		goto fail_uprobe;
-+	}
-+
- 	memcpy(mm, oldmm, sizeof(*mm));
- 
--	if (!mm_init(mm, tsk))
--		goto fail_nomem;
-+	if (!mm_init(mm, tsk)) {
-+		mmap_write_unlock(oldmm);
-+		goto fail_uprobe;
-+	}
- 
--	uprobe_start_dup_mmap();
- 	err = dup_mmap(mm, oldmm);
- 	if (err)
- 		goto free_pt;
-@@ -1557,9 +1564,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	mm->binfmt = NULL;
- 	mm_init_owner(mm, NULL);
- 	mmput(mm);
--	if (err)
--		uprobe_end_dup_mmap();
--
-+	if (!err)
-+		return NULL;
-+fail_uprobe:
-+	uprobe_end_dup_mmap();
- fail_nomem:
- 	return NULL;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b74bc1e5015c6..906b013c11eb3 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -227,18 +227,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
+ 	page_cache_delete(mapping, folio, shadow);
  }
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 148ba01c03739..7618e72766a52 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1713,8 +1713,7 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	LIST_HEAD(uf);
- 	VMA_ITERATOR(vmi, mm, 0);
  
--	if (mmap_write_lock_killable(oldmm))
--		return -EINTR;
-+	mmap_assert_write_locked(oldmm);
- 	flush_cache_dup_mm(oldmm);
- 	uprobe_dup_mmap(oldmm, mm);
- 	/*
-@@ -1725,11 +1724,6 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	/* No ordering required: file already has been exposed. */
- 	dup_mm_exe_file(mm, oldmm);
- 
--	mm->total_vm = oldmm->total_vm;
--	mm->data_vm = oldmm->data_vm;
--	mm->exec_vm = oldmm->exec_vm;
--	mm->stack_vm = oldmm->stack_vm;
+-static void filemap_free_folio(const struct address_space *mapping,
+-		struct folio *folio)
+-{
+-	void (*free_folio)(struct folio *);
 -
- 	/* Use __mt_dup() to efficiently build an identical maple tree. */
- 	retval = __mt_dup(&oldmm->mm_mt, &mm->mm_mt, GFP_KERNEL);
- 	if (unlikely(retval))
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 91ab65afda705..6c6f953296746 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -1887,7 +1887,7 @@ subsys_initcall(init_admin_reserve);
- 
- int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+-	free_folio = mapping->a_ops->free_folio;
+-	if (free_folio)
+-		free_folio(folio);
+-
+-	folio_put_refs(folio, folio_nr_pages(folio));
+-}
+-
+ /**
+  * filemap_remove_folio - Remove folio from page cache.
+  * @folio: The folio.
+@@ -250,6 +238,7 @@ static void filemap_free_folio(const struct address_space *mapping,
+ void filemap_remove_folio(struct folio *folio)
  {
--	mmap_write_lock(oldmm);
-+	mmap_assert_write_locked(oldmm);
- 	dup_mm_exe_file(mm, oldmm);
- 	mmap_write_unlock(oldmm);
- 	return 0;
+ 	struct address_space *mapping = folio->mapping;
++	void (*free_folio)(struct folio *folio);
+ 
+ 	BUG_ON(!folio_test_locked(folio));
+ 	spin_lock(&mapping->host->i_lock);
+@@ -258,9 +247,12 @@ void filemap_remove_folio(struct folio *folio)
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	filemap_free_folio(mapping, folio);
++	if (free_folio)
++		free_folio(folio);
++	folio_put_refs(folio, folio_nr_pages(folio));
+ }
+ 
+ /*
+@@ -320,6 +312,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ 				  struct folio_batch *fbatch)
+ {
++	void (*free_folio)(struct folio *folio);
+ 	int i;
+ 
+ 	if (!folio_batch_count(fbatch))
+@@ -337,10 +330,16 @@ void delete_from_page_cache_batch(struct address_space *mapping,
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	for (i = 0; i < folio_batch_count(fbatch); i++)
+-		filemap_free_folio(mapping, fbatch->folios[i]);
++	for (i = 0; i < folio_batch_count(fbatch); i++) {
++		struct folio *folio = fbatch->folios[i];
++
++		if (free_folio)
++			free_folio(folio);
++		folio_put_refs(folio, folio_nr_pages(folio));
++	}
+ }
+ 
+ int filemap_check_errors(struct address_space *mapping)
 -- 
 2.53.0
 
