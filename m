@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273553;
-	b=r2ZM/kQ94Z3SDvUpUYY7OqW2q7LyfRB43E3XwH9ZR0fmt89WLEIdIDA/8EYQejuixKk/
-	 gxRoMJDfId0KTFo6gHTzHW8KfZk2XYEUsPh1+9001NqzktyJ0v8WXiEl/xmxlgrUYEWvX
-	 ghcsVMGJrlvTrU3sNRtyUwvXhyuA0zmFZo71DwL6b8xlxPQ1PnpuomrcLuOieDs6qjqJK
-	 n7iuhxP7SRM38tv5dbDCofbDtQxUFMocDwPoXVXrvaonF5ZDb3zP4zrpaiKAX4ULt6C1t
-	 FJ3f6GsyLaHW+GNLsuUra0sgLyzapORLFpR13gxD6uaXqBuLdyAI3YYC+bH3m43Hubg==
+	t=1794273556;
+	b=49lkKUtQTcXbvTpZW28f11mSiB6LomsltVzM8KI/9GsCYoTkV7ak+aW+Ru54uk7Vaybk
+	 tynuAHbsWgOd8Oy2cc8TmhoU0F9B9srPYAgybX8XAiq6Th9lmAZIhraGBMbhvRXylO89X
+	 sOjkSA+a1HxgyScaCmJdqCiJMu/7hqYjbA5JBXB2HMfFul4K86efGF/yXx+/GN+AiQLoC
+	 I0qMd1gGnqrUwccxWnCWEdgDqTWjtavIZSkZ4Apz/uCW1Li7oqkISDfnd84wk5COuoBDK
+	 2DikYwrFiS0/w33eHEtczQo+f2iHcgcHHMaKT4Qj1PxfkEYBrrVvOs1s5eCzLJb4HxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273556;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=s1qHEY2+HEjmof3uI29wBjcf7oM7Pxbo6nAn4cU0LXQ=;
-	b=DFn0TxdXr29bdgdqb4oJb8FXoEgLnclvutsrdOKqv7O9T/cPQT9r0t0+tahWmPuHXrj3
-	 h41ALiZdbh3brYmZ8JbesynZ8kviKk1c4jHSL5nck9yE8ZqDQc+uHdMR5+MAmASM7R8Na
-	 lMGJdTuyQwRqsrx7HSCfJxT3jdDVmvalIcm4jhdROl0ttzLg8PWCh30om+2jtMEx5I9Xb
-	 8TinAmYLefucd2yKVK+1zZoq4fmOBeYLt9efDB8uBR/W1CmqsmKqwSj9Iwlq1jDwzTVw7
-	 fJOkIbTR3UuC+D3a3AJltjh7QwBcfzXCBJ4yfzj537jjfQH8ix8BNuHtHLFk3VMjxdA==
+	bh=RkeuNVStR7j3foqB2D6KlFqes1eQE3Fj6ZXulVBKcOA=;
+	b=xRlZbpWxcxS1xdM4jd9bQzLIE9jJRMrGe+b2usj1J4Rzm/dV7+eXP6WCXASH+LFFcsOD
+	 Im6uOjIIOQQtgOHEr5gxyce2EjW0esWxmvH6P0LhtD5wPF5AjjgjmU66zWo3PSsuQHLNf
+	 I1w917JM3bI/BOXKkYu1uZiPd5jBZfiv3xiaDiTUqooolFLF7Wp84MjsFbcbCt4bQ65F0
+	 egHGAQ0AZdHEMiKFOdVMEpPMMWKynWqkQ9K1GSWWixcQOylwHnt9WFXA/668bmTzXBmQB
+	 2G0kIjzX9FnDOCUUWt+Os62tv6tSImsVYg4nnmdMRtt2L0oHRPWDp41jZ0Wdmufjgvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HXDdCA/3";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQh7d7wC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A50606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF726606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXDdCA/3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278321F0089F;
-	Tue, 10 Nov 2026 01:19:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQh7d7wC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD14A1F0089F;
+	Tue, 10 Nov 2026 01:19:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273552;
-	bh=s1qHEY2+HEjmof3uI29wBjcf7oM7Pxbo6nAn4cU0LXQ=;
+	s=k20260515; t=1794273555;
+	bh=RkeuNVStR7j3foqB2D6KlFqes1eQE3Fj6ZXulVBKcOA=;
 	h=From:To:Cc:Subject:Date;
-	b=HXDdCA/3X+Ql9cQSx6S+U/pEwFWqTvqisSnWJzKlaxJUX+IDnLXaZa3fcXNwV8Rxv
-	 WwTHk0SKFPaxoHJWN7cHmHYpGDWPuYAFXaj6JjqIYImjRi2TQSvhUZhqKNYGbfRpcZ
-	 1ziSt1cIgY6E3harLdgOXwVyW26fX19TBmwRWCQmZttmdf8Ywz+5KmuDj5GF3xIb88
-	 ufGZwj5LXylmg3w9p85BAuQgKg0yR8AqMXWkZlXxNzhaPAh6J7NNfSanFivEtDTi0o
-	 9csnN4u4JIMvBIWyGsMN9/FXYh3LDsnzL/pI1x6z1WngeWzq6vVgAR7G/rZ/Q/AMXT
-	 hc+fUY+c1xRRg==
+	b=KQh7d7wCak9P2ZHN35PSfYwaETB2fQFY5mYv0QmrZqu9bhvlxMvkmbC6FKLt0xPIE
+	 vv+guSQVeGy22/WAELg2k4SIbxaWu2y62BaUZ+4e4ZHXt3so2uYN3EPgVz5FN26gFW
+	 zOPl27lW9pR1fswMfDRRgojqCRrjTvId4kZob3C9T/cbvfAHdfwLbT58hlTyOe64r9
+	 +/2kzvHAcQoPOwWnC5YeBJ5+Lt6POKONNnLPN0cJTjLaQUonPL2vX90y1scZUpOb7q
+	 5dIad9rW85tTgchIAoGSPivaJRdeivmWaAfNyF2AQxHvJ7dD0prkFt7qZWzUHLRGNt
+	 +ACQ7/0hgzQqg==
 From: Sasha Levin <sashal@kernel.org>
-To: yilinzhang@moonshot.ai,
-	bug-report@moonshot.ai,
-	jiayuan.chen@linux.dev,
-	pabeni@redhat.com,
-	matttbe@kernel.org
+To: alex.hung@amd.com,
+	jerry.zuo@amd.com,
+	mario.limonciello@amd.com,
+	alexander.deucher@amd.com,
+	daniel.wheeler@amd.com,
+	sunpeng.li@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mptcp: do not use Fast Open on MP_JOIN subflows" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:10 -0500
-Message-ID: <20261109201910-failed-6.1-6d2cf411aba2@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: Avoid closing unowned DDC pins" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:13 -0500
+Message-ID: <20261109201913-failed-6.1-e7ba638b8116@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,76 +72,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d2cf411aba2aa0bd641b49be5b1964ac5097a50
+git cherry-pick -x e7ba638b8116cb5f1a5690f543052371215f1626
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201910-failed-6.1-6d2cf411aba2@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201913-failed-6.1-e7ba638b8116@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d2cf411aba2aa0bd641b49be5b1964ac5097a50 Mon Sep 17 00:00:00 2001
-From: Yilin Zhang <yilinzhang@moonshot.ai>
-Date: Fri, 30 Oct 2026 23:03:51 +0100
-Subject: [PATCH] mptcp: do not use Fast Open on MP_JOIN subflows
+From e7ba638b8116cb5f1a5690f543052371215f1626 Mon Sep 17 00:00:00 2001
+From: Alex Hung <alex.hung@amd.com>
+Date: Tue, 27 Oct 2026 17:17:04 -0600
+Subject: [PATCH] drm/amd/display: Avoid closing unowned DDC pins
 
-tcp_fastopen_create_child() hands the SYN packet itself to
-subflow_syn_recv_sock(). For an MP_JOIN request this takes the
-fatal fallback: the cloned child is destroyed and handed back with
-drop_req flagged, but tcp_fastopen_create_child() does not check
-the flag and queues it, so accept() can expose the freed child.
+[WHY]
+dal_ddc_open() cleans up pins it acquires on later failures. If the
+data-pin open fails, this attempt acquired nothing. If opening the
+clock pin or configuring fails, dal_ddc_open() closes the pins it
+opened. An extra dal_ddc_close() is unnecessary and unsafe:
+GPIO_RESULT_ALREADY_OPENED can mean AUX owns the existing handles,
+and closing them here would disrupt AUX.
 
-MP_JOIN cannot use Fast Open: data on a subflow requires the
-completed HMAC exchange (RFC 8684, sec. 3.2). Refuse it (only the
-TFO path passes a SYN skb here) and let tcp_conn_request() fall
-back to the regular MP_JOIN handshake; also strip the Fast Open
-cookie from MP_JOIN SYN/ACKs.
+[HOW]
+Remove the extra dal_ddc_close() from the failed-open path.
 
-Fixes: 90bf45134d55 ("mptcp: add new sock flag to deal with join subflows")
+Cc: Jerry Zuo <jerry.zuo@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 175ae7772b68757b4932f34ff862923cab7abe21)
 Cc: stable@vger.kernel.org
-Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Suggested-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
-[ Moving code to avoid clearing TS and consolidating checks. ]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- net/mptcp/subflow.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../drm/amd/display/dc/link/protocols/link_dp_capability.c  | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 78e886b202585..00677fb3efcdc 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -379,6 +379,10 @@ static void subflow_prep_synack(const struct sock *sk, struct request_sock *req,
- 	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(sk);
- 	struct inet_request_sock *ireq = inet_rsk(req);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index ad1a499b0d9d2..c487c5b87dfd7 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -2602,12 +2602,8 @@ bool dp_is_sink_present(struct dc_link *link)
+ 	 * which indicates we need additional delay
+ 	 */
  
-+	/* MP_JOIN cannot use TFO, do not send a cookie in the SYN/ACK */
-+	if (foc && mptcp_subflow_rsk(req)->mp_join)
-+		foc->len = -1;
-+
- 	/* clear tstamp_ok, as needed depending on cookie */
- 	if (foc && foc->len > -1)
- 		ireq->tstamp_ok = 0;
-@@ -887,6 +891,13 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			fallback = true;
+-	if (dal_ddc_open(ddc, GPIO_MODE_INPUT,
+-			 GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK) {
+-		dal_ddc_close(ddc);
+-
++	if (dal_ddc_open(ddc, GPIO_MODE_INPUT, GPIO_DDC_CONFIG_TYPE_MODE_I2C) != GPIO_RESULT_OK)
+ 		return present;
+-	}
  
- 	} else if (subflow_req->mp_join) {
-+		/* a SYN skb here comes from TFO, which MP_JOIN cannot use: just
-+		 * fall back to the regular path.
-+		 */
-+		if ((TCP_SKB_CB(skb)->tcp_flags & (TCPHDR_SYN | TCPHDR_ACK)) ==
-+		    TCPHDR_SYN)
-+			return NULL;
-+
- 		mptcp_get_options(skb, &mp_opt);
- 		if (!(mp_opt.suboptions & OPTION_MPTCP_MPJ_ACK))
- 			fallback = true;
+ 	/*
+ 	 * Read GPIO: DP sink is present if both clock and data pins are zero
 -- 
 2.53.0
 
