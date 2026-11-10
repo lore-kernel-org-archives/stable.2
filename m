@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312124;
-	b=l21qO1xzhXdCH5EsYCIoFPkf2sSxX/4wMkDgu3Go+EB3h0ycoqJwxnkQYNS/fTU7Wyly
-	 DcMQJgAr0kuFKBHyTDPrpolMWIavdpMnqxBcCCgvpGvmfs2QgTX/nqKe9ccVG3JS/BTc6
-	 co+M4Qx01g79zWLKt4rNagpcExQRz5o5PxSauGApz37/47+ER4RwplPoeCAlznB4Mo3i6
-	 hH3iT9MMF6TqyLx4yU6gh+vo+ZmL9Tt5swkJixdulO3zO+RxeX0YRn768h+plTxVEh/Un
-	 s1divtJ5F2Mka+FfGR9rwca39ZWP56nQPJWuVEGlfhrBhFtNx/cP2zXyqS+C74ICszQ==
+	t=1794312148;
+	b=YIgbsabXkCSv0MXGpA1X84hWXguVSf1tZ9xMOe3CXNL/z2j/01GNaBbviR5XRHTYwLRG
+	 nxJ82tgHVY7WlOdgXwrrgKkYUJ3DmbEtuwkyW/TQVGbCN3pwc/DXMMU8rsBycu9CDT0Zn
+	 zVHGDArnsztI4QzniZeVY/J+CyFeQVqX9lDDx2/lXu6ldLwhAaJTTMTknIVvg18oHqfwT
+	 ecZ5JiI3TqKMjhCHCIQDkJE1TuxzWQOH4CSpiMZMLHKGHkjF9qhV2FXANc6sk06aXdHK0
+	 hDZ9sPM15KYYmuLNksY7CkWtivFY5oQE4hAgZg9xOg0DFYdUScLbeQl8b7UfCxERJxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312148;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+JQr3Vc7XjcpSLu/ajq6/OOdIY7aWxwjHT4Ev3delJM=;
-	b=zgzerSlSi5uwrXpA5EzYNi4+HP+gQXnbWIhglIYFGAYBoxd5N0YP5o/NXjEeWNQJ2vOo
-	 Qc1OcaffXdDLArfwVaD8dmdWxO3Qo2meqBLQPCf9Pdz0ZwPGec5daVBpglHfgODTya4ZV
-	 iKkF7yGdjDLulcrDVMXsoWEuw+Qy3uDH+tfydKvp4295/u0Sr0MrL1kwZ68HlEDA6BlZJ
-	 w90ta3CTCubAALeh8udT4Daq4U0vLBM6JA3vP53c/UhWxWdYa1MqDLZCgjHPchNCzHUzF
-	 4U4Bvcx5ANJa87DaMMgRT1iOG77raJPyRQ5vUdgjoDph2c//XXs+Oh/A50Ku6IdwZtg==
+	bh=PwwEusEYDQTzA94qqfzivqh2RRlFVy2vS6hXneQLYM0=;
+	b=1mh+0AH7PXkUXdeEvBZoixad+vV7FOpSFCNYMf8HhfaDZpwAASp4nF2z7Q2/87k1pVsk
+	 tczUwHC2Nqh+/PQpfSYE2iUEXnNFBpd9jWIx1czf9OAHNnpgttCjhC8djQ4dta5Cz8nl6
+	 SVgeqdn3mMtcM7ql0gDCCqH0kFweD9klAV7/m7T7I9rb90ZGc4BTnEvksj0HdO4GYLVqw
+	 kQ444n4XESWprRC7ojk8iTsuyOs7f9k3Lt8AdgTzhw+diEhSIdJvfidkHAdIjX5lgDVOT
+	 5s+9ytzHoS+a0fMWNgp+InH8HbZbaSxU8lprrZyCsekC5LdgLXMdQbncksNdZgOadTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kML02HZI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNKL6PII;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4FA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE10F606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:02:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kML02HZI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C51B1F0089F;
-	Tue, 10 Nov 2026 12:02:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNKL6PII
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BDE1F0089F;
+	Tue, 10 Nov 2026 12:02:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312123;
-	bh=+JQr3Vc7XjcpSLu/ajq6/OOdIY7aWxwjHT4Ev3delJM=;
+	s=k20260515; t=1794312147;
+	bh=PwwEusEYDQTzA94qqfzivqh2RRlFVy2vS6hXneQLYM0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kML02HZIf2r9SPZaNo3dDGS0Fhy0MHFsT6lLQivEF5x75ZpOGDRhZBgA3j6bf2el5
-	 S6FT7Bflo03gpm8KHMJNvxEO1Pr/C+9aICXI9Ui4cgIY2vnLdYVejF3X+4jjg8pjwO
-	 igbgp2h3t675wrOL8p8MMR8Y/lKHzRV8L307r68TP7xTbmPEDwXCnBchBIRvdOLZJh
-	 NJ1ieVDqyUQfxI/d3i3PSq9ucMe6XtqwdV4JOO7ivkzC4xfF9x/q3KGSsr+ru0Cvf5
-	 T/kbpjH9LLDgzUY9AuSQVqpRIY5/8aDMk9QsbSlQ7dXIPIXWMV311fvg5cfkeAf3FS
-	 iY8ZmpPr3crxw==
+	b=gNKL6PII8ABTZHPw/d/zE02MVKQlSDEqPn92O6/2UJJ0QB62eLJWJRpuNGBaXbG/z
+	 f/2m2AHD9e5HRcT0cVq1v0S7L22iC5sEBudAB7Qv+RYUL9rflDkvs6k/osKcoejVmI
+	 z0jSE3O/pW5G7AdmLWWsxpFhqEHRlbqD3QunTkg8o94Xx7STCkuz6B6WSTiO+7GkaF
+	 3aWrR6BEm9YVdMru/cUuFQ0BIVKUhCx+mAgB3Q5pEpZBmNwFeyGeUlK04WhYk77rHt
+	 G2cKGEWO6niGXVvrnusozOkopz28hU0Epz2a9IhEnnpQF1Sy0TgVyXlLE/gh/3H8qR
+	 2kwSLbWnJ+lKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
+Cc: Yunpeng Tian <shionthanatos@gmail.com>,
+	Gongming Wang <gmwgg05@gmail.com>,
+	Mingda Zhang <npczmd@qq.com>,
+	Qinrun Dai <jupmouse@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] media: iris: Fix iova allocation from restrict region
-Date: Tue, 10 Nov 2026 07:02:01 -0500
-Message-ID: <20261110120129.931826-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] udf: validate the device specification EA before using it
+Date: Tue, 10 Nov 2026 07:02:24 -0500
+Message-ID: <20261110120155.946293-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050741-failed-6.18-200473c198b2@kernel.org>
-References: <20261107050741-failed-6.18-200473c198b2@kernel.org>
+In-Reply-To: <20261107054058-failed-6.1-9a2390959685@kernel.org>
+References: <20261107054058-failed-6.1-9a2390959685@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,186 +64,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+From: Yunpeng Tian <shionthanatos@gmail.com>
 
-[ Upstream commit 200473c198b201c308dfb916fb3233074d9407fa ]
+[ Upstream commit 9a2390959685ac35a58c80c8016120849a2babf6 ]
 
-The VPU issues DMA through several SMMU streams, and the hardware does
-not give every stream the same addressable range. The non-pixel stream
-cannot address the low 600MB of IOVA space, while the pixel stream can
-address the full range:
-    +-----------------------------------------------------------+
-    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
-    | 0x25800000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-    | pixel stream addressable range (0 - 3.5 GB)               |
-    | 0x00000000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
+udf_get_extendedattr() bounds an extended attribute only against
+struct genericFormat, which is 12 bytes.  A type-12 device
+specification is struct deviceSpec, which is 24 bytes plus a flexible
+impUse array. Thus a corrupted filesystem can contain extended attribute
+that is accepted by udf_get_extendedattr() but udf_write_inode() or
+udf_read_inode() may access beyond the end of provided buffer.
 
-A single "iommus" property on the video-codec node puts every stream
-in one IOMMU domain sharing one IOVA space, so nothing stops a
-non-pixel buffer from landing below 600MB. Once an allocation lands
-below that boundary the hardware faults, which shows up as unhandled
-SMMU page faults and spontaneous reboots.
-https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+Provide a udf_device_spec_valid() check to validate correctness of
+extended attribute that is a deviceSpec. While here, check the result of
+udf_add_extendedattr() before dereferencing it as it can return NULL in
+case of error.
 
-Fix this by reserving the 0-600MB range, below the boundary the
-non-pixel stream cannot address, using dma_iova_try_alloc() so the
-IOMMU-DMA core never hands that range out to a real DMA mapping. This
-reserves only IOVA space, it does not allocate any physical memory.
+[JK: Removed duplicated validity checks]
 
-Since sub-nodes for non-pixel, pixel, and secure streams do not exist
-yet and only a single device is available, the restriction is applied
-to both non-pixel and pixel stream IDs.
-
-Fixes: d7378f84e94e ("media: iris: introduce iris core state management with shared queues")
+Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
+Reported-by: Gongming Wang <gmwgg05@gmail.com>
+Reported-by: Mingda Zhang <npczmd@qq.com>
+Reported-by: Qinrun Dai <jupmouse@gmail.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-[ sashal: Adjusted iris_probe() context to retain iris_session_init_caps(core) immediately before the IOVA reservation. ]
+Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adapted changes in udf_write_inode() to udf_update_inode() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/qcom/iris/iris_core.h  |  6 ++
- drivers/media/platform/qcom/iris/iris_probe.c | 62 ++++++++++++++++++-
- 2 files changed, 67 insertions(+), 1 deletion(-)
+ fs/udf/inode.c | 42 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-index fb194c967ad4f..530fe14c3a477 100644
---- a/drivers/media/platform/qcom/iris/iris_core.h
-+++ b/drivers/media/platform/qcom/iris/iris_core.h
-@@ -7,6 +7,7 @@
- #define __IRIS_CORE_H__
- 
- #include <linux/types.h>
-+#include <linux/dma-mapping.h>
- #include <linux/pm_domain.h>
- #include <media/v4l2-device.h>
- 
-@@ -25,6 +26,9 @@ struct icc_info {
- #define IRIS_FW_VERSION_LENGTH		128
- #define IFACEQ_CORE_PKT_SIZE		(1024 * 4)
- 
-+#define IRIS_NP_RESERVE_IOVA_START	0x0
-+#define IRIS_NP_RESERVE_IOVA_SIZE	0x25800000
-+
- enum domain_type {
- 	ENCODER	= BIT(0),
- 	DECODER	= BIT(1),
-@@ -73,6 +77,7 @@ enum domain_type {
-  * @instances: a list_head of all instances
-  * @inst_fw_caps_dec: an array of supported instance capabilities by decoder
-  * @inst_fw_caps_enc: an array of supported instance capabilities by encoder
-+ * @iova_state: a pointer to an array of dma_iova_state entries reserved for restricted IOVA region
-  */
- 
- struct iris_core {
-@@ -117,6 +122,7 @@ struct iris_core {
- 	/* encoder and decoder have overlapping caps, so two different arrays are required */
- 	struct platform_inst_fw_cap		inst_fw_caps_dec[INST_FW_CAP_MAX];
- 	struct platform_inst_fw_cap		inst_fw_caps_enc[INST_FW_CAP_MAX];
-+	struct dma_iova_state			*iova_state;
- };
- 
- int iris_core_init(struct iris_core *core);
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index cdeb78ba605ae..b6251493bd9cc 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -153,6 +153,57 @@ static int iris_init_resources(struct iris_core *core)
- 	return iris_init_resets(core);
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index fd4b8cc20f5f1..6b78df1f1625b 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -1185,6 +1185,26 @@ int udf_setsize(struct inode *inode, loff_t newsize)
+ 	return 0;
  }
  
-+static void iris_unreserve_iova_region(struct device *dev, struct dma_iova_state *iova_state)
++/*
++ * Verify validity of struct deviceSpec on disk. udf_get_extendedattr() has
++ * already verified the generic header and made sure attribute fits in the
++ * inode so we just have to make sure attribute space is large enough for
++ * deviceSpec struct and required impUse information.
++ */
++static bool udf_device_spec_valid(struct deviceSpec *dsea)
 +{
-+	unsigned int i;
++	u32 attr_length, imp_use_length;
 +
-+	for (i = 0; dma_iova_size(&iova_state[i]); i++)
-+		dma_iova_free(dev, &iova_state[i]);
++	attr_length = le32_to_cpu(dsea->attrLength);
++	imp_use_length = le32_to_cpu(dsea->impUseLength);
++	if (attr_length < sizeof(struct deviceSpec) ||
++	    imp_use_length < sizeof(struct regid) ||
++	    imp_use_length > attr_length - sizeof(struct deviceSpec))
++		return false;
++
++	return true;
 +}
 +
-+static int iris_reserve_iova_region(struct device *dev, struct dma_iova_state **iova_state,
-+				    unsigned long start, unsigned long size)
-+{
-+	unsigned long dma_limit = dev->bus_dma_limit;
-+	unsigned long end, rem, chunk;
-+	struct dma_iova_state *state;
-+	unsigned int count = 0;
-+	int ret = -ENOMEM;
+ /*
+  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
+  * arbitrary - just that we hopefully don't limit any real use of rewritten
+@@ -1499,13 +1519,12 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
+ 	if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode)) {
+ 		struct deviceSpec *dsea =
+ 			(struct deviceSpec *)udf_get_extendedattr(inode, 12, 1);
+-		if (dsea) {
+-			init_special_inode(inode, inode->i_mode,
 +
-+	state = devm_kcalloc(dev, BITS_PER_TYPE(dma_addr_t) + 1, sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return ret;
-+
-+	end = start + size;
-+	rem = end - max(start, PAGE_SIZE);
-+	dev->bus_dma_limit = end - 1;
-+
-+	while (rem) {
-+		chunk = min(end & -end, (u64)1 << (fls64(rem) - 1));
-+
-+		if (!dma_iova_try_alloc(dev, &state[count], 0, chunk))
-+			goto err_free_iova;
-+
-+		if (state[count].addr != end - chunk || state[count].__size != chunk)
-+			goto err_free_iova;
-+
-+		rem -= chunk;
-+		end -= chunk;
-+		count++;
-+	}
-+
-+	*iova_state = state;
-+	dev->bus_dma_limit = dma_limit;
-+
-+	return 0;
-+
-+err_free_iova:
-+	iris_unreserve_iova_region(dev, state);
-+	dev->bus_dma_limit = dma_limit;
-+
-+	return ret;
-+}
-+
- static int iris_register_video_device(struct iris_core *core, enum domain_type type)
- {
- 	struct video_device *vdev;
-@@ -210,6 +261,8 @@ static void iris_remove(struct platform_device *pdev)
++		if (!dsea || !udf_device_spec_valid(dsea))
++			goto out;
++		init_special_inode(inode, inode->i_mode,
+ 				MKDEV(le32_to_cpu(dsea->majorDeviceIdent),
+ 				      le32_to_cpu(dsea->minorDeviceIdent)));
+-			/* Developer ID ??? */
+-		} else
+-			goto out;
+ 	}
+ 	ret = 0;
+ out:
+@@ -1653,6 +1672,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 				udf_add_extendedattr(inode,
+ 						     sizeof(struct deviceSpec) +
+ 						     sizeof(struct regid), 12, 0x3);
++			if (!dsea) {
++				err = -ENOSPC;
++				goto out_unlock;
++			}
+ 			dsea->attrType = cpu_to_le32(12);
+ 			dsea->attrSubtype = 1;
+ 			dsea->attrLength = cpu_to_le32(
+@@ -1660,6 +1683,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 						sizeof(struct regid));
+ 			dsea->impUseLength = cpu_to_le32(sizeof(struct regid));
+ 		}
++		if (!udf_device_spec_valid(dsea)) {
++			err = -EFSCORRUPTED;
++			goto out_unlock;
++		}
+ 		eid = (struct regid *)dsea->impUse;
+ 		memset(eid, 0, sizeof(*eid));
+ 		strcpy(eid->ident, UDF_ID_DEVELOPER);
+@@ -1799,6 +1826,11 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 	brelse(bh);
  
- 	v4l2_device_unregister(&core->v4l2_dev);
- 
-+	iris_unreserve_iova_region(core->dev, core->iova_state);
+ 	return err;
 +
- 	mutex_destroy(&core->lock);
++out_unlock:
++	unlock_buffer(bh);
++	brelse(bh);
++	return err;
  }
  
-@@ -272,10 +325,15 @@ static int iris_probe(struct platform_device *pdev)
- 
- 	iris_session_init_caps(core);
- 
--	ret = v4l2_device_register(dev, &core->v4l2_dev);
-+	ret = iris_reserve_iova_region(dev, &core->iova_state, IRIS_NP_RESERVE_IOVA_START,
-+				       IRIS_NP_RESERVE_IOVA_SIZE);
- 	if (ret)
- 		return ret;
- 
-+	ret = v4l2_device_register(dev, &core->v4l2_dev);
-+	if (ret)
-+		goto err_unresv_iova_region;
-+
- 	ret = iris_register_video_device(core, DECODER);
- 	if (ret)
- 		goto err_v4l2_unreg;
-@@ -309,6 +367,8 @@ static int iris_probe(struct platform_device *pdev)
- 	video_unregister_device(core->vdev_dec);
- err_v4l2_unreg:
- 	v4l2_device_unregister(&core->v4l2_dev);
-+err_unresv_iova_region:
-+	iris_unreserve_iova_region(dev, core->iova_state);
- 
- 	return ret;
- }
+ struct inode *__udf_iget(struct super_block *sb, struct kernel_lb_addr *ino,
 -- 
 2.53.0
 
