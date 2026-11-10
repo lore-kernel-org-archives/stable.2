@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314098;
-	b=ii6/w69YPZ6pqzz4Cf5YNlVg/XvpP0Y6tjp0beZBgF2ztiD8Aw95gxCDN//qb4Lfir6P
-	 wuI7P7gBJIkEkxGI4t5c6FL+xY3vEGwJ+Dz5hU4ZXcnm9jcPZ/lQCZrhbyblWxG6IvY77
-	 ZB29W6+1mliYGV1gif6QRqKsWg100Palp3j2FAB2IoqSE46ZN8aeyshoKF+8L4JA19UV4
-	 89GUZ4qIcb83eCiB++5uNqvDOLIy45WzUX7EH5NdstzhVTyqHvWCzSajLcbRwr2joSEB8
-	 J5VtCiaZlCcAA+opqiJoGBxPQleuzD/0qdJvnUTSsa8e+3hhE9MULbXYAhKIb3LbiNg==
+	t=1794314138;
+	b=y9gawFCxHTsKciyBLjclMd4B3FBl8LscQmz/lQSWIxq0T8OBd6ReRy0gpuB2v5A6LJN2
+	 JRwRSiHFjHMPFOt+bb27IB22Jzd93YQhAT8+aXIw5H9UyN7JEJqGxHAHUGAlUb9ZkN0v1
+	 vZ19gU8CSHJQZQZVeazvtMIRbKfG/o/as50JOYZPGkFUCekuGUaDsMLtpHEK9NpS6jPxi
+	 Cc+Z6PUWp5C//tEu0tVDEnBRLW8DVfxpmWXuh2OF15jBexbpFOz+gCkRDYBU3TxC/p/Bf
+	 734Qp6UqfW39vq8wQCpDNukZb7ih9qD1BAAOXDeule09gtF/OrPE3/baXX8L0zlTSUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314138;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Hx/v47Ry1psqZsCHBHEiyDh3M2dWr71QHmItWBdV6bg=;
-	b=Zt2stV1TOFt+WU6FbqO4FWtEDBz4a32VmopVbG3hrY3yIsQza4p5apGkk2V+txpLINWL
-	 gsCpI7Ct4Aqk8kkqUgxxpmEmQBHJlBugBX9aN8RZiCwdtrrtAklXZ/HrEPEwuX4ZrtPiR
-	 qhqZV/oOrDcHxvoew9pR7T9jXP6nCTYle3apcM/TOh+aJryO5LXAxf7u5sbrhNDq+mYrl
-	 iP9B/9ZTic7XFX1k3sHtVeoeJeNkXQRMmmb9M+JTHJycwXCBS8W0CnpiL7lzm9arwY04R
-	 sakjYXDOOxuvQfMFxG5nOiCVUW3sngaVxg898X0SYfdwlXutpq0PHgTj3S+wfZVvN0Q==
+	bh=rCkWHu6QuGmX7mGIMrRoJ4TwEAFbYDqFPAwlbYAdEvo=;
+	b=UK2Zqu8HdonQSOZV5HUbsw3MwRCM6jacyz1azaba5xQ2vgLTjB/Q/Odt0AyLzZ0tDZgc
+	 rVU9/AsuMMs4I/GBtP7greCZXImSIRG/olpRqOG0gt3mK+Mpv1mikX6sOii3SNmkryjj0
+	 5tiiFtwxUpjWNyYLjZDJ+Wx0Y9HKFXW8iCMw1Y9qluppTum9YAjb2zTYscw0tPf/txeWl
+	 yajitsXfjmpGdjebbZKauUvoXPjBKSnp7l+8miyGaESR/9kg76w3cCyUA2pQTGgq0DZwv
+	 ywzq9akFDeGbeaLQYWrZb8LZ5QRREv0LvMZCywG6O5ljkXlRBI1k26HBFyGyDAJvpkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9eWwi8R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLFFoJK3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDFF606A33E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F39606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:35:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9eWwi8R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C4D1F0089F;
-	Tue, 10 Nov 2026 12:34:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLFFoJK3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B31F1F0089F;
+	Tue, 10 Nov 2026 12:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314097;
-	bh=Hx/v47Ry1psqZsCHBHEiyDh3M2dWr71QHmItWBdV6bg=;
+	s=k20260515; t=1794314137;
+	bh=rCkWHu6QuGmX7mGIMrRoJ4TwEAFbYDqFPAwlbYAdEvo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d9eWwi8RVLjIMiyYpJxAOb0INFKgQDOObFlwbrQfRDzpkJ2GhHFoYOWy9co7DkKgL
-	 2o7xy5Nm/o+HunH2awoYZ+PURJX3p9Md6rxXu1GahZ9zSfd/lnvE3BeW4f3Gh/+qPh
-	 JMP/9lHwH1XIXEQHSk+WUX0QSPVPr8tX1IxFxzHBdY51J27hwL7ccIQ77VrLatNlZ8
-	 UY08SLO+81kn/NgERu0zcOvSOgMwJWYXhAIegIfz+rEhTbGE7ccsO2pgk6rSoCClLf
-	 WiTDYW1klHp2A49p8dZAuwpvtYUD2FKzntInddhMK/tGHnxXnjMjoEKH0bXXAyaK7c
-	 fPxpJyuJdrPbw==
+	b=LLFFoJK3proK14Ytm4N5sgDCpm61Ogwf4Ci6MiL9sZCWcHhf19aY/IXvvZsGlKzlv
+	 jH1wNf3GC1YugP/cIDq0agvzxjZbBDzCSA+sl5ulb9YhwUal5+Jzzwp/xBRuvaLYWT
+	 0oUa19SjoaiBqangNvJ6XiyTeozfmyk4E4POQxEYJmm70uzCQSASRERwFGI4YURN3w
+	 DCrF026yOutRSo+qqu0WNHtiQnOPxeVlniGmyt2dwX2HxqdozkQOi2Yi6xSBeTgyrW
+	 bFHn2XM+UgKUwurXkc2mZ8njs3PeV3U1Fg3YUqGqh4rl49OmBgwDJmBzQDk2NrKTsc
+	 O+Su/kAKSF+hg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Changwei Ge <gechangwei@live.cn>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Jun Piao <piaojun@huawei.com>,
-	Junxiao Bi <junxiao.bi@oracle.com>,
-	Mark Fasheh <mark@fasheh.com>,
+Cc: Robin Snyders <robin@snyders.xyz>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
-Date: Tue, 10 Nov 2026 07:34:55 -0500
-Message-ID: <20261110123434.1291399-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] power: supply: qcom_smbx: validate battery float voltage
+Date: Tue, 10 Nov 2026 07:35:36 -0500
+Message-ID: <20261110123514.1260705-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054517-failed-6.1-25bf9e549360@kernel.org>
-References: <20261107054517-failed-6.1-25bf9e549360@kernel.org>
+In-Reply-To: <20261107052858-failed-6.6-a2d7dc538da2@kernel.org>
+References: <20261107052858-failed-6.6-a2d7dc538da2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,142 +61,162 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+From: Robin Snyders <robin@snyders.xyz>
 
-[ Upstream commit 25bf9e549360b656a6763232e0e9e58a00c3aff7 ]
+[ Upstream commit a2d7dc538da2cb4a7426f0742197e762cb635f38 ]
 
-Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
+power_supply_get_battery_info() leaves absent optional properties at
+-EINVAL. The driver uses voltage_max_design_uv without checking it, so a
+missing or out-of-range value can become an invalid float-voltage
+selector.
 
-The ocfs2 metadata validators trust the on-disk suballoc slot and bit
-without checking them against the slot range of the mounted filesystem and
-the capacity of the block group bitmap.  A corrupted image can carry
-OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
-the bitmap, and once the corresponding inode, extent block, xattr block,
-dir index root or refcount block gets freed, the bad value goes straight
-into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
-a BUG_ON() or runs off the end of local_system_inodes[].
+Prefer the constant-charge voltage because it describes the charger's CV
+target, then fall back to the battery design voltage. Both properties are
+optional in the simple-battery binding, so preserve the hardware setting
+when neither is present. Reject a supplied target outside the SMB2 range.
 
-This series rejects such values at read time, in the existing validators,
-so corrupted objects fail with -EROFS (and a read-only remount) instead of
-crashing:
+smb_init_hw() enables charging before battery data is parsed and before
+the remaining fallible probe steps. Save the initial charging-enable bit
+and install a managed rollback before initialization. Keep the rollback
+active across battery-info, voltage, IRQ and wake-IRQ setup, then remove it
+only after probe can no longer fail.
 
-  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
-        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
-        ocfs2_validate_inode_block()"), and turns the "system file
-        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
-        an ocfs2_error();
-  patch 2 rejects oversized dinode suballoc bits;
-  patch 3 validates the suballoc slot and bit of xattr and dir index
-        blocks;
-  patch 4 validates the suballoc slot and bit of extent and refcount
-        blocks.
-
-The checks only enforce what the kernel and mkfs.ocfs2 already write: a
-valid slot from meta_ac->ac_alloc_slot and a bit within the block group
-bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
-OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
-healthy filesystems.
-
-Each new check was exercised under QEMU by corrupting the field in
-question with an out-of-range value; with the series applied the access
-fails with -EROFS and the filesystem remounts read-only instead of hitting
-the BUG_ON().
-
-This patch (of 4):
-
-ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
-OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
-mkfs.ocfs2 are allocated from the global allocator and thus legitimately
-carry this value; regular inodes are always allocated from a per-slot
-suballocator and hence must have a valid slot.
-
-If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
-ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
-and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
-when the inode is deleted.  This can be triggered by an unprivileged user
-unlinking such a corrupted file.
-
-Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
-still accepting it for system inodes.  Note that a crafted dinode carrying
-OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
-used to BUG() in ocfs2_read_locked_inode() ("system file state is
-ambiguous").  Since i_flags comes from disk, handle that mismatch with
-ocfs2_error() instead of BUG_ON() as well.
-
-Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
-Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
-Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context in ocfs2_validate_inode_block() to match the preceding validation block ]
+Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Robin Snyders <robin@snyders.xyz>
+Link: https://patch.msgid.link/20260812-qcom-smbx-fixes-v1-4-eb48246be599@snyders.xyz
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+[ sashal: adapted smb_ identifiers to the existing smb2_ naming convention ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
+ drivers/power/supply/qcom_pmi8998_charger.c | 61 ++++++++++++++++++++-
+ 1 file changed, 58 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 3d96cc7fc5070..e370efeb70dc1 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -575,14 +575,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
- 	fe = (struct ocfs2_dinode *) bh->b_data;
+diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
+index 2ad6b87eba762..3c91d5a0c8c94 100644
+--- a/drivers/power/supply/qcom_pmi8998_charger.c
++++ b/drivers/power/supply/qcom_pmi8998_charger.c
+@@ -350,6 +350,7 @@
+ /* pmi8998 registers represent current in increments of 1/40th of an amp */
+ #define CURRENT_SCALE_FACTOR				25000
+ #define SMB2_FLOAT_VOLTAGE_MIN_UV			3487500
++#define SMB2_FLOAT_VOLTAGE_MAX_UV			4920000
+ #define SMB2_FLOAT_VOLTAGE_STEP_UV			7500
+ /* clang-format on */
  
- 	/*
--	 * This is a code bug. Right now the caller needs to
--	 * understand whether it is asking for a system file inode or
--	 * not so the proper lock names can be built.
-+	 * The caller must know whether it is asking for a system file inode
-+	 * or not so the proper lock names can be built.  Since i_flags comes
-+	 * from disk, a mismatch is filesystem corruption instead of a code
-+	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
- 	 */
--	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
--			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
--			"Inode %llu: system file state is ambiguous\n",
--			(unsigned long long)args->fi_blkno);
-+	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
-+	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
-+		status = ocfs2_error(osb->sb,
-+				     "Inode %llu: system file state is ambiguous\n",
-+				     (unsigned long long)args->fi_blkno);
-+		goto bail;
-+	}
+@@ -377,6 +378,7 @@ struct smb2_register {
+  * @base:		Base address for smb2 registers
+  * @regmap:		Register map
+  * @batt_info:		Battery data from DT
++ * @initial_charge_enable: Charging enable state before hardware setup
+  * @status_change_work: Worker to handle plug/unplug events
+  * @cable_irq:		USB plugin IRQ
+  * @wakeup_enabled:	If the cable IRQ will cause a wakeup
+@@ -390,6 +392,7 @@ struct smb2_chip {
+ 	unsigned int base;
+ 	struct regmap *regmap;
+ 	struct power_supply_battery_info *batt_info;
++	u8 initial_charge_enable;
  
- 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
- 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
-@@ -1579,8 +1583,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		}
+ 	struct delayed_work status_change_work;
+ 	int cable_irq;
+@@ -909,6 +912,19 @@ static int smb2_init_hw(struct smb2_chip *chip)
+ 	return 0;
+ }
+ 
++static void smb2_restore_charge_enable(void *data)
++{
++	struct smb2_chip *chip = data;
++	int rc;
++
++	rc = regmap_update_bits(chip->regmap,
++				chip->base + CHARGING_ENABLE_CMD,
++				CHARGING_ENABLE_CMD_BIT,
++				chip->initial_charge_enable);
++	if (rc < 0)
++		dev_err(chip->dev, "Couldn't restore charging state: %d\n", rc);
++}
++
+ static int smb2_init_irq(struct smb2_chip *chip, int *irq, const char *name,
+ 			 irqreturn_t (*handler)(int irq, void *data))
+ {
+@@ -937,6 +953,9 @@ static int smb2_probe(struct platform_device *pdev)
+ 	struct power_supply_config supply_config = {};
+ 	struct power_supply_desc *desc;
+ 	struct smb2_chip *chip;
++	unsigned int charge_enable;
++	unsigned int float_voltage_sel;
++	int float_voltage_uv;
+ 	int rc, irq;
+ 
+ 	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
+@@ -967,6 +986,18 @@ static int smb2_probe(struct platform_device *pdev)
+ 				     "Couldn't get usbin_i IIO channel\n");
  	}
  
--	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
--	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-+	/*
-+	 * Only system inodes created by mkfs.ocfs2 are allocated from the
-+	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
-+	 * Regular inodes are always allocated from a per-slot suballocator.
-+	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
-+	 * deleting it would pass the slot to get_local_system_inode() via
-+	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
-+	 */
-+	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
-+		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
-+			rc = ocfs2_error(sb,
-+					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(di->i_suballoc_slot));
-+			goto bail;
-+		}
-+	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
- 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
- 				 (unsigned long long)bh->b_blocknr,
- 				 le16_to_cpu(di->i_suballoc_slot));
++	rc = regmap_read(chip->regmap, chip->base + CHARGING_ENABLE_CMD,
++			 &charge_enable);
++	if (rc < 0)
++		return dev_err_probe(chip->dev, rc,
++				     "Couldn't read charging state\n");
++
++	chip->initial_charge_enable = charge_enable & CHARGING_ENABLE_CMD_BIT;
++	rc = devm_add_action_or_reset(chip->dev, smb2_restore_charge_enable, chip);
++	if (rc)
++		return dev_err_probe(chip->dev, rc,
++				     "Couldn't register charging state rollback\n");
++
+ 	rc = smb2_init_hw(chip);
+ 	if (rc < 0)
+ 		return rc;
+@@ -1001,13 +1032,35 @@ static int smb2_probe(struct platform_device *pdev)
+ 		return dev_err_probe(chip->dev, rc,
+ 				     "Failed to init status change work\n");
+ 
+-	rc = (chip->batt_info->voltage_max_design_uv -
+-	      SMB2_FLOAT_VOLTAGE_MIN_UV) / SMB2_FLOAT_VOLTAGE_STEP_UV;
++	if (power_supply_battery_info_has_prop(chip->batt_info,
++					       POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX)) {
++		float_voltage_uv =
++			chip->batt_info->constant_charge_voltage_max_uv;
++	} else if (power_supply_battery_info_has_prop(chip->batt_info,
++					      POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN)) {
++		float_voltage_uv = chip->batt_info->voltage_max_design_uv;
++	} else {
++		dev_warn(chip->dev, "No battery float voltage; preserving hardware setting\n");
++		goto skip_float_voltage;
++	}
++
++	if (float_voltage_uv < SMB2_FLOAT_VOLTAGE_MIN_UV ||
++	    float_voltage_uv > SMB2_FLOAT_VOLTAGE_MAX_UV)
++		return dev_err_probe(chip->dev, -EINVAL,
++				     "float voltage %d uV outside %d-%d uV\n",
++				     float_voltage_uv,
++				     SMB2_FLOAT_VOLTAGE_MIN_UV,
++				     SMB2_FLOAT_VOLTAGE_MAX_UV);
++
++	float_voltage_sel =
++		(float_voltage_uv - SMB2_FLOAT_VOLTAGE_MIN_UV) /
++		SMB2_FLOAT_VOLTAGE_STEP_UV;
+ 	rc = regmap_update_bits(chip->regmap, chip->base + FLOAT_VOLTAGE_CFG,
+-				FLOAT_VOLTAGE_SETTING_MASK, rc);
++				FLOAT_VOLTAGE_SETTING_MASK, float_voltage_sel);
+ 	if (rc < 0)
+ 		return dev_err_probe(chip->dev, rc, "Couldn't set vbat max\n");
+ 
++skip_float_voltage:
+ 	rc = smb2_init_irq(chip, &irq, "bat-ov", smb2_handle_batt_overvoltage);
+ 	if (rc < 0)
+ 		return rc;
+@@ -1029,6 +1082,8 @@ static int smb2_probe(struct platform_device *pdev)
+ 	if (rc < 0)
+ 		return dev_err_probe(chip->dev, rc, "Couldn't set wake irq\n");
+ 
++	devm_remove_action(chip->dev, smb2_restore_charge_enable, chip);
++
+ 	platform_set_drvdata(pdev, chip);
+ 
+ 	/* Initialise charger state */
 -- 
 2.53.0
 
