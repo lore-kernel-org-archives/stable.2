@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281196;
-	b=Ec8fN/8F+a5g8Ed6Ibcdug9YF+Tay1nEVvk/+aMYvz8YYO1Y9KYcU4QkQ98C9lkOzJl7
-	 i101w3fxkxJabRgxsI5YhlatCfEe6vbdNoOXRfWfpuFKeRgx51LRMtAwvsW3G6rckl0Py
-	 im93/dIYcXj+xy1laCqgnCg7OwEoHarZ1YmuvMw/2YbcIpsKAHJYIq0OiruGaheTXvGW6
-	 awO8KAxxQtnCOwnXTHD+R4x9mYuOL4E41voPjWRR61rTIUPyqv1Wa4heJ7rFDjk3KVX7e
-	 fkSpk9sxP+2k6NG99Km8ESDoGel1RcNoYmvWIK/5XO5h2IOh7Pd5sAYG+psZRllJ8IQ==
+	t=1794281232;
+	b=lqp1YDE01ZLrH8I93wEY7dKqXyiMoKxRp50JgsJWatyzn9TGKjvjKAtWOHgqA2CfwmVd
+	 vN6KMtOSS7EoCpb/S3faPnkF7YgyqrsD/Wqv0vEycur6b/aqEej5oZO6X6uiHp8ua5xTe
+	 x4/979eWSaC8fzFT8DSR7uWtZ71h1OLRuJ+STqsiHMjwX920T4m9J8Hz0H9hgEEtpVoq8
+	 6odHkGN3vSuKalYq8mBhdJoOOG8K74+58Z1EojTGtVrk+qi9mTivII9RMuNnMtZT3K9LY
+	 QXH01aMg8ssZc7lgaJTlAnMCA62xH3qp0kyaJjhYTWyT9bfP3HvGYoH5MpiOIW8O/Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281232;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iOLSzVEMlXkB6ktOFlZeNchMP2BpCKiNQiqp2R0zhgQ=;
-	b=oCGKoSQ+bVW2sVMydYGDiF0bopdq9fIhLj1bUmpVDyKeAx/EG977Lq9x5I+vaewD0eCB
-	 HcD4JDZ+eggRzHLhlef+nDTTuOib6mzYge2SE/waRnxVRAP8EUVs5VlitZbMaAPBqj3GO
-	 /VJtDrz3dCb81Qpe9zHB8pTaFqlBzv3NlSrywcMXpNjACn55tjVcDeDqwhsSmShVwMlAc
-	 o/blZYAO/9UZVu/tUA86eEk1syNji8rM4zQtNDzlnYbB5/azGGci2LhaKLUa1XCphuIVI
-	 9u4Bg01GfCJWPJpFMA1viZ7WT9cnJcxQhMBmtFs0UWHgs/rckLP4Wrwf1y+ibIPCXyA==
+	bh=CJU/IDncklmxKcgQZN6OpuRXnMtm9rxZm+fLCaVx+mc=;
+	b=WE68RuB/TeVnolJaoPkcEB4OAulvzcWE2Cicpw3o+BEvvHRvTlAIPzxXQ/kU1spJ5ZuP
+	 seYvbtB2m+OZhPgK0TwhzX8A8/mCpDaAuBQBZfa4qDSJvbtlpxSw3z6a0OZPt755cYHeu
+	 lWHA/ZQsuvY3Mg4qz5FnwOIXOE03WblRTqF+9oQb9RHg4JN33pwsQY5EgM7rX/AicOek2
+	 PdtppGCvsTAPIK9PJqEpTTYWFawaU9uAVqhqS2Uzq5dXTKuoTxAneOE4pq1Z1Uo+H91bi
+	 JYrews6uqFTHILGZcBduZrYHX65S06kme+PCbs0dEdoWE2pQambEvp7OWvKz5LSH1LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNY0BCZo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDDNv3+I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238E5606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDEA606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:27:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNY0BCZo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1801F0089F;
-	Tue, 10 Nov 2026 03:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IDDNv3+I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FB8F1F0089F;
+	Tue, 10 Nov 2026 03:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794281195;
-	bh=iOLSzVEMlXkB6ktOFlZeNchMP2BpCKiNQiqp2R0zhgQ=;
+	s=k20260515; t=1794281231;
+	bh=CJU/IDncklmxKcgQZN6OpuRXnMtm9rxZm+fLCaVx+mc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DNY0BCZolIQyOo2OiTjPD0bBliU529NaQhTMklrgoK4AIrWutShUaN8klVzwTAdiM
-	 d2+7FIMDgByaCABzzVjq9GK7bjmrJuXpa/TJV4tXGKOQJ2SBR5HtDIG1Z3yH4A7K8z
-	 1HBeH+29dgI5e+dMkIGMyiU3RoS3B/1ulyFtoNxSPCWnFoJubtEuc8m4u7aislLlI4
-	 T+OR/8z8iZ2Q+AUpJ3834/NRJFx1BqVyUkzp1yHZZEcIA8hfSCTHBS/yXCRLZx+Rd1
-	 lJ3X1Ru1q4KRexCHH5GhfHgVJF0GAU8jN0hXqkdw7xYPXNqtdZ83BrajmEc3j5bnOy
-	 rGmyL79z11fGQ==
+	b=IDDNv3+I8eOTzjxjn+TJhNkjzt9uJJDEjkp/f5MlAKDCJUuXwP+NLMiijybpIpSfG
+	 93EQJ7171yi0fDNaQ2Nqyp4go8USaFXYkSkshBdj+og8qk1GpPMZSg5mwBlLsm/eG4
+	 9qGgdVxzYkdcK2lG5lwr0Wdtq/n4SuP7pATcEt64h2iaaSdnh+eoOwHmYT+HJftAkQ
+	 84nnTU93hL3uosKK2HyfaHKBa/TL9j/srC2vi0ggTq+Ctd4932IscKNhmhnYJVQVlN
+	 lMqrNm5w1byxrE9GXdwdVHExXoKE09+H7FmvRAlHsXxPVhESSH7GkfAaxSnTRT/mwX
+	 G38M906Bu2Wxw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Stable@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Lachlan Hodges <lachlan.hodges@morsemicro.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single mode
-Date: Mon,  9 Nov 2026 22:26:33 -0500
-Message-ID: <20261110032614.57896-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] wifi: mac80211: update outdated comment
+Date: Mon,  9 Nov 2026 22:27:08 -0500
+Message-ID: <20261110032703.180401-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052809-failed-6.6-38dbf24dfbd0@kernel.org>
-References: <20261107052809-failed-6.6-38dbf24dfbd0@kernel.org>
+In-Reply-To: <20261107052845-failed-6.6-13e51269b665@kernel.org>
+References: <20261107052845-failed-6.6-13e51269b665@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,209 +63,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+From: Kexin Sun <kexinsun@smail.nju.edu.cn>
 
-[ Upstream commit 38dbf24dfbd0a73b89fa2871a7148429aef05531 ]
+[ Upstream commit b8a57b979a7c2069081ed0bf88a727b17d85ac96 ]
 
-When device is suspended and it is in single mode then changing
-datarate doesn't make it actually wait for new measurement, so to
-be sure that read after change is correct, functions that changes
-datarate and gain will wait for a new data.
+The function ieee80211_start_scan() was refactored and replaced by
+__ieee80211_start_scan() in commit f3b85252f081 ("mac80211: fix scan
+races and rework scanning"). Update the comment in
+ieee80211_tx_h_check_assoc() accordingly.
 
-Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
-Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: Replaced unavailable runtime-PM guards with explicit reference management that calls pm_runtime_mark_last_busy() before autosuspend. ]
+Additionally, remove the broken gmane.org link in the comment.
+
+Suggested-by: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+Suggested-by: Johannes Berg <johannes@sipsolutions.net>
+Assisted-by: unnamed:deepseek-v3.2 coccinelle
+Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
+Link: https://patch.msgid.link/20260228061944.887-1-kexinsun@smail.nju.edu.cn
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Stable-dep-of: 13e51269b665 ("wifi: mac80211: queue frames while off-channel")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ti-ads1100.c | 121 +++++++++++++++++++++++++++++++++--
- 1 file changed, 115 insertions(+), 6 deletions(-)
+ net/mac80211/tx.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-index 1e46f07a9ca6a..bea727ff9d6ee 100644
---- a/drivers/iio/adc/ti-ads1100.c
-+++ b/drivers/iio/adc/ti-ads1100.c
-@@ -14,10 +14,12 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/i2c.h>
-+#include <linux/iopoll.h>
- #include <linux/mutex.h>
- #include <linux/property.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time.h>
- #include <linux/units.h>
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index cf463965b8d40..14513d4fe6329 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -301,10 +301,7 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ 		 * active scan) are allowed, all other frames should not be
+ 		 * sent and we should not get here, but if we do
+ 		 * nonetheless, drop them to avoid sending them
+-		 * off-channel. See the link below and
+-		 * ieee80211_start_scan() for more.
+-		 *
+-		 * http://article.gmane.org/gmane.linux.kernel.wireless.general/30089
++		 * off-channel. See __ieee80211_start_scan() for more.
+ 		 */
+ 		return TX_DROP;
  
- #include <linux/iio/iio.h>
-@@ -42,6 +44,9 @@
- static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
- static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
- 
-+/* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
-+#define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
-+
- struct ads1100_data {
- 	struct i2c_client *client;
- 	struct regulator *reg_vdd;
-@@ -123,10 +128,86 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
- 	return 0;
- }
- 
-+static int ads1100_conversion_busy(struct ads1100_data *data)
-+{
-+	u8 buffer[3];
-+	int ret;
-+
-+	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
-+}
-+
-+static int ads1100_wait_single_conversion(struct ads1100_data *data)
-+{
-+	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-+	int data_rate_Hz = ads1100_data_rate[data_rate_index];
-+	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
-+	int busy;
-+	int ret;
-+
-+	ret = readx_poll_timeout(ads1100_conversion_busy, data,
-+				 busy, busy <= 0,
-+				 poll_us, ADS1100_MAX_DRDY_TIMEOUT_US);
-+	if (busy < 0)
-+		return busy;
-+
-+	return ret;
-+}
-+
-+static int ads1100_start_single_conversion(struct ads1100_data *data)
-+{
-+	u8 config = data->config | ADS1100_CFG_SC;
-+	int ret;
-+
-+	ret = i2c_master_send(data->client, &config, sizeof(config));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-+		return ret;
-+	}
-+	/* Need to wait because of change from continuous to single mode */
-+	ret = ads1100_wait_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	config |= ADS1100_CFG_ST_BSY;
-+
-+	ret = i2c_master_send(data->client, &config, sizeof(config));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* No need to cache it, it's status bit */
-+	data->config = config & ~ADS1100_CFG_ST_BSY;
-+
-+	return 0;
-+}
-+
-+static int ads1100_poll_data_ready(struct ads1100_data *data)
-+{
-+	int ret;
-+
-+	ret = ads1100_start_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	ret = ads1100_wait_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS);
-+}
-+
- static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- {
- 	int microvolts;
- 	int gain;
-+	int ret;
- 
- 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
- 	if (val)
-@@ -135,6 +216,10 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (!val2)
- 		return -EINVAL;
- 
-+	ret = pm_runtime_resume_and_get(&data->client->dev);
-+	if (ret)
-+		return ret;
-+
- 	microvolts = regulator_get_voltage(data->reg_vdd);
- 	/*
- 	 * val2 is in 'micro' units, n = val2 / 1000000
-@@ -144,27 +229,51 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	 * bitshift so everything fits in 32-bits yields this formula.
- 	 */
- 	gain = DIV_ROUND_CLOSEST(microvolts, BIT(15)) * MILLI / val2;
--	if (gain < BIT(0) || gain > BIT(3))
--		return -EINVAL;
-+	if (gain < BIT(0) || gain > BIT(3)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
- 
--	return 0;
-+	ret = ads1100_poll_data_ready(data);
-+out:
-+	pm_runtime_mark_last_busy(&data->client->dev);
-+	pm_runtime_put_autosuspend(&data->client->dev);
-+
-+	return ret;
- }
- 
- static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- {
- 	unsigned int i;
- 	unsigned int size;
-+	int ret;
- 
- 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
- 	for (i = 0; i < size; i++) {
- 		if (ads1100_data_rate[i] == rate)
--			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
--						       FIELD_PREP(ADS1100_DR_MASK, i));
-+			break;
- 	}
- 
--	return -EINVAL;
-+	if (i == size)
-+		return -EINVAL;
-+
-+	ret = pm_runtime_resume_and_get(&data->client->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
-+				      FIELD_PREP(ADS1100_DR_MASK, i));
-+	if (ret)
-+		goto out;
-+
-+	ret = ads1100_poll_data_ready(data);
-+out:
-+	pm_runtime_mark_last_busy(&data->client->dev);
-+	pm_runtime_put_autosuspend(&data->client->dev);
-+
-+	return ret;
- }
- 
- static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
 -- 
 2.53.0
 
