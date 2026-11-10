@@ -1,56 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315182;
-	b=GaF11UWR1msNfkainZhBgD5LtirNu86d1VWDoFEe/AewLJBQ/Mw4wuyBvzzVe+BId5Mg
-	 bQSrVwOLtQ2WrklRLtrQ76V1lcAHCu9/AR/yidAZiBQDuKL+QJ/cyyMabDyy2XTfMPzFF
-	 0K0ElbJ7KrBC9GN0Jfu8iwcGR4+icIrarsERQriBamsIhIFDDwiEeHwA58yRWn/9NR2bV
-	 Bks7Z8UF/pSVgNMmDPf1YXbzw/wEHRHCEcFbBiCAk8RYsTvL++soIy5O+WXM3N9mS9eIr
-	 +0aIMwf5QPfWd9oRVTUK7qErq7wYCbvxXf4QhuuP6OKoT9f5MxZyEvC0ylTMOzpSXZw==
+	t=1794315213;
+	b=cOATsLTEcpsSTvJlb3roeQuEb6VQc0HUNnbhDgbUqlKF3soEpdByh+EDXN2Q7Sd3Jd6P
+	 kNEnfptX/zhCNUFPd2pK7R7ZmKaoWvNWsmC+AxARS9GCrfOWkhFQ5EZ/SPh0PRfbvPKe4
+	 npVn65vNkfA82VOYfcsge0/vBhDgatWVi/nP9+7G9AY803CkjjGWVbMETv+EZ6dGtMr72
+	 eNMSbi0SEHOsgEGHIZ8H8pDVVBdN2CfGsZeQzTikW/J13BeuxMRkDYhtYVZZnMXHK3tqZ
+	 EROUzIeKbUI7uzTIFsu2OWxNf4attzw93XiZF1WVZ+jLHQM6ffkGpWtlYzQmEIWMw7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315182;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=I6OS/PsXXmtaHei0iazsVJcn43LqqmSBqpXuApul4j4=;
-	b=Gh3t07el/3W5wdsPASUi5j6/Z8a8cGrSd8klUE1WhRlvQXYUi+oH3yk93eO9dM57AhHV
-	 3eCclFv5Y3Q+kepGcQPQgXdOsz0GMMx0kIgDeDjprhne9fMfomykfESNWU8adv9zCw+H6
-	 ZdEHQHtR9CHE1fNkS2+jDTZGU+bzj21ncjmjUuQ95dJRpyfhBAd/RAgkRtMW1u5e7blcV
-	 Nee/xXN1J7GhlAOw0vV07ScJXsYXJ2FnhzQpq7iAIFC7CTbhEG6GKfv0OCoIrTL+15mUt
-	 iYVAaFsRqmID0paD1I5r+eR2Tj8QPnO5YfmK4VGrmiy05/nSHoRjjpS5Xz5wqKBmfMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315213;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=5gAW8eIWGI8HOfwWvZQs68yC+wpRbirnAYyZ2bTJ9+E=;
+	b=sQVVHnfkGWb1RN+IqVuDeJZQNxrKjwPrm0gQDDA4hGQTJU17ZJ+oCMzms/aZtdRW8ikt
+	 +9AAs1z+YZ8D82f5Pm0ZAD1WqkC1Q/hbWS2Qh4QUkp0P5CwWnMOhH9jDjTC+BFMI3vMgg
+	 MD6smJvCy4fA1pdw9GOU+d3/zQc9eO9tRsOPlchw5gdvCOrFW3TdlBmwzPPYzbVSPuHdZ
+	 t1YrHmf63oL/eHw6scUlsO7lJTDNJcAjH8YPuEkxFI+o78xLsJvkXzgwewJ50GSH7gV/1
+	 vnC8K7Moh+hGq8BHuKGhGTQJoE1JcfX3UJjRQOdWgJoic2SeBGJY3wZlw3S18PaG04g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VG++cJtx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KXGDllpg;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=02akHxQo;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KXGDllpg;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=02akHxQo;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5369C606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA11606A321;
+	Tue, 10 Nov 2026 12:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA11606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VG++cJtx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C83E1F008A2;
-	Tue, 10 Nov 2026 12:53:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315182;
-	bh=I6OS/PsXXmtaHei0iazsVJcn43LqqmSBqpXuApul4j4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VG++cJtxQ4digtJCVFiXz+jQeb+O3w8K0xK0EagP/uzEqvgIR13co3YHAYFc2GsPt
-	 R9qJuUwOH7RbtMdKousKhGvIJyn+TALBv9IkKRPKocvMYomkep/tmtkl3rPqhXUmsj
-	 dwXfzbOozM2Rlio4mRjHh67XPI9Tz+IfWkJoMEZgj4yHR7cZAuzxX4chj7xxpHsEnX
-	 hcdMih1l+cnokOZy/r4KDiFf5KjK3tiEVg/+fD+IrIhPm/O+0//P8KzLjh1o4baxax
-	 MkJ9ddmOvWfAht1y1LTIvsK6BAjvjPbvXIx6J/Z9DZM6zLXI4s3BfBVJXvA2KWNXXi
-	 s6/M44zS4QnrA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] media: i2c: og01a1b: power off sensor on remove
-Date: Tue, 10 Nov 2026 07:52:59 -0500
-Message-ID: <20261110125223.1528685-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110125223.1528685-1-sashal@kernel.org>
-References: <20261107051703-failed-6.12-a26c5ac46191@kernel.org>
- <20261110125223.1528685-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KXGDllpg;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=02akHxQo;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KXGDllpg;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=02akHxQo
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 470B421F57;
+	Tue, 10 Nov 2026 12:53:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5gAW8eIWGI8HOfwWvZQs68yC+wpRbirnAYyZ2bTJ9+E=;
+	b=KXGDllpgGiBBAdkJ+94+hx57x3NvF+B6wVf1VJPhzu/vdFL2qD1xN8ea3AfxZRuIEQrDNG
+	h6ARgN9r6E1Tp0L3/IOetfpivMPJgdCx8gDCmnuEUwvvykOGvRJ3e4L8lAmSVM7Bzl5Sdl
+	8yjrsZoBB4KbKRgxMsQEsJpHPQKPfVY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315211;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5gAW8eIWGI8HOfwWvZQs68yC+wpRbirnAYyZ2bTJ9+E=;
+	b=02akHxQolbaeDkTqzMuoQ9qEenO8KZzqbD3pshHw2P9mLxjD414sxUGp3r+0OsfEjYG8bh
+	6lagVVxrNyrhB8AQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794315211; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5gAW8eIWGI8HOfwWvZQs68yC+wpRbirnAYyZ2bTJ9+E=;
+	b=KXGDllpgGiBBAdkJ+94+hx57x3NvF+B6wVf1VJPhzu/vdFL2qD1xN8ea3AfxZRuIEQrDNG
+	h6ARgN9r6E1Tp0L3/IOetfpivMPJgdCx8gDCmnuEUwvvykOGvRJ3e4L8lAmSVM7Bzl5Sdl
+	8yjrsZoBB4KbKRgxMsQEsJpHPQKPfVY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794315211;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5gAW8eIWGI8HOfwWvZQs68yC+wpRbirnAYyZ2bTJ9+E=;
+	b=02akHxQolbaeDkTqzMuoQ9qEenO8KZzqbD3pshHw2P9mLxjD414sxUGp3r+0OsfEjYG8bh
+	6lagVVxrNyrhB8AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 197071339F;
+	Tue, 10 Nov 2026 12:53:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HDDqOMoT82qhQAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 12:53:31 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 94F1F224D8; Tue, 10 Nov 2026 13:53:26 +0100 (CET)
+Date: Tue, 10 Nov 2026 13:53:26 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, apparmor@lists.ubuntu.com, 
+	linux-nfs@vger.kernel.org, netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+	Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, linux-kselftest@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH RFC 01/41] loop: refuse backing files that aren't open
+ for reading
+Message-ID: <yiiin5howot4r3fgcqkqfnreblloazpfatuuqzpjpqshpvphit@zirpwlmklj3d>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+ <20261110-work-loop-pseudo-v1-1-4c998976c6c7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,55 +121,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-work-loop-pseudo-v1-1-4c998976c6c7@kernel.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	R_RATELIMIT(0.00)[to_ip_from(RLdu9otajk16idfrkma9mbkf9b)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,google.com,kernel.org,toxicpanda.com,lst.de,lists.infradead.org,zeniv.linux.org.uk,suse.cz,lists.linux.dev,kvack.org,lists.ubuntu.com,lists.xenproject.org,lists.ozlabs.org,gmail.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+On Tue 10-11-26 10:14:17, Christian Brauner wrote:
+> loop_configure() takes any file as long as it implements ->read_iter().
+> Loop itself never checked whether the file was actually opened for
+> reading. Buffered I/O went through vfs_iter_read() which refuses files
+> without FMODE_READ. Direct I/O has called ->read_iter() of the backing
+> file directly ever since loop grew support for it.
+> 
+> Since commit f2fed441c69b ("loop: stop using vfs_iter_{read,write} for
+> buffered I/O") buffered I/O calls ->read_iter() directly as well. That
+> commit was about O_DIRECT handling and the FMODE_READ check went away
+> as a side effect.
+> 
+> So whoever can set up a loop device can read a file it was only allowed
+> to open for writing. Open the file O_WRONLY, configure a loop device
+> with it and read the contents through the loop device.
+> 
+> Refuse backing files that aren't open for reading. Loop always reads
+> from its backing file so a write-only backing file never made sense in
+> the first place.
+> 
+> Fixes: bc07c10a3603 ("block: loop: support DIO & AIO")
+> Fixes: f2fed441c69b ("loop: stop using vfs_iter_{read,write} for buffered I/O")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-[ Upstream commit a26c5ac46191ae34b3413f7a45d6241f63e15d42 ]
+Looks good. Feel free to add:
 
-og01a1b_probe() powers the sensor on explicitly before identifying and
-initializing it. After a successful probe, runtime PM is enabled and
-pm_runtime_idle() is used to allow the runtime suspend callback to
-power the sensor off.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-The probe error path explicitly calls og01a1b_power_off(), but the
-normal remove path only disables runtime PM. pm_runtime_disable() does
-not guarantee that an active device is runtime suspended, so the
-sensor can remain powered when the driver is removed. This also leaves
-the xvclk enable performed by og01a1b_power_on() unbalanced.
+								Honza
 
-After disabling runtime PM, check whether the device is already
-suspended. If it is still active, power the sensor off explicitly and
-update the runtime PM state accordingly. Avoid powering it off again
-when runtime suspend has already done so.
-
-This issue was found by manual code inspection.
-
-Fixes: a95ffde28783 ("media: i2c: og01a1b: Add support of xvclk supply clock in power management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/media/i2c/og01a1b.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/i2c/og01a1b.c b/drivers/media/i2c/og01a1b.c
-index 95ead31dda278..cc8ff6ffd29ac 100644
---- a/drivers/media/i2c/og01a1b.c
-+++ b/drivers/media/i2c/og01a1b.c
-@@ -1042,6 +1042,11 @@ static void og01a1b_remove(struct i2c_client *client)
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(og01a1b->dev);
-+
-+	if (!pm_runtime_status_suspended(og01a1b->dev)) {
-+		og01a1b_power_off(og01a1b->dev);
-+		pm_runtime_set_suspended(og01a1b->dev);
-+	}
- }
- 
- static int og01a1b_probe(struct i2c_client *client)
+> ---
+>  drivers/block/loop.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+> index a3325ceab484..c96e35c3ef42 100644
+> --- a/drivers/block/loop.c
+> +++ b/drivers/block/loop.c
+> @@ -528,6 +528,9 @@ static void loop_assign_backing_file(struct loop_device *lo, struct file *file)
+>  
+>  static int loop_check_backing_file(struct file *file)
+>  {
+> +	if (!(file->f_mode & FMODE_READ))
+> +		return -EBADF;
+> +
+>  	if (!file->f_op->read_iter)
+>  		return -EINVAL;
+>  
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
