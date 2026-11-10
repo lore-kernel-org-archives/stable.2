@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344396;
-	b=x917mF2Cso11BZpYuc7oxeUjLY3IJjHt+7ABmeVDy6iMGIHbtYCU3LSjTfBo5J3igavO
-	 8MlVmjk7rQbWFyXDbG0EIDczSs80cZt2PhIsiBbQsih/O4Wev1z1B8hZxdGVVLtREt2Cc
-	 s4xD7e4Ai27PYzW/aXGmp1UA3p5DCWaRYiVRRqJU3Gvf1n0j4GD6Mx4ibBW7B8Vm00vHf
-	 taKGCUbbiMNLXxQrzgONF2xNRh6RaeDMxOpMPTEH1v1kef703RkKyPuIZM7QoMOgYUdqn
-	 IChFZPuwUEp22Jxv0pySu/TMgfFx/EM5ohLn4S09wKM+hrQHtlkfwpYuAXls1zq/SNQ==
+	t=1794344397;
+	b=4q8f2sNA1q5xfaxh/4OLeZzcublG0cNgovW+HDBV3ZKnakj5EbAn814AodCtFLNN9oxv
+	 Y5VNwANOK674DujpGnGs4/iFYX4VQACje6no7+xpkAh1HyYaFjG/5BALw8sGF0woBAIr6
+	 9CGETT6aQaPeScwIw4m4IGHx9a7TxpTN93m97Kb0A6nnMM+of+vtNWyv0ArtQfBo3oHuJ
+	 nqcEchI7ho7I+Kq+92M5nSpVRYhL/A5FdOZ3kcXaCh3Q0O+me1nJCQs0BwIKC135CDARl
+	 kb1432hN7abf1deYbYFoFOrC7dpl3TJdtvTmIjejE0KAJCE21nqmBY1mZrW3Dvic1oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344396;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344397;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NiXFBUDkrhnXInvPJuYiyM/mBn/ycge7uV7NU/Qm4Qo=;
-	b=Qwnbt0mPGKZJKM3o/4Jle6NhJnd+ssNZgRtJI43QcrvvwRwM5sSxgiFraagE+G7RzpC7
-	 EesEx/gRuu5soldyKDse3ssxkHFxBNkic73U9tJywVmhW6M+uXrPIcS10FZkpp0BTXccy
-	 VE+xf7QFQsFp/kyVArVJwSIRakIi0t3ZNVw5U/V8qjgeeYeRo2Atj9N/rVb0HF5E3xwt4
-	 I7ZH2/8jaaxhmW3nvzHZrJV13F+ymSdVeHxtpsyCNzMLGZa66OBYnOiy6Ff62BdnB7cti
-	 KCsJtW+3hRDRRdNnLC96lTBKX7ryv1tOCH9+cVkCbFUPANzRIuXhJo9RFGmew2WMgzg==
+	bh=KSTgnwgdr4teeJicPAPrkDHuRbco48eVURoNsQoMiJc=;
+	b=eS1JerndrguTz7GKGepCMlBYLbY3PPr9OIryda7GOrCbyOMhrYPZanwOjLPo+rLCBz/j
+	 XyxumS1PMqb2xvJy3IX9nCyX1rCPqdpUEX0JxXcTz925zNoMwk6hS0HDlO3y7s6Smu826
+	 CeGOy61aLs2Enlb+o7EU9hrFkZiQ+HO/jnFlRspd9K0V3q/+AvzqFcO2UwQrLRiMsBwWr
+	 5ow1TAdt3+aQ1//t9ZOnxmnv033oaKNMldZOeWneKG98g+As7yataNsvNjN2y1wi6WML1
+	 BSeaTHgwIFRkbnZ9PraftSY+R9o5DK2kW7EKpy8kspF0dQd0AVmx2gN3tzdgOxWC76w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZLQjmU/J";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfP7bgwU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D40606A33A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36B8606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLQjmU/J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37F961F0089F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfP7bgwU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0752C1F008A2;
 	Tue, 10 Nov 2026 20:59:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344395;
-	bh=NiXFBUDkrhnXInvPJuYiyM/mBn/ycge7uV7NU/Qm4Qo=;
+	s=k20260515; t=1794344396;
+	bh=KSTgnwgdr4teeJicPAPrkDHuRbco48eVURoNsQoMiJc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZLQjmU/J945ecQ1A4i05HOXyTmrEVi9jNzMmMYy3nXn+FuH+yRztJ6rcuLXSUv/Of
-	 H7nd+uOefAvHg54XIMJ8fNEGDDTKtR7Ld9vY0Sf1egoaIQVg/HVxh6oRft1tGtPKpb
-	 fi2brPq3ZzZJwtHhX6iQ6e+156AQgKyvyV8Oj/qvz1xqu7ntp89kpoq8pbWW/yXVLA
-	 LNifYoxAwZRqB9MjynRCf/lEHlgSRZRi4tVr6Qc6EEcbaw74/3TUYfONO8irMo9OgA
-	 25fxe3+qlk7PNRBXYC6H6UQgaqtFy2proAvRb2xH35ywcQkmzdBhqBb0RUCaSLA6e9
-	 vJhQdW+RQn3+A==
+	b=DfP7bgwU4eP5RKyx6hZZqrfT9zrAof82CCAhIJYH2PysVnYw2EZukCTVWjj6A4Tqi
+	 tsKida7JO26WIwOAqT9DannYws9vhNRXVauTSuU88ToOVVqacyNd3hZFcxndfq2+Sj
+	 oV4yj3VkJlwJLB0jWVwWamI9R3c7aGLg7iklMzmUbqBc4+UtxFoKu3vtWvR/kOiqtQ
+	 opRTI8CA4E7Kh8Q5oj1ZVsKvFIF10YPN8GxDxb3Hj5bnXbcKdjQ4q3AJ4mc+UXcIfd
+	 HXGB7R9PT3fYFJSODtqZjmmyLU5taCObRbaDi8dDCgFKNTbHGs9JWkwEEH20eIgGvm
+	 424QzxZpWDvOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH 6.18.y] batman-adv: tpmeter: fix u32 truncation of reported bytes
-Date: Tue, 10 Nov 2026 15:59:20 -0500
-Message-ID: <2026-11-10-1-daily-reply-0024-batman-tpmeter@kernel.org>
+	Tejun Heo <tj@kernel.org>,
+	Andrea Righi <arighi@nvidia.com>,
+	Michal Blaszczyk <michalblk@google.com>
+Subject: Re: [PATCH 6.18.y] sched_ext: Reset runnable_at when a task leaves its scheduler
+Date: Tue, 10 Nov 2026 15:59:21 -0500
+Message-ID: <2026-11-10-1-daily-reply-0025-sched-ext-runnable-at@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110184913.70492-1-sven@narfation.org>
-References: <20261110184913.70492-1-sven@narfation.org>
+In-Reply-To: <20261110162946.2141451-1-michalblk@google.com>
+References: <20261110162946.2141451-1-michalblk@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,9 +62,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> batman-adv: tpmeter: fix u32 truncation of reported bytes
+> sched_ext: Reset runnable_at when a task leaves its scheduler
 
-Queued for 6.18, thanks.
+Queued for 6.18 and 6.12, thanks.
 
 -- 
 Thanks,
