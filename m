@@ -1,53 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272462;
-	b=CJwejd9zm8Bp3Ku+8lxZQJV+GctkWm7v5R6Ith8NScf5MKbl3WIgvo+1PlIiJUc3VZTZ
-	 YYSKTO+LuY7Wd1W3UCCt1Z26lRINDzjZD8yF7xjBG29MMMz0HpFTgGYGjqJHjkqgXMCJW
-	 0k+vCYqRhlmc4QwNwO0uZ9STipcQ++BCJ6pWn4LOGCA2ylbtEdwpR+K3u8qyIFM7+ZDzq
-	 BlQRC3ZBAPSafjXKBc63ogXqrt55rjs5++3f7SiS6gw/S2FgJLzIIXUJd41v6EtNaLgH7
-	 yxloSlCZWuJ2q9AxlY9tBjZLbukCAwuJxky7LWZVhE/gZlVNjZ8KGltKJoy9kDmVUlA==
+	t=1794272464;
+	b=S3A7TKhqUA7BUSFOr+7x2QH5axk++htGDAEjKN5DBLDQEbtq2Utags9as+zX6N1sdHb0
+	 /sogq1mbwuHtg6WvhFJ8R5peAjjOmhlZ+QO4cSHHKTL379wGKOtYwgYO0uYYSScot1xDr
+	 GQXUuT72K3SjF2hMi4QaplafbKbPy9UWcEqcQQMg11W3kX7QksH6xrBv1EMF3NfmejKCQ
+	 PWrXXHKAnD55YwnKPu86iVHYe+Tm2D8BHkG+6dEKVSlPxGyzQ10awaIhf2GMHMuJTN1fL
+	 DqGWKlytumtF+F9WpvXk+Vc1scml6kaFRgqa1eKV5hJwrwP5uXkPzm4j6CoFmQTz5Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272464;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PzrhkuO81zmZ/hryvwccRfCZ5oPVH/jtcjYU7uWtjMw=;
-	b=nK2FoWpgbmPw+pGjN5rMJGOU6o/k60xGx4vse0ycSZu+WVAvTzbGYx0nOC3czkTPTIw8
-	 2UJtxd66aIeS703tWdXe50jiI5IeNPkKa+2ZMduYsa+P4xfsilUuaKeRAQOwcdgstmtSP
-	 jNeeWzT2Mz48EMmQxiwQKxLPpgzUtyiiGEkwDsQLRwFjgTE89UjZRjgU2j521dr2WBiVO
-	 WH36a09K/TXegrhBQjxwwzPUTTvlTy3ejmTNo9jU5ctTLVPDUKOOKa0ZySxwxUd9PYDeP
-	 hxykDel4ALhGQwbwwtWAzo6dcnR2q9N9M9WlbA36QEECIITRbojX5amHOiJGuDCCTmQ==
+	bh=j+k5C73eU64JaoqNTnyemet6jSqVMPJ5XWVAOaTOXFY=;
+	b=p59Q+98lS3iGz+nLQFXq+NVi7SiTOaQ7PmObBMnJTdeEQ8QbmwUiKr26d3Ak7AcBVaR8
+	 0vDWyksJ/gf3RMxdbW/fzXt3d8ytWXQW9tGwlFZzDaZSUtcIDC7jMZAn0O23H/SLro0Rc
+	 Ks/ueaXa3dk4m620ZoWypyArVn/9BT7b/iuK2sLZCO1zRHhHJL+ubDbq6bPeaPYu0VE/H
+	 lKnlVlObRvXqqSIAumJqK+VuGezVgl65Zev2dm0cIy4VHxn7sh3e6arIBCVgU4MLMneOk
+	 UPCBP2imiGiMHmG2kRJN2nMo18pTULX2A8tyTBr2B7SRLpgE1XfEScOrsRNB7cn+XLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ef64dVO6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewI6l2Dn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3312606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9D3606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ef64dVO6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03B41F0089F;
-	Tue, 10 Nov 2026 01:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewI6l2Dn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E9A1F0089F;
+	Tue, 10 Nov 2026 01:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272461;
-	bh=PzrhkuO81zmZ/hryvwccRfCZ5oPVH/jtcjYU7uWtjMw=;
+	s=k20260515; t=1794272463;
+	bh=j+k5C73eU64JaoqNTnyemet6jSqVMPJ5XWVAOaTOXFY=;
 	h=From:To:Cc:Subject:Date;
-	b=Ef64dVO6HkOV5uTa1KM7bnuxG+6lSIviOXODF0m8NsQVRnVEqpDcrd4gx6opVdZAC
-	 oXzXBcgmljOKAYGwu0AXHM9olcpcmEULDV1ftzVMsg3QR0LMHAZiCAJbRWmG8AnEMb
-	 p7rIzOh+1HhFYRO6LGIp9Q6+puNGoO7kNXh4ulUMqSg6cB/wdcecsrqiU0Sd50vbOE
-	 viFi/7YegY6eI8LNWRiCId/jzZnovIcp1fLbaUj9di2HtQWrINHH/5rAntxq0c/DwC
-	 GHfjzwbxdWStWKvm054SV6JPslGCHgnnjGoyeI8uol86e/KRFStioIDRt+Mb5jRkdQ
-	 5sXr0uohmKPUA==
+	b=ewI6l2DnGRKtfkczmrFww6YbgJ0H1YaIxLFzx13hOHlleA+VHr0zHbREZq9Uub9j5
+	 sXDt42oETIzX8QyEe6scH2XToSwnxZ06xzWhu7JqgBJ0OFWclUpd3h3PRXb9hl5cXu
+	 m4Nc2wlMzNliTWwJq9pEVm1Of/c+mIoy/vAK/oVIO1pERGdENBDbS9SYMfx/QNqoAx
+	 xRkQ3JNk+XyzwlAQgf9L1m0ygT1V1ieQpIF+DWK4pWqlZpwLLZXqLeqWeXgB+SHGxj
+	 5vxtgV+F3UTa7beoNhSRP8pLFJkjfQT4fDkdV1OH4J+pHkknGfrRba5VOgeqPm1eYV
+	 wlfIYB9psQ3+w==
 From: Sasha Levin <sashal@kernel.org>
-To: youyouyu@amazon.com,
-	dgj@amazon.com,
-	gunnarku@amazon.com,
-	jack@suse.cz
+To: sven@narfation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] quota: initialize dquot cache before mounting rootfs" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:00:59 -0500
-Message-ID: <20261109200059-failed-7.3-e21a6f39aa6d@kernel.org>
+Subject: FAILED: patch "[PATCH] batman-adv: tt: only transmit local ROAM flag together with DEL" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:02 -0500
+Message-ID: <20261109200102-failed-7.3-10f24f058417@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,144 +67,107 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773
+git cherry-pick -x 10f24f058417024a2c19cb8d88a6a0678a58a21b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200059-failed-7.3-e21a6f39aa6d@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200102-failed-7.3-10f24f058417@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e21a6f39aa6d0336ffbf5f34e5fa20ff8de36773 Mon Sep 17 00:00:00 2001
-From: YouYou Yu <youyouyu@amazon.com>
-Date: Wed, 21 Oct 2026 18:12:17 +0000
-Subject: [PATCH] quota: initialize dquot cache before mounting rootfs
+From 10f24f058417024a2c19cb8d88a6a0678a58a21b Mon Sep 17 00:00:00 2001
+From: Sven Eckelmann <sven@narfation.org>
+Date: Thu, 8 Oct 2026 16:30:06 +0200
+Subject: [PATCH] batman-adv: tt: only transmit local ROAM flag together with
+ DEL
 
-On some systems, a tmpfs backed rootfs is extensively used throughout
-system's lifecycle. tmpfs quotas are needed to limit per user rootfs
-usage. However, booting with CONFIG_TMPFS_QUOTA=y, an initramfs, no root=
-and "initramfs_options=usrquota" panics at boot:
+BATADV_TT_CLIENT_ROAM is part of BATADV_TT_REMOTE_MASK but on the wire it
+only has a defined meaning together with BATADV_TT_CLIENT_DEL: the
+originator no longer serves the client because it roamed to another node.
+Such a DEL is only relevant for events (non-full table requests).
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:dqget+0x1ac/0x490
-  Call Trace:
-   __dquot_initialize
-   dquot_initialize
-   shmem_get_inode
-   shmem_fill_super
-   ...
-   mnt_init
-   vfs_caches_init
-   start_kernel
+An ADD carrying ROAM is processed (by accident) by the receiver like a
+ROAMING_ADV: a newly created global entry is marked as roaming and is
+excluded from the global CRC. But the sender includes it in its local CRC.
 
-The rootfs is mounted from mnt_init(), but the dquot hash table and
-cache are only set up later by dquot_init(), an fs_initcall. Creating
-the root inode of a quota enabled rootfs thus dereferences the NULL
-dquot_hash in dqget().
+But such a behavior doesn't make sense for non-ROAM_ADV because a new TTVN
+is meant as announced commit of the local TT table of a node and should
+therefore not be used to create a temporary (roam) global entry in a node.
 
-Rename dquot_init() to dquot_cache_init() and call it from
-vfs_caches_init() before mnt_init(). The slab, percpu and early
-workqueue code it relies on is available there, and the workqueue
-rescuer and shrinker debugfs entries are set up later by their own
-subsystems. Keep the sysctl registration in an fs_initcall, as done
-for the dcache, inode and mount sysctls. This only moves existing
-allocations earlier in boot.
+At the moment, such an ADD with the BATADV_TT_CLIENT_ROAM flag set can
+happen due to two mechanisms:
 
-Fixes: 278033a225e1 ("fs: Add 'initramfs_options' to set initramfs mount options")
+batadv_tt_local_valid() copies all flags of the local entry into a full
+table response. It is not synchronized with batadv_tt_local_mark_removed().
+An entry which was marked as ROAM|PENDING by a ROAMING_ADV is still part of
+the current TTVN and is sent with the ROAM flag set. The receivers then
+create a roaming global entry for it and detect a CRC mismatch, which
+causes them to request the full table again.
+
+The same can happen for an ADD change which is queued for an entry which
+(still) has the ROAM flag set. For example when only the dynamic WIFI or
+ISOLA flags were updated.
+
+It is not triggered by batadv_send_other_tt_response() because
+batadv_tt_global_valid() is already taking care of filtering out
+BATADV_TT_CLIENT_ROAM entries.
+
+For the two problematic announcement mechanism, only send the ROAM flag of
+local entries together with a DEL.
+
+This only fixes the ROAM marking of the global entry and the resulting CRC
+mismatch. When the requester of the full table is the node which sent the
+ROAMING_ADV, the still announced entry will (independent of the ROAM flag)
+cause batadv_tt_global_purge_local() to remove the requester's own (new)
+local entry for the client. This is not addressed here.
+
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: Dylan Johnson <dgj@amazon.com>
-Signed-off-by: YouYou Yu <youyouyu@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
-Link: https://patch.msgid.link/20261021181217.20171-1-youyouyu@amazon.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Fixes: 27b37ebfa2d2 ("batman-adv: correctly pass the client flag on tt_response")
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- fs/dcache.c              |  2 ++
- fs/quota/dquot.c         | 10 ++++++----
- include/linux/quotaops.h |  5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ net/batman-adv/translation-table.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 37d021d22a7da..a9a919bc91976 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -33,6 +33,7 @@
- #include <linux/rculist_bl.h>
- #include <linux/list_lru.h>
- #include <linux/namei.h>
-+#include <linux/quotaops.h>
- #include "internal.h"
- #include "mount.h"
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 3349376a9087d..39b61426f1680 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -643,9 +643,17 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	ether_addr_copy(tt_change_node->change.addr, common->addr);
+ 	tt_change_node->change.vid = htons(common->vid);
  
-@@ -3683,6 +3684,7 @@ void __init vfs_caches_init(void)
- 	inode_init();
- 	files_init();
- 	files_maxfiles_init();
-+	dquot_cache_init();
- 	mnt_init();
- 	bdev_cache_init();
- 	chrdev_init();
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 3ad19d7e472f6..a3d5035918714 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -2958,7 +2958,7 @@ static const struct ctl_table fs_dqstats_table[] = {
- 	},
- };
+-	tt_change_node->change.flags = flags;
+ 	del_op_requested = flags & BATADV_TT_CLIENT_DEL;
  
--static int __init dquot_init(void)
-+void __init dquot_cache_init(void)
- {
- 	int i, ret;
- 	unsigned long nr_hash;
-@@ -2966,8 +2966,6 @@ static int __init dquot_init(void)
- 
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
- 
--	register_sysctl_init("fs/quota", fs_dqstats_table);
--
- 	dquot_cachep = kmem_cache_create("dquot",
- 			sizeof(struct dquot), sizeof(unsigned long) * 4,
- 			(SLAB_HWCACHE_ALIGN|SLAB_RECLAIM_ACCOUNT|
-@@ -3008,7 +3006,11 @@ static int __init dquot_init(void)
- 					   WQ_UNBOUND | WQ_MEM_RECLAIM, WQ_MAX_ACTIVE);
- 	if (!quota_unbound_wq)
- 		panic("Cannot create quota_unbound_wq\n");
-+}
- 
-+static int __init init_fs_dquot_sysctls(void)
-+{
-+	register_sysctl_init("fs/quota", fs_dqstats_table);
- 	return 0;
- }
--fs_initcall(dquot_init);
-+fs_initcall(init_fs_dquot_sysctls);
-diff --git a/include/linux/quotaops.h b/include/linux/quotaops.h
-index 0c64ca674e778..7346efc85d436 100644
---- a/include/linux/quotaops.h
-+++ b/include/linux/quotaops.h
-@@ -40,6 +40,7 @@ void __quota_error(struct super_block *sb, const char *func,
- /*
-  * declaration of quota_function calls in kernel.
-  */
-+void dquot_cache_init(void);
- int dquot_initialize(struct inode *inode);
- bool dquot_initialize_needed(struct inode *inode);
- void dquot_drop(struct inode *inode);
-@@ -206,6 +207,10 @@ static inline int sb_has_quota_active(struct super_block *sb, int type)
- 	return 0;
- }
- 
-+static inline void dquot_cache_init(void)
-+{
-+}
++	/* the ROAM flag is only meaningful for the receiver in combination
++	 * with a DEL. An ADD with ROAM would be interpreted as a roaming
++	 * advertisement
++	 */
++	if (!del_op_requested)
++		flags &= ~BATADV_TT_CLIENT_ROAM;
 +
- static inline int dquot_initialize(struct inode *inode)
- {
- 	return 0;
++	tt_change_node->change.flags = flags;
++
+ 	/* check for ADD+DEL, DEL+ADD, ADD+ADD or DEL+DEL events */
+ 	spin_lock_bh(&bat_priv->tt.changes_list_lock);
+ 	changes = READ_ONCE(bat_priv->tt.local_changes);
+@@ -3342,8 +3350,12 @@ static bool batadv_tt_local_valid(void *entry_ptr,
+ 	if (tt_flags & BATADV_TT_CLIENT_NEW)
+ 		return false;
+ 
++	/* the entry is (still) announced. A ROAM flag of an entry which is
++	 * pending to be removed must not be transmitted. Otherwise, the
++	 * receiver would handle it like a roaming advertisement
++	 */
+ 	if (flags)
+-		*flags = tt_flags;
++		*flags = tt_flags & ~BATADV_TT_CLIENT_ROAM;
+ 
+ 	return true;
+ }
 -- 
 2.53.0
 
