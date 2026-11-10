@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316490;
-	b=uvgfriOB41bkAOYYlTekw28neqThvTnxiI6pFUQQc/BThspf0hO03UPyyiXj9NAXtNpO
-	 C8cRYE9fxqhAG+blkaqeDjsxO2+tz0vwd/Ul1VRbJNoHxld7Un3UJfXF8c+TMVsF2BWTL
-	 MaX1hrLhDQAz0ga7H3ofdnmAVhKoFPZpmhibTZJ1gqmy+nb0EIdcPHpDFLfo5Nsnm23Hq
-	 wuIaCRmR5E3lZw9iEo35N4MeE4KhXxLAJPuR4SJ4uUo00vHWSXvlLaYwlfwIk2eEt8vX1
-	 tO8ghHEltJ9jZr4vrj4gKycUt+enaDplq/Epk5AwsYNZc2FzrtW8OsgaMi/ES0cTmBg==
+	t=1794316570;
+	b=4RiTLeDgySQSroNknHz5LChpcKxp5ZZLASqx1L0O/Zo2D9IwKah6ETsAyt8ldds3xrQQ
+	 RlR8DBg7kdKvdrURoV90xDvCAWDz+VWF8MbcjQzOPgdHYLtP2A4h6op/2bYqPDmBOH5mm
+	 LwzN3/xyzzPSTrFkHi5GxOOmhXX0LyUX/Tb05lVHPj6reY3puYNXrQH2dW9ZxOYhjmQsS
+	 3nS11SWfd7F4smWfUp1DhTBoC7j5ZI1qo4sh2HBiNP17+ncEqtmvHweKHrk/SQAFjAWgv
+	 lrCZLPE47KXXrbXOdZilYr2az2vLmlM9jrM61Te61Kq89caB4AaD7pNAQyaHQPQ2sPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316490;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316570;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5acTGg2bO/eOR50xPO3y8Yv2ondVwnX7LFCapqMBQHg=;
-	b=bZdI8a87E7yuSYzXxrml7FrwXqAVK7cxQSLqK4VxpLG7xhWxSRDfoGSjdWdkFYjKLUTs
-	 mYOXWD0rxDXzgB7hwDlZQkhE8QQrEJBqMwR/BHVHHYs7h1oYkT1wuLu6Rx8L3NoP4w4nL
-	 GQnLVSAgzkf2E5CwXwKZVd308FxH3AkWu63ctlBJeBlBAm2qoBoakpeL3l3cNabz2I8NH
-	 n3oAUl/uHG7HamDUGOi246kGq2HWl8OAjIGPDhmASnjlAMESMs0L9eTIV7X0QgMoT1AfB
-	 7mQW5DEaBeMhxQ0il7BNbVNII3uFlFvXlEx6is/OLcBu8cWnoUy8WgMGHD2+cWzAnaw==
+	bh=Y4wnUq90PEd/DpoX3brEoXSwFXGQlvHuggwHgIe95sI=;
+	b=kp+AIpjfNzRz+MEVlNabQvHM38PCZy8ENAHZMz59ELBurhwWdh74gfnTLxdOo83f8icl
+	 IUPkrKqn6qi7vOBIT9yQ8cyNk2ST3X8om/XUKh2mQeGETBdHKQumXNedgO58RltCieSDL
+	 G55sW2hvqyTL6iMZLRMYNOcRg6HgzRP3xBEqzuTdMQ7JNjwWEuUzDNUmG5SjIzqS58ZB/
+	 VGw2VY561VEYS1Z7Lyu4XR7hhF7B9Riyusq781mG3HxLxVSDczgNnBP+/xEl70mlN6f4x
+	 xdd7QtJnYd1yoh3zavJD2bUDtypgHd4ZQGM46s4sAOk9yPRYkcaHPAdrXrC6DrRWdtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRTZO40Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmz8j8IL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE3F606A74F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:14:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620E2606BFE2
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:16:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRTZO40Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3AD1F0089F;
-	Tue, 10 Nov 2026 13:14:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmz8j8IL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482051F0089F;
+	Tue, 10 Nov 2026 13:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316490;
-	bh=5acTGg2bO/eOR50xPO3y8Yv2ondVwnX7LFCapqMBQHg=;
+	s=k20260515; t=1794316570;
+	bh=Y4wnUq90PEd/DpoX3brEoXSwFXGQlvHuggwHgIe95sI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iRTZO40ZlbwiIf3qJXCYnjpogHfzFQ8yQpIx8m8FCrv0j3R/5OKBa4J3rj4HiUi1i
-	 uc+vmpZUpVZLG+971J8b6I63s+amgqmuraKM73RQufhjlmLCHnZZ48SKRohw2Q/Oro
-	 SUEJPoOiU3rGsV7jEDsJ0n9zM12UL8GsZgW8LzXuzUXYF0Wpje+duDE32zdPioeNYV
-	 7thqvyT9+SnYukYAQPO48E5mJjt9SCQkmETfnOl5jHJI0cH3i5POVRaEoP2BFHxn1Q
-	 6pQ3tIhkI+yv7gicOvxQzRKYVgsgVAejvQbNZIdgiXSlsDbCFrtuQ+DlCg37ww2qMM
-	 Kkq1hQiw7eTzQ==
+	b=nmz8j8ILfosGlpN1AkEm4ConW0ZzhNUlJCwtKQhq0ijjN93Wr87a02u8v0p813KtN
+	 8QuOlW/B+bHGZxxOrYBMXFPhXKHY+t1AD/PL/A5Y/PcyWWX63oMj8nkisRtUcjXgKb
+	 sBtV8WmqjxvFp+bZRZZCI6yJ7CcWFmOPMBoWwskldhhqYyXh1rFKPQ5vhCo3RsFIhj
+	 rCexOmZ65KePNYwjslGScHhO08Va3lcbO56TyQ+19VkJZ1w9evIy2JUQXPMZgX24br
+	 ibmYdMQSoEZDfAemPzfMh4ZwAMRuS88jmqyjoBTbdohXAv3qc3m6L88ZY3NsK5X3mR
+	 ocgALGjKVy8Jg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Breno Leitao <leitao@debian.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] f2fs: fix to check continuousness in f2fs_sync_meta_pages() correctly
-Date: Tue, 10 Nov 2026 08:14:48 -0500
-Message-ID: <20261110131435.1701877-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] dcache: report a Tasks-RCU quiescent state in dentry_kill()
+Date: Tue, 10 Nov 2026 08:16:08 -0500
+Message-ID: <20261110131530.1663170-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051837-failed-6.12-1383cff4ccf3@kernel.org>
-References: <20261107051837-failed-6.12-1383cff4ccf3@kernel.org>
+In-Reply-To: <20261107053020-failed-6.6-a647a53bc89a@kernel.org>
+References: <20261107053020-failed-6.6-a647a53bc89a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +62,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 1383cff4ccf3c8833c6255edffa29eb67c6419bb ]
+[ Upstream commit a647a53bc89a046bee4a12a0a5627f2dfaaef807 ]
 
-In f2fs_sync_meta_pages(), whenever i becomes zero inside while loop,
-below check may be skipped, it failed to check the continuousness:
+I am constantly seeing the following warning on Meta's fleet:
 
-	if (nr_to_write != LONG_MAX && i != 0 &&
-		folio->index != prev +
-		folio_nr_pages(fbatch.folios[i-1])) {
+  INFO: rcu_tasks detected stalls on tasks:
+    native_queued_spin_lock_slowpath
+    locked_inode_to_wb_and_lock_list
+    inode_io_list_del
+    evict
+    __dentry_kill
+    shrink_dentry_list
+    shrink_dcache_tree
+    d_invalidate
+    btrfs_delete_subvolume
+    btrfs_ioctl_snap_destroy
+    btrfs_ioctl
+    do_syscall_64
 
-Cc: stable@kernel.org
-Fixes: 580e7a492608 ("f2fs: convert f2fs_sync_meta_pages() to use filemap_get_folios_tag()")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: adapted the cached-block check to folio-based f2fs_sync_meta_pages(), using nr_to_write instead of background and folio_nr_pages() for index increments ]
+dentry_kill() is the common funnel for dentry teardown: dput(),
+shrink_dentry_list() and shrink_dcache_tree() all reach it, once per
+dentry, and its cond_resched() is the only reschedule point on that path.
+
+cond_resched() is not an RCU-tasks quiescent state.
+
+Use cond_resched_tasks_rcu_qs() so the teardown reports an RCU-tasks
+quiescent state as it proceeds.
+
+Fixes: 9c5f1d30199d ("dcache: move cond_resched() into the end of __dentry_kill()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: applied the reschedule helper replacement at the existing end of __dentry_kill() instead of the restructured dentry_kill() location ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/checkpoint.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ fs/dcache.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index dc9540400caae..eb928d644542f 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -423,7 +423,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
- 				long nr_to_write, enum iostat_type io_type)
- {
- 	struct address_space *mapping = META_MAPPING(sbi);
--	pgoff_t index = 0, prev = ULONG_MAX;
-+	pgoff_t index = 0, next = ULONG_MAX;
- 	struct folio_batch fbatch;
- 	long nwritten = 0;
- 	int nr_folios;
-@@ -444,9 +444,8 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
- 		for (i = 0; i < nr_folios; i++) {
- 			struct folio *folio = fbatch.folios[i];
+diff --git a/fs/dcache.c b/fs/dcache.c
+index e1f4a9e61e589..023a9ab9c7574 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -625,7 +625,7 @@ static void __dentry_kill(struct dentry *dentry)
+ 	spin_unlock(&dentry->d_lock);
+ 	if (likely(can_free))
+ 		dentry_free(dentry);
+-	cond_resched();
++	cond_resched_tasks_rcu_qs();
+ }
  
--			if (nr_to_write != LONG_MAX && i != 0 &&
--					folio->index != prev +
--					folio_nr_pages(fbatch.folios[i-1])) {
-+			if (nr_to_write != LONG_MAX && next != ULONG_MAX &&
-+					folio->index != next) {
- 				folio_batch_release(&fbatch);
- 				goto stop;
- 			}
-@@ -475,7 +474,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
- 				break;
- 			}
- 			nwritten += folio_nr_pages(folio);
--			prev = folio->index;
-+			next = folio->index + folio_nr_pages(folio);
- 			if (unlikely(nwritten >= nr_to_write))
- 				break;
- 		}
+ static struct dentry *__lock_parent(struct dentry *dentry)
 -- 
 2.53.0
 
