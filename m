@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313102;
-	b=lDICxRK3VdshCSsr1uvmpflUuzsWiVCpJigm3lnxrFscDYeKcRDeMuBvN6im33CSvLk8
-	 10j0yjyBgt2FHgzcSGD11CUYGenIkYSHYONOc5PRX85JjpquDiBSEEVvjKXgQyV5v2TM5
-	 jh9c51+t3GpDb0giIG6JnTPKRgTR644CKywmYKPOQMQwz7Bsh3k06vbQbCcmV8Yr5MOOA
-	 fzRTiXwF3TXXRiJWO7RR4L+fIzGoiaqF8xxJ4BcC2qxlLAY5HIlNkwjx4Z6hgOYOUKCYE
-	 eJtG7bhIL5KSKXSukQjJRjvSJWyDSiyFuixis4odf5YH3TrxEHYhMZygjLIlKrDkynw==
+	t=1794313194;
+	b=HFbpVhHGDUKOjPoEIJMOZXFUBNMKSSYdC+bfJnlVEwKpxXSALri/D44sg6eJ72x+A9+G
+	 HlJvN0Nl78oDFbj8t6GQ+ng8PmrD/s6yqUrb81ziLOe+H/SRyA9NMsHgw1r1a96ydiI6f
+	 FRjYFB+KN0G8NP9G0LYJQ5jdGQkAgB8bU0PIPVnMdpEILvbPOa21AmFq2hi/NH4C5DPoo
+	 /uxBvwRaS3p4HtgDySfBLhMZKGSxslMBIYXMaPrzE+YgnxjsYt/oERCSsjQz/75eV8Qe2
+	 grVokVXLJXXBLJxZbTaGALEmEqecXfOQVhDu5B75sF3bSVAvP8bEUTAXdp0+AiSz7Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313102;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313194;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZIJWQ2myrys9mJU+5h/n/zDd+azt+wjrOqDl9ey6a0c=;
-	b=wx/GyUaie5RK6dhGrOVWwh8J7ZzygfFjIhzYAsTAlINhNC7B92sY9kyiXfWV84nXflOK
-	 nf5/bb2zDsTVPAt2JH9vUFUFdtDHI5jcOwZTYCXOs0f6ozChgJWlWJ5XeB81I1BPIka/J
-	 I2YL4iFKwkUZtkYwJZx6AvMQ3NQMxNbQb7TBV5UfKfTVOTNruXZSEWnOSCnlbYXbHzD/6
-	 Sj7Mbql6XBzKeUt/yVMdSw7d5rfkD1z22PN7vRFLmYhxPUw23WorMZWUyfLv86NDSKd5x
-	 O6DWItpidAR8vvoRqlyzTg43U0RV8UXsVW4O1xjaw8rc+Vq00yMZCY5jJoTJibSs5Mw==
+	bh=gMtivmaeocc8JXf5jXFKUuZNktWZqer+YH/ElacFTps=;
+	b=KPvqmc842S+wkgeuc9YCldZGS/nYGF/RSA4fDf6aw4dgzWQ3t6Jwx78bYEBFjAOfnj9E
+	 Q7TrKButqp8q1OrSs51ddQQxsibDTBXPHzFXFwGSxsEa/SjycScDFCBedXZyvvbQ+qEFK
+	 rJU1gKh5GgcxEjkNodyv+59egszpXkmhKMWGYHC+mDzzT4C9PN+JOZXkgGA1/YaVFwnMD
+	 Si47kXW7FEN+qN7ptxLPm7ZeqJWEC+gv4Z9i8V3CztxvFo1xnOI/ONggiAw/qMiw92/1n
+	 48mTggTARJR2qXoPG7kIumgPw+6c0n7h5g5qeT2E4CyU+QMKTUS1CHLBfQaU3oOCm8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Db8lh8JJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KDmxrjos;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D965F606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:18:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFBE606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:19:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Db8lh8JJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA7E1F008A2;
-	Tue, 10 Nov 2026 12:18:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KDmxrjos
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8A21F0089F;
+	Tue, 10 Nov 2026 12:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313101;
-	bh=ZIJWQ2myrys9mJU+5h/n/zDd+azt+wjrOqDl9ey6a0c=;
+	s=k20260515; t=1794313194;
+	bh=gMtivmaeocc8JXf5jXFKUuZNktWZqer+YH/ElacFTps=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Db8lh8JJJwwH0QunnqgrZ18ERTbXjTlVfM8cK66B1rQqn6019p7bmyVmSeh6VfHUC
-	 JJdU99oRl/nzfdhx/2CwSjR+EuBulI6wxxgpCpgIP9kqUZFJXs9qXEL8X1OuMbi3LX
-	 9yGaA+RM/R+A8AMTSq2WT/wELcjsg5SDMPxDNaC/9CQtDmU11ACfVdVv8lI8S/TKtE
-	 h+9+jcgZeJPU1TJSSzZXh9fTb38sK1j8bKe/MpwY8Fx+Ut7oQrxgvG4p0uL+4H1ee8
-	 HeOx1GgjALeFMmSGvn64eRJxgJxw/LXd34bApTyZj/CEYJaKW826wfutoPVZM89WGf
-	 l0bAGY2NaO8Hg==
+	b=KDmxrjoszVUsPj6RbclxVq9K+rodUx1jM2ODJjbyR/r7+WvrsHx19hM0oIZYjODp6
+	 Xm3smW7JhLC1qw1aGLa/hgdYw4C23Gd9Ieh8XSPGHJBhJgusB4cVtjRdrwKHWCaYj4
+	 fyY5YTJTU9GWUB4DRLHRyVYl+jmsyYXq6EXE+sPV8vPBqqstzs8cYBG7NfZD29KThZ
+	 9+9IQIY7q6nbLzjpn02YQh8diNqFiofid9E1gaBzHRWozASLF5NJqgVNXCOyLh/pCy
+	 X4dYo9RKsGPkn1QG5osozTSdIlrtrZG+S/c7yMJlO9C8M/TN0WAg1QzVIJWJvluwpA
+	 JJaLL3sANX/aw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Danish Khateeb <danishkhateeb03@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ALSA: timer: Handle userspace-driven timer ioctls from 32-bit tasks
-Date: Tue, 10 Nov 2026 07:18:18 -0500
-Message-ID: <20261110121811.1094002-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()
+Date: Tue, 10 Nov 2026 07:19:52 -0500
+Message-ID: <20261110121929.1131175-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110121811.1094002-1-sashal@kernel.org>
-References: <20261107051806-failed-6.12-1bbc033983b7@kernel.org>
- <20261110121811.1094002-1-sashal@kernel.org>
+In-Reply-To: <20261107060019-failed-5.15-62ee3da38f41@kernel.org>
+References: <20261107060019-failed-5.15-62ee3da38f41@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +61,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Danish Khateeb <danishkhateeb03@gmail.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 1bbc033983b76f41d51d4a48838bf94c5e6b6f50 ]
+[ Upstream commit 62ee3da38f41bef83c1cf250f6816a0ee187674b ]
 
-32-bit tasks on a 64-bit kernel can't use userspace-driven timers. The
-compat handler for /dev/snd/timer doesn't list SNDRV_TIMER_IOCTL_CREATE,
-so creating a timer fails with -ENOTTY. The file returned for a timer
-has no .compat_ioctl either, so SNDRV_TIMER_IOCTL_TRIGGER fails with
--ENOTTY too.
+mtd_get_sb() is called with a reference to the MTD device already
+taken by the caller.  When sget_dev() fails, the function returns the
+error without dropping that reference, so the device is never released
+and its refcount never reaches zero.  Every mount attempt on an MTD
+device whose superblock cannot be set up leaks a reference.
 
-struct snd_timer_uinfo has the same layout for 32-bit and 64-bit tasks,
-and SNDRV_TIMER_IOCTL_TRIGGER takes no argument, so both commands can
-be passed through unchanged.
+Restore the put_mtd_device() that the fs_context conversion dropped on
+this path.
 
-The utimer selftest doesn't catch this when built with -m32: it takes
--ENOTTY from SNDRV_TIMER_IOCTL_CREATE to mean CONFIG_SND_UTIMER=n and
-skips.
-
-Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
+Fixes: 0f071004109d ("mtd: Provide fs_context-aware mount_mtd() replacement")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-Link: https://patch.msgid.link/20260928182352.309457-1-danishkhateeb03@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: adjusted context around the existing sget_fc() call instead of sget_dev() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/timer.c        | 1 +
- sound/core/timer_compat.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/mtd/mtdsuper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index 688a2d1257485..8f84055d3e53f 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -2104,6 +2104,7 @@ static const struct file_operations snd_utimer_fops = {
- 	.llseek		=	noop_llseek,
- 	.release	=	snd_utimer_release,
- 	.unlocked_ioctl	=	snd_utimer_ioctl,
-+	.compat_ioctl	=	snd_utimer_ioctl,
- };
+diff --git a/drivers/mtd/mtdsuper.c b/drivers/mtd/mtdsuper.c
+index 38b6aa849c638..24d6e3540f345 100644
+--- a/drivers/mtd/mtdsuper.c
++++ b/drivers/mtd/mtdsuper.c
+@@ -63,8 +63,10 @@ static int mtd_get_sb(struct fs_context *fc,
  
- static int snd_utimer_start(struct snd_timer *t)
-diff --git a/sound/core/timer_compat.c b/sound/core/timer_compat.c
-index 4ae9eaeb5afb1..7b648edcb9cba 100644
---- a/sound/core/timer_compat.c
-+++ b/sound/core/timer_compat.c
-@@ -98,6 +98,7 @@ static long __snd_timer_user_ioctl_compat(struct file *file, unsigned int cmd,
- 	case SNDRV_TIMER_IOCTL_PAUSE:
- 	case SNDRV_TIMER_IOCTL_PAUSE_OLD:
- 	case SNDRV_TIMER_IOCTL_NEXT_DEVICE:
-+	case SNDRV_TIMER_IOCTL_CREATE:
- 		return __snd_timer_user_ioctl(file, cmd, (unsigned long)argp, true);
- 	case SNDRV_TIMER_IOCTL_GPARAMS32:
- 		return snd_timer_user_gparams_compat(file, argp);
+ 	fc->sget_key = mtd;
+ 	sb = sget_fc(fc, mtd_test_super, mtd_set_super);
+-	if (IS_ERR(sb))
++	if (IS_ERR(sb)) {
++		put_mtd_device(mtd);
+ 		return PTR_ERR(sb);
++	}
+ 
+ 	if (sb->s_root) {
+ 		/* new mountpoint for an already mounted superblock */
 -- 
 2.53.0
 
