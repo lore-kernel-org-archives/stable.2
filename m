@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344397;
-	b=EAdgCFyzj61CSPaER80oqho5xugKAdl9SZodhDQItjGswukJ6qzmqEf2yAL7q1lQsnva
-	 f/Z0vtWruVhZplW2SMhYEyuE3jmSNIwzyIa08gyksfTnN19ygYm+zv4q83NT02vMmn6aA
-	 gMvk5ZVS4daxQOaCssTxX1I5N4DkIl2xOKmF/ONS+Lusfhv77eupb4nbzE8sGYdyD0ukC
-	 W7k1VjL/T7gbHgIuHrDEBiaIxH1j4k21AlS3s5eXL8FuMDZdLq11a9AYd4yW4D6g1EK7R
-	 yzXaJgrrGEyutVE3LiLyml1NHPfZ5bSHTvVqIBT6A54Wqpjx+AoDwAGGJnnAU7bqNgA==
+	t=1794344398;
+	b=5l41tKb4jklOUofaHRnCiEwZbXnnVhVoveH0Yiw6ZxuIyV3OOtK7KXULYwp10HFaXm8U
+	 DOkraaA+Pyau+GxmNwV8rGEcmwV79cK98IwXLiRdRVRDIyaPk1wrJ2cnM/HBQa9ZTVFm7
+	 nK8cSK54/+D83qxaYZ1cYbk1IJgATp32AKcOoHqXqEhr8ST8nDTYvYqHzmD01K1fC+pZd
+	 QoaUpgFgFD0DVQBcBjpxjd1/t2Ye8xtdXjuTKNFH51LMaObxpt2LN7lUR/vOp0G2litXm
+	 XC+onD1A0dPQ8tFUgt6/mQItw1//kYk7mcjYSlamDkfb0xUCQduNJbUrX8YAu43HWrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344398;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IPB4mZQnoaznQP12xe0gnS734FPPoRMI5GhsOMc8seU=;
-	b=Z7CWS00LRUl6xNj57SyMZiq3lHGtwQiLwXK7A8w7d6Hd2fwXD7eVSuuUw0afI1reXy4H
-	 czYnVRguLUH5ACo732qbRNhbA6cV8alQubrjRJXtmh7VjioNV/qZcqQyrydAvqCcHruVe
-	 cK+feAQVu2SN4mLOSQzts1Uso+zj0vLz5lk94wOVPwROZvSMQPIe61vjLF1icxXYPe1jr
-	 ZWBiM63gEwkHpTSxtOLed24aVHOHLa4ZNcDNw7nMBvCK0EEYxkuJP/nybsCCrxWotPFNH
-	 JgYdEtNy2NAgPVK0s0vBkw/Gbp3pDcePcgC5SIWiSU960qowuTrMicI349uwdx1ik8A==
+	bh=glOwsEYmKhlMNpUk27Xoyt5cx/Nlp6c1lt4NQcSc3S4=;
+	b=XtfvZmTuFCYDjv+3dz87bZ5JM7qHuVttbmhNge+h96prUeF4c7lAsD2KPzLmk6TGfRXv
+	 t3NfmcFyr0i14BTv1pbRPFNCh5THQg5voIQqU1ktNjLsaWLXR5g+E7Ea3r7nKX0d6vonz
+	 SlbQCz2EciyhF7kEGtdzbMc6gIeIs0T8ybC2OMNJq0iXgCsxyyNFNAMk2rD6g8aDvlLOg
+	 7md8uhVqYoGGYGTVyLlhOxmb+IH2QSBV5EwJheQk2FRXX6Ae2+s0HTm8jCXebFtueWHtc
+	 gToo1Rhjqa9PcoNHi9vPEMv4vjwTndhWd9f9duKxiWsH4TY2qNBRWa7p8UXHbBFATfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTs77+3E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDLPXjhe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A702A606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6216A60A260D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTs77+3E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E113C1F008A1;
-	Tue, 10 Nov 2026 20:59:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDLPXjhe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A651F0089F;
+	Tue, 10 Nov 2026 20:59:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344397;
-	bh=IPB4mZQnoaznQP12xe0gnS734FPPoRMI5GhsOMc8seU=;
+	s=k20260515; t=1794344398;
+	bh=glOwsEYmKhlMNpUk27Xoyt5cx/Nlp6c1lt4NQcSc3S4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YTs77+3ES5YEhe+oBH47lXEqSLEsFXlaoSN5zAsHaYJkzuFkD8PobWN9RQ1teZTSr
-	 EBAzz61ex+a+ScTp+H7z9ESp8+f4eq0DP3IKEGQvFmpxVyNniUaRjJfMS1NxEPYg7q
-	 Oz0mNdj1ILDcqNefesbLBc0dDi1wWY510HtGNxFrw9l3lraFfo7uJRHo5viXkwThWq
-	 004PSySz/8vauu062iZfI6Sr48zpOlNkhoShy1LHv8bo5NGVO9IrWjhb2QRDiPC99n
-	 PU3/UmDh9KEloTlpjOnTwVgPEAlj/ByUxKOuCABZyYIIPkABuOQTvKHiNFDLvmgbEP
-	 HJeEnRzIBeNZA==
+	b=RDLPXjhevvKxCOA1xiP2BOXJI6O1AUmzocw1KOYDIpmx0HyJwf1efVJvmBa/YwdWl
+	 P1zTy1r0zpIo6TWAThFlHR2nsoHDix2HOGAC/PAqO1mlegq3vNsqvdiL33X07LAJla
+	 5Jnj/AnHlPgYxEktNyZ2hBfi5+ZJv82cGS2XAUqRoGtQiBsQGRqZsZCFrJr80LSTUK
+	 iqZElPxL4T+Pk6WWi0ZybDtXhw9k+4clJOFUBGOLrxdsJ8VoVdkY+EnEWjfFNkvzNl
+	 7Hn/aqIH/EgcWrp/ltkxfdyAH8gngVPyH/UFRKUcKdEsHtuZXOYiwtB2CIVT6XyXzp
+	 GGnsF+h4MXgpw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	cassel@kernel.org,
-	dlemoal@kernel.org,
-	Zhao Gongyi <zhaogongyi@bytedance.com>
-Subject: Re: [PATCH 5.10.y] ata: libata-scsi: reject data-in commands with a data-out buffer
-Date: Tue, 10 Nov 2026 15:59:22 -0500
-Message-ID: <2026-11-10-1-daily-reply-0026-libata-data-in@kernel.org>
+	ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+Subject: Re: [PATCH 5.10.y] can: dev: can_fill_info(): don't wake up controller if interface is down
+Date: Tue, 10 Nov 2026 15:59:23 -0500
+Message-ID: <2026-11-10-1-daily-reply-0027-can-fill-info-5.10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110065405.45993-1-zhaogongyi@bytedance.com>
-References: <20261110065405.45993-1-zhaogongyi@bytedance.com>
+In-Reply-To: <20261110084318.223328-1-chunyuzhiqiang@yinhe.ht>
+References: <20261110084318.223328-1-chunyuzhiqiang@yinhe.ht>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,9 +60,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> ata: libata-scsi: reject data-in commands with a data-out buffer
+> can: dev: can_fill_info(): don't wake up controller if interface is down
 
-Queued for 7.3, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
