@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279746;
-	b=WpPwb6CHS0YsgFZZL8HFhKjhiBir0jBfXkfm9EOKqFJryEfb2vaiW6LU2xcuXuwoE8gg
-	 QlvjZiRZAKIMyr3RKQihWSkTuw/7jeztkrnNYxrPZqwM9QdVbyLuTNP2v1VTWPH4NDuvC
-	 9JguX2c05bzBA9wRonHT4BHFViRqkn3f8jJZSEkc4dIXIWFEopknzGmXUxwwK0qnyoVXz
-	 eybwhmmxUhHnLlrHU0u1mzNmCpwECwo5e5zDgYKeyZLZK+OBOywUACLgjEUM/s3DLHE7z
-	 f9Qx8SkoVjD7yG8LtdS4/dMAQu7NSNWoY5YP+clvOqgmqhfmO7GZxN3ysYn/kExu1Aw==
+	t=1794279752;
+	b=LTPtG2t//A3AE/TzJ5fquP18l74yzim883pfJDOMqUf6P6sJE9XYGZLJM2akuOKFp/ZP
+	 KF3xIoyTP4fs1QeUSocTIaJToEgfpi68t5Zch23hUje8rY5Av+YBp069VpmwHxQD0WnQ5
+	 13hh+mRjjItLkwdZbsm4zgCBshXcqmh52wRgIDYSTQGy98s0CAWPpeRs3OFmSmwJT0Ejd
+	 s3tbGwN45o+bS2fEuzSeVeSFZ663848jVMSy5sRy5+OagAwSWo8U7/Ej2HJYg100k3hCE
+	 +vNlolj8hDE99JLedbwGTli23xLyMK8eBv+1M1ltruBRz5reKnjH3HCapHTLCydEDMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279752;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=lNlAAFeqvPs3+2DrLUisJfKXmiq6ODin2NN2Dn+TzsQ=;
-	b=r0cVztY5e0OFR0EvwOvtqX0cA4kje9w4UekGTmztM7KQsp2oWAwOgx9t6ZbspSYGuSmE
-	 mZJuV/bzZc0YGxaUCrifXfuquwVrijPE6lWGS/is1WJGHRCzG/CuE/pcgGxCraSxmpaWz
-	 DRgTQw+JDYDeUf70fxEwXpTizx7R287HOk4G1Kl6ff6thII8y+6Xj9W26BWvDdr+fmS2L
-	 vHrL5VAK4iH1Tra23Tz53iHT8w1VIdlwmHe0pIVWuknmETfSR/U0WaOsrknsQkPn5S+ad
-	 a6MmMSa355flBNZVNrWdXQRIk8XxLBIH0DPHv82fvOh4SC5BRUUNeA2HRZCZqIxubcg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=MMWgpEtU/gtg2eO84Q3N861jXy5hniFgHLN4W28H+nM=;
+	b=PQh4sz9zhc3xSdPmZbMBSXBl6vYorwn3yyhbKFMAGdfqAzdtoOfDZTiSq0pYDxANQe3p
+	 6tWT5ykS/rq7YEpwNhaApABwZtAORMu2PptCrvn7h1A3g56JXk8n/Ff77Upr+CvLZXRr1
+	 YO8CsSLu/sGl0My2UAoSYz2A01uCwSyOCzomqxRQXt7MSWDT/NykgBZ87AM0pIG8TsBrI
+	 +91vgFZN13CMnQ2GwtJtnyn6WpxTTx/fQKuXg3KAh1/YgOa9ftahi4qwHJR3an+nNRBKF
+	 /AVmTLN/bFzCNhy8V6Jhsol/KAlYpIed4FBwwf3g+6MGYTeJydPsZvrVQQcs/LxovvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gFbBk4Zv;
-	arc=none smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m6AHZfyw;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57E8606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:02:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B57E8606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74369606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:02:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74369606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gFbBk4Zv
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7f84a55e31aso879051a34.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 19:02:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m6AHZfyw
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a60f90a924so585740b3a.3
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 19:02:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794279744; x=1794884544; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lNlAAFeqvPs3+2DrLUisJfKXmiq6ODin2NN2Dn+TzsQ=;
-        b=gFbBk4Zv4HAt4Wxj+pKFz4aUR6pmLgUYtSl9v4+p5Qa2ZurJFBBsdjonxf6lmsYMGa
-         fRBWiOb5lhEaD4kGO6T5Y5PQcoUS9XbE1F9vVPW29HUDvlIdrnfWwAyg01diShoK77C1
-         MC9nGnbpBtO3NTY3NiIVQO01wk6HO4x7tc7yKdoFJx5/YohrMKb+E3NhgShT6d6yJlhE
-         YVR4qxvny/1di+qAfMiizlOUuwMc4DTKh373Drz2wT9jq56bgrDHiQaWJWMLm1NQdJoG
-         xSqZmPpqudZoM2duhXKvY4l2uJ6/wrDCaJjI8z/DpE41YpddAghl1/6zJ0RBMcC35kYD
-         3luA==
+        d=gmail.com; s=20260707; t=1794279752; x=1794884552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MMWgpEtU/gtg2eO84Q3N861jXy5hniFgHLN4W28H+nM=;
+        b=m6AHZfywnNj4tR4b0GSl9VsmXD/S9+IKtsaMttHTfmvLEyuNPBVaeyrC6lZybk4qL8
+         AqMx4gh9QY3A2GXi3T3Sl1KNT/PYRt4E28B4bMgBHPvpE7qHNa9zjSUQsa8agsfCwv70
+         rg3VXJLclS4/RPoqCvxawkhdJhW4+YtVb8a3tCocYcSgyb58EDQwb/CRyXhtZ7YHu50U
+         ILsbhkOeFxUCYUnyY50nyNPkbmiub34akV5jNBJl99EPlJFmrpITtmnkiFhkoYI4kYmZ
+         2yxpPHcz4RDp1ojO4rhUmZwwxUiuDbnGIAjqY3xeCnND7EsZ6c0yZI8Lm8NN6TZEN35O
+         Ihyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794279744; x=1794884544;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lNlAAFeqvPs3+2DrLUisJfKXmiq6ODin2NN2Dn+TzsQ=;
-        b=YnKrDkUz6i5YiHGR4beLV+F6suuzsPjiL+OjOrFSJHB0edLDr57vFOTiELloJhDftG
-         rtFBwui7qklAm4RMD+L9sE8X+Ci0ziXlERXvTS6M+bNSMhZFydEnvVKt/tDyWH58FBbS
-         MVCVJVjl3EnXhBXnCSWim9P2dCpYarwU5PbhyWpg19slc9/P1ys6UuLUowVlyTfXvqnv
-         DG45iMy+yd9DlBHAr9us0hjxG/3GeHT6EHFqBwqvU+dDt7UxE+vlVv237r9OuX+HMKkD
-         BuFkn9i+xQ/yuWllDP3cglaHQl19OPqSa4H927CnhKPTI1ZJBarRc/xY2hIEhQ8mdcKj
-         LOlg==
-X-Forwarded-Encrypted: i=1; AL+hErEps+K1m9ptnaaHMvwFK5yfmuTsdEFVgnmeEtfrMw7CD+qOnCy8z0tcjARD793zIrMqr49mtXg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DZ9CuGg+efjb/riy9iRlUtolPta5vHPAfsGMPN5GvhmDaSoMW
-	YkAw5e+gTyB6+zq6efI2a7BQSVBCX3hQsXWDIgEy7Aw6scqfaaOz4YLEruJ8j7r1
-X-Gm-Gg: AYBFou0ILloUaAW2bH4YZ8S8mWHepXzOnuJG4jiYMEtqzycxtcNW0KZPEbzzw0940ND
-	qPjaO/hHEUtoLC86HmDlcLkcGIfDh8UJZkn2o+Xq772xU6ZXE2gWXObe+DqIh3GU/F9VFqQZqBs
-	QiK0O1hnNrY7DTM9R9kCifFOrTkXdEe7zoBnXr33LO2XvnL+hhYkxBbb4FbNkILH1kJoHRiyVYo
-	9Wp/C6+U4X0IcB3pkMsOL2doRKpuniCVIGnLrcrpxRbvVC0sY36g8sYje57kSMDqmr8FWP/3TY8
-	LLa7ZyC03FBEEbvJo8DTtfM32u70ptMmsxMPLi36ZH9lJtLm6ZhX8DRQH4LI41XzYwTyIm3rSLk
-	+59DXCuONifJXKIU7j4iUPu1w1tv4xoiWtNlXGQU7PID8s6FhKnZrH6pj+BYa0qwFSDR/NPga0F
-	oO8Lsyuvghn2cFdyvsnv97eTxB6mFOqtVHYEbVWEu0hBFJ3M/tWLTV65Zn+zqnQv4Gw03E1CKc9
-	+k3RqV3QqHK6i3+rxKEs57TNXB/FdsSU+WLTH0IT22NO8oW5rqokp77yxQDA09WmDffYqbJFi0I
-	4exBsOF28DwgB2zFs6jJ8WrVjS+RTxWEn0mEfI+LTAqIaVttQuoaOFB9DqHykRmQtdCcJI264hA
-	M+xOYhJKbYkAk4kP/8Z8t/lWiuYmHToqbZgm3SjuVrdNaCMYb0HRvxJ9y4Dxr0wvY019EqGFGO1
-	CgPFWfGelCaR0GqBKp8Wjj+ZJS7nFdmF9QXCxDfAjToRl3vEAV+R0=
-X-Received: by 2002:a05:6830:913:b0:804:365a:bb82 with SMTP id 46e09a7af769-860dc818e73mr1351189a34.22.1794279744586;
-        Mon, 09 Nov 2026 19:02:24 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbebfc6sm882545a34.18.2026.11.09.19.02.23
+        d=1e100.net; s=20260707; t=1794279752; x=1794884552;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MMWgpEtU/gtg2eO84Q3N861jXy5hniFgHLN4W28H+nM=;
+        b=omW9enik16Mg8ZItSSqrOaAiMpRQbLZRh8UAgNfDi1gTfkXyDlvS1nBV5ydmwG0OQs
+         vvFKKjOVQBu3PMWozX+Og3Qm9TaQJ+E2H3N6wBE/kzGYy9El2H2ztqmrEfOLajGdU33T
+         VCbxDZUdKFyBVi/Fp9a8+MsstgTJ3NrIRZ1QkeFHzhykZ7xwWEjrVtTuKrevIAH0xfap
+         I8Nef7cCNC3T+gK4BO6cI2XCREvOODgzYtdYZYQw2pZg9U8WwMHURXVU+FPyflZiZRJQ
+         UbogeM0DVsf1/Kl2ZsT4zlYvJHT055v4+j5mqEaXoaNBXGVY5tge3bJNuWxhpJe8cVAc
+         a9Qw==
+X-Forwarded-Encrypted: i=1; AL+hErGVc8+Bksgr7KSp0hGzPaB07Jx7whPxM+nzpmgXB75wOUwS0PpQcjzCpapUmMdmG5CDUoc4q+A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/J4Gi2wOVE7/+Y5r+so7R2jYKU51IT5eVO+TTXKPLXxnqNuxrx
+	2+tAsxNHBlWtdKGkGoA7DySm1b3SZbUGg5d6tQVtDOgn12HrcD5URx4w
+X-Gm-Gg: AYBFou1yciDC9Br0oOhirywKLcQ0Rw+2/EZfNfb6S6eOwR/x8poYFI+5IQOrDAtAEAi
+	pVx/2YrNw2q5TLwT1YU4Gzle/WS2LJGNAPlfHiv3OXKVQ9NKyYtQYbT8Kz8xfuWZPEqC3buy/s7
+	HhCmto52zvD+TZIRgCdDBhAdM/5h7eU5S1AP8oaU9Avyeg993oFuQpZrPB7hp5aOlo/zji0tz9J
+	LG9nA0gZJeM2SR4air4CkXl4GsVrJddSdEZSHmJ41MguRWH+JvYMv0iPxq0LGHvXkm3d6xyqNtD
+	0BsexQE01obCHbD/6zaKdHwEqwOvSQhQPXTHZqaWxMtmQ4JvyHwHwQvBk8QFptCFSAvAup0Fm9j
+	Pe/oBMHFXmObgH87NKJSsKQDbxMOytHKQelJYoeg1PkMTkaVyYUXc+lfm68HNYz4HfAjSm8odH+
+	J5VVd2lBuEmNJb/49TOBwEupVLv2GA6jLFIZBMqo/9NeJ9MQzvxPxMwfwoSE2zbjGo/a0BuEjxH
+	P1DSRhw8sz4erAevI9iXnnon+nGEQ6lz89P8hIkHh0FXqz8U0+Wmy0d3raKqxqcTX0VOHK/Vbtd
+	m3jzjvHwYAiSgmAOpqHXQRW8m3lAK/Amx6yc
+X-Received: by 2002:a05:6a00:1887:b0:883:54dc:7892 with SMTP id d2e1a72fcca58-8ba876454bfmr1402875b3a.52.1794279751668;
+        Mon, 09 Nov 2026 19:02:31 -0800 (PST)
+Received: from ubuntu24.localdomain ([124.77.124.144])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baab9d572fsm317021b3a.56.2026.11.09.19.02.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 19:02:23 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 09 Nov 2026 20:02:14 -0700
-Subject: [PATCH v2] dmaengine: tegra: only advertise supported pause
- operations
+        Mon, 09 Nov 2026 19:02:31 -0800 (PST)
+From: Yuansheng Yang <0xbeac@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6] KEYS: Protect pkey method checks against type removal
+Date: Tue, 10 Nov 2026 11:02:26 +0800
+Message-ID: <20261110030226.9898-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <avJ4KM-Erci0FkgZ@kernel.org>
+References: <avCZIMCsZ4um18e-@kernel.org> <20261109055204.31673-1-0xbeac@gmail.com> <avJ4KM-Erci0FkgZ@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,107 +104,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-submit-tegra186-dma-pause-caps-v1-v2-1-accf568bf0cc@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOwQ6CMBBEf4X07GpbFMGT/2E4LO0Ka6SQFoiG8
- O8W+AKTvcxm5s3MIpBnCuKWzMLTxIE7F4U+JMI06GoCtlELLXWmlMwhjFXLAwxUe1R5BrZF6HE
- MBAb7AJOCLDtblWppL1KLyOk9PfmzdTzKXUfIi8ywgldHhTFeeXSmWV8RSa5mR6c9Fx0Nh6Hz3
- 23mpFbSP4viKSiMKSp1RZmm9l63yO+j6VpRLsvyA7Q7gp4GAQAA
-X-Change-ID: 20261108-submit-tegra186-dma-pause-caps-v1-664d1320d502
-To: Laxman Dewangan <ldewangan@nvidia.com>, 
- Jon Hunter <jonathanh@nvidia.com>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
- Pavan Kunapuli <pkunapuli@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>
-Cc: Rajesh Gumasta <rgumasta@nvidia.com>, 
- Thierry Reding <treding@nvidia.com>, Akhil R <akhilrajeev@nvidia.com>, 
- dmaengine@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-Tegra186 does not support pausing a channel, but the driver installs
-device_pause and device_resume for every variant. Both callbacks return
--ENOSYS on Tegra186.
+On Tue, Nov 10, 2026 at 03:49:28AM +0200, Jarkko Sakkinen wrote:
+> > -	if (!params->key->type->asym_query)
+> > -		return -EOPNOTSUPP;
+> > -
+>
+> I think I asked to remove this. I need to revoke my reviewed-by from
+> this version.
+>
+> It's not relevant for the bug fix.
 
-dma_get_slave_caps() derives cmd_pause and cmd_resume from the presence
-of these callbacks. Clients such as generic 8250 therefore accept RX DMA
-channels that cannot satisfy their pause requirement. A receive timeout
-then reaches an unsupported pause operation instead of being excluded
-when the channel capabilities are checked.
+You did, in the v4 review, and v6 dropped the check again by mistake.
+v7 restores it: keyctl_pkey_params_get() is identical to 7.4-rc1 again,
+and the diff does not touch it at all.
 
-Only install the pause and resume callbacks when the matched chip data
-advertises hardware support. Keep them available on Tegra194 and later,
-and remove their now-redundant checks for unsupported hardware.
+The two early checks in keyctl_pkey_e_d_s() and keyctl_pkey_verify()
+stay where v6 moved them, in the key->sem section of
+keyctl_pkey_params_get_2() and after the buffer size validation, so the
+error precedence is unchanged.  Only the check you named is restored.
 
-Fixes: ee17028009d4 ("dmaengine: tegra: Add tegra gpcdma driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v2:
-- Remove the capability checks from the pause and resume callbacks now that
-  they are registered only on hardware that supports them.
-- Link to v1: https://patch.msgid.link/20261108-submit-tegra186-dma-pause-caps-v1-v1-1-9cc9b17a033d@gmail.com
+Sashiko's remaining point on v5 was that this check reads key->type
+without key->sem.  That is how 7.4-rc1 has it and you asked to keep the
+hunk out of the patch, so v7 leaves it alone; the call sites recheck
+the method under key->sem before they use it.
 
-To: Laxman Dewangan <ldewangan@nvidia.com>
-To: Jon Hunter <jonathanh@nvidia.com>
-To: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-To: Akhil R <akhilrajeev@nvidia.com>
-To: Pavan Kunapuli <pkunapuli@nvidia.com>
-To: Dmitry Osipenko <digetx@gmail.com>
-Cc: Thierry Reding <treding@nvidia.com>
-Cc: dmaengine@vger.kernel.org
-Cc: linux-tegra@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/dma/tegra186-gpc-dma.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+> Also if possible try to make a bit more compact description of the
+> fix. I did not ask this for reviewed patch because did not see it
+> relevant enough but now that this needs a new round, you could
+> address this part too.
 
-diff --git a/drivers/dma/tegra186-gpc-dma.c b/drivers/dma/tegra186-gpc-dma.c
-index e76c58f213d8..bd606b71e714 100644
---- a/drivers/dma/tegra186-gpc-dma.c
-+++ b/drivers/dma/tegra186-gpc-dma.c
-@@ -419,9 +419,6 @@ static int tegra_dma_device_pause(struct dma_chan *dc)
- 	unsigned long flags;
- 	int ret;
- 
--	if (!tdc->tdma->chip_data->hw_support_pause)
--		return -ENOSYS;
--
- 	spin_lock_irqsave(&tdc->vc.lock, flags);
- 	ret = tegra_dma_pause(tdc);
- 	spin_unlock_irqrestore(&tdc->vc.lock, flags);
-@@ -445,9 +442,6 @@ static int tegra_dma_device_resume(struct dma_chan *dc)
- 	struct tegra_dma_channel *tdc = to_tegra_dma_chan(dc);
- 	unsigned long flags;
- 
--	if (!tdc->tdma->chip_data->hw_support_pause)
--		return -ENOSYS;
--
- 	spin_lock_irqsave(&tdc->vc.lock, flags);
- 	tegra_dma_resume(tdc);
- 	spin_unlock_irqrestore(&tdc->vc.lock, flags);
-@@ -1518,8 +1512,10 @@ static int tegra_dma_probe(struct platform_device *pdev)
- 	tdma->dma_dev.device_terminate_all = tegra_dma_terminate_all;
- 	tdma->dma_dev.device_tx_status = tegra_dma_tx_status;
- 	tdma->dma_dev.device_issue_pending = tegra_dma_issue_pending;
--	tdma->dma_dev.device_pause = tegra_dma_device_pause;
--	tdma->dma_dev.device_resume = tegra_dma_device_resume;
-+	if (cdata->hw_support_pause) {
-+		tdma->dma_dev.device_pause = tegra_dma_device_pause;
-+		tdma->dma_dev.device_resume = tegra_dma_device_resume;
-+	}
- 	tdma->dma_dev.device_synchronize = tegra_dma_chan_synchronize;
- 	tdma->dma_dev.residue_granularity = DMA_RESIDUE_GRANULARITY_BURST;
- 
+Done: the race diagram and the paragraph describing the early-check
+move are gone; the problem, the action, why it is safe and the coverage
+list stay.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261108-submit-tegra186-dma-pause-caps-v1-664d1320d502
+v7 follows right after this mail.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+Thanks,
+Yuansheng Yang
