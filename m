@@ -1,65 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335457;
-	b=ltckZX/ZuMURQvCXMVHJIEarpm/UeDoEQpUiTVgiMDNibFw7Jp0GxnuzV/Un1Gx+jVu8
-	 8bU1lUjYJ7yXOP5UDRhgeUC6OxKYp4LjgxDKpdLd4Y+2NmhDzPVw0AaxjM1atp7y/q8eN
-	 xXsP21qPwcoK/qAFTYBp6qz78kBoi6Eeqr3m4xXsEtSPRWlYWniKXXaTgTLK7lUhqQ660
-	 nublvbYPyE0Wv42ipbvdoBeyoge13eSHHi63JSz8XeWOouX73A0XeDuvJ+SuhjJXA7wv0
-	 /YB1ugJY0kilCbF5ulXMc2dlV+7gnPDzRGtNbErMvTKxhQHqXJV/cWDyaCWwrrcOy8A==
+	t=1794335470;
+	b=D8zF+42NNocGuz3leHMbc0wZW/QBDDNhQtPD/hqTS2BEiecgYROYYETuGTR5OFCGXquO
+	 iy91sg6SKLmS6iBaV8S/NMOK0cM3TuNRvK2IB2KerhAfoObNTBxorrvJnMctxH9XlPWXu
+	 b1eDUYS05snKihXSdUbRq89LloRSF+aJykDcz00ouvyOj+OdY3fa/+aJY6/pX793GoQ4W
+	 f2SHuInxaJ01q7/sI7sox9kJhvNDocp64fM6txIJPI2mFa6IP7wvcHdNsLsapKeYpLYJ/
+	 8+6ZbJ8+BAHpnuHJDo9ZBIXDjaPrV1Co8Qu8hIXH5T1qrFhMWftl0OEyhH6Vh5zXRTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335457;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335470;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aGs81ife7P2XKdJnJe+ITtf8ewdiKwUtHvpzM9J6Hj4=;
-	b=XAbKc7bmKEuIix0WaQURdjmjPL3dLRgz8KaNnZbfb+asu+gy8t5FGiDc73T5r218AHLe
-	 i2b2hAQCSYL+JHc7zp7kE175l+pvjeQr4tlXFokGUGHD1GEf/3hQUpb8YV70WWamAtQNd
-	 uAA102uvmf8I81R6UJKUqy/x5266DtFLcnhdBny6JIxm9zb3u1Eh1cvrjF60rVokRX87L
-	 1RBYdodSENJsU4lThBXMALLFghorkxBvZqXpqo0qHay32VIPMeRsYHDz0Kqky7KUlbDiV
-	 i0TL5yGQkE6JQzr17KfHNaTLTCg4w5pZXlxPIqv6C0lJSpNFKSq1SfH3cwv+a3nxMLQ==
+	bh=ytFhHp9n0JJXjnSz+V8pvrLLED0p/7nhoN5i0MWphzQ=;
+	b=4516byabCr7mmJiZmhUSCrMsrm3tcqW+xW+fwxJyVsiajh1wq1Bhr5f63bB5sy9iH3tH
+	 RO4alrJ4iyisSvIZJMfzGcAmxu68RBQEkLeW7zmSwk80+esqTv1Dfi7misWh3SRntAcN7
+	 ZCjiksSggNtz92CQ/oiaidCbtlVcj+e1u4oyAyWVkd603HVU/EuzyLPe8Kc8TobHxThp5
+	 nI2E5dILukc8h/rCQH8mB4+1I8hjnTQ+LwqcSbTYUPaSdImwwhL0vWF6JYuN3CP/L1RzH
+	 4yUe4sAIhYlKuoOn5G7rIk2/qBzWcUXGJeRbdKY1+owSKLzz5zf09sHnSACEdcsogMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BzEQhZ49;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNiO6BiC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FBD606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F959606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BzEQhZ49
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CD0C1F0089F;
-	Tue, 10 Nov 2026 18:30:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNiO6BiC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792951F0089F;
+	Tue, 10 Nov 2026 18:31:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794335457;
-	bh=aGs81ife7P2XKdJnJe+ITtf8ewdiKwUtHvpzM9J6Hj4=;
+	s=k20260515; t=1794335470;
+	bh=ytFhHp9n0JJXjnSz+V8pvrLLED0p/7nhoN5i0MWphzQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BzEQhZ491kpLSUAm65o+PWLZZR5tXTH16g1v9T94guvjRoVMV7px7NSx0l2+Q7lOW
-	 d7tF30LRh2u6X4ayO3+UNLZJiKMWi02EELJyjqaLv4PMHPHEX50+KeB8IN2Li85xPv
-	 boSwLiffhfQxok5SsyUCpwSXw0JXMNCLZP5MST99H6qqVJYihDTigdqOdnjWX7qSBH
-	 xAulGV9EynPSy6c7CxiGygkVYF1qr6Mtw5B0H+sCA8OqUV408CWUvAUg/BfWQYFRYj
-	 dcW2J6rT2BXiHk+2lApBi3QX3Bmv4kuuDRPasR3/f0O4sVGy454o3Qm0dRMMdutBP9
-	 I/jk1gHPG8/RQ==
+	b=VNiO6BiCL4DQxhgXedHr+oVJWLkBbYaPEdCE8SsdI+c5or2Ir6Sdy3hGsTSUYFE+m
+	 XX/BdfvkF7clfNNFHR5SShE9b2ILxQ5THq5bHn1n9HDHppU4brP6Wp2eenfOnJ20/u
+	 WSy70SsxgX+GvVhytDUKiClYBx0FvGOJjShT+nCa0F6MrMliZSd8sebTnSN0AleqKN
+	 ajeADJ1i0RzsKCs3wJwBywnElGzO5TiisKKjYmxI6NoC1IqoH7m7KiwrczT3/AJ1nc
+	 0RvRkyU2i5x5daQnUd+xj0iEzCAbDq7JxN4ZC6kyx8pPA7HU9O/CgXEZ6g73FnRCk7
+	 znIKw98Vghliw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luxiao Xu <rakukuip@gmail.com>,
-	Ren Wei <weir@nebusec.ai>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vega <vega@nebusec.ai>,
-	David Hildenbrand <david@kernel.org>,
-	Grazvydas Ignotas <notasas@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
+Cc: Martin Fuzzey <martin.fuzzey@flowbird.group>,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/memory: constrain generic_access_phys() to page boundary
-Date: Tue, 10 Nov 2026 13:30:54 -0500
-Message-ID: <20261110183016.3265890-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] serial: sc16is7xx: fix data corruption due to unexpected xon/xoff
+Date: Tue, 10 Nov 2026 13:31:08 -0500
+Message-ID: <20261110183034.3115565-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060319-failed-5.15-ae0298a5fbef@kernel.org>
-References: <20261107060319-failed-5.15-ae0298a5fbef@kernel.org>
+In-Reply-To: <20261107051100-failed-6.18-8bb50e95c0ab@kernel.org>
+References: <20261107051100-failed-6.18-8bb50e95c0ab@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,83 +62,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luxiao Xu <rakukuip@gmail.com>
+From: Martin Fuzzey <martin.fuzzey@flowbird.group>
 
-[ Upstream commit ae0298a5fbeff32951c0d31398ccec97ec6aa0ea ]
+[ Upstream commit 8bb50e95c0abd44607bc60a43032c1dbf7470d5a ]
 
-This patch addresses an issue in generic_access_phys() where accessing
-memory across page boundaries in PFNMAP VMAs assumes physical pages are
-contiguous, which can lead to accessing unintended physical memory or
-exceeding VMA boundaries.
+The hardware supports automatically sending XON/OFF based on the
+FIFO status and that is already implemented by the driver.
+However that capability was not announced with the UPF_SOFT_FLOW bit.
 
-generic_access_phys() improperly validates the memory access range: it
-only validates the start address using follow_pfnmap_start() and passes
-PAGE_ALIGN(len + offset) to ioremap_prot().
+When the port is opened with the default of XON enabled the driver
+configures that in the hardware.
+If userspace does not want XON/OFF (which is normally the case) it will
+use TCSETS to disactivate it. However the serial core optimises this
+to only notify the driver if someting imporant has changed, and for
+XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
 
-This poses two problems:
-1. In PFNMAP VMAs, consecutive virtual pages are not guaranteed to be
-   physically contiguous, and individual PTEs may have different access
-   permissions or writability.
-2. The mapping may cross VMA boundaries if len extends beyond vma->vm_end.
+So we end up with unwanted XON/XOFF in the data stream.
 
-Constrain the access in generic_access_phys() to at most the current page
-boundary (PAGE_SIZE - offset) and map only a single PAGE_SIZE via
-ioremap_prot().  Since the caller __access_remote_vm() already loops over
-the requested length and handles partial transfers, it will naturally
-iterate over the remaining pages.
+The problem only occurs if nothing else needed to be set by termios,
+ie if the user space requested values are the same as the default values,
+except for XON/XOFF.
+Since the default speed is 9600 this means that the problem only occurs
+when requesting 9600, otherwise the call to the driver will be made to
+change the speed, and that will also clear the XON/XOFF.
+As 9600 is quite rare these days that probably explains why this hasn't
+already been seen.
 
-Also add a missing (resource_size_t) cast during PFN re-validation to
-avoid truncation on 32-bit PAE systems.
+It also only occurs on the first port open after boot since the subsequent
+opens will use the "logical state" set by TCSETS but not communicated to
+the driver the first time.
 
-Link: https://lore.kernel.org/e06e28a46c2a176238f03b5740df0913e57c2861.1788842306.git.rakukuip@gmail.com
-Fixes: 9cb12d7b4cca ("mm/memory.c: actually remap enough memory")
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Grazvydas Ignotas <notasas@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted to the existing follow_pte() implementation instead of follow_pfnmap_start() ]
+Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
+Link: https://patch.msgid.link/20261001100534.1225894-1-martin.fuzzey@flowbird.group
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: applied the flag change in sc16is7xx_probe() instead of sc16is7xx_setup_channel() to match the existing initialization layout ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/tty/serial/sc16is7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index e5c54f39e7e04..cad3566f5651e 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5158,6 +5158,12 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
- 		return -EINVAL;
- 
-+	/*
-+	 * Limit access to one page at a time, as that's what follow_pte()
-+	 * guarantees; expect the caller to retry to read larger ranges.
-+	 */
-+	len = min_t(int, len, PAGE_SIZE - offset);
-+
- retry:
- 	if (follow_pte(vma->vm_mm, addr, &ptep, &ptl))
- 		return -EINVAL;
-@@ -5170,7 +5176,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if ((write & FOLL_WRITE) && !pte_write(pte))
- 		return -EINVAL;
- 
--	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
-+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
- 	if (!maddr)
- 		return -ENOMEM;
- 
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 42ad926f1fe68..885c0c34b50f2 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1646,7 +1646,7 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
+ 		s->p[i].port.irq	= irq;
+ 		s->p[i].port.type	= PORT_SC16IS7XX;
+ 		s->p[i].port.fifosize	= SC16IS7XX_FIFO_SIZE;
+-		s->p[i].port.flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++		s->p[i].port.flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
+ 		s->p[i].port.iobase	= i;
+ 		/*
+ 		 * Use all ones as membase to make sure uart_configure_port() in
 -- 
 2.53.0
 
