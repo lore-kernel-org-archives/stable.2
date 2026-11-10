@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273687;
-	b=l5PwmNw9GSCZMlbgSYbF/XnDoByvjY+j82BaDOxO28B+FGnY67FWK6kS5sNohhYL113s
-	 Khyh3edIs7LyfZU729p6QyGwMpVKxygmocHCbt8l8DH71PVReRFMBoUbfyAOjSTJqZZl2
-	 QJyJV8PpdjwRKTqZzADpo0cUNWEbyTfp/XyAlUawX8vHQ05cmPaOIRc8mUcyCBhazonI2
-	 g8J2rC6DVIwPGRXObBCqqNZVX2WG//A/UjyPKEEqxdx0/6Fq9iAjzOZ0UoOvV3mMLKErn
-	 EEI/zevL++7TZUFimca6rQhtzk8fpLMEb7p8NO1PGKixWGoriBTFEDmpiFutxf+w0Hg==
+	t=1794273690;
+	b=LMqHczp3pr1dayNzrSF0MHF9gcTrgxYi19CLuk9uBMxyGWQslAlHpeS/gAxgz47ovS+9
+	 VfxCie/x7Vu7tBqGfxYT8zAyNWPueqNJ8I7lVcN0v7Zc1lGHPyazVxcqd4s8Z4PklGE/2
+	 MjkI+J6BxylM5QurMJ1w0ZKl2JVcuiUaSF+EHOdylmM518vxMZT8ymaECpkNHID0vs3zY
+	 DDitHbImMqTN6ws3T2++FgmSapmjWOwtMhuO1oCMsxRaQ+6euKsTU9r/XZJZNwXZZEFpR
+	 hLUGYM/WoO/6YyPrCQxJxpf/bqMPlgHjubecpLRfu1Mw/3kRLN2RhEMXUQ6ur4+3QwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273687;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273690;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tmmMnvnCIJVSvqau1kYeWFUshZ3A1G53BsE5Xm4wh44=;
-	b=htUEueQ6lp/IT2NGzwZW9OjHxoYX7o9UD+1JCNEgmYXuhKx+Flqeq0ZD/fzhqFJ2Z8K1
-	 kEwvE/rP+XWAb8eJkHaix28c0n3r9zRuLsrToJ3DFGMWoZYdjf+n5wlhuGAt7wlA5QYT4
-	 VUUFgCOTMiZ+AzybumMLz3IAr1aWzRf0uhOIfNir7E42m4xPGwhhF+m2wyEfus/7qSQYs
-	 3+0pjODLIQljN9Sp5GWkGLYM3T9YJ8Hj6Fq3DuAS/JtPgxWGhMhvICIXkwUT5tmjeSzPP
-	 +QmZllmhdg9CXMLAqV6CRZlRkFiPbh1xihUQeocODC+0Vb8qLC6D2lI6RdJfEDzCdWw==
+	bh=+a+zrWq0S1IlQXF/m503gTSo/ndPDhE3lJbi0Z+qYao=;
+	b=u6F2K1IlybZxTOlDGQLUfRlGJt0wNHjKBIH/HO58exanvd9TSg9/CAYe330KxiqB3Vfi
+	 UtedIXFd7zcsYSy8oqdIsGcRdWEgu5ssGXl8U0hW1xtPh6Qn3qi77mdMVSazYsyVgoa7j
+	 Tf2vzpUc5mDahp4gxKrFsmVP7amJvJi2X7HGz9+L2lsWg0RIswG861wVp4UUV6RZbpBeq
+	 ppYmHbC+2h9Fx+UJ4P2BUj084GWKCPOvLfSePtTQ9bFr8jZEEHIY5rbCfjYF5Sm9MM9HP
+	 YOL0iu+nCKbDCgXfbJ5aOQSN4budNnwxbZpOAyj49NDSohWEaof+kaiVbHokoA1pdIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIW+xDtM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4GVanjN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C1B606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4100606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIW+xDtM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33A11F0089F;
-	Tue, 10 Nov 2026 01:21:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F4GVanjN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089301F0089F;
+	Tue, 10 Nov 2026 01:21:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273687;
-	bh=tmmMnvnCIJVSvqau1kYeWFUshZ3A1G53BsE5Xm4wh44=;
+	s=k20260515; t=1794273689;
+	bh=+a+zrWq0S1IlQXF/m503gTSo/ndPDhE3lJbi0Z+qYao=;
 	h=From:To:Cc:Subject:Date;
-	b=kIW+xDtMhp9+mwIfW3/bagKpe9D7oktlT/1xJ3XYQl3lhLxqTtqxgSfV8WDNgdyGv
-	 h0yFjmt2YXGdMyYMyvRie83wt87D8HjUo6vz5e/pInVPcXGAtmjRHJ5fFenITc8Ypt
-	 HwoxB20exSJ8zKlNLkfY9UHkJjC4eNBggNyUnleuei6x94KiecO8aFO/+aCsbLYYK1
-	 kikrLBUMsDKlqp5Lco64X96M0QptoN6VZJphtua+VYsK1OI4SiTbroT0ydjZGCEuZP
-	 hC1xL3uBCzdC8wRb13gKnYl0ynEehWrsysLQ9R+dZnVPheq2a2qYVqYaDHznmLVph5
-	 uGX2XLFsyeZpQ==
+	b=F4GVanjNQkKnZqacQiAVIEOEHu0AwbhM+OOuM4RGaULlagE5QyjuEIFopAI0OnuAh
+	 iJ8E7BRhsH0IUHAxKgGfCWdoL6ub/LuXBbdJaTbzUXCEGPImfd24fH8ipSwNTVFPgE
+	 nylNmK6e1lmJe7Q9Oln3QMXJcrgs2vzXb8EQrLfar2meT2crHVKf2nb104lni6beCW
+	 MdZZHVf/l/eO2VD4IpujigGqazKLNRifQ+32XEa4cHgd2kIIN3ASd2PotmhmvYpY3r
+	 Ps2+aG2oEKUxRTIIJ8N7pw8glTq4vcNWHseXtuMa4EgH+UUtuQ4q//uuXbOsxFzfGi
+	 AZk9FAU7PYrHg==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	linux@roeck-us.net
+To: daejun7.park@samsung.com,
+	dgc@kernel.org,
+	hch@lst.de,
+	cem@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (sht15) Stop deferred work before releasing its resources" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:21:25 -0500
-Message-ID: <20261109202125-failed-5.15-5eab1e7f7ed1@kernel.org>
+Subject: FAILED: patch "[PATCH] xfs: don't skip free extents of the longest length in a whole-AG FITRIM" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:27 -0500
+Message-ID: <20261109202127-failed-5.15-5745f4f10a1a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,117 +70,64 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a
+git cherry-pick -x 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202125-failed-5.15-5eab1e7f7ed1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202127-failed-5.15-5745f4f10a1a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 23 Oct 2026 21:40:44 -0400
-Subject: [PATCH] hwmon: (sht15) Stop deferred work before releasing its
- resources
+From 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Mon, 26 Oct 2026 10:54:06 +0900
+Subject: [PATCH] xfs: don't skip free extents of the longest length in a
+ whole-AG FITRIM
 
-The IRQ handler and regulator notifier can leave work pending after a
-measurement or notification completes. Neither work item is drained before
-its resources are released on removal or probe failure.
+Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
+by-length walk of an AG in FITRIM starts with
+xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
+lands on the longest free extent with the lowest block number. The
+other free extents of that length sort after it and are never
+discarded.
 
-Disable read_work before freeing the IRQ, since the worker can re-enable
-it. Use request_irq()/free_irq() for explicit teardown. Unregister the
-regulator notifier before cancelling update_supply_work and disabling the
-regulator. Apply the same ordering to probe failures.
+Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
 
-Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
+Suggested-by: Dave Chinner <dgc@kernel.org>
+Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
-[groeck: Dropped obsolete 'Assisted-by: tag]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- drivers/hwmon/sht15.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ fs/xfs/xfs_discard.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
-index 7bb2105d1ae22..48d93c61345c1 100644
---- a/drivers/hwmon/sht15.c
-+++ b/drivers/hwmon/sht15.c
-@@ -31,6 +31,7 @@
- #include <linux/bitrev.h>
- #include <linux/gpio/consumer.h>
- #include <linux/of.h>
-+#include <linux/workqueue.h>
- 
- /* Commands */
- #define SHT15_MEASURE_TEMP		0x03
-@@ -976,25 +977,22 @@ static int sht15_probe(struct platform_device *pdev)
- 		goto err_release_reg;
- 	}
- 
--	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
--			       sht15_interrupt_fired,
--			       IRQF_TRIGGER_FALLING,
--			       "sht15 data",
--			       data);
-+	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
-+			  IRQF_TRIGGER_FALLING, "sht15 data", data);
- 	if (ret)
- 		goto err_release_reg;
- 	disable_irq_nosync(gpiod_to_irq(data->data));
- 	ret = sht15_connection_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 	ret = sht15_soft_reset(data);
- 	if (ret)
--		goto err_release_reg;
-+		goto err_free_irq;
- 
- 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
- 	if (ret) {
- 		dev_err(&pdev->dev, "sysfs create failed\n");
--		goto err_release_reg;
-+		goto err_free_irq;
- 	}
- 
- 	data->hwmon_dev = hwmon_device_register(data->dev);
-@@ -1007,9 +1005,13 @@ static int sht15_probe(struct platform_device *pdev)
- 
- err_release_sysfs_group:
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
-+err_free_irq:
-+	disable_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
- err_release_reg:
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- 	return ret;
-@@ -1023,12 +1025,16 @@ static void sht15_remove(struct platform_device *pdev)
- 	hwmon_device_unregister(data->hwmon_dev);
- 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
- 
-+	disable_work_sync(&data->read_work);
-+	free_irq(gpiod_to_irq(data->data), data);
-+
- 	ret = sht15_soft_reset(data);
- 	if (ret)
- 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
- 
- 	if (!IS_ERR(data->reg)) {
- 		regulator_unregister_notifier(data->reg, &data->nb);
-+		cancel_work_sync(&data->update_supply_work);
- 		regulator_disable(data->reg);
- 	}
- }
+diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
+index 8120f136af931..cdf660344c281 100644
+--- a/fs/xfs/xfs_discard.c
++++ b/fs/xfs/xfs_discard.c
+@@ -200,12 +200,12 @@ xfs_trim_gather_extents(
+ 		error = xfs_alloc_lookup_le(cur, tcur->start, 0, &i);
+ 		if (!error && !i)
+ 			error = xfs_alloc_lookup_ge(cur, tcur->start, 0, &i);
+-	} else if (tcur->restart_bno == NULLAGBLOCK) {
+-		/* first time through a by-len starts with max length */
+-		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+-		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
+ 	} else {
+-		/* nth time through a by-len starts where we left off */
++		/*
++		 * A by-len walk starts at the last record of the longest
++		 * length (restart_bno is NULLAGBLOCK until the first batch
++		 * ends) and then where the previous batch stopped.
++		 */
+ 		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+ 		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
+ 					    tcur->count, &i);
 -- 
 2.53.0
 
