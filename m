@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322383;
-	b=WHufz2yJUeKAOA9GwY4Oxpy9IujtgGaJdNPLOyIxkEvkLF7gpUttI2inpnWK2r6dOw/D
-	 wTeCUG79kG1+U9JNbBbn5NeI57Cve1XbqL2P6/jDpXffZtLxtOi8qPEcVIwC7LpqAk70Y
-	 mek2MWT3Ccq7xj1xiXFYST8s5hnwQhUlboA6okxjh0oKgvpB9YtYL6OAMgIwa7lA2Wfvg
-	 x+ceYLrHF/4X1qjn3//T4Jq3MVkeqP0KLsWBzwSz+V5l16VDxbt/FlGvk2yDlgzMlkaFR
-	 ErSjWL5/beX6XTO1hyti0IZaVgjMLktXujkjXPHGhk3yMqgWI187wOg0fG6va6p2Sdw==
+	t=1794322415;
+	b=Pyimo8tDt37Lq+JJoqdD+7Ui59uxYQMOsRfo+EChKu965F8WNOaisoxpkEnMauMCgJWX
+	 HVXByMRzCzswRnWvOJPVEcgYf7d8IARPssofovSn+0R28ywQ2IAdcDftqMyRDlhV2pM+6
+	 GoKvQ9iueZWtWlQFoeG+Lm/C911OAPtyNeeKRyUG08M4zrXVeXcwPR/xMESVbHHESD1ou
+	 MdjFDjKUbMk54zW/deMoT949QJWMwX5MNC7EpsG4IcGsNK5PAyy5sCscEROSQ2bUoRb5Q
+	 bXbhbbAGThfq++cVXQPyQTwoiX+QG/4YjJ5+O0BIctdyglyKsaSGslvUsi4P5tEZ4eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322383;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=igzsGYM2riHiB9kMz5te5OJWhyKS/vyukYoWrtQT28Q=;
-	b=gJnJB7r3c1RQFXBdpGsxvTW1oF65Ejnq1Y71hozglKOqihEoySB/93RHVHOb1h6pG02j
-	 Ph3wfNAEgIW7BYuCrKT09u7Cg53dNw5pRhi/U6FOMmfwAsKn4d3HdyNInkodnRhI972qH
-	 DGlOpF85VY+mD/vtrgU0sdGEASYo9KVUp6mHhJhZwbL7S9MTcLhVi5LQ8hKE3aZes0rUF
-	 bBoHc27mT260Vb7cMIaaJAOqpXryZ2Iqy3p4Afmg3PNq3ibdVbKVxl/rgB068a3py1Lo7
-	 8vpP+G3GxCHL4I1q9xhJ9ComPuMM3o7CsJo2ieTcTmf89fHemJlQI9J8M9WA67By//w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322415;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Iv2AMbcUp3UJegJFv/wi0SBKKJdogezfuPX3iQWAlxo=;
+	b=eUY+XtRD1bVr00gJzFdyNjQstilLYGIw6CKdxl8XPXzZX0DFSfPTJ7ojk/f8vWIE6mY8
+	 4AqaFTplkrkVuYWJmolMR8ZGAzz+4MWwdNwKqkYJdxpT1xa53WUwJ6ds0YPW4c7esl6c3
+	 rA7aU1bjKK86yyMqnXz9nONjiBc1JXUIa1nEBuhOMUS+sa6f0RNMl+EpD1RjYzLPA4AFN
+	 2uQ7uHXieaajZqh7zFT74Jki76NewdmPYF2cwvjR/RvMd3lscl2vwO66mZe9mWWNryqA3
+	 2Qh2gyTcJqYEqjvRaJ2t93sawMqhkKN/gtPr/uBtnpjSCfh/iI3oXT1hYRPQihSzl4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=zecagOqh;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+eUA8Ww;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E11D60A2613;
-	Tue, 10 Nov 2026 14:53:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E11D60A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE840606A32D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:53:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=zecagOqh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=igzsGYM2riHiB9kMz5te5OJWhyKS/vyukYoWrtQT28Q=; b=zecagOqhontScvij8Oiwv5tRbV
-	J2Ns2FrCnRRmdeY5glIfrWtDTbAbeWVKct3UsnFoXTtjFwJMfP7d8Z7uHX7YGzXeuAhezZ4vSBQsU
-	xWpeKsxiYIssHYZoB0hImdZAZGB6dCqxt5xBQ2G7jrU2X3Py7D2HV4CaNZCqkRpb2ofm7shEr9dZn
-	UCar/CR9banScJ56+87Sv8LgmSO/JGVHP7xaElCbpAiWknAGu8EHEIB+iVavthj5QNKKG5nehKiLW
-	ZmDDTFg6DnIsLv1av4pObPYUS7U5ZhDfO3+p4e9Mr7QHTYdPVIIYEvyc83za5sCBuu3BA0DKMXcl/
-	sE9r5ZIA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xQnDV-00000001MbM-1jwG;
-	Tue, 10 Nov 2026 11:52:58 -0300
-Message-ID: <5773ae99397b259efb80acd386e71fae@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>, Namjae Jeon
- <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, Joseph Qi
- <joseph.qi@linux.alibaba.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] smb: client: hold the inode across cifs_oplock_break()
-In-Reply-To: <20261110094829.2133495-1-joseph.qi@linux.alibaba.com>
-References: <20261110094829.2133495-1-joseph.qi@linux.alibaba.com>
-Date: Tue, 10 Nov 2026 11:52:58 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+eUA8Ww
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84041F0089F;
+	Tue, 10 Nov 2026 14:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794322414;
+	bh=Iv2AMbcUp3UJegJFv/wi0SBKKJdogezfuPX3iQWAlxo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=k+eUA8WwMYJrseExT1LwhnJcrh+4TB/L3ZnWW2WuC9pyL+zt94kJ/e19FPAPt4wOf
+	 gM2KO/pcZXBM7YqxbQZ169vy2l6Qmhn2arECCYer8JRZQ0sZ6lCrhopW07unX6VtS/
+	 DY65+oOEIexvIzzH04Y2oSdAfIlVLNAN8eWjSfoSoHx0E4ilrg2pbmiO6q7ydidTc0
+	 cArEUIzRTC89/+Ex2tpF+IP0qidid8nMDwZGMMeUJjgQXE1cpni48BlKZpCTAIUm0R
+	 IB+AspFBCoEyQyOcU6eRhIW0k5AhL445MzE5EH+Rozo9ySR94gqzQd+pw7+LdPt8Nk
+	 bkIKRqW/fS7PA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/msm/dsi: Fix VM leak in dsi_tx_buf_alloc_6g()
+Date: Tue, 10 Nov 2026 09:53:32 -0500
+Message-ID: <20261110145310.1958008-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054340-failed-6.1-ab91ba61871a@kernel.org>
+References: <20261107054340-failed-6.1-ab91ba61871a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,27 +60,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Joseph Qi <joseph.qi@linux.alibaba.com> writes:
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-> cifs_oplock_break() drops the handle reference in the middle of the
-> handler and keeps using cinode afterwards, to send the break
-> acknowledgment and again in cifs_done_oplock_break().  The reference
-> cifs_queue_oplock_break() takes is the only pin: the handle holds the
-> dentry and the dentry is what keeps the inode alive.
->
-> When that put is the last reference, the dput() in
-> cifsFileInfo_put_final() kills an unhashed dentry, drops the last
-> i_count and evicts the inode, so the rest of the handler runs on an
-> object whose free is only RCU-deferred.  An unhashed dentry that a
-> handle still references is an ordinary state: unlinking an open file
-> leaves the dentry that way, and so does the dcache teardown at unmount.
->
-> Take a reference on the inode for the lifetime of the handler and drop
-> it once the break has been reported.  This also covers the
-> cifs_get_tlink() failure path, where the put is followed directly by
-> the out label.
-> ...
+[ Upstream commit ab91ba61871a896ca2ecc6e048d80a152136da44 ]
 
-Applied.
+dsi_tx_buf_alloc_6g() takes a reference to the kms VM with
+drm_gpuvm_get() and stores it in msm_host->vm.  If
+msm_gem_kernel_new() fails, the function returns early without
+dropping that reference.  Since msm_host->tx_gem_obj is cleared on
+the error path, msm_dsi_tx_buf_free() will never see a non-NULL
+tx_gem_obj and thus never calls drm_gpuvm_put(), leaking the VM
+reference.
+
+Drop the VM reference and clear msm_host->vm on the error path.
+
+Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
+Patchwork: https://patchwork.freedesktop.org/patch/754332/
+Link: https://lore.kernel.org/r/20260916175738.2089950-1-vulab@iscas.ac.cn
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+[ sashal: Replaced drm_gpuvm_put() and msm_host->vm with msm_gem_address_space_put() and msm_host->aspace. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 634e42630dbf2..5a2d41ba37b78 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1147,6 +1147,8 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
+ 
+ 	if (IS_ERR(data)) {
+ 		msm_host->tx_gem_obj = NULL;
++		msm_gem_address_space_put(msm_host->aspace);
++		msm_host->aspace = NULL;
+ 		return PTR_ERR(data);
+ 	}
+ 
+-- 
+2.53.0
+
