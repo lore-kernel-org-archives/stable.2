@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273483;
-	b=zRnbWn1qsIDn4A5V7HrWXiju9NLuaJF25G19tCGQhSMjiI2Q5BHboLc+N2LXazV2k5Ev
-	 YMtDyB4gSBd7iUFLeBTmsMUh6TBwuVacLGe3wpEkzOb27fLYMtEx/+jlpAcVNBB4yxMwW
-	 MQSt/X/KXvsX3Ycgtzk+DWgUqx+u39bJf5H2cPkV7Hnj3lBXVMXmMr4R9POhL/7gWHW5p
-	 DKb+IZrCPC4bllSwPyUZG0CEWvys/bmpdPWxzMB9TE9ShK54daXYQLQnt8XRBGESZ/E2B
-	 5zI2aDUrXDok9U4N9zDQRf3JvCERiJOLm7BM2ne7SzU+VeLdh2NgsdNhA1QXns/mhsw==
+	t=1794273486;
+	b=G0rfx1hkhXqD/41WHmp2h5YSPo7i7IPKPkUltFu2ZSzPLdpHxFw0nIgKMwxIu1eJjWBh
+	 vpfFpDOHEzWdMbDN11ucUfE56sMu2olHxkMfxBPhBhc3dxfM+vH8cqjBYqqgL843EkYk6
+	 GlWisp00Ewoa2L2PIRPNgS/9EOm9Dt1gkLWZtMu0vm2AtdFEFMHy/R3PesDpA7rxSRX3J
+	 VE4WHRwoLPCy20+SrznOxYMGwvGvEmqtQ3FGXDMzD6Zrwan5SwqlWgyAZvjLGIHN1ql2P
+	 EfvEP1KbFIdgN/uh9QQJFB4eFXBCecHMs40tWzigvYaypgajmvZsw2ymRhttV3FUaBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273486;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HjBS7mXQ/61TKjRRSxov0sruOyocU3QDCNs0+JkgvyY=;
-	b=BCXhHJO75i67V4Nvpg7/7Of3ImpqVp5cSztydAWhU91fpValc8EXa3P3O3kh1hOPs4MG
-	 m2hyOtejphHVnPQrM6k8IVyydJzNcfI2EY4fHj75lvLQi+5DFfVgvvyP16s7kVG791I+k
-	 kTZsHkMlFFHgfVzpuEXDNE7TIB7fxkwBaDcXOlXOz27qb08TmLvF//wVGuLm/4OheNZBl
-	 p3/JvEJfgwTAQdxctlB+m0oKHlfwwe/UuVJAuNRJQu1XkvrW1a/2PDsAA2z+iQAFsbxst
-	 FG1pCr+4DXn4nqThQZ+j16iyQE+EvMCMviEv3vD/FekKWmtch+UuDpLoTzDK5Tpa2WQ==
+	bh=5U5uioDvwpSEDTr7JdvAUlQ2RMYhL83DL4M4UEQaV7I=;
+	b=dg+ySwPBP6LyMADbWpwI5zuLgCSKTUrzg+puA9UryJerCHfqZitH6l2E/of7G02o2CI5
+	 l7YYz0yMA5xvfW3v0m+0wvT3ReUhiiuXVtcMw2GgGAgRzp0QQ62sWmLBexE6C8GE9LN45
+	 MJasmNfy7XJCDx56XDNO+V+IbILFkyG+TC3IBgNtwuecJg+JKZLrJY/MXCnzTjGEaD4Fh
+	 E7US9ON20Y4Tm0PKrBv/aVu8AFJZkEaDbD3s1s//+2BV9UPbInjIu+uSGnYoibCtEXAHf
+	 ShiWq6M5uU4QAH5jtwhh16Ecbcy/XA6aq591fyzHHkz6z9Sgi0/80Doq5cPRFSHxbJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJ+egbDE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjhUDgye;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9BE606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FDD606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJ+egbDE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD11A1F0089F;
-	Tue, 10 Nov 2026 01:18:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjhUDgye
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1983F1F0089F;
+	Tue, 10 Nov 2026 01:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273483;
-	bh=HjBS7mXQ/61TKjRRSxov0sruOyocU3QDCNs0+JkgvyY=;
+	s=k20260515; t=1794273485;
+	bh=5U5uioDvwpSEDTr7JdvAUlQ2RMYhL83DL4M4UEQaV7I=;
 	h=From:To:Cc:Subject:Date;
-	b=UJ+egbDEyk+Me1rrPMu8HbKV5aB5em/SwhAbkA0E8W/9OUZW51AZw+Bbm6SbXhiaW
-	 KZ4RzJF5etvS/vMlSQxD2wzLieNrvnDxBzcEaq4RENdWW1RgYO9Jsn99pwVCiuqdAX
-	 8mtEa/EVOd8GGJ3wbUO8y0hcBaU4xqPTdQFKyuVY8Lt/8KET4ejevWa4HHPk1u1gJu
-	 Gv3gShwzgI1s2WGn+OXLUgkoaA5o+Su0MOH1SjBCeCnJeANVBtMFq/oM8DxalMI+jR
-	 D/zWVzWZJgasnstodKnuDMwmYAtit9/Il/j5bO19oqwf2nkYZsyP+xDxKfQc8cNYPc
-	 7edz0OkCDUI2w==
+	b=PjhUDgyeFIKX2ClHdv9LyeutOP2cHTg7i5wXcCC6UWrp36BvcWMffQTQfpIEGc3bG
+	 aT6192tegjRaJurunTRfOW+8mQZdHQ5R+6+8YC2x9mwOZaxau/MTqiq0HT1yJP1cZi
+	 ZYj7u3EqcHMnubYLRHABwbvTH93S4BBpzw3KSZrwPmf44GDhugK08Gr0+7DwF+01Vu
+	 cMVUcbw6nQhPrcjjSNBYw2CZzAVvWc47ByUOt7ECrntAXTJxkiwscmrLcL4dYZUrSo
+	 MAeDSKUuDnjMI8bECkZOV6IMpyG1PYT9jS0xJgxW68GOV7hWQuuJdL3h9M8Sw9I0F5
+	 drx/rAuCzsktw==
 From: Sasha Levin <sashal@kernel.org>
-To: imv4bel@gmail.com,
-	kuniyu@google.com,
-	pabeni@redhat.com
+To: 1579567540@qq.com,
+	mkl@pengutronix.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: restore refcount ordering for lockless socket access" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:01 -0500
-Message-ID: <20261109201801-failed-6.1-5b5d8f351dd9@kernel.org>
+Subject: FAILED: patch "[PATCH] can: skb: make echo skb freeing safe in any IRQ context" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:03 -0500
+Message-ID: <20261109201803-failed-6.1-d74307196492@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,177 +68,122 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5b5d8f351dd96f56a58bb516a80e2d4d742fe4e2
+git cherry-pick -x d743071964920c92af598c87a9e6f4369263ee09
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201801-failed-6.1-5b5d8f351dd9@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201803-failed-6.1-d74307196492@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5b5d8f351dd96f56a58bb516a80e2d4d742fe4e2 Mon Sep 17 00:00:00 2001
-From: Hyunwoo Kim <imv4bel@gmail.com>
-Date: Fri, 30 Oct 2026 06:42:17 +0900
-Subject: [PATCH] net: restore refcount ordering for lockless socket access
+From d743071964920c92af598c87a9e6f4369263ee09 Mon Sep 17 00:00:00 2001
+From: Cunhao Lu <1579567540@qq.com>
+Date: Fri, 31 Jul 2026 17:45:00 +0800
+Subject: [PATCH] can: skb: make echo skb freeing safe in any IRQ context
 
-Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
-of refcount_t"), default builds implemented refcount_inc_not_zero() using
-atomic_add_unless(), which provided full memory ordering on success. The
-commit removed that ordering on weakly ordered architectures, allowing
-accesses after a successful reference acquisition to be reordered before
-it.
+can_put_echo_skb() can be called with hardware interrupts disabled. Its
+direct drop paths use kfree_skb(), while can_create_echo_skb() uses
+kfree_skb() when cloning fails and consume_skb() after a successful clone.
+None of these helpers is safe in every IRQ context.
 
-Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
-lookups and in inet_twsk_purge(), where the socket is validated again
-after taking a reference.
+Use dev_kfree_skb_any() for all drop paths and dev_consume_skb_any() when
+consuming a successfully cloned skb. This preserves the respective skb drop
+and consumed semantics regardless of the caller IRQ context.
 
-bpf_sk_assign() can receive a socket pointer obtained through BTF
-without a reference. Use acquire ordering when it takes its own reference
-for a refcounted socket.
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Link: https://patch.msgid.link/tencent_E84809CF236D0137885E7E4E4D58340B3208@qq.com
+Cc: stable@kernel.org
+Fixes: ae64438be192 ("can: dev: fix skb drop check")
+Fixes: 0ae89beb283a ("can: add destructor for self generated skbs")
+Fixes: 3ccd4c6167d3 ("can: Unify droping of invalid tx skbs and netdev stats")
+Fixes: 39549eef3587 ("can: CAN Network device driver and Netlink interface")
+[mkl: also convert can_dropped_invalid_skb(), can_dev_dropped_skb()]
+[mkl: add stable on Cc + add Fixes tags]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Use refcount_set_release() when setting refcounts in the SYN cookie,
-TCP Fast Open, request migration, and TIME_WAIT paths. Keep the existing
-TIME_WAIT smp_wmb(), which separately orders the refcount store before
-ehash publication.
-
-Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
-Fixes: 27e5203bd9c5 ("bpf: Change bpf_sk_assign to accept ARG_PTR_TO_BTF_ID_SOCK_COMMON")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20261029214219.1035176-3-imv4bel@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- net/core/filter.c               | 2 +-
- net/ipv4/inet_connection_sock.c | 6 +++---
- net/ipv4/inet_hashtables.c      | 2 +-
- net/ipv4/inet_timewait_sock.c   | 4 ++--
- net/ipv4/syncookies.c           | 2 +-
- net/ipv4/tcp_fastopen.c         | 2 +-
- net/ipv6/inet6_hashtables.c     | 2 +-
- 7 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 09c60a58c82ab..d832d3332c6f9 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -8022,7 +8022,7 @@ BPF_CALL_3(bpf_sk_assign, struct sk_buff *, skb, struct sock *, sk, u64, flags)
- 	if (sk_unhashed(sk))
- 		return -EOPNOTSUPP;
- 	if (sk_is_refcounted(sk) &&
--	    unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+	    unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
- 		return -ENOENT;
+FAQ:
+
+Q: What about the comment in drivers/net/can/virtio_can.c
+   virtio_can_start_xmit()? The error handling for virtqueue_add_sgs()
+   mentions that can_put_echo_skb() consumes the skb via consume_skb().
+
+A: The comment in virtio_can.c will be updated in a separate series, to
+   ease backporting of this patch.
+
+[mkl: add FAQ section]
+---
+ drivers/net/can/dev/skb.c | 6 +++---
+ include/linux/can/dev.h   | 2 +-
+ include/linux/can/skb.h   | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index bc0787535b524..46c151eece8f7 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -63,7 +63,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
+ 	    (skb->protocol != htons(ETH_P_CAN) &&
+ 	     skb->protocol != htons(ETH_P_CANFD) &&
+ 	     skb->protocol != htons(ETH_P_CANXL))) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		return 0;
+ 	}
  
- 	skb_orphan(skb);
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 4a507e5a26724..e56beec438773 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -1061,8 +1061,8 @@ static void reqsk_timer_handler(struct timer_list *t)
- 		 * hold another count to prevent use-after-free and
- 		 * call reqsk_put() just before return.
- 		 */
--		refcount_set(&nreq->rsk_refcnt, 2 + 1);
- 		timer_setup(&nreq->rsk_timer, reqsk_timer_handler, TIMER_PINNED);
-+		refcount_set_release(&nreq->rsk_refcnt, 2 + 1);
- 		reqsk_queue_migrated(&inet_csk(nsk)->icsk_accept_queue, req);
+@@ -91,7 +91,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
+ 	} else {
+ 		/* locking problem with netif_stop_queue() ?? */
+ 		netdev_err(dev, "%s: BUG! echo_skb %d is occupied!\n", __func__, idx);
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		return -EBUSY;
+ 	}
  
- 		req = nreq;
-@@ -1447,7 +1447,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
- 				goto child_put;
- 			}
+@@ -403,7 +403,7 @@ bool can_dropped_invalid_skb(struct net_device *dev, struct sk_buff *skb)
+ 	return false;
  
--			refcount_set(&nreq->rsk_refcnt, 1);
-+			refcount_set_release(&nreq->rsk_refcnt, 1);
- 			if (inet_csk_reqsk_queue_add(sk, nreq, child)) {
- 				__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQSUCCESS);
- 				reqsk_migrate_reset(req);
-@@ -1500,7 +1500,7 @@ void inet_csk_listen_stop(struct sock *sk)
- 		if (nsk) {
- 			nreq = inet_reqsk_clone(req, nsk);
- 			if (nreq) {
--				refcount_set(&nreq->rsk_refcnt, 1);
-+				refcount_set_release(&nreq->rsk_refcnt, 1);
+ inval_skb:
+-	kfree_skb(skb);
++	dev_kfree_skb_any(skb);
+ 	dev->stats.tx_dropped++;
+ 	return true;
+ }
+diff --git a/include/linux/can/dev.h b/include/linux/can/dev.h
+index 6d0710d6f571d..346faddee02eb 100644
+--- a/include/linux/can/dev.h
++++ b/include/linux/can/dev.h
+@@ -176,7 +176,7 @@ static inline bool can_dev_dropped_skb(struct net_device *dev, struct sk_buff *s
+ 	return can_dropped_invalid_skb(dev, skb);
  
- 				rcu_read_lock();
- 				if (inet_csk_reqsk_queue_add(nsk, nreq, child)) {
-diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-index b0239d203f045..860145d810ed4 100644
---- a/net/ipv4/inet_hashtables.c
-+++ b/net/ipv4/inet_hashtables.c
-@@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct net *net,
- 		if (sk->sk_hash != hash)
- 			continue;
- 		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
--			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
- 				goto out;
- 			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
- 				     !inet_match(net, sk, acookie, ports, dif,
-diff --git a/net/ipv4/inet_timewait_sock.c b/net/ipv4/inet_timewait_sock.c
-index a1d86026aefb0..e256c55ce9f29 100644
---- a/net/ipv4/inet_timewait_sock.c
-+++ b/net/ipv4/inet_timewait_sock.c
-@@ -143,7 +143,7 @@ void inet_twsk_hashdance_schedule(struct inet_timewait_sock *tw,
- 	 * Also note that after this point, we lost our implicit reference
- 	 * so we are not allowed to use tw anymore.
- 	 */
--	refcount_set(&tw->tw_refcnt, 3);
-+	refcount_set_release(&tw->tw_refcnt, 3);
+ invalid_skb:
+-	kfree_skb(skb);
++	dev_kfree_skb_any(skb);
+ 	dev->stats.tx_dropped++;
+ 	return true;
+ }
+diff --git a/include/linux/can/skb.h b/include/linux/can/skb.h
+index 5d27843862fca..87ace09c0d8bd 100644
+--- a/include/linux/can/skb.h
++++ b/include/linux/can/skb.h
+@@ -78,12 +78,12 @@ static inline struct sk_buff *can_create_echo_skb(struct sk_buff *skb)
  
- 	/* Ensure tw_refcnt has been set before tw is published.
- 	 * smp_wmb() provides the necessary memory barrier to enforce this
-@@ -330,7 +330,7 @@ void inet_twsk_purge(struct inet_hashinfo *hashinfo)
- 			if (check_net(sock_net(sk)))
- 				continue;
+ 	nskb = skb_clone(skb, GFP_ATOMIC);
+ 	if (unlikely(!nskb)) {
+-		kfree_skb(skb);
++		dev_kfree_skb_any(skb);
+ 		return NULL;
+ 	}
  
--			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
- 				continue;
+ 	can_skb_set_owner(nskb, skb->sk);
+-	consume_skb(skb);
++	dev_consume_skb_any(skb);
+ 	return nskb;
+ }
  
- 			if (check_net(sock_net(sk))) {
-diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 349a3e9927eba..4e0ff3b820627 100644
---- a/net/ipv4/syncookies.c
-+++ b/net/ipv4/syncookies.c
-@@ -205,7 +205,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
- 	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
- 						 NULL, &own_req, NULL);
- 	if (child) {
--		refcount_set(&req->rsk_refcnt, 1);
-+		refcount_set_release(&req->rsk_refcnt, 1);
- 		sock_rps_save_rxhash(child, skb);
- 
- 		if (rsk_drop_req(req)) {
-diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-index 6dfe40322fb59..33451f00c4e80 100644
---- a/net/ipv4/tcp_fastopen.c
-+++ b/net/ipv4/tcp_fastopen.c
-@@ -366,7 +366,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
- 	tcp_reset_xmit_timer(child, ICSK_TIME_RETRANS,
- 			     req->timeout, false);
- 
--	refcount_set(&req->rsk_refcnt, 2);
-+	refcount_set_release(&req->rsk_refcnt, 2);
- 
- 	sk_mark_napi_id_set(child, skb);
- 
-diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
-index aa5fa1dd062f7..1eea584d80df8 100644
---- a/net/ipv6/inet6_hashtables.c
-+++ b/net/ipv6/inet6_hashtables.c
-@@ -105,7 +105,7 @@ struct sock *__inet6_lookup_established(const struct net *net,
- 			continue;
- 		if (!inet6_match(net, sk, saddr, daddr, ports, dif, sdif))
- 			continue;
--		if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-+		if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
- 			goto out;
- 
- 		if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
 -- 
 2.53.0
 
