@@ -1,64 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272505;
-	b=1RjFFHCExSCRM3wPFrF/lXVN/tIr0PpqrgL8TMKL8iwR8P88iZ+ZpFz6oY0I+mmhXwgd
-	 6vwxIZMPNtMBuzsEsbYliEAqB7vv/boFxcQf1niqfs1FDnJdueihu1jAJp9U5k6hn2QpG
-	 skPH/ruDqpdebhUBLHFozNJXnCEh79Gil7/uXmlCwNXZHzPJwaKYRJJhrOL8VDr/JaXjL
-	 2DZ1Fc5jUIOxSOFHOalgi1D/1b6Er/VBoobaeSEgGqrkneyp7AobJSO2mDTcxgSS8UyYE
-	 uqEpcR+1EZ+VfARt4YGFifVIkBvGA8L+XH1C2JUeAGhxF4cg3T/SG+BYP+bijNsSUeA==
+	t=1794272508;
+	b=VQnVec5ERH2JKz8CR8lJmqzR7nK+jZM8Ly0UqhQqu/xfYnM0dnmEg7EgqynTWtxPxKvu
+	 4jFQRaE8Jkm2g+WpRpMzHbGUQ1zn5CiGJKCAs0zmGRtmbYtt9QjUJKULsMuSWedTe+Ts6
+	 DIHbJgMz7It7q+SoiZGtHdk8IopAw7AStJBUFex5r+J8YpNQOQNmQWw7FmZBwfV/lTitZ
+	 v9nbxxd3c22FQsO3SR1KZu/PSDf7LrdlKsz3USoMFg1qM2OWObYH4uRy6z/mGwUL0lKQN
+	 LPW7c3RUCKj/gIjEXAObOLNRZbTLFERho06nP102Hae4U7vpUzAx1BMqB2+7YC59D6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272508;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RRTpVMCTihhC1/G2CdaLfRMJvtLF8zyW6z2kOMLh9L0=;
-	b=rIgBc3ZofraerQdsMUc4+6wWAamZLQM+WMAEXvtuK6ub+NGUu5rR0WQaBIA3O3svrKPk
-	 e7zqS4KmnGOAqwlZC017Pza5ez6BRxU2FMPCnx9fmLG9DjmxDLW0OexZeDCzr4wnn14F0
-	 cJ/h+co8fdoZQ809UsZjvTO/Bgk4h2bU5ygvsW9JawI3q0KIdhL+4LuglZ5gWS7/ohcjd
-	 shN1DGnFX57W3IppxThY7BiLVPzPAG4anUnzepaSa0XTszKOBxaFR3bturiIUjH0XDdq8
-	 9dqr9aw3htOnpiy3fV44WYDBdyPeKWoMyuoM+Qd+DpiDytDONxDx1n8Ef6Fsii/2b4A==
+	bh=1xNSuHR7koeUjrlC99dUhr3ciQ6umpoduUVZMmCBGtg=;
+	b=5khpkhsxeVL1ysx3/QryvOxiZLzx3DJYrhqcAGSqnvsfpV/zBTh/pAVFcHxCR2pz464m
+	 F8YT9EFh4B1ivLf+K12Ejv+daPUO/3RL3ZDxq1Y++a9R1Ve5orKrTQVKyrRieQ13agdYL
+	 JTi9KM9+dMa55+727B8TnTy1yFDKNUIOYzNOGepMh8Kd/aSgPCTdv8JWAHM01kdxPJclM
+	 N/8gqKIoEgXR5VlKHQy8K1uOWA4wb1qDQFqSmQfop0DyXN0pM8kiDUUtrd4+k+etabeIL
+	 UUp8z5BTarS2836e1kxjVs3fUdEWduHU48zEvtxB8KuNDPa/wIPurj3mU/OvAunuG2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baEBdJVV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGxtgxA5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4136F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F7D606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baEBdJVV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746791F0089F;
-	Tue, 10 Nov 2026 01:01:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGxtgxA5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A401F008A2;
+	Tue, 10 Nov 2026 01:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272505;
-	bh=RRTpVMCTihhC1/G2CdaLfRMJvtLF8zyW6z2kOMLh9L0=;
+	s=k20260515; t=1794272508;
+	bh=1xNSuHR7koeUjrlC99dUhr3ciQ6umpoduUVZMmCBGtg=;
 	h=From:To:Cc:Subject:Date;
-	b=baEBdJVV4mdEMuCJqRGTqYTCOumJweCHVrKBKgIa/b1Kaz5VlvagfIfXjcKGIYdYx
-	 qZ2rvXlc7josS2I2DaQJqPO0iL/Be7kDc/vws/NoS7GgU6hutBOB3PNtuTHKvFjVgS
-	 NfxKw6mEgvbsJSw5cwcyUVz5XKxfsqn/sXeE25I+w9H2dGc4YDDR+WuH7JuvJ4p6Jg
-	 7bkZQgF7bUlak7RnOSS9WcLLSOYHLVYQideIusGXZwojabAzN3m8J8cyd/HqjTvU7Y
-	 /gY8iZPFMh/x4LIw41T/tjaCN9ThBc6EW8hjbYhXLtbprv71beNJWEg61acO/vArD3
-	 3dQzR9L/WY7Ig==
+	b=fGxtgxA5XvKOew/YmC/sVuibV424dNlVbdxuZvTcLrHYaeEzmNIe8hBxh8Szik5AT
+	 bRHUQPRpw/tVu0bujh81xAGgmnQpi83yT3XEMepcySZp4e+hJD3K8UL04ibYPKXTKb
+	 vbyebDg1ltQHCuOPmXI6I9FKSNTufTtgxqCJrHzwzCNy2B1jH9zyaERA2IKv1KpFZD
+	 uYvhQpS5Y/unFDJvi3yBuYnM8rskNLyVNrn12w9ETk6ZiZk5+m6tJNaguXSpvTUEj2
+	 fivlyqpP7JCTaHCXvmvh/OOhjQRPUB5E9NP8hvmv6n6kBieetfMu7q/AwKpOtW9Ra/
+	 w9Bw/4v3QUA6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: ljs@kernel.org,
-	akpm@linux-foundation.org,
 	david@kernel.org,
-	pfalcato@suse.de,
-	gourry@gourry.net,
+	akpm@linux-foundation.org,
+	surenb@google.com,
+	azpijr@gmail.com,
 	liam@infradead.org,
 	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
 	jannh@google.com,
-	dave@stgolabs.net,
-	sj@kernel.org,
-	kees@kernel.org,
-	ccross@google.com
+	pfalcato@suse.de,
+	shakeel.butt@linux.dev,
+	sj@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:01:42 -0500
-Message-ID: <20261109200142-failed-7.3-c386d799f423@kernel.org>
+Subject: FAILED: patch "[PATCH] fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:45 -0500
+Message-ID: <20261109200145-failed-7.3-ee1afc5539b6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,269 +77,315 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x c386d799f423685952138cab8d89f0331825bdee
+git cherry-pick -x ee1afc5539b6fe03569a5855b6041b13343b0993
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200142-failed-7.3-c386d799f423@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200145-failed-7.3-ee1afc5539b6@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c386d799f423685952138cab8d89f0331825bdee Mon Sep 17 00:00:00 2001
+From ee1afc5539b6fe03569a5855b6041b13343b0993 Mon Sep 17 00:00:00 2001
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 23 Oct 2026 14:47:30 +0100
-Subject: [PATCH] mm/vma: avoid losing atomic VMA flags when setting sticky VMA
- flags
+Date: Tue, 27 Oct 2026 14:08:26 +0000
+Subject: [PATCH] fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps
+ and friends
 
-vma_merge_existing_range() merges an existing VMA (middle) when its
-attributes have changed to match those of one or both adjacent VMAs.
+Reading /proc/PID/maps under per-VMA locks can skip continuously mapped
+address ranges during concurrent VMA splits or merges. This violates the
+guarantee in Documentation/filesystems/proc.rst:
 
-Sticky flags are propagated if they are set in any of the merged VMAs. They
-are initialised from vmg->vma_flags, which is assumed to contain middle's
-sticky flags when the function is invoked.
+"If there is something at a given vaddr during the entirety of the
+life of the smaps/maps walk, there will be some output for it."
 
-However, the VMA write lock is not held for middle when they are first
-populated, so concurrent updates to atomic VMA flags may occur, which will
-be lost upon merge.
+lock_next_vma() reuses a tree iterator across calls under RCU. The iterator
+remembers the range of its last entry. When its node is replaced,
+mas_next_slot() walks the tree again at the last index of that range, then
+advances past the entry containing that index. If VMA boundaries changed,
+this can skip a range that has not been reported:
 
-This can result in fork failing to propagate guard region markers and (if
-file-backed) THP collapse discarding them.
+- A lookup finds [A, C), then mprotect() splits it into [A, B) and [B, C)
+  before vma_start_read() locks the first VMA. The reader reports [A, B),
+  but the iterator still covers [A, C). The next call starts from B yet
+  advances past C, omitting [B, C).
 
-Resolve this by propagating the sticky flags after middle is locked.
+- The reader reports [A, B) and unlocks it. A concurrent mprotect() then
+  merges it with [B, C). On the next call, the iterator resumes at B - 1,
+  which now belongs to [A, C), and advances past C. Again, [B, C) is lost.
 
-Make life easier by factoring this into propagate_sticky_flags(), which
-treats vmg->vma_flags as its base (in case any sticky flags are set there),
-updating it as sticky flags are accumulated from merged VMAs.
+Checking the mmap_lock sequence only within the next call misses writers
+that completed before that call began. Also, a NULL result is currently
+accepted without validation, so a race can terminate the walk early.
 
-Also update vma_expand() to use propagate_sticky_flags() so all merge paths
-utilise it.
+Even a fresh lookup can skip a mapping. Suppose it finds a gap before
+[B, C). A writer inserts an adjacent VMA at the end of that gap, then
+merges it into [B, C), replacing the node. The lookup resumes at the old
+gap's last index, now inside the merged VMA, and steps past it. The
+original [B, C) remains mapped throughout. Repeating the forward lookup
+is insufficient: another merge can make it skip the same mapping again,
+returning the same later VMA or NULL.
 
-propagate_sticky_flags() also asserts that the VMA write lock is held for
-the VMA whose sticky flags are being read, with a comment explaining why.
+The fresh-lookup race also affects /proc/PID/smaps, numa_maps and
+smaps_rollup. Resetting the iterator after gathering each VMA's statistics
+does not prevent a merge during the next lookup. Fixing lock_next_vma()
+also prevents omitted entries and incomplete rollup statistics.
 
-Another means by which atomic VMA flags can fail to be observed is when the
-merge is finalised in commit_merge().
+Tie VMA iterator state with the current mm and the write generation at the
+point of last mm speculation in vma_rcu_iter, whose values we call 'rvmi'.
 
-rmap locks are dropped in vma_complete() before the sticky flags are
-written, meaning an rmap walker can observe the VMA without sticky flags
-set, which can also result in retract_page_tables() discarding guard
-markers.
+This allows us to neatly abstract the existing priv->iter logic alongside
+query_vma_find_by_addr() which uses its own VMA iterator.
 
-Resolve this by assigning the sticky flags before dropping rmap locks,
-factored into commit_sticky_flags() with a write assert on the VMA being
-written to.
+Then, provide helpers that act on the rvmi - vma_rcu_iter_[maybe_changed,
+may_have_skipped]() to determine whether any VMAs may have
+been altered since last mm speculation.
 
-Also remove the vma_set_flags_mask() invocation at the end of
-vma_merge_existing_range() as this was introduced by commit
-64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
-which is now redundant with the introduction of commit_sticky_flags().
+Additionally introduce vma_range_is_empty(), used by
+vma_rcu_iter_may_have_skipped(), to determine conclusively whether VMAs
+exist in a set range, needing to be traversed.
 
-The vma_set_flags_mask() invocation at the end of vma_expand() setting
-sticky flags only is also removed for the same reason.
+Original fix generated by an LLM and sent by Josef Bacik in private, then
+amended by David Hildenbrand, and Lorenzo Stoakes added additional
+abstraction.
 
-Also update vma_merge_existing_range()'s comment to reflect the fact that
-vmg->vma_flags gets updated.
-
-Finally, update the userland VMA tests to reflect a previously missed
-const-ification in vma_assert_write_locked() which would otherwise cause a
-warning when building them.
-
-Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org
-Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
-Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
+Link: https://lore.kernel.org/20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org
+Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
+Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
+Fixes: d9d1c2d81797 ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
 Cc: Jann Horn <jannh@google.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
 Cc: SJ Park <sj@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Colin Cross <ccross@google.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/vma.c                          | 55 +++++++++++++++++--------------
- tools/testing/vma/include/dup.h   |  2 +-
- tools/testing/vma/include/stubs.h |  2 +-
- 3 files changed, 32 insertions(+), 27 deletions(-)
+ fs/proc/internal.h        |  1 +
+ fs/proc/task_mmu.c        | 13 +++++----
+ include/linux/mmap_lock.h | 22 ++++++++++++--
+ mm/mmap_lock.c            | 61 +++++++++++++++++++++++++++++----------
+ 4 files changed, 72 insertions(+), 25 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 0325b39793136..af8e65ada23b2 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -783,6 +783,27 @@ static void vmg_adjust_set_range(struct vma_merge_struct *vmg)
- 	}
- }
+diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+index df873df9afc56..9af1f63258b71 100644
+--- a/fs/proc/internal.h
++++ b/fs/proc/internal.h
+@@ -393,6 +393,7 @@ struct proc_maps_private {
+ 	struct inode *inode;
+ 	struct task_struct *task;
+ 	struct vma_iterator iter;
++	struct vma_rcu_iter rvmi;
+ 	loff_t last_pos;
+ 	struct proc_maps_locking_ctx lock_ctx;
+ #ifdef CONFIG_NUMA
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index f68673a917564..b87d3e86442d0 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -160,7 +160,7 @@ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
+ 		return vma_next(&priv->iter);
  
-+static void propagate_sticky_flags(struct vma_merge_struct *vmg,
-+		const struct vm_area_struct *vma)
+ 	unlock_ctx_vma(lock_ctx);
+-	vma = lock_next_vma(lock_ctx->mm, &priv->iter, last_pos);
++	vma = lock_next_vma(&priv->rvmi, last_pos);
+ 	if (!IS_ERR_OR_NULL(vma))
+ 		lock_ctx->locked_vma = vma;
+ 
+@@ -265,7 +265,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+ 	 */
+ 	if (last_addr > 0)
+ 		*ppos = last_addr = priv->last_pos;
+-	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
++	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, (unsigned long)last_addr);
+ 	hold_task_mempolicy(priv);
+ 	/*
+ 	 * If seq_file had to flush its collected data right after m_next() set
+@@ -515,6 +515,7 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
+ 	struct mm_struct *mm = lock_ctx->mm;
+ 	struct vm_area_struct *vma;
+ 	struct vma_iterator vmi;
++	struct vma_rcu_iter rvmi;
+ 
+ 	if (lock_ctx->mmap_locked)
+ 		return find_vma(mm, addr);
+@@ -522,8 +523,8 @@ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ct
+ 	/* Unlock previously locked VMA and find the next one under RCU */
+ 	unlock_ctx_vma(lock_ctx);
+ 	rcu_read_lock();
+-	vma_iter_init(&vmi, mm, addr);
+-	vma = lock_next_vma(mm, &vmi, addr);
++	vma_rcu_iter_init(&rvmi, mm, &vmi, addr);
++	vma = lock_next_vma(&rvmi, addr);
+ 	rcu_read_unlock();
+ 
+ 	if (!vma)
+@@ -1416,7 +1417,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+ 	rcu_read_lock();
+ 	reset_lock_ctx(lock_ctx);
+ 
+-	vma_iter_init(&priv->iter, mm, 0);
++	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, 0);
+ 	vma = proc_get_vma(m, &pos);
+ 	if (unlikely(!vma))
+ 		goto empty_set;
+@@ -1465,7 +1466,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+ 			reset_lock_ctx(lock_ctx);
+ 			/* Resume from the last position. */
+ 			pos = last_vma_end;
+-			vma_iter_init(&priv->iter, mm, pos);
++			vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, pos);
+ 		}
+ 		vma = proc_get_vma(m, &pos);
+ 	}
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index 11b3ffef3966e..9ccbbcbd7aca0 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -17,6 +17,13 @@ extern int rcuwait_wake_up(struct rcuwait *w);
+ #define MMAP_LOCK_INITIALIZER(name) \
+ 	.mmap_lock = __RWSEM_INITIALIZER((name).mmap_lock),
+ 
++/* Tie a VMA iterator to mm write lock state at iterator initialisation. */
++struct vma_rcu_iter {
++	struct mm_struct *mm;
++	struct vma_iterator *vmi;
++	unsigned int mm_wr_seq;
++};
++
+ DECLARE_TRACEPOINT(mmap_lock_start_locking);
+ DECLARE_TRACEPOINT(mmap_lock_acquire_returned);
+ DECLARE_TRACEPOINT(mmap_lock_released);
+@@ -509,6 +516,16 @@ static inline void vma_mark_detached(struct vm_area_struct *vma)
+ struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
+ 					  unsigned long address);
+ 
++static inline void vma_rcu_iter_init(struct vma_rcu_iter *rvmi,
++		struct mm_struct *mm, struct vma_iterator *vmi,
++		unsigned long addr)
 +{
-+	const vma_flags_t sticky =
-+		vma_flags_and_mask(&vma->flags, VMA_STICKY_FLAGS);
-+
-+	/* Write lock prevents concurrent atomic VMA flag updates. */
-+	vma_assert_write_locked(vma);
-+	vma_flags_set_mask(&vmg->vma_flags, sticky);
-+}
-+
-+static void commit_sticky_flags(struct vma_merge_struct *vmg)
-+{
-+	const vma_flags_t sticky =
-+		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
-+	struct vm_area_struct *target = vmg->target;
-+
-+	vma_assert_write_locked(target);
-+	vma_set_flags_mask(target, sticky);
++	vma_iter_init(vmi, mm, addr);
++	rvmi->mm = mm;
++	rvmi->vmi = vmi;
++	rvmi->mm_wr_seq = UINT_MAX; /* Start odd so changed by default. */
 +}
 +
  /*
-  * Actually perform the VMA merge operation.
-  *
-@@ -818,6 +839,8 @@ static int commit_merge(struct vma_merge_struct *vmg)
- 		return -ENOMEM;
+  * Locks next vma pointed by the iterator. Confirms the locked vma has not
+  * been modified and will retry under mmap_lock protection if modification
+@@ -516,9 +533,8 @@ struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
+  * Returns either a valid locked VMA, NULL if no more VMAs or -EINTR if the
+  * process was interrupted.
+  */
+-struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
+-				     struct vma_iterator *iter,
+-				     unsigned long address);
++struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
++				     unsigned long from_addr);
  
- 	vma_prepare(&vp);
-+	/* Must be made visible before vma_complete() for rmap walkers. */
-+	commit_sticky_flags(vmg);
- 	/*
- 	 * THP pages may need to do additional splits if we increase
- 	 * middle->vm_start.
-@@ -857,8 +880,8 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
-  * merge.
-  *
-  * As part of this operation, if a merge occurs, the @vmg object will have its
-- * vma, start, end, and pgoff fields modified to execute the merge. Subsequent
-- * calls to this function should reset these fields.
-+ * vma, start, end, pgoff and vma_flags fields modified to execute the merge.
-+ * Subsequent calls to this function should reset these fields.
-  *
-  * Returns: The merged VMA if merge succeeds, or NULL otherwise.
-  *
-@@ -872,8 +895,6 @@ static bool can_merge_remove_vma(struct vm_area_struct *vma)
- static __must_check struct vm_area_struct *vma_merge_existing_range(
- 		struct vma_merge_struct *vmg)
+ static inline void vma_assert_can_modify(struct vm_area_struct *vma)
  {
--	vma_flags_t sticky_flags = vma_flags_and_mask(&vmg->vma_flags,
--						      VMA_STICKY_FLAGS);
- 	struct vm_area_struct *middle = vmg->middle;
- 	struct vm_area_struct *prev = vmg->prev;
- 	struct vm_area_struct *next;
-@@ -966,24 +987,18 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
+diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+index 83b7d3ded0dc7..834bbf86e0044 100644
+--- a/mm/mmap_lock.c
++++ b/mm/mmap_lock.c
+@@ -13,6 +13,8 @@
+ #include <linux/trace_events.h>
+ #include <linux/local_lock.h>
  
- 	/* No matter what happens, we will be adjusting middle. */
- 	vma_start_write(middle);
-+	propagate_sticky_flags(vmg, middle);
- 
- 	if (merge_right) {
--		vma_flags_t next_sticky;
--
- 		vma_start_write(next);
- 		vmg->target = next;
--		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
--		vma_flags_set_mask(&sticky_flags, next_sticky);
-+		propagate_sticky_flags(vmg, next);
- 	}
- 
- 	if (merge_left) {
--		vma_flags_t prev_sticky;
--
- 		vma_start_write(prev);
- 		vmg->target = prev;
--
--		prev_sticky = vma_flags_and_mask(&prev->flags, VMA_STICKY_FLAGS);
--		vma_flags_set_mask(&sticky_flags, prev_sticky);
-+		propagate_sticky_flags(vmg, prev);
- 	}
- 
- 	if (merge_both) {
-@@ -1054,7 +1069,6 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
- 	if (err || commit_merge(vmg))
- 		goto abort;
- 
--	vma_set_flags_mask(vmg->target, sticky_flags);
- 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
- 	vmg->state = VMA_MERGE_SUCCESS;
- 	return vmg->target;
-@@ -1241,16 +1255,11 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	struct vm_area_struct *target = vmg->target;
- 	struct vm_area_struct *next = vmg->next;
- 	bool remove_next = false;
--	vma_flags_t sticky_flags =
--		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
--	vma_flags_t target_sticky;
- 	int ret = 0;
- 
- 	mmap_assert_write_locked(vmg->mm);
- 	vma_start_write(target);
- 
--	target_sticky = vma_flags_and_mask(&target->flags, VMA_STICKY_FLAGS);
--
- 	if (next && target != next && vmg->end == next->vm_end)
- 		remove_next = true;
- 
-@@ -1265,7 +1274,7 @@ int vma_expand(struct vma_merge_struct *vmg)
- 	VM_WARN_ON_VMG(target->vm_start < vmg->start ||
- 		       target->vm_end > vmg->end, vmg);
- 
--	vma_flags_set_mask(&sticky_flags, target_sticky);
-+	propagate_sticky_flags(vmg, target);
- 
- 	/*
- 	 * If we are removing the next VMA or copying from a VMA
-@@ -1282,18 +1291,14 @@ int vma_expand(struct vma_merge_struct *vmg)
- 		return ret;
- 
- 	if (remove_next) {
--		vma_flags_t next_sticky;
--
- 		vma_start_write(next);
- 		vmg->__remove_next = true;
- 
--		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
--		vma_flags_set_mask(&sticky_flags, next_sticky);
-+		propagate_sticky_flags(vmg, next);
- 	}
- 	if (commit_merge(vmg))
- 		goto nomem;
- 
--	vma_set_flags_mask(target, sticky_flags);
- 	return 0;
- 
- nomem:
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index a139774054828..dc4927d26296c 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1212,7 +1212,7 @@ static inline void vma_assert_detached(struct vm_area_struct *vma)
- 	WARN_ON_ONCE(vma_is_attached(vma));
++#include "internal.h"
++
+ EXPORT_TRACEPOINT_SYMBOL(mmap_lock_start_locking);
+ EXPORT_TRACEPOINT_SYMBOL(mmap_lock_acquire_returned);
+ EXPORT_TRACEPOINT_SYMBOL(mmap_lock_released);
+@@ -428,21 +430,53 @@ static struct vm_area_struct *lock_next_vma_under_mmap_lock(struct mm_struct *mm
+ 	return vma;
  }
  
--static inline void vma_assert_write_locked(struct vm_area_struct *);
-+static inline void vma_assert_write_locked(const struct vm_area_struct *);
- static inline void vma_mark_attached(struct vm_area_struct *vma)
+-struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
+-				     struct vma_iterator *vmi,
++/* Is there no VMA in [start, last]? */
++static bool vma_range_is_empty(struct mm_struct *mm, unsigned long start,
++		unsigned long last)
++{
++	VMA_ITERATOR(vmi, mm, start);
++
++	return !vma_iter_load(&vmi) && vma_iter_end(&vmi) - 1 >= last;
++}
++
++/* Might the VMA tree have been modified since last mm speculation? */
++static bool vma_rcu_iter_maybe_changed(const struct vma_rcu_iter *rvmi)
++{
++	return (rvmi->mm_wr_seq & 1) || /* Odd implies write-lock. */
++	       mmap_lock_speculate_retry(rvmi->mm, rvmi->mm_wr_seq);
++}
++
++/* Could the VMA iterator have skipped a VMA due to the tree changing? */
++static bool vma_rcu_iter_may_have_skipped(const struct vma_rcu_iter *rvmi,
++		unsigned long from, unsigned long to)
++{
++	return vma_rcu_iter_maybe_changed(rvmi) &&
++	       !vma_range_is_empty(rvmi->mm, from, to);
++}
++
++struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
+ 				     unsigned long from_addr)
  {
- 	vma_assert_write_locked(vma);
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index f786a585caf05..8d030a3ace848 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -320,7 +320,7 @@ static inline void anon_vma_lock_write(struct anon_vma *anon_vma)
- {
- }
++	struct mm_struct *mm = rvmi->mm;
++	struct vma_iterator *vmi = rvmi->vmi;
+ 	struct vm_area_struct *vma;
+-	unsigned int mm_wr_seq;
+-	bool mmap_unlocked;
  
--static inline void vma_assert_write_locked(struct vm_area_struct *vma)
-+static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
- {
- }
+ 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "no rcu read lock held");
+ retry:
+-	/* Start mmap_lock speculation in case we need to verify the vma later */
+-	mmap_unlocked = mmap_lock_speculate_try_begin(mm, &mm_wr_seq);
++	/* Only trust the iterator's position if the tree cannot have changed. */
++	if (vma_rcu_iter_maybe_changed(rvmi)) {
++		vma_iter_set(vmi, from_addr);
++		mmap_lock_speculate_try_begin(mm, &rvmi->mm_wr_seq);
++	}
+ 	vma = vma_next(vmi);
+-	if (!vma)
+-		return NULL;
++	if (!vma) {
++		/* No reason to fallback if nothing left in range. */
++		if (!vma_rcu_iter_may_have_skipped(rvmi, from_addr, ULONG_MAX))
++			return NULL;
++
++		rcu_read_unlock();
++		goto fallback;
++	}
+ 
+ 	vma = vma_start_read(mm, vma);
+ 	if (IS_ERR_OR_NULL(vma)) {
+@@ -471,14 +505,9 @@ struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
+ 	 * installed ahead of it. Otherwise we might observe a gap that should
+ 	 * not be there.
+ 	 */
+-	if (from_addr < vma->vm_start) {
+-		/* Verify only if the address space might have changed since vma lookup. */
+-		if (!mmap_unlocked || mmap_lock_speculate_retry(mm, mm_wr_seq)) {
+-			vma_iter_set(vmi, from_addr);
+-			if (vma != vma_next(vmi))
+-				goto fallback_unlock;
+-		}
+-	}
++	if (from_addr < vma->vm_start &&
++	    vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start - 1))
++		goto fallback_unlock;
+ 
+ 	return vma;
  
 -- 
 2.53.0
