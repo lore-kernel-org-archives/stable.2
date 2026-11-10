@@ -1,96 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311048;
-	b=ZeHrjm6rf4qC4sVhujr+W3xqx4JcX9TzMfAC/zKRf0O9Fjl7b2F3OqKqNAbRIjxD1jBQ
-	 bqhdUAIj2tPBWMr2DWGzz3Q0/S9zjLJF1RWq3AI8wRItniuOIa4pgvId88ba9lGaX/l51
-	 8VyH8/qTPTbgxJReeD1EV4vYjW1Ro2uMg1XQYLvmF7Qz8x0znH3lINryMZtmMX42qwkXa
-	 jwRfNN0Z+boyzVRLrHasXpiVwStWZAAy2d8rVat3iwlCauUTOWA0TKce2sT+1jUIVdUR2
-	 8lvr3xTqcPcYSOLicY83ZvJsa2Jvq8OkDgT+4I9KshQu3DuhA4iM4XkZ7ZsGuLaH4vg==
+	t=1794311121;
+	b=lSBfAQx057W3Cdg3UoGIstp7qwKP4ba9SgCQep9fPLeZQlWDEhzqdowqPJ9OirJSWaGE
+	 kklucbnaH4NMvuOOWCYlrgW72lV3tkNMhsdOqO/uKr1U+KhWMtf5bRQAG5tfxejsJzhSy
+	 f9y9xpRwRn254xgb+OWNDuswRglshq6nq4kY11oqQWINAi7cwhzMDj1ruO509cgclPN/Z
+	 bB9D92A9ybbeTzEIkV0icABKqPZ/oy4mx0GNFh/QcAXq/6PEzGt9WpghWwDbYEjGoCnn5
+	 vh39zU3g5VQ5jMKTq0wlUzjO+cM1vUCcQaTtns8+6yPveHTRL91W/ea5/YCUXzkKuPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311048;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
-	b=vqKGVXe4zsscukjojO9ZpEb3FkTa1hE8h9zgra0LvRVUNOZsRl1ILNHPkCPzstAuFAvF
-	 6REcYtdnKSyB+dlOMc5agvNGd9k2/uqMgAaL2M6SL8C0l3cdQynKt8PiHNL9ll+63OfpF
-	 M/OHXSvFyKdhIV93rch7TqmIK/a2kHyxUolf4KkKFWiU6gsAT7E1WiZGVr59cWSkC0DSp
-	 wzCAZKqrIEUyS2ylylrIo749NCQ6/IJ4AUvAH+4119qumE+8bqOxVeKxZZY97jzYpXJlN
-	 +it3cw0dqF5kOsqFedkqQOR18DzNdbXk4YPV9QyE45z69pSt/TW71i9KClfI/69FG3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311121;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BrE6qmTA91PqUcEQjPc3eucEoExxFQUIv8JuA9TmqvY=;
+	b=Ab9ztPW+ilfzZCvITkBrNpYbz//R3rXqgQRIwl+rSf58MIbUnwLsya12080Qze+tcTZb
+	 cmSnAS9pl9lSX6MqSmCMVdpaw1u0eQJ75Und2MGDG74Gkw6TJKjHnPETY2zjhkobsFRmR
+	 67LkLJkLMcRzRvs39PBlnvwxKpbouHUQwCNsoGt8Jt1dXLlzWRZwFEDgwGUvdxMJ8S0K9
+	 C5jCliAGBuu5ks/zfWGvx7Q9vTQefuCbFUNEp5eRwo3axHq0iHkpzDh84LGbBZuUzZFaX
+	 lCB7J+1CZFqJTf/84+wW3Ej6+pKoqFXebvrO2OG9nNHuwPMQYq64TFvEpcZh4fzJgIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O6HMWVBV;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZphZAeAt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8252C606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8252C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450E8606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:45:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O6HMWVBV
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso2890378c88.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:44:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794311048; x=1794915848; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
-        b=O6HMWVBVln5XP80c2bMEK8+zD7RjvqUj8izRi31qCuDgXZ4dYDMjCL+gRh4os4IzmA
-         1nuQGss7B7ZgejBA+qzsIHKjGh3cxcTB8YsHbxCAIlBIoqIt2Wevjo2asv0YjOZqt+w8
-         EcKbYVGSvRzodNPjM7fVMqfBsMwVx08e+XX1vYee1/0joE9wbdyvnyC4IPBK7ngcY2tN
-         LkxmqpQZvLKJntF6zADGKa8xXba7omnUSlsdABiro03BZVe96JK5NPFwV6c0QN/yfl1r
-         LpA9286AFWzQkEoK1qBW8jt0CwB5G5PVttu/ree8u/aXOU/odXxkkMfF+UFKnBM+2HYA
-         KJEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794311048; x=1794915848;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sTrsrtp/N3MsoFW0Udr/uhsvW3buCcp/9OPmY8EXS9s=;
-        b=bJTU4IIS2cymyxBG1wVR3U5FMuSDAM9C/p85c8Yyhtrcr+d0/0ZQcMrxRY5MTdRFZU
-         tftHwcFx2KnO9VRhBtR297kw9t/C8p3jEtRt8+UnL4T/1agZ0ixr4Ybo4Uz90UbW69nt
-         Pg+6shPXWdjNW/tdV6vslBsKIGgRhWR/UfAzW9g7gm2FgeXxU24g2U/MACTucqtRAeIj
-         2NtsTREYtpZI6QXPC/5od1tsvYEa3AApjjIru3ku8Xo5jgVFDiw8ZVaMhZfovsg5GZq4
-         8v2oQQV27MO90AuwGUW1ZnAi5quz2YoPg8A4KWEUHr79lw4HUh7jcmXz+OOSmstD6P71
-         kkIg==
-X-Forwarded-Encrypted: i=1; AL+hErF9nL5nXjNcTKbUBz+QpaTvzqW3xoLaSfvyxY8HLBVuYZ853wt6ONSHricKFG2R6W89gmqHcXg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/27vlrmnb49wNUyWJeHCgjMpUtLWortJa5m6S/nW06NL0s8sZV
-	oY2DqB8+iN/QRxBtwVHafNV69yB/wLxTyZmBdj2loiISHMB8PYaAiN6e
-X-Gm-Gg: AYBFou2Ww6Z0c0R03U1dlX2g92o86leAXtzoXleGIMSW85IarH91CFUCjatiUYQcjKC
-	N44IbAVge0AbEXeGdYxlHsieoNY1iO7mg7b5qTXWLBk4rY0oqoP7kNEF2lnk564uxgvKQfUWP6k
-	mV8sn+ABBozJ2iIqseTXGMDyGPWudYjvZ0S99Na0tSFidKQGvj/w9Z8mxCzDOqgS1ipVMslo7EE
-	6NPANikqLkFUGf1a77SP+kAK7d9iGPfxHFqq086YvVpSqKn/2gCWtGuMfPvVH897gzB8eMchv6c
-	4pkhQd5xROL4qiIXfd8kidOHMK4UE1fKBtuFeEd/FhxWSJQkpXzookRzCvy++VtB3pRaMSyTgb9
-	9jfLzwZ1DVaYkyjHas1My6/srGCVnRDnovuSvipWjpiqRftARNXtkpDccN8KUEwall87kVWQYbX
-	G6UprzfmvqlkoC0hysMJWUx3DIrb4trJMOklQLkf5PytTxqc+aeEndR1xrww+jUaU/5eEbd/lMR
-	kZJc9SjTXYZZ0NrAthzqV8PmmuZ3q7KV5YLtsvXRVhUvKnF/iuMwP9ok+YJ/ry77ZhENjbyJ3zr
-	ta3zKmg7FHWur83G7Rv1Q4RigUHRW1TUOlArbOSCa3XIiRxg
-X-Received: by 2002:a05:7022:3a86:b0:1b3:a881:4d9f with SMTP id a92af1059eb24-1b3b60249b4mr3330257c88.20.1794311046423;
-        Tue, 10 Nov 2026 03:44:06 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b1003fsm6648791c88.6.2026.11.10.03.44.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 03:44:05 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] usb: gadget: lpc32xx_udc: drain the pullup work on removal
-Date: Tue, 10 Nov 2026 20:43:51 +0900
-Message-ID: <20261110114351.2524921-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZphZAeAt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0319C1F0089F;
+	Tue, 10 Nov 2026 11:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794311120;
+	bh=BrE6qmTA91PqUcEQjPc3eucEoExxFQUIv8JuA9TmqvY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZphZAeAt9UwgYZdBitIGwwt5c6hfkFd3hEKiqgEqnYrFPVqLUB3biJJ0jwkUEVI7l
+	 G4iYPpqu5m0Fd0hBDD3Z+wsjy0M/sbiW2W/QO9Ye4vdfp6kaKUrvOVaDMdHq59ePsk
+	 +3vU9ho2OQjo+d+t3qiBoIA+QPwFa4ldwLdvFxZCorZGNbzpWWtu1nJiyYMiQwfxrV
+	 qBN0uMSkRm9DIcpXLXAMk0nNQaeyZr0kDsX6Gl/7sdKYJ8SSvhY8AeLjnLpofB0o64
+	 sOyujuwRLppKeRHE8emZHLkCJw+CBJvjSnM0xaIDDleztzlVCFQhdqCr8Hk7pmRY48
+	 GfxYJGampbALw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] iio: light: isl29028: remove isl29028_set_pm_runtime_busy() helper
+Date: Tue, 10 Nov 2026 06:45:17 -0500
+Message-ID: <20261110114512.606630-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050644-failed-6.18-0e30d15b1564@kernel.org>
+References: <20261107050644-failed-6.18-0e30d15b1564@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,48 +63,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
-isp1301 i2c pull-up access from process context. The work handler
-(pullup_work) dereferences udc and touches the isp1301 i2c client.
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-udc is allocated with devm_kmemdup(), so devres frees it after
-lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which can
-schedule pullup_job -- and also puts the isp1301 i2c client, but it never
-drains the work. A pullup_job still pending can then run after udc has
-been freed (and the isp1301 client put), dereferencing freed memory -- a
-use-after-free.
+[ Upstream commit 7f61f41a3f5e8f9aa6c264833504995c89712cfc ]
 
-Cancel pullup_job in lpc32xx_udc_remove(), after the final pullup(udc, 0)
-and before the udc and its isp1301 client are released.
+isl29028_set_pm_runtime_busy() just calls pm_runtime_resume_and_get()
+or pm_runtime_put_autosuspend() depending on its bool argument. Call
+them directly and remove the helper.
 
-Found by static analysis; not runtime-reproduced (needs LPC32xx USB
-gadget hardware with the isp1301 transceiver).
+No functional change.
 
-Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Reviewed-by: Brian Masney <bmasney@redhat.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Stable-dep-of: 0e30d15b1564 ("iio: light: isl29028: fix runtime PM reference leak on error paths")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/iio/light/isl29028.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
-index 94355d3..210fa1f 100644
---- a/drivers/usb/gadget/udc/lpc32xx_udc.c
-+++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
-@@ -3186,6 +3186,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
- 	udc_clk_set(udc, 1);
- 	udc_disable(udc);
- 	pullup(udc, 0);
+diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
+index f89c5d9ee5240..7590efcf8dedb 100644
+--- a/drivers/iio/light/isl29028.c
++++ b/drivers/iio/light/isl29028.c
+@@ -333,16 +333,6 @@ static int isl29028_ir_get(struct isl29028_chip *chip, int *ir_data)
+ 	return isl29028_read_als_ir(chip, ir_data);
+ }
+ 
+-static int isl29028_set_pm_runtime_busy(struct isl29028_chip *chip, bool on)
+-{
+-	struct device *dev = regmap_get_device(chip->regmap);
+-
+-	if (on)
+-		return pm_runtime_resume_and_get(dev);
+-
+-	return pm_runtime_put_autosuspend(dev);
+-}
+-
+ /* Channel IO */
+ static int isl29028_write_raw(struct iio_dev *indio_dev,
+ 			      struct iio_chan_spec const *chan,
+@@ -352,7 +342,7 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+ 	struct device *dev = regmap_get_device(chip->regmap);
+ 	int ret;
+ 
+-	ret = isl29028_set_pm_runtime_busy(chip, true);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -405,7 +395,7 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = isl29028_set_pm_runtime_busy(chip, false);
++	ret = pm_runtime_put_autosuspend(dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -420,7 +410,7 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+ 	struct device *dev = regmap_get_device(chip->regmap);
+ 	int ret, pm_ret;
+ 
+-	ret = isl29028_set_pm_runtime_busy(chip, true);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -476,10 +466,10 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+ 
+ 	/**
+ 	 * Preserve the ret variable if the call to
+-	 * isl29028_set_pm_runtime_busy() is successful so the reading
++	 * pm_runtime_put_autosuspend() is successful so the reading
+ 	 * (if applicable) is returned to user space.
+ 	 */
+-	pm_ret = isl29028_set_pm_runtime_busy(chip, false);
++	pm_ret = pm_runtime_put_autosuspend(dev);
+ 	if (pm_ret < 0)
+ 		return pm_ret;
+ 
+-- 
+2.53.0
 
-+	/*
-+	 * pullup() schedules pullup_job to do the slow isp1301 i2c access; the
-+	 * work dereferences udc, so drain it before the devm-allocated udc (and
-+	 * the isp1301 i2c client it uses) are released.
-+	 */
-+	cancel_work_sync(&udc->pullup_job);
-+
- 	device_init_wakeup(&pdev->dev, 0);
- 	remove_debug_file(udc);
-
---
-2.43.0
