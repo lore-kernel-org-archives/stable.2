@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311881;
-	b=MhX9sKQ3KLL7DIErIuLeTO23Emq+r4GlZOmACoLQNNjhqP3hRxfkHBOI4gqKqN8lRhes
-	 3pV2lyelIYTEKROiLts73yexFXvCfz1SD/owc+h/FvFeIAUyyQ6ScHPUuYb7HhrPaOjwi
-	 1mJG14NkEwBgxI47ozdycPRfwImQQ0NBXwxPNp7rEnXrrog9q0esdQH/weoW34MxIT4Oh
-	 zDzg1MC1e3VvgAi6cDxlp687PZLtxTAqCAtuwOv6eFOkRdnmVIBVooBu3/de0I0yuXrJ1
-	 BxHFhzTyv7n5wN1enMtkcXmIgIfw1OJg6WZ3ILc7gfPJee/0yS3cxK7U9UUOUKd4rrw==
+	t=1794311894;
+	b=eyedPGdZIqCLPDdf+d1R7Zunyn4RZUlOm25PPIRLWguiH2ysViCj/VN3/NlaBActF4yh
+	 E7OtrKjMvh3731ZXeBP4KxxjvTiGlm2WUrcz7VcU9UC2bdmsuKNH9ls5QSXQg6IwhjJOJ
+	 y9SoIpukVfGQ79y49HeDuRqe0KuPXIN9k76s0jeCPLHhG1SYxXvgGCwZDmi0Q4c5dRM38
+	 +Cg00/52QoBRuEKvJaOIZcig4uxQUneV7ZaPJOWs1DSUKVX1cwnlKyuTb7GoOnz9ril9E
+	 rcEyXLOu7mdxNRMlAitKUxuVFO5nGMcROBuYtx/unQdjWtb1Vn/84GaNdSEzx/vBeWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311894;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MRlcBsYEXfLTOLgnYBNwCH31rRgWf3VIsXtcqykQo3Q=;
-	b=maFxWBYSjUJG8RAh/c7cq/sww2otPofZome2i7i1Nb9DWv4iTfsfwYQLSOz+TFUlafM3
-	 tkXG4v+DKSE8Tf2EemYvAUAfA7Q8gJ6fzTx+RdgMBjRAUF+qvObXQf+glQanOn8jT0604
-	 6WjjxBNE2CSN873v7A0OPtj5O6Yh5hsfqua/iIFSI61Py2TTnYLE/GC3bPPeVmzoltZc2
-	 GAS+r9Dr37tPBilNuitgSTwsqes8QyxyLmpIBHTOzN1HB6KeQ2I+ni5sVVsTbQAsxUceu
-	 xn/jxQ6uW9AuiVbz4YjYuewf8cF3+qXk/HpOD5LE5CMRJRKeufx0uHTnqHrQkYHJdMw==
+	bh=Nm+GX4WcZ3kNHvpsPK+a/kV8vGM3Dphdvw4/FqFA0hI=;
+	b=XBx//B9rF4JIsv46nzB7FSd8hclM1cBVjzrJerCry7BNLZjJmObBEeUelb7ZsOyco/eq
+	 EIGTlmexUK/lfxYxypn74WmFFApqXlmPaSjiDJiPP0/dBGRx0UZylThNFx7Uxm/xSTS9N
+	 bJMtpgVKN+xsldTBVF+qbzhenvX97X87Nt8oHN2n/iprmFyhbYbkCHkxtR8cBh5CMZSDq
+	 2cW9HTV0lJHFgIXtk6H8nc7Vco+lXenlAy3V2AnhFuiyLpTwilLN9TwcmFk4FfEHdp6Kq
+	 8og7RETivlMADnz1i+DMe4+T0XueIom1tfgODE+tqdb5yw7CozSOTM6MH7d2Gq2RJnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7WZbjpJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LdhhxXNr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93DB606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:58:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8D2606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G7WZbjpJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E62161F0089F;
-	Tue, 10 Nov 2026 11:57:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LdhhxXNr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CCC11F00932;
+	Tue, 10 Nov 2026 11:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311880;
-	bh=MRlcBsYEXfLTOLgnYBNwCH31rRgWf3VIsXtcqykQo3Q=;
+	s=k20260515; t=1794311893;
+	bh=Nm+GX4WcZ3kNHvpsPK+a/kV8vGM3Dphdvw4/FqFA0hI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G7WZbjpJ+lEmTcO/XsFbMuwTmnfEWUc4dBB+y/rj7kgAckqiLyKrpEunF9fuhcN78
-	 Cb/vWJ41CHFdx7mm/C9NiNAazx88xEV/W2kd4amvPvn61AM1xH1aTBEXY796hmJX0w
-	 yUW7iaT3ChVKjdh/2Rgi3ptFlPSXncwdhDsuwl2jboUQipEw/MdgHcbwJzOVrcw761
-	 Yr+nHaG/14hHPLnIciCiAC8e9G20nMXjfqnce4vUqCQuUOjtjTJSskgkTQlUsnj3Pv
-	 Ixy8kgv+MO5PkkN0f4uDd9KFw8TY+WrGg9v3jo+vx+jm5wVFbMJnatyGQaCEZN4N45
-	 m52Kb1LqGfcfQ==
+	b=LdhhxXNrmH1lAwG6g4F4Ze9qYlIKaiQIqn1UQPlyGzWzqPGfVu6f9CSR2IMkOc67Y
+	 W4KsTrtwUSBuIkgyc2nl9uVYGWF3PM9u9k15hdBqRLimthzWY35zOSBIagW3k6DYEs
+	 g1y2JV2lbKYR9W1zyJkfCGbK22gQvksSbaQwg9XvnY3RWdJKUnjK5U+1X+f2GzFAa0
+	 Z5P+ogIZ47ONGEXAelH5plXkTSc8rYPa0Ib/1bToLZnnp9MD8pVFtWceKv/QlkV3a2
+	 roNNTs2NLXPF9EjvTzsn/KcFUWUbt5tPJvLlf23zZJ5u8xM0Zwf9fTX8uO+xUFc4OX
+	 aOF6ZLfpMJFlA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fabio Cesari <fabio.cesari@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] iio: light: isl29028: fix runtime PM reference leak on error paths
-Date: Tue, 10 Nov 2026 06:57:58 -0500
-Message-ID: <20261110115747.940255-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE clock to GCC
+Date: Tue, 10 Nov 2026 06:58:11 -0500
+Message-ID: <20261110115757.884247-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052910-failed-6.6-0e30d15b1564@kernel.org>
-References: <20261107052910-failed-6.6-0e30d15b1564@kernel.org>
+In-Reply-To: <20261107051753-failed-6.12-117d8d40be1d@kernel.org>
+References: <20261107051753-failed-6.12-117d8d40be1d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,93 +63,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fabio Cesari <fabio.cesari@gmail.com>
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-[ Upstream commit 0e30d15b15647df786e60022650613e16dd70645 ]
+[ Upstream commit 117d8d40be1ded4f35f3252efa83607a7134d5e0 ]
 
-isl29028_read_raw() and isl29028_write_raw() take a runtime PM reference
-with pm_runtime_resume_and_get() but return directly on their error
-paths without dropping it. The usage count never balances again and the
-device stops entering autosuspend for good. In isl29028_read_raw() this
-needs a regmap access to fail; in isl29028_write_raw() one rejected
-sysfs write is enough, for example
+Connect the QMP PHY USB3 output to GCC so the USB3 PHY pipe clock can
+propagate to the USB controller.
 
-  echo 200 > in_proximity_sampling_frequency
-
-which is outside the [1:100] range and returns -EINVAL with the
-reference still held.
-
-Take the reference with PM_RUNTIME_ACQUIRE_AUTOSUSPEND() instead, so it
-is released on every return path.
-
-This also stops the return value of pm_runtime_put_autosuspend() from
-reaching userspace. That value only says whether the device could be
-suspended right away, so -EAGAIN or -EPERM turns a successful access
-into a failure, and with CONFIG_PM=n the stub returns -ENOSYS on every
-access.
-
-Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
-Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM coccinelle
-Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: replaced scoped runtime PM guards with explicit isl29028_set_pm_runtime_busy() calls ]
+Fixes: a98bfb31f676 ("arm64: dts: qcom: ipq9574: Add USB related nodes")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260921-ipq_clk_changes-v1-4-d242e3d49648@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+[ sashal: Adjusted context to preserve four zero placeholders where upstream has PCIe PHY clock references. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/light/isl29028.c | 23 ++++-------------------
- 1 file changed, 4 insertions(+), 19 deletions(-)
+ arch/arm64/boot/dts/qcom/ipq9574.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
-index 90099e467b707..15b4cd3555434 100644
---- a/drivers/iio/light/isl29028.c
-+++ b/drivers/iio/light/isl29028.c
-@@ -407,14 +407,9 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
- 
- 	mutex_unlock(&chip->lock);
- 
--	if (ret < 0)
--		return ret;
-+	isl29028_set_pm_runtime_busy(chip, false);
- 
--	ret = isl29028_set_pm_runtime_busy(chip, false);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return ret;
- }
- 
- static int isl29028_read_raw(struct iio_dev *indio_dev,
-@@ -423,7 +418,7 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
- {
- 	struct isl29028_chip *chip = iio_priv(indio_dev);
- 	struct device *dev = regmap_get_device(chip->regmap);
--	int ret, pm_ret;
-+	int ret;
- 
- 	ret = isl29028_set_pm_runtime_busy(chip, true);
- 	if (ret < 0)
-@@ -476,17 +471,7 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
- 
- 	mutex_unlock(&chip->lock);
- 
--	if (ret < 0)
--		return ret;
--
--	/**
--	 * Preserve the ret variable if the call to
--	 * isl29028_set_pm_runtime_busy() is successful so the reading
--	 * (if applicable) is returned to user space.
--	 */
--	pm_ret = isl29028_set_pm_runtime_busy(chip, false);
--	if (pm_ret < 0)
--		return pm_ret;
-+	isl29028_set_pm_runtime_busy(chip, false);
- 
- 	return ret;
- }
+diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+index 81ccd0600c5ab..31f97309c5330 100644
+--- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+@@ -315,7 +315,7 @@ gcc: clock-controller@1800000 {
+ 				 <0>,
+ 				 <0>,
+ 				 <0>,
+-				 <0>;
++				 <&usb_0_qmpphy>;
+ 			#clock-cells = <1>;
+ 			#reset-cells = <1>;
+ 			#interconnect-cells = <1>;
 -- 
 2.53.0
 
