@@ -1,51 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339382;
-	b=ooT8r+dW6gki0HwF6z+qtHV16CHPicLjPSddEtPhby/iNHwSUBRhJirsjl/gpDHHMCKt
-	 DhYsjzuiOg7+6Ogi9yWbzHjxvbZF4lgNzM1G3lFxNgKcFvZzQmlEuXzxl3Aa2OlRI+6Jl
-	 qDWisbnWeqOLTwV3lWFTZNFDM6J9mlxnOISYjAy6YWsyH9xD02NzlVgJ/uv9zQ8m6M/V1
-	 ZG8YD0GntAM4Hvj2aJz89g09tvKDHv3wOGeG8CaK7McVzL8NKVweOr14qe37Kxu3V8zek
-	 ZhoC+agbWDcZIusWQSb7GxPqZ3A/U+dJBL8/S1eAryTFokclum1NfW2DljXHad+yWOA==
+	t=1794339404;
+	b=KNcwggjT/nWZ5PXd5BYruzOKnJLv/u9oUFmTgH4cYrA9IXdI1WgEcTf5x9KCctd2mdph
+	 vqsRMujFBQu7bH3CD5XY6SwPUtL29U9aopAuPHB9bc3PwonGym4i0OZ2GHTQhx1/Za8ka
+	 8cC4f5LkzRYlu0W4u+keJmjz2eA7UAupRw/EBEnpEAJmvzNWVhAs+CvnjfTHhYFQFUlVL
+	 gERUg4AU6UHP74iDE5ZS039fsNTBz8jmZAxhO32NzmBX59WD01/j1fjtzOM63O20Cjue9
+	 UExysXDe1Zce8/n4ot0NxuCQ6kmAUgNKYypmkv9FRC9qvnWjF7LzyIZbcezqd4B5J4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339382;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=bvbz4Nv3zjSZTC1L/5EJpsYTHE0e3Tvg+GRHWYYg8UE=;
-	b=k54HDdmIH1GfBfVqyzRmVyQjU07xCzt0Csit0ilWnYoG3iKNbtoZtQ5TDEPUN9nNMTb7
-	 5gEZSTS57YOsR1ZxCAhrKG6Q+oZtmOlrl7SBcfIgav5f2Mh0PueVZ0B4GdNKU7MR5834m
-	 KKEFNplpehbMjXoyD5f9KJf5s6AE/dxLU+FCO94xV0MdIbuZdYz+al/Y3TY8y0uDVq2lX
-	 ocxdn3vxzQCZpG7VaoGlu5bV1YE5X95Gd41m4TKYe1qKF/9JvfONObV7gjXzDsO/jM6iM
-	 wcqZr+U4Eq3pFtHiduYkCFqHDoNd1ey90kDtfLqU3wQAK3LyeK3h83jN5Q/xD0wUJDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339404;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=B6V02g+MA05LwZf6qpx2sF5cRI0F+MCxf09747s+nKU=;
+	b=GauiwXE30DEaWmlln2XioKfs6XgpBZfVUwq5ACdz6zYleOPk9xoBNUo8JMr0X6+GO+4M
+	 NoA/vArTk9tDw1Ut4Tu6xXC7KSVa08zxmHGtLqSdhfBaXdTUabkzTQrTO3gxD6dswnwpY
+	 0OHefLXE3DZqLpFZBqcAMlAy6goC9Skfemtyl/BvhgOlpPvWZAwNObEHkOz2TzzOjsJ2N
+	 GYGyIjrA8IH6rXBAW+iu1zDdRLcgFMRrWqYz7RQBAxHb3AWInCaZ4PRcO01IC04wJj3Z5
+	 mYR49mZc9/SyTp1+x4lXElLX9FwSmRd9+4nItB0EU7LNg9ZTcQSmuGZfPstm0MNf5yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2UQbaMAK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsBM0zbn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EBC606A323;
-	Tue, 10 Nov 2026 19:36:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38E9606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=2UQbaMAK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EEB1F0089F;
-	Tue, 10 Nov 2026 19:36:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794339381;
-	bh=bvbz4Nv3zjSZTC1L/5EJpsYTHE0e3Tvg+GRHWYYg8UE=;
-	h=Date:To:From:Subject;
-	b=2UQbaMAKaF5lKHikBVfiv3IegnmaOc0GIWAojYYsSD8VCk8DAVIrASSrVojlLAwO5
-	 LyZMaaJ8wGihFtnia5CyGoxQfOziCA0bVbuYvhVvnuLsGsaDJevecBI44M9+/UTWLB
-	 0Xuk4Ohwd4ZcMuq2Jt/HOLxdtiOWpL+cDnziQ7rY=
-Date: Tue, 10 Nov 2026 11:36:21 -0800
-To: mm-commits@vger.kernel.org,yuanchu@google.com,youngjun.park@lge.com,
-	willy@infradead.org,weixugc@google.com,stable@vger.kernel.org,
-	shikemeng@huaweicloud.com,shakeel.butt@linux.dev,ryncsn@gmail.com,
-	qi.zheng@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,
-	hannes@cmpxchg.org,david@kernel.org,chrisl@kernel.org,brauner@kernel.org,
-	baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
-	axelrasmussen@google.com,nphamcs@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-swap-publish-cluster-tables-after-reacquiring-allocator-locks.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261110193621.A9EEB1F0089F@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsBM0zbn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05C31F0089F;
+	Tue, 10 Nov 2026 19:36:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339403;
+	bh=B6V02g+MA05LwZf6qpx2sF5cRI0F+MCxf09747s+nKU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IsBM0zbnAh6jD43bG38IqmY8RfJtGUepHMNem2IDiNLEEGE2lPcLpPjGzZZzLOS/Y
+	 QbirWvs3m0QSQCrWthZJwa8OBQ+HBr+E/d1AdQge+8GUBzpJT/Xv/Sm8ZsdC9UvD/A
+	 2uce/YdmRxeF+BNxyC/SxY5L/MiVCWgiI9x5ZyQbUEETBxfsdsFSZWQ/PbjmuHLEs5
+	 ZdeEhbxtwSBliWEl75acFhLjHt5U9zioyy7vfzs5vecsG0xtIXQre7bUYNWFXsGJ/C
+	 KC7qIHfGYe8EE6MWOPOPDL/E1fbmjDgoBkYAD96+lAnSUQ+ewh4ibZLyATW/T8OWPF
+	 Ou+yvocLQOkBg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Henry Martin <bsdhenrymartin@gmail.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/amdkfd: fix doorbell allocation race creating duplicate allocations
+Date: Tue, 10 Nov 2026 14:36:41 -0500
+Message-ID: <20261110193604.3555386-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107055241-failed-6.1-bebad4505094@kernel.org>
+References: <20261107055241-failed-6.1-bebad4505094@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,292 +59,196 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Henry Martin <bsdhenrymartin@gmail.com>
 
-The patch titled
-     Subject: mm/swap: publish cluster tables after reacquiring allocator locks
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-swap-publish-cluster-tables-after-reacquiring-allocator-locks.patch
+[ Upstream commit bebad45050945a3d668d6701fb77ae2571c5d44b ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swap-publish-cluster-tables-after-reacquiring-allocator-locks.patch
+The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+lockless at every call site of kfd_alloc_process_doorbells():
+kfd_get_process_doorbells() (mmap of /dev/kfd),
+kfd_ioctl_create_queue() and the CRIU restore path each test the
+pointer under different locking (or none), so two racing threads can
+both observe NULL and each allocate a doorbell BO and bitmap,
+orphaning one allocation and handing the two mappings different
+backing pages.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Move the serialization into kfd_alloc_process_doorbells() itself,
+using a new per-process-device mutex so all three call sites are
+covered regardless of their own locking.  The device-global
+kfd->doorbell_mutex is not suitable here: it is acquired under
+dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
+kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
+the sleeping allocations above would create a lock-ordering
+inversion with dqm->lock via TTM eviction, and it would also
+serialize doorbell setup of unrelated processes behind a
+device-wide lock for per-process state.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+This issue was discovered by Tencent CodeBuddy Security.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+v3 (Felix Kuehling):
+- Removed unlocked check in kfd_get_process_doorbell flagged as
+  problematic by Sashiko Bot. Fall back to the locked check inside
+  kfd_alloc_process_doorbells
+- Added missing mutex_destroy
+v4 (Felix Kuehling):
+- Removed unlocked checks around other kfd_alloc_process_doorbells calls
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Nhat Pham <nphamcs@gmail.com>
-Subject: mm/swap: publish cluster tables after reacquiring allocator locks
-Date: Tue, 10 Nov 2026 07:14:06 -0800
-
-Under memory pressure, swap_cluster_populate() can publish a table
-while its locks are dropped for a sleeping allocation. A cached
-allocator can consume and free that table before the populating
-allocator resumes, leaving the resumed scan with a NULL table.
-
-    CPU0                           CPU1
-    alloc_swap_scan_list()
-      isolate_lock_cluster()
-        swap_cluster_populate()
-          drop local/global/ci locks
-          swap_cluster_alloc_table()
-            rcu_assign_pointer(ci->table, table)
-                                   folio_alloc_swap()
-                                     swap_alloc_fast()
-                                       alloc_swap_scan_cluster()
-                                         __swap_cluster_alloc_entries()
-                                     mem_cgroup_try_charge_swap()
-                                       return -ENOMEM
-                                     swap_cache_del_folio()
-                                       __swap_cache_del_folio()
-                                         __swap_cache_do_del_folio()
-                                           __swap_cluster_free_entries()
-                                             free_cluster()
-                                               __free_cluster()
-                                                 swap_cluster_free_table()
-          reacquire local/global/ci locks
-          return ci
-      alloc_swap_scan_cluster()
-        cluster_scan_range()
-          __swap_table_get()  /* NULL table */
-
-Keep the count table, cgroup table and zero bitmap private until
-swap_cluster_alloc_table() restores all allocator locks. Install them
-under the cluster lock and retain it through the scan. Initial bad-slot
-setup takes only the cluster lock because the device is unpublished.
-
-The allocator releases its locks before the sleeping allocation. A
-reclaimer that dropped ci->lock earlier can then resume and put the
-cluster back on the free list. Abandon installation if the list state
-changes or a table appears, freeing only private allocations. Restore
-locks on allocation failure too, so the caller can return a still-isolated
-cluster to its free list.
-
-Link: https://lore.kernel.org/20261110151407.789960-3-nphamcs@gmail.com
-Link: https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org/
-Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers")
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org/
-Suggested-by: Kairui Song <ryncsn@gmail.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Qi Zheng <qi.zheng@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Christopher Li <chrisl@kernel.org>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Youngjun Park <youngjun.park@lge.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 4e27ba5ad5f76932d4f6cbacd25c81c2dd40ec4a)
+Cc: stable@vger.kernel.org
+[ sashal: Adapted doorbell allocation locking for numeric indices instead of buffer objects. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  6 ++---
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c     | 23 +++++++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  5 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  3 +++
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  3 +--
+ 5 files changed, 24 insertions(+), 16 deletions(-)
 
- mm/swapfile.c |  106 +++++++++++++++++++++++++++++++++---------------
- 1 file changed, 74 insertions(+), 32 deletions(-)
-
---- a/mm/swapfile.c~mm-swap-publish-cluster-tables-after-reacquiring-allocator-locks
-+++ a/mm/swapfile.c
-@@ -449,15 +449,23 @@ static void swap_cluster_free_table(stru
- 	swap_cluster_free_count_table(table);
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 43bfd668c5480..a08c84556ace4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -333,8 +333,7 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
+ 	}
  
--static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
-+/*
-+ * Return with ci locked. An unlocked allocator also needs si's outer locks;
-+ * initial bad-slot setup passes NULL because the device is not published.
-+ */
-+static int swap_cluster_alloc_table(struct swap_info_struct *si,
-+				    struct swap_cluster_info *ci,
-+				    gfp_t gfp, bool locked)
+-	if (!pdd->doorbell_index &&
+-	    kfd_alloc_process_doorbells(dev, &pdd->doorbell_index) < 0) {
++	if (kfd_alloc_process_doorbells(dev, pdd) < 0) {
+ 		err = -ENOMEM;
+ 		goto err_alloc_doorbells;
+ 	}
+@@ -2203,8 +2202,7 @@ static int criu_restore_devices(struct kfd_process *p,
+ 			goto exit;
+ 		}
+ 
+-		if (!pdd->doorbell_index &&
+-		    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
++		if (kfd_alloc_process_doorbells(pdd->dev, pdd) < 0) {
+ 			ret = -ENOMEM;
+ 			goto exit;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index 3ac599f74fea8..a38e3e917c437 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -277,35 +277,40 @@ uint64_t kfd_get_number_elems(struct kfd_dev *kfd)
+ 
+ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
  {
- 	struct swap_table *table = NULL;
-+#ifdef CONFIG_MEMCG
-+	struct swap_memcg_table *memcg_table = NULL;
-+#endif
-+#if !SWAP_TABLE_HAS_ZEROFLAG
-+	unsigned long *zero_bitmap = NULL;
-+#endif
- 	struct folio *folio;
--
--	/* The cluster must be empty and not on any list during allocation. */
--	VM_WARN_ON_ONCE(ci->flags || !cluster_is_empty(ci));
--	if (rcu_access_pointer(ci->table))
--		return 0;
-+	int ret = -ENOMEM;
+-	if (!pdd->doorbell_index) {
+-		int r = kfd_alloc_process_doorbells(pdd->dev,
+-						    &pdd->doorbell_index);
+-		if (r < 0)
+-			return 0;
+-	}
++	if (kfd_alloc_process_doorbells(pdd->dev, pdd) < 0)
++		return 0;
  
- 	if (SWP_TABLE_USE_PAGE) {
- 		folio = folio_alloc(gfp | __GFP_ZERO, 0);
-@@ -467,27 +475,49 @@ static int swap_cluster_alloc_table(stru
- 		table = kmem_cache_zalloc(swap_table_cachep, gfp);
- 	}
- 	if (!table)
--		return -ENOMEM;
-+		goto lock;
- 
- #ifdef CONFIG_MEMCG
- 	if (!mem_cgroup_disabled()) {
--		VM_WARN_ON_ONCE(ci->memcg_table);
--		ci->memcg_table = kzalloc_obj(*ci->memcg_table, gfp);
--		if (!ci->memcg_table) {
--			swap_cluster_free_count_table(table);
--			return -ENOMEM;
--		}
-+		memcg_table = kzalloc_obj(*ci->memcg_table, gfp);
-+		if (!memcg_table)
-+			goto lock;
- 	}
- #endif
- 
- #if !SWAP_TABLE_HAS_ZEROFLAG
--	VM_WARN_ON_ONCE(ci->zero_bitmap);
--	ci->zero_bitmap = bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
--	if (!ci->zero_bitmap) {
--		swap_cluster_free_table(ci);
--		swap_cluster_free_count_table(table);
--		return -ENOMEM;
-+	zero_bitmap = bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
-+	if (!zero_bitmap)
-+		goto lock;
-+#endif
-+	ret = 0;
-+
-+lock:
-+	if (!locked) {
-+		if (si) {
-+			local_lock(&percpu_swap_cluster.lock);
-+			if (!(si->flags & SWP_SOLIDSTATE))
-+				spin_lock(&si->global_cluster_lock);
-+		}
-+		spin_lock(&ci->lock);
- 	}
-+	lockdep_assert_held(&ci->lock);
-+
-+	/* A stale reclaimer may have returned the cluster to the free list. */
-+	if (ci->flags != CLUSTER_FLAG_NONE || cluster_table_is_alloced(ci))
-+		ret = -EAGAIN;
-+	if (ret)
-+		goto free;
-+
-+	/* The cluster must be empty and not on any list during allocation. */
-+	VM_WARN_ON_ONCE(!cluster_is_empty(ci));
-+#ifdef CONFIG_MEMCG
-+	VM_WARN_ON_ONCE(ci->memcg_table);
-+	ci->memcg_table = memcg_table;
-+#endif
-+#if !SWAP_TABLE_HAS_ZEROFLAG
-+	VM_WARN_ON_ONCE(ci->zero_bitmap);
-+	ci->zero_bitmap = zero_bitmap;
- #endif
- 
- 	/*
-@@ -496,6 +526,17 @@ static int swap_cluster_alloc_table(stru
- 	 */
- 	rcu_assign_pointer(ci->table, table);
- 	return 0;
-+
-+free:
-+#ifdef CONFIG_MEMCG
-+	kfree(memcg_table);
-+#endif
-+#if !SWAP_TABLE_HAS_ZEROFLAG
-+	bitmap_free(zero_bitmap);
-+#endif
-+	if (table)
-+		swap_cluster_free_count_table(table);
-+	return ret;
+ 	return pdd->dev->doorbell_base +
+ 		pdd->doorbell_index * kfd_doorbell_process_slice(pdd->dev);
  }
  
- /*
-@@ -546,8 +587,8 @@ swap_cluster_populate(struct swap_info_s
- 		lockdep_assert_held(&si->global_cluster_lock);
- 	lockdep_assert_held(&ci->lock);
+-int kfd_alloc_process_doorbells(struct kfd_dev *kfd, unsigned int *doorbell_index)
++int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *pdd)
+ {
+ 	int r = 0;
  
--	if (!swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
--					  __GFP_NOWARN))
-+	if (!swap_cluster_alloc_table(si, ci, __GFP_HIGH | __GFP_NOMEMALLOC |
-+					      __GFP_NOWARN, true))
- 		return ci;
- 
- 	/*
-@@ -560,8 +601,8 @@ swap_cluster_populate(struct swap_info_s
- 		spin_unlock(&si->global_cluster_lock);
- 	local_unlock(&percpu_swap_cluster.lock);
- 
--	ret = swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
--					   GFP_KERNEL);
-+	ret = swap_cluster_alloc_table(si, ci, __GFP_HIGH | __GFP_NOMEMALLOC |
-+					     GFP_KERNEL, false);
- 
- 	/*
- 	 * Back to atomic context. We might have migrated to a new CPU with a
-@@ -571,13 +612,9 @@ swap_cluster_populate(struct swap_info_s
- 	 * could happen with ignoring the percpu cluster is fragmentation,
- 	 * which is acceptable since this fallback and race is rare.
- 	 */
--	local_lock(&percpu_swap_cluster.lock);
--	if (!(si->flags & SWP_SOLIDSTATE))
--		spin_lock(&si->global_cluster_lock);
--	spin_lock(&ci->lock);
--
- 	if (ret) {
--		move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
-+		if (ret != -EAGAIN)
-+			move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
- 		spin_unlock(&ci->lock);
- 		return NULL;
- 	}
-@@ -825,9 +862,13 @@ static int swap_cluster_setup_bad_slot(s
- 
- 	ci = cluster_info + idx;
- 	/* Need to allocate swap table first for initial bad slot marking. */
--	if (!ci->count && swap_cluster_alloc_table(ci, GFP_KERNEL))
--		return -ENOMEM;
--	spin_lock(&ci->lock);
-+	if (!ci->count) {
-+		ret = swap_cluster_alloc_table(NULL, ci, GFP_KERNEL, false);
-+		if (ret)
-+			goto out;
-+	} else {
-+		spin_lock(&ci->lock);
++	mutex_lock(&pdd->doorbell_mutex);
++
++	/* Another thread may have won the check-and-allocate race */
++	if (pdd->doorbell_index) {
++		mutex_unlock(&pdd->doorbell_mutex);
++		return 0;
 +	}
- 	/* Check for duplicated bad swap slots. */
- 	if (__swap_table_xchg(ci, ci_off, SWP_TB_BAD) != SWP_TB_NULL) {
- 		pr_warn("Duplicated bad slot offset %d\n", offset);
-@@ -835,6 +876,7 @@ static int swap_cluster_setup_bad_slot(s
- 	} else {
- 		ci->count++;
- 	}
-+out:
- 	spin_unlock(&ci->lock);
++
+ 	if (!kfd->shared_resources.enable_mes)
+ 		r = ida_simple_get(&kfd->doorbell_ida, 1,
+ 				   kfd->max_doorbell_slices, GFP_KERNEL);
+ 	else
+ 		r = amdgpu_mes_alloc_process_doorbells(
+ 				(struct amdgpu_device *)kfd->adev,
+-				doorbell_index);
++				&pdd->doorbell_index);
  
- 	WARN_ON(ci->count > SWAPFILE_CLUSTER);
-_
-
-Patches currently in -mm which might be from nphamcs@gmail.com are
-
-mm-vmscan-allow-writeout-of-swapcache-folios-without-anon-mappings.patch
-mm-swap-publish-cluster-tables-after-reacquiring-allocator-locks.patch
-mm-swap-skip-relocation-of-tableless-clusters.patch
+ 	if (r > 0)
+-		*doorbell_index = r;
++		pdd->doorbell_index = r;
+ 
+ 	if (r < 0)
+ 		pr_err("Failed to allocate process doorbells\n");
+ 
++	mutex_unlock(&pdd->doorbell_mutex);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index cdcaba185052c..04f8098b8ba3d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -712,6 +712,9 @@ struct kfd_process_device {
+ 	/* per-process-per device QCM data structure */
+ 	struct qcm_process_device qpd;
+ 
++	/* Serializes process doorbell allocation for this device */
++	struct mutex doorbell_mutex;
++
+ 	/*Apertures*/
+ 	uint64_t lds_base;
+ 	uint64_t lds_limit;
+@@ -1017,7 +1020,7 @@ unsigned int kfd_get_doorbell_dw_offset_in_bar(struct kfd_dev *kfd,
+ 					unsigned int doorbell_id);
+ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd);
+ int kfd_alloc_process_doorbells(struct kfd_dev *kfd,
+-				unsigned int *doorbell_index);
++				struct kfd_process_device *pdd);
+ void kfd_free_process_doorbells(struct kfd_dev *kfd,
+ 				unsigned int doorbell_index);
+ /* GTT Sub-Allocator */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index fd7fecaa9254b..db0689c23e6ad 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1065,6 +1065,8 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 			pdd->runtime_inuse = false;
+ 		}
+ 
++		mutex_destroy(&pdd->doorbell_mutex);
++
+ 		kfree(pdd);
+ 		p->pdds[i] = NULL;
+ 	}
+@@ -1613,6 +1615,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
+ 		memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);
+ 	}
+ 
++	mutex_init(&pdd->doorbell_mutex);
+ 	p->pdds[p->n_pdds++] = pdd;
+ 
+ 	/* Init idr used for memory handle translation */
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 7c85bb9e270e7..b28b15e2d14c1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -868,8 +868,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+ 
+ 	*priv_data_offset += q_extra_data_size;
+ 
+-	if (!pdd->doorbell_index &&
+-	    kfd_alloc_process_doorbells(pdd->dev, &pdd->doorbell_index) < 0) {
++	if (kfd_alloc_process_doorbells(pdd->dev, pdd) < 0) {
+ 		ret = -ENOMEM;
+ 		goto exit;
+ 	}
+-- 
+2.53.0
 
