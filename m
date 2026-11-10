@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280265;
-	b=0XL8jvamF41eM7QROogUKJtBh0ix8dcfrOf7wlI0ok5CvMWwRHwKoLnoYiJjxnEzkEA5
-	 Ux3JmXsM84tiCxHhVntQ77Gdj+Z5vveSF5tlZbMa78rK7FgGzZL7EvgyOSnP5S+9hj/b6
-	 iyWQTpzWy5Xibk0PT8uJXjbRoVvbWkPAAVEUuSQ2PbpMWXIWktitgcPOqQb3PGY49n8jV
-	 UQf+LqTVD8ZKBfIRrHkebwWAzAoDTISEVxQ85pHULk2TraRcHChHuJws5o+dV5R04JTWg
-	 +8m8Af2obN4FVmygPBMH45L6Gx91ni20A8WqPRmNCfNeJj93C9upeK/B8wg+r3ZT6Tw==
+	t=1794280286;
+	b=KxMp5XXtjA1W2wRnLBqMthJoPGPXRTqPGXiCI0q2gfsQwwh51QmFGEFV4Q/i7naTQT6H
+	 WOjZwWQ2u3DhYPIUVzs4VHqNnsg038mcpvHltCeF1bAO8smSQvg4Qk6Qsd7brUXH319St
+	 wOgrINpAGM0rq9HB2k/G3CJb01inSnStYYbkWAnZ76VLN5ltszTYk1yMpt2A9FXNxLh08
+	 wNr9uOzwAs0jm6zsKUKB4HLG1EQYonltJDOgNO9SzpMHVm89VljqVY4Wb+vnOE/1tNGLk
+	 s2WjdUnp9wFixk09M7K1qPilkb5o+pI4KqwJyivpRUDOowVTohTodp0yTvftuFzUT4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280265;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280286;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lpIvUpIATYfjqV4N0Dhd8VyNGnZCCKg7kXMo8kDG1cg=;
-	b=sb6ZcKWhvIMwpRUWU6UyECYOs6nHboQGGYk3Jt2AF8rliWatFZlNKgM+a88S/KGP3bQk
-	 rjg/nkOo32bKGFxnzbSrftoreERMqDI+Ed+Dh01DccqI08b24DLXNKYsu7TyLshjAGV1I
-	 Z+mFI28lQJa7+sW8q51njeHm/Z5lmO1AeM/kaMSek9+2WTX80UJyVnIsc6YosDePs01+r
-	 5Dq18c8DcWZPnwUOjjzOZmresv2UD+jNDxo1e8ZzGejDV/0XzSbWN+1g49rVvEAK2bEHZ
-	 COQF9p4JxOf5HFs+vkbB98IBJECPIyNe2GtYdvrVzUMQ7pVetlhSX9uOSJWfYJ3wC2w==
+	bh=CeWtNCF1qRN8PVkO0IhCYPzr6OObHHWIz9AdckJk8Eg=;
+	b=m3jP5FMrJbOOqtdu7PyCdsc6f80zip/rU0Vx/R8OXFaIfEZK2hibA2r4TW2mE9xjz5qq
+	 LkKxZv/7BGRiOYRsCzr8axdR1GQeZDc/50+eAE2HLukSmy/uSLp/cr1TlmjEUZhVpyjuK
+	 T7FegQgc63TMcHVBLj1r5vStSvWQeDut11fcw3zwFt3mqDhLCjhjNEoD9ukX/3t7oHZ0H
+	 5zZYs4dquH7A5lYnUkJHGROJj7LzJNIFWc/YEKHcLurA4gAOR13ruqNOe4Hdw7mRahU0X
+	 36HveaE779rOrJVN2XuaL2u4YXbw+0oOEtvSjRRtomccSnj4l1nLYoOMV1YH0or71Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVT3u2cN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chkvOaAU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B0F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:11:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F75606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZVT3u2cN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168B51F0089F;
-	Tue, 10 Nov 2026 03:11:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chkvOaAU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6F31F008A2;
+	Tue, 10 Nov 2026 03:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794280264;
-	bh=lpIvUpIATYfjqV4N0Dhd8VyNGnZCCKg7kXMo8kDG1cg=;
+	s=k20260515; t=1794280285;
+	bh=CeWtNCF1qRN8PVkO0IhCYPzr6OObHHWIz9AdckJk8Eg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZVT3u2cNKCMKmJKsTw1i9Y7PXIe5ZCUnLFxQk1JdBNRtr0a0ki9dn6i7kHagts9rh
-	 +CyXysoTavWC7Gpicr+tV3OBgjUd8TTlCxGZ/rmD4l4Ljuunhr+rcKgK8W7xuvBCCn
-	 Sb8eN36zC3atnW5WGntQiF5DcK1erDLqKmo7V+2Rt0EneVcA84PvWhViuFYmfssYmF
-	 g/6LI1uQ1oWWYn85ZdHk5+pOGWJyLhziTPse5QtOeIukkNIIzbP8n2IhwqZNSLfMV7
-	 8RLbNMb1lLSNnfl9IXXDujUqZHmHBP7SenRTk9BTqbK3S86aqOcfVcx3L/Zerw6jCS
-	 XsW4WbB5NmJAQ==
+	b=chkvOaAUuW0aiHNZDtrQxiOME13x/NSlzZFzl65qtJ0AeMOQQ4sHkixgNc7lErE1H
+	 3gUIz/071Mca5EPgK+rZWpzwT9m6duh3eKt1sd+mGWBROwMAnuQk64jqD44LkrZxFB
+	 pYeZoHaI/UwjE1kW6ONOWPHh4ybxkIbspyClDFK4l77Pk1LOlm7CVcCQhEC807Wn3u
+	 GD7h8Utw60B2uaixpMNg+k00LCGjjti55LappfCNJD6ndC82jRQluTZYjsLybKZ6QW
+	 HTnxZQFvTai+msdvxj8lFHQOvKc2la26tlkYcGaFG+bRP1dNHAFVCo426o/L9ibHSA
+	 KTeakGv7/oXew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Robert Mader <robert.mader@collabora.com>,
+Cc: Cheng Ming Lin <chengminglin@mxic.com.tw>,
+	Michael Walle <mwalle@kernel.org>,
+	Russell Senior <russell@personaltelco.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG
-Date: Mon,  9 Nov 2026 22:11:02 -0500
-Message-ID: <20261110031050.4118196-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] mtd: spi-nor: macronix: Restore fallback parameters for MX25L12805D
+Date: Mon,  9 Nov 2026 22:11:24 -0500
+Message-ID: <20261110031102.5377-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061411-failed-5.10-2ffaa7c40506@kernel.org>
-References: <20261107061411-failed-5.10-2ffaa7c40506@kernel.org>
+In-Reply-To: <20261107050255-failed-7.3-01739ccea21b@kernel.org>
+References: <20261107050255-failed-7.3-01739ccea21b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,53 +62,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Harry Wentland <harry.wentland@amd.com>
+From: Cheng Ming Lin <chengminglin@mxic.com.tw>
 
-[ Upstream commit 2ffaa7c4050605cb27756f5336f778d1b21268b9 ]
+[ Upstream commit 01739ccea21b69818dc071096a249e6f84a6b13d ]
 
-The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-mod_color_calculate_degamma_params() do not consider the map_user_ramp
-parameter. When map_user_ramp is true (indicating a subsampled surface
-that requires post-scaler degamma via GAMCOR), the function still takes
-the ROM path, programming PRE_DEGAM instead.
+In a previous effort to drop flash_info fields and rely on SFDP, the
+static size and no_sfdp_flags were removed from the MX25L12805D entry
+(JEDEC ID 0xc22018).
 
-For subsampled formats the chroma channels must be upsampled by the
-scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-Using the ROM for subsampled surfaces means degamma is applied to
-subsampled chroma before upsampling, producing incorrect results.
+At that time, the legacy MX25L12805D was already EOL and unavailable
+for physical testing. Verification was inadvertently performed using
+the newer MX25L12833F, which shares the same JEDEC ID but supports
+SFDP. As a result, the probe succeeded during testing, leading to
+the mistaken removal of the fallback parameters.
 
-Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-is subsampled.
+Since the actual MX25L12805D lacks SFDP support entirely, it strictly
+requires these static parameters.
 
-Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
+Restore .size = SZ_16M and .no_sfdp_flags = SECT_4K to this entry
+to fix the probe failure for the legacy part.
+
+Fixes: 947c86e481a0 ("mtd: spi-nor: macronix: Drop the redundant flash info fields")
 Cc: stable@vger.kernel.org
-Assisted-by: Copilot:claude-opus-4.6
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Robert Mader <robert.mader@collabora.com>
-Link: https://patch.msgid.link/20260814211816.1219597-11-harry.wentland@amd.com
-[ sashal: Changed !map_user_ramp to !mapUserRamp to match the existing parameter name. ]
+Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
+Reviewed-by: Michael Walle <mwalle@kernel.org>
+Tested-by: Russell Senior <russell@personaltelco.net>
+Signed-off-by: Michael Walle <mwalle@kernel.org>
+[ sashal: Adjusted patch context to account for the absent mx25l12805d_4pp3b_fixups hook. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/mtd/spi-nor/macronix.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 3c4390d71a827..9093ad7750631 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1815,7 +1815,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 			return true;
- 
- 		if (dc_caps != NULL &&
--			dc_caps->dpp.dcn_arch == 1) {
-+			dc_caps->dpp.dcn_arch == 1 &&
-+			!mapUserRamp) {
- 
- 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
- 					dc_caps->dpp.dgam_rom_caps.pq == 1)
+diff --git a/drivers/mtd/spi-nor/macronix.c b/drivers/mtd/spi-nor/macronix.c
+index e97f5cbd9aad2..c854a1163a475 100644
+--- a/drivers/mtd/spi-nor/macronix.c
++++ b/drivers/mtd/spi-nor/macronix.c
+@@ -132,7 +132,9 @@ static const struct flash_info macronix_nor_parts[] = {
+ 	}, {
+ 		/* MX25L12805D */
+ 		.id = SNOR_ID(0xc2, 0x20, 0x18),
++		.size = SZ_16M,
+ 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_4BIT_BP,
++		.no_sfdp_flags = SECT_4K,
+ 	}, {
+ 		/* MX25L25635E, MX25L25645G */
+ 		.id = SNOR_ID(0xc2, 0x20, 0x19),
 -- 
 2.53.0
 
