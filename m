@@ -1,50 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272471;
-	b=I7Md3E/xqvtUwlX50K8lnBK30tcrmKytJEdYG1q9cZS963kDdryl1mKWcoMQBebkkYTx
-	 nVucoNydYenrEhLzxtHUk+7t1xs+Hxi5h8I9oYPjAEm+M2NxI0yYvAOn5vRxQgdsztIM/
-	 mZ9+GBhmTgLykR+q+k9x1Gbkj4a7MkmiH5USZCOLb1jdjUTjDY3goYEFYeWq8Rv6sUT4m
-	 gbYAo2x8F7vy8YtTePyWLra/gmMPoa2NvBAzVIop0z3sfqpx42zss+F+Myrk4bvST2lgs
-	 Ek8ns6zrPVZ9Bq52yNkRYhAuEdTbUSYKGMSSWUAJjuEmvMsnUnXnxWiwnH39lvKr9zg==
+	t=1794272475;
+	b=FclJg5s6e1kD3TXmlv9lsaZG7xMu0Ym7zoPsE8X9FErkMU79M6Hjk60Hrp3emfBTzLkP
+	 XupzHXBmW8Yx5kBVVehuVVmB1dQzPCWkg5fNwiosmd4ha7bS84IKISDqplenEI52+4MRa
+	 iseibNevMDv3fppaLpTEgxNnVkjjy1TBVux9JoGYJk69WJPJEDP2c6fHsX+Zjt4ahVAxc
+	 yLDCHFWfqxvM/7sPts/SO5JnvxXvbhQZRZ3k63xIa/pMy8eLLYc/IDSVDJlkSR752+Yor
+	 P/ngs+nmY3CePh9MLgOK8JarsJsQQdKDP1Xyagi8RVas/i05PE55j9LaR8vr6koCVNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272475;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2dwlf2vcfenXtEePJ4WMBW0eiCiml25zzTNSlE5qr/g=;
-	b=s1YwOxokqMENgH+uvHuZwl7xzOfxKJicG7Tj6eMu6W5IUdpX8kagfDyWUCgKyXJhIdVu
-	 Ekqky2IdCFlZVmyPC0E/6NGCrejET+Dm3qM091bcyhGVDNY01A/ufTtKmm8byVn8+EJUZ
-	 f6wC/5ibjxi4JWmR6b69qK3139qeqIsR7n5XdnG2sGIqsCTVgNr8hD+/o3qTb0DqMoi8v
-	 6mFNBTnK4qi0nXlvHY40sITHFhGc1LnfirvZxpG7Kd97y+0qtdICvo6QNDiMm3y4f45Fd
-	 4iSF4MEBol0znUoI1mUa+Jy59aYcQ+shSBHGdcY6D9KxmRAXt2x5xJX6jwYWKVGk1Uw==
+	bh=rwVGG6BihO3TDfhu94hs+7LmdNprAIh+TUG8dJWrqQs=;
+	b=XRbB+QxIMD1Bej2dziYWSV9OWskjkvC/V+ZOFB9oEIW0xdaMZrk/jAmBr1i1/lnXhWYV
+	 RjXS4PPXbzlAZLQ62YjBI6s6Y6xtMPaKtz9/V2SLsbZkcpvg48H6WzkeNkRzuZF3Xw8qt
+	 VOb22KfLgLMobQHpf0Fhnagsqj0pB1+tHhMziP/rSqpLvkcvkk7edvkqd9NjHZ3ntMI7J
+	 lIAog6CasibkuFT4cCD1UiWUfU+AST6nHFhz3vyd0zmNEYGbafMOqAT8YtOt/rY2PMSbg
+	 AxaKNDT6sgD+PAu5xk4sV1kcl0jd8z5nPOXa0xJsatsBdI8KnPRbSUf0tpGS0oSA0Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf2BaXXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqj9eH+w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951F8606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9102606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf2BaXXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6811F0089F;
-	Tue, 10 Nov 2026 01:01:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqj9eH+w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5253B1F0089F;
+	Tue, 10 Nov 2026 01:01:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272471;
-	bh=2dwlf2vcfenXtEePJ4WMBW0eiCiml25zzTNSlE5qr/g=;
+	s=k20260515; t=1794272474;
+	bh=rwVGG6BihO3TDfhu94hs+7LmdNprAIh+TUG8dJWrqQs=;
 	h=From:To:Cc:Subject:Date;
-	b=Jf2BaXXn3ffJrF/jxuOjv6/bFbLOmpFgSQAm9dxQUDJPBVuvmdbBV9sBYE4K0CLCV
-	 u5oV6v7vhgNkrEyKqiMdkpYpaoM84rEYC17uGfwDTU3xTzRMi6BctX8qIoxzbKJiBO
-	 +EvluAWGbmglBA2WOaum3oJbWoqcUAz8NSdkk+7l0jMHtOXJFZYl10NKnalppj5zyJ
-	 2FMp5IkcmbwQcJtEGUil6iM87M6hMB+BxEQ0Cq3ymBPm34RfHhve9BJLwOjRmGHetR
-	 ZvO3UHjDO5cAg+hALDtzOuTekr2+QCMpuXjcrI5wc8/MGgPkDslw7Ha/pyrFRlBDU5
-	 psZYmoMFpwzQg==
+	b=cqj9eH+weLPJIcV+jkGhlA54IBeP5/XA4Gft5fk8gotKfXBG7O3Bn5PIbqZsV9+7o
+	 zw8nVS0nngtZ7KANxmnk4u9AOeTPJFP1SwxFP7vNxrMxMyoOqQUvKc/UFztQenBwzv
+	 gW7lrx0Kzu/t3kcMOxzXG1oqd1Ois/W7yeq4vpQ6s1nJqyP3FV1EUPKBxFeAL7kNPe
+	 eoWqOnmlgIfe13A9pPVki/r+CJyC2lhsExdWi3tQz7t2l27/RfJGQmi4+U9GTtXj0K
+	 2AJ80eyKy+XdhPRxsFiBzY0zxwNbCUMKyLQ4mN6T0eDa0wkeG29/XYrsTeVIBqubJW
+	 Pdn6Qwtt8oWUA==
 From: Sasha Levin <sashal@kernel.org>
-To: sven@narfation.org
+To: gianluca.balboni06@gmail.com,
+	vijendar.mukunda@amd.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] batman-adv: tt: only update flags for TT events" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:01:09 -0500
-Message-ID: <20261109200109-failed-7.3-ad1fd828aa39@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:12 -0500
+Message-ID: <20261109200112-failed-7.3-1e73257dff33@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,117 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x ad1fd828aa3944efc393b84b0d7c02483f1b5638
+git cherry-pick -x 1e73257dff33ff851af60d5bb00d73893a8b6dc8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200109-failed-7.3-ad1fd828aa39@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200112-failed-7.3-1e73257dff33@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ad1fd828aa3944efc393b84b0d7c02483f1b5638 Mon Sep 17 00:00:00 2001
-From: Sven Eckelmann <sven@narfation.org>
-Date: Thu, 8 Oct 2026 16:30:10 +0200
-Subject: [PATCH] batman-adv: tt: only update flags for TT events
+From 1e73257dff33ff851af60d5bb00d73893a8b6dc8 Mon Sep 17 00:00:00 2001
+From: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Date: Sat, 31 Oct 2026 11:21:36 +0100
+Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop
+ 16-by0xxx
 
-In the first implementation of the translation table events, it was only
-possible to announce:
+The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
+connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
+AcpDmicConnected _DSD property or the _WOV method, and the board is missing
+from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
+capture device is registered.
 
-* ADD: new locally detected client
-* DEL: disappeared local client
-
-If an ADD event was queued and then a DEL event was queued in the same
-timeslot, it is valid to destroy both events because nothing actually
-changed for remode nodes
-
-But with commit 3c4f7ab60cc2 ("batman-adv: improve the TT component to
-support runtime flag changes") and subsequent changes, it could also happen
-that there are extra ADD events:
-
-* ADD: _NEW_ locally detected client
-* ADD: already existing client with new flags
-* DEL: disappeared local client
-
-The first and the last type of event could in theory still be removed
-together from the (to be announced) events queue. But if the "update flags"
-ADD is dropped together with the DEL, it would still leave global
-translation table of a remote node in the incorrect state - believing that
-the client didn't disappear.
-
-If a detected client was previously announced, a DEL event must only
-overwrite the "update flags" ADD but the DEL itself must still continue to
-exist in the (to be anounced) events queue. For now, adjustment of the
-announced flags is used for everything instead of dropping already queued
-up events completely.
-
-Similarly, a DEL followed by an ADD caused both entries to be deleted. But
-the new ADD could announce flags changes which were not yet present for the
-client before it was marked for DELetion. The new ADD must therefore only
-overwrite the DEL - but still be kept.
+Add a DMI quirk entry for this model to enable ACP DMIC support.
 
 Cc: stable@vger.kernel.org
-Fixes: 3c4f7ab60cc2 ("batman-adv: improve the TT component to support runtime flag changes")
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- net/batman-adv/translation-table.c | 29 +++++++++--------------------
- 1 file changed, 9 insertions(+), 20 deletions(-)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 247cce95c09f4..fa5ead248f192 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -622,6 +622,9 @@ static u16 batadv_tt_flags_get(struct batadv_tt_common_entry *common)
-  * @bat_priv: the bat priv with all the mesh interface information
-  * @common: the TT entry involved in the event
-  * @flags: flags of the TT entry combined with the event flags
-+ *
-+ * Only a single change per client is queued. It describes the latest state of
-+ * the client and a new event therefore replaces an already queued one.
-  */
- static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
- 				    const struct batadv_tt_common_entry *common,
-@@ -631,7 +634,6 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
- 	struct batadv_tt_change_node *entry;
- 	struct batadv_tt_change_node *safe;
- 	bool del_op_requested;
--	bool del_op_entry;
- 	size_t changes;
- 
- 	tt_change_node = kmem_cache_alloc(batadv_tt_change_cache, GFP_ATOMIC);
-@@ -665,25 +667,12 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
- 		if (entry->change.vid != tt_change_node->change.vid)
- 			continue;
- 
--		del_op_entry = entry->change.flags & BATADV_TT_CLIENT_DEL;
--		if (del_op_requested != del_op_entry) {
--			/* DEL+ADD in the same orig interval have no effect and
--			 * can be removed to avoid silly behaviour on the
--			 * receiver side. The  other way around (ADD+DEL) can
--			 * happen in case of roaming of  a client still in the
--			 * NEW state. Roaming of NEW clients is now possible due
--			 * to automatically recognition of "temporary" clients
--			 */
--			list_del(&entry->list);
--			kmem_cache_free(batadv_tt_change_cache, entry);
--			changes--;
--		} else {
--			/* this is a second add or del in the same originator
--			 * interval. It could mean that flags have been changed
--			 * (e.g. double add): update them
--			 */
--			entry->change.flags = flags;
--		}
-+		/* the other nodes may know the client with different
-+		 * flags. A DEL+ADD must therefore still announce the
-+		 * current flags and an ADD+DEL must still remove the
-+		 * client. ADD+ADD and DEL+DEL only update the flags
-+		 */
-+		entry->change.flags = flags;
- 
- 		kmem_cache_free(batadv_tt_change_cache, tt_change_node);
- 		goto update_changes;
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 1d06b2a16e58d..4908f4cc147a3 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -780,6 +780,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8DC2"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.53.0
 
