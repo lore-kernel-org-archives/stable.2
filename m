@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337395;
-	b=qKIFXwDhUCgJES1lkR4ObJ7hZK9pBb0OjRJ33VmezBycoYxaOiz3oQsud0tZ3Lw2w1In
-	 KSLfV7ZcQSMnQBrRP8GTOdHq5w/7tAp6vnP7hrgGjj5CdPOUvL8lPUpuQSC55o/Lhfb0N
-	 dLiJe8zuNJ/e5vnq0WlP+TnLm+vEShAcyTdzrjPdczaX7imMtJQ1/4C9N29szkv84WzKU
-	 9VZnssHBKrfcxlj3+geXFyp7If4rUYh86PdOOR1TFT8v1Y/krgkjLL0GZaLCO6CbQP+Uc
-	 WdhhxJfOHaBL6zGyNOwZkeSLlO/jCS664zJh8FLVFRZ0Djv0Dm+hJXVjjsjdlF+wkBQ==
+	t=1794337414;
+	b=FrQHw+N/J/uyBtK/Hgcxl0C4CsUp497tNSelF7fJUkNftI3mRw4NqWkPT+56KWfMUQGA
+	 UpxByMQvPSQB4Ihp1O1k6LcVujdrcc3YvK0p8Fp29r/pYy6aq4zu4NAhbuOGup4GQOzWz
+	 kBKRBdbjG0VudP4iWlSKjXZ4OvjSQlPbRr6LmTJuxfbkw9ej4GDbmNmAZi1iBYJI9CZ74
+	 ABuidXibTw8KXUiKKrR/a9BOnKXLImsA7SsGmigfhJgovWPC044aSOfX7XoFkCnXTtlLt
+	 1LAxtj7CkSjLe9HeuRBd3armKeQ5qMPRkNHrRyGHWj0xOHvRhaYN0iUCwawk9eRCytQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337395;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UX2EdQ8edF4R84ulRjnsIwn5b0ydLIn1kJ2/bXwUIIg=;
-	b=0tFJHhC8yYf7UG9tP6tQA+Nb72JkWfzxj3h59JgA5rVPxHYKHlaNFMo/wRRiHslz4xpT
-	 q0ka3oQQ35K0PV6Z5JZ+eWnXRKkULOFlaqcwxu6TAfnOhNrn0DxBEEN4a3dRBossKymiD
-	 FxMDJV5q3w37jaefZFOCyhyCAzdJ1krTdrqDe/Y8svAx8UG7KQHJFyQ/bkN5NBQx9K+fX
-	 OekQfzn/bDpbpQBThKc7Ns42vzYuByGUgHi7jSFmQEbIfHzzHqynHy4VQ78jGiYGAVGou
-	 Ft8ZCZa0iTUbRTTsLd/h3R4iGWEBBEIb+A5QJ5NA2c+i0a8CMiiasL88dxTbRbOmFdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337414;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zApXQKKuDKZssS5suFdpCnwlR9opXQim6rkPH8ml6Ik=;
+	b=4wD2/1RHNW/SOH8qnp/RD8coXkwNnq62oUzgWm+NLpwRpxVFbNFdV8AohgxRiUwv4Ush
+	 CYQJczH7aGwNVfUllXDalAMT0dTbasozp4zf8E/IUErwhjcmKagyi3p+FmqKNo4U7UpKS
+	 d3mQ6pkRpmJASztKp0+/2S/ncBHmppnVUXYsyh1Ax3X8E65TyUCg4hz7aHJjWApwREe2F
+	 vZIuNRHYA0IXgjopHZkBNaJ/VBfE7rrrjC/oI6Y5Mq+p6eM9x7xreyc780X/n82yKeYbT
+	 LllIFijf9WRJ7ObYjOnhCBjCoHCYCkIRMCAPzIbYwkFrABWXQT974eeVpy28b3s54rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tvu5QrNl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Lg76N1hP;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980E4606A33B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:03:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B2545606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:03:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2545606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tvu5QrNl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3531F008A2;
-	Tue, 10 Nov 2026 19:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337395;
-	bh=UX2EdQ8edF4R84ulRjnsIwn5b0ydLIn1kJ2/bXwUIIg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tvu5QrNluHmwfvnlhMSpZi+0L79ESPc1g0GVVNGuzKOciYqx7sNKqDydwWOxc5BT3
-	 R76u7KIIJEcsPFKRTppZkOYnos0JD5rGZew9hVYzZmA6VIs7QtcknIfPtG7BKfdp0n
-	 qA/yBgrtsmTvpniW7uFOKKgwqpssWJHj/LlaLpCb1m0cJF5MemnoL8Wy6NnJwOr8st
-	 UlCVTKhdn/v6TmTtg/3BhIrLdbufinkIFYlTl5QraZkzlTqWxQCJq5ywGV/72nGjmz
-	 UpKe0kmKiqFNY3BruWKgX7mlW8iz2Xrw1eHOfBi2chXXLSiEFS+8ibsAPVTwmAXNha
-	 8SHEnfHwNx2dg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Lg76N1hP
+Received: by dvalin.narfation.org (Postfix) id E19B020281;
+	Tue, 10 Nov 2026 19:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794337412;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zApXQKKuDKZssS5suFdpCnwlR9opXQim6rkPH8ml6Ik=;
+	b=Lg76N1hP289YwY1niWlMPtC2wMETS1lPXOkhuqWEfKOwTp68AH3bCRnc8aRPHoyOly+wq5
+	tOJHxUMoA6JxpLFb8BUrv50m++eYOwHt2k9qQ3aRv8g9o5VRvuvZk2BPappBdwhGp/u5GS
+	nmx0Khr0YFLDE5vL2JA8fHFh5110wBY=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Guenetr Roeck <linux@roeck-us.net>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Wang Jinchao <wangjinchao600@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] panic: flatten nmi_panic control flow
-Date: Tue, 10 Nov 2026 14:03:12 -0500
-Message-ID: <20261110190222.3468951-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060543-failed-5.15-75eb687ff2bc@kernel.org>
-References: <20261107060543-failed-5.15-75eb687ff2bc@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.12.y] batman-adv: tt: send ROAM_ADV on each roamed back client
+Date: Tue, 10 Nov 2026 20:03:28 +0100
+Message-ID: <20261110190328.112717-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200623-failed-6.12-aff4d5d10f2d@kernel.org>
+References: <20261109200623-failed-6.12-aff4d5d10f2d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,42 +65,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bradley Morgan <brads@mainlining.org>
+commit aff4d5d10f2dcb4a9b604e27414dafa1d51b6406 upstream.
 
-[ Upstream commit 75eb687ff2bcec9fba31bbe266e5f91e5c283efe ]
+When a ROAMING_ADV is received for an announced local client,
+batadv_roam_tvlv_unicast_handler_v1() creates a global entry with the
+BATADV_TT_CLIENT_ROAM flag set.
 
-panic() is __noreturn, so the else after panic_try_start() is dead.  Drop
-it so the force_cpu path can be added cleanly on top.
+If the client sends a frame again before the next TTVN commit,
+batadv_tt_local_add_roam() is expected to announce this return via a
+ROAM_ADV frame. But this doesn't happen because the global entry (created
+by the first ROAMING_ADV) carries BATADV_TT_CLIENT_ROAM until the new
+originator announces the client.
 
-Link: https://lore.kernel.org/20260916182957.7788-3-brads@mainlining.org
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Cc: Guenetr Roeck <linux@roeck-us.net>
-Cc: Sashiko <sashiko-bot@kernel.org>
-Cc: Wang Jinchao <wangjinchao600@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: used existing old_cpu comparisons instead of panic_try_start() and panic_on_other_cpu() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Let batadv_tt_local_add_roam() always handle a roamed back client -
+independent of the ROAM flag of the global entry:
+
+* trigger sending of the ROAM_ADV frame(s)
+* remove the (with the roaming) associated global entry
+
+Cc: stable@vger.kernel.org
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ adjust code still in batadv_tt_local_add ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- kernel/panic.c | 3 ++-
+ net/batman-adv/translation-table.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 3b14c6d123ddc..2db714911168b 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -195,7 +195,8 @@ void nmi_panic(struct pt_regs *regs, const char *msg)
- 
- 	if (old_cpu == PANIC_CPU_INVALID)
- 		panic("%s", msg);
--	else if (old_cpu != cpu)
-+
-+	if (old_cpu != cpu)
- 		nmi_panic_self_stop(regs);
- }
- EXPORT_SYMBOL(nmi_panic);
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index c148127799c1b..8397b9edb5aea 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -775,7 +775,8 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 	/* Check whether it is a roaming, but don't do anything if the roaming
+ 	 * process has already been handled
+ 	 */
+-	if (tt_global && !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM)) {
++	if (tt_global &&
++	    (roamed_back || !(tt_global->common.flags & BATADV_TT_CLIENT_ROAM))) {
+ 		/* These node are probably going to update their tt table */
+ 		head = &tt_global->orig_list;
+ 		rcu_read_lock();
 -- 
-2.53.0
+2.47.3
 
