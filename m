@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293134;
-	b=MLA7o0tuC+3R519skS9R3RI4g3DkaLLnD9Y+hicPVprzrdjSXhEDzsJZjWzDpFsM9Hnd
-	 qCfwbZbbJ47/xf8rHfsFEboUwp07XAIXgtyhtlE5SNhkRWB1t8ZBgsG7xvePlHK5Mo6Je
-	 S/TAStps7YmTmem+WAkeGzvbdIZwBp1kM7b6fDL456cZJRHV1BKqNNi1zdJjW0nxR/MAZ
-	 Uycs7TCB8txH0J5uXlZ6ct737HjK28A6naPGDr5B8zZSf+CJi9JUMw1eyS1f6aFfxT11/
-	 aJrNFwAP9XHR5xynDAY996zqtnof4zD8JP/oKb4GzunnVysWLIQz3fY3kH7i1TIlb3A==
+	t=1794293135;
+	b=JQUYOUQAN8q4eLKjvy8v/GeRGKi4pjCR/42HEKhXvGohgMWW5ilZbuH+IQwjlJKBWdBa
+	 HQ9/veYvY6RIqfaO7WXA836G42n+BFjljnPMaZ82+PvqzWvLm4EJDEgb7fJ0U3JJcYq3y
+	 lNZ6jNVOlqh1UFQhULQF9jG6jUBTHRy7NfflILIaOpgpqYTS5ztxF7r8rdBhIbE2O8d39
+	 0qCvmNCfoxuOOTwCVvzPbZ1WRZdVFBNckAJx4ulJXxu6vlIaguTDAO8QNXN+aR7nchq37
+	 UegBiKsr0mLNyHcZA3TI0c/fNlTlO0DpCKnn3FVSbTNUhZvLjpN12lnZ4/eTYSPcKBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293135;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=MlixK3uT8l7pB3nTPpVBJL6WBRkvQGFSDgTM04GEmMw=;
-	b=LCs5DUWP9NF47KLRhOWaMq4iJhTcOCqTkYpjp5Nadhgs4Vf4wMuGcRsEtFmvvJTFhf6g
-	 jfpILFLenpiKgSRtjL0nuqhK01MKRhHf3xThf0D9+tuZbpF+BbDkRz+FmvW3qQBU45Eu0
-	 nc4oDfNyAp6Og1jL9FwKfuDDDq1YSSJ55jhzu14wQW51eK17omBiJQ4Am+ROo8Jjxgjs3
-	 1+pRbChAqfsi1rJkQT0YI7vDlxqKHN02BeXlL5lJbeCQGtSphYSqmOgkzGfiaIee6lSs3
-	 W765DCCB7dpoeK9oxywMrL+whJJ8ewVu5+fZvdV24yzSftYYMeORHMfDCt0elgdO5RQ==
+	bh=oJwXeSol4ObpGTz/6GVgMNSfZi+nUC7w4jOdgOTyP38=;
+	b=yDqj9yoFy6gNfUUOCYijJIzlgcQb2kii2i+hRGOGgvbVic0LD+ff4dDfnNv7yTGAMn9P
+	 eWL+fx9t0vZx2WqwjatWWyQNMNK8LuZMjXQYuNzEvoyOqWPrXhV10k82TUu2Ld358LU1d
+	 oBkgIJRwGA4cbXAAQwofgo0E3zDjrRFKD9bQWaBslK8SCkuFT5XsQxf3eZROT81698Ze2
+	 5ok4DfMC1Ur3lSXd1j2rJa6eXxKd1bbsQemvFUK3VyVy1MvEAzV5Fb1HQkPsdDa8h7v3u
+	 654WGjlHq5n7Qtl0vNqERFuyuJs1ZeBgOskVQQCImwpqvzAXqCk2yJKahnrKvBaaTig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=os+R+Lpl;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="dESA6K/m";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDC9606CB30;
-	Tue, 10 Nov 2026 06:45:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000A1606CB30;
+	Tue, 10 Nov 2026 06:45:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=os+R+Lpl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87811F008A1;
-	Tue, 10 Nov 2026 06:45:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=dESA6K/m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCFFB1F008A2;
+	Tue, 10 Nov 2026 06:45:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293133;
-	bh=MlixK3uT8l7pB3nTPpVBJL6WBRkvQGFSDgTM04GEmMw=;
+	d=linux-foundation.org; s=korg; t=1794293134;
+	bh=oJwXeSol4ObpGTz/6GVgMNSfZi+nUC7w4jOdgOTyP38=;
 	h=Date:To:From:Subject;
-	b=os+R+LplUEhsOgZ1JAUmkcxuh9zrT8Nh+tuAu006OQCEB608SpNMHzRhlVRNJWZVU
-	 o1zkO/7WMERWfhJFtV38h8C8cnoFXBnFc0tBDysMtnlXvBZIBNB77HzkzJgMMlo1p9
-	 6Tmfhccfb9P3aVj8i+tl/wBbrny3DyVqp6W7XprY=
-Date: Mon, 09 Nov 2026 22:45:33 -0800
-To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,
-	pfalcato@suse.de,krystianmkaniewski@gmail.com,jack@suse.cz,david@kernel.org,
-	akpm@linux-foundation.org,jose.fernandez@linux.dev
+	b=dESA6K/mVkEaNv2Bm/5eGs4e9zVeRGo34nhLtGEuNAR37ijjBftPKYlHa8yc9c6Gw
+	 N3YdYQ7w97YX5VJlUDbp4KNc7L/IC7XibYRlUfXxrb914qHUDrG3miLxlCQ4d9NCd9
+	 BJXhUKm5i31lTDWpTj0lTzGN55V8glpI4Pk+lBC4=
+Date: Mon, 09 Nov 2026 22:45:34 -0800
+To: mm-commits@vger.kernel.org,xiaoleiwangxiaolei@gmail.com,
+	stable@vger.kernel.org,sj@kernel.org,jm5905938@gmail.com,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-filemap-stop-fault-around-when-the-walk-steps-back.patch removed from -mm tree
-Message-Id: <20261110064533.A87811F008A1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch removed from -mm tree
+Message-Id: <20261110064534.BCFFB1F008A2@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,65 +53,89 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/filemap: stop fault-around when the walk steps back
+     Subject: mm/damon/core: reset watermark wait state on each iteration
 has been removed from the -mm tree.  Its filename was
-     mm-filemap-stop-fault-around-when-the-walk-steps-back.patch
+     mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Subject: mm/filemap: stop fault-around when the walk steps back
-Date: Sat, 31 Oct 2026 04:33:59 +0000
+From: Aveline Noir <jm5905938@gmail.com>
+Subject: mm/damon/core: reset watermark wait state on each iteration
+Date: Mon, 02 Nov 2026 06:46:24 -0800
 
-filemap_map_pages() can dereference a PTE pointer outside the page table
-it locked.  KASAN has reported this as a use-after-free read [1].  The
-same path can also write out of bounds.  When the stray entry reads as
-none, the fault-around loop maps a page there with set_pte_range().
+Patch series "mm/damon: fix watermark state, kunit pid leak and selftest
+fake pass".
 
-Its fault-around loop walks the page cache and moves vmf->pte by the
-change in index.  A lower index moves it back.  xas_find() can step back
-to a lower index when a multi-index entry is split during the walk.
+Three hotfixes for core, kunit and selftest.  Fix kdamond deactivation
+from missed watermark reset with patch 1.  Fix pid leak in kunit test
+with patch 2.  Fix a selftest wrongly passing when it should skip, with
+patch 3.
 
-[1] fixes xas_find(), but the loop still relies on the walk never stepping
-back.  Stop the fault-around when the walk steps back.  ->fault() maps the
-faulting page if the loop did not.
+Note for reviewers.  This series is a collection of fixes that were
+initially developed by different people.  Changelog is in each patch.
 
-Link: https://lore.kernel.org/20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev
-Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
-Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
-Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+
+This patch (of 3):
+
+Found while reviewing the DAMON source code that if an online commit
+removes all schemes while kdamond is waiting for watermark activation,
+the scheme loop becomes empty but min_wait_time keeps the previous
+positive value.  kdamond then keeps sleeping instead of resuming
+monitoring without schemes.
+
+The way to wake up the kdamond again without DAMON is bit complicated.
+Install a scheme having watermarks that can activate the kdamond again,
+and remove the scheme again.  Doable but cumbersome and complicated.
+
+Initialize min_wait_time and init_wait_time on each loop iteration so
+the wait is calculated from the current schemes and an empty scheme
+list resumes monitoring.
+
+Link: https://lore.kernel.org/20261102144627.88843-1-sj@kernel.org
+Link: https://lore.kernel.org/20261102144627.88843-2-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: <stable@vger.kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.19.x
 ---
 
- mm/filemap.c |    7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/damon/core.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---- a/mm/filemap.c~mm-filemap-stop-fault-around-when-the-walk-steps-back
-+++ a/mm/filemap.c
-@@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_f
- 		unsigned long end;
- 		vm_fault_t map_ret;
+--- a/mm/damon/core.c~mm-damon-core-reset-watermark-wait-state-on-each-iteration
++++ a/mm/damon/core.c
+@@ -3976,10 +3976,11 @@ static int kdamond_wait_activation(struc
+ {
+ 	struct damos *s;
+ 	unsigned long wait_time;
+-	unsigned long min_wait_time = 0;
+-	bool init_wait_time = false;
  
-+		/* A lower index could move vmf->pte out of its page table. */
-+		if (unlikely(xas.xa_index < last_pgoff)) {
-+			folio_unlock(folio);
-+			folio_put(folio);
-+			break;
-+		}
+ 	while (!kdamond_need_stop(ctx)) {
++		unsigned long min_wait_time = 0;
++		bool init_wait_time = false;
 +
- 		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
- 		vmf->pte += xas.xa_index - last_pgoff;
- 		last_pgoff = xas.xa_index;
+ 		damon_for_each_scheme(s, ctx) {
+ 			wait_time = damos_wmark_wait_us(s);
+ 			if (!init_wait_time || wait_time < min_wait_time) {
 _
 
-Patches currently in -mm which might be from jose.fernandez@linux.dev are
+Patches currently in -mm which might be from jm5905938@gmail.com are
 
+mm-damon-ops-common-align-mmu-notifier-range-when-clearing-pmd-young-bit.patch
+mm-damon-stat-avoid-32-bit-overflow-in-idle-percentiles.patch
+mm-damon-pvaddr-skip-folios-already-on-the-migration-target-node.patch
+docs-admin-guide-mm-damon-start-fix-grammar.patch
+docs-admin-guide-mm-damon-stat-fix-pronoun-agreement.patch
+docs-admin-guide-mm-damon-usage-fix-grammar.patch
+docs-admin-guide-mm-damon-lru_sort-fix-remaining-grammar.patch
+docs-mm-damon-design-fix-grammar-and-typos.patch
+docs-mm-damon-api-fix-verb-form.patch
+docs-mm-damon-maintainer-profile-fix-subject-verb-agreement.patch
+docs-mm-damon-monitoring_intervals_tuning_example-fix-grammar-and-typos.patch
 
