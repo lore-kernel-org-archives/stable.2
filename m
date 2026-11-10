@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293136;
-	b=d6pzbPidmZrKvNtbzl6zw5Wfz78M7R93qMMX5oDzuusLPF0ks0exmJKx0la3nUZwk306
-	 8eNjWe6PmPzmRJtqJuznxRHxRaFfli45cRNz06w8xrhTFzhGRsAgmv6FxGS/D670bWBk2
-	 o3VMaEAOO/EjRsK8jqfZg4VmVWtGZCyRdAoyXrXw9ExwiJU/t10Df/oNo2o6Sgdmy3FBY
-	 pE4fw5+++eextwq0c8I7melpnnzxM5c+7S/C45ZMxTgTJvnYDgrfia8wSh8wW1Puhi9ls
-	 U+zyVigIDP2DHknaXN6jw5BCQW1Z13x/AuB+h/VhJzLBJLum0cdljARlfDrnQa7TefQ==
+	t=1794293128;
+	b=l0L8k01u8/699mWPhtTnIXah2dgdpxFwwyugXGOHg+3zIQJaTzmuVHUPldk9Jp38Ky06
+	 ZUiUwGpEUSkknnQZNsEi34QLI2ncPbdYNi5EFuGIfoQldUaInTWLg6ei/WL3BugQsN9SU
+	 rwt11E+oerxCxxFuwFCa7ZkHMJiRm6D2T+6wLdY+uehA3KXnqFgQ5YZGEd6NYSWqC/kKi
+	 pBOgbLQgHeJ2FfQPKLIi8XfX2G4Cs1bBU9cwfy3BUlP+nUanPHc6sulISjSZXehhimeiI
+	 QedJuUhPfQ6R5Bh1AvTuf+autAiQxNQEcLyBlPrWFIRDoObkzu6EWuNcmf3n1gqcvJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293128;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=go8SxZcqB/2A1594xHyqs4oEq/LjPrko7SvXzyhAcsI=;
-	b=N1B2zNbFesMfQch7962O65jELf/pcwn94o/QLvK9ODxdw5nswUM34rd3FEQh1RpgPsXb
-	 CwvGaOTkXcNEmXVN4vqzOSErCX0NAa1+OrQrXzPA+ijVCguUw8asJyz0zqJ6i4kGrtmfp
-	 /Ka1tQbJZHOMMAKGkmYQkMEWWS+A5ZhQSnflP33xP9tH5fYpQy1yPF3exeSx8oTKDBj0M
-	 iHCnChtcyd3PY9pzivGikavuMduXCf8OTUb7UuaL3xt4uoUc2JNrdC3ePHF3e4jJ6dgj2
-	 5BcMb4xfgRKejm5shwZSdW/R+wpHRw1qNagtP6tVu5TnA7f8AhzR+7tfVe/IU5yhA3w==
+	bh=GvnGXm1d9rAqBgZNqdNyYQfZQn6nWRCt1+VBuOhcvs0=;
+	b=Tg/IYb+9uYKuiHHx1hqkFNvF8yMxQiDgQlGx6Vh4/Fo2qK4umUWZZi69UTPjdMZCN8Yy
+	 z7u1+5iODQ+Z4OLKCZbwOPEP0lnBTcZEZgkAIBsBqfv+BKpDpYP4/goXhBLb6klc9v3uf
+	 vm44nkQC3ZsSpACY3QdLaEnw4MLoBYGWxyg1l4UBChc2spL4RnyW4KufHeocezohT3CC8
+	 mx2LOmJCY63TxpJWhNIam9a/iQkSIgDVY2hKEW/h3iiigFGHCyld0LtIiva27GoT7U8MR
+	 b28se0ED0mJorf1eskTE3TEWTaeydo80gyWQkTFGakQm0xrCgira2qHvrWPyGeOS0Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=k9wYJy4a;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=F4HZTagb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2745F606CB3E;
-	Tue, 10 Nov 2026 06:45:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC64606CB1D;
+	Tue, 10 Nov 2026 06:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=k9wYJy4a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1A821F008A2;
-	Tue, 10 Nov 2026 06:45:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=F4HZTagb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F5C11F0089F;
+	Tue, 10 Nov 2026 06:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293135;
-	bh=go8SxZcqB/2A1594xHyqs4oEq/LjPrko7SvXzyhAcsI=;
+	d=linux-foundation.org; s=korg; t=1794293128;
+	bh=GvnGXm1d9rAqBgZNqdNyYQfZQn6nWRCt1+VBuOhcvs0=;
 	h=Date:To:From:Subject;
-	b=k9wYJy4ap21RStHUYMHkZmXuvSUu94Xm8b5/AMjQRDS52Jk+B905A66L2rLAVZKzH
-	 Ma+5+TyruZaEK2v0Vb74PTNu6mCbjopBKLpmusMWc9a8LNCyaWprC27SgwII9uBzCd
-	 C+D7Ha5pEExV8HZQaARDFGKDlTg8s2AvbHQiZVoM=
-Date: Mon, 09 Nov 2026 22:45:35 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,sj@kernel.org,rppt@kernel.org,mhocko@suse.com,
-	liam@infradead.org,jm5905938@gmail.com,davidgow@davidgow.net,
-	brendan.higgins@linux.dev,xiaoleiwangxiaolei@gmail.com,
-	akpm@linux-foundation.org
+	b=F4HZTagbjsETHeXzFeWwIFzFWlHDcM14KAJFuWb0/g0uJrfPS1b14nJoQa+kaGiqy
+	 5/ttE8oSbRzm3y3BeNNJyZvFNZw2AN3EwB+d8eTYe0e35TAqcds3JLT2FYwZwiDcrw
+	 vsXpeLMQhtTN5XrpzlA51awjVXOV0Gar6XAD22ro=
+Date: Mon, 09 Nov 2026 22:45:27 -0800
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,tz2294@columbia.edu,
+	stable@vger.kernel.org,shikemeng@huaweicloud.com,nphamcs@gmail.com,
+	kasong@tencent.com,hughd@google.com,david@kernel.org,chrisl@kernel.org,
+	baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
+	mt4022@columbia.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch removed from -mm tree
-Message-Id: <20261110064535.D1A821F008A2@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch removed from -mm tree
+Message-Id: <20261110064528.3F5C11F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,80 +55,128 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
+     Subject: mm/shmem: fix swapin livelock on a mismatched large swap cache folio
 has been removed from the -mm tree.  Its filename was
-     mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
+     mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-Subject: mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
-Date: Mon, 02 Nov 2026 06:46:25 -0800
+From: Mani Tofigh <mt4022@columbia.edu>
+Subject: mm/shmem: fix swapin livelock on a mismatched large swap cache folio
+Date: Tue, 27 Oct 2026 16:33:32 -0400
 
-damon_sysfs_test_add_targets() creates its monitoring context with
-damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
-DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
-context, and damon_sysfs_add_targets() therefore calls
-damon_set_target_pid() for each target it adds.  That function grabs a
-reference to the target's struct pid via find_get_pid().
+On a SWP_SYNCHRONOUS_IO swap device, a large shmem folio can be left in
+the swap cache over swap slots that another file now uses.  Reading that
+other file then loops forever in shmem_get_folio_gfp():
+shmem_swapin_folio() finds the large folio, rounds the index and the swap
+entry down to the folio's size, finds no matching entry in the file and
+returns -EEXIST, and the retry finds the same folio again.  Since the task
+keeps the mapping locked, a munmap() of the same mapping waits forever.
 
-The test then tears the context down with damon_destroy_ctx(), which
-releases such a reference from ctx->ops.cleanup_target().  For the vaddr
-operations set that callback is damon_va_cleanup_target(), and it is the
-only place where the reference is put.  The test never selects an
-operations set, though, so cleanup_target is NULL and both references --
-one for each of the two damon_sysfs_add_targets() calls -- are leaked on
-every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
-enabled reports the leaked struct pid objects as unreferenced.
+The folio is left behind when the slots are freed and reused while the
+swapin is still allocating it:
 
-Fix this by selecting the vaddr operations set for the context before
-adding the targets, mirroring what the sysfs interface does.
-damon_select_ops() fails if the vaddr operations set is not registered,
-in which case the test cannot exercise the pid handling and skips
-itself.
+  Task A (reads X)                      Task B
+  ----------------                      ------
+  shmem_swapin_folio()
+    allocate a large folio
+    for X's slots
+                                        punch a hole in X
+                                        /* X's slots freed */
+                                        swap out file Y
+                                        /* Y reuses those slots */
+    add the folio to the swap
+    cache over those slots
+    shmem_confirm_swap() fails
+    /* -EEXIST, the folio stays
+       in the swap cache */
 
-Link: https://lore.kernel.org/20261102144627.88843-3-sj@kernel.org
-Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
-Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
+  Task C (reads Y)
+  ----------------
+  shmem_swapin_folio()
+    finds the large folio
+    rounds down to its start,
+    where Y has no entry
+    /* -EEXIST, retried forever */
+
+Before commit c246d236b18b ("mm/shmem: never bypass the swap cache for
+SWP_SYNCHRONOUS_IO"), a direct swapin that failed this way freed its folio
+instead of leaving it in the swap cache.
+
+do_swap_page() already drops a large swap cache folio that does not fit
+for anonymous memory.  Do the same in shmem_swapin_folio() and on a
+-EEXIST, remove a large folio that is not anonymous/dirty/under-writeback
+from the swap cache so that the retry swaps in a folio that fits.
+
+The reproducer below fills a small brd swap device so that a 64K shmem
+folio and the 4K pages of another file land in the same slots, and races a
+read of the first file with a hole punch and a swapout of the second. 
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development, but the non-deterministic C
+reproducer can typically trigger it in the 2-4s time range.  With the fix,
+nothing is triggered after 600 seconds.
+
+Link: https://lore.kernel.org/20261027-shmem-swapin-mismatch-v1-1-84e30aa3b9e5@columbia.edu
+Fixes: c246d236b18b ("mm/shmem: never bypass the swap cache for SWP_SYNCHRONOUS_IO")
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Aveline Noir <jm5905938@gmail.com>
-Cc: <stable@vger.kernel.org> # 6.7.x
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: <stable@vger.kernel.org>
 ---
 
- mm/damon/tests/sysfs-kunit.h |    9 +++++++++
- 1 file changed, 9 insertions(+)
+ mm/shmem.c |   16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
---- a/mm/damon/tests/sysfs-kunit.h~mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test
-+++ a/mm/damon/tests/sysfs-kunit.h
-@@ -79,6 +79,15 @@ static void damon_sysfs_test_add_targets
- 		kunit_skip(test, "ctx alloc fail");
+--- a/mm/shmem.c~mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio
++++ a/mm/shmem.c
+@@ -2612,11 +2612,14 @@ static int shmem_swapin_folio(struct ino
+ 	 * and swap cache folios are never partially freed.
+ 	 */
+ 	folio_lock(folio);
+-	if (!folio_matches_swap_entry(folio, swap) ||
+-	    shmem_confirm_swap(mapping, index, swap) < 0) {
++	if (!folio_matches_swap_entry(folio, swap)) {
+ 		error = -EEXIST;
+ 		goto unlock;
  	}
- 
-+	if (damon_select_ops(ctx, DAMON_OPS_VADDR)) {
-+		damon_destroy_ctx(ctx);
-+		kfree(sysfs_targets->targets_arr);
-+		kfree(sysfs_targets);
-+		kfree(sysfs_target->regions);
-+		kfree(sysfs_target);
-+		kunit_skip(test, "vaddr ops not registered");
++	if (shmem_confirm_swap(mapping, index, swap) < 0) {
++		error = -EEXIST;
++		goto failed;
 +	}
-+
- 	damon_sysfs_add_targets(ctx, sysfs_targets);
- 	KUNIT_EXPECT_EQ(test, 1u, nr_damon_targets(ctx));
- 
+ 	if (!folio_test_uptodate(folio)) {
+ 		error = -EIO;
+ 		goto failed;
+@@ -2657,6 +2660,15 @@ failed:
+ 		error = -EEXIST;
+ 	if (error == -EIO)
+ 		shmem_set_folio_swapin_error(inode, index, folio, swap);
++	/*
++	 * A large folio that does not fit the mapping, e.g. because its swap
++	 * entries were freed and reused, would be found again on every retry.
++	 * Drop it from the swap cache so the retry can swap in a fitting one.
++	 */
++	if (error == -EEXIST && folio && folio_test_large(folio) &&
++	    !folio_test_anon(folio) && !folio_test_dirty(folio) &&
++	    !folio_test_writeback(folio))
++		swap_cache_del_folio(folio);
+ unlock:
+ 	if (folio)
+ 		folio_unlock(folio);
 _
 
-Patches currently in -mm which might be from xiaoleiwangxiaolei@gmail.com are
+Patches currently in -mm which might be from mt4022@columbia.edu are
 
+mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte.patch
 
