@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794328041;
-	b=euQtP5J/bYj+dwVXcrRfFMBijUOQw6VrY6OUsOqxifMOmE068JVVrJxi4g50jAv7NSmj
-	 Q2AV43WLNznbZkd01nfqwx0QrSgnCyX4Yfk+IhBqEKRCbM5/T944jH6+Xz0rEcc6zSGtH
-	 2RHY+Xfff6ADuKlpawDI7DESzSq06rZaZI1TZjcP55xnOcC3GmmSz2mpjYBnZs+BUA6uC
-	 aUr5gGGa4CCtKvtrxdmWPZ7kuwhsjXwNTBqAqxYBngl7N/HtmhVht5pqvAulNwd9uzmfv
-	 j38VNzmbEdzHv4A67KAy7fmiT1l0txixilpfr2r18+e2KBIsjTSGtBKQYEXkGgAzzpg==
+	t=1794328042;
+	b=j2/R1d6+ssfwENt8c7Uoid94lHfWhO1kH7zjAdeUEw3Hsh+eNdMDDI5DmWziNczUrHoO
+	 68MmVwU3YY0v4xg72LrTuNK9ZbUUzttE/ii4hD4w43zT0XTarzTOkLgA4c2snX88SmQMp
+	 S4LzNvepu7YRlCipQBiVjPdHJcAdMPxluAuyOPFtqLeQWz2cm+/ndF/n5gbhw3MBSgRKU
+	 o0t+7BtWOJinIyhXVtNXpFj0rDw/mh8g7xgY87gMiMMTPOhISbjKPOy5ermn2A9U17w6Z
+	 AJiggtN+BqHF8Ln7mAlUKPugVYjyy3T+BEHsl7IOz8Ys5FBcUDqobUINxrM5RNI2shw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794328041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794328042;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=r24tMGEMzYGLnMdcheMT2XvHH82KekEOEvJFDF7HwtU=;
-	b=wDaonJ7uWo5FrSc5/e94aVe1voCrsxPBCXRyCmZMKtpdpr/TMXR9sA+vHlzUW0PyLqV5
-	 apc1gsT2Jb8pLTKx2/t0wGiJ8YnygZd/0jn4y2NaVM618LVzLjEre5nQ1n6HDvNeV7nnq
-	 Iwwi3wnT+PhIcFQx/DO/OEH7wzUR1RzavPm42cyK78llw/Srd3j9FEqcRcW89RGhQAX1t
-	 U1tL3+O3TxMAX9L0rhiXQ2dPqLQh9yqSQqgFaAUbknstT/AOwI7ElT8O46PVSAg2ZFksb
-	 5eG74fT1tdBNqKE8cXX/2m3Ny0bo1WVnxAVA/FF5c0HjG1Ht5ndwUJY+yVxWEqQ+CLQ==
+	bh=vK4LWpRDwU7vNhS6EBeO98N4nUu+oxzJNpxEVGaHkMk=;
+	b=Lq+KzDwqTrRNhZjnnLYp67Ewvxfi2ZaJZzvCIp1Ba2FpHPBtph6DOMEMBafRv1HKnsP2
+	 njcpS2bbOMRU5uq1b6G3cirbQu0Aqhqei40ZLFMFqQ4FWTs0+bkv/ierNadcgU+d2ogcg
+	 dxWql0ieOcFVU//ZUk5m65Do3+2bj9LF0SUaPTdvfIEo/z42hRiTW1uHAXjq+tVVmW/Qa
+	 uOuxS3nrQ118/lZ7xGUVnc4s3C/0ftsnVsgRP9rjZl6/CkQjBKgVjk57XLI+FXjINSbyK
+	 4cAMeSCUqs8cRqC3oT/ftshqaHs7fQcA0aQMke4R5uJf++uXGoqlFaCrEFp08ij/udw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPqDpgDN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxYOOxCc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A5DD60A6F72
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:27:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F038860A6F69
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:27:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPqDpgDN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1921B1F0089F;
-	Tue, 10 Nov 2026 16:27:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxYOOxCc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A521F008A2;
+	Tue, 10 Nov 2026 16:27:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794328040;
-	bh=r24tMGEMzYGLnMdcheMT2XvHH82KekEOEvJFDF7HwtU=;
+	s=k20260515; t=1794328039;
+	bh=vK4LWpRDwU7vNhS6EBeO98N4nUu+oxzJNpxEVGaHkMk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fPqDpgDNBPQonhKPy6qg95xWltdD4JOk8rZLhPXu2NjyUFIdT6qYiaZ2jyesxK8s/
-	 MI3vaYIvtQIZsW4+2oef2l/DSuY3xRs43vZ+p83gGCKOKc4Ms9pKL23osHeH6I7s4v
-	 /14J/XaMt8faFIudLsETuFzkveAqSGPLAtdNhcgdtqaVSjP6Tc46/jrJmFijm1XplL
-	 er0+mUibHMO6s/eW7HFMd2vb4yt8X8DwyyVd9vn6ofUfXIBL2wA5Ay9nNTeqs1Dl/o
-	 Rmoml6WIsjilBa/hr18ypMVW3g44B4cXnQDhSECjr/mp26TOJYJVHD/WcXQyT/kwVC
-	 tGJcDiXV9rP5Q==
+	b=jxYOOxCcqBEJGY6S1m2nmLWNZ7DTKVtwyt6+xHFqQBfJN1r6S45lFtR0BkcmUAT+0
+	 8SWtiYGxNXVIO+M72L2DxsJpmuMaPfUOjvXU0+ILugvdQ79PrksGqxsadelTJCg4Zm
+	 0M+MKsVlGTAr6AY5ilQB2O09c+pzs1AxZyBT6+Le1i5oiHy0EjKqTl0MBOt9QcYn+I
+	 4aYR8SXUFyK/vCkYfFdhcB8VIwwQJL6NohQ45PyMAuNN1OPytI69hY0r0Rt9uCN6Ql
+	 g0H8tOBFPh+g6Vfk98/MEJffn6P2PxfXM9Aqb8UbWv4WFUw45fQhmsBJVZMgcpnX9K
+	 u7gMCu0K9v5yg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tim Menninger <tmenninger@everpuredata.com>,
-	Chuck Lever <cel@kernel.org>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Trond Myklebust <trond.myklebust@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] xprtrdma: prevent disconnect feedback during endpoint teardown
-Date: Tue, 10 Nov 2026 11:27:17 -0500
-Message-ID: <20261110162636.2501729-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] xprtrdma: Remove the RPC/RDMA QP event handler
+Date: Tue, 10 Nov 2026 11:27:16 -0500
+Message-ID: <20261110162636.2501729-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110162636.2501729-1-sashal@kernel.org>
+In-Reply-To: <20261107062106-failed-5.10-0b5bb4e586f7@kernel.org>
 References: <20261107062106-failed-5.10-0b5bb4e586f7@kernel.org>
- <20261110162636.2501729-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,91 +61,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tim Menninger <tmenninger@everpuredata.com>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 0b5bb4e586f7b0a449f4d90a524f76a3be5db355 ]
+[ Upstream commit e1648eb23d839bd4b9f2999296d5e81dcd93311f ]
 
-xprt_autoclose() clears XPRT_CLOSE_WAIT before invoking the transport's
-->close() operation. For RPC/RDMA, ->close() calls
-rpcrdma_xprt_disconnect(), which disconnects the RDMA CM endpoint and
-drains its QP.
+Clean up: The handler only recorded a trace event. If indeed no
+action is needed by the RPC/RDMA consumer, then the event can be
+ignored.
 
-Since commit 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on
-connect"), RDMA_CM_EVENT_DISCONNECTED requests a SUNRPC transport
-disconnect. Today that path, along with failed completion handling,
-reaches xprt_force_disconnect() through rpcrdma_force_disconnect().
-
-Commit c487eb7d8e41 ("xprtrdma: Clean up disconnect") later added
-re_force_disconnect to ensure that multiple failure indications request
-only one SUNRPC disconnect. However, the gate remains open when SUNRPC
-itself begins endpoint teardown.
-
-If re_force_disconnect is still clear, either a CM disconnect event or a
-completion error can set XPRT_CLOSE_WAIT again while the current close
-is in progress. When the transport send lock is subsequently released,
-xprt_clear_locked() observes XPRT_CLOSE_WAIT and queues another
-autoclose.
-
-Requesting a disconnect this way is necessary when a connection is lost
-unexpectedly, but not when the event was generated by
-rpcrdma_xprt_disconnect() itself. In that case SUNRPC is already
-committed to closing the transport.
-
-Mark re_force_disconnect before initiating local endpoint teardown so
-that CM events and completion errors caused by that teardown cannot
-request another close. An unexpected error that wins the race before
-local endpoint teardown begins can still request a disconnect normally.
-
-Use a fully ordered exchange so that the gate is globally closed before
-rdma_disconnect() can transition the QP to error and generate the
-callbacks that the gate suppresses.
-
-In 30-second traces of a sustained recovery loop, without this change
-there were 7,693 xprt_force_disconnect() calls, 6,267 SUNRPC autocloses,
-and 172,892 receive-side IB_WC_WR_FLUSH_ERR completions. With this
-change, the same tracepoints recorded 3,512 xprt_force_disconnect()
-calls, 3,212 autocloses, and 131,287 receive-side flush completions.
-Thus QP teardown continues to produce flushed completions, but closing
-the disconnect gate before teardown substantially reduces their
-feedback into the SUNRPC close path.
-
-Fixes: 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on connect")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
-Reviewed-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
+Stable-dep-of: 0b5bb4e586f7 ("xprtrdma: prevent disconnect feedback during endpoint teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/verbs.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ include/trace/events/rpcrdma.h | 32 --------------------------------
+ net/sunrpc/xprtrdma/verbs.c    | 18 ------------------
+ 2 files changed, 50 deletions(-)
 
+diff --git a/include/trace/events/rpcrdma.h b/include/trace/events/rpcrdma.h
+index bf1065772228f..3bdea1600e8b1 100644
+--- a/include/trace/events/rpcrdma.h
++++ b/include/trace/events/rpcrdma.h
+@@ -485,38 +485,6 @@ TRACE_EVENT(xprtrdma_op_set_cto,
+ 	)
+ );
+ 
+-TRACE_EVENT(xprtrdma_qp_event,
+-	TP_PROTO(
+-		const struct rpcrdma_ep *ep,
+-		const struct ib_event *event
+-	),
+-
+-	TP_ARGS(ep, event),
+-
+-	TP_STRUCT__entry(
+-		__field(unsigned long, event)
+-		__string(name, event->device->name)
+-		__array(unsigned char, srcaddr, sizeof(struct sockaddr_in6))
+-		__array(unsigned char, dstaddr, sizeof(struct sockaddr_in6))
+-	),
+-
+-	TP_fast_assign(
+-		const struct rdma_cm_id *id = ep->re_id;
+-
+-		__entry->event = event->event;
+-		__assign_str(name, event->device->name);
+-		memcpy(__entry->srcaddr, &id->route.addr.src_addr,
+-		       sizeof(struct sockaddr_in6));
+-		memcpy(__entry->dstaddr, &id->route.addr.dst_addr,
+-		       sizeof(struct sockaddr_in6));
+-	),
+-
+-	TP_printk("%pISpc -> %pISpc device=%s %s (%lu)",
+-		__entry->srcaddr, __entry->dstaddr, __get_str(name),
+-		rdma_show_ib_event(__entry->event), __entry->event
+-	)
+-);
+-
+ /**
+  ** Call events
+  **/
 diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
-index 8c05fc11d79e5..064c4a3434967 100644
+index 257acdb5bf56e..8c05fc11d79e5 100644
 --- a/net/sunrpc/xprtrdma/verbs.c
 +++ b/net/sunrpc/xprtrdma/verbs.c
-@@ -114,9 +114,9 @@ static void rpcrdma_xprt_drain(struct rpcrdma_xprt *r_xprt)
+@@ -114,22 +114,6 @@ static void rpcrdma_xprt_drain(struct rpcrdma_xprt *r_xprt)
  	rpcrdma_ep_put(ep);
  }
  
--/* Ensure xprt_force_disconnect() is invoked exactly once when a
-- * connection is closed or lost. (The important thing is it needs
-- * to be invoked "at least" once).
-+/* Ensure xprt_force_disconnect() is invoked at most once for an
-+ * unexpected endpoint failure. Local endpoint teardown closes this
-+ * gate before it can generate CM events and flushed completions.
-  */
- static void rpcrdma_force_disconnect(struct rpcrdma_ep *ep)
- {
-@@ -576,6 +576,9 @@ void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
- 	if (!ep)
- 		return;
+-/**
+- * rpcrdma_qp_event_handler - Handle one QP event (error notification)
+- * @event: details of the event
+- * @context: ep that owns QP where event occurred
+- *
+- * Called from the RDMA provider (device driver) possibly in an interrupt
+- * context. The QP is always destroyed before the ID, so the ID will be
+- * reliably available when this handler is invoked.
+- */
+-static void rpcrdma_qp_event_handler(struct ib_event *event, void *context)
+-{
+-	struct rpcrdma_ep *ep = context;
+-
+-	trace_xprtrdma_qp_event(ep, event);
+-}
+-
+ /* Ensure xprt_force_disconnect() is invoked exactly once when a
+  * connection is closed or lost. (The important thing is it needs
+  * to be invoked "at least" once).
+@@ -428,8 +412,6 @@ static int rpcrdma_ep_create(struct rpcrdma_xprt *r_xprt)
  
-+	/* Prevent teardown-generated events from requesting another close. */
-+	atomic_xchg(&ep->re_force_disconnect, 1);
-+
- 	id = ep->re_id;
- 	rc = rdma_disconnect(id);
- 	trace_xprtrdma_disconnect(r_xprt, rc);
+ 	r_xprt->rx_buf.rb_max_requests = cpu_to_be32(ep->re_max_requests);
+ 
+-	ep->re_attr.event_handler = rpcrdma_qp_event_handler;
+-	ep->re_attr.qp_context = ep;
+ 	ep->re_attr.srq = NULL;
+ 	ep->re_attr.cap.max_inline_data = 0;
+ 	ep->re_attr.sq_sig_type = IB_SIGNAL_REQ_WR;
 -- 
 2.53.0
 
