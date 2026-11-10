@@ -1,74 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794313770;
-	b=1iB5WOtoGH3eQHb7KwnEWEB3OxVUPceCXtzTLKi6Fb9gdi7rdjdoItu008QS288onRDg
-	 ITgI2P7mvPcKsDXIkvShzlK7MGAP8JF1T6F/AGwY+HW2EHrxsCOvM2KoDctiXFi4Yij4+
-	 e/NapIEkcz27V41HvMZ2y1VFGQke+ErmdMHvR8/ET1K0Cpcb7pwz9sNBmz++p8kqvfhH7
-	 JWFAhWHBCSROULt/3lRVqaOZuMr+Xiw7v5rBZyQpLAi8FCCbGpvNxwLTV5RfmYMBZv/G/
-	 m2w+hnjKZRySnHXj3Pu2I7UljJjwiu5+FI1KivvYbBH7Lsqem8qoYbDmsvw3T8UUJOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313770;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received;
-	bh=HDShkw84AvJbYZFMLRCPBAjhUqKACatbZB/iOWiANgI=;
-	b=EHnYGSTVFoTUUzaONrUH0No1JiYkBkfferax0aPC0zMtZMyMvLZ5NZ5KtDX/VTtih9uB
-	 F07r/+xML/mP9XnsXeGPD/dX0aCriImiil81ip95otg61f88sA8xyn+ZARyW8cvMp1UuK
-	 YxGJPY+Jy5m5ffRCn1eryu/iyA3ARscjTBItuhyKsLQ5lYqJxZS92Lh0g2NeqwJMF7ieq
-	 lm3FWrBgy/Qj1r5jHtrHpQr7AAr+PiulFHN7yWbQ0kPe/cwxE1N2KRInLCkv8sJLe87jG
-	 KS4zWa3StN03QnQKtUvzv8K50lQ4phbauzRgaA14HVAzCfN+Z8VNaZkQ1p1LxRHCabQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=zaZpaR+1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794313825;
+	b=Qwis5Kh/UUdjP8gpIH4dSGJO5mDezqIwzAl/c8y2THlkHgsUynV+ZPsZcZ39x2GA6fmx
+	 2w1RKWCA5F05eKXDs8ad7giBo9nSeD1Bl5EHFB1+6bFKF7jq0o+GLbkS9RB2CwxsQdssA
+	 KdS58CUAmizUoTmqTtwLIvLn4eDjegLlCEGuzXT15c7+7NLt/bIPixHABXfrJx8IZThfz
+	 i/ivnXr1jHNIOYo+pORGKenVM06VFBj7B9mz4RkxGVGusSIrscnAEH3qRdTA6WqtPLHCN
+	 1nC8fwKPbRmc1hP77uqtS5D5/tckjVKg2xrV/U/7WpvaDV1AWCyM+77qGlUowDQxwZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313825;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UEcWfbhl/3fvZaeBiDjyI/3x9738nBL31r7oCNWDdiM=;
+	b=Ri4v3ovf54gZZLQiLOxG3rQOScWOq3aNOzqAHGspIRc7kEwaGcf9Xqs6hQGASyACsuDx
+	 Evu9ZGt+EvMesksiRGzVYPkSZ+CdvuCp4hjAdoYFZ/zGPAHlcmUUN9Diut8yBBUfgjbWe
+	 jANwct9o1zHIFWy7M4fAG4j6DAQlOFWGlYjOp18oItKjgo2cNWURGTDENn+rEVw3qVz0B
+	 Y4s4G4cfCnp3QHMu5IqKZivrIugOTCh8HXwDXPKC23RTOk6rJDDU9LE+Img2FIjfDc3Mh
+	 FFnskt3T7hOfeN4MurAvU6ynC1EUkqYSaqR5O39o9OGK/KKgKPqmZM0hArgzr0KbvQQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTKAFDFW;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6EE606A31C;
-	Tue, 10 Nov 2026 12:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74137606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=zaZpaR+1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794313769;
-	b=qgSXO6P5Dz3SxfFWElMSo+uBna+CvxPqBUXTiFFyPJ6fLU/7LyP9uLr6t09BeE3zTc9i
-	 RiuXRM/IFolEcIe3lOID2CjbRQv0AcfXBsyekzwEE5KFlVHt3NTmZ/DI+uBrclEZkPzi2
-	 W/ZqTQTjt2Y0DAvHn8jt02OpjrOu0Ev+AGfp5SWbDk/FUsm1tGXkoBKw25Jbtx+qfvd78
-	 dBBpWbbzMBPj3NnUOZDAC4YHZxzPJgHrBnaTPxgsP6chLTHuTfBhIOmhDXNhHU8MOChYK
-	 HX/DW2Ss8ZwNNBzAeqxji0LeQKjGtw07npaBhx19ypaJd23wf88tQuzkq7jj5Abuqjw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794313769;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=HDShkw84AvJbYZFMLRCPBAjhUqKACatbZB/iOWiANgI=;
-	b=ejeFySfW/0OgO0giXWGMOmr+JrbOD44dyQFloYesefGP2jtp0zTOQ9zuK9uScMOuGkpT
-	 znM72i/vOs2+Wem7qVqqG74ehfUNXSdPLGJRJs6Il+lP3E6WJg3fydcF6tNvBU92Z0qxn
-	 w1POK1fqFTsUcU7xlk8RGIdtk5tBF3QOym++QZG4L1wwTnobpx/AlcEMzjdlvzuCwqfUq
-	 w9EkWTU/njpG+9/dVVWQ89f6SQpyO/91iZ5Vv6bnhNTy5Uw7tfnxxSY+LwEwMLh7BES7C
-	 WKqfIc0wLfgrmLMRdzHWNhcbgj2N0fSPv06BLht/5L9L0Rn2nlcwt2OqT1fca/nOL2w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D94B71F008A1;
-	Tue, 10 Nov 2026 12:29:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794313769; bh=HDShkw84AvJbYZFMLRCPBAjhUqKACatbZB/iOWiANgI=;
-	h=From:Date:Subject:To:Cc;
-	b=zaZpaR+1fmXeNU9U6EX2aS4hksFHmaSspHIeoRQdw+6C8JvCA84Ww4xacLCipa+av
-	 h6WkEUwNb5GKPU2PFhvjMloo+BrFcpclc1JKqzoENI04i0WbgB21Gy+adtdXJ5DHoR
-	 soEzJdsKdlGGn65/PJiby9ZAea3gkxtemLGyUNtM=
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 51AC748B02;
-	Tue, 10 Nov 2026 12:29:28 +0000 (UTC)
-From: Richard Leitner <richard.leitner@linux.dev>
-Date: Tue, 10 Nov 2026 13:29:08 +0100
-Subject: [PATCH] remoteproc: imx_rproc: revert channel freeing order in
- imx_rproc_free_mbox
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTKAFDFW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3AC41F008A1;
+	Tue, 10 Nov 2026 12:30:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794313825;
+	bh=UEcWfbhl/3fvZaeBiDjyI/3x9738nBL31r7oCNWDdiM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WTKAFDFWOUQVRrC7LuLDrgFfqZvByKDO498B+G+aTZ1yb/knuL7rM6CPsI5cdUnbv
+	 bcMqQ//V5Y842hiWUBQAslRDgy4I53CjcQB7/zuQq4RISfKkKT2/kBZ/TwQ5FkH9nB
+	 hkz7HmOIOLgZGq5l3NwRuL0laH/3oG3eoqsa4ymIfny8bHNksUOH88az/BXiWHDMSi
+	 j4jKHcAlnT/pRQe7X8PW28Q4F4C9uQPWDkmgAf5dO7682UOXusFXoVH0ITf3wXH5vq
+	 CNNoI3NrKT/U55OfZXBq/SNr9EiqGGCFU/KjnkHxDn8CKVwA/Ymz6wC/0lGDXlQqi3
+	 ViicQfl4JtGxw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] crypto: omap-des - fix crypto engine cleanup
+Date: Tue, 10 Nov 2026 07:30:23 -0500
+Message-ID: <20261110122957.1214291-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061609-failed-5.10-5d69ed4cd4f9@kernel.org>
+References: <20261107061609-failed-5.10-5d69ed4cd4f9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,130 +59,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-imx-rproc-free-mbox-v1-1-3e33ff98570d@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDuQBBHSq4iLGCc6BROZtBIQ7
- 260y7f4/4BMwpTh3RwgtHPmFCv0qwG/uDgT8lQNRplOa2WR14KySfIYhAjXMRV0Thk7ta23RkM
- tN6HA5bn2w9/5N37If+8VnOcFBhEig3cAAAA=
-X-Change-ID: 20261109-imx-rproc-free-mbox-aa029d44c921
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>
-Cc: linux-remoteproc@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- weinshec@holodeck2.de, stable@vger.kernel.org, 
- Richard Leitner <richard.leitner@linux.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794313767; l=4029;
- i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=rNNJZEDgaW7DJ4fiz5yErnGrwanLKG16YmYo4n8oobc=;
- b=lM3N39GVUUMurY+eD75Pypflu4aRSAT1B8iVo7IH+Qj9zTH0nazkdyFmU6YAeo5NHOgpAQdH9
- 4MuKUHhmeiRDWufv8cIUK2p2C+fuOS6+WsPXZ3VHLbozgvV5jEGyIFR
-X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
- pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
-X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
- with auth_id=350
+Content-Transfer-Encoding: 8bit
 
-The imx_rproc driver is affected by a race condition in the shutdown
-ordering in imx_rproc_free_mbox(). A received message might cause a
-virtqueue_kick resulting in tx_ch access. When imx_rproc_free_mbox() is
-triggered between the if (!priv->tx_ch) check and the mbox_send_message()
-call in the imx_rproc_kick() function the mbox_send_message() then tries
-to dereference a NULL pointer on the tx_ch (as seen in the call trace
-below).
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-Therefore fix this behaviour by first freeing the rx channel, so no new
-messages are received and therefore no kicking on tx_ch can happen.
-Afterwards release the tx channel.
+[ Upstream commit 5d69ed4cd4f9c68ff9a6ebb2e8a1079223a4ec6e ]
 
-This problem was encountered on a fleet of i.MX8MP devices on about 1 in
-500 system shutdowns, resulting in Oops below. This Oops was recorded
-from a v7.3.0 kernel before the work-queue removal.
+omap_des_probe() allocates and starts a crypto engine, but the remove
+path does not call the matching crypto_engine_exit(). The probe failure
+path already performs this cleanup.
 
-    remoteproc remoteproc0: stopped remote processor imx8mp-cm7
-    Unable to handle kernel NULL pointer dereference at virtual address 0000000000000008
-    Internal error: Oops: 0000000096000004 [#1]  SMP
-    CPU: 0 UID: 0 PID: 32710 Comm: kworker/0:1 Not tainted 7.3.0-XXX #1 PREEMPT
-    Hardware name: XXX (DT)
-    Workqueue: imx8mp-cm7 imx_rproc_vq_work [imx_rproc]
-    pstate: 40000005 (nZcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-    pc : mbox_send_message+0x8c/0x178
-    lr : mbox_send_message+0x88/0x178
-    sp : ffff8000897f3b70
-    x29: ffff8000897f3b70 x28: ffff80007a07b248 x27: ffff0000d90e1a20
-    x26: ffff80007a07b328 x25: ffff0000c1d31300 x24: ffff0000d90e1a40
-    x23: 0000000000000001 x22: 0000000000000005 x21: ffff8000897f3ba4
-    x20: 000000000000000b x19: ffff0000c1b24240 x18: 0000000000000000
-    x17: ffff80006a453000 x16: ffff800081ac8000 x15: 0000000000000000
-    x14: 0000000000000040 x13: 0000000000000228 x12: ffff0000c115a3e8
-    x11: 0000000000000000 x10: 0000000000000001 x9 : ffff800080cd6570
-    x8 : ffff8000897f3ba0 x7 : 0000000000000002 x6 : 0000000000000000
-    x5 : 000000000000000c x4 : 0000000004400000 x3 : 0000000000000000
-    x2 : 0000000000000000 x1 : ffff0000cb268000 x0 : 0000000000000000
-    Call trace:
-     mbox_send_message+0x8c/0x178 (P)
-     imx_rproc_kick+0x50/0xc0 [imx_rproc]
-     rproc_virtio_notify+0x3c/0xa0
-     virtqueue_kick+0x4c/0x68
-     rpmsg_recv_done+0x224/0x658 [virtio_rpmsg_bus]
-     vring_interrupt+0xbc/0x158
-     rproc_vq_interrupt+0x40/0xb0
-     imx_rproc_notified_idr_cb+0x20/0x40 [imx_rproc]
-     idr_for_each+0x74/0x100
-     imx_rproc_vq_work+0x2c/0x40 [imx_rproc]
-     process_one_work+0x194/0x520
-     worker_thread+0x19c/0x320
-     kthread+0x134/0x148
-     ret_from_fork+0x10/0x20
-    Code: 37f80574 aa1303e0 97ffff39 f9400a60 (39402001)
+crypto_engine_alloc_init() creates a kthread worker for processing
+requests. Without crypto_engine_exit() during driver removal, the
+worker is left running after the device is removed.
 
-Fixes: 99b142cf7191 ("remoteproc: imx_rproc: Request mbox channel later")
+Call crypto_engine_exit() after unregistering the algorithms and before
+tearing down the remaining request handling resources. This stops the
+engine and destroys its worker.
+
+This issue was found by manual code inspection.
+
+Fixes: f1b77aaca85a ("crypto: omap-des - Integrate with the crypto engine framework")
 Cc: stable@vger.kernel.org
-Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ sashal: Adjusted insertion context for inline algorithm unregistration followed by tasklet cleanup. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Backport notice: For kernel versions before the work queue removal
-(<=7.3.y) a cancel_work_sync() should be called on the queue after
-freeing the rx_ch.
----
- drivers/remoteproc/imx_rproc.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/crypto/omap-des.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-index 581bb07f5893f..232da31a56ebe 100644
---- a/drivers/remoteproc/imx_rproc.c
-+++ b/drivers/remoteproc/imx_rproc.c
-@@ -920,15 +920,16 @@ static void imx_rproc_free_mbox(void *data)
- 	struct rproc *rproc = data;
- 	struct imx_rproc *priv = rproc->priv;
+diff --git a/drivers/crypto/omap-des.c b/drivers/crypto/omap-des.c
+index 7fdf38e07adf8..01a1f5ee64c40 100644
+--- a/drivers/crypto/omap-des.c
++++ b/drivers/crypto/omap-des.c
+@@ -1105,6 +1105,8 @@ static int omap_des_remove(struct platform_device *pdev)
+ 			crypto_unregister_skcipher(
+ 					&dd->pdata->algs_info[i].algs_list[j]);
  
--	if (priv->tx_ch) {
--		mbox_free_channel(priv->tx_ch);
--		priv->tx_ch = NULL;
--	}
--
-+	/* First release rx channel as its callback may kick vqs via tx_ch. */
- 	if (priv->rx_ch) {
- 		mbox_free_channel(priv->rx_ch);
- 		priv->rx_ch = NULL;
- 	}
++	crypto_engine_exit(dd->engine);
 +
-+	if (priv->tx_ch) {
-+		mbox_free_channel(priv->tx_ch);
-+		priv->tx_ch = NULL;
-+	}
- }
- 
- static void imx_rproc_put_scu(void *data)
-
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-change-id: 20261109-imx-rproc-free-mbox-aa029d44c921
-
-Best regards,
---  
-Richard Leitner <richard.leitner@linux.dev>
-
+ 	tasklet_kill(&dd->done_task);
+ 	omap_des_dma_cleanup(dd);
+ 	pm_runtime_disable(dd->dev);
+-- 
+2.53.0
 
