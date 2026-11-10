@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313258;
-	b=wv3XoSC8YFCBviWbbWm5qhZYN9L/VJeS3MofoUvlVEO1URQSrNzH10JtkZkpK3sWVlln
-	 AI9B8H1htnCtBLcqarGeHYbIozXVZucJ1Fq+ne7GB5CxLsiKrc6Dfxlmts/pbpdSQ+DWj
-	 lStyqDltW7eCmjEPBdBUgX8zKgnDLOfSYEKiVuD/aKdUQmCvjzLHGRxsQ6+ezTF2zpjdN
-	 pgBv4Rkde61sInwx0Ni+7mzux/z1eLWmhcATyDQnN2xSAp74E0eXsDfaSDPgkHV6o8JIg
-	 7+Ax+ugzG2KCdcp74+moe9bkcZ8W9U/IINtaYSdmOOFuJGia7U4fkezAJ/EE08k5bRA==
+	t=1794313277;
+	b=qk5f7wGIDhPsJjjjbh9i0Pt92hMMu8uJ1JX7SCkmUpg56nvKfi1WJE/cpGavfBSATIMc
+	 Fj7aw2bvU7v4L65gDqFzp5SHU/4GeHBCl3q9rhMQ/cUst87uFDhVagMo+AXiBFbkT9Msl
+	 1Uw4+/GNSbik8llzn99zqLdyCaeTFSCNyZOnI/TCGO3la2fFpcbev5L12SMscR3Hmkp+y
+	 jNic23Nt1mKnmP9tIxAIqguZZNutZQKp5Jr2Ez18XW5IOSrvM4d7U9V+T+HmkuO3FyY8G
+	 SB+IfLNtsjo7RUwSRiXLlAKBfX1qdXKPYAOO8UUqKTJ7GzKiiwFWSQnGE5doc303eug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313258;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313277;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
@@ -16,50 +16,50 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
 	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
 	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=RmXcRN8vV5HSHU7wTt7Mc4ReM1tJZIkdPfvnOuaTl+8=;
-	b=N8H3Uhc0TcUGaiGE14b4g78p4qNrrippAnymiR+h7za3ASTQ3PgDBuBT6ccQX7IX1cDR
-	 C61RPw16Ye7XyhMzCrjUSrI28RoQ2Qip0MLZs1x2udEACZQ43VXjpc7MtMmYHw/iVhO2m
-	 YKmgHGeuL74CQIjeRM1Owf/J+Ui/ra9mGVD59A6J+3e9u8lQiGPUeq5ygJkRki9CSiJnn
-	 ba+3NNSZp78QTqSYjlrmw7g8NRbKjRrZfykmO7aRqVn6AEI+0y1CFdTfk2J0A3o+bcfRY
-	 xA30uT80vWD49d6fQfnU+cYBA0K4IvQOSTBOQgb3reh1R7mB32jBTRceDvLDSWKb3qQ==
+	bh=YfBfeUB6uHAxNYItYY+wrQGXiJp9RXTvFOd3O9U7kHU=;
+	b=vJo3/HOxNGRuE2yiKeTawYBgfTS5q4PRlI5QjJRsarG2CQo5XVKJl5S5NHJF+fDUjseu
+	 fM4KC3JiFCx4BvTwIK7Wt0NXIU52BMJWUe9y2ME7Jjsbcj2oJUBfkikp/LPOnburIv76R
+	 DpJWpPIWFW8MQtxc33pK6j5X3QLfVdbEo5tBqqn6xScvXlOno9H2L/6HM8kkXwS+9f/J2
+	 1OrjLMa3PAqDpsCYWQ3iSa6nTtFpG9bUSn8vHzvR1CaXfsU9DkXogwbtMihPkr494UP86
+	 2QzoRb6S4keJmmjwD13MlmHbC2JLMSt7oyelbVaEuixdSJILqD1RmMbC+Dn+Dh1bVqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=astralinux.ru;
 	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=hSspNaJT;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=GDGI9t3A;
 	arc=none smtp.remote-ip=93.188.205.243
 Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61635606A31C;
-	Tue, 10 Nov 2026 12:20:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61635606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC3A606A31C;
+	Tue, 10 Nov 2026 12:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC3A606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=hSspNaJT
+	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=GDGI9t3A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794313252;
-	bh=p6aMMqjOBDO2t8uYC4/TE5CV4goPzQRJpR/7zoLhR2U=;
+	s=mail; t=1794313273;
+	bh=jKxEes0ibPRhJ7Jn7KDybYPb3O12zqLFNX/8Nqm0eUI=;
 	h=From:To:Cc:Subject:Date:From;
-	b=hSspNaJTN+gn5KDers9J1KUPeel3ohppXggAAidd8Mo3MfNVMJCK4yyo7+1hYYk7l
-	 154SgM0Jd4HynMNV1tgXSIsOpUAAFYJHbnSezzvtUdns2f+PsEvb1qG4q40BDenzz1
-	 LX0UnzJj91CVfBF9NLfI/AG4ptTfMwM9JfRzF56I/l9PFQ13TrF2VXTfpn8lqgt009
-	 jVHPH3aEN7nNt8J01SS6KHEhy3ViKwb6eF1TqPPDPma8HKo5FENLnwk2ioEkKi9b9u
-	 SfVlikBaKsBbBpTntpvQZOBM8z13jcLb4LXl1Ymx7YfN+z5/rEmM5LQU2pefNEHJLt
-	 nBi7AnKaGRxmg==
+	b=GDGI9t3AgUb0bsgYnJVSsyDMcn9uaiJioCJKtz3UrhYRXcfvSW1+EFZ1t2LrfSxcK
+	 nJNl1T/XAHy416lyMOIEh1DAhiRtnepuXs1+4u+aRlH/8mo+LkQgp7uAOBl9j/0Jw6
+	 0UoTz0fmakXBoAw0d9TZdEgpp8KMBCMzNDJm6CcZTtMGGk8SQGyv7SNFH5SPFX6K7U
+	 W7DG9pDQv1rP9O8Ast6LNIr1bBTsJgZ9yfTUtA30KCtoDx030Y2N3DYQlnH58UR3gl
+	 FG3loNT/rKd9PxN6uO7md0WlH0LceCH/WLEGu0CljZ5I2q+FcWsfh8jXw5mABJGSp9
+	 1yvqV3+03K+7w==
 Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 387EA1FA7A;
-	Tue, 10 Nov 2026 15:20:52 +0300 (MSK)
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 148971FA82;
+	Tue, 10 Nov 2026 15:21:13 +0300 (MSK)
 Received: from mail.astralinux.ru (unknown [10.205.207.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Tue, 10 Nov 2026 15:20:50 +0300 (MSK)
+	Tue, 10 Nov 2026 15:21:10 +0300 (MSK)
 Received: from DESKTOP-D46TNHI (unknown [10.198.16.187])
-	by mail.astralinux.ru (Postfix) with ESMTPA id 4jP5N14wdMz3dw;
-	Tue, 10 Nov 2026 15:20:49 +0300 (MSK)
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jP5NQ1qjVz3f5;
+	Tue, 10 Nov 2026 15:21:10 +0300 (MSK)
 From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -72,9 +72,9 @@ Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
 	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10] platform/x86: dell-laptop: fix missing cleanups in init error path
-Date: Tue, 10 Nov 2026 15:20:25 +0300
-Message-ID: <20261110122026.1163-1-mdmitrichenko@astralinux.ru>
+Subject: [PATCH 5.15] platform/x86: dell-laptop: fix missing cleanups in init error path
+Date: Tue, 10 Nov 2026 15:20:58 +0300
+Message-ID: <20261110122100.954-1-mdmitrichenko@astralinux.ru>
 X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,7 +90,7 @@ Content-Transfer-Encoding: 8bit
 X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/10 10:24:00
 X-KSMG-AntiSpam-Auth: dkim=none
 X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1;patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
 X-KSMG-AntiSpam-Interceptor-Info: scan successful
 X-KSMG-AntiSpam-Lua-Profiles: 207367 [Nov 10 2026]
 X-KSMG-AntiSpam-Method: none
@@ -127,22 +127,22 @@ Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
 Link: https://patch.msgid.link/20260609081419.1995169-1-lihaoxiang@isrc.iscas.ac.cn
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-[mdmitrichenko: Apply to drivers/platform/x86/dell-laptop.c and adjust
- the error-path context, which has no battery hook.]
+[mdmitrichenko: Adjust the error-path context: battery hooks are
+ absent, so there is no dell_battery_exit() call.]
 Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
 Backport fix for CVE-2026-72144
 
- drivers/platform/x86/dell-laptop.c | 5 +++++
+ drivers/platform/x86/dell/dell-laptop.c | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/drivers/platform/x86/dell-laptop.c b/drivers/platform/x86/dell-laptop.c
-index af5001ecf77f..71e58b9a6689 100644
---- a/drivers/platform/x86/dell-laptop.c
-+++ b/drivers/platform/x86/dell-laptop.c
-@@ -2268,6 +2268,11 @@ static int __init dell_init(void)
- fail_backlight:
- 	led_classdev_unregister(&micmute_led_cdev);
+diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+index 01230c95b040..a5fb143e26fe 100644
+--- a/drivers/platform/x86/dell/dell-laptop.c
++++ b/drivers/platform/x86/dell/dell-laptop.c
+@@ -2274,6 +2274,11 @@ static int __init dell_init(void)
+ 	if (micmute_led_registered)
+ 		led_classdev_unregister(&micmute_led_cdev);
  fail_led:
 +	dell_laptop_unregister_notifier(&dell_laptop_notifier);
 +	debugfs_remove_recursive(dell_laptop_dir);
