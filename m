@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338470;
-	b=qE7/tXZP/gbAWkV9hNFbEvpQ4RcWkD9/c1Zdh+LU6CT0Al+7gvEClbDzUDQX3yzUSBgh
-	 DgLa5URVpbb/1E77RILagIE3yddMTiTd8pEc7H00hFTu2gOsbh485W9fzPja+ddkBNBoB
-	 4/R1jLIfJeZE7se3NaOVNuaE7k2NSnSwJegXHNiiiXpd37y904sd25NHFQqKeF7UKHZ7U
-	 XXDyfMEqpc8gVUl+va2/IIHDQ6RyyrPEoLeSZJfdSXab/7kTR+i1417LGe0nQjyiEGxI9
-	 XPetaHjuLI48U/ua0vVoKZt+euYoYpduDz3wYhFHM8Cvbg5lbAI9WtnuWJ9KkvxJ6vQ==
+	t=1794338491;
+	b=l/hgYGi8YsjMu9rVrQU55jXVJjYML+0D5oAqoXWa+BvPOhq0B/o3WtLDD1lZ9TuXaIXr
+	 tyxe/CRmJdn7CyeKt28Kv1go1MdeH4mnHBwVCrfGzuyPL3jtj4JvIhpliy5zCyHBPvN/T
+	 Gx7W3h2XwxRpJZ3RYW0P6RBEnRHdKyv8z8CMPeXWW045CzqEi5JacSgOVKA85/4yXe7Pt
+	 hMQXAp6wrbNopJYutZ4tWfvWiuPKulonn/eKmiPiK+ESy8DbW7AEP+MGXjUEd+kdOUlEj
+	 9p1S4nqNIyys2PNVDytmUmbpWHSg06FaCbb0bBbqoJzyXsTpxvkrhty2SPw97aqyEEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338470;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
-	b=nvPtPMUQVBYpbb6x4wtFcEWDvJQvFA6+o00kwuIKZ796qovYlHGg8k5nSNKIv0zD1fLT
-	 r8uf/RziBCCHjVsCHFCtcs6SKgwQfqfwZhboroSkR9f8WcFfc9gEt49phx5DskSWh97rl
-	 NhsXKyKyFWnthqo2PTaSozbGniM1Jk2hlfXdSBrINwZeHHxzJJx//PW94gscVh/uVylEJ
-	 UiWHGd4l4TdEa/Z+06CLgwHJvMWrcWWtuP8hVgeb9OGrrBBg9A2fPjQbRDlPaVMRbzSqG
-	 gxvB5twa1gH4ruFZ0XxLMXBlDO9YC79dv7yXSQadxjPTFDCgor9sAm80fCQUvG8cvyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338491;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Fu8U1Wq/9JwI/SY1ys/7hcQq3ryu0gTJkf5e8ByLmD8=;
+	b=KI1KpynHVxabo3EyNWdoHJz+yizT/IICZ9n87x2OjvaUONoO8Aftsd8iSV02AlYWKB8N
+	 9SGZEHHygIPnlfGYBQUu/JzEQ764/obldW4GtWNwb4t/0pn6EY5i6ZbfDyuwiXmLnkxpb
+	 f1fK/eNwRsm6Ccf/bCKVJSB47VO2dto7qCpE1hGhA6r3e32IZWYPsUCbpoOT4ymilwXE/
+	 +WMNyc8NtDZpBOWDJ1+CRzkPR5yRiwMRBwPMrriPWSPwJaAJbz/NM6lJPH73vN8t0AMst
+	 fCfOZ0NB/wBbhL1YQDTwc7zsGy8zlcWXuLsknvGrwy4WmiRd9bAmC1IzBmTguMqZy6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b="aH/Ln5O8";
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehiTqVOl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 62F96606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:21:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F96606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C017E606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=aH/Ln5O8
-Received: by dvalin.narfation.org (Postfix) id 8B14E216C6;
-	Tue, 10 Nov 2026 19:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794338468;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+N7M84MMU0ljtzUDOHHeGFShUAoYwwkXbGlI6rHp15Q=;
-	b=aH/Ln5O8ye84WnZzTKnDd0KY/ZRIeFXduV5ZsdDlLpGrxuwEBBJAGkiNwQTMBfwhzKcsgC
-	zxOz6C1Uc3i1Oh1co8RNBc9N555lFuexKm6MTmsFUCoOgVEDBi3Gs1pW0Kj/tNN1PsBAqM
-	JwOV/r7syHiNNz8V4AVcw5rqJK6JzS0=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehiTqVOl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381711F008A1;
+	Tue, 10 Nov 2026 19:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794338490;
+	bh=Fu8U1Wq/9JwI/SY1ys/7hcQq3ryu0gTJkf5e8ByLmD8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ehiTqVOluaitXYH71kxwKsBr60zKDS2AsNoL8TUobQhbjbC4jgvZJomXEH8W23Qbi
+	 T1P2BtbulnTL6jQPa31mGWnPNig9DuUrduWv2QSMQ3WimcegJsXT42kO18tZ+Z8q0X
+	 ZHhQLSlhvOxYI21nlYpUomQhEGtsIHBGyDrf7lAD4RH05+JLcxWhTYrPccH8emiZ8l
+	 r4AFUqG8GEcVaP4iXuMNFkzNshZDMEyPujLa2YZz3TiFauEmeb6x4qwVEz4gJxKhNd
+	 2TLEGtuKybsMzGNQfRY7QWZ76fEyoUMSl1FeR2zvrovr/Ek2QBANcOY8I1s3xHTjLI
+	 4IeqA1tGYsVpg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.6.y] batman-adv: tt: ignore ROAM flag of received ADD changes
-Date: Tue, 10 Nov 2026 20:20:55 +0100
-Message-ID: <20261110192055.157139-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109201039-failed-6.6-c5d68abe6e7f@kernel.org>
-References: <20261109201039-failed-6.6-c5d68abe6e7f@kernel.org>
+Cc: Henry Martin <bsdhenrymartin@gmail.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/amdkfd: fix doorbell allocation race creating duplicate allocations
+Date: Tue, 10 Nov 2026 14:21:27 -0500
+Message-ID: <20261110192023.3506934-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053743-failed-6.6-bebad4505094@kernel.org>
+References: <20261107053743-failed-6.6-bebad4505094@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,67 +62,184 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit c5d68abe6e7f1dbd132a602cb696fe1fff0389eb upstream.
+From: Henry Martin <bsdhenrymartin@gmail.com>
 
-A received TT change (OGM diff or full table response) with the ROAM flag
-but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
+[ Upstream commit bebad45050945a3d668d6701fb77ae2571c5d44b ]
 
-* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
-  therefore excluded from the global CRC. The sender has it in its local
-  CRC and the receiver has to request the full table again
-* batadv_tt_global_purge_local() removes the local entry of the
-  receiver. The receiver's own client is considered as roamed to the sender
-  and frames for it are rerouted
+The check-and-allocate sequence on pdd->qpd.proc_doorbells is
+lockless at every call site of kfd_alloc_process_doorbells():
+kfd_get_process_doorbells() (mmap of /dev/kfd),
+kfd_ioctl_create_queue() and the CRIU restore path each test the
+pointer under different locking (or none), so two racing threads can
+both observe NULL and each allocate a doorbell BO and bitmap,
+orphaning one allocation and handing the two mappings different
+backing pages.
 
-The ROAM flag only has a meaning together with DEL. Drop it on reception to
-keep it from populating the global table with a temporary ROAMING entry
-which is not part of the CRC - and therefore causing a CRC mismatch.
+Move the serialization into kfd_alloc_process_doorbells() itself,
+using a new per-process-device mutex so all three call sites are
+covered regardless of their own locking.  The device-global
+kfd->doorbell_mutex is not suitable here: it is acquired under
+dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
+kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
+the sleeping allocations above would create a lock-ordering
+inversion with dqm->lock via TTM eviction, and it would also
+serialize doorbell setup of unrelated processes behind a
+device-wide lock for per-process state.
 
+This issue was discovered by Tencent CodeBuddy Security.
+
+v3 (Felix Kuehling):
+- Removed unlocked check in kfd_get_process_doorbell flagged as
+  problematic by Sashiko Bot. Fall back to the locked check inside
+  kfd_alloc_process_doorbells
+- Added missing mutex_destroy
+v4 (Felix Kuehling):
+- Removed unlocked checks around other kfd_alloc_process_doorbells calls
+
+Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 4e27ba5ad5f76932d4f6cbacd25c81c2dd40ec4a)
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+[ sashal: Adjusted context for older inline queue buffer handling and missing SDMA validation and process counter code. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 18 +++++++-----------
+ drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 23 +++++++++++++++++------
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  2 ++
+ 4 files changed, 29 insertions(+), 17 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 8397b9edb5aea..96d67ec1a8af9 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -3339,20 +3339,29 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
- {
- 	int i;
- 	int roams;
-+	u8 flags;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 57a41ff6ea930..44cd1b54d020e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -339,12 +339,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
+ 		goto err_bind_process;
+ 	}
  
- 	for (i = 0; i < tt_num_changes; i++) {
--		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
--			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
-+		flags = (tt_change + i)->flags;
+-	if (!pdd->qpd.proc_doorbells) {
+-		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
+-		if (err) {
+-			pr_debug("failed to allocate process doorbells\n");
+-			goto err_bind_process;
+-		}
++	err = kfd_alloc_process_doorbells(dev->kfd, pdd);
++	if (err) {
++		pr_debug("failed to allocate process doorbells\n");
++		goto err_bind_process;
+ 	}
+ 
+ 	/* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
+@@ -2294,11 +2292,9 @@ static int criu_restore_devices(struct kfd_process *p,
+ 			goto exit;
+ 		}
+ 
+-		if (!pdd->qpd.proc_doorbells) {
+-			ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
+-			if (ret)
+-				goto exit;
+-		}
++		ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
++		if (ret)
++			goto exit;
+ 	}
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+index fdcf7f2d1b5b4..6af268a031f22 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
+@@ -239,11 +239,9 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
+ 	struct amdgpu_device *adev = pdd->dev->adev;
+ 	uint32_t first_db_index;
+ 
+-	if (!pdd->qpd.proc_doorbells) {
+-		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
+-			/* phys_addr_t 0 is error */
+-			return 0;
+-	}
++	if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
++		/* phys_addr_t 0 is error */
++		return 0;
+ 
+ 	first_db_index = amdgpu_doorbell_index_on_bar(adev,
+ 						      pdd->qpd.proc_doorbells,
+@@ -257,12 +255,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+ 	int r;
+ 	struct qcm_process_device *qpd = &pdd->qpd;
+ 
++	mutex_lock(&pdd->doorbell_mutex);
 +
-+		if (flags & BATADV_TT_CLIENT_DEL) {
-+			roams = flags & BATADV_TT_CLIENT_ROAM;
- 			batadv_tt_global_del(bat_priv, orig_node,
- 					     (tt_change + i)->addr,
- 					     ntohs((tt_change + i)->vid),
- 					     "tt removed by changes",
- 					     roams);
- 		} else {
-+			/* an announced client cannot have roamed away from
-+			 * orig_node. Only a ROAMING_ADV is allowed to add a
-+			 * global entry with the ROAM flag
-+			 */
-+			flags &= ~BATADV_TT_CLIENT_ROAM;
++	/* Another thread may have won the check-and-allocate race */
++	if (qpd->proc_doorbells) {
++		mutex_unlock(&pdd->doorbell_mutex);
++		return 0;
++	}
 +
- 			if (!batadv_tt_global_add(bat_priv, orig_node,
- 						  (tt_change + i)->addr,
- 						  ntohs((tt_change + i)->vid),
--						  (tt_change + i)->flags, ttvn))
-+						  flags, ttvn))
- 				/* In case of problem while storing a
- 				 * global_entry, we stop the updating
- 				 * procedure without committing the
+ 	/* Allocate bitmap for dynamic doorbell allocation */
+ 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
+ 					     GFP_KERNEL);
+ 	if (!qpd->doorbell_bitmap) {
+ 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
+-		return -ENOMEM;
++		r = -ENOMEM;
++		goto unlock;
+ 	}
+ 
+ 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
+@@ -284,11 +291,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
+ 		DRM_ERROR("Failed to allocate process doorbells\n");
+ 		goto err;
+ 	}
++
++	mutex_unlock(&pdd->doorbell_mutex);
+ 	return 0;
+ 
+ err:
+ 	bitmap_free(qpd->doorbell_bitmap);
+ 	qpd->doorbell_bitmap = NULL;
++unlock:
++	mutex_unlock(&pdd->doorbell_mutex);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 8f6fe5312b26e..b2683275ed017 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -752,6 +752,9 @@ struct kfd_process_device {
+ 	/* per-process-per device QCM data structure */
+ 	struct qcm_process_device qpd;
+ 
++	/* Serializes process doorbell allocation for this device */
++	struct mutex doorbell_mutex;
++
+ 	/*Apertures*/
+ 	uint64_t lds_base;
+ 	uint64_t lds_limit;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 93740b8fc3f44..b860598d86f22 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1061,6 +1061,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
+ 			pdd->runtime_inuse = false;
+ 		}
+ 
++		mutex_destroy(&pdd->doorbell_mutex);
+ 		kfree(pdd);
+ 		p->pdds[i] = NULL;
+ 	}
+@@ -1600,6 +1601,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
+ 	pdd->dev = dev;
+ 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
+ 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
++	mutex_init(&pdd->doorbell_mutex);
+ 	pdd->qpd.dqm = dev->dqm;
+ 	pdd->qpd.pqm = &p->pqm;
+ 	pdd->qpd.evicted = 0;
 -- 
-2.47.3
+2.53.0
 
