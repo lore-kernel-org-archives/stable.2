@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336079;
-	b=Alr0p7SgyIQOMU842ergl4BbHdi27u0xB18Wxj5Gkv5bX9FbqfEieYn+f96HWL4Sa4sK
-	 frGunnQl3mc6G2uVkWBvbsVOi7aBUCnX0hPz09F9U30RIHxUvgA1ueenX2sRrwo6iZZS1
-	 m5wBU/IGyoh2A2ulJMfSAlJRMHGu2tDECVV1BQ20ZjCmmQLgQZiRAmjtGnCLh6QpbEOEZ
-	 r3/nAiDjnD/+fw51Rkp6CxZluLJs1WIZxEjddurF/YLHSALCN9VdO/A+mUmUAN2eP/mS0
-	 yz7q/tcBxnhnB9Jx7pYLxhdAcgJCcQJ2uUEezsG0Y7cedf+ysC8GMmobydHfKWUyA2w==
+	t=1794336094;
+	b=ukYTNxvVDqNcmvXyTRTS5OUIT9y/InfZKBjc6cMi4tgS1NuvT3rLq93OeG6N0C9Jg/IT
+	 yoxLEEMHp1o09/yG1vUBPhxyyOdMKqQepxSepfHYo4apwFdkyi3/kr+r5nWtIsvAZgYro
+	 PkOPMBu00JhRkPk0nbK5KDGPL5fwEQvQ2bHbCLaYWEAKXg58wcDOVCBus0Ujt2yvJFKKB
+	 FrnaKWD85+zAmHlvUHu5C7reSsJqKMU9pZEYDwjD/2HAVi0pAaXgOghAvjbBkKYF/2n9l
+	 85OOi1xL1QPP0IvnXFZ9Pd4bAvJkMvnnNdEkH8qOGAuvuCqUSQqjwc49IWxd0JDZucw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336079;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MESvYIUrmrn35k1LKhGVF0AFGtWW4YNrJdIcPwX3Sqg=;
-	b=E6sLuBdaWNz3wyPIBf6DCRTx/uOfjFrs/muTMKtQ3JAbX8MVqU6JYPp/07piqaQtbOiB
-	 xE3dGWhEYyb3PDb62bfZxZOyL5SJaA4HZFBXCLZ/DrjLb5ZKCnaq2zoXVx+c43B3R4UVC
-	 r+yM0B6RZC4HoYjAe0hHxIpF70tQNo6WGEDB8sh+si0oGFmH+wCkGz1u64xDlsimYURNT
-	 98vL+MBiGNcjZBkDsbl2FBTK27Lw/8Sqvr5T2SvMc9WacEMHhZNp6c1ejkyUuyu0hmfXK
-	 EMnM3zCifGAgrzCNBb8EacrvvfKYyhaS0tppVsFIo4a0fbm0WOktIJobKGbl7tXydoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336094;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Ky3MtLUzFYmlO1tnrVRhsOQoenG6X8953kGn4vc5xYs=;
+	b=aQ686mirF+n0kO+mdaCXUigia/poLHVyWPwz+pGilzo1MtugQC9jT+pUwGNQQvX5CKcp
+	 VdWRhyRe5WC5L5nn6ePg57b6hPHOdKGvR7OiYDFMCGKc8dfArLzvD0T2Ci+meDD4FSKdn
+	 /im6EJn0XD9UyoZfBwfPmqZR06CxdGkZtkCljym0qCLu/2knudbrbb7DeKCY0s/pZSPQ4
+	 nbxokRDK0MBEBSx6CEPLSeMue40sitWjWEU/arhyVL0/oraLskEyUVczhQiYe0ExZQzEm
+	 +z1ByCqoqF2low6gTOpEBxuxORvRaoGs2IC4HD5uT8XzYTuRwWlHpAbWciqPijS/p9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=NyhyfsVM;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3ChWxdK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6608A60A6F45
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6608A60A6F45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0439C606C6C0
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:41:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=NyhyfsVM
-Received: by dvalin.narfation.org (Postfix) id 19E18216C6;
-	Tue, 10 Nov 2026 18:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794336071;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MESvYIUrmrn35k1LKhGVF0AFGtWW4YNrJdIcPwX3Sqg=;
-	b=NyhyfsVMhXspPLPuXxeCpX0NHGeAssfpR38Pkq8Urxco4iGJhZ2/IiyT+3DymAX1zXcDpj
-	jkt3QpJwirjT0lO17MD/9sWi7SB0WPDNGBFBdJbzEgyg0LEMSPfoOGFfurOol3I+kV5iSn
-	F8KUvDDMVX5gHWWP4IZWa8Vcz8sbtk8=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3ChWxdK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A291F0089F;
+	Tue, 10 Nov 2026 18:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794336093;
+	bh=Ky3MtLUzFYmlO1tnrVRhsOQoenG6X8953kGn4vc5xYs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T3ChWxdK/AsJH6kFKJJS4a1yKVwif4YvqzDVasTMuOlaFXkJT5NSpUUJDXut2Rs9K
+	 jwDTOssN6/VpmbNSjBgwOibCAV7232NQWyOzXufpwT7Sn30AyfCuITvcInfHly2JCa
+	 fghA48aYPu7VIYNT7WkmyMXz4l4dyNnEii2h/smz0Ob0P9WIEZvkVuM8IDcLUqJ4a+
+	 nTOuUq6EOWsZpT5Zz1cGbVATiAxkcpw7BCv7hDbphHvxRnOwPQsSLc6VnHFeeYvjV9
+	 TjaXXiqoXDXKq3UzpZuWqnzVSR9ZE9WtK4/EcAoigI6XpS+Xn0tmZDLkWcjxdTxUVn
+	 qaQvkKQijHngg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.3.y] batman-adv: tt: only transmit local ROAM flag together with DEL
-Date: Tue, 10 Nov 2026 19:40:16 +0100
-Message-ID: <20261110184016.42617-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200102-failed-7.3-10f24f058417@kernel.org>
-References: <20261109200102-failed-7.3-10f24f058417@kernel.org>
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] serial: sc16is7xx: declare MCR and IER as volatile registers
+Date: Tue, 10 Nov 2026 13:41:31 -0500
+Message-ID: <20261110184002.3260682-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060518-failed-5.15-1c41d09dcd07@kernel.org>
+References: <20261107060518-failed-5.15-1c41d09dcd07@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,99 +62,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 10f24f058417024a2c19cb8d88a6a0678a58a21b upstream.
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-BATADV_TT_CLIENT_ROAM is part of BATADV_TT_REMOTE_MASK but on the wire it
-only has a defined meaning together with BATADV_TT_CLIENT_DEL: the
-originator no longer serves the client because it roamed to another node.
-Such a DEL is only relevant for events (non-full table requests).
+[ Upstream commit 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb ]
 
-An ADD carrying ROAM is processed (by accident) by the receiver like a
-ROAMING_ADV: a newly created global entry is marked as roaming and is
-excluded from the global CRC. But the sender includes it in its local CRC.
+MCR register has the same address as XON1 register.
+IER register has the same address as DLH register.
 
-But such a behavior doesn't make sense for non-ROAM_ADV because a new TTVN
-is meant as announced commit of the local TT table of a node and should
-therefore not be used to create a temporary (roam) global entry in a node.
+Which register is accessed depends on bits configuration in some
+other registers.
 
-At the moment, such an ADD with the BATADV_TT_CLIENT_ROAM flag set can
-happen due to two mechanisms:
+To prevent potential access errors, declare MCR and IER as volatile
+registers.
 
-batadv_tt_local_valid() copies all flags of the local entry into a full
-table response. It is not synchronized with batadv_tt_local_mark_removed().
-An entry which was marked as ROAM|PENDING by a ROAMING_ADV is still part of
-the current TTVN and is sent with the ROAM flag set. The receivers then
-create a roaming global entry for it and detect a CRC mismatch, which
-causes them to request the full table again.
-
-The same can happen for an ADD change which is queued for an entry which
-(still) has the ROAM flag set. For example when only the dynamic WIFI or
-ISOLA flags were updated.
-
-It is not triggered by batadv_send_other_tt_response() because
-batadv_tt_global_valid() is already taking care of filtering out
-BATADV_TT_CLIENT_ROAM entries.
-
-For the two problematic announcement mechanism, only send the ROAM flag of
-local entries together with a DEL.
-
-This only fixes the ROAM marking of the global entry and the resulting CRC
-mismatch. When the requester of the full table is the node which sent the
-ROAMING_ADV, the still announced entry will (independent of the ROAM flag)
-cause batadv_tt_global_purge_local() to remove the requester's own (new)
-local entry for the client. This is not addressed here.
-
-Cc: stable@vger.kernel.org
-Fixes: 27b37ebfa2d2 ("batman-adv: correctly pass the client flag on tt_response")
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ use direct tt_common_entry->flags access ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://patch.msgid.link/20261006192540.234402-1-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Retained reg >> SC16IS7XX_REG_SHIFT decoding instead of upstream's unshifted register switch. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 68f79853032ed..15566ae255c9e 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -436,7 +436,6 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
- 	if (!tt_change_node)
- 		return;
- 
--	tt_change_node->change.flags = flags;
- 	memset(tt_change_node->change.reserved, 0,
- 	       sizeof(tt_change_node->change.reserved));
- 	ether_addr_copy(tt_change_node->change.addr, common->addr);
-@@ -444,6 +443,15 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
- 
- 	del_op_requested = flags & BATADV_TT_CLIENT_DEL;
- 
-+	/* the ROAM flag is only meaningful for the receiver in combination
-+	 * with a DEL. An ADD with ROAM would be interpreted as a roaming
-+	 * advertisement
-+	 */
-+	if (!del_op_requested)
-+		flags &= ~BATADV_TT_CLIENT_ROAM;
-+
-+	tt_change_node->change.flags = flags;
-+
- 	/* check for ADD+DEL, DEL+ADD, ADD+ADD or DEL+DEL events */
- 	spin_lock_bh(&bat_priv->tt.changes_list_lock);
- 	changes = READ_ONCE(bat_priv->tt.local_changes);
-@@ -2830,8 +2838,12 @@ static bool batadv_tt_local_valid(const void *entry_ptr,
- 	if (tt_common_entry->flags & BATADV_TT_CLIENT_NEW)
- 		return false;
- 
-+	/* the entry is (still) announced. A ROAM flag of an entry which is
-+	 * pending to be removed must not be transmitted. Otherwise, the
-+	 * receiver would handle it like a roaming advertisement
-+	 */
- 	if (flags)
--		*flags = tt_common_entry->flags;
-+		*flags = tt_common_entry->flags & ~BATADV_TT_CLIENT_ROAM;
- 
- 	return true;
- }
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index e1bb025a700d1..c66798ef91ba9 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -467,7 +467,9 @@ static bool sc16is7xx_regmap_volatile(struct device *dev, unsigned int reg)
+ {
+ 	switch (reg >> SC16IS7XX_REG_SHIFT) {
+ 	case SC16IS7XX_RHR_REG:
++	case SC16IS7XX_IER_REG: /* Shared address space with DLH */
+ 	case SC16IS7XX_IIR_REG:
++	case SC16IS7XX_MCR_REG: /* Shared address space with XON1 */
+ 	case SC16IS7XX_LSR_REG:
+ 	case SC16IS7XX_MSR_REG:
+ 	case SC16IS7XX_TXLVL_REG:
 -- 
-2.47.3
+2.53.0
 
