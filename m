@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316029;
-	b=qGZ2bf+uZrzPI4w/z9ISPK3oyH8jhGbzYu/u2O1hov6acGqYlPmglHIBgxNMg6N7rqrp
-	 we1biYSnqEISPF3oMy5F9YWCNW7SFD23Gn1ps/HyjY3iv6e26Rv/AYvkjj+NaLPQWObSO
-	 ePiV5qT8If2z7UpMemFkbpSOIND+k2Ob0JAHksXXhxGjUPQggHs4+8x0vWCOzxVvrKvTQ
-	 zr0WGx73iqO1M2BprUxh2YnZnU4kL51KKdImDhWk9vN6Nbh7chXB8PKXHyJRZWcSvZLUY
-	 NTUhfIBNN2UY63GadYyLJQKTjidBAebcESeWmXn/wsPIE2zhzVj7j6C7OtMRPWMS7VA==
+	t=1794316042;
+	b=uGZ0WNB37Pp4vLKwuzMhv4jc1sMvkP5AjKZjfVnu0Aqsv00q1BXkHHW355g6bAlDCiJS
+	 Y6LXZYjjFZF4fU/chasOhL1LF3vTKd7oOLwqQ9FudhZ4ldfhDhYPRo2LRacgw6TOn6zyJ
+	 fz5GcflHeHQn4L8QvJitpYgv3gfZiTjY0uaHc1CT+59K9WzJhlH7Cwbh3xrVIDhF/9DmT
+	 qd0St5Z14RRHffOYhN5+/GX4PUjvmfcIZ7eMHPNfgt4W44gjPOQA3ABgKgRmH6REmHftV
+	 folGVDei+FjEsm6x2BnHz7SmDKpQGIc/b3L02J2dxWaLyhfs3+xpe2TbM9seRctYu1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316042;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zPARzp3ijAZvsXvFPW/SzpwF7CrW5vg7p7oo+aie1Hk=;
-	b=bxgiNv+/dkU1dSIP79PfFql2QTKkP+ttDvC9sCe/43BGn2C5qfVUjnizhMN3rKEGIcc8
-	 FpzrwbQtN1K0KavPnVBe5TN90InbdjEXzsi+dEPYUXkeUAnnwI8DiTpN6BK9/poqChqIq
-	 zn/RKAMzbyTAD73GSTKN3Ebepp6qXUh9rTi6ml40lxw53IkDPIdni+j/4ZNMq4KreuUC2
-	 IeykcUNrywLzNDfx9+qIX3mDLMya8TyLcKBzmkC/NpM2LfVaxQfAa5XRXEMYEGuF2mkrO
-	 5VaLvhgCy8qRzJAjuH1gM5r2gzQQaVvM+0GtDIgUtL5noJ2P4DiSSYdmPElAeefZwIQ==
+	bh=AzSXXdPBuS6PY38ldBy9Mvq2CcaygFYn3oLsatZd/jw=;
+	b=LmYW5sN6Bg+QaNMxgLmwsVIyRp7XPILWEdaKVqCeZoZBafaij729SyQyBWPYhk3dt1Cn
+	 ILVm1M956uHaTSND+rbfmNxxm42exF0Sekuc8o0w8sSaoNVv6HXL6lWkGZLhOIBIHJz0G
+	 ZTMV65MPEnjN4lWSKOCFeBQuaYaxLZJxjT4JsoTBfPOcNJYhQTmEc8CA91gXbpHejliXY
+	 RrzacvCJtUtii0SAalZX3AKb2grhRRGcJerwN5t1BxF72Tvzb0h25iAm6tFEYm85n0HXa
+	 XGT1eo2ioJM/PN+icLaylEsZLAq6dGt6wI1UEcTfrgClnafGWllw1OuZtnnCmwapnSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTeFptdW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2SJTftN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461D5606BFE1
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C265A606BFDF
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTeFptdW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493B61F0089F;
-	Tue, 10 Nov 2026 13:07:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2SJTftN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD51F1F008A3;
+	Tue, 10 Nov 2026 13:07:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316028;
-	bh=zPARzp3ijAZvsXvFPW/SzpwF7CrW5vg7p7oo+aie1Hk=;
+	s=k20260515; t=1794316041;
+	bh=AzSXXdPBuS6PY38ldBy9Mvq2CcaygFYn3oLsatZd/jw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LTeFptdWvr20gVPhdVFSGhmggD8jRA4uoxKrQIacVJ0w5PFpugnkHSPzHJZ1fVu5e
-	 hclTFGCuqSBjRNDgRi9pdc9aP1Mx80pRhB7jl8GSIddHKd6kuvavvWMjjMn8xdLpF9
-	 FPKYbfdCXJNSFKPjvKYVyMV/19hPT+3+yUz3DWi8KJ6gmsM8ikmIq8CZrwcUlQA56W
-	 5q1u9BFaM/R4ar/iLKR0Pj/CeXTWkenWK06cpWMZW7kyJJFZ2kuiXpjxAeBwD57HKi
-	 KzpwhboF2qEQ00lTzStDILfgYSuj9uVD4JQAsHoCPYmGMOOMzpmFw7FpdEZ5iRQEsa
-	 YoqaNO1mRv5aA==
+	b=H2SJTftNjAurJkBUTGvz3m+JxA3zPNKbFbOkJA1w6u6sYUATKlvNAwvFekEHtO6T/
+	 SlPh8w9n037vIKvDklN1RyMl4pfLYngSFrxheqQNowFD/nQ6EzwPjK8TOP/VV6afbt
+	 Ze6qNwiLi0nVGdVDP7pc3vJO2HCIaHw+75sU4bv/ZTxYRs0NAs/ZI8x86EPt/xEd7m
+	 TT98gm1pN4pyxeS5cpJyfybVBUDNom9ykUkpxWBE+AEilydQJD/+ttJMens8MGbCqT
+	 0BT6iiBut3zs6hVxEuzht8TmUy0Cu65vV+nosWEUvB+VV1T33Av9Q626c+BfLQjUbd
+	 VQZ5Emhv7uAVA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	stable@kernel.org,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Daniel Palmer <daniel@0x0f.com>,
+	Christoph Plattner <christoph.plattner@gmx.at>,
+	Greg Ungerer <gerg@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] f2fs: fix to check continuousness in f2fs_sync_meta_pages() correctly
-Date: Tue, 10 Nov 2026 08:07:06 -0500
-Message-ID: <20261110130655.1622252-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] m68k: Fix task info flags handling for 68000
+Date: Tue, 10 Nov 2026 08:07:18 -0500
+Message-ID: <20261110130712.1651427-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050401-failed-7.3-1383cff4ccf3@kernel.org>
-References: <20261107050401-failed-7.3-1383cff4ccf3@kernel.org>
+In-Reply-To: <20261107053339-failed-6.6-48859f8018d9@kernel.org>
+References: <20261107053339-failed-6.6-48859f8018d9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +62,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+From: Daniel Palmer <daniel@0x0f.com>
 
-[ Upstream commit 1383cff4ccf3c8833c6255edffa29eb67c6419bb ]
+[ Upstream commit 2c6805145e1605cef39459f78979f7edee251b41 ]
 
-In f2fs_sync_meta_pages(), whenever i becomes zero inside while loop,
-below check may be skipped, it failed to check the continuousness:
+The logic for deciding what to do after a syscall should be checking
+if any of the lower byte bits are set and then checking if the reschedule
+bit is set.
 
-	if (nr_to_write != LONG_MAX && i != 0 &&
-		folio->index != prev +
-		folio_nr_pages(fbatch.folios[i-1])) {
+Currently we are loading the top word, checking if any bits are set
+(which never seems to be true) and thus jumping over loading the
+whole long and checking if the reschedule bit is set.
 
-Cc: stable@kernel.org
-Fixes: 580e7a492608 ("f2fs: convert f2fs_sync_meta_pages() to use filemap_get_folios_tag()")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: adapted f2fs_sync_meta_caches() changes to folio-based f2fs_sync_meta_pages(), using folio_nr_pages() to advance the expected index ]
+We get the thread info in two places so split that logic out in
+a macro and then fix the code so that it loads the byte of the flags
+we need to check, checks if anything is set and then checks if
+the reschedule bit in particular is set.
+
+Reported-by: Christoph Plattner <christoph.plattner@gmx.at>
+Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+Signed-off-by: Greg Ungerer <gerg@kernel.org>
+Stable-dep-of: 48859f8018d9 ("m68k: Fix seccomp filtering on ColdFire and 68000")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/checkpoint.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ arch/m68k/68000/entry.S | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index 4b59f30ef45d5..fd758a98b355d 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -610,7 +610,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
- 				enum iostat_type io_type)
- {
- 	struct address_space *mapping = META_MAPPING(sbi);
--	pgoff_t index = 0, prev = ULONG_MAX;
-+	pgoff_t index = 0, next = ULONG_MAX;
- 	struct folio_batch fbatch;
- 	long nwritten = 0;
- 	int nr_folios;
-@@ -629,9 +629,8 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
- 		for (i = 0; i < nr_folios; i++) {
- 			struct folio *folio = fbatch.folios[i];
+diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
+index 7d63e2f1555a0..37926b4b205af 100644
+--- a/arch/m68k/68000/entry.S
++++ b/arch/m68k/68000/entry.S
+@@ -21,6 +21,13 @@
  
--			if (nr_to_write != LONG_MAX && i != 0 &&
--					folio->index != prev +
--					folio_nr_pages(fbatch.folios[i-1])) {
-+			if (nr_to_write != LONG_MAX && next != ULONG_MAX &&
-+					folio->index != next) {
- 				folio_batch_release(&fbatch);
- 				goto stop;
- 			}
-@@ -659,7 +658,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
- 				break;
- 			}
- 			nwritten += folio_nr_pages(folio);
--			prev = folio->index;
-+			next = folio->index + folio_nr_pages(folio);
- 			if (unlikely(nwritten >= nr_to_write))
- 				break;
- 		}
+ .text
+ 
++/* get thread_info pointer into a2 */
++ .macro getthreadinfo
++	movel	%sp,%d1
++	andl	#-THREAD_SIZE,%d1
++	movel	%d1,%a2
++ .endm
++
+ .globl system_call
+ .globl resume
+ .globl ret_from_exception
+@@ -73,9 +80,8 @@ ENTRY(system_call)
+ 
+ 	movel	%sp@(PT_OFF_ORIG_D0),%d0
+ 
+-	movel	%sp,%d1			/* get thread_info pointer */
+-	andl	#-THREAD_SIZE,%d1
+-	movel	%d1,%a2
++	/* Doing a trace ? */
++	getthreadinfo
+ 	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
+ 	jne	do_trace
+ 	cmpl	#NR_syscalls,%d0
+@@ -99,16 +105,15 @@ Luser_return:
+ 	/* heavy interrupt load*/
+ 	andw	#ALLOWINT,%sr
+ 
+-	movel	%sp,%d1			/* get thread_info pointer */
+-	andl	#-THREAD_SIZE,%d1
+-	movel	%d1,%a2
++	getthreadinfo
+ 1:
+-	move	%a2@(TINFO_FLAGS),%d1	/* thread_info->flags */
++	/* check if any of the flags are set */
++	moveb	%a2@(TINFO_FLAGS + 3),%d1	/* thread_info->flags (low 8 bits) */
+ 	jne	Lwork_to_do
+ 	RESTORE_ALL
+ 
+ Lwork_to_do:
+-	movel	%a2@(TINFO_FLAGS),%d1	/* thread_info->flags */
++	/* check if reschedule needs to be called */
+ 	btst	#TIF_NEED_RESCHED,%d1
+ 	jne	reschedule
+ 
 -- 
 2.53.0
 
