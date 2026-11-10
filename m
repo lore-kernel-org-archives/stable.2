@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315423;
-	b=y1zZ3wb5J9gLFVaWIobIX/ae5D+iW4JQ9C/pcoX9qJg6orOJ1Djse5GLkTY6tTUTGyj5
-	 nrmvcWSDPlZ8mPiKU3VYMhPSFsKoJ/LC/JgqXuMsk5SRAsOWcENGPQISbfC+XsQB1kTsE
-	 jbf6M6K9wcgkkuIfrZha38VojtbOTgAczD/GjDqny6groCO4rZZJx3QLzO2uUNk8VFnQ2
-	 xDfubb/fiGzzC1Z/reZpAp96hG3P7spnC/BfN3t3fhjBuHwdqBlTL7EYU9rnmmbrpmU73
-	 T57NRv9rOFepKRl6y6QzHPcmAqBzoqQSmsvb1pwUBFXyR4OUMQrT6ewxB/Py2mJW3JQ==
+	t=1794315446;
+	b=kLGGMQe2VsB3GFRMBGB5SmwyXa/nvo5vGPKO94XQENmh0JPprQhUdmEb6GqucFDgOnjf
+	 Uw9I87//vGiL5vivWHjU0ENbDlo8IjjKw0cppwvEaObxfaqO3Kn++P14mfBtbDxNSIzc8
+	 D4CZ7fQxU6yo5AoRsneVMu2rlgG0g3DhvI8DMZuZOh6pooW4ckx2AiyXrSP3x7KjFFThQ
+	 XbRu+ZhWxJgq7jcQSoYlw7FB1VNq2hnGgwxBw2cHjysBI0ycR3mlnGWEnfXMck7RfeQBk
+	 2E5u2Fg7FGN4umnDNUseIN6Sz39U9rThP0f2wspkqwm7KDcz7ETMYi+LVxwTnNUCYkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315446;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xY4CSkSZ9QhYdlsvFD8nPchk3mebSuIUIsE4tIFpWuA=;
-	b=3LKAmJnFNX9NESr8FP3pT/wtNbs07O3XU0dg2iUPtOsZ7WYkXU5pYZW4RSql1UZ4axSN
-	 HEm0Ejn/YFDSifdZY8/2C9n13ORkPDKVuI0+zwy8nX7x7/h5e+z5n6seMnY2J8YhpATiD
-	 vr8F5oZL/lSr3nBkplpVVvBvHAGVMm+9fTllFEJbf+65J4nDP0CQzrEEBjgvsxo79FyNa
-	 eFLM+GkTuSbX35dIkL5nVTDUcQvl3HXoDFJG9TRtII+6QxWjSPXJzz7EUdAx2Zvqen6tl
-	 HLFhouXrNpKEOg9y1+YAGn2vZB4XcadpWCl3kMmAfnJzU23xdWATo5ee5Tj5fburo2g==
+	bh=bKqotkfgeIkTn5dfcEYagCEFjLqb8ZqcEdVz9mzlJe8=;
+	b=wUZqjC88AawGyQOWZYU5Fgbv/ZFWRt22IHI1Cf6yV7vMFCU8Ky6ov4P93i4HNhBcPA0m
+	 nOSTz+etusaS2Qf6Ho6vdsM+ZmX+lMcgRcEje2mcO+fy14oXQCjqW3yWnSG6ICMlPOvbM
+	 T5KchshU+WatAP+//7ulZ7bd05RvNRGqeWUAmzFkKycqZ9FR3GrpJV0sVTfrb+JuB3w42
+	 +kJVEgVqoADNdPoD5olwJ1W3F/LLpQ2RH2uQ3DepkRR0Fl9DHx6jXzkbQiKA0sDtMofkQ
+	 cgsX2iIRBUQeOOap9szft1Xk01FUxJE9MuSC+b6eqfTDkAjGaoTZ21PhEa6tiZN8MLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+3nU2LG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CRjmtSD/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8508B60A3825
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2494606A7DA
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:57:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+3nU2LG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CBBF1F008A5;
-	Tue, 10 Nov 2026 12:57:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CRjmtSD/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65A61F008A1;
+	Tue, 10 Nov 2026 12:57:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315423;
-	bh=xY4CSkSZ9QhYdlsvFD8nPchk3mebSuIUIsE4tIFpWuA=;
+	s=k20260515; t=1794315445;
+	bh=bKqotkfgeIkTn5dfcEYagCEFjLqb8ZqcEdVz9mzlJe8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g+3nU2LGgkfNPLXq+YtIMSDEKcu+euEQ+j058x1X4mJ/l14dzWl5z33Mf2TnO9OXX
-	 nlx9Fh6JI9mzRgKN49YOn0ZKXfL5h6GGK+HnTsIOKWK7NX5+cHIrqF0ge4pfk4u+/w
-	 zcbzxHoFTUH7zIcQKfdmqtP3yV2J0NGwfNtfvTqnGeE3cgpiFKXEzoUPCUcv23KMRY
-	 wRih01m+Bjyks3xHdwMdJuRw6H+t2ZtUHu043FNwnhJs2+YJ3g1inDF+MF3VkIYp0e
-	 6YGPuA6sqhKyWhO3GkOtQbbfEj9b4WFVePDM2xLIlMwfDaE/wMWWqJnQCLEtVkINJZ
-	 zPinBEHillRaA==
+	b=CRjmtSD/m5oQDEEPwFPTjoIzjLoX5nafSikxFRCPxatMluTuctiHTCRab+da/VDQ7
+	 vO3ruhYzMq4bcPQ4xqUWUz236Fp/0cCU9OAfO06K2OzboMFqoydMyP7j9wx0RlCWW+
+	 iwt7tFYDiC/ckiZgdSRNL9qasvjTYpb6kEt/QsPmuKEI2HTWHaC1ncrE46Htk15zn0
+	 AKgoeK5K9RKZx4vdjeKagiIMJ2IaJSIF8MapWfq+LdJ5ycPA3x4GQGQEnGbe10XMBl
+	 InKr1t4mWqUSEts56FH/jCLtGAEr0v3cn59SfbEbDvRye16pt/dG9jHlQ+AVxV79ob
+	 rLqw9o9PgA0fg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Daniel Palmer <daniel@0x0f.com>,
+	Christoph Plattner <christoph.plattner@gmx.at>,
+	Greg Ungerer <gerg@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 07:57:01 -0500
-Message-ID: <20261110125645.1564329-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] m68k: Fix task info flags handling for 68000
+Date: Tue, 10 Nov 2026 07:57:22 -0500
+Message-ID: <20261110125718.1538168-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053024-failed-6.6-6b8b1d1d7bc7@kernel.org>
-References: <20261107053024-failed-6.6-6b8b1d1d7bc7@kernel.org>
+In-Reply-To: <20261107051013-failed-6.18-48859f8018d9@kernel.org>
+References: <20261107051013-failed-6.18-48859f8018d9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +62,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Daniel Palmer <daniel@0x0f.com>
 
-[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
+[ Upstream commit 2c6805145e1605cef39459f78979f7edee251b41 ]
 
-tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the initial
-conversion.
+The logic for deciding what to do after a syscall should be checking
+if any of the lower byte bits are set and then checking if the reschedule
+bit is set.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot. The continuous-mode path,
-which sets ->ready_time to jiffies with no added conversion delay, wraps
-the same way.
+Currently we are loading the top word, checking if any bits are set
+(which never seems to be true) and thus jumping over loading the
+whole long and checking if the reschedule bit is set.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+We get the thread info in two places so split that logic out in
+a macro and then fix the code so that it loads the byte of the flags
+we need to check, checks if anything is set and then checks if
+the reschedule bit in particular is set.
 
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adjusted probe context from tmp108_common_probe() to tmp108_probe() ]
+Reported-by: Christoph Plattner <christoph.plattner@gmx.at>
+Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+Signed-off-by: Greg Ungerer <gerg@kernel.org>
+Stable-dep-of: 48859f8018d9 ("m68k: Fix seccomp filtering on ColdFire and 68000")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/m68k/68000/entry.S | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index d7a09ab2bc112..c763efa6aac49 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -73,7 +73,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
+diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
+index 72e95663b62ff..c257cc415c478 100644
+--- a/arch/m68k/68000/entry.S
++++ b/arch/m68k/68000/entry.S
+@@ -18,6 +18,13 @@
  
- /* convert 12-bit TMP108 register value to milliCelsius */
-@@ -124,7 +124,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp108->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
- 				__func__);
- 			return -EAGAIN;
-@@ -371,7 +371,7 @@ static int tmp108_probe(struct i2c_client *client)
- 		return err;
- 	}
+ .text
  
--	tmp108->ready_time = jiffies;
-+	tmp108->ready_time = get_jiffies_64();
- 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
- 	    TMP108_MODE_SHUTDOWN)
- 		tmp108->ready_time +=
-@@ -405,7 +405,7 @@ static int tmp108_resume(struct device *dev)
++/* get thread_info pointer into a2 */
++ .macro getthreadinfo
++	movel	%sp,%d1
++	andl	#-THREAD_SIZE,%d1
++	movel	%d1,%a2
++ .endm
++
+ .globl system_call
+ .globl resume
+ .globl ret_from_exception
+@@ -70,9 +77,8 @@ ENTRY(system_call)
  
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = jiffies +
-+	tmp108->ready_time = get_jiffies_64() +
- 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
- 	return err;
- }
+ 	movel	%sp@(PT_OFF_ORIG_D0),%d0
+ 
+-	movel	%sp,%d1			/* get thread_info pointer */
+-	andl	#-THREAD_SIZE,%d1
+-	movel	%d1,%a2
++	/* Doing a trace ? */
++	getthreadinfo
+ 	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
+ 	jne	do_trace
+ 	cmpl	#NR_syscalls,%d0
+@@ -96,16 +102,15 @@ Luser_return:
+ 	/* heavy interrupt load*/
+ 	andw	#ALLOWINT,%sr
+ 
+-	movel	%sp,%d1			/* get thread_info pointer */
+-	andl	#-THREAD_SIZE,%d1
+-	movel	%d1,%a2
++	getthreadinfo
+ 1:
+-	move	%a2@(TINFO_FLAGS),%d1	/* thread_info->flags */
++	/* check if any of the flags are set */
++	moveb	%a2@(TINFO_FLAGS + 3),%d1	/* thread_info->flags (low 8 bits) */
+ 	jne	Lwork_to_do
+ 	RESTORE_ALL
+ 
+ Lwork_to_do:
+-	movel	%a2@(TINFO_FLAGS),%d1	/* thread_info->flags */
++	/* check if reschedule needs to be called */
+ 	btst	#TIF_NEED_RESCHED,%d1
+ 	jne	reschedule
+ 
 -- 
 2.53.0
 
