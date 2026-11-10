@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318016;
-	b=I/nhF5u9UZydMb6FmxWOqQxGeJrvFgiyrFk4Dy5j3ptVIToIUp+752tkSaQUIzfH3uFO
-	 X9o6+q/qMoN+rr34qJkYw7IsY1DrxWJ5MqCCn6dFj0UEM04WA9NTWNiVvO6tNXj2shsgf
-	 dhffrqqV186/0eGs/0XxBPbwRpNhNfawOz01TT01Hkwrg/q8HHCzfvrdgCx9FfRHGj21B
-	 4z2ycw0vW/7st6k9A9SnkEsgeiD9YXffWxjHYgQOcfcO2xGyy1iGu5TMYxstfy8QKI6cY
-	 KgavTWZAxO4MiZJrULx23IiCw9Lxe0E/DXbaD//9fHjBjQbGVgCf8FfGTxt9J1vNxKg==
+	t=1794318060;
+	b=SsR17Ooz5hoS5jDAocSzaP95dfLKqDo449K4PqwH3HFVZ8R4FzRJhEQpHcF7/AWDnqkm
+	 XBp5tN/levH1+qJwjfCKdAFhSlPw7/cZLodOd5TkVrdJUXxHLVkJmtV6osjcdpZ2zcEcj
+	 UCZ/LMHwA+IxIdkljq/5VTKyVlR3E0XMDSYZFdyyrb+nTzJe/WRNY1Mvj+p/PFyy6UXGi
+	 feKkYTBKGYbTGxveE3UxTcvytfVfMLVOTfGaxpc28cI8R62qdvto4c27DG+01h1voLskL
+	 Z9MpqE8QVNcJWW60u3Tc5W0pIQVwDvI+Pg5NnZolVKE+Kp2ubaK4pBjIxL47GEC4P+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318060;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lvkmn+D5iz66q9NK6qHSZ0GeV/JZwQmsaKa+rQua0h4=;
-	b=ftMYOmpZBPy5paP20wy8JFBOnPcnuWN+RUglGVTyOl1DByNe9qSxolVHIL1GjY3eKYvV
-	 lFbXN+mUMq+QnuyW6ahPciTQzCI7PZtgLfKYTQ5KIQ54AqpJXfVu0+1ExJUozZk3YZlI1
-	 XuiBilpXodqk9Co3POxKtTb6ERC9/IOk4IOeYjVh7rpiKxZC45KJ7YytVBCjuvFYV8Cz8
-	 kzkMEjjJEsWEWW1Y7ecpzz3pQpIIOEyVORKPB4f1bQccXio5MSxlFgMR3ic3dmixcjb8X
-	 dG9qM+4jwC3eWft45rq+PGL0+sqFHba0XKOAWbi77EGsQaVd3+/ceGMspyprHWUvO1w==
+	bh=FU6momGnKnv1GhyZ67rwhEFfTwOKEBiBAEKEui8fOPQ=;
+	b=PXrvYIh/svzfIhEhaosO6pyKG4RzzpfkMCWA1F3Abw+g88EPg0cWMw6ePmX2/5dcKAIM
+	 uT3Vs1tasR9eaJqJEXi7kp2rQAvtrGYvAQvXQFXq7msJ+red01ukrCGrppsjjwssTCDsU
+	 td0d0Fnn03y4XaGRwW8syo6gduHYFBzaqJLlzhYBqLl6LPK0lDx0pNHyTY/IpLCmM20CB
+	 tSH9GuQJqQRRJkUqEMj/QtkY5jmsCOaaCsnUfajhdwqky0nlYba1UNBG6i4mdMCK3m17d
+	 MSx4HtIGrrHVueVp4sUGmEFzZoJyVvxCRGJCzNH4+qEx16eLXKOcGLcGfHA3SNp4gzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQKVHB8G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWrS+DIa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D159160A262C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5272E606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:41:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XQKVHB8G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C926B1F008BC;
-	Tue, 10 Nov 2026 13:40:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWrS+DIa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 706871F008A1;
+	Tue, 10 Nov 2026 13:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318015;
-	bh=lvkmn+D5iz66q9NK6qHSZ0GeV/JZwQmsaKa+rQua0h4=;
+	s=k20260515; t=1794318060;
+	bh=FU6momGnKnv1GhyZ67rwhEFfTwOKEBiBAEKEui8fOPQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XQKVHB8G/F3NKhRTVuqZYisiPnusKzCJ6sEWnv88aI3LO72ja0lyHuY9d8umb4b0p
-	 H7kTdRCrXEqRWKetDXAK5ybKQTXnP9W4LIOPu4+FBWgX0Izm75WAy9lqUzB8NcvBBN
-	 h4616iYJe0/UsWkrGFOTJWoBMM16fSYHzUphTRkoUnGvqtl1pru2ClQnO0l85qPcau
-	 Iq/0Q+qjNQx3AAWUaXnlaUCyQDL3ci5kBwXofTTgCD1Ctlrvj1BGFXDdCTrRaPuLId
-	 xLojsZCOgLuZIaXQEc+3qEdTvBWlBXR0l6ap1gH5j+GpBRAfLOYUcAGFnJWeoCLiHg
-	 n3ZpJNK2wWZEA==
+	b=WWrS+DIaHliOteXi967iPt6RGGHxyRgxa/G+jCboVDdiFeqUkPTEXajt/lLZXu5Yt
+	 bNxVuUYDH6jvMGP2iccUsZoKJ1J5caUdNpRl8T0HyleUj7OTiCFvIsk//0HPKJeJnr
+	 UxQJIJGSuLQbJ6KYMX/3i5TddwghMAO5A4q5w0h5e87owKXyekzaen56h8rlOQorP2
+	 wlRqwrYNSCKAxNLL1oSAv5Nm0sJeyI/2/Wf6cAtfXcI9mz/RvnevmQlUWbM//pyNzV
+	 g93frtQLD7iluoCG176O3KHqLptTUozWNoj047eOkl/t+Eoxk8CGe0tVPx+bYl6tBV
+	 duKY3/7jARvUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ASoC: stm: stm32_i2s: request IRQ after regmap initialization
-Date: Tue, 10 Nov 2026 08:40:12 -0500
-Message-ID: <20261110134005.1774027-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] crypto: omap-sham - fix crypto engine cleanup
+Date: Tue, 10 Nov 2026 08:40:58 -0500
+Message-ID: <20261110134038.1757009-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110134005.1774027-1-sashal@kernel.org>
-References: <20261107053148-failed-6.6-1b207c85551f@kernel.org>
- <20261110134005.1774027-1-sashal@kernel.org>
+In-Reply-To: <20261107061603-failed-5.10-be51ea091c65@kernel.org>
+References: <20261107061603-failed-5.10-be51ea091c65@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,87 +61,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-[ Upstream commit 1b207c85551fd74854d632116849295b2305245f ]
+[ Upstream commit be51ea091c6563158531e8c74e040552fdb1e28c ]
 
-The ISR accesses the managed regmap, but probe requests the IRQ before
-creating it. An early interrupt can reach an uninitialized regmap.
-Reverse-order cleanup can free the regmap while the IRQ remains active.
+omap_sham_probe() allocates and starts a crypto engine, but the remove
+path does not call the matching crypto_engine_exit(). The probe failure
+path already performs this cleanup.
 
-Request the IRQ after regmap initialization so probe unwind and
-removal free and synchronize it before releasing the regmap.
+crypto_engine_alloc_init() creates a kthread worker for processing
+requests. Without crypto_engine_exit() during driver removal, the
+worker is left running after the device is removed.
 
-The teardown ordering issue was found by static analysis.
+Call crypto_engine_exit() after unregistering the algorithms and before
+tearing down the remaining request handling resources. This stops the
+engine and destroys its worker.
 
-Fixes: e4e6ec7b127c ("ASoC: stm32: Add I2S driver")
+This issue was found by manual code inspection.
+
+Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261004043451.1138613-1-mhun512@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ sashal: adjusted cleanup context to match the existing inline unregister loops and tasklet_kill() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/stm/stm32_i2s.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ drivers/crypto/omap-sham.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 4e4d8d0ed7bd7..2da8aeb256bcb 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1027,7 +1027,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	const struct of_device_id *of_id;
- 	struct reset_control *rst;
- 	struct resource *res;
--	int irq, ret;
-+	int ret;
+diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+index 5a57617441b81..b2e1617474553 100644
+--- a/drivers/crypto/omap-sham.c
++++ b/drivers/crypto/omap-sham.c
+@@ -2223,6 +2223,7 @@ static int omap_sham_remove(struct platform_device *pdev)
+ 					&dd->pdata->algs_info[i].algs_list[j]);
+ 			dd->pdata->algs_info[i].registered--;
+ 		}
++	crypto_engine_exit(dd->engine);
+ 	tasklet_kill(&dd->done_task);
+ 	pm_runtime_disable(&pdev->dev);
  
- 	if (!np)
- 		return -ENODEV;
-@@ -1072,16 +1072,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 			return ret;
- 	}
- 
--	/* Get irqs */
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
--
--	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
--			       dev_name(&pdev->dev), i2s);
--	if (ret)
--		return ret;
--
- 	/* Reset */
- 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
- 	if (IS_ERR(rst))
-@@ -1106,7 +1096,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- {
- 	struct stm32_i2s_data *i2s;
- 	u32 val;
--	int ret;
-+	int irq, ret;
- 
- 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
- 	if (!i2s)
-@@ -1132,6 +1122,15 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(i2s->regmap),
- 				     "Regmap init error\n");
- 
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
-+			       dev_name(&pdev->dev), i2s);
-+	if (ret)
-+		return ret;
-+
- 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
- 	if (ret)
- 		return ret;
 -- 
 2.53.0
 
