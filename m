@@ -1,104 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314976;
-	b=z8buRSweV80cLSEpWoSpeUysKCFHgRnQofnwYTS1ZSwMExVUTAVZLDTCt7r9QprP+Cvl
-	 3nr8SdrLyV5K0Sl8NouJEdthhvNZ/JADPmAXJzQm4Y4CgneiEDj/ta9y6RlWjctygbmPS
-	 CBviDof6UQkAYvYhlGyLevV+8VC9PwdtQi58CXkPdr4/OqE3rsNv1S0JYpKQAtZ0Ehy2B
-	 o2x8pM2vF7Upk3eV/qJgRygw7SNLpcNnLiwW8BYMwHe75vniP2cG1lvTVkGLu5HFVEHpI
-	 UR7s2ZU4Y4wj4U0bXVChcA+9FGWX5tcQ11ufNPTiuO6R77QCls0ND+OcKd6in9pstpw==
+	t=1794315005;
+	b=nJv9fjNQH1hE7i/ZLCmx/3dWVC/p7bexog2q2JE43UmATlUV9AdxeRz0YPecVKBTXvL4
+	 tPknZUoR/rGN44KUhOMepq7/aXxBgLyWkVfTNLAbD/l/rHGJlYBi5Lfc+/XWgdg/fl4MZ
+	 qAH/2mjGGi5hEMGgf9M7irEbMxMMC+e0P9pD5WWxmbliFLIF0sMBTImAPqbDqWg8CTbKm
+	 akOam8BxJrhf0g0FCJsIcp3OGoRXzxQk4+4PBhwqo/HJmGsX47w7jIPdCqijM8cT3ZzHG
+	 tDhH2FdqvijaEZcL2SkWqQtmnIAWMcscor7sywlEbB/ZtGb054KxoPsI/dGskj+4RgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314976;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=RLVi3hjP676D/IO2JOfw26MRhip1vM012Fm+VtUU+liNxbmGSj1hlTkP2jqZPnLooLs3
-	 c/hGYZ/P142dPsMHtQ0+WOYz264LHEqarkR7wWxlaPoELNW6uvRN/i+COIO4KpWxsdhjL
-	 ORFdO7JRLroNp/UrVKT6SCpa55Xq0oxRQJnWGWXo/o/cpsYM19QnSt/8P1NxI/s/Wg/gt
-	 3pexVF1AMM/2vf0XO3r7j1mx/+vNjHPySNnm8b91sJINeMc1WEWTW24CbuMNiNnc877Sk
-	 xnVD9db/Li37umuWA8h2ronIArMjIGdh3G5TplP540+bxTh5kzlKr+WEptQzns8TKhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315005;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=O/JUA9mdYQkznlKxm+GmpC0lNvOvd1ML1Oq2x7JoGHA=;
+	b=p8teY2JoUTG8niM+omScE7afEYjWqOBWMKqLx4KQRahdJryMi4rtJKaVDvV8BYLAjw+1
+	 1UWnee3gBow1uGduZTWuUdeL0rBRkBvV4BS60aFi/NVlp4lWWcSrX4p/O5u2kBjDlS5ue
+	 zvYHkoRew1Bjbu1eDfTnlUHj90ExMMfOPSzWFRE2k1kYbDml7s6Qlo5mlddgUktmdApWw
+	 JFWfDg6KrKsV6CtxwXwBPyUg9jY2aabr8FRI/F1DlIQ42vvsFog2xrv3TG1EGEoyRjsrK
+	 g0og9xd+X/7bOemb+enqEqE8OSy65glA+ZNOVKaPU8PJpnk6dDeHi/2VBvKyrJV0vzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DG+RhYN5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L9OGIrQi;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C60X8M8N;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="ucJfpE/Z";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMDt0dFM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4E8606A31C;
-	Tue, 10 Nov 2026 12:49:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F4E8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A107606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=DG+RhYN5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=L9OGIrQi;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=C60X8M8N;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ucJfpE/Z
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6689921EB8;
-	Tue, 10 Nov 2026 12:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794314973; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=DG+RhYN5cu6+WIX30PCN3AfqkvmAztyuHhlzPKbsVB5t79HRFwOSdMCqOZhAkc9iVE4mIw
-	5vM+DT+xo8NHXsmhrGOwJCJfh/Rzl+mY/F8FI45bXKx4G0pIenPkU7tcja2by8XftgLH0I
-	IpevKoeyyyU/13Pxs8eNm/s9BopvRXw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794314973;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=L9OGIrQi0+E5OmGYF/qqMhWKTtFRkcyuanQH58mwufRPRH31554fHOWoAENYfpQRmCzDwK
-	4zeQyNzxH/IRYmAg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=C60X8M8N;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="ucJfpE/Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794314972; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=C60X8M8NPU616/djs7z2m78DxETWOdUNIP0/OZOouseGBIfchDDxERhs6bJbCvULOwfUWW
-	bV6vX7KqHk7si49LJzeTk8gUKK5Sq/gJ8nGLQ6vn88qA3xNECZbPql60GnkpdcgpSoAIWY
-	okxDQNKcRSWuJ7rML1P+WbjSgiYqX/k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794314972;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/OjcrSn1MpMz13707Aoac+4FORWzX6JAbGi1LUWbsWY=;
-	b=ucJfpE/ZJn/j0gGv+xQ+IgHItN6gv1pCtnQfHuPpCky4a48FxZaWiEv43VNhut09WPR+vv
-	+VC7qYqy4+SuC+Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 30E651339F;
-	Tue, 10 Nov 2026 12:49:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id nVRPAdwS82rDPAAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 10 Nov 2026 12:49:32 +0000
-Message-ID: <fdeec920-0afe-4379-974d-e59e968f407c@suse.de>
-Date: Tue, 10 Nov 2026 13:49:31 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMDt0dFM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC5F1F0089F;
+	Tue, 10 Nov 2026 12:50:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794315005;
+	bh=O/JUA9mdYQkznlKxm+GmpC0lNvOvd1ML1Oq2x7JoGHA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GMDt0dFM/kNYu5FxAsFpqdp8fMGKAjdCy9BBtJ+voR15MV9dC/fvYIKwmKl05FSR9
+	 Y+inDt0wAWy4w1V3vgQNmcv+UYSUwmAz5Z/wwtzpzSZ2oUl6FHMQLPfs7VyDdslkqQ
+	 +woiN5lPSYiJhjmDlhA+nod9wwXXnoD2X5Dws4pljFbQUjdgffZPTnWvzPTmpKRMnH
+	 BZLn5XD6GhLbbo36U+PC5RR5ObDl8tvOHWcTHlueqDQBbC+s6tpFnMScqtVmHchDLe
+	 FtrMQPly7Ad1Vjle88gvqhBmKDPkcdTSGpSRmAYZLS7zLuTBR/L9QwCZ97Y9bUnMgR
+	 DVXmjgBLp5IOg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jiaming Zhang <r772577952@gmail.com>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] gfs2: reject invalid inode sizes
+Date: Tue, 10 Nov 2026 07:50:03 -0500
+Message-ID: <20261110124943.1531606-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052902-failed-6.6-33ed0a0567e0@kernel.org>
+References: <20261107052902-failed-6.6-33ed0a0567e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,100 +59,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] nvmet-auth: reject incomplete DHCHAP messages
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MID_RHS_MATCH_FROM(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:dkim,cyber.gouv.fr:email];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 6689921EB8
 
-On 11/2/26 2:24 PM, Jérémy Jean wrote:
-> Commit c9359401036e ("nvmet-auth: reject undersized AUTH_SEND
-> payloads") only ensures that AUTH_SEND has auth_type and auth_id
-> before nvmet_execute_auth_send() starts parsing the payload, but the
-> DHCHAP path reads t_id before it verifies message lengths. A two-byte
-> DHCHAP NEGOTIATE payload can therefore still trigger an OOB read that
-> KASAN reports as:
-> 
->    BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_send
->    Read of size 2 at addr ffff8880030d8364
-> 
-> Require the payload to cover the minimum DHCHAP message length
-> before parsing it.
-> 
-> Fixes: c9359401036e ("nvmet-auth: reject undersized AUTH_SEND payloads")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
-> 
-> Changes in v2:
-> - Check the minimum DHCHAP message length.
-> 
-> v1 (2026-08-11 18:03:35 +0000): https://lore.kernel.org/all/20260811180335.4161138-2-Jeremy.Jean@oss.cyber.gouv.fr/
-> 
->   drivers/nvme/target/fabrics-cmd-auth.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-> index 70136f6c22e8..a15f21fc41e4 100644
-> --- a/drivers/nvme/target/fabrics-cmd-auth.c
-> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
-> @@ -301,7 +301,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
->   		nvmet_check_transfer_len(req, tl);
->   		return;
->   	}
-> -	if (tl < offsetof(struct nvmf_auth_dhchap_success2_data, rsvd1)) {
-> +	if (tl < sizeof(struct nvmf_auth_dhchap_failure_data)) {
->   		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
->   		req->error_loc =
->   			offsetof(struct nvmf_auth_send_command, tl);
-> 
+From: Jiaming Zhang <r772577952@gmail.com>
 
-Reviewed=by: Hannes Reinecke <hare@kernel.org>
+[ Upstream commit 33ed0a0567e0abe66ea65e89dad2e35082890fbe ]
 
-Cheers,
+A corrupted GFS2 image can store a dinode size that is larger than what VFS
+i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
+writes it directly into inode->i_size. If the value is larger than S64_MAX, the
+incore i_size becomes negative. That negative value can bypass the existing
+stuffed inode size check:
 
-Hannes
+inode->i_size > gfs2_max_stuffed_size(ip)
+
+Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
+gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
+passes it to memcpy(), turning it into a huge copy size and triggering a
+out-of-bound issue.
+
+Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
+inode->i_size. Also make the stuffed inode check use the raw on-disk size while
+it is still unsigned.
+
+Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
+Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
+Assisted-by: Codex:gpt-5.5-xhigh
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+[ sashal: adjusted context for direct inode->i_state access instead of inode_state_read_once() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/gfs2/glops.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index f575cd8ff47c1..0be93498e3308 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -412,6 +412,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	umode_t mode = be32_to_cpu(str->di_mode);
+ 	struct inode *inode = &ip->i_inode;
+ 	bool is_new = inode->i_state & I_NEW;
++	u64 size;
+ 
+ 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
+ 		gfs2_consist_inode(ip);
+@@ -437,7 +438,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	i_uid_write(inode, be32_to_cpu(str->di_uid));
+ 	i_gid_write(inode, be32_to_cpu(str->di_gid));
+ 	set_nlink(inode, be32_to_cpu(str->di_nlink));
+-	i_size_write(inode, be64_to_cpu(str->di_size));
++	size = be64_to_cpu(str->di_size);
++	if (unlikely(size > inode->i_sb->s_maxbytes)) {
++		gfs2_consist_inode(ip);
++		return -EIO;
++	}
++	i_size_write(inode, size);
+ 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
+ 	atime.tv_sec = be64_to_cpu(str->di_atime);
+ 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
+@@ -475,7 +481,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	ip->i_depth = (u8)depth;
+ 	ip->i_entries = be32_to_cpu(str->di_entries);
+ 
+-	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
++	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
+ 		gfs2_consist_inode(ip);
+ 		return -EIO;
+ 	}
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.53.0
+
