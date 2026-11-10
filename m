@@ -1,77 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794301125;
-	b=K0nZObVc1kVnzT17CKBdPFKdw5jxC0K1yFqGpeUXm72WA+3Tr8s7q53Z4NXEPdO8H/Aj
-	 Lc9opqOVRJSsOaLavyA7zKKe6A6qZibh3qOkbxBYT5Ht96Swo+ZjDhnlndlDz/9qZs/+G
-	 89ibyR6nmL/6IsQExm/37eyZqxABwz3PmXQyhudQbwlIiGD0Jcv1HTGC2H9vjFfvd7PCD
-	 Dr8+MkjSE4REvz4Njo2IAQuy2/w9MscCrs3ON/Swuna3U6rNHt2gPLUYUwpVDgZ7MiBS/
-	 g/QQjrZoCMPaI6JGc9C7T24slMeq+EWdqmFj6vK4bwsweWS8xEeuNuydXpWwLS7WPBg==
+	t=1794301402;
+	b=ahNFu6wpYwSFQYIujZLyb19HaR4vjsFusUR8M9X5iMCK3AJc8F8Dpo/oQNOZ6+zaeq6a
+	 xGVksIicY6YDPpZeW20pesOyBxHrQoX9BkEp8Oi7DlQsECENag75lNgKUnmOOYvmQbhyv
+	 ThCZsMGAX9wEDGsCK90tsyXCmGFLgKG5Km+RU4KuQXMlvRwuGFutxOtMXJPJgexttywEm
+	 rPW1ULgkya7iRPNRepUF/2+iK2StkFGyx0JMx5UjbW0BnPn1IVyuWz6La/dkVmAzuNl5V
+	 /zc2G1YVcGPsk+Ie9xg6yXauKwJncjyhyNlPKo6tDIEUbutdqPOB8wtbkdKDrpUWKUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301125;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=ZHR54X8B1Vi2Dy1CLjO9HYKEflDtZiTBnQwfHnLfqBc=;
-	b=AUt577lFxb3XvKqqqlff3s/Tuj9NAg+hftfS6uKSqZHxznFFk4Eb6F3GUalRLP63dyBU
-	 HSPqPA3DzefNHw5NRqw8MoAJIvgQepPuVQwmHkO/Ub2+pXAq6LQvurUP8tKTZS4CZugUv
-	 wwsq1Yr6u5WJhqAbKNga15HCaurJzX5mjk/evpcBCrenVmsxVpxvwQqbfCvVaT5eFtspq
-	 TWdqN5O1C032JUA0RRGqAe70nK/HM7twZtlqpvdA92++Jzz4fF1Up15FSgD1YaUOyiZCW
-	 elywNID7VEvDH8zHyL7GX7/3H/4MfhQPa9OBKy5JtWQ701uC0VCxXsu93/Ecl5Udmmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301402;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
+	b=l4i0A6f6ZIV7zkhu8xnR36ato/6/DF3POJgX4ArMC+1GTgZpQ84YpDASqp5NVbg4xJDb
+	 uEem09evJFrg1qdcz7XwCyJ0ixwQIYWwKT1pg38iO2+0BIjs/oitRXtChv3CRysMydFq0
+	 XqkpFAte+f9lr84QSNzQgg5G0ASFwko0PBilVwwk9nWT1hMFrp/vpR0UlfClmzU0rAqC9
+	 xEvRlGklE8M7rNTHOY2rnOMn9xX1TfhTXn3OCp9bjE8klR/jIm/BWx4BShkVKUTQmKt75
+	 e6XClmCUxqkSMBjvYbN3qUIVBTku44wsmytEgc8jhguagThMTDc6GUcAqtwsJk4vBpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQa8NbCI;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA56C606A321;
-	Tue, 10 Nov 2026 08:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA56C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794301114;
-	bh=xewJGJe/xTvyxFDlC5jYEKEScDnfgx77/g3hJ9ja8vk=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ZJpyIHekl7Rbxi/JLu0BqTdrvzht3hCK8VuY0L4AsipzUl41eoLcn5NAfqKBGhKfY
-	 QNgZl9fyPqPAGOF+9fo6pF7hS+8vheNsWOHRgCmoRlsBCbg0lLsbyVqksajUApWGw4
-	 V8hExTCgxv6D0Y9/Bhu2kIABwge1afthrGxhfcmwoOCv605d2Ysyj61455Svk4z8mV
-	 gjbdWFtsv+4cASYVVBg1QNCBSXCeCeDwYKOs2OITcMD5HjHE0BpZqb3mdbUHvaSaXE
-	 bsTzoriJ80ANUgo4AxNHlnh4wR9S7SAth4dy4ck0p7QgS7QeH2i1NBG5NI3mI8VMln
-	 xBQYG+0aFYLLw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id C76982681F;
-	Tue, 10 Nov 2026 11:58:34 +0300 (MSK)
-Received: from mail.astralinux.ru (unknown [10.205.207.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue, 10 Nov 2026 11:58:34 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.16.187])
-	by mail.astralinux.ru (Postfix) with ESMTPA id 4jP0td4ZGxz2ST;
-	Tue, 10 Nov 2026 11:58:33 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-btrfs@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C9260A260E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:03:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C9260A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQa8NbCI
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so3515450eec.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794301401; x=1794906201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
+        b=aQa8NbCIL5iROR1xv9a893vuA9VKs+H4UP3noZWQVQc6eHiZUFmGQ19+107lwy8Hp2
+         e9ypF7OCdmIIc25iDGMH7Xw1pnCfj/8fyNFIEb2WGQLkgvCdjP8MBZwconVQJlUXYoi1
+         yDAtJErHd09SKjykRmQNmGs9Vu1Rmqu1U2+ba+1noReQUUo0c/9G9afr8Te1Yuw+iFne
+         vfgEoWL045JiXncdLEqUhBzR/5xH0eTNb/e/w+EXdu/LQK1Lxo6Bxv4avKBJJd4vdbVw
+         XGT0uQrgoTRt7PHMwafIP/Ur8zqyYCDaQo37i50bQO1NU1wGdFiO42y/dJp/nqvvSiit
+         9ZRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794301402; x=1794906202;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8pKo1oEO3VP8nUxaxFU+sFTw1naND9wtU7Tr0haxUyM=;
+        b=mMWrI30SIvz1vddqA8seM2RbrApOR0dWJxisGpg1uwPj+fM10sFGRIcoyQ04ZQvuAB
+         5NetcXeJyNcsfWtjMIqxNSi/LW4kY2dgs9JooiBgs5uJPi0qu0schcQV4qvZxlucxnA0
+         UCx5K2kJivmB2pVEKpUIZkC3WfFPHefjPd/1RkilLt3IJC7pvHQ2mx9XJorWAYoowRpT
+         bc0+ymBRDdRlvbV98/PE32RO3VIHXFeTSmyGCkSBamVXtvIFX/69KfzGT9WJfl61U5AL
+         zZZptQ64AzbPdjtU2tD2PfnWYBTrOER55wVV//B8AWvlZMnbdnk1+vDc7q7eVsxFBCen
+         VJqw==
+X-Forwarded-Encrypted: i=1; AL+hErEZY5sgItiHJeAl/A8HTQ98jv9aDFijajYFhrDT0YDEeazLHPGD4dSovMst3OSyr8K0HkApnAQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T86cQk+MWAqSWVA2EnN9wHabJiYRL18q0Nu4tJ6j7AfnHuKyY
+	yaYxGglxYJ6n9W1KgSH9XCWXJ7nNhwzII3N9A1Bex9a7H3jbEt86R4CM
+X-Gm-Gg: AYBFou1NPERnDyXIdqctK1412IezcfBq5R5vHf0MD5OQPFVST8jp81NoNPT3FPKPJ8k
+	1Q0vWnsDMUovjYYAZ2c2AOEvUIQmxTZzcFGqmSX6hMgszu/D3ZwJVWpm87T3TDKw5umo4OKppSD
+	xJIQGvsnpJL+++IMaHY3QJvQ3ZeoxjdVd8X7l3pJXGPQP8AJte3f32L1kPYVjwl7HdIK+5VqSvt
+	jZ68bjTqE58D3xpslnd4kfNw4drxw3hKR9XzC4V+cTnHgH9bYs6Rrg4IVUmgFBIuY3HoTzzv2RW
+	73TFkS9CYE8yOedpALrOl6DmL+Iul1QRDM7WAwIP+DJFF+R6iLLQwXEYjPlfwFLEo/ihW7edfvf
+	wi2BZnbcrQB6mVkWqYtGUY+Si0e4WdNGq7+vFBj1RyCkBhoGlvA9FLiDGxnN6VyQPiDKaVBCcoT
+	7Dd7tHrsAednWO34ao47CdWmkKFsBBaEmCOgSwSDeMshcceAsJhlIB7wnXRq2zdo9KIldrDI88F
+	CX26rws/DvNmvEM+rSNZCBse8ji1sXRYHn6mbnVabrXjgpyKtgydwmfU03dDk615QjTJ+c+/p1T
+	OU6YfY3OFKCLhfU8dcz8NLkXJRVOg40+Mze1a2HkrdFa4ggUks2i25eEm8wuhhuxv78DJQ==
+X-Received: by 2002:a05:701b:2704:b0:16c:3408:760b with SMTP id a92af1059eb24-1b3b60097bemr2296116c88.32.1794301401116;
+        Tue, 10 Nov 2026 01:03:21 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm5762557eec.7.2026.11.10.01.03.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 01:03:20 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>
+Cc: linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] btrfs: qgroup: fix a wrong length calculation in qgroup_free_reserved_data()
-Date: Tue, 10 Nov 2026 11:57:59 +0300
-Message-ID: <20261110085801.1915-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v3] ata: libahci: delete the SW activity blink timer on port stop
+Date: Tue, 10 Nov 2026 18:03:03 +0900
+Message-ID: <20261110090303.2415681-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,93 +98,74 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207361 [Nov 10 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/10 08:21:00 #28832117
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Qu Wenruo <wqu@suse.com>
+The software activity LED support arms a per-EM-port timer (emp->timer,
+ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
+callback re-arms itself while the LED is blinking. The timer lives in
+struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
+with devm_kzalloc() and freed when the port is torn down.
 
-commit 9102b179512e11644fb0489ae62010a09afa199c upstream.
+ahci_port_stop() never deletes this timer - nothing in libahci does - so
+when the SW activity LED is in use and the AHCI port is stopped (driver
+unbind / module unload) while the blink timer is still pending,
+ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
+dereferences the freed ahci_em_priv (use-after-free).
 
-In that function, we round down the start position and round up the
-ending position.
+Shut the timers down in ahci_port_stop() before the port private data is
+released, only when ATA_FLAG_SW_ACTIVITY is set and skipping em_priv slots
+that ahci_init_sw_activity() never set up. Because the callback re-arms
+itself, use timer_shutdown_sync() so a concurrent re-arm cannot resurrect
+it.
 
-But during the calculation of @len, we use "round_up(start + len,
-sectorsize)", which is the rounded up end position, not the rounded up
-length.
+Not tested on real hardware (needs an AHCI controller with SGPIO
+enclosure management and the software activity LED enabled).
 
-Which results a much larger length, and later we are still using
-"start + len", which is completely incorrect.
-
-Fix it by declaring a local @aligned_start and @aligned_len and use them
-instead.
-
-Fixes: bc42bda22345 ("btrfs: qgroup: Fix qgroup reserved space underflow by only freeing reserved ranges")
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-[mdmitrichenko: Rebase the first hunk onto extent_changeset_init()
- and the existing int freed declaration.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Fixes: 365cfa1ed5a3 ("ahci: Move generic code into libahci")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-Backport fix for CVE-2026-90259
+Changes in v3:
+- Shorten the code comment (Niklas Cassel).
 
- fs/btrfs/qgroup.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+Changes in v2:
+- Gate the shutdown loop on ATA_FLAG_SW_ACTIVITY and skip em_priv slots
+  whose timer was never set up (emp->timer.function unset), so
+  timer_shutdown_sync() is not called on an uninitialised timer
+  (Sashiko AI review).
 
-diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
-index a252f6cca0027..41edb8e0c5a3c 100644
---- a/fs/btrfs/qgroup.c
-+++ b/fs/btrfs/qgroup.c
-@@ -3819,12 +3819,13 @@ static int qgroup_free_reserved_data(struct btrfs_inode *inode,
- 	struct ulist_node *unode;
- 	struct ulist_iterator uiter;
- 	struct extent_changeset changeset;
-+	const u32 sectorsize = root->fs_info->sectorsize;
-+	const u64 aligned_start = round_down(start, sectorsize);
-+	const u64 aligned_len = round_up(start + len, sectorsize) - aligned_start;
- 	int freed = 0;
- 	int ret;
- 
- 	extent_changeset_init(&changeset);
--	len = round_up(start + len, root->fs_info->sectorsize);
--	start = round_down(start, root->fs_info->sectorsize);
- 
- 	ULIST_ITER_INIT(&uiter);
- 	while ((unode = ulist_next(&reserved->range_changed, &uiter))) {
-@@ -3836,12 +3837,15 @@ static int qgroup_free_reserved_data(struct btrfs_inode *inode,
- 
- 		extent_changeset_release(&changeset);
- 
--		/* Only free range in range [start, start + len) */
--		if (range_start >= start + len ||
--		    range_start + range_len <= start)
-+		/*
-+		 * Only free the range within
-+		 * [aligned_start, aligned_start + aligned_len).
-+		 */
-+		if (range_start >= aligned_start + aligned_len ||
-+		    range_start + range_len <= aligned_start)
- 			continue;
--		free_start = max(range_start, start);
--		free_len = min(start + len, range_start + range_len) -
-+		free_start = max(range_start, aligned_start);
-+		free_len = min(aligned_start + aligned_len, range_start + range_len) -
- 			   free_start;
- 		/*
- 		 * TODO: To also modify reserved->ranges_reserved to reflect
--- 
+v2: https://lore.kernel.org/linux-ide/20261109060709.1231946-1-hj351016@gmail.com/
+
+ drivers/ata/libahci.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 001a6f5..873645c 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2605,9 +2605,24 @@ static void ahci_port_stop(struct ata_port *ap)
+ {
+ 	const char *emsg = NULL;
+ 	struct ahci_host_priv *hpriv = ap->host->private_data;
++	struct ahci_port_priv *pp = ap->private_data;
+ 	void __iomem *host_mmio = hpriv->mmio;
++	struct ata_link *link;
++	struct ahci_em_priv *emp;
+ 	int rc;
+
++	/*
++	 * Stop the SW activity blink timers before devres frees pp, skipping
++	 * the slots that ahci_init_sw_activity() never set up.
++	 */
++	if (ap->flags & ATA_FLAG_SW_ACTIVITY) {
++		ata_for_each_link(link, ap, EDGE) {
++			emp = &pp->em_priv[link->pmp];
++			if (emp->timer.function)
++				timer_shutdown_sync(&emp->timer);
++		}
++	}
++
+ 	/* de-initialize port */
+ 	rc = ahci_deinit_port(ap, &emsg);
+ 	if (rc)
+--
 2.43.0
-
