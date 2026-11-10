@@ -1,51 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293130;
-	b=pc8hJHxDgg+ORGlhYHLBuBg+WyFNB+hLpssHj9+qPaXojduf5yDh6Si8NtKcKfLdBewJ
-	 ExRUSg6hWKNy1Q0U/mvEttBabOlp3+CV3Ru9wkgEsao7YKUXCq1jfqRL3bmayPFE65mS7
-	 BaBnNnYCu/33TPxSpMuYP5gDvYtpjP5E/QU26KAi/f1sFEw9xKcDJDlitEa+PuHs0s5L/
-	 b9+9YjGgYJv4bESyfy5pMUUXeCBcVaC5m1rcoCI5NA4c8Z80Ho4xeyjSZM8CCdlqSGH5D
-	 1NJumy4lADPjp1ZQIc27Uaqw5m+etUAJjDkQpgyVfdAAQbHayYs4eEYcn2OG9UeA/5A==
+	t=1794293127;
+	b=iXgdbtlO9UJFzs4Lh/xeY+Seq0w7tES6Ihq+UJnkdKaMtl2aq13E6Yuo6qS1cA+oUVm9
+	 /TOWNUEqwgmkbbUro+hoOM4q2yWbQ3dBzH/2Kjr+eST3NVcdAaqM4iKT/4pYJbh1QHTBq
+	 4FJM+lCYWWCVFa3jeooMWRj+tWa/l55+2nFMJ/sH2cw2lW9imVYbCxTqAMRp5p+XC94IM
+	 zfhlAJ26zFCTfwWA6d/26fabsfOALCuz3rSgdgbk0oOSXEWtFPwMZ4rTAoShUJV/PWCUf
+	 p8aH2Sn850RCrK/aKUkyRfDsdnaOCZvm+gvwlZJ0gxsz+fZc8fCB80zK1hUV9HjzTKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293127;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=PEvTXFY+gGzq/B6LumOWpO4at3M4hiYgB/BM4iAura8=;
-	b=Bi9Flje4ZP7Y/AOVEjHpll3SIVY8745dIUeKXCdKuzELXnDbcDJg91xnmO4CDCwPbSdZ
-	 g7gfPmuwgIXs/+tnu31SwM7qDJwDTG8ZiIrOALRJDMQjCsnLj73vaEawNab+pbcXbsV3Z
-	 K0QmGW9icmcYg/zVV68v07WoHFVRHMvLY4dNxeLZRliSafxHHIR+HiOjHVJkO8QTSyOMt
-	 pN0d0vx2XBHRr7Ui2NroYShsCRttriWIVf43I08Dg8kI9fFRYCRN8WKaYXLNko8jQogOr
-	 C7YEt0xJSoqf5LyYdXh8Ss/VbFCzPRtnURKh6BoAID4Iu3oG7lTrIrZwMXLfPyI7MAw==
+	bh=ru3BcMbgmxRIR6sxTtfSKZKs8T3zqxXSXaUeuypHz4I=;
+	b=kQHWYyjlrVrlPZT9F9JD50ung0kI2OFnsk8qaz4siPbGHvhGtK0sTPVby2aDGTrhhgHP
+	 fsq1AJRlwF/dw/Iy/Yexd+BdNXVfarc56vjRA9a2RByJ9Px8Rq5YmOUQhoUKp5a8vm4Iz
+	 5cHtBRh72MQiapiwok5J3qmSQyDGX+fTI/++ecIR11HwrSTjydC7cP/qRpI25XsSmi/i3
+	 s12T2RAYpt1sZ4tfYeYu0SabY55WK+l61IZ9waFRwWj/EdC3QOqUqy7TQRuFjiUY+BwsA
+	 Ir8w5b1fcuB+Fzy4GySVIRJOLK+XvazF6Boe4sCZLg+ksG5O93hPlSwuVkfG8f7jYSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="a/mKqXdw";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=WRRaO+VJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E3A606CB17;
-	Tue, 10 Nov 2026 06:45:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1683D606A326;
+	Tue, 10 Nov 2026 06:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a/mKqXdw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7921F0089F;
-	Tue, 10 Nov 2026 06:45:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=WRRaO+VJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0FF21F0089F;
+	Tue, 10 Nov 2026 06:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293129;
-	bh=PEvTXFY+gGzq/B6LumOWpO4at3M4hiYgB/BM4iAura8=;
+	d=linux-foundation.org; s=korg; t=1794293126;
+	bh=ru3BcMbgmxRIR6sxTtfSKZKs8T3zqxXSXaUeuypHz4I=;
 	h=Date:To:From:Subject;
-	b=a/mKqXdwRWwExfEXAkv5XrRaBtRaw2TxYcq8SzQ49aKH1/bXb42FxlE0KmQ5ASjRF
-	 vemAUoUuVamBu824ANxPT3I1Vr9/KPTofagMwYCwFPt6LrQWvUqKEh9Teoiow0f1en
-	 K28T9tjb3YTQlQL8JbJ/wZoYMVDJS0GU0PwrCvpc=
-Date: Mon, 09 Nov 2026 22:45:28 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,usama.arif@linux.dev,
-	tz2294@columbia.edu,stable@vger.kernel.org,ryan.roberts@arm.com,
-	richard.weiyang@gmail.com,nico.pache@linux.dev,nao.horiguchi@gmail.com,
-	mcgrof@kernel.org,ljs@kernel.org,liyouhong@kylinos.cn,linmiaohe@huawei.com,
-	liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,baohua@kernel.org,david@kernel.org,
-	akpm@linux-foundation.org
+	b=WRRaO+VJ6wmNBvttB4Bx4Ao+Cugl0L4kTTGimQc4NxqzzoDgIzPglm7TmYiHP3e7p
+	 SwpST0K7/CKa+1/OEHU1edzHRCMvdIPDVsGzB9mN+4MbnZvOKj5CqeJitwWGtS1HOt
+	 MQDgT3eU+rnAJ10hOdv0IY6EroemjyHHVwMnBhs4=
+Date: Mon, 09 Nov 2026 22:45:26 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
+	stable@vger.kernel.org,rakie.kim@sk.com,joshua.hahnjy@gmail.com,
+	harry@kernel.org,gourry@gourry.net,david@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch removed from -mm tree
-Message-Id: <20261110064529.5D7921F0089F@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-mempolicy-use-one-node-set-for-interleave-weights.patch removed from -mm tree
+Message-Id: <20261110064526.C0FF21F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,210 +53,95 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/memory-failure: fix folio refcount leak and min_order_for_split() locking
+     Subject: mm/mempolicy: use one node set for interleave weights
 has been removed from the -mm tree.  Its filename was
-     mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch
+     mm-mempolicy-use-one-node-set-for-interleave-weights.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: mm/memory-failure: fix folio refcount leak and min_order_for_split() locking
-Date: Fri, 30 Oct 2026 23:29:13 +0100
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: mm/mempolicy: use one node set for interleave weights
+Date: Fri, 30 Oct 2026 12:10:46 -0400
 
-hwpoison code can end up calling min_order_for_split() without holding the
-folio lock.  There isn't really something that would prevent concurrent
-truncation.  Consequently folio->mapping can get set to NULL after
-checking for "!folio->mapping", and if the compiler reloads
-folio->mapping, mapping_min_folio_order() would try to dereference NULL.
+Switching weighted interleave back to automatic mode while memory is being
+onlined can cause a kernel divide error on x86, and a panic if
+panic_on_oops is set.
 
-While very unlikely to happen in practice, let's just enforce that
-min_order_for_split() is called with the folio lock held.  We can
-significantly cleanup the calling hwpoison code, and just get rid of
-try_to_split_thp_page() to hold the folio lock for a bit longer.
+reduce_interleave_weights() scans N_MEMORY three times, but hotplug can
+cause N_MEMORY to change at runtime - and torn reads on that nodemask can
+cause a total sum of zero bandwidth.  A node that was hot-unplugged and
+then hotplugged back can then cause this loop to generate a div/0.
 
-Just work on folios now, which further cleans up the code.  We just have
-to be careful about doing the page_folio() after splitting, which we have
-to do already either way.  Do not change the way we split for now, this
-needs more thought and should be done separately.
+Record the nodes visited while summing their bandwidth, then use that same
+set when scaling and reducing the weights.  This gives us a consistent
+state even if N_MEMORY changes.
 
-Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
-would currently have leaked a folio reference.
-
-In min_order_for_split(), document and assert that we need the folio lock.
-Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
-
-While updating the comment in soft_offline_in_use_page(), just drop the
-"NOTE" part that does not add any value to current code.
-
-The folio->mapping problem was identified by Sashiko, and Li Youhong
-reported it by sending a proposal fix.
-
-This likely does not really warrant CCing stable, but I expect little
-conflicts when doing the backport, so let's just CC stable because of the
-refcount leak.
-
-Link: https://lore.kernel.org/20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org
-Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://lore.kernel.org/20261030161046.1497894-1-gourry@gourry.net
+Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Li Youhong <liyouhong@kylinos.cn>
-Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Luis Chamberlain <mcgrof@kernel.org>
-Cc: Tal Zussman <tz2294@columbia.edu>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Harry Yoo <harry@kernel.org>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/huge_memory.c    |    4 ++
- mm/memory-failure.c |   63 ++++++++++++++----------------------------
- 2 files changed, 25 insertions(+), 42 deletions(-)
+ mm/mempolicy.c |   13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
---- a/mm/huge_memory.c~mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking
-+++ a/mm/huge_memory.c
-@@ -4551,10 +4551,14 @@ int folio_split(struct folio *folio, uns
-  * If a file-backed folio is truncated, 0 will be returned. Any subsequent
-  * split attempt should get -EBUSY from split checking code.
-  *
-+ * Context: @folio must be locked.
-+ *
-  * Return: @folio's minimum order for split
+--- a/mm/mempolicy.c~mm-mempolicy-use-one-node-set-for-interleave-weights
++++ a/mm/mempolicy.c
+@@ -207,15 +207,22 @@ static u8 get_il_weight(int node)
   */
- unsigned int min_order_for_split(struct folio *folio)
+ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
  {
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+
- 	if (folio_test_anon(folio))
- 		return 0;
++	nodemask_t nodes = NODE_MASK_NONE;
+ 	u64 sum_bw = 0;
+ 	unsigned int cast_sum_bw, scaling_factor = 1, iw_gcd = 0;
+ 	int nid;
  
---- a/mm/memory-failure.c~mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking
-+++ a/mm/memory-failure.c
-@@ -1744,26 +1744,6 @@ static int identify_page_state(unsigned
- 	return page_action(ps, p, pfn);
+-	for_each_node_state(nid, N_MEMORY)
++	/*
++	 * N_MEMORY can change while wi_state_lock is held. Remember the
++	 * nodes contributing to sum_bw so all passes use the same set.
++	 */
++	for_each_node_state(nid, N_MEMORY) {
++		node_set(nid, nodes);
+ 		sum_bw += bw[nid];
++	}
+ 
+ 	/* Scale bandwidths to whole numbers in the range [1, weightiness] */
+-	for_each_node_state(nid, N_MEMORY) {
++	for_each_node_mask(nid, nodes) {
+ 		/*
+ 		 * Try not to perform 64-bit division.
+ 		 * If sum_bw < scaling_factor, then sum_bw < U32_MAX.
+@@ -234,7 +241,7 @@ static void reduce_interleave_weights(un
+ 	}
+ 
+ 	/* 1:2 is strictly better than 16:32. Reduce by the weights' GCD. */
+-	for_each_node_state(nid, N_MEMORY)
++	for_each_node_mask(nid, nodes)
+ 		new_iw[nid] /= iw_gcd;
  }
  
--/*
-- * When 'release' is 'false', it means that if thp split has failed,
-- * there is still more to do, hence the page refcount we took earlier
-- * is still needed.
-- */
--static int try_to_split_thp_page(struct page *page, unsigned int new_order,
--		bool release)
--{
--	int ret;
--
--	lock_page(page);
--	ret = split_huge_page_to_order(page, new_order);
--	unlock_page(page);
--
--	if (ret && release)
--		put_page(page);
--
--	return ret;
--}
--
- static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
- 		struct address_space *mapping, pgoff_t index, int flags)
- {
-@@ -2548,9 +2528,6 @@ try_again:
- 	folio_unlock(folio);
- 
- 	if (folio_test_large(folio)) {
--		const int new_order = min_order_for_split(folio);
--		int err;
--
- 		/*
- 		 * The flag must be set after the refcount is bumped
- 		 * otherwise it may race with THP split.
-@@ -2565,24 +2542,25 @@ try_again:
- 		 * page is a valid handlable page.
- 		 */
- 		folio_set_has_hwpoisoned(folio);
--		err = try_to_split_thp_page(p, new_order, /* release= */ false);
-+
-+		folio_lock(folio);
-+		split_huge_page_to_order(p, min_order_for_split(folio));
-+		folio = page_folio(p);
-+		folio_unlock(folio);
-+
- 		/*
- 		 * If splitting a folio to order-0 fails, kill the process.
- 		 * Split the folio regardless to minimize unusable pages.
- 		 * Because the memory failure code cannot handle large
- 		 * folios, this split is always treated as if it failed.
- 		 */
--		if (err || new_order) {
--			/* get folio again in case the original one is split */
--			folio = page_folio(p);
-+		if (folio_test_large(folio)) {
- 			res = -EHWPOISON;
- 			kill_procs_now(p, pfn, flags, folio);
--			put_page(p);
-+			folio_put(folio);
- 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
- 			goto unlock_mutex;
- 		}
--		VM_BUG_ON_PAGE(!page_count(p), p);
--		folio = page_folio(p);
- 	}
- 
- 	/*
-@@ -2900,25 +2878,26 @@ static int soft_offline_in_use_page(stru
- 		.reason = MR_MEMORY_FAILURE,
- 	};
- 
-+	folio_lock(folio);
- 	if (!huge && folio_test_large(folio)) {
--		const int new_order = min_order_for_split(folio);
--
- 		/*
--		 * If new_order (target split order) is not 0, do not split the
--		 * folio at all to retain the still accessible large folio.
--		 * NOTE: if minimizing the number of soft offline pages is
--		 * preferred, split it to non-zero new_order like it is done in
--		 * memory_failure().
-+		 * If we cannot split to order-0, do not split the folio at all
-+		 * to retain the still accessible large folio.
- 		 */
--		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
--						       /* release= */ true)) {
-+		if (!min_order_for_split(folio))
-+			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
-+		else
-+			ret = -EBUSY;
-+		folio = page_folio(page);
-+
-+		if (ret) {
-+			folio_unlock(folio);
-+			folio_put(folio);
- 			pr_info("%#lx: thp split failed\n", pfn);
--			return -EBUSY;
-+			return ret;
- 		}
--		folio = page_folio(page);
- 	}
- 
--	folio_lock(folio);
- 	if (!huge)
- 		folio_wait_writeback(folio);
- 	if (PageHWPoison(page)) {
 _
 
-Patches currently in -mm which might be from david@kernel.org are
+Patches currently in -mm which might be from akpm@linux-foundation.org are
 
-mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
-mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch
+shmem-consume-the-reserved-xattr-space-despite-remount.patch
+selftests-mm-check-madv_cold-and-madv_pageout-on-partly-advised-thps-fix.patch
+alloc_tag-introduce-ioctls-to-toggle-allocation-tracepoints-fix-fix.patch
+alloc_tag-introduce-ioctls-to-toggle-allocation-tracepoints-fix.patch
+mm-migrate_device-allocate-deferred-split-sublists-for-new-huge-folios.patch
+profile-account-for-partial-proc-profile-reads.patch
+profile-simplify-proc-profile-read-layout.patch
+ipc-msg-clamp-negative-msg_info-usage-counts.patch
+squashfs-fix-leaked-page-locks-when-page-actor-allocation-fails-fix.patch
+drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
 
