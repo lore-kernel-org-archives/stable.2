@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272794;
-	b=SlTXnWFh/Ozkoy5Dm6ks3WM0y6n8x/HLoAuCTNn/QoR6+MZHRFMDBmprwsWEFyIcCgON
-	 h5AxLPrgx3IyA0TXYtPvurduqkne4BarmCaRT89DES/HiJeTD+AuLbVgdIGeOwpgM/89A
-	 EsYa+MnviPDwxncK6JVFUwOI9A+q2KMGoApRy2O8i9mpQc9grNEMoOyfGcIBQ4xa+pO6w
-	 hFqpi3Q4kNPFPEpJRcgo/HPRZy//JYqcCgwQT9UrC0Ib3t0mpTCa8ZQnCCTuZC+uiWr9h
-	 WxwZUx2hf9Fk8mxh9+wlAKTpMjgUnkL0VoYdIk66JOg85P+gQwxjqQ9DrsOHSiWIGuQ==
+	t=1794272797;
+	b=CEFqC2nJt2MLjj5fdFGrbQfiwkHjQ8ylxgNIF1Zl0Zyi4yNxPzCRYU/V3PdiI4tEfWur
+	 hDjCn0ZukPm6uh+yrGnzEKkUG4PueBqygCfpc8GnIlkESXS1FNfjHBu0Fsx871nnNtaD+
+	 WelOv7DEkj2iKTTFxTVtAzkSEVS3ccWDJubY9GVrpW2i3z9WXFn6v9k5sF2/SDeUvMuTe
+	 5sf1uaoJPCvEmE0plQLtwzGhsNrkpUGTMW/37UFWI5NxM0XUh7B1vALfr6KPJQVdR2ucz
+	 LPgm4laTVmh4qfWOxz+Xdevu8wdgxm1XRUZteDRT+ov1jeo1un0g1F1jybTlsnTciow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272797;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2Z9oRNT4ZBqj8WyrasRckXSqHG5I7GGRuGHekQdAtfk=;
-	b=rQMZGTGAzeIWGoCCGFSwye+0Ny/YzIeoUpjaX1/gdvDr/mxnFPOnCI1yjd+oEnNqjKMU
-	 zrdZl9XlEO7Nd9AFddBpxqMvbncXsJAKj2BIZoh3QoX5iM6GWyNKooW80f3mLUKo59qQG
-	 dHvvbSM0uRytzQpsrQ/6zVPUYUZdFpQKPm6vl1f7MqznLw+NrWOnO3F7INE1ye4Ot1wvZ
-	 TEOUbFPk6GCDE2jiLa4Zdox7n7B+jbb7yyPiaDA/W+EN6JqCOGGWHw9BD9tIJEmIM1ztc
-	 cm44nzDCyR4uTIF32jvONieYJgRgxHpwSxQhWTFcPs6qo7IVrxACnfcCB7rPs7u9G2A==
+	bh=CGt7F3Ur/qCZwbIXIHAOXNs4UDPtuAfy4OWJG4w21wA=;
+	b=5dyJCRUAKhTbfT2hivY3xSUe+oH4oFJ3G6Opg6WPTV5MtWhwFBnuBTNpaDp45C6aOGij
+	 7BYpXAh7Ega5DU9u5dOdNXHMAEm3n8PY+mPHKdypcjSfSw2kFJRyAikZQg+hsuGF9DfFj
+	 Qrf7dsloa03pOf1DyCnidZNcY+MEdiB++o74gZ021BDSJMNxqmbjs/vVv6wX1Nr6h/GnI
+	 rCZlgdQ039MRzrH3PSSQjb1kAOoPmOzDo3C6EmAMYz2HWGLYGhkDFK++Wbnua/fyLumyj
+	 f/tHIdfhabQWLsYLEa3zVlLrtrtczcmNHTRlosdY9m2nOp+yRSuOexJ4zThavMZy6qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcqQ+qrj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=df2+xZ1B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E50E606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93C1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcqQ+qrj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C11021F0089F;
-	Tue, 10 Nov 2026 01:06:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=df2+xZ1B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED141F008A1;
+	Tue, 10 Nov 2026 01:06:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272794;
-	bh=2Z9oRNT4ZBqj8WyrasRckXSqHG5I7GGRuGHekQdAtfk=;
+	s=k20260515; t=1794272796;
+	bh=CGt7F3Ur/qCZwbIXIHAOXNs4UDPtuAfy4OWJG4w21wA=;
 	h=From:To:Cc:Subject:Date;
-	b=bcqQ+qrjcASp7RqwXVQ36ZAvhB+QpAHZ0IBKCJZMrvaNgP9suVcVfbauPcs+pvzKz
-	 Q/rgZ1KUEWzzRKvXz9hZtwaxBlI5S9RjFH/SJjlarNELH8urQaQKP4GCjlt/zgE1Vj
-	 x72ptQBfTqCtG1soGNW0JYKjk6REk1QWT43tdNk1yHyxOHR1Fqx/JZM+YOg0FD06mp
-	 ieQM7/n8N0KBgbwhH/emp52BGrSzhLV1C0jrlKI2/h763qC+7/RPi2ZfQcWWZEc6ch
-	 aiEGjSMLBvMjN11U9v2oyFssML7jbW4fmfSL5FlAG8walVSgCTnqzgNEOuPOuIQTwm
-	 x10K3aXhDy+KA==
+	b=df2+xZ1BDYJZzZCTzZtdsOaTCtP7udx/hBLZ8Map/n8yRLGw/2hgWojU9Ki2KSURY
+	 T6kqv0W4h0ObzrHjtjA0RuQWNFtzn4G61xXD2hMppvTORFH5z+RkRt3lKHWdVJE18e
+	 uwkq4XqxdWjJtz+XB74IPkkXLbO+mdQLMjnMAHodkQvbjY0cSNfuqKd8UW1mB3DkWU
+	 eVaqmto/QbyVL3H84HBAsLs2IuTWwmFYJYGwTFH7EUbQaZ6cG8EKmp0sLkV0gYtse4
+	 ZnzcH7kuVLuiCsiC6oMoKw0FeCYywTZTiZUlIJLFPuYY55ZQwAU91/6wDSqWm4kqNl
+	 hy+3dGjNFyTSA==
 From: Sasha Levin <sashal@kernel.org>
-To: guolingxing@tju.edu.cn,
-	wqu@suse.com,
-	dsterba@suse.com
+To: gianluca.balboni06@gmail.com,
+	vijendar.mukunda@amd.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] btrfs: prevent deleting the wrong subvolume by ID" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:06:32 -0500
-Message-ID: <20261109200632-failed-6.12-1960146913b3@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:06:35 -0500
+Message-ID: <20261109200634-failed-6.12-1e73257dff33@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,71 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1960146913b31b288ed2cd607d103ee3b41681d4
+git cherry-pick -x 1e73257dff33ff851af60d5bb00d73893a8b6dc8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200632-failed-6.12-1960146913b3@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200634-failed-6.12-1e73257dff33@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1960146913b31b288ed2cd607d103ee3b41681d4 Mon Sep 17 00:00:00 2001
-From: guolingxing <guolingxing@tju.edu.cn>
-Date: Sun, 18 Oct 2026 15:38:10 +0000
-Subject: [PATCH] btrfs: prevent deleting the wrong subvolume by ID
+From 1e73257dff33ff851af60d5bb00d73893a8b6dc8 Mon Sep 17 00:00:00 2001
+From: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Date: Sat, 31 Oct 2026 11:21:36 +0100
+Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop
+ 16-by0xxx
 
-When deleting a subvolume by ID, btrfs_ioctl_snap_destroy() first
-resolves the requested ID to a name, then looks up that name again
-under the parent directory lock.
+The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
+connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
+AcpDmicConnected _DSD property or the _WOV method, and the board is missing
+from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
+capture device is registered.
 
-A concurrent rename can change which subvolume is associated with
-the name between these operations. Since the deletion path does not
-verify the ID of the resolved subvolume, it can delete a different
-subvolume while leaving the requested one intact.
+Add a DMI quirk entry for this model to enable ACP DMIC support.
 
-This was reproduced by repeatedly exchanging the names of two
-subvolumes using renameat2(RENAME_EXCHANGE) while deleting one of
-them by ID. The wrong subvolume was deleted in 9 out of 14 independent
-tests.
-
-Fix this by checking that the resolved subvolume ID matches the
-requested ID while holding the parent directory lock. Return -EAGAIN
-on a mismatch so that userspace can retry the operation instead of
-being told that the requested subvolume does not exist.
-
-Fixes: 949964c92843 ("btrfs: add new BTRFS_IOC_SNAP_DESTROY_V2 ioctl")
-CC: stable@vger.kernel.org
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- fs/btrfs/ioctl.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 43a945345cbe1..847fdc19bd402 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -2393,6 +2393,17 @@ static noinline int btrfs_ioctl_snap_destroy(struct file *file,
- 
- 	inode = d_inode(dentry);
- 	dest = BTRFS_I(inode)->root;
-+
-+	/*
-+	 * A concurrent rename may have changed which subvolume the name
-+	 * refers to. Verify that the resolved ID still matches the requested ID.
-+	 */
-+	if (destroy_v2 && (vol_args2->flags & BTRFS_SUBVOL_SPEC_BY_ID) &&
-+	    btrfs_root_id(dest) != vol_args2->subvolid) {
-+		ret = -EAGAIN;
-+		goto out_end_removing;
-+	}
-+
- 	if (!capable(CAP_SYS_ADMIN)) {
- 		/*
- 		 * Regular user.  Only allow this with a special mount
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 1d06b2a16e58d..4908f4cc147a3 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -780,6 +780,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8DC2"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.53.0
 
