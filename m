@@ -1,45 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353925;
-	b=is57tSIYL8UhEJjTvgyZCoG6ac0zocyej/42yVfHHhv7cLIfmnfrSw1Z3QEUu4lAaAM6
-	 Oy3PaqSGTbbQyhIk0oZzQ8/KpmUuY1mmh/R2XkbFvVjpoM9glaV+9jgfdSgHVh12RkOUT
-	 2W8UJxsyM51X5f/zGU73XAJfDcYc3x0y+G7gbc1b5Shhpaf3+RRD8Z4yiz+tt5PfqvXjN
-	 dw9ZOebfrW6d4rkoWY1wQPSjhuzPE2IRsbmrPv15e9NwmEAyfLlybQbn7+Km4ahvs3i7q
-	 zHgIwx6vTQQMTH+8f18mZYScGRRDCNporioTZ3+gbsysR1+q8cExFcthOkHlegvF7FA==
+	t=1794353983;
+	b=4C42Nei3zRLMaX3pyZxbBH8ifegaabmJcqdCOFIkxlq5Yns+Iu+D47Zj6cMi0cYDWpWQ
+	 bFmKhkjHrdU5hsilTqU0ydhp6gEGfYUXOjCa1ewqS4LFsI0jTzatTlPgBzjpK0H1zZcxB
+	 GqhU24wKOFn4XBLSMhV2B3skfGFa8g6cFsBvpeQDkr9plRdlNFdO+F5kADZaMJKwdD25Z
+	 uR8dyTgB+SSi++HiYRNW+UlBZ3NE6fGAzhhP7ZYFbp98ygXlEq2igFPwShdtD8FEyWelR
+	 LvY/zLEEJjCJ4adeDrY0//7CyvYi/6gGCPC1TXb9rTVdMEaOv8PPFNA+rwp6iX7KL/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353925;
-	h=DMARC-Filter:From:To:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Received:DKIM-Signature;
-	bh=BYtc4AWPhVny+xhWBL5yTfMna4RAO65E69fTWhvxPwk=;
-	b=38QvEbSmKMlOvInS14kCrpLLtbf9FjQPhVb8ITvF6neJ5STLuFcNjK2pLY5xOqL831qN
-	 ZhLBNpiARIo4v9QqxbNL5Ujib19Bie0PgHUVpHKqLE4ukPObzbIEcvIfPd3DbInc3H+31
-	 skIRMTOIcOF5m9obilal50w12SLS/skzOCYOBT09B4ZNgbJ6be0MF0V2KV8lBHhVHZlXh
-	 3SInngUpPemFCzddakIIk6ogmS5aD2DUHF/Q2U2J3kfTRmc1kN4kG5EmfWtMr1YwBteh7
-	 Jhw14a76ny83IEMp1977kh/i89Eqp3edCXyjCvfLUOE5ZiGkNYxZRRYhAFNpf18Tn0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353983;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=QGGMpBCsoEcZzTz7lp62vNld0psDPiE7D0Ql/EgV7Gc=;
+	b=EwVvXc5kDOjV/+DfisX2/w4jYFopqy5LyBO0QyfHtnsBK67H0nCS3Ib5yOxTIvDHz34y
+	 NHVZJ5tEKHp8mM4wDuSR2M1mXuicDrxrjKHUB4kB4Jv+v+stdsYKjibXs10wq0k2OasLq
+	 9ms+6N0QlKT9ZbvA79Blv87qcCGKcxTh+FORNW4JVl+r+Ojok+q+DpIn9psTUgCkrCMdp
+	 I4Yqb0IOfRrj/equEI4lCE7Us1kOvfIo9QYjSOtn1spJCQPCscKMbnXR/g7nLSweCAIxJ
+	 fOKADg1Y2UcGyERsbYST9ItVhtToLdGySmwuWCc6h7fgcffOuPFINckt24Zn0M2WqkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rimpianto.com;
-	spf=pass smtp.mailfrom=rimpianto.com;
-	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=e1AMSiso;
-	arc=none smtp.remote-ip=46.14.198.178
-Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgW6eOfU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC27606A32D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEC27606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1589A606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:39:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=e1AMSiso
-Authentication-Results: mail.rimpianto.com;
-	auth=pass (plain)
-From: Federico Musto <federico@rimpianto.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgW6eOfU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6C21F0093C;
+	Tue, 10 Nov 2026 23:39:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794353982;
+	bh=QGGMpBCsoEcZzTz7lp62vNld0psDPiE7D0Ql/EgV7Gc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jgW6eOfUfC7yFz977SKb8ULcSPmnb1ncQwaLrFeenW2VsC+KWk069YyOIYV63KlgT
+	 gZPbGJE88ncMX9NOjnV+q32ooiEDZ2Wvml5glPoConP3dTh9UQv8lW5uAdqzYgNjde
+	 fgXukOXf+I+REtzaL6UmHmCy7d8X8cdb/AdfxpXycuvqe8zbNVKrLHe6KqSDdHcylQ
+	 Rsdu2blxDI5Rqo5Wq864//46tQZVRHPtcf2swv9StzYEBtnJLjW6U/lfpb31Xz4tEZ
+	 Nxx9YcYEMVoNfbQmPDL9fF8rAx7RK74GCEUcczIkxolLX1LZ539NDYzQQ7KDvnQl8V
+	 JuUupiH1PKV+g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Subject: [PATCH 5.10] net: atl1c: drop oversized RX frames instead of panicking
-Date: Wed, 11 Nov 2026 00:38:36 +0100
-Message-ID: <20261110233836.64643-1-federico@rimpianto.com>
-X-Mailer: git-send-email 2.54.0
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] media: atmel-isi: release unregistered video device on remove
+Date: Tue, 10 Nov 2026 18:39:40 -0500
+Message-ID: <20261110233922.175379-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061646-failed-5.10-c0a6d78dad3a@kernel.org>
+References: <20261107061646-failed-5.10-c0a6d78dad3a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,92 +61,70 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id CB050659-9BD4-43A6-B2F7-D678A45293AA.1
-	envelope-from <federico@rimpianto.com>
-	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Wed, 11 Nov 2026 00:38:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: To:
- From; q=dns/txt; s=s20260314391; t=1794353916;
- bh=BYtc4AWPhVny+xhWBL5yTfMna4RAO65E69fTWhvxPwk=;
- b=e1AMSisoGmeJTmW38MjXLtuf1RtrX71NFj6Qw4cGiSe/8l173QZannD4e6gLKfxjPfqS+BWPl
- DiB/3uhPdgkN5S4xl86vGmQ+3UxG3Xv2tNPnPWJhFF8TnEF2uOgOAqv4BtEc/N+2FRZLnl4oMql
- rLMXhKxyc2LkLugUzmHK5nRpVazY9U5kxhv9T5XkgPhrVCun8Mj8za0yjodccJ45FF/linudATG
- NvO8aiIDgn8R5A+10j/Cx8rqOhaIi9u4TDQ3bSvobR5XNflK0zmu7mJlH+VI80V4HTaVGc6jJA4
- +Fg+Pc/VZTkIOYd884CIjqj79+gTWORqmdC74s9CMuxQ==
 
-[ Upstream commit c4ba1716853d ]
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
-overheads, which comes to 1522 bytes at the default MTU.  A link partner
-that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
-whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
-- makes the length reported by the RX return descriptor exceed what the
-hardware wrote, and skb_put() then either includes bytes that were never
-received or trips skb_over_panic and takes the host down.
+[ Upstream commit c0a6d78dad3af1def80f04df82bfd70456ec406c ]
 
-Compare the descriptor length against buffer_info->length, the length the
-hardware was given, rather than against skb_tailroom(): the skb carries 64
-bytes of slack for the DMA erratum, so tailroom is larger than the DMA
-buffer and a frame in between would pass the check and still be delivered
-with a tail the device never wrote.  The same test rejects frames shorter
-than ETH_HLEN + ETH_FCS_LEN; before this change a reported length below
-ETH_FCS_LEN underflowed in skb_put().
+atmel_isi_probe() allocates the video device before registering the
+V4L2 async notifier. The video device is registered later from the
+notifier complete callback once the remote subdevice has been bound.
 
-The frame is dropped and counted, and it counts as work: atl1c_clean_rfd()
-has already recycled the RFD, and the refill at the end of the poll only
-runs when work_done is non-zero, so sustained oversized traffic would
-otherwise drain the ring and stop RX.
+The remove path relies on the notifier unbind callback to unregister
+the video device. However, if the remote subdevice is never bound, or
+the complete callback fails before video_register_device() succeeds,
+the video device remains unregistered. In that case the unbind path
+does not release the object allocated by video_device_alloc(), and the
+remove path leaks it.
 
-[ Backport to 5.10: dev_core_stats_rx_dropped_inc() is not available
-  before v5.16 and kfree_skb_reason()/SKB_DROP_REASON_PKT_TOO_BIG before
-  v5.17, so count with netdev->stats.rx_dropped++ and free with
-  dev_kfree_skb_any() instead.  work_done is an int * in
-  atl1c_clean_rx_irq() here, so increment (*work_done)++.  The drop count
-  does not survive atl1c_get_stats() overwriting it, but the panic is
-  fixed. ]
+Only unregister the video device from the unbind callback when it has
+actually been registered, and clear the driver pointer afterwards.
+After unregistering and cleaning up the notifier, release the video
+device directly if the pointer is still present. This covers devices
+that were allocated but never registered while avoiding a second
+release of successfully registered devices.
 
-Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+This issue was found by manual code inspection.
+
+Fixes: d12c9088c0b2a ("[media] atmel-isi: remove dependency of the soc-camera framework")
 Cc: stable@vger.kernel.org
-Signed-off-by: Federico Musto <federico@rimpianto.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+[ sashal: adjusted context for the int-returning atmel_isi_remove() callback using older V4L2 async notifier calls ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net/ethernet/atheros/atl1c/atl1c_main.c   | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/media/platform/atmel/atmel-isi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-index 46a293b..5ab85cf 100644
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -1844,6 +1844,28 @@ rrs_checked:
- 			break;
- 		}
- 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+diff --git a/drivers/media/platform/atmel/atmel-isi.c b/drivers/media/platform/atmel/atmel-isi.c
+index d74aa73f26bea..925dcb30818fb 100644
+--- a/drivers/media/platform/atmel/atmel-isi.c
++++ b/drivers/media/platform/atmel/atmel-isi.c
+@@ -1111,10 +1111,13 @@ static void isi_graph_notify_unbind(struct v4l2_async_notifier *notifier,
+ {
+ 	struct atmel_isi *isi = notifier_to_isi(notifier);
+ 
++	if (!video_is_registered(isi->vdev))
++		return;
 +
-+		/* A link partner whose l2mtu is larger than ours can hand us a
-+		 * frame that does not fit the buffer the hardware was given:
-+		 * the descriptor reports the untruncated length while at most
-+		 * buffer_info->length bytes were written.  Bound it by what the
-+		 * device actually wrote; a frame longer than that would make
-+		 * skb_put() pull in bytes the device never wrote and, past the
-+		 * end of the skb, panic the host.  Frames shorter than an
-+		 * Ethernet header plus its FCS are rejected by the same test.
-+		 */
-+		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN ||
-+			     length > buffer_info->length)) {
-+			netdev->stats.rx_dropped++;
-+			if (netif_msg_rx_err(adapter))
-+				dev_warn_ratelimited(&pdev->dev,
-+						     "dropped rx frame: %u bytes, buffer %u\n",
-+						     length, buffer_info->length);
-+			dev_kfree_skb_any(skb);
-+			(*work_done)++;
-+			continue;
-+		}
-+
- 		skb_put(skb, length - ETH_FCS_LEN);
- 		skb->protocol = eth_type_trans(skb, netdev);
- 		atl1c_rx_checksum(adapter, skb, rrs);
+ 	dev_dbg(isi->dev, "Removing %s\n", video_device_node_name(isi->vdev));
+ 
+-	/* Checks internally if vdev have been init or not */
+ 	video_unregister_device(isi->vdev);
++	isi->vdev = NULL;
+ }
+ 
+ static int isi_graph_notify_bound(struct v4l2_async_notifier *notifier,
+@@ -1335,6 +1338,8 @@ static int atmel_isi_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ 	v4l2_async_notifier_unregister(&isi->notifier);
+ 	v4l2_async_notifier_cleanup(&isi->notifier);
++	if (isi->vdev)
++		video_device_release(isi->vdev);
+ 	v4l2_device_unregister(&isi->v4l2_dev);
+ 
+ 	return 0;
 -- 
-2.54.0 (Apple Git-157)
+2.53.0
 
