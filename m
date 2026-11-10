@@ -1,57 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273366;
-	b=br+fpyv9j1HYiG3e/NeCTEZnnD9HJbBW+iPeFQOXm/NBJM4rPhqmYPj8NgDcmCseDLRA
-	 YHtQUcC6Mw9mRi62JV2DzErcwlbneWOdr74ZSJMY9u+zhIVi4fed7wPImQrRXT298pcMA
-	 Nrkpuy+0MVahVDrVlYvh0X0ywSdwxaRR3J1x0/uxRzdXWoAJ38CxTQrMr2PFmi67TNB0Q
-	 TuEbqVbfl2oTl2jC4BZhPrEf3fIpPDU4/b2pixrcKSnKUMO7sUHaCLQbzFdQiFzLNk/TZ
-	 5f+/x0+W/tuwAMae0INJZNDVJgJteXcsZxN632JpNtARwKy6aa3eWGI4Koahld+zQMQ==
+	t=1794273369;
+	b=0n0Gabd0jbXWegTn9YyOhoOGCcfoeYZFTp9PHG7KY/AorJsvU8q1ML5VJn5FUv714Akt
+	 yONZi9/Q4Wp/Yn35c0UMZ1MiQPFeH/KzV5v6u5ChD6/A7WsjkxCzsNxqj8PgwBhBm12Cm
+	 CPtqC9QVbndT1u+R2UFSeHjpNVum7igkigUU2IBYKyLywfh0U22DaapFDKCmPD16FlNM4
+	 j+/qDaWqZ5IW2+nKFv6ji1D3eQGPuXCuhThjXOQDXJV5Ey9L7tvJnrN5Hkv33KH9Fxg8p
+	 bi4DmhNPu2gu0VT0KggXJk7jSjdkRZPjxb++RbP0lAaxze8m5hJnUd5NGZWa3RbxPwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273366;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273369;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9NN7OwYT9BmHhkZl0wY7CMqBUxFkpFVFa0oL9UDhax0=;
-	b=Z1EZDRz6+RuhSA6T2pc2aw+gwAmwRHBz4PF3JBeRftBm48hw2c4LgmQou4Sze0CK8swn
-	 aIdaouY4XmZRP/0FnmWsGcmyQjVT/W7PGhVIcqFhpzi+3mIxBigrJNiFXkcGKutyBuVQ6
-	 AKvEljOT9JS7nNlE5vt1WxFe8BSGg2xUYbzsWVO1CdM5aOHKSzxvvsgTqpx+HICeWMdBf
-	 CXKmQAvbZpih3refMKpbec3jp0GEYb1ZHfshpMMlJnCJVhIVjHM5SMSICfYC8vMbXim06
-	 Gc0n50NfImTOMghvb3WVzhoHrO7a0WsSX/wrjW3WhMPALtPx73MvqpkkFtHl0z5IXYw==
+	bh=9+nV0DByAoHJaum/+GKfbS8otCnqVqYoaV/2Pba+ODk=;
+	b=xguSQBa8CoLpnd3G/vOUqvCGLrO1gw4sLQOzfwbIK8cYYcRnWPOecbqr3WulUghDiODj
+	 CVYou+LbWNy7bG+0/+feS8zZOiEfHKjA8YRoMSg3KEIZ2/wguwj3GSZrxo8PqmaklXlS8
+	 8/2oMtsaRgzzBKcUNj4b1wAw1pVr9S1NdCTdlpVZzAuuZNhtqdR462cTt28yyHbX9CoxF
+	 Ccf7dMAhAaixHenmAwfuNx0uAfj7eA1xf+jBlERBuRDFukIgdJKOdBXnHQnkjzbfsKpyq
+	 rjt2PjgWaGrUiXYUKFOBGX+c5v07jSjV38mPbFcKaIRRQsbp/r0yIt/EIGEZo9jU4TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQ1a2hjA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ex53Yq6w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FB8606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DA7606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQ1a2hjA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B23D1F0089F;
-	Tue, 10 Nov 2026 01:16:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ex53Yq6w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6027D1F0089F;
+	Tue, 10 Nov 2026 01:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273365;
-	bh=9NN7OwYT9BmHhkZl0wY7CMqBUxFkpFVFa0oL9UDhax0=;
+	s=k20260515; t=1794273369;
+	bh=9+nV0DByAoHJaum/+GKfbS8otCnqVqYoaV/2Pba+ODk=;
 	h=From:To:Cc:Subject:Date;
-	b=MQ1a2hjAGeuyv+vIDecT1IwRicVYirZlswrl0itNQG/rAWtIaLYr5YHbmdvRgXKOn
-	 lmJ87n5i9IIXE/2OdngngUVNqjTdnRvGryAdhEeSvf6kaDrAFQx1H/ZPjIsxdifNAH
-	 0JTnzGWAaLYw5hzD1B5q3rg31cH/pVlHb7yh+xx9HhbdBe6h/dEplK/sML+gBo4z6q
-	 1Z3/6a/bcZyAA/alJVmNXP3v0/9chVhhqqPaoQj82cJwiw+3J5lsJdRkxvSLbdhUf7
-	 3LdObS3heG4HB8j3smsi2AT9Wcu7hZQNBbOV+gGylAcdmd1aoWm01goXS7Gwulydvs
-	 mMeWyAKtHLkmA==
+	b=Ex53Yq6wR99jx2+2Qqouk4ssFYmf9YaPUPxoHzsTxv+AlWtmybV1f176ZWOOlc43S
+	 5AjG0XHXPwzXZG1A2C7m2LxKbCc1/4A5pP1iIZ8vjOncSim7WSgupNIueb5loEaz/6
+	 qqJ7aFLbMj7q8afWJyo1RDn9FtCsgQ6M0XFD6BKDCdnJr0U3KeCq4sFUIcZGGB/INP
+	 oEiYYEQmBcKc1LRTlEmXnmJjP+jndFSw0oDmW9pt3Ufh75F64hjRm1cYU2PSoAOY5L
+	 lDICD4jSpWwdY9Cv4gAqridzqG7uuOoZHY/DoMZzL7zwoL3z8lcUDGpuS+DFj9c5uc
+	 Ryu24Cl08U/kQ==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	ljs@kernel.org,
-	josef@toxicpanda.com,
-	harry@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	usama.anjum@arm.com,
-	baolin.wang@linux.alibaba.com
+To: daejun7.park@samsung.com,
+	dgc@kernel.org,
+	hch@lst.de,
+	cem@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/rmap: handle device-exclusive entries in folio_referenced_one()" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:16:03 -0500
-Message-ID: <20261109201603-failed-6.1-f3c493d2f42b@kernel.org>
+Subject: FAILED: patch "[PATCH] xfs: don't skip free extents of the longest length in a whole-AG FITRIM" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:16:06 -0500
+Message-ID: <20261109201606-failed-6.1-5745f4f10a1a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,109 +70,64 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c
+git cherry-pick -x 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201603-failed-6.1-f3c493d2f42b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201606-failed-6.1-5745f4f10a1a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:38 +0100
-Subject: [PATCH] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
+From 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Mon, 26 Oct 2026 10:54:06 +0900
+Subject: [PATCH] xfs: don't skip free extents of the longest length in a
+ whole-AG FITRIM
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
+by-length walk of an AG in FITRIM starts with
+xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
+lands on the longest free extent with the lowest block number. The
+other free extents of that length sort after it and are never
+discarded.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
-
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
-
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
-
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Suggested-by: Dave Chinner <dgc@kernel.org>
+Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- mm/rmap.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ fs/xfs/xfs_discard.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1131b76bbbc28..0faef46806e5c 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
- 	int ptes = 0, referenced = 0;
- 	unsigned int nr;
-+	pte_t pteval;
- 
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		address = pvmw.address;
-@@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
- 			return false;
- 		}
- 
--		if (pvmw.pte && folio_test_large(folio)) {
-+		if (pvmw.pte)
-+			pteval = ptep_get(pvmw.pte);
-+
-+		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
- 			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
- 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
--			pte_t pteval = ptep_get(pvmw.pte);
- 
- 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
- 		}
-@@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
- 		 * are. —they could be on active/inactive lists or on MGLRU. So the
- 		 * simplest approach is to disable this look-around optimization.
- 		 */
--		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
-+		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
-+		    pte_present(pteval)) {
- 			if (lru_gen_look_around(&pvmw, nr))
- 				referenced++;
- 		} else if (pvmw.pte) {
--			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
-+			bool young = false;
-+
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + nr * PAGE_SIZE);
-+			if (young)
- 				referenced++;
- 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
- 			if (pmdp_clear_flush_young_notify(vma, address,
+diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
+index 8120f136af931..cdf660344c281 100644
+--- a/fs/xfs/xfs_discard.c
++++ b/fs/xfs/xfs_discard.c
+@@ -200,12 +200,12 @@ xfs_trim_gather_extents(
+ 		error = xfs_alloc_lookup_le(cur, tcur->start, 0, &i);
+ 		if (!error && !i)
+ 			error = xfs_alloc_lookup_ge(cur, tcur->start, 0, &i);
+-	} else if (tcur->restart_bno == NULLAGBLOCK) {
+-		/* first time through a by-len starts with max length */
+-		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+-		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
+ 	} else {
+-		/* nth time through a by-len starts where we left off */
++		/*
++		 * A by-len walk starts at the last record of the longest
++		 * length (restart_bno is NULLAGBLOCK until the first batch
++		 * ends) and then where the previous batch stopped.
++		 */
+ 		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
+ 		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
+ 					    tcur->count, &i);
 -- 
 2.53.0
 
