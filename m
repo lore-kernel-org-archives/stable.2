@@ -1,66 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272678;
-	b=TKmz4N8fcZvuNgdq9MiCoqXYgTfxneEe3xzZrIpdMWn5GpXbRfLr2wSxLo1yWGppVvmX
-	 Xz23IO8bfDAl6/Eo279na+JVTYM3IWVyOYdTzMtBW1nXYS+0DTlK8I2ywWKWmNfKjFK4D
-	 xk293G0IsxQLIFPzXLKc0QUXj+pct0XXL+rz+7z5Ql8hSiqhCIadGuJRJmzWjsiMPK4aG
-	 GT7c1+s/NaeOLxcrSUWB53fXUa0dmEEaayy49vftxcbpxE53lnfyUQTC4/0NjQs8P8qxs
-	 OJgI7xtLb4LYjGGhvepqjj3hElD5yqxjZSj0nueac/N8CRu3SDkFRQDwm7iVbhqinYw==
+	t=1794272681;
+	b=2PT/iI9E+o/Wy+Xd/Xy7O3YvsNqFECmZQupkgbPYtwmQDNt60BMyRLBavc/48k4fEG8k
+	 sONNXQmg1XWlW9F6XnEzenwLLiFInjCAdZf2uNXFHBVua5v5huNUmaWf1RuW6cLzRo5e2
+	 texHWdatnzzr/VfI6IYOizkRq+m1uCGXFdvwX6pT7r804yqMUNtwKaRDaKJtcgQqv1JUe
+	 72fd8Dx2vkhTXROBS9wIijjAX/naAjVrejaJ7ZDNpd1N9kXHVmmgGWnCTkSaPqUgae0gI
+	 CoYK/7dVWMUTOQROaKz/GBw6kp6IRUNUjx3WtdeyyMIpR3rYi6Y6J6XRZkB70EtEOVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272678;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272681;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=E9GfAIkBIMSt7qWbMvy5HKatGrNyxnC/RXI2tupDNJQ=;
-	b=0vxCa2Du59tVv4GXk3+KaqhFXpWvguvbQQOZM3YS8ZoX4Z0JPT/tElS6isnp/7G5dFU8
-	 fC1q6BvvN1q4OhnHrQ/DzjJWgbnh17egzXD1FB2BVnjV0QMic432VtFGp6v5kA1pnlKIi
-	 IFGuacx7XrYkiiMQrc81vRvIyXOE6CF2qUX4W9QblXwjAFYd7196tNt4ZjsMtT53D17h/
-	 jIIrjLAJLWovudNHqqhFVsJLyE8UIr/4dymWCDIcLym1XCFiBQKOHWIPLzFHuTFMoQ97j
-	 KyXVm51RKvFOpTsP0N0qjfaROMkPnYICjgfFcPpsiiZGfNODiMCGQt/383w0D3r6fuw==
+	bh=6xr/3Ef7UBLna/FFLPRP/baBG1tmFnds3X//aV1e330=;
+	b=JUYXNtrHtXZFki4UFueha9yqtysPiLy9vJaLbksq5YDX9Q6KevRpoWTIg359aigEuXrB
+	 sWXvpN1k7HSDyo3nRjfkRgaFUJfkzxbaVrVpEh7JPXNECfv9LLtWCgwFqeEkTxENK5j7e
+	 stbusBCFw8CnHSAOb8uCqjZznNcXomhPAvOW3WfEhHTzX9gyOgTOguyiIigcGpXQakX1F
+	 dR+FtANWKz1rRhaxmK768WnJdpLk2+0+u4lxgHJJyKlG8BxFFFJUsrlAn/MCYR9sGkm18
+	 AVeSOZoDLlrA8LpOIFrNeFzsJLSHwg89avjwAYSXtGMAb4ahx9bDM+ZrD++ESb65hCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="C+uS5/N4";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ar6zHPKu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B68B606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285BF606A333
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+uS5/N4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7211E1F0089F;
-	Tue, 10 Nov 2026 01:04:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ar6zHPKu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FE21F008A1;
+	Tue, 10 Nov 2026 01:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272677;
-	bh=E9GfAIkBIMSt7qWbMvy5HKatGrNyxnC/RXI2tupDNJQ=;
+	s=k20260515; t=1794272680;
+	bh=6xr/3Ef7UBLna/FFLPRP/baBG1tmFnds3X//aV1e330=;
 	h=From:To:Cc:Subject:Date;
-	b=C+uS5/N4Ej1MwvoisXZs6dTbcnH8ZzIqss53GdqYFQTHXNmZUsOgDcsSqYpl6gpZ6
-	 nKTXdEvAizAGQ/V/MzPe3qyIxBdR2UmeiPJ5qN71vHa7/tANiD7YAX9mvtTcETaQ0T
-	 uXr0UtXEvDVafwp8tlhr2of7yWewFKve/BOSVTwWBx5VaLkfwaHjO7fh0tzWPOOyPs
-	 WEkVg2k2vR/2OJiddxGRp8QiTu+LwWjqC+kjwVxu06a1NOEujdqIJzwRAssuQhh9HL
-	 fDmKmC424VrbyYy2fI1oNhDHij+ivjtg+nca8E/j2cTFZq1/23q10gHonsnbp4731C
-	 orXVpiU5OrTfg==
+	b=ar6zHPKuMNRM8qallQeuJx+BXTepl+YpGMRLCkxFO4YkDTlvY23SCDPuXQqZWB9cu
+	 sWXl+/2tC1DyG2M1qG1zS1pdGQcOj6hwGivhvoN+XQ9/CVaWTgph98NZDbKGBNUADk
+	 MlONvYh1Z4At2MnkQdgkI87Vwl0Km+uO/73u+w7D3MwKuP/+o3WNcuSkdiwQ2VJOMO
+	 LITzUUWcQykeFq6MmZ9boKX4e4GGK2eP9sIsGc3B5EskQfJ2I0b1y1oE+yb52F8ur/
+	 mkM0A+qdQqZ+JSX36NeUMwGvxKD4Ue4/hMuIbXqwkTTlZWIpFV5eRPiarWQRVLkYcz
+	 SJrSX2/tisp0w==
 From: Sasha Levin <sashal@kernel.org>
-To: kas@kernel.org,
+To: zzzccc427@gmail.com,
 	akpm@linux-foundation.org,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	peterz@infradead.org,
-	fvdl@google.com,
-	willy@infradead.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org
+	joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	heming.zhao@suse.com,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/hugetlb_vmemmap: map the shared tail page writable" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:04:34 -0500
-Message-ID: <20261109200434-failed-6.18-0120a603afad@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2: validate move extents against a stable EOF" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:04:38 -0500
+Message-ID: <20261109200438-failed-6.18-84db6619cb70@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,132 +74,189 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0120a603afadba8ab4954bb1ce60f8195f80efc8
+git cherry-pick -x 84db6619cb702c37cf848b450c21b9c9706b0775
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200434-failed-6.18-0120a603afad@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200438-failed-6.18-84db6619cb70@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0120a603afadba8ab4954bb1ce60f8195f80efc8 Mon Sep 17 00:00:00 2001
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Date: Wed, 28 Oct 2026 13:26:21 +0000
-Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
+From 84db6619cb702c37cf848b450c21b9c9706b0775 Mon Sep 17 00:00:00 2001
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Mon, 26 Oct 2026 19:04:00 +0800
+Subject: [PATCH] ocfs2: validate move extents against a stable EOF
 
-page_ref_add_unless_zero() reads the refcount and then updates it with a
-cmpxchg.  A lockless get, such as a page cache lookup or a PFN scanner,
-can read a non-zero refcount from a page that is then freed and reused as
-a hugetlb tail page.  If HVO remaps its struct page to the shared tail
-page in between, the cmpxchg writes to read-only vmemmap:
+The move-extents range must be bounded by the inode size used for extent
+movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
+taking the local inode and cluster locks in ocfs2_move_extents().  It also
+uses separate i_size_read() calls for the range check and subtraction.
 
-    CPU0 (lockless get)               CPU1
-    c = atomic_read(&page->_refcount)
-                                      page freed
-                                      page allocated as a hugetlb tail
-                                      HVO remaps the struct page RO
-    try_cmpxchg(&page->_refcount, &c, c + 1)
-      -> write fault on read-only vmemmap
+A concurrent truncate can invalidate the first check and make the later
+unsigned subtraction underflow:
 
-The refcount is zero by then and the compare fails, but a compare-and-swap
-instruction needs write access whether or not it succeeds.  The kernel
-oopses when hugetlb pages are allocated at runtime with HVO enabled while
-a lockless get races with it.
+  Move-extents ioctl                  Truncate
+  ------------------                  --------
+  check me_start <= i_size
+                                      take inode and cluster locks
+                                      shrink EOF below me_start
+                                      release locks
+  compare me_start + me_len with EOF
+  set me_len = EOF - me_start
+    [unsigned underflow]
+  acquire inode and cluster locks
+  select extents using the bad range
 
-Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
-walkers") closed the window with RCU on both sides.  The RCU was removed
-together with fake heads, on the wrong belief that it was only needed for
-them.
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired.  Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
 
-Map the shared tail page writable instead of restoring the RCU.  Every
-struct page on it is a tail with a zero refcount, so a late cmpxchg
-fails and leaves the page unchanged.  RCU would put rcu_read_lock()
-back around every get and synchronize_rcu() back into hugetlb
-allocation and freeing.
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
+size.  Read EOF once, reject a start beyond it, and bound the length by
+EOF minus start.  Normalize the threshold using the same EOF snapshot.
+This keeps zero as the default-threshold sentinel until validation uses
+the size that will govern extent movement.
 
-The cost is the protection against stray writes to tail struct pages.  The
-shared page is shared by all hugetlb folios of the same order in the zone,
-so such a write now corrupts all of them instead of oopsing.
+Move goal validation after range adjustment as well.  Its allocation-group
+capacity check uses me_len and must see the EOF-clamped length.  Both
+validation failures use the existing inode-lock unwind path before any
+extent movement or transaction starts.
 
-Bootmem folios optimized when the memmap is set up keep their tails
-read-only.  Nothing does a lockless get on them before hugetlb takes them
-over.
+Range errors now reach the ioctl's normal copyout path, as goal errors
+already did.  Unlike the old early rejection, a failed copyout can
+therefore override -EINVAL with -EFAULT.
 
-Link: https://lore.kernel.org/20261028132623.2560146-1-kirill@shutemov.name
-Fixes: 32c440d67e6c ("mm: drop fake head checks")
-Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
+Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Frank van der Linden <fvdl@google.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- Documentation/mm/vmemmap_dedup.rst | 15 +++++++++++++--
- mm/hugetlb_vmemmap.c               |  8 +++++---
- 2 files changed, 18 insertions(+), 5 deletions(-)
+ fs/ocfs2/move_extents.c | 70 +++++++++++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 31 deletions(-)
 
-diff --git a/Documentation/mm/vmemmap_dedup.rst b/Documentation/mm/vmemmap_dedup.rst
-index 8c287ae3f86cc..5e792b7a27f07 100644
---- a/Documentation/mm/vmemmap_dedup.rst
-+++ b/Documentation/mm/vmemmap_dedup.rst
-@@ -130,8 +130,19 @@ pages of ``struct page`` (page 1 to page 7) are tail pages.
- The optimization is only applied when the size of the struct page is a power
- of 2. In this case, all tail pages of the same order are identical. See
- compound_head(). This allows us to remap the tail pages of the vmemmap to a
--shared, read-only page. The head page is also remapped to a new page. This
--allows the original vmemmap pages to be freed.
-+shared page. The head page is also remapped to a new page. This allows the
-+original vmemmap pages to be freed.
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index ad1678ee7cc46..93b45531bf7d8 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -907,6 +907,30 @@ static int __ocfs2_move_extents_range(struct buffer_head *di_bh,
+ 	return ret;
+ }
+ 
++static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
++						struct ocfs2_move_extents *range)
++{
++	u64 i_size = i_size_read(inode);
 +
-+The shared page is mapped writable. A lockless get of a page reference can
-+read a non-zero refcount before the remap and attempt its atomic update
-+after it. The refcount of a tail page is zero, so the update fails without
-+changing the page. Nothing else may write to the shared page: it is shared
-+by all HugeTLB pages of the same size in the zone, and a stray write would
-+corrupt all of them.
++	if (range->me_start > i_size)
++		return -EINVAL;
 +
-+HugeTLB pages whose vmemmap is optimized when the memmap is first set up at
-+boot keep a read-only mapping of the shared page. Nothing can do a lockless
-+get on them before they are handed to HugeTLB.
- 
- Here is how things look after remapping::
- 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 0057fa2a16a89..9aa8af5c8856c 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -222,10 +222,12 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
- 		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
- 
- 		/*
--		 * Remap the tail pages as read-only to catch illegal write
--		 * operation to the tail pages.
-+		 * Map the shared tail page writable. A lockless get that read
-+		 * a non-zero refcount before the remap can still do its
-+		 * cmpxchg after it. The refcount is zero, so the cmpxchg
-+		 * fails and leaves the page unchanged.
- 		 */
--		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL_RO);
-+		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL);
++	if (range->me_len > i_size - range->me_start)
++		range->me_len = i_size - range->me_start;
++
++	/*
++	 * The default threshold for defragmentation is 1 MiB, which
++	 * matches the maximum OCFS2 cluster size.
++	 */
++	if (!range->me_threshold)
++		range->me_threshold = 1024 * 1024;
++
++	if (range->me_threshold > i_size)
++		range->me_threshold = i_size;
++
++	return 0;
++}
++
+ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ {
+ 	int status;
+@@ -936,6 +960,21 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ 		goto out_rw_unlock;
  	}
  
- 	list_add(&page->lru, walk->vmemmap_pages);
++	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
++	if (status) {
++		mlog_errno(status);
++		goto out_inode_unlock;
++	}
++
++	/* The goal check depends on the adjusted range length. */
++	if (!context->auto_defrag) {
++		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
++		if (status) {
++			mlog_errno(status);
++			goto out_inode_unlock;
++		}
++	}
++
+ 	/*
+ 	 * remember ip_xattr_sem also needs to be held if necessary
+ 	 */
+@@ -1028,27 +1067,8 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 		goto out_free;
+ 	}
+ 
+-	if (range.me_start > i_size_read(inode)) {
+-		status = -EINVAL;
+-		goto out_free;
+-	}
+-
+-	if (range.me_start + range.me_len > i_size_read(inode))
+-			range.me_len = i_size_read(inode) - range.me_start;
+-
+ 	context->range = &range;
+ 
+-	/*
+-	 * ok, the default threshold for the defragmentation
+-	 * is 1M, since our maximum clustersize was 1M also.
+-	 * any thought?
+-	 */
+-	if (!range.me_threshold)
+-		range.me_threshold = 1024 * 1024;
+-
+-	if (range.me_threshold > i_size_read(inode))
+-		range.me_threshold = i_size_read(inode);
+-
+ 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
+ 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
+ 		status = -EINVAL;
+@@ -1060,23 +1080,11 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 
+ 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+ 			context->partial = 1;
+-	} else {
+-		/*
+-		 * first best-effort attempt to validate and adjust the goal
+-		 * (physical address in block), while it can't guarantee later
+-		 * operation can succeed all the time since global_bitmap may
+-		 * change a bit over time.
+-		 */
+-
+-		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+-		if (status)
+-			goto out_copy;
+ 	}
+ 
+ 	status = ocfs2_move_extents(context);
+ 	if (status)
+ 		mlog_errno(status);
+-out_copy:
+ 	/*
+ 	 * movement/defragmentation may end up being partially completed,
+ 	 * that's the reason why we need to return userspace the finished
 -- 
 2.53.0
 
