@@ -1,58 +1,134 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323101;
-	b=tPkfTF0q3PNDW41uWKfB6G2Lu+/WdqRc1VPqD8JGS7S7kOmnpI5M5+/FzbCgNjSDmy8c
-	 h1UHndnqKvcfFgw3W/g8LixzqV78exH/TdqG12tlK3fPrr3LsFC/dokYbitIoBgZ8f6FA
-	 rQVrp+e6u6/FZxc+x5kL+C5iOQYbfYEj0l5FM8SNGPHeAV2XFxd6LHiRPWuLOyhfa3onO
-	 YCRrS+r6NvhSB+dp2pWo2hqyzbCOE3BiTfFTkMaSNCQBPVeQiCY4/+eYJ9dHireaK7x32
-	 8rmLEZkjwCWica0RO2WQVLHyi9xlv89yJ0Zv0URkxgk7VSBaOSRTzjfiyoh/E4lXM9g==
+	t=1794323103;
+	b=U1ZX6ZiE8QDhQPL1WWqyew6rogZRK1vPxzUhvq23jPhyWcAz0bHZHITr9XIuG9wgS6Ko
+	 iQL/rRWtrz0s9ni6OnNH5YcwcycEis70s/1gP/tLnxzAryv9rVUAG3ldYLkfaGr/hn7th
+	 HodMjoJwILIr3gsARZy/VDshkGmyPUXqF0CdYo44JMi/JQH/jwXMTEjKmdBNgAupGl4ay
+	 puZiQxh0X86PLAPenN4mgI9Ltiip1RTVXxm5CTf+4IfWI9AEbtXwLu0zkh26n9Qca75Im
+	 5whR0+inC1d7xJFpCJO7v5QQ03L41RX3TPOcN9GjcuOIc57cWcgAJ8l4Yw+kNYQUwxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323101;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cv0JIW+GGtVaBIhZk6HWjdnehm2EU9thSggAb9CIMsY=;
-	b=T14MGfgDhMJoOAf/Ute0kbeDXKWNmSMvAL0pzgZ8yhj5C0nfugGOKX3f3eveH5ZxorBX
-	 SZH+QkK7UeBv80Wi0zBBRASOrbWTYArLo92CkqzvpPLqqjxtMo34rADF8d4BZuvbQaLrh
-	 Y82JM0p6JFBrkhuxPJiTToen6/UA+TtpxkgXlZR3l2A365NHEp7e0cmaTO+q8FhQbVV/o
-	 0GnPOOEDShcBJdkZftELU+7fDPQK3+zZps8qjIrXi2INXBoc44v211S6Uveis8HUrx3f4
-	 x5WFW/XDoVXars6pzO+JsCPqFrQvwxdgKapctUVQNuxdaQgjH20QRM+/UBEMVlKcYXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=TDkJzFh0bkGIcyIq5xVYxCRO2DZY5fQgIX/NBTvaYAc=;
+	b=kzipt0t5MACu1JloKt6HKZdmS28T517YCjCa9r3rk11VmjYlj9DyXfhXLFOAA9eaf7TB
+	 kFe1LP9R4WAN11Zff/5AjxJQgKWWRpEy5y9YQNTPXW0qGNkbNOkCHe+C2hWQ8xFwmsbvN
+	 3EGXIlcAa8pEpSZH+prAsn5l9wII8I+DESPW6E2jJ297MKpIwUJhIhMf/yaj7O6MNtaMT
+	 kFJi40Jt5mOPKtPKX/82eTqtj20HzQPfzeUYkU2qvUpWuYnvv3KDVVzfHLL+BR4jvsULm
+	 6nezplDO7E9QiO0TBBkp4RO2Zn4ZI/5iAwad9vkziCIBrgiIx+siOb+2r7YP+8+gQ3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MeRao+L4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OeAfKayF;
+	arc=none smtp.remote-ip=209.85.219.41
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED90606AA69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3DA60A2637
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:05:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA3DA60A2637
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MeRao+L4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227B11F00906;
-	Tue, 10 Nov 2026 15:05:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323100;
-	bh=cv0JIW+GGtVaBIhZk6HWjdnehm2EU9thSggAb9CIMsY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MeRao+L4HnfVHfA+u2WSvGxfsaA8eb+GvcU7Ngw3D+V5R1169FIZgL9xPFQOJGfMp
-	 q1vUBwz0bTozwcZ5Y+S7s81V27HYC/8CcKx406Gv+PfIaqm1M2FpbTebfvPVEZN96N
-	 GOaMn8fvMKlVEr5AcThxTxkgctaZX8imCNnetvUt0/tsFiI2b88J3ltRKthz4YOjVV
-	 GCic60RiM6f5QQnmdX6/h5yQ/UqKEFj5H+sdahtViUJ9uQCZBrnzyNRsfFtf5RPogQ
-	 k6AOqPAdct4JPWZ6JkFlW9mnNr6Kpddf4KNQK8sv++oPKFzaQ5NnXr8cPyBNa4Mh5n
-	 T1o0E2TOnmOxQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Ignat Korchagin <ignat@linux.win>,
-	Stefan Berger <stefanb@linux.ibm.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] crypto: ecc - Handle exceptional points in Shamir multiplication
-Date: Tue, 10 Nov 2026 10:04:58 -0500
-Message-ID: <20261110150430.2037653-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054349-failed-6.1-6fd70bc8bc01@kernel.org>
-References: <20261107054349-failed-6.1-6fd70bc8bc01@kernel.org>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OeAfKayF
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91eb7d1478cso21041316d6.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:05:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794323101; x=1794927901; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TDkJzFh0bkGIcyIq5xVYxCRO2DZY5fQgIX/NBTvaYAc=;
+        b=OeAfKayFw/U8tXt5+8PF5aWc1zYYuu9pB5Vj1H962RidOXYXTsiG3wR/DVlxvk3H+l
+         MlemwIPzI1Y5jf46zQFgEOeOB7YvK4K0OwbZ8RaBCi6F02UXyEq2HPJxmbflGr1tEyat
+         zRr6tz/9CoxDvwENnPBzrVxlNNeT+H5POsUJcnLwUSL1UO8TYaCyosrPyQIHd9QXCgFt
+         Wt+V+mH833LajUHFjMj70lrCVX+zcjGwZFT6NWZu2W7x3f081sdvVvVEouogFtKp0JSU
+         tdm+Us8+0eZIfuQ0zpttREeKLvR7ihFt1MxG2CUvC3yhry8s3MpD27q0xjWR97zKbAtT
+         /zBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323101; x=1794927901;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TDkJzFh0bkGIcyIq5xVYxCRO2DZY5fQgIX/NBTvaYAc=;
+        b=iZmWd8yYDZxOFIB5HT4dvlRdqQBjXj5Ddh+ano/u15z8rvh7l2RbxDyXtjcMCNlg6r
+         TiQulfmV3LVWx+1PVO76N5e9l2Fqd9OMs4Zn5urNazGkZMeNK82ycOsqHzcTxlhP/TN8
+         OBuydp7OZuw/I+2oVm+dNSGa8M6cyJnSlereBHxG41g0jdzPUS7s1Kjw2BpfbSEqp4nJ
+         ztULaGs6QSIjxYk5rnAEtewvKN2MQcOA66R96SDqlXCAWH1PKDWyuDRGmu3q8GYnYnBU
+         3FYx3pcr6VphUSsEpH5qNkeAWxY2qyALMWhb7Z/SUWuLL5zoZquw8Qe8tuIdj9oRHVaT
+         tkYQ==
+X-Forwarded-Encrypted: i=1; AL+hErFf37oad5QplYVnOhox48/Y3TdIm+Cku4hqGQtMzV4xLpuW9Jnej+wqzBhVUTzg6LMz5VERg8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kl1KG8cm/TjGYPRGEGP1jIlV8ywua732bwi+tG+xp6ZYFI3Zm
+	Gp0uU+CQExS5MBjX2msFl2I7UHpjpAI4w3KvzNU+CZVsujdZRpTrmZZQSNPTcURLKOM=
+X-Gm-Gg: AYBFou2Tn99b1M77bfC6hytuLsqZpmgXHgwkSW66wzAKNDJyIRsCr2gUefpBLAgYwX7
+	6gljZ2HRPIA+/Trg1JYpjeMbw7EVyyMjCGDJ1q2q78j8Nea8EnhMcIoE3bW7n9OjlZIIgGK6p+b
+	37n7bFQFUz8l8Ithaa6bG76dXnqzy0Q5gDGmv/l5hCdutE+9m8/FgrijPmIAcLqRPlulpu4mwMo
+	oWeyc2Qyy+8szJVQHVZRt3bQXZXdCckediXbjoEy4T+25P5xXcJk+AU94n8YpzWozyqqZdVN8jG
+	BRYw/sXEaNHKnbPd/vtvzEwJT9caOmZ3JWFY/2VXEeDrq49349/PDCOsSG1YJexGtFqlVOG5XYp
+	AZC8JhQdDbzBlSj842LYD+JICXV04CjLr/mXhB4NS06mis5e5X2QB9IIa6Dn1HDUcs/wjJBanac
+	sedoSGORr83CvRWLRVWfaEUONM8mHgtUkTRVJ1WxC0mOj4nBhFTdLstiR0gR/Joe4CoN4DC1q3U
+	S3ysp50QFLOW+cstKD5y8Prj8PYEnSEo/UhpNCUUltxPuVA3XMhwPh36lcklYovp9Mz/Q4Bs9Vm
+	cyJlG0V1ajDnwMKSKcoVcKn4oiHUNiEDuesfvfQn/NlGjVCJtjawSPhM4DWhgmfCgyzbS20tlkR
+	5okx/oqZoFHPZ0j0=
+X-Received: by 2002:a05:6214:3d07:b0:91c:78cd:3496 with SMTP id 6a1803df08f44-91eef963041mr42647946d6.30.1794323100558;
+        Tue, 10 Nov 2026 07:05:00 -0800 (PST)
+Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef031c7dasm22902406d6.1.2026.11.10.07.04.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 07:04:59 -0800 (PST)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@techsingularity.net,
+	mingo@kernel.org,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	matthew.brost@intel.com,
+	byungchul@sk.com,
+	apopple@nvidia.com,
+	jannh@google.com,
+	pfalcato@suse.de,
+	hannes@cmpxchg.org,
+	osalvador@suse.de,
+	raghavendra.kt@amd.com,
+	stable@vger.kernel.org
+Subject: [PATCH v5 3/7] sched/numa: scan read-only file mappings in tiering mode
+Date: Tue, 10 Nov 2026 10:04:42 -0500
+Message-ID: <20261110150446.2452975-4-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261110150446.2452975-1-gourry@gourry.net>
+References: <20261110150446.2452975-1-gourry@gourry.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,508 +138,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Commit 4591ce4f2d22 ("sched/numa: Do not trap hinting faults for
+shared libraries") excludes file-backed read-only VMAs from NUMA
+hint faulting to prevent east-west placement bouncing.
 
-[ Upstream commit 6fd70bc8bc01a578c7728b7bd1cb5689c62cc5b7 ]
+This filter hides hot file folios on slow memory from promotion.
 
-Shamir multiplication mishandles equal points, opposite points and the
-point at infinity. This rejects valid ECDSA signatures and can accept
-invalid digest/signature tuples when the public key is G or -G. The
-kernel incorrectly rejects 16 valid signatures from Wycheproof.
+Scan those VMAs when tiering is enabled, but make their scans promotion
+only to retain the existing restriction. Keep the historical VMA
+predicate unchanged for backport-ability.
 
-Handle doubling, cancellation and the point at infinity in precomputation
-and accumulation. Add regression tests for P-256 ECDSA and 256/512-bit
-EC-RDSA. The valid vectors are Wycheproof P1363 secp256r1/SHA-256 cases
-60 and 210 converted to X9.62, two constructed ECDSA signatures for
-Q = +/-G with k = 2, and six constructed EC-RDSA signatures for Q = G,
--G and -2G. Also add two invalid P-256 digest/signature tuples for
-Q = +/-G that must return -EKEYREJECTED.
+Decide the walk type for each VMA from the balancing-mode snapshot
+taken in task_numa_work(). A VMA gets a placement scan only when normal
+balancing is enabled and it is not a read-only file mapping. Otherwise
+the walk is promotion-only, and without tiering the VMA is skipped as
+before.
 
-Fixes: 0d7a78643f69 ("crypto: ecrdsa - add EC-RDSA (GOST 34.10) algorithm")
+On a host with 768 GB of DRAM and 256 GB of CXL memory running two
+database services using ~430GB each, 169 MB of their shared 185 MB
+main binary accumulated on CXL and was permanently stuck there.
+
+With the change, the binary tier residency tracks its runtime hotness.
+
+Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
-Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ sashal: adapted signature tests from the crypto_sig framework to the older akcipher test framework ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- crypto/ecc.c     |  33 ++++-
- crypto/testmgr.c |  10 +-
- crypto/testmgr.h | 339 ++++++++++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 375 insertions(+), 7 deletions(-)
+ kernel/sched/fair.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/crypto/ecc.c b/crypto/ecc.c
-index 11d6deed83e86..cd9f27aec9b22 100644
---- a/crypto/ecc.c
-+++ b/crypto/ecc.c
-@@ -1358,9 +1358,22 @@ static void ecc_point_add(const struct ecc_point *result,
- 	vli_set(result->x, q->x, ndigits);
- 	vli_set(result->y, q->y, ndigits);
- 	vli_mod_sub(z, result->x, p->x, curve->p, ndigits);
-+	if (vli_is_zero(z, ndigits)) {
-+		if (vli_cmp(p->y, q->y, ndigits)) {
-+			/* P + (-P) is the point at infinity. */
-+			vli_clear(result->x, ndigits);
-+			vli_clear(result->y, ndigits);
-+			return;
-+		}
-+		/* The co-Z addition formula does not handle P == Q. */
-+		z[0] = 1;
-+		ecc_point_double_jacobian(result->x, result->y, z, curve);
-+		goto out;
-+	}
- 	vli_set(px, p->x, ndigits);
- 	vli_set(py, p->y, ndigits);
- 	xycz_add(px, py, result->x, result->y, curve);
-+out:
- 	vli_mod_inv(z, z, curve->p, ndigits);
- 	apply_z(result->x, result->y, z, curve);
- }
-@@ -1399,21 +1412,37 @@ void ecc_point_mult_shamir(const struct ecc_point *result,
- 	vli_set(rx, point->x, ndigits);
- 	vli_set(ry, point->y, ndigits);
- 	vli_clear(z + 1, ndigits - 1);
--	z[0] = 1;
-+	z[0] = !ecc_point_is_zero(point);
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index e353d3d3012ea..c0b7271f1bce8 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -4272,22 +4272,21 @@ static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
+ static void task_numa_work(struct callback_head *work)
+ {
+ 	const unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
++	const bool tiering = numab_mode & NUMA_BALANCING_MEMORY_TIERING;
+ 	const bool balancing = numab_mode & NUMA_BALANCING_NORMAL;
+ 	unsigned long migrate, next_scan, now = jiffies;
+ 	struct task_struct *p = current;
+ 	struct mm_struct *mm = p->mm;
+ 	u64 runtime = p->se.sum_exec_runtime;
+ 	struct vm_area_struct *vma;
+-	unsigned long cp_flags = MM_CP_PROT_NUMA;
++	unsigned long cp_flags;
+ 	unsigned long start, end;
+ 	unsigned long nr_pte_updates = 0;
+ 	long pages, virtpages;
+ 	struct vma_iterator vmi;
+ 	bool vma_pids_skipped;
+ 	bool vma_pids_forced = false;
+-
+-	if (!balancing)
+-		cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
++	bool placement_scan;
  
- 	for (--i; i >= 0; i--) {
- 		ecc_point_double_jacobian(rx, ry, z, curve);
- 		idx = (!!vli_test_bit(u1, i)) | ((!!vli_test_bit(u2, i)) << 1);
- 		point = points[idx];
--		if (point) {
-+		if (point && !ecc_point_is_zero(point)) {
- 			u64 tx[ECC_MAX_DIGITS];
- 			u64 ty[ECC_MAX_DIGITS];
- 			u64 tz[ECC_MAX_DIGITS];
+ 	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
  
-+			if (vli_is_zero(z, ndigits)) {
-+				/* Adding to infinity starts a new accumulator. */
-+				vli_set(rx, point->x, ndigits);
-+				vli_set(ry, point->y, ndigits);
-+				z[0] = 1;
-+				continue;
-+			}
- 			vli_set(tx, point->x, ndigits);
- 			vli_set(ty, point->y, ndigits);
- 			apply_z(tx, ty, z, curve);
- 			vli_mod_sub(tz, rx, tx, curve->p, ndigits);
-+			if (vli_is_zero(tz, ndigits)) {
-+				if (!vli_cmp(ry, ty, ndigits))
-+					ecc_point_double_jacobian(rx, ry, z,
-+								  curve);
-+				else
-+					/* Adding opposite points yields infinity. */
-+					vli_clear(z, ndigits);
-+				continue;
-+			}
- 			xycz_add(tx, ty, rx, ry, curve);
- 			vli_mod_mult_fast(z, z, tz, curve);
+@@ -4375,13 +4374,22 @@ static void task_numa_work(struct callback_head *work)
  		}
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index 56c39a0c94952..876d9954e0b0f 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -4160,8 +4160,10 @@ static int test_akcipher_one(struct crypto_akcipher *tfm,
- 			      crypto_akcipher_verify(req) :
- 			      /* Run asymmetric encrypt */
- 			      crypto_akcipher_encrypt(req), &wait);
--	if (err) {
--		pr_err("alg: akcipher: %s test failed. err %d\n", op, err);
-+	if (err != vecs->verify_error) {
-+		pr_err("alg: akcipher: %s test failed: expected %d, got %d\n",
-+		       op, vecs->verify_error, err);
-+		err = err ?: -EINVAL;
- 		goto free_all;
- 	}
- 	if (!vecs->siggen_sigver_test && c) {
-@@ -4183,9 +4185,9 @@ static int test_akcipher_one(struct crypto_akcipher *tfm,
  
- 	/*
- 	 * Don't invoke (decrypt or sign) test which require a private key
--	 * for vectors with only a public key.
-+	 * for vectors with only a public key or an invalid signature.
- 	 */
--	if (vecs->public_key_vec) {
-+	if (vecs->public_key_vec || vecs->verify_error) {
- 		err = 0;
- 		goto free_all;
- 	}
-diff --git a/crypto/testmgr.h b/crypto/testmgr.h
-index d6088e26f3261..2000bfbc77266 100644
---- a/crypto/testmgr.h
-+++ b/crypto/testmgr.h
-@@ -157,6 +157,7 @@ struct akcipher_testvec {
- 	unsigned int param_len;
- 	unsigned int m_size;
- 	unsigned int c_size;
-+	int verify_error;
- 	bool public_key_vec;
- 	bool siggen_sigver_test;
- 	enum OID algo;
-@@ -778,6 +779,146 @@ static const struct akcipher_testvec ecdsa_nist_p192_tv_template[] = {
- };
+ 		/*
+-		 * Shared library pages mapped by multiple processes are not
+-		 * migrated as it is expected they are cache replicated. Avoid
+-		 * hinting faults in read-only file-backed mappings or the vDSO
+-		 * as migrating the pages will be of marginal benefit.
++		 * Shared library pages mapped by multiple processes are limited
++		 * to south->north migrations as it is expected they are cache
++		 * replicated. The benefit of east-west migration in this case
++		 * is at best marginal and may be harmful due to TLB/cache
++		 * invalidation.
++		 *
++		 * Allow promotion as a cold page incurring many cache-misses
++		 * under cache pressure can drive considerable bandwidth.
+ 		 */
+-		if (!vma->vm_mm ||
+-		    (vma->vm_file && (vma->vm_flags & (VM_READ|VM_WRITE)) == (VM_READ))) {
++		placement_scan = balancing;
++		if (placement_scan && vma->vm_file) {
++			if ((vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ)
++				placement_scan = false;
++		}
++
++		if (!vma->vm_mm || (!placement_scan && !tiering)) {
+ 			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_SHARED_RO);
+ 			continue;
+ 		}
+@@ -4461,6 +4469,10 @@ static void task_numa_work(struct callback_head *work)
+ 			continue;
+ 		}
  
- static const struct akcipher_testvec ecdsa_nist_p256_tv_template[] = {
-+	/* Invalid signature: Q = G, r = s, e = 3r mod n. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
-+	"\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
-+	"\xf5",
-+	.key_len = 65,
-+	.m =
-+	"\xb2\xc3\x09\x72\x03\x17\x9d\xaa\x5c\x4a\xd8\xff\x02\xfe\xcb\x15"
-+	"\x21\x53\x81\x77\x45\xec\x45\x24\x3d\x68\x10\xb9\xf2\xa5\x88\x3a",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x46\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e\x74\x18\xf2"
-+	"\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3\x10\x60\x9e"
-+	"\x7e\xfa\x58\x39\xd9\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e"
-+	"\x74\x18\xf2\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3"
-+	"\x10\x60\x9e\x7e\xfa\x58\x39\xd9",
-+	.c_size = 72,
-+	.verify_error = -EKEYREJECTED,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Invalid signature: Q = -G, r = s, e = 3r mod n. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
-+	"\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
-+	"\x0a",
-+	.key_len = 65,
-+	.m =
-+	"\xb2\xc3\x09\x72\x03\x17\x9d\xaa\x5c\x4a\xd8\xff\x02\xfe\xcb\x15"
-+	"\x21\x53\x81\x77\x45\xec\x45\x24\x3d\x68\x10\xb9\xf2\xa5\x88\x3a",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x46\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e\x74\x18\xf2"
-+	"\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3\x10\x60\x9e"
-+	"\x7e\xfa\x58\x39\xd9\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e"
-+	"\x74\x18\xf2\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3"
-+	"\x10\x60\x9e\x7e\xfa\x58\x39\xd9",
-+	.c_size = 72,
-+	.verify_error = -EKEYREJECTED,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Wycheproof secp256r1/SHA-256 tcId 60. */
-+	{
-+	.key =
-+	"\x04\x29\x27\xb1\x05\x12\xba\xe3\xed\xdc\xfe\x46\x78\x28\x12\x8b"
-+	"\xad\x29\x03\x26\x99\x19\xf7\x08\x60\x69\xc8\xc4\xdf\x6c\x73\x28"
-+	"\x38\xc7\x78\x79\x64\xea\xac\x00\xe5\x92\x1f\xb1\x49\x8a\x60\xf4"
-+	"\x60\x67\x66\xb3\xd9\x68\x50\x01\x55\x8d\x1a\x97\x4e\x73\x41\x51"
-+	"\x3e",
-+	.key_len = 65,
-+	.m =
-+	"\x70\x23\x9d\xd8\x77\xf7\xc9\x44\xc4\x22\xf4\x4d\xea\x4e\xd1\xa5"
-+	"\x2f\x26\x27\x41\x6f\xaf\x2f\x07\x2f\xa5\x0c\x77\x2e\xd6\xf8\x07",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x44\x02\x20\x64\xa1\xaa\xb5\x00\x0d\x0e\x80\x4f\x3e\x2f\xc0"
-+	"\x2b\xde\xe9\xbe\x8f\xf3\x12\x33\x4e\x2b\xa1\x6d\x11\x54\x7c\x97"
-+	"\x71\x1c\x89\x8e\x02\x20\x6a\xf0\x15\x97\x1c\xc3\x0b\xe6\xd1\xa2"
-+	"\x06\xd4\xe0\x13\xe0\x99\x77\x72\xa2\xf9\x1d\x73\x28\x6f\xfd\x68"
-+	"\x3b\x9b\xb2\xcf\x4f\x1b",
-+	.c_size = 70,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Wycheproof secp256r1/SHA-256 tcId 210. */
-+	{
-+	.key =
-+	"\x04\xc6\xa7\x71\x52\x70\x24\x22\x77\x92\x17\x0a\x6f\x8e\xee\x73"
-+	"\x5b\xf3\x2b\x7f\x98\xaf\x66\x9e\xad\x29\x98\x02\xe3\x2d\x7c\x31"
-+	"\x07\xbc\x3b\x4b\x5e\x65\xab\x88\x7b\xbd\x34\x35\x72\xb3\xe5\x61"
-+	"\x92\x61\xfe\x3a\x07\x3e\x2f\xfd\x78\x41\x2f\x72\x68\x67\xdb\x58"
-+	"\x9e",
-+	.key_len = 65,
-+	.m =
-+	"\xbb\x5a\x52\xf4\x2f\x9c\x92\x61\xed\x43\x61\xf5\x94\x22\xa1\xe3"
-+	"\x00\x36\xe7\xc3\x2b\x27\x0c\x88\x07\xa4\x19\xfe\xca\x60\x50\x23",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
-+	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
-+	"\x47\x66\x99\x78\x02\x21\x00\xb6\xdb\x6d\xb6\x24\x92\x49\x25\x49"
-+	"\x24\x92\x49\x24\x92\x49\x24\x62\x5b\xd7\xa0\x9b\xec\x4c\xa8\x1b"
-+	"\xcd\xd9\xf8\xfd\x6b\x63\xcc",
-+	.c_size = 71,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Q = G, d = 1, k = 2. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
-+	"\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
-+	"\xf5",
-+	.key_len = 65,
-+	.m =
-+	"\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
-+	"\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x44\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
-+	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
-+	"\x47\x66\x99\x78\x02\x20\x59\x47\xc9\x21\x23\x0e\xd1\x34\x0b\x03"
-+	"\xe6\xe3\x45\x6e\xab\x69\xf8\x66\xff\x7e\x8c\x7d\x1e\x13\x23\x17"
-+	"\x06\x8a\x84\xec\x1d\x22",
-+	.c_size = 70,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Q = -G, d = n - 1, k = 2. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
-+	"\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
-+	"\x0a",
-+	.key_len = 65,
-+	.m =
-+	"\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
-+	"\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
-+	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
-+	"\x47\x66\x99\x78\x02\x21\x00\xdc\x55\x4e\x07\x96\x0b\x81\xb6\x80"
-+	"\xb1\xae\xe0\x40\xb9\x90\xa5\xf4\xc4\x90\x49\xbb\xa2\xa1\x62\x70"
-+	"\xc5\x88\x51\x39\xe8\xa8\xfb",
-+	.c_size = 71,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
- 	{
- 	.key =
- 	"\x04\xb9\x7b\xbb\xd7\x17\x64\xd2\x7e\xfc\x81\x5d\x87\x06\x83\x41"
-@@ -1072,7 +1213,8 @@ static const struct akcipher_testvec ecdsa_nist_p384_tv_template[] = {
- };
- 
- /*
-- * EC-RDSA test vectors are generated by gost-engine.
-+ * EC-RDSA test vectors generated by gost-engine, followed by constructed
-+ * exceptional-point regression vectors.
-  */
- static const struct akcipher_testvec ecrdsa_tv_template[] = {
- 	{
-@@ -1223,6 +1365,201 @@ static const struct akcipher_testvec ecrdsa_tv_template[] = {
- 	.public_key_vec = true,
- 	.siggen_sigver_test = true,
- 	},
-+	/*
-+	 * Constructed EC-RDSA exceptional-point vectors.
-+	 * With Q = dG, choose k = z1 + d*z2 (mod n), r = x(kG) mod n,
-+	 * e = -r/z2 (mod n), and s = r*d + k*e (mod n).
-+	 * The input digest is e, encoded little-endian.
-+	 */
-+	/* cp256a: Q=G, z1 = 3, z2 = 1. */
-+	{
-+	.key =
-+	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
-+	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
-+	"\x91\x8d",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x1a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x49"
-+	"\x32\x67\xe0\x26\x16\xfd\xb7\xaf\xa4\xd7\x3e\x61\xd4\xf9\x7b\x94"
-+	"\xf7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7"
-+	"\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe4\xb7",
-+	.c_size = 64,
-+	.m =
-+	"\xdc\xd3\xfd\x46\xcb\x14\x9d\xe1\x8f\x92\x54\xb2\x0c\xa0\x22\x66"
-+	"\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x08",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* cp256a: Q=-G, z1 = 7, z2 = 6. */
-+	{
-+	.key =
-+	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x83\xdf\x60\x61\x63\x36\x53\xdd\x4e\x1c\xdc\x20\xd2\xb0"
-+	"\xd6\xca\x89\xd4\xc0\xba\xa5\xaf\x20\xd8\x25\x63\x67\x1f\x8e\x1b"
-+	"\x6e\x72",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x2a\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa"
-+	"\x92\x10\x2d\x68\x19\x8f\x22\xd5\x60\xeb\x59\xd6\xf3\xe5\x9e\xc2"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
-+	.c_size = 64,
-+	.m =
-+	"\xc3\x9e\xe5\xf3\xd6\x59\xeb\x60\xd5\x22\x8f\x19\x68\x2d\x10\x92"
-+	"\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\x2a",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* cp256a: Q=-2G, z1 = 5, z2 = 2. */
-+	{
-+	.key =
-+	"\x04\x40\x95\xfd\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
-+	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
-+	"\x91\x8d",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xb6\x30\x88\x38\x4c\xad\x68\x80\x22\xc2\x0d\x84\xdb\xb0\xdc\x47"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
-+	.c_size = 64,
-+	.m =
-+	"\x49\xdc\xb0\xdb\x84\x0d\xc2\x22\x80\x68\xad\x4c\x38\x88\x30\xb6"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=G, z1 = 3, z2 = 1. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\xa4\xf2\x15\x52\xcb\x89\xa5\x89\xb8\xf5\x35\xc2\x5f"
-+	"\xfe\x28\x80\xe9\x41\x3a\x0e\xa5\xe6\x75\x3d\xe9\x36\xd0\x4f\xbe"
-+	"\x26\x16\xdf\x21\xa9\xef\xcb\xfd\x64\x80\x77\xc1\xab\xf1\xac\x93"
-+	"\x1c\x5e\xce\xe6\x50\x54\xe2\x16\x88\x1b\xa6\xe3\x6a\x83\x7a\xe8"
-+	"\xcf\x03\x75",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\xd8\xc0\xd7\xe3\xfb\xa6\xca\xff\x6a\xd1\xb4\xb4\x82\x1d\x15\x6f"
-+	"\xa7\xc7\xbd\x63\x95\xb8\x29\x0d\xd4\xfa\xb1\x1c\x36\xbd\x32\x8d"
-+	"\x1a\xba\xf1\x2e\xbc\x7b\xf2\x02\x96\xf8\xef\x2a\x5e\x72\x64\x86"
-+	"\x67\x62\xfb\x62\x8e\x83\x53\x63\xb7\xe6\x78\x3c\x42\xd7\x0d\x1d"
-+	"\xb7\xbf\xb8\x09\x56\xc8\x67\x00\x31\xba\x19\x19\x29\xf6\x4e\x30"
-+	"\x1d\x68\x16\x34\x23\x6d\x47\xa6\x0e\x57\x1a\x4b\xed\xc0\xef\x25"
-+	"\x74\x52\xef\x78\xb5\xb9\x8d\xbb\x3d\x9f\x31\x29\xd9\x34\x94\x33"
-+	"\xce\x2a\x3a\x35\xcb\x51\x9c\x91\xe2\xd6\x33\xd7\xb3\x73\xae\x16",
-+	.c_size = 128,
-+	.m =
-+	"\x5f\x04\x9d\x6b\x69\x7d\xf7\xe7\xcb\x1b\x81\x2f\x76\xfe\x20\xcd"
-+	"\x2c\xcc\xd0\x74\x63\xfa\x52\x32\x56\xfb\xd3\x3e\xba\xa5\x93\xb3"
-+	"\xd9\x10\x3f\x12\xb4\xe5\xa8\xf1\x59\xb8\x92\xdc\xcb\xe9\x97\xe2"
-+	"\xcf\xb1\x09\xd6\xe6\xe6\x45\xce\xff\x98\x37\xa9\xf6\x47\x40\x48",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=-G, z1 = 7, z2 = 6. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x23\x0b\xea\xad\x34\x76\x5a\x76\x47\x0a\xca\x3d\xa0"
-+	"\x01\xd7\x7f\x16\xbe\xc5\xf1\x5a\x19\x8a\xc2\x16\xc9\x2f\xb0\x41"
-+	"\xd9\xe9\x20\xde\x56\x10\x34\x02\x9b\x7f\x88\x3e\x54\x0e\x53\x6c"
-+	"\xe3\xa1\x31\x19\xaf\xab\x1d\xe9\x77\xe4\x59\x1c\x95\x7c\x85\x17"
-+	"\x30\xfc\x8a",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
-+	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x37"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
-+	.c_size = 128,
-+	.m =
-+	"\x3a\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
-+	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=-2G, z1 = 5, z2 = 2. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x7c\x13\xea\xd2\xd9\xaf\x82\xb9\x1f\xb2\xfd\xe1\x8d"
-+	"\xf4\x5b\x37\xe4\xf2\x04\x6a\x2a\x1d\x15\x16\x95\x2a\x5d\x40\xcd"
-+	"\xbb\x34\x44\x2f\x2b\x13\x0a\x47\xb0\xf6\xe5\xa5\x58\x3a\xf4\x54"
-+	"\x09\xb0\x1d\xf5\x5c\xf1\xbf\x9d\x86\xa5\x97\xab\x96\x29\x62\xfc"
-+	"\xdc\x89\x3b\x76\x3d\x50\x6e\x8a\xcf\x02\x4c\x74\x0e\x6e\xe0\x1f"
-+	"\x28\xab\x27\x9b\x20\x02\xc8\xc4\x12\xcb\x8a\xe3\xa4\x27\xce\x39"
-+	"\x62\xdf\x35\x6d\xc1\x65\x7f\x7b\x48\x90\x11\x8f\x19\x7c\x1e\x67"
-+	"\x91\x97\xeb\x90\x85\x25\xfc\x86\xb3\x88\x6e\x5c\x57\x1f\x1d\x1d"
-+	"\x3b\xec\x37",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
-+	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x33"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
-+	.c_size = 128,
-+	.m =
-+	"\x39\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
-+	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
- };
- 
- /*
++		cp_flags = MM_CP_PROT_NUMA;
++		if (!placement_scan)
++			cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
++
+ 		do {
+ 			start = max(start, vma->vm_start);
+ 			end = ALIGN(start + (pages << PAGE_SHIFT), HPAGE_SIZE);
 -- 
-2.53.0
+2.53.0-Meta
 
