@@ -1,68 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794309311;
-	b=5LkZ3RctDaOQqsNL5Km+dOLoao7luC6OM7S1H6Z9gkTz6hkSpIqokJK9/4RETFwdymGc
-	 oBsrRvqXqc6nsDtp5H2ER3ON23YmunD2cs4NPnfn10dg6Rgm2400gMG78g5jgE26WTREE
-	 oG8OFlJPO8FZxcKwH0I68RVxNYLf4QUf3/vngc92aFCAq1Al9VoAcDfFgBCB78bCzzVt0
-	 hd71AKztnx83yiDNvaZq/77UWgYe6Ny0iiEnHeDnt6cA8nNulOGwP9XyUJocLOYyKGgWm
-	 HJksl/uVhohXLVpiY+3/l70+vtp4v0qN74vJTSCdx75wWpN1uaRB+hDCsG34Lx9eBIA==
+	t=1794309608;
+	b=KZawiZ4nLiSUpSnPjv8JOQKJiBGTt5oJMICZqznEtVUMnhI493UOHsta0cONv40jZnLG
+	 ve4vaUbhnbU7zEKJiUP8WWp/VUzsZOK4RsteLwrSbUpCub53p4SuDnz/Uq+/BJfCnNS9x
+	 /maTSCtbP3W3akmnovnlAqsbqrxqjf90g+W3ONjzXLB80VOgG04V3+sAtSy+jW1PB3QMj
+	 GZZyl9OaymsYVJuyayk5Gz+ozxlHn5DfyYF/LUTFpAqswFcO5ZiQHZYu9UvbzzUCYd5Jd
+	 NeFXQWRhE8YhPKremTBnv33ymiORD5tLY61HvhvobFo3MGvTVaJ0GOFGeA3fXlLSTFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794309311;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FdOVbvcKdFgkXdU4BMS1bRcFn7D8v8NDtVISXLeDPZI=;
-	b=VIjon5Z8SQE37wNkpiNx9HzSyL9UI6yeFCS0GMCAu5lRHtRswibJNLG1NmfEP4TQRmQq
-	 jll3ypextmErZ9w1kCWrmQ+hitsL/MFoAvAcehXdQYds3T2qsFrja1ly306bZUBPgBW8P
-	 Vk93dIv4fZMyaPJJ5Ur4ojtztcCw3RRclKyThzzaij+aak37v9LMnkpvo6h8m56AMpWfi
-	 CHW5ZI+XynNZHw1DxUr54P+lekS4zokNQ2YfGqGBdhoG8g7XbwjbVNmO7MGos/33j8FQt
-	 IJm0lIXW6+0qJw1CBaauKN+PLHuQa7h8fyiKwTzL5eTKIy8AlWIkjyPFJzcfEU3yZqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309608;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=P5LItDkofLGLIRMGwr48t7RGGDVxJcFzQKJIYZivfrQ=;
+	b=R6BsxOgRoPi+2murWnYRe2/AiAOwKf5agIKkqdkhTICmcZVndDbJZXTSE5StC889rwoP
+	 2rMhV4/W7LKW2Qh3IHAqucjgLnNkFEyjbCnBLW7gRQrvYvGh6PJvtcMMM3sA6OCXbCwCj
+	 4auqxz5yTJrrL1wmzwgIpIo0QNP5qw7+wSWGaErwRO0SD8hbKwN084LJZx2ttTSvjdouT
+	 yRbqBiX8bK9n8ldmTKGuyoVqi1pOq2DM+KUgepNccTzOH2WypycvUkd6gqYHptp3cwEGt
+	 waxDHb5IpG3dnWdxUM7fdB6OIJTWtmthdiVwzYDhW4F8cS5QTJAYiXfrty3XZUtYEQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DmSzA/cc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRnjS46o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC45606A325;
-	Tue, 10 Nov 2026 11:15:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D3C606A31C;
+	Tue, 10 Nov 2026 11:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmSzA/cc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24D131F0089F;
-	Tue, 10 Nov 2026 11:15:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRnjS46o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672D81F0089F;
+	Tue, 10 Nov 2026 11:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794309311;
-	bh=FdOVbvcKdFgkXdU4BMS1bRcFn7D8v8NDtVISXLeDPZI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DmSzA/cccKoAot6OoPurM2eGxFwrqjl3PNn6sOlcK4MuqbckjFlQ+1BWNuMwZ18uV
-	 8DxrZdxy3xkHKQtR+GuKDIG6/gqLfvYi/nbSqPKwnoa2J6XxxZFPKHoZ2a4z148+Lw
-	 d3AQuWQeisrRNd5ySpoaq5vg/sMal+rztXbpjzUb861zOUxtMiXQNXFG+JdEV7Y69V
-	 zeisfrr1LV3CrtP5aRnQKZmY0Dy6fnp+A/R20vGrLJHgd3zlz065lQCiucM10Ut0ML
-	 EBvsuSkeX/ZGI/JJhQFqLr/Vah+kHGVoai9NPIqWgzpAZQsw1OG6uJVtXtZgDJ3P/b
-	 g7/meQIMiZCzg==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xQjoi-0000000AuCa-2Gte;
-	Tue, 10 Nov 2026 12:15:08 +0100
-Date: Tue, 10 Nov 2026 12:15:08 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
- deregistration
-Message-ID: <avL8vNRJdZric-mu@hovoldconsulting.com>
-References: <20261110085125.2535508-1-johan@kernel.org>
- <20261110085125.2535508-3-johan@kernel.org>
- <avL4x_clSegBu-Qi@ashevche-desk.local>
+	s=k20260515; t=1794309607;
+	bh=P5LItDkofLGLIRMGwr48t7RGGDVxJcFzQKJIYZivfrQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=TRnjS46osjZE0KcJjgC14/NubVQMO3BVX1nvaJ1wXUzYEXR/sE0661S6Gv0NWphi0
+	 GBqPJkj0MOa7iOKPYD87aT9TWk38oGdaOV5TcPC8FJJ3wk5JVvnjLgJ4SC7vrwXAip
+	 ed8e1qcp4DDbanf8tPaMhfVpyvr8ockrj9RYJDlSlGgAAnbbn+aM5LyBH0Xd3jvDeY
+	 lPp7kXuAtunEeji0cuzR3UFCI4uhYQVF4ldOz9G9kDDQxi7Ptb/jOBxBwsePcaqPmF
+	 JCoWkium5qr9c4IVL1ciFAnWsYePksM/FFGW+0gceD4XS3gkA7hMdm/SaFoTP5TjBh
+	 /JQUiPR1Vt+qg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E073391B17B;
+	Tue, 10 Nov 2026 11:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,59 +53,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avL4x_clSegBu-Qi@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v5 0/2] xsk: fix multi-buffer TX software checksum
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179430960617.3882254.727568151015351636.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 11:20:06 +0000
+References: <20261104034809.24545-1-testwrzwrz@gmail.com>
+In-Reply-To: <20261104034809.24545-1-testwrzwrz@gmail.com>
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: netdev@vger.kernel.org, maciej.fijalkowski@intel.com,
+ magnus.karlsson@intel.com, kerneljasonxing@gmail.com, sdf@fomichev.me,
+ hawk@kernel.org, stable@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On Tue, Nov 10, 2026 at 12:58:15PM +0200, Andy Shevchenko wrote:
-> On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
-> > If a client has both a primary and a secondary firmware node, the
-> > secondary node is accessed via the ->secondary pointer of the primary
-> > node.
-> > 
-> > Use a temporary variable to track whether the firmware node is a
-> > software node and remove any software node before dropping its reference
-> > to avoid a use-after-free in device_remove_software_node() when
-> > accessing the secondary firmware node.
+Hello:
+
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Wed,  4 Nov 2026 11:48:07 +0800 you wrote:
+> This is v5 of the AF_XDP multi-buffer TX software checksum fix.
 > 
-> ...
+> I found this while testing multi-buffer TX with XDP_UMEM_TX_SW_CSUM: a
+> two-descriptor packet had a bad wire checksum, while a single descriptor
+> was correct. There was no production or syzbot report.
 > 
-> > Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct device")
-> > Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregister_device()")
-> > Cc: stable@vger.kernel.org	# 6.16
+> Patch 1 moves the software checksum calculation from xsk_skb_metadata() to
+> the point where the last descriptor has been added to the skb.  The old
+> code calculated the checksum after the first descriptor, so multi-buffer
+> packets only included the first fragment in the checksum.
 > 
-> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Cc: Hans de Goede <hansg@kernel.org>
-> 
-> Can we keep these two Cc out of the commit message?
+> [...]
 
-I prefer to highlight the authors of the commits mentioned in the Fixes
-tag this way.
+Here is the summary with links:
+  - [net,v5,1/2] xsk: defer software checksum until the skb is complete
+    https://git.kernel.org/netdev/net/c/f2eddafbfcc0
+  - [net,v5,2/2] selftests/bpf: cover AF_XDP multi-buffer TX software checksum
+    https://git.kernel.org/netdev/net/c/c112921763e7
 
-> > Signed-off-by: Johan Hovold <johan@kernel.org>
-> > ---
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-> > @@ -1066,14 +1067,14 @@ void i2c_unregister_device(struct i2c_client *client)
-> >  	else if (is_acpi_device_node(fwnode))
-> >  		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
-> >  
-> > +	fwnode_is_software_node = is_software_node(fwnode);
-> > +	device_remove_software_node(&client->dev);
-> >  	/*
-> > -	 * If the primary fwnode is a software node it is free-ed by
-> > -	 * device_remove_software_node() below, avoid double-free.
-> > +	 * If the firmware node is a software node, its reference count
-> > +	 * was decremented by device_remove_software_node().
-> >  	 */
-> > -	if (!is_software_node(fwnode))
-> > +	if (!fwnode_is_software_node)
-> >  		fwnode_handle_put(fwnode);
-> 
-> Do I understand correctly that this is a dup with the platform device case? Can
-> we make a helper (on swnode API level) to cover any other existing or potential
-> case to avoid similar issues in the future?
 
-The bug is different, but the fix is the same. This all gets cleaned up
-in patch 4/8.
-
-Johan
