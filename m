@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.43.8.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322728;
-	b=RmS3z1RdsyEj35peIAX872awEhgcsEetpSN9XEbY3E7Ksv96XwGnMpOE4XXDvwL9MG8b
-	 rN1YVVfLJm/B7dEH50g+rxvuJdWzcJdn/NN/8X1ge6croQNMMxzrtz8+iV4/eDv+uj+HG
-	 M0sqwE+wMWfFD1jnSlVD5mjS/F8+Zu+lDGPuwPI+Xa76PT/TX8sIHpyhVhueZBGLiQo5z
-	 luDDYBn0UO9ArSUxgSX74dpAFDGadFgBQc6loDlZpgB/1mgibK3owevN4yTj1n0lK/BYC
-	 L/ObowgJr6nRJsZSVN7gxuW+EhlDIFTtuR0c45J/bEMHnjpYWBuCX5ZJrJvoOiV0ftQ==
+	t=1794322744;
+	b=j6frWxu+QCPkLOUBXJI/KMFJr0e5YBkKrRP/xGj3AlbxVCHNCyDVYom4GTgvI8Fc4RFf
+	 paP8ZdHmhqwjlTC1mvBsEKN7SPOhUjLkLS62TM00aGjcm9VhJg/G77wiqPoSJG0pbF2+r
+	 YlfxQ6LnY4siEhqwjp1dHY/eZc1hRL1MgYHif1SwUMbcX9egku+B0/W275VoMn55Z5DCH
+	 /vH/+nEGb2janM32C/wQHkBEitBvhAHP6cPuqHxW+vmyr6vKb6Jsl0djmD+iIWBY/7AzD
+	 aOYj4QdaReyd6IGd2+cfAvaI8y1Pxb4Sfrpnb+ixKF7w3M296MWdCAHMTAOXBBV2x6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322728;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=bJyBkipq/8VnHVmxuZdWoeSnkdnAYGFqTisHEUQIoBA=;
-	b=Kxlt7dFRF8ELOyfNDvqWCVJQAXCw1mwgF1PnOt35r/Ffhp2uVJ69DMdtkDd1BYFX/qMQ
-	 MoS9OY2YYxVXfH8Gaoxjw0HK4AMH9SBNBqf43/QQkHoZ4RPK7HXgQkRCj/owjVP4wClhs
-	 PrwZ045GpzkVApdewFTQWU4IN5SAQg8m4XeXV7w/Ap5lfL6nOzgGSjIYUwItaGWAnXCEV
-	 for2/u1ikJkByGMcfyi3CfJUVKDbGGAyA3lz8Vwi+gLL//5rjepMCfG+VPcv4hnBMPqsu
-	 4TyIC/lbAQ6lN8bGPKIqECRfAkeUPAbBvlNb4QupE49ldQ0Gb+W7QLUqiAuAvZmRc/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322744;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cLZUGeoAwmd0IfGwar4yPQmtf9nguQDhh2qpHIE6Lsw=;
+	b=URjVfd5oGnDcW1H102R8McfE8EIVj4yp4M4ryqZaQlAsdrLh6MsBFq+dEUz7fg4Kwl/1
+	 e06RZvIfjuFf2wdHHRStoGhWAjDOtM6PKO/N02/+ZhOSZM9o3AbUC/5z4iOPzd4ef176t
+	 H6aXtIpFaXpRxoh1SqFkPGPI3xd01t6tzEqTEZ/MszRwHF4NrDXC2cgqEl5xJy8+2G2qk
+	 8gmh8H1DcOewz1w3upfTpP9UAa3dEShZmZ3krlsgIhXRxZkD7SCxolLY5dpLjlpRp9PEw
+	 yhKrS66HD4ivvcTH4oh5AbNvylsuJbdgsOMqPNANVwtCe4tjd1AOAfkFpa0sGpesONA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6jI6pro;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=altlinux.org;
+	spf=pass smtp.mailfrom=altlinux.org;
+	arc=none smtp.remote-ip=193.43.8.18
+Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A01606A333;
-	Tue, 10 Nov 2026 14:58:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6jI6pro
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7FC1F0089F;
-	Tue, 10 Nov 2026 14:58:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322727;
-	bh=bJyBkipq/8VnHVmxuZdWoeSnkdnAYGFqTisHEUQIoBA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=A6jI6procODsK7CeA6/g4xeAEWNpqcON0ofARkE55EJ2hB1JdvmLmKKoFakGh63q0
-	 Wk5DMd+w91TKjwQYD9uXZuDPqt5Jhep0B/CMAOySR3NlwmaY1Og3ygrdvKUV8xYGHw
-	 qLZ7fmPtWFMw2CmChiunRs7uE5dw+qscmLBQpyYUrtk3/BpmbKujthYqm+kiW61sAT
-	 ITbmLeOVUPO2H+7xzIw1mtjqb6dizzdUaaClCg/ZeYLvwLIbGSTmPhOZIlTu+6SpIR
-	 D1h+Ew4jEeOiIxevjnUPig5D8kAQ+0HZvSo2slFq8aGREYPKwhHBJPnjaUWd8bRphm
-	 KLVV3AgHsnYyQ==
-From: Christian Brauner <brauner@kernel.org>
-To: jaharkes@cs.cmu.edu, Hungyu Lin <dennylin0707@gmail.com>
-Cc: coda@cs.cmu.edu, codalist@coda.cs.cmu.edu, viro@zeniv.linux.org.uk, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261105051406.52442-1-dennylin0707@gmail.com>
-References: <20261105051406.52442-1-dennylin0707@gmail.com>
-Subject: Re: [PATCH v2] coda: honor the append state of each write
-Message-Id: <20261110-finte-gebiss-human-e05dd6b47c78@brauner>
-Date: Tue, 10 Nov 2026 15:58:44 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E70160A2621;
+	Tue, 10 Nov 2026 14:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E70160A2621
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
+Received: from mininpc.malta.altlinux.ru (obninsk.basealt.ru [217.15.195.17])
+	(Authenticated sender: muhamadeevir)
+	by air.basealt.ru (Postfix) with ESMTPSA id AD607233FA;
+	Tue, 10 Nov 2026 17:58:54 +0300 (MSK)
+From: Ilya Muhamadeev <nicourced@altlinux.org>
+To: linux-sound@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Ilya Muhamadeev <nicourced@altlinux.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: es8316: Allow more time for headset mic bias to settle
+Date: Tue, 10 Nov 2026 17:58:35 +0300
+Message-ID: <20261110145835.106381-1-nicourced@altlinux.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,38 +55,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
+Content-Transfer-Encoding: 8bit
 
-On Thu, 05 Nov 2026 05:14:06 +0000, Hungyu Lin wrote:
-> coda_open() adds O_APPEND to the container file's f_flags after it has
-> been opened, without updating its cached f_iocb_flags. An O_APPEND write
-> can therefore overwrite existing data instead of appending. For example,
-> writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
-> 
-> Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
-> incoming IOCB_APPEND state. This also honors changes made with F_SETFL
-> and per-write append overrides instead of relying on the container's
-> open-time flags.
-> 
-> [...]
+On the 3Logic Group Graviton N15i-K2, a TRRS headset is detected as
+headphones, leaving its microphone unavailable. The driver waits 20 ms
+after enabling microphone bias before reading GPIO_FLAG to distinguish
+a headset from headphones.
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Register reads on this machine show that GM_NOT_SHORTED remains clear
+through 40 ms and becomes set at approximately 60 ms after enabling
+microphone bias. Reading the bit after only 20 ms therefore incorrectly
+identifies the headset microphone as shorted to ground.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Increase the settling delay to 100 ms to cover the observed settling
+time with some margin. This adds 80 ms to the microphone bias enable
+sequence used for jack detection.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Fixes: 822257661031 ("ASoC: es8316: Add jack-detect support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Muhamadeev <nicourced@altlinux.org>
+---
+ sound/soc/codecs/es8316.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 334ac9119c18f34d51d79fb357c3d82096935c7f..470c503010fc1c02fba9d8e9aaf0ea61b4be3637 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -616,7 +616,7 @@ static void es8316_enable_micbias_for_mic_gnd_short_detect(
+ 	snd_soc_dapm_sync_unlocked(dapm);
+ 	snd_soc_dapm_mutex_unlock(dapm);
+ 
+-	msleep(20);
++	msleep(100);
+ }
+ 
+ static void es8316_disable_micbias_for_mic_gnd_short_detect(
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] coda: honor the append state of each write
-      https://git.kernel.org/vfs/vfs/c/644cf7b4af68
-
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
