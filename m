@@ -1,86 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321769;
-	b=zRP+wX7J/EcPqHGpW65cY1saorg15sgOs5QkfDL2mv1Yp/mfCQohHObRNexQVfckB60Z
-	 T/O7iplppYo4nlNlrhAxBHCM1HYeradktszDwuq2v+MWs/rNkNHD+uO4IPbeSJrZDpB8q
-	 u0hCaK7EpPjerR5Q5BCgIuc3q9T8xCDG9wztwbMykqF/l0v8oz+6QJWpctjFGXooJGuK/
-	 aPtAmb6eYu9S5Goaft1+UlMwKV+SM51k0Otvs6tMm0NvPWDE+zuDG8bNWE8Wm/vfDN+FK
-	 6mJpdxZ7ICv9sEmxu6EDoXEKW/MEABsvCe/pcKDWx3vdL2ys1ha7gmqM4vkD9LoejMA==
+	t=1794321776;
+	b=hgY+n8SexAwfddsyN6hJXLmtjXGUb/SxERJl17pZbET2bgZ1clKkce8YF+d/y16kYzU6
+	 OHTTV9Jt76XzyrjB0KsggV8bF7DY8tYyxR2ciXnI4OOMgTsd+72whUjsbD6GfQqnN6Lcm
+	 cabH3ZsAWypI8uHG+ruGZnkhQb8uH8/0ASUXIq6fam+gmEmBvtqsgjzcF182AI+/cdse2
+	 yNbuzxYs5NOrfmQqD0oWSELcmYHXjBwuTgNBQAPAfZzszSQvc2el9OtOC4o56XT/Ff3w8
+	 wvCLoni4xNZ5Nyy21IjBHlYXFsCNrs0RpujmUokZiPhwyU29oyNX1uFT3nWJjMKSfnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321769;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
-	b=PWCPTBcAMuhVEr9uyljg5/r3oMzpNvCmPsXm6JSvEO6Uh90Am0sE7UcIbbyrBfI8S06Y
-	 +hRAgv0/yBmClVZIVNaorIo/bei5dYE7k3zRWGezfqPfaQksSbBVBxwWGNbVem6Q7Vvdh
-	 B/1uUQcIL52kdDiF+fjejsuFf/xEfPXc002tJuYcAKkX3gWI3RMe2UTYkp1uC3pi6DlvF
-	 eb3+npebyOX77cIDrM1Vhj2zVBw4UqFwWcP01JBxg3qQ3i88WDyg0IadXT9UMtVb1Shsk
-	 tw2POb1GB4+20XJNUORXf9Vv8LIfeFv6F8ZikSVy3/TzB6iFQxg+eHzD4BmQ6DzrwIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321776;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=0B4qA1TkglN4OMx2OOtGC+4WxOgjbuwo6ZjpoXcLiI0=;
+	b=wfdcpmP+jxtQYR4Jd/mK0XscZL/b+FwNNC6mB/L0ViUBm+TV4JuraRK2dLBXffxQ5+XH
+	 lCynsLfY0drud7+hsoum9+IInlMk2KS7lDcsdi1OIObSJF8pRWt7JuIwvX56r9LQPVO9C
+	 eykHYK/yozylO7eKkk/xRmsunpkHQEc4MBeZMz6QdLLw9c8b+KvrweNF8Wu8hJRzHCJGd
+	 afOwGdzLyB2itcgFZ/A1xCorFoZWAezH3Hfj//o5pz0sMhyF8Mx8JtGBydWmWW5Wv5zpj
+	 QPeVnGKoJa033JNhjyqyU0/r+sPwn8D9hJ1SxYA5JdDg+ZyIrTtzojA0q88jt4EPk+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zpSlcvgK;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="KX3USKj/";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/2pLOUfc";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="KX3USKj/";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/2pLOUfc";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C4260A260D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45C4260A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4045B60A3809;
+	Tue, 10 Nov 2026 14:42:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4045B60A3809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zpSlcvgK
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c505c561fd5so60296366b.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:42:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794321767; x=1794926567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
-        b=zpSlcvgKQl4GAF+LAEWwXo102Dk6lRikWqRJTDbMVSdWsHj7c3FRe/SdIx4D6DmgCj
-         +TeNDxHm/XD7kdkMGcaXqBUFnkHMTqxgb9NhSUWUm7n1o/xzOd3YbjcZlRGl1Ly+rrf9
-         Ip8WihiP4WCqVbJBKydkH0HRz1sRDBFGoQ8HJafvhSQrODlgYoCpcZcg0U2HLEX1IRF3
-         4TaDSGjDgXx/pU4U9x5GiQxlFjtGhUHXnDwhjtMPqnXHwRsp4vMms1LgHbg0+/67vCjZ
-         /doYZIydqNjewM46rQvM56F8F/poFKOb5HpYtovpd5bT3je56+Rn4ScuTIg2GqUDPHrn
-         zTYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794321767; x=1794926567;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iU+EzkbKMFrOZFFUWDUX+jv1j+DUirQeUzUM2Odhqp0=;
-        b=euoxroWqMRUKKFzTChHl2C1e4ZmRHhiNZhZkWPZSXWA6xaGgnZAyyGAEhIudS0zMdg
-         GWRVJLzQIYfj56bBZYB1wcPsJ8xHNWhO41VH0Vhl+gotx2n2kVZu/5v47IQfONmCQNJH
-         JDa5hhsDpTg5G30vslmb5SfBiRaQTnbPzsr54N5tyAHnXhPxhkW/P0co0D/JfSDFTwne
-         PPSlRUX9eaF3pMl2ur6CcRiL9NfCy3uEmmj1bKG6uohOLPjmaSyQy0lnlRDZ8SWZ7rcp
-         Cs1TW/sHcyY9dAUi5IV3X0QJSudo7ssRHbH0adwxHGkgrIk5ynRngL//UMHSE2I1n8gs
-         C6qA==
-X-Forwarded-Encrypted: i=1; AL+hErFMPMEJm03rfcVj0ASzwLNdMnxeMTut6AnyxvXWC2pVncEiHJaMC/QKRPh0R77JR7KMTuoOZsI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KtUyujNj9wqLaTNPntzgTq6NrBh+qs+9YnwYUGerus1KlPsCa
-	7P/GdWMvNxUC8LrQcmeWErcrovNVZfJxNmLsaqpL4Uqx7BS3+AXh21hht2eMycAD5aY=
-X-Gm-Gg: AYBFou0CahXtFQiLHepsEmqO+Ihq7swC5TNo57z59JVtAHnUThmiaYI8v4B4PJynvWs
-	dtKj7sGockVsdZm13TG16qHHXhaeV/AN9w3HCOKJLB1eNMxIV/zQeEPnJvbu3Ho3W2NdLnT9atV
-	G8wC7SfDtf9D/mfF74sRBGTJ46ieFHcSFBCDxMbMovk3pJM7LSOb25VTva7F0gQ9nNH2em+OCkH
-	elkbsdrEsntywPZOMrf1ENUBk49joaAFp4c0aoNit/axBIzdXUa9bC2Nw9hP2KsofCg6+EYxKyu
-	IFjUjHdreTJsHvELKdDzkoxUHMJPpB04qfmrbGxVbJrePsXHS2KBNZ/sj6fg0mGNpP20YrPds6u
-	tv1HekqVEE5Cpsrd45N3ICVt54QvQ+p/7Uj1/yps1eIrF2TZD7oZmxnErxTC5l7C6W9DTTWgKtz
-	F/yajnseYSD+opkYmUiHt3jySAcK4V5EVyahs1sPn9rq6q4t0wdvC3NRiyU4riHS3wAGNDdwYca
-	GsRaEQYdp+tZhaLPTDIPU2ZkrArbAwXxr6Iogcw7U3J/fC89ixcgPfRLCznz/ScYgcxBryPURfq
-	rSJsIHX8c4WwH+j2V6FI7HOpp9f0vkodk8ZkuMYgPho=
-X-Received: by 2002:a17:907:e849:b0:c49:9383:a28 with SMTP id a640c23a62f3a-c50495ef6d1mr244854866b.35.1794321766382;
-        Tue, 10 Nov 2026 06:42:46 -0800 (PST)
-Received: from [192.168.0.167] ([109.78.220.165])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a65f267sm112205666b.71.2026.11.10.06.42.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 06:42:45 -0800 (PST)
-Message-ID: <ee2aedde-6688-4cfd-9f92-3703b081247d@linaro.org>
-Date: Tue, 10 Nov 2026 14:42:44 +0000
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KX3USKj/;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/2pLOUfc;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KX3USKj/;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/2pLOUfc
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5D72521EF0;
+	Tue, 10 Nov 2026 14:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794321773; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0B4qA1TkglN4OMx2OOtGC+4WxOgjbuwo6ZjpoXcLiI0=;
+	b=KX3USKj/BuUCPazH8t3noRkhKvNyS5Vl2sfPRRfBrVBNp1j8KEsgjtdwoDEfs+Fi37nQ68
+	vnsR7ycg2OeYqigI5LNHLalsHJ9KCDX9IcBSdyT+NAc3WsyWV3FKF78iAL2OBmuxWV0Xwz
+	g2i8xSSiqPdjbp3ohRC0gvCg0kyAyjo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794321773;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0B4qA1TkglN4OMx2OOtGC+4WxOgjbuwo6ZjpoXcLiI0=;
+	b=/2pLOUfcw4Ranr2A4Pwh/sC+sB848L9X9w962zn/48Fcdt+Sh4cEXY+LMMlgvMsVazsfNO
+	Ql9bUyzc9/d9uBDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="KX3USKj/";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/2pLOUfc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794321773; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0B4qA1TkglN4OMx2OOtGC+4WxOgjbuwo6ZjpoXcLiI0=;
+	b=KX3USKj/BuUCPazH8t3noRkhKvNyS5Vl2sfPRRfBrVBNp1j8KEsgjtdwoDEfs+Fi37nQ68
+	vnsR7ycg2OeYqigI5LNHLalsHJ9KCDX9IcBSdyT+NAc3WsyWV3FKF78iAL2OBmuxWV0Xwz
+	g2i8xSSiqPdjbp3ohRC0gvCg0kyAyjo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794321773;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0B4qA1TkglN4OMx2OOtGC+4WxOgjbuwo6ZjpoXcLiI0=;
+	b=/2pLOUfcw4Ranr2A4Pwh/sC+sB848L9X9w962zn/48Fcdt+Sh4cEXY+LMMlgvMsVazsfNO
+	Ql9bUyzc9/d9uBDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 288DF134F4;
+	Tue, 10 Nov 2026 14:42:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id QGhKOWwt82q+MwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 14:42:53 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 7821722550; Tue, 10 Nov 2026 15:42:48 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:42:48 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 37/51] proc/vmcore: don't let vmcore_cleanup() run
+ twice at once
+Message-ID: <q4w6yd2pk7g6uzqva7sivfusaavqfwsgh3f4m2y7lbp74dfgvr@unclx56ulwys>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-37-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,146 +133,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] media: iris: Fix use-after-free on unbind with
- open sessions
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-References: <20261110-iris-handle-unbind-v2-0-86d5f6f1dea8@oss.qualcomm.com>
- <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261110-iris-handle-unbind-v2-3-86d5f6f1dea8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-37-bbf7d5546809@kernel.org>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 5D72521EF0
 
-On 10/11/2026 14:09, Vishnu Reddy wrote:
-> The driver can be unbound through sysfs while a client has a video
-> session open. The core is devm allocated and freed when remove()
-> returns, so the open sessions then use freed memory.
+On Wed 04-11-26 18:47:23, Christian Brauner wrote:
+> vmcore_cleanup() has a single caller, fadump's release_mem_store() on
+> powerpc. That checks fw_dump.dump_active without a lock and calls
+> vmcore_cleanup() without one, and kernfs only serializes the writers of
+> one open file. So two tasks that write to
+> /sys/kernel/fadump/release_mem through different files run
+> vmcore_cleanup() at the same time.
 > 
-> Only the core structure needs to outlive remove(), because it is the
-> only thing the file operations of an open session still use. Allocate
-> it with kzalloc and tie it to the reference count of its v4l2_device,
-> which every registered video device holds. It is freed when the last
-> file descriptor is closed. The other devm resources (register mapping,
-> response packet, clocks, power domains, interconnects) are only used by
-> the power on/off sequence, the clock and bandwidth votes and the
-> interrupt handler. All of them are released with the unbind, after the
-> core is shut down.
+> The first one removes /proc/vmcore and waits for its readers in
+> proc_remove(). The second one finds the entry already unlinked, returns
+> from proc_remove() right away and frees vmcore_list, the ELF headers
+> and the device dumps while those readers still walk them. Or both of
+> them free the same lists at once.
 > 
-> To make sure nothing uses them afterwards, set a removing flag at the
-> start of iris_remove(). It makes core init, new sessions, command
-> writes and the clock and interconnect votes fail with -ENODEV, so a
-> client still holding a file descriptor cannot power the hardware on or
-> vote for resources that are gone. A client waiting for the firmware
-> only times out and returns an error without touching them. Runtime PM
-> is also disabled explicitly in iris_remove() instead of with devm,
-> because its callbacks use the core.
+> Serialize vmcore_cleanup() with a mutex of its own. It can't be
+> vmcore_mutex, removing /proc/vmcore calls release_vmcore() which takes
+> it. The second caller then finds nothing left to free.
 > 
-> Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260926064921.976721F000FF@smtp.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: b500afff11f6 ("fadump: Invalidate registration and release reserved memory for general use.")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+A bit sad but OK. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
->   drivers/media/platform/qcom/iris/iris_core.c      | 10 +++++-
->   drivers/media/platform/qcom/iris/iris_core.h      |  2 ++
->   drivers/media/platform/qcom/iris/iris_hfi_queue.c | 15 +++++++-
->   drivers/media/platform/qcom/iris/iris_power.c     | 13 +++++++
->   drivers/media/platform/qcom/iris/iris_probe.c     | 44 ++++++++++++++++++-----
->   drivers/media/platform/qcom/iris/iris_vidc.c      |  3 ++
->   6 files changed, 76 insertions(+), 11 deletions(-)
+>  fs/proc/vmcore.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-> index d558475986ff0..bdac6b8c98e44 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-> @@ -43,7 +43,10 @@ static int iris_wait_for_system_response(struct iris_core *core)
->   	ret = wait_for_completion_timeout(&core->core_init_done,
->   					  msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
->   	if (!ret) {
-> -		core->state = IRIS_CORE_ERROR;
-> +		mutex_lock(&core->lock);
-> +		if (!core->removing)
-> +			core->state = IRIS_CORE_ERROR;
-> +		mutex_unlock(&core->lock);
->   		return -ETIMEDOUT;
->   	}
->   
-> @@ -56,6 +59,11 @@ int iris_core_init(struct iris_core *core)
->   	int ret;
->   
->   	mutex_lock(&core->lock);
-> +	if (core->removing) {
-> +		ret = -ENODEV;
-> +		goto exit;
-> +	}
+> diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
+> index 1fe70c4ecc54..ccb795b85509 100644
+> --- a/fs/proc/vmcore.c
+> +++ b/fs/proc/vmcore.c
+> @@ -1764,6 +1764,11 @@ fs_initcall(vmcore_init);
+>  /* Cleanup function for vmcore module. */
+>  void vmcore_cleanup(void)
+>  {
+> +	/* Not vmcore_mutex, removing /proc/vmcore calls release_vmcore(). */
+> +	static DEFINE_MUTEX(vmcore_cleanup_mutex);
 > +
->   	if (core->state == IRIS_CORE_INIT) {
->   		ret = 0;
->   		goto exit;
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-> index 3e4cf652bf39a..379f0666a42cb 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.h
-> +++ b/drivers/media/platform/qcom/iris/iris_core.h
-> @@ -62,6 +62,7 @@ struct qcom_ubwc_cfg_data;
->    * @iris_firmware_desc: a pointer to the firmware-specific descriptive data
->    * @ubwc_cfg: UBWC configuration for the platform
->    * @state: current state of core
-> + * @removing: set when driver removal starts, blocks core init and resource votes
->    * @iface_q_table_daddr: device address for interface queue table memory
->    * @sfr_daddr: device address for SFR (Sub System Failure Reason) register memory
->    * @iface_q_table_vaddr: virtual address for interface queue table memory
-> @@ -108,6 +109,7 @@ struct iris_core {
->   	const struct iris_firmware_desc		*iris_firmware_desc;
->   	const struct qcom_ubwc_cfg_data		*ubwc_cfg;
->   	enum iris_core_state			state;
-> +	bool					removing;
->   	dma_addr_t				iface_q_table_daddr;
->   	dma_addr_t				sfr_daddr;
->   	void					*iface_q_table_vaddr;
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_queue.c b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> index 545bbe75e1740..e0cfa5107d1d9 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_queue.c
-> @@ -128,13 +128,26 @@ int iris_hfi_queue_cmd_write_locked(struct iris_core *core, void *pkt, u32 pkt_s
->   
->   int iris_hfi_queue_cmd_write(struct iris_core *core, void *pkt, u32 pkt_size)
->   {
-> -	int ret;
-> +	int ret = 0;
-> +
-> +	mutex_lock(&core->lock);
-> +	if (core->removing)
-> +		ret = -ENODEV;
-> +	mutex_unlock(&core->lock);
-> +	if (ret)
-> +		return ret;
->   
->   	ret = pm_runtime_resume_and_get(core->dev);
->   	if (ret < 0)
->   		return ret;
->   
->   	mutex_lock(&core->lock);
-> +	if (core->removing) {
-> +		mutex_unlock(&core->lock);
-> +		ret = -ENODEV;
-> +		goto exit;
-> +	}
-> +
-
-This locking scheme is looks racy, what's the point of this granularity ?
-
----
-bod
+> +	/* Two writers of fadump's release_mem can get here at once. */
+> +	guard(mutex)(&vmcore_cleanup_mutex);
+>  	if (proc_vmcore) {
+>  		proc_remove(proc_vmcore);
+>  		proc_vmcore = NULL;
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
