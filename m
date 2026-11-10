@@ -1,51 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274076;
-	b=PjNjgLPRng/HITrKtZHxhjg7YR6ZI821q85vBrt3ctGmN+BFEQq0wxs5KfM5xfLRQ83b
-	 0ZH3x3oAVyLKL+8E+dGum1yS7At67yvGOP/OV9Dk7/oXtmhrnbOlZBEii3/7F2QT4Zl1H
-	 beHFsnZcbNfQi712ggxjyUPuvZoFBZbnCTkEpaH/ZjHJPAy7Lp0XtEkthVvLt/0z/5OZt
-	 UF19WnkSAKnTfrj9qB+qa6jfxU8ZR+LouVX6mhWvmSqxtP7ZsC0thSjnUf0vCQIFAYoM7
-	 1OvwNVAzjKRpGmWwoUEVEv3cSAA+oNIVjG3qA1R/6RBRyzhH/gT1CkeHezopLrhAaFA==
+	t=1794274078;
+	b=IaHKNibazR6Ohg31VpSsBflIbZyYrow5a2RHphgYtB6RVsimCscHQ2IVLbm2MNSF5XMQ
+	 cHH8pCrO5W+UpD8Cw0ul8Rn0GU61za2Ru+/yBOsMrJ+KK8o/4D1W+IBBYPWWb20MGpY/w
+	 Bl3i/OqILV9vmBmhcGjSTquXCc+WzFpygfCoHJ6s3qBevf02XewgBOqnjZWA5qNmqPKFK
+	 VLh+d6LvZWbqhLxhSdZzzUDpSadMbRpvAFvhHj4jbfjEwzQI2jOdv7YvU1RNmmoMyS3qG
+	 m4LOrkUyrCshdohi7xQNHCqURFqb7xb5SNJ8G5HM0YE4q8P/3hB1rh2WoU2X0ChjiIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274076;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274078;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xChn+LZ8rC3m6hktjQsHUtwumxY/SBihWlXx9xuz1yI=;
-	b=UM4FvngN9M9V9sdpJjyPnsyCxIw2OBFeH5B1vDNr5nhK92Hayr0IS9jr71pG9464LRrv
-	 bEXdaBjQKx5jvEcCQhU+0cwHHQWtkJ97qknyAFwUw17s1dTQfksxD/czZ3vm1ILThTjAE
-	 eDmxXTmAs0k4TbIMdQeJiy8xBnf8oKbHD9Uo9KfwwPofqNNo+qC8P/5AshlzHV7mCmvkn
-	 2vTZAExnbm84xHv70qcpNu3sLrcN6RxH1mdgUBFNAZTTozMdy9iqX8WtkRPQ0Q3xvoKMa
-	 cMvWhDtPM3NAUEOt6aanaAa1dO5fvn7wl7wQGJZr/pD4hw0fyZDB8dq+x0SrLJymoUA==
+	bh=hPv56JqfivcljOar7acu1CjSPhKfHH/bt/+ugr8aqA0=;
+	b=O7DRI6l+u9y8pNCrYnGjFA4lS/AaBgmH8phzJbfNOvvUdmus8A/3qc8ZevAN74XI0Bvv
+	 aSAzDWH/H1gE0UiqtkSp/UMPG7Z27OpalxQlTFs47XNIg3VmT0ya5ifRx7nzwowVCgstO
+	 Qn3mheba4frSfZ1EfaJ+a5GB0dhQB0jy7W+WCg5QoWT40K551EGD8nisthGK9pBbPUwcU
+	 lEnb7gJbmDzXv9bfvZfd/oiPD3IvlwRasvUI3hXEV2xNSn3UCrAql9rNeE1VFBKGZ83+6
+	 SXlq31fATCtQHyUotP4PQHXZcEzl5m1HsfuJQL0MUbtHb7UXvI0fhutRKKzpmeg+Org==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kA51qWdF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jj+CXz3d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EE5606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AEA606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kA51qWdF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3551F0089F;
-	Tue, 10 Nov 2026 01:27:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jj+CXz3d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECAC1F0089F;
+	Tue, 10 Nov 2026 01:27:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274075;
-	bh=xChn+LZ8rC3m6hktjQsHUtwumxY/SBihWlXx9xuz1yI=;
+	s=k20260515; t=1794274078;
+	bh=hPv56JqfivcljOar7acu1CjSPhKfHH/bt/+ugr8aqA0=;
 	h=From:To:Cc:Subject:Date;
-	b=kA51qWdFUDQK5y7/ryc+2p8K84ZjFvN1CqgvgBL9jhsc7hSja7ZoHLWGio8r+p+7T
-	 pIKvWZxRbndjJ5vffrC3u1Zxe1Xk8Ve70AOVBJNlWL1m/TS7la/LJHQYOQxGnt2cCS
-	 4XvvU8JONxL6b05GNLhDKJxGSpkSrKrBGUr55FEssHBTxxr4IKf/ABp5A66hxlejY4
-	 HkqSPOeh+D0wdZ1MAwD/cgDYjZZmOpE1pDOB7K+8RQmrEMPpzCleOoA3WjJBKTvR3t
-	 /6yOoMpsFwu4WRIxmtkXYbjRmvii/Q2G105Kzj0s/i1maMTtfvJAtThyYmkZ/llV/q
-	 +PRWH+SR9Nj0A==
+	b=Jj+CXz3drccymgc0PyB/3prEc849CDicIMXoPwaXlny6vMIl3p9sVeipgkiGxkp5p
+	 wSu6U5S+KLgI3NSnjocRp4CeUnNM+kcMtQn0wMH+gnpX7asMFzhEW/2U9zPf5/cnll
+	 j/k+AuBCqJ16u/QSy0We4LDdgBzeQWvRN+xiNijk0BeYuadAxSKYDNt71x5sTL4Sls
+	 Ai+6/BiGKDopcdX8RSX9oShPOV8wVKLWB4lVu2zJYHVKULdUP1NI82dXIfEUFPiKXi
+	 GG8nL0eMht/7nIKowSuh4UoPlrvlTrOnmrYTOzMj/AjRrw2rk4bNtdrhTubktlY0Nr
+	 xR6GHq2/jMNZw==
 From: Sasha Levin <sashal@kernel.org>
-To: 1579567540@qq.com,
-	mkl@pengutronix.de
+To: mason@kernel.org,
+	gourry@gourry.net,
+	usama.anjum@arm.com,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] can: skb: make echo skb freeing safe in any IRQ context" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:27:53 -0500
-Message-ID: <20261109202753-failed-5.10-d74307196492@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/huge_memory: fix truncate racing with PMD zapping" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:27:56 -0500
+Message-ID: <20261109202756-failed-5.10-e6a07d29b0a6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,122 +72,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x d743071964920c92af598c87a9e6f4369263ee09
+git cherry-pick -x e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202753-failed-5.10-d74307196492@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202756-failed-5.10-e6a07d29b0a6@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d743071964920c92af598c87a9e6f4369263ee09 Mon Sep 17 00:00:00 2001
-From: Cunhao Lu <1579567540@qq.com>
-Date: Fri, 31 Jul 2026 17:45:00 +0800
-Subject: [PATCH] can: skb: make echo skb freeing safe in any IRQ context
+From e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:42 +0100
+Subject: [PATCH] mm/huge_memory: fix truncate racing with PMD zapping
 
-can_put_echo_skb() can be called with hardware interrupts disabled. Its
-direct drop paths use kfree_skb(), while can_create_echo_skb() uses
-kfree_skb() when cloning fails and consume_skb() after a successful clone.
-None of these helpers is safe in every IRQ context.
+zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
+If this was the last mapping, truncation can skip unmapping the folio
+and proceed without waiting for the PMD lock, racing with dirtying.
 
-Use dev_kfree_skb_any() for all drop paths and dev_consume_skb_any() when
-consuming a successfully cloned skb. This preserves the respective skb drop
-and consumed semantics regardless of the caller IRQ context.
+ifs_set_range_dirty() can oops if MADV_DONTNEED races with
+ftruncate() on XFS, when we get the folio set dirty after it was found
+to not be mapped anymore.
 
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
-Link: https://patch.msgid.link/tencent_E84809CF236D0137885E7E4E4D58340B3208@qq.com
-Cc: stable@kernel.org
-Fixes: ae64438be192 ("can: dev: fix skb drop check")
-Fixes: 0ae89beb283a ("can: add destructor for self generated skbs")
-Fixes: 3ccd4c6167d3 ("can: Unify droping of invalid tx skbs and netdev stats")
-Fixes: 39549eef3587 ("can: CAN Network device driver and Netlink interface")
-[mkl: also convert can_dropped_invalid_skb(), can_dev_dropped_skb()]
-[mkl: add stable on Cc + add Fixes tags]
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
+matching the PTE zap path. This keeps the folio mapped while updating
+its state, so truncation must wait for the page table lock.
 
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: simplify comment and description ]
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
+ mm/huge_memory.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-FAQ:
-
-Q: What about the comment in drivers/net/can/virtio_can.c
-   virtio_can_start_xmit()? The error handling for virtqueue_add_sgs()
-   mentions that can_put_echo_skb() consumes the skb via consume_skb().
-
-A: The comment in virtio_can.c will be updated in a separate series, to
-   ease backporting of this patch.
-
-[mkl: add FAQ section]
----
- drivers/net/can/dev/skb.c | 6 +++---
- include/linux/can/dev.h   | 2 +-
- include/linux/can/skb.h   | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
-index bc0787535b524..46c151eece8f7 100644
---- a/drivers/net/can/dev/skb.c
-+++ b/drivers/net/can/dev/skb.c
-@@ -63,7 +63,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
- 	    (skb->protocol != htons(ETH_P_CAN) &&
- 	     skb->protocol != htons(ETH_P_CANFD) &&
- 	     skb->protocol != htons(ETH_P_CANXL))) {
--		kfree_skb(skb);
-+		dev_kfree_skb_any(skb);
- 		return 0;
- 	}
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 283c4bc8b927c..ce52962db16b9 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2495,10 +2495,6 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+ {
+ 	const bool is_device_private = folio_is_device_private(folio);
  
-@@ -91,7 +91,7 @@ int can_put_echo_skb(struct sk_buff *skb, struct net_device *dev,
+-	/* Present and device private folios are rmappable. */
+-	if (is_present || is_device_private)
+-		folio_remove_rmap_pmd(folio, &folio->page, vma);
+-
+ 	if (folio_test_anon(folio)) {
+ 		add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
  	} else {
- 		/* locking problem with netif_stop_queue() ?? */
- 		netdev_err(dev, "%s: BUG! echo_skb %d is occupied!\n", __func__, idx);
--		kfree_skb(skb);
-+		dev_kfree_skb_any(skb);
- 		return -EBUSY;
+@@ -2512,6 +2508,13 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+ 			folio_mark_accessed(folio);
  	}
  
-@@ -403,7 +403,7 @@ bool can_dropped_invalid_skb(struct net_device *dev, struct sk_buff *skb)
- 	return false;
- 
- inval_skb:
--	kfree_skb(skb);
-+	dev_kfree_skb_any(skb);
- 	dev->stats.tx_dropped++;
- 	return true;
- }
-diff --git a/include/linux/can/dev.h b/include/linux/can/dev.h
-index 6d0710d6f571d..346faddee02eb 100644
---- a/include/linux/can/dev.h
-+++ b/include/linux/can/dev.h
-@@ -176,7 +176,7 @@ static inline bool can_dev_dropped_skb(struct net_device *dev, struct sk_buff *s
- 	return can_dropped_invalid_skb(dev, skb);
- 
- invalid_skb:
--	kfree_skb(skb);
-+	dev_kfree_skb_any(skb);
- 	dev->stats.tx_dropped++;
- 	return true;
- }
-diff --git a/include/linux/can/skb.h b/include/linux/can/skb.h
-index 5d27843862fca..87ace09c0d8bd 100644
---- a/include/linux/can/skb.h
-+++ b/include/linux/can/skb.h
-@@ -78,12 +78,12 @@ static inline struct sk_buff *can_create_echo_skb(struct sk_buff *skb)
- 
- 	nskb = skb_clone(skb, GFP_ATOMIC);
- 	if (unlikely(!nskb)) {
--		kfree_skb(skb);
-+		dev_kfree_skb_any(skb);
- 		return NULL;
- 	}
- 
- 	can_skb_set_owner(nskb, skb->sk);
--	consume_skb(skb);
-+	dev_consume_skb_any(skb);
- 	return nskb;
- }
- 
++	/*
++	 * Present and device private folios are rmappable. Remove the
++	 * rmap after transferring young+dirty to the folio.
++	 */
++	if (is_present || is_device_private)
++		folio_remove_rmap_pmd(folio, &folio->page, vma);
++
+ 	/* Device private folios are pinned. */
+ 	if (is_device_private)
+ 		folio_put(folio);
 -- 
 2.53.0
 
