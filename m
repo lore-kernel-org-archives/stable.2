@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794313947;
-	b=ZR1Vn7l81OZa9eMnWtRmN9bA15RmUXMBxtEUx7QFTF9SzAI1MLyzc5STwW+KdMBdguB+
-	 s1FQd5dA5KR1WEa5qrb+vBMKm8QRIAQXNwmcoZenQN6t2ZnlcafPjc9dcyWrTiMfMfBOS
-	 Dsn9u4X5CsTtynQXWFu232fRhLNiQ9Vs7GYhlGskJn+OxplQz2SG7eWS0gHi7uwIxVzk/
-	 hZyQW/hKXwoLWKlnWE2Em23H1adcrCFrHdYXpDIplk1SaHCRlYzEADc62+8sGLGQvyB8a
-	 18JbtBp7gaDiqDV+gGaBejQonDVRqPN/5KjHG8YKyctpq01uX5+0E3MUXLEjGqq1fYA==
+	b=ECRyp6jtXMGD7fEQBHmb7zZvzEVzF7Rnd4sGFQC3+NZv59Ys4V8HBq57n/rbUCeI1/HD
+	 5OycZqw7sbeyj6Jw9+Z5cy5HeE49RMdJGYcMYAzXdqO8E2mphazJUfpPIMJQMKRk4KZ3B
+	 nxZ8trQJ5oX+rnUpzSZYqz1mC/Agu+P6qbun6U264wUbu+DPzV42pXD32qSAOnexb4fMX
+	 V2vRaJfqef2r7r6PDRyJanjOaAlOwltI2+W0i8Ykob/A4Mfok7QnHfFsrsXbltmG8egk3
+	 F6yNLM78/sFG47w5A3rg6uec3bof5FkhXr5RXi19L3yOOiM/BPHbq0YjrTThrlNU0rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794313947;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f9B/Xow4vvH5tof2ioRNBZqfvIMarAsslv7GTMaadmY=;
-	b=rT8I2fUDc0ODxX0BLTDa0QMMrETriTTXf8QF9SC9tktEFfYUO46WZlQSjFDbBXygseAi
-	 y54dfVfgo9Rg4ntd8RtHr3TGhJGzqD02IAusqAskS/3E+DFpTVr3ZZKaJ+FCBWvpaMVwM
-	 GYFiYODiwPiMGqjDSKcWvfaZvS+pwdAECgYvRhIfVq6BiflUnUczDlw3hjXYorGTQS/uR
-	 0fm429KpLkM5tG1mqeVr3qqPPFvOnEbijIpGh0v7jOvSbKOig3CakLfaTswMtGAqkbxCT
-	 5s/XV67pZ0lITgHuq/dPL/q12rcQS9fz6zOWJG3Nz0opUUT9u0GzMnyHJSl4gt+zLMQ==
+	bh=D/zWUjZ2a/dzeN0buP9oJO6wZGyjadhDK0Zkfhjem5c=;
+	b=RWAdYZrMoJfm2y5dXNQ+wFhLzWQVfDcnKvIOz654Wsk/nX7CEKs4PbXglOuPosJKgx0A
+	 XduYpZXtzr8ZOff1fdcCuBrslTapTIWKIWKA2j7cRUXbeB1r3ImzRrZ6J0HwjqjBp4LCg
+	 GUqArLCWo5ECCxJdvRBn8tNbelVfKFbsxVGbQPQgn5PcEVAFPcwbkqm6FYomISZi6kDt7
+	 gqkq6QTPUg9twHIJx8LLFP6v6HmJ4hzhsAWbIRo5Df6uZCDPWxxpEbcNQMJotxTutVc8A
+	 DA4SLB4k67chhv9E++yWYptV5NctAnakI3Yihv3qI1sYuflxK8q9hVgIG02BdsBb9tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JR0jL4ca;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSLI2X8S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D50606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:32:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6AE606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JR0jL4ca
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4251F0089F;
-	Tue, 10 Nov 2026 12:32:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PSLI2X8S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B141F008A1;
+	Tue, 10 Nov 2026 12:32:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313946;
-	bh=f9B/Xow4vvH5tof2ioRNBZqfvIMarAsslv7GTMaadmY=;
+	s=k20260515; t=1794313947;
+	bh=D/zWUjZ2a/dzeN0buP9oJO6wZGyjadhDK0Zkfhjem5c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JR0jL4caMclVpMvD/G6gJNuV9FEpkS2G6tNQCZkCAbfF8zCcSWagR6dgsCgGAocS6
-	 otuyUQJK/9pgtfS1M1C/h6hDv5GjPCvRPdnZ5/LLD2zs5U2hxl4YGeix+KiTaLgbIt
-	 ElYpqotXol7sq+GCrvsChc9OQvjiUN6qtXZEch9AC0vJHc8yeTy5yPSJu2jSHV/i/C
-	 EUVCAmW6WF6PVCnWo3uercxj+Lhae14YiPLkNMnWGbs7gaLSQtMpSzczwRDEWHe3If
-	 K7pSbdbSqVSeKqvwRz5wo23uMvL2knNu8TJ3DUmAz+OhBBGYkkRnjLAktTP6HpDGaD
-	 VFDDDqyLKzesA==
+	b=PSLI2X8Smcxo8US4NOCJMgtFe3I2uHcHbCN70IKe4srEEon2bNhf+bp40H2wyCt8R
+	 OJheoEPMPr4MTIF+FteqWuy+iFQhOzSCHnuZjtw+gVV9RbvZFGLIq0Jkp1Ru5maOYn
+	 aWaYz8bmHkPbzeJYUd0Kvj/d2wOfPw959F2zGF1PyuMOsQ+yE7lQIfbEThXOYlpLTK
+	 UX3QAymBhti24E9/C40H54WH3VnVoBwzxHfyZTLcqDSY+sdg7AQLZoTkWSOmdId/6M
+	 tdMPqW8w2VfLmYmkWvnFvLixoNCmVixPcMIo8OBvEcR5zmK5MLzAsaFsdANGuLgwjK
+	 V2sstKiP1doCA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nicholas Hobson <nicholas.hobson@outlook.com>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] ALSA: usb-audio: keep MIDI input running for Roland TD-11
-Date: Tue, 10 Nov 2026 07:32:23 -0500
-Message-ID: <20261110123217.1265796-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] ALSA: usb-audio: Protect Roland control activation
+Date: Tue, 10 Nov 2026 07:32:24 -0500
+Message-ID: <20261110123217.1265796-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050744-failed-6.18-19b42c1fff7f@kernel.org>
+In-Reply-To: <20261110123217.1265796-1-sashal@kernel.org>
 References: <20261107050744-failed-6.18-19b42c1fff7f@kernel.org>
+ <20261110123217.1265796-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,83 +62,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nicholas Hobson <nicholas.hobson@outlook.com>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 2e4c9ab2574eeaa7b893c7d35b4a9f60fd681ddd ]
+[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
 
-The TD-11 hands MIDI handling off to the host once connected via
-USB. If no MIDI input port is opened on the host, the device itself
-becomes unusable as a standalone instrument until its input is
-serviced, independent of anything happening on the computer.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-Add a per-device keep_input_running flag, set for the TD-11 in
-snd_usbmidi_detect_roland(), and check it alongside the existing
-opened[1] check in snd_usbmidi_input_start()/snd_usbmidi_input_stop()
-so that input is started at device creation and never stopped for
-these devices, regardless of whether a client has the input port
-open.
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-Signed-off-by: Nicholas Hobson <nicholas.hobson@outlook.com>
-Link: https://patch.msgid.link/MN2PR15MB3472557AF39DC3A4CA9E753FF8BD2@MN2PR15MB3472.namprd15.prod.outlook.com
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
+
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 19b42c1fff7f ("ALSA: usb-audio: Protect Roland control activation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/midi.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
+ 1 file changed, 27 insertions(+), 26 deletions(-)
 
 diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 787956252e800..30d0684920319 100644
+index 30d0684920319..c404412ae53b9 100644
 --- a/sound/usb/midi.c
 +++ b/sound/usb/midi.c
-@@ -113,6 +113,7 @@ struct snd_usb_midi {
- 	unsigned int opened[2];
- 	unsigned char disconnected;
- 	unsigned char input_running;
-+	unsigned char keep_input_running;
+@@ -1146,41 +1146,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
+ {
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
- 	struct snd_kcontrol *roland_load_ctl;
- };
-@@ -1168,7 +1169,7 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			snd_usbmidi_input_start(&umidi->list);
- 	} else {
- 		umidi->opened[dir]--;
--		if (!umidi->opened[1])
-+		if (!umidi->opened[1] && !umidi->keep_input_running)
- 			snd_usbmidi_input_stop(&umidi->list);
- 		if (!umidi->opened[0] && !umidi->opened[1]) {
- 			if (umidi->roland_load_ctl) {
-@@ -2258,6 +2259,10 @@ static int snd_usbmidi_detect_roland(struct snd_usb_midi *umidi,
- 	struct usb_host_interface *hostif;
- 	u8 *cs_desc;
+ 	guard(rwsem_read)(&umidi->disc_rwsem);
+ 	if (umidi->disconnected)
+ 		return open ? -ENODEV : 0;
  
-+	/* TD-11 becomes unusable if input isn't serviced continuously */
-+	if (umidi->usb_id == USB_ID(0x0582, 0x0151))
-+		umidi->keep_input_running = 1;
-+
- 	intf = umidi->iface;
- 	if (!intf)
- 		return -ENOENT;
-@@ -2465,7 +2470,7 @@ void snd_usbmidi_input_start(struct list_head *p)
- 	int i;
+-	guard(mutex)(&umidi->mutex);
+-	if (open) {
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
+-				update_roland_altsetting(umidi);
++	scoped_guard(mutex, &umidi->mutex) {
++		if (open) {
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = false;
++					update_roland_altsetting(umidi);
++				}
+ 			}
+-		}
+-		umidi->opened[dir]++;
+-		if (umidi->opened[1])
+-			snd_usbmidi_input_start(&umidi->list);
+-	} else {
+-		umidi->opened[dir]--;
+-		if (!umidi->opened[1] && !umidi->keep_input_running)
+-			snd_usbmidi_input_stop(&umidi->list);
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++			umidi->opened[dir]++;
++			if (umidi->opened[1])
++				snd_usbmidi_input_start(&umidi->list);
++		} else {
++			umidi->opened[dir]--;
++			if (!umidi->opened[1] && !umidi->keep_input_running)
++				snd_usbmidi_input_stop(&umidi->list);
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = true;
++				}
+ 			}
+ 		}
+ 	}
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	return 0;
+ }
  
- 	umidi = list_entry(p, struct snd_usb_midi, list);
--	if (umidi->input_running || !umidi->opened[1])
-+	if (umidi->input_running || (!umidi->opened[1] && !umidi->keep_input_running))
- 		return;
- 	for (i = 0; i < MIDI_MAX_ENDPOINTS; ++i)
- 		snd_usbmidi_input_start_ep(umidi, umidi->endpoints[i].in);
-@@ -2640,6 +2645,10 @@ int __snd_usbmidi_create(struct snd_card *card,
- 	if (err < 0)
- 		goto exit;
- 
-+	/* start input for devices that need continuous servicing */
-+	if (umidi->keep_input_running)
-+		snd_usbmidi_input_start(&umidi->list);
-+
- 	usb_autopm_get_interface_no_resume(umidi->iface);
- 
- 	list_add_tail(&umidi->list, midi_list);
 -- 
 2.53.0
 
