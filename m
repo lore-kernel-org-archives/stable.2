@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272597;
-	b=jpPgwB53VyV06lozd5VdStgUmoMdcR9U7oAcrp/M+Aplq43k/1un7XZsy8xat60wYS83
-	 L17Xc3L2dXU/hwd3i96Es1hMhTpGHM7dM3x4OQoG/xIQoMf7cRicWebiW3GBZs6/oWXM8
-	 KSUEsyvJvzW0K2F6xCXduYb7lYV2xzEejsk37d9VA1OZFYT8+CF09MfK891IPxef+vs42
-	 YSTt8fcafAihg46Pujv2oz41sk/feSO9hykv9QYJ006EvpKAHTW5h5hAkIh/WRvke5RIn
-	 z2iRd01AGfb3BU/QtSo5wGEnUGy/4tdoJRfEhpFuD0KQYUnw4ONL2dTRohk7fOfxFEA==
+	t=1794272600;
+	b=vXAyR2zOFd1Y4Aos0TXl6P6JNNeN6oAF62c9JTf1LBRloDvjN8EG77biu+H0o89Kb1fc
+	 Mp+yh4mVl04CNKGP4HCP0fl56+uKRUM78DvKGicHWIxD/+Z7+6Rbp8A037XWXrtLIJJyM
+	 BM9KoO3QdYrDbQCZGIjnFXvQJpasKDo0ZqrGuoS0alBGWjBU/fNFdJwV3/7SRCYblN/qO
+	 G0s8QhhUWcXrJXjQ5WamuX8JrA0Yoztwz0bdiVcIMN7Pcpffxz3rhyl4Nnj84UK3NxnrH
+	 GWLhdUDGIEOyBmuCZXCJP98r2As1ojuwN5Ht8gNLajSH2VW/eDqy2NefZeNSSc4uSOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272600;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/JheRJu6fOvgC0yK98qubGvMpeH4tRVnigwdPAMIFA4=;
-	b=5OgTwVAPYm4Dd08XIweU1MQBLsJjxfYp3zUYmpT2yRs4jOG8NTCseliN5LMDfWDXS2wi
-	 6YHskA7ydvtVH+BXhyc8yCNcRCTjCeIUeeYjHIOXELqm1XznxxUpkwngVKGuwmZiD9ppQ
-	 YL6ET5nE5Ju85zJVHq66xLQ4n1EY+/JxhlJTpPib4X+LeCScQgvlBHbdr2uSZmtEjy2Gb
-	 iXxDr/OhyToThVQ6tLFejXqztpazhautWF62hV/JUFzI3nY2cBkje8cqD4RqQ0iqGoy7g
-	 UKLtCWnca0xWt9eUv9C1k4uQXwkAHpyeVJPub4a92zxj1H8NwgrHcTray6FypwZaXhA==
+	bh=0+l6X2gGRtdLNqXILPJFkHjAxkkXOumnt6rxwpVC0Ug=;
+	b=a0mxhFWmOk+W+RUlT4HGlfK4uPmg6DzV2eWzqXi9Cro12I5yQyV72B7xgstRYXI9Dpwp
+	 w0rMFgUsP0w45qX1btApOGqWKh/E8tgLN2y6iULTAmDG9XKy0TdEHd2u0LJYcYGbQzcXT
+	 fUMe3L0CwBUUY7HJq3CoU0w84N5BFJ/4aVXVOX2zvqvGA5ED7Z1JeHnS9mDcmDXmGohuF
+	 QujvzcCukqIUVBe2qe0zd55Qr4ymEbcLCXZWaeUcQkwlXFGBDReOVnYYv4G75sJeEqsKn
+	 w64t7YyVOLaD4jjkzmJN6V15rwf+XL2W7sN9UNwgKxDz9YQrgLfEVFuixeYze//yzxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrlY5TOa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pvhpq3md;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC44606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B82606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrlY5TOa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782761F0089F;
-	Tue, 10 Nov 2026 01:03:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pvhpq3md
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093901F0089F;
+	Tue, 10 Nov 2026 01:03:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272597;
-	bh=/JheRJu6fOvgC0yK98qubGvMpeH4tRVnigwdPAMIFA4=;
+	s=k20260515; t=1794272599;
+	bh=0+l6X2gGRtdLNqXILPJFkHjAxkkXOumnt6rxwpVC0Ug=;
 	h=From:To:Cc:Subject:Date;
-	b=WrlY5TOaB+KL6Db6KkGQhXjHS+DFdxc6+K9EGP++bztAqCwhcxHxO9dh0w21RYgy5
-	 F8od7iUjkwyUmAoMkx5RzO3DjJqMiUv6QiHOwJ9txF2eUWquMSCn417t54rG1IwGqZ
-	 Q5pfz76RBkilFtTR2IQJ5Km5G27APJy4FfuWZRX+hLfNfRCiYwN46Tc9fjyiDH+KR7
-	 qzA63Bv1MfcSDoPRDs2T96l/btA0fI9K7679T/l9m/1p6qTypDWxiRRkcdvQnBhZtp
-	 gDrZ1pXaoUNnFNJWdz4SZmK9vfQx72eeP8TC2ONnxFgtYpwNvYEIUX3jps4YbdVing
-	 rEc4/smxfT6ug==
+	b=Pvhpq3mdTPoOdLsO6f154BEn4xFiRyVSuagxhhLFh9ouS6vyzJYOjKiJWSf5M1DTq
+	 rYFcGvqEgNFz//EILHvUh3mKgoVjgxC0HtNIms5khh1z0VnyZvywvHTtrVmJmc06vD
+	 sZGyqtCmbZ6w8xTxd2jrrBkWBAJ3gpWK/cAA9EABy0fosjTOasuq34OYM+Dke8biFi
+	 rJaYdxYrEkGcPMI02f5oszakMLvdcZnKieD+NwGWT+3FYiASrWDnTl/88iUGOfD5Hl
+	 fxvrYgLtsVI8k6dirnKwt3f1uuTlR4yha//gNDciUkaoqjFIQ20DcLMYuwW2sQpz8x
+	 axkOcAgrSDH4w==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	riel@surriel.com,
-	usama.anjum@arm.com,
+To: david@kernel.org,
 	ziy@nvidia.com,
-	david@kernel.org
+	pfalcato@suse.de,
+	lance.yang@linux.dev,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:03:15 -0500
-Message-ID: <20261109200315-failed-6.18-dc24e273244e@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/huge_memory: properly handle refcounted PUD mappings on fork" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:03:17 -0500
+Message-ID: <20261109200317-failed-6.18-d90bdc02e36e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,128 +71,134 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x dc24e273244e9d712257d5a6c20a32c7f5ca84e6
+git cherry-pick -x d90bdc02e36ec08d8248ebc6cdc52e12043eb28c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200315-failed-6.18-dc24e273244e@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200317-failed-6.18-d90bdc02e36e@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From dc24e273244e9d712257d5a6c20a32c7f5ca84e6 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:39:35 +0100
-Subject: [PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock
+From d90bdc02e36ec08d8248ebc6cdc52e12043eb28c Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:40 +0100
+Subject: [PATCH] mm/huge_memory: properly handle refcounted PUD mappings on
+ fork
 
-memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
-after the inode has been freed. Once the folio is deleted from the
-pagecache it no longer pins the mapping, so after i_lock is dropped
-e.g., a concurrent final iput() can evict and free the inode before
-filemap_free_folio() looks up mapping->a_ops->free_folio.
+copy_huge_pud() copies device-DAX entries without taking a folio reference
+or updating mapcounts and the child's RSS.
 
-Most callers hold a reference on the inode, but not all.
+For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
+forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
+huge PUDs are then copied without accounting for the new mappings.
+Unmapping them in the child decrements accounting that was never added.
 
-Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
-must not assume the original address_space mapping still exists.
+Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
+reference and add the child's PUD rmap and RSS accounting before installing
+the copied entry. Pass src and dst VMAs consistently instead of src and
+dst MM. Move the TODO.
 
-Fix it by loading ->free_folio while i_lock is still held, similar to
-what folio_unmap_invalidate() does.
-
-Inline filemap_free_folio() into its remaining caller such that
-delete_from_page_cache_batch() also just loads the callback before
-dropping the i_lock.
-
-The bug was found by code inspection and has not been reproduced.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
+Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: get rid of filemap_free_folio() entirely; improve patch description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-11-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/filemap.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
+ include/linux/huge_mm.h |  5 ++---
+ mm/huge_memory.c        | 27 +++++++++++++++++++--------
+ mm/memory.c             |  4 +---
+ 3 files changed, 22 insertions(+), 14 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index b74bc1e5015c6..906b013c11eb3 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -227,18 +227,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
- 	page_cache_delete(mapping, folio, shadow);
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index c745f7ad22987..fac05120ab774 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -12,9 +12,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 		  pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
+ 		  struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma);
+ bool huge_pmd_set_accessed(struct vm_fault *vmf);
+-int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+-		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
+-		  struct vm_area_struct *vma);
++int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
++		pud_t *dst_pud, pud_t *src_pud, unsigned long addr);
+ 
+ #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
+ void huge_pud_set_accessed(struct vm_fault *vmf, pud_t orig_pud);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 4c0194af9016d..283c4bc8b927c 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2072,11 +2072,13 @@ void touch_pud(struct vm_area_struct *vma, unsigned long addr,
+ 		update_mmu_cache_pud(vma, addr, pud);
  }
  
--static void filemap_free_folio(const struct address_space *mapping,
--		struct folio *folio)
--{
--	void (*free_folio)(struct folio *);
--
--	free_folio = mapping->a_ops->free_folio;
--	if (free_folio)
--		free_folio(folio);
--
--	folio_put_refs(folio, folio_nr_pages(folio));
--}
--
- /**
-  * filemap_remove_folio - Remove folio from page cache.
-  * @folio: The folio.
-@@ -250,6 +238,7 @@ static void filemap_free_folio(const struct address_space *mapping,
- void filemap_remove_folio(struct folio *folio)
+-int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+-		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
+-		  struct vm_area_struct *vma)
++int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
++		pud_t *dst_pud, pud_t *src_pud, unsigned long addr)
  {
- 	struct address_space *mapping = folio->mapping;
-+	void (*free_folio)(struct folio *folio);
++	struct mm_struct *dst_mm = dst_vma->vm_mm;
++	struct mm_struct *src_mm = src_vma->vm_mm;
+ 	spinlock_t *dst_ptl, *src_ptl;
++	struct page *page;
+ 	pud_t pud;
+ 	int ret;
  
- 	BUG_ON(!folio_test_locked(folio));
- 	spin_lock(&mapping->host->i_lock);
-@@ -258,9 +247,12 @@ void filemap_remove_folio(struct folio *folio)
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_lru_list_add(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
+@@ -2089,11 +2091,20 @@ int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+ 	if (unlikely(!pud_trans_huge(pud)))
+ 		goto out_unlock;
  
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	folio_put_refs(folio, folio_nr_pages(folio));
- }
- 
- /*
-@@ -320,6 +312,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
- void delete_from_page_cache_batch(struct address_space *mapping,
- 				  struct folio_batch *fbatch)
- {
-+	void (*free_folio)(struct folio *folio);
- 	int i;
- 
- 	if (!folio_batch_count(fbatch))
-@@ -337,10 +330,16 @@ void delete_from_page_cache_batch(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_lru_list_add(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	for (i = 0; i < folio_batch_count(fbatch); i++)
--		filemap_free_folio(mapping, fbatch->folios[i]);
-+	for (i = 0; i < folio_batch_count(fbatch); i++) {
-+		struct folio *folio = fbatch->folios[i];
+-	/*
+-	 * TODO: once we support anonymous pages, use
+-	 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
+-	 */
+-	if (vma_is_cow_mapping(vma) && pud_write(pud)) {
++	page = vm_normal_page_pud(src_vma, addr, pud);
++	if (page) {
++		struct folio *folio = page_folio(page);
 +
-+		if (free_folio)
-+			free_folio(folio);
-+		folio_put_refs(folio, folio_nr_pages(folio));
++		folio_get(folio);
++		/*
++		 * TODO: once we support anonymous pages, use
++		 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
++		 */
++		folio_add_file_rmap_pud(folio, page, dst_vma);
++		add_mm_counter(dst_mm, mm_counter_file(folio), HPAGE_PUD_NR);
 +	}
- }
++
++	if (vma_is_cow_mapping(src_vma) && pud_write(pud)) {
+ 		pudp_set_wrprotect(src_mm, addr, src_pud);
+ 		pud = pud_wrprotect(pud);
+ 	}
+diff --git a/mm/memory.c b/mm/memory.c
+index 0fb676dd2bd63..5392bcb1d24d6 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -1463,7 +1463,6 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+ 	       unsigned long end)
+ {
+ 	struct mm_struct *dst_mm = dst_vma->vm_mm;
+-	struct mm_struct *src_mm = src_vma->vm_mm;
+ 	pud_t *src_pud, *dst_pud;
+ 	unsigned long next;
  
- int filemap_check_errors(struct address_space *mapping)
+@@ -1477,8 +1476,7 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
+ 			int err;
+ 
+ 			VM_BUG_ON_VMA(next-addr != HPAGE_PUD_SIZE, src_vma);
+-			err = copy_huge_pud(dst_mm, src_mm,
+-					    dst_pud, src_pud, addr, src_vma);
++			err = copy_huge_pud(dst_vma, src_vma, dst_pud, src_pud, addr);
+ 			if (err == -ENOMEM)
+ 				return -ENOMEM;
+ 			if (!err)
 -- 
 2.53.0
 
