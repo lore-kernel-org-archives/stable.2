@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272845;
-	b=BQj09NpYeCkilMetxQIX2RisqH2PrDUMs3YdS0+wJi9+azIC7bXrCRUFfBTUj5/r/ctb
-	 6Wcmdi5Kk5nLI3iqRjlPpb8qtYiUlpqki6XZrrpt/sHlJh/yq1ST08onSS+qIy2fAc4Rr
-	 AwXOoszbZlKP0FdaHQpTkD1wWzunjfFq8CEWYZ4saxJ3wXQeIMnzsFy2FAG5bmJpqN5t3
-	 mrrl0X6qE6XbMXm+DIqqiYYoRBremxjE14s7+kTr01oN9pGY0O4kKCrCWoUoxt5x63PCq
-	 2xgP5288hI1iR4oHKrePP4GmXLpRcBKpgauT7F956hm/VuZW1VdYc8xqQxLlWScuH/Q==
+	t=1794272848;
+	b=EACjCzfXQgXu61EWeD94vuWa5tFfKvH2yMh1/KP4sH1io496OKup7rQVypH/ccZQk02f
+	 SkOwfHjIldLeP1KMyrF5fHsby/FxOrnGjRcFeQJ/Xq00Sp6QBgMZnq6qEcUUZtwQxV2PO
+	 ++/ttbkckJustU5cdO6t6MADsC3Q5rIDItyha+5Pyqgj70dBKHtBcnPs8rfEl7SCSpLlP
+	 /5WUAd+jOfz0x6Sam8mSYFPgsRVYwqtQZlcT6jOA/rt4z9Bamnzpw2gyjBrd5i1iPfs7g
+	 hCkwqFa0+al47RjCiohT80geXWdoqymIINyKaSW2DIhbclKmQTVJE3d1dGmF4ZHWUAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272848;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BuEPuTVJ3RKMnaVeBqSEpH5nGmc4GpHW/Oq+8ctC/so=;
-	b=BzAk4w1ZYY+upYK29S3cTwye8yG78nEh5Mc67oYLJawwimORTYLYnJdcfqgH8Hn+iGd+
-	 scHQ7h5SWyuv46go7S6Y9sWyhR9IQd93DZZ84QO2QSi3KNyhg3DBdsiAZAd2eQo9odaVi
-	 jK4qddL1/IJkQ2NOg+O9bIWn5YVyec27O9RUdZP/zziiH5QWhohTjRQ++ko2VbFYva0Dq
-	 CrO4E9UsxaFSQyobgU/OeK1errJEI9DeBMr9VpqdO0fihRDGaUfkK9EZCNJG+RUYqvIZt
-	 aLCELKrIR7EE3lU2mdXot0fZYZMq+3o8hsyv4eziccQder+m39NIo1vj+0pjR4UencQ==
+	bh=Jre2vbyMJoJb7e4UpcYiSbrr/ARH7ZcIpkozp0aHdTU=;
+	b=MB95MmUW3hZwteHGYUquYgxx/shIyrEr6CE/gE87iapqgMSi3L/p72iiSkNNMA7+SZ66
+	 mu5KvQZJ3VmPnNTBP+UAO+CF4pO971zgAdvvg6BGvp0U7P9d0VbQT/uUIs2How/uXc1zh
+	 +XjmFTX76jtePvBTEinYBeMXSPjcv8UHFTBERyrJxJftcnHjqlg/x0sOus6lKCuoFndhb
+	 rUUrapTuJq6GHXBg6sH1KNDvvQNW8JOyJpjkJDcGte8lPW2ecfNN07+UQe9HDnsvOegug
+	 IYKyJUOAuu9LW/XyxPWrJVddNrifV3DhwSpHjfo5S/oZzCpSsZTcds04PqU3FlGhImQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqeCNxBg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NDKTfF9/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766E9606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1717606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqeCNxBg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29081F008A3;
-	Tue, 10 Nov 2026 01:07:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NDKTfF9/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235D31F008A3;
+	Tue, 10 Nov 2026 01:07:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272845;
-	bh=BuEPuTVJ3RKMnaVeBqSEpH5nGmc4GpHW/Oq+8ctC/so=;
+	s=k20260515; t=1794272847;
+	bh=Jre2vbyMJoJb7e4UpcYiSbrr/ARH7ZcIpkozp0aHdTU=;
 	h=From:To:Cc:Subject:Date;
-	b=cqeCNxBg2k6leyrwF8/iW0ZYdTBVYaOKmLFupL5BxuX8KYZ0jaB0mPWqUOVylrI22
-	 Sr6uEMo6qTLS+r0rMF4Uq+QEmV8OhjAuzaEC/Pq2x34Uvtxemxw8yQld4wAN3pdYSn
-	 OgeTeoghWxoXeciLxQx2PDDgmsCvopKYFREfYFyT4vq1ueI8xIBzOQwNdlQO25gw8n
-	 4Fuf42r4Sy6ScYqQd1sAoICRqmB3uxGVSgaxfGHBvN/FIdH0S5FLCg01KcnxEczvSg
-	 xW7ZgR/3TW8Z7HmA91C4eW65hbA5zN4Boa53YKZruhppp1ztz4O3NHZuWey4EMjPSD
-	 GmItdMC+De5mA==
+	b=NDKTfF9/dJf2z8eEbrxhfpAu3vVi7YDm8rOelRUGyNo4xEmAUj3wG+Rfi7dPYHPyS
+	 ZrAoDPczyy6B3bgbjBb/XjYC51c2hutihC4NNW2TCSakufOLzc0MLy17Jpg1uKiWIl
+	 xbCb4uHbRCOPJKy2TsBXSzLLFLnNBxmrqRDeT/W8X0mhv9SgJCf05/CF7dezbFBUe2
+	 oBf0h6cLURLaXEWnZD/2sIalPkzn5/p5zy2lLDJ49s1BB+4N4yqJVMBEJtrybJ9m/7
+	 R8j3tPvOhgVAVW6UAFNIpP/ZdVcCb+Qxn63uLCMQZNR6b8oIiQQ7phS5xk8UHK6G/g
+	 18JYwYUGnm//A==
 From: Sasha Levin <sashal@kernel.org>
 To: linux@roeck-us.net,
-	sashiko-bot@kernel.org
+	sashiko-bot@kernel.org,
+	ycistak@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (tmp108) Fix initial conversion delay and wait until ready" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:07:23 -0500
-Message-ID: <20261109200723-failed-6.12-7cd60538073e@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Set nr_cores only after core_data allocation succeeds" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:07:26 -0500
+Message-ID: <20261109200726-failed-6.12-95638f1f05ce@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,125 +69,69 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7cd60538073e465310c94b2a2f0ea8d2f03768ef
+git cherry-pick -x 95638f1f05ced75a82e83f610cd01b636d2a21b1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200723-failed-6.12-7cd60538073e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200726-failed-6.12-95638f1f05ce@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7cd60538073e465310c94b2a2f0ea8d2f03768ef Mon Sep 17 00:00:00 2001
+From 95638f1f05ced75a82e83f610cd01b636d2a21b1 Mon Sep 17 00:00:00 2001
 From: Guenter Roeck <linux@roeck-us.net>
-Date: Fri, 30 Oct 2026 20:02:08 -0700
-Subject: [PATCH] hwmon: (tmp108) Fix initial conversion delay and wait until
- ready
+Date: Sat, 31 Oct 2026 03:08:32 +0000
+Subject: [PATCH] hwmon: (coretemp) Set nr_cores only after core_data
+ allocation succeeds
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
-(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
-TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
-conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
-immediately after enabling the vcc supply regulator during probe, while
-the temperature register retains its power-on reset value of 0x0000 (0°C)
-until the first conversion completes. Because the initial mode is not
-shutdown, the delay is bypassed and early reads via thermal zone
-registration or sysfs before the first conversion finishes return an
-uninitialized 0°C reading.
+In init_temp_data(), pdata->nr_cores is populated from
+topology_num_cores_per_package() before allocating pdata->core_data. If
+that allocation fails, init_temp_data() returns NULL with
+pdata->core_data still NULL and pdata->nr_cores set to a positive value.
 
-In addition, returning -EAGAIN from tmp108_read() while waiting for a
-conversion to complete after probe or resume can trigger an unnecessary
-tight retry loop in callers or fail initial reads.
+coretemp_add_core() logs the error without failing coretemp_cpu_online(),
+so the CPU still comes online with pdata->hwmon_dev registered. When the
+CPU is later taken offline (or the module is unloaded),
+coretemp_cpu_offline() calls get_temp_data(pd, cpu), which loops up to
+pdata->nr_cores and dereferences the NULL pdata->core_data pointer.
 
-Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
-tmp108_common_probe(), track ready_time as ktime_t, and wait for the
-remaining conversion time in tmp108_read() using usleep_range() instead
-of returning -EAGAIN.
+Store the core count in a local variable and assign pdata->nr_cores only
+after pdata->core_data is allocated, preserving the invariant that
+pdata->nr_cores is zero whenever pdata->core_data is NULL.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
+Fixes: 1a793caf6f69 ("hwmon: (coretemp) Use dynamic allocated memory for core temp_data")
 Cc: stable@vger.kernel.org
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/tmp108.c | 26 +++++++++++---------------
- 1 file changed, 11 insertions(+), 15 deletions(-)
+ drivers/hwmon/coretemp.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index 91d20a1ce1120..862b944d3e609 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -13,7 +13,7 @@
- #include <linux/i2c.h>
- #include <linux/i3c/device.h>
- #include <linux/init.h>
--#include <linux/jiffies.h>
-+#include <linux/ktime.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
-@@ -78,7 +78,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	u64 ready_time;
-+	ktime_t ready_time;
- 	const struct tmp108_params *params;
- };
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index eb74ecd12310a..7fced0e2abeba 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -491,11 +491,12 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 	struct temp_data *tdata;
  
-@@ -121,6 +121,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
- 	unsigned int regval;
- 	int err, hyst;
-+	s64 delay;
- 
- 	if (type == hwmon_chip) {
- 		if (attr == hwmon_chip_update_interval) {
-@@ -137,12 +138,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 
- 	switch (attr) {
- 	case hwmon_temp_input:
--		/* Is it too early to return a conversion ? */
--		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
--			dev_dbg(dev, "%s: Conversion not ready yet..\n",
--				__func__);
--			return -EAGAIN;
--		}
-+		/* Wait if it is too early to return a conversion */
-+		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
-+		if (delay > 0)
-+			usleep_range(delay, delay + 1000);
- 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
- 		if (err < 0)
- 			return err;
-@@ -477,11 +476,8 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
- 		return err;
+ 	if (!pdata->core_data) {
+-		pdata->nr_cores = topology_num_cores_per_package();
+-		pdata->core_data = kzalloc_objs(struct temp_data *,
+-						pdata->nr_cores);
++		int nr_cores = topology_num_cores_per_package();
++
++		pdata->core_data = kzalloc_objs(struct temp_data *, nr_cores);
+ 		if (!pdata->core_data)
+ 			return NULL;
++		pdata->nr_cores = nr_cores;
  	}
  
--	tmp108->ready_time = get_jiffies_64();
--	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
--	    TMP108_MODE_SHUTDOWN)
--		tmp108->ready_time +=
--			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
-+	tmp108->ready_time = ktime_add_ms(ktime_get(),
-+					  TMP108_CONVERSION_TIME_MS);
- 
- 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
- 	if (err) {
-@@ -528,8 +524,8 @@ static int tmp108_resume(struct device *dev)
- 
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = get_jiffies_64() +
--			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
-+	tmp108->ready_time = ktime_add_ms(ktime_get(),
-+					  TMP108_CONVERSION_TIME_MS);
- 	return err;
- }
- 
+ 	tdata = kzalloc_obj(struct temp_data);
 -- 
 2.53.0
 
