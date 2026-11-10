@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340792;
-	b=jB7ZMQDnOfUQu/DmpYlEk+SUKlleG+PqXCYfOjKXVur1i1WvNO/tX8eROj0s1UwMJKIL
-	 d9HI1zf1ieRlRU/AwlC9LF3Gvqi/29BvL3IvQ8zOoG9qSN9tyUx1WqxINsV1V1abNaepN
-	 E8rJgg4zOH5A0EhSEqfe111+0y6QrURRWoq9vHUN+MVI+O6NjZ5P5qAcC5LUocBwKL2TP
-	 oa0t6vE05LSU5SxU61i8kPrnXOtlLBjbyPjDqjFuJ/IROvmJL8snZIYnAP8R9zI7k9EBC
-	 vzR3dC9uYn6qJV3N1isnHy1iiTcOQBoYWW3wVsuCuZgPxKcWB11mXyXjhTV+KlASxkQ==
+	t=1794340872;
+	b=Zlp3wj+YFqlH3WEGkvOVO6rd09Iki7SU2gZXuK/1fYEKCA68s83VPcL2yetBJXR/8aQz
+	 NTeQ7rgDdxlQDGL08/6qwU60HzHDYPaPzXRKZDpQgiIU3/FDq5ZTGm6Tv4PKDMjWaFJ5z
+	 F20eAE/nmZJQ5YC+mW6EqOy6ovjAxLVb+JvIVEkrE/hWlgBye9M6iU2lL2d5bFp+gLJmg
+	 ZW6bs6JcNkqGjoV6dj20+Fg1xiSNYwyaFy1lrWg732LIet0ZEl5+2EnO3cG4iHL6VY6sK
+	 jUk9E1blq3MV8wqjRCmuIpvQC/lhzMaV0v0IP82egrcZt0U8zto8qN2xdpxuGg7Mc5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340792;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340872;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=x+2CLNyHymFpK9gLBX1cnF+xwtanizdDf20EwtpXHJE=;
-	b=AQWsC+SMBL5vFjN2bQ8l71sacmlhLTvaKbGWX9MB/bIb2noGPG8YaVMq6W8zV7bVQoy+
-	 pKrJ5rCkZxvRh2I1n8IxlvpSFXgUNosjLxqx7HmnTqmu41Nkj8v1IC3tCWKx7I3kOOIP/
-	 NLhsweW/rEK2oSbFNU+Rn7DXtU4Pxzx+NGBXXFAY/6DuSvvkIIE+yceFwOaxOGYJv0E0Q
-	 MM5sv+hy3LNlivDtOKrOP4tsElaR+ABnAuIcNYwupme88JzJeRDRy5V3gcTfjWN8+gsyh
-	 ixvV9chFRPBbNvb0GY1PtqVo5fz/JLjjKk1tKtdHhNPwK1KZxBQ8LXr7YG7iqpqDNdw==
+	bh=QAXthfXE0IhouqsXZ0u5uh42w/Z8OoWYNtBJboIR4Ms=;
+	b=Q00vYQ39j8NEFvQMhcrintjL8L4EaNuDn2EteLyXjxga83jFcegMRchw2zatS1pmhWR6
+	 SmiHvliJYrDCjS68ksx2vPYOMFZaNhtXQ3wkNnjHCOZByePKPuzOxrB9uESv2kFjKvGkR
+	 7U+bWNNaTnwqLaCjsxPz3EGOmzPHJZxFIUo5xRePdbmqcw8taOHCmH8u4JVdp84TeBgIL
+	 Bndla6MwpPpqMHrNnSgpoOpOdFBhGRzvjSkYBrctLykx3u3xxL6mkPVNSeDHKOnosqOZQ
+	 7vdailgoOobToL07xNIoxNfO272swUnCDEKq9Gh48jY1fh0PQ1gBE47BLL8TVCKl3bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pjs9liJm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=HRSlWhlH;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41796606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:59:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E2492606A32D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:01:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2492606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pjs9liJm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38DED1F0089F;
-	Tue, 10 Nov 2026 19:59:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794340791;
-	bh=x+2CLNyHymFpK9gLBX1cnF+xwtanizdDf20EwtpXHJE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pjs9liJmLbYAMlUEpwVie5VNzn/A3vFLUnFHyWHLZYn3l9XxiXPiBu9RCGiu8Zrdd
-	 JrE++QlgREc6BjK5YtXCSUzV4PnLv8/l0IC0LDFrUnEqwX26JqmD06dxQPfYCgWKj+
-	 s1ZddfbVFL7O4cSABP65wn2+pWkTs5fQRtP0aDfLHHIN0J+NYeihZGtJja8+RpYI4G
-	 91i5lzFrPTNK70Hm9+UZE9DvtViWRGWxxD10xA5zeQwjJNUK8HUUmSgssmJvH5KDYY
-	 oUK79zGalX+iY03Ogl81u6Lhy1SaKtWxa1ZTd6sPK6350wM1r68uezsJcO4oTOwWh8
-	 D1ERjc/IkTixw==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=HRSlWhlH
+Received: by dvalin.narfation.org (Postfix) id DED7F1FE32;
+	Tue, 10 Nov 2026 20:01:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794340870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QAXthfXE0IhouqsXZ0u5uh42w/Z8OoWYNtBJboIR4Ms=;
+	b=HRSlWhlHnBKvxy7bXwWO7hkbHFzzyu5mqwEVzVpUx86tuebDPNh45zpMg+o5i0aS3/YoP0
+	2+gfWdZ2+WwBKHvGwCXD+9aSeOtV39SdPE/wWB52THsKd01APGNySOie3PBP7vof1m8jcb
+	gjdQokCESzHR8Syd1wAnQmJpP2dCQgM=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Jiaming Zhang <r772577952@gmail.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nilfs2: force clear dirty state when restoring from the shadow map
-Date: Tue, 10 Nov 2026 14:59:49 -0500
-Message-ID: <20261110195825.3646235-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054214-failed-6.1-cb6702e63e0a@kernel.org>
-References: <20261107054214-failed-6.1-cb6702e63e0a@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>,
+	Simon Wunderlich <sw@simonwunderlich.de>
+Subject: [PATCH 6.12.y v2 1/2] batman-adv: Limit number of aggregated packets directly
+Date: Tue, 10 Nov 2026 21:00:25 +0100
+Message-ID: <20261110200026.451472-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200610-failed-6.12-f91f64a91682@kernel.org>
+References: <20261109200610-failed-6.12-f91f64a91682@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,216 +64,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jiaming Zhang <r772577952@gmail.com>
+commit 434becf57bdc89f939db635ed3337b9d1da5967e upstream.
 
-[ Upstream commit cb6702e63e0a16afd83875294e5ce53becdd1b1f ]
+The currently selected size in BATADV_MAX_AGGREGATION_BYTES (512) is chosen
+such that the number of possible aggregated packets is lower than 32. This
+number must be limited so that the type of
+batadv_forw_packet->direct_link_flags has enough bits to represent each
+packet (with the size of at least 24 bytes).
 
-When garbage collection fails, nilfs2 rolls the DAT metadata file's page
-cache back to a shadow copy taken before GC started.
-nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
-cache, then nilfs_copy_back_pages() overwrites them with the saved
-contents and warns if one is still dirty:
+This requirement is better implemented in code instead of having it inside
+a comment.
 
-	/* overwrite existing folio in the destination cache */
-	WARN_ON(folio_test_dirty(dfolio));
-
-nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
-which is safe here because the rollback runs with the log writer
-stopped, so nothing else can dirty the cache while it runs.  The same
-helper is also used when writeback finds dirty folios after the
-filesystem has degraded to read-only, where it does run concurrently
-with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
-folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
-folio if any of its buffer heads is busy.  The rollback caller shares
-that helper, so its clearing step can now return with a folio still
-dirty.
-
-A DAT folio can hold a busy buffer head without anyone modifying the
-folio: nilfs_mdt_read_block() submits read-ahead for the blocks
-following the one it was asked for and waits only for the first, so the
-read-ahead buffers are still locked when it returns.  With a block size
-smaller than the page size, a locked read-ahead buffer can share a folio
-with a block that GC dirtied and keep the whole folio dirty past the
-clearing step.
-
-Add a force flag to nilfs_clear_dirty_pages() and
-nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
-in the two calls from nilfs_mdt_restore_from_shadow_map().  The
-read-only fallback callers keep passing false, so that commit still
-protects them and the WARN_ON() is left alone.
-
-Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
-Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-[ sashal: adapted folio-based changes to page APIs, including the retained nilfs_writepage() caller’s new argument ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- fs/nilfs2/inode.c |  4 ++--
- fs/nilfs2/mdt.c   |  6 +++---
- fs/nilfs2/page.c  | 50 +++++++++++++++++++++++++++--------------------
- fs/nilfs2/page.h  |  4 ++--
- 4 files changed, 36 insertions(+), 28 deletions(-)
+ net/batman-adv/bat_iv_ogm.c | 4 ++++
+ net/batman-adv/main.h       | 3 ---
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index a20d52951f1ef..4a6da06d3286c 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -162,7 +162,7 @@ static int nilfs_writepages(struct address_space *mapping,
- 	int err = 0;
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index 35028134ebdcb..b6fc03b61104c 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -449,6 +449,7 @@ batadv_iv_ogm_can_aggregate(const struct batadv_ogm_packet *new_bat_ogm_packet,
+ 	struct batadv_ogm_packet *batadv_ogm_packet;
+ 	int aggregated_bytes = forw_packet->packet_len + packet_len;
+ 	struct batadv_hard_iface *primary_if = NULL;
++	u8 packet_num = forw_packet->num_packets + 1;
+ 	bool res = false;
+ 	unsigned long aggregation_end_time;
  
- 	if (sb_rdonly(inode->i_sb)) {
--		nilfs_clear_dirty_pages(mapping);
-+		nilfs_clear_dirty_pages(mapping, false);
- 		return -EROFS;
- 	}
+@@ -474,6 +475,9 @@ batadv_iv_ogm_can_aggregate(const struct batadv_ogm_packet *new_bat_ogm_packet,
+ 	if (aggregated_bytes > BATADV_MAX_AGGREGATION_BYTES)
+ 		return false;
  
-@@ -185,7 +185,7 @@ static int nilfs_writepage(struct page *page, struct writeback_control *wbc)
- 		 * have dirty pages that try to be flushed in background.
- 		 * So, here we simply discard this dirty page.
- 		 */
--		nilfs_clear_dirty_page(page);
-+		nilfs_clear_dirty_page(page, false);
- 		unlock_page(page);
- 		return -EROFS;
- 	}
-diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
-index 233954e224487..d0808953296ac 100644
---- a/fs/nilfs2/mdt.c
-+++ b/fs/nilfs2/mdt.c
-@@ -411,7 +411,7 @@ nilfs_mdt_write_page(struct page *page, struct writeback_control *wbc)
- 		 * have dirty pages that try to be flushed in background.
- 		 * So, here we simply discard this dirty page.
- 		 */
--		nilfs_clear_dirty_page(page);
-+		nilfs_clear_dirty_page(page, false);
- 		unlock_page(page);
- 		return -EROFS;
- 	}
-@@ -634,10 +634,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode *inode)
- 	if (mi->mi_palloc_cache)
- 		nilfs_palloc_clear_cache(inode);
- 
--	nilfs_clear_dirty_pages(inode->i_mapping);
-+	nilfs_clear_dirty_pages(inode->i_mapping, true);
- 	nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping);
- 
--	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping);
-+	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
- 	nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
- 			      NILFS_I(shadow->inode)->i_assoc_inode->i_mapping);
- 
-diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
-index 89cd1510bf715..a49ca08b9fcc2 100644
---- a/fs/nilfs2/page.c
-+++ b/fs/nilfs2/page.c
-@@ -367,8 +367,9 @@ void nilfs_copy_back_pages(struct address_space *dmap,
- /**
-  * nilfs_clear_dirty_pages - discard dirty pages in address space
-  * @mapping: address space with dirty pages for discarding
-+ * @force: whether to clear the dirty state regardless of busy buffer heads
-  */
--void nilfs_clear_dirty_pages(struct address_space *mapping)
-+void nilfs_clear_dirty_pages(struct address_space *mapping, bool force)
- {
- 	struct pagevec pvec;
- 	unsigned int i;
-@@ -389,7 +390,7 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
- 			 * was acquired.  Skip processing in that case.
- 			 */
- 			if (likely(page->mapping == mapping))
--				nilfs_clear_dirty_page(page);
-+				nilfs_clear_dirty_page(page, force);
- 
- 			unlock_page(page);
- 		}
-@@ -401,13 +402,16 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
- /**
-  * nilfs_clear_dirty_page - discard dirty page
-  * @page: dirty page that will be discarded
-+ * @force: whether to clear the states regardless of busy buffer heads
-  *
-  * nilfs_clear_dirty_page() clears working states including dirty state for
-- * the page and its buffers.  If the page has buffers, clear only if it is
-- * confirmed that none of the buffer heads are busy (none have valid
-- * references and none are locked).
-+ * the page and its buffers.  If the page has buffers and force is false,
-+ * clear only if it is confirmed that none of the buffer heads are busy (none
-+ * have valid references and none are locked).  If force is true, the states
-+ * are cleared unconditionally, the caller should guarantee that the page is
-+ * not being modified concurrently.
-  */
--void nilfs_clear_dirty_page(struct page *page)
-+void nilfs_clear_dirty_page(struct page *page, bool force)
- {
- 	BUG_ON(!PageLocked(page));
- 
-@@ -418,24 +422,28 @@ void nilfs_clear_dirty_page(struct page *page)
- 			 BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
- 			 BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected) |
- 			 BIT(BH_Delay));
--		bool busy, invalidated = false;
++	if (packet_num >= BITS_PER_TYPE(forw_packet->direct_link_flags))
++		return false;
 +
-+		if (!force) {
-+			bool busy, invalidated = false;
+ 	/* packet is not leaving on the same interface. */
+ 	if (forw_packet->if_outgoing != if_outgoing)
+ 		return false;
+diff --git a/net/batman-adv/main.h b/net/batman-adv/main.h
+index 3d4c36ae2e1ad..9f3c1134e0069 100644
+--- a/net/batman-adv/main.h
++++ b/net/batman-adv/main.h
+@@ -102,9 +102,6 @@
+  */
+ #define BATADV_TQ_SIMILARITY_THRESHOLD 50
  
- recheck_buffers:
--		busy = false;
--		bh = head;
--		do {
--			if (atomic_read(&bh->b_count) | buffer_locked(bh)) {
--				busy = true;
--				break;
-+			busy = false;
-+			bh = head;
-+			do {
-+				if (atomic_read(&bh->b_count) |
-+				    buffer_locked(bh)) {
-+					busy = true;
-+					break;
-+				}
-+			} while (bh = bh->b_this_page, bh != head);
-+
-+			if (busy) {
-+				if (invalidated)
-+					return;
-+				invalidate_bh_lrus();
-+				invalidated = true;
-+				goto recheck_buffers;
- 			}
--		} while (bh = bh->b_this_page, bh != head);
--
--		if (busy) {
--			if (invalidated)
--				return;
--			invalidate_bh_lrus();
--			invalidated = true;
--			goto recheck_buffers;
- 		}
+-/* should not be bigger than 512 bytes or change the size of
+- * forw_packet->direct_link_flags
+- */
+ #define BATADV_MAX_AGGREGATION_BYTES 512
+ #define BATADV_MAX_AGGREGATION_MS 100
  
- 		bh = head;
-diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
-index f5432f6a2fb6f..1cf9f03ef725a 100644
---- a/fs/nilfs2/page.h
-+++ b/fs/nilfs2/page.h
-@@ -41,8 +41,8 @@ void nilfs_page_bug(struct page *);
- 
- int nilfs_copy_dirty_pages(struct address_space *, struct address_space *);
- void nilfs_copy_back_pages(struct address_space *, struct address_space *);
--void nilfs_clear_dirty_page(struct page *page);
--void nilfs_clear_dirty_pages(struct address_space *mapping);
-+void nilfs_clear_dirty_page(struct page *page, bool force);
-+void nilfs_clear_dirty_pages(struct address_space *mapping, bool force);
- unsigned int nilfs_page_count_clean_buffers(struct page *, unsigned int,
- 					    unsigned int);
- unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
 -- 
-2.53.0
+2.47.3
 
