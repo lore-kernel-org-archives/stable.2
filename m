@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282199;
-	b=pJxoE0cZlYFghz0wSHTQaJdDy8yFT3S//+8/3mNVAixbZ7uodfvVciyrQo1Bik7CQeVT
-	 /V5qEUcUMNyfwQJZNcUk2XMxg5+4Q9Fexf2AipHiZ2RUjL4uDcJeeL53E0OQgHD5woIYD
-	 ag4S55pToNXjNo8xNvLQkIoKqaXXvkRpH8q/kOqblZL4jeVDiCC3G1xWdrkgxaQokar34
-	 P4g9/Ti0c8jlZg/chuGfMfeUgIwSRz+WkdExGlt85xo7Is1GKl57s600KU6Yz+iqE+kW8
-	 cAdbkfBfegEPPoiM0Emzsg5SksMLId4Wd2qsjDGeA6vedNtBZbjaW0CyL1k0rJMikPQ==
+	t=1794282244;
+	b=nu5WaJGnTkqlNzXxP3kDuiRA2w+V+8nc1ngrtI9V+IB3bqtI9iZN3UABA1MbOhXVOaKp
+	 z2nkWNGPInspjl2NmJiuiHYKGqv24JmAiEqg4vi8Y2CN/bK2KKe/Mfg2aIHESLnKp6xFj
+	 L5zHazVPfUKtTMmMgbtpxqW8J5q2RlfsXDQXgPWW7lhZ4aZyCtDO9698JsG2LEXSEdnEj
+	 dmeB9Kwscjajm/THEe/sAohXGEIPaG5ledRr0mrwrxvZXNRiRkSpdEOAwuEhgjCOVgqut
+	 bLd5Hq5lB98Cq8vsRNqbf/rJRj6DTEBaoj32Ukucorgg5FLEz+MNh1KGd5lVncE4YdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794282244;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wP8RcriYH3rUfy+COy24SpvryOeXTUZCCW25/82Yx7s=;
-	b=HArIBhjjFLtSVgPgUhu96+VSHVsmXnN0OA1LIvAj52B74pBSgeuLU5eIt8wPItIACnc7
-	 68W78jKOtn7DOfdpx0ofLZ7sWyf8mzs1YPs6I2EWSKIkg0Zw3UQHPBm6JdRDGFqNCaqDX
-	 7obJVevfkz5jtcaTCYvQr79gR//Vz5eaUf+V82kig/VRSi5v0EO/yjsjkGlmXWPzBXerU
-	 NSC5nb/VtBMDnbFh7B5ypKXUk3CUKK0L9efzV6+0RgiKF8H9x5ARRYhab58YXlEHz8Aix
-	 ep+/9gNB7wbZWdUMCd0kBlvcBJfEaP6tigqt8nOAYXem0BIebOhiEMR7qcaNkToT7Ew==
+	bh=/Bi+rSNZacb2g7NTCtXzgsxnkD1lbRTUSMvCp4eNLeE=;
+	b=n8VoInm2eOcDUXGCG5k8xpApxVSdQmjxIUepQts0jjOwUBvfY0At5VCaCzIHXctNAjY3
+	 IvlMZZVgKYbXhEBe2iwcuyYPd5UPPgmV6N1qyFqG1Mb/wjLXbpDGaFt+CJjGTtywdkzBv
+	 KmEtM7otETHxrgUhEwaEGBbwYT6b7egO0BCNmZD+nn+gTwpQr4FdJnm44BnqVxeVoWuAE
+	 HVcnY6+GAvFXJa3KOUqpZgI2izxxL0xuypYuaMuoioc9IWo9tjyFzYoRL0HrYVPkeoLtl
+	 TTNYerr8AzstVi4Zgudpq9bcggUUwn/eBNAeC/RFgyvGbf9XZZ191c+cMUiFumZ3Vmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRztZtud;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZzFgvmQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C526606A334
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6484606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KRztZtud
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA4B1F0089F;
-	Tue, 10 Nov 2026 03:43:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZzFgvmQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621981F0089F;
+	Tue, 10 Nov 2026 03:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794282199;
-	bh=wP8RcriYH3rUfy+COy24SpvryOeXTUZCCW25/82Yx7s=;
+	s=k20260515; t=1794282243;
+	bh=/Bi+rSNZacb2g7NTCtXzgsxnkD1lbRTUSMvCp4eNLeE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KRztZtudg3tFwfuY/JJLVcl3P4ZUdsRiXCAljGUB6BQ4MCJvnLCvaDupGDiSdylPP
-	 390O+XA15NLuZfg8WI7As8VM5nvaWXOwqjRGPGQPbAKJKyMnDxrjUHvrhBl1Srv3sn
-	 bE/cYTVpOzeY7qvreUe6wBYvFTbBH3RQ03fYX1i+zOokdDaeIKGTWc4EGFxbaIlfdy
-	 Ka2y7e1/sZ0qeCqzrmwtDYxlUGhBe+WrY58xMLqTCdnBP8ccT11naqqOfpLVIf7nNY
-	 TExUGIAKboJV5a+RSldyHnfG96mfaYkJ/Qg4kx4Hx+3WWPPJ5xoReXN59q9E1/PvC8
-	 TIw48Yx5oOGCg==
+	b=VZzFgvmQSx4iUb4h2ZIKSYf8jFkPIEKFa6Bygu28BVPc0exQ+G7wT/bexJeMNVuVe
+	 SXZrlSBJdz2+t/cbTWkSL0WyyELwDfCpzm3Sq0v/Skq7vUGkCYSf1rxUBsHS5bYK4W
+	 mO39QyzbeY78OyKcXf+cVyufnTMqhqYOTN96owAEeQ1Rrf5qJUvWiHUf0JCSgT3Ekj
+	 vvexAi5LEf5r0egDMuYeJRZ+c89AspPTJqs7335mfDb1R8virR5FHehC/kEOJlKA1A
+	 vWaLfn5HDwLsy9tRO+m41iIY0FNrE/9iIXdZMDVIn2d9X/rws7TaP8HB4/syb+4hZa
+	 DTMnrI5/rxFlA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
+Cc: Abel Vesa <abel.vesa@linaro.org>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Caleb Connolly <caleb.connolly@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
-Date: Mon,  9 Nov 2026 22:43:17 -0500
-Message-ID: <20261110034252.178293-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] soc: qcom: pmic_glink: Fix device access from worker during suspend
+Date: Mon,  9 Nov 2026 22:44:01 -0500
+Message-ID: <20261110034345.271920-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050642-failed-6.18-5cdbd6d3a3a1@kernel.org>
-References: <20261107050642-failed-6.18-5cdbd6d3a3a1@kernel.org>
+In-Reply-To: <20261107051628-failed-6.12-7d0767c5cd87@kernel.org>
+References: <20261107051628-failed-6.12-7d0767c5cd87@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,214 +64,100 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+From: Abel Vesa <abel.vesa@linaro.org>
 
-[ Upstream commit 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 ]
+[ Upstream commit 7d0767c5cd878707fd6711023731549c83563840 ]
 
-The virtual PCI driver registers an ntb_dev but has no remove callback.
-Unbinding the endpoint function can therefore free BARs while the NTB
-device and its client still use them. It also leaves the virtual PCI
-devices and root bus allocated.
+For historical reasons, the GLINK smem interrupt is registered with
+IRRQF_NO_SUSPEND flag set, which is the underlying problem here, since the
+incoming messages can be delivered during late suspend and early
+resume.
 
-Allocate an ntb_dev for each virtual PCI probe and unregister it from the
-matching remove callback. Start command processing only after registration.
-Publish the device for doorbell IRQs at the same point. During remove, stop
-the command work and drain IRQ handlers before unregistering the device.
+In this specific case, the pmic_glink_altmode_worker() currently gets
+scheduled on the system_wq which can be scheduled to run while devices
+are still suspended. This proves to be a problem when a Type-C retimer,
+switch or mux that is controlled over a bus like I2C, because the I2C
+controller is suspended.
 
-Retain the root bus returned by pci_scan_bus() so it can be removed on
-unbind. Unregister the virtual PCI driver before releasing endpoint
-resources. Stop and remove the root bus under the PCI rescan/remove lock,
-then release its host bridge.
+This has been proven to be the case on the X Elite boards where such
+retimers (ParadeTech PS8830) are used in order to handle Type-C
+orientation and altmode configuration. The following warning is thrown:
 
-Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Cc: stable@vger.kernel.org # 6.0+
-Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
-[ sashal: adapted doorbell changes to the existing polling implementation without IRQ handlers or a peer-doorbell worker ]
+[   35.134876] i2c i2c-4: Transfer while suspended
+[   35.143865] WARNING: CPU: 0 PID: 99 at drivers/i2c/i2c-core.h:56 __i2c_transfer+0xb4/0x57c [i2c_core]
+[   35.352879] Workqueue: events pmic_glink_altmode_worker [pmic_glink_altmode]
+[   35.360179] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+[   35.455242] Call trace:
+[   35.457826]  __i2c_transfer+0xb4/0x57c [i2c_core] (P)
+[   35.463086]  i2c_transfer+0x98/0xf0 [i2c_core]
+[   35.467713]  i2c_transfer_buffer_flags+0x54/0x88 [i2c_core]
+[   35.473502]  regmap_i2c_write+0x20/0x48 [regmap_i2c]
+[   35.478659]  _regmap_raw_write_impl+0x780/0x944
+[   35.483401]  _regmap_bus_raw_write+0x60/0x7c
+[   35.487848]  _regmap_write+0x134/0x184
+[   35.491773]  regmap_write+0x54/0x78
+[   35.495418]  ps883x_set+0x58/0xec [ps883x]
+[   35.499688]  ps883x_sw_set+0x60/0x84 [ps883x]
+[   35.504223]  typec_switch_set+0x48/0x74 [typec]
+[   35.508952]  pmic_glink_altmode_worker+0x44/0x1fc [pmic_glink_altmode]
+[   35.515712]  process_scheduled_works+0x1a0/0x2d0
+[   35.520525]  worker_thread+0x2a8/0x3c8
+[   35.524449]  kthread+0xfc/0x184
+[   35.527749]  ret_from_fork+0x10/0x20
+
+The proper solution here should be to not deliver these kind of messages
+during system suspend at all, or at least make it configurable per glink
+client. But simply dropping the IRQF_NO_SUSPEND flag entirely will break
+other clients. The final shape of the rework of the pmic glink driver in
+order to fulfill both the filtering of the messages that need to be able
+to wake-up the system and the queueing of these messages until the system
+has properly resumed is still being discussed and it is planned as a
+future effort.
+
+Meanwhile, the stop-gap fix here is to schedule the pmic glink altmode
+worker on the system_freezable_wq instead of the system_wq. This will
+result in the altmode worker not being scheduled to run until the
+devices are resumed first, which will give the controllers like I2C a
+chance to resume before the transfer is requested.
+
+Reported-by: Johan Hovold <johan+linaro@kernel.org>
+Closes: https://lore.kernel.org/lkml/Z1CCVjEZMQ6hJ-wK@hovoldconsulting.com/
+Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
+Cc: stable@vger.kernel.org    # 6.3
+Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
+Reviewed-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260819-b4-soc-qcom-pmic-glink-fix-device-access-on-worker-while-suspended-v3-1-169b00e0d9d4@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+[ sashal: adjusted context around mode and HPD assignments due to missing Thunderbolt data handling ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/endpoint/functions/pci-epf-vntb.c | 69 +++++++++++++++----
- 1 file changed, 55 insertions(+), 14 deletions(-)
+ drivers/soc/qcom/pmic_glink_altmode.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-index 68110855ea1c7..39d9844873f53 100644
---- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-+++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-@@ -118,7 +118,7 @@ struct epf_ntb_ctrl {
- } __packed;
- 
- struct epf_ntb {
--	struct ntb_dev ntb;
-+	struct ntb_dev *ntb;
- 	struct pci_epf *epf;
- 	struct config_group group;
- 
-@@ -144,10 +144,15 @@ struct epf_ntb {
- 	void __iomem *vpci_mw_addr[MAX_MW];
- 
- 	struct delayed_work cmd_handler;
-+	struct pci_bus *vpci_bus;
- };
- 
- #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
--#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
-+
-+static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
-+{
-+	return ntb->pdev->sysdata;
-+}
- 
- static struct pci_epf_header epf_ntb_header = {
- 	.vendorid	= PCI_ANY_ID,
-@@ -173,7 +178,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
- 	else
- 		ntb->reg->link_status &= ~LINK_STATUS_UP;
- 
--	ntb_link_event(&ntb->ntb);
-+	ntb_link_event(ntb->ntb);
- 	return 0;
+diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
+index db25f406878b0..f650c8de96394 100644
+--- a/drivers/soc/qcom/pmic_glink_altmode.c
++++ b/drivers/soc/qcom/pmic_glink_altmode.c
+@@ -304,7 +304,7 @@ static void pmic_glink_altmode_sc8180xp_notify(struct pmic_glink_altmode *altmod
+ 	alt_port->mode = mode;
+ 	alt_port->hpd_state = hpd_state;
+ 	alt_port->hpd_irq = hpd_irq;
+-	schedule_work(&alt_port->work);
++	queue_work(system_freezable_wq, &alt_port->work);
  }
  
-@@ -261,7 +266,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
- 	for (i = 1; i < ntb->db_count; i++) {
- 		if (ntb->epf_db[i]) {
- 			ntb->db |= 1 << (i - 1);
--			ntb_db_event(&ntb->ntb, i);
-+			ntb_db_event(ntb->ntb, i);
- 			ntb->epf_db[i] = 0;
- 		}
- 	}
-@@ -796,7 +801,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
- 	}
- 
- 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
--	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
- 
- 	return 0;
- 
-@@ -1100,6 +1104,7 @@ static int vpci_scan_bus(void *sysdata)
- 		pr_err("create pci bus failed\n");
- 		return -EINVAL;
- 	}
-+	ndev->vpci_bus = vpci_bus;
- 
- 	pci_bus_add_devices(vpci_bus);
- 
-@@ -1144,7 +1149,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
- 	int ret;
- 	struct device *dev;
- 
--	dev = &ntb->ntb.dev;
-+	dev = &ndev->dev;
- 	barno = ntb->epf_ntb_bar[BAR_MW1 + idx];
- 	epf_bar = &ntb->epf->bar[barno];
- 	epf_bar->phys_addr = addr;
-@@ -1244,7 +1249,7 @@ static int vntb_epf_peer_db_set(struct ntb_dev *ndev, u64 db_bits)
- 	ret = pci_epc_raise_irq(ntb->epf->epc, func_no, vfunc_no,
- 				PCI_IRQ_MSI, interrupt_num + 1);
- 	if (ret)
--		dev_err(&ntb->ntb.dev, "Failed to raise IRQ\n");
-+		dev_err(&ntb->epf->dev, "Failed to raise IRQ\n");
- 
- 	return ret;
- }
-@@ -1327,13 +1332,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
- 
- static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
--	int ret;
- 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
- 	struct device *dev = &pdev->dev;
-+	struct ntb_dev *ntb;
-+	int ret;
- 
--	ndev->ntb.pdev = pdev;
--	ndev->ntb.topo = NTB_TOPO_NONE;
--	ndev->ntb.ops =  &vntb_epf_ops;
-+	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
-+	if (!ntb)
-+		return -ENOMEM;
-+
-+	ntb->pdev = pdev;
-+	ntb->topo = NTB_TOPO_NONE;
-+	ntb->ops = &vntb_epf_ops;
- 
- 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret) {
-@@ -1341,16 +1351,33 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		return ret;
- 	}
- 
--	ret = ntb_register_device(&ndev->ntb);
-+	ret = ntb_register_device(ntb);
- 	if (ret) {
- 		dev_err(dev, "Failed to register NTB device\n");
- 		return ret;
- 	}
- 
-+	/* Publish after ntb_register_device() succeeds */
-+	smp_store_release(&ndev->ntb, ntb);
-+	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
-+
- 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
- 	return 0;
+ #define SC8280XP_DPAM_MASK	0x3f
+@@ -347,7 +347,7 @@ static void pmic_glink_altmode_sc8280xp_notify(struct pmic_glink_altmode *altmod
+ 	alt_port->mode = mode;
+ 	alt_port->hpd_state = hpd_state;
+ 	alt_port->hpd_irq = hpd_irq;
+-	schedule_work(&alt_port->work);
++	queue_work(system_freezable_wq, &alt_port->work);
  }
  
-+static void pci_vntb_remove(struct pci_dev *pdev)
-+{
-+	struct epf_ntb *ndev = pdev->sysdata;
-+	struct ntb_dev *ntb;
-+
-+	/* Stop the work reader */
-+	cancel_delayed_work_sync(&ndev->cmd_handler);
-+
-+	ntb = xchg(&ndev->ntb, NULL);
-+
-+	ntb_unregister_device(ntb);
-+}
-+
- static struct pci_device_id pci_vntb_table[] = {
- 	{
- 		PCI_DEVICE(0xffff, 0xffff),
-@@ -1362,6 +1389,7 @@ static struct pci_driver vntb_pci_driver = {
- 	.name           = "pci-vntb",
- 	.id_table       = pci_vntb_table,
- 	.probe          = pci_vntb_probe,
-+	.remove         = pci_vntb_remove,
- };
- 
- /* ============ PCIe EPF Driver Bind ====================*/
-@@ -1442,12 +1470,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
-  */
- static void epf_ntb_unbind(struct pci_epf *epf)
- {
-+	struct pci_host_bridge *bridge;
- 	struct epf_ntb *ntb = epf_get_drvdata(epf);
- 
-+	pci_unregister_driver(&vntb_pci_driver);
-+
-+	if (ntb->vpci_bus) {
-+		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
-+
-+		pci_lock_rescan_remove();
-+		pci_stop_root_bus(ntb->vpci_bus);
-+		pci_remove_root_bus(ntb->vpci_bus);
-+		ntb->vpci_bus = NULL;
-+		pci_unlock_rescan_remove();
-+
-+		pci_free_host_bridge(bridge);
-+	}
-+
- 	epf_ntb_epc_cleanup(ntb);
- 	epf_ntb_config_spad_bar_free(ntb);
--
--	pci_unregister_driver(&vntb_pci_driver);
- }
- 
- // EPF driver probe
+ static void pmic_glink_altmode_callback(const void *data, size_t len, void *priv)
 -- 
 2.53.0
 
