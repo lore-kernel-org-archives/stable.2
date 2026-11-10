@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794344391;
-	b=DUnBrWZO2b1jSHOVckN0DEHzaG1yqOZCdje7589KWYXDaHJxuT7wvvQeYyzedjGG26Qg
-	 NMwkNNgUMWcy6mtv6m3daru5VVXikkGPmm9t321segz6suhlQaE0ieLH/3+6n3W5tPA/7
-	 eDMPTIcV9Sp+K2lxPCzcSyZJSuv+OX+ANATPIF4wCu9I0ZvodIj+8Eb/QfuSw2YKNfhiv
-	 vzsh7N7+y4xU+7EdenshN9aa9fpR8rpsJKQC78rGtbifiECojyMVWyH9xu4pAZwCIYTZL
-	 9bJdzCH+vo6Oso3I2+/pRm6VCmmEykBnQVwGAdsAC2Xi0r23v3FfVikLFeBrxbD4RmQ==
+	b=5W3WqDr2X5GzKwMjNtdsq8kJKHIj//NS3gLsCxYGgbswzkDrNHaVZVdqpGRNLyVXK7Dj
+	 URdYIBBZUXs5mGBuZ7/EUGUO1vdtAvN7NiNR+aqEwgue29o52UXblySSn3VvD5jNvkdqc
+	 EInv49AEv4TFsN+jYOX5ceLlCoDs0sssZ0WZWXs56iuifs6+dbZAy16PDSvd4Mqii351B
+	 2kyV7HID9L93dFclJm5D4lw4rK5ZrCokrUf7YnkhXd5sjSqk0bcIBIxlnfC8KD/9/G1l3
+	 iBsxncfYeTnM54k1jyQR5XUthjFbT3PbkmRDQ8f3UzPPRVhjL/cPTQGGxo0AlNNAgPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794344391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sPe0KMuUuzYyn67O2cSOWxL0WKtscoq/xkISNoy3Mkg=;
-	b=30mMBc/+xApvbB3TqY7nZMB6+kk56STN7K46u1IOX3DV7+VYdaokwkpomIZjKsTzDbQ1
-	 rcyjgEJB555sQDLV/z6du4KgJ4CCowei8+qAXVhWa7VObEmnxxECRbljQ1/muw8+s5+op
-	 JtbuyA9xMc8MZl4s0/4uLRYKfhb726G+DExi+nkI8EJuYYVqQ8s+TuFUAGF62JtvxljvL
-	 nKWXGs4ttVKX2MZ+uI1QMEZi5nV3/HX3NMyqAbTfQmuwrnOadJHEpti+3UQobb2n4WF/x
-	 +7jOzR7xMGXpbag3RseDEIwyhcJQk80nEj6h+nP5iITWUZcoLZHhQrQyAeSJSkFrQAA==
+	bh=+3Ga3FAhjojqa8Wl4m7Luz1WyWDfSPfuD35trdzR5cM=;
+	b=EBJUxWTF2n5lKCqiZdG/lMCpJz+BDknmCk/e5yQ/8wG9wJ40v+TzZIJghOHOWnAb5l7s
+	 JhmKLD7LEHFAY9d8Sx45/BI4lZGhv7LZrn/hzk2Y1wETUu0xZkl1iXU5pPaG1YQhp6O+y
+	 vf9HE8mRoTFvNZTHHHBfPBSmCYbVwJJyPbFDZ+GczFr6zkyy+tJwupS5/2OB5vvlMPEtI
+	 uc9guroCvqtzFK721OMy6IXHFVSckoAQnidNFKUiA09bvpPKhvUTvyZ7zl39X/4HD75pr
+	 rGtnkoWeySgYpyV/TV7DMzDLW0pU8hkiMrJ02U5kAkCC+9XcGmNrV+I9jF8xX/1Yg/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e66vaHeB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwFjaSkw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C781F60A2606;
-	Tue, 10 Nov 2026 20:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812FC606A339
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e66vaHeB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B473B1F008A1;
-	Tue, 10 Nov 2026 20:59:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwFjaSkw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3801F0089F;
+	Tue, 10 Nov 2026 20:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344390;
-	bh=sPe0KMuUuzYyn67O2cSOWxL0WKtscoq/xkISNoy3Mkg=;
+	s=k20260515; t=1794344391;
+	bh=+3Ga3FAhjojqa8Wl4m7Luz1WyWDfSPfuD35trdzR5cM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e66vaHeBdoHLEw2whqTbgNTU3URBSv1d3CyOJT8eTiAiSoAD8bh5Kq6WEC4/5KrFI
-	 ti4ry/cyQWdbFhJxmyaRNwRaY1b80DJ6k33jUtTOxRhFxrTO5wBbdFdt/GBs0LtRU3
-	 2d4MDNExGA2931CR9hFHTt3hggf2fQjUdKck2l+gvtIknX3nKIYqB3RcWPqQkEFF4f
-	 aaNSR675yR4m6yLzk2gl9O6vVigGbtopPO+I6SL/4SK23ZVe9Y5x/MPobn5lnfNzqX
-	 uAhZr2uGIuq/sWzR9JKf5eZtLHGV8YBrHc9PiM/w7LfnEpV43r+vpsE47efUQyXCZ5
-	 pyUlC6VGQIPLQ==
+	b=ZwFjaSkwUxyeS3SBB8B9DZ1eg/J0Ld2QogVbLUtif+mH/EG5GAjTR3nR8GdwuYmYC
+	 lnYSiR4hbOpZtKykxuawKs0iDPhlw727lzMtjZg+HPH8u5cTgyW2uA1wuVzIQWvbyt
+	 D5+3qAmsYe8NdQ8d24W9g/KbeHPCOY+mfZjxyID0Mcl8socHt0fhMH4EzWRCVOj/m1
+	 lACSMbMnflGnlf1E2xn5DDmz547ghucbKintm0TDBsvN7TggMsoKebhR9YsXXkIvkz
+	 Ux6ekrvmrsntkJzL07VzZu+5qerV4E4tSjpVrvvz83mv0/E5KmsKEL6eUlvR89xTXR
+	 lxpoOCR0tOs7g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Fernand Sieber <sieberf@amazon.com>,
-	SeongJae Park <sjpark@amazon.de>,
-	damon@lists.linux.dev
-Subject: Re: [PATCH 6.12.y v2] mm/damon/core: move static variable last_nr_regions to damon_ctx
-Date: Tue, 10 Nov 2026 15:59:13 -0500
-Message-ID: <2026-11-10-1-daily-reply-0017-damon-last-nr-regions@kernel.org>
+	Sven Eckelmann <sven@narfation.org>
+Subject: Re: [PATCH 6.18.y] batman-adv: tt: ignore ROAM flag of received ADD changes
+Date: Tue, 10 Nov 2026 15:59:14 -0500
+Message-ID: <2026-11-10-1-daily-reply-0018-batman-roam-ignore-add@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110150218.145605-1-sj@kernel.org>
-References: <20261110150218.145605-1-sj@kernel.org>
+In-Reply-To: <20261110185154.76707-1-sven@narfation.org>
+References: <20261110185154.76707-1-sven@narfation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,9 +60,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> mm/damon/core: move static variable last_nr_regions to damon_ctx
+> batman-adv: tt: ignore ROAM flag of received ADD changes
 
-Queued for 6.18, 6.12, 6.6, 6.1 and 5.15, thanks.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
