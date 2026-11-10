@@ -1,77 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308849;
-	b=VMlu1L32tA2aeUC6nm4eBCeaRPTPC6AqwyFUcxAiEUXdPO49Ft8hULkEaotz/O7Nd+kt
-	 P8Vl3fVMG4rPTnV8VPiD36O1zpGl1n5Mpx8dkwgikapcCbJwpZG2/yO4TS98yGPvo8uvd
-	 vsvSZyooZma8rKSB1VB1lRyhfJ/HuNJASI/xiH52XNXQIt4eTkzKFzi1TH5GfqCdvOofN
-	 04M49Cx73sCahp0d0u027LCUI/LlBDNy7MA9TNoZXSxV5hjA7101Mg7tlXCAmVvQOEj7k
-	 6dhL4otVq77rG2RLq8jLpvKpqGfx5QqoPnldJONvCsjnw6wALtCZbxHB7Lo2K3AcUxg==
+	t=1794309257;
+	b=wWsXaED5R95FqTR9f+gY2KFfsa3wokjPvQkhUDfsKzTJShTrk703xXbTwBJcPOvwEReC
+	 CxNgPBwhC8FrcKB3cY28A6EKBMFqvLhTibia/zucsFnR6BHb3BOmqKpK+QtVUScWLI00k
+	 a6oQmamWtDJ04Ak+eBnv/YGpGUVUZdw6OTr5DYvdsONeYcYA9M/AlZ7i+ui4JVjURBRAY
+	 RvNHw/YqV6/lOHlrm7xvy8qsNE46QIEhJbwii0iJLGIyWfvj1XfwfAJMyMBlXvkW8f4vT
+	 0aXD9dvIgoid3212HrLFwWksmwm2AujSnxgupOv5+cW+FlQrO+F6FjpWenIJMCdEHlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308849;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794309257;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Gk5/z5UHtpWXsmW1+RWmjFtC0T17jkciMDqpUKmwIl8=;
-	b=gqtCeljHOlfF29lZTmYSBNXxJ6aXSkVWxgKvwcFCs34ACYLl7z38LSR0CpGsBej+gGrz
-	 KSaIyIXtLOlpDPnl8LfD/z4TtZ49Gg4m+p0nqMga9/hh2xeMOQxTAcne+wNjFNWonrAa7
-	 HolM0GuPPXQdQdnSdhtS0KlRj5q6zyrStVtV98UxE4yv1h925eULcONSkUDWsSZlUWeoI
-	 bVbDCrUqHpvcEhIYB8yrfqa2xZhcxkFIpFO4kLAZ1f8hhE4EDPCu3Ukdt9V+acUD8lEdp
-	 LsIw7nZpKiTlEzG8eHuAPBvNL7tQw64KSvSKGFqY3OLqKlc/KCstFr78pg8MdsnVgmA==
+	bh=9cmPq1xovx31wY8V3YqLuXzHjOU/A8Tl8hkT2pJxDB0=;
+	b=h4xymAynBhlB94fXDziOYYh4XH5/PYVr1z49MCH8wN1zAL8pkMeg0VoLxxL16FRhluK7
+	 IR1f6DoGgSlBH/HDwJVYnBS/MStTtBicDe7ysrrMxSIw03w4B4+ghicnViqLugwFi/I56
+	 fOmaXSsCfk5i0o9Q92sonKVfI2b+E3c1GrwfSPrGmH3ovExQqYHfa3WmJqOYxwYO/OdiK
+	 PBtliiASbPIHw2OBcxStpGF6XLyWHSoNBoa4NbS+cVZGslxtMFlnaK5nQ+FJNfD6bLosl
+	 rZ8JSsNBom78fCVrxiphY580YgP3prBaztjuwl5dJPy1ZxI4j6bt9DqS//3x6dD3mHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qXfWzAa+;
-	arc=none smtp.remote-ip=95.215.58.77
-Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=whEgGqij;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6E8606A333
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:07:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D6E8606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4049C606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4049C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qXfWzAa+
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BXrmF/fjfe9y8XP2JkR7Eemnuq82V/mUf87aDFH49v8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794308847; v=1; x=1794913647;
- b=qXfWzAa+8dZDdq/ERMCS5bJOt9rypRbyzZpB+ChIlRsChLLryno7WD31lF5ziUkr2o6Bw9mn
- p5Pcqb/eM+mW0b3w+/Q7D30FKgLAGjg4iUIdnWpdePz93Iz7lRyf5uVWEiUVVfX/x4EnjaOhooJ
- lZ8lICA/WTSYDgXQHe04wJGA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ea7a5a5c9741bf1;
-	Tue, 10 Nov 2026 11:07:27 +0000
-X-Mizu-Trace-ID: 6ea7a5a5c9741bf1
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=whEgGqij
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so3106554eec.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:14:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794309256; x=1794914056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9cmPq1xovx31wY8V3YqLuXzHjOU/A8Tl8hkT2pJxDB0=;
+        b=whEgGqijQSILV6KrKPrl7DR6X0Hr8ZyZ0F+U95wxJ5yN553gCfwFMIILJpN1Ue0c3+
+         DyAwDdzrXHajzSVmVDGGWiKYcfVBffIovDms+hLlDkIsNjua0YbuJKkAf/u2nLzZAANf
+         GD4YqVyXjmiWIwusmBt6KjrGLsqg3BklO+ipkyBexKh32346bos5/CPbYPH1CwmcEBIU
+         g8n9/jMTecJ5JzfqiB3BBg+CNz4Jr6iseEuQXSdPl9H0nDgj7IXbQUNeuCkP7D/NXnP8
+         1kuEVHOCbN7tUqWaVlqHkvYdB9anRnflK2zc4Sar7uK5mnf5HrjtP5nVx1JxCyx24MDL
+         IpAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794309256; x=1794914056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9cmPq1xovx31wY8V3YqLuXzHjOU/A8Tl8hkT2pJxDB0=;
+        b=qAZ7aShqzUFIQLK0knywORoFFewsF54yGMetQKg8JF7SAI8d8Uh4+O9v9bXikq9SPA
+         jbEGjh6WWjcCOew5flijq8ET9DDZIOQHJXFstqtINI8rnL2olkFOLXGPqRUKXSZucGCg
+         8RklkMcqabaf2+TIJSh432yczWnWJysLcn8RWIO4t0WqXSK0RscQz7PzDbnV59ubE/CI
+         gbI4V+QLBzXj0OBJcYMbrTqXs7kal6eIgyYGaRUuJCOA7nB5JUAy50NzG2S+vK9qVAXB
+         po0DTU+Wk//CVhyMQX6QAhiVvQCPRPmb/n4xOkjhKfPD+KFGvRMXu/QBnoeRKjfYT4NZ
+         dZCg==
+X-Forwarded-Encrypted: i=1; AL+hErHsyEaKbn/z0D4kvq3xLf71ht0PjubpuYv4cUZplBP4l5EX1A1Gp4WcYEngtc2IhyQ/P2L0xh0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UUrX3Eik2K92T/V+FsKBTYDF72hSwfdRINEQEVS8h2GuEumlk
+	SxvZBsoY7NhcIMQWfqimeUgd9pBmb3vorXQFDMAf9sb5famsg1kF4niK
+X-Gm-Gg: AYBFou177W+vUJzyxKCgrQ4+fgfigkkrAf+JZcSke0I2fl9AbXIfeR4AFL3s6l6W10i
+	iXxygQ6cdVlT2vyshd/ANVFsXnt+HFwAbCNktTYrd0wzTkhEkAm5eRKHM+pIWftoQBY9p1djcAq
+	EFzSltJ2Kbm7PeJvuFNnEXA3cVNfvtYPJ7+tFWiuwocsaTGSoWuXBjM/6nvpoZ2U7qHUv9+v215
+	IYPGJFe6OmlTbYTPYZq6kcI7iZC99oQ6lslLT1uFFrdbeVf4sPksBmUdbRCEWJI9iRKzxA2cCRQ
+	H11oelyfkqZONFBOdBARwinKt4jI8bIZ8srhkSf/fGhi5WINZ95aAiG3Xmum06n/n7hfmy4JmZt
+	edS1kxGVJhDrxJiVtCU5fBMa6FeUh9YHD9v/qyhyz6f9qOnWot5kahOxAnYDDUP6XFL1PB5uBaL
+	kgVw5EShVxs++LP3bt2rAAuZ/IeqQixtMZRbIHPRdkjuOvlsxaGLCYexNtqRL6DQNeJSmi3Q2Mu
+	4ISw2Ptrtv+8eadOLFqlf700F/ekn4HbPJmoxt6kw7cfZiE7hEG7aRMarUDnk3ZxNPXqzKL/+gH
+	oZ+KDu2lEVrxJO/kqp7IBzvDlpG8DxJOo2KwMJw5AbCOrtK7Vg==
+X-Received: by 2002:a05:7301:78c7:b0:375:87f5:ccee with SMTP id 5a478bee46e88-37587f5cedfmr1886929eec.29.1794309256012;
+        Tue, 10 Nov 2026 03:14:16 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751dae6377sm5908119eec.3.2026.11.10.03.14.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 03:14:15 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Peter Chen <peter.chen@kernel.org>,
+	Xu Yang <xu.yang_2@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oliver.upton@linux.dev>,
-	kvmarm@lists.linux.dev,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty ring is full
-Date: Tue, 10 Nov 2026 11:07:23 +0000
-Message-ID: <20261110110724.3614412-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110110724.3614412-1-fuad.tabba@linux.dev>
-References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] usb: chipidea: core: cancel power_lost_work on removal
+Date: Tue, 10 Nov 2026 20:14:02 +0900
+Message-ID: <20261110111402.2504885-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,127 +100,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Pre-faulting can map a dirty-logged page writable, which pushes it to
-the vCPU's dirty ring. KVM_RUN exits with KVM_EXIT_DIRTY_RING_FULL
-before the ring overflows, but the pre-fault loop never checks it, so
-one call over more such pages than the ring has free trips the WARN in
-kvm_dirty_ring_push() and overwrites entries userspace hasn't
-harvested. On x86:
+ci_hdrc_resume() queues ci->power_lost_work on system resume when the
+controller lost power during suspend. The work (ci_power_lost_work)
+dereferences ci: it touches ci->irq, ci->dev and switches the role.
 
-  WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x7a/0xd0
-  Call Trace:
-   make_spte+0x2cc/0x450
-   kvm_tdp_mmu_map+0x5e1/0x7f0
-   kvm_tdp_page_fault+0x12c/0x1b0
-   kvm_mmu_do_page_fault+0x181/0x250
-   kvm_arch_vcpu_pre_fault_memory+0x136/0x1d0
-   kvm_vcpu_pre_fault_memory+0xcf/0x180
-   kvm_vcpu_ioctl+0x455/0x770
+ci is allocated with devm_kzalloc(), so devres frees it after
+ci_hdrc_remove() returns. ci_hdrc_remove() never cancels power_lost_work,
+so a work queued by a resume just before unbind can run after ci has been
+freed and dereference freed memory -- a use-after-free.
 
-Stop the loop once the ring is soft full, returning the pages already
-processed, or -ENOSPC when there are none, since a retry can't succeed
-until userspace harvests the ring. kvm_dirty_ring_check_request() fills
-in a KVM_RUN exit, so test the ring's state directly. The stub for
-!HAVE_KVM_DIRTY_RING is for s390, which has the ioctl but no ring.
+Cancel power_lost_work at the start of ci_hdrc_remove(), before the
+devm-allocated ci is released.
 
-Fixes: bc1a5cd002116 ("KVM: Add KVM_PRE_FAULT_MEMORY vcpu ioctl to pre-populate guest memory")
+Found by static analysis; not runtime-reproduced (needs a chipidea
+controller losing power across a system suspend/resume that races unbind).
+
+Fixes: cc509b6a47e7 ("usb: chipidea: core: handle power lost in workqueue")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- Documentation/virt/kvm/api.rst | 9 +++++++--
- include/linux/kvm_dirty_ring.h | 6 ++++++
- virt/kvm/dirty_ring.c          | 2 +-
- virt/kvm/kvm_main.c            | 6 ++++++
- 4 files changed, 20 insertions(+), 3 deletions(-)
+ drivers/usb/chipidea/core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e95c9cda085d9..89eb6be9bc6e3 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -6544,6 +6544,7 @@ Errors:
-   ENOENT     The specified `gpa` is outside defined memslots.
-   ENOEXEC    The vCPU has not been initialised (arm64).
-   EINTR      An unmasked signal is pending and no page was processed.
-+  ENOSPC     The vCPU's dirty ring is full and no page was processed.
-   EFAULT     The parameter address was invalid.
-   EHWPOISON  A poisoned host page was encountered.
-   EOPNOTSUPP Mapping memory for a GPA is unsupported by the
-@@ -6588,7 +6589,9 @@ case, the ioctl can be called in parallel.
- 
- When the ioctl returns, the input values are updated to point to the
- remaining range.  If `size` > 0 on return, the caller can just issue
--the ioctl again with the same `struct kvm_map_memory` argument.
-+the ioctl again with the same `struct kvm_pre_fault_memory` argument.
-+If that fails with ENOSPC, the vCPU's dirty ring has to be harvested
-+and reset first.
- 
- On x86, shadow page tables cannot support this ioctl because they
- are indexed by virtual address or nested guest physical address.
-@@ -8957,7 +8960,9 @@ Therefore, the ioctl must be called *before* reading the content of
- the dirty pages.
- 
- The dirty ring can get full.  When it happens, the KVM_RUN of the
--vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
-+vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
-+KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
-+ring has been harvested and reset.
- 
- The dirty ring interface has a major difference comparing to the
- KVM_GET_DIRTY_LOG interface in that, when reading the dirty ring from
-diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-index eb10d87adf7d5..88b4f2a009274 100644
---- a/include/linux/kvm_dirty_ring.h
-+++ b/include/linux/kvm_dirty_ring.h
-@@ -60,6 +60,11 @@ static inline void kvm_dirty_ring_push(struct kvm_vcpu *vcpu,
+diff --git a/drivers/usb/chipidea/core.c b/drivers/usb/chipidea/core.c
+index 3461dd7..400e4ca 100644
+--- a/drivers/usb/chipidea/core.c
++++ b/drivers/usb/chipidea/core.c
+@@ -1246,6 +1246,13 @@ static void ci_hdrc_remove(struct platform_device *pdev)
  {
- }
- 
-+static inline bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
-+{
-+	return false;
-+}
-+
- static inline struct page *kvm_dirty_ring_get_page(struct kvm_dirty_ring *ring,
- 						   u32 offset)
- {
-@@ -81,6 +86,7 @@ int kvm_dirty_ring_alloc(struct kvm *kvm, struct kvm_dirty_ring *ring,
- int kvm_dirty_ring_reset(struct kvm *kvm, struct kvm_dirty_ring *ring,
- 			 int *nr_entries_reset);
- void kvm_dirty_ring_push(struct kvm_vcpu *vcpu, u32 slot, u64 offset);
-+bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring);
- 
- bool kvm_dirty_ring_check_request(struct kvm_vcpu *vcpu);
- 
-diff --git a/virt/kvm/dirty_ring.c b/virt/kvm/dirty_ring.c
-index 572b854edf740..f73f92102cb7a 100644
---- a/virt/kvm/dirty_ring.c
-+++ b/virt/kvm/dirty_ring.c
-@@ -40,7 +40,7 @@ static u32 kvm_dirty_ring_used(struct kvm_dirty_ring *ring)
- 	return READ_ONCE(ring->dirty_index) - READ_ONCE(ring->reset_index);
- }
- 
--static bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
-+bool kvm_dirty_ring_soft_full(struct kvm_dirty_ring *ring)
- {
- 	return kvm_dirty_ring_used(ring) >= ring->soft_limit;
- }
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index cf4cb586f1407..da1b76ceb65e3 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
- 			break;
- 		}
- 
-+		/* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
-+		if (vcpu->kvm->dirty_ring_size && kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
-+			r = -ENOSPC;
-+			break;
-+		}
-+
- 		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
- 		if (WARN_ON_ONCE(r == 0 || r == -EIO))
- 			break;
--- 
-2.47.3
+ 	struct ci_hdrc *ci = platform_get_drvdata(pdev);
 
++	/*
++	 * ci_hdrc_resume() queues power_lost_work when the controller lost
++	 * power during system suspend; the work dereferences ci, so drain it
++	 * before the devm-allocated ci is freed.
++	 */
++	cancel_work_sync(&ci->power_lost_work);
++
+ 	if (ci->role_switch)
+ 		usb_role_switch_unregister(ci->role_switch);
+
+--
+2.43.0
