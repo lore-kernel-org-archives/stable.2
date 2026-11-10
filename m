@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330907;
-	b=l2+nzUyC2L51jYSrXnvPRFaYQrurKxOy0H7SEn6LDMIoQXoaI5WazhkJXWWOnR0GS9Ej
-	 WWnlCoMYAcLZWhsZIAjJE25i3CUf0Cf9Hi69q4TuinPfMabtGam/dDWOMDmw4W+Aou6VK
-	 7QF9gYfG6dgsqOlJm/MWvbL1Plf5moNfpvmbb8INU9CSbkrgllHdXZ1xavER07uDXMl5v
-	 Dpc9R6eUGaTl1mLwJzbizOLGhQdV0qGGjJAPUKb3L+w+f9MLqwv0Vs6oPPXrhU34gSO7x
-	 Iuz4TKErvgo6PQ7ZGiicVmrPaIrbf+iluPGZC+NYt4FlbVMww38GjhG/G78gqV0jj0w==
+	t=1794330923;
+	b=V30LOvAH8H2fmz70nq8/7J0Ufl2RltxArxozZcoKZGibrx7PgnjiBq0l37tspaKJ9WcI
+	 0bK9jvkGcxcZqImGqV9oaL2QmJXMIxLLil0XZ4/46T2xbbwO0cBXfCEVyFAEee7r7dFl7
+	 nsrJEHUZ17w7BDIg9NWBuCtsZiASxCLGLpRVTLs18PiRj8PAu4SZaSY/4zivEf/Uqy2Ti
+	 Voc1OOZV2LpLY//k4Gk+GIMNk4WPfuxpLWVlEIyqlVYGp5+nj7h+AQQp3vjgzVea0j3GE
+	 ss75uEyVWpa2A7Hb9nDG52eF1vqfg6Ox4v3V/m0sb4p3WQsO8a1YGNp6c9EIRvW9+kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330923;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/KkxbaixgLioQdVVINLLonesDWHXl3xeXknKyEaLfIM=;
-	b=I775aMi1tKdob5v0ymLwnJn+wQhEg28ieqEBY9W8J5pds5867ckd5diud2QJ2Xl6Z7IB
-	 GzsWk1mKmifOYhGRvIjt/zyFwsJPMpIeJPGf+fEeFQ7eOyPCaXBgKAxfYU0bh7DI8a+y6
-	 7Z5sX/5RbWqa7L2IpFBf7BRWIma/F2ngdSgigffcRxFeAzeYg4h7vdaZsvn8wIe+g3N/b
-	 h0NoqekOrlXLmBx3xcq0gelB68kTteRfljM2YXRdxWlVrFXpb3ffBGWc3H431zn5xcC04
-	 UqLuIymjvxV1n+BldmQep2LIFN0Fybc0+E5coDoOmpTiMJk3CTzQnf1rwyhC+joOwEA==
+	bh=Mt2VifBso+oyzIMEm1BVWYeeFuLQENSd8+whEp1IBAQ=;
+	b=VLte5YlAbnUdF4iBqLCN3YWOfpcP1B97Ru9WoHYHVJI+mI2hwfU/YScZZFDK5jEHROEF
+	 xA2Oe6qGvITuRSWByXWc3cqNpAANiXrD2SzDjl96g+JQ5fpjX5g458NS/zKkVk9w/toTk
+	 oCgbx8i4lrc2qtLEGgyPdlB2kgXpGkCC3dU4UfYrLlCW4V09n7TCR2tPR/tYGx0b5gIXc
+	 e+FSSANaqHw4o+Pf3Vsl19eHDJTvhD9+KLBqNjlpS3zlf2z5zJ5KTWoTjsKz27Xll69dV
+	 H+1PmxvgkRTiVkv0axPkqLqSE6RPVANgFwrtXQoGBPX1c1NLVnEPxddAlKeF1LuF3rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoQ53nS3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XsZT/+8g";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70AF606A337
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96146606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoQ53nS3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2BF61F008A1;
-	Tue, 10 Nov 2026 17:15:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XsZT/+8g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C26C1F0089F;
+	Tue, 10 Nov 2026 17:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330906;
-	bh=/KkxbaixgLioQdVVINLLonesDWHXl3xeXknKyEaLfIM=;
+	s=k20260515; t=1794330923;
+	bh=Mt2VifBso+oyzIMEm1BVWYeeFuLQENSd8+whEp1IBAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VoQ53nS3Khl38bkLviemO/IKI2VQadM/eHCSW1fY9O9DK1s7HrkcBiG5s8cTzbUHi
-	 NZ2BagM2Oti+i52me70jCDvzx00ABStvx4lMzY14oNgXhL5vawfCZO95P77+rUGWq1
-	 p4UOi7+GfeFngkfdOPOl2BbGn9XE4G4BUZ+jrs07kgFdWjfke/Bfr1M1lIBsAoVj7x
-	 YiR9hzOkhJ+nvhFd0mepaGTX2gPGhFA3FqdFd5IgSRbZhZGSgAzFNBwZd/XhMB2a8l
-	 tAS9rJOjL8RY4v1JcCHEUcSmbbkNqjUn4A/yeaq1Cy3Qwz0xfZRfgY/squmbhQqtjN
-	 x9oZ9p8ZT5CTQ==
+	b=XsZT/+8gkhInIPzRR7g8cHFE9zYjBCHFs+h1asRIGJU85xPcTuR2fFP+grvPlUJGi
+	 9vVyaTgsX1tgszok4VTYGcLd/VgoyyDTb8VKZAFZK67UlIiIO0D9wCdKWYBoDA6L5Q
+	 +EcCvv8Kdp4O8bqZ7xwBHUcSechlRwD6LssPK3Q8+AlO5Orw3Xy+RFSUp2FKhxyQ6e
+	 CHr9KGbrw11aIt+IWKtKV3/7vKNfUpI+w2L+BhkpSUcGHZVrqEFHaRHoEEv7bK/7YK
+	 0MiN0HCNxXK032+JEmZKCBo8vZzwRC0FUObr2539t5nyMjlGawyTA3P5g3LM2Zl+Sl
+	 FfoKwrZhJbZ0Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Usama Arif <usamaarif642@gmail.com>,
+Cc: Tobias Schumacher <ts@linux.ibm.com>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] mm/damon/sysfs-schemes: drop centralized filter range arg validations
-Date: Tue, 10 Nov 2026 12:15:02 -0500
-Message-ID: <20261110171205.2600662-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] s390/pci: Add error cleanup in zpci_directed_irq_init()
+Date: Tue, 10 Nov 2026 12:15:20 -0500
+Message-ID: <20261110171451.2702862-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110171205.2600662-1-sashal@kernel.org>
-References: <20261107050429-failed-7.3-1d2397b2c414@kernel.org>
- <20261110171205.2600662-1-sashal@kernel.org>
+In-Reply-To: <20261107060527-failed-5.15-769f66f595c1@kernel.org>
+References: <20261107060527-failed-5.15-769f66f595c1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,58 +62,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: SJ Park <sj@kernel.org>
+From: Tobias Schumacher <ts@linux.ibm.com>
 
-[ Upstream commit 1d2397b2c414e3f1fb536666ccc21d4065a3d9a6 ]
+[ Upstream commit 769f66f595c11185c66913ea5d96420504bfebc3 ]
 
-DAMON sysfs interface is validating wrong range arguments for DAMOS
-filters.  Now the core layer is doing the same validation.  Drop the
-duplicated validation in DAMON sysfs interface.
+If per-CPU airq_iv allocation fails in the loop, previously allocated
+vectors and arrays leak. Add proper error path to release all resources
+on failure.
 
-Link: https://lore.kernel.org/20260914142327.92510-6-sj@kernel.org
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org>
+The error path frees zpci_sbv, but SIC_IRQ_MODE_DIRECT has already
+programmed its address into the hardware. Set the directed interrupt
+mode only after all allocations have succeeded, so a failed init leaves
+no freed memory registered with the hardware.
+
+Fixes: e979ce7bced2 ("s390/pci: provide support for CPU directed interrupts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+[ sashal: adapted the changes to existing zpci_ibv naming and older s390 allocation and IRQ-control interfaces ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 13 -------------
- 1 file changed, 13 deletions(-)
+ arch/s390/pci/pci_irq.c | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index a997539d0e816..ece53bd0d7fdd 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2831,27 +2831,14 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 			}
- 		} else if (filter->type == DAMOS_FILTER_TYPE_ADDR) {
- 			filter->addr_range = sysfs_filter->addr_range;
--			if (filter->addr_range.end <
--					filter->addr_range.start) {
--				damos_destroy_filter(filter);
--				return -EINVAL;
--			}
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
- 			filter->sz_range.min = sysfs_filter->range_min;
- 			filter->sz_range.max = sysfs_filter->range_max;
--			if (filter->range_min > filter->range_max) {
--				damos_destroy_filter(filter);
--				return -EINVAL;
--			}
- 		} else if (filter->type == DAMOS_FILTER_TYPE_PROBE_HITS_WSUM) {
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
--			if (filter->range_min > filter->range_max) {
--				damos_destroy_filter(filter);
--				return -EINVAL;
--			}
- 		}
+diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
+index 3823e159bf749..5281772424e86 100644
+--- a/arch/s390/pci/pci_irq.c
++++ b/arch/s390/pci/pci_irq.c
+@@ -411,15 +411,10 @@ static int __init zpci_directed_irq_init(void)
+ 	if (!zpci_sbv)
+ 		return -ENOMEM;
  
- 		damos_add_filter(scheme, filter);
+-	iib.diib.isc = PCI_ISC;
+-	iib.diib.nr_cpus = num_possible_cpus();
+-	iib.diib.disb_addr = (u64) zpci_sbv->vector;
+-	__zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
+-
+ 	zpci_ibv = kcalloc(num_possible_cpus(), sizeof(*zpci_ibv),
+ 			   GFP_KERNEL);
+ 	if (!zpci_ibv)
+-		return -ENOMEM;
++		goto out_free_sbv;
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		/*
+@@ -431,13 +426,30 @@ static int __init zpci_directed_irq_init(void)
+ 					       AIRQ_IV_CACHELINE |
+ 					       (!cpu ? AIRQ_IV_ALLOC : 0));
+ 		if (!zpci_ibv[cpu])
+-			return -ENOMEM;
++			goto out_free_ibv;
+ 	}
++
++	iib.diib.isc = PCI_ISC;
++	iib.diib.nr_cpus = num_possible_cpus();
++	iib.diib.disb_addr = (u64) zpci_sbv->vector;
++	__zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
+ 	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
+ 
+ 	zpci_irq_chip.irq_set_affinity = zpci_set_irq_affinity;
+ 
+ 	return 0;
++
++out_free_ibv:
++	for_each_possible_cpu(cpu) {
++		if (zpci_ibv[cpu])
++			airq_iv_release(zpci_ibv[cpu]);
++	}
++	kfree(zpci_ibv);
++	zpci_ibv = NULL;
++out_free_sbv:
++	airq_iv_release(zpci_sbv);
++	zpci_sbv = NULL;
++	return -ENOMEM;
+ }
+ 
+ static int __init zpci_floating_irq_init(void)
 -- 
 2.53.0
 
