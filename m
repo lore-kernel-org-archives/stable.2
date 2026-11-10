@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273528;
-	b=zqOOmGVd3rwuTS0tQvCKI+hKfq2SeQKE0uywf1+qVZH4vnxqfxE7gupXWzfx3uUtUeZU
-	 vt9rc7fxh97ue+ithG67TgshjoJPuOoSHCi/zJg+0go3wRHXedTMiooUNL955K/MwUUT3
-	 k7e9qrsqOEsN/0Hpkjk5topwemXsGvDsY1nqfnIVVvHCkx7qydYQvThBUw2rpFwuN7l3k
-	 qReU5plmX281KBHcxYVDODbx3V4bm/O5/Zgof1uOIKbS4HKMNFD1TS/dW5pcfPZyy0QIZ
-	 ljbtipQC5TyddX3CnOBbAvah4YFf4mIMXawBMJ753gPiUwnj6lXyU+QSU5z4UYno46g==
+	t=1794273531;
+	b=sZy7eH2rjfgj9rYe1lB8AKZ9wFVWCPX48dF3D5OWg6KCPfMeFfWcTmn0dEmTRqbHbTlq
+	 On1evqCTodFpp+Bj7CrWBiX22oMFICgPLHcFQE6Av+qi4M1DI8d5AdHk0iNn/N//BFmU5
+	 A/k09arJ6PXAVt5LNlpTi2hRUDWMIvihalW4mlOeUO0Lna5oUUfAu+h7hzNe+d1PYo6PT
+	 Yq+5EEyDha4EZcUKkQXwjwy7hPqqPbMhUYl7t7T2XgTM6rU1zqNB3pk9QLUSNqFQG7W7o
+	 XdLgrxyUDRhXz3SrNIO/o7dkq8ZlL+9qSfP8y4e3+JDRfdl402d9L5A743mpUNXxWAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273531;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=s21kFDEaW6LFppwm+qO4YxYZQHt23WNlBE3OCHPlMf0=;
-	b=Fe80TWoZNFLRtVdR82utez4HOO+rnpUy6Xu0eS8qJamt/w8FAbVLk+rCSIo5BNashCIM
-	 Vp8+oxTyqKozuDsM544P/SiE7UgBcEXcB+Ji26DPWIqzjTkzsDiZ7LrhDCU4qvdIG7yYX
-	 Le2gykLNpUdX3GcziTaptnmwlAPA6g8E6MDFfpdP9lvyKzp5F5mdwrvl25LM94ZWngTnd
-	 SAjZC4/8eHzzq3SBHuLLP6aIPZ3zIwBqtCTZSg5eREKJPPl8/3jgCH807Rb3C7fxXbBgh
-	 IgHTgOv0Gq1YhSoqrPu0C+JraUXI9N7ISELR35MOn85oU5oGPqEZ4wWVrVLW6B+Ia3Q==
+	bh=NRygqg2jFvU5ESHhvzWGeUf45PWZdVc/df4PC/H45hw=;
+	b=qNzFaxZPDBqy+5qgcWQDU3fXgCzc9VMGPYObM2gYJNsUCNiId5C1mDNKBdfoBjyhQKM6
+	 A9VQlpPqXY+B+KF8yAzjejiObnifVuAEfPCwSWV7Ks3Emx2IH55ky/XRrVknoCqo38+ue
+	 4TbXZ2CyDrACaZtPfptfh1+nsdRj8YLGy16o7J5XZdDatMCG82BLZEHd6vNGA2PKYhvaj
+	 IlDsQYlEjQgKnAwzvi5ZSYH8Hxsf3NxhmPn/BsDn1PpyUPXvUhEh2jgFmLwLLK++zxkHL
+	 +GdJzHLkjFSUzoSGWSPOYuKL1N+ZJ8hhoZGkGdZHXXm2MQVVTWZKRnN4Y01KYK4vhtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D6VoSsrs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KM+09GLY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA45606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18310606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D6VoSsrs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0121F0089F;
-	Tue, 10 Nov 2026 01:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KM+09GLY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9A51F0089F;
+	Tue, 10 Nov 2026 01:18:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273528;
-	bh=s21kFDEaW6LFppwm+qO4YxYZQHt23WNlBE3OCHPlMf0=;
+	s=k20260515; t=1794273530;
+	bh=NRygqg2jFvU5ESHhvzWGeUf45PWZdVc/df4PC/H45hw=;
 	h=From:To:Cc:Subject:Date;
-	b=D6VoSsrsUy5URQg13dnJXQbHhfulH9p/QpJWfQSulO0FlXXXCqpn3O+iLjBELQt6s
-	 YGZ3XtVUlQItKtjb16ZKgm1WN8faqW9E1TDVSi05XzrEPG65fushmzfYlo40p8q+RB
-	 Dw760SO+2iwzXblKx507f7BM0j1ZhYuflTspC4/q43lGmRPqLhz4yjjHvjRsfHlXbb
-	 uzDlb24LZu82puQKoivq5LVNqmffxcOXXkC6IHycnMc9KIKpH+hp4rAx/+orwixwPO
-	 IuiBd9SPNYcwGQEO8s0JIwZ6irxieQ9oQbwrEd1UB2YU/5DCN1ogXm8jsxQNNLXAdx
-	 7/Ci4xXlpcL8w==
+	b=KM+09GLYiKv3SRjEQCypLEvQtq9PISPDSpzYrN7U8jdwKBoPHrHPAf/FdKZx2czxU
+	 o3f6m36x764SRY9mi8lBo1ER3ZOIvEA+xzdNFO1GSUexUF+rD779vljvxFmzziMMb9
+	 AfGG1MFgN+pW2JXhpnVVNaIpMmsEeB8C6pr4Dm8TATeAlIzJ64T7Mz+nJNeFyqjMfy
+	 avx9v22snvCvkytYNrgDpeVWoWEQv94c5Q5iqLbNoGnQo4eBy9JuboiJ0F6faun9MS
+	 Jt/EbthBwLQ6lc5FYaS2KSSowOJNM/fpnLA4TP780gZjzD+rVCddocJhue+DQxVv9R
+	 +v8DO8pwREyHg==
 From: Sasha Levin <sashal@kernel.org>
 To: david@kernel.org,
-	mason@kernel.org,
-	ljs@kernel.org,
-	xu.xin@linux.dev,
+	josef@toxicpanda.com,
+	gourry@gourry.net,
 	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/ksm: fix use of a freed anon_vma at swap-in" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:46 -0500
-Message-ID: <20261109201846-failed-6.1-4c2dec1dce36@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/memory-tiers: unregister empty tiers outside memory_tier_lock" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:49 -0500
+Message-ID: <20261109201849-failed-6.1-500624f28eca@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,190 +70,115 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e
+git cherry-pick -x 500624f28eca441e35f978979ccfb373202fefd3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201846-failed-6.1-4c2dec1dce36@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201849-failed-6.1-500624f28eca@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4c2dec1dce368ad9e9b1814307cb5ef3832fa07e Mon Sep 17 00:00:00 2001
+From 500624f28eca441e35f978979ccfb373202fefd3 Mon Sep 17 00:00:00 2001
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:09 +0100
-Subject: [PATCH] mm/ksm: fix use of a freed anon_vma at swap-in
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Sat, 31 Oct 2026 10:40:15 +0100
+Subject: [PATCH] mm/memory-tiers: unregister empty tiers outside
+ memory_tier_lock
 
-A folio read from a swap slot previously shared by KSM can remain in the
-swap cache after the process that first mapped it exits. Its anon_vma
-can then be freed, so ksm_might_need_to_copy() must not dereference it
-to compare roots.
+When offlining a node's last memory empties its tier,
+clear_node_memory_tier() calls device_unregister() while holding
+memory_tier_lock. A concurrent sysfs read can hold a kernfs active
+reference and block in nodelist_show() on that mutex. device_unregister()
+then waits in kernfs_drain() for the read to finish and release its active
+reference, while the reader waits for the offlining task to release the
+mutex.
 
-Doing so can result in some false-positives, resulting in the reverse
-mapping missing the new folio mapping, preventing migration and reclaim.
+Return the node's former tier from clear_node_memory_tier(), making the
+helper more similar to set_node_memory_tier(), which also returns a
+memory_tier pointer. Let the caller unlink an empty tier under
+memory_tier_lock before rebuilding demotion targets, then unregister its
+device after dropping the lock.
 
-SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-immediately after freeing. A stale pointer can then refer to another
-anon_vma whose root matches, even though the target VMA is not linked
-to that anon_vma.
-
-Move the anonymous rmap compatibility checks into
-folio_anon_rmap_compatible(). Keep the page-index check and compare the
-folio's anon_vma pointer against the VMA's own anon_vma and root first.
-
-If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-The VMA keeps these anon_vmas alive, and finding a match guarantees that
-reverse mapping can find the new mapping.
-
-Lorenzo Stoakes says in a private discussion:
-
-  "This isn't quite equivalent to the existing check.
-
-  Every anon_vma in an anon_vma_chain shares the same root, but if you
-  split a VMA then fork both of them like this:
-
-                  VMA A
-               /        \         <split>
-            VMA B      VMA C
-               \        /
-        root <- anon_vma 1
-               ----^ ^----        <fork>
-              /   parent  \
-        anon_vma 2   anon_vma 3
-             |            |
-           VMA D        VMA E
-
-  VMA's D and E both get their own new
-  anon_vma's such that:
-
-  VMA D: anon_vma 2 -> anon_vma 1 -> root
-  VMA E: anon_vma 3 -> anon_vma 1 -> root
-
-  And if you found a folio referencing anon_vma 2, the existing check:
-
-	anon_vma->root == vma->anon-vma->root
-
-  Would be true for VMA's B, C, D & E.
-
-  However after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain.
-
-  Whether or not that could actually happen in practice... 🙂 I don't
-  know.
-
-  [...] after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
-  you are making the test stricter but more correct.
-"
-
-If this affects performance when KSM was never even involved, we could
-just track whether KSM ever merged anything and just skip these checks.
-
-There isn't really a lot we can do otherwise: for mapped folios we might
-be able to use folio_get_anon_vma(), but for unmapped folios there really
-is no easy way to see if the anon_vma is still valid.
-
-Document the (confusing) lifetime requirements of folio_anon_vma().
-
-Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
+Fixes: 9832fb87834e ("mm/demotion: expose memory tier details via sysfs")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Xu Xin <xu.xin@linux.dev>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-40-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-46-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
- mm/util.c | 13 +++++++++++++
- 2 files changed, 44 insertions(+), 5 deletions(-)
+ mm/memory-tiers.c | 29 +++++++++++++----------------
+ 1 file changed, 13 insertions(+), 16 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 9c51925825cbf..e050b1bdf810d 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -3137,11 +3137,40 @@ void __ksm_exit(struct mm_struct *mm)
- 	trace_ksm_exit(mm);
+diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+index 25e121851b586..8eda313cf6192 100644
+--- a/mm/memory-tiers.c
++++ b/mm/memory-tiers.c
+@@ -572,21 +572,14 @@ static struct memory_tier *set_node_memory_tier(int node)
+ 	return memtier;
  }
  
-+static bool folio_anon_rmap_compatible(const struct folio *folio,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+	const struct anon_vma *anon_vma = folio_anon_vma(folio);
-+	struct anon_vma_chain *avc;
-+
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
-+	vma_assert_stabilised(vma);
-+
-+	if (!anon_vma)
-+		return true;
-+	if (folio->index != linear_anon_page_index(vma, addr))
-+		return false;
-+
-+	/*
-+	 * Careful: anon_vma might have been freed, so we cannot safely
-+	 * dereference it. Add a fast path before we walk the anon_vma chain.
-+	 */
-+	if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
-+		return true;
-+
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+		if (avc->anon_vma == anon_vma)
-+			return true;
-+	}
-+	return false;
-+}
-+
- struct folio *ksm_might_need_to_copy(struct folio *folio,
- 			struct vm_area_struct *vma, unsigned long addr)
+-static void destroy_memory_tier(struct memory_tier *memtier)
++static struct memory_tier *clear_node_memory_tier(int node)
  {
- 	struct page *page = folio_page(folio, 0);
--	struct anon_vma *anon_vma = folio_anon_vma(folio);
- 	struct folio *new_folio;
+-	list_del(&memtier->list);
+-	device_unregister(&memtier->dev);
+-}
+-
+-static bool clear_node_memory_tier(int node)
+-{
+-	bool cleared = false;
+ 	pg_data_t *pgdat;
+ 	struct memory_tier *memtier;
  
- 	if (folio_test_large(folio))
-@@ -3151,10 +3180,7 @@ struct folio *ksm_might_need_to_copy(struct folio *folio,
- 		if (folio_stable_node(folio) &&
- 		    !(ksm_run & KSM_RUN_UNMERGE))
- 			return folio;	/* no need to copy it */
--	} else if (!anon_vma) {
--		return folio;		/* no need to copy it */
--	} else if (folio->index == linear_anon_page_index(vma, addr) &&
--			anon_vma->root == vma->anon_vma->root) {
-+	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
- 		return folio;		/* still no need to copy it */
+ 	pgdat = NODE_DATA(node);
+ 	if (!pgdat)
+-		return false;
++		return NULL;
+ 
+ 	/*
+ 	 * Make sure that anybody looking at NODE_DATA who finds
+@@ -604,14 +597,10 @@ static bool clear_node_memory_tier(int node)
+ 		synchronize_rcu();
+ 		memtype = node_memory_types[node].memtype;
+ 		node_clear(node, memtype->nodes);
+-		if (nodes_empty(memtype->nodes)) {
++		if (nodes_empty(memtype->nodes))
+ 			list_del_init(&memtype->tier_sibling);
+-			if (list_empty(&memtier->memory_types))
+-				destroy_memory_tier(memtier);
+-		}
+-		cleared = true;
  	}
- 	if (PageHWPoison(page))
-diff --git a/mm/util.c b/mm/util.c
-index 8acfe2148ba52..80f6c714844f2 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -697,6 +697,19 @@ void *vcalloc_noprof(size_t n, size_t size)
+-	return cleared;
++	return memtier;
  }
- EXPORT_SYMBOL(vcalloc_noprof);
  
-+/**
-+ * folio_anon_vma - Get a folio's raw anon_vma pointer.
-+ * @folio: The folio.
-+ *
-+ * The returned pointer may be stale for an unmapped folio. The caller
-+ * must ensure the anon_vma stays alive before dereferencing it. A folio
-+ * reference or lock alone is insufficient; use folio_get_anon_vma() when
-+ * the anon_vma's lifetime is not otherwise protected. Note that
-+ * folio_get_anon_vma() is only useful for folios that are still mapped.
-+ *
-+ * Return: The raw anon_vma pointer for an anonymous, non-KSM folio, or
-+ * %NULL otherwise.
-+ */
- struct anon_vma *folio_anon_vma(const struct folio *folio)
+ static void release_memtype(struct kref *kref)
+@@ -884,13 +873,21 @@ static int __meminit memtier_hotplug_callback(struct notifier_block *self,
  {
- 	unsigned long mapping = (unsigned long)folio->mapping;
+ 	struct memory_tier *memtier;
+ 	struct node_notify *nn = _arg;
++	bool empty = false;
+ 
+ 	switch (action) {
+ 	case NODE_REMOVED_LAST_MEMORY:
+ 		mutex_lock(&memory_tier_lock);
+-		if (clear_node_memory_tier(nn->nid))
++		memtier = clear_node_memory_tier(nn->nid);
++		if (memtier) {
++			empty = list_empty(&memtier->memory_types);
++			if (empty)
++				list_del(&memtier->list);
+ 			establish_demotion_targets();
++		}
+ 		mutex_unlock(&memory_tier_lock);
++		if (empty)
++			device_unregister(&memtier->dev);
+ 		break;
+ 	case NODE_ADDED_FIRST_MEMORY:
+ 		mutex_lock(&memory_tier_lock);
 -- 
 2.53.0
 
