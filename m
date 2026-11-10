@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326337;
-	b=YNCJqgbio2jifatw9lzyewski8haxxnLspyIRDQKW11VBbYI2+BgDjkjbhRBtnyVeDX9
-	 XK6BJC8wKzvciaWEKR754JYNtj/aWxg8vmSb8cfbyiaFe8kHGsIHsRqE+d5WAriwwIkme
-	 69versf81RKkv3lPHC+0NKa5FpQijewB9ED8iJHrtgAFqk1I1gIIhP9n1NHuNlFArgTbS
-	 s31qLh0fB8+MB0T4iw+sAhA3H0xwf8k+mVh3FA150bMyOWodKmEVLWGjqGG/400PTKex5
-	 aHg8sCgbfONRGueKV7h1NwKtLwK+FUunV9cHIjEU6K6JsyXuFERqcNvz4vrJpT/ylDQ==
+	t=1794326342;
+	b=yskvkcW6sZUokLvtRaFouPq2GzHWYp1gFJEkvG87ULjIW7iEsAcjFPf3IhJWu6ulzjxE
+	 qqIEwaHFvJpQXeFj4KA1JkMrnnG+wBzDO5x4/itdDIFSBWZobz+tiKYMgFpoGXtBVZVh8
+	 9yQLR8vnyCVQJ2Zc9dJAuxSZV9KOCsDoSIOQlMXouqmss9zt3p5J6tJ+VThkW9B89zgt4
+	 zmS/+JiPwy2zoF94+qlUYaDV6j2mFaZ91rNazBQa5zesXwJ/07LaRcoKPBxc/ByhLdfCu
+	 ry8Qo1NlBRf6AlR8IkaTeYQzZvVc9MWQBZVtdOi9ZivzhlsiMlPq/WjFa6BUDQ4o43g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326342;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=thSK09LTo/K6dYWTpPKx/zyRUFtY/zQdEX/rrc1zqlo=;
-	b=lQaZmAAtIVU4RJ/3qTbHraEzvq5PUWF5jrWp+RcRO2HKUfrhrJhc/P1nB9YmXVGlse1h
-	 IXdDc0NC4PMvwf3NjUlde7A9k1zj20ETXapkJb9BJ3YJnUq1hwJWL1RA84BSTQiiufITH
-	 a2Di3nRtRIql5tq2Te+d5MZKPjYLlObqDvWwu3sq7+WOY8IS7PSdsLe6DRcuQE72sDr18
-	 Bq4xXmFzUi+JV4brD5nWuk4XsiVIKvxVyPHL/paYidW7mzN7MFDtCdcthaAw+nCxWItzL
-	 fDXxtxi3wlvu/yUdlnLtmb3WYKx757ZjhXj35Sjk6nr/1krbb+2m+OpP+YF2ocewWwA==
+	bh=kIy38hcj4nPkLOkMSYPWcLJd07YQxs8gJ4UtpD2ILEw=;
+	b=d+jHcRFKWyPrMVzCaKaZxJLrKliQ73MvCsfzxGwqeMvmSbg6K6izCnKlUzvD+vhY1FiQ
+	 m0A50AsTCX1xKcqb7NVbqKLCFcbDR/79miedQHYz3RiJ85iYZM8dRXTzDt5oRDxZb9VTw
+	 Mivwde3xxdKyIrSQaTLD7pH6J/qeLnBlEvJuyCX1OlyjSM8lx6CIX1flM57CRA/MH0mft
+	 Bo8Orn0n1GazM3ErFjTFe71cwo+lm83s/I5RWX7xwt9X0z26wLxK+hqRFZcCFOF+lWwSt
+	 H5JyJaUyV4Wdrpnj6//O4ILqeslmU+M/IjIc78IsJDcknnnoC13GOOIcnAewc1AoVgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XyhMgWK3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHe1kpbh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA6A606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:58:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94D8606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XyhMgWK3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692CA1F008A4;
-	Tue, 10 Nov 2026 15:58:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHe1kpbh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063AE1F00900;
+	Tue, 10 Nov 2026 15:59:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326336;
-	bh=thSK09LTo/K6dYWTpPKx/zyRUFtY/zQdEX/rrc1zqlo=;
+	s=k20260515; t=1794326341;
+	bh=kIy38hcj4nPkLOkMSYPWcLJd07YQxs8gJ4UtpD2ILEw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XyhMgWK3u0T/MM2nEydyPj7zklDrh02+L9eSHKpDZOrTPuDqqfG+C+ugFmmU77oEw
-	 Bhqu8XwaC7kvS09Ni6du1CuVucKGfqgl3URiI/Hz1LA2uaBF/+oD13U4gB4mB2ZbK3
-	 pC+kM3VsqFx8j8RkY5W7NaJsOeETWRlaq0K/VX0xg9vYtaPrsTvUT3xAPFqACWgPYI
-	 uFrH2uZOQoF/qqta1bxtT59K5xYF0sw9B9BXn4KEVeQAXrv7AVDDqKmgip1+b2X+pw
-	 SMpvMFNDZEFJoaeu/NiiGnCfLSXCvCQs1YwgTfgOZste/p7TZ9UcRFC49TvGN4raq8
-	 qfveltrlY3dyQ==
+	b=QHe1kpbhls7qlzcc9D0yRFRxdgVP/xu362k/Jm/hV8vFWfLZ7t/ZBZsTye1QKGf7l
+	 t1yrzJMDSYKEr/g+4gIjKZUUSsJ6zAk9nYmHWcjjghm+emodnv3eYbNTUGoPCuHku+
+	 8BEEFmTY+EjqKEZDjoaLtjycn5ABREagpGN+r32NQwyCSwyXqEOInNAXcbmdZlHDV1
+	 i5SXGeT/9zKxEc7NIIdyXovLC5wJdsP8l9XjGFrcgyGgD0yRL+GYNA5nYTTlf/aOyE
+	 WscqGbL6Itn0R+ws7TUKnnNkuiKBS8Z12DbvDQ/w9nJ+vZ/1sFPB0zGYNsG83zVjMI
+	 EkES/UUPivA2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mailbox: altera: shut down RX polling timer on channel teardown
-Date: Tue, 10 Nov 2026 10:58:55 -0500
-Message-ID: <20261110155835.2357221-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler
+Date: Tue, 10 Nov 2026 10:58:59 -0500
+Message-ID: <20261110155838.2379896-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052107-failed-6.12-0cf10e65639c@kernel.org>
-References: <20261107052107-failed-6.12-0cf10e65639c@kernel.org>
+In-Reply-To: <20261107060258-failed-5.15-b3e7ddd694f8@kernel.org>
+References: <20261107060258-failed-5.15-b3e7ddd694f8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,44 +61,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 ]
+[ Upstream commit b3e7ddd694f8429217ba509b55b910a0e4361dfb ]
 
-The RX polling callback unconditionally rearms the timer after it
-processes mailbox data.  altera_mbox_shutdown() uses
-timer_delete_sync(), which waits for a running callback but does not
-prevent that callback from rearming the timer after the deletion.
+snd_hdmi_write_eld_info() parses a "sad_count N" line from the
+root-writable ELD proc interface and assigns N directly to
+e->sad_count with no upper bound, unlike the per-index "sadN_*" lines
+a few lines below which are already bounded to ELD_MAX_SAD.
 
-Use timer_shutdown_sync() for the final polling teardown so the timer
-cannot be queued again while the mailbox channel is being released.
-The timer is reinitialized with timer_setup() on a later channel startup,
-so polling mode remains reusable.
+snd_hdmi_eld_update_pcm_info() later iterates
+"for (i = 0; i < e->sad_count; i++)" over the fixed
+e->sad[ELD_MAX_SAD] array, so an oversized sad_count read from the
+proc file causes it to walk past the array.
 
-Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
+Reject sad_count values above ELD_MAX_SAD, matching the existing
+per-index guard.
+
+Fixes: acb059938810 ("ALSA: hda - ELD proc interface write updates")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
-[ sashal: adjusted the patch to replace del_timer_sync() where upstream replaces timer_delete_sync() ]
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261008085133.9528-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adapted to the older location of the HDMI ELD source file ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mailbox/mailbox-altera.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/pci/hda/hda_eld.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
-index afb320e9d69ce..e81c8bac651af 100644
---- a/drivers/mailbox/mailbox-altera.c
-+++ b/drivers/mailbox/mailbox-altera.c
-@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
- 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
- 		free_irq(mbox->irq, chan);
- 	} else if (!mbox->is_sender) {
--		del_timer_sync(&mbox->rxpoll_timer);
-+		timer_shutdown_sync(&mbox->rxpoll_timer);
- 	}
- }
- 
+diff --git a/sound/pci/hda/hda_eld.c b/sound/pci/hda/hda_eld.c
+index 9e97443795f83..113c2081dda37 100644
+--- a/sound/pci/hda/hda_eld.c
++++ b/sound/pci/hda/hda_eld.c
+@@ -521,9 +521,11 @@ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
+ 			e->aud_synch_delay = val;
+ 		else if (!strcmp(name, "speakers"))
+ 			e->spk_alloc = val;
+-		else if (!strcmp(name, "sad_count"))
++		else if (!strcmp(name, "sad_count")) {
++			if (val > ELD_MAX_SAD)
++				continue;
+ 			e->sad_count = val;
+-		else if (!strncmp(name, "sad", 3)) {
++		} else if (!strncmp(name, "sad", 3)) {
+ 			sname = name + 4;
+ 			n = name[3] - '0';
+ 			if (name[4] >= '0' && name[4] <= '9') {
 -- 
 2.53.0
 
