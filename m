@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794289927;
-	b=YkGjcg8KPIC5sEblAcAKZEaPwFI5A+eBdiAwQNPvgeBB54viiOo19Isg/1ylCreQ3P4S
-	 64On3MHD4cdrUU1U1zzUzdPCJ/9XXK9Wzpzm3FuhTef5/3QTkxjMWVCXoP6cI7kkHg2H2
-	 LtlYT7x+4UgphZBLv+vyOvijJdUZNOxWnadZX5S1ENjfW/K3b9plyNcDwiQEPOwdUQsdw
-	 hJs/beWHF+owXZ2ZlWJpE4uBADACMGOR1NzThRtb0Koc6Zj2ODqKhMuQOgWJTsnPZ8BUe
-	 imWpTgLZJyp10a8JdCqe2zjrs52QZJGumhmkpKeYVeFAPRn8ANF6JICBa0lpvbZlWow==
+	t=1794290302;
+	b=HZA0/qjevCtm3d5RHXmbblE1iw6ER5PGnk45N9Ni7IpDrNMBiivWc98aRKc8b0iUsB9K
+	 t0rmVRKwR1Ojsr/oDMhC5dq+qg1o9WJkEpl8rqRRvl6ZKYdlvHMC1QCVFuirMp0h4WiTe
+	 z9oqAIwkR48i9TMRVRw3IRgncalahu3B9ndbHalHPat4JZlIS8/ZDtqwRhR6sYlQnmcqU
+	 /d0orwJ4BvLTHBu82SNlGxp2KMVXIYkRKb16aUdP+VJyVmW4ZX5zcjLr/XDCsBwiotOMj
+	 PemFtscOSSBIaqaESsnQrxTTI8Gq/F2rWVCD6+FiiPgdIwMaMa2SXmGMktR5Xz1+amQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794289927;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794290302;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8V7I5kEXQgM5T60Xv4Tu/syE9fA4049xfM2+mKNSkQg=;
-	b=EYBDXndQDdA1v23qnGQ5BY74LQXhlQJ8A0Z43zR/SXhRxJ3UW3WtXKiRWIVBnBIWcn+s
-	 uBobvOiJ1oxbA7qAzKMplIHvRuOB51xU7sGYuvGPqCHD7WHT4JyeGj52mUBM5tXIbDoiR
-	 ApOnl2si6Cbfl+14/bBhcERIrUVQZBCt8sTgS7M7AIbXBUkdh8WLXT0ShWz4irYqzmRqV
-	 NdlzG37dl8m6R4zIpOCXuxDXUjSZBlsZqHK+B05SVrb+5zFADWdTlcTu6s6LREsLSAzIf
-	 adBapYRrwkFqgPy65eSNBqEyeIlyudDLM90yClRWYYCPlrf003o12hF18kE7/FPFORw==
+	bh=Z7iAk94rtQT4en12Oo5gzA5SIJCnJY/wdVZuGhW9uGk=;
+	b=0xS6Vj+5sk+UQ4kyvwUdK3dQtAKE3lPzPTQHhoLSFhFd+RjFK1cJPTxHXS/g1zjaTnas
+	 CtxCM7Ren+K7RjjkSfbvNWY1tUuRMVW3Cbwod4jJreO+HKdz2+nPTBkFqCb556FGb8aPO
+	 NeO/53Wm6KLqFgg3AJBCt/h3O4oQLM4tMWBNQuVfAzzzKYkqp1jfft05EjzywHC3ClaKb
+	 l96H6FXNvT6FVZjbxaH8slylYcATDRd5SlJKRcdy1fZIYQpWVwoJjjTbpPVHi5zI0Yo4g
+	 ioBfZaU4YHI1JoXJDO163ZN3pg/+XJTcGOawMYtLYHd7bSC8CknSgxh0tdtiK6AvWoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcZbV+rC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqEYcoVo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E540606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90965606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcZbV+rC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD481F0089F;
-	Tue, 10 Nov 2026 05:52:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DqEYcoVo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32951F0089F;
+	Tue, 10 Nov 2026 05:58:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794289927;
-	bh=8V7I5kEXQgM5T60Xv4Tu/syE9fA4049xfM2+mKNSkQg=;
+	s=k20260515; t=1794290302;
+	bh=Z7iAk94rtQT4en12Oo5gzA5SIJCnJY/wdVZuGhW9uGk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XcZbV+rC8k9yNlBvACQSzHuPrBcBrkX4f37ZzUaZ2oboZ0cluwkxz45FpewxtKQaF
-	 tzezKZQcRHldlsAujJySYs0v6IGbx20w4KVFxwEP19z+d9BWb7Naj3bX5K2SoStERs
-	 zjGVNND8/H8jn8Vhz1soKusTUNILiNU+b+InmRcSQu5J9jdj4HjeoW85vtuAUBS046
-	 ZDvToX6JV7Snd4IgPBVpx5sUAw2o7c3eJnQHRLaVFFrW/AT8g9b/kxJX/Rgfw+qp15
-	 izHbkGjiZKx4nts638qhrgR44XPHl0mDcBnChfmM/Csx1FbUGrpuuUQ65VHSl1EXdv
-	 bkovzoo3wHHlA==
+	b=DqEYcoVoJ4NVzkUI12zFP/8ltyHR34sOhLNoZ+6EbcrhvFpnUVs7LbEo1Nnt97tc2
+	 JXmZOgO/GYesMTExVSk7Ej/JXo9wlaa4IKi2kAuHvBMNfCtyBPbw5DvFenTbm5fFvD
+	 DbBBci/lpJv/5T7fX0Mo9s6mZegLhlU9363QdTmxwLg7izEF6ggDS1ewpuyK7TE5q7
+	 LcdBuSgjv2TIWygxiGltY0aK3FhC67j2sZ9R5JLlfbXtin+G5n4GQtJTkXXiT+Wz1W
+	 gf+Wy9T6ElZRqQEWe2yrivKtTk1dw67Dr9k/e3Phtk6wJEwuOYWCa0wAxXmVs4m4Hk
+	 +7i9v23CCS8Bw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Judith Mendez <jm@ti.com>,
-	Moteen Shah <m-shah@ti.com>,
-	Nishanth Menon <nm@ti.com>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	dri-devel@lists.freedesktop.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] arm64: dts: ti: k3-am625-sk-common: Set eMMC clock pin as OUTPUT
-Date: Tue, 10 Nov 2026 00:52:05 -0500
-Message-ID: <20261110055155.475907-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] drm/panic: Do not use un-escaped URL as format string
+Date: Tue, 10 Nov 2026 00:58:20 -0500
+Message-ID: <20261110055810.483002-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053000-failed-6.6-8ef8a0e38d13@kernel.org>
-References: <20261107053000-failed-6.6-8ef8a0e38d13@kernel.org>
+In-Reply-To: <20261107051705-failed-6.12-6596aae25585@kernel.org>
+References: <20261107051705-failed-6.12-6596aae25585@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,41 +63,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Judith Mendez <jm@ti.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 8ef8a0e38d1377c6d51c06f95c64d87641b2c717 ]
+[ Upstream commit 6596aae25585b183ebd528206bde6f12efaf8db1 ]
 
-MMC clock pins must be configured as OUTPUT-only per TRM [0] with
-receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
-PIN_INPUT to PIN_OUTPUT to match documentation.
+Replace the direct use of DRM_PANIC_SCREEN_QR_CODE_URL in snprintf()
+with a %s conversion specifier. Avoids a possible vulnerabilty from
+a crafted URL string.
 
-[0] https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals
+As the attacker needs to control the kernel at the Kconfig level, the
+potential for an exploit is likely low.
 
-Fixes: d19a66ae488a ("arm64: dts: ti: k3-am625-sk: Enable on board peripherals")
-Cc: stable@vger.kernel.org
-Signed-off-by: Judith Mendez <jm@ti.com>
-Reviewed-by: Moteen Shah <m-shah@ti.com>
-Link: https://patch.msgid.link/20260909214743.899477-11-jm@ti.com
-Signed-off-by: Nishanth Menon <nm@ti.com>
-[ sashal: adapted to the older shared device-tree layout, where AM625 SK and AM62 LP SK share the pinmux block ]
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+Fixes: cb5164ac43d0 ("drm/panic: Add a QR code panic screen")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.12+
+Link: https://patch.msgid.link/20260911124540.279841-2-tzimmermann@suse.de
+[ sashal: Retained the zl= URL parameter instead of z= to match the older QR encoding. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_panic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi b/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi
-index 8d608c7ee2b12..1483c361807eb 100644
---- a/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62x-sk-common.dtsi
-@@ -169,7 +169,7 @@ AM62X_IOPAD(0x0b4, PIN_INPUT_PULLUP, 1) /* (K24/H19) GPMC0_CSn3.I2C2_SDA */
- 	main_mmc0_pins_default: main-mmc0-default-pins {
- 		pinctrl-single,pins = <
- 			AM62X_IOPAD(0x220, PIN_INPUT, 0) /* (Y3/V3) MMC0_CMD */
--			AM62X_IOPAD(0x218, PIN_INPUT, 0) /* (AB1/Y1) MMC0_CLK */
-+			AM62X_IOPAD(0x218, PIN_OUTPUT, 0) /* (AB1/Y1) MMC0_CLK */
- 			AM62X_IOPAD(0x214, PIN_INPUT, 0) /* (AA2/V2) MMC0_DAT0 */
- 			AM62X_IOPAD(0x210, PIN_INPUT, 0) /* (AA1/V1) MMC0_DAT1 */
- 			AM62X_IOPAD(0x20c, PIN_INPUT, 0) /* (AA3/W2) MMC0_DAT2 */
+diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+index 06f0aa1cb4f74..f4662f88e2173 100644
+--- a/drivers/gpu/drm/drm_panic.c
++++ b/drivers/gpu/drm/drm_panic.c
+@@ -507,7 +507,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
+ 	char *kmsg;
+ 	int max_qr_data_size, url_len;
+ 
+-	url_len = snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL "?a=%s&v=%s&zl=",
++	url_len = snprintf(url, sizeof(url), "%s?a=%s&v=%s&zl=",
++			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
+ 			   utsname()->machine, utsname()->release);
+ 
+ 	max_qr_data_size = drm_panic_qr_max_data_size(panic_qr_version, url_len);
 -- 
 2.53.0
 
