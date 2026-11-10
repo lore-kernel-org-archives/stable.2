@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273536;
-	b=FySCtKZ1LHV5TceLouUVKnd7iNiA/BnhVQ0wqdAVWsQl/Vtg2SvS5GbYZQOepEbIgszO
-	 SmjJajSLs1bkvngc+PA0yj8fTyb3g3XKr87wuJtV5u+bTK96NCPhYci2hbGoj+EEPpTNH
-	 A0p6+sfGBQvPRrQjk+RER7rF6Dv8b8cDqzV9rnNqyOIkPMCcMFHmLmdi7l8LYXGMtWdBV
-	 AZXge5Cm4TYUiCStIJjH6yeREzkqEkgOKf0cxJY4zjMvnAEYn3Lqis2CMeWS1Neu8983L
-	 D03tkyUK8ICoqxzcUBCCFxp6KMO5GjA+swDm/h+5+RXzIFyi3tq5OSHHPaPIU1bWzNw==
+	t=1794273538;
+	b=H6mqOBsjLLisQLgIdvvFSGuO5EYv5FhmrirSs/cm1WaFoa3KF9L2fomQ2TkOv2Mwy0LC
+	 SEOx1Ebar0Hf9tQvm8WjM8+HYzQe55PtZZMvfgMXtVhA2EbU93AwOdM9D5h2YSQv2QIhm
+	 HD6kPs649yO9JUhcapy/uHCBomuo+3R5H7+k2Fe1G7Jj9lBtpCttMim6VrFpOz2Xd9IUk
+	 p9ddGqj56sHg/nGiNxJiF0lKdFa0ry15/P8o0H04kessmm5bGuA5RdsdM3PE0ThG44grZ
+	 DhhggmoTlLt4ypn47dTU2BHDQcI/Xn3yxHwgnVWCSvRapEFM90QOrvtShcmkygBrfZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273538;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3RK3b6FR4Za/q0DMp4ipuYArI2jxDsTiK7AdJS8CuJI=;
-	b=5thpH0kMBQ1fw71I5Z0eC9saQK5LmGb8wsCKITQa9qCfg7+kcVjMVpq0w5TZAjb/Tttb
-	 ksg9Cf52OUwBzVhCGj7oShqMbf2qS6veLKjHrKBltLq/WHcO3CzMX2hK2DiF6q5j0Bc1O
-	 AgnZmezssSY4ssokHCiwmPCH1bhHn1Nv2cUjwoZtJnylJA9ccbsnSIvfQtsfnvJQNHlHx
-	 AdTYW0bIVxCFgJMJMwUw7qOdAQHvUuuZN28zUgW/kT63Dho1tccxzNKysEDYBqdBj/g9K
-	 oh0ukwJkW6zNQYVno16XFY5JYpW68foSQ0osF56QqjcJUUPvJ5Sta+SfojfVQvxHpoQ==
+	bh=PT/dPjH/AU3A5fEhUAfhzdBWx2EOcbeqz3wt0qeELqo=;
+	b=YLt/HN8/MjwrSqKijBS0wcoX0lLZG5060woBhnxs0hVjWETUa+6osCB8q3Npha6DpPts
+	 vgtyuIGUPlJad1Ht8S1VGOpTlRwIEsyi6PBzPyovv3LQqaDqsCFHJEzotbqOTyboyp5Sy
+	 9eQK4kY2PSQpvJlIRlsaMmUIWhv5tDp5CG0WugqayVBCv00j18c+79s7DeG2p/u9mnp/O
+	 QTrEKdwb6KwjxsBLMjGKL1jXF6FZKm9VxmQldYCnozKgHQKqcS/WLEKnrSn0WnWhUR6Jz
+	 G/8AJTIYw9wD8J/wJvwW/mleCayQvFZLXGZ8zkzflAzfwEpAu1+ymeF4kIm2yXybcyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPKgl6ZF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfPi12ai;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0804D606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579A6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPKgl6ZF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133771F0089F;
-	Tue, 10 Nov 2026 01:18:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IfPi12ai
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0F41F0089F;
+	Tue, 10 Nov 2026 01:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273535;
-	bh=3RK3b6FR4Za/q0DMp4ipuYArI2jxDsTiK7AdJS8CuJI=;
+	s=k20260515; t=1794273538;
+	bh=PT/dPjH/AU3A5fEhUAfhzdBWx2EOcbeqz3wt0qeELqo=;
 	h=From:To:Cc:Subject:Date;
-	b=PPKgl6ZF1EndlUFvHBTE0zCNYgZz1RNqCNw5GIJSw5+143It1EtRXUFQ6gBV2wu1o
-	 bIPR1gZVuhNA3vCChjtgqFXzq72XGtJVSgzRmOY8qORtx1+0BoY7sEvPXSpSGol8lh
-	 hYYqxwtRaqJaOfPdrgoCbUMKz5hiIBXYYEkL6RbyFIAo0uAdaAE9pofidaEUoqLYM2
-	 Mkv0CVqwbdOh6OOObYuZhOBJlJ/U+brCitIUkgJAR/83dVxewYiym0ZYY8Eg6qRBfS
-	 HJQTBfhFEdc3frDSVp4rDbCWM+20gBfW9S3uSU0fDMZaSWu+O4nH/+zV+ErSBk53nZ
-	 Uky9fjXiQiEcg==
+	b=IfPi12aiff0/4duQgXo0ow8oYbN+LY/wJ7u4kkcsfIEmEHAHw3AWb9p72UMk3k7Jg
+	 KHfntHGDmDcRYHimKAe0pEjXrVl3jVRd9/+J3/fC7wF3HQ2RNQm9iU0JvVlZetRGhj
+	 a4tFJGqWG3GsjWyWJoHtJ1rkTBLflz7dMev1LIZmTaGIB1YpKpF3MXJA05zt97DHEi
+	 S2fSoSoDDQwO4IneRotP+gxVKf+ljamm+qxstL6b7/Z29NjQ1Y689OzvYyMnsqjhjn
+	 AhhzL8EnfdL23bCApBcKRsPplNRZcm0LS6FDjNXXYgFFEAjIhK5Dxhlrrf8OncuNKb
+	 WP2hto83XXuyA==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	josef@toxicpanda.com,
-	ljs@kernel.org,
-	pfalcato@suse.de,
-	harry@kernel.org,
-	usama.anjum@arm.com
+To: bas@basnieuwenhuizen.nl,
+	faith.ekstrand@collabora.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/vma: don't leak the charge for stack growth" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:53 -0500
-Message-ID: <20261109201853-failed-6.1-b1ee87802111@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Check cs flags." failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:56 -0500
+Message-ID: <20261109201856-failed-6.1-f5ea64f9fcd9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,57 +69,51 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x b1ee87802111156e27557e82acc31fa7dfc76e2a
+git cherry-pick -x f5ea64f9fcd921bc4e2307a262e19450b8a58524
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201853-failed-6.1-b1ee87802111@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201856-failed-6.1-f5ea64f9fcd9@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b1ee87802111156e27557e82acc31fa7dfc76e2a Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:13 +0100
-Subject: [PATCH] mm/vma: don't leak the charge for stack growth
+From f5ea64f9fcd921bc4e2307a262e19450b8a58524 Mon Sep 17 00:00:00 2001
+From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Date: Thu, 22 Oct 2026 01:30:54 +0100
+Subject: [PATCH] drm/amdgpu: Check cs flags.
 
-acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
-This can happen for read-only or MAP_NORESERVE mappings created with
-MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
-Committed_AS.
+Had no validation before. libdrm_amdgpu memsets this, even
+for the raw/raw2 functions.
 
-Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
-Unaccounted growth skips the overcommit check while remaining subject
-to the other stack-growth limits.
+We have a lot of functions touching the ioctl struct, no
+strong opinion on where this is placed, but I thought
+early would be good.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 4d01e15e76358f60ef6734462d2b6d9972b9dfbc)
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-44-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/vma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index acdf00346cda5..695d0be85ac86 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -3391,7 +3391,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
- 	 * Overcommit..  This must be the final test, as it will
- 	 * update security statistics.
- 	 */
--	if (security_vm_enough_memory_mm(mm, grow))
-+	if (vma_test(vma, VMA_ACCOUNT_BIT) &&
-+	    security_vm_enough_memory_mm(mm, grow))
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index d69018a14d96d..a703268ceebaa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -189,6 +189,9 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+ 	int ret;
+ 	int i;
  
- 	return 0;
++	if (cs->in.flags)
++		return -EINVAL;
++
+ 	chunk_array = memdup_array_user(u64_to_user_ptr(cs->in.chunks),
+ 					cs->in.num_chunks,
+ 					sizeof(uint64_t));
 -- 
 2.53.0
 
