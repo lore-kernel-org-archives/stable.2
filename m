@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272485;
-	b=psFvUI92uxkyeTIb4ZpKAnstAlLI56G9gZ4gYvFuxR5WmI9vn+EauMgBIe1i+n5McRfJ
-	 CcFMCpWeUuYCgqZX1tdt01BEHmVb2T88kur2Btq8rqojxCsLhc38VB/hs7fFoTY1pe3/J
-	 po9B6DFGj5XiamqPFKYnNGLBPxP3AcqU93lvQYISvqhQsSIBg2Cu281DWnYdhJThCq2tR
-	 r+t0sX4jskI1DQgfdpYGO4yVqgrsOZZQf8fqSNhfyChXm+dU95ehB1SltlO+XudnyMMU0
-	 5fqyhNYSzWS48QY/MEFdRMRsEwc19WEnz7PnWAdDU4CsdDS4FjBT9VzcpRH8fXeu2PA==
+	t=1794272487;
+	b=OhkZL/ilMvgLzqCMpx3Apdtlb90GbGQWNJQgPqIXgNhWzqjG5lWs2ym6ajUjNjpY5S9D
+	 5xbBqUcjBGFSpNnlHSAp5/6viLVFo4wYHLP6deAkXU04WzUt2V71XqIzqwMDmg/JOoS4u
+	 b/+EYhODYWw8OgldUxDbysuFZMrghD8cpAN6rKdN/sKOjwLMRUjGhT5LoH2hnrBaihhqS
+	 kZr/VtHx/JkaPON5AjOgVyn1EUMAZMFRyECzpuC2C5RT5Fjys1zs98KvO5zorFLahscsV
+	 uEr0suaoHKntlgiymmU7v4bRaWMKrkiSWmfv0d6KkSCpyoeykWRuSTuBzWYFGTigvIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272487;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4AX+DoeN8QKmosQbhUH+TDObpC9Af/2h4YteJXQqZVY=;
-	b=i1cbVa1s9YaDaCq7mrqPp5S+MvQcwqndPWdWf96N8bLFg9Txpt+8IgriYWjiUA5wxHTM
-	 lPutX7Qq6yzRPVe7ycAkDa3zjGQF4LlA5RFLdNvjhMj/w51tDipEAOBt0pvNSV7JgZiL2
-	 mTpwPFW0Vka8EKC/4Cmv0fYhlVYfCM6t0rj3ukTke14q6GYEAiG8D0cmixbKwt0yN+5Ec
-	 WFCDQ8GslzgIvEhdWP0/HwDcFQ/+plrE71wLEuzVAKDdVInLCnTk05wL4Z3+y2czI174l
-	 hO1xr3DsLwwvJTGKPnjA07Mm/qoTIknSc4tQkcHdHrtvz2e44GwmlQNz4dGje7CCEag==
+	bh=VADB/B7G0BqyX/juu+yOqreOb+6eXbkzjtp+ssJ0Ugk=;
+	b=uAFeaIh5wGo4fHSiA0T0bYKeuFkrZxEVqZLanKtXCJE+X2+LOSAv0d94KQnREbdH/5an
+	 tOyNYj6uQwW4r5TdkgLdhf0s16uVef2glwu1Xf5A0Rs7TQeOWmXnW/QrQVmEHDnWudDRn
+	 1v6p1ACJLQbR1tkLmtd2XYV/Nh9f5FMMUtM6lZFqmWhmhM7Qj2doHxXmi2cSseonC3Ykm
+	 /NrNfjnMzCBsuYdFzFCGmI5XcMEP3oRLYkV/Jzsjy8y7mnjeOAGj3XiHklvpQHQIEEstG
+	 sM97GU9MB7NtRxnk1frCLx2ky93v2NCtXo2stlDzJU1R8wFtHu5l7D9nZKbQGXi9ZkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIYlXGvS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IP09CIqG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BAE606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B01606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KIYlXGvS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C381F0089F;
-	Tue, 10 Nov 2026 01:01:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IP09CIqG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B491F0089F;
+	Tue, 10 Nov 2026 01:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272484;
-	bh=4AX+DoeN8QKmosQbhUH+TDObpC9Af/2h4YteJXQqZVY=;
+	s=k20260515; t=1794272486;
+	bh=VADB/B7G0BqyX/juu+yOqreOb+6eXbkzjtp+ssJ0Ugk=;
 	h=From:To:Cc:Subject:Date;
-	b=KIYlXGvSooM/pPpcz/rzO1Fh4Hkx2dMi7pm8UTdBnfRG+7Kl3gOdSF2nUDT9ohSIF
-	 BaCCUMxR1DggMnsAoDhi+m0CRjOeyFNEqHQ4suTZmBhH0+doWeDVTnSTuhnsgm0cjN
-	 lsEoSWrngT4HpPFnZbVwfqvjpciCPnfM6smSl5MEbBzSZ4xVjzSCHpdUskD0lqu3iK
-	 2Piy/TvObo6gCAQYGNo3Lws65d1WVcEIKz0/l3urmbwfh8ekcxb9B/momD3kjv9YIu
-	 L/PoWnOeq6ysJe+K4gc8a4PD92lJ8cc8phTarevcLLPMrihK+3Fv5/cStxlLjRPYco
-	 C++s+FkI4N8OQ==
+	b=IP09CIqG4hUAGf5fPcP1kx7ajsMWmEiw1F8flzzDtjKc1mI+BOfPDA5wA3QUfFol7
+	 kYGLApqj2wt1rrteN6LfdaJzTW9ggur+LS5rxFrF5qsDUPrVgBNYtpB69NGPmvk17v
+	 fvuyVLzBCOi9gH1uz6646S/q/aAmm2rp1ePuiOEzf78ASzZENnx9ldOH7taJWVbQv5
+	 WfXr9LzKl1A/ArGRUmCD9rk1518thvTh9rmvY9iokFp1VYOk0DFowiEzbyKIdCJ6ek
+	 OBaois88L5RAHLUTxwkWRQru8RK1Yug/P61gvlxKtMbWP5/abPLaQhWOO6KAMKnwQr
+	 uYcAPFPCPp6vQ==
 From: Sasha Levin <sashal@kernel.org>
-To: eva.kurchatova@virtuozzo.com,
-	pfalcato@suse.de,
-	kas@kernel.org,
-	ziy@nvidia.com,
-	gourry@gourry.net,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org
+To: linux@roeck-us.net,
+	sashiko-bot@kernel.org,
+	ycistak@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hugetlbfs: enforce F_SEAL_EXEC in setattr" failed to apply to 7.3-stable tree
-Date: Mon,  9 Nov 2026 20:01:22 -0500
-Message-ID: <20261109200122-failed-7.3-b7f570e7cea7@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Fix 32-bit jiffies wraparound in show_temp()" failed to apply to 7.3-stable tree
+Date: Mon,  9 Nov 2026 20:01:25 -0500
+Message-ID: <20261109200125-failed-7.3-9a6aa085c94c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,74 +69,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x b7f570e7cea761ec7eb4a3a9557a3a082d14e88c
+git cherry-pick -x 9a6aa085c94c7f2817c4d50a7264e6fb51286f40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200122-failed-7.3-b7f570e7cea7@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200125-failed-7.3-9a6aa085c94c@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b7f570e7cea761ec7eb4a3a9557a3a082d14e88c Mon Sep 17 00:00:00 2001
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Date: Thu, 29 Oct 2026 11:43:26 +0100
-Subject: [PATCH] hugetlbfs: enforce F_SEAL_EXEC in setattr
+From 9a6aa085c94c7f2817c4d50a7264e6fb51286f40 Mon Sep 17 00:00:00 2001
+From: Guenter Roeck <linux@roeck-us.net>
+Date: Sat, 31 Oct 2026 03:09:14 +0000
+Subject: [PATCH] hwmon: (coretemp) Fix 32-bit jiffies wraparound in
+ show_temp()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
-not check it. As a result, fchmod() can change the execute bits of a
-sealed hugetlbfs memfd.
+show_temp() rate-limits MSR reads by storing tdata->last_updated as an
+unsigned long and comparing it against jiffies using
+time_after(jiffies, tdata->last_updated + HZ).
 
-Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-to execute bits when F_SEAL_EXEC is set.
+time_after() relies on signed long subtraction, which only produces the
+expected result while the two timestamps are within LONG_MAX jiffies of
+each other. On 32-bit kernels, if tempX_input is not read for more than
+LONG_MAX jiffies (~24.85 days at HZ=1000), the signed difference flips
+sign and time_after() evaluates to false. Because tdata->last_updated is
+only refreshed when time_after() succeeds, subsequent reads remain
+blocked from refreshing for another ~24.85 days until jiffies wraps
+past tdata->last_updated + HZ again, returning either a stale cached
+temperature or -ENODATA if the sensor had never been read since
+initialization.
 
-This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+Store tdata->last_updated as a u64 and use get_jiffies_64() with
+time_after64(), which does not wrap in any practical uptime.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: bebe467823c0 ("hwmon: New coretemp driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-[ david: use common helper; fixup Fixes:; check only regular files ]
-Acked-by: Oscar Salvador <osalvador@suse.de>
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- fs/hugetlbfs/inode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/hwmon/coretemp.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe0..02e0a65d596d8 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -28,6 +28,7 @@
- #include <linux/folio_batch.h>
- #include <linux/fs_parser.h>
- #include <linux/mman.h>
-+#include <linux/memfd.h>
- #include <linux/slab.h>
- #include <linux/dnotify.h>
- #include <linux/statfs.h>
-@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index 7fced0e2abeba..96d57fe12de6d 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -76,7 +76,7 @@ struct temp_data {
+ 	int temp;
+ 	bool temp_valid;
+ 	int tjmax;
+-	unsigned long last_updated;
++	u64 last_updated;
+ 	unsigned int cpu;
+ 	int index;
+ 	u32 cpu_core_id;
+@@ -407,7 +407,7 @@ static ssize_t show_temp(struct device *dev,
+ 	mutex_lock(&tdata->update_lock);
  
-+	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
-+	}
-+
- 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 	/* Check whether the time interval has elapsed */
+-	if (time_after(jiffies, tdata->last_updated + HZ)) {
++	if (time_after64(get_jiffies_64(), tdata->last_updated + HZ)) {
+ 		tjmax = get_tjmax(tdata, dev);
+ 		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
+ 		/*
+@@ -417,7 +417,7 @@ static ssize_t show_temp(struct device *dev,
+ 		 */
+ 		tdata->temp_valid = (val.l >> 31) & 1;
+ 		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
+-		tdata->last_updated = jiffies;
++		tdata->last_updated = get_jiffies_64();
+ 	}
  
- 	if (ia_valid & ATTR_SIZE) {
+ 	valid = tdata->temp_valid;
+@@ -521,11 +521,8 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 	tdata->cpu = cpu;
+ 	tdata->cpu_core_id = topology_core_id(cpu);
+ 	tdata->attr_size = MAX_CORE_ATTRS;
+-	/*
+-	 * A zero timestamp does not look stale on 32-bit, where jiffies
+-	 * starts just short of wrapping. Backdate it instead.
+-	 */
+-	tdata->last_updated = jiffies - HZ - 1;
++	/* Backdate to force a refresh on the first read */
++	tdata->last_updated = get_jiffies_64() - HZ - 1;
+ 	mutex_init(&tdata->update_lock);
+ 	return tdata;
+ }
 -- 
 2.53.0
 
