@@ -1,58 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327850;
-	b=BYcg8I+18Yp+rD4fUT4iFbhhMrWq7eSRr38bYUo5PpbVAmB/5RScAcKb3fp4L67sIKmJ
-	 XSjymOLGedHAJ9AWDjhI767K1aqe2I9QCpG6ZYtuRsaQHY1wnyhrMjNSUmC4bQ+wU7qzv
-	 EUKJ6XzaVgtZdnVDT2zJi1G5scGHjEQ/FzfxsnsijKRNImqtocHq+hwwzSuHViy30bAo5
-	 ejuFvMo+HsZGfxNgeYTHWi1Oj9pcxM6R9Nlf93PRggSzS3LQBdxvGZNththv3Z21u9nWM
-	 OQqQ7lPasUP/NfdLiW4XYxHKZkzwTDzG6sOGa9k7G+0q8k0e0QL3GZ+4MZM1b+uJe/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327850;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=opBkLeuUR+02js/HJHTKCUlER5s3+MlcPC37+9QQ020=;
-	b=GWT1vRhOeoW+SXZzpDOMtJ1l2mSL8liXgfZMKQr5ec4B4Rr5RdDVrDrmmAQx232tXPBe
-	 aXwb98DuAfA1AiqiPKIQULYk7qnpVsV3sY/mP9rnXWcia/kVp+qLFDFkVIoe4BxGNdM+4
-	 PD86SsyMKbMlt4MbtzY6/XIqxG4oiINJzPW8FI+H0FGnY4CJBdisLt37cojeJ7KSWGOsn
-	 GkG/Mwm0IhnH/lzGfssrL+hGNDnZJ2NSkGs24mulJlNF2bdAwwRmdGpUfG41JNfKQxVqS
-	 n2Uf5G5yNRodMepw2C2AZYpF9pJUYZ9htYIWcHSa+QGc6E/adXG9FUduKf8VzctRtNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNaCDx6Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794327887;
+	b=At+B68mzAaIpEoVQ/lZDgQGdpj/X00AuaOu5lC9vMK+NrpK/08SmGxmhGC+DduMY5h9S
+	 hi6YfkvzKCwZErh0MR0Ezk2ijZ4lAXOnzQC/gaIkjqkgpcAxsg7/J1N74iVTLV6tVg2rM
+	 Dyg33gQ5h0ZnJlCgRAMZZsJ70od4KrhT753o7v52vFqc8dxZo++2Q9qbveEqhUhUHuID6
+	 Iurt3RoSONx8sPO5ss48Lhur7tsZJGqBlxhw+hxK5KBvpRtKyDI2l9TU+iaCXrA6ggoez
+	 /FTjuhcxy87MjU8CqItvcxQDGWvGm2FqzCoGJ1JY1iDSkSvqhuWeHqAgSBy75Pi07jQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327887;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9WE=;
+	b=JgrAj1DecUJacfPF9gad+C8QOlI8YzJ6ccA0nCGiWGs6+Jzr38wxfegIQSfVZ74qCvsg
+	 TyS1XLe/XdEc65s3yUsQ1GDE9QUy1lKQR2Iai+axCeeiW4yq4M1ZYAZ/PvmOaorEcX8ZU
+	 68/we1xxBt4SlIh4J9qltUZSn4NjBDQcXx1EW9wnkfWlONqmslc4jGA1QrwFM0DwUYo/C
+	 0GML+8MngaREm9pXzx4otwP/kJjIjopBmt3lraIHO3fp9gtRLvCP/5J8yvQRk7Qt18Ver
+	 9rYaNOOKpgC8SpuIPaK98ktH//sSezM0oyKgR91jBXkGFon/nxMrkPK2hOPMPQGtN6A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Ti4zF+We;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=T5ibHcdF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D92606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F228360A263D;
+	Tue, 10 Nov 2026 16:24:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F228360A263D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNaCDx6Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB51A1F008A2;
-	Tue, 10 Nov 2026 16:24:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327849;
-	bh=opBkLeuUR+02js/HJHTKCUlER5s3+MlcPC37+9QQ020=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lNaCDx6Zsxzrxh+4trqUT8KBuWb8yJknvuI23n0jP2IvGLoUjiAk9qvAhApvLtho6
-	 dwmFvtxHAzHp5oYVelIDMl0gZCIzCv+3qmHIKBTDlVkvAucfg+0BbKRFCW7zhlOg5T
-	 i0uPVjC6e6EVXvEhUii1dTIOIs5A/RgWWT58I7aSl//0z5NZUx+2ve9ggOIWYDwVlG
-	 mouRBCaUYoXfyCWSf6dea+5aO/kKPTAACYu/7EDY9MNxNuGC0TinxqaoJwvGWtm05u
-	 FdhDjgNIVifyW32hH9Cc7si0eGmhYj7dPDFa85148LI5UVAohAPbVq5g3x1Cu0O1nx
-	 Z8MQA3z50WxOQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Ignat Korchagin <ignat@linux.win>,
-	Stefan Berger <stefanb@linux.ibm.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] crypto: ecc - Handle exceptional points in Shamir multiplication
-Date: Tue, 10 Nov 2026 11:24:06 -0500
-Message-ID: <20261110161933.2054228-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061814-failed-5.10-6fd70bc8bc01@kernel.org>
-References: <20261107061814-failed-5.10-6fd70bc8bc01@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Ti4zF+We;
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=T5ibHcdF
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AAEwIWO1618394;
+	Tue, 10 Nov 2026 10:24:37 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9
+	WE=; b=Ti4zF+WeCpEDwK5QYKhTg37sWRDTOZp9+W4MkjaHRehiUkgwH2/qPEGjO
+	O0mk3Pac7nSWWreuJxPHV8HXHU108HyvK5pon+xCcm3nzNkwyuY4re5OAMv948xq
+	W2keQu39rqWTRLzf4B6x7J/oopxUJSfm1sfM6n0e2KDPxBbpwXLtQYYslIXbYmCG
+	RrDxrR7oLkFmFsptyVMB4iIkTTdVTtYZG/BuhIwJfo+20t8qfJoLiQjkgDXJ2RRs
+	9VNr67M9ayjN896dFaOzVDrefo+YeL1D/9Ct/iSIrjKUpwMkhtOofbbCQe93LhpL
+	HXkxbJWZoxtqrEFeVzHSEx3mapgEg==
+Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hv0kst82m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 10 Nov 2026 10:24:37 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ikrQP072C+ZhiML6A2cXz3lMah4xP1AAPS4tlPTQ6+jN8q32SJgmXFP/wlq9kK+JokGCQFfujSFiMI/MtWp8sJmBTJpW3GE7Cva7iPAMT+OYUUbK/qLzlAfqMHymKZQRfFn74YUcI5ZrbFfDSluMVGqKnj3SIf1mAzo4MRh8emp5z3fiBY8vMkkJkMPsBLTKLtB8IafFw5jZzaziSQpfNBwCwHfV7SiP/8mBpaI1K1hkjxaQiZfcr/v3XxEIQPn+elD2uCvD/eBus5y2N4p/jJ63aNB9n6jhb7GjSM6hb5w11KpgHI6RTiaEcmL809d98Qfpch/nZV7hsWUUXIKZRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9WE=;
+ b=O3cQev39/2QGOBr/1EXYuHsGINs1K+Hit5wiM4i4nXuMcNtzEezmmaL8bCSgTEXlZUDiFC6QGZGk7W3PNqxxrbzqPerP8vAyco5pbavMKULYZHG+kWv/KXPNksIBtvsygsm9i+UfneIcy6QEFBckxXrp6zAKIjfzWV4wt5Khae4OIG7pJ6j8lu8PnXJLENprLVwdFSjKK+FrLMiaZb8uT7PwAHDuvNa6Mo1v5sFmZA0AtRDxNYmxt3fG4kbbn4TnJeraRxLztW/eWQFp3w5hOft+jHvkUWSkEz70b5DESKfsnfn+LSyl+gJ9QBkhD96Y1TZ51P87uGmBtxwJufU+MQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6umkUeuYZUt5fsIw0iUqsua2idewj8kC2O4j5/Ef9WE=;
+ b=T5ibHcdFJxx/Zuo3AZEZnKi0YlYYowKxCb/1oL8g1HZhCyrKESpl50NYssU8ebbJ9M/Fl3B5bnLovNhvq7VfVWcM4+aMOMw9dVYMCTG7XbZXkf6D9Z/XxgzkxE4xmr2sRWyJB38wZsv+45ZqwXZHdHjsBeADoJU6fqMyShYA+1M=
+Received: from DM6PR02CA0128.namprd02.prod.outlook.com (2603:10b6:5:1b4::30)
+ by SJ2PR10MB7827.namprd10.prod.outlook.com (2603:10b6:a03:568::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Tue, 10 Nov
+ 2026 16:24:29 +0000
+Received: from BN2PEPF0000A803.namprd02.prod.outlook.com
+ (2603:10b6:5:1b4:cafe::4d) by DM6PR02CA0128.outlook.office365.com
+ (2603:10b6:5:1b4::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Tue, 10
+ Nov 2026 16:24:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BN2PEPF0000A803.mail.protection.outlook.com (10.167.245.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 10 Nov 2026 16:24:25 +0000
+Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 10:23:59 -0600
+Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE200.ent.ti.com
+ (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 10:23:59 -0600
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 10 Nov 2026 10:23:59 -0600
+Received: from [128.247.75.1] (b-brnich.dhcp.ti.com [128.247.75.1])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6AAGNxIh1124949;
+	Tue, 10 Nov 2026 10:23:59 -0600
+Message-ID: <762a1a3d-ac18-4220-a9fd-bafcb247ee6b@ti.com>
+Date: Tue, 10 Nov 2026 10:23:59 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,323 +134,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/4] media: imagination: e5010: Update
+To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
+        <sebastian.fricke@collabora.com>, <benjamin.gaignard@collabora.com>,
+        <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <k-willis@ti.com>, <jai.luthra@ideasonboard.com>, <stable@vger.kernel.org>
+References: <20261110155810.18521-1-b-brnich@ti.com>
+ <20261110155810.18521-4-b-brnich@ti.com>
+Content-Language: en-US
+From: Brandon Brnich <b-brnich@ti.com>
+In-Reply-To: <20261110155810.18521-4-b-brnich@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A803:EE_|SJ2PR10MB7827:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4b84b18-7af6-47c9-25a3-08df3f4715f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|22082099003|18002099003|10067099003|261028144727099003|261102123227099003|261021135927099003|261022115727099003|261026140227099003|56012099006|261022075727099003|261021123027099003|261022105027099003|261021121427099003|261009223027099003|4143699003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	kQnPvmFIZhzEoEX+VIOCnx0g8Ymzxk/DNggvOijbMmNalYb+xRK5FVoqoX8ctx5TXq7Kp2qr5huixa7zQsOhCAQhlmE5GOyAxRQb6Obw+m1zQLKvArhkMIXbUY8mWwL0XdCWsBcnCSwF3PS1fcuxdfiNpdqIIg+9Q1rDNIxIZVvfyVZb3usZ0UpasW3WX2B1jNYD6OfQl9DRrrzi0N756lpYj/rDtUL0PecxZepgkhv+dRmkNwPLAG8g1eppsJy/EIBKpJ4EV+fAmiEkzkcVa/ZCdVIDujDY3xVdASVbfMUmAaykj/G3sqv5GqyAoKdw2mN3aIREE+dZ5IkolrxvHtrntN/Sx2ADU8n8YnWrCOdtGc4+4zoc9Lbz02FcepthiTGEerpgQirKIDWJvOB/Z84H3LjQRkeE+4LkOolvKCF2y116wnjwp9hEAs7JhDwkCig+qBrtmR5SC28oUJPB98FW9zXgor3qb7EEMfPOYkhO1ABaVx+cljLhfKomZVYCUQbs2tilSiNCGPFm5nbaKwvJJiOj9znDIzKrUM1KgYRTAFFkWo0Lpfnot4zWauhWTao+67yES1pOR6ick2zW9uVvsijHworoemOteSzU/sPoOKwB2r//ciVwAxPyDh6+xI9cC3toX37d13Up9zjCiav7Dph+l8P1dQJVSgEs5YwjqSqoZDhQuiD6dUGxUL0M5YM7VqmqvVljAmZa0cRDOw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(261028144727099003)(261102123227099003)(261021135927099003)(261022115727099003)(261026140227099003)(56012099006)(261022075727099003)(261021123027099003)(261022105027099003)(261021121427099003)(261009223027099003)(4143699003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d4D6EsvQWRo8hV0kHnfrByDqBjni52F6oBzBr9UDttcuvdKwJYvzaqLXycmEfpOMILGQxl97UeKiWDxdfqNC15HCYxxLYYmUOU3WGDPEJfwhu07EOLsJbwYllAk84zjQAMjrQnjcJoXQDWQVuj4j5NVCaU77twr+bSGkX3+7catkk0MrlPCm3kiFgkgupsjI7ToznGP1CWsyhUYvz3Ij9AexFV0tvS4iiJJSDCZVzCEFgAyRftWaSsRg+fm8hInHh+WnvjAtRXRS9OnSc8k1n81HniD+FeqEjigbExGjpKf5RDhV8A1W6VjXpvmkn/JMVx1h0PHVCquxsbpBAjueV8Nj9Fi2OPGc4/EMnDn6vzXidmxzvicbUWokYB6e1hIBL7CwNKRqvcKKEnf2dLU3He4ullITYRDRAW+8iWtdeAQP0wwYszrTFt25BBprcURa
+X-Exchange-RoutingPolicyChecked:
+	To38PdwFP3Cx47pHSko8zEuDV+b1hBXmRyqSE+LUlunmuR4fGueUvE5xIWm+mZdSYs+YolXcyON+po+f06gvHH4kKJbt/WxWi2ULIE5EMsk8UhTM0YMm2iz7YjTlEn+0h1SAiOrI8MWx990r/+po9Loh10ByENdBkhi9WITvPO+L/9nAprckYh535hUB9RQZvJX+sruTFcu4fji3QaUCp/7yFr2Ugw6iGW7WFsMNHPZ7FbM3G1ekHzkuXbvGZgJYbyQIV1EsKe0b2NNwr3y7JyUGnp941luq12ioVY5YlpRNx+AS3sOYr3/xTJAGTwveWE10uXnlauclU+I7zdiX4w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 16:24:25.1994
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4b84b18-7af6-47c9-25a3-08df3f4715f1
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A803.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7827
+X-Proofpoint-ORIG-GUID: Qs_n8i5aUzlmK6BYU2RzlLk4TswCKlUb
+X-Authority-Analysis: v=2.4 cv=bcH+w+PB c=1 sm=1 tr=0 ts=6af34545 cx=c_pps
+ a=TO2QspbEOyvqwnNCDF3LgQ==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=VwQbUJbxAAAA:8
+ a=sozttTNsAAAA:8 a=18iZY3HW1OHlVmvoSgwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfX5ypQC8F5M6cm
+ q6hpXe0bPU3Nlq1iSb0dRySugTBKqj9bRxJtx2sjsaOdedNZ3y6QKavNA7Z7aFHXRfSUI6bVXfJ
+ /JikQatHpgkt8KqOFWiCse+HnRqPQ36f8QB3F5aFTbSuGvZnG1whFpxaxUmShewieXBSudYslyW
+ oIYpzJTPc8fQPXaj6RUsU6yc5WrFmQTKpB5ykdnhN4kYV3to8sew0XZ8dgXOH1qrKBTK1THprAJ
+ Y08Ex5mxEfVRdMWMMU8LtoK4zQK7N8GCQrBDzSABo1Z4rvoH/xszRmRmW0Cb+o6dEglHxQ1Ib4p
+ YtonCUp+94wZgOwPMSg7K3kvqCMwe/z9vGsywwxfmE9sRRYGJszLAxmuG+G8sSw+rQs8TMDtAy0
+ nUvFsEg8lcFgmdNkGZNJgT6WI6k0VH3TVBOgcpcuCnv+pB+JwSfHiq3whndp3wkt8zkNB9NAxC/
+ jPjbZoxV23xu7zD1Uig==
+X-Proofpoint-GUID: Qs_n8i5aUzlmK6BYU2RzlLk4TswCKlUb
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA2NSBTYWx0ZWRfXzp9U2XpXsRDs
+ jRpKvofK0vEVkjey4+RkQbimOsYdbg1bVUCEc0s88z042sjOjQNAYUnzshh4sr/VLDdoYOkno8E
+ zSUs9lKheABr3K1FEVKQvPCP5A+b6Yw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100065
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Hi All,
 
-[ Upstream commit 6fd70bc8bc01a578c7728b7bd1cb5689c62cc5b7 ]
+Will need to resend this series because the subject got cut. Will 
+re-send shortly.
 
-Shamir multiplication mishandles equal points, opposite points and the
-point at infinity. This rejects valid ECDSA signatures and can accept
-invalid digest/signature tuples when the public key is G or -G. The
-kernel incorrectly rejects 16 valid signatures from Wycheproof.
-
-Handle doubling, cancellation and the point at infinity in precomputation
-and accumulation. Add regression tests for P-256 ECDSA and 256/512-bit
-EC-RDSA. The valid vectors are Wycheproof P1363 secp256r1/SHA-256 cases
-60 and 210 converted to X9.62, two constructed ECDSA signatures for
-Q = +/-G with k = 2, and six constructed EC-RDSA signatures for Q = G,
--G and -2G. Also add two invalid P-256 digest/signature tuples for
-Q = +/-G that must return -EKEYREJECTED.
-
-Fixes: 0d7a78643f69 ("crypto: ecrdsa - add EC-RDSA (GOST 34.10) algorithm")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
-Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ sashal: adapted ECC doubling calls and EC-RDSA vectors to older APIs lacking ECDSA and negative-result test support. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- crypto/ecc.c     |  33 +++++++-
- crypto/testmgr.h | 198 ++++++++++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 228 insertions(+), 3 deletions(-)
-
-diff --git a/crypto/ecc.c b/crypto/ecc.c
-index 09067e4b320f5..506a89e90a0b4 100644
---- a/crypto/ecc.c
-+++ b/crypto/ecc.c
-@@ -1224,9 +1224,22 @@ static void ecc_point_add(const struct ecc_point *result,
- 	vli_set(result->x, q->x, ndigits);
- 	vli_set(result->y, q->y, ndigits);
- 	vli_mod_sub(z, result->x, p->x, curve->p, ndigits);
-+	if (vli_is_zero(z, ndigits)) {
-+		if (vli_cmp(p->y, q->y, ndigits)) {
-+			/* P + (-P) is the point at infinity. */
-+			vli_clear(result->x, ndigits);
-+			vli_clear(result->y, ndigits);
-+			return;
-+		}
-+		/* The co-Z addition formula does not handle P == Q. */
-+		z[0] = 1;
-+		ecc_point_double_jacobian(result->x, result->y, z, curve->p, ndigits);
-+		goto out;
-+	}
- 	vli_set(px, p->x, ndigits);
- 	vli_set(py, p->y, ndigits);
- 	xycz_add(px, py, result->x, result->y, curve->p, ndigits);
-+out:
- 	vli_mod_inv(z, z, curve->p, ndigits);
- 	apply_z(result->x, result->y, z, curve->p, ndigits);
- }
-@@ -1266,21 +1279,37 @@ void ecc_point_mult_shamir(const struct ecc_point *result,
- 	vli_set(rx, point->x, ndigits);
- 	vli_set(ry, point->y, ndigits);
- 	vli_clear(z + 1, ndigits - 1);
--	z[0] = 1;
-+	z[0] = !ecc_point_is_zero(point);
- 
- 	for (--i; i >= 0; i--) {
- 		ecc_point_double_jacobian(rx, ry, z, curve->p, ndigits);
- 		idx = (!!vli_test_bit(u1, i)) | ((!!vli_test_bit(u2, i)) << 1);
- 		point = points[idx];
--		if (point) {
-+		if (point && !ecc_point_is_zero(point)) {
- 			u64 tx[ECC_MAX_DIGITS];
- 			u64 ty[ECC_MAX_DIGITS];
- 			u64 tz[ECC_MAX_DIGITS];
- 
-+			if (vli_is_zero(z, ndigits)) {
-+				/* Adding to infinity starts a new accumulator. */
-+				vli_set(rx, point->x, ndigits);
-+				vli_set(ry, point->y, ndigits);
-+				z[0] = 1;
-+				continue;
-+			}
- 			vli_set(tx, point->x, ndigits);
- 			vli_set(ty, point->y, ndigits);
- 			apply_z(tx, ty, z, curve->p, ndigits);
- 			vli_mod_sub(tz, rx, tx, curve->p, ndigits);
-+			if (vli_is_zero(tz, ndigits)) {
-+				if (!vli_cmp(ry, ty, ndigits))
-+					ecc_point_double_jacobian(rx, ry, z,
-+								  curve->p, ndigits);
-+				else
-+					/* Adding opposite points yields infinity. */
-+					vli_clear(z, ndigits);
-+				continue;
-+			}
- 			xycz_add(tx, ty, rx, ry, curve->p, ndigits);
- 			vli_mod_mult_fast(z, z, tz, curve->p, ndigits);
- 		}
-diff --git a/crypto/testmgr.h b/crypto/testmgr.h
-index 45212d077c298..103b45279764b 100644
---- a/crypto/testmgr.h
-+++ b/crypto/testmgr.h
-@@ -646,7 +646,8 @@ static const struct akcipher_testvec rsa_tv_template[] = {
- };
- 
- /*
-- * EC-RDSA test vectors are generated by gost-engine.
-+ * EC-RDSA test vectors generated by gost-engine, followed by constructed
-+ * exceptional-point regression vectors.
-  */
- static const struct akcipher_testvec ecrdsa_tv_template[] = {
- 	{
-@@ -797,6 +798,201 @@ static const struct akcipher_testvec ecrdsa_tv_template[] = {
- 	.public_key_vec = true,
- 	.siggen_sigver_test = true,
- 	},
-+	/*
-+	 * Constructed EC-RDSA exceptional-point vectors.
-+	 * With Q = dG, choose k = z1 + d*z2 (mod n), r = x(kG) mod n,
-+	 * e = -r/z2 (mod n), and s = r*d + k*e (mod n).
-+	 * The input digest is e, encoded little-endian.
-+	 */
-+	/* cp256a: Q=G, z1 = 3, z2 = 1. */
-+	{
-+	.key =
-+	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
-+	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
-+	"\x91\x8d",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x1a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x49"
-+	"\x32\x67\xe0\x26\x16\xfd\xb7\xaf\xa4\xd7\x3e\x61\xd4\xf9\x7b\x94"
-+	"\xf7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7"
-+	"\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe4\xb7",
-+	.c_size = 64,
-+	.m =
-+	"\xdc\xd3\xfd\x46\xcb\x14\x9d\xe1\x8f\x92\x54\xb2\x0c\xa0\x22\x66"
-+	"\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x08",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* cp256a: Q=-G, z1 = 7, z2 = 6. */
-+	{
-+	.key =
-+	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x83\xdf\x60\x61\x63\x36\x53\xdd\x4e\x1c\xdc\x20\xd2\xb0"
-+	"\xd6\xca\x89\xd4\xc0\xba\xa5\xaf\x20\xd8\x25\x63\x67\x1f\x8e\x1b"
-+	"\x6e\x72",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x2a\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa"
-+	"\x92\x10\x2d\x68\x19\x8f\x22\xd5\x60\xeb\x59\xd6\xf3\xe5\x9e\xc2"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
-+	.c_size = 64,
-+	.m =
-+	"\xc3\x9e\xe5\xf3\xd6\x59\xeb\x60\xd5\x22\x8f\x19\x68\x2d\x10\x92"
-+	"\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\x2a",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* cp256a: Q=-2G, z1 = 5, z2 = 2. */
-+	{
-+	.key =
-+	"\x04\x40\x95\xfd\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
-+	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
-+	"\x91\x8d",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xb6\x30\x88\x38\x4c\xad\x68\x80\x22\xc2\x0d\x84\xdb\xb0\xdc\x47"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
-+	.c_size = 64,
-+	.m =
-+	"\x49\xdc\xb0\xdb\x84\x0d\xc2\x22\x80\x68\xad\x4c\x38\x88\x30\xb6"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=G, z1 = 3, z2 = 1. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\xa4\xf2\x15\x52\xcb\x89\xa5\x89\xb8\xf5\x35\xc2\x5f"
-+	"\xfe\x28\x80\xe9\x41\x3a\x0e\xa5\xe6\x75\x3d\xe9\x36\xd0\x4f\xbe"
-+	"\x26\x16\xdf\x21\xa9\xef\xcb\xfd\x64\x80\x77\xc1\xab\xf1\xac\x93"
-+	"\x1c\x5e\xce\xe6\x50\x54\xe2\x16\x88\x1b\xa6\xe3\x6a\x83\x7a\xe8"
-+	"\xcf\x03\x75",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\xd8\xc0\xd7\xe3\xfb\xa6\xca\xff\x6a\xd1\xb4\xb4\x82\x1d\x15\x6f"
-+	"\xa7\xc7\xbd\x63\x95\xb8\x29\x0d\xd4\xfa\xb1\x1c\x36\xbd\x32\x8d"
-+	"\x1a\xba\xf1\x2e\xbc\x7b\xf2\x02\x96\xf8\xef\x2a\x5e\x72\x64\x86"
-+	"\x67\x62\xfb\x62\x8e\x83\x53\x63\xb7\xe6\x78\x3c\x42\xd7\x0d\x1d"
-+	"\xb7\xbf\xb8\x09\x56\xc8\x67\x00\x31\xba\x19\x19\x29\xf6\x4e\x30"
-+	"\x1d\x68\x16\x34\x23\x6d\x47\xa6\x0e\x57\x1a\x4b\xed\xc0\xef\x25"
-+	"\x74\x52\xef\x78\xb5\xb9\x8d\xbb\x3d\x9f\x31\x29\xd9\x34\x94\x33"
-+	"\xce\x2a\x3a\x35\xcb\x51\x9c\x91\xe2\xd6\x33\xd7\xb3\x73\xae\x16",
-+	.c_size = 128,
-+	.m =
-+	"\x5f\x04\x9d\x6b\x69\x7d\xf7\xe7\xcb\x1b\x81\x2f\x76\xfe\x20\xcd"
-+	"\x2c\xcc\xd0\x74\x63\xfa\x52\x32\x56\xfb\xd3\x3e\xba\xa5\x93\xb3"
-+	"\xd9\x10\x3f\x12\xb4\xe5\xa8\xf1\x59\xb8\x92\xdc\xcb\xe9\x97\xe2"
-+	"\xcf\xb1\x09\xd6\xe6\xe6\x45\xce\xff\x98\x37\xa9\xf6\x47\x40\x48",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=-G, z1 = 7, z2 = 6. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x23\x0b\xea\xad\x34\x76\x5a\x76\x47\x0a\xca\x3d\xa0"
-+	"\x01\xd7\x7f\x16\xbe\xc5\xf1\x5a\x19\x8a\xc2\x16\xc9\x2f\xb0\x41"
-+	"\xd9\xe9\x20\xde\x56\x10\x34\x02\x9b\x7f\x88\x3e\x54\x0e\x53\x6c"
-+	"\xe3\xa1\x31\x19\xaf\xab\x1d\xe9\x77\xe4\x59\x1c\x95\x7c\x85\x17"
-+	"\x30\xfc\x8a",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
-+	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x37"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
-+	.c_size = 128,
-+	.m =
-+	"\x3a\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
-+	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=-2G, z1 = 5, z2 = 2. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x7c\x13\xea\xd2\xd9\xaf\x82\xb9\x1f\xb2\xfd\xe1\x8d"
-+	"\xf4\x5b\x37\xe4\xf2\x04\x6a\x2a\x1d\x15\x16\x95\x2a\x5d\x40\xcd"
-+	"\xbb\x34\x44\x2f\x2b\x13\x0a\x47\xb0\xf6\xe5\xa5\x58\x3a\xf4\x54"
-+	"\x09\xb0\x1d\xf5\x5c\xf1\xbf\x9d\x86\xa5\x97\xab\x96\x29\x62\xfc"
-+	"\xdc\x89\x3b\x76\x3d\x50\x6e\x8a\xcf\x02\x4c\x74\x0e\x6e\xe0\x1f"
-+	"\x28\xab\x27\x9b\x20\x02\xc8\xc4\x12\xcb\x8a\xe3\xa4\x27\xce\x39"
-+	"\x62\xdf\x35\x6d\xc1\x65\x7f\x7b\x48\x90\x11\x8f\x19\x7c\x1e\x67"
-+	"\x91\x97\xeb\x90\x85\x25\xfc\x86\xb3\x88\x6e\x5c\x57\x1f\x1d\x1d"
-+	"\x3b\xec\x37",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
-+	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x33"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
-+	.c_size = 128,
-+	.m =
-+	"\x39\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
-+	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
- };
- 
- /*
--- 
-2.53.0
+On 11/10/26 09:58, Brandon Brnich wrote:
+> The PM framework skips the runtime resume hook if the device was never on
+> in the first place. This results in a crash in the system resume hook when
+> a call to e5010_init_device attempts a write to a powered down device.
+> 
+> Move e5010_init_device to the resume hook to ensure register write only
+> occurs when device is properly powered on.
+> 
+> e5010_init_device needs to be called after e5010_reset for next
+> device_run to have all registers properly reset. Without this call,
+> register values are stale. Similarly, e5010_last_context_run should be
+> set to NULL in e5010_init_device so the next device_run call does not
+> use stale QP values.
+> 
+> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+> ---
+>   .../platform/imagination/e5010-jpeg-enc.c     | 19 ++++++++++++-------
+>   1 file changed, 12 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/media/platform/imagination/e5010-jpeg-enc.c b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> index 17ea616ff1795..4e77112b59197 100644
+> --- a/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> +++ b/drivers/media/platform/imagination/e5010-jpeg-enc.c
+> @@ -986,6 +986,8 @@ static int e5010_init_device(struct e5010_dev *e5010)
+>   {
+>   	int ret = 0;
+>   
+> +	e5010->last_context_run = NULL;
+> +
+>   	/*TODO: Set MMU in bypass mode until support for the same is added in driver*/
+>   	e5010_hw_bypass_mmu(e5010->mmu_base, 1);
+>   
+> @@ -1488,7 +1490,9 @@ static void e5010_device_run(void *priv)
+>   
+>   device_busy_err:
+>   	e5010_reset(e5010->dev, e5010->core_base, e5010->mmu_base);
+> -
+> +	ret = e5010_init_device(e5010);
+> +	if (ret)
+> +		v4l2_err(&e5010->v4l2_dev, "failed to initialize device after reset\n");
+>   no_ready_buf_err:
+>   	if (s_vb) {
+>   		v4l2_m2m_src_buf_remove_by_buf(ctx->fh.m2m_ctx, s_vb);
+> @@ -1517,6 +1521,13 @@ static int e5010_runtime_resume(struct device *dev)
+>   		return ret;
+>   	}
+>   
+> +	ret = e5010_init_device(e5010);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to re-enable e5010 device\n");
+> +		clk_disable_unprepare(e5010->clk);
+> +		return ret;
+> +	}
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1549,12 +1560,6 @@ static int e5010_resume(struct device *dev)
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	ret = e5010_init_device(e5010);
+> -	if (ret) {
+> -		dev_err(dev, "Failed to re-enable e5010 device\n");
+> -		return ret;
+> -	}
+> -
+>   	v4l2_m2m_resume(e5010->m2m_dev);
+>   
+>   	return ret;
 
