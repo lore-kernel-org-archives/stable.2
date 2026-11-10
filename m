@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273497;
-	b=c9RLQRTp6OeXaFIrGKoLgfZ7faYIfIBBEiSEuQBWa5o0whnZ3brBaSNaBaE03ElYcsSJ
-	 xMxWOcXuef+cQQmpNa5UUb+cA+J92p993cALLT009LmLyHBEGi1CiS96kMpaEnZpXJ1I4
-	 L38Wvuq5ACCLg8iPp+aXYQO2Nbs9uFG+pgq11xkIQwNcwQU4frnIdp+82hNy8v4Ui9+nD
-	 ZOSzKVavOChEakfClVOGFMBHmDwdmrM6KIlZN1Q9xmHaaGG61OohAZ22lnnoG5IC+jtHD
-	 Px//Dgd9jwF16+SvdKdlk6fy/HLRqQ90TWJZDgqd90NHDFj7jq5GxGlNcrfLzLyZZNg==
+	t=1794273500;
+	b=G76k2KpzIiUE42Thm4odGnlWDRfs05GXDb0YgjGHUhE5OcpXD0s/jGHMM5xls2MhfbAy
+	 10op57Jfg4jn1iPT9efrFKa8YW71nhAkhSV295pQ+MgEyJyxw6saRcj4ezer+QZcR8k9F
+	 H7mP8GBy7x4+A0TvghROz1axdd5cJFuBauuHwamZF4F/0VE1Vuh0O44CbytK0h/7jkSk+
+	 ksUIfdeUb+4Ohm05QTFGxYMILLte+vI/Lgejxelrbe3tm1X/xQ6VNPv3p10/4WerZVDK4
+	 wpOx96b4XgW06MHr9tE0sDc0xVJq7+pyJo96M7RqBIaF5IFbfB7G/1UEekH3DK1vGsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273500;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ODa+s96MQwf+f6fuerb/7DAOllLDcSrgl4HisSyieyM=;
-	b=HzzfOWyLqaU9Fw6w4MWiA8o+BUU3gtwGtXFBO5wZprtyEK7kf6uEbV0LVR5PLk7f/vkm
-	 OK9AdSDS1sNq0V/TIWkhclShGozF8DzkO3Cw189eJpw4yoRxWrGl+FuK8GTAVMCxlxQcA
-	 eLTgHS8QbhQx0umcxUCPQHaXyfaIW2hLDieuwWbkVf2iERnzB6ANxHytwBSYVOUjnxu04
-	 wub/+nmsE4Ti6aceHWEVW7GtgDcJxP8vNypvuCgekD6GpJoOxQFMKd2tWQ2t3QL5psZVx
-	 o19RTCd6yFEGXVxbOyTU2VFUssInKflbz3kjph/b6FcVWpguNAwXa9SZAanJXXlFuAQ==
+	bh=/7oA9035a/hV8pSlpD48xxQw24JsjR3UdE9CPIeuPyI=;
+	b=noyLEm2Xs2xincAD6NwD0V7nisgzirUEiL4vriODzNr9SaD3anD9jDCh8891m5bMhRaY
+	 H9QyO+V+OSGFwF5wOKPX2eVSduEhJzOSlgKJcFmriZaGRl1QwYej93AMSW9FlLD00u7B8
+	 of7JDeZw8gAxrk51kyNqW/LwNJ6sxkBrowSCD7owewS/ijzXCAdQ8x2dSlO1pL0yU41x4
+	 dThuch1EoNpXJ/ToL+UKY5BY+X55ijEAo/h1aVI2HtvyN+BPMlpb6XdlH3TdNcnPDaFI+
+	 WuzhdDnDRmgneWbltPvOEYTr+Eqeu+8SdWKddumdKCUR+vCbNkQprwOf7F82m0G4BlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6+gG76H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XERztNao;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92670606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413C0606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6+gG76H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4761F0089F;
-	Tue, 10 Nov 2026 01:18:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XERztNao
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 356C71F008A1;
+	Tue, 10 Nov 2026 01:18:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273497;
-	bh=ODa+s96MQwf+f6fuerb/7DAOllLDcSrgl4HisSyieyM=;
+	s=k20260515; t=1794273500;
+	bh=/7oA9035a/hV8pSlpD48xxQw24JsjR3UdE9CPIeuPyI=;
 	h=From:To:Cc:Subject:Date;
-	b=n6+gG76HwmlQLcCtt90w18YchkUGyDaUVMt5O2j2iWsXCeTqB6vVnkP3kVKOkxrvD
-	 OcmWAUSo8Rxb725BlZJKmxS4CycV4QPm4BDoEi0QF8nhK7kVNlnLyKc2o03YvNEYlD
-	 a6o/ZEaAwPO46KwVgutjzSf9Fm8WaAQGBiXRhbOlBn2EXsXg4NZIGKyIbpqGJfOu0i
-	 JFWdvDVV2weRsvlUW60XbErSbK3ylbQ63JFDJeKcV2HFkUJiL4X+7pgYcAzHSfnAB+
-	 MoL1jmnpsG5fdBs+j1w3Nfv3JWZq3Y/NNiv/u+dd0ZOVTJGAjpt6Hgg4GABVqo3SfU
-	 OwOMIT/CQeIbA==
+	b=XERztNaoMNb55WMI7ohw2gHfcxm7VfnTTdrfee9xGx382JLnax5KrB5euJqlY4SKt
+	 RPUVMbEd5NivGYTt0w2GANjwr4wWgW3gOEMcqpt6bz2Gl+RS2qRFoegmp2kW8aVf/c
+	 k3moGaT3r+TYjOQFNRjEm8je35zzgmB/YMcPs0QQmIzRwjcGZTCBqga4mE4kB6KuPc
+	 JKraz9vd1ZNt6XQb2bHOPC7Gv6atnG9eepu68UFstSGYJn5Jsv/r/u27eIu/YPAblz
+	 pWWsMRAcj7hyzQm9f+5tr8VQNtg/B+yX5lqVDXpS10NEePVMoO/5K845Mumhw/32oR
+	 QRDOx2PJhMH2A==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	rppt@kernel.org,
-	ljs@kernel.org,
+To: mason@kernel.org,
+	pfalcato@suse.de,
+	gourry@gourry.net,
 	usama.anjum@arm.com,
+	lance.yang@linux.dev,
+	baolin.wang@linux.alibaba.com,
 	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake all waiters on unregister" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:15 -0500
-Message-ID: <20261109201815-failed-6.1-3afb19d68cc5@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:18 -0500
+Message-ID: <20261109201818-failed-6.1-fe2817e3d5ea@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,85 +73,75 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3afb19d68cc5e7851fdb1069c8094af97bd80417
+git cherry-pick -x fe2817e3d5ea347214342c9a5cd8bcbff20c0574
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201815-failed-6.1-3afb19d68cc5@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201818-failed-6.1-fe2817e3d5ea@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3afb19d68cc5e7851fdb1069c8094af97bd80417 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:39:53 +0100
-Subject: [PATCH] mm/userfaultfd: wake all waiters on unregister
+From fe2817e3d5ea347214342c9a5cd8bcbff20c0574 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:46 +0100
+Subject: [PATCH] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped
+ THPs
 
-UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
-Threads waiting on write-protect, minor or RWP faults can therefore remain
-asleep after unregistering a range that does not track missing faults.
+try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
+bits to the folio. A shmem read fault can map a clean folio writable, so
+a later store only dirties the PTE. Losing that dirty bit allows reclaim
+to discard modified data.
 
-Wake pending faults regardless of the registration mode so they can retry
-without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
-the existing behavior for missing faults, including removing unread fault
-messages for the woken waiters.
+The assumption that regular files are read-only is also obsolete since
+commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
+for writable files"). In any case, transferring PTE dirty bits to the folio
+when removing mappings (and while the folio is still mapped) is the right
+thing to do.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+Use get_and_clear_ptes() to collect the dirty bits and mark the folio
+dirty before unmapping it. Update the comment.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+This was reproduced with shmem using MADV_COLLAPSE followed by
+MADV_PAGEOUT.
+
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
+Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: rebase; simplify description ]
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: adjust comment; simplify description; cover file-thp as well ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-24-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-17-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+ mm/khugepaged.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3ca04b582329f..be630674fda9b 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 
- 	ret = 0;
- 	for_each_vma_range(vmi, vma, end) {
-+		struct userfaultfd_wake_range range;
-+
- 		cond_resched();
- 
- 		/* VMA not registered with userfaultfd. */
-@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 		/* Prevent new userfaults from being queued after the wakeup. */
- 		vma_start_write(vma);
- 
--		if (userfaultfd_missing(vma)) {
--			/*
--			 * Wake any concurrent pending userfault while
--			 * we unregister, so they will not hang
--			 * permanently and it avoids userland to call
--			 * UFFDIO_WAKE explicitly.
--			 */
--			struct userfaultfd_wake_range range;
--			range.start = start;
--			range.len = vma_end - start;
--			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
--		}
-+		/*
-+		 * Wake any concurrent pending userfault while we unregister,
-+		 * so they will not hang permanently and it avoids userland to
-+		 * call UFFDIO_WAKE explicitly.
-+		 */
-+		range.start = start;
-+		range.len = vma_end - start;
-+		wake_userfault(ctx, &range);
- 
- 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
- 					    start, vma_end);
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 34ebb37c862c0..ce794d9760a87 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1995,9 +1995,10 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 		/*
+ 		 * Must clear entry, or a racing truncate may re-remove it.
+ 		 * TLB flush can be left until pmdp_collapse_flush() does it.
+-		 * PTE dirty? Shmem page is already dirty; file is read-only.
+ 		 */
+-		clear_ptes(mm, addr, pte, nr_batch_ptes);
++		ptent = get_and_clear_ptes(mm, addr, pte, nr_batch_ptes);
++		if (pte_dirty(ptent))
++			folio_mark_dirty(folio);
+ 		folio_remove_rmap_ptes(folio, page, nr_batch_ptes, vma);
+ 		nr_mapped_ptes += nr_batch_ptes;
+ 	}
 -- 
 2.53.0
 
