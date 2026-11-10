@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274086;
-	b=u6glPLOVO50OE1taizK2eE8bYFfpc4kcP0cryGORU3OJiGjtVDN91IIaQZk6WrMYpB0q
-	 Lcth939xvn+5mPPBrnWVAx8mcEIDV7mlXTf4y4VFer82eIoQGGbpHFAnW8fxuzzWKQLSG
-	 xt4AWgq1VQ4r4hHcaZRtNbGgZ1EUQ+UMxyOaz15FSqDCqJ5PrVPPEW4Ge9erNX4AayB5y
-	 ztxXzBYbjyUha0BH+Wzi0c0OEppnbr4AEpfa5/kVjGJScOFiCYgv7eHrxgirrUHGxc6PF
-	 80Hr1yn6cRYvIvLeVQsJmZpJTvKQyR/GD9mOsA1aW8z91twCBxV8KoFm7h8QbTtZ6Xg==
+	t=1794274088;
+	b=SxnNIZ7Ey4F6XFHoxlQjsv/b+l82MsxRk8D5xQ7dldGMdJ8PP+B/m41Rw8BjwNsQ9McV
+	 pCCRfRmSc5MYot4iX62DUwma7Qu9POmpiuSJwaT73jE84CTfwne9BanRDfT9BRMvHRxul
+	 /hOrd14OppBZvFjk6ptWyq1IaUk0KOvkpQl+V4i/Q1hPrN/c6xofICZN51CrUGviE+cFM
+	 79TqwGnEns3+Ac4T1AZa//THagGjThKif6ZAJcKSkdR3D2ZCmuAxN/vQyWWGkEskn5UNF
+	 6CVUk5fEv7UC94GnEw0ws2G07MKvQxYvVWTHPuk2EhmSJsEe2kusCGUxcYmB/gqfUfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274086;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274088;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7F66Sd6gHYIuLABtYbqo5ZmXQVS6A/aMy4RqkjUvwFA=;
-	b=UMHQQssJIOBoMM3B1mypw3WY0LGcaaz9O7Nl/2iN9Iu3ncVWaJT4+OE/G/3xz1X/NRQG
-	 KWFEqZ8+F/Wf1aoj9tQUfHkKBiOxmcow+D45tdwqaLUSoJdyY0k+h9QCmADYA3whgkVkO
-	 GUXRP9RBqkN3HV0s0w1wS1uzRe05plwP2VSlRJ1/a/WbxQtD9HtTrVvJjY1xYCKfrA9kn
-	 W0S80eupIDE19XEAPk+RFsRrLdbj4pn86nd4FnY5D1GYmYg7fkQ33GKy4/GszeQN6pbxQ
-	 4CXSXsm5KMy3WvgRdwJe3qrTOm49wlamfTmdJIYUrx/etnf54Cwc9tCjhIQWDShD3yA==
+	bh=S9bAiQwSVXhrNWrXBTGlXJAEnYQ9EmEyVM6xKqa9LZU=;
+	b=tmimM0IeADnyy5fA5Js1px6obA2e67iBjyPjenm8i+WKshgHaQ0WFETb6sJviSj/LHQh
+	 M3lTbNdJoyScuSAF6ZE0jD6YsNByqy1kkNDOn9Tk4IDbxt7OKMOxvBt9PRXciwZY1M4N/
+	 IkNwT/DuY6o6bvsdLPI9NtTfctgxQEEbmjA+4OaLS7kfYrfMwa+cF6qyCJG4CwiGTgkd3
+	 N8YpWLl7Pyo4baHUohXdVHHElZR7ffnaS5w9YDcDEsM6VCX/ogrgJGpQTTyidI6B9R2bK
+	 dRaXe3/oMP1XpqoIRAnLMLcNXReGXlErSDMtMn7ST8yNb9hMbI8wa1V7l9cZkppod0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuTlPGLV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfWInbje;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E599F606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8915F606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuTlPGLV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117AB1F0089F;
-	Tue, 10 Nov 2026 01:28:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QfWInbje
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA03C1F008A5;
+	Tue, 10 Nov 2026 01:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274085;
-	bh=7F66Sd6gHYIuLABtYbqo5ZmXQVS6A/aMy4RqkjUvwFA=;
+	s=k20260515; t=1794274088;
+	bh=S9bAiQwSVXhrNWrXBTGlXJAEnYQ9EmEyVM6xKqa9LZU=;
 	h=From:To:Cc:Subject:Date;
-	b=AuTlPGLVnutMyFE9hfzJqCFaaGV0Xjom08/VhpuG2oWZlPr+b1EasioqNuLTYnjQu
-	 krF88fSEYIKpGPazgwjcF4ANNUEzM1WmfSTdR8vasfb6srETTmCJgQCI5yRc33MA26
-	 ulQfi73k1mDQmjyYlfyV1UjrPq31/P6WI8wiC4vohtFeV6Ulmf1FnSwkktt4G/0o92
-	 9j2MVqbSF/4gxjH0nq1Glm9T6ug6yF5K7/wwwf9zEERXrHTrkvPBuDihURvqXUINo8
-	 JvD90p5BoSRe0k6NhF/NsnyxtQP8Ctaq8gKgpONVDhO4xeznGbf1MNTOSfGqZdw3Ib
-	 sMqrWnFLtXsJg==
+	b=QfWInbjeBPRoqc8co/CR6zCCPeNzOcRcqLxA65md6hSfe41FpN3QbLjC92NmTLu5Q
+	 K9bh1CkQVMx5ulG/PZy1bnfFaR2xE8TDxakrWxsV2HRzNmshgIhYrTmvgLF6ctf8rT
+	 E7FIAER3P0zPYCrq2J9Q+9Mjrww7KpVK2fIYatB2Dp48ccln7kqsqkLLBBwMrQd3zk
+	 9MoaZ4PZRiGzRrcGmSJLOIBEmyCzht9di3Ebk/4oMT+OLrsFWMb4mL0e/PWXox7bMF
+	 JGBRA+nRs3ozD2g/1YMLL+NLIvxojytjnkwPrzWz+MRsAApqQYS3n8l+S5GTNadozN
+	 bn7DXAsKLlzww==
 From: Sasha Levin <sashal@kernel.org>
 To: david@kernel.org,
+	gourry@gourry.net,
+	rppt@kernel.org,
 	ljs@kernel.org,
-	muchun.song@linux.dev,
-	baohua@kernel.org,
 	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:28:03 -0500
-Message-ID: <20261109202803-failed-5.10-21a3888d3d2f@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake waiters when registration modes are removed" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:28:06 -0500
+Message-ID: <20261109202806-failed-5.10-4eee9c389b07@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,59 +71,102 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 21a3888d3d2f87b7f15ccea1f0befd57346fe899
+git cherry-pick -x 4eee9c389b072e161549d46dcb1ae10b0222717e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202803-failed-5.10-21a3888d3d2f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202806-failed-5.10-4eee9c389b07@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 21a3888d3d2f87b7f15ccea1f0befd57346fe899 Mon Sep 17 00:00:00 2001
+From 4eee9c389b072e161549d46dcb1ae10b0222717e Mon Sep 17 00:00:00 2001
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:51 +0100
-Subject: [PATCH] mm/gup: check for overflow when converting nr_pages to bytes
- in GUP-fast
+Date: Sat, 31 Oct 2026 10:39:54 +0100
+Subject: [PATCH] mm/userfaultfd: wake waiters when registration modes are
+ removed
 
-The overflow check in gup_fast_fallback() only covers the addition to
-start. The preceding nr_pages << PAGE_SHIFT can already have truncated
-the length on 32bit.
+UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
+faults that are already queued. For example, switching an anonymous
+range from MISSING to WP leaves a missing-fault waiter asleep until
+userspace explicitly wakes it.
 
-Users such as RapidIO's rio_dma_transfer() can derive such page counts
-from a 64-bit userspace length.
+When a registration change removes a UFFD mode, wake waiters in the
+affected interval after updating the VMA. The VMA is write-locked at
+this point, so no new faults can queue under the old modes and woken
+threads cannot retry until mmap_write_unlock(). Waiters for retained
+modes in the same interval may also wake and refault.
 
-Let's just check_shl_overflow() to reject any such overflow with
--EOVERFLOW early.
+The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
+with both read and unread fault events.
 
-Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-22-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/gup.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/userfaultfd.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 1c2ac7c66c309..ba4907b352323 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -3225,8 +3225,8 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
- 		might_lock_read(&current->mm->mmap_lock);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index be630674fda9b..03f1b15bfe63e 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2270,6 +2270,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
+ 	return ret;
+ }
  
- 	start = untagged_addr(start) & PAGE_MASK;
--	len = nr_pages << PAGE_SHIFT;
--	if (check_add_overflow(start, len, &end))
-+	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
-+	    check_add_overflow(start, len, &end))
- 		return -EOVERFLOW;
- 	if (end > TASK_SIZE_MAX)
- 		return -EFAULT;
++static void wake_userfault_range(struct userfaultfd_ctx *ctx,
++		unsigned long start, unsigned long end);
++
+ /* Assumes mmap write lock taken, and mm_struct pinned. */
+ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 			       struct vm_area_struct *vma,
+@@ -2287,6 +2290,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		prev = vma;
+ 
+ 	for_each_vma_range(vmi, vma, end) {
++		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++
+ 		cond_resched();
+ 
+ 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
+@@ -2332,6 +2337,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 */
+ 		userfaultfd_set_ctx(vma, ctx, vm_flags);
+ 
++		/* Retry faults for removed modes while the VMA is write-locked. */
++		if (any_mode_removed)
++			wake_userfault_range(ctx, start, vma_end);
++
+ 		if (vma_is_hugetlb(vma) && uffd_disable_huge_pmd_share(vma))
+ 			hugetlb_unshare_all_pmds(vma);
+ 
+@@ -3648,6 +3657,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
+ 		__wake_userfault(ctx, range);
+ }
+ 
++static void wake_userfault_range(struct userfaultfd_ctx *ctx,
++		unsigned long start, unsigned long end)
++{
++	struct userfaultfd_wake_range range = {
++		.start = start,
++		.len = end - start,
++	};
++
++	wake_userfault(ctx, &range);
++}
++
+ static __always_inline int validate_unaligned_range(
+ 	struct mm_struct *mm, __u64 start, __u64 len)
+ {
 -- 
 2.53.0
 
