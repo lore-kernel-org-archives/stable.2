@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272855;
-	b=pORp5EqcOxcCB8DF+qYNw36ZS0asSdfjxdtxQMF2Gk35GsKG9BjRUh8U9MpHyr2z90P+
-	 f0h78EICZkjUm0t8C/uobfWuyISDij8SencgCMH0ypiurPvEvqjPipMxC8536Ghq3nsQh
-	 zMVB6ykregMRPkgiXoBdTILvZnTWTEzDcaEJdypBAdeVl/z6R4m+9B8SI6DdVm5SI16MU
-	 bgf5KTvWICU7GIGU983Do4vzn9Mv2ul4jrS6zGmNdX/yvqaTuqgYLCS3+ixhX6TRIfV65
-	 RKXlf3q7EsdZY8JiPCtjT0jWrHE03lbcuVtspZyzVI0nL3/e8n/QQtQgbGImzZXZw8w==
+	t=1794272857;
+	b=vALzxu2yqdkuIPeDgqGUMo/oNGBmg+BahIrUZlHii6oVmSt2Wogn9Ppko5QwMXeR1c4o
+	 xTvUXqlCmc0+EHN0L3Cfr642m9JGSNz2jQmQD/r9hIa/uIeVfyQMKffqP9YmrofaA8kpi
+	 MTQV/BUtffBYSm+vz4jWDARqenHiIvwAn/sn9kdAwRzfuQb+0erLHx4JJ3QfYXtNJLGJD
+	 2M73PAkObIueR3BI0Y+Ek9EK2X2Vsq61OY53NJKp9KdW3a7lEHv2NLS1jSU8VJ8Kw4cSE
+	 12OLQtD8ZnW1N7klH+9SGyp/+cb3GI5a7tPPtnhbY/QhxxeXtNlwRCVzWs5J5eCRp2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272857;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xIKhNlQcZLaZ3CThSCC+S9rT/d/9RNur1x/0Q1JUdas=;
-	b=RUuuG4I8YkiWjRKGopiRvCLKt0qy23NhVfI+vUqwo9QD4p3fSVU/vnAX0tX2SN5X8q1U
-	 8s9OO6aZMKIJE5OxUKWKU0/JM1l2hK65LguW3UctLvxxQyrlCXc1kSJT5A5/VT2HPntdm
-	 328DEgdRkkRzSZ0beLrqItfEsvrwSH7Tv7ATejLcj5yE7K8BVgS2zglhjsFdSdC7CMC0G
-	 j0uVjeZL43BRB/fMrNEqGFHXMvvcNrkX+nnDEo2WvdmZ59aHcJcb5tEqo+khXdeQcA9RB
-	 hzYnghxwg/Z+pMkOZaVMsNuCCE9kfKhFqaCTjhY38FS3VLTLTHtD6IQt2yFv8Li8+Kg==
+	bh=sYMa21Zn493JA1jBu22MHhQBpmnFvp52FwIeMQ5CV6o=;
+	b=RzV2g3wFhdARNBC67roRFHawl36ls5321y0uFy28ZlVOmh5j+0YLAVrVbHbXZhe4Jqwe
+	 Q2WXSUB7gx/ezUorQ4rddQ8JL4qeKDF2z0RpOEQR6kgMVlZO/5HPj8W7TEcrtxAZrSZVG
+	 eHazUHVtccM5z8tbgdGxKS1/OExjP9IRelJ6ZXYDCgIWd0o97Eex9ezZVSgBzPS+nYDOj
+	 LeOuJ5ITFLvKGGpCjIV4eZkkxRhSeR2SA27qc5FXOnZDTeRHAJF7Gq4Uzw6oSiRdYlFfX
+	 2DzjS+AJfkv+2n5tnZnlVHjarFGdZ2XiiOn0j4mqK5RyynbEFx76BiUhKDVyV+Q7r1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qncqhmw4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0uCDY57;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBF8606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43514606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qncqhmw4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301BA1F0089F;
-	Tue, 10 Nov 2026 01:07:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0uCDY57
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823191F0089F;
+	Tue, 10 Nov 2026 01:07:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272854;
-	bh=xIKhNlQcZLaZ3CThSCC+S9rT/d/9RNur1x/0Q1JUdas=;
+	s=k20260515; t=1794272857;
+	bh=sYMa21Zn493JA1jBu22MHhQBpmnFvp52FwIeMQ5CV6o=;
 	h=From:To:Cc:Subject:Date;
-	b=Qncqhmw45ykqYitnoH0S9K2s5y3JLBlXyfYrqUnZvYZpedMSD0eNhPuQGBvMY09DY
-	 fycZlhNChUCsTMK2Fw7j9rg0/qA9nuMnjHtd0rQlngxZMWbUY1tvA+honwnjYxzO3D
-	 X3Ixi6ZiFeA7jpS7cajJcSjB6IaV4OM1yPHnl9oSk8C3jiv+xX7bJ2G4BT53rgeacR
-	 QbdKRxkRZ57dBfe2cEnR04UDZju7Ao/Ygt4MzkARv7p3jFbAjqIn9L3ZrXdlc6yncx
-	 gfIVy5fLHL8e0XNEwgAcBerUZACaTyRemKW7aEJwmT2ppXk+nXx//sjhjpclR/+5dF
-	 QcXpssVmd7Tdg==
+	b=N0uCDY57TBmk7YGzRlavR4+xTBczfVfaWzh63fVWaOnt1bBZ7x08HefW17pWp26Om
+	 h+MFUuB+anwzIz8J3LwDM79etnVFqYyEpNc7+XhRRQ4vXOecI+ENdNLe9lIHdRyKs/
+	 rbZowxTTjWW2/eMKm2hiZmoQiTyP1KONEQuZ8nJ8xXw1d3CVXgiOwgr6WEjntKAFg/
+	 n4kaBKsuAIRl8oo9a4ejwe64F6n+HMkcEdLHX3t4+rFhaRAQbvQon6L/rgEZ4eEEFX
+	 Zqd+0qxb9HAgXyPY7lN68SRR/9+Frqp8jkNJ3+bjlESAG7UNl7ehzy2B6AuKWkFfDN
+	 jtwOC9bbG3/0g==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	hch@lst.de,
-	kbusch@kernel.org
+To: seanjc@google.com,
+	morbo@google.com,
+	fane@google.com,
+	pbonzini@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme: unregister when pr_register() is given a zero new key" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:07:33 -0500
-Message-ID: <20261109200733-failed-6.12-a9d431124fb2@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:07:35 -0500
+Message-ID: <20261109200735-failed-6.12-053621535f01@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,59 +70,144 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a9d431124fb2e58215daf0299d6fcf47bbc2d6b1
+git cherry-pick -x 053621535f014085c935879582dd3b65964a0dce
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200733-failed-6.12-a9d431124fb2@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200735-failed-6.12-053621535f01@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a9d431124fb2e58215daf0299d6fcf47bbc2d6b1 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 29 Oct 2026 09:51:24 +0900
-Subject: [PATCH] nvme: unregister when pr_register() is given a zero new key
+From 053621535f014085c935879582dd3b65964a0dce Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Wed, 21 Oct 2026 19:10:46 -0700
+Subject: [PATCH] KVM: nSVM: Check validity of vmcs01 save area copied from
+ SMRAM on RSM
 
-The block layer PR API defines a zero new_key in pr_register() as
-unregistering old_key. nvme_pr_register() sends Replace Reservation
-Key with a zero NRKEY instead. The host stays registered with key 0,
-and its next registration with another key fails with Reservation
-Conflict.
+When doing RSM to L2, validate L1's state after copying it back into vmcb01
+from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
+guest.  Failure to validate L1's state is especially problematic for inputs
+to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
+without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
 
-The pNFS SCSI layout client unregisters this way at umount. A later
-mount cannot register and sends all I/O through the metadata server.
+  ------------[ cut here ]------------
+  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
+  index 3 is out of range for type 'u32 [2]'
+  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5f/0x90
+   dump_stack+0x10/0x18
+   ubsan_epilogue+0x9/0x39
+   __ubsan_handle_out_of_bounds.cold+0x50/0x55
+   paging32_walk_addr_generic+0x889/0x970
+   paging32_page_fault+0x79/0xa60
+   kvm_mmu_do_page_fault+0x125/0x270
+   kvm_mmu_page_fault+0x88/0x7b0
+   npf_interception+0xc8/0x220 [kvm_amd]
+   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
+   svm_handle_exit+0xb7/0x160 [kvm_amd]
+   vcpu_enter_guest+0x428/0x16a0
+   kvm_arch_vcpu_ioctl_run+0x479/0x920
+   kvm_vcpu_ioctl+0x316/0xb00
+   __x64_sys_ioctl+0xa3/0x100
+   x64_sys_call+0x281/0x23d0
+   do_syscall_64+0xba/0x550
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+  RIP: 0033:0x79bb30deb04b
+   </TASK>
+  ---[ end trace ]---
 
-Send Unregister Reservation Key when new_key is zero.
-
-Fixes: 1d277a637a71 ("NVMe: Add persistent reservation ops")
+Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Reported-by: Bill Wendling <morbo@google.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Tested-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261022021046.295001-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- drivers/nvme/host/pr.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ arch/x86/kvm/svm/nested.c | 23 ++++++++++++++++-------
+ arch/x86/kvm/svm/svm.c    |  2 ++
+ arch/x86/kvm/svm/svm.h    |  2 ++
+ 3 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
-index fe7dbe2648158..d8b6ac4d83bb9 100644
---- a/drivers/nvme/host/pr.c
-+++ b/drivers/nvme/host/pr.c
-@@ -128,8 +128,12 @@ static int nvme_pr_register(struct block_device *bdev, u64 old_key, u64 new_key,
- 	data.crkey = cpu_to_le64(old_key);
- 	data.nrkey = cpu_to_le64(new_key);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index af0ef678433d7..07554089ec05b 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1889,6 +1889,21 @@ static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
+ 	/* 'clean' and 'hv_enlightenments' are not changed by KVM */
+ }
  
--	cdw10 = old_key ? NVME_PR_REGISTER_ACT_REPLACE :
--		NVME_PR_REGISTER_ACT_REG;
-+	if (!new_key)
-+		cdw10 = NVME_PR_REGISTER_ACT_UNREG;
-+	else if (old_key)
-+		cdw10 = NVME_PR_REGISTER_ACT_REPLACE;
-+	else
-+		cdw10 = NVME_PR_REGISTER_ACT_REG;
- 	cdw10 |= (flags & PR_FL_IGNORE_KEY) ? NVME_PR_IGNORE_KEY : 0;
- 	cdw10 |= NVME_PR_CPTPL_PERSIST;
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save)
++{
++	struct vmcb_save_area_cached save_cached;
++
++	if (!(save->cr0 & X86_CR0_PG) ||
++	    !(save->cr0 & X86_CR0_PE) ||
++	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
++		return false;
++
++	__nested_copy_vmcb_save_to_cache(&save_cached, save);
++	return nested_vmcb_check_save(vcpu, &save_cached, false);
++}
++
+ static int svm_get_nested_state(struct kvm_vcpu *vcpu,
+ 				struct kvm_nested_state __user *user_kvm_nested_state,
+ 				u32 user_data_size)
+@@ -1968,7 +1983,6 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 		&user_kvm_nested_state->data.svm[0];
+ 	struct vmcb_control_area *ctl;
+ 	struct vmcb_save_area *save;
+-	struct vmcb_save_area_cached save_cached;
+ 	struct vmcb_ctrl_area_cached ctl_cached;
+ 	bool use_separate_l2_pat;
+ 	unsigned long cr0;
+@@ -2040,12 +2054,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	 * KVM_GET_NESTED_STATE, and (b) it is not loaded at emulated
+ 	 * #VMEXIT.
+ 	 */
+-	__nested_copy_vmcb_save_to_cache(&save_cached, save);
+-	if (!(save->cr0 & X86_CR0_PG) ||
+-	    !(save->cr0 & X86_CR0_PE) ||
+-	    (save->rflags & X86_EFLAGS_VM) ||
+-	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+-	    !nested_vmcb_check_save(vcpu, &save_cached, false))
++	if (!nested_svm_check_vmcb01_save(vcpu, save))
+ 		goto out_free;
+ 
+ 	/*
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 487897ef11dd6..581bc3a23c95a 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -5219,6 +5219,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
+ 	 */
+ 
+ 	svm_copy_vmrun_state(vcpu, &svm->vmcb01.ptr->save, m_save.map.hva + 0x400);
++	if (!nested_svm_check_vmcb01_save(vcpu, &svm->vmcb01.ptr->save))
++		return 1;
+ 
+ 	/*
+ 	 * Enter the nested guest now
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index 4b0b2ee13a3a5..b9f7786bf17ce 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -911,6 +911,8 @@ void nested_copy_vmcb_control_to_cache(struct vcpu_svm *svm,
+ void nested_copy_vmcb_save_to_cache(struct vcpu_svm *svm,
+ 				    struct vmcb_save_area *save);
+ void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save);
+ void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
+ 
  
 -- 
 2.53.0
