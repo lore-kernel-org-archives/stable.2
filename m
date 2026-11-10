@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794283279;
-	b=GVODxznOS253f67y5lLNDNrLGaxlbxF4HA6ZpXpq+6uKYaFcbHdcgFbHo7gfqam7AXxY
-	 +f14AD5kVuBA2NF/pbjGAJ0QS2gGy1w6674cmKxHNcigCAuqZv3FZkCqXkUV4ow7OsvPQ
-	 iFszasrKdaoBVvm7Vdu2OUpc0XsJbu2+bwWMZREmdUgc9jPGE//mXlFDbixGxAObrBT3Q
-	 LjYziGFL537MxwYlsUkri6aDfBEvHZYNgQ7Jc8Vwh5KDx33ogjyUGsm0gk4aQGKJOB/Iu
-	 3xIclVWB+xGX9C+Qjdkgd9pMS1H9K1TE6Izyxs+1HWHQxt70eKDygkasPj3nTr01Zhw==
+	t=1794283281;
+	b=4TQ1UuGwpt7UkU+cEHoYTqMMBmloTOConGSnaGMJ66cEhUc9bJi7BHcCZRPHRa0BV/KL
+	 uNXKAxYLTEZCzpOdqcEkU79CMfGI9Kv7JvGMTFSerMHujg5PzFU+aHlf1u5dCPmr1gV/H
+	 2E+TqMc61EHum4ImW4E4i27usTLUEDLtk2cFVEYRc0QxWfZyLnRXGMH9050aHIxt4udDu
+	 mm4x7kLl3+Z6UFXXH9n+puMpXg5nsfQ3S5gr4RRl1bltQjM4RDCZF0H6Y2PpgvaQQFRuo
+	 pNAOdMDnbqwlsxy1b7OtBBZ3GFhuLD6qxlVCcf4ANUCHJgD4gB6VUuilha2in1+r/kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283279;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283281;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NbdkIHnAvGbFQAWmRmqzggiks0rCbVw3FrneHstxTYU=;
-	b=OVpkKjWCJIvsOVBk0P+7WEv+TGkdamKtHsF+UIibzB2TbyJwZaxmUQOqukkS9pzPZkSX
-	 WJvpYPJRuTWrdp4wGPiQpApfqg8sxc8Ys9/ole9NSP1T627joUgtx3Ohr57oX+4mukgmn
-	 2sPDn1c5iSO6vCjsmpAv2rCJlKN5kLwqWQDafQqXL9vBJS/WDikzbRNXOxDPKKrmlM5Ks
-	 /wUTqAokwc9K1zPvYE6ajIbMS5vYOnDwo/6mhcsWDszoqBfVY2ULtXkcfnmmQOzV64xeJ
-	 v05Cw6A6cEtm+7TWfhr9BTGfPAYARgI6Ch6SgdVSjLw5tCPAI39Wwcn7EWEcnmb255g==
+	bh=0AP2dwxK4MusiI9zSZcE2L5hRHRtFL2+nXB7r7LjIE4=;
+	b=VE7LBN7Np3UpbQNmC+IcwgFuDBKQ2bZVe0Tc1JmW3lhkJsHcmGqjViZ7Zp8shPeOH0p8
+	 AoNDMP4QePyvsUSRemACYz/8nCxKo8AB3DcVT2IT6WpGrTcRoDldaSgnJDKlifykrdo1V
+	 oEbzjr98VLCWya/xW07pqx/kBmdhUwVaWvktsaIvqhOJ1QyP4O/DolpuVCL2QdHYlAoUe
+	 C07qmjkz4cRHrhxLPN61eXsegWDyJRm1iQWY0bazrPOR1SyFWbWhmgE+FMlL4ZLQvJGcM
+	 87LE4P/KwgvLieMluGazd7ffPXNbLubdhzKaVvCJKt5Lgcmfx5OTY37JnZ5DmquxoIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnZDQFNv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TIfEazmb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FB5606CED3
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035A3606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:01:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnZDQFNv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2427A1F008A7;
-	Tue, 10 Nov 2026 04:01:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TIfEazmb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DAA1F008BC;
+	Tue, 10 Nov 2026 04:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794283278;
-	bh=NbdkIHnAvGbFQAWmRmqzggiks0rCbVw3FrneHstxTYU=;
+	s=k20260515; t=1794283280;
+	bh=0AP2dwxK4MusiI9zSZcE2L5hRHRtFL2+nXB7r7LjIE4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AnZDQFNvpBa8cf3O5u7a7p+H0Ldv5ZQKECoCCzOLvFb9IBb7fVYZIzXkF7K+dJghQ
-	 JQxOE0kQsaf1EMBHKJI89U61GNDJvZrMHFLMcxelxV7dQsYG35LvNRohOrA1KMAxw1
-	 T7ROJ1LA5w4SocyuiU4+0cfH3yzDdNjRo5v6ATAnCSgIaaanEd3ftaS//SNBBkfUfD
-	 7CzSSM+3weej3tNifSMYfD7aGhoo1V5DmFo9JXiICJkQfcVR/SMljRmOWNFzmM/uU8
-	 CO9p/Gfv+zK1ky9YV1+yGJYuzSFn0hepuTm7X9jo3RhL1vLb+cnFhlLTBmHxKSSLEG
-	 RrdECUa9adfFQ==
+	b=TIfEazmboo6oIi2ny6x0KyjRi1EspSqx2aKjr5OXcOMy+eF4e5laflIlZM6O6BfZs
+	 yDvqpwqAhcAtMmX/67gNvaliv4QXwrs0iBUSYv2endXtFo2Uf7Exw617OUNlqbhe3c
+	 +xiAuOsW69LhwAD5Dli85ixDkgRYTHRDE5PcJT4HphhGRJTPBINLpKxU8AJDPHXs31
+	 0II4KTB8+W/ldbxLjsbmPN0krCWQWjgyEfl3PeH7pxa5y3GAGp1CaRRgWfVEVVEPEu
+	 HHMqCOikqeXS5bPLZV0bQXcKdKOkOSivSc3Stqr65RS8fnd/qGY4to6XBnJUyiutnM
+	 pJwlcxUOJjhog==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Anusha Srivatsa <asrivats@redhat.com>,
+Cc: Casey Connolly <casey.connolly@linaro.org>,
+	Marco Mattiolo <marco.mattiolo@hotmail.it>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
-	Maxime Ripard <mripard@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	Linus Walleij <linusw@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] panel/ebbg-ft8719: Use refcounted allocation in place of devm_kzalloc()
-Date: Mon,  9 Nov 2026 23:01:14 -0500
-Message-ID: <20261110040023.284489-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
+Date: Mon,  9 Nov 2026 23:01:15 -0500
+Message-ID: <20261110040023.284489-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110040023.284489-1-sashal@kernel.org>
 References: <20261107051740-failed-6.12-4eeeac9d7c36@kernel.org>
@@ -63,49 +65,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Anusha Srivatsa <asrivats@redhat.com>
+From: Casey Connolly <casey.connolly@linaro.org>
 
-[ Upstream commit b30a15a4e7e54b676d6c395e71daf5f286997731 ]
+[ Upstream commit 4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c ]
 
-Move to using the new API devm_drm_panel_alloc() to allocate the
-panel.
+This corrects the host initialisation sequence so that we can send
+DSI/DCS commands in prepare().
 
-Signed-off-by: Anusha Srivatsa <asrivats@redhat.com>
+Cc: stable@vger.kernel.org
+Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Tested-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://lore.kernel.org/r/20250401-b4-drm-panel-mass-driver-convert-v1-9-cdd7615e1f93@redhat.com
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
-Stable-dep-of: 4eeeac9d7c36 ("drm/panel: ebbg-ft8719: Set prepare_prev_first")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20260908-ebbg-ft8719-fixups-v2-1-5454ae1f5581@ixit.cz
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-index e85d63a176d04..74b56ee42fa49 100644
+index 74b56ee42fa49..c97825177693f 100644
 --- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
 +++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-@@ -198,9 +198,11 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
- 	struct ebbg_ft8719 *ctx;
- 	int i, ret;
- 
--	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
--	if (!ctx)
--		return -ENOMEM;
-+	ctx = devm_drm_panel_alloc(dev, struct ebbg_ft8719, panel,
-+				   &ebbg_ft8719_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
- 
- 	for (i = 0; i < ARRAY_SIZE(ctx->supplies); i++)
- 		ctx->supplies[i].supply = regulator_names[i];
-@@ -231,9 +233,6 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+@@ -233,6 +233,8 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
  	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
  			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
  
--	drm_panel_init(&ctx->panel, dev, &ebbg_ft8719_panel_funcs,
--		       DRM_MODE_CONNECTOR_DSI);
--
++	ctx->panel.prepare_prev_first = true;
++
  	ret = drm_panel_of_backlight(&ctx->panel);
  	if (ret)
  		return dev_err_probe(dev, ret, "Failed to get backlight\n");
