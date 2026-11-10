@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273971;
-	b=g3Xo6zClQPBetWYQTlXtVGa38LAHu0PPY2Z4tJt3MuG+rqi3H+d13DUpv94o/Wjl3Z/l
-	 p+d6YH61u6/rnQ8jLegsYVxmoWX1e2BJ8ApfrpuIB+gGsMULM0RzaA0U9ur3RuD8WJW2I
-	 lMAP6SENtZqIWmDx3y6sv7AX4bT241NKVJbqsvzrsTbcayAwZsxwMgLOa/JT/88u8BJdx
-	 S7K/JMU0FsMUNeBsBX+re2ptNaCbzNCZA0F17yCsUFMiCkpQqtfZy40yGJX1a3jLzfL9n
-	 73dkEoz/ren37pcJelIU7hcRTq5kzL2ulhnFckzLkyT0A8CbWOsR5KQe2QdsJ6zgMoA==
+	t=1794273974;
+	b=A48kWCOhuA82rdnOxil7w8/mpAe58Xfju1V9anG0QOvQqvE6dO91TtUzmJdiqwSUEzGZ
+	 VjCUlgEIX9tPXHBYgFaaDSTDIy2HAtQRB+fjSRoa5b6V5W4M9B302dqwoAH6DxKYirBxa
+	 cCmjhyhuzA65q1BmIanOY/+rjYYhdMCZhh9K7UNXvbofUrVEZqjMwxTPu0CcrxGAYYwf3
+	 pWTJwsNxj6kq+nmwxb1j47t7B7x9GVUeF2mYTzCBl5djeys7mJ9p8J/d1OCdkM8FE63X6
+	 zEVez8tcZPXCPpTFTNEbq8IqPPwrnLbSvvrYPRCzxaLbBO+dISOKkjHnaobmMCmuuVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273971;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273974;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lkSHuUl3k81n+qjtJ1aO6MczsTOAQRmikWKu6m7MhoM=;
-	b=eK6DOAUXFwAeyIXiTv7w7eu0gN5m0KJnkQisE7TeZ+k7+bUIIxmW//8i6mQ3DvkMIBL7
-	 dBOltxfaeb+dSONd67o4EQSm6PQsM3RVpnYIodGchTgqb2r/ck4U3FBkbtkDBXqoG6m3Q
-	 TnS+lByVxI/E3+Fqwr8k+kpgNlFI5/a6eg/BHUpyj7skUFg/6uYBLKXqji9jsshtz84FZ
-	 QEXCdi0wbHobKf1DX8T3embeiCMcIFFUXptiVZzfodWGZBvhEG6qfw8gdqmDfslNDDqiR
-	 jQHniXPEngTKRqydDhvWp3rpkuq8PGLc/OQFas4ZkNOEkWElV4+Jnr6h30UOmC4YLjA==
+	bh=eN7ADaGsK2XSCQdeIPPz5epgY6txwDwO6N7W0SEJBuI=;
+	b=Y+TZri9exleBSuBm5LK6y0tKmIzn5ZstLu9SBSfP02N3N1Jwke+R5rlcZLuHE9kyBPdf
+	 2zDMjwLiabEZ4v/YQBuS6c4QJNubvp+MHEeanmJh8bTbnv1nOeQd4paP/L0hpLs3Msdkl
+	 jN0SNh8tH+/jG4vuF+itAUvtgqlwAzu63r9d0k0fm6E0mMOwQzJ33nkoGJzT/+w1MeXCL
+	 tynUdwWOPySCZVN1hYsQpZYiXJi0uttOfknMxrEL0rFRI/m/8l9/stBH2GOEDbeGLFVd9
+	 cQdPdG6IjIyjsfZZ9KAZlfA4nsyYWRlPIwQad0V3ixjpaElkvlJ7i4Wjxkiu1cqYoOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgUKiGId;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcPFt2Nj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C330960A260D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E4B60A261F
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgUKiGId
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38091F0089F;
-	Tue, 10 Nov 2026 01:26:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcPFt2Nj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90F71F008A2;
+	Tue, 10 Nov 2026 01:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273970;
-	bh=lkSHuUl3k81n+qjtJ1aO6MczsTOAQRmikWKu6m7MhoM=;
+	s=k20260515; t=1794273973;
+	bh=eN7ADaGsK2XSCQdeIPPz5epgY6txwDwO6N7W0SEJBuI=;
 	h=From:To:Cc:Subject:Date;
-	b=FgUKiGIdyo1QjrQo+VQV7hw9msoty1Y4H192xzXm4pHU3xhOGHtZaKh7n935CSRBg
-	 gDkPTd5Ibp2uDK4zWqiAq2PbgdfCeISRb0hsAOzniF0iQ/aKpNKUZfNQ+HPL6C0JZR
-	 3womNWQaDztntomk2v6v7eXEeY/73WbJFO0xvVlg5kjutrjeMw1nO7lPQohATssGzx
-	 gUNW2mD7TEEUmMHFTlxFNuPd6YMoSXwglwaWR47zwoi+MuM/j7zzAFlFxvFAIdbQy4
-	 pCDqYhhEoqEtFB3lH18/E75iw5WQzrmpzEYM4LNajsTPU9HMvm5+egcocByyDkOr19
-	 b2xV2pFUTSV6w==
+	b=ZcPFt2NjoK1nmA1MXoXzd1C+00XtArlrbpcPRnM2EjKq8h3Bwy2Xdyf5iBcXQmW1l
+	 f8fjzWLWa+eTXp0n4VPAWKtQs4YYruqg3Tld7GoUQIHBATn9EZDgE8fV2g9xqyyZK3
+	 Mxui/NfWxJH6nHlWyfP5tcoJbJbXTov9w67DO9PyNhDjBx3r1C4LIj4Ebh/Xo/NESM
+	 5vW1XYALoeVZ6oxYB78ksHHxWaqY/Pz/F7vZSqiRLNgjdgCABot1LcU3G7AopuAOqF
+	 /j9BJkipq0oLIsEvja7atUrL2TWGsjBFrf4ZV4aGQxPdIEAsc4eSjLy0kv3ybNOtmW
+	 IJsTQGK1/TVyA==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	mason@kernel.org,
-	pratyush@kernel.org,
-	baolin.wang@linux.alibaba.com
+To: josef@toxicpanda.com,
+	riel@surriel.com,
+	pfalcato@suse.de,
+	usama.anjum@arm.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: make shmem_file() check the file's inode" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:07 -0500
-Message-ID: <20261109202607-failed-5.10-d3710111839d@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/filemap: don't lose a folio lock wakeup to a signal" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:11 -0500
+Message-ID: <20261109202611-failed-5.10-8ccb6ded6a47@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,125 +71,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x d3710111839d11339e414b1bb3fea3d05ab83f6e
+git cherry-pick -x 8ccb6ded6a47b59b4907ed4f8c293cf8122de889
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202607-failed-5.10-d3710111839d@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202611-failed-5.10-8ccb6ded6a47@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d3710111839d11339e414b1bb3fea3d05ab83f6e Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:32 +0100
-Subject: [PATCH] mm/shmem: make shmem_file() check the file's inode
+From 8ccb6ded6a47b59b4907ed4f8c293cf8122de889 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:36 +0100
+Subject: [PATCH] mm/filemap: don't lose a folio lock wakeup to a signal
 
-shmem_file() only checks if file->f_mapping is a shmem mapping. This
-mapping can belong to another file, however, as with a Coda file backed
-by a tmpfs container after mmap().
+An exclusive waiter in folio_wait_bit_common() can leave the wait loop
+because of a fatal signal, then be woken by folio_unlock() before
+finish_wait(). If the waker did not hand over the lock, the waiter returns
+-EINTR without trying to acquire it.
 
-So it does not guarantee that the file inode is an actual shmem inode.
+folio_wake_bit() stops after waking the first exclusive waiter, so this
+loses the wakeup and can leave other waiters asleep indefinitely on an
+unlocked folio.
 
-Seal handling and memfd preservation use this check before accessing
-shmem inode state, so they can access an inode of the wrong type.
+After finish_wait(), let a waiter woken without a lock handoff try once
+more to acquire the lock. If successful, return success so the caller's
+eventual unlock wakes the next waiter. Otherwise, the current lock owner
+will do so.
 
-Let's make shmem_file() check the inode's file operations instead, to
-identify shmem inodes reliably. This will identify regular shmem inodes,
-including memfds and ordinary tmpfs files, independently of wrapper file
-operations.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Use shmem_mapping() in collapse_file() instead to not change the behavior
-of collapse_file(): it operates on the page cache and uses mapping->host
-for shmem inode operations. Focusing on the file does not seem relevant.
-
-Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: clarify and simplify comment + description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-7-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/shmem_fs.h | 15 ++++++---------
- mm/khugepaged.c          |  2 +-
- mm/shmem.c               |  5 +++++
- 3 files changed, 12 insertions(+), 10 deletions(-)
+ mm/filemap.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-index a7c7a96a7cbf9..f89b4b1511332 100644
---- a/include/linux/shmem_fs.h
-+++ b/include/linux/shmem_fs.h
-@@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
- 		unsigned long len, unsigned long pgoff, unsigned long flags);
- extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
- #ifdef CONFIG_SHMEM
-+bool shmem_file(struct file *file);
- bool shmem_mapping(const struct address_space *mapping);
- #else
-+static inline bool shmem_file(struct file *file)
-+{
-+	return false;
-+}
-+
- static inline bool shmem_mapping(const struct address_space *mapping)
- {
- 	return false;
-@@ -193,15 +199,6 @@ static inline struct page *shmem_read_mapping_page(
- 					mapping_gfp_mask(mapping));
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 906b013c11eb3..6b5e1d866a9e0 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1373,10 +1373,22 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+ 	 * return value based on that state without races.
+ 	 *
+ 	 * Also note that WQ_FLAG_WOKEN is sufficient for a non-exclusive
+-	 * waiter, but an exclusive one requires WQ_FLAG_DONE.
++	 * waiter, but an exclusive one must also acquire the bit.
+ 	 */
+-	if (behavior == EXCLUSIVE)
+-		return wait->flags & WQ_FLAG_DONE ? 0 : -EINTR;
++	if (behavior == EXCLUSIVE) {
++		if (wait->flags & WQ_FLAG_DONE)
++			return 0;
++		/*
++		 * We might have just been woken up and the waker will not
++		 * wake up anybody else. If we ignore that now, the remaining
++		 * waiters may not get woken up: take the bit now if it is
++		 * still free.
++		 */
++		if ((wait->flags & WQ_FLAG_WOKEN) &&
++		    !test_and_set_bit(bit_nr, folio_flags(folio, 0)))
++			return 0;
++		return -EINTR;
++	}
+ 
+ 	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
  }
- 
--static inline bool shmem_file(struct file *file)
--{
--	if (!IS_ENABLED(CONFIG_SHMEM))
--		return false;
--	if (!file || !file->f_mapping)
--		return false;
--	return shmem_mapping(file->f_mapping);
--}
--
- /* Must be called with inode lock taken exclusive. */
- static inline void shmem_freeze(struct inode *inode, bool freeze)
- {
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4b71d010b2aff..3a6f4b7b28453 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2230,6 +2230,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 		struct file *file, pgoff_t start, struct collapse_control *cc)
- {
- 	struct address_space *mapping = file->f_mapping;
-+	const bool is_shmem = shmem_mapping(mapping);
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
- 	unsigned long new_pfn = -1;
-@@ -2238,7 +2239,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	enum scan_result result = SCAN_SUCCEED;
- 	int nr_none = 0;
--	bool is_shmem = shmem_file(file);
- 
- 	/*
- 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 923957e5e6a24..e64704ac72222 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -276,6 +276,11 @@ static const struct vm_operations_struct shmem_vm_ops;
- static const struct vm_operations_struct shmem_anon_vm_ops;
- static struct file_system_type shmem_fs_type;
- 
-+bool shmem_file(struct file *file)
-+{
-+	return file && file_inode(file)->i_fop == &shmem_file_operations;
-+}
-+
- bool shmem_mapping(const struct address_space *mapping)
- {
- 	return mapping->a_ops == &shmem_aops;
 -- 
 2.53.0
 
