@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338161;
-	b=gMo+GJJKbc8/D+ZvFkQfigacmEq3/P/5XjebgtjcZt49VfHRbL5PzFtAsbPtLlYkw45u
-	 RxEVxbJP8U0bmVae90qORpsjvqLafXHVHhwbrK4aqRRnkLvi96ubXNrY0WNUPPaDA4Fj5
-	 Ashw4U3dDBNYo+0QU+VMMN1WYdveUfMDr70Y8rfAQc/GH9NLY9PFaHqg2TiScPQ+xIytw
-	 PukxeqkLRxC3LuhpEUCOSfq5+2dn7oFh+RgzoKfDeGw3WOZwCtr48tr1eudarPRd8zvmY
-	 5E3tZC+5JPu+MoUW0rQ7xhRn9tX8sQXRcTdaklogcmqw/AwdOgIAuqWL1FaXckbt84w==
+	t=1794338213;
+	b=hMT8qDvK4kFC9CCB4Vym4vZY82v4+krZieD5kPY+b8cRdFKBW94vIndP6ZwT+BQXFnOj
+	 4mGhbAx37sEbNeidZIvC9XHT+s8l0CyNfjaIL0bdUJSQa7T6gxTtB3NkS8DUG0XtwSQeu
+	 h7yU23l7hYjtnRy6RNdgk/zLVD3r8/CcKHYWdqmy5EX9rBdWp9vSUspRks7NcYFFTy9/N
+	 FpXkIiDvXGcB6qeMxD9JTZpMcvFYhiOS/mKmrMK6TixWvAyY77MCwK+PrGcQqDb47+6ig
+	 vQStQBBbeIKxxMiwAF7PSlSbmXffYABZ5neds+XpRxlOQhZg3OLUVgFVjBu2z8veweA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338161;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZfNNcUg4Hb9dMf21U9S4PIvvp2K0WpYnY5BgOyF/JXA=;
-	b=PCjZv5A9wQ6ib6atIAGJGH9WTsgpN8ggqm/98rI54rxxH7TmLC7NoGAtTYfTNip1L5hd
-	 vKeNOLYNw5dSjC/599PykTS4Mfk40PjshI0BbzzAhC4Pfl9kIR4cGZFDMEiPisejOTvUF
-	 B4AD+1lAsQ+kQXniLjuooYBBX4w+O9ePkd8e1TSMYzwTqBZVBdtfWgP0QKD7xhBq9g3GN
-	 8FOtm1Xj9KxPr/gHs9Y8jM74dD3ie2kqNeEJ8YRxKWiAP1hdnDK1t6hM+s5pLcWocd8L2
-	 Q/sYecHNUuLV/w5VSkOm6QklV9/BwYbFWggMsZup5OdXQv+QlKWWm6xu9m0p0aJxCCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338213;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=o2POtgEWPTYJK24DPz1NX5FJSVdUXVqB0c1FKBqDgVM=;
+	b=wEW0a1X8aUpZosDjt68D+WKjuBlE+zzKE7jKkaTzQ3xD6zBQQp89l7XpN9HNkXa7mGcZ
+	 KYLxuzUK/0uviSdrAaqnYfsRAIzG7skFXKP/LEv7PI8U0UjCfxJVzs+yJh837ik8D9bFT
+	 /kjav/xdHhUlLnlu+8NlM3taUFowhORcQc+SpXSuW5+VedIhQq4kBlTNAd1NUIiRdYLrT
+	 PXbdt62KqkXWx3uDFkjs0iWChvLG6B7vYHCFx+K4eZ0Llg2smTmEYAU1F2WfgEoZcBRBR
+	 x4tKrXdK0TcVaUi8n0U3tzTj7CRLfrGUGycFTWvJCXLbT6j1Qy3fpRcWc+VdSfOTc/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b="MFN44vn/";
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XL36tSvG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E9891606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:16:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9891606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B832606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:16:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=MFN44vn/
-Received: by dvalin.narfation.org (Postfix) id F2252216C6;
-	Tue, 10 Nov 2026 19:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794338159;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZfNNcUg4Hb9dMf21U9S4PIvvp2K0WpYnY5BgOyF/JXA=;
-	b=MFN44vn/RY4F19zhyDwJlOvjYRecjuc66Oo2hF2SPcwEL1pV+8+tFGef/rJIzca261kCbh
-	ioe7g91xkqE1VBBOy1VeOgFyxGYs0gSiVW2ZfOXNca+icPW3g7X73wetQQqqb4317LYc1G
-	avxMPN85klQuyzjGEvif/3OlbZGCL7o=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XL36tSvG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B741F0089F;
+	Tue, 10 Nov 2026 19:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794338213;
+	bh=o2POtgEWPTYJK24DPz1NX5FJSVdUXVqB0c1FKBqDgVM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XL36tSvGntAFij9lp/xIlQJX+SpdU7xNEJWY4pNkcwU1XbXvWOSYcgChVop+Lkp47
+	 EH0+CfjrIK5bGKd5O80Ece+wUrIt+D+nXh6d3LXKgR5lf4vfkTMHsMO1b3BQEn09N3
+	 XIzhx5r59phRQBYVNZbVSlZScRRX7W2n4NTpJwqnD+fZ0Bt3OGwK3fMjRTcWviHDZ1
+	 IbYZK5g9zJYs18doj73oMQvBqAADBel1Mjer4GWafJhnNLswzLyzZsbyzy6tIikQPc
+	 rXbdXMX9S1SEmqVf/TTm8MnZSYdLVSYEviFyKmuhp/XnnWZYw+7yQcx/5wF+e73vZB
+	 jvdMuJpvXYsMg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 6.6.y] batman-adv: Close OGM aggregation before transmission
-Date: Tue, 10 Nov 2026 20:15:55 +0100
-Message-ID: <20261110191555.146196-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109201030-failed-6.6-f91f64a91682@kernel.org>
-References: <20261109201030-failed-6.6-f91f64a91682@kernel.org>
+Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
+	Dragan Simic <dsimic@manjaro.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
+Date: Tue, 10 Nov 2026 14:16:50 -0500
+Message-ID: <20261110191340.3497523-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053432-failed-6.6-84d08ff902f1@kernel.org>
+References: <20261107053432-failed-6.6-84d08ff902f1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,79 +64,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
 
-commit f91f64a91682c07e6c5f059804e709656364e8a6 upstream.
+[ Upstream commit 84d08ff902f1ec01177fef1a21a38934927f5aee ]
 
-The OGM send worker leaves its forwarding packet on forw_bat_list until
-after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
-but emission reads and clones the packet without that lock.
+Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
+speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
+Rockchip PCIe header.
 
-CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
-list lock, finds the same packet and appends another OGM. The sender can
-observe the new packet length before the corresponding direct-link flag
-is set, or clone the skb while its length and payload are being updated.
-This can transmit an OGM with incorrect flags or inconsistent data.
+The reason is that Shawn Lin from Rockchip has reiterated that there may be
+danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
 
-KCSAN reported:
+While Rockchip has done so informally without issuing a proper errata, and
+the particulars are thus unknown, this may cause data loss or worse.
 
-  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
-  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
-  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
-  value changed: 0x00c0 -> 0x00d8
+This change is corroborated by RK3399 official datasheet [1], which states
+maximum link speed for this platform is 2.5 GT/s.
 
-Mark the aggregate as full under forw_bat_list_lock before emission. This
-waits for any ongoing append and prevents further aggregation. Emission
-uses packet_len to walk the OGMs, so all queued packets are still sent.
-Keep the packet on the list so interface purging can find the worker,
-wait for it to finish and free the packet.
+[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
 
-Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
-Cc: stable@vger.kernel.org # 4.10.x: 434becf57bdc ("batman-adv: Limit number of aggregated packets directly")
-Cc: stable@vger.kernel.org # 4.10.x
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-[ Use BITS_PER_TYPE(...) instead of BATADV_MAX_AGGREGATION_PACKETS ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
+Reported-by: Dragan Simic <dsimic@manjaro.org>
+Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
+Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
+Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Dragan Simic <dsimic@manjaro.org>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
+[ sashal: adjusted patch context for the older Rockchip PCIe driver implementation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/bat_iv_ogm.c | 5 +++++
- net/batman-adv/types.h      | 8 +++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
+ drivers/pci/controller/pcie-rockchip.h |  3 ---
+ 2 files changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index b6fc03b61104c..cf6ff9848a7bc 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1793,6 +1793,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
- 		goto out;
+diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
+index c07d7129f1c7c..6a970dc766d4d 100644
+--- a/drivers/pci/controller/pcie-rockchip.c
++++ b/drivers/pci/controller/pcie-rockchip.c
+@@ -66,8 +66,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
  	}
  
-+	/* Mark aggregate as full before forcing emit. */
-+	spin_lock_bh(&bat_priv->forw_bat_list_lock);
-+	forw_packet->num_packets = BITS_PER_TYPE(forw_packet->direct_link_flags);
-+	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
-+
- 	batadv_iv_ogm_emit(forw_packet);
+ 	rockchip->link_gen = of_pci_get_max_link_speed(node);
+-	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
+-		rockchip->link_gen = 2;
++	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
++		rockchip->link_gen = 1;
++		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
++	}
  
- 	/* we have to have at least one packet in the queue to determine the
-diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
-index 2ebc718bc3249..9a43b58ccad7c 100644
---- a/net/batman-adv/types.h
-+++ b/net/batman-adv/types.h
-@@ -2138,7 +2138,13 @@ struct batadv_forw_packet {
- 	/** @direct_link_flags: direct link flags for aggregated OGM packets */
- 	u32 direct_link_flags;
+ 	rockchip->core_rst = devm_reset_control_get_exclusive(dev, "core");
+ 	if (IS_ERR(rockchip->core_rst)) {
+@@ -237,12 +239,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
+ 		goto err_exit_phy;
+ 	}
  
--	/** @num_packets: counter for aggregated OGMv1 packets */
-+	/**
-+	 * @num_packets: counter for aggregated OGMv1 packets. Set to
-+	 *  BITS_PER_TYPE(forw_packet->direct_link_flags) (independent of the
-+	 *  real number of aggregated packets) by the send worker to prevent
-+	 *  further aggregation while the packet is emitted. It must therefore
-+	 *  not be used to iterate over the aggregated packets
-+	 */
- 	u8 num_packets;
+-	if (rockchip->link_gen == 2)
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
+-				    PCIE_CLIENT_CONFIG);
+-	else
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
+-				    PCIE_CLIENT_CONFIG);
++	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
++			    PCIE_CLIENT_CONFIG);
  
- 	/** @delayed_work: work queue callback item for packet sending */
+ 	regs = PCIE_CLIENT_LINK_TRAIN_ENABLE | PCIE_CLIENT_ARI_ENABLE |
+ 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
+diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
+index 049ad984a4164..4702caac56114 100644
+--- a/drivers/pci/controller/pcie-rockchip.h
++++ b/drivers/pci/controller/pcie-rockchip.h
+@@ -37,7 +37,6 @@
+ #define   PCIE_CLIENT_MODE_RC		  HIWORD_UPDATE_BIT(0x0040)
+ #define   PCIE_CLIENT_MODE_EP            HIWORD_UPDATE(0x0040, 0)
+ #define   PCIE_CLIENT_GEN_SEL_1		  HIWORD_UPDATE(0x0080, 0)
+-#define   PCIE_CLIENT_GEN_SEL_2		  HIWORD_UPDATE_BIT(0x0080)
+ #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
+ #define   PCIE_CLIENT_INT_IN_ASSERT		HIWORD_UPDATE_BIT(0x0002)
+ #define   PCIE_CLIENT_INT_IN_DEASSERT		HIWORD_UPDATE(0x0002, 0)
+@@ -184,8 +183,6 @@
+ 	(((x) & PCIE_CLIENT_DEBUG_LTSSM_MASK) == PCIE_CLIENT_DEBUG_LTSSM_L2)
+ #define PCIE_LINK_UP(x) \
+ 	(((x) & PCIE_CLIENT_LINK_STATUS_MASK) == PCIE_CLIENT_LINK_STATUS_UP)
+-#define PCIE_LINK_IS_GEN2(x) \
+-	(((x) & PCIE_CORE_PL_CONF_SPEED_MASK) == PCIE_CORE_PL_CONF_SPEED_5G)
+ 
+ #define RC_REGION_0_ADDR_TRANS_H		0x00000000
+ #define RC_REGION_0_ADDR_TRANS_L		0x00000000
 -- 
-2.47.3
+2.53.0
 
