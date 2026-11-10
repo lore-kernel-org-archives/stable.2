@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337562;
-	b=iOG0NZjt47d/qFI8X39DkvWVzdKaAJVn7UIx4Gv3O8m4FYYGBtcJuQvIu2LkyfzErJuW
-	 niOpFOJx30k5ySUTh3WjRbkViUyvRyoUERGvfCsrUk0L2X8cEtGN1RlqTQdpcfU8xu/BW
-	 ExAjiF+6WG9w9cmAOjHYpWZPc5WHD1fxCPgS0oYzPJhztG9ACLza3ZQl1hD/7lm/UoX8B
-	 0jCevk+BbYIkn4xt+JlM/RUScp8i/VGaet9qZOp4MrAu+XWOVI/nBtX641xYmwLHm159k
-	 PPzFlXtD2AtnKGftGxJKK0z7TBr61slkaRQgGC08tbVGpNGvEq9qCSauoZrmTM00idQ==
+	t=1794337687;
+	b=jsZo+L/goYZFGg4GqJYbqp8oOvAvYfawy/pug3IUTITVTPLERzDStV69l1XUYJMlYfqt
+	 G4Ftlr9urKKZzwqWn7b8GfxdovzqYxrxV9OE/B533P9g9efh4PoP9EkPakSq5tIl0d+Kp
+	 zHjQBfsJeNdgwPeYduCqRk3MZkmAtArnhVSneQZ/++DlwWgINqwPlf8AI9x1vGso8rEKn
+	 l4W/cof/CcgwO3MTWf5SjXU3rhtgFsKFjrxF0yGovb4CYpQU4HDHC1DAYMTGg/UQyZUX0
+	 1l6S0gSKeljr9V4NmPtMYbMHjz7LQZBylcj5seNEH1NZp0MbY/Xm1sndI5k+T2HqJtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337562;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=WWnZldioVaIQvBqHhtWfm3ijxoimf6A6B8W6nEeMNyM=;
-	b=N2VPkgoH2CPYmczpp73mMPbAmEvQhX1Ln2T2qjzrcdtBvfrU6MmB/BRNumjrhudbJa+E
-	 3UZQPMkv7n1QyUQQtzVZvzUOMDCH4kL2c8GGjV2THSAAFlJIrTsblyetW2jBnXoigGniO
-	 0KcFCUR32vYOtKQ6AObL+8sM/fMJO8Wj1dxu+VwME+d1dcZWM4myNRuwmv8C2AH4ib6eS
-	 jT3WZIyAUuiV6H94iZag3Dws7umjWK2W6K+9c74nGtagBpihjZvKDTESJEtTA636jsJbI
-	 cUSQVRR7uW89z7ju2xiMQ5BsQuaH2VOm/wL62qtCLBnn+jzWQmxM+rfaQX9Z6cjuiNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337687;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=uIq4SR6mPk1dtWIThEmM/IDNP7REJu7Wm2Jtzs+pJ2M=;
+	b=RxrZ8uojkB4sAGAWdSxc04oaiyHLM1luLj/8JvAmzaB3RBN/EVoySyOgi6wWgP3NDhet
+	 S5/9gOXFoBM4LaWmpbJVRkBF4j6WHVrxS6ZVepI0Puw55pa24U3ZCeZSoK8BzgL0WzfMS
+	 x1PNy2ZRLbq6EurdGN8Szhoy+A0YQWYAoiGxw3ehUk3OgniAnXUtNffi+9GDR3RURZi5b
+	 WN0Pe/iC24M8+YttLWAB/na29zGYf3BjINTjXO9zD9QuwXVaxBMi1e+9IjOG3pYYNz+hn
+	 YVdfmlTVetN2OyXtLuZb4LXnUq/FGy3YVXRi1viUz7LYGu/8IAxEkC1blYo1LfJ9yog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--atifashhar.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eFtwUUhT;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BQnahPWS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D77606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:06:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6D77606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--atifashhar.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92006606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=eFtwUUhT
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso3284731a91.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:06:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794337561; x=1794942361; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WWnZldioVaIQvBqHhtWfm3ijxoimf6A6B8W6nEeMNyM=;
-        b=eFtwUUhTY+0jkJqJtGdXrL5foXpP7zDOhBd6CDjTlQ0ophu8e90pUUoNjyYfZZ7wL+
-         q8idMATXLqolvhlA5UvJ/oTrp9S8A9lVYFtIrGE64P1miOOC6EscjOCOrYg/GJ/lLyLR
-         0fpuby24nRonI4lK+Q1ef8mfZ9eWABhd4xeXSEI3rjZWJ665uHUS/DMAcNMewJ14/xv+
-         2LW5vlCMAyASHQUg7bS1znXs3C9zIc3QMVpPwr3HBx9XAP2iJ8rBQmm3YA0OS4SvhdQ4
-         nsqST8gyN4jyHc5mmZ3mkctgu06rAdJbxHoDnQ4TmETaeIMgtZWDOREohyMR7RX7Vv56
-         g0Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794337561; x=1794942361;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WWnZldioVaIQvBqHhtWfm3ijxoimf6A6B8W6nEeMNyM=;
-        b=jsJ4j/7FwNRNUzYVq+5EaUZhcY/nzbiU9YJTV1xnfZI98teLL0b3XiD85od43q+bVa
-         oK0wxyVIQ0kIsuldB3fnV0hu8Gz0265UwrigWIukXmwfzXEmrIfDNO4DsEw8gN/LrGLi
-         ZhRvUe3hSmdI9hZaQWZIDgu2oLWFUg/Od2m5CcUH/NU0+cdqmrM8ccbeFmvm1UTZG4q4
-         G7XkhL9ktJCBsZ6iUD9jLbWLc+ExBeUXi/trHmGMj1tmu7bgG1DmIVOnz8o6atV/3T1m
-         fe9awbfcQNknxwM6UqKv5iOy96y13KtdH++ba1vYzt1aZ/TzBQC+o1wpAheqp6YRcSqr
-         gLaQ==
-X-Forwarded-Encrypted: i=1; AL+hErFnyfNcSbfNGvLBcSwpVnb6TrFXzm4XcMJh/QOv2M53b6LyvYvruSebGq2NxEcccrlFNP6Ub28=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VANkMNNZqtEY0XYhu3sVh2s2Sso0A+7XD9GxY02IO5wfDo6TA
-	nxwaEZj5BUrBXSJ925sz5EsKrb83QYuIMjwcbQr4BHmyw3VcQ0IPQ10/UkEBSbRi27gPYH+11gK
-	NelET2qWSpcHBbV3OYvMpRw==
-X-Received: from pjok24.prod.google.com ([2002:a17:90a:9118:b0:3ae:c243:313b])
- (user=atifashhar job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:524d:b0:3ad:ce24:acfa with SMTP id 98e67ed59e1d1-3b166c8500fmr3498740a91.20.1794337561037;
- Tue, 10 Nov 2026 11:06:01 -0800 (PST)
-Date: Tue, 10 Nov 2026 19:05:59 +0000
-In-Reply-To: <20261109102006.GJ176724@black.igk.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BQnahPWS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952B31F0089F;
+	Tue, 10 Nov 2026 19:08:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794337687;
+	bh=uIq4SR6mPk1dtWIThEmM/IDNP7REJu7Wm2Jtzs+pJ2M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BQnahPWSKmFN9h2A1z0B+I5m/EkqvL0WtjNF9kaTohaXY/n0/LifaueKYPCbzhTgr
+	 fC1S3vwX7ZMdvtJ7UHeHHzxlQxvIpzxUxv0yd1LF6riz/TKoxD0BRv1BCJz/Ygu9jq
+	 Qw+ZY/RsPfWjNhOBgnJ+8+594uSz5iRdBIIklw3S4tti35lonYoB/9GHMDA5MhdDAV
+	 2TlSaDs5I6MtOrTkv0bj5obz4gZQFm9NpRc8H7PsaoUUyJqEQlqmH3AWlVwM8uhrgQ
+	 LqGTAqA3Gg9cTwy9PNKRVXF+kyD/lglW7RCwgtzlr5pssvgCEpX2AG0pk11M0NQr5k
+	 1QjyTSQF0BQMA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] irqchip/imx-intmux: Convert to platform_driver::remove_new() callback
+Date: Tue, 10 Nov 2026 14:08:03 -0500
+Message-ID: <20261110190704.3466855-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107062335-failed-5.10-b167c1a30e9e@kernel.org>
+References: <20261107062335-failed-5.10-b167c1a30e9e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,48 +59,75 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261104133745.1432212-1-atifashhar@google.com> <20261109102006.GJ176724@black.igk.intel.com>
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261110190559.819337-1-atifashhar@google.com>
-Subject: Re: [PATCH] i2c: designware: Release slave SCL hold in __i2c_dw_disable()
-From: Atif Ashhar <atifashhar@google.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Jarkko Nikula <jarkko.nikula@linux.intel.com>, Wolfram Sang <wsa@kernel.org>, 
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Atif Ashhar <atifashhar@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Mika,
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-On Mon, Nov 09, 2026 at 11:20:06AM +0100, Mika Westerberg wrote:
-> > +	if (tx_hold) {
-> > +		regmap_read(dev->map, DW_IC_CLR_RD_REQ, &dummy);
-> > +		regmap_read(dev->map, DW_IC_CLR_TX_ABRT, &dummy);
-> > +		regmap_write(dev->map, DW_IC_DATA_CMD, 0xFF);
-> 
-> I'm not super familiar with the slave mode so adding Heikki just in case.
-> Can this cause some unintended traffic on the bus towards the master?
+[ Upstream commit 984e5c7b8d7bac9efd3818e06dcf1f7aab7701b2 ]
 
-No, it cannot initiate new traffic. DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY
-is only asserted when an external master has already addressed this
-controller and initiated a read transfer, and the slave hardware is
-actively stretching SCL low waiting for TX data. When no slave read
-hold is active, i2c_dw_release_slave_hold() returns early without
-writing to DW_IC_DATA_CMD.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-Writing 0xff simply satisfies the ongoing master-clocked read byte
-while keeping SDA passively high (released via pull-ups), allowing the
-external master to finish clocking the byte and terminate the transfer
-with NACK/STOP instead of hanging the bus indefinitely.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-> Also use 0xff instead.
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-Ack, I will update 0xFF to 0xff (and wait to see if Heikki has any
-comments before sending v2).
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Link: https://lore.kernel.org/r/edeee074956dd943d3c67da894a01dc5f0d33bd7.1703284359.git.u.kleine-koenig@pengutronix.de
+Stable-dep-of: b167c1a30e9e ("irqchip/imx-intmux: Fix runtime PM teardown on remove")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/irqchip/irq-imx-intmux.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-Thanks,
-Atif
+diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
+index 7709f9712cb3b..576f28c9ebdb3 100644
+--- a/drivers/irqchip/irq-imx-intmux.c
++++ b/drivers/irqchip/irq-imx-intmux.c
+@@ -286,7 +286,7 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int imx_intmux_remove(struct platform_device *pdev)
++static void imx_intmux_remove(struct platform_device *pdev)
+ {
+ 	struct intmux_data *data = platform_get_drvdata(pdev);
+ 	int i;
+@@ -302,8 +302,6 @@ static int imx_intmux_remove(struct platform_device *pdev)
+ 	}
+ 
+ 	pm_runtime_disable(&pdev->dev);
+-
+-	return 0;
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -358,11 +356,11 @@ static const struct of_device_id imx_intmux_id[] = {
+ 
+ static struct platform_driver imx_intmux_driver = {
+ 	.driver = {
+-		.name = "imx-intmux",
+-		.of_match_table = imx_intmux_id,
+-		.pm = &imx_intmux_pm_ops,
++		.name		= "imx-intmux",
++		.of_match_table	= imx_intmux_id,
++		.pm		= &imx_intmux_pm_ops,
+ 	},
+-	.probe = imx_intmux_probe,
+-	.remove = imx_intmux_remove,
++	.probe		= imx_intmux_probe,
++	.remove_new	= imx_intmux_remove,
+ };
+ builtin_platform_driver(imx_intmux_driver);
+-- 
+2.53.0
+
