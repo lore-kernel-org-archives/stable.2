@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315238;
-	b=5fOYoU9NVzbaiIfQIhftS1AiMyDJwsRyIFYyoZ55V+IFyNuqqpY9pq0ezMAqK5CAnEWH
-	 zkUJI7tSPvkc9FqCk49QBBERoR19cFxKeNIVZusgCkhjonLZSzhWRyvdqKQtquqegNZBt
-	 r6gyyvRiZGxHoJgsgmvNhZ+v5tMO7cNdzjj4oTK/S9dQTXfaM0Zc47NSuYdIli7jC2LJC
-	 ur28ggJDGVV4H1iiGKqnHblNPOk06YKyEP0AjrVjT2vZ+M8BiHSvbrZivfClrYgSKExkO
-	 mqI242IH5hgv02PGs4ksYfQffTR/xF8tvLGRbHBOjzqWffDCjuSgSJwvJ3zkev2qzhQ==
+	t=1794315259;
+	b=gxrcocZ7/J2cVRvn7zi+yirEfZVY9cTlVsxJ096u2TA03DFmJvSwpYXZmWcI+Wtxloxr
+	 t8/1iYngip0H33rGKcyLh+K90pjECndnDPRv2Hg9V/3Ts5aSDCMMHjj0c/637d1/mVq1K
+	 oKqKuUqNPCpxSAkgrNYRa0hCayVxGeBQQtQePO4GPJnU/A7+8lZZO2AHHA1TY+43kY3Ew
+	 6jCcOJ5jf1Yr02QZ1zig0SgM1TO/H3sD7uCWYO4N2znSknn3oqV3j+oMSPMNDc2hWiFu0
+	 w4gynQ3wtmAi4rX5p/2JbzmsU3nP/USrOwg/EKDVkZAkFMU9Q2ObrwuyRyYYG6uBu+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315238;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315259;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FwwgScb/STh2Gl3ztKEDuXvhzgp0Co9CrpcAHE4Cd44=;
-	b=sa1Fdj5BUNKRgTAPSNWg8vTpCbcJznUlnuSSS9ohRUiiLLNjjK1s9FuTwcgfg2VDRbxD
-	 APKDIzSAjgugNtib8N1cn0m8JffJpxrT+SjH9YHY08PNnzMfsZvPSHxSCxqUZGZ4zy3Tt
-	 h1zvhdPE8ks0vcZPXkfp4KEeY+0U08Lx9/WF7Trl/XSM8pEI8S5mBWTz0HJIBXM7tKzHT
-	 GTbQqadsTK+WwJGJXOHAP0kPssi48uwKQFcvemgcPIgAr/hBTHBcFfk45o/GNR8t0yeWX
-	 iLp7q3syXpBfwDH7LSKinzpgOsc3oraqEGEA7ATRb3rIgacpypB1jgiz1n6AF0ZPDew==
+	bh=zKwpaGvbZ8rvbfB58yIvXUrDq+wsg7dPuCuFxjZMUP0=;
+	b=g8a6ghmyzBTZi38dmYFZGiZaGmfGbL8gcGZxxAwZQ4Sk0IHVOQxrstYfZTw0xtJaHsR2
+	 73Kdpx/HZkpUy09+EcnpUnw9lYemGc1NoybqQ9Ppv0K5lFtZQZq/65ZZuYsvHbZjtjWbz
+	 d3ocOhbU31CJ+Mo1AcWy+vEYl7jdI/FCrU/a9Qz4ghGDlh5+KdJKhKfjEKS4u3va4lPMa
+	 ug/CYN7ItVcZhzlCkK0ahQDOg+8KwyhMDwIzGvDemiAqLQvj7/YPmT0Xc4NdwjLUdpQfl
+	 uRfXKE7TKnpeIzRtAswODuXchZKXe6rHASALzwmzgrU2iaeM4458mEgELEY6PEqxwcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8ZTTGL9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpRSnRfg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A5E606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:53:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA28606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:54:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8ZTTGL9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3821F0089F;
-	Tue, 10 Nov 2026 12:53:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpRSnRfg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303721F008A1;
+	Tue, 10 Nov 2026 12:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315237;
-	bh=FwwgScb/STh2Gl3ztKEDuXvhzgp0Co9CrpcAHE4Cd44=;
+	s=k20260515; t=1794315259;
+	bh=zKwpaGvbZ8rvbfB58yIvXUrDq+wsg7dPuCuFxjZMUP0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I8ZTTGL9T4AVU2JBx0On8R2vCREkvqNLNvDhuD+LGdJSQYeFZOcUkmXWQKzqO2inj
-	 wmwtiX4glrkI+n5U40/jiDyHTeQXxxPjIhoF2AgGLA63JPQr0LUMM7Bav7n96VPh3Y
-	 SJnVcvuQi6H9sOOquC54RHzUkImY/9xKCchSk6cc/8/qU+qbgZSa3szIuQQXuo00vJ
-	 AJmV8z4lyGJV53HnWV6V6fTQD0dPfY89zLkzn0AjHR0S3ABq2d/lVJxOTwcoZZ3IYn
-	 XJ6SVLhxUmB8BxS0TIjDFbCyHoMNLbU8MWZugyF2mszoeotkYQqp6vo0po3BIasFQ5
-	 2Jn/yTIr+pODA==
+	b=IpRSnRfgF1qKGGBjniEC0G37mVqPEf7uxj/YM7Ty34HXyU0ovcAk3QXT+s5EnDMkT
+	 gzDpEjSxdy2l/a3ULnOz4Pklay4lAC61Qi8cJ2uZgjdJMJKr9G2M+osRDjitmO9ssW
+	 EoCSFQXNWyRvvOhs4NpMUbntxO2fuLRTxudVl4w6MMwVmyO/h3UMIjN+ccWBXIBF3J
+	 hKERhOWqtJIbxXEejurtGmqyauI+3rmKeUKkf1SxK0h6WMG1Z6OF9KIetdGogms62x
+	 QUBL2Cy6b9G+09NC/ZG8g3r7vcPhoTnV/EiJfx9GS7iYZfHlX5rC3SuXZ/RnnRonh9
+	 6hJt0jIqmhJ9Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiaming Zhang <r772577952@gmail.com>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Pranjal Shrivastava <peaan@google.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] gfs2: reject invalid inode sizes
-Date: Tue, 10 Nov 2026 07:53:56 -0500
-Message-ID: <20261110125338.1544022-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] iommu/arm-smmu-v3: Handle ARM erratum for CONT under invalidation with SVA
+Date: Tue, 10 Nov 2026 07:54:17 -0500
+Message-ID: <20261110125352.1494113-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054146-failed-6.1-33ed0a0567e0@kernel.org>
-References: <20261107054146-failed-6.1-33ed0a0567e0@kernel.org>
+In-Reply-To: <20261107050403-failed-7.3-84c6089a365f@kernel.org>
+References: <20261107050403-failed-7.3-84c6089a365f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +66,271 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiaming Zhang <r772577952@gmail.com>
+From: Jason Gunthorpe <jgg@nvidia.com>
 
-[ Upstream commit 33ed0a0567e0abe66ea65e89dad2e35082890fbe ]
+[ Upstream commit 84c6089a365ff5547f9ea30cb407dc5fe3124fd3 ]
 
-A corrupted GFS2 image can store a dinode size that is larger than what VFS
-i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
-writes it directly into inode->i_size. If the value is larger than S64_MAX, the
-incore i_size becomes negative. That negative value can bypass the existing
-stuffed inode size check:
+The erratum (MMU-700: #3777127, S3: #3673557) deals with under
+invalidation of a CONT PTE grouping in the SMMU. The recommended work
+around is to use a range invalidation that spans the entire CONT. The only
+user of CONT in the kernel right now is through SVA sharing a CPU page
+table that contains a CONT created by the mm.
 
-inode->i_size > gfs2_max_stuffed_size(ip)
+Previously it was thought that this errata was dealt with because the
+driver always uses range invalidation. However, there is a subtle detail
+in the errata that the invalidation range must fully enclose the entire
+CONT for it to work.
 
-Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
-gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
-passes it to memcpy(), turning it into a huge copy size and triggering a
-out-of-bound issue.
+It seems that two sequential range invalidations, with a split point
+falling inside a CONT grouping, will not prevent the errata.
 
-Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
-inode->i_size. Also make the stuffed inode check use the raw on-disk size while
-it is still unsigned.
+The SMMU's range invalidation generation algorithm does not produce a
+single invalidation for a single SVA invalidation request, nor does the mm
+carefully align the SVA invalidation ranges to accommodate the splitting
+of the invalidation into several ranges.
 
-Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5-xhigh
+Thus, when processing a SVA invalidation, the range invalidation splitting
+routine can generate a range invalidation that is split in the middle of
+the CONT and risk under invalidation from this errata. This condition
+could be triggered by a malicious userspace manipulating the TLB gathers
+via mmap/mprotect/munmap.
+
+Update the errata list to the include the S3 variation, detect the IOMMUs
+that have it, and then have SVA invalidations use a simplified version of
+the over invalidation algorithm from the tlbi rework series. This ensures
+that a single range invalidation is issued for a single MMU notifier
+callback and now the range invalidation is guarenteed to cover any posible
+CONT.
+
+Future work to add CONT to iommu_domain page tables should either use this
+one-invalidate/one-range invalidation algorithm or disable CONT support in
+the iommu_domain.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-[ sashal: adjusted context for direct inode->i_state access and existing inode depth and entry assignments ]
+Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Fixes: 3f1ce8e85ee0 ("iommu/arm-smmu-v3: Share process page tables")
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
+Reviewed-by: Pranjal Shrivastava <peaan@google.com>
+Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+Tested-by: Pranjal Shrivastava <praan@google.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+[ sashal: Adjusted header context to account for the missing ARM_SMMU_OPT_OVR_INSTCFG_DATA definition. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/glops.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ Documentation/arch/arm64/silicon-errata.rst   |  3 +-
+ .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   |  7 ++
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 89 +++++++++++++++----
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  5 ++
+ 4 files changed, 87 insertions(+), 17 deletions(-)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index e7904c1c985f6..0fa7b6f1f4218 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -404,6 +404,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	umode_t mode = be32_to_cpu(str->di_mode);
- 	struct inode *inode = &ip->i_inode;
- 	bool is_new = inode->i_state & I_NEW;
-+	u64 size;
+diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+index 99a1eb4b833dd..95faec78b7f70 100644
+--- a/Documentation/arch/arm64/silicon-errata.rst
++++ b/Documentation/arch/arm64/silicon-errata.rst
+@@ -273,7 +273,8 @@ stable kernels.
+ +----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | MMU L1          | #3878312        | N/A                         |
+ +----------------+-----------------+-----------------+-----------------------------+
+-| ARM            | MMU S3          | #3995052        | N/A                         |
++| ARM            | MMU S3          | #3995052,       | N/A                         |
++|                |                 | #3673557        |                             |
+ +----------------+-----------------+-----------------+-----------------------------+
+ | ARM            | GIC-700         | #2941627        | ARM64_ERRATUM_2941627       |
+ +----------------+-----------------+-----------------+-----------------------------+
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
+index 0a429c64fbf3e..3f50298a1c14c 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
+@@ -215,6 +215,13 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
+ 	if (system_supports_haft())
+ 		feat_mask |= ARM_SMMU_FEAT_HAFT;
  
- 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
- 		gfs2_consist_inode(ip);
-@@ -429,7 +430,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	i_uid_write(inode, be32_to_cpu(str->di_uid));
- 	i_gid_write(inode, be32_to_cpu(str->di_gid));
- 	set_nlink(inode, be32_to_cpu(str->di_nlink));
--	i_size_write(inode, be64_to_cpu(str->di_size));
-+	size = be64_to_cpu(str->di_size);
-+	if (unlikely(size > inode->i_sb->s_maxbytes)) {
-+		gfs2_consist_inode(ip);
-+		return -EIO;
-+	}
-+	i_size_write(inode, size);
- 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
- 	atime.tv_sec = be64_to_cpu(str->di_atime);
- 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
-@@ -467,7 +473,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	ip->i_depth = (u8)depth;
- 	ip->i_entries = be32_to_cpu(str->di_entries);
++	/*
++	 * The workaround for ARM_SMMU_OPT_FULL_CONT_RANGE_INV requires range
++	 * invalidation support.
++	 */
++	if (smmu->options & ARM_SMMU_OPT_FULL_CONT_RANGE_INV)
++		feat_mask |= ARM_SMMU_FEAT_RANGE_INV;
++
+ 	if ((smmu->features & feat_mask) != feat_mask)
+ 		return false;
  
--	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
-+	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+index 81baafaffc410..b510dd47f2315 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+@@ -2538,6 +2538,37 @@ static void arm_smmu_cmdq_batch_add_range(struct arm_smmu_device *smmu,
  	}
+ }
+ 
++/*
++ * Generate a range invalidation for ARM_SMMU_OPT_FULL_CONT_RANGE_INV by
++ * ensuring the entire SVA requested range is covered with a single range
++ * invalidation command. The scale is adjusted so that the range invalidation
++ * may extend past the end of the requested range. This ensures that any CONT
++ * the MM is invalidating is covered by a single range invalidation. TTL and
++ * LEAF are always 0 because this is only used by SVA.
++ */
++static bool arm_smmu_cmdq_batch_add_range_inv(struct arm_smmu_device *smmu,
++					      struct arm_smmu_cmdq_batch *cmds,
++					      struct arm_smmu_cmd *cmd,
++					      unsigned long iova, size_t size,
++					      u8 tgsz_lg2)
++{
++	u64 cur_tg = iova >> tgsz_lg2;
++	u64 num_tg = ((iova + size - 1) >> tgsz_lg2) - cur_tg + 1;
++	unsigned int scale = fls64((num_tg - 1) / 32);
++
++	if (scale > 31)
++		return false;
++
++	cmd->data[0] |=
++		FIELD_PREP(CMDQ_TLBI_0_NUM,
++			   DIV_ROUND_UP_ULL(num_tg, 1ULL << scale) - 1) |
++		FIELD_PREP(CMDQ_TLBI_0_SCALE, scale);
++	cmd->data[1] = FIELD_PREP(CMDQ_TLBI_1_TG, (tgsz_lg2 - 10) / 2) |
++		       (cur_tg << tgsz_lg2);
++	arm_smmu_cmdq_batch_add_cmd_p(smmu, cmds, cmd);
++	return true;
++}
++
+ static bool arm_smmu_inv_size_too_big(struct arm_smmu_device *smmu, size_t size,
+ 				      size_t granule)
+ {
+@@ -2565,21 +2596,30 @@ static bool arm_smmu_inv_size_too_big(struct arm_smmu_device *smmu, size_t size,
+ static void arm_smmu_inv_to_cmdq_batch(struct arm_smmu_inv *inv,
+ 				       struct arm_smmu_cmdq_batch *cmds,
+ 				       struct arm_smmu_cmd *cmd,
+-				       bool leaf,
++				       bool single_range_inv, bool leaf,
+ 				       unsigned long iova, size_t size,
+ 				       unsigned int granule)
+ {
+-	if (arm_smmu_inv_size_too_big(inv->smmu, size, granule)) {
+-		struct arm_smmu_cmd nsize_cmd = *cmd;
++	struct arm_smmu_cmd nsize_cmd;
++
++	if (arm_smmu_inv_size_too_big(inv->smmu, size, granule))
++		goto full_inv;
+ 
+-		u64p_replace_bits(&nsize_cmd.data[0], inv->nsize_opcode,
+-				  CMDQ_0_OP);
+-		arm_smmu_cmdq_batch_add_cmd_p(inv->smmu, cmds, &nsize_cmd);
++	if (single_range_inv && size > granule) {
++		if (!arm_smmu_cmdq_batch_add_range_inv(inv->smmu, cmds, cmd,
++						       iova, size, inv->pgsize))
++			goto full_inv;
+ 		return;
+ 	}
+ 
+-	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, leaf,
+-				      iova, size, granule, inv->pgsize);
++	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, leaf, iova, size,
++				      granule, inv->pgsize);
++	return;
++
++full_inv:
++	nsize_cmd = *cmd;
++	u64p_replace_bits(&nsize_cmd.data[0], inv->nsize_opcode, CMDQ_0_OP);
++	arm_smmu_cmdq_batch_add_cmd_p(inv->smmu, cmds, &nsize_cmd);
+ }
+ 
+ static inline bool arm_smmu_invs_end_batch(struct arm_smmu_inv *cur,
+@@ -2600,7 +2640,8 @@ static inline bool arm_smmu_invs_end_batch(struct arm_smmu_inv *cur,
+ 
+ static void __arm_smmu_domain_inv_range(struct arm_smmu_invs *invs,
+ 					unsigned long iova, size_t size,
+-					unsigned int granule, bool leaf)
++					unsigned int granule,
++					bool single_range_inv, bool leaf)
+ {
+ 	struct arm_smmu_cmdq_batch cmds = {};
+ 	struct arm_smmu_inv *cur;
+@@ -2630,14 +2671,16 @@ static void __arm_smmu_domain_inv_range(struct arm_smmu_invs *invs,
+ 		case INV_TYPE_S1_ASID:
+ 			cmd = arm_smmu_make_cmd_tlbi(cur->size_opcode,
+ 						     cur->id, 0);
+-			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd, leaf,
+-						   iova, size, granule);
++			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd,
++						   single_range_inv, leaf, iova,
++						   size, granule);
+ 			break;
+ 		case INV_TYPE_S2_VMID:
+ 			cmd = arm_smmu_make_cmd_tlbi(cur->size_opcode,
+ 						     0, cur->id);
+-			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd, leaf,
+-						   iova, size, granule);
++			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd,
++						   single_range_inv, leaf, iova,
++						   size, granule);
+ 			break;
+ 		case INV_TYPE_S2_VMID_S1_CLEAR:
+ 			/* CMDQ_OP_TLBI_S12_VMALL already flushed S1 entries */
+@@ -2684,6 +2727,9 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
+ 			       unsigned int granule, bool leaf)
+ {
+ 	struct arm_smmu_invs *invs;
++	bool single_range_inv =
++		smmu_domain->stage == ARM_SMMU_DOMAIN_SVA &&
++		(smmu_domain->smmu->options & ARM_SMMU_OPT_FULL_CONT_RANGE_INV);
+ 
+ 	/*
+ 	 * An invalidation request must follow some IOPTE change and then load
+@@ -2723,10 +2769,12 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
+ 		unsigned long flags;
+ 
+ 		read_lock_irqsave(&invs->rwlock, flags);
+-		__arm_smmu_domain_inv_range(invs, iova, size, granule, leaf);
++		__arm_smmu_domain_inv_range(invs, iova, size, granule,
++					    single_range_inv, leaf);
+ 		read_unlock_irqrestore(&invs->rwlock, flags);
+ 	} else {
+-		__arm_smmu_domain_inv_range(invs, iova, size, granule, leaf);
++		__arm_smmu_domain_inv_range(invs, iova, size, granule,
++					    single_range_inv, leaf);
+ 	}
+ 
+ 	rcu_read_unlock();
+@@ -5009,11 +5057,20 @@ static void arm_smmu_device_iidr_probe(struct arm_smmu_device *smmu)
+ 				/* Arm errata 2268618, 2812531 */
+ 				smmu->features &= ~ARM_SMMU_FEAT_NESTING;
+ 			}
++			/* Arm errata 3777127 */
++			smmu->options |= ARM_SMMU_OPT_FULL_CONT_RANGE_INV;
+ 			break;
+ 		case IIDR_PRODUCTID_ARM_MMU_L1:
++			/* Arm errata 3878312 */
++			smmu->features &= ~ARM_SMMU_FEAT_BTM;
++			break;
+ 		case IIDR_PRODUCTID_ARM_MMU_S3:
+-			/* Arm errata 3878312/3995052 */
++			/* Arm errata 3995052 */
+ 			smmu->features &= ~ARM_SMMU_FEAT_BTM;
++			/* Arm errata 3673557 */
++			if (variant < 1 || (variant == 1 && revision < 1))
++				smmu->options |=
++					ARM_SMMU_OPT_FULL_CONT_RANGE_INV;
+ 			break;
+ 		}
+ 		break;
+diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+index dd2fee2f560e6..094ce28c862f5 100644
+--- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
++++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
+@@ -934,6 +934,11 @@ struct arm_smmu_device {
+ #define ARM_SMMU_OPT_MSIPOLL		(1 << 2)
+ #define ARM_SMMU_OPT_CMDQ_FORCE_SYNC	(1 << 3)
+ #define ARM_SMMU_OPT_TEGRA241_CMDQV	(1 << 4)
++/*
++ * Range invalidation is mandatory and one range invalidation must fully span an
++ * invalidated CONT
++ */
++#define ARM_SMMU_OPT_FULL_CONT_RANGE_INV (1 << 6)
+ 	u32				options;
+ 
+ 	struct arm_smmu_cmdq		cmdq;
 -- 
 2.53.0
 
