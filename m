@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274008;
-	b=REUVGmRyagG2syEgtKJWPOA5dw+txvt0GTpepDJ6Wsln9Ar7leU608dZzNyVt8j5+HYE
-	 NvlzbuU8sX12Tuo/V8zoOpT91uXMXwDmaGtIL73SKa7a9NQWkGmxCm/I4r4EUARNjvjXH
-	 MX7IdFndPfeEt3rZovhY5n8VSS3LqhJDAl/LqXbDDJ7h6NSywWB1VYNLOiNdE19fB5XS8
-	 EE+Lw2wTqKtA/om6WxbckzcSiYbwQRbmzIfOWUUIZjmlq0VJ048bPUr9FB00PpsTN3PL7
-	 thHImUP9sGG05bzHj3eIQGXBEIi6eDPlSTBChBU1OTlD3C5u0ywnVNWss25Gw1OE6Gg==
+	t=1794274011;
+	b=feUFeH8Ci0VgrOQ2rvi8cNsFRB/7YF/v0Qvs9dcL5pxJl5qQ8Be8cFU6nEHYI6D6mXbq
+	 f/T1C2incMOwH1Rr7T788qNLRT5N10SOP4TAjIMrNbPIlK6+NDH6YbWOOfHuS4glVg6VT
+	 PlXUg9MRNYqNyMy+6n/b0h+FvD8dGZ7zwgatjE6cdZvl4EhFEXXoA+YyLqJ5mI1vAZ8hD
+	 /3gr57V8CagpTX0pvRtyPot4Zxye1vVsTkcmf1246BxBif9ucIGVrCHZIaNx3x5Agx2YW
+	 m8/eIv53GqpdFnLyDyw4U1q3kFNda2oNNBzafTR3zeTZW2DH+HrX4gKm/t/V80cq8HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274011;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VlC7vHz/YAz5S94pSZtYugvL8DaHuRoYley9P4fMRzY=;
-	b=P6RdzKrtvwQNDrwZKVovpYqh6FVkLbK6jRV9ALkoGXMbnOW7LiJ7tlYDxvpf1hUI4Rus
-	 celjtVsZ2i1r8RWiSexAkz6HEiNNYLOAZdlrk207+2Xw6zCsK/oZDd/z+byXxgrCiTK+t
-	 7uO1fFGDUP3ijmAHlWxxjgAz1uIrLYY7WsjvoVrVx0LWDkW5SmprybwIHibpTgYZAniwH
-	 Qm8yCZXKgFsA2of5599btXexF2yVv536t9U5c25Tc0Ex0ZPrfsnlTev5mmvt0OJJVBwtp
-	 TONraYpJtw362CZR7m1WXHvDZbLsu7FH6+kd0llJ/vrGnlCUvZlU6rteeLY7TthRETw==
+	bh=gKAhdNasWD+QxXwxd4vVi3ZkobbAZ0nF3bF9H2DLe+w=;
+	b=bmmjXyO52GR0YG/C4/51YaqofSOXo8TTWpzX38NjCEbkOv3XoJWWPwSV8jf0jdRKKofR
+	 Aa+1kDasDt3oOxc8ijPIzSyqrynH1aaEMzOXyzfnEqeNUHHArlDPoa3UsNxUc/xGRCxlA
+	 adSegA/xRZhLltvGKiazp4nDx/Gq2kI5VQmC4kNBhoxN5KdH7hNJ18xay0a/DDZDcvYxo
+	 sr/+wg53UM1a2fq6EDYqeP3OGGBiNBHbdgWu0CIMzXgl9l36SlKDXzTNF3rIx6ZOk7ljN
+	 2Pp3E3J41H5pGGWTA0MWhL5CPCFXjOlfSlOGud5YaxIiz9y5OIaUhIADU+ezEg25QKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3ke6vTb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHQdnXf2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187A2606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFA26071858
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3ke6vTb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2241F0089F;
-	Tue, 10 Nov 2026 01:26:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZHQdnXf2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5A51F0089F;
+	Tue, 10 Nov 2026 01:26:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274007;
-	bh=VlC7vHz/YAz5S94pSZtYugvL8DaHuRoYley9P4fMRzY=;
+	s=k20260515; t=1794274010;
+	bh=gKAhdNasWD+QxXwxd4vVi3ZkobbAZ0nF3bF9H2DLe+w=;
 	h=From:To:Cc:Subject:Date;
-	b=S3ke6vTbqkfNeRmCavYAK433v1Iqi/VPMwV5Q+HU5g5QJFaI9imBB3JCZT2mrFXTv
-	 XxKa3p0h/7FQBckErzRJdZM3eA86iSxdalRquaz803r2Nn6GulD9zffl4d4OsaD9pA
-	 gfPlrMubT+YHSMR9BodjtaVvoel5nUxoozwVCVK4zEN6c5XoANfzcRzX5aXbDoZmd8
-	 OGUnQU3CgZ+jYcnr9KrGSppxSZymmj6GSsxIo1rgJ/fQ2oLZrn2ec7lShVzjNEG3Sq
-	 GVIRJuBDW+iEhyTSMYYVjcJCJcGF5tiR6ujUuW2SrVtaHe30ZyDYtj3oJTnRrlHmdw
-	 o4/CdMvoqJ6CA==
+	b=ZHQdnXf2D+cMK7Dvl5fIKmCjvxRI3JbgxQS5k4lJqW1zX3/87Etg5ytOwDNDuc4Zk
+	 SOZ4VHQykW7HZx1ugYeppDhh9L9jgk+eorhBsb7b8Du3glx2catQkRGmzGyl8wOqh8
+	 hpsPJh4ilE3KKWEH8RbvdGXH5uhtv5lmeWdcDlfroQTo4t7WawonixoShVZFJpXTQA
+	 Z+WwZn6k/iYyWjWgUYXGIIt0WHlvdcIQkr+v1DgNTlEzQLF8mGMMwLu5ctv+V/zT4X
+	 sJ0NU3GfodvNZLsZjQsrlaAAnEvK6u7UGpgs3QUjpqdxG/kzaLNJoTP+UnaMAgWhvO
+	 kTcU1Ttg9GD9w==
 From: Sasha Levin <sashal@kernel.org>
-To: edumazet@kernel.org,
-	kylebot@openai.com,
-	fw@strlen.de,
-	idosch@nvidia.com,
-	jiayuan.chen@linux.dev,
-	wang.zhan@smartx.com,
-	pabeni@redhat.com
+To: samarth.colleges@gmail.com,
+	akpm@linux-foundation.org,
+	lance.yang@linux.dev,
+	david@kernel.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] inet: frags: limit the truesize of a reassembly queue" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:45 -0500
-Message-ID: <20261109202645-failed-5.10-3ae20e4697eb@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/ksm: keep soft-dirty when merging a page" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:48 -0500
+Message-ID: <20261109202648-failed-5.10-2efc6332f18b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,117 +75,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3ae20e4697eb969104fe4b1e98a675f0100382b6
+git cherry-pick -x 2efc6332f18bfd848f74f3d5ba45b31450601faa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202645-failed-5.10-3ae20e4697eb@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202648-failed-5.10-2efc6332f18b@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3ae20e4697eb969104fe4b1e98a675f0100382b6 Mon Sep 17 00:00:00 2001
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 30 Oct 2026 09:12:25 +0100
-Subject: [PATCH] inet: frags: limit the truesize of a reassembly queue
+From 2efc6332f18bfd848f74f3d5ba45b31450601faa Mon Sep 17 00:00:00 2001
+From: Samarth Narang <samarth.colleges@gmail.com>
+Date: Wed, 21 Oct 2026 11:21:57 -0700
+Subject: [PATCH] mm/ksm: keep soft-dirty when merging a page
 
-The truesize of fragments in a reassembly queue is only bounded by
-the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+replace_page() maps the KSM page with a PTE built from scratch, so the
+soft-dirty bit of the PTE it replaces is lost.  A page written since
+"clear_refs 4" then no longer shows as soft-dirty once it is merged, and a
+soft-dirty based dumper treats it as unchanged.
 
-inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-adjustment of the socket owning the reassembled skb can cancel its own
-reference, leading to a use-after-free of this socket.
+Copy the soft-dirty bit from the original PTE to the new PTE.
 
-This can be triggered from an unprivileged user/network namespace,
-raising ipfrag_high_thresh and using padded TUN packets, which keep
-a large truesize after being trimmed by ip_rcv_core().
-
-Track the sum of the truesize of fragments in each queue, and refuse
-a fragment that would make it bigger than INT_MAX / 2. Callers kill
-the queue on this error. This bound is far above the needs of
-legitimate traffic.
-
-Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Cc: Florian Westphal <fw@strlen.de>
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Tested-by: Wang Zhan <wang.zhan@smartx.com>
-Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Link: https://lore.kernel.org/20261021182157.1873726-1-samarth.colleges@gmail.com
+Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Xu Xin <xu.xin@linux.dev>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
 ---
- include/net/inet_frag.h  | 9 +++++++++
- net/ipv4/inet_fragment.c | 5 +++++
- 2 files changed, 14 insertions(+)
+ mm/ksm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index b02d2472b003e..c1fb419a9cf03 100644
---- a/include/net/inet_frag.h
-+++ b/include/net/inet_frag.h
-@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
-  * @tstamp_type: stamp has a mono delivery time (EDT)
-  * @flags: fragment queue flags
-  * @max_size: maximum received fragment size
-+ * @truesize: sum of the truesize of queued fragments
-  * @fqdir: pointer to struct fqdir
-  * @rcu: rcu head for freeing deferall
-  */
-@@ -100,6 +101,7 @@ struct inet_frag_queue {
- 	u8			tstamp_type;
- 	__u8			flags;
- 	u16			max_size;
-+	unsigned int		truesize;
- 	struct fqdir		*fqdir;
- 	struct rcu_head		rcu;
- };
-@@ -172,6 +174,13 @@ extern const u8 ip_frag_ecn_table[16];
- #define IPFRAG_DUP	1
- #define IPFRAG_OVERLAP	2
- #define IPFRAG_MIXED_SECPATH	3
-+#define IPFRAG_TOOBIG	4
+diff --git a/mm/ksm.c b/mm/ksm.c
+index dbfb8f98b1892..910a1307ac9f3 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
+ 
++	/* Preserve soft-dirty when replacing the page. */
++	if (pte_soft_dirty(orig_pte))
++		newpte = pte_mksoft_dirty(newpte);
 +
-+/* Max sum of the truesize of fragments in a queue. This keeps the sums
-+ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
-+ * below INT_MAX. Legitimate traffic stays far below this limit.
-+ */
-+#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
- int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 			   int offset, int end);
- void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index c18da91c1f031..0b8d22ffafca6 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -336,6 +336,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
- 	q->rb_fragments = RB_ROOT;
- 	q->fragments_tail = NULL;
- 	q->last_run_head = NULL;
-+	q->truesize = 0;
- }
- EXPORT_SYMBOL(inet_frag_queue_flush);
- 
-@@ -446,6 +447,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 	if (last && !secpath_equal(last, skb))
- 		return IPFRAG_MIXED_SECPATH;
- 
-+	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
-+		return IPFRAG_TOOBIG;
-+
- 	/* An IP fragment is never a GSO packet, but an untrusted source
- 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
- 	 * that reach the reassembled skb, whose head keeps the first
-@@ -510,6 +514,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 	if (offset)
- 		nf_reset_ct(skb);
- 
-+	q->truesize += skb->truesize;
- 	return IPFRAG_OK;
- }
- EXPORT_SYMBOL(inet_frag_queue_insert);
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+ 	 * No need to notify as we are replacing a read only page with another
 -- 
 2.53.0
 
