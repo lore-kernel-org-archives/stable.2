@@ -1,48 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280340;
-	b=bGkUE6663MrfobGEAm2ppK/U4TQDfkJXn6O/XogyeV7iC5+nX9xGfgvJG3Xm3Dmpdhya
-	 xvZHyjKOJf0JCQWIvm4IhrYW/Ahbyjh6lBC65zcZvHNR+AABeE9DNasLaCYgbxDwx0xmI
-	 YwWDMLVEH0uk4+ovX63c2zrnG2M16xEvKcDygoD8mbG+pF4yKDo6gkWNUSV6otPa198OS
-	 77QsSrlNEK2JiZCcTCbdBZ525rnP/256OxVqmolgotCftVzB7znK145bMOPjbU4bqy9UZ
-	 sV2X+Ed/jk4N//nvHzU9VY1WQEi1j0z8SjlrTK33XPDRrLH+upEKaYVf3GPCeF6QQRA==
+	t=1794280342;
+	b=X7Z+cSEYTv6PJgJ0UEMadXXgi9f5voSujdM6tFrrImDnGHVCn7fgpp7HBl9VzmrcbRku
+	 LhPI0JEFbuGw/qImg4AdFRsisFJ9O0UphOqdx9MPwtyeBnP+d2QAEYzWQx2SZSf4E/Ygj
+	 dXlhFxED+zoE1JbqKj+CvYsE1Qi82beFk32/l5ZragpXBGJvVMNrPWrKpKLKmYsHCxey7
+	 ULLkMOzEXVjtUeF6VO/nySIKDT/6/owd0HyO9xOyrGsqxVVjwvVzDgbePqEXKHl9wupve
+	 n0UIYY2ay1uBAV3Wy/Ts2bYhD4ReBS/ZzlCKMjk5C97tYq3Z37iOhMt89OhsKhL9UtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280340;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=qqke9PMED+FLGs/bDq1q+x6lQYGaEXwMTGxveGhgiuI=;
-	b=Mts1LQdh2Qq+qy9OulJp5abjdtHRub4qz7wnGxCftWu7f+DeV4RJIYGc2d3Qg6avxulA
-	 Z5uIQL0a8kRFUvvzJ8C1cJ1YJlars10bjAXe0cG6OMhaahkF9BLv6U2yJkzHyaJVfED7s
-	 rhzf8MVzTHy55iiSu61+EbW9xgoSno8Nuemx5h1tUplREBVjbYntU8uvTEDnyJaJ1vOcS
-	 6OObgvTXGMexlys/m7e5mWq/WHumC0pvIwMkiLMIFwQOfdBSyZmiiQbiUBAiO7B7JBkMo
-	 MJRH0kSLPCnjk1GWX/i9gA1WU4MUnib/Vtamo/ZEcmtTRfkZOeTBtgpLuSwBXmx5iWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280342;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2v3JS1+37tp2y0d1uCztNRQ0OfftGDT7WHwoWOI5Js8=;
+	b=lBQ6OW3X/eOXN4oK+0WHzj2T5GopkAvOZ7CVraYOHekRqyvMPNN5QqNCRZ/g39VNAYM0
+	 EpBsaKxu19FS0SWED5ZIEItL1/DMa0g12t4x9S7Wk5cWsEIKYjD7/ZDob4Pl+AXxn3jqe
+	 DraL64mYX5UfWLk6n8dsI2JUrDtcU/YTjaUDb+ndZ1WC62iOCzNuT4W81y7niV2AiJPXC
+	 L5VCVUpiNtbBM0lYWVYMgMym0c+l1VTUlgC0MKEE+1I9P8QyP5oIHP2Nh+eDOqx4/bXCu
+	 hhu/tNu40usUZ+qS0WC0Z/itWBHexVhwYsaF5dm0XJIyKA8/6uM9HJxZDrLeCYo5Psw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	arc=none smtp.remote-ip=64.106.246.77
-Received: from mailsc.amlogic.com (unknown [64.106.246.77])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.121
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB0F606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:12:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CB0F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 9 Nov
- 2026 19:12:17 -0800
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-To: <stable@vger.kernel.org>
-CC: Jiucheng Xu <jiucheng.xu@amlogic.com>, <stable@kernel.org>, Chao Yu
-	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: [PATCH 6.1.y] f2fs: force out-place update for all writes on compressed file
-Date: Tue, 10 Nov 2026 11:12:04 +0800
-Message-ID: <20261110031204.1679-1-jiucheng.xu@amlogic.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261107052913-failed-6.6-a64a3fec11e7@kernel.org>
-References: <20261107052913-failed-6.6-a64a3fec11e7@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914FE606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 914FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07592476|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.386135-0.0825521-0.531313;FP=2385524740461372419|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=4;RT=4;SR=0;TI=SMTPD_---.k-dhHxf_1794280330;
+Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.k-dhHxf_1794280330 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 10 Nov 2026 11:12:10 +0800
+Message-ID: <13c1ffd8-4483-4a6e-8781-25143e12e6ea@open-hieco.net>
+Date: Tue, 10 Nov 2026 11:12:09 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,67 +45,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] hwmon: (k10temp) Stop matching Hygon
+ devices" failed to apply to 6.6-stable tree
+From: Lin Wang <wanglin@open-hieco.net>
+To: Sasha Levin <sashal@kernel.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: stable@vger.kernel.org, Wanglinwl <wanglinwl@hygon.cn>
+References: <20261107053014-failed-6.6-08e6615c909b@kernel.org>
+ <c86128b4-1ead-4645-aaca-4f2584faba62@open-hieco.net>
+Content-Language: en-US
+In-Reply-To: <c86128b4-1ead-4645-aaca-4f2584faba62@open-hieco.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4 upstream.
+Hi Sasha, Guenter,
 
-For compressed file, compressed write may fail and fall back to raw
-write.
+On 11/10/2026 9:19 AM, Lin Wang wrote:
+>> The patch below does not apply to the 6.6-stable tree.
+>> If someone wants it applied there, or to any other stable or longterm
+>> tree, then please email the backport, including the original git commit
+>> id to<stable@vger.kernel.org>.
+>>
+>> To reproduce the conflict and resubmit, you may use the following 
+>> commands:
+>>
+>> git fetchhttps://git.kernel.org/pub/scm/linux/kernel/git/stable/ 
+>> linux.git/ linux-6.6.y
+>> git checkout FETCH_HEAD
+>> git cherry-pick -x 08e6615c909b2504a5862764f3a7fca00c7ab066
+>> # <resolve conflicts, build, test, etc.>
+>> git commit -s
+>> git send-email --to '<stable@vger.kernel.org>' --in-reply- 
+>> to'20261107053014-failed-6.6-08e6615c909b@kernel.org' --subject-prefix 
+>> 'PATCH 6.6.y' 'HEAD^..'
+> 
+> Please skip 08e6615c909b ("hwmon: (k10temp) Stop matching Hygon
+> devices") for 5.10.y, 5.15.y, 6.1.y, 6.6.y, 6.12.y and 6.18.y.
+> 
+> k10temp works on early Hygon platforms, including with the reworked
+> AMD node code. Backporting this commit would remove working
+> temperature monitoring.
+> 
+> The removal is part of separating Hygon support from the AMD NB/SMN
+> code in mainline. These stable trees do not include that separation
+> and should retain the existing support.
 
--Thread A                                         - Thread B
-  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
-   - f2fs_write_compressed_pages                    - ...
-    - f2fs_trylock_op                               - ...
-     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
-   - f2fs_write_raw_pages                           - ...
+I missed 7.3.y in the list below. The same concern applies there:
+early Hygon platforms still need the existing k10temp support.
 
-Thread B acquires the lock first, which causes Thread A to fail lock
-acquisition and fall back to raw-data write.
-IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
-so f2fs_write_raw_pages() overwrites the original compressed data
-in-place.
+Please exclude this commit from 7.3.y as well, or revert it if it is
+already included.
 
-The in-memory node has been updated with raw-data addresses, while the
-node metadata stored on eMMC still remains in compressed state.
-If a power-cut occurs before the node is flushed to disk, on-disk
-inconsistency arises: disk data is raw, yet metadata treats it as a
-compressed cluster, leading to decompression failure.
+Sorry for the omission.
 
-To eliminate this risk completely, force out-place update for all
-write operations on compressed file.
+Thanks,
 
-Cc: stable@kernel.org
-Fixes: 4c8ff7095bef ("f2fs: support data compression")
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-(cherry picked from commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4)
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
----
- fs/f2fs/data.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6384ac931bb7..4a0bf44b3a54 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2662,6 +2662,13 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
- 		return true;
- 	if (f2fs_is_atomic_file(inode))
- 		return true;
-+	/*
-+	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
-+	 * If IO comes from compressed write path and fallback to raw write,
-+	 * force out-place to prevent metadata-data inconsistency.
-+	 */
-+	if (f2fs_compressed_file(inode))
-+		return true;
- 
- 	/* swap file is migrating in aligned write mode */
- 	if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
--- 
-2.55.0
-
+Lin
