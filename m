@@ -1,41 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280342;
-	b=X7Z+cSEYTv6PJgJ0UEMadXXgi9f5voSujdM6tFrrImDnGHVCn7fgpp7HBl9VzmrcbRku
-	 LhPI0JEFbuGw/qImg4AdFRsisFJ9O0UphOqdx9MPwtyeBnP+d2QAEYzWQx2SZSf4E/Ygj
-	 dXlhFxED+zoE1JbqKj+CvYsE1Qi82beFk32/l5ZragpXBGJvVMNrPWrKpKLKmYsHCxey7
-	 ULLkMOzEXVjtUeF6VO/nySIKDT/6/owd0HyO9xOyrGsqxVVjwvVzDgbePqEXKHl9wupve
-	 n0UIYY2ay1uBAV3Wy/Ts2bYhD4ReBS/ZzlCKMjk5C97tYq3Z37iOhMt89OhsKhL9UtA==
+	t=1794280412;
+	b=EbpKluK3O1Lt1eGo9wHuv/z5C24Ze0oA3C+GmbmETdqX6BTS3C0qP3O+6twGNrlhVi6W
+	 SPzW68imnPhdf1OWRhYlce2N8roZvaK0coBYSiQp3MzLwsQkkW2McyYf9NCaIqZvVNA+v
+	 pEOGPDTcreywpay8MavNz2/phGlNKHe3uflbI2wu9u59f8QYybZojEVodXyustGHl6MuU
+	 pUWBrPZkq+DVVQtz8FK2vCDVbtKD/EVllvh5R+OOf+N3EvXj7MV4I1NqeyQNlzbsPFj4C
+	 YzP0qn0BmCeO7P/xQKHa1Q+TTl5/VgiiT6VXouA7OvDLL+DPl6dckWbHrEjpIj1hpWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280342;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2v3JS1+37tp2y0d1uCztNRQ0OfftGDT7WHwoWOI5Js8=;
-	b=lBQ6OW3X/eOXN4oK+0WHzj2T5GopkAvOZ7CVraYOHekRqyvMPNN5QqNCRZ/g39VNAYM0
-	 EpBsaKxu19FS0SWED5ZIEItL1/DMa0g12t4x9S7Wk5cWsEIKYjD7/ZDob4Pl+AXxn3jqe
-	 DraL64mYX5UfWLk6n8dsI2JUrDtcU/YTjaUDb+ndZ1WC62iOCzNuT4W81y7niV2AiJPXC
-	 L5VCVUpiNtbBM0lYWVYMgMym0c+l1VTUlgC0MKEE+1I9P8QyP5oIHP2Nh+eDOqx4/bXCu
-	 hhu/tNu40usUZ+qS0WC0Z/itWBHexVhwYsaF5dm0XJIyKA8/6uM9HJxZDrLeCYo5Psw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280412;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-MTK;
+	bh=p2FBISASke6tj+A+Ecr6Vf40pR1tBsOCu9ra75n8WqA=;
+	b=Q3o5XbbB3H5wFDEZimrNrWdiX5xOb5xGrQgnpgGlI6m4+1qmvf6hRLSnyA2otwkyvRU/
+	 4u78b6ZYTWAHoMc3mVYI0jb+G9XrlXps7M53ei8Rt8scAvlTOvcuDFcoIljY256zYLSl8
+	 Y0ui5Q6xfuPcbIP0HiC+o8r7SUyNuOVi1xw99Y8zG1baCD2Xpwkb5FsEJndK1B3rk3M7F
+	 +hbkTBuqlEAJRweLEHnoteyxn9aAsRqD+/u2Yq2urZ5dmoTebCgGN9UpxbotJ2x5rMKGa
+	 /FU62gobrQSSOor2Tq3UM0XHkYNhSJVdCxKBfg5NcsJyxMaaZ/4F90FnI0c5e3uQi3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.121
-Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=RH+y4yIa;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914FE606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:12:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 914FE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07592476|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.386135-0.0825521-0.531313;FP=2385524740461372419|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=4;RT=4;SR=0;TI=SMTPD_---.k-dhHxf_1794280330;
-Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.k-dhHxf_1794280330 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 11:12:10 +0800
-Message-ID: <13c1ffd8-4483-4a6e-8781-25143e12e6ea@open-hieco.net>
-Date: Tue, 10 Nov 2026 11:12:09 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DB6606A338;
+	Tue, 10 Nov 2026 03:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8DB6606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=RH+y4yIa
+X-UUID: b0827e6adcb411f18dc8c9802ae25ab1-20261110
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=p2FBISASke6tj+A+Ecr6Vf40pR1tBsOCu9ra75n8WqA=;
+	b=RH+y4yIauMS4ce4h7Ne9FBc3kQtuxeFaPx7QopIXnuQp/jJLBaHBYTgUpm+q5n5vQhjWmXgwwWq7jigP6bmlxQdm9zW0YkDYnVgs7u7dOTTvQGnYuoBQlwKlgKhE0QZx9JL08IsU8QK6EWSw8d9UJeZNcSMG75dZr8Upx+Fap+s=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21,REQID:29fa2357-8a17-4e4e-8179-a1dbabb45871,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:b0318ac,CLOUDID:7a931366-4b51-4c95-bb1b-80ac6aad9c96,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b0827e6adcb411f18dc8c9802ae25ab1-20261110
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+	(envelope-from <emery.hsin@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 491402088; Tue, 10 Nov 2026 11:13:23 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Tue, 10 Nov 2026 11:13:23 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Tue, 10 Nov 2026 11:13:23 +0800
+From: Emery Hsin <emery.hsin@mediatek.com>
+To: <nbd@nbd.name>, <lorenzo@kernel.org>
+CC: <Sean.Wang@mediatek.com>, <jb.tsai@mediatek.com>,
+	<Quan.Zhou@mediatek.com>, <linux-wireless@vger.kernel.org>,
+	<linux-mediatek@lists.infradead.org>, Emery Hsin <emery.hsin@mediatek.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH 02/28] wifi: mt76: mt7925: fix MLO sub-link memory leak on disconnect
+Date: Tue, 10 Nov 2026 11:12:18 +0800
+Message-ID: <20261110031244.369014-3-emery.hsin@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261110031244.369014-1-emery.hsin@mediatek.com>
+References: <20261110031244.369014-1-emery.hsin@mediatek.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -45,59 +84,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] hwmon: (k10temp) Stop matching Hygon
- devices" failed to apply to 6.6-stable tree
-From: Lin Wang <wanglin@open-hieco.net>
-To: Sasha Levin <sashal@kernel.org>, Guenter Roeck <linux@roeck-us.net>
-Cc: stable@vger.kernel.org, Wanglinwl <wanglinwl@hygon.cn>
-References: <20261107053014-failed-6.6-08e6615c909b@kernel.org>
- <c86128b4-1ead-4645-aaca-4f2584faba62@open-hieco.net>
-Content-Language: en-US
-In-Reply-To: <c86128b4-1ead-4645-aaca-4f2584faba62@open-hieco.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Hi Sasha, Guenter,
+mt7925_change_vif_links() resolved removed links through
+mt792x_vif_to_link(), which falls back to the deflink after mac80211
+clears vif->valid_links, so sub-link mconf/mlink were leaked.
 
-On 11/10/2026 9:19 AM, Lin Wang wrote:
->> The patch below does not apply to the 6.6-stable tree.
->> If someone wants it applied there, or to any other stable or longterm
->> tree, then please email the backport, including the original git commit
->> id to<stable@vger.kernel.org>.
->>
->> To reproduce the conflict and resubmit, you may use the following 
->> commands:
->>
->> git fetchhttps://git.kernel.org/pub/scm/linux/kernel/git/stable/ 
->> linux.git/ linux-6.6.y
->> git checkout FETCH_HEAD
->> git cherry-pick -x 08e6615c909b2504a5862764f3a7fca00c7ab066
->> # <resolve conflicts, build, test, etc.>
->> git commit -s
->> git send-email --to '<stable@vger.kernel.org>' --in-reply- 
->> to'20261107053014-failed-6.6-08e6615c909b@kernel.org' --subject-prefix 
->> 'PATCH 6.6.y' 'HEAD^..'
-> 
-> Please skip 08e6615c909b ("hwmon: (k10temp) Stop matching Hygon
-> devices") for 5.10.y, 5.15.y, 6.1.y, 6.6.y, 6.12.y and 6.18.y.
-> 
-> k10temp works on early Hygon platforms, including with the reworked
-> AMD node code. Backporting this commit would remove working
-> temperature monitoring.
-> 
-> The removal is part of separating Hygon support from the AMD NB/SMN
-> code in mainline. These stable trees do not include that separation
-> and should retain the existing support.
+Fixes: 69acd6d910b0 ("wifi: mt76: mt7925: add mt7925_change_vif_links")
+Cc: stable@vger.kernel.org
+Signed-off-by: Emery Hsin <emery.hsin@mediatek.com>
+---
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-I missed 7.3.y in the list below. The same concern applies there:
-early Hygon platforms still need the existing k10temp support.
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+index 222836699d15..0a6c931843ec 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -2383,14 +2383,18 @@ mt7925_change_vif_links(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
+ 	mt792x_mutex_acquire(dev);
+ 
+ 	for_each_set_bit(link_id, &rem, IEEE80211_MLD_MAX_NUM_LINKS) {
+-		mconf = mt792x_vif_to_link(mvif, link_id);
+-		mlink = mt792x_sta_to_link(&mvif->sta, link_id);
++		mconf = rcu_access_pointer(mvif->link_conf[link_id]);
++		mlink = rcu_access_pointer(mvif->sta.link[link_id]);
+ 
+ 		if (!mconf || !mlink)
+ 			continue;
+ 
+-		if (mconf != &mvif->bss_conf) {
+-			mt792x_mac_link_bss_remove(dev, mconf, mlink);
++		if (link_id != mvif->deflink_id) {
++			/* STATION already deactivated the sub-link FW BSS in
++			 * mt7925_mac_sta_remove(); AP has no such path.
++			 */
++			if (vif->type != NL80211_IFTYPE_STATION)
++				mt792x_mac_link_bss_remove(dev, mconf, mlink);
+ 			mt7925_p2p_bmc_remove(dev, mconf);
+ 			devm_kfree(dev->mt76.dev, mconf);
+ 			devm_kfree(dev->mt76.dev, mlink);
+-- 
+2.45.2
 
-Please exclude this commit from 7.3.y as well, or revert it if it is
-already included.
-
-Sorry for the omission.
-
-Thanks,
-
-Lin
