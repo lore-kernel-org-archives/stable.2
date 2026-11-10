@@ -1,59 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313002;
-	b=kMqId9HepMeB8Wkulkh+ggAcC1bjFBzEj3cpaob39JL7NCdlcecBkN6DGsiGRQRIWgj/
-	 nmgtJkNtWWkdYwY0s6zetUyor3A4JDqT6Zg/cpeGltKQ0R1FGRjnjWUJLg6dyRzOC8UGn
-	 i+yHDvVEh1080+T4vuGquOLEm3kGQ8CCkHNfl8FRyFACJmBVgMfdB4SlVVOFgHYIGaGkl
-	 Fx1RbPU1ZSwdn1cjFyLXQpUqlix919QQljVvT/t6ljufOi2LbpP8IzOeAGpdHiD1t7nSU
-	 1LlOZB8k1gUFiBRhBmLnEAZuHHZ/MBmpH2vhiXO6FaaJhhzZ8ru9Cuu0fucllt3o5vw==
+	t=1794313050;
+	b=YhbNhez7hybaQCyYkEHEJKT1SCL82Bys9UoZVgAcMVIfx7mmdpJOpy8wAYESkvkZFBcC
+	 P89Ys2gDoQ4GEoClybDeEnsojEbvFBXV67f4oIiLbYkNyy5zpSFmUGelaLNtndk+Q68PB
+	 Wc92zP7imi2kBx85QBeJ7PGL4/cLhqU2gBC00BpIJN3xhIoOSKxFd8CGme4uarOKYEag0
+	 o7+t+qjfI9HLv0+kdukTcXa/TtvR/aB1OZRUSkVck+SujJDThugHOs4KXolPOYjeHK+kx
+	 SkhlnbI8DT59BrcFFJ9EbR5IVXVI7HRahRhKPVUYIzZ357yPUhRFb4LgbRNuKGf3qUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313050;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+aktWRoGit5nV94N44Sm86fVZitGc0XsKrr4MgAGGVs=;
-	b=t6RN5H7pdt9ADeD+nYLZ37ZVE0BHn88nQIeuHuoF+45H603rTQARb/IwpYQDvAZ+0bY/
-	 EczA5GNwabqVostzNKVoIwSuxlCsneDSlurkiThVaSdmVZIry8++83FDC5sZZAcIvr9B4
-	 CbYnJoyxkpGf6zvGLtwqnns+TZlPpfnVHuZNrtaWwekwui83OXW2QxCzB2HErr7qCmJC4
-	 md0aS+sZAu+HKnagauSR6BTRP1GHNEt4yegLCkh3j4spjWEKAbpPcEd8ErIOv7FYQjYx/
-	 OR/oIMYcijlDmCI/i8eLJzBGDBas3OEjq5RTx5Lkd0tY7lC++DpmJHF83iSA/frmHaw==
+	bh=WBxQQnWqn8xpSa4uWOtz9x2P6f57tQ3RLc9we7BAdhQ=;
+	b=RgqZS+CV7HFGzsBqBsYsjKJNSOJkeymiSxRf0keXYXeYnLbvKjuT3MUVm5r/8yWOvxsw
+	 oh18zlkQcn2opGMrg2caDy/LVbJ/zbSP2Oa397GaL0PmGFR/qqSRKzPSG7cFFNm+DQFBn
+	 k1MVZaObA9MYPeYhoPuEMKBkoXrdh6n+AqUR8FxPrYWXAbr9ZEwfEmUEtIy4vowb1F4m6
+	 WtVwII7dhSzZ6LjBWDZMZUtc+3pMbvreyGIENgABhpxN878HS/lxNPII8hMqYsHBmzebC
+	 H7mS3lhwDCRhTSBGsKmlmjwBJAfPe2ZudbLHJAchcVV7QIS16cIFO63r40+Eq9NNh1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9yCaSN8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NK3I2VcY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4CE606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8A1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:17:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9yCaSN8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9621F008A1;
-	Tue, 10 Nov 2026 12:16:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NK3I2VcY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712B61F008A1;
+	Tue, 10 Nov 2026 12:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313002;
-	bh=+aktWRoGit5nV94N44Sm86fVZitGc0XsKrr4MgAGGVs=;
+	s=k20260515; t=1794313050;
+	bh=WBxQQnWqn8xpSa4uWOtz9x2P6f57tQ3RLc9we7BAdhQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q9yCaSN8zYo1WsnSBpd5DXc8YcfZLT8wJ8M/Ip6yVyihuzb9z/ULZRB2u/Hp5Wrku
-	 W3+8B3CCIiFNbZWGxhWoieLradKG5Bz7s/9oKa8a0ma9n/FrZHARxFZ9/Q+6WKqehB
-	 llpjKozZ+xotlFLVcGScDHDhlMoTXlenKgiJE035+qUgnQjwqh5chVcQFDMmUq8RSC
-	 wfppFss9MrGc8j1msLZqgJrylSnHKZfZvrzrdiCqKiyAzWPvo1R1Zh7Lp/Pq0cq1L3
-	 TE2o9dITHphrgtTGljxDRPnE5vZdxjsaeszSdyZeHXrSAy6AsAiJZ4MLmUV6uOxjOT
-	 Q6+1KRbgAZW1g==
+	b=NK3I2VcYSOogF1sbryB8LOlzpj8g+JzVGZ2W2GZO0fj1ppGx+9XHegrSO78MR5rRL
+	 COZmYhKfC9h/TFaEeTIIwpNTK3kF+zTj0Mr3Qcs4OYTcI/QXY7b54LZNRED4Ywqv8s
+	 wc4HS9pAXETeQPi1ozKatTjCwZSFkKbrKsuxeZPAl85Jb1p+ZgM8gcVM67TnoX5dnn
+	 0fqqeBmNXwZpZU950+nMJzrw31+m9l8/pbTa4hnTi/D6bbYFlbavFGPrhEfWRCv9vw
+	 /kQqwfGPrFeeqxf/f9Yk85kszloSfZOQtW7WppveGZWNhLQeIA6TXTI7zlhv9OEKtC
+	 fU/GptqSaPewQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jan Kara <jack@suse.cz>,
-	Yunpeng Tian <shionthanatos@gmail.com>,
-	Gongming Wang <gmwgg05@gmail.com>,
-	Mingda Zhang <npczmd@qq.com>,
-	Qinrun Dai <jupmouse@gmail.com>,
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] udf: Make sure there's enough space for LVID implementation use field
-Date: Tue, 10 Nov 2026 07:16:39 -0500
-Message-ID: <20261110121632.1067415-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] iio: adc: ad7192: Revert "properly check spi_get_device_match_data()"
+Date: Tue, 10 Nov 2026 07:17:27 -0500
+Message-ID: <20261110121716.1065395-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110121632.1067415-1-sashal@kernel.org>
-References: <20261107061427-failed-5.10-a61fb39759d7@kernel.org>
- <20261110121632.1067415-1-sashal@kernel.org>
+In-Reply-To: <20261107051802-failed-6.12-7f7a119a370e@kernel.org>
+References: <20261107051802-failed-6.12-7f7a119a370e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,45 +62,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jan Kara <jack@suse.cz>
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-[ Upstream commit a61fb39759d719a4f4966742b4d28387e33d81c4 ]
+[ Upstream commit 0309e66abea141f3ec339b064b8f8b8003d2a634 ]
 
-udf_lvid_valid() verifies that the LVID has enough space for all the
-tables and the reported length of ImplementationUse field. However it
-doesn't make sure the reported length is large enough to contain
-logicalVolIntegrityDescImpUse structure which OSTA specification
-requires. This can thus lead to accesses beyond the end of LVID buffer
-for suitably corrupted UDF filesystem. Add the length check.
+This reverts commit b7f99fa1b64af2f696b13cec581cb4cd7d3982b8.
 
-Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reported-by: Gongming Wang <gmwgg05@gmail.com>
-Reported-by: Mingda Zhang <npczmd@qq.com>
-Reported-by: Qinrun Dai <jupmouse@gmail.com>
-Cc: stable@vger.kernel.org
-Fixes: 781d2a9a2fc7 ("udf: Check LVID earlier")
-Signed-off-by: Jan Kara <jack@suse.cz>
+The added code is currently a dead code. Moreover, the driver is not
+designed to have any defaults effectively making driver data a mandatory
+information to work with. Taking all together, revert unneeded change.
+
+Discussion at #1 concluded in agreeing a new policy on this for IIO.
+
+Link: https://lore.kernel.org/linux-iio/20260217080514.1288115-1-andriy.shevchenko@linux.intel.com/ #1
+Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: 7f7a119a370e ("iio: adc: ad7192: reject devices without match data")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/super.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/iio/adc/ad7192.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index 58bc19b82afa4..6994cf6a09d66 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1581,7 +1581,10 @@ static bool udf_lvid_valid(struct super_block *sb,
+diff --git a/drivers/iio/adc/ad7192.c b/drivers/iio/adc/ad7192.c
+index 6fe32f866765b..02328b9115756 100644
+--- a/drivers/iio/adc/ad7192.c
++++ b/drivers/iio/adc/ad7192.c
+@@ -1394,9 +1394,6 @@ static int ad7192_probe(struct spi_device *spi)
+ 	st->int_vref_mv = ret == -ENODEV ? avdd_mv : ret / MILLI;
  
- 	parts = le32_to_cpu(lvid->numOfPartitions);
- 	impuselen = le32_to_cpu(lvid->lengthOfImpUse);
--	if (parts >= sb->s_blocksize || impuselen >= sb->s_blocksize ||
-+	if (sizeof(struct logicalVolIntegrityDescImpUse) > impuselen ||
-+	    impuselen >= sb->s_blocksize)
-+		return false;
-+	if (parts >= sb->s_blocksize ||
- 	    sizeof(struct logicalVolIntegrityDesc) + impuselen +
- 	    2 * parts * sizeof(u32) > sb->s_blocksize)
- 		return false;
+ 	st->chip_info = spi_get_device_match_data(spi);
+-	if (!st->chip_info)
+-		return -ENODEV;
+-
+ 	indio_dev->name = st->chip_info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	indio_dev->info = st->chip_info->info;
 -- 
 2.53.0
 
