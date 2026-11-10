@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318537;
-	b=yhgF47mzfGe8pwj2JSO2DjBgMWQ1Q5rkArhQ3PumTlryXDx4SXZ84mVn3F03Z0FIiYw3
-	 2AaZCibpNNQgp3AoVb+jQZHcOhNZjSzTbxVpz1pCbEI7nDO5SeOfQjQbYgDOSMRgsomLe
-	 i9qR8VhP6oepQ/toILD1+9ms/cnC1UtAAHST8o0ygkmT3kLWS4IcEzQpXn4iOI0FDgU2l
-	 QSm6L/qvNX3ntmlbmdjppevb4ie9Amnd+ulAQ6YCrqCv1BSzYUCJsAQGJH0+zLx1Fqs0X
-	 FreysMdPIrufz97P808yD0oIdXBwNCwc0Guh26RSdq1b4IjJ49Ht4glJDuXSrzuzq3w==
+	t=1794318559;
+	b=P/KESyFXptns5GAb6Vce4cfdE1z7RgLs7eHs1KLexr62xWicbLn7HwHwXvbLicsoAFIj
+	 s63UxRNANPhySjeuPzPsbjLuUENPGzF4WPRbYvr/ZmcwfL0Mj96VHyO9G1dnj5CKvTNh7
+	 KCEfKWLvNZ0EAYS+6ShW+WVwWmqRTNCvU0l3dCVGsYsI00c/c3rTxGzrsWUn02CFxJkG9
+	 Kkt4k+JTvDNgaxhXRE0vU9jXAsH8X8ALMaU82ul484+vc9cHyCEpCZvZuS/ui4NfFiVRO
+	 yZcreoMK1xCvtmLG5L6mypXYmu4vacZORl5lJ3urHc05zHfFfTL1Ftjc9f6b/oFdpVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318537;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gndjf7aFT+hCYUBKXAUjQiEIBojTbevvLFHHCbIYzhc=;
-	b=OMKIAW3I12CgPXPkMdHzi+FcmbJa8BuKhVq/IDTyGJQWY2khGelJFT0DhTqhNh5SZKE+
-	 zxzP5BAzsP4gwnBYWp+iL7wKVGTZHv2Yw+atV875ToqWshCKJsEI1hmbYFkh2jKDqw1pw
-	 wOhKqxXNNMMIZy9lsYTp6zt20rjp/CFQSSZC7eedq+QOgOpNZrgij2D+7/n7SRmm+9BKP
-	 uP6zI+Tc1Fl3Jt3xVNTAITgpBOlSIaxDK1d7BKc6st3C9NxnVlTTGBxyxwVTllbnkYmKK
-	 cENC1wjBub1G4lQzPlYwBH2bBgMFloDNedsqJ6kBK3a6tAdcGd7w3ogYI5mh++zGBRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318559;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=EHH5OGxpoVk6ds8PGQ+JRZl4y9QyMOHFhhVuIrySAJ8=;
+	b=5LojbSdHzwu3PY0E1EsIPajFw/e4csECVjaDe8A5pQAlR1GsCZdx11yhgm6kwtplwbHM
+	 5l0tOzEBYpyHjiEwjIT2sSKubvDXuC4zWd8ZYEubnWpRoN0W7t2XFyvhy8cmZqglZCXAn
+	 ZQWqZVdEi75CZQ2OUoo6Zp/V0Vnf6Ue99zFHnpyRXg6P4xZf91UPThTgeL5QAcSapJ0ai
+	 EL/CUeLq1HnsmEpHVbEUEImPOtelGWaB2PWXf5JhkV6IrLE6xdsPjgG/lZOCodnp7T0i5
+	 uOdshwBrYLeCOFb0FUXgxkk4Bxk9dWpBTjSEgOVLiqczTj0ZPHrVeWOMFA4cLuXRYrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2agSBXV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pl6VXl6a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91125606A33C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AB960A2601
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:49:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2agSBXV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308A21F008A1
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:48:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pl6VXl6a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 242A41F008A4;
+	Tue, 10 Nov 2026 13:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318537;
-	bh=gndjf7aFT+hCYUBKXAUjQiEIBojTbevvLFHHCbIYzhc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=h2agSBXVWDGlNK9B8Wi59uwx9iD4hHre5yp2xvOmZBaVaR2ECFrVjhRqhsbABasRd
-	 iGA+/lnU1bj4NyKsZwawF2pmKWq7+Vp+rgZQXaVaO8FQXor6K80LyBdRnix7/PgTPm
-	 fv57qHdjaE2ogO8kUjinEXaCpK6LW7hAZ0TNL+W062JjvkrtHBzzbQuZdUJIygd5Hq
-	 KZtW4wy2LdHLsyuaat+KQGRaNFg2HlSGJ6mupJC09tVrbSO4zqddCWH9g9IoDQKsSJ
-	 KgD1Li9mzZucieHObtF6YwDzv6Re1AN3/riDnMNaI/2zPVdEb2XfoKSwuqJWVpl4TV
-	 8MK1++ZmGQMqw==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3adfe77d336so15790741fa.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:48:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHpAFI47Y4HKZv63wskrsCBeViKI3RVSfXgK3WucQU/+irqXbr2dnqWCIXYNBe2+ycGDhlNY7c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gQUgV6pJ3hSUgc7u6EAMkYBbZpjj776SZCPU4xF+V4mBtqOVY
-	hUPb9ol/LndZ3FHFqs0F4cUeXwI9K/6iyCmx5oUs61APYrPzmENy5v90PKjN1ZNLAzRFu5UnEFx
-	61O+E2p6rTSSOriyGJa3Af8jb1Fi+HXk=
-X-Received: by 2002:a05:651c:2214:b0:3ac:ff0a:9d86 with SMTP id
- 38308e7fff4ca-3ae096202efmr5199701fa.15.1794318535632; Tue, 10 Nov 2026
- 05:48:55 -0800 (PST)
+	s=k20260515; t=1794318558;
+	bh=EHH5OGxpoVk6ds8PGQ+JRZl4y9QyMOHFhhVuIrySAJ8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Pl6VXl6aPvqGI5AxSpFV8yLSu6AvmJ95L7777aN/KOpK2v3eBir32beC3SgJTxTMa
+	 7EOgD5BdTQO06HEaZN6rE58k+jlFzuMVmygxEvShk51nqs6qZzAdom01t2FeHXoAO/
+	 Y6BcwpLisKFgQm3zlUfYw5xwAY3TWAadeD6DxkIoD8NICkCPTcZQkKLIQvh3jj6rj4
+	 +G5Rs959EatPOx7HRuZT7H+UC3Tvun7zExNzNEG9aa+Jt4bC1wAlA9Jqe42eELj568
+	 kgkPNJDhBheE1hflA+s7ihoObykAAb03Ku3bss1LIUr3gciqwE3APS3GHWz7cnKC9b
+	 FnUq1spOrrQog==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: bui duc phuc <phucduc.bui@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/3] ASoC: stm: stm32_i2s: Drop redundant error messages
+Date: Tue, 10 Nov 2026 08:49:15 -0500
+Message-ID: <20261110134908.1790593-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110134908.1790593-1-sashal@kernel.org>
+References: <20261107060220-failed-5.15-1b207c85551f@kernel.org>
+ <20261110134908.1790593-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,80 +60,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107201553.9268-1-asaba90@gmail.com>
-In-Reply-To: <20261107201553.9268-1-asaba90@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 14:48:42 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jhQZeim_dmXG=CHsfjffY6irXfRSgRP7vwVGz9J+=OWA@mail.gmail.com>
-X-Gm-Features: AclHuK8Gi7vmCqKEjt2tT4GrLFgpWm1NuYKWB8dsvjv73V1tYGJ7lnDd1dWpliE
-Message-ID: <CAJZ5v0jhQZeim_dmXG=CHsfjffY6irXfRSgRP7vwVGz9J+=OWA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: EC: Add quirk for Lenovo Yoga S740-14IIL
-To: Amir Sabbaghi <asaba90@gmail.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 7, 2026 at 9:16=E2=80=AFPM Amir Sabbaghi <asaba90@gmail.com> wr=
-ote:
->
-> On the Lenovo Yoga S740-14IIL (81RS, BIOS BYCN29WW), the ECDT
-> advertises GPE 0x6E for the embedded controller, but the EC is
-> actually wired to GPE 0x43, which is what the DSDT EC0 device's
-> _GPE method returns. Since the ECDT and DSDT EC share the same
-> command/data ports (0x66/0x62), acpi_ec_add() keeps the ECDT GPE,
-> so no EC events are ever handled:
->
->   ACPI: EC: GPE=3D0x6e
->
->   /sys/firmware/acpi/interrupts/gpe6E:  0  EN  enabled   unmasked
->   /sys/firmware/acpi/interrupts/gpe43:  0  EN STS invalid unmasked
->
-> GPE 0x6E never fires, while GPE 0x43 is left enabled with its status
-> bit set and no handler, so each SCI it raises is counted in sci_not
-> (about 7/s, 1.4 million over 55 hours of uptime). As a result, EC
-> query events are lost: the brightness hotkeys and several other Fn
-> hotkeys produce no input events at all, and battery/AC notifications/
-> laptop lid event are not delivered.
->
-> Add the machine to ec_dmi_table so that the DSDT GPE is used.
->
-> Tested by overriding the ECDT through the initrd with a copy whose
-> GPE was changed from 0x6E to 0x43, and later by applying this patch
-> and removing the override. With the fix the kernel reports
-> "ACPI: EC: GPE=3D0x43", gpe43 receives events, sci_not stays at 0,
-> and the brightness and other Fn hotkeys work.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Amir Sabbaghi <asaba90@gmail.com>
-> ---
->  drivers/acpi/ec.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
-> index a89f10256..7c0643d5d 100644
-> --- a/drivers/acpi/ec.c
-> +++ b/drivers/acpi/ec.c
-> @@ -2007,6 +2007,16 @@ static const struct dmi_system_id ec_dmi_table[] _=
-_initconst =3D {
->                         DMI_MATCH(DMI_PRODUCT_NAME, "HP 250 G7 Notebook P=
-C"),
->                 },
->         },
-> +       {
-> +               /*
-> +                * Lenovo Yoga S740-14IIL
-> +                */
-> +               .callback =3D ec_honor_dsdt_gpe,
-> +               .matches =3D {
-> +                       DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +                       DMI_MATCH(DMI_PRODUCT_VERSION, "Lenovo Yoga S740-=
-14IIL"),
-> +               },
-> +       },
->         {
->                 /*
->                  * Samsung hardware
-> --
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Applied as 7.5 material, thanks!
+[ Upstream commit a6cdfb6230944082e7be64f9166eed64656b1162 ]
+
+Both devm_request_irq() and snd_dmaengine_pcm_register() already log
+failures internally. Drop the redundant error messages and return the
+original errors directly.
+
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20260720074044.87528-3-phucduc.bui@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 1b207c85551f ("ASoC: stm: stm32_i2s: request IRQ after regmap initialization")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/stm/stm32_i2s.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index cd91d59ce227a..2f277e5390ddd 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -1077,10 +1077,8 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
+ 			       dev_name(&pdev->dev), i2s);
+-	if (ret) {
+-		dev_err(&pdev->dev, "irq request returned %d\n", ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	/* Reset */
+ 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
+@@ -1135,7 +1133,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 
+ 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
+ 	if (ret)
+-		return dev_err_probe(&pdev->dev, ret, "PCM DMA register error\n");
++		return ret;
+ 
+ 	ret = snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
+ 					 i2s->dai_drv, 1);
+-- 
+2.53.0
+
