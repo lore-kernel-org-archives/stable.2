@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311201;
-	b=X8WvBNGJKb2PenRdnIo28IvqRE1d7eHFxiYUZGMviIZYzOkg1CZ1ifdBplpmKzh+tfPa
-	 FaZ2b8V2Tvbg9Zp9NIu9ncbz5BwrdR8rrm157M3f3NKnbrK7tvVrfMBVNqZ5cAiBDSzJ+
-	 QI5YlzlD/STR4XCGeNDCTKlyRqq/bIvmmcqSyyHi9d8P6MTCNffxYIO3matso4o0zS4mj
-	 kT3mGpvVv93Nn4Cej6YJ7zyuNaAfsXI/Pzt/pdlBw1KBOGIJQjyzPNqqJK6jP5WZc+Jjz
-	 qUrspTjOwIGWRr2kA4XE+orutlFqB6b7Zvv1EQhlx/BVanW3cIPKaoQWs+8KdLsnGMg==
+	t=1794311212;
+	b=K0a6lBtKkdregFpHuzNyQLBHlm2VMsJs4NmqiueiLUHIRUg6c048rlEwIwRfcHlvwEnU
+	 DmNjgr+L2i+nPkpLNjiYA9/bs8gydb5cAJQH8RXJ9pB7HIM3G9bMZzmj1eCjHzs1CTCeW
+	 VEcDklDjdRr5yuSWxpsybhsHodexRoHIwpowM1zRnihlxHptnuDGqLsgLQnDUg9LE4VOC
+	 fWnFZjls063rHxLwLurd2gt9f3QtjB0WR3lEFBqZpZzSNmj3pcJkDbVH4GD+6UCBO1nbu
+	 07OwqA7LbRiq/9dxZovib3vwL9KpNSAPISvKEIC8SoOw6vjTgBsIG0t2VQP4PX4ZGRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311201;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z0RbsDiQgZF7rK2SoloJ6T60ditn+MWkzuqDZufg570=;
-	b=uElAChwM+8RJTaqzLxfIXlVQEKL9MhoB6tNLp/zVafLLiQFTQgFNPSHDecMVSqE3qLg+
-	 +RDWWFtx3YhFq5qOLIiPMfCOtbA5irKoi8yn+S6D4RXytSeDDPnJ1+5yTwiWZ2xKPuGhS
-	 Em0sgbUdu8r3HLwJzrpaWqZIkQJpdHn3x3AgY9MqAs20JiGVewiHqkTLdajTzDUKMV19w
-	 PWbFUAp712lr9GP6f/QHLuuEv/zQIglq7A9EWD16dHygJM1ERuxuIOyKyiBtdRLgff5iM
-	 qrvaXfeUw7PQ3hrBUeaVuR8iW9U9gRYOnXpKVy7TbEowS4R8WYi9L1XRFAEPOnCvrhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311212;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=TMjTt/yM65LJnfLBEkqU4HceoGuAe/XUxe0Ej6UzqFs=;
+	b=jQdrgGgfgFfoXAMT4bQYG7bGOGJgi2esdNbdu/Q+cJdlqS7EajnFEIXAx6tv9plYLLxT
+	 RBxniq7jEIeJ+fa7ao2evWQGQ7+7edVoZB7TeEv+G3pAMP2tlHXNtbOkBqO/krloD5nEh
+	 FMrrj1UQWkcEwcXH002TnVZYW2eIbAE9xLrBQZMK1t8jkwdizoQaYTv67O72NAhKNh9Nb
+	 cE9HIZvSAdS+uymkOGhyyKiwoO0AEbrbcTCuYmMZcljrFlSGI2bJ4zp8wocxcnua3QYoB
+	 iMPH9T4gK+41EZzJAVAjbfU6Fu+j4sCWgXBsXrgjyCBI5wiu0MfvNompmg2F9HJBLcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=om5hDtwX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyixgFAg;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F523606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:46:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12412606A32E;
+	Tue, 10 Nov 2026 11:46:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12412606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=om5hDtwX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DD181F008A2;
-	Tue, 10 Nov 2026 11:46:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311201;
-	bh=Z0RbsDiQgZF7rK2SoloJ6T60ditn+MWkzuqDZufg570=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=om5hDtwXwsQqsKOXfMPLf+Jn2f4X/lirNhSdtMSWrBUiA35ZKBAneaaNCQv5RLozy
-	 rz+Sj8a+pvSwnR6/ZP1TbPQSmI+d4XEjdKoLZxOnLKsw9oGPnGgfg/fGRZJnl+ISs6
-	 YpApyQsycjdtouUlag0zQvmj+1+xqH7nJLFqEV0EeNS8ftCh8aGLrc634bjkOQ9XVA
-	 nKK8DWKXl6rO6NGFtFYFLvqykhfLLLZifllwJOq1gnZWbuYF6m7cpvhB2856cede7+
-	 AG+RFvL8h/M+/qOTlUVurpRIHKbii9hhfbtiYENCdhe2MolZ6vrDdcZwzebJWlfds8
-	 288b+JdI9VVAA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] KVM: arm64: Use kvm_s2_fault_vma_info in gmem_abort()
-Date: Tue, 10 Nov 2026 06:46:37 -0500
-Message-ID: <20261110114632.607777-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110114632.607777-1-sashal@kernel.org>
-References: <20261107050354-failed-7.3-80b0b86dc5e4@kernel.org>
- <20261110114632.607777-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=iyixgFAg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=TMjTt/yM65LJnfLBEkqU4HceoGuAe/XUxe0Ej6UzqFs=; b=iyixgFAg9qREIYke8njMawXuIx
+	m+6DM4Uqz9vuRKRMNTS0WtEuw7lwrRzO+dqy61GCeyqhy/5nfW/VPdGm+Q9QyBvuQGWkMSkMK7lPI
+	MGk/hYTjmx9FbtzL9vBmtflZ6A1gUpXHjVEp/jB3Na/Q4SqPsQe2m+a/oZ/sRsfzEVunoXZSzi5+o
+	pmLhZuxFG16tl6QgFE9g5fn/7IfTQYgAAee5GlO/OWWUy6qbfBFppcHComW9Sb11YqYo6l3AMb0hO
+	61bPtWO+VfG30QK+x/Ewx8Usbm/VHCYUwt2AZWKncW5rYsxbB9rbccgIA2dXwP5XiQvhfjCnXWzZG
+	nPDYeeqw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQkJH-00CNSq-33;
+	Tue, 10 Nov 2026 11:46:44 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 10 Nov 2026 03:39:27 -0800
+Subject: [PATCH v2 1/4] writeback: add the missing newline to the slow
+ writeback report
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,173 +63,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-writeback_stall_report-v2-1-9e0ed75074ca@debian.org>
+References: <20261110-writeback_stall_report-v2-0-9e0ed75074ca@debian.org>
+In-Reply-To: <20261110-writeback_stall_report-v2-0-9e0ed75074ca@debian.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Julian Sun <sunjunchao@bytedance.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, cgroups@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>, kernel-team@meta.com, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1238; i=leitao@debian.org;
+ h=from:subject:message-id; bh=NeGmKN3thvdahCzcgtVy86L0XUPUwXecQRMKsZHaZVs=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8wQYn+tO0/VLlCpKrWAiFk/NDyAXlM8rdRiIY
+ 5NVV3z7jQmJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavMEGAAKCRA1o5Of/Hh3
+ bWPjD/4+JCpUjzQC7+wpcfuUqpIQ257Du7Kdozk0zxWRhZyLexwAvUq8MrMgAjj9pnefRjX9WH3
+ bWh8IdLz/x6p/emum/ddOOCpq3hS+yUpA/Nw95efr5YI8+ZvmnfA5ktJxMMv2sJz1oBmluexzFA
+ nZeObq4sZfp5rXLA19Y7xnISHT2sbijtsVazm1m3J7obgvMW0MIgiKIfHB2pMEVOlxBa3i3lZQb
+ SDnuQUj2GQHnRCUUSsvmSqF6vhFkp0dRey95qurL+iKwKPt9kIF5u0vXJEHWNQzLwUYEluPPYLJ
+ McvMXURJb8e/B92meu65MID8Dl/2R/RkF3Qs0lUq97w9oqZzyUcGYzftDhvC/hOzGh/+mG7OWGm
+ J7Z0jhZWaMpZe/VP7J8D+XYMv5uhZrw96OUGkxSc1Rr3hkq0EauSRPUszKGN/MmEJgIQ6lLqsrp
+ OPVBX9zrFualqhV/iPBqMe2OpO5kM/4zZKY/FAz1VVs8WP6YrSrrCyLFblXa1cNheJiSgM0XGfi
+ q+AAV7axQ6aiP1c9HaHF9cv8T5jhlpXvsFsiuBZNUQ/a3RevfIE300XwXtpANw7qu4lhGMipzqS
+ 8xT3Ci+znxzd8wA7nVV3xaEj+NHOdyfyPQ1QvQKO++VKHpyrwJfguFsWJpBK4+xXUaAfqZ53tx2
+ GZBW8VwocVvy/9Q==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+wb_wait_for_completion_cb() reports a writeback wait that exceeds
+hung_task_timeout_secs with a pr_info() that has no trailing newline.
+printk() keeps such a record open for a continuation and does not
+finalize it, so dmesg, the consoles and netconsole only see the report
+once the next message is logged.
 
-[ Upstream commit 80b0b86dc5e4344e62a2fd3ee43d0ef816fe9122 ]
+Terminate the message with a newline.
 
-gmem_abort() maps at s2fd->fault_ipa, which HPFAR_EL2 holds at 4K
-granularity whatever the page size. The generic page-table code aligns
-it, but pkvm_pgtable_stage2_map() looks up existing mappings over
-[addr, addr + size), so on a pKVM host with pages larger than 4K a
-guest_memfd-backed guest that faults past the first 4K of a page can
-find its neighbour's mapping, get -EAGAIN and take the same fault
-forever.
-
-The memory fault exit reports s2fd->fault_ipa too, which for a nested
-guest's fault is the nested IPA rather than the canonical one
-kvm_gmem_get_pfn() failed on.
-
-Take the addresses from kvm_s2_fault_vma_info instead, as
-user_mem_abort() does, and report the canonical gfn in the memory fault
-exit. kvm_s2_fault_get_vma_info() itself isn't called: a guest_memfd
-memslot's userspace_addr doesn't need to be backed by a VMA.
-
-Fixes: a7b57e0995927 ("KVM: arm64: Handle guest_memfd-backed guest page faults")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260913175105.A57AC1F000FF@smtp.kernel.org
+Fixes: d6e621590764 ("writeback: Add logging for slow writeback (exceeds sysctl_hung_task_timeout_secs)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Link: https://patch.msgid.link/20260928095454.3255918-4-vdonnefort@google.com
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- arch/arm64/kvm/mmu.c | 67 ++++++++++++++++++++++----------------------
- 1 file changed, 34 insertions(+), 33 deletions(-)
+ fs/fs-writeback.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 291696dda0741..9ebc17d3e0c00 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1594,6 +1594,24 @@ static enum kvm_pgtable_prot adjust_nested_exec_perms(struct kvm *kvm,
- 	return prot;
- }
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index 15260cf2a29b09..01a00d7542b371 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -204,7 +204,7 @@ static bool wb_wait_for_completion_cb(struct wb_completion *done)
+ 	done->progress_stamp = jiffies;
+ 	if (timeout && (waited_secs > timeout))
+ 		pr_info("INFO: The task %s:%d has been waiting for writeback "
+-			"completion for more than %lu seconds.",
++			"completion for more than %lu seconds.\n",
+ 			current->comm, current->pid, waited_secs);
  
-+struct kvm_s2_fault_vma_info {
-+	unsigned long	mmu_seq;
-+	long		vma_pagesize;
-+	vm_flags_t	vm_flags;
-+	unsigned long	max_map_size;
-+	struct page	*page;
-+	kvm_pfn_t	pfn;
-+	gfn_t		gfn;
-+	bool		device;
-+	bool		mte_allowed;
-+	bool		is_vma_cacheable;
-+	bool		map_writable;
-+	bool		map_non_cacheable;
-+};
-+
-+static gfn_t get_canonical_gfn(const struct kvm_s2_fault_desc *s2fd,
-+			       const struct kvm_s2_fault_vma_info *s2vi);
-+
- static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- {
- 	bool write_fault, exec_fault;
-@@ -1601,12 +1619,10 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- 	enum kvm_pgtable_walk_flags flags = KVM_PGTABLE_WALK_SHARED;
- 	enum kvm_pgtable_prot prot = KVM_PGTABLE_PROT_R;
- 	struct kvm_pgtable *pgt = s2fd->vcpu->arch.hw_mmu->pgt;
--	unsigned long mmu_seq;
--	struct page *page;
-+	struct kvm_s2_fault_vma_info s2vi = {};
- 	struct kvm *kvm = s2fd->vcpu->kvm;
- 	void *memcache = NULL;
--	kvm_pfn_t pfn;
--	gfn_t gfn;
-+	gfn_t canonical_gfn;
- 	int ret;
- 
- 	if (!perm_fault) {
-@@ -1616,24 +1632,23 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- 			return ret;
- 	}
- 
--	if (s2fd->nested)
--		gfn = kvm_s2_trans_output(s2fd->nested) >> PAGE_SHIFT;
--	else
--		gfn = s2fd->fault_ipa >> PAGE_SHIFT;
-+	s2vi.vma_pagesize = PAGE_SIZE;
-+	s2vi.gfn = ALIGN_DOWN(s2fd->fault_ipa, s2vi.vma_pagesize) >> PAGE_SHIFT;
-+	canonical_gfn = get_canonical_gfn(s2fd, &s2vi);
- 
- 	write_fault = kvm_is_write_fault(s2fd->vcpu);
- 	exec_fault = kvm_vcpu_trap_is_exec_fault(s2fd->vcpu);
- 
- 	VM_WARN_ON_ONCE(write_fault && exec_fault);
- 
--	mmu_seq = kvm->mmu_invalidate_seq;
-+	s2vi.mmu_seq = kvm->mmu_invalidate_seq;
- 	/* Pairs with the smp_wmb() in kvm_mmu_invalidate_end(). */
- 	smp_rmb();
- 
--	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, gfn, &pfn, &page, NULL);
-+	ret = kvm_gmem_get_pfn(kvm, s2fd->memslot, canonical_gfn, &s2vi.pfn, &s2vi.page, NULL);
- 	if (ret) {
--		kvm_prepare_memory_fault_exit(s2fd->vcpu, s2fd->fault_ipa, PAGE_SIZE,
--					      write_fault, exec_fault, false);
-+		kvm_prepare_memory_fault_exit(s2fd->vcpu, gfn_to_gpa(canonical_gfn),
-+					      s2vi.vma_pagesize, write_fault, exec_fault, false);
- 		return ret;
- 	}
- 
-@@ -1650,7 +1665,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- 		prot = adjust_nested_exec_perms(kvm, s2fd->nested, prot);
- 
- 	kvm_fault_lock(kvm);
--	if (mmu_invalidate_retry(kvm, mmu_seq)) {
-+	if (mmu_invalidate_retry(kvm, s2vi.mmu_seq)) {
- 		ret = -EAGAIN;
- 		goto out_unlock;
- 	}
-@@ -1661,39 +1676,25 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
- 		 * PTE, which will be preserved.
- 		 */
- 		prot &= ~KVM_NV_GUEST_MAP_SZ;
--		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, s2fd->fault_ipa,
-+		ret = KVM_PGT_FN(kvm_pgtable_stage2_relax_perms)(pgt, gfn_to_gpa(s2vi.gfn),
- 								 prot, flags);
- 	} else {
--		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, s2fd->fault_ipa, PAGE_SIZE,
--							 __pfn_to_phys(pfn), prot,
-+		ret = KVM_PGT_FN(kvm_pgtable_stage2_map)(pgt, gfn_to_gpa(s2vi.gfn),
-+							 s2vi.vma_pagesize,
-+							 __pfn_to_phys(s2vi.pfn), prot,
- 							 memcache, flags);
- 	}
- 
- out_unlock:
--	kvm_release_faultin_page(kvm, page, !!ret, prot & KVM_PGTABLE_PROT_W);
-+	kvm_release_faultin_page(kvm, s2vi.page, !!ret, prot & KVM_PGTABLE_PROT_W);
- 	kvm_fault_unlock(kvm);
- 
- 	if ((prot & KVM_PGTABLE_PROT_W) && !ret)
--		mark_page_dirty_in_slot(kvm, s2fd->memslot, gfn);
-+		mark_page_dirty_in_slot(kvm, s2fd->memslot, canonical_gfn);
- 
- 	return ret != -EAGAIN ? ret : 0;
- }
- 
--struct kvm_s2_fault_vma_info {
--	unsigned long	mmu_seq;
--	long		vma_pagesize;
--	vm_flags_t	vm_flags;
--	unsigned long	max_map_size;
--	struct page	*page;
--	kvm_pfn_t	pfn;
--	gfn_t		gfn;
--	bool		device;
--	bool		mte_allowed;
--	bool		is_vma_cacheable;
--	bool		map_writable;
--	bool		map_non_cacheable;
--};
--
- static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
- {
- 	unsigned int flags = FOLL_HWPOISON | FOLL_LONGTERM | FOLL_WRITE;
+ 	return !atomic_read(&done->cnt);
+
 -- 
-2.53.0
+2.53.0-Meta
 
