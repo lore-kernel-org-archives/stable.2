@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272727;
-	b=koWYi3BWFfQ+TMouwtJKKZLdKsnOXw9YYLeN1PTWfsU9PNs9q7LVKcx5gkOZNpna6Xtz
-	 5hE+7bk6UOmHTxdLoTndp/cthjC9ytBXtsKT3xe4AgJskTEHGFXFjXTxmKKiXgS/3Jjhg
-	 37QDewNnxYvNO+7sUCIMD8kcA30TbABvKKmVSPutVkM+clRpkxb1G49TQxcTl+eym8WNV
-	 zngsS011h/cCZkTceH/9QO0esiKcF9i6pFyvP6AXeJyhQvBvme4q/y2BbA93llNGqETXD
-	 NWsJe2R/bPCKFBLnfd6IL9SYiQJEndHuuSIE8/o4St537MtV+F4pF4s78oY1KRfHvFg==
+	t=1794272730;
+	b=2gBDN64U9514SROucwHn8INqftf9KjOsNHgis41NpKAeFmM0YtSgiDiLg2DDe4lp6M9a
+	 Qd52AS/Il/kUE+ifwerRY02BGspEi1+q8MmoW+iO/NfgVczFZw35k/mcLkQMYF24RVz+t
+	 B5hyT94oCrk7DTfptjEISEChq3s9uLu6Io+KZxfbeE33KEk3ozQG5xkaedeMgRhhGo3qV
+	 NPnZhpnNeWZ+Z/y9JPjouOU6Y+6p8XW8eQoGfaIICJOnBzB0jn4WSDXUh82Hjqprk+mvu
+	 URM49/LbWInk0ZzAw7mzPeZUH0b4b0lZ+hP5j6S2Ivj+PbXGHL4xNFcb2HjfCqhnWNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272730;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EMgWYmlwlQYKG+bEJ72Tx0f0qpDf912g8FeayKvs53A=;
-	b=Qp5R0MtkVs3Zq/arYCLTcrtZkO65p9pZBuBMuCsIfY39a2ZG9qn3HXnABzjJIutj5tSn
-	 Acmper+efKCfbl1rwmIh1kJUS38hCFjFjwKjc5BuBUjTSGNCxTdomug3e8pqsgLSgdLOn
-	 APv6iMW9+XHjIds0h0Z9hZGtCB0I/t1Te1+KpDWnlVaP8HXtKZ9w7d1h8bgpG2CTSRClp
-	 ZdclV6mPHcyq2pPgATXOEx6O2xQwehH3j+QMyMxZh9n98//JiWM1H5MHIrsnFKzPd+12G
-	 r3DgyjzgtAkxP5b/EM1+gPseZ4QZHd15mON4xuDJsX28I8Gc0lQdPsAcktUEf54e36g==
+	bh=/FMDXfMW1EDs8C5TEtA82Bi/KkCgWErFIPpsaSS7az8=;
+	b=z/PQeww/gSj83RzXTtvV0ygc4VSEpmd6+w+oi3+320RsVy/KVGqh9tBYQCBd+aw1KTLW
+	 vJtmzN6E2ZsIG5q8WBiEVjRIKZ3FmwoH23kPgP4Y+Cb7bzRVro+E+OhcNzy0uy0Y5Ic/J
+	 vQa4kqRNL+LVB0y5qv3vr7hJpwgruOyXZmsVQ8JsdVsAm8QCd49O5iNXxeicRWT1Vl3ss
+	 juGlemFBNjYtGXXY4/Oz3ukVjOu4VoZKqcxe+nXG8tn5vxt1wRNVtZlObEBF8sCltfOX8
+	 CPDcapaWGFDGn6qtfBEBD35+iiEa6qwqGFV8Nsw7KuXTxDrb4z/lqXAxeJEy7bS6p7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDpNnxPQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MK8+E1gd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1C2606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FF9606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDpNnxPQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA7E1F008A1;
-	Tue, 10 Nov 2026 01:05:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MK8+E1gd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B201F0089F;
+	Tue, 10 Nov 2026 01:05:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272727;
-	bh=EMgWYmlwlQYKG+bEJ72Tx0f0qpDf912g8FeayKvs53A=;
+	s=k20260515; t=1794272729;
+	bh=/FMDXfMW1EDs8C5TEtA82Bi/KkCgWErFIPpsaSS7az8=;
 	h=From:To:Cc:Subject:Date;
-	b=VDpNnxPQzf0qI3hZ7cJIIfaycBPs4XyP0b+KdloKDdJSO6DIb13TwLod9t2GXXf6r
-	 ZglNMRlvAxQZxrYUxyrx2Gmc709PNGPGCWVKc2QNqqOobyHe2fMJeko79xxYd20w7g
-	 oEl8K1kO/jLEyIKwm0Khr/uYPK+WNzXtQbvNHBVTaMeZfIFvusrkd8rlBUjtyYDcOT
-	 DWzLPN9qEo5jA5n+eLrMS2NUMypU8ZAJwcLs1SnfZ+2XBHJA0nb0meWTAaSjXxhPgh
-	 EgdA1mZVySRHvKrGQofRnsVv/z2u1ArWlua8IM0As2Nkn/EaF9emwd7MF4lroLPcwo
-	 6y0ZZEuLJoxWA==
+	b=MK8+E1gdk2eUbxqWrNH7LB6rXvfht3UIL4rFVT1KtuNXGrnT4oNIIkSFrkoQgxRhB
+	 4Pv9VH8nw87GJM1mxSyQ5ohCpK1F2pNN2vigcDMpqPwKtnkdM7L9R4ugzFjXsH63z0
+	 1ieM+59En5ITE67dPWpRL5AsS4BivmGa8hDKOnAWMpN6Pma1hfHjd9htUbxh+c3Sh2
+	 tGom2ekDFsjBRAGtCp19fTJayY3V0Rmp+sG9PMr503LAm5lbD3o91X72pa4qh+RTBR
+	 Rjg6RR3CvRO+alls0AjgR+syuDZloIMC5edBJtaTkqGvMLG1V65+vC4SY6jRzfnGsX
+	 SeGccrVjM/NSQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	dennylin0707@gmail.com,
-	amir73il@gmail.com
+To: amir73il@gmail.com,
+	brauner@kernel.org,
+	edvard@tuta.io
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ovl: fail the mount if the casefold flag has changed" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:05:25 -0500
-Message-ID: <20261109200525-failed-6.18-c782fc8ada81@kernel.org>
+Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:05:28 -0500
+Message-ID: <20261109200528-failed-6.18-323899b4ed23@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,91 +69,120 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c782fc8ada811569811c0fdea5c3412511be95d0
+git cherry-pick -x 323899b4ed233d5b6e2fc160c16fbf39cf0317da
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200525-failed-6.18-c782fc8ada81@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200528-failed-6.18-323899b4ed23@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c782fc8ada811569811c0fdea5c3412511be95d0 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Fri, 16 Oct 2026 21:17:21 +0000
-Subject: [PATCH] ovl: fail the mount if the casefold flag has changed
+From 323899b4ed233d5b6e2fc160c16fbf39cf0317da Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 30 Oct 2026 18:07:02 +0100
+Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
 
-An unprivileged user in a user namespace can repeatedly trigger a kernel
-warning with their own overlay mounts. They do so by changing the
-casefold flag of the topmost layer's empty root, the top directory of
-that layer, after the layers are set and before the mount is created.
+When fanotify hands a listener an fd for a permission event on an
+overlay directory, ovl_dir_open_realfile() opens the real directory via
+dentry_open(), not backing_file_open(), so the lower open could still
+raise FS_OPEN_PERM and deadlock a listener that also marks the backing
+filesystem.
 
-The casefold flag of a directory makes name lookups in that directory
-case-insensitive. All layers of an overlay must agree on casefolding.
+Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
+when the overlay user file must not generate events.  Ordinary
+ovl_path_open() callers are unchanged.
 
-ovl_mount_dir_check() reads the casefold flag of a layer root when
-fsconfig() sets that layer, and saves the result in ofs->casefold. The
-mount is created later, by another fsconfig() call with
-FSCONFIG_CMD_CREATE.
-
-The casefold flag of an empty directory can be changed.
-
-The casefold flag of the overlay root must match ofs->casefold.
-ovl_get_root() copies the flag from the topmost layer root, as it is
-when the mount is created. On a mismatch, ovl_get_root() only does a
-WARN_ON(), and the mount continues. The check is not a WARN_ON_ONCE(),
-so each such mount warns again.
-
-An unprivileged user needs CONFIG_UNICODE, and a tmpfs mounted with the
-casefold option in their namespace.
-
-Reproduced by changing the casefold flag of the empty upper directory
-after the layers were set and before FSCONFIG_CMD_CREATE, with tmpfs and
-ext4 layers, and as uid 1000 in a user namespace.
-
-Fix this by replacing the WARN_ON() with a check that fails the mount
-with -EINVAL.
-
-Fixes: f9377faaeae0 ("ovl: Add S_CASEFOLD as part of the inode flag to be copied")
+Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
+Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Tested-by: Hungyu Lin <dennylin0707@gmail.com>
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- fs/overlayfs/super.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ fs/open.c                |  1 +
+ fs/overlayfs/overlayfs.h |  9 ++++++++-
+ fs/overlayfs/readdir.c   |  3 ++-
+ fs/overlayfs/util.c      | 11 ++++++++++-
+ 4 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index d9174eaccce2d..8bc970748b96b 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -1387,7 +1387,6 @@ static struct dentry *ovl_get_root(struct super_block *sb,
- 	ovl_dentry_set_flag(OVL_E_CONNECTED, root);
- 	ovl_set_upperdata(d_inode(root));
- 	ovl_inode_init(d_inode(root), &oip, ino, fsid);
--	WARN_ON(!!IS_CASEFOLDED(d_inode(root)) != ofs->casefold);
- 	ovl_dentry_init_flags(root, upperdentry, oe, DCACHE_OP_WEAK_REVALIDATE);
- 	/* root keeps a reference of upperdentry */
- 	dget(upperdentry);
-@@ -1571,6 +1570,17 @@ static int ovl_fill_super_creds(struct fs_context *fc, struct super_block *sb)
- 	if (!sb->s_root)
- 		goto out_free_oe;
+diff --git a/fs/open.c b/fs/open.c
+index e43f02ff64acb..bb484b07390ac 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -1172,6 +1172,7 @@ struct file *dentry_open_nonotify(const struct path *path, int flags,
+ 	}
+ 	return f;
+ }
++EXPORT_SYMBOL_GPL(dentry_open_nonotify);
+ 
+ /**
+  * kernel_file_open - open a file for kernel internal use
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index e9389a10452e8..b5a672e8e4764 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -531,7 +531,14 @@ void ovl_dir_modified(struct dentry *dentry, bool impurity);
+ u64 ovl_inode_version_get(struct inode *inode);
+ bool ovl_is_whiteout(struct dentry *dentry);
+ bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path);
+-struct file *ovl_path_open(const struct path *path, int flags);
++struct file *ovl_path_open_realfile(const struct file *user_file,
++				    const struct path *path, int flags);
++
++static inline struct file *ovl_path_open(const struct path *path, int flags)
++{
++	return ovl_path_open_realfile(NULL, path, flags);
++}
++
+ int ovl_copy_up_start(struct dentry *dentry, int flags);
+ void ovl_copy_up_end(struct dentry *dentry);
+ bool ovl_already_copied_up(struct dentry *dentry, int flags);
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index b862309eba4d1..5d21a328fad46 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -994,7 +994,8 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
+ 					  const struct path *realpath)
+ {
+ 	with_ovl_creds(file_inode(file)->i_sb)
+-		return ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
++		return ovl_path_open_realfile(file, realpath,
++					      O_RDONLY | (file->f_flags & O_LARGEFILE));
+ }
+ 
+ /*
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index 6c3fda047f94f..788c6870d67df 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -654,7 +654,8 @@ bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path)
+ 		ovl_path_check_xwhiteout_xattr(ofs, path);
+ }
+ 
+-struct file *ovl_path_open(const struct path *path, int flags)
++struct file *ovl_path_open_realfile(const struct file *user_file,
++				    const struct path *path, int flags)
+ {
+ 	struct inode *inode = d_inode(path->dentry);
+ 	const struct mnt_idmap *real_idmap = mnt_idmap(path->mnt);
+@@ -682,6 +683,14 @@ struct file *ovl_path_open(const struct path *path, int flags)
+ 	if (inode_owner_or_capable(real_idmap, inode))
+ 		flags |= O_NOATIME;
  
 +	/*
-+	 * The casefold flag of an empty layer root may have changed since the
-+	 * mount options were parsed.  The root inode owns oe by now.
++	 * Directory opens use dentry_open() here, not backing_file_open().
++	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
++	 * that also watches the real filesystem does not deadlock.
 +	 */
-+	if (!!IS_CASEFOLDED(d_inode(sb->s_root)) != ofs->casefold) {
-+		pr_err("casefold flag of the root directory has changed\n");
-+		dput(sb->s_root);
-+		sb->s_root = NULL;
-+		return -EINVAL;
-+	}
++	if (user_file && FMODE_FSNOTIFY_NONE(user_file->f_mode))
++		return dentry_open_nonotify(path, flags, current_cred());
 +
- 	return 0;
+ 	return dentry_open(path, flags, current_cred());
+ }
  
- out_free_oe:
 -- 
 2.53.0
 
