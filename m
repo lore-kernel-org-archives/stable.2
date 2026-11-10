@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345549;
-	b=KbJWx2oidMTVAUrFcY1ZLusauJRjQ/8RMAXRBug3TvAeP8wy0utU/CnCbTIC3+DqBwrL
-	 zLljTOVQZKsxPz59BgbIuV/eQZnTBJR5JxaZwD3Rmj9hD3cVIVbG2qWpJMBgtMn+b++FE
-	 i2qA3RCGTySeVXA/G9ESWH706+PzynEOv0NQd+Ol+sGGQpl/B0aS0/gCfRvgV0cgjZg47
-	 UJmgnaYEoLUn/1Uhq/VijeV6bzrBdrLmljSthBEo9ZaOHzJfUBvnFMD0L3cqvMVc8Z5ie
-	 3AedOHTKiUYAIeg2XepC/Rc6vTRSORwp2rIdYJEQLQcMOh9QGrcsECCoZZ0XgPlaRvA==
+	t=1794345641;
+	b=aEuyLT+uxhlFOM9HJk0gV/NJ3ARNyGno5Ls3CDseqql8QcRQNxrsWX769UMKY+8bc6ET
+	 ZPn8yVM4WLIw81FEqVFstDA67a72kNQ89w2w/NFQpjwGRDLofeucf533hEN4918c6CetL
+	 9L/t0Oy48fSkENZmWS8/jGuVCen/o3kIktmwAejs9Gx7IE/0jYJwAfWXexi/zWKc9h8SP
+	 J9TIKY20LMEFITGb4+ab7AGH4KZHOJufydeLy7CxtmAg9UV5UNhBQTNzEQqeX6b2lYrGK
+	 GtzY6VH04rsr3Vvkeyvj1rIMuC44okRQ/aVRFjt8Ivs1TDTwzSwe4AVB73PpE8ZumxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345641;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xOy2UsXSseqUI/sahTtL9ojnmP9HiehqxJuf4TKMSbo=;
-	b=njg24qwgK9PXguvJzub9aoRXf92IDcRsUtvkragjexLwp/42iGhn7RAPz2mLodVW4GZF
-	 QnN8EXSmSP4/nWGkegZxDk+R0+7G7hEHeEjJHIYcJd7TrzOooA9sFe1IDjZzLdLZ+igcK
-	 6D13uPdk3CQjbCVSB1JeRubmp0QZeHShmY+vS5oI6qakWhxNaAQYB8LS1PJr+hpfDAOVU
-	 Tmu0mNQwLxU+sFwJybd46Ob5pRaYQTHX5fJYbUfyRgQ2N78dgo1OSEUn0qsvp+ZZcQuWn
-	 dVfgpN34doIuIM48DtO9M8FS2wDe/4LTgzYxTfA+DGVzoAm2+UawamFbq8PPNy1ur9Q==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zUm2BSz9/z2c5sVywXbrw7njT+YA9vwtmg4EG8md0I8=;
+	b=ij96C1KtRQeXb7Q47nI1FbrUizTRRtBPXuiq5z7xFsDTTtyJMhSSUUo4llYOQeDocnb8
+	 iskTnCIWyIJlXuuM1BiQZM1090tF0caU06aWBcOV5pyZFf3ylJ0EDsqUCAPjMA2okGv1O
+	 FxcXBDL+x/frn5cnRB1LpS6tydMarMpPBVEN5tGb8jI3xj5zcesTrPpkySy4RfOpJLSk0
+	 7TNwYhoQauZodZW5E7Dk3iSVUTq8LMH9hJlL0MVoWwKscNFYcwoBN5aU3npdpD9fWFHlV
+	 RXCq+5GQ5CXJ9iNd49pxtcRcPpLzTN7wF/U+z1thHAxXCTn+ZJ8UL0R1xAZDU3u8bCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmKYMekm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwdyZiN5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6731606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:19:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1370C606A320;
+	Tue, 10 Nov 2026 21:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QmKYMekm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED121F008A1;
-	Tue, 10 Nov 2026 21:19:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwdyZiN5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A12DA1F0089F;
+	Tue, 10 Nov 2026 21:20:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794345548;
-	bh=xOy2UsXSseqUI/sahTtL9ojnmP9HiehqxJuf4TKMSbo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QmKYMekmZiwpJTsxyzQz1DbSC/4F6LVxz3dU07oIM8N/RSxU8LhKTIhQSbRB0b4fg
-	 235jXTP63XhzlGXXvWMx7MX2cphcXOgsPeqlR0HqwTzHpogYb5ZKRTR2Kyq4hkfO5G
-	 zBAWv894wx22WIXEFWOC3LX5qnHL+PGfMVmFQbUjWmORPrup+kjrhvLWF3FY7LkdMu
-	 irHDSNHiDIK2XMERiHKyoWP0UkCC+7BKbnJbfPdMir1I+Zd03seUgOHrraMZiToK0L
-	 +Hs+eKpN+xcwO5v7pp69z20WopBxgJycL1Vdr/yD/vvU4xIZOwwh3hP84ItNtRCxiJ
-	 ymat48Xug71ng==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	David Lee <david.lee@trailofbits.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] netfilter: nf_reject: initialize IPCB at inet ingress
-Date: Tue, 10 Nov 2026 16:19:06 -0500
-Message-ID: <20261110211836.3899141-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110211836.3899141-1-sashal@kernel.org>
-References: <20261107060821-failed-5.15-73a73d442f99@kernel.org>
- <20261110211836.3899141-1-sashal@kernel.org>
+	s=k20260515; t=1794345640;
+	bh=zUm2BSz9/z2c5sVywXbrw7njT+YA9vwtmg4EG8md0I8=;
+	h=From:To:Cc:Subject:Date;
+	b=PwdyZiN59bEIMnx0a/O6kMGUgpCtADsngBdCbawzyhn8NYMQj/yCwkcPGKIR+NLsh
+	 BSQhuVlq1aQ0Z/0J3UkLEZa+xy6U//HmbXNLo+osEXUDtJWlyv7IGMySMKL6SW7DKn
+	 F48hZWLefYEfcQDxuju5Dl5MfY/o5jGMDzpELO7mWJJFX+gVVgf0EmXpgUHfQB5YF/
+	 CA70iuli9k67d7ESEAW8AmUJEjLoffkvd4JBNZdqYCIXYynDFV+kRESBv0XcElDxQV
+	 J4KzpY8HHEf/Wvy4aJxl364dJcPeFBwqQiR3kVFzBdGz3J/pmsR6J/hGai+45Tdx0l
+	 S5xpjwHZuKeAQ==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-fscrypt@vger.kernel.org
+Cc: Theodore Ts'o <tytso@mit.edu>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org,
+	Ada Smith <adasmithgt@gmail.com>
+Subject: [PATCH] fscrypt: Initialize ->ci_master_key before publication
+Date: Tue, 10 Nov 2026 13:20:11 -0800
+Message-ID: <20261110212011.35487-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,78 +62,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kyle Zeng <kylebot@openai.com>
+fscrypt_prepare_setflags() assumes that if the key for an inode with a
+v2 encryption policy has been set up, then ->ci_master_key is non-NULL.
+This is a reasonable assumption, but it does not take into account the
+very short gap in fscrypt_setup_encryption_info() between the inode's
+fscrypt_inode_info being set and ->ci_master_key being initialized.
+Thus, a NULL pointer dereference was possible.
 
-[ Upstream commit 73a73d442f9986353fe284bd1b504d0313d0f153 ]
+Fix this by closing the gap: make fscrypt_setup_encryption_info()
+initialize ->ci_master_key before publication.  If it loses the cmpxchg
+race afterwards, set it back to NULL so that put_crypt_info() continues
+to have the same behavior.
 
-The inet ingress hook runs before ip_rcv_core() and ip6_rcv_core(), so
-neither IPCB nor IP6CB has been initialized when nft_reject_inet passes
-a packet to nf_send_unreach() or nf_send_unreach6(). skb->cb can
-therefore retain metadata from an earlier protocol layer.
-
-For IPv4, icmp_send() treats IPCB(skb)->opt as parsed IPv4 options.
-Stale option offsets can make __ip_options_echo() copy an
-attacker-controlled length into its 40-byte reply option buffer and
-overflow the stack. On an unpatched v7.2-rc5 kernel, the IPv4
-reproducer produced:
-
-  BUG: KASAN: stack-out-of-bounds in __ip_options_echo()
-  Write of size 255
-
-For IPv6, icmpv6_send() consumes IP6CB(skb) as parsed IPv6 metadata. It
-always uses iif for source selection and, when MIP6 is enabled, uses
-dsthao as an extension-header offset. These fields must not be stale.
-
-For NF_INET_INGRESS, clear the address-family-specific control block and
-restore its input interface before constructing the ICMP error.  This
-matches similar initialization normally performed by ip_rcv_core() and
-ip6_rcv_core().
-
-Fixes: 117ca1f8920c ("netfilter: nft_reject_inet: allow to use reject from inet ingress")
+Fixes: b1c0ec3599f4 ("fscrypt: add FS_IOC_REMOVE_ENCRYPTION_KEY ioctl")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Co-developed-by: David Lee <david.lee@trailofbits.com>
-Signed-off-by: David Lee <david.lee@trailofbits.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reported-by: Ada Smith <adasmithgt@gmail.com>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- net/ipv4/netfilter/nf_reject_ipv4.c | 5 +++++
- net/ipv6/netfilter/nf_reject_ipv6.c | 5 +++++
- 2 files changed, 10 insertions(+)
 
-diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
-index 89f52751355bf..ba5b6cb42e70b 100644
---- a/net/ipv4/netfilter/nf_reject_ipv4.c
-+++ b/net/ipv4/netfilter/nf_reject_ipv4.c
-@@ -349,6 +349,11 @@ void nf_send_unreach(struct sk_buff *skb_in, int code, int hook)
- 	if (!skb_valid_dst(skb_in) && nf_reject_fill_skb_dst(skb_in) < 0)
- 		return;
+This patch applies to v7.4-rc2, and I'm planning to take it via the
+fscrypt tree.
+
+ fs/crypto/keysetup.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+index a77b889d7578c..0beec01c04185 100644
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -621,6 +621,13 @@ fscrypt_setup_encryption_info(struct inode *inode,
+ 	if (res)
+ 		goto out;
  
-+	if (hook == NF_INET_INGRESS) {
-+		memset(IPCB(skb_in), 0, sizeof(*IPCB(skb_in)));
-+		IPCB(skb_in)->iif = skb_in->skb_iif;
-+	}
++	/*
++	 * Preemptively initialize ->ci_master_key, even though we don't know
++	 * whether we'll win the race below yet, because if we do win the race
++	 * then other tasks can see it right away and need ->ci_master_key.
++	 */
++	crypt_info->ci_master_key = mk;
 +
- 	if (skb_csum_unnecessary(skb_in) ||
- 	    !nf_reject_verify_csum(skb_in, dataoff, proto)) {
- 		icmp_send(skb_in, ICMP_DEST_UNREACH, code, 0);
-diff --git a/net/ipv6/netfilter/nf_reject_ipv6.c b/net/ipv6/netfilter/nf_reject_ipv6.c
-index c5c8962088f2c..3372658e6d125 100644
---- a/net/ipv6/netfilter/nf_reject_ipv6.c
-+++ b/net/ipv6/netfilter/nf_reject_ipv6.c
-@@ -428,6 +428,11 @@ void nf_send_unreach6(struct net *net, struct sk_buff *skb_in,
- 	if (hooknum == NF_INET_LOCAL_OUT && skb_in->dev == NULL)
- 		skb_in->dev = net->loopback_dev;
- 
-+	if (hooknum == NF_INET_INGRESS) {
-+		memset(IP6CB(skb_in), 0, sizeof(*IP6CB(skb_in)));
-+		IP6CB(skb_in)->iif = skb_in->skb_iif;
-+	}
-+
- 	if (!skb_valid_dst(skb_in) && nf_reject6_fill_skb_dst(skb_in) < 0)
- 		return;
- 
+ 	/*
+ 	 * For existing inodes, multiple tasks may race to set the inode's
+ 	 * fscrypt info pointer.  So use cmpxchg_release().  This pairs with the
+@@ -634,7 +641,6 @@ fscrypt_setup_encryption_info(struct inode *inode,
+ 		 * crypt_info.  Now link it into the master key's inode list.
+ 		 */
+ 		if (mk) {
+-			crypt_info->ci_master_key = mk;
+ 			refcount_inc(&mk->mk_active_refs);
+ 			spin_lock(&mk->mk_decrypted_inodes_lock);
+ 			list_add(&crypt_info->ci_master_key_link,
+@@ -642,6 +648,12 @@ fscrypt_setup_encryption_info(struct inode *inode,
+ 			spin_unlock(&mk->mk_decrypted_inodes_lock);
+ 		}
+ 		crypt_info = NULL;
++	} else {
++		/*
++		 * Lost the race, so we won't be taking an active reference to
++		 * the master key.  Clear ->ci_master_key accordingly.
++		 */
++		crypt_info->ci_master_key = NULL;
+ 	}
+ 	res = 0;
+ out:
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 -- 
-2.53.0
+2.56.0
 
