@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312186;
-	b=buz3puzQow0GbeJscv8Ne2r9pMSKHKmSP73LQdirCA/aQIYLJBHl8I4aXlnamONof8m2
-	 x2GWKdOt/Gp2QG54dxRo4ehjpXUfKDUsxhOY1Pa4h1XsBAHWUilUu7Gjp8x769AadOCiJ
-	 G8ng0ZFiGS0DarJpwdO3tNUFcZWxFW4XnAmgXoShEimIBVRb+/OxcXWNK74VxpIj1Hn7n
-	 +5yDkzfiXQC312+eMVbl/y/Oge7tVUrWeN2fX1pxJSVv/IWpeknY1Cw1v8llaxFEB9zm4
-	 HFV+otT9JyF44nJYXKB4cZovRWrZgJ0oZrT8wKC3QKKgXcHX/aGuPruBhqtxqpSul3Q==
+	t=1794312206;
+	b=tcNEsi90OCVdQVtW/AxgcFirssW8bOJmWm9gCXShK6m+kqmYeOSZtlPA/R5HvVMlgCWI
+	 l3V1BZhNcBX2xtzq8yJIFlLasHyAfT9mdeSJdOOXV6jwS+TfU/MZPNEHMlJnhjsEFn9xe
+	 fIWLA/iz3A0eyfnHy2v1rO7alOt+x9eFPwstHVFU4DaoVb2ijPW8hK9leIdfwOFXY+I+1
+	 dq9KrgAfzvTZgU41NLS3GfwWcDI7vpNNOnu7z+5T56PmKlcXm69nWY1jA2iivBMxXp1Re
+	 PuWKvFGyuLSznvB5kJ7FGVBfLNyphCZjoBOCJ58IAS6JDieqfzHYAfAXVUtLHll87jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312206;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iqat1RzbCX/EISZfJk0sbZIP+7OjFD51MHbhlqYX2lQ=;
-	b=IXlIN9wMpaC1+NOGLK3uM7G6eidriEVb5SktV/AADZ48ExkqqswE64YHLzyZtNikIHFW
-	 lgBEIdAD3SchQB3xkkgRxqfy8Meb4/jmmlf3SMClza5nrcTIC1mLU0kxFCKVHLMS4fccr
-	 pwL60zDkkn8nJsfntDs9BuJHo0ON8WWH5yzgQAsOdTbxdm0Pbnamj/3hF/075btYUNUBv
-	 ZZpxWDLVAFF5gqoVel8E+xJTznnCZ3tCbNkKyZE1Wjdt5zAR1RN4ihMW+jl2kd2C4VFMt
-	 61FzMCBTDmOd2jTYG11d8KICoMARBBp46Zt1bjDWl8iNsW32DUeevBiwShcNVS4mdHg==
+	bh=1tf/DwUt+p5daa7AR0/Dx5eMaqwikxhKwWDMnLngtn4=;
+	b=bVYBfFkKsvjyaOUfnJsvHUouVDmNEvflTd3HQkMLrCmRpKczWbHuTBY2e70chwuvdqd/
+	 h63sMh3jCS2qGHbrDIPBe7D987ZjDXA95PSjEeiLZ2g2qKgKYZeM94nkgJJklKvnY82Cs
+	 eyG2bs+KoTeIi+SoUCiQ8YF/d4Msk0xKO+yZI2+V23ZZkjfrbNv7T+YyWRJwAmc71OthB
+	 8kfUwcjEKycT64dRqaRyPsBMrdaPEAa5Zemf66k3E7uhHcAxagFOkGkCh5xlU0upnQdv5
+	 lz5YiVHwYtgcV+tomsL+ldV8QrEPvqhIS1SDFmBwmqki5iHz1c5vfAzksNjZqQzcTug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B/QD0MfV";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BIj6r8/n";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E196606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2105E606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B/QD0MfV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A643B1F008A1;
-	Tue, 10 Nov 2026 12:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BIj6r8/n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE921F008A2;
+	Tue, 10 Nov 2026 12:03:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312186;
-	bh=iqat1RzbCX/EISZfJk0sbZIP+7OjFD51MHbhlqYX2lQ=;
+	s=k20260515; t=1794312205;
+	bh=1tf/DwUt+p5daa7AR0/Dx5eMaqwikxhKwWDMnLngtn4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B/QD0MfVWPhcjzf4hLjNttKhc7YG70VsIKoErVDk9JcS7NsfVN0WutuJl2t8NM6hV
-	 dc7EDyd+DPNISm9IBAJniyhoa4Qov14HW+uBjUBF0Q1FgfU20BZoAS7pVTMWUOm3hh
-	 qHAAMI+b5RIXPZq7qPjuC/msJdfFPTSuVV1MpUx2EmvVzZ+0Buxyidyy6Bocffi+6J
-	 D0SkIwJ4NWgsEPK/hDTRc3u7KWO8jZckwovvBrHU6SSNT01C36gPmWNLxvjHWJtjYN
-	 Dn7RhHpHz/5fr4AkR/fdRTBM4xkBQ3C87rbIf9Dku+hg7sYRlENuZXrqkGxXgmtGJ8
-	 I6yVWa8k0RXoQ==
+	b=BIj6r8/nljBY+pSff833AVrYBYEl+IWeEoIqBwqotqCjS2ahOqmvylhytXm/fHy6v
+	 mA/RnExMowsUOOMYBes8a3y+ZNxys8ZfG4te5rb9B3mHQigKjlE2kBPB1I0NMFK26z
+	 w+Qa/UXkJsIjI1eUF3oCesj0l9rfACeBrRDPu2neb0d4OIl9FEABhzlDZElJyGgr/i
+	 w63yVfGHtj1KlendUK6oL3Vfs5frr4NcFRxL1+FXdHNvWRNPVXxVQgTXNKm9AKUdOW
+	 +u99DaVY7nO3eVTJtccsVP86zj4nEebcDsb6cJ8h1edlwumTMqmuejUDEBmkT9fLwc
+	 Q1NNJKwBsI85w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Punnay Sharma <punnaysharma805@gmail.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] staging: media: av7110: fix sp8870 initialization failure state
-Date: Tue, 10 Nov 2026 07:03:04 -0500
-Message-ID: <20261110120248.960088-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] arm64: dts: qcom: ipq9574: Wire up USB3 PHY PIPE clock to GCC
+Date: Tue, 10 Nov 2026 07:03:23 -0500
+Message-ID: <20261110120312.954339-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055756-failed-5.15-30684fa98394@kernel.org>
-References: <20261107055756-failed-5.15-30684fa98394@kernel.org>
+In-Reply-To: <20261107053028-failed-6.6-117d8d40be1d@kernel.org>
+References: <20261107053028-failed-6.6-117d8d40be1d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,58 +63,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Punnay Sharma <punnaysharma805@gmail.com>
+From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-[ Upstream commit 30684fa98394bc0eb4362282908612aab7d4dad9 ]
+[ Upstream commit 117d8d40be1ded4f35f3252efa83607a7134d5e0 ]
 
-The SP8870 DVB frontend driver prematurely flags the device as
-initialized at the very beginning of the sp8870_init() routine, prior
-to requesting the firmware (dvb-fe-sp8870.fw) and executing the I2C
-upload sequence.
+Connect the QMP PHY USB3 output to GCC so the USB3 PHY pipe clock can
+propagate to the USB controller.
 
-If request_firmware() times out or sp8870_firmware_upload() encounters
-an I2C bus error, the function aborts and returns -EIO. However,
-because `state->initialised` is already set to 1, all subsequent
-invocations of `fe->ops.init()` by the DVB core will immediately return
-0 (success) without attempting to load the firmware again. This leaves
-the demodulator microcontroller halted and the frontend permanently dead
-until the module is forcibly reloaded.
-
-Relocate the `state->initialised = 1` assignment to the end of
-sp8870_init(), ensuring the flag is only set after the firmware is
-successfully uploaded and the system controller is actually restarted.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adjusted context for older sp8870_init() formatting and debug output ]
+Fixes: a98bfb31f676 ("arm64: dts: qcom: ipq9574: Add USB related nodes")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260921-ipq_clk_changes-v1-4-d242e3d49648@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+[ sashal: adjusted GCC node context for placeholder PCIe clock inputs and power-domain cells ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/media/av7110/sp8870.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/ipq9574.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
-index 3a9fbfc5adf03..de70953014114 100644
---- a/drivers/staging/media/av7110/sp8870.c
-+++ b/drivers/staging/media/av7110/sp8870.c
-@@ -297,7 +297,6 @@ static int sp8870_init (struct dvb_frontend* fe)
- 
- 	sp8870_wake_up(state);
- 	if (state->initialised) return 0;
--	state->initialised = 1;
- 
- 	dprintk ("%s\n", __func__);
- 
-@@ -336,6 +335,8 @@ static int sp8870_init (struct dvb_frontend* fe)
- 	sp8870_writereg(state, 0x0D00, 0x010);
- 	sp8870_writereg(state, 0x0D01, 0x000);
- 
-+	state->initialised = 1;
-+
- 	return 0;
- }
- 
+diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+index 82e4fd5eb388f..8a5df358d459d 100644
+--- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+@@ -285,7 +285,7 @@ gcc: clock-controller@1800000 {
+ 				 <0>,
+ 				 <0>,
+ 				 <0>,
+-				 <0>;
++				 <&usb_0_qmpphy>;
+ 			#clock-cells = <1>;
+ 			#reset-cells = <1>;
+ 			#power-domain-cells = <1>;
 -- 
 2.53.0
 
