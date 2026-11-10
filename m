@@ -1,56 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352191;
-	b=Dpn2hBAFuIbMGTOPS67ccBVAT9x8xC/rJHFxrIBeEN6CkYqu5laRXBmq5u62Lb85o2j2
-	 8AEJFQb4SnuUcqs8njrmLnJSj09h5oCOi5WXDElgrbXL8eyQs98ksxoV1bfTrt4SW47/i
-	 AWMz185C2TJTxlIDrXIJfyYgukNo6O9Svv8mCF66E2GN3MqCG6TybXfpVVvgQeHp5XfsN
-	 1iqu9M+gcmkezawfxaUp+gnmKOHWjc/kzwZSGgrkcuZhpJ+7eT+CcV27MbqgW/H8fOqqi
-	 hOcU1DNQrljhyO5MAkzGJqaQiV3m4UCCxhRDi0/JldtGcJaq0DUIxFruvATCsbESYPA==
+	t=1794352216;
+	b=0T3153wxHjpLhVwHzzPf063ffpcmwo7pfav08YO5Z9+1O+rVc+fXz1EdKPby8G5X0hlv
+	 3tOdKJuuk2vDtHvi4UFzsSZlorjsVYCSWhmxzOvE36tJikUiSSvlwlKX4D/bMOQg475ng
+	 ww6AAJATOHrdoKKGFEDpJQWcpip6QXWz67JJaS4QozPkSaVnozOIGjHzEchrbpG0wjmt6
+	 itE3qMiouA4QTETSz6xNnASs2e5tzgPlV/yYdKVT0hpslgI4DrUv20ukxTEZCDECee3cj
+	 HRE7XWbrp7AJQscfDpB3UwpC8nXkhunis/VfwutPe5CPba3c4w7vxUt0RoMLvTBxehQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352191;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7mM8VHV+bG5sDNg6J95scA221xoGBaOocX33cUbEIdU=;
-	b=oCbiWh/4bVqBIGf6ILglOvI4TOAlheE76kTKeTFzHhgHiLJ8Ouvu+WMx25KNttynZY4t
-	 b+Ks/aW+EsittDVzoqnLmraHF0I8VZXzmQ5rXeJG6ayXBY0ALGMlzIIrC/VMPBs3BsGDn
-	 W7gRrAgkNWPi2wL3ZQNBM1SKKNd01SbQx514jV98ImhNlvjg/TfoHh6weVBwCkal0tDtT
-	 KXvweCSpNDLWC2oDiRYzbKeNtWgtMhP1u9/aLVs/os/H8Fa6GUCvAb5kIPUwZ2229lZuc
-	 kWUvs4UFKFfKyqd/n5hBhvLH3MVs+R7KliqgMsatPLUBpIiiCwGfVTfHY1OWeeAzJ3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352216;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZW+Y5/QuuIuCaQO3sddm+/qQ2fEFOMrrFGrJfh4lyr0=;
+	b=Og1cmFkkPySjJOBc6RAMhlvc5PFiGWNbCZKvoIud9iP54ryrnAoLnc7Bt3nwkL4LWO67
+	 ItDchFDILWtImoMV/1RAZlFKG1sc5ialZe4AGP89PoN7PBZHo0yxKHmA/LkCEP2gz9os8
+	 AsDvgjJZq5MPV+jtQjNqpknLNI1pTWQ9ic9d3EEtwmgOQPr2meMD7ZdyCY3JIYOcIDbkq
+	 vdz74AUJOCWpWCmL2Hf7GH/jaB/4ZsVyXnWpZmfRS5NvuX2XL09kdLjC/5sBfSFwTUtLH
+	 6YIzCApLEuOPrt2iM+Eb1refMHV+gmMHo16fhEFixpBChlkGsRArmwD1yM3Dox2yfsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2tCkCgb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GGTNe7zw;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E26606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:09:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09A4606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A09A4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2tCkCgb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DFAE1F0093C;
-	Tue, 10 Nov 2026 23:09:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352191;
-	bh=7mM8VHV+bG5sDNg6J95scA221xoGBaOocX33cUbEIdU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D2tCkCgbjt6y82jGApbYP8h3kvrPMIP+qbAxnrA3i9kLFJqv8Uv1BgaNdxrc9uVV/
-	 um7ed8aAIXg8F3FtEWkHgA1DATPPZVCWCyYBpGy3gbW+Psbwt3ot3mjLCzJrbAzY2I
-	 UAiEJoqduYAyvTxT1iTH9YIjGdmjttAyRU63BPuaH7EFAjxIjM1ktlMAgbnfriO0FB
-	 CPoWFTI55rUjtbJkCFijs3sG6xV0yJiA/O2mTaP2vEiMnPZ/ouCqXXaUdGU120cncH
-	 JGZr221Q5gUcAL2zLZHyPG/8GldRTmY9coTggxi4PlOCxkpHB+1e22horonesu97lZ
-	 a1+xditgJkaTg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GGTNe7zw
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so2898803a12.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:10:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794352214; x=1794957014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZW+Y5/QuuIuCaQO3sddm+/qQ2fEFOMrrFGrJfh4lyr0=;
+        b=GGTNe7zwXf1NsZeh9fS0UGBzTUsvQNH9QElP81ultxi9WH99sWJjPl0vFpV9pY0XM7
+         4603PM6u51XUluhtnueGvJuist9PvucY5A/jT0JhQ74YizGbz205Xx4ibYsT/5yaKI+t
+         dbXJ0nGCF70KmjViIqbO0c9SMKbmTkHdW0MlpZJ9/en6trvrPvqm2baYhEHM4jQ2Ucv+
+         Jipo88TmrekUyDUWYaZipTE4iljElUC2BP/yvQSMd37Na0jdNW0swbScupilrdzHEKBS
+         egWC1tVTlQwX/NRzX6mx6/cVvliYjzg6xOYurUolUBIB2mMMLPoT6QmzlZXIoLeAPLEU
+         977w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794352214; x=1794957014;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZW+Y5/QuuIuCaQO3sddm+/qQ2fEFOMrrFGrJfh4lyr0=;
+        b=N7naeAuW0R/MfaVh8Z8g3txQbF4EUdBKUeLFN5MRC/bK0WnhVRCKamaL5+SgYnOfBn
+         76R/J+9SZIin1GHc+RnYPfHR21FIhphCl7UoiWKTyV+EXlRvMIaPGSV9b1Qb9uRn8Dm2
+         s3hUOI6ulJ0N0jgKm68a6oI80rBOT+izbEk3yZm2xV6et5ZeHpCE3oZLlftHR4x7CpJL
+         3VBRXXbvyHQ/XVEkWlxfOuJw2D3bPNm0BlCNgBsj8ihKSOnIBK8GNl0GztklcVUf1mlS
+         TwFG8KuYtCfrmh3JbyjI/LTyCPJWgHluFs5RHFYbKBk4ktwU1daswvHcj0tX9MiX/hmX
+         G+bA==
+X-Gm-Message-State: APuU4Z9TcIphFNsqmg2UI5a2hnU03HMSXlM8HeR6SifdkjbeBVCMBeKw
+	SWWINGpNbbp0VZJ3I7CKBvDXQdRup6z7KIBKTV2k3wbPV+/Uy2t41xrg4F/Oh/FbdZ8=
+X-Gm-Gg: AYBFou2Wgka/EBmZIXxVcnzvyMJY65BvIB5WNTnQIcz/8T9i5DadpQWQQXfhW974Q+W
+	qjwQRJrffRXs0J8ljOJC4CtKZrTIogBFUxCFw8Va89Svdc047T/x4RxHckP7BTeYiJ87rIlTfVd
+	fNn5dN03ckUZJU32p2WHNikJVrWxW3hSBhcEWOQ3W1xUb21WR70tENukOE3d9+D78gTgtbAQKUp
+	HRf4KAzZPRTxHj1QzWhwqK8ki5CqU+XWdrkkgL8Z0vX/7RilbCZj7imc7ODJfVT/KZ00YWkw2oZ
+	Qc5G7F3CQgsX6sPOrluQjETn5NsOQaaYlDCzqCDtesq8D1JPo9HEP7gr0IeU4AsLC4wQHdjmabF
+	CXJfMc4GFmTFfFzmvlYP4pxdT4C/bL7OfSJ8dvaOEa2RW5VPwzQlLBDUX3LeQG09pXDc3avCYUn
+	MDOh+kjtmdhOiWwsqAjH0jBqbIq2Ff7cSzTfyRaLdNLdfLafFiHdPz6W+ayRJsH22bg/sqyiyIP
+	1sWDige9XFZEkMLwQIBWHHOcvw/x6O14Ombi4HPDYHrrI+g0lek/N0BWOtbCBz2ID3kdgsVXXLG
+	IQxlzSPLyN24oyMaYMmJTLD0enMVjqRCV6Ay6IGpvIzL82yaizMOgZEZzPQGg9FeyV3DHLQ=
+X-Received: by 2002:a05:6402:234e:b0:6a9:a3df:e4f1 with SMTP id 4fb4d7f45d1cf-6b7775f0ca2mr620507a12.25.1794352213558;
+        Tue, 10 Nov 2026 15:10:13 -0800 (PST)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7578beb01sm1636880a12.6.2026.11.10.15.10.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 15:10:12 -0800 (PST)
+From: Magnus Lindholm <linmag7@gmail.com>
 To: stable@vger.kernel.org
-Cc: Vaibhav Nagare <vnagare@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Tue, 10 Nov 2026 18:09:48 -0500
-Message-ID: <20261110230910.73730-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055108-failed-6.1-78731b46967e@kernel.org>
-References: <20261107055108-failed-6.1-78731b46967e@kernel.org>
+Cc: Magnus Lindholm <linmag7@gmail.com>,
+	Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 6.6.y] alpha: load the MMU context when switch_mm() switches the current task
+Date: Wed, 11 Nov 2026 00:09:51 +0100
+Message-ID: <20261110230954.1151961-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107053624-failed-6.6-9b8be19d5dc9@kernel.org>
+References: <20261107053624-failed-6.6-9b8be19d5dc9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,117 +98,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vaibhav Nagare <vnagare@redhat.com>
+[ Upstream commit 9b8be19d5dc9525a408942e2e8012873199e7455 ]
 
-[ Upstream commit 78731b46967e3e7102b5cd5062bef185f3404b5c ]
+The 6.6.y header still contains ev4_switch_mm().  Retain it, and omit the
+unrelated do_page_fault() declaration move.  Of the direct callers
+described below, 6.6.y has kthread_use_mm() and do_shoot_lazy_tlb();
+sched_force_init_mm() is not present.
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+ev5_switch_mm() only prepares the incoming PCB. The context is installed
+by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
+out of the scheduler.
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+Direct callers reach switch_mm() without going through alpha_switch_to():
+kthread_use_mm(), which borrows an mm for the current kernel thread,
+sched_force_init_mm() on the CPU-hotplug teardown path, and
+do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
+loads the context, so the task can carry on running under whatever was
+loaded before. For kthread_use_mm(), current->mm then names the borrowed
+mm even though its context has not been loaded. The other two callers
+change active_mm while leaving current->mm NULL.
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+The stale page-table root need not be swapper_pg_dir; it may belong to a
+user process that ran on the CPU earlier, and the kthread's user accesses
+can then read and write that process's memory wherever the stale mappings
+allow. Translations taken that way can also end up tagged with the
+borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
+next PAL_swpctx installs against the stale ptbr. An address the stale
+tables do not map faults instead, and since do_page_fault() resolves
+faults against current->mm without reloading the context, the same access
+can fault again on return.
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+sched_force_init_mm() needs CONFIG_HOTPLUG_CPU and do_shoot_lazy_tlb()
+needs CONFIG_MMU_LAZY_TLB_SHOOTDOWN. Alpha selects neither, so only
+kthread_use_mm() is reachable in practice. Test the caller's identity
+rather than special-casing individual callers.
 
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
+The scheduler passes the incoming task, which is not current until
+alpha_switch_to() runs; all three direct callers pass current. Test for
+that and load the context the way activate_mm() does. All three run with
+interrupts disabled across the switch, so this completes before any
+shootdown can be taken and needs no asn_lock handshake.
 
-Restore the previous program when an attach or a replace fails, and
-recompute the page-mode and XDP TX ring configuration from it.  The
-configuration matters because bnxt_init_one_rx_ring() only assigns
-rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
-dev->max_mtu from the installed program.  Release the old program only
-once the change has been committed.
-
-A detach is not undone.  dev_xdp_detach_link() clears the core's record
-of the program even when the driver returns an error, so putting the
-program back would leave the driver running a program the core has
-already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
-therefore returns 0 with the device closed; bnxt_open_nic() has already
-logged the failure.
-
-Found in a crash dump; the change was not tested on hardware.
-
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: replaced the bnxt_xdp_apply_cfg() helper with an apply_cfg label to reuse the existing inline configuration ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Tested-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/r/20261010142533.974797-2-linmag7@gmail.com
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+(cherry picked from commit 9b8be19d5dc9525a408942e2e8012873199e7455)
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 25 +++++++++++++++----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ arch/alpha/include/asm/mmu_context.h | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 0d787e105b6ae..635f3e46305f6 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -390,6 +390,7 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
+diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
+index 4eea7c616992..f2032373c9f6 100644
+--- a/arch/alpha/include/asm/mmu_context.h
++++ b/arch/alpha/include/asm/mmu_context.h
+@@ -132,6 +132,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
+ 	return next;
+ }
  
- 	if (prog && !prog->aux->xdp_has_frags &&
- 	    bp->dev->mtu > BNXT_MAX_PAGE_MODE_MTU) {
-@@ -416,11 +417,12 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
- 
--	if (prog) {
-+apply_cfg:
-+	tc = netdev_get_num_tc(dev) ? : 1;
-+	if (bp->xdp_prog) {
- 		bnxt_set_rx_skb_mode(bp, true);
- 	} else {
- 		bnxt_set_rx_skb_mode(bp, false);
-@@ -431,8 +433,21 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	bnxt_set_tpa_flags(bp);
- 	bnxt_set_ring_params(bp);
- 
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (rc)
-+		return rc;
++extern void __load_new_mm_context(struct mm_struct *);
 +
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* a detach cannot be undone, only an attach */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			tx_xdp = old_tx_xdp;
-+			goto apply_cfg;
-+		}
+ __EXTERN_INLINE void
+ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	      struct task_struct *next)
+@@ -141,6 +143,16 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	unsigned long mmc;
+ 	long cpu = smp_processor_id();
+ 
++	/*
++	 * kthread_use_mm() and do_shoot_lazy_tlb() switch current's mm
++	 * without alpha_switch_to(), which loads the context. The latter
++	 * requires CONFIG_MMU_LAZY_TLB_SHOOTDOWN, which Alpha does not select.
++	 */
++	if (next == current) {
++		__load_new_mm_context(next_mm);
++		return;
 +	}
 +
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
+ #ifdef CONFIG_SMP
+ 	cpu_data[cpu].asn_lock = 1;
+ 	barrier();
+@@ -182,8 +194,6 @@ ev4_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	ev5_switch_mm(prev_mm, next_mm, next);
  }
--- 
-2.53.0
-
+ 
+-extern void __load_new_mm_context(struct mm_struct *);
+-
+ #ifdef CONFIG_SMP
+ #define check_mmu_context()					\
+ do {								\
