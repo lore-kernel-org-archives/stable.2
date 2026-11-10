@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337494;
-	b=n0W1SPdeztL2JQRCzFMZ5VDEuO9LMWYxnrMQLZCexdPnpwUPaTZBRzF0OZX12gBrkIwm
-	 BIqWy0zpdQy9ex+h3vptY6ZDFcUdCEcWQQ7zPSWBqEVcpIVd2ymm8lkUUMDjOeA/aPJUS
-	 BLXqYrZDbfUCa2LdmB40T7f7qwOsfByF3T4S8/E/lbvc5w8WCfcw+veAnuMWMQg3TdQZi
-	 nyOeHCG6zm4kkFZGchnWPKkXN79hKkxsoOG2/FnW5EzsvHI7mgjcaNP1SMdJqEyS6zE0p
-	 pitNJJG7ftYFeWpvkHr2E81c6XtD7Anle6kFlzoaxzQKK5IKw2D3EL3Lz5b078qle+w==
+	t=1794337510;
+	b=1QJtvySzGGq8GTuT9NSk1WdqFSpF3FiCIRTKnq1GBGb1fzcXWLSBIngUfHgj9269y4oH
+	 5qLsx1xi4xnScPXZREbpVyic5PkndhPRAUxKP3FdW1Zg4CntWOnFEePt3Cv8g+QedfUUH
+	 IQ//67zHDQT2LAjP4I+L9072lJ8J7hB8VYV5BoIbHH3Hoy7dNs37ZKgFgCz0uLTunkLFm
+	 PQTQnK3Mf7rj3dcF5F7uVhBlwjKv4OrXroa0W7XcyngDOgfH0SJnZaALCbRZhJbEHVwNG
+	 I0xjEZy9ScWZygZbqfeT9ighNFRugfQjfA8SEI/lrJ1ukrkP7WDRq5nLuBrRnpe0MaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337494;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ltk5Cl9nHyL78Vy2SEPkcVeO7MGczi6TaQBW2DvXXK4=;
-	b=RaFg+cds1357MtGvBdYsza/R784rIURDe18FiE1fn/tW9hNXaO7+nRoql0cW0db0m8UO
-	 vf3oISDVMK/Z7jZ7AK0xMGq07bfzok27it5BOtsF9wy8kFcdsnksInKCODkPgnoDRPnjh
-	 Hc+4tXAH937EQWUlE9vnWMdjEn1DiIgEwmmKdmeTKd1X9TJA6Qh1esZaq40lp53Tu3zM/
-	 z3Ov3Lbr3iDYYC20mVRxjJeHqAWPo+4y1eq+eLlJrhzq75pDPPhM7+Ztap/vwIolf/8W2
-	 5PzOkhHPIJloVpeZYXs2PFstnUpb4gc029EWUZNrAQQ2aq8NEPNeWSS8zxFFaX+58PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337510;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k1vLxJkE194KQtThojd+ZMbb8/1jYinuM6FHsG1nxTA=;
+	b=BT124xI61eeAnN2f74jmlXYzQSpUKrsJVhqyzkQOtALyXoWxZ9Dp75rHx0KZC1g8f17D
+	 TlvYpXcLv4YOsW2BnmugiqBN/CFuiyEDiynqd4QXIQq7A3sNUYc1TqHfeD24v9dm1f6mE
+	 Z7DX6C6gW91hROCrfQVSkmzBwdMjF+exfh+2h6rrab9KyDD9BfxyYMi2nllcHHE031zyE
+	 UksamId1jlkUNMRWYQ22aFgKh2aKnd1+VtHgqNvzp9UqXp0DZpnaOf3bHzhBF2+MOrxYE
+	 loZr2mMX+xyxbABceuqS8JINYfOvVIacH/lUmV1Qty5WlJL78wPrjVDvqNtkJM9i2fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQqr2IuP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=a0YBobhE;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC602606A333
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:04:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 37243606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:05:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37243606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQqr2IuP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9AFB1F008A1;
-	Tue, 10 Nov 2026 19:04:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337493;
-	bh=Ltk5Cl9nHyL78Vy2SEPkcVeO7MGczi6TaQBW2DvXXK4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JQqr2IuPdfbtU3/s9ICect4nVUrrsbE9JfUKPYgfGsBn9CNtqyHByjOCLDNIBQ46Q
-	 zkwJL/O8bdQCv3wyxZpBDnw6iKgsPU86BMfmwKN1t6Fm10LduOHHIaziFvvx5U7Vs3
-	 6jB+oZu4FhslJmhkEeXIGeYJoxl+yvWxL4HKDkidwRWncBCgTnoCfcklIUWg0nuDQz
-	 KL4t/uKyS+8f7z1/K35PDCFaOtnmMcx2rZAq6Rk6Y06pp3nzhcHr/lAAHl8nNEanKL
-	 z7s2RHLnthrFS373pYC7Mqt3mppbl8xq7WxyWcGMS1j3mrwVECwDE85XQdYuMrhsug
-	 iweuvapb8f+Mg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=a0YBobhE
+Received: by dvalin.narfation.org (Postfix) id 8C1C71FD16;
+	Tue, 10 Nov 2026 19:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794337508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k1vLxJkE194KQtThojd+ZMbb8/1jYinuM6FHsG1nxTA=;
+	b=a0YBobhEsiP+yxF3Kwzn5/uaS7/dEuVmQ+C5GqmzlnTpbPCJewlN9e5zfEYZnww6w6ZH0u
+	KH/Nj1CRHqtpmvQjP5kgOaCczLDw4bjdxjYI8XxAYYOdbV6mZW/1HRrxTTOo8oac2/weVj
+	nba7abkTYMUKgGQI6XQNlOrmODePYuU=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
-	Dragan Simic <dsimic@manjaro.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
-Date: Tue, 10 Nov 2026 14:04:50 -0500
-Message-ID: <20261110190256.3444362-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052207-failed-6.12-84d08ff902f1@kernel.org>
-References: <20261107052207-failed-6.12-84d08ff902f1@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.12.y] batman-adv: tt: only update flags for TT events
+Date: Tue, 10 Nov 2026 20:05:03 +0100
+Message-ID: <20261110190503.115883-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109200628-failed-6.12-ad1fd828aa39@kernel.org>
+References: <20261109200628-failed-6.12-ad1fd828aa39@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,96 +65,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
+commit ad1fd828aa3944efc393b84b0d7c02483f1b5638 upstream.
 
-[ Upstream commit 84d08ff902f1ec01177fef1a21a38934927f5aee ]
+In the first implementation of the translation table events, it was only
+possible to announce:
 
-Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
-speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
-Rockchip PCIe header.
+* ADD: new locally detected client
+* DEL: disappeared local client
 
-The reason is that Shawn Lin from Rockchip has reiterated that there may be
-danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
+If an ADD event was queued and then a DEL event was queued in the same
+timeslot, it is valid to destroy both events because nothing actually
+changed for remode nodes
 
-While Rockchip has done so informally without issuing a proper errata, and
-the particulars are thus unknown, this may cause data loss or worse.
+But with commit 3c4f7ab60cc2 ("batman-adv: improve the TT component to
+support runtime flag changes") and subsequent changes, it could also happen
+that there are extra ADD events:
 
-This change is corroborated by RK3399 official datasheet [1], which states
-maximum link speed for this platform is 2.5 GT/s.
+* ADD: _NEW_ locally detected client
+* ADD: already existing client with new flags
+* DEL: disappeared local client
 
-[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
+The first and the last type of event could in theory still be removed
+together from the (to be announced) events queue. But if the "update flags"
+ADD is dropped together with the DEL, it would still leave global
+translation table of a remote node in the incorrect state - believing that
+the client didn't disappear.
 
-Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
-Reported-by: Dragan Simic <dsimic@manjaro.org>
-Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
-Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
-Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Dragan Simic <dsimic@manjaro.org>
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+If a detected client was previously announced, a DEL event must only
+overwrite the "update flags" ADD but the DEL itself must still continue to
+exist in the (to be anounced) events queue. For now, adjustment of the
+announced flags is used for everything instead of dropping already queued
+up events completely.
+
+Similarly, a DEL followed by an ADD caused both entries to be deleted. But
+the new ADD could announce flags changes which were not yet present for the
+client before it was marked for DELetion. The new ADD must therefore only
+overwrite the DEL - but still be kept.
+
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
-[ sashal: Adjusted context to preserve existing HIWORD_UPDATE macros instead of upstream HWORD macros. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3c4f7ab60cc2 ("batman-adv: improve the TT component to support runtime flag changes")
+[ Context, drop now unused code for removed entries ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
- drivers/pci/controller/pcie-rockchip.h |  3 ---
- 2 files changed, 6 insertions(+), 11 deletions(-)
+ net/batman-adv/translation-table.c | 41 ++++++++----------------------
+ 1 file changed, 11 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
-index c07d7129f1c7c..6a970dc766d4d 100644
---- a/drivers/pci/controller/pcie-rockchip.c
-+++ b/drivers/pci/controller/pcie-rockchip.c
-@@ -66,8 +66,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 96d67ec1a8af9..031f9bd8f72dd 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -455,6 +455,9 @@ batadv_tt_orig_list_entry_put(struct batadv_tt_orig_list_entry *orig_entry)
+  * @bat_priv: the bat priv with all the soft interface information
+  * @tt_local_entry: the TT entry involved in the event
+  * @event_flags: flags to store in the event structure
++ *
++ * Only a single change per client is queued. It describes the latest state of
++ * the client and a new event therefore replaces an already queued one.
+  */
+ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 				  struct batadv_tt_local_entry *tt_local_entry,
+@@ -463,8 +466,7 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	struct batadv_tt_change_node *tt_change_node, *entry, *safe;
+ 	struct batadv_tt_common_entry *common = &tt_local_entry->common;
+ 	u8 flags = common->flags | event_flags;
+-	bool event_removed = false;
+-	bool del_op_requested, del_op_entry;
++	bool del_op_requested;
+ 
+ 	tt_change_node = kmem_cache_alloc(batadv_tt_change_cache, GFP_ATOMIC);
+ 	if (!tt_change_node)
+@@ -496,44 +498,23 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 		if (entry->change.vid != tt_change_node->change.vid)
+ 			continue;
+ 
+-		/* DEL+ADD in the same orig interval have no effect and can be
+-		 * removed to avoid silly behaviour on the receiver side. The
+-		 * other way around (ADD+DEL) can happen in case of roaming of
+-		 * a client still in the NEW state. Roaming of NEW clients is
+-		 * now possible due to automatically recognition of "temporary"
+-		 * clients
++		/* the other nodes may know the client with different
++		 * flags. A DEL+ADD must therefore still announce the
++		 * current flags and an ADD+DEL must still remove the
++		 * client. ADD+ADD and DEL+DEL only update the flags
+ 		 */
+-		del_op_entry = entry->change.flags & BATADV_TT_CLIENT_DEL;
+-		if (!del_op_requested && del_op_entry)
+-			goto del;
+-		if (del_op_requested && !del_op_entry)
+-			goto del;
+-
+-		/* this is a second add in the same originator interval. It
+-		 * means that flags have been changed: update them!
+-		 */
+-		if (!del_op_requested && !del_op_entry)
+-			entry->change.flags = flags;
+-
+-		continue;
+-del:
+-		list_del(&entry->list);
+-		kmem_cache_free(batadv_tt_change_cache, entry);
++		entry->change.flags = flags;
+ 		kmem_cache_free(batadv_tt_change_cache, tt_change_node);
+-		event_removed = true;
++
+ 		goto unlock;
  	}
  
- 	rockchip->link_gen = of_pci_get_max_link_speed(node);
--	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
--		rockchip->link_gen = 2;
-+	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
-+		rockchip->link_gen = 1;
-+		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
-+	}
+ 	/* track the change in the OGMinterval list */
+ 	list_add_tail(&tt_change_node->list, &bat_priv->tt.changes_list);
++	atomic_inc(&bat_priv->tt.local_changes);
  
- 	rockchip->core_rst = devm_reset_control_get_exclusive(dev, "core");
- 	if (IS_ERR(rockchip->core_rst)) {
-@@ -237,12 +239,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
- 		goto err_exit_phy;
- 	}
- 
--	if (rockchip->link_gen == 2)
--		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
--				    PCIE_CLIENT_CONFIG);
+ unlock:
+ 	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
+-
+-	if (event_removed)
+-		atomic_dec(&bat_priv->tt.local_changes);
 -	else
--		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
--				    PCIE_CLIENT_CONFIG);
-+	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
-+			    PCIE_CLIENT_CONFIG);
+-		atomic_inc(&bat_priv->tt.local_changes);
+ }
  
- 	regs = PCIE_CLIENT_LINK_TRAIN_ENABLE | PCIE_CLIENT_ARI_ENABLE |
- 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
-diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
-index d916fcc8badb8..5629ac4a7439b 100644
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -37,7 +37,6 @@
- #define   PCIE_CLIENT_MODE_RC		  HIWORD_UPDATE_BIT(0x0040)
- #define   PCIE_CLIENT_MODE_EP            HIWORD_UPDATE(0x0040, 0)
- #define   PCIE_CLIENT_GEN_SEL_1		  HIWORD_UPDATE(0x0080, 0)
--#define   PCIE_CLIENT_GEN_SEL_2		  HIWORD_UPDATE_BIT(0x0080)
- #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
- #define   PCIE_CLIENT_INT_IN_ASSERT		HIWORD_UPDATE_BIT(0x0002)
- #define   PCIE_CLIENT_INT_IN_DEASSERT		HIWORD_UPDATE(0x0002, 0)
-@@ -183,8 +182,6 @@
- 	(((x) & PCIE_CLIENT_DEBUG_LTSSM_MASK) == PCIE_CLIENT_DEBUG_LTSSM_L2)
- #define PCIE_LINK_UP(x) \
- 	(((x) & PCIE_CLIENT_LINK_STATUS_MASK) == PCIE_CLIENT_LINK_STATUS_UP)
--#define PCIE_LINK_IS_GEN2(x) \
--	(((x) & PCIE_CORE_PL_CONF_SPEED_MASK) == PCIE_CORE_PL_CONF_SPEED_5G)
- 
- #define RC_REGION_0_ADDR_TRANS_H		0x00000000
- #define RC_REGION_0_ADDR_TRANS_L		0x00000000
+ /**
 -- 
-2.53.0
+2.47.3
 
