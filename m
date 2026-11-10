@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313215;
-	b=449stvvPB149lr4iXMSuiI2ruj1TM8sGtc9uZE/yGp3yEE1XS6NDohA6rJqv1/XLkunp
-	 BAnJDuo8R/vjsidOdTSUFoLS8eR+FTKziZLePpkuQUs8Fuvu7VXxffarceVmIDrxdjcTz
-	 7mxyC3PdaW5E2ft1+5+3kumvYzcjibo0N85XJS8dt2q2QwMjX+DjXnYBpqTe3bHbDoT2I
-	 xj64ORawPVwK6RS5jhx2IfoHJUd0tLzUe9qIqdZih11pXGSdQwXbNhwttNt0VCcAAP1pg
-	 bvGOOEGEecZauTxHB5UH3OZ1MJo0/1EfnrLxmPExdfbIj8Vqh8GPZJrwounUMId9EXQ==
+	t=1794313234;
+	b=Jzh6UnzC3uWGPVqiBV4hILsE2NfqS5PwHbJ0SpOyRWL10x1l4apKpsFAC28Mi2tsXybp
+	 YWC3oc3f0mKTXJ3UnK98Z9zk3UPoLllEPr7LntCo/IAasFDHyKHTU9LbcafJynBvSRLaD
+	 6X30UvUSDINMtz8owuXsM7mDJC9YQfZFfH/jAxg2N8cla3a/yqlWo6NQ3v+W/yV50DdG6
+	 fblNvrTG6LjcWImuLsEB9TK9VjyaeE+39HuDyxGP56KsKdQP/eaUUy2UqwduWIE8YRacU
+	 cypqXKxW0nJ5OVsvbBx0YJNEBPf0l6BfJzKAAZp30WLUy7ofhEoUYVsQsbYPdmyQuhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313234;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fWhIJQKjwTv1oyWF8claeUik4vkJxgRU6P+NOlZRhzI=;
-	b=ZBe4p0KZdFiU/B03VSQre/wmzMTJXN3iind5AveFzz/tpKz3RK9t7UsqynEcFEF5i5De
-	 VrxlO/Y5A1kGGWQHp/pCl2svp/D3tygKwFjtPP8BptZ4qP3GmTnJhyoCvpTSoyU/TgSNp
-	 RN+8ke7zn/VORpzZ8JpquNJiXU0HZ22CUU/ANpWEdCc+t1uhFqU2ZK5OkehmyYcVwR2ip
-	 t4f0fbjgUojLbh7FNo8+eTeqCVo1wPDkUK3GhOcgto5nA1jw8AL7bdinTgDFscCGMrkes
-	 zkhecTOwWMZS6FIMtutgSXab3xHzSYC0HaiPVjxADCWXn33ZLwWdJneVsHJCZ2SsaKQ==
+	bh=WD0+ncX6K5jU/k1S3mzgCerlWlMiUUJMqxldm3QUDVM=;
+	b=PwnWhBuae1+JwMI162PPCxp1qE+gdJAE2XnZb3Sg3PJEWnFn9DzlqnV4Yr9+iiYGjHNt
+	 ShAa04T8Hb9bK1f8ghsVt67xLYuaM6YiRKURJN3XIf3usLN46H15VIipNZ0C+spaP5q9k
+	 yNZvkWUY3noINhAiCQ2womdbyMBEotYlqdzVsnmmmJ/upR12DYS/8utWQBjPqDKQ6fHZA
+	 d0qpO9amjBBT/mLtCC+Y+SToPpXrLF1hd7LcJVcIAosah3oG312MZpPNl9u+VHO+ZN3uX
+	 l0/hkvTMrGLbyXleYOOhddVQ2LuQSHMp380BCUyeyvjhI5uHVvgT1UX3bfMVGgSgifw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJZU4Ddg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bn2gjMj5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74A1606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EB7606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:20:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJZU4Ddg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1101F0089F;
-	Tue, 10 Nov 2026 12:20:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bn2gjMj5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AC341F008A1;
+	Tue, 10 Nov 2026 12:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313214;
-	bh=fWhIJQKjwTv1oyWF8claeUik4vkJxgRU6P+NOlZRhzI=;
+	s=k20260515; t=1794313234;
+	bh=WD0+ncX6K5jU/k1S3mzgCerlWlMiUUJMqxldm3QUDVM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WJZU4DdgzBTgipHz2ePqoPo3q/WQ6QwwkQlne8VqOCxmgEP1yl8Wmxez1TwveVjrB
-	 +bRIK9T4z7CuvFkvF47t6Abp2jHTJsqsra+TxDVRU/7hTBhCroOj98lSWop/2tIBnQ
-	 +EyTFFfWotVDP35lcCNqiJW1Pj6WwBcX7py1UWvvRXQ8kfHgxT1BPRql1Lfje9pazJ
-	 rOoI/cG9yUCiMxmZEjBQ/73hKzcKSaUjYbnCTVIaVytXc5LbHH3BzPv3Hk/sOS8WQD
-	 FdpdNy9iJnaqxOFiSeaMOX4g3sX5jWiyxN/CI/2M8clWWtMuTCn0G+9/7edrpcxFa1
-	 i8I5LIc6aDYxg==
+	b=Bn2gjMj5oGwQmNWS2sLTgYtQxZ6fU1AqNv0KXWdJsd0awFwB+6YKR0G0zlA1KtoA7
+	 RNnbFIKWpwwBBGnnqi0FKDIkVeZINqJVJEdfY4YijXaGFGzdrc78/bJ6zl8/y8D30q
+	 1wVNDfLOP/OUIqzMMWKqw+1U2VJpPcZgKcISZ2XBJ+PGRUlROxVw6eN/aOX+qk3aTP
+	 orxH6m24mlf5/FtY6XPhGeqb+zXNc7CF2CE47P85fbedFFTXurtczLNCm5iQFFykzn
+	 KY3oYx49EXM2BjPxYdZ+gwzniawI1dDtA08RnkiwTAHxphKC8HyQTz5VKHdEby3ByW
+	 ZlCILPjgPF/TA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Marc Zyngier <maz@kernel.org>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Dipen Patel <dipenp@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: arm64: timers: Compute an offset-applied CVAL from the current count
-Date: Tue, 10 Nov 2026 07:20:12 -0500
-Message-ID: <20261110121947.951315-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] hte: tegra194-test: shut down timer before GPIO release
+Date: Tue, 10 Nov 2026 07:20:32 -0500
+Message-ID: <20261110122011.1092204-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051958-failed-6.12-49930b1b557c@kernel.org>
-References: <20261107051958-failed-6.12-49930b1b557c@kernel.org>
+In-Reply-To: <20261107051646-failed-6.12-30167fadbf87@kernel.org>
+References: <20261107051646-failed-6.12-30167fadbf87@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,133 +61,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 49930b1b557ceb698e0ab7f985ea41c99dc8bf22 ]
+[ Upstream commit 30167fadbf87fa901a2fee49c30a5c5a506a43e8 ]
 
-When the hardware won't apply a timer's offset, KVM programs CVAL +
-offset and lets it compare that against the raw counter. The compare is
-unsigned (IsTimerConditionMet, DDI0487M_c J1.4.3.29):
+tegra_hte_test_remove() releases GPIO descriptors before stopping
+hte.timer. gpio_timer_cb() accesses hte.gpio_out and rearms the timer, so
+a callback concurrent with remove can use a released descriptor and rearm
+after teardown.
 
-  condition_met = (UInt(PhysicalCountInt() - offset) -
-                   UInt(compare_value)) >= 0;
+Shut down the timer before releasing the GPIO descriptors.
+timer_shutdown_sync() waits for a running callback and prevents it from
+being rearmed.
 
-so adding the offset to both sides holds only while both sums wrap or
-neither does. A guest whose counter is ahead of the host's by more than
-CVAL has an expired timer that never fires, and one behind it can have
-a far-future timer fire at once.
-
-On a CNTPOFF_EL2 host the first case livelocks: each entry reloads the
-guest's CVAL, the timer fires, and the exit rewrites it as CVAL + offset
-before the host can take the interrupt. Without CNTPOFF_EL2 the timer
-hangs until the vCPU is next loaded, which is what Zenghui reported on
-a Kunpeng920.
-
-Program the value from the current count instead: CVAL + offset while
-the deadline is ahead, 0 once the timer has expired for the guest, ~0
-past the counter's wrap. KVM recomputes it at load, at exit and on a
-trapped CVAL write, and an expired timer stays expired in between. The
-value can't be inverted, so with an offset timer_save_state() keeps the
-memory copy, and kvm_hyp_handle_timer() returns that copy for a guest
-hypervisor's read of its physical CVAL rather than subtracting the
-offset back out.
-
-Fixes: c605ee245097 ("KVM: arm64: timers: Allow physical offset without CNTPOFF_EL2")
-Fixes: 9404673293b0 ("KVM: arm64: timers: Correctly handle TGE flip with CNTPOFF_EL2")
-Fixes: 0bc9a9e85fcf ("KVM: arm64: Work around x1e's CNTVOFF_EL2 bogosity")
-Reported-by: Zenghui Yu <yuzenghui@huawei.com>
-Closes: https://lore.kernel.org/r/460258be-0102-e922-c342-4e87cd94b9e5@huawei.com
+Fixes: 9a75a7cd03c9 ("hte: Add Tegra HTE test driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261007074343.324269-2-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: omitted hunks targeting the absent has_broken_cntvoff() workaround and kvm_hyp_handle_timer() fast path ]
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Acked-by: Dipen Patel <dipenp@nvidia.com>
+Signed-off-by: Dipen Patel <dipenp@nvidia.com>
+[ sashal: Adjusted the deleted call from timer_delete_sync() to del_timer_sync() to match the existing API name. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/arch_timer.c     | 16 ++++++++--------
- arch/arm64/kvm/hyp/vhe/switch.c |  3 ++-
- include/kvm/arm_arch_timer.h    | 15 +++++++++++++++
- 3 files changed, 25 insertions(+), 9 deletions(-)
+ drivers/hte/hte-tegra194-test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
-index 754914d9ec683..89ad3aee4715b 100644
---- a/arch/arm64/kvm/arch_timer.c
-+++ b/arch/arm64/kvm/arch_timer.c
-@@ -506,8 +506,6 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 		goto out;
+diff --git a/drivers/hte/hte-tegra194-test.c b/drivers/hte/hte-tegra194-test.c
+index df631b5100d23..0bec696774c17 100644
+--- a/drivers/hte/hte-tegra194-test.c
++++ b/drivers/hte/hte-tegra194-test.c
+@@ -218,10 +218,10 @@ static void tegra_hte_test_remove(struct platform_device *pdev)
+ {
+ 	(void)pdev;
  
- 	switch (index) {
--		u64 cval;
--
- 	case TIMER_VTIMER:
- 	case TIMER_HVTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTV_CTL));
-@@ -537,11 +535,12 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 	case TIMER_PTIMER:
- 	case TIMER_HPTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTP_CTL));
--		cval = read_sysreg_el0(SYS_CNTP_CVAL);
--
--		cval -= timer_get_offset(ctx);
--
--		timer_set_cval(ctx, cval);
-+		/*
-+		 * With an offset, memory already holds the guest's CVAL (the
-+		 * trap handler or __deactivate_traps() wrote it).
-+		 */
-+		if (!timer_get_offset(ctx))
-+			timer_set_cval(ctx, read_sysreg_el0(SYS_CNTP_CVAL));
- 
- 		/* Disable the timer */
- 		write_sysreg_el0(0, SYS_CNTP_CTL);
-@@ -626,7 +625,8 @@ static void timer_restore_state(struct arch_timer_context *ctx)
- 		cval = timer_get_cval(ctx);
- 		offset = timer_get_offset(ctx);
- 		set_cntpoff(offset);
--		cval += offset;
-+		if (offset)
-+			cval = timer_apply_offset(cval, offset, kvm_phys_timer_read());
- 		write_sysreg_el0(cval, SYS_CNTP_CVAL);
- 		isb();
- 		write_sysreg_el0(timer_get_ctl(ctx), SYS_CNTP_CTL);
-diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-index 496abfd3646b9..b364d9319cea3 100644
---- a/arch/arm64/kvm/hyp/vhe/switch.c
-+++ b/arch/arm64/kvm/hyp/vhe/switch.c
-@@ -195,7 +195,8 @@ static void __deactivate_traps(struct kvm_vcpu *vcpu)
- 		offset = read_sysreg_s(SYS_CNTPOFF_EL2);
- 
- 		if (map.direct_ptimer && offset) {
--			write_sysreg_el0(val + offset, SYS_CNTP_CVAL);
-+			val = timer_apply_offset(val, offset, arch_timer_read_cntpct_el0());
-+			write_sysreg_el0(val, SYS_CNTP_CVAL);
- 			isb();
- 		}
- 	}
-diff --git a/include/kvm/arm_arch_timer.h b/include/kvm/arm_arch_timer.h
-index c819c5d16613b..c468e3d177d71 100644
---- a/include/kvm/arm_arch_timer.h
-+++ b/include/kvm/arm_arch_timer.h
-@@ -152,4 +152,19 @@ static inline bool has_cntpoff(void)
- 	return (has_vhe() && cpus_have_final_cap(ARM64_HAS_ECV_CNTPOFF));
++	timer_shutdown_sync(&hte.timer);
+ 	free_irq(hte.gpio_in_irq, &hte);
+ 	gpiod_put(hte.gpio_in);
+ 	gpiod_put(hte.gpio_out);
+-	del_timer_sync(&hte.timer);
  }
  
-+/*
-+ * CVAL to program when the hardware won't apply the timer's offset, so that
-+ * its compare against the raw counter matches the guest's at 'now'. An
-+ * expired timer stays expired; one past the wrap never fires.
-+ */
-+static inline u64 timer_apply_offset(u64 cval, u64 offset, u64 now)
-+{
-+	u64 hw = cval + offset;
-+
-+	if (now - offset >= cval)
-+		return 0;
-+
-+	return hw > now ? hw : U64_MAX;
-+}
-+
- #endif
+ static struct platform_driver tegra_hte_test_driver = {
 -- 
 2.53.0
 
