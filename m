@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272742;
-	b=2pjUOd0pRHGIn/604qPK/03/sf3K6QYfW9Mv4lxhrFnhANymMZ13ncALp5ztzQ5Vkjcs
-	 fajFScguK2/Q7zZI+ehnv3M3tInyXzDgcjzHUF9b7Gih73fqNI8NothlC94Z/qwKc5xRR
-	 9sli7XOekRnMuWq5EOwMWweaJaq+D6YVF4EF2BV94pQ72r7ZjgCGsjc3nMPL+L7DoE3Vy
-	 nR+nHGzQnPJufEzaAjb3UMdap/klHBxFtzhQ//VNkRDDquiDy4cmEUjJrLQYaDNDe7ra/
-	 u7sssqWQdWCC2CyxrPA96nin4jWA8zvsAyWAxElstCFmU2snR0VtGVhdq7FEqkanIcQ==
+	t=1794272744;
+	b=lfaExsaj7xNYuk9iOF12izcaRwYkK+J6wNMPfhkBuCFsIaLY2NOviALLecpW5YBGUs2f
+	 Rp/ouP7wd+USq4E2i+o4ulxRMLPOEr642kEBWG4rZppCsYXSvPjEKm5QmX6/v2X7TUDoJ
+	 5RyXU0xsSgP+gYAnfbRoqtO95Tf/IfNxFs611dOpYayHcUSQng3MREtzreCywiccoKChx
+	 OF7+6BY5xR5V0neDUKPJDpDmV9qTEHGNRTcoXRHb3l6U+pp6VUYkYXfMofvkQVZcc+PuU
+	 gb+Aw7SO7dx54ptiRQCyq7wcFNxyuktXeUXrAqoWxziMkzsoVKbcp7iUi3tfLj+2nwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272744;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+mB2bo0Xg8sUUs99dY3sAkRURS58sVP+QI8hHwdCSGc=;
-	b=gwb+1zV91nlfTbS/9xndEGTbRvaqsHTJOBn9gt81FJWLb99YXEZ+9rnlhMDOnuN4Hn0Z
-	 sZCUzejwFJpxJBICRMDsa/l71SZtfp7E5UKjAW+YUoDIKjWl1rllLZ7Q8jUyKOhBUjMrJ
-	 lf9WwjLw/uTGgzxeWtOpg1RocAOLVlZcc761+4N+FYkzqH+Iw47CcSMg5Gpo9wkN5rt3w
-	 okUadbcWnqZ2fnNUDCOc3SP7x2/XrCeAJ43ykjyxqlOSRRVgnYO2DtMERBx+25zFAuCgD
-	 BixaBD43F63kytsRRg668l2LoS4UWKP+TSzTYZEmO+OfO50TS3QtK7hzF1T7Am8Fa2w==
+	bh=760FV3uYduRO6ugUlgylhOnvfGCeyyp+VOfLN0Rbtrw=;
+	b=fVtynd+bpaxTahN9ZEe/0QBZ3RvbQA6IKr8/mkS6uqogJzjPXhVn2tI9fGiy6TkL1TP4
+	 f1sVUepjeP0AjC+a8gngQ9HnEoF6Aj3z+MQHnRvVJuCgVnl/IGTSUUEqgkRLFLHgxxJaI
+	 tCFl44lwQUsCG2E8CirAtP+EH3Z3UCPuFUPWn1NzgxiO5kttjoq1X6fgTfoBRZ4yKgICw
+	 y12qu98j+q/5XmSle4xn+AIeHytMiDnO07VnYpHlMQ60PLN3/piE0wZ8yGQKhd9T32D6O
+	 v2PRO5zcboJMETbtu/ijOo45cRuJ8NoIs+heT7NcixqelVf92LccdyoLYWod1jz5WRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMt0ymjn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=La8IYUnf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F636606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6452F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMt0ymjn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D8E1F008A1;
-	Tue, 10 Nov 2026 01:05:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=La8IYUnf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A073E1F0089F;
+	Tue, 10 Nov 2026 01:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272741;
-	bh=+mB2bo0Xg8sUUs99dY3sAkRURS58sVP+QI8hHwdCSGc=;
+	s=k20260515; t=1794272744;
+	bh=760FV3uYduRO6ugUlgylhOnvfGCeyyp+VOfLN0Rbtrw=;
 	h=From:To:Cc:Subject:Date;
-	b=YMt0ymjnjHsmXqKwdP+pVBt8vmSmY9I93A0vr+8xGFDQkovrxU90Em6K27NM8WCWE
-	 UdsnjQYYsZ/fGhE3owfSJPb4w+VY7tPVJRXtaXMNN8yvOMFZIEZO0gFf4O2osl/k9t
-	 tf4qdXOl9lrUJoPOI/+Q6fqupXRjfyJmjsRrf+DUEmrZJ5akIl9zeWUs9nQnUoR1Z5
-	 65xIbWbWDaCpZb83kzYVrRGVOXdiguEdszHweH5JFMyAKV9Z6yt307NDt669FonK5R
-	 Th+lrtWry52EKgLN4XDixGcPdcpe8q2ezyOZHMSLEjxtIXSp2eYOmtiUhYYTjkKmxx
-	 /MKrENZCnXBQg==
+	b=La8IYUnf8LFZIKr4LCgeal0gz/vEFuVUjnSW9W3g3kRjo8oDEELt+RLBxwyqjWXf6
+	 DMg4DafNijYRzr1PJ8vv+zFn7ZW61o9pG0ZdBll3xh4rvoroh92wIA4s0v6CfyXSA0
+	 4oDOzUdEV27gT5OUbWbHGXHeyTTpu6ZJ0xUovm57ZoAeN71q3w2lGv2iMeaYOosOg1
+	 v5KxOSt/zzo2+Wx/GvqFq5MSNzwnQpVYYRYpR7wC42NwUs7/mGYqoJKKvYLgBwYMzK
+	 qmJhLstFGM2KXMykZ09wMxumEZpREpYa0Co68EjRyxblSRuRg/KwDLqNk0mEyWojuH
+	 JMw9ClOS3XB/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: roman.li@amd.com,
-	dillon.varone@amd.com,
-	mario.limonciello@amd.com,
-	alexander.deucher@amd.com,
+To: mikhail.v.gavrilov@gmail.com,
+	jkasten@gmail.com,
 	alex.hung@amd.com,
-	daniel.wheeler@amd.com,
-	sunpeng.li@amd.com
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Reset DET of HUBPs without a plane before outstanding updates" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:05:39 -0500
-Message-ID: <20261109200539-failed-6.18-f3afbf7d832a@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: set allow_freesync before validating a new stream" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:05:42 -0500
+Message-ID: <20261109200542-failed-6.18-ab18dd3061eb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,145 +70,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3afbf7d832ab138655afc96bd42226775d03ce7
+git cherry-pick -x ab18dd3061eb2d92e60c8bbf9a435c25962e449f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200539-failed-6.18-f3afbf7d832a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200542-failed-6.18-ab18dd3061eb@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3afbf7d832ab138655afc96bd42226775d03ce7 Mon Sep 17 00:00:00 2001
-From: Roman Li <Roman.Li@amd.com>
-Date: Tue, 27 Oct 2026 17:17:10 -0600
-Subject: [PATCH] drm/amd/display: Reset DET of HUBPs without a plane before
- outstanding updates
+From ab18dd3061eb2d92e60c8bbf9a435c25962e449f Mon Sep 17 00:00:00 2001
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Mon, 26 Oct 2026 12:33:45 +0500
+Subject: [PATCH] drm/amd/display: set allow_freesync before validating a new
+ stream
 
-[WHY]
-DC asserts with:
-WARNING: dc/hubbub/dcn401/dcn401_hubbub.c at dcn401_program_compbuf_segments
-Call Trace:
-<TASK>
-dcn401_program_outstanding_updates+0x36/0x60 [amdgpu]
-hwss_process_outstanding_hw_updates+0x33/0x40 [amdgpu]
-commit_planes_for_stream+0x171f/0x1ff0 [amdgpu]
-dc_update_state_execute+0xaa/0x170 [amdgpu]
-dc_update_planes_and_stream+0x42/0x70 [amdgpu]
-amdgpu_dm_atomic_commit_tail+0x16a9/0x4020 [amdgpu]
-commit_tail+0xc3/0x1b0 [drm_kms_helper]
+After resume from S3, DC enables SubVP on a single FreeSync display at
+a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
+meant to keep SubVP off that configuration ("For single display cases,
+freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
+at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
+after boot and enabled after "rtcwake -m mem", and the memory clock
+starts switching.  It stays that way until a later commit re-validates
+the state; a CRTC gamma change (toggling Night Light) turns SubVP off
+again.
 
-The DET left by the VBIOS on a HUBP without a plane can be larger than
-the DET planned for the new state. The compbuf is sized for the planned
-DET, so DET + compbuf can exceed the CRB size. Programming the compbuf
-then triggers the ASSERT and sets CONFIG_ERROR in hardware.
+The policy reads dc_stream_state::allow_freesync while the new state
+is validated, but amdgpu_dm sets that field only in
+amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
+the commit.  A stream created by a modeset is therefore validated as
+if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
+streams and forces a modeset, so the resumed state is validated
+without FreeSync.
 
-[HOW]
-Release the DET of HUBPs without a plane before the compbuf is
-programmed.
+Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
+atomic check calls for every active CRTC and which already writes
+ignore_msa_timing_param to the stream.  It uses vrr_supported, the
+condition the flip-time value is derived from.  With this change the
+same TV keeps SubVP disabled across "rtcwake -m mem".
 
-Add hwss_reset_unused_det() and call it in the commit and flip paths,
-to cover both seamless and non-seamless boots.
+On this machine SubVP is also what exposes the single-frame scanout
+corruption reported in the thread linked below, so the FreeSync
+setting stopped working as a workaround after every suspend.
 
-Fixes: 7a1eb6680939 ("drm/amd/display: Perform outstanding programming on full updates")
-Cc: Dillon Varone <dillon.varone@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
+Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
+Tested-by: Josh Kasten <jkasten@gmail.com>
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit c93f6fc7175b445ba3b7c85a1fc31e4e4951bbc9)
+(cherry picked from commit 29793918b0eb63b6810b248a906f87dd79b70be5)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  6 +++-
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 +++++++++++++++++++
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |  3 ++
- 3 files changed, 39 insertions(+), 1 deletion(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 1143916391e79..348e8991f8701 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2484,6 +2484,8 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		 * update pending complete before optimizing bandwidth.
- 		 */
- 		hwss_wait_for_odm_update_pending_complete(dc, context);
-+		/* No DET may stay allocated to a HUBP without a plane (e.g. left over from VBIOS) */
-+		hwss_reset_unused_det(dc, context);
- 		/* pplib is notified if disp_num changed */
- 		dc->hwss.optimize_bandwidth(dc, context);
- 		/* Need to do otg sync again as otg could be out of sync due to otg
-@@ -4870,8 +4872,10 @@ static void commit_planes_for_stream(struct dc *dc,
- 	dc_exit_ips_for_hw_access(dc);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index ab9cfbce8d73c..4620135437c5e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -131,6 +131,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
+ 					vrefresh >= aconnector->min_vfreq &&
+ 					vrefresh <= aconnector->max_vfreq;
  
- 	dc_z10_restore(dc);
--	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required)
-+	if (update_type == UPDATE_TYPE_FULL && dc->optimized_required) {
-+		hwss_reset_unused_det(dc, dc->current_state);
- 		hwss_process_outstanding_hw_updates(dc, dc->current_state);
-+	}
- 
- 	if (update_type != UPDATE_TYPE_FAST && dc->res_pool->funcs->prepare_mcache_programming)
- 		dc->res_pool->funcs->prepare_mcache_programming(dc, context);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index da98afee558fb..55823bce5cf3c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -3147,6 +3147,37 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc, struct dc_state *c
- 	hwss_wait_for_all_blank_complete(dc, context);
- }
- 
-+void hwss_reset_unused_det(struct dc *dc, struct dc_state *context)
-+{
-+	struct hubbub *hubbub = dc->res_pool->hubbub;
-+	unsigned int i, j;
++	/*
++	 * DC reads allow_freesync while validating the new state, for example
++	 * to keep SubVP off a single FreeSync display, but it is otherwise set
++	 * only on the first flip after the commit.  Set it here, so that a
++	 * stream created by this commit is not validated without it.
++	 */
++	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
 +
-+	if (!hubbub || !hubbub->funcs->program_det_segments)
-+		return;
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct hubp *hubp = dc->res_pool->hubps[i];
-+		bool hubp_in_use = false;
-+
-+		if (!hubp)
-+			continue;
-+
-+		for (j = 0; j < dc->res_pool->pipe_count; j++) {
-+			const struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[j];
-+
-+			/* A plane-less pipe renders from the DPG, its HUBP (assigned with the stream) needs no DET */
-+			if (pipe->plane_state && pipe->plane_res.hubp &&
-+					pipe->plane_res.hubp->inst == hubp->inst) {
-+				hubp_in_use = true;
-+				break;
-+			}
-+		}
-+
-+		if (!hubp_in_use)
-+			hubbub->funcs->program_det_segments(hubbub, hubp->inst, 0);
-+	}
-+}
-+
- void hwss_wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
- {
- 	int i;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index 7800b0501c399..b413d1790a6b8 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -1829,6 +1829,9 @@ void hwss_wait_for_odm_update_pending_complete(struct dc *dc,
- void hwss_wait_for_no_pipes_pending(struct dc *dc,
- 		struct dc_state *context);
- 
-+void hwss_reset_unused_det(struct dc *dc,
-+		struct dc_state *context);
-+
- void hwss_wait_for_outstanding_hw_updates(struct dc *dc,
- 		struct dc_state *dc_context);
- 
+ 	if (new_crtc_state->vrr_supported) {
+ 		new_crtc_state->stream->ignore_msa_timing_param = true;
+ 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
 -- 
 2.53.0
 
