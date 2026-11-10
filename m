@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331099;
-	b=Sw1rNYkzTbP7BYBYuxDa6LULU+fiLYClRKnvLOxJyD1gMwJzWBDsSHz7DsE5s4iKG5DN
-	 S553xkB6dtgViLZsT/wfAcMb9KlRD1+HwjtJ0e6bCu42AKTMi8O7nP1GJS8bygS/KNq3z
-	 ny9IqxatJzczdQkZKy3P45bCQxE76dwh/YP5Nr+Jv5HABCoFSrkCb+T8Ob/1FsMwShA9c
-	 M2CzR2cuXa53AYpiZ5d4O9wdinSwmaMGdV6Kt0q8c/P4iN/k0iEuL++S/AamnuUYaH2iv
-	 MG/F9b7XSXnxt3l1G6wBBykeQ+uOOUj9GVtwX4PpaMtcrrGuDuwhL4WzVFiDTNGLuuA==
+	t=1794331147;
+	b=vFSX1/1mkakEgNlhpgq9RyLiCWmFz1q1acC+rhoVb3dDYR6RKM/qmAMhcOeFNtfBlqss
+	 nZvzKE3uL7LCtjelUvd5VM2WH5AAEL7qxDkOThoiB2qru/hKfK9nf0xCiKbpL8xQMq6/R
+	 tPvbZMTABLUlkX8dYdaKojOrbx4cigcuDNCfsErv2nCbYBsuqE/5p5PJlp2BuXhsCGElr
+	 ZVraVj4ZrtjScmL3u+LamwTPIjOMk8PLsxrYVHp1a/sTonWJ49JhK7xw/5kmLop/b8w9u
+	 +2jFqv8fOZpZaYA/ESEcjwzqoPSXoLk2HCgyfLXBiv6Yd/j2wF7QUCWc6w4sjk8p1HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331099;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4Tk/Aj+/GmJv8VYrhqdO/bkdjhVf01tbOreedTtB2z4=;
-	b=UvBAX/6VBuBU7xVKoOzrUb4PKxkYVCzX14AAvXoYUYqDMj81s6+jFEpOfFzsoq+91LFk
-	 wOY/AfFxZQCrZC9pUkYf0pdrcMyI38wALJMmq/ohGOcjYcKTm/+Xpg8usU9Kd5fK0FLWc
-	 /2p7D6djTYXoNZGHI7+9yx7QVOS2l8b7T28+/V0pV3/WM2/wM3iYmZDOfq+KEK2493LHz
-	 QaxhjyRgQCknOQorI9fcOsG0pg905lkEZE3E6OyCk8hQivNPhxFF/s8J/F9Y39LPoNegS
-	 Tr38rVuneWlZlXJXjlZjUk7e8r4oPJe89VUgO8WuJzH0sVaPcLnXGHYGnyUR9ajXTAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331147;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=V7fyh20lQdCfEvkMlKmFXdlszEDXLNAOR5UNt1WFBvY=;
+	b=qtk+CYmKy39VUZj/UZ49uOaL3KYattjYIm4vS7kl7JOS5UBTZRs7d5egrSYU0LE+pJLY
+	 VOkFNWknPRTf5ddouPZDklv6eOwgol7GEZGKAW7b14BV8rhG1yDyLGesAUYizR6MUAYdQ
+	 zvQDBAZGutCk4Vp6Cw0DfM4wEjgUu5l7eN4NNHjIK9AR6vbljC31UH3XVJU2HX4koRsi/
+	 1OnBNUzh8d3Y+CNpQ62+KQgpjbE7hPOMTcF+UXGDJF07M6ugeGFgMRRZ23G5z6Mj7K/Qk
+	 TsS/pD6c1xpOEXMmWHCbGox/f5jdvGlE/A5tkaTxptBNa0kAcJbJgdJUvFaIlSOCWnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyognTs+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nqNAPJyr;
+	arc=none smtp.remote-ip=95.215.58.88
+Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63FD606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:18:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A967606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A967606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cyognTs+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6731F008A2;
-	Tue, 10 Nov 2026 17:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331098;
-	bh=4Tk/Aj+/GmJv8VYrhqdO/bkdjhVf01tbOreedTtB2z4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cyognTs+a5rCH/5soKbfqIksBv0ILaq2k+F8PdTEkFd1BxU0yFYhLyWBfK19O+lyT
-	 zShUCym97+v7AMIJt5hFKEnmNxyMIQs2BPCdhfSvTlZfa3uGTq47rrKUGV+z2yik1w
-	 i3gLJcdw1RBJ3abjGKarYnbDXQfpbIsaiQG6O/HmFM0izTaVftriIGPUy3ED80UstM
-	 9E6O0kRMLks0qJMRTJdFVMq/n7ygX+wbXlAwn636Jw2jJpfXNUwgJRarM8zvO1eHc2
-	 KwdeXzRlP8JgKFVkrjP3Fq3dKVbQEHJGPkBoT0v5SGXTII9hyMlinMG5Bm5lnzVrYE
-	 Xhjhqjkmx3izw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] f2fs: remove mappedtodisk flag usage in mmap write path
-Date: Tue, 10 Nov 2026 12:18:14 -0500
-Message-ID: <20261110171210.2630515-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110171210.2630515-1-sashal@kernel.org>
-References: <20261107053437-failed-6.6-b3c984358925@kernel.org>
- <20261110171210.2630515-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nqNAPJyr
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5N+pLaOxaXEBjI3kYto3LAKJTxf1OYPE2hTSsrnSYYI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794331144; v=1; x=1794935944;
+ b=nqNAPJyrr0Ds9wQm2r4y6Z8BxTtSGQFm/wTwnfz59I7GNjjdKAldmTKk3Hb/U/2crh7A+SCq
+ AE8/Uy/OofTS0+vQVf/6v2MaCWNjPorE9j2INEc9mu40KDkVMLrmanTX7MOIWKzoaXay7oO9v0V
+ 2fwPBb5zw3yYHe9kJc/Nj1xw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e45fe2ec6f6926a9;
+	Tue, 10 Nov 2026 17:19:04 +0000
+X-Mizu-Trace-ID: e45fe2ec6f6926a9
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be58ad9600so9174e87.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:18:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHkQp7WuqtSRCLjhiaLYNgj2nhOd30fkkeic6YIsecLLUkdqsOHLtr+Nx3XeETRnwHcHn83SRA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/P1H+vHEHon59jQ7eH+VgTqBi0Vfdnr4nC/+27kCNU3V1ONY63
+	LPSjjyaEjJYWqtijAE7WFweL0haS4g5qyWSfdVzAOV/xokeGff43oqnfG0C36LSEsJPcW/PiXU4
+	/SdLCp/NjUFvOa+DL4c4i/jnSeN4DpgB+6AcRQlZW
+X-Received: by 2002:a05:6512:1153:b0:5c1:5361:4aae with SMTP id
+ 2adb3069b0e04-5c157dccb40mr145514e87.11.1794331138677; Tue, 10 Nov 2026
+ 09:18:58 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,85 +66,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
+In-Reply-To: <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 10 Nov 2026 17:18:22 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
+X-Gm-Features: AclHuK8XEMs-LG2DuXG_orFbD_2iTQdN4-tg95UYPdRQQh0AwcU2lWY30uJCy0M
+Message-ID: <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
+ ring is full
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Hi Sean,
 
-[ Upstream commit b3c9843589257631bac18f30655e82d88970688a ]
+On Tue, 10 Nov 2026 15:48:37 +0000, Sean Christopherson
+<seanjc@google.com> wrote:
+> On Tue, Nov 10, 2026, Fuad Tabba wrote:
+> > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+[...]
+> > @@ -4461,6 +4461,12 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
+> >                          break;
+> >                  }
+> >
+> > +                /* Like KVM_RUN: only the iteration crossing the soft limit uses the reserve. */
+>
+> Please don't include AI comments verbatim.
 
-PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
-f2fs has no buffer heads and the flag is no longer meaningful.  The only
-user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
-which makes mmap write faults skip marking the folio dirty.  Moreover,
-it causes the following race condition with filesystem freezing:
+The series is LLM-assisted, but the comment was actually me.
 
- CPU0 (write fault)     CPU1 (freeze_super)
- ----                   ----
- f2fs_vm_page_mkwrite()
- sb_start_pagefault()
- /* shortcut: no dirty */
- sb_end_pagefault()
+> > +                if (vcpu->kvm->dirty_ring_size && kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
+>
+> Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
+> clobbering vcpu->run->exit_reason.
 
-                        sb_wait_write(SB_FREEZE_PAGEFAULT)
-                        /* no waiter, passes */
-                        sync_filesystem()
-                        /* folio not dirty, skipped */
+Will do.
 
- finish_fault()
- /* PTE writable */
- fault_dirty_shared_page()
- folio_mark_dirty()
- /* dirty folio on a frozen fs */
+> Side topic, kvm_dirty_ring_check_request() is rather confusing (clears and then
+> re-sets the requests).  AFAICT, it can be this instead:
+>
+>         lockdep_assert_held(vcpu->mutex);
+>
+>         /*
+>          * The vCPU isn't runnable when the dirty ring becomes soft full.  Keep
+>          * the requests set until the dirty pages are harvested and the dirty
+>          * ring is reset by userspace.  Note, checking if the ring is soft-full
+>          * can get a false positive, but not a false negative, because only the
+>          * vCPU can add entries to the ring, and its mutex is held.
+>          */
+>         if (kvm_test_request(KVM_REQ_DIRTY_RING_SOFT_FULL, vcpu) &&
+>             kvm_dirty_ring_soft_full(&vcpu->dirty_ring)) {
+>                 vcpu->run->exit_reason = KVM_EXIT_DIRTY_RING_FULL;
+>                 trace_kvm_dirty_ring_exit(vcpu);
+>                 return true;
+>         }
+>
+>         kvm_clear_request(KVM_REQ_DIRTY_RING_SOFT_FULL, vcpu);
+>         return false;
 
-It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
-folio zeroing.
+I'll send it as its own patch.
 
-Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
-f2fs_read_single_page().
-
-Reported-by: Chao Yu <chao@kernel.org>
-Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
-Reviewed-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Fixes: fbfa2cc58d53 ("f2fs: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/f2fs/data.c | 1 -
- fs/f2fs/file.c | 6 ------
- 2 files changed, 7 deletions(-)
-
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index e1c66f64aff38..288de302e83be 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2136,7 +2136,6 @@ static int f2fs_read_single_page(struct inode *inode, struct folio *folio,
- got_it:
- 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
- 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
--		folio_set_mappedtodisk(folio);
- 
- 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
- 						DATA_GENERIC_ENHANCE_READ)) {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 7ec8d054bf1ee..f4863d7331802 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -215,12 +215,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	/* wait for GCed page writeback via META_MAPPING */
- 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
- 
--	/*
--	 * check to see if the page is mapped already (no holes)
--	 */
--	if (folio_test_mappedtodisk(folio))
--		goto out_sem;
--
- 	/* page is wholly or partially inside EOF */
- 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
- 		loff_t offset;
--- 
-2.53.0
-
+Cheers,
+/fuad
