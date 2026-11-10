@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334995;
-	b=MtMVXfZIv3dFYRA97NJjNqpJMKD7oBcS/FTXZDoss8kNJd8HDo65T6xBnPwHdvFxEYlJ
-	 Q0qmw+C4EpF9M/NGEZLrUlWbOdr+ywIiW/EbxylELm+f+ltW+VF51WAPE3u7e6YS2GBrS
-	 7hWgq78HBRaVcOy7xpvvg/2DbMQiZLSaw/j4cz2aCAd6ssX/vYSZSOlU4qV7aVii/YDez
-	 kXhGvZ7E9DwBTtqzq00PaF8Ed/Nfopf2geXQNMH58IY9QIlVDUF/U2YQE9G2ayL44rIIp
-	 lSkbb3m2C+xttYycMz7HHVarQth3GUDdt6cU9QpXCIoYtAZitfe1LByS+1Lbaa8kNEg==
+	t=1794334985;
+	b=f3qZ54GbB4hkrPNNhTtgrykZhzsyaUIjL93Sbe91SE2Lm7kFZjHiAt9oxdAKUbZQDBju
+	 d0fgqVvl2OrC8u1vwl1MR8lVDo2m3f0kZ1XiOLodxjK4SHxQohvVVFMlfpnw18CTjgnYg
+	 2OZMppfwfI8g0Jsuh1SlGykYYfdHuy6JH1cNk0R66PSBqDSZBiiozpkfbq5v7ajvFEUXl
+	 mKOQDEMoTIjfc1oD1yIea4k5SIjb4jNJFD14ZVB+PN/qVZJcsmACBgpIsw8/pxPqG9+zH
+	 ProUbfEkFDvG/b8qYVr079GTh/CpF6F1qJ+8O/FjAD8PGCX3NsWFLI1+BxglLCYbXkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334985;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=We72cBQExcEry0dpzv58lEZ3IS/nG1fvq2tyV0GkB9A=;
-	b=lf3oZ2iscooMpuzQQ5U9bqo3V/J4gye4fKwkdhrDzHYT8f3f9AnAvVQqEz5wXP45kIoU
-	 fDAXZ2AeIYKpNmGyE03PLoBShU2FSONiKGbL7Sjrq2xScTqZEPTs9YPgmNCCDfnWyTeRP
-	 cZ3a7R7IleyGWfXb414AS3jFUZK34sQCOOVTwCkrM1ZfcF8b2A6Ch6EGQeskxxYx+OrYs
-	 2JdkHy2D+9gHoGNhibdL7ll3pG66MagTD8jRYOdxEn8T2B5eFhtC4W2GpKv1Ms5hdxj0F
-	 +zgGGYK2hDA8r5HstwGcgohvVBGxNbb5ADsusMasuD3tH+SlzdIRnXO256UqWcZ5yig==
+	bh=Lf1UOrn/59SxIWJYDfgHXSK5KpB9ctjHjG/DWAiJt/Q=;
+	b=xZfFAQpdjmAioaXaZX55Je2lZKZHcZjvjE+EKLHDe+/GLptiLP2M4D6mK+EM5AsB5xFO
+	 f0TFUcL8UL+S+Z0eFWN3lEzfNIeOwGtOSuZBaHJoqM6wjkQt8Sn9xhNlyS424WpHXfWLW
+	 pUmE/jVSppJyuNoRpocFuLbEkH8+RtH3PEjzzr1kmZ0/sGIuCDXfq1kbmbDLTBM5p9nC8
+	 PygzR4iZAQa+VEeAjTwcXjzFmbx5FlCvzh2U0A4IY+IObJKdeshZW4Tvo5X3+OC4qrLN5
+	 JPYjoZ/7DZlYg4qxARQxclaxIgJhhO0RbXeTXuVsUeXSB3u58qGJf6FYjm88K5V/Vbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cldSBui0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8HhYK4z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1809C606A327;
-	Tue, 10 Nov 2026 18:23:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 415DD606A334;
+	Tue, 10 Nov 2026 18:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cldSBui0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50161F008AB;
-	Tue, 10 Nov 2026 18:23:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8HhYK4z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A73CA1F0089F;
+	Tue, 10 Nov 2026 18:23:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334994;
-	bh=We72cBQExcEry0dpzv58lEZ3IS/nG1fvq2tyV0GkB9A=;
+	s=k20260515; t=1794334984;
+	bh=Lf1UOrn/59SxIWJYDfgHXSK5KpB9ctjHjG/DWAiJt/Q=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=cldSBui0L+HHGmkjZa92Gf5hoKSc5DFfJZjU0c6UovfrDp6NPzQwQOIWk7kZvAcSs
-	 XE8eO7P/CxBGNvZMX1tja06MFooyZahbp2OpR5saavkr+nEo8pvru+t0pmQt1n+lqu
-	 5pBiyUa4Uuf6WYe0Ex8ec41UHZdVzI9QPoLtzSRaW5tTA20QEr4qZZoD0LE6dYz+rf
-	 PHguTH0KW6JtalXRTvusX1tIj2a+uQUt9Nl+ssM4o0Cc6r/RqeDmCosa8TtFVG4OL8
-	 No1MOiqt6+epjWfDyIVw7nUS7H3kVHXa1iRN2JNSsjywD7ktUFUFKZ6U+G1EK7ISJR
-	 FYbQhk7+8fo3A==
+	b=Y8HhYK4zDpEZDWObXQcT3KRsHZMvC+iJg/MpfZXcjo97qebaSWlos5oJDL1r97pDz
+	 XuJFS3vlR19fQY/LY1n434lXSsgK5kwwJWDsMDpz5H1p/+Xl6LP1+1TOfSxc7a0z7w
+	 XXorq9CX4+QOUQq0lVsvJjjsalPiMg2Ft/q7oLpBwkwCckM7lIARLsAQADmqWGEyEh
+	 Yv9MdKIugvILWvdHBkB+lYuT8i3qsoXSqPHOsVSwhEPwxM/9OqNBks+zBwk/DbL8ci
+	 d6ws9I5yLHHmTVNqJA9ZTY7G/0zrHrku48s02O+KX+WzhosuY1agNddpixc9nxj0tE
+	 RscaQygSLHb3w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B0D039D608B;
-	Tue, 10 Nov 2026 18:23:14 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B16B39D608B;
+	Tue, 10 Nov 2026 18:23:04 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,41 +54,45 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
- write
- failure
+Subject: Re: [PATCH net v15] net/smc: fix lgr/lnk lifetime vs diag reader race
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179433499317.4118637.15079674330639490953.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 18:23:13 +0000
-References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
-In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: idosch@nvidia.com, petrm@nvidia.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ <179433498318.4118637.3265445978564570852.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 18:23:03 +0000
+References: <20261102083122.1098393-1-mjambigi@linux.ibm.com>
+In-Reply-To: <20261102083122.1098393-1-mjambigi@linux.ibm.com>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
+ dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
+ pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+ guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue,  3 Nov 2026 10:28:51 +0000 you wrote:
-> mlxsw_sp1_ptp_mtpppc_update() increases the global parsing depth
-> reference count before writing the MTPPPC register when timestamping
-> is enabled for the first time. If the register write fails, the
-> reference count remains elevated even though no timestamping
-> configuration was installed, and nothing will ever release it.
+On Mon,  2 Nov 2026 09:31:22 +0100 you wrote:
+> The diag dump walks the socket hash table under a read_lock and
+> dereferences conn->lgr and conn->lnk. Several paths expose a window
+> where a hashed socket has freed or partially freed conn/lgr/lnk state.
 > 
-> Drop the reference count again when the write fails. Also only drop it
-> when disabling timestamping after the write succeeded, so that the
-> reference count always matches the programmed state.
+> First, smc_conn_abort() calls smc_conn_free() during early handshake
+> aborts while the socket is still hashed in SMC_INIT, synchronously
+> freeing the lgr on the smc_lgr_cleanup_early() path without holding the
+> hash write_lock. A concurrent diag reader can load a non-NULL conn->lgr
+> and dereference it after the kfree. Skip the connection, link group and
+> DMB attributes in __smc_diag_dump() for sockets in SMC_INIT or
+> SMC_CLOSED or fallen back to TCP, and take diag_mode from an is_smcd
+> flag cached at connection creation.
 > 
 > [...]
 
 Here is the summary with links:
-  - mlxsw: spectrum_ptp: release parsing depth on MTPPPC write failure
-    https://git.kernel.org/netdev/net-next/c/1dadb4afc18c
+  - [net,v15] net/smc: fix lgr/lnk lifetime vs diag reader race
+    https://git.kernel.org/netdev/net/c/d7900fa51642
 
 You are awesome, thank you!
 -- 
