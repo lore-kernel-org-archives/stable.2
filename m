@@ -1,63 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273744;
-	b=zaF3auEiXqhQK28+YdcISDH/DCr5cna6hfhjtC9r+v5BP90mFtSNhIXQNMCwjm7P4Sn5
-	 f3+yV4UK6c9TPVhQVOCCTSKLyZ5lF0LC+nPU4CKYCI1XBN+HE+e/qGgaU+AsaPSpNHsSG
-	 AjF08XY4VYPSLvAR8QpcQNTZ7ZuZvhbI1IUc3Xw7L/sPUuhivTPGEKuZjVFNtQI1Rp/Wr
-	 No/sc34AlV39y7zIgn5CjbD5tdaz0Dy9HRVHFBrXFuW6rRxBi6QfNxM6HZUqwUhucSlL2
-	 UF/nP9rStUPiDvUsis+sk3vAiuMP9XwoZjVAslqJfmi2PccEClNO+NldQYXfbgzQpDQ==
+	t=1794273747;
+	b=QcTvtALB0eMJDhtu1OWSHxgv91pxv+5oSu8df6luN5gROuiQHWXVBRiYcaYZirpIlVsX
+	 HXlS6veoQC69XBUehmy0tA2HXPGUlz4hgjtgXSCtj611jR/MZkNMH+RUzLaYgPnB3Wtf3
+	 4IjDD6fwVtHh2B7oiJtDo3jQkQY58EgmVATSgVhKH3HZaa+hPFQD5C7uNv3t7fyYiTFwA
+	 scyQGYASci7vyqR/B0NaldbQf2K4BJOL4+MO7AgPTsLsGDhJ6QrIeHMKZhstMUrCsAeAF
+	 xNs4Zbjr1RphzgvllvIaw11w/sVfzxEJGc3BBB30gPjPv2VekRZ1LyighZfxr+UWY9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273744;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273747;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=id6SzVsPfMDFN1VchH+QQvllbnSN1ikNfZcrABKsEAU=;
-	b=QN/NYj5+kOOSguE5fWBr9JKwWMtZN+ocXB6hV3z+xH7AZ4yGJWXeULFn1zeyj2tQVtAa
-	 0EhlFnroOWwlIzgosFth4vC4PsfXGeVFJwW5P6Vg4neeUabZLGeWu2pxdgy3uymy2sucd
-	 nnaRl6nqHDh//28NmrkTZcNNM3VML9DrS/pqVdeGLzYy5mpRqvbVm6JGn6wdEoXKVKxXO
-	 Hj/yTnec927MzZsvIVFLKjKXsRZPdxcTT/MvCC6z+mXqNzVCC4n3D6EOySjj73DlLd+F3
-	 apgf6tjcb4M5KbrbvaMFH0GgpGPlw+udkgah1GRI8e/ePTlT1vTLgWzuehzW9xpowEg==
+	bh=BCMfjb7tGEKmdL7Y7WGM+JcFo8jTyYp1uhijRy/Z5vk=;
+	b=dJmK03y45w5Bqs7xZmVp4dofL9TymehjSjW48xVHdbjvhim7y+Z47XjaOSLzN7sC5i1+
+	 Iut9sqLkwTnQxndvIYz51x/0rXrCQGG0X3hyYYAGiNOh3W5Y20jqdDCsR07PTaQWj+8FR
+	 hKsWFbzFickGyhf6VX/33jUuKLSphSKBKlMY8mWukXCx/HGn66HyqhAqt1SqrFPV9vsYd
+	 EWVmrXG0Ni7AyKLtO5P/v1lMYE8mqJvKR8JWAGYhpjVj67BpCLnd9j8G3BwkwIi1wUzpu
+	 2I9e++PTlUA1e6f8ah+puw5P8tzgYKRzeXSNsHymL44EwQ1VQdXl0Bk9RoiDLW7UesQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSWqU0oU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoJuAN48;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEB7606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D74606A332
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSWqU0oU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA601F008A2;
-	Tue, 10 Nov 2026 01:22:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoJuAN48
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA761F008A7;
+	Tue, 10 Nov 2026 01:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273743;
-	bh=id6SzVsPfMDFN1VchH+QQvllbnSN1ikNfZcrABKsEAU=;
+	s=k20260515; t=1794273746;
+	bh=BCMfjb7tGEKmdL7Y7WGM+JcFo8jTyYp1uhijRy/Z5vk=;
 	h=From:To:Cc:Subject:Date;
-	b=lSWqU0oUGJu0o7XPZfWGedkpkin+JUVR9Jt7d5BpWDPoKc9QryIhgkwZZBnQdztUD
-	 3s5kF++aMmNlF7F5pWT8Bb6OHL4RsEwMEQzLj/A5By8gBqPHx+bt+b7haq5f1OudJg
-	 Z1SWw9/Q1Jk4Bk6dOvT+HSkb74MbA8B58hVTc1OJqUZPm7t81JBe81Pll90hANKSzX
-	 BlRIGYjmmZLARETP/EMb/Mbil9C9Q0gPyoZxkJR/2tHi+f5dZxmHpKKnbx5S3purl8
-	 17shFvS9AmTOEAFxrnpo+/4MlClMO0BFKOMwrHvsUFTHg4JA1o+6iAcwfsdUwexKPh
-	 mnvutHkimnT2Q==
+	b=YoJuAN48h9kJWDayr5LiXq/lAqvgy2jrPMqXRANRddhvf4LKHgsV0z747oOZOLZ1z
+	 wZCCiRvyN6FxWa3y24sURf89nHDreBbQgILfqbHQTaJY9DoQLGz5LxtAu8dnqFEiBn
+	 8SVMjoT4Cf18EulDTKNAV5rrWQ8cUs9CGwBDLjS3Zbgv20Tj/rryeHGwRV+ASwNQWS
+	 19qEyAah8lZatmJq3mT6w3y1eO9iym6Rfo3eySchsan8zQYYQfIURms87nEBxBhbea
+	 z0l0GVDXi5CCuQwk/alk/EAX1aWhASoc/yNvTcEyRshHB8pw6X6U9wVMYM+jkS1QUk
+	 m6XwTINgK2Njw==
 From: Sasha Levin <sashal@kernel.org>
-To: hannes@cmpxchg.org,
+To: eklavyasingh2106@gmail.com,
 	akpm@linux-foundation.org,
-	balbirs@nvidia.com,
-	vbabka@kernel.org,
-	willy@infradead.org,
-	dipiets@amazon.it,
-	hch@lst.de,
-	dgc@kernel.org,
-	matt@readmodwrite.com,
-	mgorman@techsingularity.net,
-	mhocko@suse.com,
-	surenb@google.com,
-	brendan.jackman@linux.dev,
-	ziy@nvidia.com
+	joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
+	heming.zhao@suse.com,
+	kartikey406@gmail.com,
+	zzzccc427@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:22:20 -0500
-Message-ID: <20261109202220-failed-5.15-fe21f930d1e6@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:22:24 -0500
+Message-ID: <20261109202224-failed-5.15-0a8f258c0f01@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,119 +74,194 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x fe21f930d1e64d121191673076fc4ebe79fc82d5
+git cherry-pick -x 0a8f258c0f012314c36b9e4818cdc0178c68f891
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202220-failed-5.15-fe21f930d1e6@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202224-failed-5.15-0a8f258c0f01@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fe21f930d1e64d121191673076fc4ebe79fc82d5 Mon Sep 17 00:00:00 2001
-From: Johannes Weiner <hannes@cmpxchg.org>
-Date: Wed, 28 Oct 2026 13:15:54 -0400
-Subject: [PATCH] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
+From 0a8f258c0f012314c36b9e4818cdc0178c68f891 Mon Sep 17 00:00:00 2001
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+Date: Wed, 21 Oct 2026 02:53:39 +0530
+Subject: [PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's
+ dev attribute
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out reserve
-access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
-watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
-was left in ALLOC_RESERVES, which produces something odd:
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them.  So in the slowpath, they get
-to consume regular blocks below the min watermark by the number of free
-highatomic pages.  The highatomic reserve is capped at 1% of the zone,
-which on any decently sized machine is a multiple of the min watermark:
-GFP_NOWAIT can drain regular memory to zero.
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure.  This was found in review and
-reproduced with a synthetic burst, not observed in production, but the
-sequence of events is a realistic one: On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
-0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
-reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
-hundreds of milliseconds.  The machine survives it, but not by design:
-direct reclaimers eventually fail and start unreserving highatomic blocks,
-until the allocation succeeds or the reserve is gone and the OOM killer
-runs.  That reserve exists for high-order atomic allocations; here it is
-destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
-memory.
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
-burst is stopped short at the min watermark.  No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact for
-the requests it exists for.
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
 
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem.
-Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-their watermark check, but rmqueue_buddy() serves them regular pages first
-and only falls back to the reserve once those are gone.  They can still
-push regular free memory to 37.5% of min minus the free highatomic pages
-before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
-reserve, so this needs the watermark check and the freelist order reworked
-together, and is left to a separate patch.
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). The mutex
+is dropped while dev_store() waits for the heartbeat to become steady,
+which takes seconds, so a read of dev doesn't stall behind a start.
+hr_bdev_file is already set at that point, so other writers still get
+-EINVAL, and the cleanup after the wait retakes the mutex.
 
-Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported. So did a second one, with a working loop device,
+that interrupts starts during the wait while other threads read and
+write the attributes.
+
+Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
+Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page_alloc.h | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ fs/ocfs2/cluster/heartbeat.c | 40 ++++++++++++++++++++++++++++++------
+ 1 file changed, 34 insertions(+), 6 deletions(-)
 
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index 9c3c2830acb0d..7097ea1805f6a 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -32,12 +32,11 @@
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
- #endif
+diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+index b45adc39aacca..7a18e71b507b3 100644
+--- a/fs/ocfs2/cluster/heartbeat.c
++++ b/fs/ocfs2/cluster/heartbeat.c
+@@ -269,6 +269,8 @@ struct o2hb_region {
+ 	struct list_head	hr_handler_list;
+ 	/* Serializes timeout arming against failed-start and teardown. */
+ 	struct mutex		hr_arming_mutex;
++	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
++	struct mutex		hr_dev_mutex;
+ 	bool			hr_stopping;
  
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -58,7 +57,7 @@
- #define ALLOC_NO_CODETAG       0x1000
+ 	/* last hb status, 0 for success, other value for error. */
+@@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
  
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
  
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+@@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	ssize_t ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 	char *p = (char *)page;
+ 	int ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
+ 
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+ {
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
+ 
+-	if (to_o2hb_region(item)->hr_bdev_file)
+-		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev_file)
++		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+ 
+ 	return ret;
+ }
+@@ -1872,11 +1879,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
+  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+  * nothing
+  */
+-static ssize_t o2hb_region_dev_store(struct config_item *item,
+-				     const char *page,
+-				     size_t count)
++static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
++				       const char *page, size_t count)
+ {
+-	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
+ 	long fd;
+ 	int sectsize;
+@@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	lockdep_assert_held(&reg->hr_dev_mutex);
++
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 
+ 	wake_up_process(hb_task);
+ 
++	/*
++	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
++	 * hr_bdev_file is already set, so other writers still get -EINVAL.
++	 */
++	mutex_unlock(&reg->hr_dev_mutex);
+ 	ret = wait_event_interruptible(o2hb_steady_queue,
+ 				atomic_read(&reg->hr_steady_iterations) == 0 ||
+ 				reg->hr_node_deleted);
++	mutex_lock(&reg->hr_dev_mutex);
+ 	if (ret) {
+ 		atomic_set(&reg->hr_steady_iterations, 0);
+ 		reg->hr_aborted_start = 1;
+@@ -2041,6 +2054,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
+ 	return ret;
+ }
+ 
++static ssize_t o2hb_region_dev_store(struct config_item *item,
++				     const char *page,
++				     size_t count)
++{
++	struct o2hb_region *reg = to_o2hb_region(item);
++	ssize_t ret;
++
++	mutex_lock(&reg->hr_dev_mutex);
++	ret = __o2hb_region_dev_store(reg, page, count);
++	mutex_unlock(&reg->hr_dev_mutex);
++
++	return ret;
++}
++
+ static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+ {
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+@@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
+ 
+ 	INIT_LIST_HEAD(&reg->hr_all_item);
+ 	mutex_init(&reg->hr_arming_mutex);
++	mutex_init(&reg->hr_dev_mutex);
+ 	reg->hr_stopping = true;
+ 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+ 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
 -- 
 2.53.0
 
