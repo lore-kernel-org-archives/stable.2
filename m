@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794297636;
-	b=3zdQR4Fn4c8xRjxJdARsGCZDZ6eygd0348lQFnJweKwadGbJv6AvfEqK2CwP2K/Gbhp3
-	 lSWin3+bOXb7+rCjbzbKtkZxnVGYojCpd5elzRvfQVvVNUJrt3DtN6BL3cApAN0QrOSqA
-	 DVAby0/Ob8YH/eZr7kQGGESIMjJ0iPNRqkJc5Fa6M6SM3BuMS0FBhlomG3aET1J3y7cFO
-	 mWYGo50HVaAYloPRuwieOpLqT8Y3DmOfam1z8q9gVJ7HJK6+j6cESSkBHSya+C3L3xWOF
-	 0G3ZbhSMhogjJmGJMmczK0fA3R2K57r3BJwLzE2SX6Wm7VEpvvY6dPwj7N8+/+0IRjw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794297636;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8/yWk7su6asML4sCXXpIPGHzHAG4DJtHILTqcFE0aao=;
-	b=ySSLm8OD3UIvaLux5V0larBAdbZh9enLQQCQneDGMFKhMoZNlsoxduEcAbzl4+/M23aa
-	 8tRQfllZadIo+B5Dz+ROME9x9/mzdKv21+qyNMUQiaIUyjLy4ZrQX89+aTU0Jox4fhTXr
-	 O6KR326qvr/v0BP2Jz1yj65mFx8XCw+zbUBmFzRS6w3piM2zS36DQkeaW4vlhykNpW+Hy
-	 kOuu8CNUBbYCttsVn7l83lx7WGETpiUFWxGzyp9KphaGogzOefSqOJeGfH2/R679aoJ56
-	 iYqtWxaz9ZP9Lc7+QkYmHf2N71r2Dqcr+Yd6/wmZMCPuFb1F6As6BKfpmIk3pKzT4Og==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fX2tfH58;
-	arc=none smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794298145;
+	b=0WrDGOzjBLh7JTZa88vB7OcZQVCvJNOM6URUPdDCq3oXC/En6lAngVPxuGG3X8P2w9fa
+	 NMYr4F64vLp07r9+Eb5jClkcPQ0VJwzxa7yyp54LqPwWNEntISw7cLhsPjJO386/D3f5T
+	 ccd9z505uul/YN2cX3Y5AecXgTjmGsZVZAtU155qdKYNr28/vIKe9gg3gKD3tjv14bZ4o
+	 0JXg/ChL4/YnRxktaKn8KN+L0VMZ1s6IO7+PV2VZUiKe/zr2A60DsjYa2utjSwWSZFapb
+	 +YO+DbZAcqnWFIjovHa7JWjs57nkadcrCtTgD1f84J85CLC+qPHmer6gGTC4Zgs5riQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298145;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6TSqzrR9T+3kI/l+sR+aHGBIvSGkD3hX+kWBRzWImpc=;
+	b=xl25901bT6bvHQeuSCZbIeQ46vLdSnZP0kkB54iyeUIvq37TU9/V9+zMr1kj0HwLdWMJ
+	 k6nTBL0rRvILgwltEHYEsHufE9+y+FlnLtYE2hzOP/omgLJ0o7VZ5JnLVazJw+Tkk4S6G
+	 mQq7fx3XOBzVX6BZv1YX1qsFoi3EZKoWtd8vrSXsRHYeofEr6b4+pOGGmTgy8dvw7tlrK
+	 M6mqkean13PtABRE496hgo3vKCb9yTUJx56w8H3SmaVFui5Kg3YRBhlJL6Gp7dfdan0o9
+	 FE4z6RD663sOkvBZ4CKXRPNq1D1wFs7uyLHQj0ecHLpJM8vCS4dqKVQPs70gVqrYlOA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=S793Gujg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012052.outbound.protection.outlook.com [52.101.66.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3F0606A701
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 08:00:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC3F0606A701
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688AC606A321;
+	Tue, 10 Nov 2026 08:09:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 688AC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fX2tfH58
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b308fca7c3so16080637b3.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 00:00:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794297634; x=1794902434; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8/yWk7su6asML4sCXXpIPGHzHAG4DJtHILTqcFE0aao=;
-        b=fX2tfH58cE8avbpoZ5uRcWsUzlCqS/nWsAJxcToHYqlK5pFfkSUPwx/Op9CqmZftSa
-         RyK5Mzp9er/rqxO5XJUJuTE15NhIJJBqiSFxcXRVUm1GIKorD0feTQUq+IoCPt957vlF
-         qxOnt7xKxS4dDxJ1PmaHnPTqje8N1QFkxg0UvnLVStaBdnrjGf3TExEwNH4SPGcp9HE/
-         hSPleogPnUwwOWrqVeIDTcoPV8mUoJXdBK3OE3VCEI3X31+7Sfg945TR/+i0xfzQVZ23
-         YPqUjWRVbY2xD7ziefHlBL/ZtUXuIug/Ec6ONdQ812h9qUDBie1imixTQ+gRxCMqeNrN
-         jEnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794297634; x=1794902434;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8/yWk7su6asML4sCXXpIPGHzHAG4DJtHILTqcFE0aao=;
-        b=OBdfdCQDzqxOQuBY6xdP0nkdvXut3MLVvRqDypzFOzQnqPmJu/s3IWw1nF4QN4qjMo
-         JMH1eCbcVH52F6aV57q962W5tz+Lck0Y3QCCQlyCetzWyqj5VoO2E8ERJnsuChuoh3LQ
-         ANDR217wY+ME0u0sodiqNGxWxwJpIBF9wiqFJKLxVaD4WiNB/jObE6RP5J10ljs5Y5R0
-         GMejyEgil6wvkMua+ZjNh3z1KZZHp2J1dnwqxqa7nsaOZLQFpbYC9/bPOemRel8HroLt
-         i2y8rc4fJWO+oPswVSny4nODlDmvOlTg/fnKJkREq9PytzX0xL6pPEkC5RzHao/WCAAh
-         X93A==
-X-Forwarded-Encrypted: i=1; AL+hErGXqEKnCxoTfLOXdgwbz3swtlrWgQOV/Nf+LrSXxeSCHmdFBCm+PMcRxYlCeBta6y7yM/6hbEo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vqcCXPWBefNL/GRXUUFVLMJAiIDinICaFXXqyEfv96MkB36TQ
-	zOe8lkKU91pOEIka7aY1pPRrn6vih1cqwyMtEcrBGup4P6CfGZUO/Jcw
-X-Gm-Gg: AYBFou1lV9EVTEQDJsI+aV0I4N8y8O5jqCz3nKLp++CYTdAGy5MS8z5Dbdwakpt1E/L
-	Sbi9TQx6/1OUwDRSueB6GlbMJaxPEIOMrWwML4HOojMwC5EbigUY+BNjSf6aO2PLA6K5ypGQIwI
-	OEByJH0KCYFiEd4PwzcntT5FtJnBneu+ybBtC6sw2nbwMhz0XBmPn8qWnuSMDIEnVBt+rq8knUF
-	TZY9bejEZVH4t2Ie9U1s0ZsMub77rujJfn6HEYwKG4G1h/zenUczaddzNg09E9WcGv6vHolnylM
-	fw4WHmd9TUdcI2ROgj81I7mj86D6aHj5A1kQV3cL9Sr0XRMhMXBTVqEHbxwLD46xlrvxt6k2g0X
-	gy7l9IDdeygT9qDYNGSdT129fjnkplrniflhnm7Dg2kWO4g2IuHtOGAOdwkvfo9YxocbcdL5Fw1
-	VkIlC8Uyv62VypmdajEuduvweGlMD+x8L8rkLIe3LPigJaGmgq+2YrAp435czGzo9J6N6UhwFes
-	Bmj2QKXbE2CvTXLaTaSsJ90lP8IVjAlGy0SA9mgTubXHqMoH/sftilMBXvJO0BbsHBYj2x3nJ+6
-	IHrc5Hwwqc8CrWh9Ftyca5dfr1zW+OLtIt6OxLEsIzddX66WTl1UBQ==
-X-Received: by 2002:a05:690c:60c7:b0:8b3:814a:7c3 with SMTP id 00721157ae682-8b392bb1fedmr13183807b3.58.1794297634409;
-        Tue, 10 Nov 2026 00:00:34 -0800 (PST)
-Received: from VPN-156-197.vpn.usf.edu ([2607:fe50:0:f802::4046])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b3934294aasm13660077b3.33.2026.11.10.00.00.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 10 Nov 2026 00:00:33 -0800 (PST)
-From: Juan Agustin Niccolini <juanagusnicco@gmail.com>
-To: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	josef@toxicpanda.com,
-	jbacik@fb.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Juan Agustin Niccolini <juanagusnicco@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] tcp: Fix the SO_REUSEPORT bind cache admitting a conflicting socket
-Date: Tue, 10 Nov 2026 03:00:08 -0500
-Message-ID: <20261110080008.26112-1-juanagusnicco@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=S793Gujg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sE+gdJSZHi9UCFG3PVXJQ6+4NwH2PAWP5WyKkBcUuXEkHkq+OHaK9vBTsK7GsKdGp5nH/6fHjeeQj9wt9sK5zQH4XWPtQRty0jwETZK/VHUTxnlCD1PuL58iq6uN1/ZDX/ZASGWmgaAzOn7EFAhJ12BGiGgrl5sfDudFAFGpOUY4la9UPeuNN/+a5bOJ09oouFFgc4CDkuWRGkwCpTUbZ3n4a1syb+mCe+LD9v9YS/WpHlBzh5axS7LCEo+DPUfBVBwuWrNIL9zZ8rUd8ZLi2dX9SXJ/eadDzeCj+zN0CGYDr2S/R6s7yd7/gMfesviBsZF+BpIJXzPC+zAP5gnH8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6TSqzrR9T+3kI/l+sR+aHGBIvSGkD3hX+kWBRzWImpc=;
+ b=lGVXSs9AtKwo57sAOmkzl4rpqJvtiGKiSkuH+RnAQApkQrYcKFR5RpoqTJgPRUs0TYC8eTnh5qfiIJD425lQ2eQyW4t8iaL1jgsl/uq/qw0xtMhaojiQv3DHFvfmN0/TmTXhGDQoJW3a8WIP49G7ghyFp/fn2KaRnWnpF7vWpNhBJRvwZ29cV6r7/uqdb3NQtVYPd/KFzB+bACX8J1TCliOvkbL0e8qu3Jj4B8m2zEDIryR8gIlP+RZB+6HBY0NNtSk53wqghKWKcSILdLSVSieW/bX96G+2hwQU8/tfZl9kzTF9/VTzKTUu5fS4ApvtRqSCdoUUw93PMj23bHvPXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6TSqzrR9T+3kI/l+sR+aHGBIvSGkD3hX+kWBRzWImpc=;
+ b=S793Gujg+GjN0Wz7GPEpChfSKWr8l8azyON2smvprJ7jKyU700Veg+3vb9Foe7wb4i10MSWtRu4aW2nn5kHMNYBR/DoIjqaoC7YaXDiyS4k+7gbWPfjM0/nGKrSGdeI0wKa82l1bSCKsStma81gZcvnJFvwtlgPTK1D2h8anW6uExvKGbh5JDw9BW827N2q24cZ3qn9eLL1en04avIyQM6p//GKnPrDyau7saevbYFCcLpzPVhrF4Ra4lPTfLaqWnPudFSmmoqZbipyen86rvuXon/0TDXJ3Ubnq0r4zVLXJJjhX5Xs2x96gB661/pecQ5s/tAAICHuXA45fHKsREQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22) by PAXPR04MB8207.eurprd04.prod.outlook.com
+ (2603:10a6:102:1cd::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
+ 2026 08:09:01 +0000
+Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
+ ([fe80::a4b:fa4e:7fe7:e6a2%7]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
+ 08:09:01 +0000
+Date: Tue, 10 Nov 2026 16:13:55 +0800
+From: Bough Chen <haibo.chen@oss.nxp.com>
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
+	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, michael@walle.cc,
+	Haibo Chen <haibo.chen@nxp.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v5] mtd: spi-nor: clear the default read_sr2 opcode for
+ Octal DTR flashes
+Message-ID: <20261110081355.5d7ubrgulopr7qvm@shlinux89>
+References: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
+X-ClientProxiedBy: SI3PR01CA0011.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::6) To PA6PR04MB11909.eurprd04.prod.outlook.com
+ (2603:10a6:102:51c::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,221 +101,221 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|PAXPR04MB8207:EE_
+X-MS-Office365-Filtering-Correlation-Id: 880f5ed7-5945-405a-81de-08df3f01e091
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|10067099003|11063799006|5023799004|56012099006|261022105027099003|261021121427099003|261022075727099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	y2KM2wFLNE+myUjbvU9fOqKBCClAm1EDq47xkerEZHrwAkq3T0+Td6QkzKRmbMdTLPNJAhkltBUJtgmMiTOrJ890DEkaCkw8TiauKVfSceLIWlGKhx1GOa/qbyFE+3b9kZi4/J5SeHIpOT12dqYZmeibxkv1rUokXo1jYP0EueaBdLjYs4bziJYogBftKXGS9AllBhETEYNjI5juC62zGEz8PJWFfJ4CoNrazHsK2C5FHK4KepNWM7LAoV79RSzm0+b51dQH7cvKWd8yXV6Fjb/bLUfQpqMyLcjjirVSHO1A7AbulJ3oMY51Q0dvxPkuNoXjKye2mzZ9E26PcB/SpiVOQhr4fEOGu+pELMYcvAnIBVEEt3iDXwx0tPUdLlM+07yAHfFQLgo8qs8pBQCkIykQdDk8Hzo+hwvVTuXj2YqvFWfrM9fhPfit3xN/I+lHZDxlw06iykyfYNl9T+oUljlT5p4ds2MHwBsYgtJbBOKGlkHHxTeX3m4oLDBtkx7CCOzU5mn8UJYVd+KU5pZGVHMOa6Qe+W6I96aH2XlFFyR7jOhe4IjfYZwLHQqLImfeyaQaVPjXIvvDu70UegvfwWXS0GUTmmdmSQO0wpdQdJw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(10067099003)(11063799006)(5023799004)(56012099006)(261022105027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cqBkE8bRbkcFeTCkxXqDuIxXrH78IQWUv/HhX367P/pN3I6LGuU2JMPWThEG?=
+ =?us-ascii?Q?kbIgp1cHTCbq4nW4GDVuCk2GDczhYNV3Wl5xtJANZlw8EMAe8bcLDCKhXRdK?=
+ =?us-ascii?Q?2q5X3TntKg4TxTTdHvvkrLP7q6kb3pDUeUaHaAg21nvzTv/jsiDtXn5Qujuj?=
+ =?us-ascii?Q?EuvdwvJ2GyFzCy5fznWLIso6najhl2OqWkcXkjXFyatd/IDimdZkEhIQUxxl?=
+ =?us-ascii?Q?qkz3Rvvy4wLeq3MWel1NfugM4v25LIS7DD5qjhTOhuKR2FbTCDTV0FqGtn0y?=
+ =?us-ascii?Q?WADnL8OE0Sjyefe1BIFXwUYhzwM8QvoA5YFqe8HF6As9ypBRKAJu2hSJAsh+?=
+ =?us-ascii?Q?01n/j8pLUfk20nS+tuCP8rIdoibUXwUN5B+NkNntEPsBbI6mqbg2NQUzSxtc?=
+ =?us-ascii?Q?84y5T6xLUzCzMIHPOYMk7zBCuWP0wvgOQGvUzJrZMJfbuHrv8Qc1deJ++/aD?=
+ =?us-ascii?Q?sI4H5jpT0G2HCjITaqqnz5DfnjGZZtt6fsneDyQadaO2ACIwTeSaRrZIFYAY?=
+ =?us-ascii?Q?oTAlI8fPqKNwQV6eqeWrb6Dz4PkUCkiR1ylLqWf8zm3FaggqdH3whRqFoKdm?=
+ =?us-ascii?Q?iFMqzc9SQ5QcVMmNZVquj9v3SgoalDnC5/SeoMaUgW+B+lDxcTUJp+kkbB5r?=
+ =?us-ascii?Q?FlMN3cXduul3/1uzA90V1mdUVJYCMAm3NkbALiuAsvpTGGMjwgbdlW4lv5WA?=
+ =?us-ascii?Q?Xp0GzNCNPHgHLChmyXawfI3YIjXcaVgJFmRSZbIiukozUJAaR5Uf6a3FOPQZ?=
+ =?us-ascii?Q?OAFEBT1M42sEvMEWgvYH4IS7E/CEDVS91bT3fZBNozW1q61KZTeBUgt7//Ww?=
+ =?us-ascii?Q?kQpblJMKudxxoE0ewmPTSx+LtFZ3I1MRcQ/euzJ8oJWFzUiyOJdC8vC8npt8?=
+ =?us-ascii?Q?JMv+PbQ07EMalZ7VruW9HJbIS8pbasLirZ3L0aX1Ojihd3Jvf4nZt3P5sWfj?=
+ =?us-ascii?Q?ySBiv3Q48I4kbsjCLxz8UkyNYre4566K/YDTGwuHwuV7/j8NU0IB8/eW5svz?=
+ =?us-ascii?Q?Iwy7cdPxVfUt4NbRVWyt7YTgLSQ3pov2doa4J5/sscCfXYt92C7HzMHNoYab?=
+ =?us-ascii?Q?jDg+X+w2wg01fZp8fqmWISRRhv4WlHvGrA/jWYSONZr/eFDaMxtFHIycscSR?=
+ =?us-ascii?Q?UZqxJfcoOaSZP7bz0JGpiWzeTtIBozC8cYz88QErbqI71CVPSt14d4dZ0b6B?=
+ =?us-ascii?Q?OxUAcwn+hZkqfBOcuq3mrJ5sz7rzM8HMYss77T9ie7wm+5o86+TvbUXEzng5?=
+ =?us-ascii?Q?oOtQIvqvr0VTwMi1TG3Mnw1oCRbrHx3gAxgr6NBYbujJVsx1VgAGbfcEoT34?=
+ =?us-ascii?Q?BVg5VbAhdGqIjdIa43tLhIcNJog/l0prNk2VjxxvMarlq6ufzwAO6FAi8Jir?=
+ =?us-ascii?Q?kkkolHxonJbYMgefmfg0rY2H6IL8K6k0WEoogmgUldwyfOhWdwWN5q7YR84P?=
+ =?us-ascii?Q?E/mO7j/lU5pY4xTufEuHWM4s9XiK3/kZb4/owrSAGYOrJ0OxHqjkkvpCFrbv?=
+ =?us-ascii?Q?fs2NjnTExXxBbdles9Fomh7vU/KsnfU+SJQ29tZxM7U6N+D4dBd/BKjWvEvS?=
+ =?us-ascii?Q?UtL75RhpGgWERDtNgoZYk1ToEuuQpYvZrA+Z0TF1cuylrbMQsjXlbFxRKonE?=
+ =?us-ascii?Q?0rLyIsoAOwi2EaXLF1asmyrKJjl3E82vX4UzJ9tZAOH/JeGXYkmZCBbXb3ew?=
+ =?us-ascii?Q?oXJupzUPtpj0jP430WJ0d7Oev2xgqg+HfZk4rgJgG++pcFnaUAD6tewz2PVT?=
+ =?us-ascii?Q?G1sFMp1wbytFHiYDLDRqtfJYbxWuGyZHfS0N+XA9a2VX11Qc7QOO?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 880f5ed7-5945-405a-81de-08df3f01e091
+X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:09:01.0271
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y3yN9kMaRen4ZeciZZ+wLKOIgK+sHeQo3vZm/F6oJKGboIbKnTzfj0aJ73s0d3bkPgcPwL5KG+Xdtmlq0b1UL3qOVUfOd3R4URBI8tR3kviwbu27WoRS1cTIlDt3vIhQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8207
 
-Since commit 637bc8bbe6c0 ("inet: reset tb->fastreuseport when adding a
-reuseport sk"), inet_csk_get_port() skips the full bind conflict check
-for an SO_REUSEPORT socket when sk_reuseport_match() finds its address
-covered by the port's SO_REUSEPORT bind cache (tb->fastreuseport and
-tb->fast*).
+Hello,
 
-In the FASTREUSEPORT_STRICT state that cache holds the owner, family,
-IPV6_V6ONLY and address of one socket on the port. The assumption is
-that if the cached socket conflicts with nothing on the port, neither
-does a new socket whose address it covers. That assumption is wrong and
-it lets an unprivileged process bind to ports already in use by other
-users and hijack their traffic.
+Just a gentle ping to the MTD spi nor maintainers.
 
-The assumption would only hold if the two sockets agreed on everything
-else the conflict check reads, and the cache falls short of that in two
-ways.
+Please let me know if any changes are still needed. Otherwise, could it be picked up?
 
-First, it does not record, and hence does not compare, either the bound
-device or the cached socket's SO_REUSEADDR. A socket bound to one device
-passes the full check against another user's listener bound to a
-different device, and becomes the cached socket; a later socket on the
-same address with no device is covered by it, skips the check, and binds
-and listens on that listener's address and port. This lets an
-unprivileged process take over all the traffic of a service bound to a
-device. The missing SO_REUSEADDR fails in the same way: two sockets with
-SO_REUSEADDR do not conflict while the existing one is not listening, so
-a socket with SO_REUSEADDR can pass the full check against another
-user's bound, non-listening socket that also has SO_REUSEADDR, and
-become the cached socket; a later socket without SO_REUSEADDR is then
-covered by it and skips the check that would have refused it.
+Thanks
+Haibo Chen
 
-Second, it records the family and IPV6_V6ONLY but does not require the
-new socket to match them. The address comparison in sk_reuseport_match()
-lets a dual-stack wildcard socket match a cached IPv4 or IPv6-only
-wildcard socket, although the dual-stack socket also accepts the other
-family. A socket on the IPv6-only wildcard passes the full check against
-another user's listener on the IPv4 wildcard, 0.0.0.0, and becomes the
-cached socket; a later dual-stack wildcard socket is covered by it,
-skips the check, and binds and listens on that listener's address and
-port. This mistake lets unprivileged processes hijack traffic from
-services that listen only on 0.0.0.0, which is very common.
-
-Fix this by only using the cache for a socket that matches the cached
-one in everything else the conflict check reads: family, IPV6_V6ONLY,
-bound device and SO_REUSEADDR, besides the owner and SO_REUSEPORT, which
-sk_reuseport_match() already checks. A cached wildcard still covers a
-new socket on a specific address of the same family: once those
-properties match, the conflict check treats the two sockets alike except
-for the address, and every socket the specific address overlaps, the
-wildcard overlaps too.
-
-Note that, as this patch intends, bind() and listen() now fail with
-EADDRINUSE in cases where the cache used to admit them, including for
-sockets of a single user. For example, a user who binds an IPv6-only
-wildcard socket without SO_REUSEPORT and then an IPv4 wildcard socket
-with SO_REUSEPORT to a port previously could add a dual-stack wildcard
-SO_REUSEPORT socket; that bind now fails, matching what the full check
-would do.
-
-The FASTREUSEPORT_STRICT state was added to speed up one workload: a
-service binding many identical SO_REUSEPORT listeners to a port that
-holds, or has held, a socket without SO_REUSEPORT, such as an earlier
-instance of the same service that did not set the option. Without it
-each of those binds compares the new socket with every socket on the
-port, under the port's lock; it was added after a load balancer
-restarted this way on a port holding about 100k TIME_WAIT sockets and
-hit soft lockups. This patch keeps that workload on the fast path:
-
-	     N     current   full check  this patch
-	   256     0.13 ms      0.58 ms     0.15 ms
-	  1024     0.63 ms      8.07 ms     0.69 ms
-	  4096     2.63 ms    154.32 ms     2.83 ms
-	 16384     9.80 ms   5874.11 ms     9.86 ms
-
-N is the number of identical SO_REUSEPORT sockets, bound after one
-socket without SO_REUSEPORT so that the port is in the
-FASTREUSEPORT_STRICT state; the times are of their bind() and listen()
-calls from a single thread, median of 5 runs on a build without KASAN.
-"Full check" is the simplest alternative to this patch: never skipping
-the checks. As N grows the full check slows down sharply, while this
-patch stays as fast as the current kernel, so it keeps the benefit of
-FASTREUSEPORT_STRICT.
-
-Sockets that differ from the cached one in device, SO_REUSEADDR, family
-or IPV6_V6ONLY now take the full check, so binding many such sockets in
-alternation on one port is slower; the common mix of wildcard and
-specific addresses stays on the fast path.
-
-The two new fields, fast_bound_dev_if and fast_sk_reuse, fit in existing
-padding: struct inet_bind_bucket stays 88 bytes on x86_64 and arm64.
-
-Fixes: 637bc8bbe6c0 ("inet: reset tb->fastreuseport when adding a reuseport sk")
-Cc: stable@vger.kernel.org
-Signed-off-by: Juan Agustin Niccolini <juanagusnicco@gmail.com>
----
-Here is a minimal reproducer for the issue addressed by this patch. Line
-10 should have failed with "OSError: [Errno 98] Address already in use"
-but it succeeds. It works independently of what process or user created
-the victim socket. An unprivileged process can exploit it to hijack
-traffic on ports that are already in use by other processes.
-
-import socket
-P = 29341
-v = socket.socket(); v.bind(("0.0.0.0", P)); v.listen(1)
-s = socket.socket(socket.AF_INET6)
-s.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 1)
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-s.bind(("::", P))
-h = socket.socket(socket.AF_INET6)
-h.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-h.bind(("::", P))
-h.listen(1)
-
-Skipping line 3 and setting P to the port of another process that
-listens only on IPv4 (P >= 1024) works as well. With one such socket
-the attacker answers the service's IPv6 clients; one copy per CPU
-with SO_INCOMING_CPU also takes its IPv4 clients.
-
-I conducted several tests on the patch to assess that it fixes the
-vulnerability, that it keeps the workload the cache was added for fast,
-and that it only changes the behaviour it intended to change. The tests
-and results are available here:
-https://github.com/AgusNicco/tcp-hijack-patch-testing
-
-'1-attack' is the attack scenario where an unprivileged process exploits
-the bug to hijack TCP traffic from other processes and users. It also
-tests that the patch successfully stops the attack.
-
-'2-reachability' tests how often the code modified by this patch runs,
-to assess how much it could matter for performance. It runs during
-startup and not during traffic.
-
-'3-bind-behaviour' tests that the patch only changes the behaviour it
-intended to change. It compares behaviour across 29.8 million tests
-among 3 kernels: unpatched, patched, and one with an alternative patch
-that always performs a full scan. The full scan kernel and the patched
-kernel behaved identically in all 29.8 million tests. The unpatched one
-behaved differently in 697,367 tests.
-
-'4-performance' tests and confirms that the patch does not regress the
-performance benefits of the commit that introduced the bug. That's where
-the results shown on my commit message come from.
-
-inet_csk_update_fastreuse() has filled the tb->fast_* fields in two
-places since 637bc8bbe6c0, and this patch adds the two new fields to
-both. A helper would remove the duplication, but I left it out to keep
-this fix small for stable; the duplicated code is minimal and predates
-this patch.
-
-This bug was found by an LLM-based bug discovery pipeline.
-
- include/net/inet_hashtables.h   |  2 ++
- net/ipv4/inet_connection_sock.c | 15 ++++++++++++---
- 2 files changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
-index 6e2fe186d0dc..44b7e39a1245 100644
---- a/include/net/inet_hashtables.h
-+++ b/include/net/inet_hashtables.h
-@@ -87,6 +87,8 @@ struct inet_bind_bucket {
- 	__be32			fast_rcv_saddr;
- 	unsigned short		fast_sk_family;
- 	bool			fast_ipv6_only;
-+	unsigned char		fast_sk_reuse;
-+	int			fast_bound_dev_if;
- 	struct hlist_node	node;
- 	struct hlist_head	bhash2;
- 	struct rcu_head		rcu;
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index e56beec43877..70b8662b3004 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -420,13 +420,18 @@ static inline int sk_reuseport_match(struct inet_bind_bucket *tb,
- 		return 0;
- 	if (!uid_eq(tb->fastuid, sk_uid(sk)))
- 		return 0;
--	/* We only need to check the rcv_saddr if this tb was once marked
-+	/* We only need to check the fast_* fields if this tb was once marked
- 	 * without fastreuseport and then was reset, as we can only know that
--	 * the fast_*rcv_saddr doesn't have any conflicts with the socks on the
--	 * owners list.
-+	 * the socket they describe doesn't have any conflicts with the socks
-+	 * on the owners list.
- 	 */
- 	if (tb->fastreuseport == FASTREUSEPORT_ANY)
- 		return 1;
-+	if (tb->fast_sk_family != sk->sk_family ||
-+	    tb->fast_ipv6_only != ipv6_only_sock(sk) ||
-+	    tb->fast_bound_dev_if != sk->sk_bound_dev_if ||
-+	    tb->fast_sk_reuse != sk->sk_reuse)
-+		return 0;
- #if IS_ENABLED(CONFIG_IPV6)
- 	if (tb->fast_sk_family == AF_INET6)
- 		return ipv6_rcv_saddr_equal(&tb->fast_v6_rcv_saddr,
-@@ -455,6 +460,8 @@ void inet_csk_update_fastreuse(const struct sock *sk,
- 			tb->fast_rcv_saddr = sk->sk_rcv_saddr;
- 			tb->fast_ipv6_only = ipv6_only_sock(sk);
- 			tb->fast_sk_family = sk->sk_family;
-+			tb->fast_sk_reuse = sk->sk_reuse;
-+			tb->fast_bound_dev_if = sk->sk_bound_dev_if;
- #if IS_ENABLED(CONFIG_IPV6)
- 			tb->fast_v6_rcv_saddr = sk->sk_v6_rcv_saddr;
- #endif
-@@ -482,6 +489,8 @@ void inet_csk_update_fastreuse(const struct sock *sk,
- 				tb->fast_rcv_saddr = sk->sk_rcv_saddr;
- 				tb->fast_ipv6_only = ipv6_only_sock(sk);
- 				tb->fast_sk_family = sk->sk_family;
-+				tb->fast_sk_reuse = sk->sk_reuse;
-+				tb->fast_bound_dev_if = sk->sk_bound_dev_if;
- #if IS_ENABLED(CONFIG_IPV6)
- 				tb->fast_v6_rcv_saddr = sk->sk_v6_rcv_saddr;
- #endif
-
-base-commit: 19a227903e65c7a9c179156485660a4e017575fe
--- 
-2.43.0
+On Fri, Oct 23, 2026 at 03:11:54PM +0800, haibo.chen@oss.nxp.com wrote:
+> From: Haibo Chen <haibo.chen@nxp.com>
+> 
+> The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35), and
+> spi_nor_cache_sr_lock_bits() reads SR2 during spi_nor_init(), i.e. after
+> the flash has been switched to its runtime protocol. On an octal flash
+> running in 8D-8D-8D mode the opcode is extended per cmd_ext_type (e.g.
+> 0x3535), but RDCR is not a valid register read there: these parts access
+> their status/configuration registers through a vendor-specific indirect
+> space, if at all. The flash does not answer, the register read times out
+> and probe (or resume) fails (on i.MX FlexSPI: -ETIMEDOUT and a controller
+> WARN(), seen with a Micron MT35XU01G and a Macronix MX25UW51345G).
+> 
+> Clear read_sr2 on every path that enables 8D-8D-8D, so that
+> spi_nor_read_sr1_and_sr2() degrades to an SR1-only read and no
+> unsupported command is issued. A manufacturer driver that genuinely
+> needs an SR2 read in this mode can still install its own opcode in a
+> later fixup.
+> 
+> - spi_nor_parse_profile1(): the common case. The xSPI Profile 1.0 table
+>   does not describe any SR2/RDCR read, and it runs before the
+>   manufacturer late_init.
+> - mt35xu512aba_post_sfdp_fixup(): some mt35xu512aba batches lack the
+>   Profile 1.0 table and enable 8D here instead, with the BFPT QER field
+>   left at a reserved value so read_sr2 keeps its RDCR default.
+> - spi_nor_no_sfdp_init_params(): non-SFDP parts that enable 8D via
+>   SPI_NOR_OCTAL_DTR_READ keep the RDCR default too.
+> 
+> CMP (the only user of SR2 beyond quad-enable in the locking code) is
+> Winbond-specific and is not placed in SR2 on their 8D-capable parts, so
+> no octal flash loses a usable SR2 read because of this change.
+> 
+> Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+> Changes in v5:
+> - No code change; address review feedback from Miquel on v4:
+>     - Drop the Fixes: b7b63475903c tag, keep only the Refactor one.
+>     - Add Cc: stable.
+>     - Collect Reviewed-by: Miquel Raynal.
+> - Link to v4: https://lore.kernel.org/r/20261022-spi-nor-fix-v4-1-fba3ec3d2b5e@nxp.com
+> 
+> Changes in v4:
+> - Following the Sashiko review and Miquel's preference, keep the
+>   capability-based clear but cover every path that enables 8D-8D-8D, not
+>   only the xSPI Profile 1.0 one:
+>     - spi_nor_parse_profile1() (the common case, already in v3),
+>     - mt35xu512aba_post_sfdp_fixup(): some batches lack the 8D command
+>       info in SFDP so Profile 1.0 parsing may not clear it,
+>     - spi_nor_no_sfdp_init_params(): non-SFDP parts using
+>       SPI_NOR_OCTAL_DTR_READ.
+> - Checked all vendor drivers; Micron is the only one that enables 8D
+>   outside Profile 1.0 parsing. Macronix and Cypress rely on Profile 1.0.
+> - Link to v3: https://lore.kernel.org/r/20261022-spi-nor-fix-v3-1-bffa00b75c27@nxp.com
+> 
+> Changes in v3:
+> - Clear opcodes.read_sr2 in spi_nor_parse_profile1() (capability based)
+>   instead of in spi_nor_set_octal_dtr() (runtime-protocol based), as
+>   suggested by Miquel and Michael. It runs for octal-capable parts and
+>   before the manufacturer late_init, so a driver can still install its
+>   own SR2 opcode afterwards.
+> - Confirmed on a Micron MT35XU01G (i.MX95) and a Macronix MX25UW51345G
+>   (i.MX8ULP): both publish the xSPI Profile 1.0 table, and 0x35 is not a
+>   valid SR2 read in 8D mode on either.
+> - Drop the Assisted-by tag (removed upstream for 7.3).
+> - Link to v2: https://lore.kernel.org/r/20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com
+> 
+> Changes in v2:
+> - Rework the fix following review: instead of guarding the read at runtime
+>   in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 once, at the
+>   point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()).
+> - Key the clear off the real runtime protocol so a flash that advertises
+>   Octal DTR but runs in (x)STR (host without 8D support) keeps its RDCR.
+> - Drop the swp.c change and the -EOPNOTSUPP handling; a cleared read_sr2
+>   already means "no SR2 read", handled by the existing debugfs caching path.
+> - Trim the code comment; move the details to the commit message.
+> - Link to v1: https://lore.kernel.org/r/20260928-spi-nor-fix-v1-1-ce65ba90cfbd@nxp.com
+> ---
+>  drivers/mtd/spi-nor/core.c      |  6 ++++++
+>  drivers/mtd/spi-nor/micron-st.c | 10 ++++++++++
+>  drivers/mtd/spi-nor/sfdp.c      | 11 +++++++++++
+>  3 files changed, 27 insertions(+)
+> 
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index 90524c58602e1c27cd83951ab0cdd3669a2ebfd6..8ded5cd12669161a95d7c08773b5a3a9a5f9b3ac 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -2711,6 +2711,12 @@ static void spi_nor_no_sfdp_init_params(struct spi_nor *nor)
+>  		spi_nor_set_read_settings(&params->reads[SNOR_CMD_READ_8_8_8_DTR],
+>  					  0, 20, SPINOR_OP_READ_FAST,
+>  					  SNOR_PROTO_8_8_8_DTR);
+> +		/*
+> +		 * The default SR2 read opcode(35h) is not usable in
+> +		 * 8D-8D-8D mode; drop it so spi_nor_init() does not issue an
+> +		 * unsupported command.
+> +		 */
+> +		params->opcodes.read_sr2 = 0;
+>  	}
+>  
+>  	if (no_sfdp_flags & SPI_NOR_OCTAL_DTR_PP) {
+> diff --git a/drivers/mtd/spi-nor/micron-st.c b/drivers/mtd/spi-nor/micron-st.c
+> index f97f2dead8c2f175564410871c896260dc31aad3..cff774a83d7656ca2d7dc5af13a78c8c520b1dd9 100644
+> --- a/drivers/mtd/spi-nor/micron-st.c
+> +++ b/drivers/mtd/spi-nor/micron-st.c
+> @@ -181,6 +181,16 @@ static int mt35xu512aba_post_sfdp_fixup(struct spi_nor *nor)
+>  	nor->params->rdsr_dummy = 8;
+>  	nor->params->rdsr_addr_nbytes = 0;
+>  
+> +	/*
+> +	 * Some batches do not expose the 8D-8D-8D command information through
+> +	 * SFDP (see above), so spi_nor_parse_profile1() may not run and clear
+> +	 * the default SR2 read opcode(35h). Drop it here as well: it is not a
+> +	 * valid register read in 8D-8D-8D mode and would time out during
+> +	 * spi_nor_init(). Clearing it again when it was already cleared is
+> +	 * harmless.
+> +	 */
+> +	nor->params->opcodes.read_sr2 = 0;
+> +
+>  	/*
+>  	 * The BFPT quad enable field is set to a reserved value so the quad
+>  	 * enable function is ignored by spi_nor_parse_bfpt(). Make sure we
+> diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+> index 4a3f82e97cef8a76c9704918aa6558ca4e2f2b97..722eeff71d0df8c47ec7bdd795c08ba1bdf5e9cc 100644
+> --- a/drivers/mtd/spi-nor/sfdp.c
+> +++ b/drivers/mtd/spi-nor/sfdp.c
+> @@ -1344,6 +1344,17 @@ static int spi_nor_parse_profile1(struct spi_nor *nor,
+>  	 */
+>  	nor->params->hwcaps.mask |= SNOR_HWCAPS_PP_8_8_8_DTR;
+>  
+> +	/*
+> +	 * The xSPI Profile 1.0 table does not describe a Read Configuration
+> +	 * Register (RDCR, 35h) instruction, and the single-byte RDCR default
+> +	 * is not usable in 8D-8D-8D mode. Drop the SR2 read opcode for these
+> +	 * octal-capable flashes so spi_nor_read_sr1_and_sr2() degrades to an
+> +	 * SR1-only read and spi_nor_init() does not issue an unsupported
+> +	 * command that the flash never answers. A manufacturer driver that
+> +	 * actually needs SR2 can install its own opcode in a later fixup.
+> +	 */
+> +	nor->params->opcodes.read_sr2 = 0;
+> +
+>  out:
+>  	kfree(dwords);
+>  	return ret;
+> 
+> ---
+> base-commit: 9a482184d910775cf648863148944945b74e2815
+> change-id: 20260928-spi-nor-fix-eb7ebe22a740
+> 
+> Best regards,
+> -- 
+> Haibo Chen <haibo.chen@nxp.com>
+> 
