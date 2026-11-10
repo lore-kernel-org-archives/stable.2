@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273546;
-	b=3OfPQAYVbXNdZ30r3M4E1ZblKvBg60Z9ErEfwJFcpT8FOKnS/kn/fsBzMx8HlV41cpc/
-	 Kt5QA5DssEwU1LF+BeqFUwwofwZmBDZkaJn34H6pJqSnS0KbTjUxOGb79w0XDz66Z0/ri
-	 gvwJ/G42TC1ycpf5yXGqqRmwMRCX3BtmwqfnqaxN2CdIcwjVBg6zDE3TM0jtcP130AMZc
-	 c3oietIVxcvOmajvZrcIPVAQwtuYDwH0Ux2mC+my9SHgX5XjMVgKsl/OrZZghGY+anCAT
-	 Sjy/flgrfnohf1TtRGgjhMKRa3YkmY8TVxh+ShEcKvkwb9hkU+NnsR01Yw6hTn7M7WQ==
+	t=1794273548;
+	b=qsexUf6apaO3Mv2KZMJSf3y9qJFjYD4mCAjZW79YARSdmWcgz3VXGAgdgMetTrf+zWCi
+	 qLv162hjeSUMkVMtJC+LAtVjZMvsr5bSYhUzjSoFLQsDvQ8LdaMXcDVa2MOAsdbQ7HqPG
+	 Tyrl+zZSTWl0cgmeXPN5wbAm5W1OfiPdhT5byyk1kMrvEIR+85PGKek67WZgmrY1Hv8O7
+	 yKj2waAG22Zx9NEdBkI6gxbYLDT/UNqSEt5GDTKO3F+NW6Rn6aJj91EKQFb06GAdnbpIU
+	 +joTGNzK9ztWJVICi5qwLuAqbyJtI44xCGOBUDKcPWAOpE2iGB4ePZT8pbsJxt/Y1+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273548;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=iMIoCvfQhWfzfqt4UeDdzALAPkoVRws4ZL2NlbGPerA=;
-	b=f7K5QQGPjCwnXLLplW+CxNkZ2/TK5Xwz31Bp9eMjKRDHqbo3CNml3Rcm94Iw9+tBYmbc
-	 M+mh4BemLKFp2xCEZReigxQaGv2f0ww768SAa5qjD/MU0rAGBmjJXr4WX90scI/HTn80i
-	 m9yjBr/SRrvhkEPQaVjGFgBoqjnuo6AwW0YnompTluPlZbx6lQk5o7UAwZM3Rle8/sk+n
-	 R6IdEJBkLpX8A/zuL0+OMtWBs+Pqv1LN4f8ZH+lTkuDHHVBruiYGllYKuvXZGQOV16ycu
-	 xSs3oiEWYsneTukY5a/tgGQxA0fBtuQxwsZoOQBvmKIt3/GAeZ0oeH54mdsA/88+Unw==
+	bh=Obp7S3EOZm+b+dmHCxPbl8+EUZ9rjoTNoBpRmkld0Vc=;
+	b=wjM3WY0KOVIj4J5yndnVJo2dtHxtcUANeIkl8xkx2oW0zoBuDYrYjIBzNNhb1ExYIRry
+	 u+EBYKqob7ggvECBUpDUDV48/CuMw5qr791Hs3bnfPhMz2tcwxvsjKZJ2eGu9N9Jvrt+M
+	 otqhTQVMpXAUCxcl3urfrATN+btLuGqk2bJFgdbbi6FIRCfhNs2BfcBiSNAjoveY7tX2P
+	 4qAsf1+5mTmO23jFvgPRdQ25pdB5FfNaL6wfbF5bdTW15uJ2cpJORfaJGMO+Y0YieIelp
+	 t/5ISRE7KkqjVSRZLvLud8mWsHkPLa+Ohnwe8Lkz8hSGs4zlCZKLHseoIQ7WYa++xzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSG9IUYs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+mm0ozx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A323A606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FDD606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MSG9IUYs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 018D41F0089F;
-	Tue, 10 Nov 2026 01:19:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+mm0ozx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A8B1F0089F;
+	Tue, 10 Nov 2026 01:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273545;
-	bh=iMIoCvfQhWfzfqt4UeDdzALAPkoVRws4ZL2NlbGPerA=;
+	s=k20260515; t=1794273548;
+	bh=Obp7S3EOZm+b+dmHCxPbl8+EUZ9rjoTNoBpRmkld0Vc=;
 	h=From:To:Cc:Subject:Date;
-	b=MSG9IUYsBL92aFzi2lPIL0vfzQ3iJxGYvAareNtV9DcA5BFejw9VDEP7GZucymFSQ
-	 I5N0GJBPr0RFWf5bnoD2XJPsrJWl2VmDhxmq0t3eg5Xk2RWcIvHSf6a0A6XiapPQ3R
-	 k1qVhZ77okexFG7O3PuLOPe+CVvM70piWDVJQYdiIoAM5EOTPQ3WK92dxIgIB5CEa6
-	 qqFEwjHpWep3Oav+awwtcC6D8P4qg3nlPtQ0jH6z6X+Z2ycn8ymRHUDccN64L7adUK
-	 WGZXZ07tTcAUd+NPVqd6YMUF80L0bMB5WPqCcwVrrJMH4oDq+0TplZK83MD5orEIAs
-	 kBaNGVtjBIKmw==
+	b=d+mm0ozxq9QcF3RgMQqWRy3oQdMECVvYlRhCGAoi7J7pgsQm3Du/nsIsjkdN3Qo+o
+	 LynaHTsXnCQDdHuW93lJzJf1ENp2lXYLA0NCPN7O6IctfhiimUwwtSLRj+1vQmwSX3
+	 tV6hOnIXNXLy+VTJvYcnjvpdS4+tHqGh6LLvU3xEs+B/A4VaE2W4reu9LUgpWoKZSp
+	 yQRmvNvijYfl568Vc67ZgJSoKzQqKrVwz5BA+f+GqHpBRBXcSxZHMSSGcATDpdoy2+
+	 obUG4uqOU91tqpaqg4BUHuvVk6O2MpvdO/G4gDQGMzoDt4c9YPKoGzu4QNyd4v9iEa
+	 d1iyjoUwPrycg==
 From: Sasha Levin <sashal@kernel.org>
 To: prike.liang@amd.com,
-	vitaly.prosyak@amd.com,
+	lijo.lazar@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or unmapping queues" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:03 -0500
-Message-ID: <20261109201903-failed-6.1-623507b8f4fe@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: finish GPU recovery callbacks before restarting schedulers" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:06 -0500
+Message-ID: <20261109201906-failed-6.1-733389cb31e2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,89 +69,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8
+git cherry-pick -x 733389cb31e2c55e355410759fdc68afe74a4582
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201903-failed-6.1-623507b8f4fe@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201906-failed-6.1-733389cb31e2@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8 Mon Sep 17 00:00:00 2001
+From 733389cb31e2c55e355410759fdc68afe74a4582 Mon Sep 17 00:00:00 2001
 From: Prike Liang <Prike.Liang@amd.com>
-Date: Fri, 16 Oct 2026 09:34:32 +0800
-Subject: [PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or
- unmapping queues
+Date: Thu, 20 Aug 2026 15:27:56 +0800
+Subject: [PATCH] drm/amdgpu: finish GPU recovery callbacks before restarting
+ schedulers
 
-The user queue map and unmap helpers talk to the MES, but only the
-create path holds reset_domain->sem around them. The eviction, restore,
-destroy and suspend paths can submit to the MES while a GPU reset is in
-progress:
-
-  WARNING: amdgpu_device.c:928 at amdgpu_device_skip_hw_access+0x73/0x90 [amdgpu]
-  Workqueue: events amdgpu_eviction_fence_suspend_worker [amdgpu]
-  Call Trace:
-   amdgpu_mm_wdoorbell64+0x20/0x70 [amdgpu]
-   mes_v11_0_ring_set_wptr+0x71/0x80 [amdgpu]
-   amdgpu_ring_commit+0x5b/0xa0 [amdgpu]
-   mes_v11_0_submit_pkt_and_poll_completion.constprop.0+0x207/0x520 [amdgpu]
-   mes_v11_0_remove_hw_queue+0xd9/0x100 [amdgpu]
-   mes_userq_unmap+0xc3/0x140 [amdgpu]
-   amdgpu_userq_unmap_helper+0x67/0x280 [amdgpu]
-   amdgpu_userq_evict+0x52/0xf0 [amdgpu]
-   amdgpu_eviction_fence_suspend_worker+0x55/0xe0 [amdgpu]
-
-Take the semaphore for read in the helpers instead, around both the MES
-call and the queue state check and update. The reset changes the queue
-state from amdgpu_userq_pre_reset()/post_reset(), so every caller now
-waits for a running reset and acts on the state it left behind.
+Run GPU post-reset callbacks, including KFD and display-audio resume,
+before restarting DRM scheduler workqueues. IP hardware initialization
+already happens inside ASIC recovery; this change orders the remaining
+callbacks before new scheduler submissions. Preserve the emergency-stop
+and guity job completition path's callbacks without starting schedulers,
 
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Acked-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit e6a8b8588f43bd4d7054ac47cccc35f56ad2df90)
+(cherry picked from commit 1f6433e2b264e75c56ae95f187788806201bdbc3)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 4dca1ab48410a..958a3c9f4c617 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -362,6 +362,8 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 53f05ee7193f2..5bec9cd3f7d39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5859,8 +5859,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
  
-+	/* The reset changes the queue state and the MES is unusable meanwhile */
-+	guard(rwsem_read)(&adev->reset_domain->sem);
- 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
- 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
- 		trace_amdgpu_userq_state_start(queue);
-@@ -388,6 +390,8 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
+ 	amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
+ 				      hive, need_emergency_restart);
+-	if (need_emergency_restart)
+-		goto skip_sched_resume;
++	if (need_emergency_restart) {
++		amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
++		goto reset_unlock;
++	}
+ 	/*
+ 	 * Must check guilty signal here since after this point all old
+ 	 * HW fences are force signaled.
+@@ -5870,18 +5872,17 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	if (job && (dma_fence_get_status(&job->hw_fence->base) > 0)) {
+ 		job_signaled = true;
+ 		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
+-		goto skip_hw_reset;
++		goto post_resume;
+ 	}
  
-+	/* The reset changes the queue state and the MES is unusable meanwhile */
-+	guard(rwsem_read)(&adev->reset_domain->sem);
- 	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
- 		trace_amdgpu_userq_state_start(queue);
- 
-@@ -769,12 +773,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	if (!adev->userq_halt_for_enforce_isolation ||
- 	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
- 	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
--		/* Serialize the map against an in-progress GPU reset (MES is
--		 * unresponsive during recovery), matching amdgpu_userq_detach_doorbell().
--		 */
--		down_read(&adev->reset_domain->sem);
- 		r = amdgpu_userq_map_helper(queue);
--		up_read(&adev->reset_domain->sem);
- 		if (r) {
- 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
- 			trace_amdgpu_userq_create_end(queue, r);
+ 	r = amdgpu_device_asic_reset(adev, &device_list, reset_context);
+ 	if (r)
+ 		goto reset_unlock;
+-skip_hw_reset:
++post_resume:
++	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ 	r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
+ 	if (r)
+ 		goto reset_unlock;
+-skip_sched_resume:
+-	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ reset_unlock:
+ 	amdgpu_device_recovery_put_reset_lock(adev, &device_list);
+ 	amdgpu_ras_post_reset(adev, &device_list);
 -- 
 2.53.0
 
