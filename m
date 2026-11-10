@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321942;
-	b=aVwzuPTSXCSk/N8rz3/aqg5E9r1GgHn4Lf7Y5vzu/D/q0lxs6N/nsYUyohPnUxFQneuJ
-	 S1fMVH/XFiZkKDs80dsGXuCbZVID6vkW2CP799MUaB5q5LH/Z7Fu4OFzPCTljnwmA1XJq
-	 588WV2XLOkMPeGAFS8kk5nG3lC80WdfBLAFDGCP+PiFGwWK949dpTjM4uF9ttJm/E1Ujn
-	 OFRBnHtrBAhVaJcWbXsxL6Kq0GCEivQ7XXPBkaKM0Kqo2K9jNYksVpbw1AnMVI4LAYEIo
-	 QcwHI3FQncm5QReEQRyjIVmW8BMhGK15pQutAS+mvQpV7of3h4hCY3rucPBPR+8/ujQ==
+	t=1794322061;
+	b=qwtqcTTnW3hyIqxND5GbWooaZVwgB4q20nIE0T4JCe/WCmvPkGBnhkHKYHwjoHDprdiP
+	 /rZ2x0CaLydOxjx6Ly7eQAU/2WhJB/YcP0/xwwek3+cnTHAtjogyY5mmNKxCpM6KP2fQA
+	 VsHL/J0XnsO5YfOiaECQAJp25qH75xUR/p5ynCDUQk25Xzg1t9o6weiE/6QYnCAXyDldz
+	 PkR5VBFwcuZD9V9Qlh/g8QeQw9FTRHOfn/aJfTn6gmyNJweVinF4tqAvAm1bbPE52a459
+	 Zd8AfiWYKoLGCICsfqmF5JAAF6oHV4bkOakQdpilBh3x8Wj+1CePbmrGg88ik7JItbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321942;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+0MhYwE9LkYAywqpnz73rxbOT0bhGXeBGPn2wpuNI7s=;
-	b=v4d6SP8hXUZWyxsPbpgpBgGdxOp0Ps0I1JfkOPS1uMmQygwtyUe8pUyUqdVlO5/Nt4Ct
-	 33e5Jc8USv1DDZwPEqnb9gP8XB+JDMvuDizndgpxOuxQoucL/VsKsTbiUclzZmKAYg6jV
-	 5xxsgXc0zoYJBtG9/IwQpgH7N6oxM2EeLBuYDMHCHfEIfwQJmnuqZxaSEmxpgrj/4Bhs5
-	 vAfGhp7dThgbibUktXoIp7UDUNTj+CSdLpwjCqpU/OMnVAXge84n6RJOF0WIGZzdVjedA
-	 FmxmLJpkXy2uyGQcjEvbFN5rRRdhW1lTzFbVw5DGydrMYBOnUM67CNhexBjIItx4Xsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322061;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=KyXEQvhhvbYBNTKWxtCEeL0C1VjaH+7m5+BuhzMfTsA=;
+	b=LMKSWCWs9hmmJGcrO9WDPHu+9ibs5a3D9r4jm/9zaDO83tlFqR++KMCdmCLpGzhckD2S
+	 5c55FVI5ao1ixFvHjasN3wXu+UKmpf3F4/T9OwKOF4mhU1DaWriElha8GNcL2XIpmuzS/
+	 IpLDS0+nhEP9NA4xGQPnTM951fMaloFcsyiKw0UKzfa5aROR7cQT9RjGn67N5I34Oa/FH
+	 WgTkaprJCBRC9uQU+pgNa8/iVDVLLb7pPtkQcVS5rfZu+5pdCxbdi2AIMwv9FwyG2RZ82
+	 hG28q4erd2URH8SDYNL4IJamHAdpK2my6XW6prybrB4m2t8T1s5fFysg33PYNVIBvAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7oiiNR5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyoJY1r4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E58360A2627
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:45:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E018C60A2605
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:47:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7oiiNR5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A651F008BC;
-	Tue, 10 Nov 2026 14:45:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyoJY1r4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB471F008BF
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:47:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321942;
-	bh=+0MhYwE9LkYAywqpnz73rxbOT0bhGXeBGPn2wpuNI7s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M7oiiNR5MNbrmk/tsAFBWf/Qp4EwzB2Cgv6D3sIOk5ZBzYCBxLKNpQN6tTVO7+MUu
-	 8MhiqD2S8ZWwAlcCAMSD9TeFKaolcO2q7MpmDQe0lpoXgyd325X2lrMQnpEPatY2zW
-	 1zJ6eJzwUS8GvBTglOF1STW/m251TxBOOpyPMGk52bM6xFQQDkAyJAOFumY+3qa8So
-	 QK6QGkUVZdtb29BUCou2N6PK+JvDadULKZUmIPoI59BboYvKTB6zJmGCrCBeIETdcP
-	 gHoFasam8mSxVbhjQK1RrVmLdxpVmivQKdDAHHfOs1kTKHq3GgkBzSjojjKzVkgQuC
-	 lDKTKgenUr5+g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Geraldo Nascimento <geraldogabriel@gmail.com>,
-	Dragan Simic <dsimic@manjaro.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] PCI: rockchip-host: Do not attempt 5.0 GT/s retraining
-Date: Tue, 10 Nov 2026 09:45:39 -0500
-Message-ID: <20261110144527.1941981-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060534-failed-5.15-2a1e6c382fb7@kernel.org>
-References: <20261107060534-failed-5.15-2a1e6c382fb7@kernel.org>
+	s=k20260515; t=1794322060;
+	bh=KyXEQvhhvbYBNTKWxtCEeL0C1VjaH+7m5+BuhzMfTsA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hyoJY1r44Hfo4INbPlsaEsvNsouafEabkAWIXoqxv6HldmSF9wgi92NBH9mO/NXqP
+	 7ZS4K7tjFi+7pjONpCukTAKCDhaBwUkA8kiRvoF7yHAfX41EIIMigvkiei33wXssX4
+	 uzQcPUOQQDArgOnHRU0t5I19+eV/gAVW69lHZO3tXsRtYJiHFAebh44T5BS4Vwb0XR
+	 Q/NcabtsfRtTGr8c9BgE7i1Iq0aGQJao3PTPHEQQ1ApkndV6sueCbjGi1Zyuyh+FmF
+	 9DhXQUflheQoiGd84kl7TIBUb+cNwy6/tFV7HQXfEIyMoYTdNqW1ZVyHtB/wECog78
+	 Kv8e2HrnDUwbA==
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b65d69f5c2so2776028a12.3
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:47:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErERYOKnt8krbl4mr5bAWOSv5eXEjXPkMTHPuWelCf+tHyqopipddGYV9owFsCyo70MrKo80xwM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/2SOLhByvdx0Jg8yYnxR/Tnrqmo7M76yoegI6F1i7q1La/DLCS
+	NMAXPpT6dWwIc5AncRRR1O7Wcfu4baYcK4NdO1ceqSfxjcLMAKo3Ktj/ctoheo1CfUlKuFZZFp0
+	VlRmmxmiaC99viLj0g++gYv5jDp8uzJ0=
+X-Received: by 2002:aa7:d582:0:b0:6b4:16fb:b9ba with SMTP id
+ 4fb4d7f45d1cf-6b756b05b75mr1604589a12.36.1794322059147; Tue, 10 Nov 2026
+ 06:47:39 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,70 +59,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKYAXd-Jo-ObBDs-AdGfaM+QmDsot3gj1g0oJiyDKczoUDg2TA@mail.gmail.com>
+ <20261109194144.22814-1-mike.michalo@gmail.com> <20261109194144.22814-3-mike.michalo@gmail.com>
+In-Reply-To: <20261109194144.22814-3-mike.michalo@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 10 Nov 2026 23:47:27 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9FgSFui-RLdywqyciBdxcU8_xZkfxap+qQK=evVqNYqA@mail.gmail.com>
+X-Gm-Features: AclHuK88dHBDDOu7sgSeVl2Sdnz_lJKjB9tYyeuwVC2odqDlQh0fO1-02CBID9E
+Message-ID: <CAKYAXd9FgSFui-RLdywqyciBdxcU8_xZkfxap+qQK=evVqNYqA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/6] ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
+To: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Cc: stfrench@microsoft.com, icb@fastmail.org, senozhatsky@chromium.org, 
+	tom@talpey.com, chenxiaosong@chenxiaosong.com, ematsumiya@suse.de, 
+	lsahlber@redhat.com, hyc.lee@gmail.com, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-
-[ Upstream commit 2a1e6c382fb7567679c07bd6a7060fefc7a5edc9 ]
-
-Drop the 5.0 GT/s Link Speed retraining from Rockchip PCIe Root Complex
-Mode Operation, so-called host driver.
-
-The reason is that Shawn Lin from Rockchip has reiterated that there may be
-danger of "catastrophic failure" in using their PCIe with 5.0GT/s speeds.
-
-While Rockchip has done so informally without issuing a proper errata, and
-the particulars are thus unknown, this may cause data loss or worse.
-
-This change is corroborated by RK3399 official datasheet [1], which states
-maximum link speed for this platform is 2.5 GT/s.
-
-[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
-
-Fixes: e77f847df54c ("PCI: rockchip: Add Rockchip PCIe controller support")
-Reported-by: Dragan Simic <dsimic@manjaro.org>
-Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
-Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
-Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Dragan Simic <dsimic@manjaro.org>
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/68f6353e3a2ea4914de36c42b6906e41282adad3.1781622998.git.geraldogabriel@gmail.com
-[ sashal: Adjusted deletion context for the retraining block using PCIE_RC_CONFIG_LCS and lacking target-speed setup. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/pci/controller/pcie-rockchip-host.c | 16 ----------------
- 1 file changed, 16 deletions(-)
-
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index d2fbf73ddd648..1e39795ecfac7 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -338,22 +338,6 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- 		goto err_power_off_phy;
- 	}
- 
--	if (rockchip->link_gen == 2) {
--		/*
--		 * Enable retrain for gen2. This should be configured only after
--		 * gen1 finished.
--		 */
--		status = rockchip_pcie_read(rockchip, PCIE_RC_CONFIG_LCS);
--		status |= PCI_EXP_LNKCTL_RL;
--		rockchip_pcie_write(rockchip, status, PCIE_RC_CONFIG_LCS);
--
--		err = readl_poll_timeout(rockchip->apb_base + PCIE_CORE_CTRL,
--					 status, PCIE_LINK_IS_GEN2(status), 20,
--					 500 * USEC_PER_MSEC);
--		if (err)
--			dev_dbg(dev, "PCIe link training gen2 timeout, fall back to gen1!\n");
--	}
--
- 	/* Check the final link width from negotiated lane counter from MGMT */
- 	status = rockchip_pcie_read(rockchip, PCIE_CORE_CTRL);
- 	status = 0x1 << ((status & PCIE_CORE_PL_CONF_LANE_MASK) >>
--- 
-2.53.0
-
+> +void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, __le16 signing_algorithm,
+> +                        char *key, struct kvec *iov, int n_vec, char *sig)
+>  {
+>         struct aes_cmac_key cmac_key __cleanup(aes_cmac_zeroize_key);
+>         struct aes_cmac_ctx cmac_ctx;
+>         int i;
+>
+> +       if (signing_algorithm == SIGNING_ALG_HMAC_SHA256_LE) {
+> +               u8 mac[SHA256_DIGEST_SIZE];
+We can use SMB2_HMACSHA256_SIZE.
