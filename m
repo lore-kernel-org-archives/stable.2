@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794343375;
-	b=W3QM5Ml+YpOfonfQFFuF0ANZSFmkjSYdYW8IO5upc7mUAveDDuIEPEgOGA2o0dRdSX8x
-	 mmdCBnTLDNhHVnV2W7R//wtznda+/lvYL0EXMyRT2vXFGLgxUaydYLfiHqSDaLSKyI+gS
-	 0er9isMjvhe16gnGK/uaI2nQg8M17nCn9FSIzNl6cApZPcqh4Jw6P6B2SwECCJb+g6qoi
-	 3wXfc8y6Ha4ru7VM3nqLoPK4WxU+HK71eu/JdC725RNhmIRguX4tyoL9oDHVHcxfsASey
-	 9wYpBBBjiVy4DyKe76gRyfscP7Q+w/XR00iJB812cr69tmDjvpI/nXwUrhpBXpoqSAw==
+	b=aLUCLRgFwDYMBQaQY8qPjIVWLSBk8TmzIhyuVDz89XWlYFNv6abgynDEwkG3zfleRxZX
+	 5HU6tD90y4+5XSeh01MamB3pek0jVn7Bs25hFevJttdez7RJKCdvsN568o3ALKp2XJ433
+	 j9xoUO7wXF2AvLjzO6+T5DSHUzEgnppTX1NItYWhLYyoIdbDOrkeLYV4AczdXfcnUsDqR
+	 hoqRLjZXBrIrRx/WPdVrSgTq8qJkeBqNtl/QiJrptyWV8uLQXk3066vaRpy67EhihJ64m
+	 XD74a7VtZAEQ809cdhJvGkFev1gB2Rk8Je7Uc0ArGO/UCsBIwCWJcSinEQoiVB6ThGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794343375;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AJdXVKKMpKiB8LfhNt9bVF9b30/2kKpO6YaE6Z3NiB0=;
-	b=PRtDFyhV/GNl/Nv54a0CPeWs9X5SYgi65IfyxbapxWQIC2CS7QZ19Tg10Eo0VA6GV+h5
-	 ODqqFGOHpuib/qr6XU8tTLoIkME/p1xdLnRuPBHPA4VDgra7wA8gUpUk7iL/LFXfqmMXA
-	 jB8wM0Mct8I/id+cGAQYaYGeHHPTYdVGaIH3aIuNpEyur0mEd/d6NgSexjyV5+8QBup1s
-	 pHOe5ARCQtpdFcy+6j7R3+Srxzb5nsmM3bfOfiOcn3eSBcJw0/KyU1Ak0mBSXDwhO25tR
-	 YM8F6mIbTWZyj9p9Ven82rhxiWmeoQMvrsOK5lNFZapX33GyxHP66M7QbQeiWIzh4PQ==
+	bh=becI3p+sQNx/eEVjlWgUndzwQKXlj80fI+ex6CDMkM8=;
+	b=RnpNDdBnerFIVn1V1FvfHr+MRga3INTOhz1XfAfuWOO5FIG3f3jUe1rwT3g7+JR4tF0v
+	 h/ex97oUqe3T7abxV/fsWuF++/x62tbS1U8QQ22LW6jV1rk9eBghOelWD9MJtfdLNaC5/
+	 UWH5KRLyGh/pB32Qfj2NosDcxlLVAi4yKP7QN8VOYfuwlHYIqs8afpaITTHWXRiEcT5KJ
+	 Ba0eI/Ct+YPidbvBAyavqJO8r1Csx8NGN4P3VAXjLEk0ygvpaOWFIlzkLWKunOWRjEdLW
+	 gbAf9gQZCMC++BNJKw6XG3wTj/PQtZ408VoNmFrivt8bMNoccTJciDWgTJ6WRN4vtVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVReMBkP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf2GJrQP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC65F606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7F7606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:42:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVReMBkP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF231F008A2;
-	Tue, 10 Nov 2026 20:42:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jf2GJrQP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8065C1F008A1;
+	Tue, 10 Nov 2026 20:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794343374;
-	bh=AJdXVKKMpKiB8LfhNt9bVF9b30/2kKpO6YaE6Z3NiB0=;
+	s=k20260515; t=1794343375;
+	bh=becI3p+sQNx/eEVjlWgUndzwQKXlj80fI+ex6CDMkM8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SVReMBkPLpxC762DDc9nvoEWLFHY459xi8PicoXsDa4dgRJ/7vOD5p94d1Ms852Vs
-	 VW2yrAxY265nGeeKEqqTLHgPBDYhtW0OPoDJbAmdhWOBv9e1c1CDt0yzJ+ZKInvkk+
-	 KPn5bQvTUSsZ9+nAEOsgsnHNB63B/5TKVJR9AoHiQViopNrmx5iQTjpSA92+xTKEqG
-	 4bk9X/VQNYuf35i67zuPDWk1F7MnvkdhT/qADwy84l4Ks2kqsSybcMcus05Ou/9zuH
-	 ZPEjyFvX21l/TMix84Bs2MzpuHXIN4cxrHEt9znce+NEYM7IhbEgOtbCie57QB6LJF
-	 OFYXygEv9ryPw==
+	b=Jf2GJrQPo4fGWb+hKORpAIAoD/v/IcGAv3ZM/lVXTGEx8ZHgu+Oj57CLTtXFJjofY
+	 YFfonz1LfWiSHsC8aSHyiSnVwtB6XtBcZXC2MSYOyC5/Gjgna2eJ+hbC8Vhr8qCjKy
+	 tfOr/xDx1pgAWiVJGoHe4G29cjb4S414+mm4l0fEt0GzUAT6/OaBLHtnLBLxUCVHFA
+	 I2Mx4v/L0pg+NWj6/cM5nTkKaCVV1F8yBVw0Nskpru1OWFlEwbTx80yO9tiIfoSatN
+	 p8gGrjavDFt5vOnK96O7CNTII9+AIWmQexGYxfLY3XrTcwLNYtffgXiv5applkhIc2
+	 UyNzDaHsqUK9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Parker Newman <pnewman@connecttech.com>,
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] serial: exar: fix checkpach warnings
-Date: Tue, 10 Nov 2026 15:42:50 -0500
-Message-ID: <20261110204132.3796786-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] serial: 8250_exar: store the GPIO platform device in struct exar8250
+Date: Tue, 10 Nov 2026 15:42:51 -0500
+Message-ID: <20261110204132.3796786-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110204132.3796786-1-sashal@kernel.org>
 References: <20261107054802-failed-6.1-33d337816e00@kernel.org>
@@ -62,65 +62,148 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Parker Newman <pnewman@connecttech.com>
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 
-[ Upstream commit c6795fbffc4547b40933ec368200bd4926a41b44 ]
+[ Upstream commit 33d337816e00994daaf670243186d9e537ee090d ]
 
--Fix several "missing identifier name" warnings from checkpatch in
-struct exar8250_platform and struct exar8250_board.
-Example:
+The GPIO platform device is registered via platform->register_gpio()
+when port 0 is being set up. It is stored to port->port.private_data of
+the on-stack uart template (and from there it is copied into every
+registered port). pci_xr17v35x_exit() then fetches it back by
+serial8250_get_port(priv->line[0]).
 
-WARNING: function definition argument <arg> should also have an
-identifier name
+But port 0 does not have to exist at that point. If
+serial8250_register_8250_port() fails for port 0, priv->line[0] holds a
+negative error code. The probe still succeeds (it only breaks the loop),
+so on unbind, priv->line[0] (a negative value) is passed to
+serial8250_get_port(). The GPIO device is never unregistered and a
+bogus port is accessed.
 
-- Fix space before tab warning from checkpatch:
-WARNING: please, no space before tabs
-+ * 0^I^I2 ^IMode bit 0$
+The same problem would also occur after the planned conversion of
+serial8250_register_8250_port() to return a uart port instead of a
+line. As Sashiko pointed out in that case:
+  If board->setup() fails for the first port (i=0) in exar_pci_probe(),
+  priv->uport[0] remains NULL. If serial8250_register_8250_port() fails,
+  it returns an ERR_PTR. In either case, the loop breaks and probe
+  returns success. When the device is later unbound,
+  pci_xr17v35x_exit() unconditionally passes priv->uport[0] to
+  platform->unregister_gpio(), which will dereference it without
+  checking for validity.
 
-Signed-off-by: Parker Newman <pnewman@connecttech.com>
-Link: https://lore.kernel.org/r/f7fa6c16cb5f2c8c1c7cb7d29f80bc7be53f91ab.1713382717.git.pnewman@connecttech.com
+The GPIO device belongs to the PCI device, not to any particular port.
+So store it in a new struct exar8250::gpio member. Pass priv to both
+->register_gpio() and ->unregister_gpio(), so that pci_xr17v35x_exit()
+does not need to look up any port at all.
+
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Fixes: d0aeaa83f0b0 ("serial: exar: split out the exar code from 8250_pci")
+Link: https://lore.kernel.org/all/sashiko-outbox-166269@kernel.org/
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/03a8b5c71614fc672fef1e55c083bda6c73b5bf3.1791873876.git.jirislaby@kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 33d337816e00 ("serial: 8250_exar: store the GPIO platform device in struct exar8250")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/8250/8250_exar.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/tty/serial/8250/8250_exar.c | 36 ++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
-index 060090adabac6..9326a7bd4e2a1 100644
+index 9326a7bd4e2a1..7645cbf6b4d2e 100644
 --- a/drivers/tty/serial/8250/8250_exar.c
 +++ b/drivers/tty/serial/8250/8250_exar.c
-@@ -133,7 +133,7 @@
-  *
-  * MPIO		Port	Function
-  * ----		----	--------
-- * 0		2 	Mode bit 0
-+ * 0		2	Mode bit 0
-  * 1		2	Mode bit 1
-  * 2		2	Terminate bus
-  * 3		-	<reserved>
-@@ -169,8 +169,8 @@ struct exar8250_platform {
+@@ -169,8 +169,9 @@ struct exar8250_platform {
  	int (*rs485_config)(struct uart_port *port, struct ktermios *termios,
  			    struct serial_rs485 *rs485);
  	const struct serial_rs485 *rs485_supported;
--	int (*register_gpio)(struct pci_dev *, struct uart_8250_port *);
--	void (*unregister_gpio)(struct uart_8250_port *);
-+	int (*register_gpio)(struct pci_dev *pcidev, struct uart_8250_port *port);
-+	void (*unregister_gpio)(struct uart_8250_port *port);
+-	int (*register_gpio)(struct pci_dev *pcidev, struct uart_8250_port *port);
+-	void (*unregister_gpio)(struct uart_8250_port *port);
++	int (*register_gpio)(struct exar8250 *priv, struct pci_dev *pcidev,
++			     struct uart_8250_port *port);
++	void (*unregister_gpio)(struct exar8250 *priv);
  };
  
  /**
-@@ -185,8 +185,8 @@ struct exar8250_board {
- 	unsigned int num_ports;
- 	unsigned int reg_shift;
- 	int     (*board_init)(struct exar8250 *priv, struct pci_dev *pcidev);
--	int	(*setup)(struct exar8250 *, struct pci_dev *,
--			 struct uart_8250_port *, int);
-+	int	(*setup)(struct exar8250 *priv, struct pci_dev *pcidev,
-+			 struct uart_8250_port *port, int idx);
- 	void	(*exit)(struct pci_dev *pcidev);
+@@ -194,6 +195,7 @@ struct exar8250 {
+ 	unsigned int		nr;
+ 	struct exar8250_board	*board;
+ 	void __iomem		*virt;
++	struct platform_device	*gpio;
+ 	int			line[];
  };
  
+@@ -448,22 +450,21 @@ static const struct software_node exar_gpio_node = {
+ 	.properties = exar_gpio_properties,
+ };
+ 
+-static int xr17v35x_register_gpio(struct pci_dev *pcidev, struct uart_8250_port *port)
++static int xr17v35x_register_gpio(struct exar8250 *priv, struct pci_dev *pcidev,
++				  struct uart_8250_port *port)
+ {
+ 	if (pcidev->vendor == PCI_VENDOR_ID_EXAR)
+-		port->port.private_data =
+-			__xr17v35x_register_gpio(pcidev, &exar_gpio_node);
++		priv->gpio = __xr17v35x_register_gpio(pcidev, &exar_gpio_node);
+ 
+ 	return 0;
+ }
+ 
+-static void xr17v35x_unregister_gpio(struct uart_8250_port *port)
++static void xr17v35x_unregister_gpio(struct exar8250 *priv)
+ {
+-	if (!port->port.private_data)
+-		return;
+-
+-	__xr17v35x_unregister_gpio(port->port.private_data);
+-	port->port.private_data = NULL;
++	if (priv->gpio) {
++		__xr17v35x_unregister_gpio(priv->gpio);
++		priv->gpio = NULL;
++	}
+ }
+ 
+ static int generic_rs485_config(struct uart_port *port, struct ktermios *termios,
+@@ -546,8 +547,9 @@ static const struct software_node iot2040_gpio_node = {
+ 	.properties = iot2040_gpio_properties,
+ };
+ 
+-static int iot2040_register_gpio(struct pci_dev *pcidev,
+-			      struct uart_8250_port *port)
++static int iot2040_register_gpio(struct exar8250 *priv,
++				 struct pci_dev *pcidev,
++				 struct uart_8250_port *port)
+ {
+ 	u8 __iomem *p = port->port.membase;
+ 
+@@ -556,8 +558,7 @@ static int iot2040_register_gpio(struct pci_dev *pcidev,
+ 	writeb(IOT2040_UARTS_ENABLE, p + UART_EXAR_MPIOLVL_15_8);
+ 	writeb(IOT2040_UARTS_GPIO_HI_MODE, p + UART_EXAR_MPIOSEL_15_8);
+ 
+-	port->port.private_data =
+-		__xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
++	priv->gpio = __xr17v35x_register_gpio(pcidev, &iot2040_gpio_node);
+ 
+ 	return 0;
+ }
+@@ -631,7 +632,7 @@ pci_xr17v35x_setup(struct exar8250 *priv, struct pci_dev *pcidev,
+ 		/* Setup Multipurpose Input/Output pins. */
+ 		setup_gpio(pcidev, p);
+ 
+-		ret = platform->register_gpio(pcidev, port);
++		ret = platform->register_gpio(priv, pcidev, port);
+ 	}
+ 
+ 	return ret;
+@@ -641,9 +642,8 @@ static void pci_xr17v35x_exit(struct pci_dev *pcidev)
+ {
+ 	const struct exar8250_platform *platform = exar_get_platform();
+ 	struct exar8250 *priv = pci_get_drvdata(pcidev);
+-	struct uart_8250_port *port = serial8250_get_port(priv->line[0]);
+ 
+-	platform->unregister_gpio(port);
++	platform->unregister_gpio(priv);
+ }
+ 
+ static inline void exar_misc_clear(struct exar8250 *priv)
 -- 
 2.53.0
 
