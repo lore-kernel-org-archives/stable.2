@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794321679;
-	b=ObImqNnN7+k+oqO07pQig/p6WkND6uPzsN6rUgEwDXPu3l2Ebic+9W5QNN3nQXSSKW2I
-	 /QZ99+M7KFSppqFcmN4P7k7pfr3rvhY1kIzPDChVWYr7R+gtCsuxzqnun7UZYxhM4DX4G
-	 zIotfis/OuKuAhyJ85CPYVnXnQmDBCWUWYQPn1EDEACtWeabkLOKP4dzykXVuF4NsGvlt
-	 kz9q3P/NLxTSWmFxKUPgmNdzdBgtfazQlrwCVLX20OO9MDlNbQZ2uDf+xvTpJPwBU28z0
-	 zfxg3qO7whHiQp4g12AJbH3ZA7zowIxNSmqgfiILAG+822uStsVgYWA6KmN87jG2xOQ==
+	b=E2CSqISS6dKoQpkPsdE9lU++jIWkIRiAC8mCO8ZJ4WpzLfeUcX9x8W5UBO58t95UXAMO
+	 tISwZ2cq0wsKVBv2xdeQBfmR4fO1Bl5JxvzgvmWbt1RQxjp0Vv57FXGUbPHPIpGIdioq/
+	 ZM4U0OFLOG8jpapyk7V5tviapIMH9VLqCL15xezfJqs7qdW0TwfvLSbtN/o7TvSneH8P+
+	 s/wZNTzda19KJdzjjX57O61q+XMp/9Ltv1Xp3p9IfvweO181Ac+SYmlw+91Xrr2mmC3rH
+	 eeRVsZrZl0+5DNpYQHpCZQWKEq+/ChTJevckFYem8HHgP9kcSg2KBd5H4nXE71EbG0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794321679;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mJB3GKwE6ZSRV+DDK93OBZrn7IZ2zXEYezrH8DN+TVU=;
-	b=FyHaNoEVipz2EvphFrrlYkhvMOITIiqQ5A7BnuiEzsdXAg1SLpgDnICOA1Dazy2c9K38
-	 4HJCx+xvq3TQjiCzUIW3oBoL3Z9Wx/NnSd2jdqHcJwXPLMm164+k7+BoT8PfiMtnd24qE
-	 a19yvH/aefCwLq57G20NcPVYDulgB2Xx9TlTBsEs7YYJyGbUDTn9hPjWmwxlmLRDicCln
-	 qToNnsFvrLwRxVCkazqvEbELMeayioB0MeqJcCt2GGF/hjEFY7bavnrwaLtvpmyyAQCjv
-	 ozycJii3IVEYzdU9qQ5/5D920LnS3w+1+Hm6wjVEp+dRs+CV8gpIRQXdDR5cloJN3wQ==
+	bh=aV49Z5+/fHT7jbiqqh6EVvIeQYgBrkuIjN0HnDzLDD4=;
+	b=PGsh1WZP/AIv/yryLeyufNsfPHcYym3IKwJxLBBWVBSujXriXxEfpsHZgEigrHUSs09q
+	 zSwgNS96tpYoOdmN1RSW04uZY6mR/pjibUWL8ILsqb8wwhAJOkaw3FG803oYDPE4LzYoa
+	 E/hCkIKKPpnvR4RQ2+WBWiS5YXTXuiuV2T35nrDhMdm7f2zMNjZ4s3hAaquSkG0gQcZh3
+	 V/Xmyr0C2lLZ3d7UpT2Yr5Hwu18d60sLRwo+3MP1fcJN+Di6mG2DJtfImeaWHOMvTHvvG
+	 serU32SS6FX82JU6Isnmk5Ddh+mkNLT2FQW+kUc3l9xHoEEcWkG4nOEZz0YSwQZCKdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYB965Yl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzBZdsCz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DE2606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:41:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5999D60A262B
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYB965Yl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0740B1F008A1;
-	Tue, 10 Nov 2026 14:41:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzBZdsCz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10281F0089F;
+	Tue, 10 Nov 2026 14:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321678;
-	bh=mJB3GKwE6ZSRV+DDK93OBZrn7IZ2zXEYezrH8DN+TVU=;
+	s=k20260515; t=1794321679;
+	bh=aV49Z5+/fHT7jbiqqh6EVvIeQYgBrkuIjN0HnDzLDD4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hYB965YlT+VrPwVF5lHEiMmlOsPJetqW3UpAsnRL4AyqBvNhQlhItlBss2nRJ7vzX
-	 x7IqSXdnlq0tUj6hHFXeVtWrehTmhpaL6xi4S4SMNh4CIPCRNwuUxSrVc5jzKPa1l+
-	 zRKOYEU490S2gFQZyngUFrqIoaMTeuWxCW1PP1e4vpwb4xcFMsfNWbiAfQaPMqz0c2
-	 6I1sx8cw198OTuWy2nmtmjmPOaZL8rBQGjA3hziAXS91ZK/hRrHvAyqKSHm6NnuixE
-	 83Iozmy8onJ5asO2krkEN1x6MKCtz4LKBN3B0I8v9CuRoblV/pXJs45X4UAW8urn8i
-	 Av4ACnDUDsjDw==
+	b=ZzBZdsCzyELCMbMl6kZ6gpJQbgGWw+2LVitjPR9kdbeEFa3mxvIeckE/Ex5578fC5
+	 n/V5nHNtgN9+wXQOUfBRM1WHXodY12Fhmk8/hgOB+iubWgDiIQ5gg1gKKV1O9oVNlS
+	 GExey0xLVsqB3ECAR//84PI9RzKG9sGvRPL49Mnm/7hzk1dr9c3e8RWLJi0vC4kTsb
+	 LELzen4/QM9fX87DEl6zB1FsLUvwNW3VRQgl0sVlBD51mrISK+BPwietZeVDAz3fWd
+	 ymBMesM2jXN1TFEfOIGnbQCkMhsdVocP2mCSZn05FjB1wXrLeVmb9UhPj46AGFWtPR
+	 MCSMnGlkpC9Zw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Niklas Cassel <niklas.cassel@wdc.com>,
+Cc: Niklas Cassel <cassel@kernel.org>,
 	Damien Le Moal <dlemoal@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] ata: ahci: print the lpm policy on boot
-Date: Tue, 10 Nov 2026 09:41:14 -0500
-Message-ID: <20261110144034.1942502-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] ata: libahci: Free the IRQs when activating a multi-IRQ host fails
+Date: Tue, 10 Nov 2026 09:41:15 -0500
+Message-ID: <20261110144034.1942502-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061554-failed-5.10-34a4a34431ed@kernel.org>
+In-Reply-To: <20261110144034.1942502-1-sashal@kernel.org>
 References: <20261107061554-failed-5.10-34a4a34431ed@kernel.org>
+ <20261110144034.1942502-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,143 +62,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Cassel <niklas.cassel@wdc.com>
+From: Niklas Cassel <cassel@kernel.org>
 
-[ Upstream commit affccb16c117d188eb09495cbdea149cecbf00b9 ]
+[ Upstream commit 34a4a34431ed81d85d14f8fb8035e5a25214ad39 ]
 
-The target LPM policy can be set using either a Kconfig or a kernel module
-parameter.
+ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
+not free them when requesting one of them, or when registering the host,
+fails. The IRQs are only freed by the driver core, when it releases the
+devres of the device after probe() has returned, while the caller of
+ahci_host_activate() releases the resources of the host in its probe()
+error path, e.g. ahci_probe() disables the clocks, regulators, resets and
+PHYs of the host. An IRQ handler running in that window would access the
+MMIO of a host which is no longer clocked.
 
-However, if the board type is set to anything but board_ahci_low_power,
-then the LPM policy will overridden and set to ATA_LPM_UNKNOWN.
+ahci_host_activate_multi_irqs() did free the IRQs until commit
+0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
+removed the explicit free because devm makes it unnecessary. That is true
+for freeing the IRQs as such, but not for the window described above:
+devres is only released after probe() has returned, i.e. after the error
+path of the caller has released the resources of the host.
 
-Additionally, if the default suspend is suspend to idle, depending on the
-hardware capabilities of the HBA, ahci_update_initial_lpm_policy() might
-override the LPM policy to either ATA_LPM_MIN_POWER_WITH_PARTIAL or
-ATA_LPM_MIN_POWER.
+Note that this window cannot be hit with the current users: the only user
+of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
+any resource in its probe() error path, and the ports of the host are
+still frozen, i.e. their interrupts are masked, when ata_host_register()
+fails.
 
-All this means that it is very hard to know which LPM policy a user will
-actually be using on a given system.
+Free the IRQs explicitly again, like ata_host_activate() does, so that
+the IRQ handlers cannot run once ahci_host_activate() has failed.
 
-In order to make it easier to debug LPM related issues, print the LPM
-policy on boot.
-
-One common LPM related issue is that the device fails to link up.
-Because of that, we cannot add this print to ata_dev_configure(), as that
-function is only called after a successful link up. Instead, add the info
-using ata_port_desc(), with the help of a new ata_port_desc_misc() helper.
-The port description is printed once per port during boot.
-
-Before changes:
-ata1: SATA max UDMA/133 abar m524288@0xa5780000 port 0xa5780100 irq 170
-ata2: SATA max UDMA/133 abar m524288@0xa5780000 port 0xa5780180 irq 170
-
-After changes:
-ata1: SATA max UDMA/133 abar m524288@0xa5780000 port 0xa5780100 irq 170 lpm-pol 4
-ata2: SATA max UDMA/133 abar m524288@0xa5780000 port 0xa5780180 irq 170 lpm-pol 4
-
-Signed-off-by: Niklas Cassel <niklas.cassel@wdc.com>
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Stable-dep-of: 34a4a34431ed ("ata: libahci: Free the IRQs when activating a multi-IRQ host fails")
+Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
+Cc: stable@vger.kernel.org
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20260915084127.692494-12-cassel@kernel.org
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libahci.c     |  2 +-
- drivers/ata/libata-core.c |  2 +-
- drivers/ata/libata-sff.c  | 10 +++++-----
- drivers/ata/pata_cs5520.c |  2 +-
- include/linux/libata.h    |  5 +++++
- 5 files changed, 13 insertions(+), 8 deletions(-)
+ drivers/ata/libahci.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 75ccd7872b7e8..32ebcfcb7914c 100644
+index 32ebcfcb7914c..83f82b3ffe7d4 100644
 --- a/drivers/ata/libahci.c
 +++ b/drivers/ata/libahci.c
-@@ -2578,7 +2578,7 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
+@@ -2577,11 +2577,33 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
+ 				0, pp->irq_desc, host->ports[i]);
  
  		if (rc)
- 			return rc;
--		ata_port_desc(host->ports[i], "irq %d", irq);
-+		ata_port_desc_misc(host->ports[i], irq);
+-			return rc;
++			goto free_irqs;
+ 		ata_port_desc_misc(host->ports[i], irq);
  	}
  
- 	return ata_host_register(host, sht);
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 9be577e7c357c..2ff092c27d1f3 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -5886,7 +5886,7 @@ int ata_host_activate(struct ata_host *host, int irq,
- 		return rc;
+-	return ata_host_register(host, sht);
++	rc = ata_host_register(host, sht);
++	if (rc)
++		goto free_irqs;
++
++	return 0;
++
++free_irqs:
++	/*
++	 * Free the IRQs which have been requested, so that the handlers can no
++	 * longer access the MMIO of the host once we return, e.g. after the
++	 * caller has disabled the clocks of the host.
++	 */
++	while (--i >= 0) {
++		struct ahci_port_priv *pp = host->ports[i]->private_data;
++
++		if (!pp)
++			continue;
++
++		devm_free_irq(host->dev, hpriv->get_irq_vector(host, i),
++			      host->ports[i]);
++	}
++
++	return rc;
+ }
  
- 	for (i = 0; i < host->n_ports; i++)
--		ata_port_desc(host->ports[i], "irq %d", irq);
-+		ata_port_desc_misc(host->ports[i], irq);
- 
- 	rc = ata_host_register(host, sht);
- 	/* if failed, just free the IRQ and leave ports alone */
-diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
-index 88bce10775afb..c6e91f06c751e 100644
---- a/drivers/ata/libata-sff.c
-+++ b/drivers/ata/libata-sff.c
-@@ -2405,7 +2405,7 @@ int ata_pci_sff_activate_host(struct ata_host *host,
- 		for (i = 0; i < 2; i++) {
- 			if (ata_port_is_dummy(host->ports[i]))
- 				continue;
--			ata_port_desc(host->ports[i], "irq %d", pdev->irq);
-+			ata_port_desc_misc(host->ports[i], pdev->irq);
- 		}
- 	} else if (legacy_mode) {
- 		if (!ata_port_is_dummy(host->ports[0])) {
-@@ -2415,8 +2415,8 @@ int ata_pci_sff_activate_host(struct ata_host *host,
- 			if (rc)
- 				goto out;
- 
--			ata_port_desc(host->ports[0], "irq %d",
--				      ATA_PRIMARY_IRQ(pdev));
-+			ata_port_desc_misc(host->ports[0],
-+					   ATA_PRIMARY_IRQ(pdev));
- 		}
- 
- 		if (!ata_port_is_dummy(host->ports[1])) {
-@@ -2426,8 +2426,8 @@ int ata_pci_sff_activate_host(struct ata_host *host,
- 			if (rc)
- 				goto out;
- 
--			ata_port_desc(host->ports[1], "irq %d",
--				      ATA_SECONDARY_IRQ(pdev));
-+			ata_port_desc_misc(host->ports[1],
-+					   ATA_SECONDARY_IRQ(pdev));
- 		}
- 	}
- 
-diff --git a/drivers/ata/pata_cs5520.c b/drivers/ata/pata_cs5520.c
-index 9052148b306d9..a78efb3f96f92 100644
---- a/drivers/ata/pata_cs5520.c
-+++ b/drivers/ata/pata_cs5520.c
-@@ -210,7 +210,7 @@ static int cs5520_init_one(struct pci_dev *pdev, const struct pci_device_id *id)
- 		if (rc)
- 			return rc;
- 
--		ata_port_desc(ap, "irq %d", irq[i]);
-+		ata_port_desc_misc(ap, irq[i]);
- 	}
- 
- 	return ata_host_register(host, &cs5520_sht);
-diff --git a/include/linux/libata.h b/include/linux/libata.h
-index 1ceec830d5f74..12c43f39cd29b 100644
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1541,6 +1541,11 @@ void ata_port_desc(struct ata_port *ap, const char *fmt, ...);
- extern void ata_port_pbar_desc(struct ata_port *ap, int bar, ssize_t offset,
- 			       const char *name);
- #endif
-+static inline void ata_port_desc_misc(struct ata_port *ap, int irq)
-+{
-+	ata_port_desc(ap, "irq %d", irq);
-+	ata_port_desc(ap, "lpm-pol %d", ap->target_lpm_policy);
-+}
- 
- static inline bool ata_tag_internal(unsigned int tag)
- {
+ /**
 -- 
 2.53.0
 
