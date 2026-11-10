@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794346123;
-	b=pMRcyBzLRRBC5szmYfYu1EhE90ipEXmzqLrTVBBn5Fzc3JnEtXdyTaJeXEL3BxBVh4GV
-	 OUI7MIKESd2NA++HRaTURZtFnCUhezs6K1uvwVD0zaCxoKFvN8gSpIumil4JOKHMnPQ5g
-	 KA2E3xRaTFGxrTqpUfGdeW6ZddcjftLzwNAbZXJ5cSbie9GoXV/bBf4InTvNuCUal4mla
-	 Bm3cAtwj/DXsVIF7ARBAoyF+LWPSOdfXI/vQ9zFYckzZxl7XERM1hKBgTFnEo1+Wuccda
-	 xhCBpZFHDNLH1KGoYDoMrmTXtJHf6qyiklqViJchDFq9psdee1rHrvoq7PHvc4pF2KA==
+	t=1794346502;
+	b=nJ+0DQTAKz734TqEWv1xJzzRBIsPro/T53TiCIjld+cea9qMkZJGB+mwEO/2cXekeTih
+	 nREEgSKBT/4dQQSvidet1xCl0a04P1/r0kOl8qIytuSiZ+3QsyEmY7x0WW7wVOADOuKP6
+	 eUPmI5PyGT2MtPRr9fj2hUidF0lIEMIhBiZzHiVOHFxI6lPdL1CXIG4ChZ43CHiJwNqTb
+	 HEItlvGmtmx8GxK/6Ydyg2qm6HjGmrT0PIFu0b3HLmodNKEuNFxoPC7uoWDQRvTMldUuH
+	 /pVMU9npJeRpqSkjq6JEEzbYIV0YxwBJDhquWBDDALEzDgtbiTMsTWbruYw8ew8YyTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794346123;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EKT4tI2ge01dtfvhDaLe7hGRod+MiKD92LA8qx19wFk=;
-	b=j3qTK6gwmmWQ5aVzbevJRNzvywZXredG8NnB/Zm3GxLJfA3viae9pB/lswdLGyZ/+Eld
-	 8K8VQq7uSdeiSUESnLx0zuj0M/LttU1zxw0OCOB+MDEsDn8oMPcPZ6aFzHP5wG1kwC5gb
-	 XNICi+Hyy+KbtSeN+dPPxkzi+6ykLGqj+h+YyNoMtgRzOzq206WQKYMfjPYZJRl9ZvDvD
-	 8Sq1mVKcwkDyJ4tUuq2H5Emt5gnuJhgcT28suWrzYHYTLLJTsdHNQpPnZlKf4ddWavH7O
-	 5UlwTI4mQDLa7+KpR2ZlsG9pTnG8v6c2gh0G/3rxP8+deh32I0SQ8llw0IkKmArZy7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794346502;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mOqbf5f8IOrYsXobBY3T9L29gUMiYe3oysuU/ey3bJU=;
+	b=Z2KkrOUfYFVT98Qwh2j9fW7I6HcA5RGT+jp30lPH1VVD3qJbRbuvUK//oo5AUcI5AX0u
+	 b92ldIgH1wa3AZTHZEj957LGoMzD++cOd9FkPSHRaYq23g62Np9nTk0MDfIZ2wlIp+F6n
+	 z9iZ/UKK98ETdrGwQG2ZKFG3KONHOap6vo/lqKBwesKMIrL929YHSLQph9sXT0n3VYQh8
+	 JzfiThfRnDXiiezl92+MMNKpuz3/MQdKbUVHUjGpSVofySOr7LbtL74+94eQzu2Ih6As2
+	 h776UlcBlh5VuYftWxUoAAP4KImDAgg83cquUcEDT7gL+cycirKBMI8jHC5q7365pJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnPRKjtX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cQ5xwQ6H;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ED0606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:28:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190BF606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:35:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 190BF606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cnPRKjtX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C331F0089F;
-	Tue, 10 Nov 2026 21:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794346122;
-	bh=EKT4tI2ge01dtfvhDaLe7hGRod+MiKD92LA8qx19wFk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cnPRKjtX59QvsI1JZe6oOI6QPGJlLKT3i9uxFA2KjykkYHNyrkmaRfCC9+vo4IopU
-	 hJ5wBEO+fH399t5adwv+ZsL22mP/TWZ8H0LwYUohti1sED4sFu9jcKlHrTFI9wwmX2
-	 jGEDwOr9vosV9zi33wMBaPG9D071mR72Nx7JV7rooo8etD7jv0O7kVt08mn9/BlpoM
-	 kFL3l0eRDP56GNLhHbn27JtGgpqyaM5rU5fPUOhK0QDGZwsywFe3MWK/vpqpbHJL1o
-	 sVRQWqWp4VyfH5TRA1QVftDcv3hZ9VtMlN3SrF7xKWQJBJS24liRKH8Ie22gr04TTJ
-	 xx+QjwX+n1eZg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Stanley Jhu <stanleyjhu@google.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Bean Huo <beanhuo@micron.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
-Date: Tue, 10 Nov 2026 16:28:39 -0500
-Message-ID: <20261110212756.3925664-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053827-failed-6.6-22d14117ec18@kernel.org>
-References: <20261107053827-failed-6.6-22d14117ec18@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cQ5xwQ6H
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so31768565e9.1
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:35:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794346500; x=1794951300; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mOqbf5f8IOrYsXobBY3T9L29gUMiYe3oysuU/ey3bJU=;
+        b=cQ5xwQ6HxvcHCdVO4r6Zx1QKFnlw5WLHnAF1G9hPEgTyBn03UOrvZjE9idlHwO1Ry9
+         Ua4VMMAmZ4MUqxSKUEOgOuNZ8EZlSYLFOQjjxypNvGBlSnE00SnaVz/OC3Yd/f/JKk3d
+         ixozxVkn48kkO2fGlEyzbhH2W2i842magCGSlXzocmY234qZXqjWwV7fXieUZgClA0Fk
+         YKBkqZje0zuORPfMlu7J2D8lQ2b+Dg4ZUacCiwBh8g9bF129dWhdYYppNulvfYEBvGbV
+         0igXXgKVF8NZwyyzVntYU55XI+ye345Kd4eCvg/S9bVkz95mzJRfifF8IZHZaI69Klde
+         HUPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794346500; x=1794951300;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mOqbf5f8IOrYsXobBY3T9L29gUMiYe3oysuU/ey3bJU=;
+        b=dn1fPgxki3p9jtnrf17H2rfcWXbyLoAhvWfLDYlx5bKdcmMFQL3ItIDLvrUp6HYDDp
+         YoiMI4MJ97xNYQQyoQVFpxa9hT/CxnYhW5gqlyr2zd+2kN2PIhXgRl3+5F3CpQg8Nc3p
+         TScocIqW+bED5jCC/Z4NcjlmhOlWwtehj8C5FFKGq4PTTGtz3AZhB2pt18A0rbKqc/0E
+         AGn37G+zsaHh7n0vEV7elFn5psH/TMCpT3SnQi9HZyWvcnP+uvUuB6X2a13RtRgG8Rxq
+         OcUtqnht1pozg1V3o9L/ckGQNj3hWa5ZSHrYVla88FonYsDezXAgJDUdLgbcKhKWsG+W
+         kJbQ==
+X-Forwarded-Encrypted: i=1; AL+hErFPIP2sTLFLcqJswA0tCnZduULFGw/uoFd3t25X/i9e2g6X6heIaUVQC7oU6HmNv8EszmCtybY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97JkdVWvtX+d2ThL9a84ijvVgs4An4Vu+bxkaKYGvqpM+gk+QY
+	YbLMfs2SdJjahuhzziJcB/bn9XILS1WSBuKSE2i3qzBwlMtvQPK+59fM
+X-Gm-Gg: AYBFou0aG3Jv3RgPj5ecUcTVYqvmSqPm8Jk5qknK2gEbwYjmq8gQXIShl3NNutk06eA
+	nLNq8ja4hwI2V1GAWdCLS6xRmUwPgnoM4E1vhowi/gwZsDU57eoWV/paSADpGwrvcT+sdAuNblp
+	d9Xd2pxrcWf1cpm2G5MQ3pGQQRTPaqYx5LSDRXwUSNJ6nDlqLCOtk2s0UcDuYazsAh+qXnLIUpH
+	0shJhd29kx6N7x4qFIW1tN3vEVgC8KodZejoyI5gQ9cifho/XKihtYRMqaRNJQyetKP6ir9O80u
+	SoJcX9aYm8MJQjXtpnYyx7tPOIj1amPpRrL+2vhBIR31VltQCu84uSaLXj7UgpaUhbUm2E64ERX
+	nYCmvFHqUj7ggNgoXBXqfgP7o4kt1hGVaQUNsa70+T6IYFoGMn4leRu4UQ0Spy5mNqa5Wrb9S4o
+	WKcT+USC7NMP4Oy38xtDjaCyVOuUpMJBch9CRco5Z9YGmIQtj5afxOV+X4fxLfdeNQF+SFUm3Ga
+	h0RA+ZkQvVXDFVKROzFD1NC9O0ujG6L90YBFa9MhVNY9mFVTzR/R6XxXmsHSsxJytu/WWWr9XRz
+	OdueHEpXYZ7Jiqjnx6ekSn4Q
+X-Received: by 2002:a05:600c:364b:b0:4a1:d766:758 with SMTP id 5b1f17b1804b1-4ba08e1f572mr8423245e9.16.1794346500171;
+        Tue, 10 Nov 2026 13:35:00 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3fd2sm7670526f8f.52.2026.11.10.13.34.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 13:34:59 -0800 (PST)
+Message-ID: <cbcd04e6-b0c6-4a8b-9f89-4f57a4c50864@gmail.com>
+Date: Tue, 10 Nov 2026 22:34:55 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,120 +92,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/9] mm: limit pagecache folio refcount when splicing
+ into pipes
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard
+ <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, netdev@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261110-refcount_overflow_stable-v3-0-318625d63a98@kernel.org>
+ <20261110-refcount_overflow_stable-v3-2-318625d63a98@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261110-refcount_overflow_stable-v3-2-318625d63a98@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Stanley Jhu <stanleyjhu@google.com>
+On 11/10/26 9:35 PM, David Hildenbrand (Arm) wrote:
+> Similar to mapping pagecache folios into page tables, let's reject
+> additional references when splicing folios into a pipe if the refcount
+> is at its limit, similar to how we handle it during GUP.
+> 
+> This will prevent more cases of possible folio refcount overflows with
+> large pagecache folios.
+> 
+> Introduce folio_get_checked() for checked reference acquisition when
+> the caller already holds a reference. It warns and fails on a non-positive
+> refcount and rejects additional references at the limit.
+> 
+> Use folio_get_checked() in splice_folio_into_pipe() and
+> fuse_ref_folio(), returning -EFAULT on failure, like we already do for
+> pipe-buffer duplication. Similarly, make try_get_page() use it instead.
+> 
+> Likely try_get_page() should be renamed (or removed) later, as it doesn't
+> match the folio_try_get() semantics and is confusing.
+> 
+> If we hit the limit after splicing some data, return the number of bytes
+> already spliced. Teach the callers to handle errors, and stop
+> filemap_splice_read() if we only spliced part of a folio, so we don't
+> skip ahead to the next folio.
+> 
+> The check in try_get_page() also covers pipe-buffer duplication by tee()
+> and partial pipe-to-pipe splicing.
+> 
+> Note that we deliberately will not fall back to the slow path of copying
+> the folio, particularly as the folio might have an invalid refcount. If
+> it is ever really required, we can revisit.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-[ Upstream commit 22d14117ec1845a81acb3a5c4be325f7e8332f70 ]
+LGTM :)
 
-ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
-clears bits in hba->outstanding_reqs under hba->outstanding_lock.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
-__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
-functional change.
-
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
- 1 file changed, 36 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 3ffd18aa9675d..c70ffdd299a2c 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5601,6 +5601,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
- 	}
- }
- 
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						     unsigned long mask,
-+						     bool from_irq)
-+	__must_hold(&hba->outstanding_lock)
-+{
-+	unsigned long completed_reqs = mask & hba->outstanding_reqs;
-+
-+	if (from_irq) {
-+		/* Do not complete polled requests from interrupt context. */
-+		ufshcd_clear_polled(hba, &completed_reqs);
-+	}
-+	hba->outstanding_reqs &= ~completed_reqs;
-+
-+	return completed_reqs;
-+}
-+
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						   unsigned long mask)
-+{
-+	guard(spinlock_irqsave)(&hba->outstanding_lock);
-+	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
-+}
-+
- /*
-  * Return: > 0 if one or more commands have been completed or 0 if no
-  * requests have been completed.
-@@ -5611,6 +5642,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 	unsigned long completed_reqs, flags;
- 	u32 tr_doorbell;
- 	struct ufs_hw_queue *hwq;
-+	bool from_irq;
- 
- 	if (is_mcq_enabled(hba)) {
- 		hwq = &hba->uhq[queue_num];
-@@ -5620,12 +5652,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 
- 	spin_lock_irqsave(&hba->outstanding_lock, flags);
- 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
--	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
--	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
--		/* Do not complete polled requests from interrupt context. */
--		ufshcd_clear_polled(hba, &completed_reqs);
--	}
--	hba->outstanding_reqs &= ~completed_reqs;
-+	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
-+	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
-+							 from_irq);
- 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
- 
- 	if (completed_reqs)
-@@ -7694,7 +7723,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	struct ufshcd_lrb *lrbp = &hba->lrb[tag];
- 	unsigned long flags;
- 	int err = FAILED;
--	bool outstanding;
- 	u32 reg;
- 
- 	WARN_ONCE(tag < 0, "Invalid tag %d\n", tag);
-@@ -7786,11 +7814,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	 * Clear the corresponding bit from outstanding_reqs since the command
- 	 * has been aborted successfully.
- 	 */
--	spin_lock_irqsave(&hba->outstanding_lock, flags);
--	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
--	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
--
--	if (outstanding)
-+	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
- 		ufshcd_release_scsi_cmd(hba, lrbp);
- 
- 	err = SUCCESS;
 -- 
-2.53.0
-
+cheers,
+jose a. p-a
