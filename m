@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314045;
-	b=h6bJIZ8x/sFomWiEvZ1fc7rhnq8EkTRYtd/o1/t2/VzzjT6FvzgljS3aRjRuZXqY7riR
-	 M/qqiZtx1aHaQbtYm8A8G3H06shn51gjJBt/rhwH992SMHZ4ct+hDv40tPxWnl4QZ7uxi
-	 +09ReRv86M31f2hDKQYep1r5lK7WuQ3zEri8z2SnqBHZtjCvEsUPL2oId3+k3f2zz0v8G
-	 khj1GlWZ7poxZmhSeVslaOw1vjnrsy54S2612Z+Kw/pTCEb2a7J/jpKaOa6PO3FZ6k5IZ
-	 aEpL9r1Qf3FgV4M+KC8RO4onmczSFQzUgNN1B73/xgf5K7Mn3oXcji2yPXGa0gzvxRA==
+	t=1794314052;
+	b=bBJ5wgVabR2Q4ZH/Zqc2tz5WAp+8SrFyNUqTQThpuqC2dE5GxhOp7r6M3hW36NNghJjP
+	 UCqsHOtOKwS77TtDQfIAUj0UfPw90qQ2DhkXYCTVwEg7zZ76Wfw1koMrs7EiM4aRef1up
+	 7FrLf4iG+f3O6oYp+YtYEkruMV7R7zEvdhIwJU2HduhBJEMY2hupEmM+1N8U3/4a/2gsp
+	 KHlhUcyP7nXZf7euw3pm4LaVis9rhboDkCzwY9/zsNafzZ0zYP76QHttuyrjhEGqYs/OV
+	 JcmC1bwdyU9qPfeFYU9294ow3mHp8+/6uRplXRiV3tzCgPWractEM64S8eV0qU62d1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314045;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314052;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hQQt12HIKOvm35LUIZZkpU/hUhx2h13LoET6a38F53Y=;
-	b=2CaRQgmiqOePqSPfn08vlS/WbiZdSk0N8boX8988UOXyCr0nslsKpf39dQiJwfPb87JL
-	 wtbj1fvl3bxA4toxmvhfn2u6Mv/A0GFOlixPmnoNpNPCXFlOy+to99RB0gxVI2IzVIhum
-	 keIed0jP3lcp8TJ9/BcTeNQa8pk/I5K5GfqqgUye8A7KCETOwK8XUBMPTEtrc7aq7eOpF
-	 TiviF1NAMvJ2wD4pyJauWT1CehDenW+aUjliw/gt6ontCs7cGzGdD6txtNF0imUt8z8jE
-	 vdsUtQY+eSJr/Q3i6MyGeVusk1Y8MAfhkKGsLcf5bOtoPvt399RbK+yq/iwIZ1JJyrA==
+	bh=Kr07HqSk1dXFk+p2tNfIUkhP/sScvBmev9NavxvM4dA=;
+	b=p/0Ir2Fv0zFId5hyYvqZN+Yg445Gb18ab2IbeByGcnqgDNnKOKySYqbeo+3HpeyZXe9/
+	 3p56B/Ex8uhLqI9+EqQwvMD+cgAxlSTZQlo3UZIKlSsidNYPYl8QLoS7Darzi2onf3ZIb
+	 bsXg5IAP17japI/gCg3ywrz+YKfqNormITe2dv9xwibR76Zbxg7eIcjxQPRr2Y+E1I2ec
+	 H5aapknPkhdY494ClvKwNoj2/9DeNhgZgUF+54DIAkTaZ9lfNoYBmoo3SSc/UsGGnsLy8
+	 rXZM91RPqBMEWoKi4rMmcQKruiCUx2YlIrLaPnTWRH2WcfUioItOs7k5R4MVqMBNd5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Drww0I9R;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aH3z+2NS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE99606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6CC606A339
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:34:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Drww0I9R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730161F008A1;
-	Tue, 10 Nov 2026 12:34:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aH3z+2NS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35B51F0089F;
+	Tue, 10 Nov 2026 12:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314045;
-	bh=hQQt12HIKOvm35LUIZZkpU/hUhx2h13LoET6a38F53Y=;
+	s=k20260515; t=1794314052;
+	bh=Kr07HqSk1dXFk+p2tNfIUkhP/sScvBmev9NavxvM4dA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Drww0I9R82h7aOJv8R9Ra0zp7sP51Q4cFV7sJK8a2J5grWmZZSoxP/UkpNMMooESB
-	 jWAwvPOHcmRlgHruK1Q27dF9kgWcfbk6myZzSGvVaUUVogkmE3I39eHjvQpnnXaLlj
-	 jkUsK4VUxws1kLPtQM+fsMD1GF2THwuCp9VrN6S6Foo2tHNNAKq4H3m2FZo79t2CqV
-	 GuOwILmeWzrUPfd9Liwm3n08itg/sHLuYouahNvNShVmfjG26eIMEpBqWIEPZ6R9GR
-	 eSaXytrh30TRbW/4R3wC9EmvISYK4+4hlTyAOoEpx5rEJVUItMfMmsiyFYErJDyazK
-	 5l2qFm23DAABw==
+	b=aH3z+2NSJxVFpCykUaPbHaRJ6B1DJjuyuIJmYmlPWUKqJ2qdUYMJanhkorBlB+eov
+	 su//J0DyM8V27ZIAMe+pRNoULg6MB6zmXODtdRePhTPWtxs3rUfoFxCqh7KTwgvDZk
+	 Yr2YKefKzpjVExUFzDu2bjxsVtS/xuSmBFTBZz1jiS/5dQpssPddNgQnlIk7N2o88l
+	 7QR0eS7jbNQpit9pjeFEEsnsFGTb3+FTjybKt+jTteDV8D0KBLKT7ht7NZv08c1o6V
+	 s9s+fCRRMuVnJW64ADx1bZTDKoLP7nhlmCAwswAVN5SE5K2TuPovucxva0fq93+M0U
+	 ce2ZwWIh7g3Bg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Abhishek Dubey <adubey@linux.ibm.com>,
+	sashiko-bot@kernel.org,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	Saket Kumar Bhaskar <skb99@linux.ibm.com>,
+	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
+	R Nageswara Sastry <rnsastry@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 07:34:03 -0500
-Message-ID: <20261110123339.1219530-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] powerpc/bpf: fix buffer overflow in JIT for large BPF programs
+Date: Tue, 10 Nov 2026 07:34:09 -0500
+Message-ID: <20261110123328.1215640-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050724-failed-6.18-6b8b1d1d7bc7@kernel.org>
-References: <20261107050724-failed-6.18-6b8b1d1d7bc7@kernel.org>
+In-Reply-To: <20261107050746-failed-6.18-78ce55b7913a@kernel.org>
+References: <20261107050746-failed-6.18-78ce55b7913a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +66,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Abhishek Dubey <adubey@linux.ibm.com>
 
-[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
+[ Upstream commit 78ce55b7913a78e1687306668e078b86bc6508ee ]
 
-tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the initial
-conversion.
+During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
+is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
+as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
+epilogue instructions are not counted in alloclen.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot. The continuous-mode path,
-which sets ->ready_time to jiffies with no added conversion delay, wraps
-the same way.
+In later passes, if the real exit_addr falls outside the 32MB branch
+range, the full inline epilogue is emitted into the already-allocated
+buffer, writing past its end and corrupting adjacent memory.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+Fix by ensuring exit_addr is non-zero before treating it as in-range,
+so pass-0 always falls through to bpf_jit_build_epilogue() and
+conservatively accounts for all epilogue instructions in alloclen.
+Also range check alt_exit_addr directly in the else-if condition.
 
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
+Since exit_addr handling now falls through to the epilogue, two
+related issues in bpf_int_jit_compile() must also be addressed:
+
+1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
+   Without this, a stale alt_exit_addr from the first pass causes the
+   second pass to emit a single jump instead of the full epilogue,
+   undercounting alloclen and reintroducing the overflow.
+
+2. Recompute addrs[fp->len] at the end of each code-generation pass.
+   The larger pass-0 body can shrink in later passes as out-of-range
+   exits settle into in-range jumps; a stale addrs[fp->len] would
+   leave exit branches targeting past the real (shrunken) epilogue.
+
+Because shrinkage in a later pass can move the epilogue offset, the
+fixed two-pass loop is no longer sufficient: an exit that was out of
+range in an earlier pass may fall in range once the epilogue offset
+shrinks, shrinking the body further and overwriting the start of the
+epilogue. Convert the code-generation loop to iterate until the
+program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
+JIT if it does not converge.
+
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: Adjusted struct tmp108 context to account for the missing params field. ]
+Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
+Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
+[ sashal: Replaced goto out_err with fp = org_fp followed by goto out_addrs because the out_err label is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/powerpc/net/bpf_jit.h      |  7 +++++++
+ arch/powerpc/net/bpf_jit_comp.c | 35 +++++++++++++++++++++++++--------
+ 2 files changed, 34 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index a971ff628435b..b298fae9296c6 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -74,7 +74,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
+diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
+index 8334cd667bba1..ae2c92a8b6e77 100644
+--- a/arch/powerpc/net/bpf_jit.h
++++ b/arch/powerpc/net/bpf_jit.h
+@@ -14,6 +14,13 @@
+ #include <asm/ppc-opcode.h>
+ #include <linux/build_bug.h>
  
- /* convert 12-bit TMP108 register value to milliCelsius */
-@@ -125,7 +125,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp108->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
- 				__func__);
- 			return -EAGAIN;
-@@ -362,7 +362,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
- 		return err;
++/*
++ * We need at least 2 passes for proper code generation, and may need
++ * additional passes if code size changes between passes.
++ */
++#define CODEGEN_MIN_PASSES    2
++#define CODEGEN_MAX_PASSES    3
++
+ #ifdef CONFIG_PPC64_ELF_ABI_V1
+ #define FUNCTION_DESCR_SIZE	24
+ #else
+diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+index cedab25aa3a82..829b60ae485ff 100644
+--- a/arch/powerpc/net/bpf_jit_comp.c
++++ b/arch/powerpc/net/bpf_jit_comp.c
+@@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+ 
+ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+ {
+-	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
++	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
+ 		PPC_JMP(exit_addr);
+-	} else if (ctx->alt_exit_addr) {
+-		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
+-			return -1;
++	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
++			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
+ 		PPC_JMP(ctx->alt_exit_addr);
+ 	} else {
+ 		ctx->alt_exit_addr = ctx->idx * 4;
+@@ -223,6 +222,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
+ 	 */
+ 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
+ 		cgctx.idx = 0;
++		cgctx.alt_exit_addr = 0;
+ 		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false)) {
+ 			fp = org_fp;
+ 			goto out_addrs;
+@@ -259,10 +259,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
+ 	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
+ 	fcode_base = (u32 *)(fimage + FUNCTION_DESCR_SIZE);
+ 
+-	/* Code generation passes 1-2 */
+-	for (pass = 1; pass < 3; pass++) {
++	/* Code generation passes 1-2+, loop until program size converges. */
++	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
++		u32 prev_proglen = proglen;
++
+ 		/* Now build the prologue, body code & epilogue for real. */
+ 		cgctx.idx = 0;
++		cgctx.exentry_idx = 0;
+ 		cgctx.alt_exit_addr = 0;
+ 		bpf_jit_build_prologue(code_base, &cgctx);
+ 		if (bpf_jit_build_body(fp, code_base, fcode_base, &cgctx, addrs, pass,
+@@ -272,11 +275,27 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
+ 			fp = org_fp;
+ 			goto out_addrs;
+ 		}
++		addrs[fp->len] = cgctx.idx * 4;
+ 		bpf_jit_build_epilogue(code_base, &cgctx);
+ 
++		proglen = cgctx.idx * 4;
++
+ 		if (bpf_jit_enable > 1)
+ 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
+-				proglen - (cgctx.idx * 4), cgctx.seen);
++				prev_proglen - proglen, cgctx.seen);
++
++		/* Check if program size has converged, but ensure minimum passes */
++		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
++			break;
++
++		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
++			pr_err("BPF JIT: Program did not converge after %d passes\n",
++								CODEGEN_MAX_PASSES);
++			bpf_arch_text_copy(&fhdr->size, &hdr->size, sizeof(hdr->size));
++			bpf_jit_binary_pack_free(fhdr, hdr);
++			fp = org_fp;
++			goto out_addrs;
++		}
  	}
  
--	tmp108->ready_time = jiffies;
-+	tmp108->ready_time = get_jiffies_64();
- 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
- 	    TMP108_MODE_SHUTDOWN)
- 		tmp108->ready_time +=
-@@ -413,7 +413,7 @@ static int tmp108_resume(struct device *dev)
+ 	if (bpf_jit_enable > 1)
+@@ -336,7 +355,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
+ 	u32 *fixup;
  
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = jiffies +
-+	tmp108->ready_time = get_jiffies_64() +
- 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
- 	return err;
- }
+ 	/* Populate extable entries only in the last pass */
+-	if (pass != 2)
++	if (pass < CODEGEN_MIN_PASSES)
+ 		return 0;
+ 
+ 	if (!fp->aux->extable ||
 -- 
 2.53.0
 
