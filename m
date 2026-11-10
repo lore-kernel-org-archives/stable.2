@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318959;
-	b=W/uluxxHIiMYPCgWCVu1FaKlfwYVjzqSs4niycurW08ogedTvJcfE0Gx9+hIfAjirKr2
-	 iHkAXa2uXRdqQXZpZW3o2X/43CVBuiB1m2BTHcgRPXLEfHrXxiXVMyrTP/1A9Ai8ZsMTU
-	 iXkNjJ1WGxFV6r3d5v356367GYLV7gOajuhA39lrKJL8rLlfhBcaaiBPtpWnQEVWEisQs
-	 wW5OWJ/qcHPrCdCw8BOnAVtUg3sRQpskfFl33XMEw/g0JTpr7Y1Tk2uB2+XWyq2ISjifM
-	 8alqY2Z81OaImGFijcGbOASemzftUsSNDLr+jUf1IdR/9uCRPFSdxV+TWEAftlwutiA==
+	t=1794318960;
+	b=jamBdk4io99haBA3e4rnUJpa532mfbRz0KMZ0ocW6Rc1JDUNpV479ViyKvgbLWnJD+Um
+	 XUyWFnN/IN95Ax1pESbCdylwqxIdsj722TCBu0B2SS0A8ZXHlklQIPu7KGkp4+sFj5xwh
+	 UgGLQSoWKmdmw/qL/v017AIHmTAE/C1Qq2z/oYELp2L7WL/yL1f3u500AE9CrHxGHBaC9
+	 sFwMxJLncDKBbMS9OiIBzh2zWYrZECIscADk+NaIR9b6Gb9sCCfj/7GEXvF59qQzROzbg
+	 wlvnIylAWkjggBd+tyVjmuqvYhQr8vHiYSCxzOjGaUan4OPQmBZ6HfakLv3RIekrtqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318959;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318960;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hcS3OGPwvmwrrngFYy8jLa3bGHte21mZaEALoMq1m0A=;
-	b=mFbJOhW9EaWhuqDUWtziZ3Wbm99gVzzQV6hCf6mUIZIhkvoHcTH0mEVrAIEn1s24Zzc+
-	 yKAxWKbSK4Qh+lXdqxHTxa2qCz1vMW7F1+YPsmjwr/+t6Jtjt2vce+1yf7T85AobL8U1x
-	 0fopL/N52ti8MpMP3YvxRThIkUl3ZQSmhBTZTDMzTuLWsuwQDIZh4U4+l/BF+JLTzRGLn
-	 u3oJqlVvGw079XtyEtDSNziypyCE5/dMRXYxPdbN9A20m3sm3hoGBOinc4HTrBSHbW67B
-	 g0E9SCSZjWVIM4kQhFdt9bwrQ3F/Tr6c2KpMyoA+jy32BWducDvhxsP/73PB24K45jA==
+	bh=uwKq65j8PiUhLB+Ff1X7tZk8pqfZNShCGdXAOCOwasQ=;
+	b=uP2fwrMzD6WzenhoBGC1Y3zxj+3++PLmSDd0ZNffx80cMvtfdHhllmDJ442Ffg/BqV5M
+	 oSn7a+WFktTe+Q0Sx89Ih0L08Wz4Xef2JHMtMGWa41MS11ZKWQrkGsFgnC8wvCel686Bx
+	 V8F/E3r/ZLGU8mK9LgBSzWvzGRtCMvn20rla1BahXr8YSA+IudBoPbtAwBMjtsWzwe3ip
+	 qkWDv6YRdxZqsyY/Fj1Z/5/E74IY3s7/Zgdbywwo8khly/8lloakv80B+NU4CBRqpJj0+
+	 XvMnPBeZW9oynluHP3q4QxnPbXTzFjISi0F9hOt9qzO9O2bj2phZT3Ux3nqj9aQlRzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4VLBEkA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kD1dOuzP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7CCA606A333
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:55:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B39606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4VLBEkA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338C81F0089F;
-	Tue, 10 Nov 2026 13:55:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kD1dOuzP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237271F008A1;
+	Tue, 10 Nov 2026 13:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318958;
-	bh=hcS3OGPwvmwrrngFYy8jLa3bGHte21mZaEALoMq1m0A=;
+	s=k20260515; t=1794318959;
+	bh=uwKq65j8PiUhLB+Ff1X7tZk8pqfZNShCGdXAOCOwasQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n4VLBEkAPSbl4QYbQXgxHhb4Q1CyNtfEFJS0DUJn2tDacGHrN1094TuFXyywHZhUJ
-	 tH8BhA92EQNaOkj6flIjPRYVKYp2qxUowbmtVKNGQwlmlvP73D0CYogq30wwXEDGa6
-	 8OynU/78GGLVQU9k7aCmCuJJXoYaoqhBM+erQLsGIzBQOCpOlM58GKToch1KNpjk4P
-	 1hJ0LgT0Isvbp27TeaBF4vv4LDR0TbynvSsWw/Ur/00c8xWzYwS8/NIEYBfL0F8yeC
-	 Eu4L/dVe0k6yGQ5x62GV1JpRrFilIhDK5T1m94+V+TjJR4S9R6RO+Kx+57iD6QD7v+
-	 sm3nAypVayRyg==
+	b=kD1dOuzPnukdww7uakuQR0ZMB7eLi1D6h6Io1l9Me+nFJw8WA8b17uk0p1gkBuUNi
+	 fJwQPInpioGZM1Tsr5T/BUB6jQQtkfX11akmuuCmxBBlwHs7FyqmjyajAf0t3m6Dwo
+	 aWBbd4brxkll5q9c81zZxzkDLRzWUz27R345P7GhQ4cAIAMBWPbayPQcr0+t1sd0Wc
+	 lvkNgSQ7AupNYjXVRn4+erMfg9IT00glIGo9QLAUTTFuRxTlE8TNL6JrF2Pae2CFJu
+	 oPXV+hXWCcQWJ19o14QI7mVtVHivjl2+2IR4P1mkFjCiGq3hSXGxR0UN/AioURu5X5
+	 1KMlYgP017VvQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200
-Date: Tue, 10 Nov 2026 08:55:55 -0500
-Message-ID: <20261110135524.1805283-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: vpif_capture: Fix i2c adapter reference leak in vpif_probe()
+Date: Tue, 10 Nov 2026 08:55:57 -0500
+Message-ID: <20261110135534.1796626-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110135524.1805283-1-sashal@kernel.org>
-References: <20261107054605-failed-6.1-874323b68c93@kernel.org>
- <20261110135524.1805283-1-sashal@kernel.org>
+In-Reply-To: <20261107055952-failed-5.15-b00fbdad64d4@kernel.org>
+References: <20261107055952-failed-5.15-b00fbdad64d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,46 +61,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 874323b68c93c6808e034dc0113681e822e6fb42 ]
+[ Upstream commit b00fbdad64d4ea7d594bc67988c1722fe5b3be50 ]
 
-The C200 (046d:0802) reports a mic capture volume range of
-1536..7680 with a resolution of 1 (6144 steps), triggering
-"Warning! Unlikely big volume step count (=6144), linear volume or
-wrong cval->res?" at probe and exposing a uselessly fine-grained
-mixer control.  This is the same firmware behavior as the other
-UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
-(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
-quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
-if the device-specific entry did not short-circuit the lookup) plus
-MIC_RES_384.
+vpif_probe() takes a reference to the i2c adapter with
+i2c_get_adapter() and passes it to v4l2_i2c_new_subdev_board(),
+which does not consume it, but the reference is never released, so
+it is leaked both when the probe succeeds and when it fails after
+the adapter has been acquired.
 
-Verified on real hardware: with the quirk the warning disappears and
-the driver logs "set resolution quirk: cval->res = 384".
+Release the reference with i2c_put_adapter() on the success path
+and in the probe_subdev_out cleanup, and initialise i2c_adap so
+that the cleanup is a no-op when the adapter was never acquired.
 
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Fixes: 6ffefff5a9e7 ("V4L/DVB (12906c): V4L : vpif capture driver for DM6467")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Adjusted patch context to retain the existing resource declaration and older notifier cleanup sequence. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/davinci/vpif_capture.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 52164ae35250c..45a2753d483cf 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2058,6 +2058,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_DISABLE_AUTOSUSPEND),
- 	DEVICE_FLG(0x045e, 0x070f, /* MS LifeChat LX-3000 Headset */
- 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
-+	DEVICE_FLG(0x046d, 0x0802, /* Logitech Webcam C200 */
-+		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
- 	DEVICE_FLG(0x046d, 0x0807, /* Logitech Webcam C500 */
- 		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
- 	DEVICE_FLG(0x046d, 0x0808, /* Logitech Webcam C600 */
+diff --git a/drivers/media/platform/davinci/vpif_capture.c b/drivers/media/platform/davinci/vpif_capture.c
+index 164d287c293ed..619952ac1a6b6 100644
+--- a/drivers/media/platform/davinci/vpif_capture.c
++++ b/drivers/media/platform/davinci/vpif_capture.c
+@@ -1617,7 +1617,7 @@ vpif_capture_get_pdata(struct platform_device *pdev)
+ static int vpif_probe(struct platform_device *pdev)
+ {
+ 	struct vpif_subdev_info *subdevdata;
+-	struct i2c_adapter *i2c_adap;
++	struct i2c_adapter *i2c_adap = NULL;
+ 	struct resource *res;
+ 	int subdev_count;
+ 	int res_idx = 0;
+@@ -1701,9 +1701,12 @@ static int vpif_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++	i2c_put_adapter(i2c_adap);
++
+ 	return 0;
+ 
+ probe_subdev_out:
++	i2c_put_adapter(i2c_adap);
+ 	/* free sub devices memory */
+ 	kfree(vpif_obj.sd);
+ vpif_unregister:
 -- 
 2.53.0
 
