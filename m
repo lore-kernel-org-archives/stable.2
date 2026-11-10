@@ -1,56 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312436;
-	b=E0tkWuwNjMmbAz3fm/o3iKSyOl1tzWm4Z6SiM3MgmVcNymZ2teqDN+pCt9/mhNj0AOxZ
-	 IZkosfb+YEoGjEvcj9Eb9DEv9cMXjgw/FRyeKO9kilxccrVpeSlkVVKM4vHL8QuAgil/0
-	 V09KhPIuaNSdzunsCPGycoDfSSdaAFjA8NPeUYYnYg2OX0wVePDskDAtxAIFxuZvco28+
-	 V/DzOYJ3xFb47FojY3Y740iapquu8M9v2NQ6qTgxZ2TskBooIhHP/eB07FJJ53NerawrP
-	 Vip/RGN+xLPeD3IpQAci50luKiXex4zV6PPaI9uR/zus+4L7bk9MrxbkMSQDdX8qfjg==
+	t=1794312531;
+	b=xRrvKN3F4A5zg6RR6ZOptfnlDnDH2xlF0dETXFWO+qPs0X6f09f3lZicGM39p/QhIqn5
+	 u2CXcbo63l6dma00fzeZOLyjby4Pvy8Fg8xIZL8ZvGsB1un0UJRZEBdtHDgthxtKw6Pvi
+	 PJexmWnYCYBaDwOuH1kHN27yJWA+h9WnLWxqykuQvjM+SG0wRmAxXJHs51nUjqP1BE4b1
+	 Nm/+eIi78yFUkQoDa+XGPP0aEaIagE6wBMMz4A/zYVefhxSZgIT9wf84Ce+eedtbzW2F8
+	 LYUsVH/eFsII7HjpwCNiWrclkgWbGx3wLlfxhDYt4nWas28D1rcKbT0AU2UBv4u82FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312436;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Jx3SLt7x3xgQKoZ/g+VwJ2+pQlnVF++EioCk4UVifB8=;
-	b=jQI/kEPVlQYU0BRLefLTgF5O+lYtHv4iFx5b78HixvCQ3WPSEPVmOSVVoJ6f+FqCHu1W
-	 9V1W6zUorD9qillqOvV+B9ouj6vqNuKIcr8/z0edLeqfvSeHHQhsVFBoZTzy481ln5I/L
-	 UpbXVsC3B7h31cZodOmL/XI7HbTht2zEh2GaR1s7E/E/3fY6rKGnSuP+y+el7b31PAbFl
-	 USBnSauvx0LVTwzxmyN1UTCMPIQXATIwlgJj6BqOXM6Zumm7obfeesgjKsXr+LOYLF0aQ
-	 saencDktFo1fjPLgMGPWI+FiLDQ6MoI/sFjrxa6eAWle8AH83CM3YhJIrhUSLjQ7qRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312531;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=my920tH3+pay6QR1Hz2RbPXCpA+00fM5PQ02hoJW+PY=;
+	b=5iPXKr3eePv5hrBwcvWtfDvS+NZH/IAPdMqGoFX+PqWVozigLN4/ZON2PXk8NfSZu/IG
+	 b6vNdUpMmz0iipgF4bDVf5tx6XSNJHicNGCidvRbh+xbz/iWkKhxxSAWkXjwAfnKbNquO
+	 8VCJT7zFZll7yhorcHexEUneDhuLNqBSgfdGphkgo1kI7gTrPPURKfBIqrPn+K9D0y/YE
+	 WlK3/Nc9Cvu6ZxwhbJHkXTwWmyN3oBTtnfD0BbZulJl0BghBDSK80cxBBIkIlXPB+H80m
+	 PEOT7D1agnP6nr/TTEAklbyh1SXjhQfPlIbZ+uCvxOo6EzTNtBnnMxQ4D/+eF2Ia8dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz2M4JFe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS4Tp4Sa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE99606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:07:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BEF60A2617
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:08:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz2M4JFe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5401F0089F;
-	Tue, 10 Nov 2026 12:07:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bS4Tp4Sa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9661F008A5;
+	Tue, 10 Nov 2026 12:08:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312435;
-	bh=Jx3SLt7x3xgQKoZ/g+VwJ2+pQlnVF++EioCk4UVifB8=;
+	s=k20260515; t=1794312531;
+	bh=my920tH3+pay6QR1Hz2RbPXCpA+00fM5PQ02hoJW+PY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mz2M4JFeO6FCDI0mRsm79X/OJPv/54LRBvCaFecAUQPISO1ikboZ6u0jnT/naKBVN
-	 QNoszicgEO3k00JbqYidHwg/JAiZgC6enY61SqquNr9TSyyTzSQKFz4fbGVragg4Pe
-	 Cp3S4OZjFMuIyb54b+97QxB3CMSvmRfQ3BuHid09vPfCk+YPwEpcVDYs1PSs14YdOb
-	 w32pAiir0rquCTk6V93dT5DwlC+fTwcW8uuh8bXHAe4PIQcTVStHZvwFKHBoq2mXuc
-	 2uMnvKda0ebK5rNqQ0PK2uqUV0vIbHk4TeqsPICIFZ9JsVXO7zOQLI2EfkxbrnG1CA
-	 +n6qs/47T3SYg==
-From: Sasha Levin <sashal@kernel.org>
+	b=bS4Tp4SaiDmCJAqoZ2SxRKita7MuRi6b75bYh7bIPHryp2iVl1YDWC1BfDb3bEjuu
+	 PS97+TUEguUMCb5Kq0cbITCgpPp7PJqZ+38k8m3FlaxEhugg+CxHnZZZVg80hitTUD
+	 QEH/r0lw16gpy/X52WZqIu4hz1dJBMEhae7lvw87m1fZmEbXyAgpy6eriyKK0lkdYH
+	 8UzcPUyRW2KgEilAhh62tCH3lqpeDiGJ2/t7ILRL8SxiNXl9IktnJfCJ0SRD7WE+cu
+	 bhphtKPPy2gexxtMdR7/n6qYfEj0+TfQBSYpPvOhFBxA4W2lIZHey8mjSoHYpXBfp5
+	 IcHeSLhEPqSgg==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8F0B1198003A;
+	Tue, 10 Nov 2026 07:08:48 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 10 Nov 2026 07:08:48 -0500
+X-ME-Sender: <xms:UAnzakmw6FDlF-KUmOGbaSw7LhWC2B4jVZz_ptbEmr7II6q5kpwfeQ>
+    <xme:UAnzaq1l77UQjXbux9vAj8Ui1uanyrwuUegKqkdUQSWABUqN8SNhgMaHeVeq_Ombw
+    WsVYvVk3ZpPaZ3EpzStzd1gaCNKTLFZp8aPdX-1uqa8Y63IjjyAa08Y>
+X-ME-Received: <xmr:UAnzanrGrbvJlEZENJI_hNIyTnHbaQeSxgvzQYdgH3HJm2fXBdlmXyp0V9M>
+X-ME-Proxy-Cause: dmFkZTFW0BiM+2iQGSCiw8NWFu7EDBbogT/NSgL/82/lZd7c8drkacWsS90ovnyCwq+zZ4
+    nI59zLGsmfrOeYYf9Iy6pecD4JFktkYUAAJdCG1cL2bJzdfBvcsy/kIUuUgA63YzV2g6QD
+    E6Wj/y63V5nQZY512BXMM6S/SRnWVEeQl35Ujy6UL7OkQJLb0RcxZQCN8l0Msjz28mJla6
+    xYEHwg8P/AAbgpEuIYXoAX3CHAa+5299lWa/geKJU6aSspLAIa7da9+0StmGpfnFrL+W0h
+    2cMuYM5cXG+m+hzOrmi03WFCS2ACVbw7Gn6YMbcKrVsbOtnhQN1tO79kQcWSTNqTMv8NbH
+    kRTUjE0xa/Y/WvkBuwmiYB23DhFtSuG6NhUdrS+iedsG1Q/n+n3cTRSRQIcNCKxl0MvIvR
+    f2VIYhcwvzinAvdsCuu2OUZJJAXcpSGfEbs509/RcADUHfJIRfal4mT/vXCGBTpz+ZC6Ke
+    9bvEiSIxd3DnMWGb4U0mLOmpIaD5e+zequAyZ7SIyqZ7byUXoRAGrvNJuQVLYKKV142h17
+    KfpOcc+LXFc9nhqQZs5X8rrng394vFPkbh0uee4q5f8hrUEonrv5nuFiwlHo/NtZNtaAK9
+    y8dzt+SsDjYh0QFjTZHWdWJhZy2IYJUZpVlb0oMLCjHefHJhTpN+NGcL+K5A
+X-ME-Proxy: <xmx:UAnzavcr56ZIOd1PTQc_s9q6s-I710SkMKbetKGo3czCzs1XF4mw0A>
+    <xmx:UAnzaurX4ij2Pk2U0MtNhrWZpT2F-4Ts1Uou63-qP5r62IzfUSHGtw>
+    <xmx:UAnzaoF44HxQb26OCTSAXyTv6VqoUZn2q6mLhQmjbxJ6QMcAbJ52ow>
+    <xmx:UAnzamtIrlQDSVZGdyOL44sGn30f0T2dpT1SQlhN051t4DjIWYKPbA>
+    <xmx:UAnzaiXeFUvmwXG6T3bYJMz2sRH9lfqFD-_mxv5a4x4XixZE43XkXLxy>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 10 Nov 2026 07:08:47 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Marc Zyngier <maz@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] KVM: arm64: vgic-v3: Undo assignment on iodev registration failure
-Date: Tue, 10 Nov 2026 07:07:13 -0500
-Message-ID: <20261110120652.941189-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060136-failed-5.15-8a88a46b86ca@kernel.org>
-References: <20261107060136-failed-5.15-8a88a46b86ca@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: [PATCH 5.10.y 1/2] arm64: sdei: Run the event handler on the kernel vectors
+Date: Tue, 10 Nov 2026 12:08:34 +0000
+Message-ID: <20261110120845.373988-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109202924-failed-5.10-9bf6ee7952c7@kernel.org>
+References: <20261109202924-failed-5.10-9bf6ee7952c7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,67 +90,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+With KPTI, VBAR_EL1 holds the trampoline vectors from the return to EL0
+until the next exception from EL0 maps the kernel and installs the
+kernel vectors. The trampoline vectors only handle exceptions from EL0;
+their current-EL half is zero-filled.
 
-[ Upstream commit 8a88a46b86ca3dbbd24522760d29edfb3f24ac2a ]
+An SDEI event is dispatched regardless of PSTATE.DAIF, so it lands there
+whenever the CPU is in user space. The SDEI entry trampoline maps the
+kernel but leaves VBAR_EL1 alone. An exception taken by the handler then
+executes the zeros, takes an undefined instruction exception to the same
+vector, and loops there forever. The event never completes and the CPU
+is lost; RCU stall reports are the first sign of it.
 
-vgic_register_redist_iodev() assigns a redistributor region and base
-address to the vCPU before adding its iodev to the MMIO bus. However, the
-region's free_index is advanced only after registration succeeds.
+RAS notifications land in user space whenever a task consumes the
+error, and NMI backtraces land wherever the CPU happens to be. The GHES
+handler takes no exception on its own, but any exception in the handler
+path does it: a WARN, a kprobe hit, or a fault fixed up by a _nofault()
+accessor.
 
-If kvm_io_bus_register_dev() fails, the vCPU retains the assignment while
-free_index still identifies the same slot as free. A later registration can
-therefore reuse a slot that remains assigned to the vCPU.
+Install the kernel vectors in __sdei_handler() when VBAR_EL1 holds the
+trampoline vectors, and restore it before returning to firmware. The
+switch covers irqentry_nmi_enter() and irqentry_nmi_exit() too, as Usama
+Arif pointed out: their tracepoints and context tracking WARNs can take
+an exception as well.
 
-Reserve the slot before registering its iodev. The caller holds slots_lock,
-so a registration failure cannot race with a later assignment. Undo the
-reservation and clear the cached assignment on failure.
+The IRQ-like resume into user space must still go through the
+trampoline to map the kernel. do_sdei_event() takes the interrupted
+VBAR_EL1 and keeps basing the resume address on it.
 
-Fixes: dbd9733ab674 ("KVM: arm/arm64: Replace the single rdist region by a list")
+Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20260831081005.41346-2-kmehltretter@gmail.com
-[maz: moved helper into the sole caller]
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: adapted locking to rely on the caller-held kvm->lock instead of config_lock and guard(mutex). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+[catalin.marinas@arm.com: use raw_cpu_read() for this_cpu_vector]
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+(cherry picked from commit 9bf6ee7952c7ee151c30e0fffcfc61b58127c899)
+[ kas: 5.10 has __sdei_handler() in sdei.c around a static
+  _sdei_handler(); pass vbar to that ]
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ arch/arm64/kernel/sdei.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index fd1fa2561520e..c3c0204b3eb1e 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -739,16 +739,21 @@ int vgic_register_redist_iodev(struct kvm_vcpu *vcpu)
- 	rd_dev->nr_regions = ARRAY_SIZE(vgic_v3_rd_registers);
- 	rd_dev->redist_vcpu = vcpu;
+diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
+index 0083f5afa51d..36e4a95ae980 100644
+--- a/arch/arm64/kernel/sdei.c
++++ b/arch/arm64/kernel/sdei.c
+@@ -17,6 +17,7 @@
+ #include <asm/sections.h>
+ #include <asm/stacktrace.h>
+ #include <asm/sysreg.h>
++#include <asm/vectors.h>
+ #include <asm/vmap_stack.h>
  
-+	/* Protected by kvm->lock */
-+	rdreg->free_index++;
-+
- 	mutex_lock(&kvm->slots_lock);
- 	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, rd_base,
- 				      2 * SZ_64K, &rd_dev->dev);
- 	mutex_unlock(&kvm->slots_lock);
+ unsigned long sdei_exit_mode;
+@@ -162,16 +163,18 @@ unsigned long sdei_arch_get_entry_point(int conduit)
+  *  SDEI_EV_HANDLED -  success, return to the interrupted context.
+  *  SDEI_EV_FAILED  -  failure, return this error code to firmare.
+  *  virtual-address -  success, return to this address.
++ *
++ * vbar is the interrupted context's VBAR_EL1, for the IRQ-like resume.
+  */
+ static __kprobes unsigned long _sdei_handler(struct pt_regs *regs,
+-					     struct sdei_registered_event *arg)
++					     struct sdei_registered_event *arg,
++					     unsigned long vbar)
+ {
+ 	u32 mode;
+ 	int i, err = 0;
+ 	int clobbered_registers = 4;
+ 	u64 elr = read_sysreg(elr_el1);
+ 	u32 kernel_mode = read_sysreg(CurrentEL) | 1;	/* +SPSel */
+-	unsigned long vbar = read_sysreg(vbar_el1);
  
--	if (ret)
--		return ret;
-+	if (ret) {
-+		vgic_cpu->rdreg->free_index--;
-+		vgic_cpu->rdreg = NULL;
-+		vgic_cpu->rd_iodev.base_addr = VGIC_ADDR_UNDEF;
+ 	if (arm64_kernel_unmapped_at_el0())
+ 		clobbered_registers++;
+@@ -230,13 +233,31 @@ static __kprobes unsigned long _sdei_handler(struct pt_regs *regs,
+ asmlinkage noinstr unsigned long
+ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ {
++	unsigned long vbar;
+ 	unsigned long ret;
+ 
++	/*
++	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
++	 * EL0 until the next exception from EL0 maps the kernel. They only
++	 * handle exceptions from EL0: an exception taken here would run their
++	 * empty current-EL half and never come back. Switch to the kernel
++	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
++	 * still goes through the trampoline.
++	 */
++	vbar = read_sysreg(vbar_el1);
++	if (arm64_kernel_unmapped_at_el0() &&
++	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
++		write_sysreg((unsigned long)vectors, vbar_el1);
++		isb();
 +	}
++
+ 	arm64_enter_nmi(regs);
  
--	rdreg->free_index++;
--	return 0;
-+	return ret;
+-	ret = _sdei_handler(regs, arg);
++	ret = _sdei_handler(regs, arg, vbar);
+ 
+ 	arm64_exit_nmi(regs);
+ 
++	write_sysreg(vbar, vbar_el1);
++
+ 	return ret;
  }
- 
- void vgic_unregister_redist_iodev(struct kvm_vcpu *vcpu)
 -- 
-2.53.0
+2.54.0
 
