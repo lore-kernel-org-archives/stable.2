@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338348;
-	b=hA/cISzjIYion4GaAwSFebLzQRTbx8vGHnNjQNh75XrkJMtRSpWz90CU2pA8/1Jp0wGe
-	 9rdiu9rrcdUJtqJmfx6kLaE52dqHF1g3cyckrl9DeJkqh9vLnhyotw4kMbjmwe0yqGhPQ
-	 0cDbXrnmJBuYoL/5KsRLvXECrhHEnfvzmrXpRdS+Y5KjCRMEJvWv6xlxj2cNwQUubHL3T
-	 B1W5jCvFABBu520b0JvEfAkNF4y9uyBPEVt8qXW+2xr+GvHlqe/1IMp39tNGV2eU3a+Mp
-	 giRbVaERjv1DHnUzBtpY7lvTP97nAi9VLYWRzs7bI0DHGUmgyaQxB/8s4WNMwWySBvg==
+	t=1794338361;
+	b=V0hYCuoH8zpwfAABhe1iXsrNOMeY0ciG2BQtKPltRJAUYfDGtNhfcfb/sfWa5QdRRZLd
+	 iJDJsCfawfunF6U30vYegxNE6g3VU/OgxMqMnTdTHoXxwdpta+iotd5oEVo52jGmtd3aQ
+	 9sv1hsQH0npsbwdWOl0rXfP40hQ6MWdbNSVUFXAVjcCe388AjE1vZU38njBhfYRHZq8BW
+	 q0KNf9I4YFE2Q337tVvHRf30zufm4DqekoYF1fEvmzElz2ETFwTfrwW1V2cNdEezSAE8K
+	 ta/3LLmn3FjhpQsG2nwrho2iNOvKstzS5dnGcZJmfrYi92AMxmWlEtrYvu3mmrdgF5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338361;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DIVFirmjx6SrN0MpKUCQ5LgmYjDrueLm+TUMNP8AvWY=;
-	b=Xy3CzoH9vOPS9BMkJL7NUK/m/phjXHWPvFuggdJpiNXiThFdy3fmdIz/myg9Ho62Asni
-	 e+GYcoAjnPTdjcwW3TfRcwmMrViCpZLMfMj44I37x7/U+n1DJ+AJb9d8PWRWumgHRt6YU
-	 kQly+EaOM/znLZ4Arzg692U66sHB1p5ioW9xP9qfAP5mONdPcKStO+Xvaog6WrVbTy7cn
-	 CrlnavpIeUKNpOMxidh/SRgbfxJkxX5GQaJO4OcGqUfua2OZn9knzKGgTA9su4pGoJOcN
-	 iXxrJqK+HflHMg/F0RS5pMfEMTA/nSlTGgcmbmUcJr4ZCBJOXIvVsCjvf5FikzHD+zw==
+	bh=zAns4FXCzfSAya9n3q83Qh1aTXvRPcb7a9FvmFLNz6U=;
+	b=WbcHF+uTORWN7AbvpEaUuru/ilM+NXiVWvWpDOH2D/0VjwO90T467UTmR9Zr/WeihZfJ
+	 zfcF56iMneOQgQgjgWZTZlqqyFv0+xduaCiFiiM++jDaEyuW3q9KmdtI0QQjoy92UYHe3
+	 oPvPuwbC1s98waAwJGHBZN1pc/qpuoz1B2jQj5B5YY7UH8E5fhzoCBzW8uT8BQzLSRuUW
+	 7mRVe76aJ0SnBBRkrkXIwEAvpNK0maQ8YxxG5/cOPhqqGQ/xp7eJNwtvdpMCvIhrwLGPT
+	 JWNi15RWjxekksFm7P8jmS9dsy2PgjrC+usxsi/6e/OvzfyBZR33+cJ7IWlOfpbiM7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N410xZfJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/aHthEm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2A4606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:19:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BC0606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:19:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N410xZfJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35141F008BC;
-	Tue, 10 Nov 2026 19:19:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/aHthEm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534851F0089F;
+	Tue, 10 Nov 2026 19:19:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338347;
-	bh=DIVFirmjx6SrN0MpKUCQ5LgmYjDrueLm+TUMNP8AvWY=;
+	s=k20260515; t=1794338360;
+	bh=zAns4FXCzfSAya9n3q83Qh1aTXvRPcb7a9FvmFLNz6U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N410xZfJPjXDUgUVH9iRoxvdIfrz92ArYpkVDZPGKbMGT8E9OLhzwwqr8c4rRYhSw
-	 kQGLzopLKX/Hb5kxZe9MsTg4KOiyuliDo/1LFddFOjpCHEZ0N5jfGj3MaX+eWzrj4c
-	 MI+RU/XbILZ8tfUxa/tjVMsbEpahVTEWAknyJ6SOE091CZFJIoilCQFe/7l5iop9gA
-	 0JkWrQGNCTVQGUJdaSrR2WZ1ly/6PQso3hKp5W4wg055uY60Xj9cl8HH4is9+xkFd7
-	 vsrK+FHMe9OatT9mzZHLN6eyKyOlnvT/INpqwmbX3nGClpW1bi5KT0jiext/EZFPRW
-	 jMRyfNP29UeMw==
+	b=M/aHthEmwAQIQvGOogRCjSWPYo/dw8/tYTei4exhm+/ePtMBC8YZc/uytYipQsE4A
+	 hspxWIeJKWbsg8NjEJE45aH/aYXsUhDVLumRRWSsRtiSjbPBSV8ke32EeH22QJhhwz
+	 PvqWQjdVPnmBTbSIrmotTb+OE5Uwl6oqp0vUGnc40QBnkDPaFc09W2sNVETeIGT8gr
+	 1U7B0Uu76Zs2JKRIKZ5HpfkZ+4BrGUGkPoZFmDQ2GQjV6ENQQMg3jTIWMAtZZY98A9
+	 BwnM5xzDedDB9FwG6QqJPwKZPxYINN7XDXXu6wubUdrPaKnjpaG+B33Hu/vw7V5OQI
+	 i9cBCdKbVhLBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] soc: fsl: dpio: Free the IRQ before releasing the I/O object
-Date: Tue, 10 Nov 2026 14:19:05 -0500
-Message-ID: <20261110191600.3423079-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] dm-bufio: fix non-working memory limit
+Date: Tue, 10 Nov 2026 14:19:18 -0500
+Message-ID: <20261110191534.3506041-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060333-failed-5.15-a7831c657c90@kernel.org>
-References: <20261107060333-failed-5.15-a7831c657c90@kernel.org>
+In-Reply-To: <20261107053426-failed-6.6-1190dbeaeaa0@kernel.org>
+References: <20261107053426-failed-6.6-1190dbeaeaa0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,65 +60,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Mikulas Patocka <mpatocka@redhat.com>
 
-[ Upstream commit a7831c657c90e8f9165f6bbe0cc56262fee075e8 ]
+[ Upstream commit 1190dbeaeaa026a4879e675b8556a150c36a7ced ]
 
-The DPIO interrupt handler accesses priv->io, but dpaa2_dpio_remove()
-releases that object before tearing down the interrupts. The IRQ was
-requested with devm_request_irq(), and unregister_dpio_irq_handlers()
-only clears its affinity hint. fsl_mc_free_irqs() returns IRQ resources
-to the MC resource pool without freeing the handler. An interrupt can
-therefore access the freed I/O object before devres releases the IRQ.
+The function evict_old is supposed to loop and evict buffers while the
+allocated size is above the threshold. However if it hits one bufio
+client that is empty, it stops and doesn't attempt to scan other
+clients.
 
-Explicitly free the managed IRQ in unregister_dpio_irq_handlers() before
-returning its resource to the pool, and perform IRQ teardown before
-releasing the I/O object. This also waits for an in-flight handler while
-the object is still valid.
+This commit fixes it, so that it skips empty clients and retries up to
+dm_bufio_client_count times.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 993fec7e11ca ("bus: fsl-mc: dpio: add the DPAA2 DPIO object driver")
+Fixes: 450e8dee51aa ("dm bufio: improve concurrent IO performance")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-Link: https://lore.kernel.org/r/20261002194802.375497-3-mhun512@gmail.com
-Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-[ sashal: Replaced irq->virq with irq->msi_desc->irq in the added devm_free_irq() call. ]
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Assisted-by: Claude:claude-opus-5
+[ sashal: Adapted the oldest_buffer assignment to use params.last_accessed. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soc/fsl/dpio/dpio-driver.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/md/dm-bufio.c | 41 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 37 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/soc/fsl/dpio/dpio-driver.c b/drivers/soc/fsl/dpio/dpio-driver.c
-index e1dd4cc0702da..8a93dabe1727a 100644
---- a/drivers/soc/fsl/dpio/dpio-driver.c
-+++ b/drivers/soc/fsl/dpio/dpio-driver.c
-@@ -89,6 +89,7 @@ static void unregister_dpio_irq_handlers(struct fsl_mc_device *dpio_dev)
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index 8f121a7e87bca..b8addbc3a3430 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -2499,6 +2499,13 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
+ 	init_waitqueue_head(&c->free_buffer_wait);
+ 	c->async_write_error = 0;
  
- 	/* clear the affinity hint */
- 	irq_set_affinity_hint(irq->msi_desc->irq, NULL);
-+	devm_free_irq(&dpio_dev->dev, irq->msi_desc->irq, &dpio_dev->dev);
- }
- 
- static int register_dpio_irq_handlers(struct fsl_mc_device *dpio_dev, int cpu)
-@@ -280,10 +281,10 @@ static int dpaa2_dpio_remove(struct fsl_mc_device *dpio_dev)
- 	priv = dev_get_drvdata(dev);
- 	cpu = dpaa2_io_get_cpu(priv->io);
- 
--	dpaa2_io_down(priv->io);
--
- 	dpio_teardown_irqs(dpio_dev);
- 
-+	dpaa2_io_down(priv->io);
++	/*
++	 * A client with no buffers yet is not holding the oldest buffer in
++	 * the system; leaving this zeroed would claim exactly that and keep
++	 * the client pinned at the front of dm_bufio_all_clients.
++	 */
++	c->oldest_buffer = jiffies;
 +
- 	cpumask_set_cpu(cpu, cpus_unused_mask);
+ 	c->dm_io = dm_io_client_create();
+ 	if (IS_ERR(c->dm_io)) {
+ 		r = PTR_ERR(c->dm_io);
+@@ -2828,9 +2835,23 @@ static unsigned long __evict_a_few(unsigned long nr_buffers)
+ 	count = __evict_many(c, &params, LIST_CLEAN, nr_buffers);
+ 	dm_bufio_unlock(c);
  
- 	err = dpio_open(dpio_dev->mc_io, 0, dpio_dev->obj_desc.id,
+-	if (count)
++	if (count) {
+ 		c->oldest_buffer = params.last_accessed;
+-	__insert_client(c);
++		__insert_client(c);
++	} else {
++		/*
++		 * We evicted nothing, so 'oldest_buffer' tells us nothing new
++		 * and the client keeps its old, possibly very stale, value.
++		 * Requeue it at the back rather than by that value, otherwise
++		 * __insert_client() would put it straight back at the front
++		 * and every subsequent call would pop this same client again,
++		 * never reaching any of the others.
++		 *
++		 * This leaves the list slightly out of order, which is fine -
++		 * it is only ever an approximation.
++		 */
++		list_add_tail(&c->client_list, &dm_bufio_all_clients);
++	}
+ 
+ 	return count;
+ }
+@@ -2855,11 +2876,23 @@ static void evict_old(void)
+ {
+ 	unsigned long threshold = dm_bufio_cache_size -
+ 		dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
++	int unproductive = 0;
+ 
+ 	mutex_lock(&dm_bufio_clients_lock);
+ 	while (dm_bufio_current_allocated > threshold) {
+-		if (!__evict_a_few(64))
+-			break;
++		if (__evict_a_few(64)) {
++			unproductive = 0;
++		} else {
++			/*
++			 * This client had nothing to give.  Try the others
++			 * before giving up: one idle client, or one whose
++			 * buffers are all held, must not stop us evicting
++			 * from everybody else.  Stop once a whole sweep of
++			 * the client list has freed nothing.
++			 */
++			if (++unproductive >= dm_bufio_client_count)
++				break;
++		}
+ 		cond_resched();
+ 	}
+ 	mutex_unlock(&dm_bufio_clients_lock);
 -- 
 2.53.0
 
