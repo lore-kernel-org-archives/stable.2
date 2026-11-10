@@ -1,61 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321750;
-	b=Va92NGnfZnxjrK+WG11MrV7gRD0WcAaAHf5XB+50OpwqBYIVb74TrT7SsTW0Zdkml4vR
-	 nMJh+7jsDWnCcW+3K1lOAmS0q6sGdYmeJqSvADAYx+0pP5U8fZwqmZZ4ZM97mLu2Ig9Xx
-	 Ub8E93bT1V0mz/QANn1nACS67vWivW0rHZQ3kKl9gxuOOZVwxmvUvJZfuj3gcTpxhn+c9
-	 ft4TaXow/HNZEJXD/OW+T6chkjW9/kURBf34lVr9eD9sS8MjAxOI94lo7JaWmwfiSjOYQ
-	 XnOWSer0pDSsqnwgTk3Ou5cZSCu65XFxv+42oOOGaeDyyYIE2bCGwOKBGj8PsnCLWwQ==
+	t=1794321760;
+	b=L7zXUsMJ7TjERxUvJcZKBUov/xLQg/+UZZRJuQ/0EZpDLzmyzZ+qJt6SN0he2xNqnSoG
+	 49Hj6LGh7fZCL7IpWem04fLcLl+nl6/8x88cx6nrfGEjFVA945B9sbt150Xu93m+qoaud
+	 3Sb1jClIlhNBrdsoDIRwCK89uc2iivKiKDjL0lyJfK20ayoMlQwYYtMxtI7ZkbDUlX7fN
+	 tyUkvdN7BvVOBbTrW4FOIU39gfYth/Wf25Qm/s2Gc6uCr1p8k4W3LLdyHmUl/PLdgTfB6
+	 H57IeC9PEikeqt3eOUiEU5Y9OXQ53+2sovTRtFs2a/sVFUTFRZbywqnZvJaZiDGYfOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321750;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sM9HLKX3Z0UV3tFeEA7mM0q1YCjUyph4BTeOLVxBjSo=;
-	b=N9Fdyc2kvsW8SX/0tiIHedCvtz2La4Tmjq3wt5fV6YbjqzGZnaBtoU6OS/o22stPeTHE
-	 DXZUkeI6JrsSuClAtbYUjnjqDFntNRvI211nFlG55dyzgQrIU9symBQX0Kpa9NdVvw82C
-	 T/szT5gz3xBTYp//MQGNpbuAEJu3ejC750xEZ4Blp8Sy0vSbSnGtraEB1OV1q3wJwnbdF
-	 ly2K1ru4gZg+3AwTAqqBxLkCdgLA13aYxfWsAGbQpMm/tzyODBAAFI9qIhSfaxYPX8X4j
-	 cpGo7N12puLblxOKh0AdOHtRWdxI605vR+3y/CVBJpwP2wNA8aIFtXBL3SvSw/k8zDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321760;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Infomaniak-Routing;
+	bh=EBvJvQIhk4ppMA+gv65m7RWSrY+BMyw9S1PCdUauxHE=;
+	b=pAUMPWJYimrEUrFO7kCFle23rT/ZX5k+OT7rAP7gtGtI/Bcq9lRrhtOc7kGUIYriE9B3
+	 qvjve863lMTdD/wqFJRcKUV9WcENI/KTSREk7hONCDisWiuql5QuAdfvFcRkaL2VxdMv2
+	 Qbv/0v/JhRodZZlJIGJ2Xl2r0Bf5iAjDGGMZkQ5EG9Dp94uchJ3s8fMhPH0qgTxLZbNOy
+	 FgY/dzxFLLOVWORwvAeOtZx+h6OLoozOzn2EsiHwT3OiUFM/0Q8LcP7Bjr5gGmmglrE0E
+	 f8GEXDY0ML/FX1qg9tmj9dwtlM3yI11prUEtOrPTgSOtQJG03XPENXVhjVnaGTrxVUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aNktsL/P";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=XajUHfZd;
+	arc=none smtp.remote-ip=45.157.188.14
+Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5492606A332
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACA2606A332
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:42:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BACA2606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aNktsL/P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3764A1F0089F;
-	Tue, 10 Nov 2026 14:42:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321749;
-	bh=sM9HLKX3Z0UV3tFeEA7mM0q1YCjUyph4BTeOLVxBjSo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aNktsL/Py4329A6HL2LEVINeLDyHt8FvnpRZrADCdagGpP+Sd0q+mbXBWylle9yhT
-	 GidBT9TB3HoVO+1Z2yKsy7b/c5ubVZ3+aDsv03obxaXPU/JAuypTlB2AvMxAbPLHPU
-	 sHetSjuFdu9LlMlanNmiYwIuQ+2JqW8m3kjXjEPGI9R1nMxOiojdQSy2hWUJx8jrgb
-	 x5vhxwB8u+C/lv66HrJvhy58SvJBS2JyAepR/Ms4gi8LZxPFFyxlgTt/fch2xfkvj5
-	 mk/Qeda4QoBK86QxdkxbLWXF1yRbIaGBmmEK0i6hT5eLAB1gXB+/qE20rZ4q0zcR4C
-	 XT3FAWWoXLG0g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Gregory Price <gourry@gourry.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/madvise: use folio_trylock() in the cold/pageout PMD split
-Date: Tue, 10 Nov 2026 09:42:26 -0500
-Message-ID: <20261110144208.1960054-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060446-failed-5.15-5a6c9cf117fc@kernel.org>
-References: <20261107060446-failed-5.15-5a6c9cf117fc@kernel.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=XajUHfZd
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jP8WT1rSqzSH7;
+	Tue, 10 Nov 2026 15:42:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1794321749;
+	bh=EBvJvQIhk4ppMA+gv65m7RWSrY+BMyw9S1PCdUauxHE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XajUHfZd3bFKUuh8801cAMV/wLlEJA/fZZOUcO4QML5qjF2you4uth2JC/50PQ6PW
+	 5tMM3BArZYFH7UefdX0vnlv1dhiT89WiOgUDSrpSVSWHo6nhPeDSBcNDGB4D+uhi1K
+	 mo8jQ+zA5vfdHXTWnU24m+30gr14RaO+UkQLQ9WY=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jP8WR300JzdJG;
+	Tue, 10 Nov 2026 15:42:27 +0100 (CET)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: 
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Serge Hallyn <serge@hallyn.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morris <jmorris@namei.org>,
+	David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	"Andrew G. Morgan" <morgan@kernel.org>,
+	Serge Hallyn <sergeh@kernel.org>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	Bradley Morgan <brads@mainlining.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] userns: Let LSMs deny the CAP_SETFCAP snapshot for mapping uid 0
+Date: Tue, 10 Nov 2026 15:42:04 +0100
+Message-ID: <20261110144205.2404088-1-mic@digikod.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,81 +75,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-From: Gregory Price <gourry@gourry.net>
+Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+records in parent_could_setfcap whether the creator of a user namespace
+had CAP_SETFCAP, because a creator writing its own uid_map only has
+capabilities in the new namespace.  The snapshot uses cap_raised(), so a
+task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
+namespace it creates.
 
-[ Upstream commit 5a6c9cf117fca3c38a98fb2a2d5549795c8b0b73 ]
+Use security_capable() against the parent namespace instead: the
+creator's credentials still belong to it at this point, so commoncap
+returns the same result, and only LSM denials are added.
 
-MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
-madvise_cold_or_pageout_pte_range().  Two threads doing that to the same
-THP create spurious failures.
+Do not audit this check: creating a user namespace does not use
+CAP_SETFCAP, and most namespaces never map uid 0.  The uid_map write
+that later fails has no LSM audit record.
 
-  CPU0                          CPU1
-  ----                          ----
-  folio_get()
-  spin_unlock(ptl)
-  folio_lock()
-                                folio_get()
-                                spin_unlock(ptl)
-                                folio_lock()  <- blocks, keeps its ref
-  split_folio()
-    folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
-    -EAGAIN
+Checking CAP_SETFCAP when the map is written would not work: the
+writer's credentials then belong to the new namespace, where commoncap
+grants the creator all capabilities.
 
-CPU1 cannot drop its reference until it gets the lock CPU0 holds, so
-CPU0's split always fails.  folio_trylock() makes CPU1 leave without ever
-taking a reference.  The PTE branch of this same function already does
-this, as do madvise_free_pte_range() and madvise_free_huge_pmd().
-
-Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
-of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
-/proc/vmstat:
-
-                     thp_split_page   thp_split_page_failed
-    before                     3186                     860
-    after                      3200                       0
-
-The short before count is rounds where every thread failed and the advice
-was dropped for that THP entirely.
-
-On failure the walker returns 0 and nothing retries.  The PMD path becomes
-best effort when the folio lock is held elsewhere - same as the PTE path.
-
-Link: https://lore.kernel.org/20260912110540.3203010-1-gourry@gourry.net
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: replaced folio_trylock(folio) with trylock_page(page) to match the existing page-based API ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Serge Hallyn <serge@hallyn.com>
+Cc: stable@vger.kernel.org
+Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- mm/madvise.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 367220e1fe52a..b19ed034e84f4 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -351,9 +351,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 		if (next - addr != HPAGE_PMD_SIZE) {
- 			int err;
+This is independent from Josef Bacik's series, which reworks this code
+to close other ways around the CAP_SETFCAP rule:
+https://patch.msgid.link/20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com
+
+That series still computes the creator's CAP_SETFCAP with cap_capable()
+and cap_raised() in cap_setfcap_level(), so it would need the same
+change.
+---
+ include/linux/user_namespace.h | 5 +++--
+ kernel/user_namespace.c        | 8 +++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
+index 91232053775d..370961fde45f 100644
+--- a/include/linux/user_namespace.h
++++ b/include/linux/user_namespace.h
+@@ -86,8 +86,9 @@ struct user_namespace {
+ 	kgid_t			group;
+ 	struct ns_common	ns;
+ 	unsigned long		flags;
+-	/* parent_could_setfcap: true if the creator if this ns had CAP_SETFCAP
+-	 * in its effective capability set at the child ns creation time. */
++	/* parent_could_setfcap: true if the creator of this ns could use
++	 * CAP_SETFCAP in the parent ns at the child ns creation time.
++	 */
+ 	bool			parent_could_setfcap;
  
-+			if (!trylock_page(page))
-+				goto huge_unlock;
- 			get_page(page);
- 			spin_unlock(ptl);
--			lock_page(page);
- 			err = split_huge_page(page);
- 			unlock_page(page);
- 			put_page(page);
+ #ifdef CONFIG_KEYS
+diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+index cd748e1cbace..57b7f10be74e 100644
+--- a/kernel/user_namespace.c
++++ b/kernel/user_namespace.c
+@@ -128,7 +128,13 @@ int create_user_ns(struct cred *new)
+ 	if (!ns)
+ 		goto fail_dec;
+ 
+-	ns->parent_could_setfcap = cap_raised(new->cap_effective, CAP_SETFCAP);
++	/*
++	 * verify_root_map() relies on this once the creator only has
++	 * capabilities in the new namespace.  Let LSMs deny it, but do not
++	 * audit: the creator may never map uid 0.
++	 */
++	ns->parent_could_setfcap =
++		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
+ 
+ 	ret = ns_common_init(ns);
+ 	if (ret)
 -- 
-2.53.0
+2.56.0
 
