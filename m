@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296940;
-	b=Fv4qdNy64CkEx6KxHNbeh7wuXzlHLcOU1tAtrbrXL3WGTrDZk5AvvD4LmFYJxmprsnd7
-	 huiiJGhsEAcpKjrxwrrOZg0Knl+h0YaN1vhYBLpvNNS3iz1/Y5ssovxx/EXD/ok/9Eyvc
-	 rjtZNyUQ4eun67Szzlp3dOxAxQfxU8931Fdx1KvrflXebvcdSsZuaMTGgAysDEZ2hFwOw
-	 2vXozIIx2r67VQJa5hmO6fCSuARxSHTNQLag1m0nUGtHZiLhYUGRNQXFrQSQOedT+Cx+5
-	 ImAEg0mQmssVXqf4MmlZ2uyX+YRmJQ9Xc1Eq8cF9K1eOyoO847cEIDZ2DJUpUO0jfag==
+	t=1794297141;
+	b=3ygovBQ8tKszFwu8Ci6/Ir0TecOwbcFwsfXho+JeJllQwQ7tKYAjlY19zPXNxWw8nI/q
+	 yKx4YbZ8IZx365lxLKGE9koTkqK6MRPhCtGsArFy3EyFtJCc1GTPWEpIH68NuuO0NwPA4
+	 KX9BjeVNcNGan/J0rcwnEenspYpKru+tsgc/lSluXa4laT7XEn6sxCZFAcjx5r3x2cQ8z
+	 bV6bQPR/gTaqAQc4TqR5vwexpEwf8ZSMd613ZV85GjZ/GNtewSiB+C1G4Dm82pg+RSiSM
+	 HxJPp7rTfnsseJtQEwcYqPPXxHyGZb2HtSVdAT+7aqYX2ULbNfGFyzmvMGzjO1zcMtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296940;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=cp7X0c4WXjjo9mje1g5wweHAAKqgSx/hmxnwsgmzy1Y=;
-	b=deRki0Uq2IKiFY1zrwDEH3CO4j79p5LbM3JXcSezzCtJVTxqauI14AbaItf1eUnCgrpl
-	 de+I2a3TAfmg6RBsExE9JZ0Fm1hW4y1xm9dSbUTf/YnhRYqlXvP5+6Ob1ADjUTgDmO8gY
-	 OZgOjDBmJa0Fc3xaE1fDov725a1H2bkJQ8OCDY8AP/V/J/FcdlFd+AH6JcJNTLS1P1Yaa
-	 jfaUIEfMWDsR1+xi9MMQlZEGXKeFXHFo5iYKxIGZKQeTBxK1Y+U9A70MVrPQPivX7qwBG
-	 AHSxtJObA/R4HBU3qXvLkTs1NXdBMBDfGCnYUHDXrzOtwBlFWeoEvEwJ9epsXEhUMMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794297141;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=HOR1+kqQhwJITF9mrUMDzf7ZzPSccks+bMhcYnxMQ/k=;
+	b=PeGn8Ho6Q/S8GWzZSWGQfXdPDZjAp02QMTXJ6KXD9UzQjLcldDfcgTtAP7kI4z07PXAk
+	 dQT83PDF5EYvA1c+VKdHs+qCLJzf5XNybKDA91mpYaU6qHqep6wTWYxRr5CX6++ZLmxdG
+	 ewiJCXa2tLnZT8Qu2J32H5VZKKtrpptbDoicDaDbvXqDnUiB1trA93OkTEEliSn2PeLVi
+	 fnfJ0EQYSXnm3W63FTEbnqjFxa4/U1/QptpQuMkjzk2Xsn0bFznbO0BFmBPLWPk4vmvAg
+	 gUGxucemTURr7kh1umB/r8rmNwCGmqlxC7Sd0vEjoEcZHiTUKcSApFX/jIQ0EcOAOTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=urXJOpg8;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Wo0WadD1;
+	arc=none smtp.remote-ip=216.40.44.14
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3CC606B537;
-	Tue, 10 Nov 2026 07:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B3CC606B537
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B41606A334;
+	Tue, 10 Nov 2026 07:52:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1B41606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=urXJOpg8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 904B84E4153D;
-	Tue, 10 Nov 2026 07:48:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6740060012;
-	Tue, 10 Nov 2026 07:48:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1ECAF103293C1;
-	Tue, 10 Nov 2026 08:48:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794296934; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=cp7X0c4WXjjo9mje1g5wweHAAKqgSx/hmxnwsgmzy1Y=;
-	b=urXJOpg87txNoTM8b6wAa7VK8IhU/G4A7pDT3uu0Ono4971w0SPOdLaj9/MvUgAgfD8rPf
-	QgzBmO5zy4aXms3tzImzik5lZUQdoiLNtrqmQt4VDb5g/V25cvxvkaFAmHZcOF8QzjzAVu
-	ryxE6UOdir/pqouhVxARXWzqbZL8st0f9LyiQF/gueMuQNQaxu2cjhc1Iu4mSDN/oNOIKu
-	ioYajZRM//NRFSHQvjHhesdQvE6qABluQFXQSIpqR4kA2SFqau6eVNJqDlpHEX7OazZBdW
-	4hKoM7bWBZrIpEaCBDCcs+scT03+NRa2BHiNn8fijWoaH6l6uSNUNbFz2IzJPg==
-Date: Tue, 10 Nov 2026 08:48:53 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: aiyengar1990@gmail.com
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds
- down into the past
-Message-ID: <20261110074853cc5a8882@mail.local>
-References: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Wo0WadD1
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay08.hostedemail.com (Postfix) with ESMTP id 6959A140503;
+	Tue, 10 Nov 2026 07:52:12 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 1BA702002B;
+	Tue, 10 Nov 2026 07:52:07 +0000 (UTC)
+Date: Tue, 10 Nov 2026 02:52:02 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Breno Leitao <leitao@debian.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Steven
+ Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <20261110025202.78c8c03a@fedora>
+In-Reply-To: <avGQnBjyUMwunknT@google.com>
+References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+	<20261105155729.0f9c7e4d@gandalf.local.home>
+	<avGQnBjyUMwunknT@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,43 +64,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 1BA702002B
+X-Stat-Signature: erqs333doy343w6acayxmgdjtkgouj9d
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+YQOdajhCDf1ZjZQfnHpfSD5rLF0zgf5s=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=HOR1+kqQhwJITF9mrUMDzf7ZzPSccks+bMhcYnxMQ/k=; b=Wo0WadD1kJznyFIlA6jRp+DI7L2vl/XdShuuFurlVUnOZW8enSWCf4tTmX8XqPYhIYO+74AuaTtTUfTsxtk6eyVW9RZrG29QbG9n/6kOUVsBN48xeHTGhpLh3F8SHLikyRWKwLMOjIyzUX2hJlUozCfOqyvc3ya0n8MGTvAebyQ=
+X-HE-Tag: 1794297127-995168
+X-HE-Meta: U2FsdGVkX1+hTXjhiPB/SOj4L/XPStP7ECk2j9J4x/CsE0t8QgKNpm9izosUDHdljRIJTbLF4rRiA/aFukUGls7Y9P9meRaZDRHrmTc/xDDJdHrsuzRqcTU+YviHj0930OyYBGYD6NOguoAf1ebrXF1wnnqJ5356UB0WiNN+M6paW1SRvUgubYwabm7Po6e/6/zL0gkjPvzJ3QRW9zQPr8VOzhr/U5mcSJpcXaynm6/RKPuj8L5Db6hBNIX/85+RESUCtwW3UShT7Zrw9bTGeC3ViAdQxqVQDCfrmKq4a5ZvF1R6X7nAL6b5EQyTRdAvknI1oj35S5XMUGHaQFBvUYl52H0jLw/1
 
-On 10/11/2026 07:13:47+0000, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
+On Mon, 9 Nov 2026 09:21:32 +0000
+Vincent Donnefort <vdonnefort@google.com> wrote:
+
+> > The issue I think you hit was that we have two HEAD pages, when interrupts
+> > come in. That is, we can get a state of:
+> >   
+> >   --> subbuf --UPDATE--> subbuf --> subbuf --HEAD--> subbuf -->  
 > 
-> For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds the
-> alarm down to the start of its minute, so that it never fires late. When
-> the alarm is less than a minute away and in the same minute as the
-> current time, the rounded time is already in the past.
-> rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
-> the timer from the irq work right away, and the hardware alarm is never
-> armed.
+> How we can end-up in this situation? The cmpxch will only swap HEAD for UPDATE. 
 
-This is the expected behaviour, userspace has to handle the error
-properly: the alarm can't be set, set it for a later time or stop there
-and don't suspend.
+The cpu_buffer->head_page is only updated by the reader, when it did its last read.
 
-> 
-> That loses every short wake alarm. With a HYM8563, which has minute
-> resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
-> software before the system suspends, so nothing wakes it: with the
-> alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
-> "alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
-> suspend-to-idle until something else wakes it.
-> 
-> Round the alarm up to the next minute when rounding down would put an
-> alarm that is still in the future into the past. It then fires at most
-> 59 seconds late instead of never. Alarms that are already in the past,
-> or that round down to a time still in the future, are handled as before.
+Let's look at it one at a time:
 
-Never round up, you are going to miss deadlines.
+                              cpu_buffer->head_page
+                     tail               |
+                      v                 v
+  +--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
+
+Then the writer moves the HEAD page around the buffer while there are
+no reads happening
 
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+                              cpu_buffer->head_page
+                                tail |
+                                  v  v
+  +--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
+
+                              cpu_buffer->head_page
+                                    |          tail
+                                    v            v
+  +--> subbuf ----> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
+
+                              cpu_buffer->head_page
+                                        |                      tail
+                                        v                        v
+  +-HEAD-> subbuf ----> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
+
+                              cpu_buffer->head_page
+        tail                             |
+          v                              v
+  +--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+  |                                                                     |
+  +---------------------------------------------------------------------+
+
+Now, I'll break up the update part:
+
+                              cpu_buffer->head_page
+        tail                             |
+          v                              v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf ----> subbuf --+
+  |                                                                       |
+  +-----------------------------------------------------------------------+
+
+                                 cpu_buffer->head_page
+        tail                                |
+          v                                 v
+  +--> subbuf --UPDATE--> subbuf --HEAD--> subbuf ----> subbuf ----> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+An interrupt comes in and moves the head even more.
+
+                                 cpu_buffer->head_page
+        tail                              |
+          v                               v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+Now  the reader decides to read again and starts between the UPDATE and the HEAD
+
+
+                                                 cpu_buffer->head_page
+        tail                                              |
+          v                                               v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf --HEAD--> subbuf ----> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+It finds a page with the HEAD pointer set but not the UPDATE pointer and does a swap!
+
+
+                                                        reader_page -----+
+                                                                         |
+                                                 cpu_buffer->head_page   |
+        tail                                                         |   |
+          v                                                          v   v
+  +--> subbuf --UPDATE--> subbuf ----> subbuf ----> subbuf --HEAD--> subbuf --+
+  |                                                                           |
+  +---------------------------------------------------------------------------+
+
+Now the commit finishes and moves forward and will even hit a blank
+page but the last write is now on the reader page. This breaks the
+entire integrity of the ring buffer.
+
+Does this make sense?
+
+-- Steve
