@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274005;
-	b=3aH2ISwu+nBcko7atiSZmzV/Y1iS0B2fSyR4b/Q1Y3Vb7i6osNMx0/q5pd4AouQHlxck
-	 eoE/et4DjQx51iPn2adjrO6722+ftNoYZDGaoiDAGDm0T0Pf5Y0R3wUCdn6ArOihle+Tj
-	 O/DwpAPwVjokgVbeaJMAADplHzpCU0Jd0/Ebkk/ELNosRy69qlUI2zQXMm3IWaYAV5A0e
-	 sbUwBiS0qyxrAHwdxubIC9DVkcj7y/OdOCtlehB6ZZ72oh+G4OeHvPe/LnKIz6Wh62kh/
-	 zJBIpVWEE7zDd74UwJV1EwQwVtoLSlJVg0JOk2iqyoAqsgdoJeYMlyjVxvM6NiVXHBw==
+	t=1794274008;
+	b=REUVGmRyagG2syEgtKJWPOA5dw+txvt0GTpepDJ6Wsln9Ar7leU608dZzNyVt8j5+HYE
+	 NvlzbuU8sX12Tuo/V8zoOpT91uXMXwDmaGtIL73SKa7a9NQWkGmxCm/I4r4EUARNjvjXH
+	 MX7IdFndPfeEt3rZovhY5n8VSS3LqhJDAl/LqXbDDJ7h6NSywWB1VYNLOiNdE19fB5XS8
+	 EE+Lw2wTqKtA/om6WxbckzcSiYbwQRbmzIfOWUUIZjmlq0VJ048bPUr9FB00PpsTN3PL7
+	 thHImUP9sGG05bzHj3eIQGXBEIi6eDPlSTBChBU1OTlD3C5u0ywnVNWss25Gw1OE6Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274008;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=F/HI6SxyJjV0EyqCjqLA+0Kc37emhG3cY5/6IjWK2Iw=;
-	b=hSWZqEnUfdUErc8z7yPmdurDMsmlFRpBUgsQefUcwcJvdWiEq8bykdJUvKHp3JRhWpsb
-	 VrnCPebGRvgI8N3T3Lf/1kcqnXCtlwfWTqEejTt4VlFYiPoPHTrnbf8j7cUIqVi4IGZLE
-	 gcoDVgjxDnFdZpJIb+Wl/Y4oTIJgz0KfYw+cqof5/TNpGkOB/QFwYNpqNzZP7vJ53ilTb
-	 I3cmGPjxgMzWYeVWicAH9rrFav9d0Qn9R1stJeCwMXr/2zwzVRHNN0MBVUL75fsr6UZUV
-	 EthUMX6COg+2ac6gecl5ibogt4eaX/Pvn6zZeaxzG3Y3qn2s+7ZVK4Vkza6pP5lSENA==
+	bh=VlC7vHz/YAz5S94pSZtYugvL8DaHuRoYley9P4fMRzY=;
+	b=P6RdzKrtvwQNDrwZKVovpYqh6FVkLbK6jRV9ALkoGXMbnOW7LiJ7tlYDxvpf1hUI4Rus
+	 celjtVsZ2i1r8RWiSexAkz6HEiNNYLOAZdlrk207+2Xw6zCsK/oZDd/z+byXxgrCiTK+t
+	 7uO1fFGDUP3ijmAHlWxxjgAz1uIrLYY7WsjvoVrVx0LWDkW5SmprybwIHibpTgYZAniwH
+	 Qm8yCZXKgFsA2of5599btXexF2yVv536t9U5c25Tc0Ex0ZPrfsnlTev5mmvt0OJJVBwtp
+	 TONraYpJtw362CZR7m1WXHvDZbLsu7FH6+kd0llJ/vrGnlCUvZlU6rteeLY7TthRETw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvsllEum;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3ke6vTb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA78606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187A2606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvsllEum
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D00B1F0089F;
-	Tue, 10 Nov 2026 01:26:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3ke6vTb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2241F0089F;
+	Tue, 10 Nov 2026 01:26:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274005;
-	bh=F/HI6SxyJjV0EyqCjqLA+0Kc37emhG3cY5/6IjWK2Iw=;
+	s=k20260515; t=1794274007;
+	bh=VlC7vHz/YAz5S94pSZtYugvL8DaHuRoYley9P4fMRzY=;
 	h=From:To:Cc:Subject:Date;
-	b=WvsllEums1nF3zNyd22rF2kUVqC5hbhY65sIe0NyGwXg5sFRmsPLJHrcbqaKj+6jM
-	 JS7YBPVZe7Qzj3VXqFdE4QLdZ9s27bWsJWtXG87WfO6Ge/CTER06xCWlTCLED/hBnw
-	 jPb3khX3CQniulJqaqTGoVrRZDWoNCppMBEPChRz6OLF2TzB2LY0phmyCSAiPObkLb
-	 Swy2MUsiNUEValhDOLr2WNWzCCCnefJIQK8I9TjrqlrNiSa/EBVi2J4CK0dQTyC/Z6
-	 2MuMuCqYwQDGwPrTZuUVmIoqHHfYhexBSqm0RnE1YV2JmsneynrKIqnLbRoJ6/sad8
-	 cyfKkogpWeM1Q==
+	b=S3ke6vTbqkfNeRmCavYAK433v1Iqi/VPMwV5Q+HU5g5QJFaI9imBB3JCZT2mrFXTv
+	 XxKa3p0h/7FQBckErzRJdZM3eA86iSxdalRquaz803r2Nn6GulD9zffl4d4OsaD9pA
+	 gfPlrMubT+YHSMR9BodjtaVvoel5nUxoozwVCVK4zEN6c5XoANfzcRzX5aXbDoZmd8
+	 OGUnQU3CgZ+jYcnr9KrGSppxSZymmj6GSsxIo1rgJ/fQ2oLZrn2ec7lShVzjNEG3Sq
+	 GVIRJuBDW+iEhyTSMYYVjcJCJcGF5tiR6ujUuW2SrVtaHe30ZyDYtj3oJTnRrlHmdw
+	 o4/CdMvoqJ6CA==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	dwmw2@infradead.org,
-	fane@google.com,
-	pbonzini@redhat.com
+To: edumazet@kernel.org,
+	kylebot@openai.com,
+	fw@strlen.de,
+	idosch@nvidia.com,
+	jiayuan.chen@linux.dev,
+	wang.zhan@smartx.com,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: x86: Conditionally resched when restarting REP string emulation" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:43 -0500
-Message-ID: <20261109202643-failed-5.10-ae85ac25eb67@kernel.org>
+Subject: FAILED: patch "[PATCH] inet: frags: limit the truesize of a reassembly queue" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:45 -0500
+Message-ID: <20261109202645-failed-5.10-3ae20e4697eb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,67 +73,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ae85ac25eb671d174811cc3101549448671fd505
+git cherry-pick -x 3ae20e4697eb969104fe4b1e98a675f0100382b6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202643-failed-5.10-ae85ac25eb67@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202645-failed-5.10-3ae20e4697eb@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ae85ac25eb671d174811cc3101549448671fd505 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Wed, 28 Oct 2026 10:36:38 -0700
-Subject: [PATCH] KVM: x86: Conditionally resched when restarting REP string
- emulation
+From 3ae20e4697eb969104fe4b1e98a675f0100382b6 Mon Sep 17 00:00:00 2001
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 30 Oct 2026 09:12:25 +0100
+Subject: [PATCH] inet: frags: limit the truesize of a reassembly queue
 
-When restarting emulation, e.g. of a REP-prefixed string instruction,
-conditionally reschedule as emulating guest writes can be deceptively slow
-and expensive, e.g. when shadow paging is in use and each write can trigger
-write tracking.
+The truesize of fragments in a reassembly queue is only bounded by
+the per netns ipfrag_high_thresh sysctl, which has no upper limit.
 
-In a perfect world, restarting emulation (or not) would be less arbitrary,
-e.g. would honor not only host events (NEED_RESCHED, signals, etc.) but
-also guest events (e.g. by checking kvm_vcpu_has_events()).  Unfortunately,
-as pointed out by Sashiko, pio_in_emulated()'s read-ahead logic is baked
-into the restart logic, as KVM relies on restarting emulation to drain the
-cache and avoid duplicate reads from the I/O port.  I.e. re-entering the
-guest on kvm_vcpu_has_events() or __xfer_to_guest_mode_work_pending() would
-introduce architecturally-incorrect, guest-visible changes.
+inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+adjustment of the socket owning the reassembled skb can cancel its own
+reference, leading to a use-after-free of this socket.
 
-Fixes: 5cd21917da24 ("KVM: x86 emulator: restart string instruction without going back to a guest.")
+This can be triggered from an unprivileged user/network namespace,
+raising ipfrag_high_thresh and using padded TUN packets, which keep
+a large truesize after being trimmed by ip_rcv_core().
+
+Track the sum of the truesize of fragments in each queue, and refuse
+a fragment that would make it bigger than INT_MAX / 2. Callers kill
+the queue on this error. This bound is far above the needs of
+legitimate traffic.
+
+Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
 Cc: stable@vger.kernel.org
-Cc: David Woodhouse <dwmw2@infradead.org>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Suggested-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261028173638.1765329-1-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Cc: Florian Westphal <fw@strlen.de>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Tested-by: Wang Zhan <wang.zhan@smartx.com>
+Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- arch/x86/kvm/x86.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ include/net/inet_frag.h  | 9 +++++++++
+ net/ipv4/inet_fragment.c | 5 +++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 32563a91fba99..c4a06214cde69 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -6558,10 +6558,12 @@ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
- 	} else if (vcpu->arch.complete_userspace_io) {
- 		writeback = false;
- 		r = 0;
--	} else if (r == EMULATION_RESTART)
-+	} else if (r == EMULATION_RESTART) {
-+		cond_resched();
- 		goto restart;
--	else
-+	} else {
- 		r = 1;
-+	}
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index b02d2472b003e..c1fb419a9cf03 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
+  * @tstamp_type: stamp has a mono delivery time (EDT)
+  * @flags: fragment queue flags
+  * @max_size: maximum received fragment size
++ * @truesize: sum of the truesize of queued fragments
+  * @fqdir: pointer to struct fqdir
+  * @rcu: rcu head for freeing deferall
+  */
+@@ -100,6 +101,7 @@ struct inet_frag_queue {
+ 	u8			tstamp_type;
+ 	__u8			flags;
+ 	u16			max_size;
++	unsigned int		truesize;
+ 	struct fqdir		*fqdir;
+ 	struct rcu_head		rcu;
+ };
+@@ -172,6 +174,13 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
+ #define IPFRAG_MIXED_SECPATH	3
++#define IPFRAG_TOOBIG	4
++
++/* Max sum of the truesize of fragments in a queue. This keeps the sums
++ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
++ * below INT_MAX. Legitimate traffic stays far below this limit.
++ */
++#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index c18da91c1f031..0b8d22ffafca6 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -336,6 +336,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 	q->rb_fragments = RB_ROOT;
+ 	q->fragments_tail = NULL;
+ 	q->last_run_head = NULL;
++	q->truesize = 0;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_flush);
  
- writeback:
- 	if (writeback) {
+@@ -446,6 +447,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (last && !secpath_equal(last, skb))
+ 		return IPFRAG_MIXED_SECPATH;
+ 
++	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
++		return IPFRAG_TOOBIG;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+@@ -510,6 +514,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (offset)
+ 		nf_reset_ct(skb);
+ 
++	q->truesize += skb->truesize;
+ 	return IPFRAG_OK;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_insert);
 -- 
 2.53.0
 
