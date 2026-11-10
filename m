@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794352236;
-	b=dCMsigBvltvC1nDk5MElWawhkP02ZTsV1C14FSI2/aeHjSEUatsT4bxRSos8qFzsSdec
-	 xMPjhYQvYyJqK735NPP7xAEJ0c9FxD2aGLz4ypDfY2V/LrhcwFprdU+8i+vhSpO1z8Vny
-	 7LYF40M47X8hCqyTuV05T5UVmkL07E6SN265hj/LeeWwOx4o+93OnQxosVtlz0ObocQzr
-	 RYy/Y1dCR/T2mjAKw8dJ/4e/OXjsRrnhlsRjmHrQfEMd9STocjE02a8HHT4Ltcqdx/ztg
-	 jsejMRPV/lNZEdtVMvAlJx1D1kAauXLwtyRAy/Ms9iyt0M+VYICmpCeHNdzuLpGIGRg==
+	b=XTT96B70uvE0PYx32lCzrB3Pt4nH/GS1FQp/b/WGDml+i/WkQltg7M84/fdDCgHb2iXw
+	 /EC0xzoimG6/GYdgA4VOZxTyRipzMk4UColo6caEt7/CZPg/kOb+5bnnTnmzEo7eNTfcf
+	 GUq54MEsiwm/ncw+Na6dvcAf7Y5v5izazmYXoLkAyRnQbfEKDHOb43QXh4vbKVsXFQws1
+	 sZPjaTmHNKqDcqgqRDNgP0+5YFPJ1fxjTuPgX3Z3gIHuN7vH5ZOGDt27IzEnHPNoQgCUN
+	 NoYSzbZvm10mQz0vEsTk6Ug7/wyr803K6thdn/2xXKsqzi/0nF4G6JYyjZ/TEprMqTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794352236;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k6TvenYSPLPcsEIsG+oIMXknZt2ligHLCJOdFuHpi/0=;
-	b=lC/zEKFciSHmxCjgdDDi6Y05qwUrgCERhkzZtz5L2t/POKf9qcuDlRJy81HEfhhS44f9
-	 6o0VeRPKqrY85mQnMPkdtVAJ+lCICWzV7NYrVxQddN1Wucq9Dg3JwWdm/X3vNiDDpT/vS
-	 iOG7OEKMMebCHlG+Xij9tCo5Bc+SCOhJqZkOGQ0VeB6+6E/g3mbQwhf8Wu9YV+a6F3yfL
-	 ECod3BiVM/hqvNATrvVnA0FWVh1UkFKYodKXO+uRhjY/+3U3EopW/BPHgrSAddcpvSjI3
-	 uof4/cgpc9HmCx8I8j5eo/oLYfm8mnCZ1REATNQzdlL/isEigxz812NVNz0jBI3Oefg==
+	bh=L6nv61R6YnuFJ3iEtYY8mAt5Drq0jLWf8PuriPYZseQ=;
+	b=h+SXMSXG03ZQPmc6MLOr52DornHwc09jcKXN1rqTfTPmqy3iyW/TubNyV77YjaxAVVmI
+	 CPaNgB0ZQOQeZMh6rtTDqgWNirXA5udjF45mSrJrP0J+XVf7zI5Mqx6Zr8Y2Arqko/fN/
+	 oOxqUpqSes5MR/McnwlnJVRQnW8zWU4ZMpSizBog6niiQ8rXlex4ZLfyxCv2QcXCHUn3N
+	 SjVgK5FQiTFmgSI4c20UpPBLyJnCUXvRN2x5r/pPBxvc46+fCjorXDjbgvFNADApGK1Yu
+	 qyXDlHDP/auO9kMX1+TrtOpAZkwF8RQ6GvUzIlkeiFmWVf6Sil0cs2CxBRFl5oTdgEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYZvDiVh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0ddfh7k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5D0606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2D3606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYZvDiVh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BC21F00A00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0ddfh7k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E4B1F0093E;
 	Tue, 10 Nov 2026 23:10:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352235;
-	bh=k6TvenYSPLPcsEIsG+oIMXknZt2ligHLCJOdFuHpi/0=;
+	s=k20260515; t=1794352236;
+	bh=L6nv61R6YnuFJ3iEtYY8mAt5Drq0jLWf8PuriPYZseQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UYZvDiVhNiHE/x4pN+K2lUIh6+faANjNnlC1aemv3k/2bIkU7WN+X4qcioBfYGeBw
-	 MPhqRwUV9kv9GQ5SxIgDkDT7Iu9C6kxKEtVat3zpWMTQeOfld7MBH4HBkL4fPnv0o+
-	 4slT7Ose3sAOIy1V9IxusJ9gMrqKh5j2KXz8a77f+Ff0BcIdZbLgyAPPhasg09SpAp
-	 qbzlzRV6w3eLoYJMu51kytCQV8Ek+5LSs0l56SVgHhbO8JeVMLXe1ujF4ayqVaWaQK
-	 BXc7vcITl+6+uKnirBwzC7K7pdkd1P+eZIlWC8xXGaNHWdYIb3tVDuoNuElNfJtbIb
-	 jgTVXT3Dv3buQ==
+	b=T0ddfh7knULZsBKUA40gPhXpYl+A5WIAdJnrOE/gHrfnnKcRVL66DFupLFZoC+0dr
+	 06QUMDq6jdHaxSw1ENvR9wsDvO9t8iDA1bRIqFIPohVdLKVLi4yw+TrJ4IyB7EzYnL
+	 6bvC98Ps3U68QqvLRdvDvShqPuZxicVeV8jfeFgtoSfZ0Nr+c2FkpayqKsv59J4mpU
+	 Y/f0ZU/LmKnDVELbZrthF/df5uo3Rd6pfcTI72fHcYMP4KlK/JSRRQXhc0PiaUxls8
+	 CeJ3vR0aYazNNz+LQQAE0zITgII36qkQ7u0wiyVCP7WQeyMhvn5VmL9EwsgtHj5qjt
+	 eqFzbhtel7Szw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sebastian Reichel <sre@kernel.org>,
+Cc: Tim Douglas <me@timdoug.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 6/7] power: supply: generic-adc-battery: style fixes
-Date: Tue, 10 Nov 2026 18:10:29 -0500
-Message-ID: <20261110231006.55369-6-sashal@kernel.org>
+Subject: [PATCH 5.15.y 7/7] power: supply: generic-adc-battery: fix status with no supplier
+Date: Tue, 10 Nov 2026 18:10:30 -0500
+Message-ID: <20261110231006.55369-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110231006.55369-1-sashal@kernel.org>
 References: <20261107060802-failed-5.15-8ae5a3f40045@kernel.org>
@@ -61,103 +62,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sebastian Reichel <sre@kernel.org>
+From: Tim Douglas <me@timdoug.com>
 
-[ Upstream commit 7cc7478e093782d2ac176c11a966de00bd0792dc ]
+[ Upstream commit 8ae5a3f40045ff486826ed6b6a83e39a0f380073 ]
 
-This does the following code-style changes:
+power_supply_am_i_supplied() returns -ENODEV when no registered power
+supply supplies the battery. generic-adc-battery's gab_work() tests this
+return value as a boolean, so -ENODEV takes the supplied branch and
+reports CHARGING, or NOT_CHARGING if the charge-finished GPIO is asserted,
+instead of DISCHARGING.
 
- * fix inconsistent indentation in 'struct gab'
- * remove unused cable_plugged from 'struct gab'
- * remove pointless temporary is_plugged variable
- * add gab_ prefix to read_channel
+This was noticed while bringing up an out-of-tree Linux port to the
+WikiReader: the driver reported CHARGING on a device powered by two AAA
+batteries with no charging hardware.
 
-No functionality changes are intended.
+Only a positive return value indicates an online supplier, so treat zero
+and negative returns as discharging.
 
-Signed-off-by: Sebastian Reichel <sre@kernel.org>
-
-Omit the temperature-property call-site rename because temperature
-channels are not supported here. Rename the existing voltage, current
-and power channel calls only.
-
-Stable-dep-of: 8ae5a3f40045 ("power: supply: generic-adc-battery: fix status with no supplier")
+Fixes: 46cecd130d55 ("power: supply: Fix power_supply_am_i_supplied to return -ENODEV when apropriate")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Douglas <me@timdoug.com>
+Link: https://patch.msgid.link/20261013022153.6707-1-me@timdoug.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/generic-adc-battery.c | 24 ++++++++--------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/power/supply/generic-adc-battery.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/power/supply/generic-adc-battery.c b/drivers/power/supply/generic-adc-battery.c
-index be22fe9ae90bf..cac0ac5caa142 100644
+index cac0ac5caa142..e7f45ce38ce2c 100644
 --- a/drivers/power/supply/generic-adc-battery.c
 +++ b/drivers/power/supply/generic-adc-battery.c
-@@ -44,12 +44,11 @@ static const char *const gab_chan_name[] = {
- };
- 
- struct gab {
--	struct power_supply		*psy;
--	struct power_supply_desc	psy_desc;
--	struct iio_channel	*channel[GAB_MAX_CHAN_TYPE];
-+	struct power_supply *psy;
-+	struct power_supply_desc psy_desc;
-+	struct iio_channel *channel[GAB_MAX_CHAN_TYPE];
- 	struct delayed_work bat_work;
--	int	status;
--	bool cable_plugged;
-+	int status;
- 	struct gpio_desc *charge_finished;
- };
- 
-@@ -86,7 +85,7 @@ static bool gab_charge_finished(struct gab *adc_bat)
- 	return gpiod_get_value(adc_bat->charge_finished);
- }
- 
--static int read_channel(struct gab *adc_bat, enum gab_chan_type channel,
-+static int gab_read_channel(struct gab *adc_bat, enum gab_chan_type channel,
- 		int *result)
- {
- 	int ret;
-@@ -110,11 +109,11 @@ static int gab_get_property(struct power_supply *psy,
- 		val->intval = adc_bat->status;
- 		return 0;
- 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
--		return read_channel(adc_bat, GAB_VOLTAGE, &val->intval);
-+		return gab_read_channel(adc_bat, GAB_VOLTAGE, &val->intval);
- 	case POWER_SUPPLY_PROP_CURRENT_NOW:
--		return read_channel(adc_bat, GAB_CURRENT, &val->intval);
-+		return gab_read_channel(adc_bat, GAB_CURRENT, &val->intval);
- 	case POWER_SUPPLY_PROP_POWER_NOW:
--		return read_channel(adc_bat, GAB_POWER, &val->intval);
-+		return gab_read_channel(adc_bat, GAB_POWER, &val->intval);
- 	default:
- 		return -EINVAL;
- 	}
-@@ -124,17 +123,13 @@ static void gab_work(struct work_struct *work)
- {
- 	struct gab *adc_bat;
- 	struct delayed_work *delayed_work;
--	bool is_plugged;
- 	int status;
- 
- 	delayed_work = to_delayed_work(work);
+@@ -129,7 +129,7 @@ static void gab_work(struct work_struct *work)
  	adc_bat = container_of(delayed_work, struct gab, bat_work);
  	status = adc_bat->status;
  
--	is_plugged = power_supply_am_i_supplied(adc_bat->psy);
--	adc_bat->cable_plugged = is_plugged;
--
--	if (!is_plugged)
-+	if (!power_supply_am_i_supplied(adc_bat->psy))
+-	if (!power_supply_am_i_supplied(adc_bat->psy))
++	if (power_supply_am_i_supplied(adc_bat->psy) <= 0)
  		adc_bat->status =  POWER_SUPPLY_STATUS_DISCHARGING;
  	else if (gab_charge_finished(adc_bat))
  		adc_bat->status = POWER_SUPPLY_STATUS_NOT_CHARGING;
-@@ -177,7 +172,6 @@ static int gab_probe(struct platform_device *pdev)
- 	psy_desc->name = dev_name(&pdev->dev);
- 
- 	/* bootup default values for the battery */
--	adc_bat->cable_plugged = false;
- 	adc_bat->status = POWER_SUPPLY_STATUS_DISCHARGING;
- 	psy_desc->type = POWER_SUPPLY_TYPE_BATTERY;
- 	psy_desc->get_property = gab_get_property;
 -- 
 2.53.0
 
