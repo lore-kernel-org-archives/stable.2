@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324311;
-	b=T+B5AfyzBH1Mfuoh/RHln9mK6sa2+V81ROdPbyXXakJl6jkPvJDywWkDbxMLeeMVILYv
-	 HXN0G1VCR4bGhRn/ckabV2czRxHJ0aOOtXGgtppAuwwZRf47v3v7NgXBurd7REj6xhIO5
-	 cHYJSTVx0ee6WJJ+qTxc6SpiY0vN1m447jVWiImMPURKbHsHTyBLe257X2Z5EWw4IzbuU
-	 cGPLkmnf8NgpSLhI3jEyMADupUj/5vyVP50Lza9jAzJq9LaZBCGq6Ho753Ce75pjbheZT
-	 0GRbLhbTQPNLTgTOh4aTs/fL+1cR/P19i2Qq4qrpdtHYbVdp5XlDXpYvemQWzaxngUg==
+	t=1794324517;
+	b=z9NDTqkSizjNKjCFs5ZyjYWNtYMerh/EhNaniW13xZ2D8+nIn2oVYUhkYORNCwCgkZ9C
+	 orf11tBcrmPnKEgGpmgSM7W2tuOUvTnIhhtd5Et212a1pXsDH84OTBTmT6SBOCoTEdtUL
+	 cfBl9nnEoPdj/fTrJl+vxz0rulLXKXNVQ6asj9o1QkuHm/Sc7qJVEQVubbohNdUPD8E8b
+	 UIMTtv6Nx159Mq8Uqb2SK22GT2NW2RTzP3pafacXF5VSooLQm+gnyVIeIJYuLOOc7Ih3G
+	 VJ3Zq70qzUUUyyXIN1j5mtd2+YBdyIEBmgLwNZHl1fwYj9avgF1opap5565lBqSrvWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324311;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=O7UWqxpIaF3+rjVj9Aldgr73rc4B8RQABsUf/8URlUk=;
-	b=xPrKQy85IyZKEglGK+MV8XITaLkEnI2+0nfMjNZgQwj+koZtIvEofI5lxJsJ1Nkd48V7
-	 FGphiDvqv90K9yOQqherKCCPZbnApk+d5H4x2vEsCcuhL7Fyiqd1YFO7sxSpqxRCRMEHG
-	 wc8cXa3aTOaFdqpzsA9kYvl/tFliN5Rzogdje34WFRQOQfMoFzDkodJNkFqhV+045HNx6
-	 idG6H+m57wWTOzk2IA9bYgOmw6folMbllUt8ahTmj65XIlV+QUQh0QzCOjvuoajyHGh16
-	 8uzQTHSVKHYtbejguhERvCU2F715IMzwYxiC4HhkWUf8tMXqxp4wd9TIYTpZmC5vz6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324517;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=6PM7dc9ky7du4QTlvZgvbasvK1Gnn9m7N3fjC8dVD4U=;
+	b=VRaXSOWHpyKGLO6arg6mYxa5TI5KiPLZjF2nnk+kfi4Lv/zxSrdXczMAvAccOZpNGzA5
+	 HPcUFSp+7oF1piCUOhnxpCXJuM0KU/3InoNdAEQ03eeCBX4Ba7rlgmsg1rA5WxjyfMQDg
+	 cahNNA2OPrndNbIb+SOsgi1ylzfFf9H49Oj9AzFUkq6VitESu2iwZa9iDFvg1wczAir5c
+	 8yP/RkBwZCG11biqfqO5TbYHXd42F31jZH8rqbZeyGw0dFGDNGfyEH1Wffusd/v9S+8Xo
+	 z0cRgmbWc8iR01EpA1r4EhB4tJQ4rPaLB4TQ2s74pWth8PFH01zUa+29gYC5sXtPRMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InqCo1lh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pV0ZF1ef;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEAF606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B81E606A32A;
+	Tue, 10 Nov 2026 15:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B81E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InqCo1lh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8556C1F008A3;
-	Tue, 10 Nov 2026 15:25:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324311;
-	bh=O7UWqxpIaF3+rjVj9Aldgr73rc4B8RQABsUf/8URlUk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=InqCo1lhIgftVvI4u81NJGs8PhoJvBgWxJ0YT+AxG4qTv7qzYwxjr+XG8zdC1e76s
-	 gw5bzMzUdVY4otvqzgQBcmwjHRFt1fioJCtylzAVFHpWPMVb1Uw5qpD0HJa02IR3a3
-	 1KGI6KB4hRlqrv64aaSjFZ0IaAaSDy/4kiWC1+fLD8AzBSyDH9+5xprt1czA6KQwEq
-	 270RXmf5fuu4P30uOLAxJIjnxFP1PTUdGGB8iK9PQIxwB2usNtA3z15arQSoWe/65/
-	 bhMbXM4Be7zCur+Q8/mkCSZN41ZLm0jlfpZPFVydmIIRaqCSMrz1evJO6FslIIhgko
-	 GFdC5AK0r55Hw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] f2fs: zone: fix to avoid bio split on sequential zone
-Date: Tue, 10 Nov 2026 10:25:09 -0500
-Message-ID: <20261110152434.2092422-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052009-failed-6.12-b9b036bd1e2c@kernel.org>
-References: <20261107052009-failed-6.12-b9b036bd1e2c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=pV0ZF1ef
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=6PM7dc9ky7du4QTlvZgvbasvK1Gnn9m7N3fjC8dVD4U=; b=pV0ZF1efuRrC/FIGPn3u9+LEH7
+	+JgJH7g9y4lcv8jEyU/UEEbDiPKtQuSGG6Tn4BjC21YfNT69zGPfv63BUi/GhEJ7cVs6TLd69snKN
+	EAfrOm5DKCyIZOI6GyuSQ4N2MDrbVjEikQL/iB3oL/XXAvGthfUrtW2XifcDWpTpGQqGVPKgnZAfB
+	PJUjs8ESscBQCzQAoZ09Q5emzngERfoCNV8ZA4ynkcQ927Fj9nAHPSua3tzt1O8hHjOFJXr001WYu
+	GvNVTFARMmPLlEgjKM0OBoy6DUz4ABNvej3nVqAgl/6Tb3LgzmRcVEp4jhcBy1Bxx4Jm3TLzBEMNF
+	GK3PJc8w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQnlu-00CV18-1w;
+	Tue, 10 Nov 2026 15:28:31 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 10 Nov 2026 07:24:34 -0800
+Subject: [PATCH] reboot: halt when power off fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,117 +62,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261110-reboot-make-task-dead-v1-1-af88a3f37bf7@debian.org>
+X-B4-Tracking: v=1; b=H4sIADY382oC/x3MQQrCMBAF0KsMf92BTAS1uYq4SM1Xh2IjSRGh9
+ O6C7wBvQ2dzdiTZ0Pjx7nVBEhsEt2deHlQvSIIY4tHMgjZOta76yjN1zX3Wwlz0fAqR4xRHOwQ
+ Mgnfj3b//93Ld9x/oGIveZwAAAA==
+X-Change-ID: 20261110-reboot-make-task-dead-8702e9b29130
+To: "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+ Nicholas Piggin <npiggin@gmail.com>, 
+ "Eric W. Biederman" <ebiederm@xmission.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, kernel-team@meta.com, 
+ syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com, 
+ Oleg Nesterov <oleg@redhat.com>, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3891; i=leitao@debian.org;
+ h=from:subject:message-id; bh=a8Z6bBQP7KM9Q5t/M4tExBaQEE62leoxfyQqdfsXka0=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8zgawRH9/kLkf5RWr8QkrLuhwWZcPFYLaIVD4
+ QxJTlPMskiJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavM4GgAKCRA1o5Of/Hh3
+ bQrLD/9BHtznr1ZOsNPcDyKV39CtBJpiAZ5NBpwNdXNOkjTZL4Nj54jxHQ4o5QzpfJzhG5Eg3Fa
+ nLDuKWPm7DEkfal+9zzBvim41vXwX0ad+3vYNYlqs2WpNMxR/lC0DzpGf67yWA1KaUcLmISITDc
+ l5jkVdghaghSqGt6yCDSLq/ZrRTDWu7s1xfwROb+8bldShOypYGp+9bYFvtCLUvQ8m3Gi+sB6wr
+ 3N6pGR+imSH5odard30MbG69e8ZO/s6lbAAXsXwGiqjeKEegJekQ4wRidPDT1mF9NUfKVed6f1C
+ Q3EkWlal56O9CcEUo9fMKt03ZQnDCK/D8KxmQN0UUQ2M1LFmNB1UjpXS8lBviVubQplN1S8mCAb
+ 4TD+QCt7lYij9hMtq+d9fr3ZaS8gHFUCLz9jf5ubH2A2fMfG5pPxEEXtNNT+CcStdY28/UgMRv6
+ ZBl7qEGzb0jbRoH/J20OfV/+VtnNSPSnXbIbu9apezI16tHfYMNGnKjLdJ9bWd/PhVNQ9MTaNMf
+ ThGfYQs/ofQZIO37YNvZVOHRJZ54Pa+hZ2vSvX9WuUs49aROksNKfk2xhjobdxhFhSpjYhO+CQJ
+ RrcmOI/n3l1e2lf9FM06xDYsm775lUHAQPdzSgUp2FrZ3KZchiC8EP2BMCzwCipqHQT2dodZlNp
+ AOgFkrE1yHotPzA==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: Chao Yu <chao@kernel.org>
+The reboot syscall calls do_exit(0) when kernel_power_off() returns.
+That happens when no power off handler takes the machine down, since
+machine_power_off() returns to its caller on x86, arm, arm64 and sh.
 
-[ Upstream commit b9b036bd1e2cfbc189d5811d62d8711e216c40b3 ]
+For example, an x86 kernel built with CONFIG_ACPI_REDUCED_HARDWARE_ONLY
+cannot power off QEMU's pc and q35 machines. Their FADT is not
+hardware-reduced, so acpi_power_off() is still registered. But the
+legacy sleep code is compiled out and the FADT has no sleep control
+register, so acpi_enter_sleep_state() returns AE_NOT_EXIST.
 
-In the block layer, bio_split_to_limits() splits a bio if it exceeds
-any underlying queue limits:
-1. queue_max_sectors: Splits bios larger than the transfer limit. This
-   limit is set by the device driver/DMA controller (max_hw_sectors) and
-   device-mapper targets. When flushing dirty pages (governed by VFS
-   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
-   contiguous pages into bios up to 512KB (1024 sectors) or more without
-   checking queue_max_sectors, which will be split if the device or DM
-   target enforces a smaller limit.
-2. queue_max_segments: Splits bios exceeding scatter-gather segment
-   limits. f2fs allocates bios with up to 256 pages, exceeding the
-   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
-   are discontiguous.
-3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
-   section_size strictly matches zone_size, and block allocation never
-   spans across section boundaries, so bios never cross chunk_sectors.
+On x86, arm and arm64, interrupts are disabled by then, and do_exit()
+warns. syzbot hit this on a GCE VM:
 
-Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
-submits the tail half via submit_bio_noacct() before returning the head
-half to the caller. On a sequential zoned device, this causes the tail
-bio to arrive at the zone write plug before the head:
+  ACPI: PM: Preparing to enter system sleep state S5
+  kvm: exiting hardware virtualization
+  reboot: Power down
+  ------------[ cut here ]------------
+  irqs_disabled()
+  WARNING: kernel/exit.c:930 at do_exit+0x1cf7/0x2ae0 kernel/exit.c:930, CPU#0: init/6193
+  CPU: 0 UID: 0 PID: 6193 Comm: init Tainted: G             L      syzkaller #0 PREEMPT(full)
+  Call Trace:
+   <TASK>
+   __do_sys_reboot+0x36e/0x400 kernel/reboot.c:784
+   do_syscall_64+0x115/0x840 arch/x86/entry/syscall_64.c:94
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
-  != wp_offset 248, len 248
+If the caller is init, do_exit() then panics. Exiting does not help
+the other callers either: the devices are already shut down, and the
+task still holds system_transition_mutex.
 
-The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
-f2fs_stop_checkpoint() and remounting the filesystem read-only:
+Halt instead, as the syscall already does when no power off handler is
+registered, and as most other architectures do in machine_power_off().
 
-2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
-2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
-2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
-2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
-2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
-2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
-2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+Use machine_halt() rather than kernel_halt(). kernel_power_off() has
+already run the shutdown sequence, and kernel_halt() would call the
+reboot notifiers again with interrupts disabled.
 
-To prevent write bios destined for sequential zones from being split:
-1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
-   sequential zone areas.
-2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
-   for sequential zone areas, so f2fs will not merge beyond the queue limits.
+Keep the fallback in the syscall. hw_failure_emergency_action_func()
+relies on kernel_power_off() returning, so that it can try an
+emergency restart.
 
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
+Fixes: 001c28e57187 ("exit: Detect and fix irq disabled state in oops")
+Reported-by: syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8fdf0d8e10bdde1c2e88
+Suggested-by: Oleg Nesterov <oleg@redhat.com>
+Link: https://lore.kernel.org/all/20250404152006.GF3720@redhat.com/
+Link: https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
 Cc: stable@vger.kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Replaced F2FS_BLKSIZE(sbi) with the constant F2FS_BLKSIZE. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- fs/f2fs/data.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+This is my second attempt at fixing this. The first one silenced the
+warning in do_exit() pre LLMs:
+https://lore.kernel.org/all/20250403-exit-v1-1-8e9266bfc4b7@debian.org/
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 47743a0bdede5..f0d77bcefcd31 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -460,6 +460,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
- 	struct bio *bio;
+Bradley Morgan tried twice, first enabling interrupts before do_exit(),
+then calling make_task_dead():
+https://lore.kernel.org/all/20260712125300.31501-1-include@grrlz.net/
+https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
+
+Tze-nan Wu hit a related init panic during power off:
+https://lore.kernel.org/all/20250410143937.1829272-1-Tze-nan.Wu@mediatek.com/
+
+All of these still let the task exit. In those threads Oleg and
+Christian said init should not exit on power off at all, so this
+version halts instead.
+---
+ kernel/reboot.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index 9a84401adde5a0..bc71183d4ad870 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -791,6 +791,9 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
  
- 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
-+	/* avoid reversed IO if bio is split due to exceeding max_segments */
-+	if (npages > 1 && !is_read_io(fio->op) &&
-+	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
-+		npages = min_t(int, npages, bdev_max_segments(bdev));
- 	bio = bio_alloc_bioset(bdev, npages,
- 				fio->op | fio->op_flags | f2fs_io_flags(fio),
- 				GFP_NOIO, &f2fs_bioset);
-@@ -738,7 +742,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
- 		return false;
- 	if (last_blkaddr + 1 != cur_blkaddr)
- 		return false;
--	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
-+	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
-+		return false;
-+	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
-+	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
-+		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
-+
-+		if (bio->bi_vcnt >= queue_max_segments(q))
-+			return false;
-+		if (bio_sectors(bio) + (F2FS_BLKSIZE >> SECTOR_SHIFT) >
-+				queue_max_sectors(q))
-+			return false;
-+	}
-+	return true;
- }
+ 	case LINUX_REBOOT_CMD_POWER_OFF:
+ 		kernel_power_off();
++		pr_emerg("Power off failed: System halted instead\n");
++		/* kernel_power_off() already ran the shutdown, only halt. */
++		machine_halt();
+ 		do_exit(0);
+ 		break;
  
- static bool io_type_is_mergeable(struct f2fs_bio_info *io,
--- 
-2.53.0
+
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261110-reboot-make-task-dead-8702e9b29130
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
