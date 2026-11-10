@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794275810;
-	b=Mss55KZV5wT983+3CNofOFxuekJGPiL5rYTJWbdN64zfkxTac1DkEhUIHoUm526/GlO9
-	 kzGDvbGKzVDzBLeRFKKjQmyau14OY0/mZuK9+EGp+xcOTtnB+/8QfbbJvMHOtGMcXc+UJ
-	 zhaD6BjRDClnBZtjFzd1jGlUYk1SwBs0msdGloAE8mS5gbX70esfZKJa0vmIaV0eZYlSr
-	 bJGyK5wT6E6sm6rf5BUhuWuigHtS/G3wNhEjjCY0LrsDBDHkkPKFMjf8qShBfrrQ1FA9y
-	 YNHf5FwrRRZP9uO2pSQUHJ9I9DY9ZKvz/DZrL3ZOpcdyvaNfvq23DLiz4LuLGWTHlTA==
+	b=u4QH0rGwy5kKl7PiZhxuY4ub+Nj/lwX8R3yRN0NMsqkCqsWWB2EDCe8PSX+/p8G7F1Xt
+	 F4kBvKoLnTJogubRvDVHXcNGABaMCgIViMUH0DXeyTvJQPJTeNoOduL9Gl3BkRHBWHLU7
+	 NQoZU3iGTfovuqsHziUm7S92Pud9Eme+yAEVMWQVBUxbO39eH1KZm3p9/vy8zjqPzVjft
+	 AJ02A7xdKQWcf07qXcdE/KMlN0MoAHlDJ1PrRkvCsFFM7hYR/tBb4L/FbrrgZijtUOgqp
+	 xbpnLq8UUpL/ViaXHUmNEmKIH+VbkDGMza4IsKTTzFJQgLBUmAsPEBm5BYzmcNFvh+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794275810;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=OpaMTdVlcWiTJkzha674msolX8Dr0jiVpCgmnUH8AJM=;
-	b=Unq7ajNLPOXV7jAQdbUCHSP/Dh/s1hLtCY6iVXMDXj2w+0J/uj7vmgJjWbVdrvu5AiYC
-	 3HZf4bNYzFsSl75aiCLDhrOd1y6c/NdFhgC57LxQj8NclY6gjPOxJJlB0DNtyIwMJNjeG
-	 jzeK2LNJCBlpV6MGuSHI4CshtADi+uYG/C5JeaM35+TuI49FLVkX2Q2Dw2CNj9HQ7hsAq
-	 Z5IJesvvAE8zCj9zjpZm0QwjBDJurcuIPfVnrIyJRLtoSJcls3twej10WP9x2AZ2pUJ6h
-	 u2brFGs3ncyZvtui5jwMFN3udPoSuE0lC0/eXvaLQkP9PV7uLnw/68uUU9SWmJy1l2Q==
+	bh=nbm0B6s0ILwujbwbqsBKLWcQ4QZdx0YYUTEt0rq0knU=;
+	b=rosRpI4jtp8DMYZbYvn50XWUpndnLxT2BGP7c+0mOtnopM7N0YDnS1THdQ6WpYMf05Am
+	 QFG5xq17Sbbenx1ueHQbgx+1gGdLcYRzBC1ZyAzWERDcryBM25/uR6XgsEE4VyHtzU42k
+	 QhXBu1vi0LmQvl0wNnOinuRzDmB1Ydp0xXtuS8bTljOxlNQmr10cJw0IP1V9hKjanS2sr
+	 EQtm5Pa34qMteKLiboeXZT2n5zaFMzK9vsmcO1/eH2O3vNTQKH3Iro3xR3Os45V/9UlNh
+	 VxAQgYksJo0/3kmyasWQgqxGDEzojojeQEgJEXG30smTBa7T3shtmPr/fPeZiwrgz/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=WAlT3dWb;
-	arc=none smtp.remote-ip=115.124.28.193
-Received: from out28-193.mail.aliyun.com (out28-193.mail.aliyun.com [115.124.28.193])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=seBVqzsg;
+	arc=none smtp.remote-ip=115.124.28.220
+Received: from out28-220.mail.aliyun.com (out28-220.mail.aliyun.com [115.124.28.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89391606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:56:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89391606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB133606A336
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB133606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=WAlT3dWb
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=seBVqzsg
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794275800; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=OpaMTdVlcWiTJkzha674msolX8Dr0jiVpCgmnUH8AJM=;
-	b=WAlT3dWbEw0o7steBfeia2lnPHMOFkQZU5BZJfqvRf7mwvNwaUDCB3RPK92ZtNuCXakpwkKn1sxYq195MB2avwSfOIGQvJuJej0QG5xNlEjHWSDpUpRcfAr+Q4c7KEcXbN/ecDTUznXnaJZwgZzEvmGOHdzvhLP5fCezPP9lM5s=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07519609|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.142357-0.000670672-0.856973;FP=6645749621510768568|2|1|3|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k-WyEID_1794275799;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k-WyEID_1794275799 cluster:ay29)
+	t=1794275801; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=nbm0B6s0ILwujbwbqsBKLWcQ4QZdx0YYUTEt0rq0knU=;
+	b=seBVqzsgePbf3dNliJFrXxQ0M36J46garKtNg2s8KgrQ78PKB5g6n2M4CTsppfIsZj/QFQa31y6wJITSHStLvpbDeBPUROZ3GEY4FpuFrajTG8TOkQkv0+bso8Aj2V5hbKVtG9CcNhT3bxI/0eaycyNKXTVPNstU480f2rgoScE=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07827262|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0183983-0.00029053-0.981311;FP=6663764020037027832|3|1|3|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k-WboFj_1794275801;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k-WboFj_1794275801 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 10 Nov 2026 09:56:40 +0800
+          Tue, 10 Nov 2026 09:56:41 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: stable@vger.kernel.org
 Cc: Alex Markuze <amarkuze@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>
-Subject: [PATCH 6.12.y v2] ceph: clamp the inline data length in ceph_fill_inline_data()
-Date: Tue, 10 Nov 2026 09:56:39 +0800
-Message-ID: <20261110015639.469422-1-zhugl3@xiaopeng.com>
+Subject: [PATCH 6.1.y v2] ceph: clamp the inline data length in ceph_fill_inline_data()
+Date: Tue, 10 Nov 2026 09:56:40 +0800
+Message-ID: <20261110015640.469461-1-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109030614.419384-1-zhugl3@xiaopeng.com>
-References: <20261109030614.419384-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261109030618.419473-1-zhugl3@xiaopeng.com>
+References: <20261109030618.419473-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,31 +81,25 @@ Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ Adapted for 6.12.y: folio_size()/memcpy_to_folio() → PAGE_SIZE and the page API; the trees with pr_warn_ratelimited_client() keep the warning (7.3, 6.18, 6.12, 6.6) and the trees without it (6.1, 5.15, 5.10) drop it. ]
+[ Adapted for 6.1.y: folio_size()/memcpy_to_folio() → PAGE_SIZE and the page API; this tree has no pr_warn_ratelimited_client(), so the warning is dropped. ]
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
-v2: fix the pr_warn_ratelimited_client() format string
-    (literal backslash-n), drop the extra indentation level
-    on the added if-block, and state per-tree whether the
-    warning is kept (7.3/6.18/6.12/6.6) or dropped
-    (6.1/5.15/5.10), per review.
+v2: drop the extra indentation level on the added if-block
+    and clarify the adaptation note, per review.
 
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ fs/ceph/addr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 5e0f83a..6d4f98d 100644
+index 9f664a9..bf57b09 100644
 --- a/fs/ceph/addr.c
 +++ b/fs/ceph/addr.c
-@@ -2162,6 +2162,12 @@ void ceph_fill_inline_data(struct inode *inode, struct page *locked_page,
- 	doutc(cl, "%p %llx.%llx len %zu locked_page %p\n", inode,
- 	      ceph_vinop(inode), len, locked_page);
+@@ -1678,6 +1678,9 @@ void ceph_fill_inline_data(struct inode *inode, struct page *locked_page,
+ 	dout("fill_inline_data %p %llx.%llx len %zu locked_page %p\n",
+ 	     inode, ceph_vinop(inode), len, locked_page);
  
-+	if (len > PAGE_SIZE) {
-+		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
-+						   len);
++	if (len > PAGE_SIZE)
 +		len = PAGE_SIZE;
-+	}
 +
  	if (len > 0) {
  		void *kaddr = kmap_atomic(page);
