@@ -1,85 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274016;
-	b=TutjbauyCUew/lxelQk58FCkBTxurjI6p4hCWGZE4xS/vxjBYpcyR9iBdJo75GzvAB1v
-	 fFt/Tq90j2pwO7ZDAknuv8NN7AsrNS8sf1d4VhxQkNY0yMMr8QSlLJRYHevstMxYsuxR3
-	 0/EHUZNjp2D+acHOQZ3zh3rAfAM7FVsl8B2UaRiVsy1jHdRFxriQHjkAv37insU6IvJz4
-	 X7EpkHMrxXjXfeL4XzLnJRo0PqcnWpvs4AZAykPFe/iXg7cwplc7FDHAHRVPdGN8kaerd
-	 PtDtHXsm0A9VLrD/UkuwyMbhGw/4jnX99olCLuKSbFYqK/3yJ25Lbv+doKVUd4nrszA==
+	t=1794274020;
+	b=tamkepPFkv3cumvgbVJVel70Usq5AjEz4iSjf02Bhp3J12ObBmqZB1xZCCIVKf5/XFfg
+	 6WejiOV+jo8aAQ/72W4uWG/5dmesTzAQzcch5J8N6Dwiv9WbiQEE3EComrlHsRfVDc9Vz
+	 nh24Hwa4KUt1GG89J4zYNxFzpceYLMC6TyM/UwJEiG5MSOHeGOoaVF58xgKCYyQ9sJVBn
+	 dei6IvPex9rZq+NSVLCopwAXoBb4/5g1t5iVPvPcNKnUPLB8iZHf8HiHOiZcm2ayflvd5
+	 yyJ3C5TPytVIqa7nkqL1nXCc778pfmgogrQPxAuHxi4VWOGThMeFoaugPgBklkVb8dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274020;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6WIqHWYWaaL+pGHGzg1x71yHlLyIPHxx2cs2GR/Tze0=;
-	b=l7PhBGyBq6P5wEvH4GmZzWkk2r4Kh4XxOO0f/V373C3HXED5W1Q1MYhh87NEbgDchfJl
-	 FISoxo2fR/tszJQYFVNOijkM6q1R4VZFW+lHF+0UgH9m9fe+GEpO69zw4wafyP2/qMP/g
-	 QTEJbWaedcB1Msu9aL65THMtPcuWi8k1gwqwzOdU+x2PyYMncPW6D2cVPKIGBVZnvODTa
-	 gAPP79f7c65gy7wKYovk20JZwbD9poZAAzmWbyrE/+j/ZfaO5WtwF0d5T7hBp7yz5x0NK
-	 EZ3Q30iZuGQtpflsH4dEfaPAcfbenjNrIP3uvtFnP2zM+wZ6LxewVkAZYzKv+faJnDQ==
+	bh=vpqEs5lJNNb4VFk4zeEd/WlwKZveL+VADwHIfuvF+hU=;
+	b=3BqqJ9yIjPC2xemjjuuhCSpJGQO3TEfabjvAfjdbPWxndQyMuIUdeVNsFCYYxnzEW9BF
+	 NQXXMTKQAJb7sgWQ6H0Y36DcEmhZ56DS9vH8JaohyfezIUSbizg7wiPWKimpKtD5jkS/G
+	 BiTzUBOo/8y1iShQmzI+YUS+Pn+FmDg18re7roqzXDCW12rWqxz8U2ibZQuq6OJWfvBBk
+	 JGakbj73AK1rFUN5qzHcbv0lQqjMVDDYXmtt84rUUT28XHoNWNQn27jws+uk6gKTS19ji
+	 cAcluRcbuMUh7V5xqxJrAEZiPNkNAvXmONokD2x9L8Zi8OW+FQDtABeRHgynunbq5zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nF5ceKIK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Im8K3ycq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6316071841
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD45A6071847
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nF5ceKIK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31F41F0089F;
-	Tue, 10 Nov 2026 01:26:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Im8K3ycq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21BE71F0089F;
+	Tue, 10 Nov 2026 01:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274016;
-	bh=6WIqHWYWaaL+pGHGzg1x71yHlLyIPHxx2cs2GR/Tze0=;
+	s=k20260515; t=1794274019;
+	bh=vpqEs5lJNNb4VFk4zeEd/WlwKZveL+VADwHIfuvF+hU=;
 	h=From:To:Cc:Subject:Date;
-	b=nF5ceKIKdDKSqox3IF7hXtGMwuLJY3sdmNGS4crowb1QUqbgz55oGBO0tHDM3eNl3
-	 NGDgkSOsmUCbQ4RYqcFR6x5/CwUvpJD+nDPQseCawwAdzktLayFomMqp316AH/PnfP
-	 dBAG43L6wKQofZQa3xi6FE3nRe/WdBDacqSNkhYCmax1IvwuNo+FJZOA2vo22SWT8c
-	 OcSP/gYKrqaQppoXI16KYwye0gVwEu5qbrLubqeoKKwlphL/p0ILJRYIwKB/hNvA5V
-	 ZOPk1BQL6elLq2lhcRR/esIqgk7sF2HHJxbcHjMraDuPgjqM3V5XPxHDMetAbT6hMC
-	 64Kv7R2rB+zVg==
+	b=Im8K3ycqv1fDWDxL4p8jaO+cdsY5PVPf1oLEoKE71J/7r+fyc3Pr9wlNr6ZvbBdgi
+	 Y0PrEdXBcsEv4BJv4ZaoLEBmy+BdU6cjnsvEKDMPiKb+39olH/Qx6c34krjdGaZnl4
+	 pjB3ibC+fhg0itDOXDyFmwcouP0S+ybWbc575nJb+yBDX1qTcJ5X58m5OiFDptv3Z7
+	 /qNYyPjiNoiDpJRQmrpQY28/eTNc0W2mwcWKx1v0krF73NXVSxgP8HfOqQj9RAFrko
+	 h+RimmGfJnU80VDCU25z3n7UJZq1A+n9tMxjbfFzJU+UuU6sqbutOBNkTlFi6N3Eoh
+	 kWh5BKdIBgAkw==
 From: Sasha Levin <sashal@kernel.org>
-To: lance.yang@linux.dev,
-	samarth.colleges@gmail.com,
+To: chris@chrisdown.name,
 	akpm@linux-foundation.org,
-	ljs@kernel.org,
-	kas@kernel.org,
-	david@kernel.org,
-	mgorman@techsingularity.net,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jglisse@redhat.com,
-	aarcange@redhat.com,
-	peterx@redhat.com,
-	bobbypowers@gmail.com,
-	bgeffon@google.com,
-	dplotnikov@virtuozzo.com,
-	dgilbert@interlog.com,
+	vineeth@bitbyteword.org,
+	baolin.wang@linux.alibaba.com,
+	kasong@tencent.com,
 	hughd@google.com,
-	hannes@cmpxchg.org,
-	cracauer@cons.org,
-	mcfadden8@llnl.gov,
-	gokhale2@llnl.gov,
-	xemul@openvz.org,
-	riel@surriel.com,
-	shli@fb.com,
-	jthoughton@google.com,
-	corbet@lwn.net,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	sj@kernel.org,
-	ziy@nvidia.com,
-	med08elkadiri@gmail.com
+	chrisl@kernel.org,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	huang.ying.caritas@gmail.com,
+	kelleynnn@gmail.com,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:51 -0500
-Message-ID: <20261109202651-failed-5.10-990d6c2194a9@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: make swapoff interruptible when unusing mms/shmem" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:56 -0500
+Message-ID: <20261109202656-failed-5.10-740128dd1a3f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,158 +80,124 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 990d6c2194a938a19a8cf94c6cfd75171345089b
+git cherry-pick -x 740128dd1a3f2bd81a80314d079b6b03c39ba3af
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202651-failed-5.10-990d6c2194a9@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202656-failed-5.10-740128dd1a3f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 990d6c2194a938a19a8cf94c6cfd75171345089b Mon Sep 17 00:00:00 2001
-From: Lance Yang <lance.yang@linux.dev>
-Date: Mon, 26 Oct 2026 21:00:54 +0800
-Subject: [PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 740128dd1a3f2bd81a80314d079b6b03c39ba3af Mon Sep 17 00:00:00 2001
+From: Chris Down <chris@chrisdown.name>
+Date: Mon, 26 Oct 2026 22:31:03 +0800
+Subject: [PATCH] mm: make swapoff interruptible when unusing mms/shmem
 
-KSM loses userfaultfd protection when replace_page() builds a new PTE from
-vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
-through ordinary COW instead of userfaultfd write protection handling.
-For RWP, a merged page also becomes readable without faulting.
+try_to_unuse() only checks for a pending signal between mms, and
+shmem_unuse() doesn't check at all.  That means that once swapoff gets to
+a process or a shmem file with a lot swapped out, nothing can interrupt it
+until every last page of it has been read back in.
 
-Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-have to handle unmerging.  An existing KSM page can be protected with RWP
-before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-of preserving RWP during merging.
+Just as one example of where this can concretely show up, freezing tasks
+for suspend or hibernation has to wait for swapoff to notice the freezer's
+fake signal, and gives up after freeze_timeout_msecs (20 seconds by
+default).
 
-Unsharing replaces a shared page with a private one and should leave
-userfaultfd protection in place, as do_wp_page() already does for write
-protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
-can proceed to do_wp_page().
+Here's a facetious example where one swaps out 2GiB of one process to a
+swap file on ext4, starts swapoff, and half a second later tries to freeze
+with pm_test=freezer.  Writing to /sys/power/state then fails with EBUSY
+and this in dmesg:
 
-- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
-  break_ksm() then reports success with a KSM page still merged.
+    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
+    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
+    Call trace:
+     [...]
+     io_schedule+0x44/0x70
+     folio_wait_bit_common+0x1ec/0x3d0
+     __folio_lock+0x24/0x40
+     unuse_pte_range+0x2d0/0x348
+     unuse_vma+0x158/0x248
+     unuse_mm+0xfc/0x150
+     try_to_unuse+0x104/0x3f8
+     __do_sys_swapoff+0x220/0x5d8
+     [...]
 
-- With asynchronous RWP, protection is cleared before unsharing.
+The same goes for anything else that wants swapoff to stop, like an admin
+hitting ^C in a panic, of course.
 
-Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
-FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-private copy as well.  Unsharing can then complete with RWP still armed
-for a subsequent access.
+Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+try_to_unuse() was driven by find_next_to_unuse() which checks for a
+signal before every entry, so let's restore that behaviour.
 
-Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
-Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Just as an example of the improvements, here's how long freezing takes
+in the same test while swapoff is happening on my computer:
+
+                      before                  after
+    400MiB anon       8.925s                  0.028s
+    400MiB shmem      1.639s                  0.003s
+    2GiB anon         failed after 20.003s    0.011s
+
+Link: https://lore.kernel.org/at9kJwdGkHPsWwgG@chrisdown.name
+Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+Signed-off-by: Chris Down <chris@chrisdown.name>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Xu Xin <xu.xin@linux.dev>"
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Bobby Powers <bobbypowers@gmail.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
-Cc: Doug Gilbert <dgilbert@interlog.com>
+Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Kairui Song <kasong@tencent.com>
 Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Martin Cracauer <cracauer@cons.org>
-Cc: Marty McFadden <mcfadden8@llnl.gov>
-Cc: Maya Gokhale <gokhale2@llnl.gov>
-Cc: Pavel Emelyanov <xemul@openvz.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shaohua Li <shli@fb.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: SJ Park <sj@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: Ying Huang <huang.ying.caritas@gmail.com>
+Cc: Kelley Nielsen <kelleynnn@gmail.com>
+Cc: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/ksm.c    |  8 +++++++-
- mm/memory.c | 14 ++++++++++----
- 2 files changed, 17 insertions(+), 5 deletions(-)
+ mm/shmem.c    | 4 ++++
+ mm/swapfile.c | 4 +++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 910a1307ac9f3..d6f736a1aa2f9 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -34,6 +34,7 @@
- #include <linux/memory.h>
- #include <linux/mmu_notifier.h>
- #include <linux/swap.h>
-+#include <linux/userfaultfd_k.h>
- #include <linux/ksm.h>
- #include <linux/hashtable.h>
- #include <linux/freezer.h>
-@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
+diff --git a/mm/shmem.c b/mm/shmem.c
+index af21a89abb0f6..3c0c7edd2020f 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type)
+ 		if (ret < 0)
+ 			break;
  
--	/* Preserve soft-dirty when replacing the page. */
-+	/* Preserve soft-dirty and uffd protection when replacing the page. */
- 	if (pte_soft_dirty(orig_pte))
- 		newpte = pte_mksoft_dirty(newpte);
-+	if (pte_uffd(orig_pte)) {
-+		newpte = pte_mkuffd(newpte);
-+		if (userfaultfd_rwp(vma))
-+			newpte = pte_modify(newpte, PAGE_NONE);
-+	}
- 
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
-diff --git a/mm/memory.c b/mm/memory.c
-index 916637e8381da..b65b56fe97148 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4125,8 +4125,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 		if (unlikely(unshare)) {
- 			if (pte_soft_dirty(vmf->orig_pte))
- 				entry = pte_mksoft_dirty(entry);
--			if (pte_uffd(vmf->orig_pte))
-+			if (pte_uffd(vmf->orig_pte)) {
- 				entry = pte_mkuffd(entry);
-+				if (userfaultfd_rwp(vma))
-+					entry = pte_modify(entry, PAGE_NONE);
-+			}
- 		} else {
- 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
- 		}
-@@ -6662,9 +6665,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
- 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
- 		 * NUMA hinting and must still fall through to do_numa_page().
- 		 */
--		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
--			return do_uffd_rwp(vmf);
--		return do_numa_page(vmf);
-+		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
-+			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
-+				return do_uffd_rwp(vmf);
-+		} else {
-+			return do_numa_page(vmf);
++		if (signal_pending(current)) {
++			ret = -ERESTARTSYS;
++			break;
 +		}
+ 		start = indices[folio_batch_count(&fbatch) - 1];
+ 	} while (true);
+ 
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 254ce86fa923e..0f72a5b23a3a6 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct vm_area_struct *vma, pud_t *pud,
+ 	pmd = pmd_offset(pud, addr);
+ 	do {
+ 		cond_resched();
++		if (signal_pending(current))
++			return -ERESTARTSYS;
+ 		next = pmd_addr_end(addr, end);
+ 		ret = unuse_pte_range(vma, pmd, addr, next, type);
+ 		if (ret)
+@@ -2922,7 +2924,7 @@ static int try_to_unuse(unsigned int type)
+ 	if (swap_usage_in_pages(si)) {
+ 		if (!signal_pending(current))
+ 			goto retry;
+-		return -EINTR;
++		return -ERESTARTSYS;
  	}
  
- 	spin_lock(vmf->ptl);
+ success:
 -- 
 2.53.0
 
