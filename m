@@ -1,56 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794335470;
-	b=D8zF+42NNocGuz3leHMbc0wZW/QBDDNhQtPD/hqTS2BEiecgYROYYETuGTR5OFCGXquO
-	 iy91sg6SKLmS6iBaV8S/NMOK0cM3TuNRvK2IB2KerhAfoObNTBxorrvJnMctxH9XlPWXu
-	 b1eDUYS05snKihXSdUbRq89LloRSF+aJykDcz00ouvyOj+OdY3fa/+aJY6/pX793GoQ4W
-	 f2SHuInxaJ01q7/sI7sox9kJhvNDocp64fM6txIJPI2mFa6IP7wvcHdNsLsapKeYpLYJ/
-	 8+6ZbJ8+BAHpnuHJDo9ZBIXDjaPrV1Co8Qu8hIXH5T1qrFhMWftl0OEyhH6Vh5zXRTw==
+	t=1794335503;
+	b=wLJnpOvlgB5CcmaBfskTJGXcN99voGlPqUWNjd3wEZIykTv2tV5BUWJaaoEcdWbIUuA2
+	 g0Srx0tI4LeZhrrkgVL+gS31RcJKH6AC9odFdRrk4t1OsbF8FshntRx5NmaFuPN3g3L7j
+	 hyGMuMa/QRCMGyBH6uDxlzdFwH/lmWrJPLTaqZUcKAxeJhzSFeChJ3ciZm/0Dwp0iRuax
+	 to7NxDP91Fhwhhhg4w+13rsa8MQA2EddEn3Gzamk8ZXTU8CjHRO1aXIDzGI6HtrQbE+xL
+	 Xcz3yQBYUEgFCB6JWfYfYt6AFW1JkGaGZsxCvCGxlf9bj9Dy3PnD5XZO9rbgSmweJKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794335470;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ytFhHp9n0JJXjnSz+V8pvrLLED0p/7nhoN5i0MWphzQ=;
-	b=4516byabCr7mmJiZmhUSCrMsrm3tcqW+xW+fwxJyVsiajh1wq1Bhr5f63bB5sy9iH3tH
-	 RO4alrJ4iyisSvIZJMfzGcAmxu68RBQEkLeW7zmSwk80+esqTv1Dfi7misWh3SRntAcN7
-	 ZCjiksSggNtz92CQ/oiaidCbtlVcj+e1u4oyAyWVkd603HVU/EuzyLPe8Kc8TobHxThp5
-	 nI2E5dILukc8h/rCQH8mB4+1I8hjnTQ+LwqcSbTYUPaSdImwwhL0vWF6JYuN3CP/L1RzH
-	 4yUe4sAIhYlKuoOn5G7rIk2/qBzWcUXGJeRbdKY1+owSKLzz5zf09sHnSACEdcsogMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794335503;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=gbmSihoOxS8+qs59nCpK+zlfjMhPtRlMpwSw2IB+/W0=;
+	b=VBoR+4obUO5zWA0jCp0vycEO08G2RI3yA+9Xw0R1KzXgK2XVfrfKRNNWoUvG9U1+s4U2
+	 bgWRX4kOzEf+zCXd+QWwesLrwuG8b9SgfeupP8EW8l5dQ2BnVFL+/fPkerh9WMX26hizZ
+	 LkSCyTZzQIHwU1W1Nq6ywJX5rllKTEL4xk1vuhuppwbKELmCSIKkq5nNE28jyf0p6mc+c
+	 Mvv9fr1y9dix289Lrqqsf6c+PvFhUAJY1Vfq1B4HQRfOZJ2fYQ0j84SQNrOITS6fVA4y8
+	 +xl2AubuciPRFB6TZg3qS63ppP7sCOlmgARspjdDUFwKbGtYR+FlInT/kPs3S1/uyNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNiO6BiC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=everpuredata.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=PrOoXgqs;
+	arc=none smtp.remote-ip=209.85.221.227
+Received: from mail-vk1-f227.google.com (mail-vk1-f227.google.com [209.85.221.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F959606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:31:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0A6E606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:31:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0A6E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNiO6BiC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792951F0089F;
-	Tue, 10 Nov 2026 18:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794335470;
-	bh=ytFhHp9n0JJXjnSz+V8pvrLLED0p/7nhoN5i0MWphzQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VNiO6BiCL4DQxhgXedHr+oVJWLkBbYaPEdCE8SsdI+c5or2Ir6Sdy3hGsTSUYFE+m
-	 XX/BdfvkF7clfNNFHR5SShE9b2ILxQ5THq5bHn1n9HDHppU4brP6Wp2eenfOnJ20/u
-	 WSy70SsxgX+GvVhytDUKiClYBx0FvGOJjShT+nCa0F6MrMliZSd8sebTnSN0AleqKN
-	 ajeADJ1i0RzsKCs3wJwBywnElGzO5TiisKKjYmxI6NoC1IqoH7m7KiwrczT3/AJ1nc
-	 0RvRkyU2i5x5daQnUd+xj0iEzCAbDq7JxN4ZC6kyx8pPA7HU9O/CgXEZ6g73FnRCk7
-	 znIKw98Vghliw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Martin Fuzzey <martin.fuzzey@flowbird.group>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] serial: sc16is7xx: fix data corruption due to unexpected xon/xoff
-Date: Tue, 10 Nov 2026 13:31:08 -0500
-Message-ID: <20261110183034.3115565-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=PrOoXgqs
+Received: by mail-vk1-f227.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1514401e0c.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:31:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=everpuredata.com; s=google; t=1794335502; x=1794940302; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gbmSihoOxS8+qs59nCpK+zlfjMhPtRlMpwSw2IB+/W0=;
+        b=PrOoXgqsL16lXToUusS+qZtwaT9GFgP+vViq0F3mVZQFv7CrWmDImxCxt+zXsZ0qx+
+         YiXhWN5SgHr5fm0c3l5BzC2qjJWycSrk0a9F3qZnWt7N/oUBOQe1Kai1gCdebQusUB5u
+         9Tw/nFtjMwmCNxZGNRAc3O2a8FUFc59A9v7l8dSqdjPMyVpMVoO0OTtB/C+CeWUS9Liz
+         7z+EgoDRaldwa2csFNLGRxndgakbHAf+SMqwtnIVHybiA1tH/IyrKghBsptuIod2i4oa
+         cBV0GFIe35W/t0tQnJKwNBo8e+hN+Xhxw6CQggTTZxM/rbNamOaPhkIZoJ1nXUHoyftr
+         CjnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794335502; x=1794940302;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gbmSihoOxS8+qs59nCpK+zlfjMhPtRlMpwSw2IB+/W0=;
+        b=W8+a77Gi7EWOW+FY4XE2GUJ+301IaXEwgRBeLESsVLWMMmkHHH+XiSpMHa/r9OabMg
+         Qfcu2SFqonIMqYc9TYHPRV32spoevJ3Tfiis9KzV+5XUK9Cut8l8nJw+cS2EYf6nsIf7
+         kHR9P6xEu0TMKj285aGN1m3EfViW2S5fSMaAgbJd3UE7hzxr5FMWBx8ZaSNMN9Y6bGcQ
+         dfBwWAPePFdhDJeAICf8S5g3Im2T27mElc3aTB/VbHUhc2AzWKzr1QCZUahQWudNuRnh
+         rOT9j4wdOOgbKRBZ2MYgboK5HxvlQmiObzDx4fUEzqX0IphQz7DRT93gYMeb78ePnbzZ
+         0Kzg==
+X-Forwarded-Encrypted: i=1; AL+hErG2X/L50fmmfPXyHhQbbJKYuiS+2ArBaJgIjnniiv2/a7x2rG6mEgYaRiTpiALDtLT54eC8qko=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95dmgFUXncjt1HzbKQy+hcjqMTbCiTCzY5P61BEndXneiWTNEW
+	APjMqhUpa7tvte+87dLKFevAICkywnTqBT+vAEmNslrmJP05+tSKIDshqYIpKB4nAyRWMzP5dlL
+	Y7vm7DMYlsZD6xeOu0HVNJFBcMBeKL/2cNjWS
+X-Gm-Gg: AYBFou3KNbOjA3StAmYKhQDH3wZ7Xz4dKplF/aRAEGCLG8kQFC5G0i2GbKjH2F+GyF4
+	9Vn1vZKJAiQ1l1KF1GbADowADSRRJ/scgAZTi15xCs2oKD1H61qABlSejTOD6ZKIuFYYN4Y4oTD
+	MW/Je28IJjW5OQKoeM1w3o8fkyj2wEGHViwOUyJNkCPOdxavZRHiNb4fXy2jMmzaAiceG3nKw/0
+	Uz9wg7+tQktffx++q7sGQ1hLePhSe4MJ1+n+p2Zw1ZE6X+gm/B8IwAOPFe2BbKxxRMnsu12qrh5
+	YmDFc/nfRitxeUnUG+mo5H+2OG5FEb1xrFcUjJHTVtvJQgUXdHSTckmeRZ0ORJ8QSfNm+D+cXVA
+	KAtXqkkuYHkk7tzG+F7YkifJP49O1zhO1WDcJcrs=
+X-Received: by 2002:a05:6122:1313:b0:5ea:e197:93d9 with SMTP id 71dfb90a1353d-5ee0d1b1687mr1626172e0c.19.1794335501776;
+        Tue, 10 Nov 2026 10:31:41 -0800 (PST)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-99c203e7280sm176166241.16.2026.11.10.10.31.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 10:31:41 -0800 (PST)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 108DB34039E;
+	Tue, 10 Nov 2026 10:31:40 -0800 (PST)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: cel@kernel.org
+Cc: Rakesh.Bhargava@netapp.com,
+	anna@kernel.org,
+	ebadger@everpuredata.com,
+	jcurley@everpuredata.com,
+	linux-nfs@vger.kernel.org,
+	mora@netapp.com,
+	slingappa@everpuredata.com,
+	stable@vger.kernel.org,
+	tmenninger@everpuredata.com,
+	tom@talpey.com,
+	trondmy@kernel.org
+Subject: Re: [PATCH v5] xprtrdma: serialize unmap_sync with xprt_disconnect
+Date: Tue, 10 Nov 2026 18:31:39 +0000
+Message-ID: <20261110183139.1742129-1-tmenninger@everpuredata.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051100-failed-6.18-8bb50e95c0ab@kernel.org>
-References: <20261107051100-failed-6.18-8bb50e95c0ab@kernel.org>
+In-Reply-To: <dce03323-90e7-400f-8deb-63010d928460@slotpi15m67>
+References: <dce03323-90e7-400f-8deb-63010d928460@slotpi15m67>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +111,6 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Thanks for the feedback. I have incorporated the suggestions in v6 at:
 
-[ Upstream commit 8bb50e95c0abd44607bc60a43032c1dbf7470d5a ]
-
-The hardware supports automatically sending XON/OFF based on the
-FIFO status and that is already implemented by the driver.
-However that capability was not announced with the UPF_SOFT_FLOW bit.
-
-When the port is opened with the default of XON enabled the driver
-configures that in the hardware.
-If userspace does not want XON/OFF (which is normally the case) it will
-use TCSETS to disactivate it. However the serial core optimises this
-to only notify the driver if someting imporant has changed, and for
-XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
-
-So we end up with unwanted XON/XOFF in the data stream.
-
-The problem only occurs if nothing else needed to be set by termios,
-ie if the user space requested values are the same as the default values,
-except for XON/XOFF.
-Since the default speed is 9600 this means that the problem only occurs
-when requesting 9600, otherwise the call to the driver will be made to
-change the speed, and that will also clear the XON/XOFF.
-As 9600 is quite rare these days that probably explains why this hasn't
-already been seen.
-
-It also only occurs on the first port open after boot since the subsequent
-opens will use the "logical state" set by TCSETS but not communicated to
-the driver the first time.
-
-Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
-Fixes: dfeae619d781 ("serial: sc16is7xx")
-Cc: stable@kernel.org
-Link: https://patch.msgid.link/20261001100534.1225894-1-martin.fuzzey@flowbird.group
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: applied the flag change in sc16is7xx_probe() instead of sc16is7xx_setup_channel() to match the existing initialization layout ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/tty/serial/sc16is7xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 42ad926f1fe68..885c0c34b50f2 100644
---- a/drivers/tty/serial/sc16is7xx.c
-+++ b/drivers/tty/serial/sc16is7xx.c
-@@ -1646,7 +1646,7 @@ int sc16is7xx_probe(struct device *dev, const struct sc16is7xx_devtype *devtype,
- 		s->p[i].port.irq	= irq;
- 		s->p[i].port.type	= PORT_SC16IS7XX;
- 		s->p[i].port.fifosize	= SC16IS7XX_FIFO_SIZE;
--		s->p[i].port.flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
-+		s->p[i].port.flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
- 		s->p[i].port.iobase	= i;
- 		/*
- 		 * Use all ones as membase to make sure uart_configure_port() in
--- 
-2.53.0
-
+    https://lore.kernel.org/all/20261110182727.1739245-1-tmenninger@everpuredata.com/
