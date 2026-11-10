@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314749;
-	b=zgIR9nvvZY1fndIGJN8X8ocDXQ4J6UQkT227kxIehhS9KyQ/OvqqqMeqglaQ9fd9qapn
-	 Ld9VfPpJVflxEaKuBoCdlly4ZR5bnCdpINu98FoFMBP2Q/pbODdX7lyfNIphE+/utyu1g
-	 KFGzte7sE5EYCYyaWLl/TQFq4X5LKnBQhkaDr+I3ho1YVUIALiiNUbMmk6yzRHWarTB+0
-	 yRV1c8KlQHM8AYK7GlEb4JbXrALuC0eHiVLhjYWPmAP/wlKtbO+JtrhiTcEKG+GGOJ2A+
-	 FwbymRLrwYzymNrlqkTDdh/IbwRa6C9QNK7U+5SVKy6QwC7CNYyDzBE4pT/cUtgKwcg==
+	t=1794314788;
+	b=P+TvRtpNghzIXCKjqU+6W3mddSJGgq5Eud6GFyFYoE9JLw9zyGk51Wga2oX1FgqJE7wc
+	 PgBLaY07LIaGtTO08ejanmvTK88lNBEO8n7NRJ842N9+Anh84mKfR8gH100L2vW3oSUly
+	 UJ9gvO3jizpxHEVHfAO9EzEIEJZ3wozxp88NPsjkmeZymW5CxRPXCU/WiNxsPuJpGZHkg
+	 7+qk/V71AVlE1fgtEJ4CZg5fMCf2fJRMaIjOw8Y1b3Q3nBtd6DDNLcnbuN93m7SuesLpt
+	 j9R8Rc7ylYmsDqN0j4k/twdUg9la6N+CuT8HoZ6iEzxq/mLLNA61/guqVapn0hIlBgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314749;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=/n0bim+DZunsCFW3lXGEDWBVlO3l7mvDuQoSVxWJW/Q=;
-	b=ty13cn1YAFgwd/o2uUTqAW8vsENNgbnyx2iKf0XpBHinQ1bPsbjl9BdR/XiAmq2BNdC3
-	 RlZNZIm8RoleeLdSjWc6FR2eKsSPgcQkfLYu1jRyhHVAoqlKzI1haBnTFyWFjkLLkFDN0
-	 KhuFZb02jAOKrI9K2fXHri9dB9a/IDNE1nbDuUXKFmYFstfOiYEAXM/YaMV9fWPxV8xyb
-	 Vg1iPkAmC6ND2cwMaPxg/r9bnt1Uw+CCA0HzecdeKJ7bbxqHCa9bCWldmBm+0CbOP8dKF
-	 xqystxN3+O8ZyGKZ0bOx15cHN/n4up74Psd1ffic7Kd9VsDZpoX4AS2XbJnbY+IQExA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314788;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Qla8xyv8DUXCmaukEkS/7pXo2rsNQ2xe37S+9Sm7CDA=;
+	b=5RY6C+4Fag0d338wrfWUQrR//5Lc8zhKFR3B3kXVwV+c0UZLl2IfA5grDW8i0mIPuAOF
+	 4jQSvFZdVFdnvoJEv8G22wLwU+x0LMMRxwSegiz30JJsrhnyeiHZi8J2B3E/xyQlTh4uQ
+	 g9pbfArDzA9PhrNuZo3LyraJEZdzC/lm+IepzRndsMOvR9qOxFDlZidBiWrTT62K8tsYR
+	 ktHzKLHY/kZxFJFY/HjN8e1NiQ9apWecNqxzzNiDNFpxRMUhj3QuduajZf/3k+czIQ7Nw
+	 q9HwQUzjM8c9R3Fggi7kzfEXzMFSME715QphcFgW7BJ8Erx/2JbWmJXXkZRyPooHirw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tiZ1cWKS;
-	arc=none smtp.remote-ip=209.85.222.177
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVVRiQ5C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9BB606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB9BB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D652E606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:46:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=tiZ1cWKS
-Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-9441591aa5cso225286585a.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:45:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794314746; x=1794919546; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/n0bim+DZunsCFW3lXGEDWBVlO3l7mvDuQoSVxWJW/Q=;
-        b=tiZ1cWKSpc9uAv0SdzmnaMzMNtVSWuInLRsIW8yxgbXOcAaw21fF2tKef0pbuZrtXH
-         +aQ0sd4xtOF1PnF3vnvB/LSDXBjOSrJErA1oSrgBc5DZgQQdjpCJX+hYFYkQ4WAITkAD
-         fDzUDn9nje5T45hIFzVxmaTKlJ7xpWldKxWedK8WqnRk4paqGkz2je46okt7IFJGjZmi
-         IDx5hHlZnatMfaYpoQrRjZDuIA3xr1IeGibAjwN+3PFyfGCzOb4qJ5s4+cM13tYMewmG
-         fq8+WmwDUI0puflffDQkswi8ZZ+69IhDbpzipsofhkc1Uo0K/GcDMPq0tP6kmv9F6aTl
-         n+Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794314746; x=1794919546;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/n0bim+DZunsCFW3lXGEDWBVlO3l7mvDuQoSVxWJW/Q=;
-        b=IsowhfRpqAgrWEQolRF6BxquQPYtHVK/9nVRnOAcwE0ZrrJpk5sjuBnd8E99nSO5xz
-         74lWF6P28V0b3618fLXF9ix4Pl/WKrXGUfsNHFeECvPzIie/ON6kP7vT0VWFuWotLY8O
-         Q/6b+uMFmhgdEoo1lHjfvhPwVdyJVLWoP3qTPLLNzlezx/8aDK0wxKBGR9fkb5hF59Z1
-         3b4+xhwvOgVvTarbIXRpkFdVetqWJprk9JJYExfJkI6S9bOo8Jl1hbq7vj8gjgXEUENF
-         2TO3mQT1WOvQCzaX0oyvz4Whp1fpcYEGr62MybmNCjfkj2slD2XEqMaO6uAh7iz0nHVI
-         3LjA==
-X-Forwarded-Encrypted: i=1; AL+hErG8uwiGdj9nf34aE5cGYsif6n5OXWiFl0GbCl0UG4CkgZITWbsql2sxI19ivXhW8YMvVAT2mL4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3P49Asn2sWd+lUqSY7+Ia2A+/JxAYjaxqyosKRmJsb26JBYUa
-	sRth2EJSIe2Je4xdr70lrrrUTDe/3e80sqvuXPCdHimdruK8TnE2ZyPAPxjEmra94Dw=
-X-Gm-Gg: AYBFou3ewOrLZTjPrLaNsNsA0oR9qeCOxcmmfW9FZiddH8PEUMniQT18Jfp7+Bozt9L
-	65ijtJHJYENI2Pp2iCVEfeelKHTfDO/Pk9tyMP8CgQacgARGhHJz6T0eeWpfER1Pf8pUQdQ3L+X
-	iB695nFrTWg7SnqLcsQCRvMqJOQ3MCUhlpSSMKGUVHyIDQnLPs0vkw+/8JXU3Ms8LjfJsIM77d5
-	HzcP9dWSGcHcgq5CSdc59VP5NuJ0ze2ptcJw0zG0EYzj2PNhl5z4yMO/d0ZSSPMbZS9cFJyGM/S
-	2wPtSARSOLdNzwFDa5ntLF50jaWpUXnyLjI/cUn0SkJUAes/K7xgtvKaEmpI7QmrD9d32qhbgnO
-	5I2DXQTmszgU++KctccQUWy3lcGCCp5Oi/OoaNYNAgO97rSvULxHP+CKP1qYFIuHpj72279znxl
-	iH4kGzGfhBFng9CNG24Ku9vqy3aghr1XvhzMTwiFYEQ1FGPHMXC2HAG/StuB/pm84MW09TBRlOD
-	ZaNzZ9htushNF89Dc6GeDH0mIxOJe/5fqgjVgUvGjQ6WwpISjBwFuWJzvrTjoEaxiR1KaKUPa2x
-	26k3VBQcPZKGY2XseP95Gj1U5mGpA6GHeq4JQYTj/e0DQH4IVi0QRdlJYFoU/txGfXh0b/apEWd
-	ssxXppRM=
-X-Received: by 2002:a05:620a:4055:b0:93e:7ec5:2cfe with SMTP id af79cd13be357-9479f4b6e59mr357636485a.28.1794314746577;
-        Tue, 10 Nov 2026 04:45:46 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73c3ddsm215618585a.15.2026.11.10.04.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:45:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVVRiQ5C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B7B1F008AB;
+	Tue, 10 Nov 2026 12:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794314787;
+	bh=Qla8xyv8DUXCmaukEkS/7pXo2rsNQ2xe37S+9Sm7CDA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IVVRiQ5CR/Q3KDwGzhojpPkWCU9LK9T0n1UKWN178Aampy41y4E+ZJUYjBI8R9PCw
+	 4MZU9Q75t1Lx36p/SXkvlXg+urBHi5WaBG1ZUdggY8pyf46p7K79dpv+7MPKxBCfzz
+	 fm4k/CmcLVrCrtQPSTSeI96GWkfVzQ0cXL7O3XAU7cILEXO2If92Js7WfjM/fFU0og
+	 tDpnOqHUp4wgkhN/jO+oSGPkNTSNfi3nyqTj9Snoq15zBVAnW2+Z5bFOrMunGmmHSC
+	 ocZVQrp+WgyQYWlEGTZ3jstycpjPSXHYgHz4bQ86VdLl0ubmXgiEquLlfE63NNDGCM
+	 xhmpKGoPNWuzA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Zhiguo Niu <zhiguo.niu@unisoc.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: fix to avoid folio->mapping dereference in is_{meta, node}_folio()
+Date: Tue, 10 Nov 2026 07:46:24 -0500
+Message-ID: <20261110124616.1470181-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050307-failed-7.3-b5a71253c5c7@kernel.org>
+References: <20261107050307-failed-7.3-b5a71253c5c7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,78 +61,243 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2] mm/hugetlb: charge hugetlb cgroup and memcg in
- alloc_hugetlb_folio_reserve()
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Hongfu Li <hongfu.li@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>, 
- Daehyeon Ko <4ncienth@gmail.com>, Hongfu Li <lihongfu@kylinos.cn>, 
- stable@vger.kernel.org
-In-Reply-To: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
-References: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
-Date: Tue, 10 Nov 2026 07:45:44 -0500
-Message-Id: <179431474443.789062.10429880669466859032.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-10 14:05 +0800, Hongfu Li wrote:
-> From: Hongfu Li <lihongfu@kylinos.cn>
-> 
-> alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
-> consumes a global reservation, but unlike the fault path it never charged
-> the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
-> memfd_pin_folios() through memfd_alloc_folio() were therefore silently
-> bypassing the accounting: they are never charged to the hugetlb cgroup
-> usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
-> so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
-> bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
-> folios are also not accounted in memory.current and are not bounded by
-> memory.max.
-> 
-> Charge the folios to both the hugetlb cgroup and the memcg, just like
-> hugetlb_alloc_folio() does.
-> 
-> Test with a process that creates a hugetlb memfd and pins pages through
-> UDMABUF_CREATE. The counters were read while the folio was still pinned:
-> 
-...
-> 
-> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+From: Chao Yu <chao@kernel.org>
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+[ Upstream commit b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7 ]
 
-one note below that is worth assessing but maybe not a blocker.
+Otherwise, it may cause NULL pointer dereference in race condition:
 
-> +		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
-> +						gfp_mask | __GFP_RETRY_MAYFAIL);
-> +		if (ret == -ENOMEM) {
-> +			folio_put(folio);
-> +			/*
-> +			 * Skip uncharging hugetlb_cgroup since the charges
-> +			 * were committed to the folio and freeing the folio
-> +			 * would have cleared those up.
-> +			 */
-> +			return NULL;
-> +		}
+Thread A			Thread B
+				- f2fs_setattr
+				 - f2fs_truncate
+				  - f2fs_truncate_blocks
+			    	   - f2fs_do_truncate_blocks
+				    - f2fs_truncate_inode_blocks
+				     - truncate_dnode
+				      - truncate_node
+				       - invalidate_mapping_pages
+				        - folio->mapping = NULL
+- folio_lock
+- is_node_folio
+ - F2FS_F_SB(folio): dereference on folio->mapping
 
-This adds a new -ENOMEM condition on stable which may race subtly on
-two tasks allocating against the same memory.max and cause failures.
-In testing, it doesn't cause splats or anything, it may just cause
-spurious allocation failures that fallback to other paths.
+Cc: stable@kernel.org
+Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
+Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
+Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: retained IS_DNODE(folio) and is_cold_node(folio) calls without the upstream sbi arguments ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/checkpoint.c |  4 ++--
+ fs/f2fs/data.c       |  7 ++++---
+ fs/f2fs/f2fs.h       | 10 +++++-----
+ fs/f2fs/gc.c         |  2 +-
+ fs/f2fs/node.c       | 20 ++++++++++----------
+ fs/f2fs/segment.c    |  2 +-
+ 6 files changed, 23 insertions(+), 22 deletions(-)
 
-This implication may be worth a comment in the changelog.
-
-~Gregory
-
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 4b59f30ef45d5..794b1cb9221ef 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -291,7 +291,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
+ 	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE);
+ 
+ 	folio_lock(folio);
+-	if (unlikely(!is_meta_folio(folio))) {
++	if (unlikely(!is_meta_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -638,7 +638,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_meta_folio(folio))) {
++			if (unlikely(!is_meta_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index cfd81bfc28a22..c161d8061e693 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -172,7 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+ 			dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
+ 
+ 		if (bio->bi_status == BLK_STS_OK &&
+-			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
++			F2FS_F_SB(folio)->node_inode &&
++			is_node_folio(F2FS_F_SB(folio), folio) &&
+ 			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
+ 				folio, folio->index, NODE_TYPE_REGULAR, true))
+ 			bio->bi_status = BLK_STS_IOERR;
+@@ -359,12 +360,12 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 			}
+ 		}
+ 
+-		if (is_node_folio(folio)) {
++		if (is_node_folio(sbi, folio)) {
+ 			f2fs_sanity_check_node_footer(sbi, folio,
+ 				folio->index, NODE_TYPE_REGULAR, true);
+ 			f2fs_bug_on(sbi, folio->index != nid_of_node(folio));
+ 		}
+-		if (f2fs_in_warm_node_list(folio))
++		if (f2fs_in_warm_node_list(sbi, folio))
+ 			f2fs_del_fsync_node_entry(sbi, folio);
+ 
+ 		dec_page_count(sbi, type);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 0c85d90307f70..f0024647153dd 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2316,14 +2316,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
+ 	return sbi->node_inode->i_mapping;
+ }
+ 
+-static inline bool is_meta_folio(struct folio *folio)
++static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == META_MAPPING(sbi);
+ }
+ 
+-static inline bool is_node_folio(struct folio *folio)
++static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == NODE_MAPPING(sbi);
+ }
+ 
+ static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
+@@ -3994,7 +3994,7 @@ enum node_type;
+ 
+ int f2fs_check_nid_range(struct f2fs_sb_info *sbi, nid_t nid);
+ bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type);
+-bool f2fs_in_warm_node_list(struct folio *folio);
++bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio);
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi);
+ void f2fs_del_fsync_node_entry(struct f2fs_sb_info *sbi, struct folio *folio);
+ void f2fs_reset_fsync_node_info(struct f2fs_sb_info *sbi);
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 0a00180c21dc2..738a5543f086a 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1429,7 +1429,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 							F2FS_BLKSIZE);
+ 
+ 		folio_lock(mfolio);
+-		if (unlikely(!is_meta_folio(mfolio) ||
++		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
+ 			     !folio_test_uptodate(mfolio))) {
+ 			err = -EIO;
+ 			f2fs_folio_put(mfolio, true);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 86c2e67e43b6a..b23fe1383009a 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -330,9 +330,9 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
+ 							start, nr);
+ }
+ 
+-bool f2fs_in_warm_node_list(struct folio *folio)
++bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return is_node_folio(folio) && IS_DNODE(folio) && is_cold_node(folio);
++	return is_node_folio(sbi, folio) && IS_DNODE(folio) && is_cold_node(folio);
+ }
+ 
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
+@@ -1290,7 +1290,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+ 			goto fail;
+ 		if (offset[1] == 0 && get_nid(folio, offset[0], true)) {
+ 			folio_lock(folio);
+-			BUG_ON(!is_node_folio(folio));
++			BUG_ON(!is_node_folio(sbi, folio));
+ 			set_nid(folio, offset[0], 0, true);
+ 			folio_unlock(folio);
+ 		}
+@@ -1605,7 +1605,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 
+ 	folio_lock(folio);
+ 
+-	if (unlikely(!is_node_folio(folio))) {
++	if (unlikely(!is_node_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -1724,7 +1724,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -1834,7 +1834,7 @@ static bool __write_node_folio(struct folio *folio, bool atomic, bool do_fsync,
+ 				f2fs_need_dentry_mark(sbi, ino_of_node(folio)));
+ 
+ 	/* should add to global list before clearing PAGECACHE status */
+-	if (f2fs_in_warm_node_list(folio)) {
++	if (f2fs_in_warm_node_list(sbi, folio)) {
+ 		seq = f2fs_add_fsync_node_entry(sbi, folio);
+ 		if (seq_id)
+ 			*seq_id = seq;
+@@ -1958,7 +1958,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -2016,7 +2016,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+ 			   ino, last_folio->index);
+ 		folio_lock(last_folio);
+-		if (unlikely(!is_node_folio(last_folio))) {
++		if (unlikely(!is_node_folio(sbi, last_folio))) {
+ 			f2fs_folio_put(last_folio, true);
+ 			ret = -EAGAIN;
+ 			goto out;
+@@ -2094,7 +2094,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio)))
++			if (unlikely(!is_node_folio(sbi, folio)))
+ 				goto unlock;
+ 			if (!folio_test_dirty(folio))
+ 				goto unlock;
+@@ -2166,7 +2166,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
+ 			else if (!folio_trylock(folio))
+ 				continue;
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index f3a73b6c24c3f..09d044c6a166d 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -4158,7 +4158,7 @@ static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info *fio)
+ 			__func__, fio->ino, folio->index, type,
+ 			fio->old_blkaddr, fio->new_blkaddr, err);
+ 		folio_end_writeback(folio);
+-		if (f2fs_in_warm_node_list(folio))
++		if (f2fs_in_warm_node_list(fio->sbi, folio))
+ 			f2fs_del_fsync_node_entry(fio->sbi, folio);
+ 		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
+ 							CP_ERROR_FLAG));
 -- 
-~Gregory
+2.53.0
 
