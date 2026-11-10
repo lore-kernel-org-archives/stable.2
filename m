@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334567;
-	b=rB6ewIPWyIkkDexQahQZm3/iXW1WScNTJN0wViwUreCOaOT3VTsxaWB+sV5JEogPcBSI
-	 +/KlHFO+In9rANykEAkXn3ogbnxjKO2z5elnRweGSlx7ArnOkn2QlxMMWSZNCAP9E7HZ5
-	 iu+oDhZKlbU091MTr9lzA5gITxCKcKHfkHRF9gxzpozwInBF+e6TzPEfrldIHN/aFN8g5
-	 P6hD84izXvv/tGS4nTolh9DB/kOceR65c/yrkisFIdywBpUb59y4GkLdlw0obvOO5IUQM
-	 USw2ssaMAQnxc140dks5Ch4dyo84BSe4S+HPpUsc60ExyH6u32k9zxURr3ISdcDQZhA==
+	t=1794334568;
+	b=XqNwmiafkOjtCcfbk3GMqW04Em8WeJ7CJo3xP09C0d6dTr37IlLHIYvH72NbZpc5cLAz
+	 CEpDOxyBDJNNHhVE09sVfckofUzFImOCqHOSv0j7NuocX0pAQFsV1VOCizIF5cLbMoxVm
+	 OYhJRfd+v1nUZo9Ln4ygG557ljYSiytTxMtN+yCxSLi1p8eIXI29dAf8XGY9qOKdKJcIe
+	 p5TT6POqoV7DiEEyCUVTzlCJd4DKn5FxMTk1v/2teo95uixKQlX+ZNVJbkrcTd7pAczr1
+	 dHUlRS+XDCHcy19/Wb+WR8eVSZZwmAjCOk3rVdALP7UhSVBhMpFOaj5/WPkFlmz4A9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334567;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334568;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PXBRwVUIhTouEw9uswFQgaqP/RPRRolgvpzzkdxdnSI=;
-	b=CJWnFxhBHi0cZznVmkA2H+3kP+ydTertiOmMZYmcia2gOODoccltmkUBzbSOzbGSPyyw
-	 ulgRGECjVWDawFM5I0nudEyJA4xvHFfwHRKa5s1h/upp8wkr+w/rni6weE7+VN9rim8yF
-	 qJpD+BDtIRGvI1EbcnwAGCV+evpA1/hAWjK6VcyVNiHPiDPgFCyhXhcW6bgkbRvcsjmXk
-	 DbJL4qT2XzwzDr6n343BZ7aPs1y+5i7ojLtZQDGCGZpPoC/5hGvT4qJogS16MYf8hjumj
-	 v1OixQFkbJSr1WVM314S42N9fctEawbhHQ5N4RvoWCvj9NQnb3TZpAIrehKJpH4wToQ==
+	bh=azEqfVxF9d9iJ3P3evYeNbLJ0KobIEFeoGmc7DYzEas=;
+	b=a5B61xqsv+hkZvm0t2zBL9T1vgtIUyw/DdeXhuNmZbEzneiaoDlNA0pXSqKx2C1Fm9NJ
+	 KTjca8g9fbj+mtT0TEdsSmNQuImXTvNw3/K1plgq9wBb/fEqI1HIvFwzSRhsVlSVrvHnB
+	 DUoKbgdw99a0Gf8IzZZQU0PJAEhykUEa2c678B7wPF84TBWq5LBCkhtcLnfXeWOBr3I/q
+	 3dQmPpMdHS6XkTLaWTKbwuWTPw0kZppLnHKosRZBH/lFxhZs1sFJbIaKtJ9tFszLozTGy
+	 tuNKS/zin/uYwAy55ALIxP5WOiuAYvUDS8h+/DvhWx4jzSg+WSKfLfv8/kvgmq6MAog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hiYNOuZk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk8M7hie;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CA8606A33B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:16:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F3606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hiYNOuZk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B3C1F008A5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk8M7hie
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04DB31F008A4;
 	Tue, 10 Nov 2026 18:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334566;
-	bh=PXBRwVUIhTouEw9uswFQgaqP/RPRRolgvpzzkdxdnSI=;
+	s=k20260515; t=1794334567;
+	bh=azEqfVxF9d9iJ3P3evYeNbLJ0KobIEFeoGmc7DYzEas=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hiYNOuZki8BigEvQqB2b5JjEWvg7fnKK2oVt13FB9Y+5X9iMv1BDte3u+6K9pmRu6
-	 HkzJUElNjxCuG18fx15edrbJ5syJ43FGImUdLXhaPIvhMEFUxfPWampEGt4Aa6vbcB
-	 kJWdcRTZEmhDn3ukG0q6owtQio/Wh8rCDHympj1HeiJwwX3eE8h/4YixGdtxwbkVER
-	 ZRtDHh+DR/MwxNhTbq/FlZs12Yq2CXo0UG/uW0KcjJCD0YH4yvXFMy7wsXxde+5mU0
-	 CExFoEFKad8OA5A3KsSjxAYW0QXcKrQrm22s2KVEKf0EfjO/35vlOT3LcPiUvlohBP
-	 Pz2/LsNqSuTiA==
+	b=Vk8M7hieFHunvJXmM1l17Pbez0YXZTzjweaUeFgav9SpArmM7AhV8zAu6u+jTaMUM
+	 V4FapCb+EXTyfhdF26DtZ4kou+9CQrUbLhtYWaU0UqaxABhCHEE7M2TJvaFxTpnYHf
+	 s2tixmgI8ZoesAJWhn70mY9OIJ9BxqFMLix3QhZApR69Y/a9iJQPryZjAb4W15bPBb
+	 RFSyBf1gc/7T3txlArI6ShtZfBc1BpdCfroF1TgyX75Wk0z+w1nsLkwB3eCvckRFBO
+	 rE4R71SXkaHqUxflD2mIrv7c9Vy/vYBcZTXSde8sR8rBoYuHfkQviFYmKcLIb/7U4k
+	 wdPaQ4y9znAwg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	stable@kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] serial: sc16is7xx: add comments for lock requirements
-Date: Tue, 10 Nov 2026 13:16:02 -0500
-Message-ID: <20261110181549.3115506-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] serial: sc16is7xx: declare MCR and IER as volatile registers
+Date: Tue, 10 Nov 2026 13:16:03 -0500
+Message-ID: <20261110181549.3115506-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110181549.3115506-1-sashal@kernel.org>
 References: <20261107053420-failed-6.6-1c41d09dcd07@kernel.org>
@@ -64,48 +65,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-[ Upstream commit 42405cb77fd35b5acc0e5a11d74eef68c2afa484 ]
+[ Upstream commit 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb ]
 
-Indicate why lock needs to be asserted when accessing
-MSR register, as this is not immediately obvious when looking at this
-register in the device datasheet.
+MCR register has the same address as XON1 register.
+IER register has the same address as DLH register.
 
+Which register is accessed depends on bits configuration in some
+other registers.
+
+To prevent potential access errors, declare MCR and IER as volatile
+registers.
+
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
 Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://patch.msgid.link/20251027142957.1032073-15-hugo@hugovil.com
+Link: https://patch.msgid.link/20261006192540.234402-1-hugo@hugovil.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 1c41d09dcd07 ("serial: sc16is7xx: declare MCR and IER as volatile registers")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index fbe8128b5e681..3a11bd9230555 100644
+index 3a11bd9230555..34260d06b114b 100644
 --- a/drivers/tty/serial/sc16is7xx.c
 +++ b/drivers/tty/serial/sc16is7xx.c
-@@ -532,10 +532,10 @@ static const struct sc16is7xx_devtype sc16is762_devtype = {
- static bool sc16is7xx_regmap_volatile(struct device *dev, unsigned int reg)
+@@ -533,7 +533,9 @@ static bool sc16is7xx_regmap_volatile(struct device *dev, unsigned int reg)
  {
  	switch (reg) {
--	case SC16IS7XX_RHR_REG:
--	case SC16IS7XX_IIR_REG:
--	case SC16IS7XX_LSR_REG:
--	case SC16IS7XX_MSR_REG:
-+	case SC16IS7XX_RHR_REG: /* Shared address space with THR & DLL */
-+	case SC16IS7XX_IIR_REG: /* Shared address space with FCR & EFR */
-+	case SC16IS7XX_LSR_REG: /* Shared address space with XON2 */
-+	case SC16IS7XX_MSR_REG: /* Shared address space with TCR & XOFF1 */
+ 	case SC16IS7XX_RHR_REG: /* Shared address space with THR & DLL */
++	case SC16IS7XX_IER_REG: /* Shared address space with DLH */
+ 	case SC16IS7XX_IIR_REG: /* Shared address space with FCR & EFR */
++	case SC16IS7XX_MCR_REG: /* Shared address space with XON1 */
+ 	case SC16IS7XX_LSR_REG: /* Shared address space with XON2 */
+ 	case SC16IS7XX_MSR_REG: /* Shared address space with TCR & XOFF1 */
  	case SC16IS7XX_SPR_REG: /* Shared address space with TLR & XOFF2 */
- 	case SC16IS7XX_TXLVL_REG:
- 	case SC16IS7XX_RXLVL_REG:
-@@ -780,6 +780,7 @@ static void sc16is7xx_update_mlines(struct sc16is7xx_one *one)
- 	unsigned long flags;
- 	unsigned int status, changed;
- 
-+	/* Lock required as MSR address is shared with TCR and XOFF1. */
- 	lockdep_assert_held_once(&one->lock);
- 
- 	status = sc16is7xx_get_hwmctrl(port);
 -- 
 2.53.0
 
