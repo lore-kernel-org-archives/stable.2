@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273584;
-	b=LwOzju7bSkqRbxCgp3kUlYpO6QUhEudihia1oBawCrJP0UD7pNxu/1nS4On1h8egW+RV
-	 cBUqUSaB4+N3uoUju0NiJe6nvuuevVxsTn1ZReeQ79VCvX42KZOwJO+KXlSmcCf2u9QO6
-	 WAIR2VOBAf/QYmqbPCM5gZ2YqZFI7IkS0SGat4xmfTYXgZSRXKR6RLI8XNVCRDGAssjPN
-	 ceqAqHGkcvJoP0B324MnnfMzxpI32P/YHAVXR/+HF453cAJl1Tgudu43HV4yv9xeusNbm
-	 qzKowZUnJGlzTBUmK5yWWbKENl24oemyzwklNO7lJw6HirFvR4sW9rKynBbQyXXVz5A==
+	t=1794273586;
+	b=egOxwCt0CBIrEPeLFQKlcqmjVPOMayL2xbtvzgZUlwq89XG4rmI548lawvA/OpU8jmWs
+	 PT5918px1mOVZlR2jCblMspjYRaTMJ1OogguDn77GexPvtHOVomQ6wrCG7cCTW2W659Mh
+	 8rug15+L3IzqsDJmOUdYdnYkXjLs5lf7pZi2md4XIKXJF5xBCNRk1EnNhAFtAlzfils02
+	 Jx5XFfhh6+uE5pvW1hFrpDAso9NkIjIWh5kjNVoRDV/6JWnjUr3/7FqfhmmfumvkDBx57
+	 m62tq4wnmuAlYbd8iVRNm7LWrnEStieOtza3lFHBnbMRbzHzJWuScZ6WQnEq5MZHiPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273584;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273586;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Z/FjBEOSrlYP8ZPSM+Z7dusqvr06xV8TiEif5/t6vcQ=;
-	b=imlHSeoquW5lMJm/Gs1wUJBNmqDMOtDJumO7oj9bz/XTiOkdKzjZIbrIau1QA8HfITT3
-	 G4/npvvPRrCB00+OQmko8j5LIBclKU7/WAeml5YFDLXA9m8G1YmobkCVJK7774C+Z8X3a
-	 4IXwU4Rjh1GRi44d/CbaiBeyEimjDfRyFSSHcnztynzTZ+gk17TyNPNDiNq5RyNC6DGle
-	 5n0TLaC9tdT1CzlLhobxBPM9wgWm1AW23EMTDtLLKYqqCzly6EvsdK345ggsMMDb4+zKk
-	 AYvULNtMbaLCZQaGiL4HZ/7VKePPP/VxAJZj3Yfw0VO+nY5Elw94k+KI7hbHPaGlM6g==
+	bh=KaxKWSDlpPnN4uQ3Iy6rtt4xfXb/rPkphLJ1PlGfu3Q=;
+	b=G37snJTjHYy5eY7Ue+4E938ToL9Ol92j+MV6zxFXpdwMjDfSg/vP007D9+nCe6KbD63G
+	 uC8iOLWVzOn2pYo09n5jWr9oePLJiLU8hLjqKoBW68y61FOcY/Jwn50OcW7bi6YfBNtqT
+	 BP0Oovc8XzlDsGmAoVK6namni2Hdtw6+1vCcFx+ojDVIHL7Vz5CY+bqjCe55KTQllpDxD
+	 7CfF2imGe3gW8aUetOk8ISkGGr7vgpANeO1R5D7clJFNijJynKnUe7mww/IwrBZ+lgupe
+	 9QWV5GbHxd2c05LSRg8HnlmmbwoJpZcwMo/L/FDo3M8MY3SjMo4/HJ/KbYhVcFklrpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HIYkKl/O";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WL+/uLH3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D64606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE7D606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HIYkKl/O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529CE1F0089F;
-	Tue, 10 Nov 2026 01:19:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WL+/uLH3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0361F0089F;
+	Tue, 10 Nov 2026 01:19:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273583;
-	bh=Z/FjBEOSrlYP8ZPSM+Z7dusqvr06xV8TiEif5/t6vcQ=;
+	s=k20260515; t=1794273586;
+	bh=KaxKWSDlpPnN4uQ3Iy6rtt4xfXb/rPkphLJ1PlGfu3Q=;
 	h=From:To:Cc:Subject:Date;
-	b=HIYkKl/Ojwv6XfSZSdLHgzV+GpZcfpj6TqMM9QYS2nPKgqVEOYrbCQfU8IUFtBZYX
-	 S4Frg1QOfLmcdYRLYxz4O13Y9a5ViFXNKUsBzMN53V19xY5TUwAFhD/ls6WO2grd4z
-	 esnUkLr7w+JIv2dWP5djKDYdtfAbCXoLPKx98dc7RozsyPKrSzMr3k9kY7yiPNAh+6
-	 LjsKhzbSkPoPaUFrgVUvb2ONwsDiqHaU/wkdwxlsPGCn+F6yDr/R66D9Xh4LzJvxaP
-	 VSwgT6sEqYjCOlOcPoIn/io3i2D9NHHwSbHV9I1hVop4Xq3KszlcQYU0uXPF19i4Dh
-	 tNdZZtJjQhTPw==
+	b=WL+/uLH3aMAK04Aq7XAm+ca8/dhm7/GbcG85x8WIUXtHOSRAzm518mG+UDe125TtZ
+	 F3WmJWSv6JtbYXsB6Ig7Zx9WEl/Y0atQrk3c09HtTRPx/1QfhjA8n3JFKZngGDwDsW
+	 zuPSIccol1qG7J0O4kKIFj2XpAcXwyR9XXPA1Sywn7feifXuSbX1Qld3nUZJrdb/ic
+	 gEBcgxsqQJyI7Z16K7Hqzm9SOGgiAfBlIakefJPXOTjcyah/1d6AkuMoFt+frmNAl7
+	 +i1fLdUPwFPq6LyYfiR3BPYM5DT7WGBNsikitDDiNrqlykDzXHOjvjHNkwBzQEcZK3
+	 aVmlJBo9bIEmg==
 From: Sasha Levin <sashal@kernel.org>
-To: 25031212351@stu.xidian.edu.cn,
-	byu@xidian.edu.cn,
-	wencheng@xidian.edu.cn,
-	tiwai@suse.de
+To: odys.yuan@gmail.com,
+	hch@lst.de,
+	paulmck@kernel.org,
+	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: usx2y: Refuse a retried DSP load after a failure" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:42 -0500
-Message-ID: <20261109201942-failed-6.1-1f8101b6adc8@kernel.org>
+Subject: FAILED: patch "[PATCH] srcu: Add list_splice_init_srcu()" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:44 -0500
+Message-ID: <20261109201944-failed-6.1-d06917d0ba22@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,84 +70,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1f8101b6adc87a3ddbd51fcb6609251591758026
+git cherry-pick -x d06917d0ba226206dbd606330d73a8eb1e3029c1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201942-failed-6.1-1f8101b6adc8@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201944-failed-6.1-d06917d0ba22@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1f8101b6adc87a3ddbd51fcb6609251591758026 Mon Sep 17 00:00:00 2001
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Date: Sun, 1 Nov 2026 03:15:57 +0800
-Subject: [PATCH] ALSA: usx2y: Refuse a retried DSP load after a failure
+From d06917d0ba226206dbd606330d73a8eb1e3029c1 Mon Sep 17 00:00:00 2001
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Wed, 4 Nov 2026 01:30:39 -0500
+Subject: [PATCH] srcu: Add list_splice_init_srcu()
 
-snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
-the interrupt URB when the FPGA firmware image with index 1 is loaded,
-and then creates the ALSA devices.  If usx2y_in04_init() or
-usx2y_create_alsa_devices() fails, the URBs that were already set up
-are left in place.
+list_splice_init_rcu() makes a list look empty to new readers, waits for
+the current ones with the given sync function, and only then links the
+entries into the new list. The sync function takes no argument, so it
+can wait for RCU readers but not for the readers of an srcu_struct.
 
-The core keeps the index unloaded when the callback fails, so user
-space may issue the same request again.  The second attempt then enters
-usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
-allocated and trips WARN_ON(usx2y->as04.buffer) or
-WARN_ON(usx2y->in04_urb).
+Passing synchronize_rcu() for a list read under SRCU still builds, but
+leaves SRCU readers on the entries while the last one's next pointer is
+moved onto the new list head. nvme_remove_namespaces() does this today.
 
-The URBs cannot be released at this point: the card may already have
-registered PCM devices that user space can still open, and the
-disconnect handler accesses the URBs without holding the DSP lock.
-Mark the chip as hung instead, so that a retried request is refused
-with -ENODEV and the assertions keep their meaning.  The URBs are
-released by snd_usx2y_card_private_free() when the card is freed.
+Add list_splice_init_srcu(), which waits for the readers of the given
+srcu_struct instead.
 
-A failing usx2y_async_seq04_init() still releases its own URBs, so that
-path remains retryable.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Link: https://patch.msgid.link/20261031191557.8460-1-25031212351@stu.xidian.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- sound/usb/usx2y/usX2Yhwdep.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index 7f153a2fcdd81..3800c5b5887c8 100644
---- a/sound/usb/usx2y/usX2Yhwdep.c
-+++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -179,6 +179,9 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
- 	int lret, err;
- 	char *buf;
+diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+index 1a8a465a5650d..d4dcaeb83e2b6 100644
+--- a/include/linux/srcu.h
++++ b/include/linux/srcu.h
+@@ -18,6 +18,7 @@
  
-+	if (priv->chip_status & USX2Y_STAT_CHIP_HUP)
-+		return -ENODEV;
+ #include <linux/mutex.h>
+ #include <linux/rcupdate.h>
++#include <linux/rculist.h>
+ #include <linux/workqueue.h>
+ #include <linux/rcu_segcblist.h>
+ 
+@@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
+ void synchronize_srcu(struct srcu_struct *ssp);
+ void synchronize_srcu_atomic(struct srcu_struct *ssp);
+ 
++/**
++ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
++ * @list:	the SRCU-protected list to splice
++ * @head:	the place in the existing list to splice the first list into
++ * @ssp:	the srcu_struct that readers of @list use
++ *
++ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
++ * instead of RCU ones, so that none of them can follow a next pointer
++ * onto @head.
++ *
++ * Note that this function blocks, and that the caller must prevent any
++ * other updates to @list.
++ */
++static inline void list_splice_init_srcu(struct list_head *list,
++					 struct list_head *head,
++					 struct srcu_struct *ssp)
++{
++	struct list_head *first = list->next;
++	struct list_head *last = list->prev;
++	struct list_head *next = head->next;
 +
- 	buf = memdup_user(dsp->image, dsp->length);
- 	if (IS_ERR(buf))
- 		return PTR_ERR(buf);
-@@ -201,11 +204,13 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
- 		err = usx2y_in04_init(priv);
- 		if (err) {
- 			dev_err(&dev->dev, "usx2y_in04_init error\n");
-+			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
- 			return err;
- 		}
- 		err = usx2y_create_alsa_devices(hw->card);
- 		if (err) {
- 			dev_err(&dev->dev, "usx2y_create_alsa_devices error %i\n", err);
-+			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
- 			return err;
- 		}
- 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
++	if (list_empty(list))
++		return;
++
++	INIT_LIST_HEAD_RCU(list);
++	synchronize_srcu(ssp);
++	ASSERT_EXCLUSIVE_ACCESS(*first);
++	ASSERT_EXCLUSIVE_ACCESS(*last);
++
++	last->next = next;
++	rcu_assign_pointer(list_next_rcu(head), first);
++	first->prev = head;
++	next->prev = last;
++}
++
+ #define SRCU_GET_STATE_COMPLETED 0x1
+ 
+ /**
 -- 
 2.53.0
 
