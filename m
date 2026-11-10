@@ -1,49 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293104;
-	b=PyuVYNJH994HPERTRgePbSmUWGxuVfQ6DGQOw9v+XZ+ah190ylqc4YaMIQjPT2TRY4w8
-	 cTOhU5xStbVnvR0pRFWIq0cbyBEmqZT242xnUiAZFJeYQg02sUCVqtQsxjkg2Zrk4ypnF
-	 YQTmt7pJVHsVAKEWKUKzyfD45PmWbn9B6qUXV4z1HEEVS2d5eUrpko+2dE4zQ41NEbhyE
-	 kAcXgUJtiIAGR7PkQKokOubBIBFjB3zmWekbQXDjadzz/7skgkoI7MijfgO6cP5K/5tKp
-	 0AazuGsQUvCdcclY/FWA3TN9AgrXePWeRqondYd3gl9/TSWRJk7Q69mdczOs2wsd80w==
+	t=1794293112;
+	b=Fd2/eZ1jBGOsehxsmlObaeHTolkCBDHhW+19eOVWZg4kJ4XDLCCSwTSWMXGKOaXW/H/G
+	 lADF/TzxqLplO2yfq5I40yyFUuANUTFt5VW+Y6iFuNnHJav4xluSJSryxRA2LjaFnfzLh
+	 vV3fBeguJ8jeP76nTybgjL23q/YnNQnP35gtA821Z2xtpWc2jka62C1dW8+F9p+hwnvtA
+	 5Pp2AkK9egAPHsJkhyavyrVkBaekYIFQ3nk34Cj4ZjEwHQmbhQDzAYN45+PFzAQxYEIU0
+	 qHOpmD7KpPRf4Ax+MLu268NlCT12W1plZtbb0UN7oOKH51NxhXiJ5I2V7qBavQ9emWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293104;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293112;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=403xIM+g6Pawp0jRTik3Wfra3U/e5ShvSLB3nL09Cqc=;
-	b=108OYiH9ZpehnCHnXFE6+klHPmgo1YE+fV7diSR61K3iTd+XDpcXzjCqZ31mp57ZDBDh
-	 G/iOLbRvioa3ncUFiXvCBEd+8sTLiSSk8KcrzjHi+3ps+TW17fOeudCWRC+cQSDMF+Nm3
-	 NJL/MP/dLa8uE710XrT0fqfaKF0iI/mnVVZBDuZ0IOB0hn4TD7PoaChSxgQWONt0dCnZ+
-	 FsDgJEmKz9sv91pKW4jWlptlDIryQJhqdG0401c3wxkhE7dB+UQQNNOqDk2lktchxjJ/J
-	 5c6DXTv6zJ2VVZ9xnE7aw1MBgcrOKlzCMiNyyJ7BB5SfryvnvRN+2k4oVrjlN2RZqLg==
+	bh=FPfmpBvk2G45uhiys+1Km7Pzml9rAJHDpzmmZ6HBn40=;
+	b=YDA68RQkibHqqYMrLP5KDrfAegu3a/7qFlpVUqkZQk6v+6l8Wf3CxbX74m031z27IVRl
+	 nVqwid+Z6TC9ZMyW92oFV7HZdYvjWDqZKJFn/Vz0tCOKqMHDvtQ/pQxVk1RiVpidXZhyR
+	 pRIFkMlqBF+35ZS6GNzfvm0RBjbl0PpY5xTvifYknvBY3a0pmjD8WLtmN01fC1Dxq60Mn
+	 JgXlyDMAOD0UR3j1lHwy3CjnB79A1kZZpoC6fhZSpPq4aE80LhkABwPkM7LZphIMOLNPH
+	 Z1kbonUgwkl9DXNQAsIUWVtRFadh8lpSvYrGZ9QzDSXk5m2sQH4nY9+seR6M3cAMl0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uxEUC+Xj;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Q7ID1WlA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C24606BD69;
-	Tue, 10 Nov 2026 06:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C0D606BD69;
+	Tue, 10 Nov 2026 06:45:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uxEUC+Xj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F7981F0089F;
-	Tue, 10 Nov 2026 06:45:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Q7ID1WlA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDD91F008A3;
+	Tue, 10 Nov 2026 06:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794293104;
-	bh=403xIM+g6Pawp0jRTik3Wfra3U/e5ShvSLB3nL09Cqc=;
+	d=linux-foundation.org; s=korg; t=1794293111;
+	bh=FPfmpBvk2G45uhiys+1Km7Pzml9rAJHDpzmmZ6HBn40=;
 	h=Date:To:From:Subject;
-	b=uxEUC+XjkXHEV6/dUEz/+e57BKYFLNsb0iLOwkS68UTeIhHbjwYPhYhwOO+wX9HK9
-	 BF0IkxIiNShA3RlQtn4Bf+E+mYMs+cHxTxi7AJ5zdjo0L4FG8hutR///XX2OZXn8qS
-	 Rbah1i0CcNfhtqBFYL0QQ2mzz9Zh2OGkbARsxpkY=
-Date: Mon, 09 Nov 2026 22:45:03 -0800
-To: mm-commits@vger.kernel.org,vincenzo.frascino@arm.com,vbabka@kernel.org,
-	stable@vger.kernel.org,ryabinin.a.a@gmail.com,roman.gushchin@linux.dev,
-	rientjes@google.com,harry@kernel.org,hao.li@linux.dev,glider@google.com,
-	dvyukov@google.com,cl@gentwo.org,andreyknvl@gmail.com,kuniyu@google.com,
+	b=Q7ID1WlAUxo1za5aaBTsoE1w57AcdfeoCBptM40uMOgdnb1yyRHOQIbdA9rmcybQ5
+	 H+T+sgUIgSXpn0Jst204lEPImU+2MM+Bcoe1Hg4whwqfIZIqzUFB6IEVIitllOrbP+
+	 AJSZtg2HmxcTxTfttDPHzKlSXe9qjm1dmdZ4M6ww=
+Date: Mon, 09 Nov 2026 22:45:10 -0800
+To: mm-commits@vger.kernel.org,will@kernel.org,stable@vger.kernel.org,
+	pjw@kernel.org,palmer@dabbelt.com,osalvador@suse.de,mark.rutland@arm.com,
+	kevin.brodsky@arm.com,david@kernel.org,dave.hansen@intel.com,
+	catalin.marinas@arm.com,bjorn@rivosinc.com,azpijr@gmail.com,
+	apopple@nvidia.com,aou@eecs.berkeley.edu,anshuman.khandual@arm.com,
+	alex@ghiti.fr,agordeev@linux.ibm.com,muchun.song@linux.dev,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-kasan-kunit-add-double-free-tests-involving-kfree_rcu_sheaf.patch removed from -mm tree
-Message-Id: <20261110064504.1F7981F0089F@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-fix-missing-page-table-destructor-in-pagetable_free.patch removed from -mm tree
+Message-Id: <20261110064510.EEDD91F008A3@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,292 +57,167 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/kasan/kunit: add double-free tests involving kfree_rcu_sheaf()
+     Subject: mm: fix missing page-table destructor in pagetable_free()
 has been removed from the -mm tree.  Its filename was
-     mm-kasan-kunit-add-double-free-tests-involving-kfree_rcu_sheaf.patch
+     mm-fix-missing-page-table-destructor-in-pagetable_free.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Subject: mm/kasan/kunit: add double-free tests involving kfree_rcu_sheaf()
-Date: Wed, 28 Oct 2026 19:39:20 +0000
+From: Muchun Song <muchun.song@linux.dev>
+Subject: mm: fix missing page-table destructor in pagetable_free()
+Date: Fri, 23 Oct 2026 14:34:25 +0800
 
-The new test cases verify that KASAN immediately detects all
-three combinations of double-free involving kfree_rcu_sheaf():
+Patch series "mm: Fix page-table teardown during memory hot-remove", v3.
 
-  1. kmem_cache_free() -> kfree_rcu()
-  2. kfree_rcu()       -> kmem_cache_free()
-  3. kfree_rcu()       -> kfree_rcu()
+Memory hot-remove can free page-table pages allocated through paths with
+different constructor state. Some paths run the page-table constructor,
+while generic sparse-vmemmap population may not. The x86, RISC-V, and
+arm64 teardown paths did not handle that distinction consistently,
+leaving constructor/destructor accounting unbalanced.
 
-Each test also evicts the object from the KASAN quarantine and
-reallocates it as a victim object before flushing the RCU sheaf
-to ensure the live victim object is not poisoned by the rejected
-double-free.
+Make pagetable_free() handle any remaining constructor state before
+freeing a page-table page. Callers that already ran pagetable_dtor()
+have cleared that state, so the destructor is not run twice. The RISC-V
+and arm64 fixes then use this common helper for their memory-hot-remove
+paths.
 
-Without the patch, all tests fail to detect the 2nd free, and
-the victim is poisoned:
+The architecture fixes depend on the common MM change in patch 1, so
+this remains a single series. I expect it to go through the MM tree,
+with review or acks from the relevant architecture maintainers.
 
-  # kmem_cache_double_free_rcu_1: EXPECTATION FAILED at mm/kasan/kasan_test_c.c:1096
-  KASAN failure expected in "kfree_rcu(p, rcu)", but none occurred
-  ... <splat below is logged here>
-  # kmem_cache_double_free_rcu_1: EXPECTATION FAILED at mm/kasan/kasan_test_c.c:1156
-  Expected (<...snipped READ_ONCE()...>&(victim->i)); }) == 42, but
-      <...snipped READ_ONCE()...>victim->i == 117729280 (0x7046800)
 
-  # kasan: pass:0 fail:3 skip:0 total:3
-  # Totals: pass:0 fail:3 skip:0 total:3
-  not ok 1 kasan
+This patch (of 4):
 
-In all cases, KASAN logs a false-positive use-after-free splat at
-READ_ONCE(victim->i), and it has no information about the suspect;
-the two stack traces ("Call Trace:" and "Allocated by") are of the
-live victim, and "Freed by" is of the RCU task.
+Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+tables.
 
-  BUG: KASAN: slab-use-after-free in __kmem_cache_double_free_rcu+0x9ee/0xaf0
-  Read of size 4 at addr ffff8881076c2938 by task kunit_try_catch/513
-  ...
-  Freed by task 0:
-   ...
-   __rcu_free_sheaf_prepare+0xf6/0x240
-   rcu_free_sheaf_nobarn+0x31/0xe0
-   rcu_core+0x75e/0x16b0
+HVO (HugeTLB Vmemmap Optimization) uses pte_alloc_one_kernel() when
+splitting a PMD. Restoring the vmemmap backing pages does not collapse
+the PTE table, so a later memory hot-remove eventually frees it through
+pagetable_free() on x86-64. That releases the page without running the
+matching destructor and leaves NR_PAGETABLE elevated.
 
-With the patch, all tests can detect the 2nd free immediately and
-prevent the victim from being poisoned:
+Make pagetable_free() the common free-side primitive for page-table
+pages. It checks PageTable() and runs the destructor only when the
+constructor state is still present. Callers that explicitly ran
+pagetable_dtor() have already cleared PageTable(), so they are not
+destructed twice; pages that never ran a constructor are freed directly.
 
-  # kasan: pass:3 fail:0 skip:0 total:3
-  # Totals: pass:3 fail:0 skip:0 total:3
-  ok 1 kasan
-
-All the stack traces point to the same object for double-free,
-and the two free traces are shown in "Call Trace:" and "Freed by"
-(or "Last potentially related work creation:" in the 2nd/3rd test
-cases).
-
-  BUG: KASAN: double-free in kvfree_call_rcu+0xb6/0x3c0
-  Free of addr ffff888108495938 by task kunit_try_catch/511
-  ...
-  Call Trace:
-   <TASK>
-   ...
-   check_slab_allocation+0x10d/0x120
-   __kfree_rcu_sheaf+0x1c/0x2d0
-   kvfree_call_rcu+0xb6/0x3c0
-   __kmem_cache_double_free_rcu+0x310/0xaf0
-
-  Allocated by task 511:
-   ...
-   kmem_cache_alloc_noprof+0x14f/0x3c0
-   __kmem_cache_double_free_rcu+0x152/0xaf0
-
-  Freed by task 511:
-   ...
-   kmem_cache_free+0x14f/0x3c0
-   __kmem_cache_double_free_rcu+0x2c6/0xaf0
-
-Notably, in the 2nd/3rd test cases, we can detect the 2nd free
-before the object is poisoned:
-
-  Memory state around the buggy address:
-   ffff888106dc7800: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   ffff888106dc7880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-  >ffff888106dc7900: fc fc fc fc fc fc fc 00 00 00 fc fc fc fc fc fc
-                                          ^
-  ...
-      ok 2 kmem_cache_double_free_rcu_2
-
-Link: https://lore.kernel.org/20261028194014.3671161-3-kuniyu@google.com
-Fixes: ec66e0d59952 ("slab: add sheaf support for batching kfree_rcu() operations")
-Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://lore.kernel.org/20261023063428.3658761-1-songmuchun@bytedance.com
+Link: https://lore.kernel.org/20261023063428.3658761-2-songmuchun@bytedance.com
+Fixes: 49f599666420 ("mm: call ctor/dtor for kernel PTEs")
+Signed-off-by: Muchun Song <muchun.song@linux.dev>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Alexander Potapenko <glider@google.com>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: Hao Li <hao.li@linux.dev>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: David Rientjes <rientjes@google.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+Acked-by: Dave Hansen <dave.hansen@intel.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Björn Töpel <bjorn@rivosinc.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: <stable@vger.kernel.org> # bf9e4e30f353: x86/mm: use pagetable_free()
 ---
 
- mm/kasan/kasan_test_c.c |  139 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 139 insertions(+)
+ include/linux/mm.h |   37 ++++++++++++++++++++-----------------
+ 1 file changed, 20 insertions(+), 17 deletions(-)
 
---- a/mm/kasan/kasan_test_c.c~mm-kasan-kunit-add-double-free-tests-involving-kfree_rcu_sheaf
-+++ a/mm/kasan/kasan_test_c.c
-@@ -30,6 +30,7 @@
- #include <asm/page.h>
- 
- #include "kasan.h"
-+#include "../slab.h"
- 
- #define OOB_TAG_OFF (IS_ENABLED(CONFIG_KASAN_GENERIC) ? 0 : KASAN_GRANULE_SIZE)
- 
-@@ -1070,6 +1071,139 @@ static void kmem_cache_double_free(struc
- 	kmem_cache_destroy(cache);
+--- a/include/linux/mm.h~mm-fix-missing-page-table-destructor-in-pagetable_free
++++ a/include/linux/mm.h
+@@ -3971,23 +3971,6 @@ static inline void pagetable_free_kernel
+ 	__pagetable_free(pt);
+ }
+ #endif
+-/**
+- * pagetable_free - Free pagetables
+- * @pt:	The page table descriptor
+- *
+- * pagetable_free frees the memory of all page tables described by a page
+- * table descriptor and the memory for the descriptor itself.
+- */
+-static inline void pagetable_free(struct ptdesc *pt)
+-{
+-	if (ptdesc_test_kernel(pt)) {
+-		ptdesc_clear_kernel(pt);
+-		pagetable_free_kernel(pt);
+-	} else {
+-		__pagetable_free(pt);
+-	}
+-}
+-
+ #if defined(CONFIG_SPLIT_PTE_PTLOCKS)
+ #if ALLOC_SPLIT_PTLOCKS
+ void __init ptlock_cache_init(void);
+@@ -4080,6 +4063,26 @@ static inline void pagetable_dtor(struct
+ 	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
  }
  
-+#ifndef MODULE
-+static void __kmem_cache_double_free_rcu(struct kunit *test, int mode)
++/**
++ * pagetable_free - Free pagetables
++ * @pt:	The page table descriptor
++ *
++ * pagetable_free frees the memory of all page tables described by a page
++ * table descriptor and the memory for the descriptor itself.
++ */
++static inline void pagetable_free(struct ptdesc *pt)
 +{
-+	struct kasan_rcu_info *p, *victim = NULL, **objs;
-+	struct kmem_cache *cache;
-+	int i, n = 0;
++	if (PageTable(ptdesc_page(pt)))
++		pagetable_dtor(pt);
 +
-+	KASAN_TEST_NEEDS_CONFIG_ON(test, CONFIG_KASAN_GENERIC);
-+	KASAN_TEST_NEEDS_CONFIG_OFF(test, CONFIG_PREEMPT_RT);
-+
-+	cache = kmem_cache_create("test_cache", sizeof(*p), 0, SLAB_NO_MERGE,
-+				  NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cache);
-+
-+	if (!cache->sheaf_capacity) {
-+		kmem_cache_destroy(cache);
-+		kunit_skip(test, "Test requires sheaves");
++	if (ptdesc_test_kernel(pt)) {
++		ptdesc_clear_kernel(pt);
++		pagetable_free_kernel(pt);
++	} else {
++		__pagetable_free(pt);
 +	}
-+
-+	objs = kunit_kcalloc(test, cache->sheaf_capacity * 2, sizeof(*objs),
-+			     GFP_KERNEL);
-+	if (!objs) {
-+		kunit_err(test, "Allocation failed: %s\n", __func__);
-+		goto out;
-+	}
-+
-+	migrate_disable();
-+
-+	p = kmem_cache_alloc(cache, GFP_KERNEL);
-+	if (!p) {
-+		migrate_enable();
-+		kunit_err(test, "Allocation failed: %s\n", __func__);
-+		goto out;
-+	}
-+
-+	switch (mode) {
-+	case 1:
-+		kmem_cache_free(cache, p);
-+		/* p is already in quarantine. */
-+		KUNIT_EXPECT_KASAN_FAIL(test, kfree_rcu(p, rcu));
-+		migrate_enable();
-+		break;
-+	case 2:
-+		/* The actual free order is inverse. */
-+		kfree_rcu(p, rcu);
-+		KUNIT_EXPECT_KASAN_FAIL(test, kmem_cache_free(cache, p));
-+		migrate_enable();
-+		break;
-+	case 3:
-+		kfree_rcu(p, rcu);
-+
-+		for (i = 0; i < cache->sheaf_capacity - 1; i++) {
-+			objs[i] = kmem_cache_alloc(cache, GFP_KERNEL);
-+			kfree_rcu(objs[i], rcu);
-+		}
-+
-+		KUNIT_EXPECT_KASAN_FAIL(test, kfree_rcu(p, rcu));
-+		migrate_enable();
-+
-+		/*
-+		 * Move the 1st full sheaf to quarantine, keeping the
-+		 * 2nd in pcs->rcu_free.
-+		 */
-+		rcu_barrier();
-+		break;
-+	}
-+
-+	/*
-+	 * Move p to quarantine if not poisoned yet (case 2,
-+	 * or fallback in case 3).
-+	 */
-+	if (kasan_byte_accessible(p))
-+		kvfree_rcu_barrier_on_cache(cache);
-+
-+	/*
-+	 * Evict p from quarantine and reallocate it as a live victim object
-+	 * before the RCU sheaf is flushed.
-+	 */
-+	kasan_quarantine_remove_cache(cache);
-+
-+	for (i = 0; i < cache->sheaf_capacity * 2; i++) {
-+		objs[n] = kmem_cache_alloc(cache, GFP_KERNEL);
-+		if (!objs[n])
-+			break;
-+		if (objs[n] == p) {
-+			victim = objs[n];
-+			break;
-+		}
-+		n++;
-+	}
-+
-+	for (i = 0; i < n; i++)
-+		kmem_cache_free(cache, objs[i]);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, victim, p);
-+	if (victim != p)
-+		goto out;
-+
-+	WRITE_ONCE(victim->i, 42);
-+
-+	/*
-+	 * If kfree_rcu() failed to reject the double-free above,
-+	 * flushing the RCU sheaf will silently poison the live
-+	 * victim and cause a false-positive UAF on victim->i.
-+	 */
-+	kvfree_rcu_barrier_on_cache(cache);
-+	KUNIT_EXPECT_EQ(test, READ_ONCE(victim->i), 42);
-+
-+	if (!READ_ONCE(test_status.report_found))
-+		kmem_cache_free(cache, victim);
-+out:
-+	kmem_cache_destroy(cache);
 +}
 +
-+static void kmem_cache_double_free_rcu_1(struct kunit *test)
-+{
-+	/* kmem_cache_free() -> kfree_rcu() */
-+	__kmem_cache_double_free_rcu(test, 1);
-+}
-+
-+static void kmem_cache_double_free_rcu_2(struct kunit *test)
-+{
-+	/* kfree_rcu() -> kmem_cache_free() */
-+	__kmem_cache_double_free_rcu(test, 2);
-+}
-+
-+static void kmem_cache_double_free_rcu_3(struct kunit *test)
-+{
-+	/* kfree_rcu() -> kfree_rcu() */
-+	__kmem_cache_double_free_rcu(test, 3);
-+}
-+#endif
-+
- static void kmem_cache_invalid_free(struct kunit *test)
+ static inline void pagetable_dtor_free(struct ptdesc *ptdesc)
  {
- 	char *p;
-@@ -2239,6 +2373,11 @@ static struct kunit_case kasan_kunit_tes
- 	KUNIT_CASE(kfree_via_phys),
- 	KUNIT_CASE(kmem_cache_oob),
- 	KUNIT_CASE(kmem_cache_double_free),
-+#ifndef MODULE
-+	KUNIT_CASE(kmem_cache_double_free_rcu_1),
-+	KUNIT_CASE(kmem_cache_double_free_rcu_2),
-+	KUNIT_CASE(kmem_cache_double_free_rcu_3),
-+#endif
- 	KUNIT_CASE(kmem_cache_invalid_free),
- 	KUNIT_CASE(kmem_cache_rcu_uaf),
- 	KUNIT_CASE(kmem_cache_rcu_reuse),
+ 	pagetable_dtor(ptdesc);
 _
 
-Patches currently in -mm which might be from kuniyu@google.com are
+Patches currently in -mm which might be from muchun.song@linux.dev are
 
-memcg-remove-unnecessary-read_once-under-memcg_stocklock.patch
-memcg-reduce-nesting-in-consume_stock-and-refill_stock.patch
-memcg-annotate-slow-paths-in-consume_stock-and-refill_stock.patch
-memcg-uncharge-pages-outside-memcg_stocklock-in-refill_stock.patch
+riscv-mm-fix-hotplug-page-table-destructor-handling.patch
+riscv-mm-fix-missing-destructor-for-hotplug-pud-tables.patch
+arm64-mm-fix-destructor-for-unconstructed-hotplug-page-tables.patch
+mm-sparse-vmemmap-map-shared-vmemmap-tail-pages-as-read-only.patch
+powerpc-mm-map-shared-vmemmap-tail-pages-as-read-only.patch
+mm-hugetlb_vmemmap-remove-vmemmap_wrprotect_hvo.patch
+mm-hugetlb_vmemmap-remove-hugetlb_vmemmap_optimize_bootmem_folios.patch
+mm-generalize-kernel-pte-table-allocation.patch
+mm-generalize-pmd-page-table-allocation.patch
+mm-generalize-pud-page-table-allocation.patch
+mm-remove-pagetable_dtor_free.patch
+mm-remove-redundant-pagetable_dtor-calls.patch
+mm-hugetlb_vmemmap-remove-hugetlb-specific-vmemmap-optimization-macros.patch
+mm-hugetlb_vmemmap-unify-vmemmap_splitremap_no_tlb_flush.patch
+mm-hugetlb_vmemmap-simplify-vmemmap-head-page-handling.patch
+mm-hugetlb_vmemmap-generalize-vmemmap-page-allocation.patch
+mm-hugetlb_vmemmap-unify-writable-vmemmap-page-preparation.patch
+mm-hugetlb_vmemmap-rename-vmemmap_remap_pte-to-vmemmap_optimize_pte.patch
+mm-hugetlb_vmemmap-simplify-shared-tail-page-handling.patch
+mm-hugetlb_vmemmap-move-alloc_vmemmap_page_list-next-to-its-free-helper.patch
+mm-hugetlb_vmemmap-make-vmemmap-optimization-folio-oriented.patch
+mm-hugetlb_vmemmap-make-vmemmap-restoration-folio-oriented.patch
+mm-hugetlb_vmemmap-unify-vmemmap-range-restoration.patch
+mm-hugetlb_vmemmap-make-vmemmap-pte-conversion-folio-oriented.patch
+mm-hugetlb-fix-validation-of-unsupported-hugetlb-orders.patch
+powerpc-mm-make-vmemmap_populate_compound_pages-static.patch
+powerpc-mm-drop-powerpc-vmemmap_can_optimize.patch
+loongarch-mm-disable-device-dax-vmemmap-optimization.patch
+mm-sparse-vmemmap-drop-vmemmap_can_optimize.patch
+mm-sparse-vmemmap-drop-pgmap-from-vmemmap-population-apis.patch
 
