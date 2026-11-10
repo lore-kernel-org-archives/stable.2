@@ -1,98 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269030;
-	b=hCsQMIHW8iXgP0A8yf9MBsaRsHFJ/A9r+Fcd1L925aHxa0MPMQ6oewfH5mJ/GL+qoibC
-	 xq+BL90p83NMmznq70BnfVoPU5KaBKuXRMrCjqTL4/MXTX+h2qKAADclnj4D47O0Yf03P
-	 SQcNXUC1VjdDQyQN8vIOGOSfQmTULaqEKXOYJpF1ofp3keyV0r+lkzP12RmfRdEIbHdU+
-	 +wPRE2qnc9XVJcMpYrmOTuyG4dWJKzmu7RRFHtBtpxr31y86FIDc/bXqcdPq1UaxKIas7
-	 Nw89TTVVDT5aQ1Et+pLSDxAP2roAyu8x6N98furxhGux2NHtWAwisIMSbylEctkV6gQ==
+	t=1794269825;
+	b=4S6kcO3RAeV+HoYB0biRoNscCanKTXzqiwq/QrWhG3wGdlcKTQoGMEjR4x3eNyRx/Vh6
+	 1vRQm9PJQqb7/lwgJ+sX19ZrKjesbn8adL15R66DZ4lQlcoDTW8BcEEY7LcXwIjfRzH40
+	 MvRlazSij3u74Fnnj8/vyrpnw1rBhMnMBj/tCTvK2uhDZgpxKWd2B7F878VQ2T4H9fV1X
+	 IPAThuXmH8d3cbTyHSuoXa+Fqilq3A4iIqO5Ym5WyRSNJc1udg34tAedGDiobnDav1wHu
+	 4tnHenYkq0kAShWuQSV0CtqnXdnvN+0WKa7YJyuUBHyd/ISACSFd7ySQMdAnbQpJL2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269030;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=qje5ZRB8SldFm8mq0Yjsuios3RJj4d/jiM5HJdOzZuA=;
-	b=MdOgY/viv4Fb6sjkaztjNf0b8+OZTTo7Y1pu1NrMWMZnoIHvfz3lrKo2rZNZ2/WNM0oz
-	 oIloE8sc+7qqb/jbf49v7c9gfLtYt1AHYpHuxctlqetK+T+eX34NivFNVZgAGgeXJRRV9
-	 HDUeoWnatjCY89Q7jYnObS4JtiC08sP7w4rt77f3nbYuIJrlqGE5aBCfmHscI9mjw/8eJ
-	 ivD2nVqWZuxXJdnPitFHHPWjfrkek6yNQtFfqp2l3osKqgsO/KGVJOUl4wQmaBOVP5oO+
-	 5EINrFsR7fEfOvET4bHgb9bGCet6bpxpw49crZxLrZqLCDGtkH3HS/X3IOZBfXaOy8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794269825;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=S8fHLhX1Wopu8reB9mEZz+dFQmeZd2AuByljTQ8bzQI=;
+	b=bba92cx7LHA9oUxGQsuDVd282JCJLmKC/oDyYYQL7yLQ1x8UKB1yFoHSPjcV7YjA6v+G
+	 oQIEoUug/ttLMG7upvajEeK95W82lYvBeK57MRY+cgl6o/ahjx18r1NkUOCunU44ocNtn
+	 KmOXa1la4T6/HYrbmE05/+yHbK9V+Lrhg8XeedyYETBoEzElGG95RxtePm3/cglRmBg88
+	 g8zShBexW2ShAM0udr2J9inASgZkdRaqw00ZIovMJDgTcTXni9lYn0GPr+AsnL7+GVD7Q
+	 FaoFYN94mTj/1wq8ks4z3B7ByUVGmpK4RYBbKZaAZUwlDFtYeemnRdWy1iyBzdGTaCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Ust3UGCp;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3NI7Z3i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FA060A2613
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 00:03:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48FA060A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8C1606A32A;
+	Tue, 10 Nov 2026 00:17:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Ust3UGCp
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so812725a91.0
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 16:03:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794269029; x=1794873829;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qje5ZRB8SldFm8mq0Yjsuios3RJj4d/jiM5HJdOzZuA=;
-        b=0L1isg0hrwJgzxRLME+t9ejYRvBZw8aFjstIItkSC7QZhkPllE7DSH1jpqRHWPt4Tl
-         xU52vEJ59kgbYMaPCOLA++ELswyR+KDzRyGFzxGD5e7gliDHylUqlJkRt5S9cwjwKawp
-         UsjRMRo/4/1IR2rBQSx3XAroC6wLbqK0WgLkThg5wMXTDx25+nTImDscRLN6FrGqTCxi
-         s7fIFzr5gyZIJsDBXD6L3H9kvLwkvh7bESN5EFWyfQttzgjLNCgMRD0VhMbKOeruXA6j
-         Vw9zHyNYpnQf+VDUrPx8cS0OzRUPjKuRxhp/1DU4JoHTdPNGi8CDWgbeqKP7N2K07oMh
-         SMng==
-X-Forwarded-Encrypted: i=1; AL+hErGCkhxpR8/WMm11+XVQjNAK9IsgiKRdLwCw1y/ro5r9Tq4GlJrZHlLuBxUWVc9oa5+GsafvGak=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8VXWd4j501f37DqZmqNPdNTkg7TsUi2bxo+pyHVLZX6gCEpJS
-	rMNQW1xoEtNJdeobnlge+CWSEay0VZxMGN9eeFBGGLG9Bzjv7fUCoz1/DPd7jJaia7PqQ5m3i9t
-	ObOfp7l23j6tcIlk+SdwIRmkZKpPS2ebOrpSzQZUz2DbAddu1a2aiUcLig8YqCuxDAen6Lv++vz
-	sbsCD2bUxUjKQA+X7BYmODPOhfaL0Irxg0XY6pi8xr1Lj2uY11XV4DDZ5rvmg9dah3LpkMWTmZR
-	D8isTWaRWzIx2++
-X-Gm-Gg: AYBFou03aQippiSDrUV1cZtxdWBqkjGCFzm9FcPeooSPTaESQTiV3voSl76jVX0gJc6
-	UilaullLVn+5+sGsK1eC9AlXNydOYUZFoAljFLuX+RP7aEs7igHsXyRtV3qkscD/7r4/wG5evlT
-	nldLh7hYwrcbVlc9JFTEkKpeUtWRZUoLB88AHHlek1dw2J2wy0OVRp29fsUJ0jDm3H2Rm5RY9/O
-	nYkTmsB14jkFtm4XvNKPkHKko5uywDbm/6vOwh+f6TJa/Uovw49fzvVDjV4bNlLsjui7H7K2oxK
-	VlTFI4GSYL//UX/1QrqO6lCyI/Lh5wdbiTSVcaAq4ai8VF1QQtIK4Gu6PKd/Jnomaa5kNOAtwPv
-	R3nxF+eONfRxVBW5OmVPvQy0e34mNTh+a1bj64ezvuWkHC2gwzjoOub7Al42WQVAz1Uvjq+xVjF
-	m/DCRY2IjAsfZrpFhtHMbbosHIypVcQDdaqYDZNuTR
-X-Received: by 2002:a17:90b:3881:b0:3ab:2ad1:f10a with SMTP id 98e67ed59e1d1-3b1668e0619mr1142007a91.0.1794269029523;
-        Mon, 09 Nov 2026 16:03:49 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b168b567ebsm235551a91.0.2026.11.09.16.03.49
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 09 Nov 2026 16:03:49 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f5844e383so286173785a.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 16:03:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794269028; x=1794873828; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qje5ZRB8SldFm8mq0Yjsuios3RJj4d/jiM5HJdOzZuA=;
-        b=Ust3UGCp2IJQIoNDrL21pK6fGS6EzdAHAHeOa89mbUQc9IGCb1vjjWaXeuzIhLtPUO
-         CCr5eTPQ0qjiWwbLmMTyugmiW7FDUH0KVQLZavFNRXbDGBf97NPx9DRU/ck5j7Ws2yzl
-         KdjdvnainB7X8CGmTMRXlscxr1EX7Hdt4m7lI=
-X-Forwarded-Encrypted: i=1; AL+hErGyvDFq8+rML8jeW0yoZSvmptElqsmioGr2C0VeevJvfK3s1AN9xV+VRMoasaJjLunVvSlZGOc=@vger.kernel.org
-X-Received: by 2002:a05:620a:6602:b0:93f:4f87:4f5e with SMTP id af79cd13be357-9479f4296cdmr164147685a.72.1794269028279;
-        Mon, 09 Nov 2026 16:03:48 -0800 (PST)
-X-Received: by 2002:a05:620a:6602:b0:93f:4f87:4f5e with SMTP id af79cd13be357-9479f4296cdmr164144085a.72.1794269027731;
-        Mon, 09 Nov 2026 16:03:47 -0800 (PST)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e61c150sm96207685a.2.2026.11.09.16.03.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 16:03:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3NI7Z3i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6B01F008A2;
+	Tue, 10 Nov 2026 00:17:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794269825;
+	bh=S8fHLhX1Wopu8reB9mEZz+dFQmeZd2AuByljTQ8bzQI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=K3NI7Z3iugPRvehaaEwOnCYy2EpfDl5XTk0ShVHPtwIgRV8M2m+jKWxridyP75nnS
+	 ZLSvxFe9hEbAGD754Y2gFM5BDlzxM7/HFmJoHApbIgjxWIdxh3v+QVUoVPpa4F1uzJ
+	 ASdrBi3vRPZd0q8gbwAwP8TwRNd4zgRowedCfpDfUjtK5U1ehoaVaQ8gz8/KQ1vYnL
+	 VcOhPrDpQdk7jbGMx/7VfCIVSeoxI2zYmAtX3+dmVZYUjVq3tgpPnf4U66yMVA+4Oh
+	 CfaEFFkG9UdtMc6QAyPrAgcIf32MByoR+Lp7K5ygG/5/yanhctQuN0H/+OkOjGpI6y
+	 p5VaJDovNTGsg==
+From: Jakub Kicinski <kuba@kernel.org>
+To: lian@is.s.u-tokyo.ac.jp
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	netdev@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	shina@is.s.u-tokyo.ac.jp,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] virtio_net: reject stats replies for queues outside the request
+Date: Mon,  9 Nov 2026 16:17:00 -0800
+Message-ID: <20261110001659.1654289-2-kuba@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
+References: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,32 +69,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 16:05:06 -0800
-Message-Id: <DMR3BCBSPSMW.3EDXC4S26IC8F@broadcom.com>
-Cc: <dri-devel@lists.freedesktop.org>,
- <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
- <yunfeng.li.nb@gmail.com>, <tomas@slax.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/6] drm/vmwgfx: validate GB-only cursor command limits
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-To: "Zack Rusin" <zack.rusin@broadcom.com>
-X-Mailer: aerc 0.17.0
-References: <20261027211729.646988-1-zack.rusin@broadcom.com>
- <20261027211729.646988-3-zack.rusin@broadcom.com>
- <DMMXFS0YGX39.56J0BV2Q2ZNA@broadcom.com>
- <CABQX2QMfQ2TS9Jg4=RewpYStMFOOn1YL1XV4caVnc_dgduWRFQ@mail.gmail.com>
-In-Reply-To: <CABQX2QMfQ2TS9Jg4=RewpYStMFOOn1YL1XV4caVnc_dgduWRFQ@mail.gmail.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Makes sense.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+---
+virtio_net: reject stats replies for queues outside the request
 
-LGTM!
+With this patch, __virtnet_get_hw_stats() rejects a device statistics
+reply if any record has a vq_index outside the range of queues in the
+request. The control vq is the one exception. This stops the device from
+steering writes in virtnet_fill_stats() past the end of the ethtool -S
+output array or the on-stack struct netdev_queue_stats_tx.
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> index dd2c41ef6fbe7..db56f984bb86a 100644
+> --- a/drivers/net/virtio_net.c
+> +++ b/drivers/net/virtio_net.c
 
---=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
+[ ... ]
 
+> @@ -4994,6 +4995,13 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
+>  	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
+>  		hdr = p;
+>  		qid = le16_to_cpu(hdr->vq_index);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the new vq_index check only
+limits where the driver writes. Can the device still steer the parse
+through hdr->size?
+
+The loop in __virtnet_get_hw_stats() advances by hdr->size, which comes
+from the device. It only checks that each record starts below res_size.
+It does not check that hdr->size is non-zero, or that it covers the header
+plus the payload for hdr->type, or that the record ends inside the reply
+buffer.
+
+If hdr->size is 0 and vq_index is in range, p never advances. Will this
+loop then spin forever? The loop has no cond_resched(), and on the
+ethtool -S path it runs with rtnl held:
+
+  virtnet_get_ethtool_stats()
+    virtnet_get_hw_stats(vi, &ctx, -1)
+      __virtnet_get_hw_stats()
+
+If a short hdr->size puts a record near the end of the buffer, the found:
+loop in virtnet_fill_stats() still reads the whole payload for the reply
+type:
+
+	v = (const __le64 *)(base + desc[i].offset);
+	ctx->data[offset + i] = le64_to_cpu(*v);
+
+Can that read past the end of the kmalloc'd reply and copy slab bytes into
+the ethtool -S output? virtnet_fill_stats_qstat() does the same read for
+the per-queue netlink stats.
+
+The parser also has no way to know how much of the reply the device wrote.
+virtnet_send_command_reply() throws away the used length:
+
+	while (!virtqueue_get_buf(vi->cvq, &tmp) &&
+	       !virtqueue_is_broken(vi->cvq)) {
+
+and virtnet_get_hw_stats() allocates the reply with plain
+kmalloc(res_size, GFP_KERNEL). If the reply is short, the leftover heap
+bytes get parsed as records. Would they be reported as counters whenever a
+stale vq_index happens to fall in [first_vq, last_vq]?
+
+> +		/* The vqs of the queue pairs beyond curr_queue_pairs lie
+> +		 * between last_vq and the control vq.
+> +		 */
+> +		if ((qid < first_vq || qid > last_vq) &&
+> +		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
+> +			return -EINVAL;
+
+[Severity: Medium]
+This is a pre-existing issue, but after this change a malformed reply
+returns -EINVAL while a failed command still returns 0. Just above the
+loop in __virtnet_get_hw_stats():
+
+	if (!ok)
+		return ok;
+
+virtnet_send_command_reply() returns a bool. So when the device answers
+with a status other than VIRTIO_NET_OK, or the kick fails, or the cvq is
+broken, __virtnet_get_hw_stats() returns 0.
+
+virtnet_get_ethtool_stats() only warns when the return value is non-zero:
+
+	if (virtnet_get_hw_stats(vi, &ctx, -1))
+		dev_warn(&vi->dev->dev, "Failed to get hw stats.\n");
+
+As it stands, a rejected command is not reported, and ethtool -S shows zero
+for every hardware counter. Should this path also return an errno?
+
+> +
+>  		virtnet_fill_stats(vi, qid, ctx, p, false, hdr->type);
+>  	}
+
+[ ... ]
+-- 
+pw-bot: cr
