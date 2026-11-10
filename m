@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273844;
-	b=XV4txmQxLr33CfjFx6b5yMfNVDOZRhk78ycV/tCr/efbWJaeAyFSr8w34g2SbS9r+TOD
-	 +9d5Syz78ET47PxXbcPwzwhv9yFJGVMRATmMCGjKVBq+uB/OVDLrLw3LctB27UksxsRwA
-	 6MkqcRB11ws58UDfKJ95Jc1p6htp3MyhUt1dPw9iwU0szuHqqiUTsUZb9ZDaUk9mQ+kZ2
-	 ugbyiWmJ7sHOFIc2PDVSViIWn8vQPiw/dgUOZggnGVko1aKV4fAIyoIwWQif5eiC7drLH
-	 WU6RukYvs3otHEJyPYGfILDP5eGM3GRbEH3IBMheCnpMBZmxdhItrKJY5kx8z8QuUdw==
+	t=1794273846;
+	b=eEF53+UWaOa3z08fC0gD64ym6IxY6ExoFwoSSe1RkMsJMTYMog0XRXD2tQFR/o0VHzFe
+	 kAs138SvcIszQi2oIzZqqsFiafsjYjvxNZQ4v+Xfd2etPBhYeef1KKPVOC7IOQU41+dd+
+	 LMonjOCttx2txJAnl7fns6Z3bpr2/ca1mnvR+nTopVl3ck/xuYJsnzw9piUeI+UfxgzYs
+	 goYICdjaLqatew8bEnpkVssFdb5yOYrcOJG/LXh/HxrUCplT7TJtElc9F2N1MHhAdk7T5
+	 4lnDR3KNi6l6qEabwVmLY098DgYSYGVuHh6l2w7BQF2wsHHar1rqWlv2SkUWvMJ78vA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273846;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5TgdL3mXeFctO0sFbD0Zb2bLubk6j4JAWUM6hih13Dk=;
-	b=rvYpGinY0OCkaU7LAU4NG6uiNXuS+g03StOVmH+LMA3O/5EQtniYX0naE0Jz3mH+I3Dj
-	 1+nQpAM3joNmg5Jz/QXjQvOXmww/yNtBuF6gc5OMIqOWMj4q0wc6suot06FcGicxZm5xF
-	 3qRxxKedm5HAlIQ27PsSifi45zOm71pejGU0V/CPPOP/20eh4GI01of/BbhG2ghdYsWKr
-	 Nb/UhHa9UpiF15kCwASG7FFCbdkPmiFtA8M84PD2LWMmnvuRERX2bGqyfaNXNPM72ppwW
-	 NORzjf6zaSZpUE6X4aU+qlHXF1GUQyxjjmKphD1Unq1ELE7++Oe/42PmCyyQCGbf4AA==
+	bh=pBv91j8p1092tA4lbfCN+tcLKxE4FiFgQkSejmtGp5k=;
+	b=NPR4v1RQut1hJSOzNIU0ZyPJBNdsg360nNn489SOCRUkxN6hGiYCkq3NtyPmm/Tg6wcd
+	 tfXfJRIX3WF6qbTqsuPd09yPV5erRKzcUoze8qWivqdkPGTrONc2XPm7ACE+bwr5HPR1e
+	 +nj748UKF4sBhKDv1lPYhuUQ3wDXze3MpGPqomwEp5aHUFHWpwuIRE0MNOd93ACB4M9pd
+	 BuyVUdGeKYQucsFRMfCYgGbYkOzhZiVRXx1sgrGPpA9zsoEcyUwTaFfgQ8NEdvXX17DuJ
+	 mxN9cGT4OXQ27SPBl3wUXuVkx4tjhceELOp3IteldDklEL0kpTEGa2yuyR8980qhgZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W85qlnzj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVrp9Xmv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D1160A263E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB1360A3801
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W85qlnzj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC53D1F0089F;
-	Tue, 10 Nov 2026 01:24:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVrp9Xmv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75CD71F0089F;
+	Tue, 10 Nov 2026 01:24:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273843;
-	bh=5TgdL3mXeFctO0sFbD0Zb2bLubk6j4JAWUM6hih13Dk=;
+	s=k20260515; t=1794273846;
+	bh=pBv91j8p1092tA4lbfCN+tcLKxE4FiFgQkSejmtGp5k=;
 	h=From:To:Cc:Subject:Date;
-	b=W85qlnzj9th0kNRXo0WuvQkqe22lziBF1UlkJ60zfjCCp8LNDq/ArOd61admf1yjW
-	 du1RYgivUBSwgEardZOVVuAwxTHCt/EABDZaG/L4PPljlhlemIzYCkSqjSN/aMBB/+
-	 17/DcbiF5AGDsC+yIfktgPV1uERP803FrPPqdDN2+rUdOtNKxBw1P7Y/Y6nPumRXbz
-	 9DesLrThEUb53vQ0wHhyXdHd3CJgXkosSgfadN+2NiE6WUDeWV9PABDs0dV9SfUWfX
-	 JqhVgr2oKJhLA54Falix34Brqoeed4zAJTVFL/WGm+WwAoz/Az8ZvZMSmqTO4J/Ujr
-	 hlgnuUAaJjhxA==
+	b=IVrp9Xmv9Jgy3XdYQiVdB2/MbnzrAjsnR13Ly+dzyG3qlr/Lb3etxZf9Qg9GW1aUa
+	 1fY+TAeOfIjLQbbVlbZ9SrxLa5tJfiQbLaKzpm5DcOvJq300kfYfzszc5DM6oLRn2I
+	 Uz3T17YA1Ljcvbq8xP4C57EKeRZc1ab7uXRenavRAaeQ1oCViwNj527ndqWqvW++Uq
+	 pSqOhwJ7o0zqholfyRIBc+lRRNVVabiXdtXBMxSDSEOulJKxuOsVxAMwEw4yUK3ryb
+	 g20YzN5y8rj9ECkjdxeAU0i4sbRyybK5xDgk9Oc/Jfnn25nXJsRZkS954JCT0tm9TX
+	 KLzBfUJJwxcww==
 From: Sasha Levin <sashal@kernel.org>
-To: prike.liang@amd.com,
-	vitaly.prosyak@amd.com,
-	alexander.deucher@amd.com
+To: lance.yang@linux.dev,
+	pfalcato@suse.de,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or unmapping queues" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:24:01 -0500
-Message-ID: <20261109202401-failed-5.15-623507b8f4fe@kernel.org>
+Subject: FAILED: patch "[PATCH] khugepaged: fix readahead lock inversion in collapse_file()" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:24:04 -0500
+Message-ID: <20261109202404-failed-5.15-eadce52a9ef6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,89 +71,130 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8
+git cherry-pick -x eadce52a9ef657d561b3e76c9b5f178bd99735f5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202401-failed-5.15-623507b8f4fe@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202404-failed-5.15-eadce52a9ef6@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8 Mon Sep 17 00:00:00 2001
-From: Prike Liang <Prike.Liang@amd.com>
-Date: Fri, 16 Oct 2026 09:34:32 +0800
-Subject: [PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or
- unmapping queues
+From eadce52a9ef657d561b3e76c9b5f178bd99735f5 Mon Sep 17 00:00:00 2001
+From: Lance Yang <lance.yang@linux.dev>
+Date: Mon, 26 Oct 2026 23:20:13 +0800
+Subject: [PATCH] khugepaged: fix readahead lock inversion in collapse_file()
 
-The user queue map and unmap helpers talk to the MES, but only the
-create path holds reset_domain->sem around them. The eviction, restore,
-destroy and suspend paths can submit to the MES while a GPU reset is in
-progress:
+collapse_file() can call page_cache_sync_readahead() while still holding
+source folios locked. If truncate holds mapping->invalidate_lock
+exclusively and waits for one of those folios, readahead waits for
+invalidate_lock and neither side can make progress.
 
-  WARNING: amdgpu_device.c:928 at amdgpu_device_skip_hw_access+0x73/0x90 [amdgpu]
-  Workqueue: events amdgpu_eviction_fence_suspend_worker [amdgpu]
-  Call Trace:
-   amdgpu_mm_wdoorbell64+0x20/0x70 [amdgpu]
-   mes_v11_0_ring_set_wptr+0x71/0x80 [amdgpu]
-   amdgpu_ring_commit+0x5b/0xa0 [amdgpu]
-   mes_v11_0_submit_pkt_and_poll_completion.constprop.0+0x207/0x520 [amdgpu]
-   mes_v11_0_remove_hw_queue+0xd9/0x100 [amdgpu]
-   mes_userq_unmap+0xc3/0x140 [amdgpu]
-   amdgpu_userq_unmap_helper+0x67/0x280 [amdgpu]
-   amdgpu_userq_evict+0x52/0xf0 [amdgpu]
-   amdgpu_eviction_fence_suspend_worker+0x55/0xe0 [amdgpu]
+We need to release those folio locks before starting readahead. On a page
+cache miss, roll back first, populate the collapse range, and retry once.
+Doing readahead after rollback avoids an extra pass when all folios are
+already present. If another miss occurs on retry, give up rather than keep
+retrying while truncate or reclaim removes folios.
 
-Take the semaphore for read in the helpers instead, around both the MES
-call and the queue state check and update. The reset changes the queue
-state from amdgpu_userq_pre_reset()/post_reset(), so every caller now
-waits for a running reset and acts on the state it left behind.
+Keep page_cache_sync_readahead() and wait for read I/O with
+filemap_lock_folio(), releasing each folio before moving to the next. The
+existing uptodate check during collapse still handles read errors.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit e6a8b8588f43bd4d7054ac47cccc35f56ad2df90)
+Shmem uses shmem_get_folio() for swapin and fallocated folios without
+taking mapping->invalidate_lock, so it is unaffected.
+
+Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 Cc: stable@vger.kernel.org
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 4dca1ab48410a..958a3c9f4c617 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -362,6 +362,8 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index ce794d9760a87..6d5a44cf3a00b 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2240,6 +2240,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	enum scan_result result = SCAN_SUCCEED;
+ 	int nr_none = 0;
++	bool do_readahead = false;
++	bool readahead_done = false;
  
-+	/* The reset changes the queue state and the MES is unusable meanwhile */
-+	guard(rwsem_read)(&adev->reset_domain->sem);
- 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
- 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
- 		trace_amdgpu_userq_state_start(queue);
-@@ -388,6 +390,8 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
+ 	/*
+ 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+@@ -2257,6 +2259,10 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
  
-+	/* The reset changes the queue state and the MES is unusable meanwhile */
-+	guard(rwsem_read)(&adev->reset_domain->sem);
- 	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
- 		trace_amdgpu_userq_state_start(queue);
+ 	mapping_set_update(&xas, mapping);
  
-@@ -769,12 +773,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	if (!adev->userq_halt_for_enforce_isolation ||
- 	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
- 	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
--		/* Serialize the map against an in-progress GPU reset (MES is
--		 * unresponsive during recovery), matching amdgpu_userq_detach_doorbell().
--		 */
--		down_read(&adev->reset_domain->sem);
- 		r = amdgpu_userq_map_helper(queue);
--		up_read(&adev->reset_domain->sem);
- 		if (r) {
- 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
- 			trace_amdgpu_userq_create_end(queue, r);
++retry:
++	result = SCAN_SUCCEED;
++	do_readahead = false;
++	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
+ 	__folio_set_locked(new_folio);
+ 	if (is_shmem)
+ 		__folio_set_swapbacked(new_folio);
+@@ -2321,17 +2327,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 			}
+ 		} else {	/* !is_shmem */
+ 			if (!folio || xa_is_value(folio)) {
+-				xas_unlock_irq(&xas);
+-				page_cache_sync_readahead(mapping, &file->f_ra,
+-							  file, index,
+-							  end - index);
+-				/* drain lru cache to help folio_isolate_lru() */
+-				lru_add_drain();
+-				folio = filemap_lock_folio(mapping, index);
+-				if (IS_ERR(folio)) {
+-					result = SCAN_FAIL;
+-					goto xa_unlocked;
+-				}
++				do_readahead = !readahead_done;
++				result = SCAN_FAIL;
++				goto xa_locked;
+ 			} else if (folio_test_dirty(folio)) {
+ 				/*
+ 				 * This page is dirty because it hasn't
+@@ -2654,6 +2652,30 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	new_folio->mapping = NULL;
+ 
+ 	folio_unlock(new_folio);
++
++	/* Readahead may take invalidate_lock; source folios are unlocked. */
++	if (do_readahead) {
++		for (index = start; index < end;) {
++			folio = filemap_lock_folio(mapping, index);
++			if (IS_ERR(folio)) {
++				page_cache_sync_readahead(mapping, &file->f_ra,
++							  file, index, end - index);
++				folio = filemap_lock_folio(mapping, index);
++				if (IS_ERR(folio)) {
++					result = SCAN_FAIL;
++					goto out_put;
++				}
++			}
++			index = folio_next_index(folio);
++			folio_unlock(folio);
++			folio_put(folio);
++		}
++		/* Drain the local LRU batch before retrying isolation. */
++		lru_add_drain();
++		readahead_done = true;
++		goto retry;
++	}
++out_put:
+ 	folio_put(new_folio);
+ out:
+ 	VM_BUG_ON(!list_empty(&pagelist));
 -- 
 2.53.0
 
