@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316042;
-	b=dXu13+Le/y3GPp18VbpL8/RozoP7mkwUPAH+diHAzdrsZrmPcMklxzX1u5rhzx0gSkZS
-	 BMistKujSZgGKpqqD3Hl9dXEpLB148tsK4x22nqNiZtlPs3L4JhpEW+xE9wpxukt78GB6
-	 BLPlx+X7jCGeGQahphZnUaQqSL2zv1vIoTeT7osuzC3BqE7iRMLvQQFEN+0yYKaIp6y+S
-	 nEAoJlMTF2vhsmIRnj32sPzLIcfoyO1cXiMDcGDfT/HDKv7PZ1NeMC+JgRWoY8G08ajR8
-	 GgWiZ+2axqUpPoRImr4j/9GVoyS9XDpqKlwaQ8R+5x8+dEtia6yOSBNIpEsXVCRM1Wg==
+	t=1794316047;
+	b=E4u9BXIQ0HxSLcdiLGCBlhDCFRHoHMqB7rI4///sp4BfVWgHHVowgRm0xAIFj0rLXKS9
+	 l8Sdm9L6ZyzcR3qs8b1EOBAMZfCkoERiFpDUqzVJ3roPbTBJqEGi0390qjh6qxgllo7DU
+	 UifW2gF/Fw44fEavSG9jvOWWfby/IWmYmrkSBpP/kNK+ihRKqxA9dDox31IebSTSqtwzK
+	 97pNtHKLaGmbnwAZYp+oebqlfJX8qwEIV0A2CaYkP3q2wxGmb39B3igCcVyG5t2tddbS1
+	 kdDSlHl2MIJfGZqydiLC/LnAIpETxoREjGDzC/4VFbx/6WnsgcRdY4lfJ5z849s8clQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316047;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Zi58X+5CTp9st5c5/BcgNqrSAxiaxHrvcBXu12nWXD8=;
-	b=tCFiHbDDOzqb8botWAXZeQdeeb8LC9CovT4UOlovjwkqs/mkInBTf7FFIRKuK9cn/KpA
-	 cfN+C1oRjALc9/FHhCAKEa+HKduQ7v+M1NB1SAxACZuhiqEmTtXk+IdiMyAy0/ofXI2Pg
-	 1q/uyetDowFo3qou31RrPU2rKzYAJM2DAXRmT/k3DU6I/jK/JxBvTOXnnklstC2x5kIaN
-	 16MwtbZZUKKgCM13Y97fozQ8f7nhLpPlUUZBNn15QsYivLE3K/APjohJBJP3ko+PV4/jw
-	 015k3Sk1kNVDgtbmWhkZKIzUTF5n6gHq8pH9Vwf/BBO1urWhsi1lCjAc72EQBxiWsbg==
+	bh=JPUJFyDCbPMbrOpLBOL1M7W5xvxAnTCmtQW67pbq1ZM=;
+	b=dfNrOnBFr4ywVouvkkwAniXw63z1sOrlR6xZ9bbccyNp5DSafYJ66iCZrFWqOfzaP9hA
+	 cEjVOYmkGt/uYU/TbXe6jEPXVFEUN4/QySnJFReq6MteU49yWNN6tqkr5kQ+IMNTcSd9O
+	 AXmvm4wE9JDhbnhGL/Pq3bQc9zHX8m/Is/ynpNcquD5MzIUkJuOKzHEvkCAT1vqy82AIf
+	 hgS3WWj/50bYRdgDY+KBnxj2eUy0v7mNgA0o9RLLKvpPVc5bjE/rT3DTtrT83EymCjML3
+	 WCIkg9S7lm0DViX7GALvhmLmpfM92D8NOmiBcxNydscLvihbmz5Tk5eCyDDvMujVoRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nn5eAFfn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqPtlvdp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9822F606BFDF
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32E9606A74F
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nn5eAFfn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19E51F008A4;
-	Tue, 10 Nov 2026 13:07:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqPtlvdp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B321F008A1;
+	Tue, 10 Nov 2026 13:07:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316042;
-	bh=Zi58X+5CTp9st5c5/BcgNqrSAxiaxHrvcBXu12nWXD8=;
+	s=k20260515; t=1794316046;
+	bh=JPUJFyDCbPMbrOpLBOL1M7W5xvxAnTCmtQW67pbq1ZM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nn5eAFfn8Sq2ceQhU2BoigV/dIYktCLJgLfRHeeL4/OmTUfVutl1L5QK4vyxH9rlF
-	 LIWcg5bRCYt45PAR1cQGlp+QfrH59RetsradsIUrvhGu/50iJTfDhDEgDe4WqC8iiu
-	 3Rh3cFcBJfi7qJCJ3Zez0LojEQYdOT/zgTG6P81Ceo05GY5ZuKhdoqA/lPIyyvu0G0
-	 vO6gStCOKAImHVnjJDkSAK/wBwIpOWi/MNCqRDnwaf/4B5MWRuu/2vMqWQnTFYeK1J
-	 3GsfGyEJNd0bY+rALMWqTTeCfqtZvgzZg/xRsz5ZFTzhad1B1U/0v7y0JTrnzXQsbg
-	 82LyNqL67hy4g==
+	b=bqPtlvdpLnlZ3FbR8zPyZrpa24mwECqUCJqgWdb0jmF1KcZgea05ENADcONAwsflc
+	 +NKIx2m7qGYx7yWYXKTQIj/z8+qAVLrNDug/3Q9jsUrR3bYyfTiwMHxC23HkB7tX+p
+	 a8XmG05AMVnRLRiRggeYzsb5MxDSF4A4XxldjEl3329NNq0a2JojqYd1sjyptCdOfT
+	 tLzaqG4YtYmLTdcle30COJHLr7iD9UGObNEWlZCJDFqM2UaAb3qWWMIiyXIzKHMMa8
+	 tF0Cc90mCUukm4AjssVTlIdX8A+Ex3T2djWOJmEXEvKv1PIOajZon80s8vUEW5ENw1
+	 m3LI4iMAH/F4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christopher Lusk <clusk@northecho.dev>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Greg Ungerer <gerg@linux-m68k.org>,
+Cc: Yunpeng Tian <shionthanatos@gmail.com>,
+	Gongming Wang <gmwgg05@gmail.com>,
+	Mingda Zhang <npczmd@qq.com>,
+	Qinrun Dai <jupmouse@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] m68k: Fix seccomp filtering on ColdFire and 68000
-Date: Tue, 10 Nov 2026 08:07:19 -0500
-Message-ID: <20261110130712.1651427-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] udf: validate the device specification EA before using it
+Date: Tue, 10 Nov 2026 08:07:24 -0500
+Message-ID: <20261110130706.966645-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110130712.1651427-1-sashal@kernel.org>
-References: <20261107053339-failed-6.6-48859f8018d9@kernel.org>
- <20261110130712.1651427-1-sashal@kernel.org>
+In-Reply-To: <20261107055731-failed-5.15-9a2390959685@kernel.org>
+References: <20261107055731-failed-5.15-9a2390959685@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,69 +64,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christopher Lusk <clusk@northecho.dev>
+From: Yunpeng Tian <shionthanatos@gmail.com>
 
-[ Upstream commit 48859f8018d93bd93ef35f7430fdf5b97f2f9715 ]
+[ Upstream commit 9a2390959685ac35a58c80c8016120849a2babf6 ]
 
-m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
-ColdFire and 68000 syscall entry paths only branch to
-syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
-through to syscall dispatch, leaving installed filters ineffective.
+udf_get_extendedattr() bounds an extended attribute only against
+struct genericFormat, which is 12 bytes.  A type-12 device
+specification is struct deviceSpec, which is 24 bytes plus a flexible
+impUse array. Thus a corrupted filesystem can contain extended attribute
+that is accepted by udf_get_extendedattr() but udf_write_inode() or
+udf_read_inode() may access beyond the end of provided buffer.
 
-Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
-and route either flag through the existing slow path. Leave the classic
-MMU syscall entry implementation unchanged.
+Provide a udf_device_spec_valid() check to validate correctness of
+extended attribute that is a deviceSpec. While here, check the result of
+udf_add_extendedattr() before dereferencing it as it can return NULL in
+case of error.
 
-Validated the combined test under QEMU mcf5208evb (ColdFire): filters
-denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
-classic-MMU control (q800) denied the filtered getpid syscall both before
-and after this change. The 68000 path shares the same source-level
-omission and receives the identical masked test but was not separately
-emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
-m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
-built arch/m68k/68000/entry.o and vmlinux.
+[JK: Removed duplicated validity checks]
 
-Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
-Cc: stable@vger.kernel.org # v6.3+
-Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Christopher Lusk <clusk@northecho.dev>
-Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
+Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
+Reported-by: Gongming Wang <gmwgg05@gmail.com>
+Reported-by: Mingda Zhang <npczmd@qq.com>
+Reported-by: Qinrun Dai <jupmouse@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: adapted udf_write_inode() changes to the existing udf_update_inode() implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/m68k/68000/entry.S    | 3 ++-
- arch/m68k/coldfire/entry.S | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ fs/udf/inode.c | 42 +++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 37 insertions(+), 5 deletions(-)
 
-diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-index 37926b4b205af..6fc2971463695 100644
---- a/arch/m68k/68000/entry.S
-+++ b/arch/m68k/68000/entry.S
-@@ -82,7 +82,8 @@ ENTRY(system_call)
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index 4419070d5008a..e3a201df9b76c 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -1194,6 +1194,26 @@ int udf_setsize(struct inode *inode, loff_t newsize)
+ 	return 0;
+ }
  
- 	/* Doing a trace ? */
- 	getthreadinfo
--	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a2@(TINFO_FLAGS+2),%d1
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
- 	jne	do_trace
- 	cmpl	#NR_syscalls,%d0
- 	jcc	badsys
-diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
-index 35104c5417ff4..95d98dead6245 100644
---- a/arch/m68k/coldfire/entry.S
-+++ b/arch/m68k/coldfire/entry.S
-@@ -75,7 +75,8 @@ ENTRY(system_call)
- 	movel	%d2,%a0
- 	movel	%a0@,%a1		/* save top of frame */
- 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
--	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a0@(TINFO_FLAGS+2),%d2
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
- 	bnes	1f
++/*
++ * Verify validity of struct deviceSpec on disk. udf_get_extendedattr() has
++ * already verified the generic header and made sure attribute fits in the
++ * inode so we just have to make sure attribute space is large enough for
++ * deviceSpec struct and required impUse information.
++ */
++static bool udf_device_spec_valid(struct deviceSpec *dsea)
++{
++	u32 attr_length, imp_use_length;
++
++	attr_length = le32_to_cpu(dsea->attrLength);
++	imp_use_length = le32_to_cpu(dsea->impUseLength);
++	if (attr_length < sizeof(struct deviceSpec) ||
++	    imp_use_length < sizeof(struct regid) ||
++	    imp_use_length > attr_length - sizeof(struct deviceSpec))
++		return false;
++
++	return true;
++}
++
+ /*
+  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
+  * arbitrary - just that we hopefully don't limit any real use of rewritten
+@@ -1508,13 +1528,12 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
+ 	if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode)) {
+ 		struct deviceSpec *dsea =
+ 			(struct deviceSpec *)udf_get_extendedattr(inode, 12, 1);
+-		if (dsea) {
+-			init_special_inode(inode, inode->i_mode,
++
++		if (!dsea || !udf_device_spec_valid(dsea))
++			goto out;
++		init_special_inode(inode, inode->i_mode,
+ 				MKDEV(le32_to_cpu(dsea->majorDeviceIdent),
+ 				      le32_to_cpu(dsea->minorDeviceIdent)));
+-			/* Developer ID ??? */
+-		} else
+-			goto out;
+ 	}
+ 	ret = 0;
+ out:
+@@ -1662,6 +1681,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 				udf_add_extendedattr(inode,
+ 						     sizeof(struct deviceSpec) +
+ 						     sizeof(struct regid), 12, 0x3);
++			if (!dsea) {
++				err = -ENOSPC;
++				goto out_unlock;
++			}
+ 			dsea->attrType = cpu_to_le32(12);
+ 			dsea->attrSubtype = 1;
+ 			dsea->attrLength = cpu_to_le32(
+@@ -1669,6 +1692,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 						sizeof(struct regid));
+ 			dsea->impUseLength = cpu_to_le32(sizeof(struct regid));
+ 		}
++		if (!udf_device_spec_valid(dsea)) {
++			err = -EFSCORRUPTED;
++			goto out_unlock;
++		}
+ 		eid = (struct regid *)dsea->impUse;
+ 		memset(eid, 0, sizeof(*eid));
+ 		strcpy(eid->ident, UDF_ID_DEVELOPER);
+@@ -1808,6 +1835,11 @@ static int udf_update_inode(struct inode *inode, int do_sync)
+ 	brelse(bh);
  
- 	movel	%d3,%a0
+ 	return err;
++
++out_unlock:
++	unlock_buffer(bh);
++	brelse(bh);
++	return err;
+ }
+ 
+ struct inode *__udf_iget(struct super_block *sb, struct kernel_lb_addr *ino,
 -- 
 2.53.0
 
