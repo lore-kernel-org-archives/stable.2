@@ -1,51 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272575;
-	b=sYJx8eeakmZeOiYzUPbbAMjeiDHy2ato7IQ+FJJ+60FkVCI5bqn9EGRvDWSWy1kJbL6L
-	 ffKhzXyN3nMHagD+GDgtVUNIWH/LflMDjocOImrZWfQxX1TNumrGf5a1CL6THpRmmIpzc
-	 vKRTKoBm8zh+IgC4gibM8mj9rtgSLGuASzS1I9iwT6e+geE5/LuWq/ICcJ9Crx6Mq/YLe
-	 1VszWAtmj2Ml9CXIXae1eM6eE7nXzrdDxhmpDn3GxJtZYIIAU/93bQnlvTliF8omTO0K+
-	 WupRn5fnaDs7jP87FlBCL3Ox0MVGMu/v6eiYTwGcxrtZ6p5kG+p8rV7AOr+Yf4UoP/Q==
+	t=1794272578;
+	b=PS/pMg8nbMauz+YchaTAzRWHqyXQy2oR4XydBMHJ5Ljk33QyYPkRuPEKNbl4K/ZLZF2n
+	 x20I4lF7JslxsBOtZA0Ouy6pvQey9Ptm90jEIyZwmomYmKyItlaThNw9gVi31yiKg9jDd
+	 2cSjm9YzQ+4Ej7imgQLUIwGNVGFvYaLZGTPvx1J3WwpS6ZvgsxtQTqZwA+WUCozTeXD1k
+	 Dvz1KIHB0AnBTmsf/7ZHk1s9QMsp6/TjMzGdeggpJAyCg+YHXBCwkBQbBX7SRQR/Uc3im
+	 pgKhycWUwP4/j5O+nLy6G7I/qzo+1z2deJUyfPIjmduUh2tohHlHIV50IPyaV80gbjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272578;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0/tS1LTPjbI8XMmCsJSJGPc5iBqLz0JSjZP1Ob8gdyQ=;
-	b=xe/E4RhhmabrKabt4Is9+CvngD3rIFlrqWOTv5foHV5zBsiv2D5j5ozxsYHYgCE9aJbz
-	 RtWzcd+7z6pUAGAawXH99tqv2ln/6jPe0IFerNhor/aKgw97tUKS2hfLBENcuAi8axgyL
-	 Knn2JTvbjAeyCRaKamN3mBwbJXM3ihWnSRYBQqIvPYMyp73owG87ulOcV3X1/v/x0QzdZ
-	 8cKT5bjPnMMtbi9A1CHXljJj4OoD41TUFFsActwVlZK8Ioe6PMeIStNrFii4hiCpn1FL+
-	 hh8Mhgi5BUcyPJKnxasYXwgbAW88uvwwb16tH7Z9SV/mtpioVc25jL13zPVGSE3m4dg==
+	bh=uecDH5UTv5/MnNT+DYDRGrvQtGG5Onnjl0UjUYPtckw=;
+	b=Z9uSeFj71AZ/kPZh3LL/XrX/vNA+wt76EkH6GBjeCgxdxM+ju6BQtKUl5o8m0zbzonaM
+	 jmVnLFnJ9S9K/eaG86Ndcsj93zLI+eB/IbFBf5sLb6NEN14PJ+ocqV7ynk9Myehh8C9Qf
+	 UbwMfD62i/LG8MZyJtwY3ypxB+Od3e6RHq4Nz1bOtN1MEhjS86LuUg1OziLqq3s8Db9Ug
+	 2X9TAYZl1D1wiXJnfqwVL4YMZBi1wV0Zk6JT6jRuhwKz19L0ZhGcspsqXDCUaXfANQaSK
+	 4dVuEfqgv9rn8fxKJJx6cvYAMwvi9Zb0HMwXAH8jwxEi/FsQz+DDuWchdDhZW4aUhgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWXU7NG5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nY2RtRon;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8F0606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B26606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWXU7NG5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205801F0089F;
-	Tue, 10 Nov 2026 01:02:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nY2RtRon
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6751C1F0089F;
+	Tue, 10 Nov 2026 01:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272574;
-	bh=0/tS1LTPjbI8XMmCsJSJGPc5iBqLz0JSjZP1Ob8gdyQ=;
+	s=k20260515; t=1794272578;
+	bh=uecDH5UTv5/MnNT+DYDRGrvQtGG5Onnjl0UjUYPtckw=;
 	h=From:To:Cc:Subject:Date;
-	b=oWXU7NG5JhDTcOZwKVKCkT+a8yLYPhZci56tyhpLxE/Df44bUglcvloU6xoyWLjSJ
-	 22FUEwVAs8VeR85QvqUYf21V7qi3kmibjiokJtpRrRoBXv+cTlHjO9q8YyodNrXapP
-	 x1F+in0eAM+a7ODLJ4bMPxIRPuoYyfRLGni1T0rPI9dg1lwugAoYl9fP0H4WtLmNao
-	 AQEc2W+yWea+AKZEHPVWA1kHx2jJAvGmpB/ZYQ3LQ4kfQb8GIijnrFoRk/f3jpxvlc
-	 twCmrLq9KdQWh/XrfkTY3d4pMgEl9HE+P2rvXtTUG3douhtgdIZmqg7KIce1wtzY0h
-	 VJ+mTkomSB1Kg==
+	b=nY2RtRonzy+U2/5xBLbFWiv0tSakkag6vBi4ZlI0mygs8mYUg96/t/qxRuHHNovnC
+	 T42hhfPoTLQey3KRu+hefM1AMolFYooru49YjKWGkTpJJJ9DXeHgM7VvXPqurv8twb
+	 TMewfrsnyx5f5eLbfX8Emv2Nz3TG+bUTNZnFW4rvXDJ/XfMQFzQiLDfPzAH6zdxwOZ
+	 UmOTWPkNGaaZu6QnkvtoeW2JDKgf5XZMVcoJyYtQm5V6TIUmApoDuse7cRdka+3oUQ
+	 BJ2iUAajm5jORgyRf/f5eTSol2cZv1d6Zc1i5zD7m31K+NfxjEvRO0jBTNjG291Sbc
+	 57Z5i6f1HrS1g==
 From: Sasha Levin <sashal@kernel.org>
-To: icb@fastmail.org,
-	linkinjeon@kernel.org
+To: eva.kurchatova@virtuozzo.com,
+	pfalcato@suse.de,
+	kas@kernel.org,
+	ziy@nvidia.com,
+	gourry@gourry.net,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ksmbd: do not read past the DACL in the access denied debug message" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:02:52 -0500
-Message-ID: <20261109200252-failed-6.18-8296a64df544@kernel.org>
+Subject: FAILED: patch "[PATCH] hugetlbfs: enforce F_SEAL_EXEC in setattr" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:02:55 -0500
+Message-ID: <20261109200255-failed-6.18-b7f570e7cea7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,56 +74,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8296a64df5448548f410fb246c1d88a93609602b
+git cherry-pick -x b7f570e7cea761ec7eb4a3a9557a3a082d14e88c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200252-failed-6.18-8296a64df544@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200255-failed-6.18-b7f570e7cea7@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8296a64df5448548f410fb246c1d88a93609602b Mon Sep 17 00:00:00 2001
-From: Ian Bridges <icb@fastmail.org>
-Date: Sun, 1 Nov 2026 23:09:15 -0600
-Subject: [PATCH] ksmbd: do not read past the DACL in the access denied debug
- message
+From b7f570e7cea761ec7eb4a3a9557a3a082d14e88c Mon Sep 17 00:00:00 2001
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Date: Thu, 29 Oct 2026 11:43:26 +0100
+Subject: [PATCH] hugetlbfs: enforce F_SEAL_EXEC in setattr
 
-When smb_check_perm_dacl() falls back to the POSIX ACL and then denies
-the request, its debug message prints the access mask of the ACE that
-the second DACL walk stopped at. On that path the walk ran to the end
-of the DACL, so the pointer is one past the last ACE. If the DACL is
-the last part of the stored security descriptor, the message reads 4
-bytes past the buffer, and KASAN reports a slab-out-of-bounds read in
-smb_check_perm_dacl().
+F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
+not check it. As a result, fchmod() can change the execute bits of a
+sealed hugetlbfs memfd.
 
-Print the requested and allowed masks instead. They are what the check
-compares.
+Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+to execute bits when F_SEAL_EXEC is set.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+
+Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+[ david: use common helper; fixup Fixes:; check only regular files ]
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/smb/server/smbacl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/hugetlbfs/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 664f012636116..cdb04d29ed093 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1672,8 +1672,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	}
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe0..02e0a65d596d8 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -28,6 +28,7 @@
+ #include <linux/folio_batch.h>
+ #include <linux/fs_parser.h>
+ #include <linux/mman.h>
++#include <linux/memfd.h>
+ #include <linux/slab.h>
+ #include <linux/dnotify.h>
+ #include <linux/statfs.h>
+@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
+ 	if (error)
+ 		return error;
  
- 	if (granted & ~access_bits) {
--		ksmbd_debug(SMB, "Access denied with winACL, granted : %x, access_req : %x\n",
--			    granted, le32_to_cpu(ace->access_req));
-+		ksmbd_debug(SMB, "Access denied with winACL, requested : %x, allowed : %x\n",
-+			    granted, access_bits);
- 		rc = -EACCES;
- 		goto err_out;
- 	}
++	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
++		error = memfd_check_seals_mode(info->seals, inode->i_mode,
++					       attr->ia_mode);
++		if (error)
++			return error;
++	}
++
+ 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
 -- 
 2.53.0
 
