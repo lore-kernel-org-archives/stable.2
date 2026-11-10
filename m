@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794320503;
-	b=vTsddKEF6WoSOzPvoHU/FwanhFq5QKSu5rtMPkSU0PNTfAt6vvG2BcKuGOYaaoP1vMvZ
-	 Us9t/XR2nkte1k0x8QtAUnGh+e5iClyA1gMhpeJf5hNr/s1B2HTlIPAPm1iBLaha4Ag+V
-	 /KSfaxpeK4ms9nq0hmnGK0/814UQt5PsQxbh5AVaY7DOR8/ufQDohIMgHhxfWiKnQ840+
-	 oDreAyu+/DUenkZPrF0Satgj1hh0V0w9uN6BQMb1B/tZN/6PoDceT+cv/YnXjKBfpsW01
-	 J+z7zpIy4/LHSzEd5uRQrlhg8tDQmLVbDBI58KY+FxYCMA0a5QOEPrMFPvkRg0suWbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320503;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Ejm8pe9G15DYxQ7Hb5OdNIp8qY5r8fdDKVN+ZYBfwxM=;
-	b=TFaMV9kYPrGl/wrhqpK9NEtlzkDK4fb+WFm+K4QvYLmesLpSM0MvKrXzjfy/WOQcosGA
-	 1KnZJrggaFeZmvM7oHhAU2WmRQnRRju1cKLfH12+/bZoZczFkUfcloOpkcVHPaQ1Vulyd
-	 EmtvbnEQspUPi1PTAX+Q8m7Qf+0YPbrpMomlIeU6bQQZkA0ixRHyWUyIHxZx6aAGm9m4D
-	 Q49Gen4kUN1nAyMBVuSGWidyk0h1P+AvVn+sv4d9M6kQlNtciUIxohlL2UjlmSaPqUG7s
-	 y9dvAHC3FoEx8ECTQy6x3hQ+Kfr4pWUOuZ0M2w4e//dLMAJtSGXfko1NBdejZgAhyJg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uArSYa94;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5B360A3835
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD5B360A3835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794320529;
+	b=DCeC/vi59h3E3xAkueAGxZpEv2MZ9DJs/WIBz9NnJn6wNDJ7h7hjSDUwqYwfzrcO/abN
+	 vnAc16pHydTOQiypgL+1J1NtU9qa3dP70GZNtYjYnih8F6J+LN90yqDFKupmgQ5b3rY8B
+	 2Q2eya07Xy/eehkSn2qCW65DWu+RbKerkB00A3U7ODE5htVj5oMsa9IRmSSP80o/3JU8B
+	 N4nzUsc2+BRvcyH1GyNUXkaejd2lmifZY0hpPrqn4p+awjM4EzWxiucupk7aftwmSmk1q
+	 A3ZMoYuu5c3MpKZZXp41zrLc/HYW7GuBPOQffgkoT5GYS4EdtqqD1alUdZ0m1ZDro1Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320529;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MZmdFrQsotgCT0wSbD7pFt39rO/eJb/iqITxSt+oBTY=;
+	b=zDKbbNv70BFkwuf62Zvf81i3ekE3YUdcYfTi+vHF4cJ8l0V0DMU+nkFwx211t4IHBIa8
+	 +t4K1egTygR6cOco3Nc8ZkSO9i3F7gUVauQ8UtnI3KbxYypZVOSbK7DwkT+vnWXsoulJx
+	 4CITlV/EnovYoh3h6esfAQ7xxffLU924V2ZyegJVVSbADTO86cRy3WzbrsIqeNKyJL9xx
+	 Px5ULfAgqBIrVVOYZfPLTEOoKupi50I/erB0vXjwJeRf+oBjyO5E5RsxEeuRy9tmvujWw
+	 2fjGgWV50wLijRdFCkK1YmUGS+4YJN7FGl2CastvmG00T4lGaTLGFDrGhwp28mNbZIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="r/QOaL1i";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 92900606A32A;
+	Tue, 10 Nov 2026 14:22:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92900606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uArSYa94
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c15956ce07so458207e87.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:21:42 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794320501; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Rrrqiw9ZH4A6KKkxQoavd2SWqBhgZj8Tz/R5+tlsYW2klRftbkgjyvYGJMIjbIf5fV
-         69dRWCPnIYrIO+6vl/8gjt5L6a/HQlVnmmTQVSiy9O1aeS01duJJRZMKNXcRhrZ2wk9B
-         akQuM8wMRxD9PW+xXZUfVD26tLQe02UwhhhY6uxPsZxEDKHY8cUqQiSJVCZoRWo2Jaf7
-         J4bsOCZCDkEVrKnMLmEQS6pDmx6iEmN0AOs2pjh2laGdn1LEf3Fdl33RXHXZavHHHPfV
-         yjcCHgzNUKLFUsqcuOfBRKGmUhL01irINuf6i8OQjD527/aukK5M6snC18uwLN8KMgZB
-         +vZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ejm8pe9G15DYxQ7Hb5OdNIp8qY5r8fdDKVN+ZYBfwxM=;
-        fh=Rb55KI0X1KqkLwHA1rhvfUOMdeyX86m/0Fbdz2jqSV4=;
-        b=R05SPRviTUoIhvR6CaJoiI9o+pg8rnPqH2vKzk3BcYLRIiCmaVvVr91MfLWwMY8SXz
-         TorDiDYv4yR8uik3xlUbuMeGhVVPdn5R5AAgq+NhHf7s4ApApRl0yt5UYu9CTYL2WFrC
-         rVW7tCUHkXe4HbFEk1UND0dK+BpIAUrFrRUQZqqlGgSIvE3ax9kusUcK2cTSzvkd8lHz
-         DruD6IEzXmCamAvuyxIIDYJArlXLV/a+b6us1+UvsyKAlT3vArA1UPeKFJtz+zfBmgwc
-         yqH8H7r7zfPv0pnQY6EzbHfXUTWNzzaMvDnX4uIay7LJgnpN4aqt7YyztmaDSaSygj8K
-         QHxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794320501; x=1794925301; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ejm8pe9G15DYxQ7Hb5OdNIp8qY5r8fdDKVN+ZYBfwxM=;
-        b=uArSYa94ATnFMRAypTPoIZopEiWjn7Q5TSFwOXUFzIXVd3gI2H/IZPRINtu6zbzQEm
-         pzUccU7eoX0n2I3adAPcdkf5jZ9Hsi4QFTmUHFbgJYiTTbjBmID6AkvnWbg4NOJjd5T8
-         Dqm42cOmZI4RPyjuQkR2/mN0ZfR/aSE8uHmmI//8W2Zvq7cgII+cNDJoVB+7s50E58rd
-         0RCD6uBKE015IERTcPJqUkP3latdSh5W/Gx+gcFc9sSQfx0sKWWmNmpKUOcxWqiD+OOH
-         Y5ObIIgUTlDOcqBZnY6TxngSwu6z90aQzL9512gnSsayMyEa8pzZG+Wie37BxTf4h4Yj
-         lkgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794320501; x=1794925301;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ejm8pe9G15DYxQ7Hb5OdNIp8qY5r8fdDKVN+ZYBfwxM=;
-        b=CSSKMMpv65Bywa60T8dXFS1Crm5sNSSRU5mYfNOM9Q5kn3H3SqgNG09w5b8gccGMU/
-         3SU9V3clEUCk5wqjVvIwTnkU6oylBBmB4+fD/6u83ZRPoM+Jh14bULMzOuV3bfSwAswe
-         CgWIv//1JbqJmsXT9puW3MzofAAod13PHmxuJhhHNDJHysLc8+MedB41mH41IJVAhNbh
-         zY9J61iu7B0wNnv3PXjwuuG3Eq5+pmc18MX1vh5/vMEBfrvTwHEpcdNam22HBAWt/4ZL
-         cBpDRbzjpF+ns6h64jklgLHxFOz9mNBdOWM9viwvcnaDpABpIOG1oDAG1TlVHfVMBboH
-         NpLA==
-X-Forwarded-Encrypted: i=1; AL+hErHV/UoqKYcf/ZDdZVdKYvkutVW1TTwyPDfIoqtXbkiiNBnsPwz5qFLfNRKEzXQYck2cXB32/9A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+H7fR2tZ3p6NQZVvEdPiYA9/YEkacuR4NjEh1RUl0aQeDEvjdh
-	7TwjUnDoI459EpBhDera8kmtSKZa20lJRodheaQInG06+G1oWOG2zLajX5U/7FLRAp/CEp7M9VD
-	wxAZnbW0cdmEfR9torX2r+FIRs/fCJp0=
-X-Gm-Gg: AYBFou39LwDzfS5HFtb1wik4/+kPOYtm7VVriyFi9SY2qL3KiJeT2ux1ZXqG7DeIZm9
-	/pALf2e2cUdCIcvi2neO2mIDghDjjt9XNxURoxUBNOYyxTktKUn40QBJSLzDsTE6x69tgbCJ5Sd
-	2TjoBQm6ZCapIcc2NJWoEir3hhx3EpE7NdXdVagex/0tbhd1+DNAuM8EUuQep1btuzlQyqDVfc3
-	+k1GMVBo7bmx5I3RDnLGTTjkRtLFUl9VQvJcN9/jPXMkHbToYFsYkhRo+z8NaWwgc3Q/XHl/SeE
-	ANn07EkgXnj+/K0tWsnOZsCSXIUv6UTtGuqCPhgVFmKUbPrFxE9S+aRR2aUzxQ/brdNrIfxTXqH
-	9C5tfEvokx1MHUKjnDlMvktT/vTD2eMT3m8wkExChgH+aNCOcCPQ32I8jXmErfj6dkD1ZKJOYFa
-	zjuVDeyr6KyUS0xrtWGfN217mZwg==
-X-Received: by 2002:a05:6512:15a8:b0:5c1:4bb3:afbc with SMTP id
- 2adb3069b0e04-5c156de82b9mr828897e87.26.1794320500715; Tue, 10 Nov 2026
- 06:21:40 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=r/QOaL1i
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8F071477;
+	Tue, 10 Nov 2026 06:22:04 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D605A3F632;
+	Tue, 10 Nov 2026 06:22:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794320527; bh=qqmX+RQD8lVwnDNULp8bZFK/Y+sCe6EIbhF7PutAMtA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=r/QOaL1i1N1G96BwQV4CtnQOUTUJaFS/2qu7/VQtLdLOjD0oCPtyV7uELp66l/22v
+	 AjcibYeVw5kXy/30pgy9puKV8sa1YfJqWh1fkQVXLVU6MwlKXceVyhuGhWRVA1c3w6
+	 wMIg23XbPsmXeXiTNzBFY/8rPTX92M5EAhKtwLWU=
+Date: Tue, 10 Nov 2026 14:21:55 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>, imx@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>, linux-amarula@amarulasolutions.com,
+	arm-scmi@vger.kernel.org, michael@amarulasolutions.com,
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v15 1/2] clk: scmi: fix SSC spread conversion
+Message-ID: <avMog5kzJpsiUhXn@pluto>
+References: <20261104103620.4054694-1-dario.binacchi@amarulasolutions.com>
+ <20261104103620.4054694-2-dario.binacchi@amarulasolutions.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,25 +68,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261018022400.599028-1-festevam@gmail.com> <20261104105829.GI792264@google.com>
-In-Reply-To: <20261104105829.GI792264@google.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 10 Nov 2026 11:21:25 -0300
-X-Gm-Features: AclHuK-TGMXiiM572Q7C7MqR_s9Ybhyu13xf-9p15OjOQAwSBPcq2XTBncA1S4E
-Message-ID: <CAOMZO5AjeeNdeysBuoUoejg0yECiNWjX6o=Q+_iPUfF4=uiVOQ@mail.gmail.com>
-Subject: Re: [PATCH] mfd: mxs-lradc: Pass mapped IRQs to child devices
-To: Lee Jones <lee@kernel.org>
-Cc: dmitry.torokhov@gmail.com, jic23@kernel.org, linux-input@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-iio@vger.kernel.org, stable@vger.kernel.org, 
-	Marc Zyngier <maz@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104103620.4054694-2-dario.binacchi@amarulasolutions.com>
 
-Hi Lee,
+On Wed, Nov 04, 2026 at 11:36:02AM +0100, Dario Binacchi wrote:
+> The spread_bp field of struct clk_spread_spectrum holds the modulation
+> depth in permyriad (1/100 of a percent), as documented in
+> clk-provider.h and in the assigned-clock-sscs binding, while the i.MX
+> SCMI OEM extension expects a value in tenths of a percent, as pointed
+> out by Peng Fan.
+> 
+> The conversion divides spread_bp by 10000 instead of 10, as reported by
+> Sashiko, so any valid configuration is truncated to 0 and the hardware
+> is silently programmed with no spread at all.
+> 
+> Divide by 10 and fix the comment accordingly.
+> 
 
-On Wed, Nov 4, 2026 at 7:58=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
+LGTM.
+Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
 
-> If this all seems like too much, let me know and I'll spin-up an RFC for
-> you to test.
-
-Thanks for your help. I sent a v2 with your suggestions.
+Thanks,
+Cristian
