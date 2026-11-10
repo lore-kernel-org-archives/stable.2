@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794314509;
-	b=Gp4cVwl4UUrPyZ4Xjh/4SGVVtLdLECDyHWSL4/w83wzeD9dxJKPIUehNjSXEtkzy8TrQ
-	 eaB3VH2VDRud6Np8G3xVXZKpZi5T3Vcf5SimeVUp/kTSV0dp5RXnxatoUQv79c4BQR/KN
-	 fM91SS2qbkYha+TxCbXVQ3nwUu+A/BECOalmu7Xk+/xNcreSgDdU74/xM56hGvPqFp3gr
-	 n+RAGBCfWb0hl5WOyphwNRMNUJjlzVjikbjFi4d7lb5KDPDITzCmHdwc2vWXPsXuE/LKq
-	 +0sfCnaqR/hwITTcXgMDR9opn2sCe57JEitFYxet/kWbE8mOhTh9hMGyttWPEdUnmdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314509;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=X0IFJVOtpbpXX9qyQ+NjxAK8tq5FRFVx6Y0AIb9bC6k=;
-	b=dM4BvFa0aHRRzZr3YnWzmjCURv9v27agEnudr0NMIq2Wo5fj+/Sj3rmrspWlybSx9a4B
-	 zyGiF1tBMjmAALHgZ5dDKk5yXDSSCPjaeaQWfC/A6EoMyBq82DvpciZe3cCc1PiW0sG4G
-	 kQ2S0P4lRtXZ0hxCUpwLjFpHPqk8tvRqGDlBcUdjNaTS8JB3LzA/YOvZnctV+2+rwHOIu
-	 zSNU/uuhvSDP89i3PRdYvHBtpIqr9WJPvQoMUxs7wOPRYQBrUagm5HhrUVYsYVqCrxhV0
-	 9y9jykG1EKdDWtCrTOFmx9M2QMuS0T8PeC83HZnUxQXUcIxhWYwJlguD7fyJMpsf04g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmG+EXuD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794314554;
+	b=zG2g0kYZJlnuf94XG08mxSB9rw1qBaDaT453vWBLCLckpwMB7Eu2rPIW9AhkFpymrOg+
+	 8DoQXrSH/CpFZ8ICbGy4SKcCuzVoyUzw0rcU62OLZFnuufwyKY0tcZ9ox+Z0DhZdmY9Bg
+	 aYHNRIR72MK3RutQSfPPKZGMHd8X4TzBnGjPfl5MsvjGQ65LDWY6Djuq5qeUauog+fgub
+	 knmIlfnBhUSuRocKApAgS85VLVT+OagwxMY9dciBLJE/rIBRu4oaYOSXo3sX6LDI0Zu7G
+	 4Fcr0s6cDNn1THHB+vM616htvA8DluEqcBqf8SosNImsCUUWfL+Gs8X3EDpUSoXEZIQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314554;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=iGCaCsmZ0D/vkwHSlz8uFZ5TuAmwD/A8UzAU/w4ZL54=;
+	b=C5J8dmBd5DpdZmxXxBllDQjnugjhR1ieffaokRblHB1+/N0/uAnFvTYLZoZeV9ANnoXV
+	 7vMprA+XuwZIXUgMXXEr9n7ur3SiNdgDuhJY6bJSWqz+me7k8ucYN+1vBqTseRO/G41o7
+	 uOSckhVB3ZEqJROp6mo/ClQ8xFcnSA00fQoMAj9vZaipeVBtp3FqtvNyfykRgsGKc+qJi
+	 voGHHxXUpQWUDV1I+g8UKTjQFByU7cabYRvnH1lQyoOCmsJ9ftfH2Gwqu/ieaihO/pDBZ
+	 43CaM3OGJW7TgD+HxbSS37TcyWNyFKB0yXHj4D99X312OE/ghzsIAMt69v1XKQwOgBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfebLJ1n;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8276F606A330;
-	Tue, 10 Nov 2026 12:41:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB8860A2605
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JmG+EXuD
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794314509;
-	b=M137ffYybQgHxgZ5t4Ep37YiXbcieuak31EH96TvIyzumhxuP7Y9TGfFUrauYxFV6EKP
-	 GlKfXM2OEM+sup9l/Zo7Tp/1uQuiWSHMUkfjJV4SR11Tc718Fa8K0SXZdE8EyKN48Jz+6
-	 b1oskZve5ReshnNDBVeCx8JywV/uTar8T2XPhtZczNQb5hlApy0p/3CSgUXVdcFu8e13n
-	 Ho54ay3SbNtoEBPx3iQTyLvoPmyPWEjMW7buGE8E2TiEHgjKR1TnpfXMghCFalOmVAKYg
-	 6VOro9OL6TZLAz5UDnZ17E1jZ250P1kB4HLSs54E8GQXQPgn/WnQQ836VMv+r58F+oQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794314509;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=X0IFJVOtpbpXX9qyQ+NjxAK8tq5FRFVx6Y0AIb9bC6k=;
-	b=lP1xupstwNQM51g4SwT1ayas2sR2LH8tYVF7tMCzvOA+KZcT0+9gid+aHOQlXsZy9GiU
-	 edhLwMP0arARUCe9DvxDAyhlfAEJ2iEQn3OoFV10n2Q4GKAhw5FRLK6emRztiqdhdGjKr
-	 fH0n+sDYgIhdlxfoh9tudldoUXC8o53a39DsCo2DvV6ACmY1dFu5Ce4IeZRQnxjzSXTZA
-	 BMoTOftEDX/9i5dNd4pnAAx7Q97v+7d2cRxkbhL8AXlyhaBM/MKPVSvUrvvtobJwxfNtA
-	 PGZPdgs7py6JAqefciqRHjUUZSuVXPvGob8QetOj9/tBSSciuUM61XJt7B7CPgwn+CA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E19151F008A3;
-	Tue, 10 Nov 2026 12:41:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfebLJ1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 506641F0089F;
+	Tue, 10 Nov 2026 12:42:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314509;
-	bh=X0IFJVOtpbpXX9qyQ+NjxAK8tq5FRFVx6Y0AIb9bC6k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JmG+EXuDaPcGCnO8ZtMVp91vlTpI2kjGTEPB1nr0JRHewE4JiMaQ3T+Vk5RrMtu0N
-	 P+F4TQBSkatPNlKLuI0/345UvXLsNlUzvnvi3kQ8gUSVCrXEFnWHanpGXjPAd31zRR
-	 ANS3LxMtOmDyGIdLXrJZCUFRResFpkoXyr1qMcoylac2cDrhP5YpfbIZ0bJW2omrT7
-	 ftHOEbHVBamAx8HT7OJvO8K8elHil0F3qBgqdOKPpQgLgt3g3tdZC5jtX4WkcLmLUf
-	 74dUj7FGvC2ZpSECUNXiKVPxrC4S5cwTNuD9rhdtkYKTHJuSWE8e2LPSP4kfN/+K71
-	 XBjTv496yn1zw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 716E048B56;
-	Tue, 10 Nov 2026 12:41:47 +0000 (UTC)
-From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 15:41:46 +0300
-Subject: [PATCH v2 3/3] media: verisilicon: leave room for the JPEG header
- and one stream burst
+	s=k20260515; t=1794314554;
+	bh=iGCaCsmZ0D/vkwHSlz8uFZ5TuAmwD/A8UzAU/w4ZL54=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RfebLJ1noBnR25gBlxubD7ewFRhWFjGa3eCH4yaNMKoJ6+zX45oMxGMcFS4jzxBxG
+	 e+1WLxzOFkH1reI4Dii/w9DO3s32nVD4IKoJRfh1yK4VKWgWbr/tULSoEQdWfUJLhN
+	 GSfOjll9/sKJkgPO64DmPuqXRltQfNyPKc6zicRNsa9djLtS8oxpQmVJAnB/d9O6dD
+	 0LlusbbdbX/EFkrTYslC0JJrF+vF9ku0Dfkn/f3xIvPasOxKWNMeStg2oRei8FVmhu
+	 CBRKhtNNae9Yq33sHrFOZz58UYINeFnbDIPR8LQ6tnYfIczTcwJALi9QREbhPTO9Ft
+	 h+OejkwCJrZzA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nikhil Solanke <nikhilsolanke5@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] usb: core: Add quirk for 255-bytes initial config read
+Date: Tue, 10 Nov 2026 07:42:31 -0500
+Message-ID: <20261110124211.1465892-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054630-failed-6.1-40224df29729@kernel.org>
+References: <20261107054630-failed-6.1-40224df29729@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,81 +62,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-hantro-buflimit-v2-3-ff7790def9fc@gmail.com>
-References: <20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com>
-In-Reply-To: <20261110-hantro-buflimit-v2-0-ff7790def9fc@gmail.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Chen-Yu Tsai <wenst@chromium.org>, 
- Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794314506; l=1858;
- i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=CeJV7WTdl8YyEt6UT/A5SLtk2CJudxLaFIgLvsKKuB8=;
- b=a6Kl0B0YyzxhYqxv/b89jliXBQrKiAALwDgE0BamEs0dxGx9Dj/wZSns3/8hB3anPmZ4cp3a/
- WDD3Wbae9U3DCBHdA8Zs+B3G/zVCgIKLABK1qhp6RWL8uvwdivejO63
-X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
- pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
-X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
- auth_id=1409
-X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
-Reply-To: shomenkow@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+From: Nikhil Solanke <nikhilsolanke5@gmail.com>
 
-hantro_try_fmt() keeps any non-zero CAPTURE sizeimage of the JPEG
-encoder, however small. The CPU writes the 624-byte header into the
-plane, and on the RK3026 VEPU1 the encoder then writes at least one
-64-byte burst even with a stream limit of 0, so a smaller plane is
-written past its end. A plane smaller than the header also makes the
-WARN_ON() in hantro_h1_jpeg_enc_set_buffers() fire on every job.
+[ Upstream commit 152f174a13618bec1f842d2deb69245cb2ace51f ]
 
-Raise a smaller request to header_size + 64.
+Certain third-party USB game controllers exposing (or spoofing) an Xbox
+360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
+The device disconnects from the bus without responding to the initial
+GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
+config index 0 descriptor/start: -71'.
 
-Found with an LLM coding assistant while porting mainline Linux to a
-Rockchip RK3026 board; the assistant also drafted this change. Tested
-on that board: a sizeimage of 1 or 600 now reads back 688, and frames
-that do not fit a 688-byte plane stop exactly at its end. Not tested on
-other SoCs.
+The device then falls back to a secondary Android HID mode (with a
+different VID:PID), losing XInput functionality including rumble support.
+The failure reproduces across multiple machines, host controller types, and
+kernel versions including current mainline and LTS. The device enumerates
+correctly and remains in XInput mode under Windows. Notably, the device
+enumerates correctly in Android mode when the same 9-byte request
+is issued for that mode's configuration descriptor, confirming the firmware
+bug is specific to the XInput mode.
 
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
+identical up to the point of failure, with no visible protocol-level
+difference explaining the divergence. The root cause was identified when
+Michal Pecio discovered via a QEMU bus-level capture that Windows does not
+use wLength=9 for the initial config descriptor request; it uses
+wLength=255. Alan Stern subsequently confirmed this with a bus
+analyzer on a different USB 2.0 device, and Michal verified the behavior
+goes back to Windows 95 OSR2.1.
+
+So, add a new quirk flag USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE which causes
+usb_get_configuration() to issue a 255 byte sized configuration request
+instead of USB_DT_CONFIG_SIZE (9) for the initial
+GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
+behavior.
+
+This patch intentionally does not add any new VID:PID entries using this
+quirk. Some affected Xbox 360-compatible controllers spoof Microsoft's
+VID:PID, while genuine Microsoft controllers already enumerate correctly
+and do not require this quirk. Other affected clone devices use their own
+VID:PID pairs and can be added individually as they are identified.
+
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable <stable@kernel.org>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Link: https://patch.msgid.link/20260728195158.65162-2-nikhilsolanke5@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 40224df29729 ("USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/verisilicon/hantro_v4l2.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .../admin-guide/kernel-parameters.txt         |  5 +++
+ drivers/usb/core/config.c                     | 32 ++++++++++++++-----
+ drivers/usb/core/quirks.c                     |  4 +++
+ include/linux/usb/quirks.h                    |  3 ++
+ 4 files changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
-index 83af9fa1ce94..6a6d27443a5e 100644
---- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-+++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-@@ -394,6 +394,15 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
- 		 */
- 		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
- 			pix_mp->width * pix_mp->height * fmt->max_depth;
-+	} else if (fmt->codec_mode == HANTRO_MODE_JPEG_ENC) {
-+		/*
-+		 * Room for the header and one stream burst (64 bytes on the
-+		 * RK3026 VEPU1), which the encoder writes even with a stream
-+		 * limit of 0.
-+		 */
-+		pix_mp->plane_fmt[0].sizeimage =
-+			max_t(u32, pix_mp->plane_fmt[0].sizeimage,
-+			      fmt->header_size + 64);
- 	}
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 33744e931489a..67eb9eba78f47 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6646,6 +6646,11 @@
+ 				q = USB_QUIRK_FORCE_ONE_CONFIG (Device
+ 					claims zero configurations,
+ 					forcing to 1);
++				r = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE (Device
++					fails during initialization when asked for
++					9-bytes configuration descriptor request.
++					Ask for 255-bytes request instead to mirror
++					Windows' behavior);
+ 			Example: quirks=0781:5580:bk,0a5c:5834:gij
  
- 	return 0;
-
+ 	usbhid.mousepoll=
+diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
+index 7d57fb5a1ec7e..a1c592a11c494 100644
+--- a/drivers/usb/core/config.c
++++ b/drivers/usb/core/config.c
+@@ -891,6 +891,18 @@ int usb_get_configuration(struct usb_device *dev)
+ 	unsigned char *bigbuffer;
+ 	struct usb_config_descriptor *desc;
+ 	int result;
++	size_t usb_config_req_size;
++
++	/*
++	 * We usually start by grabbing the first 9-bytes descriptor so we know
++	 * how long the whole configuration is. Some devices with quirky
++	 * firmware will fail enumeration, so if the quirk is set, use 255 instead,
++	 * mirroring the behavior of Windows.
++	 */
++	if (dev->quirks & USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE)
++		usb_config_req_size = 255;
++	else
++		usb_config_req_size = USB_DT_CONFIG_SIZE;
+ 
+ 	if (ncfg > USB_MAXCONFIG) {
+ 		dev_notice(ddev, "too many configurations: %d, "
+@@ -917,15 +929,13 @@ int usb_get_configuration(struct usb_device *dev)
+ 	if (!dev->rawdescriptors)
+ 		return -ENOMEM;
+ 
+-	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
++	desc = kmalloc(usb_config_req_size, GFP_KERNEL);
+ 	if (!desc)
+ 		return -ENOMEM;
+ 
+ 	for (cfgno = 0; cfgno < ncfg; cfgno++) {
+-		/* We grab just the first descriptor so we know how long
+-		 * the whole configuration is */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    desc, USB_DT_CONFIG_SIZE);
++		    desc, usb_config_req_size);
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s: %d\n", cfgno, "start", result);
+@@ -935,16 +945,14 @@ int usb_get_configuration(struct usb_device *dev)
+ 			dev->descriptor.bNumConfigurations = cfgno;
+ 			break;
+ 		} else if (result < 4) {
+-			dev_err(ddev, "config index %d descriptor too short "
+-			    "(expected %i, got %i)\n", cfgno,
+-			    USB_DT_CONFIG_SIZE, result);
++			dev_err(ddev, "config index %d descriptor too short (asked for %zu, got %i)\n",
++			    cfgno, usb_config_req_size, result);
+ 			result = -EINVAL;
+ 			goto err;
+ 		}
+ 		length = max((int) le16_to_cpu(desc->wTotalLength),
+ 		    USB_DT_CONFIG_SIZE);
+ 
+-		/* Now that we know the length, get the whole thing */
+ 		bigbuffer = kmalloc(length, GFP_KERNEL);
+ 		if (!bigbuffer) {
+ 			result = -ENOMEM;
+@@ -954,6 +962,13 @@ int usb_get_configuration(struct usb_device *dev)
+ 		if (dev->quirks & USB_QUIRK_DELAY_INIT)
+ 			msleep(200);
+ 
++		/* Skip the second read if we already got everything */
++		if (result >= length) {
++			memcpy(bigbuffer, desc, length);
++			goto store_and_parse;
++		}
++
++		/* Get the whole thing */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+ 		    bigbuffer, length);
+ 		if (result < 0) {
+@@ -968,6 +983,7 @@ int usb_get_configuration(struct usb_device *dev)
+ 			length = result;
+ 		}
+ 
++store_and_parse:
+ 		dev->rawdescriptors[cfgno] = bigbuffer;
+ 
+ 		result = usb_parse_configuration(dev, cfgno,
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index 6ed3805994055..23d5c30332ffb 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -143,6 +143,10 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
+ 				break;
+ 			case 'q':
+ 				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
++				break;
++			case 'r':
++				flags |= USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE;
++				break;
+ 			/* Ignore unrecognized flag characters */
+ 			}
+ 		}
+diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
+index b3cc7beab4a3c..a4043b33c2c2a 100644
+--- a/include/linux/usb/quirks.h
++++ b/include/linux/usb/quirks.h
+@@ -81,4 +81,7 @@
+ /* Device claims zero configurations, forcing to 1 */
+ #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
+ 
++/* Use a 255 bytes config descriptor request mirroring windows behavior */
++#define USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE	BIT(19)
++
+ #endif /* __LINUX_USB_QUIRKS_H */
 -- 
 2.53.0
-
 
