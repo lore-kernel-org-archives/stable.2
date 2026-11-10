@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342764;
-	b=eSuwI9mP5cIt6PfXc4tMLLhRKewqlPUnERBgVxPBTDmiFAfbIjlbrUq1naGe04b3jzhT
-	 vE3G5qN/VhBTfLgTLJIQKISGSBMxiR5IjHXqJ8eT3IJgO+5phWM482lIF/ay34f86SUNE
-	 gMU2p6Z/kqD3b4pFGV8ChCCW/F4mXLCSQRR/B9bEvrW/Gm5dIY5m12S+Hp04WFx1ZZYxI
-	 mXGbdt+lygq2HSnjM77EgYm9rOlABlBcOIWwf8i7EZDxwztAmrOrl1DMpXh2C+DD/axIM
-	 p8iEx+9FkgdpLGv1Z0Bjv/2OFNwEnW+MLUqKkU764WD3KPVEEj22zjvBFEejMCJMjoA==
+	t=1794342925;
+	b=Zvilh2z4GLNb/0TZfKLyfkwm1ZJuRdpyYKHXDN+GQ4PHKEDMSC5MF5d2WS8uHvJNxPPT
+	 GD0PRKGgC5jU4Q1oSrcCc0ZX+u1GRLfnYPVNO4jkJFE9gEFlNxoP7Mzz1XwbVC1VvedFk
+	 ahvOce6wRoF/qhttU+uwI/eo5LcR7WZd+iScgdUrWtxYKtZEc41SaGs+2fEJlLkBfb8Sn
+	 DoxUybtUOpDJmqQxTOp9mq3pmpOO71qR7+B+z4nTtVJ8TxosqSBkP6ZtdRv4NgKVyLOhB
+	 vsVJAfpVvyMKw8039Kh89Qv88WMM8Vl+zH+9AtQT7q24zRODBjx9xhvxQGhGD+vBcDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342764;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9aGpfxMribN8uWkk0NnZUHLaChmrCn6g06NgOy8ZpFM=;
-	b=qBJ0GGEXF6ypLSnqMfBeIRNjQVwLf7YmWC2jLwLP3pytjCB6SG9Q8FU57pCM5i8AtouM
-	 +7fgA4z0Qjh3V/KOQGBeUGJ9KL41qsYem51bIjKoGMrJ7sszVN5qFk7Aul+Fkw81cdZQ+
-	 rkPsl1jtTMQIMPaYVjJL4DTjEEOZ3z5wQpL6wY3J84acVBKT0kXmC/S6bM+gcwMUOO6J4
-	 DisjhHgBxfVy1Z1YPCwgHzkw//BAk25X+MHVfIehZa40R6tFpTz5j2lRrT6pouU5O2o7Z
-	 4rFJoplQmJLuEiXTCbmyohPoYoCRD3QMx+UcIh0chtxxn/xYjxAAvOh+oM3kuxo9BnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342925;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kMwkySnLfd1AIcE7CN7h3nzaIvEu7x64w6erQOC9nwY=;
+	b=fIag3OX8nPOp3avhNmJukasLGsz2wu23i2KyGxoxx+GP0rLBP8lN55khsEzYqCMnWd53
+	 FPgEQsxnXPbbOt1HOQLeTl1dPvyUUTMpfi0ESVhwtp3oDB5y43Ysx8BhXNaMfBPfTbi0L
+	 4lTOfchm6KwDxtn9OdyMb6nPUDhZ/4bY1hkuUyx/OHVtQ580Jniaor6yZP8tqBekgbSip
+	 4I/8XcmwfovL9Q2jjVuwwlkqUuCud5OoHCAqtc2Vem6SB+3WiQR3J8HUw3OyKpVc2aEnN
+	 rvtJwPzV5TNC0WiHtBJrlFMIsJn8KzE+JBl1jSdko7yM0Q/4K3nm3ULYIMDrqOwo0Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=NWj+izLQ;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h78Wfqte;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 98272606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:32:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98272606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1E6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:35:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=NWj+izLQ
-Received: by dvalin.narfation.org (Postfix) id 5904020292;
-	Tue, 10 Nov 2026 20:32:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794342761;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9aGpfxMribN8uWkk0NnZUHLaChmrCn6g06NgOy8ZpFM=;
-	b=NWj+izLQezVFnlFYJmPPEWfZPn+XU3kncrt3orBmxhzFvzvm0KHenbfeqRm+5BmVksijyQ
-	/KZnd6YWGXZHJt/59zXqlYLTfeO4GmMiFl1qyFtgQ2r0KqsorS4nM99CJ5Rqq/OHA4Jd6T
-	O425KDZ4jFhSuf0353zI/l3ivOSppo8=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h78Wfqte
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680941F0089F;
+	Tue, 10 Nov 2026 20:35:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794342925;
+	bh=kMwkySnLfd1AIcE7CN7h3nzaIvEu7x64w6erQOC9nwY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h78WfqteENOArjpxse3t7E4sErzghvHcnGotC9wDwq73GXd/HNaPDyak2YPaRP/EW
+	 HhK462h3RFRE7Na1YWxPodFZucKZJgYDh51CVMDXRzxgL06s0Y3MzkgVy3/owkPeKQ
+	 HMYgbnRytqRqu0VgjUogY8B2WbHUnxvm2OMXe8XBGWzLV/W5BaGjWfhMpx0Mfir6qQ
+	 aXp7UUN83s1aicF0CwooXbC8AV76nKH4FfzNAmb8/uA9g8tNi0hCx4Kv255NerPNtt
+	 j95wDQikVkx74tADiVs7Er5a71npLwL/7k3CIdTf413QXn/47vp+9W5FuGj3ByfKKj
+	 RrGSurxJTWNRQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 5.10.y] batman-adv: stop originator purge worker before freeing TT
-Date: Tue, 10 Nov 2026 21:32:38 +0100
-Message-ID: <20261110203238.734218-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109202525-failed-5.10-f89eda5a9ccf@kernel.org>
-References: <20261109202525-failed-5.10-f89eda5a9ccf@kernel.org>
+Cc: Stanley Jhu <stanleyjhu@google.com>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: ufs: bsg: Clear the reply buffer before use
+Date: Tue, 10 Nov 2026 15:35:23 -0500
+Message-ID: <20261110203417.3782989-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061111-failed-5.15-2e63ac76cc08@kernel.org>
+References: <20261107061111-failed-5.15-2e63ac76cc08@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,53 +64,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit f89eda5a9ccf82cba06b085b42ebc4886b8dfe9e upstream.
+From: Stanley Jhu <stanleyjhu@google.com>
 
-batadv_mesh_free() releases the translation tables via batadv_tt_free()
-before batadv_originator_free() stops orig_work. The purge worker can
-therefore still run while the TT is torn down. When an originator times
-out, batadv_purge_orig_ref() calls batadv_tt_global_del_orig(), which
-loads tt.global_hash and walks all buckets while taking their locks:
+[ Upstream commit 2e63ac76cc08ea376ba61fef52f7b7849e35024d ]
 
-  CPU0                          CPU1
-  batadv_tt_free()              batadv_purge_orig()
-                                  batadv_tt_global_del_orig()
-                                    hash = ...tt.global_hash;
-    batadv_tt_global_table_free()
-      batadv_hash_destroy(hash);
-                                    spin_lock_bh(&hash->list_locks[i]);
+The reply buffer is allocated once per tag and reused. Requests that
+complete with a positive status do not fill all of it, so user space
+receives bytes from an earlier request on the same tag.
 
-Disable orig_work at the beginning of batadv_mesh_free(), directly after
-the mesh was marked as deactivating. The second
-disable_delayed_work_sync() in batadv_originator_free() is harmless because
-it is free'd anyway.
+Clear the whole reply buffer on entry to ufs_bsg_request().
 
+Fixes: 95e34bf930ea ("scsi: ufs-bsg: Add support for raw upiu in ufs_bsg_request()")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260708091821.314516-1-sw%40simonwunderlich.de?part=3
-Fixes: 9d31b3ce8168 ("batman-adv: fix potential TT client + orig-node memory leak")
-[ Switch to cancel_delayed_work_sync() ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261015001855.3450573-3-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: Adapted the file location to the older UFS source layout under SCSI. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/main.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/scsi/ufs/ufs_bsg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
-index 860194a06e534..e484128f1bbc2 100644
---- a/net/batman-adv/main.c
-+++ b/net/batman-adv/main.c
-@@ -269,6 +269,11 @@ void batadv_mesh_free(struct net_device *soft_iface)
+diff --git a/drivers/scsi/ufs/ufs_bsg.c b/drivers/scsi/ufs/ufs_bsg.c
+index b8bbfd81b8ae0..e27b059ae2d1e 100644
+--- a/drivers/scsi/ufs/ufs_bsg.c
++++ b/drivers/scsi/ufs/ufs_bsg.c
+@@ -95,7 +95,7 @@ static int ufs_bsg_request(struct bsg_job *job)
+ 	if (ret)
+ 		goto out;
  
- 	atomic_set(&bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
+-	bsg_reply->reply_payload_rcv_len = 0;
++	memset(job->reply, 0, job->reply_len);
  
-+	/* the originator purge worker accesses (among others) the TT tables
-+	 * and must therefore be stopped before any of them are freed
-+	 */
-+	cancel_delayed_work_sync(&bat_priv->orig_work);
-+
- 	batadv_purge_outstanding_packets(bat_priv, NULL);
- 	batadv_tp_stop_all(bat_priv);
+ 	ufshcd_rpm_get_sync(hba);
  
 -- 
-2.47.3
+2.53.0
 
