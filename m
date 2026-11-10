@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794348979;
-	b=tZ4Y5pg/bkjSWgUrkk8TVfpmOZbj2tc0Pv++ON0kS9Y5caMPxldCqyiu9nRFuDPqdP7D
-	 fmhIYhOKwWmB3cqoBXFz6Kvx1/ghWrmPfOSsqAoTTeu8DSoRtLsQxiD6mifCA2RIlZkqR
-	 SQzly2tTGUdeh+JB7jTkfaNzVXaMn7LaOauhwBkrTVTSWX2XxmhSAzpqRr0ivJPVpzzes
-	 Uv/LQcHflGrWmXxrR6mYtBvbfLrua0/vY7BXqhMH8PGVFGvJuBxRljmKAFHjsuI+K8BjL
-	 B73zieuOqVFkH2hNRV76KoahM5LCF6aT/RER7KF61II4r6okQOj6EpO1UFKWEvnkFQA==
+	t=1794349086;
+	b=rGkVAzuraZBETMn/q2jNVNFmXEqJb3d65QD1BbnZ95lxFKXOzdTEp6X16omv5OaGTqPu
+	 zM6yijAZ47af43d0bWTikm2X8jzJUi9DsDlCHikLQTRwXZjFhZheP17DyWKhwce/SrGFp
+	 WftwCmEiF0i9CA54evqI6oSC3JwMHPH4HcgdmqBYYoYqNJuii+F9hQ1sVYfjSiIEmCZis
+	 /7ImSNbw3XW733P/DRHDd7CcPXgx/Ge/A6MUc2Lq0duKuBq0686b2W5zPOyZUDaFWKTHU
+	 Wfa8Lo0vu54WyzJ7C4n2csh3AEb5AeMWZj48F3urm3aA4ekdG/ayknAZOAZv3Bli4Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794348979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349086;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oflyRcO2v6ZEH9eKPkss7UaWg/xiokjk1e9kn72nSy4=;
-	b=aAHcM0Bn56fIZVsre3oOiLP/8nWzgLm8WC9FVDpqPq8eg0l8XYYl+2+GbKjFZH9VoAfB
-	 JmrBBOhwtmqiMwoPKiEtE45+qsu+bGEC0Nf7nnsKpmI5QyDWeRd1hKAr96QozMINkIxsa
-	 JiOFZaODsGM1aWSKQFKmpf+k/un09ROoGgjLz7Vry+sBctksRdRFVzQeqEGurPNic0KmO
-	 wibogtQPvypeAZZ47GmFJEdHBV3hFdrH0dPzyhm8imi1QVrxhPe6y/HitfD52E/PbwlF4
-	 ddM2dfo4XTX+XM8bujzKzmhqpYQlhX2ggbI75uCSVxWcW+QaxXwbBQV3HEnjudc+JTA==
+	bh=NHhP4xJkQwMEfsD9tU/7b9nUzi1hvFrNDI+uwR1r2jM=;
+	b=Ci3JR+P4F2l2VQ9fhWpg5TQBU8h1Nge5c3cANwIpFo2a76uoh8NNYfxeDq4uHO/SBpwv
+	 h/MBiswweVGqtYvnt+8RnXJlNFEIwK+kPr6T4VVO53YMa5aAMj0wxE4qFLasKKB7mjiGv
+	 IaiYDw1B+tVbCGK5FrR3qB/+SNMDZrPbgDmTQK81N3ljhopw0KHeoeaIFhdTbhfCXhzdS
+	 0wItQyjLeYV94/PCz02tHVt7WQOXjWHdUtx7Ud1THJqakn6vRhIuhOh0BbgoY2jTLZUpH
+	 nZ8XghQRkvrPeaMRJfyN5o2bC4tOaZR1iQQsAacLN12FezZwLhBOj2TZnyDHgJ3TYIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cov3rlo1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9UpMRvo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2301E606A31C;
-	Tue, 10 Nov 2026 22:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D19606A326;
+	Tue, 10 Nov 2026 22:18:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cov3rlo1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90F061F008A2;
-	Tue, 10 Nov 2026 22:16:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N9UpMRvo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CDF1F008A2;
+	Tue, 10 Nov 2026 22:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794348979;
-	bh=oflyRcO2v6ZEH9eKPkss7UaWg/xiokjk1e9kn72nSy4=;
+	s=k20260515; t=1794349085;
+	bh=NHhP4xJkQwMEfsD9tU/7b9nUzi1hvFrNDI+uwR1r2jM=;
 	h=From:To:Cc:Subject:Date;
-	b=cov3rlo1xVWSlL1pFNWaMuA6OyQGlbzjqWlS7i1PYhHaap3I2X3XesJZtUGjZ5GP5
-	 VzcE3QWWwZ/3ZU06r9W63Eu5Zbwarq7AG7bYQvRKPyW1Qht2q3tSHq3LAgs/pKCpEt
-	 GMa87Gk48NbYhXDlcZ+VKZa/gcfaIys9ijEpa3frszTgvfP9+3MjLBnrSmcTg7vVPS
-	 E5mSGhl47hfg2fz+co/X7q2aaNzdvBC2XG06tD7MQdipnQdF2SLKZwTEA/tZYRUddq
-	 XD9PC24BRqiTs6D6f19TyWSx6HiSymmwkDqh0993C3wsoQVhvu5QFJhKeWWtMPe+m7
-	 tstT0lix0nYzA==
+	b=N9UpMRvohbZSGM+1tcCCLQAtrRX7dSp9HD3jqU5otfCD2HYv6xyCgrr6o9++uza5r
+	 5og+6V0dISaFXtV+1G5kgeEP//NqKKCB39J4RdXEfdqGLBeTGJ21Xyy583zoBAidFN
+	 AoEFGf72LOT788v46+wjfOt64W4C86AvuGPiGajpJfhj/uM5t+Zxm+xKtq823v8p+V
+	 eS7xRH8BinS69XVjoCGajJxyJ1T5mVK7khzhCBuWvnjKKTweq3FSdHU2CKrennIn4S
+	 XdBDsRO5S0eKPjWv0msMiZj9dobnhtxCbkehlCPw4KazSgK2GjUlunyT/vd2qk1ZJs
+	 38jb3mnoQxaoA==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: linux-block@vger.kernel.org,
@@ -46,9 +46,9 @@ Cc: linux-block@vger.kernel.org,
 	Eric Biggers <ebiggers@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 6.6] blk-mq: end the request if getting a keyslot fails
-Date: Tue, 10 Nov 2026 14:15:46 -0800
-Message-ID: <20261110221546.46165-1-ebiggers@kernel.org>
+Subject: [PATCH 6.1] blk-mq: end the request if getting a keyslot fails
+Date: Tue, 10 Nov 2026 14:17:48 -0800
+Message-ID: <20261110221748.54448-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,7 +87,7 @@ Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Link: https://patch.msgid.link/20261029200110.1328103-1-ebiggers@kernel.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ Backport to 6.6.y: dropped the part related to
+[ Backport to 6.1.y: dropped the part related to
   bio_zone_write_plugging(), which doesn't exist on this branch. ]
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
@@ -95,10 +95,10 @@ Signed-off-by: Eric Biggers <ebiggers@kernel.org>
  1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/block/blk-mq.c b/block/blk-mq.c
-index e3fb9222c5ee0..130f4fea9f9c2 100644
+index bc619519dd665..9722b0afdcee3 100644
 --- a/block/blk-mq.c
 +++ b/block/blk-mq.c
-@@ -3069,9 +3069,7 @@ void blk_mq_submit_bio(struct bio *bio)
+@@ -3030,9 +3030,7 @@ void blk_mq_submit_bio(struct bio *bio)
  
  	ret = blk_crypto_rq_get_keyslot(rq);
  	if (ret != BLK_STS_OK) {
@@ -110,7 +110,7 @@ index e3fb9222c5ee0..130f4fea9f9c2 100644
  	}
  
 
-base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
+base-commit: c75b0cf0982c00cddfd88d1acf3872f79b40980c
 -- 
 2.56.0
 
