@@ -1,55 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349340;
-	b=rYF/cuHeyp8jFks8A3aBpW696d7IrUzwaPPUg/Ubgg0Z8eiaaWyxxGTv71pRFqXCPwE8
-	 Ve+xf0JqQtuNUVErw988g5TPxeMVAqAQh87RT6ZmpYoU2zZYME+dJ4GZzOPlGDGi8UEl1
-	 hAOnsNxAHJTbci2NC1bykWY3t2StYzHKRNoNATtshmCMHR5yCvbnE3+WxhINg8nEx079G
-	 CwT9bR2W2mTu/+//eS5PLPMNU1R6L7MygH9oaBP6wupeKgEbCgO/ntNH/msxsE7g2M/zv
-	 itFFH40bDZINPnGuXBHkGIX9exrEGSamDJyFeVX8HDaOb8lVBjBktYN5SbWBFU5Ne2Q==
+	t=1794349405;
+	b=N1UVL0LsS2lBqS1Ta/bSYpGq/4ER67FJstc8NfPPozz8MuU3yyMLsh/iEgBdcvRvzVXW
+	 TXn//ndXbdvmtRVH8y2aC/oYy5YUbzQYZH7xsTRSsgdroMErgv0wG670sOM7FP+N/x4FV
+	 P0nPzMtHka0Xjcg/pN38pen/FxAQsloJFd5GKY5snT2/d0DINPdr6XJFL1BIKibN75nOT
+	 8HJZNUGNsh51tHMbLYTrW/Na6G70oM2Nm/9Ki1hTrPNoTc4K+KoiD4CUvaWAjuBQdHUUs
+	 D+Y5Sh46lV3zGflVh0N9z5QgQ/q+i4pWmZ1BdgDDF6mrB0JjcFqYwfBMke3D5Rv8vKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349340;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UrHQX0EELLsoDjvSsow8NBdNNHiydiO18vGVLCW2rdY=;
-	b=QVJov8PvUHgggEj7aPQccUV2iONZ0JZ6jAq83lkCkNx12oF4uHlrd3ET5ZxMhyQD8LyN
-	 7hqiGADAM+3iDkXfoBSmax3E8WkmaUusmgzk3iEzBvB6K9IouI1fJyBNYMIR6iSWfTzRE
-	 LX9+LP8FZ+W43f/4Hp8kBFAM8nOtw4+kjKL+916jmHQMVE403FbDSCi7UOs39xHdMyyNT
-	 VNC4j+8OUk5YiYNmD63NT0DCy9AvpzYpAbmNkAhGIjRu4icpIncFrd35wAzL/P81N4zHs
-	 11Vh8Lppo2lJeKZJiA//SYwKpkTgBqm2+E7+4sQK0HrxtqJ1NO8fhqkHaYbJHHMpEvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=otRyMeb75+VLZ1qPaOWUchAC2U7XAkcMMqGgLecGB9I=;
+	b=JuWAZtaokJ2CX3ywzFDxv/PiRa4lzefL8ydae47uvR+LB/l2Qn4Qbo+lCzEzWWpR3qTm
+	 ikAZHRIVtvvAvOTdYJbbHkXi7JAlg5ksUX3WOrGk2+Yc/tY2KLTgonhiTYSPblSFLunrq
+	 O0UYX48q0chCGKwmsQxT9gtjQ/0v9mH+Mm7rHoQ1CF8xCuVq+XwMYqV46sTHWW4crJkIl
+	 9M4eniQFQ/KPQQM5jz+IT/uY34OFn0p/t2ozhtE3H1qJo6aXvAz7YpmIZWR76DhplsR8B
+	 r8AxVCsxdFAbG9IVlp676GBuBpXvclir1BNGlxVhJKQRoW3bHx7YTn0WVSVWQ6rMc+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H37B+jm0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPq7O3Wk;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B8A606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6492F606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6492F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H37B+jm0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4297A1F008A2;
-	Tue, 10 Nov 2026 22:22:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794349339;
-	bh=UrHQX0EELLsoDjvSsow8NBdNNHiydiO18vGVLCW2rdY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H37B+jm015LUcO5iN2576ZZBDWW9HRjsIMerlX6J7+ZzXkCjo3oRmwaf/Q6Q2k6uL
-	 to1gKPkfD1/jQOh4Cb51wUi0D3jQ1Vhsl5NSNaa4sJfbWBf94qV8sXbrRZ91W/CdNG
-	 JxN9IhejmernJivwYTYnsmYW9p4GBI9qerEEh40HXzLZn8QNoTI3/o0FsDFOWL0xui
-	 kKKonM8lBcn119zj8mwP3GrQNsHRFX485uSdgphm2HoY2+njyZ0AUi9OVgDj7RI4XD
-	 B12//A8M5xqXT1QHzBHv2utIjOFp6fQU+pizKSx2GUFJKhxESL6bDAyhd3kA4N1dRe
-	 OBkzg7jmXdefQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Siwei Zhang <oss@fourdim.xyz>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Date: Tue, 10 Nov 2026 17:22:18 -0500
-Message-ID: <20261110221646.4007568-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060634-failed-5.15-a518b9a9ef6e@kernel.org>
-References: <20261107060634-failed-5.15-a518b9a9ef6e@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lPq7O3Wk
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so413965c88.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:23:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794349404; x=1794954204; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=otRyMeb75+VLZ1qPaOWUchAC2U7XAkcMMqGgLecGB9I=;
+        b=lPq7O3Wkj/vM9r3JNDdcLozDsq3fAdAlDjXIzdHKc8R4VLWraDlUVNMFGf4MnP5gIH
+         QDgj/BCupkFkv/4PTDaAkiwxxLYF43/GxA/7Z7cRo00yhngqIfiiqtWjzD7+c/kg9Twm
+         BotE7kiX/vYjzMykrFH89ewEElErt+gEsRuANUeih0aSi8tG82tpNSPS/9+jH7SMzLRm
+         jAtkudGVXM/tA2CJZNtQ1OLIKKowgfIDNSZv6EdOOlJJBaYBIFb8qAwDipQJ9CrAZYEZ
+         YeaN2gfAfbDQKCe6p488tiJov3ZwzwCjAUiA2+oMLuI2L/y1U5/TzsTfRBK4A5SpsfxV
+         0cVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794349404; x=1794954204;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=otRyMeb75+VLZ1qPaOWUchAC2U7XAkcMMqGgLecGB9I=;
+        b=ZraIlmOjfEM8s7rF7W90gGxxNm0guwlzPMqssJowpxwzFXgRJi5Mvc6hs4HAXXUvkn
+         f30geK1clZ5Vc3bD+UpOMD3HTRdjKbOv9JLRwjymeWD8z1v9dqQFymIpxVmUyqAa5Xml
+         EubT57Y64cWY4OEvZqyervSDcSM0L+QAyr5D3S1Dc+XGZAGLLkWYYMOSbIqYV6ZKuO2l
+         Y+h8lsGhMDDZ4InLF+8HXUHtejo3/tcrZQD4JkaYGnwG+AXXQUIodCO+bgkq/U6V+qpK
+         POf8Zp6h//iIwEsl62mdFXpxrj221zeso7hG4SexJqPw3/nf7tg912dQahihgwtk1lgq
+         Kgtg==
+X-Forwarded-Encrypted: i=1; AL+hErGtaKd2J3gsiplMWhrgQpzZ05eaBDp8NxjotoRse8U/rRiOzpAzqm123LOu4oGDVVffhXrL4vM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mlQ9GOBnv9erlB68xfRaAiNeHOJ03TOZKzENLAi/QbifcDZ5l
+	jHdG19F+bq0+PrqTA3ZUBEPbLRWPD4vdXZkg7M/19a62hxj2aTM5J4oc
+X-Gm-Gg: AYBFou0UH6Pl09XOJhAzJgj/gHBcTjitikuJEJ0BQgtVaELcJLz3maGofVxeyrz0LeW
+	zY9OuupR2SsV349ht0L7Zu0wZOFIx1I44CvL3DKqsFZbzSFzry9JwSrxxIp/UoyC3ORTsE1x2sm
+	v/VU2wLlb9YzbSf8oy1Lmhmowk+OnaZ/rMkSPpu2SI0WpwpCEDlsYOFtDDkLTh67Z+wrANSyMNZ
+	gU2Mqd6DzJ8LGp532+zRrjcTCNjIdwSltyMycQ4ryqoLbsnIyR2jLFss13AiihBpKktbqXj7+d8
+	f8M2YIP9An31uQE+6ktJAOxH8vOp+8bhFyxs+t0dOoTDN8M68Mpky00TABJrc0LHrkxZHQa66n1
+	zvIjNuVLSnm2pDB36H7aoxV7thhiqxYfzDXi3gi2STtbp5pbHbA2NawaGc+Oy/c/Aep0+8gdMqc
+	FDOV0Away8VNze90YLp2BHV5GckmyjpEjTvb2x1b0NPCsmKfqjNzW3kLD/z7CMvbh+QZsI5YoSF
+	bBJoHEgJ3OXjh0If0KD289PVzelm0cIoT4VhR27crqbHN4tpMP1H/OBYf9ghaORaswcW6o6FKeC
+	rIlosTFH6jZphBHmVENmsdS67wvKMLU/+hi83Fezks1i2lD+VQ4KYWQt7BI=
+X-Received: by 2002:a05:701b:2903:b0:136:c443:80e5 with SMTP id a92af1059eb24-1b3c023c9aamr353445c88.6.1794349404165;
+        Tue, 10 Nov 2026 14:23:24 -0800 (PST)
+Received: from localhost.localdomain (wood.seclab.cs.ucsb.edu. [128.111.49.37])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2eeffsm9882751c88.9.2026.11.10.14.23.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 14:23:23 -0800 (PST)
+From: Praneeth Balasubramanian <praneethb2002@gmail.com>
+X-Google-Original-From: Praneeth Balasubramanian <praneeth@ucsb.edu>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Marcel Holtmann <marcel@holtmann.org>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Manish Mandlik <mmandlik@google.com>,
+	Miao-chen Chou <mcchou@google.com>,
+	Praneeth Balasubramanian <praneeth@ucsb.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_core: Hold hdev->lock when freeing an adv monitor
+Date: Tue, 10 Nov 2026 14:21:44 -0800
+Message-Id: <20261110222144.204736-1-praneeth@ucsb.edu>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,115 +102,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Siwei Zhang <oss@fourdim.xyz>
+hci_free_adv_monitor() removes a monitor from hdev->adv_monitors_idr and
+frees it, and its comment says the caller must hold hdev->lock. Readers
+such as read_adv_mon_features() walk adv_monitors_idr and dereference
+each monitor under hdev->lock.
 
-[ Upstream commit a518b9a9ef6ee3b18ecdf6ba5360c608aaf969e9 ]
+Since commit 7cf5c2978f23 ("Bluetooth: hci_sync: Refactor remove Adv
+Monitor"), MGMT_OP_REMOVE_ADV_MONITOR runs from the cmd_sync work, which
+holds only hci_req_sync_lock. On the HCI_ADV_MONITOR_EXT_NONE path, which
+is also taken while the controller is powered off,
+hci_remove_adv_monitor() then calls hci_free_adv_monitor() without
+hdev->lock. A concurrent MGMT_OP_READ_ADV_MONITOR_FEATURES can load a
+monitor pointer from the IDR and read monitor->handle after the monitor
+has been freed.
 
-An outgoing channel waits in BT_CONNECT until security
-and the feature mask exchange complete, and only then
-sends its connection request. A peer can answer it
-before that with a connection response matching our
-source CID. The channel then moves to BT_CONFIG,
-completes configuration and becomes connected before
-security has completed. If security then fails,
-l2cap_security_cfm() leaves the connected channel
-alone, so it stays up on a link that did not reach
-the required security level.
+The MSFT path already frees the monitor under hdev->lock, in
+msft_le_cancel_monitor_advertisement_cb(). Take hdev->lock around
+hci_free_adv_monitor() in hci_remove_adv_monitor() too. None of its
+callers hold hdev->lock.
 
-A connection response with a zero source CID is
-matched by identifier. Another channel can hold the
-same identifier for a response it still has to send,
-so the lookup can pick the wrong channel.
+The missing lock was found with an LLM-based tool that checks callers
+against the locking rules stated in kernel comments.
 
-Only accept a connection response while our request
-is outstanding, and only look at such channels when
-matching by identifier.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 7cf5c2978f23 ("Bluetooth: hci_sync: Refactor remove Adv Monitor")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ sashal: adapted locking and cleanup to conn->chan_lock while adding CONF_CONNECT_PEND tracking for legacy AMP requests ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Praneeth Balasubramanian <praneeth@ucsb.edu>
 ---
- net/bluetooth/l2cap_core.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index cc49e651907d8..3800449643866 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -185,6 +185,29 @@ static struct l2cap_chan *l2cap_get_chan_by_ident(struct l2cap_conn *conn,
- 	return c;
+Notes:
+    This was found by an LLM-based static analysis (GPT-5.6) that checks
+    kernel code against the rules stated in its comments, as part of research
+    at UCSB SecLab. The patch and changelog were drafted with Claude Opus 5.5.
+    I reviewed the patch and take responsibility for it.
+    
+    MGMT commands need CAP_NET_ADMIN in the initial user namespace, so I am
+    sending this as a regular fix rather than a security report.
+    
+    Testing: builds without new warnings with W=1 (x86_64, KASAN and lockdep
+    config). Not runtime-tested.
+    
+    The patch applies to mainline 9ba46df34488 and to next-20261109.
+
+ net/bluetooth/hci_core.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 74d9865e08c2..b66d3c295e5e 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -1966,7 +1966,10 @@ static int hci_remove_adv_monitor(struct hci_dev *hdev,
+ 	if (status == -ENOENT)
+ 		bt_dev_warn(hdev, "Removing monitor with no matching handle %d",
+ 			    monitor->handle);
++
++	hci_dev_lock(hdev);
+ 	hci_free_adv_monitor(hdev, monitor);
++	hci_dev_unlock(hdev);
+ 
+ 	return status;
  }
- 
-+/* Our connection request has been sent and is still outstanding */
-+static bool l2cap_chan_connect_pending(struct l2cap_chan *chan)
-+{
-+	return chan->state == BT_CONNECT &&
-+	       test_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+}
-+
-+/* Other channels may hold the same ident for a response they still have
-+ * to send, so only look at channels waiting for a connection response.
-+ */
-+static struct l2cap_chan *__l2cap_get_connect_chan_by_ident(struct l2cap_conn *conn,
-+							    u8 ident)
-+	__must_hold(&conn->chan_lock)
-+{
-+	struct l2cap_chan *c;
-+
-+	list_for_each_entry(c, &conn->chan_l, list) {
-+		if (c->ident == ident && l2cap_chan_connect_pending(c))
-+			return c;
-+	}
-+	return NULL;
-+}
-+
- static struct l2cap_chan *__l2cap_global_chan_by_addr(__le16 psm, bdaddr_t *src,
- 						      u8 src_type)
- {
-@@ -1329,6 +1352,8 @@ static void l2cap_send_create_chan_req(struct l2cap_chan *chan, u8 amp_id)
- 
- 	chan->ident = l2cap_get_ident(chan->conn);
- 
-+	set_bit(CONF_CONNECT_PEND, &chan->conf_state);
-+
- 	l2cap_send_cmd(chan->conn, chan->ident, L2CAP_CREATE_CHAN_REQ,
- 		       sizeof(req), &req);
- }
-@@ -4426,7 +4451,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 			goto unlock;
- 		}
- 	} else {
--		chan = __l2cap_get_chan_by_ident(conn, cmd->ident);
-+		chan = __l2cap_get_connect_chan_by_ident(conn, cmd->ident);
- 		if (!chan) {
- 			err = -EBADSLT;
- 			goto unlock;
-@@ -4443,6 +4468,13 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 
- 	l2cap_chan_lock(chan);
- 
-+	/* Only accept a response to a connection request we sent and that
-+	 * is still outstanding. A channel waiting in BT_CONNECT for security
-+	 * or the feature mask has not sent one yet.
-+	 */
-+	if (!l2cap_chan_connect_pending(chan))
-+		goto done;
-+
- 	switch (result) {
- 	case L2CAP_CR_SUCCESS:
- 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
-@@ -4472,6 +4504,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 		break;
- 	}
- 
-+done:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
- 
 -- 
-2.53.0
+2.25.1
 
