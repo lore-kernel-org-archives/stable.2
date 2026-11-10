@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338491;
-	b=l/hgYGi8YsjMu9rVrQU55jXVJjYML+0D5oAqoXWa+BvPOhq0B/o3WtLDD1lZ9TuXaIXr
-	 tyxe/CRmJdn7CyeKt28Kv1go1MdeH4mnHBwVCrfGzuyPL3jtj4JvIhpliy5zCyHBPvN/T
-	 Gx7W3h2XwxRpJZ3RYW0P6RBEnRHdKyv8z8CMPeXWW045CzqEi5JacSgOVKA85/4yXe7Pt
-	 hMQXAp6wrbNopJYutZ4tWfvWiuPKulonn/eKmiPiK+ESy8DbW7AEP+MGXjUEd+kdOUlEj
-	 9p1S4nqNIyys2PNVDytmUmbpWHSg06FaCbb0bBbqoJzyXsTpxvkrhty2SPw97aqyEEQ==
+	t=1794338504;
+	b=nmZBRVXixUtHgp76wgiIKhFeR9/nIsZcI272KsRdSzK9ZammHMf1Ytx6rbMaecEUo+Bw
+	 w4WtyWwP07vxfJg3HKmbmUEEBJOJ25aFnmEWiA+7oBNGyeetplT7o2mte4ydT9fHb/ZJM
+	 a0BJ/h2bzto0RYAh0/5J3Rt6S/cF/wmYp3qlNzvJwFGb28D46BvKYK6dDZK2C4w6ljGCn
+	 1V4cQUpcRJmpgPZH7mXfe03tAB9nX8P0iu9qcsoSd2AdyLwraXkuIeN/u14yx452ydkhB
+	 mg8M5R4QNAfxaXs4NJVuipLJgRg5vTciZiCH4YNcvMs/PsbEJbQB4BAJYsb5e2umt4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338491;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Fu8U1Wq/9JwI/SY1ys/7hcQq3ryu0gTJkf5e8ByLmD8=;
-	b=KI1KpynHVxabo3EyNWdoHJz+yizT/IICZ9n87x2OjvaUONoO8Aftsd8iSV02AlYWKB8N
-	 9SGZEHHygIPnlfGYBQUu/JzEQ764/obldW4GtWNwb4t/0pn6EY5i6ZbfDyuwiXmLnkxpb
-	 f1fK/eNwRsm6Ccf/bCKVJSB47VO2dto7qCpE1hGhA6r3e32IZWYPsUCbpoOT4ymilwXE/
-	 +WMNyc8NtDZpBOWDJ1+CRzkPR5yRiwMRBwPMrriPWSPwJaAJbz/NM6lJPH73vN8t0AMst
-	 fCfOZ0NB/wBbhL1YQDTwc7zsGy8zlcWXuLsknvGrwy4WmiRd9bAmC1IzBmTguMqZy6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338504;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k1vLxJkE194KQtThojd+ZMbb8/1jYinuM6FHsG1nxTA=;
+	b=e4cj7EG9ElFnre7vmd8zrOfVCqrihJODnMwki6ChUViTZm8QfTWwVIn6H44dYVKfrey5
+	 R3evxvRtSbKVQkwnBOOQUp5nQr6Pi+7ZsE9VfDcQF0Fv3tFVKeg2Vn/yk2h4dGDJAjqCB
+	 zNjZsI0pBdx+FtPvCNet6D0hicXXB3KK3Ys2uqcEffzYI6Je7zjrhsB3AISS38rOFFIn8
+	 NP7sIIumELtZcJfAj3jIeHx4TSFPJICJRDARVx2Op800ScataxbylCIHRcs1fKYACAY1W
+	 ZyycW1v6KqpRQ809kE02bGbieg6cshxuofnuQVh5IffJ1V+R0gTFad2V1+RGuq24tew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehiTqVOl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=WDSITEU3;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C017E606A33C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 10C09606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C09606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehiTqVOl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381711F008A1;
-	Tue, 10 Nov 2026 19:21:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338490;
-	bh=Fu8U1Wq/9JwI/SY1ys/7hcQq3ryu0gTJkf5e8ByLmD8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ehiTqVOluaitXYH71kxwKsBr60zKDS2AsNoL8TUobQhbjbC4jgvZJomXEH8W23Qbi
-	 T1P2BtbulnTL6jQPa31mGWnPNig9DuUrduWv2QSMQ3WimcegJsXT42kO18tZ+Z8q0X
-	 ZHhQLSlhvOxYI21nlYpUomQhEGtsIHBGyDrf7lAD4RH05+JLcxWhTYrPccH8emiZ8l
-	 r4AFUqG8GEcVaP4iXuMNFkzNshZDMEyPujLa2YZz3TiFauEmeb6x4qwVEz4gJxKhNd
-	 2TLEGtuKybsMzGNQfRY7QWZ76fEyoUMSl1FeR2zvrovr/Ek2QBANcOY8I1s3xHTjLI
-	 4IeqA1tGYsVpg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=WDSITEU3
+Received: by dvalin.narfation.org (Postfix) id D2A0D1FE32;
+	Tue, 10 Nov 2026 19:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794338502;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k1vLxJkE194KQtThojd+ZMbb8/1jYinuM6FHsG1nxTA=;
+	b=WDSITEU3oAzBmx8YSMoJHbyT6kPU+g2VysrHjUL7XtSxYFCzxFNepY1ZaCXgenh0FscjiA
+	AAKcX98kv7g/OmOrf0MCPbCU/209Jaq29DBwVyNX50otkQ6ndUaOoA/1wHMGiwjqM0RGqo
+	TBBXJizLDY8jzpo/gBS94H2jcMMeO5I=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Henry Martin <bsdhenrymartin@gmail.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/amdkfd: fix doorbell allocation race creating duplicate allocations
-Date: Tue, 10 Nov 2026 14:21:27 -0500
-Message-ID: <20261110192023.3506934-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053743-failed-6.6-bebad4505094@kernel.org>
-References: <20261107053743-failed-6.6-bebad4505094@kernel.org>
+Cc: Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.6.y] batman-adv: tt: only update flags for TT events
+Date: Tue, 10 Nov 2026 20:21:38 +0100
+Message-ID: <20261110192138.159268-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109201046-failed-6.6-ad1fd828aa39@kernel.org>
+References: <20261109201046-failed-6.6-ad1fd828aa39@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,184 +65,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Henry Martin <bsdhenrymartin@gmail.com>
+commit ad1fd828aa3944efc393b84b0d7c02483f1b5638 upstream.
 
-[ Upstream commit bebad45050945a3d668d6701fb77ae2571c5d44b ]
+In the first implementation of the translation table events, it was only
+possible to announce:
 
-The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-lockless at every call site of kfd_alloc_process_doorbells():
-kfd_get_process_doorbells() (mmap of /dev/kfd),
-kfd_ioctl_create_queue() and the CRIU restore path each test the
-pointer under different locking (or none), so two racing threads can
-both observe NULL and each allocate a doorbell BO and bitmap,
-orphaning one allocation and handing the two mappings different
-backing pages.
+* ADD: new locally detected client
+* DEL: disappeared local client
 
-Move the serialization into kfd_alloc_process_doorbells() itself,
-using a new per-process-device mutex so all three call sites are
-covered regardless of their own locking.  The device-global
-kfd->doorbell_mutex is not suitable here: it is acquired under
-dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-the sleeping allocations above would create a lock-ordering
-inversion with dqm->lock via TTM eviction, and it would also
-serialize doorbell setup of unrelated processes behind a
-device-wide lock for per-process state.
+If an ADD event was queued and then a DEL event was queued in the same
+timeslot, it is valid to destroy both events because nothing actually
+changed for remode nodes
 
-This issue was discovered by Tencent CodeBuddy Security.
+But with commit 3c4f7ab60cc2 ("batman-adv: improve the TT component to
+support runtime flag changes") and subsequent changes, it could also happen
+that there are extra ADD events:
 
-v3 (Felix Kuehling):
-- Removed unlocked check in kfd_get_process_doorbell flagged as
-  problematic by Sashiko Bot. Fall back to the locked check inside
-  kfd_alloc_process_doorbells
-- Added missing mutex_destroy
-v4 (Felix Kuehling):
-- Removed unlocked checks around other kfd_alloc_process_doorbells calls
+* ADD: _NEW_ locally detected client
+* ADD: already existing client with new flags
+* DEL: disappeared local client
 
-Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 4e27ba5ad5f76932d4f6cbacd25c81c2dd40ec4a)
+The first and the last type of event could in theory still be removed
+together from the (to be announced) events queue. But if the "update flags"
+ADD is dropped together with the DEL, it would still leave global
+translation table of a remote node in the incorrect state - believing that
+the client didn't disappear.
+
+If a detected client was previously announced, a DEL event must only
+overwrite the "update flags" ADD but the DEL itself must still continue to
+exist in the (to be anounced) events queue. For now, adjustment of the
+announced flags is used for everything instead of dropping already queued
+up events completely.
+
+Similarly, a DEL followed by an ADD caused both entries to be deleted. But
+the new ADD could announce flags changes which were not yet present for the
+client before it was marked for DELetion. The new ADD must therefore only
+overwrite the DEL - but still be kept.
+
 Cc: stable@vger.kernel.org
-[ sashal: Adjusted context for older inline queue buffer handling and missing SDMA validation and process counter code. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3c4f7ab60cc2 ("batman-adv: improve the TT component to support runtime flag changes")
+[ Context, drop now unused code for removed entries ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 18 +++++++-----------
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 23 +++++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  2 ++
- 4 files changed, 29 insertions(+), 17 deletions(-)
+ net/batman-adv/translation-table.c | 41 ++++++++----------------------
+ 1 file changed, 11 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 57a41ff6ea930..44cd1b54d020e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -339,12 +339,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		goto err_bind_process;
- 	}
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 96d67ec1a8af9..031f9bd8f72dd 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -455,6 +455,9 @@ batadv_tt_orig_list_entry_put(struct batadv_tt_orig_list_entry *orig_entry)
+  * @bat_priv: the bat priv with all the soft interface information
+  * @tt_local_entry: the TT entry involved in the event
+  * @event_flags: flags to store in the event structure
++ *
++ * Only a single change per client is queued. It describes the latest state of
++ * the client and a new event therefore replaces an already queued one.
+  */
+ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 				  struct batadv_tt_local_entry *tt_local_entry,
+@@ -463,8 +466,7 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	struct batadv_tt_change_node *tt_change_node, *entry, *safe;
+ 	struct batadv_tt_common_entry *common = &tt_local_entry->common;
+ 	u8 flags = common->flags | event_flags;
+-	bool event_removed = false;
+-	bool del_op_requested, del_op_entry;
++	bool del_op_requested;
  
--	if (!pdd->qpd.proc_doorbells) {
--		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
--		if (err) {
--			pr_debug("failed to allocate process doorbells\n");
--			goto err_bind_process;
--		}
-+	err = kfd_alloc_process_doorbells(dev->kfd, pdd);
-+	if (err) {
-+		pr_debug("failed to allocate process doorbells\n");
-+		goto err_bind_process;
- 	}
+ 	tt_change_node = kmem_cache_alloc(batadv_tt_change_cache, GFP_ATOMIC);
+ 	if (!tt_change_node)
+@@ -496,44 +498,23 @@ static void batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 		if (entry->change.vid != tt_change_node->change.vid)
+ 			continue;
  
- 	/* Starting with GFX11, wptr BOs must be mapped to GART for MES to determine work
-@@ -2294,11 +2292,9 @@ static int criu_restore_devices(struct kfd_process *p,
- 			goto exit;
- 		}
- 
--		if (!pdd->qpd.proc_doorbells) {
--			ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
--			if (ret)
--				goto exit;
--		}
-+		ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
-+		if (ret)
-+			goto exit;
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index fdcf7f2d1b5b4..6af268a031f22 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -239,11 +239,9 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- 	struct amdgpu_device *adev = pdd->dev->adev;
- 	uint32_t first_db_index;
- 
--	if (!pdd->qpd.proc_doorbells) {
--		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
--			/* phys_addr_t 0 is error */
--			return 0;
--	}
-+	if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
-+		/* phys_addr_t 0 is error */
-+		return 0;
- 
- 	first_db_index = amdgpu_doorbell_index_on_bar(adev,
- 						      pdd->qpd.proc_doorbells,
-@@ -257,12 +255,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 	int r;
- 	struct qcm_process_device *qpd = &pdd->qpd;
- 
-+	mutex_lock(&pdd->doorbell_mutex);
+-		/* DEL+ADD in the same orig interval have no effect and can be
+-		 * removed to avoid silly behaviour on the receiver side. The
+-		 * other way around (ADD+DEL) can happen in case of roaming of
+-		 * a client still in the NEW state. Roaming of NEW clients is
+-		 * now possible due to automatically recognition of "temporary"
+-		 * clients
++		/* the other nodes may know the client with different
++		 * flags. A DEL+ADD must therefore still announce the
++		 * current flags and an ADD+DEL must still remove the
++		 * client. ADD+ADD and DEL+DEL only update the flags
+ 		 */
+-		del_op_entry = entry->change.flags & BATADV_TT_CLIENT_DEL;
+-		if (!del_op_requested && del_op_entry)
+-			goto del;
+-		if (del_op_requested && !del_op_entry)
+-			goto del;
+-
+-		/* this is a second add in the same originator interval. It
+-		 * means that flags have been changed: update them!
+-		 */
+-		if (!del_op_requested && !del_op_entry)
+-			entry->change.flags = flags;
+-
+-		continue;
+-del:
+-		list_del(&entry->list);
+-		kmem_cache_free(batadv_tt_change_cache, entry);
++		entry->change.flags = flags;
+ 		kmem_cache_free(batadv_tt_change_cache, tt_change_node);
+-		event_removed = true;
 +
-+	/* Another thread may have won the check-and-allocate race */
-+	if (qpd->proc_doorbells) {
-+		mutex_unlock(&pdd->doorbell_mutex);
-+		return 0;
-+	}
-+
- 	/* Allocate bitmap for dynamic doorbell allocation */
- 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
- 					     GFP_KERNEL);
- 	if (!qpd->doorbell_bitmap) {
- 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto unlock;
+ 		goto unlock;
  	}
  
- 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-@@ -284,11 +291,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 		DRM_ERROR("Failed to allocate process doorbells\n");
- 		goto err;
- 	}
-+
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return 0;
+ 	/* track the change in the OGMinterval list */
+ 	list_add_tail(&tt_change_node->list, &bat_priv->tt.changes_list);
++	atomic_inc(&bat_priv->tt.local_changes);
  
- err:
- 	bitmap_free(qpd->doorbell_bitmap);
- 	qpd->doorbell_bitmap = NULL;
-+unlock:
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return r;
+ unlock:
+ 	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
+-
+-	if (event_removed)
+-		atomic_dec(&bat_priv->tt.local_changes);
+-	else
+-		atomic_inc(&bat_priv->tt.local_changes);
  }
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 8f6fe5312b26e..b2683275ed017 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -752,6 +752,9 @@ struct kfd_process_device {
- 	/* per-process-per device QCM data structure */
- 	struct qcm_process_device qpd;
- 
-+	/* Serializes process doorbell allocation for this device */
-+	struct mutex doorbell_mutex;
-+
- 	/*Apertures*/
- 	uint64_t lds_base;
- 	uint64_t lds_limit;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 93740b8fc3f44..b860598d86f22 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1061,6 +1061,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 			pdd->runtime_inuse = false;
- 		}
- 
-+		mutex_destroy(&pdd->doorbell_mutex);
- 		kfree(pdd);
- 		p->pdds[i] = NULL;
- 	}
-@@ -1600,6 +1601,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
- 	pdd->dev = dev;
- 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
- 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-+	mutex_init(&pdd->doorbell_mutex);
- 	pdd->qpd.dqm = dev->dqm;
- 	pdd->qpd.pqm = &p->pqm;
- 	pdd->qpd.evicted = 0;
+ /**
 -- 
-2.53.0
+2.47.3
 
