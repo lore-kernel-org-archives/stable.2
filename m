@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285014;
-	b=Nmd8zhVeKScVWY4B8AP6Kkgwz5InkpoU/qtWS5XS8n4QFok6fR64+wuJN5yVlmXbIQib
-	 HLsG1CTD73OSV145TTB/vShdoK9uS5XqYD59vmAC3Y1Mj3zZny6qXloou7JIu/YZ9q1jd
-	 1V+54S/qSPyxb/wgZ93k16eeGSLf05HU2J38bHRQ2IGCT+Blt4a9F4tv5MzcAQljCMGhi
-	 BJnliP95VFRMObYFlq5R6rbFb00IgWKn3XZBabOtXFUshuMnQysOfqNd7m+2X6SvSpEET
-	 n6sG8KqOtRevtZwI9BpRRl3XzBtq9sss4legULvJz0SUDsoA2snraYBTsxkWOYepEzA==
+	t=1794285017;
+	b=N38NEN+ORJ5q1GJD/dKiYW34tvnOZ9Qm+FhcHGmGgdSQz3DhrcxYhTwe0AxULQhqxKrh
+	 cR2SB2le5NLfkyH8FfADJT6bkeGZdAbEcid7Yv+rn8/hHG8BSOdN9NUlna2DfgXQxdu0Y
+	 6g6aq3xnoY9jDLf4c00Iauv/uV11L4i3TMV8tAEqvZXgPS+IMA30XYnF7g7sKAS04lmJk
+	 mkE+NedTbm/Ie8pcgC5UfgPnZ2b7IcRLfVrRSEAyD5aG+VjAD/ozm/aA6KiVMv1xKU/7F
+	 XK2dRgAjjoHo7BhvDSXYn8jfawnBDZyu+LA8Hzw3P2gKIax3pm5eenygz35nPenSDQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285014;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qEubh6gqsuINpf/s+ajGjX3IhAcWtc/zKyjzL9XXDow=;
-	b=KlPVZlOJTWfEJInwDa1nV9dpXZoSNaxZRMusjJZ9lxf309poYSjJdCos0V1st1wqLdEr
-	 aksf6rpU2pt8XELVwCfK75isn8DBPLvKXeRUhVvOTQZmJwC619nExjARqp7zT7h4+xeDF
-	 PlHhPtkK5myVCwK72wBPTeutC6iLc0HYWsDzO+I7MkZKbnLtnx2DWIpoNxQoCgrxV0Rag
-	 aZcOlAO1EMbKp+k76n5pSWhIJuzp5r5n/NHoeF8RC5xoL2ffVus3D5YlOc/0lnENz5B4h
-	 145v1FmJYw8vG8DtUxzLE5aQ6gGSpAyZf4/5HR5yerY/TY7uwk3pYPTTcl36IVNeQCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285017;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=m9ZiqV3STCrg3BhaNCa8Qlk+MJM+GYUBrMPf7KJLgGU=;
+	b=d0Z6K1tbSWvHUMR3ULLTWzvrHBccKtP400w2juVh2BhlvMa6lmW1ym3qh07PhMscaHDv
+	 VhGkjFiYpO2/pnpTSEocJJBDR4WrKdfdYb/dO+Nilzk7hx6Q3Vqc16AvxpF6lJnO4l74y
+	 2OKoCKyyF4qvwElWOKRpp0V2GMau0RaONcxAEg3mUsIogLs1sOShx8xl6Ko/vyKAbWLxL
+	 XHrjjBrKavNDPw3YLchoYousjPsqtII7DNtkEw2OgWI3WbO4mfUjgABhbiDQP6wdD7DC5
+	 JZ3aRbgn5BRyCZmIiCYxU7M5tQFDy4mQPnyAqMQymL007TVS9me5H/McH0BYb93onog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMjaQWUe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="I/BfnfVJ";
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C70F606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2A0606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:30:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E2A0606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMjaQWUe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C1E1F008AB;
-	Tue, 10 Nov 2026 04:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285013;
-	bh=qEubh6gqsuINpf/s+ajGjX3IhAcWtc/zKyjzL9XXDow=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jMjaQWUejGrKMG9JIgjAbut8hUk8p0ceZFsX6jjT5o+zsqTaUbSJp2ekCuLTXOelE
-	 xLcDUqrTDmGHEawX9pFydgNtr4B5Q4xH4r+AXqz6Tcn6QSFH5MOrJ0xReIyrykzYln
-	 yqhEpt59nilX6/Fxo+ZL/oSc2QM7DfGt0ptz9H6ZWx2eXwbGT5P1SO4r4IXgS53mGv
-	 wdeHCuVHRkbE3cPh1lurcyKV2EJUle8+EhtfVRBguhe79rTVt8AMADXzzedi7v5P4B
-	 ragoBxI+d7vtuq2u1hEMl4AlTHzz4GaaccDU3PIWMJuC39Ba0uFBLyJO5xT4EOfPQN
-	 /ooye39NJkosg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Koichiro Den <den@valinux.co.jp>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
-Date: Mon,  9 Nov 2026 23:30:11 -0500
-Message-ID: <20261110042949.332290-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054154-failed-6.1-5cdbd6d3a3a1@kernel.org>
-References: <20261107054154-failed-6.1-5cdbd6d3a3a1@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I/BfnfVJ
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5430f70c827so16637421cf.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 20:30:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794285016; x=1794889816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m9ZiqV3STCrg3BhaNCa8Qlk+MJM+GYUBrMPf7KJLgGU=;
+        b=I/BfnfVJEqNAcIncWiFEIEy0CQgE8VyTmVPyGTEK9+2XgrwtAyUnpxVxpxY92ZjhyX
+         BmtrZe6nKvuI7XLyxZopfOU9phHDG8Xviv2Q2F39ASFwCmIysXw01oylmpU9ez85AcvK
+         m+PkqK747ScC6FvPS7Pz8zLV5HvdxcevK4yUERburF5YekQ8PL6STG7yc2QHA63vr0er
+         67Tube1HToUSX3RGCqO67FfnDJpqxN9oVoI72yTCY1EU573b2zyOcksy7GcP8hL6gmrv
+         JmZ4rmtwX6CsfcbOQM67UstmBvZZorZHwz14M/egE1IZ/IhGYFC8hv/wkxAXYIWkk71H
+         ghtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794285016; x=1794889816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m9ZiqV3STCrg3BhaNCa8Qlk+MJM+GYUBrMPf7KJLgGU=;
+        b=jTZcrkuIQCO/Gtqn3/ICcQOyLbEi2jUpUTO2jx1ZKeIlWWP8Frsfu4k+6V3+OdomGm
+         HjRmJLvHJ0NCCP/0Z2MiJq0VY+vBtPB45xMvNAw9JJqq5pD9mJIvhAslh6n0F4FJ5v40
+         zqeFuqjA95J/OjKPlJsp6qQ+aPjMHYCCu+MhPBiNXIxzd6Kxxxib9fMI9TFcT/9ZPcZN
+         acIhBT9QlF/NBB202bp/AoBsXbT+KTIYARLKKoI0N5u610p5FojYdvojas5TGivuTumI
+         3WkPBJK3wzS3Sk/YxKfok3+2ew2Z+bBVEDr4hDG1vKjhVJM2Doeak0BJLN7JYVYMI2qQ
+         O+eA==
+X-Forwarded-Encrypted: i=1; AL+hErHmUnzKr9LfW3Zwo+ZOQo4PzmQsFZhhvqghMVoVmHTM24ShfpCV7ND5cmgIGgyjZM2aPJ2QNU8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gv2+Qx0TdghFuiBhDT+tW0yu069cAfKxbUrU+lVgznsVVs9rt
+	k0NzT16MQ9yDFfe4CeD/bjRdXZoCYj/9Z1xZqMtySc6+zzG40r8HSnc=
+X-Gm-Gg: AYBFou3huFSlMIvL0RY8wk/fHSCEI+j9FTCKy5GjyQBa5pF27bzkk2yMGTvjPc8RFpY
+	UPIZ7NCDPjQnYjNTD5RBE0C3OfG6gMOQqkYurRXdU086sNcu+8U0ARbXOfawk6BddGM0FUjqHQo
+	eiOZwME2o+wr91XmjYqtalaCMjbT4RyYr0GUZd07epPusHOoUENf7+lD6EqtOi2f63NjiSskTR4
+	65OoMMZuXB9jeFZQ2NSH2291zN6QydV/FcXc4z/onZx3BeHe1pwCFB45IM8rsjfo0pezyHGG9WT
+	4rzMQMih/i7nuDSM9EVWkzZzTFYBk3DYgpovfu8tAIdolLUFIGdKYGsLXPzwAwmIGP32S1Fr5Er
+	hQCY+GswP753JOu4BtfM8x94Yox8DYvBbvFj9vltSTB5fZMdS7s1xSvlIop6gDl4DFeD4+a2D7V
+	G9YqheDatuSeAYUTdG4i9KBILt7QVZzKKe0kEBnbOZdFnVjavY/wZduOtBAE3Hd/GyscxExTyDw
+	jBwydUIg6fpPM+YSsi626XkSI+Spg0Rv40L/t69KI5T3/rKOooJMWbzCwNvq3QAwu4bzdhSRaxG
+	s5x/vLdkvak8heBBscBQIiQZ3AHc35SjuI6HpT/nIRC3FwVSsFzP1q3YvyFu9sxLuUSYq0UoRg7
+	gKtNqAMEUZ3Piuz3Ggm8o+SAfRg9IFvTu9lFl5giKX+Sipa50U5oImcQAvyiqM6H6
+X-Received: by 2002:ac8:5a51:0:b0:535:1b18:202 with SMTP id d75a77b69052e-55527f0f4f9mr20274411cf.16.1794285016367;
+        Mon, 09 Nov 2026 20:30:16 -0800 (PST)
+Received: from localhost.localdomain ([104.39.152.7])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-555093d9c3fsm14579281cf.3.2026.11.09.20.30.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 20:30:15 -0800 (PST)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] ASoC: rt5682: disable jack detection works on shutdown
+Date: Mon,  9 Nov 2026 23:30:13 -0500
+Message-ID: <20261110043013.56937-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,214 +103,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Koichiro Den <den@valinux.co.jp>
+rt5682_i2c_shutdown(), which is also the remove path, cancels
+jack_detect_work before jd_check_work. With a headset button held,
+jd_check_work can observe jack removal and queue jack_detect_work
+after the first cancel. That work can then run after the codec is
+reset or, on remove, after the driver data is freed.
 
-[ Upstream commit 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 ]
+Use disable_delayed_work_sync() for both works, which can queue each
+other, to drain them and prevent requeueing. Probe initializes fresh
+work on rebind.
 
-The virtual PCI driver registers an ntb_dev but has no remove callback.
-Unbinding the endpoint function can therefore free BARs while the NTB
-device and its client still use them. It also leaves the virtual PCI
-devices and root bus allocated.
+Found by a static analysis tool under development.
 
-Allocate an ntb_dev for each virtual PCI probe and unregister it from the
-matching remove callback. Start command processing only after registration.
-Publish the device for doorbell IRQs at the same point. During remove, stop
-the command work and drain IRQ handlers before unregistering the device.
+Fixes: 45a2702ce109 ("ASoC: rt5682: Fix panic in rt5682_jack_detect_handler happening during system shutdown")
+Cc: stable@vger.kernel.org # v6.10+
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 
-Retain the root bus returned by pci_scan_bus() so it can be removed on
-unbind. Unregister the virtual PCI driver before releasing endpoint
-resources. Stop and remove the root bus under the PCI rescan/remove lock,
-then release its host bridge.
-
-Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Cc: stable@vger.kernel.org # 6.0+
-Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
-[ sashal: Adapted NTB pointer handling to the existing polling-based doorbell code without MSI IRQ handlers. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/endpoint/functions/pci-epf-vntb.c | 69 +++++++++++++++----
- 1 file changed, 55 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-index 15c707840cc20..aa5f96e3ef74f 100644
---- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-+++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-@@ -116,7 +116,7 @@ struct epf_ntb_ctrl {
- } __packed;
+ sound/soc/codecs/rt5682-i2c.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/rt5682-i2c.c b/sound/soc/codecs/rt5682-i2c.c
+index 43132943f6a7..db820cd9acba 100644
+--- a/sound/soc/codecs/rt5682-i2c.c
++++ b/sound/soc/codecs/rt5682-i2c.c
+@@ -299,8 +299,8 @@ static void rt5682_i2c_shutdown(struct i2c_client *client)
+ 	struct rt5682_priv *rt5682 = i2c_get_clientdata(client);
  
- struct epf_ntb {
--	struct ntb_dev ntb;
-+	struct ntb_dev *ntb;
- 	struct pci_epf *epf;
- 	struct config_group group;
+ 	disable_irq(client->irq);
+-	cancel_delayed_work_sync(&rt5682->jack_detect_work);
+-	cancel_delayed_work_sync(&rt5682->jd_check_work);
++	disable_delayed_work_sync(&rt5682->jack_detect_work);
++	disable_delayed_work_sync(&rt5682->jd_check_work);
  
-@@ -143,10 +143,15 @@ struct epf_ntb {
- 	void __iomem *vpci_mw_addr[MAX_MW];
- 
- 	struct delayed_work cmd_handler;
-+	struct pci_bus *vpci_bus;
- };
- 
- #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
--#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
-+
-+static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
-+{
-+	return ntb->pdev->sysdata;
-+}
- 
- static struct pci_epf_header epf_ntb_header = {
- 	.vendorid	= PCI_ANY_ID,
-@@ -172,7 +177,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
- 	else
- 		ntb->reg->link_status &= ~LINK_STATUS_UP;
- 
--	ntb_link_event(&ntb->ntb);
-+	ntb_link_event(ntb->ntb);
- 	return 0;
+ 	rt5682_reset(rt5682);
  }
- 
-@@ -262,7 +267,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
- 			if (readl(ntb->epf_db + i * 4))
- 				ntb->db |= 1 << (i - 1);
- 
--			ntb_db_event(&ntb->ntb, i);
-+			ntb_db_event(ntb->ntb, i);
- 			writel(0, ntb->epf_db + i * 4);
- 		}
- 	}
-@@ -774,7 +779,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
- 	}
- 
- 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
--	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
- 
- 	return 0;
- 
-@@ -1023,6 +1027,7 @@ static int vpci_scan_bus(void *sysdata)
- 		pr_err("create pci bus failed\n");
- 		return -EINVAL;
- 	}
-+	ndev->vpci_bus = vpci_bus;
- 
- 	pci_bus_add_devices(vpci_bus);
- 
-@@ -1067,7 +1072,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
- 	int ret;
- 	struct device *dev;
- 
--	dev = &ntb->ntb.dev;
-+	dev = &ndev->dev;
- 	barno = ntb->epf_ntb_bar[BAR_MW0 + idx];
- 	epf_bar = &ntb->epf->bar[barno];
- 	epf_bar->phys_addr = addr;
-@@ -1170,7 +1175,7 @@ static int vntb_epf_peer_db_set(struct ntb_dev *ndev, u64 db_bits)
- 				PCI_EPC_IRQ_MSI,
- 				interrupt_num + 1);
- 	if (ret)
--		dev_err(&ntb->ntb.dev, "Failed to raise IRQ\n");
-+		dev_err(&ntb->epf->dev, "Failed to raise IRQ\n");
- 
- 	return ret;
- }
-@@ -1253,13 +1258,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
- 
- static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
--	int ret;
- 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
- 	struct device *dev = &pdev->dev;
-+	struct ntb_dev *ntb;
-+	int ret;
- 
--	ndev->ntb.pdev = pdev;
--	ndev->ntb.topo = NTB_TOPO_NONE;
--	ndev->ntb.ops =  &vntb_epf_ops;
-+	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
-+	if (!ntb)
-+		return -ENOMEM;
-+
-+	ntb->pdev = pdev;
-+	ntb->topo = NTB_TOPO_NONE;
-+	ntb->ops = &vntb_epf_ops;
- 
- 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret) {
-@@ -1267,16 +1277,33 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		return -EINVAL;
- 	}
- 
--	ret = ntb_register_device(&ndev->ntb);
-+	ret = ntb_register_device(ntb);
- 	if (ret) {
- 		dev_err(dev, "Failed to register NTB device\n");
- 		return ret;
- 	}
- 
-+	/* Publish after ntb_register_device() succeeds */
-+	smp_store_release(&ndev->ntb, ntb);
-+	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
-+
- 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
- 	return 0;
- }
- 
-+static void pci_vntb_remove(struct pci_dev *pdev)
-+{
-+	struct epf_ntb *ndev = pdev->sysdata;
-+	struct ntb_dev *ntb;
-+
-+	/* Stop the work reader */
-+	cancel_delayed_work_sync(&ndev->cmd_handler);
-+
-+	ntb = xchg(&ndev->ntb, NULL);
-+
-+	ntb_unregister_device(ntb);
-+}
-+
- static struct pci_device_id pci_vntb_table[] = {
- 	{
- 		PCI_DEVICE(0xffff, 0xffff),
-@@ -1288,6 +1315,7 @@ static struct pci_driver vntb_pci_driver = {
- 	.name           = "pci-vntb",
- 	.id_table       = pci_vntb_table,
- 	.probe          = pci_vntb_probe,
-+	.remove         = pci_vntb_remove,
- };
- 
- /* ============ PCIe EPF Driver Bind ====================*/
-@@ -1368,12 +1396,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
-  */
- static void epf_ntb_unbind(struct pci_epf *epf)
- {
-+	struct pci_host_bridge *bridge;
- 	struct epf_ntb *ntb = epf_get_drvdata(epf);
- 
-+	pci_unregister_driver(&vntb_pci_driver);
-+
-+	if (ntb->vpci_bus) {
-+		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
-+
-+		pci_lock_rescan_remove();
-+		pci_stop_root_bus(ntb->vpci_bus);
-+		pci_remove_root_bus(ntb->vpci_bus);
-+		ntb->vpci_bus = NULL;
-+		pci_unlock_rescan_remove();
-+
-+		pci_free_host_bridge(bridge);
-+	}
-+
- 	epf_ntb_epc_cleanup(ntb);
- 	epf_ntb_config_spad_bar_free(ntb);
--
--	pci_unregister_driver(&vntb_pci_driver);
- }
- 
- // EPF driver probe
+
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
 -- 
-2.53.0
+2.43.0
 
