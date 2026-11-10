@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313664;
-	b=vXMl56LW/brhtMBmuL4XGzn3asfJE7uQ0TG3kczJMBdYAA2Qoeec8DohkZM2rRNuFAij
-	 yc8tE4Sc7Qj8zsCW0I2h0t8xyQZE2m2zMonrjF+yp1AedNRf8Tz8aHuk69IM0sBoDoPAq
-	 muz128je26IJaBf/jqqSQfu2o/JH4iq+7OLxBDco45Tq+9R9CZELS6sSy9gXZwyMtkpBf
-	 muELKeWXtk1TEq+aNvfLzCLDUs/bYoVEJl4JjAm06RseI2qKugh7uPCUwKkjh6DzxJq8O
-	 SIQK0T8u3sokg9TBEOZBJ5yARVUl5YoKcwJykY2LL+oiPiWDQgPIvqw70MOPFHidW3Q==
+	t=1794313672;
+	b=mFWFNKnooQNru3xXQL8GG8xsqgmTcpY8B6lhG7qGik/Lur96etx39uThbQ4pBSjzedKt
+	 As6IGj/ef7l+r0AQI/+wpy9LLsBmmuv6dB8I5/AlRaH7KJ4dfRpppyNk4TFqZ6ZQPUfdi
+	 zaR7lytqLZdWty5F4W6xKHbBH1EMblNA8UjBILPtgtZ+iIguAB/tY3HiZAOYS6e4Afozs
+	 MsH1BiXeKREd/EOjCr6oVJaS6Oq8spti7hWu7/ne5kUSTj64cFfzBNYxd6s2ndcurarv5
+	 k/nQTEPXhPn1SSInp7ygRdRueS5c0X/JiKA+ayuEC+oyFSZPGxHxY5GcLH4WYvkRuHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313664;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313672;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cDbIr2cQbYnLjyQfWBIxZ5GU0Hz9uiVQ8wABVgV6aEo=;
-	b=HMaQj2xlNBe1T/0pzBtVal5dJ/mAWc1oWyqvFajMUAx8fC+da/AfIIjmSu46Mau6Y9pZ
-	 c8lsfTuBsusjAxwlB3v6IVzMMnxUZ6X0d65cotLTgFfjc9WItpJQGNmAszyq9Upv42TtS
-	 cHILELfkje/Kt+tDWn+6dopGn1bX6PH5bWKE2AiE33hxZXJm11fJvwfBonA+DEI7VZXj2
-	 KxdTs03fjqBU8NX1vYUQK6JZtT59NAOblkm687nXzOc1vws/WHBnnLZk3u/y6Y7/cRAGE
-	 yNNqEWmO/uBzEE6Tn8BaRmE4/gtVxJ4LSnnarHE5i2VXCk1gCkTANxNgBURD0YhpSlQ==
+	bh=u3XMUi/2sZs3zYMT3KHxeKFLlvKhFt6xSE4vfuPbh4A=;
+	b=cBBKw08zu0yoyt3yZ02HZnybEkCv4Nwro+jTDCgrqJfmteVGDIMxHYHCBvMVXFWkFuuX
+	 AGaJaufh1cU8jT4f0wSi6YQ7YNhYF2xOvL/C92AfoDEUtsuYOjMV9VFFy0K20Bo/BDxjO
+	 ex5nqB33Stg/cBX/NW+dQTv3Yf9K0jg4mn3rdo5uP87wOIjcWhwXor0BmedR7RyrB8FQL
+	 9xk1efpaV82oiGndvtxHVXT0fuG2NE12u2mBMgQa9S4+kdagUFcCBdtX1b6svjSs3bjpV
+	 W/wEbk8dgExluK63LfkF1xMmNiI7vYlAMdBDqWpeYPh8cOwa11NupLJBprI2oeq9H5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZWkDH+1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F+ZSx8wX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382A8606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3558A606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZWkDH+1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B8D1F008A2;
-	Tue, 10 Nov 2026 12:27:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F+ZSx8wX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A486E1F0089F;
+	Tue, 10 Nov 2026 12:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794313663;
-	bh=cDbIr2cQbYnLjyQfWBIxZ5GU0Hz9uiVQ8wABVgV6aEo=;
+	s=k20260515; t=1794313671;
+	bh=u3XMUi/2sZs3zYMT3KHxeKFLlvKhFt6xSE4vfuPbh4A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XZWkDH+16aSdzH6BXHp8Fv7PT0LJcPfu7R1tKcciMBy15TuL/NSdkUFBy1LLK+AVi
-	 Ij11mM9XY0Kw5DKu6VxIIzeRrXe3QngLE0YoyfkkWrLk2OgStHfraH0LZMgrqfmtKS
-	 9Y/Fink8w/cHfu9AG2oY8Z+QwDSlwdKtDtL7LgWtP03MA8RS+Hz5OX4LpOLMMbMuJG
-	 Ux/rSfMC5otzJrjwwelLiONfy20Y56T7L+1zdjDqXkiCtXwbIzjW4sGdncIH4G9jH/
-	 IF4ti4LaGleuldmUJp+GK3sZ+c1kGCKEAZt3Svw2pxbGfY65UZ8S6MVFjzZMIUWtJa
-	 Z+774PMUr84Bw==
+	b=F+ZSx8wXvlBVoWESA1wqu9tdJ+D2B5e1OvNABcqazxMZdMceWvlAqYOCmZ/paPzHi
+	 Gabty7bbjoaVOyrzPeo4StGNIbfsB9UpnTjFFIgwdFaNxz+zxTwNlp7M8V83bLj29O
+	 L9YZKIzt5PUT6kuBm3s2TYZvWNDbWctSTUHX8tZZHcVFE/uHDNtFBifj3WlD1IOXri
+	 hu1tM3fltOKmFRLb5olgXHcw8310k2TchFNCL0tXp0xh7dLMqC7noDh+M/DozfdzuC
+	 6RVu2Es853iWEkCSt37Zu67gAvCbZoduNoMhPmUn7vPwP6Uw9gUXsyEUByDzixYTjC
+	 DmTF5jO08ofqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Changwei Ge <gechangwei@live.cn>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Jun Piao <piaojun@huawei.com>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Mark Fasheh <mark@fasheh.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()
-Date: Tue, 10 Nov 2026 07:27:41 -0500
-Message-ID: <20261110122732.1208057-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
+Date: Tue, 10 Nov 2026 07:27:49 -0500
+Message-ID: <20261110122723.1153716-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110122732.1208057-1-sashal@kernel.org>
-References: <20261107060034-failed-5.15-082723fee626@kernel.org>
- <20261110122732.1208057-1-sashal@kernel.org>
+In-Reply-To: <20261107052000-failed-6.12-25bf9e549360@kernel.org>
+References: <20261107052000-failed-6.12-25bf9e549360@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +67,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-[ Upstream commit 082723fee626532f176727b6438b666a96d5246c ]
+[ Upstream commit 25bf9e549360b656a6763232e0e9e58a00c3aff7 ]
 
-of_slim_get_device() returns a device with an elevated reference count,
-and wcd->slim_ifc_dev is intentionally kept for the codec lifetime on
-success. However, all the failure paths of wcd9335_slim_status() return
-without dropping that reference, leaking the SLIM interface device
-whenever the register maps cannot be created or the codec fails to come
-up.
+Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
 
-Put the device on each of those error paths.
+The ocfs2 metadata validators trust the on-disk suballoc slot and bit
+without checking them against the slot range of the mounted filesystem and
+the capacity of the block group bitmap.  A corrupted image can carry
+OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
+the bitmap, and once the corresponding inode, extent block, xattr block,
+dir index root or refcount block gets freed, the bad value goes straight
+into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
+a BUG_ON() or runs off the end of local_system_inodes[].
 
-Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917164853.2163184-1-vulab@iscas.ac.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
+This series rejects such values at read time, in the existing validators,
+so corrupted objects fail with -EROFS (and a read-only remount) instead of
+crashing:
+
+  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
+        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
+        ocfs2_validate_inode_block()"), and turns the "system file
+        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
+        an ocfs2_error();
+  patch 2 rejects oversized dinode suballoc bits;
+  patch 3 validates the suballoc slot and bit of xattr and dir index
+        blocks;
+  patch 4 validates the suballoc slot and bit of extent and refcount
+        blocks.
+
+The checks only enforce what the kernel and mkfs.ocfs2 already write: a
+valid slot from meta_ac->ac_alloc_slot and a bit within the block group
+bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
+OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
+healthy filesystems.
+
+Each new check was exercised under QEMU by corrupting the field in
+question with an out-of-range value; with the series applied the access
+fails with -EROFS and the filesystem remounts read-only instead of hitting
+the BUG_ON().
+
+This patch (of 4):
+
+ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
+OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
+mkfs.ocfs2 are allocated from the global allocator and thus legitimately
+carry this value; regular inodes are always allocated from a per-slot
+suballocator and hence must have a valid slot.
+
+If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
+ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
+and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
+when the inode is deleted.  This can be triggered by an unprivileged user
+unlinking such a corrupted file.
+
+Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
+still accepting it for system inodes.  Note that a crafted dinode carrying
+OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
+used to BUG() in ocfs2_read_locked_inode() ("system file state is
+ambiguous").  Since i_flags comes from disk, handle that mismatch with
+ocfs2_error() instead of BUG_ON() as well.
+
+Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
+Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
+Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adjusted context for the suballocation-slot check located after inline-data validation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wcd9335.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index 24c3d1c28a294..61da127dbe11e 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -5208,25 +5208,32 @@ static int wcd9335_slim_status(struct slim_device *sdev,
- 	slim_get_logical_addr(wcd->slim_ifc_dev);
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index ce78ef998217c..51e487ea432e1 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -575,14 +575,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
+ 	fe = (struct ocfs2_dinode *) bh->b_data;
  
- 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
--	if (IS_ERR(wcd->regmap))
-+	if (IS_ERR(wcd->regmap)) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
- 				     "Failed to allocate slim register map\n");
+ 	/*
+-	 * This is a code bug. Right now the caller needs to
+-	 * understand whether it is asking for a system file inode or
+-	 * not so the proper lock names can be built.
++	 * The caller must know whether it is asking for a system file inode
++	 * or not so the proper lock names can be built.  Since i_flags comes
++	 * from disk, a mismatch is filesystem corruption instead of a code
++	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
+ 	 */
+-	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
+-			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
+-			"Inode %llu: system file state is ambiguous\n",
+-			(unsigned long long)args->fi_blkno);
++	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
++	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
++		status = ocfs2_error(osb->sb,
++				     "Inode %llu: system file state is ambiguous\n",
++				     (unsigned long long)args->fi_blkno);
++		goto bail;
 +	}
  
- 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
- 						  &wcd9335_ifc_regmap_config);
--	if (IS_ERR(wcd->if_regmap))
-+	if (IS_ERR(wcd->if_regmap)) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
- 				     "Failed to allocate ifc register map\n");
-+	}
- 
- 	ret = wcd9335_bring_up(wcd);
- 	if (ret) {
- 		dev_err(dev, "Failed to bringup WCD9335\n");
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return ret;
+ 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
+ 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
+@@ -1599,8 +1603,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 		}
  	}
  
- 	ret = wcd9335_irq_init(wcd);
--	if (ret)
-+	if (ret) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return ret;
-+	}
- 
- 	wcd9335_probe(wcd);
- 
+-	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+-	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
++	/*
++	 * Only system inodes created by mkfs.ocfs2 are allocated from the
++	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
++	 * Regular inodes are always allocated from a per-slot suballocator.
++	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
++	 * deleting it would pass the slot to get_local_system_inode() via
++	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
++	 */
++	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
++		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
++			rc = ocfs2_error(sb,
++					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
++					 (unsigned long long)bh->b_blocknr,
++					 le16_to_cpu(di->i_suballoc_slot));
++			goto bail;
++		}
++	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_suballoc_slot));
 -- 
 2.53.0
 
