@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794282323;
-	b=Ui7xTBISHQxL5Jou5g3WKxOknO3o7h6hdJjs/lkeQq3GBxtmZLGoWibafkQu8jTZax91
-	 HEYd++X3G2QyD6kgskY+QtMic9090ieOPIYDdkmind/AeuJYeX7+tXhqLq1F5PaI//9yD
-	 /JbO+dmg6JiqR5/4oIrdK1OY+0PTuYspS2aiTgygrkfkbFSVVbFQGl6KKdmW6gN8rNQSS
-	 3ejjJi3BNweNa9VMb94tufoFIN7N3rpbMT77IUllYWbFzbe2ZwPkexo4kCbdpbFHvSyAS
-	 VtMBpSeVfb9A+J93Fr99rytG7/ZyvCqBK2OmimpzlCOAp2Kvvc/4WiUSq+2w5wTWW2A==
+	t=1794282325;
+	b=VaMspF3OhNUW8/1UFFaCevOhMsQbSYBUY/Bmck2BAHcpqgCueNdCe89rC76LMgrUq17/
+	 TriSeAkDRFNNaXdXnPzGyk1MZwPdGl+05HLz+t6gTOIS+rOJdyf2FL0/sR06qHIWeTipf
+	 d9bEo0Vu4w1Sdd0mSootQZOmnWqCCzHF8Z4luEnsWVZzNXx93enRPQy1OmPWkQGddLOTB
+	 uiSoDrGY+8k8JfLSmgQjot8AkvH8vKKw2rDC03YN+FzKe39DEQklKifUVgYU9mGCYcq1/
+	 O0FJUXfbVcQfJm7XbLfk9cMlgBtuM/0jKk/f2sy5BYQ7N/6eUlnb+35fb/DwG1XU/CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794282323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794282325;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=p35/GqrNtzowvNEbfh7w7G0Py621QLYznnTTS15sWLE=;
-	b=Bxh27na4SZBZsaYf4B1N4A4u7un4a8x2yNGo3jlvNdtVGhmmLFM2RYx4ydT/97U94xux
-	 PpDOx4MKY5hWBHoZSq6G/Klx8WhllAes0N5s7DSbBHDk+EnqKHC9wePWLOR5R0M+TQ30e
-	 peV4CnPM/RCZHQvpoTpEAFuJ8mnropPaNhThoPqWZgrVzgZug/E+lJRudH304+2C73Fg6
-	 JWP6nqgbIKR/7p3odQT18+rQelXh5kidx6p369h4Cuanktfv/1pOKCNyPks3jmfhR0Rym
-	 ksIEiWdoB+ByApftJ90N7MdNXjMbT0aLc0aHos3jI78ewC9V3BnW6XOm6q/JQGJhVOQ==
+	bh=ZdnvUPDVfyJEW5jAUbsvkmdNWzNKupgFO1wunguqXrA=;
+	b=Dr7YUboq7RYm4fK5sBTTTbzFeiPXSkfsX6LY1L3PvevIDrWkkmdoCdzwkrxzy2d/DjtY
+	 CrGeRFficb3r/1UpLCEexzFKUJbh4zM64wCYzpPD7GYVXROKodjOsEzaxGvchiANB/9Bv
+	 zimWtKmUMsfYPIK8bqAEjr1bpaioDh/r9zd4lzVVQR7jLhWQnjh1Q9rZ7iLgBdDIr/c2R
+	 MFsCuLK63FjioASBOnU+1xkx1Xtpk/tEZXh0ZojzrNsAV66DpZ4zCovbf4dN4QD21PDBt
+	 Eso1gdAuvWQIl/VP7WNCJoFBfXqIuEfYXVnYflLqUos7fWvBEQnkECDfoNYl4oyWJEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDamwry1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOPTGiMv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645BC606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BE8606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:45:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BDamwry1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C67E1F008A2;
-	Tue, 10 Nov 2026 03:45:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOPTGiMv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D981F008A1;
+	Tue, 10 Nov 2026 03:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794282323;
-	bh=p35/GqrNtzowvNEbfh7w7G0Py621QLYznnTTS15sWLE=;
+	s=k20260515; t=1794282324;
+	bh=ZdnvUPDVfyJEW5jAUbsvkmdNWzNKupgFO1wunguqXrA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BDamwry1cxNdhjYtjVryc5h9s+s/XqQ5u8rfQQqOhsA1B+r0JqF0VTg4iTwQgeont
-	 /AUTaG3P+Tp9MqG8I8mq/Xi6JBkVcaG8L/ktuP0Dy8dcPwKw9Hct4f55uaunJ2ZhKa
-	 xaN1poRgH9glRK9R57GUNe8Qa/d5Qc/z5V4/xzwgIOA02z6nvW4AK3Qu+Lsa6Xvig5
-	 NKEA5Q6aaWM98zxhfMQ/a5MlfQFjCRPaWsRr55PUYmo58XmrC7pdu0nOEtQFmVugIN
-	 SefnhaIEp4FXZOouE98Ja1/e06aGp2A4tutWcN2yzFWIyJczftN1h4wMmvHawz88ZE
-	 oxKAk8TlAgqRA==
+	b=gOPTGiMvNhhdIZ4j5Al642tXrkCdg0suUysNU1ZH78mWGSaImVvkAXiRUgz289KFH
+	 88RmmcCegjaCxofDJXOORqAmdAFBs4YrJxNW3fG8HGYfQNwrnacF7BIJr5J10harE/
+	 /9KJaC8FIUHMlb7We5+mJ04fbqXW6RLdBOoJru+5Az85Naq5UmStHhiMGOV8d2V3+r
+	 eTsCUxl9LLfpn816ZmJgVFHMdYM8kkrPIR9DPSRvYDnD+Uu/IDEfQQXKp0pE+i0CuO
+	 RH1Vd+fVqS3XQPC9cAkdrC/gKQtFoCZ1xqnewtVIhV2967sRLIs/D8fp2awkPI0bWk
+	 UPHqS+zcEI5Vg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weili Qian <qianweili@huawei.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Ming Qian <ming.qian@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] crypto: hisilicon/hpre - fix GFP flags for dma_alloc_coherent
-Date: Mon,  9 Nov 2026 22:45:18 -0500
-Message-ID: <20261110034443.239021-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: imx-jpeg: finish the job on device_run() error paths
+Date: Mon,  9 Nov 2026 22:45:22 -0500
+Message-ID: <20261110034456.247943-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110034443.239021-1-sashal@kernel.org>
-References: <20261107061637-failed-5.10-40ec9605cb19@kernel.org>
- <20261110034443.239021-1-sashal@kernel.org>
+In-Reply-To: <20261107055728-failed-5.15-30b35fd2b999@kernel.org>
+References: <20261107055728-failed-5.15-30b35fd2b999@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,75 +63,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weili Qian <qianweili@huawei.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 40ec9605cb195e065470f8f23ef94b1b541411a3 ]
+[ Upstream commit 30b35fd2b999e1b8c26f8191d974d20c8848d2d6 ]
 
-The HPRE driver hard-codes GFP_ATOMIC for RSA/DH and GFP_KERNEL for
-ECDH. This may cause "scheduling while atomic" in atomic context or
-unnecessary allocation failures under memory pressure.
+mxc_jpeg_device_run() returns early through a shared "end" label on several
+error paths (no free slot, mxc_jpeg_alloc_slot_data() failure, or missing
+buffers or queue data), and none of them calls v4l2_m2m_job_finish().
+Since the delayed work is queued only after the hardware is started, those
+paths neither finish the job directly nor queue timeout work that could
+finish it later. The job is left with TRANS_RUNNING set, so the
+wait_event() in v4l2_m2m_cancel_job() (reached from v4l2_m2m_ctx_release()
+at close) waits indefinitely and the close hangs.
 
-Select GFP flags dynamically based on CRYPTO_TFM_REQ_MAY_SLEEP and
-store them in hpre_asym_request::flags. The areq field is a union of
-rsa/dh/ecdh request pointers; reading base.flags through any union
-member other than the one that was written would be type-punning, so
-a dedicated flags field avoids that.
+mxc_jpeg_alloc_slot_data() uses dma_alloc_coherent(), so the failure path
+is reachable under memory pressure.
 
-Fixes: 98dfa9343f37 ("crypto: hisilicon/hpre - don't use GFP_KERNEL to alloc mem during softirq")
+Return the src/dst buffers with VB2_BUF_STATE_ERROR and call
+v4l2_m2m_job_finish() on those paths: paths that have buffers use a
+"buf_finish" label; the no-buffer path uses "job_finish" directly. This
+mirrors the existing jpeg_parse_error path.
+
+This bug was found by static analysis.
+
+Fixes: 2db16c6ed72c ("media: imx-jpeg: Add V4L2 driver for i.MX8 JPEG Encoder/Decoder")
 Cc: stable@vger.kernel.org
-Signed-off-by: Weili Qian <qianweili@huawei.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ sashal: Omitted ECDH changes because the driver lacks ECDH support. ]
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Adjusted mxc_jpeg_device_run() context to account for missing timeout work scheduling. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/hisilicon/hpre/hpre_crypto.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/media/platform/imx-jpeg/mxc-jpeg.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/crypto/hisilicon/hpre/hpre_crypto.c b/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-index 7501092463354..89bc8b164e74a 100644
---- a/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-+++ b/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-@@ -96,6 +96,7 @@ struct hpre_asym_request {
- 	int req_id;
- 	hpre_cb cb;
- 	struct timespec64 req_time;
-+	u32 flags;
- };
+diff --git a/drivers/media/platform/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/imx-jpeg/mxc-jpeg.c
+index 2ab03444f742a..45097405bdc9f 100644
+--- a/drivers/media/platform/imx-jpeg/mxc-jpeg.c
++++ b/drivers/media/platform/imx-jpeg/mxc-jpeg.c
+@@ -999,15 +999,15 @@ static void mxc_jpeg_device_run(void *priv)
+ 	dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
+ 	if (!src_buf || !dst_buf) {
+ 		dev_err(dev, "Null src or dst buf\n");
+-		goto end;
++		goto job_finish;
+ 	}
  
- static int hpre_alloc_req_id(struct hpre_ctx *ctx)
-@@ -201,6 +202,7 @@ static int hpre_prepare_dma_buf(struct hpre_asym_request *hpre_req,
- 				struct scatterlist *data, unsigned int len,
- 				int is_src, dma_addr_t *tmp)
- {
-+	gfp_t gfp = hpre_req->flags & CRYPTO_TFM_REQ_MAY_SLEEP ? GFP_KERNEL : GFP_ATOMIC;
- 	struct hpre_ctx *ctx = hpre_req->ctx;
- 	struct device *dev = HPRE_DEV(ctx);
- 	void *ptr;
-@@ -210,7 +212,7 @@ static int hpre_prepare_dma_buf(struct hpre_asym_request *hpre_req,
- 	if (unlikely(shift < 0))
- 		return -EINVAL;
+ 	q_data_cap = mxc_jpeg_get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
+ 	if (!q_data_cap)
+-		goto end;
++		goto buf_finish;
+ 	q_data_out = mxc_jpeg_get_q_data(ctx, V4L2_BUF_TYPE_VIDEO_OUTPUT);
+ 	if (!q_data_out)
+-		goto end;
++		goto buf_finish;
+ 	src_buf->sequence = q_data_out->sequence++;
+ 	dst_buf->sequence = q_data_cap->sequence++;
  
--	ptr = dma_alloc_coherent(dev, ctx->key_sz, tmp, GFP_ATOMIC);
-+	ptr = dma_alloc_coherent(dev, ctx->key_sz, tmp, gfp);
- 	if (unlikely(!ptr))
- 		return -ENOMEM;
+@@ -1050,11 +1050,11 @@ static void mxc_jpeg_device_run(void *priv)
+ 	ctx->slot = mxc_get_free_slot(jpeg->slot_data, MXC_MAX_SLOTS);
+ 	if (ctx->slot >= MXC_MAX_SLOTS) {
+ 		dev_err(dev, "No more free slots\n");
+-		goto end;
++		goto buf_finish;
+ 	}
+ 	if (!mxc_jpeg_alloc_slot_data(jpeg, ctx->slot)) {
+ 		dev_err(dev, "Cannot allocate slot data\n");
+-		goto end;
++		goto buf_finish;
+ 	}
  
-@@ -455,6 +457,7 @@ static int hpre_msg_request_set(struct hpre_ctx *ctx, void *req, bool is_rsa)
- 		h_req = PTR_ALIGN(tmp, HPRE_ALIGN_SZ);
- 		h_req->cb = hpre_rsa_cb;
- 		h_req->areq.rsa = akreq;
-+		h_req->flags = akreq->base.flags;
- 		msg = &h_req->req;
- 		memset(msg, 0, sizeof(*msg));
- 	} else {
-@@ -469,6 +472,7 @@ static int hpre_msg_request_set(struct hpre_ctx *ctx, void *req, bool is_rsa)
- 		h_req = PTR_ALIGN(tmp, HPRE_ALIGN_SZ);
- 		h_req->cb = hpre_dh_cb;
- 		h_req->areq.dh = kreq;
-+		h_req->flags = kreq->base.flags;
- 		msg = &h_req->req;
- 		memset(msg, 0, sizeof(*msg));
- 		msg->key = cpu_to_le64(ctx->dh.dma_xa_p);
+ 	mxc_jpeg_enable_slot(reg, ctx->slot);
+@@ -1073,8 +1073,17 @@ static void mxc_jpeg_device_run(void *priv)
+ 					 &src_buf->vb2_buf, &dst_buf->vb2_buf);
+ 		mxc_jpeg_dec_mode_go(dev, reg);
+ 	}
+-end:
++
+ 	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
++	return;
++buf_finish:
++	v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
++	v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
++	v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_ERROR);
++	v4l2_m2m_buf_done(dst_buf, VB2_BUF_STATE_ERROR);
++job_finish:
++	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
++	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+ }
+ 
+ static int mxc_jpeg_decoder_cmd(struct file *file, void *priv,
 -- 
 2.53.0
 
