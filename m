@@ -1,52 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273297;
-	b=PQpwbcr31oX4BVHPpCZB29ykquFK+UBnAPykzo0/zdvsf8UyWMI4cAtp9CwqbjssnnqG
-	 xnyXhiLYJi5GMOvMPULbtnBd87VOnOIaxYfc6a9Su2yNestcNlJLiccP35toqAh1Vz3Jj
-	 0vaHcPWQqb2AICzc+foAzndxBilLxPA4KJhbSzbyQceFFxJuozMhLiq65xINdTxsX8tqz
-	 ci4DWEgN7FaEGZazK1yX/lzw1/HlV1AyTuAAE2cYrEk+bQSQBmDNIUH6eIRu65TneOkVk
-	 fFk0DM8kOr+2M77S6ZWDay7dNGmhVcRV+n98isDzlsnqjKJ5MPEj7/nzQu08HBz7XJQ==
+	t=1794273300;
+	b=S7gPHqbdQm717/4oM67EWyKq96sj2WPRc8ZK1uppkpUW4PiqNidT5kq4sOabvWfa5CFJ
+	 Is/2dm4mZrKuoM+YospjzeJF63P58toEC7fTq/mrMKIP3/agOn4+tYKJBX7u3I7oyF75b
+	 j8g7K7CGYNoZ90+MseCXkK91hl2jz2nrq7f3WGv0ojmsFlNKf0QTBJi5Vu4AuZYlHO09q
+	 8lMBy1kEk9dH4Tw7YnwFSIe0VOgFyjb7jJP8JEkbFCeeyV9S8LWokBKQBIeN+Mu5JD6wq
+	 FEjll/6h/9uXFvHxtDBbk2EGMODbKUeFK4l/0PiygpIosmPyrc4hIlNGwJdzEq6Ez7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273297;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273300;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=smlWFCYl4ahVQa1jJ7VaP10HTQDp4lAh4pG9TgrC2ok=;
-	b=im+OOuZpbGcZ9WbAkZVSSQSnHtyfj8iEHhFsa693J8E+AMDOzveGQoj009yIFQt+DSZD
-	 bbdDQ7ykVD3sIPq7iloT7Vo/tEJ9Ie3fvOJbqSpbi5xkRx/pbg9GYBBZvsz2fje7ypiuj
-	 AgcMwxz64vdF/iAV91jOd2/9j/aarOz+wmpTU6/z6Zyy3ONl7JDFmlYEYrZuvtXPGxzYe
-	 VXXv7NiNDePuyJU+6Kky82EcsvY+K5wq4X/DEGf/y34iDUnVfnzdpXidgLqRHxZIAfwnW
-	 H1DwWI588iKyUHoXH2WeEvQm0nYWHp4peM2kakLCl8yesdEVQVg27ZoGfR+emANVD9g==
+	bh=5eH0cVXHUvpBtQl/d4AtlDe2COkCokHmPTaR4pHauKI=;
+	b=tsnwklWsftFtpN9nIgTUnMspN0i1tcuekgiNXgftUd0PMdIIhgvHHN0Ec7Su7Orajdwc
+	 dITNCtIC0yuhKbnNm9iFYlZxEV0vlrd7tJ2l06w5pwSfJirc5/Otb/W7hCXQprBRVRgV5
+	 i9xDJGlyLc4qBpaOACZFmi5HSkLIPCVKE/i8bs3SjbUQtEW0bi7uQMZZt/SNMS9MKo5ug
+	 JCR91nL29RChon8Tbj5mpmQ/aNfRaM5/wJBzkuNLzZo60TsNA8kWETSlNbS4QssnxLtDP
+	 jBTDb0UqxxSXxGz6VrGhCs1dg4+CkgR38tmiWyjSrrK7iaA/sIpbjZdqmFkE4wS1vuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q95yFK/x";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeHu9Hud;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838B4606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CF2606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q95yFK/x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44451F0089F;
-	Tue, 10 Nov 2026 01:14:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XeHu9Hud
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8CA1F0089F;
+	Tue, 10 Nov 2026 01:14:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273297;
-	bh=smlWFCYl4ahVQa1jJ7VaP10HTQDp4lAh4pG9TgrC2ok=;
+	s=k20260515; t=1794273300;
+	bh=5eH0cVXHUvpBtQl/d4AtlDe2COkCokHmPTaR4pHauKI=;
 	h=From:To:Cc:Subject:Date;
-	b=Q95yFK/xWJu2645yNyG02y/ZzaUxPU+ETPlazZsg+xsQqjeRcYFSrMH3+az0H4kyF
-	 Dx5BOx8BhuZ/j+xfW1VZCb/N5Tl3nHq1qZcXXF2SZ2PIeM/9MMkiWNRfnqm9A01cuR
-	 +vsCLB1YFy2uSBaMhMuSzxdsAEvlk1Q4lO0LTYdZtVXT3+CPW1BfJ78ALoYZ4dQm8p
-	 8jPsRqs1JnW7PHeGLS5SkmGfWQIZ7GpylQyzx9EXcNAaiSgSCVqoJEx+jiQjyP0qHU
-	 CZWG8M2KbO8FD+RoDVaaYPs9qOLqJbgp36QdjpMc2FY3BFLAyN+BHU9GOqT10yB6r9
-	 +UxW9exbNYE/w==
+	b=XeHu9Hudkq8u36l2PAhaCgscWQjsU3oKbrTBtb7mEPSNRVGdhWKrQmy4FP7nzt6lc
+	 IDIRgcBq2gzEvhY2SKeJoC0yH4PQA5Y8d1I7CSyZ2ClYAKkaRXWOahK1x8oAs6Olwz
+	 Bw5MUtDzTyPiPDYTVFur9ObettohpKD2zlOEn+CBJrTNziWELyT7g/bw5VCXuL8/t0
+	 r1fKZmhOTMmyD5mP64Y215a5+GztaQPac1M0B29cgDScBm9Sm4CNd8mBEyQU0BInWl
+	 jLsSsnD6BOQGPTgjj+L5MAa6T9n/clDGUz3fCc0iHgl902X0C346W6hFwIJbRNcKfJ
+	 PzlxQXvRkI9sQ==
 From: Sasha Levin <sashal@kernel.org>
-To: zhaogongyi@bytedance.com,
-	cassel@kernel.org,
-	dlemoal@kernel.org
+To: zhaoyz24@mails.tsinghua.edu.cn,
+	yangyx22@mails.tsinghua.edu.cn,
+	wangao@seu.edu.cn,
+	fengxw06@126.com,
+	qli01@tsinghua.edu.cn,
+	xuke@tsinghua.edu.cn,
+	asmadeus@codewreck.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ata: libata-scsi: reject data-in commands with a data-out buffer" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:14:55 -0500
-Message-ID: <20261109201455-failed-6.6-a4845f077415@kernel.org>
+Subject: FAILED: patch "[PATCH] 9p/xen: drain response work after unbinding IRQ" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:14:58 -0500
+Message-ID: <20261109201458-failed-6.1-7b6f2e3c29fb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,113 +64,85 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x a4845f077415ef32fe672c841e2fc58ae9e28273
+git cherry-pick -x 7b6f2e3c29fb4d76f1e4973280792eabbd526602
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201455-failed-6.6-a4845f077415@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201458-failed-6.1-7b6f2e3c29fb@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a4845f077415ef32fe672c841e2fc58ae9e28273 Mon Sep 17 00:00:00 2001
-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Date: Wed, 4 Nov 2026 21:06:38 +0800
-Subject: [PATCH] ata: libata-scsi: reject data-in commands with a data-out
- buffer
+From 7b6f2e3c29fb4d76f1e4973280792eabbd526602 Mon Sep 17 00:00:00 2001
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Date: Tue, 9 Jun 2026 23:52:01 +0800
+Subject: [PATCH] 9p/xen: drain response work after unbinding IRQ
 
-SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
-scatterlist can then contain pages pinned without write access.
-ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
-in the reported case, the copy tried to write the shared zero page
-and faulted in the kernel.
+commit ea4f1009408e ("9p/xen : Fix use after free bug in
+xen_9pfs_front_remove due to race condition") added cancel_work_sync()
+to keep xen_9pfs_front_free() from freeing a ring while
+p9_xen_response() is still running.
 
-The same mismatch can affect SG_IO commands translated by libata.
-ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
-the receive buffer even if the drive aborts the command. For ATAPI,
-the successful INQUIRY completion also rewrites the buffer in
-atapi_fixup_inquiry().
+The work is currently drained before the event channel IRQ is unbound.
+That leaves a race window where xen_9pfs_front_event_handler() can run
+after cancel_work_sync() returns and queue p9_xen_response() again.  The
+following unbind_from_irqhandler() synchronizes with the IRQ handler, but
+it does not cancel work that the handler already queued.  The teardown
+can then free the ring and private data while the response work remains
+pending, and the worker later dereferences ring->priv and priv->client.
 
-Reject these mismatched commands before the buffer is written or the
-command is issued. Report ABORTED COMMAND / DATA IN BUFFER ERROR because
-the CDB itself can be valid; the supplied transfer direction is wrong.
+Unbind the event channel IRQ before draining the work.  Once the IRQ is
+unbound, no new response work can be queued by the backend event channel,
+and cancel_work_sync() waits for any work that was queued before or
+during the unbind.  It is then safe to release the ring resources.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/r/20261027090809.94126-1-zhaogongyi@bytedance.com
-Suggested-by: Niklas Cassel <cassel@kernel.org>
-Suggested-by: Damien Le Moal <dlemoal@kernel.org>
+Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20261104130638.37882-1-zhaogongyi@bytedance.com
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: GLM:GLM-5.1
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 ---
- drivers/ata/libata-scsi.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ net/9p/trans_xen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index b1d5d822a9a20..87a57495d2e4b 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -2048,6 +2048,19 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	if (xlat_func(qc))
- 		goto done;
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index 5a0b5b83e8ab4..9ee1ac9143d43 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -282,14 +282,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+ 		struct xen_9pfs_dataring *ring = &priv->rings[i];
  
-+	/*
-+	 * A data-out request may contain pages pinned without write access.
-+	 * Reject a translated data-in command before issuing it, since its
-+	 * completion handler may write to the buffer even if the device fails.
-+	 */
-+	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-+		     ata_is_data(qc->tf.protocol) &&
-+		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		goto done;
-+	}
+-		cancel_work_sync(&ring->work);
+-
+ 		if (!ring->intf)
+ 			break;
+ 		if (ring->irq >= 0) {
+ 			unbind_from_irqhandler(ring->irq, ring);
+ 			ring->irq = -1;
+ 		}
++		cancel_work_sync(&ring->work);
 +
- 	return ata_scsi_qc_issue(ap, qc);
- 
- done:
-@@ -2079,6 +2092,13 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
- 
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		return;
-+	}
-+
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
- 
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-@@ -3173,6 +3193,14 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
- 
- 	qc->complete_fn = atapi_qc_complete;
- 
-+	/* atapi_fixup_inquiry() writes to the buffer on successful completion. */
-+	if (scmd->sc_data_direction == DMA_TO_DEVICE &&
-+	    scmd->cmnd[0] == INQUIRY) {
-+		ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
-+				   DATA_IN_BUFFER_ERROR);
-+		return 1;
-+	}
-+
- 	qc->tf.flags |= ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE;
- 	if (scmd->sc_data_direction == DMA_TO_DEVICE) {
- 		qc->tf.flags |= ATA_TFLAG_WRITE;
+ 		if (ring->data.in) {
+ 			for (j = 0; j < (1 << ring->intf->ring_order); j++) {
+ 				grant_ref_t ref;
 -- 
 2.53.0
 
