@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794287336;
-	b=KrtVb4Wt5DmcO0gB6s7R5gqYT+qFgqf7MU5WknaUzbXHSn9hQc9I9zVTkNau0z4QUiJ7
-	 XJ2ckS516Dr3vhuIyKkkC5HYPIRKQrcftj2pbNtE/R98MkveltO5MCBRxonpYZnq71uci
-	 m2SYqBzmAoE9nKvzFUNB28BpR7jnTW70BKoqtd3FYfpxLQKvmbWR0lc1kYtoURQcW+F9J
-	 7oB6zzsE5kppLxsLFmaCqPO1XJqPH8MKflOUl9AxHcLjYD/G8FAIGcHNBJEL30LAH8ct8
-	 RWeK02nVmkjiJiiMt4+DYBMRutxBPGzOTfRosge5AdyX4py1lCEJy70/3iDMnu/1NpA==
+	t=1794287358;
+	b=cEwwR2mZg2xSQY0wb3zgYYA+CU/1hZHnVtT2c5bLPdt8fmikjBWwusGYQ1CN5Irp7EOz
+	 TojdrTgrM/bSWyrlVSrLf1/f+ttg2IMulXZPZTQMYER/wsfl8SjplU883ymu0r+4rS7vq
+	 vwRaWZSdP0NyIwH3FEfsP4np8+nPzGeCIr93ktSFn+pkZyzNsMiyjLKKw1zlsanxe2UF5
+	 GejD2v/E5VNRiXVQKlF+k3D0LRwQmN8IVqfYFRyVI7OxZbUHECbdbjAt+4PlrcC4x4atH
+	 DpxngxFrDsYaGbdExqS3ooglRQdnkx1vsEFPhfLkobRwOCi3VmUQthlPyYHHVu18MLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794287336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794287358;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hxHTN/Y48hFwlN5rSnvNwuIZVT4P5JOuc9I9IS9s0VQ=;
-	b=qD5a7hVxUofBWPFdEGjwqiGsBKc27N5XeCO0CF1vZALLPX7UxjNpF8c2Q9T1SfkqMlQL
-	 DxFARXwW2Zu96AIg3qrem0Oqq/NdZlO2QzvAkb3Uii3ahyMTOafEnbr2AWWvTYo7Pbtlf
-	 B1QrMKFSvlfJdL3TMuBnvggMOpO+XL6yuhh896osLvcKL2Uhj8IxDAH1TtYgB4xtUVKya
-	 GUUOGLMJ2NUnUEq7p2uitZpW28N9L4EwHL1HLHGilyXU6+Y7HH20MlG9OlhkTiT67MlDo
-	 hR6Jqi9pL2tyf4NfH9S9rTgGK4AGxINVHg+d77ybdQ20pffJLid+X32hECEj63XMbBA==
+	bh=tIwxjc1XcF7cwC5sY73c/5RFH5CWJFmaUfeVezkR1lM=;
+	b=5m87oFfONCA6Nm0/pA2SsaoP6dJKiwTqrGmVmbRsYo6pdpdvEXH+s//lDETaPFxonU9C
+	 1jxOmrGJ/8e3tc8QzFv2xqjpd4C3TrxhEii+nR59DerTpyK9OmE0QvY3RQ9/jqy45/UBF
+	 K88thCB1WiFhfNFpQob2iNWC7ztluq5mSkSl36uA8+zq/uvysgP/rabGLBtsSbv4dRLWh
+	 opqGAqUlc4pxPuG4+hVVeqAqQbicr3GdsAyB57EMFKuqrnKSN0AtuE0BMrelqoyotOtKf
+	 AhuWeBDbtDUPsNN8z/cQWmVd0SB/wqUA0rX1127qzQf4eGTvkhfM5sbDfqR4rXywWUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfG7PizN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1cScd5X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8216606A335
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B208F606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:09:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfG7PizN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB2E1F008A2;
-	Tue, 10 Nov 2026 05:08:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1cScd5X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91EA21F00903;
+	Tue, 10 Nov 2026 05:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794287335;
-	bh=hxHTN/Y48hFwlN5rSnvNwuIZVT4P5JOuc9I9IS9s0VQ=;
+	s=k20260515; t=1794287357;
+	bh=tIwxjc1XcF7cwC5sY73c/5RFH5CWJFmaUfeVezkR1lM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PfG7PizNkgValtf2l2yoBGU8lfNfUREG+gfC0/3vbj42IpB5QQHdvAsKmeBHrHS05
-	 OkbW47yN74YF5lUh0xOJKbKazfKxgt4NrzitEYwytWPl4UbIyf1PGWon1FY78GmTtj
-	 4MqizLfLDtrhjP4cvYQw0RkdYr2cJm3eu95YwfM4IEnOFVs+CXre+NsUEUOd4Lb2Bm
-	 4rfgcF/wwB43/ZJGkPZ1Md/XBuvKnq3n3d97I6CWglFmLZ54pty/Esc9x8vQFfMuYf
-	 BFDiZBvYol0LIsVR6bxxOu+JLFu4UQeROuPPMUGG7KNOSBD1jnn/ca7wEkVO7xPNQH
-	 1f4IbMWjPvyxg==
+	b=V1cScd5X3e0ZubL1HiBAudK29pQpUJO7iLPisfZIQ0E5WPYFoAwK/UPpl5KdpWyUT
+	 qx5l8hediYohP2i/tJ4XzZ55xLcKctg+imY13cwLX5FnFkYzuL2bO8K4HhrUyJBHxS
+	 FBLQWmjZL+MH+3WiR6ivefAEgP3oUq687ZUBse5bOKFv21/6FJWc88MchIlb3a9X9q
+	 9yYqVB15Lb4YIl4XpOBNE9+64jpCiMOmvaXvqpds6GmvDKvQAH2g4yPDRZpp2IrrPN
+	 tmhTMR0dCV3upRr1SeWbsL1tridLRTVN9jcF3bh9Gy3iExQoQ4FcvAbV/EUbEMLC42
+	 viEMvAEBDXz+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	James Alexander <opensource@inspiredexperts.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] media: microchip-isc: fix WB offset and gain register field masking
-Date: Tue, 10 Nov 2026 00:08:53 -0500
-Message-ID: <20261110050828.416310-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] platform/x86: int3472: Increase handshake GPIO delay to 200 ms
+Date: Tue, 10 Nov 2026 00:09:13 -0500
+Message-ID: <20261110050908.407088-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055814-failed-5.15-6e9eaa3b9387@kernel.org>
-References: <20261107055814-failed-5.15-6e9eaa3b9387@kernel.org>
+In-Reply-To: <20261110050908.407088-1-sashal@kernel.org>
+References: <20261107050619-failed-6.18-844982d3b993@kernel.org>
+ <20261110050908.407088-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,82 +63,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-[ Upstream commit 6e9eaa3b93870e4edac1bd2539fe113c24663eaf ]
+[ Upstream commit 844982d3b99340c21dd2125f44e1ad04ace6a38e ]
 
-ISC_WB_O_* and ISC_WB_G_* each pack two 13-bit fields. A negative offset
-sign-extends and corrupts the adjacent field. Add masks for the two
-fields and write them with FIELD_PREP(), which masks each value into its
-field, so sign extension can no longer bleed across.
+There have been several reports of the sensor not properly powering on,
+on laptops where an INT3472 handshake GPIO is used. Both with ov08x40 and
+hi556 sensors.
 
-Fixes: 73c1a577b839 ("media: atmel: atmel-isc: reworked white balance feature")
+Testing has shown that a delay of 200 ms is necessary in some cases.
+The handshake GPIO is typically used to signal an extra bridge or other IC
+with that IC running the full sensor power sequence based on the handshake
+signal and also possible controlling I2C pass-through.
+
+It seems that in some cases that extra IC takes up to 200 ms to before
+the sensor is fully powered up and ready for I2C communication.
+
+With the default handshake signal delay increased to 200 ms the quirk to
+increase it to 45 ms for the ov08x40 is no longer necessary and is actually
+undesirable since some ov08x40 setups also need the longer delay, drop it.
+
+Fixes: 30359c239ba8 ("platform/x86: int3472: Increase ov08x40 handshake GPIO delay to 45 ms")
+Closes: https://lore.kernel.org/platform-driver-x86/20260816204247.2844986-1-opensource@inspiredexperts.com/
+Reported-by: James Alexander <opensource@inspiredexperts.com>
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333331
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333647
 Cc: stable@vger.kernel.org
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adapted to older driver filenames with an explicit bitfield header include for FIELD_PREP(). ]
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/atmel/atmel-isc-base.c | 17 +++++++++--------
- drivers/media/platform/atmel/atmel-isc-regs.h |  6 ++++++
- 2 files changed, 15 insertions(+), 8 deletions(-)
+ drivers/platform/x86/intel/int3472/discrete.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
-index eeaf91d80acd7..c856891adf99e 100644
---- a/drivers/media/platform/atmel/atmel-isc-base.c
-+++ b/drivers/media/platform/atmel/atmel-isc-base.c
-@@ -9,6 +9,7 @@
-  *
-  */
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index a4c24f1cd0a4d..6ebfaa141a42d 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -15,6 +15,7 @@
+ #include <linux/platform_data/x86/int3472.h>
+ #include <linux/platform_device.h>
+ #include <linux/string_choices.h>
++#include <linux/time64.h>
+ #include <linux/uuid.h>
  
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/clkdev.h>
- #include <linux/clk-provider.h>
-@@ -75,17 +76,17 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
- 	/* In here we set our actual hw pipeline config */
- 
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GB]));
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GB]));
- }
- 
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-diff --git a/drivers/media/platform/atmel/atmel-isc-regs.h b/drivers/media/platform/atmel/atmel-isc-regs.h
-index d06b72228d4fa..bac10cd653982 100644
---- a/drivers/media/platform/atmel/atmel-isc-regs.h
-+++ b/drivers/media/platform/atmel/atmel-isc-regs.h
-@@ -149,6 +149,12 @@
- /* ISC White Balance Gain for B, GB Register */
- #define ISC_WB_G_BGB	0x0000006c
- 
-+/* Each WB offset/gain register packs two 13-bit fields, low and high */
-+#define ISC_WB_O_LO	GENMASK(12, 0)	/* R or B  offset [12:0]  */
-+#define ISC_WB_O_HI	GENMASK(28, 16)	/* GR or GB offset [28:16] */
-+#define ISC_WB_G_LO	GENMASK(12, 0)	/* R or B  gain [12:0]  */
-+#define ISC_WB_G_HI	GENMASK(28, 16)	/* GR or GB gain [28:16] */
-+
- /* ISC Color Filter Array Control Register */
- #define ISC_CFA_CTRL    0x00000070
- 
+ /*
+@@ -178,13 +179,6 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
+ 		.type_to = INT3472_GPIO_TYPE_RESET,
+ 		.con_id = "enable",
+ 	},
+-	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
+-		.hids = (const char * const[]) { "OVTI08F4", NULL },
+-		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
+-		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
+-		.con_id = "dvdd",
+-		.enable_time_us = 45 * USEC_PER_MSEC,
+-	},
+ 	{	/* Sensors which expect "vana" as con_id for power enable */
+ 		.hids = power_enable_hids_vana,
+ 		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
+@@ -259,8 +253,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 	case INT3472_GPIO_TYPE_HANDSHAKE:
+ 		*con_id = "dvdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+-		/* Setups using a handshake pin need 25 ms enable delay */
+-		*enable_time_us = 25 * USEC_PER_MSEC;
++		/* Powering up the sensor through the handshake pin takes up to 200 ms */
++		*enable_time_us = 200 * USEC_PER_MSEC;
+ 		break;
+ 	default:
+ 		*con_id = "unknown";
 -- 
 2.53.0
 
