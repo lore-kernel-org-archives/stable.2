@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273179;
-	b=knlmGfjZNuFbEzVUFyf2PZ4J2TxgnLs+kPW/ZUeNID9c9POMPKNxNPw4ON2vqEsZZz4Q
-	 AtW5GdlBGb31Nhv9HUp9SEs0WgMTddaJ/bCL6Jb2Xfgj9i2PBPjOwC0uQi4wWe9OHAriX
-	 5Y2v/rW2Szi7UPO/qjSlycItNfWC1jnV56bZ3iJb1/c0ARwmg/bWN147TUsQ7BvzlkyiG
-	 FJ7YTOOQLrQBf8LHeF8IDAlhzWuT2EGYEJF3KDjZ4FH2Pkb/co/vSjjh8Lwl9bmm7kY/V
-	 FfRlO9X4Hg8vXsG/ue0cKlICEk9pYoIKmVIdW2sBo63WNXARCh5KHP0IuRlEe52QKnQ==
+	t=1794273182;
+	b=xqMG19ve2H8WA2CTe2qLrdwM5OQaBLZC6NSXIBMlEDYzRweDlkAQVwP2962t2HJyY/9X
+	 qfPcFyFRvTkLuZl829QRRA/I7fTEsmZOI6chnr/Gz9i40GfhU1Wd42LEoOaLEhFKjQ2Cr
+	 o2NcjEQ/NpTOc4clt+ktX3MSxPUIxf92q6DadmEv50N28P6YNyd2jsLGzXPoi565fSLNw
+	 R1MrJ1Sjv9xgjcGRE/5qpRfnKSZ1nf5CP8PIBw77tL6qHRG0N8lkZah9Dy3dmG/LqR1Gv
+	 cUwIP2DoanQqbBSOzCcipmOgTeutRCm+sTDUu2LkPLwbxnlHqiCfvaGl4Lq/Yfy1xoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273182;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=d5XfuC91YL5tm5bA18E0Ea+514GCF5e7seXWR8/1mvE=;
-	b=ZCIXFRn97rYI03mKZVGq/5La6PlAd2FPqTNpeYHvUdvlZPB+9ofPrnPtIyDrZMkjv72+
-	 FkKizaZbU/E0A3BL008dPVRqvphNOD0Ret3aoQCewLIDCMas2x/xubVmgHDhCCr39C+9z
-	 V07mSxY/i8Pn1az6vXN5voME5hGzMvioGbD/BHShQ2dr6W9F9v2cz6ZHBWugdxKQEISqb
-	 ALPCKhjZzj3htW2o0EadL6kNOVpixvWjHNIwqB9uTFEfCNkRGNAIQPxS0xjDSZom+bATX
-	 oiL+U5FBhNGSWyGetIyLRsWsi8Ol83CjWaHv2Rz2K6bz863LyrHQUfSNMFg+jOIxd1g==
+	bh=BQDWwUFPj4ntOJrWrHQRSsQlS3k6jxJsO3YFExOF8I0=;
+	b=kQiMV+TTP8m2jOa8fa3yfs+ISXyk+dCxv8Yjarmz0+9c5lI8yvBNlRuT8oJPk9VnLrmS
+	 ytCtT4ZZpEqnRNHKkzCTn+6T38uU2smz3pqdLEpXT6a2TpbwIjzUZE0TwNZ+eibE1ySR6
+	 c02TAizhqciAvUwA9V5zFbLCcqYX14U6WSbWYC5bwfaNWC55xkQC0DzzITFo1iZ1IE1Tx
+	 O9/Z26mEtLfVv0OKapxuNrgQlwW48uYh/cAepZm9jdUA4NVX+oRmtyTLKprrzTCOH1sef
+	 T/BzHjre4/gO6+hw3+E15DcLPJbgmYCc0CFqe4TbtRK3OByoX+yl7yBg+hUpRA350DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtPAyAo7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjuoexPG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30577606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8AF606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jtPAyAo7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5D41F0089F;
-	Tue, 10 Nov 2026 01:12:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjuoexPG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5961F0089F;
+	Tue, 10 Nov 2026 01:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273179;
-	bh=d5XfuC91YL5tm5bA18E0Ea+514GCF5e7seXWR8/1mvE=;
+	s=k20260515; t=1794273181;
+	bh=BQDWwUFPj4ntOJrWrHQRSsQlS3k6jxJsO3YFExOF8I0=;
 	h=From:To:Cc:Subject:Date;
-	b=jtPAyAo7e+gVen6PSGFvNdSUxczZzpPbHPQwh+xjNVP9VWbdQyIU9tAy//HrOuOaA
-	 0cGKwlJ7z13TDLwzNg+kG188PolU0So/sySiApVEn/lrGDj8jpVyVIzAMCVbswlrna
-	 UsF666vr9Ek+12FsqSK6X4AVdlmDYOwvyzM8KvktwU4oVutpRteB88USQUgSfasta9
-	 D8DJ2URZNEH1U6nHolpwPe4g0MnCMceqii/O0KAixktDxAmG1qtpCN3cSmWLRJoM59
-	 4W8vZ7ZyXAgjd2501x+swRY+lcvCm9SZIalorqYeyUCUZ4Z05wmrkttCMIv+t6fTnf
-	 fAmxxdhI6LI8Q==
+	b=LjuoexPGFY/9Zv5wSXOxP8LJoHi0MfmfqlpIRE7XvMQean+JbIr3jTnWmpBzOn/5U
+	 g1X1aZQL8fjxxNMgjpZd6yO8tkEli8q1bps/rb61vUCeHaRxaYMY/fEZnZ0Rd09+IN
+	 tam9h8YU/QAZi4oOYrWFAI6ClLd8+8To3dVB5POHOQFxJgwc8KhX9MSvne+gE3X/D1
+	 EDAkyGgxvufkk5qszAGETQFi2rSU59ho+aBgppAGj06Lsj7g2DeYD5E4ox9WxjQHSV
+	 nxJbt2DZY+ubM3rxLA1JHbFd+tVBNHhxpkmPtbjhO5ugjcBe3BOnhMDP2Lu0Fo5Mob
+	 EC/e+3jucQ9Xg==
 From: Sasha Levin <sashal@kernel.org>
-To: blum@kernel.org,
-	prasannatsmkumar@gmail.com,
-	mst@redhat.com
+To: cong.zhang@oss.qualcomm.com,
+	jasowangio@gmail.com,
+	stefanha@redhat.com,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwrng: virtio - prevent use-after-free after a failed restore" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:12:57 -0500
-Message-ID: <20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org>
+Subject: FAILED: patch "[PATCH] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:12:59 -0500
+Message-ID: <20261109201259-failed-6.6-6c6dec7883f8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,73 +70,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74
+git cherry-pick -x 6c6dec7883f8eb10b326bc9d109a4990c885d949
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201259-failed-6.6-6c6dec7883f8@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 Mon Sep 17 00:00:00 2001
-From: Thorsten Blum <blum@kernel.org>
-Date: Fri, 16 Oct 2026 12:36:40 +0200
-Subject: [PATCH] hwrng: virtio - prevent use-after-free after a failed restore
+From 6c6dec7883f8eb10b326bc9d109a4990c885d949 Mon Sep 17 00:00:00 2001
+From: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 18:32:21 +0800
+Subject: [PATCH] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()
 
-remove_common() frees the driver data during freeze, but does not clear
-vdev->priv, which points to freed memory. If probe_common() then fails
-during restore, a later remove or freeze can dereference the dangling
-pointer.
+blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+while the flag is clear. It can then be preempted before it gets a
+request. At that time, it has no queue usage reference, so
+blk_mq_freeze_queue() does not wait for it.
 
-Clear vdev->priv on the probe_common() error cleanup path and before
-freeing the driver data in remove_common(). Also reset the device and
-return early from remove_common() if vdev->priv is already NULL for a
-safe teardown after a failed restore.
+virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+dispatcher can run again, use its old flag check, get the new request,
+and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+reset the device, delete the virtqueues, and free vblk->vqs. The old
+dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+kernel can crash.
 
-Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
+Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
+that was already running. Keep the existing freeze and unfreeze order.
+The queue remains quiesced until virtblk_restore_priv() calls
+blk_mq_unquiesce_queue().
+
+Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
 Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20261016103640.4989-2-blum@kernel.org>
+Acked-by: Jason Wang <jasowangio@gmail.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Link: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
+Link: https://patch.msgid.link/20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- drivers/char/hw_random/virtio-rng.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/block/virtio_blk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
-index f9982217247dd..45d87c0614a5e 100644
---- a/drivers/char/hw_random/virtio-rng.c
-+++ b/drivers/char/hw_random/virtio-rng.c
-@@ -190,6 +190,7 @@ static int probe_common(struct virtio_device *vdev)
- err_find:
- 	ida_free(&rng_index_ida, index);
- err_ida:
-+	vdev->priv = NULL;
- 	kfree(vi);
- 	return err;
- }
-@@ -198,6 +199,11 @@ static void remove_common(struct virtio_device *vdev)
- {
- 	struct virtrng_info *vi = vdev->priv;
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index c8bfbf8435ac7..10ba8b0b863b8 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1596,7 +1596,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
  
-+	if (!vi) {
-+		virtio_reset_device(vdev);
-+		return;
-+	}
-+
- 	vi->hwrng_removed = true;
- 	vi->data_avail = 0;
- 	vi->data_idx = 0;
-@@ -207,6 +213,7 @@ static void remove_common(struct virtio_device *vdev)
- 	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
- 	ida_free(&rng_index_ida, vi->index);
-+	vdev->priv = NULL;
- 	kfree(vi);
- }
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+-	blk_mq_quiesce_queue_nowait(q);
++	blk_mq_quiesce_queue(q);
+ 	blk_mq_unfreeze_queue(q, memflags);
  
+ 	/* Ensure we don't receive any more interrupts */
 -- 
 2.53.0
 
