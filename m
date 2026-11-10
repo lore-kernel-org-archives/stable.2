@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274081;
-	b=QyQvz4mJsaGfT8EI3wgMqKroczDo9pYTsmYT7olaz22bvROfaeJF9EE/71onmfnVDZm3
-	 HS9xTpFCSiLyWyu1GryepBq9ynjaoUiIVmqnpMPS0DY/2HXNNE1kr3Y1Zb48P/gbDXDQp
-	 kcXmG5Bl+acaGAwRWYedsge1+pRivt3IJKoZoS7auitbASf5mXlt12FzJFi6/wTikLkHb
-	 uWb/ywMCzrdhBvQAyZeQ1KZOODtYTW5SYediK3uHtZfLZxdjKadKOw/cBrrhwnlByfKPS
-	 UShAGz7+kONVBGLDXLC8ryqvgpy5+PPRuqbgVmm0/6HzsygLnGTSS+1mHJb4BMZ5seA==
+	t=1794274083;
+	b=leQCTCdx+bZ51lPomZARjQPGMsgJ4/icpNefGpt4sbL0X1t5z4mfNkoWWkbrHVHEUvSz
+	 z23H+SGVc4WNEgTTDfJsOvegurjyAcn/Qwd1GikrQaACWshfPXUD/1WigWn0ol2Qt9UVf
+	 92ZNXtgbWFTPF0i4e22hb+27wDOjVC1bomWZAzdsLWuPWtkdMISa0xt0u3h+Yea3ikPC2
+	 Z2J84SG0mcLZW4ebUwKwf2dUDu5eJoeMkB1QEiN1Dfp9j3KLqEwBoLOb3NjmoIkBTeOnR
+	 lW4lAyg9tUkXJaKSD/Xat3RhSNUOVtP4eulIZe+FTIBNdx8g+h6h7DArYZ10QZCrbuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274081;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274083;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+RDMEaVHfVWw3NNZhIfU05owGFo3eSY3C16T9b4RXOE=;
-	b=A9/jICQj3ZHoJ/ankfIJ9VJVeKmxZeZm/dMO4Uck+93VoPeOPnHonqZtoB9nULkKc5Yw
-	 AjKrxDPl28rGYM4zHQZyL9y1sVMCuZhZ9y6DIbdlfcU7+Vv+QZplfb1DJn8XDByGdEpwP
-	 Xz/i7bEN2RkgoJ7bslZVohj3ZwELprmGpPms4nFPmO0J09jxnfY9ZyK4Ezb+mqoJRU8EC
-	 Tj0yvpDorTafPvW93Z1xLySBs/PuYonhbmyvyC+2pgKu1ITqf+/8AVqlIjbKZwNX/YJZe
-	 2S6+UcdpNWPxnxlTsG0PuXKLAvEqKgRURkwHq4Nmume+6nLkEER2M5HApbWUmrUVdfQ==
+	bh=/WFCy3Z9K5F9o4z/9pIqc8KG9sMGZjs+a5cy9XK+Z4Q=;
+	b=PlBtJylpB0/bXYi2OPTMzxlW0LJJnBZJ+kCAuVNsiEdQ11D7q06Z6R4i0jdrRvs7gaNn
+	 EbdYlipK2ZsVixuHtLv0wuA0r7KfC5OuDAeE0Sf1OQ94YmNFm7A5xFkBmzE7mR3IncD8k
+	 PduYLDwstsrp+5FlBXj5AbcBpTCTTAbgC+qqYtt3WC5k7tN3c9c91oLqjIWyhUSHD8h9A
+	 Nm27t+FsVpdbZNCZMS9TurSe9yWzg0W9XH/pCEx+0lv57Jcvg8X5xuDf2AesLW6mTTkFZ
+	 keFw0D4bNk6+QPIsQ+CKL62yxwM+vd4QR4itxu5YepNpRUZvaisWGhbpaTgEdzei5Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yo2P4tcI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wevv4fmu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9BE606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D836606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yo2P4tcI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29021F008A1;
-	Tue, 10 Nov 2026 01:27:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wevv4fmu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5281F0089F;
+	Tue, 10 Nov 2026 01:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274080;
-	bh=+RDMEaVHfVWw3NNZhIfU05owGFo3eSY3C16T9b4RXOE=;
+	s=k20260515; t=1794274083;
+	bh=/WFCy3Z9K5F9o4z/9pIqc8KG9sMGZjs+a5cy9XK+Z4Q=;
 	h=From:To:Cc:Subject:Date;
-	b=Yo2P4tcIwXZ/Vr6wicJncj2EVGx7Uf5V7W0cinxtdT9y3H6ZA4MbyuY78IpcYF7PD
-	 s5N5zMVHdcOzrYfGJ9QrrglceRABUvJC3k5T4Bp6Hl01cPe40/xSJHKCh64nTVz21B
-	 5cRLM812ZQisRX1TToI6yFk0LeOdubH21VV+XGXtMhKeta995qckoKkRm1QwCHUhyM
-	 kkpdgICErx07MkZEREebI3ivMmkUYmP5vgqr66OHUvglOL1BwBBADh0Qis2ysmHcGA
-	 qmR0+auD4UNV+Y19L9rbebIVdxCiQ8c1ALOM98VBHifa6tu5zrDDm/3fWikDvPfdwh
-	 rc2XrTiPggsUw==
+	b=Wevv4fmuLriJOuDp8SDs4obeEwIRelLRnZTyxly1NZKMMEKJqgvf7WSJQPLgkA/nb
+	 XYXg7IBDhMk80/NJNfax5GtfTxr/kN0oSJZNVXeF27KLt4tB8O7AttXseLIh7h2tHq
+	 cerLY7gnrciFz6TUl3NY0vsPZb4PgasOsjY+bdRz+He5hlTQjlV0ExpkvZK662Ms1B
+	 rH/92spAOTgT9/WiGFjCLpesGTA3jCyCoMnAksWMTdqfO3TUNdDy+oq9Pl8y4ZSBkT
+	 xHuSS7CuQY4If8Z5d+eV0g3R73mhpK3YO35a1rKGvojaYoXGOveuzIpVUrJe+/0olX
+	 5KDLmYVLEb8pg==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
+To: josef@toxicpanda.com,
+	rppt@kernel.org,
+	ljs@kernel.org,
 	usama.anjum@arm.com,
 	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: compare exact registration modes before skipping" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:27:58 -0500
-Message-ID: <20261109202758-failed-5.10-05f64f211a25@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake all waiters on unregister" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:28:01 -0500
+Message-ID: <20261109202801-failed-5.10-3afb19d68cc5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,61 +71,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 05f64f211a25f7d9771d4fde109aad97174a1cf3
+git cherry-pick -x 3afb19d68cc5e7851fdb1069c8094af97bd80417
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202758-failed-5.10-05f64f211a25@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202801-failed-5.10-3afb19d68cc5@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 05f64f211a25f7d9771d4fde109aad97174a1cf3 Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Sat, 31 Oct 2026 10:39:55 +0100
-Subject: [PATCH] mm/userfaultfd: compare exact registration modes before
- skipping
+From 3afb19d68cc5e7851fdb1069c8094af97bd80417 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:53 +0100
+Subject: [PATCH] mm/userfaultfd: wake all waiters on unregister
 
-Changing registration from MISSING|WP to WP returns success but leaves
-MISSING enabled. The no-op check sees that WP is already set and skips
-the update, so later accesses to missing pages still wait for userspace.
+UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
+Threads waiting on write-protect, minor or RWP faults can therefore remain
+asleep after unregistering a range that does not track missing faults.
 
-Skip the update only when the current and requested UFFD modes match
-exactly.
+Wake pending faults regardless of the registration mode so they can retry
+without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
+the existing behavior for missing faults, including removing unread fault
+messages for the woken waiters.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
 
 Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: apply fixup from Lorenzo ]
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: rebase; simplify description ]
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-24-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ mm/userfaultfd.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
 diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 03f1b15bfe63e..dac696bda19f0 100644
+index 3ca04b582329f..be630674fda9b 100644
 --- a/mm/userfaultfd.c
 +++ b/mm/userfaultfd.c
-@@ -2291,6 +2291,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
  
+ 	ret = 0;
  	for_each_vma_range(vmi, vma, end) {
- 		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+		const vma_flags_t curr_vma_flags = vma_flags_and_mask(&vma->flags, __VMA_UFFD_FLAGS);
- 
++		struct userfaultfd_wake_range range;
++
  		cond_resched();
  
-@@ -2304,7 +2305,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 * userfaultfd and with the right tracking mode too.
- 		 */
- 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
--		    vma_test_all_mask(vma, vma_flags))
-+		    vma_flags_same_pair(&curr_vma_flags, &vma_flags))
- 			goto skip;
+ 		/* VMA not registered with userfaultfd. */
+@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+ 		/* Prevent new userfaults from being queued after the wakeup. */
+ 		vma_start_write(vma);
  
- 		/*
+-		if (userfaultfd_missing(vma)) {
+-			/*
+-			 * Wake any concurrent pending userfault while
+-			 * we unregister, so they will not hang
+-			 * permanently and it avoids userland to call
+-			 * UFFDIO_WAKE explicitly.
+-			 */
+-			struct userfaultfd_wake_range range;
+-			range.start = start;
+-			range.len = vma_end - start;
+-			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
+-		}
++		/*
++		 * Wake any concurrent pending userfault while we unregister,
++		 * so they will not hang permanently and it avoids userland to
++		 * call UFFDIO_WAKE explicitly.
++		 */
++		range.start = start;
++		range.len = vma_end - start;
++		wake_userfault(ctx, &range);
+ 
+ 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
+ 					    start, vma_end);
 -- 
 2.53.0
 
