@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327383;
-	b=gmpT+eG5P4dwUJ0/ShYPasgR3qPohnR0D1HG/FdSuNBLkpgpcrH2J9C+/bC6e4V+EYIy
-	 jORyQr55jn1R2lqI9GbE48lQ7Vkyhy1sivpgjDEdOta6oxOfBK2vdS7dbgy44f58GgoEp
-	 o2TRqbXkBJLt3sU7xSm3k/FrTFC2pRBbIQfLY/Eq2xyzua9UFSNeN+1KoxZmmBLt6OiqF
-	 xpCAgEv1qTswxNl8j8YfNewPYNGXDuCT1PfdUOJXu1ZUJNn8faZK9drqARHTK7KPAc8ih
-	 g/eHbr+tNdvxEiCHu45DQlJzg6HFgSbIjZkQdlp/q5q3Skc3/oVyDri+Cek9RfkZpSw==
+	t=1794327384;
+	b=YFfXsrGRhr3j8jelKDl/gwdXVZlEJkqdwr9cIrZIN6qc/2mkxvslQmH5HScqvPRoLvU4
+	 cKM6ZBe+RH0fpVLT30Nepiq6dIQjqGQu2K3/dsbA/x6AcKery9unkuYGCUnQiK67NfzDV
+	 kv9JkVm36ZHrGofKsmwopDYQf94qK2TmxHByvHn5zXjOj59KEi5EnulSogkazlYjdhqk/
+	 VG4iAaS/lq7WpSNOEWg904euxyYAFm+9UkWYjyC+wAriI2UC9oG4IQj8oACvPrJ2p7rKH
+	 cgMDHw9fY8W3NPwFpgZ/POHs/6vZmELp/WnVFPLbOA6AbuVVLMUovvOYDLkd12EviyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327384;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=7f1ySo84xYHH6J6aZsdfzUqb47zQoz3llqdOUUrt6M8=;
-	b=00s8scSYHD6SYDhEAhR9BFgSk/VV8XbA9v4TxCBxRsx9IqjDL9WLpVtMxZbDIs7Sa+eS
-	 3OPNlxTpsBOxMCzFgecOxQmVi6Dix7Alfoph66ge+WEW6yls82BkCB7vjY4MqGdKW0Hqm
-	 38rcbDfrG7n42Vy3f50tPmcI08FriZxF7dWZk7wOj7oF70BiDNr+LljevJQ/lB+ua+9gP
-	 YuJoSPCras4iDw6/DjZRfp5NOmbmXVjw7svdFfN7i0BJuF2b4r3yTs7Yd36XOJ51neL52
-	 raZBryen7146E5vZKo4lWAFJAqtZz4BymvH9VprfM+Gl6PT2JkvBP/bnpJJ/58C73hw==
+	bh=ki1AnwoQSlpOUgD1szlwo8Tppp0EFgb4VZqfaOMgzco=;
+	b=acTgYGomBOqhUPjn3QCxrc8zdG8sOF/qVbAG2XFy8tJKXDxre9dAfrIgeUmJnB8y79C1
+	 fvVlzlZeVoos8dk0gpUkFcwhaRmDdRGSrxCLMITyYTXETLJbNk8ZHM9WwQzLC97pGilZb
+	 Im1lfrSYJpFrtZ+nticLFcLbYejIYzQvQoBn7zURGNdsq+/m/Ix9N1Ch4JGB1yC3Y3Bog
+	 j2eHlkKoTfso06yughk7QNJ6DPsYpm9iCSsH7nEqT6HtZhJW8luGAuGpRxasbfBv0dBMn
+	 nmlOTZklSyjPDQZYz+s0I2ozTFZzUSlrqPzvmrYRtcdYptLR7kAgw2z5yISMSySTjZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+TNHcsp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ow84pEKA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5335D606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B6C606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+TNHcsp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BFB21F0089F;
-	Tue, 10 Nov 2026 16:16:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ow84pEKA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F961F008A2;
+	Tue, 10 Nov 2026 16:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327382;
-	bh=7f1ySo84xYHH6J6aZsdfzUqb47zQoz3llqdOUUrt6M8=;
+	s=k20260515; t=1794327383;
+	bh=ki1AnwoQSlpOUgD1szlwo8Tppp0EFgb4VZqfaOMgzco=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N+TNHcspMnB6Rr8uKH4H3jcsZz/tIsmyshWP6qtIR8bvyWsHKt2etJed72rNT7jHO
-	 p5AIcloUlZ+kcvBue0M0CzzDNDULPwzMTOlMIvk4G6u7RhZImeO4ylhVEqIFuN2lfh
-	 77Z2lczUhPrg5ibonWtxoJpXrnw8bnIAmJB7PzEZm3MgMWBT1YuRVtbrufieXodBHd
-	 v2Ydy6QoOoVXFxW4A0NLI2AW2jyYLRGu/lT1b6tfIBFkbo4VEujzsoD5P4h7xC9KPK
-	 Jyp5aLUILdflACfTq5x2mr+Ak+PODRD8fJgDp3RRZKrLRvyiQSoDODcRvQrV4AS8G8
-	 Yz+1vopdAg0tQ==
+	b=Ow84pEKAonP9xJag31uBJQaxjWA65HNgIMNrvsA/CSPqKYkH97JPEYQU49qtUm/zr
+	 L2psYFc3JzQTA+Gh0+YuYQCyi1jYrlYZxvnQNr28QvVAd1mwPinBl6rhdBZau1OC46
+	 5K9QYwCJ1YrduR/PAHKaGB9SROOtpLvy/EtK8UlHluVp1wVm14eVmvGU3Ph+mbaMXy
+	 g991vvx8qYAIu35cFb4zQXDa+e7xDKtDfM1VvZUgJ9i6+C6hZ2gpnuLyESOy0wmAf1
+	 nAW/+ZSvCxCN/N31BmT6INn65hqHvcCFE+MkGlLWzsBgnmPJ+tEgy5RcCt98gZRmCg
+	 fpl8352QhzTvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Luke D. Jones" <luke@ljones.dev>,
+Cc: Marco Scardovi <scardracs@disroot.org>,
 	Denis Benato <denis.benato@linux.dev>,
-	Mario Limonciello <mario.limonciello@amd.com>,
+	Armin Wolf <W_Armin@gmx.de>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] platform/x86: asus-wmi: export symbols used for read/write WMI
-Date: Tue, 10 Nov 2026 11:16:19 -0500
-Message-ID: <20261110161539.2394981-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex
+Date: Tue, 10 Nov 2026 11:16:20 -0500
+Message-ID: <20261110161539.2394981-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051051-failed-6.18-b9428edaf410@kernel.org>
+In-Reply-To: <20261110161539.2394981-1-sashal@kernel.org>
 References: <20261107051051-failed-6.18-b9428edaf410@kernel.org>
+ <20261110161539.2394981-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,125 +66,132 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Luke D. Jones" <luke@ljones.dev>
+From: Marco Scardovi <scardracs@disroot.org>
 
-[ Upstream commit 22ea7b9d96e26147b7a3ea1be7aa106cc700907c ]
+[ Upstream commit b9428edaf4109e86a97254228d831767d0acc1f8 ]
 
-Export symbols for reading/writing WMI symbols using a namespace.
-Existing functions:
-- asus_wmi_evaluate_method
-- asus_wmi_set_devstate
-New function:
-- asus_wmi_get_devstate_dsts
+Concurrent evaluations of ASUS WMI management methods (from ACPI notify,
+HID, userspace daemons, and debugfs) enter the BIOS ACPI/SMM interface
+simultaneously, triggering re-entrant SMIs or EC mailbox buffer corruption.
 
-The new function is intended for use with DSTS WMI method only and
-avoids requiring the asus_wmi driver data to select the WMI method.
+Fix this at the root by introducing a centralized evaluation helper
+(asus_wmi_evaluate_method_locked()) protected by a global mutex
+(asus_wmi_eval_lock) using guard(mutex). Route all evaluations of
+ASUS_WMI_MGMT_GUID (method3, method5, method_buf, and show_call) through
+this helper.
 
-Co-developed-by: Denis Benato <denis.benato@linux.dev>
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Signed-off-by: Luke D. Jones <luke@ljones.dev>
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20251102215319.3126879-2-denis.benato@linux.dev
+A static mutex is required because asus_wmi_evaluate_method() is an
+exported symbol used by external modules (such as hid-asus and
+asus-armoury) that lack access to struct asus_wmi drvdata, and the
+underlying ASUS ACPI/EC management method is a single physical platform
+resource.
+
+The mutex is non-recursive: nested ACPI/WMI notify handlers must not call
+back into evaluate on the same task (defer via workqueue, as
+asus_rfkill_notify already does).
+
+The sysfs-versus-notify race predates the later export of
+asus_wmi_evaluate_method(), so Fixes points at the original shared
+evaluate helper rather than that export.
+
+Link: https://github.com/OpenGamingCollective/asusctl/issues/328
+Fixes: d33da3b68669 ("asus-wmi: factorise wmi_evaluate_method call")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/b6a1981777e63f0c28bd719d8203ebbda57d6957.1789722252.git.scardracs@disroot.org
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Stable-dep-of: b9428edaf410 ("platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex")
+[ sashal: Adjusted include-block context because the bits.h header was absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/asus-wmi.c            | 46 ++++++++++++++++++++--
- include/linux/platform_data/x86/asus-wmi.h |  5 +++
- 2 files changed, 48 insertions(+), 3 deletions(-)
+ drivers/platform/x86/asus-wmi.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index c8cc47df9294e..07525698dace8 100644
+index 07525698dace8..82874abd57fcc 100644
 --- a/drivers/platform/x86/asus-wmi.c
 +++ b/drivers/platform/x86/asus-wmi.c
-@@ -389,7 +389,7 @@ int asus_wmi_evaluate_method(u32 method_id, u32 arg0, u32 arg1, u32 *retval)
- {
- 	return asus_wmi_evaluate_method3(method_id, arg0, arg1, 0, retval);
- }
--EXPORT_SYMBOL_GPL(asus_wmi_evaluate_method);
-+EXPORT_SYMBOL_NS_GPL(asus_wmi_evaluate_method, "ASUS_WMI");
+@@ -15,6 +15,7 @@
  
- static int asus_wmi_evaluate_method5(u32 method_id,
- 		u32 arg0, u32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 *retval)
-@@ -553,12 +553,52 @@ static int asus_wmi_get_devstate(struct asus_wmi *asus, u32 dev_id, u32 *retval)
- 	return 0;
- }
+ #include <linux/acpi.h>
+ #include <linux/backlight.h>
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -27,6 +28,7 @@
+ #include <linux/leds.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/pci_hotplug.h>
+ #include <linux/platform_data/x86/asus-wmi.h>
+@@ -341,6 +343,20 @@ static enum asus_ally_mcu_hack use_ally_mcu_hack = ASUS_WMI_ALLY_MCU_HACK_INIT;
  
--int asus_wmi_set_devstate(u32 dev_id, u32 ctrl_param,
--				 u32 *retval)
-+/**
-+ * asus_wmi_get_devstate_dsts() - Get the WMI function state.
-+ * @dev_id: The WMI method ID to call.
-+ * @retval: A pointer to where to store the value returned from WMI.
-+ *
-+ * Returns:
-+ * * %-ENODEV	- method ID is unsupported.
-+ * * %0			- successful and retval is filled.
-+ * * %other		- error from WMI call.
+ /* WMI ************************************************************************/
+ 
++/*
++ * Concurrent evaluations of ASUS WMI methods can re-enter firmware
++ * SMI/EC mailbox handling and corrupt the mailbox.
 + */
-+int asus_wmi_get_devstate_dsts(u32 dev_id, u32 *retval)
++static DEFINE_MUTEX(asus_wmi_eval_lock);
++
++static acpi_status asus_wmi_evaluate_method_locked(u32 method_id,
++						   struct acpi_buffer *input,
++						   struct acpi_buffer *output)
 +{
-+	int err;
-+
-+	err = asus_wmi_evaluate_method(ASUS_WMI_METHODID_DSTS, dev_id, 0, retval);
-+	if (err)
-+		return err;
-+
-+	if ((*retval & ASUS_WMI_DSTS_PRESENCE_BIT) == 0x00)
-+		return -ENODEV;
-+
-+	return 0;
++	guard(mutex)(&asus_wmi_eval_lock);
++	return wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id, input, output);
 +}
-+EXPORT_SYMBOL_NS_GPL(asus_wmi_get_devstate_dsts, "ASUS_WMI");
 +
-+/**
-+ * asus_wmi_set_devstate() - Set the WMI function state.
-+ *
-+ * Note: an asus_wmi_set_devstate() call must be paired with a
-+ * asus_wmi_get_devstate_dsts() to check if the WMI function is supported.
-+ *
-+ * @dev_id: The WMI function to call.
-+ * @ctrl_param: The argument to be used for this WMI function.
-+ * @retval: A pointer to where to store the value returned from WMI.
-+ *
-+ * Returns:
-+ * * %-ENODEV	- method ID is unsupported.
-+ * * %0			- successful and retval is filled.
-+ * * %other		- error from WMI call.
-+ */
-+int asus_wmi_set_devstate(u32 dev_id, u32 ctrl_param, u32 *retval)
+ static int asus_wmi_evaluate_method3(u32 method_id,
+ 		u32 arg0, u32 arg1, u32 arg2, u32 *retval)
  {
- 	return asus_wmi_evaluate_method(ASUS_WMI_METHODID_DEVS, dev_id,
- 					ctrl_param, retval);
- }
-+EXPORT_SYMBOL_NS_GPL(asus_wmi_set_devstate, "ASUS_WMI");
+@@ -355,8 +371,7 @@ static int asus_wmi_evaluate_method3(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
  
- /* Helper for special devices with magic return codes */
- static int asus_wmi_get_devstate_bits(struct asus_wmi *asus,
-diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
-index 8a515179113da..dbd44d9fbb6f8 100644
---- a/include/linux/platform_data/x86/asus-wmi.h
-+++ b/include/linux/platform_data/x86/asus-wmi.h
-@@ -166,6 +166,7 @@ enum asus_ally_mcu_hack {
- #if IS_REACHABLE(CONFIG_ASUS_WMI)
- void set_ally_mcu_hack(enum asus_ally_mcu_hack status);
- void set_ally_mcu_powersave(bool enabled);
-+int asus_wmi_get_devstate_dsts(u32 dev_id, u32 *retval);
- int asus_wmi_set_devstate(u32 dev_id, u32 ctrl_param, u32 *retval);
- int asus_wmi_evaluate_method(u32 method_id, u32 arg0, u32 arg1, u32 *retval);
- #else
-@@ -179,6 +180,10 @@ static inline int asus_wmi_set_devstate(u32 dev_id, u32 ctrl_param, u32 *retval)
- {
- 	return -ENODEV;
- }
-+static inline int asus_wmi_get_devstate_dsts(u32 dev_id, u32 *retval)
-+{
-+	return -ENODEV;
-+}
- static inline int asus_wmi_evaluate_method(u32 method_id, u32 arg0, u32 arg1,
- 					   u32 *retval)
- {
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2);
+@@ -407,8 +422,7 @@ static int asus_wmi_evaluate_method5(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2, arg3, arg4);
+@@ -455,8 +469,7 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
+ 	union acpi_object *obj;
+ 	int err = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1);
+@@ -4696,9 +4709,8 @@ static int show_call(struct seq_file *m, void *data)
+ 	union acpi_object *obj;
+ 	acpi_status status;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID,
+-				     0, asus->debug.method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(asus->debug.method_id,
++						 &input, &output);
+ 
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
 -- 
 2.53.0
 
