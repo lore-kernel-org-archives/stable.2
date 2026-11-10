@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273613;
-	b=yh/jGtBoB49hwPbAaBEYA6r2eo/kSezuP772AXpy3HpAFJF+K9WpgfzxZJM79sC/nzC3
-	 AyVclxcSAOxAeMkC9TmgCb1z0hWFfJKcNXmrRHQ40mf+akXmNDkTjawx/tw632aOCr4mw
-	 tnknllg4GtiZqZWgmpaWj37FsdDOBij8TY2kRV6BkVNhkurhMSQIaviFz6qEBMcY7T3Pv
-	 qQrfSpHoKNHz02m1qhd7TnMq4+XSOKRHL6/cMjnTXm+p2poVM2mUVLAw5IM4lRCe9Opbr
-	 /oTqdRbaAPqbtUt2Zgswkhq6M6Vh8CZr8SrsAFEWjM/+gV7o0kWvVzR+Dv16Wvcx7cw==
+	t=1794273615;
+	b=fq7tv0i0fHN5TCDrQ++PoAOOxoUnmhnm84H4xEdpEWGbGBrEEcNzZW9vKj8aIqARyvNc
+	 a859PaHrYuW3+U+CRjeP15MSQiAehOVzo24d3Zdrsj9Ceqfld17kECmwOkQctAa8C+l+l
+	 ntGgamGBDjLP7+AXi06C+O40sEoq1RLILiEmwzq9cl91+o1xFZFuvo49hR1JANURkOp3h
+	 83w2dwqQpAfQHYl7qbH6r7M/1QEJOOJpsBdtGf4tNsB6ADz/6Gq/wjpZv2gX5dhJojIu0
+	 txGSw//vKndqomAQxLRZhHrJrsyC49Ab2nAIkYFJ2TfLktO377ZnwC4ReN50Byqo6WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273615;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+CvA+exIX6F+iHyokTPsn9t1c6cdoVCP/7nQpHyIspM=;
-	b=je1MO7NftvUk1oNRq7yS2+KI/IBPW5FAar6FrDBV+RjRYv62SgrbzvhDEZgHp+YqVQSo
-	 OFz7xHOxHotzCmRKqgckoUQ9OLok/WjCRqqY/vHF174Zxsp8bjIVSeifTSg75kdez0Boq
-	 rWpkgTilw6v3bk+QLnDY2V0BDHlnpkr7o+otHgPGKd8hBi+oj3adrOChXY0ddsa3aKedp
-	 Gg0YGJ1MSgZfGyLuPEMdDZfPKiEe63j2JWCGgRwxf0V1PPd8GCvW+8puBgEXt+5ZMwfYI
-	 MKYbMJrpEeUP4uI1U7YFcaf4N3bQTYtl/PjsKtrr/Ts2n1e9oqg8jq2SaSBLKKpce8g==
+	bh=eW+HBXIsxjQsqJkePBjUESHyBcP95UbK4VKIUGP5Ekk=;
+	b=i8f/o0XRUJPxN0IuHcu7BuRy4DPruTqfS+bKNEWN0qsevNYsPMc8osSL1XULLs/ldHNA
+	 P0LIjvzyKuLGErd7IP1hblOvbrWhEHVypWHBwJ0VkHwuR/FybiWt/3convnSPu6I0s7sb
+	 ObUvihm5VzrawPp/1QmAGh70pl3ucLqFyglIrIItJ4nQtbkLuX8iaSRjGrechudxe0dAd
+	 NMy+OR7wQ1NWTzlyI1Q7C7GmyukF0itJXrRBNKm5wQqBXr2zH/xqjOFT6He313Pmyh8JC
+	 8PuUJ9bWfyUk23e6EmxHj7OBelR2IV23voj7O0G+v2y9clgVg5mB/xYCocyVCkhBmJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axmLKaFB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/KGobE5";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3224F606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD5B606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axmLKaFB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592591F008A2;
-	Tue, 10 Nov 2026 01:20:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/KGobE5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F421F008A7;
+	Tue, 10 Nov 2026 01:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273612;
-	bh=+CvA+exIX6F+iHyokTPsn9t1c6cdoVCP/7nQpHyIspM=;
+	s=k20260515; t=1794273615;
+	bh=eW+HBXIsxjQsqJkePBjUESHyBcP95UbK4VKIUGP5Ekk=;
 	h=From:To:Cc:Subject:Date;
-	b=axmLKaFBXS9E6td40hx+Qn4t33Z1flrzvsu9JcBvjxl5mlIUoU8NwFea732j/ONQt
-	 ldAYJ80PbajH90DOjQs3k/yrvHZRQxQOf91esLpPlf31OyREyN8Sd5SvX6Pv2UvxC0
-	 NsSENNPpUcHLv9GEX4sKkUOd3wXSLaLKVFUV8V7I+xRtuutIqaYtdGhDk1jSB1fvSl
-	 0U6O3X2vLLxGcqcR7nB5kV7yGDaebPJZV6EqxFyyS14mUpmRAWeMN6IYBFH5RC2zXj
-	 ZesfosFYD9WTKggQVuMYnzLkcizfmI/J46qfHWuAomRopy4TVe5s7c0C8KZPsS9usT
-	 b/6HxT+yF6XbA==
+	b=A/KGobE5QVqrmmTEAMUBEuqhOFMf52ZlAkHcK4geyM2o3D5khdEwj7KGJFAJl5X6v
+	 mwqcUA1EAY2mJnEtaZQccsOOX1KqF3EUkFom9OXWIHhx2Qn6xo0BLJ5KDPW03I4Q5R
+	 tTADFfCbxqFve+c4e03P5ss4SLddc04AqdmUFRMNGgM64KW3Joc4IHWyfX+tNyQLOJ
+	 5QtXbCciRvEvo/Q8jvfSCqtrsfy0Nl0U2Ekt3mKWN/GKEFBby5S2K6NYUcwGH1+N6L
+	 4LjJ26VdA5GyI6gSRhmQfeWDmqVca9ilMJerpGRjwYcB4SVH7/kQu49siMwI9RRjS5
+	 FPAP7rqI6I3/w==
 From: Sasha Levin <sashal@kernel.org>
-To: ebiggers@kernel.org,
-	ardb@kernel.org
+To: yuz08559@gmail.com,
+	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:11 -0500
-Message-ID: <20261109202011-failed-5.15-dd2a4edb26e1@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN teardown" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:13 -0500
+Message-ID: <20261109202013-failed-5.15-6a6e7d7230cd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,106 +68,177 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4
+git cherry-pick -x 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202011-failed-5.15-dd2a4edb26e1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202013-failed-5.15-6a6e7d7230cd@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From dd2a4edb26e1c78823c50ba10c42f2d3de2e5ec4 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Wed, 21 Oct 2026 22:44:50 -0700
-Subject: [PATCH] lib/crypto: mips: Disable Octeon SHA code on little-endian
- kernels
+From 6a6e7d7230cd4e0a6c003bae5b85bf37a1e77b94 Mon Sep 17 00:00:00 2001
+From: Yu Zhang <yuz08559@gmail.com>
+Date: Wed, 14 Oct 2026 11:37:46 +1000
+Subject: [PATCH] scsi: target: Fix demo-mode dynamic ACL dev-entry UAF vs LUN
+ teardown
 
-Kernels built for the MIPS64-based Cavium Octeon SoCs are normally
-big-endian, but little-endian builds are also supported.  Currently, the
-SHA-1, SHA-256, and SHA-512 code using the Octeon crypto co-processor is
-enabled in both builds.
+A demo-mode (generate_node_acls=1) login that allocates a dynamic NodeACL
+populates that ACL's per-LUN dev entries in core_tpg_add_node_to_devs()
+*before* the ACL is linked onto tpg->acl_node_list by
+target_add_node_acl():
 
-This code is untestable without the hardware.  However, based on the
-code itself, it is implausible that it computes hash values correctly in
-little-endian builds.  Such builds write many incorrect values to COP2:
+	core_tpg_check_initiator_node_acl():
+		...
+		core_tpg_add_node_to_devs(acl, tpg, NULL); /* builds deves */
+		target_add_node_acl(acl);                  /* only now listed */
 
-  - SHA-1 and SHA-256: The 64-bit integer that contains the last two
-    32-bit message words of each block is written to COP2 entirely
-    byte-reflected, due to missing endianness conversion in
-    octeon_sha1_start() and octeon_sha256_start() to compensate for
-    using native 64-bit loads from the message bytes.  This differs from
-    all the earlier message words which are written correctly.
+The LUN teardown sweep, core_clear_lun_from_tpg(), enumerates only
+tpg->acl_node_list, so a dev entry whose ACL is still in the window above
+is invisible to the sweep and is never disabled.  It is left on the
+se_lun->lun_deve_list after core_tpg_remove_lun() frees the se_lun; when
+the same unpacked_lun is later re-added and the se_lun is reallocated at
+the same address, the stale dev entry is rediscovered by
+target_nacl_find_deve() and core_enable_device_list_for_node() corrupts
+lun_deve_list:
 
-    Furthermore, the state is written to COP2 with each 32-bit word
-    byte-reflected within each 64-bit integer, due to incorrect use of
-    64-bit endianness conversion in write_octeon_64bit_hash_dword() when
-    the state is kept in memory in native-endian 32-bit words.
+  BUG: KASAN: slab-use-after-free ...
+   core_enable_device_list_for_node+0x5ce/0x880
+   core_tpg_add_node_to_devs+0x169/0x190
+   core_dev_add_lun+0x146/0x190
+   target_fabric_port_link+0xe9/0x1b0
+   configfs_symlink+0x381/0xae0
+   __x64_sys_symlink+0x55/0x80
 
-  - SHA-512: All the 64-bit message words are written to COP2
-    byte-reflected, due to missing endianness conversion in
-    write_octeon_64bit_block_sha512() and octeon_sha512_start().  The
-    SHA-512 state words seem to be written correctly.
+The demo-mode login path that drives the ACL/dev-entry creation is
+reachable by an unauthenticated initiator; the colliding LUN add/remove is
+a local configfs operation.
 
-Big-endian kernels aren't affected by these bugs.  These bugs also
-aren't new; this code has been broken on little-endian ever since it and
-Octeon little-endian support were first added in v4.1.
+Commit 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun
+shutdown") introduced se_lun->lun_shutdown and guarded the *explicit* ACL
+MappedLUN path (target_fabric_mappedlun_link()), but the demo-mode
+automatic path, core_tpg_add_node_to_devs() ->
+core_enable_device_list_for_node(), was never given the equivalent guard,
+and the publish-after-populate ordering in
+core_tpg_check_initiator_node_acl() was left unchanged.
 
-Commit d2a948d2db68 ("MIPS: Octeon: Make octeon-md5 driver
-endian-agnostic") made the MD5 code work on little-endian kernels by
-adding 64-bit endianness conversions to the COP2 macros used by MD5
-(some of which are shared by SHA-1 and SHA-256, despite those algorithms
-keeping the state words in native-endian instead of MD5's little-endian,
-causing some of the strange behavior described above).  However, SHA-1,
-SHA-256, and SHA-512 were never fixed to work on little-endian kernels.
+Fix it in three cooperating parts:
 
-Therefore, disable the Octeon SHA-1, SHA-256, and SHA-512 code in
-little-endian kernels.  This causes the generic code that actually
-computes hash values correctly to be used instead.
+ 1) Publish the dynamic NodeACL onto acl_node_list *before* creating its
+    dev entries, so the teardown sweep can observe them.
 
-Fixes: 82be2dcfa6a1 ("crypto: octeon - add SHA1 module")
-Fixes: c3d0def62001 ("crypto: octeon - add SHA256 module")
-Fixes: fbaa4dfd51a0 ("crypto: octeon - add SHA512 module")
+ 2) Refuse to attach a dev entry to an se_lun that is shutting down,
+    checked under nacl->lun_entry_mutex -- the same lock the sweep takes --
+    so once the sweep has passed an ACL any later enable for that LUN
+    observes lun_shutdown and skips it.
+
+ 3) In core_enable_device_list_for_node(), insert the new dev entry onto
+    lun->lun_deve_list while still holding nacl->lun_entry_mutex, in both
+    the replace and the new-entry branch.  Previously the entry was added
+    to nacl->lun_entry_hlist under the mutex but to lun->lun_deve_list only
+    after dropping it; with the ACL now published early, the sweep could
+    take the mutex in that gap, find the entry on the hlist,
+    core_disable_device_list_for_node() it (list_del() on the not-yet-
+    linked lun_link succeeds and the entry is freed), and then the enable
+    would list_add_tail() the freed entry back onto lun_deve_list.  Linking
+    both lists under the mutex makes enable and the sweep mutually
+    exclusive, closing that window.
+
+core_tpg_add_node_to_devs() already ignores the return value of
+core_enable_device_list_for_node(), so a shutting-down LUN is simply
+skipped.
+
 Cc: stable@vger.kernel.org
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-Link: https://patch.msgid.link/20261022054450.20746-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Fixes: 49cb77e297dc ("target: Avoid mappedlun symlink creation during lun shutdown")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Tested-by: Yu Zhang <yuz08559@gmail.com>
+Link: https://patch.msgid.link/20261014013746.46705-1-yuz08559@gmail.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- lib/crypto/Kconfig | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/target/target_core_device.c | 18 +++++++++++++++---
+ drivers/target/target_core_tpg.c    | 10 +++++++++-
+ 2 files changed, 24 insertions(+), 4 deletions(-)
 
-diff --git a/lib/crypto/Kconfig b/lib/crypto/Kconfig
-index 56f308dd02731..83b4a211c15d6 100644
---- a/lib/crypto/Kconfig
-+++ b/lib/crypto/Kconfig
-@@ -237,7 +237,7 @@ config CRYPTO_LIB_SHA1_ARCH
- 	depends on CRYPTO_LIB_SHA1 && !UML
- 	default y if ARM
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if PPC
- 	default y if S390
- 	default y if SPARC64
-@@ -255,7 +255,7 @@ config CRYPTO_LIB_SHA256_ARCH
- 	depends on CRYPTO_LIB_SHA256 && !UML
- 	default y if ARM && !CPU_V7M
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if PPC && SPE
- 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
- 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
-@@ -275,7 +275,7 @@ config CRYPTO_LIB_SHA512_ARCH
- 	depends on CRYPTO_LIB_SHA512 && !UML
- 	default y if ARM && !CPU_V7M
- 	default y if ARM64
--	default y if MIPS && CPU_CAVIUM_OCTEON
-+	default y if MIPS && CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
- 	default y if RISCV && 64BIT && TOOLCHAIN_HAS_VECTOR_CRYPTO && \
- 		     RISCV_EFFICIENT_VECTOR_UNALIGNED_ACCESS
- 	default y if S390
+diff --git a/drivers/target/target_core_device.c b/drivers/target/target_core_device.c
+index 9db2201aa553f..c5d5d6a91fee7 100644
+--- a/drivers/target/target_core_device.c
++++ b/drivers/target/target_core_device.c
+@@ -349,6 +349,19 @@ int core_enable_device_list_for_node(
+ 	new->attach_count++;
+ 
+ 	mutex_lock(&nacl->lun_entry_mutex);
++	/*
++	 * Do not attach a new dev entry to an se_lun that is being torn down.
++	 * lun_shutdown is set by core_tpg_remove_lun() before its
++	 * core_clear_lun_from_tpg() sweep; checking it here under the same
++	 * nacl->lun_entry_mutex the sweep takes guarantees that once the sweep
++	 * has passed this ACL no dev entry can be left dangling on the
++	 * se_lun->lun_deve_list that is about to be freed.
++	 */
++	if (lun->lun_shutdown) {
++		mutex_unlock(&nacl->lun_entry_mutex);
++		ret = -ENODEV;
++		goto free_stats;
++	}
+ 	orig = target_nacl_find_deve(nacl, mapped_lun);
+ 	if (orig && orig->se_lun) {
+ 		struct se_lun *orig_lun = orig->se_lun;
+@@ -375,12 +388,12 @@ int core_enable_device_list_for_node(
+ 		new->se_lun_acl = lun_acl;
+ 		hlist_del_rcu(&orig->link);
+ 		hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		spin_lock(&lun->lun_deve_lock);
+ 		list_del(&orig->lun_link);
+ 		list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 		spin_unlock(&lun->lun_deve_lock);
++		mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 		kref_put(&orig->pr_kref, target_pr_kref_release);
+ 		wait_for_completion(&orig->pr_comp);
+@@ -393,11 +406,10 @@ int core_enable_device_list_for_node(
+ 	new->se_lun = lun;
+ 	new->se_lun_acl = lun_acl;
+ 	hlist_add_head_rcu(&new->link, &nacl->lun_entry_hlist);
+-	mutex_unlock(&nacl->lun_entry_mutex);
+-
+ 	spin_lock(&lun->lun_deve_lock);
+ 	list_add_tail(&new->lun_link, &lun->lun_deve_list);
+ 	spin_unlock(&lun->lun_deve_lock);
++	mutex_unlock(&nacl->lun_entry_mutex);
+ 
+ 	target_luns_data_has_changed(nacl, new, true);
+ 	return 0;
+diff --git a/drivers/target/target_core_tpg.c b/drivers/target/target_core_tpg.c
+index ccff9f6e48266..e615e5e304273 100644
+--- a/drivers/target/target_core_tpg.c
++++ b/drivers/target/target_core_tpg.c
+@@ -266,6 +266,15 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	kref_get(&acl->acl_kref);
+ 	acl->dynamic_node_acl = 1;
+ 
++	/*
++	 * Publish the dynamic NodeACL on tpg->acl_node_list before creating
++	 * its demo-mode MappedLUN dev entries below, so that a concurrent LUN
++	 * teardown sweep (core_clear_lun_from_tpg(), which walks acl_node_list)
++	 * can observe and disable those dev entries.  Otherwise a dev entry can
++	 * be left on an se_lun->lun_deve_list that is about to be freed.
++	 */
++	target_add_node_acl(acl);
++
+ 	/*
+ 	 * Here we only create demo-mode MappedLUNs from the active
+ 	 * TPG LUNs if the fabric is not explicitly asking for
+@@ -275,7 +284,6 @@ struct se_node_acl *core_tpg_check_initiator_node_acl(
+ 	    (tpg->se_tpg_tfo->tpg_check_demo_mode_login_only(tpg) != 1))
+ 		core_tpg_add_node_to_devs(acl, tpg, NULL);
+ 
+-	target_add_node_acl(acl);
+ 	return acl;
+ }
+ EXPORT_SYMBOL(core_tpg_check_initiator_node_acl);
 -- 
 2.53.0
 
