@@ -1,124 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794340043;
-	b=uXVCgw5G6IL3P+gj9W2KvHfAJzA5Dj9F5XYOaSNbIyeM7kJ6DemP9h2MXNl2+paxvWGp
-	 LUmVh3CKRxpdGn7w9sPNlz9zlXKd+Nc69GXaRySTXSjapLyHHas45cquLB1/gaZfmwxRa
-	 TfuFnV/1Qr+1FOcv+30DA63b9RC51fOUG6csGEGmmUfNOceIEaFqGxzFBNT46Rp5ordAT
-	 J9mki0fPS4mTj4E6Phtj9z1jLWsykZZlbkDHM0XnfYDrd7DKoTtuPKk/8/zBn9dYN6jbc
-	 /bXufae6q180jKi791a9q+twNvTZfgvZB0lmTdOFy2HLe2gMc4htL3M6PHhz8GTVL/A==
+	t=1794340057;
+	b=JkyxjCGrwXwcNxnbUEv27tGDw+RPB1E5z8hgb/gHsgfRy+/qf5aLJtJfGxH1LwQ2x+yt
+	 +ohRC9sJWxu9ScEh7K3d9uD9Osy9vQj0W2e47UDGIsj26+fXcK+gawGjJ6ooITvxVceJ1
+	 QxE91jSlHl4Y1wVC1N7ZBh6BRO/5svGxmR/rUoEPDuj5mlKSADQGTUVHMuMijWGELL/uB
+	 C3rBZTbjYwogZjtQH8lPAzUY4B0k8KYDQODJGPksY/nAUujY2EdJdsWP6NpkS/+CNlSAG
+	 UeRLynMQn7KRJo6t+e2IlKQkrryehIUH7n2FAcYNd/WSiAqMdlbfECegu/QKHildwAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794340043;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-	b=klxiYydyWDZFTw/nbK/hqWOsNURIc2I7849h4C2EybIrlzhKUbDGJPeXgtjPmJx2clfz
-	 bVfTVMLtSajuqUCihR7FfCdcwIpbKJIQsh/ItIUQexUMNLTxloBhoJOGvBZOtFniDBwxJ
-	 mNgHxID+rw20X+pJsUaX3UidBemvSwp8qi9fIwFP3+s4XqqovT92xSCF6d5xjLkIKT6Mi
-	 rFL5fDs89SCl+VzqI2OlSwLfKMYOEPRkRYIrO9PHsPVhyHOkCvl5zStSkNWX0cNjIuo6f
-	 /wPQEce47KmliitCVVPYTXHm9et9X64Uqf2ACI5lBLJ4OT4eAShVTafjHptc0zgNiew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794340057;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YKzr0fOYEBbci2KWp2n/aI8Dz/rEuVkJrHN7HyC5L+Y=;
+	b=ped/o1+wuQYlLGD/Q4tek8mdEYG4pynQV+plDPbDnFBXyzh+HewHqkZ6Pe20qxZcR44j
+	 KTNWgjzS6OntHBW2Xnn2TOQc6fxaNMf7Q1/dsCNhzSVoSnE8GsL6DLJqCDyuv5Iecm0Ez
+	 S5dORQRXaTd8ZglbRgwcWepE+zUoIKFzUAsNR4kKeERy7lddSDXSOBvbf5NveagsB9zze
+	 jHdvkjM2N1PkPSAyhb593hn6hHkbHkmg9qQvvPizQqWCJFlc5lrHjE0o6yQCD1XMDlXbI
+	 WUtuVKdcBxH3arugaMST3tFfm06DOu6IUDJSjPNs/BszJ5ciXNTJngBiXfqBOXyexVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AFsQoIbT;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LlbC0SDd;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhFCE52E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B309606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B309606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEC0606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:47:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AFsQoIbT;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LlbC0SDd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794340041;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-	b=AFsQoIbToRtVBfKbZYZXx6UY5SQePeCRt2uY2xa1EoWVQ2yKRXfeuU6zzufjtiIE9GpHsM
-	y6DTlzGJpUNFQXGIrxV4rwl6DMFrVj5+RYx1WwmB6i/N6947NDuolrVCavhhstCQZBah18
-	sWjXPjt0OpivTzcU/geJCwD9aOknlxA=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-496-A4OVKELWNQO-V8ckj_iMsA-1; Tue, 10 Nov 2026 14:47:19 -0500
-X-MC-Unique: A4OVKELWNQO-V8ckj_iMsA-1
-X-Mimecast-MFC-AGG-ID: A4OVKELWNQO-V8ckj_iMsA_1794340038
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-49090fde23aso1995504f8f.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:47:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794340038; x=1794944838; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-        b=LlbC0SDdRVWh4mfVKJGcz5b2K1ftvVEwGYBArWTbuHzMzf/WlvIaTFqn3TBV0fMdHW
-         IUtbcJZSynNEkxstfl9y8Xw9FB6x8XZy3ZL4ueoM+AOvSiPzyJw2AyaQ53hiXbSwjO5n
-         DfF/YJJej+qDZYCASm9EKgkM/rEC6Q6FKfh1wb8FKCMHL8MlPNlXOoH0DKCapBIxUN8c
-         PxtPyNUHRKaSNw8eocImUNNnqMgAMkw6iZYVKWAgi+V6ihSZ8wKg6kMeALRagobSk7wE
-         XrgBjXNXzgRTleufl4Xyrl3ORlMUmgkXwSwrQb+Amt1D9BGvERr+shOhs6oBi1X0wSlr
-         g0zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794340038; x=1794944838;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dqGz2Ceiqh+ClSBXpHsYkjX+5pBbS+WZ/wLFaJOG/RQ=;
-        b=nb0ae/h48HXWBcZweMgJQD4bBRpytD2FJrdEPqZ9kTX6lNB2XuyhLJavhgyKQEUaCq
-         w1aZ8fgwnWFaulXCN5Fm0g8QtXHEkpDltJzg7VkiL/RItWe/Xo5/PAlvsdCtumM6O8pY
-         NX1il5g14tw0HimVeRUpSWmcldU4ZqSm2Etn0zPfD4RgN7l3oAp3HWxYxD9sF1eCEDdx
-         Q5E9sR0uRbNxyxbBAYLiTTMQE5Q3qveOuKx7atGg6UTJcrZICD/E3usLROmijd29oGPc
-         EOuNwQtwa3ahuZbgLMagvONfHp0IbcnD3zlI6TyxSdWrPTpF0rwm8ppD9IHAsfg06OYt
-         X/rQ==
-X-Forwarded-Encrypted: i=1; AL+hErF8aQz4HZyncN20mHifc1ki2q8iElWYh9Fa6cUpgTjJnTXvfKKdu/kaUNlY4zZbdfO7KMT9Uh8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++Uuid3IemsVnEs7cHwMJR8pJRBhnhIhmUe4SBc3PpKNU7hdV5
-	l9GrraXqC/IQEqlGIPGbtckvCJj6NxaimnMs5eqU2CkZleQbDeHOJx7eNWcs/dvc08i1TtBAytZ
-	jmvXQiOqhvcJUl4ftPGw1xz2PtRpfq6Sf/PURT1lhBDvPp52lIxXsVrQRjQ==
-X-Gm-Gg: AYBFou34DRzP0ERA/LRVoNr3FnAgkabVBfMNQzGpTJg6rE/kaHmOE2DcDUySKQKAFbT
-	enoux7yxjUQSCWWMFuZckAQmNbZEQOwrZRD0tqYJ9CexuJxZ1lwdFtR46hhJpeFsufb1Z24FR8x
-	rGqvqtERCjwDaTNZ+FHJpyw0LdqjcSvi4BDkLa7YtI6lNtoVBAEJFAHUXzrfRU0F/lK259zb+xH
-	t4knR1070AjpBIfhsp/Ek2sQu/ZGkXlsevmeZBCU/6lIjHgDTsbh5unJmUSxFDvrxRvnDsc5Sf0
-	ZIDR39SI88iEKL8L/mqUeEDhnEAvZ2HlleyaAmEaxpzOLjxhqUGzVbZcJoi1+c/oWsb1bYTld0o
-	XwaAe4O9RmeNQYy2d7rGwI3V5YViI6WT1U449QMzs1udHcGFmBEnzRAwwAGMvJcggyZHAa5QBe+
-	PdzTM=
-X-Received: by 2002:a05:6000:2dc1:b0:497:bd30:8e39 with SMTP id ffacd0b85a97d-498304e5dd4mr6728835f8f.44.1794340038306;
-        Tue, 10 Nov 2026 11:47:18 -0800 (PST)
-X-Received: by 2002:a05:6000:2dc1:b0:497:bd30:8e39 with SMTP id ffacd0b85a97d-498304e5dd4mr6728770f8f.44.1794340037803;
-        Tue, 10 Nov 2026 11:47:17 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49836a9951csm6505110f8f.56.2026.11.10.11.47.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 11:47:17 -0800 (PST)
-Date: Tue, 10 Nov 2026 20:47:14 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 11/29] sched/deadline: Release the bandwidth of a task
- that leaves the class asleep
-Message-ID: <avN0wpOY2zoRnK8q@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-12-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LhFCE52E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C628E1F0089F;
+	Tue, 10 Nov 2026 19:47:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794340056;
+	bh=YKzr0fOYEBbci2KWp2n/aI8Dz/rEuVkJrHN7HyC5L+Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LhFCE52EGGc6kEhop0asY6azpXoe2vWlc4CMuL9q4FDyq5Vp4D9sIQhmEobb6TyMq
+	 xWxgAusXDBayVD7X7g8ETU867SR9DO8W/vYlfUtGVScZCfhBgLogOWpaJuSzrcA9I/
+	 +oryGLtJGiwfyRkv6aYG1nW8b/aU7DDYEHZTQk6Lwso0eViJfhrTxlGwIDan61Pl9q
+	 IRH4ok8LLqOfqo8HTRlg2gzSBEc5uC598h2RT06BfuNFwzP0RteNQpZ2augAMo7DmP
+	 wPl1HiYqcGMsplh7Jooynek06FXUZTQhRUQwLBvWoIhgEnppYzDDSRu2HgMrrdigMc
+	 Fnr6lb2XC0ZzA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
+Date: Tue, 10 Nov 2026 14:47:33 -0500
+Message-ID: <20261110193643.3552101-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052307-failed-6.12-0ea3e0b196f9@kernel.org>
+References: <20261107052307-failed-6.12-0ea3e0b196f9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,196 +60,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108185406.1549770-12-mathieu.desnoyers@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
 
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> A task that leaves SCHED_DEADLINE while it is not queued can keep its
-> bandwidth in total_bw until the next rebuild of the root domains.
-> Repeated, this fills total_bw up to the admission limit. Then
-> sched_setattr(SCHED_DEADLINE) and CPU offlining fail with EBUSY.
-> 
-> A task that leaves the class keeps its bandwidth until its 0-lag time.
-> Releasing it earlier would allow temporary overloads. For a queued task,
-> switched_from_dl() calls task_non_contending(). It releases the
-> bandwidth if the 0-lag time is past. Otherwise it arms the inactive
-> timer, which releases it then. For a task that is not queued,
-> switched_from_dl() relies on the timer armed when the task blocked.
-> 
-> But that timer is not always armed. The task may have blocked after its
-> 0-lag time. Or the timer fired while the task was still in the class,
-> and only removed running_bw. Then nothing releases total_bw. The timer
-> is also cancelled before the 0-lag time when the task wakes up on
-> another CPU, or comes back to the class asleep.
-> 
-> Fix this in switched_from_dl(), for a task that is not queued and has no
-> timer pending. If the 0-lag time is ahead, arm the timer. If it is past,
-> release the bandwidth now. Then clear the parameters, as
-> inactive_task_timer() does, so that no later path releases the bandwidth
-> again. A timer handler that already started finds a dl_bw of 0. The
-> deboost of a later priority inheritance boost finds no parameters. Since
-> "sched/deadline: Take a deadline boost from the waiter's rt_mutex node",
-> a boost that the task gives as a waiter does not read them.
-> 
-> Juri Lelli's first fix, since dropped from tip, released the bandwidth
-> here without clearing dl_bw. The bandwidth of a boosted task was then
-> released twice.
-> 
-> The Sashiko AI review of the third posting found the two cases with the
-> 0-lag time ahead. deadline_bw_test, added later in this series, tests
-> this in pi_former_owner_asleep and deboost_released_resets_period.
-> 
-> Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-2-dd761fe005b4@redhat.com/
-> Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
-> Reported-by: Tejun Heo <tj@kernel.org>
-> Closes: https://lore.kernel.org/all/2b5fb3f22bca6aa383be8f4781923392@kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->  kernel/sched/deadline.c | 98 ++++++++++++++++++++++++++++++++++-------
->  1 file changed, 81 insertions(+), 17 deletions(-)
-> 
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index e6c55afcfd01..d5d0f87d3a94 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -403,6 +403,23 @@ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
->  
->  static void __dl_clear_params(struct sched_dl_entity *dl_se);
->  
-> +/*
-> + * Return the 0-lag time of @dl_se, relative to the clock of its runqueue.
-> + * After @dl_se blocks or leaves the class, its utilization counts until
-> + * that time.
-> + */
-> +static s64 dl_zero_lag(struct sched_dl_entity *dl_se)
-> +{
-> +	struct rq *rq = rq_of_dl_se(dl_se);
-> +
-> +	/*
-> +	 * Using relative times instead of the absolute "0-lag time"
-> +	 * allows to simplify the code
-> +	 */
-> +	return dl_se->deadline - rq_clock(rq) -
-> +	       div64_long((dl_se->runtime * dl_se->dl_period), dl_se->dl_runtime);
-> +}
-> +
->  /*
->   * The utilization of a task cannot be immediately removed from
->   * the rq active utilization (running_bw) when the task blocks.
-> @@ -476,15 +493,7 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
->  
->  	WARN_ON(dl_se->dl_non_contending);
->  
-> -	zerolag_time = dl_se->deadline -
-> -		 div64_long((dl_se->runtime * dl_se->dl_period),
-> -			dl_se->dl_runtime);
-> -
-> -	/*
-> -	 * Using relative times instead of the absolute "0-lag time"
-> -	 * allows to simplify the code
-> -	 */
-> -	zerolag_time -= rq_clock(rq);
-> +	zerolag_time = dl_zero_lag(dl_se);
->  
->  	/*
->  	 * If the "0-lag time" already passed, decrease the active
-> @@ -3606,15 +3615,69 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
->  	dec_dl_tasks_cs(p);
->  
->  	if (!task_on_rq_queued(p)) {
-> -		/*
-> -		 * Inactive timer is armed. However, p is leaving DEADLINE and
-> -		 * might migrate away from this rq while continuing to run on
-> -		 * some other class. We need to remove its contribution from
-> -		 * this rq running_bw now, or sub_rq_bw (below) will complain.
-> -		 */
-> -		if (p->dl.dl_non_contending)
-> +		bool released = false;
-> +
-> +		if (p->dl.dl_non_contending) {
-> +			/*
-> +			 * Inactive timer is armed. However, p is leaving
-> +			 * DEADLINE and might migrate away from this rq while
-> +			 * continuing to run on some other class. We need to
-> +			 * remove its contribution from this rq running_bw now,
-> +			 * or sub_rq_bw (below) will complain.
-> +			 *
-> +			 * inactive_task_timer() will find !dl_task(p) and
-> +			 * release total_bw via __dl_sub().
-> +			 */
->  			sub_running_bw(&p->dl, &rq->dl);
-> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl) &&
-> +			   dl_zero_lag(&p->dl) >= 0 &&
-> +			   !hrtimer_active(&p->dl.inactive_timer)) {
-> +			/*
-> +			 * No inactive timer is armed, but the 0-lag time is
-> +			 * ahead. Either the task is waking up on another CPU,
-> +			 * and migrate_task_rq_dl() cancelled the timer. Or it
-> +			 * came back to the class asleep, and switched_to_dl()
-> +			 * cancelled it. Arm the timer, as for a queued task.
-> +			 * Its handler finds the task out of the class and
-> +			 * releases total_bw. running_bw is already off this
-> +			 * runqueue, or was never on it.
-> +			 */
-> +			task_non_contending(&p->dl, false);
-> +		} else if (p->dl.dl_runtime && !dl_entity_is_special(&p->dl)) {
-> +			/*
-> +			 * No inactive timer is armed, and the 0-lag time is
-> +			 * past. Either the task never ran in the class, or it
-> +			 * blocked after its 0-lag time. Or the timer fired
-> +			 * while the task was still in the class. Nothing else
-> +			 * releases total_bw, so release it now.
-> +			 *
-> +			 * A timer whose handler already runs also leads here,
-> +			 * since hrtimer_active() is true. The handler waits
-> +			 * for the runqueue lock, then finds a dl_bw of 0,
-> +			 * cleared below.
-> +			 *
-> +			 * A task deboosted from priority inheritance, with no
-> +			 * parameters of its own, has no bandwidth in total_bw.
-> +			 * Neither has a special task.
-> +			 */
-> +			struct dl_bw *dl_b = dl_bw_of(task_cpu(p));
-> +
-> +			raw_spin_lock(&dl_b->lock);
-> +			__dl_sub(dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
-> +			raw_spin_unlock(&dl_b->lock);
-> +			released = true;
-> +		}
->  		sub_rq_bw(&p->dl, &rq->dl);
-> +		/*
-> +		 * Clear the parameters too, as inactive_task_timer() does at
-> +		 * the 0-lag time. Then no later path releases the bandwidth
-> +		 * again. A later priority inheritance boost sees a task with no
-> +		 * parameters of its own. task_contending() and
-> +		 * task_non_contending() skip it, and its deboost releases
-> +		 * nothing.
-> +		 */
-> +		if (released)
-> +			__dl_clear_params(&p->dl);
+[ Upstream commit 0ea3e0b196f9dcc17b40ac881a6efef06459975b ]
 
-The fix looks right, but I wondered if we can condense a bit the above
-if-else tree. It's essantially doing what task_non_contending() does
-already (special and non-DL tasks checks included)?
+q6apm_dai_pointer() turns the number of period buffers the DSP has
+returned in the current lap, 1..periods, into a position and reports
+one frame less than that. Commit a93dad6f4e6a ("ASoC: q6apm-dai: make
+use of q6apm_get_hw_pointer") added the "- 1" so that the end of the
+ring is not reported as a position equal to the buffer size.
 
-What about something like
+One frame short has a cost once the application stops feeding the
+stream. The DSP returns the last queued buffer and the position stops
+at appl_ptr - 1, so avail stays at buffer_size - 1, below the default
+stop_threshold. The DSP sends nothing more as its queue is empty, so
+no period interrupt comes either: ALSA never detects the underrun and
+the stream stays RUNNING. A poll-driven application that missed its
+last wakeup waits forever, and drain only ends on its timeout, with
+-EIO. On capture, the last frame of each period is held back until
+the next one.
 
-     if (!task_on_rq_queued(p)) {
-         if (p->dl.dl_non_contending)
-           sub_running_bw(&p->dl, &rq->dl);
-         sub_rq_bw(&p->dl, &rq->dl);
+Before that commit the position wrapped to 0 at the end of the ring.
+Do that again. A full lap is the start of the ring, and
+snd_pcm_update_hw_ptr0() accounts for the wrap: the position cannot
+move by more than one lap between two updates, as each returned buffer
+calls snd_pcm_period_elapsed() and the DSP holds at most periods
+buffers.
 
-         if (!p->dl.dl_non_contending)
-           task_non_contending(&p->dl, false);
-    }
+Seen on a OnePlus Pad 3 (SM8750) with PipeWire in interrupt-driven
+scheduling: after a stall the PCM sat at hw_ptr 78239, appl_ptr 78240
+(avail 3839 of 3840) for two hours.
 
-I ran the same collapse on top of the series and it passed the selftests
-with LOCKDEP w/o warnings.
+Fixes: a93dad6f4e6a ("ASoC: q6apm-dai: make use of q6apm_get_hw_pointer")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261014162703.10172-2-tvlad744@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: adjusted context in q6apm_dai_pointer() because the preceding bytes_to_frames() branch is absent ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Thanks,
-Juri
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index 3b00c6d5174ab..fef69e4318908 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -441,11 +441,15 @@ static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
+ 	struct q6apm_dai_rtd *prtd = runtime->private_data;
+ 	snd_pcm_uframes_t ptr;
+ 
+-	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) * runtime->period_size;
+-	if (ptr)
+-		return ptr - 1;
++	/*
++	 * The hw pointer counts the period buffers the DSP has returned in
++	 * this lap, 1..periods. A full lap is the start of the ring again:
++	 * report 0 rather than one frame less, so that the position of a
++	 * drained buffer reaches appl_ptr and ALSA sees the underrun.
++	 */
++	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) % runtime->periods;
+ 
+-	return 0;
++	return ptr * runtime->period_size;
+ }
+ 
+ static int q6apm_dai_hw_params(struct snd_soc_component *component,
+-- 
+2.53.0
 
