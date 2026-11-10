@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273802;
-	b=vERBjXsHdBLvjgYGijKEI0nHBLub0lV4gHMtvf3B52OuPOZo3fEKEbDJmKI20DUfZqPi
-	 M170lo1BVzPMrWddWBYfmTeyn3Dsyfga4AxuoOeSwCdzCWY210SLVpmuQQgBsKRaEH/e9
-	 p+YpN57WyKHq5R8GsOLSJ4LMkC+0tCjmcgJiot5s189P92K8loqPQN4FAt6/t6wf07ZVb
-	 FUY1vHAhGuMIG0IPw9oRlsCWy+hj115J9lLHkSbGTsyGF7SnC63jiVREcvHlGnaME2nKn
-	 T6A/x0dAu8p4K92mW4qUNIKmjoTGgdt06jBxSJJecGXyYgz5VQP5u4XQ4HpJCuwEarg==
+	t=1794273806;
+	b=FrqvAlqrh+kbdNPvdNs0AOQE4rN37D2UvZgbo4QwA6y7KVZaOgJ+xxIHfDje49b3T8cZ
+	 83pETXaKVidkrHYb5JX2IO7JVrDUuu1u+yi/tOMpLugljxtwL0SJaaLH7IoP6Bdyqjkxu
+	 kYbK5/bWNUY4TydhOF2axQqVeXY9Ap2r5FSMv7VmtTbH8oWeVDczBZc1PtTN9DAFKnOIh
+	 SBvVnmvXypz0gRMYdxXhOSA6mqFOpTx1WjqLwfAyv+y/sVPikvD/1EnYcQo9pGPTtb3kr
+	 e8sA1SKM0/D5w3OMngn9wE9kgoOOQjWnSyzVgseH3YHJXMz9NrZMwNvUika1E4UKSuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273802;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273806;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KhIy0nP6WsKWDR32sknF6E2LCNXcQiyf8aY0nLYO8Cs=;
-	b=s1N890OqTwsDEY10r5UAQXYtzQ8ldv/znRkeWSjucM7yFr7u6s6mdWBM25i4zIBnJxDc
-	 WkMajemfSQek315fcFK8AAODKvaLkE0kM3bzBCpyLPPyhQ1VQmK5ClzDADIpqkfbqh5e1
-	 bQQilJoieleEN3vZh0L29NpseUkNaj1bgRvSnGJbzExUWDFSZJS/3Z2x66OLg4SPmK/ag
-	 ZZAAqdUKdxajlkXFPTlAuisfums5YngsfajWd08t1aptdHFYk014QQwpY6iONWF2S4g2v
-	 mvAvSFWbeGEog1a/6oJmRMNcqR1Ovee65AlZb9yFf6Rv1WZXMO4x/p/QZgfqN/8FKOQ==
+	bh=eBO6p7EfrF8TLvU28GBeZs/T00esIKcQUcDe7XIgfN0=;
+	b=IHZYjx8dxhZdLIFyVCmUIf5Bem/FZmOBkfG+5B6EM87/CCki95OEJHg2jEP7TJUBt2/m
+	 riLBbTpF69Lb8YZAnuZSsznDs5Tk30A1gfZC+kWe2jeLLxC1h78376fVk0nrIwSFChS6B
+	 GXGgdm9nLGwwGdbqIlRQwyaCYJc9yVaIMUXumWu/NA3cTMRsdwJPa+waLOi9hdi13yAmJ
+	 yGAbJeH5nD0hrV4XVPko0ZtxYrPkKjTWpfgn18FD7HHlXQgox1/G/Bt3EfQ8ucYQuvqQf
+	 eHkwUlNf4QjRcn8Oa63UhuHY4tSCmrtaV4zSaSrlQBvWD1cKHJ93eVYRaPrHzdTiz6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aZr8yeD/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuAuYjYx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9978C6071843
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25876071843
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZr8yeD/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0BA1F0089F;
-	Tue, 10 Nov 2026 01:23:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuAuYjYx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F13F1F0089F;
+	Tue, 10 Nov 2026 01:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273802;
-	bh=KhIy0nP6WsKWDR32sknF6E2LCNXcQiyf8aY0nLYO8Cs=;
+	s=k20260515; t=1794273805;
+	bh=eBO6p7EfrF8TLvU28GBeZs/T00esIKcQUcDe7XIgfN0=;
 	h=From:To:Cc:Subject:Date;
-	b=aZr8yeD/n5z2ahQoIDnwCLo943TLkUAPQGNih9c1Mf5vF7HHKvZ1rJZhPdubBMkMj
-	 5wIUDWeRNR/Q6PTK7TQmKgtty7EgmcHICBaRcDxhMBpQ8BhyqHxbbsUNDJoeDE5kXY
-	 T6kksnitOXBaZu+vTrZOBndYtM+15zckk94tbj/hw1QIwpxU8VC3CoEMmmJ/3v4f+L
-	 mI+LqX6qD1kZhOTimhZjrJJ5/5MVZTBQpe9xG8dCN6LTlu58hKXqK9tI8qE/Hwrxak
-	 eh/q3t9HrAVJlP+6r+s3rk1NGp3VzkzFbXQ3cf2/nHHBnEihxXX3tJ7SRfAnq6K6Cj
-	 2L6bYk7BUQlSA==
+	b=RuAuYjYxJpTOKSDJiipRSJdOpUtCWV83lTLvlykZBfV2m8pLqRqsu0MJcTaZvIAL/
+	 yXaywWtpPuw9y2/TLqLqDVPlP74e95TtGG7H9cPnqN8ZozPnWhKPbvppPMe3+SyLsj
+	 tOXZlX4Fsa44Xzj5YunuSlRs/hS0V7ESuASuAVrvxaRjlwO+YPd5WoVnVffJrHs6bA
+	 Vr1KNnvD87xzBqXtgrOLM0vI9wh6+wfCrAlVkfRdPnystNrvXRNcLn+JxlNlden3jf
+	 ojYE9WqYFKJsFV64SkoCHLcXxTDe7IKIpeY0ov8GDbBzNVfLjRx/SXk4pQHKfrtaY4
+	 AKrd5XS+VuX9g==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	gourry@gourry.net,
-	usama.anjum@arm.com,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org
+To: david@kernel.org,
+	ljs@kernel.org,
+	muchun.song@linux.dev,
+	baohua@kernel.org,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/huge_memory: fix truncate racing with PMD zapping" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:23:20 -0500
-Message-ID: <20261109202320-failed-5.15-e6a07d29b0a6@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:23:23 -0500
+Message-ID: <20261109202323-failed-5.15-21a3888d3d2f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,78 +71,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4
+git cherry-pick -x 21a3888d3d2f87b7f15ccea1f0befd57346fe899
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202320-failed-5.15-e6a07d29b0a6@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202323-failed-5.15-21a3888d3d2f@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:42 +0100
-Subject: [PATCH] mm/huge_memory: fix truncate racing with PMD zapping
+From 21a3888d3d2f87b7f15ccea1f0befd57346fe899 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:51 +0100
+Subject: [PATCH] mm/gup: check for overflow when converting nr_pages to bytes
+ in GUP-fast
 
-zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
-If this was the last mapping, truncation can skip unmapping the folio
-and proceed without waiting for the PMD lock, racing with dirtying.
+The overflow check in gup_fast_fallback() only covers the addition to
+start. The preceding nr_pages << PAGE_SHIFT can already have truncated
+the length on 32bit.
 
-ifs_set_range_dirty() can oops if MADV_DONTNEED races with
-ftruncate() on XFS, when we get the folio set dirty after it was found
-to not be mapped anymore.
+Users such as RapidIO's rio_dma_transfer() can derive such page counts
+from a 64-bit userspace length.
 
-Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
-matching the PTE zap path. This keeps the folio mapped while updating
-its state, so truncation must wait for the page table lock.
+Let's just check_shl_overflow() to reject any such overflow with
+-EOVERFLOW early.
 
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
+Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Barry Song <baohua@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-22-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/huge_memory.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ mm/gup.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 283c4bc8b927c..ce52962db16b9 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2495,10 +2495,6 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- {
- 	const bool is_device_private = folio_is_device_private(folio);
+diff --git a/mm/gup.c b/mm/gup.c
+index 1c2ac7c66c309..ba4907b352323 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -3225,8 +3225,8 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
+ 		might_lock_read(&current->mm->mmap_lock);
  
--	/* Present and device private folios are rmappable. */
--	if (is_present || is_device_private)
--		folio_remove_rmap_pmd(folio, &folio->page, vma);
--
- 	if (folio_test_anon(folio)) {
- 		add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
- 	} else {
-@@ -2512,6 +2508,13 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- 			folio_mark_accessed(folio);
- 	}
- 
-+	/*
-+	 * Present and device private folios are rmappable. Remove the
-+	 * rmap after transferring young+dirty to the folio.
-+	 */
-+	if (is_present || is_device_private)
-+		folio_remove_rmap_pmd(folio, &folio->page, vma);
-+
- 	/* Device private folios are pinned. */
- 	if (is_device_private)
- 		folio_put(folio);
+ 	start = untagged_addr(start) & PAGE_MASK;
+-	len = nr_pages << PAGE_SHIFT;
+-	if (check_add_overflow(start, len, &end))
++	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
++	    check_add_overflow(start, len, &end))
+ 		return -EOVERFLOW;
+ 	if (end > TASK_SIZE_MAX)
+ 		return -EFAULT;
 -- 
 2.53.0
 
