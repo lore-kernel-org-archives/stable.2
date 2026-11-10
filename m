@@ -1,56 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320675;
-	b=j0Q9U8FjsVCf8OIw5JAXNsnPxXrTz3JIOyhx6BLwk54iHYtEsvED50HkiiFmq8eDp+8u
-	 acN4/RMdkQ/p7VU3hadHFPyfoG5apvv+k4JwOAkZpdR4jqESpklohCXDdTFOgdLkEJbNq
-	 ysHwTtqq4sDhJCSnBb5EMhAkY232dCf6H+0fR52TtdrXqHRAS1mRHv/9fawsR+na/snTF
-	 4rCoGO2nfUITMfUfnjznxw6FZYzssa68rTqSn9MldVzMGsWZX1VROAxs8psVs3600zVrk
-	 bQ4IpKz+ZCvUDz8Fekt7enlXeM3CqwEfvuwK9OE+2jZ6S3nTo1ttPGEQO4IdLowPhTw==
+	t=1794320707;
+	b=kjj3BKyoc/aMaqltkJfJvlsNiRXnWfGIF3+3d9nzavAuAKbS1S00X1K+gJkG44a+7twk
+	 rkxt2LdaalyEPoiwUIAQWB8GYn2v7Y/Pyk5N67SsX2uXaZLafjEueX2rGvPlt6wBfW53p
+	 W+Awooj1KUN3yM09XDrxQ25+dIsKOZVc8q5rplLKZHQ/Mo7teRyKba/e6SKjOQxPJURfk
+	 t7+reGsVO7hy3qZY/N3VKS8nJw3D3SVqqudcMDzMuooItwdzz8P9QppijQWVAaRd+35eE
+	 ePAmk8Sbu2lJtIha7qUvsU42FYCfUF6ZepHvoR/y7wFGsxJpbkp7Zs5yi4KvVN/dLDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320675;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TkfsXMIbYBQZuuPALvI+msP9vEHkm3nontZa+CETtxc=;
-	b=lIHcXRpqcKlsvz8SBzMaRxQ+Phdq8WavgMGCaluZbRrVBXdRtQUeIu7bDqmTSgYI/12t
-	 2umOjnhTl4KLoQ6JP94lodciA+heCZ8yg1LxwhOv/n7lJv/22IA9/XKVOhFIrBQWL2NLD
-	 xlBgRxEk41tf9QOMIN9QKARAK8E2Kywf1UaDmEta9FA8gMMuhY69b3FLG9r9oz0m5KHu8
-	 BbUPIgpooHKS7Yxc+JLGf15NERLYfIsLNtHwy7JDoeJX+Z2bfaIUmllJ2eMAUqPecO7Gd
-	 StM9lbtIPgmr3RoSdhTCZGZrNfgv2iNxzlKdBWgT2ttlngGXd5CUjqc43kZ0utj1EkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320707;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
+	b=VwLu3FYQCXShCI2QopXAa92PRxMBfnEnLeqVHCweNdegRxnjq6fKXO56LmarQjenF0oG
+	 +mIUiIBbGwRVRqwnWyz9DR7D/XOvtF9YXYPTVZH282ikmdMFhyMG2f3WoDQjxy8zQxUwy
+	 OEGHTlyTldXK80PQaKzQQ99i1BRutvY3yPwotN7DxJHUHRNW8ZSD/+gjScNlhE8LI2Snb
+	 d93ouBAr2AuhaeljfKPtW+7gisvnaZdc0J3Sw4mxDVgyrofVYuAKORbfEKWsgXve6Vuby
+	 5g0NhRZkkKDVrOjvsZBa6CXVtExzgvifcAsa+nsZI4BoxUeRb+rzzxVvD/IEUUfCPBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YY9KI5Fr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A209606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844CC60A261A;
+	Tue, 10 Nov 2026 14:25:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 844CC60A261A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YY9KI5Fr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9570B1F008A1;
-	Tue, 10 Nov 2026 14:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320675;
-	bh=TkfsXMIbYBQZuuPALvI+msP9vEHkm3nontZa+CETtxc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YY9KI5FriSTnDEaNYPoc5ZGXMzfgrkXK0u8DAte1IaKW5EUqXbPTe3MAggOnPBR8r
-	 zYNiT2CtkdEJvADoY8j3EgbUl6I37dWhW/eW6KuE7IcO1Ogm8w+gCYISrBaZXH4Np+
-	 vGbWorEbW3/c8KGEgsb+ZecT+6Bp+43DCmBpj3mh/EM79cDu3iGMMyUmtbUTcVdug0
-	 wxoJKyUjnAhOkVZEkuPq79EpJrsvJf3NgtMqfjv0S5/X3gdCaenI4IYvkZMePoS7UN
-	 lW1lu3kafXSX2XzRREWgCX+Ax2WItRA3tcrTD9BHnls4L1kLALeszfZrTCQqjw4BoR
-	 wHO3FoWkRknUg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] ata: libahci: Free the IRQs when activating a multi-IRQ host fails
-Date: Tue, 10 Nov 2026 09:24:32 -0500
-Message-ID: <20261110142342.1878224-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110142342.1878224-1-sashal@kernel.org>
-References: <20261107054205-failed-6.1-34a4a34431ed@kernel.org>
- <20261110142342.1878224-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id CCDD21F7DA;
+	Tue, 10 Nov 2026 14:25:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794320704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
+	b=bjk4WUGsRYs0sP8E0ONkDW8hyxwCcqK6F/Z+No2aVyfis1MlyWmiOhtWAdfYs7F/8CipUe
+	M6ChAxycGmD+5TO2yaDPV3YEJYRhQ7n9jG4KZpA9RGENMEDcySYwTh7Zpl9Q1XnchbyaQz
+	9csObL3BU5hnSJHNTzbwr+PQnEnCSJ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794320704;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
+	b=DcZW88hGUmkolX453pml7rhjUnXP/geJBXTnLO3CcrhsdfC+rAH/ij69WBdSoxJA/XOD03
+	2vl1fFNAf7DiXYCQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=bjk4WUGs;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DcZW88hG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794320704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
+	b=bjk4WUGsRYs0sP8E0ONkDW8hyxwCcqK6F/Z+No2aVyfis1MlyWmiOhtWAdfYs7F/8CipUe
+	M6ChAxycGmD+5TO2yaDPV3YEJYRhQ7n9jG4KZpA9RGENMEDcySYwTh7Zpl9Q1XnchbyaQz
+	9csObL3BU5hnSJHNTzbwr+PQnEnCSJ4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794320704;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
+	b=DcZW88hGUmkolX453pml7rhjUnXP/geJBXTnLO3CcrhsdfC+rAH/ij69WBdSoxJA/XOD03
+	2vl1fFNAf7DiXYCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A1740134F4;
+	Tue, 10 Nov 2026 14:25:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id bTl7H0Ap82qbIAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 14:25:04 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id A39EC2253A; Tue, 10 Nov 2026 15:24:59 +0100 (CET)
+Date: Tue, 10 Nov 2026 15:24:59 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 14/51] proc: sysctl: don't stop readdir at an entry
+ that is being unregistered
+Message-ID: <efix7fc3j7xbogyb3zaotsi3bwl4s4p6nvwrnlpbue5khrlf43@orqtyoglh5b7>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-14-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,87 +133,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-14-bbf7d5546809@kernel.org>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: CCDD21F7DA
 
-From: Niklas Cassel <cassel@kernel.org>
+On Wed 04-11-26 18:47:00, Christian Brauner wrote:
+> proc_sys_fill_cache() creates the inode of an entry that has no dentry
+> yet. Since ace0c791e6c3 ("proc/sysctl: Don't grab i_lock under
+> sysctl_lock.") proc_sys_make_inode() refuses to do that once the table
+> is being unregistered and fails with -ENOENT. readdir takes every table
+> it lists into use and unregister_sysctl_table() marks the table as
+> being unregistered before it waits for readdir to let go of it. So an
+> entry that is unregistered right then makes proc_sys_fill_cache() fail,
+> proc_sys_readdir() stops there and returns 0. If that getdents64() call
+> hadn't emitted anything before that entry userspace sees the end of the
+> directory and never gets the entries behind it. A listing of
+> /proc/sys/net/ipv6/conf can end early that way while a device goes
+> away.
+> 
+> So skip an entry whose table is being unregistered, like readdir
+> already skips a link it can't follow. Lookup treats such an entry as
+> gone too since ea5751ccd665 ("proc/sysctl: don't return ENOMEM on
+> lookup when a table is unregistering").
+> 
+> Fixes: ace0c791e6c3 ("proc/sysctl: Don't grab i_lock under sysctl_lock.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-[ Upstream commit 34a4a34431ed81d85d14f8fb8035e5a25214ad39 ]
+Looks sane. Feel free to add:
 
-ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
-not free them when requesting one of them, or when registering the host,
-fails. The IRQs are only freed by the driver core, when it releases the
-devres of the device after probe() has returned, while the caller of
-ahci_host_activate() releases the resources of the host in its probe()
-error path, e.g. ahci_probe() disables the clocks, regulators, resets and
-PHYs of the host. An IRQ handler running in that window would access the
-MMIO of a host which is no longer clocked.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-ahci_host_activate_multi_irqs() did free the IRQs until commit
-0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
-removed the explicit free because devm makes it unnecessary. That is true
-for freeing the IRQs as such, but not for the window described above:
-devres is only released after probe() has returned, i.e. after the error
-path of the caller has released the resources of the host.
+								Honza
 
-Note that this window cannot be hit with the current users: the only user
-of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
-any resource in its probe() error path, and the ports of the host are
-still frozen, i.e. their interrupts are masked, when ata_host_register()
-fails.
-
-Free the IRQs explicitly again, like ata_host_activate() does, so that
-the IRQ handlers cannot run once ahci_host_activate() has failed.
-
-Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
-Cc: stable@vger.kernel.org
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260915084127.692494-12-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/ata/libahci.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 1211d46d2475b..2bfd82f3fee18 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2636,11 +2636,33 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
- 				0, pp->irq_desc, host->ports[i]);
- 
- 		if (rc)
--			return rc;
-+			goto free_irqs;
- 		ata_port_desc_misc(host->ports[i], irq);
- 	}
- 
--	return ata_host_register(host, sht);
-+	rc = ata_host_register(host, sht);
-+	if (rc)
-+		goto free_irqs;
-+
-+	return 0;
-+
-+free_irqs:
-+	/*
-+	 * Free the IRQs which have been requested, so that the handlers can no
-+	 * longer access the MMIO of the host once we return, e.g. after the
-+	 * caller has disabled the clocks of the host.
-+	 */
-+	while (--i >= 0) {
-+		struct ahci_port_priv *pp = host->ports[i]->private_data;
-+
-+		if (!pp)
-+			continue;
-+
-+		devm_free_irq(host->dev, hpriv->get_irq_vector(host, i),
-+			      host->ports[i]);
-+	}
-+
-+	return rc;
- }
- 
- /**
+> ---
+>  fs/proc/proc_sysctl.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+> index 6c0859c66563..b4a309d49698 100644
+> --- a/fs/proc/proc_sysctl.c
+> +++ b/fs/proc/proc_sysctl.c
+> @@ -704,6 +704,9 @@ static bool proc_sys_fill_cache(struct file *file,
+>  			if (unlikely(res)) {
+>  				dput(child);
+>  
+> +				/* skip an entry whose table is being unregistered */
+> +				if (res == ERR_PTR(-ENOENT))
+> +					return true;
+>  				if (IS_ERR(res))
+>  					return false;
+>  
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
