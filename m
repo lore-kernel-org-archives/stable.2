@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273682;
-	b=l6z1crrD4AUcXmx5aFIcC3ehZVOCTf1biv60XcWf0pFMZ0dCE1K/7yiMtLDNJhX7E2a7
-	 VXWJ9w0zor06qanstLIZUTm+O84Csrs7/cPm/oC6HiJYEyIGSYxqqnTqnexcMX2PQ0XAH
-	 2LVTCol5jQarbYYUOBiVN/+lkY7eVflz3DChLji6XHW1h34JbFRmQYbWDCgrvQ2QwwnwR
-	 WhT3hrxYHj9B4HnHAYnHRKPbNWQXRNf9c/lnqWsnuCKJzczLUDNa1u9UI06Wt7qi0gGBg
-	 /sVs3Ozs1h+WwJZ/JRcvl3TKOp09fZK9FxE4WeyPfJWUuQv03ToPiNLdwCGqPNsJjPQ==
+	t=1794273685;
+	b=S6hLNLhxvpHmm2HipLYgGzOPbP+hn5jUI4nZNNpW6II38TswXh6vSSW/vnFGHZhOQWDF
+	 +x5QXCAhSUosuCteIAe8Ju2j2IBCnE8K2IzMWpbXrwOWXC/5rnUkAKenLdSggRlBCARiu
+	 7t14EtYrPy3sAJDhu0pp5TpSwm07rdDoasnLdKyhR0zw8poPh3XzjD96U5SrJ5EEH9554
+	 ylmWIHv/8P4utEbtgkiOx8MkeDKuOScbcNa9rn2HcPLTySrIrtuasotKBB28AsZRBf/ul
+	 39BXFeMONw7Uty+jZZigyLw4QkPmwv62k8jEEs+ebJvWOfdds9sRSQNYoEc/OerUgsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273685;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6VqfzGlKOxS93kv6XsvyDctJGEbabnD7iB8vG8vv1xc=;
-	b=yEosQ0jS34TswYm1nFLXPVY+ffyYDO8+pHOuhB3lZoGPowqr/dJKmMVAULdgrhLIMFeG
-	 /aImUZDokPUJpjWDcTc6zXFae/WmiHts3ANqbvV+XzBqF5JVVkLfg9MRtYwoZCChsrinx
-	 49NvqrxeHWEJPJgQXDRLtp9L70hhHRTur5S1Amcjb9zcptNQvDswbhv0DByyVN1b8AJNz
-	 eA35Ti3t0PYpyImTTFFVdqq5GqAhnwlGUgySMRsOrdcTU9vxoixNBhQN5i0EetbW6eXYU
-	 sPSXIjEklK0e0+ZhbtWNtUf7V98JsE15krPit4el9p0Jis7Q2NUEPHDjrzu9GV0xTKw==
+	bh=1f8qamEx3HfptG5YKhe3G95VfQiWR1rClu15vPgMhn0=;
+	b=dI7cMOgKx06dalCXA3Uhw8Oc3pAwa6C96kv4n7CUwlInw4e92LxBL1g4LwdLKOQdDf0j
+	 tWvDUAHnEPN1jjdy9uuNZBIHN3d6kBp1gGgT9qzrj6+pDD7cVpTgOdxsX5BppyawM0VrB
+	 swMwdHk/0KX0FW6xJQr4+mKc+FAV+bLexrIj0Rl27FLohqce47VTm1AR30pVVyNdbGRhD
+	 mL5ZXkjlB9Xc26bwll2KW2a2DmtNGvyeTwDV2tMSE19jMRFYhJqwEx0QwkIuLvQQGBcpa
+	 utV//FhwEmIUo6vPa9Xa/8ameNjj9uIexk7Sci1CsJDxefKpnAR95+dGPME97Nq5ISQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eucNRAxA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JzIwqn3M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBFE606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0953606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eucNRAxA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239DC1F008A1;
-	Tue, 10 Nov 2026 01:21:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JzIwqn3M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5581F0089F;
+	Tue, 10 Nov 2026 01:21:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273681;
-	bh=6VqfzGlKOxS93kv6XsvyDctJGEbabnD7iB8vG8vv1xc=;
+	s=k20260515; t=1794273684;
+	bh=1f8qamEx3HfptG5YKhe3G95VfQiWR1rClu15vPgMhn0=;
 	h=From:To:Cc:Subject:Date;
-	b=eucNRAxApY3OvCvJDmez3ESiMAaZDlfB07PDPVxBqWEDk8WtJV7YSLP6AI8778yJc
-	 1/9glHQ3Vp3KY95y+mUYY94q5qw5VG+U+/5NHKW5dgf3Kjk8ssYbIKnS9WRipHSfzK
-	 MnuMkX50GqTK418Kh9QXWl0YPX+YT8ZFQ+8CS50Ur2iswW+CePM8VrF5o2IB22TtkE
-	 FfqMigyKAsZ6C43Bih07n2r7Biu5JhWVKW8ztT7MP3dzbvFWDTiqB/ONNm4Ye7Ft3u
-	 Ja9ulhPmUZpQ1YBkb2fVKnCnihBNSRVBLKzQsZGmgl434q3k1SDhKJ4GaVP8K6gDji
-	 KrZiKsaZs6I1A==
+	b=JzIwqn3MHSS9O5gerURIoXaqiopMXE0Sh6WxgNt5N/oV2LUslJNg3LM6Y9ObTmdeO
+	 bDs/4oB3KbSGO1MvibrEXDFvpLMV5osYJjf39qiaRd6isbkZaXUIpjap3XpeoJSfGe
+	 jo+KyxZsNy7UZQtn9pDfdJSTU6wiUF0RwW2UPSTkigTGFDBBQAczlx/ZzwYrF/1Isv
+	 d9uAvF8PIouXX2Jz42OX4cz1wNhM6yhvgwcg7EwCBBlb0XP200cNVGPIGmDG/wskgY
+	 CIKarpSaxEMq0o2cr21rnFIb6zztusFs2yVpcucUf5XYtvgVfK817NCA46OTswaL5u
+	 rvGp9g2axYpFQ==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	ljs@kernel.org,
-	josef@toxicpanda.com,
-	harry@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
+To: josef@toxicpanda.com,
+	riel@surriel.com,
+	pfalcato@suse.de,
 	usama.anjum@arm.com,
-	baolin.wang@linux.alibaba.com
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/rmap: handle device-exclusive entries in folio_referenced_one()" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:21:16 -0500
-Message-ID: <20261109202116-failed-5.15-f3c493d2f42b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/filemap: don't lose a folio lock wakeup to a signal" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:22 -0500
+Message-ID: <20261109202122-failed-5.15-8ccb6ded6a47@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,109 +71,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c
+git cherry-pick -x 8ccb6ded6a47b59b4907ed4f8c293cf8122de889
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202116-failed-5.15-f3c493d2f42b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202122-failed-5.15-8ccb6ded6a47@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:38 +0100
-Subject: [PATCH] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
+From 8ccb6ded6a47b59b4907ed4f8c293cf8122de889 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:36 +0100
+Subject: [PATCH] mm/filemap: don't lose a folio lock wakeup to a signal
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+An exclusive waiter in folio_wait_bit_common() can leave the wait loop
+because of a fatal signal, then be woken by folio_unlock() before
+finish_wait(). If the waker did not hand over the lock, the waiter returns
+-EINTR without trying to acquire it.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+folio_wake_bit() stops after waking the first exclusive waiter, so this
+loses the wakeup and can leave other waiters asleep indefinitely on an
+unlocked folio.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
+After finish_wait(), let a waiter woken without a lock handoff try once
+more to acquire the lock. If successful, return success so the caller's
+eventual unlock wakes the next waiter. Otherwise, the current lock owner
+will do so.
 
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
-
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 5ef64cc8987a ("mm: allow a controlled amount of unfairness in the page lock")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: clarify and simplify comment + description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Acked-by: Pedro Falcato <pfalcato@suse.de>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-7-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/rmap.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ mm/filemap.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1131b76bbbc28..0faef46806e5c 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
- 	int ptes = 0, referenced = 0;
- 	unsigned int nr;
-+	pte_t pteval;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 906b013c11eb3..6b5e1d866a9e0 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1373,10 +1373,22 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+ 	 * return value based on that state without races.
+ 	 *
+ 	 * Also note that WQ_FLAG_WOKEN is sufficient for a non-exclusive
+-	 * waiter, but an exclusive one requires WQ_FLAG_DONE.
++	 * waiter, but an exclusive one must also acquire the bit.
+ 	 */
+-	if (behavior == EXCLUSIVE)
+-		return wait->flags & WQ_FLAG_DONE ? 0 : -EINTR;
++	if (behavior == EXCLUSIVE) {
++		if (wait->flags & WQ_FLAG_DONE)
++			return 0;
++		/*
++		 * We might have just been woken up and the waker will not
++		 * wake up anybody else. If we ignore that now, the remaining
++		 * waiters may not get woken up: take the bit now if it is
++		 * still free.
++		 */
++		if ((wait->flags & WQ_FLAG_WOKEN) &&
++		    !test_and_set_bit(bit_nr, folio_flags(folio, 0)))
++			return 0;
++		return -EINTR;
++	}
  
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		address = pvmw.address;
-@@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
- 			return false;
- 		}
- 
--		if (pvmw.pte && folio_test_large(folio)) {
-+		if (pvmw.pte)
-+			pteval = ptep_get(pvmw.pte);
-+
-+		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
- 			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
- 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
--			pte_t pteval = ptep_get(pvmw.pte);
- 
- 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
- 		}
-@@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
- 		 * are. —they could be on active/inactive lists or on MGLRU. So the
- 		 * simplest approach is to disable this look-around optimization.
- 		 */
--		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
-+		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
-+		    pte_present(pteval)) {
- 			if (lru_gen_look_around(&pvmw, nr))
- 				referenced++;
- 		} else if (pvmw.pte) {
--			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
-+			bool young = false;
-+
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + nr * PAGE_SIZE);
-+			if (young)
- 				referenced++;
- 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
- 			if (pmdp_clear_flush_young_notify(vma, address,
+ 	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
+ }
 -- 
 2.53.0
 
