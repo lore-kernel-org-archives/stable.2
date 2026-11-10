@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312856;
-	b=PPgol1Y2IBopbr4gY7edxkj5B4A80PrSyFasQyy3Pucz9A2khq7TmtfZgkn3OqfwfyZm
-	 FMyKZ9JOnEU/RqCaq3Z6MRsQqZullrXCTO0CRMqqjDaQAvuX+gCfeiCmg/J0QasIzPjNy
-	 wEsRs/U8g2Mzzs0axCN5TM5hoixbxQfaR+dj/Zyokgxw6F94FqySLD8qfGSKJ1F1fORkH
-	 h5fxOerkCRhA7h24zWzzIOyMumeO6zJC9S7gJog5Ldzmt+EFOCIzVcmOWn/K667qnU0MV
-	 s6qt09i35EjWh6OZGKYCTMP1Tc6vjh6zrhW0O3tprZRfseIM79LjX0ZHdLH1yNPuelQ==
+	t=1794312911;
+	b=l+AVHv4/CP/sohu7tA501+1PTNgBOY0287AhZXDkBG/V/b0el0xm2B3FfemNQ5J4CYeS
+	 k0ijQNHM3IWleqUOqHrVfBYcdM/ZMRY0v3SG1SnLJW9NBneiC1MuIMNU0Mww7s+224NC3
+	 5BUNWKiDYcp/oOjroYruJYm6PgXzs4F/AePDETW+rTKs9iX2YR3LJ1EPatdWfHyxBrI1B
+	 sifIDfRDMn7ow7wVy/7puhcIQv5mfjGLbGMqVvr3qRs4/onLIZFQwHy1LWEaspOV7fw2b
+	 tDjHwwKjHfgnZEID7br/1gEN62oLusQbinGKJPSQp1C+NJuLU6eFO04j6Dj0SP4+jTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312856;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312911;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h8F1oKJNKqZ/OMArAbaLejoZ2v2KRsiZuFydFZ6oN2I=;
-	b=sRvTAof/ioDbPw86o0C851fcFwMLbAvQneRavlMSvXZ7JkvAl7F2z6pf6Wg0FR7mfBK0
-	 YgaHqbYTVVybBpGmxhUIX+DibDAYGF9wpLO+IIapuefqv9c72rgYAitD8SL9CR8++bmwz
-	 Iv3SA+yVeC7f55ETBaJN9GjF0+/QmzpXxOoBYCZM5fKX0+VZh18nGsLUZ6XI+dumOMMGH
-	 7OVqoWtnTy0L4Eg5ZFdP8LH0n2uvHLWHyZEELWw/2hPG0BVynmfvp4Hyp5Ks3oqoeDT/m
-	 6Avv0P7DPQ/7iQBTJo1p7YljF+GKAq+tYQNvBwO/3mWHVeEq7LGtalIoY4tpXIf7OxA==
+	bh=v7yl1n21ACReAMKJKH/uMluRb+RJeSDOvbh7oCq/RMA=;
+	b=Yx69wsC4zPXUrfIKnTEpm474qeBUdY5jfdrYCjsbgoBmIkqCvc8+5puR2nP3is5lMW0f
+	 sw6drKmAzSxO9wLwRHc7fjfyf+6RKNXsrniA9jEydcwhzUNBM+11iOm72YeklN2y+0i4N
+	 0VzN1CdEdvxD/CIQGnxYcBJS26sHmBTZ3NuO15daJhakDqoosT+Uicy2YdAKNOhNwsje0
+	 nvhLLZ0dN/SOjjASGvCpGX/iJ/35jDmWarnpaEPX/Ulw3Tlrdo5ExvNU1H/ZYvVbAZqkn
+	 FeqaGAzVHF+QLYYO/qOua+D7+8MQvvCokZXt5SAQNsz5sd5DsE8SQRBSDQnD+NSVU5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YtTirbRB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yj3In3hS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B10606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14420606A33E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YtTirbRB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BFE1F008A5;
-	Tue, 10 Nov 2026 12:14:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yj3In3hS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153001F008A5;
+	Tue, 10 Nov 2026 12:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312855;
-	bh=h8F1oKJNKqZ/OMArAbaLejoZ2v2KRsiZuFydFZ6oN2I=;
+	s=k20260515; t=1794312910;
+	bh=v7yl1n21ACReAMKJKH/uMluRb+RJeSDOvbh7oCq/RMA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YtTirbRBcFheE0UTvnsfbniq+ATs/mmgsvfQsFoUF0WiOElgpKCg8iAm7U4pLt6ev
-	 BuCESuSHnPviecrgLEYL46lYv7JlbSWidpEpvNR8lIPctGqsx2MXrdtekr2frMX37O
-	 hWonpEmTGfKlwvw6n7+2Kn9W71vmDt4uerfIby5F5GyqZqFk0walYAnoG2snglXuO9
-	 3k89alcXHCUEtGVrntxS3tzeUgTyLhxuSib5p5GXIAqxZ0p1QzSVWcymfUMlo0I53l
-	 uutHIHJZmKtd9jNQDKjLW1nfM5Lkr7CO2eeRdvYMdVjlO8EhzbgK/8ls9513hZeoBS
-	 ni2JuEB6c28QA==
+	b=Yj3In3hS6faEhPIx4T5/3MYQVgSgqojfKBP3DZ8BypnbWbf2F2SRQkR/5WM18xf6U
+	 AzO0vqtIqcqLBnjXXylWd9ZgoV24508QqYrDJMI7tQ7OI14HydASNYPoOsTMj8gvk9
+	 3qq4IRUcbBeTtYQT/PuF74KP2iPgxwW978ZlGKemSTZKkXKXROqv6KMCZYgi/CNaof
+	 7oahJFeZPt6ZYh8XrDnqE03uJ87TSiUwGyX8I0f8y3cm1RRozrFng943T5bck2OFfT
+	 A8Ob/4r5lG/HJqGuzsQv3JpSoQRoPRwX9hOPcrcf6PkjHQRVCfPqatlXzpKzOO+ywY
+	 eFnWTlRnnLnCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 5/5] crypto: omap-des - fix crypto engine cleanup
-Date: Tue, 10 Nov 2026 07:14:10 -0500
-Message-ID: <20261110121355.981467-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()
+Date: Tue, 10 Nov 2026 07:15:08 -0500
+Message-ID: <20261110121426.970220-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110121355.981467-1-sashal@kernel.org>
-References: <20261107054209-failed-6.1-5d69ed4cd4f9@kernel.org>
- <20261110121355.981467-1-sashal@kernel.org>
+In-Reply-To: <20261107054259-failed-6.1-62ee3da38f41@kernel.org>
+References: <20261107054259-failed-6.1-62ee3da38f41@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,46 +61,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 5d69ed4cd4f9c68ff9a6ebb2e8a1079223a4ec6e ]
+[ Upstream commit 62ee3da38f41bef83c1cf250f6816a0ee187674b ]
 
-omap_des_probe() allocates and starts a crypto engine, but the remove
-path does not call the matching crypto_engine_exit(). The probe failure
-path already performs this cleanup.
+mtd_get_sb() is called with a reference to the MTD device already
+taken by the caller.  When sget_dev() fails, the function returns the
+error without dropping that reference, so the device is never released
+and its refcount never reaches zero.  Every mount attempt on an MTD
+device whose superblock cannot be set up leaks a reference.
 
-crypto_engine_alloc_init() creates a kthread worker for processing
-requests. Without crypto_engine_exit() during driver removal, the
-worker is left running after the device is removed.
+Restore the put_mtd_device() that the fs_context conversion dropped on
+this path.
 
-Call crypto_engine_exit() after unregistering the algorithms and before
-tearing down the remaining request handling resources. This stops the
-engine and destroys its worker.
-
-This issue was found by manual code inspection.
-
-Fixes: f1b77aaca85a ("crypto: omap-des - Integrate with the crypto engine framework")
+Fixes: 0f071004109d ("mtd: Provide fs_context-aware mount_mtd() replacement")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ sashal: Adjusted context to retain sget_fc() with MTD callbacks instead of sget_dev(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/omap-des.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/mtd/mtdsuper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/crypto/omap-des.c b/drivers/crypto/omap-des.c
-index 63785adde7a06..fdb5e6137cf60 100644
---- a/drivers/crypto/omap-des.c
-+++ b/drivers/crypto/omap-des.c
-@@ -1095,6 +1095,8 @@ static int omap_des_remove(struct platform_device *pdev)
- 			crypto_engine_unregister_skcipher(
- 					&dd->pdata->algs_info[i].algs_list[j]);
+diff --git a/drivers/mtd/mtdsuper.c b/drivers/mtd/mtdsuper.c
+index 5ff001140ef4a..2b1fc3fc5fb25 100644
+--- a/drivers/mtd/mtdsuper.c
++++ b/drivers/mtd/mtdsuper.c
+@@ -64,8 +64,10 @@ static int mtd_get_sb(struct fs_context *fc,
  
-+	crypto_engine_exit(dd->engine);
-+
- 	cancel_work_sync(&dd->done_task);
- 	omap_des_dma_cleanup(dd);
- 	pm_runtime_disable(dd->dev);
+ 	fc->sget_key = mtd;
+ 	sb = sget_fc(fc, mtd_test_super, mtd_set_super);
+-	if (IS_ERR(sb))
++	if (IS_ERR(sb)) {
++		put_mtd_device(mtd);
+ 		return PTR_ERR(sb);
++	}
+ 
+ 	if (sb->s_root) {
+ 		/* new mountpoint for an already mounted superblock */
 -- 
 2.53.0
 
