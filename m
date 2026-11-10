@@ -1,58 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323119;
-	b=dUALxK4ty6y47dE7VFcuhyrfnQeWNDOmx0nsSn69y5nm58DME5MQHn24HGFMclUQwY4e
-	 XLv3pM6+Kwtanz308mGI1/WYILmyf5ZYtGJfWXkIjj+O9O6G3KcjOGR7Qlm3s678/9hUh
-	 KiyYDf0v+IIuVTtcB1wPuOtMxD4pO7/C7jXzL9kABnMICpIqi+05Gop/jEdkOgFKgecz4
-	 SFSXNvTtGde4JBHHqOYQoAb2vcfnYpYg8f7KB3+ZQhHF0K3CCLDNJgzXHq2DxTCtcugKu
-	 HdXjZJcHlibyN2MGOWJjselgxidjsLuH8H7sf25t3JGl/0uK2TdA2W7ItsdAuTZmkwQ==
+	t=1794323162;
+	b=fRMRNwWhvuLLh21y+g3t1AafigYJtIIpNykK2hIXAukT3FHFNhPFadhUz3vWDYrN6kYE
+	 QzvsrkIXAHraNrurIvdKCllCx6MQl5OJvdc6DcqUIhAe5figrb5SBGeV8p5CUc6Zz4dGk
+	 7+c3vkzTXNwsBbnwHkMXPlt9oZM9wkhls37HaZlY3KRepga9Hhu0iSU3RiOHzqMJKmrHj
+	 wKcF/qtniB6B9nex5n7HoSxMwHcPdy3r3X/WFGRaMbq3ojtkvQVMNbIsQ1nV3OSvB46Bl
+	 QIzSvuL+jbssxccoiUwCYAw6PzzKjA5zOtrheFVvPbf5Ex+VXK+s78NmJnsAulz9+KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323119;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AvjVGl7hP9n6ZVen3Z6llmgS56dtNy5sp1qyOJAKUY4=;
-	b=l6s6TMuHA9fMtFRlAzn0FFxyPkmN33MWPmAD9N3O533iKZ+F+vEvfVwq6pHc58knhwZq
-	 DyZMexA4LwYIaYRcimqi/JOhylLN7BrCX+hFGUCJcT4NVdEHFt5TTz3x0HoSKUcOaAAN1
-	 toGJM7SCNsgb0NZmeZ0Ys5auAEmvqBVrd5xRrrnziuo1jqWybZvLpiUdnnbEJKUJM+1fc
-	 RwQ6hRpqhboRJQFKhKcwR2/KeETNTDKh0fqjgeSzbTwujGMDpOErRW4MZjsn+ImSbqTPz
-	 26hDTseOzeNX2NbhwT5ja/5NajCYFl9NiMFl6O1azlVFvTLf7srIH77rJ+4TZgZ1uXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323162;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gtuFbnjq2nLVxWsBMNwvdFWZfdEcSneo8/sCYH2q1Y4=;
+	b=KEFtE3+0p+W8ijgr4kBCXUpJmRw2T3cZYgMnYV89RUDTIyOYDR7Z+nFe9WU+0Uc9pP6j
+	 ZpbtaSxKzeNk3s1hZbUzxScmkG+yzjc5ULWzbMhiiNfsNglI7k8EJkwuCmMPWUZ4NGzwv
+	 B8QpFqYaaPGJtPz1r+KOuvqPvZGd4qKH4o+Gg7WzzYfAPLi2S4DpgScQV8BFjURqW3yqV
+	 u2P1QE4FTgebKB3yiRmtP5ZmsMrXek1UCqunvGe5S3AjU/DEnZEqkLbiaLRCjhgOVsdT0
+	 Ee4EDPrsuCJvT5IxGIUO+39YZKyc7vXy8at2jLO9swE5M0zvKjAOUNs8susML0In0eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mHfF5mYP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pnD4qUJd;
+	arc=none smtp.remote-ip=209.85.167.43
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B83760A380C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:05:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D5C606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:06:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D5C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mHfF5mYP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723CE1F008BC;
-	Tue, 10 Nov 2026 15:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323119;
-	bh=AvjVGl7hP9n6ZVen3Z6llmgS56dtNy5sp1qyOJAKUY4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mHfF5mYPrJOEKrQIr6qttsjeV/4c+Z2ubDx6IcaDaI8JRXIHpYDYttinpFgk9hf2l
-	 Ebr5wv/MmACRvtzfSbAoRgkVebIdQ/rhak7q+uyXTr9bA2sCo6sQL4+NXua615Rchg
-	 UlDyfKdQc47hb3HJxi7gib+25Jth2eyWAvrBC9GO+ow+89Gqw7kNcJAlRJuee7uhbr
-	 v2hT+Rkj9ubGeQKcGJZ8DAtx8sJ2QqjH4HbJoIC3Nutr3Bma3nLJe8YA8nfemTtcKN
-	 6fnQnr4wQt4VdB6Pa2Bn7T9OKJ01jtwOmxLBLbPK5mxT1ICFh4+eU+VJwYP2757kiW
-	 Wv4AFXBDDlbeg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yifei Gao <gyf161023@gmail.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] misc: fastrpc: fix double-free in fastrpc_map_attach() error path
-Date: Tue, 10 Nov 2026 10:05:16 -0500
-Message-ID: <20261110150509.2034547-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110150509.2034547-1-sashal@kernel.org>
-References: <20261107053317-failed-6.6-09fa66ec1b48@kernel.org>
- <20261110150509.2034547-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pnD4qUJd
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so2097871e87.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:06:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794323160; x=1794927960; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gtuFbnjq2nLVxWsBMNwvdFWZfdEcSneo8/sCYH2q1Y4=;
+        b=pnD4qUJdtOtsCAefLq/3o9uDiViNB5gdPwIS8ZPsNuUk3SvkneLb6tYtvpzdYMLb8p
+         4xJzOr3MPWedRIJnbdXdglpocNGitoDXuDQQfLzgC4fhv31hbTh/7DVVr38E9En+cUo+
+         P1vf4qWO0tqyPjoYDrTHvqn0TrjkTe8XF+AXh30vnXksbPO3NLsLIlRgU1ftku5UDBHW
+         A4sqP4tiiUOdLydoYOSR0Wj/MZsAVPbgin16PQsC9kPq8D1o07dKI2rgSkO8KAYopglp
+         e2elM2rPi5p8fwv53HExfilPbUlaOSsyFb09bcOGJ0QlX/DaTahKTcu0xQAv41KkX/mm
+         adGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794323160; x=1794927960;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gtuFbnjq2nLVxWsBMNwvdFWZfdEcSneo8/sCYH2q1Y4=;
+        b=TX1oebzGedOj58/9qwmsoLxGVPYvbnMnsyxUq8xBBFWqjQdeksHanibtqFmq28fg7h
+         tbfoj80mKBwtxElZ9+jUQB41eakMgqYDp07ZwwiJv2Rbgps/GWIOLcczuGcmcIX6+sJ9
+         HO1+8jupSz/hEshTVNJdWCP4qbPavXzj00vgexts6hoNVDq9lN96wywevuMhd6s9SCPi
+         f6eOBpTuIVP2DCL41VDAnbpWIUcqdNZgkNlBvyFSLqmkzL2wQzImVIGB9CWRcJZsfrq4
+         dnTPJiLC1F8p23sw/Mvu1MyHeTIwxM+1jZzMc9kCrIJ1UHCIlBWse1eP6ZhmidBmWb0d
+         XSAg==
+X-Forwarded-Encrypted: i=1; AL+hErFz49t4zj/iLQBYgImstBf/Oqux3GMVl+0Tr1LrSPi8j6i4KNON60gXP7C69x37YexQuz7BF7A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/PHR5vqaUpEMfsiABUZ4e2OoDiq2Ou/TtfwUZzf1UsPdPzUFL
+	+7n8VdpCsFKsxl1IalzlV9Fkig6/v1cw/Tq45Wv62T7m5A08qOfCg0ntuZ8E1g==
+X-Gm-Gg: AYBFou3z6bdTBQzucWbdBtmouWiutd1op8MCCRtO1tunGtSodAlBQb/29iXji6gNhPM
+	3pAAWohnGiGCc6cBmHqEfCNF8vGJQ3XEHPniOnUdeXx7NyGbmZaIC4IAhW9hQ/LFiO4dQmXFdia
+	AoyJT+9+rdJm5qnoPYJ7ufi2aZoiik+K8/sgL4nJU37rjLNPHigE54DOGVVsHfum1uh2fS+/QWn
+	FxJZ38+kxhATJsQYHgzydnrQxWk0+a9+04biWSfd7qKPLOxA71LfM9cO1tr2UFY1Bjn/GlWl8xT
+	l+/6Vt0dXDc3ia7DZ2wtZl+diJL9vdLUaHunMoeaKSX7W3VlSq0oD/QFG237DbhAEXNLCiKKHPc
+	piKTOGZk5ZhRF0OR43u2yhKrafuLM8LqTaTF7dlT7huLfESVCb6LggH6SPf+Ak2BceW8yKfir6M
+	HJfo/M7UHgtt8v7RCixiLv5tbeiBWTQsMu/6Jq02xztGR64bETqjGFKazc1MR+ACkfz4AqXwg0u
+	mZVgNF5kpBVSbAW35CSvCcX+UNAS6yA+LTn04Z1CRckBB3qBtsa4LwYcIiXysWATfkjqPDDuejC
+	9U6GL7J/82bbAjsZfDD9+cFGVpMPsr2EnTKIq56pFXM+CG6sQE6HwT9nFUn9GSls/2UgYHeRHK9
+	dv0VIRJgYRFNeyuQXzl9TttsNAzWJP+1LtWOuBJQ=
+X-Received: by 2002:a05:6512:2288:b0:5c1:56fa:95b5 with SMTP id 2adb3069b0e04-5c156fa9775mr770768e87.21.1794323160080;
+        Tue, 10 Nov 2026 07:06:00 -0800 (PST)
+Received: from yantra.. (nekmmqt3kfwnocz4ivv-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:453b:19fe:80e1:2b9b])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157b7a13esm475253e87.2.2026.11.10.07.05.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 07:05:58 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: sashal@kernel.org
+Cc: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] iio: pressure: dps310: fix CFG_REG bit definitions" failed to apply to 6.18-stable tree
+Date: Tue, 10 Nov 2026 17:05:49 +0200
+Message-ID: <20261110150549.13900-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261107050735-failed-6.18-4334dc4092c2@kernel.org>
+References: <20261107050735-failed-6.18-4334dc4092c2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,72 +100,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yifei Gao <gyf161023@gmail.com>
+On Sat, 07 Nov 2026 05:07:35 -0500
+Sasha Levin <sashal@kernel.org> wrote:
 
-[ Upstream commit 09fa66ec1b4896ab841da085ca58b6433f28f07f ]
+> The patch below does not apply to the 6.18-stable tree.
 
-map->table is assigned right after dma_buf_map_attachment_unlocked()
-succeeds. The two failure checks that follow, the len > map->size test
-and, where subsystem VMIDs are configured, a failed qcom_scm_assign_mem(),
-jump to map_err with map->table already set.
+It applies for me. git cherry-pick -x 4334dc4092c2 is clean on
+6.18.62, 6.12.116, 6.6.162, 6.1.192, 5.15.225 and 5.10.274.
 
-map_err manually calls dma_buf_detach() and dma_buf_put() and then falls
-through to fastrpc_map_put(). Since that change the error path tail is
-fastrpc_map_put() -> fastrpc_free_map(), and fastrpc_free_map() already
-unmaps, detaches and puts the dma-buf whenever map->table is set.
-The two operations therefore run twice: the second dma_buf_put() drops an
-extra reference on map->buf, and dma_buf_unmap_attachment_unlocked()
-dereferences the map->attach already freed by the manual dma_buf_detach().
-kref_init() sets the refcount to 1 with no intervening get, so the final
-fastrpc_map_put() frees the map synchronously and the redundant cleanup is
-deterministic.
+Could you queue it for all six?
 
-The len > map->size branch is reachable by an unprivileged process via
-FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
-requested length, before any DSP invocation.
-
-Route both map->table-is-set failure branches to get_err instead of
-map_err, so fastrpc_free_map() is the single owner of the
-unmap/detach/put sequence. map_err is retained for the
-dma_buf_map_attachment_unlocked() failure, which is reached with
-map->table still NULL and an attachment that fastrpc_free_map() will not
-clean up, so its dma_buf_detach()/dma_buf_put() must still run manually.
-
-Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101220.1084101-2-srinivas.kandagatla@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/misc/fastrpc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 18acf810694c9..20ef5822030cf 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -856,7 +856,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
- 				len, map->size);
- 		err = -EINVAL;
--		goto map_err;
-+		goto get_err;
- 	}
- 	map->va = sg_virt(map->table->sgl);
- 	map->len = len;
-@@ -879,7 +879,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 			dev_err(sess->dev,
- 				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
- 				&map->dma_addr, map->len, err);
--			goto map_err;
-+			goto get_err;
- 		}
- 	}
- 	spin_lock(&fl->lock);
--- 
-2.53.0
-
+Rupesh
