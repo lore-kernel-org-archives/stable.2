@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308303;
-	b=5XYT3FctbFG/n+in1s5WVlXkI3a1NnJR/3NUBZGHNpIOwmfW2f+EKy9htsyDydW+7Q4M
-	 4Zt/s2n8EtyvB5vFeZpRek0u8t20AiyP9Ckz6Ua1cW/zn0a6fdRcGKi/uW7SakDigQ1Yp
-	 ACEJeBuL6N5VXe2JEKBS6oRQ/ywbeiwaaF5wd1Wc5fhjBvDDI0wLZjBjEXqabSq+BIFTF
-	 ayEgH7EdlLwsXhTvjdO4R0Mb50w1GjZ8e5+gGEXTFmJeNWjeTRP1sleWK4wYwgefZryvY
-	 CBIkFFxUYVnWgPDFFWB1T0m6pgthc03l1cRRuB5+P/Y1y61Nq6tcVZSSaMq3hJiHD+A==
+	t=1794308320;
+	b=Md0D+5VNu6vdlWajliM1A0ehPuaS/MKhpUgB4ysIasyFe089tuyO7EBMED9+gnaT/KAe
+	 KmDzVIYIF81VgxETQns6e66qRaWiyvy89aeZ2Sf1Yi2kA3/ndtgPWq+RNbKCbRvM0U41I
+	 XSStskJq77BTEczrP66/7fSA/G7DwtD7FVNDnf5PdWC8tZfdWfnRoq7GnxI9988FxEM9R
+	 1z/BpkFKOcY8qUvYmdOJJey6/lydF1OMMW/eKsErskWe+zCEtLrMJkureQzNCeUfx1bQy
+	 CS0RwR4GdzTBchBhWz02UOFrk0Cj7+1ykUG4BNWU61OPV//RsrJqEy8k77YYvvnZ00w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308303;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=6KUDHj9lnMhAg+nHCDiWshEywbgwlvmxhCYqrSNjsow=;
-	b=cXRJzsF1yvb261BuwIgcwjEUnqg4+J9nOMv4Ln6+WbjBe8p2ZTekU5Rx+gJstrtJ1jVP
-	 0pJcIvs6yd7PZ/kzBvmNbdFRuPjmSfKZmj0Hd0HUhleVXTpc9pVjFFXfU/aApj6nEhIBH
-	 gug9rSuS0i3DrrRIj0xmo3MPTUzFXoSjvMMzfXpQUoe1ITmPg2cuq5Ko++Rk7iG6KDVGJ
-	 h1O5iEtEBTXWBtagE8xJhkraIT7Ul8D4UM3Rhbrt0wrT5UqUZ9Wh1QTzhh5g2ESLY/ECc
-	 C0Rx46B6cRUycHbeeHoQC0h4C47jXmMLvMu9hE4680OiRpsDzV6e7KF8YOub3HWmllg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308320;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=oFUa0NTalT8I2v4z+dJNxj/0wWQceUns2tfMcsjj9Ls=;
+	b=EpMNtflCvr3cqA6AJvN+FxeBgt1hoZnKtl/S70Am6O7afg/BUx8kmgWQ8FZCjUxzGOt5
+	 XQjbj8uVaiW4wXA0Gz4X0TgKMOtFFE8vrnk/QHy1RFDugdj7jG5K8nqzI/P2mxKejn4TR
+	 jS5EHApIe+kC1PxDt+0PW+OxDzN51nh5RSG5GL5mAv47FDF4UFNM029F+j+/I5GW87xja
+	 QmvvjYiPUiuOylRZ75G1R08p2buyNvxTWrKq3ZBRxOHwR7pdfxN840RvBWMk/fYE+tbR8
+	 TBdL5q0R1qC47oEn9aHD5C2ARWlZdqIY2OeqZgohTuQV1oxgNv5XSZwffzKo8gRB5IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="SDKOEak/";
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308CA606A31C;
-	Tue, 10 Nov 2026 10:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308CA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aSQodJ2n;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83D4E606A335;
+	Tue, 10 Nov 2026 10:58:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83D4E606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SDKOEak/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794308302; x=1825844302;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rzWOvcnMo7ieIYwX8DGNSb4d4JD47sR79PHePk6OGc4=;
-  b=SDKOEak/K+/eE2mERxsjjHJ/iP5wKsI3ETPMdgU48lw1pqVd1F2Mh3HJ
-   MfSDGWQvyFuHTg95V18aa0CfgPy05Ne6JCxzRHBsTFc5L5oQpa/nLU3cd
-   2QKBpiDIZ8OXQfrJwIiI0YL6Ut1WKAcMwyfU8Y6vLATATG0+bmgxXNP2a
-   8wqjPYgujaJnkeFwbkkxcRak9U5Ud16o62K2v3eVmiea04vXe9k8jcrhP
-   +0BzCKdkukr2W6wJQ8WjYNj/rRNf/jfdfswalwWmEr7ihUVINQyTC+Lka
-   XJuBavTZtiMP1qUsA80Ar/qta4MLjZLFGO7QvvBS6ohyb1CTTFMWe88UX
-   w==;
-X-CSE-ConnectionGUID: p4/Sz5Y2SG60ypDhIw48fQ==
-X-CSE-MsgGUID: 0xkYZtCRRyq8WeWnPDgNBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2955687"
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="2955687"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:58:21 -0800
-X-CSE-ConnectionGUID: svM277OqS7Givrs42fzSFg==
-X-CSE-MsgGUID: niEuaG0QT1+pIEt/DikLVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
-   d="scan'208";a="7993273"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:58:17 -0800
-Date: Tue, 10 Nov 2026 12:58:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
- deregistration
-Message-ID: <avL4x_clSegBu-Qi@ashevche-desk.local>
-References: <20261110085125.2535508-1-johan@kernel.org>
- <20261110085125.2535508-3-johan@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aSQodJ2n
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8A8D1516;
+	Tue, 10 Nov 2026 02:58:34 -0800 (PST)
+Received: from [10.57.15.53] (unknown [10.57.15.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3AA5F3F85F;
+	Tue, 10 Nov 2026 02:58:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794308317; bh=o6OORrG7IfdhK72XlSREVjFq8oJqpEAcuTcKqxHnmic=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aSQodJ2nFurGpy+xIpsDjV11vTFs0fGjvivf195NQHAU5Twb21kaYPTsHdE6NkdMJ
+	 HEgc46ycKsZFSiT3c02oVPI5sfP2qzpnR8dsCTaRdAJ5AxOWOko+aNzUvEOuQydApe
+	 dPyJUkTvhIy2ECSrhqz83KDFRMS/LQInpboTYFvo=
+Message-ID: <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
+Date: Tue, 10 Nov 2026 10:58:28 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,65 +53,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110085125.2535508-3-johan@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] cpufreq: CPPC: Set CPPC Enable register in cpu_init
+To: Sumit Gupta <sumitg@nvidia.com>, rafael@kernel.org,
+ viresh.kumar@linaro.org, zhanjie9@hisilicon.com, zhenglifeng1@huawei.com,
+ jbenc@redhat.com, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: treding@nvidia.com, jonathanh@nvidia.com, vsethi@nvidia.com,
+ ksitaraman@nvidia.com, sanjayc@nvidia.com, mochs@nvidia.com,
+ bbasu@nvidia.com, stable@vger.kernel.org
+References: <20261110101246.3665797-1-sumitg@nvidia.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261110101246.3665797-1-sumitg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
-> If a client has both a primary and a secondary firmware node, the
-> secondary node is accessed via the ->secondary pointer of the primary
-> node.
+On 11/10/26 10:12, Sumit Gupta wrote:
+> As per ACPI 6.x s8.4.6.1.4 (CPPC Enable Register):
+>   "If supported by the platform, OSPM writes a one to this register
+>    to enable CPPC on this processor. If not implemented, OSPM assumes
+>    the platform always has CPPC enabled."
 > 
-> Use a temporary variable to track whether the firmware node is a
-> software node and remove any software node before dropping its reference
-> to avoid a use-after-free in device_remove_software_node() when
-> accessing the secondary firmware node.
+> The driver never writes this register. CPPC therefore stays disabled
+> on platforms such as NVIDIA GB10 that wait for OSPM to enable it.
+> 
+> Call cppc_set_enable() in cppc_cpufreq_cpu_init(). Fail init if
+> enabling CPPC fails. If init fails after CPPC is enabled, disable it
+> again. The register is optional, so -EOPNOTSUPP is not an error.
+> 
+> This relies on commit ab482f1bac6b ("ACPI: CPPC: Refactor register
+> value get and set ABIs") from v6.16. Before it, cppc_set_enable()
+> returned -EFAULT instead of -EOPNOTSUPP when the Enable register is
+> not implemented. On an older kernel this change would make init fail
+> on every platform without the register, so the stable range starts
+> at v6.16.
+> 
+> Fixes: 5477fb3bd1e8 ("ACPI / CPPC: Add a CPUFreq driver for use with CPPC")
+> Cc: stable@vger.kernel.org # v6.16+
+> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
 
-...
+Reviewed-by: Christian Loehle <christian.loehle@arm.com>
 
-> Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct device")
-> Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregister_device()")
-> Cc: stable@vger.kernel.org	# 6.16
-
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Hans de Goede <hansg@kernel.org>
-
-Can we keep these two Cc out of the commit message?
-
-> Signed-off-by: Johan Hovold <johan@kernel.org>
 > ---
-
-...
-
->  	struct fwnode_handle *fwnode;
-> +	bool fwnode_is_software_node;
+> v1 -> v2:
+> - Fail init if enabling CPPC fails and disable CPPC again if init
+>   fails after enabling it (Christian).
+> - Move enable after the policy->shared_type check, so cppc_set_perf()
+>   is the only failure after it.
+> - Mention NVIDIA GB10 in the commit message (Christian).
+> 
+> v1: https://lore.kernel.org/lkml/20261105123244.3132560-1-sumitg@nvidia.com/
+> 
+>  drivers/cpufreq/cppc_cpufreq.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+> index 957fa7775260..b2af24ae5008 100644
+> --- a/drivers/cpufreq/cppc_cpufreq.c
+> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> @@ -714,7 +714,17 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+>  		pr_debug("Unsupported CPU co-ord type: %d\n",
+>  			 policy->shared_type);
+>  		ret = -EFAULT;
+> -		goto out;
+> +		goto out_put;
+> +	}
+> +
+> +	/*
+> +	 * Enable CPPC. The Enable register is optional - some platforms
+> +	 * may not support it.
+> +	 */
+> +	ret = cppc_set_enable(cpu, true);
+> +	if (ret && ret != -EOPNOTSUPP) {
+> +		pr_err("Failed to enable CPPC for CPU%u (%d)\n", cpu, ret);
+> +		goto out_put;
+>  	}
 >  
->  	if (IS_ERR_OR_NULL(client))
->  		return;
-> @@ -1066,14 +1067,14 @@ void i2c_unregister_device(struct i2c_client *client)
->  	else if (is_acpi_device_node(fwnode))
->  		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
+>  	policy->fast_switch_possible = cppc_allow_fast_switch(policy->cpus);
+> @@ -742,6 +752,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
+>  	return 0;
 >  
-> +	fwnode_is_software_node = is_software_node(fwnode);
-> +	device_remove_software_node(&client->dev);
->  	/*
-> -	 * If the primary fwnode is a software node it is free-ed by
-> -	 * device_remove_software_node() below, avoid double-free.
-> +	 * If the firmware node is a software node, its reference count
-> +	 * was decremented by device_remove_software_node().
->  	 */
-> -	if (!is_software_node(fwnode))
-> +	if (!fwnode_is_software_node)
->  		fwnode_handle_put(fwnode);
-
-Do I understand correctly that this is a dup with the platform device case? Can
-we make a helper (on swnode API level) to cover any other existing or potential
-case to avoid similar issues in the future?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+>  out:
+> +	cppc_set_enable(cpu, false);
+> +out_put:
+>  	cppc_cpufreq_put_cpu_data(policy);
+>  	return ret;
+>  }
 
