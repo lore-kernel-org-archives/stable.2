@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317691;
-	b=0ncIignCi5e//0s0jf6HJMZbd9z3FmqMvOfdoOXi9GkCZYCiXdNYTZAjzxtBxyUEkuoq
-	 zjHE80s6jF15YFlkSzYDeDjf7xM3O1mm9yVJFlhWlL6mMFAfsyN90QJPUOApB8HhxPTQb
-	 AaeIQ+o4URXDmi7d61uDN6nNnUZXBdJpF8IBgjKPBj8KC5nGePMud0nLAjEr/7i1KoeJy
-	 CSV5dlz+wR9MHt+IIlBiKiH9p0EpRdsYBysuFOkk71YVcIopnwMr5ZWaEUHkJWuAm72AU
-	 dHdBGWHtmRpxRiniKwYgIq4bdPWXM1X+F2G6UmexLHn/YbChMAEfjQXDrpqHMebpVWw==
+	t=1794317757;
+	b=XEtby4bLVNBUCaQgWZnBkfGZ2pWq/zc1R5WMy1qf1Vh0nwh64HEkGTadp3t6TthW7LIX
+	 MPo7HBn4PpMUb773bYvYzUHB7PXwowZa6tow8hZwHLmX6AQ6VEBta4dOJWxgkwwNXCaYu
+	 vUsPYXubCby0zIFxcefeJEYyIM8XudNS2JLx9meDvJXEuf+b1QZg4YWBq9NmSs38tiIKB
+	 mhfY9xa41gdbl+G7IIaezYTCOkuQKGGEkXtEYbFe1fnNyZobl+wpQoynKLjQntPzwQfKW
+	 rHONrueRrVqBpXvopVpp4XRgrOpp4ezXBy1dfC54LavrVcQVoVbc4Nnxe+3G7pCbxtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317691;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317757;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=B/hkSPVYb069JnuauaaLCHP9Gm8Fu2aOM4Z1WIG/I4c=;
-	b=kVKgZWf69uWly6DainQki+b+oZx5WwEHUTLMee70JuTx88nvUMDf4gTiD03LHUlTE3kz
-	 NYCRsc8YUmCrjsu2FlbUNKBPeJnFJed8zwlKQQGR9m72EHpY4JaXvFk+r/SptyDQc2wOX
-	 UJRgCv+E3WnvxP6XluVJPvTMxAOBFQc2C9C4dS/eaEriivMw9ycgzj1M087r7F5EUg2G2
-	 m/zcHu5faHj7oPUIaH3PeU5YgdGIUb6RLtf0EaXyd3RDjkOOL9hPviP5ZRYScVMWy7vW3
-	 5k4/wxVarZme1IQewehBoXsuDsDe3agMDenr7BY9yDW/fy93eN5S+kpeSnET4onb6aA==
+	bh=vingMQTK/f9EVawConj0seZl/9AciAnYGyyAscFFyss=;
+	b=T5LMMnEcGhmDicgNSpuomzBSOg85YU37uW0t5Bpe8AWXOYT0PZ6OkuzH31EGOQYfBweN
+	 QZA/D6vIoKUVOcLnQY451PBvXVPbtSpar/XkLicrg94dWIH+3uOja5/PqZk2RxUfo487W
+	 PM9bEFT3WFlm9t4c4Eg5dMuWKYb7IuckynElUwWyUfWR2vynR2Obxb8P5g5h50HVtBhnT
+	 QQX+8ROIfQ0X79y7U2kANtbUIYN4s9f8SXLJyDJWSnKbZJoH0JFV7jDbO1yKLBxbnCXhz
+	 3YFAlXEEKMuejQ6N6q+9EkenZCgF58uqAEd4Ydqo3pRv4aMLykncXnjOodjTkq0VcRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOZR89xP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOtVjrjV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF071606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7830E606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aOZR89xP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6481F0089F;
-	Tue, 10 Nov 2026 13:34:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOtVjrjV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C65DD1F0089F;
+	Tue, 10 Nov 2026 13:35:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317690;
-	bh=B/hkSPVYb069JnuauaaLCHP9Gm8Fu2aOM4Z1WIG/I4c=;
+	s=k20260515; t=1794317757;
+	bh=vingMQTK/f9EVawConj0seZl/9AciAnYGyyAscFFyss=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aOZR89xPSVGynzm9H6Q8OZ3ymHE5sATrk5IgohHK+eDu2IaHv/vR5awwztShznHKU
-	 HwugvlV2MxSWjAT57NGSRreDOeltk+ut9rZyPYmaSRXZ57SnG8bPwDcUFEmnM8/P66
-	 FDG7fMzOexslv5EHnxX2wgATYncsFrN0GmtlTdgZ7L1PLm1hYp31VwLzx+tVTXlrDi
-	 K8lln7va4yIaLiCArv6VR2ffXQEFei684Ke5yIDAqY7kUAtIwC40BPW44WwJ2JCa2C
-	 sO0Owk7rlXLef7XkK1trEavlh4GTonpABla03FJ3ubsTXpPkMdTNxoH04RGJ/2eguk
-	 0UeSU1BHekDEw==
+	b=OOtVjrjVWVImLNyvapH42BF54fzGbhwdBccusIL2a1GyVobGL9HUgGtVVo9ilHSPN
+	 sjCTJmo//2v5OyGAwmFCg+zmZ6t2WEv92bNbzKcv4IJBznU2fZIGvvjm175EnAE0Rg
+	 oUbTC9SdUdFsuU4VBZPF1cVs3sk0+znwyihPe3Xy8fsP94wHHIAcK8tGSyt2JWGqLe
+	 EHs6cmYfaVPA9UDkUCOVV0APojUvq2trIUttCI8vxX0ySocW1BC1k4bpqpXskBuiM5
+	 wEtPqMdYbrmeyCkP9slokKXBa96jrK6aj9ylfE9FkqQvWUi7S40iXaC+Ot9Dq4KJrA
+	 9QhISJ9kkUeMQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com,
-	Wang Jianjian <wangjianjian3@huawei.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
+Cc: bui duc phuc <phucduc.bui@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nilfs2: ignore non-fatal signals during synchronous log write wait
-Date: Tue, 10 Nov 2026 08:34:48 -0500
-Message-ID: <20261110133432.1746883-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ASoC: stm: stm32_i2s: Drop redundant error messages
+Date: Tue, 10 Nov 2026 08:35:54 -0500
+Message-ID: <20261110133548.1755536-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061747-failed-5.10-7131aaa74bcc@kernel.org>
-References: <20261107061747-failed-5.10-7131aaa74bcc@kernel.org>
+In-Reply-To: <20261107051915-failed-6.12-1b207c85551f@kernel.org>
+References: <20261107051915-failed-6.12-1b207c85551f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,123 +61,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-[ Upstream commit 7131aaa74bcc7c9da1f1d1c8724da75c775557a0 ]
+[ Upstream commit a6cdfb6230944082e7be64f9166eed64656b1162 ]
 
-Based on a syzbot report, Wang Jianjian pointed out that following a
-successful directory operation in nilfs_rename(), a synchronous write
-requested within nilfs_transaction_commit(), triggered by a sync flag
-set by nilfs_commit_chunk(), could be interrupted by a user signal.
-This interruption leaves in-memory metadata updates intact while
-returning an error, causing inconsistency with the VFS dentry cache and
-ultimately triggering a kernel warning.
+Both devm_request_irq() and snd_dmaengine_pcm_register() already log
+failures internally. Drop the redundant error messages and return the
+original errors directly.
 
-According to "signal(7)", local disks are not classified as "slow
-devices" (such as terminals, FIFOs, or pipes) and their I/O operations
-on disk devices are not interrupted by signals.  In kernel space,
-waiting for such disk I/O should therefore not be aborted by ordinary
-(non-fatal) signals.
-
-Suppress this issue by modifying nilfs_segctor_sync(), which waits for
-the log writer thread to complete synchronous writes, to catch only
-fatal signals via fatal_signal_pending() and return -EINTR rather than
--ERESTARTSYS.  To complement this change and prevent the wait loop from
-busy-looping when schedule() returns immediately due to a pending
-non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
-TASK_KILLABLE.
-
-This serves as an effective interim stabilization measure without
-structural changes until a comprehensive fix for metadata consistency
-is implemented.
-
-Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
-Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
-Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Cc: Wang Jianjian <wangjianjian3@huawei.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-[ sashal: preserved the older return-code comment layout instead of upstream's reformatted lists ]
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20260720074044.87528-3-phucduc.bui@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 1b207c85551f ("ASoC: stm: stm32_i2s: request IRQ after regmap initialization")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nilfs2/ioctl.c    |  2 +-
- fs/nilfs2/recovery.c |  2 +-
- fs/nilfs2/segment.c  | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/stm/stm32_i2s.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 9f10a9cec3e0a..e6db5b8190e3c 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -1011,7 +1011,7 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  *
-  * %-ENOSPC - No space left on device (only in a panic state).
-  *
-- * %-ERESTARTSYS - Interrupted.
-+ * %-EINTR - Interrupted.
-  *
-  * %-ENOMEM - Insufficient memory available.
-  *
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 33c4a97519de8..bf64a9eff4d15 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -750,7 +750,7 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  *
-  * %-ENOSPC - No space left on device (only in a panic state).
-  *
-- * %-ERESTARTSYS - Interrupted.
-+ * %-EINTR - Interrupted.
-  *
-  * %-ENOMEM - Insufficient memory available.
-  */
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 18964331ee3d9..cc12f4dd2eee2 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2236,7 +2236,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 	wake_up(&sci->sc_wait_daemon);
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index faa00103ee7f1..5b15b8fb87c39 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -1076,10 +1076,8 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
  
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_KILLABLE);
+ 	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
+ 			       dev_name(&pdev->dev), i2s);
+-	if (ret) {
+-		dev_err(&pdev->dev, "irq request returned %d\n", ret);
++	if (ret)
+ 		return ret;
+-	}
  
- 		/*
- 		 * Synchronize only while the log writer thread is alive.
-@@ -2250,11 +2250,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			err = wait_req.err;
- 			break;
- 		}
--		if (!signal_pending(current)) {
-+		if (!fatal_signal_pending(current)) {
- 			schedule();
- 			continue;
- 		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
- 		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2295,7 +2295,7 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  *
-  * %-ENOSPC - No space left on device (only in a panic state).
-  *
-- * %-ERESTARTSYS - Interrupted.
-+ * %-EINTR - Interrupted.
-  *
-  * %-ENOMEM - Insufficient memory available.
-  */
-@@ -2332,7 +2332,7 @@ int nilfs_construct_segment(struct super_block *sb)
-  *
-  * %-ENOSPC - No space left on device (only in a panic state).
-  *
-- * %-ERESTARTSYS - Interrupted.
-+ * %-EINTR - Interrupted.
-  *
-  * %-ENOMEM - Insufficient memory available.
-  */
+ 	/* Reset */
+ 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
+@@ -1133,7 +1131,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 
+ 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
+ 	if (ret)
+-		return dev_err_probe(&pdev->dev, ret, "PCM DMA register error\n");
++		return ret;
+ 
+ 	ret = snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
+ 					 i2s->dai_drv, 1);
 -- 
 2.53.0
 
