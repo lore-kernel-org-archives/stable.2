@@ -1,54 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316601;
-	b=YnHuGvCgqsquP992R3Gtsks2wDHdZQ5wIdpzRSzVVXDO0/aVC474g9MEPpaULE+f8ZkN
-	 daqlhowXVmIZBSyX4izr1Z4wzXeHw2Af/lz7U8yN6CDgfPFVt2PYpksa9HnAa3pk3NYAl
-	 jQLZxiRCnUmPsVbvxuvTXDn+tlwbDBINdoWPIIiVUj8VfQGTM4tiifInrul6606Z5cDcV
-	 caowtYjP8IejE8nUDv67dkv9ma9QY9HBy4A1ej7wALzm8Bj05edlfHWgygN33aTt+HpkO
-	 YTCJiees2qH1B1eSsQTw4Wf5CbNKBvPTHjqqVrmyaMscALTbUJEmcM4frV+sWbYQcYw==
+	t=1794316618;
+	b=HYbmXqasnxfe3HZYVkwHmJXJPsfPfmiwaXB0XSfwZSuswIYZjI52SA5dXEp26kmufl5b
+	 R8yYSuomQFt4vSdM7MJc5UzC1kaGVMo9OUuRfyFV+gUukzql2Y7TEJ2qDQiN6vLRaZjiC
+	 fY340TmvUnlUV3sy85BsDmd26Vqgz6/vxBJdsAMXC9u30LiReDDA3T1eClYaRdHz7obc0
+	 zTR80I83kxlE0aIaXgA/1hnQi5mRBScf4T1yQk9PciQZRXCU98fHTJ6q/68BbJy2KMOOB
+	 FpR4Q1IYmY8bKN6xAdeMu/Dhx+diUEFihJ78fgNEL3DlMNWUfMEpaT9lLp11LXqksAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316601;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IdUOBAB42dmsFo3ny2Rs/VRe7Dj+IKocsI2/0SqP2ic=;
-	b=Vz8ZNHkej5zSLfg0ZDlZ53EexYnJNaBCFOpIudyKEG3jGaeyH2NvtNwSxe0vad9dcJoQ
-	 u9QAuRYmo4abHCJ1/7nxb2kFQfu1BeVnOem2u3AV+bUZINu8Huv2yKGS/XOY4Dhs3JLXX
-	 hG1CdRO9RJ0Rmnr/FUB3ek2J140myYSN8Cpa2zBlrSkYMWrQoP9dgJAJk5kzQKL+3DPj2
-	 +Z6knXR69oGWNrXO4zYC7VP/03MW8Y/KLxWROVOiqmAI8xEaXfIDSy7bjsGljb+NIdavn
-	 M9xwpkpu9oUlfK2DH9yIVtnkQeEnUu8X10di508/u6Ui/QCeunF5A1Ik+ewuTICnqww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316618;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lPw/5S58DZQlTesLTVHv+YY88dgiz6gD3h2+DSTc3Zk=;
+	b=YEqoEuPd/Xtuv6yBaU6SabdVoo+XEiCvE0dC2cALr9Qo47uzUMXr/jAXbXNpmdYATfRn
+	 sTiKk0qr43MA9Sc9UCNOSyuFzIdDd9VtdBanRWBdJDj7PmnsROKLWbM0keyY0Fi4/gUHn
+	 S8LrQgZqcHSgd68bW7bZMEXlzRd37QQxeyjVo94EOsXx1s14BG+S6Ln7uYjNt/wjRtjNk
+	 YFNzviwS2TIPMOwtOQEMPMRAj+W/l1e2amVl7RvLkbb66yLBLtKLHvuPe2KNBm9W35O+v
+	 UKVfVSophKa1+FaM2r414w4Wh8xAkjDqpLeCuz36Pi5xCUsVVrO6rupquTkOBdEwljg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j8bHDf8i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bvWPjXOO;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A57B60A6F47
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:16:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B07606A326;
+	Tue, 10 Nov 2026 13:16:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B07606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j8bHDf8i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FDC61F0089F;
-	Tue, 10 Nov 2026 13:16:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316601;
-	bh=IdUOBAB42dmsFo3ny2Rs/VRe7Dj+IKocsI2/0SqP2ic=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j8bHDf8iak+SHAWsYQR6Kmu/uV0nWnK/ltrqJQIwoETknJ2ZOhN2GRsTnhPZYUC7O
-	 9AMcyaugAVan1yUcZ+sHjQXphu+KCggVRDvDV1DGD6dCmBEMxtCeEHC5zQ7MBVcLjb
-	 eyd8tb1PHB3ry6qDu7bdUlMzKHk0H2sbBZcPbVjWmyYQww/3SQwas68vEc8mn/Wp/+
-	 vuEMFSdQRzcEQrlg09s9tJfGtaGdomNqD2kLt9dACKhhvzZLcSvL/aRsU94A6So/eC
-	 s0j+yH1K8eBFmHI78qokYkM0wjKWBWa1sxdPeZBjVFvCwzBP5M539G6UPVKwj/jN1o
-	 TSJRFIWnqnYig==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with EFER.LMA=1 && CR4.PAE=0
-Date: Tue, 10 Nov 2026 08:16:39 -0500
-Message-ID: <20261110131604.1666660-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055829-failed-5.15-34dacbe7ae93@kernel.org>
-References: <20261107055829-failed-5.15-34dacbe7ae93@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bvWPjXOO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794316611; bh=lPw/5S58DZQlTesLTVHv+YY88dgiz6gD3h2+DSTc3Zk=;
+	h=From:To:Cc:Subject:Date;
+	b=bvWPjXOOxayNzPao+CtRgDv4eOeP7ME8tDnwbCD6rssTpOWWtt4dU+8zV8OiFTSRh
+	 x+9GLxLcfy9k0mY2cHpDnsJK8ZO7fSEEiQQrbkGi/f4j0bRi5O6ridM2Cd03zgAS+T
+	 xjJcUDYdVnNB90UnKTlnNxUPrCkz9dIOatdPjiIQ=
+Received: from localhost.localdomain ([14.155.185.171])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 4313A2FB; Tue, 10 Nov 2026 21:16:49 +0800
+X-QQ-mid: xmsmtpt1794316609t1zb1lv87
+Message-ID: <tencent_C00D995A9F70206DFD1330DCB1222EEBCB07@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3JupLwDnYE/eysQuAMoZk0KnKqN0idjV7dUwPWDmHk9Hyv/9aGE4I
+	 uhPvZrMrY1pcYcHgj9SfXc+q8+JZXPmODcw67jaGCObYyvkZKgg4oWWmX75cUK1K59D3/fOzuu+M
+	 JGI+07CuaVDnjWOtvh7SwQ8dncemMVML2ch2qHKs6nVZNfP75scvViAm8utkw1DmQytcj+4RRNC9
+	 JLs0qkjVdK79DGRESyQmA9XRzBSVU1/i36E2EeIsr3pCpjV3Srl7ZvIsZ+vD4tcvfj5IO1eBIV1N
+	 JEfR3aJZjR3zK6q8bvGeonx0OAnq6dY6/V7tn4nXyHRPztd/vVXWS0enkXGvcN7PaKegYfLTkn4p
+	 +nk0FoVhNxq5NJjLZTTDylHGBKeHRugiv+IC/Ye6miAp8Br8CeJ64LfxRK27SM2qngSq6uJIQUWV
+	 tvhUpo3S9yDrjIYHXVUZP3y1jursJDacqXM87BhfzE0BxF+J5184HIQYYkS6n4/cXKbFmk30OUl9
+	 MHHghCTg5zvZ3kF4Dm5yiQBaqH8uncUSJBb4SvmNi9Q5Sd6miKAlFjH46SttFrVfN/82W3tfnq86
+	 OXbldRaQ0d7lOrSsE1Ry6UQC+GzT35M2osgIk2EK/CORIE0P7MAIXj3mFN9K7xdzbZHbtqri5SeS
+	 Ljpf0kGMRKVKWp189whOkZ7C1I6DcEVqAVE2qs+t4iT1Lcq8FHowG5qpQKWlIo7c0r+1rQ1SGCGw
+	 C2kCqWQCieuVygZYXSeADQvdqfzjG9GB813AiQpZvOngsm5EYXZPRkqoC/vrd40/mEZJclE773Xb
+	 HkhRRV5xGDmcxl4F4Smw9671AwdLkiHsrWmpS3ZTg/UNbcqx5mR+CuoPSKBouKaX6GopUoIJq+gV
+	 4Yg/FKMh0Jyz5mysDWALmUDYXVJ1utFsiGFZjfOR8GrpdvBY2wZF2eWGOrGHGObmPIr6AZ6cDLK9
+	 jiloXVMClOB+edshaXcjG2XAYT0GrsHrFdLRhBeHZR2DAPL26IuvoCr05tCbzAs4M5gySBoPx6xh
+	 EpvEkSPCBnzgI/HdJ3+Cq+o+7jwT8CKOqFvof6yJQPTvCDF8iTJvGi5G+JUq599/SKC0QXOgEPqP
+	 jljps2I3ylLveIplRJg1c07Nlne6UCz/kOyMx6kjp3mJN0pdt3KxOqTFs8ww==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Wang YuWei <1973615295@qq.com>
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wang YuWei <1973615295@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: dw-axi-dmac: Fix use-after-free on cyclic terminate
+Date: Tue, 10 Nov 2026 21:16:49 +0800
+X-OQ-MSGID: <20261110131649.13218-1-1973615295@qq.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,43 +83,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+dma_chan_terminate_all() frees all descriptors but leaves vc->cyclic
+pointing at the active cyclic descriptor. If a period interrupt has
+already run vchan_cyclic_callback() and the vchan tasklet has not run
+yet, the tasklet later reads the callback from the freed descriptor:
 
-[ Upstream commit 34dacbe7ae93f2d3c26cd0bf3e08200b1fa2c180 ]
+  CPU0                                  CPU1
+  axi_chan_block_xfer_complete()
+    vchan_cyclic_callback(vd)
+      vc->cyclic = vd
+      tasklet_schedule()
+                                        dmaengine_terminate_sync()
+                                          dma_chan_terminate_all()
+                                            vchan_get_all_descriptors()
+                                            vchan_dma_desc_free_list()
+                                              -> vd freed
+                                          dw_axi_dma_synchronize()
+                                            tasklet_kill()
+  vchan_complete()
+    vd = vc->cyclic          <- freed
+    cb = vd->tx.callback     <- garbage
 
-Bug the VM if KVM attempts to construct a CPU role with the should-be-
-impossible combination of long mode being active without PAE paging being
-enabled.  KVM's MMU construction assumes that EFER.LMA can be set if and
-only CR4.PAE is set, and will create a completely invalid MMU if that
-assumption fails.  FNAME(walk_addr_generic) already has sanity checks to
-try and mitigate the fallout, but attempt to catch such bugs earlier, as
-this is (at least) the second time KVM has had bugs that escaped into
-FNAME(walk_addr_generic), and it's entirely possible the bad state could
-cause problems elsewhere.
+tasklet_kill() waits for the scheduled tasklet rather than cancelling
+it, so dmaengine_terminate_sync() does not close the window. Any cyclic
+user can hit this, e.g. ALSA via pcm_dmaengine. It was found with an
+out-of-tree 8250 driver that runs UART RX as a cyclic transfer, where
+closing the port crashed in the tasklet:
 
+  Unable to handle kernel execute from non-executable memory
+  lr : vchan_complete+0xbc/0x23c
+
+The window is normally only as long as it takes the tasklet to run, but
+it grows when the tasklet is delayed under heavy interrupt load, which
+is how it was hit here.
+
+The active descriptor stays on desc_issued in this driver. Take it off
+and pass it to vchan_terminate_vdesc(), which clears vc->cyclic under
+vc.lock, as other virt-dma drivers do in terminate_all().
+
+Fixes: 1deb96c0fa58 ("dmaegine: dw-axi-dmac: Support device_prep_dma_cyclic()")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260902232028.2767071-5-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: Moved the guard from the unavailable kvm_calc_cpu_role() to the paging-enabled branch of kvm_calc_mmu_role_common(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Wang YuWei <1973615295@qq.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested on the v6.1 based vendor kernel on the hardware where the crash
+was seen; build-tested only on mainline (arm64, W=1).
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index a768cbe23808c..887a9d4a1e8bb 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4854,6 +4854,9 @@ static union kvm_mmu_role kvm_calc_mmu_role_common(struct kvm_vcpu *vcpu,
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index 7520c78f5..4d41c7538 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -1182,6 +1182,7 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
+ {
+ 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
+ 	u32 chan_active = BIT(chan->id) << DMAC_CHAN_EN_SHIFT;
++	struct virt_dma_desc *vd;
+ 	unsigned long flags;
+ 	u32 val;
+ 	int ret;
+@@ -1202,6 +1203,17 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
  
- 	role.base.access = ACC_ALL;
- 	if (____is_cr0_pg(regs)) {
-+		if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vcpu->kvm))
-+			*(u64 *)&regs->efer &= ~EFER_LMA;
+ 	spin_lock_irqsave(&chan->vc.lock, flags);
+ 
++	/*
++	 * The active descriptor stays on desc_issued. Hand it to
++	 * vchan_terminate_vdesc() so that a cyclic callback still pending in
++	 * the vchan tasklet is dropped before the descriptor is freed below.
++	 */
++	vd = vchan_next_desc(&chan->vc);
++	if (vd) {
++		list_del(&vd->node);
++		vchan_terminate_vdesc(vd);
++	}
 +
- 		role.base.efer_nx = ____is_efer_nx(regs);
- 		role.base.cr0_wp = ____is_cr0_wp(regs);
- 	}
+ 	vchan_get_all_descriptors(&chan->vc, &head);
+ 
+ 	chan->cyclic = false;
 -- 
-2.53.0
+2.34.1
 
