@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339209;
-	b=LmLY4Fqy/i8rYYw7s/oQLQBB9Fn3cSEJAZHoBti0dmDqOesLlUN13T6xu5ndpzSS7yWA
-	 64uM0AK9+kKEeYUDjG9KfvDMCN7F4/VD9MkSzRAUFMV4nyCtfFpVxdftH/Y/BThvWKuCU
-	 oi1oUjls/A2gNYpFIaeON2nMMalYsCmGs+ka51glwt8MGUwQmdXSgc5Ek/Mga9SIvtjY6
-	 dZ5DerayztWeezgoOr+IFNgMgowSG1lF8xFe9V5DTPMAHorpHwFvE0Gx3dOTKUfwsMBtL
-	 UOgwH47BvqvH2UikINBwOIdTBuHQzJk0xw3BHUETqpdRYKDWBGP27ooXi/ZQKlzxXDw==
+	t=1794339229;
+	b=NGjpibyaquzjY1aOd2yGCQn5MEAvO1HT3whcbBQxt0Mp7cGs3pwWP8hhMQ1cuMa2GIWs
+	 sz0E3mqDo54/L+yMg7EAKtohcdud7DAqcdOk6N7qDh+1UoEGE/ty5WjovuOMad1RT0rsJ
+	 Ble671IOAa+GyOBgj1Lurwvuzex3voU+mQRY6bOg72xnjxeI5XP2gxHYgrEAwxJaVAJIn
+	 vp+kaDhza6K8z2sbADh5XyjedFobvzzvtRv6GJIu28xaHBF82KRdfJ7cwgkeHmCQW7hPX
+	 krpyQv0htAgkWUeaeKYogub76fYxNXQw5qcMf1x5JzikMwB803+UbSZe3GUPE+e9Adg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339209;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7UzE/iX2jPgX8GnvvDBoLcHATHA2PcawWKF3OMB7vd0=;
-	b=3JMhR+oiSNwtDaB9HCy74N3ps1lDh1NSfS0w25BvJ04rEQfUH3vxkJUYCwDNY+2UTANP
-	 ofTtEDyKYAKGsBEyfrWk5P5qotv0fS5Fuaz7iLMrL6RQXjMnJo0zjaQp2WGg8DOusS7Zt
-	 j1iacQM8+0+SopwGNI3FAN/o4EEFnIWsC4jJ1h0cgUJGTpnY47JFz1Dc6Hvf4Nyn/RMiI
-	 xN1GswsqIGN3Erv1i5Z3RT6sXD8PMMGhLdGXZkIFejWYqeIVhMqHT7iN5AuoIJnnB5Ufo
-	 d7JoT6Ezocqm7l6SW95bWDvHEbdSi7hlBoKlwlVHlKgYVoYt7REg6CUOI+MQd/QDBAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339229;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/bQ8adyPVMPdO9KK3GwBJwHZV1j//sUqB8zwXdbPHB8=;
+	b=TggLZdJvU669LQLv2ilbBn/3b+aMloztv846J0YdiLbAHaMR4rNFYO7Dler3UbRbelmF
+	 eEYaIcVgp0rgScMcL5WOOsIRzLTwvHJgeGTOMDb1enpPhT+TuY8jwdzMoy7fx52mPUVby
+	 QrGzDE0i+h4ozI3Ye8Ojm3dvgCm+K8sxvu0MtVBEK0UjnQUvKqH8HlEpIRTi4BNTVJHXH
+	 wrAf//VwCuSJZn6hSEvYnLOBMxrvnxV0Ojb71YgFK5PeN15B9MwZk6jrMXEMNvbaCX1la
+	 HK3rhQlVhCFrjGFDdNHkWMHP/nVyfzLUKx25KaIWcoaJwOAPG1FVAzTTTncKnu1oqAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Qgo5g+yQ;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3++27Wr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4CC58606A332
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CC58606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B2C606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:33:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Qgo5g+yQ
-Received: by dvalin.narfation.org (Postfix) id 6E04B1FE32;
-	Tue, 10 Nov 2026 19:33:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794339207;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7UzE/iX2jPgX8GnvvDBoLcHATHA2PcawWKF3OMB7vd0=;
-	b=Qgo5g+yQyiYZfExA6KtK+ZK3RsVeBaZY//P/35g7vrfrJrIGMRwOztTq3OeUj+S2o++V3P
-	C1b12wd1eVh5Wup7f4K2CNuaaOPKDTj725RhoAkwnkY24uDAtnDkxf4ljTECkV7Sk/wCgB
-	XiowjQ43szzLGo41ByXexEQp5z7Jjj0=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3++27Wr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6631F0089F;
+	Tue, 10 Nov 2026 19:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339228;
+	bh=/bQ8adyPVMPdO9KK3GwBJwHZV1j//sUqB8zwXdbPHB8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V3++27Wr4LkdkR4nASDiilF64BZMe6wp9ugFcNyMpr+dDst10zY2yKTcj/VFjREAz
+	 Ndci3HoH6t/oEV+IpfWUjVceeBJYSPF/hiRCIEEyBAzAuTMOLeNhn5BMkdHAsOFtXz
+	 dPAu5K38om2/dT/0PBLvy2Wn77UNMIptghaUAxTzfle5Mv3OARRnpTl54fXcZUh1P7
+	 fHaun2exBZzQMgc2BmQEpezoYAXzIBPFTbtKYI+P9cbf/DZCOYiXmFbyOneaculSF2
+	 0sHUZ9kdl2V1FWnpHlZAG4REBrpHPuF3MYdEWzUj6GBXIhcFdCB3LHAw4GHGljW2LP
+	 FEb5lZ3NVDw4A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 6.1.y] batman-adv: tt: don't drop local events queued during TVLV update
-Date: Tue, 10 Nov 2026 20:33:24 +0100
-Message-ID: <20261110193324.258913-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109201530-failed-6.1-ed7a0dfdd370@kernel.org>
-References: <20261109201530-failed-6.1-ed7a0dfdd370@kernel.org>
+Cc: Carella Chen <carella.chen@infineon.com>,
+	Jason Huang <jason.huang2@infineon.com>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] wifi: brcmfmac: detect firmware FBT and OKC support
+Date: Tue, 10 Nov 2026 14:33:44 -0500
+Message-ID: <20261110193151.3473712-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051913-failed-6.12-6fff9de5c5b4@kernel.org>
+References: <20261107051913-failed-6.12-6fff9de5c5b4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,182 +63,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit ed7a0dfdd370acb48be7a281df732c1bebcc7f1d upstream.
+From: Carella Chen <carella.chen@infineon.com>
 
-batadv_tt_tvlv_container_update() read the number of local changes without
-holding changes_list_lock. batadv_tt_local_event() is not serialized by
-the commit_lock and can queue new events before the changes_list is
-flushed:
+[ Upstream commit b1590c5eef0fadb5bc33689f9d98ce58b91154e7 ]
 
-  CPU0                          CPU1
-  batadv_tt_tvlv_container_update()
-    num = ...local_changes;
-                                batadv_tt_local_event()
-                                  list_add_tail(...);
-                                  ...local_changes++;
-    spin_lock_bh(&...changes_list_lock);
-    /* only num events copied but all freed */
+Some firmware advertises Fast BSS Transition and Opportunistic Key
+Caching support through the firmware capability string. Track those
+capabilities so later roaming offload handling can be enabled only
+when firmware reports support.
 
-The additional events were freed without ever being sent. Other nodes will
-only notice this via a CRC mismatch and must request the full table.
+Assisted-by: GitHub-Copilot-CLI:gpt-5.5
+Signed-off-by: Carella Chen <carella.chen@infineon.com>
+Signed-off-by: Jason Huang <jason.huang2@infineon.com>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260911065656.1269623-3-Jason.Huang2@infineon.com
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 
-The number of changes and the changes_list must therefore be taken
-atomically. Events queued afterwards then stay in the tt.changes_list for
-the next TT round.
+The existing feature table predates external SAE authentication support.
+Add the FBT and OKC entries without introducing the unrelated SAE_EXT
+feature, and preserve the existing SAE capability matching.
 
-The changes can no longer be kept for the next round when the TVLV buffer
-allocation fails. But they would be sent with a skipped TTVN anyway, so the
-other nodes have to request the full table in this case either way. The
-last changeset is only dropped in this case when the TTVN was incremented.
-Without new changes, it still describes the current TTVN.
-
-Previously, the unconsumed changes caused a retry of the TVLV container
-update in the next commit round. Since the changes are now consumed, the
-next round would only take the path without changes and wait for
-BATADV_TT_OGM_APPEND_MAX rounds before updating the container again. Until
-then, the outdated container with the previous TTVN would still be
-announced. The ogm_append_cnt is therefore reset on failure to retry the
-update in the next OGM interval.
-
-This doesn't make the CRC consistent with the announced changeset. The
-local table modifications are still not serialized with the commit and
-batadv_tt_local_transition_new() can still make a client part of the CRC
-for which the event is only part of the next TT round. Such an
-inconsistency is detected by the CRC check of the other nodes and solved
-via a full table request.
-
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-fc286ddd-5bed-4683-b842-ee7a307eeb19
-Fixes: a73105b8d4c7 ("batman-adv: improved client announcement mechanism")
-[ Context, switch to old "mesh_iface" name "soft_iface", access
- local_changes with atomic_t helpers ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Stable-dep-of: 6fff9de5c5b4 ("wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 61 +++++++++++++++++++++++-------
- 1 file changed, 48 insertions(+), 13 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c | 2 ++
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h | 4 +++-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index a73aede68bff9..0f92b657e42ed 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -1019,20 +1019,22 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
-  * batadv_tt_tvlv_container_update() - update the translation table tvlv
-  *  container after local tt changes have been committed
-  * @bat_priv: the bat priv with all the soft interface information
-+ * @changes_list: list of committed changes which will be consumed
-+ * @tt_diff_entries_num: number of entries in @changes_list
-  */
--static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
-+static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv,
-+					    struct list_head *changes_list,
-+					    int tt_diff_entries_num)
- {
- 	struct batadv_tt_change_node *entry, *safe;
- 	struct batadv_tvlv_tt_data *tt_data;
- 	struct batadv_tvlv_tt_change *tt_change;
- 	int tt_diff_len, tt_change_len = 0;
--	int tt_diff_entries_num = 0;
- 	int tt_diff_entries_count = 0;
- 	bool drop_changes = false;
- 	size_t tt_extra_len = 0;
- 	u16 tvlv_len;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+index 0d9ae197fa1ec..461f52a069386 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.c
+@@ -44,6 +44,8 @@ static const struct brcmf_feat_fwcap brcmf_fwcap_map[] = {
+ 	{ BRCMF_FEAT_DOT11H, "802.11h" },
+ 	{ BRCMF_FEAT_SAE, "sae" },
+ 	{ BRCMF_FEAT_FWAUTH, "idauth" },
++	{ BRCMF_FEAT_FBT, "fbt " },
++	{ BRCMF_FEAT_OKC, "okc" },
+ };
  
--	tt_diff_entries_num = atomic_read(&bat_priv->tt.local_changes);
- 	tt_diff_len = batadv_tt_len(tt_diff_entries_num);
+ #ifdef DEBUG
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h
+index 7f4f0b3e4a7b4..98953250efe83 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/feature.h
+@@ -57,7 +57,9 @@
+ 	BRCMF_FEAT_DEF(DUMP_OBSS) \
+ 	BRCMF_FEAT_DEF(SCAN_V2) \
+ 	BRCMF_FEAT_DEF(PMKID_V2) \
+-	BRCMF_FEAT_DEF(PMKID_V3)
++	BRCMF_FEAT_DEF(PMKID_V3) \
++	BRCMF_FEAT_DEF(FBT) \
++	BRCMF_FEAT_DEF(OKC)
  
- 	/* if we have too many changes for one packet don't send any
-@@ -1050,19 +1052,39 @@ static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
- 
- 	tvlv_len = batadv_tt_prepare_tvlv_local_data(bat_priv, &tt_data,
- 						     &tt_change, &tt_diff_len);
--	if (!tvlv_len)
-+	if (!tvlv_len) {
-+		/* the changes are lost and the other nodes have to request the
-+		 * full table. Don't answer TT requests for the new TTVN with
-+		 * the stale changeset of the previous TTVN. Without changes, the
-+		 * TTVN was not incremented and the last changeset is still valid
-+		 */
-+		if (drop_changes || tt_diff_entries_num > 0) {
-+			list_for_each_entry_safe(entry, safe, changes_list,
-+						 list) {
-+				list_del(&entry->list);
-+				kmem_cache_free(batadv_tt_change_cache, entry);
-+			}
-+
-+			spin_lock_bh(&bat_priv->tt.last_changeset_lock);
-+			kfree(bat_priv->tt.last_changeset);
-+			bat_priv->tt.last_changeset = NULL;
-+			bat_priv->tt.last_changeset_len = 0;
-+			spin_unlock_bh(&bat_priv->tt.last_changeset_lock);
-+		}
-+
-+		/* announce the already committed TTVN in the next OGM interval
-+		 * instead of waiting for BATADV_TT_OGM_APPEND_MAX idle rounds
-+		 */
-+		atomic_set(&bat_priv->tt.ogm_append_cnt, 0);
- 		return;
-+	}
- 
- 	tt_data->flags = BATADV_TT_OGM_DIFF;
- 
- 	if (!drop_changes && tt_diff_len == 0)
- 		goto container_register;
- 
--	spin_lock_bh(&bat_priv->tt.changes_list_lock);
--	atomic_set(&bat_priv->tt.local_changes, 0);
--
--	list_for_each_entry_safe(entry, safe, &bat_priv->tt.changes_list,
--				 list) {
-+	list_for_each_entry_safe(entry, safe, changes_list, list) {
- 		if (tt_diff_entries_count < tt_diff_entries_num) {
- 			memcpy(tt_change + tt_diff_entries_count,
- 			       &entry->change,
-@@ -1072,7 +1094,6 @@ static void batadv_tt_tvlv_container_update(struct batadv_priv *bat_priv)
- 		list_del(&entry->list);
- 		kmem_cache_free(batadv_tt_change_cache, entry);
- 	}
--	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
- 
- 	tt_extra_len = batadv_tt_len(tt_diff_entries_num -
- 				     tt_diff_entries_count);
-@@ -3761,11 +3782,25 @@ static void batadv_tt_local_purge_pending_clients(struct batadv_priv *bat_priv)
-  */
- static void batadv_tt_local_commit_changes_nolock(struct batadv_priv *bat_priv)
- {
-+	LIST_HEAD(changes_list);
-+	int changes_num;
-+
- 	lockdep_assert_held(&bat_priv->tt.commit_lock);
- 
--	if (atomic_read(&bat_priv->tt.local_changes) < 1) {
-+	/* atomically get the list of changes. The TTVN decision and the
-+	 * announced changeset must cover the same events. Events queued
-+	 * afterwards stay in the tt.changes_list for the next TT round
-+	 */
-+	spin_lock_bh(&bat_priv->tt.changes_list_lock);
-+	list_splice_init(&bat_priv->tt.changes_list, &changes_list);
-+	changes_num = atomic_read(&bat_priv->tt.local_changes);
-+	atomic_set(&bat_priv->tt.local_changes, 0);
-+	spin_unlock_bh(&bat_priv->tt.changes_list_lock);
-+
-+	if (changes_num == 0) {
- 		if (!batadv_atomic_dec_not_zero(&bat_priv->tt.ogm_append_cnt))
--			batadv_tt_tvlv_container_update(bat_priv);
-+			batadv_tt_tvlv_container_update(bat_priv, &changes_list,
-+							changes_num);
- 		return;
- 	}
- 
-@@ -3782,7 +3817,7 @@ static void batadv_tt_local_commit_changes_nolock(struct batadv_priv *bat_priv)
- 
- 	/* reset the sending counter */
- 	atomic_set(&bat_priv->tt.ogm_append_cnt, BATADV_TT_OGM_APPEND_MAX);
--	batadv_tt_tvlv_container_update(bat_priv);
-+	batadv_tt_tvlv_container_update(bat_priv, &changes_list, changes_num);
- }
- 
- /**
+ /*
+  * Quirks:
 -- 
-2.47.3
+2.53.0
 
