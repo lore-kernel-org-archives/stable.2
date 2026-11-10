@@ -1,81 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794295704;
-	b=jfao4CTT78/zTnlmN5heGtM+dVtwgeS8AMjbQ597jcdIJcLq066SbXHj7ovXX05bicnM
-	 2jZukTWnXrbQyIo51L9sJFz9Q7/tCHf6tTveLCKuKbFplJDQZHIKgbwo3tTYZ88w/5A0k
-	 GeVV/LChXmwOCdrODfd1RZZ/+Ne1U8lJZTbj9WGhybbO9bmeF2rhhoukv2Or/DQ1GCqJ+
-	 MDzwGmlqNys0ZwETK8fAkoCz0Ex2LCYLr1cMKQnGDVh2afskD8g1sUoxsnaiMkkcE5bD1
-	 in1XHTm36K3RoYBUPMWyRzYAviGWrx90/rqB6ZUtib7hcyETIYUryIY1m+TfGcxaUOw==
+	t=1794295832;
+	b=qrkvI3QZ8ETLt3NGfeNV0c+xAC4BFxLfzgUSoPdjR45fllPuKBNxTxVvr7Nm/AHn6z7V
+	 FBqQxeo+BNUkXDyVmlAwRZJmFr4jw+PJ8gclG4fJ8T0GiLFvHT2tDVC+bLdTTHkZCmFtO
+	 xg+0lR0KteRgydCno/dEDBe9zcdN1AASCe+Ds7Bv/xMtIK6YAnHtznpLorhDWc1ZjM2Xq
+	 xhKHwQHt5NCl/O8Y35BUixEFYBT8zDf9dvbnUGnSJLXYDrabM2jFZHWyFLuM+HDO9bOYb
+	 pEcl1ziybEzE5K1NAPHNTUjAQ+rL4cY3V59F6g8Mr0xeeo1pX9l7NrigA1qyWl+w1Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794295704;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Vk30BszvLUvZQJPLVx7j5492Hw84BFg36On09QYj8+0=;
-	b=vZT2dTnx23ql/yNaatUARN/P8DIUQf/RrrEZNTPOeCt/tFHS4ycSzMaDnMEBcMKejpca
-	 ZS19XYWJjRlCnVwikvK+vSGSvDnF/JUng7r/pu4OngCSmhzMsNUdeK9sZi62UYuDL305B
-	 K6tZbCKM+NEuEJ1DDuuQNF/j2O9q0F4LgvstpPpEoo0uTmGbEtN3KLGP2twZfe6OOd7yf
-	 BzQA2GcKm8oJHhMRspUKJWnM32/HU5XNvyVyIfVP1k3OqmJ1Ltd5amZFXxHst1ucYIMFj
-	 RHuXA5fzg35Rg2Ftwuj/JO/37dXXm+fNSxdPXgCRlPxK+xybBjC6pRfFTJ8k5PodSjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794295832;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=st+o6DSTnmSc2ScYYOueZA9arfVO6ZbosfjY5SQUSdk=;
+	b=CvV8AJAQi7VIq8rXhIRLDhi+PeNkQQ9ZLhcFWH2JG49nD0LfKaDn3eT121LCG38th9FO
+	 FMAQAi8Iaw7tydglrU5f7jybxTPeLSJ7b674Xkio4HiZXKJNJsKGEuB1nUA7u2T7eeMiX
+	 3ACNqEmWtOephm+Rzcx6yIfEHsAD/ZrzlKCusp4ZfspvZlGdGrxu1kJzdc1+PMd3w+edy
+	 FezAxyi/igBHqkkv9Q6QBcG4GXu3WZ6typwjjETo4sP3UTrBOKVl5gCA/l86t6WPqR717
+	 thHFLXO7TfNddXqA70aIw9F9/QYXOIhWWzVWfDlhrlX1EdxfFA2+wo2KJZ6mFX2LdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="Mn5un6P/";
-	arc=none smtp.remote-ip=203.205.221.209
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=El+D6Y7L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6F7606A33C;
-	Tue, 10 Nov 2026 07:28:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD6F7606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97CB606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:30:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Mn5un6P/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794295695; bh=Vk30BszvLUvZQJPLVx7j5492Hw84BFg36On09QYj8+0=;
-	h=From:To:Cc:Subject:Date;
-	b=Mn5un6P/5HVtiJgXYmFaBNp58tH1AhAg12BEvpWJv9VOZTaeq7NL6+2NPCmlX7Wwj
-	 l6BwE/azySih3xRSmMsKPbmMsJ3qKE+5P5EkNQ5Zg+Ei7XvN9Y4jIMEcXhQ0tEiyJv
-	 yyKT87FacandmrLXdnsuWVdJFOVE5sKmM/VH9BXM=
-Received: from ikun ([221.176.157.250])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 70486608; Tue, 10 Nov 2026 15:28:04 +0800
-X-QQ-mid: xmsmtpt1794295684t6um2b4rz
-Message-ID: <tencent_9EB8EBE910378E46C80E006C6A7DA918BA08@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9X4fnIIPYZ1r3ekLU3NqbruqAiolIMcy7IyE5drRcj6ZxomTOTq1
-	 J4l+uUm3ZB4Fll4as9Dj+cOXv50XyLgfq/r1wEtOsx+L5WtS1TEkUkPGW7UYMSB5xmGodr2DYbpG
-	 btnDR1ee6dUEKP9W5LPMEGKXoWs+NuJpgLvi6bhM/OnDAjIVWowvtbJtM4FL7ENkXl9UrkbgrlgK
-	 o87wlczlLaqsVdtPswlXR4Mx1HdRGnTfNe7N4Iq3uVgLWTPYwgFn0dYAcOKgK8V5Uzl/441SpOWn
-	 QClZwrc6dVncUG5U/1lf4w768ngYhKO8Pa1w6bkRHvs/0g6OTEJ9DpMeOhgv/qrJuoZ+L1Tv2f7m
-	 /D399dsJEp2SZ2BGgUyxFW4Sd31HonaiHdHzMWE6e/K3Y6Z9m1eDJTkt7v/q8FoA638xkj4/Q6dA
-	 ov12ZJKnzkDvoJOgpLPF3OzALewlQ7jRVVFXbc7fAI1oYGgM+HSXypY7mpYKcCETMnLKCm1Fmlbg
-	 AnF3iIaPARO2mi9PVkYLZvTIAUNJao7AuW9fk2vEZ8oJ6IwBCeSS1Pi+tFFFgSMLcCEzuin+P1+g
-	 jPPy8npgjyj8WVXoniVYqY0CGo6teWxmfI7O9ZGo4FxMWtOwKMkho+pCjC7d97HJMduCoGjBjfwn
-	 wVPyRIWuDDWAgKRsufuoES6pB+4J8Sw0Ycys9T1m/aysguYtBSvWPwyJ8A+SQGB4E/fYGrrI101P
-	 4Qze55Zw7GlCcpkSfeqjgahzUx62ASmYGXv71NNlcPKY31E+WpZaqPWtBoZU3BJZlvCaldOkz++/
-	 W7uTE6ryApF1FYGOEKHgLbBzAPP3rdI+lClgrn37KqNUXcFqPseJvqvzNyn5EX+lds183/IRvfmI
-	 joCzAupG54TsMzTDty54prs1tPOzpIAD/E6qXruGzVFXpYmpMnHeMon8PxjvHqSuVDCphEhXbs1y
-	 sdkS3gEwrL5k+BzdLwKqzkF+CV06FVugX3TI+DHFcXJ7wBU+nxBwT/jUStnW7zkVq7hYkXdzaW9T
-	 7VUFzC2uoQkEA/aEVrVIR6+rWdojxuQJDfMzZMe24GDRaWN8XMeKjctb+Mgogj5/ZfhNpjNKba8d
-	 crvK/etK8/u1y485k=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Alan <3164729207@qq.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: Alan <3164729207@qq.com>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: free the new extent block when getting its buffer fails
-Date: Tue, 10 Nov 2026 15:27:23 +0800
-X-OQ-MSGID: <20261110072757.86156-1-3164729207@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=El+D6Y7L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6724F1F0089F;
+	Tue, 10 Nov 2026 07:30:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794295830;
+	bh=st+o6DSTnmSc2ScYYOueZA9arfVO6ZbosfjY5SQUSdk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=El+D6Y7Lr/4aIrypSEqXqrlU85r1Vcvvwsco0uHwkCX0RE5/chG4tt3zsko+nuWmq
+	 BX+ot5891UVxTuf7p6u/LVpwRlDiSmIEKQ2DGKhXY4zyx0joLq8la18pVy/ZAnjTFx
+	 CU3yeTADrrKFRrsxtmFzZuknQuLrKdjGXxwcUsQMNLtpkzUkowcRKFqXnWU0WCaaYy
+	 DqwGkgSvHjJVMWdpQYa67xXfxhSUxyuquFD86s89k0E8LBy9IC4SNnbMzvQG2IQuCz
+	 KrBMQG3taftp8i9YfwA0fVy+ySvetjyY2pai9uJ4+jdMVCijkw7h3Cg7PfhM2yZ5tn
+	 R0br9Vkkzm68A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode without PAE enabled
+Date: Tue, 10 Nov 2026 02:30:28 -0500
+Message-ID: <20261110072540.551383-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054141-failed-6.1-115f9405a2ed@kernel.org>
+References: <20261107054141-failed-6.1-115f9405a2ed@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,54 +61,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ext4_ext_grow_indepth() allocates and accounts a metadata block before
-calling sb_getblk_gfp(). If the buffer allocation fails, the new block
-has not been linked into the extent tree, but the error path returns
-without freeing it. This leaks the block and leaves i_blocks larger
-than the number of blocks reachable from the inode.
+From: Sean Christopherson <seanjc@google.com>
 
-Commit 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
-removed the implicit __GFP_NOFAIL from this allocation, making this
-error path reachable.
+[ Upstream commit 72e2fb24a0b0528bcc16a8f6ad2cf336ac361525 ]
 
-Free the new metadata block before returning -ENOMEM. Use
-ext4_free_blocks() to undo both the allocation and inode accounting.
+Promote the ASSERT(), which is quite dead code in KVM, into a KVM_BUG_ON()
+for KVM's sanity check that CR4.PAE=1 if the vCPU is in long mode when
+performing a walk of guest page tables.  The sanity is quite cheap since
+neither EFER nor CR4.PAE requires a VMREAD, especially relative to the
+cost of walking the guest page tables.
 
-Tested on Linux 6.12.1 by injecting a NULL result at the caller's buffer
-acquisition boundary. Before the fix, seven failed extent tree growth
-operations left seven allocated but unreachable blocks and i_blocks of
-40 instead of 32 on a filesystem with 4 KiB blocks. After the fix, the
-same failures leave i_blocks at 32, and e2fsck -fn passes after a normal
-unmount. Retrying the operation, truncating the file, and growing the
-tree without injection also succeed.
+More importantly, the sanity check would have prevented the true badness
+fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency checks
+for CR0 and CR4").  The missed consistency check resulted in some versions
+of KVM corrupting the on-stack guest_walker structure due to KVM thinking
+there are 4/5 levels of page tables, but wiring up the MMU hooks to point
+at the paging32 implementation, which only allocates space for two levels
+of page tables in "struct guest_walker32".
 
-Fixes: 8a83ac54940d ("ext4: call bdev_getblk() from sb_getblk_gfp()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alan <3164729207@qq.com>
+Queue a page fault for injection if the assertion fails, as both callers,
+FNAME(gva_to_gpa) and FNAME(walk_addr_generic), assume that walker.fault
+contains sane info on a walk failure.  E.g. not populating the fault info
+could result in KVM consuming and/or exposing uninitialized stack data
+before the vCPU is kicked out to userspace, which doesn't happen until
+KVM checks for KVM_REQ_VM_DEAD on the next enter.
+
+Move the check below the initialization of "pte_access" so that the
+aforementioned to-be-injected page fault doesn't consume uninitialized
+stack data.  The information _shouldn't_ reach the guest or userspace,
+but there's zero downside to being paranoid in this case.
+
+Link: https://lore.kernel.org/r/20230729004722.1056172-9-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Stable-dep-of: 115f9405a2ed ("KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the MMU has")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/extents.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ arch/x86/kvm/mmu/paging_tmpl.h | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index ad0d80e33f6090..7358df54bcd4ae 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -1333,8 +1333,12 @@ static int ext4_ext_grow_indepth(handle_t *handle, struct inode *inode,
- 		return err;
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 952f7e9b64fad..42d459370f781 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -345,7 +345,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	}
+ #endif
+ 	walker->max_level = walker->level;
+-	ASSERT(!(is_long_mode(vcpu) && !is_pae(vcpu)));
  
- 	bh = sb_getblk_gfp(inode->i_sb, newblock, __GFP_MOVABLE | GFP_NOFS);
--	if (unlikely(!bh))
-+	if (unlikely(!bh)) {
-+		/* The new block has not been linked into the extent tree yet. */
-+		ext4_free_blocks(handle, inode, NULL, newblock, 1,
-+				 EXT4_FREE_BLOCKS_METADATA);
- 		return -ENOMEM;
-+	}
- 	lock_buffer(bh);
+ 	/*
+ 	 * FIXME: on Intel processors, loads of the PDPTE registers for PAE paging
+@@ -355,6 +354,17 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	nested_access = (have_ad ? PFERR_WRITE_MASK : 0) | PFERR_USER_MASK;
  
- 	err = ext4_journal_get_create_access(handle, inode->i_sb, bh,
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+ 	pte_access = ~0;
++
++	/*
++	 * Queue a page fault for injection if this assertion fails, as callers
++	 * assume that walker.fault contains sane info on a walk failure.  I.e.
++	 * avoid making the situation worse by inducing even worse badness
++	 * between when the assertion fails and when KVM kicks the vCPU out to
++	 * userspace (because the VM is bugged).
++	 */
++	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
++		goto error;
++
+ 	++walker->level;
+ 
+ 	do {
 -- 
 2.53.0
 
