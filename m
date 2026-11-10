@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.76.78.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794329708;
-	b=NrnR/iNQdp8lZP7P/0XQJ2y5ACo/VqVjWbpdnLClypV6y9ERkW3C1+Ro4J7dmAg3TRG8
-	 Pa8UYl7mHDZzI964Ce3DvlFuFr6te6DYuTLKdUPtbci6+AG0h59jtfkae3aMvQ/gTA4Zc
-	 kDMeDVtbpEngQ3LmLJz4iGtxkuuxw+IYBnSl2gkfCIdB9MPaZVzYJtu/1x/mFeLmMTg4K
-	 o/TczMlg6kUoacOZwZkagBJFogJip0OdJFke52Y1k5bXy2Pqlgrl/H95PEHIFzq6mLCkm
-	 FHWvX/EXYIUNQ3cbTQGMNLT2m1/+18Nj+vI0NqfLCgihK2Dbhxn5stZJxL0Lkj5PFtw==
+	t=1794329744;
+	b=o0xNAx+QV3kj9T3qYatz380lNG07sEExtCp4I5t4gy0ey/P2YF+tRKuoE56uY++VZ0F2
+	 PWMTcDiGm0Qswkn30KbDxZrAtAmd1e2SIqSMbzN5iUldBnZJGKCeMbK4DOlHySTIroVdT
+	 I47OVbHEpur9BlIB7KXVNq9TbY18IFZzjtaRH/NvJBP8bAokHU+jLYe2kIG90XNjp5HK/
+	 pbvQSaFopTJ4PCbOtKNbvU77d+KyYzKlap7FSXEIrnEdEFQxzxqqs2JJFBJN2xJpRcPr3
+	 kWckxynXLCctBPkR10sHS+m6Tvq29sNlIP1A+06uw7dNZAHGQugydpnGATHz1pEHAmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794329708;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Uc4O8pK5nK8LeAYmaSGivWLqbt10i/bY+fluzSA22pM=;
-	b=H8TlJ55UC13K4tzuKkOnHKzAHjO/2haF64UObj892F0+0TQkLEZiWZs5ZKcbcNPjHxQI
-	 6IbMQZ/V24fcu+OJxs+WO6aSHwfEhF45rbiZ+HcIgKQQJ8IiqtZ81KLL375WCgRm50GU5
-	 Qrz7QFwOMQO4KNdWMEwK3ZATj7qRPQI4awExk2Il/YYKxEw7QJWTPwLmMIkN25hM9JnNX
-	 8TFFloRO3izCKz8WY0jLGaBwZEB8szcFe2LiJxJ5pCM0nYbeS8fh0bSwkflZFRGGnM0K+
-	 e1/ruKcWO8BADNm3d6uOjshbHl5Kj5SBH87YyuxLvzsKRkuOuEsMlMWvCKOBp6w01Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794329744;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YEv4kla1GCydBBSw7oFB3b5iHkaeo2ybVSDJFxIWcAU=;
+	b=tH5GfYYZGRenPMrNzWikaBUktAqGAln3Bso6iB8pRjhmmlttVA9IAWCfZ3TVs+kzXJ9u
+	 PXqHn49f3rK8Ou//uZzMWjaSxAn4dI9I9Xt+aZa6Rg/ySc6+B+O4Ry00sxGX1ar9X77TS
+	 Ac9qvZz4G3q/9/JrWgjiJC4toirrf+fa8m00I0Xx+W01YAA7k19cvmPl++YP20HXKar9/
+	 hRCQsEoj+1iyV4y75IB2iwb4CjsuOlpEL4xYr9eYYeHjv+FXbIuYfX5L2u99VoJ5i5D/s
+	 OudLszrsrZGgu5JWsnc1bcftl3h9/h0bnTRrsFycEb6atLXVIgP4cW+7XwjhMK+uMGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.76.78.106
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E522A606A333;
-	Tue, 10 Nov 2026 16:55:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E522A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMA2XcVlTPNqf_8NAA--.17770S2;
-	Wed, 11 Nov 2026 00:55:01 +0800 (CST)
-Received: from 51f0e866aafc.ntu.edu.sg (unknown [155.69.197.24])
-	by gateway (Coremail) with SMTP id _____wBHQDdZTPNqhKI0AA--.54723S3;
-	Wed, 11 Nov 2026 00:54:59 +0800 (CST)
-From: Suyuan Wang <stevewong@hust.edu.cn>
-To: iwona.winiarska@intel.com
-Cc: openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	joel@jms.id.au,
-	gregkh@linuxfoundation.org,
-	Suyuan Wang <stevewong@hust.edu.cn>,
-	stable@vger.kernel.org,
-	Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Subject: [PATCH 1/2] peci: Fix use-after-free in unregister_controller()
-Date: Tue, 10 Nov 2026 16:54:48 +0000
-Message-Id: <20261110165449.1996921-2-stevewong@hust.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110165449.1996921-1-stevewong@hust.edu.cn>
-References: <20261110165449.1996921-1-stevewong@hust.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSzJlOwW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD80606A835
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSzJlOwW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC2E1F0089F;
+	Tue, 10 Nov 2026 16:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794329743;
+	bh=YEv4kla1GCydBBSw7oFB3b5iHkaeo2ybVSDJFxIWcAU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FSzJlOwWnFtoM3W6N4CD+m7/zrWH0LO/lep9Bu/NQTqxnS/xvRFZRQh82BJkR+78J
+	 NhsBiEqdZLXIozC8+fTbO0o+jL0bUWpJ2guaPeR9kNYDL0M70TUqQLXxxym5m4Ww+H
+	 Y30eYkfNzxMR29qyogjNT2B5yX3Vik7CE2KxAhVz8cZ9hJO7+EPHid6qLKaAa4jWb9
+	 hmylu8cp94xpe4aphIfykKK6Xr9821PFG4d0f6qkaRH9xyaG7Bqp+QgjVgwDYZdiS6
+	 1Bj/zf3dSTrS/ghHKg/kDcx11ijJj9lnRvGDwB/vjAnrlGMTXXJfGU9YpES99fw6zW
+	 omXpKuuM/RFyA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Sven=20P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] media: rockchip: rga: use clk_bulk api
+Date: Tue, 10 Nov 2026 11:55:40 -0500
+Message-ID: <20261110165529.2604741-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053116-failed-6.6-a875c43dd95e@kernel.org>
+References: <20261107053116-failed-6.6-a875c43dd95e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,88 +61,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMA2XcVlTPNqf_8NAA--.17770S2
-Authentication-Results: app2; spf=neutral smtp.mail=stevewong@hust.edu
-	.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar18JrykWr13XrWxXrWUurg_yoW8uw1Upa
-	yrGa1aqF4FgF4agF4jkF4xuFy3WanrGFWDua9rJ34UCFnxW3s2g345AFySqFy5JrZ2gF1U
-	Ar45tayxXFWDAFJanT9S1TB71UUUUbUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQYb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
-	x4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1ln4kS14
-	v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l
-	5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxVW8Jr0_Cr1UMcIj6x8Erc
-	xFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWU
-	JVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82
-	IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0k9N3UUUUU==
-X-CM-SenderInfo: jxsqimirwzmmo6kx23oohg3hdfq/
 
-unregister_controller() keeps using the controller after
-device_unregister():
+From: Sven Püschel <s.pueschel@pengutronix.de>
 
-    device_unregister(&controller->dev);
+[ Upstream commit a2a4f69fd2e333bacd17d1788eb5211cb6f373cc ]
 
-    fwnode_handle_put(controller->dev.fwnode);
+Use the clk_bulk API to avoid code duplication for each of the three
+clocks.
 
-    pm_runtime_disable(&controller->dev);
-
-The child devices are already gone at this point, so device_unregister()
-normally drops the last reference and peci_controller_dev_release()
-frees the controller. The fwnode read and pm_runtime_disable() that
-follow then touch freed memory. This runs every time a PECI controller
-driver is unbound or its module is removed.
-
-Fix it by saving the fwnode pointer first, disabling runtime PM before
-unregistering, and putting the fwnode only after device_unregister().
-
-Found with a static analysis tool and checked by hand.
-
-Fixes: 6523d3b2ffa2 ("peci: Add core infrastructure")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Kaixuan Li <kaixuan.li@ntu.edu.sg>
-Signed-off-by: Suyuan Wang <stevewong@hust.edu.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: a875c43dd95e ("media: rockchip: rga: quiesce IRQ before releasing m2m state")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Compile tested only, I don't have PECI hardware.
+ drivers/media/platform/rockchip/rga/rga.c | 65 +++--------------------
+ drivers/media/platform/rockchip/rga/rga.h |  6 +--
+ 2 files changed, 11 insertions(+), 60 deletions(-)
 
- drivers/peci/core.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/peci/core.c b/drivers/peci/core.c
-index e14995b1bf7f..247a287f87ca 100644
---- a/drivers/peci/core.c
-+++ b/drivers/peci/core.c
-@@ -88,6 +88,7 @@ static int unregister_child(struct device *dev, void *dummy)
- static void unregister_controller(void *_controller)
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 25f5b5eebf13f..85c9eb6027c32 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -690,48 +690,10 @@ static const struct video_device rga_videodev = {
+ 	.device_caps = V4L2_CAP_VIDEO_M2M | V4L2_CAP_STREAMING,
+ };
+ 
+-static int rga_enable_clocks(struct rockchip_rga *rga)
+-{
+-	int ret;
+-
+-	ret = clk_prepare_enable(rga->sclk);
+-	if (ret) {
+-		dev_err(rga->dev, "Cannot enable rga sclk: %d\n", ret);
+-		return ret;
+-	}
+-
+-	ret = clk_prepare_enable(rga->aclk);
+-	if (ret) {
+-		dev_err(rga->dev, "Cannot enable rga aclk: %d\n", ret);
+-		goto err_disable_sclk;
+-	}
+-
+-	ret = clk_prepare_enable(rga->hclk);
+-	if (ret) {
+-		dev_err(rga->dev, "Cannot enable rga hclk: %d\n", ret);
+-		goto err_disable_aclk;
+-	}
+-
+-	return 0;
+-
+-err_disable_aclk:
+-	clk_disable_unprepare(rga->aclk);
+-err_disable_sclk:
+-	clk_disable_unprepare(rga->sclk);
+-
+-	return ret;
+-}
+-
+-static void rga_disable_clocks(struct rockchip_rga *rga)
+-{
+-	clk_disable_unprepare(rga->sclk);
+-	clk_disable_unprepare(rga->hclk);
+-	clk_disable_unprepare(rga->aclk);
+-}
+-
+ static int rga_parse_dt(struct rockchip_rga *rga)
  {
- 	struct peci_controller *controller = _controller;
-+	struct fwnode_handle *fwnode = controller->dev.fwnode;
+ 	struct reset_control *core_rst, *axi_rst, *ahb_rst;
++	int ret;
  
- 	/*
- 	 * Detach any active PECI devices. This can't fail, thus we do not
-@@ -95,11 +96,12 @@ static void unregister_controller(void *_controller)
- 	 */
- 	device_for_each_child_reverse(&controller->dev, NULL, unregister_child);
+ 	core_rst = devm_reset_control_get(rga->dev, "core");
+ 	if (IS_ERR(core_rst)) {
+@@ -763,23 +725,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+ 	udelay(1);
+ 	reset_control_deassert(ahb_rst);
  
--	device_unregister(&controller->dev);
-+	pm_runtime_disable(&controller->dev);
+-	rga->sclk = devm_clk_get(rga->dev, "sclk");
+-	if (IS_ERR(rga->sclk)) {
+-		dev_err(rga->dev, "failed to get sclk clock\n");
+-		return PTR_ERR(rga->sclk);
+-	}
+-
+-	rga->aclk = devm_clk_get(rga->dev, "aclk");
+-	if (IS_ERR(rga->aclk)) {
+-		dev_err(rga->dev, "failed to get aclk clock\n");
+-		return PTR_ERR(rga->aclk);
+-	}
+-
+-	rga->hclk = devm_clk_get(rga->dev, "hclk");
+-	if (IS_ERR(rga->hclk)) {
+-		dev_err(rga->dev, "failed to get hclk clock\n");
+-		return PTR_ERR(rga->hclk);
++	ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
++	if (ret < 0) {
++		dev_err(rga->dev, "failed to get clocks\n");
++		return ret;
+ 	}
++	rga->num_clks = ret;
  
--	fwnode_handle_put(controller->dev.fwnode);
-+	/* May drop the last reference and free the controller. */
-+	device_unregister(&controller->dev);
+ 	return 0;
+ }
+@@ -941,7 +892,7 @@ static int __maybe_unused rga_runtime_suspend(struct device *dev)
+ {
+ 	struct rockchip_rga *rga = dev_get_drvdata(dev);
  
--	pm_runtime_disable(&controller->dev);
-+	fwnode_handle_put(fwnode);
+-	rga_disable_clocks(rga);
++	clk_bulk_disable_unprepare(rga->num_clks, rga->clks);
+ 
+ 	return 0;
+ }
+@@ -950,7 +901,7 @@ static int __maybe_unused rga_runtime_resume(struct device *dev)
+ {
+ 	struct rockchip_rga *rga = dev_get_drvdata(dev);
+ 
+-	return rga_enable_clocks(rga);
++	return clk_bulk_prepare_enable(rga->num_clks, rga->clks);
  }
  
- /**
+ static const struct dev_pm_ops rga_pm = {
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 5fa9d2f366dc4..0825622526c7b 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -6,6 +6,7 @@
+ #ifndef __RGA_H__
+ #define __RGA_H__
+ 
++#include <linux/clk.h>
+ #include <linux/platform_device.h>
+ #include <media/videobuf2-v4l2.h>
+ #include <media/v4l2-ctrls.h>
+@@ -68,9 +69,8 @@ struct rockchip_rga {
+ 	struct device *dev;
+ 	struct regmap *grf;
+ 	void __iomem *regs;
+-	struct clk *sclk;
+-	struct clk *aclk;
+-	struct clk *hclk;
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 	struct rockchip_rga_version version;
+ 
+ 	/* vfd lock */
 -- 
-2.34.1
+2.53.0
 
