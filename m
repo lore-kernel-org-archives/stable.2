@@ -1,58 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.10.215.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325332;
-	b=eCohNW1VgBIsmDBAG0E57bmNyaHxOCjIUN3RLnlcFvFB/fIwgLSjn+lHbNlSTl1m05ee
-	 gJSKDf4Jt69URyhJc2dT95gticQEKT3DGvlDTJawkwf0j/WLq/MqokE2GpJh+B44D8ef6
-	 AJQr7QrSy+5D4T1HCF7Lwy/Zyard9Jzl0zzEuGVLav5k6sBQ/ctGMTZILCqHxZHRa3nlN
-	 ubtE+HUDL8PWu5IdgU5BOaYp/n8cV7bBcShX9VUGqKv8VEMt6bhbEoKm4LG7VkB16sRDs
-	 TT9qLfMOhGk3PlVoL29newNpbK1FJ3An+PqwmtiLup3JMeVrWNBOygJbBXE9aN+VYOA==
+	t=1794325431;
+	b=z2wSCdwgjlIxvqhb7o/bI2pmNg2OIDoOyLH+k7+L7pDliM2WWhhCvsusrkwTpZ1Dmljo
+	 8LT74rrANnK7ZRDxr2jHc2jmo/wjXi9aYkwdGW8rC876jMSoQ5KXiEMMPX409Nz8HUGkY
+	 F/56p91iJUgHBFsK14FwFAQiXDgfKtxjbV8vQnJ1lDwweB8OOD5NEFhV28Czu4Awh2zdx
+	 wgkvJLluwLDtyw5RqUOdExT54IDjS3Ybvl9KcYfRnulm5nv5YklnUrC6Czbe98PQGjube
+	 Pg1j9HEuUoXPUINMzFrc/YzG1slRw/uDmNEMlI+X6wKD6ZIa0/lFCl75edByMIB4mLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325332;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=x+4vLy+9USPKTI8mun5204dpIrEL4Ku81mbzIxZDywM=;
-	b=NAD/dQ0KrdR3ynZywNtAc7KSTGnlu5msv9wdOH+GaaxIxoUsVT6kNCYHyrMGdyqoj7Oc
-	 sx4Pcd2hP4oiymdVJ1EHxW/5NmHuaVEeHmwqJaFUYdFsxHKg3DEUSmckKnmsSmfVs9ImN
-	 +TUbndVt0eD3mvl+6ngtRgDnA55oOyh+kkQ9bOihZIwtgZyI/RroLfzzS2jaRKRaZD2+7
-	 fChD2bRCiP5yIannKdmjIcQFD9APNoax+VwITjxi7m7LCkJ56vEOfIrWzRseFKP5PQX/q
-	 CCHGftO9h3a4USSdmO700jQUe5+zcmp20oN65CUoZnXRTz/oJa7wg/vIr8jSGvhafhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325431;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Virus-Scanned;
+	bh=R5a0Oq9BIezczwgOlTkVnVAW8jrIlXPGAQV31TXS52E=;
+	b=q/wEx3uPsWCxv+i4CbvU3MMKbgZ7cRFXIeH/IGNgPVSgCIA7A2smGQDuCJtuHOKfqtr0
+	 aiEYWGpg5VkjNE5kbxu3zCdgngZs9xRyf4IVG28h58ADqH2ICofZBenoY+VgbKBgdJXZ7
+	 oml4P4c56lMDIRdAL2adx5BWqz5lpzcAGihYkJGN29aGuaetRAPcgXqJksABjugMj9CkA
+	 BLMwtcxPq4rFRMsEkakFSVfEJCXQwO3f0pyagNuLJ664MB+Aon3exDvF9egfKfgg0XaEv
+	 7dwVtb61NqOAuOUGzXrIEe3MU8F8+L01Ikgz/Zolv8jghSrvlbj97et1oTDP9GEIL2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UhiHyDb/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hetzner-cloud.de;
+	spf=pass smtp.mailfrom=hetzner-cloud.de;
+	arc=none smtp.remote-ip=85.10.215.232
+Received: from dediextern.your-server.de (dediextern.your-server.de [85.10.215.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900B7606C401
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhiHyDb/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726641F008A1;
-	Tue, 10 Nov 2026 15:42:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325332;
-	bh=x+4vLy+9USPKTI8mun5204dpIrEL4Ku81mbzIxZDywM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UhiHyDb/PeCaDVJGu4kTY5tTMdF0fSfW/70Tp08OqA/7Qy5ORBeMNUL8Ly5rYyHu0
-	 pkpIRveB1oX9Yqznu3p1RkZZCQH/t+WtIh5JmE1+KKL9VqxLVUKAYUAtpCngWse865
-	 QFOaDelFqYN913CIEJ+L8u6ovS/i/6g2T+A1FrirEmYhNbSvR4874XWQHtRuTcu3ka
-	 Y8FKLTnZXz1pT1a4xg/Z1b+9Cmvy3U1YhxnGkioPnkdtsV7YfyY9/PluFj3f1g0xKk
-	 f6HK/z/QJ5geALkgI8ONcBzKWZYUi8eq801B0syfTRb7VbgrOc1uNh90y5W05ZE2vR
-	 jlf4zysNR9OAQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Seungjin Bae <eeodqql09@gmail.com>,
-	stable <stable@kernel.org>,
-	Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] usb: typec: ucsi: ccg: Validate altmode index in GET_CURRENT_CAM response
-Date: Tue, 10 Nov 2026 10:42:10 -0500
-Message-ID: <20261110154146.2333804-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060407-failed-5.15-02ee864e8d21@kernel.org>
-References: <20261107060407-failed-5.15-02ee864e8d21@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90264606AB58;
+	Tue, 10 Nov 2026 15:43:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90264606AB58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hetzner-cloud.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hetzner-cloud.de
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by dediextern.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <sarah.maedel@hetzner-cloud.de>)
+	id 1xQo0g-000IEt-1x;
+	Tue, 10 Nov 2026 16:43:46 +0100
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <sarah.maedel@hetzner-cloud.de>)
+	id 1xQo0g-000CQE-1D;
+	Tue, 10 Nov 2026 16:43:46 +0100
+From: Sarah Maedel <sarah.maedel@hetzner-cloud.de>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Beno=C3=AEt=20Monin?= <benoit.monin@bootlin.com>,
+	David LaPorte <dalaport@amazon.com>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] i2c: designware: Only check for spurious STOP without EMPTYFIFO_HOLD_MASTER
+Date: Tue, 10 Nov 2026 16:43:29 +0100
+Message-ID: <20261110154330.78515-2-sarah.maedel@hetzner-cloud.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110154330.78515-1-sarah.maedel@hetzner-cloud.de>
+References: <20261110154330.78515-1-sarah.maedel@hetzner-cloud.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,102 +67,52 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.6/28179/Tue Nov 10 07:26:51 2026)
 
-From: Seungjin Bae <eeodqql09@gmail.com>
+Commit 560072246088 ("i2c: designware: Support of controller with
+IC_EMPTYFIFO_HOLD_MASTER disabled") fails a transfer when STOP_DET is
+seen while a read or write is still in progress. This is meant to catch
+Tx FIFO underruns on controllers without IC_EMPTYFIFO_HOLD_MASTER_EN,
+but the check is applied to all controllers.
 
-[ Upstream commit 02ee864e8d2142c5648998944c3306ea6a763c26 ]
+Controllers with IC_EMPTYFIFO_HOLD_MASTER_EN hold SCL on an empty Tx
+FIFO and can't underrun, but on a multi-master bus they also see
+STOP_DET for other masters' transactions. The driver then disables the
+adapter while the controller is still busy with the transfer. On
+DW_apb_i2c 1.20a (Ampere Altra, IPMI SSIF shared with the BMC) this
+leaves the master stuck with IC_ENABLE_STATUS set, and all following
+transfers fail with "timeout waiting for bus ready".
 
-When the PPM reports more than one DisplayPort alternate mode for a
-connector, ucsi_ccg_update_altmodes() merges them into a single entry
-in uc->updated[] and sets uc->has_multiple_dp. In that case,
-ucsi_ccg_update_get_current_cam_cmd() rewrites the response of the
-GET_CURRENT_CAM command. The response is a single byte holding the
-index of the currently active alternate mode, and it is provided by
-the PPM firmware.
+Limit the check to controllers without IC_EMPTYFIFO_HOLD_MASTER, as
+suggested by David LaPorte.
 
-The function uses this byte directly as an index into uc->orig[], and
-then uses the linked_idx read from that entry as the translated index
-into uc->updated[]. Both arrays have UCSI_MAX_ALTMODES entries, but
-neither index is checked against that size.
-
-If a malicious or buggy PPM reports a value of UCSI_MAX_ALTMODES or
-larger, e.g. 0xFF, uc->orig[cam].linked_idx reads over the end of
-uc->orig[]. The byte read from there is then used as the index for
-writing cam into uc->updated[new_cam].active_idx, so the out-of-bounds
-read is followed by an out-of-bounds write. This happens without any
-userspace action, since the UCSI core issues GET_CURRENT_CAM on its own
-when handling connector changes.
-
-Fix this by rejecting responses whose index is out of range, printing an
-error and returning -EPROTO, so that the caller cannot accept this.
-Also check linked_idx before using it as an index, so that the write into
-uc->updated[] is always within bounds.
-
-The response is now only processed when the command completed without
-an error. ucsi_sync_control_common() only reads the response when the
-CCI reports command completion, so otherwise the buffer is not filled
-and must not be mistaken for an invalid index.
-
-This bug was found with a Python script that traces where firmware input
-is used.
-
-Fixes: 170a6726d0e2 ("usb: typec: ucsi: add support for separate DP altmode devices")
-Cc: stable <stable@kernel.org>
-Reported-by: Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>
-Assisted-by: LLM
-Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20261003215520.611083-2-eeodqql09@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adapted GET_CURRENT_CAM error handling to ucsi_ccg_read() without the upstream CCI status checks ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 560072246088 ("i2c: designware: Support of controller with IC_EMPTYFIFO_HOLD_MASTER disabled")
+Cc: stable@vger.kernel.org # v7.0+
+Suggested-by: David LaPorte <dalaport@amazon.com>
+Link: https://lore.kernel.org/all/20260505232244.71807-1-dalaport@amazon.com/
+Signed-off-by: Sarah Maedel <sarah.maedel@hetzner-cloud.de>
 ---
- drivers/usb/typec/ucsi/ucsi_ccg.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-designware-master.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-index b50933cd4babf..2caef7d02cbb6 100644
---- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-+++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-@@ -351,14 +351,28 @@ static int ucsi_ccg_init(struct ucsi_ccg *uc)
- 	return -ETIMEDOUT;
- }
+diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
+index 7e1d9a2e7733..d7d99c7b6ef2 100644
+--- a/drivers/i2c/busses/i2c-designware-master.c
++++ b/drivers/i2c/busses/i2c-designware-master.c
+@@ -675,8 +675,11 @@ static void i2c_dw_process_transfer(struct dw_i2c_dev *dev, unsigned int stat)
+ 	if (stat & DW_IC_INTR_TX_EMPTY)
+ 		i2c_dw_xfer_msg(dev);
  
--static void ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
-+static int ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
- {
- 	u8 cam, new_cam;
- 
- 	cam = data[0];
-+	if (cam >= UCSI_MAX_ALTMODES) {
-+		dev_err(uc->dev, "PPM returned invalid alternate mode index %u\n",
-+			cam);
-+		return -EPROTO;
-+	}
-+
- 	new_cam = uc->orig[cam].linked_idx;
-+	if (new_cam >= UCSI_MAX_ALTMODES) {
-+		dev_err(uc->dev, "invalid linked alternate mode index %u for %u\n",
-+			new_cam, cam);
-+		return -EPROTO;
-+	}
-+
- 	uc->updated[new_cam].active_idx = cam;
- 	data[0] = new_cam;
-+
-+	return 0;
- }
- 
- static bool ucsi_ccg_update_altmodes(struct ucsi *ucsi,
-@@ -541,7 +555,7 @@ static int ucsi_ccg_read(struct ucsi *ucsi, unsigned int offset,
- 	switch (UCSI_COMMAND(uc->last_cmd_sent)) {
- 	case UCSI_GET_CURRENT_CAM:
- 		if (uc->has_multiple_dp)
--			ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)val);
-+			ret = ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)val);
- 		break;
- 	case UCSI_GET_ALTERNATE_MODES:
- 		if (UCSI_ALTMODE_RECIPIENT(uc->last_cmd_sent) ==
+-	/* Abort if we detect a STOP in the middle of a read or a write */
+-	if ((stat & DW_IC_INTR_STOP_DET) &&
++	/*
++	 * Abort if we detect a STOP in the middle of a read or a write on a
++	 * controller that doesn't hold SCL on an empty Tx FIFO.
++	 */
++	if (!dev->emptyfifo_hold_master && (stat & DW_IC_INTR_STOP_DET) &&
+ 	    (dev->status & (STATUS_READ_IN_PROGRESS | STATUS_WRITE_IN_PROGRESS))) {
+ 		dev_err(dev->dev, "spurious STOP detected\n");
+ 		dev->rx_outstanding = 0;
 -- 
-2.53.0
+2.47.3
 
