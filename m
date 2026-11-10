@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325885;
-	b=zGpQJclRhlQQOnMT6vKiDu7/kPg4Yey4CIn+UWvFXA+E2EP0dJxha5Wky1CIdhBIIQtt
-	 QOQKlKfCYZ/DBVuCKE/KAMr09aYxdbChFI2B6L/hQRz/F5diSY3LGLcsZhtRyfBAw8eoc
-	 GE4fp83i/Y8GuvwlOjB5kz9J8xiWctVlojQujR4TXLhp4R/hnCZvzMeHBy46bMbQaBXt+
-	 Nv1KpK107jwkxd1WLi/tFH9C8D9traUznRWA85IEXdryKH/7fUtFVavGmecxJ+iMZtxS5
-	 p7WMEfaQbqT6bZEIZKGfRiSiVIVRkL4j3Z5s0EQsu5/Cy/kxLVNRuZUe4SgPOPufImA==
+	t=1794325948;
+	b=gVn7cKcVJp40vmGQgOT3ZYDsJLAw7VFjTbkydpPoGE5WBR4enndUxfymPisfa2HMjQh0
+	 eUx98lUSQiPahFVkySubUmPZuup/QHocXJofAznkPdQ2IN2Apb/Ik0ojMfW/3x6lAL/g1
+	 T6RolCvUeL3w8Np87cPKSa9H9EjViKx8pdMh/hS9uLRVWe+h21oPc+Se67qa040OxeaQb
+	 KwE2DHeFL1izd7vo16iDVcFCV6FxsKn9MBze5kynrfTVEo/Ngu3ZPVI9/JEo//a43WISu
+	 LQUi15f+a0RL6ZEWAYEpwUK/1yOHVBgDUvrCiRLK4yERTBLK40EPMFhjb1UkwMQq5hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325885;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S+yaxY1IOkbr2hblsylEbiBouEaLkWRredpFXFNGEPs=;
-	b=rG/GSGsSRFvgIeAoscgyBgpwUOprL6FuZc4rEovOOEKaDOedd1PzBSoTYO1XbaWkHFpK
-	 DvDQrCrZFicmnYMspZUk4j1P8/zF47YvIaTLDxOI4FOFeKjCgGUJ/L7XYtTYe9Gt2tjea
-	 XXoHxQgJt8EXOXOmCKBI7UVhwLo9AkQxLy1F5F3FoZ+H7m5gIVdicHwerMyF/QxY2RggM
-	 ZIEY/NUBisw84hJvETP3ZamHQ1SlA5MQWy0STYPG7zRNhHamlbQVuKaRQjpTKBcppINMY
-	 2tGZqfnHV1wfGh70+SA2Xxg3/DU9c3EuHC9ONz36r0wwZRALemVudfbYYmb7DK7Yr8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325948;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kvacwBNxHoohQeYATf3YslVd/AD5lRPWRkxpoDZW0zU=;
+	b=5GtRCXtm2we8TOBTpdOLvJNZTjoOzNiEs5/X+S969oxE/BHzr/yb18uxpXjBxTRTt6df
+	 fdbpPs2U0Vj2Io6rGg1KQY7rUr+dtXdvgvPOilUJ29lGlZBmT/Q22SUjBxAC/aLjHkhe8
+	 xe4LQUpOtDOY966Lt4PtkAJmkLNu+CHqMkoHrdiwnUE8G6zdw44bz+70TcOpx5JlW9FqX
+	 8q0NkeTqqJau2uScn5mexHry2K/RsdCTgzqn67t06wWmRSAGAyoIyf8jf1djZSL+T/H9X
+	 qbGYSX5fwpX3HjXMlcomYw0ou33M49ebnpZYZGqG3zZOzUgnL4CKBRh0IrOvR546xSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rld116DC;
-	arc=none smtp.remote-ip=91.218.175.115
-Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6bo1BYt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A56B606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:51:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A56B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC84606A323
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:52:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rld116DC
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ekUbTVzeA1JNlzfG7xd+5633WBpvGDfH+mmSDR5DYLM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794325882; v=1; x=1794930682;
- b=rld116DCyefpF4HY6HzebCbZOPxDgtBgxSsjhBvC1bllJIxpyyrQhJq+P+PzvTn4OLH4t74n
- Mc9IMqMWy0YdoXmgUVTTIjmZC8DOoFaUD6ZduG7QNFZskXgOx/QcJ0nYRCt6F/hu0SpO1Vr+WNN
- IOz/Hc+sRP6qee1SHukxIaG4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef20ab98b7ec7150;
-	Tue, 10 Nov 2026 15:51:22 +0000
-X-Mizu-Trace-ID: ef20ab98b7ec7150
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 10 Nov 2026 15:51:18 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: mic@digikod.net
-CC: brads@mainlining.org, brauner@kernel.org, dhowells@redhat.com,
- jarkko@kernel.org, jmorris@namei.org, josef@toxicpanda.com,
- keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- morgan@kernel.org, paul@paul-moore.com, serge@hallyn.com, sergeh@kernel.org,
- stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_Let_LSMs_deny_the_?=
- =?US-ASCII?Q?CAP=5FSETFCAP_snapshot_for_mapping_uid_0?=
-In-Reply-To: <20261110144205.2404088-1-mic@digikod.net>
-Message-ID: <80A558D7-7DC3-4780-91F5-990E4917E8A4@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6bo1BYt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A991F0089F;
+	Tue, 10 Nov 2026 15:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794325947;
+	bh=kvacwBNxHoohQeYATf3YslVd/AD5lRPWRkxpoDZW0zU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=I6bo1BYtcmt6D9qdTxvke3DGODDqhE4ycaLPEre4OZRNJgvijb7eZYoewPLQtP6sA
+	 NFVy0Rj+jgBh9CqubKKIeHl3rsN/FL9TZKj+tB7YBwdtUFzWbvkv3Ncyu0dJWe4JmL
+	 sQM7SYN/97J9ytRGq3dy0NVlmpXEkXVg1CMMaBL+yHO2LuBnYXlVtDnIXV8z8p2lNK
+	 v7+Vg10LH0wcpULQG8eemOX65N/8DGPHWL+NgYQ2T2V6IZQSUe9hqYQvf2+CxPo7Hp
+	 gW7bwy2lclE9iuKUgTyf738WE4MQYvlvEtqaQcdUBXQiiw2OVJYpn8exmanzCdTpci
+	 l92u70REBDuoQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Lee <david.lee@trailofbits.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] sctp: hold shkey across socket migration
+Date: Tue, 10 Nov 2026 10:52:24 -0500
+Message-ID: <20261110155217.2337999-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050505-failed-7.3-52ffeaa358d1@kernel.org>
+References: <20261107050505-failed-7.3-52ffeaa358d1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,92 +61,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 10 November 2026 14:42:04 GMT, "Mickaël Salaün" <mic@digikod.net> wrote:
->Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
->records in parent_could_setfcap whether the creator of a user namespace
->had CAP_SETFCAP, because a creator writing its own uid_map only has
->capabilities in the new namespace.  The snapshot uses cap_raised(), so a
->task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
->namespace it creates.
->
->Use security_capable() against the parent namespace instead: the
->creator's credentials still belong to it at this point, so commoncap
->returns the same result, and only LSM denials are added.
->
->Do not audit this check: creating a user namespace does not use
->CAP_SETFCAP, and most namespaces never map uid 0.  The uid_map write
->that later fails has no LSM audit record.
->
->Checking CAP_SETFCAP when the map is written would not work: the
->writer's credentials then belong to the new namespace, where commoncap
->grants the creator all capabilities.
->
->Cc: Christian Brauner <brauner@kernel.org>
->Cc: Josef Bacik <josef@toxicpanda.com>
->Cc: Paul Moore <paul@paul-moore.com>
->Cc: Serge Hallyn <serge@hallyn.com>
+From: David Lee <david.lee@trailofbits.com>
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+[ Upstream commit ad1320865b1826ffa2e81e37c49535751e81335c ]
 
-I'm logging out of mainlining.org (sigh) anything meant to be cc'ing me,
-e.g: get maintainers should cc the linux.dev email instead, annoying brr.
+sctp_sock_migrate() transfers queued DATA skbs from the old socket to the
+new one. skb_orphan() invokes sctp_wfree() during that transfer and drops
+the skb-owned shared-key reference.
 
->Cc: stable@vger.kernel.org
->Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
->Signed-off-by: Mickaël Salaün <mic@digikod.net>
->---
->
->This is independent from Josef Bacik's series, which reworks this code
->to close other ways around the CAP_SETFCAP rule:
->https://patch.msgid.link/20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com
->
->That series still computes the creator's CAP_SETFCAP with cap_capable()
->and cap_raised() in cap_setfcap_level(), so it would need the same
->change.
->---
-> include/linux/user_namespace.h | 5 +++--
-> kernel/user_namespace.c        | 8 +++++++-
-> 2 files changed, 10 insertions(+), 3 deletions(-)
->
->diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
->index 91232053775d..370961fde45f 100644
->--- a/include/linux/user_namespace.h
->+++ b/include/linux/user_namespace.h
->@@ -86,8 +86,9 @@ struct user_namespace {
-> 	kgid_t			group;
-> 	struct ns_common	ns;
-> 	unsigned long		flags;
->-	/* parent_could_setfcap: true if the creator if this ns had CAP_SETFCAP
->-	 * in its effective capability set at the child ns creation time. */
->+	/* parent_could_setfcap: true if the creator of this ns could use
->+	 * CAP_SETFCAP in the parent ns at the child ns creation time.
->+	 */
-> 	bool			parent_could_setfcap;
-> 
-> #ifdef CONFIG_KEYS
->diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
->index cd748e1cbace..57b7f10be74e 100644
->--- a/kernel/user_namespace.c
->+++ b/kernel/user_namespace.c
->@@ -128,7 +128,13 @@ int create_user_ns(struct cred *new)
-> 	if (!ns)
-> 		goto fail_dec;
-> 
->-	ns->parent_could_setfcap = cap_raised(new->cap_effective, CAP_SETFCAP);
->+	/*
->+	 * verify_root_map() relies on this once the creator only has
->+	 * capabilities in the new namespace.  Let LSMs deny it, but do not
->+	 * audit: the creator may never map uid 0.
->+	 */
->+	ns->parent_could_setfcap =
->+		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
-> 
-> 	ret = ns_common_init(ns);
-> 	if (ret)
->
+If userspace has removed that key from the association, this can be the
+final reference. The following sctp_set_owner_w() then dereferences the
+freed chunk->shkey while trying to take the new owner reference.
 
---- Thanks!
+Take a temporary shared-key reference before orphaning the skb and release
+it after the new owner has taken its reference. This preserves the selected
+authentication key throughout the ownership transfer.
+
+Bug found and triaged by OpenAI Security Research and
+validated by Trail of Bits.
+
+Fixes: 1b1e0bc99474 ("sctp: add refcnt support for sh_key")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261009074244.3718-2-juny24602@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 52ffeaa358d1 ("sctp: re-point retained control chunks on association migration")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sctp/socket.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index c616f1609d0cf..b5e205eca3077 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -148,9 +148,19 @@ static inline void sctp_set_owner_w(struct sctp_chunk *chunk)
+ 
+ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ {
++	/* Keep the shkey alive until the new owner takes its reference. */
++	if (chunk->shkey)
++		sctp_auth_shkey_hold(chunk->shkey);
+ 	skb_orphan(chunk->skb);
+ }
+ 
++static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
++{
++	sctp_set_owner_w(chunk);
++	if (chunk->shkey)
++		sctp_auth_shkey_release(chunk->shkey);
++}
++
+ #define traverse_and_process()	\
+ do {				\
+ 	msg = chunk->msg;	\
+@@ -9649,7 +9659,7 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
+ 	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
+ 	sctp_assoc_migrate(assoc, newsk);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w);
++	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
+ 
+ 	/* If the association on the newsk is already closed before accept()
+ 	 * is called, set RCV_SHUTDOWN flag.
+-- 
+2.53.0
+
