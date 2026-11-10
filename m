@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315079;
-	b=taV8vArlCLVz/55XLwFbT4NgymvasOXZtfGSP6fo+n2dqaqZ3dFs9Kx+ukqQ+CFfMi6F
-	 YJbqAoKCgKbwMRYiVO9MKDk0WZlK+LmI2lFC0yXnqcQ6AFuShwYWTTbGNEUYACiLKq+Z5
-	 ALpaUZptruogX9+BAQ7omQEzIbLWzxBhFZGNs8MApTnlLfPv1H5qNyFgwO9zZOZ5Is+rS
-	 CrIyrcfyoD/S6QKAj3V6Sf/WRb8px0WYEZjL4G92WXQzTQSQ64asnNkA/UJpxVQ4COQd1
-	 lgFDAvxEK9ecUvGRIqw5ws9bK60p4P69pARY6KJpRlPAe5MhjMCnm0AVYZt+W2jLNhg==
+	t=1794315099;
+	b=Do2+0zOiR/i40hn/K3hGQXIhQSxbwgbQJlhvAFbNHmzhaCEv6EoqTSyrT3fx5G43X0E+
+	 N8YHEUwwkSlMkqnXTNIQd7+wVuUbVoUmvzdTAbco/uoMNMVgd2dEOcqQy5q83TfYFxttb
+	 rhQhIaPFkJQDDz4CARkhKZK0l5GA416wFz5uA7VOrYRdNu5u9TVRlSjxkHJQbVCYsv9nN
+	 8eDsXAQu4I1b5QG6isXTswWEPq7xyKFhWs+Gb0ZzgRAa4liTF+IYOthjRazIfMACMOAqA
+	 7gWikuyapRcTJ6qEwIW1f3AlRcg6T19Y+QgRPRWXv31yqrpoyb0twG4N9o3rHIlxqAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315099;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RiO9UcBJrtbJ0WeFnuboGuUsIdFoUeGDC8bwBZMAowM=;
-	b=fPyd6SGQD+R/diwzDFTnCNSCAHsVL9NI56DVGagqPL9OTWKEoN+fQhlPhrjeJwuK1JXQ
-	 J+4yJCPwZ1+HUtogP4bR/jn4y/TddBBFkqirl9AtSZwBpP5MXDrql9WYdt5iBKachn2GC
-	 //Kq1HeEMr4gTSA6avHZgyoGGWai+8CclXyRf+YQZoaP4NSQw/rNIejoqK/3U1cUEcMhk
-	 XjzOJ6xux+1olQgKXFgywC/ULUs3U0VRD/IUGGLioOwg+AihxGo577zaNqbxhrp02ArN/
-	 tVCWLhIKogK1722UbZaOjEV3hpvGYgDdcWvyjk34ZZPkZ8ZCUFB+SkcTyBrkQweUDTA==
+	bh=btDHAf2MdVl/a/25PD/Q3fDljJaM4RkvS30U5hzsPHQ=;
+	b=Q9qI/ioYlWXgXxx02eEuIRmgC6z5LWt3A3+g8jo36ydtoqiXiz2+PhgB2gxBbu3FgxI1
+	 BWd4A9CqywcIElqL9UUp39EjgGU/5zhiGnVDfKG7h2IJYzrrDzlD/6u5VI9MZiwlRBfNC
+	 VAAc5QDjc1UtAENml0HOXt2IHKG7U6v4SEYztdCL4AR6rmn/T4nk7Tfs+E83aWHBV7WZW
+	 1rmyjvmUn7BfZ29GHLicOUNOzFen+M2so77PVU7hQUmCFBdZE6oW9bek2KSZ3mYIouaTS
+	 NUIGGoPl/OrYFGbfHfVTMzlJdx1Nwia2DuMSf8s/aYBltrdUrU+eRKLHR0ZLfdTbvQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+o6koBs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsGbWjl4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBF060A2613
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6812960A3816
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+o6koBs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26CE01F008A1;
-	Tue, 10 Nov 2026 12:51:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AsGbWjl4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8323E1F008A1;
+	Tue, 10 Nov 2026 12:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315078;
-	bh=RiO9UcBJrtbJ0WeFnuboGuUsIdFoUeGDC8bwBZMAowM=;
+	s=k20260515; t=1794315099;
+	bh=btDHAf2MdVl/a/25PD/Q3fDljJaM4RkvS30U5hzsPHQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a+o6koBsc9Iq4vZwtm1OQQahf/mwOmbxS1UdOTURbrM1ZOJfsH2ECGhQOvwsVZGvd
-	 o4w1fK9KSQTYCSQTISbnbhzwM36fPnT61V9bgHXAqDVHP5gL5oUJGJcMD1U8pUfKZR
-	 0eim3cMtKwZYna5oe6WE5E7PU/lLh9yFNuzCJExgDrfVK7W7WuuSiOjmMAN6gYW/Yi
-	 vgDpZ7F/1w3OenkXPnKTSPbYZ6HbmQYooTDxPyH6cYN1lsDEzq8JkhdPBCC0c1OCnm
-	 C8oUDLjj6aaedf3HClXLGaJ8apQl3iH8BYGEL6d3OJpdMKj7OlrtlECV4yc7L7CndA
-	 MXLdkbaSIzKIA==
+	b=AsGbWjl4dj+Jb9QPfZGGYQIhPmb+OHZ+tTdld28RxXTtjcPmz8/uIMX1kKAnEj8oB
+	 iIH8cAAez0x8SgI/ErlEc4bEZObIHOJraVKV57ustHcieqz/5FQFvU1NtB6SYBdOqP
+	 Pfi4RBhZuYaniXGi8Gws0yjR/Zy3IhNX7Vh8fJM68SPpYzj4kpCF3TT6EEnm61LFgV
+	 5NXF0v+cE5peBdJ1bL4HGy42+BKBy5YGkKpuV+WfPkheJrp5wNdsWkJhqw1SysnJzo
+	 39yfwd3fkkxZCC8He6cIfp/G3m3rXPNF/R0HVSuPqvo6kjdNx08apaOt18PpbwXzED
+	 iGFyALIgKdqXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abhishek Dubey <adubey@linux.ibm.com>,
-	sashiko-bot@kernel.org,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	Saket Kumar Bhaskar <skb99@linux.ibm.com>,
-	Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>,
-	R Nageswara Sastry <rnsastry@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Zhiguo Niu <zhiguo.niu@unisoc.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] powerpc/bpf: fix buffer overflow in JIT for large BPF programs
-Date: Tue, 10 Nov 2026 07:51:15 -0500
-Message-ID: <20261110125049.1482034-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] f2fs: fix to avoid folio->mapping dereference in is_{meta, node}_folio()
+Date: Tue, 10 Nov 2026 07:51:37 -0500
+Message-ID: <20261110125127.1536509-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053044-failed-6.6-78ce55b7913a@kernel.org>
-References: <20261107053044-failed-6.6-78ce55b7913a@kernel.org>
+In-Reply-To: <20261107050646-failed-6.18-b5a71253c5c7@kernel.org>
+References: <20261107050646-failed-6.18-b5a71253c5c7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,162 +63,200 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Abhishek Dubey <adubey@linux.ibm.com>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 78ce55b7913a78e1687306668e078b86bc6508ee ]
+[ Upstream commit b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7 ]
 
-During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
-is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
-as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
-epilogue instructions are not counted in alloclen.
+Otherwise, it may cause NULL pointer dereference in race condition:
 
-In later passes, if the real exit_addr falls outside the 32MB branch
-range, the full inline epilogue is emitted into the already-allocated
-buffer, writing past its end and corrupting adjacent memory.
+Thread A			Thread B
+				- f2fs_setattr
+				 - f2fs_truncate
+				  - f2fs_truncate_blocks
+			    	   - f2fs_do_truncate_blocks
+				    - f2fs_truncate_inode_blocks
+				     - truncate_dnode
+				      - truncate_node
+				       - invalidate_mapping_pages
+				        - folio->mapping = NULL
+- folio_lock
+- is_node_folio
+ - F2FS_F_SB(folio): dereference on folio->mapping
 
-Fix by ensuring exit_addr is non-zero before treating it as in-range,
-so pass-0 always falls through to bpf_jit_build_epilogue() and
-conservatively accounts for all epilogue instructions in alloclen.
-Also range check alt_exit_addr directly in the else-if condition.
-
-Since exit_addr handling now falls through to the epilogue, two
-related issues in bpf_int_jit_compile() must also be addressed:
-
-1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
-   Without this, a stale alt_exit_addr from the first pass causes the
-   second pass to emit a single jump instead of the full epilogue,
-   undercounting alloclen and reintroducing the overflow.
-
-2. Recompute addrs[fp->len] at the end of each code-generation pass.
-   The larger pass-0 body can shrink in later passes as out-of-range
-   exits settle into in-range jumps; a stale addrs[fp->len] would
-   leave exit branches targeting past the real (shrunken) epilogue.
-
-Because shrinkage in a later pass can move the epilogue offset, the
-fixed two-pass loop is no longer sufficient: an exit that was out of
-range in an earlier pass may fall in range once the epilogue offset
-shrinks, shrinking the body further and overwriting the start of the
-epilogue. Convert the code-generation loop to iterate until the
-program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
-JIT if it does not converge.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
-[ sashal: adapted convergence-failure cleanup to use bpf_jit_binary_free() and the existing out_addrs error path ]
+Cc: stable@kernel.org
+Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
+Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
+Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: used the existing sbi parameter in f2fs_in_warm_node_list() without changing its signature or callers ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/powerpc/net/bpf_jit.h      |  7 +++++++
- arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
- 2 files changed, 33 insertions(+), 8 deletions(-)
+ fs/f2fs/checkpoint.c |  4 ++--
+ fs/f2fs/data.c       |  5 +++--
+ fs/f2fs/f2fs.h       |  8 ++++----
+ fs/f2fs/gc.c         |  2 +-
+ fs/f2fs/node.c       | 16 ++++++++--------
+ 5 files changed, 18 insertions(+), 17 deletions(-)
 
-diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
-index 72b7bb34fadea..6459ae8c12ab2 100644
---- a/arch/powerpc/net/bpf_jit.h
-+++ b/arch/powerpc/net/bpf_jit.h
-@@ -13,6 +13,13 @@
- #include <asm/types.h>
- #include <asm/ppc-opcode.h>
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 66d3714dda32a..4c54d75c8981e 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -93,7 +93,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
+ 	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE);
  
-+/*
-+ * We need at least 2 passes for proper code generation, and may need
-+ * additional passes if code size changes between passes.
-+ */
-+#define CODEGEN_MIN_PASSES    2
-+#define CODEGEN_MAX_PASSES    3
-+
- #ifdef CONFIG_PPC64_ELF_ABI_V1
- #define FUNCTION_DESCR_SIZE	24
- #else
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 877e7ff387856..03c270c6a5940 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -25,11 +25,10 @@ static void bpf_jit_fill_ill_insns(void *area, unsigned int size)
- 
- int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
- {
--	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
-+	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
- 		PPC_JMP(exit_addr);
--	} else if (ctx->alt_exit_addr) {
--		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
--			return -1;
-+	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
-+			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
- 		PPC_JMP(ctx->alt_exit_addr);
- 	} else {
- 		ctx->alt_exit_addr = ctx->idx * 4;
-@@ -134,6 +133,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
- 	 */
- 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
- 		cgctx.idx = 0;
-+		cgctx.alt_exit_addr = 0;
- 		if (bpf_jit_build_body(fp, 0, &cgctx, addrs, 0, false)) {
- 			fp = org_fp;
- 			goto out_addrs;
-@@ -168,10 +168,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
- skip_init_ctx:
- 	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
- 
--	/* Code generation passes 1-2 */
--	for (pass = 1; pass < 3; pass++) {
-+	/* Code generation passes 1-2+, loop until program size converges. */
-+	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
-+		u32 prev_proglen = proglen;
-+
- 		/* Now build the prologue, body code & epilogue for real. */
- 		cgctx.idx = 0;
-+		cgctx.exentry_idx = 0;
- 		cgctx.alt_exit_addr = 0;
- 		bpf_jit_build_prologue(code_base, &cgctx);
- 		if (bpf_jit_build_body(fp, code_base, &cgctx, addrs, pass, extra_pass)) {
-@@ -179,11 +182,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *fp)
- 			fp = org_fp;
- 			goto out_addrs;
- 		}
-+		addrs[fp->len] = cgctx.idx * 4;
- 		bpf_jit_build_epilogue(code_base, &cgctx);
- 
-+		proglen = cgctx.idx * 4;
-+
- 		if (bpf_jit_enable > 1)
- 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
--				proglen - (cgctx.idx * 4), cgctx.seen);
-+				prev_proglen - proglen, cgctx.seen);
-+
-+		/* Check if program size has converged, but ensure minimum passes */
-+		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
-+			break;
-+
-+		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
-+			pr_err("BPF JIT: Program did not converge after %d passes\n",
-+								CODEGEN_MAX_PASSES);
-+			bpf_jit_binary_free(bpf_hdr);
-+			fp = org_fp;
-+			goto out_addrs;
-+		}
+ 	folio_lock(folio);
+-	if (unlikely(!is_meta_folio(folio))) {
++	if (unlikely(!is_meta_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
  	}
+@@ -439,7 +439,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, enum page_type type,
  
- 	if (bpf_jit_enable > 1)
-@@ -245,7 +263,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, int pass, struct code
- 	u32 *fixup;
+ 			folio_lock(folio);
  
- 	/* Populate extable entries only in the last pass */
--	if (pass != 2)
-+	if (pass < CODEGEN_MIN_PASSES)
- 		return 0;
+-			if (unlikely(!is_meta_folio(folio))) {
++			if (unlikely(!is_meta_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index eba1e025b9d6e..a9a829315c305 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -153,7 +153,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+ 		dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
  
- 	if (!fp->aux->extable ||
+ 		if (bio->bi_status == BLK_STS_OK &&
+-			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
++			F2FS_F_SB(folio)->node_inode &&
++			is_node_folio(F2FS_F_SB(folio), folio) &&
+ 			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
+ 				folio, folio->index, NODE_TYPE_REGULAR, true))
+ 			bio->bi_status = BLK_STS_IOERR;
+@@ -359,7 +360,7 @@ static void f2fs_write_end_io(struct bio *bio)
+ 						STOP_CP_REASON_WRITE_FAIL);
+ 		}
+ 
+-		if (is_node_folio(folio)) {
++		if (is_node_folio(sbi, folio)) {
+ 			f2fs_sanity_check_node_footer(sbi, folio,
+ 				folio->index, NODE_TYPE_REGULAR, true);
+ 			f2fs_bug_on(sbi, folio->index != nid_of_node(folio));
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index ec1b9831e5afe..82c3c4ebcb3e6 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2222,14 +2222,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
+ 	return sbi->node_inode->i_mapping;
+ }
+ 
+-static inline bool is_meta_folio(struct folio *folio)
++static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == META_MAPPING(sbi);
+ }
+ 
+-static inline bool is_node_folio(struct folio *folio)
++static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == NODE_MAPPING(sbi);
+ }
+ 
+ static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index e85d7f239e7d0..e3ae70e297c82 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1418,7 +1418,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 							F2FS_BLKSIZE);
+ 
+ 		folio_lock(mfolio);
+-		if (unlikely(!is_meta_folio(mfolio) ||
++		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
+ 			     !folio_test_uptodate(mfolio))) {
+ 			err = -EIO;
+ 			f2fs_folio_put(mfolio, true);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 60969e5f1201b..1b67184df3dd6 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -327,7 +327,7 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
+ 
+ bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return is_node_folio(folio) && IS_DNODE(folio) && is_cold_node(folio);
++	return is_node_folio(sbi, folio) && IS_DNODE(folio) && is_cold_node(folio);
+ }
+ 
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
+@@ -1266,7 +1266,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+ 			goto fail;
+ 		if (offset[1] == 0 && get_nid(folio, offset[0], true)) {
+ 			folio_lock(folio);
+-			BUG_ON(!is_node_folio(folio));
++			BUG_ON(!is_node_folio(sbi, folio));
+ 			set_nid(folio, offset[0], 0, true);
+ 			folio_unlock(folio);
+ 		}
+@@ -1579,7 +1579,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 
+ 	folio_lock(folio);
+ 
+-	if (unlikely(!is_node_folio(folio))) {
++	if (unlikely(!is_node_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -1698,7 +1698,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -1930,7 +1930,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -1988,7 +1988,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+ 			   ino, last_folio->index);
+ 		folio_lock(last_folio);
+-		if (unlikely(!is_node_folio(last_folio))) {
++		if (unlikely(!is_node_folio(sbi, last_folio))) {
+ 			f2fs_folio_put(last_folio, true);
+ 			ret = -EAGAIN;
+ 			goto out;
+@@ -2066,7 +2066,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio)))
++			if (unlikely(!is_node_folio(sbi, folio)))
+ 				goto unlock;
+ 			if (!folio_test_dirty(folio))
+ 				goto unlock;
+@@ -2138,7 +2138,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
+ 			else if (!folio_trylock(folio))
+ 				continue;
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
 -- 
 2.53.0
 
