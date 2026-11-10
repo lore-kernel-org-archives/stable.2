@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272983;
-	b=ILyc2jn4CX4wyqrlnJWdwct2465R4BX8AU+XVwmq40L3yrKziuTuHg+BC+w5JxTQQc2d
-	 9wnx2eTnP+kDDc5WcXZw8Jbj36gOwAz4YLMKGmnls5p8cP0FjYB01bScanZzlt/ig3H/d
-	 VWDGtMQ7LnD2u37um1W6L7yqrQ7aOg37fHx0ySa9s4mO/N0M9BC3oIggrnjyh2CXw8KOD
-	 wB/lthcuCnGyxpXmtz1dOdjc7FSC6AT+c1FKA5QFFlhppzF3fdeOdKun+pr3IrF94n+so
-	 OCfKRBbZCKFC+8c2UEKTXiOLr85YSStz4Rt+USyIpjFPyWU6hTx6pXHeb/qwPvtSkoA==
+	t=1794272987;
+	b=yJL/6Qq74Jx5hL+jMSaLXCzwgqxAoUjiId5ttBL5X80u2dPpz6c7Gw/Wzh+rzXQ2wm/j
+	 PeOHLmYxfNwePy61JtfMsEr7gquVaWXa5VaAkFfxRUJF5kwNJphvPQa0VBJqALFHEI+7G
+	 dJmpJekr82rteINhwjFny41eauhE/OF3B7beEHst4EAXAOVvYaq1nsc6PCEmZj5yd2bjw
+	 ewGmo0yD88dwkJfonfHZFZTq30LwZVILpE58eYGkdLx7Ay65sR2eYildSItQh5QK38YdT
+	 PnJgGaOST8bVrOW3W2BAZYmpqZg3CGWKLfBOoO4BM2mM1DWHlXKDs4srIS8YxUImWcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272983;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272987;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BNiBgGSxHyVeVlQVcRqfV2ttHVIJT+xAlhzk35hv+6o=;
-	b=qtAj0Jfr5HT3j0WGHH+2d3K+NouBaHyfDu8OtymIaV7yyXBZCMrcU0Hbz+jmMgyZg5hS
-	 pnbrtZNIcyJ6rcH1DnViBrf45g1r18cLf8i04KRtcZy9MMgdJllmG05c2YZj1SdI+G+qz
-	 s3kVjYUH+lZ4JfJ82+kTYbRrehMWcgbEHTL2v27S52jFY8Q0oxN5RigkPVfxE+7jphqpV
-	 ycvelbOKFEohqdc403BAYErYG1i84mJGAeXsMCOxKTpbzBJ5Tngsj/uyzM9TD73MnPfxz
-	 g0kZREZrN7+vNwp6yy2TzmAVZb66hcUmKiosgoJ/MEdbCTJ1o99jrDWTf50gWxQlGyw==
+	bh=ZoOoB1PwYUfmMAsMvdekJ1rW1yvfLHGVdC+UyFoDstQ=;
+	b=H5bjFuv5kWjlw8Wyr4aP3kPdYXGAKYzRkekxuizHowZn9bW1d0Z1FR7WJeQ1ypy+nevq
+	 ucSRHMC61+lccPgWzTw+x+qo0PNutKl0mwidA3vWO1Uu8MFD8Oqu8N5oadxnlK+HzkVIH
+	 6NwAzkdR/MNWcp/NNDN8SrEQmvZa521Br3HgcB3E++jaFeiGF3UORLwLuEkMjpp4MRrW8
+	 v7IQnoiDgVWpkTHlt/J8S9XQmoz7zWO8jcFAHPoB8JU/noV1OMW981A8BIwqiNFdQ8ato
+	 Qg4bKQCEfPL2+pJ2En0WcFODFBzOV9t+r8FlKgcbCF9Ts51HLiwrmy4M9w5qOUK4bNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UmhZkkWS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JdLRFh/3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80398606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CE660A2600
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UmhZkkWS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8511F008A1;
-	Tue, 10 Nov 2026 01:09:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JdLRFh/3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073181F0089F;
+	Tue, 10 Nov 2026 01:09:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272983;
-	bh=BNiBgGSxHyVeVlQVcRqfV2ttHVIJT+xAlhzk35hv+6o=;
+	s=k20260515; t=1794272986;
+	bh=ZoOoB1PwYUfmMAsMvdekJ1rW1yvfLHGVdC+UyFoDstQ=;
 	h=From:To:Cc:Subject:Date;
-	b=UmhZkkWSr8dqTZDBbWqRKV4M4aJht6ZHFgfHSOQo05vraSi7lsqaVPpsNrPia5dAN
-	 6Bq4+ZhF8ySv+Wg41hWMVXMFdP14HfARWFBiOAWThp6Xkka8uX8o0dnOASNCgFHBYg
-	 2gwdXWcyvrvgyiwE4TCObBTvoT201FEHcDd9VZYTAxgqFWPjbp3QbfTGPVsMhqx46X
-	 0mswJW8r4UIq5RPnWEfj2oSBz42gVBU4xLU1LhednwRrKoioH6cDWr+UgcNhk0hCQS
-	 aXIt6fLmCb6aTqudzONPZuotGQkqGx6y5j2IhhSF7xT8A9wcEWlurUPHL+2YnDS2eM
-	 n0Ad1k70t64RA==
+	b=JdLRFh/3UmC7sUxcA6t/JkUUPuNs0P2MtSTGCubJjYfYceo5jSllFL/ZYULQeMDjt
+	 xqs52YhHsGZzPaGwOSc88+eyfsP9bgFx78VkEIaCZoUuthyorVtoqZSoih94D9/Wds
+	 XyONjJos07JtN9aaEdXkzocClJh0aKhBBHT2Tp0XOGr8bVslr6qO9y2UJ7CYWJ27I6
+	 H72J3lrVmMJ9ODC54Kzqu+PxnQSyI+HoV3TaUA6Fezvtht5Gm5jDMfpBRonn6mIq3j
+	 rZZBIi8rf+0+ZpsHtpMKD3Bgd1eJieBm2H4PRnGPcdrvaFZhLW8ex0ELE0XsR8VLQ3
+	 kQHEDR/uNWh3w==
 From: Sasha Levin <sashal@kernel.org>
-To: amir73il@gmail.com,
-	brauner@kernel.org,
-	edvard@tuta.io
+To: prike.liang@amd.com,
+	lijo.lazar@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:09:41 -0500
-Message-ID: <20261109200941-failed-6.12-323899b4ed23@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: finish GPU recovery callbacks before restarting schedulers" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:09:44 -0500
+Message-ID: <20261109200944-failed-6.12-733389cb31e2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,120 +69,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 323899b4ed233d5b6e2fc160c16fbf39cf0317da
+git cherry-pick -x 733389cb31e2c55e355410759fdc68afe74a4582
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200941-failed-6.12-323899b4ed23@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200944-failed-6.12-733389cb31e2@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 323899b4ed233d5b6e2fc160c16fbf39cf0317da Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 30 Oct 2026 18:07:02 +0100
-Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
+From 733389cb31e2c55e355410759fdc68afe74a4582 Mon Sep 17 00:00:00 2001
+From: Prike Liang <Prike.Liang@amd.com>
+Date: Thu, 20 Aug 2026 15:27:56 +0800
+Subject: [PATCH] drm/amdgpu: finish GPU recovery callbacks before restarting
+ schedulers
 
-When fanotify hands a listener an fd for a permission event on an
-overlay directory, ovl_dir_open_realfile() opens the real directory via
-dentry_open(), not backing_file_open(), so the lower open could still
-raise FS_OPEN_PERM and deadlock a listener that also marks the backing
-filesystem.
+Run GPU post-reset callbacks, including KFD and display-audio resume,
+before restarting DRM scheduler workqueues. IP hardware initialization
+already happens inside ASIC recovery; this change orders the remaining
+callbacks before new scheduler submissions. Preserve the emergency-stop
+and guity job completition path's callbacks without starting schedulers,
 
-Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
-when the overlay user file must not generate events.  Ordinary
-ovl_path_open() callers are unchanged.
-
-Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
-Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Acked-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 1f6433e2b264e75c56ae95f187788806201bdbc3)
 Cc: stable@vger.kernel.org
-Tested-by: Edvard Conrad <edvard@tuta.io>
-Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- fs/open.c                |  1 +
- fs/overlayfs/overlayfs.h |  9 ++++++++-
- fs/overlayfs/readdir.c   |  3 ++-
- fs/overlayfs/util.c      | 11 ++++++++++-
- 4 files changed, 21 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/fs/open.c b/fs/open.c
-index e43f02ff64acb..bb484b07390ac 100644
---- a/fs/open.c
-+++ b/fs/open.c
-@@ -1172,6 +1172,7 @@ struct file *dentry_open_nonotify(const struct path *path, int flags,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 53f05ee7193f2..5bec9cd3f7d39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5859,8 +5859,10 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 
+ 	amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
+ 				      hive, need_emergency_restart);
+-	if (need_emergency_restart)
+-		goto skip_sched_resume;
++	if (need_emergency_restart) {
++		amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
++		goto reset_unlock;
++	}
+ 	/*
+ 	 * Must check guilty signal here since after this point all old
+ 	 * HW fences are force signaled.
+@@ -5870,18 +5872,17 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	if (job && (dma_fence_get_status(&job->hw_fence->base) > 0)) {
+ 		job_signaled = true;
+ 		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
+-		goto skip_hw_reset;
++		goto post_resume;
  	}
- 	return f;
- }
-+EXPORT_SYMBOL_GPL(dentry_open_nonotify);
  
- /**
-  * kernel_file_open - open a file for kernel internal use
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index e9389a10452e8..b5a672e8e4764 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -531,7 +531,14 @@ void ovl_dir_modified(struct dentry *dentry, bool impurity);
- u64 ovl_inode_version_get(struct inode *inode);
- bool ovl_is_whiteout(struct dentry *dentry);
- bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path);
--struct file *ovl_path_open(const struct path *path, int flags);
-+struct file *ovl_path_open_realfile(const struct file *user_file,
-+				    const struct path *path, int flags);
-+
-+static inline struct file *ovl_path_open(const struct path *path, int flags)
-+{
-+	return ovl_path_open_realfile(NULL, path, flags);
-+}
-+
- int ovl_copy_up_start(struct dentry *dentry, int flags);
- void ovl_copy_up_end(struct dentry *dentry);
- bool ovl_already_copied_up(struct dentry *dentry, int flags);
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index b862309eba4d1..5d21a328fad46 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -994,7 +994,8 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
- 					  const struct path *realpath)
- {
- 	with_ovl_creds(file_inode(file)->i_sb)
--		return ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
-+		return ovl_path_open_realfile(file, realpath,
-+					      O_RDONLY | (file->f_flags & O_LARGEFILE));
- }
- 
- /*
-diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 6c3fda047f94f..788c6870d67df 100644
---- a/fs/overlayfs/util.c
-+++ b/fs/overlayfs/util.c
-@@ -654,7 +654,8 @@ bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path)
- 		ovl_path_check_xwhiteout_xattr(ofs, path);
- }
- 
--struct file *ovl_path_open(const struct path *path, int flags)
-+struct file *ovl_path_open_realfile(const struct file *user_file,
-+				    const struct path *path, int flags)
- {
- 	struct inode *inode = d_inode(path->dentry);
- 	const struct mnt_idmap *real_idmap = mnt_idmap(path->mnt);
-@@ -682,6 +683,14 @@ struct file *ovl_path_open(const struct path *path, int flags)
- 	if (inode_owner_or_capable(real_idmap, inode))
- 		flags |= O_NOATIME;
- 
-+	/*
-+	 * Directory opens use dentry_open() here, not backing_file_open().
-+	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
-+	 * that also watches the real filesystem does not deadlock.
-+	 */
-+	if (user_file && FMODE_FSNOTIFY_NONE(user_file->f_mode))
-+		return dentry_open_nonotify(path, flags, current_cred());
-+
- 	return dentry_open(path, flags, current_cred());
- }
- 
+ 	r = amdgpu_device_asic_reset(adev, &device_list, reset_context);
+ 	if (r)
+ 		goto reset_unlock;
+-skip_hw_reset:
++post_resume:
++	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ 	r = amdgpu_device_sched_resume(&device_list, reset_context, job_signaled);
+ 	if (r)
+ 		goto reset_unlock;
+-skip_sched_resume:
+-	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ reset_unlock:
+ 	amdgpu_device_recovery_put_reset_lock(adev, &device_list);
+ 	amdgpu_ras_post_reset(adev, &device_list);
 -- 
 2.53.0
 
