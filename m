@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313062;
-	b=OIR1kL71x625Yz94EcCnpQT7/fBDKm7JMO25xZfjqjiYFQVT1+/DM+2+Ua9CmxHA94WZ
-	 Hgv73uAlebMWWKRaCSM6EmZXLvbHrvZxACNXZpfvLo/YswCTmbOWtZCBdjevZRtGFZCH0
-	 aLkXBOMg8eVgMPmSuamQ4DIrbxTfVGBL8+lUTTw4F1YDFkXZdTtTYZbisMXilY9jS6Ybw
-	 dd1s8otcwQEwQlW9Z+60XPuv3CyiiAleO0VIu/ef8JIzFWZPCFcp7qztlLFjb/VQZlPUA
-	 aqd2lx39I8QoaDDR46b8056QaIIiaa72FecPQsFYDx8vukOCJoQq2qI4Q6qlRuZ+27Q==
+	t=1794313101;
+	b=Ljml6OtsBkMcOHlzAdUO7+CYAC+ggnYJzmw37JMItrKCPHn46rotycaQTQ047DQhQ0O1
+	 Ok1JWwnRzbQANJ9VE7RmZbZEXjazToXdl/o6ffKGeGQmb0NgSh0vTYE65Cukv+Ddg1+uY
+	 WSHoG08cSVhm6Xq12H+86zsuHTzOtXFDMZ4bGa9KbYU8TUXnCPFeYNwoPMBub8D29NCM/
+	 8RieT5nYamopdY6hKKqEiOKIO/AJlIi1kDgEyevJnQRt7NGypiSdzyOJ9YgIfkUKmFHk1
+	 TTv3dXWLITX0prtK+KVAYvhecP4xpSVOQaF++fE8bYT/fABhsmN49TlVcdz9JjWROcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313062;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=PjRDWUymC+7EL3JaTKRije1yqTzPKOHWaJhKCJD3MI0=;
-	b=R7h/KNkEGn2Xyej9FGCEPwNRrI3kVoPg0y7FJclV0EQW+06Wt6oHTE7++FLRYp/A423B
-	 Ix9WEaqk6DMaZVn2KVmpfBGoDntNOQBFGjqZHF0Ayt8bndlE/iIyEodL7jLA/oGMws1GD
-	 xl2NWFJsMEMUlaLI2qK3mL30zqLSs/+gABwIUclgtU8XZ3pjKlS+tAV7heuNZkalts2HX
-	 bdWn6ypQ+01mUXEjWX7TqLZIti0ep+VLnCNFjyupy2Y4rYJtkQ3O6ll6KWojUwIR3FsW0
-	 nU65HQG3RQKjR0tWb4KbkdWBhEreitj0sAvoN9Q0TAXCdXFE4CCnaG+WJ1L1utyEZow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313101;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=moRP4OxfWk0Gg0AhpfVz6WbFKqN+qZlZv2qIe4iHWmw=;
+	b=0iR9r/LLSE0BdJn/7+aC7bs856hH5M+7nZeSpn6feOVirrlVlIFrIXfvTp62MMPlDKE8
+	 yK/QzyyCpDjQr0Uu2Mgw7BXZZ0xM1p2vXvI0UGcycpezX2BDTP98V5DIoGPy4cs0pBA2D
+	 zeTwNyGOIoPzhL1sdmGKiBzflZk2tOKHV6KClCtElbzjhhk9/Qo8ldN1kBA0gIlmWhZCP
+	 oVzYIwpr8zGZ7rQQGddtNorjxEszFZBnv/hQW6RO6F48tLiCMfo0bbiIkRmkUPNHeHHLr
+	 /5aL8j2+BrKiTakvsjxyP97QV/TSKl29pFlhPAV+WwW69YRLIlDD4CiL/61BktvJNyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VfPDp6es;
-	arc=none smtp.remote-ip=209.85.128.71
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXlLxFSP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B6B606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:17:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00B6B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A09606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VfPDp6es
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4ad3d35e899so16400995e9.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:17:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794313060; x=1794917860; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PjRDWUymC+7EL3JaTKRije1yqTzPKOHWaJhKCJD3MI0=;
-        b=VfPDp6esFbTdostXxuwMiec3e+Z8+8kQ6nssx9aJVdMDef9+XEmhv2R/Kn3swT1R+/
-         GIHpTG/Zi5S13Kd1XMGTYtV6xgOYZiT8R/fIL6uVR+ILe8wSBA0Jtip5Qep4fA0QSigI
-         K0PmNjv/eJe6bDSB/X1eKAkD1lc5xfDzJiiwSHjiy9S2IYIeB7ZJ5oM0tRhUoCpWar5T
-         H5ed7LJSnCu5RDjaNyKxZkNggbdlECs7f87ik8RWvIZKJGs1De+pC7C3rG8dsYYQxpbE
-         qS+Z+9iHvm33hxtA77l58grbPVc5AI20i8eOtHZ+Bq0BJWv1MfyUB91apTfOW3mX+7uA
-         XPwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794313060; x=1794917860;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PjRDWUymC+7EL3JaTKRije1yqTzPKOHWaJhKCJD3MI0=;
-        b=RDQoCHhdNQv/+ryJ1GTVy8e88N3G4xpdtMjKQl7Iwz3DOhUYw+CPMbBPbU4tfVVx7F
-         ekIOuGrv3UI36Jht9FjzLUnUvAByBKVlQvF9+wG/kYIaIaNC1kMMDZpYlkfqD/wn0R2R
-         k66dINfEbRAPbPMKTuh/Ai5Xlcp7oq9czmnuPLYgwu4sQr8w4n75zy5kVSUKyaf4oRVZ
-         TzjYsEl8ZNNZIl7gc1cPBCfPRgvBU5jqbwuHHYmUPy0cKilTXWl2s99s+MBwDFwRImGI
-         oyeWNKH4vK85oupCmsrzeHI59zarVoT8b9v0VoCX67UDkNeIJyH8R7MW+YFTka5f3rND
-         UFag==
-X-Forwarded-Encrypted: i=1; AL+hErGD4doQa0Biy6ny/3IGz/xNTPvwDzQ3bksrWK3NUWC0ryLKfRsptVd1tqLS3gPZjx5GHwQP0vs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AHYzdVGn3GaTyXs0IA1ww6zS2P4p7jsrrZPt273a3t70MfyMh
-	Ww8tmmQjCempQvLSu8dEld11YvpS78u0S2Mxu/GRWJMG6Kr0y7kBDNA+DB/t6IC/Ulh4NMmxBw=
-	=
-X-Received: from wmbc22.prod.google.com ([2002:a7b:c016:0:b0:4a1:8bbb:59bd])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:19c9:b0:4a7:c366:d791
- with SMTP id 5b1f17b1804b1-4ba02308537mr40596315e9.1.1794313060140; Tue, 10
- Nov 2026 04:17:40 -0800 (PST)
-Date: Tue, 10 Nov 2026 13:17:33 +0100
-In-Reply-To: <20261110121731.2728824-12-ardb+git@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JXlLxFSP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389811F008A1;
+	Tue, 10 Nov 2026 12:18:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794313100;
+	bh=moRP4OxfWk0Gg0AhpfVz6WbFKqN+qZlZv2qIe4iHWmw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JXlLxFSP5VzJVQLKV7gh2D93rwAWLXO/G6famwDPFuRVjASXVRneVBMY/vMdTgf3w
+	 /2Q3EvbrteuCwu1aY7vM5jqbt8Lxcpp022a4YybxajQlQc5sWZDG/dzKI2UZkHQmn1
+	 z4J3pSwS4FhYLkY4TwTxDHp0D1qWJ2nbC5K2GhLBqoM+o00j4+ckNkoGS11y/yjqGO
+	 tQyR12ud8GTDWrcPcbe9MzIw3RJYxzpi/S0pJDElY14dAK13NJBrYEoDhbVxHZvRXf
+	 H9yDBI0kh8SCYnpgbrLlXQ0ROD5OG87teekMMFNpNy70JRUTX4DA/EWWH42UIcD1oO
+	 0qG6dVGoQUIgg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: bui duc phuc <phucduc.bui@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ALSA: core: Clean up file_operations definitions
+Date: Tue, 10 Nov 2026 07:18:17 -0500
+Message-ID: <20261110121811.1094002-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051806-failed-6.12-1bbc033983b7@kernel.org>
+References: <20261107051806-failed-6.12-1bbc033983b7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,44 +58,497 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110121731.2728824-12-ardb+git@google.com>
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261110121731.2728824-13-ardb+git@google.com>
-Subject: [PATCH v2 01/10] efi/zboot: arm64: Add missing barrier after cache maintenance
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Ard Biesheuvel <ardb@kernel.org>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Prevent the I-cache from fetching stale data by issuing a barrier after
-the data cache maintenance completes but before performing the I-cache
-maintenance.
+[ Upstream commit 307835a6eb50e548e58ee604bf91909d4faa4203 ]
 
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Align file_operations initializers with tabs to match the standard
+kernel coding style and improve readability.
+
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20260708140624.562403-1-phucduc.bui@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 1bbc033983b7 ("ALSA: timer: Handle userspace-driven timer ioctls from 32-bit tasks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/efi/libstub/arm64.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/core/compress_offload.c  | 18 +++++++-------
+ sound/core/control.c           | 19 +++++++--------
+ sound/core/hwdep.c             | 23 +++++++++---------
+ sound/core/init.c              | 23 +++++++++---------
+ sound/core/jack.c              | 38 ++++++++++++++---------------
+ sound/core/oss/mixer_oss.c     | 13 +++++-----
+ sound/core/oss/pcm_oss.c       | 21 ++++++++--------
+ sound/core/pcm_native.c        | 44 +++++++++++++++++-----------------
+ sound/core/rawmidi.c           | 16 ++++++-------
+ sound/core/seq/oss/seq_oss.c   | 21 ++++++++--------
+ sound/core/seq/seq_clientmgr.c | 19 +++++++--------
+ sound/core/sound.c             |  9 ++++---
+ sound/core/timer.c             | 25 ++++++++++---------
+ 13 files changed, 140 insertions(+), 149 deletions(-)
 
-diff --git a/drivers/firmware/efi/libstub/arm64.c b/drivers/firmware/efi/libstub/arm64.c
-index e57cd3de0a00..62fc8e53c8a0 100644
---- a/drivers/firmware/efi/libstub/arm64.c
-+++ b/drivers/firmware/efi/libstub/arm64.c
-@@ -107,6 +107,8 @@ void efi_cache_sync_image(unsigned long image_base,
- 			base += lsize;
- 			size -= lsize;
- 		} while (size >= lsize);
-+
-+		dsb(ish);
- 	}
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index ae8ab99f53f86..ec0d4f34404c8 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -1014,17 +1014,17 @@ static long snd_compr_ioctl_compat(struct file *file, unsigned int cmd,
+ #endif
  
- 	asm("ic ialluis");
+ static const struct file_operations snd_compr_file_ops = {
+-		.owner =	THIS_MODULE,
+-		.open =		snd_compr_open,
+-		.release =	snd_compr_free,
+-		.write =	snd_compr_write,
+-		.read =		snd_compr_read,
+-		.unlocked_ioctl = snd_compr_ioctl,
++		.owner		=	THIS_MODULE,
++		.open		=	snd_compr_open,
++		.release	=	snd_compr_free,
++		.write		=	snd_compr_write,
++		.read		=	snd_compr_read,
++		.unlocked_ioctl	=	snd_compr_ioctl,
+ #ifdef CONFIG_COMPAT
+-		.compat_ioctl = snd_compr_ioctl_compat,
++		.compat_ioctl	=	snd_compr_ioctl_compat,
+ #endif
+-		.mmap =		snd_compr_mmap,
+-		.poll =		snd_compr_poll,
++		.mmap		=	snd_compr_mmap,
++		.poll		=	snd_compr_poll,
+ };
+ 
+ static int snd_compress_dev_register(struct snd_device *device)
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 460d8dd8303fb..d8f071218c0ed 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -2269,16 +2269,15 @@ EXPORT_SYMBOL_GPL(snd_ctl_disconnect_layer);
+  *  INIT PART
+  */
+ 
+-static const struct file_operations snd_ctl_f_ops =
+-{
+-	.owner =	THIS_MODULE,
+-	.read =		snd_ctl_read,
+-	.open =		snd_ctl_open,
+-	.release =	snd_ctl_release,
+-	.poll =		snd_ctl_poll,
+-	.unlocked_ioctl =	snd_ctl_ioctl,
+-	.compat_ioctl =	snd_ctl_ioctl_compat,
+-	.fasync =	snd_ctl_fasync,
++static const struct file_operations snd_ctl_f_ops = {
++	.owner		=	THIS_MODULE,
++	.read		=	snd_ctl_read,
++	.open		=	snd_ctl_open,
++	.release	=	snd_ctl_release,
++	.poll		=	snd_ctl_poll,
++	.unlocked_ioctl	=	snd_ctl_ioctl,
++	.compat_ioctl	=	snd_ctl_ioctl_compat,
++	.fasync		=	snd_ctl_fasync,
+ };
+ 
+ /* call lops under rwsems; called from snd_ctl_dev_*() below() */
+diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
+index 10a32004398ff..4334162bc0b22 100644
+--- a/sound/core/hwdep.c
++++ b/sound/core/hwdep.c
+@@ -324,18 +324,17 @@ static int snd_hwdep_control_ioctl(struct snd_card *card,
+ 
+  */
+ 
+-static const struct file_operations snd_hwdep_f_ops =
+-{
+-	.owner = 	THIS_MODULE,
+-	.llseek =	snd_hwdep_llseek,
+-	.read = 	snd_hwdep_read,
+-	.write =	snd_hwdep_write,
+-	.open =		snd_hwdep_open,
+-	.release =	snd_hwdep_release,
+-	.poll =		snd_hwdep_poll,
+-	.unlocked_ioctl =	snd_hwdep_ioctl,
+-	.compat_ioctl =	snd_hwdep_ioctl_compat,
+-	.mmap =		snd_hwdep_mmap,
++static const struct file_operations snd_hwdep_f_ops = {
++	.owner		=	THIS_MODULE,
++	.llseek		=	snd_hwdep_llseek,
++	.read		=	snd_hwdep_read,
++	.write		=	snd_hwdep_write,
++	.open		=	snd_hwdep_open,
++	.release	=	snd_hwdep_release,
++	.poll		=	snd_hwdep_poll,
++	.unlocked_ioctl	=	snd_hwdep_ioctl,
++	.compat_ioctl	=	snd_hwdep_ioctl_compat,
++	.mmap		=	snd_hwdep_mmap,
+ };
+ 
+ static void snd_hwdep_free(struct snd_hwdep *hwdep)
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 92dff1736cfe9..b37269b86be89 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -461,20 +461,19 @@ static int snd_disconnect_fasync(int fd, struct file *file, int on)
+ 	return -ENODEV;
+ }
+ 
+-static const struct file_operations snd_shutdown_f_ops =
+-{
+-	.owner = 	THIS_MODULE,
+-	.llseek =	snd_disconnect_llseek,
+-	.read = 	snd_disconnect_read,
+-	.write =	snd_disconnect_write,
+-	.release =	snd_disconnect_release,
+-	.poll =		snd_disconnect_poll,
+-	.unlocked_ioctl = snd_disconnect_ioctl,
++static const struct file_operations snd_shutdown_f_ops = {
++	.owner		=	THIS_MODULE,
++	.llseek		=	snd_disconnect_llseek,
++	.read		=	snd_disconnect_read,
++	.write		=	snd_disconnect_write,
++	.release	=	snd_disconnect_release,
++	.poll		=	snd_disconnect_poll,
++	.unlocked_ioctl	=	snd_disconnect_ioctl,
+ #ifdef CONFIG_COMPAT
+-	.compat_ioctl = snd_disconnect_ioctl,
++	.compat_ioctl	=	snd_disconnect_ioctl,
+ #endif
+-	.mmap =		snd_disconnect_mmap,
+-	.fasync =	snd_disconnect_fasync
++	.mmap		=	snd_disconnect_mmap,
++	.fasync		=	snd_disconnect_fasync
+ };
+ 
+ /**
+diff --git a/sound/core/jack.c b/sound/core/jack.c
+index e4bcecdf89b7e..c21f041bf4577 100644
+--- a/sound/core/jack.c
++++ b/sound/core/jack.c
+@@ -304,41 +304,41 @@ static ssize_t jack_type_read(struct file *file,
+ }
+ 
+ static const struct file_operations jack_type_fops = {
+-	.open = simple_open,
+-	.read = jack_type_read,
+-	.llseek = default_llseek,
++	.open	=	simple_open,
++	.read	=	jack_type_read,
++	.llseek	=	default_llseek,
+ };
+ #endif
+ 
+ static const struct file_operations sw_inject_enable_fops = {
+-	.open = simple_open,
+-	.read = sw_inject_enable_read,
+-	.write = sw_inject_enable_write,
+-	.llseek = default_llseek,
++	.open	=	simple_open,
++	.read	=	sw_inject_enable_read,
++	.write	=	sw_inject_enable_write,
++	.llseek	=	default_llseek,
+ };
+ 
+ static const struct file_operations jackin_inject_fops = {
+-	.open = simple_open,
+-	.write = jackin_inject_write,
+-	.llseek = default_llseek,
++	.open	=	simple_open,
++	.write	=	jackin_inject_write,
++	.llseek	=	default_llseek,
+ };
+ 
+ static const struct file_operations jack_kctl_id_fops = {
+-	.open = simple_open,
+-	.read = jack_kctl_id_read,
+-	.llseek = default_llseek,
++	.open	=	simple_open,
++	.read	=	jack_kctl_id_read,
++	.llseek	=	default_llseek,
+ };
+ 
+ static const struct file_operations jack_kctl_mask_bits_fops = {
+-	.open = simple_open,
+-	.read = jack_kctl_mask_bits_read,
+-	.llseek = default_llseek,
++	.open	=	simple_open,
++	.read	=	jack_kctl_mask_bits_read,
++	.llseek	=	default_llseek,
+ };
+ 
+ static const struct file_operations jack_kctl_status_fops = {
+-	.open = simple_open,
+-	.read = jack_kctl_status_read,
+-	.llseek = default_llseek,
++	.open	=	simple_open,
++	.read	=	jack_kctl_status_read,
++	.llseek	=	default_llseek,
+ };
+ 
+ static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
+diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
+index a6cc74bb25fd4..34e4dc791119e 100644
+--- a/sound/core/oss/mixer_oss.c
++++ b/sound/core/oss/mixer_oss.c
+@@ -407,13 +407,12 @@ static long snd_mixer_oss_ioctl_compat(struct file *file, unsigned int cmd,
+  *  REGISTRATION PART
+  */
+ 
+-static const struct file_operations snd_mixer_oss_f_ops =
+-{
+-	.owner =	THIS_MODULE,
+-	.open =		snd_mixer_oss_open,
+-	.release =	snd_mixer_oss_release,
+-	.unlocked_ioctl =	snd_mixer_oss_ioctl,
+-	.compat_ioctl =	snd_mixer_oss_ioctl_compat,
++static const struct file_operations snd_mixer_oss_f_ops = {
++	.owner		=	THIS_MODULE,
++	.open		=	snd_mixer_oss_open,
++	.release	=	snd_mixer_oss_release,
++	.unlocked_ioctl	=	snd_mixer_oss_ioctl,
++	.compat_ioctl	=	snd_mixer_oss_ioctl_compat,
+ };
+ 
+ /*
+diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index a65a3b8d04b8c..c49d71dd42808 100644
+--- a/sound/core/oss/pcm_oss.c
++++ b/sound/core/oss/pcm_oss.c
+@@ -3121,17 +3121,16 @@ static inline void snd_pcm_oss_proc_done(struct snd_pcm *pcm)
+  *  ENTRY functions
+  */
+ 
+-static const struct file_operations snd_pcm_oss_f_reg =
+-{
+-	.owner =	THIS_MODULE,
+-	.read =		snd_pcm_oss_read,
+-	.write =	snd_pcm_oss_write,
+-	.open =		snd_pcm_oss_open,
+-	.release =	snd_pcm_oss_release,
+-	.poll =		snd_pcm_oss_poll,
+-	.unlocked_ioctl =	snd_pcm_oss_ioctl,
+-	.compat_ioctl =	snd_pcm_oss_ioctl_compat,
+-	.mmap =		snd_pcm_oss_mmap,
++static const struct file_operations snd_pcm_oss_f_reg = {
++	.owner		=	THIS_MODULE,
++	.read		=	snd_pcm_oss_read,
++	.write		=	snd_pcm_oss_write,
++	.open		=	snd_pcm_oss_open,
++	.release	=	snd_pcm_oss_release,
++	.poll		=	snd_pcm_oss_poll,
++	.unlocked_ioctl	=	snd_pcm_oss_ioctl,
++	.compat_ioctl	=	snd_pcm_oss_ioctl_compat,
++	.mmap		=	snd_pcm_oss_mmap,
+ };
+ 
+ static void register_oss_dsp(struct snd_pcm *pcm, int index)
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 45b34e34412c5..dd135ed91c99c 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -4182,29 +4182,29 @@ static unsigned long snd_pcm_get_unmapped_area(struct file *file,
+ 
+ const struct file_operations snd_pcm_f_ops[2] = {
+ 	{
+-		.owner =		THIS_MODULE,
+-		.write =		snd_pcm_write,
+-		.write_iter =		snd_pcm_writev,
+-		.open =			snd_pcm_playback_open,
+-		.release =		snd_pcm_release,
+-		.poll =			snd_pcm_poll,
+-		.unlocked_ioctl =	snd_pcm_ioctl,
+-		.compat_ioctl = 	snd_pcm_ioctl_compat,
+-		.mmap =			snd_pcm_mmap,
+-		.fasync =		snd_pcm_fasync,
+-		.get_unmapped_area =	snd_pcm_get_unmapped_area,
++		.owner			=	THIS_MODULE,
++		.write			=	snd_pcm_write,
++		.write_iter		=	snd_pcm_writev,
++		.open			=	snd_pcm_playback_open,
++		.release		=	snd_pcm_release,
++		.poll			=	snd_pcm_poll,
++		.unlocked_ioctl		=	snd_pcm_ioctl,
++		.compat_ioctl		=	snd_pcm_ioctl_compat,
++		.mmap			=	snd_pcm_mmap,
++		.fasync			=	snd_pcm_fasync,
++		.get_unmapped_area	=	snd_pcm_get_unmapped_area,
+ 	},
+ 	{
+-		.owner =		THIS_MODULE,
+-		.read =			snd_pcm_read,
+-		.read_iter =		snd_pcm_readv,
+-		.open =			snd_pcm_capture_open,
+-		.release =		snd_pcm_release,
+-		.poll =			snd_pcm_poll,
+-		.unlocked_ioctl =	snd_pcm_ioctl,
+-		.compat_ioctl = 	snd_pcm_ioctl_compat,
+-		.mmap =			snd_pcm_mmap,
+-		.fasync =		snd_pcm_fasync,
+-		.get_unmapped_area =	snd_pcm_get_unmapped_area,
++		.owner			=	THIS_MODULE,
++		.read			=	snd_pcm_read,
++		.read_iter		=	snd_pcm_readv,
++		.open			=	snd_pcm_capture_open,
++		.release		=	snd_pcm_release,
++		.poll			=	snd_pcm_poll,
++		.unlocked_ioctl		=	snd_pcm_ioctl,
++		.compat_ioctl		=	snd_pcm_ioctl_compat,
++		.mmap			=	snd_pcm_mmap,
++		.fasync			=	snd_pcm_fasync,
++		.get_unmapped_area	=	snd_pcm_get_unmapped_area,
+ 	}
+ };
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index c7b39e07e7c39..1eb234250c58a 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -1784,14 +1784,14 @@ static void snd_rawmidi_proc_info_read(struct snd_info_entry *entry,
+  */
+ 
+ static const struct file_operations snd_rawmidi_f_ops = {
+-	.owner =	THIS_MODULE,
+-	.read =		snd_rawmidi_read,
+-	.write =	snd_rawmidi_write,
+-	.open =		snd_rawmidi_open,
+-	.release =	snd_rawmidi_release,
+-	.poll =		snd_rawmidi_poll,
+-	.unlocked_ioctl =	snd_rawmidi_ioctl,
+-	.compat_ioctl =	snd_rawmidi_ioctl_compat,
++	.owner		=	THIS_MODULE,
++	.read		=	snd_rawmidi_read,
++	.write		=	snd_rawmidi_write,
++	.open		=	snd_rawmidi_open,
++	.release	=	snd_rawmidi_release,
++	.poll		=	snd_rawmidi_poll,
++	.unlocked_ioctl	=	snd_rawmidi_ioctl,
++	.compat_ioctl	=	snd_rawmidi_ioctl_compat,
+ };
+ 
+ static int snd_rawmidi_alloc_substreams(struct snd_rawmidi *rmidi,
+diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
+index 77c1214acd90d..9de191f59c67a 100644
+--- a/sound/core/seq/oss/seq_oss.c
++++ b/sound/core/seq/oss/seq_oss.c
+@@ -211,17 +211,16 @@ odev_poll(struct file *file, poll_table * wait)
+  * registration of sequencer minor device
+  */
+ 
+-static const struct file_operations seq_oss_f_ops =
+-{
+-	.owner =	THIS_MODULE,
+-	.read =		odev_read,
+-	.write =	odev_write,
+-	.open =		odev_open,
+-	.release =	odev_release,
+-	.poll =		odev_poll,
+-	.unlocked_ioctl =	odev_ioctl,
+-	.compat_ioctl =	odev_ioctl_compat,
+-	.llseek =	noop_llseek,
++static const struct file_operations seq_oss_f_ops = {
++	.owner		=	THIS_MODULE,
++	.read		=	odev_read,
++	.write		=	odev_write,
++	.open		=	odev_open,
++	.release	=	odev_release,
++	.poll		=	odev_poll,
++	.unlocked_ioctl	=	odev_ioctl,
++	.compat_ioctl	=	odev_ioctl_compat,
++	.llseek		=	noop_llseek,
+ };
+ 
+ static int __init
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 86316cf027aed..4dc5b15029e45 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -2785,16 +2785,15 @@ void snd_seq_info_clients_read(struct snd_info_entry *entry,
+  *  REGISTRATION PART
+  */
+ 
+-static const struct file_operations snd_seq_f_ops =
+-{
+-	.owner =	THIS_MODULE,
+-	.read =		snd_seq_read,
+-	.write =	snd_seq_write,
+-	.open =		snd_seq_open,
+-	.release =	snd_seq_release,
+-	.poll =		snd_seq_poll,
+-	.unlocked_ioctl =	snd_seq_ioctl,
+-	.compat_ioctl =	snd_seq_ioctl_compat,
++static const struct file_operations snd_seq_f_ops = {
++	.owner		=	THIS_MODULE,
++	.read		=	snd_seq_read,
++	.write		=	snd_seq_write,
++	.open		=	snd_seq_open,
++	.release	=	snd_seq_release,
++	.poll		=	snd_seq_poll,
++	.unlocked_ioctl	=	snd_seq_ioctl,
++	.compat_ioctl	=	snd_seq_ioctl_compat,
+ };
+ 
+ static struct device *seq_dev;
+diff --git a/sound/core/sound.c b/sound/core/sound.c
+index 7980b60f4ba0b..5ce042db47559 100644
+--- a/sound/core/sound.c
++++ b/sound/core/sound.c
+@@ -167,11 +167,10 @@ static int snd_open(struct inode *inode, struct file *file)
+ 	return err;
+ }
+ 
+-static const struct file_operations snd_fops =
+-{
+-	.owner =	THIS_MODULE,
+-	.open =		snd_open,
+-	.llseek =	noop_llseek,
++static const struct file_operations snd_fops = {
++	.owner	=	THIS_MODULE,
++	.open	=	snd_open,
++	.llseek	=	noop_llseek,
+ };
+ 
+ #ifdef CONFIG_SND_DYNAMIC_MINORS
+diff --git a/sound/core/timer.c b/sound/core/timer.c
+index a548885e81781..688a2d1257485 100644
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -2101,9 +2101,9 @@ static long snd_utimer_ioctl(struct file *file, unsigned int ioctl, unsigned lon
+ }
+ 
+ static const struct file_operations snd_utimer_fops = {
+-	.llseek = noop_llseek,
+-	.release = snd_utimer_release,
+-	.unlocked_ioctl = snd_utimer_ioctl,
++	.llseek		=	noop_llseek,
++	.release	=	snd_utimer_release,
++	.unlocked_ioctl	=	snd_utimer_ioctl,
+ };
+ 
+ static int snd_utimer_start(struct snd_timer *t)
+@@ -2455,16 +2455,15 @@ static __poll_t snd_timer_user_poll(struct file *file, poll_table * wait)
+ #define snd_timer_user_ioctl_compat	NULL
+ #endif
+ 
+-static const struct file_operations snd_timer_f_ops =
+-{
+-	.owner =	THIS_MODULE,
+-	.read =		snd_timer_user_read,
+-	.open =		snd_timer_user_open,
+-	.release =	snd_timer_user_release,
+-	.poll =		snd_timer_user_poll,
+-	.unlocked_ioctl =	snd_timer_user_ioctl,
+-	.compat_ioctl =	snd_timer_user_ioctl_compat,
+-	.fasync = 	snd_timer_user_fasync,
++static const struct file_operations snd_timer_f_ops = {
++	.owner		=	THIS_MODULE,
++	.read		=	snd_timer_user_read,
++	.open		=	snd_timer_user_open,
++	.release	=	snd_timer_user_release,
++	.poll		=	snd_timer_user_poll,
++	.unlocked_ioctl	=	snd_timer_user_ioctl,
++	.compat_ioctl	=	snd_timer_user_ioctl_compat,
++	.fasync		=	snd_timer_user_fasync,
+ };
+ 
+ /* unregister the system timer */
 -- 
-2.56.0.542.g3ef89b7020-goog
+2.53.0
 
