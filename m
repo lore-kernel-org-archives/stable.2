@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279284;
-	b=IHoGlxeg/w5ZnK9LpuP5G/7LNlZD/yUm50MLpV9ic0OCX3e3kFmpWGU9Yu3THx79zoM5
-	 v6kJqNe2zA5YzQRboqaiR8MDGZEdFWBZTrczSTmP67Mcd+4WMlbL8YkJMVVhvvlLzHpp9
-	 uXMVPSYaoxBvRyUbRVKzzg9ZuEsPAFnPowzkJoVSsyqJcVAzez3GvB9kf5Fo9A2b2oDVG
-	 WsHb18NZrq0f5vCiLiSnfScmmeUbtpn1A53Lil+ABrKanaQL5dFTzROMQ5mG8k8R8LxqK
-	 IZ1fcPcZ6PD17rS8QMzbMOtf61VTJd4+enF1xwCpyNhlhIvoHaKDO8ZMJXNQfDJ7IJA==
+	t=1794279281;
+	b=JxVrCId+zS9tIG4anF84yaQIjENdR3j0L5hUzL14g1C7c4KuwD3X/pMfiJRHaDIUIo9k
+	 YURVGYekoi2RJS4QNRHkrnCUSRPjqILtTkFrQEmQlimZZJcMu/vgltLD6JHtMOlwcvAuP
+	 20VxO8JtS9JRP8sDGtArWlEw0jwl2hGrTXg7nDMtZmUm09SnbIkV9WWKz3JT6j3YOYGAW
+	 z7TAm1YVLqA3H/6OM+y9pqFUtok3AVr8Tf8vj4qqxQWeSWN+jHBS/qib0UeP+XgR0dH5c
+	 xuDMYBrLxq1Op8Yk6g3eSa44ttbtZZNjSPi4H/JfhTHLN8VtRZRkKJLi447Lilok9xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279284;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279281;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=kLvh7tubLXt3zphZJJDCBQWndhkqnqxKlZmt/Xu44wc=;
-	b=KBn8H3fgZZ+lmO2SF7duNafv3Db4cPR4wmMjW71Cg1EYRZe8IGT1qKWze+K1BI4qqWWA
-	 ftuFkX3UebMLbTiJgHoDaj3CJDMjOJ0PiK0wcAU6f+wj52Z8xwn4vq40H/Tg5ZNi6wOrv
-	 wBgvxoNNRzuSh5n63eqmv6CPQRma4vrscmHDq/1TLmuxCreqq9DKLDXr12zxJNwLWpCGk
-	 Tn4Jr5VuqJ0wbzGauUp5oapk+Kdedb3QheOkw+NWQFr2bbuBLELDZ+ftue679YX/qnolF
-	 TPb1RgW5zIPzNZm8BAhv/xqaGxFlpj7J81kUzwWyngDmLovJZHmf2waP4T/6kx8IIDg==
+	bh=g6oh1GoprNv8OEu1mMLaHSeLJSaPWmtGwyTS29b62m0=;
+	b=Ut9I6jw7j00iQzKDNE65m6DwucnkWyni8GIferSc0Pt/7AUnVGkhX0EE32fH5Ym2r/1L
+	 lhzICvxF749dZDKSYAvEK4s3RI3XemEYp7gUtEzSokIOn+Xg4as+6H9FKRAhYMNWFvpnO
+	 g8UKMgKQ82RM82Axr/67WU/BZz4S00XBzKWiO3ADPcVE/F9hqWamCslPfojKpqELwaw5J
+	 K9yhPFZDXxT+krGX9ve1rjw2P2JsO0awHITh4hZgD0miP7xdBwuCPVvc8L28aQaXrq/Qk
+	 l5QEcyZfQsqec7kCXU+ueMoa2AbXoSnNTP7tS4gsZYjB0nGDI98IpbCH+18uHGmN4aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8K8CueU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pd1+6Se3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28E7606A338;
-	Tue, 10 Nov 2026 02:54:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9563606A33E;
+	Tue, 10 Nov 2026 02:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8K8CueU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3B871F008A2;
-	Tue, 10 Nov 2026 02:54:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pd1+6Se3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A341A1F008A3;
+	Tue, 10 Nov 2026 02:54:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794279283;
-	bh=kLvh7tubLXt3zphZJJDCBQWndhkqnqxKlZmt/Xu44wc=;
+	s=k20260515; t=1794279280;
+	bh=g6oh1GoprNv8OEu1mMLaHSeLJSaPWmtGwyTS29b62m0=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=V8K8CueUa+6xjowSiaNRMxVZs8lztAZ7vRCatxa0tl5NkVniMWQxcEU/GcYV7Jcnw
-	 oY1vOVluIx1tPe1uWXfi1PXCTQwJJ3oWmZ6HOwr5hFrsZjloYpP5ZHOjxuVmZTtaNV
-	 8e9oqVh7BezJmfSTVmLhckjxsTTSXp3eB1C1hBRMagcmsRL22q0rjPzntUyUK10VRx
-	 fzM9cVrGz82s+tk/5UDy2SZnRboutchcVBa4IlLh2xy83V+n+Ysmcf34w7WyEPrZmh
-	 /mBPJ3XfF2hqz3iJ5VTUM8MReAOUDveKLNtC0WcAWb66ZqSKDewIlIrBwLwZgQULOb
-	 PSAxu6VCEw8qQ==
+	b=Pd1+6Se3XsSQmJy7AoxFfMVztTEnHzIt+mAhG5+WX7qBSm78fgJVSB+ElozxDSTtv
+	 NyfAc2SzR+VbCsKYxdk83xzLC3jicMTDQD0FmmyyiMDvyhkwTuLyb8emkyZOqtTZUo
+	 KpjvX5VnQHPBbhIFOQys4HZfaq6/LtXR+XJDwFKbCzwFt3g1Jjy0DmvhDTGpwTbfDs
+	 henjDJcEhjBA8l0ncTH9+KKyEnU2c1fY5er4Xv/gaIydtA5pJZBS6I1Q4gGc/Zv1jX
+	 OJyulIKlQDbogds6d0phQ4HtQgU+WQpVJ6X3DyOyJUqM7ElGUP+KFejRuX/Up08Yrv
+	 eTkKssOK0ICtA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B03E391AFCB;
-	Tue, 10 Nov 2026 02:54:43 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B1A7391AFCB;
+	Tue, 10 Nov 2026 02:54:40 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,43 +54,41 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: wait for in-flight device unregistrations before
- netns dismantle
+Subject: Re: [PATCH net] net/mlx5e: Fix queue stats access to queues without
+ stats
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179427928217.3612825.16476819658097015103.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 02:54:42 +0000
-References: <20261105144543.1624238-1-edumazet@kernel.org>
-In-Reply-To: <20261105144543.1624238-1-edumazet@kernel.org>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, stable@vger.kernel.org,
- syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com,
- bsdhenrymartin@gmail.com, kuniyu@google.com, namangulati@google.com,
- pablo@netfilter.org, fw@strlen.de
+ <179427927917.3612825.16915849545369463140.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 02:54:39 +0000
+References: <20261104-mlx5e-qstats-null-v1-1-a6a003245cec@debian.org>
+In-Reply-To: <20261104-mlx5e-qstats-null-v1-1-a6a003245cec@debian.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, joe@dama.to, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com, stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu,  5 Nov 2026 15:45:43 +0100 you wrote:
-> A device can be unregistered by a context other than the cleanup_net()
-> of its own netns, for instance a veth whose peer in another netns is
-> deleted. If references on it are still held, it stays in
-> netdev_wait_allrefs_any(), which rebroadcasts NETDEV_UNREGISTER every
-> second.
+On Wed, 04 Nov 2026 09:04:11 -0800 you wrote:
+> I am seeing the following mlx5e crash in the Meta fleet:
 > 
-> Meanwhile its netns can be dismantled: default_device_exit_batch()
-> only takes care of devices still listed in the netns, then pernet exit
-> handlers free their state, and finally struct net is freed while the
-> device still points to it.
+>   pc : mlx5e_get_queue_stats_rx+0x4c/0xc8
+>   Call trace:
+>    mlx5e_get_queue_stats_rx+0x4c/0xc8 (P)
+>    netdev_stat_queue_sum+0x78/0x480
+>    netdev_nl_qstats_get_dump_one+0xf0/0x268
+>    netdev_nl_qstats_get_dumpit+0x7c/0x1f8
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net: wait for in-flight device unregistrations before netns dismantle
-    https://git.kernel.org/netdev/net/c/c164a431a646
+  - [net] net/mlx5e: Fix queue stats access to queues without stats
+    https://git.kernel.org/netdev/net/c/9a24799e219b
 
 You are awesome, thank you!
 -- 
