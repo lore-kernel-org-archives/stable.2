@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338712;
-	b=3HMUsBRqd536B9Y51i6N/B6LJZXEthNipMkbch/0f80bIzI4I9M0e9ZKIN04OBP8oZCT
-	 wDnBHzRoyo+ZUTPRq4gmDvfBSM545NBtV+9iYOXz9b+2o/nVFMMG9jfKvLqyyiC55HjWa
-	 +tn8pQoV7tn7tCBj5KaDY6sZ+2enW0UEFw92okG1/BIK3dyX722QrSLK5qcf8or2mzaGp
-	 NkdJJFWH+qtKSjN2GJGWe67hZ4JvKGB4e3jzpRzdNILKqNMrUi2jYIex+9LzNIpj2ezhy
-	 44/cob4BaJaAtSzxpQOX2CB83Bp1nRMYBjsXWqSn/N26Rcr1r7Z2LVd7xz+7sDqGvVw==
+	t=1794338861;
+	b=5pskGePRRcfMNsBppunJkonyJh08SQJU3RuXqdcsuPTmUUHQ7CBGt6d6Cdrpl2T4x7bC
+	 6kUOVGVV8hHLJUAMEWAgotL4OUM5d1LKygjMSD5fK1PR5pE6TyMx+p3m7WHA2uEgYCFrn
+	 xgz9evY5TNRpx28ChKacRrv345QYw4yeJkItZuoXXzquHk2i1V/aZeUC6D70LMgYM3VL6
+	 QMbYemIHI1PIPC622/+sHuUdEpXp0kRg5gX0v/tFgvYoOD4drS0kizRIiWgHLX7b3Z36F
+	 yxvD+BfODQ1osMNkLX9f8HDk2zoBMAfh3tSLYS1xRZWOtg23mD9NrpWxIWlUwG5Smzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338712;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vgdESjZzDXG1xYKVM3WnBi0ZWbzfUiqIREyP14pavu4=;
-	b=hbUQVYFUKoE96zC64Dc9XTE8rJit9hJs3hguamc/Fk2FUJLSeohwY9D8zrjIYJshcrRa
-	 JibzXyKQHEmpWtCsKnhKPazBKzBqRrM9jQeOczAL/T25XCZZ1mRdJ/gGLi+6KknrIkOzR
-	 ON5EZuBoP4Kv0GNVFwOHFzb79V5M8sZPmW/d3UjC33N3mxy+Q5R8njdRd0Z/qoiScEYNj
-	 TsytNW1fkVVahv1hRbAvCJGGZm3T68lFIwxaNu2pYIRCcJf/KtaTjhbIMqHmARDH/gC2C
-	 5hVr8fhPosZ/R0/H1l5ir1+yHlHzdUr1J26cD9wfu/XoGfY5DlK4pgKTrgzp4VMKgqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338861;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rDv87ViSXTej8FB33dQs80XO+TcyGG4z65dRhmd00TM=;
+	b=WsRXscPLv6EL+om9UE5ZBZCqUp61n23Tp6w1/a/Fs8Uf6k8NbF1fS589HhA9i2pu4FGj
+	 qvLL1b5G5o4fUh7tkp4fbS10NVUsLz2NFe56SShj11NJUOtjZYQ2kKiP0G4RNU6lEZxqF
+	 5pyA4wBZc8uI2+2iqPCWdS7ytqexdKvki9U+FKMFDjVA5AhFPsgJD6b7fWJK8jZbOCh7h
+	 ITVVc22wkc3xS2NosxS0d7bEl4Mq7oe+BVJAQ405bitb6mtgxGhEDEzJ20WUwfQu/Hj8S
+	 RYbjKKnspemOL8KuwW7Tfs7p7KDsQe7nfI+mgJ63z4eyzC7EZ1cGNu3ISKW1an5DaYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbOsfbWW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=narfation.org;
+	spf=pass smtp.mailfrom=narfation.org;
+	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=va9T0YAo;
+	arc=none smtp.remote-ip=213.160.73.56
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65001606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:25:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A1B31606A337
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:27:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B31606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbOsfbWW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867E71F0089F;
-	Tue, 10 Nov 2026 19:25:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338712;
-	bh=vgdESjZzDXG1xYKVM3WnBi0ZWbzfUiqIREyP14pavu4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FbOsfbWWvQuaeXMDrISd9tgVXlyxOudDWxyAkQNnc7wmZwSWIw+M5yox8VXNpizKC
-	 EvL4d9jnQtgZAMl6g2KGQZ+/Qkqq9bEJmjVtOTXuZfzZylymi4Qz0e9puUJuXMT4oN
-	 tBg7wcuQkoE+i1Qklyf5Xl/6EugdGs5blHEvtH6FQlb5+Rokb9pFuwaeDHVdwBvnaA
-	 DZsvwcy2P/eaqN4EkkTHI6CqJAjRlryT247bR9Ku3FgIa86OZzHlFDENdw2rq2TbBU
-	 X6POWF0Z0dhuwBTmpdnUWc4eeRMFTSXoBXcHSI6O6oFHpb+2OTjrLstPJhqGzvc+sN
-	 IYkSl+eu0bZCg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=va9T0YAo
+Received: by dvalin.narfation.org (Postfix) id CD243216C6;
+	Tue, 10 Nov 2026 19:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1794338858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rDv87ViSXTej8FB33dQs80XO+TcyGG4z65dRhmd00TM=;
+	b=va9T0YAoLpUF1Waqi3dLAbYXxNVT8iQxxvdOvNKa8admGsQsRD58bmPuujbU9MSL21wVMS
+	ixrZ76gGOQmoXx6nNicgYi7cJu0YhK9YmNYwKvaUCBV1t33BUBdd8S2gnRze3mNgSQ0Gcw
+	54iWo+F+NkDglbZVWA8TeIvaJPBbEqM=
+From: Sven Eckelmann <sven@narfation.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] soc: fsl: dpio: Free the IRQ before releasing the I/O object
-Date: Tue, 10 Nov 2026 14:25:10 -0500
-Message-ID: <20261110192451.3542847-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062013-failed-5.10-a7831c657c90@kernel.org>
-References: <20261107062013-failed-5.10-a7831c657c90@kernel.org>
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Sven Eckelmann <sven@narfation.org>
+Subject: [PATCH 6.1.y] batman-adv: Close OGM aggregation before transmission
+Date: Tue, 10 Nov 2026 20:27:29 +0100
+Message-ID: <20261110192729.222233-1-sven@narfation.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109201509-failed-6.1-f91f64a91682@kernel.org>
+References: <20261109201509-failed-6.1-f91f64a91682@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,65 +66,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit a7831c657c90e8f9165f6bbe0cc56262fee075e8 ]
+commit f91f64a91682c07e6c5f059804e709656364e8a6 upstream.
 
-The DPIO interrupt handler accesses priv->io, but dpaa2_dpio_remove()
-releases that object before tearing down the interrupts. The IRQ was
-requested with devm_request_irq(), and unregister_dpio_irq_handlers()
-only clears its affinity hint. fsl_mc_free_irqs() returns IRQ resources
-to the MC resource pool without freeing the handler. An interrupt can
-therefore access the freed I/O object before devres releases the IRQ.
+The OGM send worker leaves its forwarding packet on forw_bat_list until
+after batadv_iv_ogm_emit() returns. Aggregation holds forw_bat_list_lock,
+but emission reads and clones the packet without that lock.
 
-Explicitly free the managed IRQ in unregister_dpio_irq_handlers() before
-returning its resource to the pool, and perform IRQ teardown before
-releasing the I/O object. This also waits for an in-flight handler while
-the object is still valid.
+CPU 0 can therefore start emitting a queued packet while CPU 1 takes the
+list lock, finds the same packet and appends another OGM. The sender can
+observe the new packet length before the corresponding direct-link flag
+is set, or clone the skb while its length and payload are being updated.
+This can transmit an OGM with incorrect flags or inconsistent data.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+KCSAN reported:
 
-Fixes: 993fec7e11ca ("bus: fsl-mc: dpio: add the DPAA2 DPIO object driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
-Link: https://lore.kernel.org/r/20261002194802.375497-3-mhun512@gmail.com
-Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-[ sashal: Changed devm_free_irq() to use irq->msi_desc->irq instead of irq->virq. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+  BUG: KCSAN: data-race in batadv_iv_ogm_queue_add / batadv_iv_send_outstanding_bat_ogm_packet
+  write to 0xffff888100fedcf8 of 2 bytes by interrupt on cpu 1:
+  read to 0xffff888100fedcf8 of 2 bytes by task 70 on cpu 2:
+  value changed: 0x00c0 -> 0x00d8
+
+Mark the aggregate as full under forw_bat_list_lock before emission. This
+waits for any ongoing append and prevents further aggregation. Emission
+uses packet_len to walk the OGMs, so all queued packets are still sent.
+Keep the packet on the list so interface purging can find the worker,
+wait for it to finish and free the packet.
+
+Fixes: 9b4aec647a92 ("batman-adv: fix rare race conditions on interface removal")
+Cc: stable@vger.kernel.org # 4.10.x: 434becf57bdc ("batman-adv: Limit number of aggregated packets directly")
+Cc: stable@vger.kernel.org # 4.10.x
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+[ Use BITS_PER_TYPE(...) instead of BATADV_MAX_AGGREGATION_PACKETS ]
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- drivers/soc/fsl/dpio/dpio-driver.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ net/batman-adv/bat_iv_ogm.c | 5 +++++
+ net/batman-adv/types.h      | 8 +++++++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soc/fsl/dpio/dpio-driver.c b/drivers/soc/fsl/dpio/dpio-driver.c
-index e1dd4cc0702da..8a93dabe1727a 100644
---- a/drivers/soc/fsl/dpio/dpio-driver.c
-+++ b/drivers/soc/fsl/dpio/dpio-driver.c
-@@ -89,6 +89,7 @@ static void unregister_dpio_irq_handlers(struct fsl_mc_device *dpio_dev)
+diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
+index 8885949b5a51a..5a84785613b4c 100644
+--- a/net/batman-adv/bat_iv_ogm.c
++++ b/net/batman-adv/bat_iv_ogm.c
+@@ -1794,6 +1794,11 @@ static void batadv_iv_send_outstanding_bat_ogm_packet(struct work_struct *work)
+ 		goto out;
+ 	}
  
- 	/* clear the affinity hint */
- 	irq_set_affinity_hint(irq->msi_desc->irq, NULL);
-+	devm_free_irq(&dpio_dev->dev, irq->msi_desc->irq, &dpio_dev->dev);
- }
- 
- static int register_dpio_irq_handlers(struct fsl_mc_device *dpio_dev, int cpu)
-@@ -280,10 +281,10 @@ static int dpaa2_dpio_remove(struct fsl_mc_device *dpio_dev)
- 	priv = dev_get_drvdata(dev);
- 	cpu = dpaa2_io_get_cpu(priv->io);
- 
--	dpaa2_io_down(priv->io);
--
- 	dpio_teardown_irqs(dpio_dev);
- 
-+	dpaa2_io_down(priv->io);
++	/* Mark aggregate as full before forcing emit. */
++	spin_lock_bh(&bat_priv->forw_bat_list_lock);
++	forw_packet->num_packets = BITS_PER_TYPE(forw_packet->direct_link_flags);
++	spin_unlock_bh(&bat_priv->forw_bat_list_lock);
 +
- 	cpumask_set_cpu(cpu, cpus_unused_mask);
+ 	batadv_iv_ogm_emit(forw_packet);
  
- 	err = dpio_open(dpio_dev->mc_io, 0, dpio_dev->obj_desc.id,
+ 	/* we have to have at least one packet in the queue to determine the
+diff --git a/net/batman-adv/types.h b/net/batman-adv/types.h
+index f3ee914f8d4ee..39cff1e9be252 100644
+--- a/net/batman-adv/types.h
++++ b/net/batman-adv/types.h
+@@ -2138,7 +2138,13 @@ struct batadv_forw_packet {
+ 	/** @direct_link_flags: direct link flags for aggregated OGM packets */
+ 	u32 direct_link_flags;
+ 
+-	/** @num_packets: counter for aggregated OGMv1 packets */
++	/**
++	 * @num_packets: counter for aggregated OGMv1 packets. Set to
++	 *  BITS_PER_TYPE(forw_packet->direct_link_flags) (independent of the
++	 *  real number of aggregated packets) by the send worker to prevent
++	 *  further aggregation while the packet is emitted. It must therefore
++	 *  not be used to iterate over the aggregated packets
++	 */
+ 	u8 num_packets;
+ 
+ 	/** @delayed_work: work queue callback item for packet sending */
 -- 
-2.53.0
+2.47.3
 
