@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312403;
-	b=QoCvpPp2B8Q6eUjijVarlY3vS+VLpFnpCIlEUQ506pIVkYr+LslWuU3J7QQD4cErx5Il
-	 RZf4PcyYYkZ7OiVuNxtuPR352G3OTIqMhoMc2B2m9l5snXv6Z3G6xvk59k4F06Egujyz5
-	 URUAmVJl2dXUjtg3TYrDoVC9oMopLez9ASVbV3H+nlBGRxPOSNtv+QTLiX5AA2sxbLwwV
-	 bgtmJfjGMJ+tq8qk0fJwX6CjJU5Tq7TOVYZRtKM9xqHp5scIwgYQd//AxWrDYS8SjMEWS
-	 /bzC400NyJUfCpSTNlO60gLHPLVuEn14GuRuIXFSR3IlHnbtWki2+xRBRXORaUNWREw==
+	t=1794312436;
+	b=E0tkWuwNjMmbAz3fm/o3iKSyOl1tzWm4Z6SiM3MgmVcNymZ2teqDN+pCt9/mhNj0AOxZ
+	 IZkosfb+YEoGjEvcj9Eb9DEv9cMXjgw/FRyeKO9kilxccrVpeSlkVVKM4vHL8QuAgil/0
+	 V09KhPIuaNSdzunsCPGycoDfSSdaAFjA8NPeUYYnYg2OX0wVePDskDAtxAIFxuZvco28+
+	 V/DzOYJ3xFb47FojY3Y740iapquu8M9v2NQ6qTgxZ2TskBooIhHP/eB07FJJ53NerawrP
+	 Vip/RGN+xLPeD3IpQAci50luKiXex4zV6PPaI9uR/zus+4L7bk9MrxbkMSQDdX8qfjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312436;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=0Y3uJ0syuEB+M6JsDkOhH+hTZjk9QMarfG2dMbQOK9E=;
-	b=CEnbYDD21T96Ijz2pijlIw3Gw38v/qntVmuAzkJpjgRtcTNbk/t3t1DcJLaw3HkUCa9T
-	 Qxt47kqIBs8ZOO9BLajYoccISOnDwxs3It0jCaYYw4FMzNp+YG0fTuZ2W5LdZIhi+jkCu
-	 zAJSg3fIVQ9h7sGP9Zv5oH0QaqvAZNVMj25fRCFM7dvG5Xjaevc19Yyufd5NJWAIB+k28
-	 DIXop99YK4QhzzBf7Kks1Kq2daznqI6kmUKl65XpFPr1W1X6jJNU89iK4zfZe7DDsvBiF
-	 H6znCWz8sMRnjMkO7zhhe+CbeD4Ah568OmYRCKw/KZM4w1DqoXAhFdXkABB/i+eUaNQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Jx3SLt7x3xgQKoZ/g+VwJ2+pQlnVF++EioCk4UVifB8=;
+	b=jQI/kEPVlQYU0BRLefLTgF5O+lYtHv4iFx5b78HixvCQ3WPSEPVmOSVVoJ6f+FqCHu1W
+	 9V1W6zUorD9qillqOvV+B9ouj6vqNuKIcr8/z0edLeqfvSeHHQhsVFBoZTzy481ln5I/L
+	 UpbXVsC3B7h31cZodOmL/XI7HbTht2zEh2GaR1s7E/E/3fY6rKGnSuP+y+el7b31PAbFl
+	 USBnSauvx0LVTwzxmyN1UTCMPIQXATIwlgJj6BqOXM6Zumm7obfeesgjKsXr+LOYLF0aQ
+	 saencDktFo1fjPLgMGPWI+FiLDQ6MoI/sFjrxa6eAWle8AH83CM3YhJIrhUSLjQ7qRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIdBtlJo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz2M4JFe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA209606A321;
-	Tue, 10 Nov 2026 12:06:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE99606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:07:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gIdBtlJo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2961F008A1;
-	Tue, 10 Nov 2026 12:06:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mz2M4JFe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5401F0089F;
+	Tue, 10 Nov 2026 12:07:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312402;
-	bh=0Y3uJ0syuEB+M6JsDkOhH+hTZjk9QMarfG2dMbQOK9E=;
+	s=k20260515; t=1794312435;
+	bh=Jx3SLt7x3xgQKoZ/g+VwJ2+pQlnVF++EioCk4UVifB8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gIdBtlJoSOGehU2ycNn7tJ7KGjJrUZtmC9Arkc7KARa3VY0je96bTmGNLPiBOwemZ
-	 eXTQJH3GjGmbY9Umcka3FS7afVKxVLtZkTsBxgdK729NIEVytCjPi7ETxtmrwoqYk8
-	 z5s1Q+efgzFs1z9gEFcyP0pPr3nxAL+PMRiUTYdwEat7k4ICPEJO2mur0MVlIoinip
-	 jW4dOLacJj+glkmtmxrrywy77j53oOoeKlAdiHGC+BSLGxDJoA+4S2yD/ZQ/GY8E/+
-	 LNMmoMYRXDBkVF3S+I5qExtiMW3fTq/b5lABSnorjHY1F6DnmJbGBNgVR7RF7wDX0y
-	 SgfDHzh/wzIvQ==
-From: Niklas Cassel <cassel@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Hyunjung Ko <hj351016@gmail.com>
-Cc: Niklas Cassel <cassel@kernel.org>,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] ata: libahci: delete the SW activity blink timer on port stop
-Date: Tue, 10 Nov 2026 13:05:53 +0100
-Message-ID: <179431233675.231492.2022512763173311216.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110105040.2483806-1-hj351016@gmail.com>
-References: <20261110105040.2483806-1-hj351016@gmail.com>
+	b=mz2M4JFeO6FCDI0mRsm79X/OJPv/54LRBvCaFecAUQPISO1ikboZ6u0jnT/naKBVN
+	 QNoszicgEO3k00JbqYidHwg/JAiZgC6enY61SqquNr9TSyyTzSQKFz4fbGVragg4Pe
+	 Cp3S4OZjFMuIyb54b+97QxB3CMSvmRfQ3BuHid09vPfCk+YPwEpcVDYs1PSs14YdOb
+	 w32pAiir0rquCTk6V93dT5DwlC+fTwcW8uuh8bXHAe4PIQcTVStHZvwFKHBoq2mXuc
+	 2uMnvKda0ebK5rNqQ0PK2uqUV0vIbHk4TeqsPICIFZ9JsVXO7zOQLI2EfkxbrnG1CA
+	 +n6qs/47T3SYg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Marc Zyngier <maz@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: arm64: vgic-v3: Undo assignment on iodev registration failure
+Date: Tue, 10 Nov 2026 07:07:13 -0500
+Message-ID: <20261110120652.941189-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060136-failed-5.15-8a88a46b86ca@kernel.org>
+References: <20261107060136-failed-5.15-8a88a46b86ca@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,30 +60,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=979; i=cassel@kernel.org; h=from:subject:message-id; bh=cL3XFvquJ8SBPm6BxcBI6grUqhwtLU9qFgskVPhWfK4=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLI+c2yXc9kfcXGl47Tej6XTN6eq+W1u/R+qc0/Q6f7dq 5w9TG2FHaUsDGJcDLJiiiy+P1z2F3e7TzmueMcGZg4rE8gQBi5OAZgI03KG/7kPT0mE/uvKL5xe 5NB1VUmDJyt+Ue7k6zdVOz0ezxWwOMnIsP2Q4/uXx5v+1XAfOpOl8i5tncCr3U+qlshvao9NbN/ dwQAA
-X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
 Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 19:50:40 +0900, Hyunjung Ko wrote:
-> The software activity LED support arms a per-EM-port timer (emp->timer,
-> ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
-> callback re-arms itself while the LED is blinking. The timer lives in
-> struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
-> with devm_kzalloc() and freed when the port is torn down.
-> 
-> ahci_port_stop() never deletes this timer - nothing in libahci does - so
-> when the SW activity LED is in use and the AHCI port is stopped (driver
-> unbind / module unload) while the blink timer is still pending,
-> ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
-> dereferences the freed ahci_em_priv (use-after-free).
-> 
-> [...]
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-Applied to libata/linux.git (for-7.5), thanks!
+[ Upstream commit 8a88a46b86ca3dbbd24522760d29edfb3f24ac2a ]
 
-[1/1] ata: libahci: delete the SW activity blink timer on port stop
-      https://git.kernel.org/libata/linux/c/0c5f6cd1
+vgic_register_redist_iodev() assigns a redistributor region and base
+address to the vCPU before adding its iodev to the MMIO bus. However, the
+region's free_index is advanced only after registration succeeds.
 
-Kind regards,
-Niklas
+If kvm_io_bus_register_dev() fails, the vCPU retains the assignment while
+free_index still identifies the same slot as free. A later registration can
+therefore reuse a slot that remains assigned to the vCPU.
+
+Reserve the slot before registering its iodev. The caller holds slots_lock,
+so a registration failure cannot race with a later assignment. Undo the
+reservation and clear the cached assignment on failure.
+
+Fixes: dbd9733ab674 ("KVM: arm/arm64: Replace the single rdist region by a list")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20260831081005.41346-2-kmehltretter@gmail.com
+[maz: moved helper into the sole caller]
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: adapted locking to rely on the caller-held kvm->lock instead of config_lock and guard(mutex). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index fd1fa2561520e..c3c0204b3eb1e 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -739,16 +739,21 @@ int vgic_register_redist_iodev(struct kvm_vcpu *vcpu)
+ 	rd_dev->nr_regions = ARRAY_SIZE(vgic_v3_rd_registers);
+ 	rd_dev->redist_vcpu = vcpu;
+ 
++	/* Protected by kvm->lock */
++	rdreg->free_index++;
++
+ 	mutex_lock(&kvm->slots_lock);
+ 	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, rd_base,
+ 				      2 * SZ_64K, &rd_dev->dev);
+ 	mutex_unlock(&kvm->slots_lock);
+ 
+-	if (ret)
+-		return ret;
++	if (ret) {
++		vgic_cpu->rdreg->free_index--;
++		vgic_cpu->rdreg = NULL;
++		vgic_cpu->rd_iodev.base_addr = VGIC_ADDR_UNDEF;
++	}
+ 
+-	rdreg->free_index++;
+-	return 0;
++	return ret;
+ }
+ 
+ void vgic_unregister_redist_iodev(struct kvm_vcpu *vcpu)
+-- 
+2.53.0
+
