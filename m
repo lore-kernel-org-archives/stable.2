@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330767;
-	b=Yr6xduoubP5eLRxVOOJ1m2GxgGNJtG1o0mMrZSfctBeVM/jCrZbMo8GcGYcYLgEwiNIc
-	 hfKljp+Rhh5ahBbmFXLIFYQqGtNM1ctXhyQL/PFGFCcJuqrTmReGS0DNeaA3Gi5H0T9ei
-	 KhmZPZTK1Nxco1QHIrOKH6yLe4QEVB1m0M30Qm7AxVSpfG57f6PVow1L8VR5l7Fff/m8C
-	 QSjIGrUO0hAzOK6GhiSvKItlankyrp/vel0yv5XdZpwVY0DesC5KuHgILb99RbZPDAWOI
-	 /lel1yiXwlkD3VD91gH27hP1cjotRmP1PpNJcLg7/uG88vpj9e6JPCjrDSldQra3rgw==
+	t=1794330807;
+	b=I1TEwB+j6Caf6oMqcN8f2SabaT55QqAvsM7O7EzzoH2Zae491s13JMziA59MaChuWAuA
+	 YXPvR9CrIp7leLe3EaQ8G+zToPUSHwp1eJUk2JsCb1sFdqTS4OKsGb/qGea/o30Rif8YK
+	 wFkDowQ+TwTwdcJaFrbGtaavqKkc21wxOBxgDyQlaXpao0slpx+RNAtpxJstP4l6m3BA0
+	 8AwOKvHTWAuBDvAWdvV6JDXL7R3OYVmN0meiSUNO57xmA4RoP7xgZgEn9Ws6weGgTaPYF
+	 EimQw4MCCjRA2uJufteBSpDRAlPc5vgrtSizXGDZqyCmC1Tq8bdO+CB1KIDwm0R3Kwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330767;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330807;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Dbok5+LKtP0AVPkY0+AsNJyGkhE/WywiueaDIZIL2+g=;
-	b=J/m2z3PrvSgqi+48lVxU9UHBQuVRaUSYEhN+dw5vLne55Rjd5L1Wzp83Ncy20GDUhecf
-	 aI/vQRnHP9k09PTrOWZyprBWoWhSMOvg0xcve4wnhJB6MebqxtU97vjFSHI7l4uK7IfAm
-	 He4Mq9OHKfrCiTKGrvJ5VTRUa+5XixEuLIPoWOwdSFn0j2OyrVhDNS2pdhVKVK1nK/z1F
-	 c+jQOl5MfJfjs8AkBKlZEW1z6y44HziE1KOEVrMxpdm7q5YupLqsYvHYk9/FaKoMJnp5H
-	 ViFoVEF291lA0Tkg8wCeObuj0OYUNVKcmoGOEQ/K+3o1xp7rRK/Ymf2vGNIenzLeNmw==
+	bh=72g33SxzWXKHvB52lrU844hZ7EwB55XERmVH9+vwAt8=;
+	b=E1+Jk/f5ngZhS8wEp1ISnzQ4Ltat4bcjRwzUpmlzsI9z/BgniYY4etWyR7vD4UeAY4UR
+	 2e7tQUdHmw7mfgNSgevj+4s8dFGAz5mqfxdIOYG5Tfadw7ko3fLfzSHsb5mh1JV5eQbyC
+	 Q7s8NtGygU0rpOUOPQurKP6AnfOPW+IicN/u/pRs+6vNNazDn4NI/1fheowUF2AghYV9z
+	 s0PBQ0pA+w+eQHdXxnFt9mGrpGmCgMKsBfwDlANFofxhWDq+9NR7Lkii+VfG2feUskauR
+	 6MQjuHiIP4UdDB5EFZxmQsvXTNogItFfgOaBO5ASOkHEimkvnNITbz3dNHMrKoJTAOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nsi/8y1j";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+6TjpdM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A58D606A32E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:12:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5870F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:13:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nsi/8y1j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D46B1F0089F;
-	Tue, 10 Nov 2026 17:12:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+6TjpdM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2EC1F0089F;
+	Tue, 10 Nov 2026 17:13:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330767;
-	bh=Dbok5+LKtP0AVPkY0+AsNJyGkhE/WywiueaDIZIL2+g=;
+	s=k20260515; t=1794330807;
+	bh=72g33SxzWXKHvB52lrU844hZ7EwB55XERmVH9+vwAt8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nsi/8y1jPEuszZ5U4+kNfuF5xa3RllDJ4lR3QVFKGR0uTauIVmP+a41ntvAh44nCT
-	 rssRbHhHNpRs21k5MRihnsftSe/W7DsobAvl2r7vJSyo9+fbnSNaOiyNUzoQ6m0pLe
-	 xh3LlOeANodbre2YR8BDU+0DoPXF5ggI0cDeU/BbxahBvOJUNn8kOUbfCiaKWhjp64
-	 oNNOWsbU2/U6vEdxylPtBHE+WZw0I9By7WPnDf2chdnc2rvZHSzDa8UsaoswxtYGAn
-	 f1H+h38VZKK997989AmzaMu+0c1fj57K7V94zKsyUAy4ZejsiRHe5Wc/AngDMXo5Lt
-	 wCWdDoMtI+oYg==
+	b=C+6TjpdME801kyrd4GLu4HahVKsxuEku1TIqO/Um3IpXl8T01BBXPqtcrcgECUGX1
+	 tftKHCiNRqxcIyNlBkjDk3Z4wgQLpsChsNRWAQUWvr2OgbE65eNg3sidt55MRnl9wI
+	 XGusKCVfYd3zX3pWawnAqS1XAZ1dG91Z6lHxbuPYuFCtNL/vd5HnawYtH1o433l30G
+	 dauyz+pCAQ83hXCqrNYH2hfyx0XQaeOQ26fe6iBgGrnLo+qEj28rOyW+QtTvHaf95M
+	 BMxIxNql1eGWtti1KFJztiUAOrLRAY9cH3KiLbsitMyxbBFzBnljB2E5G7ItotRcuc
+	 SE7X0XfuwLtOA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+	Jacob Chen <jacob-chen@iotwrt.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Michael Tretter <m.tretter@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] net: skbuff: don't BUG() on a bad csum_start in skb_copy_and_csum_dev()
-Date: Tue, 10 Nov 2026 12:12:41 -0500
-Message-ID: <20261110171139.2520111-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] media: rockchip: rga: fix clock cleanup
+Date: Tue, 10 Nov 2026 12:13:22 -0500
+Message-ID: <20261110171316.2718911-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110171139.2520111-1-sashal@kernel.org>
-References: <20261107060713-failed-5.15-56453199d28f@kernel.org>
- <20261110171139.2520111-1-sashal@kernel.org>
+In-Reply-To: <20261107060145-failed-5.15-a875c43dd95e@kernel.org>
+References: <20261107060145-failed-5.15-a875c43dd95e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,63 +64,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 
-[ Upstream commit 56453199d28f0072a8196fba14b2d702632e2219 ]
+[ Upstream commit 254f3337ce2575bf94f1fb40cc40fdbc70371116 ]
 
-skb_copy_and_csum_dev() copies everything up to the checksum start out
-of the linear area, and BUG()s if the checksum start is past the end of
-the linear area.  It misses the other direction: a CHECKSUM_PARTIAL skb
-that has been pulled past its csum_start gives a negative offset, which
-gets past the check and becomes a ~4GB copy.  It also trusts
-csum_offset when it stores the folded checksum.  So far
-skb_copy_and_csum_bits() BUG()ing on a short skb has covered for that,
-but once it returns instead, a bad csum_offset would write past the end
-of the caller's buffer.
+Fix this smatch warning:
 
-The function returns void and its callers are drivers copying a frame
-into a bounce buffer just before handing it to the hardware.  There's
-nothing for them to back out of, so check both ends of csum_start and
-that the checksum field fits in the frame, and if not, copy the whole
-frame with skb_copy_bits() without filling in the checksum, with a
-DEBUG_NET_WARN_ON_ONCE() for debug kernels.  The frame
-goes out with a bad checksum and is dropped by the receiver.  If even
-that copy fails, zero the buffer so the driver doesn't send stale bytes.
+drivers/media/platform/rockchip/rga/rga.c:734 rga_enable_clocks() warn: 'rga->sclk' from clk_prepare_enable() not released on lines: 734.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Cc: stable? The trailers only have Assisted-by: and Signed-off-by:. No
-Link: https://patch.msgid.link/20261007-b4-skbuff-bug-on-v2-5-b9a5f732895b@toxicpanda.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Replaced unavailable DEBUG_NET_WARN_ON_ONCE(1) with WARN_ON_ONCE(IS_ENABLED(CONFIG_DEBUG_NET)). ]
+The reason is that aclk should be disabled/unprepared before
+sclk, instead of the other way around.
+
+Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Cc: Jacob Chen <jacob-chen@iotwrt.com>
+Cc: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Reviewed-by: Michael Tretter <m.tretter@pengutronix.de>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Stable-dep-of: a875c43dd95e ("media: rockchip: rga: quiesce IRQ before releasing m2m state")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/skbuff.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/media/platform/rockchip/rga/rga.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 2a1aaed462645..5867fcac3f05b 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3257,7 +3257,18 @@ void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
- 	else
- 		csstart = skb_headlen(skb);
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index bcbbd1408b368..02c2ea2b42a50 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -717,10 +717,10 @@ static int rga_enable_clocks(struct rockchip_rga *rga)
  
--	BUG_ON(csstart > skb_headlen(skb));
-+	if (unlikely(csstart < 0 || csstart > skb_headlen(skb) ||
-+		     (skb->ip_summed == CHECKSUM_PARTIAL &&
-+		      csstart + skb->csum_offset + sizeof(__sum16) >
-+		      skb->len))) {
-+		WARN_ON_ONCE(IS_ENABLED(CONFIG_DEBUG_NET));
-+		/* Send the frame without the checksum filled in, or send
-+		 * zeroes if we can't even copy it.
-+		 */
-+		if (skb_copy_bits(skb, 0, to, skb->len))
-+			memset(to, 0, skb->len);
-+		return;
-+	}
+ 	return 0;
  
- 	skb_copy_from_linear_data(skb, to, csstart);
+-err_disable_sclk:
+-	clk_disable_unprepare(rga->sclk);
+ err_disable_aclk:
+ 	clk_disable_unprepare(rga->aclk);
++err_disable_sclk:
++	clk_disable_unprepare(rga->sclk);
  
+ 	return ret;
+ }
 -- 
 2.53.0
 
