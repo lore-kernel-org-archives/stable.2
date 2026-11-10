@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318626;
-	b=v6jgElHV55RwubF0WJDUz7z4ldbFZAahffC76fqsq7gfyI6pvbQT7i/Sv/rsqZtCDN6n
-	 g3Y61Erz3UjeWDZ2OX1IbPYMYkSVN0VHvjdJAOOResJ8HJ+ig+IyfylEtkHtdGzjAAi/v
-	 ovKwaccsVFsl9k/FbMhY9qt4JHUeKCHKrV++hAXwC6ujVzr5A+WXOcmpGuEsrlg+bpquo
-	 rJfw7qWKbFY3xJNet8bsKJFMUMAwyaQRCLm16aIzcpJBvyHXsj8ifYtezA+K7lYr6rDEm
-	 HIk1dM6h99eysMYydmU6aBN7MmGcPdliUo9CRzLl22I8smilZFfOlNLxWPpLpcOROOQ==
+	t=1794318627;
+	b=fp58VLGtjZF7Fnd0SNA4u2/Rl9GxPNJ0MEXpipL6fWDpIgNfpXpn18skpEZ/q2Vm2W1S
+	 bjzDk/QwCDjRkwJEJ9HsTONmN+abftEaHmi4aHPe11cm2UMaZMXelPSPVxwUS/6x2IVJI
+	 wk8FdoEVl60JOO8v26Dq+nggY0SKNP0piAQajMUQ+vSByCHubclGMAqvVIXlhEvxVWlUU
+	 wKk/SrpLWKTzxHNThWGSv+FGmeI+oqfFuMe8xVz10MwY91czqTuLdJR69Mck6cdAIuldM
+	 yhXPe/YZrBenkU3G7zF8D9cuzcWKCCRgekiQ4g45mPzVjaVa3osuZmtAB4CNa1hxqzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318627;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mD6LdiPWsWdmFPNcDKvkc2RTAQcXuQcj5M9eLkHCwRk=;
-	b=5XVkJmVKQCUSt+XnbcDPf7qoo6FQvs6P+/IEklo0nm8n7jpetDsXq9PH8j1goAQg/nqE
-	 jqpgEUP3nK58ZXUSj+0PwbCwZrdnVjPPhx7IQKBfsdxhRFmxicl5SieTnIiYD72V41NJu
-	 N3tUogYfCAlpqIddtXVMdRYWAfEzUyBfVkd/23EGqJY984+LyXR1xKyYwIlxfCppBdUEg
-	 uFNc7yWyxVaedi6u1IDyzAtbEYWhc7/8c4woreEOft9q6lEhrZ0Mnogv121S/HYuIGtn5
-	 DZadXsN2pGof/3hlRUNoi9VxOtFcgTGm9EeOEJJzC9ic2M54wHX4DPA5meKuJubT/pw==
+	bh=7EesqnqZ7xdGFu8ZvrDBetxENf9joKC8YN/fej4+Csg=;
+	b=mXGc1Bfx8jefCP0QhjSQwCbU/TrWK1Q94R4fkBUd4c91cUzia8wsXkx7NsP9MIO3OO5w
+	 pgvAY96wqrklW37X+o2BDDz7Sz+uR2Sja6McBxrhVX6MuoqK4XUzFTCfDuUHHKKl2DrDc
+	 1Xg2e6eFLmNSg1Vuir0PGeqf00YXRNCaWATiwl6Qfkviq8p4YLmnzrshLr4thXGAE05R5
+	 lF12/21ibEG0lPCszozvivA7iZ/pJsbP2zI43xhdiipwIDLIbRbWoKIx0KUEajArDsH/E
+	 PJJnTnFD9qZzZQkO9/+MvecIStR9n38DBsqBnW/YZN+pkE1M5CdOYLnC64rI46XXTMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cZmV3gto;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kwfb8CVD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230C3606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF91E606A339
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:50:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cZmV3gto
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6683C1F008A2;
-	Tue, 10 Nov 2026 13:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kwfb8CVD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396DF1F0089F;
+	Tue, 10 Nov 2026 13:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794318626;
-	bh=mD6LdiPWsWdmFPNcDKvkc2RTAQcXuQcj5M9eLkHCwRk=;
+	bh=7EesqnqZ7xdGFu8ZvrDBetxENf9joKC8YN/fej4+Csg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cZmV3gtoG5gdZXTQhK2xefDXOR0j0EX/+a3tRYoFzcqQfrQXN4PKBRQz6PFb/HZAF
-	 ieYDBdsHq/QvcLBO2G40qV6a9uL1TSD7piKRLYKmahS2VwPo+6ChVSSByWJaOKQg3P
-	 YEqQyxCdcRJLjwSviTj5jC7YUXdm1nLH+jPtElxQOPhtPXaoWehIhZ9DAecL5m2tmV
-	 V1Q0kHEoc+6TtW8RQTQ3f8tOpwsRSk60dl4WTQLxeZ3ZsULR7pN4liZwJDwo0TT8zP
-	 XFvCQy/BrE+LjhXVvBKahL6tPpLIRm+Lk6pIhXSdtI7XOKl1uUjjwRmhp90PE8QtMh
-	 1/+S40qkUI3ZQ==
+	b=kwfb8CVD3t1175V8Qx+8feXkEEe2briQRtWVZwZABRtGCOSmsoH01dipLeYKPZEF5
+	 z1S7D2ADnzbAs8qtVd2hoTgPawU4Fn0MlWVkpKniRQb/E7wmH4gaP246LtXVWKXjr5
+	 wssGn2xDp4PUAoFbYP19QKantf61SvZpZ6HV0MRbHq8DaaTtSQz1tLuos2svj4ygzR
+	 OHlZLYI2Rl+js8Bb97RVwUib5zevzT3Y2ZmaQGngScRyDVOFUvmIq1ZMh5i/2XMG6x
+	 oO2bvW+cZ1Bwd4q8m9cDKfKwZcNOtOzE1RgzYWoaHwTJneugxBt/RKZ+1EdrQEs+7t
+	 /Dy4BGDxEWs3w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pauli Virtanen <pav@iki.fi>,
+Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] ALSA: usb-audio: add volume quirks for MS LifeChat LX-3000
-Date: Tue, 10 Nov 2026 08:50:22 -0500
-Message-ID: <20261110134954.1794308-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200
+Date: Tue, 10 Nov 2026 08:50:23 -0500
+Message-ID: <20261110134954.1794308-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110134954.1794308-1-sashal@kernel.org>
 References: <20261107053308-failed-6.6-874323b68c93@kernel.org>
@@ -62,55 +62,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pauli Virtanen <pav@iki.fi>
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 
-[ Upstream commit 9af61fc91486c7ba93cf1ec3bd381978cac8308c ]
+[ Upstream commit 874323b68c93c6808e034dc0113681e822e6fb42 ]
 
-ID 045e:070f Microsoft Corp. LifeChat LX-3000 Headset
-has muted minimum Speaker Playback Volume, and 4 amixer steps were
-observed to produce 1 actual volume step.
+The C200 (046d:0802) reports a mic capture volume range of
+1536..7680 with a resolution of 1 (6144 steps), triggering
+"Warning! Unlikely big volume step count (=6144), linear volume or
+wrong cval->res?" at probe and exposing a uselessly fine-grained
+mixer control.  This is the same firmware behavior as the other
+UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
+(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
+quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
+if the device-specific entry did not short-circuit the lookup) plus
+MIC_RES_384.
 
-Apply min_mute quirk and correct res=48 -> 4*48.
-Tested with the device.
+Verified on real hardware: with the quirk the warning disappears and
+the driver logs "set resolution quirk: cval->res = 384".
 
-Signed-off-by: Pauli Virtanen <pav@iki.fi>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 874323b68c93 ("ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer.c  | 8 ++++++++
  sound/usb/quirks.c | 2 ++
- 2 files changed, 10 insertions(+)
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 0a729ec282179..e70853cfec65a 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1156,6 +1156,14 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
- 		}
- 		break;
- 
-+	case USB_ID(0x045e, 0x070f): /* MS LifeChat LX-3000 Headset */
-+		if (!strcmp(kctl->id.name, "Speaker Playback Volume")) {
-+			usb_audio_info(chip,
-+				"set volume quirk for MS LifeChat LX-3000\n");
-+			cval->res = 192;
-+		}
-+		break;
-+
- 	case USB_ID(0x0471, 0x0101):
- 	case USB_ID(0x0471, 0x0104):
- 	case USB_ID(0x0471, 0x0105):
 diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 6f999315cca1c..302736f271932 100644
+index 302736f271932..321eaaf9fa334 100644
 --- a/sound/usb/quirks.c
 +++ b/sound/usb/quirks.c
-@@ -2058,6 +2058,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 	DEVICE_FLG(0x045e, 0x083c, /* MS USB Link headset */
- 		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_CTL_MSG_DELAY |
+@@ -2060,6 +2060,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
  		   QUIRK_FLAG_DISABLE_AUTOSUSPEND),
-+	DEVICE_FLG(0x045e, 0x070f, /* MS LifeChat LX-3000 Headset */
-+		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
+ 	DEVICE_FLG(0x045e, 0x070f, /* MS LifeChat LX-3000 Headset */
+ 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
++	DEVICE_FLG(0x046d, 0x0802, /* Logitech Webcam C200 */
++		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
  	DEVICE_FLG(0x046d, 0x0807, /* Logitech Webcam C500 */
  		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
  	DEVICE_FLG(0x046d, 0x0808, /* Logitech Webcam C600 */
