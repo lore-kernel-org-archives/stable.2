@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273098;
-	b=b9TeDLgywyS0VccjviIZhBVLJEBeY026ZiNDXZWgsGvRI3iqn0nhFORsEJzk3R5/s7cB
-	 CKDGKtPAu2OdODU97JyOUlmzanrCK3fHl0rZLCuHl3cZ9UPJaPUgxooRwZRgCVYfeOO0d
-	 YHM8oEYTapSeFKYy4w+jrK4zQoahqjUTBvO6J8YdkGv/3pRDN1KtcAbCE8tw6G8v2lM8B
-	 2KH7BWVSokicbvvlI4lhRNhu5DgJhmQFzvb4odF4u4WNHSQC395AZMf7ugEj0jFCDS+g8
-	 D8/50iA8ZEoWjqYUSys5X8b5rF73lJEjSuEc5ls1dw796YUOwYXielT7ccUdo3R5H2g==
+	t=1794273100;
+	b=C2d2nh4iJMtjeuoxQEUsHi801sBC3xn6CNw0LrfKC0XIc2SjuEaL8sDi8H8jPCpe0Sxs
+	 lnTEc9h0/WsdFcF5Sag1ZQQTSXiXOPlh1ejkDu5KmFT3M/5GW3eKaNrqCKKA6eIGB/4eV
+	 Lmo9U0SOUQksxXk/Ricqag/5DaSnS3PmZ0gM9Hl5wQoiIst02Vw6qdPf6fudrtowx4yl9
+	 jOJ8yBPb4u3GQvBy7ZApMV6ox+FCQpJxjBJyCj3WS6uVit+WzRnX7++NdCggpwohqanmi
+	 tO+5vMRJ0uOBB7yhTN0Gav+hJ/6b39z+6eH9Y5TSZkmCjLpeoaABS326jJYxHNeM6Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273100;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IB04N2L6YfDTurFuUusKfw3fhyQ6oMFmijVoMdLAR0M=;
-	b=WNVl6cBUzxK3OUTxV9MtiVC9Qx9QQkSmvzgx0JjiQJwPrXSS4b4UzWT+1lP0bWQ8OLz/
-	 LAA3AmxbI3JHbdfqJvUuJdYR4uOo7k2JtmCb05mMrKEdyM2sXm9f3s1wdJauathKgeGVH
-	 P7EXPBYnGH2XvTVECfJkMBnt6v8Gw1Kl6BwvjGc8JG0s0LNny/neSsQTa0GnunVyupRCR
-	 ES9tU15YfbTO1JcrwGP6YHfpGtnm4ELUldagOUl/+NhSBs1cELj2vBJx8qUU3O83gnwFX
-	 Tu4uJOqnGAJok6VM+H34z9S05L5xOZv1geGUfN2feNNrj1Rip4QjZg13VA07IsG8uzg==
+	bh=RhzOLRLVpNaPKTKKWo5HlxAZaWTmQFk/LEw0QOSSj/w=;
+	b=JTzp5oXOJrVuTyOHzMlwCfqqpgPNvbOQDOGCTpeF7flSoiNAsp7KHJ7BR95uIFNGKuwP
+	 bX2jaCApYwVbjqPma8oAKCP2IODjD5027ObSABKA5LpOI7e1bVRjojVkzUYE9kN3vVu3I
+	 oot0rS5PEXOHidTdTIgnV+0vL4P+7lDAyztPrXf3Ehn8NiQE6HTJkynQjDlcixjlyD6Io
+	 nVjSvvH6faeid9RAketM+vkY+xEC3ODnrNTMotBPZiQ6I97QdUMBvlS0267MPyjhalfTG
+	 ByDy1rkXpLZ4T9UfIVKEZoNfGALxU/S8HwNKfX+pMBfW8GhPgskf9uqDQcSQBQNenxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4OdaO1o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i00Dh+9i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5883606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDCC606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h4OdaO1o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F8A1F0089F;
-	Tue, 10 Nov 2026 01:11:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i00Dh+9i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF1B1F0089F;
+	Tue, 10 Nov 2026 01:11:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273097;
-	bh=IB04N2L6YfDTurFuUusKfw3fhyQ6oMFmijVoMdLAR0M=;
+	s=k20260515; t=1794273099;
+	bh=RhzOLRLVpNaPKTKKWo5HlxAZaWTmQFk/LEw0QOSSj/w=;
 	h=From:To:Cc:Subject:Date;
-	b=h4OdaO1onjX0Iez7RUYLkK887ME92bBwzk3QnLh5K/64kdd884EBsODmEwUtYLswA
-	 1Rd/fXrPO510ogpWa1J/CJe8ANxPNHlpbh1LMBAsKoOA7Uv0ohAwNgU+A4AnPBhpOn
-	 QlO1S4KkgTxmKzWPIrICXygC9fOS2+dqNPFBN3cClWk3F3f07Ff+7hC8hacqRyXO/9
-	 ngkMLhV2yi6YXUxjIwPn50PkIJMoSJBmPmgGyjBHihC190UAj2pfoXWWyW6IXPJ4Ra
-	 /BCndz/NbA7v7yWI47nuH9hNjAXlJ4dvQRLnqgyjFzUwQPy6POxdTLRH8DrlujQSit
-	 C3Avt/7DkkJdA==
+	b=i00Dh+9icd5CWwK2Dy42DeQ9BnneOk5FwmW7t5sTirP6ILmXpjYNDqA0+ATei1RMB
+	 Zggon0owXJzROMKWOrrGWZP5TNqV1UI3lSeOBh29S+HhU4LW+2BzOaVrND1SKGMAuZ
+	 Wvy1R+n9GJ29CLO8KPNamGqRC4+5AtNvOwmVnvVYDCb94o0Vf+PoeYkKizpf0g/AdJ
+	 68C9l6mV8LR0ZPgFExtxHGB99CH9yO/E6jB/Y2m/hsurSUfnpIXRw79PlCMi4RsLzm
+	 1kC8XQVE2/jhBzN0zLh0MauOFT/WSEz6Vi26INcvz+xgZw/M59ojL4ujHlrU7IDyH5
+	 1amoQVZQUPJxw==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	dgc@kernel.org,
-	hch@lst.de,
-	cem@kernel.org
+To: q.h.hack.winter@gmail.com,
+	paul@paul-moore.com,
+	davem@davem-thinkpadp1gen8.ibmlond.csb
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xfs: don't skip free extents of the longest length in a whole-AG FITRIM" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:11:35 -0500
-Message-ID: <20261109201135-failed-6.6-5745f4f10a1a@kernel.org>
+Subject: FAILED: patch "[PATCH] cipso: fix optlen corruption in cipso_v4_delopt()" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:11:38 -0500
+Message-ID: <20261109201138-failed-6.6-1f1f8e8c5176@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,64 +69,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99
+git cherry-pick -x 1f1f8e8c5176234fa31858cd25f2e9b88aac0a45
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201135-failed-6.6-5745f4f10a1a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201138-failed-6.6-1f1f8e8c5176@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5745f4f10a1a16aa5bb020acc38afa33f2d5ff99 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Mon, 26 Oct 2026 10:54:06 +0900
-Subject: [PATCH] xfs: don't skip free extents of the longest length in a
- whole-AG FITRIM
+From 1f1f8e8c5176234fa31858cd25f2e9b88aac0a45 Mon Sep 17 00:00:00 2001
+From: Qihang <q.h.hack.winter@gmail.com>
+Date: Thu, 29 Oct 2026 11:39:42 +0800
+Subject: [PATCH] cipso: fix optlen corruption in cipso_v4_delopt()
 
-Since commit a66d636385d6 ("xfs: fix fstrim offset calculations"), the
-by-length walk of an AG in FITRIM starts with
-xfs_alloc_lookup_ge(cur, 0, pagf_longest) and walks down. The lookup
-lands on the longest free extent with the lowest block number. The
-other free extents of that length sort after it and are never
-discarded.
+cipso_v4_delopt() recomputes the option length by walking the option
+buffer after the CIPSO option has been moved out.  The walk then reads
+the stale bytes at the tail of the buffer as option data, and a crafted
+setsockopt(IP_OPTIONS) buffer can make it treat one of them as an option
+length, increasing opt->opt.optlen beyond the valid option data.
 
-Start every by-length batch with xfs_alloc_lookup_le() at restart_bno.
+The corrupted length stays on the socket and is later used as the copy
+length by getsockopt(IP_OPTIONS) and by the udp/raw/ping sendmsg paths,
+where it exceeds the size of the buffers they copy into.
 
-Suggested-by: Dave Chinner <dgc@kernel.org>
-Link: https://lore.kernel.org/r/ZgiJWxVcVwag0fIP@dread.disaster.area
+Compute the new length from the intact options before the move and
+subtract the CIPSO length, and fill the padding with IPOPT_END.
+
+Assisted-by: LLM
+Fixes: 014ab19a69c32 ("selinux: Set socket NetLabel based on connection endpoint")
 Cc: stable@vger.kernel.org
-Fixes: a66d636385d6 ("xfs: fix fstrim offset calculations")
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+Acked-by: Paul Moore <paul@paul-moore.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 ---
- fs/xfs/xfs_discard.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ net/ipv4/cipso_ipv4.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/fs/xfs/xfs_discard.c b/fs/xfs/xfs_discard.c
-index 8120f136af931..cdf660344c281 100644
---- a/fs/xfs/xfs_discard.c
-+++ b/fs/xfs/xfs_discard.c
-@@ -200,12 +200,12 @@ xfs_trim_gather_extents(
- 		error = xfs_alloc_lookup_le(cur, tcur->start, 0, &i);
- 		if (!error && !i)
- 			error = xfs_alloc_lookup_ge(cur, tcur->start, 0, &i);
--	} else if (tcur->restart_bno == NULLAGBLOCK) {
--		/* first time through a by-len starts with max length */
--		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
--		error = xfs_alloc_lookup_ge(cur, 0, tcur->count, &i);
+diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
+index 1aacbbeffbc64..e65a3f29d2caf 100644
+--- a/net/ipv4/cipso_ipv4.c
++++ b/net/ipv4/cipso_ipv4.c
+@@ -2013,6 +2013,10 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
+ 		cipso_ptr = &opt->opt.__data[cipso_off];
+ 		cipso_len = cipso_ptr[1];
+ 
++		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
++							 opt->opt.optlen);
++		optlen_new -= cipso_len;
++
+ 		if (opt->opt.srr > opt->opt.cipso)
+ 			opt->opt.srr -= cipso_len;
+ 		if (opt->opt.rr > opt->opt.cipso)
+@@ -2026,11 +2030,12 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
+ 		memmove(cipso_ptr, cipso_ptr + cipso_len,
+ 			opt->opt.optlen - cipso_off - cipso_len);
+ 
+-		optlen_new = cipso_v4_get_actual_opt_len(opt->opt.__data,
+-							 opt->opt.optlen);
+ 		hdr_delta = opt->opt.optlen;
+ 		opt->opt.optlen = (optlen_new + 3) & ~3;
+ 		hdr_delta -= opt->opt.optlen;
++
++		memset(&opt->opt.__data[optlen_new], IPOPT_END,
++		       opt->opt.optlen - optlen_new);
  	} else {
--		/* nth time through a by-len starts where we left off */
-+		/*
-+		 * A by-len walk starts at the last record of the longest
-+		 * length (restart_bno is NULLAGBLOCK until the first batch
-+		 * ends) and then where the previous batch stopped.
-+		 */
- 		cur = xfs_cntbt_init_cursor(mp, tp, agbp, pag);
- 		error = xfs_alloc_lookup_le(cur, tcur->restart_bno,
- 					    tcur->count, &i);
+ 		/* only the cipso option was present on the socket so we can
+ 		 * remove the entire option struct */
 -- 
 2.53.0
 
