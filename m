@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326896;
-	b=OOHiH1PqzpZCo2vANS56G9ARwFfZZ4cc2AfoNRykAbJABFcIm7ma0CdAPSW2Iq3uVBEB
-	 XvwV1LL+toNyTynLxRNc9Kk388JtRa/x2nhVj+W+gSRQTJRr8hAbvyqI+2gWW4wXsAflo
-	 pkjQNZlhycL0B48xgorpj3D3la7C1IORsLk7nWPNBtm0uEs2zM7NO1yGZ73p7XT1IPfd6
-	 YAHWI+A+7t4WJxFN0vzggRQH4TektBIJcVtO81onOhODue1ait4ZZKdW9G8i8UgQH5cRs
-	 /vaovrmDwXdqhJXCxs9HtKibPwqiourB30YgOvdN+PdzBZPg7qthdXfwDFPxNtGC1bQ==
+	t=1794327015;
+	b=s4P8OlLlTIy6iIqhDo1dK6HdI9q42vmUVkCOBeZqo0qawiKOIKNnW4IQgDty22os0Hcn
+	 sJDA0Bg6mxMf1AwK33o6AThpjzZmpkYSNzJFiT0zGp8PhBywjBb5W6esakBdXmrIFZqe+
+	 vL9iLj8sOBjYpjtghl+JRNYb5tKTo8rZy9WC415JNVyaUy8Vo+zAD0gwjohly9bDSaM1o
+	 A79V7taZjgGGvuvw7XT5iecNRPtWo1r8qae5SQnlDwZqDIvQZaCq1gmftOoY3E7LSlfc1
+	 Ou6r2fg50HXhNiAS0Z6rU5uM3spnbXbvTTVm7K6/AsXqFP70DpdL8M/4bn/3TbqmXCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327015;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pCfZ7FC26+7QZ6BLpFEHkI+xxPTfMD/zdZIiqvWALYs=;
-	b=eQPr0VntXGm40u2V6UJXpwce0JeGaHhdsTWrPBR4IE0ImCYhwFTiFKKY7fumOEhNKeI5
-	 Z/l/5JQ11Jgi5pPn49OqWk4cNgrzR+7+nlGSV0dTo61BwQvQfMrZ4ZHYmFMrYEDXRxO8v
-	 bmLk/tXFH4BDQVnWUOo0eAuuFQtgHVG0c0/zyVvrjadQZOhwvV2x5uGnEFaUT54zY+aZ9
-	 xWEbOT2g7WQNIzVgRPHN/6CKQ5XF6uvU6lf4nMQNdSbIbW+uF+msG2yzeuSYrDAk8eHCh
-	 u/E88KPpD6IfgkJUdPEFVA2HxWWcMz/v6W6r8Rdtypcc+V4grTIf+8sI9CkKF+CsjGA==
+	bh=dlNTuczLGHrz5Am0z6YZd60IUeF4Xt5On/hEzBoyLHo=;
+	b=iRgIiovDSUlAVxVIuDhsI1NgafKA/JXrF9l7HBgFkwDJoqAkscvvM+XUEUldQaLvYHbN
+	 JxT0DCdj72CBdWUgQwJjkzW+ksBftCrigQ6mhaCBFCin6hs3h5q8qpg4MZqZe7Xy8vOPx
+	 j31cA9DaJG43QNGN/x8aKOKO+RR9nsEqIQOyGexR8vCsxHNioOMOIPMjgEpgmsep/MC97
+	 3aB9+itucNJrthDGyqDMqkeJIR6WvxXTB9RIi3tE75S7goTz0XwxZeGFtkoBU+2g8neYR
+	 zUDpmVq8juFLYHk/lcNpROoCts5QM4lJGTEzi6bbtCEGPuyFvQUGIYllNpIj7j8FvVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsXFOs1a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxyqFnbv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDCA606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:08:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AA260A2626
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsXFOs1a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CE01F008A1;
-	Tue, 10 Nov 2026 16:08:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxyqFnbv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A177F1F008A6;
+	Tue, 10 Nov 2026 16:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326895;
-	bh=pCfZ7FC26+7QZ6BLpFEHkI+xxPTfMD/zdZIiqvWALYs=;
+	s=k20260515; t=1794327014;
+	bh=dlNTuczLGHrz5Am0z6YZd60IUeF4Xt5On/hEzBoyLHo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SsXFOs1aysRymIco0vZS91G7xStyj4bqELa7r6HHaHKOskdBHEDzljLe4n4S8G6DZ
-	 gIXmbdySqyq0Me2H3bId/k5izolzECVjsj6fgg8HMfLoJjkbsIfJ9iIzh+qctEwMR2
-	 zLJul0Xzajwh5PIOZfyi5VXfMT6Qq63Gj42hNM0Z/dnLokD6iFSof05nHCoCbn52aI
-	 9WvSAffixd7Jo77wBMimFNdspNAlxpiEOaXCA880KXoDfIPP2rxm1wnLmNLTsMNi1j
-	 tMSlkcmRoP1kvFelfnQYBtRPHBuxSdo01I8tuKY9Es6Wr0YjiAo0YpZa3F6i7vQmXN
-	 7fJvWOR+E5p8w==
+	b=gxyqFnbvauLomOurnGv3KOqdrWRsfAl4ZHfmnHUrKqN6HOxh8dRr/sDtM98sFbis+
+	 6pKoaO+LCCC6aMIw24G+R1tot3Xm5FwIvq1mJ3SnLzEjY4ha1azgCiyf9XoDqAhh6W
+	 XEPu+yKoCqc16C7MnoZeyO7IBMJoHME+CH4EGwG6n0ELMZTwPulp7mPyTbb9rrnbpA
+	 uIKe0k92Chh9DuXTmn6rIut10V3HzmKf3LhCLf89s4XpHMReUoAlRifYR4pF1iAM3E
+	 WxSyKw61drosQKQxeV5H3JrjCWnVShVsqJkqbZyG1/xRUO0bG5Gd/wWccDNICg9w+2
+	 5y+i77BARVZaA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mailbox: altera: shut down RX polling timer on channel teardown
-Date: Tue, 10 Nov 2026 11:08:13 -0500
-Message-ID: <20261110160753.2404426-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] iommu/dma: Catch scatterlist length overflows
+Date: Tue, 10 Nov 2026 11:10:12 -0500
+Message-ID: <20261110160952.2374331-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060413-failed-5.15-0cf10e65639c@kernel.org>
-References: <20261107060413-failed-5.15-0cf10e65639c@kernel.org>
+In-Reply-To: <20261107060343-failed-5.15-1c8f6308e557@kernel.org>
+References: <20261107060343-failed-5.15-1c8f6308e557@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,43 +63,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Krzysztof Karas <krzysztof.karas@intel.com>
 
-[ Upstream commit 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 ]
+[ Upstream commit 1c8f6308e557f32412e9d4678b3f029f47f6d9aa ]
 
-The RX polling callback unconditionally rearms the timer after it
-processes mailbox data.  altera_mbox_shutdown() uses
-timer_delete_sync(), which waits for a running callback but does not
-prevent that callback from rearming the timer after the deletion.
+It is possible, when a very large mapping uses only one
+scatterlist, that padding overflows scatterlist's length field.
+This results in:
+ 1) silently wrapping the value
+ 2) smaller than desired mappings produced by iommu_map_sg
+ 3) leaving mapped bytes in memory (no iommu_unmap)
 
-Use timer_shutdown_sync() for the final polling teardown so the timer
-cannot be queued again while the mailbox channel is being released.
-The timer is reinitialized with timer_setup() on a later channel startup,
-so polling mode remains reusable.
+Address this issue by adding overflow detection for scatterlist
+length field.
 
-Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
+Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
-[ sashal: replaced del_timer_sync() instead of timer_delete_sync() ]
+Assisted-by: LLM
+Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+[ sashal: Replaced unavailable overflows_type(s_length, s->length) with s_length > UINT_MAX. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mailbox/mailbox-altera.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iommu/dma-iommu.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
-index 75282666fb06c..2b1be8828440e 100644
---- a/drivers/mailbox/mailbox-altera.c
-+++ b/drivers/mailbox/mailbox-altera.c
-@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
- 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
- 		free_irq(mbox->irq, chan);
- 	} else if (!mbox->is_sender) {
--		del_timer_sync(&mbox->rxpoll_timer);
-+		timer_shutdown_sync(&mbox->rxpoll_timer);
- 	}
- }
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index dfef5d7f5885a..d781c290f26c8 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1023,6 +1023,11 @@ static int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg,
+ 		sg_dma_len(s) = s_length;
+ 		s->offset -= s_iova_off;
+ 		s_length = iova_align(iovad, s_length + s_iova_off);
++		if (s_length > UINT_MAX) {
++			ret = -EOVERFLOW;
++
++			goto out_restore_sg;
++		}
+ 		s->length = s_length;
+ 
+ 		/*
+@@ -1039,7 +1044,20 @@ static int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg,
+ 		 *   time through here (i.e. before it has a meaningful value).
+ 		 */
+ 		if (pad_len && pad_len < s_length - 1) {
+-			prev->length += pad_len;
++			unsigned int new_prev_len;
++
++			/*
++			 * For large mappings spanning multiple GBs we
++			 * may not be able to fit all needed padding into
++			 * sg->length.
++			 */
++			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
++				ret = -EOVERFLOW;
++
++				goto out_restore_sg;
++			}
++
++			prev->length = new_prev_len;
+ 			iova_len += pad_len;
+ 		}
  
 -- 
 2.53.0
