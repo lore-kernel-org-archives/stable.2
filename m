@@ -1,55 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794319985;
-	b=JrUE5+wwjT4n2NAh7szhPIQUu/fAJkZ2Lp/jg4i3XBEMsNxTLXW8KDZtgEzmSx55XJmp
-	 YAMafi7KQgWXmvAwc6oxLTruO75j4du2PczE3GeZvrLhO9UeqXws0yf3StB/brL5smdDf
-	 ugkvhn0mNEW298l/ieGZaaXstsZG59ioYnchExsCOVScyBUrqMAQfHdV+/L5+lv9OZMZ1
-	 ClXNKrRM7pnK5i7AgsIeuZthSiol7E0hxSQpPXRLnpQYWxiiG3mWnQwEvmyYziJaGYHXb
-	 1WsuSoyo1JrAcYN0D0HdjqK+Q+aBNuis0F72WqmdnyvYlMmw1gY3iCngOHY8hKpcojw==
+	t=1794320005;
+	b=105CfG5DsFQcrxxTjB/cCsHozWN0jLEVrEfSg0F9qPFkaykGZJUJpOdh1aIuwenkkEBA
+	 IEE2LmtOfOUgFuFl/KUm+Edvg7smTA8wnMM66s5V8Cq5rV9zi8JRw6H/3UrcVszMBczxB
+	 SVYC/hl4ue3Jn6n3xpCa9vyV587W83j6tXica0U5oqJOxUYrx+aWKU19xrPwzY1rxsLiW
+	 h2Q6AiLfpEQJIGlFWv6Wtf12wsq8Rvi9ZMdGwhdwXCkZXPs8zPatUGaeKXeWHBWHSxQ8Y
+	 KXllVSu3goyg5LeCsS39eJMT6piziDYVcMww5nX/zJS+h3aETvP0mEFeIaV00VyeATA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794319985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=U6G8C1StT8tD2z7xJpVquXVgvHoDA6RCeGVAiWk6SnM=;
-	b=i5auUzb9prWd7BC8QyaJ5g69jhvalI9AbLSKy30e54por4GpqHQWjYPmPkePByHe0WLf
-	 qkzszVo5XKLfVCqTyIgWG8W0sF4TwpoIdr/+deqN8qSjZl8pPgQQhAFDOr549QSsIGpsa
-	 jxtT/wI3GhulbAbxwCastR24MrK3sxkJA/XuQwu20PtnwWUwWxlzwKpvixOlY8yaHv0az
-	 eWiQ+1XEsvzhpMvyVB5QzRtgITLp/oNp8xHTNJy6QDLa0Vs3N2JZYyFAJLfuWtTOgY/jt
-	 9qptkAu9WC1XWf0IHGRkFqf3opb+5Skb+APa+jXW4zHNEvUCyupSh2uBz8GK7gsoZBg==
+	bh=IG33FtKf/JjYFkn5lhsHn5kOZxxFI7uKrruvvcCgqjY=;
+	b=0Bya8iOG+/E4p0451F/GJOqri+5CWFY9+cg1uJos5/uFob5krJANSbdeixXVJLx35lQx
+	 UoJo0mM+LJn/BMk8LZUIXu43RIYIuf8YFP51UR5bzR2KNK9GBTQqRI0H9YUmITq0YpwIg
+	 IMglW1LfIVARq5z9jN9ZNQt9Y6IoWj0H3tm3zOjsm119CVUk4552aFJ4JdUQH4kI5AhDp
+	 7PCXItboEGQe8s0YRYh7fX+4/Qhy++VuFC41+zeYhTUYzTltEcpDldRtPowSdTLHnL8E5
+	 j12l7Yie5zzyJvvkxWLPOE8+7fmHx5udc6WD9f7HfB/xmE5wPaTqyNC1qCAMmTCGAlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JItxA5Cr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXf21VQB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DAB606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C447D606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:13:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JItxA5Cr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94E81F008A2;
-	Tue, 10 Nov 2026 14:13:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AXf21VQB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCCC1F008A6;
+	Tue, 10 Nov 2026 14:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794319984;
-	bh=U6G8C1StT8tD2z7xJpVquXVgvHoDA6RCeGVAiWk6SnM=;
+	s=k20260515; t=1794320004;
+	bh=IG33FtKf/JjYFkn5lhsHn5kOZxxFI7uKrruvvcCgqjY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JItxA5CrZSKxVE2og/Gg7aK911bf2TgOySMBseY7zIWrh6BOO+iSUCjEXX/39VZAP
-	 rYRSJClR/G7mzkyN1tUzqGcDAXguL0vvK3v2aH1U6GhpsHE0WvWO0xvG+yTngJGuB6
-	 Eq3G9HiH8mpauDZZkBvVVbODj6h05lJVG3c9aDYlDvuVQe5aJAevbnD+7PQ6Hp2v9G
-	 gWa31MoO3Kb0ukktfyjE4SbzJJ9CjytX29DIFSJkQre6PmW12gjDIc4oRTFKqS/NzZ
-	 0rg4agLrVJ1gkHuYvouVQNjw5HJ6a4PgVtybAN3pbh9augni6kDP+XlxIJ4mqRCwvX
-	 kJOqor+UsqnGQ==
+	b=AXf21VQB9oAup+haTvypvz32oYpa7by07SkqUct0zJILuuZJl4g7n5VOoZc8iRMOC
+	 ZucTnOyQPrkxT8x+mp3vPEmL5Lbujd3PEPEZOxdx5zHpT9v4j55FRTYiIjZ/5BO/DG
+	 q4VhifJX4wXPkrZY7bSAeTwLmmEme+Vi70/Draar1GQEDfeqnwr3j08inKCBfntKhB
+	 b0GFGw3kERIGaiPKUNdyQwVreRGWy2JYGG04aTPA+7LDBEZLwUzfhUO3Npl0um0aJG
+	 h3Dd/sydi/LNkTYO68Vk7APz9oAxrQyQq5zCr7sbP5xfnOgWnfbwiL1j1RCVPZ95y/
+	 AEU9atqCVzinA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Hugh Dickins <hughd@google.com>,
+	Kairui Song <kasong@tencent.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] iio: dac: mcp4821: reject devices without match data
-Date: Tue, 10 Nov 2026 09:13:01 -0500
-Message-ID: <20261110141101.1850038-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/huge_memory: do not touch frozen folios in deferred_split_isolate()
+Date: Tue, 10 Nov 2026 09:13:20 -0500
+Message-ID: <20261110141218.1833760-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051800-failed-6.12-6ac1faf4de61@kernel.org>
-References: <20261107051800-failed-6.12-6ac1faf4de61@kernel.org>
+In-Reply-To: <20261107050843-failed-6.18-5da8ec3262bb@kernel.org>
+References: <20261107050843-failed-6.18-5da8ec3262bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,54 +75,145 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiale Yao <yaojiale02@163.com>
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-[ Upstream commit 6ac1faf4de61dcf27ffe8f2c25d96fe5f4b2886d ]
+[ Upstream commit 5da8ec3262bbb40f057f3b0dacc18f37bda06f95 ]
 
-A device bound through driver_override need not match an entry in the
-driver tables. In that case spi_get_device_match_data() returns NULL,
-but mcp4821_probe() dereferences the result while configuring the IIO
-device.
+Patch series "Fix deferred_split_isolate() and drop the split workaround",
+v2.
 
-Reject devices without match data before using the chip information.
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put().
 
-Fixes: cdf3ecb0d8d0 ("iio: dac: driver for MCP4821")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: adjusted context due to missing default gain initialization ]
+It leads to wrong results when !folio_try_get() was not caused by
+folio_put(): for a frozen folio, PG_partially_mapped gets wrongfully
+cleared and the folio dropped from the queue.
+
+It came up in the review of my collapse RFC series:
+
+  https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+
+The bug is inert in upstream code:
+
+  - __folio_split() works around it;
+  - __folio_migrate_mapping() freezes a folio it is about to replace;
+  - reclaim freezes only what try_to_unmap() already unmapped.
+
+No cc:stable needed.  But my collapse rework steps on it, so it is worth
+fixing.
+
+The branch the first patch removes also hid an inert, pre-existing bug in
+the zone device path:
+
+  https://lore.kernel.org/all/20260827163838.1813081-1-usama.arif@linux.dev/
+
+The first patch fixes deferred_split_isolate().
+
+The second patch removes the workaround for this deferred_split_isolate()
+behaviour from __folio_freeze_and_split_unmapped().
+
+Tested in a VM: split_huge_page_test, folio_split_race_test and cow pass.
+
+Also ran a test that leaves 16 partially mapped THPs on the deferred split
+queue and drives thp-deferred_split through debugfs, checking
+nr_anon_partially_mapped.
+
+This patch (of 2):
+
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put(): clear
+PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take the
+folio off the queue.
+
+The folio_put() race is the most common case for !folio_try_get(), but it
+is not the only option.  Another scenario is folio_ref_freeze().
+
+A zero refcount in such cases does not mean the folio is going away.  It
+means "don't touch me" and current deferred_split_isolate() doesn't
+respect it.  It can lead to unqueueing folios from the deferred list for
+no reason:
+
+    CPU 0                            CPU 1
+    ---------------------------      ------------------------------
+    freeze a mapped folio            deferred_split_scan()
+      folio_ref_freeze()               folio_try_get() fails
+                                       folio_clear_partially_mapped()
+                                       NR_ANON_PARTIALLY_MAPPED--
+                                       folio off the queue
+    give up, put it back
+      folio_ref_unfreeze()
+
+The folio is still partially mapped, but it is no longer a split
+candidate.  Nothing queues it again until part of it is unmapped once
+more.
+
+Skip the folio instead: whoever freezes the folio, owns it and owner is
+responsible for its fate.  It also covers the folio_put() case:
+__folio_put() unqueues the folio via folio_unqueue_deferred_split().
+
+Nothing is lost by skipping.  Everything that frees a queued folio
+unqueues it first, and folio_unqueue_deferred_split() clears
+PG_partially_mapped and brings MTHP_STAT_NR_ANON_PARTIALLY_MAPPED down on
+the way:
+
+    __folio_put(), folios_put_refs()   mm/folio.c
+    __folio_migrate_mapping()          mm/migrate.c
+    shrink_folio_list()                mm/vmscan.c
+
+__folio_freeze_and_split_unmapped() does the same by hand, under the
+list_lru lock it holds across the freeze.  A freeze that ends in
+folio_ref_unfreeze() leaves a folio that is still partially mapped and
+still belongs on the queue.
+
+Link: https://lore.kernel.org/20260831091514.1879786-1-kirill@shutemov.name
+Link: https://lore.kernel.org/20260831091514.1879786-2-kirill@shutemov.name
+Fixes: 8422acdc97ed ("mm: introduce a pageflag for partially mapped folios")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Lance Yang <lance.yang@linux.dev>
+Closes: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: Claude-Code:claude-opus-5
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+[ sashal: adapted deferred_split_isolate() changes to the existing deferred_split_scan() loop because the list_lru conversion is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/dac/mcp4821.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ mm/huge_memory.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/dac/mcp4821.c b/drivers/iio/dac/mcp4821.c
-index c1a59bbbba3cc..9e4a3cb2a7120 100644
---- a/drivers/iio/dac/mcp4821.c
-+++ b/drivers/iio/dac/mcp4821.c
-@@ -172,9 +172,13 @@ static const struct iio_info mcp4821_info = {
- 
- static int mcp4821_probe(struct spi_device *spi)
- {
-+	const struct mcp4821_chip_info *info;
- 	struct iio_dev *indio_dev;
- 	struct mcp4821_state *state;
--	const struct mcp4821_chip_info *info;
-+
-+	info = spi_get_device_match_data(spi);
-+	if (!info)
-+		return -ENODATA;
- 
- 	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*state));
- 	if (indio_dev == NULL)
-@@ -183,7 +187,6 @@ static int mcp4821_probe(struct spi_device *spi)
- 	state = iio_priv(indio_dev);
- 	state->spi = spi;
- 
--	info = spi_get_device_match_data(spi);
- 	indio_dev->name = info->name;
- 	indio_dev->info = &mcp4821_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 78fecc3ad5700..9f547400366b4 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4310,14 +4310,9 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 							_deferred_list) {
+ 		if (folio_try_get(folio)) {
+ 			folio_batch_add(&fbatch, folio);
+-		} else if (folio_test_partially_mapped(folio)) {
+-			/* We lost race with folio_put() */
+-			folio_clear_partially_mapped(folio);
+-			mod_mthp_stat(folio_order(folio),
+-				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
++			list_del_init(&folio->_deferred_list);
++			ds_queue->split_queue_len--;
+ 		}
+-		list_del_init(&folio->_deferred_list);
+-		ds_queue->split_queue_len--;
+ 		if (!--sc->nr_to_scan)
+ 			break;
+ 		if (!folio_batch_space(&fbatch))
 -- 
 2.53.0
 
