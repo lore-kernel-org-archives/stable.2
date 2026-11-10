@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341398;
-	b=IATh/DS5n/YsAH7TFil+hpU5qmRi4lZ38vHDESIV4N2qdbc0jVj+JuTkmxCxlqyVL65B
-	 emtB2nsmCk6lE94vIfHqDo9AW9nA6RpmLWwiKKucXXObQJSV9FFP99A2rxmrdT1ngDq/L
-	 Cl6WAun6BNdIBetlnEDHu3V4zWT6J/GllNvPArUoCxpMsaKBba8LegeIAkQ+JBbopnBS5
-	 IbcuHLJvscd+vEAhVYxHo+DP9nImv32zPcsCrtu9wa86jQjEHNQ9pdSLQWhu9Tq3miRaX
-	 9xRoJ9Eqrg38Qj6G7/ZluEuXHUlMb1ZgEHm55Bhz+C47gYWap4MVECbcgLKEl7TebeQ==
+	t=1794341399;
+	b=t0OkJa9CpaFrnKOmBzPQrokakiRg5frsS+3GHtpbzUwe5kEoH6eEXdqhiA8o5oMVWfWX
+	 Gwk3aZbntLdGVS3wn0g77tbbs9FQ65iiJcOSmLHHmlc8g2/36moJtUijxtjxVdRJN0IAH
+	 mIKokOSWz9U5CIm9lUuRHB1BksATCja8s2714eLBA05QB4Em1Sj5EBuMqPKMpdxtoxdnk
+	 zIu9yLG9Hmomyl4/n7hECfK5/NdhpCcaOYHp9CPB9eXCwGC7cGFpJcvMLnEKPUFg80a/j
+	 ujR7zNiseuSa94w1uJqRRg24/1Jrn1eYbWz2nEjNp/ugWjeKuyGFVhKyUjEc89hamFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341399;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5QwhOVFzmiFOly5Xr/Dg8FFp80CkReGXh1LlAD7z5dU=;
-	b=3Th1Yux53gfTEiLZGVClk85p7qXM0FZYcWLz8l6TZsVeBXcVQVGxOrrBcyAjq/RQC0gX
-	 Hy8CBNtXfz2MFXl90NTGEAGZl1xukOZKAlr9A/xxhY4lCqOeJ226+L7SiH1YGKTgYIOiI
-	 ga84ELw8LTDgtGc+9S7Og5z7jg/k6P+s9EJsuKoiFe3zS3ZSJeiFN1Olmr+aAwlL+zOW7
-	 aU6bdNDMUQ3cofaCVqqqNpHajvEGgvqttC2UgwCEu75dtQf8mBIY8/4Zw/NPyPM42VJCO
-	 Xq6kK9s/I4uAEkOw+rZn+84v4tRzz6h3p2/1DHXxFvHqA1ECr3kpCECWzcfFA5uqCyQ==
+	bh=UykrGxeB6OztvIjZi06bHPGsExStkVpfSWyeJdz9wk0=;
+	b=K6gNc0RYIQ08EZJuHdwOtTsKFHjLtZET3HV7A5CQfn7kw9RAOeAzX39gqcqLTgJkzpDk
+	 HF+MF7BXaLDG6L4RMyWYKxg3VscAm7keW4RYy1yn9NmJUWZiU6hC9/gu5av5efkKIEU+c
+	 pQN8ppFSKiww1wfhOUBv9UAsLxImtyqx+O9jp/7xUjxIRem/mOnNNHh9J+4BpwlxBnmwx
+	 GIaet9V1DPblA+ZE1tTq2SFviJxmqqpeEI6HIzVOgR+OTCi/4O2QTEANKYlZhuZ4lA7fK
+	 YpBRek2IApXF+PX+B+y2b/pU6VGVlKwSNp3vIjEFC5zCAUxkQdbLWn4sK3CTbuXDEeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HUxze3mz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2RYM1EG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6011F606A323
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:09:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A68606A327
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:09:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HUxze3mz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9131C1F008A2;
-	Tue, 10 Nov 2026 20:09:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2RYM1EG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9DF1F0089F;
+	Tue, 10 Nov 2026 20:09:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341398;
-	bh=5QwhOVFzmiFOly5Xr/Dg8FFp80CkReGXh1LlAD7z5dU=;
+	s=k20260515; t=1794341399;
+	bh=UykrGxeB6OztvIjZi06bHPGsExStkVpfSWyeJdz9wk0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HUxze3mzKrh60GqkdDiDGjBf73AKp/izy8l9OR9Zq3JNyCZL8TlcJ4TdQY77FFpD7
-	 bdotCn5cA77GAudlUTw3eajMpFAU6Bg12I8l4TLwNbOqv+Jy9IoAcGTYzlFGNwNJy9
-	 UpGzBbKhz/hDQiu6e0F2HITKRl+7IyNWA/DaARMJ7t0WVQxcSVcahHCKGWimujIQcU
-	 Xon/ad+Fg7SCtiYQYucsxPtfFL5zCFyBIUy4ImKN6howfEECVL82VADQuR0yn3wJi2
-	 jGiB6q3y2mGUhcl+x+V9n0l9aY+x9VGKlSLeW/hzC3J5YNOEndjDvaO7k7VbnoSnYM
-	 ITibWh21k6ROQ==
+	b=h2RYM1EGmuSRtWGrk1zQn9RbOlGTOOznw/hXUbSWziMrYkyZ9hjNtp3JEWRGYYz4G
+	 irM35trrum8I4MLg02dY02DUnhAhtHpxxbQ13gLmXcQxYeZfBnIpRZPdk1dl7WPFEv
+	 1FOE802u+sNyRd1LhEOMuGXnmHgEa6Fn63xgYaCPy9Vet4VPaEMFc7fdRvZOta2UJg
+	 jgnxYSbqHX9qHDOacvI6MmcBcUWJBxTdBZEQFqZ3KpMHwqo8y+8hANBbZEwgm34gH2
+	 yh8dKQwolWm4c+fDAwx39YvJvYkL0wEa0tIgoHZU15JvhMwvLwfDnRuQeF+LcPtKvk
+	 /5KKVzovxqHAA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Alex Sierra <alex.sierra@amd.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>,
+Cc: Apurv Mishra <Apurv.Mishra@amd.com>,
+	Amber Lin <Amber.Lin@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] drm/amd: update mtype flags for gfx 9.5.0
-Date: Tue, 10 Nov 2026 15:09:53 -0500
-Message-ID: <20261110200933.3702189-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] drm/amdkfd: Drop workaround for GC v9.4.3 revID 0
+Date: Tue, 10 Nov 2026 15:09:54 -0500
+Message-ID: <20261110200933.3702189-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261110200933.3702189-1-sashal@kernel.org>
 References: <20261107052447-failed-6.12-232213c9bd7f@kernel.org>
@@ -64,93 +63,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alex Sierra <alex.sierra@amd.com>
+From: Apurv Mishra <Apurv.Mishra@amd.com>
 
-[ Upstream commit dad0c70507a834ac12e9286401d90536a3c4cea2 ]
+[ Upstream commit daafa303d19f5522e4c24fbf5c1c981a16df2c2f ]
 
-Update mtype flags to meet gfx 9.5.0 requirements for remote GPU
-memory and system memory.
+Remove workaround code for the early engineering
+samples GC v9.4.3 SOCs with revID 0
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
+Reviewed-by: Amber Lin <Amber.Lin@amd.com>
+Signed-off-by: Apurv Mishra <Apurv.Mishra@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Stable-dep-of: 232213c9bd7f ("drm/amdgpu/gmc9: add extra type-2 TLB flush for gfx942/gfx950")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c |  8 ++++----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 16 ++++++++++++----
- 2 files changed, 16 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++++++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      | 14 ++------------
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c    |  5 -----
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c     |  4 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c       |  3 +--
+ 5 files changed, 12 insertions(+), 22 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a8f8bb342884f..8602c31f25880 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2680,6 +2680,13 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 		break;
+ 	}
+ 
++	/* Check for IP version 9.4.3 with A0 hardware */
++	if (amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
++	    !amdgpu_device_get_rev_id(adev)) {
++		dev_err(adev->dev, "Unsupported A0 hardware\n");
++		return -ENODEV;	/* device unsupported - no device error */
++	}
++
+ 	if (amdgpu_has_atpx() &&
+ 	    (amdgpu_is_atpx_hybrid() ||
+ 	     amdgpu_has_atpx_dgpu_power_cntl()) &&
+@@ -2692,7 +2699,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 		adev->has_pr3 = parent ? pci_pr3_present(parent) : false;
+ 	}
+ 
+-
+ 	adev->pm.pp_feature = amdgpu_pp_feature_mask;
+ 	if (amdgpu_sriov_vf(adev) || sched_policy == KFD_SCHED_POLICY_NO_HWS)
+ 		adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
 diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index fba9d8c6fd2b1..68390bdbc51c8 100644
+index 68390bdbc51c8..c095a1489bd80 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -1207,7 +1207,7 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+@@ -1207,10 +1207,7 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
  		if (uncached) {
  			mtype = MTYPE_UC;
  		} else if (ext_coherent) {
--			if (adev->rev_id)
-+			if (gc_ip_version == IP_VERSION(9, 5, 0) || adev->rev_id)
- 				mtype = is_local ? MTYPE_CC : MTYPE_UC;
- 			else
- 				mtype = MTYPE_UC;
-@@ -1217,10 +1217,10 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
- 			/* dGPU */
- 			if (is_local)
- 				mtype = mtype_local;
--			else if (is_vram)
--				mtype = MTYPE_NC;
+-			if (gc_ip_version == IP_VERSION(9, 5, 0) || adev->rev_id)
+-				mtype = is_local ? MTYPE_CC : MTYPE_UC;
 -			else
-+			else if (gc_ip_version < IP_VERSION(9, 5, 0) && !is_vram)
- 				mtype = MTYPE_UC;
-+			else
-+				mtype = MTYPE_NC;
- 		}
+-				mtype = MTYPE_UC;
++			mtype = is_local ? MTYPE_CC : MTYPE_UC;
+ 		} else if (adev->flags & AMD_IS_APU) {
+ 			mtype = is_local ? mtype_local : MTYPE_NC;
+ 		} else {
+@@ -1330,7 +1327,7 @@ static void gmc_v9_0_override_vm_pte_flags(struct amdgpu_device *adev,
+ 				mtype_local = MTYPE_CC;
  
- 		break;
+ 			*flags = AMDGPU_PTE_MTYPE_VG10(*flags, mtype_local);
+-		} else if (adev->rev_id) {
++		} else {
+ 			/* MTYPE_UC case */
+ 			*flags = AMDGPU_PTE_MTYPE_VG10(*flags, MTYPE_CC);
+ 		}
+@@ -2331,13 +2328,6 @@ static int gmc_v9_0_hw_init(void *handle)
+ 	adev->gmc.flush_tlb_needs_extra_type_2 =
+ 		amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 0) &&
+ 		adev->gmc.xgmi.num_physical_nodes;
+-	/*
+-	 * TODO: This workaround is badly documented and had a buggy
+-	 * implementation. We should probably verify what we do here.
+-	 */
+-	adev->gmc.flush_tlb_needs_extra_type_0 =
+-		amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 3) &&
+-		adev->rev_id == 0;
+ 
+ 	/* The sequence of these two function calls matters.*/
+ 	gmc_v9_0_init_golden_registers(adev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+index fa95bde45f3c3..297148b68b867 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -347,11 +347,6 @@ struct kfd_dev *kgd2kfd_probe(struct amdgpu_device *adev, bool vf)
+ 			f2g = &aldebaran_kfd2kgd;
+ 			break;
+ 		case IP_VERSION(9, 4, 3):
+-			gfx_target_version = adev->rev_id >= 1 ? 90402
+-					   : adev->flags & AMD_IS_APU ? 90400
+-					   : 90401;
+-			f2g = &gc_9_4_3_kfd2kgd;
+-			break;
+ 		case IP_VERSION(9, 4, 4):
+ 			gfx_target_version = 90402;
+ 			f2g = &gc_9_4_3_kfd2kgd;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index e64eba0a92631..7dd458dcab5dc 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -424,7 +424,7 @@ static u32 kfd_get_vgpr_size_per_cu(u32 gfxv)
+ {
+ 	u32 vgpr_size = 0x40000;
+ 
+-	if ((gfxv / 100 * 100) == 90400 ||	/* GFX_VERSION_AQUA_VANJARAM */
++	if (gfxv == 90402 ||			/* GFX_VERSION_AQUA_VANJARAM */
+ 	    gfxv == 90010 ||			/* GFX_VERSION_ALDEBARAN */
+ 	    gfxv == 90008)			/* GFX_VERSION_ARCTURUS */
+ 		vgpr_size = 0x80000;
+@@ -483,7 +483,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+ 
+ 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
+ 		props->eop_buffer_size = 0x8000;
+-	else if ((gfxv / 100 * 100) == 90400)	/* GFX_VERSION_AQUA_VANJARAM */
++	else if (gfxv == 90402)	/* GFX_VERSION_AQUA_VANJARAM */
+ 		props->eop_buffer_size = 4096;
+ 	else if (gfxv >= 80000)
+ 		props->eop_buffer_size = 4096;
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index a62c94894a274..f3a454d4698ae 100644
+index f3a454d4698ae..8f114e85ffbb9 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1272,7 +1272,8 @@ svm_range_get_pte_flags(struct kfd_node *node,
+@@ -1272,8 +1272,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
  	case IP_VERSION(9, 4, 3):
  	case IP_VERSION(9, 4, 4):
  		if (ext_coherent)
--			mtype_local = node->adev->rev_id ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_UC;
-+			mtype_local = (gc_ip_version < IP_VERSION(9, 5, 0) && !node->adev->rev_id) ?
-+					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_CC;
+-			mtype_local = (gc_ip_version < IP_VERSION(9, 5, 0) && !node->adev->rev_id) ?
+-					AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_CC;
++			mtype_local = AMDGPU_VM_MTYPE_CC;
  		else
  			mtype_local = amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
  				amdgpu_mtype_local == 2 ? AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;
-@@ -1287,9 +1288,13 @@ svm_range_get_pte_flags(struct kfd_node *node,
- 			 */
- 			else if (svm_nodes_in_same_hive(bo_node, node) && !ext_coherent)
- 				mapping_flags |= AMDGPU_VM_MTYPE_NC;
--			/* PCIe P2P or extended system scope coherence */
--			else
-+			/* PCIe P2P on GPUs pre-9.5.0 */
-+			else if (gc_ip_version < IP_VERSION(9, 5, 0) &&
-+				 !svm_nodes_in_same_hive(bo_node, node))
- 				mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+			/* Other remote memory */
-+			else
-+				mapping_flags |= ext_coherent ? AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
- 		/* system memory accessed by the APU */
- 		} else if (node->adev->flags & AMD_IS_APU) {
- 			/* On NUMA systems, locality is determined per-page
-@@ -1301,7 +1306,10 @@ svm_range_get_pte_flags(struct kfd_node *node,
- 				mapping_flags |= ext_coherent ? AMDGPU_VM_MTYPE_UC : AMDGPU_VM_MTYPE_NC;
- 		/* system memory accessed by the dGPU */
- 		} else {
--			mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+			if (gc_ip_version < IP_VERSION(9, 5, 0))
-+				mapping_flags |= AMDGPU_VM_MTYPE_UC;
-+			else
-+				mapping_flags |= AMDGPU_VM_MTYPE_NC;
- 		}
- 		break;
- 	case IP_VERSION(12, 0, 0):
 -- 
 2.53.0
 
