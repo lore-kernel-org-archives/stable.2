@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273521;
-	b=N7/8ELc0Fyun8zluadB5ZT6H4u/gmCyPK9EvxRLNuYZSEDsX3xBYUtAZjLZJ20kfpLB3
-	 GtOREdMn5I4KV3KMKey60FdPVgacEpyBXc8HIzl12fRFs173Qi0imixPyNLlcwIJcTPHK
-	 FrigiR3xciT8+364qsA/F8d5pomjcIlpWvj52XmEw4LZS1WX7/oETTyaz06ed+rnRZnZs
-	 32GbFLHWv4gaAZdyFCSbgItcm2p5kyqkFl5prz1EjAi3DRqiNvtmJD8YJlRUlQwDlTSTD
-	 Pi6wtHK/3Ouhn5WkPJdhTu3IpNjy4p+c23CPWDQfbU5ytEBFCenwG16hKS2RmeQRAhw==
+	t=1794273523;
+	b=TWik54gKkDsp2lCgFyc/pyVOOBhLiQAlw8RRXJfZX/Y6SPFGxQCwIxiVokTvdXhpvmqr
+	 2jiwlxRM6JoYg5VrqPSf3o0mTnkqmCxUbOy4qOMCkWKVrSaMkKlN6sPvToLL0kFOylBKf
+	 E0C390lN2LNIWgbU0SboEHwTmQLWN+4Iy9cUlFcGMeDq3p14t/2NU76b1Dqugg3Fu/tHb
+	 4uzuIjX/Pml9WSjdVzql5Has2ph40hZHeANrr813qoivtkAfL/HZqpLPVvpIXfPHm08Tx
+	 oiuyJBsl9DFahbKALPTObDv7yKDTN6KZ240PMkxCTofV+Vn0hYqXWWbPmdEUMRwDKRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273521;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273523;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=C6mgpNpMmNMLpVIzij4dbJ4Ryr3OIVBcUZBs5kFc2MY=;
-	b=w6kqA2wzi4HPMcxoPjLAvW6gsPH7XM9xr54PhoWjFvq9sB6AQL1vOjKcVJv1BoJAeBbb
-	 /cGRT6ALICmp57Qe5FXEzGxn7jVt6maYCQczNOPmLErRBSBKCBKaDdtvw0S8f/FjaivOu
-	 XHHlkYWriq928s26w4lMRjNT/yleFUsnUPEzdruIgyqH/expyI73vuC7Mkgfwf+YScq/7
-	 oyUAa4qQwbdp/nsSBZildiATxYBldR65XhQ0UuY38A76r+nSEWjEVwiHO1x6Lx12PQuu/
-	 8jgi5X+b/43pB4KufMx7dAFrhPDxhmR7V0xwoMdaPUsa6wMoDnwhA6JLkK48jj1wqDA==
+	bh=YRzLo2vim+x16bSb1Nxsgn4V8pnixkO7kQrri3QooTM=;
+	b=4HcJC+/QdyUX4WAoYKMzrE31aB39a/enW9FlWXxL7OegqdwvRzwDofWF5/HOc0MQM7J/
+	 vSTNLeA3LiqQ3YvRFfj1vE/377R5qEyHkJAwcbDDyDR5EhGqB7zQkTq6jo30o10ICrm/v
+	 xAmuDOQhoFSlpD0VlvPy4nPdWQoaGOCOrjAMDw5Y8nYg45jsfyKTEFnZgWWsz8hkFY8i5
+	 RetX1vrnjmx0a8FJ2aHCFelfHrHISC10fzdtUDQfse/80xTS+/2mblbepUfLUkmXa8bBc
+	 oobxSaDauyRmZGpiyVEWfqKDH4pQ0ESP+/axStzqwkQtBe2vX2CXizFUhGebcbScx1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U1pMV2kp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oe2hF9UI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAB4606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725D1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U1pMV2kp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFC941F0089F;
-	Tue, 10 Nov 2026 01:18:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oe2hF9UI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B501F0089F;
+	Tue, 10 Nov 2026 01:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273520;
-	bh=C6mgpNpMmNMLpVIzij4dbJ4Ryr3OIVBcUZBs5kFc2MY=;
+	s=k20260515; t=1794273523;
+	bh=YRzLo2vim+x16bSb1Nxsgn4V8pnixkO7kQrri3QooTM=;
 	h=From:To:Cc:Subject:Date;
-	b=U1pMV2kpIpQQYSGI1RVBGKGPqxqiPaFAVmUt53VgYyleVxdSw0UF3yPRWYQBW/47L
-	 ejcwTa0s9as7BtiYPn9mLGT81RP1ECGw3S3ZYbmxxCpMQ1BwqB9Zg5aHX8Zg+z9TB5
-	 KdbTDdRAGhRnf5Dswq53Jz/K7t+86q+yDBqwEOoHbCgn571TsUj5Y2/AsEzAFubem5
-	 2qOKVAWueBvd65hwB6xINmuK+uuQ7Wj9ksFrqd32FpIQQHXl1iw7AEX4FRxfBO/eWL
-	 +eMcW+/Avs7h+rmXGqUNforAvtdBTLYGTHj+KK58f+N5+Lq8p3p9+R5b+syqk9veoy
-	 MDcjbSMRVPQbA==
+	b=oe2hF9UIjFjgi70g9MAZW7WEh6ap/fm6KhkYFgXaEoxEskBdkPmXcVJDgElEV2e81
+	 M7pDN3Zn4aZHESeYtE1Ernp/jCcZaVjXOH5n3ufK64Y3YYENX7ToZFMinAsZZfXyTo
+	 0Abe4BA5JZOMVlFfCoFxsg5hFMhvF+al4qkVR+9NKQS5XkUpSVlXrTc0VYsyxPbb49
+	 qxyR4oR3ST21vtFHUZJxTwsAtpG54HESdUHcZhE2Wgij6lUmJG1IeDW875VbnOl4Ln
+	 SMzqNrh04tu09LUI4wHO2zJGtNg9taesWL1YuI11Y6i/OvkS7S4gl6wh7fwoHxy7q9
+	 6rPUQcujSfHxg==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
+To: mason@kernel.org,
 	ljs@kernel.org,
 	pfalcato@suse.de,
 	usama.anjum@arm.com,
-	lance.yang@linux.dev,
 	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/mremap: fix moving PUD leaves" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:38 -0500
-Message-ID: <20261109201838-failed-6.1-440c8779757f@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/memory: reject remote COW faults on PFN mappings" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:41 -0500
+Message-ID: <20261109201841-failed-6.1-8db6921cc07b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,80 +71,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 440c8779757f09f290770b1d361dc1516a9d0b3e
+git cherry-pick -x 8db6921cc07b74197a3866d62ed262b68aeadcf3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201838-failed-6.1-440c8779757f@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201841-failed-6.1-8db6921cc07b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 440c8779757f09f290770b1d361dc1516a9d0b3e Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:40:01 +0100
-Subject: [PATCH] mm/mremap: fix moving PUD leaves
+From 8db6921cc07b74197a3866d62ed262b68aeadcf3 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Sat, 31 Oct 2026 10:40:04 +0100
+Subject: [PATCH] mm/memory: reject remote COW faults on PFN mappings
 
-pud_none_or_clear_bad() only really works on page tables. PUD leaves
-confuse the check and make us clear the page table entry and print a
-warning.
+When handling a COW fault without a normal source page (PFN mappings),
+__wp_page_copy_user() copies from the faulting user address. For remote
+faults, this accesses the wrong address space, resulting in wrong data
+getting copied.
 
-Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
-when mapping"), this also leaks device-DAX folio references, mapcounts
-and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
+For example, user_events updates an enable bit in the registering
+process's memory. If that memory needs to be faulted in,
+user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
+item. Placing the enable bit in a private PFN mapping can trigger this
+remote COW path.
 
-Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
-whole or the move fails, split it. This unmaps it with proper accounting
-instead of treating the leaf entry as a PMD table.
+Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
+current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
 
-Keep using pud_trans_huge() for now, in the future this code should be
-cleaned up to just check for PUD leaves.
+The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
+the VM_UNPAGED logic"); likely, actual ways to get remote faults in
+there on COW PFN mappings appeared afterwards. But the fix is simple and
+straight forward.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+Fix generated by an LLM and sent by Chris Mason in private.
 
-Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
+Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Chris Mason <mason@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: fallthrough after splitting ]
+[ david: simplify comment and description ]
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/mremap.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ mm/memory.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 91f0865f6aeea..1237718848f5c 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -87,7 +87,7 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
- 		return NULL;
+diff --git a/mm/memory.c b/mm/memory.c
+index 5392bcb1d24d6..ae8d567bc6ba3 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -3761,6 +3761,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
+ 		return 0;
+ 	}
  
- 	pud = pud_offset(p4d, addr);
--	if (pud_none_or_clear_bad(pud))
-+	if (!pud_trans_huge(*pud) && pud_none_or_clear_bad(pud))
- 		return NULL;
++	/*
++	 * __copy_from_user_inatomic() only works as expected for local faults.
++	 * Reject remote faults.
++	 */
++	if (unlikely(mm != current->mm))
++		return -EFAULT;
++
+ 	/*
+ 	 * If the source page was a PFN mapping, we don't have
+ 	 * a "struct page" for it. We do a best-effort copy by
+@@ -4086,6 +4093,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 				folio_put(old_folio);
  
- 	return pud;
-@@ -847,11 +847,10 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
- 		if (!new_pud)
- 			break;
- 		if (pud_trans_huge(*old_pud)) {
--			if (extent == HPAGE_PUD_SIZE) {
--				move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud);
--				/* We ignore and continue on error? */
-+			if (extent == HPAGE_PUD_SIZE &&
-+			    move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud))
- 				continue;
--			}
-+			split_huge_pud(pmc->old, old_pud, pmc->old_addr);
- 		} else if (IS_ENABLED(CONFIG_HAVE_MOVE_PUD) && extent == PUD_SIZE) {
- 			if (move_pgt_entry(pmc, NORMAL_PUD, old_pud, new_pud))
- 				continue;
+ 			delayacct_wpcopy_end();
++			if (err == -EFAULT)
++				return VM_FAULT_SIGBUS;
+ 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
+ 		}
+ 		kmsan_copy_page_meta(&new_folio->page, vmf->page);
 -- 
 2.53.0
 
