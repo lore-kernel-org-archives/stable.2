@@ -1,57 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281368;
-	b=GViD9C/k/HtZXcA3lcI3ivRZDCSwSiJtZe1A4nfYAxby/llHSHN5rHgxe6CG8zCrp8/j
-	 vaEZt5oT+RDhc5Rk/XSLchbe69inSXk19YLVkL8pnLuI6O+yaa9+j4ulLoWrsbTCf85oJ
-	 qSZ9AH+utZwYptZmmiTJAa2iR9YpDOxGMdLPnFlOLgaIvN4EyRf8HlYySzScuPv971UnN
-	 5dqPVQIhrhwt1wKZpn7sEytRidhfeRxlsahzPkxjORibsQPeOZqsBZPc2w5dEgso8O6zl
-	 0088DJfJM+r8MvBqh3zgtVv0rkoFRnL3V2j2IExhnP3TOx47k7zAanP3Vz7WcvhACFQ==
+	t=1794281531;
+	b=eIw28RoLBYnXXriWalxisVrZUiy9t9el2+zK/OXVvC+Q0kdiGlIFUnb+fx82dwntZp9R
+	 F6eXxHyRwqnP6AlAi5kUxkpdNQ5nEKXtHu2EWbeW1iwUWVlEwU3NqHRMdNVKZPDQiL67I
+	 w1SY+bU0IUSOXvRoscsABLMffSHZEZoM97dsq+HfFOZ5mlXI8TYC6LF477Rec3Mtfo4Ul
+	 Z6k/lpJTyhROzEQyTgQeNpmy4ytYygCGkgWUT4CMYTldLA+Ofcj8RPSX/JwH8UC204Oim
+	 Ofw8C2vOU+3uPgk1yDfDIwl9hngx9xj7CHgOn1h8mojrm6lsFMT/pSnCjdkvVcAHTGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281368;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7Lpv+peJpeMVyEj3sOEoV+NDqK01BXuCZeYFCARe5N0=;
-	b=Q2n+GP/O/QOW1P4rlWsalbK91LsO9euUCbeMjLzMumcvBD+CfMBAaaXB8BYWZ1ZTF0F0
-	 W6UsFXCSB5e3FQz3j2FEU9uRq3f2IvDuyDIQTQ+Tptp8tEq9n83Ldbqyb2oKNEhA/m8oj
-	 iBaIwCP9J09jMHtYxx/UP/Qp3pXkE9qfPCaqKzAx9VbYwLTts99DF7tQr6fsB//Lkrbg1
-	 A+Qu3LiXMvMMKrYvyXHwrtw7zCdkowWbv1jUexDE94mvKicLBZYTgM5TGhciya/5s16FT
-	 QSL9S0XiS2VoIOeAWaJM1Vqi9gst0RJ8XxTFq/kbk5TlcBjJwoLt+Y4lfW55h3kfrsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281531;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=kYZL4rnheTABX8WBq6es/I5ToDAjBICPT1On+50K6v8=;
+	b=2gIN67958Owbtm7f3i+X6oOcIdkZwnh4yTdfio5HcmVkiwl5JWZga8XDPjejBs137Dkj
+	 2v8AadwjCegFc+a5X/P2oG16PO8joi4v3bK7NsZaL69JxzVy1EWqq2d4QKu9u2KvJT9hj
+	 hr7v57T8u4MNzbl/n4FnYIaFLe0vdkWAl+rTmcvNvgTihx//KoDxm6ZZCYQAADQ46VCs9
+	 mYucsaCsQUCo/2A9Jiohtg3D1xS1oFxt0Ta55U/hxpY3ZaX5t7hZ/AIsJVHwpj4fOIPcJ
+	 h7HVu8h9504vl8FAYWac7z68msIzGUvZVTt+FNHfWaDhT+G7aBxmc2uJFOfSxVhXwDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAUciLCV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=O+pJ2ISY;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F9606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:29:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BA3606A31C;
+	Tue, 10 Nov 2026 03:32:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6BA3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MAUciLCV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C000F1F0089F;
-	Tue, 10 Nov 2026 03:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794281367;
-	bh=7Lpv+peJpeMVyEj3sOEoV+NDqK01BXuCZeYFCARe5N0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MAUciLCVMlamVgYHPCG/NvQ6yzwPpOl5WZ5QpAL8e3ZdbxeEs6OR6D2LHfasVKIH1
-	 ZzT5A7W7mdbfvbDq+c6+s5Pd4P7kz0zQiok/YBcET/dLGvOo4Nk1yilsvZpwPJw930
-	 l1kHJfnRzVLv5C6rbJgEDZYQKov/LZoYmYYbQyPQ/SNthDfULkUo6kVILEZcpX0i2l
-	 XEJycILuvdUV2XxFeeNBvcNaUDCl3XoeLYfDKByLS0uLjojrgOGMaQ2LBIBdyqzcuX
-	 CelP1LNNo+lnMYQqXcO1BsNd8+Zv3KLYj69Al1Xk6bJX/+CrqtshXw3SOlOOQR89uJ
-	 5Fp7AwGcIX6WA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Amir Goldstein <amir73il@gmail.com>,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] fs: make sure to call fsnotify_inoderemove() only once when inode is dead
-Date: Mon,  9 Nov 2026 22:29:25 -0500
-Message-ID: <20261110032904.180619-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052836-failed-6.6-669bb5af15d4@kernel.org>
-References: <20261107052836-failed-6.6-669bb5af15d4@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=O+pJ2ISY
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=kYZL4rnheTABX8WBq6es/I5ToDAjBICPT1On+50K6v8=;
+	b=O+pJ2ISYefi+uQbSG8ycqQGnH/z7NrmGZHSo+XHWOuf0vcZKcfEd23EplWUiXpDkHM96r0NeU
+	yp3dz/6B5Buz52OiYksk+F92u09V4ADKRXMBrHLxaEh6QFMGkriWAiR+Dr9URWjPjfxIw379wqV
+	Y9WUrbQtUnqsarRTCUL3VOM=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jNsdg1lvmzLlTm;
+	Tue, 10 Nov 2026 11:31:51 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id A765C4048B;
+	Tue, 10 Nov 2026 11:32:05 +0800 (CST)
+Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
+ (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 10 Nov
+ 2026 11:32:04 +0800
+From: Pengfei Lv <lvpengfei20@huawei.com>
+To: <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stern@rowland.harvard.edu>, <michal.pecio@gmail.com>,
+	<stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>,
+	<caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>, Pengfei Lv
+	<lvpengfei20@huawei.com>
+Subject: [PATCH v4] usb: core: hub: Re-guess ep0 maxpacket size after reset
+Date: Tue, 10 Nov 2026 11:30:38 +0800
+Message-ID: <20261110033038.2882473-1-lvpengfei20@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109093935.2634235-1-lvpengfei20@huawei.com>
+References: <20261109093935.2634235-1-lvpengfei20@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,87 +74,124 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-From: Amir Goldstein <amir73il@gmail.com>
+Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+all device speeds except full-speed devices, where it can be 8, 16,
+32, or 64 bytes and can only be determined by reading the device
+descriptor.  During initial enumeration the USB core guesses 64 bytes
+for full-speed devices; after reading the descriptor, the real value
+is stored in udev->ep0.desc.wMaxPacketSize and applied to hardware by
+usb_ep0_reinit().
 
-[ Upstream commit 669bb5af15d41a21359d00a441490f87a88eb52a ]
+Commit ff33299ec8bb ("USB: core: Fix race by not overwriting
+udev->descriptor in hub_port_init()") guarded the ep0 maxpacket guess
+block with "if (initial)", so on the reset path the guess is skipped
+and the host keeps using the value from the previous enumeration.  If
+a buggy full-speed device responds with one 8-byte packet and NAKs
+all further polling, the HC doesn't recognize a short transfer but
+keeps polling for the rest of the descriptor till unlink, and the
+device cannot be re-enumerated.
 
-Daehyeon reported a race wherein fsnotify_removeinode() can be called
-when inode still has a live alias.  This can lead to several undesired
-outcomes such as crashes in fsnotify code or avoidance of inode mark
-notifications.
+This was observed in production on a 6.6 LTS kernel with a full-speed
+USB banking token (bMaxPacketSize0 = 8) in a virtual-machine USB
+passthrough scenario; the reset re-enumeration hangs 100% of the time
+after the VM issues USBDEVFS_RESET.  The device is not strictly
+compliant (it should continue answering IN tokens), but this class of
+USB banking token is widely deployed in enterprise environments, and
+the regression breaks a configuration that previously worked.
 
-Check that inode is really "dead", meaning no nlink and no more aliases
-before calling fsnotify_inoderemove() for final cleanup of inode marks.
-Also do not allow open_by_handle() to add new aliases to a "dead" inode.
+The 18-byte GET_DESCRIPTOR that runs after SET_ADDRESS (wLength=18)
+is unaffected: the device sends the full 18 bytes as 8 + 8 + 2, and
+the final 2-byte packet is always a short packet regardless of
+maxpacket.  This is why the device completes initial enumeration yet
+hangs on reset re-enumeration.
 
-Ideally, we'd call fsnotify_inoderemove() once last inode reference is
-dropped to make things simpler. Alas fsnotify inode marks currently hold
-inode references and thus this doesn't work. Once we teach fsnotify to
-avoid holding inode references, these games with dead inodes can go as
-well.
+Fix this by removing the "if (initial)" guard so that the ep0
+maxpacket size is re-guessed on every reset, and by calling
+usb_ep0_reinit() right after the maxpacket size is re-guessed so that
+the re-guessed value is applied to hardware before the GET_DESCRIPTOR
+data stage.
 
-Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4ncienth@gmail.com/
-CC: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260902164924.1333135-2-jack@suse.cz
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Moved the second inode-dead check into the existing __d_instantiate_anon() helper to accommodate separate alias instantiation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+
 ---
- fs/dcache.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index e1f4a9e61e589..2b9546b381f7e 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -390,14 +390,16 @@ static void dentry_unlink_inode(struct dentry * dentry)
- 	__releases(dentry->d_inode->i_lock)
- {
- 	struct inode *inode = dentry->d_inode;
-+	bool notify_dead;
+v4: Per further review by Alan Stern, move the usb_ep0_reinit() call
+to right after the ep0 maxpacket re-guess block.  Each layer does the
+right thing on its own side.
+
+v3: https://lore.kernel.org/linux-usb/20261109093935.2634235-1-lvpengfei20@huawei.com/
+---
+ drivers/usb/core/hub.c | 48 +++++++++++++++++++++---------------------
+ 1 file changed, 24 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..e3d8ee3271cb 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -4969,33 +4969,33 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 	}
+ 	oldspeed = udev->speed;
  
- 	raw_write_seqcount_begin(&dentry->d_seq);
- 	__d_clear_type_and_inode(dentry);
- 	hlist_del_init(&dentry->d_u.d_alias);
- 	raw_write_seqcount_end(&dentry->d_seq);
-+	notify_dead = !inode->i_nlink && hlist_empty(&inode->i_dentry);
- 	spin_unlock(&dentry->d_lock);
- 	spin_unlock(&inode->i_lock);
--	if (!inode->i_nlink)
-+	if (notify_dead)
- 		fsnotify_inoderemove(inode);
- 	if (dentry->d_op && dentry->d_op->d_iput)
- 		dentry->d_op->d_iput(dentry, inode);
-@@ -2097,7 +2099,10 @@ static struct dentry *__d_instantiate_anon(struct dentry *dentry,
+-	if (initial) {
+-		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+-		 * it's fixed size except for full speed devices.
++	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
++	 * it's fixed size except for full speed devices.
++	 */
++	switch (udev->speed) {
++	case USB_SPEED_SUPER_PLUS:
++	case USB_SPEED_SUPER:
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
++		break;
++	case USB_SPEED_HIGH:		/* fixed at 64 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
++		/* to determine the ep0 maxpacket size, try to read
++		 * the device descriptor to get bMaxPacketSize0 and
++		 * then correct our initial guess.
+ 		 */
+-		switch (udev->speed) {
+-		case USB_SPEED_SUPER_PLUS:
+-		case USB_SPEED_SUPER:
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+-			break;
+-		case USB_SPEED_HIGH:		/* fixed at 64 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+-			/* to determine the ep0 maxpacket size, try to read
+-			 * the device descriptor to get bMaxPacketSize0 and
+-			 * then correct our initial guess.
+-			 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_LOW:		/* fixed at 8 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+-			break;
+-		default:
+-			goto fail;
+-		}
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_LOW:		/* fixed at 8 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
++		break;
++	default:
++		goto fail;
+ 	}
  
- 	security_d_instantiate(dentry, inode);
- 	spin_lock(&inode->i_lock);
--	res = __d_find_any_alias(inode);
-+	if (!inode->i_nlink && hlist_empty(&inode->i_dentry))
-+		res = ERR_PTR(-ESTALE);
-+	else
-+		res = __d_find_any_alias(inode);
- 	if (res) {
- 		spin_unlock(&inode->i_lock);
- 		dput(dentry);
-@@ -2144,7 +2149,12 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
++	usb_ep0_reinit(udev);
++
+ 	speed = usb_speed_string(udev->speed);
  
--	res = d_find_any_alias(inode);
-+	spin_lock(&inode->i_lock);
-+	if (!inode->i_nlink && hlist_empty(&inode->i_dentry))
-+		res = ERR_PTR(-ESTALE);
-+	else
-+		res = __d_find_any_alias(inode);
-+	spin_unlock(&inode->i_lock);
- 	if (res)
- 		goto out_iput;
- 
+ 	/*
 -- 
-2.53.0
+2.34.1
 
