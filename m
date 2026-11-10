@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341261;
-	b=0kT954+yFqDzZ3QNQYLDU6BPfesvAhKC31Rh1GaBKiMlWgFJLW5senMBzJ412WCCDG3y
-	 EHO3Fg+C2lMFbdayRIsVbsnL32ZQrAKIey3ap+kRhjX+Vn+nrUJqZYByYlbTAs34k3974
-	 /XN/R0WTBuGUW9RXRg5holU71S8sniZGQf8XJedDT6Bfr7//qIj/ktfRKrLMb8Mnsgiye
-	 WFY220ZeF8lubUzFRsXm2d5TdLAu09dT1oNUJ78z68npSVksfmxeyfgCz8MWznEKEecXD
-	 88X1CbxZHVtPjBD9jiOUXM+VY01Pe9+L75EvFEurG65YDzMAPMWdTU/EOC1K969eWzg==
+	t=1794341262;
+	b=r96hh3pyXmK4WRkxaWDgiN2T0sXil/XA86L4Mse+a055GYqnPKWNZK9aP2DaQVRdfTVM
+	 Vmxek7kEe9+fbkFpLkDxHY/1pwEPNut8pF79ZISliJqHFDhcy/KdzUhfEUdrtXng1NMEc
+	 Fw2BOpiYCSJcWEAtk8dtMFDvXOJlhhRYwK/4BR3eIoyFGYSeL+Ezog0DXEl9XjpKlRYwp
+	 fHfRj02e4HjAhajXuYApvbFLon5utW/bNwEEPNhekg+Amspzp6e2JGaLclAdZIgxW2zgo
+	 ews7I3WJtcGlooPhl8amELqnH9xle0EqVPP8myMvvNMnmuHxtQH3Lh365GueJyZD2YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341261;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341262;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NNQobhWjGFIQTWoNMf2cRN1mZCW70dvPVu9+IdieqEY=;
-	b=Y7nxGH3mITNK+sSSsbkRL/gDxFRhKBf7qhyGTh4y/QUGyffq8Aq18JkfH/N/FgDRl7wJ
-	 co9vaTU9zCTAZCNJ7m67M3LHmmwU9YwOkGhceFC/9UmTtvC1qEQLDpNYZpx0qGVanZh4h
-	 QsnIQH7BP1hwbqeEI97iRWlnbxQo1ggIsQMkDUVDhxtkoq1xOOCjqU+l0CwyD9QFe5RSH
-	 DEGh3tZS3fyE1UtJutDwdnZ312MXQbqgyaHW3cQEi1k0Hw8JnrzR0pv//IQFE0VQmNNlB
-	 t/clMrfWUO8FrBw8KwXDVxcV6ebh9U+s0qsasJ/dKjW1bc6PcAnYp+KcTCKzQJVfITg==
+	bh=CjznWCSnq6LPvTATsAMpi6vVwQ2Jnpc+YmEv4715Rac=;
+	b=qzPB6h+ZSZuhpFLIA+LwKyCSP4DIOstQYtP4yO/XE1PsqTRIgTlnw6CFNLbPsT2sa7Mn
+	 BGiAGfcuJEKWpMuOztpg9KfQ79o+63VbV/uYFWqmuotPpDgVeMcqsG5cUIAh864GLM1Qy
+	 KBZIo5pQ/iSh6iDQpIOuTkGg7dcgfJAFT8bDzqW/0IqjLb+pw8TdLBdgT2YPj8fL0sNtk
+	 4qWJjGQL3hcgPGR+4lntO+EAEl9HFHT6ROc6uLNQ8hVi5NEXzglTR2IxYQgR3ucHiG0jz
+	 Xq1zWI7UgqFdFpOjUKmzZqEnIJ9iK/Gw2cvK/OTlaE0Pasbd4LzGilcMC0+egYPqxsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bELarJHt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnEX7tDa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7C2606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68335606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:07:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bELarJHt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB451F0089F;
-	Tue, 10 Nov 2026 20:07:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnEX7tDa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CBDE1F008A1;
+	Tue, 10 Nov 2026 20:07:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341261;
-	bh=NNQobhWjGFIQTWoNMf2cRN1mZCW70dvPVu9+IdieqEY=;
+	s=k20260515; t=1794341262;
+	bh=CjznWCSnq6LPvTATsAMpi6vVwQ2Jnpc+YmEv4715Rac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bELarJHtCpLvZLWkgdTUJnDzPMcAKSbu/VSfl77E/Bq9ffAKx3RvdTD7a9apLxwVG
-	 fqMciw87Jf2x7RPWNjtv+l6BkNfOYy+JqC2ualq3aKYgy2RuwwH4Xs50Z3QX23QP8K
-	 t/hm7T0xVzBfrjIv6vaI5ivgmUFLKpwi9UYftACOKYc3xW7BfACkm+LpEYOg1Wo72i
-	 eLQUpfYrnszkZ0GwXAVtCsx3ZDhxR4o0iK0Z0WTfZ8AVVS0Y+gU18lnGYd++P+lI7Q
-	 8UH78fPzRwNNYqwXhPXxg8We4gvAU8VBnt+SzQ3cH7QZlqAl/EMs5RPg6xh52JpM1s
-	 vcbWxxKdbAHlg==
+	b=TnEX7tDamh9ClBCJMRniHkViYOC5/aZtG1XwTp8wxqfrNGVb7Bckqw55y3BSV3ZFi
+	 awgXoWCtRP6+/ZmacAQdVc2o28lNtG1FjqQ1xV/VgXDvIDFmTJObkzCy9L5yrVDkO8
+	 yZaUfgefIMrXrAwYKhcq/9ywLVfXUlkJubOdONlw9ev/lGMLqt1cmJOpK+VQbOVaTU
+	 Q0jZGDk1IuBsdbxji08q4M7LDKLof7P/xD/kQfbBFLG2xauFRehGNfrCQ/B59mnkzC
+	 K/RX4VPlCqbIRoDEG4s33/f3lwLSPTHvZ61/yAgG7Qg/wjNDKrFRM4vooDdPFDTDnM
+	 sL4qmEbtUmYhA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pankaj Raghav <p.raghav@samsung.com>,
+Cc: Andrea Parri <parri.andrea@gmail.com>,
 	"Darrick J. Wong" <djwong@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] iomap: use largest_zero_folio() in iomap_dio_zero()
-Date: Tue, 10 Nov 2026 15:07:37 -0500
-Message-ID: <20261110200645.3703693-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] iomap: don't lose a failed direct I/O bio's error when zeroing the tail
+Date: Tue, 10 Nov 2026 15:07:38 -0500
+Message-ID: <20261110200645.3703693-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051102-failed-6.18-a9fd24bcbe69@kernel.org>
+In-Reply-To: <20261110200645.3703693-1-sashal@kernel.org>
 References: <20261107051102-failed-6.18-a9fd24bcbe69@kernel.org>
+ <20261110200645.3703693-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,102 +65,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pankaj Raghav <p.raghav@samsung.com>
+From: Andrea Parri <parri.andrea@gmail.com>
 
-[ Upstream commit 10436adf9df60ae73390754b47a4bdebf728529f ]
+[ Upstream commit a9fd24bcbe690ed4a5b8ea6a7516fa297fae9360 ]
 
-iomap_dio_zero() uses a custom allocated memory of zeroes for padding
-zeroes. This was a temporary solution until there was a way to request a
-zero folio that was greater than the PAGE_SIZE.
+iomap_dio_bio_iter() falls through to the sub-block tail zeroing when
+the data bio submission fails, so that the rest of the block is still
+zeroed and stale data is not exposed.  The zeroing result was assigned
+to ret, which overwrote the submission error with the successful
+zeroing result (zero) and the failed write was reported as success.
 
-Use largest_zero_folio() function instead of using the custom allocated
-memory of zeroes. There is no guarantee from largest_zero_folio()
-function that it will always return a PMD sized folio. Adapt the code so
-that it can also work if largest_zero_folio() returns a ZERO_PAGE.
+iomap_dio_zero() can only return an error from a can't-happen
+WARN_ON_ONCE() (nr_vecs exceeding BIO_MAX_VECS, which the existing
+comment there says "shall never be reached" for any in-tree
+filesystem), so it isn't a real runtime failure worth reporting to
+userspace, let alone one worth losing the actual submission error for.
+Make iomap_dio_zero() return void and drop the error handling at both
+call sites instead of threading the result through a separate
+variable.
 
-Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
+Fixes: 10553a91652d ("iomap: fix iomap_dio_zero() for fs bs > system page size")
+Cc: stable@vger.kernel.org # v6.12
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: a9fd24bcbe69 ("iomap: don't lose a failed direct I/O bio's error when zeroing the tail")
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/0cbce1012f5333690be36a9adafb3e190fe2ca77.1790342457.git.parri.andrea@gmail.com
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/iomap/direct-io.c | 38 +++++++++++++++-----------------------
- 1 file changed, 15 insertions(+), 23 deletions(-)
+ fs/iomap/direct-io.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
 diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index bb276321c9521..5a97614507530 100644
+index 5a97614507530..4301145674259 100644
 --- a/fs/iomap/direct-io.c
 +++ b/fs/iomap/direct-io.c
-@@ -24,13 +24,6 @@
- #define IOMAP_DIO_WRITE		(1U << 30)
- #define IOMAP_DIO_DIRTY		(1U << 31)
+@@ -284,7 +284,7 @@ u32 iomap_finish_ioend_direct(struct iomap_ioend *ioend)
+ 	return vec_count;
+ }
  
--/*
-- * Used for sub block zeroing in iomap_dio_zero()
-- */
--#define IOMAP_ZERO_PAGE_SIZE (SZ_64K)
--#define IOMAP_ZERO_PAGE_ORDER (get_order(IOMAP_ZERO_PAGE_SIZE))
--static struct page *zero_page;
--
- struct iomap_dio {
- 	struct kiocb		*iocb;
- 	const struct iomap_dio_ops *dops;
-@@ -296,24 +289,35 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+-static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
++static void iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+ 		loff_t pos, unsigned len)
  {
  	struct inode *inode = file_inode(dio->iocb->ki_filp);
- 	struct bio *bio;
-+	struct folio *zero_folio = largest_zero_folio();
-+	int nr_vecs = max(1, i_blocksize(inode) / folio_size(zero_folio));
+@@ -293,14 +293,14 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+ 	int nr_vecs = max(1, i_blocksize(inode) / folio_size(zero_folio));
  
  	if (!len)
- 		return 0;
-+
+-		return 0;
++		return;
+ 
  	/*
--	 * Max block size supported is 64k
-+	 * This limit shall never be reached as most filesystems have a
-+	 * maximum blocksize of 64k.
+ 	 * This limit shall never be reached as most filesystems have a
+ 	 * maximum blocksize of 64k.
  	 */
--	if (WARN_ON_ONCE(len > IOMAP_ZERO_PAGE_SIZE))
-+	if (WARN_ON_ONCE(nr_vecs > BIO_MAX_VECS))
- 		return -EINVAL;
+ 	if (WARN_ON_ONCE(nr_vecs > BIO_MAX_VECS))
+-		return -EINVAL;
++		return;
  
--	bio = iomap_dio_alloc_bio(iter, dio, 1, REQ_OP_WRITE | REQ_SYNC | REQ_IDLE);
-+	bio = iomap_dio_alloc_bio(iter, dio, nr_vecs,
-+				  REQ_OP_WRITE | REQ_SYNC | REQ_IDLE);
- 	fscrypt_set_bio_crypt_ctx(bio, inode, pos >> inode->i_blkbits,
- 				  GFP_KERNEL);
- 	bio->bi_iter.bi_sector = iomap_sector(&iter->iomap, pos);
- 	bio->bi_private = dio;
- 	bio->bi_end_io = iomap_dio_bio_end_io;
- 
--	__bio_add_page(bio, zero_page, len, 0);
-+	while (len > 0) {
-+		unsigned int io_len = min(len, folio_size(zero_folio));
-+
-+		bio_add_folio_nofail(bio, zero_folio, io_len, 0);
-+		len -= io_len;
-+	}
+ 	bio = iomap_dio_alloc_bio(iter, dio, nr_vecs,
+ 				  REQ_OP_WRITE | REQ_SYNC | REQ_IDLE);
+@@ -317,8 +317,6 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+ 		len -= io_len;
+ 	}
  	iomap_dio_submit_bio(iter, dio, bio, pos);
-+
- 	return 0;
- }
- 
-@@ -841,15 +845,3 @@ iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
- 	return iomap_dio_complete(dio);
- }
- EXPORT_SYMBOL_GPL(iomap_dio_rw);
--
--static int __init iomap_dio_init(void)
--{
--	zero_page = alloc_pages(GFP_KERNEL | __GFP_ZERO,
--				IOMAP_ZERO_PAGE_ORDER);
--
--	if (!zero_page)
--		return -ENOMEM;
 -
 -	return 0;
--}
--fs_initcall(iomap_dio_init);
+ }
+ 
+ /*
+@@ -424,10 +422,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 	if (need_zeroout) {
+ 		/* zero out from the start of the block to the write offset */
+ 		pad = pos & (fs_block_size - 1);
+-
+-		ret = iomap_dio_zero(iter, dio, pos - pad, pad);
+-		if (ret)
+-			goto out;
++		iomap_dio_zero(iter, dio, pos - pad, pad);
+ 	}
+ 
+ 	nr_pages = bio_iov_vecs_to_alloc(dio->submit.iter, BIO_MAX_VECS);
+@@ -509,8 +504,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 		/* zero out from the end of the write to the end of the block */
+ 		pad = pos & (fs_block_size - 1);
+ 		if (pad)
+-			ret = iomap_dio_zero(iter, dio, pos,
+-					     fs_block_size - pad);
++			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
+ 	}
+ out:
+ 	/* Undo iter limitation to current extent */
 -- 
 2.53.0
 
