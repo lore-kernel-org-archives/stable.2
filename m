@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273863;
-	b=fKd4jom/u/qk/ICXTdfQm3qPI16LQmhXeEjy2adCjseh770mBQOBQb36Qq5miS93Q/SD
-	 7yLNmu0xabrb1/6MzVTcUNXksrQHbaE2yPjRGhSH31BHe0QE9QBd0XWaV9Q8opdzH5kiL
-	 v4sx/pvlxym9/oJ5cbYOsYYlXLHSXxxDq5H1nZBRBLXRFijOCVuUifja0kDLKUTOUN+js
-	 P0DTjR66osmohErAapucX3GsS/FM5N++iGCZM/k3J0fvkGAYSSy5sezOn8kAge1crBN7N
-	 capXSCUQc/KV7UGmOLCKDOstZiVjhZGhcgnPVulPeCs2kgILiddaO02JKyeF+1m7NZA==
+	t=1794273866;
+	b=FGDTaMKz3hIZhoGFKOs3UK8wKl+BK+F8xb+oC8pK3D6+cyJP6Z/Cg01IG41qpL72Gz2L
+	 BCgozflr6u5+cuwYCxdOF6qz9/Dd/t+EI/F2bHoPn8l0Vs1eUDDdmgsQ1IXihZGzZo7Ly
+	 /sQ0PxNyEVlCoC9VlBbdao8VaoJUJr5EyMvcJFNJ0GNx2obCDWQb82ovNNtnEt4kLxA93
+	 Xsfb9NtdZtPJiDdTN50DhhHC2APA04GBCMCzen12QJTpDeM/il80GbLPOk+qKu5tdtaHa
+	 KnRDuhRApFIyk2aAP3WF3eucK9nTkti7WiwX7gjEsyiImLba0xhGB/+x+JGXgH8XIxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273866;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7cj9quH0yruZg2CGqm4Y0iwMerJuAbDx+pZro9VMP9k=;
-	b=fe3Snz53IJhGgnSKodkW4j2HrfIox17Zior1PHTDfa3Ck8jeHMu0Vc17vJwmBv95rImW
-	 RQgcdJrlu1APGIwSLaVCRLyyuzqR+Sk2gTseY/SK2fhWFirM9e2Aey57VLz7HWq3Qv3yn
-	 R6Qf5z3NEla/QJ/1STpvN47xmW/LXwySU6+ujIZKSmwbqEhj2FG7OHsymQL8yThvQ19Sk
-	 bVZDAgAneA5hbExvJ79lmCIeKnwHRyhAJrU0QfvGq2ltgJzXfgEhRPHH1AQo36AV1DK9Y
-	 cwdD/tCnNLeZH7XHJ1PH5SpPJD4UYJ/MG2tae1PaUvVwu++/TJMOzDlQsRz0EYMeF4A==
+	bh=eAJe+WjBYToebhkFyTK43by3vhckE02PzbcYel/DnBs=;
+	b=QZONyrnCSqajHfVgNMgsr8scoZ4JSQB0t5oCHI61Xfm3LivpyOUccYsbs+02Rsls8dme
+	 TH2acN6KbznbtWWSZf7k0SWTUAa443YfK1IUu9ue4+EhtcdNnvsk26quoq2yNX4gH1c2H
+	 584QpM44r+j3HqdP3B7yaO/RgwVSaZf8dCJ5x8B7fUs0F1gIkHLjthkD0NGsrPwq2JTG0
+	 xG6pfTZo88wneqfdH1shNxefOR4oKtDZ/o43AfyuJU0xDH2TMABDcPC3Gp8R+TndipkR5
+	 g6Zq9I6RWRy51wfiETnG6wItEtiJtWQhUHJLwXDNubUk3Oz7iRh7JFRnT0giWK5WsKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpPPrO0P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BR0tnx6+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DEA60A381D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BA260A381D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpPPrO0P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 773B41F0089F;
-	Tue, 10 Nov 2026 01:24:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BR0tnx6+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F6B1F0089F;
+	Tue, 10 Nov 2026 01:24:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273863;
-	bh=7cj9quH0yruZg2CGqm4Y0iwMerJuAbDx+pZro9VMP9k=;
+	s=k20260515; t=1794273865;
+	bh=eAJe+WjBYToebhkFyTK43by3vhckE02PzbcYel/DnBs=;
 	h=From:To:Cc:Subject:Date;
-	b=OpPPrO0Pgk0RjBoP3Pt/kyXcOXNe/K1obmYqEDnG+yFkA2ET9UCLS8xV9klNo2eXY
-	 gjV+fGAXticIAwG+t98/9r5nd73hTlNHgiC5ybvn3aeOes1vsaSdQH692R2Ms0F8Tz
-	 eLO0StK+gU7UiY3YNMhs9FNWCVvGyataYPhOZaw3lnF6adOKviXIbEXMzrMjBD9T1K
-	 9OqatyBjQLhwEQSI3L26YPsXxwsEtY/SymU5+eBD9zcRG7sXRVcCqTCzC3q09e3Dl/
-	 cwDCT/sCTFU1+hqveUXWrJBv5BIfrKtSQ1GnL0ouX5eeU75VAlh5bELXEcqN9dhau5
-	 ZtfWj8O5zy6dw==
+	b=BR0tnx6+gk1C35eGFeT5R5tgMtNbYRk9sP2qD8sqXLU8E1eRUxVvJxR7e1bmmvBJA
+	 UDAlRfLn5jcyjOwHJYh/Mpod7BmfRsf5y87d2QGnsqtA+cfItn7XCYIGg0HJReGkxO
+	 oWzfMc30EDU6Cpp9zIZtwjCZobwXBpdyYe0kWvJNDqkWAhUZ2wgfBiogNXyIg0ZKsu
+	 UhG5TIuCYffGbt+rpL6oIzq+xui9/MMNAtbDvl52qfRQ2qMKVG5AVbh3Oqdk+zuNbv
+	 Tzt2jrWZPphK2INY3/rX83pOvhh9FQv7vEOAXMe/m13xW0xRIHkRoH6HLA6c2LdzvN
+	 dTZNgK49rbwHg==
 From: Sasha Levin <sashal@kernel.org>
-To: yilinzhang@moonshot.ai,
-	bug-report@moonshot.ai,
-	jiayuan.chen@linux.dev,
-	pabeni@redhat.com,
-	matttbe@kernel.org
+To: misha@nasledov.com,
+	alex.hung@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mptcp: do not use Fast Open on MP_JOIN subflows" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:24:21 -0500
-Message-ID: <20261109202421-failed-5.15-6d2cf411aba2@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: Drop clock requirements on DCN32 when no displays are active" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:24:23 -0500
+Message-ID: <20261109202423-failed-5.15-bba4dc330648@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,76 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d2cf411aba2aa0bd641b49be5b1964ac5097a50
+git cherry-pick -x bba4dc3306483335ddbe065c05b2d8359ec387a4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202421-failed-5.15-6d2cf411aba2@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202423-failed-5.15-bba4dc330648@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d2cf411aba2aa0bd641b49be5b1964ac5097a50 Mon Sep 17 00:00:00 2001
-From: Yilin Zhang <yilinzhang@moonshot.ai>
-Date: Fri, 30 Oct 2026 23:03:51 +0100
-Subject: [PATCH] mptcp: do not use Fast Open on MP_JOIN subflows
+From bba4dc3306483335ddbe065c05b2d8359ec387a4 Mon Sep 17 00:00:00 2001
+From: Misha Nasledov <misha@nasledov.com>
+Date: Mon, 19 Oct 2026 16:42:32 -0700
+Subject: [PATCH] drm/amd/display: Drop clock requirements on DCN32 when no
+ displays are active
 
-tcp_fastopen_create_child() hands the SYN packet itself to
-subflow_syn_recv_sock(). For an MP_JOIN request this takes the
-fatal fallback: the cloned child is destroyed and handed back with
-drop_req flagged, but tcp_fastopen_create_child() does not check
-the flag and queues it, so accept() can expose the freed child.
+amdgpu_dm builds the new dc_state as a copy of the old one. When the last
+stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
+never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
+dramclk/dcfclk/fclk requirements of the display that was just turned off.
+dcn32_update_clocks() then keeps those hard minimums applied.
 
-MP_JOIN cannot use Fast Open: data on a subflow requires the
-completed HMAC exchange (RFC 8684, sec. 3.2). Refuse it (only the
-TFO path passes a SYN skb here) and let tcp_conn_request() fall
-back to the regular MP_JOIN handshake; also strip the Fast Open
-cookie from MP_JOIN SYN/ACKs.
+On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
+the monitor off, and the board idles at 28.4 W. With this change they
+drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
 
-Fixes: 90bf45134d55 ("mptcp: add new sock flag to deal with join subflows")
+Reset the clock requirements in that case, as calculate_dlg_params()
+already does when no HUBP is active and as the DML2 path does for
+stream_count == 0.
+
+Signed-off-by: Misha Nasledov <misha@nasledov.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
 Cc: stable@vger.kernel.org
-Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Suggested-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
-[ Moving code to avoid clearing TS and consolidating checks. ]
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- net/mptcp/subflow.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ .../display/dc/resource/dcn32/dcn32_resource.c    | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 78e886b202585..00677fb3efcdc 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -379,6 +379,10 @@ static void subflow_prep_synack(const struct sock *sk, struct request_sock *req,
- 	struct mptcp_subflow_context *subflow = mptcp_subflow_ctx(sk);
- 	struct inet_request_sock *ireq = inet_rsk(req);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+index 3a6a489388435..619b9b3362fc6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+@@ -1941,8 +1941,21 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
+ 	out = dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, validate_mode);
+ 	DC_FP_END();
  
-+	/* MP_JOIN cannot use TFO, do not send a cookie in the SYN/ACK */
-+	if (foc && mptcp_subflow_rsk(req)->mp_join)
-+		foc->len = -1;
-+
- 	/* clear tstamp_ok, as needed depending on cookie */
- 	if (foc && foc->len > -1)
- 		ireq->tstamp_ok = 0;
-@@ -887,6 +891,13 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			fallback = true;
- 
- 	} else if (subflow_req->mp_join) {
-+		/* a SYN skb here comes from TFO, which MP_JOIN cannot use: just
-+		 * fall back to the regular path.
+-	if (pipe_cnt == 0)
++	if (pipe_cnt == 0) {
++		/* The context is a copy of the previous state, so without this the
++		 * clocks the last display needed stay applied with all displays off.
 +		 */
-+		if ((TCP_SKB_CB(skb)->tcp_flags & (TCPHDR_SYN | TCPHDR_ACK)) ==
-+		    TCPHDR_SYN)
-+			return NULL;
-+
- 		mptcp_get_options(skb, &mp_opt);
- 		if (!(mp_opt.suboptions & OPTION_MPTCP_MPJ_ACK))
- 			fallback = true;
++		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
++		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
++		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
++		context->bw_ctx.bw.dcn.clk.num_ways = 0;
+ 		goto validate_out;
++	}
+ 
+ 	if (!out)
+ 		goto validate_fail;
 -- 
 2.53.0
 
