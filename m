@@ -1,48 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794283583;
-	b=yvzwEuvGc5aeT0oMWVvOJcQq2arh1tpV5ZFNgnRPLu8jWOCuD9IeYZEgb15xUMhliDZl
-	 xnVv6L3PiEtz5K1P8G5rnz7w3n/uUIW0fRU0ujVn+QEVdn0NuF5wOQgOH9Yy9QxZT8Jik
-	 KTd6Jg2lo+t26QsjOdGnWh167SfuMLJz0MjKb75i8HqcGEsPSTS5aHny03qDzut6vJpIu
-	 C0fcHbwvpifl6ga12vJ+NRmTmkLzNwjcNuEer18VnwQVhDQU9uOKprU66Fxv6d4kfUcc8
-	 hD6QV3vfjm9BHuBtaeiL9Srtc2YY2VoxtQFFFwpwuNOy9Hx4vHR7gNV32QRGOxwVuQg==
+	t=1794283723;
+	b=0/W6kHzMlKGy4BaInpL3t6tO6Bi9o4TJg/0ojcM4y/mXyNi0G/L4Vdhtil6YqrYe5Wde
+	 Eo+lcvd7mawHTuoGr1EY1Ox5rp9Zqo5nZ/WC5FuBGECHgJ06Owy0bRh1gukoFNZQ/R7ob
+	 CqCEF5qLoJnslm7rS2UuCE8Aq3A3muOtgIiixd2cZguaFvjmTAXjXTNHPzzpRI2uZ82Me
+	 TLnW7Kadk4XYa24TrXZ2CtKw1KFjOW/CLfvtMoDQujxhjFU0OygTDPvN8iMAeDm6r38xP
+	 cAbrpAwxeu31HbPFec8Dm9gTKEhkSvJ2Elr8YbSNc2fWk8wzjybsZ4PlIYtMxJpzooA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794283583;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Q4GUwGEdmLJ8KIH9FDp7ZR9keVwntaHQNsdJ6T2X/FM=;
-	b=PoqYKvwiGYcEXiAnT4QNj2gBz9Rlygr+5hc3gffP1lsmzLut8Q+Ur+fkvrBR3yi+Pqg3
-	 dgV5wVtQD3qvUQ5BN7c4SGCrb6jTgry3LdWHb/bRiCt+4STnD6NCEL0Xu63lXN/D9mzHf
-	 iKNPczA9KzRARVxF53xr5+5j6zZInDI5fatdBZDviOISdVJTUWwgKyWdNizrTTCd+71u2
-	 kmJesWWFlmWAp+dele8oK4ZvFadyNz4VyvA+8uzJGqa8CWO2Dt/Niy4nsSuPyMnO8S/zy
-	 AYseJnlKoJ6FuNkvfOKvmG1HbLl6xDgVlEJa2Pj/lngXed8AcOCflMX0U6ciWI4QzWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794283723;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Vh9owzbVSXKD6lkBE75OF6lyDe65E8wltR9te9c2PWs=;
+	b=41zryXG+w6XSX9aMedyrD7Eo5CdkvT+/B5wwi2msCx45WZkyyMMcQk2ddK1MbHnsk2ir
+	 hIH3Sbndy+zjgPs+f2c/c/doq0IKUtSYDP8eJmwX1EVYJ6Om9oiWlzbDXqdXu1hPUdVUH
+	 GUWjBN+6KA9ubN5sPJSppqTM2kDfPPbOOwFxUU+cMzEBqQrAiH/DpCAhTmpQ8GX4TtSXD
+	 EN9pK0PxXGSYFtNnxaIk4kzx5HFE7uxeQLhM7PTE9Oh+FFYtHvmyaUJt8ZlsMCF0wS4TJ
+	 EmmA3BiuwM3Ts3vICldk8MCTOYm7NenMKgQ6YIAEBTpBpRTk1mJTeQshWqLZWK4MF/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=itR2wpnX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mtuZ/x/b";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18C1606A31C;
-	Tue, 10 Nov 2026 04:06:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8573B60A6F6B
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:08:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=itR2wpnX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7A01F0089F;
-	Tue, 10 Nov 2026 04:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794283582;
-	bh=Q4GUwGEdmLJ8KIH9FDp7ZR9keVwntaHQNsdJ6T2X/FM=;
-	h=Date:To:From:Subject;
-	b=itR2wpnXu5qoC/pP5GxkV5mcg5WJ9+JghFyjztfC/zQ2qVJ/A3iMsc47njARxbDdQ
-	 0MEe2OxxhIL66JS6KKm4k+7r2GhQS+Rpc3PmNF+Bra1XZfhv8HwZC2dMyx4i5Fz/rK
-	 mr2lJsjO0LNEO7gLTi0WDLmne8HSVS/VEYQXd6G4=
-Date: Mon, 09 Nov 2026 20:06:21 -0800
-To: mm-commits@vger.kernel.org,urezki@gmail.com,stable@vger.kernel.org,
-	shubhang@os.amperecomputing.com,npiggin@gmail.com,dev.jain@arm.com,
-	cl@gentwo.org,anshuman.khandual@arm.com,sh@gentwo.org,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-vmalloc-reject-overflowing-vm_map_ram-page-counts.patch added to mm-new branch
-Message-Id: <20261110040622.5A7A01F0089F@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtuZ/x/b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEBEA1F0093B;
+	Tue, 10 Nov 2026 04:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794283723;
+	bh=Vh9owzbVSXKD6lkBE75OF6lyDe65E8wltR9te9c2PWs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mtuZ/x/bPFoQKZSzUIuWKUMYFYTXp/x5GhFs6iZMgd5qzZN3qI/zaA0JxKiH2hKhL
+	 +b90WpNXddX0XQikEJ2BRubKE7aAbrXyDo9kxQeDBlcRYHOPd2tkDpfs5OS0FEo1/o
+	 GTEsWpW2HYawb4Fj2dZUWepdVGbOwvJVerMDw74fxH4dfH/J1PjdlDibPLWBxV6xxa
+	 PkjaPs9ubCWfrp0OqTb6QzKD9qytNdHUzgLwEtzpeZFWS2DnzZ6YnaiT2Ng18Q8VF5
+	 EJ6UCvqxWsjxr2w1PO6Xu1+epjzvAa0ONQBI0bO5YShKutKGGrx1puRuZMn4Xhuamw
+	 wWt7xO8V644hw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Koichiro Den <den@valinux.co.jp>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime
+Date: Mon,  9 Nov 2026 23:08:41 -0500
+Message-ID: <20261110040815.314716-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052908-failed-6.6-5cdbd6d3a3a1@kernel.org>
+References: <20261107052908-failed-6.6-5cdbd6d3a3a1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,108 +60,217 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Koichiro Den <den@valinux.co.jp>
 
-The patch titled
-     Subject: mm/vmalloc: reject overflowing vm_map_ram page counts
-has been added to the -mm mm-new branch.  Its filename is
-     mm-vmalloc-reject-overflowing-vm_map_ram-page-counts.patch
+[ Upstream commit 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vmalloc-reject-overflowing-vm_map_ram-page-counts.patch
+The virtual PCI driver registers an ntb_dev but has no remove callback.
+Unbinding the endpoint function can therefore free BARs while the NTB
+device and its client still use them. It also leaves the virtual PCI
+devices and root bus allocated.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Allocate an ntb_dev for each virtual PCI probe and unregister it from the
+matching remove callback. Start command processing only after registration.
+Publish the device for doorbell IRQs at the same point. During remove, stop
+the command work and drain IRQ handlers before unregistering the device.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Retain the root bus returned by pci_scan_bus() so it can be removed on
+unbind. Unregister the virtual PCI driver before releasing endpoint
+resources. Stop and remove the root bus under the PCI rescan/remove lock,
+then release its host bridge.
 
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Subject: mm/vmalloc: reject overflowing vm_map_ram page counts
-Date: Thu, 22 Oct 2026 23:43:47 -0700
-
-vm_map_ram() accepts a page count and must either map that many pages or
-fail.  It currently converts the count to a byte size with:
-
-        (unsigned long)count << PAGE_SHIFT
-
-On 32-bit kernels, this conversion overflows when count is greater than
-ULONG_MAX >> PAGE_SHIFT.  vm_map_ram() then allocates and maps only the
-wrapped byte size, but returns a non-NULL address to its caller.
-
-For example, with 4 KiB pages, a count of 1048577 wraps to PAGE_SIZE. 
-vm_map_ram() therefore returns a mapping containing one page instead of
-the requested 1048577 pages.
-
-If a caller uses the successful result as a mapping of all requested
-pages, it can access beyond the allocated mapping.  Such an access can
-fault.  If the accessed virtual address is occupied by another vmalloc
-mapping, it can instead access and corrupt unrelated kernel memory.  In a
-userspace-reachable call path, this can result in a failed operation, a
-kernel oops or panic, or the effects of corrupted kernel data.
-
-Return NULL before allocating or mapping anything when count * PAGE_SIZE
-cannot be represented in an unsigned long.
-
-Link: https://lore.kernel.org/20261022-vmalloc-reject-overflow-v2-1-0db7a20c53f0@gentwo.org
-Fixes: db64fe02258f ("mm: rewrite vmap layer")
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Cc: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Shubhang Kaushik <shubhang@os.amperecomputing.com>
-Cc: Christoph Lameter (Ampere) <cl@gentwo.org>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: <stable@vger.kernel.org>
+Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Cc: stable@vger.kernel.org # 6.0+
+Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
+[ sashal: adapted lifetime handling to the polling-based doorbell implementation without MSI doorbell IRQ support ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 69 +++++++++++++++----
+ 1 file changed, 55 insertions(+), 14 deletions(-)
 
- mm/vmalloc.c |    5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
---- a/mm/vmalloc.c~mm-vmalloc-reject-overflowing-vm_map_ram-page-counts
-+++ a/mm/vmalloc.c
-@@ -3160,10 +3160,13 @@ EXPORT_SYMBOL(vm_unmap_ram);
-  */
- void *vm_map_ram(struct page **pages, unsigned int count, int node)
- {
--	unsigned long size = (unsigned long)count << PAGE_SHIFT;
-+	unsigned long size;
- 	unsigned long addr;
- 	void *mem;
+diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+index 22364ebd73ed7..3de4269155f67 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+@@ -116,7 +116,7 @@ struct epf_ntb_ctrl {
+ } __packed;
  
-+	if (check_mul_overflow((unsigned long)count, PAGE_SIZE, &size))
-+		return NULL;
+ struct epf_ntb {
+-	struct ntb_dev ntb;
++	struct ntb_dev *ntb;
+ 	struct pci_epf *epf;
+ 	struct config_group group;
+ 
+@@ -142,10 +142,15 @@ struct epf_ntb {
+ 	void __iomem *vpci_mw_addr[MAX_MW];
+ 
+ 	struct delayed_work cmd_handler;
++	struct pci_bus *vpci_bus;
+ };
+ 
+ #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
+-#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
 +
- 	if (likely(count <= VMAP_MAX_ALLOC)) {
- 		mem = vb_alloc(size, GFP_KERNEL);
- 		if (IS_ERR(mem))
-_
-
-Patches currently in -mm which might be from sh@gentwo.org are
-
-mm-damon-ops-common-align-mmu-notifier-range-when-clearing-pte-young-bit.patch
-mm-vmalloc-reject-overflowing-vm_map_ram-page-counts.patch
-ipc-msg-fix-msg_qbytes-truncation-in-ipc_set.patch
++static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
++{
++	return ntb->pdev->sysdata;
++}
+ 
+ static struct pci_epf_header epf_ntb_header = {
+ 	.vendorid	= PCI_ANY_ID,
+@@ -171,7 +176,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
+ 	else
+ 		ntb->reg->link_status &= ~LINK_STATUS_UP;
+ 
+-	ntb_link_event(&ntb->ntb);
++	ntb_link_event(ntb->ntb);
+ 	return 0;
+ }
+ 
+@@ -259,7 +264,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+ 	for (i = 1; i < ntb->db_count; i++) {
+ 		if (ntb->epf_db[i]) {
+ 			ntb->db |= 1 << (i - 1);
+-			ntb_db_event(&ntb->ntb, i);
++			ntb_db_event(ntb->ntb, i);
+ 			ntb->epf_db[i] = 0;
+ 		}
+ 	}
+@@ -771,7 +776,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
+-	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
+ 
+ 	return 0;
+ 
+@@ -1020,6 +1024,7 @@ static int vpci_scan_bus(void *sysdata)
+ 		pr_err("create pci bus failed\n");
+ 		return -EINVAL;
+ 	}
++	ndev->vpci_bus = vpci_bus;
+ 
+ 	pci_bus_add_devices(vpci_bus);
+ 
+@@ -1064,7 +1069,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
+ 	int ret;
+ 	struct device *dev;
+ 
+-	dev = &ntb->ntb.dev;
++	dev = &ndev->dev;
+ 	barno = ntb->epf_ntb_bar[BAR_MW0 + idx];
+ 	epf_bar = &ntb->epf->bar[barno];
+ 	epf_bar->phys_addr = addr;
+@@ -1167,7 +1172,7 @@ static int vntb_epf_peer_db_set(struct ntb_dev *ndev, u64 db_bits)
+ 				PCI_EPC_IRQ_MSI,
+ 				interrupt_num + 1);
+ 	if (ret)
+-		dev_err(&ntb->ntb.dev, "Failed to raise IRQ\n");
++		dev_err(&ntb->epf->dev, "Failed to raise IRQ\n");
+ 
+ 	return ret;
+ }
+@@ -1250,13 +1255,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
+ 
+ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ {
+-	int ret;
+ 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
+ 	struct device *dev = &pdev->dev;
++	struct ntb_dev *ntb;
++	int ret;
+ 
+-	ndev->ntb.pdev = pdev;
+-	ndev->ntb.topo = NTB_TOPO_NONE;
+-	ndev->ntb.ops =  &vntb_epf_ops;
++	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
++	if (!ntb)
++		return -ENOMEM;
++
++	ntb->pdev = pdev;
++	ntb->topo = NTB_TOPO_NONE;
++	ntb->ops = &vntb_epf_ops;
+ 
+ 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+ 	if (ret) {
+@@ -1264,16 +1274,33 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = ntb_register_device(&ndev->ntb);
++	ret = ntb_register_device(ntb);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register NTB device\n");
+ 		return ret;
+ 	}
+ 
++	/* Publish after ntb_register_device() succeeds */
++	smp_store_release(&ndev->ntb, ntb);
++	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
++
+ 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
+ 	return 0;
+ }
+ 
++static void pci_vntb_remove(struct pci_dev *pdev)
++{
++	struct epf_ntb *ndev = pdev->sysdata;
++	struct ntb_dev *ntb;
++
++	/* Stop the work reader */
++	cancel_delayed_work_sync(&ndev->cmd_handler);
++
++	ntb = xchg(&ndev->ntb, NULL);
++
++	ntb_unregister_device(ntb);
++}
++
+ static struct pci_device_id pci_vntb_table[] = {
+ 	{
+ 		PCI_DEVICE(0xffff, 0xffff),
+@@ -1285,6 +1312,7 @@ static struct pci_driver vntb_pci_driver = {
+ 	.name           = "pci-vntb",
+ 	.id_table       = pci_vntb_table,
+ 	.probe          = pci_vntb_probe,
++	.remove         = pci_vntb_remove,
+ };
+ 
+ /* ============ PCIe EPF Driver Bind ====================*/
+@@ -1365,12 +1393,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
+  */
+ static void epf_ntb_unbind(struct pci_epf *epf)
+ {
++	struct pci_host_bridge *bridge;
+ 	struct epf_ntb *ntb = epf_get_drvdata(epf);
+ 
++	pci_unregister_driver(&vntb_pci_driver);
++
++	if (ntb->vpci_bus) {
++		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
++
++		pci_lock_rescan_remove();
++		pci_stop_root_bus(ntb->vpci_bus);
++		pci_remove_root_bus(ntb->vpci_bus);
++		ntb->vpci_bus = NULL;
++		pci_unlock_rescan_remove();
++
++		pci_free_host_bridge(bridge);
++	}
++
+ 	epf_ntb_epc_cleanup(ntb);
+ 	epf_ntb_config_spad_bar_free(ntb);
+-
+-	pci_unregister_driver(&vntb_pci_driver);
+ }
+ 
+ // EPF driver probe
+-- 
+2.53.0
 
