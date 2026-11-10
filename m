@@ -1,63 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794304894;
-	b=b+TB2gx7yId3pzMxHb2ZpYuAGMjcj9ixhLWEFzgqhV81/JumB/UZiSXV+ztYbHADYQfB
-	 oR7cCjG/DVPwdkV88ZyCrsZuLCxARrqwoVC10N2dT4yWGkpH4RCBUtB5XOXzSCxE/diuG
-	 3S/t4p+/nOCPX3Tpoh5/LVRkMudnFxZ9N4JZxr1rvLWxzuAVDHsAsVFpdBfdCeg4hvJ2/
-	 74iwX7N7zzaVm0hjToyO5tq6WfxvD2ykNiqCgIM8qeG/FVCSatrVxCovpD3/tUX8asDrX
-	 QTf3DGjzFdLBZnhdm23twCZGomlH2GYlgaSKKQ6zM6BLaSYE/0O0jRvm8rIyZdqnv/A==
+	t=1794305202;
+	b=nr6YiqvFnSHHTW2M3ZoCgI3e2CBtyMGW9tJ4jviInuhuiJOyGGtA/3Y632A5u/p0JP/F
+	 gM0esJM0jzYp+/tOjYL1dSqG9e/zkW4KeXLV4O/ywf/4j4mEaDyUWnfM2LARSy/mcqxMm
+	 JlnUZObEkS5LRFqaMvcviBTcr3QZCMBSCEsOvEuvKKFu8xs663I1AU76wRcRRlmE7OxCL
+	 fq8f5TJlLagddSv1QET1XWbIOBFIwPWh+Nh3kakSVC2rwUNffcmeQbLGcIcuZgVT1H20l
+	 NAdK8l/FFffFDqKrXVoDUpLP/EyqLCtcyqVa18fnustI1zP/aKJSgd2Qe4ZOL0Cm3IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794304894;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=NV/n9QUrC7hJ5I6sA0qyjFunoR/tVEYb0g42BBmWAR4=;
-	b=lxVy/6BP+uj5VdtUQP8ov3hPe1yAwjEhKJunIqNpF59BkeOpDv3n4TjljLQIEykWvPdu
-	 WmtxwFN0ftgtEH4cQaYquTKpRJjex96hEsL+q6Zqj/RAQRR2uszFYrRCItf+DD2LLSJIK
-	 eZwFch9f6zgZAf72VUPsvrFyAW5kf2OlK4X8NZya+TXCwJHpUEzk2aULD4NyR2Min8TDt
-	 vwnEtKxH2lTCFQjtsy3VmpXmqNqrSX9OZe3mAz2BKN9YCe4rpJlXWAFI+Mb63kPS0UeTv
-	 OakJG980PW/enyioGpDmoPlPS0g5TSsY5uyglqWw/mJoA59y1jLOadm7v6ztFwGPXBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794305202;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=0+56BmH46cTzz6cgAVlQ2fzvLFOPeYUgDkfm7Fk/6qk=;
+	b=ab0fGi/HZwL0ez8goGZB6AnORqjRMZIRCHiCw67Tdtffjpty+UaCxan3qmH5puIc86vP
+	 O5nNe4egTFASf95ub9PLnvXBDRj2oXRI7t8ba7owYQF6eyg7ENL+g8XSPQ8y6v+ktHms6
+	 UcJFLM0FokV+uTEcr6kfYeGecM2GnZoAYAJZov1W/2OcF5TD3zPL2shr/HepaYEYMNkRA
+	 fRnsqjAh1dB7lthNZIKyVYBxlKqO2h+Jk85mZHHwuetc/XAsghgt7uGkQBCYXNQ9v4bQv
+	 rK3GtFgnNRMan4iOiKRCwLJ/I4DBt512RhAB+gnNjhMl8IJNhArZbMl/uo1RJEWZ3Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM6ww2mY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="NwD/ThYC";
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C0E60A5BC0;
-	Tue, 10 Nov 2026 10:01:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614BA606A325;
+	Tue, 10 Nov 2026 10:06:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 614BA606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM6ww2mY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300191F0089F;
-	Tue, 10 Nov 2026 10:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794304894;
-	bh=NV/n9QUrC7hJ5I6sA0qyjFunoR/tVEYb0g42BBmWAR4=;
-	h=From:To:Cc:Subject:Date;
-	b=DM6ww2mYH13DcKy7AmjihvAMAcNoMQbrudRC6YIjWZVAcRjMBJW9b62/oehirxDK1
-	 aG1eszc+y3qx1lqI5vomerOBqGja+yJIclxrscxe+enN2cPG4zOREDTAdyLFzCubhL
-	 8FwQoEkv+6mDQh5ARq9OjLi2u7wiUdkpIpZLUZa3gOE96rHyYDrP9VoWNKPIRexccR
-	 ENFyUAI1ciozQM5BiYT0tyjU6FmGfeXdQgoGADCM87Y0m/a6CEXpePoy7VpR52tA7A
-	 QQ8tAYQBuWZw46Buqyjmv5PWiXXQb23IXpjicvaq2Ly2ZNscoL/8aaWgQLgSm6QHaa
-	 iGvTmPlM/LxtQ==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xQifT-0000000AlvD-2vbf;
-	Tue, 10 Nov 2026 11:01:31 +0100
-From: Johan Hovold <johan@kernel.org>
-To: FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org,
-	Hans-Frieder Vogt <hfdevel@gmx.net>
-Subject: [PATCH net] net: tn40xx: fix swnode use-after-free on probe failure
-Date: Tue, 10 Nov 2026 11:00:51 +0100
-Message-ID: <20261110100051.2567443-1-johan@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NwD/ThYC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794305202; x=1825841202;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hPyoBw1zcnjyYyX+GWkyUwYoq6TCM3E4M22B/6C4Ed4=;
+  b=NwD/ThYCEmBc5Zs9ar2Vq4hl1pxmD9AtOj8iHNcSBYeqGyymZwsueUnv
+   sNSqeeb4lmwJD8AIXBLrPBoYiLKOIlY+rrdgKpPT5/rrL0xDWkZle/iQk
+   JomEF1lpWh4Cbp7/wHMf4lWz/jCgrfwZMagWoIK7cfB7U3YT38ANd28ns
+   HkbloCcfBfkD/wwvnzsZrKxrm4j6Ir1As+CVDAJ9rBoUhDSrfbPNq0NvC
+   F7Zqu5DwrOcjhnX9sB63I+Lj9FlAGl8hoFr7UcPmGF6vJNbC+sD+Ww74u
+   uRyr8ibPP7RAtoCgRnneqObYev/8kDpKQ5dIVGAtkaagp5n3fWFgxqjZ+
+   g==;
+X-CSE-ConnectionGUID: zux3HgRHRHKvhopm6dRszg==
+X-CSE-MsgGUID: BLM4AXdHR1ql4J4jvRhfLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3035498"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="3035498"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:06:41 -0800
+X-CSE-ConnectionGUID: lHQLPFhaT8WI8G9crvQsXw==
+X-CSE-MsgGUID: eiwTZ/71QaS3vGs1UpQTTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7944534"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:06:38 -0800
+Date: Tue, 10 Nov 2026 12:06:36 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Kent Gibson <warthog618@gmail.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] gpiolib: don't overwrite the entire flags field
+ in gpiod_free_commit()
+Message-ID: <avLsrOqdXSFSH6WM@ashevche-desk.local>
+References: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
+ <20261109-gpio-desc-flags-atomic-v2-4-c4c54b476628@oss.qualcomm.com>
+ <avJAv_3ACjvyc9VU@ashevche-desk.local>
+ <gw26q2blrbmmxwzv7vfjxwc5bzqzfgt57zs7bvt2kdx7x6a6qk@6i5z3a3crqft>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,38 +88,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <gw26q2blrbmmxwzv7vfjxwc5bzqzfgt57zs7bvt2kdx7x6a6qk@6i5z3a3crqft>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The mdiobus allocated by tn40_mdiobus_init() has no primary firmware
-node so its firmware node pointer points to the secondary software node
-added by device_add_software_node() and whose reference is released by
-device_remove_software_node().
+On Tue, Nov 10, 2026 at 09:54:11AM +0100, Bartosz Golaszewski wrote:
+> On Mon, Nov 09, 2026 at 11:53:03PM +0200, Andy Shevchenko wrote:
+> > On Mon, Nov 09, 2026 at 11:27:08AM +0100, Bartosz Golaszewski wrote:
 
-Drop the stray firmware node reference decrement on probe failure and
-driver unbind which leads to a use-after-free when deregistering the
-software node group as the parent MDIO node has been freed before the
-child PHY node.
+...
 
-Fixes: 25b6a6d29d40 ("net: tn40xx: create swnode for mdio and aqr105 phy and add to mdiobus")
-Cc: stable@vger.kernel.org	# 6.15
-Cc: Hans-Frieder Vogt <hfdevel@gmx.net>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/net/ethernet/tehuti/tn40_mdio.c | 1 -
- 1 file changed, 1 deletion(-)
+> > >  #include <linux/acpi.h>
+> > >  #include <linux/array_size.h>
+> > >  #include <linux/bitmap.h>
+> > > +#include <linux/bitops.h>
+> > >  #include <linux/cleanup.h>
+> > >  #include <linux/compat.h>
+> > >  #include <linux/debugfs.h>
+> > 
+> > No need, bitmap API implies all bitops.
+> 
+> I honestly have no idea what the policy is on "proxy" headers. In some
+> cases people advise against them, in others they say to include them.
+> 
+> Is this documented anywhere?
 
-diff --git a/drivers/net/ethernet/tehuti/tn40_mdio.c b/drivers/net/ethernet/tehuti/tn40_mdio.c
-index fb1a4a2e4dbc..49951477ac05 100644
---- a/drivers/net/ethernet/tehuti/tn40_mdio.c
-+++ b/drivers/net/ethernet/tehuti/tn40_mdio.c
-@@ -157,7 +157,6 @@ void tn40_swnodes_cleanup(struct tn40_priv *priv)
- {
- 	/* cleanup of swnodes is only needed for AQR105-based cards */
- 	if (priv->pdev->device == PCI_DEVICE_ID_TEHUTI_TN9510) {
--		fwnode_handle_put(dev_fwnode(&priv->mdio->dev));
- 		device_remove_software_node(&priv->mdio->dev);
- 		software_node_unregister_node_group(priv->nodes.group);
- 	}
+No, but feel free to start such a documentation. In IIO we did a huge work
+to enforce IWYU principle, and there we have some tribe knowledge about
+the dependencies and guarantees. (Cc'ed some people.) In this case the
+bitops.h inclusion is guaranteed by bitmap.h. If it stops doing like this
+it will be a flag day.
+
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
