@@ -1,57 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272874;
-	b=G1pdWJVE2YlYlcvw+LUW+QGvshUCU4TWt63MKPmperHbVGvYxY7Tf9mRTkQKg5eCU4GQ
-	 nNMd5yWge8l9J9A6Vc1CJj5lPSZqVpIKsyPmc+kd3mMBCdN6KnUfyj5E+Brf/c5ZGHuIy
-	 8vEbOkFXN7pFSUmeIkJf3BRCw6/mAvmNUV7EZ+GOo+/LHy9tQnchOyVVKG/BedKVScMHN
-	 Te5NJK+GzNTYyXH8bw4WkOdjrXiiCoeFAevLVSP0BpabAbgNs966Mdyu2BSvXnD8Wvm3/
-	 rWKJspzLstz8tcdzqtHGLVBYCHIMeGOgb/AGQcTD/P2FadXnZictZsz8BFG413CRLgQ==
+	t=1794272877;
+	b=veftpiNeDqdMX/5clEnWGRURqSeUnRTBwLc1vLEnsE9SXMTZesybdaqUQLRQ1vKB5rZC
+	 6Ab0JczUiyomieUp2wIqP98+WJ1BEs67QC5Y8u198ZvI5AunYnC8rr3adbYnsjifQfFsY
+	 ibXDo5n90TxakSmnD3eDoc+iekObJTMKUMCI9g96YpcnQx5La0sVmrkE/5jYZICwXKeUS
+	 F6Rjob/Fav9aHRaciQb8hxgf9+MGSj6Nbshs36KPW97VaO1iN6FVBIV6BG4QsJ9HpJWpl
+	 jZtSLn4uJ4bD1N7j/96tl7EkePVAgmM5fWVn+Q+CBFiOEF8mRcgUZkKF5yfOzBK52OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272874;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272877;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S3ILD50kmp4I3ff0Ob9KJ8xAczNjL7fM6BXSzY9W8b0=;
-	b=npmzyRHZ7RXACWeaKLtE3X31PSj3a8v9IIhTc7PpfER6qfsigJMzB5ZUL7jJ0ZSgQgCI
-	 U07ZUdnVUdrPA8TyWbsLbBmLw/hIlLc+Ea36K37a8uYsjyh/NZR+0zIT66fUQOoD2NKE/
-	 7pFAGybDKMh00aDGDJeAglDL++co9quXCendbjyS5NnnS5Hy7ST4+gH7/Q5d2+v/ebiLc
-	 0GkHgN+skXFTEth+Pgmpay3d8qj9sJReCTg7ou7KwwJW/RWS9LiGSxXKBlPQjgrtJ7Yg7
-	 l0H05DbLGmOzR5v5j5XL/GlKyo8ysw/JsttW/+kkaXt6+JD9dxHWPx27uh1j09zcyUA==
+	bh=ONihIr5ov3b8ieAzpgLNjV+21iG37j8crPf4B8HHtsE=;
+	b=lIkljX28+2VcXeCW5pYCTarJaWJXgJe1h2viFippQ6y37SJY4OfRSoQkXDRxZ+OfC7Mi
+	 fW2x5pCG0wP5i7LiueqY5O9bCjcWFYV5MLJGypcRhkIqX4AoLgKG2+UefOQE1d+1c0Yhn
+	 68WZU6vgiZVp/FlXm0gdnARPnUvZMOE0LoqqKI0umDKHB2wnHU2RBrBeP7twKUicMM88S
+	 r4o+iHPaRJiX+8HCHGHK1ali/2KQmTF4utgZxwN9Kw6XL2nAuGf6RzQQjov5Y5VOKqxn1
+	 2RmIV3dhYB/ydiJFvmsIGWa05Rbd8K7kU/Wm3nJZ8INSIZf9uOwbV87fYlQWmzQhdMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVi6BKxn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6IRxuVN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB9E606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A569606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVi6BKxn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E36FD1F0089F;
-	Tue, 10 Nov 2026 01:07:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F6IRxuVN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32AF1F0089F;
+	Tue, 10 Nov 2026 01:07:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272873;
-	bh=S3ILD50kmp4I3ff0Ob9KJ8xAczNjL7fM6BXSzY9W8b0=;
+	s=k20260515; t=1794272877;
+	bh=ONihIr5ov3b8ieAzpgLNjV+21iG37j8crPf4B8HHtsE=;
 	h=From:To:Cc:Subject:Date;
-	b=BVi6BKxnl6D0caGsoSImK+a+Udgn7/wYyYG4L7JsKW+XzR8bv8NJJuC2PzGMxY2rc
-	 HK+TVEBYGN6k7/nQgh5ZQOp46/hPVUgTbN/NmHG+Bk38jBFCsIZ67o4Ijem1EjCUHn
-	 Rk4+bnSKt5iLaSs1jMHDwot0SWm0M77v/0v1df2v0geDyX/yYO1bs8wRTPW3l9P6ne
-	 4XF3iV34eAe8mNQHxS0Q2Q1djPRuLm0ejf1puqlevxEgQEOvobj4UuyJ9hZEWu2ydz
-	 sWj2LwcqkLc4M9IvAgonmx99gnkErpLpYIzyk5crKhJge5pUI5q7+NHtNruzIEWtDu
-	 cwEb2XXikTi+A==
+	b=F6IRxuVNp0P8DSsEdvL8B7ukytl11vMWdnf08dUi9EiQFn1IKdJBPCoR2CKDZSt4f
+	 mtTCEppHeMg6kRx0aNdt+J4yb3wiNOQS+SrVNbmv9xNTboPsWOldb8XFBNdNXJ1hCT
+	 XiiS3//1KCPKu0oh52apBoBz3Ylj6ElCQHGwTCeWGtglrTMEdaPPThg5qDV4iUPy4R
+	 hH+6h41kJB3pIPwgSKAmL5daq+RsMxIFah1gFUM5JJHNuBHIrU417qnESASzWV3fWr
+	 V4VkWFyXHRBM/D7lg6fDUTvkc6VARw60ZmEbmWe72WK7gfD94vn9subks2dxT6530x
+	 53wqZ3xUF6IYQ==
 From: Sasha Levin <sashal@kernel.org>
-To: ljs@kernel.org,
+To: david@kernel.org,
+	ljs@kernel.org,
 	akpm@linux-foundation.org,
-	luizcap@redhat.com,
-	vbabka@kernel.org,
 	pfalcato@suse.de,
+	gourry@gourry.net,
 	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
 	jannh@google.com,
-	matenajakub@gmail.com
+	dave@stgolabs.net,
+	sj@kernel.org,
+	kees@kernel.org,
+	ccross@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:07:51 -0500
-Message-ID: <20261109200751-failed-6.12-8146c6478224@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing anonymous names" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:07:54 -0500
+Message-ID: <20261109200754-failed-6.12-652f15be3c11@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,116 +81,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8146c6478224d8f6395c6b08a19c344a56d79867
+git cherry-pick -x 652f15be3c11415725694ccea317c51e35c0b582
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200751-failed-6.12-8146c6478224@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200754-failed-6.12-652f15be3c11@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8146c6478224d8f6395c6b08a19c344a56d79867 Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 23 Oct 2026 16:17:31 +0100
-Subject: [PATCH] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 652f15be3c11415725694ccea317c51e35c0b582 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Fri, 23 Oct 2026 14:47:29 +0100
+Subject: [PATCH] mm/madvise: preserve VMA_SOFTDIRTY_BIT when changing
+ anonymous names
 
-Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
-merging with expansion of mremap()'d VMAs, however it also unintentionally
-disallowed the expansion of unmergeable VMAs.
+When changing the anonymous VMA name, madvise_update_vma() calls
+vma_modify_name() to possibly merge with adjacent VMAs. We don't call
+vma_modify_flags() and consequently don't obtain the new VMA flags.
 
-Previously it was possible to expand a mixed mapping which mremap() had
-already ensured was a legal expansion.
+Later in the function we update the VMA flags to the stale new_vma_flags
+we obtained before. This can result in us losing the VMA_SOFTDIRTY_BIT
+flag set on a VMA we just merged with.
 
-This is clearly seen in the mremap() logic, as it checks
-vma_is_fixed_mapping() to determine legality of an expansion rather than
-vma_can_merge().
+There is no need to update the VMA flags at all, so just exit early. This
+skips calling khugepaged_enter_vma(), but since the flags didn't change
+this is fine.
 
-Additionally, copy_vma() allows for a failed merge to result in a new VMA
-being instantiated if MREMAP_MAYMOVE is specified.
-
-However, this is not attempted, as a failure in vma_merge_extend() is
-assumed to be an -ENOMEM failure.
-
-Since vma_merge_extend() is used exclusively by mremap() to perform a merge
-and/or expansion, resolve the issue by invoking vma_expand() for
-unmergeable VMAs there.
-
-Explicitly assert that the VMA is both non-fixed and a mixed mapping.
-This provides double insurance against broken changes in future.
-
-Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
-redundant in this case, as a mixed mapping is not subject to khugepaged.
-
-Also update the VMA userland tests to add a required predicate.
-
-Link: https://lore.kernel.org/20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org
-Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
+[ljs@kernel.org: minor edit of commit message, rebased]
+Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-3-8ff4fae1fc85@kernel.org
+Fixes: 9a10064f5625 ("mm: add a field to store names for private anonymous memory")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Luiz Capitulino <luizcap@redhat.com>
-Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
 Cc: Jann Horn <jannh@google.com>
-Cc: Jakub Matěna <matenajakub@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: SJ Park <sj@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Colin Cross <ccross@google.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/vma.c                        | 19 ++++++++++++++++---
- tools/testing/vma/include/dup.h |  5 +++++
- 2 files changed, 21 insertions(+), 3 deletions(-)
+ mm/madvise.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index 1be613044b4a5..88ef92ab24ecf 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1851,12 +1851,25 @@ struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
- 					struct vm_area_struct *vma,
- 					unsigned long delta)
- {
--	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
-+	const unsigned long start =
-+		vma_can_merge(vma) ? vma->vm_end : vma->vm_start;
-+	VMG_VMA_STATE(vmg, vmi, vma, vma, start, vma->vm_end + delta);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index b2e00efcaa542..e9fa4f71efeac 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -177,6 +177,9 @@ static int madvise_update_vma(vm_flags_t new_flags,
  
--	vmg.next = vma_iter_next_rewind(vmi, NULL);
- 	vmg.middle = NULL; /* We use the VMA to populate VMG fields only. */
- 
--	return vma_merge_new_range(&vmg);
-+	if (vma_can_merge(vma)) {
-+		vmg.next = vma_iter_next_rewind(vmi, NULL);
-+		return vma_merge_new_range(&vmg);
-+	}
+ 	/* vm_flags is protected by the mmap_lock held in write mode. */
+ 	vma_start_write(vma);
++	if (set_new_anon_name)
++		return replace_anon_vma_name(vma, anon_name);
 +
-+	/* Mixed mappings are permitted to be expanded, not merged. */
-+	VM_WARN_ON_ONCE(vma_is_fixed_mapping(vma));
-+	VM_WARN_ON_ONCE(!vma_test(vma, VMA_MIXEDMAP_BIT));
-+	vma_prev(vmi); /* Reposition to start of VMA. */
-+	vmg.target = vma;
-+	if (vma_expand(&vmg))
-+		return NULL;
-+	return vma;
+ 	vma_overwrite_flags(vma, new_vma_flags);
+ 	/*
+ 	 * If the vma become good for khugepaged to scan,
+@@ -186,9 +189,6 @@ static int madvise_update_vma(vm_flags_t new_flags,
+ 	if (vma_flags_test(&new_vma_flags, VMA_HUGEPAGE_BIT))
+ 		khugepaged_enter_vma(vma, vma_flags_to_legacy(new_vma_flags));
+ 
+-	if (set_new_anon_name)
+-		return replace_anon_vma_name(vma, anon_name);
+-
+ 	return 0;
  }
  
- void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb)
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index f449129ea97a9..e0eab4eca998e 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1727,3 +1727,8 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- 	 */
- 	return !vma_flags_is_hugetlb(flags);
- }
-+
-+static inline bool vma_can_merge(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_can_merge(&vma->flags);
-+}
 -- 
 2.53.0
 
