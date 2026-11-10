@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273261;
-	b=3nM/fbTu4F8imS3c1BKIEF0OYJmHlULiHO/iRuDCT+7KRauPoBOtH64vowH+CMFDUPx4
-	 Yv657n5j4pK0uQQYiF4sc/ZROSk95IXXu6qMo/ncIqKfvSwZlnA6rPM7IuVCaX1CVfb4e
-	 Fi47a1NWOEWaMK9wuubSn04he6ZEqlOgVdo1NtdIvpwp3WyRlwvo/mbVDLrpMpKd/ose2
-	 M9f7Zv1UxqINrl3Qj+Pus0qI8Q4yC/IMpj0PQmUBkx96bA6nrYEkcAANxWInkjHMdU+9+
-	 QdqGJEnL+OPO/GetrU5KKrOO/Kuf2J0COCWvS+pFvaiRN/eCiAIfQyuXJRUj42+li1Q==
+	t=1794273264;
+	b=NpJofjiRfqspvjDHKhp/+2iYQeD99M8uj2ajLutvRGSs8BBWG69doPOnNkjiu6iYyF4L
+	 1AmfQaXsQgI7dOfGxiCbum1uet1k8r1GgbtcsP49CluIQ07a8cIt0AksWbM+xx/l6PnhI
+	 rmxvYWFa/n2/ySNyZURWUXeARutxdP6SpVkChK9+pJoNi7rjOs/JIMqhHwymIPR0VRnjH
+	 tcPw12UkvcEsLdHpiJQt23U2a9yozHCeTu75Ec9od0koYKDJ3Y1CFl8zFGyOXzqgXksQo
+	 KAXytsfCC37BgU7I6lEQEVJehYF3Y7FCEwBtwjNmNPhYajEQ7IY/QgXXa7C4cdzM8ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273261;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273264;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jTX7ejQbE5JnZM3YfEiX//LtPGENF/qugot6Z896V3Y=;
-	b=Uykp4I7hJ0csGGKtz33tonecb7F7rHks1BL6ZZo+lTfWTq/vtLYbQoMM9baw+wWahIxD
-	 4uuOLM+W/J2gOif5+9xYfWDBjeUvWXGZQnb06UjkhBliD9keFPBB+lwC7U5kNEew3SPw2
-	 yK2W6Jh5WcoMqDbcbz1bVaYCSpbf6hDHAy/FTSlG7oFqaLPVRiLOY+nw/aJ2Il+kPLhCI
-	 j118ZPQOHbO0bSRyA7MiKfyVlS+Mo58C8FShrsu/xKLWG+T9/xmW/dyO2iiYKlV0id5lB
-	 ibe//B4UD24hTJERGtNX58qH6x3CsE6Ojr+HEVcNDLyCW4Dn4XghzcypCqZ74w6yVaw==
+	bh=vmnR/cCByGQVIhf1YkHeiCqWwO6/Y5U0HMTpDYwJjxc=;
+	b=lQj4D6ZREAVVyK1dCw3KXW1YQu4JQLTTT3wyuIpkefmhKvdtPDjz5blxiYNmrNs9KLY3
+	 GYGrABqGyEwAYLARSc50boz48aaDYahkZFGBD23A+dniGLw0nwsvG5fjtawP5BeHRFioU
+	 W/AqMDWneka4pjULI+Surzhs8I1LM6nLWVdTGTvJDN4MwvZJMSimBR5Wot3hWb7utp2jm
+	 oY7tHfIRmffgkOTA00NXDOmpjHAMv0+A4v+plLMY9ZGNzrOVCHdS84t7AdZQS5MvUKz8G
+	 o2u/FhSb838epiWgdAWMjDwwj2gpdTM/hHy6mDNJ1C30PVv9JRdiOQz3roXNBerbKzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOVXNE4p;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KvWVjeM+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64118606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4120606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IOVXNE4p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0181F0089F;
-	Tue, 10 Nov 2026 01:14:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KvWVjeM+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2234D1F0089F;
+	Tue, 10 Nov 2026 01:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273261;
-	bh=jTX7ejQbE5JnZM3YfEiX//LtPGENF/qugot6Z896V3Y=;
+	s=k20260515; t=1794273263;
+	bh=vmnR/cCByGQVIhf1YkHeiCqWwO6/Y5U0HMTpDYwJjxc=;
 	h=From:To:Cc:Subject:Date;
-	b=IOVXNE4pf9IA2qQJ5aFbacVQYuVzyTwnsfvQUUCYVGtRKhxx19E1tSUXSs2SmH11E
-	 lSOyRdpwswUXtR7Nv/9qs2Zk/rAwh20gQrysctYFV+rowIrv5t03swtMvbA2Kx13Lo
-	 1OpLOvBsaIjWkF3KVqn49LeAlG97bP6mmN9l8MBKW4pv68Mo6KB1LOQB95hgMSprwJ
-	 gqJ4vwpKSNaR7mJPpc7X3ctOkGudMtrhHabrOsnZoAwtfn5iXXfbToLD/dHj9Gr4+6
-	 O8QtiYaTJl+gP53DLlFoVm4KXQ0mt6+A531l2EFtMNOU/2Ap1ubLm199jDpmhKwhns
-	 6YEp9oSfigQXg==
+	b=KvWVjeM+sBzfMrT76JgQCv7gPpOTY37j3HkLr7GG2Jgzm9y7/VjgP1xCVYlmxlqOr
+	 dHewSdB//L/KY/ABXC+nCehPo55aXalBBsb1LFjGWfieAlB5tmLz6/jtwS/jEuiCtB
+	 ajapT0FjQ6Jr7fsrz+K8TvOpj7YFxan1aTkcrtFNQI/767YNKIkE+UM49sPruRHYrM
+	 JFWanDVa2xLV3vrSkwJz+iw0ZpySmRESROwhH7WOPOvtPRkVxSv3TIXU1cWaHksObA
+	 e2Xzeg3W9T49uNbr3NzZPDLtmXEP1fGeyYkZJ0ECQZC8lUI8YRqagKAF0+f58T9ZnW
+	 GPRpux7GULsrQ==
 From: Sasha Levin <sashal@kernel.org>
-To: misha@nasledov.com,
-	alex.hung@amd.com,
+To: jesse.zhang@amd.com,
+	felix.kuehling@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Drop clock requirements on DCN32 when no displays are active" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:14:19 -0500
-Message-ID: <20261109201419-failed-6.6-bba4dc330648@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdkfd: use the queue's process info for the WPTR BO eviction fence" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:14:21 -0500
+Message-ID: <20261109201421-failed-6.6-da2897ee8b81@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,72 +69,110 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x bba4dc3306483335ddbe065c05b2d8359ec387a4
+git cherry-pick -x da2897ee8b811945fd40ecc4aaf03291c14ce61c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201419-failed-6.6-bba4dc330648@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201421-failed-6.6-da2897ee8b81@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bba4dc3306483335ddbe065c05b2d8359ec387a4 Mon Sep 17 00:00:00 2001
-From: Misha Nasledov <misha@nasledov.com>
-Date: Mon, 19 Oct 2026 16:42:32 -0700
-Subject: [PATCH] drm/amd/display: Drop clock requirements on DCN32 when no
- displays are active
+From da2897ee8b811945fd40ecc4aaf03291c14ce61c Mon Sep 17 00:00:00 2001
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+Date: Sat, 24 Oct 2026 01:26:49 +0800
+Subject: [PATCH] drm/amdkfd: use the queue's process info for the WPTR BO
+ eviction fence
 
-amdgpu_dm builds the new dc_state as a copy of the old one. When the last
-stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
-never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
-dramclk/dcfclk/fclk requirements of the display that was just turned off.
-dcn32_update_clocks() then keeps those hard minimums applied.
+amdgpu_amdkfd_map_gtt_bo_to_gart() removes the eviction fence of
+bo->vm_bo->vm->process_info from the WPTR BO of a new queue. bo->vm_bo
+is the VM which opened the BO last, not necessarily the KFD process' VM,
+and a render node VM has no process info.
 
-On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
-the monitor off, and the board idles at 28.4 W. With this change they
-drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
+On navi31, an unprivileged process which exports its WPTR BO with
+AMDKFD_IOC_EXPORT_DMABUF and imports it on a second render node fd
+oopses in AMDKFD_IOC_CREATE_QUEUE:
 
-Reset the clock requirements in that case, as calculate_dlg_params()
-already does when no HUBP is active and as the DML2 path does for
-stream_count == 0.
+  BUG: kernel NULL pointer dereference, address: 0000000000000060
+  RIP: 0010:amdgpu_amdkfd_map_gtt_bo_to_gart+0x86/0x1a0 [amdgpu]
+   init_user_queue.part.0+0x180/0x250 [amdgpu]
+   pqm_create_queue+0x32d/0x730 [amdgpu]
+   kfd_ioctl_create_queue+0x583/0x9f0 [amdgpu]
 
-Signed-off-by: Misha Nasledov <misha@nasledov.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Pass the process info of the queue instead. With the fix, the queue is
+created and destroyed normally.
+
+Fixes: 7f347e3f8217 ("drm/amdkfd: Fix NULL pointer error for GC 11.0.1 on mGPU")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
+(cherry picked from commit 6b4157498a176bd1c6083f6bb5aaf8a257a2027e)
 Cc: stable@vger.kernel.org
 ---
- .../display/dc/resource/dcn32/dcn32_resource.c    | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h             | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c       | 8 +++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 3 ++-
+ 3 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-index 3a6a489388435..619b9b3362fc6 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-@@ -1941,8 +1941,21 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
- 	out = dcn32_internal_validate_bw(dc, context, pipes, &pipe_cnt, &vlevel, validate_mode);
- 	DC_FP_END();
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 77c0504cc158d..74dc307e5140a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -344,7 +344,8 @@ int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem, void **kptr,
+ 					 u64 *size, u32 domain);
+ void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem);
  
--	if (pipe_cnt == 0)
-+	if (pipe_cnt == 0) {
-+		/* The context is a copy of the previous state, so without this the
-+		 * clocks the last display needed stay applied with all displays off.
-+		 */
-+		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.num_ways = 0;
- 		goto validate_out;
-+	}
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart);
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
++				     struct amdkfd_process_info *process_info);
  
- 	if (!out)
- 		goto validate_fail;
+ int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
+ 					    struct dma_fence __rcu **ef);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 3a4b3424b5b29..c399b85731b47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2261,11 +2261,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
+  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
+  * @bo: Buffer object to be mapped
+  * @bo_gart: Return bo reference
++ * @process_info: KFD process info of the queue the BO is for
+  *
+  * Before return, bo reference count is incremented. To release the reference and unpin/
+  * unmap the BO, call amdgpu_amdkfd_free_kernel_mem.
+  */
+-int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart)
++int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
++				     struct amdkfd_process_info *process_info)
+ {
+ 	int ret;
+ 
+@@ -2287,8 +2289,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
+ 		goto err_map_bo_gart_failed;
+ 	}
+ 
+-	amdgpu_amdkfd_remove_eviction_fence(
+-		bo, bo->vm_bo->vm->process_info->eviction_fence);
++	/* bo->vm_bo can be the VM of any file which opened the BO */
++	amdgpu_amdkfd_remove_eviction_fence(bo, process_info->eviction_fence);
+ 
+ 	amdgpu_bo_unreserve(bo);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 78ab759ad8549..4c4a3a8587f46 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -303,7 +303,8 @@ static int init_user_queue(struct process_queue_manager *pqm,
+ 		}
+ 
+ 		retval = amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->wptr_bo,
+-							  &(*q)->wptr_bo_gart);
++							  &(*q)->wptr_bo_gart,
++							  pqm->process->kgd_process_info);
+ 		if (retval) {
+ 			pr_err("Failed to map wptr bo to GART\n");
+ 			goto free_gang_ctx_bo;
 -- 
 2.53.0
 
