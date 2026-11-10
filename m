@@ -1,87 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794307690;
-	b=Fzl9R4gcZVFJXs3XYTd+aE+Dn+Knx4S9bVJELNu0jP9Xr/svkO8IUVmOAg02mpmQMOu7
-	 oYZm4a6gddksCssbusBAuYk3GsGaSf8BISxnBPEHR1IEeUQIYoWHCMPaLl5MN0YlgwCQY
-	 DPqIEfxQkg+N4SpS4Un5BXKitwOy8ch01aWXsUwggeopvA8WCvfFFOGrLSEiohocO1z+7
-	 fBF42TROWsTDi2jzlw/DLM1bDsHyi1ZwHXk2c2ETLeur97oVMC59jjoHgiQc2Xxwi1lYK
-	 bvBGNQFg4E3VTy1dI0Eio1vUriXM/UQdNW2uDALm+qCo7iyTZw3k4a9GvlcTrVZHt+g==
+	t=1794307851;
+	b=0dKOmtUuJ/ORSRBpJhm5nTWZK4ZgFRBnInod7nLeMv+URKk/0BaAmpKe46uhQ6IRaWzH
+	 Sa2+CND3ts8dMcFKCo1s0hO/jslHv4VUETY3LgxG8hnNWe9Coj5FF+drtqfhX8PUkJnWc
+	 /D8IuIx0s7yUsAaG3fuHTYbyXNsg53lVdyEc36alvsmPWnaorry8cjdizl54aEGwCu6z/
+	 qZdDjHgID7EM6zS6ZZ5JzytSEuGmJ37zo5Do/YYJ9/8B4UX8aN4X6E69r7XSZuy614kIG
+	 fU9yVv2C3RXRMRQlsy6EoRZ02UOQLmG7tYzqIiBSk/gj3l4/C3Dvf3jxs9igatUsjNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794307690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794307851;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To;
-	bh=AsVpshVWUcahAJco6yGQFmBOgaw87iAoLtHAaOYVCFs=;
-	b=VmWTEzqVK8NH/ToT6PHM6ip7J+3y+6iN22yI1zT6ZMhH4e0CBfMA+KCNzuYSp6PcgRcX
-	 TCJXJ0jJ9GlrR9ja8Yu34UYTy/bbFuWoLZYCZccHP/z8ooC/EpPT0fL2OX9nBF0KI6mmJ
-	 YOYhksvmxZpcL/9nTOZuPQSxsO2rNhQloOfKpfCQuGFrwPRjYQubYDvftusUzJmppK1uL
-	 9PDniIZRQxPjyQrEgRUE6JyvZTS1jh+ZAKMqEDuI1GksQ7Vf8jkrT/hdAmw6eMi4wIAqM
-	 3wDPXhxqe/QKVKw/KQdbs3Jl7YxMkt1xdivvys3mZEOsFPCUkoP/nvJeFhPfjm8aUiQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
+	b=UZOwG2Z+DzfDSpDZJHJKijGV05hPJSQD5jPo7/y+hjBwnmj9SPcfOudFffXo1Z9k3p4F
+	 XUTL4/m9MUyKdZ/sYWEQyLIhEXMoEnSVW+NaIpY+ST7vP1k7yT3SjpOAur9wE52NWk/ui
+	 5p+/qPjh05b5jgNy4yZig8p6ejgpkhBIMR2aS3suzyuU8u0FjCgug7w5V2H1pXtQ/hV10
+	 dQqg3cpmDv1/p/LiG2RdrxxRUYE83di9jYYR5Jovcau3k4RIpKwiy3gDaylImEt+dzcye
+	 vWzh99RLooaliNV6EKW2WLltTCEfvug81+UWxLIe9Eh8qBtwUgKslT3958qMb3OjsQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FJ+yNBRx;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7oOBOLJ;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB05160A260A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:48:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB05160A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB7D606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDB7D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=FJ+yNBRx
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so18336285e9.3
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:48:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7oOBOLJ
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-170135e43c7so2830017c88.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:50:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794307688; x=1794912488; darn=vger.kernel.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AsVpshVWUcahAJco6yGQFmBOgaw87iAoLtHAaOYVCFs=;
-        b=FJ+yNBRxyJI2z7b9ifd1BlWgPyDujuP2bucSCxdd2jMCCs2Vq+y4Fg1q2qXXeVscn9
-         EDBeZTKKPxc5cwKpQ1zbptmVdrVEaBhQbEPKjLOB8gDdBVuC6cmkvy9rE9ba1e+7Qkci
-         DncEFa7RlS3gf5l8G33OgqHGfOasXBPTLKjqVLP19T4YyGzT5srN2n7zvsO9zQNUemSK
-         yIFXayt+0HJrSNQa8igR1kJ6445w0Q7c89bEdbaBgIK2G0a1kkn8yPuiFaQBxYdMuVw3
-         dRLQOPVCONqsVm+QcYaSrdtXPjVawC8Ehaf1Eu5PNMDhKdU6bbf5EdA+6oRIbTvo+WFR
-         biHg==
+        d=gmail.com; s=20260707; t=1794307850; x=1794912650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
+        b=S7oOBOLJgkm5j3tpXKpiwJK8P5y+iQiS8q2DMIqq1hbNqUzm3Dk9Nt3P44CdaCrFnC
+         NP1lvXmBMlAZLOlnIfUtw/GDGqi+w1LuNye8okF2f3p0ztePm1n0Pwhdry4x7bQ5Qk+k
+         L/mhIwUJT75aXGy9Cr82QMvFE7QF9OzoYoCmNt1uqiJ/VtTHPbqHCYey1HDMra8+WsKY
+         UTT9n9segkNKlcyfDUmqglN0a3BdUI3nlcSbj2+zZqkBoF+pZ+kXkeGvqIFaqOyoFaQZ
+         rMQlfgtW9dZc07qCWSy+dKhp138PASsfNg8ulKkUOytLlUrqKw6VzftrgIOyvWwqE2Bu
+         2HiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794307688; x=1794912488;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AsVpshVWUcahAJco6yGQFmBOgaw87iAoLtHAaOYVCFs=;
-        b=k8yZJNQ8mgwPkaScoYYpZpBUGNdGusK0vZubp2P2RLRBs0TB88k8o5cKhbjRA3wTCL
-         Qw6LTyD3SO2Xeso2ZmlqVW23A5LJwRGyBCdMt441vr4Loz9FMLL3ZQ7BNEF3oKIeZMnW
-         pGc8tnaodHzaPkQeFO1KE14lSh/l99ncsK+R8Q6e8Dyc1MVw4WsVWQvBmHGVqI2kOc2W
-         a0ELoV42FbeFNlRefXq5Lbi+JZWUq7rHI2y5Jn5lFZ9TyL3KD1nnK6o3MJ1UehRchU8L
-         QGuDnd0vcLKIpkXbkiYobHmIvCCM7NsJNMITgnx6KCCszzMQSgn+d86rPf8UzvoOpOWy
-         KESw==
-X-Forwarded-Encrypted: i=1; AL+hErEZCHiQbvak9VqhroOs//aR4kdaL0FTlBbwdLB9vogEyJEQqV8adMXpxDspRtfOgwENnJVbTjk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5R+9TBUMqMhd4BiJ7tUlsSSOHksTIjk7qfpZW3OZCNCxRak8+
-	9c5NeODVaprBPHtjSSmqy5eKTvE/cnYt2m3SFEWKlA89ozWYBxVFpSJy1+ZFouONVH4=
-X-Gm-Gg: AYBFou10krvisVs5x+OHzhj/gGGJ5Lpr4CFLfabkBps7kTEgeh2BkqJ+kpKvLjvgsNg
-	Wye1hWPfLB5tEb25E/D+oMsKE3QweAgNsKXaDRobds7Jz6BLY9btiAG5rv8vbkRIcmjx45zEXq4
-	MDBgN9DzGXepfnDKtHjDf7P1KWpjqN+ujWli2gSJx9FNUF/Xtg6Y66nKA+XGUAREBDlLBv8l4ZU
-	SOeHesZJXV2hutdAzyUXmGWTOCFGDytpKtZq98nUTxY1dmp1UTGn0XGlcWb45+56GerSNWCSVRY
-	AaiSTb3dlaEujBmVPGqVGWsRg9iVTOzgweOd1WrrCZRAHXSvroHSFu1b3ln7ACpDc2bszstIz8O
-	jEfZLG9gpeL8Ovu8fsMj7KP2zyMF9FSi7ja7hzioVfJ/ckUfvP85uplrJu5La3Z+HstCeT34PC+
-	jbXHP+CiXdyFAhrF3AT9vC5UpHbpvYiNb4G08YDYjmBgvqgPBfp77x83yqF7hKmnoVroxkORh4F
-	R39ZFUEDxB70zE6Pf+YBispUBYmn3w8zgIRu5D1bzwu7po8iOy3ySaVwR3pjPbZoFO4fqezzw8C
-	gxNWLfoGmurQEPsfhFolnTuhpV8IeZFJqrgN6H/TXbSXQR0e88EGtY5HKU/i9LmLTmgjRImj
-X-Received: by 2002:a05:600c:348d:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4ba023051a5mr35822815e9.1.1794307687833;
-        Tue, 10 Nov 2026 02:48:07 -0800 (PST)
-Received: from ?IPV6:2001:a61:1365:2501:d97e:4bec:d495:3c3f? ([2001:a61:1365:2501:d97e:4bec:d495:3c3f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0204ee67sm57409875e9.13.2026.11.10.02.48.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 10 Nov 2026 02:48:07 -0800 (PST)
-Content-Type: multipart/mixed; boundary="------------lieuYdQrnBx6m16xWGNncEST"
-Message-ID: <a26ce7f8-e2df-4d1b-a22f-1787126ca989@suse.com>
-Date: Tue, 10 Nov 2026 11:48:04 +0100
+        d=1e100.net; s=20260707; t=1794307850; x=1794912650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AnDWGbanVCtYqiunIfMsBWStugmAURIRo8wUmU6j1tA=;
+        b=hgB6P/pJCAbzuAKG8OyS6+Nj5szK2+lYyFUQyK0g4dA9xr9KcB1K740OA7FsT77OGY
+         JGBedxuJYG/i6Y7Cox7CRfWGeTOw+gXg1UElTnr6VTr9Wrki5sR8Lw/mtKB5lnevFtx+
+         HiNeRsQgtM3+0kA1aWvE3XpgvCtappmHSLKk3cRPaVx305T5G4p+dtHZfze2ifh+Zm9j
+         GgbqoIaRjo8qoDfCoQjiEfKjNkVx6xsF2f9VFg12WP1kIenFJtG3srsoSduwrmxgntOB
+         8hPS4VrevSNfsJXmatql52/o1zLAUds4HoF4gUjV1vcqqtacXkgWWaTPIHE6h4NFBq9K
+         hhHA==
+X-Forwarded-Encrypted: i=1; AL+hErHbK76EUwqFbtYVzXo71iaG0CfvZmmoVtD9CkB7eF8baQm7+k/QQmCDJ2LRjZMs89wCqSL/UFw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nd/iyM5ujBwOQkzX8+Vs4aZKNUiHE6SMRR/oQZIag4cxKjUer
+	/Jojy1G7g1XMYGMtCTsyxnwQikt7E+wZVvynwrbMopUKnHcKl6chgvbCt+ZWa+ZF
+X-Gm-Gg: AYBFou1f76CDE+q4MDp0tJhxDYP4O5Y39zJh1Qv7NL+zaYo/PlMmK7hNUOwlHbH4jbB
+	lhjOqrlKYn7M+wMmcZaCcKQEvryAK+pfXh3xe3tbHwHnayA47lsLILTI7OgYBoEUfC/woAUxPys
+	yZRaT7l0CeE9uPjHakUOJ2mlEkAWSO2EpVXEGHCJRuFozvanMkk48YN8LYoS5WdBcg4d48WRtis
+	4zJJTEyBD03dd9YLVWsHpW9Oc5R5d1pWhiKozZ383mQaSaJR0KAZNYtvo8mnlQ7/U5T8B3Lj8ma
+	FRlTgZtcTKGOj4FR+C5BWsSk0H19Vrph5ohXarwRw+syb/mIOsueD64XkZGLU2ZHKFmUSLvtx8+
+	VV+mvw7wECvw08dsUYvcDpEFqf36hfBa84Q4Z6VBTcO+UL1xPHpVSHE0F8h819ZCBAD2/i04zDV
+	alw+Qq55sxBoj1/6dq8UoaaFmUKGXZb5IAM2GnhlOixmeP+HCLIG9ZneqxzVK6+6maH6z/X+2db
+	vAcsSKiLYZlpwMNbF+0Lff1M2XkODvlIBB3/zu/yIuiDRLcEcR/5L4WTlY5qJ7TfAY12nhw0SPr
+	lusf/QaMTIzoLVDZWxEL8rrqJZuWipKduczoVpOGht9sWX7tsdbUAR0E2+jcrnJG0pa8WQ==
+X-Received: by 2002:a05:701a:815a:20b0:190:b2de:1549 with SMTP id a92af1059eb24-1b3b5e6524dmr3147999c88.1.1794307849889;
+        Tue, 10 Nov 2026 02:50:49 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b2ff3bsm7899356c88.11.2026.11.10.02.50.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 02:50:49 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>
+Cc: linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v4] ata: libahci: delete the SW activity blink timer on port stop
+Date: Tue, 10 Nov 2026 19:50:40 +0900
+Message-ID: <20261110105040.2483806-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,119 +97,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: usb: rtl8150: fix rx tasklet use-after-free on
- disconnect
-To: Myeonghun Pak <mhun512@gmail.com>, Petko Manolov <petkan@nucleusys.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>
-References: <20261110043016.56986-1-mhun512@gmail.com>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20261110043016.56986-1-mhun512@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------lieuYdQrnBx6m16xWGNncEST
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+The software activity LED support arms a per-EM-port timer (emp->timer,
+ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
+callback re-arms itself while the LED is blinking. The timer lives in
+struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
+with devm_kzalloc() and freed when the port is torn down.
 
-On 10.11.26 05:30, Myeonghun Pak wrote:
+ahci_port_stop() never deletes this timer - nothing in libahci does - so
+when the SW activity LED is in use and the AHCI port is stopped (driver
+unbind / module unload) while the blink timer is still pending,
+ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
+dereferences the freed ahci_em_priv (use-after-free).
 
-Hi,
+Shut the timers down in ahci_port_stop() before the port private data is
+released. Iterate every em_priv slot and skip the ones that
+ahci_init_sw_activity() never set up (emp->timer.function is NULL), so a
+timer armed on a fan-out link whose port multiplier was detached before
+port stop is not missed. Because the callback re-arms itself, use
+timer_shutdown_sync() so a concurrent re-arm cannot resurrect it.
 
-> Kill the tasklet again after unlink_all_urbs() has waited for all
-> completion handlers. tasklet_kill() drains any late tasklet and prevents
-> self-rescheduling; disabled endpoints prevent it from leaving an RX
-> URB in flight. Keep the first kill to stop an existing reschedule loop
-> before unregister_netdev().
-> 
-> Found by a static analysis tool under development.
+Not tested on real hardware (needs an AHCI controller with SGPIO
+enclosure management and the software activity LED enabled).
 
-Good catch; nice tool.
-But the fix is not correct.
+Fixes: 18f7ba4c2f4b ("libata/ahci: enclosure management support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+Changes in v4:
+- Iterate all pp->em_priv[] slots instead of the current links, so a blink
+  timer armed on a fan-out link whose PMP was detached before port stop
+  (e.g. by sata_pmp_detach() on failed EH recovery) is still shut down
+  (Sashiko AI review). This drops the now-redundant ATA_FLAG_SW_ACTIVITY
+  gate, since the emp->timer.function check already skips unset-up slots.
+- Correct the Fixes tag to the commit that introduced emp->timer
+  (Sashiko AI review).
 
-> Fixes: eff674a514bd ("USB: rtl8150_disconnect() needs tasklet_kill()")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> 
-> ---
-> 
->   drivers/net/usb/rtl8150.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/net/usb/rtl8150.c b/drivers/net/usb/rtl8150.c
-> index d51e43170e03..98c36c377956 100644
-> --- a/drivers/net/usb/rtl8150.c
-> +++ b/drivers/net/usb/rtl8150.c
-> @@ -971,6 +971,8 @@ static void rtl8150_disconnect(struct usb_interface *intf)
->   		tasklet_kill(&dev->tl);
->   		unregister_netdev(dev->netdev);
->   		unlink_all_urbs(dev);
-> +		/* A completion may have scheduled it after the first kill. */
-> +		tasklet_kill(&dev->tl);
+Changes in v3:
+- Shorten the code comment (Niklas Cassel).
 
-The tasklet, however, can also submit the URB again, which in turn
-can submit the tasklet and so on. There is an unavoidable window
-in that sequence, as tasklet_kill() will kill the tasklet, but it may
-have run in the window.
+Changes in v2:
+- Gate the shutdown loop and skip em_priv slots whose timer was never set
+  up (Sashiko AI review); superseded by the all-slots iteration in v4.
 
-Hence you need to also, in addition to your patch, actually prevent the
-resubmission of the URBs. The attached fix will do so.
+v3: https://lore.kernel.org/linux-ide/20261110090303.2415681-1-hj351016@gmail.com/
 
-How do we do this? Shall I submit? Do you want a joint submission?
+ drivers/ata/libahci.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-	Regards
-		Oliver
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 001a6f5..6d73c7f 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2605,8 +2605,23 @@ static void ahci_port_stop(struct ata_port *ap)
+ {
+ 	const char *emsg = NULL;
+ 	struct ahci_host_priv *hpriv = ap->host->private_data;
++	struct ahci_port_priv *pp = ap->private_data;
+ 	void __iomem *host_mmio = hpriv->mmio;
++	struct ahci_em_priv *emp;
+ 	int rc;
++	int i;
++
++	/*
++	 * Stop the SW activity blink timers before devres frees pp, skipping
++	 * the slots that ahci_init_sw_activity() never set up.  Iterate all
++	 * em_priv slots rather than the current links, so a timer armed on a
++	 * fan-out link whose PMP was detached before port stop is not missed.
++	 */
++	for (i = 0; i < EM_MAX_SLOTS; i++) {
++		emp = &pp->em_priv[i];
++		if (emp->timer.function)
++			timer_shutdown_sync(&emp->timer);
++	}
 
---------------lieuYdQrnBx6m16xWGNncEST
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-net-usb-rtl8150-break-cycle-between-tasklet-and-URB.patch"
-Content-Disposition: attachment;
- filename*0="0001-net-usb-rtl8150-break-cycle-between-tasklet-and-URB.pat";
- filename*1="ch"
-Content-Transfer-Encoding: base64
-
-RnJvbSBjOGI4OGQ0NWNhZWYwYzJmZGZhMGIxYTUxZjc3YzJkYjU2NzY1OGJmIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBPbGl2ZXIgTmV1a3VtIDxvbmV1a3VtQHN1c2UuY29t
-PgpEYXRlOiBUdWUsIDEwIE5vdiAyMDI2IDExOjI2OjM0ICswMTAwClN1YmplY3Q6IFtQQVRD
-SF0gbmV0OiB1c2I6IHJ0bDgxNTA6IGJyZWFrIGN5Y2xlIGJldHdlZW4gdGFza2xldCBhbmQg
-VVJCCgpUaGUgdGFza2xldCBjYW4gcmVzdWJtaXQgdGhlIFVSQiwgd2hpY2ggaW4gdHVybiBj
-YW4KcmVzdWJtaXQgdGhlIHRhc2tsZXQuIFRoZSBjeWNsZSBuZWVkcyB0byBiZSBicm9rZW4K
-dGhlIHNpbXBsZXN0IHdheSB0byBkbyBzbyBpcyB0byBwcmV2ZW50IHRoZSByZXN1Ym1pc3Np
-b24Kb2YgdGhlIFVSQnMgYnkgcG9pc29uaW5nIHRoZW0uCgpTaWduZWQtb2ZmLWJ5OiBPbGl2
-ZXIgTmV1a3VtIDxvbmV1a3VtQHN1c2UuY29tPgotLS0KIGRyaXZlcnMvbmV0L3VzYi9ydGw4
-MTUwLmMgfCAxNiArKysrKysrKysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgMTIgaW5zZXJ0
-aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC91c2Iv
-cnRsODE1MC5jIGIvZHJpdmVycy9uZXQvdXNiL3J0bDgxNTAuYwppbmRleCBkNTFlNDMxNzBl
-MDMuLjYzNWU2NWEwZGU0MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQvdXNiL3J0bDgxNTAu
-YworKysgYi9kcml2ZXJzL25ldC91c2IvcnRsODE1MC5jCkBAIC0zNTMsMTEgKzM1MywxOCBA
-QCBzdGF0aWMgdm9pZCBmcmVlX2FsbF91cmJzKHJ0bDgxNTBfdCAqIGRldikKIAl1c2JfZnJl
-ZV91cmIoZGV2LT5pbnRyX3VyYik7CiB9CiAKK3N0YXRpYyB2b2lkIHJlZW5hYmxlX2FsbF91
-cmJzKHJ0bDgxNTBfdCAqIGRldikKK3sKKwl1c2JfdW5wb2lzb25fdXJiKGRldi0+cnhfdXJi
-KTsKKwl1c2JfdW5wb2lzb25fdXJiKGRldi0+dHhfdXJiKTsKKwl1c2JfdW5wb2lzb25fdXJi
-KGRldi0+aW50cl91cmIpOworfQorCiBzdGF0aWMgdm9pZCB1bmxpbmtfYWxsX3VyYnMocnRs
-ODE1MF90ICogZGV2KQogewotCXVzYl9raWxsX3VyYihkZXYtPnJ4X3VyYik7Ci0JdXNiX2tp
-bGxfdXJiKGRldi0+dHhfdXJiKTsKLQl1c2Jfa2lsbF91cmIoZGV2LT5pbnRyX3VyYik7CisJ
-dXNiX3BvaXNvbl91cmIoZGV2LT5yeF91cmIpOworCXVzYl9wb2lzb25fdXJiKGRldi0+dHhf
-dXJiKTsKKwl1c2JfcG9pc29uX3VyYihkZXYtPmludHJfdXJiKTsKIH0KIAogc3RhdGljIGlu
-bGluZSBzdHJ1Y3Qgc2tfYnVmZiAqcHVsbF9za2IocnRsODE1MF90ICpkZXYpCkBAIC01MTgs
-NyArNTI1LDcgQEAgc3RhdGljIHZvaWQgaW50cl9jYWxsYmFjayhzdHJ1Y3QgdXJiICp1cmIp
-CiAJcmVzID0gdXNiX3N1Ym1pdF91cmIgKHVyYiwgR0ZQX0FUT01JQyk7CiAJaWYgKHJlcyA9
-PSAtRU5PREVWKQogCQluZXRpZl9kZXZpY2VfZGV0YWNoKGRldi0+bmV0ZGV2KTsKLQllbHNl
-IGlmIChyZXMpCisJZWxzZSBpZiAocmVzICE9IC1FUEVSTSkKIAkJZGV2X2VycigmZGV2LT51
-ZGV2LT5kZXYsCiAJCQkiY2FuJ3QgcmVzdWJtaXQgaW50ciwgJXMtJXMvaW5wdXQwLCBzdGF0
-dXMgJWRcbiIsCiAJCQlkZXYtPnVkZXYtPmJ1cy0+YnVzX25hbWUsIGRldi0+dWRldi0+ZGV2
-cGF0aCwgcmVzKTsKQEAgLTc1MSw2ICs3NTgsNyBAQCBzdGF0aWMgaW50IHJ0bDgxNTBfb3Bl
-bihzdHJ1Y3QgbmV0X2RldmljZSAqbmV0ZGV2KQogCWlmICghZGV2LT5yeF9za2IpCiAJCXJl
-dHVybiAtRU5PTUVNOwogCisJcmVlbmFibGVfYWxsX3VyYnMoZGV2KTsKIAlzZXRfcmVnaXN0
-ZXJzKGRldiwgSURSLCA2LCBuZXRkZXYtPmRldl9hZGRyKTsKIAogCXVzYl9maWxsX2J1bGtf
-dXJiKGRldi0+cnhfdXJiLCBkZXYtPnVkZXYsIHVzYl9yY3ZidWxrcGlwZShkZXYtPnVkZXYs
-IDEpLAotLSAKMi41Ni4wCgo=
-
---------------lieuYdQrnBx6m16xWGNncEST--
+ 	/* de-initialize port */
+ 	rc = ahci_deinit_port(ap, &emsg);
+--
+2.43.0
