@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341400;
-	b=gCq+x8fU1Un2YAhdoqkEjFaolcZEYJF9DLWDVNliooaflCZuJ5N1huKspaXYgnBUs/V4
-	 LummVWmPXUhn5UstdNcgvxgSuM+wx5spQWNDKq2gyE+51sa7SvoWG3wejrG3+mBy04aUc
-	 mPpf3VMlvgTNb1bTEfbeApmokTKXMv5HptASGK6WfAJvL3byz6TIPgZnxJxF4rVJIHTcm
-	 jp32uaoxO7PwCYInYKyGWdo09w18v9AYwsArFTVlHjvT15Z0UjTabIpg/u+f1zYrnv/HS
-	 g9qOEKPRa5uihgMw5PnRAcjXl2/BVWp7TPe7bueWo2liB93TzaXQ/ByhYKTuFZckh9w==
+	t=1794341401;
+	b=TfC6cIxoKYQYL2kzPn3IO11xTGnX2pkJTkoUECo9KrsvriGVogqCz8GPq/ccNz5T+8BD
+	 rB93dT8uaTevAKBs7aEdxrH/3r0QTLse4pvamT7d/myOtxsNYGMUijkQnRQy/I3WVOFU3
+	 dcikmEQxTn4FHHjjsLJS5jxkZ0ppnrDXYhgsZ5xl58vUUSffkanT85stQO2RUyVuFbzp4
+	 BWJMuNCMQ2vWmk/27z6udYbb+/vZt+y8TO9xpDaNEU14STZKbmS2K4dgfVWqrbaWqed3n
+	 WA07NC0MYzv+Z6UkDXwNr9csUh4wEk+MgEqE4a+BTHi87GhROChrH5aqFjy4BCzGt0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341401;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rPRbfT02rWKy1hoOpx3LKdUHCEc2ph2DMo7BnEwxFLo=;
-	b=gvyJNQhWGftbiE+UeTCR1sMOCvoLXfAiTQzZ7pu8DnuGIBEZLURiDp8EKJNmBgpwiYjX
-	 guSL+MbNIo8ExbUnh7s1wUIyw/wK4DiJvwptHaBUYdspFC+BJrsMZMgiuKd7RZH12iC1x
-	 3dx643iA9dT2BIq8knCTbsjWUUETImy++UGhcZvVdJudKPW6fCas7lLf9wRjdOC3vHYqp
-	 rlDVG3FQeG27dWzR/0gxecw9Ucf2wOipOEcORnn9V8jRFF/3h6fbVoVjJuGyHJSFbWSXn
-	 QGzsP4lHdne9YHlokHH6HIX84npr6gB4VFB2q4WMN0Hsd62vyCAnmB++Y7SFxAhLhSA==
+	bh=t47qrQn4nnNg2BAz8AcX3IcZVDg+LS4cm8LhhTszO7E=;
+	b=i9FYiWwm1xK41FlTxkgnNiQPVF+sAYTzvfOQItTDCGmP3OnFgGpqP/tj5jljtSOT5LXc
+	 Xd1JuuCOdjyV8u5g7OPmts8geoP8gciMvQPy/VCaT1GHuu9ASTUqwvTgvfZBc2HN+GBVA
+	 Ck8owP4eL8HRowDadQgMsFd7pzU71MRpN/FK4hoVhc7q02g/37UUO91A93as2vnaI9EZp
+	 F9q5n6P7TFfdFvRusIay7kmQ69ODTYy09GN+WsfWf/C4yx26ULt9tGUi5X6goTwNMESWz
+	 0WWxknHrrbxb/NQlM/r6OVavOl6fa8QEHMxkcesXr3kFMpAhAM5Mz59NA+Oj0h5AE4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQ+1ANpt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QruvgdQc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A10E606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2E4606A327
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQ+1ANpt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556B61F008A1;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QruvgdQc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F201F008A2;
 	Tue, 10 Nov 2026 20:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794341400;
-	bh=rPRbfT02rWKy1hoOpx3LKdUHCEc2ph2DMo7BnEwxFLo=;
+	bh=t47qrQn4nnNg2BAz8AcX3IcZVDg+LS4cm8LhhTszO7E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kQ+1ANpt1aZBTYlEFad0sKWqMFbhX9VVNuwp3b5CKVgk1vjmD4paBRmKGbzu9UFZo
-	 9pHHs2ohr/2lT2UD8Y4KWjoEqnZztTgpnHvAlHuTeyZrSUQi4a+mB7hAafL6MiF/0L
-	 n7NtRwax32CLGB5jdVqkuJMVsP7FPsX15iAzVjZSWZZ+ImuQO0eM66Y7x9mew6l4Ff
-	 w1d3sOlielyYhOt/PHkFF/QNIn2w46VuQUAfW3CDs0I1mdCPSYEd6zJyuolbUEfez2
-	 v7pB/bXg3b2Y3g9UxHhR9iZyEm0nre0bJQDmQd0XxkPvHF6EoAkVn3EV4mVRY6Fnyo
-	 rfjS6unDzaaCA==
+	b=QruvgdQclnTle5BsuyO0GUnlrvwfsSfj/wU1UptTHyuFh8wmE7/oVmIAxqOoYfFgy
+	 3CylzvBKs8D5qmzDMXSpEJVgYkmH0MJSvYilQnYUUgD7/wV4BGGx2nVw3z75cO/nsl
+	 h4VEs8zU95mpnrk5UhSfC0foYIWDThE8PGx9mf+cEzxkhd6N/83+YqRrJtWFYarqil
+	 oc7Ptw6hLnLzkHrxuLRIV2uAW5UED1ZPAMbgkkUODnD7syrfLsDqCCmUw6gX7GlVJk
+	 7JhmtpN8Qx4ytp3Xb2GyB53ULebQDj/E82QjVvmdvm8Iiqp4U0UZ6t51+rmxF7y07V
+	 45gZC9o7fKU7Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>,
-	Shahzeb Ahmed <shahzeb.ahmed@amd.com>,
-	Manjunath Gaonkar <Manjunath.Gaonkar@amd.com>,
-	Apurv Mishra <apurv.mishra@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Chi Zhiling <chizhiling@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] drm/amdgpu/gmc9: add extra type-2 TLB flush for gfx942/gfx950
-Date: Tue, 10 Nov 2026 15:09:55 -0500
-Message-ID: <20261110200933.3702189-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y] exfat: advance valid_size to EOF for append writes
+Date: Tue, 10 Nov 2026 15:09:58 -0500
+Message-ID: <20261110200928.3702462-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110200933.3702189-1-sashal@kernel.org>
-References: <20261107052447-failed-6.12-232213c9bd7f@kernel.org>
- <20261110200933.3702189-1-sashal@kernel.org>
+In-Reply-To: <20261107051325-failed-6.18-b70ab4075037@kernel.org>
+References: <20261107051325-failed-6.18-b70ab4075037@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,56 +61,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>
+From: Chi Zhiling <chizhiling@kylinos.cn>
 
-[ Upstream commit 232213c9bd7f703836164f23160b76657094a7db ]
+[ Upstream commit b70ab407503706289163dd59f1ac3e942bacc37d ]
 
-Add extra type-2 TLB flush for GC 9.5.0, similar race condition was
-observed as Vega20+XGMI. Add to GC 9.4.3 and 9.4.4 too, as they share
-the same multi-XCD TLB topology.
+For an append write, the write position is recalculated by
+generic_write_checks(). Therefore, the write position must be obtained
+after generic_write_checks() returns.
 
-Reported-by: Shahzeb Ahmed <shahzeb.ahmed@amd.com>
-Reported-by: Manjunath Gaonkar <Manjunath.Gaonkar@amd.com>
-Signed-off-by: Elena Sakhnovitch <Elena.Sakhnovitch@amd.com>
-Reviewed-by: Apurv Mishra <apurv.mishra@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 138cfb165ae6aa98c0767b431e718d1a8199db28)
+Using the original write position to advance valid_size may cause the
+valid_size update to be skipped, potentially exposing stale data.
+
+Also move the truncate_pagecache() check below the recalculated
+position, so that pos is never read before it is assigned.
+
+Fixes: 11a347fb6cef ("exfat: change to get file size from DataLength")
 Cc: stable@vger.kernel.org
+Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Moved the pos assignment immediately after generic_write_checks() so the existing direct-I/O alignment check reads an initialized value. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ fs/exfat/file.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index c095a1489bd80..06e4b393d1ce6 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -2324,10 +2324,22 @@ static int gmc_v9_0_hw_init(void *handle)
- 	 * (type 2), which flushes both. Due to a race condition with
- 	 * concurrent memory accesses using the same TLB cache line, we still
- 	 * need a second TLB flush after this.
-+	 *
-+	 * GC 9.4.3, 9.4.4 and 9.5.0 hit a similar race.
- 	 */
--	adev->gmc.flush_tlb_needs_extra_type_2 =
--		amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(9, 4, 0) &&
--		adev->gmc.xgmi.num_physical_nodes;
-+	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-+	case IP_VERSION(9, 4, 0):
-+		adev->gmc.flush_tlb_needs_extra_type_2 =
-+			adev->gmc.xgmi.num_physical_nodes;
-+		break;
-+	case IP_VERSION(9, 4, 3):
-+	case IP_VERSION(9, 4, 4):
-+	case IP_VERSION(9, 5, 0):
-+		adev->gmc.flush_tlb_needs_extra_type_2 = true;
-+		break;
-+	default:
-+		break;
-+	}
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 536c8078f0c19..64569d8ba8d73 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -633,23 +633,18 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
+-	loff_t pos = iocb->ki_pos;
+-	loff_t valid_size;
++	loff_t pos, valid_size;
  
- 	/* The sequence of these two function calls matters.*/
- 	gmc_v9_0_init_golden_registers(adev);
+ 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
+ 		return -EIO;
+ 
+ 	inode_lock(inode);
+ 
+-	if (pos > i_size_read(inode))
+-		truncate_pagecache(inode, i_size_read(inode));
+-
+-	valid_size = ei->valid_size;
+-
+ 	ret = generic_write_checks(iocb, iter);
+ 	if (ret <= 0)
+ 		goto unlock;
+ 
++	pos = iocb->ki_pos;
+ 	if (iocb->ki_flags & IOCB_DIRECT) {
+ 		unsigned long align = pos | iov_iter_alignment(iter);
+ 
+@@ -660,6 +655,10 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		}
+ 	}
+ 
++	if (pos > i_size_read(inode))
++		truncate_pagecache(inode, i_size_read(inode));
++
++	valid_size = ei->valid_size;
+ 	if (pos > valid_size) {
+ 		ret = exfat_extend_valid_size(inode, pos);
+ 		if (ret < 0 && ret != -ENOSPC) {
+@@ -669,6 +668,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		}
+ 		if (ret < 0)
+ 			goto unlock;
++
++		pos = valid_size;
+ 	}
+ 
+ 	ret = __generic_file_write_iter(iocb, iter);
+@@ -677,9 +678,6 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 
+ 	inode_unlock(inode);
+ 
+-	if (pos > valid_size)
+-		pos = valid_size;
+-
+ 	if (iocb->ki_pos > pos) {
+ 		ssize_t err = generic_write_sync(iocb, iocb->ki_pos - pos);
+ 		if (err < 0)
 -- 
 2.53.0
 
