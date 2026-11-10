@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273470;
-	b=RhaXYAtAAqmpEPGtFII2kJryZbx1VXyHCoG95pkLE6BYqXE1mtz7nyd6I2V+E4xumc6w
-	 Ap0yddWEL9Ipw4UJKPIsQA0ZRvcWwumWetARu7DzJFJv8zhbeWdPa/bR9XVuZVd0qWvlw
-	 X0JIl2A8upEadAhcVeZhBVEroh4+2JvFxXmw8Ba+aVdwQopGrRkVhIM4O7kiUm3wm79UB
-	 OvH2hUz9W36vfXR4yjgGvuhUvb08seoQ5qOtP2Jx+TGNbmtttz4xL3G0eP/x5vYRqYT7j
-	 MLZZqXsQglBgIsFxD1uBZaLG34rTC7aupFuolHJYydRqB5XgKFdPsFEUUQScJXpl3DA==
+	t=1794273472;
+	b=JoQWevZXKSUJ8IRzc3VyVt7J0rI7GvfS/oDfZgmuREJH8R8D/u8nF/Toxjwdm7yvlFEZ
+	 sBSHdxXkTrxbduY1OvgNxtvbhkMfyymB5Ud0VWMf14HObDVhEg3djXd5nQUP+NI8AmIzQ
+	 xiB4e8+gRAgYiCJXfG9E9vRR1Kf5WbV+53nFa7csVezLSbDETZyi9pbn+PYhD1ejgUAfw
+	 LIyo2Lwqb7WLaSnlXSNU321A152bQWAiWgeGZb9z4v4/kdmQGIfHSdVDF0PUmi26xjrjL
+	 KB1XD4qOtYlammX52m1l/5nY49+kVyKUxK9DA4WTfyhAFEpg/UjjMQ/d+6PAb7BGF0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273472;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CH6FgxhLL/CnX6qWaZNLz8RZlltV56a2FxOaDEQYev4=;
-	b=hAa3ekFinryOIe8g9zcv1iibCyS5nn0N759I1QqTo+jjJ340CC6wsOyzE/0xPSXhCmh4
-	 ebVTXQq/TeisJr0BMUfCQI/iJZiAIvqvcrHNSDblvem5SZ1D3+tXEENejYkkxh/ZnSdUP
-	 Via5j4pUPf0FlxM2825HtwVYEIyOPk+Pq1wLUky6cYBpAQzkbJWtj7y+XE2GUnSqAZE0T
-	 qTGyElEOyyxVaCkEg59eiyEDD6lzPVnm4xZEBiiFJFMLH6yihnii9AIUa3bEfh7DfhTlZ
-	 V7E9QRYKRThsB3goxRsJa9zXluglOD9yQem5u/9KLDgjpPxDx2P8FR4xGaBTIbbldxA==
+	bh=GSOb8J8+VZLBfphFf3wdGrVZapPtjKk9pFJYhjLsX+c=;
+	b=QfZryIr0GIxZSFd6lTgoB/8FLEX4/rHzCc8JND++nEB0MWAr3BXbjuIYTTPUdimU6YfS
+	 /IxoIs46hBEOIwRpgGToNmibtyhE3PTjnbo5dqMC4qZtj45zwGDh/q2u7/YwPtrAGTRH2
+	 fCTkXBUKlhxBGw8YXj91j0T/7tbkmdXCoZw/2YfqgKSK6LlbZLusi2KGFmIkOXKLEZ8KI
+	 J3ialffmc3m+BrcZYk9FbTgYepF27ScYHlSYWgBF5eMRrXhtpNLqecyhzGMqipohdXjFD
+	 0eRlnetiukirqYdY36FInCt4t2H0fXCwJb7/8lkZ6gH9c9fiOVSJDYO4SYYp/ew/2xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMEPRtde;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ashA6Q8f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBC5606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4EF606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMEPRtde
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49BC41F008A1;
-	Tue, 10 Nov 2026 01:17:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ashA6Q8f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB121F0089F;
+	Tue, 10 Nov 2026 01:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273469;
-	bh=CH6FgxhLL/CnX6qWaZNLz8RZlltV56a2FxOaDEQYev4=;
+	s=k20260515; t=1794273472;
+	bh=GSOb8J8+VZLBfphFf3wdGrVZapPtjKk9pFJYhjLsX+c=;
 	h=From:To:Cc:Subject:Date;
-	b=OMEPRtderNZSETxDC9MlcN66LKVk9ee+1dlzLN2lf03h9lbMJKS+V9ZsAEYai0V+R
-	 4qGV/cT6z2Amz5cKzCpDnWcTrAbvcMN0s7pVELqrHPrVsIUfVBtkaCIZFngTaUrIcN
-	 Eb6d3ZCJAGbIWpXbrFPi6PP5FAvaeaIqCvl/ilgfFt4yyMnWtxtLxiYqz8fjoOr5Al
-	 CUYEDcSNQDMdOgggOoumZxUPkoN46EGYCtnax+eD7k0Udo0xG31yOdb+6wSYxdlQla
-	 1MhbQrt6sKtX2Z1tfYgGRs0MmByF+cR2MAHjbfCPttdA2z+bXzkx0ZLWjdyCYigerQ
-	 O3WfCYRNK0ljA==
+	b=ashA6Q8fOTUsX7B6vBgZm/5GtcIF+GDwmBFyxT1nNQMfa+ox3es/Xl9Fk+L1jB6KN
+	 5nQZ+I0ZLbCS0WCsHT2jCtdLeXdZroQZDPVMap6CpaoeGd9UnGD49KX9r7wEiwgmh4
+	 o9mKL2bMYwkyZ00cr/0jfk+IwLT7TpigwfHGikyH0yb1BopTVHjisEFlmk5XLnpkdy
+	 5e7Nulzg4wBEOfeVolqFmFxHjhsPiB3RV2Dbjs4FqmnB9CNWT01EEsxSyvr/ZkyBGU
+	 VMyyWTKI7lCCT3C0DlAvJBQVHRAY1+N1EQLGB2+KWL/iynf4oy/E67y3lCPyES8StN
+	 ft9Wz5EI5Sd3A==
 From: Sasha Levin <sashal@kernel.org>
-To: blum@kernel.org,
-	prasannatsmkumar@gmail.com,
-	mst@redhat.com
+To: josef@toxicpanda.com,
+	ebiggers@kernel.org,
+	hch@lst.de,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwrng: virtio - prevent use-after-free after a failed restore" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:17:48 -0500
-Message-ID: <20261109201748-failed-6.1-0f7bf47f5a0c@kernel.org>
+Subject: FAILED: patch "[PATCH] blk-mq: end the request if getting a keyslot fails" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:17:50 -0500
+Message-ID: <20261109201750-failed-6.1-e67cb6ed40e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,72 +70,71 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74
+git cherry-pick -x e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201748-failed-6.1-0f7bf47f5a0c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201750-failed-6.1-e67cb6ed40e7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 Mon Sep 17 00:00:00 2001
-From: Thorsten Blum <blum@kernel.org>
-Date: Fri, 16 Oct 2026 12:36:40 +0200
-Subject: [PATCH] hwrng: virtio - prevent use-after-free after a failed restore
+From e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 29 Oct 2026 20:01:10 +0000
+Subject: [PATCH] blk-mq: end the request if getting a keyslot fails
 
-remove_common() frees the driver data during freeze, but does not clear
-vdev->priv, which points to freed memory. If probe_common() then fails
-during restore, a later remove or freeze can dereference the dangling
-pointer.
+When blk_crypto_rq_get_keyslot() fails, blk_mq_submit_bio() ends the bio
+by hand and frees the request. By then blk_mq_bio_to_request() has done
+the IO accounting, which blk_mq_free_request() doesn't undo, so the
+in_flight counter never drops and iostat shows a device that is 100%
+busy. If the bio went through zone write plugging the zone stays plugged
+as well, and every later write to it waits forever.
 
-Clear vdev->priv on the probe_common() error cleanup path and before
-freeing the driver data in remove_common(). Also reset the device and
-return early from remove_common() if vdev->priv is already NULL for a
-safe teardown after a failed restore.
+Use blk_mq_end_request() like the dispatch path does for a request the
+driver rejected, after marking it for zone write plugging.
 
-Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
+Move the call to blk_zone_write_plug_init_request() before
+blk_crypto_rq_get_keyslot() so that it doesn't need to be duplicated.
+It doesn't depend on the keyslot.
+
+Fixes: 99dc422335d8 ("block: support to account io_ticks precisely")
+Fixes: dd291d77cc90 ("block: Introduce zone write plugging")
 Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20261016103640.4989-2-blum@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20261029200110.1328103-1-ebiggers@kernel.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- drivers/char/hw_random/virtio-rng.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ block/blk-mq.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
-index f9982217247dd..45d87c0614a5e 100644
---- a/drivers/char/hw_random/virtio-rng.c
-+++ b/drivers/char/hw_random/virtio-rng.c
-@@ -190,6 +190,7 @@ static int probe_common(struct virtio_device *vdev)
- err_find:
- 	ida_free(&rng_index_ida, index);
- err_ida:
-+	vdev->priv = NULL;
- 	kfree(vi);
- 	return err;
- }
-@@ -198,6 +199,11 @@ static void remove_common(struct virtio_device *vdev)
- {
- 	struct virtrng_info *vi = vdev->priv;
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index d9ab295be4d92..e5b9898cede98 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3209,16 +3209,15 @@ void blk_mq_submit_bio(struct bio *bio)
  
-+	if (!vi) {
-+		virtio_reset_device(vdev);
-+		return;
-+	}
+ 	blk_mq_bio_to_request(rq, bio, nr_segs);
+ 
++	if (bio_zone_write_plugging(bio))
++		blk_zone_write_plug_init_request(rq);
 +
- 	vi->hwrng_removed = true;
- 	vi->data_avail = 0;
- 	vi->data_idx = 0;
-@@ -207,6 +213,7 @@ static void remove_common(struct virtio_device *vdev)
- 	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
- 	ida_free(&rng_index_ida, vi->index);
-+	vdev->priv = NULL;
- 	kfree(vi);
- }
+ 	ret = blk_crypto_rq_get_keyslot(rq);
+ 	if (ret != BLK_STS_OK) {
+-		bio_endio_status(bio, ret);
+-		blk_mq_free_request(rq);
++		blk_mq_end_request(rq, ret);
+ 		return;
+ 	}
+ 
+-	if (bio_zone_write_plugging(bio))
+-		blk_zone_write_plug_init_request(rq);
+-
+ 	if (op_is_flush(bio->bi_opf) && blk_insert_flush(rq))
+ 		return;
  
 -- 
 2.53.0
