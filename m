@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321630;
-	b=vjCOiX2n7WcvLMZzU1ZubksUc3NVn1rbB/dHVJLLxSQNX4WCR1vnDLIVxprVvu9ptwE2
-	 Gw37cFtZMejZWXJ6WP8vQuo15UXKa6eFxxYERuveVoGP1u22MPNwqJO33k3ZKTKEiOJdn
-	 zGtFMOYJ1Ynl1ab2RmafzxAljkSgPcUXkGswI7T6UlZDl8he6lJuJc0B9JMgo61ZNW0j+
-	 ZcAfsRfP5XruaIVFILBe6j0jlsGkxzMAVGd4TjxFf40KWFxHRQzvxZyfLVNXp9ufPolUu
-	 VxqsB/8pd4ynYqix3lv7XuS35vg8D350Qa2W6B6bMnCz5ocItGtL/LvbHJVugGG39rw==
+	t=1794321665;
+	b=SYSj0Xv+tSEIlCKsx/RDia5HnmlHtHOHg33tilphiVmcmr8F52Xzg8vy+kU3pDBoUUdd
+	 L0H2E+nnLAWelhd0q0eb4LYlmyu6zlbfiqIifUkiEnUNxxuxWMfKn2CKIG5ngHJKdBXSh
+	 DoNIlSu65sO6lZLW7B0t84NVgtSMCPjBLVu5XlCgjKoRKyn9DAoW0o3H0ryESt3/XH5r/
+	 P+3vvm0uncrbCF+KoGZyxAATUaZGiOL5f0YhDH4BrXNpfgGcx7MsCdK4oU2xK3xwMQxPY
+	 3VAMhYyfyVlq5XewKhL+dt3o493t7GIlDz6VxVC3JvWm9rbp/N+djHsWqgvNNQ2W/ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321630;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321665;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iDnhWwNWIWHFRc+GA0lD6SNMhHWBVbPXAdnd9zGF9FM=;
-	b=AkG02cgv4bsfaPjnAB8TXbj/Qh/HEWVLB/EE7QH/dQHxdTgXIdukVees+t3myaJxdMpe
-	 zbFN44PVBcHOuM0i7KDp5uBwe6lysvCayZLHyGrf9ofsF3xeNrCeBtDyars0YN67LbFN7
-	 So7MypCLjJyo8gRmHRUCZo2OUevDlplXJYLoo0EQmU7V5HCcBLGJURZMKu9CQ4X6B+kh0
-	 faBLn1GeBqtqvNRBBlIFd5rLcRCiAjIkzAlU9ie5+HaivCkshNWs1+m6dav3svPiA/Es0
-	 6a0iKO4MqnggKc0xmKwPet3nlBv2+EqicZU7D/XKvaWGVnnffzZCXxjMu249pCqqm2Q==
+	bh=enl5Zhk9yTdDEtXIEkRqSmlQhxGw988VNSXW1+1PXt4=;
+	b=w0iOoDzPLbfMeOG/oCb7r+STLmw0poG74WxJM5w8Ps11Bu7equbqMCFKdRRKXYm9HDwa
+	 My48YwwFLoYI68aAOQGEK9lfPaFbexZD6CQMl/7Csioyu/prahgfJ34UJExS4fSXZYeWI
+	 /Nad63rM1BdcqYrB7mQsFeRh02XlgC7ehS0dLux+C3ajQBvZp8X2T7cITJ+Ap+1P+DW+j
+	 rxAJxzepDjryiWrXU8IJaTGgAFCrKq9ALqi25X4hcPzMQggC125c/ZyTVKFl+WfdY9D1C
+	 cQUNan24Wpna9mhHXerEnj4TXmWuOlNLQ3swuuYZy9nEcboXttFhPCRSS8ZT2x9pPLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aik4i2YF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InuMYEfE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE4760A261C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B8660A2607
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aik4i2YF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D62C11F0089F;
-	Tue, 10 Nov 2026 14:40:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InuMYEfE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DA371F00907;
+	Tue, 10 Nov 2026 14:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321630;
-	bh=iDnhWwNWIWHFRc+GA0lD6SNMhHWBVbPXAdnd9zGF9FM=;
+	s=k20260515; t=1794321664;
+	bh=enl5Zhk9yTdDEtXIEkRqSmlQhxGw988VNSXW1+1PXt4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aik4i2YFGOP7H7z4AcoaK6OabEabK7YV14YDaFXJLmd3SzUdIED2VE6/Bt9RJWjJs
-	 9ER/XkUWgJJZkhae5fOtLvn0FlL085FBg3YixukJLrRSSxKOsWQZYjdPJiQSyhguC+
-	 jXONpILIRlPiaP8C0+4kw8j8dLAeKt2N7pYnH2vMZjaGDyDUOYBBk76Wrcs+n+C11N
-	 XdJjHNSuQ7FhGUvT0+uP3o67d2fF6hYZfrd7ha9NzOTVZV+Yn4J7KDc7tGLK6cbWtq
-	 sGZN630k808yZ8ZWNNFvsDNZ1RF3zNvW1Rh6wlEYMdyCAVHGIZj7zzmkksxlvmnfsr
-	 MSCxQVj076NtQ==
+	b=InuMYEfEdfVxP6RznXLqCbhlRKUT0Gb3yNSTX6wf0nSTWblOB+U3PxdXSipOTIAle
+	 1V/u2W3QlIGafWL9UCQ/IHf6/6oqqt8xBaBaaP5Ae85ZK44kxaGWz1gN3LjGcq5Evb
+	 YGUD5xgZmCukMmTztJ6tFU5Li1oKjba05YGn0q98GhuCjmnG6q3X1QQfGuQb9Uek/J
+	 A8wbuZVyBuYHcMz4QvgcT3iZk9dreP3e6XPP47feNGIVD/fzUV7wQ1Tyeibe9BFIOm
+	 2IrBJJDrfa+9iPNrUTw3+UlZU53yc97twOPIu9bCPanHltaNQhPGwWA5h8b6NRFlOj
+	 bxLF8rX5ZLoXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <blum@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dan Moulding <dmoulding@me.com>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] init: fix early boot crash with bare hostname parameter
-Date: Tue, 10 Nov 2026 09:40:27 -0500
-Message-ID: <20261110144018.1943926-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] power: supply: ltc2941: Fix of_node reference leak in ltc294x_i2c_probe()
+Date: Tue, 10 Nov 2026 09:41:03 -0500
+Message-ID: <20261110144038.1926381-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110144018.1943926-1-sashal@kernel.org>
-References: <20261107054505-failed-6.1-b6bec5b63a5b@kernel.org>
- <20261110144018.1943926-1-sashal@kernel.org>
+In-Reply-To: <20261107060205-failed-5.15-09a29213bf15@kernel.org>
+References: <20261107060205-failed-5.15-09a29213bf15@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,42 +61,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <blum@kernel.org>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit b6bec5b63a5b812145e53aaad1e63661c7214f93 ]
+[ Upstream commit 09a29213bf15630e85a375478832b074b2cfc5c8 ]
 
-When a bare hostname parameter is specified on the kernel command line
-without the '=' separator, early parameter parsing passes NULL to
-early_hostname(), which dereferences it in strscpy() and can crash the
-system during early boot.
+ltc294x_i2c_probe() takes a reference on the device node with
+of_node_get(), but never drops it, so the reference leaks on every
+return path, including the success path.
 
-Reject NULL values in early_hostname() and return -EINVAL instead.
+The node is only used to read the battery properties and to set
+info->supply_desc.name, so release it after its last use and also on
+the lltc,resistor-sense error path.
 
-Link: https://lore.kernel.org/20260826100904.296151-2-blum@kernel.org
-Fixes: 5a704629f2c1 ("init: add "hostname" kernel parameter")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Dan Moulding <dmoulding@me.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 085bc24d1553 ("Add LTC2941/LTC2943 Battery Gauge Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260917142127.2156568-1-vulab@iscas.ac.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+[ sashal: Adjusted context to retain of_property_read_u32() and separate dev_err() logging and return statements. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- init/version.c | 3 +++
+ drivers/power/supply/ltc2941-battery-gauge.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/init/version.c b/init/version.c
-index 221ccede8902a..11cbd3fb60be5 100644
---- a/init/version.c
-+++ b/init/version.c
-@@ -24,6 +24,9 @@ static int __init early_hostname(char *arg)
- 	size_t maxlen  = bufsize - 1;
- 	ssize_t arglen;
+diff --git a/drivers/power/supply/ltc2941-battery-gauge.c b/drivers/power/supply/ltc2941-battery-gauge.c
+index 09f3e78af4e01..5df89557456aa 100644
+--- a/drivers/power/supply/ltc2941-battery-gauge.c
++++ b/drivers/power/supply/ltc2941-battery-gauge.c
+@@ -473,6 +473,7 @@ static int ltc294x_i2c_probe(struct i2c_client *client,
+ 	 * instead of the sense-. This results in reversed measurements. */
+ 	ret = of_property_read_u32(np, "lltc,resistor-sense", &r_sense);
+ 	if (ret < 0) {
++		of_node_put(np);
+ 		dev_err(&client->dev,
+ 			"Could not find lltc,resistor-sense in devicetree\n");
+ 		return ret;
+@@ -487,6 +488,8 @@ static int ltc294x_i2c_probe(struct i2c_client *client,
+ 		prescaler_exp = LTC2941_MAX_PRESCALER_EXP;
+ 	}
  
-+	if (!arg)
-+		return -EINVAL;
++	of_node_put(np);
 +
- 	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
- 	if (arglen < 0) {
- 		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
+ 	if (info->id == LTC2943_ID) {
+ 		if (prescaler_exp > LTC2943_MAX_PRESCALER_EXP)
+ 			prescaler_exp = LTC2943_MAX_PRESCALER_EXP;
 -- 
 2.53.0
 
