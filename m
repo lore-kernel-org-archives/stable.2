@@ -1,61 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794275365;
-	b=05+oIt5d53vYoy+P1WGPCA68kqUjIT6QZ0SG2x77FeB+q3Rdsvwmd8P1GD0kHnCKKjYZ
-	 51AkTohJh5mUcqe3K73SoOxUcgMNgp8Qd0XzzJ5Kp9xJMyaljV3FGxaoGz51MWJk3Eq57
-	 hTat8Rj3/j0kzfToU6LT2lwHIQcr2hmuHF4afWeNF8LcbBiI9UQsickfoJTvGs6XiHFxV
-	 L6sXULTM73YGGxGoMRdzytVoPxhHi46v02E3MXe29QxGJ3Bf00iTaLna9fSeqmYkUSDYV
-	 RSuBgqMZRFnGiegrHA4kmd4Xev3nsNViOO6xzgF66KaegprC9TWE7g+dIJv6/TL/PSg==
+	t=1794275373;
+	b=QZVWTFqEDuSsUYU7z241AeQS/m0QNWmPS6W6LagtRhYhAnlWlwrCIDY84anc+Q/HX8wV
+	 XZUj/hnbtHOrUmWmRhYJhOJWvT/kcklz/ppDNtpFreAXXaH62Mz7oVlJwKYDZU4BT/pyo
+	 1DY2Xs97bIw2tvv9XxH23RD9V/nYE7zVxPF1qE1YSvWg5wpwrJpEuxZ2ryj1SIB9Tu+Lw
+	 4ss6pMsH0W3DV6ZIJ4CzoRVsjRHlUs3cpPEXg/BR1DkzbREo3VGqFEbOSSWmfdqCYvlbh
+	 YuJeIo6xwVGArryaCTKiF2LRvHRdoShkcrcwKm/7bZk+gN6PbMeZxel0bVSZUhVLewQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794275365;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=dGP3oQkxG3O8JCUGO0KxGDQL8mkVh24OfjeHZDaL43g=;
-	b=A8uvJX20iv0QjmssCqyB3TSgOrOGjUe4xMiUR7nFgqB3IpYRG9etJHHFEytoLQVSWUl3
-	 z8/TFRnO+A8H/uGvd4CHy77MSXm1adYgb901CXjT3TfGPt2NQ9yGKaXI6krU8ZhUwI4vp
-	 ACZGta2nUFsI65637O59Drd2xgvOw69wsAj7yERtb2sx6vU8TOmzI9H9LGbdm6voK6+eb
-	 c0TNnwXbevB8mR3XkGY2bVJ4qv7+kEFfvOFVrba73uKAZIKUpa95yZmLfa4b45s3TcrPA
-	 PMe0IN1DUB58AGsaaX+qp4OmwzLKQdd04sH/AuWKMsC9ZAYyFCOyvqTewyn3w0ZFmKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794275373;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=eE5gb7EtrWTfyx7BevUO+hpzMrO9f1d0/5w09FWhSbc=;
+	b=rVdlxL8JzTH6mCRgkr9/V6rm+zVHVdO9LxfptDHxkgMZT9Aupbw2lo6y7xa4CkkCBk0m
+	 dt5hWuBXOgfILadNvCritUSiEQO5C8/WM7j4/vL4YmDwhMjFRCySquiCTFdDFFCqdJtn3
+	 0+8mCI24KIVQL+k5g8fcBkH197kurm54ajju+75VLDoitcnyPd2je7SR7hkE2mtdUHy7F
+	 FktsemUkVsb41h8ImHHfifBJRmJJnalN83MbGEl7jqvOA/g6C+34ceM//UZf4ypgPg8ZM
+	 fjayPJD83m/5A7iZOxXGiHw/eEXwmAzsgSCZpv26kFdO4itYw3cUWxqEeC2wx5Bz+XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=E3LOkK27;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BT9s6ZE4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896D9606A321;
-	Tue, 10 Nov 2026 01:49:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 896D9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A391E606A33B;
+	Tue, 10 Nov 2026 01:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=E3LOkK27
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1794275364;
-	bh=7OfvsyWkqHG1aqQLcvzobdPCzMSRDAQfKu/eu5xKdxg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=E3LOkK27gn5eHFSrMZGs+cczhqLC6805mjcsN8xtgdjPeEK39Tyh6Pui2Eni6eJYt
-	 er/7/IDmt3Kr2ehckzAsUPgnbhD+/0YW3U+gagGWKiNjr5GmPoeFhsPznVX/S5Mjcz
-	 RjyzV2yPPBqYqrTs13Y1J+bOw2nJxNxMd1pwXDOw=
-Received: by gentwo.org (Postfix, from userid 1007)
-	id 0122F402BC; Mon, 09 Nov 2026 17:49:23 -0800 (PST)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id F29EF402AB;
-	Mon, 09 Nov 2026 17:49:23 -0800 (PST)
-Date: Mon, 9 Nov 2026 17:49:23 -0800 (PST)
-From: Shubhang <sh@gentwo.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Uladzislau Rezki <urezki@gmail.com>, Nicholas Piggin <npiggin@gmail.com>, 
-    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-    "Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-mm@kvack.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/vmalloc: reject overflowing vm_map_ram page
- counts
-In-Reply-To: <20261101201659.c6c07375429df81081ce8b0f@linux-foundation.org>
-Message-ID: <d6fe4283-0d6c-5fec-2252-af68b2c46b83@gentwo.org>
-References: <20261022-vmalloc-reject-overflow-v2-1-0db7a20c53f0@gentwo.org> <20261101201659.c6c07375429df81081ce8b0f@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BT9s6ZE4
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BFD161F0089F;
+	Tue, 10 Nov 2026 01:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794275372;
+	bh=eE5gb7EtrWTfyx7BevUO+hpzMrO9f1d0/5w09FWhSbc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BT9s6ZE4nswEn6Gaj7D/T7SvhmRuIOS4NxeJ9MePy74ai3F2l+h68YjMGvJeP2tjE
+	 gpGAMydL641f9InsoQ9kabxRfbE2Y36puRUEC1lWfA25/c8Z7Gzawgdyu9lIk3msTe
+	 V9Uyh2YmU2EpPn9RzY3mp/yk1LmSkbFF8eUkFbwcQ6cnf/0rrsXt9DMFQ9UT8NbEKA
+	 AqBbQdhjwTRs4RbdYRZu1NXLpcQCAg3YncyeyJy+hrkdqcu2oeFuVhmurFpD50V3cB
+	 sqzJigQhDiFKpEnUjYtMbusj5Pz3Nz4d3CWYCn6xecf32bVKQBvAnHKGDECPMwO0RO
+	 gA4nFwXSf21qg==
+Date: Tue, 10 Nov 2026 03:49:28 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Yuansheng Yang <0xbeac@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6] KEYS: Protect pkey method checks against type removal
+Message-ID: <avJ4KM-Erci0FkgZ@kernel.org>
+References: <avCZIMCsZ4um18e-@kernel.org>
+ <20261109055204.31673-1-0xbeac@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,24 +60,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109055204.31673-1-0xbeac@gmail.com>
 
-Hi Andrew,
+On Mon, Nov 09, 2026 at 01:52:04PM +0800, Yuansheng Yang wrote:
+> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+> index 15b6bf6399..5ac049b71a 100644
+> --- a/security/keys/keyctl_pkey.c
+> +++ b/security/keys/keyctl_pkey.c
+> @@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
+>  		return PTR_ERR(key_ref);
+>  	params->key = key_ref_to_ptr(key_ref);
+>  
+> -	if (!params->key->type->asym_query)
+> -		return -EOPNOTSUPP;
+> -
+>  	return 0;
+>  }
 
-On Sun, 1 Nov 2026, Andrew Morton wrote:
->
-> Is there a case where userspace can actually hit this, or is it a
-> theoretical case which can't actually be encountered, or something else?
->
+I think I asked to remove this. I need to revoke my reviewed-by from
+this version.
 
-Reaching vm_map_ram() with an overflowing count from userspace is real
-(as noted in the udmabuf path earlier), but actually hitting an oops or
-corruption remains theoretical because in-tree callers don't access
-beyond the truncated size.
+It's not relevant for the bug fix.
 
-The changelog described what happens if a caller does access the full
-requested range. I can send a v3 clarifying that the failure mode 
-is theoretical if you'd prefer.
+Also if possible try to make a bit more compact description of the
+fix. I did not ask this for reviewed patch because did not see it
+relevant enough but now that this needs a new round, you could
+address this part too.
 
-Thanks,
-Shubhang Kaushik
+Br, Jarkko
