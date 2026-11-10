@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315446;
-	b=FFgvnVAaIALgo6W0DZLN98vSY6SkAr3oZmWgEOzc/K3vkjy/aWWfNguafIM+EppkbPsx
-	 rP9omAWzeW3tFZSY4MR5+AQkcO9BW2dAfsiLLX4eSuIxryAvrhkwm6UxBs6fib6KOo+HL
-	 jSP/Uqvai20eXvaFltYDkL/PxfBl3YL6UD7yO42+SJAEgHGIizOFG1TpDEVOyxmUqQiI3
-	 jk8CX0i2+H90eyy09v/P6qyTvPcG1zy9rqy7ElzuvsNBxcT8unv9iIrcApAGpsNjMYH9q
-	 EJDw6Lyl/OgcoXg6FKCTJCOJnmOP0MLgoxx/cPi8fRDB4s9uyl1jId5s5lqjEdCwOfQ==
+	t=1794315485;
+	b=EtTFf8aEqwKC/md+ZMuJ2+WaycmRvwSPz7CjqHOQz+tMfDbjktMKgQMuLkaY1v8rSWuC
+	 YHoQ/MKI/3aADec3Umd71ay937Qhh+wEm/xhg0LVrdquo4kQbUoL5xv1oZd/+2UsaOoVg
+	 bwqiDXnTNeD/AV+kBS74r83jCUR8DWh598x+VOhG89cHN+KomFlAW9066MBw/LhKvWRrR
+	 vbYQ/YAdsszY9RI8MBjFpwV9oy53J4uC5wMn9XDXrEYBVmXk1XhHFiqeo3lZvxC5cD262
+	 ULp/ZFqwD1rC+fD5EOBUqjPiEN8uGAcT6LyRvLDMQOjz4zfl06otHzjQtePxWYLBk8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315485;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5zlnvsFYr9z9Ih7dz4YhWOpewlga8jMKN2V1aX1mRyg=;
-	b=v2C0Tq915ClzTn5jnUV2OJuyWeAExdDhKLZ4esIZ65FWqM+ldTzrsNpkOskSirTBkpzu
-	 Y4EJfb/nwq8IkFDTcjypZHeWcFepv/chn3zAP4UoSs1k7gshIHhgj22YBNwoHNwR+nccM
-	 RBfhL3OxOhkeow+fbY8rjKH9/De7F/4dw459tM9Dp/0HZl8RSChcYQTaNDLQWlrD3KhL3
-	 a/YRW7RzI/trqh8dEA4rLzUYG8dnSTnAp8LVFhpkNuJsG9WQnS843REnCzNAIEBEKRKdY
-	 FWHKBGG7G6pgsBQS+9cviCiJUwKXTtZADtDJLNyxshujgbf3GYZqj+1zTRomENXjMaQ==
+	bh=B7qDhDvqBSwMjBRLr1ntuAiYuBRtBn9TmkMJjR/9wSw=;
+	b=y7PiKMjhMvItS+qBfc1/t8c8/MoMkieO4eyUsEUuewSRrrYOI1Rd79X69CS65dtP40Tz
+	 Frd4ufDG/CJQg8mU0rvz5HutBTiNLP3Trx/caX2ro/yHcgaO0PojUTY/0b9/pJ2BlwfDX
+	 6h18xE0W8rukrmVeLA5s2ZM1fxOsek/EZSSJWmmnsHyTg4rVX2f7+3ikyLZDrQpvAZ1R3
+	 7eSw4pTDUEs8W9/tkNeM2M/yd9mmBJBUmmeOEEZtSS942AA6KxmtU6syPXONsvUXGLEli
+	 lXfAHsYNgBDfeGLD753KRRaMNSTSZaiTLuUvR7Eh9AWa6Y/aZbbJRgIzGVXNEXjmfeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N/6wTrBw";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6avV1AI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC9F606F173
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:57:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA9D606BFC7
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:58:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N/6wTrBw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967E81F008A2;
-	Tue, 10 Nov 2026 12:57:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6avV1AI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DF71F008A7;
+	Tue, 10 Nov 2026 12:58:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315446;
-	bh=5zlnvsFYr9z9Ih7dz4YhWOpewlga8jMKN2V1aX1mRyg=;
+	s=k20260515; t=1794315484;
+	bh=B7qDhDvqBSwMjBRLr1ntuAiYuBRtBn9TmkMJjR/9wSw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N/6wTrBw5PYjvp3FCr4hSkFlXp+2bzCZbUQFzFjyMxwwYD/lymY5x1wGaH+4ULXkx
-	 LObNqA4aBNI/T2QAm9mdofe9dGH4zBdtTT0xz/lGIC1e6EFg2SMJ2AVhSHKWLoOfB3
-	 cIe9hhhc6waJf5xmXTMWwnOA31oYpevuCU76yo4vgM+80rC7iL07Ady1QkSEwhEuUK
-	 tH/U1ayAW3+D1UsCKAttTefkD4xKTKyhqBkWR7qSk5ox+QT0WLbt0nJT83ut09errV
-	 M66akyp/fhuNv7bi9NFMZC/j5QUxUFzh5Y/8OJScn9LRbJYalMaJ4sTnXqFwSYu5RQ
-	 xKRw8fKu1uMQg==
+	b=e6avV1AIYVYjarmY8B+7pYw2/gOFiFus/geSCQ1T+9IxdCujJfdTIVxUXQxvo2KFQ
+	 4L7+72U+hJJJFh04rVqCkD7udEuErSB1Dv5v9lR+xIF65qEV6sU/IgfR81eunwBpN+
+	 Sdr5rBqrL83rImv0GSEcdBeLvmb4t/s7w1FGuKKasmlsJdGb3VcQ6rVLB71Y1lKqHT
+	 FOjdylGrSLV7rq9rLAPdzJU55EwT+zVoixxv4XlM64qJboMq7+6v3cWO/U1UeVqacP
+	 /coLvfUr4QuS5KTUDVuGRFRCG0WLWLiQMYuQDQZzvfB4sryS3oUXmZvztvkMRif5vb
+	 X7k9iPrBpgrBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christopher Lusk <clusk@northecho.dev>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	Greg Ungerer <gerg@linux-m68k.org>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] m68k: Fix seccomp filtering on ColdFire and 68000
-Date: Tue, 10 Nov 2026 07:57:23 -0500
-Message-ID: <20261110125718.1538168-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: usb-audio: Protect Roland control activation
+Date: Tue, 10 Nov 2026 07:58:03 -0500
+Message-ID: <20261110125747.1604943-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110125718.1538168-1-sashal@kernel.org>
-References: <20261107051013-failed-6.18-48859f8018d9@kernel.org>
- <20261110125718.1538168-1-sashal@kernel.org>
+In-Reply-To: <20261107061741-failed-5.10-19b42c1fff7f@kernel.org>
+References: <20261107061741-failed-5.10-19b42c1fff7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,69 +61,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christopher Lusk <clusk@northecho.dev>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 48859f8018d93bd93ef35f7430fdf5b97f2f9715 ]
+[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
 
-m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
-ColdFire and 68000 syscall entry paths only branch to
-syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
-through to syscall dispatch, leaving installed filters ineffective.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
-and route either flag through the existing slow path. Leave the classic
-MMU syscall entry implementation unchanged.
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-Validated the combined test under QEMU mcf5208evb (ColdFire): filters
-denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
-classic-MMU control (q800) denied the filtered getpid syscall both before
-and after this change. The 68000 path shares the same source-level
-omission and receives the identical masked test but was not separately
-emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
-m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
-built arch/m68k/68000/entry.o and vmlinux.
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
-Cc: stable@vger.kernel.org # v6.3+
-Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Christopher Lusk <clusk@northecho.dev>
-Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Adapted guard-based locking to the existing explicit mutex and rwsem lock/unlock calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/m68k/68000/entry.S    | 3 ++-
- arch/m68k/coldfire/entry.S | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ sound/usb/midi.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-index c257cc415c478..0d3cbededc43c 100644
---- a/arch/m68k/68000/entry.S
-+++ b/arch/m68k/68000/entry.S
-@@ -79,7 +79,8 @@ ENTRY(system_call)
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 2ae37bb2ad645..fc5c640d0a009 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1168,7 +1168,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
+ {
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
- 	/* Doing a trace ? */
- 	getthreadinfo
--	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a2@(TINFO_FLAGS+2),%d1
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
- 	jne	do_trace
- 	cmpl	#NR_syscalls,%d0
- 	jcc	badsys
-diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
-index 4ea08336e2fb0..d658abdc52075 100644
---- a/arch/m68k/coldfire/entry.S
-+++ b/arch/m68k/coldfire/entry.S
-@@ -72,7 +72,8 @@ ENTRY(system_call)
- 	movel	%d2,%a0
- 	movel	%a0@,%a1		/* save top of frame */
- 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
--	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a0@(TINFO_FLAGS+2),%d2
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
- 	bnes	1f
- 
- 	movel	%d3,%a0
+ 	down_read(&umidi->disc_rwsem);
+ 	if (umidi->disconnected) {
+@@ -1180,11 +1182,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 	if (open) {
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = false;
+ 				update_roland_altsetting(umidi);
+ 			}
+ 		}
+@@ -1197,15 +1197,15 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			snd_usbmidi_input_stop(&umidi->list);
+ 		if (!umidi->opened[0] && !umidi->opened[1]) {
+ 			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++				ctl_id = umidi->roland_load_ctl->id;
++				activate_ctl = true;
++				active = true;
+ 			}
+ 		}
+ 	}
+ 	mutex_unlock(&umidi->mutex);
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	up_read(&umidi->disc_rwsem);
+ 	return 0;
+ }
 -- 
 2.53.0
 
