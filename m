@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794301405;
-	b=qK0x/fbLxGC8JAe6Qym+jou7AU8Z+wNygRdl/p3xbiSJyFkn5DHr+TEsxgDOpQ2yW6Id
-	 Mc2YzRZiS5NoZDdtdnOAIrMjt3J6e+8hZULg/OS+cQcpigvMHzetPv2iDf1eTN1SKQrD1
-	 bPoikQhQYeUDA1KQyDwWlw7OwDASpH50MkY4ULYOIOly4ZdItPSgqzceesJBo7V+MXd9S
-	 Vx7xP0YQ/5pmOYyiY98QOGkuePQK5AZRv0lTvloqSZu1BqlDXE8oxfpmnddabw7E4+mvm
-	 YnSy2PDFxDmzGhLvrFPLq0ShZGqc5C+SwyRPpayVLNnCWaLfVKV1DLbdW20bPzyXzSw==
+	t=1794301407;
+	b=2rmfbB6PGl7Wo1tLXlsH324+6KHiZDq7AflMQW7KyZ/jMCzKnRYVfSX6EWP6GlgvzI1e
+	 A9kjtKc7l7eg9vr2dcQS0+nF4LrOXNbX5JN/m5dnMqQyMkZdfrvkOTkbhYiTQz+bVk5gQ
+	 dhMKwcXywtaQ54xl3/pJIdtKWQVCn6xlqBvN8JadqxszfEtOc0atvuQAasH9x5DP36h32
+	 +1cY/30RB8OGclJjXIukkbsSTZ3RRbF2Z5HoXI4KMlQMjF/p9gC0xs7Mugyz9sFP4xoR0
+	 T/zdhceRPI5fLmijM5WZS7zSav6isxtnsVLJTuobVBIRo/mZ9/1GrHULFwzDt965Z5A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794301405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794301407;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=JXp0LajyOpt+8qdQrYT7MGMlrs9liY208eOMm03msTs=;
-	b=JruCMRrJJUPzf0DrlbGLfb0bVgkMGXjXU1mxm0/lwz4j/kG2e6Boxd8rmG6F4Mj4cx/O
-	 K8Ha+7m97HBMz677xFT0WdMIoTagxIC4NhdWdmSVkY+BtyswM1Ejy2ESeI81zPN9aoT4q
-	 DAtYer7KAr5nXYTe3dgK3T+Qnjcw3vJjbhxRHmBxIA5Yl19Ct+zNuGS4gwH4D8KlL45y6
-	 bbOSJ9ts3kEYbAHQgX+wIOIrilAcpKQHZor+kxjH4jVkB+VSOJ1FXRQqGMJGusfIYVIzP
-	 O50Mzdezb3Dtnf+arPpea6BGViHCElIJE5gmYWcoZ0Rs13F1mcnkzr+jIsiV3cziJ2g==
+	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
+	b=l6/Wm+++SUoWS8Ud/YF/jkHIfz3FNkp549nv/oeJg+Mamzpxs9dE9A2OvR0cbLvSmvi9
+	 8m/enEH7EdGLx4xSW7cmX/t3hdeN8WZFgXsbz+1fClLUamU1b6bGeIins3tlswvjF1JzY
+	 StEI6MiKfvPlqklWpBorooHNsKn9ZbBVH0vb764syZfQzYYVURQN07Ul5ZVg4OgANcBPa
+	 cKvGtD4O+5N6XLrlomyfKxfKnm5bdjH5SniCQ5YW1wmjSakYDpfAsp8kQhPKUsrF5JIQ8
+	 J74BejMHobxjo6wfvelSBIavbTkXxVf89v4UujWhyposBzonusp++NdiTw6Ykxln9EA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dwSAsEuu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k36dh6iD;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCF460A2638;
-	Tue, 10 Nov 2026 09:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734E7606A321;
+	Tue, 10 Nov 2026 09:03:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dwSAsEuu
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k36dh6iD
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794301404;
-	b=ReUHUz2+ZgZZBcmhMiei9j9myPpgG8uWU4htOYNA0Va/zMpYbzzzc1Pkp01MP09z4WdF
-	 1gooIBNkwdGi8rwZswF2qwRWpPc9EjoEmNBFz97LMJ0n+ju/qqnb0QrcE7fO/Fvbix9p0
-	 rSw/BqNOIed+S63W9zmaBN8rgLDLvQCevWMa+88vs1vGRmYMRgGaNwHTEdKOfhcWeJjnn
-	 Th897tX83QZ8qSvpDJ2nN/ScWxs7KMJjkw6sgfxhN4xbmPCS9zpI5/ZIfr0XfJkOW7Za1
-	 7MWf29QFnRDiDo1yGObTe1MeaGqjcApr/25tIvnFoa6AeVVDwtylP3Cg+XfoPfV5PBw==
+	t=1794301407;
+	b=rKX0OX0hMepRHCMfc+Mk2PWDPtvFo/y5wemS8M989MosE1mySnlLpxcC8/Y6SfjINIv+
+	 RTVw+hdRQvb6+EoXADHVp5J8X2Rv1EQIf5ogdA5aALHbMwiU3sPMgFLERnV0UN2+jjbpU
+	 iPHcP9y2XfHWp8hP9UiWN9ShRsU4RaO53Al2hkXJQq9FeGg+gLgKkQC4/s+SJ09skad3/
+	 8V0jBO0snqJU7FMLEwm2v4W9Gxnv2dmNMiHDUUux/rUrScA7s3ygsMCka3eEwO/kTq587
+	 L6HUztBxHnZevY/jPS7XohGs66a/vF0hGJufsLzRMx68nbI3/ELCuLy/2doWn8eQs0Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794301404;
+	c=relaxed/relaxed; t=1794301407;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=JXp0LajyOpt+8qdQrYT7MGMlrs9liY208eOMm03msTs=;
-	b=YTRNiAvp/l/Y7bjxwthYwNv4xwUkO6T41dvoICsZn6ty/yKUzqRW+r7iwjmQHOx1iWE7
-	 WoKOyWVLanlpGWQw8kX0LPkrknsswZwgazauLGRoqcHxonXCi0HHq3r7H4F0wFTqq3sFm
-	 z49Mv3uMKvX3IP9wm9FcLpYaxYkwe4g+57UECMqGZT2rhNlv03ZXQKiMxU+jm8GCWj2EM
-	 e0ky3XG/yo7HrqF4PVJdq7XjNKaYUXc+gSGwAvHuWUcPNAll7Xz9cAkqYg2vLr3VqHUf+
-	 rGjKhhdg14jyA7m7IX45U7E/ULBPQliHy7ECxW9fLin9S3fwN0I51CGIV33v3CIy3gw==
+	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
+	b=DFuxtGeOzxhNDcZKdO/4iOK+5UX4rp/vGtsUV+gYsn3bSVqHFLu9H8zdaYyUbN6QuZV3
+	 Ossh8LTqndIoR3BtATNFxz7J6Y2f2cp4jOBWgr8aKYs1IbQ+ykxUWTlk/W0P8DS4v+BB5
+	 zMdW641gnJjIfmAa0PeIaW9d0b6fAsxfsDZ+YgyRynW4coAWwxAV720xJ9WyPFu3mm/Qi
+	 bnCm5xayYsAHv7JSDmRPr/oNVjSfWSz/h9oE0kQZ318CSWlzzek7ZulE/GqxjvZgnHHub
+	 MTRGZonDPCLwazc2tTFfA7V3jwuKWk+HJMAmpZRnCT0lrxJNeWgUvV1hi42XCYqG6LA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4CFEA1F0089F;
-	Tue, 10 Nov 2026 09:03:23 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id B7C541F008AB;
+	Tue, 10 Nov 2026 09:03:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794301404;
-	bh=JXp0LajyOpt+8qdQrYT7MGMlrs9liY208eOMm03msTs=;
+	s=k20260515; t=1794301407;
+	bh=Iq1nJKDhrKzbagGZuuPD9GpgY8AW8Ce7+/1CYqXDwc8=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=dwSAsEuur+M/VgRjrpoec0HuqOdnQ2DOqwo329CeUq9LakXs+oJZ8WvN3ocH/rGqf
-	 VY5uACIe2EGtMXKrNIwguntW3j6PPK0AZN/PTkZWP/Fh72AAr2PsR6JrYGZfH/EX+T
-	 CESGqdS0xuevmSD6FML0pC0sKinDDoTz14oez7EHfyxUpoYXVXwGiD6bU9jjukoSIU
-	 sORpTdpoTULbqz6cj5IHsWw1rsGev9mvyBpS67d4HAA4MjZiCPfAu6uyXNZ6L0rWtp
-	 enSBaa5ICuQDdwZIEKqWuPjYKONqdgmLCPQehSqm/2b6mAAV5GnmRLr3tXC+OJxcbO
-	 zCJ2nYpcQdPcw==
+	b=k36dh6iDdVvvAa3/qZ0yNWwlkRnSDdY/StCsP0nrMRnp4Ac/Lhgkp4B/U/yFKg4TO
+	 82EYAijRN2sTqfORWiKwaizVXmPyGHe8Ia6wuHbJgLHIqH3Bnkr84A0aLlvsBYE+pq
+	 MjyV3JYYBYZMme+Mdho9vwJg8qF/nSNHTDxNHErQPzCbdFaVqOFUF20XTdij75HX8U
+	 Q9IzVqyK133uV68ykf3SFV9UnCHFBPRoo5ozJX6CYNqqq53UVyEp0o390Dj0cpfo6d
+	 YfpzM1qjpVQHezw74DfAMAgkBqxhHfGKlFqrAL+Hjj4r0Tq13YQrdy5O0axvE1yaRC
+	 yPeZfedb0hAow==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D225D48A47;
-	Tue, 10 Nov 2026 09:03:22 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 4921D48A57;
+	Tue, 10 Nov 2026 09:03:26 +0000 (UTC)
 From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 09:03:23 +0000
-Subject: [PATCH wpan] mac802154: llsec: reject secured frames with security
- level 0
+Date: Tue, 10 Nov 2026 09:03:26 +0000
+Subject: [PATCH net] gtp: free the skb after handling an echo response
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,22 +83,21 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-llsec-seclevel-none-v1-1-06ef143e467f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIANrd8moC/x2MSwqEMBAFryK9tiEJOH6uIi5i5qkNoZUEVBDvP
- mEWtahF1UMZSZBpqB5KOCXLrkVsXVHYvK5g+RYnZ9zHWms4xozAhYgTkXVXcB+6pXFm9q1pqZR
- HwiL3/zrSdXil6X1/TSPEBmsAAAA=
-To: alex.aring@gmail.com, stefan@datenfreihafen.org, 
- miquel.raynal@bootlin.com, joasantonio108@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
- pabeni@redhat.com, horms@kernel.org, linux-wpan@vger.kernel.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+Message-Id: <20261110-gtp-echo-rsp-leak-v1-1-192c032f3dfa@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAN3d8moC/x3MQQqAIBBA0avErBtQg4KuEi3MJh0KFZUIwrsnL
+ d/i/xcyJaYMc/dCopszB98g+w6M094S8t4MSqhRSinQlohkXMCUI16kT5z0cGgzqm0fDLQuJjr
+ 4+Z8LeCqw1voBEyRO/2gAAAA=
+To: pablo@netfilter.org, laforge@gnumonks.org, andrew+netdev@lunn.ch, 
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, 
+ pabeni@redhat.com, joasantonio108@gmail.com
+Cc: osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794301402; l=2972;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794301405; l=3733;
  i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=D5EaJBjC8M7RHA6vb/0t+xHzBpEctd0lgATfGQnGuqA=;
- b=AvenG5SdRGme9uWM1JQXBb23fS5x4xf0jrQTz85B6HBZqxGbSsPXPzg0f/YdjhL4nm/a7ahLI
- L0RJfiznDZlCixkBjbh0cLzFuYGNmpUKOiVuM9ZIZpIYKtlREw0yxhs
+ bh=R9TcIxYRIQLC36eXFKBEQ/zbPTM2JwmdjnAqri7utlE=;
+ b=USEiUSTtzqnSdLf/+y3HR6JuvI4VGG9bRKewqbXKarWNZBPZtmD7tPcE1rq5inbOwayXH3Xhc
+ QUiacOqhnsZDNrw2Y+AxQyPrTEc3pzMt1uxH2zbeqM4MqTRWLdXJhPK
 X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
  pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
 X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
@@ -110,44 +108,46 @@ Content-Transfer-Encoding: 7bit
 
 From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-mac802154_llsec_decrypt() handles every received frame that has the
-Security Enabled bit set.  The security level is taken from the
-auxiliary security header of the frame and is not required to be
-non-zero.  The only check that looks at level 0 rejects the frame only
-if level 0 is not allowed by the matching seclevel entry, the entry has
-device_override set and the device is not seclevel_exempt:
+gtp0_handle_echo_resp() and gtp1u_handle_echo_resp() return the result
+of genlmsg_multicast_netns() to gtp_encap_recv().  When the netlink
+notification is delivered that result is 0, and gtp_encap_recv() treats
+0 as "the skb has been consumed":
 
-	if (!(seclevel.sec_levels & BIT(hdr.sec.level)) &&
-	    (hdr.sec.level == 0 && seclevel.device_override &&
-	     !dev->dev.seclevel_exempt)) {
+	switch (ret) {
+	case 1:
+		netdev_dbg(gtp->dev, "pass up to the process\n");
+		break;
+	case 0:
+		break;
+	case -1:
+		netdev_dbg(gtp->dev, "GTP packet has been dropped\n");
+		kfree_skb(skb);
+		ret = 0;
+		break;
+	}
 
-Otherwise the frame reaches llsec_do_decrypt(), which sends every level
-other than IEEE802154_SCF_SECLEVEL_ENC to llsec_do_decrypt_auth().
-There ieee802154_sechdr_authtag_len() returns 0 for level 0 and
+The echo response handlers only read from the skb and never free it or
+pass it on, so every echo response that is reported to a listener on the
+gtp multicast group leaks the skb.  Echo responses are handled for any
+peer when the UDP sockets were created by the kernel, so a remote host
+can leak memory on the receiver by sending GTP echo responses while a
+process with CAP_NET_ADMIN is subscribed to the gtp multicast group, for
+example a daemon that monitors echo responses.
 
-	req = aead_request_alloc(llsec_tfm_by_len(key, authlen), GFP_ATOMIC);
+The error paths do not leak but have a related problem.  -ENOMEM and the error from
+genlmsg_multicast_netns() (-ESRCH when nobody listens) are not -1, so
+they are returned unchanged to the UDP stack, which takes a negative
+value from encap_rcv() as a request to resubmit the packet to the
+protocol with that number.
 
-looks for a transform with an authentication tag size of 0.  The key
-only has transforms for tag sizes 4, 8 and 16, so llsec_tfm_by_len()
-runs into its BUG().
-
-The frame is not authenticated at that point.  A station in radio range
-can crash a node that has llsec enabled if it sends a frame that matches
-a configured key entry and a device table entry (source address, key id
-mode and key id are sent in the clear and can be observed), uses a frame
-type that has a seclevel entry and carries a frame counter that is not
-lower than the stored one.  No key material is needed.  The frame
-counter of that device is also updated before the BUG() is reached.
-
-A frame with the Security Enabled bit set and security level 0 carries
-no protection and cannot be processed by the incoming security
-procedure.  Reject it before any key or device state is looked up.  The
-transmit side already leaves such frames alone in
-mac802154_llsec_encrypt().
+Return -1 when the notification cannot be built, so that
+gtp_encap_recv() drops the skb, and consume the skb once the
+notification has been handed to netlink, whether or not anybody is
+listening.
 
 Found by LLM-assisted source review.
 
-Fixes: 4c14a2fb5d14 ("mac802154: add llsec decryption method")
+Fixes: d33bd757d362 ("gtp: Implement GTP echo request")
 Cc: stable@vger.kernel.org
 Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
@@ -156,26 +156,65 @@ This issue was found with the help of an LLM-based code review tool
 reviewed the fix myself.  It is build-tested only (W=1, arm64); I do
 not have the hardware to test it at runtime.
 ---
- net/mac802154/llsec.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/gtp.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/net/mac802154/llsec.c b/net/mac802154/llsec.c
-index 85452ef9a58c..32565f18897e 100644
---- a/net/mac802154/llsec.c
-+++ b/net/mac802154/llsec.c
-@@ -1019,6 +1019,8 @@ int mac802154_llsec_decrypt(struct mac802154_llsec *sec, struct sk_buff *skb)
- 		return 0;
- 	if (hdr.fc.version == 0)
- 		return -EINVAL;
-+	if (hdr.sec.level == IEEE802154_SCF_SECLEVEL_NONE)
-+		return -EINVAL;
+diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
+index 1dd32e979cf5..85d1b0c46ecf 100644
+--- a/drivers/net/gtp.c
++++ b/drivers/net/gtp.c
+@@ -561,16 +561,19 @@ static int gtp0_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
  
- 	read_lock_bh(&sec->lock);
- 	if (!sec->params.enabled) {
+ 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+ 	if (!msg)
+-		return -ENOMEM;
++		return -1;
+ 
+ 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
+ 	if (ret < 0) {
+ 		nlmsg_free(msg);
+-		return ret;
++		return -1;
+ 	}
+ 
+-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
++				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	consume_skb(skb);
++
++	return 0;
+ }
+ 
+ static int gtp_proto_to_family(__u16 proto)
+@@ -748,16 +751,19 @@ static int gtp1u_handle_echo_resp(struct gtp_dev *gtp, struct sk_buff *skb)
+ 
+ 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+ 	if (!msg)
+-		return -ENOMEM;
++		return -1;
+ 
+ 	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
+ 	if (ret < 0) {
+ 		nlmsg_free(msg);
+-		return ret;
++		return -1;
+ 	}
+ 
+-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
+-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
++				msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
++	consume_skb(skb);
++
++	return 0;
+ }
+ 
+ static int gtp_parse_exthdrs(struct sk_buff *skb, unsigned int *hdrlen)
 
 ---
 base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-change-id: 20261110-llsec-seclevel-none-9c8f520ba707
+change-id: 20261110-gtp-echo-rsp-leak-7a3fac62bd3c
 
 Best regards,
 -- 
