@@ -1,66 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323305;
-	b=lfo2Q+HG3QkhUhYyDJqTHg6WRgw86YYyhDTIzf8KzGnh5Rlv+LdbOhO7i44vfvCCmZxy
-	 Lvze39yJMcvUFzzgNLdHMPu3Y27ztmCasDr5ADd+vZexRxyxfuVIg5Vgz11DzAQwNnLiM
-	 mE+Kv3Im8Xu0KMn9H2gBqPABJtJ3xFadHvB7eHc8st+kWFTm1eWvWPKpVQd1g7GHSmwu6
-	 8Pc6ituv7vbC2flLsn9jKjNSlpO5rS3B1VRMHaOgbt8ziDF6xBaSIitpxJ0c4qFje4CyR
-	 hGUbRrsa0+Io29KuLXLrDqIL4eh/5FdvtYN7suU5Fa5UlpqMB9maJpq3FBbxr2I673w==
+	t=1794323335;
+	b=X4h/EjIxXgmFUR9GpwoP+m0wdoS208pkvYwHBigzZb1LWj3YSX/FUfDraaDDH93P+rM0
+	 vA1gDvOOnbj16rGcro9zzaAi4h4nIDYkUGVzVFHqadokKrU2ZlsbIh3UtxXe/13ee6xdu
+	 S9cM4Kq1dcxMG6StY8XQS8EFwe+9ybhPy6oAtnoXly6k0EsaZ/28Ok4cJgYFbQV8YRcdY
+	 UNU+wrTPgjaBvN98oK24TYyudQEx4LOvwfBGBfc6dzWhOPh9pVIhM6qe2SDqVPTknmvJl
+	 womLVudIJp3dzRp8xb0i6xYZE+7iar6HLF3KVC+jI4PFjKevN5hIB2oV7RmqgX3wvbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323305;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=oNJivVoyu72FnMBjVSxRk6wu/Gu0bKPbs3QhyQ9DWfg=;
-	b=BStRR1mFblwqh03zGoPPtTD0O8/LPhNdwZ97bZ81mPxoKoiijF/v953Ll8+ep7LVSYr4
-	 GoJIh9bYoVzUrWnH4Jytk3HjdWhGn06vjLi7A02X2TflLbFbKY6gHZud3ODpe8jlpze6k
-	 qzJTjYBfjCSBbjTrg69HsIl2zbDU6ufvX5xfOXcUglI/YJTi7YGXkZh+qA50e8SWtwRD5
-	 2tpjRk5z8Oxty5Cjxq3bj9/Bn3NG8gKAYIq/plxs4NlfYNZ9p4HbM+x4ucrQK3ejJu4bi
-	 OldDHABWoSU4zo/6IyBz04A1XN/8KL+LCYTonRNACV0s4xatHnTylsVAfrmEpj555LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323335;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WIA6+aq2BFsonqdZL1do34wo6rMa13vPzf97dHEwv5s=;
+	b=CiMs7+DiOlMSQevKKKnvnqDcV0evnGNEJdgyseBMbmMAu1MHhyfNgIXQ861SA4zII7+y
+	 dRyEsxvqUo6laffwegolBHU2O3RMfEOdCYAnzL4NT9vA5QKndP5FSJcEic49f6pqHTx/7
+	 ObyDrR/+zBuflyEsUC0Jz3OZp8a6qlPlVh9uzqVqZYttZyDW+q6CUGnlfp1VvNI3+5WOL
+	 QoqavvMW07MFu5DVbQkQwXGWpdHESGe0ns8Lp6qRDFHAAT/paOEZ0XPktdbmrG60vUL4F
+	 RgeYpUICGHLQxtYd7/STs7zVvNQLeGZUt2xZ07V2+2TdrmKBismzC3VamjnWD+l0pAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hallyn.com;
-	spf=pass smtp.mailfrom=hallyn.com;
-	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=HWgPx+fv;
-	arc=none smtp.remote-ip=178.63.66.53
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QSxMQgOk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CC160A261D;
-	Tue, 10 Nov 2026 15:08:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9CC160A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A80B8606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:08:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=HWgPx+fv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1794323295; bh=Qz+w3E0S12c7+sHbC0P9fK29CvHuxPv8rvnaxSZT5zw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HWgPx+fvvfFib1CNriCjnI36iA/b84xCbNNyxfpT6hVh0vsn7OiCK/EyxreyK9QNk
-	 /dmakTsTu2cjWkjKMxpAEIUFwSb+AnMvvICwuJFLB0GMHjo0p+SUFvFG/StwDjQGN7
-	 19Pg/xCnAJY2pzId5Ag5DIBsTvWBDmENz8aGFaqp/4PBQ6rnexOEfHbiaGc58cQu19
-	 M2Y76k/E3ckIgp9uiyuMeps+EzlTU0TPZPGR10GLTvFmD7lOYD8ZFMWVxpfw6cZPpr
-	 M/RFMXy7uZcOEGWwrqormEB9GuIBA5mhlviGToUfBki47triargnIqDNAjD5B21CL7
-	 Yy+tDYdTZJbEA==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 9907E800; Tue, 10 Nov 2026 09:08:15 -0600 (CST)
-Date: Tue, 10 Nov 2026 09:08:15 -0600
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: Josef Bacik <josef@toxicpanda.com>, Paul Moore <paul@paul-moore.com>,
-	Christian Brauner <brauner@kernel.org>,
-	James Morris <jmorris@namei.org>,
-	David Howells <dhowells@redhat.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	"Andrew G. Morgan" <morgan@kernel.org>,
-	Serge Hallyn <sergeh@kernel.org>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] userns: Let LSMs deny the CAP_SETFCAP snapshot for
- mapping uid 0
-Message-ID: <avMzX2WfnUK+wBxj@hallyn.com>
-References: <20261110144205.2404088-1-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QSxMQgOk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CE6F1F0089F;
+	Tue, 10 Nov 2026 15:08:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794323334;
+	bh=WIA6+aq2BFsonqdZL1do34wo6rMa13vPzf97dHEwv5s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QSxMQgOkBucdVCZkw3Eh5Dx/+gHCD216cIuRR+iQRmBIpdPF0EYf9Hd17v3tPBxm7
+	 cX+1Pe8HjM/cmmxF3hPiYuC08bIJAJF6rxBeWM/QLcZaoYBVnaOuUqEnOB5WDmPZXr
+	 4xC5yrU48Ur0jHTmSamGDbSXl1LW4NT7IzofjmQRcQTND4AuzlhqmTcXZ9JFk7NHP3
+	 pq13TeNfjbZw6ZJtBFDW0lerSg7JWBmBRvWd8bG4arJtZQd0f+A+THu1OJiZAJkK81
+	 mXoawzCFhjayPT2S9IHlJFaXEVXprg0FLuil3Vwo1ZmOkkwKgCz/L+0jh0hO/pZWYl
+	 0M9e1/tCF5xDg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@kernel.org,
+	Chao Yu <chao@kernel.org>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: return -EIO for a lost inode block after cp_error
+Date: Tue, 10 Nov 2026 10:08:52 -0500
+Message-ID: <20261110150805.2030492-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050458-failed-7.3-53b12b63304b@kernel.org>
+References: <20261107050458-failed-7.3-53b12b63304b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,93 +61,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261110144205.2404088-1-mic@digikod.net>
 
-On Tue, Nov 10, 2026 at 03:42:04PM +0100, Mickaël Salaün wrote:
-> Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-> records in parent_could_setfcap whether the creator of a user namespace
-> had CAP_SETFCAP, because a creator writing its own uid_map only has
-> capabilities in the new namespace.  The snapshot uses cap_raised(), so a
-> task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
-> namespace it creates.
-> 
-> Use security_capable() against the parent namespace instead: the
-> creator's credentials still belong to it at this point, so commoncap
-> returns the same result, and only LSM denials are added.
-> 
-> Do not audit this check: creating a user namespace does not use
-> CAP_SETFCAP, and most namespaces never map uid 0.  The uid_map write
-> that later fails has no LSM audit record.
-> 
-> Checking CAP_SETFCAP when the map is written would not work: the
-> writer's credentials then belong to the new namespace, where commoncap
-> grants the creator all capabilities.
-> 
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: Josef Bacik <josef@toxicpanda.com>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: Serge Hallyn <serge@hallyn.com>
+From: Daeho Jeong <daehojeong@google.com>
 
-Reviewed-by: Serge Hallyn <serge@hallyn.com>
+[ Upstream commit 53b12b63304b34a3850a901c4de3cc6ad08e0aee ]
 
-I wonder whether parent_could_setfcap should be renamed
-creator_could_setfcap, as now, years later, the name makes me think "the
-user namespace's parent ns could do it".
+After cp_error, dirty node caches are dropped without being written.
+If such an inode was never written, its NAT entry is still NEW_ADDR,
+and reading its inode block returns -ENOENT.
 
-> Cc: stable@vger.kernel.org
-> Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-> Signed-off-by: Mickaël Salaün <mic@digikod.net>
-> ---
-> 
-> This is independent from Josef Bacik's series, which reworks this code
-> to close other ways around the CAP_SETFCAP rule:
-> https://patch.msgid.link/20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com
-> 
-> That series still computes the creator's CAP_SETFCAP with cap_capable()
-> and cap_raised() in cap_setfcap_level(), so it would need the same
-> change.
-> ---
->  include/linux/user_namespace.h | 5 +++--
->  kernel/user_namespace.c        | 8 +++++++-
->  2 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
-> index 91232053775d..370961fde45f 100644
-> --- a/include/linux/user_namespace.h
-> +++ b/include/linux/user_namespace.h
-> @@ -86,8 +86,9 @@ struct user_namespace {
->  	kgid_t			group;
->  	struct ns_common	ns;
->  	unsigned long		flags;
-> -	/* parent_could_setfcap: true if the creator if this ns had CAP_SETFCAP
-> -	 * in its effective capability set at the child ns creation time. */
-> +	/* parent_could_setfcap: true if the creator of this ns could use
-> +	 * CAP_SETFCAP in the parent ns at the child ns creation time.
-> +	 */
->  	bool			parent_could_setfcap;
->  
->  #ifdef CONFIG_KEYS
-> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-> index cd748e1cbace..57b7f10be74e 100644
-> --- a/kernel/user_namespace.c
-> +++ b/kernel/user_namespace.c
-> @@ -128,7 +128,13 @@ int create_user_ns(struct cred *new)
->  	if (!ns)
->  		goto fail_dec;
->  
-> -	ns->parent_could_setfcap = cap_raised(new->cap_effective, CAP_SETFCAP);
-> +	/*
-> +	 * verify_root_map() relies on this once the creator only has
-> +	 * capabilities in the new namespace.  Let LSMs deny it, but do not
-> +	 * audit: the creator may never map uid 0.
-> +	 */
-> +	ns->parent_could_setfcap =
-> +		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
->  
->  	ret = ns_common_init(ns);
->  	if (ret)
-> -- 
-> 2.56.0
+f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
+as a hole. Since the inode block is missing, the next offset can only
+advance one block, so fiemap walks block by block up to maxbytes,
+about 2^30 blocks, while holding the inode lock. It took hours in a
+power-off recovery test after shutdown and blocked unlink and umount
+on the file.
+
+Return -EIO instead of -ENOENT when the inode block itself is missing
+after cp_error or shutdown. A missing direct or indirect node is still
+reported as -ENOENT.
+
+Cc: stable@kernel.org
+Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Adapted node-cache access to the existing folio interface. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/f2fs/node.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 86c2e67e43b6a..5f3ea61325914 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -835,8 +835,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
+ 
+ 	if (!dn->inode_folio) {
+ 		nfolio[0] = f2fs_get_inode_folio(sbi, nids[0]);
+-		if (IS_ERR(nfolio[0]))
+-			return PTR_ERR(nfolio[0]);
++		if (IS_ERR(nfolio[0])) {
++			err = PTR_ERR(nfolio[0]);
++			/*
++			 * cp_error drops dirty node caches, so the inode block
++			 * of an inode that was never written reads as NEW_ADDR
++			 * and returns -ENOENT. It is not a hole; the inode is
++			 * gone. Callers treat -ENOENT as a hole and keep
++			 * looking block by block (e.g. fiemap up to maxbytes).
++			 */
++			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
++					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
++				err = -EIO;
++			return err;
++		}
+ 	} else {
+ 		nfolio[0] = dn->inode_folio;
+ 	}
+-- 
+2.53.0
+
