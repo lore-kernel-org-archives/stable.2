@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336559;
-	b=ZgQ7hXSoU84Qeese9oWd2jhwfKuuSP+7wDDGuZx+txM0e2H/TgdND8Q4RVWnE8eKApcJ
-	 krnEl1abKp1LTaZ+B12RypKSgrOjPOCvkpSVw4EbWF1C2Rjoy/t6I2bcw+OGhyqHeKdpX
-	 PXMRadvDHwuSityJOKXe4rQRL69K02Kbj5nKORxcdoEppeZaojuomkGKIbVnYKL3UeBaU
-	 zMJHUNIe5egQ0pyfACWcV4ND14KnRDzsX/Mmq/GBTXUgt61pOnOGodQWWXtthtO0eS4zf
-	 fJx8aXABNRKONMrJh6bglAf3Ik/LLQD/9aFdQwrOciUdkdg58MNC+4eTQYJMpGK+IYQ==
+	t=1794336572;
+	b=R0JALxlW+oc5wl2boo4/PuS2WeI4NMJnmJkVbqU4FYSmsdhYaRQ+nBXa0TfEBJ8jE8bu
+	 NPqQDrzI39HzZXqJcTBPAsRq4qtylhT3gBVbbmxdpIZhfs6MqTrt4y3Acu6TZQ3/i0t0s
+	 m0K0Ft5ubAqGThbce3qQlFQ0p6clGUB6S3Z5PcU52HXpXnF9pgotnx8IRObOotLUjlQkl
+	 /kJcXJk54eazwPCRcAkM6myxqNfKDR2SfynZ9RsgUf4V/Yg1qV6hKI7tsZ6quC24R6hOv
+	 etVeSDrJwhe/eBf0UMhQQNanHo4kvexXlhCYtyjBwxTc53P/FbrHePTCoR6gfaRsiQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336559;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eXsqdmWxj1gHlE8U8SoJOOCt30k5jBeBbq1ay/3uBk4=;
-	b=v7sqEjRBZvys+51SbjLzsrHiLiA5Yc1FWeOOLqNbmpuZCB1EMY99rWNG2yzkRJdocD8v
-	 Oq4394Dibmw/NsxIX3zJY5pdztI48dSdHEstqbttPDP+5fcRESJRMlzpPABqFTSbuiTDR
-	 /6gD/KaCp8C7HmCzNeq8PcIsj5IVSg7yz2WYvYs/hRGN6Dc1XjgjXzfBV3PmxoaaKPN9M
-	 7pmDn8tzDLcPkxYtiW0MnaziO7jJyKts3e+R7QdG7Gxpn6flSOYNw6Bp39jnDo8245o2x
-	 kIkfzv//BcY3jClemkzPUcvWlZnm6kU4oB6FV0E5TI/d+oxPc8rmcMNiouGXx8DaNOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336572;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=V42Ru+7zL9sggO/CuIwh8o7X7mznwqp2hIQrPiKVrc0=;
+	b=i2+5USL/jmlMGtXssIGoqnHe1MitZeFLNz7DSA0GFcHg4Zc6561dM2ynhs5ayZJXlgB5
+	 zwQ/hcokLtJOJ6AbP0qlW0k3oO6vMNKff+whWhqpDrn1INgg0vDRUNDE/AVkHEPChKM8V
+	 2zF6xpAsVRcD51ZB206c5tRH1CO5OjgdfwzYOztSE2Dqa68xW+mHHbBF73KtfUwAdISX7
+	 bvJvzP+0f0VZjgLsU4SqMWMpKbzDHsETqW4S7NkA4JpfxXiyw47UZM3bGPlRGhOmS8+Ao
+	 okclq1APP5jlEFLM4nTjBsfR45FzcTMvjHely7DvyZOQ2OQvoLmYRcgkXziDwhZzxsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=mSzQzzts;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIxZcPUm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E4EFE606A33B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4EFE606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FAD606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:49:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=mSzQzzts
-Received: by dvalin.narfation.org (Postfix) id BFE3B216C6;
-	Tue, 10 Nov 2026 18:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794336556;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eXsqdmWxj1gHlE8U8SoJOOCt30k5jBeBbq1ay/3uBk4=;
-	b=mSzQzzts9BLxh62XwaxycibftFNTJ616i2jw9wbYRgicHOTUwNzzd74NmBX1tjbt76pY9j
-	WFB6uBPxiz/Dd7qaQ4RF/Yfit8EMVCxPnnI7EfQSzDHvX7DNGwNoqNaPire0KpwG8juCku
-	qA02J1vAi9zQuk6NrzWTGQ9SEevh1Nc=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIxZcPUm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43CCF1F0089F;
+	Tue, 10 Nov 2026 18:49:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794336571;
+	bh=V42Ru+7zL9sggO/CuIwh8o7X7mznwqp2hIQrPiKVrc0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eIxZcPUmZGvM6jm7LoVLi7ODF4ghe6pHl4teZSY7h9z2RxPL1rVcNwlN68NTeN5Ek
+	 SB1zntdxBdHQVeV6suWYwyCDgsmUGwWzNGK/9yipzffQSGcL3EtLiF4l1bzrIIoghe
+	 XBSfs+SaIPbc2NG4TIQy2ticEQnorVbA8uAZler00QWRVJ0cxG20miElRubTIriR2W
+	 ARtuaWVpjIuaN1Mt/zr+U8MtM6oHJF/5PgPa5LaF3wkI3jkjey3XOtsq9wXfuD6vz9
+	 lgSVFzH+OGSpTcar+wSWOvIC/f4FouDBPamXYusGMP4sFIrz86q/p04bf1ztdVZIf1
+	 wwx6lL+QPUcbg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 6.18.y] batman-adv: tpmeter: fix u32 truncation of reported bytes
-Date: Tue, 10 Nov 2026 19:49:13 +0100
-Message-ID: <20261110184913.70492-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200220-failed-6.18-1025b76d1328@kernel.org>
-References: <20261109200220-failed-6.18-1025b76d1328@kernel.org>
+Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] serial: sc16is7xx: declare MCR and IER as volatile registers
+Date: Tue, 10 Nov 2026 13:49:29 -0500
+Message-ID: <20261110184858.3413225-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107062211-failed-5.10-1c41d09dcd07@kernel.org>
+References: <20261107062211-failed-5.10-1c41d09dcd07@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,40 +62,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 1025b76d13288a311e8259a0eefde0854fa63c41 upstream.
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 
-When more than 4 GB are transferred by the throughput meter,
-batadv_tp_batctl_notify() will cut of the upper 32 bit of the u64 counter
-and thus under-report the actual transferred bytes.
+[ Upstream commit 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb ]
 
-The data type of the temporary storage variable must therefore still
-continue to use u64.
+MCR register has the same address as XON1 register.
+IER register has the same address as DLH register.
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-08bb3be4-6c6a-452d-b4e4-606940c6cfa5
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Which register is accessed depends on bits configuration in some
+other registers.
+
+To prevent potential access errors, declare MCR and IER as volatile
+registers.
+
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://patch.msgid.link/20261006192540.234402-1-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: adjusted context to match the existing switch using reg >> SC16IS7XX_REG_SHIFT ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/tp_meter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/serial/sc16is7xx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 02af19aaaff29..aa297e551cd07 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -226,9 +226,9 @@ static void batadv_tp_batctl_notify(enum batadv_tp_meter_reason reason,
- 				    unsigned long start_time, u64 total_sent,
- 				    u32 cookie)
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index e177df2c4ea22..1934fce0fa732 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -467,7 +467,9 @@ static bool sc16is7xx_regmap_volatile(struct device *dev, unsigned int reg)
  {
-+	u64 total_bytes;
- 	u32 test_time;
- 	u8 result;
--	u32 total_bytes;
- 
- 	if (!batadv_tp_is_error(reason)) {
- 		result = BATADV_TP_REASON_COMPLETE;
+ 	switch (reg >> SC16IS7XX_REG_SHIFT) {
+ 	case SC16IS7XX_RHR_REG:
++	case SC16IS7XX_IER_REG: /* Shared address space with DLH */
+ 	case SC16IS7XX_IIR_REG:
++	case SC16IS7XX_MCR_REG: /* Shared address space with XON1 */
+ 	case SC16IS7XX_LSR_REG:
+ 	case SC16IS7XX_MSR_REG:
+ 	case SC16IS7XX_TXLVL_REG:
 -- 
-2.47.3
+2.53.0
 
