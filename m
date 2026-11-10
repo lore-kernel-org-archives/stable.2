@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273647;
-	b=QoZ/Lgghrk+rA3dTJXymvj6MRX8Fg8IsOlvy8vi7pZmk7a0EW04T7ITMKndVoxZ9gYeR
-	 H4WbGrYzWtppP9rj+TtLYV68gpXh4hvZl4TpVOcW0/yEizvqNT9Y0SHIyObTuySGewlWA
-	 VH24mPWXaE5i3gbn77GVfUePMujT9N94PyEpsTDdlv3a9JEosaumAIGsB/Vdpx4R+k5At
-	 pMjkALHWBA4imIprxCSPZmeoaE7Qu2qDzRfSfaeqUEz+W1nKD9mDJxieKWgW0bZGqu/VJ
-	 c6IhbGwgdxkX6k+n42Zn1+QQTYP86JL0a+azwJbL26sBpyKKOvY8VyW/yjVrtF8e8sw==
+	t=1794273650;
+	b=YZWOgZL/QijyZv0xuZX6yyzYw07rUuIsjrqYtJhVByD1oB5LqQ+s5hBBlF9dWZAnw0Pg
+	 nnlWwfUAFgaB8ILkuwnc5DVA8I3GhbL7OYC0sUk3RChMbVzaHt4/MTuMDMqxrezgf0Ieh
+	 47zw/BUp3+G461j2kMW4xTBvFw0aDgqLEZ4PSic7oMbXBtFqjkWryVHzI1Tl526TTvRoK
+	 97KvCl0oK3IFhAkqyY/Zhs1qPi4Qn4b83jr+PQ3ZdVE9ATl194U4pGzVRUujAUjx7titW
+	 g57IYdg0B70052gQ7qZp7lnowrFa5m5KLj/8yPbpN3vyeDh0JZTSQMdQGfvorgl9HRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273650;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GVesX4NDtAcYVQkguv7EeoXn9GSDF2UwYWgWfpSo0Og=;
-	b=Clveuxom0GU9O6bdNnWcZlGucQFEykle6ZOpRAcJnFcsU2JXpQ+FiY44NlhTrO54sN/5
-	 w3R+/IJZl5QU5gqDijEccRqGbQP6EOVTvM0HSjwY/xlZERIr2DrcFjtkS8n9qeX2Qzdg3
-	 RaE63M6+mtraKanszpWCAHkHQuY0H28NWZutj/yyTg/ckKDLRap4GA81/9r06cgBEYMco
-	 CYBZBCu/yFdqm9vWi3nX159fJsaT6n9qMYPaQbJswU3db3B/WyrGwGvENlqcyjEu+zDmF
-	 erKZMtp8EIznJHQTiLXIS6GmbEcjAFUYniZ0A64dDO5d4LGV4uUrGya1X358b93YqPA==
+	bh=aI1ow3InK9DV+YM97OXdbmf27ErpmmqBo2acH53g9CE=;
+	b=tSI2dRM4LnY8YtdwLobFzXUnKUCpuoAZxN7MDJX1SHahoorn3I85sBEjnovr7J7im408
+	 z5iVWr8yf32bvh/dAMF20BP1UTCzc0/UErqRIQ/xPVLxZAo9N9XewFMPCjN9idysn9/OP
+	 0BlHi4G9IvXrAdVt/OcmeXwNKc4PDOiJXpQ4O0u0TpOmYQo3X5zT5caA9T+jwOijqLILH
+	 Gwxed39q5VlKZSAUmfNi070nmDAt9ObKOoELBPTJQeOONeCtHUvCaOXAgEZvc+Ul9ZBWr
+	 bZF0mznsiRDE9Iecti0PV3OXJMSn8c+2Qjmo+0D5fC5HJ2eJF0/FzMB7Wu5hs7fz7Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0oTiTGZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJNVNdY7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A017460A261D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21445606A33A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0oTiTGZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00C21F0089F;
-	Tue, 10 Nov 2026 01:20:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mJNVNdY7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6066F1F0089F;
+	Tue, 10 Nov 2026 01:20:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273647;
-	bh=GVesX4NDtAcYVQkguv7EeoXn9GSDF2UwYWgWfpSo0Og=;
+	s=k20260515; t=1794273650;
+	bh=aI1ow3InK9DV+YM97OXdbmf27ErpmmqBo2acH53g9CE=;
 	h=From:To:Cc:Subject:Date;
-	b=a0oTiTGZ46Y0I1NIdWpYcpQJkQz89NWPy3vqyiR5HcoyOEnt0A/PVigqwlAkyyohh
-	 Z0QJ9uzxO/2UsfLqpR84PkwJpF933Z8H8ZjQmrphpjKia8jZJfYa8dhfXv9iMKDWA0
-	 8se1m/VF+dWdLGgIGz0NS0e7MC0mjPjYNZ3T/xeCZGMLj6ZhZOz1NGC5tmoT3xw8A6
-	 v5adFCb31ElotxHHmX1RRoGwD4t51YibXLPlsk92gzsUi1UfOH+zuvfyxOC0lzH5Ix
-	 GU+bWQJiaS8JtNeh/aTymn6CSsXPJc9YicFSY47cYcohAHBzmOUfNqK5ahVkalqHNr
-	 Y/xcLn4+YOZLw==
+	b=mJNVNdY7bLQYCpe4HNjotM+LpCRH65QYJAEaWfKyB6wrb1rV78FoM5r28MCSFuiRx
+	 tt2gVn6MWQ3yLuoi2WgGCkggmObE8s8TvHe1zBuqOZ2YEhnakLmTaCHjl8p5NXc8te
+	 WNRj4nzktURAmCc6sZ/2B0nuFPDZ2wiONVYHy1156QjUisHVso6dIn5Aa/gvv/MFqa
+	 d1ZeBYKBB0OxQuDEGPTjZY7OGYp67byYflfODgoSXpC8BU+NWVrnSeFjauiPT20OV4
+	 8hFpTADHvfUYefy1R5XPo/3HNqDS0YEGXxHBe6BcYbbNqvbz9nIl0BNuyT6kDoivZk
+	 sXJGdR3IVsNbw==
 From: Sasha Levin <sashal@kernel.org>
-To: gianluca.balboni06@gmail.com,
-	vijendar.mukunda@amd.com,
-	broonie@kernel.org
+To: 25031212351@stu.xidian.edu.cn,
+	byu@xidian.edu.cn,
+	wencheng@xidian.edu.cn,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:45 -0500
-Message-ID: <20261109202045-failed-5.15-1e73257dff33@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hwdep: Serialize DSP load requests" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:48 -0500
+Message-ID: <20261109202048-failed-5.15-aee83c204f80@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,57 +70,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1e73257dff33ff851af60d5bb00d73893a8b6dc8
+git cherry-pick -x aee83c204f80d56b4d55f53acdb8594308ddcd4a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202045-failed-5.15-1e73257dff33@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202048-failed-5.15-aee83c204f80@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1e73257dff33ff851af60d5bb00d73893a8b6dc8 Mon Sep 17 00:00:00 2001
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Date: Sat, 31 Oct 2026 11:21:36 +0100
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop
- 16-by0xxx
+From aee83c204f80d56b4d55f53acdb8594308ddcd4a Mon Sep 17 00:00:00 2001
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Date: Thu, 29 Oct 2026 16:48:09 +0800
+Subject: [PATCH] ALSA: hwdep: Serialize DSP load requests
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+The check of the loaded DSP indices and the call of the driver's
+dsp_load callback in snd_hwdep_dsp_load() are not serialized.  A hwdep
+file descriptor can be shared among threads, or inherited across fork,
+so two SNDRV_HWDEP_IOCTL_DSP_LOAD requests for the same index can both
+observe the index as unloaded and enter the driver's callback
+concurrently, even though the device itself is opened exclusively.
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+This breaks the assumption behind hw->dsp_loaded that a firmware index
+is loaded only once.  For example, snd-usb-usx2y hits
+WARN_ON(usx2y->as04.buffer) in usx2y_async_seq04_init() and may
+allocate the US-428 sequence URBs twice.
 
+Serialize the check, the callback invocation and the bookkeeping with a
+per-hwdep mutex, so that the second request returns -EBUSY.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20261029084810.21910-2-25031212351@stu.xidian.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/sound/hwdep.h | 1 +
+ sound/core/hwdep.c    | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 1d06b2a16e58d..4908f4cc147a3 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -780,6 +780,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8DC2"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
+diff --git a/include/sound/hwdep.h b/include/sound/hwdep.h
+index b0da633184cde..7357727f06603 100644
+--- a/include/sound/hwdep.h
++++ b/include/sound/hwdep.h
+@@ -57,6 +57,7 @@ struct snd_hwdep {
+ 
+ 	struct mutex open_mutex;
+ 	int used;			/* reference counter */
++	struct mutex dsp_mutex;		/* serializes DSP load requests */
+ 	unsigned int dsp_loaded;	/* bit fields of loaded dsp indices */
+ 	unsigned int exclusive:1;	/* exclusive access mode */
+ };
+diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
+index c6de5345e946f..fb9034897c561 100644
+--- a/sound/core/hwdep.c
++++ b/sound/core/hwdep.c
+@@ -212,6 +212,7 @@ static int snd_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		return -ENXIO;
+ 	if (info->index >= 32)
+ 		return -EINVAL;
++	guard(mutex)(&hw->dsp_mutex);
+ 	/* check whether the dsp was already loaded */
+ 	if (hw->dsp_loaded & (1u << info->index))
+ 		return -EBUSY;
+@@ -380,6 +381,7 @@ int snd_hwdep_new(struct snd_card *card, char *id, int device,
+ 
+ 	init_waitqueue_head(&hwdep->open_wait);
+ 	mutex_init(&hwdep->open_mutex);
++	mutex_init(&hwdep->dsp_mutex);
+ 	hwdep->card = card;
+ 	hwdep->device = device;
+ 	if (id)
 -- 
 2.53.0
 
