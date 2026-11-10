@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327451;
-	b=1A3KqJfWjhEENLN04eyXn2K5RZ8qkTEDpDncxmC7RrtqfzpVunHMsk5us2RI82MogZ5O
-	 m24ffBjXSUDcaBCtkGpmDPFL+uv9CSJ13h3x+fMG73fTyN9vek0HHzej1ha7MmJcBBK2+
-	 qz0GN3B5x4+8MvfyIBIit6BI05MyVYsUHSZfPP2icbuoWvI+52p5+44nKCcxnrwj4yUiO
-	 HHwfTQG3f4kcvkdaJh1NsRTQclTJhBAdwrm/RqIZCwPMGTtiPML1QGcgracU48qmPPnsh
-	 DEzXIMLZotkmceLX3bGkinZpY8GyoCu+/ILGKjrsUCoVidgMckANkag67VUKlY9PBaA==
+	t=1794327454;
+	b=eF9wKPFBcQZnKuQ5TAuSA5zjaiZccRIwOxXV0U8Gq4EpWT9IyDT3QCAaa1DF1kicMgBV
+	 bsAimD27O9CU8pmDCG1fejF5zI5dPnk0giI1QFbReWFxtJ50kGy6Wlk5VbmrgHPVBvzQz
+	 cosEHEFKIE18FAZIteXUbJ4A05rMk25Sidj0TjTgt8bE+G995VnHYd2rZWVAfI9tN2Yj6
+	 QlfTEVTRPxfj49+0L9mmj0hkdKOOBzKWlQAASdLsiloOkZNeZvyWVxcYCFmA5Cy/A9pOP
+	 sXYN4Wv1ZAYY5a98qW9HufD60+OXeM1ash/zccOMf4pvyj5jUcFUXdsBQa2HKZvQX4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327451;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327454;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TYu415siaYjezmGP/l5jh6/t5GiJQiqBq1wDtff5+n8=;
-	b=lbgljj0DdfZTz0XMoB+MA1qIZL5p3tDxg20l9NyoBnyrV2UWOY5vw5V0p5RfBKc1GLqC
-	 Crl60Jb7LaX1RcVwIRkZRRuFk9gSqqUovugGs2YT13JskFajT9TyDjhUzVOiJDWe7Pd4W
-	 sLuIP5yRrvKm/CBzCruSzFScoQiGvJYBDgddwZomeLm9FltsgOydsfPguw8L3cM9O8wB9
-	 F0WDnHWNArMeHkmd4A0436pdyiJH4z19hpXg2kbFXb/xg7bmZi6QeKbM/0xo4vfVaKv4Q
-	 H5978KBGQqXE2T0jJ/RxLeN1+bUGmBmvdvJe8UXlbSSCc9Y8iv5BflO3bfLgX2VmjWg==
+	bh=0wJmbMVPbbHTLF3NQP8jLxfZGzWqVLmMGDwueQFPtPs=;
+	b=RbL8ZQTXbBz+3GGVuANPSPd0UB2Ym6EEbDPEvCWOV33/LK2to3p02FskpyoNPdCsjVe0
+	 NDiWCPUWXfmabsGDKLB66k+oxEtJjzRGQvMdGcS2dfh0RjijPgV/cuJqHfnQ1JEFSb69s
+	 diJNRNY39PrZVgK/dLHo7lKvHiDAI6fiTsBeZc9iSwDr7TEoH+Mw5GcS+plk2c/gKUGi8
+	 wu4gVSVb4xssX+EnpZd56qIViBjcjGlz4m7IK/a3Ae1iJa4SgyTqBlykzJYAOlpMeWtVt
+	 j+aT/nnXs4Q5vEQ9dJV7Dk9LWXkaCcdTFrBHNLlalOo49z3uQ6oGa9Kbul8rC7xwpqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNCexnbj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aRagFB2/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2B0606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99606606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNCexnbj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FDFE1F0089F;
-	Tue, 10 Nov 2026 16:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aRagFB2/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D7C1F0089F;
+	Tue, 10 Nov 2026 16:17:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327450;
-	bh=TYu415siaYjezmGP/l5jh6/t5GiJQiqBq1wDtff5+n8=;
+	s=k20260515; t=1794327454;
+	bh=0wJmbMVPbbHTLF3NQP8jLxfZGzWqVLmMGDwueQFPtPs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CNCexnbjPN2HHPrE6f4af/Ntm4PD1SWGJ9Je1PQDm5EUzLWnOTFU2LjoJKe0QRbXY
-	 gyCQj7QDxAVuYaypdydLbxZ4ghx353AVPFFFN9BhXx8E1tAJ5aU1sgFdLVz6jKmmAR
-	 DhmDB63IqLL64QbLfhTCYcr9KDbZM2RSPomqOYHhCUwKc25efeGatUaNtwZsM1TGhj
-	 lVR9ES5tyqShj/5wbVA+E53ImGUH5DG/Ffc+8cK3PPIrtz25Q77tL/KsphXkNIX5Vi
-	 7NBWZiNXUoY+k+GM6gHsng1hLO1lwf6MNsHqolPdsb3VxhhiXUHZ43eNXcveM3fFHm
-	 ztAb2RItNBwAw==
+	b=aRagFB2/mh0xJTHq+58uZu/leHIRy+gmVJrWjec27S1EjAi5s+4BDEisJqLFoAFhe
+	 310UES6I14uZECsg57av+DvH0hKVcxTaqRLGdgfPj1+ZnSzHGgplVAXx73WlOC5fvT
+	 7xiKiHu7dWaGrhv0G6RBFC0VFGiMMLKsLjXq2ch1G+Go2rngk+NgtNrFyL4SZdlxHr
+	 tRANAnvtp3ZfBdFRibug05FZoUNv2BZIqSPsp52MYwlm61Gz/yFkSuBWz4C/DmXSqt
+	 aMs/AX+M9a7JF0GwVlamVWEE/RYR2oXTUI0TXK6Rm+4W8KBKtI2PUYIyk/NPXVr3N7
+	 EBN7JSqpa9f/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Peter Zijlstra <a.p.zijlstra@chello.nl>,
+	Rik van Riel <riel@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: arm64: nv: Move L2->L1 switch on interrupt early
-Date: Tue, 10 Nov 2026 11:17:28 -0500
-Message-ID: <20261110161716.2411878-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
+Date: Tue, 10 Nov 2026 11:17:31 -0500
+Message-ID: <20261110161710.2414839-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051141-failed-6.18-21d3b33234eb@kernel.org>
-References: <20261107051141-failed-6.18-21d3b33234eb@kernel.org>
+In-Reply-To: <20261107052606-failed-6.12-4590752e20aa@kernel.org>
+References: <20261107052606-failed-6.12-4590752e20aa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,118 +73,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Marc Zyngier <maz@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 21d3b33234ebbb675c2a2a0fa7b12d2d83953d7a ]
+[ Upstream commit 4590752e20aa393cc0d4fe538c0747d14a98c97a ]
 
-NV request generation to switch from L2 to L1 on interrupt is buried
-into the vgic flush code, while we should be able to deliver requests
-as early as possible.
+generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+resulting in it trying to ioremap anonymous folios, which especially
+the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-Similarly, MI generation happens *after* the need for a request has been
-evaluated, which means we potentially delay the maintenance interrupt by
-a full exit/entry cycle.
+E.g., with a CoW mapping of a PCI BAR:
 
-Move these two things to happen much earlier in the entry code, and make
-sure the MI generation and PMU interrupt serve as input to the request
-switching back from L2 to L1.
+ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+  Call Trace:
+   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+   mem_rw+0x2a1/0x670 fs/proc/base.c:912
 
-Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-2-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: retained the maintenance-interrupt recalculation guard to accommodate delayed nested VGIC register synchronization ]
+But more generically, we should disallow access to anything that looks
+like ordinary RAM in the system: including allocating memory (e.g.,
+alloc_pages) and mapping them in a VM_PFNMAP.
+
+For pages with an online memmap, allow only pages marked as reserved
+(PageReserved). This also includes memblock allocations, however,
+distinguishing them from other MMIO is tricky, and nobody should really
+be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+do not care about).
+
+So only allow access if there is no online memmap, or if the pages are
+marked reserved. Reject other pages with -EINVAL.
+
+Note that, just like other pfn_to_online_page() users, we won't care about
+concurrent memory offlining; mapping memory that can concurrently get
+offlined is highly dubious.
+
+Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
+Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
+Cc: Rik van Riel <riel@redhat.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context to preserve unsigned long protection handling with pgprot_val() instead of pgprot_t ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/arm.c       |  4 ++--
- arch/arm64/kvm/nested.c    | 10 ++++++++++
- arch/arm64/kvm/vgic/vgic.c | 11 ++---------
- 3 files changed, 14 insertions(+), 11 deletions(-)
+ mm/memory.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 4e0db01a528a8..1cf6b60382003 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1225,11 +1225,11 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		 */
- 		preempt_disable();
- 
--		kvm_nested_flush_hwstate(vcpu);
--
- 		if (kvm_vcpu_has_pmu(vcpu))
- 			kvm_pmu_flush_hwstate(vcpu);
- 
-+		kvm_nested_flush_hwstate(vcpu);
+diff --git a/mm/memory.c b/mm/memory.c
+index 564c0ce0aa6d7..379ebbb834565 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -6567,6 +6567,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ 	resource_size_t phys_addr;
+ 	unsigned long prot = 0;
+ 	void __iomem *maddr;
++	struct page *page;
+ 	int offset = offset_in_page(addr);
+ 	int ret = -EINVAL;
+ 	bool writable;
+@@ -6575,6 +6576,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ retry:
+ 	if (follow_pfnmap_start(&args))
+ 		return -EINVAL;
 +
- 		local_irq_disable();
- 
- 		/*
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 92853a343c429..9e1ce558fb7e9 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -16,6 +16,7 @@
- #include <asm/sysreg.h>
- 
- #include "sys_regs.h"
-+#include "vgic/vgic.h"
- 
- struct vncr_tlb {
- 	/* The guest's VNCR_EL2 */
-@@ -1879,6 +1880,9 @@ void check_nested_vcpu_requests(struct kvm_vcpu *vcpu)
-  *
-  * What follows is some slop to (1) react to exception routing / masking and (2)
-  * preserve the pending SError state across translation regimes.
-+ *
-+ * Also generate the maintenance interrupt state, and finally check that if
-+ * we need to take an interrupt targetting the guest hypervisor.
-  */
- void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
- {
-@@ -1887,6 +1891,12 @@ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
- 
- 	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
- 		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
++	/*
++	 * Reject anything that looks like ordinary RAM, including anonymous
++	 * folios in CoW mappings or allocated kernel memory. Note that we
++	 * cannot distinguish memblock allocations from non-RAM reliably, so
++	 * we cannot easily reject them here.
++	 */
++	page = pfn_to_online_page(args.pfn);
++	if (page && !PageReserved(page)) {
++		follow_pfnmap_end(&args);
++		return -EINVAL;
++	}
 +
-+	if (!vgic_state_is_nested(vcpu))
-+		vgic_v3_nested_update_mi(vcpu);
-+
-+	if (vgic_state_is_nested(vcpu) && kvm_vgic_vcpu_pending_irq(vcpu))
-+		kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
- }
- 
- void kvm_nested_sync_hwstate(struct kvm_vcpu *vcpu)
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index 7c8ec44824157..23720e1131b40 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -969,7 +969,7 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
- 	 *
- 	 *   We do that by placing a request to ourselves which will
- 	 *   abort the entry procedure and inject the exception at the
--	 *   beginning of the run loop.
-+	 *   beginning of the run loop (see kvm_nested_flush_hwstate()).
- 	 *
- 	 * - Otherwise, do exactly *NOTHING*. The guest state is
- 	 *   already loaded, and we can carry on with running it.
-@@ -977,15 +977,8 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
- 	 * If we have NV, but are not in a nested state, compute the
- 	 * maintenance interrupt state, as it may fire.
- 	 */
--	if (vgic_state_is_nested(vcpu)) {
--		if (kvm_vgic_vcpu_pending_irq(vcpu))
--			kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
--
-+	if (vgic_state_is_nested(vcpu))
- 		return;
--	}
--
--	if (vcpu_has_nv(vcpu))
--		vgic_v3_nested_update_mi(vcpu);
- 
- 	/*
- 	 * If there are no virtual interrupts active or pending for this
+ 	prot = pgprot_val(args.pgprot);
+ 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
+ 	writable = args.writable;
 -- 
 2.53.0
 
