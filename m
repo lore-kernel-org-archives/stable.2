@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352227;
-	b=k3NluNysfbShwzmULUBdfrBiDvIHM19n/2lrE6o2VesTl0JPFXL+l2sgVx+De3XHIOyu
-	 nCYb/hExetLoXRAoyI7/lnH/YcVxdqmpvg2xP1Jg1dvPsMQXJxe52tB01eopjfjzQ8EQv
-	 cPa4TW7kQjGG9LRiNJ0FOsMk+p15dttrpxcx2cxZR/p1wOhOnHu8zU5pArspgFLhEY0Rg
-	 anyihR2UD90MIf9X5P29h/aSMsQym2Uk2ylxCU+n4cV9Spfn3LNfgkEE3Znco2a+UuSoV
-	 Wa3RtZD5sg/9ZPN5T+WMDrbuJpNKIOCXy2jjFFWBYZoEdHY3dPPzzXhE3TdDBuUhw5Q==
+	t=1794352232;
+	b=dLwLZpYzBDWrrlNLCTrHm92O8CGjv//HqOMmkl5Zfs8C7npcc9XarxSMGKPTdpHPjZF2
+	 9lmito8hmkMwolSOGhZj5f/ipR3I7dsJzQiqmCSaUcYpFH+sOiIvMPAbDFUBuCiOiKEfi
+	 0PnRT49Z1IVbJ++lOAejlIxx2Je4uOR1DlI+yoskrIlmHuzK7+gwnNuc7gIj4vTWU/fHb
+	 PqJDgz9Nmm/wReeIIGdePifpkC8eGH605LD7n2HCqrPjJRvG3lEyXTAop4h3XsDgmuQxy
+	 NzK/xp9O/pl867iJ2UV1BTBk4GdF4vcphzFgJd77VGwsV+rT2Ulg8il913RFYUyi7Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352232;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lePL0iZFaAO88EQjqdEFaCXprrwH9BB8JKk7jS7jytI=;
-	b=O6p1ho66774aFi6SFTIALfJVNdF3+ecR5blRhS2+LOCmdLmfVP72baywlDyRbi2qydu/
-	 m1FmhRsG/nPhXNwn9+zVafi+O9fibd9kZrHz8pdwTBorwg+dcbKoWQ8MBXgfXUat6qJt0
-	 nNA7oKlGuRZPSpnw0Lgt5tWuIA5ED8du+fKsSVlZeUoKW6RQkRhXqs62Mfi24C1pmx/tv
-	 RSh59gfEqoobRNwOHOi+8tR7TSLmGHZY/qgdU2nx173wnF/LPxt0nMxWoCPSoZjNd1iUb
-	 TCyiJqjf9N1TDqK2p2ESjgMPu3SH+nLqhQixDzhKoIKUBv47oJsZJxzF7+y/IDt7cFQ==
+	bh=c1B0dn18Qed3bPHIA1tdIQvNE9DxWsvMpyyprSuEvGk=;
+	b=NVQ2MxPF72RjZJkZsmApH59RhA0InhrlP1YEtm3VEsiTQbvDU6GONPT9WZST/XUJ1Azs
+	 S4jLTnESgyGzx3FMJBqUKRXlui8Yyyx3KPbE3y3563DJ5gmyht18okghWLuta7yiPXQik
+	 ErOZyYG0rpY9FsXfdJJwxcc8tSlvDt1w0EBi/8+u1v0vCLZb073ptzj+HPMJn7M+nUJJR
+	 CWvOL8Cy/Ux2D8JZMSqTM2L+Mr4CWxxJNXSmoam5P5hr26iEQlmCMTQsxPrinr8KTbE70
+	 22jVakUrExl2Bn35FuIEQ84YGYjLHTbVNjn+w5l4Ni0tJngVGEtOvwJGHDWWVS7dERw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ND0bXJl3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GVixg/Ww";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C26606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9116606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ND0bXJl3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650C61F0093C;
-	Tue, 10 Nov 2026 23:10:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVixg/Ww
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9741F0093C;
+	Tue, 10 Nov 2026 23:10:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352226;
-	bh=lePL0iZFaAO88EQjqdEFaCXprrwH9BB8JKk7jS7jytI=;
+	s=k20260515; t=1794352231;
+	bh=c1B0dn18Qed3bPHIA1tdIQvNE9DxWsvMpyyprSuEvGk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ND0bXJl33vlrRBa3aQvfZpXCIon1+vmq510F9PvsZLKI255aAC9a88odCVHiTFa2d
-	 XNlRTJDlsVHJgNbCsayaPvsodZkrotlIUCrjaK2Wrt2hs+trOC1OE8xTuWjJWR/Qif
-	 Edi0KHyg//D38xU4wAkC9Opis9+pIQcvg6Ln4pQiPHj1WN+TdWt1FRgBvOd4hjkCuP
-	 asc6CiZOVOeqttm93/1KDXso6tD/VbBUXsgbNlkdskv0mpaqggCo23Cl2tzL7d1I80
-	 9mwjW3xb8AfJTV02XC/kc8gcO0RAePwtisqUIKMRZJVDfVRJ816idkmEONCG4IzR5u
-	 grtTkkWnSqyng==
+	b=GVixg/WwUnfiqLx+hIonWX/rlGMKpb8qv8sdpmbv7SxYFV3JR3dDRPHrAzJ3ekoxh
+	 ZM26olJO4bo6gEVFhluLN2WR3UVyp70gzI8NrYX5EfGGux7F9GjbW3G3j9WYm+ggg4
+	 f/HeC67PRWf9xhJ6BTAG93/BxicwXHERCiTOJwvc4to25ZVLPenBhf0AHkqNg7nWSz
+	 tjQJX/QyhG9j+fbaC4pKcIat+W0nq2murzD1rFD1YfG5KzkfxDrawmnCEp+22tQu1I
+	 ZeSGDgZ/Av/k09gc+UqP5TLNEJawJELQ9tryKyvqPnZHoG43uqohpQ1ygK5Ok24mfH
+	 Ie41VuboHFcxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Sebastian Reichel <sre@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in hdmi_read_pin_conn
+Subject: [PATCH 5.15.y 1/7] power: supply: generic-adc-battery: convert to managed resources
 Date: Tue, 10 Nov 2026 18:10:24 -0500
-Message-ID: <20261110230953.74481-1-sashal@kernel.org>
+Message-ID: <20261110231006.55369-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053244-failed-6.6-6cf3ab38b0d5@kernel.org>
-References: <20261107053244-failed-6.6-6cf3ab38b0d5@kernel.org>
+In-Reply-To: <20261107060802-failed-5.15-8ae5a3f40045@kernel.org>
+References: <20261107060802-failed-5.15-8ae5a3f40045@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +62,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Sebastian Reichel <sre@kernel.org>
 
-[ Upstream commit 6cf3ab38b0d53d41f00fe594b2986849bdf994ae ]
+[ Upstream commit 93297ef6920f071ed109cbdcf640edfc693d0456 ]
 
-hdmi_add_cvt() stores each converter's NID into the fixed-size
-spec->cvt_nids[] array (used only by the Intel Haswell pin-connection
-fixup), but only when spec->num_cvts is still within
-ARRAY_SIZE(cvt_nids); the num_cvts counter itself is incremented
-unconditionally regardless of whether the store happened. A codec
-that reports more converters than cvt_nids[] can hold therefore ends
-up with num_cvts > ARRAY_SIZE(cvt_nids).
+Convert driver to use managed resources to simplify driver code.
 
-hdmi_read_pin_conn(), on the intel_hsw_fixup path, copies num_cvts
-elements from cvt_nids[] with memcpy(), so once num_cvts exceeds the
-array size this reads past cvt_nids[] and writes the resulting
-garbage NIDs into per_pin->mux_nids[].
-
-Clamp the copy length to the actual size of cvt_nids[] instead of
-trusting num_cvts, which is also used unbounded as the size of the
-separate, dynamically-sized spec->cvts array and must not be
-truncated at the source.
-
-Fixes: bce0d2a80e42 ("ALSA: hda - Allow unlimited pins and converters in patch_hdmi.c")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261008085122.9442-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: adapted the patch to the older HDMI driver source layout ]
+Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Signed-off-by: Sebastian Reichel <sre@kernel.org>
+Stable-dep-of: 8ae5a3f40045 ("power: supply: generic-adc-battery: fix status with no supplier")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_hdmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/power/supply/generic-adc-battery.c | 81 ++++++----------------
+ 1 file changed, 23 insertions(+), 58 deletions(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index c2b00b6768ac5..7900cdca0a096 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1355,7 +1355,8 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
- 	snd_hda_set_dev_select(codec, pin_nid, dev_id);
+diff --git a/drivers/power/supply/generic-adc-battery.c b/drivers/power/supply/generic-adc-battery.c
+index 0af536f4932f1..535972a332b32 100644
+--- a/drivers/power/supply/generic-adc-battery.c
++++ b/drivers/power/supply/generic-adc-battery.c
+@@ -23,6 +23,7 @@
+ #include <linux/iio/consumer.h>
+ #include <linux/iio/types.h>
+ #include <linux/power/generic-adc-battery.h>
++#include <linux/devm-helpers.h>
  
- 	if (spec->intel_hsw_fixup) {
--		conns = spec->num_cvts;
-+		/* spec->cvt_nids[] only has ARRAY_SIZE(spec->cvt_nids) slots */
-+		conns = min_t(int, spec->num_cvts, ARRAY_SIZE(spec->cvt_nids));
- 		memcpy(per_pin->mux_nids, spec->cvt_nids,
- 		       sizeof(hda_nid_t) * conns);
- 	} else {
+ #define JITTER_DEFAULT 10 /* hope 10ms is enough */
+ 
+@@ -269,14 +270,13 @@ static int gab_probe(struct platform_device *pdev)
+ 	 * copying the static properties and allocating extra memory for holding
+ 	 * the extra configurable properties received from platform data.
+ 	 */
+-	properties = kcalloc(ARRAY_SIZE(gab_props) +
+-			     ARRAY_SIZE(gab_chan_name),
+-			     sizeof(*properties),
+-			     GFP_KERNEL);
+-	if (!properties) {
+-		ret = -ENOMEM;
+-		goto first_mem_fail;
+-	}
++	properties = devm_kcalloc(&pdev->dev,
++				  ARRAY_SIZE(gab_props) +
++				  ARRAY_SIZE(gab_chan_name),
++				  sizeof(*properties),
++				  GFP_KERNEL);
++	if (!properties)
++		return -ENOMEM;
+ 
+ 	memcpy(properties, gab_props, sizeof(gab_props));
+ 
+@@ -285,12 +285,13 @@ static int gab_probe(struct platform_device *pdev)
+ 	 * based on the channel supported by consumer device.
+ 	 */
+ 	for (chan = 0; chan < ARRAY_SIZE(gab_chan_name); chan++) {
+-		adc_bat->channel[chan] = iio_channel_get(&pdev->dev,
+-							 gab_chan_name[chan]);
++		adc_bat->channel[chan] = devm_iio_channel_get(&pdev->dev, gab_chan_name[chan]);
+ 		if (IS_ERR(adc_bat->channel[chan])) {
+ 			ret = PTR_ERR(adc_bat->channel[chan]);
++			if (ret != -ENODEV)
++				return dev_err_probe(&pdev->dev, ret, "Failed to get ADC channel %s\n", gab_chan_name[chan]);
+ 			adc_bat->channel[chan] = NULL;
+-		} else {
++		} else if (adc_bat->channel[chan]) {
+ 			/* copying properties for supported channels only */
+ 			int index2;
+ 
+@@ -305,10 +306,8 @@ static int gab_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* none of the channels are supported so let's bail out */
+-	if (!any) {
+-		ret = -ENODEV;
+-		goto second_mem_fail;
+-	}
++	if (!any)
++		return dev_err_probe(&pdev->dev, -ENODEV, "Failed to get any ADC channel\n");
+ 
+ 	/*
+ 	 * Total number of properties is equal to static properties
+@@ -319,25 +318,24 @@ static int gab_probe(struct platform_device *pdev)
+ 	psy_desc->properties = properties;
+ 	psy_desc->num_properties = index;
+ 
+-	adc_bat->psy = power_supply_register(&pdev->dev, psy_desc, &psy_cfg);
+-	if (IS_ERR(adc_bat->psy)) {
+-		ret = PTR_ERR(adc_bat->psy);
+-		goto err_reg_fail;
+-	}
++	adc_bat->psy = devm_power_supply_register(&pdev->dev, psy_desc, &psy_cfg);
++	if (IS_ERR(adc_bat->psy))
++		return dev_err_probe(&pdev->dev, PTR_ERR(adc_bat->psy), "Failed to register power-supply device\n");
+ 
+-	INIT_DELAYED_WORK(&adc_bat->bat_work, gab_work);
++	ret = devm_delayed_work_autocancel(&pdev->dev, &adc_bat->bat_work, gab_work);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "Failed to register delayed work\n");
+ 
+-	adc_bat->charge_finished = devm_gpiod_get_optional(&pdev->dev,
+-							   "charged", GPIOD_IN);
++	adc_bat->charge_finished = devm_gpiod_get_optional(&pdev->dev, "charged", GPIOD_IN);
+ 	if (adc_bat->charge_finished) {
+ 		int irq;
+ 
+ 		irq = gpiod_to_irq(adc_bat->charge_finished);
+-		ret = request_any_context_irq(irq, gab_charged,
++		ret = devm_request_any_context_irq(&pdev->dev, irq, gab_charged,
+ 				IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING,
+ 				"battery charged", adc_bat);
+ 		if (ret < 0)
+-			goto gpio_req_fail;
++			return dev_err_probe(&pdev->dev, ret, "Failed to register irq\n");
+ 	}
+ 
+ 	platform_set_drvdata(pdev, adc_bat);
+@@ -346,38 +344,6 @@ static int gab_probe(struct platform_device *pdev)
+ 	schedule_delayed_work(&adc_bat->bat_work,
+ 			msecs_to_jiffies(0));
+ 	return 0;
+-
+-gpio_req_fail:
+-	power_supply_unregister(adc_bat->psy);
+-err_reg_fail:
+-	for (chan = 0; chan < ARRAY_SIZE(gab_chan_name); chan++) {
+-		if (adc_bat->channel[chan])
+-			iio_channel_release(adc_bat->channel[chan]);
+-	}
+-second_mem_fail:
+-	kfree(properties);
+-first_mem_fail:
+-	return ret;
+-}
+-
+-static int gab_remove(struct platform_device *pdev)
+-{
+-	int chan;
+-	struct gab *adc_bat = platform_get_drvdata(pdev);
+-
+-	power_supply_unregister(adc_bat->psy);
+-
+-	if (adc_bat->charge_finished)
+-		free_irq(gpiod_to_irq(adc_bat->charge_finished), adc_bat);
+-
+-	for (chan = 0; chan < ARRAY_SIZE(gab_chan_name); chan++) {
+-		if (adc_bat->channel[chan])
+-			iio_channel_release(adc_bat->channel[chan]);
+-	}
+-
+-	kfree(adc_bat->psy_desc.properties);
+-	cancel_delayed_work_sync(&adc_bat->bat_work);
+-	return 0;
+ }
+ 
+ static int __maybe_unused gab_suspend(struct device *dev)
+@@ -411,7 +377,6 @@ static struct platform_driver gab_driver = {
+ 		.pm	= &gab_pm_ops,
+ 	},
+ 	.probe		= gab_probe,
+-	.remove		= gab_remove,
+ };
+ module_platform_driver(gab_driver);
+ 
 -- 
 2.53.0
 
