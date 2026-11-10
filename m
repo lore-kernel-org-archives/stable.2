@@ -1,93 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794308122;
-	b=r0zJpD9z1rvIwKmhL+OaWnBPSSYmtVP+Z220FW8YsqhfOtmx9eQkZ2qMqMeEbNVU4jHq
-	 QiTyQ4eYKFowkeFOdfxfG1hsWueuHDfscyt75DKBocPC/tnIlMZ5PFC5DYVA34zCh7P4b
-	 8ZrKOEjzzDxLjDCILNAHhtVSjZJiIwOM7jtup2HA65yeks7dF3sBjZM0mBY7zsQGA5HcY
-	 pk0WslUj+EyZQpZlPJYUPZQ0RZghENEVSzhOxLDNMjpdzLaMQgIl39pnE4/+o24T1zQ7M
-	 b4gymkvqPyAf5U1O1DrtCHlN8nnpmE01gzgILlnFBRxGgmKtXg/Rtki8qmMXXJLI3Ww==
+	t=1794308303;
+	b=5XYT3FctbFG/n+in1s5WVlXkI3a1NnJR/3NUBZGHNpIOwmfW2f+EKy9htsyDydW+7Q4M
+	 4Zt/s2n8EtyvB5vFeZpRek0u8t20AiyP9Ckz6Ua1cW/zn0a6fdRcGKi/uW7SakDigQ1Yp
+	 ACEJeBuL6N5VXe2JEKBS6oRQ/ywbeiwaaF5wd1Wc5fhjBvDDI0wLZjBjEXqabSq+BIFTF
+	 ayEgH7EdlLwsXhTvjdO4R0Mb50w1GjZ8e5+gGEXTFmJeNWjeTRP1sleWK4wYwgefZryvY
+	 CBIkFFxUYVnWgPDFFWB1T0m6pgthc03l1cRRuB5+P/Y1y61Nq6tcVZSSaMq3hJiHD+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794308122;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zm0AvIJOmifRUI1enIfd/m/5IgggtCc9iLAPgeXHvVs=;
-	b=ERmhVuj/DpvShK0v30NhzQCs5vjrtK6hJw0c5v10sK4vqgSv9vcXtE7SxuqnRdNuyTcf
-	 b/IZ/3UxlyopDLs+1Ra/AjN5cPuwi8uFdRPjEVxMpgbokx8Onra00VbOOBj4+pbIjWB/Y
-	 ZpERclBXPmyn7LJby6D6CDumFLEy/0JMtx6dRvgoudrcY3YcstSoQmlp5LQLcCAFrC9dH
-	 m1hdD0M8cCHjKgus/2n9mx1b0r7/dkaPjBoyqDdW06X6WY0C06IM24XV9u3h8i8cl65/5
-	 K/bKjdW7No89E2tLNumjDQkpR4pvdoIhhlskYR8/CAtGXShGqAqiWy2IXVnydyASplA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794308303;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6KUDHj9lnMhAg+nHCDiWshEywbgwlvmxhCYqrSNjsow=;
+	b=cXRJzsF1yvb261BuwIgcwjEUnqg4+J9nOMv4Ln6+WbjBe8p2ZTekU5Rx+gJstrtJ1jVP
+	 0pJcIvs6yd7PZ/kzBvmNbdFRuPjmSfKZmj0Hd0HUhleVXTpc9pVjFFXfU/aApj6nEhIBH
+	 gug9rSuS0i3DrrRIj0xmo3MPTUzFXoSjvMMzfXpQUoe1ITmPg2cuq5Ko++Rk7iG6KDVGJ
+	 h1O5iEtEBTXWBtagE8xJhkraIT7Ul8D4UM3Rhbrt0wrT5UqUZ9Wh1QTzhh5g2ESLY/ECc
+	 C0Rx46B6cRUycHbeeHoQC0h4C47jXmMLvMu9hE4680OiRpsDzV6e7KF8YOub3HWmllg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M136hZAl;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="SDKOEak/";
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A288060A263A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 10:55:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A288060A263A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308CA606A31C;
+	Tue, 10 Nov 2026 10:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M136hZAl
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36dbde64409so3821842eec.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:55:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794308121; x=1794912921; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zm0AvIJOmifRUI1enIfd/m/5IgggtCc9iLAPgeXHvVs=;
-        b=M136hZAlbjy3s7YeZo1K7+86Ec8kn8yxcbu1/dOGL1CUN7tX534EL7MuqNB3LkbOQU
-         ZYV1mKhMazwV+tyVUu8xfIr7durTHTJSnf8L40VUlERTQ04eFnZXV1q31Fys5o02I8FL
-         ybyP0HuaJPZavSsEutaRWMOGTVGHQwi4ISjB+ahMZtFbbGiO98kllAmBh8f2rMSki7rT
-         UfKbfWeIvYEgsX5R8BHuiJ6fM4DCOAUT+4nqFlmYpbw1HMZ4thpTDQBlDJunkHghpmC2
-         s0X6fZ9dG2jcR602sAewdaELfL+gbRiCLz5vvNh/FjmhMqMyJFfTLiv8GK7zhNNx5sUi
-         jbdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794308121; x=1794912921;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zm0AvIJOmifRUI1enIfd/m/5IgggtCc9iLAPgeXHvVs=;
-        b=uvFSshybV7De5l5NWWxav1041MxjDQegvN5kWF7clZSBGep3VHJ30kNc0vZ5DVd8Az
-         c6+4lsoS+y5iSzJWl5CHKMWoOtCXCHgx68X62gNoWconvILtAvG5APc8KkxKqNtPXqWV
-         OdTzXLb3HYrPn3GeiNCMoloC97g43jZlPqyMftv7eIzg3TfPlRlFG2Kj8/mBh+votmhd
-         il3LyDniGfQi6A08fdq5y4zgkmmIKjNCOp+YmKlsb4rsNWSJoJrcNmskXqvlSAk/okpu
-         2+JHuGloRoKRi94A5DZ3jrMnN7xgsJ5ZAGVeFyVrYKmqEImHlbW7Dyh1MSu8Sf0WgJWO
-         1v/g==
-X-Forwarded-Encrypted: i=1; AL+hErGLAmqpglq3HK6MiLB8R3m1zm3B5VfM4aTHYTcxiPmECzvYY3Y5LcAitk0/O2gmU3OHeJmlozA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+okObeOUIBZOiTGy0yvW8H9p7waXNsDosMWWHSukHh6o19SefJ
-	qnrmd2DA92oMGZamDdm40xW/4sjGEV7g44vg0XtMNdvL0ckpGS5POblm
-X-Gm-Gg: AYBFou2HH7jRH8AaxiwIDT14O2kNDVepws6nTzvsHhOzuX8SGXdZw9O1ygmN1v3GUmH
-	Bv04PIQslLrUJgpaCft8LyWnvkNYDtgvTxTxrOqBjybhpKvrV6nC0XMroGtcs1S9FxJXT/mGV+Q
-	0Sa5uWQHIoI7t7RgtQavEXnYebhjKtD1xlHQAVivO5jPrdcdU8jb9NyGRcpU8Bqm9ntG7+dT9FS
-	7UQ2Xiasu3z6zPGiA9Bpn0GRuJ5Dn8q7ddmTHD/1qUzlyq2kT0cgkuvTk6Qabt1oxdcPPIMZ2oo
-	z2a063zKvWDbgj93QFT9jEbsC/nWSJcOvLDRcLIB0kFvP/ASJYx6KWC79fdIEmvN7AM3B3KDnPQ
-	sVFNQPjKV2LQA6OVa9ErGCtz+mIIm2ASexYmvXNhggWGcEyjMCzAMcmHgGfZ9zjOHCf4D1V4ut1
-	zawjRyH2VFfUCQShPt6t7XewxrOt9Q5TUCWQSZ7w1uBByk132SHeMot/H7ErrJjKRaT/FIPXYdM
-	0zUn/2W49FMoMESGKpZhtflcxkz3A/1xvqG6I6uVK+lR/eBGtQeN3RRw+489RlHViH8JMaFw8/5
-	jRmfQp0VP1voV+zFum3al3PPaXOKZwPGdAQoy9WsmH/Z5J4x
-X-Received: by 2002:a05:7300:d20d:b0:369:f9da:a70f with SMTP id 5a478bee46e88-37520120294mr3038993eec.17.1794308120201;
-        Tue, 10 Nov 2026 02:55:20 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3752060c4b6sm6358690eec.15.2026.11.10.02.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 02:55:19 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SDKOEak/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794308302; x=1825844302;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rzWOvcnMo7ieIYwX8DGNSb4d4JD47sR79PHePk6OGc4=;
+  b=SDKOEak/K+/eE2mERxsjjHJ/iP5wKsI3ETPMdgU48lw1pqVd1F2Mh3HJ
+   MfSDGWQvyFuHTg95V18aa0CfgPy05Ne6JCxzRHBsTFc5L5oQpa/nLU3cd
+   2QKBpiDIZ8OXQfrJwIiI0YL6Ut1WKAcMwyfU8Y6vLATATG0+bmgxXNP2a
+   8wqjPYgujaJnkeFwbkkxcRak9U5Ud16o62K2v3eVmiea04vXe9k8jcrhP
+   +0BzCKdkukr2W6wJQ8WjYNj/rRNf/jfdfswalwWmEr7ihUVINQyTC+Lka
+   XJuBavTZtiMP1qUsA80Ar/qta4MLjZLFGO7QvvBS6ohyb1CTTFMWe88UX
+   w==;
+X-CSE-ConnectionGUID: p4/Sz5Y2SG60ypDhIw48fQ==
+X-CSE-MsgGUID: 0xkYZtCRRyq8WeWnPDgNBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2955687"
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="2955687"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:58:21 -0800
+X-CSE-ConnectionGUID: svM277OqS7Givrs42fzSFg==
+X-CSE-MsgGUID: niEuaG0QT1+pIEt/DikLVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,205,1787036400"; 
+   d="scan'208";a="7993273"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.244])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Nov 2026 02:58:17 -0800
+Date: Tue, 10 Nov 2026 12:58:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Johan Hovold <johan@kernel.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] intel_th: msu: drain the window-switch work on removal
-Date: Tue, 10 Nov 2026 19:55:11 +0900
-Message-ID: <20261110105511.2488300-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
+ deregistration
+Message-ID: <avL4x_clSegBu-Qi@ashevche-desk.local>
+References: <20261110085125.2535508-1-johan@kernel.org>
+ <20261110085125.2535508-3-johan@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,50 +89,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110085125.2535508-3-johan@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-msc->work (msc_work) is scheduled from intel_th_msc_interrupt() when the
-next window is locked and the trace has to be stopped from process
-context; the handler dereferences msc and calls intel_th_msc_deactivate().
+On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
+> If a client has both a primary and a secondary firmware node, the
+> secondary node is accessed via the ->secondary pointer of the primary
+> node.
+> 
+> Use a temporary variable to track whether the firmware node is a
+> software node and remove any software node before dropping its reference
+> to avoid a use-after-free in device_remove_software_node() when
+> accessing the secondary firmware node.
 
-msc is allocated with devm_kzalloc(), so devres frees it after
-intel_th_msc_remove() returns. remove() deactivates the trace (so no new
-work is queued) but never drains a msc->work that the interrupt has
-already queued. That pending work can then run after msc has been freed
-and dereference freed memory (msc->buf_mutex) -- a use-after-free.
+...
 
-Cancel the work in intel_th_msc_remove(), after the trace is deactivated
-so it cannot be re-queued, before the device is torn down.
+> Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct device")
+> Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregister_device()")
+> Cc: stable@vger.kernel.org	# 6.16
 
-Found by static analysis; not runtime-reproduced (needs an Intel Trace Hub
-with the MSU in stop-on-full mode and a window-full interrupt racing
-removal).
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Hans de Goede <hansg@kernel.org>
 
-Fixes: 615c164da0eb ("intel_th: msu: Introduce buffer interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/hwtracing/intel_th/msu.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Can we keep these two Cc out of the commit message?
 
-diff --git a/drivers/hwtracing/intel_th/msu.c b/drivers/hwtracing/intel_th/msu.c
-index 84d99d7..902e7d2 100644
---- a/drivers/hwtracing/intel_th/msu.c
-+++ b/drivers/hwtracing/intel_th/msu.c
-@@ -2174,6 +2174,14 @@ static void intel_th_msc_remove(struct intel_th_device *thdev)
- 	intel_th_msc_deactivate(thdev);
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
 
- 	/*
-+	 * msc->work (msc_work) is scheduled from the window-switch interrupt
-+	 * when stop_on_full is set and dereferences msc; deactivate has stopped
-+	 * the trace so no new work is queued, drain a pending one before the
-+	 * devm-allocated msc is freed.
-+	 */
-+	cancel_work_sync(&msc->work);
-+
-+	/*
- 	 * Buffers should not be used at this point except if the
- 	 * output character device is still open and the parent
- 	 * device gets detached from its bus, which is a FIXME.
---
-2.43.0
+...
+
+>  	struct fwnode_handle *fwnode;
+> +	bool fwnode_is_software_node;
+>  
+>  	if (IS_ERR_OR_NULL(client))
+>  		return;
+> @@ -1066,14 +1067,14 @@ void i2c_unregister_device(struct i2c_client *client)
+>  	else if (is_acpi_device_node(fwnode))
+>  		acpi_device_clear_enumerated(to_acpi_device_node(fwnode));
+>  
+> +	fwnode_is_software_node = is_software_node(fwnode);
+> +	device_remove_software_node(&client->dev);
+>  	/*
+> -	 * If the primary fwnode is a software node it is free-ed by
+> -	 * device_remove_software_node() below, avoid double-free.
+> +	 * If the firmware node is a software node, its reference count
+> +	 * was decremented by device_remove_software_node().
+>  	 */
+> -	if (!is_software_node(fwnode))
+> +	if (!fwnode_is_software_node)
+>  		fwnode_handle_put(fwnode);
+
+Do I understand correctly that this is a dup with the platform device case? Can
+we make a helper (on swnode API level) to cover any other existing or potential
+case to avoid similar issues in the future?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
