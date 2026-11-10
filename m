@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330807;
-	b=I1TEwB+j6Caf6oMqcN8f2SabaT55QqAvsM7O7EzzoH2Zae491s13JMziA59MaChuWAuA
-	 YXPvR9CrIp7leLe3EaQ8G+zToPUSHwp1eJUk2JsCb1sFdqTS4OKsGb/qGea/o30Rif8YK
-	 wFkDowQ+TwTwdcJaFrbGtaavqKkc21wxOBxgDyQlaXpao0slpx+RNAtpxJstP4l6m3BA0
-	 8AwOKvHTWAuBDvAWdvV6JDXL7R3OYVmN0meiSUNO57xmA4RoP7xgZgEn9Ws6weGgTaPYF
-	 EimQw4MCCjRA2uJufteBSpDRAlPc5vgrtSizXGDZqyCmC1Tq8bdO+CB1KIDwm0R3Kwg==
+	t=1794330808;
+	b=bhFdJjYjm/azWSI44gJV4rRI228ztHCjD4p58z87A6CDLwWB8MI5yvcu0Ulqg65zqkTO
+	 WaOJvRlRaC8YbxTIVwPshFFq6TalsKr4Fr73DUeot2iTMUNfulTamN3e9uctVuORcQMuc
+	 91l6WMFJRsW7qVhT10DFYHH+Ok08M3QlGeuqMJFzbfPdL3PGc1qmVcYd7DNHUPX+lb997
+	 OWuY28LPo845xbDEqEl205R86S4muQRKKgNkzvOin4U62irJXc4udlPASUg9fzYvOeCml
+	 mHabZ5pimguCGiNN/spqJMA1DBEIfnx0EBV2F7zniSkV7nrYrZA8Ck2vjbZUeNMj9XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330807;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330808;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=72g33SxzWXKHvB52lrU844hZ7EwB55XERmVH9+vwAt8=;
-	b=E1+Jk/f5ngZhS8wEp1ISnzQ4Ltat4bcjRwzUpmlzsI9z/BgniYY4etWyR7vD4UeAY4UR
-	 2e7tQUdHmw7mfgNSgevj+4s8dFGAz5mqfxdIOYG5Tfadw7ko3fLfzSHsb5mh1JV5eQbyC
-	 Q7s8NtGygU0rpOUOPQurKP6AnfOPW+IicN/u/pRs+6vNNazDn4NI/1fheowUF2AghYV9z
-	 s0PBQ0pA+w+eQHdXxnFt9mGrpGmCgMKsBfwDlANFofxhWDq+9NR7Lkii+VfG2feUskauR
-	 6MQjuHiIP4UdDB5EFZxmQsvXTNogItFfgOaBO5ASOkHEimkvnNITbz3dNHMrKoJTAOw==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wv57SvEhtw+n3t2dtUIge/nW0BO9aXNcUcyn8Lq9bbQ=;
+	b=VAz9Fd92IT+MXiK5S3s1LL5YsHvs97EfgqFlDKgtYQQVkCwdV6oiG7R/X7Fiep3pUpQC
+	 oQ8mTrL9YMgcEqiU5aXI/GdN+u49JOqGHTwWwZH9JarqjUDZfpvl1tRPglcK2hzZd09D5
+	 c0940XFXj/L7SJUc0Ma6N4y7MkU5QH9+IFB4DHQc6pkc+X/lilMMV/fv9BLPCfZY9Zbvb
+	 jQmb8ouIDP/vHnHczHfRMoNSSzG3ah74T3ZUmfxQAXFJMiLf6NZEyw7bKolq2nCpwbrxH
+	 LpESAFRxJ4xDA0aHg2JtBaTwO/SQDpXq15wHb09pf+QJqlEdtRjpNeziIp08GJ/MMUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+6TjpdM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g3+/y8qs";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5870F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:13:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858F0606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+6TjpdM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2EC1F0089F;
-	Tue, 10 Nov 2026 17:13:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3+/y8qs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD121F008A5;
+	Tue, 10 Nov 2026 17:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330807;
-	bh=72g33SxzWXKHvB52lrU844hZ7EwB55XERmVH9+vwAt8=;
+	s=k20260515; t=1794330808;
+	bh=wv57SvEhtw+n3t2dtUIge/nW0BO9aXNcUcyn8Lq9bbQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C+6TjpdME801kyrd4GLu4HahVKsxuEku1TIqO/Um3IpXl8T01BBXPqtcrcgECUGX1
-	 tftKHCiNRqxcIyNlBkjDk3Z4wgQLpsChsNRWAQUWvr2OgbE65eNg3sidt55MRnl9wI
-	 XGusKCVfYd3zX3pWawnAqS1XAZ1dG91Z6lHxbuPYuFCtNL/vd5HnawYtH1o433l30G
-	 dauyz+pCAQ83hXCqrNYH2hfyx0XQaeOQ26fe6iBgGrnLo+qEj28rOyW+QtTvHaf95M
-	 BMxIxNql1eGWtti1KFJztiUAOrLRAY9cH3KiLbsitMyxbBFzBnljB2E5G7ItotRcuc
-	 SE7X0XfuwLtOA==
+	b=g3+/y8qsGTOv/VeE9OjZZgYCbwEDR4qohLyKtQTdHlXA7pcN/UOkGuFViX3Y9jO+e
+	 BzKbbJJVHXvbX1m367wYNKZ5FkZ7JRaJvFVO9Cy13ssODzwhH6jawUV9hDZ6n1QklL
+	 nt2ABKiTkZc9iIX0MZIJC9nw40o7HKTyJj4grv2TiOoMcaq2JFYUrYRhDRd/KY/eAI
+	 2ZsOYAY7bvylz6bGDJb81qDkmCJhWmDfB5Tn06OfJV+Ud4F+PHekeKvS0cObjhzqAX
+	 opdZ0AbbFGj68KpV8BCLLq4hz9f9LO6U6tMPIlv1Q5TyIe7So2wmsXUbQ8sB1Kvr+H
+	 UAsEaObqH5auQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>,
-	Jacob Chen <jacob-chen@iotwrt.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+Cc: =?UTF-8?q?Sven=20P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/3] media: rockchip: rga: fix clock cleanup
-Date: Tue, 10 Nov 2026 12:13:22 -0500
-Message-ID: <20261110171316.2718911-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/3] media: rockchip: rga: use clk_bulk api
+Date: Tue, 10 Nov 2026 12:13:23 -0500
+Message-ID: <20261110171316.2718911-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060145-failed-5.15-a875c43dd95e@kernel.org>
+In-Reply-To: <20261110171316.2718911-1-sashal@kernel.org>
 References: <20261107060145-failed-5.15-a875c43dd95e@kernel.org>
+ <20261110171316.2718911-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,47 +62,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+From: Sven Püschel <s.pueschel@pengutronix.de>
 
-[ Upstream commit 254f3337ce2575bf94f1fb40cc40fdbc70371116 ]
+[ Upstream commit a2a4f69fd2e333bacd17d1788eb5211cb6f373cc ]
 
-Fix this smatch warning:
+Use the clk_bulk API to avoid code duplication for each of the three
+clocks.
 
-drivers/media/platform/rockchip/rga/rga.c:734 rga_enable_clocks() warn: 'rga->sclk' from clk_prepare_enable() not released on lines: 734.
-
-The reason is that aclk should be disabled/unprepared before
-sclk, instead of the other way around.
-
-Signed-off-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Cc: Jacob Chen <jacob-chen@iotwrt.com>
-Cc: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Reviewed-by: Michael Tretter <m.tretter@pengutronix.de>
-Signed-off-by: Mauro Carvalho Chehab <mchehab@kernel.org>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Sven Püschel <s.pueschel@pengutronix.de>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Stable-dep-of: a875c43dd95e ("media: rockchip: rga: quiesce IRQ before releasing m2m state")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 65 +++--------------------
+ drivers/media/platform/rockchip/rga/rga.h |  6 +--
+ 2 files changed, 11 insertions(+), 60 deletions(-)
 
 diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index bcbbd1408b368..02c2ea2b42a50 100644
+index 02c2ea2b42a50..f9da4ec3eb362 100644
 --- a/drivers/media/platform/rockchip/rga/rga.c
 +++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -717,10 +717,10 @@ static int rga_enable_clocks(struct rockchip_rga *rga)
+@@ -693,48 +693,10 @@ static const struct video_device rga_videodev = {
+ 	.device_caps = V4L2_CAP_VIDEO_M2M | V4L2_CAP_STREAMING,
+ };
  
- 	return 0;
- 
+-static int rga_enable_clocks(struct rockchip_rga *rga)
+-{
+-	int ret;
+-
+-	ret = clk_prepare_enable(rga->sclk);
+-	if (ret) {
+-		dev_err(rga->dev, "Cannot enable rga sclk: %d\n", ret);
+-		return ret;
+-	}
+-
+-	ret = clk_prepare_enable(rga->aclk);
+-	if (ret) {
+-		dev_err(rga->dev, "Cannot enable rga aclk: %d\n", ret);
+-		goto err_disable_sclk;
+-	}
+-
+-	ret = clk_prepare_enable(rga->hclk);
+-	if (ret) {
+-		dev_err(rga->dev, "Cannot enable rga hclk: %d\n", ret);
+-		goto err_disable_aclk;
+-	}
+-
+-	return 0;
+-
+-err_disable_aclk:
+-	clk_disable_unprepare(rga->aclk);
 -err_disable_sclk:
 -	clk_disable_unprepare(rga->sclk);
- err_disable_aclk:
- 	clk_disable_unprepare(rga->aclk);
-+err_disable_sclk:
-+	clk_disable_unprepare(rga->sclk);
+-
+-	return ret;
+-}
+-
+-static void rga_disable_clocks(struct rockchip_rga *rga)
+-{
+-	clk_disable_unprepare(rga->sclk);
+-	clk_disable_unprepare(rga->hclk);
+-	clk_disable_unprepare(rga->aclk);
+-}
+-
+ static int rga_parse_dt(struct rockchip_rga *rga)
+ {
+ 	struct reset_control *core_rst, *axi_rst, *ahb_rst;
++	int ret;
  
- 	return ret;
+ 	core_rst = devm_reset_control_get(rga->dev, "core");
+ 	if (IS_ERR(core_rst)) {
+@@ -766,23 +728,12 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+ 	udelay(1);
+ 	reset_control_deassert(ahb_rst);
+ 
+-	rga->sclk = devm_clk_get(rga->dev, "sclk");
+-	if (IS_ERR(rga->sclk)) {
+-		dev_err(rga->dev, "failed to get sclk clock\n");
+-		return PTR_ERR(rga->sclk);
+-	}
+-
+-	rga->aclk = devm_clk_get(rga->dev, "aclk");
+-	if (IS_ERR(rga->aclk)) {
+-		dev_err(rga->dev, "failed to get aclk clock\n");
+-		return PTR_ERR(rga->aclk);
+-	}
+-
+-	rga->hclk = devm_clk_get(rga->dev, "hclk");
+-	if (IS_ERR(rga->hclk)) {
+-		dev_err(rga->dev, "failed to get hclk clock\n");
+-		return PTR_ERR(rga->hclk);
++	ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
++	if (ret < 0) {
++		dev_err(rga->dev, "failed to get clocks\n");
++		return ret;
+ 	}
++	rga->num_clks = ret;
+ 
+ 	return 0;
  }
+@@ -949,7 +900,7 @@ static int __maybe_unused rga_runtime_suspend(struct device *dev)
+ {
+ 	struct rockchip_rga *rga = dev_get_drvdata(dev);
+ 
+-	rga_disable_clocks(rga);
++	clk_bulk_disable_unprepare(rga->num_clks, rga->clks);
+ 
+ 	return 0;
+ }
+@@ -958,7 +909,7 @@ static int __maybe_unused rga_runtime_resume(struct device *dev)
+ {
+ 	struct rockchip_rga *rga = dev_get_drvdata(dev);
+ 
+-	return rga_enable_clocks(rga);
++	return clk_bulk_prepare_enable(rga->num_clks, rga->clks);
+ }
+ 
+ static const struct dev_pm_ops rga_pm = {
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index 5fa9d2f366dc4..0825622526c7b 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -6,6 +6,7 @@
+ #ifndef __RGA_H__
+ #define __RGA_H__
+ 
++#include <linux/clk.h>
+ #include <linux/platform_device.h>
+ #include <media/videobuf2-v4l2.h>
+ #include <media/v4l2-ctrls.h>
+@@ -68,9 +69,8 @@ struct rockchip_rga {
+ 	struct device *dev;
+ 	struct regmap *grf;
+ 	void __iomem *regs;
+-	struct clk *sclk;
+-	struct clk *aclk;
+-	struct clk *hclk;
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 	struct rockchip_rga_version version;
+ 
+ 	/* vfd lock */
 -- 
 2.53.0
 
