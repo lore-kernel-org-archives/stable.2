@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794354165;
-	b=1twu273Nahr004ekTQd10vSfa9RoOk+a23109p9bJ6toSkv8WwglTLi+6Fy9Zp0JH93q
-	 ekYMATe+f8cHNYjR1F0yoy/QkuppvZZU+Q0UHEQ8krrPlC5Tnl8+6jRYFgZd1oBBfoO1h
-	 8uvEJQM7HDxES+mWAXVQkGBRLU4jZExR75Qmg9hBvR5ZKwfQRCesLf6Tyjy2OF1oPKKls
-	 db/aA1l9QlS6UuYN53k+rZhV4cA0ln+CxGbStdRcdjFd+XN+5yOzIsjCUlX2antt2BXay
-	 PYnDPidMbPRJNYrwL3FwA23Q+oforjuzgmLPXPv6TxkvB0Oawv5cJ/+wOcV5BE3iUJg==
+	t=1794354348;
+	b=O9LcJHfbbvFrlVNwO+Xgy2hXpvC71WoVj4qE3ByCgzVorB9kTT+xykeTY4w/wl/aquh2
+	 P4cE0zH5GsHfvZtxib7Cq2k7WzGkViOYcV68eOMAmk5ohBQaouEqS6goeLw/pDj4TYBPj
+	 WiAvLTn4MLKlZDI2iMj1WeYQDJGTbke8zle3Gork+evQasTc4vdfvp83tD9rlw9uu1V0b
+	 gt9dEtlvqC/cMYzZGFTzxvRZDDEdeI7GWLmKCXxZPOAdYfgSZSDdhp4szNTitYeBlx3pW
+	 xVi+8xbWx0CRWJrOSHQozekVinr11TKt/jTbOnXNeuC/jHBDGCiw9oZiLDTIt6Qv/Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794354165;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=3nGEek8g2CZHIc0G3LoLtkmR46Nf0n+WieD6W1QGbQo=;
-	b=pEUtuDcpgmAyE4rmrHRclSvdskPlskxD9RTIMvKkvQgZUYKpmZG7kefv+zt68NvQKivg
-	 4JFXGm15u+nhgtIFjMhi4hRFg9wKxj19cyn7Ji9LwxmqbMgPTcOK/ouooIuYz0tL5Ax5W
-	 Py+RXWxjPooNi6YPecfhPLinGclrDYUQ+SC9n2ld2T2dRNmDXv2QxN+rG9IuD0MIfADbn
-	 9okc9+F0+tgX+HiHJ650TbMyHHjn2wyIbaI/ULOSbzwjBzDOtSb9EBaTttjzteVdup4AQ
-	 0n2+NyfdPUkabjHsaD2tCwsmad5OgJCwnvJVS43ryKF5qDZ9bfn6csRoiYxfcNHLbyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794354348;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=4Lsy1zyB+gZPkYYNWFQCNSOq76EenYc9gTefr5K/zps=;
+	b=3i9KvgjyVBuvjgGJO79kx5HwPdWn12wzxZgdH0iU8wa2MmfGcpK0zTdHqUfmQ868ebxJ
+	 GE5SgfpYqX/YAex14ZjWryOxiEzauudS6KkuNpE5zJ+5LArtzkC9LI6LHkzsxrRvaOZr+
+	 OC3VBxOJyTXMB7AZoTuR5AWs0SfRg8Ek6lQ49ggnSoGUbv70Gmd/y0N3qOxFZ4sBUzKMS
+	 YViroQwloo/FBdoyejX8253e8OE38O7wLs/kfowG03ns0PZyPyNgromKro0xdSU4TFfpZ
+	 /g41yFLTrVh02Uj9SUYRdXJxmjmcpGq/Z73SRzQsD/SrkbGvlQwgj//rT+zGkV0rYBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lc5LA7IM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kxfmtrg6;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5DF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:42:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3D9D0606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D9D0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lc5LA7IM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3501F0093D;
-	Tue, 10 Nov 2026 23:42:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794354165;
-	bh=3nGEek8g2CZHIc0G3LoLtkmR46Nf0n+WieD6W1QGbQo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lc5LA7IMw2FKmglEg5KVpn5zuqAm5YljRNj+fTjKTbr7tsoWicf8azv8kTkr6JZjV
-	 06YjhLbbVssNKQm+3UIZpACCpJEVZsjWzrFekvmC54mXTYv8aEI5+Y0iikM5JDbI2J
-	 Gc2L4PEnRQIkLxScNxHb5YM/3LoyWgigdIS4lLu4vzldKwAxW7QIhEilg8ncXu6z2b
-	 bXMNTXjrlzXNO43lMIy/UYIlZYXhg5s5dT/72cCrLoizRiEdNWkI0UmJkfvwLK7nzO
-	 YGQWY35NHQY/MvN4vK3/fH7WFjOmhbVsYIOPh+SIbbgZN1v4toHstY28HsIED52F80
-	 NXNdKY3Yn0QZg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Rong Zhang <i@rong.moe>,
-	Navon John Lukose <navonjohnlukose@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] platform/x86: lenovo-wmi-capdata: Do not stop the AC notifier chain on error
-Date: Tue, 10 Nov 2026 18:42:42 -0500
-Message-ID: <20261110234203.175636-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110234203.175636-1-sashal@kernel.org>
-References: <20261107051305-failed-6.18-3b53e691e907@kernel.org>
- <20261110234203.175636-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kxfmtrg6
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a210470b49so21224825e9.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:45:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794354347; x=1794959147; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4Lsy1zyB+gZPkYYNWFQCNSOq76EenYc9gTefr5K/zps=;
+        b=kxfmtrg6hICMHR/In+Quy6FtPzrP0qEjJrogJcgX5m8fZd5Cc4i6EkbuNbBfat6HvA
+         jYkEgpBgf+8KWakwxcFHTzqJxNFY/eZvLGXUeqnTzZP00Ya/pRdKQB7a+85C3iU/TzSK
+         l9pM1aazZib8wTjm0WiZ3wKNSWR7gXoFKc0TAWO0BQUFzJ+AGiqNs1Ix/Vng7CWEknz/
+         H8UUTQOreCE6tBxpOwmpiHmwkp7CgXX/8S3RizmQ8Ghbs5xXZJ199iv7J+v8VjhXfOqX
+         4rnL8Gc+kUKAWqxL1eIN69C5fplCmdzM/AlrH6yMbKBH1CdNLEOLT1YHQbtR0EApHuMe
+         IKkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794354347; x=1794959147;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4Lsy1zyB+gZPkYYNWFQCNSOq76EenYc9gTefr5K/zps=;
+        b=FST9fcm35q+iHVrOXFFeO4KXPuPO6VzUIHoshxvOuwL7+PQ3VQiZFRZLvRsUGiiOb9
+         sU6teB/Ve7emqbsxFB1ZMw/CwoIl4mmRSk8MUucD++8A+HGzQrzynp8fA/7iQpKNhEIc
+         2tVoRZ176onxLxDjSG8Bf6MdXZOgiESWPgTWru2Q60HYrChPLEpnbNdDyzHBPnA7dNXJ
+         +WdV7wXhUi/0Dquaa3+zDu9RIPUN5sGM33lUqYfvTGIglAHQs8bZqbAMxZbJGE3vz7w3
+         1n2MVKdbsAXicD+Y9OmV1SVivAgJ5v3rUQIUwl+C8YoOjtmunu90B2D5bnBzIxw/zLZa
+         Fd0Q==
+X-Forwarded-Encrypted: i=1; AL+hErH2HHsXn5Mp+tPocfYWZx+NGdJF3n/mh32inn8Pd49AYgdiW+AjFxXafOoiIPhuj3KtwnOzX+Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9K7Jbldnc8nBkVEc1x8pBMuFWK4uHA3t3IFrxjv6nazIz0OKOY
+	tN/SJfQJG5ItqyPCmKpfP7eUjOMOmvlO5XM+HCCSS+jndTNLRjcy8bd0xadu
+X-Gm-Gg: AYBFou0znFnWLeGobkzLPDqxz6Zs/cWX8m9kTR2jcWg9yVtzAuceOVOpP1IjD8HKXPF
+	drJ4PhZPfz3udhd+IYjWRtnk2BHq+Q4MaTB5DHImSxWmcuKLFX6VAR9f5NOLIgBOpVwZZZBSljk
+	ZCVQMkfFKvd3c/W5tYeCy7mPJXwCwFL4wELQJwleuhngOA+lcZ8IUmrtcDxjIXyL+QiFW8P6DLs
+	m9wc+m4q4KNAC01VXBE8MIMskpnHLKPNnu5aAX+zwTm9TUhfLtv5GCQkxZ6+93gW/TM0unaLW0P
+	h/08yj4lp45WtuRcu2xovRIKD1b83NX7ntq1XpZZos9Le7MdWGY60gGcwHkangwdtMDOBnpf7lB
+	J31GKE0OEahWlfhBX7R/4VaaB+anV0mf3l5CfF75zJ+9tsk+69cHMohkZPe43l0cm8Jfkd44Erx
+	9z0+EeFLrvFZa6imr2YAKuWtv3P5iZLZIuXR1TQ3UKBLrmvPGGlVY8l2iREsxlUO5X99mNdD9em
+	HW6smCa6+gY9LGsTo5eEuXxm8PcO8vb6CPCLb9gjhiYwJA+/jNPC2U3Ri6Mcvm8BbcJeAv2tweg
+	0BXWtrK3
+X-Received: by 2002:a05:600c:4ecb:b0:4b9:ff69:19ac with SMTP id 5b1f17b1804b1-4ba093811d3mr8644335e9.11.1794354346600;
+        Tue, 10 Nov 2026 15:45:46 -0800 (PST)
+Received: from debian ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4983f7801bbsm7532615f8f.5.2026.11.10.15.45.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 15:45:46 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: Azael Avalos <coproscefalo@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: toshiba_acpi: validate ACPI object type in
+ tci_raw()
+Date: Tue, 10 Nov 2026 23:45:45 -0000
+Message-ID: <179435434594.2276199.18274627858522339873@talencesecurity.com>
+In-Reply-To: <7ac2114f-f4a5-c94a-0578-7659a7a291eb@linux.intel.com>
+References: <20261102181827.1989460-1-tristan@talencesecurity.com>
+ <7ac2114f-f4a5-c94a-0578-7659a7a291eb@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,76 +103,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Rong Zhang <i@rong.moe>
+On Mon, 9 Nov 2026, Ilpo Järvinen wrote:
+> Your ACPI validation patches seem to lack information whether these
+> actually have been observed to occur on some device.
 
-[ Upstream commit 3b53e691e907086672b72d0544e4bf27efd4250d ]
+No, this was found by code audit, not observed on hardware.  The
+tci_raw() function accesses the returned ACPI object as a package
+without checking the type field first.  If the firmware method ever
+returns something other than a package (e.g. an integer or buffer),
+the code interprets whatever the union holds as package.count and
+package.elements, which is undefined.
 
-Returning NOTIFY_BAD to the AC notifier chain stops it by preventing
-later notifier blocks from being called, but our error is non-fatal for
-other AC notifier blocks, which should continue to consume the event.
+The sibling hp-bioscfg driver already validates the return type in
+the same way (biosattr-interface.c line 159), but toshiba_acpi
+predates that and never picked up the check.
 
-Return NOTIFY_DONE and add a dev_warn() on error, so that the AC
-notifier chain continues. This also aligns with hp-wmi.
-
-The function documentation was copied from elsewhere and makes no sense
-here, so correct it as well.
-
-Fixes: e1a5fe662b59 ("platform/x86: Add Lenovo Capability Data 01 WMI Driver")
-Cc: stable@vger.kernel.org
-Tested-by: Navon John Lukose <navonjohnlukose@gmail.com>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Rong Zhang <i@rong.moe>
-Link: https://patch.msgid.link/20261019-lwmi-wmi-new-api-v5-2-71557d28d058@rong.moe
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/platform/x86/lenovo/wmi-capdata.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
-index ba843b6604b06..c7fa1c2969561 100644
---- a/drivers/platform/x86/lenovo/wmi-capdata.c
-+++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-@@ -188,13 +188,11 @@ static int lwmi_cd_setup(struct lwmi_cd_priv *priv)
- 
- /**
-  * lwmi_cd01_notifier_call() - Call method for cd01 notifier.
-- * block call chain.
-- * @nb: The notifier_block registered to lenovo-wmi-events driver.
-+ * @nb: The cd01 ACPI notifier_block.
-  * @action: Unused.
-  * @data: The ACPI event.
-  *
-- * For LWMI_EVENT_THERMAL_MODE, set current_mode and notify platform_profile
-- * of a change.
-+ * Refresh cached capdata on AC status change.
-  *
-  * Return: notifier_block status.
-  */
-@@ -213,8 +211,16 @@ static int lwmi_cd01_notifier_call(struct notifier_block *nb, unsigned long acti
- 	switch (event->type) {
- 	case ACPI_AC_NOTIFY_STATUS:
- 		ret = lwmi_cd_cache(priv);
--		if (ret)
--			return NOTIFY_BAD;
-+		if (ret) {
-+			dev_warn(&priv->wdev->dev,
-+				 "failed to refresh capdata on AC change: %d\n", ret);
-+
-+			/*
-+			 * Our error is non-fatal for others, and we still want
-+			 * the other event consumers to process it.
-+			 */
-+			return NOTIFY_DONE;
-+		}
- 
- 		return NOTIFY_OK;
- 	default:
--- 
-2.53.0
-
+I can resend as v2 with the changelog explicitly noting this is a
+hardening fix found by code inspection, if that helps.
