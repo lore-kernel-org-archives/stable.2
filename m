@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272832;
-	b=HMwmnQm4ynj2TSbIhid5efa4vr8fPJiIRdZSSnPZnQn1wizK9vyfTVu/RirSV03JaqOJ
-	 tebjNRZqGfPTIhx3lO8wNa2DhQ+odM3QQqiN9DANryexA1muliByhu2AXS40B745Ngqe4
-	 zElkn0L1rXL0F9jUSKtfFc58QyNYPnRAYL5T5k8gMGWmoPeiwiu0Ns272BhenTapkhRRU
-	 d7gemqanFdacztbZvlFg8SYZGYii0TuFTF9Q5TzIADxFyCl8DsvondTn1RX9gyBRS/UT9
-	 ChpQspdXALF3I0/YUHYQLp23VKYswhXf0YgUWGEVv7DYkv1VqbQVhFdgqfluvK4d+DA==
+	t=1794272834;
+	b=a+ftohPm0Hf/b0nCUTHuRKn8+Q46O0Xz7i8gi4L2eAmnwytyQfUwzpE4SwpUU2wTF+Jy
+	 HKiARsbXCmpSWgRqdnWTQOO6XjS9RGwzvqCfFb+0fxoe0XoD99gISrwWmvwdz1YiXk264
+	 3bI6CSfeYxRuIDBFLucbuPMpDri+JlVwfPqaQg1RtHD7jxUIXzr+Vee6ZvnkBPMfkiJkH
+	 XAi5Y9Hd5MAmNoDtut0FF4lizUqdSG+FSuVWMADqJ5L7hxXwoES1bYsSk46WOZR/+CH+B
+	 5uxiw5ArZ3C6ff/vXAzWTHo0VgX550HhMVC0rTftgS6A2A/Bpiu7+W1HknBctfgKNXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272834;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5JtG7a/MBH7jp4qQS32dYW0C8omUrmzLMcl3UCbzrEA=;
-	b=PPOIW7Tpeo3lGQMQBxiB5MKBMaaET/MtsWpwaasPricnnG4kYmRknq1uY5IPJNAdj8f5
-	 +QRMJG3kkIhDcraIBH2Vmn5JnAQlvF2EFqtHG5JssmeEb4uI0cPW1TkDuYDUlbZsVtgHv
-	 vbCyQPr1g+OxXZHMg5hArPgF8WHhem9WV7QTRpxR6EZkU2f2QP1efNQDbLGhPCy396yV/
-	 X6Ali+ZB+adUe8Aw/SFCuGbpBAT9bXQD31DmM5Q/qebH77fWjpMPXXsGwW4yzxAVc9fTf
-	 tEp2bfJ0xqBARGKK+29sUhm/5ZbxWpjkX2tdZf06t4MxWHhkkzB93dMR7VpecVsoDPw==
+	bh=L/6ADhTRO+NXkW6t/df8mrQKtwhjVWpspK54SV5p09A=;
+	b=Wz9QvWvga5zfK5bkR4QzjE5eMTiDF5w9ak9ylqm9U19z2tC3MjweUxAROM7NckSBWqZo
+	 5ewp+Qpp4hBH73Uqp+5+hDH72QP6Sm0vWQ76neutyymxDGyEKwR5wVD9awOno1qBPBKQC
+	 rMA30QF64VUkhV5wbrwPu/LlmOQp4c3GVKi9xUca41W8eZFrzCiJnd5Cram+sZUWAwFNS
+	 Di33fCkq5i37kK4OVd3ikwFEo6s7wMD2RUjgym8dMxMr9hr4bO4YtpLGYjlkZVgyFOQCT
+	 WdI+KJpdcQjlUeN1Ht6Nc/j6diuFhKCsTmFdluzbktD7rVLHJoy52IaoBS9CoepGjHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htL7PgJj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGGH8CK3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49FF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D48A606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:07:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=htL7PgJj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91471F0089F;
-	Tue, 10 Nov 2026 01:07:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGGH8CK3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933361F0089F;
+	Tue, 10 Nov 2026 01:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272831;
-	bh=5JtG7a/MBH7jp4qQS32dYW0C8omUrmzLMcl3UCbzrEA=;
+	s=k20260515; t=1794272834;
+	bh=L/6ADhTRO+NXkW6t/df8mrQKtwhjVWpspK54SV5p09A=;
 	h=From:To:Cc:Subject:Date;
-	b=htL7PgJjIjug97k3VcMMQEFxXRc9FrxyWjln5GSAhjR/GNR6/I6CgTMMqyAZEm/Rl
-	 VHz70CuYkXAQbvU1quRFlNs81v5lFnzXE3odZZV7yekbQ4ZLoXhxVdbLeWOsk7YfMt
-	 PLdEhwrKd2dI5dttK+v+AT0K1YKUnVJqlH20A1akgqPbeIq31ir5s632CbccW56UgL
-	 xUMpXCusNS+iH77uFwz4vFe9RkPjxB0t3/V6qVSrZlsGdOOM3P8jq23JkCp1g3ptN5
-	 /pMCOvsOAcr7byUBFYRqruk4X+Colg+F8cvdVvVecfwLLZKS2MYMSJXo+KMXlPKfhY
-	 BN11xj0nZj/OA==
+	b=fGGH8CK3hTlSnE9a2UeTkA1T1g2mGf7EPimb5yqYUUX/gCwCmZH0+JrNXYriaITCW
+	 uWtiSqPYHBw9CPoO4ZR6thRIpTgY9X12yK/cOuVAKjzUl1inW9AvTwWC9/01AH/hHY
+	 Iw8+SdJdukspawq0SWYWdgSPkH7FI01MQTcnVjpln5PaXOnPFK20Bf/+TXiTN3gCPO
+	 N2W9PSlaEaS+ep9iYGlVK+ULdx148Rzq3SC+ssJzeG3aEz3rotjjhsQ5ElIwpjo7BP
+	 MSDnEC5hk9h8lsH1RPnZ2Sw0Hj8gVw7YM8Pu03nHUmFp3ChBCiJ2vttL4yJN03Javv
+	 SdqEGE04vck4g==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	ljs@kernel.org,
-	josef@toxicpanda.com,
-	harry@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	usama.anjum@arm.com,
-	baolin.wang@linux.alibaba.com
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/rmap: handle device-exclusive entries in folio_referenced_one()" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:07:09 -0500
-Message-ID: <20261109200709-failed-6.12-f3c493d2f42b@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (sht15) Stop deferred work before releasing its resources" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:07:12 -0500
+Message-ID: <20261109200712-failed-6.12-5eab1e7f7ed1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,109 +69,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c
+git cherry-pick -x 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200709-failed-6.12-f3c493d2f42b@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200712-failed-6.12-5eab1e7f7ed1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:38 +0100
-Subject: [PATCH] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
+From 5eab1e7f7ed12893f3864fe46ffcd5a41a752d6a Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Fri, 23 Oct 2026 21:40:44 -0400
+Subject: [PATCH] hwmon: (sht15) Stop deferred work before releasing its
+ resources
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+The IRQ handler and regulator notifier can leave work pending after a
+measurement or notification completes. Neither work item is drained before
+its resources are released on removal or probe failure.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+Disable read_work before freeing the IRQ, since the worker can re-enable
+it. Use request_irq()/free_irq() for explicit teardown. Unregister the
+regulator notifier before cancelling update_supply_work and disabling the
+regulator. Apply the same ordering to probe failures.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
-
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
-
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
-
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 251eb40f5ccd ("hwmon: sht15 humidity sensor driver")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20261024014044.27853-1-mhun512@gmail.com
+[groeck: Dropped obsolete 'Assisted-by: tag]
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- mm/rmap.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ drivers/hwmon/sht15.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1131b76bbbc28..0faef46806e5c 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
- 	int ptes = 0, referenced = 0;
- 	unsigned int nr;
-+	pte_t pteval;
+diff --git a/drivers/hwmon/sht15.c b/drivers/hwmon/sht15.c
+index 7bb2105d1ae22..48d93c61345c1 100644
+--- a/drivers/hwmon/sht15.c
++++ b/drivers/hwmon/sht15.c
+@@ -31,6 +31,7 @@
+ #include <linux/bitrev.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/of.h>
++#include <linux/workqueue.h>
  
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		address = pvmw.address;
-@@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
- 			return false;
- 		}
+ /* Commands */
+ #define SHT15_MEASURE_TEMP		0x03
+@@ -976,25 +977,22 @@ static int sht15_probe(struct platform_device *pdev)
+ 		goto err_release_reg;
+ 	}
  
--		if (pvmw.pte && folio_test_large(folio)) {
-+		if (pvmw.pte)
-+			pteval = ptep_get(pvmw.pte);
+-	ret = devm_request_irq(&pdev->dev, gpiod_to_irq(data->data),
+-			       sht15_interrupt_fired,
+-			       IRQF_TRIGGER_FALLING,
+-			       "sht15 data",
+-			       data);
++	ret = request_irq(gpiod_to_irq(data->data), sht15_interrupt_fired,
++			  IRQF_TRIGGER_FALLING, "sht15 data", data);
+ 	if (ret)
+ 		goto err_release_reg;
+ 	disable_irq_nosync(gpiod_to_irq(data->data));
+ 	ret = sht15_connection_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_free_irq;
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+-		goto err_release_reg;
++		goto err_free_irq;
+ 
+ 	ret = sysfs_create_group(&pdev->dev.kobj, &sht15_attr_group);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "sysfs create failed\n");
+-		goto err_release_reg;
++		goto err_free_irq;
+ 	}
+ 
+ 	data->hwmon_dev = hwmon_device_register(data->dev);
+@@ -1007,9 +1005,13 @@ static int sht15_probe(struct platform_device *pdev)
+ 
+ err_release_sysfs_group:
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
++err_free_irq:
++	disable_work_sync(&data->read_work);
++	free_irq(gpiod_to_irq(data->data), data);
+ err_release_reg:
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ 	return ret;
+@@ -1023,12 +1025,16 @@ static void sht15_remove(struct platform_device *pdev)
+ 	hwmon_device_unregister(data->hwmon_dev);
+ 	sysfs_remove_group(&pdev->dev.kobj, &sht15_attr_group);
+ 
++	disable_work_sync(&data->read_work);
++	free_irq(gpiod_to_irq(data->data), data);
 +
-+		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
- 			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
- 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
--			pte_t pteval = ptep_get(pvmw.pte);
+ 	ret = sht15_soft_reset(data);
+ 	if (ret)
+ 		dev_err(&pdev->dev, "Failed to reset device (%pe)\n", ERR_PTR(ret));
  
- 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
- 		}
-@@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
- 		 * are. —they could be on active/inactive lists or on MGLRU. So the
- 		 * simplest approach is to disable this look-around optimization.
- 		 */
--		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
-+		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
-+		    pte_present(pteval)) {
- 			if (lru_gen_look_around(&pvmw, nr))
- 				referenced++;
- 		} else if (pvmw.pte) {
--			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
-+			bool young = false;
-+
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + nr * PAGE_SIZE);
-+			if (young)
- 				referenced++;
- 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
- 			if (pmdp_clear_flush_young_notify(vma, address,
+ 	if (!IS_ERR(data->reg)) {
+ 		regulator_unregister_notifier(data->reg, &data->nb);
++		cancel_work_sync(&data->update_supply_work);
+ 		regulator_disable(data->reg);
+ 	}
+ }
 -- 
 2.53.0
 
