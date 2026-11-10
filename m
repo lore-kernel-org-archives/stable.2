@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273828;
-	b=k3HmHYiyt0dbzBnkFZz41wvJ8f9vXguTsr+1zPsdeb1YZLeZlFlr+lWath6Q7KQNk3r2
-	 gUgu/ooSCd0T5osurZBDZ79zwoLWfpvdsCI9ILC6nRmsVztJCDcreB64ALuz8E48fIYbA
-	 VsljIoWw0x6u7jb5aHT3l92gjR/QWteg0Vuv9qVxRlL8D47GqYvVtXTK5PnG8HXJFMks1
-	 t91QHO2YM4dp4onxSHDBcYa3U8E2qQK+kiYH9ArUxzkT6180AlkjdI9CtR5QXi1vsuL4E
-	 xQQv+RjpH4L2w9s9dHzid/KUbR26AdaO2gnn2sn4QP6yPaUXYDmaCOYwwiX+ApmwBcw==
+	t=1794273831;
+	b=nvnH8W/zavXfTbIRCTBqy++Ykw7qw1hp5mZ8ay8HLRY21iQgajvmHpp2GZq1wK52FbxO
+	 p6uJPx8KEWLi8gjyz+efs3gBoCoaemTaHoy0I0zPvmsmplALbttNQseES9Vq4i7NDpojz
+	 Zq6fSuH8jI4qJ+edjfI0oE/B2TJZMxtNVAqzW0R7e9QECxTRiyVwYYdDi94vtTzzLua0f
+	 KhqQYbN/Qqtn1LOjVN85Pt0WwqfH5szTcZOgx+/98J1/Mw8GdG0R5F00q3FitWCBN5mqs
+	 HeH1PA9gIDYwO5T2SS8B1GUzr+AMMvZBsGgVcPpcsOgjd4R+4e6FNhSQD+IIGayklRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273828;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273831;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UTGKtLuOekVsgK0DizS2q8QxpEgE86qkFsoyNxtApQ8=;
-	b=P/cXN9WPLf7fl99J0BwCVFYGEUyvtBBWwxD0KCpe3+thoYDSgLuW+zWVavCWxAvepzgq
-	 4nBE7X/qSdNs7OauCO8yH/mUcxOPU8EMFFv9w2xcYKAenZty/6SWN9YELEBOfiOtEACFI
-	 MwfeNleMdAwQFQknHXy3n3T4ZHlSfw/ZWcwzs1B4ygMh5+30Sigai4INbdxBJtm7X1YcA
-	 5zCGU1Rj30WYb8dEiRAPa2cA/75KRSL520nzod9Qh16cAAwQRqo/FE/6Yj5sO9GYsF8FB
-	 t9nSxv2btGshZYVnYf7yxRKNYOcHTjujvxjMOzt0zmWhoEMx5LABs+FMEwkSY2oxdPA==
+	bh=ZaZyGtL7FjD0BsecUntZialrNmqUthcFRttx55ZWEn8=;
+	b=jG+F6wlMJzqXbaKrd7hh1XVuUl5Ee4DM+zx8AWIlO/K8I8/3otCQFAyqwQcsvB9+pes2
+	 h0UhKIMbxw5Pu4CkQNHcIJ0iNUkmZ//lJRI6CoQmik+ZXlr9hqCUlzN7rNhdF/V8X8ug6
+	 5M2LOXLRQN85CbgCP1L4ptZT4LftVVPTcEqHh+Uk1vFLuYEX8HNFXdShaRWk6hUsQHgbS
+	 oJ1+FzcEmVuojPq0XggPyFW84unTVYo+4XKMqisLxOwoEhF2ReONt4qcRA7ULSMD63B4e
+	 bOJPQQQwRgNMd6VM/GchtW6b0u+02sxVsRd5Mpndpij+AzBjNh4dUEcDpZkVOjH8+kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/MUeVfP";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGRoTgfI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A704606A332
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E91E60A260F
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/MUeVfP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18811F0089F;
-	Tue, 10 Nov 2026 01:23:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGRoTgfI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379651F0089F;
+	Tue, 10 Nov 2026 01:23:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273828;
-	bh=UTGKtLuOekVsgK0DizS2q8QxpEgE86qkFsoyNxtApQ8=;
+	s=k20260515; t=1794273831;
+	bh=ZaZyGtL7FjD0BsecUntZialrNmqUthcFRttx55ZWEn8=;
 	h=From:To:Cc:Subject:Date;
-	b=L/MUeVfPKKP3VQOuGYQ/fJkRWaHJ1+MnJAjQy7cJlUvE/6/CcHpgIbEaCIMVC0XLx
-	 ile3ecWKclh8tJ+xhbB+gMzVCCT5QpOIxM8ymeLdMcQh2JR2vdQVzs6vgoTnt4NX12
-	 a+NS+AE6+FJmj0AI9kKCxyfZXcYmo8lownHr7hmqQiWZG1w59PpqNKgkxQVxSNppB5
-	 WMcRJuFryex+tpEOX/JdGOSYr/yU5Ui1bIiidryHbKXaeaduhF0M3DCuEJF4cndGFu
-	 V6uBSHze24+YYJimKRjvAhFieXauSezKwf48ZG7dDZeLDVc84AJz3eN5CT2i8yRO4i
-	 q1A9eM1LqCBhQ==
+	b=RGRoTgfIV3fQvvY1pacuOTx0kjQbaXERZWbxuu0kZWBLbvD0Xnh4uF7A9WOhUNL77
+	 up0xtCjyQDqVJXgsHMp00znIn6jyk/IrdzHK26+iD1M5pr93gCUrmZeXzKdwlCXvHu
+	 nR9/Gx+pnp+/6X8nvo/+CTFX6CYCcyqPTlmy6gp4ZlmWq5SF5KTWZTMW7yBf/Mqov3
+	 zXZ4c4jm0k3E1XhRrKvyRBW8/RWKe6gMqaeQ38vQiDsbHArDmGr/iWb6w4nBK/xq1q
+	 79NmcVxJB2M/p4s6at7FGJ8jViGThRBoyXaCB3i9a9k0tLOBR+gjFineFMHedjhBse
+	 dQApebe5Jym6Q==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
+To: david@kernel.org,
+	josef@toxicpanda.com,
 	ljs@kernel.org,
 	pfalcato@suse.de,
-	usama.anjum@arm.com,
-	david@kernel.org
+	harry@kernel.org,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/memory: reject remote COW faults on PFN mappings" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:23:46 -0500
-Message-ID: <20261109202346-failed-5.15-8db6921cc07b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vma: don't leak the charge for stack growth" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:23:49 -0500
+Message-ID: <20261109202349-failed-5.15-b1ee87802111@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,82 +72,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8db6921cc07b74197a3866d62ed262b68aeadcf3
+git cherry-pick -x b1ee87802111156e27557e82acc31fa7dfc76e2a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202346-failed-5.15-8db6921cc07b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202349-failed-5.15-b1ee87802111@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8db6921cc07b74197a3866d62ed262b68aeadcf3 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:04 +0100
-Subject: [PATCH] mm/memory: reject remote COW faults on PFN mappings
+From b1ee87802111156e27557e82acc31fa7dfc76e2a Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:40:13 +0100
+Subject: [PATCH] mm/vma: don't leak the charge for stack growth
 
-When handling a COW fault without a normal source page (PFN mappings),
-__wp_page_copy_user() copies from the faulting user address. For remote
-faults, this accesses the wrong address space, resulting in wrong data
-getting copied.
+acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
+This can happen for read-only or MAP_NORESERVE mappings created with
+MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
+Committed_AS.
 
-For example, user_events updates an enable bit in the registering
-process's memory. If that memory needs to be faulted in,
-user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
-item. Placing the enable bit in a private PFN mapping can trigger this
-remote COW path.
+Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
+Unaccounted growth skips the overcommit check while remaining subject
+to the other stack-growth limits.
 
-Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
-current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
-
-The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
-the VM_UNPAGED logic"); likely, actual ways to get remote faults in
-there on COW PFN mappings appeared afterwards. But the fix is simple and
-straight forward.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: simplify comment and description ]
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-44-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/memory.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ mm/vma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 5392bcb1d24d6..ae8d567bc6ba3 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -3761,6 +3761,13 @@ static inline int __wp_page_copy_user(struct page *dst, struct page *src,
- 		return 0;
- 	}
+diff --git a/mm/vma.c b/mm/vma.c
+index acdf00346cda5..695d0be85ac86 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -3391,7 +3391,8 @@ static int acct_stack_growth(struct vm_area_struct *vma,
+ 	 * Overcommit..  This must be the final test, as it will
+ 	 * update security statistics.
+ 	 */
+-	if (security_vm_enough_memory_mm(mm, grow))
++	if (vma_test(vma, VMA_ACCOUNT_BIT) &&
++	    security_vm_enough_memory_mm(mm, grow))
+ 		return -ENOMEM;
  
-+	/*
-+	 * __copy_from_user_inatomic() only works as expected for local faults.
-+	 * Reject remote faults.
-+	 */
-+	if (unlikely(mm != current->mm))
-+		return -EFAULT;
-+
- 	/*
- 	 * If the source page was a PFN mapping, we don't have
- 	 * a "struct page" for it. We do a best-effort copy by
-@@ -4086,6 +4093,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 				folio_put(old_folio);
- 
- 			delayacct_wpcopy_end();
-+			if (err == -EFAULT)
-+				return VM_FAULT_SIGBUS;
- 			return err == -EHWPOISON ? VM_FAULT_HWPOISON : 0;
- 		}
- 		kmsan_copy_page_meta(&new_folio->page, vmf->page);
+ 	return 0;
 -- 
 2.53.0
 
