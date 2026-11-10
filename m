@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326678;
-	b=4Cvw7DkS8ZKIgnNn/wpyAoSu9D3n+nrxtfetxRpO2069J6v8K4O3qjQFLzhvh9LRSydm
-	 HfzjOSFXCxxcdEL8P8AKOLcWdpNl9eztioXJ1fK13eyIgN5Xiypa2FqtoLYB1qj0+1Jqr
-	 H91CJCWzD7CsUWsmLh5RUOPHgqJOlbWluF1EV2Br0saGAiw205JIYUmqAsFdVqi0Vx7HT
-	 /MiGgQniJebGwg1vjGv5poN9ICEptAFp/NSVbzebPQrrVJiA812fgT1yYpvirYzO03ef8
-	 x7lbOarV6M6H+k+nxn0Q5JbZre3FhkFsEnloiylK6X+0p1O+LGgIFnDaYUQYc4fV7WQ==
+	t=1794326737;
+	b=XDmIpPPpGheEbqNjAyGkX3y5W+1FbqrWZiupKvtuMdazS0VRCsV5t1J9dSRkbaODYbGs
+	 Z5G+JZY7XCTAJ/PsTlLGPXlciU1FLMChOX5E0APz1sQ1ibajCtmhPQ5ApdrZaOHoBp/Se
+	 nFMsPKC8CRCfgO206p6T0I6zuskZgk+NB6aWHDzuR0adpNCQH6qxWm83pFh2Y4CQi8rBX
+	 x5peN6q6STDCEgYsSL9p1Lw6Vqr5ekeNW8/5WXkV+jeULKkq2uX0HMl5yEQBBxuBXZAGJ
+	 M3JfKT4OtIPklcbmauqcjVM2quBxLcqPXWWxiaY6lfc9Y1qOs8m9V1F/wm51wb+cIDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326678;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326737;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=i97+GIW9Hh9sCNQH9Swro3UvlSWHzf/UNcjDp3k7ORo=;
-	b=wW9VcuF83eKpEx+m3Z+S545tzDYghdwHAxqC0EW8Bdt6ShEQGfpDSjNRJ+mVuOszHnFX
-	 TvzS/tFxXOTSCKT/poRt83cDZZb0u2T7iFU6m08X3knFVmyPkevP8dyDDFsMcjnKRuADN
-	 xQdC1LToq2chVgm7KVYT/4kVtcDuIDYGO9WuUS/4oQGIGSg+20t16/ag1zfG5lgmWFA88
-	 gGdapqzYaCxzLO0myMTSWRWynC2hz6HlnJvKRwHoc7a2cbXCj6H3aufCqbUu351JK/aPw
-	 3KPZGwSe3paqGqcxkL4YY0oWsBQrCBQ8K3JuiawCBw0u4eR+XMS+zmo0dyK6i+LAOWA==
+	bh=sSAR7Czzwx1XfmUF9Dh8g72t3qn8YZFcmDOG3Qz821A=;
+	b=JAH/pW1sCdF2wAObJkfi+TXn1LNQHFLjlRn+MzvQ1lG2PIyeW07fehQ8TWLO24lv1KIv
+	 vRXxgPbXhhpG6I4iwql/JKBGnrx4zjo/RU5EoUxqxUM77ZPhh/TVRxFAp73t6REtyoiFi
+	 vuROM4BBQF4w8QeQY1DsbT5stDhQ2Y0GLXi4wgjhaAWc09g40RD44B9hY2jTQwTyDoVqt
+	 mdEBgDuzBfDUE58HDhvlRuhsZ0hIdh3t/w2qoDOR7bsdX/VqAjJHQBWouyUyhX6JVl9hb
+	 LIB1WIe0DT4O/M+bRdAP0nit86co1g/HlGBFSksOCrPF3+HQGEibRGm4MXP1EHi9MjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFj7hNjZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lOWIp/dp";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D1E606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB76A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:05:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FFj7hNjZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D1F1F0089F;
-	Tue, 10 Nov 2026 16:04:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lOWIp/dp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0A31F0089F;
+	Tue, 10 Nov 2026 16:05:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326677;
-	bh=i97+GIW9Hh9sCNQH9Swro3UvlSWHzf/UNcjDp3k7ORo=;
+	s=k20260515; t=1794326736;
+	bh=sSAR7Czzwx1XfmUF9Dh8g72t3qn8YZFcmDOG3Qz821A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FFj7hNjZcyPa+SzH/HyMHanEOBv1Z/gSb0c2wjx6ZmsDrZ6+0nRCJJPTZMWLWYd7U
-	 r2PqQbzq3G6NgbcwHVHxdxRI6e3adRSngMzNiAbrQxFitz2HuVXL1NcdspgEtRIXqD
-	 IUOxEUzVY+VeKSqtfwBpW0hpTiRPsAKB1DW6ZyWu0fYzRolQ868Pn8ADbhZ1RZmiCh
-	 PyXxBhbVSQ6qIxgWQpMdkA+3bH3lIjS4zyXcqawO2+uI8V898c2b58kwt5RXCjL4fY
-	 LwkPZ8Ufpd4FpHmfAD+6QEIF23kc4CnarPc4jUo7X63c4bPcOdmKhq4MGjdLnk4MUl
-	 KlWLpDeyQ5FcQ==
+	b=lOWIp/dpZ3P1gZ+x/bWIly99/mIjHgLOxbGYlHBJkyID69tg70M6z/H84PfRk1qDj
+	 4l3e9ADnCwlcpe8s+IHdDm1ls9DQkaHdi3GwGV5ZX+ruArlEl2vP75Ot7HugeE6ZeS
+	 9B9TDkJst/n0fWT/TN97ee5wUh0T5vOfIRo3mLFa0OqKDe1AoOWexgjxlTXARrHvE7
+	 nyAZq6G2BoXgcdXylROow2GHwYi1xLBKIIJF5oyLDqL64narz8pdNBm+qyGq0Grrgo
+	 tITAyaNt8PXtFWsh17clRjMYRtvvU0mpA5iGOJlcia4oHBQaWrV30xsu6cXGx7I5qk
+	 u3MOEczIyNk/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200
-Date: Tue, 10 Nov 2026 11:04:35 -0500
-Message-ID: <20261110160421.2032791-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mailbox: altera: shut down RX polling timer on channel teardown
+Date: Tue, 10 Nov 2026 11:05:34 -0500
+Message-ID: <20261110160517.2394982-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062007-failed-5.10-874323b68c93@kernel.org>
-References: <20261107062007-failed-5.10-874323b68c93@kernel.org>
+In-Reply-To: <20261107054642-failed-6.1-0cf10e65639c@kernel.org>
+References: <20261107054642-failed-6.1-0cf10e65639c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +61,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 874323b68c93c6808e034dc0113681e822e6fb42 ]
+[ Upstream commit 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 ]
 
-The C200 (046d:0802) reports a mic capture volume range of
-1536..7680 with a resolution of 1 (6144 steps), triggering
-"Warning! Unlikely big volume step count (=6144), linear volume or
-wrong cval->res?" at probe and exposing a uselessly fine-grained
-mixer control.  This is the same firmware behavior as the other
-UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
-(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
-quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
-if the device-specific entry did not short-circuit the lookup) plus
-MIC_RES_384.
+The RX polling callback unconditionally rearms the timer after it
+processes mailbox data.  altera_mbox_shutdown() uses
+timer_delete_sync(), which waits for a running callback but does not
+prevent that callback from rearming the timer after the deletion.
 
-Verified on real hardware: with the quirk the warning disappears and
-the driver logs "set resolution quirk: cval->res = 384".
+Use timer_shutdown_sync() for the final polling teardown so the timer
+cannot be queued again while the mailbox channel is being released.
+The timer is reinitialized with timer_setup() on a later channel startup,
+so polling mode remains reusable.
 
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Replaced the quirk flag table entry with a USB_ID case in volume_control_quirks(). ]
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
+[ sashal: replaced del_timer_sync() instead of timer_delete_sync() with timer_shutdown_sync() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/mailbox/mailbox-altera.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 7f64199139d31..48178272bf422 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1163,6 +1163,7 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
- 		}
- 		break;
+diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
+index afb320e9d69ce..e81c8bac651af 100644
+--- a/drivers/mailbox/mailbox-altera.c
++++ b/drivers/mailbox/mailbox-altera.c
+@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
+ 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
+ 		free_irq(mbox->irq, chan);
+ 	} else if (!mbox->is_sender) {
+-		del_timer_sync(&mbox->rxpoll_timer);
++		timer_shutdown_sync(&mbox->rxpoll_timer);
+ 	}
+ }
  
-+	case USB_ID(0x046d, 0x0802): /* Logitech Webcam C200 */
- 	case USB_ID(0x046d, 0x0807): /* Logitech Webcam C500 */
- 	case USB_ID(0x046d, 0x0808):
- 	case USB_ID(0x046d, 0x0809):
 -- 
 2.53.0
 
