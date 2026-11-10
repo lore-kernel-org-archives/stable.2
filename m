@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293784;
-	b=ybUgNUdz/qpy6u72BtJhvx6Lm0CZ5j7D/CejR285GEN+lk+OM/YgiCdn4r8AS2TVURp+
-	 MfKA5HhIQbKn4Ch509R81/dWYbDiqAHr/et78O7l2JFYeNPlUwbGFfzcFHV6t1vvseQFG
-	 3qENu8yjnjJsxmENaltIiHaZJEmKeqBVdJZTDeAj2xNRaD6Eepxhv6PXNOEvRNamthkJr
-	 LPzEFnEMaynvgJ5AW8piGiq7+4LZt3dRVTG38AGK7Qn5XR9raMf9LM/0IrRjfYlnILODp
-	 /jjc33KF4OkNt7aA9Iqr1gKG1BoR1RwS6qgSrdMe0UIWMGIdsKoqdTPtJiqaGwy+/2Q==
+	t=1794293864;
+	b=c4MTG4WWhhCi96gv+9+Z2bD7GwfES/GbkYnrdH0sIBVT6f9CXwAGyqkIi3Tf7reiOUKh
+	 3F4+EYYNRgXfTCXEBz9lLYEH6QV2M0JvFjM4KcKFaBxHNcFwKl5Pdj/2r9EqYUpJBJdmR
+	 pPFXAjzFT69MQt3rDty5rN+9hPXcM1gFOWvdJDzw71cZJ2Mg0CN0oLxlnb4B6/9bnK/bR
+	 nxW0w2AlhOs5s9kaeEMPQsC3txU66wWgxureqgtgJ3fYfOMxkNtuzan5KFzuy2GgMk2wX
+	 Y84aIszA0EMWdsjucYVIGAT6rh1UkdHnEZTG1VpgrUSCmpS1D16o9O/Xu9SL4g/peQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293784;
-	h=DMARC-Filter:DKIM-Signature:To:X-Mailer:Content-Transfer-Encoding:
-	 Content-Type:Date:X-Lms-Return-Path:Message-Id:Mime-Version:
-	 X-Original-From:Cc:From:Subject;
-	bh=D93A2CddNcpEf833Lmq66OS2yq+N5gmnLXH0qbinOh8=;
-	b=rSV9d81SPkw1Y5Vl1nDQ7/kuKiMiBN9jtSuM1vuC5xH0dgD9wWHklCsOw3wkCRzshuMu
-	 wWLyWfI2rUueJqpJvTIU5nzmGZEVqGbWBjJVB2ybI5M+HDUtr0IfllI9OifnypFpH9BUc
-	 CqkkhMkV73/PKnmCLAN0SLrB6qgGx6F/+XuUwDQLLDMMb2ihcW2Bv1Q/DGF9bxCVB9Hph
-	 LTqcCii4cWmJ+9S/bFuYGsNEqS/t9zbQ/i109xCN/IRDkMVG3OYQ9TxZGFq+z8gFkUIpo
-	 kUBbOBMSLXp3KsA3yg++NKw9/ovi62/P1BvM31MLSpr0TApWSjNE0KHAxMC+Wmr88fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293864;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0uSyDd8eHyUNCVVi66iOkkGA4uNu73UjkPVNXYBzaus=;
+	b=aUqPhG+/0/FWTZfg8ErsLnmIqlYUHQw7EobFrzHTpx7P92VCrgWqd6BQUTij3ZQT7aCs
+	 fWFm9E66loEmvZ68dCHirOo9L226JRP72/sDzam/VjO1X6i0Rb5s5MHC6yNIZ15DDAWNa
+	 FWwlQ0e2n9wPbYar96Ld+KvQtfkQOwQlo3HBxsblqKRhqjSrsDG81+PRGyld9LXa5qG0l
+	 ymsPR18+GRCnnA9DNk5VY0N4IkbZ4a9GzAFl5S00nhn+sTe/d4/n+aFKEuaLYT6vBF03O
+	 CDiPPvwRhwh7skeWC0qNg+FPoR2IhClI9tWhwwpUmxY9cilwL51Bg1mNP4D+NNeDi4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=TQ6EE229;
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6nTasdn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D21B606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:56:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D21B606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D974606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:57:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=TQ6EE229
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794293780; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=D93A2CddNcpEf833Lmq66OS2yq+N5gmnLXH0qbinOh8=;
- b=TQ6EE2297NEuez+/9oXqMFL1HzhglqRtKN3ch/KvrhTuLylA8EPZ45RKdcSUM4S0OIyfER
- JxxXtp9ODCKppdmJXL229uwzyl7ZhwWXvG4iHMde1+1hxZ6U3kJmSo7xv3svGE/Lv6HwTE
- WM29Cc7LIny6LdUkk2UCRaEdEnZfxBdDFgo5kwzzXxTO+tx82g/ObrC8cdUiYp2P2wrkTF
- WHwCWkJJ3ioO1hfT0KuNVSM0MKidCbmfQ5intFPaFXEHeHqayuSeZgtlTkrl5EDDmoEQpf
- 6oeKaq45+inr58e/qEl7YT4bUaYOY5RvuxJ6VqvR00CKC4ShlmwZehIV5y9VAw==
-To: <stable@vger.kernel.org>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 14:56:01 +0800
-X-Lms-Return-Path: <lba+26af2c011+669fc0+vger.kernel.org+zhaogongyi@bytedance.com>
-Message-Id: <20261110065601.46661-1-zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6nTasdn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBBB1F008A6;
+	Tue, 10 Nov 2026 06:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794293864;
+	bh=0uSyDd8eHyUNCVVi66iOkkGA4uNu73UjkPVNXYBzaus=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S6nTasdnHG+ggv5uLLXF+yJHNKJepf0bzpCnXH9FGpy86yq3kah1WKYMR1lQhtAgO
+	 FHRM/KDHt2tX3vhOTAVzYdF4izOuZ/EU3u0pTffXzP+F1anzz/hKysbFptpg8WOg0d
+	 wfzGUjyIjAD2F6Uriqn8wu9rdF7jj78ve/wTMaEwy4eiToPIq6V6CaMpEloIcfFFDS
+	 BGlCATp2R3h8Fw8jpTkBmi9KT5kd/T0hEVmKpWVocqh99iqPOoWIYjpZGebn95zYlF
+	 UXTrgXj2o4JESyvJDtTagK3ocJv4zDIjsnAHrpPguVGgtemPGDpapuM4MM00/+97Po
+	 WoiXMo04hHzFA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] KVM: nSVM: Ignore EFER.LMA if EFER.LME=0 when preparing L2 state
+Date: Tue, 10 Nov 2026 01:57:42 -0500
+Message-ID: <20261110065725.535932-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054144-failed-6.1-1c4c84a643b7@kernel.org>
+References: <20261107054144-failed-6.1-1c4c84a643b7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,91 +58,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-Cc: <cassel@kernel.org>, <dlemoal@kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: [PATCH 7.3.y] ata: libata-scsi: reject data-in commands with a data-out buffer
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-[ Upstream commit a4845f077415ef32fe672c841e2fc58ae9e28273 ]
+From: Sean Christopherson <seanjc@google.com>
 
-SG_IO can submit a data-in SCSI command with DMA_TO_DEVICE. The
-scatterlist can then contain pages pinned without write access.
-ata_scsi_rbuf_fill() writes simulated replies to that scatterlist;
-in the reported case, the copy tried to write the shared zero page
-and faulted in the kernel.
+[ Upstream commit 1c4c84a643b704e473cb171f7b61359ff29b12a4 ]
 
-The same mismatch can affect SG_IO commands translated by libata.
-ZBC IN and GET PHYSICAL ELEMENT STATUS completion handlers can modify
-the receive buffer even if the drive aborts the command. For ATAPI,
-the successful INQUIRY completion also rewrites the buffer in
-atapi_fixup_inquiry().
+Force EFER.LMA=0 if EFER.LME=0 when preparing L2 state for VMRUN, i.e.
+mimic real hardware's behavior of ignoring EFER.LMA if EFER.LME=0.  VMRUN
+unfortunately allows the nonsensical combination, i.e. doesn't fail, but
+KVM itself has an invariant EFER.LMA can be set et if and only if EFER.LME
+is set.   Breaking that invariant can lead to a variety of issue,
+particularly in MMU code that keys off EFER.LMA when determining whether to
+emulate/virtualization 4/5-level paging versus PAE paging.
 
-Reject these mismatched commands before the buffer is written or the
-command is issued. Report ABORTED COMMAND / DATA IN BUFFER ERROR because
-the CDB itself can be valid; the supplied transfer direction is wrong.
-
-Backport notes: Use the older five-argument ata_scsi_set_sense()
-interface and spell DATA IN BUFFER ERROR as ASC/ASCQ 0x4b/0x0a.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Link: https://lore.kernel.org/r/20261104130638.37882-1-zhaogongyi@bytedance.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260902232028.2767071-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: Adjusted context for direct &svm->vcpu and vmcb12->save accesses instead of local vcpu and save aliases. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libata-scsi.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ arch/x86/kvm/svm/nested.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index fb5517d..f7ed834 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -1984,6 +1984,18 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	if (xlat_func(qc))
- 		goto done;
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 86ac990d7a0ef..af9caff998eba 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -559,6 +559,10 @@ static void nested_vmcb02_prepare_save(struct vcpu_svm *svm, struct vmcb *vmcb12
  
-+	/*
-+	 * A data-out request may contain pages pinned without write access.
-+	 * Reject a translated data-in command before issuing it, since its
-+	 * completion handler may write to the buffer even if the device fails.
-+	 */
-+	if (unlikely(cmd->sc_data_direction == DMA_TO_DEVICE &&
-+		     ata_is_data(qc->tf.protocol) &&
-+		     !(qc->tf.flags & ATA_TFLAG_WRITE))) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND, 0x4b, 0x0a);
-+		goto done;
-+	}
+ 	kvm_set_rflags(&svm->vcpu, vmcb12->save.rflags | X86_EFLAGS_FIXED);
+ 
++	/* SVM ignores EFER.LMA if EFER.LME=0 (instead of failing VMRUN). */
++	if (!(svm->nested.save.efer & EFER_LME))
++		svm->nested.save.efer &= ~EFER_LMA;
 +
- 	return ata_scsi_qc_issue(ap, qc);
+ 	svm_set_efer(&svm->vcpu, svm->nested.save.efer);
  
- done:
-@@ -2015,6 +2027,12 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
- 
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND, 0x4b, 0x0a);
-+		return;
-+	}
-+
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
- 
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-@@ -3108,6 +3126,13 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
- 
- 	qc->complete_fn = atapi_qc_complete;
- 
-+	/* atapi_fixup_inquiry() writes to the buffer on successful completion. */
-+	if (scmd->sc_data_direction == DMA_TO_DEVICE &&
-+	    scmd->cmnd[0] == INQUIRY) {
-+		ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0x4b, 0x0a);
-+		return 1;
-+	}
-+
- 	qc->tf.flags |= ATA_TFLAG_ISADDR | ATA_TFLAG_DEVICE;
- 	if (scmd->sc_data_direction == DMA_TO_DEVICE) {
- 		qc->tf.flags |= ATA_TFLAG_WRITE;
+ 	svm_set_cr0(&svm->vcpu, svm->nested.save.cr0);
 -- 
-2.39.5 (Apple Git-154)
+2.53.0
+
