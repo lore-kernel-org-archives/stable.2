@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273078;
-	b=O0usk4lf2i0LVJS3GimCEkXJVRdb47x63aYReZ2pqcYagsiAy5EViFzdI/QghTTS9eza
-	 ADp2b3o1eCU5xXUXN6v7RHi/KKq2UGZ56mZZEYY1DTbs8rB6/EjDWT49YKTiJPJIYwFbV
-	 3whGBNXo524qD+Gvm9esYr5c+h9t/V8oqdrfnWSpvjNtJAiRUWtjf3OUX+UOHDBazVb/C
-	 BAVGWhfaqv6cPKutV7q/odmDJu/WMm/0dP2ZAcGsXJqm/0ObkC71LxhY41ZQJViPw84aV
-	 cwdzbEGHisotPq5Q+tnINuXIXWfjAj+/784DA3JSmoHd17ZU4HDnpkbMArAAWRy1c7w==
+	t=1794273081;
+	b=TbDaD4UWHx9udIuNTNXWY5TvAsLsZFRdS2zCbvNiNhtwjzeSYKnseFASxp4Yms/FS6sM
+	 Ic2arwWfqZ8TORxSq8y0SqnnD7LJQNTyMkAfIR2DCICc4v3dEYuyKsSdqHKk1lrcyleWX
+	 GgG5TKuoOZ3LWeiRVIoQSkmvnadHvWXaUga3LBxzr1eS7c3T5t3CH4nP0DTVwGGBtHETs
+	 JOY6gD9YX7+L4cKGN/KVMbF9gKLJouArPsQbY+eUQ0GncTgvFS8VtKsoFvKUz4qOq0/g3
+	 HPQCbTqAYtwRF2V4nficGrda3n1OrgMJedZfoA6Rb1rmH48DTxrgz+x0Mc4atRR5VLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273081;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DemSJ4zDK2ei1l8+zyayRZ8IPonS1bH0tMLnVH+9wEo=;
-	b=j6iHUvsjDh4j4BlV3aNnU2m3UC+ev5T8q2Aq31oz6BpD9E7KJ9ddu8uUqGgXegPd1xpk
-	 Y8WSSPDcR699jB/3FLGOGT3acABvFVxVh19kQ0mN2QHbmEFwWBP+Xr0kbJ8t6gZeq40IF
-	 mapUPHYMP0d3DaeODe3/SEUFlrSM6PUnxgx92FwqX8HoeHnayMSW8Iy/px97yArD2qQvK
-	 kU33SknjlyJGqys7xBirMYHkr7fq97O8zWqWNf1Mni13orJTRKygS1H7f8QfQcIUfHqOP
-	 1g1Jtnmr/wVuaMHtUpTDQzfDs6kJ2lXA2j95iM1/Ky/4LjVEPXcIuDXdFzKcmfx6Oow==
+	bh=fM5XdSQv64JWcifcXGRliFtn6VrJwZ8ZhWzgRev2994=;
+	b=T2aefPJOaQetqtGE/AgHDY/ZsG3FmFZ90axsGemgu6TqL4wxt6K4s2h2mW0s6BmHEzT7
+	 kBqjl+m5YZaI2nqKANRShWxnjBDOznZlWJWR73D8ujYB7b1/Wc9idt5+Awl62e6L5K/4y
+	 15zIB1CyI1xwkZX5p8L2WE64Ygknuk25rm4M2BDh9grTgGFTquJmI4gh9XZSOMs1SUOPn
+	 LbTl8agDi13gB14Yi90MP1zVFl+0FJZfkVwNibJ/zrC+u5/GwyfpYK92cMUHErlEYebQ4
+	 L/A5VDaJZmnTNA3vxkx7JWBxzEKrZk80KDw8q12plZdnSdF9ljgcNK7WXeMnA+6BwyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBVtMQEu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V1vq/A7i";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AC9606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FB6606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBVtMQEu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2B51F008A3;
-	Tue, 10 Nov 2026 01:11:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1vq/A7i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036B21F0089F;
+	Tue, 10 Nov 2026 01:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273077;
-	bh=DemSJ4zDK2ei1l8+zyayRZ8IPonS1bH0tMLnVH+9wEo=;
+	s=k20260515; t=1794273081;
+	bh=fM5XdSQv64JWcifcXGRliFtn6VrJwZ8ZhWzgRev2994=;
 	h=From:To:Cc:Subject:Date;
-	b=DBVtMQEuuT4FQq8JE7otSeSmNzSFdxUnnuSyg9eqroEOcsHdI9w4TasClim1+k8CJ
-	 5uZ7bDfk3oIHJWei9bmEGBZZ7bRqVeamZiYjRMEV2fcqhl9q10JsuzerLp0atFOFh+
-	 RX5Z+rKHMBW8qBPeXIfGhz5t9hHHiVN15q/493umADScStNdb/xGJn0erQj9GMHhlK
-	 Vd9n7ihIeU0JbJEcPTcPz7Qgu/wRo3LJ8uH/QK4Hx+6in4H7efbqxfErBXy8YgU4L5
-	 czIXNwKLsJ1S3oIJ21fazevDXCwbcs9KF1PqjKJG+fpDoTBw+smPPfp1e3dUCzRckB
-	 L4HKwcySunwzg==
+	b=V1vq/A7iJ1GzCzI7mYHwWPckpY2wMYjE5jmf3NKcMwDjofoErt5oTHYauoGpizqMs
+	 DadMppgxQzzqtXOEQUW2n50iW85v1E5ZwM+c4itISHCr0z3zs8TV18hvsxs18pSnah
+	 0/TKSVymfSnxZ/okd6NfvzuisdTN6+CLpVJiOi9Ksx4p4fbdf6XgBob+Na0QFJ6EvD
+	 lGR/oIaAHRRSYsBDhzsgoU6Tkbuo8XH4twEwIxGqHujN1VG6frmDvljvOe/bl1IZew
+	 lNvKFin3s26lVfBbrUHWNq1ce6QDS6aEvOKyw/nAc326xvE4s4KUvjac+/Hzo2LAEO
+	 R1nwWwZnLJTUg==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	pfalcato@suse.de,
-	kas@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	pratyush@kernel.org,
+To: david@kernel.org,
 	gourry@gourry.net,
-	david@kernel.org
+	baolin.wang@linux.alibaba.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: honour F_SEAL_EXEC when an ACL is set" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:11:15 -0500
-Message-ID: <20261109201115-failed-6.6-0237c47ca170@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/shmem: fix accounting of swapin-error markers" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:11:18 -0500
+Message-ID: <20261109201118-failed-6.6-66ce68a249f4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,139 +69,140 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0237c47ca17005ea41b510c6116f0257dbf84eab
+git cherry-pick -x 66ce68a249f4ac56cd6968aa6d8ded20fb4b7d09
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201115-failed-6.6-0237c47ca170@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201118-failed-6.6-66ce68a249f4@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0237c47ca17005ea41b510c6116f0257dbf84eab Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Thu, 29 Oct 2026 11:43:25 +0100
-Subject: [PATCH] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+From 66ce68a249f4ac56cd6968aa6d8ded20fb4b7d09 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 11:43:35 +0100
+Subject: [PATCH] mm/shmem: fix accounting of swapin-error markers
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+A failed swap read replaces the swap entry with a swapin-error marker in
+the page-cache and subtracts its pages from "alloced" and "swapped";
+however, it leaves their block charge in place.
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+Removing the marker during truncate then subtracts from "swapped" again.
+This can underflow the counters or make swapped reach zero while other
+pages remain swapped out, causing swapoff to loop without finding them.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+When installing the marker, subtract only from "swapped" and let
+shmem_recalc_inode() reduce "alloced" and release the block charge.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Make shmem_free_swap() report successful removal separately from the
+number of swap pages freed, so removing a swapin-error marker does not
+subtract from "swapped" again.
+
+It's a bit confusing, but replacing a swapped out page by a swapin-error
+marker in shmem_set_folio_swapin_error() behaves as follows:
+
+Initially:
+	alloced=1, swapped=1, nrpages=0
+Calling shmem_recalc_inode(inode, 0, -1)
+	-> swapped = 0
+	-> freed =  1 - 0 - 0 = 1
+	-> alloced -= freed
+	-> alloced=0, swapped=0, block charge released
+
+Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-14-392fc715d8f6@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+ mm/shmem.c | 31 ++++++++++++++-----------------
+ 1 file changed, 14 insertions(+), 17 deletions(-)
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index c159e40e3f34a..272479317cf10 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,10 +2,19 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
- #define MEMFD_ANON_NAME "[memfd]"
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
 diff --git a/mm/shmem.c b/mm/shmem.c
-index af21a89abb0f6..6df0237832c00 100644
+index eb2e6e50630c0..897f19ed0fe3d 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1546,10 +1547,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
+@@ -1177,12 +1177,11 @@ static void shmem_delete_from_page_cache(struct folio *folio, void *radswap)
+ }
  
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
- 	}
+ /*
+- * Remove swap entry from page cache, free the swap and its page cache. Returns
+- * the number of pages being freed. 0 means entry not found in XArray (0 pages
+- * being freed).
++ * Remove a swap entry or swapin-error marker wholly within [index, end].
++ * Return whether it was removed, counting freed swap pages in nr_swaps_freed.
+  */
+-static long shmem_free_swap(struct address_space *mapping,
+-			    pgoff_t index, pgoff_t end, void *radswap)
++static bool shmem_free_swap(struct address_space *mapping,
++		pgoff_t index, pgoff_t end, void *radswap, long *nr_swaps_freed)
+ {
+ 	XA_STATE(xas, &mapping->i_pages, index);
+ 	const softleaf_t swp = radix_to_swp_entry(radswap);
+@@ -1203,8 +1202,10 @@ static long shmem_free_swap(struct address_space *mapping,
+ 	xas_unlock_irq(&xas);
  
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5404,12 +5406,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
+ 	/* A swapin-error marker holds no swap slot, so just drop it. */
+-	if (nr_pages && softleaf_is_swap(swp))
++	if (nr_pages && softleaf_is_swap(swp)) {
+ 		swap_put_entries_direct(swp, nr_pages);
++		*nr_swaps_freed += nr_pages;
 +	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
+ 
+ 	return nr_pages;
+ }
+@@ -1358,8 +1359,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 			if (xa_is_value(folio)) {
+ 				if (unfalloc)
+ 					continue;
+-				nr_swaps_freed += shmem_free_swap(mapping, indices[i],
+-								  end - 1, folio);
++				shmem_free_swap(mapping, indices[i], end - 1,
++						folio, &nr_swaps_freed);
+ 				continue;
+ 			}
+ 
+@@ -1422,13 +1423,11 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 
+ 			if (xa_is_value(folio)) {
+ 				int order;
+-				long swaps_freed;
+ 
+ 				if (unfalloc)
+ 					continue;
+-				swaps_freed = shmem_free_swap(mapping, indices[i],
+-							      end - 1, folio);
+-				if (!swaps_freed) {
++				if (!shmem_free_swap(mapping, indices[i], end - 1,
++						     folio, &nr_swaps_freed)) {
+ 					pgoff_t base = indices[i];
+ 
+ 					order = shmem_confirm_swap(mapping, indices[i],
+@@ -1449,7 +1448,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 					index = base;
+ 					break;
+ 				}
+-				nr_swaps_freed += swaps_freed;
+ 				continue;
+ 			}
+ 
+@@ -2409,11 +2407,10 @@ static void shmem_set_folio_swapin_error(struct inode *inode, pgoff_t index,
+ 	folio_put_swap(folio, NULL);
+ 	swap_cache_del_folio(folio);
+ 	/*
+-	 * Don't treat swapin error folio as alloced. Otherwise inode->i_blocks
+-	 * won't be 0 when inode is released and thus trigger WARN_ON(i_blocks)
+-	 * in shmem_evict_inode().
++	 * Let shmem_recalc_inode() reduce alloced and release the block charge
++	 * for the freed swap pages.
+ 	 */
+-	shmem_recalc_inode(inode, -nr_pages, -nr_pages);
++	shmem_recalc_inode(inode, 0, -nr_pages);
+ }
+ 
+ static int shmem_split_large_entry(struct inode *inode, pgoff_t index,
 -- 
 2.53.0
 
