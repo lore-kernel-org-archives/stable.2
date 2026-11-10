@@ -1,60 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794349688;
-	b=LXiFlMjSUAo0Ln/bYTXsAEMQz/db5ckEgKQ4urCYEC/5R6MaiHkUqSZ2O6t7DZvP834y
-	 2YvE4ud+sG1SfQ9RxpABnqlI0YYm1nyFkkt9xvQD9a9ZUzhnwvWkzCaJqtMovgUBuyE//
-	 6vt4IzBvEGijFfy+VBRT+J7YKEyNI1YFHCVmTJvu1TQR47HE3Z6V3g8HO46OFl2ss0X4B
-	 FjnEOSHLT8BWX0U86Mh0MIoucwo7e65gbqGDM/Bu2tN1We/GSUbs9CCro6dNUNJHgEy3d
-	 J/CjaESdgGDYNWYr50w3CC2LEged3w6V9xQy0PmgTFgFEy8aYBDMwF9NY8LZKTV1qTQ==
+	t=1794349833;
+	b=oJ9vN3uJQKMkmYW66fcDwClKAVeaUocdj+iTyKTXUFlnMmYEaudqezS98HfJHXINl5/m
+	 5KSJHyZEkmbbDlr+eh2oJFNB2FCB/eXJhCjI97Z/KE6RhXF0QkdpJvQ7a1Xz8H+g2QHiW
+	 v3gMzi32n/NcaoQWb0ADffSaK6H2EliYLwVQNFnYXi2J/idGFv2NErvFFHB03DwImd/wG
+	 zlP8oja/MFCRXIklwEekEQpk7TxyVPKRlXwSeb1qlGjc/zW8Z4yx9pnNwGsU6+cU6nL8N
+	 PGb07IGuM9SUkkK+eyQEqT82rzwmcQehgbOV9FmiQdXq7caBCgvMjSoqghVJYRwxEGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794349688;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=R6vbE0PtbYBdzOcdkK69nfI2NMGSRYdaGf+o1bvzgiw=;
-	b=38X6YxwdjusqBodjKPmlwPkr1aBig7B5yEu2U8FXZoFNj7hYfhYergBwpw5jRlPPa7wt
-	 iwbOOwHQXxAagdbJzHpOXj1x5UaX8tEHCwhWlJAv5NEbhNhI6dRdtihPDFTvmGfWdDPgY
-	 Cb5kAIzm6FMgDBEEzY7ToGowkPJOxT2i285OoLvCQGwnq2mVkSJnRlXsXPI3sYYM+9Qv6
-	 Udc6ZtP2rv6GWP+wkaEFqXgyDLbJvbBLYYZCgLj63O8wTCrdSZmTSILnRu0E19FJVHfDP
-	 ewOPOsy2v0pLYhc0OePwiu02G7V3D1hRwTCaqygtMqHp5XdmKZMkYeyKqLGN9FRqREA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794349833;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=z7FiR8aYlJ/B/h48kT0MY6E1EuyBPljuK907hwXFxOM=;
+	b=fxWYEH8pXoYE0o1P9PPm3aYZosCwJNwwQU1RDsV7W4/vdIxMRP8uTrTnJR2sydu0MYFx
+	 vdp7XMzVsvVAJGsrEkB/n5YdvlcU6YNm4YxE6btSEMJhpEgBIZIYKDjH4BpGbZcub5fRe
+	 9LhvNbFksxSxCd3cW6zQ23G8uLVrVN6py86eFQWfaRbymWsrL0IE2kYgB57FojUJu+ECT
+	 tD4RLrzsryFQb/46ijgJ8gCbZekyJ36sE7GqOZMV8b4GcnHNIllkJrxUjBhGaf6xw1yiO
+	 XcPjNSuUcsPmSNNf6Ah0AG5fbcKEunz9c3TFDkfqrIBzFNw3qS32raeQgHj7KOx1SlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=g7zvKaL4;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Zm3zYVY1;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE7B606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:28:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAE7B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEB7606A321;
+	Tue, 10 Nov 2026 22:30:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFEB7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=g7zvKaL4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794349685; x=1794608885;
-	bh=R6vbE0PtbYBdzOcdkK69nfI2NMGSRYdaGf+o1bvzgiw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=g7zvKaL4lKwN2N+VfFEQTvirHWJZKH0GhxAC3xz7O3PICsC3q3N/TweRADNXGhXp+
-	 8J8Km0R7I8MjiY7DP5HLBdTLHjRzLBHZ0nhhohHwdmCAsU6KcWpNE4LTU6IkRbxK+N
-	 V6eCC7itw9+IzTSqzhDa94I/CnVle3l8vDWqoLm/weQJU6tQPoPwcmW2HMZ4HiQOnu
-	 ZPDqNqnFfstrnTbiUUzsa04Y2jNPIPZ+qr0RsqNPCs2/snK94gKkmEQLcfALsvW3es
-	 s8ew+WwVQEnD9753SBg0wHMPFzhh4rgt37dSAbop897CAwfkSfrY2fTnGegODnE9dK
-	 n8FWyFu+dXMiA==
-Date: Tue, 10 Nov 2026 22:27:59 +0000
-To: =?utf-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: dell-smo8800: keep the state until the last file is closed
-Message-ID: <20261110222752.2902827-2-ca@modelmiser.com>
-In-Reply-To: <20261110210359.upmeyc4b4xksfva2@pali>
-References: <20261107204950.88952-2-ca@modelmiser.com> <20261110210359.upmeyc4b4xksfva2@pali>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 55ee3176eb9293db6a8a8609f158030110622166
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Zm3zYVY1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=z7FiR8aYlJ/B/h48kT0MY6E1EuyBPljuK907hwXFxOM=; b=Zm3zYVY19mC2K1jfIZmHe0WYOJ
+	+2vXpSVKUabQcSTOLxoNuVasPCbnifelYbUEAcvv9YAt/nO3ZURkUfX5mI21hhZhGJt/9gfP7qgo+
+	IJHIxRe6GenkJzMX9pvkmhXuLVsZtgZRK26KyFYBfkk/TWdPlmdIICanZuqx30Rync8LpLGNx+h4T
+	4pUtkpivb+6Lc3XMj8wOQR6l+XNOtRxft1hd6Xvba+XpzbvJajHJ5noguxLP6D86fwaNxGXy3clPR
+	viZQEkhd3HdoaYhTAS1HqHhMCWF+LVx5MH+D++bqFurMFgDSko5Zzrwlnllnd5I64hNrpyac3gRbE
+	HdBsyDOA==;
+Received: from [151.115.150.205] (port=60782 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xQuMC-00000006Xkc-2vLj;
+	Tue, 10 Nov 2026 23:30:24 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net/sched: sch_qfq: revalidate aggregate after peek
+Date: Tue, 10 Nov 2026 22:29:47 +0000
+Message-ID: <20261110222946.2147440-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,44 +72,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Tue, 10 Nov 2026, Pali Roh=C3=A1r wrote:
-> Hello, I have not checked this patch too deeply, but I have feeling that
-> something is probably wrong if we need to add a new manual refcounter
-> around a whole device.
+A netem child can re-enter qfq_enqueue() through a duplicating netem.
+If lmax was lowered with packets queued, qfq_change_agg() can move the
+class and free its old aggregate. This can cause a UAF or put the
+class on the wrong active list.
 
-Fair question. The count covers only the lifetime of struct
-smo8800_device: one reference while the driver is bound and one per
-open /dev/freefall file. It is needed because the struct comes from
-devm_kzalloc(), which frees it when the driver unbinds, while a file
-opened before the unbind stays open and still reaches it through
-file->private_data.
+Restart qfq_dequeue() if a selection peek changes the aggregate. Charge
+the serving aggregate before the post-dequeue peek. After this peek,
+requeue only an active class using cl->agg. Recheck activity and use
+cl->agg after the peek in qfq_enqueue().
 
-> Anyway, this freefall logic was originally copied from the lis3lv02d.c
-> driver, which now lives in the file:
-> linux/drivers/misc/lis3lv02d/lis3lv02d.c
-> So if in the freefall device of dell-smo8800.c is some error then
-> probably the same issue would be in the freefall device of lis3lv02d.c.
+Fixes: 462dbc9101ac ("pkt_sched: QFQ Plus: fair-queueing service at DRR cost")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+Changes in v2 after review from Sashiko:
+- Cover the post-dequeue peek without moving service accounting.
+- Clarify the trigger.
 
-Thanks for the pointer. lis3lv02d does not have this use-after-free: its
-freefall state is the static global lis3_dev, which is never freed, and
-its file operations reach it through the miscdevice embedded there. It
-does share the other half: a read() blocked at remove is not woken there
-either, but with static state that only leaves the reader asleep until a
-signal, without touching freed memory.
+v1: https://lore.kernel.org/all/20261106200236.716641-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Sashiko: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106200236.716641-2-Jeremy.Jean%40oss.cyber.gouv.fr
 
-Making smo8800_device static like lis3_dev would also fix the
-use-after-free. I kept it per device because with static state a file
-left open across an unbind and bind keeps the device marked open, so new
-opens get -EBUSY until it is closed, and the old file sees the new
-binding's events, as in lis3lv02d. Either way I would keep the wakeup
-at remove, so that a blocked read() returns -ENODEV instead of sleeping
-until a signal. If you prefer the static version, I can send a v2 doing
-that.
+ net/sched/sch_qfq.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
-Chad
-
-This reply was drafted with an AI assistant (Claude Opus 5.5).
+diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+index e900890..82903f9 100644
+--- a/net/sched/sch_qfq.c
++++ b/net/sched/sch_qfq.c
+@@ -992,8 +992,7 @@ static void qfq_update_eligible(struct qfq_sched *q)
+ }
+ 
+ /* Dequeue head packet of the head class in the DRR queue of the aggregate. */
+-static struct sk_buff *agg_dequeue(struct qfq_aggregate *agg,
+-				   struct qfq_class *cl, unsigned int len)
++static struct sk_buff *agg_dequeue(struct qfq_class *cl, unsigned int len)
+ {
+ 	struct sk_buff *skb = qdisc_dequeue_peeked(cl->qdisc);
+ 
+@@ -1002,13 +1001,6 @@ static struct sk_buff *agg_dequeue(struct qfq_aggregate *agg,
+ 
+ 	cl->deficit -= (int) len;
+ 
+-	if (cl->qdisc->q.qlen == 0) /* no more packets, remove from list */
+-		list_del_init(&cl->alist);
+-	else if (cl->deficit < qdisc_peek_len(cl->qdisc)) {
+-		cl->deficit += agg->lmax;
+-		list_move_tail(&cl->alist, &agg->active);
+-	}
+-
+ 	return skb;
+ }
+ 
+@@ -1103,6 +1095,7 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
+ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ {
+ 	struct qfq_sched *q = qdisc_priv(sch);
++restart:;
+ 	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
+ 	struct qfq_class *cl;
+ 	struct sk_buff *skb = NULL;
+@@ -1112,8 +1105,11 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ 	if (in_serv_agg == NULL)
+ 		return NULL;
+ 
+-	if (!list_empty(&in_serv_agg->active))
++	if (!list_empty(&in_serv_agg->active)) {
+ 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
++		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
++			goto restart;
++	}
+ 
+ 	/*
+ 	 * If there are no active classes in the in-service aggregate,
+@@ -1151,13 +1147,15 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ 		 */
+ 		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
+ 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
++		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
++			goto restart;
+ 	}
+ 	if (!skb)
+ 		return NULL;
+ 
+ 	qdisc_qlen_dec(sch);
+ 
+-	skb = agg_dequeue(in_serv_agg, cl, len);
++	skb = agg_dequeue(cl, len);
+ 
+ 	if (!skb) {
+ 		qdisc_qlen_inc(sch);
+@@ -1181,6 +1179,13 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ 		 len, (unsigned long long) in_serv_agg->F,
+ 		 (unsigned long long) q->V);
+ 
++	if (cl->qdisc->q.qlen == 0) /* no more packets, remove from list */
++		list_del_init(&cl->alist);
++	else if (cl->deficit < qdisc_peek_len(cl->qdisc) && cl_is_active(cl)) {
++		cl->deficit += cl->agg->lmax;
++		list_move_tail(&cl->alist, &cl->agg->active);
++	}
++
+ 	return skb;
+ }
+ 
+@@ -1274,9 +1279,10 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 	/* if the class is active, then done here */
+ 	if (cl_is_active(cl)) {
+ 		if (unlikely(skb == cl->qdisc->ops->peek(cl->qdisc)) &&
+-		    list_first_entry(&agg->active, struct qfq_class, alist)
++		    cl_is_active(cl) &&
++		    list_first_entry(&cl->agg->active, struct qfq_class, alist)
+ 		    == cl && cl->deficit < len)
+-			list_move_tail(&cl->alist, &agg->active);
++			list_move_tail(&cl->alist, &cl->agg->active);
+ 
+ 		return err;
+ 	}
+-- 
+2.47.3
 
