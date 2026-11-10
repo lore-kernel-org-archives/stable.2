@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794350799;
-	b=vHFuYNl7f1L0eTwn9O2hN/g6W2x1xaFtJ6rE7AqlLwWOYl5BJBfSTt7Qh+aCVyZJM1hj
-	 LoaPBIO4NxNnXDhXNTCM4ZU0n6W1cLLgHv+iEKr247M57/xpRg4T6nhKcYn8yscmc4FlX
-	 UXtmObbPasGCwLJHZ3BqlhFq7UVS8LticoD+yiNMGPFUisGu0xvuR9gLaSChd9FXTQd0f
-	 bmEG++OdAnISNMhtAbv+qSSE9BtxloSF0RGhl0fjFKihZVUCUV9EvfVNRhShwxkc3ZQ7H
-	 QeLt6AdjP2EEI4GSAqJpQKILyEVMSwBGdWyCIBvlvBVQQo2DxLwUItI55DoHcWa9lfw==
+	t=1794350832;
+	b=NbObtPJdoA582nNoodp6b/8BiVnbA9AERt9c3Xp7xZ6RAUJW45nej0K3i66s6/MPCqRC
+	 l/sjbTEileHC++0graX198QmkDj6jFbRceh07AWAe0dQzgJRQAFhw7jUNiCUPYECJb4oY
+	 tfC3oPmO+jLBrDHRaXKS7k9EjGXPf4ljprtlECOGYoHFyn3urhTRgM8jWJ303n4ZBPtYp
+	 scxT++Fyzs9RyWRbrSR29uggsnRIxPJPHmgMfG3DGaDAaUXqRtXeZWzftImkEnRSP1RPr
+	 zYQVq/ljrsGdJLCOgYbAFSck6oVcBuK0n6wAV2dHZyy5xNbK2Ml1C2lJO/xw5bWljPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794350799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794350832;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=z86Xw9xRwrb9N6PDLPp0Jo5Im9VUi3U0F0caOhdl+M8=;
-	b=h6xl8j+MhQxQ6srXQEzdYqqxdQnxokfiikRtnaQsvpcXFNvYqOpzaQBkUsdawU3riiiW
-	 akwNvtHkcZvN8SD8HTUbwyLnK1Po1A+3EVz08CCz+nLzJs8lAFg39QGlTiH2cw4q4Ie7z
-	 Y9jQHza64p9yCMyeL/GBTZS9MIZU/VIWFxW99mMnRcbmRBV/T70O0sCFm4WkXxvj2TiHa
-	 XE0XPaCjPO5XDbgSkDmdHFsEaFiPppJysq7WpiDCJR6u6Hjzcv39osRdhfbrAafErhQuz
-	 iFzFJD3Qo4K7IGDx2iLCzP20B6W/Rz6BgFDmnUb4e4fa8wvRDDbg6jVnoPaK7CDM7FQ==
+	bh=HxrdlL/XfMoTl/zUIrrA3OXdJLxhcFbEpuGIK05Enlw=;
+	b=REzdrn1/Q61pW9z67f6E5tDm3MBCrUMxT20Ia6i9pKvHk3OftRE6mAoAVmh+LPswYQtn
+	 EhBAluOFhcuNPy6tocaWRkC90tGjl0Ivfq6bctz684XGIQCAanpbcZysNcAu+hci4GrCf
+	 2AeiFXJZxfMUlDBY6qRMP9bAeZ//1IRQpDdeTOI5IfIMxEa7GGjfQlUj1m+cRFq0fKxzx
+	 D1C9a31x9xu2pWVfVALoFhiLj2GDF9AUQ8ayT0+5rPSXdwhqY30LuNjBAUhiwRgn48LYF
+	 0C1+tPSM/X92i9di/yLfu/r71Q4mRbi//SCU2KDulE/SeG7fpnf0q1S2gQ9HJJ5+x9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fb9gBWQy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZBz5guF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6794F606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075D6606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fb9gBWQy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC22F1F0093C;
-	Tue, 10 Nov 2026 22:46:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZBz5guF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF1A1F00A04;
+	Tue, 10 Nov 2026 22:47:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794350799;
-	bh=z86Xw9xRwrb9N6PDLPp0Jo5Im9VUi3U0F0caOhdl+M8=;
+	s=k20260515; t=1794350831;
+	bh=HxrdlL/XfMoTl/zUIrrA3OXdJLxhcFbEpuGIK05Enlw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fb9gBWQyr+tjwNsdQSYN5qqKlu/M6mmKvTchFMfzrzRV8x7ba4mNS6MWs7QwjDs0d
-	 rdz9JAIxkPKJ/QRYIEu1bHCHzJoi9hdP45+2emw1MhsgR/yf/0bG+lSs5TbG6GvYCv
-	 Dk/bU/T0UBdKdQJ9jvFUgLtNncNcp3HbQCwYjARK6CzszyW7djB7ULU2bZ8M7109of
-	 vA+XIPu3y3UeqlVU/AYg4rx/jES7vhSxCJjqLYY/kd85TgN7HFxJG3DbWupB2ePj03
-	 jsU6pFzPSWmrNh2Yv5MHV0fwIssmH5U9UjSFfCcJBrUVhDXqSiP8ChmYLNQ3eu/yFy
-	 Q+v36G7kKmcpQ==
+	b=JZBz5guFCce89eptx/EZ2xtUQgF9/lxRE0QHn+6FMfulyY2TKBbit2dpNwICxRPqg
+	 FNAmR2+Pk2R6uMmQUls6Log6anXouyDZq5zSi0b/EH4S9dTtmz7+Fku6hStMy1+EIk
+	 Jz7HoyNzC3CCHYn8uE1QNIbUCKUiA/uYOqxSCNF5RHQa0rvSBRaxikfImtcbi88/8r
+	 r/rV/6fyor4jGEDHbU6q3hCDtyTucWjaek6elpcVTZnmS7JbVEqJ4iRAAJpu8LUeC1
+	 flglJrtJw6iGj7eYQeOrIcbSdQbjxTmz1Ccj0oMps7xGsB+htioOZZv/3vd4LEZpxq
+	 p6zI34lAUohAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Barry Song <v-songbaohua@oppo.com>,
+	Minchan Kim <minchan@kernel.org>,
+	SeongJae Park <sj@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] block: amiflop: synchronize flush timer before track flush
-Date: Tue, 10 Nov 2026 17:46:37 -0500
-Message-ID: <20261110224537.4063818-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] mm: madvise: pageout: ignore references rather than clearing young
+Date: Tue, 10 Nov 2026 17:47:08 -0500
+Message-ID: <20261110224525.4066997-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051839-failed-6.12-9690943353ce@kernel.org>
-References: <20261107051839-failed-6.12-9690943353ce@kernel.org>
+In-Reply-To: <20261107053858-failed-6.6-246c8cc33438@kernel.org>
+References: <20261107053858-failed-6.6-246c8cc33438@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,185 +65,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Barry Song <v-songbaohua@oppo.com>
 
-[ Upstream commit 9690943353cec1690a715e000ba6a74e5139f530 ]
+[ Upstream commit 2864f3d0f5831a50253befc5d4583868268b7153 ]
 
-The amiflop track buffer is shared with the timer callback. timer_delete()
-does not wait for an in-flight callback, and that callback can rearm itself
-when it cannot acquire the floppy controller. A synchronous track flush can
-therefore race with the callback.
+While doing MADV_PAGEOUT, the current code will clear PTE young so that
+vmscan won't read young flags to allow the reclamation of madvised folios
+to go ahead.  It seems we can do it by directly ignoring references, thus
+we can remove tlb flush in madvise and rmap overhead in vmscan.
 
-Stop the timer before synchronous track writes and use timer_delete_sync()
-to wait for any callback already running. Keep callback rearming disabled
-until the write is complete. Apply this to the FDFMTTRK path as well.
+Regarding the side effect, in the original code, if a parallel thread runs
+side by side to access the madvised memory with the thread doing madvise,
+folios will get a chance to be re-activated by vmscan (though the time gap
+is actually quite small since checking PTEs is done immediately after
+clearing PTEs young).  But with this patch, they will still be reclaimed.
+But this behaviour doing PAGEOUT and doing access at the same time is
+quite silly like DoS.  So probably, we don't need to care.  Or ignoring
+the new access during the quite small time gap is even better.
 
-FDFLUSH, FDFMTTRK and close-time flushes run outside the blk-mq
-request callback. Freeze their queues so an in-flight request cannot
-change the shared track buffer while it is encoded and written. Restart
-the timer if a track remains dirty after a failed flush.
+For DAMON's DAMOS_PAGEOUT based on physical address region, we still keep
+its behaviour as is since a physical address might be mapped by multiple
+processes.  MADV_PAGEOUT based on virtual address is actually much more
+aggressive on reclamation.  To untouch paddr's DAMOS_PAGEOUT, we simply
+pass ignore_references as false in reclaim_pages().
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260930065951.2932739-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ sashal: adapted queue freezing to the older API by removing memflags handling and using single-argument blk_mq_unfreeze_queue() ]
+A microbench as below has shown 6% decrement on the latency of
+MADV_PAGEOUT,
+
+ #define PGSIZE 4096
+ main()
+ {
+ 	int i;
+ #define SIZE 512*1024*1024
+ 	volatile long *p = mmap(NULL, SIZE, PROT_READ | PROT_WRITE,
+ 			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+ 	for (i = 0; i < SIZE/sizeof(long); i += PGSIZE / sizeof(long))
+ 		p[i] =  0x11;
+
+ 	madvise(p, SIZE, MADV_PAGEOUT);
+ }
+
+w/o patch                    w/ patch
+root@10:~# time ./a.out      root@10:~# time ./a.out
+real	0m49.634s            real   0m46.334s
+user	0m0.637s             user   0m0.648s
+sys	0m47.434s            sys    0m44.265s
+
+Link: https://lkml.kernel.org/r/20240226005739.24350-1-21cnbao@gmail.com
+Signed-off-by: Barry Song <v-songbaohua@oppo.com>
+Acked-by: Minchan Kim <minchan@kernel.org>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 246c8cc33438 ("mm/madvise: atomically clear the young bit on THP MADV_COLD")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/amiflop.c | 69 ++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 61 insertions(+), 8 deletions(-)
+ mm/damon/paddr.c |  2 +-
+ mm/internal.h    |  2 +-
+ mm/madvise.c     |  8 ++++----
+ mm/vmscan.c      | 12 +++++++-----
+ 4 files changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/block/amiflop.c b/drivers/block/amiflop.c
-index 49ced65bef4c8..7a53ee1d18d84 100644
---- a/drivers/block/amiflop.c
-+++ b/drivers/block/amiflop.c
-@@ -265,6 +265,8 @@ static struct fd_data_type data_types[] = {
- static struct amiga_floppy_struct unit[FD_MAX_UNITS];
- 
- static struct timer_list flush_track_timer[FD_MAX_UNITS];
-+static DEFINE_SPINLOCK(flush_track_timer_lock);
-+static bool flush_track_timer_stopped[FD_MAX_UNITS];
- static struct timer_list post_write_timer;
- static unsigned long post_write_timer_drive;
- static struct timer_list motor_on_timer;
-@@ -1370,11 +1372,22 @@ static void flush_track_callback(struct timer_list *timer)
- 					sizeof(flush_track_timer[0]);
- 
- 	nr&=3;
-+	spin_lock(&flush_track_timer_lock);
-+	if (flush_track_timer_stopped[nr]) {
-+		spin_unlock(&flush_track_timer_lock);
-+		return;
-+	}
-+	spin_unlock(&flush_track_timer_lock);
-+
- 	writefromint = 1;
- 	if (!try_fdc(nr)) {
- 		/* we might block in an interrupt, so try again later */
--		flush_track_timer[nr].expires = jiffies + 1;
--		add_timer(flush_track_timer + nr);
-+		spin_lock(&flush_track_timer_lock);
-+		if (!flush_track_timer_stopped[nr]) {
-+			flush_track_timer[nr].expires = jiffies + 1;
-+			add_timer(flush_track_timer + nr);
-+		}
-+		spin_unlock(&flush_track_timer_lock);
- 		return;
+diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
+index fe481ae64f37e..200bb7e64fd88 100644
+--- a/mm/damon/paddr.c
++++ b/mm/damon/paddr.c
+@@ -237,7 +237,7 @@ static unsigned long damon_pa_pageout(struct damon_region *r, struct damos *s)
+ put_folio:
+ 		folio_put(folio);
  	}
- 	get_fdc(nr);
-@@ -1421,6 +1434,35 @@ static int non_int_flush_track (unsigned long nr)
- 	return 1;
+-	applied = reclaim_pages(&folio_list);
++	applied = reclaim_pages(&folio_list, false);
+ 	cond_resched();
+ 	return applied * PAGE_SIZE;
  }
+diff --git a/mm/internal.h b/mm/internal.h
+index 03cfd9f736597..5e1642a8e5553 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -874,7 +874,7 @@ extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
+         unsigned long, unsigned long);
  
-+static void flush_track_timer_stop(unsigned int drive)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&flush_track_timer_lock, flags);
-+	flush_track_timer_stopped[drive] = true;
-+	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
-+
-+	timer_delete_sync(flush_track_timer + drive);
-+}
-+
-+static void flush_track_timer_start(unsigned int drive)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&flush_track_timer_lock, flags);
-+	flush_track_timer_stopped[drive] = false;
-+	if (unit[drive].dirty)
-+		mod_timer(flush_track_timer + drive, jiffies + 1);
-+	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
-+}
-+
-+static void flush_track_timer_sync(unsigned int drive)
-+{
-+	flush_track_timer_stop(drive);
-+	non_int_flush_track(drive);
-+	flush_track_timer_start(drive);
-+}
-+
- static int get_track(int drive, int track)
- {
- 	int error, errcnt;
-@@ -1435,8 +1477,7 @@ static int get_track(int drive, int track)
- 	}
- 
- 	if (unit[drive].dirty == 1) {
--		del_timer (flush_track_timer + drive);
--		non_int_flush_track (drive);
-+		flush_track_timer_sync(drive);
- 	}
- 	errcnt = 0;
- 	while (errcnt < MAX_ERRORS) {
-@@ -1562,6 +1603,12 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	case FDFMTTRK:
- 		if (param < p->type->tracks * p->type->heads)
- 		{
-+			flush_track_timer_stop(drive);
-+			if (unit[drive].dirty == 1 &&
-+			    !non_int_flush_track(drive)) {
-+				flush_track_timer_start(drive);
-+				return -EIO;
-+			}
- 			get_fdc(drive);
- 			if (fd_seek(drive,param) != 0){
- 				memset(p->trackbuf, FD_FILL_BYTE,
-@@ -1570,6 +1617,7 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			}
- 			floppy_off(drive);
- 			rel_fdc();
-+			flush_track_timer_start(drive);
+ extern void set_pageblock_order(void);
+-unsigned long reclaim_pages(struct list_head *folio_list);
++unsigned long reclaim_pages(struct list_head *folio_list, bool ignore_references);
+ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ 					    struct list_head *folio_list);
+ /* The ALLOC_WMARK bits are used as an index to zone->watermark */
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 209d0cc950139..7d3a9c4b993f0 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -403,7 +403,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 			return 0;
  		}
- 		else
- 			return -EINVAL;
-@@ -1591,8 +1639,7 @@ static int fd_locked_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	case FDDEFPRM:
- 		return -EINVAL;
- 	case FDFLUSH: /* unconditionally, even if not needed */
--		del_timer (flush_track_timer + drive);
--		non_int_flush_track(drive);
-+		flush_track_timer_sync(drive);
- 		break;
- #ifdef RAW_IOCTL
- 	case IOCTL_RAW_TRACK:
-@@ -1611,9 +1658,14 @@ static int fd_ioctl(struct block_device *bdev, blk_mode_t mode,
- 			     unsigned int cmd, unsigned long param)
- {
- 	int ret;
-+	bool freeze_queue = cmd == FDFMTTRK || cmd == FDFLUSH;
  
- 	mutex_lock(&amiflop_mutex);
-+	if (freeze_queue)
-+		blk_mq_freeze_queue(bdev->bd_disk->queue);
- 	ret = fd_locked_ioctl(bdev, mode, cmd, param);
-+	if (freeze_queue)
-+		blk_mq_unfreeze_queue(bdev->bd_disk->queue);
- 	mutex_unlock(&amiflop_mutex);
+-		if (pmd_young(orig_pmd)) {
++		if (!pageout && pmd_young(orig_pmd)) {
+ 			pmdp_invalidate(vma, addr, pmd);
+ 			orig_pmd = pmd_mkold(orig_pmd);
  
- 	return ret;
-@@ -1713,9 +1765,9 @@ static void floppy_release(struct gendisk *disk)
- 	int drive = p - unit;
- 
- 	mutex_lock(&amiflop_mutex);
-+	blk_mq_freeze_queue(disk->queue);
- 	if (unit[drive].dirty == 1) {
--		del_timer (flush_track_timer + drive);
--		non_int_flush_track (drive);
-+		flush_track_timer_sync(drive);
+@@ -427,7 +427,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ huge_unlock:
+ 		spin_unlock(ptl);
+ 		if (pageout)
+-			reclaim_pages(&folio_list);
++			reclaim_pages(&folio_list, true);
+ 		cond_resched();
+ 		return 0;
  	}
-   
- 	if (!fd_ref[drive]--) {
-@@ -1725,6 +1777,7 @@ static void floppy_release(struct gendisk *disk)
- #ifdef MODULE
- 	floppy_off (drive);
- #endif
-+	blk_mq_unfreeze_queue(disk->queue);
- 	mutex_unlock(&amiflop_mutex);
+@@ -497,7 +497,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 
+ 		VM_BUG_ON_FOLIO(folio_test_large(folio), folio);
+ 
+-		if (pte_young(ptent)) {
++		if (!pageout && pte_young(ptent)) {
+ 			ptent = ptep_get_and_clear_full(mm, addr, pte,
+ 							tlb->fullmm);
+ 			ptent = pte_mkold(ptent);
+@@ -531,7 +531,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		pte_unmap_unlock(start_pte, ptl);
+ 	}
+ 	if (pageout)
+-		reclaim_pages(&folio_list);
++		reclaim_pages(&folio_list, true);
+ 	cond_resched();
+ 
+ 	return 0;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index cbc2de77db3ed..32058c20e12d8 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -2775,7 +2775,8 @@ static void shrink_active_list(unsigned long nr_to_scan,
  }
+ 
+ static unsigned int reclaim_folio_list(struct list_head *folio_list,
+-				      struct pglist_data *pgdat)
++				      struct pglist_data *pgdat,
++				      bool ignore_references)
+ {
+ 	struct reclaim_stat dummy_stat;
+ 	unsigned int nr_reclaimed;
+@@ -2788,7 +2789,7 @@ static unsigned int reclaim_folio_list(struct list_head *folio_list,
+ 		.no_demotion = 1,
+ 	};
+ 
+-	nr_reclaimed = shrink_folio_list(folio_list, pgdat, &sc, &dummy_stat, false);
++	nr_reclaimed = shrink_folio_list(folio_list, pgdat, &sc, &dummy_stat, ignore_references);
+ 	while (!list_empty(folio_list)) {
+ 		folio = lru_to_folio(folio_list);
+ 		list_del(&folio->lru);
+@@ -2798,7 +2799,7 @@ static unsigned int reclaim_folio_list(struct list_head *folio_list,
+ 	return nr_reclaimed;
+ }
+ 
+-unsigned long reclaim_pages(struct list_head *folio_list)
++unsigned long reclaim_pages(struct list_head *folio_list, bool ignore_references)
+ {
+ 	int nid;
+ 	unsigned int nr_reclaimed = 0;
+@@ -2820,11 +2821,12 @@ unsigned long reclaim_pages(struct list_head *folio_list)
+ 			continue;
+ 		}
+ 
+-		nr_reclaimed += reclaim_folio_list(&node_folio_list, NODE_DATA(nid));
++		nr_reclaimed += reclaim_folio_list(&node_folio_list, NODE_DATA(nid),
++						   ignore_references);
+ 		nid = folio_nid(lru_to_folio(folio_list));
+ 	} while (!list_empty(folio_list));
+ 
+-	nr_reclaimed += reclaim_folio_list(&node_folio_list, NODE_DATA(nid));
++	nr_reclaimed += reclaim_folio_list(&node_folio_list, NODE_DATA(nid), ignore_references);
+ 
+ 	memalloc_noreclaim_restore(noreclaim_flag);
  
 -- 
 2.53.0
