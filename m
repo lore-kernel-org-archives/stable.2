@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273885;
-	b=mQDr/KPHVlmNNid/RUrW0FRZHk+yW1W8WQBN8aVE9z4N3cwoxpNoiowz5d8HFspXc0V7
-	 WF3xFJlAsUyIkd0SHjhdqER6pFfelGhNAMJRHRCWa11vsT+d3ivHix+O/3FR/lNSg3f/B
-	 02Oge+KOfSl3Dg7sXwiK7uVVmFFFeNFdXs611hT+GUQnYHgbTH579XUK5bjz+03xLPrMA
-	 kRSRE3sV6zacBZoGkXMZLbWDGO0duRxnSQOxnABYP5+OILstulVsLExpVjBhc0sUW735l
-	 N7eVQj13/iDTdgsaBBD+cOBocbgZNz/g2Jr7e+a3R7VvdFr0WDFHgtAFOnmZKI+XMpg==
+	t=1794273887;
+	b=ij+gRfHIaJnQErcb2HgHLbqloDizMCJiKJ2XdERGNVVvPZH3+nBh+aDetQR6Bj3pn86e
+	 +6l5yjA6FBmcyyS02q1OvPd3t7dBU3Lmb9u71qJ+U5GhHYbJMQ62egqXE0IEfG7rz3rTG
+	 IfYsdtXQlMkrLVBUEHEXMZcMlG3NVI84BoABzUnnbghZX4wCpV0StJV//wN5nrh/gW4Ga
+	 /H0qMfj5yisZ4PcfzB6fkxxa66SqzO7jwrUhc+hPZrhl1xjdc1eqbYlFRShxdcupwxUcM
+	 e/+yfF4GgB1Z+AH9W28C5X/hPiRBloAuDBbtAgOIy359+tqIv+GJMdb3TzPyF3TBxtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273885;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273887;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=M6986uQYWz0dOf/Pp98osoxGR29YYCi03fbG/LC3WNg=;
-	b=PUBthyJ/snWxER60cADV8IRpVtrlJtWhAO/VBIIVNn8SpKPX1RUMRYLfLApOj9q91zLl
-	 NibIyP9WQpiRRDH+caQQz+GjQ8R8X8ozrZDm2ZKuJFiTTaBxpTWamW9ZAF9mSB8svCgcw
-	 6FiQ9lV0HtDugpeUuNGovtX3DrpE4wEFp6EdpKsncXjCAyXzaITrU4yDkoJJpo8bX4+23
-	 zVdLIUl/P2VJnRfTgJWJzAZvfwJs7wF9o58m+tzF0FX7fVgVOmNdDuR4dqRZCLtLEp+du
-	 O1YGXj5xxTdWnqK/qtrQ6uAEtNC4ndq2LSGTHzb3vJo0oIVJ5bB6E4LYel2fDDW9iVw==
+	bh=f/v/gWubsV3+XF7uRgOZ114b294oE/e1b5vYS6EE3gQ=;
+	b=jzg8o5Sq08bCGSlSL5RfRx8fb2o0XIIw3FlYHcq4B+QLdzR8ijWiXm9KnjpTqNKAskB7
+	 8h5jh6nwb6zZHisQaqIiyfGAMiKjxFfXp3JeXHjDaD+LlsMTjHAu6QGYwD2xhqP5YNbUL
+	 K4t4vBaUXwTvfnnrY/g62ihNvo69Kh22SzcS/sGcc4JVnwdjNUSiDrgPfG74GGSIlGGub
+	 5pwL2RN3kU5r8zZza5YI46lpiRLbMUWQN2MS3kAlUzHYwb1xQAP8CgDYFSejjOMDZmq4F
+	 ArEOP+2G9JqNkgXnbxSeNpGSUaTTctb/7pp72zQODqp1N+iG1R97PABeMjSk3HFXYhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eeicRLeT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqc0BfCL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B377E60A261B
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441F96071840
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eeicRLeT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ACFC1F0089F;
-	Tue, 10 Nov 2026 01:24:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqc0BfCL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7888B1F0089F;
+	Tue, 10 Nov 2026 01:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273884;
-	bh=M6986uQYWz0dOf/Pp98osoxGR29YYCi03fbG/LC3WNg=;
+	s=k20260515; t=1794273887;
+	bh=f/v/gWubsV3+XF7uRgOZ114b294oE/e1b5vYS6EE3gQ=;
 	h=From:To:Cc:Subject:Date;
-	b=eeicRLeTLjeKxTScUKK7hjpgsYnUJ+eE7Z6iSWi+69NcuVGk9iW33AV85cUFcDPrL
-	 6KgfqhDpul5p+FydOVMRJHH0gQWAfoB/dUh5trYNb69rR+rPjFhhsyetTdRClSFBbG
-	 HkSR0XJU8DTndtJ8w724TMEhpddbSSx33+5UevvMUXHqUymHKyfcBmiy3/y7uJXiZw
-	 tbzd5n/eUolf3yJ+N7HG9BCCR0kl4qAWZLmgtv5o/l90J0FHVElzK2TDI4KyonG4Z7
-	 prvj/HumIZ+2P9tv5aCZ5oKGVJ4pARIADk2yYMPI++7XYppza1FAp096M6tWTL4G4a
-	 1whmQZBeXn1iA==
+	b=oqc0BfCL/d15T/s1aYdSGBWPDMtmrtv2TVv/TGQFXYCXrwBVDTfCSEJ4WrUN1IutN
+	 +BJMg4ux4seoQHCZ8VZUR2ou35E7r7n+ybZbiqRIGpQvWBLLpU1oHeaHbDksvdFUSb
+	 7T++K1ULCWZcogruSJbmJHZAvDhDwwNKySduP35YPNpBeemaPfq8QbYiuP4JOEtNCG
+	 C1ob3TmCq98l8zvJ3UbXK3jxd3BXUgOFFWnLDz9EQnGWWiUpIFLB+MDMrVPm+dfa+E
+	 FrOGAsHDD3vIIJw0ONrFniZbHu6Zm573CugHlZ2yFDlJE1RTctQVocrdcLt9u+M2gp
+	 ULOrUBUY73yjA==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de,
-	treebacker@foxmail.com
+To: odys.yuan@gmail.com,
+	hch@lst.de,
+	paulmck@kernel.org,
+	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:24:43 -0500
-Message-ID: <20261109202443-failed-5.15-9017bc3d13da@kernel.org>
+Subject: FAILED: patch "[PATCH] srcu: Add list_splice_init_srcu()" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:24:45 -0500
+Message-ID: <20261109202445-failed-5.15-d06917d0ba22@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,92 +70,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9017bc3d13da0ea4e63be618c87143a7b69185e6
+git cherry-pick -x d06917d0ba226206dbd606330d73a8eb1e3029c1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202443-failed-5.15-9017bc3d13da@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202445-failed-5.15-d06917d0ba22@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9017bc3d13da0ea4e63be618c87143a7b69185e6 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 3 Nov 2026 16:58:40 +0100
-Subject: [PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams
+From d06917d0ba226206dbd606330d73a8eb1e3029c1 Mon Sep 17 00:00:00 2001
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Wed, 4 Nov 2026 01:30:39 -0500
+Subject: [PATCH] srcu: Add list_splice_init_srcu()
 
-ALSA PCM core accepts to re-use the existing stream when O_APPEND is
-passed, and it's been used for dmix, etc.  However, this mode isn't
-supposed to be used for OSS: the OSS stream allows re-configuration
-via its hw_params/hw_refine procedure even while it's being mmapped,
-so it implies the usage of only a single stream.  Because of this
-assumption, the sanity check is skipped for OSS streams, and if user
-may attach to an existing OSS stream with O_APPEND, it may result in a
-UAF of the mapped pages which could be used as a privilege escalation
-exploit.
+list_splice_init_rcu() makes a list look empty to new readers, waits for
+the current ones with the given sync function, and only then links the
+entries into the new list. The sync function takes no argument, so it
+can wait for RCU readers but not for the readers of an srcu_struct.
 
-For addressing it, this patch simply prohibits the O_APPEND behavior
-on the OSS stream.  O_APPEND is never used for OSS layer itself, so
-this can't break for the right applications.
+Passing synchronize_rcu() for a list read under SRCU still builds, but
+leaves SRCU readers on the entries while the last one's next pointer is
+moved onto the new list head. nvme_remove_namespaces() does this today.
 
-Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
+Add list_splice_init_srcu(), which waits for the readers of the given
+srcu_struct instead.
+
 Cc: stable@vger.kernel.org
-Reported-by: Bo Cao <treebacker@foxmail.com>
-Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
-Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- sound/core/pcm.c        | 2 ++
- sound/core/pcm_local.h  | 6 ++++++
- sound/core/pcm_native.c | 6 ------
- 3 files changed, 8 insertions(+), 6 deletions(-)
+ include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 064df4cd3b50e..6c8274414c226 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -929,6 +929,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
- 			return -ENODEV;
- 		if (! SUBSTREAM_BUSY(substream))
- 			return -EBADFD;
-+		if (is_oss_stream(substream))
-+			return -EINVAL;
- 		substream->ref_count++;
- 		*rsubstream = substream;
- 		return 0;
-diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
-index ecb21697ae3a4..4b134d435c24f 100644
---- a/sound/core/pcm_local.h
-+++ b/sound/core/pcm_local.h
-@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
- 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
- }
+diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+index 1a8a465a5650d..d4dcaeb83e2b6 100644
+--- a/include/linux/srcu.h
++++ b/include/linux/srcu.h
+@@ -18,6 +18,7 @@
  
-+#if IS_ENABLED(CONFIG_SND_PCM_OSS)
-+#define is_oss_stream(substream)	((substream)->oss.oss)
-+#else
-+#define is_oss_stream(substream)	false
-+#endif
+ #include <linux/mutex.h>
+ #include <linux/rcupdate.h>
++#include <linux/rculist.h>
+ #include <linux/workqueue.h>
+ #include <linux/rcu_segcblist.h>
+ 
+@@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
+ void synchronize_srcu(struct srcu_struct *ssp);
+ void synchronize_srcu_atomic(struct srcu_struct *ssp);
+ 
++/**
++ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
++ * @list:	the SRCU-protected list to splice
++ * @head:	the place in the existing list to splice the first list into
++ * @ssp:	the srcu_struct that readers of @list use
++ *
++ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
++ * instead of RCU ones, so that none of them can follow a next pointer
++ * onto @head.
++ *
++ * Note that this function blocks, and that the caller must prevent any
++ * other updates to @list.
++ */
++static inline void list_splice_init_srcu(struct list_head *list,
++					 struct list_head *head,
++					 struct srcu_struct *ssp)
++{
++	struct list_head *first = list->next;
++	struct list_head *last = list->prev;
++	struct list_head *next = head->next;
 +
- #endif	/* __SOUND_CORE_PCM_LOCAL_H */
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 35152fae74ca2..bec797398acf7 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -749,12 +749,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
- }
- EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
++	if (list_empty(list))
++		return;
++
++	INIT_LIST_HEAD_RCU(list);
++	synchronize_srcu(ssp);
++	ASSERT_EXCLUSIVE_ACCESS(*first);
++	ASSERT_EXCLUSIVE_ACCESS(*last);
++
++	last->next = next;
++	rcu_assign_pointer(list_next_rcu(head), first);
++	first->prev = head;
++	next->prev = last;
++}
++
+ #define SRCU_GET_STATE_COMPLETED 0x1
  
--#if IS_ENABLED(CONFIG_SND_PCM_OSS)
--#define is_oss_stream(substream)	((substream)->oss.oss)
--#else
--#define is_oss_stream(substream)	false
--#endif
--
- static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
- {
- 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+ /**
 -- 
 2.53.0
 
