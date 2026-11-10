@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311433;
-	b=Hvv5bPvdt0jHcl1TTwV8Kd3YZavBemMz09jdKOX+XrxAkVrJBFVfXw43sNo1fs5SQj30
-	 p+RQv5ZkPDX16iEZ/PBklrc0EKtiTFNcrXUlPrsmWYwEPI6Yqe7yVYA75FO7OTAkiGy3e
-	 b6iFNuvsCQEVHI512H9IhtMkV19SYB0b8BDlGpm/w+XDlgCCmJnyPm1koK99co+NaLXCt
-	 +S/MHzbu4LYSIZsExgdkp2QmjwdQWbLaCWDcq63ctGYvzyJLZSYs2gyhz+b1bIRBFA4WC
-	 bGlphrff0VApljrnLDcZzBL7bCrmJEF3gMeqTu+aJI7Rs3lFYddzmfps4toMu8zKdtg==
+	t=1794311453;
+	b=5CwKbonPYcgnFElt5QORm6wk4kpY/XCxICt56M4gyi2vulcDBqHMaM+uUlC8aC+sm196
+	 /6u4Rv+D7+15kD72dEUBbDMOK5h6aK2wklshvA7m4lPNs0fppZ1KaK4V8IIZlRQQN7ptT
+	 p0we7NbdmzBjaqdxVGCw2w39fUu7wAF1JNbPiLrRnLnW/HuJcBT3oRaBfTm+/bKs7AECF
+	 opl80V0seO4ltJoabrYwmjI0MdzqArFrJpWmYB09Gdf2CbnTlQUhcrlAF8X5xaY3x3jzh
+	 KHCTiH5guk29iUjEVkGugVBJWBWfIsp1JO8rA3dBfl9Lf2obddX59XPsloEXUJ77FZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311453;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hLHnTCX+XqtEwDQH+pbwlVTXpuT7hvq7AVAfioowBa0=;
-	b=wPLQ1/nu34MLJ+5g5xAVBv5wAZxnsIxy4QopkQTqAy5L+29NnKOJUk8QFj6nhQEdW8LD
-	 ajQEdC0l1w0NoE01PPjmYyckTUnWHbvLPY8cvwqlmBAwI6NPgs3i7VoSOGsYrj4Rqri0i
-	 1N7eKOOsWSDijnFU6NUeIrMhgYVmhtQmtV7Tqd+dr6HUMq9hnv2q29B2G/kFsD7yp7pCY
-	 4OTvrQG53BPjX6tYtSX3tdJuoidrdaB3Dx2zp2cHks5/5fGo/kQmtqN/NYZiUUW/V80zl
-	 4lkFBn97xBo4DHryo3ox7aCeTIL40kMthy1xxVjQSwPisc5NduS1k3xHqn5Fg8tZwhg==
+	bh=Cn/vYW8PTJ1H7zZY2cQ6KQyBPITXLpl4KZYPJi+O9Dk=;
+	b=0w01k6bAEH5VGmbEFGHHiAhNQ5ywmbkpxvRfpS6Sg90q09rVUV7FlrzTPH7m5OVv0QFJ
+	 RjVtapjBPDjdHG1j3Nq1MBxoaywnDX1RKQoFe/jWxSY8nO3Hw87+SkwHEwHBpL6mogRZk
+	 4A4AjFrDyNWkx98xTr4J76FEnIC1SSHXf8qKuWLZiakojFarGMz4dzM2Z2c73Lp5Ixp9n
+	 uwdNAxzZXR4QE4naBVO7eLSLAKTSdEOfCQ1ix53oTMO/Mvmf5Cg0wwdX2FIsQGrMahOKe
+	 ZRHyZL2gFGDevQEwXIAzl0ydDfjHjgACcV3fsnBwrgpDl6zYXqHW0Rr3VpqD537yaIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdbI7mDx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwMb7lqX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FCC606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:50:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFEB606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:50:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdbI7mDx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9318D1F008A1;
-	Tue, 10 Nov 2026 11:50:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwMb7lqX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7102C1F008A1;
+	Tue, 10 Nov 2026 11:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311432;
-	bh=hLHnTCX+XqtEwDQH+pbwlVTXpuT7hvq7AVAfioowBa0=;
+	s=k20260515; t=1794311453;
+	bh=Cn/vYW8PTJ1H7zZY2cQ6KQyBPITXLpl4KZYPJi+O9Dk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hdbI7mDxmyf1p64csJ1Bi1dAAYE+gOCxR6yjd1Lk/SPX5D3lVWV2DsRkvCbFFzPAx
-	 xLtKzCgPthdRUhG3JcS1q09+sQASuo92HOuOsS+xrWO3mWjtnQFmZcLp5EobDRdpMk
-	 8KJycGP1TKUBkLnAUNWUWw1NWJPR3PBwj1VH39UjShHd++j12DmKWF+OJIzvqqYAnr
-	 A+cNyDy4p8BKI52m31EghKbq8R8jeJEbh5XYi3Jh8qcAbGxD6Wq6JXfpe8VzU8DWq6
-	 qiwILj+8p2Zp8knsv2YqR0yLJWT25VqH5m0i+v1zLs9bbXNaxZ1AY0f/pNcCpK90HA
-	 u/ZXBUShBcXAg==
+	b=DwMb7lqXDY4pjdgOtE0B6xLzBdA/HU+hV1uHTA1Idahaqjsc1cOnuOj6S1D+IbKPU
+	 0Lf7opcEje+YBuzh9ta+KdhmQsCSNXMazgYlzxpcE4w3gT2PZ+wUQ0/LNmcNJ0LH8w
+	 TuagRmCoOuqjGnzSM49CwQ1KDQHutNUpMXNj6CX+17VXDczxQhPnAv6hj8utj03RA8
+	 G53NYwQabngIXE4HdEpEsizEvJcX3pqXe4BQ5Wj5mpjTXq0nfN8iE9rfMStywmsifG
+	 iOVm+EVE0R2uB+wJYZ1OdL556YvtE7guMVu7Cs2N1lynhH94FuEzLcHrSG+CMXdIyg
+	 XySPJOe+zeZ0g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] media: imx219: Account for rate_factor in control steps
-Date: Tue, 10 Nov 2026 06:50:28 -0500
-Message-ID: <20261110115020.612803-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y] media: i2c: ov5647: fix power cleanup on remove
+Date: Tue, 10 Nov 2026 06:50:51 -0500
+Message-ID: <20261110115030.864441-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110115020.612803-1-sashal@kernel.org>
-References: <20261107050653-failed-6.18-57043aef0a04@kernel.org>
- <20261110115020.612803-1-sashal@kernel.org>
+In-Reply-To: <20261107051738-failed-6.12-6e81cfc38548@kernel.org>
+References: <20261107051738-failed-6.12-6e81cfc38548@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,86 +62,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-[ Upstream commit 57043aef0a04bd96d97881422590e71c1e4c45b1 ]
+[ Upstream commit 6e81cfc38548109021ab761b94ecdd01f8753154 ]
 
-The controls that are divided by the rate_factor before writing them to
-the registers have the step of the value of the rate_factor. Take this
-into account when the control's range is modified. The controls are
-created in a configuration where rate_factor is always 1, hence there's no
-need to change the code adding new controls.
+ov5647_remove() disables runtime PM without powering off the sensor if
+it is still runtime active. pm_runtime_disable() does not invoke the
+runtime suspend callback, so the sensor can remain powered on.
 
-Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+If the device is not already runtime suspended, call ov5647_power_off()
+and mark the runtime PM state as suspended.
+
+This issue was found by manual code inspection.
+
+Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+[ sashal: adjusted context to account for the existing mutex_destroy() call ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/imx219.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ drivers/media/i2c/ov5647.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 87c4d8942135c..e399a87f99266 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -326,13 +326,13 @@ static const struct imx219_mode supported_modes[] = {
- 		/* 2x2 binned 60fps mode */
- 		.width = 1640,
- 		.height = 1232,
--		.fll_def = 1707,
-+		.fll_def = 1706,
- 	},
- 	{
- 		/* 640x480 60fps mode */
- 		.width = 640,
- 		.height = 480,
--		.fll_def = 1707,
-+		.fll_def = 1706,
- 	},
- };
+diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+index 305677913a0c3..3e7fd8f28df3a 100644
+--- a/drivers/media/i2c/ov5647.c
++++ b/drivers/media/i2c/ov5647.c
+@@ -1481,6 +1481,10 @@ static void ov5647_remove(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(&sensor->ctrls);
+ 	v4l2_device_unregister_subdev(sd);
+ 	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev)) {
++		ov5647_power_off(&client->dev);
++		pm_runtime_set_suspended(&client->dev);
++	}
+ 	mutex_destroy(&sensor->lock);
+ }
  
-@@ -469,8 +469,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
- 					       imx219->exposure->minimum,
- 					       exposure_max,
--					       imx219->exposure->step,
--					       exposure_def);
-+					       rate_factor, exposure_def);
- 		if (ret)
- 			return ret;
- 
-@@ -904,7 +903,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 
- 		/* Update limits and set FPS to default */
- 		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
--					       IMX219_FLL_MAX - mode->height, 1,
-+					       IMX219_FLL_MAX - mode->height,
-+					       rate_factor,
- 					       mode->fll_def - mode->height);
- 		if (ret)
- 			return ret;
-@@ -922,8 +922,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
- 					       imx219->exposure->minimum,
- 					       exposure_max,
--					       imx219->exposure->step,
--					       exposure_def);
-+					       rate_factor, exposure_def);
- 		if (ret)
- 			return ret;
- 
-@@ -956,8 +955,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 			return ret;
- 
- 		/* Scale the pixel rate based on the mode specific factor */
--		pixel_rate = imx219_get_pixel_rate(imx219) *
--			     imx219_get_rate_factor(state);
-+		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
- 		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
- 					       pixel_rate, 1, pixel_rate);
- 		if (ret)
 -- 
 2.53.0
 
