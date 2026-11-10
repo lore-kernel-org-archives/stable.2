@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316574;
-	b=BnJ3J/MmoxV4+6JF0nNoqn4vdIATgIAxaeNXGD/4sPryqXu7uaNXuJRys/cRR2M3rm1Z
-	 o45b7e0uFiEQxmB4MoRDCxSLd85pB6t/Hs/2Nrd7solok2uX3Qf0UKmskTYU0dn7wRg20
-	 g85nIzJe4oPf4PdtpEkxb8jV3UWhjR2l7PrjGACOioPN4KedlKiqTIyJqWrVp1Jbyv72x
-	 q+nbM9QmwjdfDvo/DV11UbVC2+L6njCMdjKnN2Jp5iDqDgIETWnVYwUF9MgXAzLxtvES5
-	 CW6KQeIqlP4OBneu82kNLYCOP95UENMGm3lfOpARiJ1w5qr+7vV966xLc74YBaE7TLg==
+	t=1794316589;
+	b=LNXekhMgzkIm4jwzlzHonLYtbLW6S3PxGL0YSgW8e+2QZT2UtPMqkaCyGpefQ0h/akU5
+	 bTQyEa3vNJFCyRhnXfQQ9pI99pPfbaJO9JdLhGiRC+PDPm2hEN8NgAZjYDmP8VapmDZSk
+	 LY2KMx7Aoo0S7hHjaukrI5zSSGV/dpBbF1ygoX/b2gRWSNERCtQZ4W9Uym+Snjkpe6use
+	 j9F1/StgH9B+3919cFU9hrADhk3L5n2SO5bO8BvcI/JxqRmhYXP5hqfsG/bnLJ9PIb+Nm
+	 fkQcMkf89rmvYPDtMe1HtH40hAND/KjkdS7lOYJuAb0DppmlZlfx4RBjkyxUML0IpGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316589;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4uPKM7KsH4LWeJjeo+1ooFDBhXoZzLOl6fU28Xz2zG8=;
-	b=VdpcnOXpFk9vPGyWxuxb2vx1HMbcJG2FgMnYK81TLYkphvDYkKmudQyRsKRfWHi6YzcV
-	 TkcY9RTTSqNHVcFVSiR45JNiBo9ySc16pT1mI4NYLmoydLwsYVR5eVeOoGjX/QM8sMn4a
-	 39YqbLkaNeFJfywL86HqgETnsmFlJk1wvhwdLRxDlhs8jrb5CNsKdOE5/pR0Hul7GvVHC
-	 S4myWx3XzxLqSVM+iGK9M5Q4nIFVIDQCdYms2KpLrdXazYDX3q8VA/yJPe7P6cqfq+Qzq
-	 ozb+yI3ear2Sqn1hUSadmjZ7xKd6r6b3Zj2rsOleaOT1XqIBrn2KZ/BqIYDrkguweOg==
+	bh=z+69h2YOK6KjqD7rEV9DkKlWr2NJZCATk7MaiGTlHRs=;
+	b=t/38xP0nlHBu1yDek8aCp0gh4jxccn+p7iLG6VS37PIVYzzOTgoH2NdM46YFm3xm/QbD
+	 vwriXlrf6oULX4zU+YD37CTqNnyO2jw1TSmKOzLqDawLPkS7N6ig0xoc3n6Ngq+21hYo3
+	 FAcC51esy3XAeyFKiI6Fvy0lvsVldWZW3dRrYKR80RWZIkIxB4kpOnsRcMfhgoHThgI14
+	 Hm+/GykUvQpN6By3h6Ld0JC2BfHIlrU2m4Mh2wsDRS83KujEcwa2+xr99UbOH2b2PQZyH
+	 qB3fcFGQNks1Nb2+yEQNyv4EEe2RgwdLyTbtH7Xk4Htd6AJ+HJIrorybVnYIdHH8WaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7uMtMrm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDCBz6IH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B32606BFE4
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:16:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 794F5606BFE5
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7uMtMrm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DFA1F0089F;
-	Tue, 10 Nov 2026 13:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDCBz6IH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1E31F008A6;
+	Tue, 10 Nov 2026 13:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316573;
-	bh=4uPKM7KsH4LWeJjeo+1ooFDBhXoZzLOl6fU28Xz2zG8=;
+	s=k20260515; t=1794316589;
+	bh=z+69h2YOK6KjqD7rEV9DkKlWr2NJZCATk7MaiGTlHRs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j7uMtMrmQcIQDbDdzd1oGWwXLSL9t7lwGIa4AUdRyTtntVd2Gahx5lTDu59HLp4Qo
-	 pMz8cebEvmPO0Bay6NfVqRnZEComFmFd76JuN6NG+HvGzh8YOf+8zxAwzs8Zs1vZpJ
-	 NnAgWFyC3UMMR+p2GLn5L1Tkq4dA+jV2043T/Gwa4b/i/ZlO8IbJ1bGExLXf1i+xuO
-	 L1OfLGpIJShMu3BeiCkCCB6kInP7EI8FQEtp3GMs7M8uVpzU/niQtISSazIAkE00Sg
-	 70pBH9u85OC0VxZjGdFZ26OuaO00yoDAhh9g44y8XUOjGigRlTGZPASeMDD5hNnfVU
-	 /XQ+GNSyca6pA==
+	b=kDCBz6IHpDxK7AwDDVQBVy5ADPBqhAj1Ph4PBUZTCPz+2CJoUlnnp4X1J8WRNsvjf
+	 S6qcpTjSISdx8hQu1q+kZqKvM54/rwLZv35tIC3tVydaKG2KfIkb84FySeTyjlcrfu
+	 ZeRcI1hNmJomckl9dnCOasPjAHUMIPjgVVGtx353mj+u0+7bezvk1yzdBy+IB0i33z
+	 qVO0K9g0WvMpVOv5PpR4h4X3cmRkRY2m6+l2roxOWYcF24bLgS3I3N/JUg4Cr08wBz
+	 uJUZDE4OtxCNpszb3RHxYfAW9A0vxAo1GXT9eU5aUOaHRc0p30f3Xf2YEbgBhmdpEM
+	 NHVHWcbJoOk2g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 08:16:11 -0500
-Message-ID: <20261110131532.1704688-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] dmaengine: qcom: bam_dma: free interrupt before the clock in error path
+Date: Tue, 10 Nov 2026 08:16:25 -0500
+Message-ID: <20261110131618.1701335-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061717-failed-5.10-56c1d32323e7@kernel.org>
-References: <20261107061717-failed-5.10-56c1d32323e7@kernel.org>
+In-Reply-To: <20261110131618.1701335-1-sashal@kernel.org>
+References: <20261107050930-failed-6.18-82eed160cfa7@kernel.org>
+ <20261110131618.1701335-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,79 +64,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-[ Upstream commit 56c1d32323e773b8b927316f8beeae9238576335 ]
+[ Upstream commit 82eed160cfa7a296ae4eb5acb8dd8f493323eea7 ]
 
-tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the first
-~35 ms conversion.
+The BAM interrupt is requested with a devres helper and so on error it's
+freed after probe() returns. We disable the clock before freeing or
+masking it so it may still fire and we may end up reading BAM registers
+with clock disabled.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot.
+Stop using devres for interrupts as we free it in remove() manually
+anyway. Add an appropriate label and free the interrupt before disabling
+the clock in error path and in remove().
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
-
-Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adjusted context for the temperature check in tmp102_read() instead of tmp102_read_temp() ]
+Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp102.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/dma/qcom/bam_dma.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
-index e867a0c2e5399..181373cc1289a 100644
---- a/drivers/hwmon/tmp102.c
-+++ b/drivers/hwmon/tmp102.c
-@@ -54,7 +54,7 @@
- struct tmp102 {
- 	struct regmap *regmap;
- 	u16 config_orig;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index c8cd6112f9003..9f514f9201bcc 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -1322,8 +1322,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		bam_channel_init(bdev, &bdev->channels[i], i);
  
- /* convert left adjusted 13-bit TMP102 register value to milliCelsius */
-@@ -79,7 +79,7 @@ static int tmp102_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp102->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
- 			return -EAGAIN;
- 		}
-@@ -245,7 +245,7 @@ static int tmp102_probe(struct i2c_client *client)
- 	 * Mark that we are not ready with data until the first
- 	 * conversion is complete
- 	 */
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+-	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+-			IRQF_TRIGGER_NONE, "bam_dma", bdev);
++	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
++			  "bam_dma", bdev);
+ 	if (ret)
+ 		goto err_bam_channel_exit;
  
- 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
- 							 tmp102,
-@@ -279,7 +279,7 @@ static int tmp102_resume(struct device *dev)
- 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
- 				 TMP102_CONF_SD, 0);
+@@ -1356,7 +1356,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	ret = dma_async_device_register(&bdev->common);
+ 	if (ret) {
+ 		dev_err(bdev->dev, "failed to register dma async device\n");
+-		goto err_bam_channel_exit;
++		goto err_free_irq;
+ 	}
  
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+ 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
+@@ -1375,6 +1375,8 @@ static int bam_dma_probe(struct platform_device *pdev)
  
- 	return err;
- }
+ err_unregister_dma:
+ 	dma_async_device_unregister(&bdev->common);
++err_free_irq:
++	free_irq(bdev->irq, bdev);
+ err_bam_channel_exit:
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		tasklet_kill(&bdev->channels[i].vc.task);
+@@ -1400,7 +1402,7 @@ static void bam_dma_remove(struct platform_device *pdev)
+ 	/* mask all interrupts for this execution environment */
+ 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+ 
+-	devm_free_irq(bdev->dev, bdev->irq, bdev);
++	free_irq(bdev->irq, bdev);
+ 
+ 	for (i = 0; i < bdev->num_channels; i++) {
+ 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
 -- 
 2.53.0
 
