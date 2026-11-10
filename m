@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341794;
-	b=fcwrA8yHoxKGEkuelReiGAL82x7jzvqjF2AfyO/X0Kl4+seGtSl9IVV4a27L/GvshP/p
-	 dU7vgKVXY2ekXOxTUJbqv1Y/iTcTkmYH4cytx8r6sE3DmXs07m4iRhrxtrZicydyv+8vu
-	 szughR3ypqA3CdLwC9qFNuIL95YIvXecq1sRQR9aJqqfqVN9hwImDtMPLOLv0buKI5Oe0
-	 ko10aPT2IINGaPlTSDLAhj75xqODYdM3FNRCw7q11loKWJhpzP8rogHUerei1lDM6115J
-	 3V610hp/khE+CQeq1O45LnVyLTrD4FdQvcfG+LeD264hfpdKjNTYo5yu80T53r8BetQ==
+	t=1794341810;
+	b=SkkZhrGM2lycfNaBXXc6QZ0wHqKnIJtA2AnatOU3VJc4lXdPcj+rwiSmJXRwOjyTo94N
+	 b2GDK7oPmJJ3lGoFKhT/4k6g+RYLoNNEnyQc+zQT1W425pPRiIXmIYhTFdPBA5fcnwvio
+	 IwyNjAhCnW/hWUsdDIqHZ3c41JN2FJB1i+5SHROPVl3nKIs4QG4vQ5gzdV+8RH8OBKiDk
+	 SEBfO51OwgXtfLdORSnFj6VBuMWMHF+6RJxSNUb++q6FRRJ3b0tQGykl6i3TAC5f1SDaA
+	 2Et5zgIBl2I7z1iBo+Dhe3UGAWYQ6W2tFTp/CiPcEIxMqGVMW3S5jAHjmz0qOGJUsDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341810;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zO10wKAE4P82VZclOw8qx37lMoJGAPT0t+9u2mDLtvA=;
-	b=Bap/x5NM4Kp4gE7mUtkFskB/gWs75m1UH3dVuOJatu6TSeleDl0plvJ0ncmslLwTUwcY
-	 wO3KsLv8mp/2g/Pzraz8C77P9jmg8vTFzqw33bHAg/46BhOfJLRB9qV6BK5in5oRdAJHH
-	 qJtxQ8PO0ZGGOxpj0WIcSJexcJaIBQZV//gNbaWfNkHNFoz2r9P4tt+AhrvVe1OFH298x
-	 AvKL/E0APLXo75HRv1pPBR1ynx0wqZaiMAOE+oFKeLKqEJVt2juAMjT3m/TQ5UjNe5nMs
-	 Th9JGmccppQPVMpW/5ZAM6G/MXvQnmTgEAXFxNDAuZW9gDRQc844+rCazsCchQtX7NA==
+	bh=MYsJ6R1JqOzQ0AKfpYVO6Se6xjEHtYZj0JPQpiWQPB8=;
+	b=vEfok5zXrQNZpS0vOCyeH8KIzlpGCmwxKvYlQdHT1eY9rA8k4jxIZg22IBKMnRtem7fm
+	 Hrkyhi7/FXivgPnYBMTfB+cu57PlsXlTo/LjhCCKAzkJxYTsf79zlJGzQtn1NOuy0qCnL
+	 wClaTdoSupvdehHv00YEfu3V8DfmZjkbKaK+uy+cPEQhFrtaZhT7rlPO4t/Cr56gPJIbS
+	 0ZWxdVM6SOTTq7DEyol3QdhTg26Bzfxz9Lk6QFWA/Vrzf0HzEiHEoJl5S44UABxEV9EuZ
+	 +WH7iuKorpVMdcbLBGQBgPz8Tmn1wwI37SmcAaGwGC+gbNzTaJr9j9WE2wzfbFAaCLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCooIo3y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PojKKhoP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5986606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:16:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A53606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:16:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCooIo3y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67B21F008A5;
-	Tue, 10 Nov 2026 20:16:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PojKKhoP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C31C1F008A2;
+	Tue, 10 Nov 2026 20:16:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341793;
-	bh=zO10wKAE4P82VZclOw8qx37lMoJGAPT0t+9u2mDLtvA=;
+	s=k20260515; t=1794341810;
+	bh=MYsJ6R1JqOzQ0AKfpYVO6Se6xjEHtYZj0JPQpiWQPB8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XCooIo3yHKZ9cRi4tpLrXW4WoU3rTfbj2vRJZdBDUS1b47S0JwDB1dv/3wz0AHyis
-	 ENcXb2eyCKfYRQulgbZsBlpXQx8PDg9qlJni06sPOjczkI7Cy9edP6+BuEsEbpOe5y
-	 Q7yWoWXw794M3ru+SpvQpSR1rblBIN0c5Y7X9iCQm8beDI1VcUvORc6ulLuqYcE7j6
-	 lPvNz3VBEOYoaoYIlFMn10fR/GY85XtyfZ+77AGiOP3zxxvC9GR3oMDuMEy51JB3Tv
-	 9QVymPW2nIS3m7lK7wfKblwhmhxnIgGykwN4uAHlfzMLGL488FDgi0oDd/dT2tVlaB
-	 YcaQv3xtfx4cg==
+	b=PojKKhoPp0i37cWLMLWcCNrCRqtmeI1BfQQy+L1ud9+hsjSFHBQzQ79sumNvpBpC+
+	 R8WM5Q2oBM4N6elM1ipSMs/8oKsHZDgJWkoj0U9WhthNMUfgMYLP1R9Mhg8ABEgWUT
+	 FiQNrouZafanSB7nIiaWa9Jr9cY948ZPXCbuddrVzgZYqNx+S64fvLI9Q6u5bEl2Wb
+	 s9wLyitCtAtFy5lq6z8B5TlToyGQ1FIDEOBg337SozWlwz97paQ0LjkPdsZcW58Yzl
+	 88oSnbZt8cK/wR1u8Dh3JMgkCYepjuFxiWpSyg1Q8PoZcPNeHLKDkH7pUjVvO/kWbR
+	 FP9yMCqwxEG+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Mark Brown <broonie@kernel.org>,
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
-Date: Tue, 10 Nov 2026 15:16:31 -0500
-Message-ID: <20261110200604.3670083-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mptcp: fix subflow bitfield misuse
+Date: Tue, 10 Nov 2026 15:16:48 -0500
+Message-ID: <20261110201634.3734215-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053538-failed-6.6-0ea3e0b196f9@kernel.org>
-References: <20261107053538-failed-6.6-0ea3e0b196f9@kernel.org>
+In-Reply-To: <20261107052336-failed-6.12-7538fa33bb2f@kernel.org>
+References: <20261107052336-failed-6.12-7538fa33bb2f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,75 +62,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
 
-[ Upstream commit 0ea3e0b196f9dcc17b40ac881a6efef06459975b ]
+[ Upstream commit 7538fa33bb2f66b8b809ff39d58308be48e197a0 ]
 
-q6apm_dai_pointer() turns the number of period buffers the DSP has
-returned in the current lap, 1..periods, into a position and reports
-one frame less than that. Commit a93dad6f4e6a ("ASoC: q6apm-dai: make
-use of q6apm_get_hw_pointer") added the "- 1" so that the end of the
-ring is not reported as a position equal to the buffer size.
+The subflow status bitfield is protected by the subflow socket lock,
+with one notable exception: the `close_event_done` bit is actually under
+the msk socket lock protection.
 
-One frame short has a cost once the application stops feeding the
-stream. The DSP returns the last queued buffer and the position stops
-at appl_ptr - 1, so avail stays at buffer_size - 1, below the default
-stop_threshold. The DSP sends nothing more as its queue is empty, so
-no period interrupt comes either: ALSA never detects the underrun and
-the stream stays RUNNING. A poll-driven application that missed its
-last wakeup waits forever, and drain only ends on its timeout, with
--EIO. On capture, the last frame of each period is held back until
-the next one.
+As reported by Clashiko [1], flipping the latter bit may corrupt other
+entries in the same bitfield.
 
-Before that commit the position wrapped to 0 at the end of the ring.
-Do that again. A full lap is the start of the ring, and
-snd_pcm_update_hw_ptr0() accounts for the wrap: the position cannot
-move by more than one lap between two updates, as each returned buffer
-calls snd_pcm_period_elapsed() and the DSP holds at most periods
-buffers.
+Move the `close_event_done` outside the bitfield, in a 32bit hole.
 
-Seen on a OnePlus Pad 3 (SM8750) with PipeWire in interrupt-driven
-scheduling: after a stall the PCM sat at hw_ptr 78239, appl_ptr 78240
-(avail 3839 of 3840) for two hours.
-
-Fixes: a93dad6f4e6a ("ASoC: q6apm-dai: make use of q6apm_get_hw_pointer")
+Link: https://lore.kernel.org/178959153492.22033.1944011998010756543@kernel.org
+Fixes: d82809b6c5f2 ("mptcp: avoid duplicated SUB_CLOSED events")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Tested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261014162703.10172-2-tvlad744@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ sashal: adjusted context in q6apm_dai_pointer() because the preceding bytes_to_frames() branch is absent ]
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-2-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: adjusted the unused-bit count from 7 to 8 instead of 8 to 9 because stale remains in the bitfield. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ net/mptcp/protocol.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index 80df749859190..9e22269a8c723 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -440,11 +440,15 @@ static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
- 	struct q6apm_dai_rtd *prtd = runtime->private_data;
- 	snd_pcm_uframes_t ptr;
- 
--	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) * runtime->period_size;
--	if (ptr)
--		return ptr - 1;
-+	/*
-+	 * The hw pointer counts the period buffers the DSP has returned in
-+	 * this lap, 1..periods. A full lap is the start of the ring again:
-+	 * report 0 rather than one frame less, so that the position of a
-+	 * drained buffer reaches appl_ptr and ALSA sees the underrun.
-+	 */
-+	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) % runtime->periods;
- 
--	return 0;
-+	return ptr * runtime->period_size;
- }
- 
- static int q6apm_dai_hw_params(struct snd_soc_component *component,
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index 28dd7dd08c150..d9c20de69dc55 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -544,14 +544,16 @@ struct mptcp_subflow_context {
+ 		stale : 1,	    /* unable to snd/rcv data, do not use for xmit */
+ 		valid_csum_seen : 1,        /* at least one csum validated */
+ 		is_mptfo : 1,	    /* subflow is doing TFO */
+-		close_event_done : 1,       /* has done the post-closed part */
+ 		mpc_drop : 1,	    /* the MPC option has been dropped in a rtx */
+ 		resetting : 1,	    /* subflow is resetting */
+-		__unused : 7;
++		__unused : 8;
+ 	bool	data_avail;
+ 	bool	scheduled;
+ 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
+ 	bool	fully_established;  /* path validated */
++	bool	close_event_done;   /* has done the post-closed part,
++				     * protected by msk socket lock
++				     */
+ 	u32	remote_nonce;
+ 	u64	thmac;
+ 	u32	local_nonce;
 -- 
 2.53.0
 
