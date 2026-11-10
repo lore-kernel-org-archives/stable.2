@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794339864;
-	b=2Sq0w804+tYe2Wl12/U6nPvohIg4S+PlAtSXkOBmOjXlGdWfpIdXZwehG7OdhxAqT29r
-	 g/LMmn0julJirlBFleYrEv+QxRWLGXWPW2BcSery0I9qkSK1vFbgDP4V/pbUfjyBq2Qf+
-	 VmdqmqIMuHI3zKvysR5lWQidxuWFfglM8VKj+vFGIeY+L7BbsvvBkw/Jk3W2Wfyj81YMo
-	 t/iRKd6Yg/JoW3sOSBAApnzvskg5qcOrjdjp8sJDaHRRzZL7TirJBByKbYipJ4aRTxu3z
-	 SzQ+Sx+iy/e3zPXFSkAkLTzN6qZJfMAhXnd0SoGsW6r8TERl0TTCJR8k9ztrYTO0vRg==
+	t=1794339872;
+	b=24bX+i8hkFrjT3hzaJA51TqsSymwjXKG/ch2ZuORn409+hcJQi+83qtvMCIbC0338a0R
+	 bkIzC//VkIBscJr0z9Im7lWEiwKiqb62JL+I2Io7ZtxDfJg2V1C9IOH2O/WgMBxb9hqPz
+	 kwAakAe+bKfFOJMfaqnUIvLuX+G0vgf/mJfxQpyETviNeVhCdhFkHuZw4/aR9lalCd/uP
+	 VUgKO8z6aBEQG7RZqtMD3yRhKHqll/y1chZr5Kax8bt3NNW0aQ9nGRl6KbiInNhOnrLs/
+	 KPHz8o7m80hk5Gp1ecnU01kRqX/4RPbRw4u479xu9pyYQIoo+5DvITPi3ym6UlYOYYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794339864;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=llK6ZW6473GS74cG9dEScNIGQPBdFIR0GExKG3P1z3k=;
-	b=xNp3veowa3jJ0Kix8La5r71WBT6SUWRDovLwSZJIuB987Z80SeBDvXTV5s9DSznW9qNh
-	 z0iEhOkVAzVVpr3JbxU2dXj9qZLC1QrrLxa7kaIWQFuFW1jxXwoyccoCP3Wc76cLQSOgi
-	 Cg+t9ymvLDSeM5R7kT8uIXHSsyZJE7sCT2UGsnrbilu33fyGbkuT9JJo1O7BGRLjuGUf8
-	 Os9699NHLG3uWvZiYyf54DU2dAvFj95EXUH4GRg/c7va0ONBefSwHpk3Yg3MlrUO1OW61
-	 RxRQJohOdv7+OOnC4sSyZgczphFjzq/Iz0pJ4tpBy3kJ7SNs+AUidzohjQvMxl4iK5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794339872;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ACWiEbd3ZPaYCZgC4VMJzD+pswR/W6A0rEkSwRCbv9U=;
+	b=pg0g1sLj/03scw9QEreA2qxJa45bDpLbouRqfiKJqPS3vCxplSRxLLU/w26MQCbV5GoT
+	 jgn1GUH2hdUEFN7z/Zu6uaCLspArFCOpekFeS7h3VVP2zFG9dnigo8Do5JY2DuWdsMMJJ
+	 illzRQWhAV02laVRB1D0g/ATn8ZkpFsA/yY6eXz9LQZLFZVPdxgK2oq7zzTJBHkIproEz
+	 knli2IMf8GWhC4Qdpscyn3vGtvYcSU4BdtT/k/S1yuSi1AsGzPOSYwUvA+QMd4sLN1z7r
+	 e7ejtkoSWDFDPu9/NCEWQ//DeiMt2i2xqc/JemOIFMPGeCflGRWAlJJU9WFduPWiDjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Yp9B862d;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HnV6gDK/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 42905606A336
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42905606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BEA606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:44:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=Yp9B862d
-Received: by dvalin.narfation.org (Postfix) id 82C4320292;
-	Tue, 10 Nov 2026 19:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794339862;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=llK6ZW6473GS74cG9dEScNIGQPBdFIR0GExKG3P1z3k=;
-	b=Yp9B862d+lyebmgy6/21he9XIiXrpXB5q7ewH2Zx8DA+mIx9mdvuBbmaXPiZlyWDc+f3JP
-	/UXvFw4yLUj6tV1zCv+E2hG0IzEGb2KALOvbIL/+YtC+PYEd9AfPXBvWo0ueXBsWWb+/6x
-	mbnQ9uG5LdABsCLoZHYAKZO8HQQxCXc=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HnV6gDK/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9641F008A1;
+	Tue, 10 Nov 2026 19:44:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794339871;
+	bh=ACWiEbd3ZPaYCZgC4VMJzD+pswR/W6A0rEkSwRCbv9U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HnV6gDK/1sk//2VqQj5Tr9hu9SPQ4xfjP8I6uXldiLYWqLqoA+hC/cUgSnGDRBjGq
+	 7aFBMv1ZaCn4cG+BGJSGIs3NVfMOlfZFR4f5r+rFwuRv75bo/VW1JpMg3+imcV3xUb
+	 tFnXCNvgr6YxtP9szvqEWm3vv7k3MzDNz+cAJG4kczOoqz/GglUoTiRHAwPiNWYwx3
+	 ttXR1SKsV+cvF68NlpbFlmY1esGBcwmuRfrhUaZNAkQ8cxBmW0DIL2nNz+9UkpKvZi
+	 S++1M0+LmtOAN2ZePc16LjaW7ncMs24xyB5S9jHT6MlNbtPF0xFeNA3Jg1+BkAh5Bs
+	 JSNdaL0bu1Xrg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 5.15.y] batman-adv: tt: ignore ROAM flag of received ADD changes
-Date: Tue, 10 Nov 2026 20:44:19 +0100
-Message-ID: <20261110194419.340238-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109202025-failed-5.15-c5d68abe6e7f@kernel.org>
-References: <20261109202025-failed-5.15-c5d68abe6e7f@kernel.org>
+Cc: Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Johannes Berg <johannes.berg@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload
+Date: Tue, 10 Nov 2026 14:44:29 -0500
+Message-ID: <20261110194318.3639260-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054428-failed-6.1-6fff9de5c5b4@kernel.org>
+References: <20261107054428-failed-6.1-6fff9de5c5b4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,67 +63,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit c5d68abe6e7f1dbd132a602cb696fe1fff0389eb upstream.
+From: Janne Grunau <j@jannau.net>
 
-A received TT change (OGM diff or full table response) with the ROAM flag
-but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
+[ Upstream commit 6fff9de5c5b425817588eeed42bd56d665751c13 ]
 
-* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
-  therefore excluded from the global CRC. The sender has it in its local
-  CRC and the receiver has to request the full table again
-* batadv_tt_global_purge_local() removes the local entry of the
-  receiver. The receiver's own client is considered as roamed to the sender
-  and frames for it are rerouted
+Since commit 416386060 ("Mark authorization completed on driver
+indication during 4-way HS offload") [0] wpa_supplicant expects
+NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
+driver supports 4-way handshake offload.
+This was apparently never tested with the upstream brcmfmac driver as it
+does not report this. This broke authentication on Apple silicon devices
+(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
+2.11 was released [1]. This was initially dealt with by reverting the
+commit in Fedora [2] and other Linux distributions.
+Instead of carrying the revert over to wpa_supplicant 2.12 add the
+expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
 
-The ROAM flag only has a meaning together with DEL. Drop it on reception to
-keep it from populating the global table with a temporary ROAMING entry
-which is not part of the CRC - and therefore causing a CRC mismatch.
+The "Fixes:" tag is not fully accurate as this has only became an issue
+after userspace changes years after the change. Since the change is
+expected to be required in all active stable branches for wpa_supplicant
+2.11 / 2.12 compatibility it is helpful even though
+BRCMF_PROFILE_FWSUP_SAE did not exists then.
 
+Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
+Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
+Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ Context ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
+Signed-off-by: Janne Grunau <j@jannau.net>
+Reviewed-by: Neal Gompa <neal@gompa.dev>
+Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+[ sashal: inlined SAE/PSK authorization checks because the existing PMKID-based authorization logic is absent ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ .../net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c    | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index ed74e02f5bb20..11b01428e707a 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -3339,20 +3339,29 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
- {
- 	int i;
- 	int roams;
-+	u8 flags;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 66c139bf49283..e985297919936 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -6027,6 +6027,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
+ 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
+ 	struct cfg80211_connect_resp_params conn_params;
++	bool authorized;
  
- 	for (i = 0; i < tt_num_changes; i++) {
--		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
--			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
-+		flags = (tt_change + i)->flags;
-+
-+		if (flags & BATADV_TT_CLIENT_DEL) {
-+			roams = flags & BATADV_TT_CLIENT_ROAM;
- 			batadv_tt_global_del(bat_priv, orig_node,
- 					     (tt_change + i)->addr,
- 					     ntohs((tt_change + i)->vid),
- 					     "tt removed by changes",
- 					     roams);
- 		} else {
-+			/* an announced client cannot have roamed away from
-+			 * orig_node. Only a ROAMING_ADV is allowed to add a
-+			 * global entry with the ROAM flag
-+			 */
-+			flags &= ~BATADV_TT_CLIENT_ROAM;
-+
- 			if (!batadv_tt_global_add(bat_priv, orig_node,
- 						  (tt_change + i)->addr,
- 						  ntohs((tt_change + i)->vid),
--						  (tt_change + i)->flags, ttvn))
-+						  flags, ttvn))
- 				/* In case of problem while storing a
- 				 * global_entry, we stop the updating
- 				 * procedure without committing the
+ 	brcmf_dbg(TRACE, "Enter\n");
+ 
+@@ -6047,7 +6048,13 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 		conn_params.req_ie_len = conn_info->req_ie_len;
+ 		conn_params.resp_ie = conn_info->resp_ie;
+ 		conn_params.resp_ie_len = conn_info->resp_ie_len;
++		authorized = completed &&
++			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
++			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK);
+ 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
++		if (authorized)
++			cfg80211_port_authorized(ndev, profile->bssid, NULL, 0,
++						 GFP_KERNEL);
+ 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
+ 			  completed ? "succeeded" : "failed");
+ 	}
 -- 
-2.47.3
+2.53.0
 
