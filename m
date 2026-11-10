@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322131;
-	b=pDQDtmgKLpmGuFV7EIxuMOj5sSlqIDdw5t8vvospjBKBIcexZPQZ9fhhj9VaNkFvsfh1
-	 J8A1HCLVZD+ngfq+75/MDNgIO6rskRL0W80m22Fk3jtVrPArQpDVRHhAWaRKXM2xfwVJo
-	 qOY290FXNOSKs01mq2u8K27T4SWvDGXUIjqI9UT9GrZytpeSUymDWBbeZHxCYcCCsmxJ/
-	 Tl8mlK2RjSin1GekgV8nqWBDGf62HmPtCoD2LGp0cKS9pfwXur9Mp1GP8yBxazQ3oncQ+
-	 6N/ebvBNvwRVzFEYz+rHgUiWc5BSBOvMJwnm2XMpLowBiCvF7ir7wKgwfNfxeMnB/oQ==
+	t=1794322157;
+	b=Yhz94+h3Zw+QZeAQnCCLohoyhaqkeFSHljYZ0G0lGCubkKUlsG6hDHNuFvPos18k62q5
+	 Os5eQ3auMuLtWgmvu1oo/jpT6wI/CcUSZ80QM9/59N4kUpeKXxjeMRBBkHLd3wELwW8I5
+	 e/ZW0crCulVyOYaosaem2MQCiyG2nipyp+cm3I0Fwum784t/fx040BRf742VJhgC9GrkY
+	 8qrCvfQmrur4MHjX31BtUNw4GVrxXWjGl0XiKjkMSJyLUFkj/ha2SXBES0zcPkgIWQtmG
+	 xhh3oZjxBlUCgaguLcIQsTxfmv/JoxEO0ldJNP84rjVaF92rfI7CTLU3NFyf55KvrGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322157;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GAdKhpxoZetgR39oRCJSrGXBT1+uQiY2f4/4aVJ/P80=;
-	b=1jEH/bE16tbaNwCd3PHKdWltMJfLatFcylF1Puw5ihEQN3gRiRqW+fVPRCP7E5qGEmrl
-	 /QAjrGEBEhNg0C/39h+8NtVF2ohjKm0LSC9ApT6vtrQrbpn7r3iWr+oxt7nLIwFz4Hit8
-	 Xt+3y8VCmPB+9B+hFJTxlmrrVy1h/WnIMBISAAgblN0zHkQDKtrncCtbAsX3ZKvtgW/3W
-	 Nd7oLXRDUt0ngJFZl2jS/pmYQGqMUZvoXQTCqrLET08e29SXSe+1eCOLlFq+11Xnh40DN
-	 ZxX5EDKkt7B/a1EgnboEgBVeVktAaL1G3B7YnHyVo0hL8KKxNGI/v3hvQhjmGA08Sxw==
+	bh=84RV/Xuoq+yXFxOtAqaQ/uL/8VLRu/Yff0GYOZx8MUM=;
+	b=sRWAPcn1QoavRtd9uBBJrqtIHQ5m7mRmTuBxuT2wM74nFcLJma5ybmMj1Mv5mfALs3uB
+	 PMHzzvaTNpd0BqrG8FYKlSDrmlKpDbLac++U6/MvdyXPu7Szwwi42lVCaY3t5MSXrEgnz
+	 Y3NgVgIocWOKsdZeJ5WcQx1mkVmw94ug+eon5nyCUxHkTva422rWo9OkS847k9OacmqmN
+	 dvkuwvFYgvL3M5Nd0DpTZYqHTyIuAGgp8nBSGMesxrljpDA05wkMOZJTVKwNcqgBVcNhW
+	 ljcZnxai65trAJfKogmPhq/hLQQo1ctf0mFrpq3uDwc38USSYR44I4iKHiPRhvxwRMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBnqIs7L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kA14tyPf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFA760A2603
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24EB606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBnqIs7L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D231F008A1;
-	Tue, 10 Nov 2026 14:48:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kA14tyPf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1E6E1F0089F;
+	Tue, 10 Nov 2026 14:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322131;
-	bh=GAdKhpxoZetgR39oRCJSrGXBT1+uQiY2f4/4aVJ/P80=;
+	s=k20260515; t=1794322156;
+	bh=84RV/Xuoq+yXFxOtAqaQ/uL/8VLRu/Yff0GYOZx8MUM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UBnqIs7LudQvieSQDrGeeAsgj+JyuWDPpVGwWNwMGdDoRUMWkA5TnB+GWxFdFtXk2
-	 nu5hjJk+fsrWSzYHVwHElzZSgbPcTduXyJyBWfkIuOYJAiTF6tvXOECiqe/usYhZU+
-	 i1xSKpCM6EnuVEoioFVxlUlH9tv111RR1bzCXLXS+2vHipV9pEAPaW2gsBiST1fsCE
-	 fRhg+5Sx+MT8kNsMXwrrBO3O1DT4z9gnR8wiPnWxs0XYlQqb8Mp5Oa9m2lPnyeM8cH
-	 j+1mTdNI6vccWvq3d4R7QZa0bQwr4EzSb3XpMm9v9S8fOjvZJDMLnia7RiT6obpcTB
-	 qDGdGTxcJYdeg==
+	b=kA14tyPf/Nir4cwlj1QMuSIg2mNlzcRGdBTtTF52rl5kPa5XYSOHbp8Xc0OFqs8Ep
+	 HSZ9SfEomurSIs6FqJmpZRXM1q47UCDBNT/z6N8UfSKVhXdPAQfJsJvPyMC4eQJ67L
+	 m85eVSSeeLbcA3K6PQP6q4qSim8uGjMwR9pP/qSKEaO6WG9QTHrpPJfaMFzhWaZnhr
+	 yEOXnBtdZHn4dcM38/KQyYjl0tiSlWKXLoqgTUKrsW8wEI2NxSXYOTxDlR3GY9q56A
+	 YGkD5czMrhI6P/nlgBxKPjoUOXObqo/IB5EGr+1p/cco5vOoDiG1yqwbYrEwaRT3fN
+	 WmSTKbcDbWHNw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	stable@kernel.org,
-	Sarthak Kukreti <sarthakkukreti@google.com>,
-	Jan Kara <jack@suse.cz>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: Gregory Price <gourry@gourry.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ext4: fix ABBA deadlock in ext4_rmdir()
-Date: Tue, 10 Nov 2026 09:48:49 -0500
-Message-ID: <20261110144832.1991777-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/madvise: use folio_trylock() in the cold/pageout PMD split
+Date: Tue, 10 Nov 2026 09:49:14 -0500
+Message-ID: <20261110144854.1987722-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061952-failed-5.10-19e16597f9ba@kernel.org>
-References: <20261107061952-failed-5.10-19e16597f9ba@kernel.org>
+In-Reply-To: <20261107062130-failed-5.10-5a6c9cf117fc@kernel.org>
+References: <20261107062130-failed-5.10-5a6c9cf117fc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,118 +67,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+From: Gregory Price <gourry@gourry.net>
 
-[ Upstream commit 19e16597f9baf1b5719a3a6c710486446f6808fd ]
+[ Upstream commit 5a6c9cf117fca3c38a98fb2a2d5549795c8b0b73 ]
 
-We observe the following ABBA deadlock (casefolding enabled):
+MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
+madvise_cold_or_pageout_pte_range().  Two threads doing that to the same
+THP create spurious failures.
 
- INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
- task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
- Call Trace:
-  <TASK>
-  __schedule+0xc2c/0xe60
-  schedule+0x40/0xe0
-  jbd2_journal_wait_updates+0x8f/0xf0
-  jbd2_journal_commit_transaction+0x321/0x1850
-  kjournald2+0xa9/0x230
-  kthread+0x226/0x2a0
-  ret_from_fork+0x101/0x1e0
-  ret_from_fork_asm+0x1a/0x30
+  CPU0                          CPU1
+  ----                          ----
+  folio_get()
+  spin_unlock(ptl)
+  folio_lock()
+                                folio_get()
+                                spin_unlock(ptl)
+                                folio_lock()  <- blocks, keeps its ref
+  split_folio()
+    folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
+    -EAGAIN
 
- INFO: task Thread-10:4161 blocked for more than 720 seconds.
- task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
- Call Trace:
-  <TASK>
-  __schedule+0xc2c/0xe60
-  schedule+0x40/0xe0
-  wait_transaction_locked+0x8c/0xd0
-  start_this_handle+0x252/0x870
-  jbd2__journal_start+0x120/0x280
-  __ext4_journal_start_sb+0x11a/0x250
-  ext4_evict_inode+0x208/0x760
-  iput+0x222/0x5c0
-  dput+0x293/0x690
-  ____fput+0x145/0x2b0
-  task_work_run+0x7a/0xb0
-  exit_to_user_mode_loop+0xc0/0xd0
-  do_syscall_64+0x14b/0xf10
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+CPU1 cannot drop its reference until it gets the lock CPU0 holds, so
+CPU0's split always fails.  folio_trylock() makes CPU1 leave without ever
+taking a reference.  The PTE branch of this same function already does
+this, as do madvise_free_pte_range() and madvise_free_huge_pmd().
 
- NMI backtrace for cpu 0
- CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
- RIP: 0010:d_walk+0x0/0x290
-[..]
- Call Trace:
- <TASK>
-  shrink_dcache_parent+0xb2/0x100
-  d_invalidate+0x50/0x110
-  ext4_rmdir+0x3a2/0x3d0
-  vfs_rmdir+0x9d/0x1d0
-  do_rmdir+0xf0/0x330
-  __x64_sys_unlinkat+0x34/0x50
-  do_syscall_64+0x61/0xf10
+Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
+of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
+/proc/vmstat:
 
-The problem is that ext4_rmdir() calls d_invalidate() before stopping
-the jbd2 transaction handle.  Because d_invalidate() traverses child
-dentries it can encounter dying or in-use dentries.  If a concurrent
-thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
-it requests a new transaction handle via ext4_journal_start(), which
-waits for all running handles to close.  However, the thread executing
-ext4_rmdir() still holds its active transaction handle while looping
-in shrink_dcache_parent() waiting for the dying child dentry to complete
-eviction.
+                     thp_split_page   thp_split_page_failed
+    before                     3186                     860
+    after                      3200                       0
 
-Stop transaction handle in ext4_rmdir() before calling d_invalidate().
+The short before count is rounds where every thread failed and the advice
+was dropped for that THP entirely.
 
-Cc: stable@kernel.org
-Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
-Co-developed-by: Sarthak Kukreti <sarthakkukreti@google.com>
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://patch.msgid.link/20260827125158.4030598-1-senozhatsky@chromium.org
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-[ sashal: used the existing CONFIG_UNICODE preprocessor guard instead of an IS_ENABLED(CONFIG_UNICODE) condition. ]
+On failure the walker returns 0 and nothing retries.  The PMD path becomes
+best effort when the folio lock is held elsewhere - same as the PTE path.
+
+Link: https://lore.kernel.org/20260912110540.3203010-1-gourry@gourry.net
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: replaced folio_trylock(folio) with trylock_page(page) to match the page-based API ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/namei.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ mm/madvise.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index b220d5ca7fd08..b95671649484a 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -3275,6 +3275,11 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
- 	ext4_fc_track_unlink(handle, dentry);
- 	retval = ext4_mark_inode_dirty(handle, dir);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 8b6ed35c1d265..75ca4cfa48b6c 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -349,9 +349,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		if (next - addr != HPAGE_PMD_SIZE) {
+ 			int err;
  
-+end_rmdir:
-+	brelse(bh);
-+	if (handle)
-+		ext4_journal_stop(handle);
-+
- #ifdef CONFIG_UNICODE
- 	/* VFS negative dentries are incompatible with Encoding and
- 	 * Case-insensitiveness. Eventually we'll want avoid
-@@ -3282,14 +3287,10 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
- 	 * negative dentries at ext4_lookup(), when it is better
- 	 * supported by the VFS for the CI case.
- 	 */
--	if (IS_CASEFOLDED(dir))
-+	if (!retval && IS_CASEFOLDED(dir))
- 		d_invalidate(dentry);
- #endif
- 
--end_rmdir:
--	brelse(bh);
--	if (handle)
--		ext4_journal_stop(handle);
- 	return retval;
- }
- 
++			if (!trylock_page(page))
++				goto huge_unlock;
+ 			get_page(page);
+ 			spin_unlock(ptl);
+-			lock_page(page);
+ 			err = split_huge_page(page);
+ 			unlock_page(page);
+ 			put_page(page);
 -- 
 2.53.0
 
