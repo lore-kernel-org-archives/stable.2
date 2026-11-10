@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273581;
-	b=TejzrKROm1fA+GF7x9uhDYN71pdocrA9Vcva45E2YO26Z2ExXy55RApY19MTHskGFKCs
-	 Xhvkv1O6Np7No9s0XYWgDcTgJltB3yxurTHPLeNxx4Kb1va3jwQo/yLgxENTXAthPGCaR
-	 ywL9ofZtGpkvsILeg5lQzJuOoLPLmysyvvXwbap0V2qX/AqIIBQJ3zeBZTm3I/q+njUfF
-	 zB2a6CfQzSIjft3+83eWjyZ8+pI/pNiTCCwcZMC0DN2Y1oLvPHenNV5K7CsNIvd/TpXa9
-	 PVz8Ov/ipz181P8j0uLEBujpBrpKEEip7cczysDuNbjCTh0z6e4rjA3bBmgV99ir0Sg==
+	t=1794273584;
+	b=LwOzju7bSkqRbxCgp3kUlYpO6QUhEudihia1oBawCrJP0UD7pNxu/1nS4On1h8egW+RV
+	 cBUqUSaB4+N3uoUju0NiJe6nvuuevVxsTn1ZReeQ79VCvX42KZOwJO+KXlSmcCf2u9QO6
+	 WAIR2VOBAf/QYmqbPCM5gZ2YqZFI7IkS0SGat4xmfTYXgZSRXKR6RLI8XNVCRDGAssjPN
+	 ceqAqHGkcvJoP0B324MnnfMzxpI32P/YHAVXR/+HF453cAJl1Tgudu43HV4yv9xeusNbm
+	 qzKowZUnJGlzTBUmK5yWWbKENl24oemyzwklNO7lJw6HirFvR4sW9rKynBbQyXXVz5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273581;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273584;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wWsDnPpF/C0JjE6lk33cnF/w2L4cPsGqguefzwWuqNk=;
-	b=iVKZN3g0ZsMtY8uk2RwJrWdB2CXXR0YENCZPFCTCsv1STeyPo9M7EdBu8QCxgL0c8+wd
-	 wT29URXSL34217xqPt0Truv3e7zT33uDf8BKMl3/iQIM/1iQbgXyXz+0rYf8L6T1rxWRT
-	 83NIvqM9RxBg8y62XP/SxGfj1GnyCR7k1OMdXYvsTSg0AYdhzB+KRFlfHQOk3+RFMrsZy
-	 4qQr2L8GQjkRYfGNHnsHHSuJANS4rJpphSEyaIy95rXM/O51DU2VDxUwokpy2WRIVH9dO
-	 zV735N6bFM+EO4hWdSRTMU/ylXfT84pjw0DoyEHXDO/Y0Nq3YDJORsMVqwUDRC7bQSg==
+	bh=Z/FjBEOSrlYP8ZPSM+Z7dusqvr06xV8TiEif5/t6vcQ=;
+	b=imlHSeoquW5lMJm/Gs1wUJBNmqDMOtDJumO7oj9bz/XTiOkdKzjZIbrIau1QA8HfITT3
+	 G4/npvvPRrCB00+OQmko8j5LIBclKU7/WAeml5YFDLXA9m8G1YmobkCVJK7774C+Z8X3a
+	 4IXwU4Rjh1GRi44d/CbaiBeyEimjDfRyFSSHcnztynzTZ+gk17TyNPNDiNq5RyNC6DGle
+	 5n0TLaC9tdT1CzlLhobxBPM9wgWm1AW23EMTDtLLKYqqCzly6EvsdK345ggsMMDb4+zKk
+	 AYvULNtMbaLCZQaGiL4HZ/7VKePPP/VxAJZj3Yfw0VO+nY5Elw94k+KI7hbHPaGlM6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioZ4T+Cc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HIYkKl/O";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94485606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D64606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioZ4T+Cc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C69D1F0089F;
-	Tue, 10 Nov 2026 01:19:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HIYkKl/O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 529CE1F0089F;
+	Tue, 10 Nov 2026 01:19:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273581;
-	bh=wWsDnPpF/C0JjE6lk33cnF/w2L4cPsGqguefzwWuqNk=;
+	s=k20260515; t=1794273583;
+	bh=Z/FjBEOSrlYP8ZPSM+Z7dusqvr06xV8TiEif5/t6vcQ=;
 	h=From:To:Cc:Subject:Date;
-	b=ioZ4T+CcoqC5gTrSipCYt7ABy1CiL1BrLRWRg6ZKIDNN5Xn7HUA6tP57OtZ2c+r+f
-	 duC5sJRO3SKk0+c2zvxtF8VFMbHCqCh/TWBKvdAcA1phw7s1OzLFblf82yuMyJAC5z
-	 4hRGOQYbNYHk1rbMPniWWWDCi+thaeG9I0aAVcznggyjmce0BcywxCOTIaGSc0BVrN
-	 RCWbK6qoBkRo4oSMEKr7t7OdjcfqMm+eIWrR/y5p+GZd1nhUeT/QLgI2wW2Z9HOpB2
-	 hvNbrxVNy3VqWURSQx4JU4oNDSHR5VUjDmGkBrJkAzaO60O5nLn6/csoNxLMZnFtih
-	 Is4+qKnmGnw+w==
+	b=HIYkKl/Ojwv6XfSZSdLHgzV+GpZcfpj6TqMM9QYS2nPKgqVEOYrbCQfU8IUFtBZYX
+	 S4Frg1QOfLmcdYRLYxz4O13Y9a5ViFXNKUsBzMN53V19xY5TUwAFhD/ls6WO2grd4z
+	 esnUkLr7w+JIv2dWP5djKDYdtfAbCXoLPKx98dc7RozsyPKrSzMr3k9kY7yiPNAh+6
+	 LjsKhzbSkPoPaUFrgVUvb2ONwsDiqHaU/wkdwxlsPGCn+F6yDr/R66D9Xh4LzJvxaP
+	 VSwgT6sEqYjCOlOcPoIn/io3i2D9NHHwSbHV9I1hVop4Xq3KszlcQYU0uXPF19i4Dh
+	 tNdZZtJjQhTPw==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de,
-	treebacker@foxmail.com
+To: 25031212351@stu.xidian.edu.cn,
+	byu@xidian.edu.cn,
+	wencheng@xidian.edu.cn,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:39 -0500
-Message-ID: <20261109201939-failed-6.1-9017bc3d13da@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: usx2y: Refuse a retried DSP load after a failure" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:42 -0500
+Message-ID: <20261109201942-failed-6.1-1f8101b6adc8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,92 +70,84 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9017bc3d13da0ea4e63be618c87143a7b69185e6
+git cherry-pick -x 1f8101b6adc87a3ddbd51fcb6609251591758026
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201939-failed-6.1-9017bc3d13da@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201942-failed-6.1-1f8101b6adc8@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9017bc3d13da0ea4e63be618c87143a7b69185e6 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 3 Nov 2026 16:58:40 +0100
-Subject: [PATCH] ALSA: pcm: Prevent O_APPEND open on OSS streams
+From 1f8101b6adc87a3ddbd51fcb6609251591758026 Mon Sep 17 00:00:00 2001
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Date: Sun, 1 Nov 2026 03:15:57 +0800
+Subject: [PATCH] ALSA: usx2y: Refuse a retried DSP load after a failure
 
-ALSA PCM core accepts to re-use the existing stream when O_APPEND is
-passed, and it's been used for dmix, etc.  However, this mode isn't
-supposed to be used for OSS: the OSS stream allows re-configuration
-via its hw_params/hw_refine procedure even while it's being mmapped,
-so it implies the usage of only a single stream.  Because of this
-assumption, the sanity check is skipped for OSS streams, and if user
-may attach to an existing OSS stream with O_APPEND, it may result in a
-UAF of the mapped pages which could be used as a privilege escalation
-exploit.
+snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
+the interrupt URB when the FPGA firmware image with index 1 is loaded,
+and then creates the ALSA devices.  If usx2y_in04_init() or
+usx2y_create_alsa_devices() fails, the URBs that were already set up
+are left in place.
 
-For addressing it, this patch simply prohibits the O_APPEND behavior
-on the OSS stream.  O_APPEND is never used for OSS layer itself, so
-this can't break for the right applications.
+The core keeps the index unloaded when the callback fails, so user
+space may issue the same request again.  The second attempt then enters
+usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
+allocated and trips WARN_ON(usx2y->as04.buffer) or
+WARN_ON(usx2y->in04_urb).
 
-Fixes: 0df63e44c3e3 ("[ALSA] Add O_APPEND flag support to PCM")
+The URBs cannot be released at this point: the card may already have
+registered PCM devices that user space can still open, and the
+disconnect handler accesses the URBs without holding the DSP lock.
+Mark the chip as hung instead, so that a retried request is refused
+with -ENODEV and the assertions keep their meaning.  The URBs are
+released by snd_usx2y_card_private_free() when the card is freed.
+
+A failing usx2y_async_seq04_init() still releases its own URBs, so that
+path remains retryable.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: Bo Cao <treebacker@foxmail.com>
-Link: https://lore.kernel.org/tencent_E90BB4F086165FAA3313723567A5C675EA06@qq.com
-Link: https://patch.msgid.link/20261103155844.120838-1-tiwai@suse.de
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20261031191557.8460-1-25031212351@stu.xidian.edu.cn
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/pcm.c        | 2 ++
- sound/core/pcm_local.h  | 6 ++++++
- sound/core/pcm_native.c | 6 ------
- 3 files changed, 8 insertions(+), 6 deletions(-)
+ sound/usb/usx2y/usX2Yhwdep.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
-index 064df4cd3b50e..6c8274414c226 100644
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -929,6 +929,8 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
- 			return -ENODEV;
- 		if (! SUBSTREAM_BUSY(substream))
- 			return -EBADFD;
-+		if (is_oss_stream(substream))
-+			return -EINVAL;
- 		substream->ref_count++;
- 		*rsubstream = substream;
- 		return 0;
-diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
-index ecb21697ae3a4..4b134d435c24f 100644
---- a/sound/core/pcm_local.h
-+++ b/sound/core/pcm_local.h
-@@ -80,4 +80,10 @@ static inline void snd_pcm_dma_buffer_sync(struct snd_pcm_substream *substream,
- 		snd_dma_buffer_sync(snd_pcm_get_dma_buf(substream), mode);
- }
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index 7f153a2fcdd81..3800c5b5887c8 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -179,6 +179,9 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 	int lret, err;
+ 	char *buf;
  
-+#if IS_ENABLED(CONFIG_SND_PCM_OSS)
-+#define is_oss_stream(substream)	((substream)->oss.oss)
-+#else
-+#define is_oss_stream(substream)	false
-+#endif
++	if (priv->chip_status & USX2Y_STAT_CHIP_HUP)
++		return -ENODEV;
 +
- #endif	/* __SOUND_CORE_PCM_LOCAL_H */
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 35152fae74ca2..bec797398acf7 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -749,12 +749,6 @@ int snd_pcm_runtime_buffer_set_silence(struct snd_pcm_runtime *runtime)
- }
- EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
- 
--#if IS_ENABLED(CONFIG_SND_PCM_OSS)
--#define is_oss_stream(substream)	((substream)->oss.oss)
--#else
--#define is_oss_stream(substream)	false
--#endif
--
- static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
- {
- 	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+ 	buf = memdup_user(dsp->image, dsp->length);
+ 	if (IS_ERR(buf))
+ 		return PTR_ERR(buf);
+@@ -201,11 +204,13 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		err = usx2y_in04_init(priv);
+ 		if (err) {
+ 			dev_err(&dev->dev, "usx2y_in04_init error\n");
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		err = usx2y_create_alsa_devices(hw->card);
+ 		if (err) {
+ 			dev_err(&dev->dev, "usx2y_create_alsa_devices error %i\n", err);
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
 -- 
 2.53.0
 
