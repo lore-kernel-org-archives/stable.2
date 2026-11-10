@@ -1,66 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794269825;
-	b=4S6kcO3RAeV+HoYB0biRoNscCanKTXzqiwq/QrWhG3wGdlcKTQoGMEjR4x3eNyRx/Vh6
-	 1vRQm9PJQqb7/lwgJ+sX19ZrKjesbn8adL15R66DZ4lQlcoDTW8BcEEY7LcXwIjfRzH40
-	 MvRlazSij3u74Fnnj8/vyrpnw1rBhMnMBj/tCTvK2uhDZgpxKWd2B7F878VQ2T4H9fV1X
-	 IPAThuXmH8d3cbTyHSuoXa+Fqilq3A4iIqO5Ym5WyRSNJc1udg34tAedGDiobnDav1wHu
-	 4tnHenYkq0kAShWuQSV0CtqnXdnvN+0WKa7YJyuUBHyd/ISACSFd7ySQMdAnbQpJL2w==
+	t=1794270391;
+	b=H9k7/TShK+tcCtvlaTonKoPnXCqhdslNZIjFu6xARryfcITuWVKC90iyK9rRggnZzpZ3
+	 j9rFvpxwai9uHSwSomOlPvxeAxMYADqaezBubrvW04WY9vJiBqYr9HnkH8/yfS4AmjvE2
+	 hl4ZDGUAZXEbUCS8ategzE1dtAj/mAECMNWsdo8Z7QvwBzz7gIq9Ki7O98IqQZtNzJA3m
+	 Aw8w74aSe+X2uxay9msTZEsn9vStRUBnOF7OepywauzMZgM+F7oMM8U2do2KJEJWkruh6
+	 Dfxul+Xc78ZvyA08+iZCWyloUFbBPyT8iUXgFgRCeNSTrIc9CRq3aYTrEgYnYVeJi2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794269825;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=S8fHLhX1Wopu8reB9mEZz+dFQmeZd2AuByljTQ8bzQI=;
-	b=bba92cx7LHA9oUxGQsuDVd282JCJLmKC/oDyYYQL7yLQ1x8UKB1yFoHSPjcV7YjA6v+G
-	 oQIEoUug/ttLMG7upvajEeK95W82lYvBeK57MRY+cgl6o/ahjx18r1NkUOCunU44ocNtn
-	 KmOXa1la4T6/HYrbmE05/+yHbK9V+Lrhg8XeedyYETBoEzElGG95RxtePm3/cglRmBg88
-	 g8zShBexW2ShAM0udr2J9inASgZkdRaqw00ZIovMJDgTcTXni9lYn0GPr+AsnL7+GVD7Q
-	 FaoFYN94mTj/1wq8ks4z3B7ByUVGmpK4RYBbKZaAZUwlDFtYeemnRdWy1iyBzdGTaCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794270391;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=qabSgjJUBX2Oz+uaRG2lMApO+AcZr478dEqj1/UW1bs=;
+	b=lkALOVvB8U22JzcJR3idAWMBgXCnYPgJuZV4A8U6UUrdh+9Dobbn7TVS27ryngTTWMyD
+	 DmD95la7RlOSWNvsJ/S4FtFZDPtmQLpX0lM0hr7IO/v099hp+8MuUAGDYvDzC1zkin2b4
+	 aa2/iitnibEOWCPv1J4aprHOChe/zgtNQp0o3AJ20Dy5f+154lYuSt0biNi6oc8ZA3klG
+	 0WNkJw3YzKKVSo/EfTIwCqa+TlfSX/zbquFUJdGcCPy0+GY38Ba/It+RHK38DSkh/84wF
+	 PhRv4nTcSGks6TbFM+EnZBW29kaIzpYE9RtfU/YI2OIaxi+klXqn3yXx50wP2F8Xn0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3NI7Z3i;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NvCMMsZb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8C1606A32A;
-	Tue, 10 Nov 2026 00:17:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADDA606A31C;
+	Tue, 10 Nov 2026 00:26:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3NI7Z3i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6B01F008A2;
-	Tue, 10 Nov 2026 00:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794269825;
-	bh=S8fHLhX1Wopu8reB9mEZz+dFQmeZd2AuByljTQ8bzQI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K3NI7Z3iugPRvehaaEwOnCYy2EpfDl5XTk0ShVHPtwIgRV8M2m+jKWxridyP75nnS
-	 ZLSvxFe9hEbAGD754Y2gFM5BDlzxM7/HFmJoHApbIgjxWIdxh3v+QVUoVPpa4F1uzJ
-	 ASdrBi3vRPZd0q8gbwAwP8TwRNd4zgRowedCfpDfUjtK5U1ehoaVaQ8gz8/KQ1vYnL
-	 VcOhPrDpQdk7jbGMx/7VfCIVSeoxI2zYmAtX3+dmVZYUjVq3tgpPnf4U66yMVA+4Oh
-	 CfaEFFkG9UdtMc6QAyPrAgcIf32MByoR+Lp7K5ygG/5/yanhctQuN0H/+OkOjGpI6y
-	 p5VaJDovNTGsg==
-From: Jakub Kicinski <kuba@kernel.org>
-To: lian@is.s.u-tokyo.ac.jp
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	shina@is.s.u-tokyo.ac.jp,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v2] virtio_net: reject stats replies for queues outside the request
-Date: Mon,  9 Nov 2026 16:17:00 -0800
-Message-ID: <20261110001659.1654289-2-kuba@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
-References: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NvCMMsZb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808701F008A1;
+	Tue, 10 Nov 2026 00:26:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794270390;
+	bh=qabSgjJUBX2Oz+uaRG2lMApO+AcZr478dEqj1/UW1bs=;
+	h=Date:To:From:Subject;
+	b=NvCMMsZbzl+EBG755hIjTSf6wZY+yVzkKTvhdFjpruPeHr8Dc5UUllvYLlPWmMZdL
+	 XxhQ9xfOgdUchp+wzsSvdLGha6vx/cmI5meWyS2ODtoBExk3jBrDXta29FUHKUFGDQ
+	 bMZWWmoeOXjbdtp9WzNO77ZR//Evc1V9tgUz1+ZY=
+Date: Mon, 09 Nov 2026 16:26:30 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,usama.arif@linux.dev,
+	stable@vger.kernel.org,ryan.roberts@arm.com,qi.zheng@linux.dev,
+	nico.pache@linux.dev,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,
+	hughd@google.com,dev.jain@arm.com,baolin.wang@linux.alibaba.com,
+	baohua@kernel.org,david@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch added to mm-new branch
+Message-Id: <20261110002630.808701F008A1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,104 +52,122 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+
+The patch titled
+     Subject: mm: free unused page table allocated by do_set_pmd()
+has been added to the -mm mm-new branch.  Its filename is
+     mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: mm: free unused page table allocated by do_set_pmd()
+Date: Wed, 4 Nov 2026 20:56:37 +0100
+
+do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
+deposited page table, such as PowerPC with the hash MMU.  If the PMD is no
+longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
+without consuming that table.
+
+Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
+userfaultfd operation can install a PTE table before taking the folio
+lock.  If that races with set_huge_pmd(), the unused preallocated table is
+lost when its local vm_fault goes out of scope.
+
+Track whether do_set_pmd() allocated the table and free it after dropping
+the PMD lock if it was not consumed.  Preserve any preallocated table
+supplied by the caller for PTE fallback.  Successful PMD installation
+consumes the table and clears the pointer.
+
+Returning without a preallocated table matches the existing behavior on
+architectures that do not need a deposited table.  All callers already
+handle that case.
+
+Link: https://lore.kernel.org/c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org
+Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: <stable@vger.kernel.org>
 ---
-virtio_net: reject stats replies for queues outside the request
 
-With this patch, __virtnet_get_hw_stats() rejects a device statistics
-reply if any record has a vq_index outside the range of queues in the
-request. The control vq is the one exception. This stops the device from
-steering writes in virtnet_fill_stats() past the end of the ethtool -S
-output array or the on-stack struct netdev_queue_stats_tx.
+ mm/memory.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
 
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index dd2c41ef6fbe7..db56f984bb86a 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
+--- a/mm/memory.c~mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails
++++ a/mm/memory.c
+@@ -5694,6 +5694,7 @@ vm_fault_t do_set_pmd(struct vm_fault *v
+ 	struct vm_area_struct *vma = vmf->vma;
+ 	bool write = vmf->flags & FAULT_FLAG_WRITE;
+ 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
++	bool pgtable_allocated = false;
+ 	pmd_t entry;
+ 	vm_fault_t ret = VM_FAULT_FALLBACK;
+ 
+@@ -5732,6 +5733,7 @@ vm_fault_t do_set_pmd(struct vm_fault *v
+ 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
+ 		if (!vmf->prealloc_pte)
+ 			return VM_FAULT_OOM;
++		pgtable_allocated = true;
+ 	}
+ 
+ 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
+@@ -5762,6 +5764,10 @@ vm_fault_t do_set_pmd(struct vm_fault *v
+ 	count_vm_event(THP_FILE_MAPPED);
+ out:
+ 	spin_unlock(vmf->ptl);
++	if (pgtable_allocated && vmf->prealloc_pte) {
++		pte_free(vma->vm_mm, vmf->prealloc_pte);
++		vmf->prealloc_pte = NULL;
++	}
+ 	return ret;
+ }
+ #else
+_
 
-[ ... ]
+Patches currently in -mm which might be from david@kernel.org are
 
-> @@ -4994,6 +4995,13 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
->  	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
->  		hdr = p;
->  		qid = le16_to_cpu(hdr->vq_index);
+mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch
+mm-mprotect-dont-skip-uffd-marker-install-when-racing-with-pte-table-reclaim.patch
+mm-khugepaged-free-unused-page-table-when-setting-a-huge-pmd-fails.patch
 
-[Severity: High]
-This isn't a bug introduced by this patch, but the new vq_index check only
-limits where the driver writes. Can the device still steer the parse
-through hdr->size?
-
-The loop in __virtnet_get_hw_stats() advances by hdr->size, which comes
-from the device. It only checks that each record starts below res_size.
-It does not check that hdr->size is non-zero, or that it covers the header
-plus the payload for hdr->type, or that the record ends inside the reply
-buffer.
-
-If hdr->size is 0 and vq_index is in range, p never advances. Will this
-loop then spin forever? The loop has no cond_resched(), and on the
-ethtool -S path it runs with rtnl held:
-
-  virtnet_get_ethtool_stats()
-    virtnet_get_hw_stats(vi, &ctx, -1)
-      __virtnet_get_hw_stats()
-
-If a short hdr->size puts a record near the end of the buffer, the found:
-loop in virtnet_fill_stats() still reads the whole payload for the reply
-type:
-
-	v = (const __le64 *)(base + desc[i].offset);
-	ctx->data[offset + i] = le64_to_cpu(*v);
-
-Can that read past the end of the kmalloc'd reply and copy slab bytes into
-the ethtool -S output? virtnet_fill_stats_qstat() does the same read for
-the per-queue netlink stats.
-
-The parser also has no way to know how much of the reply the device wrote.
-virtnet_send_command_reply() throws away the used length:
-
-	while (!virtqueue_get_buf(vi->cvq, &tmp) &&
-	       !virtqueue_is_broken(vi->cvq)) {
-
-and virtnet_get_hw_stats() allocates the reply with plain
-kmalloc(res_size, GFP_KERNEL). If the reply is short, the leftover heap
-bytes get parsed as records. Would they be reported as counters whenever a
-stale vq_index happens to fall in [first_vq, last_vq]?
-
-> +		/* The vqs of the queue pairs beyond curr_queue_pairs lie
-> +		 * between last_vq and the control vq.
-> +		 */
-> +		if ((qid < first_vq || qid > last_vq) &&
-> +		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
-> +			return -EINVAL;
-
-[Severity: Medium]
-This is a pre-existing issue, but after this change a malformed reply
-returns -EINVAL while a failed command still returns 0. Just above the
-loop in __virtnet_get_hw_stats():
-
-	if (!ok)
-		return ok;
-
-virtnet_send_command_reply() returns a bool. So when the device answers
-with a status other than VIRTIO_NET_OK, or the kick fails, or the cvq is
-broken, __virtnet_get_hw_stats() returns 0.
-
-virtnet_get_ethtool_stats() only warns when the return value is non-zero:
-
-	if (virtnet_get_hw_stats(vi, &ctx, -1))
-		dev_warn(&vi->dev->dev, "Failed to get hw stats.\n");
-
-As it stands, a rejected command is not reported, and ethtool -S shows zero
-for every hardware counter. Should this path also return an errno?
-
-> +
->  		virtnet_fill_stats(vi, qid, ctx, p, false, hdr->type);
->  	}
-
-[ ... ]
--- 
-pw-bot: cr
