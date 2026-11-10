@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273328;
-	b=3lABDu1LNzDn9btDHePrgCQpyikmEWiUUXjjLYR74MPh8cHEz390B3yIeBIY/eRxuWYg
-	 pvaH4LDmDL9SAPPSteTt6eU8J4CtJ7p5Y5GX09dczrPEvP2SI9nQwEc4IGOcyZidsj6e7
-	 EdQxqVYZ3wIycwsPTRFCh9kH1ydzJFOZxeITDgYU3e0311uFmdKOpZhasrBkpvDJ+Qvy5
-	 L+BvIebPSEkovKQ1zw99V44gFroo5XXL9ZwlSE1Ddn3K3mD4rI3I2D3PXCBcLl+LYFVGW
-	 rSpGzq/huqq00nhw5Xz/zS2Q4OF15FK1CyEMQFtjFZ72nS4yR41lH15UspCSiYqhO5w==
+	t=1794273330;
+	b=Fn4oBuG3qmWMBdbXi5LFoZ9GRtHMTwPwZAMtAgziwB4P/cWFCX/ih8wJzbe0zmfeCY+f
+	 7MfqCk+llXGREAAqAhhfzF/guaxlsy94D4RAXM8cfxESXqs2lfS5MFp7ppUK5ET2XXLdH
+	 fR1sJ48yITrxIRF35RTWhqL0H8X04A8aznlfZPYTBw7etC8mJN2Kadafh6hBfD27PUgk+
+	 JkyTMcyXI9b6lOBxfR+57Fm8ZImipc56H8PFDf6eUGfYp6xdahd7DHPs7I12ikfXxihyp
+	 DvGWnt06bh9LfNmWe67mehQ3S97yiiHJZBWMRZThWHpKDazwkbzCOgFQn0htjzg83zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273330;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=J1UlFSgFTwYCp7u0ZK/AtxzoTKusUBN301hTpOA6NNU=;
-	b=HUTdz1VnYHV7EXLKv2RiHV4xLi535PTFoIE+q8sLZdUwntqccYdnxfzxvmbXm0jDR8wS
-	 FvPH6UZUdGiQczHyQVh95IQQ87g/si8FiZw2Juf3RUw5xHZTZrckSSKD0TJMGDw3YmUOr
-	 B5CmmyixkjeghrCFQhXF/qXen0gHY20+/RUYpVTsy9/b8ibg4elSBzsb8I6ELCJrwbZOj
-	 bP2D3PZcG7+jZFyFNNtI23DckhzSozv3cXqg1fclDl5tOii4zcu/XjXN02L1Kt5SiJePh
-	 TZrGr993S6YOm6gdf502EqhopMGQ014vLtfaYMTgf09ilHico01ij+Np1A1Y2Y1P5AQ==
+	bh=yugrCWV49ATabQH6EMyjQBTXCfZqyu16T8pamYmLax0=;
+	b=ua+LsFW2eY7C6m9A7txTcell012a1k8W1GMniARePsjnk2bTTlPv6Z5I2ww83Omls8+P
+	 hY+0lkIvncpewDWKYHjEI+3OTXy8DIQ0+wrTh135euN6apOvdbu3tHjPbzSw3RsIJXxhd
+	 bMYpUhnF3+gh0k+XdWAcxS25d71NrAv/QxTz8O+r8rjWfbUKzb68TBHVaF8uFjzFO+dIx
+	 RxyNp3s4irZVCEImf1NgLJYzjJ9VQe0k3iJAChSF8EEKGEkSjtqwwI7lZlZq2SNDMpe0J
+	 h/0pQ7PgnrRkD1Rl/uq7sBhxG9a7moTO1AuzYIIyJ+Eh9YoMkcKbzpNsYOgS1rr0UNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEJTESKM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7P67mQ0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D8F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECF6606A326
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:15:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZEJTESKM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8BF1F0089F;
-	Tue, 10 Nov 2026 01:15:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7P67mQ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6321F0089F;
+	Tue, 10 Nov 2026 01:15:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273328;
-	bh=J1UlFSgFTwYCp7u0ZK/AtxzoTKusUBN301hTpOA6NNU=;
+	s=k20260515; t=1794273330;
+	bh=yugrCWV49ATabQH6EMyjQBTXCfZqyu16T8pamYmLax0=;
 	h=From:To:Cc:Subject:Date;
-	b=ZEJTESKMRTF5EW8qB9EvuzdHpdRyzuOu24TBTlhjRZk0uLiI1UTOG3A8S5MwHs6Oh
-	 J0kC9DJxpmJ5nhjrZU0gdbCSqz8yJCo+bJuDkQUAtq6Pld8C5o/y6z4zliYEmkFDUl
-	 ZTPujJ5QqyU099dEIxuKUtLKSp9Zu/DckogzBPfWtlTEIcj4w0RwdMWKlqT15mQqPD
-	 VwULgUj2cMpN6lFYIdL9r82QpIOezEkKY21jK82vfqg5Hh6oxJvzq7qLoG11IqH8Dm
-	 eKrL8HkQqE47AX1A4r77OjuUCdgAruthJjD9VJ79IwYlyJXSlVFq4dbgLdrjjQrWQ0
-	 NgEtOJc4jy5tA==
+	b=f7P67mQ0Q0sLXDX9orbn/gLeYzJ7uX/2WOAQb6cDHz3whN/qVK82FIT3K93n/3j11
+	 h7Vl+6fQocFxGTX7DZ/YpBkHUhvkoll/sJfz1JkrXxIszUuC/HV0T4Hqd/YZQboozZ
+	 XOOssj3i4eKchrAIeCLzXLQuI0e6E/78dkozH3rcJF2PgdaJItl0igG1lCU56dN+/Z
+	 q1BsvpsWwK5c/zClGLciXuj4fqOoezZUUEfm3mjMulpro8L3OEacJf8OVl+S6xhhl9
+	 RwKe9AcZxx0hMj7qgQJMtcoi0XORNqeYEnZpoRw6bKBqxyU7a9t6UmplcdGr3F2swd
+	 Z+cmHyKJiUrpg==
 From: Sasha Levin <sashal@kernel.org>
 To: sven@narfation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] batman-adv: tt: send ROAM_ADV on each roamed back client" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:15:26 -0500
-Message-ID: <20261109201526-failed-6.1-aff4d5d10f2d@kernel.org>
+Subject: FAILED: patch "[PATCH] batman-adv: tt: only update flags for TT events" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:15:28 -0500
+Message-ID: <20261109201528-failed-6.1-ad1fd828aa39@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,76 +67,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x aff4d5d10f2dcb4a9b604e27414dafa1d51b6406
+git cherry-pick -x ad1fd828aa3944efc393b84b0d7c02483f1b5638
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201526-failed-6.1-aff4d5d10f2d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201528-failed-6.1-ad1fd828aa39@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From aff4d5d10f2dcb4a9b604e27414dafa1d51b6406 Mon Sep 17 00:00:00 2001
+From ad1fd828aa3944efc393b84b0d7c02483f1b5638 Mon Sep 17 00:00:00 2001
 From: Sven Eckelmann <sven@narfation.org>
-Date: Thu, 8 Oct 2026 12:00:27 +0200
-Subject: [PATCH] batman-adv: tt: send ROAM_ADV on each roamed back client
+Date: Thu, 8 Oct 2026 16:30:10 +0200
+Subject: [PATCH] batman-adv: tt: only update flags for TT events
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_roam_tvlv_unicast_handler_v1() creates a global entry with the
-BATADV_TT_CLIENT_ROAM flag set.
+In the first implementation of the translation table events, it was only
+possible to announce:
 
-If the client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_roam() is expected to announce this return via a
-ROAM_ADV frame. But this doesn't happen because the global entry (created
-by the first ROAMING_ADV) carries BATADV_TT_CLIENT_ROAM until the new
-originator announces the client.
+* ADD: new locally detected client
+* DEL: disappeared local client
 
-Let batadv_tt_local_add_roam() always handle a roamed back client -
-independent of the ROAM flag of the global entry:
+If an ADD event was queued and then a DEL event was queued in the same
+timeslot, it is valid to destroy both events because nothing actually
+changed for remode nodes
 
-* trigger sending of the ROAM_ADV frame(s)
-* remove the (with the roaming) associated global entry
+But with commit 3c4f7ab60cc2 ("batman-adv: improve the TT component to
+support runtime flag changes") and subsequent changes, it could also happen
+that there are extra ADD events:
+
+* ADD: _NEW_ locally detected client
+* ADD: already existing client with new flags
+* DEL: disappeared local client
+
+The first and the last type of event could in theory still be removed
+together from the (to be announced) events queue. But if the "update flags"
+ADD is dropped together with the DEL, it would still leave global
+translation table of a remote node in the incorrect state - believing that
+the client didn't disappear.
+
+If a detected client was previously announced, a DEL event must only
+overwrite the "update flags" ADD but the DEL itself must still continue to
+exist in the (to be anounced) events queue. For now, adjustment of the
+announced flags is used for everything instead of dropping already queued
+up events completely.
+
+Similarly, a DEL followed by an ADD caused both entries to be deleted. But
+the new ADD could announce flags changes which were not yet present for the
+client before it was marked for DELetion. The new ADD must therefore only
+overwrite the DEL - but still be kept.
 
 Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+Fixes: 3c4f7ab60cc2 ("batman-adv: improve the TT component to support runtime flag changes")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 ---
- net/batman-adv/translation-table.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ net/batman-adv/translation-table.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
 
 diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index e13c2828da475..0df51523dcf0c 100644
+index 247cce95c09f4..fa5ead248f192 100644
 --- a/net/batman-adv/translation-table.c
 +++ b/net/batman-adv/translation-table.c
-@@ -819,14 +819,21 @@ static void batadv_tt_local_add_roam(struct batadv_priv *bat_priv,
- 	if (!tt_global)
- 		return;
+@@ -622,6 +622,9 @@ static u16 batadv_tt_flags_get(struct batadv_tt_common_entry *common)
+  * @bat_priv: the bat priv with all the mesh interface information
+  * @common: the TT entry involved in the event
+  * @flags: flags of the TT entry combined with the event flags
++ *
++ * Only a single change per client is queued. It describes the latest state of
++ * the client and a new event therefore replaces an already queued one.
+  */
+ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 				    const struct batadv_tt_common_entry *common,
+@@ -631,7 +634,6 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	struct batadv_tt_change_node *entry;
+ 	struct batadv_tt_change_node *safe;
+ 	bool del_op_requested;
+-	bool del_op_entry;
+ 	size_t changes;
  
--	/* Check whether it is a roaming, but don't do anything if the roaming
--	 * process has already been handled
-+	/* Handle newly roamed client - but not roamed back client.
-+	 *
-+	 * A client which roamed back must always be reclaimed from the
-+	 * originator(s) which sent the ROAMING_ADV. The global entry created by
-+	 * this ROAMING_ADV might still carry BATADV_TT_CLIENT_ROAM because the
-+	 * new originator did not yet announce the client.
- 	 */
--	scoped_guard(spinlock_bh, &tt_global->common.flags_lock) {
--		if (tt_global->common.flags & BATADV_TT_CLIENT_ROAM)
--			return;
-+	if (!roamed_back) {
-+		scoped_guard(spinlock_bh, &tt_global->common.flags_lock) {
-+			/* Check whether it is a roaming, but don't do anything
-+			 * if the roaming process has already been handled.
-+			 */
-+			if (tt_global->common.flags & BATADV_TT_CLIENT_ROAM)
-+				return;
+ 	tt_change_node = kmem_cache_alloc(batadv_tt_change_cache, GFP_ATOMIC);
+@@ -665,25 +667,12 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 		if (entry->change.vid != tt_change_node->change.vid)
+ 			continue;
  
--		if (!roamed_back) {
- 			/* The global entry has to be marked as ROAMING and has to be
- 			 * kept for consistency purpose.
- 			 *
+-		del_op_entry = entry->change.flags & BATADV_TT_CLIENT_DEL;
+-		if (del_op_requested != del_op_entry) {
+-			/* DEL+ADD in the same orig interval have no effect and
+-			 * can be removed to avoid silly behaviour on the
+-			 * receiver side. The  other way around (ADD+DEL) can
+-			 * happen in case of roaming of  a client still in the
+-			 * NEW state. Roaming of NEW clients is now possible due
+-			 * to automatically recognition of "temporary" clients
+-			 */
+-			list_del(&entry->list);
+-			kmem_cache_free(batadv_tt_change_cache, entry);
+-			changes--;
+-		} else {
+-			/* this is a second add or del in the same originator
+-			 * interval. It could mean that flags have been changed
+-			 * (e.g. double add): update them
+-			 */
+-			entry->change.flags = flags;
+-		}
++		/* the other nodes may know the client with different
++		 * flags. A DEL+ADD must therefore still announce the
++		 * current flags and an ADD+DEL must still remove the
++		 * client. ADD+ADD and DEL+DEL only update the flags
++		 */
++		entry->change.flags = flags;
+ 
+ 		kmem_cache_free(batadv_tt_change_cache, tt_change_node);
+ 		goto update_changes;
 -- 
 2.53.0
 
