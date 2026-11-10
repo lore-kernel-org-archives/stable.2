@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794312285;
-	b=xf5VXU5Gi5NEcNxcswPC0iBiLiatghrQ0goOi/xvjxrvDYlnsTqFKPxpn6bamTTje9Fv
-	 iH+zRICfivVVXvd/K3JleAgQuhd3HI5JffsZBUzrGKW1lxBc/+RFJDew56MGBfXbGGm/o
-	 UdMcUTf/nGY+S+ngiQFwFzsz7vckN6l5JUbjnVIerzs6VolD7BojtZ8XEi2iuUml3uDU7
-	 M5pOkeb+2GiOQVAM2nCpAU6NfqJo9fc+mRIvARDfMNQfPNSwQ7moEOoInG8CNjHGOXF9W
-	 U5e93WA3Bliz1ZKL5e2NnoGhi+i2n0lgiZuI7ZxAyv8KU6lkmcPh5MnL8HqglKVKYDQ==
+	b=rNOMGYoQFGM27gv4llvk+cMdVMD8LB8YiWyZwMuCoXw8EZucC0yyZQXAdvp33wwcz1iD
+	 6w3czMFwVOfATpQIgiSwmof5aBVWzqEwFBCncTQty3Bg/5QDDPOFyL8zyrKhNRj3pBGp0
+	 sjxE5SH1tIrhVOekULg2MaAdspz5UNRF2zxzKSQvd+t89gwzPfomasUw73/9hy8lLOVlh
+	 y8EtAu07D5qyhSIP7k6QEp9Lnm6FyggBEdykL49zWWoYpbWKwyaku6W4nNZh6l0eHpGYd
+	 4ralHHaOY2f00Bc2zwNlCQDzz8kQBdvEhnMlhJj/aSJpHm8E7m1rOqPp1UT1rxj+WgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794312285;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wBNSFVrvI0ZlivzNhSxlOMbamnJVw93DfqMX3fCF3Ho=;
-	b=iC5bs+Sm20W954GK/xBiFePyEmxTviFqBRlZjF/JQrYjzeizsqh5F4VtKwT9hkIYIRG5
-	 34AO7+/Tl2fEvU33rcQQKWXI2AzVXYDzPvpN69Igq65939m5ngxYL/C+bqldN8J4i1UD2
-	 jbrx1Sh3qCP8GhOhdE0scefYzTi1y4Jovc3/WU3jpnheHIDobNCVezurNmMlh2cjFeMRs
-	 BmQo+Ia5cr/7HonUDYEy6UOuKPrrC8WIQFAbGdMxkK/t3Oh3anA8s8AfFlI0wOtS3MU+8
-	 ibXt4XBmNmTmHM9X9o8d93Y8NMbWYCvvSxtfEQ2bYhanb/I2g+sGeg0dQoIT/HxLR9A==
+	bh=WVHXz+Von5zYy+bZ4K2Yu9G1gfTaKeOahd1y8MWzxRk=;
+	b=BmbX2mMdQFTZdijkG6AmL56Xt4rv9MeNo+l5bjsI2EOZ/0uw17fwsWlG7yFeXIPpKe0w
+	 duOrW8e/WthodSOX85kwdQJmukRCsSSbMAI2VP5YiNdcDssz8eHS5iz8VNj0yrC0ZfvRr
+	 6XveOs9j310hHjGGyUcyu/AKIeTM0ejNaO9ha5vW4oVBpwtOvWbuBsTHXHBHH+DC3MeaU
+	 tnJmxHsJFR/aWV2LGRCtjoNYJhHUzYOQdkC/IbXLqkN/xRaMKw+9AyPuZm7p1BtnpmuTn
+	 yagSaHMsA3OB4NpVw1PeDtPg56Y0krXOVXufvPQFwcoWz6gB+qxVGC78iyFmAFbLhvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVjWinPf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIVaVm6Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5437606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F4E606A337
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:04:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mVjWinPf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B1F1F008A5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIVaVm6Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2AED1F008A2;
 	Tue, 10 Nov 2026 12:04:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794312284;
-	bh=wBNSFVrvI0ZlivzNhSxlOMbamnJVw93DfqMX3fCF3Ho=;
+	bh=WVHXz+Von5zYy+bZ4K2Yu9G1gfTaKeOahd1y8MWzxRk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mVjWinPf13Z+kVcUtIA4QjXT2r1pS3JtdO09IGV3SwiN9At1EmduygR3P9gcWL0RB
-	 woiSLKBN0Dv8beDxEZt/sh6vTCbNv9mQQLYuyXc53Wmke+IrrUzzlDgItC6DPSBvpF
-	 ko+9ASY2oMxC/nApe36HbS69ppFiSnOZzO8v262dkZrdUVq5gL+4FZBMa591/YM+Ss
-	 pCcdFbxSgXVWLbmNsOBvl06Y5KrZy2gi/dhL835kcjMBPPlHAj2Wj2lin4ENkh4pgQ
-	 uj/dWsA5KSqUuXzVcYmgRSoCYe54D5D6UqoId21FrF+rsU6g8RihIyyS7cEcsULJP+
-	 dY2ds/HjoQ6iA==
+	b=OIVaVm6ZGgMKHRmtURhLduVqARtaxdSjj0JnSrZckpgs3l6eXkT7yVzpp2dyQF4t6
+	 Vdrbo5RgNREyJHjLSTgDqLcfML4WrdzZ/mIeZqcYDaqCzQgpGCzZwow2VenJrrgvxB
+	 PXiJGtq2oiLLnz3zADE1azj0VNiIh/RmtKvZbH8i/39B7CsZbnkRZJuTVodfLfy46W
+	 5xuqWEwBijLSpSF9IJVLevJ2jRwdAM2dQQOnsxtDwtp+pq2pJ7ycSucm0H87XWnZIS
+	 j2yeup45KUNjh8AONRHxcicUUuzPG3YbLTzT/cc7QjkbWwMz1HOgsGJovRWmgQKi6L
+	 8uOpcKASeewVA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Ryo Takakura <ryotkkr98@gmail.com>,
+	Tejun Heo <tj@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] media: microchip-isc: fix ISC_PFG_CFG0_BPS macro name typo
-Date: Tue, 10 Nov 2026 07:04:40 -0500
-Message-ID: <20261110120434.946561-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] crypto: omap - convert from tasklet to BH workqueue
+Date: Tue, 10 Nov 2026 07:04:41 -0500
+Message-ID: <20261110120434.957099-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110120434.946561-1-sashal@kernel.org>
-References: <20261107051644-failed-6.12-bb96c78c5f87@kernel.org>
- <20261110120434.946561-1-sashal@kernel.org>
+In-Reply-To: <20261107052926-failed-6.6-5d69ed4cd4f9@kernel.org>
+References: <20261107052926-failed-6.6-5d69ed4cd4f9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,186 +62,255 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+From: Ryo Takakura <ryotkkr98@gmail.com>
 
-[ Upstream commit 96defd0723fc893db6ccf5f4968323db4af0b0aa ]
+[ Upstream commit 381e8ee368234a51b3a4f231f6f24ff0b09d9f9e ]
 
-The BPS field macros for ISC_PFE_CFG0 were spelled ISC_PFG_CFG0_BPS_*
-(NINE, TEN, ELEVEN, TWELVE). The register is PFE, not PFG. Rename them
-to ISC_PFE_CFG0_BPS_* to match the register and the EIGHT and MASK
-macros. No functional change.
+tasklet has been marked deprecated and it's planned to be
+removed. Make omap crypto drivers to use BH workqueue which
+is the new interface for executing in BH context in place
+of tasklet.
 
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Stable-dep-of: bb96c78c5f87 ("media: microchip-isc: fix SBGGR10 Bayer pattern")
+Signed-off-by: Ryo Takakura <ryotkkr98@gmail.com>
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: 5d69ed4cd4f9 ("crypto: omap-des - fix crypto engine cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../platform/microchip/microchip-isc-regs.h    |  8 ++++----
- .../platform/microchip/microchip-sama5d2-isc.c | 18 +++++++++---------
- .../platform/microchip/microchip-sama7g5-isc.c | 18 +++++++++---------
- 3 files changed, 22 insertions(+), 22 deletions(-)
+ drivers/crypto/omap-aes.c  | 15 ++++++++-------
+ drivers/crypto/omap-aes.h  |  2 +-
+ drivers/crypto/omap-des.c  | 17 +++++++++--------
+ drivers/crypto/omap-sham.c | 15 ++++++++-------
+ 4 files changed, 26 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index cabecf128b37a..fe145b142b826 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -32,10 +32,10 @@
- #define ISC_PFE_CFG0_MODE_MASK          GENMASK(6, 4)
+diff --git a/drivers/crypto/omap-aes.c b/drivers/crypto/omap-aes.c
+index ed83023dd77a8..bfeed72773984 100644
+--- a/drivers/crypto/omap-aes.c
++++ b/drivers/crypto/omap-aes.c
+@@ -33,6 +33,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/scatterlist.h>
+ #include <linux/string.h>
++#include <linux/workqueue.h>
  
- #define ISC_PFE_CFG0_BPS_EIGHT  0x4
--#define ISC_PFG_CFG0_BPS_NINE   0x3
--#define ISC_PFG_CFG0_BPS_TEN    0x2
--#define ISC_PFG_CFG0_BPS_ELEVEN 0x1
--#define ISC_PFG_CFG0_BPS_TWELVE 0x0
-+#define ISC_PFE_CFG0_BPS_NINE   0x3
-+#define ISC_PFE_CFG0_BPS_TEN    0x2
-+#define ISC_PFE_CFG0_BPS_ELEVEN 0x1
-+#define ISC_PFE_CFG0_BPS_TWELVE 0x0
- #define ISC_PFE_CFG0_BPS_MASK   GENMASK(30, 28)
+ #include "omap-crypto.h"
+ #include "omap-aes.h"
+@@ -222,7 +223,7 @@ static void omap_aes_dma_out_callback(void *data)
+ 	struct omap_aes_dev *dd = data;
  
- #define ISC_PFE_CFG0_COLEN	BIT(12)
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 583d3c4dca54f..9b74c92ca6eb8 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -147,49 +147,49 @@ static struct isc_format sama5d2_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
-@@ -210,7 +210,7 @@ static struct isc_format sama5d2_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_Y10,
- 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 	},
+ 	/* dma_lch_out - completed */
+-	tasklet_schedule(&dd->done_task);
++	queue_work(system_bh_wq, &dd->done_task);
+ }
  
+ static int omap_aes_dma_init(struct omap_aes_dev *dd)
+@@ -496,9 +497,9 @@ static void omap_aes_copy_ivout(struct omap_aes_dev *dd, u8 *ivbuf)
+ 		((u32 *)ivbuf)[i] = omap_aes_read(dd, AES_REG_IV(dd, i));
+ }
+ 
+-static void omap_aes_done_task(unsigned long data)
++static void omap_aes_done_task(struct work_struct *t)
+ {
+-	struct omap_aes_dev *dd = (struct omap_aes_dev *)data;
++	struct omap_aes_dev *dd = from_work(dd, t, done_task);
+ 
+ 	pr_debug("enter done_task\n");
+ 
+@@ -932,7 +933,7 @@ static irqreturn_t omap_aes_irq(int irq, void *dev_id)
+ 
+ 		if (!dd->total)
+ 			/* All bytes read! */
+-			tasklet_schedule(&dd->done_task);
++			queue_work(system_bh_wq, &dd->done_task);
+ 		else
+ 			/* Enable DATA_IN interrupt for next block */
+ 			omap_aes_write(dd, AES_REG_IRQ_ENABLE(dd), 0x2);
+@@ -1150,7 +1151,7 @@ static int omap_aes_probe(struct platform_device *pdev)
+ 		 (reg & dd->pdata->major_mask) >> dd->pdata->major_shift,
+ 		 (reg & dd->pdata->minor_mask) >> dd->pdata->minor_shift);
+ 
+-	tasklet_init(&dd->done_task, omap_aes_done_task, (unsigned long)dd);
++	INIT_WORK(&dd->done_task, omap_aes_done_task);
+ 
+ 	err = omap_aes_dma_init(dd);
+ 	if (err == -EPROBE_DEFER) {
+@@ -1245,7 +1246,7 @@ static int omap_aes_probe(struct platform_device *pdev)
+ 
+ 	omap_aes_dma_cleanup(dd);
+ err_irq:
+-	tasklet_kill(&dd->done_task);
++	cancel_work_sync(&dd->done_task);
+ err_pm_disable:
+ 	pm_runtime_disable(dev);
+ err_res:
+@@ -1280,7 +1281,7 @@ static int omap_aes_remove(struct platform_device *pdev)
+ 
+ 	crypto_engine_exit(dd->engine);
+ 
+-	tasklet_kill(&dd->done_task);
++	cancel_work_sync(&dd->done_task);
+ 	omap_aes_dma_cleanup(dd);
+ 	pm_runtime_disable(dd->dev);
+ 
+diff --git a/drivers/crypto/omap-aes.h b/drivers/crypto/omap-aes.h
+index 0f35c91647648..d999d94e2314d 100644
+--- a/drivers/crypto/omap-aes.h
++++ b/drivers/crypto/omap-aes.h
+@@ -161,7 +161,7 @@ struct omap_aes_dev {
+ 	unsigned long		flags;
+ 	int			err;
+ 
+-	struct tasklet_struct	done_task;
++	struct work_struct	done_task;
+ 	struct aead_queue	aead_queue;
+ 	spinlock_t		lock;
+ 
+diff --git a/drivers/crypto/omap-des.c b/drivers/crypto/omap-des.c
+index c5e7064be9c55..375d756efbfba 100644
+--- a/drivers/crypto/omap-des.c
++++ b/drivers/crypto/omap-des.c
+@@ -33,6 +33,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/scatterlist.h>
+ #include <linux/string.h>
++#include <linux/workqueue.h>
+ 
+ #include "omap-crypto.h"
+ 
+@@ -133,7 +134,7 @@ struct omap_des_dev {
+ 	unsigned long		flags;
+ 	int			err;
+ 
+-	struct tasklet_struct	done_task;
++	struct work_struct	done_task;
+ 
+ 	struct skcipher_request	*req;
+ 	struct crypto_engine		*engine;
+@@ -328,7 +329,7 @@ static void omap_des_dma_out_callback(void *data)
+ 	struct omap_des_dev *dd = data;
+ 
+ 	/* dma_lch_out - completed */
+-	tasklet_schedule(&dd->done_task);
++	queue_work(system_bh_wq, &dd->done_task);
+ }
+ 
+ static int omap_des_dma_init(struct omap_des_dev *dd)
+@@ -584,9 +585,9 @@ static int omap_des_crypt_req(struct crypto_engine *engine,
+ 	       omap_des_crypt_dma_start(dd);
+ }
+ 
+-static void omap_des_done_task(unsigned long data)
++static void omap_des_done_task(struct work_struct *t)
+ {
+-	struct omap_des_dev *dd = (struct omap_des_dev *)data;
++	struct omap_des_dev *dd = from_work(dd, t, done_task);
+ 	int i;
+ 
+ 	pr_debug("enter done_task\n");
+@@ -899,7 +900,7 @@ static irqreturn_t omap_des_irq(int irq, void *dev_id)
+ 
+ 		if (!dd->total)
+ 			/* All bytes read! */
+-			tasklet_schedule(&dd->done_task);
++			queue_work(system_bh_wq, &dd->done_task);
+ 		else
+ 			/* Enable DATA_IN interrupt for next block */
+ 			omap_des_write(dd, DES_REG_IRQ_ENABLE(dd), 0x2);
+@@ -1009,7 +1010,7 @@ static int omap_des_probe(struct platform_device *pdev)
+ 		 (reg & dd->pdata->major_mask) >> dd->pdata->major_shift,
+ 		 (reg & dd->pdata->minor_mask) >> dd->pdata->minor_shift);
+ 
+-	tasklet_init(&dd->done_task, omap_des_done_task, (unsigned long)dd);
++	INIT_WORK(&dd->done_task, omap_des_done_task);
+ 
+ 	err = omap_des_dma_init(dd);
+ 	if (err == -EPROBE_DEFER) {
+@@ -1072,7 +1073,7 @@ static int omap_des_probe(struct platform_device *pdev)
+ 
+ 	omap_des_dma_cleanup(dd);
+ err_irq:
+-	tasklet_kill(&dd->done_task);
++	cancel_work_sync(&dd->done_task);
+ err_get:
+ 	pm_runtime_disable(dev);
+ err_res:
+@@ -1092,7 +1093,7 @@ static int omap_des_remove(struct platform_device *pdev)
+ 
+ 	omap_des_unregister_algs(dd->pdata);
+ 
+-	tasklet_kill(&dd->done_task);
++	cancel_work_sync(&dd->done_task);
+ 	omap_des_dma_cleanup(dd);
+ 	pm_runtime_disable(dd->dev);
+ 
+diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+index a6b4a0b3ace30..17b61e1770bd6 100644
+--- a/drivers/crypto/omap-sham.c
++++ b/drivers/crypto/omap-sham.c
+@@ -37,6 +37,7 @@
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
++#include <linux/workqueue.h>
+ 
+ #define MD5_DIGEST_SIZE			16
+ 
+@@ -217,7 +218,7 @@ struct omap_sham_dev {
+ 	int			irq;
+ 	int			err;
+ 	struct dma_chan		*dma_lch;
+-	struct tasklet_struct	done_task;
++	struct work_struct	done_task;
+ 	u8			polling_mode;
+ 	u8			xmit_buf[BUFLEN] OMAP_ALIGNED;
+ 
+@@ -561,7 +562,7 @@ static void omap_sham_dma_callback(void *param)
+ 	struct omap_sham_dev *dd = param;
+ 
+ 	set_bit(FLAGS_DMA_READY, &dd->flags);
+-	tasklet_schedule(&dd->done_task);
++	queue_work(system_bh_wq, &dd->done_task);
+ }
+ 
+ static int omap_sham_xmit_dma(struct omap_sham_dev *dd, size_t length,
+@@ -1716,9 +1717,9 @@ static struct ahash_engine_alg algs_sha384_sha512[] = {
+ },
  };
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index d2e1899869c43..15ec519f61870 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -156,49 +156,49 @@ static struct isc_format sama7g5_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG10,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB10,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SBGGR12,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGBRG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GBGB,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGRBG12,
- 		.mbus_code	= MEDIA_BUS_FMT_SGRBG12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_GRGR,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SRGGB12,
- 		.mbus_code	= MEDIA_BUS_FMT_SRGGB12_1X12,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TWELVE,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TWELVE,
- 		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
- 	},
- 	{
-@@ -224,7 +224,7 @@ static struct isc_format sama7g5_formats_list[] = {
- 	{
- 		.fourcc		= V4L2_PIX_FMT_Y10,
- 		.mbus_code	= MEDIA_BUS_FMT_Y10_1X10,
--		.pfe_cfg0_bps	= ISC_PFG_CFG0_BPS_TEN,
-+		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
- 	},
- };
+ 
+-static void omap_sham_done_task(unsigned long data)
++static void omap_sham_done_task(struct work_struct *t)
+ {
+-	struct omap_sham_dev *dd = (struct omap_sham_dev *)data;
++	struct omap_sham_dev *dd = from_work(dd, t, done_task);
+ 	int err = 0;
+ 
+ 	dev_dbg(dd->dev, "%s: flags=%lx\n", __func__, dd->flags);
+@@ -1752,7 +1753,7 @@ static void omap_sham_done_task(unsigned long data)
+ static irqreturn_t omap_sham_irq_common(struct omap_sham_dev *dd)
+ {
+ 	set_bit(FLAGS_OUTPUT_READY, &dd->flags);
+-	tasklet_schedule(&dd->done_task);
++	queue_work(system_bh_wq, &dd->done_task);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -2075,7 +2076,7 @@ static int omap_sham_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, dd);
+ 
+ 	INIT_LIST_HEAD(&dd->list);
+-	tasklet_init(&dd->done_task, omap_sham_done_task, (unsigned long)dd);
++	INIT_WORK(&dd->done_task, omap_sham_done_task);
+ 	crypto_init_queue(&dd->queue, OMAP_SHAM_QUEUE_LENGTH);
+ 
+ 	err = (dev->of_node) ? omap_sham_get_res_of(dd, dev, &res) :
+@@ -2216,7 +2217,7 @@ static int omap_sham_remove(struct platform_device *pdev)
+ 					&dd->pdata->algs_info[i].algs_list[j]);
+ 			dd->pdata->algs_info[i].registered--;
+ 		}
+-	tasklet_kill(&dd->done_task);
++	cancel_work_sync(&dd->done_task);
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
  
 -- 
 2.53.0
