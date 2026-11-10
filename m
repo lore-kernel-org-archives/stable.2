@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794296298;
-	b=FOpAgmbJUhaHh72oevZtPX2zIBMtPsijYzKZWNFxWg0LZGcUDpQDuyNrBgOT7+0aS/7I
-	 NjjomELuFxydGPDf9o3sauu5YLNyyK4ilHQcBPLFGL0PbX9bTpjg16SHC/FtzzIyYzUXA
-	 cxApjY0I2zDnkhUsijLsHiTnn/8nNaZPsyx1PS5fAs6tziHydT4lxUKZrVH7DYDqO60uf
-	 wkzxqgCRyirMoPDf2GN+fUFg38W6VWD1lwVkYre5GvbRFAVwaNdx0jXIu77s99kOzUIAn
-	 IVClcweCOvdH4aAijF5gyWG3t9CNMe3bVKYPFKM5NR/q9C6C+hWrO5uvzHjfFVpnqIg==
+	t=1794296299;
+	b=obwAtyPh8jrYpX+dYSaiJaW362iGNoJ1xukb8Iuxl6HSXwXRiOS1fkbNIgDz5y6elYTD
+	 ltbt9VpQs1z5NPEDlnTxxMQ4ky9W+FlORQ2X9SJ77Yf7cYd8nGqaiKZzJkwGw8LKo5g7d
+	 o6nA/gpTqiOUlI1xv9x2aFE1K0QNqkWtHXFbA6jqDYod3WJD3q2+FrF9btJLfq5w7P8fN
+	 burT4ORNJ0jAqrpe4IvyAs5Z4bgVlS31hcSFatSCEDrEeK/TB4VN/NPLL2qGldunZzz9k
+	 pONg8rWqTN5gzNZDBzN45GPED2Lo0rb/q3tt8fWCsaptwvOn2uu+kDOuPkr3uBwPKPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794296298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794296299;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SekiNoU7YjOOMBaNWMGWhYX5JgGhMKcSvUcSqBy3AQ4=;
-	b=lQyfcTiuFMp/USk94McUv6CUN3MMjeYtoJIgxTfAp9VaojVeATnVJInsrdJEu2UQpFS3
-	 6AQAPp7er80RaQq+muM7vU9ZiCnZ1vIQCkJiFfGNR7ndK41FdDYLCxhelVVsqtL/ZJ83i
-	 teEXHrsFvTFb7rX0DUG97w3drwoH8plsZYgmE8viiJhqpfh8zyixf2As9DL9tIrpa9hU0
-	 VRk2i4M5UB3Z82sD+ZYUb1peEI/F4j8Pl3gy3ARxXmLqavAfy3pyqk72Vt5YDqbqGHR14
-	 +RlF4cXXLo0YvSiloyVPNQgLu0pV9/tx/L/YgnK/fm5HRCWDbWUkB/Xumv1ClgIyKzw==
+	bh=MRNR05ywzXoDNMzNmIdneSWE2qR9GCkFL0EWomGoqo0=;
+	b=h23s+2EiGKsCfraIcBOMMxLNeJ+JFjyJ2ELlWdmvGJTQ2/GPQTe47Hdm1uURkVB52jht
+	 s4UJH+nWligLXL6icmy3ulrQULJ4TgS1XU57C8rl3nqpnCe81iG+LkLETdvW3n+epKGyO
+	 lv+8nIw8piCvZbQKBzs1ZWGkffWUPhO7OzwXQpFDdlmmr5SGaC4OLiciDqrHMCOTg9PPg
+	 M3DloP8vt+7MpRJ4oSmw78Nelz/F9cDDxDG6JraPyyPEJV5Xb2pT2Lh1ioYPA7nOybooZ
+	 6GUINNu0n0zGh3miopv3gPzLl13fvP+TAu3dKzmov8g71j7QE53J0/bw2EwVCcFOxYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfoF+r7+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JwyrvKsb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6ECB606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22E3606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:38:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfoF+r7+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461CC1F008A1;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JwyrvKsb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12D301F0089F;
 	Tue, 10 Nov 2026 07:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794296297;
-	bh=SekiNoU7YjOOMBaNWMGWhYX5JgGhMKcSvUcSqBy3AQ4=;
+	s=k20260515; t=1794296298;
+	bh=MRNR05ywzXoDNMzNmIdneSWE2qR9GCkFL0EWomGoqo0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HfoF+r7+ttJOIexownLb3iPS6ECYLWH4SRmZ2aRlBLFyRIVF4obDhi2szWKyuONdG
-	 cVcXhUSQoteUI0YFkKGvZJIxyovb0lOI203zdV6rwHBupYJXwgzf9Z0a0B86jIzRUC
-	 nTgnQUo/fb3eoubjmqKz3O3t1WmzWXjlJV6mDLUZeyhI1XHyI4csIzPaEeFjYHh5bB
-	 gRwqLkIic79mf1e2xaJK728X9E/QeAnQ7vfr1a3UKAZbS5XaGOMTFQURooz7spfRXN
-	 KidxAn+r4dPjMlykQkBvwiqLmo1CeaP//w+ngv+2WkG1pjRLb7/nrijePdyoO8caVt
-	 AKavd2NajXWQw==
+	b=JwyrvKsbjy30IljQbItFS4ilUUOfeDvDt5tuqcQz8jhQL3S2u104Dc19Fkcp/eUJy
+	 jnFxAhWMqb8rvyTKkwsoZ9g/QzMXHdSN/JQy6ZxQHPnjliNS5BGXv8g0V8O8AaYRwI
+	 UEKKNf2XJvkNu5ASyEyUi7Yc+roxcGD0HFpBFTiYbM0b693nGbD0r/YYtxtdqd+M/2
+	 1z13yrptDIe7bs/pvOzYnC+jQaJuX7zqeL5q+xsJNTmObAPD9eplGR0AQmNKXedIWX
+	 2W2tgsNWpCcS1fFPVakCAztJPMGdOk14BJ0M1JYLpkMkuEwMZyMR+v/c2idORczBBL
+	 0tbkqGo7Ekgrw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode without PAE enabled
-Date: Tue, 10 Nov 2026 02:38:15 -0500
-Message-ID: <20261110073556.556612-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the MMU has
+Date: Tue, 10 Nov 2026 02:38:16 -0500
+Message-ID: <20261110073556.556612-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055823-failed-5.15-115f9405a2ed@kernel.org>
+In-Reply-To: <20261110073556.556612-1-sashal@kernel.org>
 References: <20261107055823-failed-5.15-115f9405a2ed@kernel.org>
+ <20261110073556.556612-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,73 +63,53 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 72e2fb24a0b0528bcc16a8f6ad2cf336ac361525 ]
+[ Upstream commit 115f9405a2ed6d78ee7ad8436bdd638743f6d1d4 ]
 
-Promote the ASSERT(), which is quite dead code in KVM, into a KVM_BUG_ON()
-for KVM's sanity check that CR4.PAE=1 if the vCPU is in long mode when
-performing a walk of guest page tables.  The sanity is quite cheap since
-neither EFER nor CR4.PAE requires a VMREAD, especially relative to the
-cost of walking the guest page tables.
+Extend the "EFER.LMA && !CR4.PAE" check, which exists largely to guard
+against KVM configuring a paging32 MMU with more than 2 levels of paging,
+with a very explicit check for exactly that: that KVM isn't trying to walk
+more levels of paging than the MMU template provides.  I.e. harden KVM
+against all bugs that would cause KVM to generates accesses beyond the
+bounds of guest_walker's arrays, regardless of how KVM ended up with the
+misconfigured MMU.
 
-More importantly, the sanity check would have prevented the true badness
-fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency checks
-for CR0 and CR4").  The missed consistency check resulted in some versions
-of KVM corrupting the on-stack guest_walker structure due to KVM thinking
-there are 4/5 levels of page tables, but wiring up the MMU hooks to point
-at the paging32 implementation, which only allocates space for two levels
-of page tables in "struct guest_walker32".
+Note, don't use w->cpu_role.base.level directly as the paging64 template
+only provides two levels of page tables for PAE paging on 32-bit hosts, and
+handles the third level by manually emulating the PDPTR access.
 
-Queue a page fault for injection if the assertion fails, as both callers,
-FNAME(gva_to_gpa) and FNAME(walk_addr_generic), assume that walker.fault
-contains sane info on a walk failure.  E.g. not populating the fault info
-could result in KVM consuming and/or exposing uninitialized stack data
-before the vCPU is kicked out to userspace, which doesn't happen until
-KVM checks for KVM_REQ_VM_DEAD on the next enter.
-
-Move the check below the initialization of "pte_access" so that the
-aforementioned to-be-injected page fault doesn't consume uninitialized
-stack data.  The information _shouldn't_ reach the guest or userspace,
-but there's zero downside to being paranoid in this case.
-
-Link: https://lore.kernel.org/r/20230729004722.1056172-9-seanjc@google.com
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260902232028.2767071-4-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: 115f9405a2ed ("KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the MMU has")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/mmu/paging_tmpl.h | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ arch/x86/kvm/mmu/paging_tmpl.h | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 6d37015772a31..ac139fa59b377 100644
+index ac139fa59b377..2ffa502aa4d1d 100644
 --- a/arch/x86/kvm/mmu/paging_tmpl.h
 +++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -380,7 +380,6 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	}
- #endif
- 	walker->max_level = walker->level;
--	ASSERT(!(is_long_mode(vcpu) && !is_pae(vcpu)));
+@@ -391,13 +391,14 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	pte_access = ~0;
  
  	/*
- 	 * FIXME: on Intel processors, loads of the PDPTE registers for PAE paging
-@@ -390,6 +389,17 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	nested_access = (have_ad ? PFERR_WRITE_MASK : 0) | PFERR_USER_MASK;
+-	 * Queue a page fault for injection if this assertion fails, as callers
+-	 * assume that walker.fault contains sane info on a walk failure.  I.e.
+-	 * avoid making the situation worse by inducing even worse badness
+-	 * between when the assertion fails and when KVM kicks the vCPU out to
+-	 * userspace (because the VM is bugged).
++	 * Queue a page fault for injection if any of the below assertions fail,
++	 * as callers assume that walker.fault contains sane info on a walk
++	 * failure.  I.e. avoid making the situation worse by inducing even
++	 * worse badness between when the assertion fails and when KVM kicks
++	 * the vCPU out to userspace (because the VM is bugged).
+ 	 */
+-	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
++	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm) ||
++	    KVM_BUG_ON(walker->max_level > PT_MAX_FULL_LEVELS, vcpu->kvm))
+ 		goto error;
  
- 	pte_access = ~0;
-+
-+	/*
-+	 * Queue a page fault for injection if this assertion fails, as callers
-+	 * assume that walker.fault contains sane info on a walk failure.  I.e.
-+	 * avoid making the situation worse by inducing even worse badness
-+	 * between when the assertion fails and when KVM kicks the vCPU out to
-+	 * userspace (because the VM is bugged).
-+	 */
-+	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
-+		goto error;
-+
  	++walker->level;
- 
- 	do {
 -- 
 2.53.0
 
