@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344384;
-	b=joB/0N0orzMw3YYKEktlabsVX4AI2++7jnIVYNrbZU6XPsyhE3sJLTNgBwpwZbPzm2Mi
-	 ne/bWIumXij9bg6bnzBeUKs4B25G54026I+rrjsyktG6gbYroGNm9kxSjIDaBXPQFsuDV
-	 P6r+caFho6xucjBVur/mgDWvSqX5vV2d7PRUt4jMmYtyVFVn8JDVx4NoIOLhzOdc8vebH
-	 3kEo4NphZQtQ/RcsRVKGxSeyx2bkQNIJ+B9Ad4NbsTO1Fuaa7tar7u2PCLJewdsT8l05K
-	 kIczWd4XdNHCZC53Ux11skxdkzZMFb5ZTCGtAmU1YrLzVMpCA5Wksne/BHAd2OaxDmg==
+	t=1794344385;
+	b=u5in7sLSwvQlll/3wBpBz7jeQK+JKfAsOfwzVWko4YCnuG10vEr38kWuEUGwTdm5M+T+
+	 aYcCeaBhGaNZh87lwUwSW1T2WyJQVY1wNMRsSOCUBDeV80N8qTScN0CUC/tOGahgSH1K+
+	 EmqXkNK9Porz6/QzC2nupZQPApTNbmJZW7gSF3kZwicwjM7H6Ui/IpmsORSvB+0y1tkYx
+	 T2QEwPoOhA/oxXJEVIy+u5T5wGV24DaWhQH3g2Zbn/XHdTH/1WSdZOczXyTl8osUnrd0U
+	 EH/os9WyTsu7F2P3YanoUzNniDgqNA8ufOoK/AqHNvxVdxTWbaZT/Ny3BvNQ0KaL82g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344385;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Nvnj33XjuZfq25lQMHb6sViLFzw8bJbeA5Ji/iMWa5Y=;
-	b=h/XR9aVkbDraaUdFXGIa76BUAyjZAnd5VjlYplLeJHfMnyceHKsxqVqZsIy7KKXXsNv4
-	 DfZ/CjIpJMWC//A5IskUmP0O4KVu94UHltHGU4Fzr8yUbNrobUxskeMN5YzVvCPj+hHTI
-	 XOCnTPx1faNCcKePs5QIcht5PcryvB+W9BznpUcvlMRLqLt5YyUGQN09LJLZ4t3TEMWY5
-	 W89KrnPVSQEqDTw2h3O+q6T4FuGpJlvXBS9BAlKwH/cUTNBCUS49JvhDER8kXp9O4cIoX
-	 Cv/wX6owgeRW0Vb6jK4frtXXT/7OtNkqjdxOjwsuOoddoD+whrl75gjzGoE7h7DN5pA==
+	bh=F0KLPcpsr2KeDIfzdo1llt+pA1+7rIxMBvRZlVOiKcY=;
+	b=mrKktTetUvGw1/FogzAm4qlULXRxQWIiOy53BaEQn2nXy50zZQyrVW03P09RbjauedcT
+	 pkGP2FjSibUJNQ5oyD7HshY/L5/baZtG5PS5cuzdDomU/lcVIj+NVWNMOPMnL05u4vB+K
+	 dMHzKA28SHllg1lPhLZEtyxxqvT6jNWI/4xpWFdNMwPVkQDPjSQWnKjFJydAAY6FiK+0g
+	 d3RWj/R2lbCA9GGysDQdqgFRvyTxqOFZe3m0PQGV0n777S8o345mqfaZvym1xq+ESkIs/
+	 shKwXBPEy28RflRBX/mRk/397Q4ESMVzZGBVh1fKHriemBuh6L/CwOzBD7JHs3K8RTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBqT9pe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDobzJig;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07CA606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2622606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJBqT9pe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9631F008A1;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDobzJig
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080CF1F0089F;
 	Tue, 10 Nov 2026 20:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344383;
-	bh=Nvnj33XjuZfq25lQMHb6sViLFzw8bJbeA5Ji/iMWa5Y=;
+	s=k20260515; t=1794344384;
+	bh=F0KLPcpsr2KeDIfzdo1llt+pA1+7rIxMBvRZlVOiKcY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HJBqT9peX5nljdAGj28I2sYeCpqE9NURrccLa5la6u8u/X1JUFLt12dPBPb5IPM5H
-	 nQ3lOnTUDaO04hdxRjaEDJEEiOBprU8MrrnbiRgUUZNmVFF1otuULNO1sw+bNheFeK
-	 HXN54j1LQATSUvPN447u6QamoTQj5sS68nCf63Of3YuTlqD+7MFCbenY34mxD+2q0l
-	 FaAOQj/EW58BwcLDlOYZKoStZsYcASLmFk7dzrmGj+CY0PxH5hem31tCEijWzB0P8X
-	 XuG4IZlkWeVxLJL7+IsNXoJyduXU3RB52vsIu7gmSvP/ZKcVXCQdayIrjPvbm/HTFf
-	 wCfSB/uBF73Zg==
+	b=DDobzJigjcryn0jvJosiWOSnP72Yb5izgMmawotMViCK1cTzm6xmrq30EDVyeXNwT
+	 29v1fl/PZVeNs3tjfD7P5EWtQQTJAaYSlXNzzZ2OVrQx7UyohCtB3WoMuBGVcPmawr
+	 YCQcCdWru7+EUZxysn5ieGsgSrFIZVGKZWIrXgCxGl7NydCwUcS2tlxULa1xmxjw00
+	 1Sl9ATLcHS665CL2a71GABWjbJjogFLqQTotZFFX2V3f7zpIXIt6s9d8K3/BeHLwUT
+	 2DgKJVJ5Yitu76Fn4YXnsAe7VvPhwZ+GGHFzjFbjoeSFfL9zklcODI8HUNWaDiT7ci
+	 uRWpDHKHl/rtg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH 6.12.y 1/2] arm64: sdei: Run the event handler on the kernel vectors
-Date: Tue, 10 Nov 2026 15:59:06 -0500
-Message-ID: <2026-11-10-1-daily-reply-0010-arm64-sdei@kernel.org>
+	Ramin Moussavi <ramin.moussavi@yacoub.de>
+Subject: Re: [PATCH 6.12.y] microblaze: restore the ABI argument home area below pt_regs (PTO)
+Date: Tue, 10 Nov 2026 15:59:07 -0500
+Message-ID: <2026-11-10-1-daily-reply-0011-microblaze-pto@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110120845.373988-9-kas@kernel.org>
-References: <20261110120845.373988-9-kas@kernel.org>
+In-Reply-To: <20261110085618.422250-1-ramin.moussavi@yacoub.de>
+References: <20261110085618.422250-1-ramin.moussavi@yacoub.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,9 +60,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> arm64: sdei: Run the event handler on the kernel vectors
+> microblaze: restore the ABI argument home area below pt_regs (PTO)
 
-Queued the series for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
