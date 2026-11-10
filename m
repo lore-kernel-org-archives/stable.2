@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794298145;
-	b=0WrDGOzjBLh7JTZa88vB7OcZQVCvJNOM6URUPdDCq3oXC/En6lAngVPxuGG3X8P2w9fa
-	 NMYr4F64vLp07r9+Eb5jClkcPQ0VJwzxa7yyp54LqPwWNEntISw7cLhsPjJO386/D3f5T
-	 ccd9z505uul/YN2cX3Y5AecXgTjmGsZVZAtU155qdKYNr28/vIKe9gg3gKD3tjv14bZ4o
-	 0JXg/ChL4/YnRxktaKn8KN+L0VMZ1s6IO7+PV2VZUiKe/zr2A60DsjYa2utjSwWSZFapb
-	 +YO+DbZAcqnWFIjovHa7JWjs57nkadcrCtTgD1f84J85CLC+qPHmer6gGTC4Zgs5riQ==
+	t=1794298231;
+	b=RDxyRLva4nk+tLWfWBXInaW+Sowe7kKK/KsqXbnzXzF3ZLotSc8MvKtc5tvHIb/Q94u9
+	 XQQp3ByLhDPMWfaSX4RZ1CDhjVSNGe7wzO4HemD/OIkUgdpKG4eii6T8L0x49/zP/pfes
+	 iVEz1Hm9z/868D7mp97lMvPmPNOx3wt2ngHfCUYvWvgXSirYLFSRCdMKD8mqOIzGlA8AW
+	 5tSpTyPA6a684sFX4Eh5gGpt1fiMYA4de9PYy4D+pIrkZb2oHAHyiJpMOjdh0tHHloZeu
+	 OfCP191f+og5MnVQlIS3m2oDoNWNLlhJZRDMuaWmn7ByasZdjMQBHKurFPbd7qwMjsQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794298145;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6TSqzrR9T+3kI/l+sR+aHGBIvSGkD3hX+kWBRzWImpc=;
-	b=xl25901bT6bvHQeuSCZbIeQ46vLdSnZP0kkB54iyeUIvq37TU9/V9+zMr1kj0HwLdWMJ
-	 k6nTBL0rRvILgwltEHYEsHufE9+y+FlnLtYE2hzOP/omgLJ0o7VZ5JnLVazJw+Tkk4S6G
-	 mQq7fx3XOBzVX6BZv1YX1qsFoi3EZKoWtd8vrSXsRHYeofEr6b4+pOGGmTgy8dvw7tlrK
-	 M6mqkean13PtABRE496hgo3vKCb9yTUJx56w8H3SmaVFui5Kg3YRBhlJL6Gp7dfdan0o9
-	 FE4z6RD663sOkvBZ4CKXRPNq1D1wFs7uyLHQj0ecHLpJM8vCS4dqKVQPs70gVqrYlOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794298231;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0M0PuSsNVc486tqkV94uKeE4Gx/HBPT2tl+WhPW8wJ8=;
+	b=uOGl0hsnNkP5MsF8cELDh8rFUVI78Z4X/uhYtrTi3gjKTvaZ0EutQsoHlmcPpK6b9uVC
+	 EHXRCFKKPEEPtdcuR8hU/5nOTJy6JVXpV7G3w50HNMBSP/U5vJjb9aXnACE68OuuOJDVB
+	 rGtzjZI0zwbRNCoK2cxKGXm7ridaupZ8U3feh/FnGXuubouOoqZ8Zno1Z6aHnLnZBkQwj
+	 NJ5eMROEqYy0kMK0ymslXyqAb76RuVBkgauR8FosLB6Bk34geFAax3yRK9763NxAb5Mpg
+	 NsK1sRB/+cd/f3MnXpINGFkuQXVm4hk7LcpPfN6WfqLAhO+S29tbQI8gdXIMYCrKltQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=S793Gujg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.52
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012052.outbound.protection.outlook.com [52.101.66.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s/LKf3p1";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688AC606A321;
-	Tue, 10 Nov 2026 08:09:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 688AC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E442F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 08:10:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E442F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=S793Gujg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sE+gdJSZHi9UCFG3PVXJQ6+4NwH2PAWP5WyKkBcUuXEkHkq+OHaK9vBTsK7GsKdGp5nH/6fHjeeQj9wt9sK5zQH4XWPtQRty0jwETZK/VHUTxnlCD1PuL58iq6uN1/ZDX/ZASGWmgaAzOn7EFAhJ12BGiGgrl5sfDudFAFGpOUY4la9UPeuNN/+a5bOJ09oouFFgc4CDkuWRGkwCpTUbZ3n4a1syb+mCe+LD9v9YS/WpHlBzh5axS7LCEo+DPUfBVBwuWrNIL9zZ8rUd8ZLi2dX9SXJ/eadDzeCj+zN0CGYDr2S/R6s7yd7/gMfesviBsZF+BpIJXzPC+zAP5gnH8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6TSqzrR9T+3kI/l+sR+aHGBIvSGkD3hX+kWBRzWImpc=;
- b=lGVXSs9AtKwo57sAOmkzl4rpqJvtiGKiSkuH+RnAQApkQrYcKFR5RpoqTJgPRUs0TYC8eTnh5qfiIJD425lQ2eQyW4t8iaL1jgsl/uq/qw0xtMhaojiQv3DHFvfmN0/TmTXhGDQoJW3a8WIP49G7ghyFp/fn2KaRnWnpF7vWpNhBJRvwZ29cV6r7/uqdb3NQtVYPd/KFzB+bACX8J1TCliOvkbL0e8qu3Jj4B8m2zEDIryR8gIlP+RZB+6HBY0NNtSk53wqghKWKcSILdLSVSieW/bX96G+2hwQU8/tfZl9kzTF9/VTzKTUu5fS4ApvtRqSCdoUUw93PMj23bHvPXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6TSqzrR9T+3kI/l+sR+aHGBIvSGkD3hX+kWBRzWImpc=;
- b=S793Gujg+GjN0Wz7GPEpChfSKWr8l8azyON2smvprJ7jKyU700Veg+3vb9Foe7wb4i10MSWtRu4aW2nn5kHMNYBR/DoIjqaoC7YaXDiyS4k+7gbWPfjM0/nGKrSGdeI0wKa82l1bSCKsStma81gZcvnJFvwtlgPTK1D2h8anW6uExvKGbh5JDw9BW827N2q24cZ3qn9eLL1en04avIyQM6p//GKnPrDyau7saevbYFCcLpzPVhrF4Ra4lPTfLaqWnPudFSmmoqZbipyen86rvuXon/0TDXJ3Ubnq0r4zVLXJJjhX5Xs2x96gB661/pecQ5s/tAAICHuXA45fHKsREQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
- (2603:10a6:102:51c::22) by PAXPR04MB8207.eurprd04.prod.outlook.com
- (2603:10a6:102:1cd::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Tue, 10 Nov
- 2026 08:09:01 +0000
-Received: from PA6PR04MB11909.eurprd04.prod.outlook.com
- ([fe80::a4b:fa4e:7fe7:e6a2]) by PA6PR04MB11909.eurprd04.prod.outlook.com
- ([fe80::a4b:fa4e:7fe7:e6a2%7]) with mapi id 15.21.0592.010; Tue, 10 Nov 2026
- 08:09:01 +0000
-Date: Tue, 10 Nov 2026 16:13:55 +0800
-From: Bough Chen <haibo.chen@oss.nxp.com>
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, michael@walle.cc,
-	Haibo Chen <haibo.chen@nxp.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v5] mtd: spi-nor: clear the default read_sr2 opcode for
- Octal DTR flashes
-Message-ID: <20261110081355.5d7ubrgulopr7qvm@shlinux89>
-References: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
-X-ClientProxiedBy: SI3PR01CA0011.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::6) To PA6PR04MB11909.eurprd04.prod.outlook.com
- (2603:10a6:102:51c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s/LKf3p1
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso638296a12.3
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 00:10:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794298229; cv=none;
+        d=google.com; s=arc-20260327;
+        b=n5pHIDfT5mu+MEqf5lCJHKYA3TfJ7uPNmmUfE091ofN9+g7ea8f3qUsduGEvuM3SCi
+         bD2Bdvcp85bafkU+otwbEq74Pz845n2h/pL1wG2u0Mz0LYQNAvTXKlA+9CWRitmFNWJv
+         1WJ5DU7GaGvjgS2Lfj5tId7tI0Du53hWQQAcfOU9oqg7chYzlpSVLKKWJgll2jip3xJA
+         iozXuEVhYGtvrnL0AsEuSZia0VlK0zm2KeXullc4t9Ae9pcFZclC+mpB6b6xfdDASST8
+         nFB/dKxXHsFOpCcf9/EK2ba/P9Jv4vXcoAUn1lPwwFwYmvhqraAqWIt0oXyQbPK9ExX3
+         dXhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0M0PuSsNVc486tqkV94uKeE4Gx/HBPT2tl+WhPW8wJ8=;
+        fh=a3UD+BIoQvYDhcpihvLZI5xHdB6cT8fVj6vKTy+WTz8=;
+        b=XFUwYIgh/RvDPCFULX/85O8arSpQIxDtCRPHZWA064Uib6o2rh3v4iVKT5G3/go5da
+         EwZRyRWUWp1JHlOCNteHHbPvxm6nYnXy6PoImazeiQ2Kzf4WqYXIUYT7j5ozonx+piM0
+         QoNM6oD5+1fYb7Oz8vjan8KDx6hFcqyfkWGBPIAighTBUipnbAfDrhzzjQfYnXge1/3/
+         tJqJDuZQrtVmN0WuiTy9maU4uPw/mClKBt4yR9ubu1hUphY+BVjLGNaSmc4zo2IXwpmz
+         mGr3EmJhXlWrTxdcIiUo9HqvkgZPiIkZbTZOkcqJMGjUsTr+PpEmwzpGOoL8zgLQBiJH
+         cF0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794298229; x=1794903029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0M0PuSsNVc486tqkV94uKeE4Gx/HBPT2tl+WhPW8wJ8=;
+        b=s/LKf3p12NuUZ9d7BzLTJGaea+p/WDthcGef5Caeu2FMQhJ/L/rnRru4iuiHc83jWS
+         XoZMbaJHUldv5njJLpGnmhd1eMon3JM7ocHNqPP5vwqdU+oVwxMReiPjceroh+rLS3UC
+         3Hziluq22KFKVmCACdnXHNsrfQbBXCd4Sd2qVa5DcDyIgm3FXsWJmiWoee756GbIbHai
+         EVhe9YwanynH/BB5lriCUHI/yVXqmelxiezL9M2IwCVqA3NRI4F1iTQ0HSanxoKSENIO
+         QapXbvy0w8PWs87s+l5NNk577DUjeibKvnfrp25lifS9NYxCt5fnKBNNtZ72/RtldYSO
+         TQcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794298229; x=1794903029;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0M0PuSsNVc486tqkV94uKeE4Gx/HBPT2tl+WhPW8wJ8=;
+        b=pjgZIeQ0KldLXEt8Mf+ohsMDc2cuWKobUNRUOQxcJ0c+L9gszsdXTvkJTFV1NCrKNP
+         d4r8E/RGlKI6g66IQtyA2Hg2Y3dXC+tHoyyGwYnhUi0s4mgF/JZ9NLgozGCHCpSLm1Gh
+         Hci4VU0Qxhq/zXe4Zx4iTSVu4nMoQkQh6K65vfkRUBXuSs+rJtWDeTgrbz997pfxxLC+
+         XZiavf38fltijeY1HXkSL14KO0zihnlEbM/u2ate6lweGE9B+VIIS9KkOKRO0Sqh2yeI
+         NISYFgrdTIfzDTn9q9rQwG1/S2ZarVvCW5mZZp/Jl7dtPLpKRQfpLImyvUKrXNY8/Ow5
+         dvyQ==
+X-Gm-Message-State: APuU4Z9QbERwpL0vei49lHSC91Z/uXaFUpmXBXI80oxEFaQ2sqqWvLvT
+	M1D5pEtCtnuTbV8XqMVL1bvlMzlG2P/mjkxln6Q4Gil0EMwwuCxaACoy+L9kVBiaNDIetOCy3fX
+	8K5j2e1oyrkr2lRPg0dLr7Oou+hzKmV4=
+X-Gm-Gg: AYBFou3/CQ6WD2NuAU5MI/Cr53oIk5eC617D3L/Q13HHJzrAjI2ihPYA0weJcoJKW79
+	S/wsIhiOVD53f0BasErRhDOQxF7NRygrYuNKAzfaJ7zT8M2lGDOPfFCjHZDgjssh3eAfWC74gWN
+	cvciGzeEJoE9OpBFgAUfb2GrKKPKShD2Gwi0PAg9s6yI/KM50fnPywxmo3gHb5MnvEwVJcnAUT9
+	Oo9f4QEgyiiC7V6VfVWjnZuVC6W+XsX/8GlrO3vsYwr5mgpo/WD5w/1HF4JyKFflCMke9rpXINN
+	OnvRRlyogsyhDyTAlqFgQkZFiYDB9tgUpd5J24joeyMD7fJWZc9ITYXbjKzepNEVExm1MSvbCOy
+	zCh52ejzC9veIw9vjlkWEDETdfvQKVtgTHOn89gK/DMqhSEQEbUTPmuyx5AMSbPKqELtH0g==
+X-Received: by 2002:a05:6402:322a:b0:6ab:6e:a8e4 with SMTP id
+ 4fb4d7f45d1cf-6b756b1fb47mr1380621a12.44.1794298228945; Tue, 10 Nov 2026
+ 00:10:28 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,221 +103,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR04MB11909:EE_|PAXPR04MB8207:EE_
-X-MS-Office365-Filtering-Correlation-Id: 880f5ed7-5945-405a-81de-08df3f01e091
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|19092799006|10067099003|11063799006|5023799004|56012099006|261022105027099003|261021121427099003|261022075727099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|261009223027099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	y2KM2wFLNE+myUjbvU9fOqKBCClAm1EDq47xkerEZHrwAkq3T0+Td6QkzKRmbMdTLPNJAhkltBUJtgmMiTOrJ890DEkaCkw8TiauKVfSceLIWlGKhx1GOa/qbyFE+3b9kZi4/J5SeHIpOT12dqYZmeibxkv1rUokXo1jYP0EueaBdLjYs4bziJYogBftKXGS9AllBhETEYNjI5juC62zGEz8PJWFfJ4CoNrazHsK2C5FHK4KepNWM7LAoV79RSzm0+b51dQH7cvKWd8yXV6Fjb/bLUfQpqMyLcjjirVSHO1A7AbulJ3oMY51Q0dvxPkuNoXjKye2mzZ9E26PcB/SpiVOQhr4fEOGu+pELMYcvAnIBVEEt3iDXwx0tPUdLlM+07yAHfFQLgo8qs8pBQCkIykQdDk8Hzo+hwvVTuXj2YqvFWfrM9fhPfit3xN/I+lHZDxlw06iykyfYNl9T+oUljlT5p4ds2MHwBsYgtJbBOKGlkHHxTeX3m4oLDBtkx7CCOzU5mn8UJYVd+KU5pZGVHMOa6Qe+W6I96aH2XlFFyR7jOhe4IjfYZwLHQqLImfeyaQaVPjXIvvDu70UegvfwWXS0GUTmmdmSQO0wpdQdJw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11909.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(19092799006)(10067099003)(11063799006)(5023799004)(56012099006)(261022105027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cqBkE8bRbkcFeTCkxXqDuIxXrH78IQWUv/HhX367P/pN3I6LGuU2JMPWThEG?=
- =?us-ascii?Q?kbIgp1cHTCbq4nW4GDVuCk2GDczhYNV3Wl5xtJANZlw8EMAe8bcLDCKhXRdK?=
- =?us-ascii?Q?2q5X3TntKg4TxTTdHvvkrLP7q6kb3pDUeUaHaAg21nvzTv/jsiDtXn5Qujuj?=
- =?us-ascii?Q?EuvdwvJ2GyFzCy5fznWLIso6najhl2OqWkcXkjXFyatd/IDimdZkEhIQUxxl?=
- =?us-ascii?Q?qkz3Rvvy4wLeq3MWel1NfugM4v25LIS7DD5qjhTOhuKR2FbTCDTV0FqGtn0y?=
- =?us-ascii?Q?WADnL8OE0Sjyefe1BIFXwUYhzwM8QvoA5YFqe8HF6As9ypBRKAJu2hSJAsh+?=
- =?us-ascii?Q?01n/j8pLUfk20nS+tuCP8rIdoibUXwUN5B+NkNntEPsBbI6mqbg2NQUzSxtc?=
- =?us-ascii?Q?84y5T6xLUzCzMIHPOYMk7zBCuWP0wvgOQGvUzJrZMJfbuHrv8Qc1deJ++/aD?=
- =?us-ascii?Q?sI4H5jpT0G2HCjITaqqnz5DfnjGZZtt6fsneDyQadaO2ACIwTeSaRrZIFYAY?=
- =?us-ascii?Q?oTAlI8fPqKNwQV6eqeWrb6Dz4PkUCkiR1ylLqWf8zm3FaggqdH3whRqFoKdm?=
- =?us-ascii?Q?iFMqzc9SQ5QcVMmNZVquj9v3SgoalDnC5/SeoMaUgW+B+lDxcTUJp+kkbB5r?=
- =?us-ascii?Q?FlMN3cXduul3/1uzA90V1mdUVJYCMAm3NkbALiuAsvpTGGMjwgbdlW4lv5WA?=
- =?us-ascii?Q?Xp0GzNCNPHgHLChmyXawfI3YIjXcaVgJFmRSZbIiukozUJAaR5Uf6a3FOPQZ?=
- =?us-ascii?Q?OAFEBT1M42sEvMEWgvYH4IS7E/CEDVS91bT3fZBNozW1q61KZTeBUgt7//Ww?=
- =?us-ascii?Q?kQpblJMKudxxoE0ewmPTSx+LtFZ3I1MRcQ/euzJ8oJWFzUiyOJdC8vC8npt8?=
- =?us-ascii?Q?JMv+PbQ07EMalZ7VruW9HJbIS8pbasLirZ3L0aX1Ojihd3Jvf4nZt3P5sWfj?=
- =?us-ascii?Q?ySBiv3Q48I4kbsjCLxz8UkyNYre4566K/YDTGwuHwuV7/j8NU0IB8/eW5svz?=
- =?us-ascii?Q?Iwy7cdPxVfUt4NbRVWyt7YTgLSQ3pov2doa4J5/sscCfXYt92C7HzMHNoYab?=
- =?us-ascii?Q?jDg+X+w2wg01fZp8fqmWISRRhv4WlHvGrA/jWYSONZr/eFDaMxtFHIycscSR?=
- =?us-ascii?Q?UZqxJfcoOaSZP7bz0JGpiWzeTtIBozC8cYz88QErbqI71CVPSt14d4dZ0b6B?=
- =?us-ascii?Q?OxUAcwn+hZkqfBOcuq3mrJ5sz7rzM8HMYss77T9ie7wm+5o86+TvbUXEzng5?=
- =?us-ascii?Q?oOtQIvqvr0VTwMi1TG3Mnw1oCRbrHx3gAxgr6NBYbujJVsx1VgAGbfcEoT34?=
- =?us-ascii?Q?BVg5VbAhdGqIjdIa43tLhIcNJog/l0prNk2VjxxvMarlq6ufzwAO6FAi8Jir?=
- =?us-ascii?Q?kkkolHxonJbYMgefmfg0rY2H6IL8K6k0WEoogmgUldwyfOhWdwWN5q7YR84P?=
- =?us-ascii?Q?E/mO7j/lU5pY4xTufEuHWM4s9XiK3/kZb4/owrSAGYOrJ0OxHqjkkvpCFrbv?=
- =?us-ascii?Q?fs2NjnTExXxBbdles9Fomh7vU/KsnfU+SJQ29tZxM7U6N+D4dBd/BKjWvEvS?=
- =?us-ascii?Q?UtL75RhpGgWERDtNgoZYk1ToEuuQpYvZrA+Z0TF1cuylrbMQsjXlbFxRKonE?=
- =?us-ascii?Q?0rLyIsoAOwi2EaXLF1asmyrKJjl3E82vX4UzJ9tZAOH/JeGXYkmZCBbXb3ew?=
- =?us-ascii?Q?oXJupzUPtpj0jP430WJ0d7Oev2xgqg+HfZk4rgJgG++pcFnaUAD6tewz2PVT?=
- =?us-ascii?Q?G1sFMp1wbytFHiYDLDRqtfJYbxWuGyZHfS0N+XA9a2VX11Qc7QOO?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 880f5ed7-5945-405a-81de-08df3f01e091
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11909.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Nov 2026 08:09:01.0271
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y3yN9kMaRen4ZeciZZ+wLKOIgK+sHeQo3vZm/F6oJKGboIbKnTzfj0aJ73s0d3bkPgcPwL5KG+Xdtmlq0b1UL3qOVUfOd3R4URBI8tR3kviwbu27WoRS1cTIlDt3vIhQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8207
+References: <20261107052836-failed-6.6-669bb5af15d4@kernel.org> <20261110032904.180619-1-sashal@kernel.org>
+In-Reply-To: <20261110032904.180619-1-sashal@kernel.org>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Tue, 10 Nov 2026 09:10:17 +0100
+X-Gm-Features: AclHuK_Gseu2d8mFRplEiE7W-YAYS549Mvqve13geMWX-6AkPSpgXp-FZ2qzpuM
+Message-ID: <CAOQ4uxi7xkQiYtjQNuso0MC6KGGpwGbd+xST5NQ_aYOtaoAixg@mail.gmail.com>
+Subject: Re: [PATCH 6.6.y] fs: make sure to call fsnotify_inoderemove() only
+ once when inode is dead
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Daehyeon Ko <4ncienth@gmail.com>, Jan Kara <jack@suse.cz>, 
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Tue, Nov 10, 2026 at 4:29=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> From: Amir Goldstein <amir73il@gmail.com>
+>
+> [ Upstream commit 669bb5af15d41a21359d00a441490f87a88eb52a ]
+>
+> Daehyeon reported a race wherein fsnotify_removeinode() can be called
+> when inode still has a live alias.  This can lead to several undesired
+> outcomes such as crashes in fsnotify code or avoidance of inode mark
+> notifications.
+>
+> Check that inode is really "dead", meaning no nlink and no more aliases
+> before calling fsnotify_inoderemove() for final cleanup of inode marks.
+> Also do not allow open_by_handle() to add new aliases to a "dead" inode.
+>
+> Ideally, we'd call fsnotify_inoderemove() once last inode reference is
+> dropped to make things simpler. Alas fsnotify inode marks currently hold
+> inode references and thus this doesn't work. Once we teach fsnotify to
+> avoid holding inode references, these games with dead inodes can go as
+> well.
+>
+> Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
+> Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4n=
+cienth@gmail.com/
+> CC: stable@vger.kernel.org
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+> Signed-off-by: Jan Kara <jack@suse.cz>
+> Link: https://patch.msgid.link/20260902164924.1333135-2-jack@suse.cz
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> [ sashal: Moved the second inode-dead check into the existing __d_instant=
+iate_anon() helper to accommodate separate alias instantiation. ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Just a gentle ping to the MTD spi nor maintainers.
+Sasha,
 
-Please let me know if any changes are still needed. Otherwise, could it be picked up?
+Please drop this patch from all stable kernels or apply only together
+with the followup fix.
 
-Thanks
-Haibo Chen
+This commit introduces a regression which was fixed in upstream
+shortly after:
 
-On Fri, Oct 23, 2026 at 03:11:54PM +0800, haibo.chen@oss.nxp.com wrote:
-> From: Haibo Chen <haibo.chen@nxp.com>
-> 
-> The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35), and
-> spi_nor_cache_sr_lock_bits() reads SR2 during spi_nor_init(), i.e. after
-> the flash has been switched to its runtime protocol. On an octal flash
-> running in 8D-8D-8D mode the opcode is extended per cmd_ext_type (e.g.
-> 0x3535), but RDCR is not a valid register read there: these parts access
-> their status/configuration registers through a vendor-specific indirect
-> space, if at all. The flash does not answer, the register read times out
-> and probe (or resume) fails (on i.MX FlexSPI: -ETIMEDOUT and a controller
-> WARN(), seen with a Micron MT35XU01G and a Macronix MX25UW51345G).
-> 
-> Clear read_sr2 on every path that enables 8D-8D-8D, so that
-> spi_nor_read_sr1_and_sr2() degrades to an SR1-only read and no
-> unsupported command is issued. A manufacturer driver that genuinely
-> needs an SR2 read in this mode can still install its own opcode in a
-> later fixup.
-> 
-> - spi_nor_parse_profile1(): the common case. The xSPI Profile 1.0 table
->   does not describe any SR2/RDCR read, and it runs before the
->   manufacturer late_init.
-> - mt35xu512aba_post_sfdp_fixup(): some mt35xu512aba batches lack the
->   Profile 1.0 table and enable 8D here instead, with the BFPT QER field
->   left at a reserved value so read_sr2 keeps its RDCR default.
-> - spi_nor_no_sfdp_init_params(): non-SFDP parts that enable 8D via
->   SPI_NOR_OCTAL_DTR_READ keep the RDCR default too.
-> 
-> CMP (the only user of SR2 beyond quad-enable in the locking code) is
-> Winbond-specific and is not placed in SR2 on their 8D-capable parts, so
-> no octal flash loses a usable SR2 read because of this change.
-> 
-> Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
-> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
-> Changes in v5:
-> - No code change; address review feedback from Miquel on v4:
->     - Drop the Fixes: b7b63475903c tag, keep only the Refactor one.
->     - Add Cc: stable.
->     - Collect Reviewed-by: Miquel Raynal.
-> - Link to v4: https://lore.kernel.org/r/20261022-spi-nor-fix-v4-1-fba3ec3d2b5e@nxp.com
-> 
-> Changes in v4:
-> - Following the Sashiko review and Miquel's preference, keep the
->   capability-based clear but cover every path that enables 8D-8D-8D, not
->   only the xSPI Profile 1.0 one:
->     - spi_nor_parse_profile1() (the common case, already in v3),
->     - mt35xu512aba_post_sfdp_fixup(): some batches lack the 8D command
->       info in SFDP so Profile 1.0 parsing may not clear it,
->     - spi_nor_no_sfdp_init_params(): non-SFDP parts using
->       SPI_NOR_OCTAL_DTR_READ.
-> - Checked all vendor drivers; Micron is the only one that enables 8D
->   outside Profile 1.0 parsing. Macronix and Cypress rely on Profile 1.0.
-> - Link to v3: https://lore.kernel.org/r/20261022-spi-nor-fix-v3-1-bffa00b75c27@nxp.com
-> 
-> Changes in v3:
-> - Clear opcodes.read_sr2 in spi_nor_parse_profile1() (capability based)
->   instead of in spi_nor_set_octal_dtr() (runtime-protocol based), as
->   suggested by Miquel and Michael. It runs for octal-capable parts and
->   before the manufacturer late_init, so a driver can still install its
->   own SR2 opcode afterwards.
-> - Confirmed on a Micron MT35XU01G (i.MX95) and a Macronix MX25UW51345G
->   (i.MX8ULP): both publish the xSPI Profile 1.0 table, and 0x35 is not a
->   valid SR2 read in 8D mode on either.
-> - Drop the Assisted-by tag (removed upstream for 7.3).
-> - Link to v2: https://lore.kernel.org/r/20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com
-> 
-> Changes in v2:
-> - Rework the fix following review: instead of guarding the read at runtime
->   in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 once, at the
->   point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()).
-> - Key the clear off the real runtime protocol so a flash that advertises
->   Octal DTR but runs in (x)STR (host without 8D support) keeps its RDCR.
-> - Drop the swp.c change and the -EOPNOTSUPP handling; a cleared read_sr2
->   already means "no SR2 read", handled by the existing debugfs caching path.
-> - Trim the code comment; move the details to the commit message.
-> - Link to v1: https://lore.kernel.org/r/20260928-spi-nor-fix-v1-1-ce65ba90cfbd@nxp.com
-> ---
->  drivers/mtd/spi-nor/core.c      |  6 ++++++
->  drivers/mtd/spi-nor/micron-st.c | 10 ++++++++++
->  drivers/mtd/spi-nor/sfdp.c      | 11 +++++++++++
->  3 files changed, 27 insertions(+)
-> 
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index 90524c58602e1c27cd83951ab0cdd3669a2ebfd6..8ded5cd12669161a95d7c08773b5a3a9a5f9b3ac 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -2711,6 +2711,12 @@ static void spi_nor_no_sfdp_init_params(struct spi_nor *nor)
->  		spi_nor_set_read_settings(&params->reads[SNOR_CMD_READ_8_8_8_DTR],
->  					  0, 20, SPINOR_OP_READ_FAST,
->  					  SNOR_PROTO_8_8_8_DTR);
-> +		/*
-> +		 * The default SR2 read opcode(35h) is not usable in
-> +		 * 8D-8D-8D mode; drop it so spi_nor_init() does not issue an
-> +		 * unsupported command.
-> +		 */
-> +		params->opcodes.read_sr2 = 0;
->  	}
->  
->  	if (no_sfdp_flags & SPI_NOR_OCTAL_DTR_PP) {
-> diff --git a/drivers/mtd/spi-nor/micron-st.c b/drivers/mtd/spi-nor/micron-st.c
-> index f97f2dead8c2f175564410871c896260dc31aad3..cff774a83d7656ca2d7dc5af13a78c8c520b1dd9 100644
-> --- a/drivers/mtd/spi-nor/micron-st.c
-> +++ b/drivers/mtd/spi-nor/micron-st.c
-> @@ -181,6 +181,16 @@ static int mt35xu512aba_post_sfdp_fixup(struct spi_nor *nor)
->  	nor->params->rdsr_dummy = 8;
->  	nor->params->rdsr_addr_nbytes = 0;
->  
-> +	/*
-> +	 * Some batches do not expose the 8D-8D-8D command information through
-> +	 * SFDP (see above), so spi_nor_parse_profile1() may not run and clear
-> +	 * the default SR2 read opcode(35h). Drop it here as well: it is not a
-> +	 * valid register read in 8D-8D-8D mode and would time out during
-> +	 * spi_nor_init(). Clearing it again when it was already cleared is
-> +	 * harmless.
-> +	 */
-> +	nor->params->opcodes.read_sr2 = 0;
-> +
->  	/*
->  	 * The BFPT quad enable field is set to a reserved value so the quad
->  	 * enable function is ignored by spi_nor_parse_bfpt(). Make sure we
-> diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
-> index 4a3f82e97cef8a76c9704918aa6558ca4e2f2b97..722eeff71d0df8c47ec7bdd795c08ba1bdf5e9cc 100644
-> --- a/drivers/mtd/spi-nor/sfdp.c
-> +++ b/drivers/mtd/spi-nor/sfdp.c
-> @@ -1344,6 +1344,17 @@ static int spi_nor_parse_profile1(struct spi_nor *nor,
->  	 */
->  	nor->params->hwcaps.mask |= SNOR_HWCAPS_PP_8_8_8_DTR;
->  
-> +	/*
-> +	 * The xSPI Profile 1.0 table does not describe a Read Configuration
-> +	 * Register (RDCR, 35h) instruction, and the single-byte RDCR default
-> +	 * is not usable in 8D-8D-8D mode. Drop the SR2 read opcode for these
-> +	 * octal-capable flashes so spi_nor_read_sr1_and_sr2() degrades to an
-> +	 * SR1-only read and spi_nor_init() does not issue an unsupported
-> +	 * command that the flash never answers. A manufacturer driver that
-> +	 * actually needs SR2 can install its own opcode in a later fixup.
-> +	 */
-> +	nor->params->opcodes.read_sr2 = 0;
-> +
->  out:
->  	kfree(dwords);
->  	return ret;
-> 
-> ---
-> base-commit: 9a482184d910775cf648863148944945b74e2815
-> change-id: 20260928-spi-nor-fix-eb7ebe22a740
-> 
-> Best regards,
-> -- 
-> Haibo Chen <haibo.chen@nxp.com>
-> 
+commit a522dd871024a0f065bfa7638afdb929607f58fc
+Author: Amir Goldstein <amir73il@gmail.com>
+Date:   Fri Oct 30 16:55:52 2026 +0100
+
+    fs: don't fail __d_obtain_alias() for unlinked inodes
+...
+    Christian Brauner <brauner@kernel.org> says:
+
+    Amir's v3 replaced 669bb5af15d4 as a whole. I turned it into an
+    incremental fix on top of mainline and wrote a new commit message.
+    Jan's Reviewed-by was given on v3 and the resulting code is identical.
+
+    Fixes: 669bb5af15d4 ("fs: make sure to call fsnotify_inoderemove()
+only once when inode is dead")
+    Cc: stable@vger.kernel.org
+    Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+    Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+    Link: https://patch.msgid.link/CAOQ4uxg7Qt436SiKhKEJKOjtCjeB_XyTjazYF7H=
+MyQAGGcgx2A@mail.gmail.com
+    Reviewed-by: Jan Kara <jack@suse.cz>
+    Link: https://patch.msgid.link/20261030-work-dcache-obtain_alias-v1-1-a=
+1f7e44536d2@kernel.org
+    Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+I don't like the idea of selecting patches to stable which already have fix=
+es
+themselves without applying the fixes of fixes together.
+
+Please instruct your bots not to do that (at least for my subsystems)
+because the risk outweighs the benefits IMO for the general case.
+If bots are able to apply the fix and not able to apply the fixes to fix
+along with them this requires maintainer intervention.
+
+Sure obviously often fixes that hit stable will need fixes of their own
+and often those fixes of fixes are not known at the time of applying the
+fixes to stable.
+
+But this is not the case here, the fixes to fixes followed to mainline very
+shortly after the fixes and are available for your bots to detect and exami=
+ne.
+
+Thanks,
+Amir.
