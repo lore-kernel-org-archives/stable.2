@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315615;
-	b=cIAamNth6ui17k/Si/lXCE/1asvoe0DbS0sZK/a1OXFLpX44ynNUXtQZgGzkwQdpg96h
-	 vKnLmtqhlgaaeJ/t0hGXhTtZIdftBQ9Uhcqw9qiVai6H52ELZjAeWNbI7Q7Njl7h/lSRE
-	 YZRsvpSmDjj9uiOB1UmlxMfmhmV0XBovmYffWZCQKPcHdf2EIZK1X1jUMnZUG5Ev/V8Ys
-	 IkoU325xBXYwXkCbLe6/fiYngt7HMKtxfM1WhIZb32iMtRSJeDyzYzndn3kUvEczDpAAR
-	 2T+UoFMJ2y5sKG5Hsc51COe9NiO4tEOTWlq8G0z/ImtKrG/cD/ig+aaHOqz6liF/Oiw==
+	t=1794315640;
+	b=o4sPgewGPrmFhW1zRzfFmykGCTr19EM88ePfF9+LwPkA7kVf/z62jL7AQsgeeiSNJXhQ
+	 weicLtjagsGVmLNJvcXtcxy5Bb0hySv1dWwu9IN1GtUHitb1Z3WoEEw6xYxfvWbR+8YzP
+	 a1m1JQDUOtuRxy+Neh6enKVVL+x37kJ2YTbqa9eBD0xMuqHjX9ZWNjPiFyID6ZGUDRmu+
+	 RfNLurTW7cCsDAvBTSAKyCqG83JX3VwNdY+ZlM7Otvh9EOqFj8IesbshQHN2/6H6nO8Uy
+	 paP2+wqRiGcMmVBA0zBLF5eNwvbXif6KZaBdLVPY/p9AHocnqkkYFA5iRHDn+cL2WlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315640;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=begtnCSSWqrWLX7apVfnWeTlakMDG12dSaC8xCfdfn0=;
-	b=J4kufoGiOQ8pEnDTTVk4t8i1j9ZqclWPy/VXZ9e8J3jj9+Z0uxhYRW20k3JuR44tQwJj
-	 HrEKlTfEsXUXP8m2p7QHKOrC73yVLChnfVpPMM+YFkfTs+CfT83Tyon+66SrXk6MunDwE
-	 DJZzywZTOL+uGQM7tfO17ECCncZzwQOOK29MKla/zih3Uen3YfFU09yonzrHrNt7zai1D
-	 PsBeOECC71lxDnn/U01k8vRXyIxlepOVC/dq2r5iyisMldb8qXJs8fTOwsVQmPmbtw+i7
-	 mHKag7lk/vxRTL/j/n/2anAjedyKQ2sw/nBUkDAnndX3wPMTm1hMTDlvbuuHEENxiUQ==
+	bh=iX23rykjprb5aI5vvf55MBNWIn+Yy4tzxs8f8URj+68=;
+	b=OM95Iecg1HRpwesI/5F5bmgLWQHpDO7jhZiL6m1K9DpKKHYRkeu3IUOWQ0TdN0CrSlsn
+	 f0TQg53oBj/VauSGrWFZ7ozklLFhHFaXgRBNAkOsjtjn2F7zdI7e+AATGagbcFnQZfurC
+	 5cTwV8IcwPUcOXlrij5qMASLMysWMpM6zGH4Gzf0IwoWIBRb0XEzVsD+kJfACG23pVyqi
+	 Z8MAhDN4qyQ169fjBgonO+iijZ2++ZpYwRkvjvX9JMCm698nRgIZg0pV84pclCXNWa7M1
+	 ZluEL+AZfNBq7UbeveGBXvK11PmDvEY0vp272FwadSG+FEn/tyCx+EZNy7uyJHmUjoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+oDnl1I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQMs2TAv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2063606D5D6
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A1E606A32E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+oDnl1I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1EBF1F008A2;
-	Tue, 10 Nov 2026 13:00:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aQMs2TAv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DBE71F008A4;
+	Tue, 10 Nov 2026 13:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315614;
-	bh=begtnCSSWqrWLX7apVfnWeTlakMDG12dSaC8xCfdfn0=;
+	s=k20260515; t=1794315639;
+	bh=iX23rykjprb5aI5vvf55MBNWIn+Yy4tzxs8f8URj+68=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y+oDnl1I3EAMFDqex/I1MdZg4ujZeCiPSeYyhw8IIYNiRuFJq5YOUSCPOZL0efPPU
-	 jfWRhEu/yUDYUUwD+40es9UQBEOZCpVYE5rjPUaksMSgLgdJ5z9E/naH+hP5nEwILH
-	 rzimZx+5gXh8+3oiE4TXEjFY7UF7IfZJHi7+8YPChj2ugZHxdXZ/9WLHNNOJWeGaCR
-	 +abpreseWb39x8xfoUgGLt/rjRZUKZMJ+yu8tBq+fsq/S3BE9GKhDxAtKXvnYBN20U
-	 xOd9vucpiD4bKMDtnksW5pZzZ3rN45BReZbTKrhqbiycV1oVz2mD99Cxh68vyZh8u7
-	 ypSHMOSu7NVkA==
+	b=aQMs2TAvr8jYeCXfwHiqLeUAn5STxBZcVaXlQ15TlKOL9Vr13dc6Iu7q1G50v9Stv
+	 llRaymSqHMto/zSwgFMVO9RKEYusfn0QqM5ig3QsJF9BpygzP0MFYhJbLOw54P0s6H
+	 DyGSq9h0SPMQqFuanyt9XnCzL3NnVzNJ2lkgP/+N25D0qE5/9aTv3CoDdlO/Mz05r/
+	 x33Go3s+B9yi874PGyDWUxdcDtl0E8NeDIuiMtj7P/jc94N2QNMvakobkQT0OfjQ5m
+	 7PBH3I1yLRR3WJlBBs09o9Zge81R8hxi1lW8b5vlxdmGu/1ScQVTqPDnJyQBxgDV1q
+	 O6r+z27kHEJEA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Alexandru Ardelean <aardelean@baylibre.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 08:00:12 -0500
-Message-ID: <20261110125950.1617250-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] kernel.h: move READ/WRITE definitions to <linux/types.h>
+Date: Tue, 10 Nov 2026 08:00:35 -0500
+Message-ID: <20261110125947.1497852-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054305-failed-6.1-6b8b1d1d7bc7@kernel.org>
-References: <20261107054305-failed-6.1-6b8b1d1d7bc7@kernel.org>
+In-Reply-To: <20261107051756-failed-6.12-56c1d32323e7@kernel.org>
+References: <20261107051756-failed-6.12-56c1d32323e7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,81 +63,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Ingo Molnar <mingo@kernel.org>
 
-[ Upstream commit 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a ]
+[ Upstream commit 4ef5211ee68113070bd42142f06347866675055e ]
 
-tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the initial
-conversion.
+Patch series "kernel.h: Move out a couple of macros and constants".
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot. The continuous-mode path,
-which sets ->ready_time to jiffies with no added conversion delay, wraps
-the same way.
+kernel.h hosts a couple of macros and constants that may be better placed.
+Do that.  Also add missing documentation.  No functional changes
+intended.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
+This patch (of 2):
 
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adjusted probe context from tmp108_common_probe() to tmp108_probe() ]
+Headers shouldn't be forced to include <linux/kernel.h> just to
+gain these simple constants.
+
+Link: https://lkml.kernel.org/r/20250324105228.775784-1-andriy.shevchenko@linux.intel.com
+Link: https://lkml.kernel.org/r/20250324105228.775784-2-andriy.shevchenko@linux.intel.com
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Alexandru Ardelean <aardelean@baylibre.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 56c1d32323e7 ("hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp108.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/kernel.h | 4 ----
+ include/linux/types.h  | 4 ++++
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index acb4ba750b09c..4807c7e8fe609 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -73,7 +73,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
+diff --git a/include/linux/kernel.h b/include/linux/kernel.h
+index be2e8c0a187e4..01bb0fac36672 100644
+--- a/include/linux/kernel.h
++++ b/include/linux/kernel.h
+@@ -41,10 +41,6 @@
  
- /* convert 12-bit TMP108 register value to milliCelsius */
-@@ -124,7 +124,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp108->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
- 				__func__);
- 			return -EAGAIN;
-@@ -371,7 +371,7 @@ static int tmp108_probe(struct i2c_client *client)
- 		return err;
- 	}
+ #define STACK_MAGIC	0xdeadbeef
  
--	tmp108->ready_time = jiffies;
-+	tmp108->ready_time = get_jiffies_64();
- 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
- 	    TMP108_MODE_SHUTDOWN)
- 		tmp108->ready_time +=
-@@ -405,7 +405,7 @@ static int tmp108_resume(struct device *dev)
+-/* generic data direction definitions */
+-#define READ			0
+-#define WRITE			1
+-
+ #define PTR_IF(cond, ptr)	((cond) ? (ptr) : NULL)
  
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = jiffies +
-+	tmp108->ready_time = get_jiffies_64() +
- 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
- 	return err;
- }
+ #define u64_to_user_ptr(x) (		\
+diff --git a/include/linux/types.h b/include/linux/types.h
+index f1356a9a5730a..5e997dd8b4bbc 100644
+--- a/include/linux/types.h
++++ b/include/linux/types.h
+@@ -135,6 +135,10 @@ typedef s64	ktime_t;
+ typedef u64 sector_t;
+ typedef u64 blkcnt_t;
+ 
++/* generic data direction definitions */
++#define READ			0
++#define WRITE			1
++
+ /*
+  * The type of an index into the pagecache.
+  */
 -- 
 2.53.0
 
