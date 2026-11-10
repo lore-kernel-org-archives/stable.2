@@ -1,129 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320707;
-	b=kjj3BKyoc/aMaqltkJfJvlsNiRXnWfGIF3+3d9nzavAuAKbS1S00X1K+gJkG44a+7twk
-	 rkxt2LdaalyEPoiwUIAQWB8GYn2v7Y/Pyk5N67SsX2uXaZLafjEueX2rGvPlt6wBfW53p
-	 W+Awooj1KUN3yM09XDrxQ25+dIsKOZVc8q5rplLKZHQ/Mo7teRyKba/e6SKjOQxPJURfk
-	 t7+reGsVO7hy3qZY/N3VKS8nJw3D3SVqqudcMDzMuooItwdzz8P9QppijQWVAaRd+35eE
-	 ePAmk8Sbu2lJtIha7qUvsU42FYCfUF6ZepHvoR/y7wFGsxJpbkp7Zs5yi4KvVN/dLDw==
+	t=1794320755;
+	b=if9KD9A4aUTo3ievFrHHqVs3I1WdC6r8EneahS2CThgYTG0c1FSDeHAWiZsUlUiBymQ0
+	 EOoTaN2FHd60rbskIZDQNGBHSCzTCcufWUI/DegYDEiLlmipon7WrPM+UCq04wuSEUeq1
+	 38OQj+wVQkpwdJn6q6gDuUI/DQU6LQx9Uevo6FYUIG/IONvO1/Yz2VKnGIVpv0Dvcgrt1
+	 SWzqBKukryOiERfeIo/1tkbA6dH0P0afdNmEEta3pEZkzba8w2i+diVkQ0E7aNGqVcXsl
+	 +bexP1w/2/63bODgphgMjEJBSdbpticEjbxgDFFs233+lzXvoH6mkMuKQQ6C2CSeqfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320707;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
-	b=VwLu3FYQCXShCI2QopXAa92PRxMBfnEnLeqVHCweNdegRxnjq6fKXO56LmarQjenF0oG
-	 +mIUiIBbGwRVRqwnWyz9DR7D/XOvtF9YXYPTVZH282ikmdMFhyMG2f3WoDQjxy8zQxUwy
-	 OEGHTlyTldXK80PQaKzQQ99i1BRutvY3yPwotN7DxJHUHRNW8ZSD/+gjScNlhE8LI2Snb
-	 d93ouBAr2AuhaeljfKPtW+7gisvnaZdc0J3Sw4mxDVgyrofVYuAKORbfEKWsgXve6Vuby
-	 5g0NhRZkkKDVrOjvsZBa6CXVtExzgvifcAsa+nsZI4BoxUeRb+rzzxVvD/IEUUfCPBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320755;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1SdcJCc/iiKKfdxpjKj0mAt0eliJYcVIqUBY2Eb0LBs=;
+	b=Qh2wJMo2cJcM9G6dqnSW8BOvYK+qIS74DAxSoUUYCPiIusGrPf44lvE60RsPrHgubJXY
+	 PPQV0REcfAUH0nMYkwnT7FBGGqOCybeJ8TpG1whblUUa72WdI7E55KVxeh0PIlD0IOPKD
+	 SRsdahN+9MPnZ7ypNLzxcL6XgOQ4AYfUljl5WI4vKa6a54xJvd2PbD8el/fLsqZiekf0/
+	 ca5oHIyb6FlTdM90tExNuk4ok5EVXPery5RLRWWikM8ms55gQI60pWD7CQbXl6bd30lEe
+	 TjCZnkt4sdU1bajwlGolaANhY/DAaR3xG78PFiUaQ34syj4xmrTY8K300SONIs7XR5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4ufB3bb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844CC60A261A;
-	Tue, 10 Nov 2026 14:25:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 844CC60A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0BC60A3817
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:25:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bjk4WUGs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DcZW88hG
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CCDD21F7DA;
-	Tue, 10 Nov 2026 14:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794320704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
-	b=bjk4WUGsRYs0sP8E0ONkDW8hyxwCcqK6F/Z+No2aVyfis1MlyWmiOhtWAdfYs7F/8CipUe
-	M6ChAxycGmD+5TO2yaDPV3YEJYRhQ7n9jG4KZpA9RGENMEDcySYwTh7Zpl9Q1XnchbyaQz
-	9csObL3BU5hnSJHNTzbwr+PQnEnCSJ4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794320704;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
-	b=DcZW88hGUmkolX453pml7rhjUnXP/geJBXTnLO3CcrhsdfC+rAH/ij69WBdSoxJA/XOD03
-	2vl1fFNAf7DiXYCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=bjk4WUGs;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=DcZW88hG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794320704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
-	b=bjk4WUGsRYs0sP8E0ONkDW8hyxwCcqK6F/Z+No2aVyfis1MlyWmiOhtWAdfYs7F/8CipUe
-	M6ChAxycGmD+5TO2yaDPV3YEJYRhQ7n9jG4KZpA9RGENMEDcySYwTh7Zpl9Q1XnchbyaQz
-	9csObL3BU5hnSJHNTzbwr+PQnEnCSJ4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794320704;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vFU8SLB5yQFXTKmgyVP3p6vbPpLP3uckbwzKSwj5Zbg=;
-	b=DcZW88hGUmkolX453pml7rhjUnXP/geJBXTnLO3CcrhsdfC+rAH/ij69WBdSoxJA/XOD03
-	2vl1fFNAf7DiXYCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A1740134F4;
-	Tue, 10 Nov 2026 14:25:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bTl7H0Ap82qbIAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 14:25:04 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id A39EC2253A; Tue, 10 Nov 2026 15:24:59 +0100 (CET)
-Date: Tue, 10 Nov 2026 15:24:59 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 14/51] proc: sysctl: don't stop readdir at an entry
- that is being unregistered
-Message-ID: <efix7fc3j7xbogyb3zaotsi3bwl4s4p6nvwrnlpbue5khrlf43@orqtyoglh5b7>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
- <20261104-work-procfs-bugfixes-v2-14-bbf7d5546809@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4ufB3bb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4B821F0089F;
+	Tue, 10 Nov 2026 14:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794320754;
+	bh=1SdcJCc/iiKKfdxpjKj0mAt0eliJYcVIqUBY2Eb0LBs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L4ufB3bbcY0gOvWuTU+zyCOYr5mQfLh4rWyvXyYO5UDFZ4qYjZC3x/nTl2LwBszNt
+	 ksBFCsRFdx+bIWHJvxd3cifcAbwIOH/z3w/amJm0DNsc0p81M8u4iYS1AsFros3c36
+	 Lxk9qwsusSk3n5RYT7wU2ij5zk9U+PeUdMDMtmFnlY3oKs093Dw+CiUFOExHqnZ2jW
+	 1vI1ViWgEm1xzPNc94jslYyD4+YD0Bk70CxIopP3ijyMmnxw4P4KORJKVh6XBLl1qU
+	 nUtPbBERWYWFskjK+Gzzo3GI9St/A3UyFNM+qk/gikD7dqt3OmYJpMZ/VlwtxylELG
+	 zAE7PCAynjsbA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Hugh Dickins <hughd@google.com>,
+	Kairui Song <kasong@tencent.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm/huge_memory: do not touch frozen folios in deferred_split_isolate()
+Date: Tue, 10 Nov 2026 09:25:51 -0500
+Message-ID: <20261110142541.1866536-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051938-failed-6.12-5da8ec3262bb@kernel.org>
+References: <20261107051938-failed-6.12-5da8ec3262bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -133,93 +73,150 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-14-bbf7d5546809@kernel.org>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[60];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: CCDD21F7DA
+Content-Transfer-Encoding: 8bit
 
-On Wed 04-11-26 18:47:00, Christian Brauner wrote:
-> proc_sys_fill_cache() creates the inode of an entry that has no dentry
-> yet. Since ace0c791e6c3 ("proc/sysctl: Don't grab i_lock under
-> sysctl_lock.") proc_sys_make_inode() refuses to do that once the table
-> is being unregistered and fails with -ENOENT. readdir takes every table
-> it lists into use and unregister_sysctl_table() marks the table as
-> being unregistered before it waits for readdir to let go of it. So an
-> entry that is unregistered right then makes proc_sys_fill_cache() fail,
-> proc_sys_readdir() stops there and returns 0. If that getdents64() call
-> hadn't emitted anything before that entry userspace sees the end of the
-> directory and never gets the entries behind it. A listing of
-> /proc/sys/net/ipv6/conf can end early that way while a device goes
-> away.
-> 
-> So skip an entry whose table is being unregistered, like readdir
-> already skips a link it can't follow. Lookup treats such an entry as
-> gone too since ea5751ccd665 ("proc/sysctl: don't return ENOMEM on
-> lookup when a table is unregistering").
-> 
-> Fixes: ace0c791e6c3 ("proc/sysctl: Don't grab i_lock under sysctl_lock.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-Looks sane. Feel free to add:
+[ Upstream commit 5da8ec3262bbb40f057f3b0dacc18f37bda06f95 ]
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Patch series "Fix deferred_split_isolate() and drop the split workaround",
+v2.
 
-								Honza
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put().
 
-> ---
->  fs/proc/proc_sysctl.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-> index 6c0859c66563..b4a309d49698 100644
-> --- a/fs/proc/proc_sysctl.c
-> +++ b/fs/proc/proc_sysctl.c
-> @@ -704,6 +704,9 @@ static bool proc_sys_fill_cache(struct file *file,
->  			if (unlikely(res)) {
->  				dput(child);
->  
-> +				/* skip an entry whose table is being unregistered */
-> +				if (res == ERR_PTR(-ENOENT))
-> +					return true;
->  				if (IS_ERR(res))
->  					return false;
->  
-> 
-> -- 
-> 2.53.0
-> 
+It leads to wrong results when !folio_try_get() was not caused by
+folio_put(): for a frozen folio, PG_partially_mapped gets wrongfully
+cleared and the folio dropped from the queue.
+
+It came up in the review of my collapse RFC series:
+
+  https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+
+The bug is inert in upstream code:
+
+  - __folio_split() works around it;
+  - __folio_migrate_mapping() freezes a folio it is about to replace;
+  - reclaim freezes only what try_to_unmap() already unmapped.
+
+No cc:stable needed.  But my collapse rework steps on it, so it is worth
+fixing.
+
+The branch the first patch removes also hid an inert, pre-existing bug in
+the zone device path:
+
+  https://lore.kernel.org/all/20260827163838.1813081-1-usama.arif@linux.dev/
+
+The first patch fixes deferred_split_isolate().
+
+The second patch removes the workaround for this deferred_split_isolate()
+behaviour from __folio_freeze_and_split_unmapped().
+
+Tested in a VM: split_huge_page_test, folio_split_race_test and cow pass.
+
+Also ran a test that leaves 16 partially mapped THPs on the deferred split
+queue and drives thp-deferred_split through debugfs, checking
+nr_anon_partially_mapped.
+
+This patch (of 2):
+
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put(): clear
+PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take the
+folio off the queue.
+
+The folio_put() race is the most common case for !folio_try_get(), but it
+is not the only option.  Another scenario is folio_ref_freeze().
+
+A zero refcount in such cases does not mean the folio is going away.  It
+means "don't touch me" and current deferred_split_isolate() doesn't
+respect it.  It can lead to unqueueing folios from the deferred list for
+no reason:
+
+    CPU 0                            CPU 1
+    ---------------------------      ------------------------------
+    freeze a mapped folio            deferred_split_scan()
+      folio_ref_freeze()               folio_try_get() fails
+                                       folio_clear_partially_mapped()
+                                       NR_ANON_PARTIALLY_MAPPED--
+                                       folio off the queue
+    give up, put it back
+      folio_ref_unfreeze()
+
+The folio is still partially mapped, but it is no longer a split
+candidate.  Nothing queues it again until part of it is unmapped once
+more.
+
+Skip the folio instead: whoever freezes the folio, owns it and owner is
+responsible for its fate.  It also covers the folio_put() case:
+__folio_put() unqueues the folio via folio_unqueue_deferred_split().
+
+Nothing is lost by skipping.  Everything that frees a queued folio
+unqueues it first, and folio_unqueue_deferred_split() clears
+PG_partially_mapped and brings MTHP_STAT_NR_ANON_PARTIALLY_MAPPED down on
+the way:
+
+    __folio_put(), folios_put_refs()   mm/folio.c
+    __folio_migrate_mapping()          mm/migrate.c
+    shrink_folio_list()                mm/vmscan.c
+
+__folio_freeze_and_split_unmapped() does the same by hand, under the
+list_lru lock it holds across the freeze.  A freeze that ends in
+folio_ref_unfreeze() leaves a folio that is still partially mapped and
+still belongs on the queue.
+
+Link: https://lore.kernel.org/20260831091514.1879786-1-kirill@shutemov.name
+Link: https://lore.kernel.org/20260831091514.1879786-2-kirill@shutemov.name
+Fixes: 8422acdc97ed ("mm: introduce a pageflag for partially mapped folios")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Lance Yang <lance.yang@linux.dev>
+Closes: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: Claude-Code:claude-opus-5
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+[ sashal: Adapted deferred_split_isolate() changes to deferred_split_scan() because the list_lru conversion is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/huge_memory.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index d175e93988a92..7fdf980a49d67 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3860,18 +3860,8 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 	/* Take pin on all head pages to avoid freeing them under us */
+ 	list_for_each_entry_safe(folio, next, &ds_queue->split_queue,
+ 							_deferred_list) {
+-		if (folio_try_get(folio)) {
++		if (folio_try_get(folio))
+ 			list_move(&folio->_deferred_list, &list);
+-		} else {
+-			/* We lost race with folio_put() */
+-			if (folio_test_partially_mapped(folio)) {
+-				folio_clear_partially_mapped(folio);
+-				mod_mthp_stat(folio_order(folio),
+-					      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+-			}
+-			list_del_init(&folio->_deferred_list);
+-			ds_queue->split_queue_len--;
+-		}
+ 		if (!--sc->nr_to_scan)
+ 			break;
+ 	}
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
