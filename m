@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311453;
-	b=5CwKbonPYcgnFElt5QORm6wk4kpY/XCxICt56M4gyi2vulcDBqHMaM+uUlC8aC+sm196
-	 /6u4Rv+D7+15kD72dEUBbDMOK5h6aK2wklshvA7m4lPNs0fppZ1KaK4V8IIZlRQQN7ptT
-	 p0we7NbdmzBjaqdxVGCw2w39fUu7wAF1JNbPiLrRnLnW/HuJcBT3oRaBfTm+/bKs7AECF
-	 opl80V0seO4ltJoabrYwmjI0MdzqArFrJpWmYB09Gdf2CbnTlQUhcrlAF8X5xaY3x3jzh
-	 KHCTiH5guk29iUjEVkGugVBJWBWfIsp1JO8rA3dBfl9Lf2obddX59XPsloEXUJ77FZQ==
+	t=1794311499;
+	b=Ytecdh0OgGzl/+sh1zR5nFDgAGc5Jdcbdkvxoq5H9kW6NGbf1gehfJKxKo1yOUFte8O5
+	 677Fp0UDuhXKCiFIY+n2h/x96XFZW8KHAcvGGwhRVqAhBQctOYx8RhRtd09CHuZf2pWX8
+	 HwHrS+R+yfPRYHAICL9WwBokiX/PUnwbt43p3Zk/kHl0bE0nLdJ898WlGQU6hZiXtEtc8
+	 0Muxm7+XWuFy6pRNlgDiyTvPISIWwPPaXrmJUOjFJoggq3o0uL/tR+XaGxKs4WaeP+vYn
+	 Pq8pMgmPKis46aLLLuO/9crWdrmH/Jg/aOclgDJky9GWwcx9Snh2ODgjNFuBC/vXW/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311499;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Cn/vYW8PTJ1H7zZY2cQ6KQyBPITXLpl4KZYPJi+O9Dk=;
-	b=0w01k6bAEH5VGmbEFGHHiAhNQ5ywmbkpxvRfpS6Sg90q09rVUV7FlrzTPH7m5OVv0QFJ
-	 RjVtapjBPDjdHG1j3Nq1MBxoaywnDX1RKQoFe/jWxSY8nO3Hw87+SkwHEwHBpL6mogRZk
-	 4A4AjFrDyNWkx98xTr4J76FEnIC1SSHXf8qKuWLZiakojFarGMz4dzM2Z2c73Lp5Ixp9n
-	 uwdNAxzZXR4QE4naBVO7eLSLAKTSdEOfCQ1ix53oTMO/Mvmf5Cg0wwdX2FIsQGrMahOKe
-	 ZRHyZL2gFGDevQEwXIAzl0ydDfjHjgACcV3fsnBwrgpDl6zYXqHW0Rr3VpqD537yaIg==
+	bh=bdcJHbcMqJuwQrgxqKJoVDct8dTsY2WZV2zQTS/1CKI=;
+	b=HfudXJgPdYA6q48z1mKHmes5uIsr8qJjwIvjmBvTDJJFlq1jSw6mZMyaif3T3HXy36Ue
+	 Ah93BNUvTSFpLZ8S+9Wtx1jmBPEcm7sTS8BYUWk5f4QWMbbGHqK5NuKx/E2sJXw/k+cUw
+	 uwuRPWKzYoBgFBgatcBzF5xq9JbtLxgRNZ7N0ljv94+AcgdwgSyC/G6a6KlwWR1rng8Te
+	 9/tUCLSaTVLHUlv/YGEGyOaoPITF8E5Pg7SpKDXimf42/8apWbkuvlYe7fbDje1aQl3ZD
+	 4Db8K3gE1oQyCyPviU0UYeydCNDqsoJCZQIWF20FkaPOHsTvy2lvQJ1iGWeZ5syQC0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwMb7lqX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFoM2RqL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFEB606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CD860A383D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:51:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DwMb7lqX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7102C1F008A1;
-	Tue, 10 Nov 2026 11:50:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZFoM2RqL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C961F0089F;
+	Tue, 10 Nov 2026 11:51:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311453;
-	bh=Cn/vYW8PTJ1H7zZY2cQ6KQyBPITXLpl4KZYPJi+O9Dk=;
+	s=k20260515; t=1794311498;
+	bh=bdcJHbcMqJuwQrgxqKJoVDct8dTsY2WZV2zQTS/1CKI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DwMb7lqXDY4pjdgOtE0B6xLzBdA/HU+hV1uHTA1Idahaqjsc1cOnuOj6S1D+IbKPU
-	 0Lf7opcEje+YBuzh9ta+KdhmQsCSNXMazgYlzxpcE4w3gT2PZ+wUQ0/LNmcNJ0LH8w
-	 TuagRmCoOuqjGnzSM49CwQ1KDQHutNUpMXNj6CX+17VXDczxQhPnAv6hj8utj03RA8
-	 G53NYwQabngIXE4HdEpEsizEvJcX3pqXe4BQ5Wj5mpjTXq0nfN8iE9rfMStywmsifG
-	 iOVm+EVE0R2uB+wJYZ1OdL556YvtE7guMVu7Cs2N1lynhH94FuEzLcHrSG+CMXdIyg
-	 XySPJOe+zeZ0g==
+	b=ZFoM2RqLvU9431g2RumK9tilWDrR2HacSU7puXf0YiaSNAcfrT9vOeXA3y2ZEKOyw
+	 7xVlfnhlw0p3xzkWAUduez8CzoKgXtfmYjYTH2r465vyAvrneuyBAhThWNWgRjcso7
+	 9GGphM9d8Dd4VRO5SG89Am0RjMBH/6IrMNMlgFZRmX5XOc/pG3Wp1EEmAfwfpUMQbp
+	 Z0n9W+K7Al1QxYrnp+DrL4z8KSGwMBd3zNtxhHEm2vyfvUHLOJVYLmgRI0JzzWR0YK
+	 P7rw/9EcBzBJMgLeoSKgVkatkUxdkEd3/I6Ztwk02IRXa2oVE2TAwVLqM2ExWmzi5M
+	 WTa2mYsH0aMWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: David Hildenbrand <david@redhat.com>,
+	Zi Yan <ziy@nvidia.com>,
+	SeongJae Park <sj@kernel.org>,
+	Wei Yang <richard.weiyang@gmail.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: i2c: ov5647: fix power cleanup on remove
-Date: Tue, 10 Nov 2026 06:50:51 -0500
-Message-ID: <20261110115030.864441-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] mm/page_alloc: reject unreasonable folio/compound page sizes in alloc_contig_range_noprof()
+Date: Tue, 10 Nov 2026 06:51:35 -0500
+Message-ID: <20261110115129.609167-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051738-failed-6.12-6e81cfc38548@kernel.org>
-References: <20261107051738-failed-6.12-6e81cfc38548@kernel.org>
+In-Reply-To: <20261107051925-failed-6.12-4c767c5dd9bc@kernel.org>
+References: <20261107051925-failed-6.12-4c767c5dd9bc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,45 +66,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: David Hildenbrand <david@redhat.com>
 
-[ Upstream commit 6e81cfc38548109021ab761b94ecdd01f8753154 ]
+[ Upstream commit 0bf2edf041dcb0b304a8dbda8c699771d5a245d2 ]
 
-ov5647_remove() disables runtime PM without powering off the sensor if
-it is still runtime active. pm_runtime_disable() does not invoke the
-runtime suspend callback, so the sensor can remain powered on.
+Let's reject them early, which in turn makes folio_alloc_gigantic() reject
+them properly.
 
-If the device is not already runtime suspended, call ov5647_power_off()
-and mark the runtime PM state as suspended.
+To avoid converting from order to nr_pages, let's just add MAX_FOLIO_ORDER
+and calculate MAX_FOLIO_NR_PAGES based on that.
 
-This issue was found by manual code inspection.
+While at it, let's just make the order a "const unsigned order".
 
-Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-[ sashal: adjusted context to account for the existing mutex_destroy() call ]
+Link: https://lkml.kernel.org/r/20250901150359.867252-7-david@redhat.com
+Signed-off-by: David Hildenbrand <david@redhat.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Acked-by: SeongJae Park <sj@kernel.org>
+Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
+Reviewed-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: Liam R. Howlett <Liam.Howlett@oracle.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 4c767c5dd9bc ("mm/page_isolation: guard compound_order() against racing")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/i2c/ov5647.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/linux/mm.h |  6 ++++--
+ mm/page_alloc.c    | 10 +++++++++-
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-index 305677913a0c3..3e7fd8f28df3a 100644
---- a/drivers/media/i2c/ov5647.c
-+++ b/drivers/media/i2c/ov5647.c
-@@ -1481,6 +1481,10 @@ static void ov5647_remove(struct i2c_client *client)
- 	v4l2_ctrl_handler_free(&sensor->ctrls);
- 	v4l2_device_unregister_subdev(sd);
- 	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		ov5647_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
- 	mutex_destroy(&sensor->lock);
- }
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 1728dc3356089..f05962963e28d 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2058,11 +2058,13 @@ static inline long folio_nr_pages(const struct folio *folio)
  
+ /* Only hugetlbfs can allocate folios larger than MAX_ORDER */
+ #ifdef CONFIG_ARCH_HAS_GIGANTIC_PAGE
+-#define MAX_FOLIO_NR_PAGES	(1UL << PUD_ORDER)
++#define MAX_FOLIO_ORDER		PUD_ORDER
+ #else
+-#define MAX_FOLIO_NR_PAGES	MAX_ORDER_NR_PAGES
++#define MAX_FOLIO_ORDER		MAX_PAGE_ORDER
+ #endif
+ 
++#define MAX_FOLIO_NR_PAGES	(1UL << MAX_FOLIO_ORDER)
++
+ /*
+  * compound_nr() returns the number of pages in this potentially compound
+  * page.  compound_nr() can be called on a tail page, and is defined to
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 480579d7d59e4..887dd3f06a86b 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -6685,6 +6685,7 @@ static int __alloc_contig_verify_gfp_mask(gfp_t gfp_mask, gfp_t *gfp_cc_mask)
+ int alloc_contig_range_noprof(unsigned long start, unsigned long end,
+ 		       unsigned migratetype, gfp_t gfp_mask)
+ {
++	const unsigned int order = ilog2(end - start);
+ 	unsigned long outer_start, outer_end;
+ 	int ret = 0;
+ 
+@@ -6699,6 +6700,14 @@ int alloc_contig_range_noprof(unsigned long start, unsigned long end,
+ 	};
+ 	INIT_LIST_HEAD(&cc.migratepages);
+ 
++	/*
++	 * In contrast to the buddy, we allow for orders here that exceed
++	 * MAX_PAGE_ORDER, so we must manually make sure that we are not
++	 * exceeding the maximum folio order.
++	 */
++	if (WARN_ON_ONCE((gfp_mask & __GFP_COMP) && order > MAX_FOLIO_ORDER))
++		return -EINVAL;
++
+ 	gfp_mask = current_gfp_context(gfp_mask);
+ 	if (__alloc_contig_verify_gfp_mask(gfp_mask, (gfp_t *)&cc.gfp_mask))
+ 		return -EINVAL;
+@@ -6786,7 +6795,6 @@ int alloc_contig_range_noprof(unsigned long start, unsigned long end,
+ 			free_contig_range(end, outer_end - end);
+ 	} else if (start == outer_start && end == outer_end && is_power_of_2(end - start)) {
+ 		struct page *head = pfn_to_page(start);
+-		int order = ilog2(end - start);
+ 
+ 		check_new_pages(head, order);
+ 		prep_new_page(head, order, gfp_mask, 0);
 -- 
 2.53.0
 
