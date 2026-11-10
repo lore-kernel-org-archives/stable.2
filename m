@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311413;
-	b=4Q+YYOdZDyqFPmDS/jN/4Z1Ty/wSabPi/BszOaujlL07VHXLxWMCDeVGl+PgH48/nec2
-	 bpgCJvcpoTbb707kpOTO9/T3tiJySTKB7TmZAdc2U6nVQRWvkTOF7+T7zX3E6jD12B/6r
-	 YiWbxTM/VkBIFIocSOVixKJrloJH8upYg0iNuV4lGYllK2gvXtoz/YdNm+g8SedmtsPec
-	 wIpFFKMgAUTET5vEuku6KnTxpFEyINyojwK5oVClMPh9SEd9/b/UDIJlp83LAwGHLx+Qc
-	 /1wIP8u5mfhe0IHNCDhiXtFIeVKUAPn9JoEwNbsyKzJeoc7CgWYDhfET1deujbomppQ==
+	t=1794311430;
+	b=kJwAM66H925IDpi+k2Ib2TMS2xt+oiDbXEAsec6hHOW5TG6jSewDnB7ZGnFCGXgbj4Tg
+	 PIjxX5+hjJRStmuKi/zpZUJWcmPDV1TLfqfXSXZiT0fH0KNgWDXdgmv9lR2CDXn75jF2l
+	 b+z9kOcsO2A7AX40znrkEXb+WqtfdkbdpHcrywpybTdlfGek+7XIjHxQ4xPRJDvPesUye
+	 NFvNO7pfBVLGxGH4Kn/PtK4WdOI/ebNE2jexwKyBEQ9HA7HH83NBPoZucOkojbPGgs7kQ
+	 pL1IHmqejrQw3v5SrX/KWNrlGb1sMSfJDcaDDy4X/+G67AaLZKlsVPofRkTOpRYZDZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311430;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ilb7lPLrUcCiFp9DQs8Sy8q6c3Os9gkD+V+anpE99bg=;
-	b=lm8qcZOoH2OZs8hZJlO/6Fl+av6rQm1vzc/gnHPxMB8PcRS1tOSoUPJAJToTQoRRVEL9
-	 dzyTjCqw6eyiy7EZ9uWh7N9ESdBh/G5OVcmLPm1y96xyQa6Hbpr75tNbx9HVYHSo8GY6O
-	 6Q60ttBkSh/Mz6uZymrXnwZM1VJfAWvsdYAaDJOJn9Vb9hCPZUd8mssCGmUJL//3d30lC
-	 FQ9QHmDQGzQ47jqYLazjZpUERHIfv6epU1hLCHj+o09UUGxBMfmpMuVMftd20RhoCAL5c
-	 MPMbN0ycvrytz5djawNXS2nLzuWq44adsMu7GvfVndvr+haQ2U2kW0A46GDPqGBFb1Q==
+	bh=p8fzHl7pHL3OuljLT41RGu1TOv9vXkKSa9EZuUlyq4A=;
+	b=Oj1eMYSm7AYe7ZbwN2jICsSql/ET2DR2ByKK1Hq5fIXBhqS97hl5jouzc8zyb+4Da7Wq
+	 O3a5ooZpOLIm/38vBlkEUBy3jXQT0x7kaKK/ooL5z+j63t67IEzjTOzTpFYEG316w1D2p
+	 7yr878/e163GJfw3noMBpGm1UklkZonz+Zr0xeT2H5mbS6zbxvU7DLrlP4VP1WiS2E5Cz
+	 TOgQYI9iDeANZi1+HTJY3CVRelVOcjCuwm5A+/0jM8NHHEGEBkxnZ5oBnOpRn9suOA4yO
+	 rkVYjT159uKnNoPepIVw4FNd96B8sJebrOps6eZyYCMaTHJ3z6717dUNTv+Z44z5l2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXWaou5u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD9Y1JzT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2D7606A9B2
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62EBD606D4FF
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:50:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXWaou5u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5571F008A3;
-	Tue, 10 Nov 2026 11:50:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lD9Y1JzT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7BC1F008A1;
+	Tue, 10 Nov 2026 11:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311413;
-	bh=ilb7lPLrUcCiFp9DQs8Sy8q6c3Os9gkD+V+anpE99bg=;
+	s=k20260515; t=1794311430;
+	bh=p8fzHl7pHL3OuljLT41RGu1TOv9vXkKSa9EZuUlyq4A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eXWaou5uD+CCwGiwNVYE7J8zoavDFVaNjom5zN5/n0J9VAC14pD89VHZhONuXb1NG
-	 8r2FubNs9CgnAp1D0+iKlYNkHJJ9k4YBi4ex3fCbjFQhC/NPvknNarEt9OIiki6tgT
-	 UlvlMUcRLuACt2fxkEyNVS5dEVLjeWT6cRSpifiPbqKCi05cOYsqetOxuKv48s3Jwh
-	 s7CYDH4qPs5LUgVaYSoOC+xeQ60ZBqDM0yoATYnk7wTpEYqaQOhIXtbTc1K1Fj2dKC
-	 +D1QkonFw51NnRtay4dgPBHEFGmigIVmv+frEg94O2xiBBflwIVHJD5Bj7yXlYMowg
-	 fvH4bp/dJwkSQ==
+	b=lD9Y1JzTenAUAeljHlnNSsIBIkTsJ+2oDVH3bzYZsqDXIFAVuhuwQXBGdEqkB8q5I
+	 jIO6AoHNC3uX63fVH7kD2+ksVl+fE1n83Imf41pF9+rjUrg6UL0ihpHImhhiOraNGh
+	 rp65yoCIQ8G00cnj1AYwI0oNTi/COAlNc19kdTvNMUpZVd9WOtc21KNooD8pGxZ74P
+	 tD2eJni7ZTApAKmm93RqlwDFpgozu7jzw+0jQ4gIiS/idcV1+uueCrPcLlwaMMEJM1
+	 Utwr9BnRGpJoqML6i2Ox72AqQPiJG1C9R55kAVaDFSpi0SUHhvpIVugOm0TE9hyl7t
+	 S0+nwLNYTwVZA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
+Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] media: microchip-isc: fix SBGGR10 Bayer pattern
-Date: Tue, 10 Nov 2026 06:50:10 -0500
-Message-ID: <20261110115003.614804-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] media: i2c: imx219: Replace exposure magic value with named constant
+Date: Tue, 10 Nov 2026 06:50:26 -0500
+Message-ID: <20261110115020.612803-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110115003.614804-1-sashal@kernel.org>
-References: <20261107050300-failed-7.3-bb96c78c5f87@kernel.org>
- <20261110115003.614804-1-sashal@kernel.org>
+In-Reply-To: <20261107050653-failed-6.18-57043aef0a04@kernel.org>
+References: <20261107050653-failed-6.18-57043aef0a04@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,50 +64,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+From: Tarang Raval <tarang.raval@siliconsignals.io>
 
-[ Upstream commit bb96c78c5f87072913f8825faebe64bf711a503c ]
+[ Upstream commit 9a9ba098e7ba6b89efaddeabf0716a84a0f54c99 ]
 
-SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
-causing red/blue channel swap.
+Introduce IMX219_EXPOSURE_OFFSET (4) and use it instead of the literal
+'4' when computing the maximum coarse exposure. The IMX219 datasheet
+specifies the maximum storage time as frame_length_lines - 4.
+(Ref: Datasheet section 5-7-1)
 
-Fixes: 1e8f401474d6 ("media: atmel: atmel-isc: reworked driver and formats")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Also fix one indentation issue for consistency.
+
+Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: 57043aef0a04 ("media: imx219: Account for rate_factor in control steps")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 +-
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Depends on <20261110032344.182965-1-sashal@kernel.org>
 
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 57a5aae3cabfb..5e41eee45dbd7 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -148,7 +148,7 @@ static struct isc_format sama5d2_formats_list[] = {
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
--		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index a841266ffc30f..9e78ea07b013a 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -157,7 +157,7 @@ static struct isc_format sama7g5_formats_list[] = {
- 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
- 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
- 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
--		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
-+		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
- 	},
- 	{
- 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+ drivers/media/i2c/imx219.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 76e65cedbb32f..4160a482fdce3 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -68,6 +68,7 @@
+ #define IMX219_EXPOSURE_STEP		1
+ #define IMX219_EXPOSURE_DEFAULT		0x640
+ #define IMX219_EXPOSURE_MAX		65535
++#define IMX219_EXPOSURE_OFFSET			4
+ 
+ /* V_TIMING internal */
+ #define IMX219_REG_FRM_LENGTH_A		CCI_REG16(0x0160)
+@@ -461,9 +462,9 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		int exposure_max, exposure_def;
+ 
+ 		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = format->height + ctrl->val - 4;
++		exposure_max = format->height + ctrl->val - IMX219_EXPOSURE_OFFSET;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+-			exposure_max : IMX219_EXPOSURE_DEFAULT;
++				exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+ 					       imx219->exposure->minimum,
+ 					       exposure_max,
+@@ -591,9 +592,9 @@ static int imx219_init_controls(struct imx219 *imx219)
+ 					   IMX219_LLP_MAX - mode->width,
+ 					   IMX219_LLP_STEP,
+ 					   IMX219_LLP_MIN - mode->width);
+-	exposure_max = mode->fll_def - 4;
++	exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
+ 	exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+-		exposure_max : IMX219_EXPOSURE_DEFAULT;
++			exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 	imx219->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
+ 					     V4L2_CID_EXPOSURE,
+ 					     IMX219_EXPOSURE_MIN, exposure_max,
+@@ -912,9 +913,9 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 			return ret;
+ 
+ 		/* Update max exposure while meeting expected vblanking */
+-		exposure_max = mode->fll_def - 4;
++		exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
+ 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+-			exposure_max : IMX219_EXPOSURE_DEFAULT;
++				exposure_max : IMX219_EXPOSURE_DEFAULT;
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+ 					       imx219->exposure->minimum,
+ 					       exposure_max,
 -- 
 2.53.0
 
