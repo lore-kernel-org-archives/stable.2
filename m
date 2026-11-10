@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337128;
-	b=W57BRlOPG7jVYXF2RUoUZJiS6eIDFCwU8tKSsKRAJd0YsZvwwmL0ueQ4qLLHfCJOITPN
-	 Ucy80DV9dQ+KA4aqYYHJVXzdSiaLBqoy07TJtHZQ9ohNw4/cHHXBAzlWPm0bKv9Zx/eSI
-	 5q3+roZsVlA/06YpHVEs6H1FwnheQUUkMjGqYBgcMe/bHFl59vJ6PP5OAo4a0VaV/ctGI
-	 hjKysNdUiRSaQpOmkCPKI2jL4vwLIqgq9+VbHGIqsko9GJTsRr0c62lJmREILeb7VUF2D
-	 frBuEHZnNEzQiBlC796TqD2rsOZu5+7tES2xhBr38jJIM0ZBgggQagT7Hzak/Mg01xg==
+	t=1794337195;
+	b=Rj4DVRWh+5fOGFxRRxfNa33MPT+YrZfcRQA8ErTtlCf2Tw9g8a7XJ4GjV/dTSHnWC3i7
+	 z8JAZl0/V29Jp5kZQfpyC78xIqYQj63f3egs410ycfl060zY1p2OCxG525E3Ur0AiBY3G
+	 RBbstk37cGXgX+Jj4MhVzm66QkP6bFUvy1V7ge9wOFpr5FxC/oZEMsAlsDE6HfC3nYFDp
+	 lpNsDe0iYqVO/jHUFpIX3TqTuLLOHW4og8QKzhx2Rk2kwhQdYcWTJYT3GwQ5wBm5C13NJ
+	 tnNOT0EBH+aH4erY5ySIq30cOtmmEBqgKkKPA8IOEaSU507nmSLM2hMJof6P9TPeF2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337128;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794337195;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3MfLhiXmCdKjfh/U63R9E12Tm3m3iFr7FoCaumnMt8w=;
-	b=wQShnrt3hf8dplIQfcPQ+GkN7x7drht5FT07tOHRhG3uJB1tMwtIAZ1Fe0PDYHrlgD87
-	 BJdwSwTyxVKciXk7YsiVHojh1F6+9UggVrDIeBsf1lu6IM2yRELgtxq8QSXiGc4mRonNA
-	 dn38QcsFVgGyCXvWYqVsifJiUIgOTpaz8CKwuiZPbg5X/TeNkW565hvlbI0st11n5nqlx
-	 7AG2QlhtnBbX/2Lcyh8i1uJa8QqTBOVHFntkyNUeDUgBP9ary/uIUcg42vu59mnLODlvQ
-	 ZK6z+FzGjq3bzqse4OgmukoZNSvUaO0VlAm0EPPZxsoITCYdxH8jk7+/dXNfh1W0Krg==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=h8AmvoAPxWFhK2VhXZRgN/TFdiJR8OACC7fgRt1GuUc=;
+	b=MJHiQ+Q9ojprFFpKF2dQ10AeNA7mhufUoISqLSxM/6DwjXxWj3BWZrSgJsfqsNkK9k8p
+	 saKt3dju7RCSoQ/CMoFVXRF2GRC45l00IK6IQSHOaG8edJCswEpIndmX4mh355TYOvI61
+	 W8v0NjyTUBc6wiIdr/1wnxgle1VLlbYmYqg7CfsPgc+mZ2O6kRwYUkQUK617Nvhs2b4oX
+	 /BKuINnSdFLdyGs/rkVlKx2A9yESlg2jYNdpzbupqhr2lvo9yTAPFyPY8Nq9CC3mr4Poa
+	 0eI4O/jOkut3opexi8KKbcs1sHH64Vjkg++ePJWQ6g6ZKuE2WYg6VfUUN5zOtL50cbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dObQw0pK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMqsJvPi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B56606A335
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:58:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB46606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:59:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dObQw0pK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157BA1F008A1;
-	Tue, 10 Nov 2026 18:58:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMqsJvPi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59ED31F0089F;
+	Tue, 10 Nov 2026 18:59:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794337127;
-	bh=3MfLhiXmCdKjfh/U63R9E12Tm3m3iFr7FoCaumnMt8w=;
+	s=k20260515; t=1794337195;
+	bh=h8AmvoAPxWFhK2VhXZRgN/TFdiJR8OACC7fgRt1GuUc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dObQw0pKN3BI0SoGz3ca/FEF7clj0jKxgVm8D5bIsdZJn5MHJKcGatDmMZue7seIh
-	 OG73YEXUI/pEj/xR0N4eAVSQBbz0eDLk4tCbcPJ30R6z2KaDr6RF5/HdzYDRqtP9Ud
-	 CAEXV+Osvuhstu3PMOoTgZQupzve3ko4GTaY5+pGcQsA9P5u0WQ9TwyrPbzNXyih28
-	 Wvq8P5lr822XdkUm3qe5ko9mE/6jYnJFMkUF6fP5IjC2M2PTJsjYs/GnkF1tEetxAt
-	 OQ3JEppwc6y7yD/+ukUmBWeYVLdme3o+Cg0EHDIPgmVZxtFKm3l5gT6yghH6lBa7vM
-	 3LnwsPV4phVyQ==
+	b=PMqsJvPiO3g8fuqzUeb0r6c2umwDaiaRwuAxbNiNJIBP69uBNRmR38Flb4QoKvNej
+	 tHKrf9BtEOZqJY/YAkPnkZ1lUJYB5ONY38PhjoJwvHwCZhDErX88VF2zWlskw8TUNy
+	 WZqXbo/YC95ETmId0illplHF7uL6IQK+BjK0SlvbqXzmMk2i61pfSkFuW3YmZ+prnR
+	 PZCMuoHuE+J8eyS3dWw061MJXgqjUVF8ZvXrHA6xddhpigqsm+bGTwQD9D95nVBYKq
+	 vUUjBVIbG/Rii3qdN6SYMt/mxw7aqgThO6IZI1ehXe0z1tKdvGoBqw7/WbpF7pwup6
+	 LA34NqXj+pTAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Christoph Hellwig <hch@lst.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] power: supply: core: Honor supplied-from with CONFIG_OF=y
-Date: Tue, 10 Nov 2026 13:58:45 -0500
-Message-ID: <20261110185826.3102342-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] xen/pcifront: Drop pcifront_common_process() tests of pcidev, pdrv
+Date: Tue, 10 Nov 2026 13:59:52 -0500
+Message-ID: <20261110185945.3425744-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061846-failed-5.10-6bd80f22c764@kernel.org>
-References: <20261107061846-failed-5.10-6bd80f22c764@kernel.org>
+In-Reply-To: <20261107062019-failed-5.10-3b4854b69ee7@kernel.org>
+References: <20261107062019-failed-5.10-3b4854b69ee7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,176 +62,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 6bd80f22c764fe8c56c62c118387f86a3ca98cff ]
+[ Upstream commit 34ab316d7287692bad41ce4a431b43d60a8bd20f ]
 
-The supplied-from device property is the name-based counterpart to
-firmware-node power-supplies references. It was added for non-DT platforms,
-but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
-a global kernel option, so x86 systems commonly enable it even when
-individual power supplies are described by software nodes.
+pcifront_common_process() exits early if pcidev or pcidev->driver are NULL,
+so simplify it by not checking them again.
 
-Consequently, these consumers never populate supplied_from and supplier
-notifications do not reach their external_power_changed() callbacks. On a
-Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
-notification running without invoking the BQ25892 callback, leaving the
-input current limit at its boot-time value.
-
-Use a single power_supply_check_supplies() implementation for all
-configurations. Preserve firmware-node power-supplies references as the
-preferred firmware description and use the name-based supplied-from
-property only when no references are specified. Continue to honor an
-explicitly provided supplied_from list first and propagate errors from
-specified firmware references.
-
-With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
-test changes its input current limit from 500 mA to 2 A.
-
-Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Link: https://patch.msgid.link/20260924225152.985489-1-mauriziocasciano7@gmail.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: replaced fwnode_find_reference() with of_parse_phandle_with_fixed_args() to use existing OF nodes ]
+[bhelgaas: split flag change to separate patch]
+Link: https://lore.kernel.org/r/20211004125935.2300113-4-u.kleine-koenig@pengutronix.de
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Stable-dep-of: 3b4854b69ee7 ("xen/pcifront: check that an AER callback exists before calling it")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/power_supply_core.c | 81 +++++++++++-------------
- 1 file changed, 38 insertions(+), 43 deletions(-)
+ drivers/pci/xen-pcifront.c | 52 +++++++++++++-------------------------
+ 1 file changed, 17 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-index 61ba2b343b938..2a382617900ef 100644
---- a/drivers/power/supply/power_supply_core.c
-+++ b/drivers/power/supply/power_supply_core.c
-@@ -154,7 +154,6 @@ static void power_supply_deferred_register_work(struct work_struct *work)
- 		mutex_unlock(&psy->dev.parent->mutex);
- }
- 
--#ifdef CONFIG_OF
- static int __power_supply_populate_supplied_from(struct device *dev,
- 						 void *data)
+diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+index c6fe0cfec0f68..2ad209ba659bf 100644
+--- a/drivers/pci/xen-pcifront.c
++++ b/drivers/pci/xen-pcifront.c
+@@ -585,61 +585,43 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+ 						struct pcifront_device *pdev,
+ 						pci_channel_state_t state)
  {
-@@ -229,71 +228,68 @@ static int power_supply_find_supply_from_node(struct device_node *supply_node)
+-	pci_ers_result_t result;
+ 	struct pci_driver *pdrv;
+ 	int bus = pdev->sh_info->aer_op.bus;
+ 	int devfn = pdev->sh_info->aer_op.devfn;
+ 	int domain = pdev->sh_info->aer_op.domain;
+ 	struct pci_dev *pcidev;
+-	int flag = 0;
  
- static int power_supply_check_supplies(struct power_supply *psy)
- {
--	struct device_node *np;
--	int cnt = 0;
-+	struct device *parent = psy->dev.parent;
-+	struct of_phandle_args args;
-+	int cnt, nval, ret;
+ 	dev_dbg(&pdev->xdev->dev,
+ 		"pcifront AER process: cmd %x (bus:%x, devfn%x)",
+ 		cmd, bus, devfn);
+-	result = PCI_ERS_RESULT_NONE;
  
- 	/* If there is already a list honor it */
- 	if (psy->supplied_from && psy->num_supplies > 0)
- 		return 0;
+ 	pcidev = pci_get_domain_bus_and_slot(domain, bus, devfn);
+ 	if (!pcidev || !pcidev->driver) {
+ 		dev_err(&pdev->xdev->dev, "device or AER driver is NULL\n");
+ 		pci_dev_put(pcidev);
+-		return result;
++		return PCI_ERS_RESULT_NONE;
+ 	}
+ 	pdrv = pcidev->driver;
  
--	/* No device node found, nothing to do */
--	if (!psy->of_node)
--		return 0;
+-	if (pdrv) {
+-		if (pdrv->err_handler && pdrv->err_handler->error_detected) {
+-			pci_dbg(pcidev, "trying to call AER service\n");
+-			if (pcidev) {
+-				flag = 1;
+-				switch (cmd) {
+-				case XEN_PCI_OP_aer_detected:
+-					result = pdrv->err_handler->
+-						 error_detected(pcidev, state);
+-					break;
+-				case XEN_PCI_OP_aer_mmio:
+-					result = pdrv->err_handler->
+-						 mmio_enabled(pcidev);
+-					break;
+-				case XEN_PCI_OP_aer_slotreset:
+-					result = pdrv->err_handler->
+-						 slot_reset(pcidev);
+-					break;
+-				case XEN_PCI_OP_aer_resume:
+-					pdrv->err_handler->resume(pcidev);
+-					break;
+-				default:
+-					dev_err(&pdev->xdev->dev,
+-						"bad request in aer recovery "
+-						"operation!\n");
 -
--	do {
--		int ret;
-+	for (cnt = 0; psy->of_node; cnt++) {
-+		ret = of_parse_phandle_with_fixed_args(psy->of_node,
-+						       "power-supplies", 0, cnt,
-+						       &args);
-+		if (ret) {
-+			if (ret != -ENOENT)
-+				return ret;
- 
--		np = of_parse_phandle(psy->of_node, "power-supplies", cnt++);
--		if (!np)
- 			break;
-+		}
- 
--		ret = power_supply_find_supply_from_node(np);
--		of_node_put(np);
-+		ret = power_supply_find_supply_from_node(args.np);
-+		of_node_put(args.np);
- 
- 		if (ret) {
- 			dev_dbg(&psy->dev, "Failed to find supply!\n");
- 			return ret;
+-				}
+-			}
++	if (pdrv->err_handler && pdrv->err_handler->error_detected) {
++		pci_dbg(pcidev, "trying to call AER service\n");
++		switch (cmd) {
++		case XEN_PCI_OP_aer_detected:
++			return pdrv->err_handler->error_detected(pcidev, state);
++		case XEN_PCI_OP_aer_mmio:
++			return pdrv->err_handler->mmio_enabled(pcidev);
++		case XEN_PCI_OP_aer_slotreset:
++			return pdrv->err_handler->slot_reset(pcidev);
++		case XEN_PCI_OP_aer_resume:
++			pdrv->err_handler->resume(pcidev);
++			return PCI_ERS_RESULT_NONE;
++		default:
++			dev_err(&pdev->xdev->dev,
++				"bad request in aer recovery operation!\n");
  		}
--	} while (np);
--
--	/* Missing valid "power-supplies" entries */
--	if (cnt == 1)
--		return 0;
--
--	/* All supplies found, allocate char ** array for filling */
--	psy->supplied_from = devm_kzalloc(&psy->dev, sizeof(psy->supplied_from),
--					  GFP_KERNEL);
--	if (!psy->supplied_from)
--		return -ENOMEM;
--
--	*psy->supplied_from = devm_kcalloc(&psy->dev,
--					   cnt - 1, sizeof(char *),
--					   GFP_KERNEL);
--	if (!*psy->supplied_from)
--		return -ENOMEM;
-+	}
+ 	}
+-	if (!flag)
+-		result = PCI_ERS_RESULT_NONE;
  
--	return power_supply_populate_supplied_from(psy);
--}
--#else
--static int power_supply_check_supplies(struct power_supply *psy)
--{
--	int nval, ret;
-+	if (cnt) {
-+		/* All supplies found, allocate char ** array for filling */
-+		psy->supplied_from = devm_kzalloc(&psy->dev,
-+						  sizeof(psy->supplied_from),
-+						  GFP_KERNEL);
-+		if (!psy->supplied_from)
-+			return -ENOMEM;
-+
-+		*psy->supplied_from = devm_kcalloc(&psy->dev,
-+						   cnt, sizeof(char *),
-+						   GFP_KERNEL);
-+		if (!*psy->supplied_from)
-+			return -ENOMEM;
-+
-+		return power_supply_populate_supplied_from(psy);
-+	}
- 
--	if (!psy->dev.parent)
-+	/* Fall back to the name-based property if no references were specified. */
-+	if (!parent)
- 		return 0;
- 
--	nval = device_property_read_string_array(psy->dev.parent,
--						 "supplied-from", NULL, 0);
-+	nval = device_property_string_array_count(parent, "supplied-from");
- 	if (nval <= 0)
- 		return 0;
- 
- 	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
--						sizeof(char *), GFP_KERNEL);
-+						sizeof(*psy->supplied_from),
-+						GFP_KERNEL);
- 	if (!psy->supplied_from)
- 		return -ENOMEM;
- 
--	ret = device_property_read_string_array(psy->dev.parent,
--		"supplied-from", (const char **)psy->supplied_from, nval);
-+	ret = device_property_read_string_array(parent, "supplied-from",
-+						(const char **)psy->supplied_from,
-+						nval);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -301,7 +297,6 @@ static int power_supply_check_supplies(struct power_supply *psy)
- 
- 	return 0;
+-	return result;
++	return PCI_ERS_RESULT_NONE;
  }
--#endif
  
- struct psy_am_i_supplied_data {
- 	struct power_supply *psy;
+ 
 -- 
 2.53.0
 
