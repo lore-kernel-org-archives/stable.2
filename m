@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312169;
-	b=ovKCapU4d+ZR1mz1LR+E51srKkL+O1Bpc73ssgcW1LcBTTwy+00nNS3WOCz2l7eD8km/
-	 smhnDtQhCt7dyaGBkdcGs6M3wYLaiszIb2xlouCOmz4Sq9TmwnMvn9M2aE59Z5h65A+IP
-	 eN/gfzayrs+LA38xyBZ7tzt4ePRjpsCuuXZvTxBK9XhCigPSDkaPbQ2m2Z38oDkx5npat
-	 Y5RboxVnrFwxWbZZRVfk/Jwf3ojr29K12EbWN7H8S5EBH38xFK6zGPVQYEhRxqgJkJy7R
-	 6cQ5q7mMa5HwXsCixfxoktpABbvsatw+F2i4SUbbvU0wDUnJMs6xyJieLkjKYNc92AA==
+	t=1794312174;
+	b=qILXotkH0aAiK/AZLIwxX6BXAY0ELNgLZNzh3TCw/hghvZono5zGz2dtFPBQODnVItoI
+	 /NN/mz0cg1wa1ycn8blpKpUcedO/VlaznDl01cdZN+oHXY+ioDbHzhFGbX9Eve7f9I50g
+	 7P0ZCtbtj8ZkEVaJKtG7qgao2PWINeARElg9R3tuiL6ibYj4Az3PWU6jHemBImFF+NiEP
+	 2tocCv9fuM1X+MikJ1ylesFtV7ZodsOQO6Be67tZOb1UjMQtrfOT383rcpJ3oBOzJX5eZ
+	 /te6oKYqECgaHviLYyE33zqb5hfLQ2iGSyZtTOiaKQ23t0/fEvfpuOwo58BkgC8SFVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312169;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BiKiJup6gBTtVoYHDe4QIZUEQ6jW/y4ktA+nCN10w2I=;
-	b=yoK+MYfPKuXC2cPdrX52N3DHw4UYhVOJIBLQl12zUmuTQjuRY5IalhjrY1dMTdNnk5By
-	 CeLDppY6Lw5PVAdJbNZrIVYNnXLhMNfhq62m74n9M7yHAhbutzcui7CKct6yAakEXXtf9
-	 ySdGpF4HAP4s4KQRJ16Y3k0+XNy1hn50WnXYlnLZRAH00tQDBErFhmTRdRAsYyM2PVtZz
-	 7mH/d0B6v+UxKypTRLNlX1nSn5W6JxVUOMW5/hwj1f/ESqOkzf2TPXiAPvZDcUQBpO5ht
-	 lY6GP98oC6R7mR/U+82yeXeZsFLLizI9cVP1D5z9YXjkHtj+SzH9Q4Zn7hpc3+jCxXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312174;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
+	b=lJNpRx/Khq7QMOyhttdk6xh+sxudSsOx27TNuszM9KkvhMIaibiYDpHJVTQXxGoLuVFJ
+	 8xHtppT15LiWiIAYnM5e8UxTPQ38MjvVDJtEbrUjcWdPYQMRxwg/5XcYqxvRAdD+Ds6Ov
+	 ejZkXQg0yl0ocQveCcGZICkZojKyYAYVlYpLeopeqs7aVd98TS4RrlIvTRQVJnfNDERuU
+	 jld6CO5+lsqur3/8VDfamXK3WioOIVtkYVFLUpjIRp4k7sTFfHgBeUeS+E5GoT65qSFiK
+	 cFr4CJrvslJfKXcognP0+IXiwG6gz8PXnEOM8AFCXjmzcfJiNBsTKgFzdjOrLNcoFng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmvB6btd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSDlQbfx;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831B606A338
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:02:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A82606A33C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1A82606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmvB6btd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E641F008A1;
-	Tue, 10 Nov 2026 12:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312168;
-	bh=BiKiJup6gBTtVoYHDe4QIZUEQ6jW/y4ktA+nCN10w2I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TmvB6btdx/7icHdRrhxGaJ4CM37MrItMXPgpCN//sI/uxPKipKmVF2iamsdMuQFHN
-	 IrraKhx6eAYXUxOqHCet+hjcsYcAFxM18CZT3+vYloc5Ga6SDXoiGX56IuU/HtrBLE
-	 QJXjJrPXSN73ZdL6Td80czEQis1+EtBU1y/FNkaaWFBXxkLg+LxcS5ENzRv+IqTD9n
-	 +0zscxl01VzlOtBBYo2hSf9U0wsyhhtaOerStYIRIumjUg6xaOWl0WmRftUX5MfpO8
-	 c040HO03VxXWT35GycH9qrjUcr2JkODSKnDTgSXKLawSVz8Ux7R3mf9Y9qN56t93t+
-	 qtJXrq1zgUgKw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jared Wuerzburger <jwuerz@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE
-Date: Tue, 10 Nov 2026 07:02:46 -0500
-Message-ID: <20261110120237.930943-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110120237.930943-1-sashal@kernel.org>
-References: <20261107050339-failed-7.3-72107104d4f5@kernel.org>
- <20261110120237.930943-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSDlQbfx
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so3168254eec.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:02:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794312173; x=1794916973; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
+        b=jSDlQbfx3w+kTQrgktf6wDUFty1SLh6ECHjfH836acX0MKF0FcRwXmKfLDWc/YH6WU
+         F+AyTHmN2bvbrDYANH2na7AdjtN6sFOtW+yORrVemO9+MLHtbzSUeWyClojBl0glCvK4
+         nknss2LXWxE6eiiv4sOekf5Ht4/jPuhnTuhkUYisl8UZrU5q6INzIEvcl1Nns9SsrzQ3
+         QKWuvHb8HvCPSEpyfdiyxoVTbKUubufh9fzyFVuyfmQQflgTCt1d9PqXD01UN0FUkkBS
+         WbGFyO0mY6XBg/9feDU3URVoSCvRvna7kXi13CLZ0iLvAsiohrQT50zbt+WOGfmJ7Z4e
+         6a0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794312173; x=1794916973;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0ZP0QwuWmQ0O/IufxQaXKe+ECU5VmX2aM2/ckpY7r/g=;
+        b=NSYjcna/rAT9LQ3W5D9OGqPI/1cmpxFGoT/lQK1qIcaZSJLWcciZg3oMeIQ8kALHPJ
+         X80JZBbhM26izZh37g7Gkc1evVu5m2DP6JBIKz2QY9CWdATnkv2Gr+Ih0dHmFWfdkZ2d
+         xJWw2Ld1VTHLXIWWuOLMJDQ2pV3eEQ72+b89UHhmE4jBSK323clwlUdcqQ/DnWu+utYX
+         l2e8qxEg6Ti1w91PtMstICRF9tpV2z3gAn4hAD5eu1LYm4tJf9Eln6ItR37fjglKIfJu
+         ie1FRFgMhyNE/SNSqQglH8v/ITSxtZSeP5h9pp9JtKGgTgDpOXz2HyTdvfz0qFjYPwte
+         NDJA==
+X-Forwarded-Encrypted: i=1; AL+hErEum/DxKBZPPuEB6/8HICA/kk10PGb7xmBDpNlWsTfBiZKm0h2A1KN6twpqVbVCHUwk1BVxNrU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82iPz3vWPG9iU1E2YsObsRMnI9CUP4+A2rB7nmjTyltZRnOKuv
+	6VlAAVALVnEWhFLGYoLpMoLFQxMpeZnXvkZuvwyYQWOaidFkT4/kIUPX
+X-Gm-Gg: AYBFou2evxFU0qWaEqZTTCVDniPGbgwX5x0dQIrL11jPkBXr7dIkotMK6DSGzuGwuzV
+	kAiGVMxZ1rsn6RCHbXWvpkkO5XY5gyZF12p65CW2Amcm4lagv6QBa1mR1XeX/OQflNqjJxk5OPW
+	cE2k0Y923INQqJoy1N+1QdjoKNCgXeeARHDeoO7tkjf9H1YPtywnDLtA0OXeaJroP0wvxXy9djs
+	eLu5CXUJ3ZGzg8wLXp7Dq9AMac45M8aeDIobEatSDZ1VlkzIoVRI2bQInMyG+WH91rvsUs1g2EA
+	VU5T8mFFqzhmitNFAmI5k2yCnY75zuXlDTapkSYQzQq9bX5yvSjUoEPZM8KPAfzV3AfiMJwK/SX
+	4SHXfd1DxOEAz4EPt7gqKx5yBsZDqVA6bLmT6hTuxzxCHnL7D2AvazPg4fPrlB/pgWfu900PpWd
+	IkWOBi1v5DEXhbqC6uVyHgVtFabMcrkkNHd9evyIA5/b4HZbKY6Zit0ENhveRdW2gRRpvXcWE5c
+	1ArG8H222EpDYf82CuKrJkuZ7sYPX2UltkOZgaSY3fEZj6+dR8z9NzodEYfoJOtNCMGgi7D/6s1
+	76DkpS4fTu188b7nI+0PL/8sQj1zbW45sTwwUpEtjVKm1k2+
+X-Received: by 2002:a05:7301:fd03:b0:36f:f3b7:6dee with SMTP id 5a478bee46e88-3751ee7c2c9mr2880533eec.7.1794312172706;
+        Tue, 10 Nov 2026 04:02:52 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751ad6f11csm5931001eec.0.2026.11.10.04.02.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 04:02:52 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+Cc: Roland Stigge <stigge@antcom.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v2] usb: gadget: lpc32xx_udc: drain the pullup work on removal
+Date: Tue, 10 Nov 2026 21:02:43 +0900
+Message-ID: <20261110120243.2540098-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261110114351.2524921-1-hj351016@gmail.com>
+References: <20261110114351.2524921-1-hj351016@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,99 +107,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jared Wuerzburger <jwuerz@gmail.com>
+isp1301_pullup_enable() schedules udc->pullup_job to perform the slow
+isp1301 i2c pull-up access from process context. The work handler
+(pullup_work) dereferences udc and touches the isp1301 i2c client.
 
-[ Upstream commit 72107104d4f522405c9dfdfbaeb230e371c295ee ]
+udc is allocated with devm_kmemdup(), so devres frees it after
+lpc32xx_udc_remove() returns. remove() calls pullup(udc, 0) -- which
+queues pullup_job to clear the D+ pull-up -- but never drains it, so the
+work can run after udc has been freed (and the isp1301 client put),
+dereferencing freed memory -- a use-after-free.
 
-On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
-internal digital microphone array never produces any audio. The DMIC
-pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
-jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
-presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
-always returns "present" (as it does on the unused, unconnected pin
-0x18), while the headphone jack 0x21 reports correctly.
+Flush pullup_job in lpc32xx_udc_remove() after the final pullup(udc, 0).
+flush_work() (rather than cancel_work_sync()) lets the queued pull-up
+disable actually complete before the udc and its isp1301 client are
+released, so the transceiver is left with D+ deasserted.
 
-The generic parser therefore sets up auto-mic switching and, believing
-an external mic is always plugged in, permanently routes the ADC to the
-empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
-"Mic Jack" kcontrol reports "on" with nothing plugged in.
+Found by static analysis; not runtime-reproduced (needs LPC32xx USB
+gadget hardware with the isp1301 transceiver).
 
-Mark pin 0x19 as having no presence detect. The parser then stops
-auto-switching and exposes a normal "Capture Source" (Internal Mic /
-Mic) control, which desktop audio stacks drive from their Internal
-Microphone / Microphone ports. The existing bass speaker DAC routing is
-kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
-
-Tested on both models with the same pin config applied through a
-snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
- - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
- - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
-Both boards report the same codec SSID and the same 0x19 default. On
-both, the internal mic records at a normal level, headphone jack
-detection on 0x21 still switches output, and the bass routing is
-retained (DAC1/DAC2 Playback Volume controls present). A headset mic
-on the combo jack was not tested (none available); with this change it
-has to be selected manually. V3 users already report that the jack mic
-gets no input [1], which is the other symptom of the same broken
-presence detect.
-
-The patched alc269.c was build-tested with W=1 on tiwai/sound.git
-for-linus (7.3-rc3) without new warnings.
-
-The diagnosis, the fixup and this changelog were written with the help
-of an AI coding assistant; I reviewed them and tested the change on the
-hardware listed above.
-
-Fixes: e34743018249 ("ALSA: hda/realtek: Add quirk for Minisforum V3 SE")
-Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
+Fixes: 24a28e428351 ("USB: gadget driver for LPC32xx")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
-Link: https://patch.msgid.link/20260928152925.69032-1-jwuerz@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+v2: flush_work() instead of cancel_work_sync(), so the pull-up disable
+    queued by pullup(udc, 0) completes rather than being dropped
+    (OTG1_DP_PULLUP would otherwise stay asserted after unbind) -- per
+    Sashiko review of v1.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 03f03080bbeb5..49c4d01759b06 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4413,6 +4413,7 @@ enum {
- 	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
- 	ALC256_FIXUP_IPASON_SMARTBOOK_S1,
- 	ALC256_FIXUP_ASUS_SPEAKER_COEFS,
-+	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
- };
- 
- /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -7236,6 +7237,15 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
- 	},
-+	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC245_FIXUP_BASS_HP_DAC
-+	},
- };
- 
- static const struct hda_quirk alc269_fixup_tbl[] = {
-@@ -8475,7 +8485,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
- 	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
- 		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
--	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
-+	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
-+		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
--- 
-2.53.0
+ drivers/usb/gadget/udc/lpc32xx_udc.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/drivers/usb/gadget/udc/lpc32xx_udc.c b/drivers/usb/gadget/udc/lpc32xx_udc.c
+index 94355d3d930f..b98faf5b71e5 100644
+--- a/drivers/usb/gadget/udc/lpc32xx_udc.c
++++ b/drivers/usb/gadget/udc/lpc32xx_udc.c
+@@ -3187,6 +3187,13 @@ static void lpc32xx_udc_remove(struct platform_device *pdev)
+ 	udc_disable(udc);
+ 	pullup(udc, 0);
+
++	/*
++	 * pullup(udc, 0) queues pullup_job to clear the D+ pull-up over i2c;
++	 * flush it so that disable completes and no work can run after the
++	 * devm-allocated udc (and its isp1301 i2c client) are released.
++	 */
++	flush_work(&udc->pullup_job);
++
+ 	device_init_wakeup(&pdev->dev, 0);
+ 	remove_debug_file(udc);
+
+--
+2.43.0
