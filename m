@@ -1,57 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272673;
-	b=ZG6qS1+eCBmVjGFS3zZFSAIcSpEPL4e+Te3fvEQ0kp5eNaBxo7f/13/Ij/MeLteAOdyq
-	 6/ZfFuShCQOhFi4+9Paj0co5yqOBCf6peFNoN7pqBn6Mwbr0BsFeavGg5vXvSH4Aqe6Cj
-	 LXNRJ7IcVa4MYqoF1QFp8eKGGQPHuaYCG5hbOGH5gfsycYAUnnlkv5/K1ZwvvLsVi9qcx
-	 q0WXtMhvkucpI0V/59Q9oIUpbsQUELvRFmxB0JuqtQmQhUXM4fMFgBtoEWpksQrHCGGyj
-	 JTxIbKEvbOYXuFjBPtpD/661cJQnCLUsXr2J+uIKQzf6MjYw8iday0mzGIV8zb5jOIw==
+	t=1794272678;
+	b=TKmz4N8fcZvuNgdq9MiCoqXYgTfxneEe3xzZrIpdMWn5GpXbRfLr2wSxLo1yWGppVvmX
+	 Xz23IO8bfDAl6/Eo279na+JVTYM3IWVyOYdTzMtBW1nXYS+0DTlK8I2ywWKWmNfKjFK4D
+	 xk293G0IsxQLIFPzXLKc0QUXj+pct0XXL+rz+7z5Ql8hSiqhCIadGuJRJmzWjsiMPK4aG
+	 GT7c1+s/NaeOLxcrSUWB53fXUa0dmEEaayy49vftxcbpxE53lnfyUQTC4/0NjQs8P8qxs
+	 OJgI7xtLb4LYjGGhvepqjj3hElD5yqxjZSj0nueac/N8CRu3SDkFRQDwm7iVbhqinYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272673;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272678;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zxENnPNThFhPi2hBvfqh/A0arehNVv3+yEjzosxhStI=;
-	b=vMfuLehuGyXVSVQDvxwGI+fUwFzeZJEiqmguwIn4DdVi6fHvrW9Zc7jFWfuyna9bA2+/
-	 kUrKHCWD5TvPLZWTJqetuiYazwB1IFaul5R4RZImWKCf4dNknCQ2sbfeaih00cYHOfVks
-	 ue4YyNJLuE8GpJ0rjsJrWCcLQ7+asQNqj7pfltigZ0Oymzm+ug46fQpF92WWZJRpKF0AG
-	 pdTkj7UWCzF+WPTOvTbq5kz1TU3UCS0C0cR4xm21WxobTAtdDJfC6e05RuIFj1tlMo+m9
-	 VuEL5empKzxzJiOxz2Yp+NtEQdZprHWhvHnMDCEpqzJJAYWRk4V+WDIgPkBrRh4CbaQ==
+	bh=E9GfAIkBIMSt7qWbMvy5HKatGrNyxnC/RXI2tupDNJQ=;
+	b=0vxCa2Du59tVv4GXk3+KaqhFXpWvguvbQQOZM3YS8ZoX4Z0JPT/tElS6isnp/7G5dFU8
+	 fC1q6BvvN1q4OhnHrQ/DzjJWgbnh17egzXD1FB2BVnjV0QMic432VtFGp6v5kA1pnlKIi
+	 IFGuacx7XrYkiiMQrc81vRvIyXOE6CF2qUX4W9QblXwjAFYd7196tNt4ZjsMtT53D17h/
+	 jIIrjLAJLWovudNHqqhFVsJLyE8UIr/4dymWCDIcLym1XCFiBQKOHWIPLzFHuTFMoQ97j
+	 KyXVm51RKvFOpTsP0N0qjfaROMkPnYICjgfFcPpsiiZGfNODiMCGQt/383w0D3r6fuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEQ0a03o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="C+uS5/N4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5366D606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B68B606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEQ0a03o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 089281F008A1;
-	Tue, 10 Nov 2026 01:04:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+uS5/N4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7211E1F0089F;
+	Tue, 10 Nov 2026 01:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272673;
-	bh=zxENnPNThFhPi2hBvfqh/A0arehNVv3+yEjzosxhStI=;
+	s=k20260515; t=1794272677;
+	bh=E9GfAIkBIMSt7qWbMvy5HKatGrNyxnC/RXI2tupDNJQ=;
 	h=From:To:Cc:Subject:Date;
-	b=YEQ0a03oQ7SbE+GDrwfA1re56gb4m3xGtPRr/hk7N8VppBhlZ1pBXgnJP04z8gwDW
-	 UDTUmZwq1QnlR8MX9NMyDtN3h8SZrda8T5TPs9Jis+YKdhf8L3zRVnBe7SdCOAMkcP
-	 CX8Kx96e0OJpJiNQEOcqa1kEl+AMmPcp671vNkpjVS6Kku1h7Y5Xc25qN3aqGETfbb
-	 Kthfsqg2Kdbo52kghhMuhL3M7Dti0bNR5Up9nQTSG1AEcFLhxIge01rmTaHpy43nHk
-	 3mETyX0/d8UW3vsFnbYzZH3uetQLfwt5oR+16M8EdlKnpuwdQ2c7gkdtIOja/sOyUA
-	 JKLeYgHXJ04LQ==
+	b=C+uS5/N4Ej1MwvoisXZs6dTbcnH8ZzIqss53GdqYFQTHXNmZUsOgDcsSqYpl6gpZ6
+	 nKTXdEvAizAGQ/V/MzPe3qyIxBdR2UmeiPJ5qN71vHa7/tANiD7YAX9mvtTcETaQ0T
+	 uXr0UtXEvDVafwp8tlhr2of7yWewFKve/BOSVTwWBx5VaLkfwaHjO7fh0tzWPOOyPs
+	 WEkVg2k2vR/2OJiddxGRp8QiTu+LwWjqC+kjwVxu06a1NOEujdqIJzwRAssuQhh9HL
+	 fDmKmC424VrbyYy2fI1oNhDHij+ivjtg+nca8E/j2cTFZq1/23q10gHonsnbp4731C
+	 orXVpiU5OrTfg==
 From: Sasha Levin <sashal@kernel.org>
-To: eklavyasingh2106@gmail.com,
+To: kas@kernel.org,
 	akpm@linux-foundation.org,
-	joseph.qi@linux.alibaba.com,
-	mark@fasheh.com,
-	jlbec@evilplan.org,
-	heming.zhao@suse.com,
-	kartikey406@gmail.com,
-	zzzccc427@gmail.com
+	david@kernel.org,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	peterz@infradead.org,
+	fvdl@google.com,
+	willy@infradead.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:04:30 -0500
-Message-ID: <20261109200430-failed-6.18-0a8f258c0f01@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/hugetlb_vmemmap: map the shared tail page writable" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:04:34 -0500
+Message-ID: <20261109200434-failed-6.18-0120a603afad@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,194 +83,132 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0a8f258c0f012314c36b9e4818cdc0178c68f891
+git cherry-pick -x 0120a603afadba8ab4954bb1ce60f8195f80efc8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200430-failed-6.18-0a8f258c0f01@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200434-failed-6.18-0120a603afad@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0a8f258c0f012314c36b9e4818cdc0178c68f891 Mon Sep 17 00:00:00 2001
-From: Eklavya Singh <eklavyasingh2106@gmail.com>
-Date: Wed, 21 Oct 2026 02:53:39 +0530
-Subject: [PATCH] ocfs2/heartbeat: serialize concurrent writes to a region's
- dev attribute
+From 0120a603afadba8ab4954bb1ce60f8195f80efc8 Mon Sep 17 00:00:00 2001
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Date: Wed, 28 Oct 2026 13:26:21 +0000
+Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
 
-o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
-is already started, but nothing stops two writers from doing that at
-the same time. configfs only serializes writes through the same open
-file, so two processes that each open the dev attribute can both get
-past the check:
+page_ref_add_unless_zero() reads the refcount and then updates it with a
+cmpxchg.  A lockless get, such as a page cache lookup or a PFN scanner,
+can read a non-zero refcount from a page that is then freed and reused as
+a hugetlb tail page.  If HVO remaps its struct page to the shared tail
+page in between, the cmpxchg writes to read-only vmemmap:
 
-  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
-  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
-  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
-  B: start fails, fput(NULL)
+    CPU0 (lockless get)               CPU1
+    c = atomic_read(&page->_refcount)
+                                      page freed
+                                      page allocated as a hugetlb tail
+                                      HVO remaps the struct page RO
+    try_cmpxchg(&page->_refcount, &c, c + 1)
+      -> write fault on read-only vmemmap
 
-Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
-so the error paths can free the slot data twice.
+The refcount is zero by then and the compare fails, but a compare-and-swap
+instruction needs write access whether or not it succeeds.  The kernel
+oopses when hugetlb pages are allocated at runtime with HVO enabled while
+a lockless get races with it.
 
-syzbot hit the fput(NULL) with an unbound loop device, where every
-start fails with -EIO. With four threads doing the same thing on a
-KASAN kernel I get both crashes within a second:
+Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
+walkers") closed the window with RCU on both sides.  The RCU was removed
+together with fake heads, on the wrong belief that it was only needed for
+them.
 
-  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
+Map the shared tail page writable instead of restoring the RCU.  Every
+struct page on it is a tail with a zero refcount, so a late cmpxchg
+fails and leaves the page unchanged.  RCU would put rcu_read_lock()
+back around every get and synchronize_rcu() back into hugetlb
+allocation and freeing.
 
-Add a mutex to the region and hold it in dev_store(), in the
-block_bytes, start_block and blocks stores, and in dev_show(), since
-they all look at hr_bdev_file. dev_store() cleans up with goto, so it
-takes the mutex in a small wrapper rather than with guard(). The mutex
-is dropped while dev_store() waits for the heartbeat to become steady,
-which takes seconds, so a read of dev doesn't stall behind a start.
-hr_bdev_file is already set at that point, so other writers still get
--EINVAL, and the cleanup after the wait retakes the mutex.
+The cost is the protection against stray writes to tail struct pages.  The
+shared page is shared by all hugetlb folios of the same order in the zone,
+so such a write now corrupts all of them instead of oopsing.
 
-With the patch the same test ran for 10 minutes with lockdep on and
-nothing was reported. So did a second one, with a working loop device,
-that interrupts starts during the wait while other threads read and
-write the attributes.
+Bootmem folios optimized when the memmap is set up keep their tails
+read-only.  Nothing does a lockless get on them before hugetlb takes them
+over.
 
-Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+Link: https://lore.kernel.org/20261028132623.2560146-1-kirill@shutemov.name
+Fixes: 32c440d67e6c ("mm: drop fake head checks")
+Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: Cen Zhang <zzzccc427@gmail.com>
+Reported-by: David Hildenbrand (Arm) <david@kernel.org>
+Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
 Cc: <stable@vger.kernel.org>
 ---
- fs/ocfs2/cluster/heartbeat.c | 40 ++++++++++++++++++++++++++++++------
- 1 file changed, 34 insertions(+), 6 deletions(-)
+ Documentation/mm/vmemmap_dedup.rst | 15 +++++++++++++--
+ mm/hugetlb_vmemmap.c               |  8 +++++---
+ 2 files changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
-index b45adc39aacca..7a18e71b507b3 100644
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -269,6 +269,8 @@ struct o2hb_region {
- 	struct list_head	hr_handler_list;
- 	/* Serializes timeout arming against failed-start and teardown. */
- 	struct mutex		hr_arming_mutex;
-+	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
-+	struct mutex		hr_dev_mutex;
- 	bool			hr_stopping;
- 
- 	/* last hb status, 0 for success, other value for error. */
-@@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_store(struct config_item *item,
- 	unsigned long block_bytes;
- 	unsigned int block_bits;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_store(struct config_item *item,
- 	char *p = (char *)page;
- 	ssize_t ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 	char *p = (char *)page;
- 	int ret;
- 
-+	guard(mutex)(&reg->hr_dev_mutex);
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(struct config_item *item,
- 
- static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
- {
-+	struct o2hb_region *reg = to_o2hb_region(item);
- 	unsigned int ret = 0;
- 
--	if (to_o2hb_region(item)->hr_bdev_file)
--		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
-+	guard(mutex)(&reg->hr_dev_mutex);
-+	if (reg->hr_bdev_file)
-+		ret = sprintf(page, "%pg\n", reg_bdev(reg));
- 
- 	return ret;
- }
-@@ -1872,11 +1879,9 @@ static int o2hb_populate_slot_data(struct o2hb_region *reg)
-  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
-  * nothing
-  */
--static ssize_t o2hb_region_dev_store(struct config_item *item,
--				     const char *page,
--				     size_t count)
-+static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
-+				       const char *page, size_t count)
- {
--	struct o2hb_region *reg = to_o2hb_region(item);
- 	struct task_struct *hb_task;
- 	long fd;
- 	int sectsize;
-@@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	ssize_t ret = -EINVAL;
- 	int live_threshold;
- 
-+	lockdep_assert_held(&reg->hr_dev_mutex);
+diff --git a/Documentation/mm/vmemmap_dedup.rst b/Documentation/mm/vmemmap_dedup.rst
+index 8c287ae3f86cc..5e792b7a27f07 100644
+--- a/Documentation/mm/vmemmap_dedup.rst
++++ b/Documentation/mm/vmemmap_dedup.rst
+@@ -130,8 +130,19 @@ pages of ``struct page`` (page 1 to page 7) are tail pages.
+ The optimization is only applied when the size of the struct page is a power
+ of 2. In this case, all tail pages of the same order are identical. See
+ compound_head(). This allows us to remap the tail pages of the vmemmap to a
+-shared, read-only page. The head page is also remapped to a new page. This
+-allows the original vmemmap pages to be freed.
++shared page. The head page is also remapped to a new page. This allows the
++original vmemmap pages to be freed.
 +
- 	if (reg->hr_bdev_file)
- 		return -EINVAL;
- 
-@@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 
- 	wake_up_process(hb_task);
- 
-+	/*
-+	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
-+	 * hr_bdev_file is already set, so other writers still get -EINVAL.
-+	 */
-+	mutex_unlock(&reg->hr_dev_mutex);
- 	ret = wait_event_interruptible(o2hb_steady_queue,
- 				atomic_read(&reg->hr_steady_iterations) == 0 ||
- 				reg->hr_node_deleted);
-+	mutex_lock(&reg->hr_dev_mutex);
- 	if (ret) {
- 		atomic_set(&reg->hr_steady_iterations, 0);
- 		reg->hr_aborted_start = 1;
-@@ -2041,6 +2054,20 @@ static ssize_t o2hb_region_dev_store(struct config_item *item,
- 	return ret;
- }
- 
-+static ssize_t o2hb_region_dev_store(struct config_item *item,
-+				     const char *page,
-+				     size_t count)
-+{
-+	struct o2hb_region *reg = to_o2hb_region(item);
-+	ssize_t ret;
++The shared page is mapped writable. A lockless get of a page reference can
++read a non-zero refcount before the remap and attempt its atomic update
++after it. The refcount of a tail page is zero, so the update fails without
++changing the page. Nothing else may write to the shared page: it is shared
++by all HugeTLB pages of the same size in the zone, and a stray write would
++corrupt all of them.
 +
-+	mutex_lock(&reg->hr_dev_mutex);
-+	ret = __o2hb_region_dev_store(reg, page, count);
-+	mutex_unlock(&reg->hr_dev_mutex);
-+
-+	return ret;
-+}
-+
- static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
- {
- 	struct o2hb_region *reg = to_o2hb_region(item);
-@@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbeat_group_make_item(struct config_group *g
++HugeTLB pages whose vmemmap is optimized when the memmap is first set up at
++boot keep a read-only mapping of the shared page. Nothing can do a lockless
++get on them before they are handed to HugeTLB.
  
- 	INIT_LIST_HEAD(&reg->hr_all_item);
- 	mutex_init(&reg->hr_arming_mutex);
-+	mutex_init(&reg->hr_dev_mutex);
- 	reg->hr_stopping = true;
- 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
- 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+ Here is how things look after remapping::
+ 
+diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+index 0057fa2a16a89..9aa8af5c8856c 100644
+--- a/mm/hugetlb_vmemmap.c
++++ b/mm/hugetlb_vmemmap.c
+@@ -222,10 +222,12 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
+ 		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
+ 
+ 		/*
+-		 * Remap the tail pages as read-only to catch illegal write
+-		 * operation to the tail pages.
++		 * Map the shared tail page writable. A lockless get that read
++		 * a non-zero refcount before the remap can still do its
++		 * cmpxchg after it. The refcount is zero, so the cmpxchg
++		 * fails and leaves the page unchanged.
+ 		 */
+-		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL_RO);
++		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL);
+ 	}
+ 
+ 	list_add(&page->lru, walk->vmemmap_pages);
 -- 
 2.53.0
 
