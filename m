@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336114;
-	b=rsxn7nxJmDvckGt6WpojxYo6K3TZoV4ZZj/fcARgiAOlNYuKXeWK43anZq0BS8/EUHxe
-	 KqCCnhWdwCItxb9QDnb1pR6ZZB/mGNJW5e7pUqRAB/z6EgWaIsFT7jwUWB4FbRn7iY3as
-	 7hm7AeU4rAzprZQxRmT7Tng0azVhZgOkeFLDEZQGiAkl+ePGhhy/DzTBfxJl/XOD2UUF/
-	 OrfgvW3taL5KifyfdBxAyNX/SnFG7pFZPa2+qWGq14HMzzY5lD5hpL/lkGMoyCwtcGt3y
-	 nOiFt8t3mmYkBsEhwBapRSIpW+2BtLi1FJ0gCxTBQcP0RKwocGtYYJAFiGyBQui1HPg==
+	t=1794336128;
+	b=PYyc4US2hXbYi+T5lMXIblLmBlJHhYir69pVq+ZaXl8s6hQ1gcdrWG0awP06wHh9yjAb
+	 9sE33D8eutPGI+47xbO8iSwC33dwh/7uLN1JcPqi2WjXLf1tO9crrzcGT38ga0Av80RAi
+	 lw+v6d2b5vqgNwGaFrcLIFOagFPaoFyXAC2c4ovfXes94BtDCAlclrKmsEWmjntVq2uY3
+	 qQkElsDAawHjzabDT7KPdSyD1SQ+LCrW6kIo3fiE8usOER4JrzsAws5yKlRMaRkDag48Q
+	 FRLTV7bYBNsTnczWHvIuH5rdXGllseBrIOXfkGQQOJe+u5TpS8P2hu/wg1Nrs50K+4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336114;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336128;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=KHGhKy9qQThvzKbSGMvLB6JXGIfC9R9vmwfyx4ZB7Ko=;
-	b=iU9+DT7zY6izfBWHRPHOWtRCahK+NuYYPNB5YyFBw2+vK8KPbSw79kAj7f0QorT6x+9W
-	 Ucfm7n8aGXDfoJqR6WgCJyazzmTZrHDsISoShTduGNKwOq7Q98R+v7XUMb6e2dAgbS71s
-	 aP1GqNbZT7AiegieWOwUCWo8v8shwUXkBSYZTj9PhTK/M7lZhK1Sg3NSTPhg7OYF7cHAE
-	 GZesx+XhM9WRAeuPsNdD4rWwe7CA4vGl0P0kJb82IumG2bgfEBGfKQ+Ie2VfZi8Tg5W03
-	 wgTrdQ6BWZCjSXw3+Wbb8B4wpS/Kvk6fAgq/+5lMExUwof5TJMT/OAjWbA/lg0V9b4w==
+	bh=3Ed71Ht4/yAOsTBOT+Rc7LwUZtJOf5FuO6p5djaZN9c=;
+	b=XaW0JnfIuBEPD0AZOUnfYbVG4Jm8xZRwbqp+tNNaDkmIXOYnhEINgPqFBwdZ9XicReu9
+	 bRQvZSEkpXeqA9mE2vG0KNw6SXCII/Dav0GFrkYxGgDF99wPKQp3neNuMfriOGJEsx+OI
+	 tWltmd0m79/ViKmbwbh7uMzA9w+GDjYTRhajT1+TFi7aemPvUgy0KFY1EboAHYuacam73
+	 xLsM6xrlogeUg/J2wJZMwRAkLjyZh9wIe0Wr7PYelPrs9TKlpP6Y0iDWOxxAriKegDBVl
+	 f5u2fKM7Ykp3EAWpylpX+419aF6p75Krg9CBiYnyi6Vz66G8w6gncAI82XMtyzCtJUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=narfation.org;
-	spf=pass smtp.mailfrom=narfation.org;
-	dkim=pass header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=v5xtsPXE;
-	arc=none smtp.remote-ip=213.160.73.56
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="l+h2/Hx+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 82A2F606A32D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:41:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82A2F606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCD1606A916
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.a=rsa-sha256 header.s=20121 header.b=v5xtsPXE
-Received: by dvalin.narfation.org (Postfix) id 6E6341FE32;
-	Tue, 10 Nov 2026 18:41:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1794336111;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KHGhKy9qQThvzKbSGMvLB6JXGIfC9R9vmwfyx4ZB7Ko=;
-	b=v5xtsPXEowZ0PJ5cs0bSrw0Q1lkCfHu0RsJRM6QmdhelaOFJHVp49JPxE9Da0WFnKvE8tQ
-	YFbISxhg08XHUMw7SNOe7xd57Ju1qOTDlPLmS4TqynSuHPcxS4PJZxYkn9v6ftWD7wRJkD
-	J7rkJNFtcPHUD0o+OBAmfV1JE98m7CI=
-From: Sven Eckelmann <sven@narfation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l+h2/Hx+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388501F0089F;
+	Tue, 10 Nov 2026 18:42:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794336127;
+	bh=3Ed71Ht4/yAOsTBOT+Rc7LwUZtJOf5FuO6p5djaZN9c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l+h2/Hx+i7crHfUR1QT5nsywn1WuYmsBf1pKQjTDaJAb4BYzvSPlP9ngVCqhNej1a
+	 wqh9FsKpbHVzNV/I3EDvqMEZcyW0IXvTZaUDwoXRNzMuh6DmRRL2crurUMwEPERbKS
+	 nAhEyjz5dH+Pne7qFzDzKpccznxnPWzrZwVtOs961kZmpDmkFrxTOvZZ/+F1PItMPU
+	 E6fsUa7fKJHPWepz8n/HT7nnaO7iAXwzXyY210dEE5bCue434T7q7xxUU2O5hLpbrp
+	 xCaxZzDb1aFTFSACZDQ0PNIkkxNer2zJWkV/zJiYim3QF8Hn8FEt3sq3fnR1R+jYcC
+	 f1Ci3Babt2J4A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sven Eckelmann <sven@narfation.org>
-Subject: [PATCH 7.3.y] batman-adv: tt: clear ROAM flag when re-adding a pending local client
-Date: Tue, 10 Nov 2026 19:41:41 +0100
-Message-ID: <20261110184141.42827-1-sven@narfation.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109200104-failed-7.3-cc2186d78547@kernel.org>
-References: <20261109200104-failed-7.3-cc2186d78547@kernel.org>
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] irqchip/imx-intmux: Convert to platform_driver::remove_new() callback
+Date: Tue, 10 Nov 2026 13:42:04 -0500
+Message-ID: <20261110184112.3296356-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054940-failed-6.1-b167c1a30e9e@kernel.org>
+References: <20261107054940-failed-6.1-b167c1a30e9e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +60,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-commit cc2186d7854785b30d423f5d43757b086b300e55 upstream.
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-When a ROAMING_ADV is received for an announced local client,
-batadv_tt_local_mark_removed() sets BATADV_TT_CLIENT_ROAM, queues a
-DEL|ROAM change and marks the entry as BATADV_TT_CLIENT_PENDING. If the
-client sends a frame again before the next TTVN commit,
-batadv_tt_local_add_existing() only clears the PENDING flag and returns
-early. The ADD cancels the queued DEL, but the entry keeps the ROAM flag:
+[ Upstream commit 984e5c7b8d7bac9efd3818e06dcf1f7aab7701b2 ]
 
-* batadv_is_my_client() reports the client as not served by this node
-* batadv_tt_local_client_is_roaming() reroutes unicast frames for it to
-  the node which sent the ROAMING_ADV
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-The ROAM flag is only removed with the next frame of the client.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-Since BATADV_TT_CLIENT_ROAM is set together with BATADV_TT_CLIENT_PENDING,
-it has to be cleared also at the same time with BATADV_TT_CLIENT_PENDING
-when the client roamed back.
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-Cc: stable@vger.kernel.org
-Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
-[ adjust code still in batadv_tt_local_add ]
-Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Link: https://lore.kernel.org/r/edeee074956dd943d3c67da894a01dc5f0d33bd7.1703284359.git.u.kleine-koenig@pengutronix.de
+Stable-dep-of: b167c1a30e9e ("irqchip/imx-intmux: Fix runtime PM teardown on remove")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/translation-table.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-imx-intmux.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
-index 15566ae255c9e..4523daec6de5c 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -632,6 +632,7 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
- 	bool iif_is_wifi = false;
- 	struct hlist_head *head;
- 	int packet_size_max;
-+	bool added = false;
- 	bool ret = false;
- 	u8 remote_flags;
- 	int hash_added;
-@@ -664,7 +665,7 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
- 			 * flag can be reset like it was never enqueued
- 			 */
- 			tt_local->common.flags &= ~BATADV_TT_CLIENT_PENDING;
--			goto add_event;
-+			added = true;
- 		}
+diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
+index 80aaea82468aa..c7bf73dcb7a10 100644
+--- a/drivers/irqchip/irq-imx-intmux.c
++++ b/drivers/irqchip/irq-imx-intmux.c
+@@ -281,7 +281,7 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ 	return ret;
+ }
  
- 		if (tt_local->common.flags & BATADV_TT_CLIENT_ROAM) {
-@@ -745,10 +746,12 @@ bool batadv_tt_local_add(struct net_device *mesh_iface, const u8 *addr,
- 		goto out;
+-static int imx_intmux_remove(struct platform_device *pdev)
++static void imx_intmux_remove(struct platform_device *pdev)
+ {
+ 	struct intmux_data *data = platform_get_drvdata(pdev);
+ 	int i;
+@@ -297,8 +297,6 @@ static int imx_intmux_remove(struct platform_device *pdev)
  	}
  
--add_event:
--	batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
-+	added = true;
+ 	pm_runtime_disable(&pdev->dev);
+-
+-	return 0;
+ }
  
- check_roaming:
-+	if (added)
-+		batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
-+
- 	/* Check whether it is a roaming, but don't do anything if the roaming
- 	 * process has already been handled
- 	 */
+ #ifdef CONFIG_PM
+@@ -353,11 +351,11 @@ static const struct of_device_id imx_intmux_id[] = {
+ 
+ static struct platform_driver imx_intmux_driver = {
+ 	.driver = {
+-		.name = "imx-intmux",
+-		.of_match_table = imx_intmux_id,
+-		.pm = &imx_intmux_pm_ops,
++		.name		= "imx-intmux",
++		.of_match_table	= imx_intmux_id,
++		.pm		= &imx_intmux_pm_ops,
+ 	},
+-	.probe = imx_intmux_probe,
+-	.remove = imx_intmux_remove,
++	.probe		= imx_intmux_probe,
++	.remove_new	= imx_intmux_remove,
+ };
+ builtin_platform_driver(imx_intmux_driver);
 -- 
-2.47.3
+2.53.0
 
