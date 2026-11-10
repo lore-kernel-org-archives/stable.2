@@ -1,51 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273964;
-	b=MtL6t6wwUltZ1GE92xcS22iccS0ED6wadB8FEuCpBsuSb37OcbeLbZhKVvpVwB8FQ1Hr
-	 TtzasbsGtIe6IkmK1lYaWc0EbeuRQZtjSe/Ufy2x62joVsXIpe2hmCSToNzEwA3Y126eH
-	 L3Jd+QSrol2s78G7/AXAkT4SSKzrMUvexSxoo9XUBRSybQePCrMYAFQvQt55HAuYAoRHk
-	 b7/KE1JOTZzVJ4KlJq5LiYbFR56VRd1zh7WYilg72MNx4aecCEetcc9pc9wctuZzWarmM
-	 Itp7Vw/0yTuMoL6Dg4qp4Snd8ICTjhP/lv3Kj65Xb8DHzyo5f9Ubq1FFRUDhtO38qyg==
+	t=1794273967;
+	b=rhV69AS2C/48fb3Q8MV29lQ8Y+Ami+Wvgj59Y8MBMZVik1+ZUVjQ/TAe7I1EgjFr3AWO
+	 kkulcKgIOMhz6e9B6TAftMZhoGUtXskECnsqqF/GsJVLMj0J3PlmdGp52rHH3ijzJTDau
+	 55NvCakvXqfv/CU3lEwxCnPOvvzo9iKIxDC1A07KsHMGBUqWKOHXms17H/BXThS3QKHXp
+	 i3B+CvCdOGrL5XK89XI7pAEmd5g+zuLrWwR/fh1FxdcHbRnijkjgFakFuSzN9/+n4E6yC
+	 YjjmrTIAVto8pPiuoIe8a/oP/PATFG+p+nAVsvsSmjKRQ6NkqjLQ6vIn2UnppO1m3Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273964;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273967;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XZlK++nrVAYj2Vbrio0pZgxgBGidWaExfTgE8aBani8=;
-	b=UIS5q7z8PRGGXvgI9OvHlU1OsXOg5wtVfzr8ycRc95L9tvkEyzwmWraSWPibDORFzGN6
-	 1ouktv1k2BR444b2RN5aLwh3RMy2irL1ER5l8UF3vESomhxE5kdnNklsuYePiI4a494TS
-	 XxFftmGsPC5hSmIkVFo9gNPnRN7hwBsUur9iLM633teEmz9n0Pptnn+1qO/emOEJiURtX
-	 6sYjzFy0Eulpg9HRM6TP3G0EnxbOzU7BAUg69UzTpLaL/bo4M+rC/4fOIVdXylnDdAO5H
-	 fCBRJVJKjZcfxigQzTbcQ6xqFQHkjrQims0G3FI5t6YTRRrE5elHW7vIt4braY6YuxQ==
+	bh=jSQ/i9bKdIZqlJoUYFxuizD4QPIC/fiyALy73V0HsHQ=;
+	b=Xk2XB8qtFJQoZiUNh3L72eDswmnoGp+0am/H/VmXwwj7cKChSCwxO7qgLvTzufmh9PhM
+	 UlUEyos3DJkJWr09josHBQ7YCvBazh3nJs12HhJasAGaMd0TwJR2BTrdB8XQoPKwsmIBY
+	 VzhJ5CPuJi/I/yIBfcBh3RaF5D0xDH5J7UYzTs/VBEBuqFriRoPOHv8vvNgnZ/3b/wVX6
+	 sdxlyY4uzC17Z/CkCvzwijuRHrhPBZsx69a0ZU3PtvrGn/+qnSVChgZ6A0vIxoupRH2L9
+	 eOZ/HP7ljkTIHWpcnjpSCfVGwUl/j+JrKIUpIC1GysuadbEbhmqI5PgkIrDuWTPHM7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n10kfwlG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCsTG0TB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC0760A2603
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A15360A2603
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:26:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n10kfwlG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32FC31F0089F;
-	Tue, 10 Nov 2026 01:26:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hCsTG0TB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60BD21F0089F;
+	Tue, 10 Nov 2026 01:26:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273963;
-	bh=XZlK++nrVAYj2Vbrio0pZgxgBGidWaExfTgE8aBani8=;
+	s=k20260515; t=1794273966;
+	bh=jSQ/i9bKdIZqlJoUYFxuizD4QPIC/fiyALy73V0HsHQ=;
 	h=From:To:Cc:Subject:Date;
-	b=n10kfwlGNmwuIihFsRQ/R2rx18RUvQE8zLQoVs+WUdweoUFBuJ9fpoF/Fstt1wLKo
-	 KgWCWh7eTPIEO7xZWDI5spVInhnKvpGxh2m9c6HUuUSQJnEkHyiRhhvUhGIeX1nKj9
-	 gyJDKO+C9RcVpCC2ro7aiTFYfFsfr2ywiAy/Ec1B2T/fNspGxnwGB7ZwIRkw4xumut
-	 VxZ+OkXEYkMkXPko57sJrWgaWPw1R/nmz4Fc0s/2Hk90C/mYB4Ytm6TXApLGgOu2Ro
-	 pXp/UgMoxC1vBjjw4iO70SX5CwVgVdHaBL4ToWKPVK/ZsNHAFmNjtq8t72hkEvZv34
-	 /DszSGApqVu/Q==
+	b=hCsTG0TBkBDzvdYEEXt5h02Zqx0NzCQbEjkz8QpRJfKuNWaukAj4Mt10o0vdKOyUU
+	 ngRow/hg9BEfrUiqSMi244bTIT1AFSAZ1HGPLBdD4kmZh8CcuH1PiDcheCnljp8srG
+	 CFcPy82DZVd4ydWlnn7ymIMbUHC+PwG1wcbgnBV0yEcdWCNgaffHkjlL46cWXLxVrM
+	 o5OtoxRpO2c400+unyWo60vbjtvLRWs8CFFnsZxRmAb/NFfhlb2XfjuTn5sqgPEA3w
+	 cogdm/15gxp2RSzrzEd6Dn/Uu94y9LKqAjedz+9sXimA0x1HAW1K7ZupUdnW8zmza2
+	 8TtVfiqGf5KXQ==
 From: Sasha Levin <sashal@kernel.org>
-To: federico@rimpianto.com,
-	davem@davem-thinkpadp1gen8.ibmlond.csb
+To: david@kernel.org,
+	josef@toxicpanda.com,
+	ljs@kernel.org,
+	riel@surriel.com,
+	vbabka@kernel.org,
+	baohua@kernel.org,
+	pfalcato@suse.de,
+	harry@kernel.org,
+	kas@kernel.org,
+	sj@kernel.org,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: atl1c: drop oversized RX frames instead of panicking" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:26:02 -0500
-Message-ID: <20261109202602-failed-5.10-c4ba1716853d@kernel.org>
+Subject: FAILED: patch "[PATCH] fork: take mmap_lock before copying mm_struct" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:26:04 -0500
+Message-ID: <20261109202604-failed-5.10-ef694e2d2101@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,106 +77,139 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x c4ba1716853de5178a9df785844ebb5e397a80e6
+git cherry-pick -x ef694e2d210111cc08c52fd25da9ab130170bfa3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202602-failed-5.10-c4ba1716853d@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202604-failed-5.10-ef694e2d2101@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c4ba1716853de5178a9df785844ebb5e397a80e6 Mon Sep 17 00:00:00 2001
-From: Federico Musto <federico@rimpianto.com>
-Date: Tue, 27 Oct 2026 12:51:51 +0100
-Subject: [PATCH] net: atl1c: drop oversized RX frames instead of panicking
+From ef694e2d210111cc08c52fd25da9ab130170bfa3 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:39:31 +0100
+Subject: [PATCH] fork: take mmap_lock before copying mm_struct
 
-atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
-overheads, which comes to 1522 bytes at the default MTU.  A link partner
-that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
-whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
-- makes the length reported by the RX return descriptor exceed what the
-hardware wrote, and skb_put() then either includes bytes that were never
-received or trips skb_over_panic and takes the host down.
+dup_mm() copies the parent's mm_struct before dup_mmap() takes the
+mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
+and newer heap mappings, causing later brk() requests to fail.
 
-Compare the descriptor length against buffer_info->length, the length the
-hardware was given, rather than against skb_tailroom(): the skb carries 64
-bytes of slack for the DMA erratum, so tailroom is larger than the DMA
-buffer and a frame in between would pass the check and still be delivered
-with a tail the device never wrote.  The same test rejects frames shorter
-than ETH_HLEN + ETH_FCS_LEN; before this change a reported length below
-ETH_FCS_LEN underflowed in skb_put().
+Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
+cause inconsistencies.
 
-The frame is dropped with kfree_skb_reason(SKB_DROP_REASON_PKT_TOO_BIG) so
-drop_monitor and the kfree_skb tracepoint see it, and counted through
-dev_core_stats_rx_dropped_inc(), which survives atl1c_get_stats()
-overwriting the hardware counters on every read.  It also counts as work:
-atl1c_clean_rfd() has already recycled the RFD, and the refill at the end
-of the poll only runs when work_done is non-zero, so sustained oversized
-traffic would otherwise drain the ring and stop RX.
+As a simple and robust fix, grab the parent's mmap_lock earlier. This
+way we don't need to update individual mm fields in dup_mmap() and
+keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
+exec_vm, stack_vm), as that is now no longer required.
 
-Tested on a MikroTik CCR2004-1G-2XS-PCIe (4x AR8151) in a Proxmox VE host,
-with atl1c built from a DKMS tree carrying this change: the l2mtu-1600
-traffic that panics the stock driver is dropped and counted with the patch
-applied, and received normally once the host MTU is raised to match.
+Keep releasing the parent's mmap_lock in dup_mmap(), before
+userfaultfd completion, to avoid moving the userfaultfd handling into the
+caller. This should get cleaned up later.
 
-This complements commit 36c2009d90f2 ("net: atl1c: fix soft lockup on
-out-of-range tpd_cons read"), which fixed the TX side of the same
-"host dies while the card resets" problem.
+Move uprobe_start_dup_mmap() to preserve the lock ordering.
 
-Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Federico Musto <federico@rimpianto.com>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-2-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- .../net/ethernet/atheros/atl1c/atl1c_main.c   | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ kernel/fork.c | 20 ++++++++++++++------
+ mm/mmap.c     |  8 +-------
+ mm/nommu.c    |  2 +-
+ 3 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-index e58f1d2c26bdf..eddd8406867f7 100644
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -1934,6 +1934,39 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
- 			break;
- 		}
- 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 8b108ed371529..5efceb8d58a78 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1533,12 +1533,19 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	if (!mm)
+ 		goto fail_nomem;
+ 
++	uprobe_start_dup_mmap();
++	if (mmap_write_lock_killable(oldmm)) {
++		free_mm(mm);
++		goto fail_uprobe;
++	}
 +
-+		/* A link partner whose l2mtu is larger than ours can hand us a
-+		 * frame that does not fit the buffer the hardware was given:
-+		 * the descriptor reports the untruncated length while at most
-+		 * buffer_info->length bytes were written.  skb_put() of such a
-+		 * length would pull in whatever the tail of the buffer holds
-+		 * and, past the end of the skb, trips skb_over_panic and takes
-+		 * the host down.  Bound it by what the device actually wrote
-+		 * rather than by skb_tailroom(): the skb carries 64 bytes of
-+		 * slack for the DMA erratum, so the two are not the same.
-+		 *
-+		 * Frames shorter than an Ethernet header plus its FCS are
-+		 * rejected by the same test; before this, a length below
-+		 * ETH_FCS_LEN underflowed in skb_put().
-+		 */
-+		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN ||
-+			     length > buffer_info->length)) {
-+			dev_core_stats_rx_dropped_inc(netdev);
-+			if (netif_msg_rx_err(adapter))
-+				dev_warn_ratelimited(&pdev->dev,
-+						     "dropped rx frame: %u bytes, buffer %u\n",
-+						     length, buffer_info->length);
-+			kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_BIG);
-+			/* atl1c_clean_rfd() has already recycled the RFD, so
-+			 * count the drop as work: the refill at the end of the
-+			 * poll only runs when work_done is non-zero, and
-+			 * sustained oversized traffic would otherwise drain the
-+			 * ring and stop RX for good.
-+			 */
-+			work_done++;
-+			continue;
-+		}
-+
- 		skb_put(skb, length - ETH_FCS_LEN);
- 		skb->protocol = eth_type_trans(skb, netdev);
- 		atl1c_rx_checksum(adapter, skb, rrs);
+ 	memcpy(mm, oldmm, sizeof(*mm));
+ 
+-	if (!mm_init(mm, tsk))
+-		goto fail_nomem;
++	if (!mm_init(mm, tsk)) {
++		mmap_write_unlock(oldmm);
++		goto fail_uprobe;
++	}
+ 
+-	uprobe_start_dup_mmap();
+ 	err = dup_mmap(mm, oldmm);
+ 	if (err)
+ 		goto free_pt;
+@@ -1557,9 +1564,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	mm->binfmt = NULL;
+ 	mm_init_owner(mm, NULL);
+ 	mmput(mm);
+-	if (err)
+-		uprobe_end_dup_mmap();
+-
++	if (!err)
++		return NULL;
++fail_uprobe:
++	uprobe_end_dup_mmap();
+ fail_nomem:
+ 	return NULL;
+ }
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 148ba01c03739..7618e72766a52 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -1713,8 +1713,7 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ 	LIST_HEAD(uf);
+ 	VMA_ITERATOR(vmi, mm, 0);
+ 
+-	if (mmap_write_lock_killable(oldmm))
+-		return -EINTR;
++	mmap_assert_write_locked(oldmm);
+ 	flush_cache_dup_mm(oldmm);
+ 	uprobe_dup_mmap(oldmm, mm);
+ 	/*
+@@ -1725,11 +1724,6 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ 	/* No ordering required: file already has been exposed. */
+ 	dup_mm_exe_file(mm, oldmm);
+ 
+-	mm->total_vm = oldmm->total_vm;
+-	mm->data_vm = oldmm->data_vm;
+-	mm->exec_vm = oldmm->exec_vm;
+-	mm->stack_vm = oldmm->stack_vm;
+-
+ 	/* Use __mt_dup() to efficiently build an identical maple tree. */
+ 	retval = __mt_dup(&oldmm->mm_mt, &mm->mm_mt, GFP_KERNEL);
+ 	if (unlikely(retval))
+diff --git a/mm/nommu.c b/mm/nommu.c
+index 91ab65afda705..6c6f953296746 100644
+--- a/mm/nommu.c
++++ b/mm/nommu.c
+@@ -1887,7 +1887,7 @@ subsys_initcall(init_admin_reserve);
+ 
+ int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ {
+-	mmap_write_lock(oldmm);
++	mmap_assert_write_locked(oldmm);
+ 	dup_mm_exe_file(mm, oldmm);
+ 	mmap_write_unlock(oldmm);
+ 	return 0;
 -- 
 2.53.0
 
