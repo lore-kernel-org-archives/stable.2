@@ -1,49 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320407;
-	b=4WSyb7nqZskvAVjm80cSjt7Al0uAG42UrXABdP2vOO67czXJMpjy82iL3tvTehGFE5nc
-	 JBL/bcuTp/BYVaTI/rqU7VSjy7FTfdN8J2pE2hjHcZYng/SXRRrTNLqBfNivFtJBU7s5O
-	 ltJGYnv9Xr9VXANCHxFKHSXg0A0SEDG0eU3Kt9xguzHAohRJBJlviRibHZbKe5PxTz328
-	 D/9uN7BxELZxS1mANgODS4ikb9D00w6lmYn/mJAMmLw14QfmF4izYuHnrwUd8oFNdK+/j
-	 PsOH1mMPPYOntsqQPIGsidqOR4yF8+kRUpmDm1Heu1VPUoC1MUkg4+sjNkR0XQOqE6Q==
+	t=1794320427;
+	b=WK6Cl9ASOOahl2yBO6ikxPHA3nKUdaDPUTwwf0NJlxBY9fAHHds1QCazIhU9LHpUx4VW
+	 NX3sIqpeeR6UsWbmo/zt9s2xuhvXPxP1f9wzdUJtfB2YKZTebz3dXfpzaKWRG3OYXYbSP
+	 NEXozRywVqoc8aGGUBR+gMbgnTGr6trZP+2hHevNunZpe5wu6+BHeEXZwHUohAGUk33+e
+	 Rorn4zs53+n2hx7DEihef3T1lJNmvUa9qmOByYo7N5VgrU7pI9eReojIxhy7HisYFFaJ/
+	 K0ZPU4u9+ZlyH6AI0Ym8sQXmDGVX+ddaqMRDxotw55GxB9KFOvUcuM4w17WSONHbMPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=9GjOW8HzxHhNlBVytkPohM1w2TsUdmk1Xb8jc6vaQjg=;
-	b=Cy3Wg1F9kqyn82BzpPBomnEjI0cu3Ortku+SegP+ENX61hvBs1NPHi+/xPetaPHxc20f
-	 pzaKNO5OjJB2FFX3tFbc5C4aZPogEez/lk+MFYHuxEavOx9uamxKGrs3OoBWJas7lCfjH
-	 ZSM2ZWSUDdOLXPJAjpdbkpeikW0kZNCw5fV/ULE1k70L5HoW3hZt89dk8NwBVEXwDF2Uo
-	 h4NPXuFw2RoJ3xo0WcSBMeMlw7hf7AbaGYUqmRGK5H+BqtpNoEV9fUIS9yXemUshHFNwQ
-	 j29aFvHBgwBWwLoolV11IEDefhY7uXARR9mLWwOqcdBpLRWqJu9Tgq4hLOdQC/JOgKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320427;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=QYX0h1W2E+oATJFxY2iCvY7pa9wXstnmyxb9Xo05WjE=;
+	b=UV0wXYFnVYue+vppzEWI4z0AfKQpPtl4PTUnoheNo7QcEVlM1ijxpZvkNQqLpzV8SPUI
+	 pf+rzAT7yfJEX67Qty281E2+7UF6LmX1wAVnBdeIq9glXc+pjGdU8bFncS2w/rVE+mvC0
+	 lO5Q1GUB3D7Vd+ZY1fpXvgKAuVny2DQu5e3pIKrZ+dzLJ6ghwJIGorqJX9bRRg2bavE8q
+	 zRMsmJCBjMeFbTMIeGOGAJakHtxYx9kMQZobv/w4UcvVxvLtH3gR15UPQAVg6zoxpLjEj
+	 GhmkSL4eP1u0mh6R2I5OElHM5L7j90t3m4C7AJ24zX+XxqZVZ9evxcwG/mKjrj7FKtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJrZfuC+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4Er4ikq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA257606A321;
-	Tue, 10 Nov 2026 14:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6164D60A3811
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJrZfuC+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689801F0089F;
-	Tue, 10 Nov 2026 14:20:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4Er4ikq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB4E1F008A1;
+	Tue, 10 Nov 2026 14:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320406;
-	bh=9GjOW8HzxHhNlBVytkPohM1w2TsUdmk1Xb8jc6vaQjg=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kJrZfuC+oX66C9FVtRYbr6pIlMgaHmbFL6BJ3wmlSYFM5EXhoMKHWjGXPyyAFROAG
-	 +bH7ltyw3B8S/IFWyJxtX2McbYcRSoQr3+JbUmLP14Dvf4qkw9hdzTDJJsV73xZ1Pt
-	 Kdlht2Ij8sB1g4dVuIy7ELgyuOWzMEsa6Ay335gXQ+sEfNkwouk88PhUaoa/b91Dg0
-	 QIoE0BF1woqBu+G9cb/E/BfHXOYdYcQvdyv5B56EOir1KVQJDLqd2fqn6gRJn1O+x+
-	 bXHbemgd0b2cFx+i1VKWxO7qlumdZhGBzfFwAj5dwFoXSGCX8geNVq89SUd6Q4AevG
-	 2PEKFynVLYTqA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5DFE439D0C97;
-	Tue, 10 Nov 2026 14:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794320427;
+	bh=QYX0h1W2E+oATJFxY2iCvY7pa9wXstnmyxb9Xo05WjE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=P4Er4ikqwcCFKSUspatspHEg1OtZwllGyp7tasn/Fgz91D/Bd+vi1/yXefWUX/LlU
+	 BPO8Wuyf5z9zAl7pZWSUpLkRsi4G0MmDxKr1wzBY1esvgFMcR1RVnQZw97AryUSIJ+
+	 RXlqnpNDiIAdZXvEaPeHFJvbDhLDf5bh7SKO1/Um4qKFXtpgm4nJjxzXsVubbTZ0el
+	 t98XUajJWhGgYC167dd3vsH4v9bdOZg5Cx4CkTp/5lcqZggEuMg1p7Slf5fOpAwXH9
+	 oW2M85+unJch1jYiSsWSDjMzrwY6rOGRnwJPJwjXTccmVth15OjS7eBkRYxLNwXgzs
+	 Q8fJ/qVmJ57tg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] power: supply: ltc2941: Fix of_node reference leak in ltc294x_i2c_probe()
+Date: Tue, 10 Nov 2026 09:20:25 -0500
+Message-ID: <20261110142009.1874987-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051900-failed-6.12-09a29213bf15@kernel.org>
+References: <20261107051900-failed-6.12-09a29213bf15@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,42 +60,56 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: dsa: microchip: initialize the IRQ access mutex
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179432040518.3989458.1694702089176046934.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 14:20:05 +0000
-References: <20261104-ksz-irq-mutex-init-v1-1-e3bb7d9dbd80@vaisala.com>
-In-Reply-To: <20261104-ksz-irq-mutex-init-v1-1-e3bb7d9dbd80@vaisala.com>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, arun.ramadoss@microchip.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tristram.Ha@microchip.com,
- stable@vger.kernel.org
 
-Hello:
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+[ Upstream commit 09a29213bf15630e85a375478832b074b2cfc5c8 ]
 
-On Wed, 04 Nov 2026 07:58:35 +0000 you wrote:
-> ksz_switch_register() initializes dev_mutex, regmap_mutex, alu_mutex and
-> vlan_mutex but not lock_irq, which the IRQ chip takes in its bus lock
-> callbacks on every mask and unmask of a switch interrupt, and the PTP
-> code takes the same way. The zeroed mutex happens to work on the
-> uncontended fast path, but with CONFIG_DEBUG_MUTEXES the first lock,
-> from the IRQ domain mapping during probe, warns:
-> 
-> [...]
+ltc294x_i2c_probe() takes a reference on the device node with
+of_node_get(), but never drops it, so the reference leaks on every
+return path, including the success path.
 
-Here is the summary with links:
-  - [net] net: dsa: microchip: initialize the IRQ access mutex
-    https://git.kernel.org/netdev/net/c/ba1dc196502f
+The node is only used to read the battery properties and to set
+info->supply_desc.name, so release it after its last use and also on
+the lltc,resistor-sense error path.
 
-You are awesome, thank you!
+Fixes: 085bc24d1553 ("Add LTC2941/LTC2943 Battery Gauge Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260917142127.2156568-1-vulab@iscas.ac.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+[ sashal: adjusted context for of_property_read_u32() instead of of_property_read_s32() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/power/supply/ltc2941-battery-gauge.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/power/supply/ltc2941-battery-gauge.c b/drivers/power/supply/ltc2941-battery-gauge.c
+index a1ddc4b060ce4..bf0b268b10bfb 100644
+--- a/drivers/power/supply/ltc2941-battery-gauge.c
++++ b/drivers/power/supply/ltc2941-battery-gauge.c
+@@ -464,9 +464,11 @@ static int ltc294x_i2c_probe(struct i2c_client *client)
+ 	/* r_sense can be negative, when sense+ is connected to the battery
+ 	 * instead of the sense-. This results in reversed measurements. */
+ 	ret = of_property_read_u32(np, "lltc,resistor-sense", &r_sense);
+-	if (ret < 0)
++	if (ret < 0) {
++		of_node_put(np);
+ 		return dev_err_probe(&client->dev, ret,
+ 			"Could not find lltc,resistor-sense in devicetree\n");
++	}
+ 	info->r_sense = r_sense;
+ 
+ 	ret = of_property_read_u32(np, "lltc,prescaler-exponent",
+@@ -477,6 +479,8 @@ static int ltc294x_i2c_probe(struct i2c_client *client)
+ 		prescaler_exp = LTC2941_MAX_PRESCALER_EXP;
+ 	}
+ 
++	of_node_put(np);
++
+ 	if (info->id == LTC2943_ID) {
+ 		if (prescaler_exp > LTC2943_MAX_PRESCALER_EXP)
+ 			prescaler_exp = LTC2943_MAX_PRESCALER_EXP;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
