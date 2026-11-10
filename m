@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273003;
-	b=aJVa2F09Kh7wqhKb1yFcr5fi5diRWMycoNQsmCgmtS4aepbJFqKyiQX2nSUGy0rhido2
-	 1XftFIz0zbQZWWLESmNDkQS7NijKDttKvGuKrHDcuszdL7jC4qXiMbm5r2004UeLnSdNd
-	 uLWOKw1TbacW5fumKprMRN2xqOR51qAX2ArzAYlo+4BwhtnTB7ukAbErBFHa7KfEpLUhE
-	 38WgPGNcFfEFZkWGn1QBknDuSfe3sgPZyxGC+t2M/vfx1QDK3OqUsm265FLJhuu5AJRcg
-	 k3cIBTycPRyaWCbb1860xR9bfS//ThF541KHkTIwi0xTwuoseAR4TO/QHELYb+FC2Mg==
+	t=1794273006;
+	b=z0n8RI3T3A0z39gQVQXIksLRo4hmoerEu/qWCAFlyyBZaedn3ACkfGCqoSx/6GXlPVu6
+	 2XImwefzazVcfG8p74pl1GuXzfmfjMDPK7XtdYcm2kDMamGWiXDhF/6hxP5Mzc081wrhS
+	 943cNrp7O3hXgtHZEKlV6uwNaghDPW8xTaHeIIq3BL4iYU73dI7SndGhRi5uq1genqvVf
+	 w6jjcbyBTrDE9dXErcMbaE8U4MMiRIhigjUUeRdgB99MilRJ/OgYspqK4nEnZkU00+DFE
+	 z/tuKFcj0CPrsE4lPB0F5AYEgC/UtTDLPSxXkSJeLML+e/U6hJjPUn00kHVvBQfOAZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273006;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mkSX1dhvlwItJp/aaXWCqmfYgGgzSDw2sq7dDeT3AR4=;
-	b=ueApxtNbCy4nRlQXwCA9ZgGpqRFNLSazR2KyOAjMqivZ8imojqXe5a6P+Ji5bT3zqlOp
-	 lHRFu16NulE1eDV3WjYBLYXniHSeZqOtPLQXiNw+UaJ9+lFV2Q3SCDE2eOANNS2ZFYUNd
-	 PO904EiUkgnisdYledEAMkz19gxIghwIk9cr9ZI25nhrMKQvkeb7AVtymdjES4gvT8x7T
-	 EEdMtS09JE/UlYMfiGu2/eBBPPl6VoKWpf1JfVq+GyOINyg3ZJTyAM41iMwE0kDBHThLG
-	 xZJfDZp3SuQeoisUaLxy54Rb9JvIfGvUDeLgB6hSZhFN2vbDK0w1VS7a9EJ7Wr2nvQQ==
+	bh=8lEzrTTPabwhmUWy7eUFVcnBz9PcNR53xTJW4AiIOxQ=;
+	b=ua4MtMgsYfKmrEADmr+IUJMVcvVbwZiBPCnuOHo+qZttvzl1F1hXM4KaMl9XuNx27aSq
+	 rmFAYtefzuQWMQdCziXCLXQEVQnROD/4j4hkhnGyTPw85SYPLlhsnKWezjzFNCRT4vD9o
+	 BpkPk8hz71750d8GYakN+641b583GhpnmrYlnTQg3TIhHlGV6ZIawdyv2koxVMfKA80Td
+	 aWQ0e61rOWj2bH4xF8cPT7ZUXl7lIXh8ak4fScYg85pmK0izNTsWKK7Zfr9ugi1icnbp7
+	 ArzY57sOINPKfLfYPVqvaDMXaa3+Q/atsF+fQ9Hcj2QCxiXFaX5JDmASeG00HavbaOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5R08KTm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKiXRH+C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A93F606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC56606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d5R08KTm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E661F0089F;
-	Tue, 10 Nov 2026 01:10:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gKiXRH+C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB581F0089F;
+	Tue, 10 Nov 2026 01:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273003;
-	bh=mkSX1dhvlwItJp/aaXWCqmfYgGgzSDw2sq7dDeT3AR4=;
+	s=k20260515; t=1794273005;
+	bh=8lEzrTTPabwhmUWy7eUFVcnBz9PcNR53xTJW4AiIOxQ=;
 	h=From:To:Cc:Subject:Date;
-	b=d5R08KTmqhvP6nNG7W9havAF6rWMef5bHgnnZFe22Gqv7tffS02xhsxH9zk83RS9B
-	 KVDjOwAY6AxZ3Yaphg2408WqQe4Vf/BVry3hD/Nn8JsrXH7vWSYhZklPSFWIdtJyVi
-	 jcHqxhvaWG6yLKLgWYk+jlhH9RvthTqT3Mz3WThAWkXMrSFDUiJX5CY3TsSWaDHdk9
-	 3muJd9YHyZhI6qBISOWGHACdymK0f5zVCS3C1tdbsTDTdxQDTyyT1/CD3IfK/2IFIP
-	 VKurfwPSenDqydlNJPsRsk2SC10cZBgHKtBnHs3N2mUTvaUg7uUAb++njcurdd9wZc
-	 RZhZ/IUVqDD8w==
+	b=gKiXRH+C0gNFc0FX1MtWOpaBzSsYIjwUnsHjD5I7XJ507eLksEg0lBPXTkkvTXYTY
+	 ul3TNLVj//twARIEtyoo9Q9ExzQnkUfVdrMMH2nJA9YafzsUG4PLynXtz7fgpKMibv
+	 mFvEb+2BRL9XLOYW5pz6sbU38nyIHkgMddiju9YX+etHXqnpWl0+WmxZAlwn1X0DTN
+	 8bo98HzxyIPjV8wlWqI9lgs/sm84o24eM3SR9niuaqDAcxcMF7bCyLfd7mwQJYWwAf
+	 9aYpqeHSlIkA/R7kXDM3LgWuLiz7zbGBLnvWSDTRUUhVBoze4qxS+Sd97N8J4P/h8r
+	 DeSxfnktIBu8Q==
 From: Sasha Levin <sashal@kernel.org>
-To: mikhail.v.gavrilov@gmail.com,
-	jkasten@gmail.com,
-	alex.hung@amd.com,
+To: kevin.wang@amd.com,
+	kenneth.feng@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: set allow_freesync before validating a new stream" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:10:01 -0500
-Message-ID: <20261109201001-failed-6.12-ab18dd3061eb@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/pm: populate unique ID for smu 13.0.7" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:10:04 -0500
+Message-ID: <20261109201004-failed-6.12-079f9103d9cd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,82 +69,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x ab18dd3061eb2d92e60c8bbf9a435c25962e449f
+git cherry-pick -x 079f9103d9cde68fb2ccc414e94520f43ee102de
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201001-failed-6.12-ab18dd3061eb@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201004-failed-6.12-079f9103d9cd@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ab18dd3061eb2d92e60c8bbf9a435c25962e449f Mon Sep 17 00:00:00 2001
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Mon, 26 Oct 2026 12:33:45 +0500
-Subject: [PATCH] drm/amd/display: set allow_freesync before validating a new
- stream
+From 079f9103d9cde68fb2ccc414e94520f43ee102de Mon Sep 17 00:00:00 2001
+From: Kevin Wang <kevin.wang@amd.com>
+Date: Thu, 29 Oct 2026 11:50:31 +0800
+Subject: [PATCH] drm/amd/pm: populate unique ID for smu 13.0.7
 
-After resume from S3, DC enables SubVP on a single FreeSync display at
-a high refresh rate, although dcn32_allow_subvp_high_refresh_rate() is
-meant to keep SubVP off that configuration ("For single display cases,
-freesync must be disabled").  On an RX 7900 XTX driving a FreeSync TV
-at 3840x2160@120, amdgpu_dm_capabilities reports sub-viewport disabled
-after boot and enabled after "rtcwake -m mem", and the memory clock
-starts switching.  It stays that way until a later commit re-validates
-the state; a CRTC gamma change (toggling Night Light) turns SubVP off
-again.
+The smu 13.0.7 backend does not register get_unique_id, leaving
+adev->unique_id at zero and KFD topology without the stable GPU
+identifier consumed by HIP.
 
-The policy reads dc_stream_state::allow_freesync while the new state
-is validated, but amdgpu_dm sets that field only in
-amdgpu_dm_update_freesync_state_on_stream(), on the first flip after
-the commit.  A stream created by a modeset is therefore validated as
-if FreeSync were off.  On resume, dm_destroy_cached_state() drops the
-streams and forces a modeset, so the resumed state is validated
-without FreeSync.
+The failure is observed at:
+    auto ierr = hipDeviceGetUuid(&uuid, 0);
 
-Set allow_freesync in amdgpu_dm_get_freesync_config_for_crtc(), which
-atomic check calls for every active CRTC and which already writes
-ignore_msa_timing_param to the stream.  It uses vrr_supported, the
-condition the flip-time value is derived from.  With this change the
-same TV keeps SubVP disabled across "rtcwake -m mem".
-
-On this machine SubVP is also what exposes the single-frame scanout
-corruption reported in the thread linked below, so the FreeSync
-setting stopped working as a workaround after every suspend.
-
-Fixes: 87f0c16e0eeb ("drm/amd/display: Enable SubVP for high refresh rate displays")
-Link: https://lore.kernel.org/all/20260829010525.29935-1-mikhail.v.gavrilov@gmail.com/
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3736349
-Tested-by: Josh Kasten <jkasten@gmail.com>
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Fixes: 113cc31dde66 ("drm/amd/pm: add SMU_13_0_7 ppt_funcs for SMU_13_0_7")
+Signed-off-by: Kevin Wang <kevin.wang@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 29793918b0eb63b6810b248a906f87dd79b70be5)
+(cherry picked from commit 5e2585daaf8336d9ce1bf52e55a9b7a8cdbf625b)
 Cc: stable@vger.kernel.org
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c    | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 20 +++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index ab9cfbce8d73c..4620135437c5e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -131,6 +131,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 					vrefresh >= aconnector->min_vfreq &&
- 					vrefresh <= aconnector->max_vfreq;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 8285d4a91589a..13e7e33fa0eb2 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -2912,6 +2912,25 @@ static int smu_v13_0_7_mode1_reset(struct smu_context *smu)
+    return ret;
+ }
  
-+	/*
-+	 * DC reads allow_freesync while validating the new state, for example
-+	 * to keep SubVP off a single FreeSync display, but it is otherwise set
-+	 * only on the first flip after the commit.  Set it here, so that a
-+	 * stream created by this commit is not validated without it.
-+	 */
-+	new_crtc_state->stream->allow_freesync = new_crtc_state->vrr_supported;
++static void smu_v13_0_7_get_unique_id(struct smu_context *smu)
++{
++	SmuMetricsExternal_t metrics_external;
++	SmuMetrics_t *metrics = &metrics_external.SmuMetrics;
++	struct amdgpu_device *adev = smu->adev;
++	u32 upper32 = 0, lower32 = 0;
++	int ret;
 +
- 	if (new_crtc_state->vrr_supported) {
- 		new_crtc_state->stream->ignore_msa_timing_param = true;
- 		fs_vid_mode = new_crtc_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
++	ret = smu_cmn_get_metrics_table(smu, &metrics_external, false);
++	if (ret)
++		goto out;
++
++	upper32 = metrics->PublicSerialNumberUpper;
++	lower32 = metrics->PublicSerialNumberLower;
++
++out:
++	adev->unique_id = ((u64)upper32 << 32) | lower32;
++}
++
+ static void smu_v13_0_7_init_msg_ctl(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+@@ -2995,6 +3014,7 @@ static const struct pptable_funcs smu_v13_0_7_ppt_funcs = {
+ 	.enable_uclk_shadow = smu_v13_0_enable_uclk_shadow,
+ 	.set_wbrf_exclusion_ranges = smu_v13_0_set_wbrf_exclusion_ranges,
+ 	.interrupt_work = smu_v13_0_interrupt_work,
++	.get_unique_id = smu_v13_0_7_get_unique_id,
+ };
+ 
+ void smu_v13_0_7_set_ppt_funcs(struct smu_context *smu)
 -- 
 2.53.0
 
