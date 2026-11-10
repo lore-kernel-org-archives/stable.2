@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327483;
-	b=Ow4jXNeSj5QglE+7AGjyyezKHN6WQGaHyAvdaUsEPU6fWA1mNmxm/L2Nzl2OcUrvCSzL
-	 CV6d2o7MNiHJdXP464Rfgb9VR6e3o7qPd8LiTdGjVGKpvPWCZICcRUcu+cTb1A9MGtwpG
-	 i2Jgqio5gQI1RsuxIUzNY5m9jyxom3AvDxlMBJ0zQbkLa6JjrbRnhpbde5gs0fk022NJV
-	 wLipMJpqZDxkuZHX4Khh7x69p9lMpBcB1jMqKV/A8Dzs/ERIWVfd0JdRB6tNTFzH+CMEY
-	 mOE6vy74FHhGaZHoJrNsitk+CdEWOwkHBr92PjJlAe3NEVJ6C+guqQV0UYkwXhZnC7w==
+	t=1794327567;
+	b=x7YJ9ecBRIU6FO5j3PqIN4yR+8N7rk4qYNQ52+JP7068F83ShFjjNHizdO1gItxh2mwN
+	 8E24BAkme81nE1ikwl+vnJ7S/QXKs1pcxBT8X447aQD5o+UvJuQfzrBiET2vsHsMTljdl
+	 +PT1B8rWkbdMqIVrVTS91ph5iy+JRbY6wtk2NUaNW2jMgqWEXSWbD/d8UpW+tXQFTH+R0
+	 jdW3vu89W7NWqoB+GkfPe2tdwCS4wEPpIlEx9cwrM5hTVgqeAuzn1oiC29xab2AgrCNs0
+	 vJfGNleBgQvAoRkbIEyqpWAInY2b4WAhkz5miPQkJGIvrQZz5KUZTIHflofPss3FESQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327567;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HhpLu8eWf+ICJ9bh4uJ6YZbGT2bSYXGUTLkSlY6c4js=;
-	b=wzIMlZ9jvEKj5v8VMbVmkABAMkOmJ/zZ39YZwOHyweL7TKHWDaHAbCzcw8C0/e+PTD9X
-	 Ox/Sa+JzRCpdm1W7nRisxkS+x6KT7dyZTKzfYFKXxJV4jTMY/yoRR7yHOqsoJi6UPYXKj
-	 C7bfLEvAoh47M2hm+cuQI260AG7U5x9nrB+HLCmU2loFVs8bFKz2TqNsZu+MKFGZa+bpC
-	 +gC8GGPdoVBsuN2Suy+QSq7WzraL1TEaIUm5ehous+S68zdDbOB6fZkx9k2ANzdLO3x/v
-	 l6h+3winbK+9S93abrPrRxmrjdDdiQDaH8KdToudXBOzWTxbRzry9XZ080GMuskvqjg==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PHaev0CtvsnJlVqxA20KMtwHs6gVXqxQ66OOsPQxT7s=;
+	b=4SJ0UaYa4uQUIEdhJjBq2g4d+kZSXi9EUm7/5KM7W0EHlIZuX3hZody23lRybMreb6m/
+	 TFenS4PkBbDj7+W+nfcaByG5+WDpo1Hogi7VZAhTSS96DAKodqJ/7tTIHls3Dmvh9MXSM
+	 NcxKhUl3P3uC1luz8v7l064u1MjxmItxGjKM5Px6ShV6uSbkVYBxmsd24/e2st12Ouy8u
+	 o73jC+f8X6O0d+iahr28ujaRVOMfagXaqcW9hxgTyS++IXkNaum+RnWH4JUQZmNoMLDxg
+	 LmIa669N7wEbcoVozxxgEn2yRKsXBy/TONH1moAIwJy2w+z9S/iZmywIooQ2aO2UpzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=clcHaKci;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsqDTlSj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24DA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:18:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAAD60A260D
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:19:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=clcHaKci
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5C91F008A2;
-	Tue, 10 Nov 2026 16:18:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JsqDTlSj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB9C1F008A5;
+	Tue, 10 Nov 2026 16:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327481;
-	bh=HhpLu8eWf+ICJ9bh4uJ6YZbGT2bSYXGUTLkSlY6c4js=;
+	s=k20260515; t=1794327566;
+	bh=PHaev0CtvsnJlVqxA20KMtwHs6gVXqxQ66OOsPQxT7s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=clcHaKci6+IDAgaNdyqR/tdo4pO98BkWFdrtXyy3AF9GAD7cwiU2+Qh1lI/1nHIMw
-	 F1fwBVskpv73LsN3UGJAvJB93UGWGZaq8DXLjje4OVSNyLPWaBAl8hkfGpW3XlgXYF
-	 5EdX1IuJkxnzp6zfRQoXTPE7oRsyOuOIOyuPEQLKhujGSAT79eaKp6E1WLJKxbh5yh
-	 VFCd3etBi5xKm8nGq5ZjLyMN5E984q60PyrRKncPLd3M11I7ylZ+xgwqcOeSJ1I4Mj
-	 ud8MORZh5NykHjoN9PUux0pyGWDqifL2uyGXtzJfemKP5fdWy6ctV9qAKBmhEwv1Km
-	 1wi8RSxIbDAIA==
+	b=JsqDTlSjUNwWL9XbckuhIjYfDVDltNGjkoayOVlTJs/zi/mCnuPspEFTJt7wZRmna
+	 VBd8+e6cI1oesJQ1d2RRJvpRIRkSh20OW3+mS586QYGhey3hnn7YhXlTqLp3AWHXQA
+	 uOWuAefDCNUb3xzGjeMBJBpeaGMieIDq8go0sV5ZA819bPPFg+UWC6EVBpVZ4F8rIU
+	 jhPh+2N//IZOfrSGet+7glsL1mN5fiCbi5yNvDpV2xcE9fZ6NbIRnEQ0aoStZ2W0QS
+	 5z0rxVrflgvpergwmhUWvB0bCxKj7uawdTD7MpG8XdoQQjNfBnASbw5X8uA+gQ0+vv
+	 yRc8Z2eNDKOOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jun Yang <junvyyang@tencent.com>,
-	stable@kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Marco Scardovi <scardracs@disroot.org>,
+	Denis Benato <denis.benato@linux.dev>,
+	Armin Wolf <W_Armin@gmx.de>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] sctp: re-point retained control chunks on association migration
-Date: Tue, 10 Nov 2026 11:17:58 -0500
-Message-ID: <20261110161751.2477980-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex
+Date: Tue, 10 Nov 2026 11:19:24 -0500
+Message-ID: <20261110161904.2486240-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110161751.2477980-1-sashal@kernel.org>
-References: <20261107060725-failed-5.15-52ffeaa358d1@kernel.org>
- <20261110161751.2477980-1-sashal@kernel.org>
+In-Reply-To: <20261107052145-failed-6.12-b9428edaf410@kernel.org>
+References: <20261107052145-failed-6.12-b9428edaf410@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,162 +62,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jun Yang <junvyyang@tencent.com>
+From: Marco Scardovi <scardracs@disroot.org>
 
-[ Upstream commit 52ffeaa358d1f3d91aa87a26ad90d77769cff74b ]
+[ Upstream commit b9428edaf4109e86a97254228d831767d0acc1f8 ]
 
-sctp_sock_migrate() transfers DATA chunk ownership but leaves retained
-control chunks pointing at the old socket. A later retransmission can
-therefore access the socket after it has been freed.
+Concurrent evaluations of ASUS WMI management methods (from ACPI notify,
+HID, userspace daemons, and debugfs) enter the BIOS ACPI/SMM interface
+simultaneously, triggering re-entrant SMIs or EC mailbox buffer corruption.
 
-Extend the migration walk to cover retained control chunks and use
-sctp_control_set_owner_w() to assign their new owner. Reuse the DATA
-ownership check so each chunk is processed once per pass, even when it
-is reachable through multiple lists or retained pointers.
+Fix this at the root by introducing a centralized evaluation helper
+(asus_wmi_evaluate_method_locked()) protected by a global mutex
+(asus_wmi_eval_lock) using guard(mutex). Route all evaluations of
+ASUS_WMI_MGMT_GUID (method3, method5, method_buf, and show_call) through
+this helper.
 
-Preserve a control chunk's existing authentication key across migration
-so its final release can still generate SCTP_AUTH_FREE_KEY when needed.
+A static mutex is required because asus_wmi_evaluate_method() is an
+exported symbol used by external modules (such as hid-asus and
+asus-armoury) that lack access to struct asus_wmi drvdata, and the
+underlying ASUS ACPI/EC management method is a single physical platform
+resource.
 
-Fixes: d04adf1b3551 ("sctp: reset owner sk for data chunks on out queues when migrating a sock")
-Cc: stable@kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Signed-off-by: Jun Yang <junvyyang@tencent.com>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20261009074244.3718-3-juny24602@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+The mutex is non-recursive: nested ACPI/WMI notify handlers must not call
+back into evaluate on the same task (defer via workqueue, as
+asus_rfkill_notify already does).
+
+The sysfs-versus-notify race predates the later export of
+asus_wmi_evaluate_method(), so Fixes points at the original shared
+evaluate helper rather than that export.
+
+Link: https://github.com/OpenGamingCollective/asusctl/issues/328
+Fixes: d33da3b68669 ("asus-wmi: factorise wmi_evaluate_method call")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/b6a1981777e63f0c28bd719d8203ebbda57d6957.1789722252.git.scardracs@disroot.org
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+[ sashal: adjusted patch context to match the existing include list and WMI section ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/sctp/sm.h    |  1 +
- net/sctp/sm_make_chunk.c |  5 ++--
- net/sctp/socket.c        | 53 ++++++++++++++++++++++++++++++----------
- 3 files changed, 44 insertions(+), 15 deletions(-)
+ drivers/platform/x86/asus-wmi.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/include/net/sctp/sm.h b/include/net/sctp/sm.h
-index f37c7a558d6dd..0355dbef9881d 100644
---- a/include/net/sctp/sm.h
-+++ b/include/net/sctp/sm.h
-@@ -256,6 +256,7 @@ struct sctp_chunk *sctp_make_fwdtsn(const struct sctp_association *asoc,
- 				    struct sctp_fwdtsn_skip *skiplist);
- struct sctp_chunk *sctp_make_auth(const struct sctp_association *asoc,
- 				  __u16 key_id);
-+void sctp_control_set_owner_w(struct sctp_chunk *chunk);
- struct sctp_chunk *sctp_make_strreset_req(const struct sctp_association *asoc,
- 					  __u16 stream_num, __be16 *stream_list,
- 					  bool out, bool in);
-diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-index cedf3006ee823..c15d62ad24754 100644
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -95,7 +95,7 @@ static void sctp_control_release_owner(struct sk_buff *skb)
- 	}
- }
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index 1465057b3e3d3..e71d2be12e78e 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -15,6 +15,7 @@
  
--static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
-+void sctp_control_set_owner_w(struct sctp_chunk *chunk)
- {
- 	struct sctp_association *asoc = chunk->asoc;
- 	struct sk_buff *skb = chunk->skb;
-@@ -108,7 +108,8 @@ static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
- 	 *  For now don't do anything for now.
- 	 */
- 	if (chunk->auth) {
--		chunk->shkey = asoc->shkey;
-+		if (!chunk->shkey)
-+			chunk->shkey = asoc->shkey;
- 		sctp_auth_shkey_hold(chunk->shkey);
- 	}
- 	skb->sk = asoc ? asoc->base.sk : NULL;
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index 7cc3f146b1fcf..cb2c201520957 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -154,9 +154,24 @@ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ #include <linux/acpi.h>
+ #include <linux/backlight.h>
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -27,6 +28,7 @@
+ #include <linux/leds.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/pci_hotplug.h>
+ #include <linux/platform_data/x86/asus-wmi.h>
+@@ -337,6 +339,20 @@ struct asus_wmi {
  
- static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
- {
--	sctp_set_owner_w(chunk);
--	if (chunk->shkey)
--		sctp_auth_shkey_release(chunk->shkey);
-+	struct sctp_shared_key *shkey = chunk->shkey;
+ /* WMI ************************************************************************/
+ 
++/*
++ * Concurrent evaluations of ASUS WMI methods can re-enter firmware
++ * SMI/EC mailbox handling and corrupt the mailbox.
++ */
++static DEFINE_MUTEX(asus_wmi_eval_lock);
 +
-+	if (chunk->msg)
-+		sctp_set_owner_w(chunk);
-+	else
-+		sctp_control_set_owner_w(chunk);
-+
-+	if (shkey)
-+		sctp_auth_shkey_release(shkey);
++static acpi_status asus_wmi_evaluate_method_locked(u32 method_id,
++						   struct acpi_buffer *input,
++						   struct acpi_buffer *output)
++{
++	guard(mutex)(&asus_wmi_eval_lock);
++	return wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id, input, output);
 +}
 +
-+static void sctp_process_tx_chunk(struct sctp_association *asoc,
-+				  struct sctp_chunk *chunk, bool clear,
-+				  void (*cb)(struct sctp_chunk *))
-+{
-+	if ((clear && asoc->base.sk == chunk->skb->sk) ||
-+	    (!clear && asoc->base.sk != chunk->skb->sk))
-+		cb(chunk);
- }
- 
- #define traverse_and_process()	\
-@@ -164,17 +179,14 @@ do {				\
- 	msg = chunk->msg;	\
- 	if (msg == prev_msg)	\
- 		continue;	\
--	list_for_each_entry(c, &msg->chunks, frag_list) {	\
--		if ((clear && asoc->base.sk == c->skb->sk) ||	\
--		    (!clear && asoc->base.sk != c->skb->sk))	\
--			cb(c);	\
--	}			\
-+	list_for_each_entry(c, &msg->chunks, frag_list)	\
-+		sctp_process_tx_chunk(asoc, c, clear, cb);	\
- 	prev_msg = msg;		\
- } while (0)
- 
--static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
--				       bool clear,
--				       void (*cb)(struct sctp_chunk *))
-+static void sctp_for_each_tx_chunk(struct sctp_association *asoc,
-+				   bool clear,
-+				   void (*cb)(struct sctp_chunk *))
- 
+ static int asus_wmi_evaluate_method3(u32 method_id,
+ 		u32 arg0, u32 arg1, u32 arg2, u32 *retval)
  {
- 	struct sctp_datamsg *msg, *prev_msg = NULL;
-@@ -197,6 +209,21 @@ static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+@@ -351,8 +367,7 @@ static int asus_wmi_evaluate_method3(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
  
- 	list_for_each_entry(chunk, &q->out_chunk_list, list)
- 		traverse_and_process();
-+
-+	list_for_each_entry(chunk, &q->control_chunk_list, list)
-+		sctp_process_tx_chunk(asoc, chunk, clear, cb);
-+
-+	list_for_each_entry(chunk, &asoc->asconf_ack_list, transmitted_list)
-+		sctp_process_tx_chunk(asoc, chunk, clear, cb);
-+
-+	list_for_each_entry(chunk, &asoc->addip_chunk_list, list)
-+		sctp_process_tx_chunk(asoc, chunk, clear, cb);
-+
-+	if (asoc->strreset_chunk)
-+		sctp_process_tx_chunk(asoc, asoc->strreset_chunk, clear, cb);
-+
-+	if (asoc->addip_last_asconf)
-+		sctp_process_tx_chunk(asoc, asoc->addip_last_asconf, clear, cb);
- }
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
  
- static void sctp_for_each_rx_skb(struct sctp_association *asoc, struct sock *sk,
-@@ -9706,9 +9733,9 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
- 	 * paths won't try to lock it and then oldsk.
- 	 */
- 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
--	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
-+	sctp_for_each_tx_chunk(assoc, true, sctp_clear_owner_w);
- 	sctp_assoc_migrate(assoc, newsk);
--	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
-+	sctp_for_each_tx_chunk(assoc, false, sctp_set_owner_w_migrate);
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2);
+@@ -403,8 +418,7 @@ static int asus_wmi_evaluate_method5(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
  
- 	/* If the association on the newsk is already closed before accept()
- 	 * is called, set RCV_SHUTDOWN flag.
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2, arg3, arg4);
+@@ -451,8 +465,7 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
+ 	union acpi_object *obj;
+ 	int err = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1);
+@@ -4632,9 +4645,8 @@ static int show_call(struct seq_file *m, void *data)
+ 	union acpi_object *obj;
+ 	acpi_status status;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID,
+-				     0, asus->debug.method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(asus->debug.method_id,
++						 &input, &output);
+ 
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
 -- 
 2.53.0
 
