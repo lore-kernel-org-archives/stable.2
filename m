@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794278672;
-	b=O5C85nA1TtAcupy/x6m+NO6BRa5YtUHGomzTRq18LdHFsCP+hKkBux3vw0CFgP5/Pmyc
-	 0/KeVxpDMZ4IBz7Gnd8vceKUENXlctSDz6vgB9iB5X6DxP9pEE2rFw369FZe83abGuM9U
-	 8W6ovKB9ds6z6C+WQ3lKNZSc9DGWu6zeHWu6RtofnT/O/7wqg5DscxGW3jEc6fOkYK5H5
-	 iuywDhEWyOqh0FGx8Du3FALLXx/DluKk3mhQ59A6xERydUz6ljd51Rs0dM2zmJO7o44m6
-	 XWPDi4NaMZjS6OglCytPzyByLgekB3g5HakMWH4DNX1CEEDP+1UjQuA/6RCDD4FUWAg==
+	t=1794278776;
+	b=SKQYyBzGw9AMtVPVjpc37T1AnTkg9Pz4VjppT8+o8afOSzhU06V2x/I47KHBKky4vE/3
+	 AqYPRiWEpu5M1h8mtKGSkXnpGz9P/1/RaivO30wG0Xl0yaGnLyjvJfoHe4duRo5EDNHs9
+	 YsQgYP0oolFUER6KSX/KWnAbvn9V4eM0TnXpjOnjvXq6dUsYH31eAKoSEyX3mKvHS++sM
+	 HIexnLgcs7V9UtIB2W55OmFYY2M2mPzzeZ0SZeLCw66Tml2oZl5vc7Ekufr7ZeJORU1Bi
+	 W/JrDfuEH6c5LH7l6YSqhv7rTaC3rQn+QYlDBY8pQAmNhPpwwWl10rcl3M1Jt3Jdh+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794278672;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794278776;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rtkAG3JgTlI7NEBIytrM4VwqZ0pu2H3UF6bKHoZ/wig=;
-	b=MMyqI7KOe/BAXOxAtM2rpA7AUjp81GqN8iGw7pL6i1hkBhs0mE9vLzyY9G9fAr1IoQCC
-	 JAtqj+F8amNYP3A9S46P1qwe1NN5Vl3M2aUHpYhP/YVgIv74w2iXyDoV8nUmo29jY3lIK
-	 KmdkV8EREvZ35np9NqjlSf7U3WAPSXPDld6c5RxEvZh9ji6pmsummiW5uYhslmjShFNyM
-	 YQ+cCRzPyMOUlUtXVJy547PDfQxot/egiuBPgjKz1weXGd2BYww/5VZ59mYbWH6goKJL1
-	 +Yj0i9NyptKQG+ckiw/UMyfpjgTnwh96d5lNONXONOxIbEdxasxhUt80GczmixJ6FPA==
+	bh=fFFb3ERYWhLPPrGzb6PUS+6QBuR3ObPrqTUZrlW/KL8=;
+	b=2ln4csm2D+4WJYWAkVow3mOeO6Lg9qwtybmIpSSYT0azt34e67MkWSpgfTNzHQBND8WD
+	 f9RJVC9nzCw2QYoXh5w0H42aGb8uS7Xs4z1ldSIBYwIUIXSKGuK8TAk/4QR/N84vVaKNK
+	 6/Xb1Ex3V3x2DExpg/PReUvg7RJOzknvAxCV+PxITyllWwy9jyGBBEhXvtOBmaZC/6MGp
+	 12Tk/fiN7z7lge8MrTZtwgsBdsi/3To/dgcw8GlQ5HxcyMf1NRUhn5PiSV1s4aBr92jTC
+	 qzZmUYgA/1anBhg3OslQSWYhjFhd5HQrGv59o+GRRLb6vLHWJ3hEVQjCGkMVumnPCJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFfKuC9V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZeAw83X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63D6606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 02:44:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E28606A31C;
+	Tue, 10 Nov 2026 02:46:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AFfKuC9V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FAFC1F0089F;
-	Tue, 10 Nov 2026 02:44:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZeAw83X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9151F0089F;
+	Tue, 10 Nov 2026 02:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794278671;
-	bh=rtkAG3JgTlI7NEBIytrM4VwqZ0pu2H3UF6bKHoZ/wig=;
+	s=k20260515; t=1794278775;
+	bh=fFFb3ERYWhLPPrGzb6PUS+6QBuR3ObPrqTUZrlW/KL8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AFfKuC9Vwpxp5v7O12ovlGIxqnu5xr9YgZlUkNRJ1LJyXxEVuUzKl2+M8irjekWN6
-	 OVI6FxyPdhvQ/VM3zrj2uvVv2k7sGvtkT3qnbdLBNp4NgRYkFTMgHZFmvfEstoJ3HI
-	 fNxcgmoQnNi3bBRwlPDVUJahvxGBPvKqh2Y1nCTBZRBJjW9DlT1bQIpeuyPmQa0vBG
-	 TZ/aaeOxvmjg0BZSsg0JRnxG/9TtCuuZ3hXlJq+AlfSNZYWxG71fXRw6EiokhkpvmW
-	 0Bi8Usp0Sjql0pLbiZK28GUka+mO6acVeC5G70wx3SQ4EUj9Xuk57nD0or+Z7/FvOt
-	 JwtWWrFevvk5g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Esben Haabendal <esben@geanix.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iio: light: ltr501: Power down chip if request irq fails
-Date: Mon,  9 Nov 2026 21:44:29 -0500
-Message-ID: <20261110024418.3922639-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054045-failed-6.1-8a9bcd587d7d@kernel.org>
-References: <20261107054045-failed-6.1-8a9bcd587d7d@kernel.org>
+	b=XZeAw83Xs4YUcCgKf2X1UoJYkgecetN5u/kBBH+Wcpr1jyGmNH+nzDAca6vOQpkQS
+	 WiULalmKcYo0kMAsngmvkgajgiRmxpHaSshtPBOrIVOCEKyFp1sFE1Hi9qmt2+7SIU
+	 yoifEjzDzjAJnTvETVLnrDXISk6H3NfHJE1y9AbbwfRZiOdkPPgsEfBJVZbiadCnTz
+	 mclfuNQfXIR+exf4oCNIqmn9DuvjcU0cmDR+a81H+UcFKF9lc6L2pvMO+yJpqEEtN9
+	 5VKEkGtMbWLxjYqANr6lkdRgeQHTN7ZjyfysUPM+LlDbiIph74kO5gCmAicJ5ZfZ/F
+	 98MSU4jlYqDag==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Fernand Sieber <sieberf@amazon.com>,
+	SeongJae Park <sjpark@amazon.de>,
+	damon@lists.linux.dev,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 6.18.y] mm/damon/core: move static variable last_nr_regions to damon_ctx
+Date: Mon,  9 Nov 2026 18:46:07 -0800
+Message-ID: <20261110024608.119184-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261110022454.112647-1-sj@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,39 +65,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Esben Haabendal <esben@geanix.com>
+On Mon,  9 Nov 2026 18:24:54 -0800 SJ Park <sj@kernel.org> wrote:
 
-[ Upstream commit 8a9bcd587d7d768e6c8e9fff88bb89645e412731 ]
+> kdamond_split_regions() uses a static variable last_nr_regions, to infer
+> if the region boundaries are too stable.  If it looks too stable, it
+> does a more aggressive region split because it might be a fake stability
+> coming from non-aggressive split.  Because the variable is static, the
+> inference can be racy and wrong when multiple kdamonds are running in
+> parallel.
+> 
+> The user impact is not critical.  No crash, no leak.  DAMON's
+> best-effort monitoring accuracy can be degraded when multiple kdamonds
+> are used in parallel and the workload has certain access patterns. Still
+> it is a bug that is better to fix.
+> 
+> Move the variable into the damon_ctx struct to fix the problem.
+[...]
+> --- a/include/linux/damon.h
+> +++ b/include/linux/damon.h
+> @@ -804,6 +804,11 @@ struct damon_ctx {
+>  
+>  	struct list_head adaptive_targets;
+>  	struct list_head schemes;
+> +	/*
+> +	 * number of regions after last merge.  Read kdamond_split_regions()
+> +	 * for more details.
+> +	 */
+> +	unsigned long last_nr_regions;
 
-In case devm_request_threaded_irq() failed, we were leaving the chip
-powered instead of powering it down again. Power down the chip switching
-ALS and PS modes to standby.
+Sashiko warns [1] this could cause kernel-doc build warning.  I will post v2
+after fixing the issue.
 
-Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
-Cc: stable@vger.kernel.org
-Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-[ sashal: adjusted context to preserve the existing IRQ request failure logging ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/iio/light/ltr501.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[1] https://lore.kernel.org/sashiko-outbox-206056@kernel.org
 
-diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-index 49f293232a709..e72bdbcf9540c 100644
---- a/drivers/iio/light/ltr501.c
-+++ b/drivers/iio/light/ltr501.c
-@@ -1576,7 +1576,7 @@ static int ltr501_probe(struct i2c_client *client,
- 		if (ret) {
- 			dev_err(&client->dev, "request irq (%d) failed\n",
- 				client->irq);
--			return ret;
-+			goto powerdown_on_error;
- 		}
- 	} else {
- 		indio_dev->info = data->chip_info->info_no_irq;
--- 
-2.53.0
 
+Thanks,
+SJ
+
+[...]
