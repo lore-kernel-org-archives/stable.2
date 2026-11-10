@@ -1,52 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273911;
-	b=yDOk+OuN/2olwaLXqk3WmwoyCSSJFFqfYa4rfnAZLh8F9AAMGj/YPhz+2QyU/DeANcVw
-	 Rqct3hbOi4TGBzmNsbuJwBPp3y7EgIkb/loet21lBGfPc5Xm27zWR3edwsc6UaVNG92gm
-	 jvnzsb0Bg74qdvzSQiWYFJ3rpchvOE+IbmWDw9Krt97SQoq0KFZKlNBdUIQtww1DCQfcB
-	 iK7yEUOU1x+4u3qCcI8sGhDHzqdX+OGfNeRCAsII7Rmf45HWW6iWyWuhUqTrN+Tusxpun
-	 MzfTKvv24E/TieF/79TBM21+ZpgDH14h/yvCQuZkGG1VASE3r8bSsDEt4zdoUiuhmeQ==
+	t=1794273913;
+	b=k1wJIWiuLSJ6AWwW503iFnuqKiQb1k0yP3VDbhw4Y/X1UfHUL/a6lU2A3nw6rQl2BDsO
+	 PKCQo6TVg82mU2EXTkP2K2hp8234bhiRNvjGFyOS6jYXQ9yH9dj2GOjuxSNyodWTv6Jxl
+	 rQBnQ6v8UFvbcmKtF4pPh5UVaokBkiWg/jJgCxOnOTSx0T05JBHD583qLJf44xFa5did/
+	 7m7npj0LTp1es1nyTzqbEkYhaexLFscS/kkKDA6VJ7oBx/j5EjclTu+nAS42qZx9qq+N3
+	 sNBquRQLf6eZGIzB9WShGX2amOlRXMWlLHOhCvwkZJuK4hj6GNavp0OtVM3ktHqE3+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273911;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273913;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CHDsOgfTW7yc5UIQ+xa/Pgsx8kHJY8gjF+rRenonRh0=;
-	b=ItzRA3yCC+pdX50ezEIoixx4Ku8Pa3JCAAsYdTTwnHoSrV59SHatWJEC1AZDRouzv9j0
-	 q1AfoHJHsTp0ozX5+8mXfukXIcdGqTIqlD4sJPXyQEsOdsfQa7kHsJjukzrrOTGuUwZK+
-	 pgROSicn3tNOnClKGtrmqE81fOv8KRJYxatul6YzJWqKI1Fr+LizZys0cg6WtxiZNQ3cd
-	 h43VWEvP0GtRSdCaZPoMhobZlwSU+WZbsxsHvnZf5uLuqicZE4fm/c77s1dVyj9/0uyN6
-	 Ac+4hQnSbT4r6CCwoGsCzcjVMJPClgIGdMFo/tH4EMHa7RTzglD8T57IdeyYV43SRKA==
+	bh=ZXPmd6tut/anTcTkS+vA3cwBSsjTEehAuagEfE/ZRqs=;
+	b=wZLSDHOiNfrW4sH1wcoi9+aQ8+1mmbjWd1zROIBoO44GyF5HF7zKI+IkHz8pFHP350RD
+	 v3qUjqCXzlGt9buh+VFjG47B5FeF9Z4ZXvbgu+PXS9rafrkAyw3i/YQZLD9zXiPXsny9o
+	 vXVeeQogCpY02z1zZKh8YxQVbzbd6wEfhW0bgbHZbLWD7b8sobiCT6HZHhZUqnNBrhSyy
+	 MxXrfpKxbwCgPsw7TrUW717geL9gr1i6bXODyULxHCQdn3ctsT6NZNe2wLB1py+oVjGgF
+	 HbcbCfru6SI/IsBvb9tHtHbySKvMfsqO1NaJUDcEIsNFlHH0IDoiEygpD1Q8N7Lsjtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCrL3USp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeXcBzkj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF00606A330
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E4B606A330
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCrL3USp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28FB31F0089F;
-	Tue, 10 Nov 2026 01:25:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeXcBzkj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF061F0089F;
+	Tue, 10 Nov 2026 01:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273910;
-	bh=CHDsOgfTW7yc5UIQ+xa/Pgsx8kHJY8gjF+rRenonRh0=;
+	s=k20260515; t=1794273913;
+	bh=ZXPmd6tut/anTcTkS+vA3cwBSsjTEehAuagEfE/ZRqs=;
 	h=From:To:Cc:Subject:Date;
-	b=DCrL3USpZw9teFmaRF9UGDGtz1bHON5VqTpEd2JpL8A7vNZukICbnDxBfRrFnq9yp
-	 emCKrP74w/9KJZopqZDIYACk0fN6yLVT328MU7PUQxfADVXfYoUR2Ay52yJVGdmKug
-	 QmTzW/2ekp57R3DHpBGOaL5hzxCoSWG08zG/qsoYLp7V5OscjivY5UJLYc7/3jPPZA
-	 59X6BeJ/yRVUz4jta2grNnhqLmEY/9NwPGyMWoLGJYjcQ211tb8hG3K/i9HZmzWtNh
-	 fNAkRDbBOmIQrWlMGVICIs0Wv0RWKkgFUXtb6uxQG6df/g3Xj3UCisLwsidUWoMMG+
-	 Iyae7SAFsFCXg==
+	b=LeXcBzkjXX/2WbLj1q7+6q2+m2hwEV+CZhIP789Dbf1lzEpuqyFmKqyWhD276kOxv
+	 pL4gGa6HiS/c8xiNXkdHFWwYuCVCT67bxV3DPbTgFL5z71gZ4jA8CVlXsbopOiMyxI
+	 KqQ3n5flMGOsHrju+QZElGJKTPsUwAN555e0B2xZ6Ni1i+n45ysjusfp/H0vDXON5B
+	 FQ7CrbIYX585DRB4OhdeIrlL9oM4HVSt+kKwMAxOh86EL2pzMqtodZjWS1ONdd+snh
+	 7kCkVeQpjj6M9h6jYq4jVY7k2+CkMCZvT+pfaKrPP3qYh0sFbVCPvj0p0c/tc/dUmF
+	 u2rfX/rDD45iQ==
 From: Sasha Levin <sashal@kernel.org>
-To: gyf161023@gmail.com,
-	sstabellini@kernel.org,
+To: zhaoyz24@mails.tsinghua.edu.cn,
+	yangyx22@mails.tsinghua.edu.cn,
+	wangao@seu.edu.cn,
+	fengxw06@126.com,
+	qli01@tsinghua.edu.cn,
+	xuke@tsinghua.edu.cn,
 	asmadeus@codewreck.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] 9p/xen: fix refcount leak in p9_xen_response() on wrong tag" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:25:08 -0500
-Message-ID: <20261109202508-failed-5.10-4d183e6f1532@kernel.org>
+Subject: FAILED: patch "[PATCH] 9p/xen: drain response work after unbinding IRQ" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:25:11 -0500
+Message-ID: <20261109202511-failed-5.10-7b6f2e3c29fb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,55 +73,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4d183e6f153245aca2534e372152583b868dd925
+git cherry-pick -x 7b6f2e3c29fb4d76f1e4973280792eabbd526602
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202508-failed-5.10-4d183e6f1532@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202511-failed-5.10-7b6f2e3c29fb@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4d183e6f153245aca2534e372152583b868dd925 Mon Sep 17 00:00:00 2001
-From: Yifei Gao <gyf161023@gmail.com>
-Date: Thu, 6 Aug 2026 14:42:54 +0000
-Subject: [PATCH] 9p/xen: fix refcount leak in p9_xen_response() on wrong tag
+From 7b6f2e3c29fb4d76f1e4973280792eabbd526602 Mon Sep 17 00:00:00 2001
+From: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Date: Tue, 9 Jun 2026 23:52:01 +0800
+Subject: [PATCH] 9p/xen: drain response work after unbinding IRQ
 
-p9_xen_response() looks up the request for an incoming reply with
-p9_tag_lookup(), which takes a reference on the returned p9_req_t. When
-the tag does not resolve to a request in REQ_STATUS_SENT, the function
-warns and continues the loop without dropping that reference, permanently
-leaking the p9_req_t and its msize buffers. The reply header, including
-the tag, is supplied by the backend, so a malicious or buggy 9P backend
-can leak kernel memory on every crafted response.
+commit ea4f1009408e ("9p/xen : Fix use after free bug in
+xen_9pfs_front_remove due to race condition") added cancel_work_sync()
+to keep xen_9pfs_front_free() from freeing a ring while
+p9_xen_response() is still running.
 
-Drop the reference before continuing.
+The work is currently drained before the event channel IRQ is unbound.
+That leaves a race window where xen_9pfs_front_event_handler() can run
+after cancel_work_sync() returns and queue p9_xen_response() again.  The
+following unbind_from_irqhandler() synchronizes with the IRQ handler, but
+it does not cancel work that the handler already queued.  The teardown
+can then free the ring and private data while the response work remains
+pending, and the worker later dereferences ring->priv and priv->client.
 
-Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
+Unbind the event channel IRQ before draining the work.  Once the IRQ is
+unbound, no new response work can be queued by the backend event channel,
+and cancel_work_sync() waits for any work that was queued before or
+during the unbind.  It is then safe to release the ring resources.
+
+Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <20260806144255.4167019-1-gyf161023@gmail.com>
+Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+Reported-by: Ao Wang <wangao@seu.edu.cn>
+Reported-by: Xuewei Feng <fengxw06@126.com>
+Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+Assisted-by: GLM:GLM-5.1
+Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Message-ID: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
 Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 ---
- net/9p/trans_xen.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/9p/trans_xen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index f9fb2db7a0663..8eea0da8797f4 100644
+index 5a0b5b83e8ab4..9ee1ac9143d43 100644
 --- a/net/9p/trans_xen.c
 +++ b/net/9p/trans_xen.c
-@@ -203,6 +203,8 @@ static void p9_xen_response(struct work_struct *work)
- 		req = p9_tag_lookup(priv->client, h.tag);
- 		if (!req || req->status != REQ_STATUS_SENT) {
- 			dev_warn(&priv->dev->dev, "Wrong req tag=%x\n", h.tag);
-+			if (req)
-+				p9_req_put(priv->client, req);
- 			cons += h.size;
- 			virt_mb();
- 			ring->intf->in_cons = cons;
+@@ -282,14 +282,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+ 		struct xen_9pfs_dataring *ring = &priv->rings[i];
+ 
+-		cancel_work_sync(&ring->work);
+-
+ 		if (!ring->intf)
+ 			break;
+ 		if (ring->irq >= 0) {
+ 			unbind_from_irqhandler(ring->irq, ring);
+ 			ring->irq = -1;
+ 		}
++		cancel_work_sync(&ring->work);
++
+ 		if (ring->data.in) {
+ 			for (j = 0; j < (1 << ring->intf->ring_order); j++) {
+ 				grant_ref_t ref;
 -- 
 2.53.0
 
