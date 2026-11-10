@@ -1,67 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352245;
-	b=Tp8SJqXouxkma2M32xrlE8W6NebuHaF9oTfjAE6v43SDL3FH6xKYhaN0zUIRxYDz+9L5
-	 qJo2BJcA/UH10e5DN5KX+LKy1wMkrlDfeLz0wsaGeDKZnNus+sDNEsgoFCUmVGN7svQfr
-	 Oa4NxbjzwZ+xXoZPfWTehNgKi1n2VZQf+U7JZxP1Z0duPPb0yvlMJ0Rv4y+6KfDDxgQo/
-	 ibqT9QkgIL+WjNHH3zEWyQtdHD0WOO9csG9E8jEZDDaE/Qxjs9Pk+P0ldS9tjw32co3VE
-	 7pmzNakFH7sHnLgQ/eUY7O/mrdYa4mhC0+VcRoWetWIApkA20f9vqRRUL9WaXgq98DA==
+	t=1794352357;
+	b=kyH9sbxe3dFYKSv6WkPTlTX/Fv5N3rmEsRVhyXZWsFapIKguIldbqnsMU8shOUDmDXsL
+	 +I9hmnNPoc1sgPl6vDHwtfTxh7q78l92eQ/SG5roYpuDPCY0Br8PurOJB8u72UgNvYKIk
+	 ccFyIp0e8j+ZUEiY0k5R38icoyUmMI9jTTi8OOFzfNZU0BkfrMO8FwHZd/WOy4nKANX39
+	 ONeXycsc3CXs7ykscxccAHDdRuLUTAz/6x3uRNU6lX9P0o6lTBJ/jzN2Q03A3mdQ1wc6x
+	 oL7Zqk/h4eGSZ2p88IWmrDCozGBIdzGTSmXZjCWfaTQLuuq3wTiTM8OoksmYHOSxy3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352357;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ok3n3s1PieUsRKr4lKqMJm3zdz4Lx3ky2IaLFteFDMc=;
-	b=nQ0W690XDwoSnPfIarzgbjCUR/rVnSglP98XCc3VmKvqiKjySQAvJY5GxpqfkBNNZBYH
-	 67SFh4WPwnJYSmvYyQnPpY0tzz2Mj6rQ8roOBff7wmlNjFBUyHGBNZJJg1tHR4O/s6oH0
-	 faUX9NSv8b0A3N6g6hnDuyXKGtfQMy3nMyVs4mhGB3HiaPoCtSlcjPkdSoUVcwyVplkQF
-	 dFTqRI1IsxTCS+yNP43U2c7el8wtCWTW6xLE2EA1bGfLkhG+pVDCr5cC79bCkQmuYe2uR
-	 DK1iNO1pdNMDWs5zjCWfz5HYG0KUS4JpyQVv2kTZBlTY5R+scHdio1nZsXy8GGt6LZQ==
+	bh=fRBgRbGVAmDKMu/C5YTsdZCfB0nJlMDh28VYzEJWsLI=;
+	b=ulDs3GEn4twUp1VrNL9ZI8GXi2HfqMwGTpE3W4DQBYFRMB+qI0aU7RWYa4+EXoj3Ar8B
+	 IZdGM5Z+xF6/qAFScQQGSUxFaFjzof4B2R9VPNKMhx7pQp/3/1lzeGaEB63v04DRo7Cov
+	 KJOVzUpZ4uf39jtDdrcTgti2MRCP1/ZbGjO/xDE/gMC1YtD0wrlWhnkWm3lf5wwRqT9hm
+	 4meej9NSM5UEtiTl4RjZMbAg++WMrSMNWYg2kEQ4PKhb4t3LPK8MpYJTg8hhdpUIs2tYu
+	 x7Nvn6lBdWefEz6NAycLR5JSJyY1+ImPREjuTHqfN3JeHWkkjiPjLAqy3uKFFyAPt3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuXy3QEh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BK7cDtrv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9E7606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD9F606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:12:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuXy3QEh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8AE1F0093C;
-	Tue, 10 Nov 2026 23:10:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BK7cDtrv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1391F0093C;
+	Tue, 10 Nov 2026 23:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352244;
-	bh=ok3n3s1PieUsRKr4lKqMJm3zdz4Lx3ky2IaLFteFDMc=;
+	s=k20260515; t=1794352357;
+	bh=fRBgRbGVAmDKMu/C5YTsdZCfB0nJlMDh28VYzEJWsLI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RuXy3QEhGaYpSF47QE2JnMH1OIzvD4LH4Kicy8Rfgwba6iHhy3RdBwFR4fhoRajoi
-	 ZY6RQHX2ouQSHInIm/1aHgDanJeCBMDezBjllaIEFb2GTDcBT+gGkIYboG3dd/dQxh
-	 byXWK3i3m8oXCDMtK2Ji6XdHqw6YV0Tm5VrYcbVjuRuWuCfKP0S3zsv8kcBGLpFKJc
-	 ibzkXsppP5FqfIpupOyAwOwTeBOO3Pn+gZ4bWMXmw98yppi08ywvXBVZhU7FhYiPA2
-	 J/u7s92HEvmSHvDSL8ePGTjQ2YeyIlX28L51tFVIwGQJpWnXd/MpxDk9+bm0jMDpIg
-	 o5wIUju4T9lfg==
+	b=BK7cDtrvXITiSN98ae94c+VLtAGdbQM1ghbz3/97wV2U6gedyUXzO9ORk4QtyWseo
+	 6oR1UgHDeyJb3MMCvPYcbduWpeeCrsr3pUOubqyMNezxOzxnVEt4sfIT1uzTlpJWlB
+	 wY3HsGXawGW2MwAohmaGcIz2TmWbqnN9MpkR7xW3X1ookBOo26sCVpHKyXAvGTMVQO
+	 8W0OXAvct1VFcZ1ftljQn9k63OIA10dMNZW/CDccfafJK1UFVnJLSIiQOuzY1HtkNE
+	 V9v0fb9PbMRb6xZl3H+2TKExysjLL8A9EomrAuAVQreLN66+9DQDoFVURoNAojukW2
+	 Irw6tT5P62HYQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pedro Falcato <pfalcato@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Zi Yan <ziy@nvidia.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
+Cc: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/madvise: atomically clear the young bit on THP MADV_COLD
-Date: Tue, 10 Nov 2026 18:10:41 -0500
-Message-ID: <20261110231006.82713-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] ALSA: emux: prune unused parameter from snd_soundfont_load_guspatch()
+Date: Tue, 10 Nov 2026 18:12:31 -0500
+Message-ID: <20261110231146.73238-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061139-failed-5.15-246c8cc33438@kernel.org>
-References: <20261107061139-failed-5.15-246c8cc33438@kernel.org>
+In-Reply-To: <20261107053717-failed-6.6-34e3e04b8a17@kernel.org>
+References: <20261107053717-failed-6.6-34e3e04b8a17@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,82 +61,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pedro Falcato <pfalcato@suse.de>
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-[ Upstream commit 246c8cc33438a71c28f9b86baa492d9a0a130316 ]
+[ Upstream commit 3f3e0dfc83d586fe9204936fccae771754a9dbc2 ]
 
-As-is, madvise_cold_or_pageout_pte_range() discards the hardware young bit
-by invalidating the PMD, doing pmd_mkold() and subsequently writing to the
-pmd again.  However, it does so in a racy manner, looking at a
-possibly-stale snapshot.  It's entirely possible that a write elsewhere
-set the hardware D bit, which this logic now loses.
+The `client` parameter was not used, so eliminate it from the call
+chain.
 
-Fix it by using pmdp_test_and_clear_young().  This is an atomic
-modification of the PMD entry, and thus safe against any possible racing
-writes.  As a (nice) side-effect, this elides one non-required TLB flush
-in pmdp_invalidate().
-
-This bug can interact with the swapping system in complicated ways,
-leading to data loss.  For instance, if a folio is marked lazyfree, but
-was later read from, and then MADV_COLD'd while racing a write to that
-same THP, dropping the dirty bit may lead to data loss as
-reclaim/MADV_PAGEOUT drops the "clean" anon folio:
-
-T0                                T1
-================================================================
-MADV_FREE(thp)			|
-  folio marked lazyfree		|
-read(thp)			|
-  PMD marked young by hardware	|
-				| MADV_COLD(thp)
-write(thp)			|   if (pmd_young(pmd)) {
-  PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
-MADV_PAGEOUT/reclaim		|
-  dirty bit may or may not be   |
-  set				|
-    reclaim/pageout may drop    |
-    the folio			|
-
-Link: https://lore.kernel.org/20261013191719.95502-1-pfalcato@suse.de
-Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Samarth Narang <samarth.colleges@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context for the pmd_young() check without the !pageout guard ]
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Message-ID: <20240406064830.1029573-3-oswald.buddenhagen@gmx.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 34e3e04b8a17 ("ALSA: emux: Fix UAF of soundfont zones at note-on")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/madvise.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ include/sound/soundfont.h     | 2 +-
+ sound/synth/emux/emux_hwdep.c | 3 +--
+ sound/synth/emux/emux_oss.c   | 3 +--
+ sound/synth/emux/soundfont.c  | 7 +++----
+ 4 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 367220e1fe52a..3079da08c19de 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -363,10 +363,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 		}
+diff --git a/include/sound/soundfont.h b/include/sound/soundfont.h
+index e445688a4f4f9..98ed98d89d6de 100644
+--- a/include/sound/soundfont.h
++++ b/include/sound/soundfont.h
+@@ -89,7 +89,7 @@ struct snd_sf_list {
+ int snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
+ 		       long count, int client);
+ int snd_soundfont_load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+-				long count, int client);
++				long count);
+ int snd_soundfont_close_check(struct snd_sf_list *sflist, int client);
  
- 		if (pmd_young(orig_pmd)) {
--			pmdp_invalidate(vma, addr, pmd);
--			orig_pmd = pmd_mkold(orig_pmd);
--
--			set_pmd_at(mm, addr, pmd, orig_pmd);
-+			pmdp_test_and_clear_young(vma, addr, pmd);
- 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
- 		}
+ struct snd_sf_list *snd_sf_new(struct snd_sf_callback *callback,
+diff --git a/sound/synth/emux/emux_hwdep.c b/sound/synth/emux/emux_hwdep.c
+index 81719bfb8ed73..fd8f978cde1c6 100644
+--- a/sound/synth/emux/emux_hwdep.c
++++ b/sound/synth/emux/emux_hwdep.c
+@@ -27,8 +27,7 @@ snd_emux_hwdep_load_patch(struct snd_emux *emu, void __user *arg)
  
+ 	if (patch.key == GUS_PATCH)
+ 		return snd_soundfont_load_guspatch(emu->sflist, arg,
+-						   patch.len + sizeof(patch),
+-						   TMP_CLIENT_ID);
++						   patch.len + sizeof(patch));
+ 
+ 	if (patch.type >= SNDRV_SFNT_LOAD_INFO &&
+ 	    patch.type <= SNDRV_SFNT_PROBE_DATA) {
+diff --git a/sound/synth/emux/emux_oss.c b/sound/synth/emux/emux_oss.c
+index d8d32671f7038..04df46b269d37 100644
+--- a/sound/synth/emux/emux_oss.c
++++ b/sound/synth/emux/emux_oss.c
+@@ -205,8 +205,7 @@ snd_emux_load_patch_seq_oss(struct snd_seq_oss_arg *arg, int format,
+ 		return -ENXIO;
+ 
+ 	if (format == GUS_PATCH)
+-		rc = snd_soundfont_load_guspatch(emu->sflist, buf, count,
+-						 SF_CLIENT_NO(p->chset.port));
++		rc = snd_soundfont_load_guspatch(emu->sflist, buf, count);
+ 	else if (format == SNDRV_OSS_SOUNDFONT_PATCH) {
+ 		struct soundfont_patch_info patch;
+ 		if (count < (int)sizeof(patch))
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index eed47e4830248..77144fe221cf2 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -944,8 +944,7 @@ int snd_sf_vol_table[128] = {
+ 
+ /* load GUS patch */
+ static int
+-load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+-	      long count, int client)
++load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
+ {
+ 	struct patch_info patch;
+ 	struct snd_soundfont *sf;
+@@ -1127,11 +1126,11 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+ /* load GUS patch */
+ int
+ snd_soundfont_load_guspatch(struct snd_sf_list *sflist, const char __user *data,
+-			    long count, int client)
++			    long count)
+ {
+ 	int rc;
+ 	lock_preset(sflist);
+-	rc = load_guspatch(sflist, data, count, client);
++	rc = load_guspatch(sflist, data, count);
+ 	unlock_preset(sflist);
+ 	return rc;
+ }
 -- 
 2.53.0
 
