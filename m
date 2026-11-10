@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273659;
-	b=IvNdIQveyug4Sej8n7YlJ1Bcbgf1vF/jZKKXgmFNHcq4JXVx4kbULBHwfz7Gpkph+16K
-	 gSJK4hxOYghtFLsovcKsktkXKVUQlUoIJg8IFsQIs4C2/E9t8JZgZ1o2TZHbgkmq+BN6L
-	 3ZtzctIcamlh8EVSQztWqwIe3RG6eXnd6J384N0bPHfpLn5LSlApHiju2sN2/Hgn3WEwn
-	 j+E7XIx4g+Y81mt5fyTjfwu/GUChndmTUMtE0M1fs2dqRpQLndZyNOiNC0qT4CGdTZYek
-	 EojHuLXzBPNxnuKNadcv95I0lIeWX2mqMm0jnG4Vp1qe2qOjC+5QrST64R9qyRVLpnw==
+	t=1794273661;
+	b=Rtt87b2upNXyN5gwx8VyBsesX5yGajN030uHa4YlKQzgliZnSbLmm9Z2XjZh8HhLNzxA
+	 2+qJ2W/6ruO08+7ecpaLiFuV4JG8vCzFBmZCfUuIK/YIDImloaDviacVytsv9eNH6MK1B
+	 BUTu7suUvuXm+fSDWOmrQLRKPv/ZNr5iRT79hkKCOC0TLw4jgsqBT0a5k8fGLDrnSljXD
+	 THM/RgTUKuypRDfIeRuwzrrtKFDcS4ns90t4pXdkYGn8HyIOObruilL9r4jzAW/ghpZ3e
+	 JHKMByOpPwNoIH0CbTzHFgTO52r9bTNbqfv8Av75khnjZZA2GCw2u9ahiHTjAL1hdlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273661;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9QV794IUTpUUyKaCtJMsa4J67P12kI1cnrT+/qj+y34=;
-	b=hM+XHjHotUYMPfq1WU1w+yCosjteUK33cMKiHjk/1dHCzr++gBMmJaPbO6AxC9vVOzkz
-	 LzPEMxYlvu9PYHET5mGzh7r0mHng7LPC/6LjRp8yWYx0rXwQTuIfkMFWw1Ujc3NT4C6Tm
-	 eR7a3O/JSfElaM+3mbxc6zS1EkA0+M+Fg8gKqBq33oS4DesQjK3Zm7xrjqPLxgo5g6vlF
-	 dOiXZ2lHmWcZhiHxaW5zw3miDYFQOeis/nV8Ev+OTSIfNxoIXDEjG+wBx35z4U+2yz+hJ
-	 zGLf01U0mCgq6zqkhxUFtjmwxc4EtQBhlv/yBL0ObIAKM9QTzvk8Hp2ItZM+Qi4LVQg==
+	bh=ShfF+Llmz8hvl2XDRSWPeimkAq5oO1ocTNqMoG8sFL8=;
+	b=Go8biEuFNDTZ/Kx4lih93a55Z5n5JwE9GxaY1ljYrjO0nrEtzmrCPEqxVnf47SZCsSqv
+	 2awYDm58Hn2uX4R1Go9+iQ12kMcUYKbeEZgqk1IQ5eTKNzarJEWU2tzprirLqLKjRml+/
+	 f4Ko7JBxYE5ytxBOiofN943oyHeWuDInWNQRBIBAQ5UB8gj1bQVtbZOgvRvwpmsB9E7RZ
+	 Q+4gz6dwoKuWHr/odvwG/pKD5MkEvGg/E+UnTetGFlICCvJPK9N+YpJlUhwzfASV/SFzT
+	 Kfdya/AR588SlW2jrvvYqFux2jV0J5kmc5SyhsOZpt1K9qRAwhrH3qy3tOK2wPZuoNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0jIMgUW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYhW1VaJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EA3606A334
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:20:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9740860A2607
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0jIMgUW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6E561F0089F;
-	Tue, 10 Nov 2026 01:20:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYhW1VaJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEAE1F0089F;
+	Tue, 10 Nov 2026 01:21:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273659;
-	bh=9QV794IUTpUUyKaCtJMsa4J67P12kI1cnrT+/qj+y34=;
+	s=k20260515; t=1794273661;
+	bh=ShfF+Llmz8hvl2XDRSWPeimkAq5oO1ocTNqMoG8sFL8=;
 	h=From:To:Cc:Subject:Date;
-	b=N0jIMgUWrsOW8ojr47Z/v8sqp7bO3+mGrsCBifFK9eY1wH25/dfP8O9J+0D1exfUW
-	 M6KNCZnpZF7nDJIjG/d44boFLGZ5JY7y9ZAydjL3kVxK8w1TaCQsVP69WYHkjuG8CD
-	 Na5tIcHq3pnimq8mDOgvEg2b6x07i2LaUS+H/3sfE2l6qoqM+VhjUEfTK+7D5yQ49q
-	 NfJzj+SM4VwwdtjPIds6gLi+SvVzeEUPnwonqmmAToXl7N9cMsl51BHOcGXEe6AId3
-	 eBluKCsXHqRzHHF85zINYuyJVUKqjy259OD4wqZeE3nrrgTx8SLqgWj7fr1aZuNJvK
-	 SJrJ3jE550ZlA==
+	b=jYhW1VaJ6YAkM2D23my2gipsc1qdRzlLi5uRfpsDvp12eGMko9y53Eyqr+51TsQS0
+	 qLyM51cJNJS+D9wrzNO3KVXtSSyHkeyUKbxyc68Ftq2zoyibC0BoY1CkqqazkU6XwX
+	 MuP9qv6rdaHymeECQJi6c7/5iKSwntHK0zld5AExJfdz5SLvJz29TLn8DbNh+ubSoJ
+	 CeD4iAcku4T0ytliueBRPdqvXq2ThyVBCIcUV0XH3NaJBPix876OD+KLcbBsT56+cW
+	 /do9uaNWAMyacvIw+SI7j2I/5gXWdSCylOJOiXEEg3MQykno5A4BFbE9Iekz2LdxOl
+	 It50VKEGpvEgw==
 From: Sasha Levin <sashal@kernel.org>
-To: icb@fastmail.org,
-	linkinjeon@kernel.org
+To: federico@rimpianto.com,
+	davem@davem-thinkpadp1gen8.ibmlond.csb
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ksmbd: let the owner read and change the DACL when no ACE names it" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:20:57 -0500
-Message-ID: <20261109202057-failed-5.15-ffc855fe16af@kernel.org>
+Subject: FAILED: patch "[PATCH] net: atl1c: drop oversized RX frames instead of panicking" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:20:59 -0500
+Message-ID: <20261109202059-failed-5.15-c4ba1716853d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,117 +68,106 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x ffc855fe16afe02b22305111aa68cd8d07360941
+git cherry-pick -x c4ba1716853de5178a9df785844ebb5e397a80e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202057-failed-5.15-ffc855fe16af@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202059-failed-5.15-c4ba1716853d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ffc855fe16afe02b22305111aa68cd8d07360941 Mon Sep 17 00:00:00 2001
-From: Ian Bridges <icb@fastmail.org>
-Date: Mon, 2 Nov 2026 00:15:36 -0600
-Subject: [PATCH] ksmbd: let the owner read and change the DACL when no ACE
- names it
+From c4ba1716853de5178a9df785844ebb5e397a80e6 Mon Sep 17 00:00:00 2001
+From: Federico Musto <federico@rimpianto.com>
+Date: Tue, 27 Oct 2026 12:51:51 +0100
+Subject: [PATCH] net: atl1c: drop oversized RX frames instead of panicking
 
-smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
-the POSIX ACL fallback matches. The owner then cannot read or replace
-the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
-WRITE_DAC unless an OWNER RIGHTS ACE applies.
+atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
+overheads, which comes to 1522 bytes at the default MTU.  A link partner
+that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
+whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
+- makes the length reported by the RX return descriptor exceed what the
+hardware wrote, and skb_put() then either includes bytes that were never
+received or trips skb_over_panic and takes the host down.
 
-An empty DACL allows the owner's explicit requests for these rights but
-refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
-access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
-it asks for that reply.
+Compare the descriptor length against buffer_info->length, the length the
+hardware was given, rather than against skb_tailroom(): the skb carries 64
+bytes of slack for the DMA erratum, so tailroom is larger than the DMA
+buffer and a frame in between would pass the check and still be delivered
+with a tail the device never wrote.  The same test rejects frames shorter
+than ETH_HLEN + ETH_FCS_LEN; before this change a reported length below
+ETH_FCS_LEN underflowed in skb_put().
 
-Grant the owner's implicit rights on both paths, for explicit requests
-and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
+The frame is dropped with kfree_skb_reason(SKB_DROP_REASON_PKT_TOO_BIG) so
+drop_monitor and the kfree_skb tracepoint see it, and counted through
+dev_core_stats_rx_dropped_inc(), which survives atl1c_get_stats()
+overwriting the hardware counters on every read.  It also counts as work:
+atl1c_clean_rfd() has already recycled the RFD, and the refill at the end
+of the poll only runs when work_done is non-zero, so sustained oversized
+traffic would otherwise drain the ring and stop RX.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Tested on a MikroTik CCR2004-1G-2XS-PCIe (4x AR8151) in a Proxmox VE host,
+with atl1c built from a DKMS tree carrying this change: the l2mtu-1600
+traffic that panics the stock driver is dropped and counted with the patch
+applied, and received normally once the host MTU is raised to match.
+
+This complements commit 36c2009d90f2 ("net: atl1c: fix soft lockup on
+out-of-range tpd_cons read"), which fixed the TX side of the same
+"host dies while the card resets" problem.
+
+Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Federico Musto <federico@rimpianto.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 ---
- fs/smb/server/smbacl.c | 34 ++++++++++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 4 deletions(-)
+ .../net/ethernet/atheros/atl1c/atl1c_main.c   | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 66fbf5537321e..ab76c5c9e0ea8 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1477,6 +1477,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	int i, found = 0;
- 	unsigned int access_bits = 0, denied = 0;
- 	struct smb_ace *others_ace = NULL;
-+	bool or_ace = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
-@@ -1509,6 +1510,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
- 
- 	if (!pdacl->num_aces) {
-+		unsigned int allowed = 0;
-+
- 		/*
- 		 * An empty (present, zero-ACE) DACL grants no access to
- 		 * anyone except the object owner's implicit READ_CONTROL
-@@ -1517,9 +1520,14 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		 * not let trailing bytes after a zero-ACE DACL become an
- 		 * implicit grant.
- 		 */
--		if (!is_owner ||
--		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
-+		if (is_owner)
-+			allowed = READ_CONTROL | WRITE_DAC;
-+		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+			requested |= allowed;
-+		if (!allowed || requested & ~allowed)
- 			rc = -EACCES;
-+		else
-+			*pdaccess = cpu_to_le32(requested);
- 		goto err_out;
- 	}
- 
-@@ -1604,6 +1612,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			found = 1;
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+index e58f1d2c26bdf..eddd8406867f7 100644
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -1934,6 +1934,39 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
  			break;
  		}
-+		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
-+		    !(ace->flags & INHERIT_ONLY_ACE))
-+			or_ace = true;
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
- 		    !compare_sids(&sid_authusers, &ace->sid))
- 			others_ace = ace;
-@@ -1648,8 +1659,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		if (others_ace) {
- 			ace = others_ace;
- 		} else {
--			ksmbd_debug(SMB, "Can't find corresponding sid\n");
--			rc = -EACCES;
-+			unsigned int allowed = 0;
+ 		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
 +
-+			/*
-+			 * No ACE names the owner, who may still read and
-+			 * change the DACL unless OWNER RIGHTS applies
-+			 * (MS-DTYP 2.5.3.2).
++		/* A link partner whose l2mtu is larger than ours can hand us a
++		 * frame that does not fit the buffer the hardware was given:
++		 * the descriptor reports the untruncated length while at most
++		 * buffer_info->length bytes were written.  skb_put() of such a
++		 * length would pull in whatever the tail of the buffer holds
++		 * and, past the end of the skb, trips skb_over_panic and takes
++		 * the host down.  Bound it by what the device actually wrote
++		 * rather than by skb_tailroom(): the skb carries 64 bytes of
++		 * slack for the DMA erratum, so the two are not the same.
++		 *
++		 * Frames shorter than an Ethernet header plus its FCS are
++		 * rejected by the same test; before this, a length below
++		 * ETH_FCS_LEN underflowed in skb_put().
++		 */
++		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN ||
++			     length > buffer_info->length)) {
++			dev_core_stats_rx_dropped_inc(netdev);
++			if (netif_msg_rx_err(adapter))
++				dev_warn_ratelimited(&pdev->dev,
++						     "dropped rx frame: %u bytes, buffer %u\n",
++						     length, buffer_info->length);
++			kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_BIG);
++			/* atl1c_clean_rfd() has already recycled the RFD, so
++			 * count the drop as work: the refill at the end of the
++			 * poll only runs when work_done is non-zero, and
++			 * sustained oversized traffic would otherwise drain the
++			 * ring and stop RX for good.
 +			 */
-+			if (is_owner && !or_ace)
-+				allowed = READ_CONTROL | WRITE_DAC;
-+			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+				requested |= allowed;
-+			if (!allowed || requested & ~allowed) {
-+				ksmbd_debug(SMB, "Can't find corresponding sid\n");
-+				rc = -EACCES;
-+				goto err_out;
-+			}
-+			*pdaccess = cpu_to_le32(requested);
- 			goto err_out;
- 		}
- 	}
++			work_done++;
++			continue;
++		}
++
+ 		skb_put(skb, length - ETH_FCS_LEN);
+ 		skb->protocol = eth_type_trans(skb, netdev);
+ 		atl1c_rx_checksum(adapter, skb, rrs);
 -- 
 2.53.0
 
