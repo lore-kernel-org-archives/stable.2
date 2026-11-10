@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794314138;
-	b=y9gawFCxHTsKciyBLjclMd4B3FBl8LscQmz/lQSWIxq0T8OBd6ReRy0gpuB2v5A6LJN2
-	 JRwRSiHFjHMPFOt+bb27IB22Jzd93YQhAT8+aXIw5H9UyN7JEJqGxHAHUGAlUb9ZkN0v1
-	 vZ19gU8CSHJQZQZVeazvtMIRbKfG/o/as50JOYZPGkFUCekuGUaDsMLtpHEK9NpS6jPxi
-	 Cc+Z6PUWp5C//tEu0tVDEnBRLW8DVfxpmWXuh2OF15jBexbpFOz+gCkRDYBU3TxC/p/Bf
-	 734Qp6UqfW39vq8wQCpDNukZb7ih9qD1BAAOXDeule09gtF/OrPE3/baXX8L0zlTSUQ==
+	t=1794314208;
+	b=vk7y2/wOwi4UAyyxWmzfz1xCu/1ouqYs91H7EHRroTjkssES0KGYuIHr25AzOocMRcQ8
+	 yhRpj4Z+79MNSzyhNENws/dNJGExC2T5AgdI2wU1S+hbX3MQZ+ksFH2tRfplrf7DCZMPv
+	 0GmY1mLHl6Ncl6Te59oj1BXWEFUjvMNSP8fpPr0lfOCDSn8Xhl+tf88rYKzbk0ohcK1UO
+	 k2a7OxADbUKxuOTkkXQpjpyI2iEoM5QjR+ZRmxI5O/+SxJ8E+JmLfWUFQxgxY+J5Dr42k
+	 aq7eQkCCoM5v1WgTi41S5OmAHhwF32CxVk+2aYLS8h9qS7o9fP3pR1M4lU9OiG/Adkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794314138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794314208;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rCkWHu6QuGmX7mGIMrRoJ4TwEAFbYDqFPAwlbYAdEvo=;
-	b=UK2Zqu8HdonQSOZV5HUbsw3MwRCM6jacyz1azaba5xQ2vgLTjB/Q/Odt0AyLzZ0tDZgc
-	 rVU9/AsuMMs4I/GBtP7greCZXImSIRG/olpRqOG0gt3mK+Mpv1mikX6sOii3SNmkryjj0
-	 5tiiFtwxUpjWNyYLjZDJ+Wx0Y9HKFXW8iCMw1Y9qluppTum9YAjb2zTYscw0tPf/txeWl
-	 yajitsXfjmpGdjebbZKauUvoXPjBKSnp7l+8miyGaESR/9kg76w3cCyUA2pQTGgq0DZwv
-	 ywzq9akFDeGbeaLQYWrZb8LZ5QRREv0LvMZCywG6O5ljkXlRBI1k26HBFyGyDAJvpkQ==
+	bh=iDmvNu/rSDkI1oIEAKb9R+krLNKJ6C/ET3oP2FjeFX0=;
+	b=n70lns10t5SQjGNjgK4efYIC+LbEkeAHVR88d8cOjvU3/5kjOnuFVy6rWX0R00fRkbZF
+	 6CicWPDGhetLVgd8jwiegh5OY6UTkrY0hGB/13FEkrFuxseVwVFNrTcmkQq84XaKDPwNF
+	 c44QGQW+KZdF+ns7TxMvwRlMn/WH71OfLP/evlUZr4YLg4dyuiiu5Jt55HaZ37+gDhbzj
+	 Nrhy2QOe9pna52EMOMUPKhCGdkWul8+sYNDkzSDvR3dNVHf3zZI4iD38B95B5sKw9VRDt
+	 Cza57RfPMyn5cCPcTDnp5TIQsaJ0vefiOhBhflwKGzYYy83Bt4ZdDqTp00DZjJgPP8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLFFoJK3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aruT4YoK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F39606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:35:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C41606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:36:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLFFoJK3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B31F1F0089F;
-	Tue, 10 Nov 2026 12:35:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aruT4YoK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9557D1F0089F;
+	Tue, 10 Nov 2026 12:36:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794314137;
-	bh=rCkWHu6QuGmX7mGIMrRoJ4TwEAFbYDqFPAwlbYAdEvo=;
+	s=k20260515; t=1794314208;
+	bh=iDmvNu/rSDkI1oIEAKb9R+krLNKJ6C/ET3oP2FjeFX0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LLFFoJK3proK14Ytm4N5sgDCpm61Ogwf4Ci6MiL9sZCWcHhf19aY/IXvvZsGlKzlv
-	 jH1wNf3GC1YugP/cIDq0agvzxjZbBDzCSA+sl5ulb9YhwUal5+Jzzwp/xBRuvaLYWT
-	 0oUa19SjoaiBqangNvJ6XiyTeozfmyk4E4POQxEYJmm70uzCQSASRERwFGI4YURN3w
-	 DCrF026yOutRSo+qqu0WNHtiQnOPxeVlniGmyt2dwX2HxqdozkQOi2Yi6xSBeTgyrW
-	 bFHn2XM+UgKUwurXkc2mZ8njs3PeV3U1Fg3YUqGqh4rl49OmBgwDJmBzQDk2NrKTsc
-	 O+Su/kAKSF+hg==
+	b=aruT4YoKfSmMulx9uUwgx/uY+I9nKpNoJH5G47zvvlr5VXhH3aM3PjmxNBvLKOY6I
+	 W7PF8U1W924PsCU5LV3uFJgU1vTy4hIrVSnvZhjanatTrnD9LRErFaksrAIGAGeQYw
+	 6/VaDf7QG+cjQJkg/LSo+HzY+4vcIHXoNtaHmx+0oe9HR11O/p+sa6C9vX9pPCSCu+
+	 SLFHLjg0fPOxmKLwq9pyQX/B/RlbQ7kza5majCmOB4aXw3nWqbOKoSSdYiriePyh6+
+	 9qt61n34zu75rXMDYD3MNZC+6Jlne+4WK32hg8KE2rBGaD4sS+4oFSOK0/oziRuVba
+	 YUDeSpqMuLezA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Robin Snyders <robin@snyders.xyz>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Nikhil Solanke <nikhilsolanke5@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] power: supply: qcom_smbx: validate battery float voltage
-Date: Tue, 10 Nov 2026 07:35:36 -0500
-Message-ID: <20261110123514.1260705-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] usb: core: Add quirk for 255-bytes initial config read
+Date: Tue, 10 Nov 2026 07:36:45 -0500
+Message-ID: <20261110123625.1288453-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052858-failed-6.6-a2d7dc538da2@kernel.org>
-References: <20261107052858-failed-6.6-a2d7dc538da2@kernel.org>
+In-Reply-To: <20261107053324-failed-6.6-40224df29729@kernel.org>
+References: <20261107053324-failed-6.6-40224df29729@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,162 +64,189 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Robin Snyders <robin@snyders.xyz>
+From: Nikhil Solanke <nikhilsolanke5@gmail.com>
 
-[ Upstream commit a2d7dc538da2cb4a7426f0742197e762cb635f38 ]
+[ Upstream commit 152f174a13618bec1f842d2deb69245cb2ace51f ]
 
-power_supply_get_battery_info() leaves absent optional properties at
--EINVAL. The driver uses voltage_max_design_uv without checking it, so a
-missing or out-of-range value can become an invalid float-voltage
-selector.
+Certain third-party USB game controllers exposing (or spoofing) an Xbox
+360-compatible interface (VID:PID 045e:028e) fail to enumerate under Linux.
+The device disconnects from the bus without responding to the initial
+GET_DESCRIPTOR(CONFIGURATION) request, and the kernel logs 'unable to read
+config index 0 descriptor/start: -71'.
 
-Prefer the constant-charge voltage because it describes the charger's CV
-target, then fall back to the battery design voltage. Both properties are
-optional in the simple-battery binding, so preserve the hardware setting
-when neither is present. Reject a supplied target outside the SMB2 range.
+The device then falls back to a secondary Android HID mode (with a
+different VID:PID), losing XInput functionality including rumble support.
+The failure reproduces across multiple machines, host controller types, and
+kernel versions including current mainline and LTS. The device enumerates
+correctly and remains in XInput mode under Windows. Notably, the device
+enumerates correctly in Android mode when the same 9-byte request
+is issued for that mode's configuration descriptor, confirming the firmware
+bug is specific to the XInput mode.
 
-smb_init_hw() enables charging before battery data is parsed and before
-the remaining fallible probe steps. Save the initial charging-enable bit
-and install a managed rollback before initialization. Keep the rollback
-active across battery-info, voltage, IRQ and wake-IRQ setup, then remove it
-only after probe can no longer fail.
+usbmon traces from Linux and Wireshark/USBPcap traces from Windows are
+identical up to the point of failure, with no visible protocol-level
+difference explaining the divergence. The root cause was identified when
+Michal Pecio discovered via a QEMU bus-level capture that Windows does not
+use wLength=9 for the initial config descriptor request; it uses
+wLength=255. Alan Stern subsequently confirmed this with a bus
+analyzer on a different USB 2.0 device, and Michal verified the behavior
+goes back to Windows 95 OSR2.1.
 
-Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Robin Snyders <robin@snyders.xyz>
-Link: https://patch.msgid.link/20260812-qcom-smbx-fixes-v1-4-eb48246be599@snyders.xyz
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-[ sashal: adapted smb_ identifiers to the existing smb2_ naming convention ]
+So, add a new quirk flag USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE which causes
+usb_get_configuration() to issue a 255 byte sized configuration request
+instead of USB_DT_CONFIG_SIZE (9) for the initial
+GET_DESCRIPTOR(CONFIGURATION) request, mimicking long-standing Windows
+behavior.
+
+This patch intentionally does not add any new VID:PID entries using this
+quirk. Some affected Xbox 360-compatible controllers spoof Microsoft's
+VID:PID, while genuine Microsoft controllers already enumerate correctly
+and do not require this quirk. Other affected clone devices use their own
+VID:PID pairs and can be added individually as they are identified.
+
+Suggested-by: Alan Stern <stern@rowland.harvard.edu>
+Suggested-by: Michal Pecio <michal.pecio@gmail.com>
+Closes: https://lore.kernel.org/linux-usb/CAFgddh+JWdT4LLwMc5qjM8q_pBu-fRo2qADR5ovAKoGHWMQrRw@mail.gmail.com/
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable <stable@kernel.org>
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
+Signed-off-by: Nikhil Solanke <nikhilsolanke5@gmail.com>
+Link: https://patch.msgid.link/20260728195158.65162-2-nikhilsolanke5@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 40224df29729 ("USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/qcom_pmi8998_charger.c | 61 ++++++++++++++++++++-
- 1 file changed, 58 insertions(+), 3 deletions(-)
+ .../admin-guide/kernel-parameters.txt         |  5 +++
+ drivers/usb/core/config.c                     | 32 ++++++++++++++-----
+ drivers/usb/core/quirks.c                     |  4 +++
+ include/linux/usb/quirks.h                    |  3 ++
+ 4 files changed, 36 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/power/supply/qcom_pmi8998_charger.c b/drivers/power/supply/qcom_pmi8998_charger.c
-index 2ad6b87eba762..3c91d5a0c8c94 100644
---- a/drivers/power/supply/qcom_pmi8998_charger.c
-+++ b/drivers/power/supply/qcom_pmi8998_charger.c
-@@ -350,6 +350,7 @@
- /* pmi8998 registers represent current in increments of 1/40th of an amp */
- #define CURRENT_SCALE_FACTOR				25000
- #define SMB2_FLOAT_VOLTAGE_MIN_UV			3487500
-+#define SMB2_FLOAT_VOLTAGE_MAX_UV			4920000
- #define SMB2_FLOAT_VOLTAGE_STEP_UV			7500
- /* clang-format on */
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index fdbc2749fbb37..50e988c8995fc 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -6904,6 +6904,11 @@
+ 				q = USB_QUIRK_FORCE_ONE_CONFIG (Device
+ 					claims zero configurations,
+ 					forcing to 1);
++				r = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE (Device
++					fails during initialization when asked for
++					9-bytes configuration descriptor request.
++					Ask for 255-bytes request instead to mirror
++					Windows' behavior);
+ 			Example: quirks=0781:5580:bk,0a5c:5834:gij
  
-@@ -377,6 +378,7 @@ struct smb2_register {
-  * @base:		Base address for smb2 registers
-  * @regmap:		Register map
-  * @batt_info:		Battery data from DT
-+ * @initial_charge_enable: Charging enable state before hardware setup
-  * @status_change_work: Worker to handle plug/unplug events
-  * @cable_irq:		USB plugin IRQ
-  * @wakeup_enabled:	If the cable IRQ will cause a wakeup
-@@ -390,6 +392,7 @@ struct smb2_chip {
- 	unsigned int base;
- 	struct regmap *regmap;
- 	struct power_supply_battery_info *batt_info;
-+	u8 initial_charge_enable;
- 
- 	struct delayed_work status_change_work;
- 	int cable_irq;
-@@ -909,6 +912,19 @@ static int smb2_init_hw(struct smb2_chip *chip)
- 	return 0;
- }
- 
-+static void smb2_restore_charge_enable(void *data)
-+{
-+	struct smb2_chip *chip = data;
-+	int rc;
+ 	usbhid.mousepoll=
+diff --git a/drivers/usb/core/config.c b/drivers/usb/core/config.c
+index 7713526680d74..d9f874d776323 100644
+--- a/drivers/usb/core/config.c
++++ b/drivers/usb/core/config.c
+@@ -891,6 +891,18 @@ int usb_get_configuration(struct usb_device *dev)
+ 	unsigned char *bigbuffer;
+ 	struct usb_config_descriptor *desc;
+ 	int result;
++	size_t usb_config_req_size;
 +
-+	rc = regmap_update_bits(chip->regmap,
-+				chip->base + CHARGING_ENABLE_CMD,
-+				CHARGING_ENABLE_CMD_BIT,
-+				chip->initial_charge_enable);
-+	if (rc < 0)
-+		dev_err(chip->dev, "Couldn't restore charging state: %d\n", rc);
-+}
-+
- static int smb2_init_irq(struct smb2_chip *chip, int *irq, const char *name,
- 			 irqreturn_t (*handler)(int irq, void *data))
- {
-@@ -937,6 +953,9 @@ static int smb2_probe(struct platform_device *pdev)
- 	struct power_supply_config supply_config = {};
- 	struct power_supply_desc *desc;
- 	struct smb2_chip *chip;
-+	unsigned int charge_enable;
-+	unsigned int float_voltage_sel;
-+	int float_voltage_uv;
- 	int rc, irq;
++	/*
++	 * We usually start by grabbing the first 9-bytes descriptor so we know
++	 * how long the whole configuration is. Some devices with quirky
++	 * firmware will fail enumeration, so if the quirk is set, use 255 instead,
++	 * mirroring the behavior of Windows.
++	 */
++	if (dev->quirks & USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE)
++		usb_config_req_size = 255;
++	else
++		usb_config_req_size = USB_DT_CONFIG_SIZE;
  
- 	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
-@@ -967,6 +986,18 @@ static int smb2_probe(struct platform_device *pdev)
- 				     "Couldn't get usbin_i IIO channel\n");
- 	}
+ 	if (ncfg > USB_MAXCONFIG) {
+ 		dev_notice(ddev, "too many configurations: %d, "
+@@ -917,15 +929,13 @@ int usb_get_configuration(struct usb_device *dev)
+ 	if (!dev->rawdescriptors)
+ 		return -ENOMEM;
  
-+	rc = regmap_read(chip->regmap, chip->base + CHARGING_ENABLE_CMD,
-+			 &charge_enable);
-+	if (rc < 0)
-+		return dev_err_probe(chip->dev, rc,
-+				     "Couldn't read charging state\n");
-+
-+	chip->initial_charge_enable = charge_enable & CHARGING_ENABLE_CMD_BIT;
-+	rc = devm_add_action_or_reset(chip->dev, smb2_restore_charge_enable, chip);
-+	if (rc)
-+		return dev_err_probe(chip->dev, rc,
-+				     "Couldn't register charging state rollback\n");
-+
- 	rc = smb2_init_hw(chip);
- 	if (rc < 0)
- 		return rc;
-@@ -1001,13 +1032,35 @@ static int smb2_probe(struct platform_device *pdev)
- 		return dev_err_probe(chip->dev, rc,
- 				     "Failed to init status change work\n");
+-	desc = kmalloc(USB_DT_CONFIG_SIZE, GFP_KERNEL);
++	desc = kmalloc(usb_config_req_size, GFP_KERNEL);
+ 	if (!desc)
+ 		return -ENOMEM;
  
--	rc = (chip->batt_info->voltage_max_design_uv -
--	      SMB2_FLOAT_VOLTAGE_MIN_UV) / SMB2_FLOAT_VOLTAGE_STEP_UV;
-+	if (power_supply_battery_info_has_prop(chip->batt_info,
-+					       POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX)) {
-+		float_voltage_uv =
-+			chip->batt_info->constant_charge_voltage_max_uv;
-+	} else if (power_supply_battery_info_has_prop(chip->batt_info,
-+					      POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN)) {
-+		float_voltage_uv = chip->batt_info->voltage_max_design_uv;
-+	} else {
-+		dev_warn(chip->dev, "No battery float voltage; preserving hardware setting\n");
-+		goto skip_float_voltage;
-+	}
-+
-+	if (float_voltage_uv < SMB2_FLOAT_VOLTAGE_MIN_UV ||
-+	    float_voltage_uv > SMB2_FLOAT_VOLTAGE_MAX_UV)
-+		return dev_err_probe(chip->dev, -EINVAL,
-+				     "float voltage %d uV outside %d-%d uV\n",
-+				     float_voltage_uv,
-+				     SMB2_FLOAT_VOLTAGE_MIN_UV,
-+				     SMB2_FLOAT_VOLTAGE_MAX_UV);
-+
-+	float_voltage_sel =
-+		(float_voltage_uv - SMB2_FLOAT_VOLTAGE_MIN_UV) /
-+		SMB2_FLOAT_VOLTAGE_STEP_UV;
- 	rc = regmap_update_bits(chip->regmap, chip->base + FLOAT_VOLTAGE_CFG,
--				FLOAT_VOLTAGE_SETTING_MASK, rc);
-+				FLOAT_VOLTAGE_SETTING_MASK, float_voltage_sel);
- 	if (rc < 0)
- 		return dev_err_probe(chip->dev, rc, "Couldn't set vbat max\n");
+ 	for (cfgno = 0; cfgno < ncfg; cfgno++) {
+-		/* We grab just the first descriptor so we know how long
+-		 * the whole configuration is */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+-		    desc, USB_DT_CONFIG_SIZE);
++		    desc, usb_config_req_size);
+ 		if (result < 0) {
+ 			dev_err(ddev, "unable to read config index %d "
+ 			    "descriptor/%s: %d\n", cfgno, "start", result);
+@@ -935,16 +945,14 @@ int usb_get_configuration(struct usb_device *dev)
+ 			dev->descriptor.bNumConfigurations = cfgno;
+ 			break;
+ 		} else if (result < 4) {
+-			dev_err(ddev, "config index %d descriptor too short "
+-			    "(expected %i, got %i)\n", cfgno,
+-			    USB_DT_CONFIG_SIZE, result);
++			dev_err(ddev, "config index %d descriptor too short (asked for %zu, got %i)\n",
++			    cfgno, usb_config_req_size, result);
+ 			result = -EINVAL;
+ 			goto err;
+ 		}
+ 		length = max((int) le16_to_cpu(desc->wTotalLength),
+ 		    USB_DT_CONFIG_SIZE);
  
-+skip_float_voltage:
- 	rc = smb2_init_irq(chip, &irq, "bat-ov", smb2_handle_batt_overvoltage);
- 	if (rc < 0)
- 		return rc;
-@@ -1029,6 +1082,8 @@ static int smb2_probe(struct platform_device *pdev)
- 	if (rc < 0)
- 		return dev_err_probe(chip->dev, rc, "Couldn't set wake irq\n");
+-		/* Now that we know the length, get the whole thing */
+ 		bigbuffer = kmalloc(length, GFP_KERNEL);
+ 		if (!bigbuffer) {
+ 			result = -ENOMEM;
+@@ -954,6 +962,13 @@ int usb_get_configuration(struct usb_device *dev)
+ 		if (dev->quirks & USB_QUIRK_DELAY_INIT)
+ 			msleep(200);
  
-+	devm_remove_action(chip->dev, smb2_restore_charge_enable, chip);
++		/* Skip the second read if we already got everything */
++		if (result >= length) {
++			memcpy(bigbuffer, desc, length);
++			goto store_and_parse;
++		}
 +
- 	platform_set_drvdata(pdev, chip);
++		/* Get the whole thing */
+ 		result = usb_get_descriptor(dev, USB_DT_CONFIG, cfgno,
+ 		    bigbuffer, length);
+ 		if (result < 0) {
+@@ -968,6 +983,7 @@ int usb_get_configuration(struct usb_device *dev)
+ 			length = result;
+ 		}
  
- 	/* Initialise charger state */
++store_and_parse:
+ 		dev->rawdescriptors[cfgno] = bigbuffer;
+ 
+ 		result = usb_parse_configuration(dev, cfgno,
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index 6ed3805994055..23d5c30332ffb 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -143,6 +143,10 @@ static int quirks_param_set(const char *value, const struct kernel_param *kp)
+ 				break;
+ 			case 'q':
+ 				flags |= USB_QUIRK_FORCE_ONE_CONFIG;
++				break;
++			case 'r':
++				flags |= USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE;
++				break;
+ 			/* Ignore unrecognized flag characters */
+ 			}
+ 		}
+diff --git a/include/linux/usb/quirks.h b/include/linux/usb/quirks.h
+index b3cc7beab4a3c..a4043b33c2c2a 100644
+--- a/include/linux/usb/quirks.h
++++ b/include/linux/usb/quirks.h
+@@ -81,4 +81,7 @@
+ /* Device claims zero configurations, forcing to 1 */
+ #define USB_QUIRK_FORCE_ONE_CONFIG		BIT(18)
+ 
++/* Use a 255 bytes config descriptor request mirroring windows behavior */
++#define USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE	BIT(19)
++
+ #endif /* __LINUX_USB_QUIRKS_H */
 -- 
 2.53.0
 
