@@ -1,57 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352557;
-	b=QrvbvTjtIqkcJSXoFaumbuoUNXHGipaTX6MRmzEJ2JKtBso1aTvf3WOTt/SLus38BPd/
-	 ANfiqLcSA2pGmCm50VlcQicbula4FCc8txojg2nyfwygG1lpMzRjGM1xO63aKP2QsTwC2
-	 CrGK/rMVy1YiGwSlcFAK1TwR4O99k0XlNoXuoIc4d86nbCEd6l2d0ZIw8xSa55K8fqtQ4
-	 crxHYmVajL/SZdqDO/9ZcNDIhsom1af+xG3ffxJ3g5UA49leM4S49YBAYzU7tmE0iALYg
-	 hpzTX5SHpxTZ8h7B9Ljkb5ap+d/I+AHxD8Hmz0JXKBKN6fC6e7wWH1KNe0nP9JjRcXw==
+	t=1794352582;
+	b=Wu0a7YddUdxWe4BQ8yVniKcm+G/gVsdLCU7xn/FkRZwa7uNPvRz828jEZPXt3A8sldBf
+	 ETDyiUSssfHamks9/yXcP532Fbtfoj8h6tMLHEx2tEovaUI8WWIro4pI4yJ/q32upcHKd
+	 0AkJxvgN68EGgYS91HRzEqgl8CSJPNOorPWrE3VWfVJM1fjukO7LepVRvhhp9drSs2c/Y
+	 KaDh77EV0O6r5DwrhFqO6dK2Uc+nGTIXdVxPn1OYuAbhDyuTNMfqAdZf0jI8r6ERF6Jos
+	 jGNJmzmJrmEcgbjkxyY/BMTp+av+jdJmWJbicRIfB8PZhM679o8O12OrqWMHtR18jlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352582;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PC1f9f2W0JhgJ3KjLzic6BCYqLOuskWe9p8KoczSyOA=;
-	b=2zfPWULcMNReDkIpD38iKRjJ5mCS9oKQykDcbHbw7S1FyMvNWHpliLEh7t/qFuzybNRi
-	 z3YgAm0nAjE2PxQJzwsQDIkkwr7MbejRmNTjhM5BLTQYxlXi3oilj8vt+giv+tDUZTvH6
-	 AkM7WYgjzyv+eximarFvkEscYM6j7pkt5oKrw77xodfzbx4bnzW8M8QmzAgSdWTrlj1QL
-	 dlwPwScUd1X+8nLDGIRP4kfPIo+C//d5trx/qyOpL+yJzb9Bt0ajFvFYsfUKgOx0pSEts
-	 llt+yqKAquNL6iEBhBo7U5x1zfr5DDu+TbipKRaUluMzXJwAQ6HqtX0qs5u4apbFH9Q==
+	bh=7WZ6GgebBSZw+KH5U75Tle8HwjkyXjZ30DxWw9ZUVPs=;
+	b=1QCGmdsFEEhlv5Br8m7pxRrHAFzI8bRlZQTpvHlXtw9Ha2AEySh+8+gXyWt1n2fvwgj+
+	 sL+SWnLAifZrHbes1iiDETpaVI0tbNhkXGXuNQIKpsLofoXND7glLnKIEyXMJ41Sld+eR
+	 D8XQvzWfg4Y5j1+HzhPNT5SdRnxqq7E6iuzJ6x6u41qzAXVn4XnPe+c8+mBOQEzxSX0xm
+	 /aR51nkah/6m9hRnwm8VftjmuiUHl++7MnyKc1Ye7wXtPVYLfO0Oad6BJNyVAbPb37Qd3
+	 7nL0RU69RWrLGiwLRN5K5Ji6f1cEb47/xuNRJiiu9EVXCXhq6uzE8absT20DUCwdamw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URW1TP2C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j5tSti0K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D97606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:15:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA59606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URW1TP2C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C86F1F0093E;
-	Tue, 10 Nov 2026 23:15:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j5tSti0K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A191F0093C;
+	Tue, 10 Nov 2026 23:16:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352557;
-	bh=PC1f9f2W0JhgJ3KjLzic6BCYqLOuskWe9p8KoczSyOA=;
+	s=k20260515; t=1794352581;
+	bh=7WZ6GgebBSZw+KH5U75Tle8HwjkyXjZ30DxWw9ZUVPs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=URW1TP2C/8nWKKUfqguBldhqVKefZRz6SvyZ5dgTHe8z8dqigqqnPQtcWoA4i6YzR
-	 Jwyo1oRHFq6mQMVJtBz2/y5yv1QaJtiuFLKb5Di+mlnj2MNESqswSABgDklaGc1uLP
-	 g2VC3rPhfFEEpjYYZ6VUP+ONUJt3H9subTxuu528RcedOMT2uJvw8CJ0qi+iIV/5Un
-	 aNg09aI1OytNJvyYWYDeqYY1hfdNdBcqNMSGQ2a3JY8qlOYjgr3TqAOi7jevlRi7Lf
-	 MasA4mVFgms+78jCDoaHhbna6N19SNmypYQc3ufSS7dBrJv80qUCImT02thN9WPoPU
-	 DiTzpfTbs8P4w==
+	b=j5tSti0K/EFJiMWOGnxA7qwCdi3oeEKhUq7rBxZniW9keMsEaUUeqxMdOIE0gOzoG
+	 YzQfjmgy4wXABNOx42dZlzBwCQ4i+E31HO+WF9ZdFvSgwpAU2csMHSEKWJlTro8fFF
+	 5/5Rwl2BSQR2XS3vQ71RQ1c48RBONB9rv+87LDefe/+b+X/KGP+rNxTgeLo1Mavr+9
+	 NGID8qGMPpAH1kuMd6F5J163bw6Bd7i/DrFknnXFNPYalGuKV/NC6K2sEZaoXIGZSL
+	 nY0qvzzW3zZCwJaeVwHHJbLHYxTZ8cwT5HJu671fKm7sn5HGtoWqC2mKiK8tFE6s3l
+	 LafWh9iIHONFw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ian Rogers <irogers@google.com>,
+Cc: Pedro Falcato <pfalcato@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Samarth Narang <samarth.colleges@gmail.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Zi Yan <ziy@nvidia.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] perf evsel: Close the fds opened so far when disabling missing features
-Date: Tue, 10 Nov 2026 18:15:54 -0500
-Message-ID: <20261110231345.67315-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/madvise: atomically clear the young bit on THP MADV_COLD
+Date: Tue, 10 Nov 2026 18:16:18 -0500
+Message-ID: <20261110231348.99755-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110231345.67315-1-sashal@kernel.org>
-References: <20261107051229-failed-6.18-16d1234793d4@kernel.org>
- <20261110231345.67315-1-sashal@kernel.org>
+In-Reply-To: <20261107062842-failed-5.10-246c8cc33438@kernel.org>
+References: <20261107062842-failed-5.10-246c8cc33438@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,89 +73,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+From: Pedro Falcato <pfalcato@suse.de>
 
-[ Upstream commit 16d1234793d42a5a594db99522845996ab8e0d29 ]
+[ Upstream commit 246c8cc33438a71c28f9b86baa492d9a0a130316 ]
 
-evsel__open_cpu() opens the events one by one and, when an open fails
-with EINVAL and evsel__detect_missing_features() has a feature to leave
-out, goes back to fallback_missing_features to open them all again from
-start_cpu_map_idx, without closing what the abandoned attempt opened:
-the fd of every CPU or thread that was opened before the failing one is
-overwritten in the FD() array, leaking it.
+As-is, madvise_cold_or_pageout_pte_range() discards the hardware young bit
+by invalidating the PMD, doing pmd_mkold() and subsequently writing to the
+pmd again.  However, it does so in a racy manner, looking at a
+possibly-stale snapshot.  It's entirely possible that a write elsewhere
+set the hardware D bit, which this logic now loses.
 
-Close them first, the same way out_close does when returning an error,
-leaving the entries at -1 for the retry.
+Fix it by using pmdp_test_and_clear_young().  This is an atomic
+modification of the PMD entry, and thus safe against any possible racing
+writes.  As a (nice) side-effect, this elides one non-required TLB flush
+in pmdp_invalidate().
 
-Fixes: af954f76eea5 ("perf tools: Check fallback error and order")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-173532@kernel.org
-Reviewed-by: Ian Rogers <irogers@google.com>
-Tested-by: Ian Rogers <irogers@google.com>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+This bug can interact with the swapping system in complicated ways,
+leading to data loss.  For instance, if a folio is marked lazyfree, but
+was later read from, and then MADV_COLD'd while racing a write to that
+same THP, dropping the dirty bit may lead to data loss as
+reclaim/MADV_PAGEOUT drops the "clean" anon folio:
+
+T0                                T1
+================================================================
+MADV_FREE(thp)			|
+  folio marked lazyfree		|
+read(thp)			|
+  PMD marked young by hardware	|
+				| MADV_COLD(thp)
+write(thp)			|   if (pmd_young(pmd)) {
+  PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
+MADV_PAGEOUT/reclaim		|
+  dirty bit may or may not be   |
+  set				|
+    reclaim/pageout may drop    |
+    the folio			|
+
+Link: https://lore.kernel.org/20261013191719.95502-1-pfalcato@suse.de
+Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Samarth Narang <samarth.colleges@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context because the pmd_young() check lacks the !pageout guard ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/perf/util/evsel.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+ mm/madvise.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index 4fa7cbc51047c..654e9bbd66f98 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -2642,6 +2642,19 @@ static bool evsel__detect_missing_features(struct evsel *evsel, struct perf_cpu
- 	return false;
- }
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 8b6ed35c1d265..ad33cdbf27a88 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -361,10 +361,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		}
  
-+static void evsel__close_fds(struct evsel *evsel, int start_cpu_map_idx,
-+			     int cpu_map_idx, int thread, int nthreads)
-+{
-+	do {
-+		while (--thread >= 0) {
-+			if (FD(evsel, cpu_map_idx, thread) >= 0)
-+				close(FD(evsel, cpu_map_idx, thread));
-+			FD(evsel, cpu_map_idx, thread) = -1;
-+		}
-+		thread = nthreads;
-+	} while (--cpu_map_idx >= start_cpu_map_idx);
-+}
-+
- static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
- 		struct perf_thread_map *threads,
- 		int start_cpu_map_idx, int end_cpu_map_idx)
-@@ -2792,8 +2805,14 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
- 	if (err == -EMFILE && rlimit__increase_nofile(&set_rlimit))
- 		goto retry_open;
+ 		if (pmd_young(orig_pmd)) {
+-			pmdp_invalidate(vma, addr, pmd);
+-			orig_pmd = pmd_mkold(orig_pmd);
+-
+-			set_pmd_at(mm, addr, pmd, orig_pmd);
++			pmdp_test_and_clear_young(vma, addr, pmd);
+ 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+ 		}
  
--	if (err == -EINVAL && evsel__detect_missing_features(evsel, cpu))
-+	if (err == -EINVAL && evsel__detect_missing_features(evsel, cpu)) {
-+		/*
-+		 * The restart opens the events again, so close what this
-+		 * attempt opened before its entries are overwritten.
-+		 */
-+		evsel__close_fds(evsel, start_cpu_map_idx, idx, thread, nthreads);
- 		goto fallback_missing_features;
-+	}
- 
- 	if (evsel__precise_ip_fallback(evsel))
- 		goto retry_open;
-@@ -2803,14 +2822,7 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
- 		threads->err_thread = thread;
- 
- 	old_errno = errno;
--	do {
--		while (--thread >= 0) {
--			if (FD(evsel, idx, thread) >= 0)
--				close(FD(evsel, idx, thread));
--			FD(evsel, idx, thread) = -1;
--		}
--		thread = nthreads;
--	} while (--idx >= start_cpu_map_idx);
-+	evsel__close_fds(evsel, start_cpu_map_idx, idx, thread, nthreads);
- 	errno = old_errno;
- out:
- 	if (err)
 -- 
 2.53.0
 
