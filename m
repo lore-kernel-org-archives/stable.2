@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273090;
-	b=uZyD53nEtI/2ACAUqQPBGG+Sw+kKw16Y4h3URJK0VlfpyExtZ97d1qXFQRmZbGR+CvFq
-	 R5kYOWommQaSkFSDH62SBKNiOKeDrwU60MpPGnGoVZB3/gOtFF6Lu8FouYnSv3xZXo3+f
-	 gO5+TZnoDyhffaFuWFw5vFFlNeSfjIxWj9ywYEFFhLsyQMHBH4d+zAZX2NU/k7cFzVu5Z
-	 yKnOSUe7Ishk14BGR5i96HICyenD8NIa711dfZn6x0UjNI5KjXMQbuf/wksM/sgKgl9El
-	 szsFhCafcC6wgK0wuXf7j8q+MDEKqDeH4FPgRTqMtTw23bpHCHX2triWEcPbZMXJ+uA==
+	t=1794273093;
+	b=h7a9PBMW51M+6c+sCwd4TkWuqi47fpTYH2OWS0cODFPxbnEskhzSBRPbjfUq2aGoG+Ym
+	 ldFWpUihMqKwbmZeLy8cG97xTqQPYLYhH2eTAPZ0PtLiBWXoEpz0uOeGhTkj8n7ONxgPt
+	 BEAWXqbaxJKiEgFelNxIFVV43hCcA+BX98L81awMoT6Vzkso3yXYe6GQzmRP+kub16Rvz
+	 gY3by7+58jU4VpOJgWm80fFDHhqWPLB59KKHAokIRwe8L2gZGiRhg4LvZwCSM84mEVj9h
+	 7M2uvSijxA7P3lnHxm8ZbrWfkFQ8R2WBILrRpkUM8ZAKodOY/z7l2mqS4T5LAwrw58g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273090;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273093;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lxTGjhtxuQp5ya3OAcIjXmpeK8Pw3kSRM3+rGtDu4NI=;
-	b=CcVRmDcL4JSGAJu+jGUys2HSkPcHMstcetlvMJBXj9C+4G9JKbQUr0TmCSVuDyscXjBb
-	 3j6QuXTmKDZ5ZrP0slTWavEhiwn2+UkOUnKN0ZMG/YNlOIYT2z8HEL7BNy6cPocY9CRpH
-	 NNhhaRQpudTgLikT2yRr+tn3y7kwErH8UvgLEiPl4LS5dVDPwsOGBHcEqP+VOGvO1Zebi
-	 Hxm4cdBSPQlfTMwxd26roufFYI8otscREb2c4O+ZczlYJTL1N9cfiGHXXxAh3gOURKPbW
-	 UCmwIgBcNqcJEakBHF91GWC6VocxUFjeE9WjzeSMo19iW7BaajPGp17hj0Cf3ASmRYg==
+	bh=vEfJGFxMMjdUTV91b5nnNtb+AMI0qXCVXZbbJHISd0s=;
+	b=DhplcGg1Bm7usdmDsAZaIvrkCk5Ejcx0pKVCLFefb5ZNYVb7sEs2xVufB2fmHjL+WUqV
+	 4FEl3Hj4IaSa1KBMu6hP9VQHgwvLc6N2YxGF+LcgbC0b4UnrxtS56X5RgYwZ5OL35jmMq
+	 76oWOD70vVyDnATyvDRErrgpnv6lBlZGZjFSU1eoJZ/zf3PNCtlDL5vOtMQB/O74jSF2Y
+	 Aso5iyf37Ghqp9VAbQgp7jlnMaEMZNdsItiNcXOCACoT+qVbt3ri3/B/EQnXfKX/oNeUJ
+	 paG3CQzDjuDfgcSb46WSQclMjQ55n7dzBBS6IFYFgsDUrTTR9nxI5VCwNdFzhbh+S/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RrFzIuCk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3pegHvp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F75D606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BF9606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RrFzIuCk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E689B1F0089F;
-	Tue, 10 Nov 2026 01:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g3pegHvp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D98441F0089F;
+	Tue, 10 Nov 2026 01:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273090;
-	bh=lxTGjhtxuQp5ya3OAcIjXmpeK8Pw3kSRM3+rGtDu4NI=;
+	s=k20260515; t=1794273092;
+	bh=vEfJGFxMMjdUTV91b5nnNtb+AMI0qXCVXZbbJHISd0s=;
 	h=From:To:Cc:Subject:Date;
-	b=RrFzIuCkm+WIXy+R3ZYFCDo56v3JY5YeMSeEAxl4EXd+351r9EXZlY3JDExlUPOWi
-	 pwq4XbMTp82RuXoPq037U3ukV1DyFshA8xmsPoLSpRaPN3gNdgpeuXmVNemE0nt6Bj
-	 L9ESO9AJhHTfPnhQEX9btra0uRw1sbS7cIfEEaxIxjos1OqsQv6rF1h59GAUHZyfi7
-	 EEzvvTbyoyYIr9GjnBqvTMmwFvbE+rmgKvw42g8WMUAnYuqkAwUyYiOMuN0Xui8WYQ
-	 WC94qAL4qhg47lh08NvSiboLHhjd2iLjfEkowKcKenzoV/vbSZNbiAya/k3IJ3IXys
-	 PZETw1r4PMEXg==
+	b=g3pegHvp+xlhTMKJcnEqtw924ClyCLo6EzMfskoTSR3dZGevDxEl3BrHLmVxicaxi
+	 uM3uflTm9bXVVSL/iDC4rWjgMumAmc7kal1FzrQ5jlWuxA65uD6k8a4Q8AZxFbGFKO
+	 wRpXJLDrE+NKvb05rfLUd2kP9VwpNEWfH2yskUpjV62TBk8sa1Zb5ydd4n1LnWePaS
+	 mKgagezaauo89tCdVP9w8BHadSzFnZm2qZwAVY51E4S/grMIAynC0MJp+Zc4BY+f63
+	 czRAdQmkTD6tUkwRdGs+/vxedrk+7dVaXjyvQHksaFIWyRsJvYHNmEoEDgJ55pgU+H
+	 Rw5/9jZZuWT6Q==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	ljs@kernel.org,
-	josef@toxicpanda.com,
-	harry@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
+To: josef@toxicpanda.com,
+	riel@surriel.com,
 	usama.anjum@arm.com,
-	baolin.wang@linux.alibaba.com
+	ziy@nvidia.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/rmap: handle device-exclusive entries in folio_referenced_one()" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:11:27 -0500
-Message-ID: <20261109201127-failed-6.6-f3c493d2f42b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:11:30 -0500
+Message-ID: <20261109201130-failed-6.6-dc24e273244e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,109 +71,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c
+git cherry-pick -x dc24e273244e9d712257d5a6c20a32c7f5ca84e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201127-failed-6.6-f3c493d2f42b@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201130-failed-6.6-dc24e273244e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:38 +0100
-Subject: [PATCH] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
+From dc24e273244e9d712257d5a6c20a32c7f5ca84e6 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:35 +0100
+Subject: [PATCH] mm/filemap: read mapping->a_ops->free_folio under i_lock
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+after the inode has been freed. Once the folio is deleted from the
+pagecache it no longer pins the mapping, so after i_lock is dropped
+e.g., a concurrent final iput() can evict and free the inode before
+filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+Most callers hold a reference on the inode, but not all.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
+Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
+must not assume the original address_space mapping still exists.
 
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
+Fix it by loading ->free_folio while i_lock is still held, similar to
+what folio_unmap_invalidate() does.
 
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
+Inline filemap_free_folio() into its remaining caller such that
+delete_from_page_cache_batch() also just loads the callback before
+dropping the i_lock.
 
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The bug was found by code inspection and has not been reproduced.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: get rid of filemap_free_folio() entirely; improve patch description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/rmap.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ mm/filemap.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1131b76bbbc28..0faef46806e5c 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
- 	int ptes = 0, referenced = 0;
- 	unsigned int nr;
-+	pte_t pteval;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b74bc1e5015c6..906b013c11eb3 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -227,18 +227,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
+ 	page_cache_delete(mapping, folio, shadow);
+ }
  
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		address = pvmw.address;
-@@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
- 			return false;
- 		}
+-static void filemap_free_folio(const struct address_space *mapping,
+-		struct folio *folio)
+-{
+-	void (*free_folio)(struct folio *);
+-
+-	free_folio = mapping->a_ops->free_folio;
+-	if (free_folio)
+-		free_folio(folio);
+-
+-	folio_put_refs(folio, folio_nr_pages(folio));
+-}
+-
+ /**
+  * filemap_remove_folio - Remove folio from page cache.
+  * @folio: The folio.
+@@ -250,6 +238,7 @@ static void filemap_free_folio(const struct address_space *mapping,
+ void filemap_remove_folio(struct folio *folio)
+ {
+ 	struct address_space *mapping = folio->mapping;
++	void (*free_folio)(struct folio *folio);
  
--		if (pvmw.pte && folio_test_large(folio)) {
-+		if (pvmw.pte)
-+			pteval = ptep_get(pvmw.pte);
+ 	BUG_ON(!folio_test_locked(folio));
+ 	spin_lock(&mapping->host->i_lock);
+@@ -258,9 +247,12 @@ void filemap_remove_folio(struct folio *folio)
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	filemap_free_folio(mapping, folio);
++	if (free_folio)
++		free_folio(folio);
++	folio_put_refs(folio, folio_nr_pages(folio));
+ }
+ 
+ /*
+@@ -320,6 +312,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ 				  struct folio_batch *fbatch)
+ {
++	void (*free_folio)(struct folio *folio);
+ 	int i;
+ 
+ 	if (!folio_batch_count(fbatch))
+@@ -337,10 +330,16 @@ void delete_from_page_cache_batch(struct address_space *mapping,
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_lru_list_add(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	for (i = 0; i < folio_batch_count(fbatch); i++)
+-		filemap_free_folio(mapping, fbatch->folios[i]);
++	for (i = 0; i < folio_batch_count(fbatch); i++) {
++		struct folio *folio = fbatch->folios[i];
 +
-+		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
- 			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
- 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
--			pte_t pteval = ptep_get(pvmw.pte);
++		if (free_folio)
++			free_folio(folio);
++		folio_put_refs(folio, folio_nr_pages(folio));
++	}
+ }
  
- 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
- 		}
-@@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
- 		 * are. —they could be on active/inactive lists or on MGLRU. So the
- 		 * simplest approach is to disable this look-around optimization.
- 		 */
--		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
-+		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
-+		    pte_present(pteval)) {
- 			if (lru_gen_look_around(&pvmw, nr))
- 				referenced++;
- 		} else if (pvmw.pte) {
--			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
-+			bool young = false;
-+
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + nr * PAGE_SIZE);
-+			if (young)
- 				referenced++;
- 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
- 			if (pmdp_clear_flush_young_notify(vma, address,
+ int filemap_check_errors(struct address_space *mapping)
 -- 
 2.53.0
 
