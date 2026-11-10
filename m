@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315501;
-	b=IccsFzLBIXzSLkYMwLiiAyQ0m13zADEDmckmY/vv+shRUx0mJ3FwwgUSnnxWYb07QyXD
-	 BGxBvz3cMRMp0Lo8pGg34vLvsUUJk0UyJdnXZny4vlmCIdK3Xc5p/Q0qE05JwXqFobR0n
-	 EileMk/rMZg15TkuniURp8V6e8o9my8Ca23DOFy3oE3BpcFmDmE6t9V/a5EBmy3EEHK0W
-	 r+ZR+sdFC6Au45zXMdq5Zl5BjgWYS5hHWvV38N00N31NJ3iFgBSmVHIzu+5vWP4QuwySC
-	 9IgK90sREQpIsRufEeeMbmuDgoX/QJklnngKh/PnxgaiX3YFafw4CBg4Y/iJAo+VdjA==
+	t=1794315559;
+	b=H4HOy6cJ5FBzpb4GGD6zmT3EbBE+q7tDIROG1rMxEPPyj/FVyTG6Lex92eB3QNSh+axW
+	 ZR5MoFFtMZFEl0myOj6X9MLE5m1/WdXOt8utHQegDoeNdtnUdoLYqBAC2ASlh/6a09sGa
+	 4urTy1O04gsCWMBZ8tABQ1F1YQ8om78/XUbcdeCvG7OjxLuQMfZII59Re4rDgsT82BUHD
+	 KEW91xEerNnGiSrNDrCxFBKcxhwSVC+F61wus/ZShGpnvu5pofL3OW56REY3Mo3/ldi/Y
+	 ZFpeKt7GURTQWe0khqE5elhVproYu0hcTFzvcHEgVCkIVyniuZNi9v3lzUMVne3Ag5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315501;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315559;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ywYVID8G930j6+bGkd3cU7Eb/95G4BaEVDPJSul/Tnk=;
-	b=mUKgrDQ4+v3TVC5SsnM6sgITuvkRChvjq57R1/avT1QhvykDAW3Bn8A/gULvdccX6j87
-	 MRhJvfEHlvqG1biUxfguCPK4Uy7oHIu0zgE/9tqUlLGrMTU35AUEBIMjWVh6lqH6OEl64
-	 g7k+DjEGtJtWTqwLqlPo4BfMFIfl/eRPX8Bcxv7NnRl+uoq0H7Aj4WHJOfPoNw87i1yLy
-	 TZtzpufjI4No4Tde+/Hk1wIrfFaUX+jzKMMYCob5E4HRy07rlzRMqNEqfFE9PMxbLsaxG
-	 SQrwvOt+k3tFEljofwrphbSEKiaM8ac1hPlRhMnyWCpvru2Z/+pIRtpVmR1nOuADqzA==
+	bh=2I2iJzPyd/AEFVdKmr8Kv9bzEeBw3Z9xLDXyvyF91b4=;
+	b=zt8VWGSsA7nfiqIBl71jE47wiVzYJp4gPHikLNZ7p5ZQZRJ3ezKZ0/nBKq53rJqD3UER
+	 tFDbTrdgVPMnvQ8PSGwsdlbJNBpcJxaHtYUiH/xAo/HlKdy8FseMn7rS1oCRTbDhYGkj7
+	 TMLwRzV1nKovxT6yhWles4eqDrwncKmZLEUJ85ZRsGTwQL6Em6h+0dqgCVsACvI9RitwZ
+	 5MrXigoWy6WRFy9SaicKisEZk/EC4FlKCMh7djUzlCiQAkyQ7gAwxaUdmSa322wT4To1z
+	 VGRhZeyldOhrhLyO3Zhc7hmvCHG4VWzet+Va695a7DYnYFoz7AqvWV0axpRiwgvbVlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YZ4Hjy0/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oY+NUnc6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE67606BFF3
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA56606A76A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:59:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZ4Hjy0/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6331B1F008A1;
-	Tue, 10 Nov 2026 12:58:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oY+NUnc6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5583E1F0089F;
+	Tue, 10 Nov 2026 12:59:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315500;
-	bh=ywYVID8G930j6+bGkd3cU7Eb/95G4BaEVDPJSul/Tnk=;
+	s=k20260515; t=1794315558;
+	bh=2I2iJzPyd/AEFVdKmr8Kv9bzEeBw3Z9xLDXyvyF91b4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YZ4Hjy0/2oBznL9GbtmGUtLEos2PV4oid8+0j7OVhPn8Ob2Aj3x85mbdoOwLBWVy4
-	 M0JVBp61yIkzcpcIBT+BLjgcrq78BFJ2Xl2oMNTp18oHkrXmV1X9vUaNEdObcRKJsW
-	 Rs1bCUyKEYoved0VFCADMfTZmUM4zpeXYceiVHWUOFl71TfcQcCdbmqT1ZHglhePju
-	 3q2hNQgPHAlHFu7OYzLJ+JRqHvc7/lEcjpk1yGG5XBXsXzUHSRFjpCcw65ArGCTNdX
-	 RdMgU1bGPcxKjGcbBFEyH+cjYclmpXg/GWwPM9+QuPbrVxim886HAMpJd0DT+ACi5P
-	 arJasaHBzQ2KA==
+	b=oY+NUnc6F7QLpm7cIj5ONJzSzZxW+UDc+LakTU7gxtf6+Q+daTNYIEqt1ZtOWWgNT
+	 Veyf9iy1L8m7DMegkjLYCCBv/2e4Kmge3of/WN7+5COdOxpieHglCQLL7K/omx3U7S
+	 Sq/zBp8tiyEYMiWU5wE1fSUiLV4dx7kM+z6RwuX4aIO3DeXUmuMpriY8oba/zMWqgT
+	 SLuRUMvhHPqMgIoL/X6JIeTpDuJXVlJ9IhxI4E04d1QEQkgfdlW62Dksak12Tdox69
+	 EDAQ8KOK1jNyUeBZT22epzjW0C/OtVRWSmxK1QY101CkhzlhBRSWqgNzlBMriaSFFR
+	 lX5IP2+hofanA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiaming Zhang <r772577952@gmail.com>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] gfs2: reject invalid inode sizes
-Date: Tue, 10 Nov 2026 07:58:19 -0500
-Message-ID: <20261110125801.1569612-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] crypto: omap - add omap_sham_unregister_algs helper
+Date: Tue, 10 Nov 2026 07:59:16 -0500
+Message-ID: <20261110125910.1551368-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055835-failed-5.15-33ed0a0567e0@kernel.org>
-References: <20261107055835-failed-5.15-33ed0a0567e0@kernel.org>
+In-Reply-To: <20261107050702-failed-6.18-be51ea091c65@kernel.org>
+References: <20261107050702-failed-6.18-be51ea091c65@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +61,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiaming Zhang <r772577952@gmail.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 33ed0a0567e0abe66ea65e89dad2e35082890fbe ]
+[ Upstream commit c3494e6fbb35579a131de11369b658a59b1323e5 ]
 
-A corrupted GFS2 image can store a dinode size that is larger than what VFS
-i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
-writes it directly into inode->i_size. If the value is larger than S64_MAX, the
-incore i_size becomes negative. That negative value can bypass the existing
-stuffed inode size check:
+Add a new helper omap_sham_unregister_algs() and replace two for loops
+in omap_sham_probe() and omap_sham_remove(), which also ensure
+->registered is reset to 0.
 
-inode->i_size > gfs2_max_stuffed_size(ip)
-
-Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
-gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
-passes it to memcpy(), turning it into a huge copy size and triggering a
-out-of-bound issue.
-
-Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
-inode->i_size. Also make the stuffed inode check use the raw on-disk size while
-it is still unsigned.
-
-Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5-xhigh
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-[ sashal: adjusted context for direct inode->i_state access and existing dinode field assignments ]
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: be51ea091c65 ("crypto: omap-sham - fix crypto engine cleanup")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/glops.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/crypto/omap-sham.c | 27 ++++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 8a077de9ee0a4..67351df7b4b33 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -405,6 +405,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	umode_t mode = be32_to_cpu(str->di_mode);
- 	struct inode *inode = &ip->i_inode;
- 	bool is_new = inode->i_state & I_NEW;
-+	u64 size;
+diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+index ff8aac02994a4..7b3612d097700 100644
+--- a/drivers/crypto/omap-sham.c
++++ b/drivers/crypto/omap-sham.c
+@@ -2041,6 +2041,20 @@ static struct attribute *omap_sham_attrs[] = {
+ };
+ ATTRIBUTE_GROUPS(omap_sham);
  
- 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
- 		gfs2_consist_inode(ip);
-@@ -430,7 +431,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	i_uid_write(inode, be32_to_cpu(str->di_uid));
- 	i_gid_write(inode, be32_to_cpu(str->di_gid));
- 	set_nlink(inode, be32_to_cpu(str->di_nlink));
--	i_size_write(inode, be64_to_cpu(str->di_size));
-+	size = be64_to_cpu(str->di_size);
-+	if (unlikely(size > inode->i_sb->s_maxbytes)) {
-+		gfs2_consist_inode(ip);
-+		return -EIO;
++static void omap_sham_unregister_algs(const struct omap_sham_pdata *pdata)
++{
++	struct omap_sham_algs_info *alg_info;
++	int i;
++
++	for (i = pdata->algs_info_size - 1; i >= 0; i--) {
++		alg_info = &pdata->algs_info[i];
++
++		crypto_engine_unregister_ahashes(alg_info->algs_list,
++						 alg_info->registered);
++		alg_info->registered = 0;
 +	}
-+	i_size_write(inode, size);
- 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
- 	atime.tv_sec = be64_to_cpu(str->di_atime);
- 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
-@@ -468,7 +474,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	ip->i_depth = (u8)depth;
- 	ip->i_entries = be32_to_cpu(str->di_entries);
++}
++
+ static int omap_sham_probe(struct platform_device *pdev)
+ {
+ 	struct omap_sham_dev *dd;
+@@ -2158,10 +2172,7 @@ static int omap_sham_probe(struct platform_device *pdev)
+ 	return 0;
  
--	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
-+	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
- 	}
+ err_algs:
+-	for (i = dd->pdata->algs_info_size - 1; i >= 0; i--)
+-		for (j = dd->pdata->algs_info[i].registered - 1; j >= 0; j--)
+-			crypto_engine_unregister_ahash(
+-					&dd->pdata->algs_info[i].algs_list[j]);
++	omap_sham_unregister_algs(dd->pdata);
+ err_engine_start:
+ 	crypto_engine_exit(dd->engine);
+ err_engine:
+@@ -2182,19 +2193,13 @@ static int omap_sham_probe(struct platform_device *pdev)
+ static void omap_sham_remove(struct platform_device *pdev)
+ {
+ 	struct omap_sham_dev *dd;
+-	int i, j;
+ 
+ 	dd = platform_get_drvdata(pdev);
+ 
+ 	spin_lock_bh(&sham.lock);
+ 	list_del(&dd->list);
+ 	spin_unlock_bh(&sham.lock);
+-	for (i = dd->pdata->algs_info_size - 1; i >= 0; i--)
+-		for (j = dd->pdata->algs_info[i].registered - 1; j >= 0; j--) {
+-			crypto_engine_unregister_ahash(
+-					&dd->pdata->algs_info[i].algs_list[j]);
+-			dd->pdata->algs_info[i].registered--;
+-		}
++	omap_sham_unregister_algs(dd->pdata);
+ 	cancel_work_sync(&dd->done_task);
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
 -- 
 2.53.0
 
