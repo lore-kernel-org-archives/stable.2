@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322345;
-	b=l4pftHWBl6TS6/fwTJpuMLmEcIjpS7l5Eyz6FP4cQ8r2Cm07HLJc5oqt8FNZEBJDtTTM
-	 rRPK6n3TBD7HqHl42fbgf1Wi3yb9eGN9cIqSPzcpF1d+ijd7QSuQgj7SFjcw2dugpei7+
-	 jCw84Fp5yLMUNFkXLm2SK8ALXt+7A2Ru3AEWxHFPWXOTRPd17Z2vPRey9E7aC6tFXjgG7
-	 zYqDwLjqva9Hc1Ebh1HegBTYtR0G9hBqmdx1YpPfEhhY/j5M0sFFoTtkJMbFo6GJZXMpi
-	 Itvdr5jDxpcTdNFum58ziVHKndjjQPMZAGuNgMrdQ37G4frweFbJFKTxS94EzEB21Nw==
+	t=1794322346;
+	b=cwX7DEoIR39+2lLUwQo9Ud9zr/EOtfe5m9KaOOjK+/FiaiEYkLGFC7F27okUg5R4pZw/
+	 9WjY2er1KZsGuF9KlWB3p3+IjbzuneC8RPZmaIXCuwDpHjPdIqmE4dAHR1zSERbr1CSSN
+	 LadUcS9p2TOGMuA3g3QBcvBIQKtbdhQw9Bn59LJY2GS3nS2bwWw0p3URXCDpwn/q/Fx9T
+	 1YH0yn5kC0wPSxMC9qV8iqTXczI6nmyntxL7vfCMi4sCZ5FvkL5QqZSsN5JMOHEWQIjmc
+	 sdYCIr9fD1oOGbVYB8z8vqaW/TsUU+KnIMe+5+iJQ2Td6gmXpTRn4TSU2UGL2IF/Wcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322346;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=O9bE4e5sDdC7BMTl807mOt/4deXWIXdq6e2nAdNe0sQ=;
-	b=WRvmOuxk0rf+Yy+rAUs+Hp/jNKkoXtLrHbKfvT/NpSR4ERdkVtddandiFGPPMBZgqkVF
-	 mjd04+eqzfRfz0LWEZnDj2vPcnv0dnzYW+6Qg57xK7ReaUcJKGssMZJSaUXFqzpKiKLLa
-	 rtK3JwOL2mdh+pkV8X604HfSSMQ9p1+FJDWN6FfBdPAjSrcnwOd25+WbqqZ/YsXSxaqQm
-	 HY6Brw/3Fom6bu9VB8k+fUacxRhlzEv3dKgHfqKkZ998Jo3QBkanDJZxi5MFa12etE9XX
-	 KKqZ5pwi8ZTvAkM3b37tZEepoht/V0avR8J6p1XmYps3gslHqI1wnDtWslCNzKNh2XA==
+	bh=WEi0OBPz0WhzdtOPhVd3eOIpfuGhYQ8+zh669kK+Wao=;
+	b=rGgpp4CwtAuIb6yP3dSNp2ju9+hwBxZTkzxa6F6rHbVs314rR3POpJc/Z4+kiQpwXJuT
+	 awGPT3td2kHQDYsZgzaG32GVOExEyEXRjOqf7ZFPW9hGAMdBshXiFhu2I8YwdgbWhfcua
+	 cx4pVMi2O1Xz46ES+Z3gDKCLpGfEXf089Nt9ytAJPTt5XwfzD0En/OPjtEbN+b2L+cnks
+	 3L9il2e9WstxFI1N43Vmq2AD65WUvWgw6YaE7TjN0BYx8f4RB9N+0rUKUKRek57mjAmsz
+	 KbWMyyzwxJuEt/Okw9eBqGGznjkx+6MhtX47Q2Rs7DoTbkqja39zGrOr8vIYWiMgjSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mv66SGvz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J+GuAu/+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1C3606A33A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:52:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2297E60A2600
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mv66SGvz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DB81F0089F;
-	Tue, 10 Nov 2026 14:52:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+GuAu/+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D601F008A2;
+	Tue, 10 Nov 2026 14:52:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322344;
-	bh=O9bE4e5sDdC7BMTl807mOt/4deXWIXdq6e2nAdNe0sQ=;
+	s=k20260515; t=1794322345;
+	bh=WEi0OBPz0WhzdtOPhVd3eOIpfuGhYQ8+zh669kK+Wao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mv66SGvzgGHMDKtkLBY6vEZxmKzXbegHamDKtIIac3brH9HlaVoUNrCtYRRdd1kk+
-	 a8R52Ci6nIvpJ5moAD0wmabnfo7El10AgkK9ZK0FW5+Zs1j8+ST8ksQ+sxMCk9goQd
-	 UeMpV9heGUJsqHiyfogtybMiFv3qp/1Tz4v6RLQb/8hbt8iVplaH+FXcSTYaibrUds
-	 2Lyx9Mk2GGRTlodY2oPr+/7NWw0oijK5lUfKI7ApCH/AXm5kCDsqo8ZHbgUuJ4Q2HC
-	 ilGwM1T1LS+0oggphveBZBZGbTA3Wl5nqOnWOPdH9sp0EZMF1rds8zK+/W+jBR0P4s
-	 WAR+ZxO3+fk2A==
+	b=J+GuAu/+y6Bnu0kJO8pyb35iJct9HtmwiBoZ97h+zx7eAJKot4jDUUMa38wkA7VV0
+	 mG8ox2HcDiEHw6s6wAjmXhjVB8NHtuvnWaWr0b7K71QvHIOIRSE0mXPu0gqzQimeSD
+	 IURaXbowxlbjaqeqRbRtQM4YZZ/RIWPNwpduQzPZYCmV4u9vRZa7+K6mjvGN8DOBbX
+	 B1iOdKN42BVSokqM7TYKA3BBnb9n/1ReVQK3ZGw1dOa4SJQJ3G/zFVmPw6APCuXQL7
+	 ZFVS262XwY1gQg74MLdZAV+IUWDbqbyOU1p4/kC7aPkPYhuJLyOlDaBRvHFPXjJtG0
+	 +SavMiEpEvnaA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kumari Pallavi <kumari.pallavi@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+Cc: Yifei Gao <gyf161023@gmail.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] misc: fastrpc: Rename phys to dma_addr for clarity
-Date: Tue, 10 Nov 2026 09:52:21 -0500
-Message-ID: <20261110145217.1998136-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] misc: fastrpc: fix double-free in fastrpc_map_attach() error path
+Date: Tue, 10 Nov 2026 09:52:22 -0500
+Message-ID: <20261110145217.1998136-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050955-failed-6.18-09fa66ec1b48@kernel.org>
+In-Reply-To: <20261110145217.1998136-1-sashal@kernel.org>
 References: <20261107050955-failed-6.18-09fa66ec1b48@kernel.org>
+ <20261110145217.1998136-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,286 +64,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kumari Pallavi <kumari.pallavi@oss.qualcomm.com>
+From: Yifei Gao <gyf161023@gmail.com>
 
-[ Upstream commit 428b2f2b60c37f69e0723a225135da1f352d2602 ]
+[ Upstream commit 09fa66ec1b4896ab841da085ca58b6433f28f07f ]
 
-The fields buf->phys and map->phys currently store DMA addresses
-returned by dma_map_*() APIs, not physical addresses. This naming
-is misleading and may lead to incorrect assumptions about the
-address type and its translation.
-Rename these fields from phys to dma_addr to improve code clarity
-and align with kernel conventions for dma_addr_t usage.
+map->table is assigned right after dma_buf_map_attachment_unlocked()
+succeeds. The two failure checks that follow, the len > map->size test
+and, where subsystem VMIDs are configured, a failed qcom_scm_assign_mem(),
+jump to map_err with map->table already set.
 
-Signed-off-by: Kumari Pallavi <kumari.pallavi@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Link: https://patch.msgid.link/20251226070534.602021-3-kumari.pallavi@oss.qualcomm.com
+map_err manually calls dma_buf_detach() and dma_buf_put() and then falls
+through to fastrpc_map_put(). Since that change the error path tail is
+fastrpc_map_put() -> fastrpc_free_map(), and fastrpc_free_map() already
+unmaps, detaches and puts the dma-buf whenever map->table is set.
+The two operations therefore run twice: the second dma_buf_put() drops an
+extra reference on map->buf, and dma_buf_unmap_attachment_unlocked()
+dereferences the map->attach already freed by the manual dma_buf_detach().
+kref_init() sets the refcount to 1 with no intervening get, so the final
+fastrpc_map_put() frees the map synchronously and the redundant cleanup is
+deterministic.
+
+The len > map->size branch is reachable by an unprivileged process via
+FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
+requested length, before any DSP invocation.
+
+Route both map->table-is-set failure branches to get_err instead of
+map_err, so fastrpc_free_map() is the single owner of the
+unmap/detach/put sequence. map_err is retained for the
+dma_buf_map_attachment_unlocked() failure, which is reached with
+map->table still NULL and an attachment that fastrpc_free_map() will not
+clean up, so its dma_buf_detach()/dma_buf_put() must still run manually.
+
+Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20261002101220.1084101-2-srinivas.kandagatla@oss.qualcomm.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 09fa66ec1b48 ("misc: fastrpc: fix double-free in fastrpc_map_attach() error path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/misc/fastrpc.c | 77 ++++++++++++++++++++++--------------------
- 1 file changed, 41 insertions(+), 36 deletions(-)
+ drivers/misc/fastrpc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 29f9003999a07..891f28e933537 100644
+index 891f28e933537..9d596f4fd4dcd 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -106,7 +106,7 @@
- #define miscdev_to_fdevice(d) container_of(d, struct fastrpc_device, miscdev)
- 
- struct fastrpc_phy_page {
--	u64 addr;		/* physical address */
-+	dma_addr_t addr;	/* dma address */
- 	u64 size;		/* size of contiguous region */
- };
- 
-@@ -171,7 +171,7 @@ struct fastrpc_msg {
- 	u64 ctx;		/* invoke caller context */
- 	u32 handle;	/* handle to invoke */
- 	u32 sc;		/* scalars structure describing the data */
--	u64 addr;		/* physical address */
-+	dma_addr_t addr;	/* dma address */
- 	u64 size;		/* size of contiguous region */
- };
- 
-@@ -194,7 +194,7 @@ struct fastrpc_buf {
- 	struct dma_buf *dmabuf;
- 	struct device *dev;
- 	void *virt;
--	u64 phys;
-+	dma_addr_t dma_addr;
- 	u64 size;
- 	/* Lock for dma buf attachments */
- 	struct mutex lock;
-@@ -217,7 +217,7 @@ struct fastrpc_map {
- 	struct dma_buf *buf;
- 	struct sg_table *table;
- 	struct dma_buf_attachment *attach;
--	u64 phys;
-+	dma_addr_t dma_addr;
- 	u64 size;
- 	void *va;
- 	u64 len;
-@@ -322,11 +322,12 @@ static void fastrpc_free_map(struct kref *ref)
- 
- 			perm.vmid = QCOM_SCM_VMID_HLOS;
- 			perm.perm = QCOM_SCM_PERM_RWX;
--			err = qcom_scm_assign_mem(map->phys, map->len,
-+			err = qcom_scm_assign_mem(map->dma_addr, map->len,
- 				&src_perms, &perm, 1);
- 			if (err) {
--				dev_err(map->fl->sctx->dev, "Failed to assign memory phys 0x%llx size 0x%llx err %d\n",
--						map->phys, map->len, err);
-+				dev_err(map->fl->sctx->dev,
-+					"Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
-+					&map->dma_addr, map->len, err);
- 				return;
- 			}
- 		}
-@@ -397,7 +398,7 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
- static void fastrpc_buf_free(struct fastrpc_buf *buf)
- {
- 	dma_free_coherent(buf->dev, buf->size, buf->virt,
--			  FASTRPC_PHYS(buf->phys));
-+			  FASTRPC_PHYS(buf->dma_addr));
- 	kfree(buf);
- }
- 
-@@ -416,12 +417,12 @@ static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
- 
- 	buf->fl = fl;
- 	buf->virt = NULL;
--	buf->phys = 0;
-+	buf->dma_addr = 0;
- 	buf->size = size;
- 	buf->dev = dev;
- 	buf->raddr = 0;
- 
--	buf->virt = dma_alloc_coherent(dev, buf->size, (dma_addr_t *)&buf->phys,
-+	buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
- 				       GFP_KERNEL);
- 	if (!buf->virt) {
- 		mutex_destroy(&buf->lock);
-@@ -447,7 +448,7 @@ static int fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
- 	buf = *obuf;
- 
- 	if (fl->sctx && fl->sctx->sid)
--		buf->phys += ((u64)fl->sctx->sid << 32);
-+		buf->dma_addr += ((u64)fl->sctx->sid << 32);
- 
- 	return 0;
- }
-@@ -740,7 +741,7 @@ static int fastrpc_dma_buf_attach(struct dma_buf *dmabuf,
- 		return -ENOMEM;
- 
- 	ret = dma_get_sgtable(buffer->dev, &a->sgt, buffer->virt,
--			      FASTRPC_PHYS(buffer->phys), buffer->size);
-+			      FASTRPC_PHYS(buffer->dma_addr), buffer->size);
- 	if (ret < 0) {
- 		dev_err(buffer->dev, "failed to get scatterlist from DMA API\n");
- 		kfree(a);
-@@ -789,7 +790,7 @@ static int fastrpc_mmap(struct dma_buf *dmabuf,
- 	dma_resv_assert_held(dmabuf->resv);
- 
- 	return dma_mmap_coherent(buf->dev, vma, buf->virt,
--				 FASTRPC_PHYS(buf->phys), size);
-+				 FASTRPC_PHYS(buf->dma_addr), size);
- }
- 
- static const struct dma_buf_ops fastrpc_dma_buf_ops = {
-@@ -841,10 +842,10 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 	map->table = table;
- 
- 	if (attr & FASTRPC_ATTR_SECUREMAP) {
--		map->phys = sg_phys(map->table->sgl);
-+		map->dma_addr = sg_phys(map->table->sgl);
- 	} else {
--		map->phys = sg_dma_address(map->table->sgl);
--		map->phys += ((u64)fl->sctx->sid << 32);
-+		map->dma_addr = sg_dma_address(map->table->sgl);
-+		map->dma_addr += ((u64)fl->sctx->sid << 32);
+@@ -854,7 +854,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
+ 				len, map->size);
+ 		err = -EINVAL;
+-		goto map_err;
++		goto get_err;
  	}
- 	for_each_sg(map->table->sgl, sgl, map->table->nents,
- 		sgl_index)
-@@ -871,10 +872,11 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 		dst_perms[1].vmid = fl->cctx->vmperms[0].vmid;
- 		dst_perms[1].perm = QCOM_SCM_PERM_RWX;
- 		map->attr = attr;
--		err = qcom_scm_assign_mem(map->phys, (u64)map->len, &src_perms, dst_perms, 2);
-+		err = qcom_scm_assign_mem(map->dma_addr, (u64)map->len, &src_perms, dst_perms, 2);
- 		if (err) {
--			dev_err(sess->dev, "Failed to assign memory with phys 0x%llx size 0x%llx err %d\n",
--					map->phys, map->len, err);
-+			dev_err(sess->dev,
-+				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
-+				&map->dma_addr, map->len, err);
- 			goto map_err;
+ 	map->va = sg_virt(map->table->sgl);
+ 	map->len = len;
+@@ -877,7 +877,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 			dev_err(sess->dev,
+ 				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+ 				&map->dma_addr, map->len, err);
+-			goto map_err;
++			goto get_err;
  		}
  	}
-@@ -1056,7 +1058,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 			struct vm_area_struct *vma = NULL;
- 
- 			rpra[i].buf.pv = (u64) ctx->args[i].ptr;
--			pages[i].addr = ctx->maps[i]->phys;
-+			pages[i].addr = ctx->maps[i]->dma_addr;
- 
- 			mmap_read_lock(current->mm);
- 			vma = vma_lookup(current->mm, ctx->args[i].ptr);
-@@ -1083,7 +1085,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 				goto bail;
- 
- 			rpra[i].buf.pv = args - ctx->olaps[oix].offset;
--			pages[i].addr = ctx->buf->phys -
-+			pages[i].addr = ctx->buf->dma_addr -
- 					ctx->olaps[oix].offset +
- 					(pkt_size - rlen);
- 			pages[i].addr = pages[i].addr &	PAGE_MASK;
-@@ -1115,7 +1117,7 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 		list[i].num = ctx->args[i].length ? 1 : 0;
- 		list[i].pgidx = i;
- 		if (ctx->maps[i]) {
--			pages[i].addr = ctx->maps[i]->phys;
-+			pages[i].addr = ctx->maps[i]->dma_addr;
- 			pages[i].size = ctx->maps[i]->size;
- 		}
- 		rpra[i].dma.fd = ctx->args[i].fd;
-@@ -1197,7 +1199,7 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
- 	msg->ctx = ctx->ctxid | fl->pd;
- 	msg->handle = handle;
- 	msg->sc = ctx->sc;
--	msg->addr = ctx->buf ? ctx->buf->phys : 0;
-+	msg->addr = ctx->buf ? ctx->buf->dma_addr : 0;
- 	msg->size = roundup(ctx->msg_sz, PAGE_SIZE);
- 	fastrpc_context_get(ctx);
- 
-@@ -1357,13 +1359,15 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 		if (fl->cctx->vmcount) {
- 			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
- 
--			err = qcom_scm_assign_mem(fl->cctx->remote_heap->phys,
-+			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
- 							(u64)fl->cctx->remote_heap->size,
- 							&src_perms,
- 							fl->cctx->vmperms, fl->cctx->vmcount);
- 			if (err) {
--				dev_err(fl->sctx->dev, "Failed to assign memory with phys 0x%llx size 0x%llx err %d\n",
--					fl->cctx->remote_heap->phys, fl->cctx->remote_heap->size, err);
-+				dev_err(fl->sctx->dev,
-+					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
-+					&fl->cctx->remote_heap->dma_addr,
-+					fl->cctx->remote_heap->size, err);
- 				goto err_map;
- 			}
- 			scm_done = true;
-@@ -1381,7 +1385,7 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	args[1].length = inbuf.namelen;
- 	args[1].fd = -1;
- 
--	pages[0].addr = fl->cctx->remote_heap->phys;
-+	pages[0].addr = fl->cctx->remote_heap->dma_addr;
- 	pages[0].size = fl->cctx->remote_heap->size;
- 
- 	args[2].ptr = (u64)(uintptr_t) pages;
-@@ -1410,12 +1414,12 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 
- 		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
- 		dst_perms.perm = QCOM_SCM_PERM_RWX;
--		err = qcom_scm_assign_mem(fl->cctx->remote_heap->phys,
-+		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
- 						(u64)fl->cctx->remote_heap->size,
- 						&src_perms, &dst_perms, 1);
- 		if (err)
--			dev_err(fl->sctx->dev, "Failed to assign memory phys 0x%llx size 0x%llx err %d\n",
--				fl->cctx->remote_heap->phys, fl->cctx->remote_heap->size, err);
-+			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
-+				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
- 	}
- err_map:
- 	fastrpc_buf_free(fl->cctx->remote_heap);
-@@ -1505,7 +1509,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
- 	args[2].length = inbuf.filelen;
- 	args[2].fd = init.filefd;
- 
--	pages[0].addr = imem->phys;
-+	pages[0].addr = imem->dma_addr;
- 	pages[0].size = imem->size;
- 
- 	args[3].ptr = (u64)(uintptr_t) pages;
-@@ -1945,7 +1949,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 	args[0].ptr = (u64) (uintptr_t) &req_msg;
- 	args[0].length = sizeof(req_msg);
- 
--	pages.addr = buf->phys;
-+	pages.addr = buf->dma_addr;
- 	pages.size = buf->size;
- 
- 	args[1].ptr = (u64) (uintptr_t) &pages;
-@@ -1973,11 +1977,12 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
- 		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
- 
--		err = qcom_scm_assign_mem(buf->phys, (u64)buf->size,
-+		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
- 			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
- 		if (err) {
--			dev_err(fl->sctx->dev, "Failed to assign memory phys 0x%llx size 0x%llx err %d",
--					buf->phys, buf->size, err);
-+			dev_err(fl->sctx->dev,
-+				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
-+				&buf->dma_addr, buf->size, err);
- 			goto err_assign;
- 		}
- 	}
-@@ -2091,7 +2096,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
- 	args[0].ptr = (u64) (uintptr_t) &req_msg;
- 	args[0].length = sizeof(req_msg);
- 
--	pages.addr = map->phys;
-+	pages.addr = map->dma_addr;
- 	pages.size = map->len;
- 
- 	args[1].ptr = (u64) (uintptr_t) &pages;
+ 	spin_lock(&fl->lock);
 -- 
 2.53.0
 
