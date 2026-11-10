@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273251;
-	b=vQuzmXYD2JGlufCIW1YMt5V7PaWKLveXiOyumpNxlc8daND0IjsXmhAM1HgEWPSN0WzE
-	 f/LoHusdVs9HpMderFZaQssFfqxGKA4p5qbvLVNGTnemu+sE8hukKqEM8xNBKj+uNswby
-	 Q/wL/ErQuXlxsX9xVuF9LPISV1B0B+bJ8snOypmWpSoefEppjN2c4wjLwBKEpcNgxf4qI
-	 KWMOE62R9AsgDhEyP4tDIRIJI5YIuseo0i2As/5Oz26IhAB2mOImTcPqDfRPBSGxejqeo
-	 6x9U1WzKF1kjAQVbV/TfmEv+egfZU7bwE4tCcVFcvUdWMWRp+xfi1NcJebRDHfqiCYA==
+	t=1794273254;
+	b=aM1o22Qf7XunyjDWAPWrArF/wnun80MfFDQVaz+VFE5hvBU9CY2OaxQYLJd4DbBwalDk
+	 baJJVxP7FAYdad+zaal6z5qtUql7qH/NyVjEATMA2ztJCqSC9Lhyz+P0I26+xy3dOFRZe
+	 c+fi1ORU2qWhJMmZ1RKuDBVSJrDz6XpMlkqavSiBN56qWtXZq/nHbePj4tlEjf9U6hMcS
+	 0SFmDBr1EOImAcX6M//XLMvAOJ6+bxz4V80pnYAVSwjDVXk+YvglEbbxasiEofYaEysAC
+	 CcnHuPj+mbe/+GDQ5aMz8UiISMoCERz949zNrFhoPLTrkJRu5ZeRUjSY1rv72vXKydg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273254;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PAbs74xecob0WZjx41myZ2FgDUIOX0oNwMQB4FOMr9M=;
-	b=wNTKtqDpJRgq9wagO1QWdEvszKpHOKSOJLTlLHloSF/IcLjw3t4W0uqJRtSQTNezxid4
-	 dZl/piMt3hyFpLN2R+zlo3jsW4v5apsuW8PnEQph0ITi2EgN70Q/1rpwpHYKM0rDfTDWG
-	 aO4keInd4NZL2A+HMQzpH4FmUPotfo8+K1pwZdcwMkaAs+e+vCa8CdiQdAgZcPrFXm/am
-	 KywS146d3A0DrqqAYiR9aOOerHSKbaO5DCSysNwcTBBYnRNeXaQtA5wOLP2AkFnitZINb
-	 HkIfvet0oU2vVxrgAChKOZ6VXuGl+etv+RRVsJ0zmF9dXclKmNhz6Qx5eBbANwRV4nQ==
+	bh=+JEKnHvW0i9A0hpMTTJBAfvcpkyeJ0UskW+Avb5NOlw=;
+	b=Q3z1ihI3BV8jUBdTrCIsz+anLMeSrYXTzz1glYQ0Ezf2AtLXOCdAsJg4s+Kc9MSgF2HQ
+	 tvYo+fWDjiz6/rqSUmUhZaFEB9b1ojtvl81hKl5garHqE8ojmuG2UGq9GLrRJ2RJlyzyq
+	 V1aj92/PMLY72Rf+YT9NVVee5EqcJfdzw/a1sghiHNKpJAKawoY//32pJhJCE+GLZgGQ5
+	 keXkKum1rxAnm4RAG1SAo8AZgAxr+hSltNY4PqoAE4IOjTOEaEkbi/Ef9F+tDymdoc6jZ
+	 xp+YaS2pCzZFG97PV3PoTIFk0adAYrqqjzwFl6mJtsiUvimZCYUJyLigpCWJD6LhfWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmHlfVU9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NMn/7QCT";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99413606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0270D606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DmHlfVU9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1001F0089F;
-	Tue, 10 Nov 2026 01:14:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NMn/7QCT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EAD1F0089F;
+	Tue, 10 Nov 2026 01:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273251;
-	bh=PAbs74xecob0WZjx41myZ2FgDUIOX0oNwMQB4FOMr9M=;
+	s=k20260515; t=1794273253;
+	bh=+JEKnHvW0i9A0hpMTTJBAfvcpkyeJ0UskW+Avb5NOlw=;
 	h=From:To:Cc:Subject:Date;
-	b=DmHlfVU9zi5qoWpdyOZ011L0sXIpQC2W0mylV0WRN8GMXoI5IoBJ7mLzCuLX3U3zv
-	 WX3UzXStjAG01MjEOtUdGdY2HKiKVu4LmUk8vsVX/5EYjrdglHJbmcHHX8PrNHKg8y
-	 HNOdAvIGB4SIdgj6Ix1BcRH804mZ9tL1tPH7v3YSaWYzDOgmbfbQLKCMh2UOCtjZgi
-	 v8Glq7qN3euKVXkbh4F/sSUtG+pPAeYSKrWJAlruHpwMHIYWMLB3uw8uXvM2KR5MTS
-	 cTIY7j8MDKmOagamvt2kLcCPRovhoOvEdGA1DVf45FQq0TSr/NLXGeSP8eK3IVyew0
-	 Gnk4NdBSVt/GQ==
+	b=NMn/7QCTivvjD3mrzEn6oWVEdzBxX+y2jO9ue+9FN0J5XanDP+s9ZwQqc/OFqkzIQ
+	 Alup8+G0C1HzB0DOWNrd0T7dJFpYOvAfuVicFNo+dlafCRp55j/LtMnhFiSovAz98X
+	 nKJOJnMRdSvcCYb34NjbvatqiKzPRH+ysHLH0V/fPZOIPp9IVMsrZj3RNPE+jBerrB
+	 F020FTwUjqiQAKFWnb/IEelEaILqwb7zOUsuaDBHdAurjgP8RmrRGLj4wIBNYW+2IV
+	 4NUbNUwtv/132qJBSkQVkUXL9tinMUMpFCXP8jt/0Y57vPrVFkV3sV9Y4A9rZU4VRL
+	 VSoXdh4oLUWoA==
 From: Sasha Levin <sashal@kernel.org>
-To: prike.liang@amd.com,
-	vitaly.prosyak@amd.com,
-	alexander.deucher@amd.com
+To: amir73il@gmail.com,
+	brauner@kernel.org,
+	edvard@tuta.io
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or unmapping queues" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:14:09 -0500
-Message-ID: <20261109201409-failed-6.6-623507b8f4fe@kernel.org>
+Subject: FAILED: patch "[PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:14:12 -0500
+Message-ID: <20261109201412-failed-6.6-323899b4ed23@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,89 +69,120 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8
+git cherry-pick -x 323899b4ed233d5b6e2fc160c16fbf39cf0317da
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201409-failed-6.6-623507b8f4fe@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201412-failed-6.6-323899b4ed23@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 623507b8f4fe24851b2f1cb2c177f8ae3c8584b8 Mon Sep 17 00:00:00 2001
-From: Prike Liang <Prike.Liang@amd.com>
-Date: Fri, 16 Oct 2026 09:34:32 +0800
-Subject: [PATCH] drm/amdgpu/userq: wait for GPU reset before mapping or
- unmapping queues
+From 323899b4ed233d5b6e2fc160c16fbf39cf0317da Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Fri, 30 Oct 2026 18:07:02 +0100
+Subject: [PATCH] ovl: inherit FMODE_NONOTIFY when opening directory realfiles
 
-The user queue map and unmap helpers talk to the MES, but only the
-create path holds reset_domain->sem around them. The eviction, restore,
-destroy and suspend paths can submit to the MES while a GPU reset is in
-progress:
+When fanotify hands a listener an fd for a permission event on an
+overlay directory, ovl_dir_open_realfile() opens the real directory via
+dentry_open(), not backing_file_open(), so the lower open could still
+raise FS_OPEN_PERM and deadlock a listener that also marks the backing
+filesystem.
 
-  WARNING: amdgpu_device.c:928 at amdgpu_device_skip_hw_access+0x73/0x90 [amdgpu]
-  Workqueue: events amdgpu_eviction_fence_suspend_worker [amdgpu]
-  Call Trace:
-   amdgpu_mm_wdoorbell64+0x20/0x70 [amdgpu]
-   mes_v11_0_ring_set_wptr+0x71/0x80 [amdgpu]
-   amdgpu_ring_commit+0x5b/0xa0 [amdgpu]
-   mes_v11_0_submit_pkt_and_poll_completion.constprop.0+0x207/0x520 [amdgpu]
-   mes_v11_0_remove_hw_queue+0xd9/0x100 [amdgpu]
-   mes_userq_unmap+0xc3/0x140 [amdgpu]
-   amdgpu_userq_unmap_helper+0x67/0x280 [amdgpu]
-   amdgpu_userq_evict+0x52/0xf0 [amdgpu]
-   amdgpu_eviction_fence_suspend_worker+0x55/0xe0 [amdgpu]
+Export dentry_open_nonotify() and call it from ovl_path_open_realfile()
+when the overlay user file must not generate events.  Ordinary
+ovl_path_open() callers are unchanged.
 
-Take the semaphore for read in the helpers instead, around both the MES
-call and the queue state check and update. The reset changes the queue
-state from amdgpu_userq_pre_reset()/post_reset(), so every caller now
-waits for a running reset and acts on the state it left behind.
-
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit e6a8b8588f43bd4d7054ac47cccc35f56ad2df90)
+Reported-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Closes: https://lore.kernel.org/all/20261030-welpen-anbinden-nullen-b2432cee1d10@brauner/
+Fixes: 130fdbc3d1f99 ("ovl: pass correct flags for opening real directory")
 Cc: stable@vger.kernel.org
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5Iny41--F-9@tuta.io/
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ fs/open.c                |  1 +
+ fs/overlayfs/overlayfs.h |  9 ++++++++-
+ fs/overlayfs/readdir.c   |  3 ++-
+ fs/overlayfs/util.c      | 11 ++++++++++-
+ 4 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 4dca1ab48410a..958a3c9f4c617 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -362,6 +362,8 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
+diff --git a/fs/open.c b/fs/open.c
+index e43f02ff64acb..bb484b07390ac 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -1172,6 +1172,7 @@ struct file *dentry_open_nonotify(const struct path *path, int flags,
+ 	}
+ 	return f;
+ }
++EXPORT_SYMBOL_GPL(dentry_open_nonotify);
  
-+	/* The reset changes the queue state and the MES is unusable meanwhile */
-+	guard(rwsem_read)(&adev->reset_domain->sem);
- 	if ((queue->state == AMDGPU_USERQ_STATE_MAPPED) ||
- 	    (queue->state == AMDGPU_USERQ_STATE_PREEMPTED)) {
- 		trace_amdgpu_userq_state_start(queue);
-@@ -388,6 +390,8 @@ static int amdgpu_userq_map_helper(struct amdgpu_usermode_queue *queue)
- 		adev->userq_funcs[queue->queue_type];
- 	int r;
+ /**
+  * kernel_file_open - open a file for kernel internal use
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index e9389a10452e8..b5a672e8e4764 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -531,7 +531,14 @@ void ovl_dir_modified(struct dentry *dentry, bool impurity);
+ u64 ovl_inode_version_get(struct inode *inode);
+ bool ovl_is_whiteout(struct dentry *dentry);
+ bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path);
+-struct file *ovl_path_open(const struct path *path, int flags);
++struct file *ovl_path_open_realfile(const struct file *user_file,
++				    const struct path *path, int flags);
++
++static inline struct file *ovl_path_open(const struct path *path, int flags)
++{
++	return ovl_path_open_realfile(NULL, path, flags);
++}
++
+ int ovl_copy_up_start(struct dentry *dentry, int flags);
+ void ovl_copy_up_end(struct dentry *dentry);
+ bool ovl_already_copied_up(struct dentry *dentry, int flags);
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index b862309eba4d1..5d21a328fad46 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -994,7 +994,8 @@ static struct file *ovl_dir_open_realfile(const struct file *file,
+ 					  const struct path *realpath)
+ {
+ 	with_ovl_creds(file_inode(file)->i_sb)
+-		return ovl_path_open(realpath, O_RDONLY | (file->f_flags & O_LARGEFILE));
++		return ovl_path_open_realfile(file, realpath,
++					      O_RDONLY | (file->f_flags & O_LARGEFILE));
+ }
  
-+	/* The reset changes the queue state and the MES is unusable meanwhile */
-+	guard(rwsem_read)(&adev->reset_domain->sem);
- 	if (queue->state == AMDGPU_USERQ_STATE_UNMAPPED) {
- 		trace_amdgpu_userq_state_start(queue);
+ /*
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index 6c3fda047f94f..788c6870d67df 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -654,7 +654,8 @@ bool ovl_path_is_whiteout(struct ovl_fs *ofs, const struct path *path)
+ 		ovl_path_check_xwhiteout_xattr(ofs, path);
+ }
  
-@@ -769,12 +773,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	if (!adev->userq_halt_for_enforce_isolation ||
- 	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
- 	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
--		/* Serialize the map against an in-progress GPU reset (MES is
--		 * unresponsive during recovery), matching amdgpu_userq_detach_doorbell().
--		 */
--		down_read(&adev->reset_domain->sem);
- 		r = amdgpu_userq_map_helper(queue);
--		up_read(&adev->reset_domain->sem);
- 		if (r) {
- 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
- 			trace_amdgpu_userq_create_end(queue, r);
+-struct file *ovl_path_open(const struct path *path, int flags)
++struct file *ovl_path_open_realfile(const struct file *user_file,
++				    const struct path *path, int flags)
+ {
+ 	struct inode *inode = d_inode(path->dentry);
+ 	const struct mnt_idmap *real_idmap = mnt_idmap(path->mnt);
+@@ -682,6 +683,14 @@ struct file *ovl_path_open(const struct path *path, int flags)
+ 	if (inode_owner_or_capable(real_idmap, inode))
+ 		flags |= O_NOATIME;
+ 
++	/*
++	 * Directory opens use dentry_open() here, not backing_file_open().
++	 * Inherit FMODE_NONOTIFY from a fanotify permission fd so a listener
++	 * that also watches the real filesystem does not deadlock.
++	 */
++	if (user_file && FMODE_FSNOTIFY_NONE(user_file->f_mode))
++		return dentry_open_nonotify(path, flags, current_cred());
++
+ 	return dentry_open(path, flags, current_cred());
+ }
+ 
 -- 
 2.53.0
 
