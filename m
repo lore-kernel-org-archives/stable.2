@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312539;
-	b=sA+DSZcKUWmXBP3fpGVHjMWOLp2NyBR5+zZUzKxNd3pOzVNwFratMF2+v2pK8dvzGUQY
-	 pLoWiE/wAvT1qPP7dt9fZ+YfwCOEX4Msm5jN5CEP24tsXSnzetQYaeQaaNxLaRKy+cKi+
-	 aB69UpBPwMUW0oc6qoxk4AGrb+XdrvRD6uuvJuHXnCGzdUkue6IfEy10HZBcW4TExqrx6
-	 rotDv9tbRG2txlQEvxPbs4481eV7xljjzIG034gKSdZpcBWquNCT0YTaIBkkJidJxqvQ3
-	 crpmNykggqdCfdPb4a5Se2JgFWKx0PYRevTJlwPNJu/uMNBaS23/3kOwUUYBk29078w==
+	t=1794312545;
+	b=bUMzosB5IJ5fRvduxsJjuGfEciEUGeUj6UtP/I5qFBhfzkorMjBAk6yYCkJsoT2G4shX
+	 0jd1twxrPiZqZjVdDVtoJKYBqQdRabVTzjC5vWJ45G9iTjhRXna5NXwDt1YO6fPOdFtKN
+	 lGgbqU265PrXFfwl2pSBdYRjfJ6au+5+uCYr1kwNLiNWK8HuJHsufxt3KcuX9togtO8Lt
+	 zUxfFhrRGBgNj2Lc69ZP00Ri7OP8IMRYZMwQp+22LFEpaPwOiGqp9qyyyjhF7f/ojgA7W
+	 j9athNqT+GD0H2sNEL6lfPGjtR7TmSVKU19MmPrlPbSZo5o4sxnfLIuopPp7j7eyhog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312545;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SQYrFYsgSFZUcx1rBi76XbNQ8benC0lbhizVMJ9+leI=;
-	b=0lQ64nr9OAr+IMuKT5NnJUicfPrMNZhD0P1r4LiOq7iUAHatOW5C96T31iuOAUdVDIPR
-	 Lon7+zJHjt/6NbOgXpiDBP5O0kXaEBYIq1kqCSrQApNgnT1NYsBOz1Twaag91FbtEoRh0
-	 rU5QWSs74Dgm4aTuDFjVTV0P5A+ayeqPPGwLJIL45YmvbFmnlwFTeAx+kD1VWYwreB76z
-	 7VGSRhNqtAMEpGwy3LRquCz35SUM07YQS95Sj/0GqluursRnEmquDdeKBGGB5oCG3WH7h
-	 EsUjt/wWFZ9+Dmye71opf1u6UhTZKgTeC+Z8VqbwBniPHKk9ie/OulXTR1yM4Pj/9SQ==
+	bh=2OSwwjOsbXNGLAOeLlKTFzsBfpIImPAcFGGNM31yAKM=;
+	b=zqNVMDs1PtOxckbfYAHnM+auAKe9RHODERsMbMNSt2jkx6BoJaix/Zx7nkR8S1+iAdmo
+	 X2KLr+ioR8dLBbPC55qBYkarEOeMtx+R+9UKWfAPh/bRrjLL49T2GE4Q7ll0SSH44brF1
+	 J0bOFTMJpPVC8Iiybsvc119N7RWGbjwAtvb7GsW4Zjm8lKpK0Iz2t1cpI8fm7anwUD6/q
+	 VujzyO7SwDjap1yh28FbW3fgn3S1mC5Pxx+uNsSKV0HOdrS9vBjMo7u9MIPyIL2kbvhvI
+	 4NDMZCMpH1pFPtnMPX0lXwEUUxSfdwSR19kvJ3krne9HWBZP4E+wvB2XMNT8y9IEouw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWMKsUNf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUpx2oLy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED9E60A2620
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1CE606A335
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWMKsUNf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53FDA1F0089F
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:08:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUpx2oLy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A401F00906;
+	Tue, 10 Nov 2026 12:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312538;
-	bh=SQYrFYsgSFZUcx1rBi76XbNQ8benC0lbhizVMJ9+leI=;
+	s=k20260515; t=1794312545;
+	bh=2OSwwjOsbXNGLAOeLlKTFzsBfpIImPAcFGGNM31yAKM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NWMKsUNfcboayRdPlvHm/kdzMSecQ3DSiITfzk5KjWK04MIMlTYs7A+nKYDVFL1XO
-	 lfhyfA3GOKURBkIrHty46D8pe8jtqP3E1kUx0UhG2jp9BvinKyIH4wYr9zJWwUu3o8
-	 qDoTzt/BcfeTs6AsWTODm240gEXb5NslDju3wqfUfvtcKIQY8RcAAXuYcPlf4t5OqA
-	 twjWgCDuyYaBYEN0Xyi7038Z4Y/7aOA7klCmfdiv+038ExbjaqY6XMh1bHGQGE+H2u
-	 YRhR9A3nVH29hNVHIkZxEYuJbuuCqySG2FxIdmZB2iwiSwGEUg8cbkZZoSboQVcrEG
-	 T3oTipnEpdTfw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 982671980047;
-	Tue, 10 Nov 2026 07:08:56 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Tue, 10 Nov 2026 07:08:56 -0500
-X-ME-Sender: <xms:WAnzal0RfS8GQQ7mz7XKx96JfLi-uuynEfh3L1tTewpnoJiS_CnyfQ>
-    <xme:WAnzajGzxKAwARL9zFKQtkKSrZFaBK5L2-H-vfTBXZThiAdSXXoj3O82U_iICVnM4
-    3nRr1jwH1pxO9T8-YCHXzJ2bm4RLcx6NFwym0-1NNDlqyD3QCmpUrcC>
-X-ME-Received: <xmr:WAnzaq5f1EnZQ5HhZZEkFmmehj7_xaFBhtbKcalpa4OOhElaM6WWuS1LDd0>
+	b=WUpx2oLySZLk+B7KPBJWtAiDOpj12/hLeSzhTSnA5zj/z3EbORszmrJ/3RPcqcOLF
+	 Njo7OjZ4uYbzNz0Qgdf3gcHkME+m1oWPIga8jBbIjnvODCbmEf4gxqHfmyiHlXlDDF
+	 JYzdqsUc8b2S1WeYGKkbYMijvZePhspBUkSLyUsNUqxROimV0nJOBD0FyagxgUYheu
+	 nE18TUnF2IbYEvtEdnbjxMkMhaBS9/wW/mkRKJ92KYoXXqIcV5ynZZluRUw/tLS2so
+	 ehmT3WIyHpvnfjNd67J3b68tnL2rS8Fd6kzWvOlvo+snzu6cvu5d48mjuIPjEnaM5e
+	 zec/ipb9m1z+g==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id B4647198003A;
+	Tue, 10 Nov 2026 07:09:02 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 10 Nov 2026 07:09:03 -0500
+X-ME-Sender: <xms:XgnzaqjVfAk7lpPlOuOvYmPS7mKEyu157IbnJlVm_9CCsa2LzqHeEw>
+    <xme:XgnzaiCpKjz3m4kLgOEbSyN00NJTqtI8tfaw9LE7tscxbvN8zQBwBaICr5y4MinKn
+    qUe_a07Exg-pMxim-ZyobNZdXHUPiCW60-twK9-f7JS-xEtBBGHXaic>
+X-ME-Received: <xmr:XgnzanHQhgkQJr_HrzX-B5PlkLTKNXy0NJ6hdUzN15nnW4Oo5teezblPl48>
 X-ME-Proxy-Cause: dmFkZTGBHyJLLKJKFF1yqV9yoM2aBlEIjb51YAwUUNwmA+6zS/+FQ51cysO4Ho3Uyd0AL9
     fbqWgmpo2xceUTkmijFv71rEOAcuon2h04LHiVCGs0x4fQ2jLxKMcIwfiW2TASq/K0jCf5
     i8+LGS5Yiy1Y97xb0ys9jmR5GGI7twgQmuX2wL5w6ALl0h/S3DYuf7/BXo7xfMo2Le/y8q
     yir31cLtlZad6SP1iqY+3Vwpxt2Kmzt27xY3i7EUdMDvoi2MEeeHV9Hb87v4BB2S3ODvNW
-    ViB5LVGlnJU1FxqQhUfWgQdxj+fb8r0avbWXCwkcgpjf/LH8LVP89X8uyV/IXyOrULfCZ9
-    J04vWFjLM8rRn6GoA/6DKOUfi4GPui6kftwZdmiOUBlVY3MpruIOoJXBpT7Yd8pduBGDw5
-    Mhai/u/29QqJ4JNJD0MS/96QP8IH/BsKJnrqTK7jYSab/nqvyvSugbk8HkrEH0/UEn3sTy
-    xm5OtzzD84S4Ia8KV4ZCfSFF+ifIKDyuMtUG/Zz6XADJEr+X1DOfYCiZcBmK9Na7M9m/zm
-    GnbkOFREtYhwvmgjOIab1gm7hx9aUY+Fk1RXJFEE5cg6Q8ArtPplX8Gz8fKhkUPLl4woMg
-    3/xxnN/5lwjwW9zTBgHm55Xwh04qbazU7MU4L8Zt06wrIXuB9F7SXK9FTiXg
-X-ME-Proxy: <xmx:WAnzahsf6y4_o_jozKdldlGZXqkqpu4uuiGHmjwZPuOe8vLOyuv2YQ>
-    <xmx:WAnzaj62M_zsD8POYsA_XoRFp6oIn6EazPl4d6giJqioTxQrLm-cZg>
-    <xmx:WAnzakWafuuHkyyFrEYtc8lx29CXA5TL8L22Anilt1WBCMbD2HhMOw>
-    <xmx:WAnzat_ACJnO51pnDoCSpCBURoi4UEXMZWkASR3QjXhQwfqaYUUNyg>
-    <xmx:WAnzaolfw1DHDb55EtM1F_i-Rz3wj0dkMSyef0Gs-7FRlFeYiki0w50l>
+    ViB5LVGlnJU1FxqQhUfWgQdxj+fb8r0avbWXCwkcgpjf/LH8LVP89X8uyV/IXyOrULfCRb
+    r8gnBJSKmDPwlJ/5wfwpAJAD2BZ78565iRoxXIgai9XETkZW/xqHakHobMsq/I2yxb2Q25
+    yq122Bw0VGIlZXrqxqA0aJOpl8O1ntkiQktR7u6orRNF71H3Id8mO/M08IXWnXvwh60RB3
+    dF6GsPMUaH1gUDa2TS39ivG0NDCwso+dNie3KD3ANnReUVpbuZMzzmQzfdusH7OjwomG6q
+    wzitbCykJW/IIr/CloO9XRaE+KlFL3kRPtJWhUMEo9NZ8ETSGsKeVYMnlsfjo+d7iiZ8vl
+    v/YwHt5ijW1I1hvIUmjlr7lB1O4JCurtuVkW26GIwUxMNnpiGWP/5QSTxUOQ
+X-ME-Proxy: <xmx:XgnzaiJU-CxQP7AAzsNLxcpXe1S--1wGHBoriHg8yKpJM7LY82MfGQ>
+    <xmx:XgnzajmU6_mPce50Q0Zt_kXEUq0NTV0EtEKLlHq8CDSF-9-fUj07ng>
+    <xmx:XgnzaiSgm3F8g0rb5Kd0gRPsU34gEjhG4xRM6c3SRtvY9Ewr2YPD_Q>
+    <xmx:XgnzatKaPpJhdzsgu8KMCFYxOvt_mDnTbBWIWIo5txkv-q0Y2lGvbw>
+    <xmx:XgnzagB-hXSktSRjpNSRCwQdDqeUqf24TXdU_HSfX3m1_9Hab6-WKF5f>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 07:08:55 -0500 (EST)
+ 10 Nov 2026 07:09:01 -0500 (EST)
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
 	Catalin Marinas <catalin.marinas@arm.com>,
 	Breno Leitao <leitao@debian.org>
-Subject: [PATCH 5.15.y 2/2] arm64: sdei: Preserve the interrupted context's exception registers
-Date: Tue, 10 Nov 2026 12:08:37 +0000
-Message-ID: <20261110120845.373988-4-kas@kernel.org>
+Subject: [PATCH 6.1.y 2/2] arm64: sdei: Preserve the interrupted context's exception registers
+Date: Tue, 10 Nov 2026 12:08:39 +0000
+Message-ID: <20261110120845.373988-6-kas@kernel.org>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109202501-failed-5.15-58c1eb84e977@kernel.org>
-References: <20261109202501-failed-5.15-58c1eb84e977@kernel.org>
+In-Reply-To: <20261109201958-failed-6.1-58c1eb84e977@kernel.org>
+References: <20261109201958-failed-6.1-58c1eb84e977@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -141,10 +141,10 @@ Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
  2 files changed, 66 insertions(+), 10 deletions(-)
 
 diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 0efe4ee319f4..0f52fbb5cfe6 100644
+index 833ad10421c2..cc35632f9a4b 100644
 --- a/arch/arm64/kernel/entry-common.c
 +++ b/arch/arm64/kernel/entry-common.c
-@@ -821,7 +821,7 @@ asmlinkage void noinstr handle_bad_stack(struct pt_regs *regs)
+@@ -855,7 +855,7 @@ asmlinkage void noinstr handle_bad_stack(struct pt_regs *regs)
  asmlinkage noinstr unsigned long
  __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
  {
@@ -153,7 +153,7 @@ index 0efe4ee319f4..0f52fbb5cfe6 100644
  	unsigned long ret;
  
  	/*
-@@ -846,6 +846,17 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+@@ -880,6 +880,17 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
  	else if (cpu_has_pan())
  		set_pstate_pan(0);
  
@@ -171,7 +171,7 @@ index 0efe4ee319f4..0f52fbb5cfe6 100644
  	/*
  	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
  	 * EL0 until the next exception from EL0 maps the kernel. They only
-@@ -865,6 +876,14 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+@@ -899,6 +910,14 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
  	ret = do_sdei_event(regs, arg, vbar);
  	arm64_exit_nmi(regs);
  
@@ -187,10 +187,10 @@ index 0efe4ee319f4..0f52fbb5cfe6 100644
  
  	return ret;
 diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
-index c95a71156e99..43bfe19e08a9 100644
+index 544c3078f0a6..3a74e64e4694 100644
 --- a/arch/arm64/kernel/sdei.c
 +++ b/arch/arm64/kernel/sdei.c
-@@ -235,6 +235,33 @@ unsigned long sdei_arch_get_entry_point(int conduit)
+@@ -203,6 +203,33 @@ unsigned long sdei_arch_get_entry_point(int conduit)
  	return 0;
  }
  
@@ -224,7 +224,7 @@ index c95a71156e99..43bfe19e08a9 100644
  /*
   * do_sdei_event() returns one of:
   *  SDEI_EV_HANDLED -  success, return to the interrupted context.
-@@ -251,6 +278,7 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+@@ -219,6 +246,7 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
  	int i, err = 0;
  	int clobbered_registers = 4;
  	u64 elr = read_sysreg(elr_el1);
@@ -232,7 +232,7 @@ index c95a71156e99..43bfe19e08a9 100644
  	u32 kernel_mode = read_sysreg(CurrentEL) | 1;	/* +SPSel */
  
  	if (arm64_kernel_unmapped_at_el0())
-@@ -263,18 +291,27 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+@@ -231,18 +259,27 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
  	}
  
  	err = sdei_event_handler(regs, arg);
