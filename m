@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273286;
-	b=xaNYAVcBeyN5XlszXU5cconYii/7eK8W32jziurCJdJ/PcTzXg4YbGgh/F9danIfu53X
-	 8nuTo9pIPth5VAdizYQgk5E29g5w56rTdWfPcWZdOeL+sbXIJalgp7R6OjGjMH5SvkESW
-	 8HBxVUkuLAK+D4QJty7m6K93JeScm6F0UoUuPmYNAa7ePpwVpNeMxBDmkr4zHZ60by+hX
-	 43SdauQEdMKjPbnJ3CmjiK33+NCnEPMZvwRUEfe7MoId6Ob4WyY45fgxzNM2DfwMvAOFr
-	 7WQlu7zertPcMFQDC6SGOG2CuaFC86ZhfqmRKSa0Cgk9eUGV224unzopOlTFlZ2d3tg==
+	t=1794273288;
+	b=vtJVEanycXPo/IZa9WTAruiQuQT1S85Xn0W/U0hrpaRvt+dXgmG5W/Wpo/R4YNxTneLV
+	 56nsuncI3W6/RqWYBom3lAb47hzRDPFtV/9E4Nvspq2TXPNpXXdVMEovzFMcGrbGch/ja
+	 bHvCKAoE/WlBOgh6Lxp863ExD/f+B71IP6DBGKy06RYXD/CnmVWQ4R198nN3ZTRqHWEKO
+	 RsgSgr8nRyfUtUfwl/wr4jPcgSRYnsAWYV+b6mY7CqjE4Scz53cfW9qfvRdcV4ZsyZyg6
+	 yCcbTuTmCpjRBjxjjlkfrrE9TJW8ze7jvtsfplma02G5p27tRUFj1NK4mApMC6gK6cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273288;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kxRMd3ahDHHk8Uzz8PGhiWe4Hc6kEcHQN6vrxVDEa28=;
-	b=bz+GR4H+oXZEQ3nCcMQ4m70xVabsv/g+v8us9ciqMV4m7ymOhuWSDE8AI2iN/9Vwniib
-	 /rBSGHqmBVbu0z1tfr288dWHSLxWRkYqiRo690H7epZ/BVAcNV0hzxjUIAcflwtbHPl2C
-	 CTthIVUwignE+UpYVp60yJmFqQ7zVYDu6QgAvHTAfWXE+Y6Xus96WYSrFlqhIU3O78D+G
-	 Zovx2ijDW5BJWimrshukpASpPeNcgzYmPdBiBBsEXUZ2PQeqcppsRJICrrhoknXouBQHM
-	 LXk/Ng9E7n5kgB7PkTA86ckuVcUzXF8h0L/K+ozE2ZGzNPbpawbpllH9IEZoBE2wphg==
+	bh=lqhMMWKXpcP1B9MSKlpKrjhqNky4QXFHbXTnaxF1rYk=;
+	b=KPIVQPF8z5mtMUeR3UyBTqzrxvk/Q2kywrt4L5xjsCWwE4Ab8gUx8JcsxCO93dDU6qxL
+	 KS7Yc3WmR95WE3oiar7SlGT5ELVicadNdvDu+5seKqT3dwQR3j9uasH5TdUrV91wTmzBk
+	 CVVaqaIoZSpl4bPeUYm9X7tuL6bV6vz6AGdOVgZhRKnDakIDjHcSnOvNkLxiUqzmTidBo
+	 yGUbLybYzTFa4WkDgE6UwQhDCgyoTcqK1eI/L+ZJe5IRpnMeScMJIan3NJ+F/nbkQu5LX
+	 L0nzvBUeWWcMV5/RrpRHObsoVDusrPiTj05KNw8usoojiZMkwT3XcgfT3Pd+w9L+y6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQOvhPS+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBj8j7Qu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97AB606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23815606A332
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQOvhPS+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BC51F0089F;
-	Tue, 10 Nov 2026 01:14:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBj8j7Qu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393DE1F0089F;
+	Tue, 10 Nov 2026 01:14:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273285;
-	bh=kxRMd3ahDHHk8Uzz8PGhiWe4Hc6kEcHQN6vrxVDEa28=;
+	s=k20260515; t=1794273287;
+	bh=lqhMMWKXpcP1B9MSKlpKrjhqNky4QXFHbXTnaxF1rYk=;
 	h=From:To:Cc:Subject:Date;
-	b=eQOvhPS+x1sSomkiYd+zWO8DMZ60/IztnQxQJcGnsnELJToqykSkqNOy6PTq6FkBF
-	 fzeU8PEf6ME1yFYABrDBUSm93s5iy8eCG4J24J2c1Flz5wOWf7T7kmEfW3O1fqMbrL
-	 0+FJLvsQvSB0beQOqp906iIghXkFDhwrufi7mPFpAyr/yjTXDIA2H4nf3NN6v9htI1
-	 rkr/KSkCqSsH+DeBjy5ut+t8kM0gLWnUW5iB188lXDr25VS9Xzg97aXqvNfPtLgEkc
-	 kFVJ0FzM3fjk/xbvU2DrquxZsvBCRfeMDZweqB31sTUN1Drfm1GJSkiz0VfxasT0pb
-	 5ShZYtnElpNdg==
+	b=RBj8j7Qu+CGkWfVDKE+qcaoEwU5oaAX739cRP9CVYrrRiuFptKIEF1WGXFiNdsaf+
+	 RmTte521N0PwiLIlQyjtpB17bex9bn8QIUtJJPByzmARvoEyoGg2F3+J3qRwqQEk0I
+	 2PP91unEYBj4qnVmGfSAmxJv8ts+Ou8NabeJRQtojCGIrxmHesZ06eVvR3t3+O1UI3
+	 dbdtsJ8azCquYAGwzFmKV/NW8r3KQzDnOdS+t6vL+G59+UtwlW3Nc3It99H7gu7ipH
+	 dKHO4l9BtytHZ5BeXOte0Ff4GaWLzZ/YinNwFzp8kTdSRQ+sNihGB4rnw3JxYvuPgi
+	 3DYQniXBhJGsQ==
 From: Sasha Levin <sashal@kernel.org>
-To: odys.yuan@gmail.com,
-	hch@lst.de,
-	paulmck@kernel.org,
-	kbusch@kernel.org
+To: kylebot@openai.com,
+	matttbe@kernel.org,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] srcu: Add list_splice_init_srcu()" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:14:43 -0500
-Message-ID: <20261109201443-failed-6.6-d06917d0ba22@kernel.org>
+Subject: FAILED: patch "[PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:14:46 -0500
+Message-ID: <20261109201446-failed-6.6-49b09ae0bf57@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,97 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d06917d0ba226206dbd606330d73a8eb1e3029c1
+git cherry-pick -x 49b09ae0bf57b4230187d4cdd0a370558e44a6e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201443-failed-6.6-d06917d0ba22@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201446-failed-6.6-49b09ae0bf57@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d06917d0ba226206dbd606330d73a8eb1e3029c1 Mon Sep 17 00:00:00 2001
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Wed, 4 Nov 2026 01:30:39 -0500
-Subject: [PATCH] srcu: Add list_splice_init_srcu()
+From 49b09ae0bf57b4230187d4cdd0a370558e44a6e8 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Thu, 29 Oct 2026 21:22:55 -0700
+Subject: [PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners
 
-list_splice_init_rcu() makes a list look empty to new readers, waits for
-the current ones with the given sync function, and only then links the
-entries into the new list. The sync function takes no argument, so it
-can wait for RCU readers but not for the readers of an srcu_struct.
+mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
+instead of going through mptcp_listen(). It consequently misses setting
+SOCK_RCU_FREE on the parent MPTCP socket.
 
-Passing synchronize_rcu() for a list read under SRCU still builds, but
-leaves SRCU readers on the entries while the last one's next pointer is
-moved onto the new list head. nvme_remove_namespaces() does this today.
+tcp_child_process() can invoke the listener's subflow_data_ready()
+callback without holding the MPTCP parent lock or a reference to the
+parent. An authenticated MP_JOIN racing with endpoint teardown can
+therefore access the parent after its last reference has been dropped.
+The ADD_ADDR error path can also close an already published listener.
 
-Add list_splice_init_srcu(), which waits for the readers of the given
-srcu_struct instead.
+Set SOCK_RCU_FREE before __inet_listen_sk() publishes the TCP listener,
+matching mptcp_listen(). This protects the parent on every subsequent
+close path, including a failed endpoint addition.
 
+Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
 Cc: stable@vger.kernel.org
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261030042255.74216-1-kylebot@openai.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ net/mptcp/pm_kernel.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index 1a8a465a5650d..d4dcaeb83e2b6 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -18,6 +18,7 @@
- 
- #include <linux/mutex.h>
- #include <linux/rcupdate.h>
-+#include <linux/rculist.h>
- #include <linux/workqueue.h>
- #include <linux/rcu_segcblist.h>
- 
-@@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
- void synchronize_srcu(struct srcu_struct *ssp);
- void synchronize_srcu_atomic(struct srcu_struct *ssp);
- 
-+/**
-+ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
-+ * @list:	the SRCU-protected list to splice
-+ * @head:	the place in the existing list to splice the first list into
-+ * @ssp:	the srcu_struct that readers of @list use
-+ *
-+ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
-+ * instead of RCU ones, so that none of them can follow a next pointer
-+ * onto @head.
-+ *
-+ * Note that this function blocks, and that the caller must prevent any
-+ * other updates to @list.
-+ */
-+static inline void list_splice_init_srcu(struct list_head *list,
-+					 struct list_head *head,
-+					 struct srcu_struct *ssp)
-+{
-+	struct list_head *first = list->next;
-+	struct list_head *last = list->prev;
-+	struct list_head *next = head->next;
-+
-+	if (list_empty(list))
-+		return;
-+
-+	INIT_LIST_HEAD_RCU(list);
-+	synchronize_srcu(ssp);
-+	ASSERT_EXCLUSIVE_ACCESS(*first);
-+	ASSERT_EXCLUSIVE_ACCESS(*last);
-+
-+	last->next = next;
-+	rcu_assign_pointer(list_next_rcu(head), first);
-+	first->prev = head;
-+	next->prev = last;
-+}
-+
- #define SRCU_GET_STATE_COMPLETED 0x1
- 
- /**
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index 1a77508132354..f7396628490e3 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -906,6 +906,7 @@ static int mptcp_pm_nl_create_listen_socket(struct sock *sk,
+ 	 * old status is known (TCP_CLOSE).
+ 	 */
+ 	inet_sk_state_store(newsk, TCP_LISTEN);
++	sock_set_flag(newsk, SOCK_RCU_FREE);
+ 	lock_sock(ssk);
+ 	WRITE_ONCE(mptcp_subflow_ctx(ssk)->pm_listener, true);
+ 	err = __inet_listen_sk(ssk, backlog);
 -- 
 2.53.0
 
