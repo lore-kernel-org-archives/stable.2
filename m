@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272725;
-	b=JyU7AhCkVBJzErd6f1IsuEc3oqWG67h5cCSvI7dv/T1Jf/cv2sQ6ig4NrZOCtUxX+bmK
-	 EmfUjtrILxXnjrBHmmjhVKrGu/i4U47Ao6lx4TfZMf2PjQ7jsT7QTa/3EmmW5jc7WD2Aq
-	 ILh3XNQADXRIuipdvrj8M5IIzscj3fovII0AW81zQhyD9ULplucZl3E0hAWH9d14AMmgR
-	 34DqvXQwgR/DozO7SPB58Rk9vR/awCE3e4KmQ31f9rn1WScrtdh6l18UtLdsyeNH9ig4F
-	 CJTuEdRdd+TDxIpocL5Trhnx3SYBasRJjDYChCm/n/1ciptBGA12VIqiN64DEpEVFXw==
+	t=1794272727;
+	b=koWYi3BWFfQ+TMouwtJKKZLdKsnOXw9YYLeN1PTWfsU9PNs9q7LVKcx5gkOZNpna6Xtz
+	 5hE+7bk6UOmHTxdLoTndp/cthjC9ytBXtsKT3xe4AgJskTEHGFXFjXTxmKKiXgS/3Jjhg
+	 37QDewNnxYvNO+7sUCIMD8kcA30TbABvKKmVSPutVkM+clRpkxb1G49TQxcTl+eym8WNV
+	 zngsS011h/cCZkTceH/9QO0esiKcF9i6pFyvP6AXeJyhQvBvme4q/y2BbA93llNGqETXD
+	 NWsJe2R/bPCKFBLnfd6IL9SYiQJEndHuuSIE8/o4St537MtV+F4pF4s78oY1KRfHvFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272727;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RjJEYBBvPegVDXS3InKy5QIgQVX2AXaLgw+InPdjxyo=;
-	b=Hm9nM5O9sqdav+SUgYBw/+bnSxEMUO9vc90fdQUOnJwCRIyEqWZG7bcesKQSSO4irIgL
-	 MVn5n9PQkwVosAayl/nRmY+I4uIokuwhvzNHxxjHcq7FfjRajS8UDadQPOCyVUmYDGior
-	 OQJ/KLANooo3TF8SHJF8jqge/rOCIN1AXTjv3/Z36jI6mTwimV51el8t/DdZ+uctAxSyI
-	 KXlsT94UPBOyX6EbXYZAq7eIo/YCnja03Ld7xjtijgLQhvj8r1LtVxL5/s83qcPyX+BVU
-	 yuiyjJZoJNNQYYNdfGsFA25dymRbZhP/lDEjCWAZjkwKtitAWtYhBIby588/nJiPoTA==
+	bh=EMgWYmlwlQYKG+bEJ72Tx0f0qpDf912g8FeayKvs53A=;
+	b=Qp5R0MtkVs3Zq/arYCLTcrtZkO65p9pZBuBMuCsIfY39a2ZG9qn3HXnABzjJIutj5tSn
+	 Acmper+efKCfbl1rwmIh1kJUS38hCFjFjwKjc5BuBUjTSGNCxTdomug3e8pqsgLSgdLOn
+	 APv6iMW9+XHjIds0h0Z9hZGtCB0I/t1Te1+KpDWnlVaP8HXtKZ9w7d1h8bgpG2CTSRClp
+	 ZdclV6mPHcyq2pPgATXOEx6O2xQwehH3j+QMyMxZh9n98//JiWM1H5MHIrsnFKzPd+12G
+	 r3DgyjzgtAkxP5b/EM1+gPseZ4QZHd15mON4xuDJsX28I8Gc0lQdPsAcktUEf54e36g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2SqDeAI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDpNnxPQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1263A606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1C2606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:05:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2SqDeAI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F34F1F0089F;
-	Tue, 10 Nov 2026 01:05:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDpNnxPQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA7E1F008A1;
+	Tue, 10 Nov 2026 01:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272724;
-	bh=RjJEYBBvPegVDXS3InKy5QIgQVX2AXaLgw+InPdjxyo=;
+	s=k20260515; t=1794272727;
+	bh=EMgWYmlwlQYKG+bEJ72Tx0f0qpDf912g8FeayKvs53A=;
 	h=From:To:Cc:Subject:Date;
-	b=j2SqDeAIF91S54Z+xjbelZAjTVVJr5jEZRHuKCZlOimJsJxrexeqrRZAE14uYsEWW
-	 EatjLPzPLnzu3xjRZxtcG0vRhs6AyE/Es7+KoebLw0VTZ7VFRxtBo/SrD/2lpcLl2a
-	 dcfHWQ04+cX7VFdkjbFrMUAxgraKkqr0Ahu03ICiqH3L3z8REY3QmqJ4XbVwtL8Ml+
-	 gPJWRr1iF/9cmL93XNOsDjAChbF8fPXE+5zgQH25B4EGd5+KrgLJerllYT+IXaxAT4
-	 fYtWLE1rDzeU2V1woQfaG2TEcTaX7YpaCdxJQyLFrH06ctoVJVuPjYBVAYUG3MuaZZ
-	 jxuG5KE55ErRA==
+	b=VDpNnxPQzf0qI3hZ7cJIIfaycBPs4XyP0b+KdloKDdJSO6DIb13TwLod9t2GXXf6r
+	 ZglNMRlvAxQZxrYUxyrx2Gmc709PNGPGCWVKc2QNqqOobyHe2fMJeko79xxYd20w7g
+	 oEl8K1kO/jLEyIKwm0Khr/uYPK+WNzXtQbvNHBVTaMeZfIFvusrkd8rlBUjtyYDcOT
+	 DWzLPN9qEo5jA5n+eLrMS2NUMypU8ZAJwcLs1SnfZ+2XBHJA0nb0meWTAaSjXxhPgh
+	 EgdA1mZVySRHvKrGQofRnsVv/z2u1ArWlua8IM0As2Nkn/EaF9emwd7MF4lroLPcwo
+	 6y0ZZEuLJoxWA==
 From: Sasha Levin <sashal@kernel.org>
-To: lance.yang@linux.dev,
-	pfalcato@suse.de,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com
+To: mason@kernel.org,
+	dennylin0707@gmail.com,
+	amir73il@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] khugepaged: fix readahead lock inversion in collapse_file()" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:05:23 -0500
-Message-ID: <20261109200523-failed-6.18-eadce52a9ef6@kernel.org>
+Subject: FAILED: patch "[PATCH] ovl: fail the mount if the casefold flag has changed" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:05:25 -0500
+Message-ID: <20261109200525-failed-6.18-c782fc8ada81@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,130 +69,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x eadce52a9ef657d561b3e76c9b5f178bd99735f5
+git cherry-pick -x c782fc8ada811569811c0fdea5c3412511be95d0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200523-failed-6.18-eadce52a9ef6@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200525-failed-6.18-c782fc8ada81@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From eadce52a9ef657d561b3e76c9b5f178bd99735f5 Mon Sep 17 00:00:00 2001
-From: Lance Yang <lance.yang@linux.dev>
-Date: Mon, 26 Oct 2026 23:20:13 +0800
-Subject: [PATCH] khugepaged: fix readahead lock inversion in collapse_file()
+From c782fc8ada811569811c0fdea5c3412511be95d0 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Fri, 16 Oct 2026 21:17:21 +0000
+Subject: [PATCH] ovl: fail the mount if the casefold flag has changed
 
-collapse_file() can call page_cache_sync_readahead() while still holding
-source folios locked. If truncate holds mapping->invalidate_lock
-exclusively and waits for one of those folios, readahead waits for
-invalidate_lock and neither side can make progress.
+An unprivileged user in a user namespace can repeatedly trigger a kernel
+warning with their own overlay mounts. They do so by changing the
+casefold flag of the topmost layer's empty root, the top directory of
+that layer, after the layers are set and before the mount is created.
 
-We need to release those folio locks before starting readahead. On a page
-cache miss, roll back first, populate the collapse range, and retry once.
-Doing readahead after rollback avoids an extra pass when all folios are
-already present. If another miss occurs on retry, give up rather than keep
-retrying while truncate or reclaim removes folios.
+The casefold flag of a directory makes name lookups in that directory
+case-insensitive. All layers of an overlay must agree on casefolding.
 
-Keep page_cache_sync_readahead() and wait for read I/O with
-filemap_lock_folio(), releasing each folio before moving to the next. The
-existing uptodate check during collapse still handles read errors.
+ovl_mount_dir_check() reads the casefold flag of a layer root when
+fsconfig() sets that layer, and saves the result in ofs->casefold. The
+mount is created later, by another fsconfig() call with
+FSCONFIG_CMD_CREATE.
 
-Shmem uses shmem_get_folio() for swapin and fallocated folios without
-taking mapping->invalidate_lock, so it is unaffected.
+The casefold flag of an empty directory can be changed.
 
-Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+The casefold flag of the overlay root must match ofs->casefold.
+ovl_get_root() copies the flag from the topmost layer root, as it is
+when the mount is created. On a mismatch, ovl_get_root() only does a
+WARN_ON(), and the mount continues. The check is not a WARN_ON_ONCE(),
+so each such mount warns again.
+
+An unprivileged user needs CONFIG_UNICODE, and a tmpfs mounted with the
+casefold option in their namespace.
+
+Reproduced by changing the casefold flag of the empty upper directory
+after the layers were set and before FSCONFIG_CMD_CREATE, with tmpfs and
+ext4 layers, and as uid 1000 in a user namespace.
+
+Fix this by replacing the WARN_ON() with a check that fails the mount
+with -EINVAL.
+
+Fixes: f9377faaeae0 ("ovl: Add S_CASEFOLD as part of the inode flag to be copied")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Tested-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 33 insertions(+), 11 deletions(-)
+ fs/overlayfs/super.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index ce794d9760a87..6d5a44cf3a00b 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2240,6 +2240,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	enum scan_result result = SCAN_SUCCEED;
- 	int nr_none = 0;
-+	bool do_readahead = false;
-+	bool readahead_done = false;
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index d9174eaccce2d..8bc970748b96b 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1387,7 +1387,6 @@ static struct dentry *ovl_get_root(struct super_block *sb,
+ 	ovl_dentry_set_flag(OVL_E_CONNECTED, root);
+ 	ovl_set_upperdata(d_inode(root));
+ 	ovl_inode_init(d_inode(root), &oip, ino, fsid);
+-	WARN_ON(!!IS_CASEFOLDED(d_inode(root)) != ofs->casefold);
+ 	ovl_dentry_init_flags(root, upperdentry, oe, DCACHE_OP_WEAK_REVALIDATE);
+ 	/* root keeps a reference of upperdentry */
+ 	dget(upperdentry);
+@@ -1571,6 +1570,17 @@ static int ovl_fill_super_creds(struct fs_context *fc, struct super_block *sb)
+ 	if (!sb->s_root)
+ 		goto out_free_oe;
  
- 	/*
- 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
-@@ -2257,6 +2259,10 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 
- 	mapping_set_update(&xas, mapping);
- 
-+retry:
-+	result = SCAN_SUCCEED;
-+	do_readahead = false;
-+	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
- 	__folio_set_locked(new_folio);
- 	if (is_shmem)
- 		__folio_set_swapbacked(new_folio);
-@@ -2321,17 +2327,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 			}
- 		} else {	/* !is_shmem */
- 			if (!folio || xa_is_value(folio)) {
--				xas_unlock_irq(&xas);
--				page_cache_sync_readahead(mapping, &file->f_ra,
--							  file, index,
--							  end - index);
--				/* drain lru cache to help folio_isolate_lru() */
--				lru_add_drain();
--				folio = filemap_lock_folio(mapping, index);
--				if (IS_ERR(folio)) {
--					result = SCAN_FAIL;
--					goto xa_unlocked;
--				}
-+				do_readahead = !readahead_done;
-+				result = SCAN_FAIL;
-+				goto xa_locked;
- 			} else if (folio_test_dirty(folio)) {
- 				/*
- 				 * This page is dirty because it hasn't
-@@ -2654,6 +2652,30 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	new_folio->mapping = NULL;
- 
- 	folio_unlock(new_folio);
-+
-+	/* Readahead may take invalidate_lock; source folios are unlocked. */
-+	if (do_readahead) {
-+		for (index = start; index < end;) {
-+			folio = filemap_lock_folio(mapping, index);
-+			if (IS_ERR(folio)) {
-+				page_cache_sync_readahead(mapping, &file->f_ra,
-+							  file, index, end - index);
-+				folio = filemap_lock_folio(mapping, index);
-+				if (IS_ERR(folio)) {
-+					result = SCAN_FAIL;
-+					goto out_put;
-+				}
-+			}
-+			index = folio_next_index(folio);
-+			folio_unlock(folio);
-+			folio_put(folio);
-+		}
-+		/* Drain the local LRU batch before retrying isolation. */
-+		lru_add_drain();
-+		readahead_done = true;
-+		goto retry;
++	/*
++	 * The casefold flag of an empty layer root may have changed since the
++	 * mount options were parsed.  The root inode owns oe by now.
++	 */
++	if (!!IS_CASEFOLDED(d_inode(sb->s_root)) != ofs->casefold) {
++		pr_err("casefold flag of the root directory has changed\n");
++		dput(sb->s_root);
++		sb->s_root = NULL;
++		return -EINVAL;
 +	}
-+out_put:
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
++
+ 	return 0;
+ 
+ out_free_oe:
 -- 
 2.53.0
 
