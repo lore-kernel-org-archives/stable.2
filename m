@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794274078;
-	b=IaHKNibazR6Ohg31VpSsBflIbZyYrow5a2RHphgYtB6RVsimCscHQ2IVLbm2MNSF5XMQ
-	 cHH8pCrO5W+UpD8Cw0ul8Rn0GU61za2Ru+/yBOsMrJ+KK8o/4D1W+IBBYPWWb20MGpY/w
-	 Bl3i/OqILV9vmBmhcGjSTquXCc+WzFpygfCoHJ6s3qBevf02XewgBOqnjZWA5qNmqPKFK
-	 VLh+d6LvZWbqhLxhSdZzzUDpSadMbRpvAFvhHj4jbfjEwzQI2jOdv7YvU1RNmmoMyS3qG
-	 m4LOrkUyrCshdohi7xQNHCqURFqb7xb5SNJ8G5HM0YE4q8P/3hB1rh2WoU2X0ChjiIQ==
+	t=1794274081;
+	b=QyQvz4mJsaGfT8EI3wgMqKroczDo9pYTsmYT7olaz22bvROfaeJF9EE/71onmfnVDZm3
+	 HS9xTpFCSiLyWyu1GryepBq9ynjaoUiIVmqnpMPS0DY/2HXNNE1kr3Y1Zb48P/gbDXDQp
+	 kcXmG5Bl+acaGAwRWYedsge1+pRivt3IJKoZoS7auitbASf5mXlt12FzJFi6/wTikLkHb
+	 uWb/ywMCzrdhBvQAyZeQ1KZOODtYTW5SYediK3uHtZfLZxdjKadKOw/cBrrhwnlByfKPS
+	 UShAGz7+kONVBGLDXLC8ryqvgpy5+PPRuqbgVmm0/6HzsygLnGTSS+1mHJb4BMZ5seA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794274078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794274081;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hPv56JqfivcljOar7acu1CjSPhKfHH/bt/+ugr8aqA0=;
-	b=O7DRI6l+u9y8pNCrYnGjFA4lS/AaBgmH8phzJbfNOvvUdmus8A/3qc8ZevAN74XI0Bvv
-	 aSAzDWH/H1gE0UiqtkSp/UMPG7Z27OpalxQlTFs47XNIg3VmT0ya5ifRx7nzwowVCgstO
-	 Qn3mheba4frSfZ1EfaJ+a5GB0dhQB0jy7W+WCg5QoWT40K551EGD8nisthGK9pBbPUwcU
-	 lEnb7gJbmDzXv9bfvZfd/oiPD3IvlwRasvUI3hXEV2xNSn3UCrAql9rNeE1VFBKGZ83+6
-	 SXlq31fATCtQHyUotP4PQHXZcEzl5m1HsfuJQL0MUbtHb7UXvI0fhutRKKzpmeg+Org==
+	bh=+RDMEaVHfVWw3NNZhIfU05owGFo3eSY3C16T9b4RXOE=;
+	b=A9/jICQj3ZHoJ/ankfIJ9VJVeKmxZeZm/dMO4Uck+93VoPeOPnHonqZtoB9nULkKc5Yw
+	 AjKrxDPl28rGYM4zHQZyL9y1sVMCuZhZ9y6DIbdlfcU7+Vv+QZplfb1DJn8XDByGdEpwP
+	 Xz/i7bEN2RkgoJ7bslZVohj3ZwELprmGpPms4nFPmO0J09jxnfY9ZyK4Ezb+mqoJRU8EC
+	 Tj0yvpDorTafPvW93Z1xLySBs/PuYonhbmyvyC+2pgKu1ITqf+/8AVqlIjbKZwNX/YJZe
+	 2S6+UcdpNWPxnxlTsG0PuXKLAvEqKgRURkwHq4Nmume+6nLkEER2M5HApbWUmrUVdfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jj+CXz3d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yo2P4tcI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AEA606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9BE606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jj+CXz3d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECAC1F0089F;
-	Tue, 10 Nov 2026 01:27:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yo2P4tcI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29021F008A1;
+	Tue, 10 Nov 2026 01:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794274078;
-	bh=hPv56JqfivcljOar7acu1CjSPhKfHH/bt/+ugr8aqA0=;
+	s=k20260515; t=1794274080;
+	bh=+RDMEaVHfVWw3NNZhIfU05owGFo3eSY3C16T9b4RXOE=;
 	h=From:To:Cc:Subject:Date;
-	b=Jj+CXz3drccymgc0PyB/3prEc849CDicIMXoPwaXlny6vMIl3p9sVeipgkiGxkp5p
-	 wSu6U5S+KLgI3NSnjocRp4CeUnNM+kcMtQn0wMH+gnpX7asMFzhEW/2U9zPf5/cnll
-	 j/k+AuBCqJ16u/QSy0We4LDdgBzeQWvRN+xiNijk0BeYuadAxSKYDNt71x5sTL4Sls
-	 Ai+6/BiGKDopcdX8RSX9oShPOV8wVKLWB4lVu2zJYHVKULdUP1NI82dXIfEUFPiKXi
-	 GG8nL0eMht/7nIKowSuh4UoPlrvlTrOnmrYTOzMj/AjRrw2rk4bNtdrhTubktlY0Nr
-	 xR6GHq2/jMNZw==
+	b=Yo2P4tcIwXZ/Vr6wicJncj2EVGx7Uf5V7W0cinxtdT9y3H6ZA4MbyuY78IpcYF7PD
+	 s5N5zMVHdcOzrYfGJ9QrrglceRABUvJC3k5T4Bp6Hl01cPe40/xSJHKCh64nTVz21B
+	 5cRLM812ZQisRX1TToI6yFk0LeOdubH21VV+XGXtMhKeta995qckoKkRm1QwCHUhyM
+	 kkpdgICErx07MkZEREebI3ivMmkUYmP5vgqr66OHUvglOL1BwBBADh0Qis2ysmHcGA
+	 qmR0+auD4UNV+Y19L9rbebIVdxCiQ8c1ALOM98VBHifa6tu5zrDDm/3fWikDvPfdwh
+	 rc2XrTiPggsUw==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	gourry@gourry.net,
+To: gourry@gourry.net,
 	usama.anjum@arm.com,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
 	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/huge_memory: fix truncate racing with PMD zapping" failed to apply to 5.10-stable tree
-Date: Mon,  9 Nov 2026 20:27:56 -0500
-Message-ID: <20261109202756-failed-5.10-e6a07d29b0a6@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: compare exact registration modes before skipping" failed to apply to 5.10-stable tree
+Date: Mon,  9 Nov 2026 20:27:58 -0500
+Message-ID: <20261109202758-failed-5.10-05f64f211a25@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,78 +69,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4
+git cherry-pick -x 05f64f211a25f7d9771d4fde109aad97174a1cf3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202756-failed-5.10-e6a07d29b0a6@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202758-failed-5.10-05f64f211a25@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:42 +0100
-Subject: [PATCH] mm/huge_memory: fix truncate racing with PMD zapping
+From 05f64f211a25f7d9771d4fde109aad97174a1cf3 Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Sat, 31 Oct 2026 10:39:55 +0100
+Subject: [PATCH] mm/userfaultfd: compare exact registration modes before
+ skipping
 
-zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
-If this was the last mapping, truncation can skip unmapping the folio
-and proceed without waiting for the PMD lock, racing with dirtying.
+Changing registration from MISSING|WP to WP returns success but leaves
+MISSING enabled. The no-op check sees that WP is already set and skips
+the update, so later accesses to missing pages still wait for userspace.
 
-ifs_set_range_dirty() can oops if MADV_DONTNEED races with
-ftruncate() on XFS, when we get the folio set dirty after it was found
-to not be mapped anymore.
+Skip the update only when the current and requested UFFD modes match
+exactly.
 
-Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
-matching the PTE zap path. This keeps the folio mapped while updating
-its state, so truncation must wait for the page table lock.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: apply fixup from Lorenzo ]
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/huge_memory.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ mm/userfaultfd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 283c4bc8b927c..ce52962db16b9 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2495,10 +2495,6 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- {
- 	const bool is_device_private = folio_is_device_private(folio);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 03f1b15bfe63e..dac696bda19f0 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2291,6 +2291,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
  
--	/* Present and device private folios are rmappable. */
--	if (is_present || is_device_private)
--		folio_remove_rmap_pmd(folio, &folio->page, vma);
--
- 	if (folio_test_anon(folio)) {
- 		add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
- 	} else {
-@@ -2512,6 +2508,13 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- 			folio_mark_accessed(folio);
- 	}
+ 	for_each_vma_range(vmi, vma, end) {
+ 		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++		const vma_flags_t curr_vma_flags = vma_flags_and_mask(&vma->flags, __VMA_UFFD_FLAGS);
  
-+	/*
-+	 * Present and device private folios are rmappable. Remove the
-+	 * rmap after transferring young+dirty to the folio.
-+	 */
-+	if (is_present || is_device_private)
-+		folio_remove_rmap_pmd(folio, &folio->page, vma);
-+
- 	/* Device private folios are pinned. */
- 	if (is_device_private)
- 		folio_put(folio);
+ 		cond_resched();
+ 
+@@ -2304,7 +2305,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 * userfaultfd and with the right tracking mode too.
+ 		 */
+ 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
+-		    vma_test_all_mask(vma, vma_flags))
++		    vma_flags_same_pair(&curr_vma_flags, &vma_flags))
+ 			goto skip;
+ 
+ 		/*
 -- 
 2.53.0
 
