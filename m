@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316329;
-	b=iXwuhBNzBdhBO/DwBWmxRwEDoEuYKTGTqrMYq5kmgb7GjKQIjVYXaUzReigeSQbXDWhv
-	 lQu7NONijhtchY9MbnHZKfNo/+fuc35A/erOZk8C92d0a9X1GqQXzuBY7c70eZLDtbkNp
-	 ccve+0F3aMKoz51R8PPYzqXOHZG2V8lykxoI6Julauoi3JsMpxUhBlKDM0NhXFFzP8QBx
-	 8DVEkIb62uEOz/ZhDUd5uGEu3eqyKQAPMMyTGHg8MXOpKqGKOiksGHFsuzApHv4gQLhbr
-	 BzpWv+qz/kZhtiw3k74ERV3qIQnhT4Z6C4dkJlyuz/8QFdWXowSY52wYpf7BwigQsuw==
+	t=1794316370;
+	b=NDHb3SPSDlEFQMaRO7neCTH5Lx5hMPsZW04+qgTZcMvvXAUvlDnWvgTb2fpgQO8uhWRg
+	 h/gFycD+XTZi4IEgfq08I6kOmVbyZRfClClIIivTRxv27on4H2dy2zVQETmD72WLWLooy
+	 OEaol3GXxgvPLHw012uihpjOwgq2QdcBCtkPAf7xYeClulYKf3fD3zUZr3CjblrhqjJSx
+	 XZcHeKwN9KvVgoe2bq6HKYrM5FdN6zVSw30hhvVavKNRVqz+zDfljj5tcMsojzoJ+t2gK
+	 vi7WsH4fo7bp35DnV34RKiarVpJY4Bq9lD3S0z/az/06cp7Lupi0x7yquKWpO6UBwng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316329;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316370;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pE22Gztr5bQmWJ+g55NKq3r2d5hgLjACeuD5cUfGKUY=;
-	b=b/oOA/DTEcirXZQ0i/ieeKdth//nAsF/XUYoHtdz0A5MBaSLQDDBMDg5rumrn1tcoutw
-	 XhLltg1LgJWzas0WEOy1r+kFds24Xpx0hY2i4ExcgPvC6rE43ot8y2QrlD8PvZl5klJ+E
-	 Aa5W6VCfOHqaapderTxqXpIciGsFD0OOpNWql3y1RKoytcPdgahmDSHbP3aNF8bdMZjYP
-	 AkQIWd66KqHPW5+zgnnU+sGTYx75Av0vbPiUJ7hu5wLKQlIA3ni2a6FZ9ehlI8Dc5DJWd
-	 CBf06zX+1EkoBzT+JDX7ZtHTD7rwmdgzelr0ng5f2qHlyhjMwHtw0vcBDeX8dJDva2Q==
+	bh=6nYfNMKMUPJmu2K0KHJEcNi8Lp8ogvka5ioaYQRbpRk=;
+	b=MTE6i4sawlZSCI+ZvWwL/kLGMGdO0z+STMIe4zm8ZNemb1QgoiiYXzegWWBSSlsgoQkK
+	 hmgxXnfTmGEENEvdKEz7ObC7tYOkR00moDmLO+F2/UskAxXiCSa2IsCEG0txBvxeFtdGM
+	 LbjpCDA3VHJXXoxRrh8Gwql088WCEB/XEnDKKFN0RpQ19KdlLxsneWOYg983rvMG5SD9s
+	 DPO/Vjw5dC1KoOXiaZ8ngrPgOifNWvEdU8O99HzDfB+xl5ak9I4JfE5GPix9LPF3xifIp
+	 Osz8QxaC0MYcjzJ+LKpuQjYhPOHmxZ/gqOvlzL6Dn+LOim2EDJDFWFOO02ANZpbKMyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7g7glPZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBU97msk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E77606A761
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:12:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D35606A7DF
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:12:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7g7glPZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2401F008A1;
-	Tue, 10 Nov 2026 13:12:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBU97msk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39F5B1F0089F;
+	Tue, 10 Nov 2026 13:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316328;
-	bh=pE22Gztr5bQmWJ+g55NKq3r2d5hgLjACeuD5cUfGKUY=;
+	s=k20260515; t=1794316369;
+	bh=6nYfNMKMUPJmu2K0KHJEcNi8Lp8ogvka5ioaYQRbpRk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g7g7glPZyiQa0s+TVsNYCp4qRGsGb9paTJGtlcEoef6ZCErmZpX809/qcW4FV7MxH
-	 KixpcJd9g01IVZHDSwl46uxMky1g7Kk8MpxbAr5MzJrkXS18uD1OHKsHdqKEBcR/oF
-	 yHAOd4Fl/BLPVl8+3iJdWPWOH5EucGxxln8wpzt77onP+iEfcX+pAqfcxgfKub3QP7
-	 keSuWg5GPKCkKYPzTtJXxJJS5QORRMUJUCbEGphAsMho3io6uKMS+kBYxvu6ZZPxz5
-	 UZkye70nOTjYvsrkAfvgFnxqn1qcGOAScMUpQLSudWstyPKmajGM8I6Uk9Faw81Cdu
-	 jQ6Er3CsGKeSQ==
+	b=JBU97mskxnJ8bECuq5cANDbePxWFOeChCFqLj3GKQbgGvmEVQL2YFtk2DAMkXRgc4
+	 DxpweQjn4uj1QoLEDNXU13WpjKrZjyFR0YxBwzkrPBM2dnl/1FIoJ/+q9Jqe959WtM
+	 n/GgDJwDpeIx7fdxzMFBAIs1G6mqhyzV1CbIYsWprsThp/tWGszslRtTbVRe+Y91SG
+	 gpAFwx+LC6GgmAl2Zl2ABP/VdS/uji/K+aLcuyD/0ABGwdUa0QGVRvV5cCTTaQXd7N
+	 mmA/JHjWYO/2J9ddgkOOx6kcu+YC1RL6DBloFIFotlsWiODKfuCV8Tl//XOP6YxKWd
+	 fDCKbb1LnrYcQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	"Brian G ." <gissf1@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check
-Date: Tue, 10 Nov 2026 08:12:06 -0500
-Message-ID: <20261110131150.1673779-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] nilfs2: correct return value kernel-doc descriptions for the rest
+Date: Tue, 10 Nov 2026 08:12:47 -0500
+Message-ID: <20261110131241.1664282-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060028-failed-5.15-56c1d32323e7@kernel.org>
-References: <20261107060028-failed-5.15-56c1d32323e7@kernel.org>
+In-Reply-To: <20261107051820-failed-6.12-7131aaa74bcc@kernel.org>
+References: <20261107051820-failed-6.12-7131aaa74bcc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,79 +62,298 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-[ Upstream commit 56c1d32323e773b8b927316f8beeae9238576335 ]
+[ Upstream commit 343d4a33f26d048fde4b02cfc3681f766b3f1b12 ]
 
-tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the first
-~35 ms conversion.
+Similar to the previous changes to fix return value descriptions, this
+fixes the format of the return value descriptions of functions for the
+rest.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot.
-
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
-
-Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-[ sashal: adjusted context for the simpler tmp102 structure and tmp102_read() instead of tmp102_read_temp() ]
+Link: https://lkml.kernel.org/r/20250110010530.21872-6-konishi.ryusuke@gmail.com
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: "Brian G ." <gissf1@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 7131aaa74bcc ("nilfs2: ignore non-fatal signals during synchronous log write wait")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/tmp102.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/nilfs2/gcinode.c   | 24 +++++++++-------------
+ fs/nilfs2/inode.c     | 12 +++--------
+ fs/nilfs2/recovery.c  | 32 +++++++++++------------------
+ fs/nilfs2/segbuf.c    | 12 ++---------
+ fs/nilfs2/segment.c   | 48 ++++++++++++++++---------------------------
+ fs/nilfs2/the_nilfs.c | 12 +++++------
+ 6 files changed, 50 insertions(+), 90 deletions(-)
 
-diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
-index e867a0c2e5399..181373cc1289a 100644
---- a/drivers/hwmon/tmp102.c
-+++ b/drivers/hwmon/tmp102.c
-@@ -54,7 +54,7 @@
- struct tmp102 {
- 	struct regmap *regmap;
- 	u16 config_orig;
--	unsigned long ready_time;
-+	u64 ready_time;
- };
- 
- /* convert left adjusted 13-bit TMP102 register value to milliCelsius */
-@@ -79,7 +79,7 @@ static int tmp102_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp102->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
- 			return -EAGAIN;
- 		}
-@@ -245,7 +245,7 @@ static int tmp102_probe(struct i2c_client *client)
- 	 * Mark that we are not ready with data until the first
- 	 * conversion is complete
- 	 */
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
- 							 tmp102,
-@@ -279,7 +279,7 @@ static int tmp102_resume(struct device *dev)
- 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
- 				 TMP102_CONF_SD, 0);
- 
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	return err;
- }
+diff --git a/fs/nilfs2/gcinode.c b/fs/nilfs2/gcinode.c
+index 2dbb15767df16..561c220799c7a 100644
+--- a/fs/nilfs2/gcinode.c
++++ b/fs/nilfs2/gcinode.c
+@@ -46,14 +46,11 @@
+  * specified by @pbn to the GC pagecache with the key @blkoff.
+  * This function sets @vbn (@pbn if @vbn is zero) in b_blocknr of the buffer.
+  *
+- * Return Value: On success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error.
+- *
+- * %-ENOMEM - Insufficient amount of memory available.
+- *
+- * %-ENOENT - The block specified with @pbn does not exist.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO	- I/O error (including metadata corruption).
++ * * %-ENOENT	- The block specified with @pbn does not exist.
++ * * %-ENOMEM	- Insufficient memory available.
+  */
+ int nilfs_gccache_submit_read_data(struct inode *inode, sector_t blkoff,
+ 				   sector_t pbn, __u64 vbn,
+@@ -114,12 +111,11 @@ int nilfs_gccache_submit_read_data(struct inode *inode, sector_t blkoff,
+  * specified by @vbn to the GC pagecache.  @pbn can be supplied by the
+  * caller to avoid translation of the disk block address.
+  *
+- * Return Value: On success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error.
+- *
+- * %-ENOMEM - Insufficient amount of memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO	- I/O error (including metadata corruption).
++ * * %-ENOENT	- Invalid virtual block address.
++ * * %-ENOMEM	- Insufficient memory available.
+  */
+ int nilfs_gccache_submit_read_node(struct inode *inode, sector_t pbn,
+ 				   __u64 vbn, struct buffer_head **out_bh)
+diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+index 6932f8daf7d93..ab1dd89de538f 100644
+--- a/fs/nilfs2/inode.c
++++ b/fs/nilfs2/inode.c
+@@ -636,10 +636,7 @@ struct inode *nilfs_iget_for_gc(struct super_block *sb, unsigned long ino,
+  * or does nothing if the inode already has it.  This function allocates
+  * an additional inode to maintain page cache of B-tree nodes one-on-one.
+  *
+- * Return Value: On success, 0 is returned. On errors, one of the following
+- * negative error code is returned.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or %-ENOMEM if memory is insufficient.
+  */
+ int nilfs_attach_btree_node_cache(struct inode *inode)
+ {
+@@ -698,11 +695,8 @@ void nilfs_detach_btree_node_cache(struct inode *inode)
+  * in one inode and the one for b-tree node pages is set up in the
+  * other inode, which is attached to the former inode.
+  *
+- * Return Value: On success, a pointer to the inode for data pages is
+- * returned. On errors, one of the following negative error code is returned
+- * in a pointer type.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: a pointer to the inode for data pages on success, or %-ENOMEM
++ * if memory is insufficient.
+  */
+ struct inode *nilfs_iget_for_shadow(struct inode *inode)
+ {
+diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+index 21d81097a89f8..fe98424ac465f 100644
+--- a/fs/nilfs2/recovery.c
++++ b/fs/nilfs2/recovery.c
+@@ -757,18 +757,13 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
+  * @sb: super block instance
+  * @ri: pointer to a nilfs_recovery_info struct to store search results.
+  *
+- * Return Value: On success, 0 is returned.  On error, one of the following
+- * negative error code is returned.
+- *
+- * %-EINVAL - Inconsistent filesystem state.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOSPC - No space left on device (only in a panic state).
+- *
+- * %-ERESTARTSYS - Interrupted.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EINVAL		- Inconsistent filesystem state.
++ * * %-EIO		- I/O error.
++ * * %-ENOMEM		- Insufficient memory available.
++ * * %-ENOSPC		- No space left on device (only in a panic state).
++ * * %-ERESTARTSYS	- Interrupted.
+  */
+ int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
+ 			      struct super_block *sb,
+@@ -833,14 +828,11 @@ int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
+  * segment pointed by the superblock.  It sets up struct the_nilfs through
+  * this search. It fills nilfs_recovery_info (ri) required for recovery.
+  *
+- * Return Value: On success, 0 is returned.  On error, one of the following
+- * negative error code is returned.
+- *
+- * %-EINVAL - No valid segment found
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EINVAL	- No valid segment found.
++ * * %-EIO	- I/O error.
++ * * %-ENOMEM	- Insufficient memory available.
+  */
+ int nilfs_search_super_root(struct the_nilfs *nilfs,
+ 			    struct nilfs_recovery_info *ri)
+diff --git a/fs/nilfs2/segbuf.c b/fs/nilfs2/segbuf.c
+index dc431b4c34c96..8b62234d5dd52 100644
+--- a/fs/nilfs2/segbuf.c
++++ b/fs/nilfs2/segbuf.c
+@@ -403,12 +403,7 @@ static int nilfs_segbuf_submit_bh(struct nilfs_segment_buffer *segbuf,
+  * @segbuf: buffer storing a log to be written
+  * @nilfs: nilfs object
+  *
+- * Return Value: On Success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: Always 0.
+  */
+ static int nilfs_segbuf_write(struct nilfs_segment_buffer *segbuf,
+ 			      struct the_nilfs *nilfs)
+@@ -449,10 +444,7 @@ static int nilfs_segbuf_write(struct nilfs_segment_buffer *segbuf,
+  * nilfs_segbuf_wait - wait for completion of requested BIOs
+  * @segbuf: segment buffer
+  *
+- * Return Value: On Success, 0 is returned. On Error, one of the following
+- * negative error code is returned.
+- *
+- * %-EIO - I/O error
++ * Return: 0 on success, or %-EIO if I/O error is detected.
+  */
+ static int nilfs_segbuf_wait(struct nilfs_segment_buffer *segbuf)
+ {
+diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
+index 063400f8a73c2..c5ddbdbb2f427 100644
+--- a/fs/nilfs2/segment.c
++++ b/fs/nilfs2/segment.c
+@@ -191,12 +191,10 @@ static int nilfs_prepare_segment_lock(struct super_block *sb,
+  * When @vacancy_check flag is set, this function will check the amount of
+  * free space, and will wait for the GC to reclaim disk space if low capacity.
+  *
+- * Return Value: On success, 0 is returned. On error, one of the following
+- * negative error code is returned.
+- *
+- * %-ENOMEM - Insufficient memory available.
+- *
+- * %-ENOSPC - No space left on device
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-ENOMEM	- Insufficient memory available.
++ * * %-ENOSPC	- No space left on device (if checking free space).
+  */
+ int nilfs_transaction_begin(struct super_block *sb,
+ 			    struct nilfs_transaction_info *ti,
+@@ -2316,18 +2314,13 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
+  * nilfs_construct_segment - construct a logical segment
+  * @sb: super block
+  *
+- * Return Value: On success, 0 is returned. On errors, one of the following
+- * negative error code is returned.
+- *
+- * %-EROFS - Read only filesystem.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOSPC - No space left on device (only in a panic state).
+- *
+- * %-ERESTARTSYS - Interrupted.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO		- I/O error (including metadata corruption).
++ * * %-ENOMEM		- Insufficient memory available.
++ * * %-ENOSPC		- No space left on device (only in a panic state).
++ * * %-ERESTARTSYS	- Interrupted.
++ * * %-EROFS		- Read only filesystem.
+  */
+ int nilfs_construct_segment(struct super_block *sb)
+ {
+@@ -2351,18 +2344,13 @@ int nilfs_construct_segment(struct super_block *sb)
+  * @start: start byte offset
+  * @end: end byte offset (inclusive)
+  *
+- * Return Value: On success, 0 is returned. On errors, one of the following
+- * negative error code is returned.
+- *
+- * %-EROFS - Read only filesystem.
+- *
+- * %-EIO - I/O error
+- *
+- * %-ENOSPC - No space left on device (only in a panic state).
+- *
+- * %-ERESTARTSYS - Interrupted.
+- *
+- * %-ENOMEM - Insufficient memory available.
++ * Return: 0 on success, or one of the following negative error codes on
++ * failure:
++ * * %-EIO		- I/O error (including metadata corruption).
++ * * %-ENOMEM		- Insufficient memory available.
++ * * %-ENOSPC		- No space left on device (only in a panic state).
++ * * %-ERESTARTSYS	- Interrupted.
++ * * %-EROFS		- Read only filesystem.
+  */
+ int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
+ 				  loff_t start, loff_t end)
+diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+index 575a543ee7369..a0f14c1b3ef88 100644
+--- a/fs/nilfs2/the_nilfs.c
++++ b/fs/nilfs2/the_nilfs.c
+@@ -49,8 +49,8 @@ void nilfs_set_last_segment(struct the_nilfs *nilfs,
+  * alloc_nilfs - allocate a nilfs object
+  * @sb: super block instance
+  *
+- * Return Value: On success, pointer to the_nilfs is returned.
+- * On error, NULL is returned.
++ * Return: a pointer to the allocated nilfs object on success, or NULL on
++ * failure.
+  */
+ struct the_nilfs *alloc_nilfs(struct super_block *sb)
+ {
+@@ -200,8 +200,7 @@ static int nilfs_store_log_cursor(struct the_nilfs *nilfs,
+  * exponent information written in @sbp and stores it in @blocksize,
+  * or aborts with an error message if it's too large.
+  *
+- * Return Value: On success, 0 is returned. If the block size is too
+- * large, -EINVAL is returned.
++ * Return: 0 on success, or %-EINVAL if the block size is too large.
+  */
+ static int nilfs_get_blocksize(struct super_block *sb,
+ 			       struct nilfs_super_block *sbp, int *blocksize)
+@@ -544,7 +543,7 @@ static int nilfs_valid_sb(struct nilfs_super_block *sbp)
+  * area, or if the parameters themselves are not normal, it is
+  * determined to be invalid.
+  *
+- * Return Value: true if invalid, false if valid.
++ * Return: true if invalid, false if valid.
+  */
+ static bool nilfs_sb2_bad_offset(struct nilfs_super_block *sbp, u64 offset)
+ {
+@@ -690,8 +689,7 @@ static int nilfs_load_super_block(struct the_nilfs *nilfs,
+  * reading the super block, getting disk layout information, initializing
+  * shared fields in the_nilfs).
+  *
+- * Return Value: On success, 0 is returned. On error, a negative error
+- * code is returned.
++ * Return: 0 on success, or a negative error code on failure.
+  */
+ int init_nilfs(struct the_nilfs *nilfs, struct super_block *sb)
+ {
 -- 
 2.53.0
 
