@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341168;
-	b=PQzhHopXM9uDLxcbkuNV9VoNgqmMswv9k/i2dGJbn55+yUnlwMzpqp/leEevPCCQ0k4G
-	 VvDRq+k99HQa06teVDWCZTunuNT3TAcoXnotOQ0jdXJvUPIeAdG/mo+SO8oy0HrEX4CCN
-	 eHzQrJZH3ObvdvqlJB2zHTTE2TOV06H2uCWigcCcTJgm9V4KrnJvFuIkEdj8MtczsQFYF
-	 NlPORO7q+7ruM05Y3MRsBn/7Wb1f4bnHV5awnWUVL5l8EKftq2VBwhnX9AG38dEUykcSn
-	 ori1xlENZFYmVrPl7sRbJVlZ/HYnMnmqLdZc9e3dBlr31JFihURQjH22NUbFulGVGpw==
+	t=1794341172;
+	b=zShVpGl+BxGQJul1Xdc+YC8tMHQ/HBA0w3LipVzTNHW36PyhKSOkIOSbn/effkUEE0gc
+	 VsCU4lUDtFsqLn/16vU+/A2grOS3pliy/di1vKrLExNjABcitAAwXM8vMUGtLVrq4QJjQ
+	 js+BcPZE/gLi8BiK3430ONWXgjDzYEAx5ySIqPlgnwDX4ESobcD9oMCSpecpTC/pPXzw9
+	 9xg4HdlFFQrrVeO6IDGygJhxWpE6LRolNSfrnUOH9cRPsN5HXcrcCCJFMOGSmNSKwMbN1
+	 tjl4zV1vvhjlLN8VpFiriIrQaqxLXxsVIODkB31jruMjhdCjh4+EU7hjXwB3OyIi/UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341172;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5cCNd5C3NgQ8FqbUpDpP4T8mFx9FG08/ganDkKISSDA=;
-	b=AnYrIr3U2Clj/UJxcc0wgHhqDsdrGTxydXDOTkODd4f3s1Sh6SgVOjQrWZLzW3e3cQbc
-	 hTf3eMUKqQD8k20/HrrajWN3tHH7vt2U1v4VyO/F6+g0Mquyct842UEybe1fdEMky91k/
-	 rulTkpR1BYHYXcnMcB2eHcrGzPJWQ/cATvOxviGVBRg0cNaFWIjTZQsoegQApDcJd9RVv
-	 LC0Cs8royfYfP3e0bWNp1dwOBWsNILZDkZSOWn1U7XhGxPtpUQMU1ouynfrlg0KY5JeOF
-	 cxHIseHGpSb+zfhiCyumF078UHlRGBmPA1gTpcw+jEMq8MBzBGg71TeZvsvhaqlCMCw==
+	bh=K4vavFCjLBnw4DIrtaZ0Pdf8Zg9541MQX36ciN7kd2A=;
+	b=uF3ce5tpHyAOK0b7THuhPiYtY6s7q3IdDHgf/1beWOa/CxsfeCt7r1U5GDY82zyo9Gpm
+	 wjjgVJ9zWr0iOWyTnmvVWKa1Eb1x+UEIMMPwG3VV8cFVcV3GfzQAHA5vc9T0EqRosFTom
+	 /9Hcfl3O03aGTu4yDGjo4anEQbOj1DuBCz3weomolW/HxKcY3DpYoWZvpa6AhJjqJa9tU
+	 EfooD7qjc/OD+mYbR77nBgXst8aWZgRXjK1gIImXjYBoRRUAjRVG5jkskIi9wFWuwsl+u
+	 RESS1LvPJTChOy6uTVja/M6ASTCqgh4YviQNL3QcVk7eZLH2DmLMiLCVDvbsc9WYrZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtFMd8c2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gp3e6RWN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FA5606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:06:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C45F606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MtFMd8c2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D201F0089F;
-	Tue, 10 Nov 2026 20:06:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gp3e6RWN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2281F0089F;
+	Tue, 10 Nov 2026 20:06:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341168;
-	bh=5cCNd5C3NgQ8FqbUpDpP4T8mFx9FG08/ganDkKISSDA=;
+	s=k20260515; t=1794341171;
+	bh=K4vavFCjLBnw4DIrtaZ0Pdf8Zg9541MQX36ciN7kd2A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MtFMd8c2M4VYKer+SfXuElmrYPf8BqbxIoSnvxuq/7Qx7+ESAkb/4OSV+SIOnLrnD
-	 ZtkbP23Z9G6r9coczFYJQSRIVinojIzfUsMWKCdaTQ4V+9soEdzYmNF9k8uKetul/L
-	 YR1iQ/u1GR1O+QvS2ovC0cXOsDWRcNVmM5iYc/RlL2uNnI7xgAxqZQRqM3C3PLDBhn
-	 5Ic3NjiMKPs6IQIg8l7NnELxBqTniV5gQvOwCPn+fJkcrHlqvHFV9tcLSgdgqxBGiK
-	 huXIqj3jG7fUwTkl44ahGQyvNvPlWnqogQ6cqoe64GmtDOaA0iKnMbTL7TjU/BbrXc
-	 pbm+3w/nOISnw==
+	b=Gp3e6RWNHD3xOBXR5nAZbP1cUbKZWllg19fgAhfGp590qKRslwJANA2i6l6hZRlmR
+	 1/1kA5yPkWKE9Pp97YJb09TLSPBmpkn24IP6Ne5QtQEDX5Ch4RaFzzunLKJ7sVFYqD
+	 QTu9r7t3ov9YRgO6xDe8oJ//zIgQpZC4kSkJs5Wql72SnT76+fTMKq2tpy/vKh01H2
+	 mLOse0KGgHB/e1p543WNHs7FnWTGaYVB/qEZmfC0gEkgZ8kuxNKizyM6ZLB68g90Uv
+	 WnkRsWFbOx1J1IIVeSMF6lQXjNvAqTH5p+vA8SbF4bYPDWluuhIzBENkpH/wQUsK/H
+	 zxkbqF1tZtanw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Johannes Berg <johannes.berg@intel.com>,
+Cc: Jay Fang <f.fangjian@huawei.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload
-Date: Tue, 10 Nov 2026 15:06:06 -0500
-Message-ID: <20261110200529.3657251-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] spi: jcore: Fix trailing statements should be on next line
+Date: Tue, 10 Nov 2026 15:06:09 -0500
+Message-ID: <20261110200556.3714524-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060223-failed-5.15-6fff9de5c5b4@kernel.org>
-References: <20261107060223-failed-5.15-6fff9de5c5b4@kernel.org>
+In-Reply-To: <20261107062350-failed-5.10-7db773075501@kernel.org>
+References: <20261107062350-failed-5.10-7db773075501@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,70 +61,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Janne Grunau <j@jannau.net>
+From: Jay Fang <f.fangjian@huawei.com>
 
-[ Upstream commit 6fff9de5c5b425817588eeed42bd56d665751c13 ]
+[ Upstream commit 45793de7bf89fbd0fd1e2db9dda4e58a9c1395ee ]
 
-Since commit 416386060 ("Mark authorization completed on driver
-indication during 4-way HS offload") [0] wpa_supplicant expects
-NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
-driver supports 4-way handshake offload.
-This was apparently never tested with the upstream brcmfmac driver as it
-does not report this. This broke authentication on Apple silicon devices
-(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
-2.11 was released [1]. This was initially dealt with by reverting the
-commit in Fedora [2] and other Linux distributions.
-Instead of carrying the revert over to wpa_supplicant 2.12 add the
-expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
+Fix checkpatch error:
 
-The "Fixes:" tag is not fully accurate as this has only became an issue
-after userspace changes years after the change. Since the change is
-expected to be required in all active stable branches for wpa_supplicant
-2.11 / 2.12 compatibility it is helpful even though
-BRCMF_PROFILE_FWSUP_SAE did not exists then.
+  ERROR: trailing statements should be on next line
+  #85: FILE: spi-jcore.c:85:
+  +	if (speed == hw->speed_hz) return;
 
-Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
-Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
-Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
-Cc: stable@vger.kernel.org
-Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
-Signed-off-by: Janne Grunau <j@jannau.net>
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-[ sashal: replaced the authorization helper with an inline PSK/SAE check using the three-argument cfg80211_port_authorized() API ]
+Signed-off-by: Jay Fang <f.fangjian@huawei.com>
+Link: https://lore.kernel.org/r/1616566602-13894-9-git-send-email-f.fangjian@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 7db773075501 ("spi: jcore: fix divide-by-zero when speed_hz is zero")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/spi/spi-jcore.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 13ea5f0c8e1e1..aec1c0b9ef08c 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -6029,6 +6029,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 	struct brcmf_cfg80211_profile *profile = &ifp->vif->profile;
- 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
- 	struct cfg80211_connect_resp_params conn_params;
-+	bool authorized;
+diff --git a/drivers/spi/spi-jcore.c b/drivers/spi/spi-jcore.c
+index bba10f030e33d..74c8319c29f17 100644
+--- a/drivers/spi/spi-jcore.c
++++ b/drivers/spi/spi-jcore.c
+@@ -82,7 +82,8 @@ static void jcore_spi_chipsel(struct spi_device *spi, bool value)
  
- 	brcmf_dbg(TRACE, "Enter\n");
- 
-@@ -6049,7 +6050,12 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		conn_params.req_ie_len = conn_info->req_ie_len;
- 		conn_params.resp_ie = conn_info->resp_ie;
- 		conn_params.resp_ie_len = conn_info->resp_ie_len;
-+		authorized = completed &&
-+			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
-+			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK);
- 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
-+		if (authorized)
-+			cfg80211_port_authorized(ndev, profile->bssid, GFP_KERNEL);
- 		brcmf_dbg(CONN, "Report connect result - connection %s\n",
- 			  completed ? "succeeded" : "failed");
- 	}
+ static void jcore_spi_baudrate(struct jcore_spi *hw, int speed)
+ {
+-	if (speed == hw->speed_hz) return;
++	if (speed == hw->speed_hz)
++		return;
+ 	hw->speed_hz = speed;
+ 	if (speed >= hw->clock_freq / 2)
+ 		hw->speed_reg = 0;
 -- 
 2.53.0
 
