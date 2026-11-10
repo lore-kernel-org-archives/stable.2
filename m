@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794291679;
-	b=u0i/jqAnYgiurMyMraOxONqebdc4Qr4jdyjjWhSRVMZ+o+0HDcOIrdQfIKQDkAoE9PMb
-	 wptPjrXqahs9Znkgxfyp8hnG8sCVYUD84jx01Z8MSe3X+nfJ9UgVcv+VkuaFtoB6/HojR
-	 6GrHuKCbS0ZKLqzNQg9Vkz3U/JT6ngsQGUxRO9677y+M5hOFw31XSHqhMzGQDQusYdBXv
-	 ALWKw47peXREt0axJ8gs6406ZIjKgzk2ueSDlrM/YJcN1E6QrX4fs9AXkm1+1rKt+jazM
-	 6N4/JrbU1QnZ2yCdEHwVnaPSZBgKoOxg0K1qyz33wXLUsBv/+F75iS7Rv3/IYMEYvxg==
+	t=1794292304;
+	b=MHM4gCLJBkkBMjpVCoq7UUvmwCZhn0oIT6UFexdYd4Cha0VnEzlHwdK6WIR2/TjZxcQN
+	 7lhpAvGxmYDh45ZNGqT5ao0o3fuE2CzdZ7iGvpHc5D+EHxraQsDXv4wDKT951Uwleo1WD
+	 nVPoX16OWyH8F4eWyZwIr9j7s6sEhBiyZhfbidyd7YonvHVMg/HOO1JzslPpz8yK9OMQb
+	 lwBfgBzTdoBBGd3g+HDXe9cY3aUdYqLpU7VzHoL6P1lcx/YgeLbHXJbh2tGj9UpI2WrRW
+	 Xg7AJ6n9TGPBqBxPZFsyepzggVa6EmI+RKOxGKhaKwo75mjd9LvfzKUIslRZPkCSqjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794291679;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AO43z8OOLZpih4NLQwu7cfaQLJzm76ZwrofVqC2prTU=;
-	b=jcGUy/ah67uZsP00K1lgfC+GQww+mnIFFYaoX8SyuQRweE4o0tYDUbrRTRI41G3h8rKu
-	 VchTbKXDv6ixUK8jhG3nHbYp4Syut8Xqm2GuCnkmgAw4hMkSGjvooL+5OH+9Ucl1lUQ20
-	 qR4PcCRndCKxzGXFTEUy9AoQzjlygYcpYzbnEnV0Y14ZVai75pFTX9Bez0MltXgaGS2Rh
-	 S0mprmOVl+dindTRY1rcnqy97N9dSFddpwPjD0dQ8wtPFUZQiezcBv034gr7ymIE2yhyh
-	 dzlU+DVSGBPJ2FXUNAkBHH4Lc8HhXQlXxM5R7B/o/0OFXUp132nMSGBKuw5oAfyunTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794292304;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=hCPqx5wj8Vej8QBG4Zxzq+0P7YhtDg24mAW+V+oPtyk=;
+	b=HGDQ1KtIonmsXzYmk+asjGjJLSEhQZQ17OMcyQhb6rb5nnaAj4UNH25EAWG9DuyKmE40
+	 tlP7HYIhgN/9E/UwHid/dnVXv0yZdzHp+rBiR2MVin8Z2Iz0fRpmEpJYsy6Few9/4iISY
+	 Qr3MgTEVGlphzMoMVcHYuloKq9AZPKUoOzOfIFT1JXwnj0byxgks9P89gMHV/YDr1giKg
+	 F/9Kkfcx1nTP2JScpoIPx70DFAYf5kEpMiilXl3Top1nfxeC1YCSbiR+T2ijIOXK8SZfp
+	 aYE1Abpavmg1DOz8/PurjYdO3TwpJjJMHZxTq29yed/bkwgOxaPVEBcF1j9DN14SfTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TY/mZdDH";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Gg9pCmBD;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7352606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD4EB606A339;
+	Tue, 10 Nov 2026 06:31:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD4EB606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TY/mZdDH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85BB1F008A1;
-	Tue, 10 Nov 2026 06:21:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794291678;
-	bh=AO43z8OOLZpih4NLQwu7cfaQLJzm76ZwrofVqC2prTU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TY/mZdDHxsTQULFQR06kA8TzMRa3T8NdoMBQncVyw7FQq9gHNoCaj0DFacBS0+MFa
-	 MUuapqB6Z/9E3KNyfZxmhJQuXZR23SI6I2922TICLhAPnvYDpQL/RLkOFOChog8nv6
-	 uzYTg8dwOR3zQ6tV0VV3lROn+3FcXNgOM4ULrWdt752Ouc6FrxfuAuUNNsY+CdWn1w
-	 2hpG8fa++NvPmdemazTDrWT/3XK7NwAQWJ73sdUM7wRUyMiBofi6O7kCUTEwSoYv69
-	 Emvhq8bopudIQg83f+dYvM3xYjt3l43HnG/9t7xpjyLQuTaBCMqyy6ZfQ6MF1w72c/
-	 V0HshS91iNu+g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: guest_memfd: Split bind() into prepare()+commit() phases
-Date: Tue, 10 Nov 2026 01:21:15 -0500
-Message-ID: <20261110062046.520447-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051731-failed-6.12-83411f32b8ad@kernel.org>
-References: <20261107051731-failed-6.12-83411f32b8ad@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Gg9pCmBD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hC
+	Pqx5wj8Vej8QBG4Zxzq+0P7YhtDg24mAW+V+oPtyk=; b=Gg9pCmBDcxM2vgilSl
+	ZEMoju4SJ/qiiahklxrKjDCSzUkgZ9O+ITFG6UOYp1ydpJrw/VpCXUNVCIdqHYpS
+	ATLCQJhGgxqoW9vLUBVjdcxFKTviEG1W170fFsUzEUyR8LuBiYDDinSoiF0/O+Sh
+	XmqT+ax7gNfbX7I5SE0v+X5lo=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wCH_6IXuvJqrGnjGA--.29207S2;
+	Tue, 10 Nov 2026 14:30:49 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Youhong <liyouhong@kylinos.cn>,
+	syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] md: fix sync_work vs array teardown races
+Date: Tue, 10 Nov 2026 14:30:45 +0800
+Message-Id: <20261110063045.912703-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,201 +66,117 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCH_6IXuvJqrGnjGA--.29207S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15AF4xZryfJr1ftw15XFb_yoWrCr45pr
+	WfXFn8GrWUJ3yfZ39Fga4DWa4jyw1SqrZrJryxWas5AwnYyF47WF1Yg3WUZFWDtas7ta42
+	va15tFZxua4v9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjtC7UUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+hoMumryuho9LQAA3+
 
-From: Sean Christopherson <seanjc@google.com>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-[ Upstream commit 83411f32b8ad96c6b05b1511d1a588daab44bd25 ]
+dm-raid tears down arrays via md_stop(), which cleared mddev->pers
+without waiting for previously queued sync_work. That work could
+then call remove_spares() with pers == NULL, or keep using mddev
+after raid_dtr() frees it.
 
-Split binding a memslot to a guest_memfd instance into prepare() and
-commit() phases so that KVM can separate preparing the memslot from binding
-the memslot to the gmem instance, i.e. from committing the memslot.  This
-will allow waiting to commit the memslot+gmem binding until the memslot is
-fully prepared, which is necessary as the memslot becomes reachable when
-the binding is created.
+do_md_stop()/md_stop_writes() already call stop_sync_thread() before
+teardown. Do the same in md_stop().
 
-As a bonus, drop the unwind-on-failure from the commit phase (other than
-nullifying the bindings), as the only reason bind() did the full unwind is
-because it technically didn't own the memslot, i.e. "needed" to leave
-memslot in the same state it started in.
+Also fix two related completion/freeze holes that made that wait
+unreliable:
 
-No functional change intended (the unwinding down on bind() failure was
-effectively dead code since KVM simply deletes the memslot on failure,
-i.e. there was nothing that could actually observe the unwind).
+- stop_sync_thread() waits for !MD_RECOVERY_RUNNING before teardown,
+  but md_start_sync() could still use mddev after unlocking. Clear
+  RUNNING only after those uses are done, then wake_up(&resync_wait).
 
+- The read-only path in md_check_recovery() queued sync_work without
+  honouring MD_RECOVERY_FROZEN, unlike the read-write path. Check
+  FROZEN so freeze/stop cannot race with a new queue while
+  stop_sync_thread() drops reconfig_mutex.
+
+Fixes: db5e653d7c9f ("md: delay choosing sync action to md_start_sync()")
+Fixes: 81e2ce1b3d5a ("md: delay remove_and_add_spares() for read only array to md_start_sync()")
+Reported-by: syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a53c2918175b36cfd601
 Cc: stable@vger.kernel.org
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://patch.msgid.link/20260922001332.1121266-5-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: changed the fput() guard from CONFIG_KVM_GUEST_MEMFD to CONFIG_KVM_PRIVATE_MEM ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
- virt/kvm/guest_memfd.c | 61 +++++++++++++++++++++++++-----------------
- virt/kvm/kvm_main.c    | 18 ++++++++++++-
- virt/kvm/kvm_mm.h      | 18 +++++++++----
- 3 files changed, 66 insertions(+), 31 deletions(-)
+v3:
+- Clear MD_RECOVERY_RUNNING only after md_start_sync() finishes using
+  mddev on the not_running path.
+- Honour MD_RECOVERY_FROZEN before queueing sync_work on the
+  read-only md_check_recovery() path.
+- v2: link: https://lore.kernel.org/linux-raid/20261109023055.2164333-1-dayou5941@163.com/
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 88b7279f4634d..4f69260cafbb2 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -472,15 +472,13 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
- 	return __kvm_gmem_create(kvm, size, flags);
+v2:
+- Drop the pers NULL check in md_start_sync().
+- Call stop_sync_thread() from md_stop() before clearing pers,
+  matching do_md_stop()/md_stop_writes().
+- v1: link: https://lore.kernel.org/linux-raid/20261106083543.249267-1-dayou5941@163.com
+
+ drivers/md/md.c | 23 ++++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 680b34a63cb3..18d37413ffaf 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -7104,6 +7104,13 @@ void md_stop(struct mddev *mddev)
+ 	/* stop the array and free an attached data structures.
+ 	 * This is called from dm-raid
+ 	 */
++	/*
++	 * md_check_recovery() may have queued sync_work; that work accesses
++	 * pers. Wait for it here before __md_stop() clears pers, as
++	 * do_md_stop()/md_stop_writes() do.
++	 */
++	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
++	stop_sync_thread(mddev, true);
+ 	__md_stop_writes(mddev);
+ 	__md_stop(mddev);
  }
- 
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, u64 offset)
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, u64 offset)
- {
- 	u64 size = slot->npages << PAGE_SHIFT;
--	unsigned long start, end;
- 	struct kvm_gmem *gmem;
- 	struct inode *inode;
- 	struct file *file;
--	int r = -EINVAL;
- 
- 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
- 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
-@@ -501,40 +499,53 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
- 		goto err;
- 
-+	/*
-+	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
-+	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
-+	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
-+	 */
-+	WRITE_ONCE(slot->gmem.file, file);
-+	slot->gmem.pgoff = offset >> PAGE_SHIFT;
-+
-+	/*
-+	 * Gift the caller a reference to the file.  The reference will be
-+	 * dropped after bindings are established, or if installing the new
-+	 * memslot ultimately fails.
-+	 */
-+	return 0;
-+
-+err:
-+	fput(file);
-+	return -EINVAL;
-+}
-+
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
-+{
-+	struct kvm_gmem *gmem = slot->gmem.file->private_data;
-+	struct inode *inode = file_inode(slot->gmem.file);
-+	unsigned long start, end;
-+	int r;
-+
-+	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
-+		return -EIO;
-+
- 	filemap_invalidate_lock(inode->i_mapping);
- 
--	start = offset >> PAGE_SHIFT;
-+	start = slot->gmem.pgoff;
- 	end = start + slot->npages;
- 
- 	if (!xa_empty(&gmem->bindings) &&
- 	    xa_find(&gmem->bindings, &start, end - 1, XA_PRESENT)) {
- 		filemap_invalidate_unlock(inode->i_mapping);
--		goto err;
-+		return -EEXIST;
+@@ -10343,7 +10350,6 @@ static void md_start_sync(struct work_struct *ws)
+ 	clear_bit(MD_RECOVERY_RESHAPE, &mddev->recovery);
+ 	clear_bit(MD_RECOVERY_REQUESTED, &mddev->recovery);
+ 	clear_bit(MD_RECOVERY_CHECK, &mddev->recovery);
+-	clear_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
+ 	mddev_unlock(mddev);
+ 	/*
+ 	 * md_start_sync was triggered by MD_RECOVERY_NEEDED, so we should
+@@ -10355,11 +10361,16 @@ static void md_start_sync(struct work_struct *ws)
+ 		memalloc_noio_restore(noio_flags);
+ 		__mddev_resume(mddev, false);
  	}
- 
--	/*
--	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
--	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
--	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
--	 */
--	WRITE_ONCE(slot->gmem.file, file);
--	slot->gmem.pgoff = start;
 -
- 	r = xa_err(xa_store_range(&gmem->bindings, start, end - 1, slot, GFP_KERNEL));
--	if (r) {
-+	if (r)
- 		xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
--		slot->gmem.file = NULL;
--		slot->gmem.pgoff = 0;
--	}
-+
- 	filemap_invalidate_unlock(inode->i_mapping);
- 
--	/*
--	 * Drop the reference to the file, even on success.  The file pins KVM,
--	 * not the other way 'round.  Active bindings are invalidated if the
--	 * file is closed before memslots are destroyed.
--	 */
--err:
--	fput(file);
- 	return r;
+-	wake_up(&resync_wait);
+ 	if (test_and_clear_bit(MD_RECOVERY_RECOVER, &mddev->recovery) &&
+ 	    mddev->sysfs_action)
+ 		sysfs_notify_dirent_safe(mddev->sysfs_action);
++	/*
++	 * stop_sync_thread() waits for !RUNNING and may then tear down
++	 * the array. This path still uses mddev after unlocking, so
++	 * clear RUNNING only after those uses are done.
++	 */
++	clear_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
++	wake_up(&resync_wait);
  }
  
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index c574cd2f4f722..699198ae1594c 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2103,7 +2103,23 @@ int __kvm_set_memory_region(struct kvm *kvm,
- 	new->flags = mem->flags;
- 	new->userspace_addr = mem->userspace_addr;
- 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
--		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
-+		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
-+						   mem->guest_memfd_offset);
-+		if (r)
-+			goto out;
-+
-+		r = kvm_gmem_commit_memory_region(kvm, new);
-+
-+		/*
-+		 * Drop the reference to the file, even on success.  The file
-+		 * pins KVM, not the other way 'round.  Active bindings are
-+		 * invalidated if the file is closed before memslots are
-+		 * destroyed.
-+		 */
-+#ifdef CONFIG_KVM_PRIVATE_MEM
-+		fput(new->gmem.file);
-+#endif
-+
- 		if (r)
- 			goto out;
- 	}
-diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
-index 15b2c728f7dd5..92ec2bde65324 100644
---- a/virt/kvm/kvm_mm.h
-+++ b/virt/kvm/kvm_mm.h
-@@ -41,8 +41,9 @@ static inline void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
- #ifdef CONFIG_KVM_PRIVATE_MEM
- void kvm_gmem_init(struct module *module);
- int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, u64 offset);
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, u64 offset);
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
- void kvm_gmem_unbind(struct kvm_memory_slot *slot);
- #else
- static inline void kvm_gmem_init(struct module *module)
-@@ -50,9 +51,16 @@ static inline void kvm_gmem_init(struct module *module)
+ static void unregister_sync_thread(struct mddev *mddev)
+@@ -10494,9 +10505,11 @@ void md_check_recovery(struct mddev *mddev)
  
- }
- 
--static inline int kvm_gmem_bind(struct kvm *kvm,
--					 struct kvm_memory_slot *slot,
--					 unsigned int fd, u64 offset)
-+static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
-+						 struct kvm_memory_slot *slot,
-+						 unsigned int fd, u64 offset)
-+{
-+	WARN_ON_ONCE(1);
-+	return -EIO;
-+}
-+
-+static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
-+						struct kvm_memory_slot *slot)
- {
- 	WARN_ON_ONCE(1);
- 	return -EIO;
+ 			/*
+ 			 * Let md_start_sync() to remove and add rdevs to the
+-			 * array.
++			 * array. Honour MD_RECOVERY_FROZEN like the read-write
++			 * path so freeze/stop does not race with a new queue.
+ 			 */
+-			if (md_spares_need_change(mddev)) {
++			if (md_spares_need_change(mddev) &&
++			    !test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
+ 				set_bit(MD_RECOVERY_RUNNING, &mddev->recovery);
+ 				queue_work(md_misc_wq, &mddev->sync_work);
+ 			}
 -- 
-2.53.0
+2.25.1
 
