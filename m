@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315957;
-	b=pXtXZ7XUssFjpnMDN+eA2D7Vti5WSxuDU+6Pji+oU4VlfikyvlAVECVgHvKssyhRrheq
-	 ZnwlHXG0r5+itg03ojaApOODwvJCE3K56DtGpU0RMbqVazBwYOnHoAT2tRY3COFqPOT2y
-	 jCNfLBPnIMlAgnkBTXQTSs2VFULgEyMgD+jOWPRDZDvSfOPkM3ntnqKBei8oj65qqLGbT
-	 MPp1HBIJu/mQp6E+5akV/JoRpLZ988iRKQq98B7TddExM3X3GdvzZsoBl5JPHFwFhZGtW
-	 kqvy4cQ8RXz1xtGykjPcbqkPCxhXO0LIJ6/M3wSTj1ECDfIFpt0hwqFQVg2admfVnEA==
+	t=1794315969;
+	b=hmRu8WbuMsfluVq0sD9XEZc+zGjFDkxbCMe8sKPCt1Y/1juG6MlT3y6X5vLxSxf/xkDR
+	 PRgxFKlus1R4ZlgH7oiv/KpwiZmfGktItvpXNDxTnLbvb8WvUDKM/Ui7MPD5MXsO7+/I9
+	 qqfKGbDi+KPoFfLTYTQUbALsPcIcKJIfIKS99RHWiWMlD0QhD1CXcA5M7vrS7pPNo614g
+	 3BiSIb4cUlbTmNdRsF2ze142xtv27t0BPLHLCq851bx9tCRn7T0+5BpljrnI3vSedDT1U
+	 IFIpU2kdhn/8SXvvLsMXGrwniPSRVa7oWCyDB7n9xNHhU9zElDpVMGTF01iWrXIwoWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315969;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NUX9Dxuq3AsTZihXlWnyp1hHbQ2C4Pf3AAumKufW6mo=;
-	b=RjYE0+y1p21sLc1A6HOmI7l0myTWpqN6eRPPvyH+h/vGxC8wHlQ2xPiGYz4wALKeUjon
-	 qNASzm7VfRxBwIBWuFcw3m96IxtE28invTxB/HB1im0S0izcpo1TJRiKFuQ3afxlRUubZ
-	 1eNXK/WTm/UTrMS1PrWAs3/l/ORSeQhKbEjKoa8Lu9Ilp2HOu2mZtRp3cfSSBAncWS0r4
-	 tgokaz2w6V9CiP2fmDtzpO1ulIVlVlW9hizw2QP9/hQONG37v3mcYAixtn0IgC1PQj7ir
-	 TPY2FnTCEax8srDndCoPyW2k92DB8gh3SsWyWlujq8tg9kQaTyX0/oaKvDSIkYTBy0w==
+	bh=P/qve6AVg9tpQ8y3iDe8Le1ZT6EUOBsMVFQsGD4uA68=;
+	b=A8Hp3BYAScJxk97cNR4CDqrxI71BnDmUgetmgGAa4Z+sHPpskWe0fqufNMOEgaMJpDSV
+	 S3sOpwctUDa2HzoDtXD61LbqlDLwJgTU5Q0lvSXxqFwKZXWthnCPyCb5JY+3LJyvj7Npa
+	 ccBII8xMyFlFRYpvRjnBUNU75etzlrx327MTTGRhgRQ/+3nQ/8B76of3uNzuL+YBFHGmv
+	 GKts52p0rxu3ZQyjeGG1WiDFvOq0eJcZpjl13dLiuGDkNlPXF2OzOkwbbXczduf25gG7t
+	 v1iLtnwzbIvOaNxo/kFZw1gc1DDDoiXK4pYC+RUOkv1TEXMpX/OxpuYnFVK4uMpIbuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SnctXkhi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONXPYxN5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6208606A7D7
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15FB606A7D7
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SnctXkhi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7411F0089F;
-	Tue, 10 Nov 2026 13:05:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONXPYxN5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E411F008A1;
+	Tue, 10 Nov 2026 13:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315956;
-	bh=NUX9Dxuq3AsTZihXlWnyp1hHbQ2C4Pf3AAumKufW6mo=;
+	s=k20260515; t=1794315968;
+	bh=P/qve6AVg9tpQ8y3iDe8Le1ZT6EUOBsMVFQsGD4uA68=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SnctXkhi7DDVkDnjLvCuGs61KMHzOAoyWKnbxT2WZmfRV5kJelYmV8+Ded1+03RRC
-	 lLYYXpbh0tP0EPKMdHckZK31up1WghihhkYN7/oES2Y16Y2n/rf0SKIC4oji/9Tp7o
-	 zIq5fUiclAEOtiRs71VeE9C/KNFKGozqSEz+H5bO9QlOlB9xK8QlBlfKVsi68oJdpd
-	 Htr/OyWfkwVn9RDEFnDDbC72BME3efp1afYaQFzPLGQgrRW6RbdBAF56otgRKnUMjm
-	 23TX4jhJrMDhC3iqxzTLb6YG/OUYaN8UjTQ1TLqKKq5/y1/KFGWQStvSt94Bso8Wtd
-	 8LQWxdodKWKBA==
+	b=ONXPYxN5BGiROz7xXRADk+jCPb2QFWBqvI6+yIaEog8QqnjQrF/8g9FQGiIiSr6+O
+	 lnG/oT63UgbHJ7JRzyUWnv3ooxzIKhxa1T/VWPe2x+uP0x18ozP7k1pdG7gxEqb0eF
+	 NoNgpRw3Kg3fVJKtCsinCm87mYHDFg4mt0GAVuwpKJEGQepKjQbmfLm9OCNm9TjNU8
+	 H+a5eLonBW2t9H2A/4gXhX5mJm+vFwHrb63wFP9l/n0NkgfQ4dsT/JcmzGBWtBUvzP
+	 I9kx/mo8BnpUHu+zcHK2yTwaXDaaX/BKDEnRJrPKDa4KFfse4J8+Lnzf9DBtOYW/yL
+	 O4tbUYnNCGAzg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Gaurav Batra <gbatra@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] media: ene_ir: Ensure teardown is done in the correct order
-Date: Tue, 10 Nov 2026 08:05:54 -0500
-Message-ID: <20261110130524.1646863-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] powerpc/pseries/iommu: Add TCEs for 16GB pages when RAM is pre-mapped
+Date: Tue, 10 Nov 2026 08:06:06 -0500
+Message-ID: <20261110130522.1645996-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052956-failed-6.6-ae6cfbad7ca3@kernel.org>
-References: <20261107052956-failed-6.6-ae6cfbad7ca3@kernel.org>
+In-Reply-To: <20261107051822-failed-6.12-0b8b0c17a899@kernel.org>
+References: <20261107051822-failed-6.12-0b8b0c17a899@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,46 +62,217 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Gaurav Batra <gbatra@linux.ibm.com>
 
-[ Upstream commit ae6cfbad7ca346b78f4cdac38438bbfaed8c18a0 ]
+[ Upstream commit 0b8b0c17a8998709ecb2852d56442ea981102941 ]
 
-The timer can be re-armed from the irq, so ensure that the timers are
-deleted after the irq and that we only free the rc device once we are
-sure that the irq has been silenced.
+In powerPC, if Dynamic DMA Window is big enough, RAM is pre-mapped. To
+determine the size of RAM, a PAPR+ property "ibm,lrdr-capacity" is used.
+This OF property dictates what is the max size of RAM an LPAR can have,
+including DR added memory.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+In PowerPC, 16GB pages can be allocated at machine level and then
+assigned to LPARs. These 16GB pages are added to LPAR memory at the time
+of boot. The address range for these 16GB pages is above MAX RAM an LPAR
+can have (ibm,lrdr-capacity). In the current implementation, these 16GB
+pages are being excluded from pre-mapped TCEs. A driver can have DMA
+buffers allocated from 16GB pages. This results in platform to raise an
+EEH when DMA is attempted on buffers in 16GB memory range.
+
+commit 6aa989ab2bd0 ("powerpc/pseries/iommu: memory notifier incorrectly
+adds TCEs for pmemory")
+
+Prior to the above patch, memblock_end_of_DRAM() was being used to
+determine the MAX memory of an LPAR. This included 16GB pages as well.
+The issue with using memblock_end_of_DRAM() is that when pmemory is
+converted to RAM via daxctl command, the DDW engine will incorrectly try
+to add TCEs for pmemory as well.
+
+Below is the address distribution of RAM, 16GB pages and pmemory for an
+LPAR with max memory of 256GB, memory allocated 64GB, 2 16GB pages and
+assigned pmemory of 8GB.
+
+RANGE                                 SIZE  STATE REMOVABLE     BLOCK
+0x0000000000000000-0x0000000fffffffff  64G online       yes     0-255
+0x0000004000000000-0x00000047ffffffff  32G online       yes 1024-1151
+
+cat /sys/bus/nd/devices/region0/resource
+0x40100000000
+cat /sys/bus/nd/devices/region0/size
+8589934592
+
+The approach to fix this problem is to revert back the code changes
+introduced by the above patch and to stash away the MAX memory of an
+LPAR, including 16GB pages, at the LPAR boot time. This value is then
+used whenever TCEs are needed to be pre-mapped - enable_DDW() or,
+iommu_mem_notifier()
+
+Fixes: 6aa989ab2bd0 ("powerpc/pseries/iommu: memory notifier incorrectly adds TCEs for pmemory")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sean Young <sean@mess.org>
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adapted timer_delete_sync() removal to the existing del_timer_sync() call ]
+Signed-off-by: Gaurav Batra <gbatra@linux.ibm.com>
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/20260806205027.86428-1-gbatra@linux.ibm.com
+[ sashal: retained the existing pmem_present and window-size checks around the bus_dma_limit update ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/ene_ir.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/powerpc/platforms/pseries/iommu.c | 67 +++++++++++++++++---------
+ 1 file changed, 45 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/media/rc/ene_ir.c b/drivers/media/rc/ene_ir.c
-index 9140e4f28c995..f5fd6bd4d7363 100644
---- a/drivers/media/rc/ene_ir.c
-+++ b/drivers/media/rc/ene_ir.c
-@@ -1106,15 +1106,15 @@ static void ene_remove(struct pnp_dev *pnp_dev)
- 	unsigned long flags;
- 
- 	rc_unregister_device(dev->rdev);
--	del_timer_sync(&dev->tx_sim_timer);
- 	spin_lock_irqsave(&dev->hw_lock, flags);
- 	ene_rx_disable(dev);
- 	ene_rx_restore_hw_buffer(dev);
- 	spin_unlock_irqrestore(&dev->hw_lock, flags);
- 
--	rc_free_device(dev->rdev);
- 	free_irq(dev->irq, dev);
-+	timer_delete_sync(&dev->tx_sim_timer);
- 	release_region(dev->hw_io, ENE_IO_SIZE);
-+	rc_free_device(dev->rdev);
- 	kfree(dev);
+diff --git a/arch/powerpc/platforms/pseries/iommu.c b/arch/powerpc/platforms/pseries/iommu.c
+index 4bcb6f2220658..aad5200b7bc1c 100644
+--- a/arch/powerpc/platforms/pseries/iommu.c
++++ b/arch/powerpc/platforms/pseries/iommu.c
+@@ -69,6 +69,8 @@ static struct iommu_table *iommu_pseries_alloc_table(int node)
+ 	return tbl;
  }
  
++static phys_addr_t pseries_ddw_max_ram __ro_after_init;
++
+ #ifdef CONFIG_IOMMU_API
+ static struct iommu_table_group_ops spapr_tce_table_group_ops;
+ #endif
+@@ -1284,15 +1286,19 @@ struct failed_ddw_pdn {
+ 
+ static LIST_HEAD(failed_ddw_pdn_list);
+ 
+-static phys_addr_t ddw_memory_hotplug_max(void)
++static phys_addr_t __init ddw_memory_hotplug_max(void)
+ {
+-	resource_size_t max_addr;
++	resource_size_t max_addr = memory_hotplug_max();
++	struct device_node *memory;
+ 
+-#if defined(CONFIG_NUMA) && defined(CONFIG_MEMORY_HOTPLUG)
+-	max_addr = hot_add_drconf_memory_max();
+-#else
+-	max_addr = memblock_end_of_DRAM();
+-#endif
++	for_each_node_by_type(memory, "memory") {
++		struct resource res;
++
++		if (of_address_to_resource(memory, 0, &res))
++			continue;
++
++		max_addr = max_t(resource_size_t, max_addr, res.end + 1);
++	}
+ 
+ 	return max_addr;
+ }
+@@ -1447,7 +1453,7 @@ static struct property *ddw_property_create(const char *propname, u32 liobn, u64
+ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mask)
+ {
+ 	int len = 0, ret;
+-	int max_ram_len = order_base_2(ddw_memory_hotplug_max());
++	int max_ram_len = order_base_2(pseries_ddw_max_ram);
+ 	struct ddw_query_response query;
+ 	struct ddw_create_response create;
+ 	int page_shift;
+@@ -1617,12 +1623,12 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
+ 		if (default_win_removed && pmem_present && !direct_mapping) {
+ 			/* DDW is big enough to be split */
+ 			if ((1ULL << ddw_sz) >=
+-			    MIN_DDW_VPMEM_DMA_WINDOW + (1ULL << max_ram_len)) {
++			    MIN_DDW_VPMEM_DMA_WINDOW + pseries_ddw_max_ram) {
+ 
+ 				direct_mapping = true;
+ 
+ 				/* offset of the Dynamic part of DDW */
+-				dynamic_offset = 1ULL << max_ram_len;
++				dynamic_offset = pseries_ddw_max_ram;
+ 			}
+ 
+ 			/* DDW will at least have dynamic allocation */
+@@ -1669,7 +1675,7 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
+ 
+ 	if (direct_mapping) {
+ 		/* DDW maps the whole partition, so enable direct DMA mapping */
+-		ret = walk_system_ram_range(0, ddw_memory_hotplug_max() >> PAGE_SHIFT,
++		ret = walk_system_ram_range(0, pseries_ddw_max_ram >> PAGE_SHIFT,
+ 					    win64->value, tce_setrange_multi_pSeriesLP_walk);
+ 		if (ret) {
+ 			dev_info(&dev->dev, "failed to map DMA window for %pOF: %d\n",
+@@ -1774,8 +1780,7 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
+ 	 * to directly map both RAM and vPMEM, then we need to set DMA limit.
+ 	 */
+ 	if (pmem_present && direct_mapping && len != MAX_PHYSMEM_BITS)
+-		dev->dev.bus_dma_limit = dev->dev.archdata.dma_offset +
+-						(1ULL << max_ram_len);
++		dev->dev.bus_dma_limit = dev->dev.archdata.dma_offset + pseries_ddw_max_ram;
+ 
+ 	dev_info(&dev->dev, "lsa_required: %x, lsa_enabled: %x, direct mapping: %x\n",
+ 			limited_addr_req, limited_addr_enabled, direct_mapping);
+@@ -2422,23 +2427,35 @@ static int iommu_mem_notifier(struct notifier_block *nb, unsigned long action,
+ {
+ 	struct dma_win *window;
+ 	struct memory_notify *arg = data;
++	unsigned long limit = arg->nr_pages;
++	unsigned long max_ram_pages = pseries_ddw_max_ram >> PAGE_SHIFT;
+ 	int ret = 0;
+ 
+ 	/* This notifier can get called when onlining persistent memory as well.
+ 	 * TCEs are not pre-mapped for persistent memory. Persistent memory will
+-	 * always be above ddw_memory_hotplug_max()
++	 * always be above pseries_ddw_max_ram
+ 	 */
++	if (arg->start_pfn >= max_ram_pages)
++		return NOTIFY_OK;
++
++	/* RAM is being DLPAR'ed. The range should never exceed max ram.
++	 * Just in case, clamp the range and throw a warning.
++	 */
++	if (arg->start_pfn + limit > max_ram_pages) {
++		limit = max_ram_pages - arg->start_pfn;
++		WARN_ONCE(1, "Limiting Page Range %lx - %lx to Max Mem Pages: %lx\n",
++					arg->start_pfn, arg->start_pfn + arg->nr_pages,
++					max_ram_pages);
++	}
+ 
+ 	switch (action) {
+ 	case MEM_GOING_ONLINE:
+ 		spin_lock(&dma_win_list_lock);
+ 		list_for_each_entry(window, &dma_win_list, list) {
+-			if (window->direct && (arg->start_pfn << PAGE_SHIFT) <
+-				ddw_memory_hotplug_max()) {
++			if (window->direct) {
+ 				ret |= tce_setrange_multi_pSeriesLP(arg->start_pfn,
+-						arg->nr_pages, window->prop);
++						limit, window->prop);
+ 			}
+-			/* XXX log error */
+ 		}
+ 		spin_unlock(&dma_win_list_lock);
+ 		break;
+@@ -2446,12 +2463,10 @@ static int iommu_mem_notifier(struct notifier_block *nb, unsigned long action,
+ 	case MEM_OFFLINE:
+ 		spin_lock(&dma_win_list_lock);
+ 		list_for_each_entry(window, &dma_win_list, list) {
+-			if (window->direct && (arg->start_pfn << PAGE_SHIFT) <
+-				ddw_memory_hotplug_max()) {
++			if (window->direct) {
+ 				ret |= tce_clearrange_multi_pSeriesLP(arg->start_pfn,
+-						arg->nr_pages, window->prop);
++						limit, window->prop);
+ 			}
+-			/* XXX log error */
+ 		}
+ 		spin_unlock(&dma_win_list_lock);
+ 		break;
+@@ -2535,6 +2550,14 @@ void __init iommu_init_early_pSeries(void)
+ 	register_memory_notifier(&iommu_mem_nb);
+ 
+ 	set_pci_dma_ops(&dma_iommu_ops);
++
++	/* During init determine the max memory an LPAR can have and set it. This
++	 * will be used for pre-mapping RAM in DDW. memblock_end_of_DRAM() can
++	 * change during the running of LPAR - daxctl can add pmemory as
++	 * "system-ram". This memory range should not be pre-mapped in DDW since
++	 * the address of pmemory can be much higher than the DDW size.
++	 */
++	pseries_ddw_max_ram = ddw_memory_hotplug_max();
+ }
+ 
+ static int __init disable_multitce(char *str)
 -- 
 2.53.0
 
