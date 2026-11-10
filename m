@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794285396;
-	b=RTeWOC/MZw6pfH0WWMoPZ4mn9YpdZvHnoGpSLIhiNExUNxnDoQzRTLUjimgUmTNn5pXc
-	 pZmXHhpN78qOadOcNEV7V5ptKuIfj6qiPFLWUItaLjgunkbsnp/IUgDdxBi4UPCiRMRsj
-	 oiGcfroGL3Ru4VegE9ntM/0dGk3OW40JpyC59OahNEl4qxO8/gdiNiNj0Z34PP9r0g4yn
-	 VVRXRS70utbPCbDjmvnxZ1ndw0p31lRiolAyH+CjitvhEu6ryDiL8YVbbxOwUzB0Z1efE
-	 tj8uXdAtfDlzgfPpzJrINDDVxgfEOry6+NbFKPLtJBnzotiblGV2Y3WL0zE29IhEXZA==
+	t=1794285441;
+	b=j/ytDr1pRf4XCep6xeXvGDH+Ub7ZEBj+rfBZKp+C8TRb8NBeTrSHXAYJSIQ1YFmc08GP
+	 RIH/KLz9ilsqQFVjKOzNGRMVoXWuImQnJkE37EJHgBGwdspOxMdjnXJIeWDkWbcKbB+6I
+	 mnlX0uco/shZPMW6myCtflFE3SbcrdPppLAsV6MXWYskVRUUkOZ/uT8HVvHcj6tCxMAzK
+	 PUsrT9JChyXZnQeIX8h0foxBIvMDBa0KoEZU1LEKk9jVuaXcjtPrYQhNVal+03OYP24D+
+	 LJcKC53RWCocctdGKi+i4NCeU4BM2mP3aA6SacdwaglhTRxu+mBr/rpqhuUnxyFZBSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794285396;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794285441;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=A9nyA7lF/10eaorTCvN0dBKzramLIb3O9pk1Tkzv8jg=;
-	b=p0D9Kn5Rv1NO4Hgaijx9Xq+rnlevvjRmpy3OlhZD22OOge8MkwrPwWySTF3VNzRzwCG9
-	 SlqRsELDxOjMofuW92CX2B2x2Rx7qa6JZJKNw6zuTT5xzPKHF4zFKhXmZrJDoHJ3n2kUE
-	 XbZjOZOhrKBh/wBRoHwnFVPRy+HbvL+NiKsKrWN7pTr66BVmJ4sL8UqiaEoL0vE67vTjB
-	 xTC81135dubxB1NAlgRU+MBZ2sOQqawEEOBAq09ETFjyDgwMiuNr6rNAE/ibcRVm4YERY
-	 cJybivtmHc3kWZxTaOXUTi8X2j1o/Y6cPLcfxNyRYej/jjLtHnawm6H8awbdjsbaL0A==
+	bh=Chv+eLn4gEETO/7ROGEtaL7hwyIl396jyh8nkt40Z3E=;
+	b=IoLJO8ykxncojKladHbAaqnLzc16+9J1k1iE6nVdN33ucJrWOqKbOeqTnxPuC4Dz35pf
+	 YHzOERzo/A62Nc7jWOVRfKp1acble5zFkGCWAjye7OOK6JI3vTqu3ZCX0rNgaS30WlQpO
+	 YXeyQ5cMg429ivBHf7YEpA9HvBXaJwBJf8NhHKdk+haU4mx8jAWjzxWpUZPYRDMd396OG
+	 QpzylMo++x+sNjRYnVeBp5nLKPMvny1ri9BL4mUippTuVga3cRc8aFKLUjk1UAZNu9Lg2
+	 dVwwtiiY75fKTmmrJEYDvsiVluigIwAZ7k9Qmhpo/umwTmtx/2nhAsih1gqc1eWbnpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7YrYyCf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LwOqF9tc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719D3606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:36:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30328606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f7YrYyCf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624B61F008A1;
-	Tue, 10 Nov 2026 04:36:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LwOqF9tc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5731C1F0089F;
+	Tue, 10 Nov 2026 04:37:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794285396;
-	bh=A9nyA7lF/10eaorTCvN0dBKzramLIb3O9pk1Tkzv8jg=;
+	s=k20260515; t=1794285441;
+	bh=Chv+eLn4gEETO/7ROGEtaL7hwyIl396jyh8nkt40Z3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f7YrYyCfRJ1QwfU3HMfGCFTSxfWre6qSXtESOEU6x2JMV/spwvAye3bbMEIbBfG81
-	 ibEG7b4ROcdFniF77pHVy7g9Qu0KnstCMaJ+pIqfXzMX1WK06ZGJnbGvBILizDn6tK
-	 wYEqP8wVbzGBBkEJpDIQwiome5SeCThQjNVwKu9a0CFpUwJwfYbFOQydAtYoDduKs7
-	 3coWklV6UOYjnWGDyux7ODNqhbWtbudEz8AilP8ZmE8tzJAOmP1853dMd3o1ucHOME
-	 GuqdN1XCArLh3ITJ0MZlyXCd1rOTdHlApEYFHctxMJ5F3HjWAcCRL3NOVSKhaILbWl
-	 lqrGTABxgftsA==
+	b=LwOqF9tcdkNQTsEqGsEMJLgQmNSVAGahGwRW/VxR4FD3oRCYm0+SJezzN0v9DJBpj
+	 gjvmlSOIjZG7kIT2CyD1GvNGJUchY3dXXKGH/n2m8nIkZtcq+/V6fGOMTI9RxR+wP7
+	 6o1gnJDlO5jibPhFqXXyCYqGWqAt7SN9B0gJ+kHzzOHqlDpY5bDzZSDou5RqzTOD7n
+	 X8HeX7EagxIcIsGRg24lNRZnaXuk0yFfVg6uyLr1615gO1neWFMGmhUdbhQcHLJ3QF
+	 GPx7cwmFNzWHCiTkvmGuGAdQ6O1uYrSNgLvjC/tsFlDcxyabkRbYEE8UwXDvS9f/2b
+	 7P9ksxqCBLcWg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
 	Eugen Hristev <ehristev@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] media: microchip-isc: fix WB offset and gain register field masking
-Date: Mon,  9 Nov 2026 23:36:33 -0500
-Message-ID: <20261110043626.355449-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] media: microchip-isc: synchronize the IRQ before disabling clocks on stop
+Date: Mon,  9 Nov 2026 23:37:18 -0500
+Message-ID: <20261110043702.334033-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110043626.355449-1-sashal@kernel.org>
-References: <20261107052851-failed-6.6-6e9eaa3b9387@kernel.org>
- <20261110043626.355449-1-sashal@kernel.org>
+In-Reply-To: <20261107054124-failed-6.1-19fa5407da5e@kernel.org>
+References: <20261107054124-failed-6.1-19fa5407da5e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,71 +64,83 @@ Content-Transfer-Encoding: 8bit
 
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-[ Upstream commit 6e9eaa3b93870e4edac1bd2539fe113c24663eaf ]
+[ Upstream commit 19fa5407da5ef3e605cacfcd90f70d8b2c121cd7 ]
 
-ISC_WB_O_* and ISC_WB_G_* each pack two 13-bit fields. A negative offset
-sign-extends and corrupts the adjacent field. Add masks for the two
-fields and write them with FIELD_PREP(), which masks each value into its
-field, so sign extension can no longer bleed across.
+isc_stop_streaming() masks the DMA interrupt and then drops the runtime
+PM reference, which disables the ISC clocks. microchip_isc_interrupt()
+may still be executing on another CPU at that point; it reads ISC_INTSR
+over regmap, and touching the unclocked registers triggers an external
+abort.
 
-Fixes: 73c1a577b839 ("media: atmel: atmel-isc: reworked white balance feature")
+Store the IRQ number at probe and call synchronize_irq() after masking
+the interrupt, before dropping the PM reference.
+
+Fixes: 106267444f12 ("[media] atmel-isc: add the Image Sensor Controller code")
 Cc: stable@vger.kernel.org
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adjusted context for existing Atmel driver names, including isc_interrupt ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../platform/microchip/microchip-isc-base.c      | 16 ++++++++--------
- .../platform/microchip/microchip-isc-regs.h      |  6 ++++++
- 2 files changed, 14 insertions(+), 8 deletions(-)
+ drivers/media/platform/atmel/atmel-isc-base.c    | 3 +++
+ drivers/media/platform/atmel/atmel-isc.h         | 1 +
+ drivers/media/platform/atmel/atmel-sama5d2-isc.c | 2 ++
+ drivers/media/platform/atmel/atmel-sama7g5-isc.c | 2 ++
+ 4 files changed, 8 insertions(+)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index 8a1ebb1a74e00..1131e91546e2a 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -63,17 +63,17 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
- 	/* In here we set our actual hw pipeline config */
+diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
+index 9e91e4d948a24..36864f0b36c04 100644
+--- a/drivers/media/platform/atmel/atmel-isc-base.c
++++ b/drivers/media/platform/atmel/atmel-isc-base.c
+@@ -422,6 +422,9 @@ static void isc_stop_streaming(struct vb2_queue *vq)
+ 	/* Disable DMA interrupt */
+ 	regmap_write(isc->regmap, ISC_INTDIS, ISC_INT_DDONE);
  
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GB]));
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GB]));
- }
- 
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index 185ef0eab7ad3..cabecf128b37a 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -149,6 +149,12 @@
- /* ISC White Balance Gain for B, GB Register */
- #define ISC_WB_G_BGB	0x0000006c
- 
-+/* Each WB offset/gain register packs two 13-bit fields, low and high */
-+#define ISC_WB_O_LO	GENMASK(12, 0)	/* R or B  offset [12:0]  */
-+#define ISC_WB_O_HI	GENMASK(28, 16)	/* GR or GB offset [28:16] */
-+#define ISC_WB_G_LO	GENMASK(12, 0)	/* R or B  gain [12:0]  */
-+#define ISC_WB_G_HI	GENMASK(28, 16)	/* GR or GB gain [28:16] */
++	/* let a running IRQ handler finish before the clock is disabled */
++	synchronize_irq(isc->irq);
 +
- /* ISC Color Filter Array Control Register */
- #define ISC_CFA_CTRL    0x00000070
+ 	pm_runtime_put_sync(isc->dev);
  
+ 	/* Disable stream on the sub device */
+diff --git a/drivers/media/platform/atmel/atmel-isc.h b/drivers/media/platform/atmel/atmel-isc.h
+index ff60ba020cb99..7d2e7825cfb00 100644
+--- a/drivers/media/platform/atmel/atmel-isc.h
++++ b/drivers/media/platform/atmel/atmel-isc.h
+@@ -269,6 +269,7 @@ struct isc_device {
+ 	u32			dcfg;
+ 
+ 	struct device		*dev;
++	int			irq;
+ 	struct v4l2_device	v4l2_dev;
+ 	struct video_device	video_dev;
+ 
+diff --git a/drivers/media/platform/atmel/atmel-sama5d2-isc.c b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+index ea3e8b86a7f31..5dec061a6e733 100644
+--- a/drivers/media/platform/atmel/atmel-sama5d2-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+@@ -421,6 +421,8 @@ static int atmel_isc_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	isc->irq = irq;
++
+ 	ret = devm_request_irq(dev, irq, isc_interrupt, 0,
+ 			       "atmel-sama5d2-isc", isc);
+ 	if (ret < 0) {
+diff --git a/drivers/media/platform/atmel/atmel-sama7g5-isc.c b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+index 4bc2f5c7f2f7d..e3513e0617ed6 100644
+--- a/drivers/media/platform/atmel/atmel-sama7g5-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+@@ -410,6 +410,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	isc->irq = irq;
++
+ 	ret = devm_request_irq(dev, irq, isc_interrupt, 0,
+ 			       "microchip-sama7g5-xisc", isc);
+ 	if (ret < 0) {
 -- 
 2.53.0
 
