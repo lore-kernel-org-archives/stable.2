@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273465;
-	b=ovye/G69Q6zeTrnP4IDz+Ngxb62MYUyeqVGuhIAfVSYtmWe+cLKKDWLSZuRLjDrSeALQ
-	 jhrLxwHD9DFkFe25LcFcVdWzmBXOTGrfmO/JHZvmNaanZTEfST1Q+z6lcPxJ0Tm8IWseh
-	 n1D5J9g9cBrWeHDZOTzllOT2GLLJcW8qOreAtK6NFBSQvG1rTxd4TMrvgQSIAjPDXDCsZ
-	 yMwZQLh+4o2On50z+6Shqcmg9Gj+uim2KGeuSM+u6/z0DW5Wl0xdbGZ4DDhj1y981aO8w
-	 iVsbfWnXOkobZXBbiPi2hxQ6j95Bai+M4mw2sjEc0d53DSmmoB4vridUaVOUlH5v1Sg==
+	t=1794273467;
+	b=1dFC8QTQc5wsitjsvhuARoFShyzJC3OI7SUGWa7CFAFkEyF/TQ3NQ517BlMlc6ksoyWZ
+	 AI9OyCbvaAo3UktVu5vrK+RyD4FHKYj+p6l2VvI49kEm7v+JNGLKaejvo0dT/uRWe/Ll/
+	 dBVbFBCI9WLcDoaGRN0NkkrIeP4HAeAtWNxqT/Rfvi5LvsgYdrAP9mvh8KhkN/QIdn1RW
+	 0So/Nqxln2pSkBDI3TyeKxRBHPRtLh47hQ9EBs6AK+T/naRlbOnZsTiLy24YvvL6wZnBJ
+	 4Dt+iU8w9KdiyZOspzRiBKyrlnpF9UBfRYBT0dvHhid+VJWmrJgVTFmn2oySI7T0ZUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273467;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dz2njH/8tiIi7c23cb70pC1/aXf/zBFsEc/b1MD+aOI=;
-	b=LjQ7iXzumeL/pMxzG2bgCd70VYBGtcrdo8bvzaeEEC23S4Arrf8mwR9S6VcuJqyyeIaO
-	 RzFybowKFaFG/EzSML9h6maKhk0llQ0iqI8yK3sJLJUvF+5n/gHDAegKRYXOmZE00bvyi
-	 S92swKfAdnyHliXHMEAg559QYQjvgzusY7NghVMNZCguB9HBwpv3JXUAuAPGmrB8jeTbk
-	 6oaxeNM/8IMBJ90xZx+CztXYeynaeOfnfYEasP51u6+lA343RmLuZZbEgYp0meg/IDb/y
-	 zly3Ai7qMUpBbIbXb5GJXQSIEASMO/RTkY+J+SA79nBozRIpQTe9fs4+vRHcuDjk+Bg==
+	bh=vLMNXgVM/xmOhCHJO087VpliLE4VfK/BcIYeASI+cUc=;
+	b=ytYTm2Fub79wTHmWqw3z0eaLMvIVD4D3Rhq1suq5MH2fL0t+SoogsWIccglmHeSbgahZ
+	 JVdpSksQpNA+Fw668YC2OSQCXaN2OkS7QjbRv7WoxBLzd0Fwa+8Vp6gTFtLscwwc7PMFQ
+	 966Ih/UuuxYmg3DpoMQilTK/Sws2MKPuiKRXD6bSKXm+sZfjlfkYyBI2YP4Lj7o23f91g
+	 0GAV2JcctEUa7JjzP+9/3t+pcjs7uyo0LKdGNhTLR8nnT8sOGZoq1/nV63agKpGIBaczL
+	 0hqDtzQHa1qtuyDIwX9gGE14n4hACeE+kJfvngvdTAQYg4d1dyg5ZjupV0ffvM1z5CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSnlqsbt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY8sObGE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E987606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B021606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hSnlqsbt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DDB1F0089F;
-	Tue, 10 Nov 2026 01:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY8sObGE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C426C1F0089F;
+	Tue, 10 Nov 2026 01:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273464;
-	bh=dz2njH/8tiIi7c23cb70pC1/aXf/zBFsEc/b1MD+aOI=;
+	s=k20260515; t=1794273467;
+	bh=vLMNXgVM/xmOhCHJO087VpliLE4VfK/BcIYeASI+cUc=;
 	h=From:To:Cc:Subject:Date;
-	b=hSnlqsbtlxGM8Lq0swKTgH2zVJfIrSl3DO6hN/vesjMA6ayq4msq7TwvTklhFzobF
-	 9kBhm3X93kyRk7vudKMv8P8xvf2eAZPn7O+W6F2PHOLJKWilpTdbG4btg6IPPi2rmO
-	 xga1UETcSI73RPCWc5ZavggrbXzSTiJ9PebvN19zfQgsRCDTeKWM6ARvDH3sjnDbCc
-	 UeR/qLsboQzb1wkfddEWu+217vtpf+lE2WaU7Og1XGA0mXJRoE/4pC/eu+d3QwWh/4
-	 3AV8uo+ei3F44CHV1qAxxUuLXqHOVPjHVPp9946Lg76XCJgvAClv8Wo3QC+AUkFQix
-	 ESckh2Hels0Sw==
+	b=gY8sObGE0syxeogKrHkuqgVxY4ijrVhI+n11/e/xgf4v79yo9IHYw72j/m/bhQJ2J
+	 soYG5BEU+ouFLzecKy41hl0LtqlX3/ugI8r1DGr+komtReJou2EiG9Qb3m5E3fY/p8
+	 QRxQR53qnvV+Dl3LdffAX7hWIAjq32uI+A3m+TxpOjRJbghq2y6xeLwzn61nzeRay9
+	 dNxXnBHO76kv4BJm73lP//BaIOpif/SISyMgtMuCLMGr/FE8/GhR2Rpj6/VX0fHFIS
+	 5MliKttpoJOFB1ud/BlxnckQj8Ui29eGnrnHJtkrzBlsLd28pGjO/LG1OQF4ubqRva
+	 V8GISaGc/JEYg==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	hch@lst.de,
-	p.raghav@samsung.com,
-	cem@kernel.org
+To: longpareto@gmail.com,
+	xieyongji@bytedance.com,
+	mst@redhat.com,
+	noreply@anthropic.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xfs: add a flag to convert unwritten extents without allocating blocks" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:17:43 -0500
-Message-ID: <20261109201743-failed-6.1-f3ca3498dfe6@kernel.org>
+Subject: FAILED: patch "[PATCH] vduse: fix VA/PA confusion in the coherent page fault path" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:17:45 -0500
+Message-ID: <20261109201745-failed-6.1-bb2e6f166547@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,119 +70,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3ca3498dfe624f9b604c934263538a3acd55af5
+git cherry-pick -x bb2e6f166547838fd7c320b01c90918b736f76e2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201743-failed-6.1-f3ca3498dfe6@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201745-failed-6.1-bb2e6f166547@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3ca3498dfe624f9b604c934263538a3acd55af5 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 29 Oct 2026 11:22:59 +0900
-Subject: [PATCH] xfs: add a flag to convert unwritten extents without
- allocating blocks
+From bb2e6f166547838fd7c320b01c90918b736f76e2 Mon Sep 17 00:00:00 2001
+From: "chenglong.ma" <longpareto@gmail.com>
+Date: Mon, 2 Nov 2026 12:08:55 -0500
+Subject: [PATCH] vduse: fix VA/PA confusion in the coherent page fault path
 
-xfs_bmapi_write() with XFS_BMAPI_CONVERT also allocates blocks for
-holes and delalloc extents in the range. Add XFS_BMAPI_CONVERT_ONLY for
-callers that may only convert already allocated blocks. It stops at a
-hole or delalloc extent, and returns -ENOSR if it stops before mapping
-anything.
+vduse_domain_get_coherent_page() assumes that iotlb entries above
+bounce_size were installed by vduse_domain_alloc_coherent(), so it
+treats map->addr as a physical address. But vduse registers with
+use_va = true, and when the device is bound to vhost_vdpa,
+vhost_vdpa_va_map() stores a userspace virtual address in map->addr,
+which vduse_domain_set_map() then copies into the same iotlb. A
+process holding the domain file descriptor across a rebind can
+therefore fault in an arbitrary physical page with read/write
+access, ignoring the entry permissions.
 
-Marked for stable because "xfs: refuse a pNFS LAYOUTCOMMIT of a range
-without blocks" needs it.
+Additionally, since the domain file mmap lacks VM_IO, the domain
+file itself can be mapped and passed to vhost_vdpa_va_map(),
+producing self-referential entries that bypass the coherent path
+check.
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Link: https://lore.kernel.org/r/20261013120359.GB2944@lst.de
+To fix, only translate entries whose backing file is the domain
+file itself in vduse_domain_get_coherent_page(), reject such
+entries in vduse_domain_set_map() since only external mappings
+should be imported, and set VM_IO on the domain file mmap so
+vhost_vdpa_va_map() refuses to map it in the first place.
+
+Fixes: 8c773d53fb7b ("vduse: Implement an MMU-based software IOTLB")
+Cc: Xie Yongji <xieyongji@bytedance.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Reported-by: chenglong.ma <longpareto@gmail.com>
+Signed-off-by: chenglong.ma <longpareto@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Co-Authored-By: Claude Code <noreply@anthropic.com>
 ---
- fs/xfs/libxfs/xfs_bmap.c | 14 ++++++++++++--
- fs/xfs/libxfs/xfs_bmap.h | 10 +++++++++-
- 2 files changed, 21 insertions(+), 3 deletions(-)
+ drivers/vdpa/vdpa_user/iova_domain.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
-index ca49bf4a50c5f..050522c58b168 100644
---- a/fs/xfs/libxfs/xfs_bmap.c
-+++ b/fs/xfs/libxfs/xfs_bmap.c
-@@ -4130,6 +4130,8 @@ xfs_bmapi_finish(
-  * Returns a negative error code on failure, including -ENOSPC when it could not
-  * allocate any blocks and -ENOSR when it did allocate blocks to convert a
-  * delalloc range, but those blocks were before the passed in range.
-+ * With XFS_BMAPI_CONVERT_ONLY, it stops at a hole or a delalloc extent instead
-+ * of allocating blocks, and returns -ENOSR if it stops before mapping anything.
-  */
- int
- xfs_bmapi_write(
-@@ -4189,6 +4191,8 @@ xfs_bmapi_write(
- 	 */
- 	ASSERT((flags & (XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO)) !=
- 			(XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO));
-+	ASSERT(!(flags & XFS_BMAPI_CONVERT_ONLY) ||
-+	       (flags & XFS_BMAPI_CONVERT));
+diff --git a/drivers/vdpa/vdpa_user/iova_domain.c b/drivers/vdpa/vdpa_user/iova_domain.c
+index b6c958224b7ce..28a977248a0d3 100644
+--- a/drivers/vdpa/vdpa_user/iova_domain.c
++++ b/drivers/vdpa/vdpa_user/iova_domain.c
+@@ -76,6 +76,10 @@ int vduse_domain_set_map(struct vduse_iova_domain *domain,
+ 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
+ 	     map = vhost_iotlb_itree_next(map, start, last)) {
+ 		map_file = (struct vdpa_map_file *)map->opaque;
++		if (!map_file || map_file->file == domain->file) {
++			ret = -EINVAL;
++			goto err;
++		}
+ 		ret = vduse_iotlb_add_range(domain, map->start, map->last,
+ 					    map->addr, map->perm,
+ 					    map_file->file,
+@@ -226,6 +230,7 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
+ {
+ 	u64 start = iova & PAGE_MASK;
+ 	u64 last = start + PAGE_SIZE - 1;
++	struct vdpa_map_file *map_file;
+ 	struct vhost_iotlb_map *map;
+ 	struct page *page = NULL;
  
- 	if (XFS_IS_CORRUPT(mp, !xfs_ifork_has_extents(ifp)) ||
- 	    XFS_TEST_ERROR(mp, XFS_ERRTAG_BMAPIFORMAT)) {
-@@ -4237,6 +4241,9 @@ xfs_bmapi_write(
- 		 * that we found, if any.
- 		 */
- 		if (need_alloc || wasdelay) {
-+			if (flags & XFS_BMAPI_CONVERT_ONLY)
-+				break;
+@@ -234,6 +239,10 @@ vduse_domain_get_coherent_page(struct vduse_iova_domain *domain, u64 iova)
+ 	if (!map)
+ 		goto out;
+ 
++	map_file = (struct vdpa_map_file *)map->opaque;
++	if (!map_file || map_file->file != domain->file)
++		goto out;
 +
- 			bma.eof = eof;
- 			bma.conv = !!(flags & XFS_BMAPI_CONVERT);
- 			bma.wasdel = wasdelay;
-@@ -4332,10 +4339,13 @@ xfs_bmapi_write(
- 	 *
- 	 * To avoid a successful return with *nmap set to 0, return the magic
- 	 * -ENOSR error code for this particular case so that the caller can
--	 * handle it.
-+	 * handle it. The same goes for XFS_BMAPI_CONVERT_ONLY stopping at a
-+	 * hole or a delalloc extent at the start of the range, in which case
-+	 * nothing has been changed.
- 	 */
- 	if (!n) {
--		ASSERT(bma.nallocs >= *nmap);
-+		ASSERT((flags & XFS_BMAPI_CONVERT_ONLY) ? bma.nallocs == 0 :
-+							  bma.nallocs >= *nmap);
- 		return -ENOSR;
- 	}
- 	*nmap = n;
-diff --git a/fs/xfs/libxfs/xfs_bmap.h b/fs/xfs/libxfs/xfs_bmap.h
-index e9f5416e4c050..fb7481e8190c6 100644
---- a/fs/xfs/libxfs/xfs_bmap.h
-+++ b/fs/xfs/libxfs/xfs_bmap.h
-@@ -90,6 +90,13 @@ struct xfs_bmalloca {
- /* Try to align allocations to the extent size hint */
- #define XFS_BMAPI_EXTSZALIGN	(1u << 11)
+ 	page = pfn_to_page((map->addr + iova - map->start) >> PAGE_SHIFT);
+ 	get_page(page);
+ out:
+@@ -579,7 +588,7 @@ static int vduse_domain_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	struct vduse_iova_domain *domain = file->private_data;
  
-+/*
-+ * Use with XFS_BMAPI_CONVERT to convert unwritten extents without allocating
-+ * blocks. Stop at a hole or a delalloc extent: return the mappings found so
-+ * far, or -ENOSR if there are none.
-+ */
-+#define XFS_BMAPI_CONVERT_ONLY	(1u << 12)
-+
- #define XFS_BMAPI_FLAGS \
- 	{ XFS_BMAPI_ENTIRE,	"ENTIRE" }, \
- 	{ XFS_BMAPI_METADATA,	"METADATA" }, \
-@@ -102,7 +109,8 @@ struct xfs_bmalloca {
- 	{ XFS_BMAPI_COWFORK,	"COWFORK" }, \
- 	{ XFS_BMAPI_NODISCARD,	"NODISCARD" }, \
- 	{ XFS_BMAPI_NORMAP,	"NORMAP" },\
--	{ XFS_BMAPI_EXTSZALIGN,	"EXTSZALIGN" }
-+	{ XFS_BMAPI_EXTSZALIGN,	"EXTSZALIGN" }, \
-+	{ XFS_BMAPI_CONVERT_ONLY,	"CONVERT_ONLY" }
+-	vm_flags_set(vma, VM_DONTDUMP | VM_DONTEXPAND);
++	vm_flags_set(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
+ 	vma->vm_private_data = domain;
+ 	vma->vm_ops = &vduse_domain_mmap_ops;
  
- 
- static inline int xfs_bmapi_aflag(int w)
 -- 
 2.53.0
 
