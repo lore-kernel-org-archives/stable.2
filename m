@@ -1,56 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794334983;
-	b=DU4Vj0xXiXzMTJoyPNS87NruHeGf5IFlzEebanxppu/RrESq3K5UMevK0Rgxh/XnTasV
-	 O6HkauRN9HejDUzKwhlMvn804yj6gWzmC71MyINpvn77VnF340H6Tv93/fe8FZnZpuJUs
-	 /+Pp8LmIbi0uXMekImXRAdfHOrS4IK/Pk4PIwcACasu3DOjfCFt5XTFxxs3jjzFvsDm9T
-	 wJ5SduiHAsAI0/bs0n81xA4/FyNdo+s8xWhv2UWzwwmZ6bjd0ubUIjxQ5E8Fz2p/m5HFL
-	 rS9u8EYB7CJ/IReX9dZg06qlhHce/SQDa06kIs2S7TIr8KOkNHb+HG3sTxoyNSXd0KQ==
+	b=nD3mLyC0SDQq/Ow7Ngfi0ii25EIby9/vy8IPV8yequ3CJbWXTr+cgv0ZSfhcfOppMyGU
+	 +VXFdG4IIN3dYS4hlVi+K2XsgndvF1xBulixEa3nPqz5A/D+ndrnMPr+OWOspmm1ecv5J
+	 Yb76EAwi+tVrQ5X9cj6y2x5M5+SvkqucLocLs8S5tlUkA6xf1JNn/rcgTftoVJ/dsurAo
+	 Ps3hWTZCt/K0V4akcVP6WWtjBib1ytkBnuCo0A0z0NY2CDU8nM9ZAdU/nlANTAVq8Albg
+	 QdBVplpx55AAhlwOBH3w9YL+yYiVoC6NDsJNyqNrc6nuBKarTGD3a8HiVqaWxZYL7Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794334983;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=visWQWFV2YgBDd2OCbgz+fLkfVc/ewJNY2D2y8K75zg=;
-	b=MhtFjWPBnKRJNR++gIwMXRDJ+SrDCOQs9AJK0M/YcWTqmSWW2M7+RlyTZslizK3eBqOT
-	 498FzjJFFH4swLaiL+PXuTfC5NI25orqeUYYulqX3N+m7TziS1t0GCaSldB6nDk6nVl4U
-	 81OgLDgnuzaZ+MTd97Negw3el5U9Sg1E5yPyr3VjNOedqBVzuRRAYp/+YYg3iTdTcPkVE
-	 6WrYtqK12CS161KZkrqezzgCTFGTFN7ygSTx6uq6e6AAPPefFogDCvic8XeQyPNo7frpH
-	 /hzbZuzZrVxY+eDySxKYJcqc5iRmqiY3h4AFPwRPECwDwlQ13UwmsKqaKf5X2U/XwXQ==
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=STj4gsh+ECkiq52y42atn6++DW4Ig0+TQVJRAn04acQ=;
+	b=SPPR3sPOp8gNHjX8ebWEqaMRsNaFpYLbFywE6Z1MU/9e2UIVq6bqU4f6mK6qbdbFpXN2
+	 JvjvYVLEEx1GnPEQYm+NKTFz5gd3X7H9nOutx2IxfwERwnjKFxrcbBGVcgNnrZ/rE9sah
+	 LiDyJcFH0U/ke2jMOUyhVr7BxbGQRIk5c4M5Rz0QR58LKhZ0+9pEHC6/Nyr97OlS5vuSZ
+	 vHAliMntnEGcUtW2UnBznD3eAjSExMRXqL1TJSwRgCIUoujoLRf4TKghmnCQ8kF0XzrCj
+	 Utmrgsh9W2KlBubUZYvvLm5lu7BLjjNStNbMJnJbeIvQDyW2cRV5H5etlG22EPpAYPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntPQBkUR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBSXZjuH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D493606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F71A606A336;
+	Tue, 10 Nov 2026 18:23:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntPQBkUR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5677E1F0089F;
-	Tue, 10 Nov 2026 18:23:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBSXZjuH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F8C1F008A1;
+	Tue, 10 Nov 2026 18:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334982;
-	bh=visWQWFV2YgBDd2OCbgz+fLkfVc/ewJNY2D2y8K75zg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ntPQBkURVbHseUxJqofLp18XjvpK3JEIEXUUXpgqAHmEsG1/Vxk300BgBsbcGuism
-	 638ASWR17zpbixXg503VNQU/Z2vG+6u7U/oAIAuqE5LSax/KSBbKskCeAZndPyMyuy
-	 ohdz2ZELbJ+GiaMgCXN0ZOMi5h/uwXgcGgJP/b/oDgWv6+L6T02y09UsSUtifhsFQU
-	 KVA4QGRPvB35gexkeD8wdxp+88lUvmrGYvYiG8yhvsZJrichoLOBj1JRLcjGSn69Gv
-	 PeQZXCTobuFVjwHFoN3vzv90KiYdg2P3FcCLmSRRGeRV9+axUfqh21G8Rmo2nYhOpE
-	 hty90P1kGFfsw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yuto Ohnuki <ytohnuki@amazon.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] virtiofs: add FUSE protocol validation
-Date: Tue, 10 Nov 2026 13:22:58 -0500
-Message-ID: <20261110181229.3093764-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052334-failed-6.12-5364d081125a@kernel.org>
-References: <20261107052334-failed-6.12-5364d081125a@kernel.org>
+	s=k20260515; t=1794334983;
+	bh=STj4gsh+ECkiq52y42atn6++DW4Ig0+TQVJRAn04acQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MBSXZjuHQ9vFqwd+iX2S78XLwgd17suaM5GydqfUi9v08LyszHYr3TbpPYR+TQje/
+	 A3CeHzqP+jRHyMKXcRjR2gqAF6iDha4etd3p88/Jj2uw1GWTnDzaRCjEYx2SiGE/U/
+	 3kgdjIAzHPkAkoxzF87C2LKvOXgkViFA5IJSJuaaBX3tEkwWs7oA2rIN8MbgzW204T
+	 wfdfcGIUkZW8M3ab5nfOLHccQNplUjG9YXMdwwqMIDZ2KMuR5N0zW6fYA9nCZa3wNW
+	 pVWa6K1YqSnwMdyf9LUFNcdvArYrlyhBxUvKyn7ebOKBe6LxrY/zPn8kPlMl5qbcra
+	 fCLq1HXFOjM9g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210EE39D608B;
+	Tue, 10 Nov 2026 18:23:03 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,86 +54,50 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3 0/4] net/sched: fix short-skb metadata and
+ namespace
+ boundaries
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179433498169.4118637.9465762376116363079.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Nov 2026 18:23:01 +0000
+References: <SER-NSBD.v3.r0.20261103064310@mojatatu.com>
+In-Reply-To: <SER-NSBD.v3.r0.20261103064310@mojatatu.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shawnq1@163.com,
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, jiri@resnulli.us,
+ kuba@kernel.org, pabeni@redhat.com, victor@mojatatu.com,
+ sashiko-bot@kernel.org, thomas.goff@boeing.com, shuah@kernel.org,
+ yotam.gi@gmail.com, linux-kselftest@vger.kernel.org
 
-From: Yuto Ohnuki <ytohnuki@amazon.com>
+Hello:
 
-[ Upstream commit 68b69fa0edb241a946cd4c850110990f30705164 ]
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Add virtio_fs_verify_response() to validate that the server properly
-follows the FUSE protocol by checking:
+On Tue,  3 Nov 2026 06:50:28 -0500 you wrote:
+> This series fixes three independent boundary problems in net/sched, and
+> covers the third one with tc-testing cases.
+> 
+> 1/4 act_ife: encode a configured zero metadata value.  The u32 and u16
+> presence callbacks reserve an 8-byte TLV for a configured zero value, but
+> the encoders returned without writing it, leaking stale skb headroom bytes.
+> 
+> [...]
 
-- Response length is at least sizeof(struct fuse_out_header).
-- oh.len matches the actual response length.
-- oh.unique matches the request's unique identifier.
+Here is the summary with links:
+  - [net,v3,1/4] net/sched: act_ife: encode configured zero metadata values
+    https://git.kernel.org/netdev/net/c/7d02c07c738b
+  - [net,v3,2/4] net/sched: act_ife: require a full Ethernet header on egress
+    https://git.kernel.org/netdev/net/c/11dbce090834
+  - [net,v3,3/4] net/sched: sch_teql: reject qdiscs from another network namespace
+    https://git.kernel.org/netdev/net/c/1ae84bdd736f
+  - [net,v3,4/4] selftests: tc-testing: teql: cover each attach rejection on its own
+    https://git.kernel.org/netdev/net/c/367a50c3233e
 
-On validation failure, set error to -EIO and normalize oh.len to prevent
-underflow in copy_args_from_argbuf().
-
-Addresses the TODO comment in virtio_fs_request_complete().
-
-Signed-off-by: Yuto Ohnuki <ytohnuki@amazon.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-Stable-dep-of: 5364d081125a ("virtiofs: validate fixed-output response length")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/fuse/virtio_fs.c | 29 +++++++++++++++++++++++++----
- 1 file changed, 25 insertions(+), 4 deletions(-)
-
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index 06e59b820ffa8..0d076cbd94237 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -749,6 +749,27 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	req->argbuf = NULL;
- }
- 
-+/* Verify that the server properly follows the FUSE protocol */
-+static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
-+{
-+	struct fuse_out_header *oh = &req->out.h;
-+
-+	if (len < sizeof(*oh)) {
-+		pr_warn("virtio-fs: response too short (%u)\n", len);
-+		return false;
-+	}
-+	if (oh->len != len) {
-+		pr_warn("virtio-fs: oh.len mismatch (%u != %u)\n", oh->len, len);
-+		return false;
-+	}
-+	if (oh->unique != req->in.h.unique) {
-+		pr_warn("virtio-fs: oh.unique mismatch (%llu != %llu)\n",
-+			oh->unique, req->in.h.unique);
-+		return false;
-+	}
-+	return true;
-+}
-+
- /* Work function for request completion */
- static void virtio_fs_request_complete(struct fuse_req *req,
- 				       struct virtio_fs_vq *fsvq)
-@@ -759,10 +780,6 @@ static void virtio_fs_request_complete(struct fuse_req *req,
- 	unsigned int len, i, thislen;
- 	struct page *page;
- 
--	/*
--	 * TODO verify that server properly follows FUSE protocol
--	 * (oh.uniq, oh.len)
--	 */
- 	args = req->args;
- 	copy_args_from_argbuf(args, req);
- 
-@@ -818,6 +835,10 @@ static void virtio_fs_requests_done_work(struct work_struct *work)
- 		virtqueue_disable_cb(vq);
- 
- 		while ((req = virtqueue_get_buf(vq, &len)) != NULL) {
-+			if (!virtio_fs_verify_response(req, len)) {
-+				req->out.h.error = -EIO;
-+				req->out.h.len = sizeof(struct fuse_out_header);
-+			}
- 			spin_lock(&fpq->lock);
- 			list_move_tail(&req->list, &reqs);
- 			spin_unlock(&fpq->lock);
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
