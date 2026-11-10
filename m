@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273221;
-	b=OUjarcbeiNmEl5uuIqffoJHezjCMXTsNDC1uUPa+9QONAmjuDGLETdFZV4uiPZwuqrns
-	 MliZnO0kpYtUFecSVi4crpMzyv6Pv+WjVyq5Q3AZKikd7Jw/d58yDN4ZKonWDqY8eObW+
-	 pMvDDST2qXw6dbK3/Rh2BHpF8eSQM7nreR4Pjziuld+yjgVcmCJR2bdto6ypiGJKhTsKB
-	 rBE8tVxiptpxorECP1Ir9KfTa9IOnVFUbEBdjaCDABe9MyhatUAXs5ngNJjyYTnLbIy9n
-	 jMbE7Kd6hU+i4SP9qkdpdvJwVUhZBa2xVIm4clIQZUkfnOrY0VdpgnFOALlVeSQvM4g==
+	t=1794273224;
+	b=nimPu0rozIkBNiMzRQBJu0F1PXNJDc0kWWrhkKzD4OOqtZnmKs1x2Kt8SmGVGDkF8y4n
+	 Ok4IUkXIDRyTFAaihD2rBrrYxj/yagdONx/3HhOCvM0wm7u2fqAxyWk3jsk9JXqTOs612
+	 ejxVw8+YPxWwi5bUqK7ORYEIJmbcxKgv8Ihe+9r1KRkcGm2mYH0OWSTXkaEZKykIqjdDK
+	 UBg/W6Lr8O3savS1A76rhrpf9PzwY2xtgnPnuAE0Z2ZfwlgevCNoxQeRSsDZYPgi1Cxw1
+	 Yxug7uu4mWpQyaYyhd5B4V6iQw4jFCPKNWM4X1tfaO3kSohmqViu468QuzuslkPmsbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273224;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=USD1ydA3EBA1Hm5A99bAlH+nnV3RH/VTqqprqYUT8XA=;
-	b=YZcXJrcPfXkOpKiO5r/6sxagiXgMD9yURG9yQPGykdfj5rwRUDLsBzM16d6Z5CjQKEyV
-	 dwd+y0RqJshwc3BaOlW9TtE+8Kj7VW5oY/3/NbxNiFVHyRVE2P16aa9+eUjFcnqxMAHgU
-	 ktBbOpF8gw7onWV8JtiAmQ3DHdXpd+s9e2Y5HSy4W2G0nDTm3dhXN4lHTKJT+CyUP8K8E
-	 oxZstwtMB3hNAXU7viFICs0dksf+uQjkXaUHgf9J5KSzaYcSrQ4IkAhfYcYmt12NuIXIV
-	 9A/nMBtDRvcEtx9VvJ/YtXdPgjK/kNhTT8BuXzG5CYRcA64SWLUMAk4+voHbQ25ZrZA==
+	bh=0nyg+Iauj4/pF5YNDnHiq44Vlbp5kDevUvwfcGDxwcI=;
+	b=Y7h63I9muEZCqbYHMQMowkafCUUFCFM0uAa+WPzEPeVIcQszNdSGyfKaqq83oAej7ESk
+	 XCbcxy+ynBHC4fNMlqCryNWcLbTTyJrzkh/+0VSNHmGizHnK2DeIzwqbe4G1kvPdjXk7j
+	 3nNu8oh6DO+uaKLw6G2Cm2Z0fQR572l0uTT86QMmpAvYZCnjBGgd96OuVLKwEZ/GjFiRe
+	 tl001kYSjXHggyfjPgQQxaSe0OlpFXUwqO491MA+6lzsD3vJinadBc29oNjxTtwpVhRfO
+	 lSfFoMNv93VD67zsy4/YqIqBncerduSbP44BcSszuJ4evhy8v12SWXqoXUovccBLTVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ZPA1vY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dvrg6ac/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3C1606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA00606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3ZPA1vY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802961F0089F;
-	Tue, 10 Nov 2026 01:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvrg6ac/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5A81F0089F;
+	Tue, 10 Nov 2026 01:13:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273221;
-	bh=USD1ydA3EBA1Hm5A99bAlH+nnV3RH/VTqqprqYUT8XA=;
+	s=k20260515; t=1794273223;
+	bh=0nyg+Iauj4/pF5YNDnHiq44Vlbp5kDevUvwfcGDxwcI=;
 	h=From:To:Cc:Subject:Date;
-	b=A3ZPA1vYPmdqlgGj2kb7LDtaeZPOGwmUQV8kXlyv3UZm+zkZV0+MQfY8F1TOB/In5
-	 7tOpE0nNY2YBM7bQpHyE8u/LgLb/0goVi7OC+gXQT9hdUno+dD/e1B9dxtae2ykZFk
-	 elWbbrQW7iIUHhaqJbvV5m+u8t0A29JLWlRTtOOoIyho0eN3AhEsY4aIsObRLMfV+F
-	 vt/xrm/Xm6JBU+iD7J9tR7AW53wuGcXw3L+i3FStXhlLuBZHSLVnbbly2PreL9MiCH
-	 Wbrmf2ZETNu0ubHKdbAGqzcz1J2uRN8YBUmV0RccfIcKJI6YxY431HGz4+zlIJviGZ
-	 BDN7ElCmurgkg==
+	b=dvrg6ac/LU+pH47RV4TDDGqWF/WrrT84AQPy5wq/M6IO3/Wq8RzoIxFe3aUun1Olv
+	 09x9cqNPZc6Zz1alzA29y3SiBZmDZcnxgHa+3WLGNEseXu0r4xg5uv/3PgmWg220+b
+	 RbD6v4xBENdb/JJKhjSyLC3IIIx/TCbUTzXLTTfyam8HLNx9gbKyJf6tKtuxk0lGHE
+	 scSGH8qtcJw9i7dNeBtadZOHNnNJxDrmbJDuWOMIS+w3hQGpfYUxO/HVa9iVPDGMTp
+	 SIO9EMCHpXJpG/cSOuk0vLZ/k7AaoKJVTggR0H9UdLy/9bt2WzL0XMFDTLsRtyEkR9
+	 9H9myNTJFLi1Q==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	gourry@gourry.net,
-	rppt@kernel.org,
+To: josef@toxicpanda.com,
 	ljs@kernel.org,
-	usama.anjum@arm.com
+	pfalcato@suse.de,
+	usama.anjum@arm.com,
+	lance.yang@linux.dev,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake waiters when registration modes are removed" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:13:39 -0500
-Message-ID: <20261109201339-failed-6.6-4eee9c389b07@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/mremap: fix moving PUD leaves" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:13:41 -0500
+Message-ID: <20261109201341-failed-6.6-440c8779757f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,102 +72,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4eee9c389b072e161549d46dcb1ae10b0222717e
+git cherry-pick -x 440c8779757f09f290770b1d361dc1516a9d0b3e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201339-failed-6.6-4eee9c389b07@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201341-failed-6.6-440c8779757f@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4eee9c389b072e161549d46dcb1ae10b0222717e Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:54 +0100
-Subject: [PATCH] mm/userfaultfd: wake waiters when registration modes are
- removed
+From 440c8779757f09f290770b1d361dc1516a9d0b3e Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:40:01 +0100
+Subject: [PATCH] mm/mremap: fix moving PUD leaves
 
-UFFDIO_REGISTER can replace MISSING or MINOR tracking without waking
-faults that are already queued. For example, switching an anonymous
-range from MISSING to WP leaves a missing-fault waiter asleep until
-userspace explicitly wakes it.
+pud_none_or_clear_bad() only really works on page tables. PUD leaves
+confuse the check and make us clear the page table entry and print a
+warning.
 
-When a registration change removes a UFFD mode, wake waiters in the
-affected interval after updating the VMA. The VMA is write-locked at
-this point, so no new faults can queue under the old modes and woken
-threads cannot retry until mmap_write_unlock(). Waiters for retained
-modes in the same interval may also wake and refault.
+Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
+when mapping"), this also leaks device-DAX folio references, mapcounts
+and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
 
-The hang reproduces for MISSING-to-WP and MINOR-to-MISSING transitions,
-with both read and unread fault events.
+Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
+whole or the move fails, split it. This unmaps it with proper accounting
+instead of treating the leaf entry as a PMD table.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Keep using pud_trans_huge() for now, in the future this code should be
+cleaned up to just check for PUD leaves.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
 Cc: stable@vger.kernel.org
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: fallthrough after splitting ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-25-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-32-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ mm/mremap.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index be630674fda9b..03f1b15bfe63e 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2270,6 +2270,9 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
- 	return ret;
- }
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 91f0865f6aeea..1237718848f5c 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -87,7 +87,7 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
+ 		return NULL;
  
-+static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-+		unsigned long start, unsigned long end);
-+
- /* Assumes mmap write lock taken, and mm_struct pinned. */
- static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 			       struct vm_area_struct *vma,
-@@ -2287,6 +2290,8 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		prev = vma;
+ 	pud = pud_offset(p4d, addr);
+-	if (pud_none_or_clear_bad(pud))
++	if (!pud_trans_huge(*pud) && pud_none_or_clear_bad(pud))
+ 		return NULL;
  
- 	for_each_vma_range(vmi, vma, end) {
-+		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+
- 		cond_resched();
- 
- 		VM_WARN_ON_ONCE(!vma_can_userfault(vma, vm_flags, wp_async));
-@@ -2332,6 +2337,10 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 */
- 		userfaultfd_set_ctx(vma, ctx, vm_flags);
- 
-+		/* Retry faults for removed modes while the VMA is write-locked. */
-+		if (any_mode_removed)
-+			wake_userfault_range(ctx, start, vma_end);
-+
- 		if (vma_is_hugetlb(vma) && uffd_disable_huge_pmd_share(vma))
- 			hugetlb_unshare_all_pmds(vma);
- 
-@@ -3648,6 +3657,17 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
- 		__wake_userfault(ctx, range);
- }
- 
-+static void wake_userfault_range(struct userfaultfd_ctx *ctx,
-+		unsigned long start, unsigned long end)
-+{
-+	struct userfaultfd_wake_range range = {
-+		.start = start,
-+		.len = end - start,
-+	};
-+
-+	wake_userfault(ctx, &range);
-+}
-+
- static __always_inline int validate_unaligned_range(
- 	struct mm_struct *mm, __u64 start, __u64 len)
- {
+ 	return pud;
+@@ -847,11 +847,10 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
+ 		if (!new_pud)
+ 			break;
+ 		if (pud_trans_huge(*old_pud)) {
+-			if (extent == HPAGE_PUD_SIZE) {
+-				move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud);
+-				/* We ignore and continue on error? */
++			if (extent == HPAGE_PUD_SIZE &&
++			    move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud))
+ 				continue;
+-			}
++			split_huge_pud(pmc->old, old_pud, pmc->old_addr);
+ 		} else if (IS_ENABLED(CONFIG_HAVE_MOVE_PUD) && extent == PUD_SIZE) {
+ 			if (move_pgt_entry(pmc, NORMAL_PUD, old_pud, new_pud))
+ 				continue;
 -- 
 2.53.0
 
