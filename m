@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273818;
-	b=Iz8QHA377VK4KPYU6nyyYhp1rswwGhsq7W1PVJkcqLRu5VVKxS3P8r7X5kiomxBtYEn+
-	 fOEcaD0hYIPB15R1uXOrE6V4xYvryWABYrmYHKwsgh1T0NJDlzke30/MIcHr3RXq+fo7d
-	 piZj4UHLGgMylEfYNBh3ByTYXK6l/RtnUZNEVzo5naxFIqmPDKpbkBwHmd/nSNK8t6B0B
-	 ztYbfhULuDfBZx4xSGxXDLpkO/NMTd8TrvGkm0P2xOQo9N67kYa2dMQgKDYhfVhzmfTU+
-	 OoYwJmJuXOZBJ6BjuUTEtzx03LQonIa+MPyDCdboAqkmd3dMPz2QHiMevDfVwCW6qew==
+	t=1794273821;
+	b=X1PLkLzXURwiKPXMFW2XF/XacdQxduJnEgO+C0ix4iQE2DYT3+asfaWXqKCXvk8yqV3b
+	 L+MjsjQTZEkl/qfptbvbc5zElDY0aBn+QPC3OlO87K8O3gjBCsEHMySTOjWnjurUWGiyj
+	 xtGfV6f0EY+9H55AovBMPLrLPmmfnInoSQ4DuGHs8anly+EPIYaoO/ianU5xxHyA4/W70
+	 cWwe5T6RZxla5WoloY5YMd7wIr2dzepOa4APLwDff8xeLljuJGz/gOqSCEW4XzPJiYYwi
+	 p5gNnE3ps8+zsT4cO972TgVjKOAkZpMNSM0m8GmPWxlUB4Snlrv0caxa9kPXvXFPyyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273821;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nMR3mnVYFMQkNkHDxR2167fAZfeZ0QYLOnwuD6uim6g=;
-	b=yQnSUaCJiVupRaSiadssXKWOTTi/s0NZyVJyslG3P/DZODDQpvmfMxs49DvE5fJ7isUk
-	 LHbS8TEhiRC/GVkxO/xfqbwr/iVdTzLHf2Lw9aBntmCBdgwpR+5DL1gKTaPRGXw4HNMtC
-	 m40vIPajF7TEDUz/SO9jGpdSsoLz2Xpd5cVVr1FCdMhR1hRMj44YojzbXuYV7yfCaZtAK
-	 nrl9j17pJAXRjcQlcJX7h8tUevM7gbf+k8X/h+nVDoOe5j9RVz3EmeLjfixbqkKcRXL63
-	 7dosJ8TW5vUg5/KOmCV/s0eeLwLEjWXeJPiBIEmwjoJ6J9tkxJHZsMi53uEW0o0/T2A==
+	bh=stYZSjXfwDTRHGpqUYRXTE8jTxFpmX1H+YHPMT5fWC4=;
+	b=Cq5MvxSXlTZCavJ4CElg3T7nCFOKcMZLCimtx/9zqMWmMz9GY1OKO/McAXGXCMjaesCO
+	 C87o6ES7w2qD6aZvV3WSHE1rzWynyPuPpRh0uXbHhSlgD3Er9HhLLdGadBRitKtuR/Apk
+	 mefROrZTY2WWkn+OOxMjNbGsKyBSTDFHdGljlQpnCt4icST9ZWdgafD8TlWA4pgS0HkFs
+	 3eB96VCuEIS00JNFoUm8yvqAYN+tnxQKrRQbq+ERn6TElYHrj9gzgEn+uEEN4Blp5AQfd
+	 +zSQUHHgvsI26IStgN/aRtoT90nf8fif1NyMohQUg6DRnUhP7OallONaycQ1OHbYQ2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f0I9tWvR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUH2mkgF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873EE606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E80606A336
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:23:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f0I9tWvR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B6DE1F0089F;
-	Tue, 10 Nov 2026 01:23:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUH2mkgF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE73D1F0089F;
+	Tue, 10 Nov 2026 01:23:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273818;
-	bh=nMR3mnVYFMQkNkHDxR2167fAZfeZ0QYLOnwuD6uim6g=;
+	s=k20260515; t=1794273820;
+	bh=stYZSjXfwDTRHGpqUYRXTE8jTxFpmX1H+YHPMT5fWC4=;
 	h=From:To:Cc:Subject:Date;
-	b=f0I9tWvRty0kD9Pm3acrKLjvkDLezwcT9yQl92ZNYSvUDTeSY1imluFiMi/K50y6y
-	 m3b0Yrgkj0xcnrCh2yKVfZhthP2I+5qszzGfV5hAoWXm+0aLzg0/JFmD+q5f1AhE4C
-	 CNlusfLU6SfhgP7l+r9VTMEKEKGqiJgldlMS1HKZ4r1UEclRnhhSu/kgv999gvqmoY
-	 HWQ2nNxy+oxVN4DgrLEYOwobbao9L43lCFGHYYNj563B52LpepBo3NTOcCUiBdCKCz
-	 +EShGMbgrquiIpC3qbHzMDxEBfOaVKJb5jrJixCHffNbenLyL38FntBuaRV4aVDhEm
-	 5TMMrUrm9yvdg==
+	b=fUH2mkgFGdy9+xIdu8VmqbsH8X+0PpEIzNucBcb0xtcYfxsP8irkHXGFdwMuc7+4A
+	 F1o+HitOMMglzlxaQkKwGUBnn6drcQQ622a9myD9E2RzeEvQZs2khE8q1rK00YKITS
+	 Fk/SmpcR3CM39Ta8y4Cxf0BG68C1q6+/0AD8mTu+EYmkcz2v9wtd5RVTgO78EMjpnk
+	 +jYEGqiazFVs8D5AL13vnXvZMqRVkARhZ70nGrgT5Dxj/Fc6V6ATRah6UDzn5ptiTl
+	 rD08OPaWhFP9ZV8Vt2It3bNBL26Mf+zkRpdupJMazP6Ui8QXtx9/3/IPrkVqLMs5ki
+	 zHQ2EPO6RBnew==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
+To: david@kernel.org,
 	ljs@kernel.org,
+	pfalcato@suse.de,
 	usama.anjum@arm.com,
-	david@kernel.org
+	lance.yang@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/mmu_notifier: finish non-blocking interval invalidation on error" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:23:36 -0500
-Message-ID: <20261109202336-failed-5.15-6d65925777ec@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/mremap: recheck PUDs under the page table lock" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:23:38 -0500
+Message-ID: <20261109202338-failed-5.15-402882943dfa@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,101 +71,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d65925777ecae9d7a571a327e41c63f3940a0c7
+git cherry-pick -x 402882943dfa8bab5c2bcc66189f9fb2828f248e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202336-failed-5.15-6d65925777ec@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202338-failed-5.15-402882943dfa@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d65925777ecae9d7a571a327e41c63f3940a0c7 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Sat, 31 Oct 2026 10:39:57 +0100
-Subject: [PATCH] mm/mmu_notifier: finish non-blocking interval invalidation on
- error
+From 402882943dfa8bab5c2bcc66189f9fb2828f248e Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:40:00 +0100
+Subject: [PATCH] mm/mremap: recheck PUDs under the page table lock
 
-When an ordinary MMU notifier rejects a non-blocking invalidation, the
-interval invalidation started beforehand is left unfinished: the caller
-skips mmu_notifier_invalidate_range_end(). Subsequent interval notifier
-operations can then wait forever.
+Once get_old_pud() is fixed to accept PUD leaves, unmap_mapping_range() can
+clear a leaf between the lookup and the move. Holding mmap_lock in write
+mode does not prevent this.
 
-The only in-tree trigger is nouveau SVM, which uses both notifier types
-and rejects non-blocking invalidations. Reaping via the OOM reaper or
-process_mrelease() can therefore leave the GPU fault worker stuck,
-holding a reference that prevents the dying process's address space
-and memory from being freed.
+If the zap happens before move_page_tables() tests the entry, an empty
+PUD can reach move_normal_pud(), where pud_populate() turns it into a
+present page table entry. If it happens after the test, move_huge_pud()
+can instead try to move an empty entry, triggering CONFIG_DEBUG_VM
+warnings on powerpc.
 
-End the interval invalidation when an ordinary notifier fails a
-non-blocking invalidation, like mn_itree_invalidate() already does when
-an interval notifier fails. Make that handling clearer in the
-documentation of mmu_notifier_invalidate_range_start_nonblock().
+Recheck the source under the page table lock in both helpers. Treat an
+empty source in move_normal_pud() as a completed move, and use
+__pud_trans_huge_lock() in move_huge_pud().
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+In the future we should likely have the code lookup a PUD/PMD lockless
+once, instead of multiple times, because one of the problematic bits
+here is the:
 
-Fixes: 99cb252f5e68 ("mm/mmu_notifier: add an interval tree notifier")
+	pud_trans_huge(*old_pud)
+
+Fixes: 0881ace292b6 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: simplify description, update function doc ]
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-28-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/mmu_notifier.h |  3 ++-
- mm/mmu_notifier.c            | 17 +++++++++++++----
- 2 files changed, 15 insertions(+), 5 deletions(-)
+ mm/mremap.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index a11a44eef521e..5db78e5761c5c 100644
---- a/include/linux/mmu_notifier.h
-+++ b/include/linux/mmu_notifier.h
-@@ -483,7 +483,8 @@ mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- /*
-  * This version of mmu_notifier_invalidate_range_start() avoids blocking, but it
-  * can return an error if a notifier can't proceed without blocking, in which
-- * case you're not allowed to modify PTEs in the specified range.
-+ * case you're not allowed to modify PTEs in the specified range or call
-+ * mmu_notifier_invalidate_range_end().
-  *
-  * This is mainly intended for OOM handling.
-  */
-diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index df69ba6e797f7..2e20f88e162d7 100644
---- a/mm/mmu_notifier.c
-+++ b/mm/mmu_notifier.c
-@@ -569,16 +569,25 @@ int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
- {
- 	struct mmu_notifier_subscriptions *subscriptions =
- 		range->mm->notifier_subscriptions;
--	int ret;
-+	const bool has_itree = subscriptions->has_itree;
-+	int ret = 0;
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 16e736c72d9cb..91f0865f6aeea 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -461,14 +461,18 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
+ 	if (new_ptl != old_ptl)
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
  
--	if (subscriptions->has_itree) {
-+	if (has_itree) {
- 		ret = mn_itree_invalidate(subscriptions, range);
- 		if (ret)
- 			return ret;
- 	}
- 	if (!hlist_empty(&subscriptions->list))
--		return mn_hlist_invalidate_range_start(subscriptions, range);
--	return 0;
-+		ret = mn_hlist_invalidate_range_start(subscriptions, range);
+-	/* Clear the pud */
+ 	pud = *old_pud;
++	if (unlikely(pud_none(pud)))
++		goto out_unlock;
 +
-+	/*
-+	 * On error, the non-blocking caller is not allowed to call
-+	 * invalidate_range_end(), as in mn_itree_invalidate().
-+	 */
-+	if (ret && has_itree && !mmu_notifier_range_blockable(range))
-+		mn_itree_inv_end(subscriptions);
-+
-+	return ret;
- }
++	/* Clear the pud */
+ 	pud_clear(old_pud);
  
- static void
+ 	VM_BUG_ON(!pud_none(*new_pud));
+ 
+ 	pud_populate(mm, new_pud, pud_pgtable(pud));
+ 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PUD_SIZE);
++out_unlock:
+ 	if (new_ptl != old_ptl)
+ 		spin_unlock(new_ptl);
+ 	spin_unlock(old_ptl);
+@@ -503,7 +507,9 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
+ 	 * We don't have to worry about the ordering of src and dst
+ 	 * ptlocks because exclusive mmap_lock prevents deadlock.
+ 	 */
+-	old_ptl = pud_lock(mm, old_pud);
++	old_ptl = __pud_trans_huge_lock(old_pud, vma);
++	if (unlikely(!old_ptl))
++		return false;
+ 	new_ptl = pud_lockptr(mm, new_pud);
+ 	if (new_ptl != old_ptl)
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
 -- 
 2.53.0
 
