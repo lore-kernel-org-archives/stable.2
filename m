@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316771;
-	b=lkpi9pyJz1NzfFnfETPUH+pn+7Zg0a6pJAH6fCgUO3QLspximCND32rYdQWnCb02duA0
-	 ElT3abpGsDQiuUMkOt6wsmVu17oKA1RsLIHqxHE8VOTWq+QG1ot2d/5jZQVlMQkMeDCxF
-	 gUx+K5d39sZwCza65gY0Da3F5G+/2siridUAXHaHQsBFdmACpTQFr0o+u5q/qv1lgmwEr
-	 ck2ktxfthAcGQKiwgyLLG4ZU1JqK3uT+dq67du0H7E71qRJ603aSU5P9Y6ZqHm8BUteH3
-	 YE2pALUa2ezmFwO/WCYWtNprDJ8I7gUo9tS5JEjtZ9TMC8Lt0GqMLb/2ZZTxUOetlsQ==
+	t=1794316804;
+	b=wq2YBwgIipyWqDUopfAlDSyOreokjBU04qsP3XVLJs02eIn2sH7tzCWc1gyMcrJcye2U
+	 AxWOuhDRSvg5wN1ZLHRb9VdcEg11ieRzZuJI2XZmEl+rQynXnQFwSj2Xyu2XhCJYcbyhc
+	 3U/FuV8qlBsv+5/XCKyv6n2OzJSHovZFJ48wColSgb6G9G9yYAgX3W34PRTCY3hSkp1Xj
+	 8mmPcKAj9UEa1O73pbs3ArbRJMjBF6tQfdEAS0Nml3KTNLPYEyRC8jcThuyQdJHiMs7VK
+	 wRZYwgMcusLpTkj6fzi1qc5hUI5wL6HEYX5AlKfAvu+/rvLJ3j2kXD1F2hXcIa4Hg2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316804;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1tJZJF/ZsCPtMo8he9iLF18ZSbR5KYRunu33upum5ac=;
-	b=o5Acpii1VTs4dqBD44YXg/mG3A8cHYwRp+Pwnzu9Gv0Xqqm07mRg+IouORXmFvM4D1tB
-	 5eDE7JVp7/7B3Mdv1J4JVCowOtojwhTB55y4EyYAQ1Cf/XWIFXJCG9anezN3JOp/9fToE
-	 B/o4YgIpWBNCReNZivUAPFbmSY+DkoLH5UsMzTujAoEmOwqtggn/4H/VpAKpME720b1IQ
-	 fTbTtM7Z4HEGWVX3YdkuKSeWTPgzedMhTJEIutyf2woPIHvfDvg2JMIu2ovts1Z8oZW25
-	 yAIMbCaDorZxBxaBvsdihM5GFwkpb4OUHCT2F2rt/S21OCJGD7bXypPB4mMRzVFj35g==
+	bh=XW3HaFW+KxQ4EUs/FZKhZS7Vrsdu1B7wqYSzyyqVaPU=;
+	b=Tj68M0UZVhediug4ahG1lbMF8rU1AEZtN2DdFfXu5QPaaTG5pYNw0Q86nH7qzCyaj5YT
+	 fRjOfA3ZYb/QKTHVIsXm8YtMY1fhd4Za9bkQx/5uTrl5u/MfuuEAw+B8Ouq/JH9uSiEGf
+	 CiPVHIy+ahrQVHZpKZjnwyOxITXiIE6aHoZ26IMl9cVrA2pnemaOTZwhZfsgg3HAIB6QG
+	 VUGNqnWGyd3H5G0cQBL7takRy80n+nvc99HYwPl3xocsH1DGcTUP4FvVdKQr22dgrOc8G
+	 H9IpMf//4SBvtj7HitNjBk2VnrlYWMjrj3OyFNC3Qkgl6sEH+85fKZ8AZJ28VmUSIWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6BSUIZl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2XNHv6x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456A0606A7CF
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:19:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D893606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:20:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6BSUIZl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784121F0089F;
-	Tue, 10 Nov 2026 13:19:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2XNHv6x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33FDA1F0089F;
+	Tue, 10 Nov 2026 13:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316771;
-	bh=1tJZJF/ZsCPtMo8he9iLF18ZSbR5KYRunu33upum5ac=;
+	s=k20260515; t=1794316803;
+	bh=XW3HaFW+KxQ4EUs/FZKhZS7Vrsdu1B7wqYSzyyqVaPU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z6BSUIZle7xmCpSUtQPsD5JR+9ZLHJYyTG3/+c8LnJjLfhyY8/mPVQvyFgQm38SPF
-	 8afbS5kqv9npiHShiuOqxspYJe4emHC/JNcrpRHEv09Gbv7FkaVIF6pi3iDm+4BSiC
-	 m/xV9obLkAI3kEsNP+26GQ7M5Cif7uD7A4ff4imUG6jWmivvDmY4+zh8P7TvykYIuI
-	 YjA/lFfk6mpfs4qe8CCcp03sBsnvxJdKC1bszHYgpSHhfj6CgsJ7ON0S6mTHX1WNOo
-	 B58bxypaSMhMSrM+lTKLMq1qHZpYWwZ7RrEJXCNU3zsnTNHSEdkVja8gmwJwxvtFAK
-	 M7o9z4YmzFWVw==
+	b=i2XNHv6xdeyvM3la0dke3kvk6ArAV55ktarxvPzBx9x9tz5XpSaP5sFUNPbH27IAv
+	 dfMQa7cCAr+tqYKIqKEzpHYpVVnnack2bx3uf2IEILFXcs83EGh/2d6s09+MRgDvTC
+	 bA1Kihyp9F0bvvYeiSUYOESu+Z8rv33eziiRpbGD4uEO7TXQslSgRsYi2ZTVqU5mTt
+	 k4RqdAzNM9qJjNHTxVYO6zhKRRpcIImXNXr1fGyZOxSODaZ4WbYrtrTLKrBkTLPfn0
+	 k2El5l74iGHT5xWzhlTuT3AwSD0M/OU238WkzKyw82Ng9tn3ows368QPcSRXsSifvU
+	 aszFtQ/qoVgCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+Cc: Abdifatah Suruur <suruurism@gmail.com>,
+	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] dcache: report a Tasks-RCU quiescent state in dentry_kill()
-Date: Tue, 10 Nov 2026 08:19:28 -0500
-Message-ID: <20261110131912.1715750-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] xen/gntdev: prevent private mappings from becoming writable
+Date: Tue, 10 Nov 2026 08:20:01 -0500
+Message-ID: <20261110131945.1665445-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054301-failed-6.1-a647a53bc89a@kernel.org>
-References: <20261107054301-failed-6.1-a647a53bc89a@kernel.org>
+In-Reply-To: <20261107054602-failed-6.1-2176dea8d8c1@kernel.org>
+References: <20261107054602-failed-6.1-2176dea8d8c1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +61,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Abdifatah Suruur <suruurism@gmail.com>
 
-[ Upstream commit a647a53bc89a046bee4a12a0a5627f2dfaaef807 ]
+[ Upstream commit 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a ]
 
-I am constantly seeing the following warning on Meta's fleet:
+gntdev_mmap() rejects writable private (non-shared) mappings of foreign
+grant pages, because a private writable mapping takes the COW path on
+pages that have no proper struct-page backing.  However, VM_MAYWRITE is
+left set, so userspace can map the grant read-only and then upgrade the
+mapping to writable with mprotect(), hitting the same COW path the
+check was written to prevent.
 
-  INFO: rcu_tasks detected stalls on tasks:
-    native_queued_spin_lock_slowpath
-    locked_inode_to_wb_and_lock_list
-    inode_io_list_del
-    evict
-    __dentry_kill
-    shrink_dentry_list
-    shrink_dcache_tree
-    d_invalidate
-    btrfs_delete_subvolume
-    btrfs_ioctl_snap_destroy
-    btrfs_ioctl
-    do_syscall_64
+Clear VM_MAYWRITE for private mappings, as i915 does for its read-only
+objects and as fixed in drm/vc4 (CVE-2026-68445) and drm/panthor
+(CVE-2024-53071) and ptp: vmclock (commit
+a5edadbae57e2298a56cf7a4e774a027905a331f).
 
-dentry_kill() is the common funnel for dentry teardown: dput(),
-shrink_dentry_list() and shrink_dcache_tree() all reach it, once per
-dentry, and its cond_resched() is the only reschedule point on that path.
-
-cond_resched() is not an RCU-tasks quiescent state.
-
-Use cond_resched_tasks_rcu_qs() so the teardown reports an RCU-tasks
-quiescent state as it proceeds.
-
-Fixes: 9c5f1d30199d ("dcache: move cond_resched() into the end of __dentry_kill()")
+Fixes: ab31523c2fcac ("xen/gntdev: allow usermode to map granted pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Link: https://patch.msgid.link/20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: applied the change in __dentry_kill() instead of dentry_kill() ]
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+
+Message-ID: <20260819084217.1577-1-suruurism@gmail.com>
+[ sashal: Replaced unavailable vm_flags_clear() with direct bitwise clearing of VM_MAYWRITE in vma->vm_flags. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/dcache.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/xen/gntdev.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 205552e31b200..a03646aff093d 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -623,7 +623,7 @@ static void __dentry_kill(struct dentry *dentry)
- 	spin_unlock(&dentry->d_lock);
- 	if (likely(can_free))
- 		dentry_free(dentry);
--	cond_resched();
-+	cond_resched_tasks_rcu_qs();
- }
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index 6c6e264c6f11d..6b538c3c7bab7 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -1074,6 +1074,13 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
+ 	if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
+ 		return -EINVAL;
  
- static struct dentry *__lock_parent(struct dentry *dentry)
++	/*
++	 * Private mappings of foreign grant pages must never become
++	 * writable: they would take the COW path on granted pages.
++	 */
++	if (!(vma->vm_flags & VM_SHARED))
++		vma->vm_flags &= ~VM_MAYWRITE;
++
+ 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
+ 		 index, count, vma->vm_start, vma->vm_pgoff);
+ 
 -- 
 2.53.0
 
