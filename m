@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794338670;
-	b=mJ4pfySRHKNf4KEv+urJCXu8hpecHhGU4es4yrG3iXyqU+oKJGMJzkYOApOPf6GfTkCu
-	 LbHZ57HFE2ernwLkMEFFiHrZIN8WOC3jZhfTkLLwbpnuH9Rp7miDr2SFm9yZqyRIbR7OX
-	 UORmLpaEhXKe4Ye7RdZ7Dx6tMMCLtcme4+SErsOcRBHA+SuyGxpRIUZhMCcgjkcDctudm
-	 ju1iqgfqR6BHDltuiFTE8TAUUjA5SavTF2nAi38MkM9A54hxpQ3dc5Q8byN/GwnNv1mas
-	 FTWw6E8XgVmLzW1oZkC0j3Lv9AsQnhkgS4eTZGSycUwk6/D5s/IxQocOhMDdh1yCLfQ==
+	t=1794338712;
+	b=3HMUsBRqd536B9Y51i6N/B6LJZXEthNipMkbch/0f80bIzI4I9M0e9ZKIN04OBP8oZCT
+	 wDnBHzRoyo+ZUTPRq4gmDvfBSM545NBtV+9iYOXz9b+2o/nVFMMG9jfKvLqyyiC55HjWa
+	 +tn8pQoV7tn7tCBj5KaDY6sZ+2enW0UEFw92okG1/BIK3dyX722QrSLK5qcf8or2mzaGp
+	 NkdJJFWH+qtKSjN2GJGWe67hZ4JvKGB4e3jzpRzdNILKqNMrUi2jYIex+9LzNIpj2ezhy
+	 44/cob4BaJaAtSzxpQOX2CB83Bp1nRMYBjsXWqSn/N26Rcr1r7Z2LVd7xz+7sDqGvVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794338670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338712;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tQk19YMtYBeGmvN4gB+chMvluL9estRQcxb71H4qKyQ=;
-	b=XOkmpFaXdryJKTI+MAZqOrYT8GuO+03QpqR89XTn1Y0Ls03wmUpXBrHH9ZXXRGpnK6o6
-	 Y9KZ2i0TD3rq398/oZAB6EWEwcs/QMNwQWhXGUA1naLPL/5NQIffaXOyRd80N6HyVN9uM
-	 lVDHv9xTDID3pJtfH74cAuwIsGH7aqNvz2C4YhRaReLRYNAudvYCGL+FIscEY05goDuSj
-	 87z2BLhSiE0cPzVodFeiPWelcywoPJPiv4GqDYTt8gkc50UTyZ4vqLpqM43XXUt4t6jsT
-	 WzfxJoZLObdJVG0VBXm4dqDgtlNfKWlMBC8Z2dWXKlXadJCjGQaoTfVHegI74TOa7kQ==
+	bh=vgdESjZzDXG1xYKVM3WnBi0ZWbzfUiqIREyP14pavu4=;
+	b=hbUQVYFUKoE96zC64Dc9XTE8rJit9hJs3hguamc/Fk2FUJLSeohwY9D8zrjIYJshcrRa
+	 JibzXyKQHEmpWtCsKnhKPazBKzBqRrM9jQeOczAL/T25XCZZ1mRdJ/gGLi+6KknrIkOzR
+	 ON5EZuBoP4Kv0GNVFwOHFzb79V5M8sZPmW/d3UjC33N3mxy+Q5R8njdRd0Z/qoiScEYNj
+	 TsytNW1fkVVahv1hRbAvCJGGZm3T68lFIwxaNu2pYIRCcJf/KtaTjhbIMqHmARDH/gC2C
+	 5hVr8fhPosZ/R0/H1l5ir1+yHlHzdUr1J26cD9wfu/XoGfY5DlK4pgKTrgzp4VMKgqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPtA+HEM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbOsfbWW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FE8606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65001606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:25:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPtA+HEM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2DF1F008A2;
-	Tue, 10 Nov 2026 19:24:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FbOsfbWW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867E71F0089F;
+	Tue, 10 Nov 2026 19:25:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794338669;
-	bh=tQk19YMtYBeGmvN4gB+chMvluL9estRQcxb71H4qKyQ=;
+	s=k20260515; t=1794338712;
+	bh=vgdESjZzDXG1xYKVM3WnBi0ZWbzfUiqIREyP14pavu4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aPtA+HEM82Z0UwdqLrRdHaf4wlopTVbCySslXAlTn8eRI7ejDKZVAT7D2O51YP4OI
-	 nB7RAXcjHTnKLXwh1dQrogdKDZXkHEzLcVW0RV307QKS1E43ssgRk5XdVANUMIoYzL
-	 JJbiXLiJ4ZJqp5CL5DB7ueL9wY/VIGMFqiQwM+4qtTWZ9ekD73hnsTzj6zyEuvX79B
-	 dmHCjMvgOJkyWCwkUjBIVqpJn71iKnTPxOG0f6uL+PrWUEgchQdEmutkme76xt45QX
-	 ZNVmdZw7IZE9+wr5J5SZ3SPcatCrdaIniHg/fx1/tlmPBbNFDmaMzIvCfqIOW0SKGh
-	 KY+RjxmjQsNsA==
+	b=FbOsfbWWvQuaeXMDrISd9tgVXlyxOudDWxyAkQNnc7wmZwSWIw+M5yox8VXNpizKC
+	 EvL4d9jnQtgZAMl6g2KGQZ+/Qkqq9bEJmjVtOTXuZfzZylymi4Qz0e9puUJuXMT4oN
+	 tBg7wcuQkoE+i1Qklyf5Xl/6EugdGs5blHEvtH6FQlb5+Rokb9pFuwaeDHVdwBvnaA
+	 DZsvwcy2P/eaqN4EkkTHI6CqJAjRlryT247bR9Ku3FgIa86OZzHlFDENdw2rq2TbBU
+	 X6POWF0Z0dhuwBTmpdnUWc4eeRMFTSXoBXcHSI6O6oFHpb+2OTjrLstPJhqGzvc+sN
+	 IYkSl+eu0bZCg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sung Byeongchan <tjdqudcks0424@naver.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] virtiofs: validate fixed-output response length
-Date: Tue, 10 Nov 2026 14:24:26 -0500
-Message-ID: <20261110191324.3460613-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] soc: fsl: dpio: Free the IRQ before releasing the I/O object
+Date: Tue, 10 Nov 2026 14:25:10 -0500
+Message-ID: <20261110192451.3542847-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110191324.3460613-1-sashal@kernel.org>
-References: <20261107055034-failed-6.1-5364d081125a@kernel.org>
- <20261110191324.3460613-1-sashal@kernel.org>
+In-Reply-To: <20261107062013-failed-5.10-a7831c657c90@kernel.org>
+References: <20261107062013-failed-5.10-a7831c657c90@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,101 +63,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-[ Upstream commit 5364d081125a34e90851fbb46ecc93f79339ce78 ]
+[ Upstream commit a7831c657c90e8f9165f6bbe0cc56262fee075e8 ]
 
-A short successful virtiofs response can leave the fixed-output portion of
-the request argument buffer unwritten.  The completion path nevertheless
-copies the full declared output to the request destination, allowing stale
-allocator contents to reach callers such as fuse_statfs().
+The DPIO interrupt handler accesses priv->io, but dpaa2_dpio_remove()
+releases that object before tearing down the interrupts. The IRQ was
+requested with devm_request_irq(), and unregister_dpio_irq_handlers()
+only clears its affinity hint. fsl_mc_free_irqs() returns IRQ resources
+to the MC resource pool without freeing the handler. An interrupt can
+therefore access the freed I/O object before devres releases the IRQ.
 
-Require successful fixed-output responses to contain their complete
-declared output.  Continue to permit a shorter final argument only for
-out_argvar requests.  Reject positive and internal restart error values
-and require valid error replies to be header-only.  The error already
-stored in the FUSE output header is returned by fuse_request_end(), so do
-not copy output arguments from an error reply.
+Explicitly free the managed IRQ in unregister_dpio_irq_handlers() before
+returning its resource to the pool, and perform IRQ teardown before
+releasing the I/O object. This also waits for an in-flight handler while
+the object is still valid.
 
-This was found by source review with AI assistance.  A header-only
-successful FUSE_STATFS reply returned stale fields in nine of nine calls
-across three boots.  The fixed kernel rejected the short response and
-preserved complete replies, valid negative-error replies, and
-variable-output replies.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+Fixes: 993fec7e11ca ("bus: fsl-mc: dpio: add the DPAA2 DPIO object driver")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Link: https://lore.kernel.org/r/20261002194802.375497-3-mhun512@gmail.com
+Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+[ sashal: Changed devm_free_irq() to use irq->msi_desc->irq instead of irq->virq. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/virtio_fs.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/soc/fsl/dpio/dpio-driver.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index ab410ebe7c304..2a51d7b4d216c 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -535,6 +535,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	unsigned int num_out;
- 	unsigned int i;
+diff --git a/drivers/soc/fsl/dpio/dpio-driver.c b/drivers/soc/fsl/dpio/dpio-driver.c
+index e1dd4cc0702da..8a93dabe1727a 100644
+--- a/drivers/soc/fsl/dpio/dpio-driver.c
++++ b/drivers/soc/fsl/dpio/dpio-driver.c
+@@ -89,6 +89,7 @@ static void unregister_dpio_irq_handlers(struct fsl_mc_device *dpio_dev)
  
-+	/* fuse_request_end() returns this error; there are no args to copy. */
-+	if (req->out.h.error)
-+		goto out;
-+
- 	remaining = req->out.h.len - sizeof(req->out.h);
- 	num_in = args->in_numargs - args->in_pages;
- 	num_out = args->out_numargs - args->out_pages;
-@@ -560,6 +564,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	if (args->out_argvar)
- 		args->out_args[args->out_numargs - 1].size = remaining;
- 
-+out:
- 	kfree(req->argbuf);
- 	req->argbuf = NULL;
- }
-@@ -567,7 +572,9 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- /* Verify that the server properly follows the FUSE protocol */
- static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- {
-+	struct fuse_args *args = req->args;
- 	struct fuse_out_header *oh = &req->out.h;
-+	unsigned int expected;
- 
- 	if (len < sizeof(*oh)) {
- 		pr_warn("virtio-fs: response too short (%u)\n", len);
-@@ -582,6 +589,29 @@ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- 			oh->unique, req->in.h.unique);
- 		return false;
- 	}
-+	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
-+		pr_warn("virtio-fs: invalid error value (%d)\n", oh->error);
-+		return false;
-+	}
-+
-+	if (oh->error) {
-+		if (len != sizeof(*oh)) {
-+			pr_warn("virtio-fs: error response too long (%u)\n", len);
-+			return false;
-+		}
-+		return true;
-+	}
-+
-+	expected = sizeof(*oh) +
-+		   fuse_len_args(args->out_numargs, args->out_args);
-+	if (len > expected ||
-+	    (len < expected &&
-+	     (!args->out_argvar ||
-+	      expected - len > args->out_args[args->out_numargs - 1].size))) {
-+		pr_warn("virtio-fs: invalid response length (%u, expected %u)\n",
-+			len, expected);
-+		return false;
-+	}
- 	return true;
+ 	/* clear the affinity hint */
+ 	irq_set_affinity_hint(irq->msi_desc->irq, NULL);
++	devm_free_irq(&dpio_dev->dev, irq->msi_desc->irq, &dpio_dev->dev);
  }
  
+ static int register_dpio_irq_handlers(struct fsl_mc_device *dpio_dev, int cpu)
+@@ -280,10 +281,10 @@ static int dpaa2_dpio_remove(struct fsl_mc_device *dpio_dev)
+ 	priv = dev_get_drvdata(dev);
+ 	cpu = dpaa2_io_get_cpu(priv->io);
+ 
+-	dpaa2_io_down(priv->io);
+-
+ 	dpio_teardown_irqs(dpio_dev);
+ 
++	dpaa2_io_down(priv->io);
++
+ 	cpumask_set_cpu(cpu, cpus_unused_mask);
+ 
+ 	err = dpio_open(dpio_dev->mc_io, 0, dpio_dev->obj_desc.id,
 -- 
 2.53.0
 
