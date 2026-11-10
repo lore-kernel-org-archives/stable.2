@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273439;
-	b=GjQaw05fhx13uQ+xpRGZV67sjfQ6UbftHutlQzNJX79QK+9ZixzJ915lFfHA3DeAHgH7
-	 egtVmVd2Z3zyBcWOD6ulNH7sR76NaQGdkMl/CJo5c0az51qjDdoigrksCz8Yylqfg/o3D
-	 qiAQhmMWGj4nNqv0tN/Q+6EMKlOaUb0yD9zI9SWRhdZkxg9hFuEiNur/gR1KCBaiknKhz
-	 G4yUYqv/vXH0VouQ3y4yFrTugIp35KT6Rwsan51ghQwEOL4KbqY9/fhdY2281ysciK4oR
-	 Z4qx0lMxSEkq7mrNyV6Oo16BrTz4gcxJdEr0ViH1QSEtdcU/STIyRxMKeO6xKi4+EhA==
+	t=1794273443;
+	b=zf0Uv2SjzQV2WnqgVjL9H3887ky2APW9cjvyM5vPaVX3xL5yw0RvymYSx4s3PkTfI8tr
+	 wuJXBCtzqSdaGFZUCkj214UmV8zRGTlVxQTsjuqbKWijfldKRBRBG+ZPYb2beJnLxt5Sq
+	 LA6uzuevui+Ev3KA+GMVlkn5+ZqOlToZkw9ykZG9pVAZHUDamZNNGZO3PJiWlBLTMkNEP
+	 hdPfhtHNgAW/VfBRG+WouudqvDNOlHz9Gi1qBGk7rG6MLRJv1Enj4l23nq94V9ZqSxFsM
+	 oopwfvFmomBaH1L7QxUwQwr9EhBgF/wtOD98dN6B7yAlCzT8MjbDY4GDcB6g3uOA2BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273443;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ylZ5tQN3LXstZvqQcfSxXXpmEWG4LqueoPtZaKxRF+0=;
-	b=qWTizzx1X9jva+zG8HND38iX81xJ2v0AShzxFsli4m04xFPBXtak7n7xlJVo5P1pTkun
-	 mZFg1DspNZMREN1PSu0jvHMdRU1zIF7kCETh+KUaXoeegcwfcWG3c8jIj97tMwMicmJVu
-	 h3ej9azNv9rejgi8tcOeyJ/0XTrL6BI5/nNw00pjkf8CWtiCJD6wyQudJzOia+WhYJDnc
-	 BLoDmCI/AmAtyHIdmB9B+7r802v2JYxnqE04vMcuHtoPZXJZ1POhgx+doL3ZuVPE8jU+o
-	 bzzqBxdZX+Qe7PS8IYigN82AopK6LQIhw5rPFf8WhcU/ncH8scR/nFK/YTzjW2UIw5w==
+	bh=5fQMCZyEYvUIb35BHnoH2/RHPhMEBwhKU2hXrT/0c0U=;
+	b=CUwRbWXH7UD14Xub7R8VgYAM7R5Topfz15wiloZ0c/E90t4oc6yaWVYhHyjeIphq4ff3
+	 +F9afFQZi8MON51heFlY8D7SwCjj2FOZ8j51AD62OP96QDT1bKNWMG1RbVqTxeyEfN9Ew
+	 xyXME/M+4bb5r7Qd72pZQQMFf/pj8i3pUWWNyZIprY7UeCdUYxx/9uS0Yo5LAE714J9oS
+	 Wk2RUuxoMVEqI3tabTLyOaJBjD0NB+dEIkE2WsCEOwk0krfzSwx9HZhr+fuSGsugNjHvo
+	 nS/mbHQ4lKBc3m+LOG96iXKUkR/YgTd/shnbs3oydpcP2yaXE9aCCiBqe3i7GKyDjvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtJjYSbV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hys81MfF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B38E606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028AE606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtJjYSbV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD541F0089F;
-	Tue, 10 Nov 2026 01:17:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hys81MfF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381DF1F0089F;
+	Tue, 10 Nov 2026 01:17:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273439;
-	bh=ylZ5tQN3LXstZvqQcfSxXXpmEWG4LqueoPtZaKxRF+0=;
+	s=k20260515; t=1794273442;
+	bh=5fQMCZyEYvUIb35BHnoH2/RHPhMEBwhKU2hXrT/0c0U=;
 	h=From:To:Cc:Subject:Date;
-	b=HtJjYSbVJJVfxViycjwj/QWYIF4/dQck9lxX9bv/atPqlBp29dxJXDJXQdNPDNI1G
-	 J5aviWksKY0HsjDw8M5t9LRRR2mxLwajVUzzMYYfQHacN6Un+86HAlUle6WyRQwRZb
-	 62Rx1M5iMDTUG3M4LejUPG0aFBroApxX3TBvC+YgaiZD4hbd5IcMwdGZV26EWafY6I
-	 NZRsDNtOA2KRgv2bfCO1MQykL9AYFQk6EFok2//d1RwX3wCc4lnqEA3VzQhYfVK7hY
-	 fzNCkT29IBQH2767Rcn277coS5TysasqHCPlL4FsSc3BKvxgeXEX/uJVk1SJHkKnll
-	 i+SF6JNSfxsXQ==
+	b=Hys81MfFlZQkS4mmzFxieP1DKTeojus8GtALtOq41Zp3924KVjqCDkbT++FVtZkWf
+	 26SEmJw7eXny9xndt1/D8wUi00aNkVzPt7X9LGZEk8A1PtNhyD2yeM0CPSW3/9CRAL
+	 VjvvSUd5VM7zNOhUGf/noK7vdFa02WkmJNyi4oUH+1FrjO5+/cerVSEkUfyV0s+elq
+	 50xe42TT5WA016UQMFnSK87BuDW7FEBoJCVUGM0gkKgdD0GWPkKaaWoys3bT+hpJzv
+	 nmFaHc/+PCEFye1owRBF+rwTK7EXjokpLZOuxNNoruTVFXAfZxX6N2S9FZA5Of+YiR
+	 CF9bGsxMC2YZg==
 From: Sasha Levin <sashal@kernel.org>
-To: dennylin0707@gmail.com,
+To: hannes@cmpxchg.org,
 	akpm@linux-foundation.org,
 	sashiko-bot@kernel.org,
-	ziy@nvidia.com,
-	david@kernel.org,
-	catalin.marinas@arm.com,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	andreyknvl@gmail.com,
-	vincenzo.frascino@arm.com,
-	odys.yuan@gmail.com
+	balbirs@nvidia.com,
+	vbabka@kernel.org,
+	willy@infradead.org,
+	dipiets@amazon.it,
+	hch@lst.de,
+	dgc@kernel.org,
+	matt@readmodwrite.com,
+	mgorman@techsingularity.net,
+	mhocko@suse.com,
+	surenb@google.com,
+	brendan.jackman@linux.dev,
+	ziy@nvidia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/migrate: untag addresses when querying page nodes" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:17:16 -0500
-Message-ID: <20261109201716-failed-6.1-7d8746d7dc9c@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: page_alloc: do not give all non-blocking requests reserve access" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:17:20 -0500
+Message-ID: <20261109201720-failed-6.1-6ee3d87b9408@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,66 +81,139 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7d8746d7dc9cc4003661011424e5880ea7ae364b
+git cherry-pick -x 6ee3d87b940848aaed5d4e8d005c5f674bf2637a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201716-failed-6.1-7d8746d7dc9c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201720-failed-6.1-6ee3d87b9408@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7d8746d7dc9cc4003661011424e5880ea7ae364b Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Mon, 26 Oct 2026 19:53:29 +0000
-Subject: [PATCH] mm/migrate: untag addresses when querying page nodes
+From 6ee3d87b940848aaed5d4e8d005c5f674bf2637a Mon Sep 17 00:00:00 2001
+From: Johannes Weiner <hannes@cmpxchg.org>
+Date: Wed, 28 Oct 2026 13:15:53 -0400
+Subject: [PATCH] mm: page_alloc: do not give all non-blocking requests reserve
+ access
 
-When move_pages() is used with nodes == NULL, do_pages_stat_array() passes
-each page address directly to vma_lookup().  A valid tagged address
-therefore fails the VMA lookup and gets -EFAULT in its status entry,
-instead of the node reported for the corresponding untagged address.
+Patch series "mm: page_alloc: fix reserve access for non-blocking
+requests", v2.
 
-The tagged address ABI permits these pointers, and the migration path
-already removes their tags.  Apply the target mm's untagging rules to the
-query path as well, while holding its mmap read lock.
+Two fixes for how non-blocking allocations interact with the highatomic
+reserve.  There are prerequisites for Salvatore's "mm/page_alloc: avoid
+direct reclaim and compaction for costly __GFP_NORETRY allocations" [0].
 
-Link: https://lore.kernel.org/20261026195330.46757-1-dennylin0707@gmail.com
-Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Patch 1 narrows which requests may physically take highatomic pages,
+patch 2 narrows which requests may count them in their watermark check.
+
+Both are prerequisites for Salvatore's patch: it clears
+__GFP_DIRECT_RECLAIM for costly __GFP_NORETRY requests, which turns every
+large page cache folio allocation that reaches the slowpath into a
+non-blocking one.  Without patch 1, those requests may fall back to the
+highatomic freelists reserved for atomic requests.  Without patch 2, they
+count the free highatomic pages in their watermark check while being
+served from regular memory, so they can consume regular high-order blocks
+below the min watermark by the size of the reserve.  GFP_NOWAIT requests
+hit both paths today, so these are existing problems worthy of their own
+stable backports; but Salvatore's patch would widen them significantly.
+
+Patch 2 reproduction: a GFP_NOWAIT burst under memory pressure can drain
+regular free memory to zero while the highatomic reserve sits idle.
+Measured on a 32G box with an anonymous working set, swap, and a full 290M
+reserve, three synthetic bursts drove the 28G Normal zone's regular free
+memory to 28M, 0.8M and 0.6M against a 60M min watermark.  Swapout failed
+its swap table allocation inside reclaim, reclaim scanned 13M pages to
+free 200k, and page faults stalled for tens to hundreds of milliseconds.
+With the fix the burst stops at the min watermark and nothing else
+happens.  This was found in review and reproduced synthetically; it has
+not been observed in production.
+
+GFP_ATOMIC order-0 requests have a milder version of the same problem:
+They are entitled to the reserve but are served regular memory first, so
+the fix there has to change the watermark check and the freelist order
+together.  Salvatore's change doesn't interact with this, though; fixing
+that is left for a separate patch.
+
+
+This patch (of 2):
+
+281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access
+highatomic reserves") accidentally gave all non-blocking allocation
+requests access to highatomic reserves, which includes GFP_NOWAIT and
+other sites clearing __GFP_DIRECT_RECLAIM.
+
+While this improved atomic request success rate, it's unintentionally
+broad and can actually worsen highatomic requests by squandering the
+reserves on requests that don't need it.
+
+There are concurrent efforts to clear __GFP_DIRECT_RECLAIM altogether
+for costly order __GFP_NORETRY requests, which would then also fall
+into this exemption and deplete reserves even faster.
+
+What GFP_ATOMIC has over the others is __GFP_HIGH, which
+alloc_flags_slowpath() translates to ALLOC_MIN_RESERVE.
+
+Narrow the exemption to contexts that have both ALLOC_NON_BLOCK |
+ALLOC_MIN_RESERVE.
+
+Link: https://lore.kernel.org/20261001082152.2879289-1-dipiets@amazon.it [0]
+Link: https://lore.kernel.org/linux-mm/arFBWvzXPYrKuIYi@cmpxchg.org/ [1]
+Link: https://lore.kernel.org/linux-mm/20261001082152.2879289-1-dipiets@amazon.it/ [2]
+Link: https://lore.kernel.org/20261028171719.2043421-1-hannes@cmpxchg.org
+Link: https://lore.kernel.org/20261028171719.2043421-2-hannes@cmpxchg.org
+Fixes: 281dd25c1a01 ("mm/page_alloc: let GFP_ATOMIC order-0 allocs access highatomic reserves")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: <odys.yuan@gmail.com>
+Closes: https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Zi Yan <ziy@nvidia.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/migrate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/page_alloc.c | 4 +++-
+ mm/page_alloc.h | 3 +++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 7bdcdb57652f8..d649a6cfce6c0 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2461,7 +2461,7 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
- 	mmap_read_lock(mm);
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 2b28553002175..de0b3acf3e50a 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -3241,7 +3241,9 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
+ 			 * reserves as failing now is worse than failing a
+ 			 * high-order atomic allocation in the future.
+ 			 */
+-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
++			if (!page &&
++			    ((alloc_flags & ALLOC_OOM) ||
++			     (alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC))
+ 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
  
- 	for (i = 0; i < nr_pages; i++) {
--		unsigned long addr = (unsigned long)(*pages);
-+		unsigned long addr = (unsigned long)untagged_addr_remote(mm, *pages);
- 		struct vm_area_struct *vma;
- 		struct folio_walk fw;
- 		struct folio *folio;
+ 			if (!page) {
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index e238ee91ed245..9c3c2830acb0d 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -60,6 +60,9 @@
+ /* Flags that allow allocations below the min watermark. */
+ #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 
++/* Flags that mean GFP_ATOMIC */
++#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
++
+ /*
+  * Structure for holding the mostly immutable allocation parameters passed
+  * between functions involved in allocations, including the alloc_pages*
 -- 
 2.53.0
 
