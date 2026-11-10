@@ -1,122 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794337914;
-	b=5tuHW/BM/5v4yf+1y+2HlAzNLmNUpaHECGbgBoGw7qgE7ztLCsT6IOow6jQ8SBXyj5cs
-	 ckJ/dcfuXWPV9QZkeqmWSZXK8tASEEAaRBltxIAN9sfGcOMSQwbUQk2z+UjKQgVSJdlFK
-	 PKZfmwmKj6rUmZkFwSonml+haxJ0T4s0WjMqFPjUk4EEzC4g2zN3FA/pLbehkSBhat3xf
-	 vrDiyvEx/XFBy5OT+ZZMtN2UUzFbCYRyu4leE2sBzfYL9Gu0iVPIHWNH5WymzbVaQxgmr
-	 vdz82fZHVgwVVa/MFYgUem2QOxKednB5YcZFtk8CrsDupoc6qUCra5YI6kL5WGZcj9Q==
+	t=1794338038;
+	b=DR1thazJ/N5Rq0RILYuyVMj/5fB1S6NR/O9WkHcBXLwTr6h0CFxmKnGx6gWi5RT+Cygb
+	 TeYAdx2H6QGPUj4Hj9nDoIK/fYBFVZ21J+3ib5RBgrH4gzsHfFX0OKgvIJjv/Mp12lIba
+	 3uw/yigxD++FYL3nhyNbkcYDh/KyAkGL0xb+pMi4vemZjpi8+FspRSNUxzIdRar8MNnl2
+	 hptdsWysNnqPh8hSAx/t+tkScPVQYlVT1FQuET2FbWaFYI/sPVuqdBfbZwegwMOFnQTWQ
+	 n9mN8hWhr1jpBJr/Cl7wrUOqKTmo1W4c2Ohqb2li+dnjoAndrM2ecngPg2DUu4rOTFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794337914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794338038;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=VkwiFDKYfRqHjh+h81eEuVlnaSKWoqJwOnkl+zFTeUg=;
-	b=RiRZbflAUO5f/TPuVKC+nYdnuyMr3hbSosFHEAZa3smBo6P7bmR9shxwtO87DdwrNlNy
-	 gTx1Jh+RcwBAcFRA5AzaOC18qceROMRUCQUqdtg5UFVK75sNywljC4g655IlREMqLLFWP
-	 uKp6eVTsmocL8eq915KCjrUKZzUZNJ+wigLsP5tXdUiT4BYJcM6kSpGHR7GT8/OstXI+x
-	 n+xwnKg9OIMXf3bb2E4akZ6cJ1qIgWF9kOM1S+/Jncyik1XuF/YQSxnLLWCTHjCLck50p
-	 RiJA4FduLWTV1xLAOBrmFREPkXwypOZ2yre4Qe2IJrj443t94pgx6hgecIK4Rq6t1BQ==
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4bV+zRiJ72TGFxkbB472+Czu8JHxxmPgZ33eM0p2I3k=;
+	b=imviqnJzJfW6smjMN/kRor7lX8adelodYbPYSu3gDgIRHBKDroPdI7aCOHfLFGQ0Nj+f
+	 FicLBe8VIcUJfG08uMXlYt47o53tVgmnRQGV3UojkCJmIe0ZslEEVz63WVKbxiinRZ267
+	 zLOuwoi/IurxI1VevuCV/QKIdDkp+AYoAhjiy/9sr0d8jKGVeVx5Msc9a5wb1acZ++6dN
+	 SERe6N9jygvtJIAdq3b9gbUK+W9sFxhD9QH9DyM+cLspMyAeq3+67pnf26Eh/uFcoUQwP
+	 KHCEke3F3uUZoYmJ945uZR8H22/3rNPn0V1blkzYGHuuNNWXaEN2zR2xO00wXoLKhAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fourdim.xyz;
 	spf=pass smtp.mailfrom=fourdim.xyz;
-	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=N6Onze1Z;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ATV1vcrm;
+	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=cWln7XVB;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="l/klUr6P";
 	arc=none smtp.remote-ip=103.168.172.150
 Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D26606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20D26606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3025606A320
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 19:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3025606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=N6Onze1Z;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ATV1vcrm
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id 54700EC0857
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:11:53 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Tue, 10 Nov 2026 14:11:53 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=cWln7XVB;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=l/klUr6P
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id 046D9EC05D0
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:13:57 -0500 (EST)
+Received: from phl-imap-10 ([10.202.2.85])
+  by phl-compute-03.internal (MEProxy); Tue, 10 Nov 2026 14:13:57 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1794337913; x=
-	1794424313; bh=VkwiFDKYfRqHjh+h81eEuVlnaSKWoqJwOnkl+zFTeUg=; b=N
-	6Onze1ZcQpCbfpB+puYQK1U44cy2RWTC5JD5NcfyyTBU2uGQvLv62AXjjDHNUiFL
-	RkFWCoFEgXilAYI3sQNAQJtRTOc703lUTTpro6NoVBshHC9kRpNU9d1So+WUWHyp
-	2VT55lwtskPQWVBMswZjx7Go8bPrpXs2iIhzvrgbqM0QgEhe7mP+pRHjigRLEWEf
-	1Dtr/ubBqrhmyVk1HND6Peue2JIqos/DegTFheJ62ci+DOUDAEAkhSxXTEe87jXY
-	diHK6lCFQC+8ZxCf583gY4dklNJ7mrmkDwk9L3nPh9MTubpbHOTd36HDYXvB/585
-	YJoml7LAYGGjRLLjNBlrw==
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794338036;
+	 x=1794424436; bh=4bV+zRiJ72TGFxkbB472+Czu8JHxxmPgZ33eM0p2I3k=; b=
+	cWln7XVBbhQWlVHS4pc2ujFpfrtnRoS9lP+MwXdxV4ptYNGa0YHxFnsz53ehYvYb
+	G8q5T1R7NEEQn/q9eQs7ZRPanCztS5kIQcvccbM8QeTlcSBN/8lF9GREB+BnIBsQ
+	zSvqfnJslUO0/QBbYiigclrIqiM/DQqwX6WWqlmNEA42GFlgAm7X4UEmJDZ/0tf4
+	nvPjH+Xdjm0CXcPr1B06lKq85aRo8DeZZF00iPxE6dXE5cwtHqkdnvDBO+f7v8o3
+	48Q+wyw9rXF40UYHT53cPwTdwIO9MjDGZI1Kz4jiL5qnreWYdpCgvPZJsUNzd5wz
+	bAo7ztXbz6vs/Fj8JNdNkw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794337913; x=1794424313; bh=V
-	kwiFDKYfRqHjh+h81eEuVlnaSKWoqJwOnkl+zFTeUg=; b=ATV1vcrmjdoTiezZB
-	cWi9v1TSmGEN3R66oekkx3xkgoYvUOaFt8fYWr/0a8in4JoFQpOwxfhEIiei65Bp
-	iJBnh5mBlG9d8ChLHm0N+JDXSdXCZN6xrp137iEQ8Vmu1vHS6ikBoYaS1pOUJ6Nj
-	ibKCOC7PDef7ie015ypzlQkB0Y7TktxFHoOt9j/P7pX/DQvxgDVFabKYfg+CybIS
-	fT2Z0MzsVExgXSLp9W0YVJDtCAulFXiel7//4uzU7P0+y0zlk0bxY8pkT85W889M
-	5pAvecHt6KRlShXQYk5A1mfQ2fmbS7u8QuVfnHF0hgOrouQ0BxnEgE2FjJN+hI5n
-	Ez8mg==
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794338036; x=
+	1794424436; bh=4bV+zRiJ72TGFxkbB472+Czu8JHxxmPgZ33eM0p2I3k=; b=l
+	/klUr6PCowgqcrAoWHQN0GnmypJoaC4On92+I9xAjirYXFF0B4l79iBmMTssw22W
+	Ixw/CFnbJ/dLkX0swJiOMBkpFEZsYRtKigcT33rd3u9gVjC9Fz5NUMX00g1FsY3P
+	WjghrEOGiwcg64ug+AbmcEklo29UNCWnSGJbAmNNos+jFwVchlkyZCK98/n4ETXE
+	7vKW+dd46tKoaCpyZfW3Jy2QetoR0MbFuNUUsHmqhbpdlLRsdm+rGUvEgOjsbV6T
+	A3GF68FxLSYUTtOpLp78IRi3FGNcCSbFfNdSH3eQRv4XWZT0IQOEMyYMkY9XWJom
+	92Wa9TEygVZqNGEOaPflg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=fourdim.xyz a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794337913; d=fourdim.xyz;
+DKIM2-Signature: i=1; m=1; t=1794338036; d=fourdim.xyz;
 	mf=PG9zc0Bmb3VyZGltLnh5ej4=;
 	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:KpxZ495urn7RSlHKsNKpwQN+Aig1WW9zlj8YbFYRaXHjzUz
-	v3srVexszLoyMD3VsjOFHlyWY1Raeu1V7Mu+zxEiy4e/UNrJUUSHBDB/uaS5LGTI
-	wVPaigTWK8dYI1zPeQPwfqqLaJC9dIjjvbqA1/F7aOneHL23P9Cl6gNDiisZNJzw
-	kcWH0DnA4TkBEJOpV9LTk/sx0VINHv2fdmTv/jREeTZz57U8/ZZ+0A7TWsE2xP9K
-	MRF/x/8T0X52UpXAu6x1Q3Jo4biOumSa/Znc1HtHvVnnTnyfu/NqUEgfoqd1VAYB
-	lQ2zf6v21yvvK1s7dSMplvjbHyB+Ookpdu/Z16g==;
+	s=fm2:rsa-sha256:maTIhCkYRCGQymkipnZ3Jn5tfZL42JVdeQsJEJ57/cjQxlx
+	36obWTh9eM7Hk01XB/yoru1hMZatQuTPElOFeUKXgX/Gf5nwWa3cXpfugei2+MWg
+	gTNnRlJxYwDX+/67Fx/KHBk8bPaQgqxub2BNjGcYh2slnYSMhEnOpRLQy4uUF3na
+	eCJBZzSpRfG5e94MD1/oFflJFOn1Eurig/xpA9ILZYKwmpsgh/ZFm/z6dm+Tr20A
+	MAPPAGE+fnQjplfOfKCUvhW7lipgBwOZqC/pUmHpsKVzWC5iu0bEbLqi/yLLh5QV
+	NBKi0yKOv6uHCX/MJdVhHnGmCHvLPI0RwIaje5A==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:0CnRwznio8QUMZtyKcOVPsPQCsWNtvRcUOXRune6MeU=:TzvywuVy7vuE+9UCweU6qy0IxwHw5v/kpsY2IUYf/nI=;
-X-ME-Sender: <xms:eWzzau9bheZK35eaXoOIYaQxbxXCkund6f_DNSicdhKxRtSJeISPtA>
-    <xme:eWzzamdif-Lhi2f0bL1i12B188awNoPBFYdjd3xk5dV7KZy5DQdBqS97Iwr-tlosz
-    BMyY99-YAKSgsrrMdFIH5n3FAlxYKa5hD0MX89VYjs7u4oCCYCmCB8r>
-X-ME-Received: <xmr:eWzzanHr-lUF3WGe98FwDNb4HJK1W96TisJs3Y3ftyFUJ7dVodAR0kawGWzHuT739Ii8ecg>
-X-ME-Proxy-Cause: dmFkZTEu9BqDtNH88eLZ+S8C5IYoX51v3p1TQB7sMGS0s/AXW/6Mp7qcLhxEuxj8b2Llo8
-    oqfr8kgEgX4zVOHIe/M/BkRQ0mQK4aGxEIm+bHuzUJSWgY9Zrmop5IyPeTyaBUPVGeJSiS
-    2KGNnnNnVcE6rfy1uqT1FNPEZ8nAvP7YwqVYtiWGvdMfrHbU7aXfNPULbwHPQ/f0fB/XNj
-    bjTPa9upP+sLpukeD+yylxx/nvf8cYMui4+rpu/NboVBopNZ1ww5JLLBP/O4AXCUwtOpN+
-    q1ztUB4zc8rCPIyKVW6eM6PyqvVJtcWxMFuOpvRVm4s/weTlUTzJG4ae5yARKrvDHqckUm
-    NCEQOzz95gg1E9TvhmeApu0f2/5yWky5exWchTYf5Wth4XFZA97p2EOF8/Cyy0TtA1PWEc
-    vXgk9BRACeH8TJX1/gpZejo82KsIYEV6mrD447on4e0TkHT4g2IX0R/p5qaR0jPdXOkcMM
-    +UqZISDIOgai2Cas7AVBRKOGH2ihbPSzhg4WLzxhEmExTqWL4Jvv+lOQ57gFcVNNWhjyjt
-    85iWXX+CiZe/EsPqOGXHQDfOXwKsGARG5X04yY3UOj/IpK+qXjNBL0PqAcQAZyZcJ3OBye
-    lJ3y6WpO+UqxRkrXH1b0J0i9edqn+aFSa13FRc6r2JIVYsAu7Vauxa0XLjaA
-X-ME-Proxy: <xmx:eWzzakdGGyBJhJecXCBie9eIjDKhYHNXkkhM9GeqU35dvqi8VdmzLw>
-    <xmx:eWzzahHAB_asx-A26MYR3DZ3HBHgPK5KbTCXJZ0EUoV-g2NoErD4wA>
-    <xmx:eWzzatXNtuhDeo3xc3MvhA-HS8YdS3m7jAvwqPpaqW6uyFmPyqEw4Q>
-    <xmx:eWzzaoIPCTek4eu7TSVGiD1-D7NjKr8ISJrsA-0LULWKQgVbq7Fclg>
-    <xmx:eWzzan-wPEFN6RbQZWCn18FqGYdwEWSQ9fEDWAssi6vnT1PNh-4_enDO>
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:tAa9xTOLPSbwHanMGhZrVdP3oCg0xFRbrtiaxGmRzOM=:PfI1OTgPcLk/yrbIP9HKyzvRt+6Aw1vGkqiEj3WQ4hY=;
+X-ME-Sender: <xms:9GzzaqgChZn5N_O2rHNFiu9x3VL2TFoN_Z-9oxDWfF4RhNBp0zlOzg>
+    <xme:9Gzzal3lc9yAWorQP6RFUu4_RmPgG6kdPug_YI3MUgfyLl5g5njO_fG0Sc0XKYkKb
+    Ohuk6Fcv4fMDcUFeJ_Nb7rS-3zI2nl2GJogxZziCebDmu9VX5vuPDWc>
+X-ME-Proxy-Cause: dmFkZTGRC30El+L2msUGwhD0Z8Zd/j6rXSdGrW6fpd1Ui4EWWQx7azf5/BN9fGLunI54f9
+    qd2R6MeCVaSqW3rzC/klwQ+7LZ7piNWl4LhcNojtE4gh37v/2TcdWktBf63Pse1+hqQvhJ
+    KeqEUE5fSJ2rq0CQOSIqfsIwAf+QfXOuo/X8KzifEhZLxLWxszAPoXg0foL1iEkQVDxn5u
+    x8q6T0SO5rMn4KTuir5sDh3vYCOF2c8m3WYL/8GBQGOZBTVTgJKtGd2zvBf7BtXQ7s1zMD
+    Opu1of42svQCiyiMvTBcxQHpxPFq9/PBXNgRHm0yFm1pQo5Fd0+f0WCgUwR3SVSDB7ksOl
+    71JHJDhHQUvIREStbYzKqDQMqK+mBIYoFKsz/yZCpYhJGnD8nEbqWtKfPtzyuiNOYx3UPD
+    jbK29iUmD5ld7zkMMCgJcgsBGtNNuFKtOsTnpJvFPUe1HmxOWp/y48/FHYYHGmqMSKZgEN
+    GEaSmAlBB9EtuRKD0vkOOxWoOvNANlAyaXKEe6VFa3vf2WxugRltXMBv+95U16li2F31/R
+    VHIqXHgr70D0uu8KPCbrDW2zTq+A2UnTSNHI6n5ITJ5WtljWfZElBdXsa0aunL5upnpXOq
+    TWg5tBAzVRsI6Ef0rNo4+kLU3niyQvFUyVLrZ73aZPAKRtsap+p6/XisUVgQ
+X-ME-Proxy: <xmx:9Gzzar_ErdTb9E8kbA0scU2k5GAkvroAXNdv-srlsIBoR6-UNfdwqw>
+    <xmx:9Gzzavfinpd3C9_ow3EYMFOG8w7M3iOYQqmvvBF3rhKt1rB7U1GkMA>
+    <xmx:9GzzasEIpibmKfKhor7XTXsjpYz-m_N50s9Q-rtxoaqZfhCxp47JEg>
+    <xmx:9GzzalehDBtUZv2tC0ZeLYWnik3e0DqD9bnerkxNE31tEX9bxqTfvg>
+    <xmx:9GzzakMGyR1uFk2vbfBIWxqwfsvAWDCyweDIPygAeWYcyNvav8TxglIZ>
 Feedback-ID: if72e4b10:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Nov 2026 14:11:53 -0500 (EST)
-From: Siwei Zhang <oss@fourdim.xyz>
-To: stable@vger.kernel.org
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Jinwang Li <jinwang.li@oss.qualcomm.com>
-Subject: [PATCH 5.10.y v3 3/3] Bluetooth: L2CAP: Ignore connection responses with wrong ident
-Date: Tue, 10 Nov 2026 14:11:26 -0500
-Message-ID: <20261110191136.1748573-4-oss@fourdim.xyz>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261110191136.1748573-1-oss@fourdim.xyz>
-References: <20261107062323-failed-5.10-6320736af7dc@kernel.org>
- <20261110191136.1748573-1-oss@fourdim.xyz>
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id BE396216008A; Tue, 10 Nov 2026 14:13:56 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,54 +115,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: A27n4ETjY7Bw
+Date: Tue, 10 Nov 2026 14:13:29 -0500
+From: "Siwei Zhang" <oss@fourdim.xyz>
+To: "Sasha Levin" <sashal@kernel.org>, stable@vger.kernel.org
+Cc: "Luiz Augusto von Dentz" <luiz.von.dentz@intel.com>
+Message-Id: <8ebaae34-5380-438a-96f0-bc6d7fac4b2a@app.fastmail.com>
+In-Reply-To: <2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org>
+References: <20261109015902.3034747-1-oss@fourdim.xyz>
+ <2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org>
+Subject: Re: [PATCH 5.15.y v2 0/3] Bluetooth: L2CAP: signalling response fixes
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Jinwang Li <jinwang.li@oss.qualcomm.com>
 
-commit a9f9eeb5344fc7dc625e5700ccf09891bc2603b5 upstream.
 
-Adjusted context as stable does not have the lockdep_assert_held()
-call in l2cap_connect_create_rsp().
+On Mon, Nov 9, 2026, at 10:53 AM, Sasha Levin wrote:
+>> Bluetooth: L2CAP: signalling response fixes
+>
+> Thanks for the v2. The 5.15 and 5.10 series add AMP/A2MP hunks that are not in
+> 6320736af7dc ("Bluetooth: L2CAP: Reject signalling responses in invalid
+> states"), a518b9a9ef6e ("Bluetooth: L2CAP: Only accept connection responses to
+> outstanding requests") or a9f9eeb5344f ("Bluetooth: L2CAP: Ignore connection
+> responses with wrong ident").
+>
+> Luiz, could you ack those AMP extras? I will queue both series once there is an
+> ack.
+>
 
-L2CAP/COS/CED/BI-28-C requires the IUT to ignore a Connection Response
-that carries an invalid Identifier.
+Hi Sasha,
 
-l2cap_connect_create_rsp() only checks that a connection request is
-outstanding, not that the response answers it. Add an ident check
-against the pending request so that a mismatched response is dropped.
+I would like to drop these AMP extra fixes to make the changes consistent.
+Patch v3 sent.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Jinwang Li <jinwang.li@oss.qualcomm.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
----
-v3: Drop the AMP change to l2cap_move_channel_req(), which is not in
-    a9f9eeb5344f.
-    https://lore.kernel.org/stable/2026-11-09-1-daily-reply-0038-bt-l2cap-v2@kernel.org/
+> -- 
+> Thanks,
+> Sasha
 
- net/bluetooth/l2cap_core.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 0c081b8bfe63..015d695f5f05 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4500,11 +4500,11 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 
- 	l2cap_chan_lock(chan);
- 
--	/* Only accept a response to a connection request we sent and that
--	 * is still outstanding. A channel waiting in BT_CONNECT for security
--	 * or the feature mask has not sent one yet.
-+	/* Only accept a response matching a connection request we sent and
-+	 * that is still outstanding. A channel waiting in BT_CONNECT for
-+	 * security or the feature mask has not sent one yet.
- 	 */
--	if (!l2cap_chan_connect_pending(chan))
-+	if (!l2cap_chan_connect_pending(chan) || chan->ident != cmd->ident)
- 		goto done;
- 
- 	switch (result) {
--- 
-2.56.0
-
+Best,
+Siwei
