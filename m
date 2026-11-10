@@ -1,58 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322527;
-	b=dAC+TQSAN/I9C9iYySsQbxJ6OqTng6ey2tAlWKR0qbzw/aVdlpc8UkYoId4YoilRtiGC
-	 1+TQ4AUwq4Xv539AJYaCXLi96Fhvl0sGhxlJF25zFfn70F0J8n1p7wQ7jveqWhrWKzmIH
-	 wR1Onz6fwmZt8HFlQFNth2UScx9gaRbz5CZEDjN/o/t4W9YUpkPFwVrnynhEe3Xb8EiF2
-	 2i0sd2Uh0J6DXPtCa6F9SqOHcaAh1adsd+CRthpUEn1IC54rVLw7PsdAHBl42pYh89Z+8
-	 IORUUailNjI49NN8m5++R4w3oKbKXDmM9MnBoufN/J3LHzFvujIXU3KGDLfsHWCJh8A==
+	t=1794322567;
+	b=rUPa7628yfROWioRf1xesGVc8K+lQBrgI0JGrVdobvCqmNhkKcLj6P7ZkIi9dHlt1EA0
+	 n1DAoSKJ1QsjmNs018CbuMZtTPf4wnRYl9Vb2t9Nvw/shIKgeES6snmhotK9BF1AMUUVN
+	 GWEvhJweWYcqzTWk0YxxSAwXbLF+VxAVG42utG0Z45o60+V/k5UAWfhzwh+BR6LsrObX5
+	 a1gUIvVYQePkqcTncND3YonyeSLsNb5+Gs+TsWrCJBSePMW2bJiPaZgHE3ie68C3C5Yyu
+	 lSh1naINwQogWTVmwRXXlHSUfTsYjFkXB9MjbBgSfHY8ghWjZuU3p6Lyjnz3MX5+evQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322527;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AQWoGrvAA0CrSF6+KA8pUJFUmy+6RKNyXe+t7J6+XMM=;
-	b=jJ/BhfoEbiObiTdvavzHQwrj7QElfHAsAC2jrUUnOuS37vgPba6YwZu1D1YuT3atRTLD
-	 ezWSr3/r9zyaCwQkWicPIPCCB1PoBlXozf6DByGr+I6EUPxK2vEKUl1NF0IfBaUPYOyhl
-	 eoBGi1moR82nO1q0Eas9NPWnfQMcqOlpFRgodjpeiNG/cmvZTJQFh3YG6+esyQGS9RWzy
-	 a9c4hgiM+NGCLMN1RY08l+hhlBhzL9jUdFuk56l2kA9E5OT4QZ59Va/iXvx/SVJSWdzC0
-	 FoFxvcP/CrTZabRBsVcueDVk1OZlrOO0I6iaPIIJP4r7gmX6lIzir5Z8HqDviAgVSyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322567;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kBSuW3DJj66pWv9LhnTXClJVrp/4F7tizZPGCuZVtlU=;
+	b=hvgPvotaDEt5B/7Ka24Aid0E7X5+fwzmyVQ68JOVzHc3IIXwDHKiT0uT27jcMUIehI3m
+	 yHKro0Y8tcO3Fazz9w2Ti+JbJVqERfdUdsQtL+3wDVIXXSern+6hvWMFi2D5YYg7W5SjG
+	 9qHjTXJz8cqPYGtZgMpofiHW6QkgEi9nUy9xp9g5kKlD9nCwlnaRmpttidl+9Nc2hs+nU
+	 0Yp/lGJAifEqo/ZKBy15dxnrJujD0gh801k35WNcKAQRka8qxENa0UC6POHZ/TciQHKcf
+	 EQaEuhMrw3x46Iz/aXZQeez3fhDERzqMr8SNMLF1fLXlxvzXhCC78IzZ1mCJaeVY2Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NDgUrbmo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jvd4w0At;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a2WL5baf;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87AF606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:55:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1ACA606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:56:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1ACA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NDgUrbmo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C867E1F0089F;
-	Tue, 10 Nov 2026 14:55:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322526;
-	bh=AQWoGrvAA0CrSF6+KA8pUJFUmy+6RKNyXe+t7J6+XMM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NDgUrbmoUc3XiQvUXxSU13efvXVM8PbsfJaB9ncpo5SEv2vSut8MkMwjbL+nvpZ0o
-	 MKr6Brfae1g3GeymV615PbbZldMYQUMR8Mi0SRoLbFTscS69/ajWI5DlhwzoEZ/fYs
-	 4Oa1H7sTsa/du+ePyfyOnvF7ZQEKW5LOBgR+6E81AFxQpUcZKUSRz2xvLdmnOaaWcP
-	 /3EUVpT9yGg0iRQlJQ5piCh4mgR+v27ISpAloCthlwiSxpkfR6nggJQOq1r6Loq5QI
-	 hzT/JtJcSD3dghcyu3SwnCuCHETJO8i7h33BRufAp4yW0Ykd1gsl7bjJWrpHKTA+vM
-	 MxwXCbV69bfAA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Ignat Korchagin <ignat@linux.win>,
-	Stefan Berger <stefanb@linux.ibm.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] crypto: ecc - Handle exceptional points in Shamir multiplication
-Date: Tue, 10 Nov 2026 09:55:24 -0500
-Message-ID: <20261110145450.1975271-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051842-failed-6.12-6fd70bc8bc01@kernel.org>
-References: <20261107051842-failed-6.12-6fd70bc8bc01@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jvd4w0At;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a2WL5baf
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AABA5ut3216958
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:56:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kBSuW3DJj66pWv9LhnTXClJVrp/4F7tizZPGCuZVtlU=; b=jvd4w0AtVDDY6hFh
+	LiVK7tYp/2YXmymDlxhtHlCyAZSSvjiSDUMVzU+wdQ3aCK2ybKFXB723eXzKst0B
+	tn35EummHhkTZcAQy5muxTHja+2W4hJ7yowhKKcg3z3AabUBI9wUk9Cvw0mJ3UvS
+	g+Itlk7ZqfFiJ64ebGHHBn82ZsLInb7A1L9E/c7d9mYi79qcnEhdtb2k0IPKCcGh
+	12sdS27F1It1Y5PzY9dUcRE3Nt/FRO7etVJbSH2cxFnjFKS/PdXsNFAp1uejEG0C
+	Ci3ZURyKJA//mdqp6mKHmO7H4vUZuwVYVhBAM88XTL7Gi8BUEhv2I88E9AK2JtV8
+	Woc5VQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4huvtda61w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:56:05 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8b847ab3fd3so2796491b3a.2
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:56:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794322564; x=1794927364; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kBSuW3DJj66pWv9LhnTXClJVrp/4F7tizZPGCuZVtlU=;
+        b=a2WL5bafQrNipdbZxvs/LTPTCmHGqm8LlkN5w2R+WHp/ZM42CbSJM7tQM9gKNfyeG4
+         jlO4FIc6ES2X6YObIFs5f1CdYESIPLUxzMs6eABL2mBK2WVUAd4VhFIyEvRluIgxcmeV
+         F1aWpUrP40lGTskPyp37lsydUZ0uZdfuriINAe5ZjQMmPv3vnFvxEJDj5vVpydryS7MN
+         fmXD3/M7Iddsz5+HUeWwKVZchBvg0iicFcm1Mlc+YJrgJBtWJ/X7cASTzBfqxqnbxPQE
+         io5jKDQejIOG5ut4K31vJRnRDuS16UusjVCExPOiE50D6lzlx5Rve226iNsngo/WX8r1
+         1WMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794322564; x=1794927364;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kBSuW3DJj66pWv9LhnTXClJVrp/4F7tizZPGCuZVtlU=;
+        b=YwS//4zv1G0F19NsM27GNqVQffYRJPXFbO1XJUnJQz/9lM4RkxAF/4OKvhdAtzcWHC
+         ylCVofbjigse6xNiQjYWz/sOAb+LkSHq3rQEy/yNgYBjvYHZSbL3R1+lK6Jhah4PfdRg
+         ZMYi94M5GNEDQUow+m2w5JtGFR957ufCUJK0Ii9xdRIpSuBCxt+6AorhDBQbYOk5nzul
+         VyOwO5i60YFO1Fj1skRu5ZOpg0E6saeul0bBKK+/6pHmruAe+uu/Uoeka7/MDoDKUGY1
+         mPr8ShjE7c6KUFzypZOtmTv0sQFAKCUOXs9jNaQ1I/5igcDG2WPzA7VuSzwcHrfu33In
+         z8tw==
+X-Forwarded-Encrypted: i=1; AL+hErG7oJwTHmxADUYERKMmHK+QH64Hb+HfL08/T+La44CU70ETqiB2Rr5piaV2vDl9pSqM9299rLc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Zn2z+910bV7SXeLJJOPKTXOOrDvoZpEOmr4/Oe9Kl0//Z8wFr
+	QX1bTcYRCAY0cB1s6satvkZYsKFNiqb25525AfJoCVvOsQJaF39naBPwmAzCpNv/jkdLVwduD8N
+	Hs6T71BJ4cSpKCajJLY9uvQWpekRG+A/yUVUzcifPP7bV5FKFsl7+ADJtqEk=
+X-Gm-Gg: AYBFou1T0xldpCmQ2InaFIPW8peXBjatEcALZOip9nPVWpz4e3+ReC7VbgdAlAbRnR3
+	hMzTim9rhFggIBg34KZWOaWJaDtlKRGsJnQI5W3CwbH9sYL4ejtWg1ToXqfsReOYDhcq4WBdTlJ
+	XAEZ6dgEfrMVpmVcIXm5Xhopj+jYvYsiJ0I4C3KtQVawPStDyhRhi+ur6wcT649NCp3B3mZfSOv
+	DvYUW90l129LhAmAkt6iFFrMyoHnAepACUjAuC/ShOyaOB2FK1XjCALuj9oLOy+/k2Swi8yqts5
+	E56bbwsQYEVl05wEd+u9UrWEh2M/eBdtX29Dv3Py6xqV7BKzcISy6BC9EQ6vj4q/WwiQ4hpGhF3
+	UGzLlCdAaqevbrC5iSAHcK5T1CBDnM+OHnMh/MnqDmLx9amBQ2QCdluMAUX8VeRU1xq70ot/sah
+	RNQQ8CUfwteSg8n5EO3m19lVzrg29JzxIi
+X-Received: by 2002:a05:6a00:9289:b0:886:c8d1:632f with SMTP id d2e1a72fcca58-8ba87647402mr2915904b3a.42.1794322564299;
+        Tue, 10 Nov 2026 06:56:04 -0800 (PST)
+X-Received: by 2002:a05:6a00:9289:b0:886:c8d1:632f with SMTP id d2e1a72fcca58-8ba87647402mr2915863b3a.42.1794322563587;
+        Tue, 10 Nov 2026 06:56:03 -0800 (PST)
+Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa1b1bf1sm1005284b3a.12.2026.11.10.06.55.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 06:56:03 -0800 (PST)
+Message-ID: <ec04f795-6cc6-444a-bbee-70c7982932e3@oss.qualcomm.com>
+Date: Tue, 10 Nov 2026 22:55:57 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,509 +116,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency
+ ranking
+To: Lukasz Luba <lukasz.luba@arm.com>,
+        "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+        Guo Chen <guo.chen@oss.qualcomm.com>,
+        Vincent Donnefort <vincent.donnefort@arm.com>,
+        Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+        Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
+ <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
+ <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com>
+ <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
+ <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com>
+ <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
+ <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com>
+ <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
+ <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
+ <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <bb99aa3f-fd15-4bdd-9319-ccedffc281c8@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: mgbcjJ_tcV2VuDmDAMYCV7B1SpQ9afUu
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEwMDA1OSBTYWx0ZWRfX7hiO53BzSK/M
+ Sk/PkzqSDwVB5bjbJMoGoUgj+//fm/7j8yF22lPj4VI9hZLRY0aXX0Dma1F9rMgOtddIhOodsIR
+ osHzYJB4U8P721KAuyYYInM4inNe9XM=
+X-Proofpoint-ORIG-GUID: mgbcjJ_tcV2VuDmDAMYCV7B1SpQ9afUu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEwMDA1OSBTYWx0ZWRfX5sClOR4zts3J
+ iRrqCjFxo4r6lHxfIOlGCoGdRw/KW1/yG7vqZyM+I4dqO6D9RrUmsINQL5AVNxGsMbBobhtYUsm
+ Q0XpQJEXBaU7YmXuqu9MzSfQVpKViP0LUFp3cLKMCbSqFs7taVBYVa8GH7GW+nE/znWWhzo1HnS
+ QNK/Ve4nejyk1JP8mYK9smuerCSutpW1/N4rgXKvbdklmXGYeA4/2zHI1oARCdfcIC5qN2Edr/k
+ KNH15i0TcyLadw5snY/qAuCh7hZUCUqFIfdPGc4AxCnQgdzIkFSYc3CFZ9LgoVvb1Vw5BNUFF4y
+ Yj7tV/tYHRtjfcXotOyODXltB0XwcRY5kXjDSp3UAN0tLJDLdX8D+SpuJ6ED1HLotSm38o2qRhc
+ y6FeKbCBERKZqWfkJyun7rxKJAUf0wMOCl/fm8dIqez2Ck9In8hBnz47oXLJbn0kG7sSOSvCzy7
+ W9Ig7/AVD4iFJa0FNIA==
+X-Authority-Analysis: v=2.4 cv=ArR7T+9P c=1 sm=1 tr=0 ts=6af33085 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=7CQSdrXTAAAA:8 a=rel-l89U2fr21mIbaAEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-10_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611100059
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+On 11/10/2026 10:05 PM, Lukasz Luba wrote:
+> 
+> 
+> On 11/10/26 13:43, Rafael J. Wysocki (Intel) wrote:
+>> On Tue, Nov 10, 2026 at 2:11 PM Lukasz Luba <lukasz.luba@arm.com> wrote:
+>>>
+>>> Hi Rafael,
+>>>
+>>> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
+>>>> On Tue, Nov 10, 2026 at 10:58 AM Lukasz Luba <lukasz.luba@arm.com> 
+>>>> wrote:
+>>>
+>>> [snip]
+>>>
+>>>
+>>>>>
+>>>>> That's fine, please continue.
+>>>>
+>>>> I have a couple of questions though.
+>>>>
+>>>> First, why is the ondemand governor mentioned in the changelog?  In
+>>>> the mainline, the ondemand governor cannot work with EAS, so it
+>>>> shouldn't matter for this issue, should it?
+>>>
+>>> The ondemand is affected by the EM setup code and set 'inefficient'
+>>> flags for some OPPs. The EM is also present for cooling devices
+>>> and can work w/o EAS and schedutil, w/ just ondemand governor.
+>>>
+>>> Because EM marks the OPPs kind of 'globally' as inefficient, then
+>>> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
+>>> In the EM code we have:
+>>> cpufreq_table_set_inefficient(policy, table[i].frequency);
+>>
+>> So maybe this is the one that needs to be fixed?  What about simply
+>> skipping boost frequencies in it?
+>>
+>>> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
+>>> pass to __cpufreq_driver_target() with that flags as well.
+>>
+>> Thanks for explaining and all of that needs to be said in the patch 
+>> changelog.
+>>
+>>>>
+>>>> Second, why is the issue regarded as a defect in the code and not in
+>>>> the energy model?  Arguably, boost frequencies should be more costly
+>>>> than the non-boost ones.  At least the idea behind the boost is making
+>>>> higher-cost OPPs temporarily available.  If they are sustainable,
+>>>> treating them as boost OPPs is rather pointless.
+>>>
+>>> IMHO it was a bug in the commit mentioned in this patch fix tag.
+>>> It is affecting more than just EAS or EM, since the EM is working with
+>>> all generic code and all cpufreq governors.
+>>
+>> To be precise, the EM initialization may affect cpufreq in general
+>> because inefficient frequencies are used for CPU cooling.  Fair
+>> enough, but I'm not talking about this.
+>>
+>> I'm talking about a reason for giving boost frequencies lower or equal
+>> cost relative to non-boost frequencies in the energy model because
+>> this doesn't make sense to me TBH.
+>>
+>> And I get that such energy models were there before the commit in
+>> question and now they are not working properly, but IMO they are
+>> broken, not that commit.
+>>
+>>>>
+>>>> TBH, I'm too comfortable with looking at cpufreq frequency from within
+>>>> the EM code.  If that needs to be done, something is amiss at the
+>>>> design level.
+>>>
+>>> I think this edge case is special, as I described above.
+>>>
+>>> I'm happy to hear your view on this EM influence to some global
+>>> setting in cpufreq. Maybe it was too far to establish this
+>>> 'inefficiency' flags in there for many usage?
+>>
+>> There's nothing wrong with using the information from the energy
+>> model, when available, to amend cpufreq, but the patch goes the other
+>> way around: It tries to amend the energy model with information taken
+>> from cpufreq (in order to avoid making mistakes later when amending
+>> cpufreq with the energy model information).
+>>
+>> I think that cpufreq should simply refuse to set
+>> CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
+> 
+> I see your point now, about the direction. Yes, you're right.
+> 
+> Since we are taking the information about 'boost' from the
+> cpufreq, then refusing to set OPPs inefficient in the first
+> place makes more sense.
+> 
+> 
 
-[ Upstream commit 6fd70bc8bc01a578c7728b7bd1cb5689c62cc5b7 ]
+I also agree this should be fixed in cpufreq rather than by feeding
+cpufreq information into the EM. However, refusing
+CPUFREQ_INEFFICIENT_FREQ for boost frequencies seems not help the
+example in the changelog, because the frequency marked as inefficient
+there is 4.0 GHz, which is not a boost one. The problem is not specific
+to boost either: with 3.9 GHz, 4.0 GHz, 4.1 GHz and a 4.2 GHz boost OPP
+at costs C - d, C, C and C + d, 4.0 GHz is rightly inefficient, but if
+policy->max is capped at 4.0 GHz by scaling_max_freq, thermal or QoS,
+RELATION_HE for 4.0 GHz still resolves to 3.9 GHz. I think the lookup
+should not skip an inefficient frequency when the next efficient
+frequency above it is beyond the max limit, which can be done in
+cpufreq_frequency_table_target() without touching the EM or looking at
+boost flags.
 
-Shamir multiplication mishandles equal points, opposite points and the
-point at infinity. This rejects valid ECDSA signatures and can accept
-invalid digest/signature tuples when the public key is G or -G. The
-kernel incorrectly rejects 16 valid signatures from Wycheproof.
+> 
 
-Handle doubling, cancellation and the point at infinity in precomputation
-and accumulation. Add regression tests for P-256 ECDSA and 256/512-bit
-EC-RDSA. The valid vectors are Wycheproof P1363 secp256r1/SHA-256 cases
-60 and 210 converted to X9.62, two constructed ECDSA signatures for
-Q = +/-G with k = 2, and six constructed EC-RDSA signatures for Q = G,
--G and -2G. Also add two invalid P-256 digest/signature tuples for
-Q = +/-G that must return -EKEYREJECTED.
 
-Fixes: 0d7a78643f69 ("crypto: ecrdsa - add EC-RDSA (GOST 34.10) algorithm")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Ignat Korchagin <ignat@linux.win>
-Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ sashal: adapted crypto_sig regression tests to the existing akcipher test infrastructure ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- crypto/ecc.c     |  33 ++++-
- crypto/testmgr.c |  10 +-
- crypto/testmgr.h | 339 ++++++++++++++++++++++++++++++++++++++++++++++-
- 3 files changed, 375 insertions(+), 7 deletions(-)
-
-diff --git a/crypto/ecc.c b/crypto/ecc.c
-index f97ff234086ff..a289d47d5651d 100644
---- a/crypto/ecc.c
-+++ b/crypto/ecc.c
-@@ -1410,9 +1410,22 @@ static void ecc_point_add(const struct ecc_point *result,
- 	vli_set(result->x, q->x, ndigits);
- 	vli_set(result->y, q->y, ndigits);
- 	vli_mod_sub(z, result->x, p->x, curve->p, ndigits);
-+	if (vli_is_zero(z, ndigits)) {
-+		if (vli_cmp(p->y, q->y, ndigits)) {
-+			/* P + (-P) is the point at infinity. */
-+			vli_clear(result->x, ndigits);
-+			vli_clear(result->y, ndigits);
-+			return;
-+		}
-+		/* The co-Z addition formula does not handle P == Q. */
-+		z[0] = 1;
-+		ecc_point_double_jacobian(result->x, result->y, z, curve);
-+		goto out;
-+	}
- 	vli_set(px, p->x, ndigits);
- 	vli_set(py, p->y, ndigits);
- 	xycz_add(px, py, result->x, result->y, curve);
-+out:
- 	vli_mod_inv(z, z, curve->p, ndigits);
- 	apply_z(result->x, result->y, z, curve);
- }
-@@ -1452,22 +1465,38 @@ void ecc_point_mult_shamir(const struct ecc_point *result,
- 	vli_set(rx, point->x, ndigits);
- 	vli_set(ry, point->y, ndigits);
- 	vli_clear(z + 1, ndigits - 1);
--	z[0] = 1;
-+	z[0] = !ecc_point_is_zero(point);
- 
- 	for (--i; i >= 0; i--) {
- 		ecc_point_double_jacobian(rx, ry, z, curve);
- 		idx = !!vli_test_bit(u1, i);
- 		idx |= (!!vli_test_bit(u2, i)) << 1;
- 		point = points[idx];
--		if (point) {
-+		if (point && !ecc_point_is_zero(point)) {
- 			u64 tx[ECC_MAX_DIGITS];
- 			u64 ty[ECC_MAX_DIGITS];
- 			u64 tz[ECC_MAX_DIGITS];
- 
-+			if (vli_is_zero(z, ndigits)) {
-+				/* Adding to infinity starts a new accumulator. */
-+				vli_set(rx, point->x, ndigits);
-+				vli_set(ry, point->y, ndigits);
-+				z[0] = 1;
-+				continue;
-+			}
- 			vli_set(tx, point->x, ndigits);
- 			vli_set(ty, point->y, ndigits);
- 			apply_z(tx, ty, z, curve);
- 			vli_mod_sub(tz, rx, tx, curve->p, ndigits);
-+			if (vli_is_zero(tz, ndigits)) {
-+				if (!vli_cmp(ry, ty, ndigits))
-+					ecc_point_double_jacobian(rx, ry, z,
-+								  curve);
-+				else
-+					/* Adding opposite points yields infinity. */
-+					vli_clear(z, ndigits);
-+				continue;
-+			}
- 			xycz_add(tx, ty, rx, ry, curve);
- 			vli_mod_mult_fast(z, z, tz, curve);
- 		}
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index 2f5f6b52b2d45..e7848ea55ca1d 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -4209,8 +4209,10 @@ static int test_akcipher_one(struct crypto_akcipher *tfm,
- 			      crypto_akcipher_verify(req) :
- 			      /* Run asymmetric encrypt */
- 			      crypto_akcipher_encrypt(req), &wait);
--	if (err) {
--		pr_err("alg: akcipher: %s test failed. err %d\n", op, err);
-+	if (err != vecs->verify_error) {
-+		pr_err("alg: akcipher: %s test failed: expected %d, got %d\n",
-+		       op, vecs->verify_error, err);
-+		err = err ?: -EINVAL;
- 		goto free_all;
- 	}
- 	if (!vecs->siggen_sigver_test && c) {
-@@ -4232,9 +4234,9 @@ static int test_akcipher_one(struct crypto_akcipher *tfm,
- 
- 	/*
- 	 * Don't invoke (decrypt or sign) test which require a private key
--	 * for vectors with only a public key.
-+	 * for vectors with only a public key or an invalid signature.
- 	 */
--	if (vecs->public_key_vec) {
-+	if (vecs->public_key_vec || vecs->verify_error) {
- 		err = 0;
- 		goto free_all;
- 	}
-diff --git a/crypto/testmgr.h b/crypto/testmgr.h
-index 9b38501a17b2a..2f0aa6f4454f9 100644
---- a/crypto/testmgr.h
-+++ b/crypto/testmgr.h
-@@ -157,6 +157,7 @@ struct akcipher_testvec {
- 	unsigned int param_len;
- 	unsigned int m_size;
- 	unsigned int c_size;
-+	int verify_error;
- 	bool public_key_vec;
- 	bool siggen_sigver_test;
- 	enum OID algo;
-@@ -778,6 +779,146 @@ static const struct akcipher_testvec ecdsa_nist_p192_tv_template[] = {
- };
- 
- static const struct akcipher_testvec ecdsa_nist_p256_tv_template[] = {
-+	/* Invalid signature: Q = G, r = s, e = 3r mod n. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
-+	"\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
-+	"\xf5",
-+	.key_len = 65,
-+	.m =
-+	"\xb2\xc3\x09\x72\x03\x17\x9d\xaa\x5c\x4a\xd8\xff\x02\xfe\xcb\x15"
-+	"\x21\x53\x81\x77\x45\xec\x45\x24\x3d\x68\x10\xb9\xf2\xa5\x88\x3a",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x46\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e\x74\x18\xf2"
-+	"\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3\x10\x60\x9e"
-+	"\x7e\xfa\x58\x39\xd9\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e"
-+	"\x74\x18\xf2\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3"
-+	"\x10\x60\x9e\x7e\xfa\x58\x39\xd9",
-+	.c_size = 72,
-+	.verify_error = -EKEYREJECTED,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Invalid signature: Q = -G, r = s, e = 3r mod n. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
-+	"\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
-+	"\x0a",
-+	.key_len = 65,
-+	.m =
-+	"\xb2\xc3\x09\x72\x03\x17\x9d\xaa\x5c\x4a\xd8\xff\x02\xfe\xcb\x15"
-+	"\x21\x53\x81\x77\x45\xec\x45\x24\x3d\x68\x10\xb9\xf2\xa5\x88\x3a",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x46\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e\x74\x18\xf2"
-+	"\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3\x10\x60\x9e"
-+	"\x7e\xfa\x58\x39\xd9\x02\x21\x00\x90\xeb\xad\xd0\x56\x5d\x34\x8e"
-+	"\x74\x18\xf2\xff\xab\xaa\x43\xb1\x9f\x68\xd4\x0c\x4f\x01\x4b\xe3"
-+	"\x10\x60\x9e\x7e\xfa\x58\x39\xd9",
-+	.c_size = 72,
-+	.verify_error = -EKEYREJECTED,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Wycheproof secp256r1/SHA-256 tcId 60. */
-+	{
-+	.key =
-+	"\x04\x29\x27\xb1\x05\x12\xba\xe3\xed\xdc\xfe\x46\x78\x28\x12\x8b"
-+	"\xad\x29\x03\x26\x99\x19\xf7\x08\x60\x69\xc8\xc4\xdf\x6c\x73\x28"
-+	"\x38\xc7\x78\x79\x64\xea\xac\x00\xe5\x92\x1f\xb1\x49\x8a\x60\xf4"
-+	"\x60\x67\x66\xb3\xd9\x68\x50\x01\x55\x8d\x1a\x97\x4e\x73\x41\x51"
-+	"\x3e",
-+	.key_len = 65,
-+	.m =
-+	"\x70\x23\x9d\xd8\x77\xf7\xc9\x44\xc4\x22\xf4\x4d\xea\x4e\xd1\xa5"
-+	"\x2f\x26\x27\x41\x6f\xaf\x2f\x07\x2f\xa5\x0c\x77\x2e\xd6\xf8\x07",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x44\x02\x20\x64\xa1\xaa\xb5\x00\x0d\x0e\x80\x4f\x3e\x2f\xc0"
-+	"\x2b\xde\xe9\xbe\x8f\xf3\x12\x33\x4e\x2b\xa1\x6d\x11\x54\x7c\x97"
-+	"\x71\x1c\x89\x8e\x02\x20\x6a\xf0\x15\x97\x1c\xc3\x0b\xe6\xd1\xa2"
-+	"\x06\xd4\xe0\x13\xe0\x99\x77\x72\xa2\xf9\x1d\x73\x28\x6f\xfd\x68"
-+	"\x3b\x9b\xb2\xcf\x4f\x1b",
-+	.c_size = 70,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Wycheproof secp256r1/SHA-256 tcId 210. */
-+	{
-+	.key =
-+	"\x04\xc6\xa7\x71\x52\x70\x24\x22\x77\x92\x17\x0a\x6f\x8e\xee\x73"
-+	"\x5b\xf3\x2b\x7f\x98\xaf\x66\x9e\xad\x29\x98\x02\xe3\x2d\x7c\x31"
-+	"\x07\xbc\x3b\x4b\x5e\x65\xab\x88\x7b\xbd\x34\x35\x72\xb3\xe5\x61"
-+	"\x92\x61\xfe\x3a\x07\x3e\x2f\xfd\x78\x41\x2f\x72\x68\x67\xdb\x58"
-+	"\x9e",
-+	.key_len = 65,
-+	.m =
-+	"\xbb\x5a\x52\xf4\x2f\x9c\x92\x61\xed\x43\x61\xf5\x94\x22\xa1\xe3"
-+	"\x00\x36\xe7\xc3\x2b\x27\x0c\x88\x07\xa4\x19\xfe\xca\x60\x50\x23",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
-+	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
-+	"\x47\x66\x99\x78\x02\x21\x00\xb6\xdb\x6d\xb6\x24\x92\x49\x25\x49"
-+	"\x24\x92\x49\x24\x92\x49\x24\x62\x5b\xd7\xa0\x9b\xec\x4c\xa8\x1b"
-+	"\xcd\xd9\xf8\xfd\x6b\x63\xcc",
-+	.c_size = 71,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Q = G, d = 1, k = 2. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\x4f\xe3\x42\xe2\xfe\x1a\x7f\x9b\x8e\xe7\xeb\x4a\x7c\x0f\x9e"
-+	"\x16\x2b\xce\x33\x57\x6b\x31\x5e\xce\xcb\xb6\x40\x68\x37\xbf\x51"
-+	"\xf5",
-+	.key_len = 65,
-+	.m =
-+	"\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
-+	"\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x44\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
-+	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
-+	"\x47\x66\x99\x78\x02\x20\x59\x47\xc9\x21\x23\x0e\xd1\x34\x0b\x03"
-+	"\xe6\xe3\x45\x6e\xab\x69\xf8\x66\xff\x7e\x8c\x7d\x1e\x13\x23\x17"
-+	"\x06\x8a\x84\xec\x1d\x22",
-+	.c_size = 70,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* Q = -G, d = n - 1, k = 2. */
-+	{
-+	.key =
-+	"\x04\x6b\x17\xd1\xf2\xe1\x2c\x42\x47\xf8\xbc\xe6\xe5\x63\xa4\x40"
-+	"\xf2\x77\x03\x7d\x81\x2d\xeb\x33\xa0\xf4\xa1\x39\x45\xd8\x98\xc2"
-+	"\x96\xb0\x1c\xbd\x1c\x01\xe5\x80\x65\x71\x18\x14\xb5\x83\xf0\x61"
-+	"\xe9\xd4\x31\xcc\xa9\x94\xce\xa1\x31\x34\x49\xbf\x97\xc8\x40\xae"
-+	"\x0a",
-+	.key_len = 65,
-+	.m =
-+	"\x35\x9d\x17\x29\xb9\x1a\x52\xe9\x8b\xb5\x95\xc3\x86\x28\x3c\x10"
-+	"\x30\x44\x95\x1a\xa1\x08\x20\xf0\xa0\x22\xc4\x18\xc2\x71\xa0\xcc",
-+	.m_size = 32,
-+	.c =
-+	"\x30\x45\x02\x20\x7c\xf2\x7b\x18\x8d\x03\x4f\x7e\x8a\x52\x38\x03"
-+	"\x04\xb5\x1a\xc3\xc0\x89\x69\xe2\x77\xf2\x1b\x35\xa6\x0b\x48\xfc"
-+	"\x47\x66\x99\x78\x02\x21\x00\xdc\x55\x4e\x07\x96\x0b\x81\xb6\x80"
-+	"\xb1\xae\xe0\x40\xb9\x90\xa5\xf4\xc4\x90\x49\xbb\xa2\xa1\x62\x70"
-+	"\xc5\x88\x51\x39\xe8\xa8\xfb",
-+	.c_size = 71,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
- 	{
- 	.key =
- 	"\x04\xb9\x7b\xbb\xd7\x17\x64\xd2\x7e\xfc\x81\x5d\x87\x06\x83\x41"
-@@ -1218,7 +1359,8 @@ static const struct akcipher_testvec ecdsa_nist_p521_tv_template[] = {
- };
- 
- /*
-- * EC-RDSA test vectors are generated by gost-engine.
-+ * EC-RDSA test vectors generated by gost-engine, followed by constructed
-+ * exceptional-point regression vectors.
-  */
- static const struct akcipher_testvec ecrdsa_tv_template[] = {
- 	{
-@@ -1369,6 +1511,201 @@ static const struct akcipher_testvec ecrdsa_tv_template[] = {
- 	.public_key_vec = true,
- 	.siggen_sigver_test = true,
- 	},
-+	/*
-+	 * Constructed EC-RDSA exceptional-point vectors.
-+	 * With Q = dG, choose k = z1 + d*z2 (mod n), r = x(kG) mod n,
-+	 * e = -r/z2 (mod n), and s = r*d + k*e (mod n).
-+	 * The input digest is e, encoded little-endian.
-+	 */
-+	/* cp256a: Q=G, z1 = 3, z2 = 1. */
-+	{
-+	.key =
-+	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
-+	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
-+	"\x91\x8d",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x1a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x4a\xed\x44\xae\xd4\x49"
-+	"\x32\x67\xe0\x26\x16\xfd\xb7\xaf\xa4\xd7\x3e\x61\xd4\xf9\x7b\x94"
-+	"\xf7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7"
-+	"\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe7\x06\x3e\x70\x63\xe4\xb7",
-+	.c_size = 64,
-+	.m =
-+	"\xdc\xd3\xfd\x46\xcb\x14\x9d\xe1\x8f\x92\x54\xb2\x0c\xa0\x22\x66"
-+	"\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x18\x9c\x8f\xc1\xf9\x08",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* cp256a: Q=-G, z1 = 7, z2 = 6. */
-+	{
-+	.key =
-+	"\x04\x40\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x83\xdf\x60\x61\x63\x36\x53\xdd\x4e\x1c\xdc\x20\xd2\xb0"
-+	"\xd6\xca\x89\xd4\xc0\xba\xa5\xaf\x20\xd8\x25\x63\x67\x1f\x8e\x1b"
-+	"\x6e\x72",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x2a\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa"
-+	"\x92\x10\x2d\x68\x19\x8f\x22\xd5\x60\xeb\x59\xd6\xf3\xe5\x9e\xc2"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
-+	.c_size = 64,
-+	.m =
-+	"\xc3\x9e\xe5\xf3\xd6\x59\xeb\x60\xd5\x22\x8f\x19\x68\x2d\x10\x92"
-+	"\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\xaa\x2a",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* cp256a: Q=-2G, z1 = 5, z2 = 2. */
-+	{
-+	.key =
-+	"\x04\x40\x95\xfd\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\x14\x1e\x9f\x9e\x9c\xc9\xac\x22\xb1\xe3\x23\xdf\x2d\x4f"
-+	"\x29\x35\x76\x2b\x3f\x45\x5a\x50\xdf\x27\xda\x9c\x98\xe0\x71\xe4"
-+	"\x91\x8d",
-+	.key_len = 66,
-+	.params = /* OID_gostCPSignA */
-+	"\x30\x13\x06\x07\x2a\x85\x03\x02\x02\x23\x01\x06\x08\x2a\x85\x03"
-+	"\x07\x01\x01\x02\x02",
-+	.param_len = 21,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xb6\x30\x88\x38\x4c\xad\x68\x80\x22\xc2\x0d\x84\xdb\xb0\xdc\x47"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
-+	.c_size = 64,
-+	.m =
-+	"\x49\xdc\xb0\xdb\x84\x0d\xc2\x22\x80\x68\xad\x4c\x38\x88\x30\xb6"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 32,
-+	.algo = OID_gost2012PKey256,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=G, z1 = 3, z2 = 1. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\xa4\xf2\x15\x52\xcb\x89\xa5\x89\xb8\xf5\x35\xc2\x5f"
-+	"\xfe\x28\x80\xe9\x41\x3a\x0e\xa5\xe6\x75\x3d\xe9\x36\xd0\x4f\xbe"
-+	"\x26\x16\xdf\x21\xa9\xef\xcb\xfd\x64\x80\x77\xc1\xab\xf1\xac\x93"
-+	"\x1c\x5e\xce\xe6\x50\x54\xe2\x16\x88\x1b\xa6\xe3\x6a\x83\x7a\xe8"
-+	"\xcf\x03\x75",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\xd8\xc0\xd7\xe3\xfb\xa6\xca\xff\x6a\xd1\xb4\xb4\x82\x1d\x15\x6f"
-+	"\xa7\xc7\xbd\x63\x95\xb8\x29\x0d\xd4\xfa\xb1\x1c\x36\xbd\x32\x8d"
-+	"\x1a\xba\xf1\x2e\xbc\x7b\xf2\x02\x96\xf8\xef\x2a\x5e\x72\x64\x86"
-+	"\x67\x62\xfb\x62\x8e\x83\x53\x63\xb7\xe6\x78\x3c\x42\xd7\x0d\x1d"
-+	"\xb7\xbf\xb8\x09\x56\xc8\x67\x00\x31\xba\x19\x19\x29\xf6\x4e\x30"
-+	"\x1d\x68\x16\x34\x23\x6d\x47\xa6\x0e\x57\x1a\x4b\xed\xc0\xef\x25"
-+	"\x74\x52\xef\x78\xb5\xb9\x8d\xbb\x3d\x9f\x31\x29\xd9\x34\x94\x33"
-+	"\xce\x2a\x3a\x35\xcb\x51\x9c\x91\xe2\xd6\x33\xd7\xb3\x73\xae\x16",
-+	.c_size = 128,
-+	.m =
-+	"\x5f\x04\x9d\x6b\x69\x7d\xf7\xe7\xcb\x1b\x81\x2f\x76\xfe\x20\xcd"
-+	"\x2c\xcc\xd0\x74\x63\xfa\x52\x32\x56\xfb\xd3\x3e\xba\xa5\x93\xb3"
-+	"\xd9\x10\x3f\x12\xb4\xe5\xa8\xf1\x59\xb8\x92\xdc\xcb\xe9\x97\xe2"
-+	"\xcf\xb1\x09\xd6\xe6\xe6\x45\xce\xff\x98\x37\xa9\xf6\x47\x40\x48",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=-G, z1 = 7, z2 = 6. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x23\x0b\xea\xad\x34\x76\x5a\x76\x47\x0a\xca\x3d\xa0"
-+	"\x01\xd7\x7f\x16\xbe\xc5\xf1\x5a\x19\x8a\xc2\x16\xc9\x2f\xb0\x41"
-+	"\xd9\xe9\x20\xde\x56\x10\x34\x02\x9b\x7f\x88\x3e\x54\x0e\x53\x6c"
-+	"\xe3\xa1\x31\x19\xaf\xab\x1d\xe9\x77\xe4\x59\x1c\x95\x7c\x85\x17"
-+	"\x30\xfc\x8a",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
-+	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x37"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
-+	.c_size = 128,
-+	.m =
-+	"\x3a\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
-+	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
-+	/* tc512a: Q=-2G, z1 = 5, z2 = 2. */
-+	{
-+	.key =
-+	"\x04\x81\x80\x7c\x13\xea\xd2\xd9\xaf\x82\xb9\x1f\xb2\xfd\xe1\x8d"
-+	"\xf4\x5b\x37\xe4\xf2\x04\x6a\x2a\x1d\x15\x16\x95\x2a\x5d\x40\xcd"
-+	"\xbb\x34\x44\x2f\x2b\x13\x0a\x47\xb0\xf6\xe5\xa5\x58\x3a\xf4\x54"
-+	"\x09\xb0\x1d\xf5\x5c\xf1\xbf\x9d\x86\xa5\x97\xab\x96\x29\x62\xfc"
-+	"\xdc\x89\x3b\x76\x3d\x50\x6e\x8a\xcf\x02\x4c\x74\x0e\x6e\xe0\x1f"
-+	"\x28\xab\x27\x9b\x20\x02\xc8\xc4\x12\xcb\x8a\xe3\xa4\x27\xce\x39"
-+	"\x62\xdf\x35\x6d\xc1\x65\x7f\x7b\x48\x90\x11\x8f\x19\x7c\x1e\x67"
-+	"\x91\x97\xeb\x90\x85\x25\xfc\x86\xb3\x88\x6e\x5c\x57\x1f\x1d\x1d"
-+	"\x3b\xec\x37",
-+	.key_len = 131,
-+	.params = /* OID_gostTC26Sign512A */
-+	"\x30\x0b\x06\x09\x2a\x85\x03\x07\x01\x02\x01\x02\x01",
-+	.param_len = 13,
-+	.c =
-+	"\x7f\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\x93\xf3\x4a\x99\x7a\x46\xc4\x88\xb7\xf9\x15\xc6\xa7\x02\xb0\x30"
-+	"\x4d\xa5\x9c\x55\xfd\x69\x5c\x2e\xe5\x66\xd8\xa0\x8f\x88\x59\x33"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-+	"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03",
-+	.c_size = 128,
-+	.m =
-+	"\x39\x59\x88\x8f\xa0\xd8\x66\xe5\x2e\x5c\x69\xfd\x55\x9c\xa5\x4d"
-+	"\x30\xb0\x02\xa7\xc6\x15\xf9\xb7\x88\xc4\x46\x7a\x99\x4a\xf3\x93"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff"
-+	"\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x7f",
-+	.m_size = 64,
-+	.algo = OID_gost2012PKey512,
-+	.public_key_vec = true,
-+	.siggen_sigver_test = true,
-+	},
- };
- 
- /*
 -- 
-2.53.0
-
+Thx and BRs,
+Zhongqiu Han
