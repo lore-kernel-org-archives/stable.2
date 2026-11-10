@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273508;
-	b=NRDeC2yE+vy0os57BOwBhwTzb9haA8kw4kAfiyn2qOolI5nbjHjDm+hlXHcfB2K/R5lP
-	 zr3i9B/vVY8FZQVmEyirH7Kqw7zxeD3x+8xSk5kdl1kkVSetFLR0+ZMD7g1/4hUrtHUVa
-	 rBswAv2nbunpmXkyAPqLwNBwKSz/FmzWxygrdupBsQNxWx3fXa0NlSlnx97yMMzRSYzGw
-	 tcBHPPjrW3viclDVZYwgZBJJ3FOPOkdbtYY9gi5EjvuGreZZV0OdxgeAn/KO9MIwVRBp7
-	 JNkGwcZvlXjvpfdpWBvJe1wDTKuJV56FwfUA7eiahncNUhftdYKYroRwHDDqQwqIIkQ==
+	t=1794273510;
+	b=fxChvSwOcRNVYfXF+j6pBWtGdIPMUbmpbZGFMBZholl4L+p/z1IMeNHV5Qdi7N756GJj
+	 Gw3cW3b695qfGNRO6gsrJ1V4cscuwTzlWM/aIdMETD1nPzDTu6F7xUBrxO0JenSxSHuAA
+	 VNNCacL9sQ05myM3MOEjJDUf6/fXZnZjmSnqLMTexFSoFdNPLtiCzH5OKJbqwq2IDRji0
+	 a3Zr/LIboml9Kl0XPjoHkHCT6mcHde7q4zVma1huOQC/5DfUtdhXY8L2Nc8TVxi8M4UhM
+	 wdAkOy18i9N9UaklIOpEAfJZtZL1LXSnmnyLvgMvSIdQAcBjQy968c7g8sPb29gtyjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273510;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=85abFPcAxFzeE6x3PHaM/IJL1iN7ENrb8stsSwVYaxM=;
-	b=YWwfEaCjVdpDCpteGkaXDiPQ7UvUZ3Ha2d36+9EEnZ4chJNEKj2mAxuzitoIMFU2BFRx
-	 jLebVmdHA3fth9dYhWcPvbNRrwG2FCAAm0MmmV6Jft3xRkUIlvYh8AQ5d2Imr5P+DI8LQ
-	 Ipa5URwdc8mKD+WuJdMhAIyMKZHGKvFr5YZLH/0czgTthXyJ3g+H5NSb6Ccno3w2WG+AD
-	 PB8HFasCgg5lby3Y/ebfq5wJ2fxN5xYvZ8RyBDivRKi3Iv+yYV5X9MvWUhN868D5AZOqw
-	 7xJoqFStMgQkO8YXJTFv2FEiir2V2xDg9dgmaICMe6bagRBcV/2KqzuktxbYLt+lc/g==
+	bh=XSyJQK9c8yEMVlxnebhD26ZQnutUpZYYO5QRLjKz2vI=;
+	b=Mr+0cNgIjh+kEYNqamURASTQ5R09zmdQWjGae80q+cKHiXCtKQ8QnAUKW/Y2Ybr5Rni9
+	 EcqcLKa7C6kU12bUaUGGyC99eeE4QuU/EpDP9b/pVGFcK9AmuWNnNc7Sl1k0QKt8R0My8
+	 5PqWabZ1C1vIfi6iWqWSR30F+HvsYDeJ202LNA2hzH+0PT0epatWluwzoYgHWvTYZDaW8
+	 EuQGNPZx2v4SNCLc0fYxFogJN6K6T1YHjmoA9nhA0Viw9YJd5SM3tNpwE2I/bFEmolzxy
+	 0JTGmXyIiutW+tu9xUEJjQtuTGmz+TxNKN13bWouOfut5qp//oN25FWlorWBPJPz8mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g0wHYMtq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gp2YB2eI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218CE606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B60606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g0wHYMtq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F1A91F0089F;
-	Tue, 10 Nov 2026 01:18:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gp2YB2eI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13A01F0089F;
+	Tue, 10 Nov 2026 01:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273508;
-	bh=85abFPcAxFzeE6x3PHaM/IJL1iN7ENrb8stsSwVYaxM=;
+	s=k20260515; t=1794273510;
+	bh=XSyJQK9c8yEMVlxnebhD26ZQnutUpZYYO5QRLjKz2vI=;
 	h=From:To:Cc:Subject:Date;
-	b=g0wHYMtqMUwfHcrg7lndb63u4kq6bubC+AdYdKNVebHg6031PmmP7OrlrXsGeOhEG
-	 j5ir+Vk9okdvCPwtlO3HKa+KI6rA24jHl6Kp0GVWYWpeerTClHHQhGj4Tu7+bukWu0
-	 8qovi81td0uvu6nZRRH3YeZmlVtB+h64V2EgBg03IKNVrAcClJ8DJEtz4Cbg+fa56A
-	 h4cvrhiCwYmpzCWcW2T4emJQ+Y6iYkmHg1nk5abxbSenww80RdMYHXJS895kO/n7Og
-	 Ysep89hl9ZBcREoiwYAZ9br5RhwdJK2SzJf9ELZ/LGgcnK5Jp9j85zZL8dPwI+Jiui
-	 bUPYieXcvAyKQ==
+	b=Gp2YB2eIY5CgB0DI46/R+OndpModOTrfEgwdBxOO02BfHeVgKKav+1VFVy1xTp0o8
+	 bs/CSwnMJmpt27D2TIta/CwUOOvWN/2pTK3VbSvq9UXN2Qkm8G6GtSA+Bouwmb7OdQ
+	 6dLURB+uO44MTXiSPiDjW/k4q/tWp+Pi4P/6A6jFaZrZMkGV00n13OL1l8crprbiw7
+	 ENKQGTFPAGIBPNPMavaFeBweUDhD8WEtvme5XDEqMv/Th651lEbdVLAY0YAhaepC7V
+	 FdjrcXh3cxZjmUfbvjkDD9jO/y3/TquVmxlGzMdcxw11kowiu7C/KD01H5omYsEGW3
+	 l9BrVykF0Nusg==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	ljs@kernel.org,
-	muchun.song@linux.dev,
-	baohua@kernel.org,
-	usama.anjum@arm.com
+To: gourry@gourry.net,
+	usama.anjum@arm.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:26 -0500
-Message-ID: <20261109201826-failed-6.1-21a3888d3d2f@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: compare exact registration modes before skipping" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:28 -0500
+Message-ID: <20261109201828-failed-6.1-05f64f211a25@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,59 +69,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 21a3888d3d2f87b7f15ccea1f0befd57346fe899
+git cherry-pick -x 05f64f211a25f7d9771d4fde109aad97174a1cf3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201826-failed-6.1-21a3888d3d2f@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201828-failed-6.1-05f64f211a25@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 21a3888d3d2f87b7f15ccea1f0befd57346fe899 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:51 +0100
-Subject: [PATCH] mm/gup: check for overflow when converting nr_pages to bytes
- in GUP-fast
+From 05f64f211a25f7d9771d4fde109aad97174a1cf3 Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Sat, 31 Oct 2026 10:39:55 +0100
+Subject: [PATCH] mm/userfaultfd: compare exact registration modes before
+ skipping
 
-The overflow check in gup_fast_fallback() only covers the addition to
-start. The preceding nr_pages << PAGE_SHIFT can already have truncated
-the length on 32bit.
+Changing registration from MISSING|WP to WP returns success but leaves
+MISSING enabled. The no-op check sees that WP is already set and skips
+the update, so later accesses to missing pages still wait for userspace.
 
-Users such as RapidIO's rio_dma_transfer() can derive such page counts
-from a 64-bit userspace length.
+Skip the update only when the current and requested UFFD modes match
+exactly.
 
-Let's just check_shl_overflow() to reject any such overflow with
--EOVERFLOW early.
-
-Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: apply fixup from Lorenzo ]
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-22-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/gup.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/userfaultfd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 1c2ac7c66c309..ba4907b352323 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -3225,8 +3225,8 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
- 		might_lock_read(&current->mm->mmap_lock);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 03f1b15bfe63e..dac696bda19f0 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -2291,6 +2291,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
  
- 	start = untagged_addr(start) & PAGE_MASK;
--	len = nr_pages << PAGE_SHIFT;
--	if (check_add_overflow(start, len, &end))
-+	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
-+	    check_add_overflow(start, len, &end))
- 		return -EOVERFLOW;
- 	if (end > TASK_SIZE_MAX)
- 		return -EFAULT;
+ 	for_each_vma_range(vmi, vma, end) {
+ 		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
++		const vma_flags_t curr_vma_flags = vma_flags_and_mask(&vma->flags, __VMA_UFFD_FLAGS);
+ 
+ 		cond_resched();
+ 
+@@ -2304,7 +2305,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+ 		 * userfaultfd and with the right tracking mode too.
+ 		 */
+ 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
+-		    vma_test_all_mask(vma, vma_flags))
++		    vma_flags_same_pair(&curr_vma_flags, &vma_flags))
+ 			goto skip;
+ 
+ 		/*
 -- 
 2.53.0
 
