@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794353513;
-	b=wog8c7rB62buWOI5MA29ZBTLCpvr0Nqs6/FqMguyFev0zTeCfztm2eUdE2KwURPS3N8u
-	 TiWv6anqYEs858254fDK/Ldme9p3RyccXoKo90SRVFVXUFlSjUpgNUFMoC+qWAELltqw1
-	 L3q2NEhwSErjFOg3DICgHeClRxbnwJgRgDvMEoUVolJTbFZYdS1tm338GSOtiTeKPUufp
-	 HvLwkLxkM2+tSUPEtdvLVRFN1n7Ya9CYUa/CcigmrtNbc6RCTp1fo7MzYBkB87zgIK8xe
-	 Qe+n/3q5iJ9oPsuaUuYhWziode7pPjGzrM7F4OAemDz1eEQ1iprz5orven4ivIx1OHw==
+	t=1794353773;
+	b=Hs5rC/QhMwtADRCfudvxxqroX7sglEwgp1UavKboNZfw/LgrzhdeNcMEpA3VEDi0KzOs
+	 u5/ECNM/2yxaRebY+qtT3yJDgjqHO3Eps6E+e22krIW3I0vQn2XpSA9YBkTq3T1oFjrHO
+	 5BTTGfpMs2Ki6EFI6XfnGLVSLVX8k7oq1XY/Bitu810uy4azF7AiUlglVP3ZERSZDytcC
+	 rmIRB7F4y0IbZq3ES5JPrxtcZsBLOG+5EXuyKNuxYeCuXFtINxnOxYt0uUD/gKISBb3Mv
+	 7nHMiqj9klRpOLI/jKW3m1RxBbjPuVVL2xLIeCoECjKl5/v5yG7KQP/iti1NZ825cnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794353513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794353773;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1eJbvmIwPNaUQfAx///XZfvA4g45rOIfE3G2WKjM6ls=;
-	b=BtVmlL8LspqTFqr5pLFnRrBMBTckiMjoD3k36Wc//+BW8fkMpnjG3Q67LxxubGc8XXOl
-	 khKDQ4638Cs9lFrrcXz6FoSXLUXFiqjBXWwz0sp4Ym6F2MxhGDrmf3AE4A4rSAW0HmoYp
-	 wS4IM6hCclSmusErBW1vD2pN/ordxO9AhRirg4MxLtmR7Hqbhy/aNc9QhaVB+u9asOm16
-	 WIE9juVwYECZtARx5GGAHjGQR0vGVRqyHaoOKUF48oEFUlv5jHsgXRa2QcU85wr2Jbnat
-	 WXME0TT4R2jRgfEo1chB83/reEmukl8D6xpe2fk7jgBHPpkoJ+fNNzt1bMzCrK/roeQ==
+	bh=aVz63R2oIRR2ex2cXWBzrN5nECOiDv0y7uUcM4z0mqw=;
+	b=l79yuoNlqjBGM2wYA8LiFAH/wpQBFnQS7U8j/kYWDRrCLwqrYzx3i4WKFhMMXwinR8Q5
+	 tKf2/EmbZRhNAq/9l18nj6HgGG3BJl7qp3GfTJSG0Gh3JeYhgrxSNl3dRp24/OoUHJDvW
+	 +Um53hJEyQaWiRELazAMe7loneQJ84ADhgp/lytGVTB4EwUBEvVCpZ3BtKYljlo2mvczJ
+	 olw+dzaUn94lCbuW+EwHaYuIhK4LEF8+HiH43TG4h+IgQcB40VtFznKoZOJr8XSAGud2j
+	 RFWMXwbfCvZZpaF/68RMEuW8GwFbv+TkPQWIiGoALrETIvxbhbd6gWt6s5SBJDRoZ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5MW63Hk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcsKMPVz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9346C606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:31:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06E54606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:36:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5MW63Hk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F771F0093C;
-	Tue, 10 Nov 2026 23:31:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcsKMPVz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A281F0093C;
+	Tue, 10 Nov 2026 23:36:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794353513;
-	bh=1eJbvmIwPNaUQfAx///XZfvA4g45rOIfE3G2WKjM6ls=;
+	s=k20260515; t=1794353772;
+	bh=aVz63R2oIRR2ex2cXWBzrN5nECOiDv0y7uUcM4z0mqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g5MW63HkkpmOxUSFmID8e9M2/7600Q5lzg0Mc6IpK6hBMcEoiRxKfcee/DeXsL03R
-	 3NyeyyZkCxnf9wPzJD5hfn5CZ/q6KlP2HQ7yQl8mt+ruQhz7Re75p8OUJBt0NXCo3p
-	 ouhKdRp+Ve7/VHruVQHBUyTlxhVkA9nEuHUjoxopUyBL37CAjobzvJvBLIvxj9hCy/
-	 QzndF/gMYjaJn8Stz7HIplABP+/R4a4v3/ECmyHZl+a41JLdZhXnCyUYFqmSFuJ8ls
-	 0FOEmbrjESiLQYwj0sY1o4XUAQQNh6ZOXrsHrqrMsFCx98NnRB1hPBzgHjYyqUwoU1
-	 bRtvHCuBII88g==
+	b=ZcsKMPVzaEzp7YYKOu/qilKbvd5H9gX7xrPunTiE6/mgsJ2UbU44wX9wBaSCVrrQ/
+	 eIpWTcnkfMko/miiowwr2G942lrsbqQ0nyrU+93u2KBiLxiYeHIkQSgPyT8kxgRqwo
+	 oJfOBN6uKlDEzVfb1EWC6rEaKx83xuW6N1uiTSMz5zegmpuNzmYitqFDAUoYBDKSBX
+	 LhET8VGcGmT690ckvif30BPkWZvdqd1VDDhMcZp44YV8jrFK/BKeOg/RqsXyKWGvka
+	 fPSFhNfDeTjb+rlsJTj0uWeoygY7xPqaXSWOAUMLsAZJHDcLfqgO4ylWHN2UV57MKh
+	 wx7QoWrzdI0aw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Sashiko <sashiko-bot@kernel.org>,
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: emux: Fix UAF of soundfont zones at note-on
-Date: Tue, 10 Nov 2026 18:31:51 -0500
-Message-ID: <20261110233132.129145-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: atmel-isi: release unregistered video device on remove
+Date: Tue, 10 Nov 2026 18:36:10 -0500
+Message-ID: <20261110233349.140415-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060910-failed-5.15-34e3e04b8a17@kernel.org>
-References: <20261107060910-failed-5.15-34e3e04b8a17@kernel.org>
+In-Reply-To: <20261107055955-failed-5.15-c0a6d78dad3a@kernel.org>
+References: <20261107055955-failed-5.15-c0a6d78dad3a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,117 +62,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Guangshuo Li <lgs201920130244@gmail.com>
 
-[ Upstream commit 34e3e04b8a1731a773797542f0781e99ce7cd755 ]
+[ Upstream commit c0a6d78dad3af1def80f04df82bfd70456ec406c ]
 
-snd_emux_note_on() looks up the matching zones via
-snd_soundfont_search_zone(), which takes sflist->lock only during the
-lookup and returns the raw zone pointers after releasing it.  The
-caller then stores them in vp->zone without any protection.
-Meanwhile, a concurrent SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES ioctl may
-unlink and free those zones in snd_soundfont_remove_unlocked(); this
-leads to a use-after-free in snd_emux_note_on(), and later at
-accessing the cached vp->zone, e.g. in snd_emux_send_effect().
+atmel_isi_probe() allocates the video device before registering the
+V4L2 async notifier. The video device is registered later from the
+notifier complete callback once the remote subdevice has been bound.
 
-Fix it by holding sflist->lock in snd_emux_note_on() over the whole
-zone lookup and voice setup, and let snd_soundfont_search_zone()
-require the caller to hold the lock, instead.
-snd_soundfont_lock_preset() takes sflist->lock for setting
-presets_locked, so the removal path now syncs with the note-on finish.
+The remove path relies on the notifier unbind callback to unregister
+the video device. However, if the remote subdevice is never bound, or
+the complete callback fails before video_register_device() succeeds,
+the video device remains unregistered. In that case the unbind path
+does not release the object allocated by video_device_alloc(), and the
+remove path leaks it.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-697212bb-a434-4ff5-8778-25a84f5dad89
+Only unregister the video device from the unbind callback when it has
+actually been registered, and clear the driver pointer afterwards.
+After unregistering and cleaning up the notifier, release the video
+device directly if the pointer is still present. This covers devices
+that were allocated but never registered while avoiding a second
+release of successfully registered devices.
+
+This issue was found by manual code inspection.
+
+Fixes: d12c9088c0b2a ("[media] atmel-isi: remove dependency of the soc-camera framework")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020101624.205638-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: replaced the scoped spinlock guard with explicit lock/unlock calls using a shared unlock path ]
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+[ sashal: retained the older v4l2_async_notifier_*() calls in the int-returning remove callback ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/synth/emux/emux_synth.c |  9 +++++++--
- sound/synth/emux/soundfont.c  | 15 +++++++--------
- 2 files changed, 14 insertions(+), 10 deletions(-)
+ drivers/media/platform/atmel/atmel-isi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
-index a5385efcedb6c..195cb58fd428f 100644
---- a/sound/synth/emux/emux_synth.c
-+++ b/sound/synth/emux/emux_synth.c
-@@ -49,7 +49,7 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	int i, key, nvoices;
- 	struct snd_emux_voice *vp;
- 	struct snd_sf_zone *table[SNDRV_EMUX_MAX_MULTI_VOICES];
--	unsigned long flags;
-+	unsigned long flags, sf_flags;
- 	struct snd_emux_port *port;
- 
- 	port = p;
-@@ -61,9 +61,12 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 		return;
- 
- 	key = note; /* remember the original note */
-+
-+	/* hold sflist->lock for protecting against concurrent free */
-+	spin_lock_irqsave(&emu->sflist->lock, sf_flags);
- 	nvoices = get_zone(emu, port, &note, vel, chan, table);
- 	if (! nvoices)
--		return;
-+		goto unlock;
- 
- 	/* exclusive note off */
- 	for (i = 0; i < nvoices; i++) {
-@@ -136,6 +139,8 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 		}
- 	}
- #endif
-+unlock:
-+	spin_unlock_irqrestore(&emu->sflist->lock, sf_flags);
- }
- 
- /*
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index eed47e4830248..0a788fe8bb8e0 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -1231,6 +1231,9 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
-  * The found zones are stored on 'table' array.  max_layers defines
-  * the maximum number of elements in this array.
-  * This function returns the number of found zones.  0 if not found.
-+ *
-+ * The caller must hold sflist->lock, and keep holding it as long as
-+ * the returned zones are accessed.
-  */
- int
- snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
-@@ -1239,17 +1242,14 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
- 			  struct snd_sf_zone **table, int max_layers)
+diff --git a/drivers/media/platform/atmel/atmel-isi.c b/drivers/media/platform/atmel/atmel-isi.c
+index 095d80c4f59e7..1f6d28536f726 100644
+--- a/drivers/media/platform/atmel/atmel-isi.c
++++ b/drivers/media/platform/atmel/atmel-isi.c
+@@ -1124,10 +1124,13 @@ static void isi_graph_notify_unbind(struct v4l2_async_notifier *notifier,
  {
- 	int nvoices;
--	unsigned long flags;
+ 	struct atmel_isi *isi = notifier_to_isi(notifier);
  
--	/* this function is supposed to be called atomically,
--	 * so we check the lock.  if it's busy, just returns 0 to
-+	lockdep_assert_held(&sflist->lock);
++	if (!video_is_registered(isi->vdev))
++		return;
 +
-+	/* if the presets are being modified, just returns 0 to
- 	 * tell the caller the busy state
- 	 */
--	spin_lock_irqsave(&sflist->lock, flags);
--	if (sflist->presets_locked) {
--		spin_unlock_irqrestore(&sflist->lock, flags);
-+	if (sflist->presets_locked)
- 		return 0;
--	}
- 	nvoices = search_zones(sflist, notep, vel, preset, bank,
- 			       table, max_layers, 0);
- 	if (! nvoices) {
-@@ -1258,7 +1258,6 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
- 					       def_preset, def_bank,
- 					       table, max_layers, 0);
- 	}
--	spin_unlock_irqrestore(&sflist->lock, flags);
- 	return nvoices;
+ 	dev_dbg(isi->dev, "Removing %s\n", video_device_node_name(isi->vdev));
+ 
+-	/* Checks internally if vdev have been init or not */
+ 	video_unregister_device(isi->vdev);
++	isi->vdev = NULL;
  }
  
+ static int isi_graph_notify_bound(struct v4l2_async_notifier *notifier,
+@@ -1329,6 +1332,8 @@ static int atmel_isi_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ 	v4l2_async_notifier_unregister(&isi->notifier);
+ 	v4l2_async_notifier_cleanup(&isi->notifier);
++	if (isi->vdev)
++		video_device_release(isi->vdev);
+ 	v4l2_device_unregister(&isi->v4l2_dev);
+ 
+ 	return 0;
 -- 
 2.53.0
 
