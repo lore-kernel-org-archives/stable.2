@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352583;
-	b=TM4EX2DrTdpDNiF0eZoah5IMAgs9SKkESoZTX/uFktT/JVXqJRhiEHDueJT7d+2+zinT
-	 oIlqCKOhemZKggix9qmrwrjv1qe/5pyCcEGrZz0Y44WGTOBwXbn/d1AaR6bqm2bqDqF8j
-	 KVAjpmI1s7q8pKJ1aoNZYygpgIDleoyK45pbYk51AOWxaVASywS6kPhuTJr+sE2cDw07D
-	 nesOaiCSKCv+Z1l/FBKyRpKqXXB0hgSc7MvkPRDftPCgcRgMhKEeFMX0q91aNNDr3buSC
-	 bwF+fY2OpC8vYxc7k/PfM/qbX5j+tVAHq15Ynej15Mr19kocx6jEi/mh1gG9XoY04Aw==
+	t=1794352774;
+	b=VAbCmbRJiL6h7kjrB7HSMgPimMx59WXzgcutbY0IZBk75fpGurKLzVf553ooZkFRmczp
+	 MRAKCievcQMMmchqBzZQBHrhooeQKocgXJNU3zi3Pso/lgjIlg3YrEc0b3iEd+BpPatC1
+	 WghFqyOBg8PndH214l+y2G20yVakx41rVLsaDyqRNTmY+Tb+fOmBrDh77f7gWa6bX0anl
+	 qBrX1pxosWbvvJZBh/dwXmlxdr/niXCCcIQ0nKdaciTEWahfA1cdGFfbNYt23kqTqp5NG
+	 8taxy09Plx4GuUCT+P3O+ksePOmH3i5wo81dRU/ZHKQ4+LXG7JV2NnKI0rCmsHuFaXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352774;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Dv/X3zChxmEdVfDcOE97c4jF8yJh4gyMuARlIcgLQbw=;
-	b=CMlCpPfPJvEA9u6LF6pIMI69lnXyW9lNufe3e4HR4uMlvyi4DRUZQ3tI2MTfWD5vCUCD
-	 jQgg4LQ+29DHAyaGCrguNU2tLPRP0HhM6kVhWjbtVJAZfOHUdF+IUKsdl00q7mUx4uRuz
-	 QwBatUlRm3diEaNCNWoURAr2Kuh46hJYcpCOiwTsdMKFL1MHNdJjyXc6h+Rve91xIBvaT
-	 5ct+srPBAPI/SyjVEC/5P45Oe/jFXkxwHYGr/QPmpJR1iWtBIYJrbaW5Njmztd9F464IK
-	 iDu+FbbN2KxyAa461JgRXAbMhVwYA6diAaxhj5pAKEwU2kc6rwgUMvnIx8yR8NJlJ1A==
+	bh=bQ4kZ/KPSS+s48DyxbKoIFAqjLFHyu8DSLapd93lBvU=;
+	b=Vc04bvB0iuW1vUOphLhZCKS7tyQj0dKdKmtgcypZQmMlmdAbDtiZ0kOh+MNGYH9D7EfB
+	 U/EALonx/kxFi3L065UqMHp8l1zCgykEpev7XCGlzIdhQ28R64iwSLltqfJWxhauW5dSX
+	 ymcTnRbLwpLSt3cRQMBCXlKg8VYYT0EUl/TOq6T7LbsCNuV/qAX+k9JT/j7nSSODXACDL
+	 j2CTmz+BTzCAdzG7NtOxooi4VzMtZcU5vIbQOaDFEPkRScU0bIx+xXrNWwJibMb08kOmY
+	 GwIZYZb9TTYqseEkjVDKfaQ6z30hnyo6NjDRy/rPKn3WAdxkVi2BW0G+uGcrC4P/I2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuPWzVam;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fk3gdv0b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7577A606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098A2606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:19:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EuPWzVam
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 837F91F0093D;
-	Tue, 10 Nov 2026 23:16:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fk3gdv0b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E5BA1F0093C;
+	Tue, 10 Nov 2026 23:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352583;
-	bh=Dv/X3zChxmEdVfDcOE97c4jF8yJh4gyMuARlIcgLQbw=;
+	s=k20260515; t=1794352773;
+	bh=bQ4kZ/KPSS+s48DyxbKoIFAqjLFHyu8DSLapd93lBvU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EuPWzVamN31InI3plei7yhT6FKk83nOiZ8LXeigITZ1tUhfFHq4tHw0KUM4A2rcCP
-	 aSUikPI6sLu5sQl7YnA+nvcrHCIgwY/eGZVE1WOu/PpV32Kqt6J6uONAw8wUP/k7AQ
-	 I8sF1vFkBULwZx2v+K/JKHmPhUwwbcwzzc+DbzOF7snMMDsjt4w5rT7jrzpjpF8k7e
-	 7vfdzCbUHxPPFROW+aCqEY+JcKbY2PGctF8u1pHLrRDJq4FhfCqLyJk8shoK3ztxYT
-	 Lhdkup3AfLJ5I6JzSN5RtIDguhzv35eX60rlO6pygjz3g7S2YwTZKISrermvvYbFWZ
-	 KHZyR8Z4WFKmg==
+	b=fk3gdv0b5xhBHovEHlb98ZlFuj1PtdUqfV+HUMaMzSQr5pF0TJ0EA/J+KaC+cs5sc
+	 BelW/bjoYAUmcgdbnojOjXqgpBBR1NT8Pyf1dAWQsyFeb8e9G8fw3qCaWiYdevdps7
+	 S1kqZQBGa1ipIlnDLrg/n2bi/oq9iPYK+l00bPDGSInfw8PAPLsQuc2iPmQjDDFeLm
+	 vpUtVfQD11kMGPIpOC5r/ZSN8vaupY3ZryjyYERWsImLtiRBnJa8SW8rkLrwVcWkPS
+	 dcYZPHJpIS2lO807IKyY7XCOMWBUAo9szkzUk0aQtKo5b4oJHoIM6wO6E6UuB6IBzy
+	 ljcqMeTFe/KDg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vaibhav Nagare <vnagare@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] bnxt_en: don't leave an XDP program installed when the open fails
-Date: Tue, 10 Nov 2026 18:16:21 -0500
-Message-ID: <20261110231344.94430-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in hdmi_read_pin_conn
+Date: Tue, 10 Nov 2026 18:19:31 -0500
+Message-ID: <20261110231836.115252-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060824-failed-5.15-78731b46967e@kernel.org>
-References: <20261107060824-failed-5.15-78731b46967e@kernel.org>
+In-Reply-To: <20261107060255-failed-5.15-6cf3ab38b0d5@kernel.org>
+References: <20261107060255-failed-5.15-6cf3ab38b0d5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,117 +61,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vaibhav Nagare <vnagare@redhat.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 78731b46967e3e7102b5cd5062bef185f3404b5c ]
+[ Upstream commit 6cf3ab38b0d53d41f00fe594b2986849bdf994ae ]
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+hdmi_add_cvt() stores each converter's NID into the fixed-size
+spec->cvt_nids[] array (used only by the Intel Haswell pin-connection
+fixup), but only when spec->num_cvts is still within
+ARRAY_SIZE(cvt_nids); the num_cvts counter itself is incremented
+unconditionally regardless of whether the store happened. A codec
+that reports more converters than cvt_nids[] can hold therefore ends
+up with num_cvts > ARRAY_SIZE(cvt_nids).
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+hdmi_read_pin_conn(), on the intel_hsw_fixup path, copies num_cvts
+elements from cvt_nids[] with memcpy(), so once num_cvts exceeds the
+array size this reads past cvt_nids[] and writes the resulting
+garbage NIDs into per_pin->mux_nids[].
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
+Clamp the copy length to the actual size of cvt_nids[] instead of
+trusting num_cvts, which is also used unbounded as the size of the
+separate, dynamically-sized spec->cvts array and must not be
+truncated at the source.
 
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
-
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
-
-Restore the previous program when an attach or a replace fails, and
-recompute the page-mode and XDP TX ring configuration from it.  The
-configuration matters because bnxt_init_one_rx_ring() only assigns
-rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
-dev->max_mtu from the installed program.  Release the old program only
-once the change has been committed.
-
-A detach is not undone.  dev_xdp_detach_link() clears the core's record
-of the program even when the driver returns an error, so putting the
-program back would leave the driver running a program the core has
-already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
-therefore returns 0 with the device closed; bnxt_open_nic() has already
-logged the failure.
-
-Found in a crash dump; the change was not tested on hardware.
-
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
+Fixes: bce0d2a80e42 ("ALSA: hda - Allow unlimited pins and converters in patch_hdmi.c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: reused the existing configuration block via an apply_cfg label instead of adding bnxt_xdp_apply_cfg() ]
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261008085122.9442-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adjusted the target file to match the older HDMI codec source layout ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 25 +++++++++++++++----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ sound/pci/hda/patch_hdmi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 8a5009e66a134..8c48c336afae5 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -269,6 +269,7 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 51a22ed7325dc..9e3366d115a18 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1342,7 +1342,8 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
+ 	snd_hda_set_dev_select(codec, pin_nid, dev_id);
  
- 	if (prog && bp->dev->mtu > BNXT_MAX_PAGE_MODE_MTU) {
- 		netdev_warn(dev, "MTU %d larger than largest XDP supported MTU %d.\n",
-@@ -294,11 +295,12 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
- 
--	if (prog) {
-+apply_cfg:
-+	tc = netdev_get_num_tc(dev) ? : 1;
-+	if (bp->xdp_prog) {
- 		bnxt_set_rx_skb_mode(bp, true);
+ 	if (spec->intel_hsw_fixup) {
+-		conns = spec->num_cvts;
++		/* spec->cvt_nids[] only has ARRAY_SIZE(spec->cvt_nids) slots */
++		conns = min_t(int, spec->num_cvts, ARRAY_SIZE(spec->cvt_nids));
+ 		memcpy(per_pin->mux_nids, spec->cvt_nids,
+ 		       sizeof(hda_nid_t) * conns);
  	} else {
- 		int rx, tx;
-@@ -316,8 +318,21 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	bnxt_set_tpa_flags(bp);
- 	bnxt_set_ring_params(bp);
- 
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (rc)
-+		return rc;
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* a detach cannot be undone, only an attach */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			tx_xdp = old_tx_xdp;
-+			goto apply_cfg;
-+		}
-+	}
-+
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
 -- 
 2.53.0
 
