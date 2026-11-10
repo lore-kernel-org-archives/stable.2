@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272641;
-	b=FlMK147E3bUGHqRyGYmgiJBtWZaOP4+s00aI8vUOt+HkS9pCl7zPHBNeRwxoMgoXScCp
-	 rMBunAA+LouCGtw38KFj8M+Aa/r6cqD6S8dX2sYEsFpNn9EFK9kzk+oK80jVVWRCCGw97
-	 5bDftKKip9l9StMwVKaDZZFGfW8y5xQtTsz2qkmIe0CRGx02jNZRdrjREADSU29dPbdSZ
-	 Ciec6rclXpHzScLi+CNuJHKbTLYw77Aj7PxsCc6VS1WytIh2Q7QauZsq2weQlLtRclLhz
-	 GxuuOvqla4Guk5V+p0d7ZW8Oxka2CtJZ8fvc4aer98ZYiBhrUolWWOTGNzvWxNUavdg==
+	t=1794272644;
+	b=vkSybp6B8zYc8Qt2Eai268BhstxMUSuU6YVMqd1WxLgMi3SqJO4J7ChxNulRK05gsGAH
+	 1sFJ4/OCbxqeNqF+EhrxqpMJAXuv5SLKCezXzY03UykiEUM9bRXgFJRWnRoMYKO1gTRX7
+	 EF9l3c5ptB+BrFdM9qiOkfgX8NKDhoNXty3Tb0jHvWOVYL99qB3UPKbLDbJrrJlm7q+i4
+	 ET4/pytN19oVU8HkwMGUKgooLprOXWrx+Ckm48iSGP3OX5lxc/V43cYnDg6uAC1CF8h38
+	 UHW8FkNo+VIzRdFV78aauXTAs6osqENqyF0z4WOPBEpgf/lZKQHfj4NJ59jP7zLRt0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272641;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272644;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NCtcvCTKhP5ELagZYpK0U1OC8uSuJWA6BvTO7OjU0P0=;
-	b=hAyFzbuR/jdJCQQzf0ug/l4KfxUmrv2s1DDaKddOW4HUU6yVCUQZVl6OcmdCzc5CIpOD
-	 V6LBZ6vkfP1m1oaFZXzrZyDDDDCZf92H90ggnorCe+GxmiwU2DJGqArIxsJyhlcYrTLbV
-	 8PaPT1nuX7TO1+c59BA2KTIE8A8pUMFkHECW3vnd8/hWxM8sg9VzQw59nMwFYPg/MjdeM
-	 HbZTs0I7O3NnLVl1KMwOVy1fDMMu9Oh69RBXjeojqH9lP06+m1mC2mHMFKwhwp8mIKA36
-	 ygOY5ONi6f5z7+VwlIOHJX/ZnjgL5C8cEE4wrNU6yIzwrCIHDJRKjy0OZ8Rc3B684iw==
+	bh=JjdYqsZoftCgg/vFcxHxKAF9rSel+DmXZHDuFiO7lAQ=;
+	b=2rre1P6+0SONvxIHloNn11LeHD6sGCC62/7G97Blw3IboP06Yoss30vOIRzWIYvqSun9
+	 2gPPcU+dDCdc8sYiTAce+63/uZA4eEbQTpzYMhOQJN3UrGEApPUs9H83ZTSeaFMwnVogC
+	 iyas2q5IETw5VtO9hlt2gA9UG20DspK6h62ZF6WV/R1U7teR0KSTJ9Nvt+qRxy8YmRo4l
+	 fXJ10A+oEHY6ZhxACGecloLh2ls4DR8ugKid0+4+1GPiUSskWwdU8nNINe3ku8wMHJxQq
+	 duITfdPKFy+qDphjB4HJE38nZPvFaqXfi2VbGC1NVbXANpOCmXiBE8RfS9QYac3DtPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RR/SNPiG";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omrkOov2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61CC606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B6C606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RR/SNPiG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FA21F0089F;
-	Tue, 10 Nov 2026 01:03:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omrkOov2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1781F0089F;
+	Tue, 10 Nov 2026 01:04:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272640;
-	bh=NCtcvCTKhP5ELagZYpK0U1OC8uSuJWA6BvTO7OjU0P0=;
+	s=k20260515; t=1794272643;
+	bh=JjdYqsZoftCgg/vFcxHxKAF9rSel+DmXZHDuFiO7lAQ=;
 	h=From:To:Cc:Subject:Date;
-	b=RR/SNPiGn3ikWKp/PoT99402IrC7WIVeQIWl8iLr2mH81164MU61US0uYqrCaz5wl
-	 5yxJMhOW8zj9izgZsQP5EMSi6YxxIFU5LDoxVVIwwc+P1bfmlGFiNDf/r5CZtEsH+D
-	 9R17a6qqpN22KvwKuLcTHY3qCEbpL0+sHnrr2JFxJPtvOQk80wo1wdLb6jeo0tQfUu
-	 4WaYV/cnViFY1Kkss0mYSWECaFN6oCGLBTLYrUkerCQ1n7u2Vkcr9vhKVmxLuh7Pcs
-	 QakTq8thUqB5P1jV12v41JZ3Ti9UrsO0kyvj4UMVeKiRfbIAL5stT+YkZzoGVAK8t+
-	 /ppT/hU7SE14Q==
+	b=omrkOov2COWfTPpBINDLAW0PB/dHwBZrWfyd9YHwnBlaHyn6mBjx+9VKf7c3/qwvw
+	 Pi4ddnE8HKCqCKy5Pn1XAIg/Vn2JYvUQQc59qKX2NyRMZfAhmM4ApvxLzGvbsVBEYB
+	 vmcXZVMzOWB3D5gHjTjp9wl3x+diAq7+uuU6wJA4l1m6SyVF+tTRGkf5QxrMMG90Ku
+	 ZXcouksN/XBj0jrOfWu6kIctchHfsBMA5w6jFyjApJ5ZhqwXrM7Rd/HXlTXT1z16wq
+	 O1Sa4WQg2Ko59ZcBclxvwVRe6B09FOmw9zEgA+wlu7vNZiRNpw8KOqGAVoxX+iU1Gc
+	 VXC19n75mWkBg==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
+To: ljs@kernel.org,
 	akpm@linux-foundation.org,
-	ziy@nvidia.com,
+	luizcap@redhat.com,
 	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	flyinrm@gmail.com
+	pfalcato@suse.de,
+	liam@infradead.org,
+	jannh@google.com,
+	matenajakub@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page_alloc: let the highest memory node recover from hopeless state" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:03:58 -0500
-Message-ID: <20261109200358-failed-6.18-83367658a010@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:04:01 -0500
+Message-ID: <20261109200401-failed-6.18-8146c6478224@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,72 +74,116 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 83367658a01087375ede31ae343c99da03f72ac8
+git cherry-pick -x 8146c6478224d8f6395c6b08a19c344a56d79867
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200358-failed-6.18-83367658a010@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200401-failed-6.18-8146c6478224@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 83367658a01087375ede31ae343c99da03f72ac8 Mon Sep 17 00:00:00 2001
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Date: Mon, 19 Oct 2026 14:48:50 -0400
-Subject: [PATCH] mm/page_alloc: let the highest memory node recover from
- hopeless state
+From 8146c6478224d8f6395c6b08a19c344a56d79867 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 23 Oct 2026 16:17:31 +0100
+Subject: [PATCH] mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-free_frozen_page_commit() clears a hopeless node's kswapd failures once
-its zone recovers above the high watermark, but only if another memory
-node exists for allocations to fall back to.
+Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
+merging with expansion of mremap()'d VMAs, however it also unintentionally
+disallowed the expansion of unmergeable VMAs.
 
-The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
-with a higher id.  The highest-numbered memory node therefore never
-recovers on this path, and its kswapd stays disabled until reclaim on that
-node makes progress and balances it, or demotion is re-enabled.
+Previously it was possible to expand a mixed mapping which mremap() had
+already ensured was a legal expansion.
 
-In many cases, direct reclaim many never fully run against a lower node
-(CXL/kmem), and that means its kswapd can end up full disabled in rare
-situations.
+This is clearly seen in the mremap() logic, as it checks
+vma_is_fixed_mapping() to determine legality of an expansion rather than
+vma_can_merge().
 
-To reproduce, fill the highest memory node with bound, non-THP anonymous
-memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
-keeps showing node_unreclaimable 1 for that node.  A lower node recovers.
+Additionally, copy_vma() allows for a failed merge to result in a new VMA
+being instantiated if MREMAP_MAYMOVE is specified.
 
-Count the memory nodes instead.  Adding first_memory_node != nid to the
-existing test would also work, but a count says directly what the check
-means: some other memory node exists.
+However, this is not attempted, as a failure in vma_merge_extend() is
+assumed to be an -ENOMEM failure.
 
-Link: https://lore.kernel.org/20261019184850.3427905-1-gourry@gourry.net
-Fixes: e7a5f249e6db ("mm: re-enable kswapd when memory pressure subsides or demotion is toggled")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Since vma_merge_extend() is used exclusively by mremap() to perform a merge
+and/or expansion, resolve the issue by invoking vma_expand() for
+unmergeable VMAs there.
+
+Explicitly assert that the VMA is both non-fixed and a mixed mapping.
+This provides double insurance against broken changes in future.
+
+Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
+redundant in this case, as a mixed mapping is not subject to khugepaged.
+
+Also update the VMA userland tests to add a required predicate.
+
+Link: https://lore.kernel.org/20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org
+Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
+Reported-by: Luiz Capitulino <luizcap@redhat.com>
+Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
 Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Chanwon Park <flyinrm@gmail.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jakub Matěna <matenajakub@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page_alloc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/vma.c                        | 19 ++++++++++++++++---
+ tools/testing/vma/include/dup.h |  5 +++++
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index a8cac5e01066c..31ba24411d36b 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -2929,7 +2929,7 @@ static bool free_frozen_page_commit(struct zone *zone,
- 		 * kswapd work again by resetting kswapd_failures.
- 		 */
- 		if (kswapd_test_hopeless(pgdat) &&
--		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
-+		    num_node_state(N_MEMORY) > 1)
- 			kswapd_clear_hopeless(pgdat, KSWAPD_CLEAR_HOPELESS_PCP);
- 	}
- 	return ret;
+diff --git a/mm/vma.c b/mm/vma.c
+index 1be613044b4a5..88ef92ab24ecf 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1851,12 +1851,25 @@ struct vm_area_struct *vma_merge_extend(struct vma_iterator *vmi,
+ 					struct vm_area_struct *vma,
+ 					unsigned long delta)
+ {
+-	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
++	const unsigned long start =
++		vma_can_merge(vma) ? vma->vm_end : vma->vm_start;
++	VMG_VMA_STATE(vmg, vmi, vma, vma, start, vma->vm_end + delta);
+ 
+-	vmg.next = vma_iter_next_rewind(vmi, NULL);
+ 	vmg.middle = NULL; /* We use the VMA to populate VMG fields only. */
+ 
+-	return vma_merge_new_range(&vmg);
++	if (vma_can_merge(vma)) {
++		vmg.next = vma_iter_next_rewind(vmi, NULL);
++		return vma_merge_new_range(&vmg);
++	}
++
++	/* Mixed mappings are permitted to be expanded, not merged. */
++	VM_WARN_ON_ONCE(vma_is_fixed_mapping(vma));
++	VM_WARN_ON_ONCE(!vma_test(vma, VMA_MIXEDMAP_BIT));
++	vma_prev(vmi); /* Reposition to start of VMA. */
++	vmg.target = vma;
++	if (vma_expand(&vmg))
++		return NULL;
++	return vma;
+ }
+ 
+ void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb)
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index f449129ea97a9..e0eab4eca998e 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1727,3 +1727,8 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	 */
+ 	return !vma_flags_is_hugetlb(flags);
+ }
++
++static inline bool vma_can_merge(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_merge(&vma->flags);
++}
 -- 
 2.53.0
 
