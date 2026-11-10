@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794326864;
-	b=CVNGka46bsQEexwy6LlASCk0YTsYvTCBVnnCqhwrCP/dYIwh8trHfKLFZFMXjdORyheQ
-	 taVF2n1JqIKWLOKqpoBQ1ZiUPRJNZS5/QMMk48xwnnRKZyOedtWDvK9SCT85sRQmBWe0E
-	 riT702CedeEPaZiYFQgzGJoVP486yqgZUFLszNuRG6PeCWKkDhUbhvNca1EBJXg2DVfg9
-	 XndMHaia8Sx71mI3+ZXhH8tJspb0bnsbZd031IR060dB4V37U3+5kqs17QjnT53Ok05M9
-	 r4WlQnff5VN7hEoFKo8Vuqx2WKWwNvL/gfI1IklOm48CgzvGzWq6/Q8lnY+YtSzoRrQ==
+	t=1794326865;
+	b=eaBdtQhMAi6j1n6556VFm3QQUvG1u+D0Pb54UpsVfXjYoSkTd+bQAvJ9LREI6C6oW/mG
+	 Fhl8ArWxK2ewVSz2p4RsSfmJjQdbsOanLTsKXcoHzsG9nl2GsLpJKVKVph/LoG2Zij0ts
+	 5jCfpSY/V3De/z7Uy+zD6AI7J66Ntu1awvW21gnjZKrMqF3sp6z75vyFQFbt/7+45m45s
+	 xkdXadhsE2Uixbkj6EU9gkY9wTrPpwRMUoyY+eXm3JdDxidbmeXBfmvoleJ7Ts6cJc9Ya
+	 3Q3rZDI8KjriEhaJJdLvF8efOuxajoDOmqocJc1sOgutqpO5Siq7DcBnYeJAdvAPhGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794326864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326865;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9flqUZOwueLOxmjiIAlHkIGtXu+DmePHgg99ofPQG+I=;
-	b=v01Fqk7uHuwRhMW5rUe71ngrL7c+pSOZHWN6P1F8toqYaK59tkY7KcyNcII4Mn/a5HIn
-	 4Lvx1s5aWoHNKFc4ep0IxgsRBYhUjIki0PjPR5K5qx8PgtYEucRK3UlkMiA+NNdSTQESt
-	 Zk9X+BATc2z1RbkDtFt2ftGOm/BK0H8y7lDVAtRk6+Y6EYwjyb8fzJSuLvTTdDUVxTGId
-	 uLhnLC3WJ8ICeggdxU7ldDbdJXHp3LAi7PE0wM8V5XxW0I06p+wajJx4s30PTFamdVC8k
-	 WmqywF2fGdkGiHpBu6NcZ16nRR7hC6daJR5dlp/BGM3+0IoArIsAvYX9Ej49iuB6xRA==
+	bh=C3IisIYH0IHz1zBdF0rTLtjaazqN+S/GvTSmht6iVp0=;
+	b=BubAl035wnKUhGbf9YWPVvc79XKEc40DA01ULp60Sabm6Y4MhUVacAJ42euc+AbIziTG
+	 FyWPaQjKcCyM0qcz3dCw3rt1gWyOgcK9NT3nF2xFyyb8JjBxM/Y4ysvZWIwUjW+acVL7Q
+	 gm5Knr1PGBtzrRZILlGt4gpX8rQ27ldQNB/cNDdejqmIfF4aaT/tlfI0M8LqL/KcDXqg6
+	 AjbIMGZu0RKOMhymTFU16n+vBbLVABAU+x0jW5eFY/vT7GwAO4DWOz0sVMtdC0BhLz8oT
+	 SPR8Km+iA+F4+QW1MH+/H1ddSGc2nD3o++QzhRc5nkL9nkydUj05JuxUNiedEYYqqKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKbNk4N0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDl7Qast;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF009606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:07:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B1B606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eKbNk4N0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190231F008A1;
-	Tue, 10 Nov 2026 16:07:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bDl7Qast
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2FE1F008A2;
+	Tue, 10 Nov 2026 16:07:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794326863;
-	bh=9flqUZOwueLOxmjiIAlHkIGtXu+DmePHgg99ofPQG+I=;
+	s=k20260515; t=1794326864;
+	bh=C3IisIYH0IHz1zBdF0rTLtjaazqN+S/GvTSmht6iVp0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eKbNk4N01A6UXpbIC5jhFXxle+T4YHJli1JeJ3WkcrEzXC9LbFXvLXBRDigbqt9m9
-	 RNEZKbgkyDT2oMXtHbPbkwlR1r69cXcgFk26/mtXjPqITdVT5lD0qQ8kcgICOCUJiT
-	 MqTR25VLMN+zD/CDd7ay6gBLXzcyMhkgCHjUU4AgLWJquf7/WMYgW1T359Caw49diL
-	 U94i1wEjcReJ3wAf1U6mmdJ368FppKSIl49r5K15PeobOZe5ZiH65YKFcw13RUgKrk
-	 vu/wHsg+XRvj5KYCmNRh6mKqVRqWpzlmBVkSKUtVGdp0zTL036zGMba0+FbNt7RWhG
-	 LqaVS7Kz/7UIQ==
+	b=bDl7QastAfMDenO9vkP2hrSwGUXuUv/hgW4ztW4C/0P9dbA7jVTWjhXQrvp6MD3TE
+	 YwzNAkE3R18CE7++bKKAhsQhgEsFoLg9fnRVxCDyBERUVa3yoQlIINqL2KzVwHZo0T
+	 RwUfDYbiO5ODxcoNVcsfGZTyam/9RIlW7SPMxRtEQZ+baAfpIVkbJKE1hnJKlP0zti
+	 uC7SDBgK7fV8Kf660q8MlwxzJxAZ/2u7FimCFFX3yZVQ/EjRJtAXiKkLQn1t9ki++Z
+	 kUXpDqmXmtKnlSxvq6/fEPwOetGN1KQiz4n5XXISSTOOZLX/5/bEI5p/qIP7/RdCfG
+	 fgf+QLOwewIBg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Claire Chang <tientzu@chromium.org>,
-	Alain Michaud <alainm@chromium.org>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Marcel Holtmann <marcel@holtmann.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] Bluetooth: Move force_bredr_smp debugfs into hci_debugfs_create_bredr
-Date: Tue, 10 Nov 2026 11:07:39 -0500
-Message-ID: <20261110160710.2356064-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/3] Bluetooth: hci_core: Move all debugfs handling to hci_debugfs.c
+Date: Tue, 10 Nov 2026 11:07:40 -0500
+Message-ID: <20261110160710.2356064-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062317-failed-5.10-2a3e2287877b@kernel.org>
+In-Reply-To: <20261110160710.2356064-1-sashal@kernel.org>
 References: <20261107062317-failed-5.10-2a3e2287877b@kernel.org>
+ <20261110160710.2356064-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,120 +62,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Claire Chang <tientzu@chromium.org>
+From: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-[ Upstream commit 82493316507a720b6faa2ec23971c0ca89c6dcb0 ]
+[ Upstream commit 8331dc487fc55963e853b6858af716907717e181 ]
 
-Avoid multiple attempts to create the debugfs entry, force_bredr_smp,
-by moving it from the SMP registration to the BR/EDR controller init
-section. hci_debugfs_create_bredr is only called when HCI_SETUP and
-HCI_CONFIG is not set.
+This moves hci_debugfs_create_basic to hci_debugfs.c which is where all
+the others debugfs entries are handled.
 
-Signed-off-by: Claire Chang <tientzu@chromium.org>
-Reviewed-by: Alain Michaud <alainm@chromium.org>
-Reviewed-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Marcel Holtmann <marcel@holtmann.org>
 Stable-dep-of: 2a3e2287877b ("Bluetooth: hci_debugfs: Pin module for debugfs file operations")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/bluetooth/hci_debugfs.c | 50 +++++++++++++++++++++++++++++++++++++
- net/bluetooth/smp.c         | 44 ++------------------------------
- net/bluetooth/smp.h         |  2 ++
- 3 files changed, 54 insertions(+), 42 deletions(-)
+ net/bluetooth/hci_core.c    | 124 ------------------------------------
+ net/bluetooth/hci_debugfs.c | 123 +++++++++++++++++++++++++++++++++++
+ net/bluetooth/hci_debugfs.h |   5 ++
+ 3 files changed, 128 insertions(+), 124 deletions(-)
 
-diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-index a1f6e6c9dd4f3..1192280031685 100644
---- a/net/bluetooth/hci_debugfs.c
-+++ b/net/bluetooth/hci_debugfs.c
-@@ -498,6 +498,45 @@ static int auto_accept_delay_get(void *data, u64 *val)
- DEFINE_SIMPLE_ATTRIBUTE(auto_accept_delay_fops, auto_accept_delay_get,
- 			auto_accept_delay_set, "%llu\n");
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 87ef9fdeb12ec..834cefb43b74e 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -60,130 +60,6 @@ DEFINE_MUTEX(hci_cb_list_lock);
+ /* HCI ID Numbering */
+ static DEFINE_IDA(hci_index_ida);
  
-+static ssize_t force_bredr_smp_read(struct file *file,
-+				    char __user *user_buf,
-+				    size_t count, loff_t *ppos)
-+{
-+	struct hci_dev *hdev = file->private_data;
-+	char buf[3];
-+
-+	buf[0] = hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP) ? 'Y' : 'N';
-+	buf[1] = '\n';
-+	buf[2] = '\0';
-+	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
-+}
-+
-+static ssize_t force_bredr_smp_write(struct file *file,
-+				     const char __user *user_buf,
-+				     size_t count, loff_t *ppos)
-+{
-+	struct hci_dev *hdev = file->private_data;
-+	bool enable;
-+	int err;
-+
-+	err = kstrtobool_from_user(user_buf, count, &enable);
-+	if (err)
-+		return err;
-+
-+	err = smp_force_bredr(hdev, enable);
-+	if (err)
-+		return err;
-+
-+	return count;
-+}
-+
-+static const struct file_operations force_bredr_smp_fops = {
-+	.open		= simple_open,
-+	.read		= force_bredr_smp_read,
-+	.write		= force_bredr_smp_write,
-+	.llseek		= default_llseek,
-+};
-+
- static int idle_timeout_set(void *data, u64 val)
- {
- 	struct hci_dev *hdev = data;
-@@ -597,6 +636,17 @@ void hci_debugfs_create_bredr(struct hci_dev *hdev)
- 	debugfs_create_file("voice_setting", 0444, hdev->debugfs, hdev,
- 			    &voice_setting_fops);
- 
-+	/* If the controller does not support BR/EDR Secure Connections
-+	 * feature, then the BR/EDR SMP channel shall not be present.
-+	 *
-+	 * To test this with Bluetooth 4.0 controllers, create a debugfs
-+	 * switch that allows forcing BR/EDR SMP support and accepting
-+	 * cross-transport pairing on non-AES encrypted connections.
-+	 */
-+	if (!lmp_sc_capable(hdev))
-+		debugfs_create_file("force_bredr_smp", 0644, hdev->debugfs,
-+				    hdev, &force_bredr_smp_fops);
-+
- 	if (lmp_ssp_capable(hdev)) {
- 		debugfs_create_file("ssp_debug_mode", 0444, hdev->debugfs,
- 				    hdev, &ssp_debug_mode_fops);
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 5466b1f1add9e..eefc9aa479f08 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -3388,31 +3388,8 @@ static void smp_del_chan(struct l2cap_chan *chan)
- 	l2cap_chan_put(chan);
- }
- 
--static ssize_t force_bredr_smp_read(struct file *file,
--				    char __user *user_buf,
--				    size_t count, loff_t *ppos)
-+int smp_force_bredr(struct hci_dev *hdev, bool enable)
- {
+-/* ---- HCI debugfs entries ---- */
+-
+-static ssize_t dut_mode_read(struct file *file, char __user *user_buf,
+-			     size_t count, loff_t *ppos)
+-{
 -	struct hci_dev *hdev = file->private_data;
 -	char buf[3];
 -
--	buf[0] = hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP) ? 'Y': 'N';
+-	buf[0] = hci_dev_test_flag(hdev, HCI_DUT_MODE) ? 'Y' : 'N';
 -	buf[1] = '\n';
 -	buf[2] = '\0';
 -	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
 -}
 -
--static ssize_t force_bredr_smp_write(struct file *file,
--				     const char __user *user_buf,
--				     size_t count, loff_t *ppos)
+-static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
+-			      size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	struct sk_buff *skb;
+-	bool enable;
+-	int err;
+-
+-	if (!test_bit(HCI_UP, &hdev->flags))
+-		return -ENETDOWN;
+-
+-	err = kstrtobool_from_user(user_buf, count, &enable);
+-	if (err)
+-		return err;
+-
+-	if (enable == hci_dev_test_flag(hdev, HCI_DUT_MODE))
+-		return -EALREADY;
+-
+-	hci_req_sync_lock(hdev);
+-	if (enable)
+-		skb = __hci_cmd_sync(hdev, HCI_OP_ENABLE_DUT_MODE, 0, NULL,
+-				     HCI_CMD_TIMEOUT);
+-	else
+-		skb = __hci_cmd_sync(hdev, HCI_OP_RESET, 0, NULL,
+-				     HCI_CMD_TIMEOUT);
+-	hci_req_sync_unlock(hdev);
+-
+-	if (IS_ERR(skb))
+-		return PTR_ERR(skb);
+-
+-	kfree_skb(skb);
+-
+-	hci_dev_change_flag(hdev, HCI_DUT_MODE);
+-
+-	return count;
+-}
+-
+-static const struct file_operations dut_mode_fops = {
+-	.open		= simple_open,
+-	.read		= dut_mode_read,
+-	.write		= dut_mode_write,
+-	.llseek		= default_llseek,
+-};
+-
+-static ssize_t vendor_diag_read(struct file *file, char __user *user_buf,
+-				size_t count, loff_t *ppos)
+-{
+-	struct hci_dev *hdev = file->private_data;
+-	char buf[3];
+-
+-	buf[0] = hci_dev_test_flag(hdev, HCI_VENDOR_DIAG) ? 'Y' : 'N';
+-	buf[1] = '\n';
+-	buf[2] = '\0';
+-	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
+-}
+-
+-static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
+-				 size_t count, loff_t *ppos)
 -{
 -	struct hci_dev *hdev = file->private_data;
 -	bool enable;
@@ -186,58 +168,211 @@ index 5466b1f1add9e..eefc9aa479f08 100644
 -	if (err)
 -		return err;
 -
- 	if (enable == hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP))
- 		return -EALREADY;
- 
-@@ -3434,16 +3411,9 @@ static ssize_t force_bredr_smp_write(struct file *file,
- 
- 	hci_dev_change_flag(hdev, HCI_FORCE_BREDR_SMP);
- 
+-	/* When the diagnostic flags are not persistent and the transport
+-	 * is not active or in user channel operation, then there is no need
+-	 * for the vendor callback. Instead just store the desired value and
+-	 * the setting will be programmed when the controller gets powered on.
+-	 */
+-	if (test_bit(HCI_QUIRK_NON_PERSISTENT_DIAG, &hdev->quirks) &&
+-	    (!test_bit(HCI_RUNNING, &hdev->flags) ||
+-	     hci_dev_test_flag(hdev, HCI_USER_CHANNEL)))
+-		goto done;
+-
+-	hci_req_sync_lock(hdev);
+-	err = hdev->set_diag(hdev, enable);
+-	hci_req_sync_unlock(hdev);
+-
+-	if (err < 0)
+-		return err;
+-
+-done:
+-	if (enable)
+-		hci_dev_set_flag(hdev, HCI_VENDOR_DIAG);
+-	else
+-		hci_dev_clear_flag(hdev, HCI_VENDOR_DIAG);
+-
 -	return count;
-+	return 0;
- }
- 
--static const struct file_operations force_bredr_smp_fops = {
+-}
+-
+-static const struct file_operations vendor_diag_fops = {
 -	.open		= simple_open,
--	.read		= force_bredr_smp_read,
--	.write		= force_bredr_smp_write,
+-	.read		= vendor_diag_read,
+-	.write		= vendor_diag_write,
 -	.llseek		= default_llseek,
 -};
 -
- int smp_register(struct hci_dev *hdev)
- {
- 	struct l2cap_chan *chan;
-@@ -3468,17 +3438,7 @@ int smp_register(struct hci_dev *hdev)
- 
- 	hdev->smp_data = chan;
- 
--	/* If the controller does not support BR/EDR Secure Connections
--	 * feature, then the BR/EDR SMP channel shall not be present.
--	 *
--	 * To test this with Bluetooth 4.0 controllers, create a debugfs
--	 * switch that allows forcing BR/EDR SMP support and accepting
--	 * cross-transport pairing on non-AES encrypted connections.
--	 */
- 	if (!lmp_sc_capable(hdev)) {
--		debugfs_create_file("force_bredr_smp", 0644, hdev->debugfs,
--				    hdev, &force_bredr_smp_fops);
+-static void hci_debugfs_create_basic(struct hci_dev *hdev)
+-{
+-	debugfs_create_file("dut_mode", 0644, hdev->debugfs, hdev,
+-			    &dut_mode_fops);
 -
- 		/* Flag can be already set here (due to power toggle) */
- 		if (!hci_dev_test_flag(hdev, HCI_FORCE_BREDR_SMP))
- 			return 0;
-diff --git a/net/bluetooth/smp.h b/net/bluetooth/smp.h
-index bad594642a53d..c5da53dfab04f 100644
---- a/net/bluetooth/smp.h
-+++ b/net/bluetooth/smp.h
-@@ -194,6 +194,8 @@ bool smp_irk_matches(struct hci_dev *hdev, const u8 irk[16],
- int smp_generate_rpa(struct hci_dev *hdev, const u8 irk[16], bdaddr_t *rpa);
- int smp_generate_oob(struct hci_dev *hdev, u8 hash[16], u8 rand[16]);
+-	if (hdev->set_diag)
+-		debugfs_create_file("vendor_diag", 0644, hdev->debugfs, hdev,
+-				    &vendor_diag_fops);
+-}
+-
+ static int hci_reset_req(struct hci_request *req, unsigned long opt)
+ {
+ 	BT_DBG("%s %ld", req->hdev->name, opt);
+diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
+index 1192280031685..987a546de3ae1 100644
+--- a/net/bluetooth/hci_debugfs.c
++++ b/net/bluetooth/hci_debugfs.c
+@@ -27,6 +27,7 @@
+ #include <net/bluetooth/hci_core.h>
  
-+int smp_force_bredr(struct hci_dev *hdev, bool enable);
+ #include "smp.h"
++#include "hci_request.h"
+ #include "hci_debugfs.h"
+ 
+ #define DEFINE_QUIRK_ATTRIBUTE(__name, __quirk)				      \
+@@ -1270,3 +1271,125 @@ void hci_debugfs_create_conn(struct hci_conn *conn)
+ 	snprintf(name, sizeof(name), "%u", conn->handle);
+ 	conn->debugfs = debugfs_create_dir(name, hdev->debugfs);
+ }
 +
- int smp_register(struct hci_dev *hdev);
- void smp_unregister(struct hci_dev *hdev);
++static ssize_t dut_mode_read(struct file *file, char __user *user_buf,
++			     size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	char buf[3];
++
++	buf[0] = hci_dev_test_flag(hdev, HCI_DUT_MODE) ? 'Y' : 'N';
++	buf[1] = '\n';
++	buf[2] = '\0';
++	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
++}
++
++static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
++			      size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	struct sk_buff *skb;
++	bool enable;
++	int err;
++
++	if (!test_bit(HCI_UP, &hdev->flags))
++		return -ENETDOWN;
++
++	err = kstrtobool_from_user(user_buf, count, &enable);
++	if (err)
++		return err;
++
++	if (enable == hci_dev_test_flag(hdev, HCI_DUT_MODE))
++		return -EALREADY;
++
++	hci_req_sync_lock(hdev);
++	if (enable)
++		skb = __hci_cmd_sync(hdev, HCI_OP_ENABLE_DUT_MODE, 0, NULL,
++				     HCI_CMD_TIMEOUT);
++	else
++		skb = __hci_cmd_sync(hdev, HCI_OP_RESET, 0, NULL,
++				     HCI_CMD_TIMEOUT);
++	hci_req_sync_unlock(hdev);
++
++	if (IS_ERR(skb))
++		return PTR_ERR(skb);
++
++	kfree_skb(skb);
++
++	hci_dev_change_flag(hdev, HCI_DUT_MODE);
++
++	return count;
++}
++
++static const struct file_operations dut_mode_fops = {
++	.open		= simple_open,
++	.read		= dut_mode_read,
++	.write		= dut_mode_write,
++	.llseek		= default_llseek,
++};
++
++static ssize_t vendor_diag_read(struct file *file, char __user *user_buf,
++				size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	char buf[3];
++
++	buf[0] = hci_dev_test_flag(hdev, HCI_VENDOR_DIAG) ? 'Y' : 'N';
++	buf[1] = '\n';
++	buf[2] = '\0';
++	return simple_read_from_buffer(user_buf, count, ppos, buf, 2);
++}
++
++static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
++				 size_t count, loff_t *ppos)
++{
++	struct hci_dev *hdev = file->private_data;
++	bool enable;
++	int err;
++
++	err = kstrtobool_from_user(user_buf, count, &enable);
++	if (err)
++		return err;
++
++	/* When the diagnostic flags are not persistent and the transport
++	 * is not active or in user channel operation, then there is no need
++	 * for the vendor callback. Instead just store the desired value and
++	 * the setting will be programmed when the controller gets powered on.
++	 */
++	if (test_bit(HCI_QUIRK_NON_PERSISTENT_DIAG, &hdev->quirks) &&
++	    (!test_bit(HCI_RUNNING, &hdev->flags) ||
++	     hci_dev_test_flag(hdev, HCI_USER_CHANNEL)))
++		goto done;
++
++	hci_req_sync_lock(hdev);
++	err = hdev->set_diag(hdev, enable);
++	hci_req_sync_unlock(hdev);
++
++	if (err < 0)
++		return err;
++
++done:
++	if (enable)
++		hci_dev_set_flag(hdev, HCI_VENDOR_DIAG);
++	else
++		hci_dev_clear_flag(hdev, HCI_VENDOR_DIAG);
++
++	return count;
++}
++
++static const struct file_operations vendor_diag_fops = {
++	.open		= simple_open,
++	.read		= vendor_diag_read,
++	.write		= vendor_diag_write,
++	.llseek		= default_llseek,
++};
++
++void hci_debugfs_create_basic(struct hci_dev *hdev)
++{
++	debugfs_create_file("dut_mode", 0644, hdev->debugfs, hdev,
++			    &dut_mode_fops);
++
++	if (hdev->set_diag)
++		debugfs_create_file("vendor_diag", 0644, hdev->debugfs, hdev,
++				    &vendor_diag_fops);
++}
+diff --git a/net/bluetooth/hci_debugfs.h b/net/bluetooth/hci_debugfs.h
+index 4444dc8cedc21..9a8a7c93bb12a 100644
+--- a/net/bluetooth/hci_debugfs.h
++++ b/net/bluetooth/hci_debugfs.h
+@@ -26,6 +26,7 @@ void hci_debugfs_create_common(struct hci_dev *hdev);
+ void hci_debugfs_create_bredr(struct hci_dev *hdev);
+ void hci_debugfs_create_le(struct hci_dev *hdev);
+ void hci_debugfs_create_conn(struct hci_conn *conn);
++void hci_debugfs_create_basic(struct hci_dev *hdev);
  
+ #else
+ 
+@@ -45,4 +46,8 @@ static inline void hci_debugfs_create_conn(struct hci_conn *conn)
+ {
+ }
+ 
++static inline void hci_debugfs_create_basic(struct hci_dev *hdev)
++{
++}
++
+ #endif
 -- 
 2.53.0
 
