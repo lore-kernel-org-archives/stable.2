@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794345478;
-	b=OGtOYCAFTK5tegQNvSBHr2zXVQsVW+U1Yqb8xgzB3RSKXHVyDe5vKxQA0yJ1bFI5gt7f
-	 N5aPMO7u/6AHchnKLs/WsGcE5UwwMCQzdiiQqAh4BVxKbdJCX+SSj+0XZBkTwVS+Odj5x
-	 D2fTs7RynfFic8zjUpzj4UKHWcDhH5O5KusCXjSTXEB6dsFr38sh6yfxz2GnQsxPDd9uf
-	 L53xYJQVn4N4y9iFCWk7dCcMLZNnikjt7QGT0CcUPNNAP5igLims3/KxtrOYYDwTgGGxa
-	 311CkGKDCV3b4AyB8w0yaSd7wwi3KzAw9bHiZs/PcGW9oCNagycy0rzWgW7zxfo4ihA==
+	t=1794345548;
+	b=hV/uRpyXsRkEZn4i2xnohCsLc3sWM6uk44AbYk9zmVlzk1EQyK3wzx6I4Q2y0BmyfDqA
+	 dyhGTzxDsMeTjbjCsk2f29TaprVGOoemVyaslLvjTTnWNSxVKUexO9Gdmt5fAKtW16E9H
+	 +hwjNRUNENT7Iy9LR3aOAbLg77ngFB0flDT9ZcfEq8YwoidSloJrSH+dpQ16Kk3MmpR74
+	 HRkCbK0RIp3EKLgmUBqKSnrAGUdMByfGVqpKPC4wSlTGOfDj+b19ktMFQyRmBQ8kLzw7p
+	 zViv+Cvx9zu94X3OH0TS7ozKIdMXIWjZQGm+G45+OM0aWVAp59qLKPag0q/a+cFZomg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794345478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794345548;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KR+9ARKChn4zAOG4ecdFmuHq7zwJhdfs8KPdNcLxFaE=;
-	b=WBIKuLuV3mbbWNEXstU2Pk5JvILPi0PadSIu0/L0RVzcXuo+GF5tUkNRfN5UeGoEuolv
-	 wjqVxkBOTpoVMsQUDwFzAkV8zWznuC3ztEQAtSLvD/4u7n1Kq6WVq5TA9Txyd2oqNUixR
-	 iRd98EFJTdVbPdHNt34z/YCG53kk7p1IiM4aptYaY6dccF596WBn1SYFGva3tsmVfxUIz
-	 fNG6PuHMbknetGJi0XlUB55CStzsQr27NK99fffH2JgoU0XJdgHXuvCSc9gT1HqeSR4sF
-	 VfFQx0SCs3B6KV1u/Hk7HwIc2bLEMzik29s+CEBLeM0JsFg6fxhtex3X/lUAR90SB3Q==
+	bh=mJGblFU8oV84cfY4+DryzOGu3bCbb0WNgO1lTOXVWrU=;
+	b=uE+is31Tdr+lL670Z9/SbVb2P0aAGL98gOSlGOUWiQdI7UwrRPwJIWCghCJJtRPi4xt6
+	 +KHeP3tU78HU9kB5uwCXc0YgysR7AyE8F24y8unqXQD00I7GIrBDz995ARjnCDnnUWOjr
+	 dJtB03Ktv9mxozpM2XujrNJIOZfELp8C5toI4al6yQAu8R0zgSEnWK8up8z7BwbLRh33g
+	 yev/TyvJSUVjSdDs5Pcj2WyYrckMLyDc05dAjRqjGGQhwt2DRlFOgLSrvnH9wI4EJDMkD
+	 wVqu3J6F3fAfqXIoYZtQwJgHqYodrY+JmDd7z/Kp8V2STPSDYaPvLQkZU22WHdB6Yow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNhdqCml;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7sevrJf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB45B606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EDC606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 21:19:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kNhdqCml
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0FC61F0089F;
-	Tue, 10 Nov 2026 21:17:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7sevrJf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35FF31F0089F;
+	Tue, 10 Nov 2026 21:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794345477;
-	bh=KR+9ARKChn4zAOG4ecdFmuHq7zwJhdfs8KPdNcLxFaE=;
+	s=k20260515; t=1794345547;
+	bh=mJGblFU8oV84cfY4+DryzOGu3bCbb0WNgO1lTOXVWrU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kNhdqCmloE8XHNKlwzEzqNaPV0YY6jO/7kNwZrha/rKJHODuKnN8JlJq4Ucs1F9uS
-	 45qMg0Oi+PWKNrQQB2Becv8jljM76B7KzoJu1T4K9awLgTM5IBrBMzPdkeMobRe8rt
-	 FUDLDwocRTsku49FEiVEfDEPgOdKPibdRNQKMbZNF32ppqxNoFogQQkFqU1JpnRTB2
-	 gyoeaxuI5ut6eRgEZ7fqM02n7EsiIZm61WP85qlqkFgI5zYmMz2WnPq0+z2mTEVXoC
-	 NZMGAYIw6KUOz3H7kzFm8oSiFENzK4+LgbSfW6GaMMu7arm+1YHkvi5haGDBOaNWb5
-	 zs4A6iE0OijhQ==
+	b=h7sevrJfz2zqZMurhXhif6StPeXRvzPdcy+vqVI3XUhjK5y/4XPfpfT2ImxfBxG/0
+	 ZI0UOTdGOyGvc5kASuDv+L8w9cbApUvpWzqL/I2/vqeWQXnGiTeVl6WNZPnbMF6fD0
+	 mq6nSl4VkBQwqft+/WrOH68kGN4ZqPmEYibOrEDwJGC8uALGn5opk16doE9cxLshEu
+	 RAIs7GH9kuiU+w6NmQ3Gd+6WrTGyCUft42Wbia50aSbn/AiChKmLg1K1eFz1/Bbcvt
+	 MvWloo0sEGyAPmt75OXKkEeARKVaxmKVqjDsBA6r79CmKXS6uJhm4MZ9LGDC7IHega
+	 OL1RnfjPf5HIA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Stanley Jhu <stanleyjhu@google.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Bean Huo <beanhuo@micron.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Kevin Mitchell <kevmitch@arista.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
-Date: Tue, 10 Nov 2026 16:17:55 -0500
-Message-ID: <20261110211631.3892165-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] netfilter: conntrack: skip verification of zero UDP checksum
+Date: Tue, 10 Nov 2026 16:19:05 -0500
+Message-ID: <20261110211836.3899141-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052536-failed-6.12-22d14117ec18@kernel.org>
-References: <20261107052536-failed-6.12-22d14117ec18@kernel.org>
+In-Reply-To: <20261107060821-failed-5.15-73a73d442f99@kernel.org>
+References: <20261107060821-failed-5.15-73a73d442f99@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,118 +61,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stanley Jhu <stanleyjhu@google.com>
+From: Kevin Mitchell <kevmitch@arista.com>
 
-[ Upstream commit 22d14117ec1845a81acb3a5c4be325f7e8332f70 ]
+[ Upstream commit 4f9bd53084d18c2f9f1ec68fa56587b99a2cef00 ]
 
-ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
-clears bits in hba->outstanding_reqs under hba->outstanding_lock.
+The checksum is optional for UDP packets. However nf_reject would
+previously require a valid checksum to elicit a response such as
+ICMP_DEST_UNREACH.
 
-Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
-__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
-functional change.
+Add some logic to nf_reject_verify_csum to determine if a UDP packet has
+a zero checksum and should therefore not be verified.
 
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Kevin Mitchell <kevmitch@arista.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Stable-dep-of: 73a73d442f99 ("netfilter: nf_reject: initialize IPCB at inet ingress")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
- 1 file changed, 36 insertions(+), 12 deletions(-)
+ include/net/netfilter/nf_reject.h   | 21 +++++++++++++++++----
+ net/ipv4/netfilter/nf_reject_ipv4.c | 10 +++++++---
+ net/ipv6/netfilter/nf_reject_ipv6.c |  4 ++--
+ 3 files changed, 26 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 4a78a5d9cd8b4..798ad0338cd97 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5653,6 +5653,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
- 	}
- }
+diff --git a/include/net/netfilter/nf_reject.h b/include/net/netfilter/nf_reject.h
+index 9051c3a0c8e77..7c669792fb9ce 100644
+--- a/include/net/netfilter/nf_reject.h
++++ b/include/net/netfilter/nf_reject.h
+@@ -5,12 +5,28 @@
+ #include <linux/types.h>
+ #include <uapi/linux/in.h>
  
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						     unsigned long mask,
-+						     bool from_irq)
-+	__must_hold(&hba->outstanding_lock)
-+{
-+	unsigned long completed_reqs = mask & hba->outstanding_reqs;
-+
-+	if (from_irq) {
-+		/* Do not complete polled requests from interrupt context. */
-+		ufshcd_clear_polled(hba, &completed_reqs);
-+	}
-+	hba->outstanding_reqs &= ~completed_reqs;
-+
-+	return completed_reqs;
-+}
-+
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						   unsigned long mask)
-+{
-+	guard(spinlock_irqsave)(&hba->outstanding_lock);
-+	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
-+}
-+
- /*
-  * Return: > 0 if one or more commands have been completed or 0 if no
-  * requests have been completed.
-@@ -5663,6 +5694,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 	unsigned long completed_reqs, flags;
- 	u32 tr_doorbell;
- 	struct ufs_hw_queue *hwq;
-+	bool from_irq;
- 
- 	if (hba->mcq_enabled) {
- 		hwq = &hba->uhq[queue_num];
-@@ -5672,12 +5704,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 
- 	spin_lock_irqsave(&hba->outstanding_lock, flags);
- 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
--	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
--	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
--		/* Do not complete polled requests from interrupt context. */
--		ufshcd_clear_polled(hba, &completed_reqs);
--	}
--	hba->outstanding_reqs &= ~completed_reqs;
-+	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
-+	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
-+							 from_irq);
- 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
- 
- 	if (completed_reqs)
-@@ -7662,7 +7691,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	struct ufshcd_lrb *lrbp = &hba->lrb[tag];
- 	unsigned long flags;
- 	int err = FAILED;
--	bool outstanding;
- 	u32 reg;
- 
- 	ufshcd_hold(hba);
-@@ -7743,11 +7771,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	 * Clear the corresponding bit from outstanding_reqs since the command
- 	 * has been aborted successfully.
+-static inline bool nf_reject_verify_csum(__u8 proto)
++static inline bool nf_reject_verify_csum(struct sk_buff *skb, int dataoff,
++					  __u8 proto)
+ {
+ 	/* Skip protocols that don't use 16-bit one's complement checksum
+ 	 * of the entire payload.
  	 */
--	spin_lock_irqsave(&hba->outstanding_lock, flags);
--	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
--	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+ 	switch (proto) {
++		/* Protocols with optional checksums. */
++		case IPPROTO_UDP: {
++			const struct udphdr *udp_hdr;
++			struct udphdr _udp_hdr;
++
++			udp_hdr = skb_header_pointer(skb, dataoff,
++						     sizeof(_udp_hdr),
++						     &_udp_hdr);
++			if (!udp_hdr || udp_hdr->check)
++				return true;
++
++			return false;
++		}
++		case IPPROTO_GRE:
++
+ 		/* Protocols with other integrity checks. */
+ 		case IPPROTO_AH:
+ 		case IPPROTO_ESP:
+@@ -19,9 +35,6 @@ static inline bool nf_reject_verify_csum(__u8 proto)
+ 		/* Protocols with partial checksums. */
+ 		case IPPROTO_UDPLITE:
+ 		case IPPROTO_DCCP:
 -
--	if (outstanding)
-+	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
- 		ufshcd_release_scsi_cmd(hba, lrbp);
+-		/* Protocols with optional checksums. */
+-		case IPPROTO_GRE:
+ 			return false;
+ 	}
+ 	return true;
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index ddfb4e2b779d6..89f52751355bf 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -102,6 +102,7 @@ struct sk_buff *nf_reject_skb_v4_unreach(struct net *net,
+ 	struct iphdr *niph;
+ 	struct icmphdr *icmph;
+ 	unsigned int len;
++	int dataoff;
+ 	__wsum csum;
+ 	u8 proto;
  
- 	err = SUCCESS;
+@@ -125,10 +126,11 @@ struct sk_buff *nf_reject_skb_v4_unreach(struct net *net,
+ 	if (pskb_trim_rcsum(oldskb, ntohs(ip_hdr(oldskb)->tot_len)))
+ 		return NULL;
+ 
++	dataoff = ip_hdrlen(oldskb);
+ 	proto = ip_hdr(oldskb)->protocol;
+ 
+ 	if (!skb_csum_unnecessary(oldskb) &&
+-	    nf_reject_verify_csum(proto) &&
++	    nf_reject_verify_csum(oldskb, dataoff, proto) &&
+ 	    nf_ip_checksum(oldskb, hook, ip_hdrlen(oldskb), proto))
+ 		return NULL;
+ 
+@@ -338,6 +340,7 @@ EXPORT_SYMBOL_GPL(nf_send_reset);
+ void nf_send_unreach(struct sk_buff *skb_in, int code, int hook)
+ {
+ 	struct iphdr *iph = ip_hdr(skb_in);
++	int dataoff = ip_hdrlen(skb_in);
+ 	u8 proto = iph->protocol;
+ 
+ 	if (iph->frag_off & htons(IP_OFFSET))
+@@ -346,12 +349,13 @@ void nf_send_unreach(struct sk_buff *skb_in, int code, int hook)
+ 	if (!skb_valid_dst(skb_in) && nf_reject_fill_skb_dst(skb_in) < 0)
+ 		return;
+ 
+-	if (skb_csum_unnecessary(skb_in) || !nf_reject_verify_csum(proto)) {
++	if (skb_csum_unnecessary(skb_in) ||
++	    !nf_reject_verify_csum(skb_in, dataoff, proto)) {
+ 		icmp_send(skb_in, ICMP_DEST_UNREACH, code, 0);
+ 		return;
+ 	}
+ 
+-	if (nf_ip_checksum(skb_in, hook, ip_hdrlen(skb_in), proto) == 0)
++	if (nf_ip_checksum(skb_in, hook, dataoff, proto) == 0)
+ 		icmp_send(skb_in, ICMP_DEST_UNREACH, code, 0);
+ }
+ EXPORT_SYMBOL_GPL(nf_send_unreach);
+diff --git a/net/ipv6/netfilter/nf_reject_ipv6.c b/net/ipv6/netfilter/nf_reject_ipv6.c
+index 099740342f70f..c5c8962088f2c 100644
+--- a/net/ipv6/netfilter/nf_reject_ipv6.c
++++ b/net/ipv6/netfilter/nf_reject_ipv6.c
+@@ -32,7 +32,7 @@ static bool nf_reject_v6_csum_ok(struct sk_buff *skb, int hook)
+ 	if (thoff < 0 || thoff >= skb->len || (fo & htons(~0x7)) != 0)
+ 		return false;
+ 
+-	if (!nf_reject_verify_csum(proto))
++	if (!nf_reject_verify_csum(skb, thoff, proto))
+ 		return true;
+ 
+ 	return nf_ip6_checksum(skb, hook, thoff, proto) == 0;
+@@ -413,7 +413,7 @@ static bool reject6_csum_ok(struct sk_buff *skb, int hook)
+ 	if (thoff < 0 || thoff >= skb->len || (fo & htons(~0x7)) != 0)
+ 		return false;
+ 
+-	if (!nf_reject_verify_csum(proto))
++	if (!nf_reject_verify_csum(skb, thoff, proto))
+ 		return true;
+ 
+ 	return nf_ip6_checksum(skb, hook, thoff, proto) == 0;
 -- 
 2.53.0
 
