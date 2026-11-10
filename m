@@ -1,59 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325950;
-	b=Nehbh2Q+Od7JzZAjUpzQ3Geoy89j5rPLbikRNXZXcwhCigQNQJgfi0ejpmoHejVie5ja
-	 cRwPOCUMa80Sly3UohT9b+FKDEk+1L9tpSlzevxbuX1Z+4PelNu8HoWPN0Q6+2pgeoRHO
-	 XWIciywWOcLqVP0mBo6Vvzd25EZhetXhCdkHSgzq1KnvuydpmdczkMUjcEuHSNmUT8i/f
-	 lhu5ae2mA/qy4K3DF74oP0n+jJXFXfEhZ6XGBBhyUZZDO4XwvRO2KS9zXxxpSPLOnHYii
-	 2ml/DM+7/Zb1bMCS6KAW0IDIzyWOnNdNGEDb2ymkyWHbCd6eS15hHHznhQ0TCqy5bqA==
+	t=1794326006;
+	b=LY5vdb79riNuzWNxcesSIv8QSmUl9pBrLKQZg7eMeV8V7l82Rcrz0idsCnomvWbCulhi
+	 C4vJnhUmniCz/bUHAthwJJxj9iTSYQ33qJvKtqBkOBQx459j5+h8JMLVkjJflxYKVue8i
+	 mcAougWsiEjgW9nTZZ+G3mkwzaSVtjnjvWXZ7LqTjC01AvOFFjlzpnhX8+tzTYdXpzm93
+	 q82joWQYAq9RUDqPDLZ8kvUzrD0VYwXwJiSoluHEp0NgwR1109gpjUNCzyPFNFWcVDtQ1
+	 uxJE6n1zm5ePkztriBWSt+8BmjzfaKHI6SNgDDaLZ/508Ui8BASIPecN5/FPevznBSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325950;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794326006;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=M152wRWqye8suJtBbIHae2M96Ja/SOyfAcxWew8X/TE=;
-	b=yzsVz5s5ERVMnRLMff+1kW2MbfSZRyco9rmOFF6++VZ5bFcPWzYHwFePyHDVJjlIYJaz
-	 bJhBPKS6LgmNNFjsLccs/2/N5mcgVzBdAQUqqMAoBk8g/FW284S6dnQTd9rla3fqZWD2J
-	 pUNPSEZ0kuJyi8sVsyaood2onyiYIvY+OWgoGXpstVgC7rO5EnyN2ECtyZUsZHg66ohPY
-	 OrjWt56DpGHHcIFV50zU4aOqHB0WmSJz8DPl1h/mgfxTlULOCIz1VJFFtt7AP+j2rqWTC
-	 MfS627ZBsWiKq9xrAopb+js2OCGdsLZLWTL8gILrkvejdS7n9c3N/50hE5YjXap68/A==
+	bh=VunR4rwDN/gIeXBQ2Oy6QtinbdO5KrqgjFQ2hMpQft0=;
+	b=RjJIkm6Svzr4OIK5wV59LvXuhHuW6ZjNnK0GfTCIwfgnr83NdjneEkvnqRITqz1/la/5
+	 EMzBvX/6r4N/Nug+IJ+csz5eNu1/Ol4KHHIfnzZDCh09lvXYQfIlyPbrDK0iyvT/KvefU
+	 chdgbeMUAjee8jqaXzv1KajYkcNb+iyKgHG1cvou0VpDNiLYBDsgdbZWC9oPAF8gIHBLb
+	 WoGAXDHWviJ0uOTokVDnr2loG1xvjVWVyOMQIZAYwdfHAzJzGYncGwzYCGudkRWpH37mX
+	 y1HgeEvRvL6zTpru56xhXwMxviW8Jze1C9zcWzSHHRNo7wyETykxRSd+Kl0ecUstvEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzBsr0XU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNHDFNOQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A077606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:52:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8142F606A321;
+	Tue, 10 Nov 2026 15:53:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzBsr0XU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59381F008A2;
-	Tue, 10 Nov 2026 15:52:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNHDFNOQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2511F0089F;
+	Tue, 10 Nov 2026 15:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325948;
-	bh=M152wRWqye8suJtBbIHae2M96Ja/SOyfAcxWew8X/TE=;
+	s=k20260515; t=1794326005;
+	bh=VunR4rwDN/gIeXBQ2Oy6QtinbdO5KrqgjFQ2hMpQft0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XzBsr0XUXEKR0Q5QC7pg5qL3JH1IRFJ8dIQSA3BgSTBFOzVzlyTHmHBENQRrqExaZ
-	 3qQpz8q6OYPeNkcHn6trsc3/XmwcodhsUi4IVNKBO633QGtRYkvGrEZlgpZVAdPc1F
-	 cJqVWjxd71okAmX6MqCAlXieTFTMCaloew3XNZNvvW1zePDBFWxu8NV6zD+MabzKFv
-	 rA8D1EP6YvaoDsX3Jcf3u/7bNKX5Z9Ts05Y2V5zPfeYvrsFNBn35anUAIaG7f3HBcy
-	 xYpstt4IkKbEcTvtMSAA+UXeHzHv4Ft9y9KVN+y61Fki6WffeZQRpBX3n/IcbPIZxU
-	 Xe+wTvpt0mjtw==
+	b=GNHDFNOQLnd8H7+Sei+BPTUIbPNM9HV/dWn1VLWeSXegYtJ1KPT2fb3AASJTMUpJz
+	 N1SqGKT5c5+W7nhJpP6fhsJ2ovk7UAXTRujp78FDDqe5c84o3NUzZvv8WjfnW36iAH
+	 cS50AkkFPY3KBJR6irEyOWu/ROFC6W150/CKvs/0jqKLzCcU57HbyKCscdB61vjWJ9
+	 bqw7kQreOUSdEl+908shZakYQSH3M/+UYpOl+IBDjEd87Ji4EWW2Mm14IPPwL2Hu7M
+	 NScOlIZwmpu+/qgutdBbDYJxdkNB1w6PQpY8pJt4cMcAPUE75DbP4D8e/YcC47ajWr
+	 r0z08YxSwDOHQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jun Yang <junvyyang@tencent.com>,
-	stable@kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Kees Cook <keescook@chromium.org>,
+	Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Tom Rix <trix@redhat.com>,
+	Daniel Latypov <dlatypov@google.com>,
+	Vitor Massaru Iha <vitor@massaru.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev,
+	Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] sctp: re-point retained control chunks on association migration
-Date: Tue, 10 Nov 2026 10:52:25 -0500
-Message-ID: <20261110155217.2337999-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] overflow: Introduce overflows_type() and castable_to_type()
+Date: Tue, 10 Nov 2026 10:53:21 -0500
+Message-ID: <20261110155252.2304363-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110155217.2337999-1-sashal@kernel.org>
-References: <20261107050505-failed-7.3-52ffeaa358d1@kernel.org>
- <20261110155217.2337999-1-sashal@kernel.org>
+In-Reply-To: <20261107054614-failed-6.1-1c8f6308e557@kernel.org>
+References: <20261107054614-failed-6.1-1c8f6308e557@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,160 +72,574 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jun Yang <junvyyang@tencent.com>
+From: Kees Cook <keescook@chromium.org>
 
-[ Upstream commit 52ffeaa358d1f3d91aa87a26ad90d77769cff74b ]
+[ Upstream commit 4b21d25bf519c9487935a664886956bb18f04f6d ]
 
-sctp_sock_migrate() transfers DATA chunk ownership but leaves retained
-control chunks pointing at the old socket. A later retransmission can
-therefore access the socket after it has been freed.
+Implement a robust overflows_type() macro to test if a variable or
+constant value would overflow another variable or type. This can be
+used as a constant expression for static_assert() (which requires a
+constant expression[1][2]) when used on constant values. This must be
+constructed manually, since __builtin_add_overflow() does not produce
+a constant expression[3].
 
-Extend the migration walk to cover retained control chunks and use
-sctp_control_set_owner_w() to assign their new owner. Reuse the DATA
-ownership check so each chunk is processed once per pass, even when it
-is reachable through multiple lists or retained pointers.
+Additionally adds castable_to_type(), similar to __same_type(), but for
+checking if a constant value would overflow if cast to a given type.
 
-Preserve a control chunk's existing authentication key across migration
-so its final release can still generate SCTP_AUTH_FREE_KEY when needed.
+Add unit tests for overflows_type(), __same_type(), and castable_to_type()
+to the existing KUnit "overflow" test:
 
-Fixes: d04adf1b3551 ("sctp: reset owner sk for data chunks on out queues when migrating a sock")
-Cc: stable@kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Signed-off-by: Jun Yang <junvyyang@tencent.com>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20261009074244.3718-3-juny24602@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[16:03:33] ================== overflow (21 subtests) ==================
+...
+[16:03:33] [PASSED] overflows_type_test
+[16:03:33] [PASSED] same_type_test
+[16:03:33] [PASSED] castable_to_type_test
+[16:03:33] ==================== [PASSED] overflow =====================
+[16:03:33] ============================================================
+[16:03:33] Testing complete. Ran 21 tests: passed: 21
+[16:03:33] Elapsed time: 24.022s total, 0.002s configuring, 22.598s building, 0.767s running
+
+[1] https://en.cppreference.com/w/c/language/_Static_assert
+[2] C11 standard (ISO/IEC 9899:2011): 6.7.10 Static assertions
+[3] https://gcc.gnu.org/onlinedocs/gcc/Integer-Overflow-Builtins.html
+    6.56 Built-in Functions to Perform Arithmetic with Overflow Checking
+    Built-in Function: bool __builtin_add_overflow (type1 a, type2 b,
+
+Cc: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>
+Cc: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Tom Rix <trix@redhat.com>
+Cc: Daniel Latypov <dlatypov@google.com>
+Cc: Vitor Massaru Iha <vitor@massaru.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-hardening@vger.kernel.org
+Cc: llvm@lists.linux.dev
+Co-developed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Link: https://lore.kernel.org/r/20221024201125.1416422-1-gwan-gyeong.mun@intel.com
+Stable-dep-of: 1c8f6308e557 ("iommu/dma: Catch scatterlist length overflows")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/sctp/sm.h    |  1 +
- net/sctp/sm_make_chunk.c |  5 ++--
- net/sctp/socket.c        | 53 ++++++++++++++++++++++++++++++----------
- 3 files changed, 44 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/i915_user_extensions.c |   2 +-
+ drivers/gpu/drm/i915/i915_utils.h           |   4 -
+ include/linux/compiler.h                    |   1 +
+ include/linux/overflow.h                    |  47 +++
+ lib/Makefile                                |   1 +
+ lib/overflow_kunit.c                        | 381 ++++++++++++++++++++
+ 6 files changed, 431 insertions(+), 5 deletions(-)
 
-diff --git a/include/net/sctp/sm.h b/include/net/sctp/sm.h
-index 3bfd261a53cc9..76605d1ee8391 100644
---- a/include/net/sctp/sm.h
-+++ b/include/net/sctp/sm.h
-@@ -252,6 +252,7 @@ struct sctp_chunk *sctp_make_fwdtsn(const struct sctp_association *asoc,
- 				    struct sctp_fwdtsn_skip *skiplist);
- struct sctp_chunk *sctp_make_auth(const struct sctp_association *asoc,
- 				  __u16 key_id);
-+void sctp_control_set_owner_w(struct sctp_chunk *chunk);
- struct sctp_chunk *sctp_make_strreset_req(const struct sctp_association *asoc,
- 					  __u16 stream_num, __be16 *stream_list,
- 					  bool out, bool in);
-diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-index 8933caadcdb66..0896ec6c75ce7 100644
---- a/net/sctp/sm_make_chunk.c
-+++ b/net/sctp/sm_make_chunk.c
-@@ -94,7 +94,7 @@ static void sctp_control_release_owner(struct sk_buff *skb)
- 	}
+diff --git a/drivers/gpu/drm/i915/i915_user_extensions.c b/drivers/gpu/drm/i915/i915_user_extensions.c
+index c822d0aafd2dc..e3f808372c47b 100644
+--- a/drivers/gpu/drm/i915/i915_user_extensions.c
++++ b/drivers/gpu/drm/i915/i915_user_extensions.c
+@@ -51,7 +51,7 @@ int i915_user_extensions(struct i915_user_extension __user *ext,
+ 			return err;
+ 
+ 		if (get_user(next, &ext->next_extension) ||
+-		    overflows_type(next, ext))
++		    overflows_type(next, uintptr_t))
+ 			return -EFAULT;
+ 
+ 		ext = u64_to_user_ptr(next);
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index 6c14d13364bf7..67a66d4d5c70c 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -111,10 +111,6 @@ bool i915_error_injected(void);
+ #define range_overflows_end_t(type, start, size, max) \
+ 	range_overflows_end((type)(start), (type)(size), (type)(max))
+ 
+-/* Note we don't consider signbits :| */
+-#define overflows_type(x, T) \
+-	(sizeof(x) > sizeof(T) && (x) >> BITS_PER_TYPE(T))
+-
+ #define ptr_mask_bits(ptr, n) ({					\
+ 	unsigned long __v = (unsigned long)(ptr);			\
+ 	(typeof(ptr))(__v & -BIT(n));					\
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index a6a7be83fae6d..2103c181d4088 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -243,6 +243,7 @@ static inline void *offset_to_ptr(const int *off)
+  * bool and also pointer types.
+  */
+ #define is_signed_type(type) (((type)(-1)) < (__force type)1)
++#define is_unsigned_type(type) (!is_signed_type(type))
+ 
+ /*
+  * Useful shorthand for "is this condition known at compile-time?"
+diff --git a/include/linux/overflow.h b/include/linux/overflow.h
+index 8e58a9ec76e10..e1e1c29abb561 100644
+--- a/include/linux/overflow.h
++++ b/include/linux/overflow.h
+@@ -128,6 +128,53 @@ static inline bool __must_check __must_check_overflow(bool overflow)
+ 	(*_d >> _to_shift) != _a);					\
+ }))
+ 
++#define __overflows_type_constexpr(x, T) (			\
++	is_unsigned_type(typeof(x)) ?				\
++		(x) > type_max(typeof(T)) :			\
++	is_unsigned_type(typeof(T)) ?				\
++		(x) < 0 || (x) > type_max(typeof(T)) :		\
++	(x) < type_min(typeof(T)) || (x) > type_max(typeof(T)))
++
++#define __overflows_type(x, T)		({	\
++	typeof(T) v = 0;			\
++	check_add_overflow((x), v, &v);		\
++})
++
++/**
++ * overflows_type - helper for checking the overflows between value, variables,
++ *		    or data type
++ *
++ * @n: source constant value or variable to be checked
++ * @T: destination variable or data type proposed to store @x
++ *
++ * Compares the @x expression for whether or not it can safely fit in
++ * the storage of the type in @T. @x and @T can have different types.
++ * If @x is a constant expression, this will also resolve to a constant
++ * expression.
++ *
++ * Returns: true if overflow can occur, false otherwise.
++ */
++#define overflows_type(n, T)					\
++	__builtin_choose_expr(__is_constexpr(n),		\
++			      __overflows_type_constexpr(n, T),	\
++			      __overflows_type(n, T))
++
++/**
++ * castable_to_type - like __same_type(), but also allows for casted literals
++ *
++ * @n: variable or constant value
++ * @T: variable or data type
++ *
++ * Unlike the __same_type() macro, this allows a constant value as the
++ * first argument. If this value would not overflow into an assignment
++ * of the second argument's type, it returns true. Otherwise, this falls
++ * back to __same_type().
++ */
++#define castable_to_type(n, T)						\
++	__builtin_choose_expr(__is_constexpr(n),			\
++			      !__overflows_type_constexpr(n, T),	\
++			      __same_type(n, T))
++
+ /**
+  * size_mul() - Calculate size_t multiplication with saturation at SIZE_MAX
+  * @factor1: first factor
+diff --git a/lib/Makefile b/lib/Makefile
+index 1081d0c161159..94da990a17b6f 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -385,6 +385,7 @@ obj-$(CONFIG_CMDLINE_KUNIT_TEST) += cmdline_kunit.o
+ obj-$(CONFIG_SLUB_KUNIT_TEST) += slub_kunit.o
+ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
+ obj-$(CONFIG_IS_SIGNED_TYPE_KUNIT_TEST) += is_signed_type_kunit.o
++CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
+ obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
+ CFLAGS_stackinit_kunit.o += $(call cc-disable-warning, switch-unreachable)
+ obj-$(CONFIG_STACKINIT_KUNIT_TEST) += stackinit_kunit.o
+diff --git a/lib/overflow_kunit.c b/lib/overflow_kunit.c
+index e499e13856fb7..8c39823c0cbb0 100644
+--- a/lib/overflow_kunit.c
++++ b/lib/overflow_kunit.c
+@@ -735,6 +735,384 @@ static void overflow_size_helpers_test(struct kunit *test)
+ #undef check_one_size_helper
  }
  
--static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
-+void sctp_control_set_owner_w(struct sctp_chunk *chunk)
- {
- 	struct sctp_association *asoc = chunk->asoc;
- 	struct sk_buff *skb = chunk->skb;
-@@ -107,7 +107,8 @@ static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
- 	 *  For now don't do anything for now.
- 	 */
- 	if (chunk->auth) {
--		chunk->shkey = asoc->shkey;
-+		if (!chunk->shkey)
-+			chunk->shkey = asoc->shkey;
- 		sctp_auth_shkey_hold(chunk->shkey);
- 	}
- 	skb->sk = asoc ? asoc->base.sk : NULL;
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index b5e205eca3077..b5a57f61ee6d1 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -156,9 +156,24 @@ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
- 
- static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
- {
--	sctp_set_owner_w(chunk);
--	if (chunk->shkey)
--		sctp_auth_shkey_release(chunk->shkey);
-+	struct sctp_shared_key *shkey = chunk->shkey;
++static void overflows_type_test(struct kunit *test)
++{
++	int count = 0;
++	unsigned int var;
 +
-+	if (chunk->msg)
-+		sctp_set_owner_w(chunk);
-+	else
-+		sctp_control_set_owner_w(chunk);
++#define __TEST_OVERFLOWS_TYPE(func, arg1, arg2, of)	do {		\
++	bool __of = func(arg1, arg2);					\
++	KUNIT_EXPECT_EQ_MSG(test, __of, of,				\
++		"expected " #func "(" #arg1 ", " #arg2 " to%s overflow\n",\
++		of ? "" : " not");					\
++	count++;							\
++} while (0)
 +
-+	if (shkey)
-+		sctp_auth_shkey_release(shkey);
++/* Args are: first type, second type, value, overflow expected */
++#define TEST_OVERFLOWS_TYPE(__t1, __t2, v, of) do {			\
++	__t1 t1 = (v);							\
++	__t2 t2;							\
++	__TEST_OVERFLOWS_TYPE(__overflows_type, t1, t2, of);		\
++	__TEST_OVERFLOWS_TYPE(__overflows_type, t1, __t2, of);		\
++	__TEST_OVERFLOWS_TYPE(__overflows_type_constexpr, t1, t2, of);	\
++	__TEST_OVERFLOWS_TYPE(__overflows_type_constexpr, t1, __t2, of);\
++} while (0)
++
++	TEST_OVERFLOWS_TYPE(u8, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u8, u16, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u8, s8, U8_MAX, true);
++	TEST_OVERFLOWS_TYPE(u8, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u8, s8, (u8)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u8, s16, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, u8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, u8, -1, true);
++	TEST_OVERFLOWS_TYPE(s8, u8, S8_MIN, true);
++	TEST_OVERFLOWS_TYPE(s8, u16, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, u16, -1, true);
++	TEST_OVERFLOWS_TYPE(s8, u16, S8_MIN, true);
++	TEST_OVERFLOWS_TYPE(s8, u32, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, u32, -1, true);
++	TEST_OVERFLOWS_TYPE(s8, u32, S8_MIN, true);
++#if BITS_PER_LONG == 64
++	TEST_OVERFLOWS_TYPE(s8, u64, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, u64, -1, true);
++	TEST_OVERFLOWS_TYPE(s8, u64, S8_MIN, true);
++#endif
++	TEST_OVERFLOWS_TYPE(s8, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, s8, S8_MIN, false);
++	TEST_OVERFLOWS_TYPE(s8, s16, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s8, s16, S8_MIN, false);
++	TEST_OVERFLOWS_TYPE(u16, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u16, u8, (u16)U8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u16, u8, U16_MAX, true);
++	TEST_OVERFLOWS_TYPE(u16, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u16, s8, (u16)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u16, s8, U16_MAX, true);
++	TEST_OVERFLOWS_TYPE(u16, s16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(u16, s16, (u16)S16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u16, s16, U16_MAX, true);
++	TEST_OVERFLOWS_TYPE(u16, u32, U16_MAX, false);
++	TEST_OVERFLOWS_TYPE(u16, s32, U16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, u8, (s16)U8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s16, u8, -1, true);
++	TEST_OVERFLOWS_TYPE(s16, u8, S16_MIN, true);
++	TEST_OVERFLOWS_TYPE(s16, u16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, u16, -1, true);
++	TEST_OVERFLOWS_TYPE(s16, u16, S16_MIN, true);
++	TEST_OVERFLOWS_TYPE(s16, u32, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, u32, -1, true);
++	TEST_OVERFLOWS_TYPE(s16, u32, S16_MIN, true);
++#if BITS_PER_LONG == 64
++	TEST_OVERFLOWS_TYPE(s16, u64, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, u64, -1, true);
++	TEST_OVERFLOWS_TYPE(s16, u64, S16_MIN, true);
++#endif
++	TEST_OVERFLOWS_TYPE(s16, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, s8, S8_MIN, false);
++	TEST_OVERFLOWS_TYPE(s16, s8, (s16)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s16, s8, (s16)S8_MIN - 1, true);
++	TEST_OVERFLOWS_TYPE(s16, s8, S16_MAX, true);
++	TEST_OVERFLOWS_TYPE(s16, s8, S16_MIN, true);
++	TEST_OVERFLOWS_TYPE(s16, s16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, s16, S16_MIN, false);
++	TEST_OVERFLOWS_TYPE(s16, s32, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s16, s32, S16_MIN, false);
++	TEST_OVERFLOWS_TYPE(u32, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, u8, (u32)U8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u32, u8, U32_MAX, true);
++	TEST_OVERFLOWS_TYPE(u32, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, s8, (u32)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u32, s8, U32_MAX, true);
++	TEST_OVERFLOWS_TYPE(u32, u16, U16_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, u16, U16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u32, u16, U32_MAX, true);
++	TEST_OVERFLOWS_TYPE(u32, s16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, s16, (u32)S16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u32, s16, U32_MAX, true);
++	TEST_OVERFLOWS_TYPE(u32, u32, U32_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, s32, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, s32, U32_MAX, true);
++	TEST_OVERFLOWS_TYPE(u32, s32, (u32)S32_MAX + 1, true);
++#if BITS_PER_LONG == 64
++	TEST_OVERFLOWS_TYPE(u32, u64, U32_MAX, false);
++	TEST_OVERFLOWS_TYPE(u32, s64, U32_MAX, false);
++#endif
++	TEST_OVERFLOWS_TYPE(s32, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, u8, (s32)U8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s32, u16, S32_MAX, true);
++	TEST_OVERFLOWS_TYPE(s32, u8, -1, true);
++	TEST_OVERFLOWS_TYPE(s32, u8, S32_MIN, true);
++	TEST_OVERFLOWS_TYPE(s32, u16, U16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, u16, (s32)U16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s32, u16, S32_MAX, true);
++	TEST_OVERFLOWS_TYPE(s32, u16, -1, true);
++	TEST_OVERFLOWS_TYPE(s32, u16, S32_MIN, true);
++	TEST_OVERFLOWS_TYPE(s32, u32, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, u32, -1, true);
++	TEST_OVERFLOWS_TYPE(s32, u32, S32_MIN, true);
++#if BITS_PER_LONG == 64
++	TEST_OVERFLOWS_TYPE(s32, u64, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, u64, -1, true);
++	TEST_OVERFLOWS_TYPE(s32, u64, S32_MIN, true);
++#endif
++	TEST_OVERFLOWS_TYPE(s32, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, s8, S8_MIN, false);
++	TEST_OVERFLOWS_TYPE(s32, s8, (s32)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s32, s8, (s32)S8_MIN - 1, true);
++	TEST_OVERFLOWS_TYPE(s32, s8, S32_MAX, true);
++	TEST_OVERFLOWS_TYPE(s32, s8, S32_MIN, true);
++	TEST_OVERFLOWS_TYPE(s32, s16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, s16, S16_MIN, false);
++	TEST_OVERFLOWS_TYPE(s32, s16, (s32)S16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s32, s16, (s32)S16_MIN - 1, true);
++	TEST_OVERFLOWS_TYPE(s32, s16, S32_MAX, true);
++	TEST_OVERFLOWS_TYPE(s32, s16, S32_MIN, true);
++	TEST_OVERFLOWS_TYPE(s32, s32, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, s32, S32_MIN, false);
++#if BITS_PER_LONG == 64
++	TEST_OVERFLOWS_TYPE(s32, s64, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(s32, s64, S32_MIN, false);
++	TEST_OVERFLOWS_TYPE(u64, u8, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, u8, (u64)U8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u64, u16, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, u16, U16_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, u16, (u64)U16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u64, u32, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, u32, U32_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, u32, (u64)U32_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u64, u64, U64_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, s8, (u64)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u64, s8, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, s16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, s16, (u64)S16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u64, s16, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, s32, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, s32, (u64)S32_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(u64, s32, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, s64, S64_MAX, false);
++	TEST_OVERFLOWS_TYPE(u64, s64, U64_MAX, true);
++	TEST_OVERFLOWS_TYPE(u64, s64, (u64)S64_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, u8, S64_MAX, true);
++	TEST_OVERFLOWS_TYPE(s64, u8, S64_MIN, true);
++	TEST_OVERFLOWS_TYPE(s64, u8, -1, true);
++	TEST_OVERFLOWS_TYPE(s64, u8, U8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, u8, (s64)U8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, u16, S64_MAX, true);
++	TEST_OVERFLOWS_TYPE(s64, u16, S64_MIN, true);
++	TEST_OVERFLOWS_TYPE(s64, u16, -1, true);
++	TEST_OVERFLOWS_TYPE(s64, u16, U16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, u16, (s64)U16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, u32, S64_MAX, true);
++	TEST_OVERFLOWS_TYPE(s64, u32, S64_MIN, true);
++	TEST_OVERFLOWS_TYPE(s64, u32, -1, true);
++	TEST_OVERFLOWS_TYPE(s64, u32, U32_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, u32, (s64)U32_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, u64, S64_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, u64, S64_MIN, true);
++	TEST_OVERFLOWS_TYPE(s64, u64, -1, true);
++	TEST_OVERFLOWS_TYPE(s64, s8, S8_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, s8, S8_MIN, false);
++	TEST_OVERFLOWS_TYPE(s64, s8, (s64)S8_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, s8, (s64)S8_MIN - 1, true);
++	TEST_OVERFLOWS_TYPE(s64, s8, S64_MAX, true);
++	TEST_OVERFLOWS_TYPE(s64, s16, S16_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, s16, S16_MIN, false);
++	TEST_OVERFLOWS_TYPE(s64, s16, (s64)S16_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, s16, (s64)S16_MIN - 1, true);
++	TEST_OVERFLOWS_TYPE(s64, s16, S64_MAX, true);
++	TEST_OVERFLOWS_TYPE(s64, s32, S32_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, s32, S32_MIN, false);
++	TEST_OVERFLOWS_TYPE(s64, s32, (s64)S32_MAX + 1, true);
++	TEST_OVERFLOWS_TYPE(s64, s32, (s64)S32_MIN - 1, true);
++	TEST_OVERFLOWS_TYPE(s64, s32, S64_MAX, true);
++	TEST_OVERFLOWS_TYPE(s64, s64, S64_MAX, false);
++	TEST_OVERFLOWS_TYPE(s64, s64, S64_MIN, false);
++#endif
++
++	/* Check for macro side-effects. */
++	var = INT_MAX - 1;
++	__TEST_OVERFLOWS_TYPE(__overflows_type, var++, int, false);
++	__TEST_OVERFLOWS_TYPE(__overflows_type, var++, int, false);
++	__TEST_OVERFLOWS_TYPE(__overflows_type, var++, int, true);
++	var = INT_MAX - 1;
++	__TEST_OVERFLOWS_TYPE(overflows_type, var++, int, false);
++	__TEST_OVERFLOWS_TYPE(overflows_type, var++, int, false);
++	__TEST_OVERFLOWS_TYPE(overflows_type, var++, int, true);
++
++	kunit_info(test, "%d overflows_type() tests finished\n", count);
++#undef TEST_OVERFLOWS_TYPE
++#undef __TEST_OVERFLOWS_TYPE
 +}
 +
-+static void sctp_process_tx_chunk(struct sctp_association *asoc,
-+				  struct sctp_chunk *chunk, bool clear,
-+				  void (*cb)(struct sctp_chunk *))
++static void same_type_test(struct kunit *test)
 +{
-+	if ((clear && asoc->base.sk == chunk->skb->sk) ||
-+	    (!clear && asoc->base.sk != chunk->skb->sk))
-+		cb(chunk);
- }
- 
- #define traverse_and_process()	\
-@@ -166,17 +181,14 @@ do {				\
- 	msg = chunk->msg;	\
- 	if (msg == prev_msg)	\
- 		continue;	\
--	list_for_each_entry(c, &msg->chunks, frag_list) {	\
--		if ((clear && asoc->base.sk == c->skb->sk) ||	\
--		    (!clear && asoc->base.sk != c->skb->sk))	\
--			cb(c);	\
--	}			\
-+	list_for_each_entry(c, &msg->chunks, frag_list)	\
-+		sctp_process_tx_chunk(asoc, c, clear, cb);	\
- 	prev_msg = msg;		\
- } while (0)
- 
--static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
--				       bool clear,
--				       void (*cb)(struct sctp_chunk *))
-+static void sctp_for_each_tx_chunk(struct sctp_association *asoc,
-+				   bool clear,
-+				   void (*cb)(struct sctp_chunk *))
- 
- {
- 	struct sctp_datamsg *msg, *prev_msg = NULL;
-@@ -199,6 +211,21 @@ static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
- 
- 	list_for_each_entry(chunk, &q->out_chunk_list, list)
- 		traverse_and_process();
++	int count = 0;
++	int var;
 +
-+	list_for_each_entry(chunk, &q->control_chunk_list, list)
-+		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++#define TEST_SAME_TYPE(t1, t2, same)			do {	\
++	typeof(t1) __t1h = type_max(t1);			\
++	typeof(t1) __t1l = type_min(t1);			\
++	typeof(t2) __t2h = type_max(t2);			\
++	typeof(t2) __t2l = type_min(t2);			\
++	KUNIT_EXPECT_EQ(test, true, __same_type(t1, __t1h));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(t1, __t1l));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(__t1h, t1));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(__t1l, t1));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(t2, __t2h));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(t2, __t2l));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(__t2h, t2));	\
++	KUNIT_EXPECT_EQ(test, true, __same_type(__t2l, t2));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(t1, t2));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(t2, __t1h));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(t2, __t1l));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(__t1h, t2));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(__t1l, t2));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(t1, __t2h));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(t1, __t2l));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(__t2h, t1));	\
++	KUNIT_EXPECT_EQ(test, same, __same_type(__t2l, t1));	\
++} while (0)
 +
-+	list_for_each_entry(chunk, &asoc->asconf_ack_list, transmitted_list)
-+		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++#if BITS_PER_LONG == 64
++# define TEST_SAME_TYPE64(base, t, m)	TEST_SAME_TYPE(base, t, m)
++#else
++# define TEST_SAME_TYPE64(base, t, m)	do { } while (0)
++#endif
 +
-+	list_for_each_entry(chunk, &asoc->addip_chunk_list, list)
-+		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++#define TEST_TYPE_SETS(base, mu8, mu16, mu32, ms8, ms16, ms32, mu64, ms64) \
++do {									\
++	TEST_SAME_TYPE(base,  u8,  mu8);				\
++	TEST_SAME_TYPE(base, u16, mu16);				\
++	TEST_SAME_TYPE(base, u32, mu32);				\
++	TEST_SAME_TYPE(base,  s8,  ms8);				\
++	TEST_SAME_TYPE(base, s16, ms16);				\
++	TEST_SAME_TYPE(base, s32, ms32);				\
++	TEST_SAME_TYPE64(base, u64, mu64);				\
++	TEST_SAME_TYPE64(base, s64, ms64);				\
++} while (0)
 +
-+	if (asoc->strreset_chunk)
-+		sctp_process_tx_chunk(asoc, asoc->strreset_chunk, clear, cb);
++	TEST_TYPE_SETS(u8,   true, false, false, false, false, false, false, false);
++	TEST_TYPE_SETS(u16, false,  true, false, false, false, false, false, false);
++	TEST_TYPE_SETS(u32, false, false,  true, false, false, false, false, false);
++	TEST_TYPE_SETS(s8,  false, false, false,  true, false, false, false, false);
++	TEST_TYPE_SETS(s16, false, false, false, false,  true, false, false, false);
++	TEST_TYPE_SETS(s32, false, false, false, false, false,  true, false, false);
++#if BITS_PER_LONG == 64
++	TEST_TYPE_SETS(u64, false, false, false, false, false, false,  true, false);
++	TEST_TYPE_SETS(s64, false, false, false, false, false, false, false,  true);
++#endif
 +
-+	if (asoc->addip_last_asconf)
-+		sctp_process_tx_chunk(asoc, asoc->addip_last_asconf, clear, cb);
- }
++	/* Check for macro side-effects. */
++	var = 4;
++	KUNIT_EXPECT_EQ(test, var, 4);
++	KUNIT_EXPECT_TRUE(test, __same_type(var++, int));
++	KUNIT_EXPECT_EQ(test, var, 4);
++	KUNIT_EXPECT_TRUE(test, __same_type(int, var++));
++	KUNIT_EXPECT_EQ(test, var, 4);
++	KUNIT_EXPECT_TRUE(test, __same_type(var++, var++));
++	KUNIT_EXPECT_EQ(test, var, 4);
++
++	kunit_info(test, "%d __same_type() tests finished\n", count);
++
++#undef TEST_TYPE_SETS
++#undef TEST_SAME_TYPE64
++#undef TEST_SAME_TYPE
++}
++
++static void castable_to_type_test(struct kunit *test)
++{
++	int count = 0;
++
++#define TEST_CASTABLE_TO_TYPE(arg1, arg2, pass)	do {	\
++	bool __pass = castable_to_type(arg1, arg2);		\
++	KUNIT_EXPECT_EQ_MSG(test, __pass, pass,			\
++		"expected castable_to_type(" #arg1 ", " #arg2 ") to%s pass\n",\
++		pass ? "" : " not");				\
++	count++;						\
++} while (0)
++
++	TEST_CASTABLE_TO_TYPE(16, u8, true);
++	TEST_CASTABLE_TO_TYPE(16, u16, true);
++	TEST_CASTABLE_TO_TYPE(16, u32, true);
++	TEST_CASTABLE_TO_TYPE(16, s8, true);
++	TEST_CASTABLE_TO_TYPE(16, s16, true);
++	TEST_CASTABLE_TO_TYPE(16, s32, true);
++	TEST_CASTABLE_TO_TYPE(-16, s8, true);
++	TEST_CASTABLE_TO_TYPE(-16, s16, true);
++	TEST_CASTABLE_TO_TYPE(-16, s32, true);
++#if BITS_PER_LONG == 64
++	TEST_CASTABLE_TO_TYPE(16, u64, true);
++	TEST_CASTABLE_TO_TYPE(-16, s64, true);
++#endif
++
++#define TEST_CASTABLE_TO_TYPE_VAR(width)	do {				\
++	u ## width u ## width ## var = 0;					\
++	s ## width s ## width ## var = 0;					\
++										\
++	/* Constant expressions that fit types. */				\
++	TEST_CASTABLE_TO_TYPE(type_max(u ## width), u ## width, true);		\
++	TEST_CASTABLE_TO_TYPE(type_min(u ## width), u ## width, true);		\
++	TEST_CASTABLE_TO_TYPE(type_max(u ## width), u ## width ## var, true);	\
++	TEST_CASTABLE_TO_TYPE(type_min(u ## width), u ## width ## var, true);	\
++	TEST_CASTABLE_TO_TYPE(type_max(s ## width), s ## width, true);		\
++	TEST_CASTABLE_TO_TYPE(type_min(s ## width), s ## width, true);		\
++	TEST_CASTABLE_TO_TYPE(type_max(s ## width), s ## width ## var, true);	\
++	TEST_CASTABLE_TO_TYPE(type_min(u ## width), s ## width ## var, true);	\
++	/* Constant expressions that do not fit types. */			\
++	TEST_CASTABLE_TO_TYPE(type_max(u ## width), s ## width, false);		\
++	TEST_CASTABLE_TO_TYPE(type_max(u ## width), s ## width ## var, false);	\
++	TEST_CASTABLE_TO_TYPE(type_min(s ## width), u ## width, false);		\
++	TEST_CASTABLE_TO_TYPE(type_min(s ## width), u ## width ## var, false);	\
++	/* Non-constant expression with mismatched type. */			\
++	TEST_CASTABLE_TO_TYPE(s ## width ## var, u ## width, false);		\
++	TEST_CASTABLE_TO_TYPE(u ## width ## var, s ## width, false);		\
++} while (0)
++
++#define TEST_CASTABLE_TO_TYPE_RANGE(width)	do {				\
++	unsigned long big = U ## width ## _MAX;					\
++	signed long small = S ## width ## _MIN;					\
++	u ## width u ## width ## var = 0;					\
++	s ## width s ## width ## var = 0;					\
++										\
++	/* Constant expression in range. */					\
++	TEST_CASTABLE_TO_TYPE(U ## width ## _MAX, u ## width, true);		\
++	TEST_CASTABLE_TO_TYPE(U ## width ## _MAX, u ## width ## var, true);	\
++	TEST_CASTABLE_TO_TYPE(S ## width ## _MIN, s ## width, true);		\
++	TEST_CASTABLE_TO_TYPE(S ## width ## _MIN, s ## width ## var, true);	\
++	/* Constant expression out of range. */					\
++	TEST_CASTABLE_TO_TYPE((unsigned long)U ## width ## _MAX + 1, u ## width, false); \
++	TEST_CASTABLE_TO_TYPE((unsigned long)U ## width ## _MAX + 1, u ## width ## var, false); \
++	TEST_CASTABLE_TO_TYPE((signed long)S ## width ## _MIN - 1, s ## width, false); \
++	TEST_CASTABLE_TO_TYPE((signed long)S ## width ## _MIN - 1, s ## width ## var, false); \
++	/* Non-constant expression with mismatched type. */			\
++	TEST_CASTABLE_TO_TYPE(big, u ## width, false);				\
++	TEST_CASTABLE_TO_TYPE(big, u ## width ## var, false);			\
++	TEST_CASTABLE_TO_TYPE(small, s ## width, false);			\
++	TEST_CASTABLE_TO_TYPE(small, s ## width ## var, false);			\
++} while (0)
++
++	TEST_CASTABLE_TO_TYPE_VAR(8);
++	TEST_CASTABLE_TO_TYPE_VAR(16);
++	TEST_CASTABLE_TO_TYPE_VAR(32);
++#if BITS_PER_LONG == 64
++	TEST_CASTABLE_TO_TYPE_VAR(64);
++#endif
++
++	TEST_CASTABLE_TO_TYPE_RANGE(8);
++	TEST_CASTABLE_TO_TYPE_RANGE(16);
++#if BITS_PER_LONG == 64
++	TEST_CASTABLE_TO_TYPE_RANGE(32);
++#endif
++	kunit_info(test, "%d castable_to_type() tests finished\n", count);
++
++#undef TEST_CASTABLE_TO_TYPE_RANGE
++#undef TEST_CASTABLE_TO_TYPE_VAR
++#undef TEST_CASTABLE_TO_TYPE
++}
++
+ static struct kunit_case overflow_test_cases[] = {
+ 	KUNIT_CASE(u8_u8__u8_overflow_test),
+ 	KUNIT_CASE(s8_s8__s8_overflow_test),
+@@ -754,6 +1132,9 @@ static struct kunit_case overflow_test_cases[] = {
+ 	KUNIT_CASE(shift_nonsense_test),
+ 	KUNIT_CASE(overflow_allocation_test),
+ 	KUNIT_CASE(overflow_size_helpers_test),
++	KUNIT_CASE(overflows_type_test),
++	KUNIT_CASE(same_type_test),
++	KUNIT_CASE(castable_to_type_test),
+ 	{}
+ };
  
- static void sctp_for_each_rx_skb(struct sctp_association *asoc, struct sock *sk,
-@@ -9657,9 +9684,9 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
- 	 * paths won't try to lock it and then oldsk.
- 	 */
- 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
--	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
-+	sctp_for_each_tx_chunk(assoc, true, sctp_clear_owner_w);
- 	sctp_assoc_migrate(assoc, newsk);
--	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
-+	sctp_for_each_tx_chunk(assoc, false, sctp_set_owner_w_migrate);
- 
- 	/* If the association on the newsk is already closed before accept()
- 	 * is called, set RCV_SHUTDOWN flag.
 -- 
 2.53.0
 
