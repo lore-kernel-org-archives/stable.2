@@ -1,50 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273382;
-	b=ldhU3aZLhInZ2Sz1qPiPq6s0bo4iS3gwAqJtr0R/uEaT0ohWLF249jhk2ZhMmV2ZUTS4
-	 a1FCw2V1GqC85cYYiqB7VzSFO0ZoQ4nNwGfy7Yp4K6JFM6hpMluK1OQDvL0sTU9m8F3Hj
-	 z0YLVLZZs7+XolVC8KYvhmyI2U/fqZWUKumjBHoe1+YGCRFVzgRWScMjEXcRNSJCaRGZW
-	 S9jwx7wFSQgITOsd9s85jH6Z9fi6ozF3YlmNnoNVQJyVUzp2ScwHCs4DJr4U8udMusntU
-	 MnhkYuFSyH8ALkFNqzLifhyYa+muLqlWeMbo3xXasAsRi03iKQlRONP4yqNyZkLJZ0g==
+	t=1794273384;
+	b=tLke0x9r5uKl/JkqnYm4sHuYscWBEcIYFQn2zuYjti296MPpl8zMUN8D444j4KbjVv5P
+	 bnzI2MFM9EO1xsALhn6N9twf1o7MOqpr0kMqi0G/riEbTD81fXVc6ateR1h14YN8wMKjI
+	 uxjQA1o3fE1VvcBaBz7/XbmaOn4tgipC0xmDAf0vUvPxgsuIGGaHq3uo1VBFB/GC6FacM
+	 mQxb6dp34jDvehv4+c9PnWK6eBkpe/HE+6Yqx35yz9fngd5ihPHvg4zZ3CstcYZlFXdjt
+	 vPmKv2WDA4HzFBfg9tfLBy/NouCrIYQJ4TgP1EO1JfAR4vx0kykXm/slbBDSZ8ICGuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273382;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273384;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uOPmDZ6pxnJqn8AW6zroDPkLY+RcOIY4TuDmTEYAtFI=;
-	b=i4xISbyfMUeuP8w36l+Ei2mJeZ2Wm9yjoAMO2tpileAhtB0E9E3MORkMA6I3YVDKxTK/
-	 v2coIfNoSC7KNPnbSEr/hH1rqodPHvMltIk5TC9LvuvaBQAGzqL8hYwvsrzIf8SaD0r9W
-	 KZSjm40S4Wfi8WRUWDmrKzjuZAdd5RWZyM4Lgm94GPqQgRt78LYF/Kd7WnSIf7SaMTMz2
-	 Z+fu4sNKmH7sTO3B61SujWOXJoVxF2K5tre5sz195PdVaG1dKaJpwJuB4RrLvDfxEWYPI
-	 YE08EaOR4dR+aTubOTeHztFe8NVi2zACMWyHAHchlglyrFzW+LJZzbR5Ddvjuc3+p3A==
+	bh=R+cqP8Xtsf/AgrJjDAmxDhxHSxqU5doc1qQ9HACrq40=;
+	b=1ouLiUSvVOhuedQluwOHztUAloIliIXlcAvTSEDP0WE4W5NVBZI4ZaqB3p2UyfFMn2hY
+	 veMFtemihFpAWRk0CnPBKfg0LmInIZoFUiVjsl46Lf11jI7drpFtWksAuBJN5xM2a9uvS
+	 IxSeZTp3YKSjWuNUTTGr7MmAfR3+Du0qfZiq1ZXKUjpm+3CYcr7TAkeVbGkMjhbySXWfL
+	 mFEeeZzM2Gr6etDV02xrF1S3BGfjrKCh7Ixd4ekvT33EbD2Wqbl16gbX5HtjrCirP23u7
+	 54RvKto6o+1GesPpTLJL/Sm/Gt3qFPoXeiqA3gZUXGKBpH8r1F7EcbSyTpM/gHgmDwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWl7ZiUE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YR+uMIRz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3569360A2610
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7627160A2622
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWl7ZiUE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4F921F008A2;
-	Tue, 10 Nov 2026 01:16:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YR+uMIRz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2C01F008A1;
+	Tue, 10 Nov 2026 01:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273382;
-	bh=uOPmDZ6pxnJqn8AW6zroDPkLY+RcOIY4TuDmTEYAtFI=;
+	s=k20260515; t=1794273384;
+	bh=R+cqP8Xtsf/AgrJjDAmxDhxHSxqU5doc1qQ9HACrq40=;
 	h=From:To:Cc:Subject:Date;
-	b=fWl7ZiUExymzgoVE1mdWfiIWqxL/KQSFJ2+6PsyIRPMCASV4egzOK5riI6Je2BRe7
-	 8we1snJ6zIGvLBfLsopESb84hdJH7kcut9FIscYaSIuObYmvEwxafcBURFMTyp39Vn
-	 h4vhEAZVTVkvsHp2VizIw8R6EYv8MTTHPWXIMrP7mwQVOpuetrMGwBgmkFoUfpBzf+
-	 tBfn0Tzc4saek5Y0nGesgjgDsDbogBcf9bBWtS7p7wPBRjHUxSGJa+tFwDW23iwlp/
-	 VNMGBKCISIs76LXwQHpDWeDVw5nRT45AO51e5njnmGiPzynoMwsK9YStF/0bvDXFdO
-	 L7KhckPBIr9QQ==
+	b=YR+uMIRzjmm7AqiVcZlAwctECE98fZMNv4/b6N8cyGFIaR+xAxadoCyoqnw9EIUWu
+	 PzZYlKdm6JermRqSe8U8i1uy35OR8mLfl/InHL7cFIg5hHJH8GQpeMx/gcQWrHhltx
+	 ZhPrmdtGS02hYJVfbAVVTfLXjhwHquBtJGKsLFP+rDxIdlpmm4gR/P6oJenv+BaKt+
+	 6WqTL3ItIsDN5/VN1qyFrFt2gL61/Ghu82b+ByBULYgnAptu5edjTPupDGNdpSSLGM
+	 XKx4+IShmrxWamzSENcqOiks6eFB5OF5dADgaLov0M29pcyZBVtkYfW+QfJDIvcCDy
+	 n8DxMGj/aXVsA==
 From: Sasha Levin <sashal@kernel.org>
-To: linux@roeck-us.net
+To: linux@roeck-us.net,
+	sashiko-bot@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (pmbus) Check return value from pmbus_thermal_add_sensor()" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:16:19 -0500
-Message-ID: <20261109201619-failed-6.1-11dfbd835b17@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (tmp108) Fix initial conversion delay and wait until ready" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:16:22 -0500
+Message-ID: <20261109201622-failed-6.1-7cd60538073e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,165 +68,125 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 11dfbd835b17b75f7cc7a4a969f33ff702b1b081
+git cherry-pick -x 7cd60538073e465310c94b2a2f0ea8d2f03768ef
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201619-failed-6.1-11dfbd835b17@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201622-failed-6.1-7cd60538073e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 11dfbd835b17b75f7cc7a4a969f33ff702b1b081 Mon Sep 17 00:00:00 2001
+From 7cd60538073e465310c94b2a2f0ea8d2f03768ef Mon Sep 17 00:00:00 2001
 From: Guenter Roeck <linux@roeck-us.net>
-Date: Thu, 29 Oct 2026 23:34:04 -0700
-Subject: [PATCH] hwmon: (pmbus) Check return value from
- pmbus_thermal_add_sensor()
+Date: Fri, 30 Oct 2026 20:02:08 -0700
+Subject: [PATCH] hwmon: (tmp108) Fix initial conversion delay and wait until
+ ready
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-During PMBus device probe, if registering a temperature sensor with the
-thermal subsystem fails, pmbus_add_sensor() silently ignores the error and
-returns success.
-When a valid temperature sensor is detected (class PSC_TEMPERATURE and type
-"input"), pmbus_add_sensor() invokes pmbus_thermal_add_sensor() to hook it
-into the kernel's thermal framework. However, the return value of this call
-is completely discarded. If thermal registration fails, such as from an
--ENOMEM allocation failure or an invalid device tree configuration like a
-malformed #thermal-sensor-cells property, no error is propagated.
+In tmp108_common_probe(), the driver only adds the 30 ms conversion delay
+(TMP108_CONVERSION_TIME_MS) to ready_time if the sensor was previously in
+TMP108_MODE_SHUTDOWN. However, the TMP108 hardware defaults to continuous
+conversion mode (TMP108_MODE_CONTINUOUS) upon power-on reset, including
+immediately after enabling the vcc supply regulator during probe, while
+the temperature register retains its power-on reset value of 0x0000 (0°C)
+until the first conversion completes. Because the initial mode is not
+shutdown, the delay is bypassed and early reads via thermal zone
+registration or sysfs before the first conversion finishes return an
+uninitialized 0°C reading.
 
-Because the hardware monitor probe falsely succeeds despite the failure to
-register the thermal zone, the system is left without thermal mitigation
-for the affected PMBus device. This silently blinds the system to actual
-PMIC temperatures, preventing the execution of necessary cooling mechanisms
-or emergency shutdowns and risking localized overheating.
+In addition, returning -EAGAIN from tmp108_read() while waiting for a
+conversion to complete after probe or resume can trigger an unnecessary
+tight retry loop in callers or fail initial reads.
 
-Pass the return value from pmbus_thermal_add_sensor() to the calling code
-to fix the problem. To enable passing the actual error, change the error
-return from pmbus_add_sensor() from NULL to ERR_PTR() and extract the error
-from in the calling code.
+Unconditionally set ready_time to TMP108_CONVERSION_TIME_MS ahead in
+tmp108_common_probe(), track ready_time as ktime_t, and wait for the
+remaining conversion time in tmp108_read() using usleep_range() instead
+of returning -EAGAIN.
 
-Fixes: 3aa74796cfd0 ("hwmon: (pmbus) Register with thermal for PSC_TEMPERATURE")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/pmbus/pmbus_core.c | 42 ++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 18 deletions(-)
+ drivers/hwmon/tmp108.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-index af13408c62f9b..9bccbf41c8844 100644
---- a/drivers/hwmon/pmbus/pmbus_core.c
-+++ b/drivers/hwmon/pmbus/pmbus_core.c
-@@ -1551,10 +1551,11 @@ static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
- {
- 	struct sensor_device_attribute *a;
- 	struct pmbus_sensor *sensor;
-+	int err;
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index 91d20a1ce1120..862b944d3e609 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -13,7 +13,7 @@
+ #include <linux/i2c.h>
+ #include <linux/i3c/device.h>
+ #include <linux/init.h>
+-#include <linux/jiffies.h>
++#include <linux/ktime.h>
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
+@@ -78,7 +78,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	u64 ready_time;
++	ktime_t ready_time;
+ 	const struct tmp108_params *params;
+ };
  
- 	sensor = devm_kzalloc(data->dev, sizeof(*sensor), GFP_KERNEL);
- 	if (!sensor)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	a = &sensor->attribute;
+@@ -121,6 +121,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	struct tmp108 *tmp108 = dev_get_drvdata(dev);
+ 	unsigned int regval;
+ 	int err, hyst;
++	s64 delay;
  
- 	if (type)
-@@ -1579,14 +1580,17 @@ static struct pmbus_sensor *pmbus_add_sensor(struct pmbus_data *data,
- 			pmbus_set_sensor, -1);
+ 	if (type == hwmon_chip) {
+ 		if (attr == hwmon_chip_update_interval) {
+@@ -137,12 +138,10 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
  
- 	if (pmbus_add_attribute(data, &a->dev_attr.attr))
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 
- 	sensor->next = data->sensors;
- 	data->sensors = sensor;
- 
- 	/* temperature sensors with _input values are registered with thermal */
--	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0)
--		pmbus_thermal_add_sensor(data, sensor, seq);
-+	if (class == PSC_TEMPERATURE && strcmp(type, "input") == 0) {
-+		err = pmbus_thermal_add_sensor(data, sensor, seq);
-+		if (err)
-+			return ERR_PTR(err);
-+	}
- 
- 	return sensor;
- }
-@@ -1687,8 +1691,8 @@ static int pmbus_add_limit_attrs(struct i2c_client *client,
- 						page, 0xff, l->reg, attr->class,
- 						attr->update || l->update,
- 						l->readonly, l->writeonly, true);
--			if (!curr)
--				return -ENOMEM;
-+			if (IS_ERR(curr))
-+				return PTR_ERR(curr);
- 			if (l->sbit && (info->func[page] & attr->sfunc)) {
- 				ret = pmbus_add_boolean(data, name,
- 					l->alarm, index,
-@@ -1727,8 +1731,8 @@ static int pmbus_add_sensor_attrs_one(struct i2c_client *client,
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+-		/* Is it too early to return a conversion ? */
+-		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+-			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+-				__func__);
+-			return -EAGAIN;
+-		}
++		/* Wait if it is too early to return a conversion */
++		delay = ktime_us_delta(tmp108->ready_time, ktime_get());
++		if (delay > 0)
++			usleep_range(delay, delay + 1000);
+ 		err = regmap_read(tmp108->regmap, TMP108_REG_TEMP, &regval);
+ 		if (err < 0)
+ 			return err;
+@@ -477,11 +476,8 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+ 		return err;
  	}
- 	base = pmbus_add_sensor(data, name, "input", index, page, phase,
- 				attr->reg, attr->class, true, true, false, true);
--	if (!base)
--		return -ENOMEM;
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
- 	/* No limit and alarm attributes for phase specific sensors */
- 	if (attr->sfunc && phase == 0xff) {
- 		ret = pmbus_add_limit_attrs(client, data, info, name,
-@@ -2401,8 +2405,8 @@ static int pmbus_add_fan_ctrl(struct i2c_client *client,
- 				  0xff, PMBUS_VIRT_FAN_TARGET_1 + id, PSC_FAN,
- 				  false, false, false, true);
  
--	if (!sensor)
--		return -ENOMEM;
-+	if (IS_ERR(sensor))
-+		return PTR_ERR(sensor);
+-	tmp108->ready_time = get_jiffies_64();
+-	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+-	    TMP108_MODE_SHUTDOWN)
+-		tmp108->ready_time +=
+-			msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
  
- 	if (!((data->info->func[page] & PMBUS_HAVE_PWM12) ||
- 	      (data->info->func[page] & PMBUS_HAVE_PWM34)))
-@@ -2412,15 +2416,15 @@ static int pmbus_add_fan_ctrl(struct i2c_client *client,
- 				  0xff, PMBUS_VIRT_PWM_1 + id, PSC_PWM,
- 				  false, false, false, true);
+ 	err = devm_add_action_or_reset(dev, tmp108_restore_config, tmp108);
+ 	if (err) {
+@@ -528,8 +524,8 @@ static int tmp108_resume(struct device *dev)
  
--	if (!sensor)
--		return -ENOMEM;
-+	if (IS_ERR(sensor))
-+		return PTR_ERR(sensor);
- 
- 	sensor = pmbus_add_sensor(data, "pwm", "enable", index, page,
- 				  0xff, PMBUS_VIRT_PWM_ENABLE_1 + id, PSC_PWM,
- 				  true, false, false, false);
- 
--	if (!sensor)
--		return -ENOMEM;
-+	if (IS_ERR(sensor))
-+		return PTR_ERR(sensor);
- 
- 	return 0;
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = get_jiffies_64() +
+-			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
++	tmp108->ready_time = ktime_add_ms(ktime_get(),
++					  TMP108_CONVERSION_TIME_MS);
+ 	return err;
  }
-@@ -2437,6 +2441,7 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
- 		int f;
  
- 		for (f = 0; f < ARRAY_SIZE(pmbus_fan_registers); f++) {
-+			struct pmbus_sensor *sensor;
- 			int regval;
- 
- 			if (!(info->func[page] & pmbus_fan_flags[f]))
-@@ -2457,10 +2462,11 @@ static int pmbus_add_fan_attributes(struct i2c_client *client,
- 			    (!(regval & (PB_FAN_1_INSTALLED >> ((f & 1) * 4)))))
- 				continue;
- 
--			if (pmbus_add_sensor(data, "fan", "input", index,
--					     page, 0xff, pmbus_fan_registers[f],
--					     PSC_FAN, true, true, false, true) == NULL)
--				return -ENOMEM;
-+			sensor = pmbus_add_sensor(data, "fan", "input", index,
-+						  page, 0xff, pmbus_fan_registers[f],
-+						  PSC_FAN, true, true, false, true);
-+			if (IS_ERR(sensor))
-+				return PTR_ERR(sensor);
- 
- 			/* Fan control */
- 			if (pmbus_check_word_register(client, page,
 -- 
 2.53.0
 
