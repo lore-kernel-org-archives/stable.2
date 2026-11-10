@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794318221;
-	b=b/nnAyHzOyQgSiJKZ6RCwidb2vmARApV7QszfMbMXQQEYVsPJZtN00uNhSgjKzssj70s
-	 QdOvkt6StFXmreugKfWkRiUFsvt1IF72r4Akz8ZSpGbhL9m/BE7rJcOcVCzRlzr59JufW
-	 E2K3wN57XEiu7/il4ixHrErhdc8WN/MrFhDaITJv1vngNW5euLPsTGb77rvcJG+wYkNVU
-	 2qIf3DZlf73OuMy/Gpk/UoV1Q3lW4nVzljcUNs9dzIaBsFpJDtYUAuZBh/poJhfTWDSVA
-	 ez7emhwP0ijHH5RYqAVGSTwJLYJfyskOUZDhaUVhNRbLtAxHG/jr+BC8rYwzk/oYCng==
+	t=1794318270;
+	b=ORdv7dWWLXkym45Dwv8iLxBrZdWApgwB1lSU92boqyMk6PUijfhM+4pgrvmLF9UZMdsK
+	 Mn36ZUZulZ6rhCmeIIULA3mI3mBugn8RtgpRrtFFklK5CCwET6cKkOe8vWEbA7XhJkhYO
+	 sGOiavi5Z7aqzmUTT0mrj5I36vcAvqXTBV1xEDgkDXdcUBE852SW/qx0pixYBCJ/R+1Da
+	 JD8Q8LE4a2yR9L6JywBAqAvXoCdBgorIzxKrLXi93t7f7pfQa7LeaG5f1C3fAdUErJh54
+	 chkjODyBMqndbVD+GHsNo+IuDszEgYzvCp65w4ZOLvhaoD/HKv6AbO5VuZAqzHLq5Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794318221;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O/pJHAniufO7T+Qw3N8oZy2xDYQiP7/ckPKZfGD+HG0=;
-	b=nUk45Nzmlr2aICGvT2PzeN8+drQbcfJsZSOfIBLLPXZ6iIgWW+WkjATT4FPFkzOSy4B+
-	 1RExJkcNxcOPEWLyYvGl0tVxJzL87Ro6ub2fjmxnyEMpN/4k2uHJuB4gnFiLh2KYnJTn0
-	 nfduS87ntxeYIyJ7zeSu+5eiY1Q356vzgftypWcAg6+WhetNDFGHRCbyUJSNygtMHAQrE
-	 ijOA5qmiPI/DeDEKx52FKhuZGNR7GjUe3GKO1W/JrHuOmmJFKQiIRsvTdaoJybwIHURB+
-	 hDqB04pzvAwtNaqo9ivDsh3IOA7KXwzOq3QiJxFwjbU8VkBi3I4LinK8ukOxK0fV2uw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794318270;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=sN8ZKQ/6LXBUih5WchQjZV1CHtqMuvEFmK0xFfeWpmk=;
+	b=Gi36+S3nAPvRVyo/lJO+T+4Nz+GMOQUtfixJ+m1bC3Cycj5+MaNejZ8MiDL5XO+V8CKa
+	 lZqsD9BxFXkhm9OTnpsV+GsJxnoOoaXahJbE9ekcqjJ9gvIrVuhD9lfuYSbFtyK+Ude92
+	 M2VzA+tkxfR/AjDc9VjGOZ4eFRO2yujLBLE7uKvJKZh/LD8MasTNhF2qcDL7ehc+NDNi+
+	 BSF+qgOAmr4JKHNh+eseldUmHVr4oh3b/sj/ZlUbAIUmJ/kwaj/4eEhT/sCEtEm4HiQut
+	 J8K7sKylC1qtdbXRS2ZkoeGo2KAxsTylqWXcvRodx4XyTUuzTa/V17bJloMjWV0b7Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35Ie0l6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2Gl9Hzr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A002606A331
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:43:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59FE606A332
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:44:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X35Ie0l6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E091F008A5
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:43:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2Gl9Hzr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090161F0089F;
+	Tue, 10 Nov 2026 13:44:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794318220;
-	bh=O/pJHAniufO7T+Qw3N8oZy2xDYQiP7/ckPKZfGD+HG0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=X35Ie0l6xxvw4jnrTxdLHJi5zZXKxSS5FgGv1NVilkBAlR4KrJMIpS2P7mLKkb1Xt
-	 DS0r8i0Q7z5BdtLQE5PXIh824UuNYowXk7WbYZJJkHuA0OUzodC8pI3ClQPZAf30aY
-	 sZIuaUv4NrelZB8undh/sLPU6UwYhTT8m1ig9prMT33gh3ic3CgI0NfO/O8jKriGjY
-	 j8uTR/5jLwEw+FWkSpG7TJq5qN88J0lK3QGTEOC5HFrY3eqn5l2E3b4z60QjA7kvMY
-	 ISzQG0xl9PkNP6gwfmWjGTgrf+zK1hdaFsJAydCJt84EX3rVty54gIOR06D+KshCWR
-	 avqEYshnjFd/g==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4fea434bso1964662e87.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:43:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE61YPgyHr5GivN4yHOLLRUIlB56VG+dz57+2WGfEwQmSzCBguget9aO3baXi/Bft3g5cJc2Qg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9O/FmaDO7CLKogRBeiq5WlzeUUCSrSDq4r2qniYwHBn+8ZoA7g
-	6LHIukaX4HclE+W4phm2RWGdKG1/1pymnM6GWTZxvLd1dOT0Cyz6CZdyi+cOuhVSe0oSTkHQWD2
-	rhZmFXl0jT1REQeDUikXOqgiV2JkZAvM=
-X-Received: by 2002:a05:6512:138f:b0:5be:409b:9456 with SMTP id
- 2adb3069b0e04-5c156df0efcmr715179e87.34.1794318219335; Tue, 10 Nov 2026
- 05:43:39 -0800 (PST)
+	s=k20260515; t=1794318269;
+	bh=sN8ZKQ/6LXBUih5WchQjZV1CHtqMuvEFmK0xFfeWpmk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=E2Gl9Hzre1yAS+WRF5jFqaaTlA3zJJBpfEC6Eqn8w/ZFueA5kV8UsfugXkqkhwDUd
+	 OpMYre2rOcjsO6gxNnTTqCnLsBS55SQE0Xe/XWBz23esMXTXB1LtVZ+Y6nmAWzB3qc
+	 y50QG07yv5go3VZS80oaKy6Mdy1D2WnoblXgUs0vddoSQnaz09LgZHvm0nTwaZ8DwR
+	 1eIEaRiiEfv/CJqtT38i5QN2ZxQJbyH+AATNnK/Gxai4EzgWZvhZiZGBpvu2T2jUS6
+	 7pvoUACK8/ct6Op0Zv7cZKGDJ9usBrZ+q53DZ8xBW+KTThYsDZ0B/+JgX6mgaNnDen
+	 sq/Knbi/7IR/w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: bui duc phuc <phucduc.bui@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] ASoC: stm: stm32_i2s: Drop redundant error messages
+Date: Tue, 10 Nov 2026 08:44:26 -0500
+Message-ID: <20261110134422.1782548-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107054431-failed-6.1-1b207c85551f@kernel.org>
+References: <20261107054431-failed-6.1-1b207c85551f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,105 +59,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
- <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
- <3e7c3a82-6a99-4c2f-9568-2382ea77ba0e@oss.qualcomm.com> <1dadcd02-19b0-482b-b16d-293430227c5c@arm.com>
- <901516c9-d1be-4918-840e-e3617f2a1782@oss.qualcomm.com> <6b0ee061-38b9-413e-9a83-90446b484859@arm.com>
- <CAJZ5v0i8a98rjFdQ2Jhu_Xk=qCGiNafMfhzNs26cEJNCYB6Xdg@mail.gmail.com> <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
-In-Reply-To: <4f0c8581-a8fb-4bc4-82cc-d30f2f56d2ce@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 14:43:26 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
-X-Gm-Features: AclHuK-pcwwNwXj_L6iW3-vvSkvrQjC7ziz7J5YFE42wW0pgOcr3E-9SlUnpCf4
-Message-ID: <CAJZ5v0iX8wYDUo9uUjkqkKq1tpLAu7iaZk+iQzWGigNAqfrsNg@mail.gmail.com>
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency ranking
-To: Lukasz Luba <lukasz.luba@arm.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Guo Chen <guo.chen@oss.qualcomm.com>, Vincent Donnefort <vincent.donnefort@arm.com>, 
-	Matthias Kaehlcke <mka@chromium.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com, 
-	tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 2:11=E2=80=AFPM Lukasz Luba <lukasz.luba@arm.com> w=
-rote:
->
-> Hi Rafael,
->
-> On 11/10/26 12:15, Rafael J. Wysocki (Intel) wrote:
-> > On Tue, Nov 10, 2026 at 10:58=E2=80=AFAM Lukasz Luba <lukasz.luba@arm.c=
-om> wrote:
->
-> [snip]
->
->
-> >>
-> >> That's fine, please continue.
-> >
-> > I have a couple of questions though.
-> >
-> > First, why is the ondemand governor mentioned in the changelog?  In
-> > the mainline, the ondemand governor cannot work with EAS, so it
-> > shouldn't matter for this issue, should it?
->
-> The ondemand is affected by the EM setup code and set 'inefficient'
-> flags for some OPPs. The EM is also present for cooling devices
-> and can work w/o EAS and schedutil, w/ just ondemand governor.
->
-> Because EM marks the OPPs kind of 'globally' as inefficient, then
-> they become CPUFREQ_INEFFICIENT_FREQ entries in the CPUfreq fwk.
-> In the EM code we have:
-> cpufreq_table_set_inefficient(policy, table[i].frequency);
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-So maybe this is the one that needs to be fixed?  What about simply
-skipping boost frequencies in it?
+[ Upstream commit a6cdfb6230944082e7be64f9166eed64656b1162 ]
 
-> Then ondemand check for CPUFREQ_RELATION_HE will skip them and
-> pass to __cpufreq_driver_target() with that flags as well.
+Both devm_request_irq() and snd_dmaengine_pcm_register() already log
+failures internally. Drop the redundant error messages and return the
+original errors directly.
 
-Thanks for explaining and all of that needs to be said in the patch changel=
-og.
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20260720074044.87528-3-phucduc.bui@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 1b207c85551f ("ASoC: stm: stm32_i2s: request IRQ after regmap initialization")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/stm/stm32_i2s.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-> >
-> > Second, why is the issue regarded as a defect in the code and not in
-> > the energy model?  Arguably, boost frequencies should be more costly
-> > than the non-boost ones.  At least the idea behind the boost is making
-> > higher-cost OPPs temporarily available.  If they are sustainable,
-> > treating them as boost OPPs is rather pointless.
->
-> IMHO it was a bug in the commit mentioned in this patch fix tag.
-> It is affecting more than just EAS or EM, since the EM is working with
-> all generic code and all cpufreq governors.
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index f3dd9f8e621cc..c52613365d679 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -1079,10 +1079,8 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
+ 			       dev_name(&pdev->dev), i2s);
+-	if (ret) {
+-		dev_err(&pdev->dev, "irq request returned %d\n", ret);
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	/* Reset */
+ 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
+@@ -1138,7 +1136,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 
+ 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
+ 	if (ret)
+-		return dev_err_probe(&pdev->dev, ret, "PCM DMA register error\n");
++		return ret;
+ 
+ 	ret = snd_soc_register_component(&pdev->dev, &stm32_i2s_component,
+ 					 i2s->dai_drv, 1);
+-- 
+2.53.0
 
-To be precise, the EM initialization may affect cpufreq in general
-because inefficient frequencies are used for CPU cooling.  Fair
-enough, but I'm not talking about this.
-
-I'm talking about a reason for giving boost frequencies lower or equal
-cost relative to non-boost frequencies in the energy model because
-this doesn't make sense to me TBH.
-
-And I get that such energy models were there before the commit in
-question and now they are not working properly, but IMO they are
-broken, not that commit.
-
-> >
-> > TBH, I'm too comfortable with looking at cpufreq frequency from within
-> > the EM code.  If that needs to be done, something is amiss at the
-> > design level.
->
-> I think this edge case is special, as I described above.
->
-> I'm happy to hear your view on this EM influence to some global
-> setting in cpufreq. Maybe it was too far to establish this
-> 'inefficiency' flags in there for many usage?
-
-There's nothing wrong with using the information from the energy
-model, when available, to amend cpufreq, but the patch goes the other
-way around: It tries to amend the energy model with information taken
-from cpufreq (in order to avoid making mistakes later when amending
-cpufreq with the energy model information).
-
-I think that cpufreq should simply refuse to set
-CPUFREQ_INEFFICIENT_FREQ for boost frequencies.  Wouldn't that work?
