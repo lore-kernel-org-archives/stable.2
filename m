@@ -1,56 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.79
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794290771;
-	b=p0UQCBfRVIHqy9UM93gY1Z2HCqeb9LfRJOk5a9qTCzzDepmYrAd646FEG06SG0ZXZt9/
-	 Bpq6q+M/KDxkkc0nCXGdLj2NE73Egmq8mvzpp537csmKdB9KwUJgGi2ggZuXcseKALF/r
-	 HQMC1kpXJfqQAeTgC9DRgP8pL8BZMiR/9gA887Z7a7FZoQXWIAgrF+MU8+aiHgedOiDCW
-	 AqxjXP+wfNYR5tTkubREJW8x1V/0HyktX3He+Cu+8fraDzU7uw73HxhF5AF/uCesmi+j/
-	 A97wT73AzJPy5Kl40Q1NWH6Y3Cyl//sNkhr3L58CL1aTzHNObDbWjCAAK0yJ4pCGKYw==
+	t=1794291092;
+	b=BGzJ3E0jaFUX0RvgU7SjrOMh2VKSX+QVYE9H/vujHJX08N7k83DZec28LLPBCA/yb/6s
+	 QHuUqruvWi/td8qbH+EDWYcEYx+853wH17YUU09NDUOpBOCX14naFe/9OWEMHhuMVWE4Y
+	 l6Mrv0jLfrBdbZ5RBa09zlo6nx57jrvjKtTpA2dulggK6+IiF0K57cx5odVQDzOJrP1LS
+	 qlUAwsxdRMZ7XeiFhYPwXRjTU8y8vJGkYDUVq8ytGZUGtH3JTspN3Mu8iTsZFb720EKGk
+	 86Fvqiwc7ik72a6APVDQCPKemPTv7i656kL29sFYboyR1vdp/c5DsvtNhxjb1Zdruyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794290771;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=782GmxyFzfSf9cS8To0AwNPsA3l9Ic+2fBQKfnHkhgs=;
-	b=VWPfSk1VCWv0vpswip0kIocLVXVN4BCSjw6DdyzJh7ZT6b+BWmz1ig2GVka0GMUZ7ebM
-	 pqeHGvgzj3f21ls9fOxmkdxk1od1oEdmEjMDeRGLch6SIy/3D67z5JvETfTSSPDkF9990
-	 q2BOyJQ2AakpgEWv0Op3fcl5KBX2EY9gjb96LTt5CS6Zpk5u8QbO4X12VVlj+BmyC1kjH
-	 ZCxkGfKkS3UDezNW1HduMnKrRPK4FcD/TAtc5D0GpBd8JKiCVGW5+4jyfmnE0+rgBzFXJ
-	 +2z5UYgGoAceP90sl30LRWh47fJXgy4AQZBoCnDAArkJdWebNbhm9m0oTQB/APeCrqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794291092;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6r6bdHHk0MprtIeTGrS3KWCO43Uy8anuYtdR0fOJIEI=;
+	b=notqhl8YnZcSFpu+57fTMd8gFMvoG0Y4HOb1gLVhTPK/xEH5YILrSEE53v2DPBJv3yOb
+	 FtUigCw6yhtC8ZFn2DxFsdoB5MuXZ06h+mAu7lZb6b0zaLt3l9XIA3uuMPWXqlieLXjwv
+	 sJN4M18tHcEV6YGNKdNIZzeJAWK5lLYBkBcvII3w5paOAskaQfhGV/cR6tzrSPo0pA6XC
+	 wZdcqfzDXq525DnNiWrOhvKO3zF9TErwpwrVPf6Q+ZhBqGdcQqk2SZWI7mXSK9VGj88Pt
+	 v+WgJOmIVK45ZftWnMw2rRTxA9TYWmZBuq1nUj/uNA9Mhmh8ffXH7J/XsSOjXQGsuJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LNL3ving;
-	arc=none smtp.remote-ip=91.218.175.79
-Received: from mta0.migadu.com (out-79.mta0.migadu.com [91.218.175.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrjUpjiR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF48606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACF48606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF43606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:11:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LNL3ving
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Qn99IbL0tjCg14t3VJn4RbTaLqaX5gh8tDLA/0sbaFA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794290762; v=1; x=1794895562;
- b=LNL3ving+fxbEK9pr8Ym7VT41SGSHfO6hW43i4RWxp10cdVP85ocYorX7C1VsZANtL29sEmF
- c3OUG+OaNVUQKdf4o+dJ3kZj56lx3j0zLHFvykdw4mT/S8H4n2wdV44p/Y4cOvVuNO7f+Wv9k/+
- Vg3hfSPxXPDnSJvDTgjwOJnc=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0dab969928a6af50;
-	Tue, 10 Nov 2026 06:06:02 +0000
-X-Mizu-Trace-ID: 0dab969928a6af50
-X-Migadu-Flow: FLOW_OUT
-From: Hongfu Li <hongfu.li@linux.dev>
-Date: Tue, 10 Nov 2026 14:05:34 +0800
-Subject: [PATCH v2] mm/hugetlb: charge hugetlb cgroup and memcg in
- alloc_hugetlb_folio_reserve()
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrjUpjiR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D011F0089F;
+	Tue, 10 Nov 2026 06:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794291091;
+	bh=6r6bdHHk0MprtIeTGrS3KWCO43Uy8anuYtdR0fOJIEI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HrjUpjiRm74MZN3rlwG2LtwW7u1Kgl3iNVmXJTtTvdvLuzDX3atM9PeUupLL9fL4T
+	 v2uZXeYpHAEVMZKl0aLMM5LOGeq1xKUOwgnplDfe6GM3QRhxSHxqIOQ3BuypLyQ+U/
+	 G1NwUuPW8VKHfw9OCONatoQR1G0CDblsm8/tUDBdIsBlS4A99YaBtkO4ttGs4sbgao
+	 9VrCpOZWFIeZG0FS2izyCr4dOEZiz3AK6tTxU2rowkl0vByT/tjbLe70hTmGwEyWj8
+	 sWujrrPb6uMmB6oJng3XaL9PwwyKZG9bDO7tF6bbao/nF6YAQdNKsA9PWdrMi326dk
+	 0f9y93ODZFosQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: guest_memfd: Split bind() into prepare()+commit() phases
+Date: Tue, 10 Nov 2026 01:11:29 -0500
+Message-ID: <20261110061101.506289-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107050710-failed-6.18-83411f32b8ad@kernel.org>
+References: <20261107050710-failed-6.18-83411f32b8ad@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,153 +59,208 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-for-alloc_hugetlb-1109-v2-1-25795ce44f80@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM4QpAMBSG4VvR+W21rQi3ImmOg6Nl2pCSezf8f
- L763gsCeaYAVXKBp4MDuyVCpwngZJaRBPfRoKXOlZKlGJwXxlqH7bSPtNlOfLNENJgVlJe9gnh
- ePQ18fuG6+R32bibc3hrc9wOwAr27egAAAA==
-X-Change-ID: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Gerd Hoffmann <kraxel@redhat.com>, Dave Airlie <airlied@redhat.com>
-Cc: hongfu.li@linux.dev, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Ackerley Tng <ackerleytng@google.com>, Daehyeon Ko <4ncienth@gmail.com>, 
- Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794290755; l=4187;
- i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=+K2qRQIWYp4nrXE3VguRotyo4IOkkSIXCtrdykxyQqY=;
- b=GIgizEEZ8nTXph1cEv8EAm4eZob/if3HWtcDVOQuQ8Y1ipBOyHd1Ve5iF5KaqD2pZBsnrHSQt
- GVWYlvdbewwAQxFS6W9BWVtRueBeUwMacw9TH+qNQmisMWHLXl3N+eP
-X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
- pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
+Content-Transfer-Encoding: 8bit
 
-From: Hongfu Li <lihongfu@kylinos.cn>
+From: Sean Christopherson <seanjc@google.com>
 
-alloc_hugetlb_folio_reserve() hands out a folio from the hugetlb pool and
-consumes a global reservation, but unlike the fault path it never charged
-the folio to the hugetlb cgroup or to the memcg.  Folios allocated for
-memfd_pin_folios() through memfd_alloc_folio() were therefore silently
-bypassing the accounting: they are never charged to the hugetlb cgroup
-usage counter (hugetlb.<size>.current or hugetlb.<size>.usage_in_bytes),
-so the limits (hugetlb.<size>.max or hugetlb.<size>.limit_in_bytes) are
-bypassed.  In cgroup v2, with memory_hugetlb_accounting enabled, these
-folios are also not accounted in memory.current and are not bounded by
-memory.max.
+[ Upstream commit 83411f32b8ad96c6b05b1511d1a588daab44bd25 ]
 
-Charge the folios to both the hugetlb cgroup and the memcg, just like
-hugetlb_alloc_folio() does.
+Split binding a memslot to a guest_memfd instance into prepare() and
+commit() phases so that KVM can separate preparing the memslot from binding
+the memslot to the gmem instance, i.e. from committing the memslot.  This
+will allow waiting to commit the memslot+gmem binding until the memslot is
+fully prepared, which is necessary as the memslot becomes reachable when
+the binding is created.
 
-Test with a process that creates a hugetlb memfd and pins pages through
-UDMABUF_CREATE. The counters were read while the folio was still pinned:
+As a bonus, drop the unwind-on-failure from the commit phase (other than
+nullifying the bindings), as the only reason bind() did the full unwind is
+because it technically didn't own the memslot, i.e. "needed" to leave
+memslot in the same state it started in.
 
-Before this patch:
-$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
-$ ./memfd-alloc-folio 1 &
-$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
-0
-$ cat /sys/fs/cgroup/test/memory.current
-1351680
-$
+No functional change intended (the unwinding down on bind() failure was
+effectively dead code since KVM simply deletes the memslot on failure,
+i.e. there was nothing that could actually observe the unwind).
 
-After this patch:
-$ echo $$ > /sys/fs/cgroup/test/cgroup.procs
-$ ./memfd-alloc-folio 1 &
-$ cat /sys/fs/cgroup/test/hugetlb.2MB.current
-2097152
-$ cat /sys/fs/cgroup/test/memory.current
-3313664
-$
-
-Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://patch.msgid.link/20260922001332.1121266-5-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: adapted guest-memory interfaces to the existing header layout and u64/struct kvm_gmem types ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Rebased on a tree that includes Daehyeon's "mm/hugetlb_cgroup: prevent
-  use-after-free during cgroup offlining", as suggested by Andrew Morton.
-  No functional change.
-- Since 268d64fabbf1 ("mm/hugetlb: fix NR_HUGETLB accounting for surplus
-  folios") reworked the NR_HUGETLB accounting, use mod_hugetlb_memcg_state()
-  instead of lruvec_stat_mod_folio(), called after a successful memcg
-  charge.
-- Return early once a folio has been dequeued, instead of falling
-  through to a shared return.
-- Corrected the Fixes tag to 89c1905d9c14.
-- Updated the commit message to qualify the memory.max claim: only in
-  cgroup v2 with memory_hugetlb_accounting enabled.
----
- mm/hugetlb.c | 33 ++++++++++++++++++++++++++++++---
- 1 file changed, 30 insertions(+), 3 deletions(-)
+ virt/kvm/guest_memfd.c | 67 ++++++++++++++++++++++++------------------
+ virt/kvm/kvm_main.c    | 18 +++++++++++-
+ virt/kvm/kvm_mm.h      | 18 ++++++++----
+ 3 files changed, 69 insertions(+), 34 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da1c17f14a62..256bb2095b59 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2223,12 +2223,19 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
- struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 		nodemask_t *nmask, gfp_t gfp_mask)
- {
-+	struct hugetlb_cgroup *h_cg = NULL;
-+	size_t nr_pages = pages_per_huge_page(h);
- 	struct folio *folio;
-+	int idx = hstate_index(h);
-+	int ret;
-+
-+	if (hugetlb_cgroup_charge_cgroup(idx, nr_pages, &h_cg))
-+		return NULL;
- 
- 	spin_lock_irq(&hugetlb_lock);
- 	if (!h->resv_huge_pages) {
- 		spin_unlock_irq(&hugetlb_lock);
--		return NULL;
-+		goto err_uncharge_hugetlb_cgroup;
- 	}
- 
- 	folio = dequeue_hugetlb_folio_nodemask(h, gfp_mask, preferred_nid,
-@@ -2236,11 +2243,31 @@ struct folio *alloc_hugetlb_folio_reserve(struct hstate *h, int preferred_nid,
- 	if (folio) {
- 		folio_set_hugetlb_restore_reserve(folio);
- 		h->resv_huge_pages--;
--	}
-+		hugetlb_cgroup_commit_charge(idx, nr_pages, h_cg, folio);
- 
-+		spin_unlock_irq(&hugetlb_lock);
-+
-+		ret = mem_cgroup_charge_hugetlb(folio, current->mm,
-+						gfp_mask | __GFP_RETRY_MAYFAIL);
-+		if (ret == -ENOMEM) {
-+			folio_put(folio);
-+			/*
-+			 * Skip uncharging hugetlb_cgroup since the charges
-+			 * were committed to the folio and freeing the folio
-+			 * would have cleared those up.
-+			 */
-+			return NULL;
-+		}
-+
-+		mod_hugetlb_memcg_state(folio, nr_pages);
-+
-+		return folio;
-+	}
- 	spin_unlock_irq(&hugetlb_lock);
- 
--	return folio;
-+err_uncharge_hugetlb_cgroup:
-+	hugetlb_cgroup_uncharge_cgroup(idx, nr_pages, h_cg);
-+	return NULL;
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 5f9a25fa0a09b..74f7b7ee28793 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -563,15 +563,14 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+ 	return __kvm_gmem_create(kvm, size, flags);
  }
  
- /* folio migration callback function */
-
----
-base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
-change-id: 20261109-for-alloc_hugetlb-1109-0ccac58e69d1
-
-Best regards,
---  
-Hongfu Li <lihongfu@kylinos.cn>
+-int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, u64 offset)
++int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   unsigned int fd, u64 offset)
+ {
+ 	u64 size = slot->npages << PAGE_SHIFT;
+-	unsigned long start, end;
+ 	struct kvm_gmem *gmem;
+ 	struct inode *inode;
+ 	struct file *file;
+-	int r = -EINVAL;
++
+ 
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+@@ -595,43 +594,55 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+ 		goto err;
+ 
+-	filemap_invalidate_lock(inode->i_mapping);
+-
+-	start = offset >> PAGE_SHIFT;
+-	end = start + slot->npages;
+-
+-	if (!xa_empty(&gmem->bindings) &&
+-	    xa_find(&gmem->bindings, &start, end - 1, XA_PRESENT)) {
+-		filemap_invalidate_unlock(inode->i_mapping);
+-		goto err;
+-	}
+-
+ 	/*
+ 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+ 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
+ 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
+ 	 */
+ 	WRITE_ONCE(slot->gmem.file, file);
+-	slot->gmem.pgoff = start;
++	slot->gmem.pgoff = offset >> PAGE_SHIFT;
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+-	r = xa_err(xa_store_range(&gmem->bindings, start, end - 1, slot, GFP_KERNEL));
+-	if (r) {
+-		xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
+-		slot->gmem.file = NULL;
+-		slot->gmem.pgoff = 0;
+-		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
+-	}
+-	filemap_invalidate_unlock(inode->i_mapping);
+-
+ 	/*
+-	 * Drop the reference to the file, even on success.  The file pins KVM,
+-	 * not the other way 'round.  Active bindings are invalidated if the
+-	 * file is closed before memslots are destroyed.
++	 * Gift the caller a reference to the file.  The reference will be
++	 * dropped after bindings are established, or if installing the new
++	 * memslot ultimately fails.
+ 	 */
++	return 0;
++
+ err:
+ 	fput(file);
++	return -EINVAL;
++}
++
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
++{
++	struct kvm_gmem *gmem = slot->gmem.file->private_data;
++	struct inode *inode = file_inode(slot->gmem.file);
++	unsigned long start, end;
++	int r;
++
++	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
++		return -EIO;
++
++	filemap_invalidate_lock(inode->i_mapping);
++
++	start = slot->gmem.pgoff;
++	end = start + slot->npages;
++
++	if (!xa_empty(&gmem->bindings) &&
++	    xa_find(&gmem->bindings, &start, end - 1, XA_PRESENT)) {
++		filemap_invalidate_unlock(inode->i_mapping);
++		return -EEXIST;
++	}
++
++	r = xa_err(xa_store_range(&gmem->bindings, start, end - 1, slot, GFP_KERNEL));
++	if (r)
++		xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
++
++	filemap_invalidate_unlock(inode->i_mapping);
++
+ 	return r;
+ }
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 5521743d6e8cb..2354a4097dec4 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2128,7 +2128,23 @@ static int kvm_set_memory_region(struct kvm *kvm,
+ 	new->flags = mem->flags;
+ 	new->userspace_addr = mem->userspace_addr;
+ 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
+-		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
++		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
++						   mem->guest_memfd_offset);
++		if (r)
++			goto out;
++
++		r = kvm_gmem_commit_memory_region(kvm, new);
++
++		/*
++		 * Drop the reference to the file, even on success.  The file
++		 * pins KVM, not the other way 'round.  Active bindings are
++		 * invalidated if the file is closed before memslots are
++		 * destroyed.
++		 */
++#ifdef CONFIG_KVM_GUEST_MEMFD
++		 fput(new->gmem.file);
++#endif
++
+ 		if (r)
+ 			goto out;
+ 	}
+diff --git a/virt/kvm/kvm_mm.h b/virt/kvm/kvm_mm.h
+index 0e68675a8a630..9db0a64d9d541 100644
+--- a/virt/kvm/kvm_mm.h
++++ b/virt/kvm/kvm_mm.h
+@@ -73,8 +73,9 @@ static inline void gfn_to_pfn_cache_invalidate_start(struct kvm *kvm,
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+ void kvm_gmem_init(struct module *module);
+ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
+-int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, u64 offset);
++int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   unsigned int fd, u64 offset);
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
+ void kvm_gmem_unbind(struct kvm_memory_slot *slot);
+ #else
+ static inline void kvm_gmem_init(struct module *module)
+@@ -82,9 +83,16 @@ static inline void kvm_gmem_init(struct module *module)
+ 
+ }
+ 
+-static inline int kvm_gmem_bind(struct kvm *kvm,
+-					 struct kvm_memory_slot *slot,
+-					 unsigned int fd, u64 offset)
++static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
++						 struct kvm_memory_slot *slot,
++						 unsigned int fd, u64 offset)
++{
++	WARN_ON_ONCE(1);
++	return -EIO;
++}
++
++static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
++						struct kvm_memory_slot *slot)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
+-- 
+2.53.0
 
