@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794348136;
-	b=1GLE/m15vh9cOB+xuWW0aDXsE0j7LW5hVGztNkDpb7+WQb8N4BopjoiM2twVINvwt2cw
-	 mGIplnN+uuzs/xtpHFHGgZla29i5Ni3talj+ssW4BFU5H0xE/J7HG79xoJBg/2tuXBF31
-	 +noSgbHFesPGUC4RFzHYyfoKTafldCBAmo8oePQPDZ+7Dg44Ukqffuuqt5aSoOHmPm8qW
-	 muU38FN/ZyaseZ+h5ISDt1bFurwyRPmL4iDhMCCqDGLZgsBPIuIPnjvvtOy88ocmc9MEB
-	 r7vb0Z5FugpkpbpEc8uY/8FLOu8SMAl0+fwV81y0JM+G9h2BPTf9+EiYaCHVPCjo0bA==
+	t=1794348460;
+	b=oxcuxJrun8LGW4euMJFZuSvnU4IcDOWwjES5EdbbR/1qI9spNl3w6jsYLSGpBFX3fFVP
+	 0+w5+7LyEi1nDlD54D+udy8+0EWuY0PelJh/S+3ksVdJh58J3DT6k/XJn4KvaNYjDAVBO
+	 9ytj8xLv4TWRlvfX+kVcx4A/h9DF7UapGy4B5act26To04r0V0792ApDfDrcu1f3bWcYB
+	 MUoH359lOwsV3XitsjJwJ39GstnGfdH4d+PYcJbZvaS5Abv7FhsxDbYeRPBQWWmIi8AH5
+	 LDnQcqNxjwAxCLm2i0zeyUXjVX7unQP0iMUoms++UU5N/CaGMmzecxWX/gYXsOHngsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794348136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794348460;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=emq8jmanvB3G0F7LubffLV2bdhN8Gqxf4XaL1jtvBuc=;
-	b=PQJ2h9oOiBn9LD4jC4Y+cQuLFpgDY2rTnzrhSyqElXJ3e8vY3lfSP9KBzIQEtiEn8RIX
-	 WYo3pyxKzXTAiKFZ0Oej33SLJkM2viSyQdvOCabVxUnx0rU73+aIXXiLbSpv69t1x61m2
-	 Bobszh4VzuRn+BTNkYffyQOg0FwxVD5k+fLIEK+6jfDVdOzbessjo9qj72p+W6t1PygEd
-	 yKews+DqNsrDuvmZAsMgTcfKsaCaKyPBsUMTibEfOslj0M8gkIxDZrzR/wyUONfsf07Rb
-	 O3b8ijWj3nftKl+KvMMIvWpazCb9Ls5mX/8iqUuVPKMS9va4RlmLNVc0kPKbIgL9kEw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=O024VvLDBmvri6Dz/qYYw8XQLV0yXweu0O6a6WH8e98=;
+	b=MNT6bO4WyrB51vUtcxT1egSpwEkSPnxEu9wRWeefDKBozNqCO8VnO7DvEEUqChYkcq0D
+	 96JelZ2vyg9nuvEyXj/lXZpITftiJTYEmvT5bO2qrWrpjTcjuusZk7AOrorYHiRj2Fxw2
+	 X7cKbNy0Nbn00oPHgyqslQe4C2H+0y32cPXF7yejZ4i0cVhCmdHPhBgYzDu481lXCaDiq
+	 3Vlar+0wlRoNRMJjY+J0XJqhZbgSd4m3NQnN7rFr9upsIU5NhvqsPKKy0C1XnRwoVD0Xd
+	 8Rj1qTaA7tEagOkxesq0OUQTpuxcJXELYwmrTYYG47YRRdAMrSrrC+wAkNkbJ5MvOzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcUsiqWW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1xZJyTO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241A7606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16860606A330;
+	Tue, 10 Nov 2026 22:07:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcUsiqWW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AF721F0089F;
-	Tue, 10 Nov 2026 22:02:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1xZJyTO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5134B1F0089F;
+	Tue, 10 Nov 2026 22:07:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794348135;
-	bh=emq8jmanvB3G0F7LubffLV2bdhN8Gqxf4XaL1jtvBuc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fcUsiqWWTheVufgV1WLGI5BUHWbeD4f7Y71Up+/rR/Suj1cvjdLijkMKQHQdRs1pE
-	 zIKKplH0Xunmdn6eJ9UFcy/IPn7B4rpcDoL+Yg2YTU1CNFRAJx9BOp9mxrk2B0hEOi
-	 Re2IsI+fchvWpJygX0ZYzewiLvrkckp3a1yQNrmeloOFkvij5UyKocc05uHdBSwEWy
-	 4Rx95xqzhKOMDYBm8hfTLDBhxb8Ol3bvPv5H+vie+4g2QJyRNu0EputQuZpKtn488m
-	 D8H9+8N4DrpBPhioDUTXSakaTBvYLeP1sAXQSLmmLO3J4/dIB36AJZ/oyNF2SX2nAQ
-	 vhjntE6PozkRA==
-From: Sasha Levin <sashal@kernel.org>
+	s=k20260515; t=1794348459;
+	bh=O024VvLDBmvri6Dz/qYYw8XQLV0yXweu0O6a6WH8e98=;
+	h=From:To:Cc:Subject:Date;
+	b=I1xZJyTOLxaRnscHm+AOQvZu9gx0xtPZxtL6+0Q89rXWmKPjEQ73DSA5ta909WRLn
+	 I5tqPS61DtN8ogA2IGyEnIF1mo/+N+JnmL+fLRp7jnK24XXRSiSfPHNOx7gIsZxIxd
+	 cDlZy27q2oNSERrDiJGxpGn9gpEqAqCMizy7uSC+KQ+mTJd7A0GwSjkNJkCsSP6zC0
+	 I9dTiBcIVNJOuWlKFsMWzS8nQt9Zo062LIXXm1e2IkZDvr+mref731B0dhsdFXE48s
+	 +wf6GkMAanbSQYb0LuEw0l5kgWOhJY0F65qJkEpC2Uk7U7yu6AqQPaW2O8KPXflY1+
+	 Zh3je+HOVWqqw==
+From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kaixuan Li <kaixuanli0131@gmail.com>,
-	stable@kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
-Date: Tue, 10 Nov 2026 17:02:13 -0500
-Message-ID: <20261110215940.3991417-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055006-failed-6.1-080833a32fd5@kernel.org>
-References: <20261107055006-failed-6.1-080833a32fd5@kernel.org>
+Cc: linux-block@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH 6.12] blk-mq: end the request if getting a keyslot fails
+Date: Tue, 10 Nov 2026 14:07:26 -0800
+Message-ID: <20261110220726.41659-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,81 +61,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kaixuan Li <kaixuanli0131@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 ]
+commit e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a upstream.
 
-sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
-lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
-and nothing compares either length against that allocation.
+When blk_crypto_rq_get_keyslot() fails, blk_mq_submit_bio() ends the bio
+by hand and frees the request. By then blk_mq_bio_to_request() has done
+the IO accounting, which blk_mq_free_request() doesn't undo, so the
+in_flight counter never drops and iostat shows a device that is 100%
+busy. If the bio went through zone write plugging the zone stays plugged
+as well, and every later write to it waits forever.
 
-sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
-added them after a crafted image overran build_sit_info(). That check ties
-each length to a segment count; it never compares either against the
-allocation, which is the half this adds.
+Use blk_mq_end_request() like the dispatch path does for a request the
+driver rejected, after marking it for zone write plugging.
 
-Mounting over-reads in build_sit_info() and build_node_manager(), and the
-first checkpoint writes the same lengths back through the same pointers,
-so the over-read's contents reach the on-disk checkpoint. An unmount is
-enough; the filesystem does not have to be used.
+Move the call to blk_zone_write_plug_init_request() before
+blk_crypto_rq_get_keyslot() so that it doesn't need to be duplicated.
+It doesn't depend on the keyslot.
 
-Bound both ends the way __bitmap_ptr() lays them out. The three branches
-differ, so a single sum of the two lengths would still admit a small
-overflow when cp_payload is non-zero.
-
-Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
-Cc: stable@kernel.org
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: Replaced F2FS_BLKSIZE(sbi) with the constant F2FS_BLKSIZE in two expressions. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 99dc422335d8 ("block: support to account io_ticks precisely")
+Fixes: dd291d77cc90 ("block: Introduce zone write plugging")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20261029200110.1328103-1-ebiggers@kernel.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- fs/f2fs/super.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ block/blk-mq.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 1b6d28116a04c..89d1de05cb31c 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3553,6 +3553,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
- 	block_t avail_node_count, valid_node_count;
- 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
- 	unsigned int sit_blk_cnt;
-+	unsigned long long ckpt_size, sit_end, nat_end;
- 	int i, j;
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index e01437e64c740..c5be2e8578a7b 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3122,17 +3122,15 @@ void blk_mq_submit_bio(struct bio *bio)
  
- 	total = le32_to_cpu(raw_super->segment_count);
-@@ -3684,6 +3685,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
- 		return 1;
+ 	blk_mq_bio_to_request(rq, bio, nr_segs);
+ 
++	if (bio_zone_write_plugging(bio))
++		blk_zone_write_plug_init_request(rq);
++
+ 	ret = blk_crypto_rq_get_keyslot(rq);
+ 	if (ret != BLK_STS_OK) {
+-		bio->bi_status = ret;
+-		bio_endio(bio);
+-		blk_mq_free_request(rq);
++		blk_mq_end_request(rq, ret);
+ 		return;
  	}
  
-+	/*
-+	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
-+	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
-+	 * lays them out.
-+	 */
-+	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE;
-+	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
-+		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
-+		sit_end = nat_end + sit_bitmap_size;
-+	} else if (cp_payload > 0) {
-+		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
-+		sit_end = F2FS_BLKSIZE + sit_bitmap_size;
-+	} else {
-+		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
-+		nat_end = sit_end + nat_bitmap_size;
-+	}
-+
-+	if (sit_end > ckpt_size || nat_end > ckpt_size) {
-+		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
-+			 sit_end, nat_end, ckpt_size);
-+		return 1;
-+	}
-+
- 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
- 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
- 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
+-	if (bio_zone_write_plugging(bio))
+-		blk_zone_write_plug_init_request(rq);
+-
+ 	if (op_is_flush(bio->bi_opf) && blk_insert_flush(rq))
+ 		return;
+ 
+
+base-commit: d3417611a3b40b7f04a29e558cebac2bf69889d7
 -- 
-2.53.0
+2.56.0
 
