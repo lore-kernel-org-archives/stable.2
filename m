@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315485;
-	b=EtTFf8aEqwKC/md+ZMuJ2+WaycmRvwSPz7CjqHOQz+tMfDbjktMKgQMuLkaY1v8rSWuC
-	 YHoQ/MKI/3aADec3Umd71ay937Qhh+wEm/xhg0LVrdquo4kQbUoL5xv1oZd/+2UsaOoVg
-	 bwqiDXnTNeD/AV+kBS74r83jCUR8DWh598x+VOhG89cHN+KomFlAW9066MBw/LhKvWRrR
-	 vbYQ/YAdsszY9RI8MBjFpwV9oy53J4uC5wMn9XDXrEYBVmXk1XhHFiqeo3lZvxC5cD262
-	 ULp/ZFqwD1rC+fD5EOBUqjPiEN8uGAcT6LyRvLDMQOjz4zfl06otHzjQtePxWYLBk8w==
+	t=1794315501;
+	b=IccsFzLBIXzSLkYMwLiiAyQ0m13zADEDmckmY/vv+shRUx0mJ3FwwgUSnnxWYb07QyXD
+	 BGxBvz3cMRMp0Lo8pGg34vLvsUUJk0UyJdnXZny4vlmCIdK3Xc5p/Q0qE05JwXqFobR0n
+	 EileMk/rMZg15TkuniURp8V6e8o9my8Ca23DOFy3oE3BpcFmDmE6t9V/a5EBmy3EEHK0W
+	 r+ZR+sdFC6Au45zXMdq5Zl5BjgWYS5hHWvV38N00N31NJ3iFgBSmVHIzu+5vWP4QuwySC
+	 9IgK90sREQpIsRufEeeMbmuDgoX/QJklnngKh/PnxgaiX3YFafw4CBg4Y/iJAo+VdjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315501;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=B7qDhDvqBSwMjBRLr1ntuAiYuBRtBn9TmkMJjR/9wSw=;
-	b=y7PiKMjhMvItS+qBfc1/t8c8/MoMkieO4eyUsEUuewSRrrYOI1Rd79X69CS65dtP40Tz
-	 Frd4ufDG/CJQg8mU0rvz5HutBTiNLP3Trx/caX2ro/yHcgaO0PojUTY/0b9/pJ2BlwfDX
-	 6h18xE0W8rukrmVeLA5s2ZM1fxOsek/EZSSJWmmnsHyTg4rVX2f7+3ikyLZDrQpvAZ1R3
-	 7eSw4pTDUEs8W9/tkNeM2M/yd9mmBJBUmmeOEEZtSS942AA6KxmtU6syPXONsvUXGLEli
-	 lXfAHsYNgBDfeGLD753KRRaMNSTSZaiTLuUvR7Eh9AWa6Y/aZbbJRgIzGVXNEXjmfeQ==
+	bh=ywYVID8G930j6+bGkd3cU7Eb/95G4BaEVDPJSul/Tnk=;
+	b=mUKgrDQ4+v3TVC5SsnM6sgITuvkRChvjq57R1/avT1QhvykDAW3Bn8A/gULvdccX6j87
+	 MRhJvfEHlvqG1biUxfguCPK4Uy7oHIu0zgE/9tqUlLGrMTU35AUEBIMjWVh6lqH6OEl64
+	 g7k+DjEGtJtWTqwLqlPo4BfMFIfl/eRPX8Bcxv7NnRl+uoq0H7Aj4WHJOfPoNw87i1yLy
+	 TZtzpufjI4No4Tde+/Hk1wIrfFaUX+jzKMMYCob5E4HRy07rlzRMqNEqfFE9PMxbLsaxG
+	 SQrwvOt+k3tFEljofwrphbSEKiaM8ac1hPlRhMnyWCpvru2Z/+pIRtpVmR1nOuADqzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6avV1AI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YZ4Hjy0/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA9D606BFC7
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE67606BFF3
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6avV1AI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DF71F008A7;
-	Tue, 10 Nov 2026 12:58:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YZ4Hjy0/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6331B1F008A1;
+	Tue, 10 Nov 2026 12:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794315484;
-	bh=B7qDhDvqBSwMjBRLr1ntuAiYuBRtBn9TmkMJjR/9wSw=;
+	s=k20260515; t=1794315500;
+	bh=ywYVID8G930j6+bGkd3cU7Eb/95G4BaEVDPJSul/Tnk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e6avV1AIYVYjarmY8B+7pYw2/gOFiFus/geSCQ1T+9IxdCujJfdTIVxUXQxvo2KFQ
-	 4L7+72U+hJJJFh04rVqCkD7udEuErSB1Dv5v9lR+xIF65qEV6sU/IgfR81eunwBpN+
-	 Sdr5rBqrL83rImv0GSEcdBeLvmb4t/s7w1FGuKKasmlsJdGb3VcQ6rVLB71Y1lKqHT
-	 FOjdylGrSLV7rq9rLAPdzJU55EwT+zVoixxv4XlM64qJboMq7+6v3cWO/U1UeVqacP
-	 /coLvfUr4QuS5KTUDVuGRFRCG0WLWLiQMYuQDQZzvfB4sryS3oUXmZvztvkMRif5vb
-	 X7k9iPrBpgrBg==
+	b=YZ4Hjy0/2oBznL9GbtmGUtLEos2PV4oid8+0j7OVhPn8Ob2Aj3x85mbdoOwLBWVy4
+	 M0JVBp61yIkzcpcIBT+BLjgcrq78BFJ2Xl2oMNTp18oHkrXmV1X9vUaNEdObcRKJsW
+	 Rs1bCUyKEYoved0VFCADMfTZmUM4zpeXYceiVHWUOFl71TfcQcCdbmqT1ZHglhePju
+	 3q2hNQgPHAlHFu7OYzLJ+JRqHvc7/lEcjpk1yGG5XBXsXzUHSRFjpCcw65ArGCTNdX
+	 RdMgU1bGPcxKjGcbBFEyH+cjYclmpXg/GWwPM9+QuPbrVxim886HAMpJd0DT+ACi5P
+	 arJasaHBzQ2KA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Jiaming Zhang <r772577952@gmail.com>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ALSA: usb-audio: Protect Roland control activation
-Date: Tue, 10 Nov 2026 07:58:03 -0500
-Message-ID: <20261110125747.1604943-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] gfs2: reject invalid inode sizes
+Date: Tue, 10 Nov 2026 07:58:19 -0500
+Message-ID: <20261110125801.1569612-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061741-failed-5.10-19b42c1fff7f@kernel.org>
-References: <20261107061741-failed-5.10-19b42c1fff7f@kernel.org>
+In-Reply-To: <20261107055835-failed-5.15-33ed0a0567e0@kernel.org>
+References: <20261107055835-failed-5.15-33ed0a0567e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,86 +61,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Jiaming Zhang <r772577952@gmail.com>
 
-[ Upstream commit 19b42c1fff7f220a6346c614d79ce1bda6d95b40 ]
+[ Upstream commit 33ed0a0567e0abe66ea65e89dad2e35082890fbe ]
 
-The USB MIDI driver changes the Roland MIDI Input Mode control's access
-flags directly from the rawmidi open and close paths.  These changes are
-not protected by the ALSA control core and the corresponding notifications
-can race with control access.
+A corrupted GFS2 image can store a dinode size that is larger than what VFS
+i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
+writes it directly into inode->i_size. If the value is larger than S64_MAX, the
+incore i_size becomes negative. That negative value can bypass the existing
+stuffed inode size check:
 
-Use snd_ctl_activate_id() so that the control core updates the access flags
-and sends the notification under its lock.  Release the USB MIDI mutex
-before calling it because the control write path holds controls_rwsem while
-roland_load_put() takes the USB MIDI mutex.
+inode->i_size > gfs2_max_stuffed_size(ip)
 
-Keep the state transition and alternate-setting change under the USB MIDI
-mutex; rawmidi's open mutex serializes the enclosing open and close paths.
+Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
+gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
+passes it to memcpy(), turning it into a huge copy size and triggering a
+out-of-bound issue.
 
-Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
+Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
+inode->i_size. Also make the stuffed inode check use the raw on-disk size while
+it is still unsigned.
+
+Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
+Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
+Assisted-by: Codex:gpt-5.5-xhigh
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Adapted guard-based locking to the existing explicit mutex and rwsem lock/unlock calls. ]
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+[ sashal: adjusted context for direct inode->i_state access and existing dinode field assignments ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/midi.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ fs/gfs2/glops.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 2ae37bb2ad645..fc5c640d0a009 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1168,7 +1168,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			  int open)
- {
- 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
--	struct snd_kcontrol *ctl;
-+	struct snd_ctl_elem_id ctl_id;
-+	bool activate_ctl = false;
-+	bool active;
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 8a077de9ee0a4..67351df7b4b33 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -405,6 +405,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	umode_t mode = be32_to_cpu(str->di_mode);
+ 	struct inode *inode = &ip->i_inode;
+ 	bool is_new = inode->i_state & I_NEW;
++	u64 size;
  
- 	down_read(&umidi->disc_rwsem);
- 	if (umidi->disconnected) {
-@@ -1180,11 +1182,9 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 	if (open) {
- 		if (!umidi->opened[0] && !umidi->opened[1]) {
- 			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access |=
--					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
-+				ctl_id = umidi->roland_load_ctl->id;
-+				activate_ctl = true;
-+				active = false;
- 				update_roland_altsetting(umidi);
- 			}
- 		}
-@@ -1197,15 +1197,15 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			snd_usbmidi_input_stop(&umidi->list);
- 		if (!umidi->opened[0] && !umidi->opened[1]) {
- 			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access &=
--					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
-+				ctl_id = umidi->roland_load_ctl->id;
-+				activate_ctl = true;
-+				active = true;
- 			}
- 		}
+ 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
+ 		gfs2_consist_inode(ip);
+@@ -430,7 +431,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	i_uid_write(inode, be32_to_cpu(str->di_uid));
+ 	i_gid_write(inode, be32_to_cpu(str->di_gid));
+ 	set_nlink(inode, be32_to_cpu(str->di_nlink));
+-	i_size_write(inode, be64_to_cpu(str->di_size));
++	size = be64_to_cpu(str->di_size);
++	if (unlikely(size > inode->i_sb->s_maxbytes)) {
++		gfs2_consist_inode(ip);
++		return -EIO;
++	}
++	i_size_write(inode, size);
+ 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
+ 	atime.tv_sec = be64_to_cpu(str->di_atime);
+ 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
+@@ -468,7 +474,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	ip->i_depth = (u8)depth;
+ 	ip->i_entries = be32_to_cpu(str->di_entries);
+ 
+-	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
++	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
+ 		gfs2_consist_inode(ip);
+ 		return -EIO;
  	}
- 	mutex_unlock(&umidi->mutex);
-+	if (activate_ctl)
-+		snd_ctl_activate_id(umidi->card, &ctl_id, active);
- 	up_read(&umidi->disc_rwsem);
- 	return 0;
- }
 -- 
 2.53.0
 
