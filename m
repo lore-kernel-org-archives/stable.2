@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352216;
-	b=0T3153wxHjpLhVwHzzPf063ffpcmwo7pfav08YO5Z9+1O+rVc+fXz1EdKPby8G5X0hlv
-	 3tOdKJuuk2vDtHvi4UFzsSZlorjsVYCSWhmxzOvE36tJikUiSSvlwlKX4D/bMOQg475ng
-	 ww6AAJATOHrdoKKGFEDpJQWcpip6QXWz67JJaS4QozPkSaVnozOIGjHzEchrbpG0wjmt6
-	 itE3qMiouA4QTETSz6xNnASs2e5tzgPlV/yYdKVT0hpslgI4DrUv20ukxTEZCDECee3cj
-	 HRE7XWbrp7AJQscfDpB3UwpC8nXkhunis/VfwutPe5CPba3c4w7vxUt0RoMLvTBxehQ==
+	t=1794352221;
+	b=T2Y5WkxhYxGfdTq4bZyWTirD4tTScV4IYsCFoxaedgCOW4AgN9fJ4ghwgWxu6eMI8NwI
+	 gUhHjolRNqP6QvNIoUHofEpYzGFq30TEvNfDivJD4h7JW6YuTwbE+K2bO5SBnKwU+SR4g
+	 /Wg5DI9dA9szk4JZPCguerOtisA6vDLoFpR2Mejz9WRDSrvwU8hBHnkfKlUcQevwLJY+B
+	 NUGE/M3o72JnGV1cRwfTAogrAByTsJMf8fiQlG/MYKb28upkMx2S42DXPPXF3K+nYYfQi
+	 poAtfF1yQ9V+3JvTKOeOBUFoG2oFj6fGgXym0Z9WLLCEyaeCvdzm1+3AgLuAv/bDHYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352216;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZW+Y5/QuuIuCaQO3sddm+/qQ2fEFOMrrFGrJfh4lyr0=;
-	b=Og1cmFkkPySjJOBc6RAMhlvc5PFiGWNbCZKvoIud9iP54ryrnAoLnc7Bt3nwkL4LWO67
-	 ItDchFDILWtImoMV/1RAZlFKG1sc5ialZe4AGP89PoN7PBZHo0yxKHmA/LkCEP2gz9os8
-	 AsDvgjJZq5MPV+jtQjNqpknLNI1pTWQ9ic9d3EEtwmgOQPr2meMD7ZdyCY3JIYOcIDbkq
-	 vdz74AUJOCWpWCmL2Hf7GH/jaB/4ZsVyXnWpZmfRS5NvuX2XL09kdLjC/5sBfSFwTUtLH
-	 6YIzCApLEuOPrt2iM+Eb1refMHV+gmMHo16fhEFixpBChlkGsRArmwD1yM3Dox2yfsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352221;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=x9zN8BpvTmeKTczDRXZmo9X1mugHkLUORrNrHN5VqFI=;
+	b=kTqMtzTS+kKBCAS44A1uX3At2KGxQCn6SNocKojslWWdMqlxBUueSzsAwPg2C5NrHdfY
+	 4IGmuri2/8jmA/PxQEFJ+sN8YDX50mFgZuBKcRZbjIA8wTkUN59wlSroXFIlTsYRLyIKI
+	 yePILTLOK2fy6tmSpEzE9llmyaBvNovQuxuN051KDVCcxQUr+FbH9Uw9KJWIwt9qUD3gS
+	 H4KHpg+vw7dkLppwZFzeAQ5NiBUwectAqbBGaSa5PJYHC06+0+jvNgI/geh1vTdCLY+NV
+	 1hyaEYbCzFIRWFxrGUhYsuZHHt0GrMiUqDg3pheqktDhPoTEwz5r8mszltD16ygbsgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GGTNe7zw;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMyqiDj4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09A4606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A09A4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBEB606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GGTNe7zw
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b70880c0a4so2898803a12.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:10:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794352214; x=1794957014; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZW+Y5/QuuIuCaQO3sddm+/qQ2fEFOMrrFGrJfh4lyr0=;
-        b=GGTNe7zwXf1NsZeh9fS0UGBzTUsvQNH9QElP81ultxi9WH99sWJjPl0vFpV9pY0XM7
-         4603PM6u51XUluhtnueGvJuist9PvucY5A/jT0JhQ74YizGbz205Xx4ibYsT/5yaKI+t
-         dbXJ0nGCF70KmjViIqbO0c9SMKbmTkHdW0MlpZJ9/en6trvrPvqm2baYhEHM4jQ2Ucv+
-         Jipo88TmrekUyDUWYaZipTE4iljElUC2BP/yvQSMd37Na0jdNW0swbScupilrdzHEKBS
-         egWC1tVTlQwX/NRzX6mx6/cVvliYjzg6xOYurUolUBIB2mMMLPoT6QmzlZXIoLeAPLEU
-         977w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794352214; x=1794957014;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZW+Y5/QuuIuCaQO3sddm+/qQ2fEFOMrrFGrJfh4lyr0=;
-        b=N7naeAuW0R/MfaVh8Z8g3txQbF4EUdBKUeLFN5MRC/bK0WnhVRCKamaL5+SgYnOfBn
-         76R/J+9SZIin1GHc+RnYPfHR21FIhphCl7UoiWKTyV+EXlRvMIaPGSV9b1Qb9uRn8Dm2
-         s3hUOI6ulJ0N0jgKm68a6oI80rBOT+izbEk3yZm2xV6et5ZeHpCE3oZLlftHR4x7CpJL
-         3VBRXXbvyHQ/XVEkWlxfOuJw2D3bPNm0BlCNgBsj8ihKSOnIBK8GNl0GztklcVUf1mlS
-         TwFG8KuYtCfrmh3JbyjI/LTyCPJWgHluFs5RHFYbKBk4ktwU1daswvHcj0tX9MiX/hmX
-         G+bA==
-X-Gm-Message-State: APuU4Z9TcIphFNsqmg2UI5a2hnU03HMSXlM8HeR6SifdkjbeBVCMBeKw
-	SWWINGpNbbp0VZJ3I7CKBvDXQdRup6z7KIBKTV2k3wbPV+/Uy2t41xrg4F/Oh/FbdZ8=
-X-Gm-Gg: AYBFou2Wgka/EBmZIXxVcnzvyMJY65BvIB5WNTnQIcz/8T9i5DadpQWQQXfhW974Q+W
-	qjwQRJrffRXs0J8ljOJC4CtKZrTIogBFUxCFw8Va89Svdc047T/x4RxHckP7BTeYiJ87rIlTfVd
-	fNn5dN03ckUZJU32p2WHNikJVrWxW3hSBhcEWOQ3W1xUb21WR70tENukOE3d9+D78gTgtbAQKUp
-	HRf4KAzZPRTxHj1QzWhwqK8ki5CqU+XWdrkkgL8Z0vX/7RilbCZj7imc7ODJfVT/KZ00YWkw2oZ
-	Qc5G7F3CQgsX6sPOrluQjETn5NsOQaaYlDCzqCDtesq8D1JPo9HEP7gr0IeU4AsLC4wQHdjmabF
-	CXJfMc4GFmTFfFzmvlYP4pxdT4C/bL7OfSJ8dvaOEa2RW5VPwzQlLBDUX3LeQG09pXDc3avCYUn
-	MDOh+kjtmdhOiWwsqAjH0jBqbIq2Ff7cSzTfyRaLdNLdfLafFiHdPz6W+ayRJsH22bg/sqyiyIP
-	1sWDige9XFZEkMLwQIBWHHOcvw/x6O14Ombi4HPDYHrrI+g0lek/N0BWOtbCBz2ID3kdgsVXXLG
-	IQxlzSPLyN24oyMaYMmJTLD0enMVjqRCV6Ay6IGpvIzL82yaizMOgZEZzPQGg9FeyV3DHLQ=
-X-Received: by 2002:a05:6402:234e:b0:6a9:a3df:e4f1 with SMTP id 4fb4d7f45d1cf-6b7775f0ca2mr620507a12.25.1794352213558;
-        Tue, 10 Nov 2026 15:10:13 -0800 (PST)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7578beb01sm1636880a12.6.2026.11.10.15.10.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 15:10:12 -0800 (PST)
-From: Magnus Lindholm <linmag7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMyqiDj4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD64E1F0093C;
+	Tue, 10 Nov 2026 23:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794352221;
+	bh=x9zN8BpvTmeKTczDRXZmo9X1mugHkLUORrNrHN5VqFI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fMyqiDj4zBBxQVHXRLBwrENyCLnwCbSO5S7Fo/JB+BxtOytYzoqpQtQx72zKu/ukL
+	 TVgMnPcAFh2Ls3OuKuFxoIlp8CXtNKkRNlCuvl1ozAcWhX5qcus4jt25UZClQe8vGj
+	 jvR8Jo0qIV1OfpKh4Uq0ds4YROTR2/0fGYJ0UKHEoXTpbes4PRITwxZ/PMNyGLoVHK
+	 6BYwRM973B/wh+y3dqUDRA9ZcbslupyeRt8zGWSTv8GFWFv2DyQwLH2OIH80uUf7l+
+	 JVym8Yu9ANQ8PxXaF3KMIj7MM/VRns/EJZ2pTt5IlB8eimTl4Clq4DW+YwDrIfxIki
+	 mXMHExcAPvQdg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Magnus Lindholm <linmag7@gmail.com>,
-	Matt Turner <mattst88@gmail.com>
-Subject: [PATCH 6.6.y] alpha: load the MMU context when switch_mm() switches the current task
-Date: Wed, 11 Nov 2026 00:09:51 +0100
-Message-ID: <20261110230954.1151961-1-linmag7@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107053624-failed-6.6-9b8be19d5dc9@kernel.org>
-References: <20261107053624-failed-6.6-9b8be19d5dc9@kernel.org>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] block: amiflop: synchronize flush timer before track flush
+Date: Tue, 10 Nov 2026 18:10:19 -0500
+Message-ID: <20261110230918.76289-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060127-failed-5.15-9690943353ce@kernel.org>
+References: <20261107060127-failed-5.15-9690943353ce@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,96 +61,186 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 9b8be19d5dc9525a408942e2e8012873199e7455 ]
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-The 6.6.y header still contains ev4_switch_mm().  Retain it, and omit the
-unrelated do_page_fault() declaration move.  Of the direct callers
-described below, 6.6.y has kthread_use_mm() and do_shoot_lazy_tlb();
-sched_force_init_mm() is not present.
+[ Upstream commit 9690943353cec1690a715e000ba6a74e5139f530 ]
 
-ev5_switch_mm() only prepares the incoming PCB. The context is installed
-by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
-out of the scheduler.
+The amiflop track buffer is shared with the timer callback. timer_delete()
+does not wait for an in-flight callback, and that callback can rearm itself
+when it cannot acquire the floppy controller. A synchronous track flush can
+therefore race with the callback.
 
-Direct callers reach switch_mm() without going through alpha_switch_to():
-kthread_use_mm(), which borrows an mm for the current kernel thread,
-sched_force_init_mm() on the CPU-hotplug teardown path, and
-do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
-loads the context, so the task can carry on running under whatever was
-loaded before. For kthread_use_mm(), current->mm then names the borrowed
-mm even though its context has not been loaded. The other two callers
-change active_mm while leaving current->mm NULL.
+Stop the timer before synchronous track writes and use timer_delete_sync()
+to wait for any callback already running. Keep callback rearming disabled
+until the write is complete. Apply this to the FDFMTTRK path as well.
 
-The stale page-table root need not be swapper_pg_dir; it may belong to a
-user process that ran on the CPU earlier, and the kthread's user accesses
-can then read and write that process's memory wherever the stale mappings
-allow. Translations taken that way can also end up tagged with the
-borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
-next PAL_swpctx installs against the stale ptbr. An address the stale
-tables do not map faults instead, and since do_page_fault() resolves
-faults against current->mm without reloading the context, the same access
-can fault again on return.
-
-sched_force_init_mm() needs CONFIG_HOTPLUG_CPU and do_shoot_lazy_tlb()
-needs CONFIG_MMU_LAZY_TLB_SHOOTDOWN. Alpha selects neither, so only
-kthread_use_mm() is reachable in practice. Test the caller's identity
-rather than special-casing individual callers.
-
-The scheduler passes the incoming task, which is not current until
-alpha_switch_to() runs; all three direct callers pass current. Test for
-that and load the context the way activate_mm() does. All three run with
-interrupts disabled across the switch, so this completes before any
-shootdown can be taken and needs no asn_lock handshake.
+FDFLUSH, FDFMTTRK and close-time flushes run outside the blk-mq
+request callback. Freeze their queues so an in-flight request cannot
+change the shared track buffer while it is encoded and written. Restart
+the timer if a track remains dirty after a failed flush.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Tested-by: Matt Turner <mattst88@gmail.com>
-Reviewed-by: Matt Turner <mattst88@gmail.com>
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-Link: https://lore.kernel.org/r/20261010142533.974797-2-linmag7@gmail.com
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-(cherry picked from commit 9b8be19d5dc9525a408942e2e8012873199e7455)
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260930065951.2932739-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ sashal: adapted blk_mq_freeze_queue() and blk_mq_unfreeze_queue() calls to the older API without memflags ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/alpha/include/asm/mmu_context.h | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/block/amiflop.c | 69 ++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 61 insertions(+), 8 deletions(-)
 
-diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
-index 4eea7c616992..f2032373c9f6 100644
---- a/arch/alpha/include/asm/mmu_context.h
-+++ b/arch/alpha/include/asm/mmu_context.h
-@@ -132,6 +132,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
- 	return next;
- }
+diff --git a/drivers/block/amiflop.c b/drivers/block/amiflop.c
+index 1ed557cb5ed23..46e134259e19c 100644
+--- a/drivers/block/amiflop.c
++++ b/drivers/block/amiflop.c
+@@ -265,6 +265,8 @@ static struct fd_data_type data_types[] = {
+ static struct amiga_floppy_struct unit[FD_MAX_UNITS];
  
-+extern void __load_new_mm_context(struct mm_struct *);
-+
- __EXTERN_INLINE void
- ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	      struct task_struct *next)
-@@ -141,6 +143,16 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	unsigned long mmc;
- 	long cpu = smp_processor_id();
+ static struct timer_list flush_track_timer[FD_MAX_UNITS];
++static DEFINE_SPINLOCK(flush_track_timer_lock);
++static bool flush_track_timer_stopped[FD_MAX_UNITS];
+ static struct timer_list post_write_timer;
+ static unsigned long post_write_timer_drive;
+ static struct timer_list motor_on_timer;
+@@ -1370,11 +1372,22 @@ static void flush_track_callback(struct timer_list *timer)
+ 					sizeof(flush_track_timer[0]);
  
-+	/*
-+	 * kthread_use_mm() and do_shoot_lazy_tlb() switch current's mm
-+	 * without alpha_switch_to(), which loads the context. The latter
-+	 * requires CONFIG_MMU_LAZY_TLB_SHOOTDOWN, which Alpha does not select.
-+	 */
-+	if (next == current) {
-+		__load_new_mm_context(next_mm);
+ 	nr&=3;
++	spin_lock(&flush_track_timer_lock);
++	if (flush_track_timer_stopped[nr]) {
++		spin_unlock(&flush_track_timer_lock);
 +		return;
 +	}
++	spin_unlock(&flush_track_timer_lock);
 +
- #ifdef CONFIG_SMP
- 	cpu_data[cpu].asn_lock = 1;
- 	barrier();
-@@ -182,8 +194,6 @@ ev4_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	ev5_switch_mm(prev_mm, next_mm, next);
+ 	writefromint = 1;
+ 	if (!try_fdc(nr)) {
+ 		/* we might block in an interrupt, so try again later */
+-		flush_track_timer[nr].expires = jiffies + 1;
+-		add_timer(flush_track_timer + nr);
++		spin_lock(&flush_track_timer_lock);
++		if (!flush_track_timer_stopped[nr]) {
++			flush_track_timer[nr].expires = jiffies + 1;
++			add_timer(flush_track_timer + nr);
++		}
++		spin_unlock(&flush_track_timer_lock);
+ 		return;
+ 	}
+ 	get_fdc(nr);
+@@ -1421,6 +1434,35 @@ static int non_int_flush_track (unsigned long nr)
+ 	return 1;
  }
  
--extern void __load_new_mm_context(struct mm_struct *);
--
- #ifdef CONFIG_SMP
- #define check_mmu_context()					\
- do {								\
++static void flush_track_timer_stop(unsigned int drive)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&flush_track_timer_lock, flags);
++	flush_track_timer_stopped[drive] = true;
++	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
++
++	timer_delete_sync(flush_track_timer + drive);
++}
++
++static void flush_track_timer_start(unsigned int drive)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&flush_track_timer_lock, flags);
++	flush_track_timer_stopped[drive] = false;
++	if (unit[drive].dirty)
++		mod_timer(flush_track_timer + drive, jiffies + 1);
++	spin_unlock_irqrestore(&flush_track_timer_lock, flags);
++}
++
++static void flush_track_timer_sync(unsigned int drive)
++{
++	flush_track_timer_stop(drive);
++	non_int_flush_track(drive);
++	flush_track_timer_start(drive);
++}
++
+ static int get_track(int drive, int track)
+ {
+ 	int error, errcnt;
+@@ -1435,8 +1477,7 @@ static int get_track(int drive, int track)
+ 	}
+ 
+ 	if (unit[drive].dirty == 1) {
+-		del_timer (flush_track_timer + drive);
+-		non_int_flush_track (drive);
++		flush_track_timer_sync(drive);
+ 	}
+ 	errcnt = 0;
+ 	while (errcnt < MAX_ERRORS) {
+@@ -1563,6 +1604,12 @@ static int fd_locked_ioctl(struct block_device *bdev, fmode_t mode,
+ 	case FDFMTTRK:
+ 		if (param < p->type->tracks * p->type->heads)
+ 		{
++			flush_track_timer_stop(drive);
++			if (unit[drive].dirty == 1 &&
++			    !non_int_flush_track(drive)) {
++				flush_track_timer_start(drive);
++				return -EIO;
++			}
+ 			get_fdc(drive);
+ 			if (fd_seek(drive,param) != 0){
+ 				memset(p->trackbuf, FD_FILL_BYTE,
+@@ -1571,6 +1618,7 @@ static int fd_locked_ioctl(struct block_device *bdev, fmode_t mode,
+ 			}
+ 			floppy_off(drive);
+ 			rel_fdc();
++			flush_track_timer_start(drive);
+ 		}
+ 		else
+ 			return -EINVAL;
+@@ -1592,8 +1640,7 @@ static int fd_locked_ioctl(struct block_device *bdev, fmode_t mode,
+ 	case FDDEFPRM:
+ 		return -EINVAL;
+ 	case FDFLUSH: /* unconditionally, even if not needed */
+-		del_timer (flush_track_timer + drive);
+-		non_int_flush_track(drive);
++		flush_track_timer_sync(drive);
+ 		break;
+ #ifdef RAW_IOCTL
+ 	case IOCTL_RAW_TRACK:
+@@ -1612,9 +1659,14 @@ static int fd_ioctl(struct block_device *bdev, fmode_t mode,
+ 			     unsigned int cmd, unsigned long param)
+ {
+ 	int ret;
++	bool freeze_queue = cmd == FDFMTTRK || cmd == FDFLUSH;
+ 
+ 	mutex_lock(&amiflop_mutex);
++	if (freeze_queue)
++		blk_mq_freeze_queue(bdev->bd_disk->queue);
+ 	ret = fd_locked_ioctl(bdev, mode, cmd, param);
++	if (freeze_queue)
++		blk_mq_unfreeze_queue(bdev->bd_disk->queue);
+ 	mutex_unlock(&amiflop_mutex);
+ 
+ 	return ret;
+@@ -1716,9 +1768,9 @@ static void floppy_release(struct gendisk *disk, fmode_t mode)
+ 	int drive = p - unit;
+ 
+ 	mutex_lock(&amiflop_mutex);
++	blk_mq_freeze_queue(disk->queue);
+ 	if (unit[drive].dirty == 1) {
+-		del_timer (flush_track_timer + drive);
+-		non_int_flush_track (drive);
++		flush_track_timer_sync(drive);
+ 	}
+   
+ 	if (!fd_ref[drive]--) {
+@@ -1728,6 +1780,7 @@ static void floppy_release(struct gendisk *disk, fmode_t mode)
+ #ifdef MODULE
+ 	floppy_off (drive);
+ #endif
++	blk_mq_unfreeze_queue(disk->queue);
+ 	mutex_unlock(&amiflop_mutex);
+ }
+ 
+-- 
+2.53.0
+
