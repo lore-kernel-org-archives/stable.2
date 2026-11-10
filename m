@@ -1,56 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.96
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794325812;
-	b=aYbynp/BaSrOKcxHez/WgVWlSrNYWtzxeRCX3lKc/Mlqy2tUuy/E0I+5L7ruGCppyjrk
-	 W9ioCuYaPYwZSZRbMHTYQ5/giGcAwXOuAnHeEXreLl2xPt4aSr2bxy32J61TaiNbyz5os
-	 lmF1e4ZI3HlhvEg/cWnU4Aj21xwZoXOGD04eI4ssvzDnfacPngxWE3E8aGfOayHzTdFq9
-	 fXSYffzUGdVuwrA9d5rgMOTKgDqWxeH6yFg3P3x7FN3vMk/DLQvEkdyq5ZTb5tBte+ztz
-	 D50nFPB5L81782d8pE1BgdyFV10X4gU4GiUJHPNVW1xIomKwSP9wnmBzCYOlg8nIwmw==
+	t=1794325815;
+	b=s6vZKuUKfVgkbKlVXjTWXDtebiMxMAKuZkTth9EoP/DKzcamWddqs1Kfr3xmfBf7t0pO
+	 V/irYPDC2G7SQFERvCom92hGBjr+ys26uEBX5Xu+kHK95SYxdJmLSdj7X0zG01JMfr6hp
+	 4bkp624NMCDoIevA3cfIOAwXXDP83df05B4yfsaleDiIExX7fYkERCozYhv91SF/rfR3U
+	 Yb1rVXF0GkQl/J68niGdIjAVwF9rdoGiK3S5ujzQYjXrjUgXmwQcyQtwmMA5JXLag1NoL
+	 fvLJHH0TQbit+/1RpVRAWpfvX/Xy52bMl/sTdxXmFd3PBZhhuLfBMaVxZDY2CKJnbXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794325812;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=D3UJqiZwnvPn+Mgrv2dUSVyfh0FPupoTBw0qs4IUGtI=;
-	b=K2whBi4SDgBYUNd94IDDguaLz6tYFY2yWiGqlCWIaOOYgMCxYUTMK4FfvRQaUuUxCytJ
-	 l4rFt08vBiNK0ZEXagFK6R4zpeA4rK2hKVmQYaXQ2ZJB1a6QWHwErc6Ah28uaUgXYqXFp
-	 mpjrR0SifM1tbFcvT6m3we5RcWKzCoG7UcBCEpbR5HZEfYruwT5mKxlzrUtkP9LI31r5c
-	 w6gdRgfa2dbJiEP9r0Nw6okR0xX1q5jpjxYMPRMetZRmWvHfqz65ua3uGGeF4nYAfxiB8
-	 dfPcnzl7uW7hATjbs0hNoadfvQgVN8m+If3EMf/nNm2pIvBNTE83Zdu/Ixl5MBFrYuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794325815;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=W5VFT6r2Y6eLDidBiMP68rdRUtzolvh9ZqNnQTEK/Ro=;
+	b=1XqBSqGTQnJrgXeVR6ABaSL3X3ISwcRhQvo+dCYd3dXCvtQR4ZQBJTE/LDlCu95xdgbT
+	 bnPRfhDxPXsfGbbXlaLjQHZH3QSUJ1IuRHBJLQmTc1EPSbVRxfx4LAMuOrCQEcmIByzqK
+	 z45Gn6n3P31QfB/a/2inPBy4TOxs4KmaD/YWglHVYqnOKJJGc4cmAgO+7Cua7zgrtHgZA
+	 gpolmng5KD4jp6TOwZUwtpwWwfXRZQ+yHKJBWi3+NFult149gvfIDk5HdkF3gNk5A7MLZ
+	 kT6O5ooqTDTHPRzADhidVZ4CH3GCmSIN8BAWOXaAp3zLlZrfiz02WWApdCW/CoWx96g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gukdf++U;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UD+xWoNa;
+	arc=none smtp.remote-ip=91.218.175.96
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423B2606A323
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:50:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4498606A331
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4498606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gukdf++U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5362C1F008A2;
-	Tue, 10 Nov 2026 15:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794325811;
-	bh=D3UJqiZwnvPn+Mgrv2dUSVyfh0FPupoTBw0qs4IUGtI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gukdf++U1ZV9uxLKvlyq6bzM6lMEEULJ5JDEKKIOIM0+n5SIT7+2eOpWoa/AvINYp
-	 //pRvny1c8lgGMBkHb55stotQdJUoWdQqznc3Rm6NBj7mxfoFVvHSKw2/cPgNS2XK+
-	 6X8MJGEtHMaVfO4BgrUE7SHJTwl02rknYoWBjvrMQ2l9D8zUgy4Lk5CBGCskxY/NkQ
-	 LBVo9PMUB0nqfvpxrlm/eW4PdCCKDZTCtTpdCysr6UWTvJBePMdn/2egLBa4sA2nFV
-	 AdGDZ+NMK8WMZ6bUCOU7aLDrw6r+d5ewpnvafBDW229GWzqwqqbarbRd0iHZuEXFow
-	 Pv8jeOv61XJJw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bui Viet Dung <dungvn2345@gmail.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] Bluetooth: hci_debugfs: Pin module for debugfs file operations
-Date: Tue, 10 Nov 2026 10:50:09 -0500
-Message-ID: <20261110154953.2337328-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110154953.2337328-1-sashal@kernel.org>
-References: <20261107060625-failed-5.15-2a3e2287877b@kernel.org>
- <20261110154953.2337328-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UD+xWoNa
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2Mtu3r90e3i3e1eCCswxBpmz1VV1JltP8voYP2HAqiQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794325811; v=1; x=1794930611;
+ b=UD+xWoNa2Y+VN8qwc/WrLIE9ITOL+Ik2z7MzcOBudOE21frl/HXA8u58ZogsZ3jE0R07C3R4
+ s8iasIpIyJctDr3Uwt/mG4X6U0gVMRVdpMdzXUlGxHInre2IhkIRt6jhQBliyMoamARTvW60tjP
+ wjAd3MA3KRKUImRbxc9fm1r4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66c915b9da646c84;
+	Tue, 10 Nov 2026 15:50:09 +0000
+X-Mizu-Trace-ID: 66c915b9da646c84
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 10 Nov 2026 15:50:04 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: leitao@debian.org
+CC: angelogioacchino.delregno@collabora.com, ebiederm@xmission.com,
+ kernel-team@meta.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, npiggin@gmail.com, oleg@redhat.com,
+ peterz@infradead.org, stable@vger.kernel.org,
+ syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+Subject: Re: [PATCH] reboot: halt when power off fails
+In-Reply-To: <20261110-reboot-make-task-dead-v1-1-af88a3f37bf7@debian.org>
+Message-ID: <1DE3FCD9-C973-4B83-AD64-CB6130CDF39D@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,135 +67,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-From: Bui Viet Dung <dungvn2345@gmail.com>
+On 10 November 2026 15:24:34 GMT, Breno Leitao <leitao@debian.org> wrote:
+>The reboot syscall calls do_exit(0) when kernel_power_off() returns.
+>That happens when no power off handler takes the machine down, since
+>machine_power_off() returns to its caller on x86, arm, arm64 and sh.
+>
+>For example, an x86 kernel built with CONFIG_ACPI_REDUCED_HARDWARE_ONLY
+>cannot power off QEMU's pc and q35 machines. Their FADT is not
+>hardware-reduced, so acpi_power_off() is still registered. But the
+>legacy sleep code is compiled out and the FADT has no sleep control
+>register, so acpi_enter_sleep_state() returns AE_NOT_EXIST.
+>
+>On x86, arm and arm64, interrupts are disabled by then, and do_exit()
+>warns. syzbot hit this on a GCE VM:
+>
+>  ACPI: PM: Preparing to enter system sleep state S5
+>  kvm: exiting hardware virtualization
+>  reboot: Power down
+>  ------------[ cut here ]------------
+>  irqs_disabled()
+>  WARNING: kernel/exit.c:930 at do_exit+0x1cf7/0x2ae0 kernel/exit.c:930, CPU#0: init/6193
+>  CPU: 0 UID: 0 PID: 6193 Comm: init Tainted: G             L      syzkaller #0 PREEMPT(full)
+>  Call Trace:
+>   <TASK>
+>   __do_sys_reboot+0x36e/0x400 kernel/reboot.c:784
+>   do_syscall_64+0x115/0x840 arch/x86/entry/syscall_64.c:94
+>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   </TASK>
+>
+>If the caller is init, do_exit() then panics. Exiting does not help
+>the other callers either: the devices are already shut down, and the
+>task still holds system_transition_mutex.
+>
+>Halt instead, as the syscall already does when no power off handler is
+>registered, and as most other architectures do in machine_power_off().
+>
+>Use machine_halt() rather than kernel_halt(). kernel_power_off() has
+>already run the shutdown sequence, and kernel_halt() would call the
+>reboot notifiers again with interrupts disabled.
+>
+>Keep the fallback in the syscall. hw_failure_emergency_action_func()
+>relies on kernel_power_off() returning, so that it can try an
+>emergency restart.
+>
+>Fixes: 001c28e57187 ("exit: Detect and fix irq disabled state in oops")
+>Reported-by: syzbot+8fdf0d8e10bdde1c2e88@syzkaller.appspotmail.com
+>Closes: https://syzkaller.appspot.com/bug?extid=8fdf0d8e10bdde1c2e88
+>Suggested-by: Oleg Nesterov <oleg@redhat.com>
+>Link: https://lore.kernel.org/all/20250404152006.GF3720@redhat.com/
+>Link: https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Breno Leitao <leitao@debian.org>
+>---
+>This is my second attempt at fixing this. The first one silenced the
+>warning in do_exit() pre LLMs:
+>https://lore.kernel.org/all/20250403-exit-v1-1-8e9266bfc4b7@debian.org/
+>
+>Bradley Morgan tried twice, first enabling interrupts before do_exit(),
+>then calling make_task_dead():
+>https://lore.kernel.org/all/20260712125300.31501-1-include@grrlz.net/
+>https://lore.kernel.org/all/20260713062332.21131-1-include@grrlz.net/
+>
+>Tze-nan Wu hit a related init panic during power off:
+>https://lore.kernel.org/all/20250410143937.1829272-1-Tze-nan.Wu@mediatek.com/
+>
+>All of these still let the task exit. In those threads Oleg and
+>Christian said init should not exit on power off at all, so this
+>version halts instead.
+>---
+> kernel/reboot.c | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/kernel/reboot.c b/kernel/reboot.c
+>index 9a84401adde5a0..bc71183d4ad870 100644
+>--- a/kernel/reboot.c
+>+++ b/kernel/reboot.c
+>@@ -791,6 +791,9 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+> 
+> 	case LINUX_REBOOT_CMD_POWER_OFF:
+> 		kernel_power_off();
+>+		pr_emerg("Power off failed: System halted instead\n");
+>+		/* kernel_power_off() already ran the shutdown, only halt. */
+>+		machine_halt();
 
-[ Upstream commit 2a3e2287877b1ee40ffb80b7d769b633866533f3 ]
+Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, the file_operations defined in
-hci_debugfs.c (use_debug_keys_fops, sc_only_mode_fops,
-ssp_debug_mode_fops, force_bredr_smp_fops, force_static_address_fops,
-force_no_mitm_fops, dut_mode_fops, vendor_diag_fops, and the
-DEFINE_QUIRK_ATTRIBUTE macro) have no .owner set to THIS_MODULE.
+Id reckon this would fix it, go test syzbot if you'd wanna be confident :)
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the bluetooth module. When a userspace
-process opens any of these debugfs files, a subsequent controller removal
-and module unload (rmmod bluetooth) can succeed while the file descriptor
-remains open.
+> 		do_exit(0);
+> 		break;
+> 
+>
+>---
+>base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+>base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+>change-id: 20261110-reboot-make-task-dead-8702e9b29130
+>
+>Best regards,
+>--  
+>Breno Leitao <leitao@debian.org>
+>
+>
+>
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
-
-  BUG: unable to handle page fault for address: fffffbfff8056f03
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x115/0x6a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-The issue was discovered via manual code audit of
-net/bluetooth/hci_debugfs.c and verified on a Linux 7.3-rc6 test VM
-with CONFIG_BT=m.
-
-Set .owner = THIS_MODULE on all debugfs file_operations tables in
-hci_debugfs.c so that debugfs keeps the module loaded until close has
-finished.
-
-Fixes: 0886aea6acd2 ("Bluetooth: Expose debug keys usage setting via debugfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/bluetooth/hci_debugfs.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/net/bluetooth/hci_debugfs.c b/net/bluetooth/hci_debugfs.c
-index be805c87619c7..770e026b1ebea 100644
---- a/net/bluetooth/hci_debugfs.c
-+++ b/net/bluetooth/hci_debugfs.c
-@@ -68,6 +68,7 @@ static ssize_t __name ## _write(struct file *file,			      \
- }									      \
- 									      \
- static const struct file_operations __name ## _fops = {			      \
-+	.owner		= THIS_MODULE,					      \
- 	.open		= simple_open,					      \
- 	.read		= __name ## _read,				      \
- 	.write		= __name ## _write,				      \
-@@ -286,6 +287,7 @@ static ssize_t use_debug_keys_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations use_debug_keys_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= use_debug_keys_read,
- 	.llseek		= default_llseek,
-@@ -304,6 +306,7 @@ static ssize_t sc_only_mode_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations sc_only_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= sc_only_mode_read,
- 	.llseek		= default_llseek,
-@@ -440,6 +443,7 @@ static ssize_t ssp_debug_mode_read(struct file *file, char __user *user_buf,
- }
- 
- static const struct file_operations ssp_debug_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= ssp_debug_mode_read,
- 	.llseek		= default_llseek,
-@@ -532,6 +536,7 @@ static ssize_t force_bredr_smp_write(struct file *file,
- }
- 
- static const struct file_operations force_bredr_smp_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_bredr_smp_read,
- 	.write		= force_bredr_smp_write,
-@@ -781,6 +786,7 @@ static ssize_t force_static_address_write(struct file *file,
- }
- 
- static const struct file_operations force_static_address_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_static_address_read,
- 	.write		= force_static_address_write,
-@@ -1184,6 +1190,7 @@ static ssize_t force_no_mitm_write(struct file *file,
- }
- 
- static const struct file_operations force_no_mitm_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= force_no_mitm_read,
- 	.write		= force_no_mitm_write,
-@@ -1322,6 +1329,7 @@ static ssize_t dut_mode_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations dut_mode_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= dut_mode_read,
- 	.write		= dut_mode_write,
-@@ -1378,6 +1386,7 @@ static ssize_t vendor_diag_write(struct file *file, const char __user *user_buf,
- }
- 
- static const struct file_operations vendor_diag_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= vendor_diag_read,
- 	.write		= vendor_diag_write,
--- 
-2.53.0
-
+--- Thanks!
