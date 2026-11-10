@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794344379;
-	b=SI5wCkWKxBjHUA8g0CAhFQGwLllmoOaFoKO5B/tLcHx5WZQstaJJMq9xx9NnDZNFcZbf
-	 zd7Z8TDElR0TyfN6IUzvun8QR7v8d7qY7PCQ98WudRzf4BXF1D3TW3wRU84uql+1An7BJ
-	 0mJAGBMIYM/3XmWC/nVtDp0YsmzDy9deyVskRZpc20W2bkxBUv/COpIi6dzyJ7lRHTpJZ
-	 XDwgVZj1b+h7P1fKlCr1gNd8KAowCutIBGCQPf1MI21FdtuDcOULND47a/WSR9iGRyMgv
-	 BzHgp2PaNWYOY3Ww9BKl6/dT/lVLErcW3k7tmkJALW/r+fz8NyqodL7Oo0Rz39iz9bw==
+	t=1794344380;
+	b=NU/yKCmvYd4z+lXeiuZhWyd+mIc25DWtg7kGmP4+Z3ysMwST0fqSyeXhBib5G/pEX7PX
+	 JRLCPW9ld+bUMNx/6Me2OAxjM6sFVXhCful2hi1yoIha30hbj2dfwDI6HOmDNmaYBkTgw
+	 2Vq1sa4N6u672+QugI1M2vhLX4ua6hJ4fur6wKuTiTKI9HgMTHF7tZ2QyfIRc5XEMb+F+
+	 e2JRuFOMRXFk6Wj8OKHuibDRwB36yov73qkXTtPFLyc2uINN03670v7rH2SwWAB+JWskz
+	 a7nLZD3eW5aIORBUXRXGDn0KW2bEGNXHoOlC8XTBX+7XA5NPOdKvvvuqH3XIFU7cV6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794344379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794344380;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tLDmw/dg3Wqkro4dxp9Cal7xsLA3l8iVE2cJ1NOyLF0=;
-	b=19kbY9pF7BOqhNaGqaLuT62r/WO1XAXb+WO203l/o8KKn0RvVdkjaqhRaqXWBvJ0JvlF
-	 TioN2DBL3afX7Ycuc40Z6ovphoXnOSmMI7gttv7V/tmkyqmMq0okiZlI5r39x0oIMjdbT
-	 5Eade3CY/xmwcEDvp8HQ/jUG54GsofzKO9jyt/6dxyU+dVQc4JItpCYDAmgMgQcEBz9Q+
-	 AQ2UDxbKYBVRXOklioyL0z2cdW5fihbe+iYS7BJeebwi0PCkWLa5znf2XBdR1UivKbFQk
-	 OlUNTwjRmBVSv614o7Jh2RZvdf8EBwp8ULtCKsEhez4Nmwd5W1n/RcYiMhssXSXJMJw==
+	bh=rEhyH04+R/17OYOFhWWs0CHwxDxLEw5dOmSsfQr/lLs=;
+	b=CZ/1hkXFfwMC2cL/1ogoe58qCnPAmXjvEgLRO64kuEbHaPihkSkvR6ez2r3yosFpOEQJ
+	 ThlnwpG2a14C/QViQy750Cd8p9kCw6NaGPi8KTXLR1P113n4/2QSpgb+7GaiZp5tERb4o
+	 xyqxqs7RP0ZQn02ygXDKQQKisTzcBkKxiZuGfFe3TAuDv29sj83GehkGCHoneYJguZKvt
+	 tdj0Tl0f9lkWr8pAn3vCY9lVWKR3Va/gpM8p7jhPCtbS4Fn1jIw5DRrVVuZDhjOYp9dvR
+	 vVpDGtptAV8tEcPctSUc4MO+KS0GXKcpDk/01jrO5z1Ldzxlwz4OLvXaCk8D2YO7uww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk3ouZKl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ji+hOeC/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BC3606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B302606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:59:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk3ouZKl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676C01F008A2;
-	Tue, 10 Nov 2026 20:59:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ji+hOeC/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1231F0089F;
+	Tue, 10 Nov 2026 20:59:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794344379;
-	bh=tLDmw/dg3Wqkro4dxp9Cal7xsLA3l8iVE2cJ1NOyLF0=;
+	s=k20260515; t=1794344380;
+	bh=rEhyH04+R/17OYOFhWWs0CHwxDxLEw5dOmSsfQr/lLs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vk3ouZKl6pNeylpL7dyIp6lLsqC3v7GNEOXWr/+JVdMsfsa5bw4qHcsPGYEmzRb5/
-	 6xLhOi6Nalv5dRSCXXZ//d31jaL8DWwS5UGjGwCuzh2THxruwvzfJIixON88BM3eyW
-	 NctfivfV385339oI9UAVL5LoHbQWyWT+DioK31yJkkAhlFBYnzDBD8eyaPhDeHIVsd
-	 iuoqO0MzZDepcB9MGtnSYbtRbEk8BDV7WAVcoMdB6RremTZFabJ+WigjKuI3cjfmZJ
-	 lOy551x514EQWls4V9RIxhMD+Zb6bj4HINPxi4KDfhYl6O09FQRlTWgpLIVysuPtrS
-	 BqMKUL6ZQlCTw==
+	b=ji+hOeC/cq6RVi5dclLcifo1uGmfcOvQAFV0KAxXjbTtwOEbMBxkFNKNEa/47m/Ll
+	 A7PZeZudPOx7nIghEzwuSJ0VXL9Y9znWFTTWqa0ciJjoiFGhH09AABFQT+FJHQcp50
+	 SePgWSRNj3dFLmgsHEnwd2lKIJgrp62freHNptPmAM3dtbvuMgmEsxDGA9+BtIV7EA
+	 dfkB1SChABZY5qr2BaTg+Ea925ix9zRtPv2GG4fnDjA+aoRwgp4CQ/Z+1GrGPmP/Py
+	 qCFUaTpfKPuaHg8tEGvDt1ogaKZ+/2q+tkKGNQv/ubTnbw89BAwvc1JG64juDxYBpA
+	 FawXaKf6EyiAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jiucheng Xu <jiucheng.xu@amlogic.com>,
-	stable@kernel.org,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: Re: [PATCH 6.1.y] f2fs: force out-place update for all writes on compressed file
-Date: Tue, 10 Nov 2026 15:59:02 -0500
-Message-ID: <2026-11-10-1-daily-reply-0006-f2fs-compress-outplace@kernel.org>
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH 7.3.y v2] ceph: clamp the inline data length in ceph_fill_inline_data()
+Date: Tue, 10 Nov 2026 15:59:03 -0500
+Message-ID: <2026-11-10-1-daily-reply-0007-ceph-inline-7trees@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110031424.1730-1-jiucheng.xu@amlogic.com>
-References: <20261110031424.1730-1-jiucheng.xu@amlogic.com>
+In-Reply-To: <20261110015638.469378-1-zhugl3@xiaopeng.com>
+References: <20261110015638.469378-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,12 +62,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> f2fs: force out-place update for all writes on compressed file
+> ceph: clamp the inline data length in ceph_fill_inline_data()
 
-Looks like we also need 2eebc31ae5f5 ("f2fs: allow pinning empty compressed
-files"), which doesn't apply cleanly.
-
-Could you resend each tree with the follow-up included?
+Queued for 7.3, 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
