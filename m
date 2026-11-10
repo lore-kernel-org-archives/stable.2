@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272685;
-	b=NWUTWBHbJrN3FI+WQ/yKFR7RKdkelUXqexIk4K2r/GW9RmDSFy2KgulW5fVP3mvfrO/T
-	 E3KyTGSd5oo+YCs/zlc7IHoxPaE47Cq8CEMQh/yHp6oAADBuv+xVDtwLuagqzzZVjS3PB
-	 dMwWd19RAelWnySCilqAC8wbBauu1CHcyi1HZkes1Jv5o5iZ/5ULuHVt+XMXfLy+PTWv4
-	 1UaEHxHTFdHpw9BzXCOfkYtI+FbNEdWXPMy6v6h5uj/8MYo+0Ps00D8T9vuWFbVEkepRC
-	 SVsfuvemPI7My9DnS6eQIj07CahsiaiDD78zErv0LuPel5tf7vVPwG4jZN42x0pQX/g==
+	t=1794272688;
+	b=syIBmCtuag4mLDSzwv8Zi2ShSTiDWEMI3uBrjlb99/2c1dH8j7vhEpvmNKufHrUdD8fw
+	 ahuyOSzcXglWNRGJI8tSk5swkG854u9WB3hu0LxY2acbZ9gkfHhyNOOVofMtIujk/9YKr
+	 xm8AjB5OPqGIVV9piPMvDQlxAawWPWfEwDa0ZH3aVrHuSDFjNtngBFq7eZXzLqDu5NkWU
+	 TaUpjBW1GK0wb1zCeWdqFQX0xDZ2x5VJvGmsTjNomI7tlZKLPdvQ9Dl2F03hrwuHHgF4A
+	 OPgYHeWbbw3TrWkJub6421Kx043sdkqAYo5DTcG5koclsa5GluV3h5Ewf76+3mZcQew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272688;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=P0JyJN7e3iBp+nc2+8W4QAFYkDCtw1ieVATYiOXETI4=;
-	b=DEZcpsyISJ+KcSrEm9d66QMIOA/KW7tShHdrKS/bpRKhAKATF3lWlHHQX00pyBIWBdQM
-	 R48ZvGsclKKPXqM/QQGlWsmVu7X4R4SKyjGQ6sUJAdtNdGQiUwhKRNWVLTVDnvaNwMxfN
-	 beRfP+ZLkU3QnJrXrHEcinmSMnDUW7MMJ5M2IJs6IppWh+ybLaoDBMY19FxCpUGtKX/ew
-	 kNtNIRex64AFU6Qbx8yqiPZ/lPVTwOhfY50uzuERwVWOxQgayTWXUvn/b0TULpL2ZRp9A
-	 cYJWVgtOSdNOiXEAhwJAklSAi0s3pTZRX6hMBAa1UsvM3Fd8SJB4d+9aeeFkQ52jgBw==
+	bh=S/Axm1uMDdEdnAYqgoNUtjIJr6ICNicUhLU/45+se+o=;
+	b=ZNZ5LXkwKcVSlYREXtdaj231ylH3pR1pDUeKEmFb3lLDyfkcG24SYJOb7K3JLj0arJ15
+	 8ezkvDWUC2cFnDKiKDv2z+86QK5HJk0Su5Q2hs9hTnSi03eRyohFPYHXLGwbkkdYh6qsV
+	 q2P3L35k0OkXJ/7coUTwsr//Y9VgeA0vq8EILXa61AomY2Q/+leVJxDDtzMpk42JrF+2W
+	 QXb1TrBKXiWqlELV6E1UPAs528mPxUOjTCIWF+wFihIbCD1CS/Jn5bl0OeNCorTtVEKtW
+	 BoD++JnMUhOKxMd6uHGGE2GcpHGLhO/U1ZJQRPlzuREi9HzzUmMnkxXcGcYeC97JXqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SPCo/ktx";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2bbi1mM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9547D606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7510606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPCo/ktx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15811F008A1;
-	Tue, 10 Nov 2026 01:04:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L2bbi1mM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3181F008A1;
+	Tue, 10 Nov 2026 01:04:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272685;
-	bh=P0JyJN7e3iBp+nc2+8W4QAFYkDCtw1ieVATYiOXETI4=;
+	s=k20260515; t=1794272687;
+	bh=S/Axm1uMDdEdnAYqgoNUtjIJr6ICNicUhLU/45+se+o=;
 	h=From:To:Cc:Subject:Date;
-	b=SPCo/ktx5gEfkckJzDFueV+7Lgn9IranrTQ6SbFFSlSPkqCOyOrK/IUEBopXjeQT7
-	 g8APJmvjdaa31YQ7Xy2o16k1JnWmKmpOTBUCfThOBgQbPBYoellzkmvh5xI95A0oqN
-	 aMAueHtAw8fMfKFbe5jJdxwIKWJu9W4Bpbaffc8BmoMa8K4vqXTi5Zjx4LIvIFvNeh
-	 a62jtNFp6J/bwyOvz6VDieeiCPQR3FdUaGM7QSN0OhAGNfeNMp98ZKFGbY81oFBSDG
-	 Oa5TvBJadK5JzDtiDCtcU81/Rj0oFFrMi3UD/TWnGaRJzGJWn1JCDHofI4pNS9VCck
-	 ahaAjAr8rlvqw==
+	b=L2bbi1mMg23Y9Ps23KMLvkGCKKAqhEYnYcOxM6jancEOVUb5SxhGhOC0fpUACQpRT
+	 QP8a4/Qgbv+ZfIPn/LLH0NBBLULxVPhecivgJ84pDOA9p4AFlClgBYE0ADN39pReZt
+	 tP/HBAFmx52MvaqKQOgia15PubLpQretzcuMajFIgAENNFn9j5Hwqon6yqmeW8Yceg
+	 iA7ChotQLFmi9X9hKhHIm2IPhqMEdAkxtroxNL9WqVGPWy+ujx0v2a4pAoJ0UeuwHZ
+	 HVrZEHjSSCHIroaxi3um+aRPXBHmi78A3p1kzBZB4VWd9D4gIge/v7NxnCR2mzCDuV
+	 Jem8Ux/o9UWZg==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	hch@lst.de,
-	cem@kernel.org
+To: mailhol@kernel.org,
+	mkl@pengutronix.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:04:43 -0500
-Message-ID: <20261109200443-failed-6.18-bcf0b7f18ad1@kernel.org>
+Subject: FAILED: patch "[PATCH] can: dev: can_dropped_invalid_skb: drop CAN XL frames on non-CAN XL devices" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:04:46 -0500
+Message-ID: <20261109200446-failed-6.18-0fce44e29fce@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,140 +68,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x bcf0b7f18ad11e1d410e82ffef678705eff0a317
+git cherry-pick -x 0fce44e29fce4b07642491b098afb41bd571e4f2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200443-failed-6.18-bcf0b7f18ad1@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200446-failed-6.18-0fce44e29fce@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bcf0b7f18ad11e1d410e82ffef678705eff0a317 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Thu, 29 Oct 2026 11:23:00 +0900
-Subject: [PATCH] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
+From 0fce44e29fce4b07642491b098afb41bd571e4f2 Mon Sep 17 00:00:00 2001
+From: Vincent Mailhol <mailhol@kernel.org>
+Date: Fri, 31 Jul 2026 18:29:44 +0200
+Subject: [PATCH] can: dev: can_dropped_invalid_skb: drop CAN XL frames on
+ non-CAN XL devices
 
-A client can commit a hole in a LAYOUTCOMMIT, because nfsd does not
-check the extents against its layouts. xfs_iomap_write_unwritten() then
-allocates written blocks there. A large hole overruns the block
-reservation and shuts XFS down. A small one exposes stale data.
+Sending a PF_PACKET bypasses the CAN framework logic and can directly
+reach a CAN driver's xmit() function. The PF_PACKET framework only
+checks that skb->len does not exceed the net_device MTU.
 
-Refuse such a range with -EIO, using XFS_BMAPI_CONVERT_ONLY.
+For a CAN device that is not CAN XL capable, anything above CANFD_MTU
+(72 bytes) is therefore dropped before it reaches the driver. However,
+CAN XL frames are variable length. can_is_canxl_skb() accepts lengths in
+the range CANXL_HDR_SIZE + CANXL_MIN_DLEN up to CANXL_MTU, i.e. 13 to
+2060 bytes.
 
-Link: https://lore.kernel.org/r/20261014130834.GB15773@lst.de
-Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+As a result, an ETH_P_CANXL skb with a length between 13 and 72 bytes
+can pass both the MTU and the can_dropped_invalid_skb() checks.
+
+A driver that does not support CAN XL will interpret canxl_frame->flags
+as a length because of the overlap with can_frame->len. And because
+CANXL_XLF is set, the resulting length is between 128 and 255. For
+drivers that do not check can_frame->len before copying can_frame->data,
+as most drivers do, this results in a buffer overflow of up to 247
+bytes.
+
+Drop ETH_P_CANXL skbs if the device does not have the CAN_CAP_XL
+capability. Keep can_is_canxl_skb() for the validation of CAN XL skbs.
+
+Closes: https://sashiko.dev/#/patchset/20260731-master-v5-0-5b27029dee20@qq.com?part=1
+Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+Link: https://patch.msgid.link/20260731-drop_canxl_frames-v1-1-7387b70353b3@kernel.org
+Cc: stable@kernel.org
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- fs/xfs/xfs_file.c  |  2 +-
- fs/xfs/xfs_ioend.c |  2 +-
- fs/xfs/xfs_iomap.c | 20 +++++++++++++++++---
- fs/xfs/xfs_iomap.h |  3 ++-
- fs/xfs/xfs_pnfs.c  |  9 ++++++++-
- 5 files changed, 29 insertions(+), 7 deletions(-)
+ drivers/net/can/dev/skb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 1eab6dbb4c5f1..d2a2124bff547 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -666,7 +666,7 @@ xfs_dio_write_end_io(
- 	 * they are converted.
- 	 */
- 	if (flags & IOMAP_DIO_UNWRITTEN) {
--		error = xfs_iomap_write_unwritten(ip, offset, size, true);
-+		error = xfs_iomap_write_unwritten(ip, offset, size, true, 0);
- 		goto out;
- 	}
+diff --git a/drivers/net/can/dev/skb.c b/drivers/net/can/dev/skb.c
+index 14edec5afb57e..bc0787535b524 100644
+--- a/drivers/net/can/dev/skb.c
++++ b/drivers/net/can/dev/skb.c
+@@ -4,6 +4,7 @@
+  * Copyright (C) 2008-2009 Wolfgang Grandegger <wg@grandegger.com>
+  */
  
-diff --git a/fs/xfs/xfs_ioend.c b/fs/xfs/xfs_ioend.c
-index 48becc3bf6088..7f4a4a95afe50 100644
---- a/fs/xfs/xfs_ioend.c
-+++ b/fs/xfs/xfs_ioend.c
-@@ -237,7 +237,7 @@ xfs_end_ioend_write(
- 	if (ioend->io_flags & IOMAP_IOEND_SHARED)
- 		error = xfs_reflink_end_cow(ip, offset, size);
- 	else if (ioend->io_flags & IOMAP_IOEND_UNWRITTEN)
--		error = xfs_iomap_write_unwritten(ip, offset, size, false);
-+		error = xfs_iomap_write_unwritten(ip, offset, size, false, 0);
++#include <linux/can/can-ml.h>
+ #include <linux/can/dev.h>
+ #include <linux/module.h>
+ #include <net/can.h>
+@@ -388,7 +389,7 @@ bool can_dropped_invalid_skb(struct net_device *dev, struct sk_buff *skb)
+ 		break;
  
- 	if (!error &&
- 	    !(ioend->io_flags & IOMAP_IOEND_DIRECT) &&
-diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-index 329c745e31204..99d48081c5ac3 100644
---- a/fs/xfs/xfs_iomap.c
-+++ b/fs/xfs/xfs_iomap.c
-@@ -614,7 +614,8 @@ xfs_iomap_write_unwritten(
- 	xfs_inode_t	*ip,
- 	xfs_off_t	offset,
- 	xfs_off_t	count,
--	bool		update_isize)
-+	bool		update_isize,
-+	uint32_t	bmapi_flags)
- {
- 	xfs_mount_t	*mp = ip->i_mount;
- 	xfs_fileoff_t	offset_fsb;
-@@ -676,8 +677,21 @@ xfs_iomap_write_unwritten(
- 		 */
- 		nimaps = 1;
- 		error = xfs_bmapi_write(tp, ip, offset_fsb, count_fsb,
--					XFS_BMAPI_CONVERT, resblks, &imap,
--					&nimaps);
-+					XFS_BMAPI_CONVERT | bmapi_flags,
-+					resblks, &imap, &nimaps);
-+		if (error == -ENOSR && (bmapi_flags & XFS_BMAPI_CONVERT_ONLY)) {
-+			/*
-+			 * Nothing was mapped: the rest of the range starts
-+			 * with a hole or a delalloc extent. Nothing was
-+			 * changed either, but xfs_iext_count_extend() may
-+			 * have logged the inode, and cancelling a dirty
-+			 * transaction shuts the filesystem down. Commit it,
-+			 * as xfs_alloc_file_space() does on -ENOSR.
-+			 */
-+			error = xfs_trans_commit(tp);
-+			xfs_iunlock(ip, XFS_ILOCK_EXCL);
-+			return error ? error : -EIO;
-+		}
- 		if (error)
- 			goto error_on_bmapi_transaction;
+ 	case ETH_P_CANXL:
+-		if (!can_is_canxl_skb(skb))
++		if (!can_cap_enabled(dev, CAN_CAP_XL) || !can_is_canxl_skb(skb))
+ 			goto inval_skb;
+ 		break;
  
-diff --git a/fs/xfs/xfs_iomap.h b/fs/xfs/xfs_iomap.h
-index f2520a9b3a13e..8fc0c6fc8bea5 100644
---- a/fs/xfs/xfs_iomap.h
-+++ b/fs/xfs/xfs_iomap.h
-@@ -15,7 +15,8 @@ struct xfs_zone_alloc_ctx;
- int xfs_iomap_write_direct(struct xfs_inode *ip, xfs_fileoff_t offset_fsb,
- 		xfs_fileoff_t count_fsb, unsigned int flags,
- 		struct xfs_bmbt_irec *imap, u64 *sequence);
--int xfs_iomap_write_unwritten(struct xfs_inode *, xfs_off_t, xfs_off_t, bool);
-+int xfs_iomap_write_unwritten(struct xfs_inode *ip, xfs_off_t offset,
-+		xfs_off_t count, bool update_isize, uint32_t bmapi_flags);
- xfs_fileoff_t xfs_iomap_eof_align_last_fsb(struct xfs_inode *ip,
- 		xfs_fileoff_t end_fsb);
- 
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index a9f0b472f3076..7ff83274a5135 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -344,7 +344,14 @@ xfs_fs_commit_blocks(
- 					(end - 1) >> PAGE_SHIFT);
- 		WARN_ON_ONCE(error);
- 
--		error = xfs_iomap_write_unwritten(ip, start, length, false);
-+		/*
-+		 * A client may only write to blocks that a layout handed out,
-+		 * and xfs_fs_map_blocks() allocates blocks for any hole in a
-+		 * write layout, so refuse to allocate blocks for a hole or a
-+		 * delalloc extent in the committed range.
-+		 */
-+		error = xfs_iomap_write_unwritten(ip, start, length, false,
-+				XFS_BMAPI_CONVERT_ONLY);
- 		if (error)
- 			goto out_drop_iolock;
- 	}
 -- 
 2.53.0
 
