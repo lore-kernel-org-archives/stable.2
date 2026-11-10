@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273567;
-	b=rRhhicsA8ofAfwDJkM9wb+YWuHO4tSRgK1f/Jckf3s+TlqePMNuYhMLo3MuaG5H1SlkX
-	 yY7dd6odoxKtp6xx5gPnumu9pgww4lwLF7gk4FqH/C/jloB4vmylps5PAud6k3M1uLlMS
-	 16cpNE2a/RxcwH8AgsvB5HrY3exd+YLkD9IR00OY6EMMI4jAswNFZLSFP2Q2TA2krVomV
-	 EyRB2nqdcJzgl1CWuKUeMc/h6QKoJgWxd+CIyngJ89d+0fgq/Ivrzfw/UvJPmYioqkno/
-	 0+TLW07E6+YcYUOi62OaUachpgH3cKpS2Zg5/e8f0pwwmN9jBTRSVQOg03eCIyLqxSw==
+	t=1794273570;
+	b=tDUYR96MCoX/XTRcVBYTBvMO8JtAm9uRUvwh9sXoYgBcdZFU9L8NWM8hsW/yajejFKuY
+	 6Pkm4ZU+n1Tr7Orrfzq+H+jUbEgKGyPgfaVl5xLzj40SCTzHNzl5hP1ghHcmncE9gHwfU
+	 5HZqFqIx6hEdjt7xl0IZqAzzeMiVIdpSBPCddnKL5zibtcnGEgmTVvbqoGTJ2rLBjIHNE
+	 aDQNkGpWN/xtnD/s8QrACF7Y43UmqKm6e6yvEA5OQyNCxr2Z6RyxcZp2jScqY3fn4XLnG
+	 8CugQ2+GuQEZUGafVRSRsxueSOkmaj3KXvCexXrlCPRBzrHwN9j2J5I1g9RfDjS5H8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273567;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273570;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2Kt1v+I3BcfBNg1Jx+k5988QiZ1+Ibms4QTg6zPr3zo=;
-	b=kmJ2Qa4Ov4E2B8zyTzyJC9gzDYRSAgcTB3W95f1HEtnJQQOmzgaHB3282fkIMj6toN18
-	 JxpiVWBlToL1cNCfoHkeZBTtddXMFPIH5oN4bPbgUje5FMN8uzfagKyUU3k1qYhew6jv/
-	 0mzSHDQJO+vH9nBECt3DXSVZ3BFkKfeY08UKa4GO23X8pSN0GoGBQcDzWLLMi16o2xnuk
-	 tom7eFhYhaRiYsANKuch2Jec/itGvBzxaKPHyUQYmQEArOprN3quqagia9aiKSXlZ/lC4
-	 oIOANzewqazLO7J1trFV6wueXBgOkVkwUFHtOpPHJ9fgUHMfY05z4DNb6C0ElFm0nDw==
+	bh=dRqbCpHrLxYrW1AhwAM+mnJ4UhyH6WMSxTkGv/92pNY=;
+	b=qYLidNM53eeUem3v4WYnHlrgd8QNhRJzNrReI1Bmpj4BAxm+8LDH44TColEgLXdLBurC
+	 gOGdBvm8C05xD4kITEWb4weK7tvY43JxP7di54RXLorG7kBqFlLXJb3b0q0K+eMiTvZmf
+	 EQaeVesEUvFVTJ95BTaK/T7TmVP2gyZvrn9d6J5KeOIyz3JFtY9VfZuKaQdOamZgvh+Py
+	 jrIZkm7EIx6VAFBehStm8+wcKD05EjzFxY+hRe8VfiBPYfU/aDtSd6kQrWxux/3Sv2S8V
+	 jnADxdLyWGgNG6fbz4cVTrOIv/k617DpDHeMHFkzyFBj7lzhdEi1rX5Z16uX8Mv0dqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTmNRPzS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lk+8fNsb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9280A606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFBD606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTmNRPzS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82361F0089F;
-	Tue, 10 Nov 2026 01:19:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lk+8fNsb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D9541F0089F;
+	Tue, 10 Nov 2026 01:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273567;
-	bh=2Kt1v+I3BcfBNg1Jx+k5988QiZ1+Ibms4QTg6zPr3zo=;
+	s=k20260515; t=1794273569;
+	bh=dRqbCpHrLxYrW1AhwAM+mnJ4UhyH6WMSxTkGv/92pNY=;
 	h=From:To:Cc:Subject:Date;
-	b=UTmNRPzShJQPzkpsMV5ZhFmtvLGUQ4unW5cDLadD9jA0KSE/eOR6vDUNgLl5/egG+
-	 1KxpinM4j3UGIQ7o5niXCRmYSHIo39p0eFVJztTkJtEDRsiKlmZFcVBwjqEm196sNA
-	 n7m2iWeynKOB57qldVNaLlmqtLfd/1HfoCCqoXtd56wt2dv/sAqK0X7f4JIjEfANFC
-	 tHRP7rXfBGePGQY18BGwKVpJ4YJ6tPdY9+NYx/+C2srFc17fCFESNQvfdnFiOM2RWJ
-	 IztGLnEs3dql7h7piBZAdVqlQ2X6zwjC+tNdX0Hl6Md4dJWwTc6knGH9LE58lhJhCh
-	 ctrNampx6ZQ9g==
+	b=Lk+8fNsblzOZWKyzwX4rXf+n9zz62ODu6HDz1s+53Ykpxrg2qCLPbgi4z4onkz+X5
+	 CVMXDCheGZoC2N747ia6/fWVPFEGrK14WYHKAaeAwwPRshajAzr++RMeUSyAO1s6Xn
+	 +1DsyKcvD+FE/TtXDv72EbaxyVqAPIHUIeaA+eygKo/MsFS2IINwbXlUARAPHR7Rpg
+	 Tv4xvOhpDx9FsVCjU8AXd6ytywjng1EGDQlfRcK3eTykhkZv+8Cs0vMPLWJ5e728IZ
+	 xcCPEisHTVK54aLtAng0sHjlh4bb2rMcodjGG+wxexW7O6yYhAYRdTMNjAxR9iCrHg
+	 B/osjLAWBf/VA==
 From: Sasha Levin <sashal@kernel.org>
-To: jesse.zhang@amd.com,
-	felix.kuehling@amd.com,
+To: renpanpan@kylinos.cn,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdkfd: use the queue's process info for the WPTR BO eviction fence" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:25 -0500
-Message-ID: <20261109201925-failed-6.1-da2897ee8b81@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: Only enable HDMI audio if display supports it" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:28 -0500
+Message-ID: <20261109201928-failed-6.1-0de95c96655c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,110 +68,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x da2897ee8b811945fd40ecc4aaf03291c14ce61c
+git cherry-pick -x 0de95c96655c8a12df62e47871016f49e5cd8618
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201925-failed-6.1-da2897ee8b81@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201928-failed-6.1-0de95c96655c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From da2897ee8b811945fd40ecc4aaf03291c14ce61c Mon Sep 17 00:00:00 2001
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-Date: Sat, 24 Oct 2026 01:26:49 +0800
-Subject: [PATCH] drm/amdkfd: use the queue's process info for the WPTR BO
- eviction fence
+From 0de95c96655c8a12df62e47871016f49e5cd8618 Mon Sep 17 00:00:00 2001
+From: renpanpan <renpanpan@kylinos.cn>
+Date: Mon, 2 Nov 2026 17:49:29 +0800
+Subject: [PATCH] drm/amdgpu: Only enable HDMI audio if display supports it
 
-amdgpu_amdkfd_map_gtt_bo_to_gart() removes the eviction fence of
-bo->vm_bo->vm->process_info from the WPTR BO of a new queue. bo->vm_bo
-is the VM which opened the BO last, not necessarily the KFD process' VM,
-and a render node VM has no process info.
+The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally calls
+audio_enable(pin, true) at the end of afmt_setmode(), regardless of
+whether the connected display advertises audio support in its EDID.
 
-On navi31, an unprivileged process which exports its WPTR BO with
-AMDKFD_IOC_EXPORT_DMABUF and imports it on a second render node fd
-oopses in AMDKFD_IOC_CREATE_QUEUE:
+This causes a phantom HDMI audio output to appear for displays that
+have no audio capability (no basic audio bit, no Audio Data Block in
+EDID), because the GPU sets the AUDIO_ENABLED register bit, which
+drives the HDA codec's ELDV pin sense, making the codec report the
+jack as audio-available.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000060
-  RIP: 0010:amdgpu_amdkfd_map_gtt_bo_to_gart+0x86/0x1a0 [amdgpu]
-   init_user_queue.part.0+0x180/0x250 [amdgpu]
-   pqm_create_queue+0x32d/0x730 [amdgpu]
-   kfd_ioctl_create_queue+0x583/0x9f0 [amdgpu]
+The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
+display_info.has_audio. Apply the same check to amdgpu's DCE
+afmt_setmode functions.
 
-Pass the process info of the queue instead. With the fix, the queue is
-created and destroyed normally.
-
-Fixes: 7f347e3f8217 ("drm/amdkfd: Fix NULL pointer error for GC 11.0.1 on mGPU")
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: renpanpan <renpanpan@kylinos.cn>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 6b4157498a176bd1c6083f6bb5aaf8a257a2027e)
+(cherry picked from commit 842a45c68e0355eea47796551c8761c0c77e8ce0)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h             | 3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c       | 8 +++++---
- drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 3 ++-
- 3 files changed, 9 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 5 +++--
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 5 +++--
+ 3 files changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 77c0504cc158d..74dc307e5140a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -344,7 +344,8 @@ int amdgpu_amdkfd_gpuvm_map_bo_to_kernel(struct kgd_mem *mem, void **kptr,
- 					 u64 *size, u32 domain);
- void amdgpu_amdkfd_gpuvm_unmap_bo_from_kernel(struct kgd_mem *mem);
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index 7de7adc8f225c..05d7da888f492 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1705,8 +1705,9 @@ static void dce_v10_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset, 0x00000001);
  
--int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart);
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
-+				     struct amdkfd_process_info *process_info);
+-	/* enable audio after to setting up hw */
+-	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
+ }
  
- int amdgpu_amdkfd_gpuvm_restore_process_bos(void *process_info,
- 					    struct dma_fence __rcu **ef);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 3a4b3424b5b29..c399b85731b47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2261,11 +2261,13 @@ int amdgpu_amdkfd_gpuvm_sync_memory(
-  * amdgpu_amdkfd_map_gtt_bo_to_gart - Map BO to GART and increment reference count
-  * @bo: Buffer object to be mapped
-  * @bo_gart: Return bo reference
-+ * @process_info: KFD process info of the queue the BO is for
-  *
-  * Before return, bo reference count is incremented. To release the reference and unpin/
-  * unmap the BO, call amdgpu_amdkfd_free_kernel_mem.
-  */
--int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart)
-+int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo_gart,
-+				     struct amdkfd_process_info *process_info)
- {
- 	int ret;
- 
-@@ -2287,8 +2289,8 @@ int amdgpu_amdkfd_map_gtt_bo_to_gart(struct amdgpu_bo *bo, struct amdgpu_bo **bo
- 		goto err_map_bo_gart_failed;
+ static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index 3c1d6901127d1..f0722bdaeab61 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1748,8 +1748,9 @@ static void dce_v6_0_afmt_setmode(struct drm_encoder *encoder,
+ 		dce_v6_0_audio_dp_enable(encoder, 1);
  	}
  
--	amdgpu_amdkfd_remove_eviction_fence(
--		bo, bo->vm_bo->vm->process_info->eviction_fence);
-+	/* bo->vm_bo can be the VM of any file which opened the BO */
-+	amdgpu_amdkfd_remove_eviction_fence(bo, process_info->eviction_fence);
+-	/* enable audio after setting up hw */
+-	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
+ }
  
- 	amdgpu_bo_unreserve(bo);
+ static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool enable)
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index a17944d5e8434..3f5247314edee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1653,8 +1653,9 @@ static void dce_v8_0_afmt_setmode(struct drm_encoder *encoder,
+ 	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
+ 	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 78ab759ad8549..4c4a3a8587f46 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -303,7 +303,8 @@ static int init_user_queue(struct process_queue_manager *pqm,
- 		}
+-	/* enable audio after setting up hw */
+-	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
++	/* Only enable audio if the display supports it */
++	if (connector->display_info.has_audio)
++		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
+ }
  
- 		retval = amdgpu_amdkfd_map_gtt_bo_to_gart(q_properties->wptr_bo,
--							  &(*q)->wptr_bo_gart);
-+							  &(*q)->wptr_bo_gart,
-+							  pqm->process->kgd_process_info);
- 		if (retval) {
- 			pr_err("Failed to map wptr bo to GART\n");
- 			goto free_gang_ctx_bo;
+ static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool enable)
 -- 
 2.53.0
 
