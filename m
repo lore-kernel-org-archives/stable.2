@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273212;
-	b=3VTC4TJdGWItPf4hUPX0KR+uo0CsMNuijhonkDCKhPNEDeABA0kUM+lDlRdzU8wDmkXR
-	 HcJLoxZGOp2z4X5v5EmRpvJu0QioXNpYFjFTmv4ZwaFUwXgns/ZWXlU4nuyPJyyP+q9wn
-	 jjUDHdlEkLZEckH2xptMU10j91ZvjJjKVD70fOaFHyISQCXW5y4Qr+h1G9yvso53BipHu
-	 BgrSAEKuTNy9/EscVtEvJ5DJxvx6wUjWOLOVGCPrh6tLTwlD2ORlFLiRSpNwN8mh6ho7m
-	 Lj218/LKaoHzEm0FDhG5xk0KMZ0/BiWZKfSh9/X5yncOE4GFBHrQMd9yR9zIssdL2YQ==
+	t=1794273214;
+	b=ob8HTk/J2reeNQzVCT8+neMoYHy8hmjhFlWG3ICcb21pjxNvcldvcSSIXZzY8eT9KTBo
+	 ZwVSjbXjoaWpI7jkIDXt6ttMF/Cp+gDki4+vo27u9ieMBWblFDXRtIbNvv8TTmxrSEFDU
+	 G+MvJ3P1iSbTWsaiSpiq8MN/wZGf+cKto6syVzmTba7l0xbaMTrhZSlSncJHU1k5KtghT
+	 SyM3sMm3KXPvf+QNRL2xSL5R9CRGUV4haqbUArdnDnyup5Ww1W8RBdE33QNh6smt9AmGc
+	 Xjc9y5iJutUlLjNuS/9knfLrO/me16xfxBpWQIXT+MEG0yaf4POtZGMTVRS8Ib1YlDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273214;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9nU557c0kDDCXR1md+W2gXlS+vjp4yxM4KBf2jRbexk=;
-	b=dT2y1JSnX+YFQ9bdfPd3wro37xW+PS3m4ZwJGfZYlsH79Qj0PSUn6tWF+tN99B/nSPYS
-	 QX4345V1vL9fr/3x3VfHQBuQZDDBD27QxUlPM8yxmIDo9d0XJ2T8x9RnQM9efDsayFJ8I
-	 wujhih2Kod/Mx2Sx1Q5EJRiqFq3fEmRLuIrm8SSUEEbel4ZhwUaBxLg/c6nX4c08j+aZc
-	 o0xSw3kVTfeFmeukBEtWcQ43rKpZhIFu14oSFFcrWfeF4uCVHxHcvT0k3MV2Iy6ow2Fv2
-	 p665B3WJ2ETzDkBc237SZPgDEeBuDBdm0MErbEdF4M58PlA9Qg+EOv/z6IxZtJEZOMg==
+	bh=MRjXIR1WPhw3KmreztTz9jtW6DJiZJRDdevxlj/jxKM=;
+	b=ZYZ6uCmQjgxDPGsav/UvxJIcwCdie5gk1GHk+3qeCEO7t2tTR5ILGSl5rgqRi03+X+dS
+	 7IoyoW3FNGjGqkRHT8ThYqd5ZTeneyEIvD/xr1KPPP36t8DyxBdg8Ay05LF1h9Kwn4FqN
+	 7+YFHQya2JTBZBq9KMq8yzVGl+W6dLBn5cr43Rkt08K1hw+CQiHBAYwfYibbOwHTwbUFa
+	 +X+JsrDEluOhlnZ1FVvX+ZuBesgwOeO2xLFKNIlVdKwkumPGpScBZF3zJxGDS43IBEut+
+	 EiKNWZnMTgjKmw5ICQtxdTQ0Mto+B+21Jdzn33tsGHRDpVmoroz5cVU522/JbNOhuAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cgGWXoaS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="N/ZzcHea";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AC4606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B8F606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:13:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cgGWXoaS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86ED71F0089F;
-	Tue, 10 Nov 2026 01:13:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N/ZzcHea
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4EA1F0089F;
+	Tue, 10 Nov 2026 01:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273211;
-	bh=9nU557c0kDDCXR1md+W2gXlS+vjp4yxM4KBf2jRbexk=;
+	s=k20260515; t=1794273213;
+	bh=MRjXIR1WPhw3KmreztTz9jtW6DJiZJRDdevxlj/jxKM=;
 	h=From:To:Cc:Subject:Date;
-	b=cgGWXoaSiZTED8vOzN+fhuJiEmWRsH/uM5nSG7p1Jd/KxELVqPBNLFXvPJae5CsYF
-	 Q1HIGaXuHaVJ9Wuq8m7zddORSuJFvyd8l425zyrMRapPGSYDzUe+A3yEJF8oOPS1Qm
-	 WBmrbrmY9Hc3dQjRFfNhFRlz9Abj93R2bxBV9mS9dxHx2y3LZzR+hBtMQjdr/GAhwH
-	 vCY5CN6hKwss7ieneQKeNaAT2jAvljzYRD23iHOTa2ZQgj4VoP9qCs8uSrmoW5CysW
-	 aMZACdmVTSPa1jGUZjNmX1foKv9PanGdtDM0Zu3plis1Pm6f425xa7gmXVwQmsTGeA
-	 p4WkPJN4BXlSw==
+	b=N/ZzcHeaVbuvHDuLw9l45CEKj0KREZUeRUDLjHeCzVig8REeO70eCmrWd/1BIpZiE
+	 OEKdaf0FnN7lCjlOrbu8gM+wbFspMh+XYNHsxQlbKuhVRTCgPt0dbfHEbAQjpDtJPV
+	 xOVFYk3RiDxykDyWdhAMczBrcYhj+xQmFpinGiTQ6XVO3sZlv44/KkZdD/wL/KveVc
+	 5MW9X3s5mHQR1zyx2/ptXuA7dGi9xVj6l/ytQ4PCpbdvLzcfVTwmuzI4gMIHRROpXI
+	 g+b6CghMKCnTFpOIV+qwbbRpfFOrCTmU5R0ieKrNzb6nUuA688Mj2a1XpHQ1yN1AbE
+	 IdfesaRptbH9w==
 From: Sasha Levin <sashal@kernel.org>
-To: david@kernel.org,
-	josef@toxicpanda.com,
+To: josef@toxicpanda.com,
 	rppt@kernel.org,
 	ljs@kernel.org,
-	surenb@google.com,
-	usama.anjum@arm.com
+	usama.anjum@arm.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/userfaultfd: write-lock the VMA before waking waiters when unregistering" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:13:29 -0500
-Message-ID: <20261109201329-failed-6.6-35f7ecd55ce7@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake all waiters on unregister" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:13:32 -0500
+Message-ID: <20261109201332-failed-6.6-3afb19d68cc5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,59 +71,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 35f7ecd55ce7e51cb6d5ef49e6dd51f3c80f61e4
+git cherry-pick -x 3afb19d68cc5e7851fdb1069c8094af97bd80417
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201329-failed-6.6-35f7ecd55ce7@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201332-failed-6.6-3afb19d68cc5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 35f7ecd55ce7e51cb6d5ef49e6dd51f3c80f61e4 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:52 +0100
-Subject: [PATCH] mm/userfaultfd: write-lock the VMA before waking waiters when
- unregistering
+From 3afb19d68cc5e7851fdb1069c8094af97bd80417 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:53 +0100
+Subject: [PATCH] mm/userfaultfd: wake all waiters on unregister
 
-userfaultfd_unregister() wakes pending missing faults before clearing the
-VMA's userfaultfd registration. With per-VMA fault locking, holding
-mmap_lock for write does not prevent another fault from queuing after
-the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
-waiter can then remain asleep indefinitely.
+UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
+Threads waiting on write-protect, minor or RWP faults can therefore remain
+asleep after unregistering a range that does not track missing faults.
 
-Call vma_start_write() before waking waiters. Existing fault handlers
-queue themselves before dropping the VMA read lock, and new readers are
-excluded until mmap_write_unlock().
+Wake pending faults regardless of the registration mode so they can retry
+without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
+the existing behavior for missing faults, including removing unread fault
+messages for the woken waiters.
 
-Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: rebase; simplify description ]
 Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-23-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-24-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 3 +++
- 1 file changed, 3 insertions(+)
+ mm/userfaultfd.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
 diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 928ad95eeb2ba..3ca04b582329f 100644
+index 3ca04b582329f..be630674fda9b 100644
 --- a/mm/userfaultfd.c
 +++ b/mm/userfaultfd.c
-@@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 			start = vma->vm_start;
- 		vma_end = min(end, vma->vm_end);
+@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
  
-+		/* Prevent new userfaults from being queued after the wakeup. */
-+		vma_start_write(vma);
+ 	ret = 0;
+ 	for_each_vma_range(vmi, vma, end) {
++		struct userfaultfd_wake_range range;
 +
- 		if (userfaultfd_missing(vma)) {
- 			/*
- 			 * Wake any concurrent pending userfault while
+ 		cond_resched();
+ 
+ 		/* VMA not registered with userfaultfd. */
+@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+ 		/* Prevent new userfaults from being queued after the wakeup. */
+ 		vma_start_write(vma);
+ 
+-		if (userfaultfd_missing(vma)) {
+-			/*
+-			 * Wake any concurrent pending userfault while
+-			 * we unregister, so they will not hang
+-			 * permanently and it avoids userland to call
+-			 * UFFDIO_WAKE explicitly.
+-			 */
+-			struct userfaultfd_wake_range range;
+-			range.start = start;
+-			range.len = vma_end - start;
+-			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
+-		}
++		/*
++		 * Wake any concurrent pending userfault while we unregister,
++		 * so they will not hang permanently and it avoids userland to
++		 * call UFFDIO_WAKE explicitly.
++		 */
++		range.start = start;
++		range.len = vma_end - start;
++		wake_userfault(ctx, &range);
+ 
+ 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
+ 					    start, vma_end);
 -- 
 2.53.0
 
