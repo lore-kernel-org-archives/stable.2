@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794347669;
-	b=wFTqfFxA2/CFVMqR12RKYbvKUKsiAPVe1hkxIO++w/oGKVj7nOskrOY6NX1QGSH0kdsc
-	 7hS0s/QDt4ZJHS3nHAH7xLeC/LSmDSLBCTykNVFiHAJZz0xI2iI1iz6ZVgzOTSHSfD+CC
-	 O6HogwcxnmDyiw/b5IjlGahNCwHIH6jFPs5NK8b8fdOSohYSvv0DGGLFntuYSG7KkHTP+
-	 Ajza3a6qulGCEh3yfKiNxY6FrZy0b+GDXaRxP8YIvDzwqTl2eZYL9U49eIZkCO3ewIA1V
-	 YjlZua5jXPmoEHSXCaorJtPdSuywTLVUVrERqdeSHBlM10wtH9IDvDXrromyv1TdSeg==
+	t=1794348005;
+	b=AUXqhzvqUkTlf6aRLxGCY+wvfg4JZPbXcpuEYTa3lj4UEIn2U5qLqm3f3GPf2vfAJ56q
+	 WHnFkkiwsA1TQ7BEIbVQLrVibjN4ECG1GZvVhjmeStvCAX3B3XyviHuX2HKVvMWLgdrGj
+	 XQP/I/cAenhg8dsmLCKNG4Bq/dNtnsNyGm/WOC3+Td/LHLhR/IGreYgx0CTAHzfkCSBUe
+	 2I8vbwkET6sZaAmERvG36F0pqi49st2M03TQKCePirvx+bhA355UR66ocLWgdGzO+25H1
+	 mZxRWFpU2+QEunS7cdYNEkIvtps9nwSqAIBnCbOJ6Ubptu8el+VWkUxIsOO+EasSAFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794347669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794348005;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=L4BLHG89Bgd/xsayo1sYfbzCzsfL+BMr8SFXjVahQG0=;
-	b=1BmtmGIoMsyfyQ8skt6IQpawTeYS3o998ivfe3vAA+nkMFL6XF7CkXbTCHUjPMJXO1Y7
-	 DjBpclc15ZotOsvU2Fzx9ZV+pAn1bvT/1rAcu4bpYISSo368usvnAIhl/N7ruF6rKVNQ4
-	 Hc6I87H3auovEwaYs+UJneiHT00XiqeBs9BJHet8WBe6kSgJ8eANrdPaLgKC9DDt69wxO
-	 MeLMgxv4RAgc94bY6XQE728QfucL1e/2aODxbU+mVTOLcrfFQqYtFn/nyG/oyKcVsMONo
-	 rQw0gLteQRw4ZuycUMqGOIDITfKNTIv550E7b7z1+2e0LBGtcIQ8czRZOkh3U6/e8xA==
+	bh=bP0PYjy5UHIUcYCgsHgni8Lrx9/nduv1+ncg/+mUhcY=;
+	b=uFDUDLyRsLUwBC23JIH+ka7S0OlZxzenJBxNPw1GySAQy544UNI5UpcULUfbPnMIYTOo
+	 Ewp8zGAAqm7Ef2XN5/42OPtLrPMMgb5nPdbnxEHK2ZDch5nhhtUoJP6pZk83aCki/6m3a
+	 Gw2vPSyvQFfUpm51eqzDO51Ji9CrqDzQ6S992pUJAKqWsI+ckte/QABFw5YWrFSYrtQoQ
+	 upfiMvhfIW9/tjo4U1PIsKHiVcep5iPX2LPLtRC7kmS13SDbslkpz6hLJP3i4hq8HNk2j
+	 QZfkDp4zU9A2sqd3Ptdc7wl0aqfYHmReLQ/nDjoTHqUyFKr0ldSKVEap6pPNAO/LQxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5pGqm1z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fG1m79DG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79738606A32A;
-	Tue, 10 Nov 2026 21:54:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A443606A327;
+	Tue, 10 Nov 2026 22:00:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5pGqm1z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B21F1F0089F;
-	Tue, 10 Nov 2026 21:54:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fG1m79DG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28BEE1F008A1;
+	Tue, 10 Nov 2026 22:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794347669;
-	bh=L4BLHG89Bgd/xsayo1sYfbzCzsfL+BMr8SFXjVahQG0=;
+	s=k20260515; t=1794348005;
+	bh=bP0PYjy5UHIUcYCgsHgni8Lrx9/nduv1+ncg/+mUhcY=;
 	h=From:To:Cc:Subject:Date;
-	b=e5pGqm1z4Ywft2fbXZc6HGmYLlV8iXItXj9IBDaJrchRoYXTkvs3T2w9frNvXQs2n
-	 uEJJYM7zEuV8w0CkoIGkQlVuexLIDkWm9jkmIZCP1GSCY5BABdykm2jbssiSxCvAHK
-	 wR8yXCkcqaroOzrgxP3hbUjx791bm8vq2drBYn5RMz8MvY3NnjN38jndWHNImvI5KG
-	 2uVPCNSnTMkFJwR2rkUneHgz2ayA3F0NCM0YUjH2kSwotBNojPB4ocoBpTWAuQBeml
-	 WfrjGeXDYljWXBXlNmCLXwHeon3H7t8efOCJVfOuMxsyPt+RasTbHp3yEbYsvO4i6g
-	 TM4dKeNHX3Ayg==
+	b=fG1m79DGOncedhneDGG4/mIKZpB1vH8YoqM2wKZEtFujwabLrkQExfUSorlad+WCA
+	 xlTjMdH9Ebndq/Ia1/f94RrciuAcydhFbs0iSuR9IERaif5IDvNzkLITOq2Z9HdJqg
+	 AvE8uffRQnE3tmyJJOiZgJcEIYN2IgoeLzu2O/GxliwZ33p9C7OeYnnpCy8Ligr65i
+	 kx0EZOud+LJSMVCpzKeLKnzRVvhAjp9+I31ERzQUr9nnWoE2BPFOxjJciFxUyyJj1c
+	 yA9dWN3sysDDhfLQiL5XIQ+gG21/GM73aoR1jUFWvV08mEtvQvd+8f3t+Z3LZrxOjY
+	 YrNxjBuTa3pPQ==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: linux-crypto@vger.kernel.org,
 	linux-mips@vger.kernel.org,
 	Eric Biggers <ebiggers@kernel.org>,
 	Ard Biesheuvel <ardb@kernel.org>
-Subject: [PATCH 6.12,6.6,6.1] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels
-Date: Tue, 10 Nov 2026 13:54:04 -0800
-Message-ID: <20261110215404.37415-1-ebiggers@kernel.org>
+Subject: [PATCH 5.15,5.10] lib/crypto: mips: Disable Octeon SHA code on little-endian kernels
+Date: Tue, 10 Nov 2026 13:59:45 -0800
+Message-ID: <20261110215945.38544-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -112,42 +112,42 @@ Acked-by: Ard Biesheuvel <ardb@kernel.org>
 Link: https://patch.msgid.link/20261022054450.20746-1-ebiggers@kernel.org
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- arch/mips/crypto/Kconfig | 6 +++---
+ crypto/Kconfig | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/mips/crypto/Kconfig b/arch/mips/crypto/Kconfig
-index ee9604fd20372..f951a75dfef32 100644
---- a/arch/mips/crypto/Kconfig
-+++ b/arch/mips/crypto/Kconfig
-@@ -34,7 +34,7 @@ config CRYPTO_MD5_OCTEON
+diff --git a/crypto/Kconfig b/crypto/Kconfig
+index 126d4699f06f7..6cfd33de36c15 100644
+--- a/crypto/Kconfig
++++ b/crypto/Kconfig
+@@ -868,7 +868,7 @@ config CRYPTO_SHA512_SSSE3
  
  config CRYPTO_SHA1_OCTEON
- 	tristate "Hash functions: SHA-1 (OCTEON)"
+ 	tristate "SHA1 digest algorithm (OCTEON)"
 -	depends on CPU_CAVIUM_OCTEON
 +	depends on CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
  	select CRYPTO_SHA1
  	select CRYPTO_HASH
  	help
-@@ -44,7 +44,7 @@ config CRYPTO_SHA1_OCTEON
+@@ -922,7 +922,7 @@ config CRYPTO_SHA256_PPC_SPE
  
  config CRYPTO_SHA256_OCTEON
- 	tristate "Hash functions: SHA-224 and SHA-256 (OCTEON)"
+ 	tristate "SHA224 and SHA256 digest algorithm (OCTEON)"
 -	depends on CPU_CAVIUM_OCTEON
 +	depends on CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
  	select CRYPTO_SHA256
  	select CRYPTO_HASH
  	help
-@@ -54,7 +54,7 @@ config CRYPTO_SHA256_OCTEON
+@@ -952,7 +952,7 @@ config CRYPTO_SHA512
  
  config CRYPTO_SHA512_OCTEON
- 	tristate "Hash functions: SHA-384 and SHA-512 (OCTEON)"
+ 	tristate "SHA384 and SHA512 digest algorithms (OCTEON)"
 -	depends on CPU_CAVIUM_OCTEON
 +	depends on CPU_CAVIUM_OCTEON && CPU_BIG_ENDIAN
  	select CRYPTO_SHA512
  	select CRYPTO_HASH
  	help
 
-base-commit: d3417611a3b40b7f04a29e558cebac2bf69889d7
+base-commit: 29c6cdaac04a6989a7ed4ae4275ce4244e617f58
 -- 
 2.56.0
 
