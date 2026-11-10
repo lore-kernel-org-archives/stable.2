@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273589;
-	b=lzAf5Fi7ooclyAF4LPwElKaQ1cZXjvMcdgJ/IpnZfKNbdV5sZ0K7GiTbuxNyMZVcN1Gp
-	 EpHwqYM/liJ/yB8esO5D/UHLRzQ52KTcmDaoJ2ohw/96Ur6C4+2ZHTq4ioQI99U0JUFVS
-	 2z5nvs508ZAM2ka5WO4W5Ta8it9bJ92MD6v3wzEHFXagSJ4inOzo4lcQSz7W2qYqxZkZL
-	 xNK2a7rK4/nRWGREe0TzpZargpGSJxn2lPKM1dJZf+lsaFrq/xnL+gmRHxDmYDArkTB+/
-	 KsZvVm5yN2YeQCw/X5ZaINKTyGoxMT/GNBO7MdCsLSwscp9tBuCXYLvLKEGcjcOhEZg==
+	t=1794273591;
+	b=sgMEBKnB8K6zQBwz2cB9wGKpJ+N1WVvNs4UYyVB4QBsNqua9UUHSsrA9jvjPGTnud8+l
+	 VHb+cppHWxPJHgoAZ/ZA79MqLRrlhY0NmyvTnTEUeh+tALZ+vro7IUbHjNLEOEQO3sPYL
+	 +BxJAs+0h1fGstvf0r6hvZ/OflVH7TlswBImSR99qenSnu1KWTbvbrPUE0J9r65nXbZxm
+	 Tfkbv3syeeqCdqxjhp83o7rYrwDIVa4HlWjH11aLwq6tcpIrnCLXw2MR+fL4btpb46X8u
+	 /PNrxibZoUnL7nOmI7DFiNZy751XfY3U2JpAHLYc3nRCUDk486oZXe/nO++lSmRiVZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273591;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=x80HOnmI7CkU5Jz7wRMiVHlEDpR2jcU+sxBtA0GQSsk=;
-	b=aWY3hoqRIIydIbrHPcswp9MPSR/veU3fYLwP/FEQAv5N0FwxMKENm2A5dDJPqlvb+Oum
-	 lTVSSfsN6BtYUD6P3Vf9nUP8n6VKZAm7Yi3URFBC0B2zsvtNmpprHSZ8o8ba6fZBC+ZJV
-	 cAazNy+IVyfsukdrd8AGTyiogg2AkLK0q8/wzlHPieO4AR+/KTlLKvGZIT6KMDaxVcYV5
-	 htGFnLG8gc/56W/o8VtGbftDXkmSvaHy4Rvlu016tWPZ51C19yvcAsgyYvgx4MKPW2TMl
-	 /rv7IdaUsSdud4Zda2Onc8eUNwDBgZMoL0h/gIqMatEW+Fs0uEg4ewSI5O39GueKPqQ==
+	bh=QD9yBGn+tDF0mr/ojccIRckXVs5vU708t29lNBL6WwA=;
+	b=hi3vvmq642Yq1FW/+WEB8i/KjfVSItkgdl7+d1hikjIkc9V8QVjQluULmTKiAzNJ/r4U
+	 EVsKpQaHfZVjdYeN4rUc9favTWhWxJ6Khhv/88zXr0E830INlARcS1wuWk5ArIUxW1K3a
+	 AvZNN/eLaLBXuhVgknTbvqBd/KI0GYVczN4dM0UOjuqXV/BQ1QsjnMxPw6jyvFgdAqD23
+	 +wjD5S8LHuzB2vCa2/HwRjbAOZqT50ErdBZAreniKrPKARxsuacG6iiYhUF653l/M/SpP
+	 0XklrtYVqaG9kjp09FwJC8f3S6Ju0oJn+Tv0/rc0jg6N+WQXwfkJ9DNTLuXTRGQyx2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsbTYn4D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k/e/Jd+Q";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CFC606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CA69606A333
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:19:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsbTYn4D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2D71F0089F;
-	Tue, 10 Nov 2026 01:19:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k/e/Jd+Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CA421F008A6;
+	Tue, 10 Nov 2026 01:19:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273588;
-	bh=x80HOnmI7CkU5Jz7wRMiVHlEDpR2jcU+sxBtA0GQSsk=;
+	s=k20260515; t=1794273591;
+	bh=QD9yBGn+tDF0mr/ojccIRckXVs5vU708t29lNBL6WwA=;
 	h=From:To:Cc:Subject:Date;
-	b=dsbTYn4DTo3/fO7Da1xsLaFBMvoNIsfWTgKW2qz/uiZr7vl09p1qw8nrdrCzRZoaK
-	 5buv67+XkfycICefNWKnK5fjeK7AjmBQ6Wvr5OuX0wtn4qmJHTp6lNebiZVMoqgW+G
-	 O/oGe7lTN9Em3yvCvhpALSi50wm4/OnqujQLfLDWSSSS3e6jScdEXU2ssYmyQTRWw9
-	 b2gZZFVGx5mUIYZu9ybhTXElrvnsxmYm62aLmvHQH/ns59KtGgkdJY+VfIvoRgS3Oi
-	 xZzLANvZjC4rYIOiIuf+yJ81WLz5oZMtRjkZU+QJKdfQc9foTmEyJ8w4W1Pe3c16Fy
-	 5nt4AwilLoybA==
+	b=k/e/Jd+QuZrzK8En8Juv2PbOT71Qv2FEdDfPvHFw73RgbnPDB6N5GuhwSBAUfNnmr
+	 xeJELcdcA6aGsYRiqUWB5CAe+ww6V+wacJy7GF+92mq0yzWcTRuDugj8wNGQrjPuro
+	 eIAE63eXTJGZb90q2jPR+paDEk4SN9rH0J4qBG1D5e9IY6xqKojhuik6kmtlu/0Pwu
+	 rVGdn6ygTl2AV8QxFU10mGNdb2/G5Go/Sfvy7KyTLCsS70M3CiZPbZM3qeIo0yvrDr
+	 PHS08ayXvEjBMZeAFBYg6YzF8C9yUOsVMxashwtRUBmmcUO7Uw6CZC7eMpKtL+OnBm
+	 BXZm/kMJkr5WQ==
 From: Sasha Levin <sashal@kernel.org>
-To: matthias.goergens@gmail.com,
-	jack@suse.cz
+To: kylebot@openai.com,
+	matttbe@kernel.org,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] udf: check the unallocated space table when it is loaded" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:19:47 -0500
-Message-ID: <20261109201947-failed-6.1-e614c3e35a66@kernel.org>
+Subject: FAILED: patch "[PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:19:49 -0500
+Message-ID: <20261109201949-failed-6.1-49b09ae0bf57@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,174 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e614c3e35a6699ed691b4d17e1ec4230e34aa3eb
+git cherry-pick -x 49b09ae0bf57b4230187d4cdd0a370558e44a6e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201947-failed-6.1-e614c3e35a66@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201949-failed-6.1-49b09ae0bf57@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e614c3e35a6699ed691b4d17e1ec4230e34aa3eb Mon Sep 17 00:00:00 2001
-From: Matthias Goergens <matthias.goergens@gmail.com>
-Date: Fri, 30 Oct 2026 22:05:35 +0800
-Subject: [PATCH] udf: check the unallocated space table when it is loaded
+From 49b09ae0bf57b4230187d4cdd0a370558e44a6e8 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Thu, 29 Oct 2026 21:22:55 -0700
+Subject: [PATCH] mptcp: pm: kernel: use RCU to free endpoint listeners
 
-udf_table_new_block() hands out the first block of the extent closest
-to its goal and trusts that the extent covers at least one whole block
-inside the partition.  Nothing checks that.  A zero-length extent makes
-it return the block the extent points at, which need not be free, and
-the subtraction of one block then underflows the length into the type
-bits, turning the entry into a bogus continuation.  An extent running
-past the end of the partition makes it return blocks behind the
-partition.
+mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
+instead of going through mptcp_listen(). It consequently misses setting
+SOCK_RCU_FREE on the parent MPTCP socket.
 
-Such tables are not only found on crafted images: until the previous
-commit, udf_table_new_block() itself left zero-length extents behind
-in tables written by mkudffs, and then converted them into extents
-running past the partition.
+tcp_child_process() can invoke the listener's subflow_data_ready()
+callback without holding the MPTCP parent lock or a reference to the
+parent. An authenticated MP_JOIN racing with endpoint teardown can
+therefore access the parent after its last reference has been dropped.
+The ADD_ADDR error path can also close an already published listener.
 
-Check every extent once when the table is loaded, and refuse
-read-write access if one is empty, is not a whole number of blocks, or
-does not lie inside the partition, in the same way as for other
-allocation information the kernel cannot use.  Check first that the
-table is an Unallocated Space Entry at all: the walk starts at the
-offset of the allocation descriptors in one, and for a file entry that
-offset lies before the inode's in-memory copy of the descriptors.
-Treat a chain of allocation extent descriptors that leads back to
-itself the same way: the walk would otherwise return the same extents
-forever, and the mount would never finish.  Let a fatal signal
-interrupt the walk and fail the mount.
+Set SOCK_RCU_FREE before __inet_listen_sk() publishes the TCP listener,
+matching mptcp_listen(). This protects the parent on every subsequent
+close path, including a failed endpoint addition.
 
-Refusing read-write access to an empty extent is deliberate.  It shows
-that an old kernel took the last block but left the entry behind.  If
-consumed again, the entry returns an in-use block and turns into a huge
-bogus extent.  Refusing the table before that
-happens avoids this second allocation; the filesystem can still be
-mounted read-only.  The check cannot detect every overlap that may
-already exist in a damaged table.
-
-This patch should be backported together with the previous one: that
-patch stops creating new empty extents, and this one rejects existing
-ones before they are consumed again.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 1729cf186d8a ("mptcp: create the listening socket for new port")
 Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-Link: https://patch.msgid.link/81233decd91f4a48bf4d74e3d15b547c7711e39f.1793349907.git.matthias.goergens@gmail.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261030042255.74216-1-kylebot@openai.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- fs/udf/super.c | 80 +++++++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 79 insertions(+), 1 deletion(-)
+ net/mptcp/pm_kernel.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index 2335c31cde314..a81a8509524a9 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1106,6 +1106,73 @@ static int check_partition_desc(struct super_block *sb,
- 	return 0;
- }
- 
-+/*
-+ * Check the Unallocated Space Table once when it is loaded: the allocator
-+ * hands out blocks from the start of each extent and trusts that every
-+ * extent covers at least one whole block inside the partition.
-+ */
-+static int udf_check_unalloc_table(struct super_block *sb,
-+				   struct inode *table, u32 partition_len)
-+{
-+	struct extent_position epos = {
-+		.block = UDF_I(table)->i_location,
-+		.offset = sizeof(struct unallocSpaceEntry),
-+	};
-+	struct kernel_lb_addr eloc;
-+	uint32_t elen, blocks;
-+	struct kernel_lb_addr seen_block = {};
-+	uint32_t seen_offset = 0;
-+	u64 steps = 0, period = 1;
-+	int8_t etype;
-+	int ret;
-+
-+	/* The walk below assumes the layout of an Unallocated Space Entry */
-+	if (!UDF_I(table)->i_use) {
-+		udf_err(sb, "unallocated space table is not an unallocated space entry\n");
-+		return -EFSCORRUPTED;
-+	}
-+
-+	while ((ret = udf_next_aext(table, &epos, &eloc, &elen, &etype, 1)) > 0) {
-+		blocks = elen >> sb->s_blocksize_bits;
-+		if (!blocks || (elen & (sb->s_blocksize - 1)) ||
-+		    eloc.logicalBlockNum >= partition_len ||
-+		    blocks > partition_len - eloc.logicalBlockNum) {
-+			udf_err(sb, "invalid unallocated space table extent (block %u, length %u)\n",
-+				eloc.logicalBlockNum, elen);
-+			ret = -EFSCORRUPTED;
-+			break;
-+		}
-+		/*
-+		 * A chain of allocation extents can lead back to itself, and
-+		 * then the walk returns the same extents forever.  Remember a
-+		 * position at doubling intervals; a walk that comes back to it
-+		 * is in a loop.
-+		 */
-+		if (epos.block.logicalBlockNum == seen_block.logicalBlockNum &&
-+		    epos.block.partitionReferenceNum ==
-+				seen_block.partitionReferenceNum &&
-+		    epos.offset == seen_offset) {
-+			udf_err(sb, "unallocated space table loops back on itself\n");
-+			ret = -EFSCORRUPTED;
-+			break;
-+		}
-+		if (++steps == period) {
-+			seen_block = epos.block;
-+			seen_offset = epos.offset;
-+			steps = 0;
-+			period <<= 1;
-+		}
-+		if (fatal_signal_pending(current)) {
-+			udf_err(sb, "interrupted while checking the unallocated space table\n");
-+			ret = -EINTR;
-+			break;
-+		}
-+		cond_resched();
-+	}
-+	brelse(epos.bh);
-+	return ret;
-+}
-+
- static int udf_fill_partdesc_info(struct super_block *sb,
- 		struct partitionDesc *p, int p_index)
- {
-@@ -1166,6 +1233,16 @@ static int udf_fill_partdesc_info(struct super_block *sb,
- 				  p_index);
- 			return PTR_ERR(inode);
- 		}
-+		err = udf_check_unalloc_table(sb, inode, map->s_partition_len);
-+		if (err) {
-+			iput(inode);
-+			if (err == -EINTR)
-+				return err;
-+			if (!sb_rdonly(sb))
-+				return -EACCES;
-+			UDF_SET_FLAG(sb, UDF_FLAG_RW_INCOMPAT);
-+			return 0;
-+		}
- 		map->s_uspace.s_table = inode;
- 		map->s_partition_flags |= UDF_PART_FLAG_UNALLOC_TABLE;
- 		udf_debug("unallocSpaceTable (part %d) @ %llu\n",
-@@ -2243,8 +2320,9 @@ static int udf_fill_super(struct super_block *sb, struct fs_context *fc)
- 				/*
- 				 * EACCES is special - we want to propagate to
- 				 * upper layers that we cannot handle RW mount.
-+				 * EINTR means that a fatal signal is pending.
- 				 */
--				if (ret == -EACCES)
-+				if (ret == -EACCES || ret == -EINTR)
- 					break;
- 			} else
- 				break;
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index 1a77508132354..f7396628490e3 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -906,6 +906,7 @@ static int mptcp_pm_nl_create_listen_socket(struct sock *sk,
+ 	 * old status is known (TCP_CLOSE).
+ 	 */
+ 	inet_sk_state_store(newsk, TCP_LISTEN);
++	sock_set_flag(newsk, SOCK_RCU_FREE);
+ 	lock_sock(ssk);
+ 	WRITE_ONCE(mptcp_subflow_ctx(ssk)->pm_listener, true);
+ 	err = __inet_listen_sk(ssk, backlog);
 -- 
 2.53.0
 
