@@ -1,58 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794293727;
-	b=sM6Vz9ozY9P4tg3zH4nKN+kwVdgdPQUCSdHMm8UU3mfYRMbjBd/Pz0JRd5iGOeQMszyw
-	 UtsYFWRyY1CWep8wA3P0ek9xjCOJrmEjulWwsp6u0yPhqiwL28HhThqefWNWIiym4uvOe
-	 QHnNYgfvQB6lYPNJSt66kkEin4+EGsXbiUsAwoalPYAHsZjhLv73eCbWxfs5vq/t7FTOM
-	 sMOE/Qyz1Kp/exxLhimixm+kKPJM1VnbwboVVFL7gTRgnRXFZMNpOzxLZYYYlJobZLJNo
-	 U9pdrPC3WiPmh/IayWoMcGiSMdeypzvbvc5RuNxGt++NyNZWPo8TwhU7CdhVvBZFG1g==
+	t=1794293747;
+	b=QD1BKvvAifIia7IwfDj9vA19eTl6PnfZOqPCI2qWf2IL2+R/2hXaHdL2O4+L9ZRL/yxy
+	 hfmsjNe2Bn2AFnsVo9I1GWzXnieKGZVxKkHFpl59Rct+o5EeFdX8if+FnUoOboYXM11t6
+	 rZEfcUhjZkwiw1NaakWeTRh6rQUeAMSgqJCODXlUxO1t2LfD3mvUdaeZzDJp614EXpyot
+	 rZfjLZ0RlxzmkMQ9yN2R/YiISEv3oihe13mAUIfq2BwvcFJdPisfHKI3DgS0kJPivmeeu
+	 PtgEpdJwNEs27XEB4xML8w+ukBhv+tAr+B6WyjVl7aoaYJfc5h1apNyN+T+q20YhWsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794293727;
-	h=DMARC-Filter:DKIM-Signature:X-Lms-Return-Path:
-	 Content-Transfer-Encoding:Message-Id:X-Mailer:Cc:From:Subject:
-	 X-Original-From:To:Mime-Version:Content-Type:Date;
-	bh=bAPR6xWOaXrdQZcHpY5giLacUwZLTgwdsMAnSbKH910=;
-	b=ZPkt0bapKIu7Kw7d01jCcrHtdO4lrZTfwehnZjTBTxRUfOPRZ1iPGWyGsFtykAWawvvV
-	 ZaODmobZF1JdsHDqUM/WChpT/9SqtdNouw8FFcOpbDIvmLK5Ghd/I/0QqOn7flPEyKDcF
-	 ruYOCf++E1eqsrp6JDEgbrQbm9ML2qfkEqbrCtz4UJdSfu+qaX7+OrAK0/6OBiMQF7+iq
-	 tDHQmLnyjG9cCSYK2fhpAuf9hFsCgSnw5at+Sz6/LI3UrnfBbYH56Uh9F9luDOGfTD8Yg
-	 9n9HxZSwXIuAuKTzASRGyi0YdY8jo0Dhm8nwieXy2NPRK7dB0lE6pJy5n+hHpPlJDiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794293747;
+	h=DMARC-Filter:DKIM-Signature:From:Subject:Mime-Version:To:Message-Id:
+	 X-Lms-Return-Path:Content-Type:Date:X-Original-From:
+	 Content-Transfer-Encoding:Cc:X-Mailer;
+	bh=P4T6NmMmUM6KPHyzaKp4oM83fRxkXvSZQXBy0Eyihfo=;
+	b=UYX/2wRPrXAkBGikQJDtlWB+NeLBCWuZE++CAEiGGm+PPsSBI0qPIompp/0KJcbTpeRm
+	 UkNCumhZNHe02BB2/nIvuN+KuwXrh7qHph8Z8U9+RHLEylyUpZf4sCb+EKLlXUgyWZywL
+	 k7YiC20BRHLf7Ewv4EWMZzhbhxY2R7xMfLW+GTOv6BLSapmna/y80FYlynzXU4SQlEeg1
+	 dXYwPIkmJQ57FxDnDAMSNnrnscvv4qWLydp8T0wzV3w47upOfnUnefBdy/33WcOVLLIZR
+	 6DBngKmORHaHGRAN/EYL5yGrzUu/Th4hL3wg+soTjlza/Fcud8EuELm+a0JST1HaVMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=oiF4ZIdz;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gm0Reos9;
+	arc=none smtp.remote-ip=209.127.230.111
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C02606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:55:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57C02606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511DB606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:55:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 511DB606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=oiF4ZIdz
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gm0Reos9
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794293721; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1794293741; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=bAPR6xWOaXrdQZcHpY5giLacUwZLTgwdsMAnSbKH910=;
- b=oiF4ZIdzHNihDxVAD5pkfIz9+6ODouI5ucX0W3s3V1rEt8tZFDETvoWHnV9a+BiR19JqJX
- aYshj9JcBrtcX1RvnLlyUEzOFnt0u8dWq/xkVM4p9Vwe/wZPR2qoaREv276NfgYwdOy90R
- czRrF7XzPkoshuNm/0Fql+3zzyWeCRaWGSY1UIMBwrUhrDK86Xvw23lduZ/yYzvy2C4dtr
- zx5eYFfnyO0Nx2kT71p/lUnVNs1nYwK74+0ZHqUEN7g2sNru1CpKFpuxvvrW4txHCe0PL0
- IAgxrpHQ4sBWRweK2OmAZGHGenpbaHzn2VXpI7Tv5VKtBzGi5lRsSUxLA8d9iQ==
-X-Lms-Return-Path: <lba+26af2bfd8+96046c+vger.kernel.org+zhaogongyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110065503.46538-1-zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Cc: <cassel@kernel.org>, <dlemoal@kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
+ bh=P4T6NmMmUM6KPHyzaKp4oM83fRxkXvSZQXBy0Eyihfo=;
+ b=gm0Reos9N8uWkQv0l6GvTZ4sFVjuuk7zovZLCokhZK7DwykuBFjIwLzXbOGZek+cjPyXIh
+ d4eXT5SmKIefX77r1AqyLu7OU1bS2uXC1MrenKtDe4lOkYxg6W0ZkqVhglMsgAxZchhN1E
+ yZpiiqNMQV/Ihq0x4v5AJXyr2rUjePKSkuyYhp9UQB6fkms9qnAyM1rZxTMDIGL1zYCibz
+ Of8cCWMkqxKSxXXKZRdJq8r/StSB9apbq8uGC/ZeP0gieNODGGhJu5yg3SswgCFimQMnZa
+ ShgIH8pZ+MsAwWzds5rftb9arp792sQjeu9iOz7fQr4m19qP92k+nn8KMX1q6w==
 From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: [PATCH 6.6.y] ata: libata-scsi: reject data-in commands with a data-out buffer
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-To: <stable@vger.kernel.org>
+Subject: [PATCH 6.12.y] ata: libata-scsi: reject data-in commands with a data-out buffer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,8 +54,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+To: <stable@vger.kernel.org>
+Message-Id: <20261110065522.46573-1-zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af2bfeb+14a9cd+vger.kernel.org+zhaogongyi@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Nov 2026 14:55:03 +0800
+Date: Tue, 10 Nov 2026 14:55:22 +0800
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Cc: <cassel@kernel.org>, <dlemoal@kernel.org>, 
+	"Zhao Gongyi" <zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 
 [ Upstream commit a4845f077415ef32fe672c841e2fc58ae9e28273 ]
 
@@ -85,8 +85,6 @@ the CDB itself can be valid; the supplied transfer direction is wrong.
 
 Backport notes: Use the older five-argument ata_scsi_set_sense()
 interface and spell DATA IN BUFFER ERROR as ASC/ASCQ 0x4b/0x0a.
-The older ata_scsi_rbuf_fill() takes struct ata_scsi_args;
-get the device and command from args, and reject before copying.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Link: https://lore.kernel.org/r/20261104130638.37882-1-zhaogongyi@bytedance.com
@@ -97,10 +95,10 @@ Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
  1 file changed, 25 insertions(+)
 
 diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index 4b6b4ea..f8dd2d9 100644
+index d4f6d82..6b6ac82 100644
 --- a/drivers/ata/libata-scsi.c
 +++ b/drivers/ata/libata-scsi.c
-@@ -1836,6 +1836,18 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
+@@ -1989,6 +1989,18 @@ static int ata_scsi_translate(struct ata_device *dev, struct scsi_cmnd *cmd,
  	if (xlat_func(qc))
  		goto done;
  
@@ -119,20 +117,20 @@ index 4b6b4ea..f8dd2d9 100644
  	return ata_scsi_qc_issue(ap, qc);
  
  done:
-@@ -1872,6 +1884,12 @@ static void ata_scsi_rbuf_fill(struct ata_scsi_args *args,
- 	struct scsi_cmnd *cmd = args->cmd;
+@@ -2020,6 +2032,12 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
  	unsigned long flags;
+ 	unsigned int len;
  
 +	/* A data-out request may contain pages pinned without write access. */
 +	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(args->dev, cmd, ABORTED_COMMAND, 0x4b, 0x0a);
++		ata_scsi_set_sense(dev, cmd, ABORTED_COMMAND, 0x4b, 0x0a);
 +		return;
 +	}
 +
  	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
  
  	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
-@@ -2747,6 +2765,13 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
+@@ -3077,6 +3095,13 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
  
  	qc->complete_fn = atapi_qc_complete;
  
