@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794294830;
-	b=yEDD7kkxE1K0kzv388qgwMqjSzf3U5I7mzEWpZITSO/wh1Dzrjty7zb7bJAuvSv7enEr
-	 4FmLuEMKqsdLGubGGuWmBu/57SoqaxTJWVpwzH/mLZ1+aZNmCN5rfFvuciMVH9U82O4uZ
-	 Zthj/ilVrmY+bJ668uhAdsSNdpC3Qlo43GgwbsDpx9KaNSIX/+1DMoj0ztk3oVUK4bwsw
-	 OwNwMDwoIdHvHJV/tpq9Ut1qj5KJP7t30ViEcFmunEMcdb0+VA98q+8SpWjTcLNPbCk8r
-	 M/kQ/ZnJ++/gHgGBtAsS5eoL3646hVEare05p8QtLzubzKr+r7gtvEIP1qUt+VRiBgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794294830;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SDBSF1CPeygm0VdecI9guopnBcw61ly6rjuYP2l/6b4=;
-	b=u2lDfFZY8Ix6Fjo3MsSZk1JsqHMtLjREYVU94WJVvxhmQJQS+cGhxjA5ta3wYVu8fD7o
-	 XfhW74K9aL+UIL7Bgt1Iw3+RcAAoF7lbmaSURqCIEHMlPR5pdDWxn+PumEjjpItHqqC4M
-	 uE5ZyRqPEI7vdg3vbc1qAa6rOuSvd0HhS3WHCgurs5mAdrBRRrT3Njdq9elprrmIiRy84
-	 AILE4OKgDrpRJhM5dElbh3hMSOvXGOkgmZ0/d/6DkQ6B3qqlmtwhfFDW260ts1maTLIut
-	 SOkA/aXsNo+1GRzn2uKlF7na3w81bUhZ5inMCsniT2nQiD14exWqDkgL52DtBR6tH2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2T+UH8i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794294987;
+	b=bdbhGTV1BAdWpaW/Q/tf+QmKD5hC0aTnaF3OlmeW66UiUiSVhuNfafOHRSvyHKi4NjGi
+	 bCh2/+cSDggAj8xqIwpz/Len1SdYi4P4bsL/LeA2sZiH6/GNd3w4Dig0NVqYkol7245HT
+	 Ijiv0bQcup08tcJIMX5XaDht5bvREhZ8v1cMeVy/T/WsQJt/saJwPA4cG916HxjkS68ju
+	 73lFJ1ZNDPvbGW0UwWcKwB76R0bi6jiym/JfyhA3CA109QljFDrX7jWD47chW6plcZPLW
+	 XyDInqe4A+bONv5ikMQqD7oY/JBDdj041EX9Nndn4Q8nL4E8L+sTnZpBD3V/otrUGVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794294987;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=qVxMWlkdth9GEbSOybn+FgbOIlEoDpe/1mMOwCwFIJE=;
+	b=NUNW/Rpe4Ze/wztxBQUh2L0F7tx9k4XAlYPJppM7GbV8COBuR4r83Zjhv9PWDFXzjCJb
+	 9/wGT9JmS8mwUuR3gh1L7F0EI+BmeFJ3/kWEpi/xlN9OqOteCDI9FBNuNB2Pg+hlarBQs
+	 q1reMzXXWQzIOyAQBtE6uaW9LaU8TSk8eUO9z8sr2NBu09gslg0MkiqirScKN2cGYWoJ4
+	 fObEVDeEC8bsdbSQL4GQMmBn/HRVeDN0aYRnBQZuB+Z5XMN/YYYzSAwNDhvrcMvNeS66K
+	 7gZDPA+kGEDiuZKhyr+tTCraQy0MrSgh5/krCTRCW3Cqdf1H9+MEiV1LLj02JRtUsAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3ednz2H;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BAE606A31C;
-	Tue, 10 Nov 2026 07:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E47606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 07:16:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2T+UH8i
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794294829;
-	b=wfJOruME3eAuQjTlRp+QD43tR8O4SXp8KN/YAR1HpFjpZUBZ6z54LjcZoaZe/U+04/Ex
-	 t80yZ4kKYxVvu5ZXwK6ed5qpNFzPAIoMI72k8bFSoudjmgU7+G1iFQxi2AfpdzP3VIfyy
-	 3ep9mIEqEpJ92B+Ol1F0MvLm8q4ztF3bVtLbUDI64qHOojrS8lBUdLlCDt2xS7gL2CbV0
-	 xCDLElER/pmVtBhNwtL5A2G761W84gC24WmU4LZgPlgBuuqkkvXbNiCCBBx+zfEJ7H6yP
-	 aag3Emwma6y8apVl1MACv1JrGw695HaoRFyKl/pwRfPMd3DyoDSMINrs9suuNPcm1AQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794294829;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SDBSF1CPeygm0VdecI9guopnBcw61ly6rjuYP2l/6b4=;
-	b=e7Xv3WWfijGO0TC4OPHA7VCC8LcLlpgkHirsjyTLw3jTvVmxyeo2CAJE77kHL8tg44Gt
-	 rTMi/5BsSlX4ErC/ed3WLMMCwTJuIeiBsWG68XnNwoE/2KBl/FlFLQ21/O02gJPZTbk9l
-	 U+EjQ8xLytBkooR+IKmIdIIOQ9XDBrHkzgjvn8WgUvYb7JxMIwBNg70f9/FHwJ0S4lyTw
-	 wJpcXhLcTgCk4G9NRma0/Led0uPZeTVPsGyBzGmKrmA6cOlAOPJPlFiMflSwtoDDddS15
-	 GEqauHQ+cHcBGpJlrww/N8N35CssF6PoA7Tz79Kv3N3Qez0wRQa04XQktFRCXshvRZw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3227C1F008A2;
-	Tue, 10 Nov 2026 07:13:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D3ednz2H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E831F008A1;
+	Tue, 10 Nov 2026 07:16:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794294829;
-	bh=SDBSF1CPeygm0VdecI9guopnBcw61ly6rjuYP2l/6b4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=a2T+UH8igbONT9THktJjVMmWqd5md7tj8RDkHrejbwHuZenxEhXZsO6HIVsj3sYpN
-	 ZBQJBis/iYEpnWf2YhKlOWDIaOZZjPE6AE1auQW8PdqUOqIV5Fh6oBKpLG+3XCT/O2
-	 N23mpDNSItIhr42k6fXNjMvjKBHYtW7djsu6Cl/NNO+HaiOl/ROhCMbLGvqGTZJVXO
-	 KGltMWA5v99YFJwRFTvDMFtMQieutD2lN6sayxAWRWmauNLxp9cu2OrWo15nD6jrDw
-	 0BSeZ/8txSvt7TOxsYFLYP1/J8yZvWw6+FdnGt8pZBISOHlg/9ATEQECxFynUZv4Vv
-	 UFsCSbL+NoQ3w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A53EA488E6;
-	Tue, 10 Nov 2026 07:13:46 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 07:13:47 +0000
-Subject: [PATCH] rtc: Don't lose a minute-resolution alarm that rounds down
- into the past
+	s=k20260515; t=1794294986;
+	bh=qVxMWlkdth9GEbSOybn+FgbOIlEoDpe/1mMOwCwFIJE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D3ednz2H1PhEWh9O6gAf/8aNoqmqnq9QY7moy1Ec9D98GBNwUMafTEhszjy5NqRXW
+	 wn1tVvfw9cTzL5ObBbvNDzrZPyEF6iCXfDLMCY2vu+Ifz6Mdq2rH+FmZKg9lsCiYiM
+	 eJAr+ZvAA38zm/bxSPe6MGwBgEzJP3Ez0wL/3sTHbZbMkGUplBSfRASmNyuvpR+YLO
+	 Q7fP1KDwFgdb+ZR6IKP0/yRH8YBlgv1Y7fU1EwmpM5kfsbZMXQREAoCv/rWdHBnjTd
+	 /3NuC0QFS4ICTBT53obbNjnE9+SYcBtusUQWHEJ7JGbJmn2o1/6j4xZsUeS8gow2LK
+	 4jC8LvzLhGxGA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] KVM: nSVM: Ignore EFER.LMA if EFER.LME=0 when preparing L2 state
+Date: Tue, 10 Nov 2026 02:16:23 -0500
+Message-ID: <20261110071607.546819-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061523-failed-5.10-1c4c84a643b7@kernel.org>
+References: <20261107061523-failed-5.10-1c4c84a643b7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,125 +59,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-rtc-minute-alarm-v1-1-be9d7c5227a1@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB1wUhD1KsVFTEY7RdMyiVIQ7
- 26qy7f4f4fIKhyhK3ZQ3iTKJ2RQWYB72TAxis8GU5maiCrU5HCRsCZGO1tdkHxjx7ZuWm8ekLO
- v8ii/a/nsb8d1eLNL/w8cxwmebj5FdAAAAA==
-X-Change-ID: 20261110-rtc-minute-alarm-1d8af9689d23
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794294826; l=3842;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=hx7EEY3IfQIk7dUR86H3++IsY8ALA3UcN3TSCzhHjd0=;
- b=jsAqaqf+rioQFbEmgC1MQTpbqOEw0nvDj0vKgQlAUhFxbXy8FVL42jE+0/0dIMuRh6fr1HkQO
- am01n5PFKwOBB5dwYkgDj/243VL/DH6EvsecEk05+o3OeEOoJZMcA9t
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+From: Sean Christopherson <seanjc@google.com>
 
-For an RTC with RTC_FEATURE_ALARM_RES_MINUTE, rtc_set_alarm() rounds the
-alarm down to the start of its minute, so that it never fires late. When
-the alarm is less than a minute away and in the same minute as the
-current time, the rounded time is already in the past.
-rtc_timer_enqueue() then gets -ETIME from __rtc_set_alarm() and expires
-the timer from the irq work right away, and the hardware alarm is never
-armed.
+[ Upstream commit 1c4c84a643b704e473cb171f7b61359ff29b12a4 ]
 
-That loses every short wake alarm. With a HYM8563, which has minute
-resolution, "rtcwake -m freeze -s 15" sets an alarm that expires in
-software before the system suspends, so nothing wakes it: with the
-alarm set at 17:55:00 for 17:55:17, /proc/driver/rtc reads back
-"alrm_time: 17:55:00, alarm_IRQ: no", and the system stays in
-suspend-to-idle until something else wakes it.
+Force EFER.LMA=0 if EFER.LME=0 when preparing L2 state for VMRUN, i.e.
+mimic real hardware's behavior of ignoring EFER.LMA if EFER.LME=0.  VMRUN
+unfortunately allows the nonsensical combination, i.e. doesn't fail, but
+KVM itself has an invariant EFER.LMA can be set et if and only if EFER.LME
+is set.   Breaking that invariant can lead to a variety of issue,
+particularly in MMU code that keys off EFER.LMA when determining whether to
+emulate/virtualization 4/5-level paging versus PAE paging.
 
-Round the alarm up to the next minute when rounding down would put an
-alarm that is still in the future into the past. It then fires at most
-59 seconds late instead of never. Alarms that are already in the past,
-or that round down to a time still in the future, are handled as before.
-
-Fixes: d87f741dddab ("rtc: handle alarms with a minute resolution")
 Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260902232028.2767071-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: adapted cached EFER access to a local READ_ONCE() snapshot of the guest VMCB in nested_prepare_vmcb_save() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Tested on an Orange Pi 5 (RK3588S) with a HYM8563: "rtcwake -m no -s 15"
-now reads back the alarm at the next full minute with "alarm_IRQ: yes",
-and 47 consecutive "rtcwake -m freeze -s 15" cycles all woke from the
-RTC interrupt. Before the fix the alarm was lost whenever the 15 s
-stayed inside the current minute, and the system never woke.
+ arch/x86/kvm/svm/nested.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it wrote the code and the commit message, and I reviewed and tested it
-as described above.
----
- drivers/rtc/interface.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/rtc/interface.c b/drivers/rtc/interface.c
-index 96626f8068f9..004819c9a846 100644
---- a/drivers/rtc/interface.c
-+++ b/drivers/rtc/interface.c
-@@ -535,18 +535,39 @@ int rtc_set_alarm(struct rtc_device *rtc, struct rtc_wkalrm *alarm)
- 		rtc_timer_remove(rtc, &rtc->aie_timer);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index a87df5804a766..854c0d2e665ec 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -403,6 +403,8 @@ static int nested_svm_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
  
- 	alarm_time = rtc_tm_to_ktime(alarm->time);
--	/*
--	 * Round down so we never miss a deadline, checking for past deadline is
--	 * done in __rtc_set_alarm
--	 */
--	if (test_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features))
--		alarm_time = ktime_sub_ns(alarm_time, (u64)alarm->time.tm_sec * NSEC_PER_SEC);
-+	if (test_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features) &&
-+	    alarm->time.tm_sec) {
-+		ktime_t down = ktime_sub_ns(alarm_time,
-+					    (u64)alarm->time.tm_sec * NSEC_PER_SEC);
-+		struct rtc_time tm;
-+		ktime_t now;
+ static void nested_prepare_vmcb_save(struct vcpu_svm *svm, struct vmcb *vmcb12)
+ {
++	u64 efer = READ_ONCE(vmcb12->save.efer);
 +
-+		err = __rtc_read_time(rtc, &tm);
-+		if (err)
-+			goto unlock;
-+		now = rtc_tm_to_ktime(tm);
+ 	/* Load the nested guest state */
+ 	svm->vmcb->save.es = vmcb12->save.es;
+ 	svm->vmcb->save.cs = vmcb12->save.cs;
+@@ -412,12 +414,16 @@ static void nested_prepare_vmcb_save(struct vcpu_svm *svm, struct vmcb *vmcb12)
+ 	svm->vmcb->save.idtr = vmcb12->save.idtr;
+ 	kvm_set_rflags(&svm->vcpu, vmcb12->save.rflags);
+ 
++	/* SVM ignores EFER.LMA if EFER.LME=0 (instead of failing VMRUN). */
++	if (!(efer & EFER_LME))
++		efer &= ~EFER_LMA;
 +
-+		/*
-+		 * Round down so we never miss a deadline. If that puts an alarm
-+		 * that is still in the future into the past, the timer would
-+		 * expire right away and the hardware alarm would never be
-+		 * armed: whoever relies on it, e.g. to wake the system from
-+		 * suspend, would wait forever. Round up to the next minute
-+		 * instead. An alarm already in the past is left alone, it is
-+		 * handled by __rtc_set_alarm.
-+		 */
-+		if (ktime_after(down, now) || !ktime_after(alarm_time, now))
-+			alarm_time = down;
-+		else
-+			alarm_time = ktime_add_ns(down, 60 * NSEC_PER_SEC);
-+	}
+ 	/*
+ 	 * Force-set EFER_SVME even though it is checked earlier on the
+ 	 * VMCB12, because the guest can flip the bit between the check
+ 	 * and now.  Clearing EFER_SVME would call svm_free_nested.
+ 	 */
+-	svm_set_efer(&svm->vcpu, vmcb12->save.efer | EFER_SVME);
++	svm_set_efer(&svm->vcpu, efer | EFER_SVME);
  
- 	rtc->aie_timer.node.expires = alarm_time;
- 	rtc->aie_timer.period = 0;
- 	if (alarm->enabled)
- 		err = rtc_timer_enqueue(rtc, &rtc->aie_timer);
- 
-+unlock:
- 	mutex_unlock(&rtc->ops_lock);
- 
- 	return err;
-
----
-base-commit: 7485659ecb81d5fce3a3edf2cae9fcb29c17b1cd
-change-id: 20261110-rtc-minute-alarm-1d8af9689d23
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+ 	svm_set_cr0(&svm->vcpu, vmcb12->save.cr0);
+ 	svm_set_cr4(&svm->vcpu, vmcb12->save.cr4);
+-- 
+2.53.0
 
