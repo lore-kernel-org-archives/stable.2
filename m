@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794331918;
-	b=BQEHxYRB4fNIMc7Kjcc6FeJui1dLJtdcl5JLqdKfznHYhPnlQst5NWi9Z2WrI8DWBJRU
-	 87l7QTtbSznSgiBKITrbEzEw5S+e42VsHwJ6OigY3Q6aIOiPILvpbpH5+Ky60vz9iSoPp
-	 wePSzNN9+QRD4kCbHZ0cXrRoRu1Ih0iHp43J5hZaP0f2iGXaCDHULOwLUPMNAR/sfbquK
-	 SDlgoF/oTltfUr6WwP/29r4teO5je3sx5fthQvOYXj9/RpXBXHX31jNofMuaHit5yqwEV
-	 orKKEmGy6CW8UmXJVKMDiLXcVO5p4TvkTHycbne82OhE6CQwnhNrOQTsdsDioCwSOTA==
+	t=1794331970;
+	b=48ibIOu3DBjTvaWg6W6qGvI+VLbV7Wl+sKynKn3BAprtsLY77yFL3y2HmoyiB89j/HiG
+	 4+oi6RnK9ae8b+WK0wbS2g0MpzBXi6uaNKexcgr8LEBnodOuzvJ5vy6wrZjVGboFrzut2
+	 n4f1EKtIQJnMI5GgJZ38OSoCMggkpkZJN1hqJ53p+7h+ZA3j7dcGecFYUF9v2fUz/ot3s
+	 My6+ozwsdeQPwTu570t6LOoRsEF67kbLBC5eXRkUqYBorEAZKp1ndbWJGViUe+zEOQOG7
+	 b1HjJmiCfuZ1KKUUwKuZaPRy3g4YN9BShN761GiiL20rpmWdnFnDjNC2pkO+A/tFFmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794331918;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794331970;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FhrnmeExsPIAMI/ORvYLqEjy6g6rsnVPt1SFbWVRXa4=;
-	b=v5S6kSnXyjNteL2qYGO0i210j+UpC0FG9mddXYr2DR1Y/NeazvaFcS4EV9SJqBKZCBEC
-	 XhHuyLbLvokI8EfKR7FeStPRR1oQREC65cEz7hZwzSyB4JpbSLDb5fu68M9C9Y63XI+Kg
-	 SX7l3kRhNy7fyh5KhljuhrW+pyazwWamW9E70bmY0p9NHZQBMdTMiUZmfaNzKpxUowE4U
-	 mgSOUfFgYDtP/BckWlIqy1BwlChmnthEqJsaSYtt07ls91YvYIvrx9GYrxt5V8nnjZ8Yz
-	 9qrDC2Jh0RfO3f5lV/ID7OJ69yPbOALL/KcGntcfd33yTMR5RnJ2A2576i/7OmKjI3Q==
+	bh=4MoXJWRxPjLOf8TcjeoGJYtu99ZkOFUZPfw4J5SgBKA=;
+	b=HZRii4oO67U0bs/fxEaNQ85Eo4oaDePNvVNb2xbmfCtY1ZkeSon1KiRVJWnRwjz/5D9j
+	 5qFBbv/vnSCAUjIFCAgTdXlIQzN53VrFxvSmD1Xai5vxKhTQauRjOJvlX20PjTsDddrEb
+	 ZTiPENWbAZluHtwwki2BJ+sREenO0YEtqN3BsXY7h7TJgFA9ztsxuK+gcqkMVuGOEd9PZ
+	 3tokpF++Y8K3rP7IGnQdtxEEj/XJR4SJuXlQzTvLBGKtC0xIfskyvtOS0h6kr+OQq/FtV
+	 n1dYerO9bDVOeGulP4Re+SEFyMqa0SqkWeTAfJPkUgvYgib6GYL9GjaVDFXSgkg60qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONo+pdYt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDB3TgI+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5EC606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:31:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1F8606A331
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONo+pdYt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56B71F008A2;
-	Tue, 10 Nov 2026 17:31:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDB3TgI+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4551F008A1;
+	Tue, 10 Nov 2026 17:32:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331917;
-	bh=FhrnmeExsPIAMI/ORvYLqEjy6g6rsnVPt1SFbWVRXa4=;
+	s=k20260515; t=1794331970;
+	bh=4MoXJWRxPjLOf8TcjeoGJYtu99ZkOFUZPfw4J5SgBKA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ONo+pdYt/BiUkOjo7tnwkypjlSL20GnL78uGLWe29xjZnno4Cj9zzVQBMdydXMUpE
-	 JrkdX7SHVgVYwJOT5RpXdoovsoiLbLDDfmPAgkxbgTwoyqeo1S4L920VyvajE1Ap9R
-	 aJtG0mBWKjIeFbNeg93UV59qK3sUBX+uyPw8+S/joM7dGd/rLpZPfYKpAsH6Q0lLc9
-	 CjJ995PpNBD2vEYxfNZ16UotwnChXm8nYQ9CDA55Id53/LkWBgK1pDx7I2ztfFeb6e
-	 Gvt7DacXzDrh2x2tgLnd4gD1QzKMgFOfkZunaVFss/NznV2XWgkgbVwqgRv+wde4AA
-	 DnFdBelSLV0qg==
+	b=hDB3TgI+Mh36oS+2tqSm8yzbB4+CcaCcv9+2pS8/U5mgcLiwMAwSg3/AN0XTuIlzn
+	 GZ2/iC6LsufHqerroQrza58ZQYTqGwNPDlz/rSRhLXmhgczFtUvVQ0JaU/tZj4R6eV
+	 roDTKnIGIMweeInbk+kIy4WBUY42jYIJpEr3+yaFsMbPjNWk+2hcjKPqFqpTN3myoF
+	 RGVlTz3BA1PNHEbmdyOWA5U/O4ktZxemGqLMiXPRjuZ/+kgdlXMda3nbeYL9Wq4KoF
+	 FR4r1OVxA1AATa/B7jTK0CzUYl6KfBBYv5D4p6COgIAbZE0WTwgF0NQ7HIw5xT/rl2
+	 sLAf1MDQf8i+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
-	Chao Yu <chao@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
+Cc: Shixiong Ou <oushixiong@kylinos.cn>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] f2fs: remove mappedtodisk flag usage in mmap write path
-Date: Tue, 10 Nov 2026 12:31:55 -0500
-Message-ID: <20261110173142.2903923-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] fbdev: nvidia: Convert to managed PCI and ioremap API
+Date: Tue, 10 Nov 2026 12:32:47 -0500
+Message-ID: <20261110173235.2968169-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054815-failed-6.1-b3c984358925@kernel.org>
-References: <20261107054815-failed-6.1-b3c984358925@kernel.org>
+In-Reply-To: <20261107052149-failed-6.12-8710af6a3520@kernel.org>
+References: <20261107052149-failed-6.12-8710af6a3520@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,84 +61,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-[ Upstream commit b3c9843589257631bac18f30655e82d88970688a ]
+[ Upstream commit a41961f364bc7aee1611796e7ab5bd687708d770 ]
 
-PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
-f2fs has no buffer heads and the flag is no longer meaningful.  The only
-user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
-which makes mmap write faults skip marking the folio dirty.  Moreover,
-it causes the following race condition with filesystem freezing:
+Fix missing pci_disable_device() in probe and remove.
 
- CPU0 (write fault)     CPU1 (freeze_super)
- ----                   ----
- f2fs_vm_page_mkwrite()
- sb_start_pagefault()
- /* shortcut: no dirty */
- sb_end_pagefault()
+Use pcim_enable_device(), pcim_request_all_regions(),
+devm_ioremap() and devm_ioremap_wc() to replace manual resource
+management. Remove all pci_release_regions() and iounmap() calls.
 
-                        sb_wait_write(SB_FREEZE_PAGEFAULT)
-                        /* no waiter, passes */
-                        sync_filesystem()
-                        /* folio not dirty, skipped */
-
- finish_fault()
- /* PTE writable */
- fault_dirty_shared_page()
- folio_mark_dirty()
- /* dirty folio on a frozen fs */
-
-It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
-folio zeroing.
-
-Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
-f2fs_read_single_page().
-
-Reported-by: Chao Yu <chao@kernel.org>
-Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
-Reviewed-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Fixes: fbfa2cc58d53 ("f2fs: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-[ sashal: adapted folio-based mappedtodisk flag removals to the equivalent page-based APIs ]
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Signed-off-by: Helge Deller <deller@gmx.de>
+Stable-dep-of: 8710af6a3520 ("fbdev: nvidia: Release write-combining handle on probe failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 1 -
- fs/f2fs/file.c | 6 ------
- 2 files changed, 7 deletions(-)
+ drivers/video/fbdev/nvidia/nvidia.c | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 6384ac931bb7d..838bafc476a49 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2158,7 +2158,6 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
- got_it:
- 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
- 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
--		SetPageMappedToDisk(page);
+diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
+index 5f61d953e4c76..d298ba71ee0e3 100644
+--- a/drivers/video/fbdev/nvidia/nvidia.c
++++ b/drivers/video/fbdev/nvidia/nvidia.c
+@@ -1288,7 +1288,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 	NVTRACE_ENTER();
+ 	assert(pd != NULL);
  
- 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
- 						DATA_GENERIC_ENHANCE_READ)) {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index bde1c9cfe1df4..8f94cd81944f1 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -134,12 +134,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	/* wait for GCed page writeback via META_MAPPING */
- 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+-	if (pci_enable_device(pd)) {
++	if (pcim_enable_device(pd)) {
+ 		printk(KERN_ERR PFX "cannot enable PCI device\n");
+ 		return -ENODEV;
+ 	}
+@@ -1301,7 +1301,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 	nvidiafb_fix.mmio_start = pci_resource_start(pd, 0);
+ 	nvidiafb_fix.mmio_len = pci_resource_len(pd, 0);
  
--	/*
--	 * check to see if the page is mapped already (no holes)
--	 */
--	if (PageMappedToDisk(page))
--		goto out_sem;
--
- 	/* page is wholly or partially inside EOF */
- 	if (((loff_t)(page->index + 1) << PAGE_SHIFT) >
- 						i_size_read(inode)) {
+-	REGS = ioremap(nvidiafb_fix.mmio_start, nvidiafb_fix.mmio_len);
++	REGS = devm_ioremap(&pd->dev, nvidiafb_fix.mmio_start, nvidiafb_fix.mmio_len);
+ 	if (!REGS) {
+ 		printk(KERN_ERR PFX "cannot ioremap MMIO base\n");
+ 		return -ENODEV;
+@@ -1329,7 +1329,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 	if (info->pixmap.addr == NULL)
+ 		goto err_out_kfree;
+ 
+-	if (pci_request_regions(pd, "nvidiafb")) {
++	if (pcim_request_all_regions(pd, "nvidiafb")) {
+ 		printk(KERN_ERR PFX "cannot request PCI regions\n");
+ 		goto err_out_enable;
+ 	}
+@@ -1354,7 +1354,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 	sprintf(nvidiafb_fix.id, "NV%x", (pd->device & 0x0ff0) >> 4);
+ 
+ 	if (NVCommonSetup(info))
+-		goto err_out_free_base0;
++		goto err_out_enable;
+ 
+ 	par->FbAddress = nvidiafb_fix.smem_start;
+ 	par->FbMapSize = par->RamAmountKBytes * 1024;
+@@ -1374,8 +1374,8 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 	par->ScratchBufferStart = par->FbUsableSize - par->ScratchBufferSize;
+ 	par->CursorStart = par->FbUsableSize + (32 * 1024);
+ 
+-	info->screen_base = ioremap_wc(nvidiafb_fix.smem_start,
+-				       par->FbMapSize);
++	info->screen_base = devm_ioremap_wc(&pd->dev, nvidiafb_fix.smem_start,
++					    par->FbMapSize);
+ 	info->screen_size = par->FbUsableSize;
+ 	nvidiafb_fix.smem_len = par->RamAmountKBytes * 1024;
+ 
+@@ -1419,19 +1419,15 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
+ 	return 0;
+ 
+ err_out_iounmap_fb:
+-	iounmap(info->screen_base);
+ 	fb_destroy_modelist(&info->modelist);
+ err_out_free_base1:
+ 	fb_destroy_modedb(info->monspecs.modedb);
+ 	nvidia_delete_i2c_busses(par);
+-err_out_free_base0:
+-	pci_release_regions(pd);
+ err_out_enable:
+ 	kfree(info->pixmap.addr);
+ err_out_kfree:
+ 	framebuffer_release(info);
+ err_out:
+-	iounmap(REGS);
+ 	return -ENODEV;
+ }
+ 
+@@ -1446,11 +1442,8 @@ static void nvidiafb_remove(struct pci_dev *pd)
+ 	unregister_framebuffer(info);
+ 
+ 	arch_phys_wc_del(par->wc_cookie);
+-	iounmap(info->screen_base);
+ 	fb_destroy_modedb(info->monspecs.modedb);
+ 	nvidia_delete_i2c_busses(par);
+-	iounmap(par->REGS);
+-	pci_release_regions(pd);
+ 	kfree(info->pixmap.addr);
+ 	framebuffer_release(info);
+ 	NVTRACE_LEAVE();
 -- 
 2.53.0
 
