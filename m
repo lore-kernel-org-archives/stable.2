@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794311791;
-	b=Fmin6VyKCJRiw4TCah4/Bh4WWy183qzPVmVpcfYOUY66bh5RN4V4Hzc9lrDau7JO5rvb
-	 xORNYjAFUW1BaELWId14qViZfbbZy58CsgswI27ucc67YYZWhKfdNH3mJy2TGQXuG0xQm
-	 s+OFA5zil+NvejLi/P38541mPcln01UmUDtFPiOrVIPzhe5CVYlmgySOsS5XBNivod4Gw
-	 uzXDbbi1rSJt9n7C06H4Cw9vki/PqiGAX9/G8/BgqEO+OewLHEiI1fKyODNV/kX5K1s3A
-	 qIY/+TWANjQh/YJ0IuPR4VXpmG7pWpVOIiUqrVC/gNHBGH3NQu5klEX3WzwM8mE5n6Q==
+	t=1794311793;
+	b=yoJqbVmLrTBehS5+JO4+qI1qWtxzMYcj7STldXu9yel9mOulLVlw1bVTKb/nABEbv1Yh
+	 V03x4ZauEKwGB3olD33H/v+LM4Le8V/RS8DLqiDjun2xv5AXJ7G9JGEtfhCgxnJ77Um4F
+	 ZoBf872aDhkPx3zei8bM3d2dpqcdUo8I7cjBO7k7wB859Vs+JMkgoJTZsBu8SgN9Z2/Qn
+	 O59N0W69nhoV1bWxwEAaKW8VLYw6tRvS+EPc+W7jLvQY3eQwn6Xm0cFv6mKq5iGB+W/yN
+	 +pEkxge4vjc7VVAvXc8R5z6JZFzTBikik8NS9Ypw04BJDsZsIT4GdVS4e1ObU2rz/UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794311791;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794311793;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rQDSqOXrTiEBQ9J3CLpVoHD52shbQjrDpCyXHrbp2M8=;
-	b=ho+WrdASzFSSN4l4P6rLwjupuR7xZVIvPlttkS0Zj2dtH4Qj0ezvz1APqxh9d9bqDT2r
-	 /xzWRYw8bDpC2LudACH0MmnWGE2IV/uclgL7AFOlIZhL7o6a+OYiAJ8JD3vB4fsX68+t/
-	 xk+uslx8VtXQKQKvJu9+N2GuSls+vg3z5Ibh86RhCP/MapFIdzeHI+v62mZzJftUTC/kD
-	 t7CwRZtZFhFJ/BZU8vgcHnvK/GQFeqPNVuX6veh4HS75SYeO2lKWDIk75pEJ0GyF5l1uF
-	 pSjzG+OwUO8T0oJFeuJSvyVoJqKCEFE/En7biL21NwrMlO4tyf/Wq7palhjefE0CX4w==
+	bh=uAhC7+bc7pDGSczWRIXY5fP77FG6OBPFLcMrYrOyr+Y=;
+	b=GARjTc9ZyEwU8HSB0LiKUG7hWnSStWaxoLq0RtFg4A5jqFvBWRr3QmsysgfCsN2wpf46
+	 a5SWWoi8ZewQl4MAdaSlTXDxlYOkgG7EL7xGOztWtT91OfJYJOm53h0GH3w/AEstA4GWK
+	 aGwdcbdHxqYMrmWaIXm5C+wA7dSkLFo0L1mQJjzyCvdB2+YDaSB4ka335xxlCJjOxcjI1
+	 2iEFTS0CD4maW1UQjrT6iCrAxn5ttX6Z4SjbAxYxdmW1G6UTN3xaoVxwbaLNAVjTUb9Ak
+	 kjhaoHDI8CL6e0Tdvbqfz7jRUoMsSNt9R1P7Mdr96NO6rvSLSnMnnQPKxUa4u2AXaxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lz+S+Zki;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRJu83na;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625EA606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:56:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21402606A339
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 11:56:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lz+S+Zki
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717431F008A1;
-	Tue, 10 Nov 2026 11:56:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRJu83na
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A321F008A4;
+	Tue, 10 Nov 2026 11:56:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794311791;
-	bh=rQDSqOXrTiEBQ9J3CLpVoHD52shbQjrDpCyXHrbp2M8=;
+	s=k20260515; t=1794311792;
+	bh=uAhC7+bc7pDGSczWRIXY5fP77FG6OBPFLcMrYrOyr+Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lz+S+Zki3pK40KiSybqAwUGdKkr+dMb3ygQ5+NjfPbppo58feCxK3EJnCnDprd5Wo
-	 0naLa2xIaWJqSc0aR68dW+RlwILMtP0rz/aZSk4BsFL/NDkByyO4aBG5he0wPmRbud
-	 9a/dKHfQlintc6eMdOK6LOU9mbhoYyZZ2wWSnrzOBO6hHJLkG+1oLw5eJep1B77XDN
-	 2j/XwTNer5219cgk2GVtdBLmB6ESvJUels+jCrj+3T4mD0kyBjNvY5VMrJX8j25vzJ
-	 4+oX/jmgc1w4V9b7i9FOuQENohiQvALZ4lxm5ngjbcs8fazsRIwMyAgsdbn18jdGKa
-	 PH4/QN5xLjSkw==
+	b=eRJu83na9O84+6q7CPr26EMlSr0Y5EqMpDjSbTbEW67wd1lpsPGD2lHAZg/jNN07m
+	 9idvQ8yLgwszJDMNo3Dq7RbNslbCySiAT1zbL2SIrSdq6zeLjyzogwiQPvdAQooamu
+	 Mw2pGSREF51tkBtn+yOdCAOM9SsXfsmYvWOk3ovrnrzxaqszK8YodWrX+MWw7ngLJX
+	 0U8CB0cFACOibxpxzs6OOc5tGbUWIKAml7GvuOMEwuYJDcHq7NUZlPWH3FL4ycaEgj
+	 DWbLXeZqODcJxq1p8TO5kDMX56nkghPycSLJ5cBMYfKx3F8fMbJWdUBDP5mh99wAAo
+	 dsdfrFOP/WnrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yunpeng Tian <shionthanatos@gmail.com>,
-	Gongming Wang <gmwgg05@gmail.com>,
-	Mingda Zhang <npczmd@qq.com>,
-	Qinrun Dai <jupmouse@gmail.com>,
-	Jan Kara <jack@suse.cz>,
+Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] udf: validate the device specification EA before using it
-Date: Tue, 10 Nov 2026 06:56:29 -0500
-Message-ID: <20261110115605.931548-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] media: microchip-isc: store the unshifted PFE_CFG0 BPS value
+Date: Tue, 10 Nov 2026 06:56:28 -0500
+Message-ID: <20261110115623.918583-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052825-failed-6.6-9a2390959685@kernel.org>
-References: <20261107052825-failed-6.6-9a2390959685@kernel.org>
+In-Reply-To: <20261107050633-failed-6.18-bb96c78c5f87@kernel.org>
+References: <20261107050633-failed-6.18-bb96c78c5f87@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,120 +62,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yunpeng Tian <shionthanatos@gmail.com>
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-[ Upstream commit 9a2390959685ac35a58c80c8016120849a2babf6 ]
+[ Upstream commit 14cbe597504a04c5c49342d0566438e2b438a948 ]
 
-udf_get_extendedattr() bounds an extended attribute only against
-struct genericFormat, which is 12 bytes.  A type-12 device
-specification is struct deviceSpec, which is 24 bytes plus a flexible
-impUse array. Thus a corrupted filesystem can contain extended attribute
-that is accepted by udf_get_extendedattr() but udf_write_inode() or
-udf_read_inode() may access beyond the end of provided buffer.
+pfe_cfg0_bps held a pre-shifted BPS value (ISC_PFE_CFG0_BPS_EIGHT was
+0x4 << 28) ORed straight into the register. The other format selectors
+like cfa_baycfg store the bare field value and position it at the write,
+so this one was inconsistent.
 
-Provide a udf_device_spec_valid() check to validate correctness of
-extended attribute that is a deviceSpec. While here, check the result of
-udf_add_extendedattr() before dereferencing it as it can return NULL in
-case of error.
+Store the bare BPS value and apply it with FIELD_PREP() at the PFE_CFG0
+write, and fix the pfe_cfg0_bps comment to match. No functional change.
 
-[JK: Removed duplicated validity checks]
-
-Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reported-by: Gongming Wang <gmwgg05@gmail.com>
-Reported-by: Mingda Zhang <npczmd@qq.com>
-Reported-by: Qinrun Dai <jupmouse@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
-Signed-off-by: Jan Kara <jack@suse.cz>
-[ sashal: adapted udf_write_inode() changes to udf_update_inode() using its existing error handling ]
+Suggested-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: bb96c78c5f87 ("media: microchip-isc: fix SBGGR10 Bayer pattern")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/udf/inode.c | 42 +++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 37 insertions(+), 5 deletions(-)
+ drivers/media/platform/microchip/microchip-isc-base.c |  4 +++-
+ drivers/media/platform/microchip/microchip-isc-regs.h | 10 +++++-----
+ drivers/media/platform/microchip/microchip-isc.h      |  4 +++-
+ 3 files changed, 11 insertions(+), 7 deletions(-)
 
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index be59d205e3061..bf607df9ef02c 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -1344,6 +1344,26 @@ int udf_setsize(struct inode *inode, loff_t newsize)
- 	return err;
- }
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+index 85cd86bed7ba9..963d5fd53b589 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -8,6 +8,7 @@
+  * Author: Eugen Hristev <eugen.hristev@microchip.com>
+  *
+  */
++#include <linux/bitfield.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/math64.h>
+@@ -291,7 +292,8 @@ static int isc_configure(struct isc_device *isc)
+ 	struct isc_subdev_entity *subdev = isc->current_subdev;
+ 	int ret;
  
-+/*
-+ * Verify validity of struct deviceSpec on disk. udf_get_extendedattr() has
-+ * already verified the generic header and made sure attribute fits in the
-+ * inode so we just have to make sure attribute space is large enough for
-+ * deviceSpec struct and required impUse information.
-+ */
-+static bool udf_device_spec_valid(struct deviceSpec *dsea)
-+{
-+	u32 attr_length, imp_use_length;
-+
-+	attr_length = le32_to_cpu(dsea->attrLength);
-+	imp_use_length = le32_to_cpu(dsea->impUseLength);
-+	if (attr_length < sizeof(struct deviceSpec) ||
-+	    imp_use_length < sizeof(struct regid) ||
-+	    imp_use_length > attr_length - sizeof(struct deviceSpec))
-+		return false;
-+
-+	return true;
-+}
-+
- /*
-  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
-  * arbitrary - just that we hopefully don't limit any real use of rewritten
-@@ -1658,13 +1678,12 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
- 	if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode)) {
- 		struct deviceSpec *dsea =
- 			(struct deviceSpec *)udf_get_extendedattr(inode, 12, 1);
--		if (dsea) {
--			init_special_inode(inode, inode->i_mode,
-+
-+		if (!dsea || !udf_device_spec_valid(dsea))
-+			goto out;
-+		init_special_inode(inode, inode->i_mode,
- 				MKDEV(le32_to_cpu(dsea->majorDeviceIdent),
- 				      le32_to_cpu(dsea->minorDeviceIdent)));
--			/* Developer ID ??? */
--		} else
--			goto out;
- 	}
- 	ret = 0;
- out:
-@@ -1812,6 +1831,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
- 				udf_add_extendedattr(inode,
- 						     sizeof(struct deviceSpec) +
- 						     sizeof(struct regid), 12, 0x3);
-+			if (!dsea) {
-+				err = -ENOSPC;
-+				goto out_unlock;
-+			}
- 			dsea->attrType = cpu_to_le32(12);
- 			dsea->attrSubtype = 1;
- 			dsea->attrLength = cpu_to_le32(
-@@ -1819,6 +1842,10 @@ static int udf_update_inode(struct inode *inode, int do_sync)
- 						sizeof(struct regid));
- 			dsea->impUseLength = cpu_to_le32(sizeof(struct regid));
- 		}
-+		if (!udf_device_spec_valid(dsea)) {
-+			err = -EFSCORRUPTED;
-+			goto out_unlock;
-+		}
- 		eid = (struct regid *)dsea->impUse;
- 		memset(eid, 0, sizeof(*eid));
- 		strcpy(eid->ident, UDF_ID_DEVELOPER);
-@@ -1958,6 +1985,11 @@ static int udf_update_inode(struct inode *inode, int do_sync)
- 	brelse(bh);
+-	pfe_cfg0 = isc->config.sd_format->pfe_cfg0_bps;
++	pfe_cfg0 = FIELD_PREP(ISC_PFE_CFG0_BPS_MASK,
++			      isc->config.sd_format->pfe_cfg0_bps);
+ 	pipeline = isc->config.bits_pipeline;
  
- 	return err;
-+
-+out_unlock:
-+	unlock_buffer(bh);
-+	brelse(bh);
-+	return err;
- }
+ 	dcfg = isc->config.dcfg_imode | isc->dcfg;
+diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
+index 166f57e6ed5d7..cabecf128b37a 100644
+--- a/drivers/media/platform/microchip/microchip-isc-regs.h
++++ b/drivers/media/platform/microchip/microchip-isc-regs.h
+@@ -31,11 +31,11 @@
+ #define ISC_PFE_CFG0_MODE_PROGRESSIVE   (0x0 << 4)
+ #define ISC_PFE_CFG0_MODE_MASK          GENMASK(6, 4)
  
- struct inode *__udf_iget(struct super_block *sb, struct kernel_lb_addr *ino,
+-#define ISC_PFE_CFG0_BPS_EIGHT  (0x4 << 28)
+-#define ISC_PFG_CFG0_BPS_NINE   (0x3 << 28)
+-#define ISC_PFG_CFG0_BPS_TEN    (0x2 << 28)
+-#define ISC_PFG_CFG0_BPS_ELEVEN (0x1 << 28)
+-#define ISC_PFG_CFG0_BPS_TWELVE (0x0 << 28)
++#define ISC_PFE_CFG0_BPS_EIGHT  0x4
++#define ISC_PFG_CFG0_BPS_NINE   0x3
++#define ISC_PFG_CFG0_BPS_TEN    0x2
++#define ISC_PFG_CFG0_BPS_ELEVEN 0x1
++#define ISC_PFG_CFG0_BPS_TWELVE 0x0
+ #define ISC_PFE_CFG0_BPS_MASK   GENMASK(30, 28)
+ 
+ #define ISC_PFE_CFG0_COLEN	BIT(12)
+diff --git a/drivers/media/platform/microchip/microchip-isc.h b/drivers/media/platform/microchip/microchip-isc.h
+index f5e322c2e36bc..d7bcd74efff92 100644
+--- a/drivers/media/platform/microchip/microchip-isc.h
++++ b/drivers/media/platform/microchip/microchip-isc.h
+@@ -62,7 +62,9 @@ struct isc_subdev_entity {
+  * @mbus_code:		V4L2 media bus format code.
+  * @cfa_baycfg:		If this format is RAW BAYER, indicate the type of bayer.
+ 			this is either BGBG, RGRG, etc.
+- * @pfe_cfg0_bps:	Number of hardware data lines connected to the ISC
++ * @pfe_cfg0_bps:	ISC_PFE_CFG0 BPS field value (e.g. ISC_PFE_CFG0_BPS_EIGHT),
++			written into PFE_CFG0 with FIELD_PREP(ISC_PFE_CFG0_BPS_MASK)
++			at configure time.
+  * @raw:		If the format is raw bayer.
+  */
+ 
 -- 
 2.53.0
 
