@@ -1,57 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794317758;
-	b=5VdUzA+J64MUOhnGLlfJKgX74FKZnWLUliK0s/jJXJPQiGUO9hUORhZZ7VhVl46n1ke3
-	 YXJz+uXyfKLMtZvZSgYa2RPQn6Y916rMfspQ0Z1IM9mVXMLUpiyQ5ajdYTwyfBOXY8I7h
-	 Un8QDBFj1WU7/xfz0nq9PrS7dDe1xaTpsUP2oCuKblUYbWAUmbAF0aOhTpD4eHiaQjvEQ
-	 ngqNSmzDNXbB/K7qCzxPFdoaS5qFHoGEaIihyoKigJJvxbjDeyfH2JpSHjWOKv461JuOO
-	 WvVZ4uTrMtu3Ypkb2XhOb0Da7ivFS32F+Zk00WRERCZSB+RMbXgZE0W2ru6m7hMRWMw==
+	t=1794317763;
+	b=Aa8itJkWwIneIu/4gWTJqaI2A35m5Fy1NT/x7P72h2t4Qn3Vds/DT9ItLqbBALXOkOMq
+	 J1R3zAeEKHK2NNCKFke7yaC5hFYvaeQIVKbTjx1BIdEQ+vaDj4bXjlx+eVqcueKwaMXUz
+	 CmDtwfBsH7kMSIhrnRnppeMlepC9W9+JAw7qFzN1R9pjuzmaHQWxuvdQ3OaFy0mFRJzR9
+	 ToHyq0K8S9t5S00u93Sl70Pr7ZINAypESWDghk8iDys1Q7RQA2hPg70eQxVx+HvEeVUDt
+	 wAW0qqlIbpmwEqlz+Y8QJ+JalcVANAfAZ9GmGb0Tu3v59N1PZ2GUvjifzK/ev3Z7S4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794317758;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1JfeR9Q5ifFcYYZAOY+DayR58OVx+Lq0ayEY905+ztE=;
-	b=MyMzEIPlGidn9fHYWux2EjvRTil49SgrSzyy0LF/fVJIX0t/5KeAKH56b/hNw0e7QyFp
-	 HblPOqzGMk/GSAcEIqYIfe9hCJ+hqLrJgbH6lvcdwry0SIp4IuiMCVsSZYdZNJ8DfoUQZ
-	 sToIZB8Bi0bgfz4TFQ1K++Vw8NX79/lmw0rKQ9nzgnWZcAf+xgi1r2MW1SBAm7KnbznKL
-	 FHsdrJxpEGn6vAH1/pgfAtuqtHI6WrGG9dmec+2/8qNFEwnScWBfC0/JhnJ9SW4S/qeks
-	 fJXCc1M+RtlG6IlGIr4qIWPiAv/Qv7oFxMjHw6HIUouHngoM8DQ7ruWzKpYlyJLk31Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794317763;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=BePlmUzazBil0jZOyafds1nHUSQqBT9o0NsepsGpMCY=;
+	b=Xlv0GQwRp6+kNz6RbxBgay6HO5BXbtR50ycW3uovO4Mv4QVWAcQo1t+KQY/iRjb3Fc12
+	 0uYBtis4TA/szJPdiSVJdhD+CBIG9z7Qn6qYgqKeM+xHArh0fNxIUQyonjdPpFfxErwRr
+	 kJqULz2QTW/JIuZJUpE/+0+HZPSfcr7gJW9xh/Ld4k/g45CMT73FIXqs1N13zBwx+ca63
+	 7xO2julqwiwgpAW4nWYy6KXWimgqJMXjqkPMlP6Ce3XfKSZzvY5Pi36wVgrJDGfdvGc/f
+	 SVu6vn5BtrUghfu4Pi07WHN/dou+3YYLQX+c+XShTcKUO1e6jJowceE49JRfWMeCthA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmbCB2al;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63ABB606A32A
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmbCB2al
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BDB1F008A2;
-	Tue, 10 Nov 2026 13:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794317758;
-	bh=1JfeR9Q5ifFcYYZAOY+DayR58OVx+Lq0ayEY905+ztE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FmbCB2alOgOVzS0WdtrsG0tSkggxs6ZGqBw8FlqXrMdaRl7hqIg152Gp5u/mpTNJR
-	 V3h6tI0cFBioryFpdHZEGuVB3jyZJ7wJsxo6aIHUSMtu+y12ctWpUGAnfpLefpLv5d
-	 Wf6lx6ge/dKoOAJKD3Vk03iEaHncKTTNDNnb3UmVK4v8iGTMVgQh6/b4cRVA66iLNP
-	 exPMkec45E/8wAhS5IM/4lxzEAPURefET24TUZ+5L+8tWlP7VDXQjRiJDDp1HbUWxX
-	 UvYRmYqF9lDxNA7eNo2CLgd3NDEpSG1sjJVScN/BEuABu2dL3+VaGbwsN/SITTrQ1L
-	 Ik05NCUbZ4fBw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ASoC: stm: stm32_i2s: request IRQ after regmap initialization
-Date: Tue, 10 Nov 2026 08:35:55 -0500
-Message-ID: <20261110133548.1755536-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110133548.1755536-1-sashal@kernel.org>
-References: <20261107051915-failed-6.12-1b207c85551f@kernel.org>
- <20261110133548.1755536-1-sashal@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847B3606A752
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:36:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 847B3606A752
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c40f29667e6so297654466b.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:36:03 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794317762; x=1794922562;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BePlmUzazBil0jZOyafds1nHUSQqBT9o0NsepsGpMCY=;
+        b=ZLvAI1xDNSJtLqN+GlrJXbK0zloV8rfBbApdgt33rN/TMK96J2eKCvXmeng1U8LVOa
+         GwGfxcoxvkJ+2rVsi7T+K/LVeE0op5R6vfNxDKekisvSgLuWL6jd5FPXwSpiYu65zJtb
+         qbcC57RksDrKLrqxdBdB9MFS23KmghxXFYvh3yyMaNphBUu5JcDbuCiRivY4jbmjJDsI
+         cbGS77KLlEXoSZRRbJqvo+gTyzpgT5hbKtP8JJ8mNFU5OBqP4URpbgC83IpPlaONmHVy
+         CMP/riwlzqCJN52+cEVfVVefD4F6Ou2QUJgcFwyPu6EGQNV3GjmRC5WlNhMJg23VmfzK
+         Kk/Q==
+X-Forwarded-Encrypted: i=1; AL+hErGcdx1HGDP0Hn/1qsln0iaoXgggfn2CBdbJRmVIJhPNvsSOVIXDGMd1TCF931W+6PDBuNvt4r0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uKKuGz15oxFSGZW2if6uVLvw34kbKwnu5+fGScoLGMWjm+N8w
+	mQenU+h49rbeW756u4mQVYrWjVaXasrUw7/lV6pg8RFhXrnqnXTpofIQ/cCRv7EMLWA=
+X-Gm-Gg: AYBFou2OggJGGk9V6iR8MOiNkw7lxZJkdBaJ7LIwd7kS7WR+IB9cJzUG1L1fvQimBMs
+	ck7UFc1AbeVNT3PJM6NSJigBbaUtCu15Qzbnm4eHSb73rKxqYxmokc/p6Yh94QnLcobzuD15FrN
+	WkYsRpQNMBqVnQRvAsVXkWlSBYVwstztRY8oxES/oDQSDwU518HH2HC4F4GPlFnOrzIM9HXN87n
+	Xk4kUImdcwAxL2LpXkiUUAlc7teqVjawSnECLMpZMltfgaeafMTx0Dvq3RDbBb17CfO9oeEYc2S
+	ftv8aaUecTztdw7Ya7VXwF315HNUPh5BBkEkqjupPanl+/u1uP8EIvhFwE+6O/bdc+KHpTw3Lxm
+	8hMpwCp5FW5zzYJoS9tj/pHGEBVa+kIUYA8fSykHBbgmdORBuY+YCE63l/I6oWqQUdQCYAkx8KU
+	7DHNyoe/Mw4JvX7/p4DvzhiuLOsKUTVfMukftbitKjbAuvU7Wz9sjx34fJNsPwgCYCFBTJNQRsa
+	Qk8qV+WC2zzHQByXpRkpStEujH52FwsDHoyoVq2C4jo+Xp5cTJHv53EsfuRHqKj7dtmFatGVU+V
+	3NOEdf3ZjtTZTY7IyY0oWzObT946w+4w3wBLkghLwjimhbKilyeKzmNSuTUwVQa0miI=
+X-Received: by 2002:a17:907:3ea4:b0:c41:61b9:6ef6 with SMTP id a640c23a62f3a-c50495c8f3emr215661166b.27.1794317761828;
+        Tue, 10 Nov 2026 05:36:01 -0800 (PST)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7578ed17asm1127354a12.26.2026.11.10.05.35.58
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 10 Nov 2026 05:35:59 -0800 (PST)
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b750e40ce2so1456878a12.0
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 05:35:58 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEjZr2OWFNHQemKjJ5p+SmSlEkiaZsTpufat7qFvRbI7cJUULqlyFoULjnpubbUwlOYTu+VfvI=@vger.kernel.org
+X-Received: by 2002:aa7:d853:0:b0:6b6:4dcd:968c with SMTP id
+ 4fb4d7f45d1cf-6b756add2aamr1624928a12.16.1794317758591; Tue, 10 Nov 2026
+ 05:35:58 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,89 +80,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
+In-Reply-To: <20261110-gpiolib-hog-stack-corruption-v2-1-c5b28cb8dc8e@oss.qualcomm.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 10 Nov 2026 14:35:44 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdWHw5mbe8LY_t9zWW2VK9TuDDJYTQE_Y5GmjNpLzOB-zA@mail.gmail.com>
+X-Gm-Features: AclHuK-0srTXKsnuWni1-CcV0btL_Vd3sgu665FN-7w6sZ24vTtXz1uHDKMnXqg
+Message-ID: <CAMuHMdWHw5mbe8LY_t9zWW2VK9TuDDJYTQE_Y5GmjNpLzOB-zA@mail.gmail.com>
+Subject: Re: [PATCH v2] gpiolib: fix stack out-of-bounds access in gpiochip_add_hog()
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Myeonghun Pak <mhun512@gmail.com>
+On Tue, 10 Nov 2026 at 11:01, Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
+> In gpiochip_add_hog(), parsing a device tree with an excessively large
+> "#gpio-cells" property causes a stack out-of-bounds write when populating
+> the GPIO specification.
+>
+> The value read from #gpio-cells is used to copy the values into right
+> places in struct fwnode_reference_args but that struct's args field is
+> an array of size NR_FWNODE_REFERENCE_ARGS so a value larger than it will
+> make the loop write past the end of that array.
+>
+> If #gpio-cells is 0, we can trigger a divide-by-zero later when
+> calculating the actual number of hogs.
+>
+> If #gpio-cells is 1, we can also perform an out-of-bounds read of
+> the "gpios" array.
+>
+> Reject #gpio-cells larger than NR_FWNODE_REFERENCE_ARGS, lower than 1
+> and make sure #gpio-cells is larger than 1 before checking the
+> active-low flag.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 802c51a83e9a ("gpiolib: fix hogs with multiple lines")
+> Closes: https://sashiko.dev/#/bug/linux-fdec1c0e-c6e3-4eb6-8746-d68a3f951374
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Fix a potential divide-by-zero bug too (sashiko)
+> - Fix an off-by-one bug for #gpio-cells == 1
+> - Link to v1: https://patch.msgid.link/20261105-gpiolib-hog-stack-corruption-v1-1-a47af9c51965@oss.qualcomm.com
 
-[ Upstream commit 1b207c85551fd74854d632116849295b2305245f ]
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-The ISR accesses the managed regmap, but probe requests the IRQ before
-creating it. An early interrupt can reach an uninitialized regmap.
-Reverse-order cleanup can free the regmap while the IRQ remains active.
+Gr{oetje,eeting}s,
 
-Request the IRQ after regmap initialization so probe unwind and
-removal free and synchronize it before releasing the regmap.
+                        Geert
 
-The teardown ordering issue was found by static analysis.
-
-Fixes: e4e6ec7b127c ("ASoC: stm32: Add I2S driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261004043451.1138613-1-mhun512@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/stm/stm32_i2s.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 5b15b8fb87c39..d62802f4f12e3 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1026,7 +1026,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	struct device_node *np = pdev->dev.of_node;
- 	struct reset_control *rst;
- 	struct resource *res;
--	int irq, ret;
-+	int ret;
- 
- 	if (!np)
- 		return -ENODEV;
-@@ -1069,16 +1069,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 			return ret;
- 	}
- 
--	/* Get irqs */
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
--
--	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
--			       dev_name(&pdev->dev), i2s);
--	if (ret)
--		return ret;
--
- 	/* Reset */
- 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
- 	if (IS_ERR(rst))
-@@ -1103,7 +1093,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- {
- 	struct stm32_i2s_data *i2s;
- 	u32 val;
--	int ret;
-+	int irq, ret;
- 
- 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
- 	if (!i2s)
-@@ -1129,6 +1119,15 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(i2s->regmap),
- 				     "Regmap init error\n");
- 
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
-+			       dev_name(&pdev->dev), i2s);
-+	if (ret)
-+		return ret;
-+
- 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
- 	if (ret)
- 		return ret;
 -- 
-2.53.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
