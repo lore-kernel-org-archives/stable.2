@@ -1,57 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272813;
-	b=HuJPL8ZBVNjCTnNagw37JsB8HPE5ckQLQvproa0UCClAZSyGKiJfPpjenI60aei7NjZ2
-	 uUz+tuhHsvhG6yO/7u4B7370i2XSA0lYCiSJ1i4ScWGxLgvbQj8jR64q97UrT48sDmeOq
-	 ACWg7V+v0FYARTT/iRcWBjXldVod2+kaxvvUUjEKEcIVHGjv90ktK2BzIVO6MSsJzBTEo
-	 QRX4MrYK1BU4SR0j1vkQDCaoPVdp8vgTB0PoILsEjUqupwx8HFPyK9pO16F8RP/rNu5W2
-	 EtF7SwDDf3o3JR328ZESPUFd8ZaBJuEWH0TU39cskEC2SewMQgJnxgHSBObFHwslPGw==
+	t=1794272815;
+	b=sH5egj1uJ9/1xhDu0tha4BRW0DaVa9L7g8z45IGg0sIjTf5+JFjnqTxjNqo5ca2AbFpS
+	 vlWwU5aLFvOJwbEEEPtsnTngc90NsGU0PyCDnhnTNeH38GcklduZ+Xca1F5pmB6vVX17N
+	 YAxjfW3a3/S1k75HtaNXjLQ7oNCo3MJ5tL1HF2uRDOeyl/8ny2Kv+8X/D5cgOqPEaw16a
+	 JpbPrSY0b+v/nWmIuLeBZWxP8Y43Bna+qodXvEB8WVgKNXSeEsoozVezPTjULDQj+C2LQ
+	 rZBb7hFHmaS43rjwrw2nU1cvilhT0/S95ltt29VVqIfs1cCgvGuopA7qlFUkktpyuuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272815;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CCbXL6fU8ER3Ov0R5/5TEtqR81C7eiNv4lWGugQgElE=;
-	b=wPGEoMEquJV97mXAyewC/K7Weixk4vDwIJWBiUyKFl5P7ygu2J9rI6q1KuiUtoPD3+1b
-	 M7KrZoESZX/uz6dCIj3BUACmrJtU41hKii700vBGB/qbtXLcy+pXd0iajLmnuwcmCOKey
-	 M4+wPns6ePIGncMplcefTqOGxZR7eguBsahL6H+2qI+l1luLrmTQpG+5vF53pBX29zyi1
-	 dYpzgxGyEAe8AcYjCdNoIuy4V3i6kMtcmWwj9l2NbEFtrTD681rb6joQu93+XJ2K6MDSf
-	 ZhiQ3pQ1UuxV7vNe2BSFJkJr0ryAWN9Y0j8LiYUPc0uW4rNPqXPxmWo/e3KtwO8EQAw==
+	bh=Xi9DG9Y1+qzysd+yF77f3MotdhYdRTYxvsnd64blu1k=;
+	b=xXfs+06ft9j5XXbwq2Q8K1J46Cky13Ka9V6btu4gI7k8JjDjPHkZkHn9b7yVgIJfLlX/
+	 AmSpOu2Kyq/5qDDUq9ZNVfT3nwzCEL03uKcLe2mYeMVZ1w1xrf+Fvi2nlA6sOGUEy39Jb
+	 YR8OypWhOmrg4AzVec0+TBIJmSAoaLE499IxPNsijkDcNeeGUetINjG6V18JqHx92A0I+
+	 9hiTZuLv12/mxpGGCigyLXin3m5+uVDlecGMZU5gp7109e5DtK1VakqFgKUhepZb1V07d
+	 BcE15BCKzEmj33A9s9GWLEUDtNZ4U1SHjPgLmv0FZzhTfBHZXPe91Na77ive1FDx8cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCl2dZx6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ePHMK7/9";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46970606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F40B606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:06:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SCl2dZx6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F641F0089F;
-	Tue, 10 Nov 2026 01:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ePHMK7/9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73B41F0089F;
+	Tue, 10 Nov 2026 01:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272813;
-	bh=CCbXL6fU8ER3Ov0R5/5TEtqR81C7eiNv4lWGugQgElE=;
+	s=k20260515; t=1794272815;
+	bh=Xi9DG9Y1+qzysd+yF77f3MotdhYdRTYxvsnd64blu1k=;
 	h=From:To:Cc:Subject:Date;
-	b=SCl2dZx6efN8XkxHyjS0oMUCPWeClIaA2s3e39I/H97HoQ6vZeb79vmWiRJj9gRhd
-	 BhQAbB6k3Go+9PWADlBh7XJt6A8iQM73HUhQn2sjkvvGeMc6hw9Dyu5QGepkQ5oH9O
-	 2kuJQKNkwYl2nhBml5O2nBnwpwxD5r/qz/rKc4Gghlu7urP6muveSy4aK1d+coB0Ee
-	 shDzuL7GsRb6TGfTNuhfUnJnCkt4CU2bukEm/sARn8MsRtNuddMAoS3b4ANeZTU4on
-	 8roNrx05qUXb+K/OrWeV7yLpkiaB+Li4utpL9aMyFcs70pbT3wDYC01GIqqyLE7VOn
-	 gz+wUDbpGy7uQ==
+	b=ePHMK7/9RAL9d58Q5qbwMlFLknyEmgd4CulsiWcx79YD14IxlzGc5EBn7i7YV5h0E
+	 RqJUtxDsPaYPtLWD6Eije6QunxTCRLkBJEkcb5KS94Qks61yu1HQQlOjv2qYdWR3Ag
+	 VEAHmj5iMjDAD87QUZDs4abzcHCsDkOkOZ9qCXEXpjoahlIHMgjfc2eZ7mArmlTkdH
+	 2J4t100Jvo/vHDmQGOD1RjbY6EX3YkrAxdc8kYdkd/ce/h7nEYzzraQfFOLNU98On/
+	 uBAr250apmKe+YXL5fhaAfqJHu2Ckv5D/6L0y1B7XqH8wFNkm2CST3rHfK2ONFhh9y
+	 d8ewoQMfsBfkA==
 From: Sasha Levin <sashal@kernel.org>
-To: eva.kurchatova@virtuozzo.com,
-	pfalcato@suse.de,
-	kas@kernel.org,
-	ziy@nvidia.com,
-	gourry@gourry.net,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org
+To: icb@fastmail.org,
+	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hugetlbfs: enforce F_SEAL_EXEC in setattr" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:06:51 -0500
-Message-ID: <20261109200651-failed-6.12-b7f570e7cea7@kernel.org>
+Subject: FAILED: patch "[PATCH] ksmbd: let the owner read and change the DACL when no ACE names it" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:06:53 -0500
+Message-ID: <20261109200653-failed-6.12-ffc855fe16af@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,74 +68,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x b7f570e7cea761ec7eb4a3a9557a3a082d14e88c
+git cherry-pick -x ffc855fe16afe02b22305111aa68cd8d07360941
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200651-failed-6.12-b7f570e7cea7@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200653-failed-6.12-ffc855fe16af@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b7f570e7cea761ec7eb4a3a9557a3a082d14e88c Mon Sep 17 00:00:00 2001
-From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Date: Thu, 29 Oct 2026 11:43:26 +0100
-Subject: [PATCH] hugetlbfs: enforce F_SEAL_EXEC in setattr
+From ffc855fe16afe02b22305111aa68cd8d07360941 Mon Sep 17 00:00:00 2001
+From: Ian Bridges <icb@fastmail.org>
+Date: Mon, 2 Nov 2026 00:15:36 -0600
+Subject: [PATCH] ksmbd: let the owner read and change the DACL when no ACE
+ names it
 
-F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
-not check it. As a result, fchmod() can change the execute bits of a
-sealed hugetlbfs memfd.
+smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
+the POSIX ACL fallback matches. The owner then cannot read or replace
+the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
+WRITE_DAC unless an OWNER RIGHTS ACE applies.
 
-Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-to execute bits when F_SEAL_EXEC is set.
+An empty DACL allows the owner's explicit requests for these rights but
+refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
+access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
+it asks for that reply.
 
-This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+Grant the owner's implicit rights on both paths, for explicit requests
+and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-[ david: use common helper; fixup Fixes:; check only regular files ]
-Acked-by: Oscar Salvador <osalvador@suse.de>
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- fs/hugetlbfs/inode.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/smb/server/smbacl.c | 34 ++++++++++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 4 deletions(-)
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe0..02e0a65d596d8 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -28,6 +28,7 @@
- #include <linux/folio_batch.h>
- #include <linux/fs_parser.h>
- #include <linux/mman.h>
-+#include <linux/memfd.h>
- #include <linux/slab.h>
- #include <linux/dnotify.h>
- #include <linux/statfs.h>
-@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 66fbf5537321e..ab76c5c9e0ea8 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1477,6 +1477,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	int i, found = 0;
+ 	unsigned int access_bits = 0, denied = 0;
+ 	struct smb_ace *others_ace = NULL;
++	bool or_ace = false;
+ 	struct posix_acl_entry *pa_entry;
+ 	unsigned int sid_type = SIDOWNER;
+ 	unsigned short ace_size;
+@@ -1509,6 +1510,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
  
-+	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
-+	}
+ 	if (!pdacl->num_aces) {
++		unsigned int allowed = 0;
 +
- 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 		/*
+ 		 * An empty (present, zero-ACE) DACL grants no access to
+ 		 * anyone except the object owner's implicit READ_CONTROL
+@@ -1517,9 +1520,14 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		 * not let trailing bytes after a zero-ACE DACL become an
+ 		 * implicit grant.
+ 		 */
+-		if (!is_owner ||
+-		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
++		if (is_owner)
++			allowed = READ_CONTROL | WRITE_DAC;
++		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++			requested |= allowed;
++		if (!allowed || requested & ~allowed)
+ 			rc = -EACCES;
++		else
++			*pdaccess = cpu_to_le32(requested);
+ 		goto err_out;
+ 	}
  
- 	if (ia_valid & ATTR_SIZE) {
+@@ -1604,6 +1612,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 			found = 1;
+ 			break;
+ 		}
++		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
++		    !(ace->flags & INHERIT_ONLY_ACE))
++			or_ace = true;
+ 		if (!compare_sids(&sid_everyone, &ace->sid) ||
+ 		    !compare_sids(&sid_authusers, &ace->sid))
+ 			others_ace = ace;
+@@ -1648,8 +1659,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		if (others_ace) {
+ 			ace = others_ace;
+ 		} else {
+-			ksmbd_debug(SMB, "Can't find corresponding sid\n");
+-			rc = -EACCES;
++			unsigned int allowed = 0;
++
++			/*
++			 * No ACE names the owner, who may still read and
++			 * change the DACL unless OWNER RIGHTS applies
++			 * (MS-DTYP 2.5.3.2).
++			 */
++			if (is_owner && !or_ace)
++				allowed = READ_CONTROL | WRITE_DAC;
++			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++				requested |= allowed;
++			if (!allowed || requested & ~allowed) {
++				ksmbd_debug(SMB, "Can't find corresponding sid\n");
++				rc = -EACCES;
++				goto err_out;
++			}
++			*pdaccess = cpu_to_le32(requested);
+ 			goto err_out;
+ 		}
+ 	}
 -- 
 2.53.0
 
