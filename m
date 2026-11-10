@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341391;
-	b=N591ktys6PieddWBehgwEmKlu78vT1hEjSqFIyMbZkBZCOhhmVheW5t1gCyG/n/Wz14f
-	 SOICthPLBZytXuo0y+scq/G7YanhUss+Oj3HK2gze2g614VW+1C/7HrLSLGNZjnvzGl21
-	 hm06RZiSRQ29Og8AW44msUDaYItF6BL3MoiCp7DYiJ+Amg2sWV+k74ADWViN0wYGQVmrj
-	 fKYMDHfLJ57IGfbgVNimVr+RptKCqob0IL5Q6jBqHgO0J3q2LAnGoLTmmS9gbwKxDjekH
-	 GlmPbuDAoxrMjjrTTau9BS1nXG0ndvL5hXQbI+Wu1PT6Exf+OGzb33rxFtkjlp62A5w==
+	t=1794341398;
+	b=LpnfmSkYbocyl9Ggo0fF7O+LXnFbrMfgzN3uIRLjx529EQ84Af2qmrCkk3gtdGCr4X+B
+	 gFFz6B/pCFIs1g9jHLyjtjT+MQXCQ9VrRzttKNHLnDHg7cXG84eeKSdLvCKKTeJAiPv9e
+	 kvw3AnIBBAuDygBVdzWS+jpBB5tVOtlUOpoVGlUQMHsH5T7RBC/FX0bVUCE1XFvAYX2xa
+	 qpzn03UNpJvaQlOJLt5n1Hm4tvpg0xDg5GH7Da2p/H/rK1aBApHypXgdluKlNlexrsUld
+	 /RWj8ckwa6BLM8hU9ciudhhE1XtESH4fnynxpe/451J39ruzI5UgXQdEXAD09jjb5+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341398;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6KE4kVS38NnaRzTk3MB9JBRYlKbv5O+vBftgtNP6n0Y=;
-	b=TJnMjEaT5XL8ExLjYvFq9pqbfjawvNJWRFlIpKip2dQRc5WQXDmkrUC3UDMQP0PwhQTK
-	 GJa7u2KYQSkfcXnB71jcuMBqXvNkLb7iO4JfhbBv5z6SpYoFVa9Jw4llc3hBYxddKnCFf
-	 THAX+OVmMKWR6HYhAKDVG9XGIbYWb2mlTQdLwOFIwlGkCFb7aJRASSRQXtyl3jsZ8TgJ3
-	 goJPZeUSY9ar0jvIWKMEnOCx2JcwszXIUq+qpC8csn/fnk8+ZCb7Hw3xKMwwHOggAQc8I
-	 1qzchYUkMv4ecLqV0kld6uYWMQBWI62XDp+S2uW5q2xKQWlIqygJ2QSf20F8Ig278gg==
+	bh=hFqjAssd77993nns0I6mAzNSOazaCI7Naka9xzicewQ=;
+	b=DAfKMXxQ041Y1q2n4tlHQ8tyx5aAb3TgMVc0F55KvSzGSQ/e03JQ4t5w1Lj+wdaS+u/4
+	 l7P8TYGWiCpzAIQ5aCv2BYcfNMdnF3CacIhKqECQz4cpahTrr2kPHk2R6gabtvDlK89vA
+	 P468kyAE2ZDZMikwhP2cH8xchco2LVaWWPaFT6Fkaa2HE96gwYcHt94lKNGQLFUVABlRf
+	 OhupRu9wqJfrj1Cu4VeQG1kIaacVlRM7quA/X/PWssfWB9EoqrKnGlnaraIDGs8I69Etv
+	 VURBMx7YrO0M4K5Xk+xMqnB14UpzI9hwRgfF9NgqgkGKZK+xsmLwmcy9K9ZPBRaNe7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+WZKm4j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvUJ0bx8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A18606A323
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:09:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59CD606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S+WZKm4j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA2A1F008A1;
-	Tue, 10 Nov 2026 20:09:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YvUJ0bx8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A339E1F0089F;
+	Tue, 10 Nov 2026 20:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341391;
-	bh=6KE4kVS38NnaRzTk3MB9JBRYlKbv5O+vBftgtNP6n0Y=;
+	s=k20260515; t=1794341397;
+	bh=hFqjAssd77993nns0I6mAzNSOazaCI7Naka9xzicewQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S+WZKm4jYXRRx5Pt60a6aHzTi9e/aZmfKNd+/LATIQpUF1YbwR3dnvRpcS5zRUkAa
-	 YAsLjlZ+i1zDbgIjE9t3Es4OkzstV/J0J0Uow3fxjjcwtmWSkb1btVIH8HEmFEaI00
-	 nQ9nvnzcEvJ3+r9N2GbFgJVRknH6lVoopNHEmf4gJhaN2NhfGU2j4loOEHDDGzLf4c
-	 GotNLzgaXuy8cJXvKJTdFvZHX/1Gz0pbjn6dQHg4cB7XK/jc2OFXWPXEQcIPTvPMEo
-	 uYzYrcUA7u6s/RrgPBdsmUqB5LPaWiVq3XqL3cxq1qsWXWoSlIdWX1HBYugR1a1uJA
-	 K+dL3qqnAwwuA==
+	b=YvUJ0bx8SeAbz9TkN9R2wOWMg7r+mNq1d+2pKm1J6dvKEUAYXtc6VL/01nDnK33vL
+	 qfqPNPB9X5ZMQ5CMA4M1Bh/ZDqP+20GPU4pGKX55uq7cu67OXffcMICMk02YXk1ILP
+	 Ee69fm9Yar9k9hGPK7o0kR5KMN1/B8NLeJ8Xn8Jhhwvnan2aVUoqDLLftCQsTQ+B5U
+	 2hnAtZZi64AtZcNgjIOY72xPeimiJK+bXul/+Qqg9FvPaaLXhooD8mjvMi8E6Cg+P1
+	 A+JceyBEKI3baz8Ew150pCMxUZhsYIRXUE5GaNSTQzRQ7v9F9eww9Kpa8z2ZPBr0Ct
+	 E2xZs895IK08g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sung Byeongchan <tjdqudcks0424@naver.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: Alex Sierra <alex.sierra@amd.com>,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] virtiofs: validate fixed-output response length
-Date: Tue, 10 Nov 2026 15:09:48 -0500
-Message-ID: <20261110200352.3682548-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] drm/amd: define gc ip version local variable
+Date: Tue, 10 Nov 2026 15:09:52 -0500
+Message-ID: <20261110200933.3702189-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110200352.3682548-1-sashal@kernel.org>
-References: <20261107062433-failed-5.10-5364d081125a@kernel.org>
- <20261110200352.3682548-1-sashal@kernel.org>
+In-Reply-To: <20261107052447-failed-6.12-232213c9bd7f@kernel.org>
+References: <20261107052447-failed-6.12-232213c9bd7f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,101 +63,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
+From: Alex Sierra <alex.sierra@amd.com>
 
-[ Upstream commit 5364d081125a34e90851fbb46ecc93f79339ce78 ]
+[ Upstream commit 9bfe4caa4e57ba343d81e837911242f058688200 ]
 
-A short successful virtiofs response can leave the fixed-output portion of
-the request argument buffer unwritten.  The completion path nevertheless
-copies the full declared output to the request destination, allowing stale
-allocator contents to reach callers such as fuse_statfs().
+For better readability. Also leftover orphaned code.
 
-Require successful fixed-output responses to contain their complete
-declared output.  Continue to permit a shorter final argument only for
-out_argvar requests.  Reject positive and internal restart error values
-and require valid error replies to be header-only.  The error already
-stored in the FUSE output header is returned by fuse_request_end(), so do
-not copy output arguments from an error reply.
-
-This was found by source review with AI assistance.  A header-only
-successful FUSE_STATFS reply returned stale fields in nine of nine calls
-across three boots.  The fixed kernel rejected the short response and
-preserved complete replies, valid negative-error replies, and
-variable-output replies.
-
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Reviewed-by: Harish Kasiviswanathan <harish.kasiviswanathan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Stable-dep-of: 232213c9bd7f ("drm/amdgpu/gmc9: add extra type-2 TLB flush for gfx942/gfx950")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/virtio_fs.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 8 +++-----
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 5 +++--
+ 2 files changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index 96e6ebb0a4ee2..1f58c4adc2ae2 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -527,6 +527,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	unsigned int num_out;
- 	unsigned int i;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index d82f90f480240..fba9d8c6fd2b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1139,12 +1139,13 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+ 	bool uncached = bo->flags & AMDGPU_GEM_CREATE_UNCACHED;
+ 	struct amdgpu_vm *vm = mapping->bo_va->base.vm;
+ 	unsigned int mtype_local, mtype;
++	uint32_t gc_ip_version = amdgpu_ip_version(adev, GC_HWIP, 0);
+ 	bool snoop = false;
+ 	bool is_local;
  
-+	/* fuse_request_end() returns this error; there are no args to copy. */
-+	if (req->out.h.error)
-+		goto out;
-+
- 	remaining = req->out.h.len - sizeof(req->out.h);
- 	num_in = args->in_numargs - args->in_pages;
- 	num_out = args->out_numargs - args->out_pages;
-@@ -552,6 +556,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	if (args->out_argvar)
- 		args->out_args[args->out_numargs - 1].size = remaining;
+ 	dma_resv_assert_held(bo->tbo.base.resv);
  
-+out:
- 	kfree(req->argbuf);
- 	req->argbuf = NULL;
- }
-@@ -559,7 +564,9 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- /* Verify that the server properly follows the FUSE protocol */
- static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- {
-+	struct fuse_args *args = req->args;
- 	struct fuse_out_header *oh = &req->out.h;
-+	unsigned int expected;
+-	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
++	switch (gc_ip_version) {
+ 	case IP_VERSION(9, 4, 1):
+ 	case IP_VERSION(9, 4, 2):
+ 		if (is_vram) {
+@@ -1158,10 +1159,7 @@ static void gmc_v9_0_get_coherence_flags(struct amdgpu_device *adev,
+ 				/* FIXME: is this still needed? Or does
+ 				 * amdgpu_ttm_tt_pde_flags already handle this?
+ 				 */
+-				if ((amdgpu_ip_version(adev, GC_HWIP, 0) ==
+-					     IP_VERSION(9, 4, 2) ||
+-				     amdgpu_ip_version(adev, GC_HWIP, 0) ==
+-					     IP_VERSION(9, 4, 3)) &&
++				if (gc_ip_version == IP_VERSION(9, 4, 2) &&
+ 				    adev->gmc.xgmi.connected_to_cpu)
+ 					snoop = true;
+ 			} else {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 7bbeb9768a56f..a62c94894a274 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1224,6 +1224,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 	struct kfd_node *bo_node;
+ 	uint32_t flags = prange->flags;
+ 	uint32_t mapping_flags = 0;
++	uint32_t gc_ip_version = KFD_GC_VERSION(node);
+ 	uint64_t pte_flags;
+ 	bool snoop = (domain != SVM_RANGE_VRAM_DOMAIN);
+ 	bool coherent = flags & (KFD_IOCTL_SVM_FLAG_COHERENT | KFD_IOCTL_SVM_FLAG_EXT_COHERENT);
+@@ -1233,7 +1234,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 	if (domain == SVM_RANGE_VRAM_DOMAIN)
+ 		bo_node = prange->svm_bo->node;
  
- 	if (len < sizeof(*oh)) {
- 		pr_warn("virtio-fs: response too short (%u)\n", len);
-@@ -574,6 +581,29 @@ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- 			oh->unique, req->in.h.unique);
- 		return false;
- 	}
-+	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
-+		pr_warn("virtio-fs: invalid error value (%d)\n", oh->error);
-+		return false;
-+	}
-+
-+	if (oh->error) {
-+		if (len != sizeof(*oh)) {
-+			pr_warn("virtio-fs: error response too long (%u)\n", len);
-+			return false;
-+		}
-+		return true;
-+	}
-+
-+	expected = sizeof(*oh) +
-+		   fuse_len_args(args->out_numargs, args->out_args);
-+	if (len > expected ||
-+	    (len < expected &&
-+	     (!args->out_argvar ||
-+	      expected - len > args->out_args[args->out_numargs - 1].size))) {
-+		pr_warn("virtio-fs: invalid response length (%u, expected %u)\n",
-+			len, expected);
-+		return false;
-+	}
- 	return true;
- }
+-	switch (amdgpu_ip_version(node->adev, GC_HWIP, 0)) {
++	switch (gc_ip_version) {
+ 	case IP_VERSION(9, 4, 1):
+ 		if (domain == SVM_RANGE_VRAM_DOMAIN) {
+ 			if (bo_node == node) {
+@@ -1322,7 +1323,7 @@ svm_range_get_pte_flags(struct kfd_node *node,
+ 	pte_flags = AMDGPU_PTE_VALID;
+ 	pte_flags |= (domain == SVM_RANGE_VRAM_DOMAIN) ? 0 : AMDGPU_PTE_SYSTEM;
+ 	pte_flags |= snoop ? AMDGPU_PTE_SNOOPED : 0;
+-	if (KFD_GC_VERSION(node) >= IP_VERSION(12, 0, 0))
++	if (gc_ip_version >= IP_VERSION(12, 0, 0))
+ 		pte_flags |= AMDGPU_PTE_IS_PTE;
  
+ 	pte_flags |= amdgpu_gem_va_map_flags(node->adev, mapping_flags);
 -- 
 2.53.0
 
