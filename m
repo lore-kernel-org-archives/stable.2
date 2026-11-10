@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272961;
-	b=SjJfn/M8kpJwSwWlB993MR4TQzJy6ru6S/YkTC6iHgACAAXns6EDrBPPUQty8r5a0lYf
-	 400zOr/HRh2kPBXNtqrjS1oFiSXpffDxgLfj5y3DcnKcLXr4+KgeUnZ0UYeYH9o23iJR6
-	 CF2YJmSzgF0EFyyUCGpf2OQtO4i7BJ69JgCXHmQ9LZ0QrJOukBG3FBY/EWplk3caeB0k0
-	 ymA2iUN8DeldICdL/T/gfDq+3/LVe0g97LYOOn06EP5gXrzixShMrqga1vrYzJdB/ofrm
-	 RaukpRENTzmy1KcxhOLM2C6UZ85Nzl/kqexgJJgA0Q+B2iwkeQZzeFWfzK3xK8rn+aQ==
+	t=1794272963;
+	b=pziy0bTDCsRiEj7TB+voe+MsuM4kzll5+U4heMURAI1mFkYmMRxi9cgdQ/JkIlofDv0T
+	 jcx7zLMmE82INi6S1lVfHpmDD40/dCiON02apTW36TOxtSDJ1DCMcSzylnUfAWkSFFvr+
+	 QD9TAm1aYKDI2anKphuloiNkFJNhk20sRGaurx6ijcN8UOna5TtVUhq0BOb+CypqeOZbK
+	 fegNRV/IeWfuUYLbvMQBTxZBbI/l7PsKQjo/y7CfU0LMFQHy+Qriy1BwYknsQrkvJ6owl
+	 javgNkL+s8Jf4kai/yQuaM9CwlgfVSm3phpHM4cx9tBOoIt1DBQYuxy5gHSNwGXAEWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272963;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Rq1cfa7ubX+RTkicEK+Gt8MRV4XqgB73uqYzMqLllNc=;
-	b=CNduT2cjEcLvoJGdqPBF2HeHYovQ23+BY8FmLOpOJS9cLLn7w1kd5Dxjctr6C6tRGhUx
-	 SQ1oZYp+sjqp03QBdRPNDFnFkMnV//E1Zap01VZIbotU5VIK68qv7CkaNu799KDFcW1U7
-	 8PDPiWs58sCJM6srLTU2nFouUTNM/4HtHMj+3iyP4pX/Rj9D5TTKnoFcZZy7pAyuQiRcF
-	 llTMJEl0xG8G1jCmSm9zchRs3Pv2TVF6WLToHFreqW+qmLmkV+sQWHxq1WjqxVQDW7sH8
-	 Nj1zQwyQ2/E/+/6x1ruhV60uTG/oqglcXYfVR1X1eTXxWmxwx4+RY69UpaZUsAktuzw==
+	bh=saT5vpsQYDl8/xEgjpDpPPQib2ykEajckPBbqEAKj58=;
+	b=Kz+cFWHm4YVqPV+oAKqiZAD4ZeKq4GPXdg0EmR4A6pLxbIMLgpJSE65YVhQ0hkLOL5Lm
+	 WwnWqu+1dB1KpTQSKZD4KEy3CWC8otyatpZLjaHVRGq+J+hs0j4UBfO0MYZv4/N9xFpO2
+	 pPYdERgPfAe1vfxaP1hwdA9t9umKCtF2thv24+aY6ZSowUbt03ChhOqR4fG3M0DUS0xFR
+	 J3WeIRxDpPGElLj5plSl0XaTa8YMrE1OanrtmYBMmmDbWMdWdV2hibZfZv/HTHVXQBeN6
+	 rD6aejpdkP3uBLkSyh1VTCkz5OyVS/lptvW3gU2nyNFA7kXohEhbPX+trIED2n5xXKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOlVy65h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JpKzGbhz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3C0606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F62C606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:09:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOlVy65h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6711F0089F;
-	Tue, 10 Nov 2026 01:09:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JpKzGbhz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3DD1F0089F;
+	Tue, 10 Nov 2026 01:09:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272960;
-	bh=Rq1cfa7ubX+RTkicEK+Gt8MRV4XqgB73uqYzMqLllNc=;
+	s=k20260515; t=1794272962;
+	bh=saT5vpsQYDl8/xEgjpDpPPQib2ykEajckPBbqEAKj58=;
 	h=From:To:Cc:Subject:Date;
-	b=kOlVy65h49YYcOwKSsRdz4IUceqKXfIvTL+lSNJFyckhZqVpHpk2aap4B9MOw0+qe
-	 OiVDgkXX9YgO/KNNGpgKPXs+0ikwaoKfSDM/TXLyRP+EZ8qZZyffY6XS4ZCi17L4gx
-	 uxmCipkrdCU3mxkKIh6lFJxJCCyEhK58tj8QbMnoWzXdN2GS+o/F1U39q8IxxqdyJ5
-	 Sdq5D/CAS8RbstRTkyvgxbgm3utdSlj6XVYs0SZmsXBLY022IELKQxOPyq7HEc08Wi
-	 gGzZXcpZ2YT2oK/73q+S+JOYQR+ifb2YDOlV/qsJVq8gzAh6pkvo3GE5FXW5g2hyV/
-	 efVryxyfw253g==
+	b=JpKzGbhzCD6Udw5feAsWfzx9A9ih1DBWhHQO6XrJW5mtaTRcJMLYUpqNU/bFkzyHm
+	 Uy3bBwR5+ogsgJuzomRA0nLT+INTZWtDyvGhSuW2d5g0NicqhtBAr2l5c1gBxXRjhL
+	 hWROKoIdia1dcgb5h22xxkNHgLnQJiT2wlaJMo/GKXRoRif7mtn00EhkjE+sxMSHbd
+	 +26FaHZmd0FiTi1BSyTDqH4gAElxtSuyqqff49wAj6JxvfgoQBFcQWGMrqq2u37Ukn
+	 m/UGc6fYsXGOCULpWHYk3q/i80Q9vkPd0y/pJ6+H3CASp79/NTyolfpJh025glCqTe
+	 m4OLrJg/dtGLg==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	ljs@kernel.org,
-	muchun.song@linux.dev,
-	usama.anjum@arm.com,
-	lance.yang@linux.dev,
-	david@kernel.org
+To: david@kernel.org,
+	josef@toxicpanda.com,
+	gourry@gourry.net,
+	usama.anjum@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm: fix deadlock of mremap() against UFFDIO_MOVE" failed to apply to 6.12-stable tree
-Date: Mon,  9 Nov 2026 20:09:18 -0500
-Message-ID: <20261109200918-failed-6.12-d03df42ddae1@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/memory-tiers: unregister empty tiers outside memory_tier_lock" failed to apply to 6.12-stable tree
+Date: Mon,  9 Nov 2026 20:09:21 -0500
+Message-ID: <20261109200921-failed-6.12-500624f28eca@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,388 +70,115 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d03df42ddae196f20e9cfb775704e60269eb6b44
+git cherry-pick -x 500624f28eca441e35f978979ccfb373202fefd3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200918-failed-6.12-d03df42ddae1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200921-failed-6.12-500624f28eca@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d03df42ddae196f20e9cfb775704e60269eb6b44 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:07 +0100
-Subject: [PATCH] mm: fix deadlock of mremap() against UFFDIO_MOVE
+From 500624f28eca441e35f978979ccfb373202fefd3 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Sat, 31 Oct 2026 10:40:15 +0100
+Subject: [PATCH] mm/memory-tiers: unregister empty tiers outside
+ memory_tier_lock
 
-With per-VMA locks, UFFDIO_MOVE can run concurrently with mremap()
-on different VMAs in the same mm. Those VMAs can share page tables, so
-both operations can acquire the same pair of page-table locks.
+When offlining a node's last memory empties its tier,
+clear_node_memory_tier() calls device_unregister() while holding
+memory_tier_lock. A concurrent sysfs read can hold a kernfs active
+reference and block in nodelist_show() on that mutex. device_unregister()
+then waits in kernfs_drain() for the read to finish and release its active
+reference, while the reader waits for the offlining task to release the
+mutex.
 
-UFFDIO_MOVE orders the locks by address, while mremap() takes the source
-lock first. These conflicting orders can deadlock; mremap() holding
-mmap_lock for writing no longer helps.
+Return the node's former tier from clear_node_memory_tier(), making the
+helper more similar to set_node_memory_tier(), which also returns a
+memory_tier pointer. Let the caller unlink an empty tier under
+memory_tier_lock before rebuilding demotion targets, then unregister its
+device after dropping the lock.
 
-Move double_pt_lock() and double_pt_unlock() to mm/internal.h and use
-them for all page-table moves in mremap(). Preserve the source entry
-checks after acquiring both locks. Remove the comments claiming that
-exclusive mmap_lock makes lock ordering irrelevant.
-
-In move_ptes(), make sure to just recheck source and destination PMD
-after taking the locks and drop the overly-long comment.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-[ david: use new helpers consistently; simplify description and comments;
-         move_ptes() fixup ]
-
-Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
+Fixes: 9832fb87834e ("mm/demotion: expose memory tier details via sysfs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-38-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-46-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/userfaultfd_k.h |  2 -
- mm/huge_memory.c              | 19 +++-----
- mm/hugetlb.c                  | 14 ++----
- mm/internal.h                 | 28 +++++++++++
- mm/mremap.c                   | 87 ++++++++++++++---------------------
- mm/userfaultfd.c              | 27 -----------
- 6 files changed, 72 insertions(+), 105 deletions(-)
+ mm/memory-tiers.c | 29 +++++++++++++----------------
+ 1 file changed, 13 insertions(+), 16 deletions(-)
 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index a14b8a9ffb7b1..565e98f342dc8 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -153,8 +153,6 @@ extern int mrwprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- 			    unsigned long len, bool enable_rwp);
- 
- /* move_pages */
--void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2);
--void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2);
- int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pmd_t dst_pmdval,
- 			struct vm_area_struct *dst_vma,
- 			struct vm_area_struct *src_vma,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 75b09a06edb2f..f10a199548d8f 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2646,15 +2646,11 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
- 		return false;
- 	}
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = __pmd_trans_huge_lock(old_pmd, vma);
--	if (old_ptl) {
--		new_ptl = pmd_lockptr(mm, new_pmd);
--		if (new_ptl != old_ptl)
--			spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+	old_ptl = pmd_lockptr(mm, old_pmd);
-+	new_ptl = pmd_lockptr(mm, new_pmd);
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (likely(pmd_is_huge(*old_pmd))) {
- 		pmd = pmdp_huge_get_and_clear(mm, old_addr, old_pmd);
- 		if (pmd_present(pmd))
- 			force_flush = true;
-@@ -2683,11 +2679,10 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
- 		set_pmd_at(mm, new_addr, new_pmd, pmd);
- 		if (force_flush)
- 			flush_pmd_tlb_range(vma, old_addr, old_addr + PMD_SIZE);
--		if (new_ptl != old_ptl)
--			spin_unlock(new_ptl);
--		spin_unlock(old_ptl);
-+		double_pt_unlock(old_ptl, new_ptl);
- 		return true;
- 	}
-+	double_pt_unlock(old_ptl, new_ptl);
- 	return false;
+diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+index 25e121851b586..8eda313cf6192 100644
+--- a/mm/memory-tiers.c
++++ b/mm/memory-tiers.c
+@@ -572,21 +572,14 @@ static struct memory_tier *set_node_memory_tier(int node)
+ 	return memtier;
  }
  
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da5d04edf7c10..84141527fe73d 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5153,15 +5153,9 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
- 	spinlock_t *src_ptl, *dst_ptl;
- 	pte_t pte;
- 
--	dst_ptl = huge_pte_lock(h, mm, dst_pte);
-+	dst_ptl = huge_pte_lockptr(h, mm, dst_pte);
- 	src_ptl = huge_pte_lockptr(h, mm, src_pte);
+-static void destroy_memory_tier(struct memory_tier *memtier)
++static struct memory_tier *clear_node_memory_tier(int node)
+ {
+-	list_del(&memtier->list);
+-	device_unregister(&memtier->dev);
+-}
 -
--	/*
--	 * We don't have to worry about the ordering of src and dst ptlocks
--	 * because exclusive mmap_lock (or the i_mmap_lock) prevents deadlock.
--	 */
--	if (src_ptl != dst_ptl)
--		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-+	double_pt_lock(dst_ptl, src_ptl);
+-static bool clear_node_memory_tier(int node)
+-{
+-	bool cleared = false;
+ 	pg_data_t *pgdat;
+ 	struct memory_tier *memtier;
  
- 	pte = huge_ptep_get_and_clear(mm, old_addr, src_pte, sz);
- 
-@@ -5190,9 +5184,7 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
- 		set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
- 	}
- 
--	if (src_ptl != dst_ptl)
--		spin_unlock(src_ptl);
--	spin_unlock(dst_ptl);
-+	double_pt_unlock(dst_ptl, src_ptl);
- }
- 
- int move_hugetlb_page_tables(struct vm_area_struct *vma,
-diff --git a/mm/internal.h b/mm/internal.h
-index 566cbd2dce485..824c2919a37fd 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -624,6 +624,34 @@ static inline void force_page_cache_readahead(struct address_space *mapping,
- 	force_page_cache_ra(&ractl, nr_to_read);
- }
- 
-+/*
-+ * Take two page table locks at the same level in address order such that
-+ * we cannot deadlock.
-+ */
-+static inline void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2)
-+	__acquires(ptl1)
-+	__acquires(ptl2)
-+{
-+	if (ptl1 > ptl2)
-+		swap(ptl1, ptl2);
-+	spin_lock(ptl1);
-+	if (ptl1 != ptl2)
-+		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
-+	else
-+		__acquire(ptl2);
-+}
-+
-+static inline void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2)
-+	__releases(ptl1)
-+	__releases(ptl2)
-+{
-+	spin_unlock(ptl1);
-+	if (ptl1 != ptl2)
-+		spin_unlock(ptl2);
-+	else
-+		__release(ptl2);
-+}
-+
- unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 1237718848f5c..70b7264aa6bf5 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -202,7 +202,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	struct mm_struct *mm = vma->vm_mm;
- 	pte_t *old_ptep, *new_ptep;
- 	pte_t old_pte, pte;
--	pmd_t dummy_pmdval;
-+	pmd_t old_pmdval, new_pmdval;
- 	spinlock_t *old_ptl, *new_ptl;
- 	bool force_flush = false;
- 	unsigned long old_addr = pmc->old_addr;
-@@ -234,31 +234,30 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	if (pmc->need_rmap_locks)
- 		take_rmap_locks(vma);
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * pte locks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptep = pte_offset_map_lock(mm, old_pmd, old_addr, &old_ptl);
-+	old_ptep = pte_offset_map_rw_nolock(mm, old_pmd, old_addr, &old_pmdval,
-+					    &old_ptl);
- 	if (!old_ptep) {
- 		err = -EAGAIN;
- 		goto out;
- 	}
--	/*
--	 * Now new_pte is none, so collapse_scan_file() path can not find
--	 * this by traversing file->f_mapping, so there is no concurrency with
--	 * retract_page_tables(). In addition, we already hold the exclusive
--	 * mmap_lock, so this new_pte page is stable, so there is no need to get
--	 * pmdval and do pmd_same() check.
--	 */
--	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &dummy_pmdval,
--					   &new_ptl);
-+	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &new_pmdval,
-+					    &new_ptl);
- 	if (!new_ptep) {
--		pte_unmap_unlock(old_ptep, old_ptl);
-+		pte_unmap(old_ptep);
-+		err = -EAGAIN;
-+		goto out;
-+	}
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (unlikely(!pmd_same(old_pmdval, pmdp_get_lockless(old_pmd)) ||
-+		     !pmd_same(new_pmdval, pmdp_get_lockless(new_pmd)))) {
-+		double_pt_unlock(old_ptl, new_ptl);
-+		pte_unmap(new_ptep);
-+		pte_unmap(old_ptep);
- 		err = -EAGAIN;
- 		goto out;
- 	}
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
- 	flush_tlb_batched_pending(vma->vm_mm);
- 	lazy_mmu_mode_enable();
- 
-@@ -317,10 +316,9 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	lazy_mmu_mode_disable();
- 	if (force_flush)
- 		flush_tlb_range(vma, old_end - len, old_end);
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 	pte_unmap(new_ptep - 1);
--	pte_unmap_unlock(old_ptep - 1, old_ptl);
-+	pte_unmap(old_ptep - 1);
- out:
- 	if (pmc->need_rmap_locks)
- 		drop_rmap_locks(vma);
-@@ -395,14 +393,9 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pmd_none(*new_pmd)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = pmd_lock(mm, old_pmd);
-+	old_ptl = pmd_lockptr(mm, old_pmd);
- 	new_ptl = pmd_lockptr(mm, new_pmd);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+	double_pt_lock(old_ptl, new_ptl);
- 
- 	pmd = *old_pmd;
- 
-@@ -418,9 +411,7 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
- 	pmd_populate(mm, new_pmd, pmd_pgtable(pmd));
- 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PMD_SIZE);
- out_unlock:
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return res;
- }
-@@ -452,14 +443,10 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = pud_lock(mm, old_pud);
-+	old_ptl = pud_lockptr(mm, old_pud);
- 	new_ptl = pud_lockptr(mm, new_pud);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
-+	double_pt_lock(old_ptl, new_ptl);
- 
- 	pud = *old_pud;
- 	if (unlikely(pud_none(pud)))
-@@ -473,9 +460,7 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
- 	pud_populate(mm, new_pud, pud_pgtable(pud));
- 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PUD_SIZE);
- out_unlock:
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return true;
- }
-@@ -503,16 +488,14 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = __pud_trans_huge_lock(old_pud, vma);
--	if (unlikely(!old_ptl))
+ 	pgdat = NODE_DATA(node);
+ 	if (!pgdat)
 -		return false;
-+	old_ptl = pud_lockptr(mm, old_pud);
- 	new_ptl = pud_lockptr(mm, new_pud);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (unlikely(!pud_trans_huge(*old_pud))) {
-+		double_pt_unlock(old_ptl, new_ptl);
-+		return false;
-+	}
++		return NULL;
  
- 	/* Clear the pud */
- 	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
-@@ -523,9 +506,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
- 	/* mark soft_ditry when we add pud level soft dirty support */
- 	set_pud_at(mm, pmc->new_addr, new_pud, pud);
- 	flush_pud_tlb_range(vma, pmc->old_addr, pmc->old_addr + HPAGE_PUD_SIZE);
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return true;
- }
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index dac696bda19f0..169f681f9849b 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -1206,33 +1206,6 @@ int mrwprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- 	return 0;
+ 	/*
+ 	 * Make sure that anybody looking at NODE_DATA who finds
+@@ -604,14 +597,10 @@ static bool clear_node_memory_tier(int node)
+ 		synchronize_rcu();
+ 		memtype = node_memory_types[node].memtype;
+ 		node_clear(node, memtype->nodes);
+-		if (nodes_empty(memtype->nodes)) {
++		if (nodes_empty(memtype->nodes))
+ 			list_del_init(&memtype->tier_sibling);
+-			if (list_empty(&memtier->memory_types))
+-				destroy_memory_tier(memtier);
+-		}
+-		cleared = true;
+ 	}
+-	return cleared;
++	return memtier;
  }
  
--void double_pt_lock(spinlock_t *ptl1,
--		    spinlock_t *ptl2)
--	__acquires(ptl1)
--	__acquires(ptl2)
--{
--	if (ptl1 > ptl2)
--		swap(ptl1, ptl2);
--	/* lock in virtual address order to avoid lock inversion */
--	spin_lock(ptl1);
--	if (ptl1 != ptl2)
--		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
--	else
--		__acquire(ptl2);
--}
--
--void double_pt_unlock(spinlock_t *ptl1,
--		      spinlock_t *ptl2)
--	__releases(ptl1)
--	__releases(ptl2)
--{
--	spin_unlock(ptl1);
--	if (ptl1 != ptl2)
--		spin_unlock(ptl2);
--	else
--		__release(ptl2);
--}
--
- static inline bool is_pte_pages_stable(pte_t *dst_pte, pte_t *src_pte,
- 				       pte_t orig_dst_pte, pte_t orig_src_pte,
- 				       pmd_t *dst_pmd, pmd_t dst_pmdval)
+ static void release_memtype(struct kref *kref)
+@@ -884,13 +873,21 @@ static int __meminit memtier_hotplug_callback(struct notifier_block *self,
+ {
+ 	struct memory_tier *memtier;
+ 	struct node_notify *nn = _arg;
++	bool empty = false;
+ 
+ 	switch (action) {
+ 	case NODE_REMOVED_LAST_MEMORY:
+ 		mutex_lock(&memory_tier_lock);
+-		if (clear_node_memory_tier(nn->nid))
++		memtier = clear_node_memory_tier(nn->nid);
++		if (memtier) {
++			empty = list_empty(&memtier->memory_types);
++			if (empty)
++				list_del(&memtier->list);
+ 			establish_demotion_targets();
++		}
+ 		mutex_unlock(&memory_tier_lock);
++		if (empty)
++			device_unregister(&memtier->dev);
+ 		break;
+ 	case NODE_ADDED_FIRST_MEMORY:
+ 		mutex_lock(&memory_tier_lock);
 -- 
 2.53.0
 
