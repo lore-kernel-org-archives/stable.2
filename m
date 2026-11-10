@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794312168;
-	b=RnoY0JPzQ9hgy7WKd4o/RQojdAN/GdPJlJrJjl99nu5z+VQAE8Safgm+zy4QpLe1TBgX
-	 9C9Lz3y2DDUkxHWuDcZ6wSp3c7P8Oc5yLqXTSmhAwNAvY1p3k1chnDtNNFE2FjA9/rG5t
-	 z2p0yXavoRd79KYvE3/w83TYGISqIOI3AjMvI2rod5DIyl19WFUOj1Hb/7/MuAqHCv89R
-	 pIksVDTNZ2lAwOsapCFP2OA3nOdXa9iW1IQmA0qG1/iuSoe06VlMYlz2JhRiEbtlCCBhK
-	 jPcXedralm0W5nyprtjQDN5sxyh9fOraxBlPic0CVR88xnvshJpNUVGBScM+SpLYwuw==
+	t=1794312169;
+	b=ovKCapU4d+ZR1mz1LR+E51srKkL+O1Bpc73ssgcW1LcBTTwy+00nNS3WOCz2l7eD8km/
+	 smhnDtQhCt7dyaGBkdcGs6M3wYLaiszIb2xlouCOmz4Sq9TmwnMvn9M2aE59Z5h65A+IP
+	 eN/gfzayrs+LA38xyBZ7tzt4ePRjpsCuuXZvTxBK9XhCigPSDkaPbQ2m2Z38oDkx5npat
+	 Y5RboxVnrFwxWbZZRVfk/Jwf3ojr29K12EbWN7H8S5EBH38xFK6zGPVQYEhRxqgJkJy7R
+	 6cQ5q7mMa5HwXsCixfxoktpABbvsatw+F2i4SUbbvU0wDUnJMs6xyJieLkjKYNc92AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794312168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794312169;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5l1q2T+ZZgJ465GZqeKwCrV6ITTqS9cr0u7iYLu7XXk=;
-	b=reVbcPfS55W2gdnXL2uFqM3Vx1O/+5YsH/Hn+oAmslHns+gx1mo4LY2NM0KkwURIRiiP
-	 ilM79d+hFuZzAeXrSyMydaHaZlwzqTNDdp6MzyXbzDDFQ4laWpUiF96v0MbucqibwgHMM
-	 QyBznw9h0TWggvd4e/leyepJrFAp+839Ekp8tigpVg1nGtaneSbgL+OXC6etqSfbdzlht
-	 D2dvcEXlQCmbZfQJezN3/vMr4TINft1XFuNhJhPwf2At/H77/0byuKfjTs7K51nCSI8an
-	 kA9i9xKMTRBGUJq/iJU1jUiliPs4XdPbog5LU3I95x7tG2zm2lHjN70PXXPqck5jllg==
+	bh=BiKiJup6gBTtVoYHDe4QIZUEQ6jW/y4ktA+nCN10w2I=;
+	b=yoK+MYfPKuXC2cPdrX52N3DHw4UYhVOJIBLQl12zUmuTQjuRY5IalhjrY1dMTdNnk5By
+	 CeLDppY6Lw5PVAdJbNZrIVYNnXLhMNfhq62m74n9M7yHAhbutzcui7CKct6yAakEXXtf9
+	 ySdGpF4HAP4s4KQRJ16Y3k0+XNy1hn50WnXYlnLZRAH00tQDBErFhmTRdRAsYyM2PVtZz
+	 7mH/d0B6v+UxKypTRLNlX1nSn5W6JxVUOMW5/hwj1f/ESqOkzf2TPXiAPvZDcUQBpO5ht
+	 lY6GP98oC6R7mR/U+82yeXeZsFLLizI9cVP1D5z9YXjkHtj+SzH9Q4Zn7hpc3+jCxXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BluV4EW+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmvB6btd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C35D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E831B606A338
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:02:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BluV4EW+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6881F0089F;
-	Tue, 10 Nov 2026 12:02:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TmvB6btd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E641F008A1;
+	Tue, 10 Nov 2026 12:02:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794312167;
-	bh=5l1q2T+ZZgJ465GZqeKwCrV6ITTqS9cr0u7iYLu7XXk=;
+	s=k20260515; t=1794312168;
+	bh=BiKiJup6gBTtVoYHDe4QIZUEQ6jW/y4ktA+nCN10w2I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BluV4EW+eYKJrzTmtb5Iy194xF4ZRHN3mPhVbU8cyl3+qX7uI1kCjMS0GS5eP+9pt
-	 UguWb0Qeo736zI3Zy+dXbSjPJg9FJYUCkDAJArbTUMKoGn85eu/pjTzIh+ErGML8PU
-	 SGhcDwUb+y35/qPlQqzKLidIpkXnYawVep9LDXbxrpLdCXsBAWZut70E+p/xdLb6w2
-	 Y1N+/7pFlNpM+d9kGTHAPrwLJGFTzghmMgTgmTJ4eDsF00uE3SjC/GJTxTkBnwrnv5
-	 1bEaN1USZcOh4LkYT7H+NukU41lSBygwCm9d8RfGsGGQ8kqRuBqOX+FW0OKMrHhUr8
-	 xf+DouRj8YoBw==
+	b=TmvB6btdx/7icHdRrhxGaJ4CM37MrItMXPgpCN//sI/uxPKipKmVF2iamsdMuQFHN
+	 IrraKhx6eAYXUxOqHCet+hjcsYcAFxM18CZT3+vYloc5Ga6SDXoiGX56IuU/HtrBLE
+	 QJXjJrPXSN73ZdL6Td80czEQis1+EtBU1y/FNkaaWFBXxkLg+LxcS5ENzRv+IqTD9n
+	 +0zscxl01VzlOtBBYo2hSf9U0wsyhhtaOerStYIRIumjUg6xaOWl0WmRftUX5MfpO8
+	 c040HO03VxXWT35GycH9qrjUcr2JkODSKnDTgSXKLawSVz8Ux7R3mf9Y9qN56t93t+
+	 qtJXrq1zgUgKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Saim Masood <s.m.saim074@gmail.com>,
+Cc: Jared Wuerzburger <jwuerz@gmail.com>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] ALSA: hda/realtek: Fix speakers on ASUS ExpertBook PM3606CHA
-Date: Tue, 10 Nov 2026 07:02:45 -0500
-Message-ID: <20261110120237.930943-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE
+Date: Tue, 10 Nov 2026 07:02:46 -0500
+Message-ID: <20261110120237.930943-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050339-failed-7.3-72107104d4f5@kernel.org>
+In-Reply-To: <20261110120237.930943-1-sashal@kernel.org>
 References: <20261107050339-failed-7.3-72107104d4f5@kernel.org>
+ <20261110120237.930943-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,102 +62,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Saim Masood <s.m.saim074@gmail.com>
+From: Jared Wuerzburger <jwuerz@gmail.com>
 
-[ Upstream commit 556cca74b6ec6f0bc6a3dc27473487de3cc8c8fe ]
+[ Upstream commit 72107104d4f522405c9dfdfbaeb230e371c295ee ]
 
-The internal speakers of the ASUS ExpertBook PM3606CHA (Realtek ALC256,
-PCI SSID 1043:3501) stay silent with the default codec setup, and the
-headphone jack is not detected either.  The codec needs COEF values that
-differ from its power-on defaults: COEF 0x10, 0x16, 0x35, 0x37 and 0x57
-on NID 0x20 have to be set to the values used by the Windows driver.
-Toggling the codec GPIOs, and the existing ALC256 fixups alone, make no
-difference.
+On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
+internal digital microphone array never produces any audio. The DMIC
+pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
+jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
+presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
+always returns "present" (as it does on the unused, unconnected pin
+0x18), while the headphone jack 0x21 reports correctly.
 
-Apply the COEFs from a new fixup at the INIT action, so that they are
-restored after resume as well.  Chain to ALC256_FIXUP_ASUS_MIC_NO_PRESENCE
-to keep the headset mic and the jack detection working, which the
-fallback pin quirk provided before for this machine.
+The generic parser therefore sets up auto-mic switching and, believing
+an external mic is always plugged in, permanently routes the ADC to the
+empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
+"Mic Jack" kcontrol reports "on" with nothing plugged in.
 
-The COEF values were found by the reporter of the Ubuntu bug below, who
-compared the codec state against the one under the Windows driver.
+Mark pin 0x19 as having no presence detect. The parser then stops
+auto-switching and exposes a normal "Capture Source" (Internal Mic /
+Mic) control, which desktop audio stacks drive from their Internal
+Microphone / Microphone ports. The existing bass speaker DAC routing is
+kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
 
-Tested on an ASUS ExpertBook PM3606CHA (BIOS PM3606CHA.304) with the
-change applied to v7.2.5: with this fixup alone, the speakers, the
-headphones with jack detection, and the headset mic all work, also
-after suspend and resume.
+Tested on both models with the same pin config applied through a
+snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
+ - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
+ - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
+Both boards report the same codec SSID and the same 0x19 default. On
+both, the internal mic records at a normal level, headphone jack
+detection on 0x21 still switches output, and the bass routing is
+retained (DAC1/DAC2 Playback Volume controls present). A headset mic
+on the combo jack was not tested (none available); with this change it
+has to be selected manually. V3 users already report that the jack mic
+gets no input [1], which is the other symptom of the same broken
+presence detect.
 
-Link: https://bugs.launchpad.net/bugs/2167288
-Signed-off-by: Saim Masood <s.m.saim074@gmail.com>
-Link: https://patch.msgid.link/065927dd-cabf-449a-992d-64887eedda01@gmail.com
+The patched alc269.c was build-tested with W=1 on tiwai/sound.git
+for-linus (7.3-rc3) without new warnings.
+
+The diagnosis, the fixup and this changelog were written with the help
+of an AI coding assistant; I reviewed them and tested the change on the
+hardware listed above.
+
+Fixes: e34743018249 ("ALSA: hda/realtek: Add quirk for Minisforum V3 SE")
+Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
+Link: https://patch.msgid.link/20260928152925.69032-1-jwuerz@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Stable-dep-of: 72107104d4f5 ("ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index dd3466c3129d7..03f03080bbeb5 100644
+index 03f03080bbeb5..49c4d01759b06 100644
 --- a/sound/hda/codecs/realtek/alc269.c
 +++ b/sound/hda/codecs/realtek/alc269.c
-@@ -3537,6 +3537,27 @@ static void alc233_fixup_no_audio_jack(struct hda_codec *codec,
- 	alc_process_coef_fw(codec, alc233_fixup_no_audio_jack_coefs);
- }
- 
-+static const struct coef_fw alc256_asus_speaker_coefs[] = {
-+	WRITE_COEF(0x10, 0x7f20), WRITE_COEF(0x16, 0x0c50), WRITE_COEF(0x35, 0x8d6a),
-+	WRITE_COEF(0x37, 0xfe06), WRITE_COEF(0x57, 0x7f7f),
-+	{}
-+};
-+
-+static void alc256_fixup_asus_speaker_coefs(struct hda_codec *codec,
-+					    const struct hda_fixup *fix,
-+					    int action)
-+{
-+	/*
-+	 * The internal speakers of the ASUS ExpertBook PM3606CHA stay silent
-+	 * with the default COEF values. These are the values set by the
-+	 * Windows driver. They are applied on every init so that they are
-+	 * restored after resume, too.
-+	 */
-+	if (action != HDA_FIXUP_ACT_INIT)
-+		return;
-+	alc_process_coef_fw(codec, alc256_asus_speaker_coefs);
-+}
-+
- static void alc256_fixup_mic_no_presence_and_resume(struct hda_codec *codec,
- 						    const struct hda_fixup *fix,
- 						    int action)
-@@ -4391,6 +4412,7 @@ enum {
- 	ALC285_LENOVO_DAC_RENAME,
+@@ -4413,6 +4413,7 @@ enum {
  	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
  	ALC256_FIXUP_IPASON_SMARTBOOK_S1,
-+	ALC256_FIXUP_ASUS_SPEAKER_COEFS,
+ 	ALC256_FIXUP_ASUS_SPEAKER_COEFS,
++	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
  };
  
  /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -7208,6 +7230,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ }
- 		},
+@@ -7236,6 +7237,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
  	},
-+	[ALC256_FIXUP_ASUS_SPEAKER_COEFS] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc256_fixup_asus_speaker_coefs,
++	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
++			{ }
++		},
 +		.chained = true,
-+		.chain_id = ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
++		.chain_id = ALC245_FIXUP_BASS_HP_DAC
 +	},
  };
  
  static const struct hda_quirk alc269_fixup_tbl[] = {
-@@ -7991,6 +8019,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x31e1, "ASUS B5605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x31f1, "ASUS B3605CCA", ALC294_FIXUP_ASUS_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x3391, "ASUS PM3606CKA", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x1043, 0x3501, "ASUS PM3606CHA", ALC256_FIXUP_ASUS_SPEAKER_COEFS),
- 	SND_PCI_QUIRK(0x1043, 0x3601, "ASUS PM5406CGA", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1043, 0x3611, "ASUS PM5606CGA", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x1043, 0x3701, "ASUS P5406CCA", ALC245_FIXUP_CS35L41_SPI_2),
+@@ -8475,7 +8485,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
+ 	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
+ 		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
+-	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
++	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
++		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
 -- 
 2.53.0
 
