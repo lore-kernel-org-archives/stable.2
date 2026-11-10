@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794331275;
-	b=gGVap9llVoXH1kVPtDEnfkgcLTwb/rTwsD0OvEsWyiwr5K/Xx2IX+OkETrYp96mWye1p
-	 OekavY+WQFqiqhApS810C5WHWwsAWBNONJknkjof7jGvqjYQZIDfqkSJ2NGxxLDHCX5dA
-	 0Tnf3ok5/TUkczmZdQOuLN6TBNJxNLfCmZvoSNdNKccJKOO5DvOTllW7PY0H8ffvg0Jzq
-	 2/WbeCLhScx31jXPL4hQKmDBMMX7x9z0gwIIkFXpA8hMAdczxApLc5l1e99C07uDWeTlY
-	 0CaFcyUCWf8L9Ls+PZuPpGDhdHnfUqKoG8gkEwd1OWRuC3aaZlWUBpzvihbruQx6jDQ==
+	b=Re2+Kgil2ddC0Cqca5/nYUGAKUe8BI9JbUFBsQRZdy7ooas4cl/vVI/EI0JxhW+p6b7R
+	 8UK2YIQCSIj8OxmdK2TGPoJNxxNwYSrUZeyQ1MfxMdSGiZmuIadjbbpAKVwGCHpuf0YGP
+	 SoHbI2FC1bp8V6JdOhH+iLu2uVISpbCRf28Wh8yNVJ06t9jMxkFZ6YW1aE/lpMFBaypVv
+	 ArB4GQb5uBritQ7np51PZ4hTpUdVTdJJB7ytpPCaiWT1F4NwZ/Gcl8ZvXdwh9kRT39EHU
+	 PsI8el/Mx5ESNB03slSHHuVV9me8XdoCjroFrXo1/+2jiBenU68azEACuhFHr0ZfKPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794331275;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=njQZGFdRoYvTrafRgWKeXjjvHXLzmD4TVeFb/Ci9zSc=;
-	b=UxRr2Vw58nifkTT5me4WoNMJ4VLexgQMo0smLBE1QQMBEisXaNbRNI5vktJmMipEZT5f
-	 yY/83xcz8J/Nh3JVo0gk7v2fvyonLNb9p313GKaBk29ZW/u+3L3dVfvrVkhiQTMLtFyFK
-	 IG4MGx2APaSmuqDF3HCBvE1n6Su29YecN/lq4oWsYolwq0fJnhzBRO74A9on1/4y9i7fs
-	 s08QPdRyUxXPAWS4wwnPUr9dCHUZ7ncEg8B+m/ckZBfjhyiFb1o/YeTjeGwWUL0HKRKe3
-	 puN0gwaUb7nzYN+IBcUDdihLFOAurcP4I3GFxaAerRRUfJ43mfuP9U1umDPR9JGSsyQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=H84rM+Y0wR7EbElopbz5RcYfa+BcZXdCGR3oZs7Bmng=;
+	b=QH5W+Gls0F/89csCrFMosL8fxKBsCsToCnzRJzuaD/FgM35YVaCZM7F7uabT7iXmg42e
+	 5C6ZNwS0Low/AJlKtbgPOFbmXE2hicJkH+Q758xN+PNE48+MJyObb/Z1W5/hNxjp3FE5q
+	 xyFmBVMAzEir/CuzrR5JlcmmUJG6tpVypoxmrOI34pB76HxmbTukBm1Deme7smOYB2PH0
+	 TSg7cuekqldhCTEf4W+hBWPdeGgCuztn/IOo6dzUuTE+GaTsTGQneKUEqMV2UmvqHqsXr
+	 pV37fEM7WQ6esbZ8jQ3s4E2cL13i4/ZcV+kgEfwV9OPB3azsJszhRge4EmVytQSfd/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZNifP0t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLmoqyJy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1B2606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D06606A327
 	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZNifP0t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619571F008BE;
-	Tue, 10 Nov 2026 17:21:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLmoqyJy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7161F008BD;
+	Tue, 10 Nov 2026 17:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794331274;
-	bh=njQZGFdRoYvTrafRgWKeXjjvHXLzmD4TVeFb/Ci9zSc=;
+	s=k20260515; t=1794331275;
+	bh=H84rM+Y0wR7EbElopbz5RcYfa+BcZXdCGR3oZs7Bmng=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FZNifP0tiV0SiXHYv6URXYK0u3HdfOkNIsKsQEsujDJa+lkvMuvjOIropHspn5CNv
-	 E/IEk2L+xpPbtL1cIfEcWbBFykR60CXMfH6Aya5GaYby0sZ+vVRcA1Q/nvlyWURUwd
-	 veTc/IYyuua9+qKqy2TJkFRfTYGLI0wqsdXUzGjgdmgI4b93dxNqnXTJBaxi99btgN
-	 89JYcmJ1pyKKcWHErQ1RRYSHTXeYOxV8LsTLeBKzShrI3UGp8+pkqF3LM2ZvpOAjVz
-	 mr56+1ppKzcjiCqM5j5QQD0Zuadp76YbOP7PpJuuVgkh1PPbaI9fXHHyt/wjytlc4d
-	 luwQeCOzQnSsA==
+	b=LLmoqyJyS1B1pXY1IJxXxi/IPCeVi81ubsWtRv0aDa2lPrgKCo8xdlALzOsbWdgNA
+	 trotK2QA2fS7u1u8gHXNEpXaA/f0xDHaSAC/OP2VUDYRR7Gc/G6NoQhDJpJlVfa1VG
+	 dpz3ok4QHit20LlY/tik27+p8Md1sLoM9MZmRyW5GVFHIEZA/PwRAZV2lV0jKwmRHq
+	 i+tEnIP5WIe+rO/3KXuRaV2RYhDN5R5cMNP24/7n9G8ONUBtiF8lEwx1zijxl10bPc
+	 hGycRWQnLf1kIaNUrIIKyD5mhPRzt1Je/BlhqP4tR+eCmJkZ2eJ+kGTeglsXg4hma4
+	 U1qWkEikN36fg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Peter Zijlstra <a.p.zijlstra@chello.nl>,
+	Rik van Riel <riel@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/7] power: supply: core: remove opencoded string_lower()
-Date: Tue, 10 Nov 2026 12:21:07 -0500
-Message-ID: <20261110172014.2622013-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm: disallow ioremap'ing ordinary RAM in generic_access_phys()
+Date: Tue, 10 Nov 2026 12:21:12 -0500
+Message-ID: <20261110172038.2654712-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053127-failed-6.6-6bd80f22c764@kernel.org>
-References: <20261107053127-failed-6.6-6bd80f22c764@kernel.org>
+In-Reply-To: <20261107062836-failed-5.10-4590752e20aa@kernel.org>
+References: <20261107062836-failed-5.10-4590752e20aa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,62 +71,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Weißschuh <linux@weissschuh.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 0ce51459c8353b2b18ad3a430dbebf29af8b579c ]
+[ Upstream commit 4590752e20aa393cc0d4fe538c0747d14a98c97a ]
 
-string_lower from string_helpers.h can be used to modify the string
-in-place. Use it to get rid of the custom str_to_lower().
+generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+resulting in it trying to ioremap anonymous folios, which especially
+the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-Link: https://lore.kernel.org/r/20230929-power_supply-string_lower-v1-1-3141a2634d53@weissschuh.net
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Stable-dep-of: 6bd80f22c764 ("power: supply: core: Honor supplied-from with CONFIG_OF=y")
+E.g., with a CoW mapping of a PCI BAR:
+
+ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+  Call Trace:
+   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+   mem_rw+0x2a1/0x670 fs/proc/base.c:912
+
+But more generically, we should disallow access to anything that looks
+like ordinary RAM in the system: including allocating memory (e.g.,
+alloc_pages) and mapping them in a VM_PFNMAP.
+
+For pages with an online memmap, allow only pages marked as reserved
+(PageReserved). This also includes memblock allocations, however,
+distinguishing them from other MMIO is tricky, and nobody should really
+be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+do not care about).
+
+So only allow access if there is no online memmap, or if the pages are
+marked reserved. Reject other pages with -EINVAL.
+
+Note that, just like other pfn_to_online_page() users, we won't care about
+concurrent memory offlining; mapping memory that can concurrently get
+offlined is highly dubious.
+
+Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
+Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
+Cc: Rik van Riel <riel@redhat.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted follow_pfnmap_start()/end() handling to follow_phys(), deriving the PFN from phys_addr after the PTE lock is released ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/power_supply_sysfs.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ mm/memory.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/power_supply_sysfs.c
-index d483a81560ab0..977611e163739 100644
---- a/drivers/power/supply/power_supply_sysfs.c
-+++ b/drivers/power/supply/power_supply_sysfs.c
-@@ -15,6 +15,7 @@
- #include <linux/power_supply.h>
- #include <linux/slab.h>
- #include <linux/stat.h>
-+#include <linux/string_helpers.h>
+diff --git a/mm/memory.c b/mm/memory.c
+index 403fcef10bdac..ad8184041a75b 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4985,11 +4985,22 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ 	resource_size_t phys_addr;
+ 	unsigned long prot = 0;
+ 	void __iomem *maddr;
++	struct page *page;
+ 	int offset = addr & (PAGE_SIZE-1);
  
- #include "power_supply.h"
+ 	if (follow_phys(vma, addr, write, &prot, &phys_addr))
+ 		return -EINVAL;
  
-@@ -398,14 +399,6 @@ static const struct attribute_group *power_supply_attr_groups[] = {
- 	NULL,
- };
- 
--static void str_to_lower(char *str)
--{
--	while (*str) {
--		*str = tolower(*str);
--		str++;
--	}
--}
--
- void power_supply_init_attrs(struct device_type *dev_type)
- {
- 	int i;
-@@ -420,7 +413,8 @@ void power_supply_init_attrs(struct device_type *dev_type)
- 				__func__, i);
- 			sprintf(power_supply_attrs[i].attr_name, "_err_%d", i);
- 		} else {
--			str_to_lower(power_supply_attrs[i].attr_name);
-+			string_lower(power_supply_attrs[i].attr_name,
-+				     power_supply_attrs[i].attr_name);
- 		}
- 
- 		attr = &power_supply_attrs[i].dev_attr;
++	/*
++	 * Reject anything that looks like ordinary RAM, including anonymous
++	 * folios in CoW mappings or allocated kernel memory. Note that we
++	 * cannot distinguish memblock allocations from non-RAM reliably, so
++	 * we cannot easily reject them here.
++	 */
++	page = pfn_to_online_page(phys_addr >> PAGE_SHIFT);
++	if (page && !PageReserved(page))
++		return -EINVAL;
++
+ 	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
+ 	if (!maddr)
+ 		return -ENOMEM;
 -- 
 2.53.0
 
