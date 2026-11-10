@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333954;
-	b=euNFJ2StpcLk14Gk7OXVwW18cvS3nCouY3YWXaSDrTSBQUndCKRkdmgKOaubh8PjRAmt
-	 YPqfuGgbWspkcES+wv3UWzWLZ6g3Qsqd9ib9F+2hW/oF3aP2jmFnChaHhkcszbVTvvf27
-	 mFG7MwbsoraeREfAkYBtX+AKQqYBLR6yENsF6gpW8EOkSLJgShByjyvXqP6HTGJPMC2FA
-	 LOxqOc739pni/Z9L+UO9bcmqSLrH+NlH+QiNZcC+wBzPIn3MrnA2GJGWzRIIucxExffjt
-	 QwYr18C+pMCqlYDbr9nidXyqO4HcqZHVe75ZIcj/4nRe/vtHty67YPRY0horA8CxTzw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333954;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=K+QE4Mcu8CU7+6ajNlkYbcOAoE+xxl93gzFB7sCjePs=;
-	b=3dh28qZGToWFOgx8W7fMCyE0cLcFy9Uaeeu5SEz2hFgXvUs9hLVYysaPga2Tj4BcolcE
-	 y2nNAC6BwG3U8fwp6pom+w8Ri0XiJJOWjibCD37KnQGlEO5JfK6276tkzbWDpP3Df4bst
-	 epOjsGlUPnU9X4fPbFOv1fLVX6NZJg6z6ZqIjoGBZpE0S5dBXj/s2bekRm1huQXT0wuXZ
-	 TSRiP6kLZ6L2ciJzbjTr/o4QV5dpG444dNocL/X9deUxOEk3v9yMNfhNQ/dYrDWfO0AUT
-	 m2xyc6KCJ+Xmu4e35oZM/xCryqti5vJwuii0oGMLCSG2tqssPzG8cfhG7YOBqaKAjlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXZWB2Xv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.84
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794333961;
+	b=bva5aLp4d0FWU//ZVvhFVdOkJn1HqSBOVmFBCsdcJPTKdDIJj5K7pkw8hSFK0Crf+l5p
+	 rGILK5y1fe1ogrkBw9DvHiys4JGf9xqVaCThinTe+gORRsrn1AzdiM+sK5fPo7MVBIOA5
+	 3X9DlOarZrIRoCxm8qXb5Miq/py28hlt7FvPTNhjdpOAxK5OxEultmh42pXn81bIyfb0s
+	 KtZy2Gg4Mn6aVkKpDP9j7KaVLfBYpjRQJorSujOMpApUwB9St26bOD4i06OU+YfXaQyy5
+	 KhC6ti6WNcAB7aK4r4ToLUp1El1lgmgS70vzieN4bS5ksHuJiPS3L3E2jFYFH0Gi5Zw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333961;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=QVoxcb4tiPcEIWckN32SEDBqxMIKGtDxDk9og2MAELI=;
+	b=ZWGDmzAEUwN8z5PyjsgIQsUO+Zucnssuy6pACiCpNpEBXRE3wCD3l8rtGi+0vbcujGvg
+	 iBIELtvenoAaDNGnZ+0KSCg0nbWCBUOvWiLL1pQhThoAUQgCJKjCFlZjgXzUoEApnQeKS
+	 M1MxkWNk3yea3guZqCVBxTJNlRdBdoJr3DYGGeKrJM5CHAxfoY/eUPOCrav/uc6wXdHYe
+	 WeZd6Yb4K/9naqB0IPEiTK408nLtYyIgnuVqjtkq6gK3E6IkIDhwBrrz+OHl4b0iTwbvA
+	 KQEAKe/7EdpZHHNAYnnra52yS8XbqeA1k4WqRF45Axd0vX2r9ZwKOSQBSZgtXGl5RpA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GcwkeAbS;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=Upbv9Kqm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.84
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B84F606A326
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:05:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8C1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF8C1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KXZWB2Xv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234E11F008A1;
-	Tue, 10 Nov 2026 18:05:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794333954;
-	bh=K+QE4Mcu8CU7+6ajNlkYbcOAoE+xxl93gzFB7sCjePs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KXZWB2Xvwxfs7KCdo3UqjSVyuzXe25eiGKqYSjrzIm7P9UPUZGfuy/uplVXxKHcIT
-	 ru7Dw7rJb9zWyikaUxSXs/Sbji9tpwXP8g0DCQnSgwi0lZ3KfXxW3JkMjzjyZjS5aI
-	 37K9zpP4RSnLCXcHHI9RfSynv/lERbAwt/mtHK08zm53vVQ8S1/88W/sDWA0mCIlHq
-	 qC0Kh9ezScBoMKq64UoPnRB54OsomEZFi3rbWFXfQqQCBUawSvMHobHchb2m0hjPK3
-	 +50cwIRL5G9v0Xr6VbhbcFEAn79yFihTaJbohBcaVtsmcmXLzQYQvOTM1u0nUiR9Tc
-	 OvVU06zhq3TUg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=GcwkeAbS;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=Upbv9Kqm
+ARC-Seal: i=1; a=rsa-sha256; t=1794333950; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Ui3QdgCFZV7SL1OamkU5SuYzV+W2nrO2L5yipVv5Ya0Hard1HRtVPtM5oisxJCrvk5
+    DQka86j6EOONidwryMMDtdTl4kLWXWUEqSr7lo8BQlv9UN4+5WyMW13DhnpkzB5wiGRo
+    XGpT7+CDiduHgzrTTwQ05Tn3EC0wUcYB6DqLaCodswFKl1V1bN4q1b+OWG1q8IAPpoeg
+    8GpjLTSR+fckgKxx6lDhh0MRdh5OtRORoySTxZNFOnR0bByhZM6U+tunEfMHhlkcOZZp
+    0+OLCKY0aNSx+nb5s6uyXwRiUFVOazEC4/2sZsSd1Cu4KEQyo1jyrcsgfdis4O84d5MH
+    qOpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794333950;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=QVoxcb4tiPcEIWckN32SEDBqxMIKGtDxDk9og2MAELI=;
+    b=oMOH+/GbU5MaLht1eJDKIZfJ9F6pkV9jYEpRtGlMHYTQLSoTToa6A6d03wNxEgNDzG
+    oCbsuViyOxcWHNgLQZN6F1jPt77RtxiMG+WbHKr74g7QIJnQ9TD8q+8+P0w7b/h02+gQ
+    SYDSS2mwRcrWqGqYTRuTrtxL6x7lUUrSZwIbRsQ5Z2kJhk5WCeIuvmi0UURZaQU4JC0N
+    Rw0EJrqxtAnX56y5RpStYI6m4FUEurUvx6q9JCkNIN6ut3aMgi2cZt4EI2QLz2RI2+1W
+    oHHaDkaUutiXYQjylosjQMzkEPDqfN3+OZFtm+EEU283y5OMoG0upECe4ta0ek3OLlhC
+    1a2A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794333950;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=QVoxcb4tiPcEIWckN32SEDBqxMIKGtDxDk9og2MAELI=;
+    b=GcwkeAbSEcQAjby4aymZiculZV085jJj9Ty8raGG8AZekHuoDHIPv/ipSyZiIZ6U5b
+    Kfvgrb8U7p7Vhqv/m5VXZ3TqjCkwxIKu6kYTpvUTUSw2dVDM8xXfSPwXn/iQ2ot5nzte
+    VwvKd/V0pgqrJi50bNhqQZQF62NewK6apSVGD9lLeclcHzGvG6mklLT0fBvcmZjpdgT/
+    PJzvylMUIOQwhQCG9I/NQYPXE7yg7sSRpvACQQTgczHucMbUFkHSspjIaGwRlVrsGHZ3
+    8g/LoiFX8Elc1n6xmIyP7YAaAnT10YFrSdekSlSwYxGChwNe2MTK/nwMos5uc/U0ydne
+    ACHA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794333950;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=QVoxcb4tiPcEIWckN32SEDBqxMIKGtDxDk9og2MAELI=;
+    b=Upbv9Kqm3W0kaAD1jew3HxfkiYg+Iz7Kh8n02tbrfR9RNiNbSah5Ffa4B7eVPt5sbt
+    9SeVSyucq1m9Qk7xCVDg==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from vivo.lan
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a2AAI5o1di
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Tue, 10 Nov 2026 19:05:50 +0100 (CET)
+From: Oliver Hartkopp <socketcan@hartkopp.net>
 To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mptcp: fix MP_CAPABLE token migration when cloning reqsk
-Date: Tue, 10 Nov 2026 13:05:49 -0500
-Message-ID: <20261110180142.3004034-2-sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: [PATCH 5.10.y] can: raw, isotp: copy socket options outside of lock_sock()
+Date: Tue, 10 Nov 2026 19:05:44 +0100
+Message-ID: <20261110180544.792332-1-socketcan@hartkopp.net>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110180142.3004034-1-sashal@kernel.org>
-References: <20261107051220-failed-6.18-2093bc7fa500@kernel.org>
- <20261110180142.3004034-1-sashal@kernel.org>
+In-Reply-To: <20261109202744-failed-5.10-43c973a0887d@kernel.org>
+References: <20261109202744-failed-5.10-43c973a0887d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,296 +104,261 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-From: Ruide Cao <caoruide123@gmail.com>
+commit 43c973a0887d3d7b2ee0a446603c97bf0f38c58e upstream.
 
-[ Upstream commit 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d ]
+The CAN_RAW and CAN_ISOTP specific socket options are copied from and
+to user space while holding lock_sock(). A copy that faults or stalls,
+e.g. on a userfaultfd or FUSE backed mapping, holds lock_sock() for its
+whole duration.
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_CAPABLE requests this byte-copies the
-token_node hlist state into the clone even though the token table still
-names the original request, and the following warning can be seen:
+raw_notify() and isotp_notify() take lock_sock() of a socket that is
+bound to the vanishing device while holding RTNL. As the CAN_RAW
+options can also be changed on a bound socket, a stalled copy can block
+RTNL on an unregistration or namespace change of the bound device.
+Before "can: protect the receive lists with a per-device lock",
+raw_setsockopt() even held RTNL itself during the copy. CAN_ISOTP only
+copies its options for unbound sockets, which isotp_notify() skips
+without taking lock_sock().
 
-  WARNING: net/mptcp/token.c:364 at mptcp_token_destroy_request+0x2b0/0x330, CPU#2: swapper/2/0
-  CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
-  RIP: 0010:mptcp_token_destroy_request (net/mptcp/token.c:364 (discriminator 1))
-  Call Trace:
-   <IRQ>
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-   call_timer_fn (kernel/time/timer.c:1748)
+Keep the user space copies out of the locked sections: Check the option
+name and length and copy the option values, including the CAN_RAW_FILTER
+filters, to kernel memory before lock_sock(). raw_setsockopt_locked()
+and isotp_setsockopt_locked() get the copied values directly and drop
+their now redundant length checks and copies. As a side effect, a
+failing copy can not leave partially overwritten options behind
+anymore. In raw_getsockopt() duplicate the filters under lock_sock() and
+copy them to user space after release_sock().
 
-Move token request ownership from the original request to the clone under
-the token bucket lock.  Make mptcp_token_accept() and
-mptcp_token_destroy_request() re-check token_node under the same lock and
-treat an already moved or removed request as a normal race instead of
-warning.  This also keeps token bucket chain_len accounting balanced.
+As the option name and length are now checked before lock_sock(), the
+order of the checks in isotp_setsockopt() and accordingly the order of
+the returned error values changes. This is in line with POSIX, which
+does not define an order in which multiple error conditions are
+detected and reported.
 
-If a passive MP_CAPABLE socket cannot claim the token, destroy the
-provisional MPTCP socket and let the subflow fall back rather than
-installing a socket with mismatched token ownership.  Mark that path as a
-passive handshake fallback so MPCapableFallbackACK records the downgrade.
+The generic SOL_SOCKET options in sk_setsockopt() are not affected by
+this patch.
 
-If the speculative clone later loses the inet_ehash_insert() ownership
-arbitration, the original request may find that its token was already moved
-and fall back to plain TCP.  The clone destructor then releases the token
-reservation and keeps chain_len balanced.  This trades an exceptionally
-rare fallback for eliminating the warning and persistent accounting drift.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/86e2514b533bf4d55d4aa2fdbf1404022e8c9430.1776149210.git.caoruide123%40gmail.com
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-4-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: c18ce101f2e4 ("[CAN]: Add raw protocol")
+Fixes: 1e5185c09058 ("can: raw: add locking for raw flags bitfield")
+Cc: stable@vger.kernel.org # depends on "can: protect the receive lists with a per-device lock"
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Link: https://patch.msgid.link/20261027-can-rx-lock-v12-4-eb5afc2d8b9b@hartkopp.net
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+[ backport to 5.10: This tree has no raw_setsockopt_locked() from commit
+  1e5185c09058 ("can: raw: add locking for raw flags bitfield").
+  raw_setsockopt() already copies all option values from user space
+  before lock_sock() here, so only the raw_getsockopt() and isotp parts
+  apply. raw_getsockopt() uses copy_to_user() instead of the
+  getsockopt_iter interface and truncates the filter list to the user
+  space buffer size in this tree. Keep that behaviour, duplicate the
+  filters under lock_sock() and copy them with copy_to_user() after
+  release_sock(). ]
+Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
 ---
- net/mptcp/protocol.c   | 31 +++++++++++++++----
- net/mptcp/protocol.h   |  4 ++-
- net/mptcp/subflow.c    |  6 +++-
- net/mptcp/token.c      | 68 +++++++++++++++++++++++++++++++++++++-----
- net/mptcp/token_test.c |  4 +--
- 5 files changed, 97 insertions(+), 16 deletions(-)
+This backport depends on the backports of
+  962947b69589 ("can: replace ARPHRD_CAN type checks with can_get_ml_priv()")
+  0f3ad9ab40e3 ("can: protect the receive lists with a per-device lock")
+sent in reply to
+  <20261109202741-failed-5.10-962947b69589@kernel.org>
+  <20261109202746-failed-5.10-0f3ad9ab40e3@kernel.org>
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index df09dcfd15ce3..fdd4c7d87775b 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3410,6 +3410,24 @@ static void mptcp_copy_ip_options(struct sock *newsk, const struct sock *sk)
- 	rcu_read_unlock();
+ net/can/isotp.c | 100 +++++++++++++++++++++++++++---------------------
+ net/can/raw.c   |  17 ++++++--
+ 2 files changed, 71 insertions(+), 46 deletions(-)
+
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index 2d230cefbb3f..d4239b497632 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -1642,8 +1642,8 @@ static int isotp_getname(struct socket *sock, struct sockaddr *uaddr, int peer)
+ 	return ISOTP_MIN_NAMELEN;
  }
  
-+static void mptcp_sk_clone_destroy(struct sock *nsk)
-+{
-+	struct mptcp_sock *msk = mptcp_sk(nsk);
-+
-+	mptcp_release_sched(msk);
-+	mptcp_set_state(nsk, TCP_CLOSE);
-+	/* inet_csk_prepare_forced_close() clears TCP sock_ops state via
-+	 * tcp_sk(), but nsk is an MPTCP master socket; keep the inet-level
-+	 * destroy preparation here.
-+	 */
-+	bh_unlock_sock(nsk);
-+	sock_put(nsk);
-+	sock_set_flag(nsk, SOCK_DEAD);
-+	tcp_orphan_count_inc();
-+	inet_sk(nsk)->inet_num = 0;
-+	inet_csk_destroy_sock(nsk);
-+}
-+
- struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 				 const struct mptcp_options_received *mp_opt,
- 				 struct sock *ssk,
-@@ -3469,11 +3487,6 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 	list_add(&subflow->node, &msk->conn_list);
- 	sock_hold(ssk);
- 
--	/* new mpc subflow takes ownership of the newly
--	 * created mptcp socket
--	 */
--	mptcp_token_accept(subflow_req, msk);
--
- 	/* set msk addresses early to ensure mptcp_pm_get_local_id()
- 	 * uses the correct data
- 	 */
-@@ -3482,6 +3495,14 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 	mptcp_rcv_space_init(msk, ssk);
- 	msk->rcvq_space.time = mptcp_stamp();
- 
-+	if (!mptcp_token_accept(subflow_req, msk)) {
-+		list_del_init(&subflow->node);
-+		WRITE_ONCE(msk->first, NULL);
-+		sock_put(ssk);
-+		mptcp_sk_clone_destroy(nsk);
-+		return NULL;
-+	}
-+
- 	if (mp_opt->suboptions & OPTION_MPTCP_MPC_ACK)
- 		__mptcp_subflow_fully_established(msk, subflow, mp_opt);
- 	bh_unlock_sock(nsk);
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 184831b5b624a..1b6335408b17f 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -1033,9 +1033,11 @@ static inline void mptcp_token_init_request(struct request_sock *req)
- }
- 
- int mptcp_token_new_request(struct request_sock *req);
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req);
- void mptcp_token_destroy_request(struct request_sock *req);
- int mptcp_token_new_connect(struct sock *ssk);
--void mptcp_token_accept(struct mptcp_subflow_request_sock *r,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *r,
- 			struct mptcp_sock *msk);
- bool mptcp_token_exists(u32 token);
- struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token);
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index c2d6a7adca6b2..0f8b7396f446e 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -78,6 +78,8 @@ void mptcp_subflow_reqsk_clone(struct request_sock *req,
- 	}
- 
- 	new_subflow_req->msk = msk;
-+
-+	mptcp_token_move_request(req, new_req);
- }
- 
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
-@@ -931,8 +933,10 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 
- 		if (ctx->mp_capable) {
- 			ctx->conn = mptcp_sk_clone_init(listener->conn, &mp_opt, child, req);
--			if (!ctx->conn)
-+			if (!ctx->conn) {
-+				fallback = true;
- 				goto fallback;
-+			}
- 
- 			ctx->subflow_id = 1;
- 			owner = mptcp_sk(ctx->conn);
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index 5bb9245343874..d5735d3ac793b 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -180,6 +180,43 @@ int mptcp_token_new_connect(struct sock *ssk)
- 	return 0;
- }
- 
-+/**
-+ * mptcp_token_move_request - move request token ownership to a clone
-+ * @req: original request socket
-+ * @new_req: cloned request socket
-+ *
-+ * Move the token hash entry from the original request to its clone.
-+ */
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_subflow_request_sock *pos;
-+	struct token_bucket *bucket;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+		return;
-+	}
-+
-+	bucket = token_bucket(subflow_req->token);
-+	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+	} else {
-+		pos = __token_lookup_req(bucket, subflow_req->token);
-+		if (pos == subflow_req)
-+			hlist_nulls_replace_init_rcu(&subflow_req->token_node,
-+						     &new_subflow_req->token_node);
-+		else
-+			mptcp_token_init_request(new_req);
-+	}
-+	spin_unlock_bh(&bucket->lock);
-+}
-+
- /**
-  * mptcp_token_accept - replace a req sk with full sock in token hash
-  * @req: the request socket to be removed
-@@ -187,24 +224,36 @@ int mptcp_token_new_connect(struct sock *ssk)
-  *
-  * Called when a SYN packet creates a new logical connection, i.e.
-  * is not a join request.
-+ *
-+ * Return: true on success.
-  */
--void mptcp_token_accept(struct mptcp_subflow_request_sock *req,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *req,
- 			struct mptcp_sock *msk)
+-static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+-			    sockptr_t optval, unsigned int optlen)
++static int isotp_setsockopt_locked(struct socket *sock, int optname,
++				   const void *val)
  {
- 	struct mptcp_subflow_request_sock *pos;
- 	struct sock *sk = (struct sock *)msk;
- 	struct token_bucket *bucket;
-+	bool ret = false;
+ 	struct sock *sk = sock->sk;
+ 	struct isotp_sock *so = isotp_sk(sk);
+@@ -1654,11 +1654,7 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
  
--	sock_prot_inuse_add(sock_net(sk), sk->sk_prot, 1);
- 	bucket = token_bucket(req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&req->token_node))
-+		goto unlock;
+ 	switch (optname) {
+ 	case CAN_ISOTP_OPTS:
+-		if (optlen != sizeof(struct can_isotp_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->opt, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->opt, val, sizeof(so->opt));
  
--	/* pedantic lookup check for the moved token */
- 	pos = __token_lookup_req(bucket, req->token);
--	if (!WARN_ON_ONCE(pos != req))
--		hlist_nulls_del_init_rcu(&req->token_node);
-+	if (pos != req)
-+		goto unlock;
+ 		/* no separate rx_ext_address is given => use ext_address */
+ 		if (!(so->opt.flags & CAN_ISOTP_RX_EXT_ADDR))
+@@ -1683,55 +1679,37 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 		break;
+ 
+ 	case CAN_ISOTP_RECV_FC:
+-		if (optlen != sizeof(struct can_isotp_fc_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->rxfc, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->rxfc, val, sizeof(so->rxfc));
+ 		break;
+ 
+ 	case CAN_ISOTP_TX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_tx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_tx_stmin = *(const u32 *)val;
+ 		break;
+ 
+ 	case CAN_ISOTP_RX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_rx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_rx_stmin = *(const u32 *)val;
+ 		break;
+ 
+-	case CAN_ISOTP_LL_OPTS:
+-		if (optlen == sizeof(struct can_isotp_ll_options)) {
+-			struct can_isotp_ll_options ll;
+-
+-			if (copy_from_sockptr(&ll, optval, optlen))
+-				return -EFAULT;
++	case CAN_ISOTP_LL_OPTS: {
++		const struct can_isotp_ll_options *ll = val;
+ 
+-			/* check for correct ISO 11898-1 DLC data length */
+-			if (ll.tx_dl != padlen(ll.tx_dl))
+-				return -EINVAL;
++		/* check for correct ISO 11898-1 DLC data length */
++		if (ll->tx_dl != padlen(ll->tx_dl))
++			return -EINVAL;
+ 
+-			if (ll.mtu != CAN_MTU && ll.mtu != CANFD_MTU)
+-				return -EINVAL;
++		if (ll->mtu != CAN_MTU && ll->mtu != CANFD_MTU)
++			return -EINVAL;
+ 
+-			if (ll.mtu == CAN_MTU &&
+-			    (ll.tx_dl > CAN_MAX_DLEN || ll.tx_flags != 0))
+-				return -EINVAL;
++		if (ll->mtu == CAN_MTU &&
++		    (ll->tx_dl > CAN_MAX_DLEN || ll->tx_flags != 0))
++			return -EINVAL;
+ 
+-			memcpy(&so->ll, &ll, sizeof(ll));
++		memcpy(&so->ll, ll, sizeof(*ll));
+ 
+-			/* set ll_dl for tx path to similar place as for rx */
+-			so->tx.ll_dl = ll.tx_dl;
+-		} else {
+-			return -EINVAL;
+-		}
++		/* set ll_dl for tx path to similar place as for rx */
++		so->tx.ll_dl = ll->tx_dl;
+ 		break;
++	}
+ 
+ 	default:
+ 		ret = -ENOPROTOOPT;
+@@ -1745,13 +1723,49 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 
+ {
+ 	struct sock *sk = sock->sk;
++	union {
++		struct can_isotp_options opt;
++		struct can_isotp_fc_options rxfc;
++		struct can_isotp_ll_options ll;
++		u32 stmin;
++	} val;
++	unsigned int size;
+ 	int ret;
+ 
+ 	if (level != SOL_CAN_ISOTP)
+ 		return -EINVAL;
+ 
++	/* copy the option values from user space before lock_sock() */
++	switch (optname) {
++	case CAN_ISOTP_OPTS:
++		size = sizeof(val.opt);
++		break;
 +
-+	hlist_nulls_del_init_rcu(&req->token_node);
- 	__sk_nulls_add_node_rcu((struct sock *)msk, &bucket->msk_chain);
-+	ret = true;
++	case CAN_ISOTP_RECV_FC:
++		size = sizeof(val.rxfc);
++		break;
 +
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
-+	if (ret)
-+		sock_prot_inuse_add(sock_net(sk), sk->sk_prot, 1);
++	case CAN_ISOTP_TX_STMIN:
++	case CAN_ISOTP_RX_STMIN:
++		size = sizeof(val.stmin);
++		break;
 +
-+	return ret;
++	case CAN_ISOTP_LL_OPTS:
++		size = sizeof(val.ll);
++		break;
++
++	default:
++		return -ENOPROTOOPT;
++	}
++
++	if (optlen != size)
++		return -EINVAL;
++
++	if (copy_from_sockptr(&val, optval, size))
++		return -EFAULT;
++
+ 	lock_sock(sk);
+-	ret = isotp_setsockopt_locked(sock, level, optname, optval, optlen);
++	ret = isotp_setsockopt_locked(sock, optname, &val);
+ 	release_sock(sk);
+ 	return ret;
  }
+diff --git a/net/can/raw.c b/net/can/raw.c
+index 262277783cc1..723495f2c6fc 100644
+--- a/net/can/raw.c
++++ b/net/can/raw.c
+@@ -755,23 +755,34 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
+ 		return -EINVAL;
  
- bool mptcp_token_exists(u32 token)
-@@ -353,16 +402,21 @@ void mptcp_token_destroy_request(struct request_sock *req)
- 	struct mptcp_subflow_request_sock *pos;
- 	struct token_bucket *bucket;
- 
--	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node))
- 		return;
- 
- 	bucket = token_bucket(subflow_req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+		goto unlock;
+ 	switch (optname) {
+-	case CAN_RAW_FILTER:
++	case CAN_RAW_FILTER: {
++		struct can_filter *filter = NULL;
 +
- 	pos = __token_lookup_req(bucket, subflow_req->token);
--	if (!WARN_ON_ONCE(pos != subflow_req)) {
-+	if (pos == subflow_req) {
- 		hlist_nulls_del_init_rcu(&pos->token_node);
- 		bucket->chain_len--;
- 	}
+ 		lock_sock(sk);
+ 		if (ro->count > 0) {
+ 			int fsize = ro->count * sizeof(struct can_filter);
+ 
+ 			if (len > fsize)
+ 				len = fsize;
+-			if (copy_to_user(optval, ro->filter, len))
+-				err = -EFAULT;
++			/* copy to user space after release_sock() */
++			filter = kmemdup(ro->filter, len, GFP_KERNEL);
++			if (!filter)
++				err = -ENOMEM;
+ 		} else {
+ 			len = 0;
+ 		}
+ 		release_sock(sk);
+ 
++		if (filter) {
++			if (copy_to_user(optval, filter, len))
++				err = -EFAULT;
++			kfree(filter);
++		}
 +
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
- }
+ 		if (!err)
+ 			err = put_user(len, optlen);
+ 		return err;
++	}
  
-diff --git a/net/mptcp/token_test.c b/net/mptcp/token_test.c
-index 4fc39fa2e262d..be9acce8a5673 100644
---- a/net/mptcp/token_test.c
-+++ b/net/mptcp/token_test.c
-@@ -99,7 +99,7 @@ static void mptcp_token_test_accept(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 	KUNIT_EXPECT_PTR_EQ(test, msk, mptcp_token_get_sock(&init_net, msk->token));
- 
- 	/* this is now a no-op */
-@@ -122,7 +122,7 @@ static void mptcp_token_test_destroyed(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 
- 	/* simulate race on removal */
- 	refcount_set(&sk->sk_refcnt, 0);
--- 
-2.53.0
-
+ 	case CAN_RAW_ERR_FILTER:
+ 		if (len > sizeof(can_err_mask_t))
