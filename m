@@ -1,98 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794315317;
-	b=COhgWQQks32GuGtg2DjL5oPjOP06jHUZMjnHnlmhBZeqwpIBpWOvcXD1eDZ6p/r5JG0A
-	 eHIwL/wm6+GqSw0oNNPRJALUWq3cTGyjOLwO0Hy68xCyQyn7vye+oA/0GxSXSGCHV0UN5
-	 WYJKNe7EhICOQhV1b88rG+F5Ytdenzh9Yob+Kb9zCPZ9wXD8HeBUrnWqhlCuDlgrT2/U/
-	 NP3a8FjmuTe4vhPyZ1RtFcoJB0HO18He6ApuDNRJ7XfV7nMcP4G/CH3ikCmPInlIXGUe9
-	 znN9k+mitAnVhC7UKhvbcpIiuOv8DI8nfYF6XyKGHzBmp5WVuqoUx08LcHmywfQQtcQ==
+	t=1794315368;
+	b=oTHzIDTMsZUYY7o3mFGf02G1C4AMM/l59QBd9wlLeKla+ZVTmGNSmvMUEFBbqHTachRf
+	 aI7GAnqehy57NpECHv02L+Q2IDSsBKNXATLJaGQzHRSciOAWSfIRK49tJK8ZQ1dPLcJ9x
+	 4LO76hhXYAGK19GyvIWaqoW5VDxIDu450XDue0f6NY5ly6pUZ7qEJEm4j35Ps9QHTo7Uw
+	 8BvVhhOilGmAi1zzzVb2J+4h2KymlVuEC/79LAPGWz/IeSkAqUtXKcKwn9BuKC/+6kxEx
+	 93uWKULN7dbneBEEESiaA/vtL/KnKz8TVE8Z1njkyquw2OQFcWI/GBJ0gOvCE3IL+MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794315317;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794315368;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=y9a4dXZz2Gh7g55gQ4afYnhsZlVmNBXmZzJsbUHMreY=;
-	b=IgE/F75BlJFWJtfiJofOhl5rOxX6xSc+OUo87y7BXm+rkrPGnCYXlSIeRaPuvfa2ljED
-	 XmbNT73ciAS5X5vyYXx+9r8xFy1vixiQH4nE36qKQug5eW1TTN1eIyz2ySaZPxnGDnXKm
-	 /ErLO4PzXgyWCeBTmsX26s3wI9nBBBFed0fBJX1k9YumxnBpZs/T8zBvrQJt4bWrP9You
-	 vq7/gmSNXpwHzjRwIZDLwdHKBd2UcghRNjCsXRvAebxVQKyWJARVCRqaUnr66To9SV8bo
-	 TwNEYEurribWQcdXfTrjdOcvQ6+bmhGBScsW2bFL0yHcYj+NzXtPVjaFbmAGlZ8XZxQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=NWlwxuFj+DQX3jMl+7FGPd5G00EQVE6Za7TLRksZ6fQ=;
+	b=0LzbBl3FUfhnbBG588fIcrYz5ya4gQSV4WwIQMDdxdrMskzLaPIb0WSReB0GYK+KkntA
+	 wI0NxEo8a/doN44ow6T1XR5itquA4DrrL4/CB329p28Z/DG2p4CjCxjmzywMfLSDY/SpJ
+	 jPkUbFzqHv2dzBjsLf7tT0zT6oPRAix1SSo+e2i1+5FLGfhE7Cp6bqAqMwOPFrFFhkiPs
+	 K+v9w23ZNtebnpAbuctbA/4pJBfnGZSTu0zgxqfl6hYg9sYT9IiekHYdVLvPD3RqVg1jR
+	 TvpbmZJGB0Hg1x5A2mGJAsutoR1LyuRK5GjHJsvotxYLExetUmfNP4TOtMbzfMdba0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HKElo7IS;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=E5XnrMV6;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D212D60A2602
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:55:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D212D60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C936606A7F3
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:56:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C936606A7F3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HKElo7IS
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so908722a12.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:55:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=E5XnrMV6
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36fa5673fccso4492143eec.1
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 04:56:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794315316; x=1794920116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y9a4dXZz2Gh7g55gQ4afYnhsZlVmNBXmZzJsbUHMreY=;
-        b=HKElo7ISktPKWfb9xeQZupSjRFJ5M5d1kMcDar0ZaqBwFUrTylEq+AsYWADn5hN0fa
-         gOLFwTr/tOo2+ScR5xdnmknTwTZtDLQD5eFUwJr1MR0qzll3IgBcKi5w0nIJv14MsnD8
-         Fv+Z4RbppADwrGnnEvgeqNWjZ5jv1icT5/6KUJ/pzrC1bjBgHDxiqg9zKw5gGSkUoHF0
-         wkiqPMXNs+41ltOOhSAySjGbzyjUuhdC6JWHM5/hnUUAopO12WmPr4GtgFKj7j8lhtMj
-         AL7OgMejVq94e8pXnA1vkau7qQnT1SBA0a9ksb8bP20jPQiXc5y+oqi1SgZq4T+/ODar
-         j7fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794315316; x=1794920116;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1794315367; x=1794920167; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y9a4dXZz2Gh7g55gQ4afYnhsZlVmNBXmZzJsbUHMreY=;
-        b=HWYTiZiYPpDWhs87Q0B7yUHiRXZ8+5SzIn0udMlcClnN2uhrRRcV6yTy6peXEnj3Xu
-         O/HJ6/4qXDO7KY+6eSpBEJNxBxg4xHZzUa7/VAgb+AAFVnDeIDJ4OZEF2MvE7cI3QYkg
-         P+f8eywK5wG/CjedvgZl0yB6rIYHH4G4TMaa3rHhgrNirFOPr5FfLDrvXGo8DlBmbAH+
-         aT3ftj+DVrJa1OeO2yBgEqxSevw6OjV7PX6b3iS0PISMUB7xQ04/KyvG/uUnGR74pxZe
-         Tktc0NOgT5fADddHULikOkmE1aY7gZOYoFBRh3Gq3roSi0AG4A1T07YNbuGq8LsNLTa9
-         l8sw==
-X-Forwarded-Encrypted: i=1; AL+hErHviSdSZmAZ7QpZ9lTDt6pxMzoJFfxJqtbsaaaDSKJ56LDf+xacAomOgWXxZ+I7tgLKTzcVn34=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/t2wpWUl5NOLoyJRbQXo1zQ4iz/9J6UhY+qQsEH3bYdK+nVcpd
-	lfOfiuG3+Iyy43V9Ha4r4VpPRIZLs7FyLCy9rBKyBlkBT4M78bnms54+SWZLzH/eE3Q=
-X-Gm-Gg: AYBFou37XgpLHZpPSj/b0Vc+ZANvQ7tov1mC+nC6glQcu7BCbVDjBgMmb7/K9/IfAi4
-	t3zCJJFK5skhKzDF5boXKxLl+Bp48Yyps1Y+ul6nvmjKEUQHaptxZcnp0WBbxaXsBSzIP/OkMsm
-	tyzxd+Y7T7h3iNhIumyE5sZxPF4vAC2m+FAirqMv03dHPfn9BJ/0ya2l6pAUib+GBFWsY1TjPEZ
-	4IU5cnFdBSHFSkLOvTXxJ4Q1375ZSI6MwNBBRsOp1rsLAGFmOG3/lT9Pymt9vMsA35J76sjH6sA
-	UjIyprVEGq5tGF2I6DaHwHDW/qkC61kNqlPj0Af20SvJrQX5ji9txKZ+zXryTUR800draIdU+pg
-	zNvbOKZLpzbh48K5mBss1/D7kktIsGrogosh1QejDKwlJVfCe+5478uI7MzvcSK0wVX+wZ4aufK
-	dtUv+2lSoF6Q9RBYcd7kPiW4lUPwP/JEqMmfbDd3mSA9cFyj5zOYW3pgwnClWmRPDkyXWfOEe3s
-	rdpa2W7cuZ5yVpQUFjdE6/GpSTUCT/xsY6Y9FWJzjia7un211gFOmwA+J4+6PljBwEpnc0J65fk
-	cJphpl5H8dIEhm7hwLt/HhBHmJVm+Z5AE9He5QwLckQ6C0YU/H2nF52aFaQcUDi2h/fTV9sVesB
-	iecaSmb8uyIht5v1pjlobOrtCgLJkW9XCgnDoJA==
-X-Received: by 2002:a17:90b:1dcd:b0:3aa:fc22:8aad with SMTP id 98e67ed59e1d1-3b166d31305mr2579742a91.54.1794315316112;
-        Tue, 10 Nov 2026 04:55:16 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:88e2:4271:a9b8:cc50])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1690eb517sm1631666a91.4.2026.11.10.04.55.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 04:55:15 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: sstabellini@kernel.org
-Cc: jgross@suse.com,
-	oleksandr_tyshchenko@epam.com,
-	boris.ostrovsky@oracle.com,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] xen/pvcalls: destroy the per-socket workqueue on release
-Date: Tue, 10 Nov 2026 21:55:08 +0900
-Message-ID: <20261110125508.47483-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <604a9832-80ac-107c-b36f-4bb338519cbc@kernel.org>
-References: <20261109122324.30134-1-yhlee@isslab.korea.ac.kr> <20261109122324.30134-3-yhlee@isslab.korea.ac.kr> <604a9832-80ac-107c-b36f-4bb338519cbc@kernel.org>
+        bh=NWlwxuFj+DQX3jMl+7FGPd5G00EQVE6Za7TLRksZ6fQ=;
+        b=E5XnrMV6qRqj4WSBWswjDUsob+bQpt338bcDwJQXGwj7YER2eAEM3l1L23DO28n20q
+         GCOGtOFl+FiwnYpivzr2pWwtqIajjBiQyCU5mjGJlnWVyyyvPOPluZCGPOel/PLHlUtE
+         5zULMeoNk5aYg6Fu6b4qnC+f761IfhzKXmoJZcJ49F+rzuOcpN9c860JfCcApA4IsWa9
+         iPM+3m7asjtAV1nkgwCZBAoXBtfcOSpEKlkdUo7DhgNqHcE6wmGbzNz/kMKzHBuO1Hae
+         w8Af6oeeqDNZk5DkXY96fw2S21GWfT5Q7GuWEM9VeQLbsDp5oqrwPnAHiY0qspywg278
+         sMFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794315367; x=1794920167;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NWlwxuFj+DQX3jMl+7FGPd5G00EQVE6Za7TLRksZ6fQ=;
+        b=zHaiz98pIhaVX7cb7soKi3C7aQ3al01i+Yqm5ttXCOvwY+m6NyqLtpV8Bf/Y9u+0e0
+         zDY08EhF3/HLfrP4V7xCP9CKyNRHP/3Z2AEFSlsxxDW10++jWdsBbi5F8EO/tKvENdll
+         /BTliiultiL3pu7cgXiDiU4f9e8MdtFUVt4hFUFzTm1sUO1RlPHQmxk0GciMqK15Zt8Q
+         L6yoQmwHVKgdkyEfqP6NwFGk7aq3ET6WgBKJkY6lVhKVBaoIZt2EeKAFY9n6LIFFbWSV
+         mpcw8LrciwqQ4BJIWrlMOar3JU1O99m0c4lg5rVjqmbwYiuqNliMTQ8biPdJ61P2eu8a
+         JjhQ==
+X-Forwarded-Encrypted: i=1; AL+hErH9jpt5kAplvXQL9HxTSC2i35PmC3sbPN0fpDmmHgDazhpTLdFJ2Q2QAA6ib9M4KhmbdwLJ/wc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hwi/5MoodjkTtQgMK97tSdl1AlOWYyDPbIPkNSaMRcJY4gyuK
+	coQGA0xHV1bvAQe0GoYy2tObi0gilUZINqI8U0u/f79udBolm2rlWQ7QeTtnyxo8qHDkTyo5pcx
+	kiMMeYfF1Y6+d0tCw0SRQy8K+AJ6oNQ==
+X-Received: from dybcn3.prod.google.com ([2002:a05:7300:a903:b0:36f:9364:dc98])
+ (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:f503:b0:1ac:91b6:8dfd with SMTP id a92af1059eb24-1b3b6180311mr3139893c88.31.1794315366987;
+ Tue, 10 Nov 2026 04:56:06 -0800 (PST)
+Date: Tue, 10 Nov 2026 12:56:05 GMT
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,14 +75,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-ID: <18e6b051cffc7079.3137322e32332e3235332e313736.3fae83.0000sendgmr@google.com>
+Subject: [PATCH v2 1/2] rust_binder: reject sync transaction with pending sync work
+From: Chris Wiseman <chriswiseman@google.com>
+To: Alice Ryhl <aliceryhl@google.com>, Carlos Llamas <cmllamas@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 9 Nov 2026, Stefano Stabellini wrote:
-> Please move the call to destroy_workqueue() just after flush_work().
+When a thread replies to a transaction with TF_DEFER_COMPLETE, its
+BR_TRANSACTION_COMPLETE work item stays in inner.work_list while the
+next blocking read waits in Process.ready_threads. A new incoming
+synchronous transaction can then be queued behind that deferred
+completion in inner.work_list. If the thread's read buffer only has
+room for the deferred completion, the ioctl returns to userspace with
+inner.current_transaction cleared while the incoming synchronous
+transaction remains queued in inner.work_list.
 
-Done in v2:
-https://lore.kernel.org/all/20261110125002.46683-1-yhlee@isslab.korea.ac.kr/
+If that thread sends an outgoing synchronous BC_TRANSACTION before
+draining its work queue, Thread::transaction_inner sets
+inner.current_transaction to Some(t_out), and the read phase of the
+same BINDER_WRITE_READ ioctl pops the pending incoming transaction and
+overwrites inner.current_transaction with Some(t_in). This orphans
+t_out from the sender's transaction stack so
+Thread::unwind_transaction_stack aborts on exit, leaving a permanent
+Arc<Thread> <-> DArc<Transaction> reference cycle that pins both
+Arc<Process> instances and their mapped ShrinkablePageRange pages
+after the processes exit.
 
-Best regards,
-Yehyeong Lee
+Resolve the TODO in Thread::transaction_inner by rejecting outgoing
+synchronous transactions with EINVAL in Thread::top_of_transaction_stack
+when inner.work_list contains any item where
+DeliverToRead::should_sync_wakeup() is true. Checking
+should_sync_wakeup() in top_of_transaction_stack() fails fast before
+Transaction::new() allocates the target buffer or translates flat
+binder objects, and ignores non-transaction work items in
+inner.work_list.
+
+Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+Cc: stable@vger.kernel.org
+Reviewed-by: Carlos Llamas <cmllamas@google.com>
+Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+---
+v1 -> v2:
+  - Move the inner.work_list should_sync_wakeup() check into
+    Thread::top_of_transaction_stack() so it fails before
+    Transaction::new() runs (Carlos Llamas).
+
+ drivers/android/binder/thread.rs | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index f5965e838a96..763f0646a1e9 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -1268,6 +1268,10 @@ fn is_current_transaction(&self, transaction: &DArc<Transaction>) -> bool {
+     /// [`None`] if the thread is not currently participating in a transaction stack.
+     fn top_of_transaction_stack(&self) -> Result<Option<DArc<Transaction>>> {
+         let inner = self.inner.lock();
++        if inner.work_list.iter().any(|w| w.should_sync_wakeup()) {
++            pr_warn_ratelimited!("got new transaction with bad transaction stack\n");
++            return Err(EINVAL);
++        }
+         if let Some(cur) = &inner.current_transaction {
+             if core::ptr::eq(self, cur.from.as_ref()) {
+                 pr_warn_ratelimited!("got new transaction with bad transaction stack\n");
+@@ -1393,8 +1397,6 @@ fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResu
+         info.to_pid = node_ref.node.owner.task.pid();
+         info.to_node_debug_id = node_ref.node.debug_id;
+         security::binder_transaction(&self.process.cred, &node_ref.node.owner.cred)?;
+-        // TODO: We need to ensure that there isn't a pending transaction in the work queue. How
+-        // could this happen?
+         let top = self.top_of_transaction_stack()?;
+         let list_completion = DTRWrap::arc_try_new(DeliverCode::new(
+             BR_TRANSACTION_COMPLETE,
+-- 
+2.47.0
+
