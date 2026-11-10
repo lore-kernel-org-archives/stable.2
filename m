@@ -1,58 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273425;
-	b=VOvIlL+i4vWEobzxwMeu2ux7r9muyb19hJcuj+H8gS2Q552crIMbL3z63HElSH2gAM7z
-	 Q5J/2xsfsKRZ6SkpJ8+s5vXNOLP4yDvrML8dAgb5y+P0/LmZ9oonmG7Twt0ghqLCA6zYM
-	 yOxIFy1HhF0UkbtCvVeQ3UCcDG0PotF9dR9S6qNfZaE0xeutPX1l3UnQyLYvUwY8eGN7u
-	 m+Pr5185tSUS3YuEdk3wxMitok92LXkdoW41KO3CQCXdedht8xwzm6SwSxDdfQaRy64w4
-	 uflAVndj3X6e7Cyr9W0JvQlaDxWf0yE6oKZyV+gGQ6nG05ZqmFndxSb2JUB1Wz2Zz8Q==
+	t=1794273427;
+	b=DKCcKeYq8RZTqe9dXnOh766MyI4JbVe5vAa2oJrz5LqyqanANSRsUlyRBvO+ooOJ9cFn
+	 TQYkw0lkMtzlGk+djBSXpX+qoqqfTYq5qOmzx5mPYRBOZu7n6SYu1a99RKvYBKtgoMCmB
+	 gJilk69rPIGpchn3JayXUydWHygXeup7OxAVYxfIrctggTA3wh0pHx+BEsw3FjtHJGLxB
+	 8KzlEKk8hsPoLiUONbTHs1HXUOSlXUFXVYeVCUXGRNg15BMocgIK1aheoglelQDAy6w26
+	 fkkR9KBI98BfT3I2qNhxpjOfJ3cxYph+MK5EsmuHveW0NSTcSQkYUhr2a3LuDgwE59g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273427;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=99bVpuhfGi/yMrsLFKtTFi0GdPYeXIqfJAmwmTcfNZE=;
-	b=p86cEn3sM1lKNUsyDU/O5iy0UNipJH26hzid4zSUdaZi3xEJ2a/A0F1YTeLYCfWRBY7k
-	 rpG/T/g4lIz5W1ckAXhauzoDSuKxTiNk9HYw80ejbWmAR18a9O7Pxx3Vhii0SfxBepa8g
-	 IrnetZdyhW8C1aCiu5Bi/vehDBsnPtSZDGkotmHYwR+JtF6ezw6IGH4AzGYCg3+3at1jD
-	 Gz4EmJhsavDPqBhSbO1rLZgz+d2A/vGPSMv3m8J2wmHoWRmOIQaDnmqmDcGyX0uTD1u4v
-	 UNXYRqcvqGdcLihrK9H2+pn0fliVbvRB0SaiNL7a/M3q+iaaJMiOMFXferpABkfujUw==
+	bh=BT6PmpylkZVVJuerBquTDxUUH3EMkMRehNImVBIPImk=;
+	b=yUh3Bi9zwQlbqGqWDf1EcV7HLkvUtZes/phNeMXiUAQ+6zNA4h4jxqNvfCiKN4W7nihW
+	 qEbZA799F08LsNpFTYb2rs/kxPJQ1i4c4TUuC1ptdrqvJ5Aw9viIa5c7L6rvPw/pv4ArU
+	 xR0AiI0njAH9bQjoV2/+HnOnj/9e79Q1zRrOkugU80aGOMyqFcpQSmT2Fi9XrTh+miPoh
+	 NpPqyO7vayKDoYHmmklUyBTviJPhgBaBybxvkpL1ea4bKCMPv4f28b+8n9zHEyrZ+X/2C
+	 2s1eXaoUTWuQRhxlkiM76J2Ya20IeuuLEDGewEI6eEF8E3yc5IqxFX8B03gVc0As4kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEM4aFuy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G5MOLZ/O";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2510606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CA9606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEM4aFuy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D3891F0089F;
-	Tue, 10 Nov 2026 01:17:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G5MOLZ/O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904731F0089F;
+	Tue, 10 Nov 2026 01:17:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273424;
-	bh=99bVpuhfGi/yMrsLFKtTFi0GdPYeXIqfJAmwmTcfNZE=;
+	s=k20260515; t=1794273427;
+	bh=BT6PmpylkZVVJuerBquTDxUUH3EMkMRehNImVBIPImk=;
 	h=From:To:Cc:Subject:Date;
-	b=oEM4aFuyspYrmC1QDGtz+EQxiqkpU3e/Ya2oSao6djutOhAkmJ35QA4hLYyicNN6T
-	 v+zQAXhWHNdlt4Pf2ECGUIMGzhjWIksfBvL2HWeanVClKThzWb7StvtfLKNADIHDDj
-	 +dVAdbFO5Oo5g/C/qwhubev91k3iIElgxkC2PKdoekDuBl3Ol/2dqvfYa/Lmu0dr6j
-	 QuY3WtWP2ckeFaWfRJI6kCttrGRf+43QaLBxz5P2aWo8lsRtT4thDU8Jwv9BSHEqly
-	 0UiOcVim3wvTEWP2DPVx6tgqWBMsYunlbCgn6uwS658cMRfZZzuyvT++7INKHR+kqk
-	 aOA2Kb8YcaUMg==
+	b=G5MOLZ/OQ5QcroQOLv8A9feUYmhIEwL70JJQYkpka8Y3FqdOuLOPX5qORq7SqV+Lc
+	 RVDJdwrT5nggIQdT2P57ju45BQAa1sHtUCETJbvi6AbTvglDtd/8JwT/bPI8v4GJTH
+	 dze2XqOV+XKBOpibKmAY6sooPbpbQX9mYlvMj87j+eny0pAwUjtHgDmcqtpwY4My/m
+	 xdmt0VB9klsn+lv3kklixAtHHx6h7d0lwOzTWo/kU9nS/i8overNwaSqedT+KHycPE
+	 DiawvxOwmgBPrBX2YHFHrPFaAksn8R4L64bTiDk2ZIjKkU8g+evhqBfk4Z+klHUpaf
+	 WTDzFTQtGObOQ==
 From: Sasha Levin <sashal@kernel.org>
-To: samarth.colleges@gmail.com,
+To: sj@kernel.org,
 	akpm@linux-foundation.org,
-	lance.yang@linux.dev,
-	david@kernel.org,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org
+	sieberf@amazon.com,
+	sjpark@amazon.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/ksm: keep soft-dirty when merging a page" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:17:02 -0500
-Message-ID: <20261109201702-failed-6.1-2efc6332f18b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/damon/core: move static variable last_nr_regions to damon_ctx" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:17:05 -0500
+Message-ID: <20261109201705-failed-6.1-26ae50a0901a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,60 +70,95 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2efc6332f18bfd848f74f3d5ba45b31450601faa
+git cherry-pick -x 26ae50a0901a44f7d50053f87dc38abd9f9a269c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201702-failed-6.1-2efc6332f18b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201705-failed-6.1-26ae50a0901a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2efc6332f18bfd848f74f3d5ba45b31450601faa Mon Sep 17 00:00:00 2001
-From: Samarth Narang <samarth.colleges@gmail.com>
-Date: Wed, 21 Oct 2026 11:21:57 -0700
-Subject: [PATCH] mm/ksm: keep soft-dirty when merging a page
+From 26ae50a0901a44f7d50053f87dc38abd9f9a269c Mon Sep 17 00:00:00 2001
+From: SJ Park <sj@kernel.org>
+Date: Sun, 25 Oct 2026 09:48:05 -0700
+Subject: [PATCH] mm/damon/core: move static variable last_nr_regions to
+ damon_ctx
 
-replace_page() maps the KSM page with a PTE built from scratch, so the
-soft-dirty bit of the PTE it replaces is lost.  A page written since
-"clear_refs 4" then no longer shows as soft-dirty once it is merged, and a
-soft-dirty based dumper treats it as unchanged.
+kdamond_split_regions() uses a static variable last_nr_regions, to infer
+if the region boundaries are too stable.  If it looks too stable, it
+does a more aggressive region split because it might be a fake stability
+coming from non-aggressive split.  Because the variable is static, the
+inference can be racy and wrong when multiple kdamonds are running in
+parallel.
 
-Copy the soft-dirty bit from the original PTE to the new PTE.
+The user impact is not critical.  No crash, no leak.  DAMON's
+best-effort monitoring accuracy can be degraded when multiple kdamonds
+are used in parallel and the workload has certain access patterns. Still
+it is a bug that is better to fix.
 
-Link: https://lore.kernel.org/20261021182157.1873726-1-samarth.colleges@gmail.com
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Move the variable into the damon_ctx struct to fix the problem.
+
+Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
+Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Xu Xin <xu.xin@linux.dev>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: <stable@vger.kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
+Cc: Fernand Sieber <sieberf@amazon.com>
+Cc: SeongJae Park <sjpark@amazon.de>
+Cc: <stable@vger.kernel.org> # 5.15.x
 ---
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ include/linux/damon.h | 5 +++++
+ mm/damon/core.c       | 5 ++---
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b1892..910a1307ac9f3 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 63050eb2206a0..cb6a50032a1eb 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -958,6 +958,11 @@ struct damon_ctx {
+ 
+ 	/* @rnd_state:	Per-ctx PRNG state for damon_rand(). */
+ 	struct rnd_state rnd_state;
++	/*
++	 * number of regions after last merge.  Read kdamond_split_regions()
++	 * for more details.
++	 */
++	unsigned long last_nr_regions;
+ };
+ 
+ /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index eb1fcdabc0075..09722257ce736 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3795,7 +3795,6 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+ 	struct damon_target *t;
+ 	unsigned long nr_regions = 0;
+ 	unsigned long max_nr_regions = ctx->attrs.max_nr_regions;
+-	static unsigned long last_nr_regions;
+ 	int nr_subregions = 2;
+ 
+ 	damon_for_each_target(t, ctx)
+@@ -3811,7 +3810,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
  	}
  
-+	/* Preserve soft-dirty when replacing the page. */
-+	if (pte_soft_dirty(orig_pte))
-+		newpte = pte_mksoft_dirty(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
+ 	/* Maybe the middle of the region has different access frequency */
+-	if (last_nr_regions == nr_regions &&
++	if (ctx->last_nr_regions == nr_regions &&
+ 			nr_regions < max_nr_regions / 3)
+ 		nr_subregions = 3;
+ 
+@@ -3820,7 +3819,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+ 				       ctx->min_region_sz);
+ 
+ done:
+-	last_nr_regions = nr_regions;
++	ctx->last_nr_regions = nr_regions;
+ }
+ 
+ /*
 -- 
 2.53.0
 
