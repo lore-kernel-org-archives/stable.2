@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794334986;
-	b=kkzg7vpUTq/MFCIClzPtO7VYKTnkWVMoU5t9LRnrNNWYbnqAdHKvxUZbYbl5Y9zgyVda
-	 qbtgFYiNnsj7LtFtKhmdARvO+oVrhVU8v6f22nwgN4w1rAng4Lcyq1J646vDjVXR4rYjq
-	 lm/HOx5NHDlv18Zq/iBK9W53h+LrLeJfPPw/JHnoCxnmzU5it8VAJK+26Z/zeSyeUsOA7
-	 SZheSME302+DTZomJnF37XXC7tqqDW2pN50+L+i10Z7fcijS7AbSD5nJzvcpDgZCp5mdu
-	 tIngeq9crqKiz31UhLIa09wGqGQ/qPTSuePy77m184ZoBUHFhiIzr1m8qmkAp09UPPQ==
+	t=1794334983;
+	b=DU4Vj0xXiXzMTJoyPNS87NruHeGf5IFlzEebanxppu/RrESq3K5UMevK0Rgxh/XnTasV
+	 O6HkauRN9HejDUzKwhlMvn804yj6gWzmC71MyINpvn77VnF340H6Tv93/fe8FZnZpuJUs
+	 /+Pp8LmIbi0uXMekImXRAdfHOrS4IK/Pk4PIwcACasu3DOjfCFt5XTFxxs3jjzFvsDm9T
+	 wJ5SduiHAsAI0/bs0n81xA4/FyNdo+s8xWhv2UWzwwmZ6bjd0ubUIjxQ5E8Fz2p/m5HFL
+	 rS9u8EYB7CJ/IReX9dZg06qlhHce/SQDa06kIs2S7TIr8KOkNHb+HG3sTxoyNSXd0KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794334986;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=9sE8gzaydrNHDIN+s0tYeRlNamt0qF0RhgBxRYsfIv0=;
-	b=ZcN7NZCrbmoETq80k2Gl2LRPYfLDUckwCkkyKSM3XfG9kfr1sFjRol7NdVmo6LXrbmnl
-	 5ND0QsIa8O9zdrNTP4UizvVB69krahH+iJbl4YfKrrF0k/X66ZM3oPZCANdNPRNHwfJSK
-	 jGL1qHIC1jk2Dw6APYBTqnS+ihM5eeApOV0zdk/VIsPMPbfrHdqvFMw+rspR8gFQKw8Tl
-	 8kkJ0YKVwvbkcKHvJd2+0TTqiIZOccU9HmWdCgf0WiH+0MYpUnvJw+AzvzgXhMXAJjNwi
-	 3JStBL9VKjYCzt0UrmWETRpeDabH0nPiOSJnmXO0jMFuuCTQri2cGqxpWoW6rlkyyrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794334983;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=visWQWFV2YgBDd2OCbgz+fLkfVc/ewJNY2D2y8K75zg=;
+	b=MhtFjWPBnKRJNR++gIwMXRDJ+SrDCOQs9AJK0M/YcWTqmSWW2M7+RlyTZslizK3eBqOT
+	 498FzjJFFH4swLaiL+PXuTfC5NI25orqeUYYulqX3N+m7TziS1t0GCaSldB6nDk6nVl4U
+	 81OgLDgnuzaZ+MTd97Negw3el5U9Sg1E5yPyr3VjNOedqBVzuRRAYp/+YYg3iTdTcPkVE
+	 6WrYtqK12CS161KZkrqezzgCTFGTFN7ygSTx6uq6e6AAPPefFogDCvic8XeQyPNo7frpH
+	 /hzbZuzZrVxY+eDySxKYJcqc5iRmqiY3h4AFPwRPECwDwlQ13UwmsKqaKf5X2U/XwXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIfL55HO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntPQBkUR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8280060A2607;
-	Tue, 10 Nov 2026 18:23:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D493606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:23:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIfL55HO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0EA1F008A1;
-	Tue, 10 Nov 2026 18:23:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntPQBkUR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5677E1F0089F;
+	Tue, 10 Nov 2026 18:23:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794334986;
-	bh=9sE8gzaydrNHDIN+s0tYeRlNamt0qF0RhgBxRYsfIv0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dIfL55HOXbwYPWyq6dX5QadDojD9GRw/005QwnPDkenjdFn4T84RpwI3O3tJn3pS8
-	 Df7unLDv/XnCWoSfAMNGidQLjlVLuWuNdoN1Nj+U2UFUKY/c8Gn2yReOxqqFCFey9Z
-	 o8dz8ghEZJl87qkwMSX7SXDtmkvnf9wES3Iu/z4GXS/MmHEgx1XSLqEl/O4t1z1rTT
-	 3FOaKGDdEwTOYNpyuV7WjDyY1d15V9qwCFbW7SL8e6d6qwmyssKMW8sPehJsZhT0ZL
-	 CO00WsxQbD4N5balZWdF8SACptEKMK6d3+5ijpA8Xmw7Bfw8yCmFhZ26BR8GlAF9+Y
-	 lW+ZLn2QvrLlg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210B939D608B;
-	Tue, 10 Nov 2026 18:23:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1794334982;
+	bh=visWQWFV2YgBDd2OCbgz+fLkfVc/ewJNY2D2y8K75zg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ntPQBkURVbHseUxJqofLp18XjvpK3JEIEXUUXpgqAHmEsG1/Vxk300BgBsbcGuism
+	 638ASWR17zpbixXg503VNQU/Z2vG+6u7U/oAIAuqE5LSax/KSBbKskCeAZndPyMyuy
+	 ohdz2ZELbJ+GiaMgCXN0ZOMi5h/uwXgcGgJP/b/oDgWv6+L6T02y09UsSUtifhsFQU
+	 KVA4QGRPvB35gexkeD8wdxp+88lUvmrGYvYiG8yhvsZJrichoLOBj1JRLcjGSn69Gv
+	 PeQZXCTobuFVjwHFoN3vzv90KiYdg2P3FcCLmSRRGeRV9+axUfqh21G8Rmo2nYhOpE
+	 hty90P1kGFfsw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yuto Ohnuki <ytohnuki@amazon.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Miklos Szeredi <mszeredi@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] virtiofs: add FUSE protocol validation
+Date: Tue, 10 Nov 2026 13:22:58 -0500
+Message-ID: <20261110181229.3093764-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052334-failed-6.12-5364d081125a@kernel.org>
+References: <20261107052334-failed-6.12-5364d081125a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,44 +61,86 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop
- phylink
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179433498467.4118637.205536379890905372.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Nov 2026 18:23:04 +0000
-References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
-In-Reply-To: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, linux@armlinux.org.uk,
- o.rempel@pengutronix.de, stable@vger.kernel.org, byu@xidian.edu.cn,
- wencheng@xidian.edu.cn
 
-Hello:
+From: Yuto Ohnuki <ytohnuki@amazon.com>
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+[ Upstream commit 68b69fa0edb241a946cd4c850110990f30705164 ]
 
-On Sun,  1 Nov 2026 00:52:13 +0800 you wrote:
-> lan78xx_disconnect() stops phylink before unregistering the net device.
-> phylink_start() is only called from lan78xx_open(), so when the device is
-> unplugged before the interface has been brought up, the attached PHY is
-> still in PHY_READY and phy_stop() reports:
-> 
->   called from state READY
->   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
-> 
-> [...]
+Add virtio_fs_verify_response() to validate that the server properly
+follows the FUSE protocol by checking:
 
-Here is the summary with links:
-  - [net,v2] net: usb: lan78xx: let unregister_netdev() stop phylink
-    https://git.kernel.org/netdev/net/c/928012824561
+- Response length is at least sizeof(struct fuse_out_header).
+- oh.len matches the actual response length.
+- oh.unique matches the request's unique identifier.
 
-You are awesome, thank you!
+On validation failure, set error to -EIO and normalize oh.len to prevent
+underflow in copy_args_from_argbuf().
+
+Addresses the TODO comment in virtio_fs_request_complete().
+
+Signed-off-by: Yuto Ohnuki <ytohnuki@amazon.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Stable-dep-of: 5364d081125a ("virtiofs: validate fixed-output response length")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/fuse/virtio_fs.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+index 06e59b820ffa8..0d076cbd94237 100644
+--- a/fs/fuse/virtio_fs.c
++++ b/fs/fuse/virtio_fs.c
+@@ -749,6 +749,27 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ 	req->argbuf = NULL;
+ }
+ 
++/* Verify that the server properly follows the FUSE protocol */
++static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
++{
++	struct fuse_out_header *oh = &req->out.h;
++
++	if (len < sizeof(*oh)) {
++		pr_warn("virtio-fs: response too short (%u)\n", len);
++		return false;
++	}
++	if (oh->len != len) {
++		pr_warn("virtio-fs: oh.len mismatch (%u != %u)\n", oh->len, len);
++		return false;
++	}
++	if (oh->unique != req->in.h.unique) {
++		pr_warn("virtio-fs: oh.unique mismatch (%llu != %llu)\n",
++			oh->unique, req->in.h.unique);
++		return false;
++	}
++	return true;
++}
++
+ /* Work function for request completion */
+ static void virtio_fs_request_complete(struct fuse_req *req,
+ 				       struct virtio_fs_vq *fsvq)
+@@ -759,10 +780,6 @@ static void virtio_fs_request_complete(struct fuse_req *req,
+ 	unsigned int len, i, thislen;
+ 	struct page *page;
+ 
+-	/*
+-	 * TODO verify that server properly follows FUSE protocol
+-	 * (oh.uniq, oh.len)
+-	 */
+ 	args = req->args;
+ 	copy_args_from_argbuf(args, req);
+ 
+@@ -818,6 +835,10 @@ static void virtio_fs_requests_done_work(struct work_struct *work)
+ 		virtqueue_disable_cb(vq);
+ 
+ 		while ((req = virtqueue_get_buf(vq, &len)) != NULL) {
++			if (!virtio_fs_verify_response(req, len)) {
++				req->out.h.error = -EIO;
++				req->out.h.len = sizeof(struct fuse_out_header);
++			}
+ 			spin_lock(&fpq->lock);
+ 			list_move_tail(&req->list, &reqs);
+ 			spin_unlock(&fpq->lock);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.53.0
 
