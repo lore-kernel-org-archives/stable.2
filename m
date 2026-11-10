@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794324177;
-	b=3AcdXL5rB8brbtE3rEMyHtuBPl2ms1U+kPJjdtgLdyPDnXyVceCyM+gqDaQGfTihz7UH
-	 CbYPCdCr8JDBqTbZsb2nlsiwYKOosvz35RRI7dfBzUQfWER4noSRPuCGDpg54FkwiHEL5
-	 urkXsGnNjcel79qDhJp0XySAvyo+RrLPOCFPH7kklF+usSY7Pqxm/iHPVoJtaDNpfhtzD
-	 b1UseF2lHhYxSzpwXcix0svnEt7o3DZu2DbTf6qPsQ47FmezeqJPRtenVzd1fZPtIKh36
-	 /ExZIOutfjP3rfSMCa5zOkLhX90E+meP6XWKSq+P8/GI4YdE+kDzdole/zjSESdpmvQ==
+	t=1794324201;
+	b=d62rlM9LeASUpaHAh1sRBs+lHDJUKkooEJPLepFjsgJWD2WlmWJUj81GzTdJ12z0NpNj
+	 X4Q0PhMI8fVNJ9WWQha3o4qcxPw6+K7Vi6KyS8fXD71z0eqZc+/r9sHeR5ysVjCOu467m
+	 lPLzVTsJ8qOLLidEKf4SLaoRRs+ojd/9ok4zWb+KFleIlx22iXX4pB1+E1NnBsU7z1/kY
+	 gfvmxD7EhQXlexi4vJaMKFzFW7YnuDHJV6TRg9v98FxaqVznSyqMDZWmEmGeuF5TmPEOI
+	 jvrBmGC/tTj3jASwJR3cW+AHXV34ruXpexeREj6CpqfjNsm72T5rDUQ1aIS/Wz0KdcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794324177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794324201;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=V2hs5F5rcXBVyfLsJXORJE6edm4zrvxs03ZBbgJkHVw=;
-	b=HXdrEnTMXr5YzumkXbRqklW1C1GC7d3R/CndJURVRPqqBWrlo3eroMYipgeZtifoV+3Q
-	 o40a/Kj6Oj0LmVbKf891vhF7p1PwY+kUoGwgNM0JWLuda8E9tumhfyJ2/EHQD7wBsYGQT
-	 Fp/Jw+bmGljWaBs80P9FcLxYgJHjC1e7VUB/9h/Q0CjnJXUPgRBIhIqNmSxMFaTUPEfJl
-	 43Uez2CjlfJwaXaen6K9UoUu42oo+w2OFFZT2PQQfN+U43bA0DQrA5wvffZHAy/UZSVAf
-	 abEh2hqfkbTXKptHIoqV4YGEQ3gCnbaT4KqGvNSKaaRpg/kZo5LbYHpVDkJBA71Oetg==
+	bh=2fYS3m2doX0Q5EAu8sK1lNisCUFQ5EKdwqQEv6l+9Kc=;
+	b=uGRhr3A2V/Dl9PBCQf3xLrlly9BM5WfZwWiybsy8vPJZLXf4BdHMG8p3ukAs/8tnc3w6
+	 k6gnaMLCr5tmcfuWW1tYGVn2KOluQCIom4rAkGLMMGZ8ckpairTwXr0E1qHK6BtXm/sa+
+	 +LUk1GnR+jFVexySW9tjzuNEEjLPfG5OFpil1rcb9G+VFTZjHXNeshzXYWk7v3ablxrRY
+	 OJIQOCbeab/jK+6z+3yKMTiCgIVDUCnC4ZgD0P0AxcIMfRsjpnfRfwaET4krGNyCSVSA+
+	 hA7lqdgwqtJ+so1fKjhFrNA+aioflYbiIjdUhV5fjxlSkLHzLI/tlCgpAPjEdTj/T5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knKdSHni;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PvJ50P6j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372DC606A32D
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:22:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4A1606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 15:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knKdSHni
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FED71F0089F;
-	Tue, 10 Nov 2026 15:22:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PvJ50P6j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EC91F0089F;
+	Tue, 10 Nov 2026 15:23:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794324176;
-	bh=V2hs5F5rcXBVyfLsJXORJE6edm4zrvxs03ZBbgJkHVw=;
+	s=k20260515; t=1794324201;
+	bh=2fYS3m2doX0Q5EAu8sK1lNisCUFQ5EKdwqQEv6l+9Kc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=knKdSHni4eY3DOLNAH6hppaLBHkNDbmpi+qWgP0wMKiq6TgImEKE8gnejthF3EcId
-	 4lxzwJupqd0OagNb8VR9sFAQia8QEyF38M1tDBBpfxuN302elVG0stRkqBZWG28D3x
-	 566DmvZykMc8e7QZ5cYGPqnWckmwOoh7Hq/Bu371vZtfVH3DaHYlwkM+OC3FjW841v
-	 u1A7pPGiMGw9EeNAZntNBqLKgcX+MIa+PiXpm9L4SstBgGoyNGSlQz9aaEsP+E3rzo
-	 FYA8GLl63yaSJ/68YYj2xYFKArHw5FtqSvVSZd0ttcF1HZ37WEB6XscewPWExbyM/Q
-	 6Ra+dq5PA8aeA==
+	b=PvJ50P6jQCJCzYNlSikA6d91zTGfD08r7OgP40KO0TS++1Ie3tyx3507rmsdL7ok9
+	 6gqhw8u8h6fNTRu0zDjmEdioAcMqU2mVwEZO5irjZD/yCL2TOOVWKWtLv51isEy0QW
+	 FIzv8b09G+TQhF28DzsHP4/tMMi/3dO3uk0SRWRsyfdI098ks08GaXYL+oPBcXeo74
+	 Au2EW9n4Z/HCvV3a94tYTlUcWkGri/h2QpXwNCg+JYHv7NyckIJtoDKBJcr4jZg08H
+	 kaFxpehg6FW44UT30hSnoML+Nb1HByiHkEmk13sFzjyOlXCbEaq/XKAzOavR4qTc4H
+	 LA4mtGjm7JVWA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Seungjin Bae <eeodqql09@gmail.com>,
-	stable <stable@kernel.org>,
-	Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Francesco Orlando <francesco.orlando99@libero.it>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] usb: typec: ucsi: ccg: Validate altmode index in GET_CURRENT_CAM response
-Date: Tue, 10 Nov 2026 10:22:54 -0500
-Message-ID: <20261110152224.2080796-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] Input: xpad - add GameSir Nova Lite support
+Date: Tue, 10 Nov 2026 10:23:19 -0500
+Message-ID: <20261110152300.2101199-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052102-failed-6.12-02ee864e8d21@kernel.org>
-References: <20261107052102-failed-6.12-02ee864e8d21@kernel.org>
+In-Reply-To: <20261107053502-failed-6.6-2e6f2e5799f3@kernel.org>
+References: <20261107053502-failed-6.6-2e6f2e5799f3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,118 +61,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Seungjin Bae <eeodqql09@gmail.com>
+From: Francesco Orlando <francesco.orlando99@libero.it>
 
-[ Upstream commit 02ee864e8d2142c5648998944c3306ea6a763c26 ]
+[ Upstream commit 2e6f2e5799f328ca0879dad14d7f3709c7f7496b ]
 
-When the PPM reports more than one DisplayPort alternate mode for a
-connector, ucsi_ccg_update_altmodes() merges them into a single entry
-in uc->updated[] and sets uc->has_multiple_dp. In that case,
-ucsi_ccg_update_get_current_cam_cmd() rewrites the response of the
-GET_CURRENT_CAM command. The response is a single byte holding the
-index of the currently active alternate mode, and it is provided by
-the PPM firmware.
+Add vendor and product ID for GameSir Nova Lite (0x3537:0x1040) in
+XInput mode to enable force feedback rumble support.
 
-The function uses this byte directly as an index into uc->orig[], and
-then uses the linked_idx read from that entry as the translated index
-into uc->updated[]. Both arrays have UCSI_MAX_ALTMODES entries, but
-neither index is checked against that size.
-
-If a malicious or buggy PPM reports a value of UCSI_MAX_ALTMODES or
-larger, e.g. 0xFF, uc->orig[cam].linked_idx reads over the end of
-uc->orig[]. The byte read from there is then used as the index for
-writing cam into uc->updated[new_cam].active_idx, so the out-of-bounds
-read is followed by an out-of-bounds write. This happens without any
-userspace action, since the UCSI core issues GET_CURRENT_CAM on its own
-when handling connector changes.
-
-Fix this by rejecting responses whose index is out of range, printing an
-error and returning -EPROTO, so that the caller cannot accept this.
-Also check linked_idx before using it as an index, so that the write into
-uc->updated[] is always within bounds.
-
-The response is now only processed when the command completed without
-an error. ucsi_sync_control_common() only reads the response when the
-CCI reports command completion, so otherwise the buffer is not filled
-and must not be mistaken for an invalid index.
-
-This bug was found with a Python script that traces where firmware input
-is used.
-
-Fixes: 170a6726d0e2 ("usb: typec: ucsi: add support for separate DP altmode devices")
-Cc: stable <stable@kernel.org>
-Reported-by: Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>
-Assisted-by: LLM
-Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Link: https://patch.msgid.link/20261003215520.611083-2-eeodqql09@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Propagated helper errors through ucsi_ccg_read_message_in() instead of ucsi_ccg_sync_control(). ]
+Signed-off-by: Francesco Orlando <francesco.orlando99@libero.it>
+Link: https://patch.msgid.link/20261011165821.72698-1-francesco.orlando99@libero.it
+Cc: stable@vger.kernel.org
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+[ sashal: adjusted device table context due to missing CRKD SG and ByoWave Proteus Controller entries ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi_ccg.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/input/joystick/xpad.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-index 3a4e1b6f22ecf..fbb65b734fc1c 100644
---- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-+++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-@@ -397,14 +397,28 @@ static int ucsi_ccg_init(struct ucsi_ccg *uc)
- 	return -ETIMEDOUT;
- }
- 
--static void ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
-+static int ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
- {
- 	u8 cam, new_cam;
- 
- 	cam = data[0];
-+	if (cam >= UCSI_MAX_ALTMODES) {
-+		dev_err(uc->dev, "PPM returned invalid alternate mode index %u\n",
-+			cam);
-+		return -EPROTO;
-+	}
-+
- 	new_cam = uc->orig[cam].linked_idx;
-+	if (new_cam >= UCSI_MAX_ALTMODES) {
-+		dev_err(uc->dev, "invalid linked alternate mode index %u for %u\n",
-+			new_cam, cam);
-+		return -EPROTO;
-+	}
-+
- 	uc->updated[new_cam].active_idx = cam;
- 	data[0] = new_cam;
-+
-+	return 0;
- }
- 
- static bool ucsi_ccg_update_altmodes(struct ucsi *ucsi,
-@@ -593,6 +607,7 @@ static int ucsi_ccg_read_message_in(struct ucsi *ucsi, void *val, size_t val_len
- 	struct ucsi_ccg *uc = ucsi_get_drvdata(ucsi);
- 	struct ucsi_capability *cap;
- 	struct ucsi_altmode *alt;
-+	int ret = 0;
- 
- 	spin_lock(&uc->op_lock);
- 	memcpy(val, uc->op_data.message_in, val_len);
-@@ -601,7 +616,7 @@ static int ucsi_ccg_read_message_in(struct ucsi *ucsi, void *val, size_t val_len
- 	switch (UCSI_COMMAND(uc->last_cmd_sent)) {
- 	case UCSI_GET_CURRENT_CAM:
- 		if (uc->has_multiple_dp)
--			ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)val);
-+			ret = ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)val);
- 		break;
- 	case UCSI_GET_ALTERNATE_MODES:
- 		if (UCSI_ALTMODE_RECIPIENT(uc->last_cmd_sent) ==
-@@ -622,7 +637,7 @@ static int ucsi_ccg_read_message_in(struct ucsi *ucsi, void *val, size_t val_len
- 	}
- 	uc->last_cmd_sent = 0;
- 
--	return 0;
-+	return ret;
- }
- 
- static int ucsi_ccg_async_control(struct ucsi *ucsi, u64 command)
+diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+index d46e0ad742307..904e701ed6ae7 100644
+--- a/drivers/input/joystick/xpad.c
++++ b/drivers/input/joystick/xpad.c
+@@ -431,6 +431,7 @@ static const struct xpad_device {
+ 	{ 0x3537, 0x1004, "GameSir T4 Kaleid", 0, XTYPE_XBOX360 },
+ 	{ 0x3537, 0x100f, "GameSir Nova 2 Lite", 0, XTYPE_XBOX360 },
+ 	{ 0x3537, 0x1010, "GameSir G7 SE", 0, XTYPE_XBOXONE },
++	{ 0x3537, 0x1040, "GameSir Nova Lite", 0, XTYPE_XBOX360 },
+ 	{ 0x3767, 0x0101, "Fanatec Speedster 3 Forceshock Wheel", 0, XTYPE_XBOX },
+ 	{ 0x413d, 0x2104, "Black Shark Green Ghost Gamepad", 0, XTYPE_XBOX360 },
+ 	{ 0xffff, 0xffff, "Chinese-made Xbox Controller", 0, XTYPE_XBOX },
 -- 
 2.53.0
 
