@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272584;
-	b=HH+zwuRNc8zIFYe944F5Ms5EWI5oS490bxI9KvkB3iz07qUlrOpolaDA9c2Xgh0cF0by
-	 QhUHPb8M4PbnzWe03c2tRMIEXmS7qjbkBdtyZfPKs/df57Q+9cuIrzhzkaMOE+cVklgZP
-	 WsypskBA4jEaVv9MWGMPPHG1OWdLScaPz49OsVxSzfXUICxSefTnwo0aY5M3ynz96mWeK
-	 63yvXjqt9z7rUrAp2aY4/51mlvmEHJj2C9HAu4IyJPjjV377pNwLGg2qP45QFzl7S6fIw
-	 xnHK1mtZCTpELK5DUQ1o+zeJwP9a35/Bl0lferZJVNmJFTKwYVSwbV43cKTn6JNUMsQ==
+	t=1794272587;
+	b=d++g7nz533SOTB9pYW041qviBDPLNMWoLrf6YNlXnnWDb7x+UxLcQ+u0KCdO4N25Rubs
+	 U40wmmIQzqFZq/+U+ihWQBrZJxKgrDhVKXytTnIBtAWFJe44CicAQG2uHsuIa/Ub+5xuP
+	 vIAAjZCTo9pe9ZS8l3imZL5i8S4FWESwoe9K+2M6AgRLdEUYWksYIS3tmaVZqO3vwTtQT
+	 d57Huce4uFS9sBEQyYOfdcsuCSQd+6MNYCFCec04WomtBw+3Rz7J6sjQBjQJLEXjbnJFl
+	 8Zp+7v8TMgTBM4q8ggIs5nyCWWab60TuzS215MPCQg+l1WDfw55zmPZA53gKrSYVmsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272584;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272587;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1+GVES17S/VvLAGzpUaTyJ+0hf5gvQToUA8qjWHeClk=;
-	b=YNLeQ35d8LgX1sz0N5w2Y6FE3yxyjnts9tr8o8Z0byGnhCEs/0vHgmlVADp4YqxK1NIw
-	 El/cuimuSCl6eJd3QIek2cC2FkU3fnRV43uZC5qvsT3CiToi+/qK8ms+nmZkGMPO3xLe2
-	 5oHRIHIrgZYJG4ppdgoY8Q9YGSnpSXIJ01jt0jonVxqJy6aMU5JK47sBj0j8AqicMaJRY
-	 cly5bv0ZpWdgOCCJT/acJCuUNqNJ0+uB62KsVrOPt9Fjs1/nf87f5b+x1V7RoDo9e4hzI
-	 C71ZeS6NfL/Kx5wMrG7d+Z1AJ3HhQhxaKjXnygVrdS1WtGcGDGDNRnsZlGMmMx5eTXg==
+	bh=cUTOiign2Fu1zQiwaFY9HONGcp57wxRfCrmiVuXuHpo=;
+	b=Xu2Nv4DNEQMs8UxytT4rFa4qNGZ15h8co4/mEiOFo1erPh3paOwHW2e0PNcYzx/GYEMB
+	 5Krcawl2HcKicbeVRS5GKhUkt2aXZL/RWN0Pv7YHeJQ7ju+GI7a/TtQo+C3EyZN8cwJG8
+	 UTcPgXftZ8nnGNSxW14+9eensfQzi2xuUXirlX1sbRO7Jd+KgLv+itFgfVsj0j3Z6tVCw
+	 NZJwQuIVrmscdIjZ/T2DdlkfDIxC7cKTcfbnPZKwGobeenXbS9AmRrHBpakbC1C9MQXWB
+	 kxf75EIdZexo5VElq4ddkOnBpglDXnSCH6d3BrqpceoWgUipem+s/5N6K62D0DnQ51Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+haRhpw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzUo5Dd9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D44606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E7B606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d+haRhpw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF3BE1F0089F;
-	Tue, 10 Nov 2026 01:03:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RzUo5Dd9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 096AD1F0089F;
+	Tue, 10 Nov 2026 01:03:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794272583;
-	bh=1+GVES17S/VvLAGzpUaTyJ+0hf5gvQToUA8qjWHeClk=;
+	s=k20260515; t=1794272586;
+	bh=cUTOiign2Fu1zQiwaFY9HONGcp57wxRfCrmiVuXuHpo=;
 	h=From:To:Cc:Subject:Date;
-	b=d+haRhpwlrxgIp3j6gI63AOr3g2ePdiH7fzIy43qwqkf5Bf40I7nu4L9lSsowh3+P
-	 XCq8cad0mAb/cUSE8zwt7h3iLa8zub73F6xwtuX0lQu689DG+O8el6UC8yUJINjOMs
-	 l3HTbJIR0ZyqQu4V5BjdSMQWquGjwwTallyCtbiiqzBPG9HGfYMSVylWLWZ4QJmhWy
-	 82P44vcYl8uEpwE0nntuosF0TgaujF+Q841vASpgAw7ejKCpAKP7Z9TjTY0YtIgPyN
-	 qgQJe7rUqe+Wnqh2gwQ75oYRAh7B/S69laigYJAgb9kMLGI3srtFUQUE7WtbG3nXDw
-	 n7X/G741MYKZg==
+	b=RzUo5Dd9riEY162Fu2y/bikcxEV6Gsm1EHwsWWhkTXKpvA3Ms2R9cBS1Pxn0cthfX
+	 h9SGuN4JX606xq/k6dg1O0+r515+S+PDeqSqQbx4yPOyj6Ob37EOwB8mrSPcUnlsFO
+	 Ogb0nZrcrHfXP7EeVsJQqRXHrNbQIBwuY6grwU7bM3wDBjfI+FTx+0C6jr4QuksgI0
+	 bg9KmPHQv7JbT56nkJJu3TbhOf0ZjKWPqEhEyWX1I0fECX7R1rOaR4krgby02nM6S0
+	 cNJRPCuit8Y0B5wS+WrRgvQjau4vcgQxfACYXeqM5DL2YAtkfadlj6Rx17ZbgReBwC
+	 zQqEuiNDeBMEQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	pfalcato@suse.de,
+To: david@kernel.org,
+	josef@toxicpanda.com,
 	kas@kernel.org,
-	ziy@nvidia.com,
 	baolin.wang@linux.alibaba.com,
-	pratyush@kernel.org,
-	gourry@gourry.net,
-	david@kernel.org
+	gourry@gourry.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: honour F_SEAL_EXEC when an ACL is set" failed to apply to 6.18-stable tree
-Date: Mon,  9 Nov 2026 20:03:01 -0500
-Message-ID: <20261109200301-failed-6.18-0237c47ca170@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/shmem: preserve allocation errors when swapping in large entries" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:03:04 -0500
+Message-ID: <20261109200304-failed-6.18-f4ce23b1feef@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,139 +71,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0237c47ca17005ea41b510c6116f0257dbf84eab
+git cherry-pick -x f4ce23b1feef16d435aa1188b6c2a637a5373ed5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200301-failed-6.18-0237c47ca170@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200304-failed-6.18-f4ce23b1feef@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0237c47ca17005ea41b510c6116f0257dbf84eab Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Thu, 29 Oct 2026 11:43:25 +0100
-Subject: [PATCH] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+From f4ce23b1feef16d435aa1188b6c2a637a5373ed5 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 11:43:33 +0100
+Subject: [PATCH] mm/shmem: preserve allocation errors when swapping in large
+ entries
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+shmem_swapin_folio() adjusts swap to the requested slot within a large
+swap entry before allocating a folio. If allocation or charging fails,
+the error path compares this adjusted value with the original entry
+still stored in the XArray in shmem_confirm_swap().
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+Unless the index is at the start of the entry, this turns -ENOMEM into
+-EEXIST even though nothing changed.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+The caller retries -EEXIST, so persistent allocation failures can leave
+the task spinning instead of returning the error.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Restore swap to index_entry on allocation failure so the existing error
+path checks the original entry. This preserves the allocation error if
+the entry is unchanged and still retries if it changed concurrently.
+
+Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org
+Link: https://patch.msgid.link/20261029-fixes_shmem-v4-12-392fc715d8f6@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+ mm/shmem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index c159e40e3f34a..272479317cf10 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,10 +2,19 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
- #define MEMFD_ANON_NAME "[memfd]"
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
 diff --git a/mm/shmem.c b/mm/shmem.c
-index af21a89abb0f6..6df0237832c00 100644
+index e1b7cf4b5280a..02de6326ef3b3 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1546,10 +1547,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
- 	}
- 
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5404,12 +5406,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
-+	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
+@@ -2552,6 +2552,8 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+ 			else
+ 				error = -ENOMEM;
+ 			folio = NULL;
++			/* Make sure to validate the original value. */
++			swap = index_entry;
+ 			goto failed;
+ 		}
+ 		if (fault_type) {
 -- 
 2.53.0
 
