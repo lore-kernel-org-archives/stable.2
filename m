@@ -1,46 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794272539;
-	b=UenVcQKuXtyUEg0oVTmCtRyoqKdcKxQT9ziWysdwT7VCmkggqyc/ftZrOxChDPtHpgV7
-	 55n0125fNDJ4/xlBzzNEwQa0msFjul12xisxeQ/udU7ZanXSbxO4sKzuufr92hyetiL2K
-	 Yq7Cu5oThoMS5IKG1EzQRSy8+wfgcFmyBSvI+GUqqRQE9uNOMxra2upxK9ik7lsm+1cCd
-	 J4VSKAnQjj//QtWbeTQAP9e2/h1Lxd1hQNAaJ0HjigbIBPzoyf+Brb45gAcAVrLGh7sYT
-	 bXt8wScXTHnuAW+f7LSgDPt0YbSqsIILq8HTRx5edcVIHy8eZrWvQmT3hzmQM+MizCg==
+	t=1794272540;
+	b=yo4MUE9QqwGjfDk1e+xMcCkIMVjJN3YHE08Eazthput9+/J4GmwTx0qZ20z1jNSrEJuk
+	 U+/US60k7EYRJcOBGvcxaudPUtWHXamONSziUzJ8Ycc5/TfQvNqq98au7hjqMN11HVYnE
+	 fNsJ+mKZfvNHzfK31uZM5m9iWnSVqhx1PyKv/KX0lnLRNkKTsnQBzb+RFuZuPdMmLmPHG
+	 QHRhnwrpdo5RhFB2AF02LFzFIF68bGybKMtF8r2NyerQiB1TKoFnfMXMmzOCLqNNZQlhu
+	 4i9LdF83x/EHdoshJNqVbgB8Ho+Mtaotn+CwRMlYFD4e5qJQiEOJUzqkrrG7ZqV5F4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794272539;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=20hEICLil4kCUjTHTP5j0xVG6xrZnV5pk0kULcwM08M=;
-	b=LlIWOuGBO2+PgnXuqaVGaZPx/LCPZgne5wA6xTJ3Tus6NeAqeGvD+KBwsIWsnZnkflzk
-	 Qfgvoc6waAg2vdDMVjoslEAEO2x7E6rVOJny1Yyq3YROh93khNqAtY7oJ6bRtWUCbelkZ
-	 F5ofbjlWGJlvjSzlvrXlv2P5P9OgcN8EcxsRXK7WgwB5tm4A81Fwz6g/VcetZ7PtvN1bS
-	 FDg+nS9Xfyjsmmh2r40h7uZ45JE2TWPMti2agTHR2CYMnE9OOt61hXFbzkq9IBuQqofkp
-	 YuMeMCIK/16ydLbbEhRkLzcOhCP3vZTkCmVI9Tuz81/1wyZUg5v0+qbySKpF7PPgCEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794272540;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=GUwbdGSuk8m5kVvA8QVl0PAxt1MFEcnQnYtuZe6j+sc=;
+	b=mD2/aST4KLr/tJi18CSDinPzH8ur9pLCKr/xVHnOakZKfJk/aQdPLwIbqgvbPO3QEy2F
+	 1rBjPtSpUDAQdgX7fChtnLbv45tJwHg+TJzjgTGZtgg4w21PhBf/mECVdrfQ16Ubvzdkb
+	 0+JMdcB3IAykVTWZvbT0B2lV3pasYw6kPMPHurkRpCSinHgSi5DEmzt1QVUcSa7ycWfaX
+	 SB0B/q0Y1O4eUp9bUGXmeoE480Uq/LJHmTxmzICr+SYMs+V23PjGxN0X4h6JSLHy5RQ5F
+	 GGAeIFfqLMCCkgnuM2AEHd6QC67qaX01Zg0+ZCbL1XMSPRJzx0BHK/awEIx57TZSmmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=M53apsbw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BoZRo97u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84654606A32A;
-	Tue, 10 Nov 2026 01:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527DA606A333
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:02:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=M53apsbw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8AE1F0089F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BoZRo97u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758201F008A2;
 	Tue, 10 Nov 2026 01:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794272539;
-	bh=20hEICLil4kCUjTHTP5j0xVG6xrZnV5pk0kULcwM08M=;
-	h=Date:To:From:Subject;
-	b=M53apsbwRQ1KxcaxC6OLKxtLt+9QCDxH2uz0DmtHag8ss9TSm7Y+nUUlaw8dG8gKU
-	 KCeYRih8r9QDDeOQIqaTfVjGV1oCEBCvJ8quRadGACIuFJP+8fI4iO9T1QwocIxBPD
-	 FZkbulQQT0kss14K1KUeeTRBNfx/wNphLUOCuMXk=
-Date: Mon, 09 Nov 2026 17:02:18 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,
-	gkwang@linx-info.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-stat-avoid-overflow-in-estimated_memory_bandwidth-calculation.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261110010219.1D8AE1F0089F@smtp.kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794272540;
+	bh=GUwbdGSuk8m5kVvA8QVl0PAxt1MFEcnQnYtuZe6j+sc=;
+	h=From:To:Cc:Subject:Date;
+	b=BoZRo97uwgq2ETAmLzgQedKjARntwctH4lJJMSgSwbo3TqsSlv+l4zsEbzS34xNgF
+	 u7sGe2fUT9tUCwdIP2DfewVK8LDSUJ++XHkm639zvO51rKDLx4gsXrVXERasoekw0s
+	 dLdRBHZJ6N8QIXsbx3TVeV7cyoBvfFttaq4hpQFaReQNP2cHy79GGJZGer1LWlVKUK
+	 gdJL19Kni3CDhHwWD786QVFcJddedG1fZPZRiB34oUILBZurVyFZxYORJr1Lh7Sraf
+	 4XBvdgDhkGvee/bzNv5AjZhkAZQ8dTQKy/Vvhj/Bj0jjXiLZrxq5D4pkJj8FvV20oU
+	 OBY97gIYof9QQ==
+From: Sasha Levin <sashal@kernel.org>
+To: hy50.seo@samsung.com,
+	stanleyjhu@google.com,
+	beanhuo@micron.com,
+	bvanassche@acm.org,
+	mkp@kernel.org
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] scsi: ufs: core: Change the error check sequence for auto hibern8" failed to apply to 6.18-stable tree
+Date: Mon,  9 Nov 2026 20:02:18 -0500
+Message-ID: <20261109200218-failed-6.18-6b2ff2b3eafa@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,102 +58,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The patch titled
-     Subject: mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-damon-stat-avoid-overflow-in-estimated_memory_bandwidth-calculation.patch
+To reproduce the conflict and resubmit, you may use the following commands:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-stat-avoid-overflow-in-estimated_memory_bandwidth-calculation.patch
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 6b2ff2b3eafa381db9b4c8a6ed98b353b2a09f39
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109200218-failed-6.18-6b2ff2b3eafa@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Thanks,
+Sasha
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+------------------ original commit in Linus's tree ------------------
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+From 6b2ff2b3eafa381db9b4c8a6ed98b353b2a09f39 Mon Sep 17 00:00:00 2001
+From: HOYOUNG SEO <hy50.seo@samsung.com>
+Date: Tue, 27 Oct 2026 20:03:57 +0900
+Subject: [PATCH] scsi: ufs: core: Change the error check sequence for auto
+ hibern8
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+Auto-hibern8 enter and exit are performed by the host controller without a
+UIC command, and the auto-hibern8 idle timer only runs while no UIC command
+is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is therefore
+usually reported while hba->active_uic_cmd is NULL.
 
-------------------------------------------------------
-From: Wang Guangke <gkwang@linx-info.com>
-Subject: mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
-Date: Mon,  9 Nov 2026 16:48:14 -0800
+Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
+easier to analyze"), ufshcd_uic_cmd_compl() returns early when
+hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
+called. Such auto-hibern8 errors are no longer recorded in hba->errors, so
+ufshcd_check_errors() is not called for them and the error handler is not
+scheduled.
 
-estimated_memory_bandwidth is calculated by access_bytes * USEC_PER_MSEC *
-MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval, and users read it via
-/sys/module/damon_stat/parameters/estimated_memory_bandwidth.
+Check for auto-hibern8 errors before checking for an active UIC command, as
+was done before that commit, but keep returning early when there is no
+active UIC command so that a NULL cmd is never dereferenced. Only report
+the missing UIC command if no auto-hibern8 error was found.
 
-On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned long
-once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC), so users
-get a wrong value.
-
-Fix it by doing the calculation in 64-bit and splitting the division into
-quotient and remainder.
-
-The issue was reproduced on a 32-bit system (qemu-system-i386): the
-parameter estimated_memory_bandwidth reported 362 instead of the expected
-1926150; with the fix, the value matches the expectation.
-
-Link: https://lore.kernel.org/20261110004816.100066-1-sj@kernel.org
-Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
-Signed-off-by: Wang Guangke <gkwang@linx-info.com>
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier to analyze")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261027110357.3649301-1-hy50.seo@samsung.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
+ drivers/ufs/core/ufshcd.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
- mm/damon/stat.c |   15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
---- a/mm/damon/stat.c~mm-damon-stat-avoid-overflow-in-estimated_memory_bandwidth-calculation
-+++ a/mm/damon/stat.c
-@@ -32,8 +32,8 @@ static bool enabled __read_mostly = IS_E
- module_param_cb(enabled, &enabled_param_ops, NULL, 0600);
- MODULE_PARM_DESC(enabled, "Enable of disable DAMON_STAT");
- 
--static unsigned long estimated_memory_bandwidth __read_mostly;
--module_param(estimated_memory_bandwidth, ulong, 0400);
-+static u64 estimated_memory_bandwidth __read_mostly;
-+module_param(estimated_memory_bandwidth, ullong, 0400);
- MODULE_PARM_DESC(estimated_memory_bandwidth,
- 		"Estimated memory bandwidth usage in bytes per second");
- 
-@@ -55,15 +55,18 @@ static void damon_stat_set_estimated_mem
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index ee643830a57a2..fd52deb72d21c 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5931,18 +5931,26 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
  {
- 	struct damon_target *t;
- 	struct damon_region *r;
--	unsigned long access_bytes = 0;
-+	u64 access_bytes = 0;
-+	u64 remainder, bytes_per_us;
+ 	irqreturn_t retval = IRQ_NONE;
+ 	struct uic_command *cmd;
++	bool ah8_err;
  
- 	damon_for_each_target(t, c) {
- 		damon_for_each_region(r, t)
--			access_bytes += (r->ar.end - r->ar.start) *
-+			access_bytes += (u64)(r->ar.end - r->ar.start) *
- 				r->nr_accesses;
+ 	guard(spinlock_irqsave)(&hba->host->host_lock);
++
++	/*
++	 * Auto-hibern8 is performed without a UIC command, so check for
++	 * auto-hibern8 errors before checking for an active UIC command.
++	 */
++	ah8_err = ufshcd_is_auto_hibern8_error(hba, intr_status);
++	if (ah8_err)
++		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
++
+ 	cmd = hba->active_uic_cmd;
+ 	if (!cmd) {
+-		dev_err(hba->dev,
+-			"No active UIC command. Maybe a timeout occurred?\n");
++		if (!ah8_err)
++			dev_err(hba->dev,
++				"No active UIC command. Maybe a timeout occurred?\n");
+ 		return retval;
  	}
--	estimated_memory_bandwidth = access_bytes * USEC_PER_MSEC *
--		MSEC_PER_SEC / c->attrs.aggr_interval;
-+	bytes_per_us = div64_u64_rem(access_bytes,
-+			c->attrs.aggr_interval, &remainder);
-+	estimated_memory_bandwidth = bytes_per_us * USEC_PER_SEC +
-+		div64_u64(remainder * USEC_PER_SEC, c->attrs.aggr_interval);
- }
  
- static int damon_stat_idletime(const struct damon_region *r)
-_
+-	if (ufshcd_is_auto_hibern8_error(hba, intr_status))
+-		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
+-
+ 	if (intr_status & UIC_COMMAND_COMPL) {
+ 		/*
+ 		 * Store the UIC command result in the lowest byte of
+-- 
+2.53.0
 
-Patches currently in -mm which might be from gkwang@linx-info.com are
 
-mm-damon-stat-avoid-overflow-in-estimated_memory_bandwidth-calculation.patch
+
 
