@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330923;
-	b=V30LOvAH8H2fmz70nq8/7J0Ufl2RltxArxozZcoKZGibrx7PgnjiBq0l37tspaKJ9WcI
-	 0bK9jvkGcxcZqImGqV9oaL2QmJXMIxLLil0XZ4/46T2xbbwO0cBXfCEVyFAEee7r7dFl7
-	 nsrJEHUZ17w7BDIg9NWBuCtsZiASxCLGLpRVTLs18PiRj8PAu4SZaSY/4zivEf/Uqy2Ti
-	 Voc1OOZV2LpLY//k4Gk+GIMNk4WPfuxpLWVlEIyqlVYGp5+nj7h+AQQp3vjgzVea0j3GE
-	 ss75uEyVWpa2A7Hb9nDG52eF1vqfg6Ox4v3V/m0sb4p3WQsO8a1YGNp6c9EIRvW9+kA==
+	t=1794330952;
+	b=NHShvkEXdI8dAboC0eojdCUHI3cRX4JfvmeFNjDTQ9veyKtaZ2xfaPvqTEPQ9JFlhTPC
+	 1HNs+I80QCZ0qT+L8YXO5/yztMuAyOh794m8kxD5AS9WS6aFnPKw8FtwBNAo13q51mEUL
+	 C0fAUKiwTfjHFv2+DdV8WSqhkulKrMGklYIRXPgM0znostAjtYFcu2qe583tYUquCyXgQ
+	 84edkbbWbCPitrduNiJbEksHstF5qqWq2WdRTWqveFj3y/M8xSFZurRtCpbyMPoNC/O9M
+	 gE240OfstPCDualVUTskegDC/Wfez+2n3NSwDWEjuc4Are4y1Xk3kJVtuXgwqmuiQxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330923;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330952;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Mt2VifBso+oyzIMEm1BVWYeeFuLQENSd8+whEp1IBAQ=;
-	b=VLte5YlAbnUdF4iBqLCN3YWOfpcP1B97Ru9WoHYHVJI+mI2hwfU/YScZZFDK5jEHROEF
-	 xA2Oe6qGvITuRSWByXWc3cqNpAANiXrD2SzDjl96g+JQ5fpjX5g458NS/zKkVk9w/toTk
-	 oCgbx8i4lrc2qtLEGgyPdlB2kgXpGkCC3dU4UfYrLlCW4V09n7TCR2tPR/tYGx0b5gIXc
-	 e+FSSANaqHw4o+Pf3Vsl19eHDJTvhD9+KLBqNjlpS3zlf2z5zJ5KTWoTjsKz27Xll69dV
-	 H+1PmxvgkRTiVkv0axPkqLqSE6RPVANgFwrtXQoGBPX1c1NLVnEPxddAlKeF1LuF3rA==
+	bh=vtuHy6jvbktSiyM4/wGY117xUnty90W7uRaDmT5Xbw4=;
+	b=g9n1u+FEfPrro5o3Icn3lkoI5zoWoDxMjoNTSGTMRQ8u61TOQvM0/QAaNawinnngQlmI
+	 jILTYQWpQIptyalgIKz+Q9e+f0SH4C77kV6jsssqUpsL0qID8uRrYGBWACPh/73GdrpgE
+	 69pMibfVJe+igH8xnU1mbhCP3rCALjlNpTmVESUalNIJde4qkfh1zxYgXId80pr4cu19g
+	 qtChFQP7kEp9DzFl2R5krUApT/TQyVcsgBbXt9K4RxmLGo9WhdqZZROr3KdQbZKPZ4SOC
+	 Jg+2fhmpfct24q/AYx+k0L6VMHv626Q/bpE5HZOEzuM0tXQqcB4mkwgsDwHAqCfdocg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XsZT/+8g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFoWQqLt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96146606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:15:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812EA606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:15:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XsZT/+8g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C26C1F0089F;
-	Tue, 10 Nov 2026 17:15:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFoWQqLt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9268D1F0089F;
+	Tue, 10 Nov 2026 17:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330923;
-	bh=Mt2VifBso+oyzIMEm1BVWYeeFuLQENSd8+whEp1IBAQ=;
+	s=k20260515; t=1794330952;
+	bh=vtuHy6jvbktSiyM4/wGY117xUnty90W7uRaDmT5Xbw4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XsZT/+8gkhInIPzRR7g8cHFE9zYjBCHFs+h1asRIGJU85xPcTuR2fFP+grvPlUJGi
-	 9vVyaTgsX1tgszok4VTYGcLd/VgoyyDTb8VKZAFZK67UlIiIO0D9wCdKWYBoDA6L5Q
-	 +EcCvv8Kdp4O8bqZ7xwBHUcSechlRwD6LssPK3Q8+AlO5Orw3Xy+RFSUp2FKhxyQ6e
-	 CHr9KGbrw11aIt+IWKtKV3/7vKNfUpI+w2L+BhkpSUcGHZVrqEFHaRHoEEv7bK/7YK
-	 0MiN0HCNxXK032+JEmZKCBo8vZzwRC0FUObr2539t5nyMjlGawyTA3P5g3LM2Zl+Sl
-	 FfoKwrZhJbZ0Q==
+	b=QFoWQqLtNATIUNRzkF+mQ/C35CeIw/ILo9LAgyJjp0Y7HCq9gRs5VRBPRCCMJsPhz
+	 xAXrXeUXdjz6Vtco7DCUIni6q5QuudCA1n1ayurxKlwSvL3zNHewSaZGUD4EAoknPc
+	 MyLgj61/aD3uMIowir/vGK+O8ttiFr5rcSdWX6QSSrrIjpXJw1ta6qZGkW5UmUrQQE
+	 x4oxoP13+Lngb+PvJx21EcBv5TO1YKyk5/k5PENWzzcOISVsChM3UE5yAY4wUuFAMV
+	 NFnZIuVFiMDhnwg8AVjPrTT+TUU14fZ737roXiE9r3uCyO+ym3+KmbzWYH2LtzNPa9
+	 TdMEc/IlrCqLA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tobias Schumacher <ts@linux.ibm.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] s390/pci: Add error cleanup in zpci_directed_irq_init()
-Date: Tue, 10 Nov 2026 12:15:20 -0500
-Message-ID: <20261110171451.2702862-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: mpu401: shut down timer before freeing MPU
+Date: Tue, 10 Nov 2026 12:15:50 -0500
+Message-ID: <20261110171516.2731239-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060527-failed-5.15-769f66f595c1@kernel.org>
-References: <20261107060527-failed-5.15-769f66f595c1@kernel.org>
+In-Reply-To: <20261107060031-failed-5.15-9332af5220d4@kernel.org>
+References: <20261107060031-failed-5.15-9332af5220d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,83 +61,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tobias Schumacher <ts@linux.ibm.com>
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-[ Upstream commit 769f66f595c11185c66913ea5d96420504bfebc3 ]
+[ Upstream commit 9332af5220d42341bb1446a62c545c0518e990ef ]
 
-If per-CPU airq_iv allocation fails in the loop, previously allocated
-vectors and arrays leak. Add proper error path to release all resources
-on failure.
+When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
+input and output with a timer. During raw-MIDI teardown, the timer callback
+can already be running when snd_mpu401_uart_remove_timer() clears the last
+mode bit and calls timer_delete(). That API neither waits for a running
+callback nor prevents it from rearming the timer, and free_irq() does not
+synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
+mpu while the timer callback still uses it.
 
-The error path frees zpci_sbv, but SIC_IRQ_MODE_DIRECT has already
-programmed its address into the hardware. Set the directed interrupt
-mode only after all allocations have succeeded, so a failed init leaves
-no freed memory registered with the hardware.
+Initialize the timer once when the MPU object is created and only rearm it
+while a timer mode is active. Shut it down synchronously after freeing the
+IRQ so an in-flight callback completes before mpu and its resources are
+released.
 
-Fixes: e979ce7bced2 ("s390/pci: provide support for CPU directed interrupts")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-[ sashal: adapted the changes to existing zpci_ibv naming and older s390 allocation and IRQ-control interfaces ]
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: adjusted context for explicit spin_lock_irqsave()/spin_unlock_irqrestore() calls instead of guard-based locking ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/pci/pci_irq.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
-index 3823e159bf749..5281772424e86 100644
---- a/arch/s390/pci/pci_irq.c
-+++ b/arch/s390/pci/pci_irq.c
-@@ -411,15 +411,10 @@ static int __init zpci_directed_irq_init(void)
- 	if (!zpci_sbv)
- 		return -ENOMEM;
+diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
+index f435b9b4ae241..e920a290ba1b6 100644
+--- a/sound/drivers/mpu401/mpu401_uart.c
++++ b/sound/drivers/mpu401/mpu401_uart.c
+@@ -161,14 +161,15 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
  
--	iib.diib.isc = PCI_ISC;
--	iib.diib.nr_cpus = num_possible_cpus();
--	iib.diib.disb_addr = (u64) zpci_sbv->vector;
--	__zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
--
- 	zpci_ibv = kcalloc(num_possible_cpus(), sizeof(*zpci_ibv),
- 			   GFP_KERNEL);
- 	if (!zpci_ibv)
--		return -ENOMEM;
-+		goto out_free_sbv;
- 
- 	for_each_possible_cpu(cpu) {
- 		/*
-@@ -431,13 +426,30 @@ static int __init zpci_directed_irq_init(void)
- 					       AIRQ_IV_CACHELINE |
- 					       (!cpu ? AIRQ_IV_ALLOC : 0));
- 		if (!zpci_ibv[cpu])
--			return -ENOMEM;
-+			goto out_free_ibv;
- 	}
-+
-+	iib.diib.isc = PCI_ISC;
-+	iib.diib.nr_cpus = num_possible_cpus();
-+	iib.diib.disb_addr = (u64) zpci_sbv->vector;
-+	__zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
- 	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
- 
- 	zpci_irq_chip.irq_set_affinity = zpci_set_irq_affinity;
- 
- 	return 0;
-+
-+out_free_ibv:
-+	for_each_possible_cpu(cpu) {
-+		if (zpci_ibv[cpu])
-+			airq_iv_release(zpci_ibv[cpu]);
-+	}
-+	kfree(zpci_ibv);
-+	zpci_ibv = NULL;
-+out_free_sbv:
-+	airq_iv_release(zpci_sbv);
-+	zpci_sbv = NULL;
-+	return -ENOMEM;
+ 	spin_lock_irqsave(&mpu->timer_lock, flags);
+ 	/*mpu->mode |= MPU401_MODE_TIMER;*/
+-	mod_timer(&mpu->timer,  1 + jiffies);
++	if (mpu->timer_invoked)
++		mod_timer(&mpu->timer,  1 + jiffies);
+ 	spin_unlock_irqrestore(&mpu->timer_lock, flags);
+ 	if (mpu->rmidi)
+ 		_snd_mpu401_uart_interrupt(mpu);
  }
  
- static int __init zpci_floating_irq_init(void)
+ /*
+- * initialize the timer callback if not programmed yet
++ * arm the timer if it is not already active
+  */
+ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ {
+@@ -176,7 +177,6 @@ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ 
+ 	spin_lock_irqsave (&mpu->timer_lock, flags);
+ 	if (mpu->timer_invoked == 0) {
+-		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 		mod_timer(&mpu->timer, 1 + jiffies);
+ 	} 
+ 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
+@@ -490,6 +490,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
+ 	struct snd_mpu401 *mpu = rmidi->private_data;
+ 	if (mpu->irq >= 0)
+ 		free_irq(mpu->irq, (void *) mpu);
++	timer_shutdown_sync(&mpu->timer);
+ 	release_and_free_resource(mpu->res);
+ 	kfree(mpu);
+ }
+@@ -544,6 +545,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
+ 	spin_lock_init(&mpu->input_lock);
+ 	spin_lock_init(&mpu->output_lock);
+ 	spin_lock_init(&mpu->timer_lock);
++	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 	mpu->hardware = hardware;
+ 	mpu->irq = -1;
+ 	if (! (info_flags & MPU401_INFO_INTEGRATED)) {
 -- 
 2.53.0
 
