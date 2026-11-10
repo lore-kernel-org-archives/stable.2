@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794341789;
-	b=1eW4J9BumPBVVEGzb0ZjkC89d7HT88OKTrjQaGgNsIGbz//Xakf2HiMQLx1/EkFtbyqz
-	 MmWE00kLwKag3CV8DqzhKm+4o3j3Q2jbjSz65MbGSSz4tbpKC4V/11yp4IfRJ+oEH44DH
-	 jPWUmMZjM2Bu/BS816E+QaqLCGBNJtisq14cf3g37va482acvwwWn5XiO74+kj5jedRiP
-	 zLXtwhkGn6okXxgEf3c82V0882mbLR1SjB/BOkzdye20HeXLKgRQbMAoq0vU5j2JTBxr7
-	 T5mQs8nqvp7O18gBQikrCxrcdcUKhsgMA2Sd3n6ocs2WAPe7NKCUnQ/6hqXWhd7NGgw==
+	t=1794341794;
+	b=fcwrA8yHoxKGEkuelReiGAL82x7jzvqjF2AfyO/X0Kl4+seGtSl9IVV4a27L/GvshP/p
+	 dU7vgKVXY2ekXOxTUJbqv1Y/iTcTkmYH4cytx8r6sE3DmXs07m4iRhrxtrZicydyv+8vu
+	 szughR3ypqA3CdLwC9qFNuIL95YIvXecq1sRQR9aJqqfqVN9hwImDtMPLOLv0buKI5Oe0
+	 ko10aPT2IINGaPlTSDLAhj75xqODYdM3FNRCw7q11loKWJhpzP8rogHUerei1lDM6115J
+	 3V610hp/khE+CQeq1O45LnVyLTrD4FdQvcfG+LeD264hfpdKjNTYo5yu80T53r8BetQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794341789;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794341794;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=whqOxjUeWCaS2TujboeAUWI+1OnmZgKD0Mgj5wHfXuo=;
-	b=AYkHgNSjcSfPsNIOwrdlQ3Vy9gJbsnKoxExXjIfXrbpDJifO2CKqHAinfvutA49UPlK2
-	 ePLFeU/HHisb88ei2c8tfc/Wt8y6gOk6pjvMqhwjUtzYCRhyGUCDPWtgTDncnevOyf8DM
-	 yBQBk2j+Xsv5oxouzZrCWuosoUw9ziNkyfD1JwR7e6Vz8ywx4xUoSRAbm/zCvq/f7TF+J
-	 fRMjaecJaF/ytCugLAuOBtnQJL5i5GKR/0MHOVJKmmARAOoi/5GvkFed0FPoCk4QN7nh/
-	 XLa6ENlpwg/lDG3ea8DH3P8XBk6soH3vyV45hh4gxbzIm7LLM1T7tpGMa39tKJv/Gbg==
+	bh=zO10wKAE4P82VZclOw8qx37lMoJGAPT0t+9u2mDLtvA=;
+	b=Bap/x5NM4Kp4gE7mUtkFskB/gWs75m1UH3dVuOJatu6TSeleDl0plvJ0ncmslLwTUwcY
+	 wO3KsLv8mp/2g/Pzraz8C77P9jmg8vTFzqw33bHAg/46BhOfJLRB9qV6BK5in5oRdAJHH
+	 qJtxQ8PO0ZGGOxpj0WIcSJexcJaIBQZV//gNbaWfNkHNFoz2r9P4tt+AhrvVe1OFH298x
+	 AvKL/E0APLXo75HRv1pPBR1ynx0wqZaiMAOE+oFKeLKqEJVt2juAMjT3m/TQ5UjNe5nMs
+	 Th9JGmccppQPVMpW/5ZAM6G/MXvQnmTgEAXFxNDAuZW9gDRQc844+rCazsCchQtX7NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QjdNvWpN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCooIo3y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686B7606A323
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5986606A325
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QjdNvWpN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82CFD1F008A4;
-	Tue, 10 Nov 2026 20:16:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCooIo3y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67B21F008A5;
+	Tue, 10 Nov 2026 20:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794341789;
-	bh=whqOxjUeWCaS2TujboeAUWI+1OnmZgKD0Mgj5wHfXuo=;
+	s=k20260515; t=1794341793;
+	bh=zO10wKAE4P82VZclOw8qx37lMoJGAPT0t+9u2mDLtvA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QjdNvWpNTGgyLtEzLVIOAoiB6ArcCgEwmeYKqcgvO/qA3Vxi5uK5odZtP2f3h0jeM
-	 LwvZc/JDglJknEDlWu7p8eSZeFfGSGoq2Wd+zVQOGWtP6nycDCAuKPHT9MAhr7Jzdx
-	 qIP9Qngnc5NbyvivgRS0XjahWJAInpjO0rCUuQPkG5weuM0N8atHByLn7T+/wEV5iG
-	 RTy6dYtXzuLsD5KS5Xbi9s0wlOTE596picrq6SzdPc6UPR9Gvj+c+dtXsIhh4ZgQc0
-	 /3c6Dq6pEVToRdwzalnYo4git6cmVrU20KstI0e1Bkk7mmNKsf1hKwpg7iktqW5sr1
-	 tsidb1XypRTZA==
+	b=XCooIo3yHKZ9cRi4tpLrXW4WoU3rTfbj2vRJZdBDUS1b47S0JwDB1dv/3wz0AHyis
+	 ENcXb2eyCKfYRQulgbZsBlpXQx8PDg9qlJni06sPOjczkI7Cy9edP6+BuEsEbpOe5y
+	 Q7yWoWXw794M3ru+SpvQpSR1rblBIN0c5Y7X9iCQm8beDI1VcUvORc6ulLuqYcE7j6
+	 lPvNz3VBEOYoaoYIlFMn10fR/GY85XtyfZ+77AGiOP3zxxvC9GR3oMDuMEy51JB3Tv
+	 9QVymPW2nIS3m7lK7wfKblwhmhxnIgGykwN4uAHlfzMLGL488FDgi0oDd/dT2tVlaB
+	 YcaQv3xtfx4cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chi Zhiling <chizhiling@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Vladyslav Tymoshchuk <tvlad744@gmail.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] exfat: advance valid_size to EOF for append writes
-Date: Tue, 10 Nov 2026 15:16:27 -0500
-Message-ID: <20261110201612.3747230-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
+Date: Tue, 10 Nov 2026 15:16:31 -0500
+Message-ID: <20261110200604.3670083-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052509-failed-6.12-b70ab4075037@kernel.org>
-References: <20261107052509-failed-6.12-b70ab4075037@kernel.org>
+In-Reply-To: <20261107053538-failed-6.6-0ea3e0b196f9@kernel.org>
+References: <20261107053538-failed-6.6-0ea3e0b196f9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,90 +62,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chi Zhiling <chizhiling@kylinos.cn>
+From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
 
-[ Upstream commit b70ab407503706289163dd59f1ac3e942bacc37d ]
+[ Upstream commit 0ea3e0b196f9dcc17b40ac881a6efef06459975b ]
 
-For an append write, the write position is recalculated by
-generic_write_checks(). Therefore, the write position must be obtained
-after generic_write_checks() returns.
+q6apm_dai_pointer() turns the number of period buffers the DSP has
+returned in the current lap, 1..periods, into a position and reports
+one frame less than that. Commit a93dad6f4e6a ("ASoC: q6apm-dai: make
+use of q6apm_get_hw_pointer") added the "- 1" so that the end of the
+ring is not reported as a position equal to the buffer size.
 
-Using the original write position to advance valid_size may cause the
-valid_size update to be skipped, potentially exposing stale data.
+One frame short has a cost once the application stops feeding the
+stream. The DSP returns the last queued buffer and the position stops
+at appl_ptr - 1, so avail stays at buffer_size - 1, below the default
+stop_threshold. The DSP sends nothing more as its queue is empty, so
+no period interrupt comes either: ALSA never detects the underrun and
+the stream stays RUNNING. A poll-driven application that missed its
+last wakeup waits forever, and drain only ends on its timeout, with
+-EIO. On capture, the last frame of each period is held back until
+the next one.
 
-Also move the truncate_pagecache() check below the recalculated
-position, so that pos is never read before it is assigned.
+Before that commit the position wrapped to 0 at the end of the ring.
+Do that again. A full lap is the start of the ring, and
+snd_pcm_update_hw_ptr0() accounts for the wrap: the position cannot
+move by more than one lap between two updates, as each returned buffer
+calls snd_pcm_period_elapsed() and the DSP holds at most periods
+buffers.
 
-Fixes: 11a347fb6cef ("exfat: change to get file size from DataLength")
+Seen on a OnePlus Pad 3 (SM8750) with PipeWire in interrupt-driven
+scheduling: after a stall the PCM sat at hw_ptr 78239, appl_ptr 78240
+(avail 3839 of 3840) for two hours.
+
+Fixes: a93dad6f4e6a ("ASoC: q6apm-dai: make use of q6apm_get_hw_pointer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: moved pos initialization before the existing direct I/O alignment checks ]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261014162703.10172-2-tvlad744@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: adjusted context in q6apm_dai_pointer() because the preceding bytes_to_frames() branch is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/exfat/file.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index 033852efe5dc3..b624dc527f675 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -581,23 +581,18 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	struct file *file = iocb->ki_filp;
- 	struct inode *inode = file_inode(file);
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
--	loff_t pos = iocb->ki_pos;
--	loff_t valid_size;
-+	loff_t pos, valid_size;
+diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
+index 80df749859190..9e22269a8c723 100644
+--- a/sound/soc/qcom/qdsp6/q6apm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
+@@ -440,11 +440,15 @@ static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
+ 	struct q6apm_dai_rtd *prtd = runtime->private_data;
+ 	snd_pcm_uframes_t ptr;
  
- 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
- 		return -EIO;
+-	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) * runtime->period_size;
+-	if (ptr)
+-		return ptr - 1;
++	/*
++	 * The hw pointer counts the period buffers the DSP has returned in
++	 * this lap, 1..periods. A full lap is the start of the ring again:
++	 * report 0 rather than one frame less, so that the position of a
++	 * drained buffer reaches appl_ptr and ALSA sees the underrun.
++	 */
++	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) % runtime->periods;
  
- 	inode_lock(inode);
+-	return 0;
++	return ptr * runtime->period_size;
+ }
  
--	if (pos > i_size_read(inode))
--		truncate_pagecache(inode, i_size_read(inode));
--
--	valid_size = ei->valid_size;
--
- 	ret = generic_write_checks(iocb, iter);
- 	if (ret <= 0)
- 		goto unlock;
- 
-+	pos = iocb->ki_pos;
- 	if (iocb->ki_flags & IOCB_DIRECT) {
- 		unsigned long align = pos | iov_iter_alignment(iter);
- 
-@@ -608,6 +603,10 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 		}
- 	}
- 
-+	if (pos > i_size_read(inode))
-+		truncate_pagecache(inode, i_size_read(inode));
-+
-+	valid_size = ei->valid_size;
- 	if (pos > valid_size) {
- 		ret = exfat_extend_valid_size(file, pos);
- 		if (ret < 0 && ret != -ENOSPC) {
-@@ -617,6 +616,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 		}
- 		if (ret < 0)
- 			goto unlock;
-+
-+		pos = valid_size;
- 	}
- 
- 	ret = __generic_file_write_iter(iocb, iter);
-@@ -625,9 +626,6 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 
- 	inode_unlock(inode);
- 
--	if (pos > valid_size)
--		pos = valid_size;
--
- 	if (iocb->ki_pos > pos) {
- 		ssize_t err = generic_write_sync(iocb, iocb->ki_pos - pos);
- 		if (err < 0)
+ static int q6apm_dai_hw_params(struct snd_soc_component *component,
 -- 
 2.53.0
 
