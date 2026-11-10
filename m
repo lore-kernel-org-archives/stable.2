@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794330021;
-	b=cThmPBovhhqgRcam8kvyLpQ46h949TLaLrw3C0Hrh6VZVzZtut4gVzQinVuULQMnhOTs
-	 aN3DmSJLOpo8CrKmsv76QTgR4iZCMjX9nBS291Uq6q2llg2eZ45+u9deXbRvJ8ju6YGjn
-	 yoJzYlO/zd4CjIWvASsulk6E3pKGeuJrwY7hVXaLTYe4P56jn92ES22uRX/2bqqpTPM7B
-	 rQGWsoM7EAutgzLIjCj3WQSPMKp6anffgiSLgsKG8/8XtPTekJvtXGshijeCApn8Oe0np
-	 Hn5MctXTTFkD8kv65PI6XokEzrNVcHlytqOSOgeVcmOE9QUu/GeJjcwgOq+w5tuelbw==
+	t=1794330039;
+	b=cVqUkGUY/q//y6dM60kZmG5qRmDPf37ozMelvYjv2wKx4N+R6jUfyFpamzq+SfODtcN4
+	 clYe5BKCmINIPF+2wf9G9LdAqjgEZCY3/LHW2FchTy9baKdenSzVnU9WdvslMtSlrx/Zo
+	 ndYLw9pjNS1Z1wpP3KIaMddLxP+sTmQ0o6tECNWeyTqQaJnYFuTPo8I2rg/ZMAtPTtcpu
+	 kA7bXroPpgrmEt+JCrtJYPeHKdlSp/J0urflF9TpKzv1bolcg1NsL4+HT89xdA9huZNjk
+	 fiUhBpgjomjd+2JM5pNNUn2yR4MpoBP9eNe0YYLLVZjM61bf7jXw+tOnSmGSTkl4drg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794330021;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794330039;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SJdyAlpe7uOyioeqvAL0JUb1DNgkIClW8wAcV1nsUOQ=;
-	b=e4UfEXmJ/qVzZF+U3bIWFCEOrBaAZX/IMVh3ERg3lEGbD5L94ZlwHA6Kxj6lcYtxsVYl
-	 Jh7GOcxouNUHqD+cfDLLvzx0rNwySiRZi6fxyM0qW9mdlMGJ0hUpQ2CZxIveGaOTwqdjO
-	 Q2gfzRn8zek2yWt2iGGQDvlROnswCfUIc3QhBuLHfQ1jOb54E0ks6qxqhVnHR7M8KIczF
-	 Gu9bguVs4kjvKr936Z8h1+z4SIghfRDISsolnIKV3sjHWeXgM+4TZZXzreBsAnMfQHcgq
-	 33X0b+wYtceSIZvlje01OLbfsbSTKOORk04cojNzoHGbOL+bE3WWSbaTTe7dIUJVV6g==
+	bh=kH3UcFmrwxkDGAeD2iWgxponZM8SAKQZP8HB8fctwzg=;
+	b=TsBUS1Z3SzSO/9Rm28+/0QL5613iEJABdtS85pUYp7/nfruqkavQCLuVTaVkvZ/YzmnD
+	 6rH+2eo+oSNDP6bwGCD52+45/W9qTKmhhHlES9SyZZsy/qdKEREugLXZYPgmr1tyZAkI9
+	 VSCdAW1xGhJ2wNvb6lqCkk3//LdfQp7m2cvYzoi5tz7WZH7De2N+jzODy785KSz/WEBE9
+	 BawMChlG0La5xIyHVBoi+Mf7iG+436NQ8QHnq5dY4n5Hyr+Isz177Gv0mM8mZHw3egzMO
+	 o8dFHlGSRI956zBCoJOYPty8CveH+c2AmSMbsF4gWdoNo59UsMDSqhxKTBWoAohDFDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8XUbzko;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V/gCCZbd";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66211606A831
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:00:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22472606A338
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O8XUbzko
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92AD91F008A2;
-	Tue, 10 Nov 2026 17:00:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V/gCCZbd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C0D1F0089F;
+	Tue, 10 Nov 2026 17:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794330021;
-	bh=SJdyAlpe7uOyioeqvAL0JUb1DNgkIClW8wAcV1nsUOQ=;
+	s=k20260515; t=1794330038;
+	bh=kH3UcFmrwxkDGAeD2iWgxponZM8SAKQZP8HB8fctwzg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O8XUbzkoDXqvMw1WMy+MOu7gU7bvyJqrb6yYzON6O5g3DHS6om8xtTSlbAyNWZOvI
-	 ys3447lCeeEqz7Std1ddCJgxtfCCjc7BJB3cUVovdnGn6mYN+Dsuh3NT3gDgjje0SB
-	 /HHxa1wR1C3A3zGmd6bHQfZ7nHkVjJxGvLsn6wmtVQWpb4KxFPgeghsHXljRPv3iyc
-	 5pCK9Yii2Ik6KVytcPgwpddOBHAxZjfHbK8yKX5ys3XvM3wUmv/JKJwfgGxgjHWxBL
-	 Q7NaRX225qboKyhp0/irtMZQV/oroddqBh7ou9/hOeoGnycB5URH15UEvltzqchvVB
-	 d1X0vdjawtJ7g==
+	b=V/gCCZbdAtGk0WSSNw3NEq6n/nClPKkhtInJJUe0/9h6ytwu+1q/uqFt377R7dwIb
+	 EO10sgvQ//I5bIy3cI/vteg2C85yMJ23A/lQV+dDFj7kUzRvWX1E5xR8SHJbOrAejA
+	 vCCNYpT6M7crXQv9UG+JesOu3Ui560BeZagu2XMSWZ33wIh7U6r0x3hCf5/+l74poR
+	 mL3Q5F5xTEIBcGQtbvvthDfQOd++Zd1ckjxsh9CBbBZHk6eCcOW/g8YbXTceuBC32F
+	 /v1ompe9ri4mj8GBWvHYdwuJt3kuBvbHE1jsfy2iD5/B0VHiopYjZW3BoRE62HIwsQ
+	 lLE8uDf6feFRA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] xfarray: don't crash when sorting if array element crosses a folio
-Date: Tue, 10 Nov 2026 12:00:19 -0500
-Message-ID: <20261110170005.2607949-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: arm64: Move IN_GUEST_MODE ahead of state being loaded
+Date: Tue, 10 Nov 2026 12:00:37 -0500
+Message-ID: <20261110170016.2611406-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051911-failed-6.12-329750292e9d@kernel.org>
-References: <20261107051911-failed-6.12-329750292e9d@kernel.org>
+In-Reply-To: <20261107060646-failed-5.15-22b6557ad05b@kernel.org>
+References: <20261107060646-failed-5.15-22b6557ad05b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,80 +61,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 329750292e9dfbb594b375d7b30cf5ddb58b7bb9 ]
+[ Upstream commit 22b6557ad05bf05c73246f62c19af3e04017270e ]
 
-LOLLM points out that if an array element crosses a folio boundary,
-xfile_get_folio returns a NULL folio pointer.  If this happens,
-si->folio is also set to NULL, and calling folio_pos/folio_address will
-just crash the kernel.  Teach this function to handle this condition by
-falling back to reading the array element into scratchpad memory.
+IN_GUEST_MODE is advertised too late, when state has already been moved
+onto CPU registers and cannot be observed by another CPU anymore.
 
-Cc: stable@vger.kernel.org # v6.6
-Fixes: cf36f4f64c2d4e ("xfs: cache pages used for xfarray quicksort convergence")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: inlined the upstream helper in xfarray_sort_scan() using folio_pos() + folio_size() instead of folio_next_pos() ]
+Move the IN_GUEST_MODE publication ahead of the state being loaded, and
+immediately check for pending request. This ensures that there is no
+window of opportunity for another CPU to observe OUTSIDE_GUEST_MODE and
+yet for state to be loaded.
+
+This also simplifies the "state rollback", which solely amounts to
+synchronising the timer when no irqchip is present.
+
+Cc: stable@vger.kernel.org
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261015100539.1011760-4-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: Omitted relocation of kvm_pmu_update_vcpu_events() because the helper is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/xfarray.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
+ arch/arm64/kvm/arm.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/fs/xfs/scrub/xfarray.c b/fs/xfs/scrub/xfarray.c
-index ccf7cfb63bbc8..3cf1ab618f2ee 100644
---- a/fs/xfs/scrub/xfarray.c
-+++ b/fs/xfs/scrub/xfarray.c
-@@ -819,7 +819,7 @@ xfarray_sort_scan(
- 	    (idx < si->first_folio_idx || idx > si->last_folio_idx))
- 		xfarray_sort_scan_done(si);
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 6bff7fd323872..a621dd31d9213 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -836,28 +836,31 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
  
--	/* Grab the first folio that backs this array element. */
-+	/* Grab the folio that backs this array element. */
- 	if (!si->folio) {
- 		struct folio	*folio;
- 		loff_t		next_pos;
-@@ -830,6 +830,10 @@ xfarray_sort_scan(
- 			return PTR_ERR(folio);
- 		si->folio = folio;
+ 		local_irq_disable();
  
-+		/* No folio?  Read into the scratchpad. */
-+		if (!si->folio)
-+			goto read_scratchpad;
+-		kvm_vgic_flush_hwstate(vcpu);
+-
+ 		/*
+ 		 * Ensure we set mode to IN_GUEST_MODE after we disable
+ 		 * interrupts and before the final VCPU requests check.
+ 		 * See the comment in kvm_vcpu_exiting_guest_mode() and
+ 		 * Documentation/virt/kvm/vcpu-requests.rst
++		 *
++		 * Requests to self must be posted before this point, or
++		 * won't be taken into account until the next exit. No state
++		 * loading other than what happens at vcpu_load() time can
++		 * be done before we have checked for pending requests.
+ 		 */
+ 		smp_store_mb(vcpu->mode, IN_GUEST_MODE);
+ 
+ 		if (ret <= 0 || kvm_vcpu_exit_request(vcpu, &ret)) {
+-			isb(); /* Ensure work in x_flush_hwstate is committed */
+-			kvm_pmu_sync_hwstate(vcpu);
+ 			if (static_branch_unlikely(&userspace_irqchip_in_use))
+ 				kvm_timer_sync_user(vcpu);
+-			kvm_vgic_sync_hwstate(vcpu);
+ 			smp_store_release(&vcpu->mode, OUTSIDE_GUEST_MODE);
+ 			local_irq_enable();
+ 			preempt_enable();
+ 			continue;
+ 		}
+ 
++		/* From here onwards, we are commited to entering the guest */
++		kvm_vgic_flush_hwstate(vcpu);
 +
- 		si->first_folio_idx = xfarray_idx(si->array,
- 				folio_pos(si->folio) + si->array->obj_size - 1);
+ 		kvm_arm_setup_debug(vcpu);
  
-@@ -838,14 +842,24 @@ xfarray_sort_scan(
- 		if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
- 			si->last_folio_idx--;
- 
-+		/*
-+		 * If this folio still doesn't cover the desired element, it must
-+		 * cross a folio boundary.  Read into the scratchpad.
-+		 */
-+		if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
-+			xfarray_sort_scan_done(si);
-+			goto read_scratchpad;
-+		}
-+
- 		trace_xfarray_sort_scan(si, idx);
- 	}
- 
-+read_scratchpad:
- 	/*
--	 * If this folio still doesn't cover the desired element, it must cross
--	 * a folio boundary.  Read into the scratchpad and we're done.
-+	 * If we don't have a folio mapping the entire array element, read into
-+	 * the scratchpad and we're done.
- 	 */
--	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
-+	if (!si->folio) {
- 		void		*temp = xfarray_scratch(si->array);
- 
- 		error = xfile_load(si->array->xfile, temp, si->array->obj_size,
+ 		/**************************************************************
 -- 
 2.53.0
 
