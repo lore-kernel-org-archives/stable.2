@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273472;
-	b=JoQWevZXKSUJ8IRzc3VyVt7J0rI7GvfS/oDfZgmuREJH8R8D/u8nF/Toxjwdm7yvlFEZ
-	 sBSHdxXkTrxbduY1OvgNxtvbhkMfyymB5Ud0VWMf14HObDVhEg3djXd5nQUP+NI8AmIzQ
-	 xiB4e8+gRAgYiCJXfG9E9vRR1Kf5WbV+53nFa7csVezLSbDETZyi9pbn+PYhD1ejgUAfw
-	 LIyo2Lwqb7WLaSnlXSNU321A152bQWAiWgeGZb9z4v4/kdmQGIfHSdVDF0PUmi26xjrjL
-	 KB1XD4qOtYlammX52m1l/5nY49+kVyKUxK9DA4WTfyhAFEpg/UjjMQ/d+6PAb7BGF0Q==
+	t=1794273475;
+	b=0m/Z2jq82K66mntsaMq125hpuZKj8VfNUXQvUTufzMoXvJXhiaP2lhOJtqDqma4ywnFg
+	 ETePHAEnVzngnMfQ2y+JAuzKcZdy9+LVQj9KzplreyBwFcTMMkncwMlNrNZhLoD8W2F6w
+	 c1B7l0j+Zl7CUPsZ9hRtebKkIrNidcJ0jyaiONtd+KXaH34/2q60Q+wVDSViqZDey/aXc
+	 +7Z3qgOVEwezwjJ+2dUPBG2B/CArYSrxs/PkWgjCa2QVpv8oF2WnPMlyTDZHH9bhEmOVX
+	 hFyCFn5zE+7Eg3OyeDX/SfZw+J53TeEmtLqYLFnJ67X+Q0vr5+UgvnTjq5t7vWH+5XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273472;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273475;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GSOb8J8+VZLBfphFf3wdGrVZapPtjKk9pFJYhjLsX+c=;
-	b=QfZryIr0GIxZSFd6lTgoB/8FLEX4/rHzCc8JND++nEB0MWAr3BXbjuIYTTPUdimU6YfS
-	 /IxoIs46hBEOIwRpgGToNmibtyhE3PTjnbo5dqMC4qZtj45zwGDh/q2u7/YwPtrAGTRH2
-	 fCTkXBUKlhxBGw8YXj91j0T/7tbkmdXCoZw/2YfqgKSK6LlbZLusi2KGFmIkOXKLEZ8KI
-	 J3ialffmc3m+BrcZYk9FbTgYepF27ScYHlSYWgBF5eMRrXhtpNLqecyhzGMqipohdXjFD
-	 0eRlnetiukirqYdY36FInCt4t2H0fXCwJb7/8lkZ6gH9c9fiOVSJDYO4SYYp/ew/2xg==
+	bh=IkI4kAgbZBg2Ya8qm1x4oQHd4qgANVhRN8oRUHojMG4=;
+	b=SJZA+U4F80DHFyCSd2DfaZCkw4CWwOybzCIpJKTeXTgkxMbGrS9P2cLLHKe076wlw/sw
+	 QM6qzGlHF/XArVMvItSSKDBBnl082wq+LHzYLZBpbfXs/tsetC3cNMoNCVsJbLin5G3pc
+	 CrNq/zqMvrAuXFGL2UrW35yOdczKVLQ+NraGAXTqQ0IDmNkVRUxpXXAZA8WVsWA+UUxn0
+	 R1kn0FGkvR52PlFGlt6bBNJHwQt+yBnrUnoVKG/+wXLhsGcuH3SSegdB9DXEPznPM1W7u
+	 zrOmNpArqoZ/kW+tQoBzXKvgbYwOk3gu2qrfu4auPy5zDTFoUTPV7knRCy8tapDwozA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ashA6Q8f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfpfSQyc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4EF606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1CC606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:17:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ashA6Q8f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB121F0089F;
-	Tue, 10 Nov 2026 01:17:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dfpfSQyc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2942A1F0089F;
+	Tue, 10 Nov 2026 01:17:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273472;
-	bh=GSOb8J8+VZLBfphFf3wdGrVZapPtjKk9pFJYhjLsX+c=;
+	s=k20260515; t=1794273474;
+	bh=IkI4kAgbZBg2Ya8qm1x4oQHd4qgANVhRN8oRUHojMG4=;
 	h=From:To:Cc:Subject:Date;
-	b=ashA6Q8fOTUsX7B6vBgZm/5GtcIF+GDwmBFyxT1nNQMfa+ox3es/Xl9Fk+L1jB6KN
-	 5nQZ+I0ZLbCS0WCsHT2jCtdLeXdZroQZDPVMap6CpaoeGd9UnGD49KX9r7wEiwgmh4
-	 o9mKL2bMYwkyZ00cr/0jfk+IwLT7TpigwfHGikyH0yb1BopTVHjisEFlmk5XLnpkdy
-	 5e7Nulzg4wBEOfeVolqFmFxHjhsPiB3RV2Dbjs4FqmnB9CNWT01EEsxSyvr/ZkyBGU
-	 VMyyWTKI7lCCT3C0DlAvJBQVHRAY1+N1EQLGB2+KWL/iynf4oy/E67y3lCPyES8StN
-	 ft9Wz5EI5Sd3A==
+	b=dfpfSQycJmV43cH1xI0kawezIRXuzkKlog5XYA558rH5LauwAMzVAS5qSANEmSaMl
+	 OC1YYoKN7lCokYEv8JT45yRjowvRojqHLeyzlw0nDOL9ECDOlQ1z90JaLQdgVbzN4U
+	 BipXKJF87rySZNoEcf/cB2WD12TxWsE5zVkSTYSS6gmSGEQyG4M0DEiRiqkJ5GkfFK
+	 f3693dTSlz32lgGjotza1BltGRPsJiSmOPfA0p3Xko0bc3uBzpd/oFyMyJcS8AniXG
+	 /KUyszimw1O8UBVXatFWZTGpOGTTuFGxUIyCGMQptqYYI4CJebDZyPfO6M25xeEaBX
+	 FmZn7pkOADp/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	ebiggers@kernel.org,
-	hch@lst.de,
+To: cong.zhang@oss.qualcomm.com,
+	jasowangio@gmail.com,
+	stefanha@redhat.com,
 	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] blk-mq: end the request if getting a keyslot fails" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:17:50 -0500
-Message-ID: <20261109201750-failed-6.1-e67cb6ed40e7@kernel.org>
+Subject: FAILED: patch "[PATCH] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:17:53 -0500
+Message-ID: <20261109201753-failed-6.1-6c6dec7883f8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,72 +70,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a
+git cherry-pick -x 6c6dec7883f8eb10b326bc9d109a4990c885d949
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201750-failed-6.1-e67cb6ed40e7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201753-failed-6.1-6c6dec7883f8@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e67cb6ed40e7f45912b63d7d575f18dfd2ebc98a Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 29 Oct 2026 20:01:10 +0000
-Subject: [PATCH] blk-mq: end the request if getting a keyslot fails
+From 6c6dec7883f8eb10b326bc9d109a4990c885d949 Mon Sep 17 00:00:00 2001
+From: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 18:32:21 +0800
+Subject: [PATCH] virtio_blk: use synchronous quiesce in virtblk_freeze_priv()
 
-When blk_crypto_rq_get_keyslot() fails, blk_mq_submit_bio() ends the bio
-by hand and frees the request. By then blk_mq_bio_to_request() has done
-the IO accounting, which blk_mq_free_request() doesn't undo, so the
-in_flight counter never drops and iostat shows a device that is 100%
-busy. If the bio went through zone write plugging the zone stays plugged
-as well, and every later write to it waits forever.
+blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+while the flag is clear. It can then be preempted before it gets a
+request. At that time, it has no queue usage reference, so
+blk_mq_freeze_queue() does not wait for it.
 
-Use blk_mq_end_request() like the dispatch path does for a request the
-driver rejected, after marking it for zone write plugging.
+virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+dispatcher can run again, use its old flag check, get the new request,
+and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+reset the device, delete the virtqueues, and free vblk->vqs. The old
+dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+kernel can crash.
 
-Move the call to blk_zone_write_plug_init_request() before
-blk_crypto_rq_get_keyslot() so that it doesn't need to be duplicated.
-It doesn't depend on the keyslot.
+Fix this by using blk_mq_quiesce_queue(), which waits for dispatch code
+that was already running. Keep the existing freeze and unfreeze order.
+The queue remains quiesced until virtblk_restore_priv() calls
+blk_mq_unquiesce_queue().
 
-Fixes: 99dc422335d8 ("block: support to account io_ticks precisely")
-Fixes: dd291d77cc90 ("block: Introduce zone write plugging")
+Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20261029200110.1328103-1-ebiggers@kernel.org
+Acked-by: Jason Wang <jasowangio@gmail.com>
+Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Link: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
+Link: https://patch.msgid.link/20261103-virtblk_sync_quiesce-v3-1-f40233f9bdd9@oss.qualcomm.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- block/blk-mq.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/block/virtio_blk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index d9ab295be4d92..e5b9898cede98 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -3209,16 +3209,15 @@ void blk_mq_submit_bio(struct bio *bio)
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index c8bfbf8435ac7..10ba8b0b863b8 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1596,7 +1596,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
  
- 	blk_mq_bio_to_request(rq, bio, nr_segs);
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+-	blk_mq_quiesce_queue_nowait(q);
++	blk_mq_quiesce_queue(q);
+ 	blk_mq_unfreeze_queue(q, memflags);
  
-+	if (bio_zone_write_plugging(bio))
-+		blk_zone_write_plug_init_request(rq);
-+
- 	ret = blk_crypto_rq_get_keyslot(rq);
- 	if (ret != BLK_STS_OK) {
--		bio_endio_status(bio, ret);
--		blk_mq_free_request(rq);
-+		blk_mq_end_request(rq, ret);
- 		return;
- 	}
- 
--	if (bio_zone_write_plugging(bio))
--		blk_zone_write_plug_init_request(rq);
--
- 	if (op_is_flush(bio->bi_opf) && blk_insert_flush(rq))
- 		return;
- 
+ 	/* Ensure we don't receive any more interrupts */
 -- 
 2.53.0
 
