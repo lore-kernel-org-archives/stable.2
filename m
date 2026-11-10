@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794342502;
-	b=S1vViv6I5ouohDYoogeu5QZbLZwcGO9P1/3WBZM3xGemU31YHQh13lOM75/QWnAFHy1U
-	 MuEVEW4VRvWkF0eiE6kQu+k16i1ZhMDRVzrLDNu9VOzmuCGNuVdFCoVdG0pkOycDQZhmN
-	 uIw4L1KDoLIMjWXtcjeu7+0IEk9VJlAKjE4QWiOyXSjIvAe7JZnVPVeeYMEPtIQjcuWrh
-	 94LxN6aSCLJoziylHiu+GJ6PrA2KwF5Pfbu5XBWQtFmM733KzmBg90QNlD+X6ektdwQkC
-	 NDpXLEpdhY8OLoBHhMokX2t23Vegmt90yb3SE62miVxoOC06BYoGKpNiSZhv5hhudHw==
+	t=1794342524;
+	b=io13Cj7pQhD60QXDBgnv3Ch9CXzzt+QWs2oC48q1mVJsXZXQ3VoMvYeEgDKY5eDatIcz
+	 EB64WGjxd04OHBEKmyh2OPzCiiXHX7nk/F4xvRp7A1WqBDUPW3kc+Carjb0ScjG5sNbMG
+	 2zxg1qmdM6cl4DShzB/0OF/e2uAgnKzC7/L+BMrYdp9VtMVxHFELrw2j2MPj94ErmbgPX
+	 gxhk6gxv6ogyS6o9KVdvWRXssXsS3M54gZQnUJ5wp44QXziOAQgf9ZTXcbvk4t9yzH0Jw
+	 pam5X/pxavWHPF7OIth393MbRY3BMJTnAFbEyz9bS4NhXxE6DcqCNqbvbuVnOvIAVFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794342502;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=ZIYDZloriPMk7SgdWjx1Bnwqinw66Jn4lozpHN9Yguo=;
-	b=ukG1ZM2CRUvQWeaCL2FsXeC7A7o/yItEseYrJAwuOtaXc56v8ssVK+/y+jIblESp2h+c
-	 Ausbp2IRx1hyfsq6gTfvoqhd5zEdEUQuUZuvXcgKz2jMyaOhpGd/YkNXADnYNTPN8hxEN
-	 wQkrU4XaUEy2Q9Ny7KZ1vF0AQBDN6fypND1VkBGUtTJYVoXtqKk4MDIg6ncr8QoS5Y2Ux
-	 /AGVG1chori/niL39kPVyCoKw1yNfxwe6IZTmXKtcdoY4ioPF7bFyRNBDybZ3Q8lVigpv
-	 oyxu88nm0qM5enbVjeVxQdPBF9p5bWDBeY4Owb5bxUXOB16ZlO7TDKjUArBHElmlX3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794342524;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=O9+07kQ5qMDcMJJwDIRuYbfPBV95MmmanwGcaycIOCI=;
+	b=gYYZwaezc1TD7eErtoyrmx3I9hdnh9FOiJaqbFvHcc1Y+wIPxHOGtg1J67mQyxCEFIFF
+	 cFGWIeSXjXv8Vb1Kdj1vNAt9Vjei7Cq4S+dNcZbQIm1efeXP8PjJ2imQdrmHghfjvF5KH
+	 2yIiqfrMhrMo+ErAb4X1OA4W4OuEp4pwTFdtVJfChxj3vPH2jGUwpznV9nEPYE/RbrMnQ
+	 QCRrH/kOvVa2+eFJj3pqIvdCODpgY5QlgLtJuuqTiiVlFrOR6y3mlFxF8QpQ7pV5UQXPR
+	 rvjUqVy1YGm8nJQ5XEKlJ5sA5W4za80t03lQyPKUUDDiBrXEkGQ6HRCI3DWu0CAMU7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=YPc9tNKW;
-	arc=none smtp.remote-ip=45.157.188.14
-Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHGesRXl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C21606A8A5
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7C21606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78932606A31C;
+	Tue, 10 Nov 2026 20:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=YPc9tNKW
-Received: from smtp-4-0001 (unknown [IPv6:2001:1600:7:10::a6c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jPJBV6X0WzJF3;
-	Tue, 10 Nov 2026 21:28:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794342498;
-	bh=ZIYDZloriPMk7SgdWjx1Bnwqinw66Jn4lozpHN9Yguo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YPc9tNKW7xsY1BBIeO1Cx5gpjT8dSyxOPcUoTyR3lQDDcPDtVTR8TSQq+SMwntDEx
-	 DV2HHv0sJNe+e6CXO+qh2LMm4iAuiUXrlpfDSCBmcX1Qy6pyFAMvVv09uuY07TuoqV
-	 tTZWl4MSLaXOe+d4EfRjyTTF9kWTYzbJUTL7aJJ0=
-Received: from unknown by smtp-4-0001 (Postfix) with ESMTPA id 4jPJBT3nv1z4Nc;
-	Tue, 10 Nov 2026 21:28:17 +0100 (CET)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: James Morris <jmorris@namei.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Serge Hallyn <serge@hallyn.com>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Ada Smith <adasmithgt@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	John Johansen <john.johansen@canonical.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	apparmor@lists.ubuntu.com,
-	bpf@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] capabilities: Check PR_SET_SECUREBITS with ns_capable()
-Date: Tue, 10 Nov 2026 21:28:06 +0100
-Message-ID: <20261110202811.2409395-2-mic@digikod.net>
-In-Reply-To: <20261110202811.2409395-1-mic@digikod.net>
-References: <20261110202811.2409395-1-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QHGesRXl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702D41F0089F;
+	Tue, 10 Nov 2026 20:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794342524;
+	bh=O9+07kQ5qMDcMJJwDIRuYbfPBV95MmmanwGcaycIOCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QHGesRXlG6F6bPtprtn7q92Ptm3oVG9KKpU+TmXM8ZMqt0OVGChOvCvMwH9IM/bnF
+	 bMLWk2MR+BTPpcJAUpw1eklVsv2ZABw39haSewYv74D93sZSWefdpWRmWGfmrYH2tg
+	 dR5OBG/JyccESjv3pJtzxdXhKiXAhWmNW5ahMyBPP2im0r8YWckA682WKF8MSGmGYz
+	 ty4M7j+4ckNf/C/SPG/rCg3BbRxAafmFQtTP+7m5BSz07sjMqZ0Wn8XOkHmjgC2LmL
+	 YSWaESImoDLaqcCNqWl3hAWuC8G/cJ0klFY6x6aPw1d/qm9eudGlZMsIL9VJGpzsKN
+	 js6ofCoxAT94g==
+Date: Wed, 11 Nov 2026 07:28:35 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	"Darrick J . Wong" <djwong@kernel.org>, sparclinux@vger.kernel.org,
+	Jan Engelhardt <jengelh@inai.de>, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: read rmapbt high key offsets with get_unaligned()
+ in scrub
+Message-ID: <avN-c2otlYfqEQ--@dread>
+References: <20261109134853.1659991-1-stian@itx.no>
+ <avI9zGQRG_kh0l2w@dread>
+ <a69cd8605f2011f348c895a8d892463879f76823.camel@itx.no>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,111 +61,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+In-Reply-To: <a69cd8605f2011f348c895a8d892463879f76823.camel@itx.no>
 
-Per-process securebits were introduced with a direct cap_capable() check
-for CAP_SETPCAP.  The capable LSM hook and SELinux capability policy
-already existed, and SELinux forwarded task_prctl operations to
-commoncap.  The direct call therefore bypassed SELinux policy from the
-start.  It now also bypasses AppArmor, Landlock, and BPF LSM programs
-attached to the capable hook.
+On Tue, Nov 10, 2026 at 09:33:46AM +0100, Stian Halseth wrote:
+> Hi Dave,
+> 
+> On Tue, 2026-11-10 at 08:40 +1100, Dave Chinner wrote:
+> > 
+> > That just looks wrong to begin with. Decoding an on-disk structure
+> > without using be64_to_cpu() to get it in the correct endian order
+> > first?
+> > 
+> > Oh... the code plays "I'm too smart for my own good" micro-
+> > optimisation games by endian swapping the badflag variable to avoid
+> > needing to endian swap the rm_offset field.
+> > 
+> > It seems to me that the correct fix here is to stop endian swapping
+> > the badflag variable, and endian swap the rmap.rm_offset fetches for
+> > both the low key and high keys, like all the other places that
+> > dereference rmap.rm_offset direct from pointers returned by
+> > xfs_btree_key_addr()/xfs_btree_high_key_addr().
+> > 
+> 
+> Thanks, I've looked a bit deeper than my one-line fix, based on your
+> feedback.
+> 
+> Yes, we can remove badflag. be64_to_cpu() alone doesn't fix the
+> trap, though, since it's a no-op on big-endian. gcc still reads
+> hkey->rmap.rm_offset with the same 8-byte ldx. I tried it on my
+> T4-1 and the fault count didn't change.
+> 
+> The other places get away with it because they go through a
+> struct xfs_rmap_key pointer first (kp = &key->rmap in
+> xfs_rmapbt_cmp_key_with_cur() and xfs_rmapbt_cmp_two_keys()), and since
+> that struct is packed gcc uses byte loads.
 
-A task with CAP_SETPCAP in its effective set can consequently change
-privileged securebits despite an LSM denial.  This can alter how its
-capabilities evolve across UID and execution transitions without the
-expected LSM denial or audit record.
+Ah, that explains why those work without issue - that's the bit I
+missed.
 
-Use ns_capable(), as cap_prctl_drop() already does for PR_CAPBSET_DROP.
-Call it only for a no-op, which requires privilege for legacy reasons,
-or when a privileged bit changes.  Changes limited to
-SECURE_ALL_UNPRIVILEGED and their lock bits do not need the capability,
-so they must not invoke an LSM check or set PF_SUPERPRIV.  Successful
-privileged checks now set PF_SUPERPRIV, as other ns_capable() callers
-do.  Without other LSMs, the same requests remain allowed as before.
+> I suggest we do the the same here, with be64_to_cpu() and no badflag.
+> That gets the faults to zero on�the T4-1. Can send that as a v2 later,
+> if no one disagree with that approach.
 
-The check now reaches every capable hook before commoncap commits the
-new credentials.  A later task_prctl hook cannot provide equivalent
-mediation because commoncap runs first and commits the change itself.
+It sounds like the right approach to me.
 
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Günther Noack <gnoack@google.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: John Johansen <john.johansen@canonical.com>
-Cc: KP Singh <kpsingh@kernel.org>
-Cc: Matt Bobrowski <matt@bobrowski.net>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Serge Hallyn <serge@hallyn.com>
-Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: stable@vger.kernel.org
-Reported-by: Ada Smith <adasmithgt@gmail.com>
-Fixes: 3898b1b4ebff ("capabilities: implement per-process securebits")
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
----
- security/commoncap.c | 42 ++++++++++++++++++++----------------------
- 1 file changed, 20 insertions(+), 22 deletions(-)
-
-diff --git a/security/commoncap.c b/security/commoncap.c
-index d47ab3022343..1947128396e2 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -1283,6 +1283,23 @@ static int cap_prctl_drop(unsigned long cap)
- 	return commit_creds(new);
- }
- 
-+/*
-+ * Doing anything with securebits requires privilege (go read about the
-+ * "sendmail capabilities bug"), except for unprivileged bits.  Indeed, the
-+ * SECURE_ALL_UNPRIVILEGED bits are not restrictions enforced by the kernel but
-+ * by user space on itself.  For legacy reasons, a non-change requires
-+ * privilege too.  Only checking CAP_SETPCAP when it is needed keeps LSMs from
-+ * seeing (and logging) a capability check for unprivileged changes.
-+ */
-+static bool securebits_need_setpcap(unsigned long old, unsigned long new)
-+{
-+	const unsigned long unpriv_and_locks = SECURE_ALL_UNPRIVILEGED |
-+					       SECURE_ALL_UNPRIVILEGED << 1;
-+	const unsigned long changed = old ^ new;
-+
-+	return !changed || (changed & ~unpriv_and_locks);
-+}
-+
- /**
-  * cap_task_prctl - Implement process control functions for this security module
-  * @option: The process control function requested
-@@ -1346,28 +1363,9 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
- 			/* cannot change a locked bit */
- 			return -EPERM;
- 
--		/*
--		 * Doing anything requires privilege (go read about the
--		 * "sendmail capabilities bug"), except for unprivileged bits.
--		 * Indeed, the SECURE_ALL_UNPRIVILEGED bits are not
--		 * restrictions enforced by the kernel but by user space on
--		 * itself.
--		 */
--		if (cap_capable(current_cred(), current_cred()->user_ns,
--				CAP_SETPCAP, CAP_OPT_NONE) != 0) {
--			const unsigned long unpriv_and_locks =
--				SECURE_ALL_UNPRIVILEGED |
--				SECURE_ALL_UNPRIVILEGED << 1;
--			const unsigned long changed = old->securebits ^ arg2;
--
--			/* For legacy reason, denies non-change. */
--			if (!changed)
--				return -EPERM;
--
--			/* Denies privileged changes. */
--			if (changed & ~unpriv_and_locks)
--				return -EPERM;
--		}
-+		if (securebits_need_setpcap(old->securebits, arg2) &&
-+		    !ns_capable(current_user_ns(), CAP_SETPCAP))
-+			return -EPERM;
- 
- 		new = prepare_creds();
- 		if (!new)
+-Dave.
 -- 
-2.56.0
-
+Dave Chinner
+dgc@kernel.org
