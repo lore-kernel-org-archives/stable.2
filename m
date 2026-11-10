@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794316001;
-	b=Gn7Uhe5WgWc+Wg5MY6pAfs6RYKmnKi8G8S569uME/Kc/s09lQPbApfAXNqGM7d2U1Fhl
-	 kEka9RX1akydx68pWn54fulg7KsobTdm8Yg3U6ERtfJ07o9yirfAuqjwBAoztnTk43i+L
-	 7Rtsk21kCEXm8IT7scQC+bOnh/ubh4z5eVp+gjBXTMH5JIAzxrrDipCyW/FMrzthBS7HU
-	 2lcDDxMGxWIrKCH1Yqhasva4hZeFgMI+kYThTOILawiPQzJIBtiHuAwgq/5jY+BbWzrE1
-	 kx6G1w4FOXJ6OZOwfGC39CHJzK/hLvkaxVJvsS/juO54rtWiqBySPhnRxKfglxLfR9Q==
+	t=1794316029;
+	b=qGZ2bf+uZrzPI4w/z9ISPK3oyH8jhGbzYu/u2O1hov6acGqYlPmglHIBgxNMg6N7rqrp
+	 we1biYSnqEISPF3oMy5F9YWCNW7SFD23Gn1ps/HyjY3iv6e26Rv/AYvkjj+NaLPQWObSO
+	 ePiV5qT8If2z7UpMemFkbpSOIND+k2Ob0JAHksXXhxGjUPQggHs4+8x0vWCOzxVvrKvTQ
+	 zr0WGx73iqO1M2BprUxh2YnZnU4kL51KKdImDhWk9vN6Nbh7chXB8PKXHyJRZWcSvZLUY
+	 NTUhfIBNN2UY63GadYyLJQKTjidBAebcESeWmXn/wsPIE2zhzVj7j6C7OtMRPWMS7VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794316001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794316029;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SDk9MkejWB4hYtIgxjFuxypFzhH78m677nIxzRqBbqU=;
-	b=G5FR0VMAj3OTxzLUUBbRwreHS2ZGPXWKDySw6S20AuBUBHGAJUNyF2q0NNVflyfdeStW
-	 u8BCNCw1fajuXA65bcbVGHFDSpNDCzH5VcaVgLnFycRXdlMQ4oQYTmW+p801owR0OJoHw
-	 d6ohYQduEy/4C5+Y1D8te39Z0uBR3DjeTTaBRswBxBBtryFPd+BjNqw4xbEMCljMqevlo
-	 91PLIgUdSxoS3jxlU9hW6czSP0+114bLwGCZaFNMQbF6vScYoGdWwSkFj2un5/rCSXLMY
-	 c+DUhMoNp2lMAo/O7YKQvqmD3wOArDLPAbXL8U59xVP/ewI0bD2MIMVW16leRI0f0mg==
+	bh=zPARzp3ijAZvsXvFPW/SzpwF7CrW5vg7p7oo+aie1Hk=;
+	b=bxgiNv+/dkU1dSIP79PfFql2QTKkP+ttDvC9sCe/43BGn2C5qfVUjnizhMN3rKEGIcc8
+	 FpzrwbQtN1K0KavPnVBe5TN90InbdjEXzsi+dEPYUXkeUAnnwI8DiTpN6BK9/poqChqIq
+	 zn/RKAMzbyTAD73GSTKN3Ebepp6qXUh9rTi6ml40lxw53IkDPIdni+j/4ZNMq4KreuUC2
+	 IeykcUNrywLzNDfx9+qIX3mDLMya8TyLcKBzmkC/NpM2LfVaxQfAa5XRXEMYEGuF2mkrO
+	 5VaLvhgCy8qRzJAjuH1gM5r2gzQQaVvM+0GtDIgUtL5noJ2P4DiSSYdmPElAeefZwIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwMWoKah;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTeFptdW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11E6606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461D5606BFE1
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 13:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwMWoKah
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9609F1F008A3;
-	Tue, 10 Nov 2026 13:06:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTeFptdW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493B61F0089F;
+	Tue, 10 Nov 2026 13:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794316000;
-	bh=SDk9MkejWB4hYtIgxjFuxypFzhH78m677nIxzRqBbqU=;
+	s=k20260515; t=1794316028;
+	bh=zPARzp3ijAZvsXvFPW/SzpwF7CrW5vg7p7oo+aie1Hk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GwMWoKah5kIpp9KxuTnmpSOnVU4uS9WQOq1+gOgMzTXFQ5cPoBRZleTDGY8Ij5C9H
-	 BzdEqmBP4AwrjY8rwRySyNKBWPzhAhUytAEQrQuqfZapVHFrPmiQRkGXf8bboUm93B
-	 2Q59RAX8MvKPb7u55TkRRCQvCQDnoGwiMYG9Q5YoGRY5KXPh0e9JsWM06r5NLV/wMY
-	 BK1q8W1kdPhCRirzLvrR7Jc65kNL5s/tIGhDAvaApQ77jicSGGI0pz44/Yp6AfBDTE
-	 2wVoWHCorYGhEPmiG9zoMImwM7tWfRX0MQuqaL4/qZvQ9MmGtjfTaf/iOky5+q3mvL
-	 fGoRdB9atz+bg==
+	b=LTeFptdWvr20gVPhdVFSGhmggD8jRA4uoxKrQIacVJ0w5PFpugnkHSPzHJZ1fVu5e
+	 hclTFGCuqSBjRNDgRi9pdc9aP1Mx80pRhB7jl8GSIddHKd6kuvavvWMjjMn8xdLpF9
+	 FPKYbfdCXJNSFKPjvKYVyMV/19hPT+3+yUz3DWi8KJ6gmsM8ikmIq8CZrwcUlQA56W
+	 5q1u9BFaM/R4ar/iLKR0Pj/CeXTWkenWK06cpWMZW7kyJJFZ2kuiXpjxAeBwD57HKi
+	 KzpwhboF2qEQ00lTzStDILfgYSuj9uVD4JQAsHoCPYmGMOOMzpmFw7FpdEZ5iRQEsa
+	 YoqaNO1mRv5aA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiaming Zhang <r772577952@gmail.com>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] gfs2: reject invalid inode sizes
-Date: Tue, 10 Nov 2026 08:06:38 -0500
-Message-ID: <20261110130614.1622849-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: fix to check continuousness in f2fs_sync_meta_pages() correctly
+Date: Tue, 10 Nov 2026 08:07:06 -0500
+Message-ID: <20261110130655.1622252-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061535-failed-5.10-33ed0a0567e0@kernel.org>
-References: <20261107061535-failed-5.10-33ed0a0567e0@kernel.org>
+In-Reply-To: <20261107050401-failed-7.3-1383cff4ccf3@kernel.org>
+References: <20261107050401-failed-7.3-1383cff4ccf3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,72 +62,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiaming Zhang <r772577952@gmail.com>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 33ed0a0567e0abe66ea65e89dad2e35082890fbe ]
+[ Upstream commit 1383cff4ccf3c8833c6255edffa29eb67c6419bb ]
 
-A corrupted GFS2 image can store a dinode size that is larger than what VFS
-i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
-writes it directly into inode->i_size. If the value is larger than S64_MAX, the
-incore i_size becomes negative. That negative value can bypass the existing
-stuffed inode size check:
+In f2fs_sync_meta_pages(), whenever i becomes zero inside while loop,
+below check may be skipped, it failed to check the continuousness:
 
-inode->i_size > gfs2_max_stuffed_size(ip)
+	if (nr_to_write != LONG_MAX && i != 0 &&
+		folio->index != prev +
+		folio_nr_pages(fbatch.folios[i-1])) {
 
-Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
-gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
-passes it to memcpy(), turning it into a huge copy size and triggering a
-out-of-bound issue.
-
-Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
-inode->i_size. Also make the stuffed inode check use the raw on-disk size while
-it is still unsigned.
-
-Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5-xhigh
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
-[ sashal: Adapted gfs2_dinode_in() to use ip->i_inode and the shared corrupt label instead of a local inode pointer and inline error returns. ]
+Cc: stable@kernel.org
+Fixes: 580e7a492608 ("f2fs: convert f2fs_sync_meta_pages() to use filemap_get_folios_tag()")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adapted f2fs_sync_meta_caches() changes to folio-based f2fs_sync_meta_pages(), using folio_nr_pages() to advance the expected index ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/gfs2/glops.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ fs/f2fs/checkpoint.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index a4050468feccb..8e2d3b1f566d4 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -410,6 +410,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	const struct gfs2_dinode *str = buf;
- 	struct timespec64 atime;
- 	u16 height, depth;
-+	u64 size;
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 4b59f30ef45d5..fd758a98b355d 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -610,7 +610,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+ 				enum iostat_type io_type)
+ {
+ 	struct address_space *mapping = META_MAPPING(sbi);
+-	pgoff_t index = 0, prev = ULONG_MAX;
++	pgoff_t index = 0, next = ULONG_MAX;
+ 	struct folio_batch fbatch;
+ 	long nwritten = 0;
+ 	int nr_folios;
+@@ -629,9 +629,8 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+ 		for (i = 0; i < nr_folios; i++) {
+ 			struct folio *folio = fbatch.folios[i];
  
- 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr)))
- 		goto corrupt;
-@@ -427,7 +428,10 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	i_uid_write(&ip->i_inode, be32_to_cpu(str->di_uid));
- 	i_gid_write(&ip->i_inode, be32_to_cpu(str->di_gid));
- 	set_nlink(&ip->i_inode, be32_to_cpu(str->di_nlink));
--	i_size_write(&ip->i_inode, be64_to_cpu(str->di_size));
-+	size = be64_to_cpu(str->di_size);
-+	if (unlikely(size > ip->i_inode.i_sb->s_maxbytes))
-+		goto corrupt;
-+	i_size_write(&ip->i_inode, size);
- 	gfs2_set_inode_blocks(&ip->i_inode, be64_to_cpu(str->di_blocks));
- 	atime.tv_sec = be64_to_cpu(str->di_atime);
- 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
-@@ -459,7 +463,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	ip->i_depth = (u8)depth;
- 	ip->i_entries = be32_to_cpu(str->di_entries);
- 
--	if (gfs2_is_stuffed(ip) && ip->i_inode.i_size > gfs2_max_stuffed_size(ip))
-+	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip))
- 		goto corrupt;
- 
- 	if (S_ISREG(ip->i_inode.i_mode))
+-			if (nr_to_write != LONG_MAX && i != 0 &&
+-					folio->index != prev +
+-					folio_nr_pages(fbatch.folios[i-1])) {
++			if (nr_to_write != LONG_MAX && next != ULONG_MAX &&
++					folio->index != next) {
+ 				folio_batch_release(&fbatch);
+ 				goto stop;
+ 			}
+@@ -659,7 +658,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+ 				break;
+ 			}
+ 			nwritten += folio_nr_pages(folio);
+-			prev = folio->index;
++			next = folio->index + folio_nr_pages(folio);
+ 			if (unlikely(nwritten >= nr_to_write))
+ 				break;
+ 		}
 -- 
 2.53.0
 
