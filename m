@@ -1,56 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794352236;
-	b=XTT96B70uvE0PYx32lCzrB3Pt4nH/GS1FQp/b/WGDml+i/WkQltg7M84/fdDCgHb2iXw
-	 /EC0xzoimG6/GYdgA4VOZxTyRipzMk4UColo6caEt7/CZPg/kOb+5bnnTnmzEo7eNTfcf
-	 GUq54MEsiwm/ncw+Na6dvcAf7Y5v5izazmYXoLkAyRnQbfEKDHOb43QXh4vbKVsXFQws1
-	 sZPjaTmHNKqDcqgqRDNgP0+5YFPJ1fxjTuPgX3Z3gIHuN7vH5ZOGDt27IzEnHPNoQgCUN
-	 NoYSzbZvm10mQz0vEsTk6Ug7/wyr803K6thdn/2xXKsqzi/0nF4G6JYyjZ/TEprMqTQ==
+	t=1794352245;
+	b=Tp8SJqXouxkma2M32xrlE8W6NebuHaF9oTfjAE6v43SDL3FH6xKYhaN0zUIRxYDz+9L5
+	 qJo2BJcA/UH10e5DN5KX+LKy1wMkrlDfeLz0wsaGeDKZnNus+sDNEsgoFCUmVGN7svQfr
+	 Oa4NxbjzwZ+xXoZPfWTehNgKi1n2VZQf+U7JZxP1Z0duPPb0yvlMJ0Rv4y+6KfDDxgQo/
+	 ibqT9QkgIL+WjNHH3zEWyQtdHD0WOO9csG9E8jEZDDaE/Qxjs9Pk+P0ldS9tjw32co3VE
+	 7pmzNakFH7sHnLgQ/eUY7O/mrdYa4mhC0+VcRoWetWIApkA20f9vqRRUL9WaXgq98DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794352236;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794352245;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=L6nv61R6YnuFJ3iEtYY8mAt5Drq0jLWf8PuriPYZseQ=;
-	b=h+SXMSXG03ZQPmc6MLOr52DornHwc09jcKXN1rqTfTPmqy3iyW/TubNyV77YjaxAVVmI
-	 CPaNgB0ZQOQeZMh6rtTDqgWNirXA5udjF45mSrJrP0J+XVf7zI5Mqx6Zr8Y2Arqko/fN/
-	 oOxqUpqSes5MR/McnwlnJVRQnW8zWU4ZMpSizBog6niiQ8rXlex4ZLfyxCv2QcXCHUn3N
-	 SjVgK5FQiTFmgSI4c20UpPBLyJnCUXvRN2x5r/pPBxvc46+fCjorXDjbgvFNADApGK1Yu
-	 qyXDlHDP/auO9kMX1+TrtOpAZkwF8RQ6GvUzIlkeiFmWVf6Sil0cs2CxBRFl5oTdgEw==
+	bh=ok3n3s1PieUsRKr4lKqMJm3zdz4Lx3ky2IaLFteFDMc=;
+	b=nQ0W690XDwoSnPfIarzgbjCUR/rVnSglP98XCc3VmKvqiKjySQAvJY5GxpqfkBNNZBYH
+	 67SFh4WPwnJYSmvYyQnPpY0tzz2Mj6rQ8roOBff7wmlNjFBUyHGBNZJJg1tHR4O/s6oH0
+	 faUX9NSv8b0A3N6g6hnDuyXKGtfQMy3nMyVs4mhGB3HiaPoCtSlcjPkdSoUVcwyVplkQF
+	 dFTqRI1IsxTCS+yNP43U2c7el8wtCWTW6xLE2EA1bGfLkhG+pVDCr5cC79bCkQmuYe2uR
+	 DK1iNO1pdNMDWs5zjCWfz5HYG0KUS4JpyQVv2kTZBlTY5R+scHdio1nZsXy8GGt6LZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0ddfh7k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuXy3QEh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2D3606A325
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9E7606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:10:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T0ddfh7k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7E4B1F0093E;
-	Tue, 10 Nov 2026 23:10:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuXy3QEh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8AE1F0093C;
+	Tue, 10 Nov 2026 23:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794352236;
-	bh=L6nv61R6YnuFJ3iEtYY8mAt5Drq0jLWf8PuriPYZseQ=;
+	s=k20260515; t=1794352244;
+	bh=ok3n3s1PieUsRKr4lKqMJm3zdz4Lx3ky2IaLFteFDMc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T0ddfh7knULZsBKUA40gPhXpYl+A5WIAdJnrOE/gHrfnnKcRVL66DFupLFZoC+0dr
-	 06QUMDq6jdHaxSw1ENvR9wsDvO9t8iDA1bRIqFIPohVdLKVLi4yw+TrJ4IyB7EzYnL
-	 6bvC98Ps3U68QqvLRdvDvShqPuZxicVeV8jfeFgtoSfZ0Nr+c2FkpayqKsv59J4mpU
-	 Y/f0ZU/LmKnDVELbZrthF/df5uo3Rd6pfcTI72fHcYMP4KlK/JSRRQXhc0PiaUxls8
-	 CeJ3vR0aYazNNz+LQQAE0zITgII36qkQ7u0wiyVCP7WQeyMhvn5VmL9EwsgtHj5qjt
-	 eqFzbhtel7Szw==
+	b=RuXy3QEhGaYpSF47QE2JnMH1OIzvD4LH4Kicy8Rfgwba6iHhy3RdBwFR4fhoRajoi
+	 ZY6RQHX2ouQSHInIm/1aHgDanJeCBMDezBjllaIEFb2GTDcBT+gGkIYboG3dd/dQxh
+	 byXWK3i3m8oXCDMtK2Ji6XdHqw6YV0Tm5VrYcbVjuRuWuCfKP0S3zsv8kcBGLpFKJc
+	 ibzkXsppP5FqfIpupOyAwOwTeBOO3Pn+gZ4bWMXmw98yppi08ywvXBVZhU7FhYiPA2
+	 J/u7s92HEvmSHvDSL8ePGTjQ2YeyIlX28L51tFVIwGQJpWnXd/MpxDk9+bm0jMDpIg
+	 o5wIUju4T9lfg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tim Douglas <me@timdoug.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
+Cc: Pedro Falcato <pfalcato@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Samarth Narang <samarth.colleges@gmail.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Zi Yan <ziy@nvidia.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 7/7] power: supply: generic-adc-battery: fix status with no supplier
-Date: Tue, 10 Nov 2026 18:10:30 -0500
-Message-ID: <20261110231006.55369-7-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/madvise: atomically clear the young bit on THP MADV_COLD
+Date: Tue, 10 Nov 2026 18:10:41 -0500
+Message-ID: <20261110231006.82713-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110231006.55369-1-sashal@kernel.org>
-References: <20261107060802-failed-5.15-8ae5a3f40045@kernel.org>
- <20261110231006.55369-1-sashal@kernel.org>
+In-Reply-To: <20261107061139-failed-5.15-246c8cc33438@kernel.org>
+References: <20261107061139-failed-5.15-246c8cc33438@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,46 +73,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tim Douglas <me@timdoug.com>
+From: Pedro Falcato <pfalcato@suse.de>
 
-[ Upstream commit 8ae5a3f40045ff486826ed6b6a83e39a0f380073 ]
+[ Upstream commit 246c8cc33438a71c28f9b86baa492d9a0a130316 ]
 
-power_supply_am_i_supplied() returns -ENODEV when no registered power
-supply supplies the battery. generic-adc-battery's gab_work() tests this
-return value as a boolean, so -ENODEV takes the supplied branch and
-reports CHARGING, or NOT_CHARGING if the charge-finished GPIO is asserted,
-instead of DISCHARGING.
+As-is, madvise_cold_or_pageout_pte_range() discards the hardware young bit
+by invalidating the PMD, doing pmd_mkold() and subsequently writing to the
+pmd again.  However, it does so in a racy manner, looking at a
+possibly-stale snapshot.  It's entirely possible that a write elsewhere
+set the hardware D bit, which this logic now loses.
 
-This was noticed while bringing up an out-of-tree Linux port to the
-WikiReader: the driver reported CHARGING on a device powered by two AAA
-batteries with no charging hardware.
+Fix it by using pmdp_test_and_clear_young().  This is an atomic
+modification of the PMD entry, and thus safe against any possible racing
+writes.  As a (nice) side-effect, this elides one non-required TLB flush
+in pmdp_invalidate().
 
-Only a positive return value indicates an online supplier, so treat zero
-and negative returns as discharging.
+This bug can interact with the swapping system in complicated ways,
+leading to data loss.  For instance, if a folio is marked lazyfree, but
+was later read from, and then MADV_COLD'd while racing a write to that
+same THP, dropping the dirty bit may lead to data loss as
+reclaim/MADV_PAGEOUT drops the "clean" anon folio:
 
-Fixes: 46cecd130d55 ("power: supply: Fix power_supply_am_i_supplied to return -ENODEV when apropriate")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Douglas <me@timdoug.com>
-Link: https://patch.msgid.link/20261013022153.6707-1-me@timdoug.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+T0                                T1
+================================================================
+MADV_FREE(thp)			|
+  folio marked lazyfree		|
+read(thp)			|
+  PMD marked young by hardware	|
+				| MADV_COLD(thp)
+write(thp)			|   if (pmd_young(pmd)) {
+  PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
+MADV_PAGEOUT/reclaim		|
+  dirty bit may or may not be   |
+  set				|
+    reclaim/pageout may drop    |
+    the folio			|
+
+Link: https://lore.kernel.org/20261013191719.95502-1-pfalcato@suse.de
+Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Samarth Narang <samarth.colleges@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context for the pmd_young() check without the !pageout guard ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/generic-adc-battery.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/madvise.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/power/supply/generic-adc-battery.c b/drivers/power/supply/generic-adc-battery.c
-index cac0ac5caa142..e7f45ce38ce2c 100644
---- a/drivers/power/supply/generic-adc-battery.c
-+++ b/drivers/power/supply/generic-adc-battery.c
-@@ -129,7 +129,7 @@ static void gab_work(struct work_struct *work)
- 	adc_bat = container_of(delayed_work, struct gab, bat_work);
- 	status = adc_bat->status;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 367220e1fe52a..3079da08c19de 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -363,10 +363,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		}
  
--	if (!power_supply_am_i_supplied(adc_bat->psy))
-+	if (power_supply_am_i_supplied(adc_bat->psy) <= 0)
- 		adc_bat->status =  POWER_SUPPLY_STATUS_DISCHARGING;
- 	else if (gab_charge_finished(adc_bat))
- 		adc_bat->status = POWER_SUPPLY_STATUS_NOT_CHARGING;
+ 		if (pmd_young(orig_pmd)) {
+-			pmdp_invalidate(vma, addr, pmd);
+-			orig_pmd = pmd_mkold(orig_pmd);
+-
+-			set_pmd_at(mm, addr, pmd, orig_pmd);
++			pmdp_test_and_clear_young(vma, addr, pmd);
+ 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+ 		}
+ 
 -- 
 2.53.0
 
