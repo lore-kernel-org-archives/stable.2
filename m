@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794323209;
-	b=Kc2yUGz3DB3tvXlnRGQeJxakVKPbIvrptzSX8q233geMijB+LzR1ja+yGP/KhEf+3XhG
-	 g6EcLTEXZOlu5BbnR2TegVnG5jhQVjwfmp3u0yltqZbijEo8UFX5nb7NeCplDf8Yjr9gS
-	 +RFuREW1B7g/bcOzdugtilABYvQDGngVKc1v/mif9gRalelCSjYne0VOeM+Bht7T66zWC
-	 SR7YFzCdjOR+795lrJ/Gz5qRLDituheDppaHP5vFmuK7BGLVyuJr8MOhsCEE5pTDResgl
-	 INa11KoWDg/L0FI82BKDrKY5LVE2uPddaS2ybshphWGH6mvR/6ObeeSZfOGzWeWF+TA==
+	t=1794323305;
+	b=lfo2Q+HG3QkhUhYyDJqTHg6WRgw86YYyhDTIzf8KzGnh5Rlv+LdbOhO7i44vfvCCmZxy
+	 Lvze39yJMcvUFzzgNLdHMPu3Y27ztmCasDr5ADd+vZexRxyxfuVIg5Vgz11DzAQwNnLiM
+	 mE+Kv3Im8Xu0KMn9H2gBqPABJtJ3xFadHvB7eHc8st+kWFTm1eWvWPKpVQd1g7GHSmwu6
+	 8Pc6ituv7vbC2flLsn9jKjNSlpO5rS3B1VRMHaOgbt8ziDF6xBaSIitpxJ0c4qFje4CyR
+	 hGUbRrsa0+Io29KuLXLrDqIL4eh/5FdvtYN7suU5Fa5UlpqMB9maJpq3FBbxr2I673w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794323209;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kIRVfGeCCRWO7PZqCq/tf3YtWuj1gXXmj43dMX+RuR4=;
-	b=pgfWgy/zgqjZAuG9fmxLoC5iMxfR8f3zMIZUJXz35P0m0nsrwGCzaAL+a/D2Xfx/cowD
-	 bTI+Xv5H3bgnFa77iYiaQtIja7O9dqG2ATuXKQo5ie5vy2o9XPC1cQ/qdtOsGDP2L2LCA
-	 lipCQsC1K269Jz8mqgevsNFyUV4c6i8UTvROEmroSSXiW9A9UKO6uExjKE1NzkXh/MDRo
-	 dd8RV6eVF/GMaaxPQ394bPLZhc7tBauvMyACbvkSrsg295snOC3gKM8l0J316fC+2LICL
-	 XpvilUUv8emPYZLEZJDsnoAXiBJVVk/juRCVBRNnGQ8RuxIElaByLFRL2F8C5J6eF+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794323305;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=oNJivVoyu72FnMBjVSxRk6wu/Gu0bKPbs3QhyQ9DWfg=;
+	b=BStRR1mFblwqh03zGoPPtTD0O8/LPhNdwZ97bZ81mPxoKoiijF/v953Ll8+ep7LVSYr4
+	 GoJIh9bYoVzUrWnH4Jytk3HjdWhGn06vjLi7A02X2TflLbFbKY6gHZud3ODpe8jlpze6k
+	 qzJTjYBfjCSBbjTrg69HsIl2zbDU6ufvX5xfOXcUglI/YJTi7YGXkZh+qA50e8SWtwRD5
+	 2tpjRk5z8Oxty5Cjxq3bj9/Bn3NG8gKAYIq/plxs4NlfYNZ9p4HbM+x4ucrQK3ejJu4bi
+	 OldDHABWoSU4zo/6IyBz04A1XN/8KL+LCYTonRNACV0s4xatHnTylsVAfrmEpj555LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SLOW5Wvt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hallyn.com;
+	spf=pass smtp.mailfrom=hallyn.com;
+	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=HWgPx+fv;
+	arc=none smtp.remote-ip=178.63.66.53
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7012860A2607;
-	Tue, 10 Nov 2026 15:06:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CC160A261D;
+	Tue, 10 Nov 2026 15:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9CC160A261D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SLOW5Wvt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22A41F0089F;
-	Tue, 10 Nov 2026 15:06:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794323209;
-	bh=kIRVfGeCCRWO7PZqCq/tf3YtWuj1gXXmj43dMX+RuR4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SLOW5Wvtp/kc7sExbnxmbCWJdZPpfRA2pu0XYkgQJ5qLknEu+BxkzNFYpUb5Cfp4x
-	 dG0XwQ3QwF3QOZwpMgxahfW/T8kvndqZAOxfKTTYctsHOwc8ufkZEa02sFQyjX8cVY
-	 6sbZ5NC80FIBmz4KyrCoqoVpLMQ8cTvyv7zsfaqmoiRXVGenYwyMfACyHaxkOCmzVE
-	 VNhITf9NRaWaJ1N8ht6I0XsPj+GYndLaq/E/x4SpUnQPV0W0EuQjtEzuhzjwjGI3tm
-	 DjH+I+bWjFZFCWCk3USt3J6pWGm/VEFutYXVRzGAMOAF03aVMNNJhYlZbTLqmORv3c
-	 mtZhKApDGKURw==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: damon@lists.linux.dev,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Fernand Sieber <sieberf@amazon.com>,
-	SeongJae Park <sjpark@amazon.de>
-Subject: [PATCH 6.6.y] mm/damon/core: move static variable last_nr_regions to damon_ctx
-Date: Tue, 10 Nov 2026 07:06:41 -0800
-Message-ID: <20261110150641.148941-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109201220-failed-6.6-26ae50a0901a@kernel.org>
-References: <20261109201220-failed-6.6-26ae50a0901a@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=HWgPx+fv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1794323295; bh=Qz+w3E0S12c7+sHbC0P9fK29CvHuxPv8rvnaxSZT5zw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HWgPx+fvvfFib1CNriCjnI36iA/b84xCbNNyxfpT6hVh0vsn7OiCK/EyxreyK9QNk
+	 /dmakTsTu2cjWkjKMxpAEIUFwSb+AnMvvICwuJFLB0GMHjo0p+SUFvFG/StwDjQGN7
+	 19Pg/xCnAJY2pzId5Ag5DIBsTvWBDmENz8aGFaqp/4PBQ6rnexOEfHbiaGc58cQu19
+	 M2Y76k/E3ckIgp9uiyuMeps+EzlTU0TPZPGR10GLTvFmD7lOYD8ZFMWVxpfw6cZPpr
+	 M/RFMXy7uZcOEGWwrqormEB9GuIBA5mhlviGToUfBki47triargnIqDNAjD5B21CL7
+	 Yy+tDYdTZJbEA==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id 9907E800; Tue, 10 Nov 2026 09:08:15 -0600 (CST)
+Date: Tue, 10 Nov 2026 09:08:15 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Josef Bacik <josef@toxicpanda.com>, Paul Moore <paul@paul-moore.com>,
+	Christian Brauner <brauner@kernel.org>,
+	James Morris <jmorris@namei.org>,
+	David Howells <dhowells@redhat.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	"Andrew G. Morgan" <morgan@kernel.org>,
+	Serge Hallyn <sergeh@kernel.org>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] userns: Let LSMs deny the CAP_SETFCAP snapshot for
+ mapping uid 0
+Message-ID: <avMzX2WfnUK+wBxj@hallyn.com>
+References: <20261110144205.2404088-1-mic@digikod.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,83 +70,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261110144205.2404088-1-mic@digikod.net>
 
-kdamond_split_regions() uses a static variable last_nr_regions, to infer
-if the region boundaries are too stable.  If it looks too stable, it
-does a more aggressive region split because it might be a fake stability
-coming from non-aggressive split.  Because the variable is static, the
-inference can be racy and wrong when multiple kdamonds are running in
-parallel.
+On Tue, Nov 10, 2026 at 03:42:04PM +0100, Mickaël Salaün wrote:
+> Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+> records in parent_could_setfcap whether the creator of a user namespace
+> had CAP_SETFCAP, because a creator writing its own uid_map only has
+> capabilities in the new namespace.  The snapshot uses cap_raised(), so a
+> task whose LSM policy denies CAP_SETFCAP can still map uid 0 in a
+> namespace it creates.
+> 
+> Use security_capable() against the parent namespace instead: the
+> creator's credentials still belong to it at this point, so commoncap
+> returns the same result, and only LSM denials are added.
+> 
+> Do not audit this check: creating a user namespace does not use
+> CAP_SETFCAP, and most namespaces never map uid 0.  The uid_map write
+> that later fails has no LSM audit record.
+> 
+> Checking CAP_SETFCAP when the map is written would not work: the
+> writer's credentials then belong to the new namespace, where commoncap
+> grants the creator all capabilities.
+> 
+> Cc: Christian Brauner <brauner@kernel.org>
+> Cc: Josef Bacik <josef@toxicpanda.com>
+> Cc: Paul Moore <paul@paul-moore.com>
+> Cc: Serge Hallyn <serge@hallyn.com>
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort monitoring accuracy can be degraded when multiple kdamonds
-are used in parallel and the workload has certain access patterns. Still
-it is a bug that is better to fix.
+Reviewed-by: Serge Hallyn <serge@hallyn.com>
 
-Move the variable into the damon_ctx struct to fix the problem.
+I wonder whether parent_could_setfcap should be renamed
+creator_could_setfcap, as now, years later, the name makes me think "the
+user namespace's parent ns could do it".
 
-Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
-Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: <stable@vger.kernel.org> # 5.15.x
-(cherry picked from commit 26ae50a0901a44f7d50053f87dc38abd9f9a269c)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- include/linux/damon.h | 6 ++++++
- mm/damon/core.c       | 5 ++---
- 2 files changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 16d28a190dae0..8186f7c0f597f 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -557,6 +557,12 @@ struct damon_ctx {
- 
- 	struct list_head adaptive_targets;
- 	struct list_head schemes;
-+/* private: */
-+	/*
-+	 * number of regions after last merge.  Read kdamond_split_regions()
-+	 * for more details.
-+	 */
-+	unsigned long last_nr_regions;
- };
- 
- static inline struct damon_region *damon_next_region(struct damon_region *r)
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index c106219d33dd9..6635f23499c95 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1328,7 +1328,6 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
- {
- 	struct damon_target *t;
- 	unsigned int nr_regions = 0;
--	static unsigned int last_nr_regions;
- 	int nr_subregions = 2;
- 
- 	damon_for_each_target(t, ctx)
-@@ -1338,14 +1337,14 @@ static void kdamond_split_regions(struct damon_ctx *ctx)
- 		return;
- 
- 	/* Maybe the middle of the region has different access frequency */
--	if (last_nr_regions == nr_regions &&
-+	if (ctx->last_nr_regions == nr_regions &&
- 			nr_regions < ctx->attrs.max_nr_regions / 3)
- 		nr_subregions = 3;
- 
- 	damon_for_each_target(t, ctx)
- 		damon_split_regions_of(t, nr_subregions);
- 
--	last_nr_regions = nr_regions;
-+	ctx->last_nr_regions = nr_regions;
- }
- 
- /*
--- 
-2.47.3
-
+> Cc: stable@vger.kernel.org
+> Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+> Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> ---
+> 
+> This is independent from Josef Bacik's series, which reworks this code
+> to close other ways around the CAP_SETFCAP rule:
+> https://patch.msgid.link/20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com
+> 
+> That series still computes the creator's CAP_SETFCAP with cap_capable()
+> and cap_raised() in cap_setfcap_level(), so it would need the same
+> change.
+> ---
+>  include/linux/user_namespace.h | 5 +++--
+>  kernel/user_namespace.c        | 8 +++++++-
+>  2 files changed, 10 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
+> index 91232053775d..370961fde45f 100644
+> --- a/include/linux/user_namespace.h
+> +++ b/include/linux/user_namespace.h
+> @@ -86,8 +86,9 @@ struct user_namespace {
+>  	kgid_t			group;
+>  	struct ns_common	ns;
+>  	unsigned long		flags;
+> -	/* parent_could_setfcap: true if the creator if this ns had CAP_SETFCAP
+> -	 * in its effective capability set at the child ns creation time. */
+> +	/* parent_could_setfcap: true if the creator of this ns could use
+> +	 * CAP_SETFCAP in the parent ns at the child ns creation time.
+> +	 */
+>  	bool			parent_could_setfcap;
+>  
+>  #ifdef CONFIG_KEYS
+> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> index cd748e1cbace..57b7f10be74e 100644
+> --- a/kernel/user_namespace.c
+> +++ b/kernel/user_namespace.c
+> @@ -128,7 +128,13 @@ int create_user_ns(struct cred *new)
+>  	if (!ns)
+>  		goto fail_dec;
+>  
+> -	ns->parent_could_setfcap = cap_raised(new->cap_effective, CAP_SETFCAP);
+> +	/*
+> +	 * verify_root_map() relies on this once the creator only has
+> +	 * capabilities in the new namespace.  Let LSMs deny it, but do not
+> +	 * audit: the creator may never map uid 0.
+> +	 */
+> +	ns->parent_could_setfcap =
+> +		!security_capable(new, parent_ns, CAP_SETFCAP, CAP_OPT_NOAUDIT);
+>  
+>  	ret = ns_common_init(ns);
+>  	if (ret)
+> -- 
+> 2.56.0
