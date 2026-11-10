@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794320260;
-	b=KbuE7xWkx7D7LAqsskTTSc/BK63w4zWnSy80vDgLReKFRw2QFEezkU7DL+AbZmBhAg4u
-	 1M5CbNuQTcqWnac/l8dBfemgM/Z+tPhu1wLgmfotx/iOJtFHVV/w9kOESw+VJmADi6lgG
-	 FN/dcCjxlG2ct9fUcPcNe1rinXigECE4GcwUy+hjgpl30jmc2WgnoOQbH6s7pjToLaaih
-	 F8qDiX5Wmmoskw+IX2rXFLYUJlb1aozWuEPHhcOqR3ELFZizqDXeaSB/0stiJbg71IZHk
-	 DdTQ93sYRHc6K0Kuost1kO3zI+dNEmU4y0dZ50gtAemDb7AACkMCe7Ch4XvhO6/WdAA==
+	t=1794320351;
+	b=F+1Z0pxJXQKTSyG2mrACSKeUcQmw8zc708V4mGN5HFF+5C86icOM36qU8+nxJkG3PV/K
+	 lvcERLcbvPLGVZg2xgS1QgkBBcjvTsktUcSyWBUJ6SwcNa3qarRmKkvfTS4yYyzK9RmYM
+	 LAM8TBMfCvFk0rDr4bVYx+c9j6xV5aM0lM6xNAY2Ffo1PCUPW+ZKXJPuvhJDkqzv2X1LU
+	 YCPLBmq8aAGejBPVxZal9ncRMy7wsPFdu9j4dLcLikS50/80m9b1xOJ1b1E3J6OUV09U4
+	 9FsxsZ5ebPn3LQU/2Z07wBPGPxxs0qWeNbbxIvoxIixX4qp8F4aNu54t5Ujqkz5ywmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794320260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794320351;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zjohss4dmKQNPXpkF4Z4Ho3vmDlmPt9m2VLucd84OtE=;
-	b=nZehIqtoFXh+QNgXKx+PqbwvH7maBukXUpGHRQaxYzIW9t7aC6RPlsQGA/tP4D/U/DSD
-	 bk7on5gVyCv92bAkpG981OVvzDcvPWqPa6YZLrHrkHsFe+ObkCJw3ce4+6p28UxXfycnS
-	 gIjPmZlSedrnbHNCCdh2/bSnBJbmiODmTMoubOK6dVqMA81ngPyuEOLLJ/pzlZmgEcOD8
-	 luC6ngkszzWz/VYSMJ3O99Ibzo4pECSjKClRMHsQSTYF69Fv+NAsCZM22wmDvJ6gK6ubD
-	 Swz+XsBq0UDSO2hws1KI0TA8dXeIWKCxuhvQlH0QgTk6Cbk9Zm9gMNv/dVI3swLNirA==
+	bh=pg97OCrpkJS9LSUPJcj0YFkNALLUlobFtFywno4pXMI=;
+	b=CX7xGpVQpJ+V4u6/ySoW8q/vgtLVvKS1flpnpsSJ1Ca0As/kPRGmf9e6X5Fd4QWAyNfD
+	 KZDtzAxCUtKnnYws1CP9owSx6cLR9V3PpAqP9HOTwwnj4OnTR5WcMQ3ftIwx+zTQybUpZ
+	 Rn3NNG9HOPR45yDJoQgEBZJRUgYOVz0FoUKUFkncH4ZOhHCOiENQuCq9TyiccPLA1L1oM
+	 3AuMTI0FTe+tBnM6cGb/lC/JqwC1xtCJfnmHyBo+HQD8Z/DW0yorgukzmGi/i7WjLl4Nh
+	 BWRrAcR3Wj2lai+hHBfHrqerQHjJQpKtZib9uo6rtL7BA0gmGy7zdJFmosVVcqhuHDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkF5dV31;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5V3bqLj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C490606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34CC606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:19:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PkF5dV31
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6831F008A3;
-	Tue, 10 Nov 2026 14:17:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5V3bqLj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438AA1F0089F;
+	Tue, 10 Nov 2026 14:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794320259;
-	bh=zjohss4dmKQNPXpkF4Z4Ho3vmDlmPt9m2VLucd84OtE=;
+	s=k20260515; t=1794320350;
+	bh=pg97OCrpkJS9LSUPJcj0YFkNALLUlobFtFywno4pXMI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PkF5dV31Mqyw2aMBaikFwpXz7IsCia7iR0vXDReJMTnvsBgQrxJwCopZxM/8K5Ez0
-	 aP/LwcAHMxHDYi/KblgaaPGJSeT5RuYF9m/K9ghUpYOcRdIhQAFzCT1uUqm+aCo624
-	 dAdK1zetWdwrlcZz59PcufwNjzOFR1gnoMAvEdaVa8cbHBggsAYYmbDX+Qw+kB3JdH
-	 bycboE9RKaIMP6YEGRLgHipFJ1ujNnNDKwPQNsu0Wi+HyZRr1MSUEy3aDOhacVhQwA
-	 lnrmThBXcNt+JGXSbgihf7GTBe3YoiykL1AV4LCKNrtJ0jn1yDALteoCNPHW7lpum3
-	 YfLURpMKKdUTg==
+	b=X5V3bqLjEMnMvCYAdhD8lA/4pKqzJpcXY8AwYZoHJody2B+jDVv+lWUBObMyQs8Gv
+	 2h8UGVJdYoiw7NkjFsL1rGExs+wH+z4NbTAiG9Cvv9tz6ylceo8BM7JkYyWIeIbSKU
+	 THx8supB2d2sUgR6PzfH46BdkVTzsfppgPZFKFuvqH/7IR6cCaX9PBskHn9dJPZr6l
+	 c86Ji0pTeLz4UfoWZzqTSxWssISoYX1VWSdy/tZnPIwnrIKAfzJc9cueqtrm2/OORE
+	 cd7At5l72CAlj+xyK2dwbgwvbriE2VzY+Ntzlcg23lLi1uQnOjgiu8wGyj4QPbR2Uy
+	 wn4fhwagUELUw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Niklas Cassel <cassel@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
+Cc: Robert Marko <robert.marko@sartura.hr>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ata: libahci: Free the IRQs when activating a multi-IRQ host fails
-Date: Tue, 10 Nov 2026 09:17:36 -0500
-Message-ID: <20261110141601.1834083-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] spi: atmel-quadspi: add controller init callback
+Date: Tue, 10 Nov 2026 09:19:07 -0500
+Message-ID: <20261110141901.1859701-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110141601.1834083-1-sashal@kernel.org>
-References: <20261107052924-failed-6.6-34a4a34431ed@kernel.org>
- <20261110141601.1834083-1-sashal@kernel.org>
+In-Reply-To: <20261107050822-failed-6.18-717e45f97246@kernel.org>
+References: <20261107050822-failed-6.18-717e45f97246@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,85 +61,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Niklas Cassel <cassel@kernel.org>
+From: Robert Marko <robert.marko@sartura.hr>
 
-[ Upstream commit 34a4a34431ed81d85d14f8fb8035e5a25214ad39 ]
+[ Upstream commit cbbd5a945e85e7835ac5792d855d85c20e40d1e3 ]
 
-ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
-not free them when requesting one of them, or when registering the host,
-fails. The IRQs are only freed by the driver core, when it releases the
-devres of the device after probe() has returned, while the caller of
-ahci_host_activate() releases the resources of the host in its probe()
-error path, e.g. ahci_probe() disables the clocks, regulators, resets and
-PHYs of the host. An IRQ handler running in that window would access the
-MMIO of a host which is no longer clocked.
+Allow controller variants to provide a custom initialization callback
+through their capability data.
 
-ahci_host_activate_multi_irqs() did free the IRQs until commit
-0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
-removed the explicit free because devm makes it unnecessary. That is true
-for freeing the IRQs as such, but not for the window described above:
-devres is only released after probe() has returned, i.e. after the error
-path of the caller has released the resources of the host.
+This prepares the driver for variants which require a different hardware
+initialization sequence without adding SoC checks to the common path.
 
-Note that this window cannot be hit with the current users: the only user
-of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
-any resource in its probe() error path, and the ports of the host are
-still frozen, i.e. their interrupts are masked, when ata_host_register()
-fails.
-
-Free the IRQs explicitly again, like ata_host_activate() does, so that
-the IRQ handlers cannot run once ahci_host_activate() has failed.
-
-Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
-Cc: stable@vger.kernel.org
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260915084127.692494-12-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+Link: https://patch.msgid.link/20260709112006.390742-3-robert.marko@sartura.hr
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Stable-dep-of: 717e45f97246 ("spi: atmel-quadspi: balance runtime PM and pclk across system sleep")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/libahci.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/spi/atmel-quadspi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 1056d536a60cb..d18876c6052ae 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2735,11 +2735,33 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
- 				0, pp->irq_desc, host->ports[i]);
+diff --git a/drivers/spi/atmel-quadspi.c b/drivers/spi/atmel-quadspi.c
+index d7a3d85d00c2f..6c2d3c00409bb 100644
+--- a/drivers/spi/atmel-quadspi.c
++++ b/drivers/spi/atmel-quadspi.c
+@@ -256,8 +256,11 @@ static const struct atmel_qspi_pcal pcal[ATMEL_QSPI_PCAL_ARRAY_SIZE] = {
+ 	{200000000, 7},
+ };
  
- 		if (rc)
--			return rc;
-+			goto free_irqs;
- 		ata_port_desc_misc(host->ports[i], irq);
- 	}
++struct atmel_qspi;
++
+ struct atmel_qspi_caps {
+ 	u32 max_speed_hz;
++	int (*init)(struct atmel_qspi *aq);
+ 	bool has_qspick;
+ 	bool has_gclk;
+ 	bool has_ricr;
+@@ -1156,6 +1159,9 @@ static int atmel_qspi_sama7g5_setup(struct spi_device *spi)
+ 	/* The controller can communicate with a single peripheral device (target). */
+ 	aq->target_max_speed_hz = spi->max_speed_hz;
  
--	return ata_host_register(host, sht);
-+	rc = ata_host_register(host, sht);
-+	if (rc)
-+		goto free_irqs;
++	if (aq->caps->init)
++		return aq->caps->init(aq);
 +
-+	return 0;
-+
-+free_irqs:
-+	/*
-+	 * Free the IRQs which have been requested, so that the handlers can no
-+	 * longer access the MMIO of the host once we return, e.g. after the
-+	 * caller has disabled the clocks of the host.
-+	 */
-+	while (--i >= 0) {
-+		struct ahci_port_priv *pp = host->ports[i]->private_data;
-+
-+		if (!pp)
-+			continue;
-+
-+		devm_free_irq(host->dev, hpriv->get_irq_vector(host, i),
-+			      host->ports[i]);
-+	}
-+
-+	return rc;
+ 	return atmel_qspi_sama7g5_init(aq);
  }
  
- /**
+@@ -1571,6 +1577,9 @@ static int __maybe_unused atmel_qspi_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	if (aq->caps->init)
++		return aq->caps->init(aq);
++
+ 	if (aq->caps->has_gclk)
+ 		return atmel_qspi_sama7g5_init(aq);
+ 
 -- 
 2.53.0
 
