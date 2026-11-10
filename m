@@ -1,48 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.106.246.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794280598;
-	b=IdQ3SI8nyiGNdbbdymcWnTpTpfnFN2mGUJ4wDDArNWzq54c27bc37GpJyANzRKvzOOsD
-	 7NNHTf2l5QcIhM8nxRTk/dzVXFZvHgH9YsD3/3KFJ3ahL6Zu3QBnxvet+GA4tAjyNtOXW
-	 lNm4c8SniHkmVne+OleTkafzbcYqceoPWVZeIDKfH3InqEiVyqlPlB63O3xwCEjaNXjGI
-	 YM0A5geNoAKXNxhXvHvPHtj7pdyE1fy99MzWrZ2sl4s1wcvsU1b68Pnevw6uzkY/ggz5B
-	 QcpM7qcmdeaFqddMaYAHByo0AnwTzkneWSzbZlYASU+0G/3UfdPGrNGjPJxRYEc62bA==
+	t=1794280816;
+	b=dXimQrmd6u8w1cEn5sIUnUhvUomrGrRU+O5fd27W7oF3sE72DuMv3q+jhVV3nsyG4h7g
+	 b1k2UOuA5Y855MiRLo5q0WN7D0LCnhmkkX49zeBRMwZWF4QYQ0LRWxUMrUq/xoD+QUJIM
+	 vJ7Y7iXLBOCpSsVablytiKNfprf4KyW/wZtvY9L+pU44KGE3oItyJIJfAVPGFaERL/cUa
+	 sFfX0xHewD/MsyFIn8yqXptuhO2kLME9dOvWXC3cX02kj4Sn/aWSXrTc6NmgHWm/UUepU
+	 dkYdBTCZ07/JQgtn1XUrxzz7F4LDldtU5ojp4WbFiIego+3yaOKnXFj3onocM5DkXuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794280598;
-	h=DMARC-Filter:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=TVW0ntBxdsJT8eglGGTMJp0CumKGZzxrPut8SAoHfhE=;
-	b=i2Yyi5oWBPBv1S6/DRPt9jxpF7zeQV1+Q5sQexJ19g7ZWNu7Uniyjd155RVF0QjktZoB
-	 ZTbZvBhBwe6TwXNZyzj0n8VONTlIkKUt6WHsHL/p+rqWSQkn7CFyd/4eaWHiWxxZUlPv9
-	 +kC/mXfiibb9NoB17IJN+jPMR6gfjKEdTr+BHb06f/Zjya4TnL8lrMP7atHd+nAJbGJ+p
-	 iCqzOqAr9p9N+09VUGASK6CR6rwrj89UAMK/he7u7C6h1YuWAbfodBWNuF7zWYqvYiYo9
-	 F+LdyZw23ih7evLpOs9lAt9rVPh4cEXJ+X4FMZWe3MJAAGBCGoZHpsrRywV14f3HogQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794280816;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=EQWiNIPgp0Y3iWcclCHTXLZX0urPoSdIN9jt7HQUM44=;
+	b=BWPEScp4XF4qPK1f6PtlG5B0C7JR883MdpRYXrYrW8h5yEtgD88J7Kn8jLjMR6y6z63o
+	 mln6CkYI1cbgoqh5s9YSi1pOR4IuuFSphH3FOnQ/oILNu2fqTjIEmmWPQ3IjzBbIivdIA
+	 EiweTXsJPRICj0FhJAnKxfljRfaWESIkaXD6Oa5ZCXUsOK+GR0Lhb8Rf49ZyMXUMC1rTo
+	 8hr84qLKlcCwvNCEjE5dK6NJN0pUuW82cl/W6eYO+2KtUEqgUXrk/TOLd2R/ojR8mA8TC
+	 SlXDklJZYoT3FfzcQjbDr9R+wPEDvKf5fDpByh/Eb5K65dyNP9P5WDpY8AB2Vgz1dfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	arc=none smtp.remote-ip=64.106.246.77
-Received: from mailsc.amlogic.com (unknown [64.106.246.77])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nude62pb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23825606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:16:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23825606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
-Received: from XA1730-0357L.amlogic.com (10.88.19.140) by mailsc.amlogic.com
- (10.8.11.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 9 Nov
- 2026 19:16:35 -0800
-From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-To: <stable@vger.kernel.org>
-CC: Jiucheng Xu <jiucheng.xu@amlogic.com>, <stable@kernel.org>, Chao Yu
-	<chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>
-Subject: [PATCH 5.10.y] f2fs: force out-place update for all writes on compressed file
-Date: Tue, 10 Nov 2026 11:16:22 +0800
-Message-ID: <20261110031622.1803-1-jiucheng.xu@amlogic.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261107061541-failed-5.10-a64a3fec11e7@kernel.org>
-References: <20261107061541-failed-5.10-a64a3fec11e7@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C9A606A334
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nude62pb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F5B1F008A3;
+	Tue, 10 Nov 2026 03:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794280815;
+	bh=EQWiNIPgp0Y3iWcclCHTXLZX0urPoSdIN9jt7HQUM44=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Nude62pbXaIWGbmMjeCUwLCC1zdR2bbw93V7DWLPGtmxvsn/hjUieRRYNQdoLu3Fp
+	 v24wm4zKouiLQvFwjjGRa5EbQ7u1uHcRWqVq6aw/8ypKDP9SFXgQIXiwy/4brsGEkZ
+	 gzrjVd68RmnzMEhSFcCNlSg4Wa/XA2VTU5EXAoqVpiG3YtK0GeK21U1ciOO1D6sWBK
+	 a+6FxXHtH5Ftyy/RaIu1bh5bVfm6lOxMjhf7irwR78FMQK4knST8KbQrdklLXB2893
+	 g6OjKx1ynGXfMyP3DXEotJPiOLDCnOyfmZQLMZ8ykkPzrojFn9IUU14sbUayJBaw5g
+	 5rcnyeZIsFsYg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zhenhao Wan <whi4ed0g@gmail.com>,
+	Yuhao Jiang <danisjiang@gmail.com>,
+	Lyude Paul <lyude@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/nouveau/svm: drain fault handler before freeing svmm
+Date: Mon,  9 Nov 2026 22:20:13 -0500
+Message-ID: <20261110031959.50827-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061408-failed-5.10-b46ddaf08234@kernel.org>
+References: <20261107061408-failed-5.10-b46ddaf08234@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,67 +61,68 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: mailsh.amlogic.com (10.18.11.5) To mailsc.amlogic.com
- (10.8.11.35)
 
-commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4 upstream.
+From: Zhenhao Wan <whi4ed0g@gmail.com>
 
-For compressed file, compressed write may fail and fall back to raw
-write.
+[ Upstream commit b46ddaf0823405f81e681eb26ec98508f3eb9a07 ]
 
--Thread A                                         - Thread B
-  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
-   - f2fs_write_compressed_pages                    - ...
-    - f2fs_trylock_op                               - ...
-     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
-   - f2fs_write_raw_pages                           - ...
+The SVM fault handler nouveau_svm_fault() looks up each fault's
+nouveau_svmm under svm->mutex, caches it in the fault array, then drops
+svm->mutex and dereferences the svmm across blocking faults
+(mmu_interval_notifier_insert(), hmm_range_fault()).
 
-Thread B acquires the lock first, which causes Thread A to fail lock
-acquisition and fall back to raw-data write.
-IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
-so f2fs_write_raw_pages() overwrites the original compressed data
-in-place.
+nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
+mmu_notifier_put() frees it asynchronously via call_srcu() without
+waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
+flush_work() on the fault buffer otherwise runs only at device removal
+and suspend, never on close, so a fault handled concurrently with a close
+can dereference a freed svmm.
 
-The in-memory node has been updated with raw-data addresses, while the
-node metadata stored on eMMC still remains in compressed state.
-If a power-cut occurs before the node is flushed to disk, on-disk
-inconsistency arises: disk data is raw, yet metadata treats it as a
-compressed cluster, leading to decompression failure.
+The instance is already unlinked by nouveau_svmm_part() earlier in the
+same close, so no new fault can resolve to it. Drain the handler in
+nouveau_svmm_fini() before the free, guarding the flush with a NULL check
+on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
+drm->svm (NULL) after blocking the notify and flushing the buffer, so the
+handler is already drained; on per-client close drm->svm is alive and the
+flush runs.
 
-To eliminate this risk completely, force out-place update for all
-write operations on compressed file.
-
-Cc: stable@kernel.org
-Fixes: 4c8ff7095bef ("f2fs: support data compression")
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-(cherry picked from commit a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4)
-Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/data.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 2933b32032e7..f3ff1865868c 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2669,6 +2669,14 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
- 		return true;
- 	if (f2fs_is_atomic_file(inode))
- 		return true;
-+	/*
-+	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
-+	 * If IO comes from compressed write path and fallback to raw write,
-+	 * force out-place to prevent metadata-data inconsistency.
-+	 */
-+	if (f2fs_compressed_file(inode))
-+		return true;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
+index f67700c028c75..a723c72049df0 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_svm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+@@ -302,6 +302,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
+ {
+ 	struct nouveau_svmm *svmm = *psvmm;
+ 	if (svmm) {
++		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
 +
- 	if (fio) {
- 		if (is_cold_data(fio->page))
- 			return true;
++		/* The fault handler caches svmm pointers under svm->mutex and
++		 * dereferences them after dropping it, across blocking faults.
++		 * The instance is already unlinked (nouveau_svmm_part), so drain
++		 * the handler before the free to release any in-flight reference.
++		 *
++		 * On device teardown nouveau_svm_fini() ran first and freed
++		 * drm->svm (NULL) after draining the buffer; nothing to flush.
++		 */
++		if (svm)
++			flush_work(&svm->buffer[0].notify.work);
++
+ 		mutex_lock(&svmm->mutex);
+ 		svmm->vmm = NULL;
+ 		mutex_unlock(&svmm->mutex);
 -- 
-2.55.0
+2.53.0
 
