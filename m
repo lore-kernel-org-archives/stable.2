@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794313050;
-	b=YhbNhez7hybaQCyYkEHEJKT1SCL82Bys9UoZVgAcMVIfx7mmdpJOpy8wAYESkvkZFBcC
-	 P89Ys2gDoQ4GEoClybDeEnsojEbvFBXV67f4oIiLbYkNyy5zpSFmUGelaLNtndk+Q68PB
-	 Wc92zP7imi2kBx85QBeJ7PGL4/cLhqU2gBC00BpIJN3xhIoOSKxFd8CGme4uarOKYEag0
-	 o7+t+qjfI9HLv0+kdukTcXa/TtvR/aB1OZRUSkVck+SujJDThugHOs4KXolPOYjeHK+kx
-	 SkhlnbI8DT59BrcFFJ9EbR5IVXVI7HRahRhKPVUYIzZ357yPUhRFb4LgbRNuKGf3qUA==
+	t=1794313051;
+	b=mymV2gnfWw23m4ekwu4x82KEqim/m0iP6rHmfkpokVZrwouSisrWF4i/eyFJQ0ec5uQq
+	 ZJ70pCllAfhvbQ/6zMrvwiecSh5tnUOTcBqNkv/RUhH2b+VPvOtOkrnTJGvAVNDbswiIO
+	 CBGz+MCAcDQcICNyGVCaE4vkJntjuAUajXJjIlLkmMBqW7/oefs5qPrv/UemsFyABFFCG
+	 6G4BzhcXovvE/sCJg+WnpGF2Pi5oWxrK8Uctk6M0zrelwfEgQKFzi+VpktF+9l+8Rjn8y
+	 683d0rsEnKb0N0IO/HdX88j6Cnwst9W0FAY5KicH9S4+teAtB+0kYkjG3rjQ4wM6a+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794313050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794313051;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WBxQQnWqn8xpSa4uWOtz9x2P6f57tQ3RLc9we7BAdhQ=;
-	b=RgqZS+CV7HFGzsBqBsYsjKJNSOJkeymiSxRf0keXYXeYnLbvKjuT3MUVm5r/8yWOvxsw
-	 oh18zlkQcn2opGMrg2caDy/LVbJ/zbSP2Oa397GaL0PmGFR/qqSRKzPSG7cFFNm+DQFBn
-	 k1MVZaObA9MYPeYhoPuEMKBkoXrdh6n+AqUR8FxPrYWXAbr9ZEwfEmUEtIy4vowb1F4m6
-	 WtVwII7dhSzZ6LjBWDZMZUtc+3pMbvreyGIENgABhpxN878HS/lxNPII8hMqYsHBmzebC
-	 H7mS3lhwDCRhTSBGsKmlmjwBJAfPe2ZudbLHJAchcVV7QIS16cIFO63r40+Eq9NNh1A==
+	bh=nbFtZ7gOB5j6qiRJZKzp5iNtdAtDCyFMPeRBpkaG3So=;
+	b=ofU3gGu5+tn7j+Kjvzx7SZ+F30bgz7w6ufdN3nyDIy/4Wv+FL9Y49rjP8Yips/oyriKK
+	 0BUBFOhG4vaUTaOt3kgANiGPLSYqqB9iiSF3fF9NxLe/8A0QEQt13OFjqNc8AxYu1TVaM
+	 G5pgvJ3E0bLCy8WxItNpSQp1JNZpUzscia/iAjjeFBjRZrf9Ns/rg1v/KPavM0zJDgfO3
+	 p6XYESl6KWDGgHEXZrTO7T75120AwnK7GmLrUpIQBA3q5TMV0YrcXMpK3A5VfbTKQf7tE
+	 DRjAy4xmbSYz4okik+s7/pg4tXbEe/ByA2c52Ynhq243GNYMOlYpbCvJVeu09cdPYNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NK3I2VcY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UTi/qhaY";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8A1606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239A3606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 12:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NK3I2VcY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712B61F008A1;
-	Tue, 10 Nov 2026 12:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTi/qhaY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0271F008A3;
+	Tue, 10 Nov 2026 12:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794313050;
-	bh=WBxQQnWqn8xpSa4uWOtz9x2P6f57tQ3RLc9we7BAdhQ=;
+	bh=nbFtZ7gOB5j6qiRJZKzp5iNtdAtDCyFMPeRBpkaG3So=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NK3I2VcYSOogF1sbryB8LOlzpj8g+JzVGZ2W2GZO0fj1ppGx+9XHegrSO78MR5rRL
-	 COZmYhKfC9h/TFaEeTIIwpNTK3kF+zTj0Mr3Qcs4OYTcI/QXY7b54LZNRED4Ywqv8s
-	 wc4HS9pAXETeQPi1ozKatTjCwZSFkKbrKsuxeZPAl85Jb1p+ZgM8gcVM67TnoX5dnn
-	 0fqqeBmNXwZpZU950+nMJzrw31+m9l8/pbTa4hnTi/D6bbYFlbavFGPrhEfWRCv9vw
-	 /kQqwfGPrFeeqxf/f9Yk85kszloSfZOQtW7WppveGZWNhLQeIA6TXTI7zlhv9OEKtC
-	 fU/GptqSaPewQ==
+	b=UTi/qhaYq6gstAHDsImEWBvlIuJqpqmwJFzFActFqzmnntTo3ETtvSQH+nBHN4iz2
+	 VMzZLlRCnZI4ptUqBs8Z0L2cokGrEDH0l9zZR3ki3mWCRIT5FQ5GZKR+l34uB4AlaP
+	 v1XLnLLEnW+1kX8GDiOcxEJPr2FsIMRNxVEDpxX00Aqsw7knPNEq/+04BCG5R73Qd9
+	 tKnKaoLRM1EyJ+MrxV3VGghfpnOYEYL592dW3QezrFep0fodB1X+LrjKUB7KyR9hd8
+	 /o2ZvtT8notHUjRNpL3QuLKUb1IwFWagq5rn1YJ+YMV5oOxVpmzrzT9n90njhHVFIU
+	 z97IPl/DcP5hw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+Cc: Jiale Yao <yaojiale02@163.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] iio: adc: ad7192: Revert "properly check spi_get_device_match_data()"
-Date: Tue, 10 Nov 2026 07:17:27 -0500
-Message-ID: <20261110121716.1065395-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] iio: adc: ad7192: reject devices without match data
+Date: Tue, 10 Nov 2026 07:17:28 -0500
+Message-ID: <20261110121716.1065395-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051802-failed-6.12-7f7a119a370e@kernel.org>
+In-Reply-To: <20261110121716.1065395-1-sashal@kernel.org>
 References: <20261107051802-failed-6.12-7f7a119a370e@kernel.org>
+ <20261110121716.1065395-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,39 +62,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+From: Jiale Yao <yaojiale02@163.com>
 
-[ Upstream commit 0309e66abea141f3ec339b064b8f8b8003d2a634 ]
+[ Upstream commit 7f7a119a370ecf6c8d4ab9e9ee0a8cdd77afedd3 ]
 
-This reverts commit b7f99fa1b64af2f696b13cec581cb4cd7d3982b8.
+SPI driver_override allows a device to bind to this driver without
+matching either the OF or SPI device ID table. In that case,
+spi_get_device_match_data() returns NULL.
 
-The added code is currently a dead code. Moreover, the driver is not
-designed to have any defaults effectively making driver data a mandatory
-information to work with. Taking all together, revert unneeded change.
+ad7192_probe() immediately dereferences the returned chip information
+to initialize the IIO device, causing a NULL pointer dereference.
 
-Discussion at #1 concluded in agreeing a new policy on this for IIO.
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data before using the chip information.
 
-Link: https://lore.kernel.org/linux-iio/20260217080514.1288115-1-andriy.shevchenko@linux.intel.com/ #1
-Reported-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Stable-dep-of: 7f7a119a370e ("iio: adc: ad7192: reject devices without match data")
+Fixes: c3708c829a06 ("iio: adc: ad7192: Convert from of specific to fwnode property handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/ad7192.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/iio/adc/ad7192.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/iio/adc/ad7192.c b/drivers/iio/adc/ad7192.c
-index 6fe32f866765b..02328b9115756 100644
+index 02328b9115756..ef8268ad353e0 100644
 --- a/drivers/iio/adc/ad7192.c
 +++ b/drivers/iio/adc/ad7192.c
-@@ -1394,9 +1394,6 @@ static int ad7192_probe(struct spi_device *spi)
+@@ -1394,6 +1394,9 @@ static int ad7192_probe(struct spi_device *spi)
  	st->int_vref_mv = ret == -ENODEV ? avdd_mv : ret / MILLI;
  
  	st->chip_info = spi_get_device_match_data(spi);
--	if (!st->chip_info)
--		return -ENODEV;
--
++	if (!st->chip_info)
++		return -ENODATA;
++
  	indio_dev->name = st->chip_info->name;
  	indio_dev->modes = INDIO_DIRECT_MODE;
  	indio_dev->info = st->chip_info->info;
