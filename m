@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321094;
-	b=RWgffBkQGm3KcMVFer9CGV0FE/tzCdF2t8depdsqmJrokfxX+lHhxSeMhZAhgWd5mAyg
-	 GJFX2mFyEmnTYXvgfzStzTIZtNgkJKdZG2KA1bS8LOqBhBWBerx9zeVhmaHF71mbgSx1M
-	 /OEn3Q4aOT13I7x139oKqBJBj6V/xPjFHqdhU02vofwmjFNGomo4qqb48q9d2e6GtBdap
-	 JlTdkBVKjLUcSCq7BgQzeL63Qzq7xZ6pnsTjMFlID325M3SnYffCa3giGxkjJBnTGgOIb
-	 vv+qkzf2KIpnbXTVTDeJN+ZacZtA5xk9FGc6wnmiKho1zMhoBqKS3UYHVmn32nCCPrw==
+	t=1794321095;
+	b=XfFobo0EazeNZUjCh9811pxiABJ7tRz7/JUlSf7imiP70V4nt7KNGoD52EQ2OiBPF+Yx
+	 beEkef7Iu0O/LwGocRRixL6hV9yEpDcWbF6/9SOt4iL8BVyvhSEQnzu/Szznmgcqbyyd8
+	 2UyN331VVC96AOV1nokEaRGCvks+NBAVq0FGBsa2SQihdGPd+51lES6Fudi2xETzDLakN
+	 ZjxvPbw+yUC2EunzIpvfaGhk2aEiW49Zu88FBpQMl9gIOisnt9VLJZ91rpaGrb94R0RvA
+	 AahnBYVARn9uJC35tFi3g0d531T04fAGxJDYVkj3OeTH6WkijEGJ9UQXoF22122GtKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321095;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IZj9hO0atgmY+Pew+owQr5FkJxvGPz9iPbpp0g61+p8=;
-	b=UllQWksgYuEe7mv3wws4Xl0Rdoue8pHxHMqvFEFECMW6tu7+8U4N3gPzq2RrNhjDFBAd
-	 G8W7zwXKfR5gXUMODivLKf/861Y4TkWZY8D4pZLoMIpiraUeRtNMCU8nVPLctjxfx9Zo5
-	 Se/kwqxgPMvJTbiJ2t/UDP9ICbryCknkJciNyaZhRf/xle13OATBjccM7WgyfbMX0V+VT
-	 o8SGjI2LIqr0ZU33hap+YkU0f1tjGt7t+s5C9hjPFx1yxyuJAgRNC8SAAooFuL+lvpugI
-	 Rkk+m+CT5FrmhkJCqOZ4Dl2rj61e7uojN84r7bC2jIMTZ9zSkwGXaGyeQoJWh7LkpJw==
+	bh=msh1AWpq3zPxJUG9yN+IS+TEgC0i10NhoeOOq9d3EPs=;
+	b=F2v94bOug8vN4yOTI3X1sQBQvhNX23bJNOqOlunI+0L5UZk9ca0mbWckxKyZ9zs1I8NH
+	 tH4vkKmbHRJ6vmkrSAyaXiT/eGBDLfAocPdSC4EfqEiXeLuj+63VSse8CtHjXeLcyjt6U
+	 8rhDycMS3/YSUieTnuhutgLQE2Tct4U12a5aLLy1jWOitFfF6zkNiGj+MIDEa6Kybmeep
+	 qLPSC+H5Yj3rD+KJAQeZN9n6r14cuqSyh+qqBe3q1uloWrnhmMqQWDAgaQE0wSRAKwmDC
+	 7Q5NwEqmC7JYRSEh8b7EdJyHCyTTzPAKozxZTY8uJ75/URBoJUMqu8BnPf4niwKrKkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK03H5xP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8wHUA3g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D470606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F987606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:31:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK03H5xP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072B71F008AB;
-	Tue, 10 Nov 2026 14:31:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8wHUA3g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2007C1F008BD;
+	Tue, 10 Nov 2026 14:31:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794321093;
-	bh=IZj9hO0atgmY+Pew+owQr5FkJxvGPz9iPbpp0g61+p8=;
+	s=k20260515; t=1794321095;
+	bh=msh1AWpq3zPxJUG9yN+IS+TEgC0i10NhoeOOq9d3EPs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oK03H5xPK4EoZrCZG/DXijPF3JUBtJj7H/OOI0Iz3JClYoJhh2DeEdM2m1H+Xkuj2
-	 WeBjdk+NjCr2JubCQt+FpUvBs++Yunx3Hw+ijTbrBJpLbCd+zZ58BDTfQos1w2ukPc
-	 Nm8p3yg+k9uvWhPWgTo9AJ+P4aNhm+OeWd4xS+ff6+2EnCt6xqHwAgGzCF7TJjTwHU
-	 h6latD3ymDxWWBXCxLTWnAlwHK29PIVx/YGhk/1iLN85LmXfRgvuFvweYccyn/TZTV
-	 1Ib8MYXoOoIPtXrbAI4OAZwZprzc3gteHnPrIPHwL6ctDclZgbV9vMGJfoTKz3v0En
-	 wYPXX04XgYISw==
+	b=M8wHUA3gGNUK4Sg+L7Qp5f7sw0xUDLw2uj70uc/AvpC5sRTSUfukEWDStuXD8iGG1
+	 UyMrIvbr0v207+hHzgJgkYxAWK7jVRp4xX5qa3kaNoVCcF21PPwVhYOAFP6qPtnyV0
+	 P4/sKjgc/01EDGHDOcYJ2uxecDWiixhDS8WURERqFPA31BR6+nvAo2y7OnSMPQ+Q7d
+	 gZucqrts8UHgfAbf3FARbvqJeQrRtPThUMEWn2Eto6FZo7s5nUWzxRUKR+W1TC5k/0
+	 caNrr0nPr8bRsE46IUw87CvthAc9s1LmkLEWWRlpAjMTFlrkHky8oi5Mtfpd4SUxhT
+	 OtwhBIVpTptxg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gabriel Krisman Bertazi <krisman@collabora.com>,
-	Eugen Hristev <eugen.hristev@collabora.com>,
-	Eric Biggers <ebiggers@google.com>,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	stable@kernel.org,
+	Sarthak Kukreti <sarthakkukreti@google.com>,
+	Jan Kara <jack@suse.cz>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Theodore Ts'o <tytso@mit.edu>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] ext4: Move CONFIG_UNICODE defguards into the code flow
-Date: Tue, 10 Nov 2026 09:31:30 -0500
-Message-ID: <20261110143124.1907093-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] ext4: fix ABBA deadlock in ext4_rmdir()
+Date: Tue, 10 Nov 2026 09:31:31 -0500
+Message-ID: <20261110143124.1907093-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054551-failed-6.1-19e16597f9ba@kernel.org>
+In-Reply-To: <20261110143124.1907093-1-sashal@kernel.org>
 References: <20261107054551-failed-6.1-19e16597f9ba@kernel.org>
+ <20261110143124.1907093-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,212 +67,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gabriel Krisman Bertazi <krisman@collabora.com>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit d98c822232f8642960a69caedeb7909471127939 ]
+[ Upstream commit 19e16597f9baf1b5719a3a6c710486446f6808fd ]
 
-Instead of a bunch of ifdefs, make the unicode built checks part of the
-code flow where possible, as requested by Torvalds.
+We observe the following ABBA deadlock (casefolding enabled):
 
-Signed-off-by: Gabriel Krisman Bertazi <krisman@collabora.com>
-[eugen.hristev@collabora.com: port to 6.10-rc1]
-Signed-off-by: Eugen Hristev <eugen.hristev@collabora.com>
-Link: https://lore.kernel.org/r/20240606073353.47130-7-eugen.hristev@collabora.com
-Reviewed-by: Eric Biggers <ebiggers@google.com>
-Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 19e16597f9ba ("ext4: fix ABBA deadlock in ext4_rmdir()")
+ INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
+ task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
+ Call Trace:
+  <TASK>
+  __schedule+0xc2c/0xe60
+  schedule+0x40/0xe0
+  jbd2_journal_wait_updates+0x8f/0xf0
+  jbd2_journal_commit_transaction+0x321/0x1850
+  kjournald2+0xa9/0x230
+  kthread+0x226/0x2a0
+  ret_from_fork+0x101/0x1e0
+  ret_from_fork_asm+0x1a/0x30
+
+ INFO: task Thread-10:4161 blocked for more than 720 seconds.
+ task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
+ Call Trace:
+  <TASK>
+  __schedule+0xc2c/0xe60
+  schedule+0x40/0xe0
+  wait_transaction_locked+0x8c/0xd0
+  start_this_handle+0x252/0x870
+  jbd2__journal_start+0x120/0x280
+  __ext4_journal_start_sb+0x11a/0x250
+  ext4_evict_inode+0x208/0x760
+  iput+0x222/0x5c0
+  dput+0x293/0x690
+  ____fput+0x145/0x2b0
+  task_work_run+0x7a/0xb0
+  exit_to_user_mode_loop+0xc0/0xd0
+  do_syscall_64+0x14b/0xf10
+  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+ NMI backtrace for cpu 0
+ CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
+ RIP: 0010:d_walk+0x0/0x290
+[..]
+ Call Trace:
+ <TASK>
+  shrink_dcache_parent+0xb2/0x100
+  d_invalidate+0x50/0x110
+  ext4_rmdir+0x3a2/0x3d0
+  vfs_rmdir+0x9d/0x1d0
+  do_rmdir+0xf0/0x330
+  __x64_sys_unlinkat+0x34/0x50
+  do_syscall_64+0x61/0xf10
+
+The problem is that ext4_rmdir() calls d_invalidate() before stopping
+the jbd2 transaction handle.  Because d_invalidate() traverses child
+dentries it can encounter dying or in-use dentries.  If a concurrent
+thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
+it requests a new transaction handle via ext4_journal_start(), which
+waits for all running handles to close.  However, the thread executing
+ext4_rmdir() still holds its active transaction handle while looping
+in shrink_dcache_parent() waiting for the dying child dentry to complete
+eviction.
+
+Stop transaction handle in ext4_rmdir() before calling d_invalidate().
+
+Cc: stable@kernel.org
+Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
+Co-developed-by: Sarthak Kukreti <sarthakkukreti@google.com>
+Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Link: https://patch.msgid.link/20260827125158.4030598-1-senozhatsky@chromium.org
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/crypto.c | 10 ++--------
- fs/ext4/ext4.h   | 33 +++++++++++++++++++++------------
- fs/ext4/namei.c  | 14 +++++---------
- fs/ext4/super.c  |  4 +---
- 4 files changed, 29 insertions(+), 32 deletions(-)
+ fs/ext4/namei.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ext4/crypto.c b/fs/ext4/crypto.c
-index 8497f6125a8eb..c52971f62e525 100644
---- a/fs/ext4/crypto.c
-+++ b/fs/ext4/crypto.c
-@@ -31,11 +31,10 @@ int ext4_fname_setup_filename(struct inode *dir, const struct qstr *iname,
- 
- 	ext4_fname_from_fscrypt_name(fname, &name);
- 
--#if IS_ENABLED(CONFIG_UNICODE)
- 	err = ext4_fname_setup_ci_filename(dir, iname, fname);
- 	if (err)
- 		ext4_fname_free_filename(fname);
--#endif
-+
- 	return err;
- }
- 
-@@ -51,11 +50,9 @@ int ext4_fname_prepare_lookup(struct inode *dir, struct dentry *dentry,
- 
- 	ext4_fname_from_fscrypt_name(fname, &name);
- 
--#if IS_ENABLED(CONFIG_UNICODE)
- 	err = ext4_fname_setup_ci_filename(dir, &dentry->d_name, fname);
- 	if (err)
- 		ext4_fname_free_filename(fname);
--#endif
- 	return err;
- }
- 
-@@ -70,10 +67,7 @@ void ext4_fname_free_filename(struct ext4_filename *fname)
- 	fname->usr_fname = NULL;
- 	fname->disk_name.name = NULL;
- 
--#if IS_ENABLED(CONFIG_UNICODE)
--	kfree(fname->cf_name.name);
--	fname->cf_name.name = NULL;
--#endif
-+	ext4_fname_free_ci_filename(fname);
- }
- 
- static bool uuid_is_zero(__u8 u[16])
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 0d4cb3cedf607..25750b97bbae2 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -2776,8 +2776,25 @@ ext4_fsblk_t ext4_inode_to_goal_block(struct inode *);
- 
- #if IS_ENABLED(CONFIG_UNICODE)
- extern int ext4_fname_setup_ci_filename(struct inode *dir,
--					 const struct qstr *iname,
--					 struct ext4_filename *fname);
-+					const struct qstr *iname,
-+					struct ext4_filename *fname);
-+
-+static inline void ext4_fname_free_ci_filename(struct ext4_filename *fname)
-+{
-+	kfree(fname->cf_name.name);
-+	fname->cf_name.name = NULL;
-+}
-+#else
-+static inline int ext4_fname_setup_ci_filename(struct inode *dir,
-+					       const struct qstr *iname,
-+					       struct ext4_filename *fname)
-+{
-+	return 0;
-+}
-+
-+static inline void ext4_fname_free_ci_filename(struct ext4_filename *fname)
-+{
-+}
- #endif
- 
- /* ext4 encryption related stuff goes here crypto.c */
-@@ -2800,16 +2817,11 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
- 					    int lookup,
- 					    struct ext4_filename *fname)
- {
--	int err = 0;
- 	fname->usr_fname = iname;
- 	fname->disk_name.name = (unsigned char *) iname->name;
- 	fname->disk_name.len = iname->len;
- 
--#if IS_ENABLED(CONFIG_UNICODE)
--	err = ext4_fname_setup_ci_filename(dir, iname, fname);
--#endif
--
--	return err;
-+	return ext4_fname_setup_ci_filename(dir, iname, fname);
- }
- 
- static inline int ext4_fname_prepare_lookup(struct inode *dir,
-@@ -2821,10 +2833,7 @@ static inline int ext4_fname_prepare_lookup(struct inode *dir,
- 
- static inline void ext4_fname_free_filename(struct ext4_filename *fname)
- {
--#if IS_ENABLED(CONFIG_UNICODE)
--	kfree(fname->cf_name.name);
--	fname->cf_name.name = NULL;
--#endif
-+	ext4_fname_free_ci_filename(fname);
- }
- 
- static inline int ext4_ioctl_get_encryption_pwsalt(struct file *filp,
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 772dce1355e34..e38770a7ce444 100644
+index e38770a7ce444..42cc5c8778444 100644
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
-@@ -1875,8 +1875,7 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
- 		}
- 	}
- 
--#if IS_ENABLED(CONFIG_UNICODE)
--	if (!inode && IS_CASEFOLDED(dir)) {
-+	if (IS_ENABLED(CONFIG_UNICODE) && !inode && IS_CASEFOLDED(dir)) {
- 		/* Eventually we want to call d_add_ci(dentry, NULL)
- 		 * for negative dentries in the encoding case as
- 		 * well.  For now, prevent the negative dentry
-@@ -1884,7 +1883,7 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
- 		 */
- 		return NULL;
- 	}
--#endif
-+
- 	return d_splice_alias(inode, dentry);
- }
- 
-@@ -3259,16 +3258,14 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+@@ -3258,19 +3258,20 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
  	ext4_fc_track_unlink(handle, dentry);
  	retval = ext4_mark_inode_dirty(handle, dir);
  
--#if IS_ENABLED(CONFIG_UNICODE)
++end_rmdir:
++	brelse(bh);
++	if (handle)
++		ext4_journal_stop(handle);
++
  	/* VFS negative dentries are incompatible with Encoding and
  	 * Case-insensitiveness. Eventually we'll want avoid
  	 * invalidating the dentries here, alongside with returning the
  	 * negative dentries at ext4_lookup(), when it is better
  	 * supported by the VFS for the CI case.
  	 */
--	if (IS_CASEFOLDED(dir))
-+	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
+-	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
++	if (!retval && IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
  		d_invalidate(dentry);
--#endif
  
- end_rmdir:
- 	brelse(bh);
-@@ -3370,16 +3367,15 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
- 		goto out_trace;
+-end_rmdir:
+-	brelse(bh);
+-	if (handle)
+-		ext4_journal_stop(handle);
+ 	return retval;
+ }
  
- 	retval = __ext4_unlink(dir, &dentry->d_name, d_inode(dentry), dentry);
--#if IS_ENABLED(CONFIG_UNICODE)
-+
- 	/* VFS negative dentries are incompatible with Encoding and
- 	 * Case-insensitiveness. Eventually we'll want avoid
- 	 * invalidating the dentries here, alongside with returning the
- 	 * negative dentries at ext4_lookup(), when it is  better
- 	 * supported by the VFS for the CI case.
- 	 */
--	if (IS_CASEFOLDED(dir))
-+	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
- 		d_invalidate(dentry);
--#endif
- 
- out_trace:
- 	trace_ext4_unlink_exit(dentry, retval);
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index fa6d9260030aa..9be9c264a6977 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -3601,14 +3601,12 @@ int ext4_feature_set_ok(struct super_block *sb, int readonly)
- 		return 0;
- 	}
- 
--#if !IS_ENABLED(CONFIG_UNICODE)
--	if (ext4_has_feature_casefold(sb)) {
-+	if (!IS_ENABLED(CONFIG_UNICODE) && ext4_has_feature_casefold(sb)) {
- 		ext4_msg(sb, KERN_ERR,
- 			 "Filesystem with casefold feature cannot be "
- 			 "mounted without CONFIG_UNICODE");
- 		return 0;
- 	}
--#endif
- 
- 	if (readonly)
- 		return 1;
 -- 
 2.53.0
 
