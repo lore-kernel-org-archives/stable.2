@@ -1,59 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794336519;
-	b=kchE8grCl6pSTaDtJd/uZhch48p1gy/oHRJXXyOkzaGHJudUlvJaywSTmV76ewUBxL0l
-	 6bEdqUv7UPsQd7Zp9BD6RGonOL84+WIvuxxsNlQHbJ92+k2tTTVgvIlhT82nCqzEDMick
-	 nRLoVWUoFO8vd3PJOu6GuL2BscGI0drMObv9Vs0Pf9aSpg24Ej8/RwNzaBD0lKecLmEue
-	 9LOWKTkYeleVmVzj6fRcdyF3D2lt7Au2P6QJ4tuezMsDldLqTDUb4B9XG3XPTziC0ltpl
-	 /PIKVZTU0q6nj3E9XMzh+4mwFeanJR0BSK3pTgdZFymN+aXkpJb5H3n29VI07FNiwFg==
+	t=1794336547;
+	b=jbVF7lxUEsLSWs3mF8O2jkMxIr47VB+2y3OCpRfuC0ls4b5+K1twn9g1k7Py0QzMoPYU
+	 sHq/QXketv28mTv21pf17ghAwMiLrADg88zGHDEJFDUhG2+kgkKHX6VvMiHVnEivP56M8
+	 7pCmLsIVxEbA2SJrW9rJBdyhFOAMG4syykd8sIjBP5wxsmX+USSmsjh+2258cxsFFaVk6
+	 0ob2nhJP1siWaLm1jQNIgMRA8oSAZaKzrFfLDuQ+tl4DpSbwlvEgo6ZYRoOdhJd3RM66D
+	 kVYfxINLwO2nussQuE0QQegyHDDJz0QUH//8jnfZ9ljyUtbyXQdqDrkWnN42GLipauw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794336519;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UDEuEmXEi/1oyOtLLGgrTyOp3pv+BXBIJv+slZdbGY8=;
-	b=udP4elZ/KuEgqdqFcxLatmZngOMN3tpoCNDkmqfR1OpT/qtRf4ZcvapyzVUw1BUdjxyX
-	 Lr4/F9voyFsuTMsob1wj2rH/zLfaWKHxJPqSDnpufrk5Ckf/f0GTh7GlaempWmFIlW3Gt
-	 ak3hSD+x/BxC7L8g7LfrvVpjJP8WteKk9PGiAFBumlQWTHf88233jQ/zFIGUr4JJpg35f
-	 WrtqKN88KoTr1sehOhb5JpsC5uTJytLQY8tYwgBn8lTZGdtpvaYYLenSwZyjnqZCA/cL1
-	 j3MSlOzNxzpZD8rSGYFXH+cx6KGxh5eUCRfaCghoJoZvlPH2f6iuhDhSFOoR6ej0+yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794336547;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=4NwN9E6vgSlo8rB96M5nv24KM+FlzXoI9Z76B8vhdMY=;
+	b=yVXuBK/GQj5Pb5S5krTz+IoDgf5Pin+/9cPiD/DHteDDcSkxiGEPWlhZbQZYNzHEi7dc
+	 O0rVjg4NLMrdS0U64IegYHKVO6I/CYPmDABOQ3lBuv1DozOeF6D3NY+zk00d9a6knW7GW
+	 VKMIL1Una4/+ExO8EDgomOjrkjGP/im6jAxFp6/X2wVZJU/dgfC2SfQMDwX0CNxGtaEvm
+	 Qkj+G11XrvWqeUlkLQW1KVlKoW4VA4TKkDGikpCV6jQZmBGnhcmwPDrou0iQ8PlMUXvA7
+	 lWFDbg8HQKcAbzdNCKSrKaF6QhSrAjmsybnyT0VeTiFD39xBKtqmOU6OUA9YHsft4Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzBrbe7c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=ZUitLn4h;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DDF606A327
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 18:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50C4606A326;
+	Tue, 10 Nov 2026 18:49:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E50C4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzBrbe7c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F1041F008A2;
-	Tue, 10 Nov 2026 18:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794336519;
-	bh=UDEuEmXEi/1oyOtLLGgrTyOp3pv+BXBIJv+slZdbGY8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CzBrbe7cN3aka9xTeB95qr2ds4PwERD73gNuYWvxMyveSbfrH0V27ruR2jwSk6aGZ
-	 TwF2+5dppoOhSnwTGGaUxUwEHdxf/9prOlzRb8ZF4mTprycmNieyZ9G5MiC8xu2wx/
-	 hrebugPtX6R2OVYUfyiFMBiHfeFu+8hVxG6ITXyenTq5iyQcL0NOzPC1zIKmmkPFrc
-	 bBqtdpIHLbHyJAoUk7Rh9ZkAK5TCemw5AEhMKv1xmahlW6Ne2wkL3+DBhyoiTgU4ub
-	 BTW/9KLMGxoHSKmzVbnXCAmIeyt6P10wzpS4YrhYsoG8Ekghg6C1GY/Rm7czrZocEw
-	 xUgaLWoCQaMcA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mptcp: fix MP_CAPABLE token migration when cloning reqsk
-Date: Tue, 10 Nov 2026 13:48:36 -0500
-Message-ID: <20261110184601.3245102-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055043-failed-6.1-2093bc7fa500@kernel.org>
-References: <20261107055043-failed-6.1-2093bc7fa500@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=ZUitLn4h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1794336536;
+	bh=jegcFOu8qaT2jcRlBX2akbwxJzGRCez4pO/j9if0ZOA=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZUitLn4hDLwR4dPGt6gBgP94Jd1TCaTjqARbtL4+Kvz6yCt1UhXUV+JvnakT2MI0X
+	 lQXjeApoMi8beKDSY8i+3FuBHIWGxPvpu1X0lNk3KXte5MfmqwahXb/wtibi4GWoqh
+	 OJcLpj11rvmZKydMjYAAQFxlcLAgXNisyYKdCFLyvKZIlkYzqiJpvMVdAw/BqPdtZ7
+	 uFcVuRs90O9vUg1wBJVik6NdBXnXCP6uag76yeW5qGcnJkAKgLBMFvhWQUkw1iMB4j
+	 Rw+XnCWcsi2iWZQPh9DcoXLfePg7IZyNDwWPYm4clqNwgqjGqQn+VlMedzT9dMwp2N
+	 RwSyM5Y6uaz2A==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 7957025A66;
+	Tue, 10 Nov 2026 21:48:56 +0300 (MSK)
+Received: from mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 10 Nov 2026 21:48:53 +0300 (MSK)
+Received: from rbta-spb-lt-115149.astralinux.ru (rbta-spb-lt-115149.astralinux.ru [10.198.28.148])
+	by mail.astralinux.ru (Postfix) with ESMTPA id 4jPFzm59Nqz6pr;
+	Tue, 10 Nov 2026 21:48:52 +0300 (MSK)
+From: Elizaveta Tereshkina <etereshkina@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Elizaveta Tereshkina <etereshkina@astralinux.ru>,
+	Maxime Ripard <mripard@kernel.org>,
+	Chen-Yu Tsai <wens@csie.org>,
+	David Airlie <airlied@linux.ie>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Neil Armstrong <narmstrong@baylibre.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@siol.net>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Samuel Holland <samuel@sholland.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	lvc-project@linuxtesting.org,
+	Ethan Tidmore <ethantidmore06@gmail.com>
+Subject: [PATCH 5.10/5.15 v2] drm/sun4i: backend: fix error pointer dereference
+Date: Tue, 10 Nov 2026 21:48:45 +0300
+Message-ID: <20261110184847.439523-1-etereshkina@astralinux.ru>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,298 +98,77 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/10 18:31:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: etereshkina@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 134 0.3.134 ce9cca31102af372fedb0df49d70b90f771aea0b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;127.0.0.199:7.1.2;mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207384 [Nov 10 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/10 17:50:00 #28834512
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/10 18:31:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-From: Ruide Cao <caoruide123@gmail.com>
+From: Ethan Tidmore <ethantidmore06@gmail.com>
 
-[ Upstream commit 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d ]
+commit 06277983eca4a31d3c2114fa33d99a6e82484b11 upstream.
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_CAPABLE requests this byte-copies the
-token_node hlist state into the clone even though the token table still
-names the original request, and the following warning can be seen:
+The function drm_atomic_get_plane_state() can return an error pointer
+and is not checked for it. Add error pointer check.
 
-  WARNING: net/mptcp/token.c:364 at mptcp_token_destroy_request+0x2b0/0x330, CPU#2: swapper/2/0
-  CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
-  RIP: 0010:mptcp_token_destroy_request (net/mptcp/token.c:364 (discriminator 1))
-  Call Trace:
-   <IRQ>
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-   call_timer_fn (kernel/time/timer.c:1748)
+Detected by Smatch:
+drivers/gpu/drm/sun4i/sun4i_backend.c:496 sun4i_backend_atomic_check() error:
+'plane_state' dereferencing possible ERR_PTR()
 
-Move token request ownership from the original request to the clone under
-the token bucket lock.  Make mptcp_token_accept() and
-mptcp_token_destroy_request() re-check token_node under the same lock and
-treat an already moved or removed request as a normal race instead of
-warning.  This also keeps token bucket chain_len accounting balanced.
-
-If a passive MP_CAPABLE socket cannot claim the token, destroy the
-provisional MPTCP socket and let the subflow fall back rather than
-installing a socket with mismatched token ownership.  Mark that path as a
-passive handshake fallback so MPCapableFallbackACK records the downgrade.
-
-If the speculative clone later loses the inet_ehash_insert() ownership
-arbitration, the original request may find that its token was already moved
-and fall back to plain TCP.  The clone destructor then releases the token
-reservation and keeps chain_len balanced.  This trades an exceptionally
-rare fallback for eliminating the warning and persistent accounting drift.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/86e2514b533bf4d55d4aa2fdbf1404022e8c9430.1776149210.git.caoruide123%40gmail.com
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-4-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adapted MPTCP socket cleanup to the existing state-management and per-protocol orphan-counter APIs. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 96180dde23b79 ("drm/sun4i: backend: Add a custom atomic_check for the frontend")
+Signed-off-by: Ethan Tidmore <ethantidmore06@gmail.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Link: https://patch.msgid.link/20260217014801.60760-1-ethantidmore06@gmail.com
+Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Elizaveta Tereshkina <etereshkina@astralinux.ru>
 ---
- net/mptcp/protocol.c   | 29 +++++++++++++++----
- net/mptcp/protocol.h   |  4 ++-
- net/mptcp/subflow.c    |  6 +++-
- net/mptcp/token.c      | 65 ++++++++++++++++++++++++++++++++++++++----
- net/mptcp/token_test.c |  4 +--
- 5 files changed, 93 insertions(+), 15 deletions(-)
+Backport fix for CVE-2026-53066
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index bdace644dbc6a..2d2f36181242c 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3372,6 +3372,21 @@ static void mptcp_copy_ip_options(struct sock *newsk, const struct sock *sk)
- 	rcu_read_unlock();
- }
+v2: Separate variables declarations to avoid instance of warning due to
+lack of b5ec6fd286df ("kbuild: Drop -Wdeclaration-after-statement")
+
+ drivers/gpu/drm/sun4i/sun4i_backend.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/sun4i/sun4i_backend.c b/drivers/gpu/drm/sun4i/sun4i_backend.c
+index 9c4581a3b65f..20740ff02a81 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_backend.c
++++ b/drivers/gpu/drm/sun4i/sun4i_backend.c
+@@ -505,13 +505,19 @@ static int sun4i_backend_atomic_check(struct sunxi_engine *engine,
+ 		return 0;
  
-+static void mptcp_sk_clone_destroy(struct sock *nsk)
-+{
-+	inet_sk_state_store(nsk, TCP_CLOSE);
-+	/* inet_csk_prepare_forced_close() clears TCP sock_ops state via
-+	 * tcp_sk(), but nsk is an MPTCP master socket; keep the inet-level
-+	 * destroy preparation here.
-+	 */
-+	bh_unlock_sock(nsk);
-+	sock_put(nsk);
-+	sock_set_flag(nsk, SOCK_DEAD);
-+	this_cpu_inc(*nsk->sk_prot->orphan_count);
-+	inet_sk(nsk)->inet_num = 0;
-+	inet_csk_destroy_sock(nsk);
-+}
+ 	drm_for_each_plane_mask(plane, drm, crtc_state->plane_mask) {
+-		struct drm_plane_state *plane_state =
+-			drm_atomic_get_plane_state(state, plane);
+-		struct sun4i_layer_state *layer_state =
+-			state_to_sun4i_layer_state(plane_state);
+-		struct drm_framebuffer *fb = plane_state->fb;
++		struct drm_plane_state *plane_state;
++		struct sun4i_layer_state *layer_state;
++		struct drm_framebuffer *fb;
+ 		struct drm_format_name_buf format_name;
+ 
++		plane_state = drm_atomic_get_plane_state(state, plane);
 +
- struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 				 const struct mptcp_options_received *mp_opt,
- 				 struct sock *ssk,
-@@ -3436,11 +3451,6 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 	list_add(&mptcp_subflow_ctx(ssk)->node, &msk->conn_list);
- 	sock_hold(ssk);
- 
--	/* new mpc subflow takes ownership of the newly
--	 * created mptcp socket
--	 */
--	mptcp_token_accept(subflow_req, msk);
--
- 	/* set msk addresses early to ensure mptcp_pm_get_local_id()
- 	 * uses the correct data
- 	 */
-@@ -3448,6 +3458,14 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 	mptcp_propagate_sndbuf(nsk, ssk);
- 
- 	mptcp_rcv_space_init(msk, ssk);
++		if (IS_ERR(plane_state))
++			return PTR_ERR(plane_state);
 +
-+	if (!mptcp_token_accept(subflow_req, msk)) {
-+		list_del_init(&mptcp_subflow_ctx(ssk)->node);
-+		WRITE_ONCE(msk->first, NULL);
-+		sock_put(ssk);
-+		mptcp_sk_clone_destroy(nsk);
-+		return NULL;
-+	}
- 	bh_unlock_sock(nsk);
- 
- 	/* note: the newly allocated socket refcount is 2 now */
-@@ -3969,6 +3987,7 @@ static struct proto mptcp_prot = {
- 	.get_port	= mptcp_get_port,
- 	.forward_alloc_get	= mptcp_forward_alloc_get,
- 	.sockets_allocated	= &mptcp_sockets_allocated,
-+	.orphan_count		= &tcp_orphan_count,
- 
- 	.memory_allocated	= &tcp_memory_allocated,
- 	.per_cpu_fw_alloc	= &tcp_memory_per_cpu_fw_alloc,
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 31ea91b45363c..b27f672993605 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -778,9 +778,11 @@ static inline void mptcp_token_init_request(struct request_sock *req)
- }
- 
- int mptcp_token_new_request(struct request_sock *req);
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req);
- void mptcp_token_destroy_request(struct request_sock *req);
- int mptcp_token_new_connect(struct sock *sk);
--void mptcp_token_accept(struct mptcp_subflow_request_sock *r,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *r,
- 			struct mptcp_sock *msk);
- bool mptcp_token_exists(u32 token);
- struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token);
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index df85e8ac0d3d1..b192a4d8b707c 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -81,6 +81,8 @@ void mptcp_subflow_reqsk_clone(struct request_sock *req,
- 	}
- 
- 	new_subflow_req->msk = msk;
++		layer_state = state_to_sun4i_layer_state(plane_state);
++		fb = plane_state->fb;
 +
-+	mptcp_token_move_request(req, new_req);
- }
- 
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
-@@ -811,8 +813,10 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 
- 		if (ctx->mp_capable) {
- 			ctx->conn = mptcp_sk_clone_init(listener->conn, &mp_opt, child, req);
--			if (!ctx->conn)
-+			if (!ctx->conn) {
-+				fallback = true;
- 				goto fallback;
-+			}
- 
- 			owner = mptcp_sk(ctx->conn);
- 
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index f52ee7b26aed1..d64ab69098a88 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -178,6 +178,43 @@ int mptcp_token_new_connect(struct sock *sk)
- 	return 0;
- }
- 
-+/**
-+ * mptcp_token_move_request - move request token ownership to a clone
-+ * @req: original request socket
-+ * @new_req: cloned request socket
-+ *
-+ * Move the token hash entry from the original request to its clone.
-+ */
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_subflow_request_sock *pos;
-+	struct token_bucket *bucket;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+		return;
-+	}
-+
-+	bucket = token_bucket(subflow_req->token);
-+	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+	} else {
-+		pos = __token_lookup_req(bucket, subflow_req->token);
-+		if (pos == subflow_req)
-+			hlist_nulls_replace_init_rcu(&subflow_req->token_node,
-+						     &new_subflow_req->token_node);
-+		else
-+			mptcp_token_init_request(new_req);
-+	}
-+	spin_unlock_bh(&bucket->lock);
-+}
-+
- /**
-  * mptcp_token_accept - replace a req sk with full sock in token hash
-  * @req: the request socket to be removed
-@@ -185,22 +222,33 @@ int mptcp_token_new_connect(struct sock *sk)
-  *
-  * Called when a SYN packet creates a new logical connection, i.e.
-  * is not a join request.
-+ *
-+ * Return: true on success.
-  */
--void mptcp_token_accept(struct mptcp_subflow_request_sock *req,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *req,
- 			struct mptcp_sock *msk)
- {
- 	struct mptcp_subflow_request_sock *pos;
- 	struct token_bucket *bucket;
-+	bool ret = false;
- 
- 	bucket = token_bucket(req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&req->token_node))
-+		goto unlock;
- 
--	/* pedantic lookup check for the moved token */
- 	pos = __token_lookup_req(bucket, req->token);
--	if (!WARN_ON_ONCE(pos != req))
--		hlist_nulls_del_init_rcu(&req->token_node);
-+	if (pos != req)
-+		goto unlock;
-+
-+	hlist_nulls_del_init_rcu(&req->token_node);
- 	__sk_nulls_add_node_rcu((struct sock *)msk, &bucket->msk_chain);
-+	ret = true;
-+
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
-+
-+	return ret;
- }
- 
- bool mptcp_token_exists(u32 token)
-@@ -349,16 +397,21 @@ void mptcp_token_destroy_request(struct request_sock *req)
- 	struct mptcp_subflow_request_sock *pos;
- 	struct token_bucket *bucket;
- 
--	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node))
- 		return;
- 
- 	bucket = token_bucket(subflow_req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+		goto unlock;
-+
- 	pos = __token_lookup_req(bucket, subflow_req->token);
--	if (!WARN_ON_ONCE(pos != subflow_req)) {
-+	if (pos == subflow_req) {
- 		hlist_nulls_del_init_rcu(&pos->token_node);
- 		bucket->chain_len--;
- 	}
-+
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
- }
- 
-diff --git a/net/mptcp/token_test.c b/net/mptcp/token_test.c
-index 5d984bec1cd86..8fbf69b8172d3 100644
---- a/net/mptcp/token_test.c
-+++ b/net/mptcp/token_test.c
-@@ -91,7 +91,7 @@ static void mptcp_token_test_accept(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 	KUNIT_EXPECT_PTR_EQ(test, msk, mptcp_token_get_sock(&init_net, msk->token));
- 
- 	/* this is now a no-op */
-@@ -114,7 +114,7 @@ static void mptcp_token_test_destroyed(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 
- 	/* simulate race on removal */
- 	refcount_set(&sk->sk_refcnt, 0);
+ 		if (!sun4i_backend_plane_is_supported(plane_state,
+ 						      &layer_state->uses_frontend))
+ 			return -EINVAL;
 -- 
-2.53.0
+2.43.0
 
