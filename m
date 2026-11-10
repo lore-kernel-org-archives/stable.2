@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794281193;
-	b=T3oNENX7Ey4cUcPreKhEtIAAgVHvp2jpSZlQmwd6f/TbTKduCR2DLIwOt81q7yRg47CA
-	 RUBCH8XD1RgiURGwLIrHlupy8Grwh5vus2J2nfHGQwYa0Lkg30TNsu7j6pGNv6GHJNpX/
-	 b2BC9b5pSusZVq43wtrHjGnFw6kCfqTapEsoNLST/JKyC6JFyuqF9eXEJgMcBRUuMJ/Lv
-	 QklBtETwtlsIdEEShrwSOKoF8F5xDj3WsYLonvjIoh5ilWWilElPWLDGmzKLtlWpnJQ8/
-	 HQR7LbOH2D94LWI8Asis/O1ecxpraCgDCeKx5aXx7gX5+UEe9aTM0EGTKMVd1noRVdA==
+	t=1794281196;
+	b=Ec8fN/8F+a5g8Ed6Ibcdug9YF+Tay1nEVvk/+aMYvz8YYO1Y9KYcU4QkQ98C9lkOzJl7
+	 i101w3fxkxJabRgxsI5YhlatCfEe6vbdNoOXRfWfpuFKeRgx51LRMtAwvsW3G6rckl0Py
+	 im93/dIYcXj+xy1laCqgnCg7OwEoHarZ1YmuvMw/2YbcIpsKAHJYIq0OiruGaheTXvGW6
+	 awO8KAxxQtnCOwnXTHD+R4x9mYuOL4E41voPjWRR61rTIUPyqv1Wa4heJ7rFDjk3KVX7e
+	 fkSpk9sxP+2k6NG99Km8ESDoGel1RcNoYmvWIK/5XO5h2IOh7Pd5sAYG+psZRllJ8IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794281193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794281196;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Gw4ngtjzDx+Wqj7UMYuMZoLRKuX3luQ1IiC3EF1ktgA=;
-	b=VK6Xy94agsLmhD+k3asKzhFNBtAYDn69eick5g7bT72/sQO0sDybk7FS7Ocbmtn92hMS
-	 mnSK4gSMb6jcJ5slu/9haUK0eh5+r9EXthWyHSSv4Wm+qhz9OJSsYtfsDXRpkhfhkZsLR
-	 gXyAq+UWOx7yeaSOjQXvCfZpNI0AxyT1+sm4x9N0lufIERuaQeYlWIQILC9pHC9gCFJO5
-	 KE3VANQqPOOi2VZvM0NMtwnFaH1l6UY5WeWhERtrr5u5HEW3C8k97jB9zjD0NoddeRlvZ
-	 piexe12gBPOrwIih09ZKZmvqhUaK9TWu5lgiFiROLB54U7HN0Zc3A+jKHe87lmiTbtg==
+	bh=iOLSzVEMlXkB6ktOFlZeNchMP2BpCKiNQiqp2R0zhgQ=;
+	b=oCGKoSQ+bVW2sVMydYGDiF0bopdq9fIhLj1bUmpVDyKeAx/EG977Lq9x5I+vaewD0eCB
+	 HcD4JDZ+eggRzHLhlef+nDTTuOib6mzYge2SE/waRnxVRAP8EUVs5VlitZbMaAPBqj3GO
+	 /VJtDrz3dCb81Qpe9zHB8pTaFqlBzv3NlSrywcMXpNjACn55tjVcDeDqwhsSmShVwMlAc
+	 o/blZYAO/9UZVu/tUA86eEk1syNji8rM4zQtNDzlnYbB5/azGGci2LhaKLUa1XCphuIVI
+	 9u4Bg01GfCJWPJpFMA1viZ7WT9cnJcxQhMBmtFs0UWHgs/rckLP4Wrwf1y+ibIPCXyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UT7fl5dt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNY0BCZo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BAB606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:26:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238E5606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 03:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UT7fl5dt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9ECB1F0089F;
-	Tue, 10 Nov 2026 03:26:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNY0BCZo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1801F0089F;
+	Tue, 10 Nov 2026 03:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794281193;
-	bh=Gw4ngtjzDx+Wqj7UMYuMZoLRKuX3luQ1IiC3EF1ktgA=;
+	s=k20260515; t=1794281195;
+	bh=iOLSzVEMlXkB6ktOFlZeNchMP2BpCKiNQiqp2R0zhgQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UT7fl5dtkmXaDSiFWMZUMGIVmKvkb553e+iF0rF3+LsH0MC3rgf/rkd3PRFPbu99a
-	 Saa0OwS7GSk2JmpbyT5FTeTXgIRaZd3etr7nqS1Yqn0g2R4TAU2yKFUYHNiSF6wb0D
-	 DShhwmgbGid0WFtfrD7sCr8QwYEM/wIV/hNIW9969qF7ajBIk9qRJbOHqlJ40nUerc
-	 ZHwkL63lpGtTXiVZRdSOXeMC8WIkvrIGnTpK0xpnAB4HFTJ4HyUJ4RDTrvuDPhMczc
-	 byd2ZBxpoIWetkYB726UXutnXBihpoGvuk2ozOHWh7Y4hSaxRqBEoeidWmaHEgMKx5
-	 9i4L+mKiTEMQQ==
+	b=DNY0BCZolIQyOo2OiTjPD0bBliU529NaQhTMklrgoK4AIrWutShUaN8klVzwTAdiM
+	 d2+7FIMDgByaCABzzVjq9GK7bjmrJuXpa/TJV4tXGKOQJ2SBR5HtDIG1Z3yH4A7K8z
+	 1HBeH+29dgI5e+dMkIGMyiU3RoS3B/1ulyFtoNxSPCWnFoJubtEuc8m4u7aislLlI4
+	 T+OR/8z8iZ2Q+AUpJ3834/NRJFx1BqVyUkzp1yHZZEcIA8hfSCTHBS/yXCRLZx+Rd1
+	 lJ3X1Ru1q4KRexCHH5GhfHgVJF0GAU8jN0hXqkdw7xYPXNqtdZ83BrajmEc3j5bnOy
+	 rGmyL79z11fGQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Jakub Szczudlo <jakubszczudlo40@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Stable@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] media: redrat3: Error path leaves device in transmitting state
-Date: Mon,  9 Nov 2026 22:26:31 -0500
-Message-ID: <20261110032615.217201-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single mode
+Date: Mon,  9 Nov 2026 22:26:33 -0500
+Message-ID: <20261110032614.57896-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055718-failed-5.15-8024d5e84531@kernel.org>
-References: <20261107055718-failed-5.15-8024d5e84531@kernel.org>
+In-Reply-To: <20261107052809-failed-6.6-38dbf24dfbd0@kernel.org>
+References: <20261107052809-failed-6.6-38dbf24dfbd0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,64 +63,209 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 
-[ Upstream commit 8024d5e84531d828535365718278f1cf0ce67db0 ]
+[ Upstream commit 38dbf24dfbd0a73b89fa2871a7148429aef05531 ]
 
-In the allocation failure error path, the transmitting boolean is not
-cleared. If this error path is followed the transmitter cannot be
-used again until the device is replugged or the module reloaded.
+When device is suspended and it is in single mode then changing
+datarate doesn't make it actually wait for new measurement, so to
+be sure that read after change is correct, functions that changes
+datarate and gain will wait for a new data.
 
-Fix the error path by moving the assignment statement.
-
-Remove the check for the transmitting state in transmit, since rc-core
-ensures there is never a reentrant call to the driver transmit function;
-the transmit function is always called with dev->lock held.
-
-The transmitting boolean is only used for interpretting firmware errors.
-
-Fixes: fac59136bc22 ("[media] RedRat3: Return directly after a failed kcalloc() in redrat3_transmit_ir()")"
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: Adjusted allocation context for kcalloc() instead of kzalloc_objs(). ]
+Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
+Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ sashal: Replaced unavailable runtime-PM guards with explicit reference management that calls pm_runtime_mark_last_busy() before autosuspend. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/redrat3.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/iio/adc/ti-ads1100.c | 121 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 115 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index e0a59a2b0f995..f095ad8d74370 100644
---- a/drivers/media/rc/redrat3.c
-+++ b/drivers/media/rc/redrat3.c
-@@ -773,17 +773,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 	u8 curlencheck = 0;
- 	unsigned i, sendbuf_len;
+diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+index 1e46f07a9ca6a..bea727ff9d6ee 100644
+--- a/drivers/iio/adc/ti-ads1100.c
++++ b/drivers/iio/adc/ti-ads1100.c
+@@ -14,10 +14,12 @@
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
++#include <linux/iopoll.h>
+ #include <linux/mutex.h>
+ #include <linux/property.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/time.h>
+ #include <linux/units.h>
  
--	if (rr3->transmitting) {
--		dev_warn(dev, "%s: transmitter already in use\n", __func__);
--		return -EAGAIN;
--	}
--
- 	if (count > RR3_MAX_SIG_SIZE - RR3_TX_TRAILER_LEN)
+ #include <linux/iio/iio.h>
+@@ -42,6 +44,9 @@
+ static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
+ static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
+ 
++/* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
++#define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
++
+ struct ads1100_data {
+ 	struct i2c_client *client;
+ 	struct regulator *reg_vdd;
+@@ -123,10 +128,86 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
+ 	return 0;
+ }
+ 
++static int ads1100_conversion_busy(struct ads1100_data *data)
++{
++	u8 buffer[3];
++	int ret;
++
++	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
++		return ret;
++	}
++
++	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
++}
++
++static int ads1100_wait_single_conversion(struct ads1100_data *data)
++{
++	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
++	int data_rate_Hz = ads1100_data_rate[data_rate_index];
++	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
++	int busy;
++	int ret;
++
++	ret = readx_poll_timeout(ads1100_conversion_busy, data,
++				 busy, busy <= 0,
++				 poll_us, ADS1100_MAX_DRDY_TIMEOUT_US);
++	if (busy < 0)
++		return busy;
++
++	return ret;
++}
++
++static int ads1100_start_single_conversion(struct ads1100_data *data)
++{
++	u8 config = data->config | ADS1100_CFG_SC;
++	int ret;
++
++	ret = i2c_master_send(data->client, &config, sizeof(config));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
++		return ret;
++	}
++	/* Need to wait because of change from continuous to single mode */
++	ret = ads1100_wait_single_conversion(data);
++	if (ret)
++		return ret;
++
++	config |= ADS1100_CFG_ST_BSY;
++
++	ret = i2c_master_send(data->client, &config, sizeof(config));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
++		return ret;
++	}
++
++	/* No need to cache it, it's status bit */
++	data->config = config & ~ADS1100_CFG_ST_BSY;
++
++	return 0;
++}
++
++static int ads1100_poll_data_ready(struct ads1100_data *data)
++{
++	int ret;
++
++	ret = ads1100_start_single_conversion(data);
++	if (ret)
++		return ret;
++
++	ret = ads1100_wait_single_conversion(data);
++	if (ret)
++		return ret;
++
++	return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS);
++}
++
+ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ {
+ 	int microvolts;
+ 	int gain;
++	int ret;
+ 
+ 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
+ 	if (val)
+@@ -135,6 +216,10 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	if (!val2)
  		return -EINVAL;
  
--	/* rr3 will disable rc detector on transmit */
--	rr3->transmitting = true;
--
- 	sample_lens = kcalloc(RR3_DRIVER_MAXLENS,
- 			      sizeof(*sample_lens),
- 			      GFP_KERNEL);
-@@ -796,6 +788,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 		goto out;
++	ret = pm_runtime_resume_and_get(&data->client->dev);
++	if (ret)
++		return ret;
++
+ 	microvolts = regulator_get_voltage(data->reg_vdd);
+ 	/*
+ 	 * val2 is in 'micro' units, n = val2 / 1000000
+@@ -144,27 +229,51 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	 * bitshift so everything fits in 32-bits yields this formula.
+ 	 */
+ 	gain = DIV_ROUND_CLOSEST(microvolts, BIT(15)) * MILLI / val2;
+-	if (gain < BIT(0) || gain > BIT(3))
+-		return -EINVAL;
++	if (gain < BIT(0) || gain > BIT(3)) {
++		ret = -EINVAL;
++		goto out;
++	}
+ 
+ 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
+ 
+-	return 0;
++	ret = ads1100_poll_data_ready(data);
++out:
++	pm_runtime_mark_last_busy(&data->client->dev);
++	pm_runtime_put_autosuspend(&data->client->dev);
++
++	return ret;
+ }
+ 
+ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
+ {
+ 	unsigned int i;
+ 	unsigned int size;
++	int ret;
+ 
+ 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
+ 	for (i = 0; i < size; i++) {
+ 		if (ads1100_data_rate[i] == rate)
+-			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
+-						       FIELD_PREP(ADS1100_DR_MASK, i));
++			break;
  	}
  
-+	/* rr3 will disable rc detector on transmit */
-+	rr3->transmitting = true;
+-	return -EINVAL;
++	if (i == size)
++		return -EINVAL;
 +
- 	for (i = 0; i < count; i++) {
- 		cur_sample_len = redrat3_us_to_len(txbuf[i]);
- 		if (cur_sample_len > 0xffff) {
++	ret = pm_runtime_resume_and_get(&data->client->dev);
++	if (ret)
++		return ret;
++
++	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
++				      FIELD_PREP(ADS1100_DR_MASK, i));
++	if (ret)
++		goto out;
++
++	ret = ads1100_poll_data_ready(data);
++out:
++	pm_runtime_mark_last_busy(&data->client->dev);
++	pm_runtime_put_autosuspend(&data->client->dev);
++
++	return ret;
+ }
+ 
+ static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
 -- 
 2.53.0
 
