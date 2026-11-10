@@ -1,95 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794333246;
-	b=U5nMlL5wpFaCiNX0Q2tb93kGP8mxDNXwWu6xbiVbn6BIgNpGHKs7tnc98w0Qv8RKb603
-	 k0Qv+ZiHY9EBnwg4oVuBP4fP9k53cBtRoLsLOF9KHQzcK6X7Eip03QbhxoQN+1kVXF1of
-	 EbjEy37ElYNYKAXnXvRYQ1B4XjUW1TRaQMd3q5n3BWTd9LwL7aw4UzowfBgD0vYv6mBVF
-	 8Um5IXYaYlNyaJc7Oko6jCYqZpk/XJQc6RiJQeFp6raSBKYaBfuZpPmd+ZZRlQzoQLOhx
-	 VKrSc4ICm27b7ZoGXwoQsKqsFx/eGKeOPNEF70z5xCUdB5YHYfQoIAkIMTRuF1rD3Bw==
+	t=1794333263;
+	b=OW7jvT2eICNKg18EYg+gSaNM15eCcdTRz3Wjh26sT9nslqSgIDQBR9y5uLt6AbA4aRpP
+	 R7fomvh4tEPPQ73Nonq695pd0nRrlXsZoJYJOHSlKKkc0wP8Li3y1c8tt0A0SniXav6qm
+	 fX2/9UI2Dy9MTw89IUexNqsa8ddhezRWSf1DZoPWPQ3W5yhmNxfcMqEOL0tkCLl2zExSs
+	 7v2byjdLLIRR67/aAjiMbIzg0694Yvz0hEnhxrtoyJJtp7YGnos+Rk0CXK0/CXrvTurJY
+	 Wod43cFSCqLVqLnjt9QRJlVzwnhcu60cBoByRN8YM3+s/qrFE/aq4XetDbseCfxammg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794333246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EWyUegrb38WBeDiaL/HzG3HTGpRVVOl2V2uFzvvGvWE=;
-	b=cP4IQ5cZ/YJX5OdVZRe7aSxwIdrVD2+/YLBv7bNyojdaRLQsvDcKIu3AY4O0S5hWlt8r
-	 v9jRaLTTRUw033JEFyUHnePEtRT5z12O94xPme9YbsWOsOlpH4Uwg4ecZCqQn39U91qDX
-	 47gVq5RrW5IwKKqg7dYh+yXtp4llr9zvY7JEyCZCDa+9LMUnOHTeK6jWjkGYac6H3oKZD
-	 tKtWFquUvX+wt4ytBOiGvKITDcPQdhdeAYErM1OHZZNvTKg5HJ4GCfI3kbqeJoUPGAPy+
-	 mrYtVw2PTjEv4R546xN5aMLDThdLqFgXOjzjH6rUztoeAnnNj6Qw2gxDMS/L01EVu8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794333263;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=oUTVKVZBrwxGxt0Mr4xJN3r31IUaa+CBW4hgSfVG54A=;
+	b=XAkFu8papU1pH4Arl4UvAceJeyT5Xka2vCXALMAj+NpNDTZzJ6qEzN0njjbX71492iZa
+	 SAmRPCQ7FBD4otx9CZBxeVhgkKLlbzG5ZIn1qU5LSlA9NBCVoQW4L/Gus5KzzU3FEttpV
+	 eTSYiAfobEs9HCwH+W4HXktpvQYIVdkycYx8FYHd5PJyJJsGhogLO9JQh1JrSL4gftEru
+	 6NyWpZPUe6rge/n9PZJePh3Y/yldqFgFJ6LAo20ArMZBxEfeLABsshXl+Z8emEn0YIQ6o
+	 TeeYcgyKZZ8v1ItGgyj9qbPntBN3qM6xheo84sVObauzH6ml3qUwFx/goMvY/VfOW+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iiitd.ac.in;
-	spf=pass smtp.mailfrom=iiitd.ac.in;
-	dkim=pass header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=MMzEiEXv;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKhTajo8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383A8606A223
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 17:54:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 383A8606A223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iiitd.ac.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iiitd.ac.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC5060A2603;
+	Tue, 10 Nov 2026 17:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iiitd.ac.in header.i=@iiitd.ac.in header.a=rsa-sha256 header.s=google header.b=MMzEiEXv
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so2483291c88.1
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 09:54:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=iiitd.ac.in; s=google; t=1794333242; x=1794938042; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EWyUegrb38WBeDiaL/HzG3HTGpRVVOl2V2uFzvvGvWE=;
-        b=MMzEiEXvFOif7JcyED/VTrHGWAmrz9sVbe2WvjhdzoUO06U9CnL9Z4HXaF94yk4AFO
-         EkVh+Qo3VL9XZrinppLR8Q6yIMdYa8PmKRg7Emkkpbh1d0Z/JoR5rNW9hUTMtOzza8tr
-         zP7lfFDfShQl8QLZMfsrjAbiXcbj12PVGdaGk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794333242; x=1794938042;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EWyUegrb38WBeDiaL/HzG3HTGpRVVOl2V2uFzvvGvWE=;
-        b=Vk2kvuTZddgYT9f7iYZm+x/G3Fx9eOJUU0m6KIMdaSq8p8OzkDeqA7A2SNske0Lxiq
-         Tu+2Vgey0uwAAQnAMXFmizyxrqSNHw4gxmQ3jLCxvTq8kiKgmeZBoni34r8Zg34jU6o4
-         t5xJwY5/2G3mR2lPmA4BCvmNsKESX6+cQ0aHfsauV6ZaRra0KFMXPAbOlWrwv/2s5Kug
-         TEK7S0rOSy3as/zTSFZcceESO+uXQIzuZyAXXuqWvtZJ/BHSFlqfEFVPJabnrnQKCulF
-         NhETZqgfj1I6utKyRpNhAmbNp6a2UZ2c8Hb9wCri2325o+vOCroAnQsRdIbGIm54GF2K
-         zpfA==
-X-Forwarded-Encrypted: i=1; AL+hErF8v1faR7zKPTiiWWCcDxe3FnmQbnfMJh0AsDegPXRnpCoQp/7/4mGtIfNiqoE2RBBoB42ShZM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tMwKa3rDk0XaKKVVgOgoUkQhzcRju+1pRODQEgHLOZJdoryuu
-	caciz5SW0T4uZHBEowgmtPzkcYYRu+FiFVufP3OKRmy5ksOzinWDnlQEnpK1+pNp3BE=
-X-Gm-Gg: AYBFou2mpEhWiz3ZAd7dzC99h4cBsVDMntG+cJa1YxDiEJSD0TYhqCA6J/4FSm2KISv
-	w/scKcAvFdWBqf0LkpXvYJ9XmuywtIGe6npqbNs+I8sTtB9/qu7wX4Fm761LMGQX61HHGR/foAz
-	NVpyxExv4N1gR2V95Mc3rGkjH8c5R35PrXBu+p8rIUQ+UjghbWdc/x+YIzWWtrBCd322yiAJZWg
-	Ywmn+sHLaalnlc/jv156ppUvAIhiCXoggoeL1Byq+IuL486FAVmY2q7iEN7ti9KJqxIwBGSwI1M
-	HvFfehpBYJ5jUdBu6avzPL4cAVMygCF5evj1UVE2oiCscXsCdFMQ5UmvB3/sFJapB2gonWzE5cw
-	d+Zqok0gGTaDpuYx7wJj7Pu5vXaxwqVEOeSXSeDm5CYCtE/TdQ2CHe5FE63DvyuSGcD6hRZ+ift
-	1c+cmWfZqVZY12/c/XmHBUngyowH7C8+t57maWRtfJ7zoA97QkZ3tSlhZN0sjgg89HivRzt86Kd
-	0z2+o007cWHRl4S0tY/aZZYXgBWhvFfI9tEZS6m8grfkfQZk3Ijy1KnwapK/aTfywoDCG1r5yaK
-	HnGy4KQEGSUlwAFt92Msf4bIVr3Pcd0chjF2Pul8uEdiiOM9JV2CqsBS7mgvvI3WluE60+tHvWT
-	c9LZAM/NX/t6CZZX7RnVqvUt+c9GZXZ7MZYIme1+QvEPHp6/QI/E5uVWTS61rW4GK
-X-Received: by 2002:a05:7022:e1c:b0:150:c9c5:1ca1 with SMTP id a92af1059eb24-1b3b5fe3b41mr6356459c88.18.1794333241526;
-        Tue, 10 Nov 2026 09:54:01 -0800 (PST)
-Received: from iiitd-S2600STB.iiitd.edu.in ([103.25.231.160])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11150sm11875452c88.5.2026.11.10.09.53.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 09:54:01 -0800 (PST)
-From: Piyus Kedia <piyus@iiitd.ac.in>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kapil Vaswani <kapil@presceralabs.ai>,
-	Piyus Kedia <piyus@iiitd.ac.in>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/1] Bluetooth: hci_sync: drop adv instances the controller cannot carry
-Date: Tue, 10 Nov 2026 23:23:34 +0530
-Message-Id: <20261110175334.676816-2-piyus@iiitd.ac.in>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261110175334.676816-1-piyus@iiitd.ac.in>
-References: <20261110175334.676816-1-piyus@iiitd.ac.in>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fKhTajo8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4651F008A1;
+	Tue, 10 Nov 2026 17:54:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794333262;
+	bh=oUTVKVZBrwxGxt0Mr4xJN3r31IUaa+CBW4hgSfVG54A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=fKhTajo8WXUqGCLW8q4TmupMrrdSW99JyEHi5u2/zChi/465iqqbFnpLrWa0rSl73
+	 5Qm+Fv9IGLr2TdbWCkQDYJ0+jkl26SuEc0LPVQT5+1ySzfDuE2lARnkP1wsrs/+7jB
+	 4HN4s7lioiW+OCTyiHXVXfcohfYZ8ZvFdjPx2HLw0ij2PuQpGxyL8sfCEpwEtwrk2C
+	 v/YSZmzDabdICh4GNUIJfOLtjGchhXhzf/Ax7dVcstkMmZnc2NqmUp9wMmcLx6p6Ej
+	 oxtKYLm18aSTMBLadUOciVDxP9rrpN96BsA/CJXTAqCy6X0CfCqGe2KsyeQnZgDMBF
+	 tFaPhrDXcenRA==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 553D831676A1;
+	Tue, 10 Nov 2026 17:54:20 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: andriy.shevchenko@linux.intel.com, Liam Girdwood <lgirdwood@gmail.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Daniel Baluta <daniel.baluta@nxp.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, 
+ sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Baoli Zhang <baoli.zhang@linux.intel.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
+References: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
+Subject: Re: [PATCH v2] ASoC: SOF: ipc4-topology: Fix pin format leak in
+ process widget setup
+Message-Id: <179431595505.125181.14472070728673514959.b4-ty@b4>
+Date: Tue, 10 Nov 2026 13:05:55 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,100 +72,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=achqlWaFsdegsGaImWfH+pTbm+LYUgzJoODLhHgcboM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+R/n8l972z9vr3iy+EM4PZ11ba/eezXh/KPBpIk+yn
+ VkG33S2jlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkWC7DH55PAhlHA6vvBK6q
+ fZjUFsgXfqzb7/bn3ReesR94bj3nQBsjwyft4rne/s2frPSrrTJKizN0Yv+WiSw0CNve9qhmxnQ
+ DHgA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-An advertising instance stores up to HCI_MAX_EXT_AD_LENGTH (251) bytes
-in adv_info. How much of that is accepted when the instance is added is
-decided by max_adv_len(), which depends on a feature bit in the
-controller's LE Extended Advertising support:
+On Mon, 09 Nov 2026 08:56:04 +0800, Baoli Zhang wrote:
+> ASoC: SOF: ipc4-topology: Fix pin format leak in process widget setup
 
-  ext_adv_capable(dev) ? HCI_MAX_EXT_AD_LENGTH : HCI_MAX_AD_LENGTH
+Applied to
 
-ext_adv_capable() reads hdev->le_features[1], which is re-read from the
-controller on every bring-up, while the instance list is only freed in
-hci_release_dev(). Instances therefore outlive a power cycle, and an
-instance added while the controller reported LE Extended Advertising
-can be far larger than the capability now allows.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-hci_update_adv_data_sync() picks the writing path by that same bit.
-Without it the legacy path runs, and hci_set_adv_data_sync() writes
-into struct hci_cp_le_set_adv_data, whose data[] is HCI_MAX_AD_LENGTH
-(31) bytes on the stack, while eir_create_adv_data() copies
-adv->adv_data_len bytes into it. A controller that reports the feature
-on one bring-up and not on the next overflows that buffer. This can
-happen when, for example, a USB dongle answers LE Read Local Features
-differently after a reset. scan_rsp_len has the same problem against
-hci_cp_le_set_scan_rsp_data.
+Thanks!
 
-  BUG: KASAN: stack-out-of-bounds in eir_create_adv_data+0x2ab/0x440
-  Write of size 220 at addr ffffc90006b679c1 by task syz-executor
+[1/1] ASoC: SOF: ipc4-topology: Fix pin format leak in process widget setup
+      https://git.kernel.org/broonie/sound/c/e5c09fe3f9c8
 
-  BUG: KASAN: stack-out-of-bounds in eir_create_scan_rsp+0x119/0x1a0
-  Write of size 220 at addr ffffc90006ca79c1 by task syz-executor
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Both are reached from HCIDEVUP by way of hci_powered_update_adv_sync()
-re-arming a stored instance.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Bounding the copy in eir.c would leave the instance registered and
-unusable, to be retried on every bring-up. Unregister it instead, once
-the features have been re-read and before anything is scheduled, and
-report it with MGMT_EV_ADVERTISING_REMOVED. Userspace can add the
-instance again at a size this controller will accept. Dropping the
-instances before the list_empty() test below also lets the default
-instance be set up.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-The removal is under hci_dev_lock() because
-hci_schedule_adv_instance_sync() sends commands, which cannot be done
-with the lock held.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Fixes: 112b5090c219 ("Bluetooth: MGMT: Fix always using HCI_MAX_AD_LENGTH")
-Cc: stable@vger.kernel.org
-Co-developed-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Kapil Vaswani <kapil@presceralabs.ai>
-Signed-off-by: Piyus Kedia <piyus@iiitd.ac.in>
----
- net/bluetooth/hci_sync.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index 9213e3ef9f26..ee8b1cd9dee5 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -3608,6 +3608,34 @@ static int hci_powered_update_adv_sync(struct hci_dev *hdev)
- 	if (!hci_dev_test_flag(hdev, HCI_LE_ENABLED))
- 		return 0;
- 
-+	/* An instance's data was accepted against max_adv_len() as it was
-+	 * when the instance was added, and that is a branch on a controller
-+	 * feature which has just been re-read. Anything too large for the
-+	 * current capability can no longer be rendered: drop it and tell
-+	 * userspace, so it can add the instance again at a size this
-+	 * controller will take.
-+	 *
-+	 * This is safe as long as there is no command send while the lock is
-+	 * held.
-+	 */
-+	hci_dev_lock(hdev);
-+
-+	list_for_each_entry_safe(adv, tmp, &hdev->adv_instances, list) {
-+		u8 instance = adv->instance;
-+
-+		if (adv->adv_data_len <= max_adv_len(hdev) &&
-+		    adv->scan_rsp_len <= max_adv_len(hdev))
-+			continue;
-+
-+		bt_dev_warn(hdev, "instance %u too large for this controller",
-+			    instance);
-+
-+		if (!hci_remove_adv_instance(hdev, instance))
-+			mgmt_advertising_removed(NULL, hdev, instance);
-+	}
-+
-+	hci_dev_unlock(hdev);
-+
- 	/* If RPA Resolution has not been enable yet it means the
- 	 * resolving list is empty and we should attempt to program the
- 	 * local IRK in order to support using own_addr_type
--- 
-2.34.1
+Thanks,
+Mark
 
