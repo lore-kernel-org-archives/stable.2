@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273716;
-	b=gkSiZmesduTCeTDZzuwBwVFAKnNxWILjymlgj7hzFnUHFVE5rMV6sh3derYnWFYzBeOo
-	 SiL/TMQRrB+LnwdnD/qIsvlQ8Dd63tiP82NIUD7p9RfFtinwPxIDG1YnpfxEUDBqRAsdJ
-	 dwWuXySeFDbuIZDZJ4ciSJEdhM6+1VSg/J9UEPyiIi41CrM8RrQxuWrUokqne/F5jYed8
-	 1qS3ToJvpw7CT/jW2DoXH7RHevs0Ql137I5+X26IcpLQPBprgBF9p3gCadzMyZAauyrW6
-	 GJ0Eo/+QnodC340wDley2eJyvZFBMTolg7iuDvZQ0U7n43VvM9asVJOFc5XOUAiUE4g==
+	t=1794273718;
+	b=sRpFwngyi5NB062qLdJTq3p1EALyNK+TGObwPEz1WZ4PJm2r5WtK5uiF5rbXM17m0PAE
+	 EPpm4WqKB/H5sB1uSpRDemfmvrt9f9Fp7+BqxxRC1d2m8x+ORlLZMOokx2IvO49O7oCka
+	 1GOBYtKBfZyik4W3LV+L3GNvKfUtdJziRrw0+1y8v4KyZyco0axRXJKKNcabY7Gwnfyh6
+	 hFTB5VIeth35EsCfIlJPaK1EnqTP7pEjNHS50y64HL1k8Fl0Oa4TtxeDhc+3RLcPNpYdV
+	 q51V4z1+hi3MD8AQ1hzWFtxjsNOyvl7lAnCGUnCYvNTLPql5omKOfmMOk42dO3RN//A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273718;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nVwzOpR43KUqEXN+I2H4gU6V+1Vhhf7Ca9x24Lp9Iuo=;
-	b=iRikOzSMdHDbLmSJThucmOMLpEBZ7tHKm6dCUhS3x5OL0xNqxbg86d47x+9z2fJt55Jb
-	 BHKmJjZBun5xY5IvPKa5kJUMYUa4RchvqjIqlbYpkx5GzFTpyg4ptpy6v14MlkNcs1jX7
-	 Bi+Nee33BEXc3n6poQYtG0MhgmXz5Uh4k0Usx5uFlkaDwwOntXeHfscv2p0g0+5s21phi
-	 /bzkhr2auj1ApJyK993WM+WJBtb29uzDt/jcmFbxjX+9tLrIO+gd3BbVch8nok5SfwPgn
-	 nh0u3cm/8dOxq41DN5ZhdVMszC76DWdAHX6P+4vsFHRcjfkKRqjTAtfiGkRC1qnwh8A==
+	bh=5PxlOgGx+Ud4oNJy7EHYMB+HyReKdWfCyMbnmfETT34=;
+	b=gtz7SpjDjO5bF8mTGRzEhVWDbfs83g52HhKR+Fo3pWHm2iNGiDLPUQohGFO4lehkH99f
+	 rEuhaLQiFAwrJF+y6yTgLdjosDsne3NG/RplSIJx5M/SJEA49HG8JPgYAhzrEP9YrGoEO
+	 XEb9NxGh4P8RZmKrMBSHVMr3YM0A0I6hF2G44Pfco+qZJKlzoAW9tXVxl7qa3defDdamn
+	 wIzEi/cnni5wiq5ltDJP8qu4wEcB9Cwn0in4KE+jrdfk4Dc4AcWzunEUdmc80ycSY+xxu
+	 UDpQAfHWj4dhp60/iQHPyoRdjDHhuzuFy4qvon62YnfHGcyMVppIMkwxIOO3ryEIDfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GyZnODpy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QaSIC3GQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27F160A260E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ECF860A263E
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GyZnODpy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D121F008A7;
-	Tue, 10 Nov 2026 01:21:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QaSIC3GQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79CD51F008BD;
+	Tue, 10 Nov 2026 01:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273715;
-	bh=nVwzOpR43KUqEXN+I2H4gU6V+1Vhhf7Ca9x24Lp9Iuo=;
+	s=k20260515; t=1794273718;
+	bh=5PxlOgGx+Ud4oNJy7EHYMB+HyReKdWfCyMbnmfETT34=;
 	h=From:To:Cc:Subject:Date;
-	b=GyZnODpyCMuO4QC7w801/TgJOjUPpNOC+/HmNiwyM1UzfqxyZmEy5vXlUrCuNS7iB
-	 4uTMoVErLUZ7kxyknPzjtx+ffsEZh9ZTp676hOAUULMBy9NDjaQpoSvbuc1k6vJ/Rg
-	 Tu8GtfLSrfPGmcTP2HA755gFU7NTb2wcbmsiKquvejaX82sLFJWU5sotR90fmU/mm1
-	 1DiUY61YXCVIKTt9UddjZ5xH0Oh6Po5kc11ebNbb4EeTTIJjLa6VL+jjmF/sYV5wcA
-	 VBUXUxQ9QO0zACKpNbJtzPy+ePw5J1udVFLPg95ueuOdEkGNc/+WhXW33CswVosPQl
-	 ANvCkgjuY3sRw==
+	b=QaSIC3GQYJSRf3dRSTy8R0h7BoBegkT8NZy6bDQlq8ywjWrQlWM031+b9RFM2LG+j
+	 gAyGSas1TvjgD4GcfyUTsQrU/Kcxr6hyYEMw3EvcEPPOcymsPq0b4yo+4+RXAeibHj
+	 cIvbzA9Pod0rDFOoxN9uPjKV1ZCxJ4S15t4DUY+G9uWX8f34vbAXu9iwW3CK1gEnVr
+	 eQITHhpjHxyiDmdhU+68TQc/XDlxwZzcpEq5L/eV5rXEdvMTobKaKf+OWngDLrPavB
+	 1ChdJIwMpTA6EaO+SglPs+S5AJK6FUcH+6Nh8z//qlmMS6xI9tUEdRFujb6xpwTVJC
+	 sXduQtX8KS6tw==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	fane@google.com,
-	thenameisoren@gmail.com,
-	mason@kernel.org,
-	yosry@kernel.org,
-	pbonzini@redhat.com
+To: edumazet@kernel.org,
+	kylebot@openai.com,
+	fw@strlen.de,
+	idosch@nvidia.com,
+	jiayuan.chen@linux.dev,
+	wang.zhan@smartx.com,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: x86: Unconditionally reset MMU context when emulating INIT" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:21:53 -0500
-Message-ID: <20261109202153-failed-5.15-c7c288d178cb@kernel.org>
+Subject: FAILED: patch "[PATCH] inet: frags: limit the truesize of a reassembly queue" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:21:56 -0500
+Message-ID: <20261109202156-failed-5.15-3ae20e4697eb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,97 +73,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x c7c288d178cb0b78d3464a616b16b1aa0b316049
+git cherry-pick -x 3ae20e4697eb969104fe4b1e98a675f0100382b6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202153-failed-5.15-c7c288d178cb@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202156-failed-5.15-3ae20e4697eb@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c7c288d178cb0b78d3464a616b16b1aa0b316049 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Wed, 21 Oct 2026 18:54:06 -0700
-Subject: [PATCH] KVM: x86: Unconditionally reset MMU context when emulating
- INIT
+From 3ae20e4697eb969104fe4b1e98a675f0100382b6 Mon Sep 17 00:00:00 2001
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Fri, 30 Oct 2026 09:12:25 +0100
+Subject: [PATCH] inet: frags: limit the truesize of a reassembly queue
 
-Force an MMU reset when emulating an INIT even if paging was already
-disabled, as the MMU page role includes guest_mode (L2), i.e. an INIT while
-L2 is running with CR0.PG=0 will result in KVM running L1 with a stale MMU
-context.
+The truesize of fragments in a reassembly queue is only bounded by
+the per netns ipfrag_high_thresh sysctl, which has no upper limit.
 
-Alternatively, the reset could be scoped strictly to paging being enabled
-or L2 being active, but SMM is also encoded in the page role.  Even though
-it _should_ be impossible for the vCPU to be INIT'd while SMM is active,
-there's zero value in not handling SMM.  At that point, the only scenario
-where KVM _doesn't_ need to reset the MMU context is on an INIT with the
-vCPU running in Real Mode or Unpaged Protect Mode, and while INIT in those
-modes is somewhat common, it's far from a hot path and re-initializing the
-MMU is not expensive, especially when the role isn't changing (KVM elides
-most of the re-configuration in that case).
+inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+adjustment of the socket owning the reassembled skb can cancel its own
+reference, leading to a use-after-free of this socket.
 
-Note, like the Fixes commit, this bug only affects nested SVM as INIT is an
-unconditional intercept on VMX, i.e. it's impossible to emulate INIT while
-L2 is active.
+This can be triggered from an unprivileged user/network namespace,
+raising ipfrag_high_thresh and using padded TUN packets, which keep
+a large truesize after being trimmed by ip_rcv_core().
 
-Temporarily keep the guest TLB flush when CR0.PG is being cleared even
-though it is fully redundant with the flush that is emitted on all INIT
-events (KVM itself only does RESET when a vCPU is being created, i.e. when
-CR0.PG must be '0').
+Track the sum of the truesize of fragments in each queue, and refuse
+a fragment that would make it bigger than INT_MAX / 2. Callers kill
+the queue on this error. This bound is far above the needs of
+legitimate traffic.
 
-Fixes: ed129ec9057f ("KVM: x86: forcibly leave nested mode on vCPU reset")
-Reported-by: Stefan Teodorescu <fane@google.com>
-Reported-by: Oren Yomtov <thenameisoren@gmail.com>
-Reported-by: Chris Mason <mason@kernel.org>
+Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
 Cc: stable@vger.kernel.org
-Cc: Yosry Ahmed <yosry@kernel.org>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261022015407.279870-2-seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Cc: Florian Westphal <fw@strlen.de>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Tested-by: Wang Zhan <wang.zhan@smartx.com>
+Link: https://patch.msgid.link/20261030081225.2575462-1-edumazet@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- arch/x86/kvm/x86.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ include/net/inet_frag.h  | 9 +++++++++
+ net/ipv4/inet_fragment.c | 5 +++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index c4a06214cde69..09c6df00ebb6b 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -9731,18 +9731,23 @@ void kvm_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event)
- 	kvm_x86_call(set_efer)(vcpu, 0);
- 	kvm_x86_call(update_exception_bitmap)(vcpu);
- 
-+	if (old_cr0 & X86_CR0_PG)
-+		kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index b02d2472b003e..c1fb419a9cf03 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
+  * @tstamp_type: stamp has a mono delivery time (EDT)
+  * @flags: fragment queue flags
+  * @max_size: maximum received fragment size
++ * @truesize: sum of the truesize of queued fragments
+  * @fqdir: pointer to struct fqdir
+  * @rcu: rcu head for freeing deferall
+  */
+@@ -100,6 +101,7 @@ struct inet_frag_queue {
+ 	u8			tstamp_type;
+ 	__u8			flags;
+ 	u16			max_size;
++	unsigned int		truesize;
+ 	struct fqdir		*fqdir;
+ 	struct rcu_head		rcu;
+ };
+@@ -172,6 +174,13 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
+ #define IPFRAG_MIXED_SECPATH	3
++#define IPFRAG_TOOBIG	4
 +
- 	/*
--	 * On the standard CR0/CR4/EFER modification paths, there are several
--	 * complex conditions determining whether the MMU has to be reset and/or
--	 * which PCIDs have to be flushed.  However, CR0.WP and the paging-related
--	 * bits in CR4 and EFER are irrelevant if CR0.PG was '0'; and a reset+flush
--	 * is needed anyway if CR0.PG was '1' (which can only happen for INIT, as
--	 * CR0 will be '0' prior to RESET).  So we only need to check CR0.PG here.
-+	 * Unconditionally reset the MMU, even though super strictly speaking,
-+	 * a MMU reset is only necessary if and only one of the page role bits
-+	 * is changing.  All of the CR0/CR4/EFER bits effectively get covered
-+	 * by checking CR0.PG=1, as CR0.WP and the paging-related bits in CR4
-+	 * and EFER are irrelevant if CR0.PG was '0'.  Subtly, if the vCPU was
-+	 * in guest mode (L2) or SMM (although emulating INIT in SMM _should_
-+	 * be impossible), an MMU reset is also necessary as "guest mode" and
-+	 * "smm" are both encoded in the shadow page role.  As a result, the
-+	 * only scenarios where an MMU reset is *not* needed is if the vCPU is
-+	 * in Real Mode or Unpaged Protected Mode, and micro-optimizing those
-+	 * paths are not worth the risk of running with a stale MMU context.
- 	 */
--	if (old_cr0 & X86_CR0_PG) {
--		kvm_make_request(KVM_REQ_TLB_FLUSH_GUEST, vcpu);
--		kvm_mmu_reset_context(vcpu);
--	}
-+	kvm_mmu_reset_context(vcpu);
++/* Max sum of the truesize of fragments in a queue. This keeps the sums
++ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
++ * below INT_MAX. Legitimate traffic stays far below this limit.
++ */
++#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index c18da91c1f031..0b8d22ffafca6 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -336,6 +336,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 	q->rb_fragments = RB_ROOT;
+ 	q->fragments_tail = NULL;
+ 	q->last_run_head = NULL;
++	q->truesize = 0;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_flush);
  
- 	/*
- 	 * Intel's SDM states that all TLB entries are flushed on INIT.  AMD's
+@@ -446,6 +447,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (last && !secpath_equal(last, skb))
+ 		return IPFRAG_MIXED_SECPATH;
+ 
++	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
++		return IPFRAG_TOOBIG;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+@@ -510,6 +514,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (offset)
+ 		nf_reset_ct(skb);
+ 
++	q->truesize += skb->truesize;
+ 	return IPFRAG_OK;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_insert);
 -- 
 2.53.0
 
