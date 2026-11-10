@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794327397;
-	b=pE1rcz5wozcW1RhmGkuvfep+h0h0ukRkhhEVgMYcjj2JiD0dDF2pxMkizOQJfQVisCMF
-	 gxTnqW7ClV5X1bU4DfRb7kNGCeXEClAGRFsa/vZ1wFYlsWkO8/5rxi/sBAfErYOPTAMSS
-	 lAMH0srk8MaV7i/3ibcMKi4Y5jZMQKqHJ38Y0/cF1w1csay/GzHPvl0GNtMOKvy7OvDtz
-	 jUiVSxDGV4MSPZwPdRXWVxxVZ2GKGhRbRgkKPEB2fxoX0REW3suYsMtG0/rY3TnMq+YDT
-	 Q3xSFXGmC5M9/sLortSoQsNBbEzWOz2gXfkQnLR/i2v385zF6cCNFYfLKwf6lwHgvkQ==
+	t=1794327451;
+	b=1A3KqJfWjhEENLN04eyXn2K5RZ8qkTEDpDncxmC7RrtqfzpVunHMsk5us2RI82MogZ5O
+	 m24ffBjXSUDcaBCtkGpmDPFL+uv9CSJ13h3x+fMG73fTyN9vek0HHzej1ha7MmJcBBK2+
+	 qz0GN3B5x4+8MvfyIBIit6BI05MyVYsUHSZfPP2icbuoWvI+52p5+44nKCcxnrwj4yUiO
+	 HHwfTQG3f4kcvkdaJh1NsRTQclTJhBAdwrm/RqIZCwPMGTtiPML1QGcgracU48qmPPnsh
+	 DEzXIMLZotkmceLX3bGkinZpY8GyoCu+/ILGKjrsUCoVidgMckANkag67VUKlY9PBaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794327397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794327451;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=z2wpI1Qzgb1ZuDnEoA7yuqSe2xaXYgZZxqQndM/jXEc=;
-	b=Tc+M1CGmEuHNRdAE2onlJ01pfN+LGR2IdlzvHmz7OWAGaslScx6UIsTvLfixPyP6WzBw
-	 dQpOY00cBBmtE+wrC+qh5j2XjWa6rEXhP/EtahozUdhh2KiKv6JnpEyqFNOvTRB7zKyvz
-	 tkWRCeryavs+2guTAPR1uNvPbv0FTqsRgI/V7z4S7+K2vwGY1cz5sPytqO/DrVqZTwH7t
-	 IOE8kxsyu3M0lF8Nzq462RU1s7rXD/IpvFFEP0RwKlhBxyDTWKVEdPwkItl8AYdnXcu4x
-	 eQGBU90/At0fyfgjDDU2Uw9bEWVtw122VqxNOyPkDmP9FxXmQpSYsF3JzEgpcvTXZTg==
+	bh=TYu415siaYjezmGP/l5jh6/t5GiJQiqBq1wDtff5+n8=;
+	b=lbgljj0DdfZTz0XMoB+MA1qIZL5p3tDxg20l9NyoBnyrV2UWOY5vw5V0p5RfBKc1GLqC
+	 Crl60Jb7LaX1RcVwIRkZRRuFk9gSqqUovugGs2YT13JskFajT9TyDjhUzVOiJDWe7Pd4W
+	 sLuIP5yRrvKm/CBzCruSzFScoQiGvJYBDgddwZomeLm9FltsgOydsfPguw8L3cM9O8wB9
+	 F0WDnHWNArMeHkmd4A0436pdyiJH4z19hpXg2kbFXb/xg7bmZi6QeKbM/0xo4vfVaKv4Q
+	 H5978KBGQqXE2T0jJ/RxLeN1+bUGmBmvdvJe8UXlbSSCc9Y8iv5BflO3bfLgX2VmjWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L7//U5LO";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNCexnbj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE843606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2B0606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 16:17:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7//U5LO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA111F0089F;
-	Tue, 10 Nov 2026 16:16:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNCexnbj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FDFE1F0089F;
+	Tue, 10 Nov 2026 16:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794327396;
-	bh=z2wpI1Qzgb1ZuDnEoA7yuqSe2xaXYgZZxqQndM/jXEc=;
+	s=k20260515; t=1794327450;
+	bh=TYu415siaYjezmGP/l5jh6/t5GiJQiqBq1wDtff5+n8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L7//U5LO11mmGnzEHpOLyEZI/VRn7UgOZllFrsSffvmU9fTQTPjdcG0cqm5xlIBPD
-	 ON93Q70h9Tb71ZDt9oMZnPlSYeT7fAjJ+0laDZ6vJVkdOZ0l2tTek5Xk1ATtwFAV4F
-	 p4B2KoODafetzB88gq2JIfWu07hyZmNkUYRH1P0JjNiWBIJan9a9SFDXHsYyVBH2hO
-	 i415GXo9r8hBlr/t12RbVYZ5MIUGNQqG7eZBJcm4ZVlG+eeIH+1DhOauAYDDsdNUpM
-	 Y3fw0qzCDK7FeWbjMPejndwXCkUCCHh22JEGv9e4dMDRHMieOQaXGAIavIck4NUf2t
-	 dLsRtB/l4e0Pw==
+	b=CNCexnbjPN2HHPrE6f4af/Ntm4PD1SWGJ9Je1PQDm5EUzLWnOTFU2LjoJKe0QRbXY
+	 gyCQj7QDxAVuYaypdydLbxZ4ghx353AVPFFFN9BhXx8E1tAJ5aU1sgFdLVz6jKmmAR
+	 DhmDB63IqLL64QbLfhTCYcr9KDbZM2RSPomqOYHhCUwKc25efeGatUaNtwZsM1TGhj
+	 lVR9ES5tyqShj/5wbVA+E53ImGUH5DG/Ffc+8cK3PPIrtz25Q77tL/KsphXkNIX5Vi
+	 7NBWZiNXUoY+k+GM6gHsng1hLO1lwf6MNsHqolPdsb3VxhhiXUHZ43eNXcveM3fFHm
+	 ztAb2RItNBwAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>,
-	Lee Jones <lee@kernel.org>,
+Cc: Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] mfd: twl-core: Unregister the auxiliary platform device on unbind
-Date: Tue, 10 Nov 2026 11:16:33 -0500
-Message-ID: <20261110161605.2449325-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: arm64: nv: Move L2->L1 switch on interrupt early
+Date: Tue, 10 Nov 2026 11:17:28 -0500
+Message-ID: <20261110161716.2411878-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110161605.2449325-1-sashal@kernel.org>
-References: <20261107061659-failed-5.10-3c5c55d979dd@kernel.org>
- <20261110161605.2449325-1-sashal@kernel.org>
+In-Reply-To: <20261107051141-failed-6.18-21d3b33234eb@kernel.org>
+References: <20261107051141-failed-6.18-21d3b33234eb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,99 +61,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Marc Zyngier <maz@kernel.org>
 
-[ Upstream commit 3c5c55d979ddcb0765ce531bc7ba173c87c8712a ]
+[ Upstream commit 21d3b33234ebbb675c2a2a0fa7b12d2d83953d7a ]
 
-twl_probe() registers a standalone platform device named "twl", but keeps
-its pointer only in a local variable. Probe errors unregister the device,
-while successful probe leaves no way for twl_remove() to release it. The
-platform device therefore remains registered after the I2C driver unbinds.
+NV request generation to switch from L2 to L1 on interrupt is buried
+into the vgic flush code, while we should be able to deliver requests
+as early as possible.
 
-Register a managed action on the I2C device immediately after adding the
-platform device. This unregisters it on probe failure and driver unbind,
-and also handles failure to register the action itself. Remove the manual
-error-path unregister to avoid releasing the device twice.
+Similarly, MI generation happens *after* the need for a request has been
+evaluated, which means we potentially delay the maintenance interrupt by
+a full exit/entry cycle.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+Move these two things to happen much earlier in the entry code, and make
+sure the MI generation and PMU interrupt serve as input to the request
+switching back from L2 to L1.
 
-Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
-[ sashal: omitted the devm_mfd_add_devices() error-path change because that code is absent ]
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261015100539.1011760-2-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+[ sashal: retained the maintenance-interrupt recalculation guard to accommodate delayed nested VGIC register synchronization ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/twl-core.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+ arch/arm64/kvm/arm.c       |  4 ++--
+ arch/arm64/kvm/nested.c    | 10 ++++++++++
+ arch/arm64/kvm/vgic/vgic.c | 11 ++---------
+ 3 files changed, 14 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index d5e588c68c0c5..57f89771ae098 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -757,6 +757,11 @@ static struct of_dev_auxdata twl_auxdata_lookup[] = {
- 	{ /* sentinel */ },
- };
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 4e0db01a528a8..1cf6b60382003 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -1225,11 +1225,11 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		 */
+ 		preempt_disable();
  
-+static void twl_unregister_device(void *data)
-+{
-+	platform_device_unregister(data);
-+}
-+
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
-@@ -791,17 +796,22 @@ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
- 		return status;
- 	}
- 
-+	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
-+					  pdev);
-+	if (status)
-+		return status;
-+
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
- 		dev_dbg(&client->dev, "can't talk I2C?\n");
- 		status = -EIO;
--		goto free;
-+		goto out;
- 	}
- 
- 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	if ((id->driver_data) & TWL6030_CLASS) {
-@@ -825,7 +835,7 @@ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
- 					 GFP_KERNEL);
- 	if (!twl_priv->twl_modules) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	for (i = 0; i < num_slaves; i++) {
-@@ -912,10 +922,7 @@ twl_probe(struct i2c_client *client, const struct i2c_device_id *id)
- fail:
- 	if (status < 0)
- 		twl_remove(client);
--free:
--	if (status < 0)
--		platform_device_unregister(pdev);
+-		kvm_nested_flush_hwstate(vcpu);
 -
-+out:
- 	return status;
+ 		if (kvm_vcpu_has_pmu(vcpu))
+ 			kvm_pmu_flush_hwstate(vcpu);
+ 
++		kvm_nested_flush_hwstate(vcpu);
++
+ 		local_irq_disable();
+ 
+ 		/*
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 92853a343c429..9e1ce558fb7e9 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -16,6 +16,7 @@
+ #include <asm/sysreg.h>
+ 
+ #include "sys_regs.h"
++#include "vgic/vgic.h"
+ 
+ struct vncr_tlb {
+ 	/* The guest's VNCR_EL2 */
+@@ -1879,6 +1880,9 @@ void check_nested_vcpu_requests(struct kvm_vcpu *vcpu)
+  *
+  * What follows is some slop to (1) react to exception routing / masking and (2)
+  * preserve the pending SError state across translation regimes.
++ *
++ * Also generate the maintenance interrupt state, and finally check that if
++ * we need to take an interrupt targetting the guest hypervisor.
+  */
+ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
+ {
+@@ -1887,6 +1891,12 @@ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
+ 
+ 	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
+ 		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
++
++	if (!vgic_state_is_nested(vcpu))
++		vgic_v3_nested_update_mi(vcpu);
++
++	if (vgic_state_is_nested(vcpu) && kvm_vgic_vcpu_pending_irq(vcpu))
++		kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
  }
  
+ void kvm_nested_sync_hwstate(struct kvm_vcpu *vcpu)
+diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
+index 7c8ec44824157..23720e1131b40 100644
+--- a/arch/arm64/kvm/vgic/vgic.c
++++ b/arch/arm64/kvm/vgic/vgic.c
+@@ -969,7 +969,7 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
+ 	 *
+ 	 *   We do that by placing a request to ourselves which will
+ 	 *   abort the entry procedure and inject the exception at the
+-	 *   beginning of the run loop.
++	 *   beginning of the run loop (see kvm_nested_flush_hwstate()).
+ 	 *
+ 	 * - Otherwise, do exactly *NOTHING*. The guest state is
+ 	 *   already loaded, and we can carry on with running it.
+@@ -977,15 +977,8 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
+ 	 * If we have NV, but are not in a nested state, compute the
+ 	 * maintenance interrupt state, as it may fire.
+ 	 */
+-	if (vgic_state_is_nested(vcpu)) {
+-		if (kvm_vgic_vcpu_pending_irq(vcpu))
+-			kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
+-
++	if (vgic_state_is_nested(vcpu))
+ 		return;
+-	}
+-
+-	if (vcpu_has_nv(vcpu))
+-		vgic_v3_nested_update_mi(vcpu);
+ 
+ 	/*
+ 	 * If there are no virtual interrupts active or pending for this
 -- 
 2.53.0
 
