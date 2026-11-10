@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794322695;
-	b=zZ+DHHyt8dXmxSEQaHEaDICc45wVGyaTrvXVXkV3f1V8iNVB+LJ0679qRGSfis733q0M
-	 CgbhnQPeaIH/ktn8Liwp/qksUPctdvFJEYb4QSYcMbY1DFwOLHmccMS2YRkivrjNzLtSX
-	 E9+rpI2rCjkixsxyIRPRHelyf+JRsE97zeMx9rkbR8LlevkAGf1GsAhgNrn02w5unnhSS
-	 6T1rpm5Ib6D0ByaPCIDuxyvGOWjBjMFNdzpz/tjfyUXrgjBxJAHG3dM1mgQRAtbx70n6q
-	 7rUhgphJxfyIjKBmoZmFn+fKoSrzxzTuFBJeSREWC9dCdmtlddVw+CiC+au1daI/uSQ==
+	t=1794322722;
+	b=C5tAzlfem1jqF/CxJBOBSu1QTzSJZcpxvFRb3cNgAAAO8BtNFTyN/l39HLxFKbxVpwop
+	 pFjptBXI11mAkMa7dLgWYnIEipVNwFnpyrtUs9GDwiOvxlOq3CVv9DSfB5Upx4kIN+IV3
+	 bjiRSfp0Sh/RRSwsrmPJm1qBnqn7LHbrYDLHbsKZOKkjCFE68+D5Cezs2VjXcnOve/7he
+	 KuaWBqjf8UqORp8gcLKnDyYWXB7Ej9t7l4TQ5UWzuM8TKGm0ahudfXYath/EY3NvEfzL8
+	 hTpkzVgDGz5ZGSczc0WELqA1dgV8FTWIvf+Unm0NNr9SUfXormtDYURnmVus99/XB5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794322695;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=WnkJ8LXf/bgZJNIPyQGBBjaA78zgoKgnkLMT97HZ4hM=;
-	b=tWArq+DvAIknX9tts1DeOz/fKERrJ10WeeCnDt75pbP31XM42iocLzTjwf6B1EOGKjql
-	 8QUOG3syRnV312bBw+1FjNjlxywxH3iUpQc4QeUsHqZQ7HLnozy9cMr8a4z/jTQb+ifc1
-	 1GrjfSHztTnU4yQNs8IW0DTc19HR36ipvjG6uhVQjQrVLFMT9TAtlpZ7C8QgrejS/nelN
-	 rBQKWHnxEhTYKdNHUeeuuWdMspSCTLLrWvMJaqPa5zKKaeRlKJUTeiJj0E4QOHYig/9G8
-	 WQ4aIxxcC/eq5m2YaEhHqUEW57bRu63kfL7SCsiZumMSVMo8K4oc3NWxCND1LEaXJ0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794322722;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=k3X7KTbafhEj4o/vNSx4l13TgV1n6orwx43ZlhXLS1k=;
+	b=iJ7qOqZA21YvyUOIIvPihdEZJZ6IRq/QE6cCRHS0EXQERVHvTdrNoW01L/ZkwPGLGqMD
+	 HttICyY3di8g1PBOExHZAcIiT4T80OulGqip6Wdwy9cbZ6h1Yz4rsjE7jhQ+lZDhXeTEq
+	 lmr1j38u4DYn4tx+vFmv25j5PdUxq5+GyKFvOoP4vNmjQ962fYR7BGCbH+8sdgppera6p
+	 WJ44GpBEIYa/VLwjfhtfNvdkHpkQf4M7Fz9uSTJmjsxvqsU4/vZO2OqFreHrlhoQDvmcK
+	 htjyx2Ep/7MLeS1Cf1qJasrqPTgUxf+BL43JCmvgq7MpwGP3VshOiFOY9FlN3hfTe/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvPtbBbp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVWtDAj+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6126C606A33E
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A59D606A323
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:58:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvPtbBbp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8151F00903
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:58:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVWtDAj+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 351EB1F008A7;
+	Tue, 10 Nov 2026 14:58:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794322694;
-	bh=WnkJ8LXf/bgZJNIPyQGBBjaA78zgoKgnkLMT97HZ4hM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EvPtbBbpY0MjDrJNm/qEfHVLVqDPeNiRukmRUFa4wWsRoo6sCSQw+dMYY0H3/TdIo
-	 5rGBDNsi9o8CXMflRBCr3XSY0eF6h4mL4dZFLwCe5xGnvbOpH/4YndZsn5IZLaOa/v
-	 iSkQ6Pr18uxngCNjGJnx8fe5XPUSAgFwzndWaN99yG0r66WVa89QAHjROZqlQzesFL
-	 r9DBjPRvtBZwST8/tzlm/7BHBGo04X2tKXGG+JlIRHGIigH/76hZVR4S8c5eLr/mn8
-	 cb7I1uW2JG21uHuTSx4xq5fmw1kzmKwZfpeEni0vRhWxHbjyov7ZyTXy3mat1NnXKT
-	 ymgwxGi3mFHHA==
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so17330661fa.0
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 06:58:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErESHAcc6L8Cs16Xu5AW0hcRoZaweNeu6wPZzdMTm7dXeL14IZ4w3KlpL2XX0hpMAQ53Slc/sEs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xXUhIVxTyfRoQIzLS/575u04kZBXZPm/pUNxt3xMqgJWtK6my
-	oioUnDednPMHrHKxPyisjwuucxZuw7CxGXY0kRjkfho22THjx2w9JjUpzR7+8kGjYQmD5jGW/IQ
-	wzTYHZoJw86kdOeVWYsbStoOqB+TpeHI=
-X-Received: by 2002:a2e:a9a5:0:b0:3ab:4f5e:3edc with SMTP id
- 38308e7fff4ca-3ae09632513mr5987871fa.15.1794322692389; Tue, 10 Nov 2026
- 06:58:12 -0800 (PST)
+	s=k20260515; t=1794322721;
+	bh=k3X7KTbafhEj4o/vNSx4l13TgV1n6orwx43ZlhXLS1k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HVWtDAj+s4NkkJugg98NKjNzLWhiu8DsDKj492/vm+p9X7Ip4G0stoDlQ7B9+iZcV
+	 6jST4ScBXnawdc9/A/X3dbrXSTeeUfQaukHkKDmilSopSgklGSt1FldVlO84ixa6tZ
+	 cb9gfNcPuOI3vc85FtEvM3c9P1vsnAfVtfZzFw5IcJeo3JWvImePPnpAxBh/bE36Fd
+	 +MlkuneyxcxzKKpkVVQjonkFCks8ugw98Xtb0s9w70TLkn9d+Nk3n+RZEWAbQIDAGQ
+	 1/Q7thaaJ1Qwabt+f6rTxjmEkH2jdWRCbIamRkGJ1f1F27/BGHhdt1hP4fTmTmYJBI
+	 Fy3AfRC2fJ3vQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200
+Date: Tue, 10 Nov 2026 09:58:39 -0500
+Message-ID: <20261110145827.1816925-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060327-failed-5.15-874323b68c93@kernel.org>
+References: <20261107060327-failed-5.15-874323b68c93@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,104 +59,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110101246.3665797-1-sumitg@nvidia.com> <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
-In-Reply-To: <09209b48-a469-4bd9-8d43-845f709353ca@arm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 10 Nov 2026 15:58:00 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jgUnFO5FsDU64bE9ArzTQaGcU=2ocRJ2QpsJb_octG8w@mail.gmail.com>
-X-Gm-Features: AclHuK8X5hMi8jD3gHPYYnsPSCyrp4PzOzFf8JJiGs5yNkckX-k7Tw8xtv2KRhU
-Message-ID: <CAJZ5v0jgUnFO5FsDU64bE9ArzTQaGcU=2ocRJ2QpsJb_octG8w@mail.gmail.com>
-Subject: Re: [PATCH v2] cpufreq: CPPC: Set CPPC Enable register in cpu_init
-To: Christian Loehle <christian.loehle@arm.com>, Sumit Gupta <sumitg@nvidia.com>
-Cc: viresh.kumar@linaro.org, zhanjie9@hisilicon.com, zhenglifeng1@huawei.com, 
-	jbenc@redhat.com, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, treding@nvidia.com, jonathanh@nvidia.com, 
-	vsethi@nvidia.com, ksitaraman@nvidia.com, sanjayc@nvidia.com, 
-	mochs@nvidia.com, bbasu@nvidia.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 10, 2026 at 11:58=E2=80=AFAM Christian Loehle
-<christian.loehle@arm.com> wrote:
->
-> On 11/10/26 10:12, Sumit Gupta wrote:
-> > As per ACPI 6.x s8.4.6.1.4 (CPPC Enable Register):
-> >   "If supported by the platform, OSPM writes a one to this register
-> >    to enable CPPC on this processor. If not implemented, OSPM assumes
-> >    the platform always has CPPC enabled."
-> >
-> > The driver never writes this register. CPPC therefore stays disabled
-> > on platforms such as NVIDIA GB10 that wait for OSPM to enable it.
-> >
-> > Call cppc_set_enable() in cppc_cpufreq_cpu_init(). Fail init if
-> > enabling CPPC fails. If init fails after CPPC is enabled, disable it
-> > again. The register is optional, so -EOPNOTSUPP is not an error.
-> >
-> > This relies on commit ab482f1bac6b ("ACPI: CPPC: Refactor register
-> > value get and set ABIs") from v6.16. Before it, cppc_set_enable()
-> > returned -EFAULT instead of -EOPNOTSUPP when the Enable register is
-> > not implemented. On an older kernel this change would make init fail
-> > on every platform without the register, so the stable range starts
-> > at v6.16.
-> >
-> > Fixes: 5477fb3bd1e8 ("ACPI / CPPC: Add a CPUFreq driver for use with CP=
-PC")
-> > Cc: stable@vger.kernel.org # v6.16+
-> > Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
->
-> Reviewed-by: Christian Loehle <christian.loehle@arm.com>
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 
-Applied as 7.4-rc material, thanks!
+[ Upstream commit 874323b68c93c6808e034dc0113681e822e6fb42 ]
 
-> > ---
-> > v1 -> v2:
-> > - Fail init if enabling CPPC fails and disable CPPC again if init
-> >   fails after enabling it (Christian).
-> > - Move enable after the policy->shared_type check, so cppc_set_perf()
-> >   is the only failure after it.
-> > - Mention NVIDIA GB10 in the commit message (Christian).
-> >
-> > v1: https://lore.kernel.org/lkml/20261105123244.3132560-1-sumitg@nvidia=
-.com/
-> >
-> >  drivers/cpufreq/cppc_cpufreq.c | 14 +++++++++++++-
-> >  1 file changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpuf=
-req.c
-> > index 957fa7775260..b2af24ae5008 100644
-> > --- a/drivers/cpufreq/cppc_cpufreq.c
-> > +++ b/drivers/cpufreq/cppc_cpufreq.c
-> > @@ -714,7 +714,17 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_po=
-licy *policy)
-> >               pr_debug("Unsupported CPU co-ord type: %d\n",
-> >                        policy->shared_type);
-> >               ret =3D -EFAULT;
-> > -             goto out;
-> > +             goto out_put;
-> > +     }
-> > +
-> > +     /*
-> > +      * Enable CPPC. The Enable register is optional - some platforms
-> > +      * may not support it.
-> > +      */
-> > +     ret =3D cppc_set_enable(cpu, true);
-> > +     if (ret && ret !=3D -EOPNOTSUPP) {
-> > +             pr_err("Failed to enable CPPC for CPU%u (%d)\n", cpu, ret=
-);
-> > +             goto out_put;
-> >       }
-> >
-> >       policy->fast_switch_possible =3D cppc_allow_fast_switch(policy->c=
-pus);
-> > @@ -742,6 +752,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_pol=
-icy *policy)
-> >       return 0;
-> >
-> >  out:
-> > +     cppc_set_enable(cpu, false);
-> > +out_put:
-> >       cppc_cpufreq_put_cpu_data(policy);
-> >       return ret;
-> >  }
->
+The C200 (046d:0802) reports a mic capture volume range of
+1536..7680 with a resolution of 1 (6144 steps), triggering
+"Warning! Unlikely big volume step count (=6144), linear volume or
+wrong cval->res?" at probe and exposing a uselessly fine-grained
+mixer control.  This is the same firmware behavior as the other
+UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
+(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
+quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
+if the device-specific entry did not short-circuit the lookup) plus
+MIC_RES_384.
+
+Verified on real hardware: with the quirk the warning disappears and
+the driver logs "set resolution quirk: cval->res = 384".
+
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Replaced the flag-based device entry with a USB_ID case in volume_control_quirks(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/mixer.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index fa2c740249e33..fdd3efd297c2b 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1169,6 +1169,7 @@ static void volume_control_quirks(struct usb_mixer_elem_info *cval,
+ 		}
+ 		break;
+ 
++	case USB_ID(0x046d, 0x0802): /* Logitech Webcam C200 */
+ 	case USB_ID(0x046d, 0x0807): /* Logitech Webcam C500 */
+ 	case USB_ID(0x046d, 0x0808):
+ 	case USB_ID(0x046d, 0x0809):
+-- 
+2.53.0
+
