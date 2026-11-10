@@ -1,53 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273142;
-	b=nF2G7f7iMtEohtCiPyPrEq/UHNoBYfn25j3343zoHMsvqXuOZGRe+l8ai1VNiiRItxCg
-	 YsRXNbOMLxsJdgMmO9N4TtatJikFgfKU/zlJfh1CAss3yBDH4QCldZrUNPLu+gJouuDdI
-	 xw/v2dkupD/qjzBOd6lBWS+gZiCbZ6ooFJ44Bzz4XTfoWxwA2wTDsi7aNLwkUc9WyDJG7
-	 cUlXc4iu9A79DDzNfLp65oSmMtB/OtNF7K5+pw5cw3ishN2tk8Zhyrn59qO/Es9tiWTfF
-	 xyYHpcXTvYlmClsq0ye1d8o/L+ISKsyl/gc8WjqKPScZOfNTmow6WgLOQNTr8gDVe/g==
+	t=1794273148;
+	b=bJehH2zMD+Wp0AEYsZq1mkAOsoN6MFxu6FGzi+rek/dhd6ZcPCnpaN4cDBZunjnwgGWZ
+	 d8zKOvN1EGutpom3x8kn1eAt0e/nNR37teLGNLRR1qVUmlgXcBoL2WNMN+hx2NrGwNfY8
+	 iT3mubuXi2vTvgiYkKM11a20joy+2wx1blgfeNcFGUkxjkIX5lKEbJUpLHF+bvCfB/XvW
+	 VCYLulYgwTE9UJFAFblNHf8zaO7BS+EuAhEMyEFPigK/tyPqEjYYMq6Z8FL2Sxmultktf
+	 o7lCcMO7VOZtJEt+dB+ygIhqhNWZWxiJuW02czX0Og93FoCXhQV076qPMJJVW8/rC/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273148;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rLLugWsE69/MbYb6k94YlAIHUboqHo9t4jbgzqPyiSY=;
-	b=H+yWwxjZy+DUMyg2WjaIus7M4fQZVILmXhDmmnPjHScwox/soZZL0Hx5KEHv1N+yTfYm
-	 QgDIGLp5NTrnhYfhlRmTL+IfG7QsKICNu33dEmP5Cu3bNwBTI6HwQYoNihWvWLkPiOHOv
-	 5ChmuqeZNGGTCjjJBGmY/190CkHmRsAjEz4kTN7fXUQzM2SEnYRTUGx2gH7VITUVGmLBs
-	 +GnBiY/a2yJhl5F8Nz9VNGY23YLf6px8cYkaR7fNeW8I2SvxBaoVM/LIFjJfXTlUkIfle
-	 VbIXd9uclZqXx4Zu39Na4xb7JiH5fri5oLjcwMAzqddyhNkBLLVoMrlLMqmO7oDhDIQ==
+	bh=gq4pLAA9gkk1j2JTrOymGaJlH/2AvXkuCe42cxUT7zM=;
+	b=S3GRHhbwEPHq71yaedA7Vk/sZtfcTHbBf0Kue9vF8LiIPyV1nKl2pgVhESwuK/zb7b9r
+	 QX+wvMOerRoB6pvU0etXMq5j5yp4OwwKzf67QXE2DKY/dqnJqZ1o+tWUDt+RrvRWRqdoQ
+	 tmqC3SdevKMoi8/x6RDHpp3cW0Jbt7xjoTNUxMnoNKdcY2oUcRm/nMjmqk+JhZYSkd0q+
+	 W5Ig0nANyYdrKblwwRXUgzzMzXvIon+OF/FKUfsNYSTm0b7+BsWo0ldd3RAGWhyYvVCES
+	 xmma0Pl0dYY/hT96DL7zFujUfhmOtsBQd2jG9zA4r2iZNLjPHkV3ecl7G6YmuVW8R7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBJcZo3I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcorPuT+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20952606A321
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C98A606A31C
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBJcZo3I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FD11F0089F;
-	Tue, 10 Nov 2026 01:12:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcorPuT+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51C71F0089F;
+	Tue, 10 Nov 2026 01:12:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273142;
-	bh=rLLugWsE69/MbYb6k94YlAIHUboqHo9t4jbgzqPyiSY=;
+	s=k20260515; t=1794273147;
+	bh=gq4pLAA9gkk1j2JTrOymGaJlH/2AvXkuCe42cxUT7zM=;
 	h=From:To:Cc:Subject:Date;
-	b=QBJcZo3IQ9T52Mrq38SIOW9dw0c+VaZV4tgZF3wX9QsBogPVTzS2YR3qzWB+GiPNy
-	 ARD8UTuG9AiaDx/WD8PtkwFd1rRkd8SbR+GwfAgKZEouGcIz3Ugp4mvErdf4DdqpKX
-	 GE5WOkrsaCFbQwIytkMtBt7KkKfYES++R/50albCZA0208+Q9F8yoAziQ0pGtxMjnv
-	 dPAqUA4qv8zNpEyUJwFjYcpG1i/BnRKbLo1486lh4KKlOvzyekfGy4m5IHiS5n8ixS
-	 3Nt4MAd2vlBZEMMgwvwBta0jV0f10bzqDP0POGCdoLT27ca+Yu4ftpx+pDYTmeDA1N
-	 xawRsnvAr4mYg==
+	b=LcorPuT+1zGzUmELrs6B+i3B/83pAIk6OGlIFgIjjfFEVRsP0JnL/DEtcAUnroLJV
+	 6OD04u18T3AMqNz6RvdbNngYfw55F9gVJ3cF7AuNwv3IzUU7b0hQpjKLwFBUsA1nW1
+	 oWVZ2rP4P+ex8w9HB+npgD9yLD0aJ++QDQDwNvriCgldsWOkEa78BHjn6rHbzoCveU
+	 0ZIT/kno6DgU++S5N3MQjDPpDvP9yUTDXKhkTs5xkyokm0C/zORmZyjM//mMUzKaxo
+	 OB1/L/TmKx8gCpj5jkCRESSSwuXJF9w+xMz0Woh7u41Cp3BFmAeTu+OtIjYdkijo15
+	 W0iMyL5iC7g1Q==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
+To: lance.yang@linux.dev,
+	samarth.colleges@gmail.com,
 	akpm@linux-foundation.org,
-	sieberf@amazon.com,
-	sjpark@amazon.de
+	ljs@kernel.org,
+	kas@kernel.org,
+	david@kernel.org,
+	mgorman@techsingularity.net,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	jglisse@redhat.com,
+	aarcange@redhat.com,
+	peterx@redhat.com,
+	bobbypowers@gmail.com,
+	bgeffon@google.com,
+	dplotnikov@virtuozzo.com,
+	dgilbert@interlog.com,
+	hughd@google.com,
+	hannes@cmpxchg.org,
+	cracauer@cons.org,
+	mcfadden8@llnl.gov,
+	gokhale2@llnl.gov,
+	xemul@openvz.org,
+	riel@surriel.com,
+	shli@fb.com,
+	jthoughton@google.com,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	sj@kernel.org,
+	ziy@nvidia.com,
+	med08elkadiri@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core: move static variable last_nr_regions to damon_ctx" failed to apply to 6.6-stable tree
-Date: Mon,  9 Nov 2026 20:12:20 -0500
-Message-ID: <20261109201220-failed-6.6-26ae50a0901a@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge" failed to apply to 6.6-stable tree
+Date: Mon,  9 Nov 2026 20:12:22 -0500
+Message-ID: <20261109201222-failed-6.6-990d6c2194a9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,95 +102,158 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 26ae50a0901a44f7d50053f87dc38abd9f9a269c
+git cherry-pick -x 990d6c2194a938a19a8cf94c6cfd75171345089b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201220-failed-6.6-26ae50a0901a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201222-failed-6.6-990d6c2194a9@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 26ae50a0901a44f7d50053f87dc38abd9f9a269c Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Sun, 25 Oct 2026 09:48:05 -0700
-Subject: [PATCH] mm/damon/core: move static variable last_nr_regions to
- damon_ctx
+From 990d6c2194a938a19a8cf94c6cfd75171345089b Mon Sep 17 00:00:00 2001
+From: Lance Yang <lance.yang@linux.dev>
+Date: Mon, 26 Oct 2026 21:00:54 +0800
+Subject: [PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-kdamond_split_regions() uses a static variable last_nr_regions, to infer
-if the region boundaries are too stable.  If it looks too stable, it
-does a more aggressive region split because it might be a fake stability
-coming from non-aggressive split.  Because the variable is static, the
-inference can be racy and wrong when multiple kdamonds are running in
-parallel.
+KSM loses userfaultfd protection when replace_page() builds a new PTE from
+vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+through ordinary COW instead of userfaultfd write protection handling.
+For RWP, a merged page also becomes readable without faulting.
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort monitoring accuracy can be degraded when multiple kdamonds
-are used in parallel and the workload has certain access patterns. Still
-it is a bug that is better to fix.
+Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+have to handle unmerging.  An existing KSM page can be protected with RWP
+before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+of preserving RWP during merging.
 
-Move the variable into the damon_ctx struct to fix the problem.
+Unsharing replaces a shared page with a private one and should leave
+userfaultfd protection in place, as do_wp_page() already does for write
+protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+can proceed to do_wp_page().
 
-Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
-Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
-Signed-off-by: SJ Park <sj@kernel.org>
+- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+  break_ksm() then reports success with a KSM page still merged.
+
+- With asynchronous RWP, protection is cleared before unsharing.
+
+Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+private copy as well.  Unsharing can then complete with RWP still armed
+for a subsequent access.
+
+Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: <stable@vger.kernel.org> # 5.15.x
+Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Xu Xin <xu.xin@linux.dev>"
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jérôme Glisse <jglisse@redhat.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Bobby Powers <bobbypowers@gmail.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+Cc: Doug Gilbert <dgilbert@interlog.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Martin Cracauer <cracauer@cons.org>
+Cc: Marty McFadden <mcfadden8@llnl.gov>
+Cc: Maya Gokhale <gokhale2@llnl.gov>
+Cc: Pavel Emelyanov <xemul@openvz.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Shaohua Li <shli@fb.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: SJ Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- include/linux/damon.h | 5 +++++
- mm/damon/core.c       | 5 ++---
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ mm/ksm.c    |  8 +++++++-
+ mm/memory.c | 14 ++++++++++----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/damon.h b/include/linux/damon.h
-index 63050eb2206a0..cb6a50032a1eb 100644
---- a/include/linux/damon.h
-+++ b/include/linux/damon.h
-@@ -958,6 +958,11 @@ struct damon_ctx {
- 
- 	/* @rnd_state:	Per-ctx PRNG state for damon_rand(). */
- 	struct rnd_state rnd_state;
-+	/*
-+	 * number of regions after last merge.  Read kdamond_split_regions()
-+	 * for more details.
-+	 */
-+	unsigned long last_nr_regions;
- };
- 
- /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index eb1fcdabc0075..09722257ce736 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3795,7 +3795,6 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
- 	struct damon_target *t;
- 	unsigned long nr_regions = 0;
- 	unsigned long max_nr_regions = ctx->attrs.max_nr_regions;
--	static unsigned long last_nr_regions;
- 	int nr_subregions = 2;
- 
- 	damon_for_each_target(t, ctx)
-@@ -3811,7 +3810,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 910a1307ac9f3..d6f736a1aa2f9 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -34,6 +34,7 @@
+ #include <linux/memory.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
++#include <linux/userfaultfd_k.h>
+ #include <linux/ksm.h>
+ #include <linux/hashtable.h>
+ #include <linux/freezer.h>
+@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
  	}
  
- 	/* Maybe the middle of the region has different access frequency */
--	if (last_nr_regions == nr_regions &&
-+	if (ctx->last_nr_regions == nr_regions &&
- 			nr_regions < max_nr_regions / 3)
- 		nr_subregions = 3;
+-	/* Preserve soft-dirty when replacing the page. */
++	/* Preserve soft-dirty and uffd protection when replacing the page. */
+ 	if (pte_soft_dirty(orig_pte))
+ 		newpte = pte_mksoft_dirty(newpte);
++	if (pte_uffd(orig_pte)) {
++		newpte = pte_mkuffd(newpte);
++		if (userfaultfd_rwp(vma))
++			newpte = pte_modify(newpte, PAGE_NONE);
++	}
  
-@@ -3820,7 +3819,7 @@ static noinline_for_stack void kdamond_split_regions(struct damon_ctx *ctx)
- 				       ctx->min_region_sz);
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+diff --git a/mm/memory.c b/mm/memory.c
+index 916637e8381da..b65b56fe97148 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4125,8 +4125,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		if (unlikely(unshare)) {
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
+-			if (pte_uffd(vmf->orig_pte))
++			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
++				if (userfaultfd_rwp(vma))
++					entry = pte_modify(entry, PAGE_NONE);
++			}
+ 		} else {
+ 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 		}
+@@ -6662,9 +6665,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+ 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+ 		 * NUMA hinting and must still fall through to do_numa_page().
+ 		 */
+-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+-			return do_uffd_rwp(vmf);
+-		return do_numa_page(vmf);
++		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
++			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
++				return do_uffd_rwp(vmf);
++		} else {
++			return do_numa_page(vmf);
++		}
+ 	}
  
- done:
--	last_nr_regions = nr_regions;
-+	ctx->last_nr_regions = nr_regions;
- }
- 
- /*
+ 	spin_lock(vmf->ptl);
 -- 
 2.53.0
 
