@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273887;
-	b=ij+gRfHIaJnQErcb2HgHLbqloDizMCJiKJ2XdERGNVVvPZH3+nBh+aDetQR6Bj3pn86e
-	 +6l5yjA6FBmcyyS02q1OvPd3t7dBU3Lmb9u71qJ+U5GhHYbJMQ62egqXE0IEfG7rz3rTG
-	 IfYsdtXQlMkrLVBUEHEXMZcMlG3NVI84BoABzUnnbghZX4wCpV0StJV//wN5nrh/gW4Ga
-	 /H0qMfj5yisZ4PcfzB6fkxxa66SqzO7jwrUhc+hPZrhl1xjdc1eqbYlFRShxdcupwxUcM
-	 e/+yfF4GgB1Z+AH9W28C5X/hPiRBloAuDBbtAgOIy359+tqIv+GJMdb3TzPyF3TBxtA==
+	t=1794273889;
+	b=0cWhFeoggOUJelkqHis1Y8C6/AEeu3lPA3MDD5fvj4/AsUcZ/rNSqdVF7+bTnS53AOFO
+	 a1MmuGHVty/74ezDQjZOg540DUGfDK6Kr3aMCgwuPDoxWMBR47WBKRh+siZvzPJqx9j53
+	 2JZkdnOcTkJt+Siitoc/ozg3XfgcsTEN5fd61igLiJoG/Umxn7FI7mWGidYf2uXzJNH4+
+	 SyJ5e8lfeQGIB8b3SK305b1aJvE2FYYJ+YJvDzJIoxR3eJoXJwHJOKlHby+v5Pac9lXuZ
+	 +nw08Slb7J4usRd6ExLc9pFjgRg9vs1LFYqvORCQon8zteb6cJr0iW5QkVkb5INhD3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273889;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=f/v/gWubsV3+XF7uRgOZ114b294oE/e1b5vYS6EE3gQ=;
-	b=jzg8o5Sq08bCGSlSL5RfRx8fb2o0XIIw3FlYHcq4B+QLdzR8ijWiXm9KnjpTqNKAskB7
-	 8h5jh6nwb6zZHisQaqIiyfGAMiKjxFfXp3JeXHjDaD+LlsMTjHAu6QGYwD2xhqP5YNbUL
-	 K4t4vBaUXwTvfnnrY/g62ihNvo69Kh22SzcS/sGcc4JVnwdjNUSiDrgPfG74GGSIlGGub
-	 5pwL2RN3kU5r8zZza5YI46lpiRLbMUWQN2MS3kAlUzHYwb1xQAP8CgDYFSejjOMDZmq4F
-	 ArEOP+2G9JqNkgXnbxSeNpGSUaTTctb/7pp72zQODqp1N+iG1R97PABeMjSk3HFXYhw==
+	bh=eZWq64qLd740K6oTt0BewqCVvewpUyI18hOybgaivA4=;
+	b=oEhhNjZkzvK3eWwPrDO6um9w0TkMfCVsCXlxM14QQ8sFely7gqjP3C60osBJGsv79Jbg
+	 D4p/kGKHmPS0bLDLm2iY/CVqiHXv9H+B0k6FnBxMvZhQXa+jLl40TPWuH/157vxUlh9rb
+	 IoiXBs3+fpt23S2sPxBs8pIbAp5sEp92qmZZf+bCwt8ECbiUQHsxwu4b1LeW3GqGeE1/K
+	 a6w+VlSqlEXZ1xJPf1FmfpYUHhp6tGhAJXkZd+1kh5OMpXR+SJ6RtOqk/eMDh9m6bt7ny
+	 BniHwAt0ArGSQJ5mnHzGiZmPZlTbkeMFNPFiBKCVaBO41SkVfRAKsAyxCIOmNOyY4wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqc0BfCL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoJEuMVG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 441F96071840
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B7B606A32A
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:24:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oqc0BfCL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7888B1F0089F;
-	Tue, 10 Nov 2026 01:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoJEuMVG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0779F1F0089F;
+	Tue, 10 Nov 2026 01:24:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273887;
-	bh=f/v/gWubsV3+XF7uRgOZ114b294oE/e1b5vYS6EE3gQ=;
+	s=k20260515; t=1794273889;
+	bh=eZWq64qLd740K6oTt0BewqCVvewpUyI18hOybgaivA4=;
 	h=From:To:Cc:Subject:Date;
-	b=oqc0BfCL/d15T/s1aYdSGBWPDMtmrtv2TVv/TGQFXYCXrwBVDTfCSEJ4WrUN1IutN
-	 +BJMg4ux4seoQHCZ8VZUR2ou35E7r7n+ybZbiqRIGpQvWBLLpU1oHeaHbDksvdFUSb
-	 7T++K1ULCWZcogruSJbmJHZAvDhDwwNKySduP35YPNpBeemaPfq8QbYiuP4JOEtNCG
-	 C1ob3TmCq98l8zvJ3UbXK3jxd3BXUgOFFWnLDz9EQnGWWiUpIFLB+MDMrVPm+dfa+E
-	 FrOGAsHDD3vIIJw0ONrFniZbHu6Zm573CugHlZ2yFDlJE1RTctQVocrdcLt9u+M2gp
-	 ULOrUBUY73yjA==
+	b=CoJEuMVGg/m3zuBJ3Q+XKyC0vT9jyZphB34BhXKLTwNQqSecaKV2h7Aktfl0rUbMi
+	 9pdUoGwwFljyUUeIrallo78pOVRuhygd8sVAevi/qqF5B+Mu/+BD4yLvddme3Locx9
+	 XH7kOwmTwrCTu++op1hl0PwlTfCROb0JL25IIExslMUKsq5efholw15ny+XmZWHLmn
+	 JfneYglevkkSU/NYp2EfyB8XGmDG9ZxO1rAYwSe3KEdeGzOs6eLPQMkBlFJXsfOryY
+	 QifDg7hrCwyIWOqlGAQYLTZGC/CxfwQ761TMz6mDDguxcWYYuZI4qMfin/y97yLrc4
+	 +FLW3k9zHdyJg==
 From: Sasha Levin <sashal@kernel.org>
-To: odys.yuan@gmail.com,
-	hch@lst.de,
-	paulmck@kernel.org,
-	kbusch@kernel.org
+To: matthias.goergens@gmail.com,
+	jack@suse.cz
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] srcu: Add list_splice_init_srcu()" failed to apply to 5.15-stable tree
-Date: Mon,  9 Nov 2026 20:24:45 -0500
-Message-ID: <20261109202445-failed-5.15-d06917d0ba22@kernel.org>
+Subject: FAILED: patch "[PATCH] udf: don't use eloc after the end of the unallocated space table" failed to apply to 5.15-stable tree
+Date: Mon,  9 Nov 2026 20:24:47 -0500
+Message-ID: <20261109202447-failed-5.15-94401199df90@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,97 +68,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x d06917d0ba226206dbd606330d73a8eb1e3029c1
+git cherry-pick -x 94401199df90e1c2a50c6e4b73618ac5a4ba83ba
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202445-failed-5.15-d06917d0ba22@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202447-failed-5.15-94401199df90@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d06917d0ba226206dbd606330d73a8eb1e3029c1 Mon Sep 17 00:00:00 2001
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Wed, 4 Nov 2026 01:30:39 -0500
-Subject: [PATCH] srcu: Add list_splice_init_srcu()
+From 94401199df90e1c2a50c6e4b73618ac5a4ba83ba Mon Sep 17 00:00:00 2001
+From: Matthias Goergens <matthias.goergens@gmail.com>
+Date: Fri, 30 Oct 2026 22:05:37 +0800
+Subject: [PATCH] udf: don't use eloc after the end of the unallocated space
+ table
 
-list_splice_init_rcu() makes a list look empty to new readers, waits for
-the current ones with the given sync function, and only then links the
-entries into the new list. The sync function takes no argument, so it
-can wait for RCU readers but not for the readers of an srcu_struct.
+When udf_next_aext() returns 0, its eloc, elen and etype outputs hold
+no defined value.  Two walks of the unallocated space table still use
+eloc after the walk has reached the end of the table.
 
-Passing synchronize_rcu() for a list read under SRCU still builds, but
-leaves SRCU readers on the entries while the last one's next pointer is
-moved onto the new list head. nvme_remove_namespaces() does this today.
+udf_table_prealloc_blocks() looks for a free extent starting at
+first_block and decides whether it found one by comparing eloc with
+first_block after the walk.  If the table's list ends in a continuation
+descriptor that leads to an empty allocation extent, eloc is then the
+block of that allocation extent, which is in use, and if that is
+first_block, the block is handed out as preallocation.  Once
+udf_discard_prealloc() no longer frees the wrong block, this is what
+still makes fsx in generic/091 and generic/263 read back bad data on a
+table, in about one run in four.  Only take the extent if the walk
+stopped at it.
 
-Add list_splice_init_srcu(), which waits for the readers of the given
-srcu_struct instead.
+When udf_table_free_blocks() cannot merge the freed blocks into an
+existing extent, it appends a new one and sets only its block number,
+so the partition reference comes from whatever eloc held after the
+walk, and with long allocation descriptors it is written to disk.  For
+a table without extents, eloc was never set.  Take the partition
+reference from the freed blocks instead.  Short allocation descriptors
+do not store the partition reference, which is why this half remains a
+latent long-descriptor fix rather than a reproduced failure.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Link: https://patch.msgid.link/fd9ca4c4ba98c00c012ec861f6c0bc08a3b1d07b.1793349907.git.matthias.goergens@gmail.com
+Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ fs/udf/balloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index 1a8a465a5650d..d4dcaeb83e2b6 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -18,6 +18,7 @@
+diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
+index 2ec577b4321c9..75124188e7452 100644
+--- a/fs/udf/balloc.c
++++ b/fs/udf/balloc.c
+@@ -457,6 +457,7 @@ static void udf_table_free_blocks(struct super_block *sb,
  
- #include <linux/mutex.h>
- #include <linux/rcupdate.h>
-+#include <linux/rculist.h>
- #include <linux/workqueue.h>
- #include <linux/rcu_segcblist.h>
+ 		int adsize;
  
-@@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
- void synchronize_srcu(struct srcu_struct *ssp);
- void synchronize_srcu_atomic(struct srcu_struct *ssp);
++		eloc.partitionReferenceNum = bloc->partitionReferenceNum;
+ 		eloc.logicalBlockNum = start;
+ 		elen = EXT_RECORDED_ALLOCATED |
+ 			(count << sb->s_blocksize_bits);
+@@ -532,7 +533,7 @@ static int udf_table_prealloc_blocks(struct super_block *sb,
+ 			  eloc.logicalBlockNum, elen, first_block);
+ 	}
  
-+/**
-+ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
-+ * @list:	the SRCU-protected list to splice
-+ * @head:	the place in the existing list to splice the first list into
-+ * @ssp:	the srcu_struct that readers of @list use
-+ *
-+ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
-+ * instead of RCU ones, so that none of them can follow a next pointer
-+ * onto @head.
-+ *
-+ * Note that this function blocks, and that the caller must prevent any
-+ * other updates to @list.
-+ */
-+static inline void list_splice_init_srcu(struct list_head *list,
-+					 struct list_head *head,
-+					 struct srcu_struct *ssp)
-+{
-+	struct list_head *first = list->next;
-+	struct list_head *last = list->prev;
-+	struct list_head *next = head->next;
-+
-+	if (list_empty(list))
-+		return;
-+
-+	INIT_LIST_HEAD_RCU(list);
-+	synchronize_srcu(ssp);
-+	ASSERT_EXCLUSIVE_ACCESS(*first);
-+	ASSERT_EXCLUSIVE_ACCESS(*last);
-+
-+	last->next = next;
-+	rcu_assign_pointer(list_next_rcu(head), first);
-+	first->prev = head;
-+	next->prev = last;
-+}
-+
- #define SRCU_GET_STATE_COMPLETED 0x1
+-	if (first_block == eloc.logicalBlockNum) {
++	if (ret > 0 && first_block == eloc.logicalBlockNum) {
+ 		epos.offset -= adsize;
  
- /**
+ 		alloc_count = (elen >> sb->s_blocksize_bits);
 -- 
 2.53.0
 
