@@ -1,128 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794321715;
-	b=xbuxJcPiJBe4hXknFzFcSP9hIi60er+0K9SA+QmD++lAPppVyu+12fiuziij/AMQdfiQ
-	 wax3XTQGFbk9u50ZNLNc9P7W70wf2dSSpnN+uqPNv9PTH4jgz37xpYfZcTBJAojJOs5of
-	 FVoDHWHokZeJ83H+NKaRO0FCy2RetQudOSwFfldIWbkLfDtCEnu9RaZOSZhH92yORhHrP
-	 ZokerzDoRqkWnayV1sRLThkMKl62DuZ2WZw+zQyQcCl3TmxKT0DG9oNhAdPJ1aMF1LKRx
-	 9HE5l4zUJ0GPxmgiDjBjFH4rMQPqs8RmXFiXhf4O986SSKxsEPXLSIdUoF98Z6/jCHA==
+	t=1794321725;
+	b=WZf9Brmbg4qwecCAl2yZrLIHj8E2ZtvrTUb2sZ3DYXSWPHC36HlJesl/YV42lUnE1OLP
+	 +O5XaPsisBLyDPzxzzz56uRikDBrNsFomQlZRJh6ox3y9OiNHhMVKBhIf8z8eUax3yKyO
+	 Zte3wj5DrV10tS/uOzoLR7r4zNynq9iXAhtccWxSqwJttLX2v3P4LMwZLqVI6ZoISrWX6
+	 oJWvxipWfn6+36XzQyBZtFgUdL7ofdJYpqqTjgSueSAQxSPMtJeAuXYAk378xs7EsWLP2
+	 ZnmRHgzmLAd0kaOAS4ulWJm6a7KegwpiZIGnAaszqN5CW7DeIIZqs9TkyY++gnYdxGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794321715;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=qDtnp52mCOLGIeKAoTkP/VE9bDmOCKAJNKVe/si6vCg=;
-	b=g9mxct17EvgMCuiDWJAKNtDT8o+Reqmq9ji5B8lpm6n2F4AgQ6ZDLdv77O/zsfzt2mqL
-	 /6wELu/IbU71gCDS7qke1BU48h4T49n1R2TAZI08Ps/CpyUiWUnEOaZeCcMWEYpGTPADN
-	 EW+UmivfKBY3mSnLW3mqLQ5kM7lA3QsmWTp0HGrFhcGzyDJFTwI40vmbarCh1QJWmRC4D
-	 ObZ7yU+8ftfYKe/suN/WBUGyjsBjQIntTINwR5G+9bIx+Jw6Agr1heDN6+aSnmj7gkz12
-	 WR4iCtxCzc9+FjAq+tDVRTVl9rSr1TCAhKXrjwHEsUbuNTj9agwsz60FXzUyS8NEIJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794321725;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=isMLOapZUfg0YI3MZf+X2kcYwD0V+8RI4iy9UbJh51U=;
+	b=m4qqxPSOJgoIPAO60XfDSHC//BK2eZx9eZ1tFgRQqxyj11PFxhODGn5cTjBq0QPVKn/5
+	 JAw2op8e94kYoqIlxYb195ZXtHAbj0biVlVFTukbReLxC6xc1UIdVM/kQ2xiZcxFJofMO
+	 odAuJvUmTp5LCQqu2fMFMPgPaXnt59Snw4uFu1H3ClMk3e6X31Si6FMikgKHoYgW/iCUG
+	 JQqPmqBCLELqvrEXPiz63v8SAfiCqyXWAQnrmP3YVDj6cP+eJ59JlgkWpCOzmdrQWpmOL
+	 lW9X8efx5VZYrfk4bqVy5H7yT/WgbT6qtthyZfHPDx7H3NRMha+v1dx5luVX113ZU/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KPH4ZA4O;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nAwA4w5o;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KPH4ZA4O;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nAwA4w5o;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jucmrTLR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C633760A263E;
-	Tue, 10 Nov 2026 14:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C633760A263E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D794606A33B
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 14:42:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KPH4ZA4O;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nAwA4w5o;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KPH4ZA4O;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nAwA4w5o
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 16F2821EA9;
-	Tue, 10 Nov 2026 14:41:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794321713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qDtnp52mCOLGIeKAoTkP/VE9bDmOCKAJNKVe/si6vCg=;
-	b=KPH4ZA4OCUNQteAlThJVSMdVv+b5CITqUYVDYv0DTYGBh3lYfp14gNkrIBhN3QW8TrZ5Zu
-	8cw3fegXEqyg//sIFlGsygW3ZNppe5S6nwsQ0jNmzUxBYyv0WNVveJumfvFkFKzmvKemzb
-	QpaqM/pVXZxp2ljdJnBPVJc1vEVX1cQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794321713;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qDtnp52mCOLGIeKAoTkP/VE9bDmOCKAJNKVe/si6vCg=;
-	b=nAwA4w5op91jEWjfS+enW+W0YGrrCz6iJT8kEaFIkP6kTQL1V7Xx/i770Qaf/dBHb75kNs
-	cnRMKm7wWkaGMFCQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KPH4ZA4O;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=nAwA4w5o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794321713; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qDtnp52mCOLGIeKAoTkP/VE9bDmOCKAJNKVe/si6vCg=;
-	b=KPH4ZA4OCUNQteAlThJVSMdVv+b5CITqUYVDYv0DTYGBh3lYfp14gNkrIBhN3QW8TrZ5Zu
-	8cw3fegXEqyg//sIFlGsygW3ZNppe5S6nwsQ0jNmzUxBYyv0WNVveJumfvFkFKzmvKemzb
-	QpaqM/pVXZxp2ljdJnBPVJc1vEVX1cQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794321713;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qDtnp52mCOLGIeKAoTkP/VE9bDmOCKAJNKVe/si6vCg=;
-	b=nAwA4w5op91jEWjfS+enW+W0YGrrCz6iJT8kEaFIkP6kTQL1V7Xx/i770Qaf/dBHb75kNs
-	cnRMKm7wWkaGMFCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DEACC1339F;
-	Tue, 10 Nov 2026 14:41:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Jq7yLTAt82pxMgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 10 Nov 2026 14:41:52 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 80FD72254E; Tue, 10 Nov 2026 15:41:48 +0100 (CET)
-Date: Tue, 10 Nov 2026 15:41:48 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 36/51] proc: don't let NOMMU map procfs files
-Message-ID: <shez4l3sx2gonaj5peho6rtfckgiqom7cennfitxv34oceq4qf@csr6sjmey2yy>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
- <20261104-work-procfs-bugfixes-v2-36-bbf7d5546809@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jucmrTLR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2371F008A1;
+	Tue, 10 Nov 2026 14:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794321724;
+	bh=isMLOapZUfg0YI3MZf+X2kcYwD0V+8RI4iy9UbJh51U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jucmrTLRTesV4wV8couIKvevIek1VzdB0E5NqsBT+2rkvBkttC75e7PF4U1jjRZrc
+	 ndxSlouzSXPLy24lnzP/TiRcwhuIQTZ8BKlYUd9wARPMVGY3GqQDEBamOnfhpD+TnZ
+	 KpoGMcjBdJJVy5u0ZxyiC93YuGc2z/aFuLf5MP3fcoCUgkP3wO3nvsYkIAh+WmwsMY
+	 Nf0gg70W9UJ7KrvrBK3C+/yuYz6L29hLRBposH38GnfZwGGBWIyM0y+nZr+F0vuwuG
+	 LixC2/e3SE1G7h0tRbv6fe9kTkBprvorzZr7/Dxdpk2x9W5Bz+MDwPh7JXACQtgHsQ
+	 MCx6AneriSz9Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ALSA: line6: Use guard() for spin locks
+Date: Tue, 10 Nov 2026 09:42:02 -0500
+Message-ID: <20261110144156.1950251-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052438-failed-6.12-443ed4edc267@kernel.org>
+References: <20261107052438-failed-6.12-443ed4edc267@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,154 +58,215 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-36-bbf7d5546809@kernel.org>
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[60];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 16F2821EA9
+Content-Transfer-Encoding: 8bit
 
-On Wed 04-11-26 18:47:22, Christian Brauner wrote:
-> Every procfs file has a ->mmap since commit 786d7e1612f0 ("Fix
-> rmmod/read/write races in /proc entries"), whether the entry has a
-> ->proc_mmap or not. On NOMMU validate_mmap_request() takes that to mean
-> the file can be mapped. procfs has no ->mmap_capabilities so a regular
-> file gets NOMMU_MAP_COPY, and a private mapping never calls ->mmap at
-> all. Instead do_mmap() takes nommu_region_sem for writing and
-> do_mmap_private() reads the file into the copy with kernel_read().
-> 
-> Reading /proc/maps takes nommu_region_sem as well:
-> 
->   mmap(NULL, 4096, PROT_READ, MAP_PRIVATE, open("/proc/maps", O_RDONLY), 0)
-> 
->   do_mmap()                          // down_write(&nommu_region_sem)
->   -> do_mmap_private()
->      -> kernel_read()
->         -> seq_read_iter()
->            -> nommu_region_list_start()   // down_read()
-> 
-> The task hangs for good, holding nommu_region_sem and its own mmap_lock,
-> and every mmap(), munmap() and exit after that hangs behind it.
-> /proc/maps is 0444 so any user can do that.
-> 
-> Give the procfs files a ->mmap_capabilities on NOMMU that allows
-> nothing. That covers every entry and not just /proc/maps, procfs can't
-> know which entry's read takes nommu_region_sem. Mapping a procfs file
-> then fails with -ENODEV, like mapping a file without ->mmap did before
-> 786d7e1612f0. NOMMU never called ->proc_mmap() for a regular file
-> anyway, procfs never offered NOMMU_MAP_DIRECT.
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 786d7e1612f0 ("Fix rmmod/read/write races in /proc entries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+From: Takashi Iwai <tiwai@suse.de>
 
-Looks good. Feel free to add:
+[ Upstream commit bdcdb4e7aa410122baa3496b93e7850dc20a90fa ]
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Clean up the code using guard() for spin locks.
 
-								Honza
+Merely code refactoring, and no behavior change.
 
-> ---
->  fs/proc/inode.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-> index b7634f975d98..9933f03ab9fb 100644
-> --- a/fs/proc/inode.c
-> +++ b/fs/proc/inode.c
-> @@ -466,6 +466,18 @@ proc_reg_get_unmapped_area(struct file *file, unsigned long orig_addr,
->  	return rv;
->  }
->  
-> +#ifndef CONFIG_MMU
-> +/*
-> + * NOMMU never calls ->proc_mmap() for a regular file. It reads the file into
-> + * a private copy instead, with nommu_region_sem held for writing, which
-> + * reading /proc/maps takes as well. Don't map procfs files at all.
-> + */
-> +static unsigned int proc_reg_mmap_capabilities(struct file *file)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> +
->  static int proc_reg_open(struct inode *inode, struct file *file)
->  {
->  	struct proc_dir_entry *pde = PDE(inode);
-> @@ -559,6 +571,9 @@ static const struct file_operations proc_reg_file_ops = {
->  	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
->  	.mmap		= proc_reg_mmap,
->  	.get_unmapped_area = proc_reg_get_unmapped_area,
-> +#ifndef CONFIG_MMU
-> +	.mmap_capabilities = proc_reg_mmap_capabilities,
-> +#endif
->  	.open		= proc_reg_open,
->  	.release	= proc_reg_release,
->  };
-> @@ -572,6 +587,9 @@ static const struct file_operations proc_iter_file_ops = {
->  	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
->  	.mmap		= proc_reg_mmap,
->  	.get_unmapped_area = proc_reg_get_unmapped_area,
-> +#ifndef CONFIG_MMU
-> +	.mmap_capabilities = proc_reg_mmap_capabilities,
-> +#endif
->  	.open		= proc_reg_open,
->  	.release	= proc_reg_release,
->  };
-> @@ -586,6 +604,9 @@ static const struct file_operations proc_reg_file_ops_compat = {
->  	.compat_ioctl	= proc_reg_compat_ioctl,
->  	.mmap		= proc_reg_mmap,
->  	.get_unmapped_area = proc_reg_get_unmapped_area,
-> +#ifndef CONFIG_MMU
-> +	.mmap_capabilities = proc_reg_mmap_capabilities,
-> +#endif
->  	.open		= proc_reg_open,
->  	.release	= proc_reg_release,
->  };
-> @@ -600,6 +621,9 @@ static const struct file_operations proc_iter_file_ops_compat = {
->  	.compat_ioctl	= proc_reg_compat_ioctl,
->  	.mmap		= proc_reg_mmap,
->  	.get_unmapped_area = proc_reg_get_unmapped_area,
-> +#ifndef CONFIG_MMU
-> +	.mmap_capabilities = proc_reg_mmap_capabilities,
-> +#endif
->  	.open		= proc_reg_open,
->  	.release	= proc_reg_release,
->  };
-> 
-> -- 
-> 2.53.0
-> 
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 443ed4edc267 ("ALSA: line6: Handle period elapsed calls outside the locks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/line6/capture.c |  6 +-----
+ sound/usb/line6/driver.c  | 31 +++++++++++++++----------------
+ sound/usb/line6/midi.c    | 10 ++--------
+ sound/usb/line6/pcm.c     | 27 ++++++++++++---------------
+ 4 files changed, 30 insertions(+), 44 deletions(-)
+
+diff --git a/sound/usb/line6/capture.c b/sound/usb/line6/capture.c
+index 2ce020939bd72..dde52454ec65e 100644
+--- a/sound/usb/line6/capture.c
++++ b/sound/usb/line6/capture.c
+@@ -157,8 +157,6 @@ void line6_capture_check_period(struct snd_line6_pcm *line6pcm, int length)
+ static void audio_in_callback(struct urb *urb)
+ {
+ 	int i, index, length = 0, shutdown = 0;
+-	unsigned long flags;
+-
+ 	struct snd_line6_pcm *line6pcm = (struct snd_line6_pcm *)urb->context;
+ 
+ 	line6pcm->in.last_frame = urb->start_frame;
+@@ -168,7 +166,7 @@ static void audio_in_callback(struct urb *urb)
+ 		if (urb == line6pcm->in.urbs[index])
+ 			break;
+ 
+-	spin_lock_irqsave(&line6pcm->in.lock, flags);
++	guard(spinlock_irqsave)(&line6pcm->in.lock);
+ 
+ 	for (i = 0; i < LINE6_ISO_PACKETS; ++i) {
+ 		char *fbuf;
+@@ -223,8 +221,6 @@ static void audio_in_callback(struct urb *urb)
+ 		    test_bit(LINE6_STREAM_PCM, &line6pcm->in.running))
+ 			line6_capture_check_period(line6pcm, length);
+ 	}
+-
+-	spin_unlock_irqrestore(&line6pcm->in.lock, flags);
+ }
+ 
+ /* open capture callback */
+diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
+index e9eb5c74d6c7a..caf9bc6616865 100644
+--- a/sound/usb/line6/driver.c
++++ b/sound/usb/line6/driver.c
+@@ -286,31 +286,30 @@ static void line6_data_received(struct urb *urb)
+ {
+ 	struct usb_line6 *line6 = (struct usb_line6 *)urb->context;
+ 	struct midi_buffer *mb = &line6->line6midi->midibuf_in;
+-	unsigned long flags;
+ 	int done;
+ 
+ 	if (urb->status == -ESHUTDOWN)
+ 		return;
+ 
+ 	if (line6->properties->capabilities & LINE6_CAP_CONTROL_MIDI) {
+-		spin_lock_irqsave(&line6->line6midi->lock, flags);
+-		done =
+-			line6_midibuf_write(mb, urb->transfer_buffer, urb->actual_length);
+-
+-		if (done < urb->actual_length) {
+-			line6_midibuf_ignore(mb, done);
+-			dev_dbg(line6->ifcdev, "%d %d buffer overflow - message skipped\n",
+-				done, urb->actual_length);
++		scoped_guard(spinlock_irqsave, &line6->line6midi->lock) {
++			done =
++				line6_midibuf_write(mb, urb->transfer_buffer, urb->actual_length);
++
++			if (done < urb->actual_length) {
++				line6_midibuf_ignore(mb, done);
++				dev_dbg(line6->ifcdev, "%d %d buffer overflow - message skipped\n",
++					done, urb->actual_length);
++			}
+ 		}
+-		spin_unlock_irqrestore(&line6->line6midi->lock, flags);
+ 
+ 		for (;;) {
+-			spin_lock_irqsave(&line6->line6midi->lock, flags);
+-			done =
+-				line6_midibuf_read(mb, line6->buffer_message,
+-						   LINE6_MIDI_MESSAGE_MAXLEN,
+-						   LINE6_MIDIBUF_READ_RX);
+-			spin_unlock_irqrestore(&line6->line6midi->lock, flags);
++			scoped_guard(spinlock_irqsave, &line6->line6midi->lock) {
++				done =
++					line6_midibuf_read(mb, line6->buffer_message,
++							   LINE6_MIDI_MESSAGE_MAXLEN,
++							   LINE6_MIDIBUF_READ_RX);
++			}
+ 
+ 			if (done <= 0)
+ 				break;
+diff --git a/sound/usb/line6/midi.c b/sound/usb/line6/midi.c
+index 9b51760862809..80d9a6d903424 100644
+--- a/sound/usb/line6/midi.c
++++ b/sound/usb/line6/midi.c
+@@ -72,7 +72,6 @@ static void line6_midi_transmit(struct snd_rawmidi_substream *substream)
+ */
+ static void midi_sent(struct urb *urb)
+ {
+-	unsigned long flags;
+ 	int status;
+ 	int num;
+ 	struct usb_line6 *line6 = (struct usb_line6 *)urb->context;
+@@ -84,7 +83,7 @@ static void midi_sent(struct urb *urb)
+ 	if (status == -ESHUTDOWN)
+ 		return;
+ 
+-	spin_lock_irqsave(&line6->line6midi->lock, flags);
++	guard(spinlock_irqsave)(&line6->line6midi->lock);
+ 	num = --line6->line6midi->num_active_send_urbs;
+ 
+ 	if (num == 0) {
+@@ -94,8 +93,6 @@ static void midi_sent(struct urb *urb)
+ 
+ 	if (num == 0)
+ 		wake_up(&line6->line6midi->send_wait);
+-
+-	spin_unlock_irqrestore(&line6->line6midi->lock, flags);
+ }
+ 
+ /*
+@@ -158,17 +155,14 @@ static int line6_midi_output_close(struct snd_rawmidi_substream *substream)
+ static void line6_midi_output_trigger(struct snd_rawmidi_substream *substream,
+ 				      int up)
+ {
+-	unsigned long flags;
+ 	struct usb_line6 *line6 =
+ 	    line6_rawmidi_substream_midi(substream)->line6;
+ 
+ 	line6->line6midi->substream_transmit = substream;
+-	spin_lock_irqsave(&line6->line6midi->lock, flags);
++	guard(spinlock_irqsave)(&line6->line6midi->lock);
+ 
+ 	if (line6->line6midi->num_active_send_urbs == 0)
+ 		line6_midi_transmit(substream);
+-
+-	spin_unlock_irqrestore(&line6->line6midi->lock, flags);
+ }
+ 
+ static void line6_midi_output_drain(struct snd_rawmidi_substream *substream)
+diff --git a/sound/usb/line6/pcm.c b/sound/usb/line6/pcm.c
+index 7f51a81d7ec9b..77d5802872b16 100644
+--- a/sound/usb/line6/pcm.c
++++ b/sound/usb/line6/pcm.c
+@@ -190,11 +190,10 @@ static void line6_buffer_release(struct snd_line6_pcm *line6pcm,
+ static int line6_stream_start(struct snd_line6_pcm *line6pcm, int direction,
+ 			      int type)
+ {
+-	unsigned long flags;
+ 	struct line6_pcm_stream *pstr = get_stream(line6pcm, direction);
+ 	int ret = 0;
+ 
+-	spin_lock_irqsave(&pstr->lock, flags);
++	guard(spinlock_irqsave)(&pstr->lock);
+ 	if (!test_and_set_bit(type, &pstr->running) &&
+ 	    !(pstr->active_urbs || pstr->unlink_urbs)) {
+ 		pstr->count = 0;
+@@ -207,7 +206,6 @@ static int line6_stream_start(struct snd_line6_pcm *line6pcm, int direction,
+ 
+ 	if (ret < 0)
+ 		clear_bit(type, &pstr->running);
+-	spin_unlock_irqrestore(&pstr->lock, flags);
+ 	return ret;
+ }
+ 
+@@ -215,21 +213,20 @@ static int line6_stream_start(struct snd_line6_pcm *line6pcm, int direction,
+ static void line6_stream_stop(struct snd_line6_pcm *line6pcm, int direction,
+ 			  int type)
+ {
+-	unsigned long flags;
+ 	struct line6_pcm_stream *pstr = get_stream(line6pcm, direction);
+ 
+-	spin_lock_irqsave(&pstr->lock, flags);
+-	clear_bit(type, &pstr->running);
+-	if (!pstr->running) {
+-		spin_unlock_irqrestore(&pstr->lock, flags);
+-		line6_unlink_audio_urbs(line6pcm, pstr);
+-		spin_lock_irqsave(&pstr->lock, flags);
+-		if (direction == SNDRV_PCM_STREAM_CAPTURE) {
+-			line6pcm->prev_fbuf = NULL;
+-			line6pcm->prev_fsize = 0;
+-		}
++	scoped_guard(spinlock_irqsave, &pstr->lock) {
++		clear_bit(type, &pstr->running);
++		if (pstr->running)
++			return;
++	}
++
++	line6_unlink_audio_urbs(line6pcm, pstr);
++	if (direction == SNDRV_PCM_STREAM_CAPTURE) {
++		guard(spinlock_irqsave)(&pstr->lock);
++		line6pcm->prev_fbuf = NULL;
++		line6pcm->prev_fsize = 0;
+ 	}
+-	spin_unlock_irqrestore(&pstr->lock, flags);
+ }
+ 
+ /* common PCM trigger callback */
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
