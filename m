@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794273495;
-	b=dbg6VVD8zNpCSGzgWGPcgjufk3JZXQuZ8TidQlx7gt6rNFIh9PnwK64b2UWzoXqcE4Cf
-	 BPMIsJjn56HKQvDapsxcyEr+n0NNk8cDmytHk5q9g+r0LoTtssaF3YTDguwU1WWWxOv+j
-	 uMC5uia4MZda+pUnsEzeVlPyiiiHs0ucwP0LKbfe4r3vcU33a5lcfjRDtKuo+2bCeSUaG
-	 9IJJ29nKJmCI6FFdeBv+xUb+8ETutseSgrLie1Wz59NAe3Qn6hwoU6D0tO5vc+6cfsc3k
-	 mMPizhjmiJ8wkVo8FywY6H/lzteYH5/WYs6CwDQymuYMPv5nrCKltB1rTmdYYDcdM7w==
+	t=1794273497;
+	b=c9RLQRTp6OeXaFIrGKoLgfZ7faYIfIBBEiSEuQBWa5o0whnZ3brBaSNaBaE03ElYcsSJ
+	 xMxWOcXuef+cQQmpNa5UUb+cA+J92p993cALLT009LmLyHBEGi1CiS96kMpaEnZpXJ1I4
+	 L38Wvuq5ACCLg8iPp+aXYQO2Nbs9uFG+pgq11xkIQwNcwQU4frnIdp+82hNy8v4Ui9+nD
+	 ZOSzKVavOChEakfClVOGFMBHmDwdmrM6KIlZN1Q9xmHaaGG61OohAZ22lnnoG5IC+jtHD
+	 Px//Dgd9jwF16+SvdKdlk6fy/HLRqQ90TWJZDgqd90NHDFj7jq5GxGlNcrfLzLyZZNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794273495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794273497;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GiwrzvGKU4LOLNnSdjCagog8zNl0XjHlOL1IDA2lgNk=;
-	b=s8nysPE/mCx89Kvjj/dSLPLN3/CHjqPElc+TdQFdsWSeAY7jPDInPWiKlr1a7ewAw0Zs
-	 V+7oP5vnF+D2CkQpxTaxwXvXPqU+fW5okthde9XHBvJBhaPKfXxE2h6NxWLuDCe30hGhT
-	 cT0jdZueRTlrTTIYro+6xv/O2S1mPCSAjXgJXtvLKAtp8dptWJ1tPDwWN/gIS/eIbQUq4
-	 DUf1PGfXxePsXE+1tdvigV9MvghTawlZmP3NA+jmh7GkkVAsGw3ds4GXJLFEA7qOClQzK
-	 MrXuBdOgYBfqIlBa0iaX/XBaWIdTbsqDjYlefKzghmjSgmL0XjcLfyR6Sm+eoYG3eNw==
+	bh=ODa+s96MQwf+f6fuerb/7DAOllLDcSrgl4HisSyieyM=;
+	b=HzzfOWyLqaU9Fw6w4MWiA8o+BUU3gtwGtXFBO5wZprtyEK7kf6uEbV0LVR5PLk7f/vkm
+	 OK9AdSDS1sNq0V/TIWkhclShGozF8DzkO3Cw189eJpw4yoRxWrGl+FuK8GTAVMCxlxQcA
+	 eLTgHS8QbhQx0umcxUCPQHaXyfaIW2hLDieuwWbkVf2iERnzB6ANxHytwBSYVOUjnxu04
+	 wub/+nmsE4Ti6aceHWEVW7GtgDcJxP8vNypvuCgekD6GpJoOxQFMKd2tWQ2t3QL5psZVx
+	 o19RTCd6yFEGXVxbOyTU2VFUssInKflbz3kjph/b6FcVWpguNAwXa9SZAanJXXlFuAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVtQBwPG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6+gG76H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D07606A31C
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92670606A321
+	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 01:18:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVtQBwPG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662D11F0089F;
-	Tue, 10 Nov 2026 01:18:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6+gG76H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4761F0089F;
+	Tue, 10 Nov 2026 01:18:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794273494;
-	bh=GiwrzvGKU4LOLNnSdjCagog8zNl0XjHlOL1IDA2lgNk=;
+	s=k20260515; t=1794273497;
+	bh=ODa+s96MQwf+f6fuerb/7DAOllLDcSrgl4HisSyieyM=;
 	h=From:To:Cc:Subject:Date;
-	b=BVtQBwPGRn7pfHOL4yvUHG9C+aSgkq85I62hwiacxlsSRPGhjH89jCIIa1WPfFmlY
-	 UdQ8Kl91IFHtx6ojPpV3XgLx+qrSu0G/eE3CCu6nNJ6Tqt0kVaSL5waqv8G9SxlhIe
-	 UPSUL66rr4cuwGqEtpibI/EfpLzgi5eQfDqmURlJhMfPg+sFBLuFokEgOhseueBnE8
-	 G+c0GaOU3ezAYaEqIWDyeuqQICiLag2MvZjXBsVMJ+7PHo+G3D/m11mzqKN65jIQ2c
-	 YWmOH4/xxbca7pQwJ+ci012u6fRmnGfjzStCPcZwt7e3tEGldt77xg8/9Ap6evhfIz
-	 Qi1KBYgpYDw5g==
+	b=n6+gG76HwmlQLcCtt90w18YchkUGyDaUVMt5O2j2iWsXCeTqB6vVnkP3kVKOkxrvD
+	 OcmWAUSo8Rxb725BlZJKmxS4CycV4QPm4BDoEi0QF8nhK7kVNlnLyKc2o03YvNEYlD
+	 a6o/ZEaAwPO46KwVgutjzSf9Fm8WaAQGBiXRhbOlBn2EXsXg4NZIGKyIbpqGJfOu0i
+	 JFWdvDVV2weRsvlUW60XbErSbK3ylbQ63JFDJeKcV2HFkUJiL4X+7pgYcAzHSfnAB+
+	 MoL1jmnpsG5fdBs+j1w3Nfv3JWZq3Y/NNiv/u+dd0ZOVTJGAjpt6Hgg4GABVqo3SfU
+	 OwOMIT/CQeIbA==
 From: Sasha Levin <sashal@kernel.org>
-To: socketcan@hartkopp.net,
-	mkl@pengutronix.de
+To: josef@toxicpanda.com,
+	rppt@kernel.org,
+	ljs@kernel.org,
+	usama.anjum@arm.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] can: raw, isotp: copy socket options outside of lock_sock()" failed to apply to 6.1-stable tree
-Date: Mon,  9 Nov 2026 20:18:13 -0500
-Message-ID: <20261109201813-failed-6.1-43c973a0887d@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: wake all waiters on unregister" failed to apply to 6.1-stable tree
+Date: Mon,  9 Nov 2026 20:18:15 -0500
+Message-ID: <20261109201815-failed-6.1-3afb19d68cc5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,517 +71,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 43c973a0887d3d7b2ee0a446603c97bf0f38c58e
+git cherry-pick -x 3afb19d68cc5e7851fdb1069c8094af97bd80417
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201813-failed-6.1-43c973a0887d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109201815-failed-6.1-3afb19d68cc5@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 43c973a0887d3d7b2ee0a446603c97bf0f38c58e Mon Sep 17 00:00:00 2001
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-Date: Tue, 27 Oct 2026 15:31:08 +0100
-Subject: [PATCH] can: raw, isotp: copy socket options outside of lock_sock()
+From 3afb19d68cc5e7851fdb1069c8094af97bd80417 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sat, 31 Oct 2026 10:39:53 +0100
+Subject: [PATCH] mm/userfaultfd: wake all waiters on unregister
 
-The CAN_RAW and CAN_ISOTP specific socket options are copied from and
-to user space while holding lock_sock(). A copy that faults or stalls,
-e.g. on a userfaultfd or FUSE backed mapping, holds lock_sock() for its
-whole duration.
+UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
+Threads waiting on write-protect, minor or RWP faults can therefore remain
+asleep after unregistering a range that does not track missing faults.
 
-raw_notify() and isotp_notify() take lock_sock() of a socket that is
-bound to the vanishing device while holding RTNL. As the CAN_RAW
-options can also be changed on a bound socket, a stalled copy can block
-RTNL on an unregistration or namespace change of the bound device.
-Before "can: protect the receive lists with a per-device lock",
-raw_setsockopt() even held RTNL itself during the copy. CAN_ISOTP only
-copies its options for unbound sockets, which isotp_notify() skips
-without taking lock_sock().
+Wake pending faults regardless of the registration mode so they can retry
+without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
+the existing behavior for missing faults, including removing unread fault
+messages for the woken waiters.
 
-Keep the user space copies out of the locked sections: Check the option
-name and length and copy the option values, including the CAN_RAW_FILTER
-filters, to kernel memory before lock_sock(). raw_setsockopt_locked()
-and isotp_setsockopt_locked() get the copied values directly and drop
-their now redundant length checks and copies. As a side effect, a
-failing copy can not leave partially overwritten options behind
-anymore. In raw_getsockopt() duplicate the filters under lock_sock() and
-copy them to user space after release_sock().
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-As the option name and length are now checked before lock_sock(), the
-order of the checks in isotp_setsockopt() and accordingly the order of
-the returned error values changes. This is in line with POSIX, which
-does not define an order in which multiple error conditions are
-detected and reported.
-
-The generic SOL_SOCKET options in sk_setsockopt() are not affected by
-this patch.
-
-Fixes: c18ce101f2e4 ("[CAN]: Add raw protocol")
-Fixes: 1e5185c09058 ("can: raw: add locking for raw flags bitfield")
-Cc: stable@vger.kernel.org # depends on "can: protect the receive lists with a per-device lock"
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20261027-can-rx-lock-v12-4-eb5afc2d8b9b@hartkopp.net
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: rebase; simplify description ]
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-24-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- net/can/isotp.c | 100 +++++++++++++++-----------
- net/can/raw.c   | 186 +++++++++++++++++++++++++-----------------------
- 2 files changed, 155 insertions(+), 131 deletions(-)
+ mm/userfaultfd.c | 22 ++++++++++------------
+ 1 file changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/net/can/isotp.c b/net/can/isotp.c
-index 1e40825b58cb7..5e2de051fc5ec 100644
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -1709,8 +1709,8 @@ static int isotp_getname(struct socket *sock, struct sockaddr *uaddr, int peer)
- 	return ISOTP_MIN_NAMELEN;
- }
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 3ca04b582329f..be630674fda9b 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
  
--static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
--			    sockptr_t optval, unsigned int optlen)
-+static int isotp_setsockopt_locked(struct socket *sock, int optname,
-+				   const void *val)
- {
- 	struct sock *sk = sock->sk;
- 	struct isotp_sock *so = isotp_sk(sk);
-@@ -1721,11 +1721,7 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 	ret = 0;
+ 	for_each_vma_range(vmi, vma, end) {
++		struct userfaultfd_wake_range range;
++
+ 		cond_resched();
  
- 	switch (optname) {
- 	case CAN_ISOTP_OPTS:
--		if (optlen != sizeof(struct can_isotp_options))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&so->opt, optval, optlen))
--			return -EFAULT;
-+		memcpy(&so->opt, val, sizeof(so->opt));
+ 		/* VMA not registered with userfaultfd. */
+@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+ 		/* Prevent new userfaults from being queued after the wakeup. */
+ 		vma_start_write(vma);
  
- 		/* no separate rx_ext_address is given => use ext_address */
- 		if (!(so->opt.flags & CAN_ISOTP_RX_EXT_ADDR))
-@@ -1750,55 +1746,37 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
- 		break;
- 
- 	case CAN_ISOTP_RECV_FC:
--		if (optlen != sizeof(struct can_isotp_fc_options))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&so->rxfc, optval, optlen))
--			return -EFAULT;
-+		memcpy(&so->rxfc, val, sizeof(so->rxfc));
- 		break;
- 
- 	case CAN_ISOTP_TX_STMIN:
--		if (optlen != sizeof(u32))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&so->force_tx_stmin, optval, optlen))
--			return -EFAULT;
-+		so->force_tx_stmin = *(const u32 *)val;
- 		break;
- 
- 	case CAN_ISOTP_RX_STMIN:
--		if (optlen != sizeof(u32))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&so->force_rx_stmin, optval, optlen))
--			return -EFAULT;
-+		so->force_rx_stmin = *(const u32 *)val;
- 		break;
- 
--	case CAN_ISOTP_LL_OPTS:
--		if (optlen == sizeof(struct can_isotp_ll_options)) {
--			struct can_isotp_ll_options ll;
--
--			if (copy_from_sockptr(&ll, optval, optlen))
--				return -EFAULT;
-+	case CAN_ISOTP_LL_OPTS: {
-+		const struct can_isotp_ll_options *ll = val;
- 
--			/* check for correct ISO 11898-1 DLC data length */
--			if (ll.tx_dl != padlen(ll.tx_dl))
--				return -EINVAL;
-+		/* check for correct ISO 11898-1 DLC data length */
-+		if (ll->tx_dl != padlen(ll->tx_dl))
-+			return -EINVAL;
- 
--			if (ll.mtu != CAN_MTU && ll.mtu != CANFD_MTU)
--				return -EINVAL;
-+		if (ll->mtu != CAN_MTU && ll->mtu != CANFD_MTU)
-+			return -EINVAL;
- 
--			if (ll.mtu == CAN_MTU &&
--			    (ll.tx_dl > CAN_MAX_DLEN || ll.tx_flags != 0))
--				return -EINVAL;
-+		if (ll->mtu == CAN_MTU &&
-+		    (ll->tx_dl > CAN_MAX_DLEN || ll->tx_flags != 0))
-+			return -EINVAL;
- 
--			memcpy(&so->ll, &ll, sizeof(ll));
-+		memcpy(&so->ll, ll, sizeof(*ll));
- 
--			/* set ll_dl for tx path to similar place as for rx */
--			so->tx.ll_dl = ll.tx_dl;
--		} else {
--			return -EINVAL;
+-		if (userfaultfd_missing(vma)) {
+-			/*
+-			 * Wake any concurrent pending userfault while
+-			 * we unregister, so they will not hang
+-			 * permanently and it avoids userland to call
+-			 * UFFDIO_WAKE explicitly.
+-			 */
+-			struct userfaultfd_wake_range range;
+-			range.start = start;
+-			range.len = vma_end - start;
+-			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
 -		}
-+		/* set ll_dl for tx path to similar place as for rx */
-+		so->tx.ll_dl = ll->tx_dl;
- 		break;
-+	}
++		/*
++		 * Wake any concurrent pending userfault while we unregister,
++		 * so they will not hang permanently and it avoids userland to
++		 * call UFFDIO_WAKE explicitly.
++		 */
++		range.start = start;
++		range.len = vma_end - start;
++		wake_userfault(ctx, &range);
  
- 	default:
- 		ret = -ENOPROTOOPT;
-@@ -1812,13 +1790,49 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
- 
- {
- 	struct sock *sk = sock->sk;
-+	union {
-+		struct can_isotp_options opt;
-+		struct can_isotp_fc_options rxfc;
-+		struct can_isotp_ll_options ll;
-+		u32 stmin;
-+	} val;
-+	unsigned int size;
- 	int ret;
- 
- 	if (level != SOL_CAN_ISOTP)
- 		return -EINVAL;
- 
-+	/* copy the option values from user space before lock_sock() */
-+	switch (optname) {
-+	case CAN_ISOTP_OPTS:
-+		size = sizeof(val.opt);
-+		break;
-+
-+	case CAN_ISOTP_RECV_FC:
-+		size = sizeof(val.rxfc);
-+		break;
-+
-+	case CAN_ISOTP_TX_STMIN:
-+	case CAN_ISOTP_RX_STMIN:
-+		size = sizeof(val.stmin);
-+		break;
-+
-+	case CAN_ISOTP_LL_OPTS:
-+		size = sizeof(val.ll);
-+		break;
-+
-+	default:
-+		return -ENOPROTOOPT;
-+	}
-+
-+	if (optlen != size)
-+		return -EINVAL;
-+
-+	if (copy_from_sockptr(&val, optval, size))
-+		return -EFAULT;
-+
- 	lock_sock(sk);
--	ret = isotp_setsockopt_locked(sock, level, optname, optval, optlen);
-+	ret = isotp_setsockopt_locked(sock, optname, &val);
- 	release_sock(sk);
- 	return ret;
- }
-diff --git a/net/can/raw.c b/net/can/raw.c
-index d6517f71cadeb..0926d5686e419 100644
---- a/net/can/raw.c
-+++ b/net/can/raw.c
-@@ -604,63 +604,36 @@ static int raw_getname(struct socket *sock, struct sockaddr *uaddr,
- }
- 
- static int raw_setsockopt_locked(struct socket *sock, int optname,
--				 sockptr_t optval, unsigned int optlen)
-+				 const void *val, struct can_filter *filter,
-+				 int count)
- {
- 	struct sock *sk = sock->sk;
- 	struct raw_sock *ro = raw_sk(sk);
--	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
--	struct can_filter sfilter;         /* single filter */
- 	struct net_device *dev = NULL;
--	can_err_mask_t err_mask = 0;
--	int count = 0;
-+	can_err_mask_t err_mask;
- 	int flag;
- 	int err = 0;
- 
- 	switch (optname) {
- 	case CAN_RAW_FILTER:
--		if (optlen % sizeof(struct can_filter) != 0)
--			return -EINVAL;
--
--		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
--			return -EINVAL;
--
--		count = optlen / sizeof(struct can_filter);
--
--		if (count > 1) {
--			/* filter does not fit into dfilter => alloc space */
--			filter = memdup_sockptr(optval, optlen);
--			if (IS_ERR(filter))
--				return PTR_ERR(filter);
--		} else if (count == 1) {
--			if (copy_from_sockptr(&sfilter, optval, sizeof(sfilter)))
--				return -EFAULT;
--		}
--
--		/* The reg_state check is only a shortcut: On a concurrent
-+		/* @filter has been copied by raw_setsockopt(). It is linked
-+		 * to the socket on success and freed by the caller on error.
-+		 *
-+		 * The reg_state check is only a shortcut: On a concurrent
- 		 * unregistration or namespace change raw_notify() waits for
- 		 * lock_sock() and removes the filters set here.
- 		 */
- 		dev = ro->dev;
- 		if (ro->bound && dev &&
--		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED) {
--			if (count > 1)
--				kfree(filter);
-+		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED)
- 			return -ENODEV;
--		}
- 
- 		if (ro->bound) {
- 			/* (try to) register the new filters */
--			if (count == 1)
--				err = raw_enable_filters(sock_net(sk), dev, sk,
--							 &sfilter, 1);
--			else
--				err = raw_enable_filters(sock_net(sk), dev, sk,
--							 filter, count);
--			if (err) {
--				if (count > 1)
--					kfree(filter);
-+			err = raw_enable_filters(sock_net(sk), dev, sk, filter,
-+						 count);
-+			if (err)
- 				return err;
--			}
- 
- 			/* remove old filter registrations */
- 			raw_disable_filters(sock_net(sk), dev, sk, ro->filter,
-@@ -674,7 +647,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 		/* link new filters to the socket */
- 		if (count == 1) {
- 			/* copy filter data for single filter */
--			ro->dfilter = sfilter;
-+			ro->dfilter = *filter;
- 			filter = &ro->dfilter;
- 		}
- 		ro->filter = filter;
-@@ -682,13 +655,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 		break;
- 
- 	case CAN_RAW_ERR_FILTER:
--		if (optlen != sizeof(err_mask))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&err_mask, optval, optlen))
--			return -EFAULT;
--
--		err_mask &= CAN_ERR_MASK;
-+		err_mask = *(const can_err_mask_t *)val & CAN_ERR_MASK;
- 
- 		/* lockless shortcut, see CAN_RAW_FILTER */
- 		dev = ro->dev;
-@@ -715,31 +682,15 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 		break;
- 
- 	case CAN_RAW_LOOPBACK:
--		if (optlen != sizeof(flag))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&flag, optval, optlen))
--			return -EFAULT;
--
--		ro->loopback = !!flag;
-+		ro->loopback = !!*(const int *)val;
- 		break;
- 
- 	case CAN_RAW_RECV_OWN_MSGS:
--		if (optlen != sizeof(flag))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&flag, optval, optlen))
--			return -EFAULT;
--
--		ro->recv_own_msgs = !!flag;
-+		ro->recv_own_msgs = !!*(const int *)val;
- 		break;
- 
- 	case CAN_RAW_FD_FRAMES:
--		if (optlen != sizeof(flag))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&flag, optval, optlen))
--			return -EFAULT;
-+		flag = *(const int *)val;
- 
- 		/* Enabling CAN XL includes CAN FD */
- 		if (ro->xl_frames && !flag)
-@@ -749,13 +700,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 		break;
- 
- 	case CAN_RAW_XL_FRAMES:
--		if (optlen != sizeof(flag))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&flag, optval, optlen))
--			return -EFAULT;
--
--		ro->xl_frames = !!flag;
-+		ro->xl_frames = !!*(const int *)val;
- 
- 		/* Enabling CAN XL includes CAN FD */
- 		if (ro->xl_frames)
-@@ -763,11 +708,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 		break;
- 
- 	case CAN_RAW_XL_VCID_OPTS:
--		if (optlen != sizeof(ro->raw_vcid_opts))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&ro->raw_vcid_opts, optval, optlen))
--			return -EFAULT;
-+		memcpy(&ro->raw_vcid_opts, val, sizeof(ro->raw_vcid_opts));
- 
- 		/* prepare 32 bit values for handling in hot path */
- 		ro->tx_vcid_shifted = ro->raw_vcid_opts.tx_vcid << CANXL_VCID_OFFSET;
-@@ -776,13 +717,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
- 		break;
- 
- 	case CAN_RAW_JOIN_FILTERS:
--		if (optlen != sizeof(flag))
--			return -EINVAL;
--
--		if (copy_from_sockptr(&flag, optval, optlen))
--			return -EFAULT;
--
--		ro->join_filters = !!flag;
-+		ro->join_filters = !!*(const int *)val;
- 		break;
- 
- 	default:
-@@ -795,17 +730,84 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
- 			  sockptr_t optval, unsigned int optlen)
- {
- 	struct sock *sk = sock->sk;
-+	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
-+	struct can_filter sfilter;         /* single filter */
-+	union {
-+		can_err_mask_t err_mask;
-+		int flag;
-+		struct can_raw_vcid_options vcid_opts;
-+	} val;
-+	unsigned int size = 0;
-+	int count = 0;
- 	int err;
- 
- 	if (level != SOL_CAN_RAW)
- 		return -EINVAL;
- 
-+	/* Copy the option values from user space before lock_sock(), so a
-+	 * stalled copy can not block raw_notify() waiting for lock_sock()
-+	 * under RTNL.
-+	 */
-+	switch (optname) {
-+	case CAN_RAW_FILTER:
-+		if (optlen % sizeof(struct can_filter) != 0)
-+			return -EINVAL;
-+
-+		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
-+			return -EINVAL;
-+
-+		count = optlen / sizeof(struct can_filter);
-+
-+		if (count > 1) {
-+			/* filter does not fit into dfilter => alloc space */
-+			filter = memdup_sockptr(optval, optlen);
-+			if (IS_ERR(filter))
-+				return PTR_ERR(filter);
-+		} else if (count == 1) {
-+			if (copy_from_sockptr(&sfilter, optval, sizeof(sfilter)))
-+				return -EFAULT;
-+			filter = &sfilter;
-+		}
-+		break;
-+
-+	case CAN_RAW_ERR_FILTER:
-+		size = sizeof(val.err_mask);
-+		break;
-+
-+	case CAN_RAW_XL_VCID_OPTS:
-+		size = sizeof(val.vcid_opts);
-+		break;
-+
-+	case CAN_RAW_LOOPBACK:
-+	case CAN_RAW_RECV_OWN_MSGS:
-+	case CAN_RAW_FD_FRAMES:
-+	case CAN_RAW_XL_FRAMES:
-+	case CAN_RAW_JOIN_FILTERS:
-+		size = sizeof(val.flag);
-+		break;
-+
-+	default:
-+		return -ENOPROTOOPT;
-+	}
-+
-+	if (size) {
-+		if (optlen != size)
-+			return -EINVAL;
-+
-+		if (copy_from_sockptr(&val, optval, size))
-+			return -EFAULT;
-+	}
-+
- 	lock_sock(sk);
- 
--	err = raw_setsockopt_locked(sock, optname, optval, optlen);
-+	err = raw_setsockopt_locked(sock, optname, &val, filter, count);
- 
- 	release_sock(sk);
- 
-+	/* on error free the filters allocated for CAN_RAW_FILTER above */
-+	if (err && count > 1)
-+		kfree(filter);
-+
- 	return err;
- }
- 
-@@ -826,6 +828,7 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
- 
- 	switch (optname) {
- 	case CAN_RAW_FILTER: {
-+		struct can_filter *filter = NULL;
- 		int err = 0;
- 
- 		lock_sock(sk);
-@@ -840,15 +843,22 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
- 			} else {
- 				if (len > fsize)
- 					len = fsize;
--				if (copy_to_iter(ro->filter, len,
--						 &opt->iter_out) != len)
--					err = -EFAULT;
-+				/* copy to user space after release_sock() */
-+				filter = kmemdup(ro->filter, len, GFP_KERNEL);
-+				if (!filter)
-+					err = -ENOMEM;
- 			}
- 		} else {
- 			len = 0;
- 		}
- 		release_sock(sk);
- 
-+		if (filter) {
-+			if (copy_to_iter(filter, len, &opt->iter_out) != len)
-+				err = -EFAULT;
-+			kfree(filter);
-+		}
-+
- 		if (!err)
- 			opt->optlen = len;
- 		return err;
+ 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
+ 					    start, vma_end);
 -- 
 2.53.0
 
