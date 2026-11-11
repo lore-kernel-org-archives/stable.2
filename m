@@ -1,65 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794399414;
-	b=Lqc2EuhnRWWP1KY0U/8bTQHVfOoOWh1+VCFArtT6sC+As2ihvLLxV3MhJpDnHOvpHQKt
-	 conboMTJSp6xjb8LxErQ3k/JYFhMeyjKm7Laa7G8LMeZqONURN0NLf2JqH/4zOUMBvDFS
-	 s+iY17lowZfitMH5/I8l8CSjXQ7Kpz7pCzYDXpQMk10aBgcH6L5r81iS08gRa0bdcQapX
-	 dDUyCBBRlBCcyYxOK1DINU5qGa8M31dJ/zukE1S+sOhEZxn0yRyPNO5fh9mDuL81SWN8q
-	 LG1Ve9pQjGJSAq0tZlYVmsHRpS2dOphV3Z3v9y5KPl4ODTFEpOWhvvibMIz0sCUtjOQ==
+	t=1794399516;
+	b=suJkmZ81fTBdOH+n3Oc47DNEwEqb29cze+1OD5yRdYWpCCMGtKtm30U1AkLQhPKTirQz
+	 qGBnQsdjLVQmlCL68sxCWEg/Qc0VBzJWyu6WhaJU7m689zPGgGoG5K5U1pYYDYX2PjSbG
+	 AsZ+2IezarPaXR9qLRIrCdigtGSLYxO1MVccBRsU10d+LVeoNXqDCswrJ6aXKkt5pIRqe
+	 7MYCqCXuq6RmhftKVaI1EU90HfY/e2uTdGMetPEFkKBwLVsYNjnNrg73pWEt5MN2vNkxB
+	 OPb2AEWknP8g94K2mk+BkWgnDasPsZPoHmuW7PIB64SfPg6XxeFN5fhQFvSWXgwDfrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794399414;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=UhyhIOX7imp5mBWbRK2/NSiFHVImK/OE1OBipxfe6bs=;
-	b=iSGf4pSFvxzUtFdCSkwqVVm7to1axlXDFCHuU16VjG+OP67N9zycuU+7EBCaqOjAjL5I
-	 2b5D7Sjt7L0WlE0dPfOLMGRp1q+PqSzfKzCYOCGat2xraM9jdiQYcQiAtYlnsxlCW/a4h
-	 tA2W0wk9+B9HzkX++CRDzF09f4ouKIpYq1wDYb/V2EVBvnSeve6nqyK3sOGuxw8Vk1i2P
-	 4cuNpUdKz7bSPPYnjOdMQmRwRgD/G9W8ny4JiePKo7Qp3rMfuS0mVMkEb6aDCSGQi2YeZ
-	 okofbRtMjXoz+Sosi+8l1zB/lKX37Jl2ZW6E6OUiwm5D/pucMyufXrwRXAQrMP2MvTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794399516;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Iwz6JGx10VDH3RatwPk+LBZshUE5x3U0NMf3YAHJ468=;
+	b=Wjvbrkifk6wA1x5IWW+POSxy5W648ZyZLxx4nG8JhpLEmk3yQKH7HJMC3JhKj614r4+r
+	 CGQLgnu4hlw32EvLtV9+cIYWpTrqaEGyComl7DLbcpYP/fHxECoteMrveNhcO7EFyJ8V1
+	 zHb+JaKxjTaRwfILEkJUF7jGZmlGIrYiNPSO+z2Qijjxmnz7uDeckQCNiDaY9qhP0tyKL
+	 x9tXqzkcc9uO49xVAUc8ePSZWNvhInhRNbSpKBxCFNbAIi+CUdS6SzyqaA4YZxl/5aP1y
+	 OeO/LztWvJeivBCj8Z7EyBz3vxKIvI5u7JPsJZK7Es4e3+IjiBpw7fWsWVy4rBmlYLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZndW6QmP;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95673606A886
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 12:16:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95673606A886
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UlBw7+Wf;
+	arc=none smtp.remote-ip=95.215.58.88
+Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B522606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 12:18:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B522606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZndW6QmP
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C425C1576;
-	Wed, 11 Nov 2026 04:16:49 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24CFC3F632;
-	Wed, 11 Nov 2026 04:16:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794399412; bh=6o9WL3LbxwWjRuuSAZAU1s3uvYxMlarF7UOOA3mk1BY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ZndW6QmPdIppTYfh2pC54oryPfzVs1WfZyMXbgnBc548WdsvM6/u3Pq4B1V4p1cjH
-	 L6V+KqBATxFayX6yKj7IRI4J2DO1VJtMYm7XhqQXLGegvaBNWaNWXD6KLbbelGxS1q
-	 EPxirp0ysXRkPtV0JlzoBEh4zgIh7g0UGmE6TVls=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	kvmarm@lists.linux.dev,
-	Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UlBw7+Wf
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JyGXndXqTW4MOheZeloTq4lBPLNzjAUUZJlcRBUVjpo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794399513; v=1; x=1795004313;
+ b=UlBw7+WfiChQgXcV2NwTpgNkjKYctMhQY3PUvWHHKsPz2R3GGbt14m+4+LY4haU43oaZGqCF
+ A1gX4WqCL+KygntpUeGSrUqDQxsU4YOTtpQkHgfdvOT1pvBgZXqWyTt8vvZmvGg988caKW2D15v
+ c9y7lIlLvrJYZqvNJviMNyEM=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 819c96179d96d1cc;
+	Wed, 11 Nov 2026 12:18:33 +0000
+X-Mizu-Trace-ID: 819c96179d96d1cc
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: sashal@kernel.org,
+	david@kernel.org
+Cc: lance.yang@linux.dev,
+	samarth.colleges@gmail.com,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	kas@kernel.org,
+	mgorman@techsingularity.net,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	jglisse@redhat.com,
+	aarcange@redhat.com,
+	peterx@redhat.com,
+	bobbypowers@gmail.com,
+	bgeffon@google.com,
+	dplotnikov@virtuozzo.com,
+	dgilbert@interlog.com,
+	hughd@google.com,
+	hannes@cmpxchg.org,
+	cracauer@cons.org,
+	mcfadden8@llnl.gov,
+	gokhale2@llnl.gov,
+	xemul@openvz.org,
+	riel@surriel.com,
+	shli@fb.com,
+	jthoughton@google.com,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	sj@kernel.org,
+	ziy@nvidia.com,
+	med08elkadiri@gmail.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 7/8] KVM: arm64: nv: Enforce sysreg visibility before evaulating guest traps
-Date: Wed, 11 Nov 2026 12:16:28 +0000
-Message-ID: <avRcnIB6O-_wnDHr@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104192124.3932743-8-oupton@kernel.org>
-References: <20261104192124.3932743-1-oupton@kernel.org> <20261104192124.3932743-8-oupton@kernel.org>
+Subject: Re: FAILED: patch "[PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge" failed to apply to 5.15-stable tree
+Date: Wed, 11 Nov 2026 20:18:23 +0800
+Message-ID: <20261111121823.71780-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261109202205-failed-5.15-990d6c2194a9@kernel.org>
+References: <20261109202205-failed-5.15-990d6c2194a9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,184 +101,188 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 11:21:23AM -0800, Oliver Upton wrote:
-> Not all sysregs / system instructions can be described by FGUs. Of
-> these, there are some which may be not implemented for the VM (e.g. MTE
-> cache maintenance instructions) yet intersect with valid trap bits for
-> the VM (HCR_EL2.TPCP).
+Hi Sasha, David,
+
+On Mon, Nov 09, 2026 at 08:22:05PM -0500, Sasha Levin wrote:
+>The patch below does not apply to the 5.15-stable tree.
+>If someone wants it applied there, or to any other stable or longterm
+>tree, then please email the backport, including the original git commit
+>id to <stable@vger.kernel.org>.
+>
+>To reproduce the conflict and resubmit, you may use the following commands:
+>
+>git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+>git checkout FETCH_HEAD
+>git cherry-pick -x 990d6c2194a938a19a8cf94c6cfd75171345089b
+># <resolve conflicts, build, test, etc.>
+>git commit -s
+>git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261109202205-failed-5.15-990d6c2194a9@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+5.15 lacks FAULT_FLAG_UNSHARE and PageAnonExclusive. I had a go at
+backporting prerequisites, but kept pulling in more folio, GUP and memcg
+changes and running into conflicts ... It felt like there was no end to
+it ...
+
+Any ideas for fixing KSM userfaultfd-wp on 5.15 and 5.10 without such a
+large backport?
+
+Thanks, Lance
+
+
+>Thanks,
+>Sasha
+>
+>------------------ original commit in Linus's tree ------------------
+>
+>>From 990d6c2194a938a19a8cf94c6cfd75171345089b Mon Sep 17 00:00:00 2001
+>From: Lance Yang <lance.yang@linux.dev>
+>Date: Mon, 26 Oct 2026 21:00:54 +0800
+>Subject: [PATCH] mm/ksm: fix userfaultfd protection during merge and unmerge
+>MIME-Version: 1.0
+>Content-Type: text/plain; charset=UTF-8
+>Content-Transfer-Encoding: 8bit
+>
+>KSM loses userfaultfd protection when replace_page() builds a new PTE from
+>vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+>through ordinary COW instead of userfaultfd write protection handling.
+>For RWP, a merged page also becomes readable without faulting.
+>
+>Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+>have to handle unmerging.  An existing KSM page can be protected with RWP
+>before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+>of preserving RWP during merging.
+>
+>Unsharing replaces a shared page with a private one and should leave
+>userfaultfd protection in place, as do_wp_page() already does for write
+>protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+>can proceed to do_wp_page().
+>
+>- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+>  break_ksm() then reports success with a KSM page still merged.
+>
+>- With asynchronous RWP, protection is cleared before unsharing.
+>
+>Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+>FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+>private copy as well.  Unsharing can then complete with RWP still armed
+>for a subsequent access.
+>
+>Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+>Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+>Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+>Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+>Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+>Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+>Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+>Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>Cc: Mel Gorman <mgorman@techsingularity.net>
+>Cc: Xu Xin <xu.xin@linux.dev>"
+>Cc: Chengming Zhou <chengming.zhou@linux.dev>
+>Cc: Liam R. Howlett <liam@infradead.org>
+>Cc: Vlastimil Babka <vbabka@kernel.org>
+>Cc: Mike Rapoport <rppt@kernel.org>
+>Cc: Suren Baghdasaryan <surenb@google.com>
+>Cc: Michal Hocko <mhocko@suse.com>
+>Cc: Jérôme Glisse <jglisse@redhat.com>
+>Cc: Andrea Arcangeli <aarcange@redhat.com>
+>Cc: Peter Xu <peterx@redhat.com>
+>Cc: Bobby Powers <bobbypowers@gmail.com>
+>Cc: Brian Geffon <bgeffon@google.com>
+>Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+>Cc: Doug Gilbert <dgilbert@interlog.com>
+>Cc: Hugh Dickins <hughd@google.com>
+>Cc: Johannes Weiner <hannes@cmpxchg.org>
+>Cc: Martin Cracauer <cracauer@cons.org>
+>Cc: Marty McFadden <mcfadden8@llnl.gov>
+>Cc: Maya Gokhale <gokhale2@llnl.gov>
+>Cc: Pavel Emelyanov <xemul@openvz.org>
+>Cc: Rik van Riel <riel@surriel.com>
+>Cc: Shaohua Li <shli@fb.com>
+>Cc: James Houghton <jthoughton@google.com>
+>Cc: Jonathan Corbet <corbet@lwn.net>
+>Cc: Paolo Bonzini <pbonzini@redhat.com>
+>Cc: Sean Christopherson <seanjc@google.com>
+>Cc: SJ Park <sj@kernel.org>
+>Cc: Zi Yan <ziy@nvidia.com>
+>Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+>Cc: <stable@vger.kernel.org>
+>---
+> mm/ksm.c    |  8 +++++++-
+> mm/memory.c | 14 ++++++++++----
+> 2 files changed, 17 insertions(+), 5 deletions(-)
+>
+>diff --git a/mm/ksm.c b/mm/ksm.c
+>index 910a1307ac9f3..d6f736a1aa2f9 100644
+>--- a/mm/ksm.c
+>+++ b/mm/ksm.c
+>@@ -34,6 +34,7 @@
+> #include <linux/memory.h>
+> #include <linux/mmu_notifier.h>
+> #include <linux/swap.h>
+>+#include <linux/userfaultfd_k.h>
+> #include <linux/ksm.h>
+> #include <linux/hashtable.h>
+> #include <linux/freezer.h>
+>@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+> 		dec_mm_counter(mm, MM_ANONPAGES);
+> 	}
 > 
-> This is annoying to deal with since most of our UNDEF infrastructure is
-> built around traps being RESx for unimplemented features. Test the
-> visibility of the sys_reg_desc to avoid injecting traps for non-existent
-> system registers into the guest hypervisor.
+>-	/* Preserve soft-dirty when replacing the page. */
+>+	/* Preserve soft-dirty and uffd protection when replacing the page. */
+> 	if (pte_soft_dirty(orig_pte))
+> 		newpte = pte_mksoft_dirty(newpte);
+>+	if (pte_uffd(orig_pte)) {
+>+		newpte = pte_mkuffd(newpte);
+>+		if (userfaultfd_rwp(vma))
+>+			newpte = pte_modify(newpte, PAGE_NONE);
+>+	}
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: a7484c80e5ca ("KVM: arm64: Allow userspace to request KVM_ARM_VCPU_EL2*")
-> Signed-off-by: Oliver Upton <oupton@kernel.org>
-> ---
->  arch/arm64/kvm/emulate-nested.c | 24 +++++++++++++++++++++---
->  arch/arm64/kvm/sys_regs.c       | 18 ++++++++++--------
->  arch/arm64/kvm/sys_regs.h       |  4 +++-
->  3 files changed, 34 insertions(+), 12 deletions(-)
+> 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+> 	/*
+>diff --git a/mm/memory.c b/mm/memory.c
+>index 916637e8381da..b65b56fe97148 100644
+>--- a/mm/memory.c
+>+++ b/mm/memory.c
+>@@ -4125,8 +4125,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+> 		if (unlikely(unshare)) {
+> 			if (pte_soft_dirty(vmf->orig_pte))
+> 				entry = pte_mksoft_dirty(entry);
+>-			if (pte_uffd(vmf->orig_pte))
+>+			if (pte_uffd(vmf->orig_pte)) {
+> 				entry = pte_mkuffd(entry);
+>+				if (userfaultfd_rwp(vma))
+>+					entry = pte_modify(entry, PAGE_NONE);
+>+			}
+> 		} else {
+> 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+> 		}
+>@@ -6662,9 +6665,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+> 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+> 		 * NUMA hinting and must still fall through to do_numa_page().
+> 		 */
+>-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+>-			return do_uffd_rwp(vmf);
+>-		return do_numa_page(vmf);
+>+		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
+>+			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
+>+				return do_uffd_rwp(vmf);
+>+		} else {
+>+			return do_numa_page(vmf);
+>+		}
+> 	}
 > 
-> diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-> index d04ac5203454..46dc658b041b 100644
-> --- a/arch/arm64/kvm/emulate-nested.c
-> +++ b/arch/arm64/kvm/emulate-nested.c
-> @@ -2546,12 +2546,13 @@ static bool check_fgt_bit(struct kvm_vcpu *vcpu, enum vcpu_sysreg sr,
->  	return !(kvm_get_sysreg_res0(kvm, sr) & BIT(tc.bit));
->  }
->  
-> -bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
-> +bool triage_sysreg_trap(struct kvm_vcpu *vcpu, const struct sys_reg_desc **r)
->  {
->  	enum vcpu_sysreg fgtreg;
->  	union trap_config tc;
->  	enum trap_behaviour b;
->  	bool is_read;
-> +	int sr_index;
->  	u32 sysreg;
->  	u64 esr;
->  
-> @@ -2559,6 +2560,7 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
->  	sysreg = esr_sys64_to_sysreg(esr);
->  	is_read = (esr & ESR_ELx_SYS64_ISS_DIR_MASK) == ESR_ELx_SYS64_ISS_DIR_READ;
->  
-> +	*r = NULL;
-
-In the caller, desc is already NULL, and here we are overwriting as NULL 
-again. Is it needed here?
-
-(For some reason it looks weird to me that the first thing we do with a 
-parameter is to clean it's contents here)
-
->  	tc = get_trap_config(sysreg);
->  
->  	/*
-> @@ -2569,6 +2571,11 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
->  	if (!tc.val)
->  		goto local;
->  
-> +	if (tc.sri) {
-> +		sr_index = tc.sri - 1;
-> +		*r = kvm_sys_reg_idx_to_desc(esr_sys64_to_sysreg(esr), sr_index);
-
-IIUC sr_index is used only in this block, maybe we could make it local to 
-it?
-
-> +	}
-> +
->  	/*
->  	 * If a sysreg can be trapped using a FGT, first check whether we
->  	 * trap for the purpose of forbidding the feature. In that case,
-> @@ -2595,6 +2602,18 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
->  	if (is_hyp_ctxt(vcpu) && !vcpu_is_host_el0(vcpu))
->  		goto local;
->  
-> +	/*
-> +	 * Certain sysregs and system instructions could be UNDEF for the VM
-> +	 * but lack a corresponding FGU description and intersect with a valid
-> +	 * trap bit for the VM. Test the visibility the sysreg (if we have a
-> +	 * sys_reg_desc) before determining the effects of the guest
-> +	 * hypervisor's traps.
-> +	 */
-> +	if (*r && sysreg_guest_hidden(vcpu, *r)) {
-> +		kvm_inject_undefined(vcpu);
-> +		return true;
-> +	}
-> +
->  	switch ((enum fgt_group_id)tc.fgt) {
->  	case __NO_FGT_GROUP__:
->  		break;
-> @@ -2666,7 +2685,7 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
->  		goto inject;
->  
->  local:
-> -	if (!tc.sri) {
-> +	if (!(*r)) {
->  		struct sys_reg_params params;
->  
->  		params = esr_sys64_to_params(esr);
-> @@ -2697,7 +2716,6 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
->  		return true;
->  	}
->  
-> -	*sr_index = tc.sri - 1;
->  	return false;
->  
->  inject:
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index 7f7a197a9ad6..7c8277de0494 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-> @@ -5407,6 +5407,15 @@ void kvm_reset_sys_regs(struct kvm_vcpu *vcpu)
->  		kvm_make_request(KVM_REQ_RELOAD_PMU, vcpu);
->  }
->  
-> +const struct sys_reg_desc *kvm_sys_reg_idx_to_desc(u32 encoding, int sr_idx)
-> +{
-> +	/* System registers have Op0=={2,3}, as per DDI487 J.a C5.1.2 */
-> +	if (sys_reg_Op0(encoding) == 2 || sys_reg_Op0(encoding) == 3)
-> +		return &sys_reg_descs[sr_idx];
-> +	else
-> +		return &sys_insn_descs[sr_idx];
-> +}
-> +
->  /**
->   * kvm_handle_sys_reg -- handles a system instruction or mrs/msr instruction
->   *			 trap on a guest execution
-> @@ -5418,22 +5427,15 @@ int kvm_handle_sys_reg(struct kvm_vcpu *vcpu)
->  	struct sys_reg_params params;
->  	unsigned long esr = kvm_vcpu_get_esr(vcpu);
->  	int Rt = kvm_vcpu_sys_get_rt(vcpu);
-> -	int sr_idx;
->  
->  	trace_kvm_handle_sys_reg(esr);
->  
-> -	if (triage_sysreg_trap(vcpu, &sr_idx))
-> +	if (triage_sysreg_trap(vcpu, &desc))
->  		return 1;
->  
->  	params = esr_sys64_to_params(esr);
->  	params.regval = vcpu_get_reg(vcpu, Rt);
->  
-> -	/* System registers have Op0=={2,3}, as per DDI487 J.a C5.1.2 */
-> -	if (params.Op0 == 2 || params.Op0 == 3)
-> -		desc = &sys_reg_descs[sr_idx];
-> -	else
-> -		desc = &sys_insn_descs[sr_idx];
-> -
->  	perform_access(vcpu, &params, desc);
->  
->  	/* Read from system register? */
-> diff --git a/arch/arm64/kvm/sys_regs.h b/arch/arm64/kvm/sys_regs.h
-> index 50214271b24a..d8ae21578665 100644
-> --- a/arch/arm64/kvm/sys_regs.h
-> +++ b/arch/arm64/kvm/sys_regs.h
-> @@ -263,10 +263,12 @@ int kvm_sys_reg_get_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
->  int kvm_sys_reg_set_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
->  			 const struct sys_reg_desc table[], unsigned int num);
->  
-> -bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index);
-> +bool triage_sysreg_trap(struct kvm_vcpu *vcpu, const struct sys_reg_desc **r);
->  
->  int kvm_vcpu_finalize_sys_regs(struct kvm_vcpu *vcpu);
->  
-> +const struct sys_reg_desc *kvm_sys_reg_idx_to_desc(u32 encoding, int sr_idx);
-> +
->  #define AA32(_x)	.aarch32_map = AA32_##_x
->  #define Op0(_x) 	.Op0 = _x
->  #define Op1(_x) 	.Op1 = _x
-> -- 
-> 2.47.3
-> 
-
-In general terms, I like that the change makes it easier to understand the 
-function.
-
-Thanks!
-Leo
+> 	spin_lock(vmf->ptl);
+>-- 
+>2.53.0
+>
+>
+>
+>
+>
