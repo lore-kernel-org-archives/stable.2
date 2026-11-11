@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434119;
-	b=fcKwpwlNUnPhIynOH8bTBoHY2P9gtrqig//d6Cli0ToU4WHCRuQAJI4ph8ie9rBu0wCe
-	 tkHUVrzYzbfBA0QNRHw1Y7YwVtgNICyeVbYsowc4JzoXKTRNLDapJ9qL4/1pdhhWIjEo3
-	 dGt1PKl/YySJuOkILYVu/NzbmOxA7wKC+3NuzHV6FVEqm1MOi/zlB0yfsmKoy1Om6BEqQ
-	 UNdAkrSBf1Gv8wJeUiRObgz25C1yMuxlSeW9wKhE16aKN0FCTkKA5Klo3eqyMXZuMouo3
-	 lpw1WWbK9jkJMecO3YC8pS9uog9+wBVd4ixsmzAz0d1ZvVKz/aPJv0fR4LYtOvfqKQw==
+	t=1794434120;
+	b=jxeY9U4yYc+UBzfwdp3ZWt2Xg7xOxLfQff0Br1n1Vf1eX32dUKl3COaYof37i2Lklg9i
+	 k1V+U2nU30/K+8V5nufZp7LZrAaQ4H9vp92dJhroJi/uaTBIGMORdVDgMrZv7yfQJ9qjE
+	 jjajvEHTQbuStzm224Jpter5ndwDkxZhWd4dHLwgdJVQrM5oD5NoROoDKyKkMGJfW3RBc
+	 iNp0mnfJ+RPWOyPj3dCBhzs1UfABNEynzT7aVybRESmbd3a1EZfbH155yBrG8yORuaD06
+	 iaO9fjmKrlx56a3AL+7IlDiu2VLGLtKZbL9CC0n8tSPwTPqWh2RG2R2NYUitgiiwyWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434119;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434120;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BToJBpDkiIvt57/BnvMAQxBBrSDbteHk3B2fWX+Ur6E=;
-	b=cwcWKvM7SlAX8G3Wt/LWuO5Ctz2Vm57JXOsd3AZ1a6DjIHrYxY92C2XWDvJKK7gqG0fk
-	 gGVe3VRXs5TKMKg6g4b2Kwfb1Vrs5wulZxeUNSxqG1mFbh8h7L5DdzeOAv2UQbFNmbGAv
-	 Me0kqz+ldRFBVlGTUO+gcS9sCbAbJO3P/ZPtyn3pg5KWHVyGEDf4pezHJ1WnWaXX1oL01
-	 dOqg6ZM4vaGFT4Zg6griXG56jdG4K3BwYsxYLQpCRHJd7gQmh08KpJq8XbwFRB3vrJWfv
-	 JFoblfmYkPeBbCWEktkXfG8a5Z18mtigyFPmzZn3EVywMwELa5Bza3QFTC/jhfsXZ5g==
+	bh=/+a926rOlxLyy81ja0vs5xzocS0BpjSHCEsvJ6HLrbM=;
+	b=wo9RO6phMcU0eNT8/rx+9kmYU8gNYgiB+d0Y3C/oyfjxXH8gutv3DXiqBcZhUOtI3mf7
+	 +zQlc71ncBb5Ts0i9NdR2wig6CI55NBq9otsuO1mreK1mx7cdySh2iSZEbyzJj8seDHTE
+	 X1C2yv56DMP5i4SF7Ev6hTRfLHgAHy2yv2EBRqDkvM0s/hvPzqQP282PIJbY4lObgNmjp
+	 JGs7C4HNR6r7hVRcyDcr0qcGaxjW6m8X1IBdU2J2yRLuDrLjV+fUmz0yZOABgbgoNo/lE
+	 YeHEGO0GD7AqaIirqbzaNu/HfUmB1DgNrFLOQAFTC3sTXhgJHgc16cSb9MDAQpn4Uuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DPWz0E0W;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kShEapJg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7416A606A8BA
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6DB606A8BC
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DPWz0E0W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA24A1F00A05;
-	Wed, 11 Nov 2026 21:55:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kShEapJg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9132A1F00A09;
+	Wed, 11 Nov 2026 21:55:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434119;
-	bh=BToJBpDkiIvt57/BnvMAQxBBrSDbteHk3B2fWX+Ur6E=;
+	s=k20260515; t=1794434120;
+	bh=/+a926rOlxLyy81ja0vs5xzocS0BpjSHCEsvJ6HLrbM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DPWz0E0WH9VPyYmimwZwLny52BSRDGQC2VyWXyHEG7iJ1H+ttz1m/fe6/L7xbQqbH
-	 fpdIoc1oABW0chiAYLj2Z/ADCvtP/6mnm8o7SmoaRUFkL0KELnelBAUuxJIHMX+3mH
-	 afm1j9jyFf2/HiJCGi9CDfIfPbwu8N2QwRxkmO7KTGF95tvXXXYHGDbA43JAWZ5zXF
-	 i/HeBWfHvnWvsdV44LQSLRLiwtr/IJHKH1G/sZk9fakBj0BBWFVgusv70tKUF29z+c
-	 JmAJjecz5kKritkidqLzxJsgZ7N3A+qS/yyDNj8EwAbCSlDt95sq6bZJef57gDks+k
-	 0iBx7v6IV4lJA==
+	b=kShEapJgTkx3u/ftBf4w/Nc5VNwnn8qtY60gySVT8TpX73B9VgQwSAO/JGdJ2Wczo
+	 nHxovQT7GJsr6nd7prppseRVhyWKXKcfBDBjueZ0LTC2yx4Y3FAwXdHgnww76WOpJN
+	 /GF+rdbcJkyHo0JIiSteZVHgp9vcsMabna6ugiNhc2dQmz/BIlFbAfha4eV0R9Kff4
+	 asB0+9vr/rz3tivfmvOqi/k8Ll/qYiH3sPYcysAihViyKgzcY0pMtD22fanhYb2gBd
+	 UbOVsVDsiycKZ3wt5Ah7gv7Qz+4EUEf1yXwufEuVciAm7GVLw+R3H8Gvb9bWW0nhoS
+	 Eg1lupqqufX9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	John Johansen <john.johansen@canonical.com>,
-	Guanglei Zhu <zhugl3@xiaopeng.com>
-Subject: Re: [PATCH 6.12.y v3] apparmor: check accept index + 1 is in bounds
-Date: Wed, 11 Nov 2026 16:54:55 -0500
-Message-ID: <2026-11-11-1-daily-reply-0022-8bed080b3d441daa9cfe@kernel.org>
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Siwei Zhang <oss@fourdim.xyz>
+Subject: Re: [PATCH 5.15.y v3 2/3] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
+Date: Wed, 11 Nov 2026 16:54:56 -0500
+Message-ID: <2026-11-11-1-daily-reply-0023-a0d5fd86605d193ae993@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111063857.496598-1-zhugl3@xiaopeng.com>
-References: <20261111063857.496598-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261110191058.1747963-3-oss@fourdim.xyz>
+References: <20261110191058.1747963-3-oss@fourdim.xyz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,17 +61,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.12.y v3] apparmor: check accept index + 1 is in bounds
-This regresses profiles that have no separate file dfa. In that case
-unpack_profile() aliases rules->file to rules->policy, and the policy pdb is
-compat-mapped with size == state_count and accept[state] == state. The new
-'index + 1 < size' check then fails for its last state and the profile is
-rejected at load with -EPROTO. Such profiles load today. Upstream only bounds
-entries with ACCEPT_FLAG_OWNER, so it does not hit this. Both 6.12 and 6.6 are
-affected.
+> [PATCH 5.15.y v3 2/3] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
+This breaks outgoing AMP channel setup on 5.15. AMP is still present here and
+l2cap_send_create_chan_req() never sets CONF_CONNECT_PEND, so the new
+l2cap_chan_connect_pending() check drops the Create Channel Response and the
+channel hangs in BT_CONNECT. The check comes from a518b9a9ef6e ("Bluetooth:
+L2CAP: Only accept connection responses to outstanding requests").
 
-Could you send a v4 that passes 'rules->file != rules->policy' as the pair
-argument for the file dfa call?
+Could you add set_bit(CONF_CONNECT_PEND, &chan->conf_state) in
+l2cap_send_create_chan_req() and send a v4? Patches 1/3 and 3/3 look fine.
 
 -- 
 Thanks,
