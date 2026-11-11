@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363768;
-	b=FVEdKjsfKcCNEZBMW5DGSCVIRjVvRCvHI2kboBhtx6/L33TOZWvLhBc5yWvw4+x6UCge
-	 8/jho4n2uhyoqYpZijMDdgn5+FYpvZGJfyRUX5tMuu8YsGkWMG+6Rv15huTXdhPEQwhSY
-	 wDIGMjFxSjZ1po1zX+tpL4ms3x157l1/oKiJKyWbcbE5tnducINcgemxPSqqp56DYn5lp
-	 oxCO09AD4D3qNoESrup7VjuopjuKhvWctVKD32YTvD4o/zLnmBidAEFkEn1NykypWqbYm
-	 3cNsym590Il5y2Bevxa6WgMxPugTW7lJ7ObvArl0vH9YqMouCi6nax7Fj10zHAXiwdA==
+	t=1794363774;
+	b=fa4E0jbB8g+1OUsqiukHvJdTQpbsRiTbZnJgpjOF6LKrLO1pQygxAXGepEL79XG9tDCa
+	 0xrwKExSEtJClaFjCdFkbHSP7u+rPb3c69Jcs555IhtIUv3ncNwroHUR1UhzvBf4HEIj3
+	 PR8bKFglnEFYRSMIQN2xN3Lq/y8yoSxBDLGwCpuyAd9rdHtxunHZNUb0qvHzE2woNYTtW
+	 GAd1yMc8AGX56vVuW9W9Ww/Vp5HZ07KZcicykw6q9aJdaqavE+Gpuo0vKd1aPwImUYAw1
+	 ChHuyl1Bqad5jpOzi8w+V33MQTDPtUxE0mIrljrdfm1vu7ZNlI+iY0Ir22ThkyOvlfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363774;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h52XGqeKAtMpGpA12XxagH49RUIwysiI5pHTAyyF9ug=;
-	b=uxLbe4QqFYLspUfYXOoKizcM1UmrakNntBuXl/Etr4ulzQ6ZhMMAVkcbm7keF3Tq4mBf
-	 hDmrWjcDM3I69yIZPnHyHxQ0Fzb/fuP+BLfbhI6s2mlomrPdW1KNjNssqKzyOnEUvWnd5
-	 s7up6DIcJU91v9eLLNBxcqs1qk4lp+PgRIX7+gB1Y7Vmrq9fDEKNvGknzP6SIZprrUdqr
-	 ahygyZBEoU4fkKEBhlO6ACkc7KUrTDAN7VIYIYsIoKTyRmul++AiFaezEAHAKNtEMRYQ3
-	 1b99KCFr0velXvgAOe+F/36DhQDM10njubM9t8i5EpS2epQooeXO630V79YeDTIBqYg==
+	bh=3GVMrPOV8lY4HaUeelYdTzbUEQ8kYAqhyYDD9cEAV4o=;
+	b=V/uuO/yAuQ0bOVItfqzAakkuI5h2exCV8JvovHA5YaP9rMfkOTff5FiNRhnjY4+L6MAR
+	 JFGqWTZNjV5rcJ2NrCZzu6rj6mj+40qTS5rgOasUjaCPOgpWqKqy1EnJQWpgby24dwxx6
+	 0MGlOp+FNloFe6UtNNk3l8vTFEdyT7RQ3+d5TFXFmvgQQ0Exc5dOsv02yeQLwvuS6rT0b
+	 p5fhmy8FJY6K+lC/BBpk9kCcLrsXmt1IEsPwyTKbW9BvRJfoNqw3naKIHZ0lEb1dH14/W
+	 u9LjmxJK8XP2PKRiDUjvCdRrPhUEC8vpf6FZcXjhjHuYU4lCwZz++hp5PH5bdVK5jYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anY7eKnd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aazMZ2pm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C2C606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:22:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CB6606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anY7eKnd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E494B1F00A00;
-	Wed, 11 Nov 2026 02:22:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aazMZ2pm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D64E91F00A06;
+	Wed, 11 Nov 2026 02:22:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363768;
-	bh=h52XGqeKAtMpGpA12XxagH49RUIwysiI5pHTAyyF9ug=;
+	s=k20260515; t=1794363774;
+	bh=3GVMrPOV8lY4HaUeelYdTzbUEQ8kYAqhyYDD9cEAV4o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=anY7eKndW1bYNyuwmZhEQeeEtCD0VEsYLX/CUCFSBkbP2XK4kX8yvH2e57l/PqxC+
-	 P3mWI1oV4AwP3F/BqIvuqrsDKsM3b7gQ6Au1pha6G8m/SmnIHyzYEIBD61YPv97F3I
-	 sFnBDyTgZVkPO4sT67ubSxntJFL2tOzh6C9n7UK/PqV0RlSTS3h8a3u4oEYoqZUduz
-	 AjitSRz9d3imqayKm42oV/JIiESiPdizukBYCqCuF/x5MgVmb6OAZ5V0/OVEZ/X5Cs
-	 K6vwCL3xMGTYql3VLJG9HsaU5Jjpsw/0mgXTUuWULtb9VTEupyn4hFwkOBbLDc8+mM
-	 lFvAVfaecCM4g==
+	b=aazMZ2pmMzPQ9bhjwldHCrrja/jRB5IG42dABDwtiP8HsqygQRTApVdvfLl2xVKub
+	 humV6jBuKOuHC7XwzszeMv5UrZkab7vL0aOxC80pGJO+nCk3gyT6+TaWuXcZdSMbfI
+	 hTDvOYQ9+IwNuNezKRETHFWqcMLEqmJr86hPS1YwIdBAuXoXneevWr/ERPRDXzQajA
+	 c88sS5HLHrCmX7ZnCUqJH7hkdJMYLd8GDpcYJzVkrYjkuggmIq1SkJdBVfwk3gOkml
+	 02FqoX7GInWIxCPnXoeZjD7Y4KetGGJGgVoilAynC/MdE8rlRu741h0AAoJynQFLEA
+	 AYyovEtUfV4yw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sahaj Chaudhari <sahaj123.sc@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] gpio: pca953x: Handle direction register read errors in IRQ paths
-Date: Tue, 10 Nov 2026 21:22:45 -0500
-Message-ID: <20261111022227.675763-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] tpm: tpm2_probe: propagate transport errors
+Date: Tue, 10 Nov 2026 21:22:52 -0500
+Message-ID: <20261111022124.676385-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111022227.675763-1-sashal@kernel.org>
-References: <20261107060925-failed-5.15-a0fe26929350@kernel.org>
- <20261111022227.675763-1-sashal@kernel.org>
+In-Reply-To: <20261107055340-failed-6.1-7d4f1cbfe063@kernel.org>
+References: <20261107055340-failed-6.1-7d4f1cbfe063@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,86 +61,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-[ Upstream commit a0fe269293509acdd93b9cfb3f46636f7b91b33a ]
+[ Upstream commit 7d4f1cbfe063af5581dac66abe9e9c965e1031cc ]
 
-Three IRQ paths ignore the result of reading the direction registers
-and then use the destination bitmap. pca953x_read_regs() does not populate
-that bitmap when regmap_bulk_read() fails, leaving the callers to use
-uninitialized stack data.
+tpm2_probe() reads the protocol version from the response tag and is
+documented to return -errno on failure, but it always returns 0.  A
+transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
+the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
+unset. A transient bus failure on the first command then misdetects a
+TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
 
-This can select incorrect GPIOs for direction changes during IRQ bus
-synchronization, corrupt the saved input state during IRQ setup, or
-produce incorrect pending interrupt decisions.
+  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
+  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
 
-Check the read result at all three sites. Release irq_lock without
-changing GPIO directions on failure, leave the IRQ history untouched
-when pending detection fails, and propagate the error from IRQ setup.
-The read helper already logs the error.
+Return the transport error instead; rc >= 0 still means a valid header was
+received and the TPM's own response code is still ignored.
 
-Fixes: 0f25fda840a9 ("gpio: pca953x: Zap ad-hoc reg_direction cache")
+Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Link: https://patch.msgid.link/20261018165003.3372368-1-sahaj123.sc@gmail.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ sashal: replaced the early return with rc = 0 to preserve tpm_buf_destroy() cleanup ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-pca953x.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ drivers/char/tpm/tpm2-cmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index d6ee35492721d..f9fa898fc6e6a 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -673,6 +673,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	DECLARE_BITMAP(irq_mask, MAX_LINE);
- 	DECLARE_BITMAP(reg_direction, MAX_LINE);
- 	int level;
-+	int ret;
- 
- 	if (chip->driver_data & PCA_PCAL) {
- 		/* Enable latch on interrupt-enabled inputs */
-@@ -685,7 +686,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index ac8246153c242..1485224b98af5 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -507,9 +507,10 @@ int tpm2_probe(struct tpm_chip *chip)
+ 		out = (struct tpm_header *)buf.data;
+ 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
+ 			chip->flags |= TPM_CHIP_FLAG_TPM2;
++		rc = 0;
  	}
- 
- 	/* Switch direction to input if needed */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		goto out;
- 
- 	bitmap_or(irq_mask, chip->irq_trig_fall, chip->irq_trig_raise, gc->ngpio);
- 	bitmap_complement(reg_direction, reg_direction, gc->ngpio);
-@@ -695,6 +698,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	for_each_set_bit(level, irq_mask, gc->ngpio)
- 		pca953x_gpio_direction_input(&chip->gpio_chip, level);
- 
-+out:
- 	mutex_unlock(&chip->irq_lock);
+ 	tpm_buf_destroy(&buf);
+-	return 0;
++	return rc;
  }
- 
-@@ -741,7 +745,9 @@ static bool pca953x_irq_pending(struct pca953x_chip *chip, unsigned long *pendin
- 		return false;
- 
- 	/* Remove output pins from the equation */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		return false;
- 
- 	bitmap_copy(old_stat, chip->irq_stat, gc->ngpio);
- 
-@@ -829,7 +835,9 @@ static int pca953x_irq_setup(struct pca953x_chip *chip, int irq_base)
- 	 * interrupt.  We have to rely on the previous read for
- 	 * this purpose.
- 	 */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		return ret;
- 	bitmap_and(chip->irq_stat, irq_stat, reg_direction, gc->ngpio);
- 	mutex_init(&chip->irq_lock);
+ EXPORT_SYMBOL_GPL(tpm2_probe);
  
 -- 
 2.53.0
