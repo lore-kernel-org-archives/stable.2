@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413536;
-	b=CHprFr5o+s0UQHGJLbfYTwk6wSMEbXwLJci/7UI9yoRqsJloiD1SFfX5kJIF4y1GlV3c
-	 NQROOWxV/3WvDIk7VqgfbRuyxKwCSsZJqD08t0PjlfQ/TJo/ObYA5CkaS3LpNTpQItv43
-	 eTr4IokBlg8ycpGIQPmNpV/lA/iEl8V+bvOC9gPhNaGojTR4JW2+A1DJqq43ufEJhr7U/
-	 xTugsGMWlIL6TDvUYxm3OjeOVatKUkmSnBdNSGP0n8ZB25t3unWWmR1R4IQ04a6CDxndg
-	 BZWOsSCg/L8eZKps6ICxb4kSHGmwNSjE65n5utMddwB8LeKP7O8XsSNTDQxDOrXhy6Q==
+	t=1794413723;
+	b=H6FTn8gZjEeKIQ62u0UAZ9IR0xuS2LitoaTNZTVhy+btdDQHCSGOwfPDKE77HHXivavj
+	 7mlMr9kXoXhWT8DnY/MZoJ5pBAxK3uH/x1zbACE32nj8BmOT/2EbHZv40wI88bNhBcpjw
+	 i1CyjD4SWa61NpefuexbkMLZsed2YtqM9ftjuX8zNU1i8FYj92TUmltwiqaL2uopMU5ka
+	 /cR9ocv3vNLhOaPApDEVuaiguqeAAnKyhqbmMea2YSNRZcnMMmIMpp9D1CO/Alc3x6IUZ
+	 QvJqZBnWzKdpXBHa8Mf7fSRhnG8Qdsqrha6cpvaUn1xEz0qZ0x6gUqY457unRL9pUSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413723;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NZ8PPLzVhe6GYJ9jwqSGgMAjXMg2D+9ZPqmrDLUUVhI=;
-	b=YEpFDoZKXkeKHlJyd89ZULXllF4ra16tMDTkSt715E5Ggj1CrUhdjpF/wBsRLZVmDYyb
-	 mOqtNeVLuWBUf/HIcwzb9Yf+ZeVFKg8nqvU2N19/tFeUceoJrP3bOQlI3S2h9NnrxZDvy
-	 XyGd2akErZaFMVv355R1oRVpESyorsYMAsIQyxcUQW1nZWrBvaNkLbt79MJ41/9snKdAJ
-	 5n9lScfhLuZkGuRYPs4tCnwSfsISdHnjloiq73I+ezw+Uso55et9YEPFiP95QmdBsuuHj
-	 eQ3P5lsyS0uLP2kWLHkdjuTc8/ihXgHUGJhcxERgnKJxPqaqzzcv3GJUE3vsAp65wDg==
+	bh=M1JkT3Z+DDFJJ97Db9IK3mgsdiaCw6BZO4UpHNB89r4=;
+	b=1CKciVcCLMc5WNyRMtI5MJZjqlqPoN7w1jfIVweO9coq1Kk/tdXkfWzD10MofzjI/hCS
+	 E3Jkfzja/YL5aGDebJx0/BtyhaFT1wXUrKnDO7GCckfkpRumix725dDrDf8twYBmRJvDA
+	 ZNyyIABlNlSL3uer5RYbMWkrPVvv8odObBGPrNSqN8jLxhqf7a7zXZkfdVqKNaPFAVVkP
+	 nfUdMvnj0ukvV5IyVLTc6uWSxoQ1JybIy491iWdrTs+hwDeMD9mkXcNFFljq2esHlGwa/
+	 REVCrmTOQk2dZ5kjqAqFZzyiYxVcSmLPEHh60oWJp6uSNxHD/dZg9aO2NalXDpOas1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1v6y8J4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHRx4lU7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7CC606A333
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCCB2606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:15:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1v6y8J4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC341F00A09;
-	Wed, 11 Nov 2026 16:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHRx4lU7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4451F00A05;
+	Wed, 11 Nov 2026 16:15:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413536;
-	bh=NZ8PPLzVhe6GYJ9jwqSGgMAjXMg2D+9ZPqmrDLUUVhI=;
+	s=k20260515; t=1794413723;
+	bh=M1JkT3Z+DDFJJ97Db9IK3mgsdiaCw6BZO4UpHNB89r4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L1v6y8J4dO47MEtDkaX5hSOWb6j0gaBnicDLNILmoXXcNqOdv1QVmlrJSmxsRwgL5
-	 ohh27nCjqh3T+zngr/gNSD9Nptk7JpaqlGMSNwSmuGdhM+kvo3YdpYt5l8rwmjdXg3
-	 pzlDl1jBP4Y6bNO2gph9o4kRUisLHV9pTn4drWlqaK7872Tpn3QNNMqOcCKA9iarU6
-	 Vvl4vAkiYbWDAKBXTMTv9lXJRQ4OdTD+tOuv0J/Ixfcv1q+jcMhhIa5/xRJbs/DzBw
-	 Wwzag7rMEOmKhN02W9DssVxzx5ggUv2BaToe/BYweH10f34WfklpnGVpFx67XCksr6
-	 XV0JyVbIhKQ5A==
+	b=SHRx4lU7etS9GtLB/SDlYIJQx4axr2ZRblsmWTQRd5QS+7e7pgxIpLReZKbbw0OXz
+	 pfK5ReJQ+ybax6nhutW2eEB5Vk/sm5EC/PtgLpIgHYoc3sz6URSAYHSA7CsqnDdE8W
+	 xexvu4CabJ6Epsfpk5TyIXP9vB8yoDfVrEZkBf4CXlH5T53lJjKN7Ho4hpx8AJCJEF
+	 vt+EyOyDT+eeDtPPPPV4X/IO/xjGt9T44JVbCb4e6zw8BDXWM3EWcjDeiepzqxs72C
+	 0OBX6IfHFR+gzl7J2hqnB57HRvHjruN/DM+xpLe3DXC/rA2mdzySvWiu9h9e8rhXd2
+	 RMoOntWPd3X5A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Breno Leitao <leitao@debian.org>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-Date: Wed, 11 Nov 2026 11:12:14 -0500
-Message-ID: <20261111161146.2755340-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ACPI: APEI: accumulate the queued flag across error sections
+Date: Wed, 11 Nov 2026 11:15:21 -0500
+Message-ID: <20261111161509.3259382-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200115-failed-7.3-0237c47ca170@kernel.org>
-References: <20261109200115-failed-7.3-0237c47ca170@kernel.org>
+In-Reply-To: <20261107060420-failed-5.15-f341307a1489@kernel.org>
+References: <20261107060420-failed-5.15-f341307a1489@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,130 +62,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 0237c47ca17005ea41b510c6116f0257dbf84eab ]
+[ Upstream commit f341307a14895e5da056fb419a31ef7fb534ab18 ]
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+ghes_do_proc() walks every error section of a CPER record, and
+ghes_handle_arm_hw_error() walks every error-info entry of an ARM
+processor section.  Both assign to "queued" instead of OR-ing into it,
+so only the last iteration counts: a later section or entry that queues
+no memory-failure work clears the flag an earlier one set.
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+Instead of reassigning the variable at every time, just do an `OR`, so,
+if there was a single match, it will return "queued" as set.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+The comment above the check says "If no memory failure
+work is queued", which is the semantics this patch implements. I.e, only
+SIGBUS if there are queue was not handled at all. If we want to SIGBUS
+if any event was not handled/queued at all, we will need something more
+sophisticated.
 
-Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Removed const from shmem_set_acl()'s struct mnt_idmap pointer parameter to match existing ACL interfaces. ]
+Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
+Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Link: https://patch.msgid.link/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+[ sashal: adjusted context to match the older ghes_do_proc() error-section handling layout ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+ drivers/acpi/apei/ghes.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index c159e40e3f34a..272479317cf10 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,10 +2,19 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 88c01d4a7f8fa..29cece11ccb22 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -529,7 +529,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 		 * and don't filter out 'corrected' error here.
+ 		 */
+ 		if (is_cache && has_pa) {
+-			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
++			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+ 			p += err_info->length;
+ 			continue;
+ 		}
+@@ -671,13 +671,13 @@ static bool ghes_do_proc(struct ghes *ghes,
+ 			ghes_edac_report_mem_error(sev, mem_err);
  
-+#include <linux/fcntl.h>
- #include <linux/file.h>
+ 			arch_apei_report_mem_error(sev, mem_err);
+-			queued = ghes_handle_memory_failure(gdata, sev, sync);
++			queued |= ghes_handle_memory_failure(gdata, sev, sync);
+ 		}
+ 		else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+ 		}
+ 		else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+-			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
++			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+ 		} else {
+ 			void *err = acpi_hest_get_payload(gdata);
  
- #define MEMFD_ANON_NAME "[memfd]"
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 825a5a961086d..597bbc2e7321a 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
-+#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1357,10 +1358,11 @@ static int shmem_setattr(struct mnt_idmap *idmap,
- 	if (error)
- 		return error;
- 
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
-+		error = memfd_check_seals_mode(info->seals, inode->i_mode,
-+					       attr->ia_mode);
-+		if (error)
-+			return error;
- 	}
- 
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5220,12 +5222,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
-+	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
-+
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
 -- 
 2.53.0
 
