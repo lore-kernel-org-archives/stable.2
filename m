@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.219.36.190
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794402215;
-	b=OrDH/ibPccXw1TbO2KvVpGn9bXLlHx0/uy6kjBkZQKL0y7ZRs8YxiUoC6sNbOCvtlzZK
-	 yDCHPaCutTl62ITCcNOi/FuqaKdQvjWylEDFB0F44inNCfzN/UKv+efkZxaCOruOTdcA3
-	 MKtViulgtD8H1brCusqvHthTmINTIEOS564v+hgZcdpyqknu8nD4+V61HtFaMXsIS8vVM
-	 DdGyByvnr01ZYHZF6e6rZnntBDQsUN0K4d65DfjdyKF2vvg/txaRxi1vtJwQC1Gj0oqdl
-	 3wxVA8RAkJdnSTZNjVwl8fHvZl66tMMxV5AmyT3G6h0cjGqP8LnsUYxhGJbXdSK99AA==
+	t=1794402293;
+	b=JWjO2qFEDy0oFUeWYxtJxU4E8EndYLKS1uIt8YZ0/7yKgKlsCkupvt3qaMCpzrAySfxO
+	 IK9ipqh240RaPtHdheDQb7xikOq422dMAMTxk3e/qQnBQXsUfvl6lDkvWkwyYsmTwyX8F
+	 NrjQR2HU1xHR4Vhh/E5EbnPd8K8Q5InX0hl2wM57VzK7olAwghExzd5m7zEMm8AXVWzA/
+	 oDamPTbJrTFKi8vLI5uqlu9AFWRn8Bs7dFhG+Uk5a3XjiOawpli4B2RfL36d4C1FQ0cUL
+	 hcFgbq/9Ih7JhLseet3VQJSem2F5VhhbiFWU1a5ly7iT9AbhdXa5pavhBugHXiox0yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794402215;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=6YmO+MoEE0ce5P3MUBMcliy9K3KCnXGyVw8iCLp6D8w=;
-	b=EuB2EVt/qwl2J1MxxIrrgFq25fEbSXeFBmoD8a7YlgoZcL5HEUv3A0ZQfH2VmaunlExU
-	 2yYIBASLRpMEIxRl6ZQ2uaZY0e9uxQ0qbQAhHxByWJ/mNDPghbUaOMPLAX8T8zXV688Cu
-	 1zUFXK9/lwOgfsUmnN1Kee63AI9hsIEMSJZfyKUG93fJthvw0WV+LaW4C2idDueuYbPrq
-	 ioNi+GBh7Kdiz/+RhwhVtSDZwgCEvp7Ehn2kQmstmw9qxeOgo9/ryktjrbRSKEgUjaf8L
-	 hxhr5dUblluKegYUNLp0abwdqdcUx6TNbL92y1J8wCsifndygwC44Nqe+GIv4FNmUyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402293;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6G+pw+teY+QNpHzmCsxDpYnI0ruF/BglJQxzs6UK3iM=;
+	b=bz0AUj4Bl1Y74Rblir5B60Zn1HyIJxtBwd0kikM4kO5hYpGevoy4UHC64YDf58nmoPxO
+	 qYvI+Hdc27/PKhOSWyfoCaZ+MMQzULOj9cOxsQdNrVkOGRpI8Utks7kEQSWdN8u0krMvP
+	 vp7JKxdoeeInirj6BgS5NEqX7MNtCd1+2nszuu6RVOuZJVwMf1yeMaIrmL7c3rdXAKvcm
+	 zQCgSevDQmFa7waolXYOljgg5dyJsJr7tCb829qpwqAXnuUj9hV3YyVMfRxrmltZBkMlF
+	 3H6WW+FTAJkWsNxQNVXZ7ou3SthQSC5V4CLKQ0YNYX5GqBN0qoapiH4TjY2xia85r2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8lCtOCM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=alpinelinux.org;
+	spf=pass smtp.mailfrom=alpinelinux.org;
+	dkim=pass header.d=alpinelinux.org header.i=@alpinelinux.org header.a=rsa-sha256 header.s=smtp header.b=PLiO8SMG;
+	arc=none smtp.remote-ip=213.219.36.190
+Received: from gbr-app-1.alpinelinux.org (gbr-app-1.alpinelinux.org [213.219.36.190])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD96606A31C;
-	Wed, 11 Nov 2026 13:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCB9606A324;
+	Wed, 11 Nov 2026 13:04:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCCB9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpinelinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpinelinux.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8lCtOCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E99C1F00A05;
-	Wed, 11 Nov 2026 13:03:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794402215;
-	bh=6YmO+MoEE0ce5P3MUBMcliy9K3KCnXGyVw8iCLp6D8w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=M8lCtOCMs+ipL0JNSRuUd+G2YyETYvnrZkrFcUvQU3ffGQ4gcqm2xLyUM+Daf21Vv
-	 P5ZU684C7BmWCOu6KmkawX0sMKHpPlW7no1JkweVEizdrHMtsqWix/lIOZ3uYGGMsr
-	 jY58lWscPa5ZcbczPddGp+cE76N+7FQnlMVcit47V0FR/CqqPxHMd1C3lgjb/fSClE
-	 KMnm1XFsAeH8oEvWxktoUEhT0d6BZtCbD/TqqajxL2h0zYyvPdBXdsxRVWHaTECj/+
-	 hypVk9HG7x4HESRjiN0ZXxCrf6bGAU20jDv8TwMm1slMpaVDy6O6JaP9Rw/WhRj/HE
-	 HS0U8OImF1DOg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261105042922.14733-1-lui2012qwq@gmail.com>
-References: <20261105042922.14733-1-lui2012qwq@gmail.com>
-Subject: Re: [PATCH v3] RDMA/ipoib: cancel the AH reaper synchronously on
- teardown
-Message-Id: <179440221192.582485.13243946413799722882.b4-ty@kernel.org>
-Date: Wed, 11 Nov 2026 08:03:31 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=alpinelinux.org header.i=@alpinelinux.org header.a=rsa-sha256 header.s=smtp header.b=PLiO8SMG
+Received: from ncopa-desktop.lan (unknown [IPv6:2001:4646:fb05:0:3161:925b:8dfd:3d53])
+	(Authenticated sender: ncopa@alpinelinux.org)
+	by gbr-app-1.alpinelinux.org (Postfix) with ESMTPSA id 953BE224165;
+	Wed, 11 Nov 2026 13:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alpinelinux.org;
+	s=smtp; t=1794402285;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=6G+pw+teY+QNpHzmCsxDpYnI0ruF/BglJQxzs6UK3iM=;
+	b=PLiO8SMGdBF6l+7TgGcRi1TW3dgupmrEEJVoZVmuBxqEXnsIbBBgAwDgODz1mjNSj8mYk7
+	+CVDm0M+kt45YbVugTpYaBGanJLbsO1BAQWFNl+oCVbx2Ec6x2OHCmdTyB/lUvSR0TWEdB
+	QnuLnNW2msULPT0JiE/xD9aL4IBU70U=
+From: Natanael Copa <ncopa@alpinelinux.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Nishanth Menon <nm@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	=?UTF-8?q?Milan=20P=20=2E=20Stani=C4=87?= <mps@arvanta.net>,
+	Natanael Copa <ncopa@alpinelinux.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yixun Lan <dlan@kernel.org>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Shuwei Wu <shuwei.wu@mailbox.org>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	spacemit@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: [PATCH] cpufreq: dt: Set the initial OPP to apply its voltage constraints
+Date: Wed, 11 Nov 2026 14:04:26 +0100
+Message-ID: <20261111130430.10359-1-ncopa@alpinelinux.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,33 +74,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
+The cpufreq core skips requests for the current frequency, so a policy
+has no voltage constraint on its supply until its first frequency
+change. Another policy sharing the supply can then lower the voltage
+too far.
 
-On Thu, 05 Nov 2026 12:29:22 +0800, Chengyu Liu wrote:
-> ipoib_stop_ah_reaper() uses cancel_delayed_work(), which cannot stop a
-> callback that is already running.  ipoib_reap_ah() re-arms itself after
-> an unlocked test_bit(IPOIB_STOP_REAPER) check, so a callback that has
-> passed the check but has not re-armed yet still queues the delayed work
-> after the "stop":
-> 
->   CPU0 (reaper)                     CPU1 (stop/teardown)
->   test_bit(STOP_REAPER) == 0
->                                     set_bit(STOP_REAPER)
->                                     cancel_delayed_work()  (no-op)
->                                     ... destroy_workqueue(priv->wq)
->   queue_delayed_work(priv->wq, ...)  <- delayed work sits on the timer
-> 
-> [...]
+On the SpacemiT K1, both clusters share one supply and boot at 1.6 GHz.
+When policy0 scales down, the supply drops to 0.95 V while policy4
+still runs at 1.6 GHz, causing random crashes during boot.
 
-Applied, thanks!
+Set the OPP for the current clock rate of all CPUs before registering
+the driver.
 
-[1/1] RDMA/ipoib: cancel the AH reaper synchronously on teardown
-      https://git.kernel.org/rdma/rdma/c/36d1eca030a37b
+Fixes: 3b9c34556fc1 ("riscv: dts: spacemit: Add cpu scaling for K1 SoC")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-fable-5-2
+Signed-off-by: Natanael Copa <ncopa@alpinelinux.org>
+---
+Reproducer, booted with cpufreq.default_governor=performance:
 
-Best regards,
+  # echo 614400 > /sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq
+
+buck1 drops to 950000 uV while policy4 is still at 1600000 kHz, which
+crashed my board within seconds.
+
+Tested on a Banana Pi BPI-F3 with v7.3.3 and v7.4-rc2. Without the
+patch, v7.3.3 crashed on every boot with schedutil (three). With the
+patch, the reproducer keeps buck1 at 1050000 uV, and five boots with
+schedutil were clean on each kernel. Not tested on other SoCs.
+
+Other OPP users that never set their current OPP have the same gap. If
+you would rather fix this in the OPP core, I can rework it.
+
+Found and fixed with the help of an AI assistant (Claude). I reviewed
+and tested the result.
+
+ drivers/cpufreq/cpufreq-dt.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/cpufreq/cpufreq-dt.c b/drivers/cpufreq/cpufreq-dt.c
+index eb15650f99bf..2646dda10aac 100644
+--- a/drivers/cpufreq/cpufreq-dt.c
++++ b/drivers/cpufreq/cpufreq-dt.c
+@@ -153,6 +153,30 @@ static struct cpufreq_driver dt_cpufreq_driver = {
+ 	.suspend = cpufreq_generic_suspend,
+ };
+ 
++/*
++ * Set the OPP for the current clock rate, so that its voltage constraints
++ * apply before any policy can change frequency. Otherwise another policy
++ * sharing the supply could lower the voltage below what this one needs.
++ */
++static void dt_cpufreq_set_initial_opp(struct device *cpu_dev)
++{
++	struct clk *clk = clk_get(cpu_dev, NULL);
++	unsigned long rate;
++	int ret;
++
++	if (IS_ERR(clk))
++		return;
++
++	rate = clk_get_rate(clk);
++	clk_put(clk);
++	if (!rate)
++		return;
++
++	ret = dev_pm_opp_set_rate(cpu_dev, rate);
++	if (ret)
++		dev_warn(cpu_dev, "failed to set initial OPP: %d\n", ret);
++}
++
+ static int dt_cpufreq_early_init(struct device *dev, int cpu)
+ {
+ 	struct private_data *priv;
+@@ -251,6 +275,8 @@ static int dt_cpufreq_early_init(struct device *dev, int cpu)
+ 		goto out;
+ 	}
+ 
++	dt_cpufreq_set_initial_opp(cpu_dev);
++
+ 	list_add(&priv->node, &priv_list);
+ 	return 0;
+ 
+
+base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
 -- 
-Leon Romanovsky <leon@kernel.org>
+2.56.1
 
