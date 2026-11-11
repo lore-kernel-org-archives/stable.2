@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440700;
-	b=sIDgnDi7Lvzkcbuh1yFnEASxLphSNDc1hIJUQG8Dvp4mKxfjquSdL8vu8KQbPs2+e4T8
-	 /l5qjpCmXNI7aQTVDXw/DPS9ZEu/e3H661aP2gxYg4hbxaS6n3iUbVhV/rbtvHnypQhby
-	 UlmuLvpynzdrU//xzT/oAgt//vAEfoEWHcUtaqg/SNg2Hjg0KueIhzbyvptqq7VECea5i
-	 APa0LLEPpfcFSdsY4OhRISh8pl6+0wzquZ4zF9XZlG+cL1pPeD7GClWfrWH1nMXYjlN3L
-	 eQwobhBfPGKxPy4eTW5liHTsMb4L+RcE8q2VP/BHJ1+adeyFQbheq0UecIqoD1EDuBg==
+	t=1794440880;
+	b=uik6WIJt4bp8tMsw27P2+nEeY9knzbIfDng2nE08Nf7bvZS4kV5LE4luV4m2gWUo8qoF
+	 hcRtHHuXt1tWktT04SzsdcpqzrYb/+FvSmJCs310soSdLX51HDasE/iLzqsJn8e3vSQHh
+	 81iTdcphm8op7v8V6bnbOGdw8jHz7VEFBAXEKvHzN7UZ4ByPWMgDuMtYdazxeQ2IMu5PZ
+	 ZKxwYAAlHDfwhRECCyaadWyc08DiDvYA76aR9fpEUvsA6MXKVMkP3ntrrVT6UxFopfHup
+	 A9ryNFBLR3p8ySDyR5pIrn4dk8zpp2t/P97Nqd0OnF6sGsu6t6ubEWDzwEz4wuQYNQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440880;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HQ27pWcK+1BV/aH3qN+TbqJBO+RzkCvXh9nk2rz6CuU=;
-	b=dK2DzNdLTcNXyGVlHonqvUZz8cTKfNdPGTuwWzX5/cGXfjmAufkVLQLK0DC4SLp+BhXU
-	 3g7N6DQ99jbXfn8Yy4WkNykTVqynw3ahhuX5ga6YOWF/lN41UCOG0p2KEX2zjcAsPotho
-	 gi0DLRNIW96o8HzvG+nxEZF8P8bfAJUNhbtrnfs7WRPSX+h+3UPPpCigmkECuTLvAck93
-	 Q4twrFi1sB7kmVTGb9wzA42WIMbz2NNcouVgDVn3kITGZtN6FZfu3y61XGMvE/31Q3hlO
-	 nYTHdSciQc6O8Odzpeae9V/rwUbZjoGkE5pQKJ0jhvanJBtlsS8GLlayGDjlRGWsWhA==
+	bh=h+N9Abt0w/0DlLriHZkVT17Jo0tdw/y6Vn6fU1C3O1s=;
+	b=riFZSpplQq3n7Iqvc9C9HDOQ0bPT95HeSZYbfZqrfAPcQzZfO7HBW7kqecvEYPniGN2T
+	 R4A1hecXi1YI7Zg84FbgiVkBZK1VBYJAgmdC+HzIOHpNkOkLEZnmDy7PUea0g1PRZwjrr
+	 Uzs7bImab1whm1+LyquJ/9zNHgl5ZIFnNePNlwKXnVjc74b1VZJUTv/k7GLjN5p7Aa43j
+	 ZiwTHYE2KjqNsSsg5fIrqdXyeAWV58kYKIGT+kPQpjRop5D5QXyAPLFsvK/J2mKxADb6G
+	 h34buWAvKIFq4KCwxXymgQMU4SysYrpKGMBjKTzYb6oGaBiHLADjlLdfy8hs/vZ4jJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vptd2Hu9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co8p4ZIi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D591606B5F7
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:45:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DA4606A336
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:48:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vptd2Hu9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D4E1F00A06;
-	Wed, 11 Nov 2026 23:44:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=co8p4ZIi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68EF71F00A05;
+	Wed, 11 Nov 2026 23:47:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794440700;
-	bh=HQ27pWcK+1BV/aH3qN+TbqJBO+RzkCvXh9nk2rz6CuU=;
+	s=k20260515; t=1794440880;
+	bh=h+N9Abt0w/0DlLriHZkVT17Jo0tdw/y6Vn6fU1C3O1s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Vptd2Hu9/GGLLBe27Gq+ttGHyAArG4f4mGYyXJxVSmVLruij6b4zRex93jc5Q1XL9
-	 U0PblDiBYC4EnUFns9B4TqV/rD1kjoAHJAVE8ckaVhSwsjktdG3EMucZTGsjJu7O0y
-	 BxFggAtddZo6Wii/Yk54fD/q9abbmCbHkXkscORjYTuGtTDOk1zRc10ZA9TzbDCto1
-	 dyZK4Ec/oS4EHURU/aXoLQVdWuqHMgbVQ1Jr5NN1f2+Xhj0v1LaUEEUDojKZOZUG8D
-	 FfuY2iX7WK4ora9mzizyvfYnKUCs0s8zPaLeu4L/+/zISfkKaXrN0YQBgbqE2lPlpA
-	 1hy7kh5XN/hgQ==
+	b=co8p4ZIiqao/0wh5dvwZ4esxMZ1TX9PqK3i+2g+k1lnbvruS0dnQZHSrjZQEbCOa2
+	 AhNVcVwkzXWApeRMqLgZFEqTz9WuUDFHmKOtKp92kSYb+3GVq2MfM43h9mTkUmnj+B
+	 rWcMUglrWeYnZpv3t9WpVxG+CcL9acc2TXtzPDyp4aWhjM2WGs4BBBPGOqU38LdgOY
+	 13l+FRhS3m/Om7DfMCg1fu7pSRFhvwf9NsiPFM25ddXM6nJaAOTEC/X8erxzdECjLh
+	 LJcLDhxmuNZZJxRe5act57QVzKx+FNbZYt5Or6ats1Y99snsKMaMKOvZziWyjX9DIu
+	 ShOODEuObyqtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
@@ -49,12 +49,12 @@ Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
 	Ke Xu <xuke@tsinghua.edu.cn>,
 	Dominique Martinet <asmadeus@codewreck.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] 9p/xen: drain response work after unbinding IRQ
-Date: Wed, 11 Nov 2026 18:44:57 -0500
-Message-ID: <20261111234452.768495-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] 9p/xen: drain response work after unbinding IRQ
+Date: Wed, 11 Nov 2026 18:47:58 -0500
+Message-ID: <20261111234750.833665-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200601-failed-6.12-7b6f2e3c29fb@kernel.org>
-References: <20261109200601-failed-6.12-7b6f2e3c29fb@kernel.org>
+In-Reply-To: <20261109201020-failed-6.6-7b6f2e3c29fb@kernel.org>
+References: <20261109201020-failed-6.6-7b6f2e3c29fb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,11 +106,11 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-index 67f464acf6171..ef9bac5f4a24a 100644
+index ee5bbdf7dec25..fbf8e6598f273 100644
 --- a/net/9p/trans_xen.c
 +++ b/net/9p/trans_xen.c
-@@ -288,12 +288,12 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
- 		for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+@@ -289,12 +289,12 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ 		for (i = 0; i < priv->num_rings; i++) {
  			struct xen_9pfs_dataring *ring = &priv->rings[i];
  
 -			cancel_work_sync(&ring->work);
