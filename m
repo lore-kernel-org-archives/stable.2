@@ -1,55 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419916;
-	b=YnAbmMexLYWfypbEjK+Sr7wwpTHMelwT2VybhAGfBgu1ZgHMkP8wl/a5cTA/+VwVRMWA
-	 5Okqcizumq8lhydwOxDGh28xpQ2rd/Xpmggn8FyKKiyqfvICbYspIPJfTcsRAJf1XC3X3
-	 jBl97Dp5N5zmQQYByAVZFlXyYxorNSPUyKK/edAOaLKnEuQPNcM3LSqMQgA6bde4wQAxi
-	 3E9olWYqKXHJ2hH8rAGvUkNXQHOWnM6Db6fdSMUTlJlIE/UCJrvHzllrldZdHkdikPf8Z
-	 D0KykHY/tMDv/JpJ6q7pfD3TrjhIaffZXh+4MdIgYPy6hSEgecwtTXzuDgmMw/oF3hg==
+	t=1794419944;
+	b=Cr4Jt8mJCugtJtIL8eNwLH+AESwxFQIYbIIJOEYfC7/Yrg8kZDYi3dBykraqa6bWQRka
+	 yWNkvAtE+K3136h5mMeQdpjJTzGodDgqGIWLaOORv8Ppq/AjoPIhVNOrlfxuDCeDoWPFM
+	 6wj/z6wX+0jj9ui6nFkTAwns3MaFgRzIffkpg05ktl+t/Os9MLHImLglp7NJn3JW/npJI
+	 uK4X2SdzmZ7bu5MfzoWXiq2dEpkvfJS/7LTYR2tUjU/1RqD/ElXB5YkGK3/mE3C4d6kOb
+	 tagA5uNi3+D65aALU28Sou3NXKLbamXeHbBwhFs3TdqFFS0hxt8jTGGCrw1tv7SIlrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419916;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=45oiK5Uovs91ezmf98ECIxhFeJ06uJno3Y2TbfBMJ68=;
-	b=xWHxmJVC7NCAfl2L3h9+TEatCRKzemvE1s6Ht+3FN/PCdSeTMh5dXDzhJ3eUSQ1z9P5y
-	 DlaYnH4XinZX7tRZdA+7i9GrFf+v4hMjt2q3LuxIkYHBRfpXfoqaNXKtDtmbb7k4dnGXX
-	 fIx1Ex7zbG5ITAV2HRzCdTW7/7eXTbw5N9yCKPV6R6EsiHjO/hRuZwvg8XNBqnKZCmln9
-	 QDMXznstlqlCusnCO6TxKYjeCysnB1MmVcioNB/UBRxDUzSkTVxLvZaGkV9OKiW9XxXkH
-	 HhpFgwSApjHk+LB9mS9L+pwN4bQwFugGe19z3t6Flio1f4h9U2vM8MFYf83fxfQlnKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419944;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xCSRQndgGYCgQ1UY81UleAUi/noEt6s8nO0zhbXbRmQ=;
+	b=pSe/b11lgl3t7sMHJe/tdjHdqTv8GK6mN2diANbh8woq5tPjs0W/AwBzhWb2SZR6n9fZ
+	 7gNSoWv8HJRQHKAfkOgdgRktMF8xwUea3okqlcUzoxYwmMIQlMrTzi2f3SCmLe21/AKIH
+	 JW75+WLgbrHAolYjcpgTCeuXV5hD5pKDOd/nmRYH4aVC7JQXO5xI0NK9qSOmKUYntUAqG
+	 OBImXZrd+NmGKI9lWCAlhpL2x7e/l3UKszWlj6Baex93K4j53DX6KfSbpIX2uLfCAFqHh
+	 KF2Vcv3GlOH8JOHS33N8Ohin4db413Q9peyBa37wBBlGXS0vVQkG7UxIbTcxML5HUQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1o2yzo+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ood/r5HP";
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBAC606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:58:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B872606A32D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:59:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B872606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1o2yzo+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B55E1F00A0B
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419916;
-	bh=45oiK5Uovs91ezmf98ECIxhFeJ06uJno3Y2TbfBMJ68=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=S1o2yzo+RnXVY75Kz++nRoxtF4Vfy8X2UNW5StBp9SQFi4nIUV3zgrn3RWQQcNPDW
-	 ut6amV0lG5woDDOPWsc4QUct34tl7oGhQiBjvMC344MMrwYWZnu5j2lUS5thQWDCP2
-	 iOUdtDP1Xmkt4DOAA5D3VTfGTwDBhrZckdMEZAqkeUNCF8uhJwCMDpQaOpxnp+6KGt
-	 7YPubbS6jUBe/vapK3RBRWHPwZ1oLMkxXNgY4MVGl8RUPErxA024QniwDTECQsrWYg
-	 Q8Za3sA8y/RXMZpSYwBasqraMcJo2haGpYe3YmoankgSb64ukzWSanZhTLf6ghkLfr
-	 aR48YI6+RBQvA==
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-998d151f441so914551241.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:58:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFlivljXByD1N1NzLx/v/zcHyUY2W/aBI5XQY6ivAOifeML4gRM98D6lyAxxszec+6ZLnQkNtI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8GhNE6fYfs11g7c6rA1Oubg76E4k35znFq7m3PLPDU61Ew6KDY
-	GFmGzJxvB0w7qxy6XBHAUc0AnwUL0U7DxTMG5XIsW8z5ZHZ6yC2hlBjDJxf1fJstBx5V+zNIBh0
-	jt+r4R+gsvmXMgj0KL1n9HUpJ65Mov6I=
-X-Received: by 2002:a05:6102:f88:b0:7cc:2712:cafb with SMTP id
- ada2fe7eead31-7d4fb294ca9mr1167666137.15.1794419915738; Wed, 11 Nov 2026
- 09:58:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ood/r5HP
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b75712fb57so3196329a12.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:59:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794419942; x=1795024742; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xCSRQndgGYCgQ1UY81UleAUi/noEt6s8nO0zhbXbRmQ=;
+        b=ood/r5HPqeVohsjwJoS3WSsqCcU40u+XrOewwSQj8SMMOlQIlVl4sd6mKV1aRxXjko
+         9rWNnj7CqJcZhGBaBV5+FJzgeCgJvCUkBRENHPTe2L1OysIRuWPHmkt2+dgXIFThpVS/
+         M1VUYPj+d0zkwBtBCAgLGFFPiKAdS4locKesx8Hboi1NVqw3kBS3QPGbpLpprKgf9J/K
+         vMRfHi8hk4o9/YECswKsSeuMgsSG4IgtbIuuQBMdEcAS39Vb3mx3KdEDCoJunddY4dAl
+         0ShQzhlrWAf2cJ1Evr8VYL+djH0zhUUdopFQ/1IyPBgf2cG3vYoXeGLQKJWb2dFnPwtj
+         oTJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794419942; x=1795024742;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xCSRQndgGYCgQ1UY81UleAUi/noEt6s8nO0zhbXbRmQ=;
+        b=uQuJENfwRL0Sh+F0pJgWQ9NHhVIROHM9KVSDecitL1LBuJQn4onyn64GT3d0m0Fifm
+         rbOA3duLlIFADYcaeyC0WyfR0cyBBz/AVLcLAtCThghcDfvtV9UbxR68SrBrnmmwZA/2
+         IUeMeEii88TnYwnQbGYrzCHGarw17ZWL3vTHGWiegy7cDDXs/1lKcD9i0gQJYdLuUjVi
+         1dl+MxlPJuVMR6s+TSDw730aAno9sFEHPDHG5qy2k7uuqcWiTyvTZ32kZlTjoQinSYLD
+         JqDYJ8X/YFh/nohtbDKH2Re0T5dletMWY9HUFKPtXnhH1feRtBxq5g1Itz5DP71Ynq4Q
+         hEwA==
+X-Gm-Message-State: APuU4Z+ahQARBsd4IrOgfNJObH7jkurX8ZjEj3aY7xX9m89M/ymcC+IX
+	Fj0zeOpeJJfzvoP8uk0c7QENND8WBmwTmz0uNjSk/ofuQEC9hjnzCAh1y7IyPq314D0=
+X-Gm-Gg: AYBFou0KTeyRkF7PC1hukapaaCWNRtvtqT3qBC7anEKzFT0dpTExyg0Tah9v+tcfU5l
+	Q03Qxvp5oicHGX3dQ5sAlxg2xd3FRN0Yo4gxPuHZ90Q/QRGxAxKC0HKN1PLYCQLZsTpvgcDNNVk
+	0scXS4kZPGxuK3OFQIbhAvieOjAjo6AbYHPdWMdYT8Apk+qCZWbf4jU4oyIs3PiIWsfTte2bvih
+	jnBqVrUj2uDEzd4B5+kmYhyxJ/FMZOhp5+0GZw3ua/TH5Hi6lFTTxop/aBlBWc8gLBuBLxQO37K
+	HPA43nAeddf9+lv2xD7I36hN9MY1E0uebMSjsDPWQBHfgWtE2n5hk9dQKbSOy7BkBeJcDbCJI9f
+	PVtzbCWtsbvqauqKln5RBDImMAwGdvzZmSyAdAWSX3EBugv9Fd1aMdP28/DZ9/1Y6vFEFUuxS0V
+	elsdntd4LDkAkELBh4/00HXxBrU6PQ9lLt96KLP/SVNqhRB1RQzcY5arX8yvvQp1c+0x4gHYdVO
+	FapZirEjRvLqi52ZIjXiGz+JQQW4IVkAfDwOxg+u+0ejI+Ti7n3gqkSBv59fU6AyImGO2GhCQhs
+	1TUH9lw3OF3n3z62DgMFbAdDxgQUN72BVLZLREK068Jh75+4o52KxUcPE6xDEk9yVbtyctw=
+X-Received: by 2002:a17:907:6ea8:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c5066ad6d1dmr242986666b.21.1794419942257;
+        Wed, 11 Nov 2026 09:59:02 -0800 (PST)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5049ef69c7sm260075966b.0.2026.11.11.09.59.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 09:59:01 -0800 (PST)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: stable@vger.kernel.org
+Cc: Magnus Lindholm <linmag7@gmail.com>,
+	Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 6.1.y] alpha: load the MMU context when switch_mm() switches the current task
+Date: Wed, 11 Nov 2026 18:58:44 +0100
+Message-ID: <20261111175851.1156045-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107055056-failed-6.1-9b8be19d5dc9@kernel.org>
+References: <20261107055056-failed-6.1-9b8be19d5dc9@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,143 +96,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111124152.546406-1-joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261111124152.546406-1-joseph.qi@linux.alibaba.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Wed, 11 Nov 2026 17:57:59 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H5YSfxCVRTkmdc=W0UpWU10h=+dafiL0++jyzGwgQPy5g@mail.gmail.com>
-X-Gm-Features: AclHuK9up2bHAWsxlv1bUqwiFajrzfaKA8whphnS9xlAkaR64tJ_1QWH2kLi-NI
-Message-ID: <CAL3q7H5YSfxCVRTkmdc=W0UpWU10h=+dafiL0++jyzGwgQPy5g@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: don't wait for ordered extents in nowait buffered writes
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 12:58=E2=80=AFPM Joseph Qi <joseph.qi@linux.alibaba=
-.com> wrote:
->
-> lock_and_cleanup_extent() honours @nowait when taking the extent lock,
-> but then waits for an overlapping ordered extent regardless of it:
->
->   btrfs_start_ordered_extent()
->     wait_event(entry->wait, BTRFS_ORDERED_COMPLETE)
->
-> BTRFS_ORDERED_COMPLETE is only set by btrfs_remove_ordered_extent(),
-> which runs from the ordered extent completion work, so this sleeps
-> uninterruptibly until that work gets to run, and it starts a
-> transaction.  A pwritev2(RWF_NOWAIT) buffered write must not block like
-> that.
->
-> This used to be limited to writes starting below i_size, because the
-> ordered extent lookup was guarded by a start_pos < i_size test.  Commit
-> ec78575dde99 ("btrfs: always wait for ordered extents to avoid OE races")
-> dropped that guard so that appends also wait for the ordered extent left
-> behind by a short direct write whose i_size was reverted, which made the
-> wait, and the blocking with it, unconditional.
->
-> btrfs_write_check() rejects a NOWAIT write with -EAGAIN unless the inode
-> has BTRFS_INODE_NODATACOW or BTRFS_INODE_PREALLOC, so the inode has to
-> have one of those: a chattr +C file, a preallocated file, or a nodatacow
-> mount.  Those are the usual setups for database files and VM images,
-> which is also where NOWAIT writes get used.
->
-> Given such an inode, an append write does reach the wait.  With i_size S
-> and a direct write of L bytes of which only W get submitted:
->
->   task A: O_DIRECT append, short write  task B: pwritev2(RWF_NOWAIT) appe=
-nd
->   ------------------------------------  ---------------------------------=
---
->   btrfs_split_ordered_extent() gives
->   the submitted part [S, S+W) its own
->   OE, so dio_data->ordered is left
->   covering [S+W, S+L)
->   btrfs_dio_iomap_end():
->     i_size_write(max(S, S+W))
->       <- i_size reverted
->     btrfs_mark_ordered_extent_truncated()
->     btrfs_finish_ordered_extent()
->       btrfs_queue_ordered_fn()
->         -> endio_write_workers
->       <- the OE is still in the tree
->   iomap_dio_complete()
->   btrfs_inode_unlock()
->                                         btrfs_buffered_write() at S+W
->                                           btrfs_inode_lock(BTRFS_ILOCK_TR=
-Y)
->                                             <- succeeds, A dropped it
->                                           btrfs_write_check()
->                                             <- passes
->                                           copy_one_range()
->                                             lock_and_cleanup_extent()
->                                               btrfs_try_lock_extent()
->                                                 <- succeeds
->                                               btrfs_lookup_ordered_range(=
-)
->                                                 <- finds A's [S+W, S+L)
->                                               btrfs_start_ordered_extent(=
-)
->                                                 wait_event()
->                                                   <- blocks here
->   endio_write_workers eventually runs
->   finish_ordered_fn()
->     btrfs_finish_ordered_io()
->       btrfs_remove_ordered_extent()
->         <- sets BTRFS_ORDERED_COMPLETE,
->            B finally wakes up
->                                         -EAGAIN propagates back through
->                                         copy_one_range() to userspace
->
-> Because i_size was reverted to S+W, start_pos equals i_size, which is
-> exactly the case the dropped start_pos < i_size guard used to skip.
->
-> Return -EAGAIN without starting the ordered extent instead.
-> copy_one_range() passes that straight back and btrfs_buffered_write()
-> returns it to userspace when nothing was written yet, so a nowait caller
-> retries from a blocking context without IOCB_NOWAIT and takes the
-> waiting branch then.  btrfs_try_lock_ordered_range(), which
-> btrfs_check_nocow_lock() uses for the same purpose, already behaves this
-> way.
->
-> Fixes: ec78575dde99 ("btrfs: always wait for ordered extents to avoid OE =
-races")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+[ Upstream commit 9b8be19d5dc9525a408942e2e8012873199e7455 ]
 
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
+The 6.1.y header still contains ev4_switch_mm().  Retain it, and omit the
+unrelated do_page_fault() declaration move.  Of the direct callers
+described below, only kthread_use_mm() is present in this tree.
 
-Pushed it to the for-next branch on github, thanks.
+ev5_switch_mm() only prepares the incoming PCB. The context is installed
+by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
+out of the scheduler.
 
-> ---
->  fs/btrfs/file.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
->
-> diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
-> index f978c6524aa03..e84e9e129169e 100644
-> --- a/fs/btrfs/file.c
-> +++ b/fs/btrfs/file.c
-> @@ -916,7 +916,14 @@ lock_and_cleanup_extent(struct btrfs_inode *inode, s=
-truct folio *folio,
->                                     cached_state);
->                 folio_unlock(folio);
->                 folio_put(folio);
-> -               btrfs_start_ordered_extent(ordered);
-> +               /*
-> +                * Waiting for the ordered extent blocks uninterruptibly,=
- which
-> +                * a nowait caller must not do.  Leave it alone and let t=
-he
-> +                * caller retry where blocking is acceptable, like
-> +                * btrfs_try_lock_ordered_range() does.
-> +                */
-> +               if (!nowait)
-> +                       btrfs_start_ordered_extent(ordered);
->                 btrfs_put_ordered_extent(ordered);
->                 return -EAGAIN;
->         }
-> --
-> 2.39.3
->
->
+Direct callers reach switch_mm() without going through alpha_switch_to():
+kthread_use_mm(), which borrows an mm for the current kernel thread,
+sched_force_init_mm() on the CPU-hotplug teardown path, and
+do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
+loads the context, so the task can carry on running under whatever was
+loaded before. For kthread_use_mm(), current->mm then names the borrowed
+mm even though its context has not been loaded. The other two callers
+change active_mm while leaving current->mm NULL.
+
+The stale page-table root need not be swapper_pg_dir; it may belong to a
+user process that ran on the CPU earlier, and the kthread's user accesses
+can then read and write that process's memory wherever the stale mappings
+allow. Translations taken that way can also end up tagged with the
+borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
+next PAL_swpctx installs against the stale ptbr. An address the stale
+tables do not map faults instead, and since do_page_fault() resolves
+faults against current->mm without reloading the context, the same access
+can fault again on return.
+
+sched_force_init_mm() needs CONFIG_HOTPLUG_CPU and do_shoot_lazy_tlb()
+needs CONFIG_MMU_LAZY_TLB_SHOOTDOWN. Alpha selects neither, so only
+kthread_use_mm() is reachable in practice. Test the caller's identity
+rather than special-casing individual callers.
+
+The scheduler passes the incoming task, which is not current until
+alpha_switch_to() runs; all three direct callers pass current. Test for
+that and load the context the way activate_mm() does. All three run with
+interrupts disabled across the switch, so this completes before any
+shootdown can be taken and needs no asn_lock handshake.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Tested-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/r/20261010142533.974797-2-linmag7@gmail.com
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+(cherry picked from commit 9b8be19d5dc9525a408942e2e8012873199e7455)
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+---
+ arch/alpha/include/asm/mmu_context.h | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
+index 4eea7c616992..518ecdd50bbd 100644
+--- a/arch/alpha/include/asm/mmu_context.h
++++ b/arch/alpha/include/asm/mmu_context.h
+@@ -132,6 +132,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
+ 	return next;
+ }
+ 
++extern void __load_new_mm_context(struct mm_struct *);
++
+ __EXTERN_INLINE void
+ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	      struct task_struct *next)
+@@ -141,6 +143,15 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	unsigned long mmc;
+ 	long cpu = smp_processor_id();
+ 
++	/*
++	 * kthread_use_mm() switches current's mm without alpha_switch_to(),
++	 * which loads the context.
++	 */
++	if (next == current) {
++		__load_new_mm_context(next_mm);
++		return;
++	}
++
+ #ifdef CONFIG_SMP
+ 	cpu_data[cpu].asn_lock = 1;
+ 	barrier();
+@@ -182,8 +193,6 @@ ev4_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	ev5_switch_mm(prev_mm, next_mm, next);
+ }
+ 
+-extern void __load_new_mm_context(struct mm_struct *);
+-
+ #ifdef CONFIG_SMP
+ #define check_mmu_context()					\
+ do {								\
