@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794364000;
-	b=RSreYCIYTguSVH4CNCZqLLOs5m2HPu12W6G27WlLKpQI0zqw1ZKHnx82qkV1eJydHLBO
-	 M31/SJkcDKfs/ZFus96gKAHEID6f1kykGpVpZ51D19Wr9PBQbMvKXHSbcpcqUCz8abeAQ
-	 k/JYzo/rDfqykbfaaDTnKuq29wG8upz6b079uwhS7LblgZg1bCDFgJD0LJO99+oN9nS2I
-	 vPguiXVYW9x1zLOVoVzGmOawulrZKK58wM93wBriU93mqkWoeUpVcCCV5/+muCnEe05uv
-	 kfqOSsoyhOHYd7xL3FNaP0wGCwpN9p81pauBD/kGhFLSjIQ5f2o3hw6NhtPfsPTQU0Q==
+	b=k8jQ76ASdC8NwWJnGg9EFzMt1It/m17Pwm689NIhUxR7DZMjybdi0gmX9hFniAT74lhF
+	 IWTwgW+VbwRrw64vlw86f/ZXwLxZbSQwXPd3NCm/Vy3xpo889koVUCzFzAZHr6/60uPcx
+	 lFHTT9nMTDDMiHMfJWBQomcb+nVmcaOrGyUmE5S+H8D8fdkxS7f66xJjYvDDvlGUeu+e3
+	 DEQiEwm4uZTMOAu4cJQ38TdnaBNwSwiyl9iTbaqXsde3DZyS8OsQrR/8Bpz7zRVEcrOQq
+	 IL0rr1+yqdwfFIDZ1oYTh1yvgNpU+/Ggo0/pKdYIIRVbqB0JmfWfj4on3VUuf07hjhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794364000;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=l2UEg6JTEzIdUxl72Yu0p5wPhgKBV2ZNi/zq8LOAvgM=;
-	b=5tdI+onKkXxmesXZ6A2abWQ/h4XvcWue3FuObCuI/JpJhto9D9T+URDrasb4gfoh8e25
-	 UDidGD9jguQAW5TBKoEnUaftAoBqb0xAipAbPbTMGCxjeqqNqPbWSjUJ1hj0SnzuBSHWZ
-	 tNOK1itTR+LsRXVk/q95t2PS8+NP/chx3cIz48LXpWK14/VDFf/FWd86ee838U63xy/Sg
-	 VsU+uItqK8GcT5HzcQQrJ8o3EmFtz6EB++bgJ9BkhqPinB/4FsnLGws8RrJ1jJJ/obZcU
-	 aee5/jxhgd6/pH3Pd5RVfCkNTeMTsPTJK0gIatrY0ls82WuTtzNvsDTJP5Ch4utadbQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GrXYQ6fCepb+9l0KbIHuNF/yP0Ze04rufN4NpWL4Jpc=;
+	b=BtugClvlNXVToaoIQSBp2B0xWfCG+cVbKZbI3A70X4LoMk0QD8Q2Y1GlEiHHpDzajqA7
+	 qTnjFBD8tCjMXl1xIxlE9mVhSV+6OujkeWdnWObalCZRBGp5MWBRfVd7RqxZ95eeAzkcM
+	 1eUi/O8giw7uiXlzgWOWMCIixKaBa2s1uAOyiLVNJjhD7nfNlEyjPWd24j9HiUdEty36T
+	 1bbDUFl7q6RAkNw/99LcVk9ZqlqHdEZD7eYIYmjahYUp/SibUR41qu4941WZU0PivaIVj
+	 mSZFGKEk4o83qxglVf09ihugxlfNZW/DLEq35elu6BkpO6ymUoohwYdCtMZ8/CmWeCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9LQ81ii;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M0PyfVvf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF59C606A33F
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:26:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB777606A33E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:26:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J9LQ81ii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4495E1F00A03;
-	Wed, 11 Nov 2026 02:26:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M0PyfVvf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182AF1F00A07;
+	Wed, 11 Nov 2026 02:26:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363999;
-	bh=l2UEg6JTEzIdUxl72Yu0p5wPhgKBV2ZNi/zq8LOAvgM=;
+	s=k20260515; t=1794364000;
+	bh=GrXYQ6fCepb+9l0KbIHuNF/yP0Ze04rufN4NpWL4Jpc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J9LQ81iiHqGWp3ozxkOGlXD5fHMqF09pjhnapMHdeiYG+bRGhbxB6jMJfXJtcavUT
-	 h7cm0jQl8G3TCUDBXH4yZqzNPTRmWdxwpsfxYPd9/GdIhtSNSGHWcC//S3A9cVEUM/
-	 JwBIwZrvYW359WnEG6gq/w1zSgV+QuanrtDhncjZWToyTcmq5zN9pJrbcBMcSfy8Mb
-	 y16na/F9pAFmanVFN1ZmU0mHio2PfU7S5sKCVVMUifRtbk1bu8d7DLdpqwZwKYIOPb
-	 id3oQZVE/NBdsN4UVWJa22lgODT5ixCE6wvDR5Iu9bXIn1KkmNPPUxiImPaZfCLGtb
-	 fok6JBYvJsDpg==
+	b=M0PyfVvfgDiSeD+f6bbnP/HMFHwh1mNhDXQbHfDP7qNVwp2CqmkJSNBElifKdUZ04
+	 Y8CNVdJUCF5YSA/OTnOZ0u2DuVog+yJcOMQuLUyBkmgmlYNnPvyrF1nJLOTqIjV9/s
+	 kPLNKwrGtdIDE/NvQXKRvMm1UAMrNXFSx5eIe7R6D72+wmGf8mfT0/tJzT2a1gkbW1
+	 iHjdf7HxKBA3UFEzpYbVyDaFymM5n10revIkCWNih7JFTgEONqo4nBI3mxqBJRXzPm
+	 Ob+pclKgpNXt3f+A16kzpnK1w0FNh3HYPYyG7eJKE9pR/ntfO9WmOqGz4iZlmdqRCD
+	 F8RbEBIKYWLVA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] power: supply: bq27xxx_battery: register power supply with power_supply_register()
-Date: Tue, 10 Nov 2026 21:26:35 -0500
-Message-ID: <20261111022629.681261-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] power: supply: Use devm_mutex_init()
+Date: Tue, 10 Nov 2026 21:26:36 -0500
+Message-ID: <20261111022629.681261-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111022629.681261-1-sashal@kernel.org>
 References: <20261107051652-failed-6.12-db560f4b1c52@kernel.org>
@@ -62,47 +60,153 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Weißschuh <linux@weissschuh.net>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 1011646d4bd6c2eedb68d131ba7ddaf9ecd2aa9e ]
+[ Upstream commit 7d715345a86941b9e6c8e520b40078692baed4a4 ]
 
-devm_power_supply_register_no_ws() is going to be removed.
-Switch to the general registration API.
+Use devm_mutex_init() instead of hand-writing it.
 
-Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
-Link: https://lore.kernel.org/r/20241005-power-supply-no-wakeup-source-v1-4-1d62bf9bcb1d@weissschuh.net
+This saves some LoC, improves readability and saves some space in the
+generated .o file.
+
+As an example:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  35803	   9352	    384	  45539	   b1e3	drivers/power/supply/rt9467-charger.o
+
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  34792	   9008	    384	  44184	   ac98	drivers/power/supply/rt9467-charger.o
+
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Stable-dep-of: db560f4b1c52 ("power: supply: bq27xxx: Ensure poll work is cancelled on remove")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/bq27xxx_battery.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/power/supply/bq27xxx_battery.c | 11 +--------
+ drivers/power/supply/mt6370-charger.c  | 11 +--------
+ drivers/power/supply/rt9467-charger.c  | 33 +++-----------------------
+ 3 files changed, 5 insertions(+), 50 deletions(-)
 
 diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index 19c73aad769a5..fc76fd9e2b96f 100644
+index fc76fd9e2b96f..b0dec20fb37e8 100644
 --- a/drivers/power/supply/bq27xxx_battery.c
 +++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -2163,6 +2163,7 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	struct power_supply_config psy_cfg = {
- 		.of_node = di->dev->of_node,
- 		.drv_data = di,
-+		.no_wakeup_source = true,
- 	};
+@@ -2150,13 +2150,6 @@ static void bq27xxx_external_power_changed(struct power_supply *psy)
+ 	mod_delayed_work(system_wq, &di->work, HZ / 2);
+ }
+ 
+-static void bq27xxx_battery_mutex_destroy(void *data)
+-{
+-	struct mutex *lock = data;
+-
+-	mutex_destroy(lock);
+-}
+-
+ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ {
+ 	struct power_supply_desc *psy_desc;
+@@ -2168,9 +2161,7 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
  	int ret;
  
-@@ -2189,7 +2190,7 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
+ 	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
+-	mutex_init(&di->lock);
+-	ret = devm_add_action_or_reset(di->dev, bq27xxx_battery_mutex_destroy,
+-				       &di->lock);
++	ret = devm_mutex_init(di->dev, &di->lock);
+ 	if (ret)
+ 		return ret;
  
--	di->bat = devm_power_supply_register_no_ws(di->dev, psy_desc, &psy_cfg);
-+	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
- 				     "failed to register battery\n");
+diff --git a/drivers/power/supply/mt6370-charger.c b/drivers/power/supply/mt6370-charger.c
+index ad8793bf997e1..16ffa927147f6 100644
+--- a/drivers/power/supply/mt6370-charger.c
++++ b/drivers/power/supply/mt6370-charger.c
+@@ -761,13 +761,6 @@ static int mt6370_chg_init_psy(struct mt6370_priv *priv)
+ 	return PTR_ERR_OR_ZERO(priv->psy);
+ }
+ 
+-static void mt6370_chg_destroy_attach_lock(void *data)
+-{
+-	struct mutex *attach_lock = data;
+-
+-	mutex_destroy(attach_lock);
+-}
+-
+ static void mt6370_chg_destroy_wq(void *data)
+ {
+ 	struct workqueue_struct *wq = data;
+@@ -895,9 +888,7 @@ static int mt6370_chg_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to init psy\n");
+ 
+-	mutex_init(&priv->attach_lock);
+-	ret = devm_add_action_or_reset(dev, mt6370_chg_destroy_attach_lock,
+-				       &priv->attach_lock);
++	ret = devm_mutex_init(dev, &priv->attach_lock);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to init attach lock\n");
+ 
+diff --git a/drivers/power/supply/rt9467-charger.c b/drivers/power/supply/rt9467-charger.c
+index be65b0f517210..be1ca7f61c0bb 100644
+--- a/drivers/power/supply/rt9467-charger.c
++++ b/drivers/power/supply/rt9467-charger.c
+@@ -1145,27 +1145,6 @@ static int rt9467_reset_chip(struct rt9467_chg_data *data)
+ 	return regmap_field_write(data->rm_field[F_RST], 1);
+ }
+ 
+-static void rt9467_chg_destroy_adc_lock(void *data)
+-{
+-	struct mutex *adc_lock = data;
+-
+-	mutex_destroy(adc_lock);
+-}
+-
+-static void rt9467_chg_destroy_attach_lock(void *data)
+-{
+-	struct mutex *attach_lock = data;
+-
+-	mutex_destroy(attach_lock);
+-}
+-
+-static void rt9467_chg_destroy_ichg_ieoc_lock(void *data)
+-{
+-	struct mutex *ichg_ieoc_lock = data;
+-
+-	mutex_destroy(ichg_ieoc_lock);
+-}
+-
+ static void rt9467_chg_complete_aicl_done(void *data)
+ {
+ 	struct completion *aicl_done = data;
+@@ -1218,21 +1197,15 @@ static int rt9467_charger_probe(struct i2c_client *i2c)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to add irq chip\n");
+ 
+-	mutex_init(&data->adc_lock);
+-	ret = devm_add_action_or_reset(dev, rt9467_chg_destroy_adc_lock,
+-				       &data->adc_lock);
++	ret = devm_mutex_init(dev, &data->adc_lock);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to init ADC lock\n");
+ 
+-	mutex_init(&data->attach_lock);
+-	ret = devm_add_action_or_reset(dev, rt9467_chg_destroy_attach_lock,
+-				       &data->attach_lock);
++	ret = devm_mutex_init(dev, &data->attach_lock);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to init attach lock\n");
+ 
+-	mutex_init(&data->ichg_ieoc_lock);
+-	ret = devm_add_action_or_reset(dev, rt9467_chg_destroy_ichg_ieoc_lock,
+-				       &data->ichg_ieoc_lock);
++	ret = devm_mutex_init(dev, &data->ichg_ieoc_lock);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to init ICHG/IEOC lock\n");
+ 
 -- 
 2.53.0
 
