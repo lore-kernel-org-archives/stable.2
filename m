@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413483;
-	b=Zarzhjx9OnecfdgmF/JgZOla0fYbU2gI1JrQ7D2H6XNjFuHyx5lsMxd/GcdVvjyhf+BS
-	 3EUdp6gw1CgcQBHWqIrlpH5g8COcsZRv4rboUZvFiYqA6m28SFrskyuEfKW3psdk5QgFM
-	 u38eDV0JaDCKyk+Cm4Nu/Sr7ucs1KNQfd6W6S6WVOtPz3hbrARSa7KfTizwF/ssqJAfMB
-	 ZaoKjkOLi09hdeBo2ajC8GeejIMZK3AzBr0l2tVTPOSB2+Q2jtf53lX1c4NSpI9FO9XNN
-	 +Q31Dya2iBJRnAPgGq0gBVoeItbkc8xtgqHMbGfnC5z3bRhKj6bgz9kF4AfRIQvl5rg==
+	t=1794413493;
+	b=XsSpbmaOTJ84w2AYbmI/4uV090cKyk1/jkitotp4C0scGJW/yPrw2Hy81mqGd/ESCatk
+	 U8b5E5lRq9EDXGV3Dg6dU32umiKF9b4s5mlhdcpei65stDmGMFh2/sXK1H8UqtR9qtWCr
+	 ldhCofq0h0LDNr9lE/hWcTi5nDNql1QXBzvv7rDuBGkBdCzb92DWDImXEbgt9i+TpWi94
+	 QQkIGOimq6G8s7fDV9UQXMuRw0lxGKRNzGt9CdhDjpZiFj310R3beGPTRVp9+t0oUnUKW
+	 ftNVkkl2cK6NZl8z6eci2icDVw2cDyheJ3YlruAnpppF3AfLk4pqyIwvZrh/c9U4F9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413493;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xlvV0oJnpfp92jsdKnTXV6yDsmJaVlYE/Oh6GK8H2ns=;
-	b=yQCTYkGQBu2ULKcW9DUgy0Qq7z1QM0ui4Fs+sU5COQrE+FIgb4bvPSLDVR86lC9C8vTu
-	 lsbeAp5iM9eFera62+VdbOAvVTwiU1No+1du1jMhAnLYETLROm0fpwZbWOgBGAPR/C2OL
-	 /VAmv15h51KCLt0gIMjL6PeJNS2RwmfP0XR1Jh2lbI/UgGG2af6ns+1H2zSgP6wpr5MfI
-	 JvkM7PE34u0ovFfaGVgl3XmWXNn9Qy5ZVEA6oU3udfMzQAZ7dpWQp8EGBLpKyvCL9BQlj
-	 JeWJO2wWNJ9Mf5M6rqvy4cb6kwn6emSy/aI7zZl2PJ/g6Mh4hGqwHMHEqOLQ7otPa3Q==
+	bh=pCU77ScjUqG12A4tKj4Ik34Ym66i1u2AaOjv61gzeJI=;
+	b=aUsKujFjuW0naROxK1BanKXog1UbqrnjzvWE0lmXrMi/UpHIEt/Z4/XcQSzLfD9dZCQH
+	 ASyNa6BtZxJnRzez5b123Jfv+72hxWSpEDRDblUqarC/rEva5f9hfoikKba5HwU3c9xlx
+	 EOFFHP2HQsV7A21rQROlLUhEIOXqODNbLes7mt4L9nN6/sSRVXKDdggU1lveej2SNHnSb
+	 VW1V5nda7I6tn9TiVJ1BcHywo4rizZ4u5Wfg9pDE5cqQ9dYNGNJxmNTEShSbaItcXPyvN
+	 DgVo6vLMPkRyHBa3bI7rwTm/xHcGJa5xYzrHh3wFyp+Ee/Nd3v6xaWdlRtuODVc9X0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8t2ib29;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ne0vT7Jh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45513606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:11:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E685606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8t2ib29
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519A11F00A05;
-	Wed, 11 Nov 2026 16:11:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ne0vT7Jh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F511F00A05;
+	Wed, 11 Nov 2026 16:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794413482;
-	bh=xlvV0oJnpfp92jsdKnTXV6yDsmJaVlYE/Oh6GK8H2ns=;
+	s=k20260515; t=1794413492;
+	bh=pCU77ScjUqG12A4tKj4Ik34Ym66i1u2AaOjv61gzeJI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C8t2ib29cmNPoaatgTIwWpD0sYq5nHm7KFe+UbmFh+qqBo9ve+WCKB6/D+0lpZ4Tx
-	 SHiIZIEu4iDreN38fshS/pCr40Q1scT1bdk0l76sx8bijBq6syxcCKj4R1jbGE3yXU
-	 aEOzcOQVTJylSA4AIFjRBPYeSHU3WDsrPFR636r69DNJKoPiesIlBg4SgiwiPD7s9c
-	 LQLwUWBPZcQjgvbjj4gJUyG/pDsqEcQkUKfSruoWQkKIp+MSscyIog9PnP1nMNlodl
-	 YQoyR2m7SlbWehwHhqvScJ4jFCEnXQ9BQxPF5voNUNr+mJo1uwI+d3u+Ir8p10pDo1
-	 ugdcqXCwU4RNA==
+	b=ne0vT7JhRCf4LqlbKg/+C1MhrctrLwlzkjr1sWWyUz9KY1kNr6lDFrqCmlwSHoqIj
+	 MQP9sYcvr/1Cx6XRR7WILB6mZZpV88jJfavT0+a3GMOQdKIu/PRHsx3+FPpuYYGbHk
+	 JkLCowLZ4fhKkmpnHfjuBmYlBuQdLwF07V9mit/i74dx4yLbrX4RwTcGMJnPFZtaS4
+	 l+BzFOC73cSO/PLoc92tLVqosG4zGDeSm9Vbr17WES704rzu1S4btjpNvlsJN3k2aM
+	 T97HuaVhBeJdW66WbxX64R4XZ497AEa2goMrvQc3uHbTEFp35icTpotKh/0klv55Of
+	 Fe4/E1AdIqy4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Takashi Iwai <tiwai@suse.de>,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
+Cc: Gianluca Balboni <gianluca.balboni06@gmail.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ALSA: control: Fix UAF in snd_ctl_elem_add() on card disconnect
-Date: Wed, 11 Nov 2026 11:11:20 -0500
-Message-ID: <20261111161050.3106179-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
+Date: Wed, 11 Nov 2026 11:11:31 -0500
+Message-ID: <20261111161109.3157277-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054318-failed-6.1-d4febca239be@kernel.org>
-References: <20261107054318-failed-6.1-d4febca239be@kernel.org>
+In-Reply-To: <20261109200238-failed-6.18-1e73257dff33@kernel.org>
+References: <20261109200238-failed-6.18-1e73257dff33@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,69 +62,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Gianluca Balboni <gianluca.balboni06@gmail.com>
 
-[ Upstream commit d4febca239be3c91498762dd0535a87d4af1eabc ]
+[ Upstream commit 1e73257dff33ff851af60d5bb00d73893a8b6dc8 ]
 
-A use-after-free can be triggered via SNDRV_CTL_IOCTL_ELEM_ADD when a
-USB audio card is disconnected while an ELEM_ADD ioctl is in flight.
+The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
+connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
+AcpDmicConnected _DSD property or the _WOV method, and the board is missing
+from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
+capture device is registered.
 
-The reproducer parks the ioctl thread inside copy_from_user() using
-userfaultfd, then tears down the USB device.  Unlike every other
-ALSA control _user handler (ELEM_INFO, ELEM_READ, ELEM_WRITE, TLV_*),
-snd_ctl_elem_add_user() never calls snd_power_ref_and_wait(), so the
-parked thread holds no power reference.  snd_card_disconnect() therefore
-cannot observe it via snd_power_sync_ref() and proceeds unimpeded:
+Add a DMI quirk entry for this model to enable ACP DMIC support.
 
-  1. card->shutdown is set to 1
-  2. device_del(&card->card_dev) drops the kobject reference on the
-     parent USB interface device (card->dev = &intf->dev)
-  3. The USB core drops its own reference and calls device_release(),
-     freeing the struct usb_interface, including the embedded struct
-     device that card->dev points to
-
-When the userfaultfd is resolved and the thread resumes,
-snd_ctl_elem_add() acquires controls_rwsem without checking
-card->shutdown and calls __snd_ctl_add_replace().  Because the
-reproducer pre-registered the same control, the CTL_ADD_EXCLUSIVE
-path calls dev_err(card->dev, ...) on the freed USB interface:
-
-  KASAN: slab-use-after-free Read in __dev_printk
-
-Add a card->shutdown guard immediately after acquiring controls_rwsem
-in snd_ctl_elem_add().  At that point card->shutdown is guaranteed to
-be stable: snd_card_disconnect() sets it before freeing the parent
-device, and it never transitions back to 0.  A thread that acquired
-the lock before disconnect sees shutdown=0 and holds the write lock
-through the rest of the operation, preventing concurrent disconnect
-from proceeding past its own controls_rwsem-less shutdown=1 store
-(which happened earlier, outside the lock) from racing with dev_err().
-
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
 Cc: stable@vger.kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260929125346.1478631-3-tiwai@suse.de
-[ sashal: Adapted the error return to use err = -ENODEV and goto unlock for explicit semaphore release. ]
+Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://patch.msgid.link/20261031102136.24600-1-gianluca.balboni06@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: adjusted insertion context to follow the 8BD6 board entry instead of 8DC2 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/control.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 9b739a515fdfa..6eece0d0afda2 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1723,6 +1723,10 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	alloc_size = compute_user_elem_size(private_size, count);
- 
- 	down_write(&card->controls_rwsem);
-+	if (card->shutdown) {
-+		err = -ENODEV;
-+		goto unlock;
-+	}
- 	if (check_user_elem_overflow(card, alloc_size)) {
- 		err = -ENOMEM;
- 		goto unlock;
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index 209ac43f9e31e..f7507446494b1 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -682,6 +682,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8BD6"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 -- 
 2.53.0
 
