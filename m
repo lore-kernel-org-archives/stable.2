@@ -1,68 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370823;
-	b=n/vLJlGCqhfQfJ4SKalsrjKQwOs8oHiJMLafgi8I421Ke1dpbzNwzmoaRsTC8QV801tA
-	 59gCGRqdLdHqUzseI5xbpBohM8buBbblVGNj7UULit6YrAJjTzve4A+j/UjeYRFZQUwUa
-	 hbylKKhleQl/bxzcc/L8FOGMF4Qxq7/lm3+yi7hZeGgUDhRjOg/PCiLR1bSjFinOuIu6j
-	 05oWF/dvJDIPhtjrfCHpJ1zNMX63GcGMrMszSc9n3XjKV7Fy/sdzYQW3NnZvYiG+tDi3k
-	 g6BZf7ewsOSVNX5Yksd0lvcYHbNKa8+Q+g4SfBH9r6qYa8CmQNVuKSkLtboAR2B5IPw==
+	t=1794370843;
+	b=e6Hssif9Ho13dWNuQ24Qsbb6y4BFpc3rmd3jGJkTksEn2uHlQs3OiIHKm2fR9xKaHOy/
+	 wI9/5Ng9s+gxgaKBZdgifd3kCNHJ1Qa2ejr+lZhqMhDY26FYTH7XOB28FF6r+8NhmXQJb
+	 8PQ8hOXky3FpLWnLLJOYTaGF723eMWRQSmtj1UrliKlA6FM0sJXd1E5PEZhNrJC0DIS17
+	 DhJHrQgZ2DCUAws3dOuiYERHrkVR3oSp1g8EkI7nDJQY19DJeJ9qOxMu2+qg+FBIT72XQ
+	 cjQAg8COMVliGO/ekKAXBJwE+qqF06nPjB58XsHc+S/9FliHOOb9B6E7f0M0Xi0D5sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370823;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=y46kTuhFS3pdFZXMnTpIZWohn+16FYvelrkuLSGYIho=;
-	b=hd217ZtK6SG72tCNH7pShjTHZfFTYP+9a6jWXDu66uQHqDNwwFMXDN+Ou+k4sAskB3Gw
-	 mSBj2xmqZx17DY7Fe7GdFjyaNUr94+OCLO0hkeZhjZ9UwDogGvZDfLDOIUgF02hQkEWvN
-	 ESR4CQ/liQ/z8GZfAE//fXfRMZ/VuZhFJZcte6X7+9d7+IuKSMSjX20l3CGLPyD/6UJky
-	 Zeb5tYvA5AuHr3hC2DY6oc/i529K4diIxXQlbtP8Fc1I4Vpr1zAEW60jP5SJA7R3akqeu
-	 DA5L/kRLFpCXgx2HEaAUOLTw6QpeVsMc2pM+lM3Bcqe+1WZrod/Xx3UMT33IjlTgmEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370843;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
+	b=Z1ZmnkkgkH24NlOybI2qZPt/1nKHZ+8VVBycrP0QC9mVAIwZlsU52R5pLkxiyKGl2irV
+	 UohI8KNijEdaV8pT4N+ubI5AOAd3ySN9J5UeTWGE4d1CBB9TF3V46CSfDThO20hmmpY4X
+	 ORXQqysAOuga39ZFDa+2+1pWE2C+itNO2bPGA3QRNbW1gutZnbjVVOo06U9pRL+12gzyn
+	 bWFrU0r9RYreLamyO1XyWKWRboDJ3yQ2kcpa8FMgsSku3D3fjsO3TNEqgYEuT/7wtiZS8
+	 HwQFhUeJE6ddDoHwcqqQtEq080VYFairivbszyEi9Ln8a74aQfwWMQ0NVIhjQ5pnzoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbrRDWwk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYDcDVWe;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E67A606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:20:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85764606A33C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85764606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbrRDWwk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59761F00A03;
-	Wed, 11 Nov 2026 04:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794370823;
-	bh=y46kTuhFS3pdFZXMnTpIZWohn+16FYvelrkuLSGYIho=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QbrRDWwk1XCFGt9gpJdAuHDAOwCUWQPWL05q+PWUPjzh4TvtnN+E9ly8nBezhOlc6
-	 6PSZJL/dReihkE1/ymQWCjChoGOZp08T8JfEwnobKKw77XKzzn+1KgLkTvLlfbjoWd
-	 0FOGwU/Ktt94E5MIcgPtRWlCTH1dd172SlIuidqPJoDYH4bJ80AkLm7+u6UPlAfmsV
-	 ttWe1TmiyNqMn+hW5aV1VmFWqacaVhYsy7x+fqy2C5uaJexhPN8SSnaVvOjXxDnQbT
-	 pvEO4GVzJ1CLFI1fX5ektEmdYexLKTdQYSdM0ZLWLIh/KJ5zYSfUOSbq+zPK7xq6ya
-	 N0Rbxg70ZniuQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Kairui Song <kasong@tencent.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Wei Xu <weixugc@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] mm/vmscan: avoid false-positive -Wuninitialized warning, again
-Date: Tue, 10 Nov 2026 23:20:17 -0500
-Message-ID: <20261111041806.1021595-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111041806.1021595-1-sashal@kernel.org>
-References: <20261107050419-failed-7.3-ca6e32f3f424@kernel.org>
- <20261111041806.1021595-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uYDcDVWe
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a60f90a924so1123178b3a.3
+        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 20:20:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794370843; x=1794975643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
+        b=uYDcDVWeZFrbHF9vMV26+UGVFxPWRvQtoJIqvx4qNzOIngOFXdhm8vzZZS1gQ3fLAr
+         JX0y8XI2F4z6eD4bqeXVvyLZNZnW332lc1+gbGjBffXKFTqCtgNPtHKnXilCmBQj0pRj
+         Xmt5hAVOP0f/NAKzErpgM2gEZrRrggBAyor6jJp+a0iUAMb7DnoeW1bIBttmTa7P7Ana
+         OtCzGqSCpUb9fbhZ5pfg9/3WLAzlucpqWbPARzhxp2pJlPFbu2P9TsgPIdBTx4Xwk6yJ
+         F9x0H4woEb4gS85UMTVPzQArwPBs8/7QmVVF1Fd80irwKP4l9yFFUgy9Fa6z691zLIxj
+         zVpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794370843; x=1794975643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2y/k0vv1KZWvdv/tcZ3kHN2M7tA63Ao7aQ+R/TLoEBY=;
+        b=zqhgidH4I58TeSCZ81+l7c1GmYHO3IfryJPMxg9H8z/oIcsteYI7TfZ2SG45uv8kuh
+         2ldBn0qFekRhVlhP/K9gzhFtYOBa3Tpplc+Lz4dgvk8C1HIZkm0RPki6x5q2InTfcq0H
+         mFOCHQb7RAiiLWlFh6SRcO4TiRhUP/Cis9NMMT7qFXcJEp+HRlAmaAD3CATg/hhGhVqx
+         VM7GhUDFzNFregfq4SUD1sZNejgIDafdkBqWO0RfvEfu7CpW1wmittqpwrO0LzYybLor
+         GkKDIk5xEJJ4wNP3Z67XKafOB88d0ekSVw3P2h0g1pjtoZb1i6lYPDMrOiYHTmPg0+Q1
+         qOqw==
+X-Forwarded-Encrypted: i=1; AL+hErEM9xRBQDXtaSR9Ywn9ECLhuCTjfQtD07RbgrKiOOs3227S9bBbs1zxPcHsqYvFGDLUHRHTdqE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tFfJFbLW+ecGNjsXTN84zKpkj7VdRXyG4ewt1ZHIV4niS8hOV
+	FpYv4fUHw/RcsLvA6GRMleg5w5HgRCe6B0WhVhMCa0Fv2V+5ekuRwvgD
+X-Gm-Gg: AYBFou325GWdSefwqrb8DheCN4qHUo/STCfrc8relwSi/QHNleGxbyNFtRQDeJtc1Lh
+	1VametSBP+BlwvQkhNTxFO3Ry+f9tObl/UKA/eZwb2kWRgryfj6vUODLVzKelw5VhgeVlYxaybQ
+	dj0PWNgP8lnIK01+a1miqw/U1fDJHJSIWTfoLA/K5H8AlD/6Ckmd2GM1GaXArzYO3Qa3/L8qC7j
+	XIRXGsEGfs02vyycdQnu/NjP8U20Fex5Rx3n7d/D83O/8GwWrtpcB30P9S/vFr3+ehBl1CI5S6I
+	yBryY+6/jTeyKDiZVjTnF9xZkan5EzECLtTQQr0usenE3BJAbWFtSDaVujbKwRv0Yn678Gd6NHS
+	ALbXb5DbYICvvKFZAq6sUXpD+lnpS3li/+8IZeoirtuJ0ipUH7P6pXREQZEUDqXLHhBfz+WEOTw
+	3wfaJLSUfHmsVxKcgNK+KT6cswHyicXeEG4u4kWUPNmexKuuNK6n3iKL/JqrfskOPgNZI2Z6YdC
+	buVo4rHqB3TGlw2k52CMbHH9NgfwpRGBStvSBP1BzBlYT1xN5uQBGOXPs95KFJUt4fkL3zRYhBH
+	j7beDWEi1HjDVywrM4A=
+X-Received: by 2002:a05:6300:220d:b0:3eb:affa:32c9 with SMTP id adf61e73a8af0-3f2f72992e9mr1463244637.0.1794370842730;
+        Tue, 10 Nov 2026 20:20:42 -0800 (PST)
+Received: from oslab.. ([101.6.42.129])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7dd5bbsm1319947a12.30.2026.11.10.20.20.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Nov 2026 20:20:42 -0800 (PST)
+From: Tuo Li <islituo@gmail.com>
+To: mchehab@kernel.org
+Cc: Markus.Elfring@web.de,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tuo Li <islituo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dvb-bt8xx: Fix double-free in dst_attach()
+Date: Wed, 11 Nov 2026 12:18:43 +0800
+Message-ID: <20261111041843.1278057-1-islituo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,88 +99,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+The caller in dvb-bt8xx.c (frontend_init) already frees the allocated
+dst_state when dvb_attach(dst_attach, ...) returns NULL:
 
-[ Upstream commit ca6e32f3f4240d0335775a11afc21e0451dd8d8f ]
+  if (dvb_attach(dst_attach, state, &card->dvb_adapter) == NULL) {
+    pr_err("%s: Could not find a Twinhan DST\n", __func__);
+    kfree(state);
+    break;
+  }
 
-I previously worked around a false-postive gcc-16 warning in the
-get_tier_idx() function, by adding a fake initializer. This happens with
-the -fsanitize=bounds sanitizer when the compiler creates a specialized
-variant of isolate_folios():
+Remove the redundant kfree() calls from dst_attach() to avoid
+double-freeing the state on failure paths. This keeps ownership with the
+caller until a successful attachment transfers it to the frontend.
 
-In function 'get_tier_idx',
-    inlined from 'isolate_folios.constprop' at mm/vmscan.c:4982:9:
-mm/vmscan.c:4934:9: error: 'sp.refaulted' is used uninitialized [-Werror=uninitialized]
- 4934 |         read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-mm/vmscan.c: In function 'isolate_folios.constprop':
-mm/vmscan.c:4946:25: note: 'sp.refaulted' was declared here
- 4946 |         struct ctrl_pos sp, pv = {};
-      |                         ^~
-
-Adding another "= {}" would solve the problem as well, but to prevent
-this from happening again after the next code refactoring, try instead to
-prevent this by forbidding interprocedural optimizations on this function.
-
-Link: https://lore.kernel.org/all/20260213123902.3466040-1-arnd@kernel.org/
-Link: https://lore.kernel.org/20260916083456.4136132-1-arnd@kernel.org
-Fixes: 3de705a43a46 ("mm/vmscan: avoid false-positive -Wuninitialized warning")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 6792eb0cf931 ("[media] bt8xx: fix memory leak")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tuo Li <islituo@gmail.com>
 ---
- mm/vmscan.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+v2:
+* Update the subject to refer to dst_attach() instead of frontend_init().
+* Add Fixes and Cc tags.
+* Thanks to Markus Elfring for the helpful suggestions.
+---
+ drivers/media/pci/bt8xx/dst.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 8ec8fdede5dd8..88fd31d135853 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3194,8 +3194,11 @@ struct ctrl_pos {
- 	int gain;
- };
- 
--static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
--			  int tier_max, int gain, struct ctrl_pos *pos)
-+/*
-+ * __noipa works around gcc-16 warning for uninitialized use of pos->refaulted
-+ */
-+static void __noipa read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
-+				  int tier_max, int gain, struct ctrl_pos *pos)
+diff --git a/drivers/media/pci/bt8xx/dst.c b/drivers/media/pci/bt8xx/dst.c
+index 110651e47831..5cdf8a77260c 100644
+--- a/drivers/media/pci/bt8xx/dst.c
++++ b/drivers/media/pci/bt8xx/dst.c
+@@ -1694,7 +1694,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
  {
- 	int i;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-@@ -4801,7 +4804,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- static int get_tier_idx(struct lruvec *lruvec, int type)
- {
- 	int tier;
--	struct ctrl_pos sp, pv = {};
-+	struct ctrl_pos sp, pv;
- 
- 	/*
- 	 * To leave a margin for fluctuations, use a larger gain factor (2:3).
-@@ -4820,7 +4823,7 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
- 
- static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
- {
--	struct ctrl_pos sp, pv = {};
-+	struct ctrl_pos sp, pv;
- 
- 	if (swappiness <= MIN_SWAPPINESS + 1)
- 		return LRU_GEN_FILE;
+ 	/* check if the ASIC is there */
+ 	if (dst_probe(state) < 0) {
+-		kfree(state);
+ 		return NULL;
+ 	}
+ 	/* determine settings based on type */
+@@ -1714,7 +1713,6 @@ struct dst_state *dst_attach(struct dst_state *state, struct dvb_adapter *dvb_ad
+ 		break;
+ 	default:
+ 		pr_err("unknown DST type. please report to the LinuxTV.org DVB mailinglist.\n");
+-		kfree(state);
+ 		return NULL;
+ 	}
+ 	state->frontend.demodulator_priv = state;
 -- 
-2.53.0
+2.43.0
 
