@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363786;
-	b=SPEZj0qSnqmcgQoq73lx5Nixl6SNdicCZAqHSQHaoA24xjBbRGTct0BE5j9H2IoL12ry
-	 w4uaWPDF9BI1NRabKSUckLw5tkg/T06zIgz9d108UqjIqY0mMWpy98OUo7T2PR3zqMdYu
-	 KKK3Rc9iWZHawb4cda1+9/ySacSX1Bp94DFVfVGbLe26EOfZENrMAwvSykNsBsawU7rKu
-	 Iz6CasWksrey0nswbxR6mKm3lo8agEyI+X49vlmzAgAKaCWsO17r2mranb1QEr64Z7eqi
-	 zv7sWyUTeVICC0CttPuSA9SPk4TcflCys2CnZAB3x5puTRZkdZOYUt8sv+p0QEkQA/g==
+	t=1794363968;
+	b=UYimV5ltRQKyhzWoPbCem+gZ6SkYllibCQO5q6z5wMJgpu6Duw+EFVLNrBWAWQunf+zX
+	 ny3u/AV/fPIQo+6Z4jtCns9U/+utxgu/EdEgHFKoyeXEmQkJF6Ykgon6ocNk+yJANqqyc
+	 UyVpA6KNApSPFcBNhhtzqaSA8s2w3Nvtsb6VPGVPfMCRKijO/+vvdN9pXXEUDs3aRQvfj
+	 RERe8hEt6nILOxIlZqs05NIbkD0fFwlWbzxLUdrYTb8yaXMlqWWd2em60IWeKOWUv9hxS
+	 wjuPdo+Ubxi6Vuyfgw7lan3jiQGwnW6ar4HGpI+JBAMIbTc9/yR7XYyurSIwltAMotg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363786;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363968;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RQBfIu1xOwEYElu8JsmkRMDUzf9z5r+TFaUJBC5jnrU=;
-	b=aDJeP3dkcxWwEzQaRZwoLRyCjasykDEqBm832g2eSVBE/sI9vK8R9LJ1VKmL3bSoksts
-	 kzumuzUSgylKmKP5xnspqaVEPmC/hGHsh32Hke49wF5glHTwuiuAYmwVQHxc+qXmXHcTP
-	 zG+huqtH34MLKYfO+12EC+0J6Raqz/8lvE72n0fdF+brSaxHY+Ecmdmh5CIeL4XHEvzOu
-	 rHXnmEaUWKkhm5NUSUaJesApkdEt0HjvNM1JCXhJfeRM9VJ238ZJMxSpZKp2Gu7sUqG3s
-	 1lVLfbeO/b68Ak4ioDtrcpYR2bdOwSxugeHa9mkzkT2E+IpxLIu346n3+77xUfIjAFg==
+	bh=fXQgqRS5RuHlwejzP3gzn3DI2JuTuzqG5csyN9fwq5k=;
+	b=msLmVvrKtbT55yRn60TSrjzG0CV98QX09DyynYTqKkgEZm5lCQnW+2dedOy7DuYqz71E
+	 LWC5L3wTmXX86qlqOKPaTnx8Bf92/jtzDIUxdHATNJlvEzgyXnPSKscVIgJXLYk+/nNA8
+	 6J8il69P5hnAqrsbjvkJC0lppBFZ7VBYndeJnEZBKHEYb/JBrMg15LiDcl+A2yj5KvjsK
+	 LO0VRzFzkI5AZnrW6kwWzbMUxgf7LBmGk5cFE/WDPQUxaNMxmY70V8cblNzrt9ND8AIzy
+	 tD8w7B0QOQjiQVNsksDDmhyhdTsX1c1truMYePzPcYEQKCHjWhzJjkhOM+17nSeqyBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an80zKMP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KepES96W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52468606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:23:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D04606A326
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:26:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=an80zKMP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A0E1F0089F;
-	Wed, 11 Nov 2026 02:23:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KepES96W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90AF71F0089F;
+	Wed, 11 Nov 2026 02:26:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363785;
-	bh=RQBfIu1xOwEYElu8JsmkRMDUzf9z5r+TFaUJBC5jnrU=;
+	s=k20260515; t=1794363968;
+	bh=fXQgqRS5RuHlwejzP3gzn3DI2JuTuzqG5csyN9fwq5k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=an80zKMPopcSBwPuHJsthLJmKhTpZHNMZYoJWsrwOyKr8UZH9KZirOMQBJbDVhRKJ
-	 vXZ5YeVzBq9XrKIJL7GPSpK54DvROQn6OjpVboVX2rLZJ/ENgvscd7Syj1HRPkbmFx
-	 sNsUaGmTf3jCMJvC5u/CxCyBadV6JqRZNyOjoroJL4O8scU8gpQa2J8iBUs87iBz2e
-	 1LgnwliTI/LJ5wbBEEduvJW59TRzVarXbLAEXWgeltLNgOOL6div68EEGz9OzfodUF
-	 dFr6yYxWwvZMSrNZBLfo0cp6HpGeO1copYGNjMi8jb/7pWjhTcWBKs1TnRssjOokoa
-	 Y1I2deFcc4GAQ==
+	b=KepES96WBELRI7ffm6wOLiBO5GPeMiCUtvOpRftBjHxQOqD9O4ZPnzypHzwPmRpcs
+	 YqQdAzI329OjSxMzI60VfadUpt3YyYR2N2tdIL4sG8LpYlMqAVPh4ImgTAOxSB2A5y
+	 0rKx4iJCDakQKZHN6atIREsmU40y/sPN1ngZ76DmHXlL475ubA/rRfnAVM8H7KVZCZ
+	 28MX69NoGBlpxHt1sseOj2XdjEXHxzqOpwqvLRd9O3xT6MUd4CDL0zOPM7os4bsBmK
+	 S7TndLTRTWrDxAXUfwrcZ4FQCReV1EpH66bJCZuFbKIiF/bqQCIw4uIwLjKUSR4uLP
+	 MmPm80fVSieHA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
+Cc: Maciej Kucharek <qchcio@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] KVM: arm64: Validate the host vCPU's VM before reading it under pKVM
-Date: Tue, 10 Nov 2026 21:23:03 -0500
-Message-ID: <20261111022039.591632-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
+Date: Tue, 10 Nov 2026 21:26:06 -0500
+Message-ID: <20261111022542.613290-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053113-failed-6.6-cf533b4d3630@kernel.org>
-References: <20261107053113-failed-6.6-cf533b4d3630@kernel.org>
+In-Reply-To: <20261107055213-failed-6.1-5b56ede88031@kernel.org>
+References: <20261107055213-failed-6.1-5b56ede88031@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,167 +61,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+From: Maciej Kucharek <qchcio@gmail.com>
 
-[ Upstream commit cf533b4d3630b229d78ad55567c5db2f365052a2 ]
+[ Upstream commit 5b56ede880317bd912f914d5cd38ba1d357677fa ]
 
-On an MTE-capable host under pKVM, enter_exception64() reads the VM's
-MTE flag through vcpu->kvm, which for a host vCPU is a host-writable
-pointer nothing validates. The host can point it at any address in the
-hyp linear map and read back bit 1 of that word through PSR_TCO in the
-vCPU's CPSR, or panic the hypervisor with an unmapped one.
+On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
+these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
+M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
+at init:
 
-Get the VM through a get/put pair around the read: a loaded vCPU's is
-the hyp VM, an unloaded host vCPU's is read once and pinned, and a
-pointer the host never shared leaves TCO clear.
+  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
+  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
 
-Fixes: ea7fc1bb1cd1b ("KVM: arm64: Introduce MTE VM feature")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260914070536.877D91F000FF@smtp.kernel.org/
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+The driver posts the ASIC again on S3 resume and after a GPU reset.
+The VBIOS asic_init table then moves VRAM back to the VBIOS default:
+
+  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
+
+gmc_v6_0 does not reprogram these registers.  The GART table is then
+no longer in VRAM, and the gfx ring test times out:
+
+  amdgpu: ring gfx test failed (-110)
+  amdgpu: resume of IP block <gfx_v6_0> failed -110
+
+Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
+The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
+start, and later posts keep it.  After the reset, FB_BASE is not 0, so
+a module reload does not reset the ASIC again.
+
+The test is the same one that commit c54e4d105077 ("drm/amdgpu: make
+Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
+0.  The VI quirk for the MacBookPro14,3 resets at load for the same
+reason:
+
+  commit b6b1d9721851 ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+
+Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
+
+Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
+up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
+resume fails every time.  The GPU reset path is not tested.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
+Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 60dd16ae10f286cb9cce5b6027b2d5ee869637af)
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261001135711.1640520-3-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: replaced unavailable pkvm_get_loaded_hyp_vcpu() with a NULL-checked lookup through host_ctxt->__hyp_running_vcpu. ]
+[ sashal: Replaced the unavailable MC_VM_FB_LOCATION__FB_BASE_MASK macro with its equivalent literal 0xFFFF. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/hyp/exception.c             |  5 ++-
- arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 28 ++++++++++++++
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h     |  2 +
- arch/arm64/kvm/hyp/nvhe/pkvm.c             | 43 ++++++++++++++++++++++
- 4 files changed, 77 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
-index 424a5107cddb5..e20979138305a 100644
---- a/arch/arm64/kvm/hyp/exception.c
-+++ b/arch/arm64/kvm/hyp/exception.c
-@@ -92,6 +92,7 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
- 			      enum exception_type type)
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index fd34c2100bd96..c63f1b7162d34 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1509,6 +1509,16 @@ static bool si_need_full_reset(struct amdgpu_device *adev)
+ 
+ static bool si_need_reset_on_init(struct amdgpu_device *adev)
  {
- 	unsigned long sctlr, vbar, old, new, mode;
-+	struct kvm *kvm;
- 	u64 exc_offset;
- 
- 	mode = *vcpu_cpsr(vcpu) & (PSR_MODE_MASK | PSR_MODE32_BIT);
-@@ -131,8 +132,10 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
- 	new |= (old & PSR_C_BIT);
- 	new |= (old & PSR_V_BIT);
- 
--	if (kvm_has_mte(kern_hyp_va(vcpu->kvm)))
-+	kvm = vcpu_get_kvm(vcpu);
-+	if (kvm && kvm_has_mte(kvm))
- 		new |= PSR_TCO_BIT;
-+	vcpu_put_kvm(vcpu, kvm);
- 
- 	new |= (old & PSR_DIT_BIT);
- 
-diff --git a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-index 4fdfeabefeb43..f55950ee2a7e4 100644
---- a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-+++ b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-@@ -13,6 +13,34 @@
- #include <asm/kvm_emulate.h>
- #include <asm/kvm_host.h>
- 
-+#ifdef __KVM_NVHE_HYPERVISOR__
-+#include <nvhe/pkvm.h>
++	/*
++	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
++	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
++	 * the vbios default, so reset and post on load to start with the
++	 * vbios layout.
++	 */
++	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++	    !(RREG32(mmMC_VM_FB_LOCATION) & 0xFFFF))
++		return true;
 +
-+/* Under pKVM a host vCPU's ->kvm is host-writable. */
-+static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	if (is_protected_kvm_enabled())
-+		return pkvm_vcpu_get_kvm(vcpu);
-+
-+	return kern_hyp_va(vcpu->kvm);
-+}
-+
-+static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+	if (is_protected_kvm_enabled())
-+		pkvm_vcpu_put_kvm(vcpu, kvm);
-+}
-+#else
-+static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	return vcpu->kvm;
-+}
-+
-+static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+}
-+#endif
-+
- static inline void kvm_skip_instr(struct kvm_vcpu *vcpu)
- {
- 	if (vcpu_mode_is_32bit(vcpu)) {
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index 82b3d62538a61..d8efb924d57fd 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -64,5 +64,7 @@ int __pkvm_teardown_vm(pkvm_handle_t handle);
- struct pkvm_hyp_vcpu *pkvm_load_hyp_vcpu(pkvm_handle_t handle,
- 					 unsigned int vcpu_idx);
- void pkvm_put_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
-+struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu);
-+void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm);
- 
- #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index fd3e0b2891c60..471cef3e29df6 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -258,6 +258,49 @@ void pkvm_put_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	hyp_spin_unlock(&vm_table_lock);
+ 	return false;
  }
  
-+static struct pkvm_hyp_vm *pkvm_get_loaded_hyp_vm(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_cpu_context *host_ctxt = &this_cpu_ptr(&kvm_host_data)->host_ctxt;
-+	struct kvm_vcpu *running_vcpu = host_ctxt->__hyp_running_vcpu;
-+	struct pkvm_hyp_vcpu *hyp_vcpu;
-+
-+	if (!running_vcpu)
-+		return NULL;
-+
-+	hyp_vcpu = container_of(running_vcpu, struct pkvm_hyp_vcpu, vcpu);
-+
-+	if (vcpu == &hyp_vcpu->vcpu || vcpu == hyp_vcpu->host_vcpu)
-+		return pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
-+
-+	return NULL;
-+}
-+
-+/*
-+ * A loaded vCPU's VM is the hyp VM. An unloaded host vCPU's is mapped at
-+ * EL2 only while pinned, so it's read once and pinned; the pin fails for
-+ * memory the host isn't sharing.
-+ */
-+struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	struct pkvm_hyp_vm *hyp_vm = pkvm_get_loaded_hyp_vm(vcpu);
-+	struct kvm *kvm;
-+
-+	if (hyp_vm)
-+		return &hyp_vm->kvm;
-+
-+	kvm = kern_hyp_va(READ_ONCE(vcpu->kvm));
-+	if (hyp_pin_shared_mem(kvm, kvm + 1))
-+		return NULL;
-+
-+	return kvm;
-+}
-+
-+void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+	if (kvm && !pkvm_get_loaded_hyp_vm(vcpu))
-+		hyp_unpin_shared_mem(kvm, kvm + 1);
-+}
-+
- static void unpin_host_vcpu(struct kvm_vcpu *host_vcpu)
- {
- 	if (host_vcpu)
 -- 
 2.53.0
 
