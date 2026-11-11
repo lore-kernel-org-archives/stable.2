@@ -1,66 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403652;
-	b=2BckSV8W+DnHaqn8Jy8u7t9MAVfaREE3qRfWPz5nMr2l+4oE9Z6Hv46e9iR/LtkKaRxS
-	 EVaGN4enI30VtufetTRKtXejX6l5mUtxJIWOvF9knDv80ev77GrsD/9T4sdOtKy3HP+uf
-	 hyYau5B839PKN0eIAffmu2an0aEtHn9XVdQjChlKktNfkkEjCi2+hxp4Ohm38CkVD/+E5
-	 OzXrERQBEeEwub24Cmq9rufnwc/xYmVnTJ+r0Om6wE0v7kWo8pwaa7gwXbmqpwUN1X9T6
-	 ecWWsIRA7xwcEaDE87hoN3AQ7JhhpLx5KY44lQizP9DBvspUTdV+m/F4Bc6SxqXEVXQ==
+	t=1794403691;
+	b=sLDPRrPwgqSUKZVYOOIdr7QUkmTPhAgZG3fwlRlI+USXz5eLNmjhf2XCR2YqmCJ3cuba
+	 pOCJEjuCJ+SWcJMrz7Ewp+oVlkRucB0aK4yoeCCJJz98uD5M3DWCwMOBkZcMTsSIKEL4K
+	 50C91RrZLtOu8FfokEwot3Glbhmo6bN95Ic8Fx6pOQ5exlcmfsZ247SDWOy8/AOqKbgUt
+	 Q00aD8mdaheBCST5H3DUxGV+43xGSCnLqUmFQXaB5LtZE9KrGfMEx1x6HLnwHTupMOvuQ
+	 9A4c1+bP80ot9IMm+JTxAXUrTRfC84p2JjcneCmkH/TfJL++9xTUuJ+03QSrOiZrF0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403652;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QARJ9VnXof6HJ9uLpTgA/dcgK7wuqKGET9OKvLKfK0A=;
-	b=jwElksHMowaKBo11z4jB+jCGYOZ47LPBHI6dJPqIKtFDlaqnS3sWu/FT6P+slPVmkeuo
-	 08Z8Uepnq4Fm3SEnkdOmnQPOjUgoTFnIfQCYha225bh4Ff2gpMJXv96u6aDoDJOVlpQMh
-	 53dQ4v2XQvUGr9rlufg0Tiy5lYcG6YozpJn9+7gUy31OZd3D35H/3H+V2BtOPuLNNf+p4
-	 uc9KgQRTSAmzIdYzf8A6qbQLHxhd+6KMzGiAulUROBQrslfH1ZlfOeLhLZVFoz/UoFJaS
-	 E2MFMo2fqk38ypRhvuqrsHuIqr1Rn0yTIQsWbeIMy4BeNyUnVYNRyubotxHWnNT+uIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403691;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9yzvDp9V72dMlAIfM00c1rGjJ9jmhjSG6zJg+AYgebE=;
+	b=wPSMFL7INOqKY/Bi4iImBwKgqxzK+MPsjb6uTPOKiwiZJkJp62Mg6xRJkAfFmmZKtfJ+
+	 YQKAGJks0kJKwNQQnx8LQZE1mCMc9jHvPteMck3gygFcYaGPZTL1SCFUILE8APYU8DHIH
+	 oQayBx3BvjNtOFxbD10frDHEjX7SpyDUNOQ1djLMJav/LACJ+e88yI1rWzU+zFSus0xxp
+	 ghIUb0827uYbPmuLyRJ7O/Hud0ws4JtYOkM14qGhAYXX0GQBh9jBWr1lyVwdthqLeH+Cg
+	 qzOLl9HXRqHwddrWqrWevktNOi4fRrtVcvlFBgbln7QusdNGr1CY2OBEKkMWaYfXtvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o2UKwsxk;
-	arc=none smtp.remote-ip=91.218.175.119
-Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqMHcqWN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D87606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:27:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73D87606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03291606A321;
+	Wed, 11 Nov 2026 13:28:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o2UKwsxk
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Daw104zmP1RB35pXgHiVT+Xk8Kg2ZKvLmXr7A5kKaYI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794403649; v=1; x=1795008449;
- b=o2UKwsxkvJGeMTEWYDG4Uo41/+wkiOeRt6xr5x5DLGasstkKobWbOUbYFA1Fhb8olMOYsSfc
- GS4CJ2E3bA5zmOHtbHUY42sfOcdPYjoVnweCBTB7YeuOKCxYglKtGkSeuM/yNUaRE5FPEsmWGHn
- vUBYorgDq2tNKm07pPEm5wJ4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bdbab32ef129d0ac;
-	Wed, 11 Nov 2026 13:27:29 +0000
-X-Mizu-Trace-ID: bdbab32ef129d0ac
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: stable@vger.kernel.org
-Cc: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
-	Lance Yang <lance.yang@linux.dev>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: [PATCH 6.18.y] khugepaged: fix readahead lock inversion in collapse_file()
-Date: Wed, 11 Nov 2026 21:27:18 +0800
-Message-ID: <20261111132718.89181-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261109200523-failed-6.18-eadce52a9ef6@kernel.org>
-References: <20261109200523-failed-6.18-eadce52a9ef6@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqMHcqWN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC7B1F00A05;
+	Wed, 11 Nov 2026 13:28:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794403690;
+	bh=9yzvDp9V72dMlAIfM00c1rGjJ9jmhjSG6zJg+AYgebE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nqMHcqWNioXm2Og6tdRJrkWbKwC0ujOefOXYCjxvh+lkZt7of1xvfeQt+q+zjLgQU
+	 BUyh1Sr8huHwHJuA1ivTE7cvYTdM+BgaI2OwUooGuWdAHky+HVMV3xKJViN+hvdkvF
+	 pI3Bqzmra/TY1QWhDj4QwW4e+DtPnkldM+RbLq8OA5GJnYfJ2C4HPyw8lIiaKAqC9F
+	 UE++pRPBavhCP4PL709OT8SVK1uHUyQn48DrdttkxZfWS9yluYKPztivIpKSF51b8K
+	 KM4d9OvPM8RqXr5VPhokRc/U/EA/VHCCii1pyiGbT5ZQPYADURSLCyL7Yt6lLAanPk
+	 EA77fMI7dyxFg==
+Date: Wed, 11 Nov 2026 13:27:59 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
+	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
+	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, matthew.brost@intel.com, mhocko@suse.com, 
+	pfalcato@suse.de, rppt@kernel.org, surenb@google.com, vbabka@kernel.org, 
+	ying.huang@linux.alibaba.com, ziy@nvidia.com, kas@kernel.org, hannes@cmpxchg.org, 
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
+	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 2/3] fs/proc/task_mmu: don't read young/dirty from a
+ non-present PMD in smaps
+Message-ID: <avRtKQUdo_oEqyow@gremlin>
+References: <20261111113904.650722-1-usama.arif@linux.dev>
+ <20261111113904.650722-3-usama.arif@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,137 +65,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111113904.650722-3-usama.arif@linux.dev>
 
-collapse_file() can call page_cache_sync_readahead() while still holding
-source folios locked. If truncate holds mapping->invalidate_lock
-exclusively and waits for one of those folios, readahead waits for
-invalidate_lock and neither side can make progress.
+On Wed, Nov 11, 2026 at 03:38:30AM -0800, Usama Arif wrote:
+> smaps_pmd_entry() passes pmd_young(*pmd) and pmd_dirty(*pmd) to
+> smaps_account() for every PMD, including migration and device-private
+> entries, where those bits hold part of the swap offset rather than
+> accessed/dirty state. smaps_pte_entry() only reads them when the entry
+> is present.
 
-We need to release those folio locks before starting readahead. On a page
-cache miss, roll back first, populate the collapse range, and retry once.
-Doing readahead after rollback avoids an extra pass when all folios are
-already present. If another miss occurs on retry, give up rather than keep
-retrying while truncate or reclaim removes folios.
+Could say something something softleaf here ;)
 
-Keep page_cache_sync_readahead() and wait for read I/O with
-filemap_lock_folio(), releasing each folio before moving to the next. The
-existing uptodate check during collapse still handles read errors.
+>
+> On x86_64 the offset is stored inverted across bits 9-58, which overlap
+> _PAGE_SAVED_DIRTY, so pmd_dirty() returns garbage: a clean 2MB
+> device-private mapping is accounted as 2048 kB dirty, and lazyfree
+> accounting is suppressed. pgtable_64.h also warns that the hardware can
+> set the accessed and dirty bits on non-present entries by mistake.
+>
+> Only read the bits when the PMD is present.
+>
+> Fixes: c94b6923fa0a ("/proc/PID/smaps: Add PMD migration entry parsing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Shmem uses shmem_get_folio() for swapin and fallocated folios without
-taking mapping->invalidate_lock, so it is unaffected.
+Damn, yikes. LGTM so:
 
-Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Link: https://patch.msgid.link/20261026152013.10511-1-lance.yang@linux.dev
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-(cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
----
-Backport to 6.18:
-- 6.18 still takes invalidate_lock in collapse_file() after locking the
-  source folios. Use filemap_invalidate_trylock_shared() and roll back
-  on contention, otherwise the same deadlock is possible even after
-  moving readahead.
+> ---
+>  fs/proc/task_mmu.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 22361607020d1..c0d391186c2b8 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -1019,13 +1019,15 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+>  	struct vm_area_struct *vma = walk->vma;
+>  	bool locked = !!(vma->vm_flags & VM_LOCKED);
+>  	struct page *page = NULL;
+> -	bool present = false;
+> +	bool present = false, young = false, dirty = false;
+>  	struct folio *folio;
+>
+>  	if (pmd_none(*pmd))
+>  		return;
+>  	if (pmd_present(*pmd)) {
+>  		page = vm_normal_page_pmd(vma, addr, *pmd);
+> +		young = pmd_young(*pmd);
+> +		dirty = pmd_dirty(*pmd);
+>  		present = true;
+>  	} else if (unlikely(thp_migration_supported())) {
+>  		const softleaf_t entry = softleaf_from_pmd(*pmd);
+> @@ -1045,8 +1047,7 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+>  	else
+>  		mss->file_thp += HPAGE_PMD_SIZE;
+>
+> -	smaps_account(mss, page, true, pmd_young(*pmd), pmd_dirty(*pmd),
+> -		      locked, present);
+> +	smaps_account(mss, page, true, young, dirty, locked, present);
+>  }
+>  #else
+>  static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+> --
+> 2.53.0-Meta
+>
 
- mm/khugepaged.c | 49 +++++++++++++++++++++++++++++++++++++------------
- 1 file changed, 37 insertions(+), 12 deletions(-)
-
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index cc3a09a0c259..fd2c6d92b0b1 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1867,6 +1867,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
- 	int nr_none = 0, result = SCAN_SUCCEED;
- 	bool is_shmem = shmem_file(file);
-+	bool do_readahead = false;
-+	bool readahead_done = false;
- 
- 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
- 	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
-@@ -1878,6 +1880,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 
- 	mapping_set_update(&xas, mapping);
- 
-+retry:
-+	result = SCAN_SUCCEED;
-+	do_readahead = false;
-+	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
- 	__folio_set_locked(new_folio);
- 	if (is_shmem)
- 		__folio_set_swapbacked(new_folio);
-@@ -1942,17 +1948,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 			}
- 		} else {	/* !is_shmem */
- 			if (!folio || xa_is_value(folio)) {
--				xas_unlock_irq(&xas);
--				page_cache_sync_readahead(mapping, &file->f_ra,
--							  file, index,
--							  end - index);
--				/* drain lru cache to help folio_isolate_lru() */
--				lru_add_drain();
--				folio = filemap_lock_folio(mapping, index);
--				if (IS_ERR(folio)) {
--					result = SCAN_FAIL;
--					goto xa_unlocked;
--				}
-+				do_readahead = !readahead_done;
-+				result = SCAN_FAIL;
-+				goto xa_locked;
- 			} else if (folio_test_dirty(folio)) {
- 				/*
- 				 * khugepaged only works on read-only fd,
-@@ -2090,7 +2088,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 		 * in do_dentry_open() truncating the page cache. This is
- 		 * particularly important if there are dirty folios in transit.
- 		 */
--		filemap_invalidate_lock_shared(mapping);
-+		if (!filemap_invalidate_trylock_shared(mapping)) {
-+			result = SCAN_FAIL;
-+			goto rollback;
-+		}
- 		filemap_nr_thps_inc(mapping);
- 		/*
- 		 * Paired with the fence in do_dentry_open() -> get_write_access()
-@@ -2291,6 +2292,30 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	new_folio->mapping = NULL;
- 
- 	folio_unlock(new_folio);
-+
-+	/* Readahead may take invalidate_lock; source folios are unlocked. */
-+	if (do_readahead) {
-+		for (index = start; index < end;) {
-+			folio = filemap_lock_folio(mapping, index);
-+			if (IS_ERR(folio)) {
-+				page_cache_sync_readahead(mapping, &file->f_ra,
-+							  file, index, end - index);
-+				folio = filemap_lock_folio(mapping, index);
-+				if (IS_ERR(folio)) {
-+					result = SCAN_FAIL;
-+					goto out_put;
-+				}
-+			}
-+			index = folio_next_index(folio);
-+			folio_unlock(folio);
-+			folio_put(folio);
-+		}
-+		/* Drain the local LRU batch before retrying isolation. */
-+		lru_add_drain();
-+		readahead_done = true;
-+		goto retry;
-+	}
-+out_put:
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
--- 
-2.49.0
-
+--
+Cheers, Lorenzo
