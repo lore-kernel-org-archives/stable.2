@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794368050;
-	b=QyE+tkOCB9CAWHAojahkzqt9oOEJeIYArb+2HFleOQebF26va+XLhkV8Z8P2L0P7aPRC
-	 BWfpEcjmqpGom9TPCFqxGvlT6fAchFa51Ud1BBeYO8Sd8jK2lj567Xp4A4A8mj8oOWFGN
-	 w7PFdSDbflRpdM9hGJGBO2DRajAM2faem0jrubGluY2OnuC3N5JWvmZf41iaEyTskhlda
-	 cATFu5I/qAov/9ljmo6sxLmRg815DB1IciJ/RC3tE04eodiae/7PXMPDUm1Vx0EYkfpM2
-	 cdLK7gMlFGoydoRJvwyaTsi40iXbfnrbLyiShrSr73mGsPGt03SnY3Rz7Qie9+uAb/Q==
+	t=1794368060;
+	b=nkH43XVg5Xh4YOn2jYuW62xqczlX6qxUKNKnLpBZb3UP31A9Y34famwFWLkW6H420Eq5
+	 cdZ4bfVhbUj+5YAzRY9qwk95y95D1CSUsG2JJ8cWjHwyVJAi7lw4gBemI3ys24s3ZpSqD
+	 xRlsz7H8xMJ1I0lovZrYBdpGpkiKlJoF3jWuiznII5pVvI095HO3W3xjC2HSJaFLis0Kt
+	 0lIGtqI5ybIDrvSt5/wPw6hmpzcISWo7bkKTeU6nDOMFQj7dMjbzL/+Tg8pBMAGSx3UHd
+	 Exva5fKTviIUbKYZpbaayd9Fc3eXkYllMweKLN4kVkEWdSVQknhq/0wl7Je+pxrPNlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794368050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794368060;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
 	bh=V+M/f6mVh6jxfTVe/Ebx6CPlmmG/gPSQ6YtXy0KYSZo=;
-	b=OlHkmb9QH85C6g5/oDC0Xx/1tdktANxiriEqT7By5L8vmm28j5MPxX03BTXtytQRexFN
-	 nBKf6M3btiPXIuVWT4P/bW/eyvu5iFtWvH1esAyG6M1FV8C8gZcjjsazy5y3P2cqeNRkY
-	 E6tcwmwHeAntZanm6YuNM1a/wWz1fOp2wHlvv6pDHRC5OK/bDrrE+mPs7QTExyvxpglnU
-	 hphR2mZ4mXxqQP3ojtxNZ1zUS8fbTYQ0oaPiSzY3JqD86JSA88/FBi/6w0N3sK9pfFs6L
-	 tXYMucrCmrQ/TNhpMwNcC4hZL8S+VZXHdlHO4J2Vuaklp5irJDiTbynVg6+7Vm9QCAw==
+	b=MGsWW2X3ZKzbje15rc/MCgk5UOG4BozUmpR2nA8BVfQMN8/q2x77Dcse7+K3hGolY72z
+	 aiAvJ0z+r47YS2gMQFhq0wp7pj9CDQ1J1rDypCFe3BQMz/SqpLqzxbCX7XU3+CuvAFKZ9
+	 ubzGg689IxyPIs4RLdR56yqnzNqt49af0xKkBKomqNJre5xsFM9vt6SIT6JMbHykwIIwX
+	 2+/fYOjgrIY7cn5HprRznzEZLS8308togL6fHcy6pL8p/L3CDdjJ3ahMjWJEEH/zpYdBY
+	 dGzIFsbtJtpMQKnNRN5qopaCzbURKMtwBmMeeO8AL3v0Q+IyQLnz4KJqQw9nrThsJZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.xidian.edu.cn;
 	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
 	arc=none smtp.remote-ip=162.243.164.118
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D56C6606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:34:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D56C6606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7ED57606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ED57606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
 	Message-Id:In-Reply-To:References:MIME-Version:
 	Content-Transfer-Encoding; bh=V+M/f6mVh6jxfTVe/Ebx6CPlmmG/gPSQ6Y
-	tXy0KYSZo=; b=6HiB4PeW/jwFbWvwZWY4Ryq3ShE49lMLy4ERpa8E38R0I+dAhl
-	97hjmbwL7FtpuU3BZwKR5z5AJWPixbgxkdCkV92Rs+a/l4kwh+sW/V3TfuAnVc/Y
-	wptjrxbNb3LfiqoYb4StCqmhgYbZwl9+5L35/oXdFiZy7tX932E5wR9kk=
+	tXy0KYSZo=; b=ghOsuyHcs27TUJ2wUN9Ay6xydtU2uPInxQ1Ar7kFFVygQTdHfG
+	IsXVVNX1nDF1HuMvFvskZft2dGm3ZHfj4aCPCvh+yNdTUHw3GD+5MWNjJs4EyRee
+	6GfFF+Uu0hLx1Mjw0ty9rFcZJqCI+pyRDJifohRiAny8L6CsvCIFjSchM=
 Received: from user-virtual-machine.localdomain (unknown [113.200.174.33])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkB2uP0m4vNqakhyAQ--.59640S2;
-	Wed, 11 Nov 2026 11:33:58 +0800 (CST)
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkBGSv004vNqt9JxAQ--.43297S2;
+	Wed, 11 Nov 2026 11:34:13 +0800 (CST)
 From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: stable@vger.kernel.org
-Subject: [PATCH 5.15.y] ALSA: usx2y: Refuse a retried DSP load after a failure
-Date: Wed, 11 Nov 2026 11:33:58 +0800
-Message-Id: <20261111033358.14851-1-25031212351@stu.xidian.edu.cn>
+Subject: [PATCH 6.1.y] ALSA: usx2y: Refuse a retried DSP load after a failure
+Date: Wed, 11 Nov 2026 11:34:12 +0800
+Message-Id: <20261111033412.14904-1-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109202438-failed-5.15-1f8101b6adc8@kernel.org>
-References: <20261109202438-failed-5.15-1f8101b6adc8@kernel.org>
+In-Reply-To: <20261109201942-failed-6.1-1f8101b6adc8@kernel.org>
+References: <20261109201942-failed-6.1-1f8101b6adc8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,24 +56,24 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkB2uP0m4vNqakhyAQ--.59640S2
+X-CM-TRANSID:BbQMCkBGSv004vNqt9JxAQ--.43297S2
 X-Coremail-Antispam: 1UD129KBjvJXoWxAr1UAr13Kw15tr43ZFWrXwb_yoW5Gry7p3
 	909rWDtrWDJw4qga1DXwsFk3WFywsYyFW3JrZYyw18Ar1DAFyfCryFgw129r42yrW8A34F
-	qFW2qr1UGFW5Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	qFW2qr1UGFW5Cw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
 	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
 	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
-	15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
+	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
 	r41lc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
 	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
 	xVWUJVWUXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
 	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
 	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
-	uYvjxUyoanUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUOD2rzM1Z-AQACsF
+	uYvjxUyBbkUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUOD2rzNcaE+gAAsS
 
 snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
 the interrupt URB when the FPGA firmware image with index 1 is loaded,
