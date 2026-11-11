@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794358153;
-	b=4x9MxH7KPvfl1gObRrRRy68M7WzlMjn0q2Vakrb+PqAUX1eZeFf7HSRlez3litCx6VN6
-	 zWSkrcyO1d9G3+FBuduA3vbo8sdi41lX21ZuPyBsXkJKHoxYCsF6K4JoWggTVchXc+Iem
-	 Khjn2clLzkBFmlDblMLczvvyO4L4uub/NQ93XFLIYxVFClKyi9TffdKUKhJd9KcHKft1f
-	 EpGz5mVFcJX3wXaf7EadLRHksibWCmcZSmrbU7iSKXeqrPGMB+r5YqUKMzefetVoZET3n
-	 Xq7b9/6zGLxOndpE4OhYNELmleTJ9KrhIAUikfmUwweqrT3XibhcN9K7dOy6pTJ2ebQ==
+	t=1794358207;
+	b=v67XvonSUIOHNRAUCrZmhi5qD0zx8MXN1R13CNZCh9nUxQiN2xEeECUSrZDxK7rVBC9w
+	 1gBuhZFnQclZSjY08v/KoXAS3pUCwDTpsptBdhyRstRzeyKqtz2v+j43X4ZLcOc3NnOzu
+	 jiyW9HSdOt7bahHdqrEmgNq/mjt8qFPXj78XmlaEPgGk4f5QQAhMvoQOU+yXhyNqbA2vY
+	 +ZPhq3Lioj4epNM+sRs8ovBXa52d3zTPhpsZlYCmxuPSM/7+ETAn2fe4Nxb8XdkY+nyzM
+	 ZyTe+cs1XSNexx4AEGZ59XUg2uy+B2gqinxh9hrNQoisG6aj1gY9i3sdEgt75JLnx3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794358153;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:
-	 X-Scanned-By;
-	bh=xtnCeg/8KyCVflxN5Slzje9tkyEmRVFC3OaNifpvhos=;
-	b=eFR5N4cQVM3rMIxIy1MDL3E/CWTFEuB//G8EkyZ0WMdbSjbic+WvxtEcH5SETZRRm7FW
-	 KMswUiihaaizxAoypdPY0HFTgkVBZy0wXTxUlZDQvJT6Mv8HAABRlyy35WAoieHDLvGgj
-	 jPL5wHj2ndRt8F2eA+ulG9RMnc12GQTiBIsbCYtucscxo9633PWP+Yjx+mfUuqCLTtsmp
-	 DNgC6fds+Z+r5t2X4kf7bhL02rZfmq5RB0hWLxXfE5XHRMm/aH6zDMNCQCz4DC+mxUyc2
-	 Wi1bfdj+kZ28HXUdOr26NeezGbKw9utMJC0sytZu4OhunwmIqi3+7X5QqQ3blZYA7PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794358207;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=d5faOEgw9/xCBeRgP4qFBQ9+iauNTkgah4zQf/hKjwc=;
+	b=pVaytooKu44mWGMCQK307xlt/oPvFOto674+3Olzs2eEqNO7a8W2tXAvs2DIhc/G3Pp5
+	 hdCL5LjbVUI87Bora75BM3TXZPlRQfLmRW4n00AXVfX5LGdojK85sV9M5t7ODvjwgnsTy
+	 y3hpeJXffAbEHo3opjXRYXN1xT54NEkYWK9m7QdaBq9JMkWTzyV23d7yDWsn1wjAR3jqz
+	 x0BbkkDP0/yp0kERK6MAuMD0wopXzu7TUaDe6UfaTDawshopk2V+uMvu4rO3dOvA7KFMU
+	 O+tx4iXK97Z5iIH/v5Olh0SPAAG03io3iA5GbR/7F+N/srBOPeEdGwDelsg7wXnDL1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JvTVVviB;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neVdYXZw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A15606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39A15606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F20606A31C;
+	Wed, 11 Nov 2026 00:50:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JvTVVviB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794358152;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xtnCeg/8KyCVflxN5Slzje9tkyEmRVFC3OaNifpvhos=;
-	b=JvTVVviByu6FwakeIwCfacyJ3KYUBuw17RZ9IJyTs9IwDkpldkSAVHnXB1f/LopExzjbSL
-	dDSsRhEIWPum8HOSmmqOf73jNTHUOeEWT7kcyE50SBpVk3Y9ZTNDORz2oRPEWRKVr9OMv9
-	7PcimcYm5bu1FiiAE0y9jn9k+/9A3Jg=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-159-g2umW1eiNc2e44EyTvZTRg-1; Tue,
- 10 Nov 2026 19:49:08 -0500
-X-MC-Unique: g2umW1eiNc2e44EyTvZTRg-1
-X-Mimecast-MFC-AGG-ID: g2umW1eiNc2e44EyTvZTRg_1794358147
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 768B81800344;
-	Wed, 11 Nov 2026 00:49:07 +0000 (UTC)
-Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (bmarzins-01.fast.eng.rdu2.dc.redhat.com [10.6.23.12])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E30DF195608C;
-	Wed, 11 Nov 2026 00:49:06 +0000 (UTC)
-Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (localhost [127.0.0.1])
-	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.17.1) with ESMTPS id 6AB0n5bR1047766
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 10 Nov 2026 19:49:05 -0500
-Received: (from bmarzins@localhost)
-	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.18.1/Submit) id 6AB0n5vm1047761;
-	Tue, 10 Nov 2026 19:49:05 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Mikulas Patocka <mpatocka@redhat.com>, Mike Snitzer <snitzer@kernel.org>
-Cc: dm-devel@lists.linux.dev,
-        syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com,
-        stable@vger.kernel.org
-Subject: [PATCH] dm-integrity: initialize journal accounting in dm_integrity_ctr
-Date: Tue, 10 Nov 2026 19:49:05 -0500
-Message-ID: <20261111004905.1047753-1-bmarzins@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neVdYXZw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B5691F0089F;
+	Wed, 11 Nov 2026 00:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794358206;
+	bh=d5faOEgw9/xCBeRgP4qFBQ9+iauNTkgah4zQf/hKjwc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=neVdYXZwsoWzXbS0Ns29tqjDabZmucPjU3doSpLTzSh5AnhvIqT3+tdKRb8a2soVA
+	 AGOuquDi8QwqSg3q2RLbUn5CGHLx4Av8R2iCg9iAN1VW2f4worR6QUw0kLgJvRW/XU
+	 9UMqbiTe8wN4YJP0qm/HGKmgSESg01HRfSsbeu9242FFnec1+hTJvdcF9941GqldwN
+	 dFtFV9AjY0F7+j5cML5EupPlJPwA+GpXxwe083+SjOOVSQdmVwoGmGkS6ufj6SfOtv
+	 WrmjRVw/EV6ltRQTuJM3MfvbWCMlJ2euECeTan4V1ybmNjoWxTPovOdmqMaciqSel/
+	 fRBfMQiGmEBIA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E08639E8A55;
+	Wed, 11 Nov 2026 00:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,48 +54,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Subject: Re: [PATCH net] cipso: stop modifying live ip_options_rcu
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179435820518.142717.5535232865040780378.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 00:50:05 +0000
+References: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
+In-Reply-To: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
+To: Jann Horn <jannh@google.com>
+Cc: paul@paul-moore.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, jmorris@namei.org, serge@hallyn.com,
+ horms@kernel.org, stephen.smalley.work@gmail.com, omosnacek@gmail.com,
+ casey@schaufler-ca.com, netdev@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+ selinux@vger.kernel.org, stable@vger.kernel.org
 
-If the superblock for a dm-integrity device is changed while the device
-is suspended, it will resume in a failed state, and skip
-replay_journal(). If this happens on a journaled dm-integriry table's
-first resume, replay_journal() will have never been called, and the
-journal will be uninitialized. While nothing can write to the device in
-this state, integrity_commit() will be called if it receives a flush
-request as well as on suspend. Even through there is nothing to commit,
-pad_uncommitted() will check that the journal accounting is sane. This
-triggers a kernel warning because the accounting was never set up by
-replay_journal(). Fix this by setting free_sectors equal to
-journal_entries. Since all the accounting variables are zeroed when
-creating the ic structure, setting free_sectors is all that's necessary
-to mimic a cleared journal.
+Hello:
 
-Reported-by: syzbot+94dac3c75477e184f0b0@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=94dac3c75477e184f0b0
-Fixes: fc79aeb86a2c ("dm-integrity: validate the superblock on resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- drivers/md/dm-integrity.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index 1659a11a1a29..419a8b958371 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -5430,6 +5430,12 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
- 		if (r)
- 			goto bad;
- 
-+		/*
-+		 * initialize journal accounting like a cleared journal, to
-+		 * handle a changed superblock on resume, where the journal
-+		 * is not replayed.
-+		 */
-+		ic->free_sectors = ic->journal_entries;
- 	}
- 
- 	if (ic->mode == 'B') {
+On Fri, 06 Nov 2026 22:40:31 +0100 you wrote:
+> cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
+> socket, and tries to remove CIPSO options from the middle by moving all
+> subsequent options.
+> That's not allowed - ip_options_rcu can be read locklessly and must always
+> be consistent. For example, ip_options_undo() reads trusted offsets and
+> length values from the options buffer.
+> Fix it by doing the modification in a copy.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] cipso: stop modifying live ip_options_rcu
+    https://git.kernel.org/netdev/net/c/1f2c5183fc09
+
+You are awesome, thank you!
 -- 
-2.56.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
