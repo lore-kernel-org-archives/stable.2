@@ -1,81 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356633;
-	b=B/8GmQmBmDDf/AbFMrLUzuJKhNWe665jwWFiHLw4wCzj0CCzYC3NSVk31A6Gdjx6w2MV
-	 K0bPNHXjCii+S1U593hsBvYu8ofUgCHRKjSH+ShnglHABKgPnvIXGL/dUxCmlCbuOUEnQ
-	 XOys3877doaUyYsu2kLPHCbzW7qjN+HtF7n/OrXfUOhZ16WzVP9a9PhVDugzZsPrye2S7
-	 ZAdb07hwxh7IjewogWwrYWPe1pHn1PdfuV2vyyhmHXihoM2st+M8ug/Qf0kS8cuxYrtXQ
-	 Fg6N39Dr7RT+Qar20iOoaT63vhPotnw7+CR9eg8gANBx6FXLPinZv229wvP5r+5zHIA==
+	t=1794356767;
+	b=qXcCIpbKl+Ze2y8+pfgf15+9eSH//ZcS7Z/VgaZYaYgmKawsEIj46vDs9GjVzEAWazpg
+	 FC2WqZoDwPTenm3q+eGH2sPSWxKIKKCUboObTBWbf/QT/HX8uvrZLGn15QnUhNo98yV7E
+	 UtUxM7S/Cr+b8l2iaWDAApzIMMB7Lu6Scx3Vm3O3ZIr8c+Bzr2EYOn2SXlFZKHymWV8tS
+	 yIsVc+mZOqW57ZaqmjxklxKCe1t+BOwj9RqFZt/XAopHCasDbsFwyqNKkPFecfeI7DINb
+	 goZ+X5QQl8t6z4pKwH0hEigDAf6xQevzFoCWmpJX4tkhOdl3DewFduTrR/fF+wgoRHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356633;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356767;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/jqsQx//57Km+wTcF4mtArZYDImIFskYwPOlHgb7KLA=;
-	b=0zPLSzwaITaIPgAVpvg81qt7Exk5ipUPw5obaFKs/q+VT7wG0yfh5q6fc0hWNPFpRgbF
-	 fut92iSESiKLRZtKwxIFryQvJGMJaZsIJ0AnWsHQT5In0UxHlPSzgsI+f+2n0BBINxuC2
-	 a+LymMAVO/XRbyStO1tv8egzIS0I8Zwq1cBwXimDTXKICYioavD8N9eH9XsYFNSWGrBJ7
-	 Bu8XS0tDncB3ZwA3SWYEVHwye8/L/f4XHjLoc7CK/Ix8tmfTUIh7uo4Ubm6IZ5ENpBhjV
-	 bTXtRI5I8p/TZlrUKEAK588F1d4chSdB2+jV7PpPx/OCUU0aNiSnv8YqfGqs1PCx57g==
+	bh=PCjIWuc0VWpQkw6vOx/bUK+eJ+5cygz7dQMaILfWO/Q=;
+	b=2CYyWv9w6HNco0JorjntqPGq35fQvku6K3yJs9FxmaokFHum7igZmh0raNjqAeq8023Q
+	 q5nZ+ZUDgPLsyNY9GVP0EM2nsAv5FQoTWZ68eRAJupuhkhvG4V39Yy9o9PHLRAOgiDMEp
+	 spZNa+gBeZWf+mGCJ5u6JecABlLCmkA4DzplX9agwexRoPtLEb3KSWX6G11hwQIqVqucL
+	 IlIYO6CL8VeelE1RNeIUp2kPLpDTYOMSU+UBX30U54bZa+AWhNr+IoL0SkOiOdDmT0kzl
+	 UQv95VaDBeLDBxHaPAlkGvJAtw2MmBDZh2zZeDR2o2fcK+pE65ehqODtmGlqO0xGcjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWumpYEe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzqPKv0y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B29606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:23:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243BE606A333
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EWumpYEe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AF21F0089F;
-	Wed, 11 Nov 2026 00:23:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzqPKv0y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0B81F0089F;
+	Wed, 11 Nov 2026 00:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794356632;
-	bh=/jqsQx//57Km+wTcF4mtArZYDImIFskYwPOlHgb7KLA=;
+	s=k20260515; t=1794356766;
+	bh=PCjIWuc0VWpQkw6vOx/bUK+eJ+5cygz7dQMaILfWO/Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EWumpYEek6V15ldiKDd4mM9mtkkSRfM1SW3lku9VhpAMSouG5S283lYZZfF0ohRFK
-	 zAI72E0R7+5oQ4C/ZHS/f8wenxSmp9SRdunxv2csN1sP0IoW9SkyNgC0rnJLXMqH9D
-	 e7KP6RSr6bRseDGXV47TT6EHQOSxkThl15Ai7LjOJvATmx+plXt7WSgcKHsSjqxtPh
-	 42dnKgG6ZisJk0QQGbppScnmMPPBaTMOaRaOByTwDPX/f7xW5rkxT0e4Kw9lhXk1sT
-	 yx5uggZL0IUMqWClkPOvckas+UiXJ6IKjbd+NS3F/J8mPTEa9clKV/pF8BU2L5gCxa
-	 +9MsWDVCt8pLA==
+	b=QzqPKv0yEw+YKWKrCfz+vxCbz+MKK+MHGu0/jZAFJWdeQ6XEetEhYPWT3j541LulK
+	 OvHt9Cy8EqPJcXh7r523LIh/nQsvkanWMYybKNUi2/Bs3125PqJ3kWZ31hQ4+36LJZ
+	 xie6eGZMQNproNMO1LgQ1S14pFto8e9oG8H0iz0UoF9KBVfr/9ANgUe86yCEBA6fLd
+	 soqIZy2fuSdeumSPjSY/Boj6wY3xIUSkpVGpJLSeg8m5xabBu+/mwkUrBA0QLVGQfd
+	 T3Ll037zMx2r3n8i2bDvahFYmBi/j00oIZEz9sI4HIR4PLfeUwAgeoaROHLObNtjZN
+	 bIX8cT73jEiZw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ackerley Tng <ackerleytng@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Alex Shi <alexs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Frank van der Linden <fvdl@google.com>,
-	Hongxiang Lou <louhongxiang@huawei.com>,
-	James Houghton <jthoughton@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Ma Wupeng <mawupeng1@huawei.com>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
+Cc: Wentao Liang <vulab@iscas.ac.cn>,
+	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm: hugetlb: return -ENOSPC on memcg charge failure
-Date: Tue, 10 Nov 2026 19:23:48 -0500
-Message-ID: <20261111002224.251188-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
+Date: Tue, 10 Nov 2026 19:26:05 -0500
+Message-ID: <20261111002104.251573-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050856-failed-6.18-956aeff185e7@kernel.org>
-References: <20261107050856-failed-6.18-956aeff185e7@kernel.org>
+In-Reply-To: <20261107050950-failed-6.18-6f165abe2b40@kernel.org>
+References: <20261107050950-failed-6.18-6f165abe2b40@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,94 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 956aeff185e7e16b989202bde0bb29859adba99d ]
+[ Upstream commit 6f165abe2b40ede71c98956cd74cd17c18505e75 ]
 
-Patch series "Fix bugs in HugeTLB allocation when
-mem_cgroup_charge_hugetlb() fails", v2.
+dmabuf_exp_wait_released() takes a reference on the exported
+gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
+dmabuf_exp_wait_obj_new(), which drops that reference after adding the
+wait object to the wait list.  When the wait object allocation fails,
+dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
+reference is never dropped, leaking a reference to the exported
+gntdev_dmabuf.
 
-In hugetlb_alloc_folio(), when mem_cgroup_charge_hugetlb() fails, there
-are 2 issues:
+Drop the reference on the allocation failure path so the reference is
+consumed whether the wait object is created or not.
 
-1. free_huge_folio() expects a non-refcounted folio and will
-   VM_BUG_ON_FOLIO().
-
-2. -ENOMEM is returned, causing an infinite loop retrying the fault.
-
-This patch (of 2):
-
-When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
-currently propagates this error.  This results in the page fault handler
-returning VM_FAULT_OOM.
-
-Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
-they bypass the OOM killer.  Returning VM_FAULT_OOM to the #PF handler
-without triggering the OOM killer (or having it make progress) leads to an
-infinite loop of retrying the fault.
-
-Avoid this loop by returning -ENOSPC when charging fails, which maps to
-VM_FAULT_SIGBUS, terminating the process cleanly.
-
-Make mem_cgroup_charge_hugetlb() fault handling use a common error
-handling path, the same handling used for
-hugetlb_cgroup_uncharge_cgroup{,_rsvd}(), which also don't trigger the OOM
-killer and hence opt to terminate the process with a SIGBUS.
-
-Link: https://lore.kernel.org/20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-1-4b4a8a19a7f7@google.com
-Fixes: 991135774c0e ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Alex Shi <alexs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: David Rientjes <rientjes@google.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Frank van der Linden <fvdl@google.com>
-Cc: Hongxiang Lou <louhongxiang@huawei.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Ma Wupeng <mawupeng1@huawei.com>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vishal Annapurve <vannapurve@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Yanteng Si <si.yanteng@linux.dev>
-Cc: <stable@vger.kernel.org>
-[ sashal: Adapted the change to alloc_hugetlb_folio() because hugetlb_alloc_folio() has not been extracted. ]
+Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+[ sashal: Retained kzalloc(sizeof(*obj), GFP_KERNEL) allocation context instead of kzalloc_obj(*obj). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/xen/gntdev-dmabuf.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index bf1188e9b1c9b..2a79a3663bbc9 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3134,7 +3134,11 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 550980dd3b0bc..5d38506a14f44 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
+ 	struct gntdev_dmabuf_wait_obj *obj;
  
- 	if (ret == -ENOMEM) {
- 		free_huge_folio(folio);
--		return ERR_PTR(-ENOMEM);
-+		/*
-+		 * Return -ENOSPC, since retrying the fault is futile:
-+		 * the OOM killer is not triggered for HugeTLB.
-+		 */
-+		return ERR_PTR(-ENOSPC);
- 	}
+ 	obj = kzalloc(sizeof(*obj), GFP_KERNEL);
+-	if (!obj)
++	if (!obj) {
++		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
+ 		return ERR_PTR(-ENOMEM);
++	}
  
- 	return folio;
+ 	init_completion(&obj->completion);
+ 	obj->gntdev_dmabuf = gntdev_dmabuf;
 -- 
 2.53.0
 
