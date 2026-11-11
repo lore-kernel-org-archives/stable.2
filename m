@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794409437;
-	b=lDRJnFiCBneF5El8H8qHMnHDlmyBwT/xtOt7CfieterHbvaCYtOMbPBYDMRjmsyz8WAR
-	 hhwXnK7zmm2cyn+60kV7bFZEA7ggcu3JJqWLqWlwT5A4jWGXQlxBa1weQTW+LpnjQ1SWa
-	 Xl3ShipVFgMK+TA7Njl2KBSJhsr72vDfgu+xTrqYyMUonfUP5pk1PUrDjRrFH/3A8XcC1
-	 eZEIk+j5+too71vfZYp0O7ccpo0pNkUtAMqjW84QTwbMTA5iwAPCObEsHPl8cXdN1ai+J
-	 29eqkhQFQkD/fQHKEsbw/roRzPbrT4yDeeaxRodIbncq2cAyLrsb5YfwBJgzKBgLEaQ==
+	t=1794409452;
+	b=mLRUy7HNVa6ZSWF6UmA+dUzJw8Mkqs7czE07fyJyE4YlphQ09qO6NN50P7rqO/AB3rnH
+	 1MSnkIzJexQLpv1g9IYQskiKk6uZLJvD7C89m+IwGwKcqno/T+JbNVfRf+6Qrx9r9xnh9
+	 TtWeWLSYgfxY44mJvFqEj6PBkpEMfjLmWHb5X8NFrecWghCTzmYUL+Hv4qH+5t7eHO7Vw
+	 XR/B8gKZYOL98FLPKxPjnAZLFozbrL9NXsV9YNm3ohoGNof0hbwKd6NhGmJnWEIC3j4Rf
+	 +7WivnyZUYC9DoTPJMIJDynLU6vs4/Hlv6FPnjzGDipDZ6iFrpEVjFGewRTWGaGCAUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794409437;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794409452;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BzgBxrSn9gIVmu/hzj3uDQL8/Ihyg9ba/sEZZeaZylg=;
-	b=OYAA1aLgL/yuPdYl3XVwPBLs3wKtwUHcmmfSx+P66J5vftjasHO3255Vo5dxvuKLHTlu
-	 9kOvDRl4IFqsqS4SbcuWjdMcfIEgYw1/VjW3nuej+F+4QB5Hewm9o+iQRUo7dBUytMx6q
-	 +K8aCp0Gz5eQ/86WNIiKh/cirycULTkvwbnSIzbUpbucCx/084KAIiYl/TZr2wqXSjPq+
-	 DnCIskTNfjjiJsx80jwUZNqB42FeU4wJUKveYg+r6aokn3cKBv//xx8r98aQQEdgC9qr9
-	 uLfjUIqqp+UtPeTc4S2bvoh9FebKG1VAUEvd0iwTm+tNuJPGOf2pp5U3lfPaBeNcoDQ==
+	bh=p4E2pH0lSmH4FLNSMno5m5zDMA9lipwOMSDm6hv5rFI=;
+	b=xorktBscXK0dpf1GRzlyykXmXQXdUxzpnKGg/74m2i8bdjBGH9HR3DaXRqeQjGC7KfW6
+	 eHg7cRMmobAvDBIBWwmMxEiWdfzuY8DucJgQq95AGaUn28xxGekRXeUbcX19hYDt0zXjW
+	 8gw93GPv7rKZXuqzL48DQu5koCfVy5xAGLWrYVAeoOd/tqh8p5abNvqhr3zfyhfoN75AK
+	 LneV5SoB0nkBi4YWcsCEZZfY/silgHxOmXCdPCyHehdRqYgR8+S88i2PfCCZrX/6gsBy3
+	 otpfg6eOkdEeQHFx4PZVW0V2lp8uU7wdjrNaQsWoFGmKzmLildMX8ceFuxw54Dhpclg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BgF/4y/Z";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSsyCSS1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6243C606A882
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:03:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFD1606A32D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BgF/4y/Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84511F00A06;
-	Wed, 11 Nov 2026 15:03:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSsyCSS1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E982C1F00A05;
+	Wed, 11 Nov 2026 15:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794409437;
-	bh=BzgBxrSn9gIVmu/hzj3uDQL8/Ihyg9ba/sEZZeaZylg=;
+	s=k20260515; t=1794409451;
+	bh=p4E2pH0lSmH4FLNSMno5m5zDMA9lipwOMSDm6hv5rFI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BgF/4y/ZVjSVwQE6HMw3SOmP74mFtwauHc2c8I/Qz/MCZ2zWWx9eNgtjbfL1iJZHB
-	 iPbn79w//+64sbqKOemmXgpdeDxwAbR0Pq5RVCLDpJdCz8S38ns4eiKnEbs8gmAQMt
-	 HJxLVc1k4Zij4+u2WR1Ov7R7CmOKSLKbhZ6xhyrEmXVMr8opB6tCieYHPTAGnOAorq
-	 br2KZ7r2gBK1tN8YdmZcE4tQ7owl9vw78DTi1xKhhDoaFvlV/tMeQRL0f8TWo08jm7
-	 lH6AOxG8Pl9pgxPeWJ74JqCD3ke/lA4X14/5AZke/10nr56UIGCHsnDIcquH+X16Yj
-	 MsH3Qj8TjykFQ==
+	b=lSsyCSS1RsLte4AtdQZF3fmLCzs30BSWdXucJjKzcoXcmQASrTVATlxnlRxzoPJcA
+	 DeFtmtxBYIz/QiN5t4/o2EGbom+JcOBANyDaWv7jc2aMsATeRxINvJd5OInBkhaQGc
+	 eFeDHDnhSoDOPopql51Tg9Q+422h865BVwc8iDWuy8r5XSQAAOsxgipd5iL3xrcVdE
+	 43N+GhMwJziNuihvR/hpvbgUqdpm5D9KcAkFEioUHHjjDL5YHOHuf76vwi5GX0HxhS
+	 hO0RJ6eP0WIrdAOJFIcab605eGXCqncmseBou8lzoJsHTzzl+PKD9Ke4CR2YnnNrf6
+	 2v6yh3NAcXo0A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Huacai Chen <chenhuacai@loongson.cn>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] LoongArch: Don't init & online empty nodes
-Date: Wed, 11 Nov 2026 10:03:54 -0500
-Message-ID: <20261111150341.2575597-2-sashal@kernel.org>
+Subject: [PATCH 7.3.y] f2fs: fix to use bio_in_atomic() in f2fs_write_end_io()
+Date: Wed, 11 Nov 2026 10:04:09 -0500
+Message-ID: <20261111150349.2541166-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111150341.2575597-1-sashal@kernel.org>
-References: <20261107052654-failed-6.12-87c6d144bc7b@kernel.org>
- <20261111150341.2575597-1-sashal@kernel.org>
+In-Reply-To: <20261107050441-failed-7.3-e4582e5f3b43@kernel.org>
+References: <20261107050441-failed-7.3-e4582e5f3b43@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +62,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Huacai Chen <chenhuacai@loongson.cn>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit 87c6d144bc7bbed0c4573848b9c92006edca7848 ]
+[ Upstream commit e4582e5f3b439228d4e900edcf8225aa89be32b4 ]
 
-Don't init & online empty nodes without any CPU cores (and memory), in
-this way "lscpu" will not display confusing empty nodes.
+f2fs_write_end_io() uses in_atomic() to decide whether a write bio which
+exceeds max_atc_write_bio_size or max_atc_write_bio_entry_cnt should be
+completed in sbi->wq rather than in the current context.
 
-Modify fake_numa_init() to make sure at least Node-0 isn't empty for the
-FDT booting case.
+However, in_atomic() is not meant to be used outside core kernel code
+(checkpatch.pl warns about it), as it only looks at preempt_count(): it
+misses irqs-disabled and RCU read-side critical sections, and on kernels
+without CONFIG_PREEMPT_COUNT it cannot see spinlock-held sections at all.
+In those contexts, a large write bio will still be completed inline,
+which defeats the purpose of the above knobs.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+The block layer provides bio_in_atomic() for exactly this purpose, it
+checks rcu_preempt_depth() and preemptible(), and conservatively returns
+true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
+difference is as below:
+
+ Context                              | in_atomic()    | bio_in_atomic()
+ -------------------------------------+----------------+----------------
+ Hard IRQ / softirq                   | true           | true
+ IRQs disabled, preempt count 0       | false (missed) | true
+ RCU read lock (CONFIG_PREEMPTION)    | false (missed) | true
+ Kernel w/o CONFIG_PREEMPT_COUNT      | IRQ ctx only   | always true
+
+Note that on kernels without CONFIG_PREEMPT_COUNT, write bios exceeding
+the thresholds will always be offloaded to sbi->wq, since there is no way
+to tell whether the current context is atomic. The thresholds default to
+UINT_MAX, so the default behavior is not changed.
+
+Cc: stable@kernel.org
+Fixes: 3de6b8094115 ("f2fs: Run f2fs_write_end_io() asynchronously")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: Retained the bio-size check without the entry-count condition because the required fields are absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/loongarch/kernel/numa.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ fs/f2fs/data.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
-index aefe9984be794..7c0ae91cb395f 100644
---- a/arch/loongarch/kernel/numa.c
-+++ b/arch/loongarch/kernel/numa.c
-@@ -318,6 +318,8 @@ static int __init fake_numa_init(void)
- 	phys_addr_t start = memblock_start_of_DRAM();
- 	phys_addr_t end = memblock_end_of_DRAM() - 1;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index cfd81bfc28a22..43e623a0bd30a 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -399,7 +399,8 @@ static void f2fs_write_end_io(struct bio *bio)
  
-+	set_cpuid_to_node(0, 0);
-+	early_numa_add_cpu(0, 0);
- 	pr_info("Faking a node at [mem %pap-%pap]\n", &start, &end);
+ 	sbi = bio->bi_private;
  
- 	return numa_add_memblk(0, start, end + 1);
-@@ -352,8 +354,10 @@ int __init init_numa_memory(void)
- 		return -EINVAL;
+-	if (in_atomic() && bio->bi_iter.bi_size > sbi->max_atc_write_bio_size) {
++	if (bio_in_atomic() &&
++	    bio->bi_iter.bi_size > sbi->max_atc_write_bio_size) {
+ 		struct work_struct *w;
  
- 	for_each_node_mask(node, node_possible_map) {
--		node_mem_init(node);
--		node_set_online(node);
-+		if (!cpumask_empty(&cpus_on_node[node])) {
-+			node_mem_init(node);
-+			node_set_online(node);
-+		}
- 	}
- 	max_low_pfn = PHYS_PFN(memblock_end_of_DRAM());
- 
+ 		w = &container_of(bio, struct f2fs_bio, bio)->work;
 -- 
 2.53.0
 
