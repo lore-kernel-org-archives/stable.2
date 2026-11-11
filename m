@@ -1,56 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794355172;
-	b=X27jxB7MxlPrXvkKOHfqO2gNUYQX+XB3S+JeYuNhB6j/DjkUdwC7ksCI2WcgpgG+XgdO
-	 Ldqf9KS5N6i2Y22sSkHCtKjUrjNsO0iief/rndqGuqWBujov5jguCTRV9UsALXdiE6y2c
-	 FAape8BbBVMzo2rVeH0lmdAF3laigT4Ro3GC+2dARbwqV6WmUClUxsyzuE0TOH+/ppmDD
-	 ya5tF7XWQ1kXmlEcf4J6AEJVu948IBcHKSXUnZQJmmngzCxovQrzN5AvSLMPBAA9mFSzp
-	 TeLvoJ9+vaj/TTF1p7Q9KGPxKHgf/RZ5HriIf51OWnXaSKPbpFHJRIoWpqs7+ErNigw==
+	t=1794355212;
+	b=gQQyNtLheIA1Ef+02QPrM2mchCHj71LlzL/+Pr35ewCToM5DDSDt5yWzWdK8UzU0TNvb
+	 /let4Y+xHYSngjPGR4rO3P6B1k9+rUztyOZ/gUXy7hh5yjWPOH8WbemZupZiv0cblJU/B
+	 asBU2StWpmRAaFcyjvzd7489fg3GCxYJRlLITDixGeEfV4Pi/LDEOCiZcP1caVXHrjiRU
+	 857vKul3URrvvrcS9Qs3glCbruRDrAqrQlaEyILSyEboM9C/UV6vTAJZ4A6o0q5FRT4nt
+	 LmBLfBwEG2aUGdX9nkh17Gl19B5VLlDNgsCoDS7iTjyJQglcTkHUTKycqvStL/Uj+pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794355172;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kd3WHtYBe0p/JEd1nYrwGS9G9hl17mtDaDCHfouK9qY=;
-	b=kvJMxqAmazLew6biEZ/16soRJg0iJtwAD0HE9O/IKKJLfT8k+F0yDOPpkxoTteGz5CJP
-	 AJBL8UdOlSAo4mhtWhyAzUphtQfC60H/8jv9TdSblouHLDRzIJe1l+cDRvkdxCHIfELtc
-	 S+S7eweVWWfSE8KhRSLUOgV+QAvHPVQ3PTQsgWL92Q74huFG3VNxFNenXQgnawpck0kP5
-	 a9Y81U+hVkcXT6vTPTeuhe2eo8dWyS94pRUcd8636z3+kLJp53Yg8wUlbA1Pgi2Gp73+O
-	 WFcOqWjkqQnWU0sKsObqBCCW/hA7JyNQ6HP21ldhddr9dnoAB2nYRo4XLXJcOTfFR4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794355212;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=2V2odHw5C1ZkkpeHbdSVGWqAI+/qYN7jzWWhm8KUJyA=;
+	b=nlGKdEPuduAXekwTrGTE/rmtDgnrRlvUY+xDG/hsFbjdqnHfHMvdJtGb4AB4WlXLvDbP
+	 IfOnQKcJZ7RCjaFricbD4iRCohugY6OjxpjUL6qotmke2uL93Go2/fRxuEbu2zc3Nlk/U
+	 ut8RrqmcY9H9JJkRbHot8ya2TzEaW2I9VVH+nCdMTfj3NPRjwPIRQKiTnzG5mi9ZJ8kvK
+	 adjsyWef+F3Kg6o2eQfw4XAVeeJlW6hNLU7TdB1/tXc4Q5Lt5Ubp6+qqqk+lUgsznZ9w2
+	 hZ9R2GRoHJNBrgkUMgvZkdA8YcA7/xsCLAFfc8p1kEk1RmpLYnFXsDYrvn0e8mvot6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgYpFPFu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOWsIOl5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EF5606A320
-	for <stable@vger.kernel.org>; Tue, 10 Nov 2026 23:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CC5606A32E;
+	Wed, 11 Nov 2026 00:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgYpFPFu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689DE1F0093C;
-	Tue, 10 Nov 2026 23:59:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOWsIOl5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CD611F0089F;
+	Wed, 11 Nov 2026 00:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794355172;
-	bh=kd3WHtYBe0p/JEd1nYrwGS9G9hl17mtDaDCHfouK9qY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jgYpFPFu2rwnw9Ye+/Gy8I5zZBBIKguZwkdCTJ+yuWcqvb23EKBQpn0xHRH7p3m8t
-	 g9S0Ykchu8nIsoO4OOmfLScBHuMKrWS+NDhxIYHSA1XKm70g6T7/Au1L5T/hrOiQrp
-	 SzEZO3d4IABt2Hj1WFBe8GoetioFPre0mGluZGngJ7irMO4T/O6Hz4WFm+0wqJ8vS+
-	 464U46fQUbHxE6BRKAYVuCrap4wUiyXNKrBOmI/Z7FNCm9D64P2jqCnX3ff5M5M3uS
-	 KjsjmruF2rV2ustEb+HEBHbUf8LwcAanKquAigTFbCYw3La6BSUFqVMrqXVHx4/7Z8
-	 iIs1jZvGhVvdA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yao Yiqi <yaoyiqi3@huawei.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] fbcon: Retry rotated font allocation after failure
-Date: Tue, 10 Nov 2026 18:59:30 -0500
-Message-ID: <20261110235712.204610-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051327-failed-6.18-7935db1a4a0f@kernel.org>
-References: <20261107051327-failed-6.18-7935db1a4a0f@kernel.org>
+	s=k20260515; t=1794355212;
+	bh=2V2odHw5C1ZkkpeHbdSVGWqAI+/qYN7jzWWhm8KUJyA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=dOWsIOl5Zj4B3Few2VK4ZvCoUN6bHYaGQm6UgrIHhjAxtGUlnUUHZ/kr3wv15P/YY
+	 6lJowviHeJ06bk7YIUKO1YYfZrt0eml6stMCdXJ1NW134VLrIMWv/P79fPvaDbcY0q
+	 94G5XRNIGx/WAOYYb8/eV2Eo5zKk2RLGn0TBRiA2U8BylnMHnRlzBV7rpHgj/Lbjdx
+	 prHUKDAWJUT8xx8R3doltyOboQFl4bL8l1gEuu5YfH+hjAJp9G5IUkjN+I2NKRIYkN
+	 OZY2h188NjaZoGJ/pACDbFJD48fKReCr0yu04ojdOYSkiVpwNtyWoIY0HHnBA1USnS
+	 trMxXRaPV2XKA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2103C39E8A4C;
+	Wed, 11 Nov 2026 00:00:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,48 +54,43 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179435521067.125436.9895323339042656331.git-patchwork-notify@kernel.org>
+Date: Wed, 11 Nov 2026 00:00:10 +0000
+References: <20261106-fib-trie-nospec-v3-1-53da6550dcf8@nvidia.com>
+In-Reply-To: <20261106-fib-trie-nospec-v3-1-53da6550dcf8@nvidia.com>
+To: Daniel Trujillo <datrujillo@nvidia.com>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+Hello:
 
-[ Upstream commit 7935db1a4a0f83a63590a222500e5016e2f6c85e ]
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-fbcon_rotate_font() records the font, its geometry and the rotation in
-par->rotated before calling font_data_rotate(). If the allocation
-fails, the error path clears par->rotated.buf, but the recorded key
-already looks up to date, so the next call takes the early-out and
-never retries. The rotated putcs/cursor ops keep returning early on
-the NULL buffer, and the console stays blank even after memory is
-available again.
+On Fri, 06 Nov 2026 05:02:23 +0000 you wrote:
+> From: Daniël Trujillo <datrujillo@nvidia.com>
+> 
+> fib_table_lookup() checks the child index against the bounds before
+> passing it to get_child_rcu().
+> 
+> The index is derived from the lookup key, which in turn is derived from
+> flp->daddr. A userspace process can therefore influence the index by
+> triggering lookups for chosen destination IPv4 addresses.
+> 
+> [...]
 
-Also test par->rotated.buf in the early-out, so a failed allocation
-is retried on the next call: at the next fbcon_switch(),
-fbcon_modechanged() or font change.
+Here is the summary with links:
+  - [net,v3] ipv4: fib_trie: prevent speculative out-of-bounds child access
+    https://git.kernel.org/netdev/net/c/fd3d73286662
 
-Fixes: e4ef723d8975 ("fbcon: Avoid OOB font access if console rotation fails")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Helge Deller <deller@gmx.de>
-[ sashal: Adapted the par->rotated.buf check to use par->fontbuffer in the existing cache condition. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/video/fbdev/core/fbcon_rotate.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
-index a3f507825eed8..3105682075c87 100644
---- a/drivers/video/fbdev/core/fbcon_rotate.c
-+++ b/drivers/video/fbdev/core/fbcon_rotate.c
-@@ -27,7 +27,8 @@ static int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
- 	u8 *dst;
- 
- 	if (vc->vc_font.data == par->fontdata &&
--	    par->p->con_rotate == par->cur_rotate)
-+	    par->p->con_rotate == par->cur_rotate &&
-+	    par->fontbuffer)
- 		goto finished;
- 
- 	src = par->fontdata = vc->vc_font.data;
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
