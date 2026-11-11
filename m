@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794363215;
-	b=Xk39nxXCu+KbG5LhNW2jsIZpGI/ZJlHM7GCaLWL6j04ouHybow1HLWtaMtTmB+ObDq1H
-	 X0IJaYzpotOtTAYdRGawdWwGk2syCH628ItdPIR/f/pGBTXa3VTgZwvWW+YL1eeSpYPs/
-	 +mw4NPy78wEayPyMafQfs3MuklVJelsY0kek/FLl6Dxaey+R+SAYDbfr8XbJRT/k5I+nc
-	 bDdVA/NOOJMtqTLMb19VpDEiA6m1PHbeFXZaQh7zWQgDspAPfokR9reU+LvVexaM1HOwx
-	 sPTKVVNtqx08uNusMtkqbiqL+KIlLyYP4Q/Nb9LqtqjH91Ii5JHPh41oZO+2V1RlLTQ==
+	t=1794363283;
+	b=Jyh7r0ufJtn8H4jgT9qYLuT1rvytnrvgkzVxnzBWROHbLi0gGQVii0fKPxjdXAzj6mOa
+	 gHs5qw9SJSc9nNDpkbN8iwbPhSTz9FKnpoEsGMCx1jUXogMbLcZlIKN5a9Rmedg5atJSc
+	 wqa24YZHkui9Hnq8sDExm0ERMY2Yp3VupniI9T7YBHATWUAIWBNHw4D1m3MIU5GLETVAB
+	 tNxQrz9EvbQEYgGqJx08m+zNiYsjZSEEmFgjMtkWyAh3buIi0kaOaPQDUPguVhpXSxH46
+	 VkbBIZbG1vJDT6/Pk4kWKaoWmcJ9y8Nq7EQon+e4fKnnWcEvrFyyP3sb4IoCfRI/qZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794363215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794363283;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VwMP08Z2C6Eag0tointo2QY43BTaktJdOo5lQz9Ut4Q=;
-	b=V7vXOxrtMUCQsJyxKvw03RtPLNamQg5lsckmkZJAjDr967BjdRbQ6r9g9mbm0pJJcD8Z
-	 lPRdJK9Vk5PXsWVgpPv3PBiyHEdgzVkNusRV/wYihYcxjdk+0ZVfy8M6EBx5jbQFbzslz
-	 SR64J+LGgImXr2qEwWS6wW09lfbirYL/3GWzmHpOYwmUfkoBt1VNt+YrMWhgiLVuCfWLN
-	 5r8+YhzpCgVkY2jIeGOesrZwiea945JBMbq1C1zHb7ol1anBXBNOcadIipnWtxhUmqZVC
-	 uOif3VzEm72oTW13LOoFgjBxBYKhLoliSCxo0NtYEOZ3BfEoj2+MtvW9Kn6nsLDMt9w==
+	bh=2uVxbiotD9un69M9tCD5Fr0I4KpEpUc1LUsIKm9MmL8=;
+	b=fBQtUPs6CDd+QL+SqK6vn/H22CywKgtbutf0lwju+yghygqb5X/Why9me05arJisT/vn
+	 WlBrAJjrBbTsCo5XJ7C6b79J+ab7kWYCmHs0iS8/JWcQ5CyVYRwc/5Q9iSoT6O1Vk922V
+	 qCw0gfhwa0xbvLk7ixI983Osg4aERZIPxRFHOfmaQBG88tedpu+GxEu637YS9+5X/d5lx
+	 OYuZftq5EzMnqlt3RJngWRDj2WSNxneTrLOLZ/anMsZWSOdQP+ZqDLjNU7HGbefA9eaoM
+	 7ypKCE73FtWxn67bkD7GCVv/9oFDys1NlArwjJ3QYlwf61ZE0C2DO8BUd9dvowELo7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Bx/8G/n2";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIRQDnAe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71C2606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:13:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A851A606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:14:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bx/8G/n2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F451F00A00;
-	Wed, 11 Nov 2026 02:13:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OIRQDnAe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C581F0089F;
+	Wed, 11 Nov 2026 02:14:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794363215;
-	bh=VwMP08Z2C6Eag0tointo2QY43BTaktJdOo5lQz9Ut4Q=;
+	s=k20260515; t=1794363283;
+	bh=2uVxbiotD9un69M9tCD5Fr0I4KpEpUc1LUsIKm9MmL8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bx/8G/n24A0ruK+1gt2f+adEpPd6qWjQJWTR62Ffenqey0Se7XF7agaseTmksQDta
-	 +RdD4EwuBUrmf9rMO83nJKJlRZz0VApel/Y2nYRMknTm3RUwDyjURyh8ywZVxSxx7K
-	 n14yQZtlQ9Ol02CbeLwauWx4VPGfkj32q2EDp89dT+W6OKDZkZbUv0IsUgyH9Epigi
-	 rZGfU9Onr2tjbv1KGkjHAfqdgB1rJRUhPCEezjn125ZU26zAvfzVJkgQ63HMc8y7DP
-	 uZC2z4I2ohUvPb5yxaH1P9toOumuUWbTwTL7ZkhVBVkIePHUff/Z6TMzoiQxmsHW0I
-	 8IWqrSJV5hg8A==
+	b=OIRQDnAeL5YIrNL5OmGng+N16jceptyTaYag+eZxgQNIQyubRz0Jna2ecps4QQwnr
+	 FoIzVLs19VPJ+DGMUJTEK07eCPjd/u6yidDYg9MYceyUd3pdcuoPE0xpZPR2pZr6Pm
+	 4NIVPF/z74GLusk6IqAQ86ks62MDv+FIGb3GO7TI29weAxVTaKeZzHRrCKqF17zx4P
+	 fQvWhlSoEI8wmTuZsrwwNPFhAwNbnuKjch9cfjyHNea5qvFwYc5mCbS47z1e1iUM0u
+	 eUT5PhXEyuPoVFa8fpeFeW66kgPiOrGfeKc+m4cw9KHkMGsYE5HzPpIirGWUfUXBPv
+	 niN9zQmyAwFlQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sahaj Chaudhari <sahaj123.sc@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Vincent Legoll <vincent.legoll@gmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] gpio: pca953x: Handle direction register read errors in IRQ paths
-Date: Tue, 10 Nov 2026 21:13:33 -0500
-Message-ID: <20261111021326.573042-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] nvmem: rockchip-otp: Add clks and reg_read to rockchip_data
+Date: Tue, 10 Nov 2026 21:14:39 -0500
+Message-ID: <20261111021433.580869-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111021326.573042-1-sashal@kernel.org>
-References: <20261107053724-failed-6.6-a0fe26929350@kernel.org>
- <20261111021326.573042-1-sashal@kernel.org>
+In-Reply-To: <20261107054624-failed-6.1-9fc6a1592d84@kernel.org>
+References: <20261107054624-failed-6.1-9fc6a1592d84@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,86 +64,174 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-[ Upstream commit a0fe269293509acdd93b9cfb3f46636f7b91b33a ]
+[ Upstream commit 8dc61364164e79e44c07fa2ac0a7b6939f00d5db ]
 
-Three IRQ paths ignore the result of reading the direction registers
-and then use the destination bitmap. pca953x_read_regs() does not populate
-that bitmap when regmap_bulk_read() fails, leaving the callers to use
-uninitialized stack data.
+In preparation to support new Rockchip OTP memory devices with different
+clock configurations and register layout, extend rockchip_data struct
+with the related members: clks, num_clks, reg_read.
 
-This can select incorrect GPIOs for direction changes during IRQ bus
-synchronization, corrupt the saved input state during IRQ setup, or
-produce incorrect pending interrupt decisions.
+Additionally, to avoid managing redundant driver data, drop num_clks
+member from rockchip_otp struct and update all references to point to
+the equivalent member in rockchip_data.
 
-Check the read result at all three sites. Release irq_lock without
-changing GPIO directions on failure, leave the IRQ history untouched
-when pending detection fails, and propagate the error from IRQ setup.
-The read helper already logs the error.
-
-Fixes: 0f25fda840a9 ("gpio: pca953x: Zap ad-hoc reg_direction cache")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Link: https://patch.msgid.link/20261018165003.3372368-1-sahaj123.sc@gmail.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Tested-by: Vincent Legoll <vincent.legoll@gmail.com>
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20230611140330.154222-10-srinivas.kandagatla@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 9fc6a1592d84 ("nvmem: rockchip-otp: Serialize reads")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpio/gpio-pca953x.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ drivers/nvmem/rockchip-otp.c | 79 ++++++++++++++++++++++--------------
+ 1 file changed, 49 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index 6384c0760e0ee..dacb936ead643 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -763,6 +763,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	DECLARE_BITMAP(irq_mask, MAX_LINE);
- 	DECLARE_BITMAP(reg_direction, MAX_LINE);
- 	int level;
-+	int ret;
+diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
+index 9f53bcce2f877..b5a84b379da40 100644
+--- a/drivers/nvmem/rockchip-otp.c
++++ b/drivers/nvmem/rockchip-otp.c
+@@ -54,21 +54,19 @@
  
- 	guard(mutex)(&chip->i2c_lock);
+ #define OTPC_TIMEOUT			10000
  
-@@ -777,7 +778,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	}
++struct rockchip_data {
++	int size;
++	const char * const *clks;
++	int num_clks;
++	nvmem_reg_read_t reg_read;
++};
++
+ struct rockchip_otp {
+ 	struct device *dev;
+ 	void __iomem *base;
+-	struct clk_bulk_data	*clks;
+-	int num_clks;
++	struct clk_bulk_data *clks;
+ 	struct reset_control *rst;
+-};
+-
+-/* list of required clocks */
+-static const char * const rockchip_otp_clocks[] = {
+-	"otp", "apb_pclk", "phy",
+-};
+-
+-struct rockchip_data {
+-	int size;
++	const struct rockchip_data *data;
+ };
  
- 	/* Switch direction to input if needed */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		goto out;
- 
- 	bitmap_or(irq_mask, chip->irq_trig_fall, chip->irq_trig_raise, gc->ngpio);
- 	bitmap_or(irq_mask, irq_mask, chip->irq_trig_level_high, gc->ngpio);
-@@ -789,6 +792,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	for_each_set_bit(level, irq_mask, gc->ngpio)
- 		pca953x_gpio_direction_input_unlocked(&chip->gpio_chip, level);
- 
-+out:
- 	mutex_unlock(&chip->irq_lock);
+ static int rockchip_otp_reset(struct rockchip_otp *otp)
+@@ -132,29 +130,23 @@ static int rockchip_otp_ecc_enable(struct rockchip_otp *otp, bool enable)
+ 	return ret;
  }
  
-@@ -883,7 +887,9 @@ static bool pca953x_irq_pending(struct pca953x_chip *chip, unsigned long *pendin
+-static int rockchip_otp_read(void *context, unsigned int offset,
+-			     void *val, size_t bytes)
++static int px30_otp_read(void *context, unsigned int offset,
++			 void *val, size_t bytes)
+ {
+ 	struct rockchip_otp *otp = context;
+ 	u8 *buf = val;
+-	int ret = 0;
+-
+-	ret = clk_bulk_prepare_enable(otp->num_clks, otp->clks);
+-	if (ret < 0) {
+-		dev_err(otp->dev, "failed to prepare/enable clks\n");
+-		return ret;
+-	}
++	int ret;
+ 
+ 	ret = rockchip_otp_reset(otp);
+ 	if (ret) {
+ 		dev_err(otp->dev, "failed to reset otp phy\n");
+-		goto disable_clks;
++		return ret;
  	}
  
- 	/* Remove output pins from the equation */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		return false;
- 
- 	bitmap_copy(old_stat, chip->irq_stat, gc->ngpio);
- 
-@@ -984,7 +990,9 @@ static int pca953x_irq_setup(struct pca953x_chip *chip, int irq_base)
- 	 * interrupt.  We have to rely on the previous read for
- 	 * this purpose.
- 	 */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
+ 	ret = rockchip_otp_ecc_enable(otp, false);
+ 	if (ret < 0) {
+ 		dev_err(otp->dev, "rockchip_otp_ecc_enable err\n");
+-		goto disable_clks;
 +		return ret;
- 	bitmap_and(chip->irq_stat, irq_stat, reg_direction, gc->ngpio);
- 	mutex_init(&chip->irq_lock);
+ 	}
+ 
+ 	writel(OTPC_USE_USER | OTPC_USE_USER_MASK, otp->base + OTPC_USER_CTRL);
+@@ -174,8 +166,28 @@ static int rockchip_otp_read(void *context, unsigned int offset,
+ 
+ read_end:
+ 	writel(0x0 | OTPC_USE_USER_MASK, otp->base + OTPC_USER_CTRL);
+-disable_clks:
+-	clk_bulk_disable_unprepare(otp->num_clks, otp->clks);
++
++	return ret;
++}
++
++static int rockchip_otp_read(void *context, unsigned int offset,
++			     void *val, size_t bytes)
++{
++	struct rockchip_otp *otp = context;
++	int ret;
++
++	if (!otp->data || !otp->data->reg_read)
++		return -EINVAL;
++
++	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
++	if (ret < 0) {
++		dev_err(otp->dev, "failed to prepare/enable clks\n");
++		return ret;
++	}
++
++	ret = otp->data->reg_read(context, offset, val, bytes);
++
++	clk_bulk_disable_unprepare(otp->data->num_clks, otp->clks);
+ 
+ 	return ret;
+ }
+@@ -189,8 +201,15 @@ static struct nvmem_config otp_config = {
+ 	.reg_read = rockchip_otp_read,
+ };
+ 
++static const char * const px30_otp_clocks[] = {
++	"otp", "apb_pclk", "phy",
++};
++
+ static const struct rockchip_data px30_data = {
+ 	.size = 0x40,
++	.clks = px30_otp_clocks,
++	.num_clks = ARRAY_SIZE(px30_otp_clocks),
++	.reg_read = px30_otp_read,
+ };
+ 
+ static const struct of_device_id rockchip_otp_match[] = {
+@@ -225,21 +244,21 @@ static int rockchip_otp_probe(struct platform_device *pdev)
+ 	if (!otp)
+ 		return -ENOMEM;
+ 
++	otp->data = data;
+ 	otp->dev = dev;
+ 	otp->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(otp->base))
+ 		return PTR_ERR(otp->base);
+ 
+-	otp->num_clks = ARRAY_SIZE(rockchip_otp_clocks);
+-	otp->clks = devm_kcalloc(dev, otp->num_clks,
+-				     sizeof(*otp->clks), GFP_KERNEL);
++	otp->clks = devm_kcalloc(dev, data->num_clks, sizeof(*otp->clks),
++				 GFP_KERNEL);
+ 	if (!otp->clks)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < otp->num_clks; ++i)
+-		otp->clks[i].id = rockchip_otp_clocks[i];
++	for (i = 0; i < data->num_clks; ++i)
++		otp->clks[i].id = data->clks[i];
+ 
+-	ret = devm_clk_bulk_get(dev, otp->num_clks, otp->clks);
++	ret = devm_clk_bulk_get(dev, data->num_clks, otp->clks);
+ 	if (ret)
+ 		return ret;
  
 -- 
 2.53.0
