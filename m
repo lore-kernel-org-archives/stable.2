@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794411625;
-	b=Pp7GQwrYtNy4RQA+hANhBu8eHUnX9LVebW8I8Ze80l1Vf300A1IuJNMbiUUTKrQqivrw
-	 7YJ8gMlLQiEL5ITXzB7boYyscpIoA5Rls2L3ZMWrVnvnfeb/CpuY/C8pz2qXeEq9beB3O
-	 wHcKdndymZW02yjjvl7aj7EN2r9w0DGq8+5n+cbXMvMOr+iW5aqCxBKaZzvgiOT16XOQi
-	 c3Ol59Li++mYE5wtEWlfXp6xpamno73QKEHl54Xkh+bD2ENegxkvZg85fy35W69GLME5R
-	 HJK0/pgRhbEjE2/YXfTxwr/UNLigjIFm3cTO3ZroC4UkRer7ehHXBvkb0HUfIkwXX5Q==
+	t=1794411631;
+	b=IYakTL9EfJ0jP1byCjRPjONk+OcWc2XkaylkHOeTyhJ0NN8Rh2COu9J5lLuei+xvmVbG
+	 AX7zuGkhfwgiuARIQcAJpto5fcI2rLHpCZKHK8F4yRgvFIoR0NpHk35QeEWOso5boEd2e
+	 kTuHdd0jvSlkHSQJKpgg8XPZR+bRLdHu/foGAumJfmvCNBCMXZvk4zkp1C3Vg803USyRV
+	 B5/sB1JFrWVXHYulBg+hdiU5WVbpsJjtWkB33NT+hWP37e4LcgfX13L5qytX7cXFalquN
+	 wmhIQWBnMVhMoVasJld/M+VCf++ZzA/y+z6ulkBlGSEnA4n9/6YUBZ2SAIVL+usKNgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794411625;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nCzbB91QEhjFISS00a0bZHToSF8xWISo9CZPjpkuZCA=;
-	b=zSX+4lVpn1er5EGMnRrHwfFjp+tUX8OwFc0iNG2/TppZkeQx+ZWCr5cgNiwWXqbhafGv
-	 dCH6iBYOMCwNsF5VxvQcKost8xaHagJ/GwfMrEEW0UWhz+yU5U1l7wD6d3c78yGoywDme
-	 hh+vdGa3g1K1LCZ/FjjMYkSi/nMHwWY1Td4LDeS6trnt9fBjpnHbZYYsf883kKCEMGlcZ
-	 Dvj9FycmDea7pcDe5ojBV4Ft+07NbAophkrUEKVuokHwrHZ5bAw8xCIEKfnEWi+1kKMSS
-	 wHW2WaRHvO3zH3NJZ9vEQmsItjN8lTRL7eDYxXjx2bQXiY6ltJbMfV/hcjxaY7UlwyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794411631;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IuhdT8NCapF16BrqdC9jiSbtcdLEYI2e/fdM4g1nxYs=;
+	b=TPyzd66ezoPAWgOrq22Fm34DH8c6Vkjfd5pFCoMPTNu2OFmXhLLhCpHkzRlDSf4lAkMB
+	 luOSdGSgXOlicvoF7xdBN85VFdyKLJukAPMrPhyesPmEq3kuT27pJbFNu+kVNDVslFRyn
+	 zMgJ6+8XrTZw2J0VWjP+xFNkx1j3Pvukb0XTfQkQw47RFpYX7pPattUDmC+u6KmuPPFtN
+	 /FPVFJkMPl4lHknouiptqtooI8ViaO4ubUiRRKmzvg8tOSeJweESRv1aGWbYxyPdZqyJE
+	 29Pkl71no6jiWqRhKC12FXQAbcVY/vnuLtLLrZ/pSVzCQWc6oEUKfU6magt4MAqgXmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/pg5Ows";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LqvAAroa;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A6760A260C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:40:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88EC606A894
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:40:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D88EC606A894
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/pg5Ows
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A540D1F00A0F;
-	Wed, 11 Nov 2026 15:40:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794411624;
-	bh=nCzbB91QEhjFISS00a0bZHToSF8xWISo9CZPjpkuZCA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R/pg5OwsEAjbDow0LzevjdVobx6VdhWIhgZeG0QkxAIvsE3zgZC1UYifceOuWS3vp
-	 kXjZvXXRhaShBHEWJk4b82z3kH/ioPRNDfMR/OBHADed+sNKLNFdf9hqOKj1wMlD2k
-	 KQsC5pSROaNcTwfzx2PbYlvsurpblpWemPLAHnj80vmfQuUMLK5dp2lfXIkG4+aZUL
-	 /Nnqv12VCTlPwz2x89MI/RdM6Sld9DZHUc56hZrjvMvzBcmj2iQVI7FP8hvrPpy22g
-	 YOb7Bd2Vt3HyQpw84y5O7gzA1W47SGEjInR155XGtWVXs8E1Ny0agZsQx+IBxDGAaW
-	 Hh3aj3LQ7lQow==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Rik van Riel <riel@surriel.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/page_vma_mapped: continue past nonmatching huge PMDs
-Date: Wed, 11 Nov 2026 10:40:22 -0500
-Message-ID: <20261111154001.2714628-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LqvAAroa
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so28961685e9.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:40:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794411629; x=1795016429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IuhdT8NCapF16BrqdC9jiSbtcdLEYI2e/fdM4g1nxYs=;
+        b=LqvAAroaAjuSjZCmj+eQNjPfmn9E5Vsa3t/Z5s3c9YnW/OEGBq9M+IEN/DcBv59Nyq
+         x8Vg2AGeyRWnbSOz5PhDQmhd/v6PtbCbJitSzDOLUCM5LrH/VSPgXaFNhM/6eG7iFZZY
+         hcFX+uXUdCRabDuoESJsAt/6UZaJxMXhTI5TBMdfSx0bnV8Y4GPhO/NFqs3w0xI1dHMK
+         fuqVZaJKouR8syN3HHWmLTFCsJj7ggHCTomfTfuZiwNxAZquJJR87aEXW+7fKzm+TG5W
+         ndiFUJX5OjvYX+y3lyYO5OZAHe3zRJOFX84XqIcIeExd3Jujh74mX5cjwcWhwyCGNLf2
+         2jnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794411629; x=1795016429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IuhdT8NCapF16BrqdC9jiSbtcdLEYI2e/fdM4g1nxYs=;
+        b=opGRCQ0euTRGZKR/pysjlTtQjW8+aEu0d+UC46ro2zVrp5JSipOwvaxRqXELBLakIs
+         biOZq5udihn+ce7n98TZCeTqSK2z9H8FCX7vn1ScvKz8eqljN+9Vmjkj4/m0aCTVp3F2
+         kkJM49KZIWSm04C8nDmMNzJ37bfrD/7VC84di4SXsSqWJzfirQdOlqipezhzDCbf/PN/
+         BXoej5u0xKMZM1Sb/QEwg43x1iGiVL9V5chMcVOfUAXYtVit2mkp+Q5QhUg/9ItACqfj
+         UnHaGLFvhdnoFYFHvccXPHYXzpJ3TMxarFM6G6tmFolJuIpOzMIIN0LpTD/pbEl/f66x
+         MOKg==
+X-Forwarded-Encrypted: i=1; AL+hErEsnUIG82eNG0PDUJrZUi7BLzg4kj6sNokraZrSqW0uudU8QESUTxwOU4UxjMKolWuFVh955m4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//l3VbU7XIQkXT6+1YLqfF/Qu2HCrz9RuALUfJ5zNTsmJQYQlX
+	S6DzMfQUg6HVoA6kZShT/WlIUbD4VuIBDzE/odVcEkbrwxdLsmpn/DaR
+X-Gm-Gg: AYBFou1LTPkzXoC7t2m+5/IG+iaDhwZNh0k6I8+d2IRDYbiM6CvyUT2x6tbYfeKJveG
+	lo+YX/jNxi2L/yf8+p98xouEHMLRfn3eXi4u7dw6M49LW+A9uEaYKqRqIwjxWGHOjYMEF6TFCwg
+	2m6WfHzqJLpa1D1pWlNduDkgMGuWG0qqljeeKIqJEhnQdbUNyMwtAeNPMvNYHO4ym/GmuM5deiu
+	F++YUYXOYuSNTFCcz7jtHERACv5CIKP2XdoJpCazGLe3DBwK9BYtbNVhr4jYZKPA7Lr5oPPXgFi
+	lR7MDKggWhYXAF4IjC7OhXO+zAQPlT+C5aZOI667XETYqX78f558cpLcVcto2YkWaueD61YAPT4
+	3XPtw3e86/TBkIkTgHY72nmk4pjTuiAWX0fiQwx5BqLUXIeXhSvmAWLd0gU6ARiCj3n7Vom3cvr
+	5hFrmHQoc1cS5UZ37N92/XiWTlu0mX7+02TAIj1xzpAm2cF51OO/mAPwC7Ctw0XCU53eA7jEBqj
+	R8aFDNCWBTq7X0eavARbwmo9qGBqTrwYXu6DjBg00rN6Hopy6SpvYzr16uK/AhEisUn2F5oe0/b
+	gCt4dDEopYQQLRyp2Wa0x+tGv4CabgkseKe6JhjBjvu4xx/e6lnH
+X-Received: by 2002:a05:600c:8b24:b0:4a2:1364:252b with SMTP id 5b1f17b1804b1-4ba09383fd2mr46107035e9.35.1794411628946;
+        Wed, 11 Nov 2026 07:40:28 -0800 (PST)
+Received: from angelo-Precision-7550 ([94.154.175.53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4c5d831esm3899675e9.9.2026.11.11.07.40.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 07:40:28 -0800 (PST)
+From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org
+Cc: Ryan Wanner <ryan.wanner@microchip.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Angelo Compagnucci <angelo.compagnucci@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] spi: atmel: limit transfers to the bounce buffer size
+Date: Wed, 11 Nov 2026 16:40:23 +0100
+Message-ID: <20261111154024.543546-1-angelo.compagnucci@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107062846-failed-5.10-1a2993227e8a@kernel.org>
-References: <20261107062846-failed-5.10-1a2993227e8a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,108 +101,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kyle Zeng <kylebot@openai.com>
+On SAM9 SoCs (CONFIG_SOC_SAM_V4_V5) a DMA transfer from or to a vmalloc
+buffer goes through bounce buffers of SPI_MAX_DMA_XFER bytes. The whole
+transfer is copied in them though, whatever its length, and nothing
+limits the length of a transfer: a longer one is copied past the end of
+the buffer.
 
-[ Upstream commit 1a2993227e8a27fc4cdea305bbdae82d290bc885 ]
+The MIPI DBI panel drivers send a whole frame from the framebuffer, a
+vmalloc buffer, in one transfer: 153600 bytes for a 320x240 ILI9341
+panel. On an Arietta G25 (SAM9G25), once the driver accepts their 16 bit
+transfers, the first frame oopses:
 
-A PTE-mapped large folio can straddle PMD boundaries after an unaligned
-mremap().  If the first part is discarded and replaced with an unrelated
-huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
-the folio in subsequent PMDs.
+  Unable to handle kernel paging request at virtual address c8915000 when write
+  PC is at mmiocpy+0x34/0x2a0
+   mmiocpy from atmel_spi_one_transfer+0x4f0/0x77c
 
-This also affects migration entries.  A walk that stops at an unrelated
-huge PMD can leave migration PTEs behind when migration or an anonymous
-folio split restores the mappings.  Those entries do not hold mapping
-references and can outlive the source folio.
+When the bounce buffers are in use, report SPI_MAX_DMA_XFER as the
+maximum transfer size, so that SPI device drivers split longer
+transfers.
 
-This issue can lead to memory corruption and I have a reproducer for
-it.
-
-Skip the current PMD rather than ending the walk on a flag or PFN
-mismatch.  Do the same if the PMD became nonpresent before the locked
-recheck.  Release the PMD lock, clear the per-PMD state and advance with
-step_forward(), so the existing range limit controls termination.  This
-covers present, migration and device-private huge PMDs while preserving
-the matching-PMD and split-to-PTE paths.
-
-Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: <stable@vger.kernel.org>
-[ sashal: Adapted the changes to the page-based PMD walker with combined nonpresent and migration checks. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a9889ed62d06 ("spi: atmel: Implements transfers with bounce buffer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 ---
- mm/page_vma_mapped.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ drivers/spi/spi-atmel.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index 610ebbee787cc..5130e2ae2f576 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -219,9 +219,9 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			pmde = *pvmw->pmd;
- 			if (likely(pmd_trans_huge(pmde))) {
- 				if (pvmw->flags & PVMW_MIGRATION)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				if (pmd_page(pmde) != page)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			if (!pmd_present(pmde)) {
-@@ -229,11 +229,11 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+diff --git a/drivers/spi/spi-atmel.c b/drivers/spi/spi-atmel.c
+index ffc1292b0..fb8d4c7c9 100644
+--- a/drivers/spi/spi-atmel.c
++++ b/drivers/spi/spi-atmel.c
+@@ -591,6 +591,12 @@ static void atmel_spi_release_dma(void *data)
+ 	}
+ }
  
- 				if (!thp_migration_supported() ||
- 				    !(pvmw->flags & PVMW_MIGRATION))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				entry = pmd_to_swp_entry(pmde);
- 				if (!is_migration_entry(entry) ||
- 				    migration_entry_to_page(entry) != page)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			/* THP pmd was split under us: handle on pte level */
-@@ -251,8 +251,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 
- 				spin_unlock(ptl);
- 			}
--			step_forward(pvmw, PMD_SIZE);
--			continue;
-+			goto next_pmd;
++/* Transfers from vmalloc buffers are copied in the bounce buffers */
++static size_t atmel_spi_max_transfer_size(struct spi_device *spi)
++{
++	return SPI_MAX_DMA_XFER;
++}
++
+ static int atmel_spi_configure_dma(struct spi_controller *host,
+ 				   struct atmel_spi *as)
+ {
+@@ -637,6 +643,8 @@ static int atmel_spi_configure_dma(struct spi_controller *host,
+ 			err = -ENOMEM;
+ 			goto err_release_dma;
  		}
- 		if (!map_pte(pvmw))
- 			goto next_pte;
-@@ -286,6 +285,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			spin_lock(pvmw->ptl);
- 		}
- 		goto this_pte;
-+next_pmd:
-+		/*
-+		 * A large folio can be PTE-mapped across PMDs, so a
-+		 * nonmatching PMD does not end the walk.
-+		 */
-+		if (pvmw->ptl) {
-+			spin_unlock(pvmw->ptl);
-+			pvmw->ptl = NULL;
-+		}
-+		pvmw->pmd = NULL;
-+		step_forward(pvmw, PMD_SIZE);
- 	} while (pvmw->address < end);
++
++		host->max_transfer_size = atmel_spi_max_transfer_size;
+ 	}
  
- 	return false;
+ 	err = devm_add_action_or_reset(dev, atmel_spi_release_dma, host);
 -- 
 2.53.0
 
