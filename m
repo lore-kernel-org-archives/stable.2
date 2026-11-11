@@ -1,79 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794394462;
-	b=UHqRFUy3Dlv/H63IFjLnmEaRaJ6DzeAvLxNJTXQQY7HGFbXqwae3+39npmCwqGRzt1C7
-	 ALG3ETHJDJyCQww2/VVGv4f2FiOy/o3kZca4hvo79p+PYbWF302V4uV+ShnG6HqDlILGJ
-	 amnifs2W8H0aJ8n8+ZklsXZ2EE4XM0Rf/RgjREdRX2SWDw+PgY0w15DNLVR399RGU0HNi
-	 zLuOl/HBXGAqtaC4y+4m1q3BybqmpUynYlpJrGx1TME7DXSUHjX72obhxqHgJN1wL1iz5
-	 GUerJsY7DqM+1+A5vzChnxn2II3ICwy93nk3hz63ed/63itB4HTDR5pHTpg5p3fU/IA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794394462;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4SvOebTKFMbQya7gCBewPTnTPz0HZqTShakBlkHoz88=;
-	b=nRSTY+MuiccpjToWYH7tnRBLNiE6jvty5apQqoTvL2com6pNKwBTsGia6t/E7sdQvyHM
-	 53kaEw8lQmVCBw7SiS6r7wbblP/n32Rv5ggTwtZQAFmQlxQNZyycjxarvmvnAMMcCTWbA
-	 UFzpG92KLOpuQNmpyXFiKZoaGw0FUrxT67NjYVHsBXHBr5fTlzZ30U+A0Q0P0cWUtZZ9E
-	 Qmp6xaYiMebuaNZvPxaGEgSOeyEUnSvTbryUxlhBCMBmWSYx+MFxjPmNjh42FwoLZYLVt
-	 hiZeGGScaEE0M/T7M+OJ+Zw32E9Chf6UmnKYLhcdOHV+yEV/fvY8t+RkzT49sWiaYrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeCNeuyb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794394733;
+	b=ebeB8hV6YKasPv2Y+SuCsEE1/0e90OSL9Nja2sd+BVoP4YVNNOwIndBCpdgJkwrdcdu2
+	 2pAZc4rOm893aHyrXp2CQ0wt55FTHXRQMo25FcmN0SOXTcgXYToT/34Z0AUBw1CudF834
+	 dJ8htc+gOPp/RlXJ82lsc9t95pCSKusFszzgIi3g6dHKBH9pGPTBUIEH0V/GMm7J9pAZ8
+	 E5c7eF23gqcENxhX1sDljRlTkSj0vr1XDHPJtRd9mWoTyMdKbZjEddDXR+wtjvdZT1Pj8
+	 vIVeQtzZUMpRb4mXrUZMSWhES1B8poh7zy3B18PFzGC1tNO8qkk3pEHZmdz25ZtBiBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794394733;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=63S/eUuH/7Tc2Ac8KeXzt65RZB2XImwa2/hzOXjFwDY=;
+	b=rOGIioDi8Ll0CxbHi57rdhz7AEYv+65LOYwKtt1fJ6gXRIj/b8U/ZhkI5rFFymIZSlGt
+	 sGs8LqSwd4MT9xdE9yWlHDVLWqArGaMBncgqSe0U5M0aLio8GzLloB9dqXrTmQlfA1gZZ
+	 DyptkexaRFFd4Jf8qFTNZqa7KZ6ZKQY7qT2sy6Ixjiyw/bWuy9Mb4wLrvwHETGGavoZZ6
+	 FB8D/77k6UCiV4/UYiNIG+TUqwSF7DnHmRFfNZMVAr7/xjTlgTQ4q7eyxMqe5zwAu/laN
+	 LgifFzRuIivkjTprIEOf2Cb/yPeL7nWEYuD1ZEBiYA4JmoAIRYa2YKnF9oCJzm706Ng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n7dkZqTx;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8953E606A334;
-	Wed, 11 Nov 2026 10:54:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F98606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:58:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2F98606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LeCNeuyb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794394462;
-	b=2ibMg6OIntHZ+s2Q+CGBOPao/gmpIiXZ1by7Mz0LS3qpRdEDrwiej0pNZ/Sy3KIC0+nO
-	 3O7YtWNGw7Lakiowf7YMrNYoJkzuWNPVGnaiTIHFH/jJZNg6jPnJOf5emui6+SmDGlCwd
-	 R4nhw7vZDw2sNOaPr2aiFe+zkjZKtR7QCiOJ7jK/a+DwOcrTGB4UPYOIncoDKp1YDSymS
-	 GB+5Lsz3rAO7G0jIs0eMlWDiUo/CkxG/Rpt+77jYHoHZSV7VtrDPlr30ObobCf9ZrZbMx
-	 yXMyFEpsnIENFPmV4R+nq6CFyBCqer2EgxDHCmoxo8nD7UxNYYAEqyMLdfeRMdUgP4Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794394462;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4SvOebTKFMbQya7gCBewPTnTPz0HZqTShakBlkHoz88=;
-	b=bgLpOmzJYhKRk5Io0+0fPF68Eeel76gwlfRjy4HOfTGKzH3YEnqOVxlS8OFNtWpCNkdL
-	 3+K6jLgz9xH7bg+ZZo9Q3h2EyjWN4QLFd0xfE8HeE0IMz4P3chfWISE+fwEFtLJZJmUuD
-	 k7uJqiASOJi7CIDhYZ6W/jdOyM7IXi52mkDG0hXwIbQuZGf6U9niAylGiSrAd/kSdNJhy
-	 5tC5R8Tb/q0ti+yU/x6yzE53kvSNyyZ9Why/NefvIqKskl++7bvVGb2mcx7/TmkkdGRbP
-	 qpD+X5s/CIexb7Clkhu+u5DeU1KURHPK0TkfQJTIEEPfUb+CpgV4nPrj5asMSSUA0ww==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B47501F00A07;
-	Wed, 11 Nov 2026 10:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794394462;
-	bh=4SvOebTKFMbQya7gCBewPTnTPz0HZqTShakBlkHoz88=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LeCNeuybQ+iH1kwOsw76u3jCz6tZ1Ad789hIGy8LGg1RfCpXa1E6reUnHJxnAjz/9
-	 njYW6M1W059Q2KljpwUlho8iFIEIf605iWpwd1XPks05qaAErdju/1l/w9IEhOwYUD
-	 p0ntnSgaZ0A4auSgeAawNe1IV03AbeL1VEnC7fuhCSECQYpyPm1ns53DoIJX+0LOAd
-	 Qz9JjcBC3WLS7M+Jm9fr2mJJOMBFx7tW6w78Q9PEyCjjULzaVUhQqOb/dio66b9zQd
-	 ajR9LRnrQ3YjbFSmUQgTbGTpgWFoq6982QH5PPQtarfYCwPLwSv5/2nd3HWwPP4M3H
-	 wcMuKH3OvCQlg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 436DE48F58;
-	Wed, 11 Nov 2026 10:54:21 +0000 (UTC)
-From: Marc Herrero via B4 Relay <devnull+marcht.proton.me@kernel.org>
-Date: Wed, 11 Nov 2026 10:54:18 +0000
-Subject: [PATCH 2/2] ASoC: qcom: audioreach: only disconnect the route a
- mixer control owns
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n7dkZqTx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794394733; x=1825930733;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wAxIcKnQLFuEIpR+gtRgDnl+FmtnM4Ewvlsw7sKz1jw=;
+  b=n7dkZqTxEnqocclq0IA3V5C46ypk05A9sacgiW7KACk+53KPcuEkbf6d
+   BZGFlUBcRF/xWJ87Uo8VD32YuP91zETXNJkJR5ZyuMBKTUNqub24zakUk
+   Jdj/jj4WtB6o7HB/jEmXkFvMPxfQF8MHs3oMvEoVOB7Ej/8vlF6vm8MtA
+   +tFde3Q9f37DjuvT6WCBS+8nXkczDOsSYedKYBfgLFnTLXXzIcQhiktBO
+   LQmdmnf7CFVZw5bTdV1pWgHczXz3A8o2q9IZ1wUve4QTlBvXSWoDGhx8b
+   DjtPUW9YZB2TZP+YOFMG+PtbdrOYM4oMxyAnUJQPiwYJSx2ztmOm8rykZ
+   Q==;
+X-CSE-ConnectionGUID: zLSFpvQRTRuKXN7DdgeqrQ==
+X-CSE-MsgGUID: TtUWg12iQ8C0aiuHuPpkhg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11962"; a="3064422"
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="3064422"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Nov 2026 02:58:52 -0800
+X-CSE-ConnectionGUID: 4VajYzGfTKeSOMtMoe96gA==
+X-CSE-MsgGUID: 7PgorDSwSK2UdINBsoYILg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,207,1787036400"; 
+   d="scan'208";a="8962332"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+  by fmviesa010.fm.intel.com with ESMTP; 11 Nov 2026 02:58:50 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+	stable@vger.kernel.org,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+	Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH] drm/i915/dip: Write the DIP header last with SDP transmission lines
+Date: Wed, 11 Nov 2026 16:05:42 +0530
+Message-ID: <20261111103542.4093652-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,77 +80,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-q6apm-fixes-v1-2-1beb5702b372@proton.me>
-References: <20261111-q6apm-fixes-v1-0-1beb5702b372@proton.me>
-In-Reply-To: <20261111-q6apm-fixes-v1-0-1beb5702b372@proton.me>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Marc Herrero <marcht@proton.me>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794394460; l=2173;
- i=marcht@proton.me; s=20261111; h=from:subject:message-id;
- bh=uwHreXeheF+PY4xZ0ZasSUnOSnlXrONYE6C8uZecUBM=;
- b=bLkWe0qoIIXe4vR/PnbDWg1bBcDb3ZcqkOH4+4smFjsy+J+H3bp+7RMSHR6hsb0g8jz20cm6Y
- IZlTr6OAuUaBpTR2JKIdOEDdty12wfeTZAMyPw/715ULBSQFkVIhSYd
-X-Developer-Key: i=marcht@proton.me; a=ed25519;
- pk=pIPy6L+INgiuJt7L7umVilPgpzy/Ni3QS77ToLj/H9c=
-X-Endpoint-Received: by B4 Relay for marcht@proton.me/20261111 with
- auth_id=1490
-X-Original-From: Marc Herrero <marcht@proton.me>
-Reply-To: marcht@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Marc Herrero <marcht@proton.me>
+On platforms with SDP transmission line registers, the packets anchored
+to them are double buffered in the transcoder (TC) clock domain. The packet
+registers are in the core display (CD) clock domain and the whole packet is
+clock crossed on the write of the header (dword 0), so Bspec requires the
+data to be programmed first and the header last.
 
-Each AudioReach virtual mixer route control ("<BE> Audio Mixer <FE>")
-connects a front-end stream graph to a back-end device graph by storing
-the source module in the device graph's audioreach_graph_info. Writing 0
-to any of these controls clears that link unconditionally, even when the
-device graph is connected to a different front end.
+hsw_write_infoframe() writes the header first, so the packet is crossed
+before its payload is in place and the previous payload keeps being sent.
+This hits the AS SDP, and the VSC SDP whenever an AS SDP is enabled, which
+is whenever VRR is possible since commit 6a1712052859 ("drm/i915/dp: Enable
+AS SDP whenever VRR is possible or PR !async"). With CMN_SDP_TL, enabled by
+commit bfa597238073 ("drm/i915/dip: Enable Common SDP Transmission line"),
+it also hits the GMP and VSC SDPs: on NVL, entering HDR on an eDP panel
+leaves the image discoloured and scaled until the headers are rewritten.
 
-When two front ends can feed the same back end the result therefore
-depends on write order. On QCS6490 (Radxa Dragon Q6A):
+Write the payload, including the ECC zero fill, first and the header last
+on platforms with EMP_AS_SDP_TL. CD domain packets have no ordering
+requirement and Bspec recommends the same order for all packets, so use it
+for all of them. Older platforms keep the current order.
 
- - alsactl restore writes 'DISPLAY_PORT_RX_0 Audio Mixer MultiMedia2' = 1
-   and then 'DISPLAY_PORT_RX_0 Audio Mixer MultiMedia1' = 0, which leaves
-   DisplayPort disconnected although the saved state has it connected;
- - the UCM HDMI enable sequence writes
-   'RX_CODEC_DMA_RX_0 Audio Mixer MultiMedia2' = 0, which disconnects
-   MultiMedia1 from the headphones. A PCM started on MultiMedia1 after
-   that never advances (hw_ptr stays at 0).
-
-Only drop the link when it belongs to the control being cleared, that is
-when audioreach_is_vmixer_connected() reports it as connected. Writing 0
-to a control that is not the active route becomes a no-op, which matches
-what its get() callback already returns.
-
-Fixes: e4977b91cff8 ("ASoC: qdsp6: audioreach: Simplify handing FE and BE graph connections")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marc Herrero <marcht@proton.me>
+Bspec: 75640, 71197, 74384
+Fixes: e1123e617e51 ("drm/i915/vrr: Program EMP_AS_SDP_TL for DP AS SDP")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17732
+Cc: <stable@vger.kernel.org> # v6.17+
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
- sound/soc/qcom/qdsp6/topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
-index 612d8f03e6e9..e92408e09bac 100644
---- a/sound/soc/qcom/qdsp6/topology.c
-+++ b/sound/soc/qcom/qdsp6/topology.c
-@@ -1300,7 +1300,7 @@ static int audioreach_put_audio_mixer(struct snd_kcontrol *kcontrol,
- 	if (ucontrol->value.integer.value[0]) {
- 		audioreach_connect_sub_graphs(data, scontrol, dapm_scontrol, true);
- 		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 1, NULL);
--	} else {
-+	} else if (audioreach_is_vmixer_connected(data, scontrol, dapm_scontrol)) {
- 		audioreach_connect_sub_graphs(data, scontrol, dapm_scontrol, false);
- 		snd_soc_dapm_mixer_update_power(dapm, kcontrol, 0, NULL);
- 	}
+Notes:
+    Fixes tag rationale
+    
+    The Fixes tag points at commit e1123e617e51 ("drm/i915/vrr: Program
+    EMP_AS_SDP_TL for DP AS SDP"). The AS SDP has been written header first
+    since it was added by commit 8845021b7331 ("drm/i915/display: Read/Write
+    Adaptive Sync SDP"), but EMP_AS_SDP_TL, which holds the double buffer
+    point and the transmission line of the AS SDP on BMG and LNL+, was only
+    programmed from that commit on. From then on the driver relies on that
+    register to anchor the AS SDP, and the VSC SDP whenever an AS SDP is
+    enabled, and the programming note of the register asks for the packet
+    data first and the header last. The two later commits cited in the commit
+    message only widened the exposure: the first enabled the AS SDP whenever
+    VRR is possible and the second added CMN_SDP_TL for the GMP and VSC SDPs.
+    
+    Alternatives considered:
+     - 6a1712052859 (v7.2): AS SDP on whenever VRR is possible. The PTL
+       report is fixed by reverting it. Narrower than the spec argument, as
+       it only covers v7.2 and later.
+     - bfa597238073 (7.4): CMN_SDP_TL. The NVL regression, verified on
+       hardware, but covered by the older tag as every kernel with it also
+       has e1123e617e51.
+     - 8845021b7331 (v6.10): first header first AS SDP write, but
+       EMP_AS_SDP_TL was not programmed until e1123e617e51, so exposure
+       before it could not be shown.
+    
+    Not verified:
+     - The failure was observed on NVL with CMN_SDP_TL (rewriting the GMP and
+       VSC headers makes the panel recover). The AS SDP and the VSC SDP with
+       an AS SDP on BMG, LNL and PTL follow from the Bspec requirement and
+       were not reproduced here.
+     - No reproduction on kernels older than v7.2.
+     - Stable backports need the HAS_EMP_AS_SDP_TL gate adapted, as it is
+       defined in intel_dip.h, which is new in 7.4.
 
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 4ec0db8d93fb..3ecf017b3176 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -51,6 +51,7 @@
+ #include "intel_cx0_phy.h"
+ #include "intel_ddi.h"
+ #include "intel_de.h"
++#include "intel_dip.h"
+ #include "intel_display_driver.h"
+ #include "intel_display_regs.h"
+ #include "intel_display_types.h"
+@@ -524,6 +525,15 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
+ 	const u32 *data = frame;
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	intel_reg_t ctl_reg = HSW_TVIDEO_DIP_CTL(display, cpu_transcoder);
++	/*
++	 * On platforms with the SDP transmission line registers some of the
++	 * packets are double buffered in the transcoder clock domain, and the
++	 * packet is clock crossed on the write of the header (dword 0). Program
++	 * the payload first and the header last, so that the whole packet gets
++	 * crossed. Packets double buffered in the core display clock domain
++	 * have no ordering requirement, so use the same order for all of them.
++	 */
++	bool header_last = HAS_EMP_AS_SDP_TL(display);
+ 	int data_size;
+ 	int i;
+ 	u32 val = intel_de_read(display, ctl_reg);
+@@ -535,18 +545,21 @@ void hsw_write_infoframe(struct intel_encoder *encoder,
+ 	val &= ~hsw_infoframe_enable(type);
+ 	intel_de_write(display, ctl_reg, val);
+ 
+-	for (i = 0; i < len; i += 4) {
++	for (i = header_last ? 4 : 0; i < len; i += 4)
+ 		intel_de_write(display,
+ 			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
+-			       *data);
+-		data++;
+-	}
++			       data[i >> 2]);
+ 	/* Write every possible data byte to force correct ECC calculation. */
+ 	for (; i < data_size; i += 4)
+ 		intel_de_write(display,
+ 			       hsw_dip_data_reg(display, cpu_transcoder, type, i >> 2),
+ 			       0);
+ 
++	if (header_last)
++		intel_de_write(display,
++			       hsw_dip_data_reg(display, cpu_transcoder, type, 0),
++			       data[0]);
++
+ 	/* Wa_14013475917 */
+ 	if (!(IS_DISPLAY_VER(display, 13, 14) && crtc_state->has_psr &&
+ 	      !crtc_state->has_panel_replay && type == DP_SDP_VSC))
 -- 
-2.53.0
-
+2.50.1
 
