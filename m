@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794362607;
-	b=3Zx2H2x8W0Mw49NWZeTewK5ZlMBKT1MfC46zOGQrBFMqTKpEJwDTF/DZN9A2iiIQ7BDP
-	 1dr2Csy0++qiM8JUfITEgZbp11PQ/NuLcvK2+WE4+fsfxWsKlmhi/q0ivhm10DvWiF0ho
-	 bT8PmH4lTWbiiWmhpTrdo98loKxEnW+2eOOLIyuo3MnRW0LZwX9xgaQsgb08sXa+Eb3X/
-	 sQiIh1dA30V9uVF3kcPxaWyXGljv4kVjCP0jeL9w/k5EG9No471uDkyWqDszYRz0aNmSe
-	 cnhnSXpEcqBLY6D0Fnj2OdWKwYPpw42KAagQDEuC/4q9QeemBU1+Z6AUIjV1LCyKq6Q==
+	t=1794362623;
+	b=iRIKeySxpDS/WlazqxBtPa31UEPdv4jqrsonZYVPDQLJ8fClYtW3XScibcDyQ3cvEjs+
+	 lAxEsK2Vyup7hYeSN+/6E0Cg+ibnxTMlBsRg/Bd0s6rDb0TjjeGw6XjPI9SmNcxki0Rxb
+	 7hpOh8mreaEB1FaoEHKhTENv8OeQzxBpLHjW5PlsG+5ZW/WNHjIybbE7oVfUN9R+wfQGg
+	 1Vv2ugTGXsByhHJv627BTNTQ8cdiAc58EiVwWxl2ogMUWg6aunWotv7lSF3m19210dMbs
+	 2XwYSUnbytQ52F4jE4Rp2qC+vvHL7G+4H2EsGsGhWHjXXaXmVVJ1WFlW5//Ha0KhB1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794362607;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794362623;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KiCMBogBEqCEOmhYY7tq9i0SwAUDRZcEikWGab24N/k=;
-	b=1N7d9PRmng/JjjSqqXRs6fHhhhqK4fA9UlMgTDvPsyvHRndQOnSP2Q+6gHEZCyMyruOe
-	 7/+2GEeJ69pQudXhxhsr9LYp2uYk3iWxqRj5GnO+3VYnvohbW7+gdBgY2w+9G/wDwWDBC
-	 9ggIQV2N8evoc0Li6ege14QkGVEH4pDdAs4IOeserA4zgCsXh7w35LT0xSPuFN5M4tjZQ
-	 NgnwZhce+hyzXZwRXYDXtlAcngwMEpI71W3tvtWLdSNwNw+I/hkAX6wNW3rtJACaCjVUJ
-	 jz7b1JoCdzvb+87Fes7OVKXwS/D6hirQLzZ8dcGnhg+JxXl4KEJiJDDZaF25JoLUe5A==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QJJd90FQnT7Q8k25K5YFLsUqenhMTZCgscyA8PwO/jk=;
+	b=PgjtFaozBldhP8ShV6Flbix3MqsEjLcCpdtIUNGsCy64+1a18uBt2EUFF5wnX4QqS0Xk
+	 Kg+/+Xny9OMz2u40nHK0urJdq+v7rvTD3SORfxM7MaHoKl1BLbj0HRMB81LKGRcpI4TXB
+	 w8YSMCMqW3TS2BuqlBis1d5R30Iaf93zFmtlhfAEqLAAtnA9N+U9QKWDcZSWJ0MaFS28N
+	 3d/R0gqMYVoct3JksvCGY9kv/Zp0rjs57ZMByLAm09ZTIufRP3YjoquBYbON4u6XH/b1A
+	 suTrkGUW+SOfi3g8btAsbDhFj5Z5hhnhOCibZld5plKfFgGQQMiDg5IOkKo1aVVmI3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7l4o+nA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RINm7b9Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18759606A336
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:03:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635A2606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 02:03:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7l4o+nA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EE441F00A08;
-	Wed, 11 Nov 2026 02:03:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RINm7b9Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733051F0089F;
+	Wed, 11 Nov 2026 02:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794362607;
-	bh=KiCMBogBEqCEOmhYY7tq9i0SwAUDRZcEikWGab24N/k=;
+	s=k20260515; t=1794362622;
+	bh=QJJd90FQnT7Q8k25K5YFLsUqenhMTZCgscyA8PwO/jk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L7l4o+nAO03CuAt9ngZtEda2n+ws/VQ3sCQcuZBIan3wWt/JhkBE34/MwMliQ+vHc
-	 2O2JasysLUipVxLOJwMULnkpjK1vPbR8eFPHO7DXQR2ABwdv0i08eN9Kw2QpY++XJf
-	 yAu9GwBmwQL8dM+ZtVFTW+puOmD9WfVo+AcuJ/yRitmI5GHtdL0xGfgGvPyI2HOdrO
-	 HFJv0aiyOadzHoIDGQlF+sw42VAHaZM5WIYgsakz8C0uhSCVKjDmVNbIIwKHgdrpzA
-	 9yGnyPwHNrYa13EHim9lwH+mv5a3I34a1jxoGNTGfOuPC9Vqrvz95AWAtnZAdyXYBu
-	 KOYub0ZEe77og==
+	b=RINm7b9ZMiZcrOQ+uTJOlDoTTwD51/vy1zVS9MZa673XbV/LGJpXUf+RtvOETcPj0
+	 DBGnKpW473Thjz0ClV7VXLR5DbHkICXju7pAKTrwzN0FyT4zSqq739qlllVNBV8rWQ
+	 X+or7PlUmgN1MPhgp8F+VhkwoDesWn7LFOLuhCvdamX+ZX8+MRW2h27ecL4a+KdYcH
+	 LtQCuAaqQJNS2jDdPReZ6P8RqO3fS2C5v0Ze3NxkS+Z+zn6V/sSEhXZb2HdXJDiwRl
+	 I7jblWBDmxvusp4JGjEO7bRDPBWRRm+jGES3wIobwkFBglg+OkZ7DEx25Nmpq/fF1U
+	 tRiyN0zMNEbHg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	co+fd80bc5967eb22c3@bugs.sh,
-	Mathias Nyman <mathias.nyman@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] usb: xhci: Fix bounce buffer overflow
-Date: Tue, 10 Nov 2026 21:03:25 -0500
-Message-ID: <20261111020301.541763-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/6] Input: matrix_keypad - convert to platform remove callback returning void
+Date: Tue, 10 Nov 2026 21:03:36 -0500
+Message-ID: <20261111020056.444668-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060404-failed-5.15-68c5cb7574c5@kernel.org>
-References: <20261107060404-failed-5.15-68c5cb7574c5@kernel.org>
+In-Reply-To: <20261107053642-failed-6.6-1527451f87df@kernel.org>
+References: <20261107053642-failed-6.6-1527451f87df@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +60,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Michal Pecio <michal.pecio@gmail.com>
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-[ Upstream commit 68c5cb7574c567e83ba95258cb146db95e069a87 ]
+[ Upstream commit af90388a598d39584283c18e4047124fee8f1801 ]
 
-High-speed devices with out of spec 1024 byte bulk endpoints exist and
-are allowed by USB core, but xhci-hcd always sets packet size to 512.
-The exact nature of these devices isn't documented, commit fb5ee84ea72c
-("USB: Accept bulk endpoints with 1024-byte maxpacket") only states
-that they "don't work with xHCI host controllers", whatever it means.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new() which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-But somebody (or a malicious device) can try, and then the driver will
-allocate a 512 byte bounce buffer for this endpoint and may write up to
-1024 bytes into it if particular scatter-gather URBs are used, because
-xhci_align_td() obtains packet size from the descriptor. Fix this.
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-As a side effect, TRBs will be aligned to the packet size chosen by the
-driver on all endpoints of all speeds. Alignment serves the xHC, not
-device, so this is fine. Only out of spec devices are affected anyway.
-
-Reported-by: co+fd80bc5967eb22c3@bugs.sh
-Link: https://lore.kernel.org/linux-usb/D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh/
-Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20261009151624.618967-11-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: adapted removal of xhci_usb_endpoint_maxp() to the existing usb_endpoint_maxp() call ]
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20230920125829.1478827-6-u.kleine-koenig@pengutronix.de
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Stable-dep-of: 1527451f87df ("Revert "Input: matrix_keypad - force switch rows to input mode"")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci-ring.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/input/keyboard/matrix_keypad.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 978ff4d112fb8..b8da9386b5af6 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -3689,15 +3689,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
+diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
+index a1b037891af25..50fa764c82d2b 100644
+--- a/drivers/input/keyboard/matrix_keypad.c
++++ b/drivers/input/keyboard/matrix_keypad.c
+@@ -549,15 +549,13 @@ static int matrix_keypad_probe(struct platform_device *pdev)
+ 	return err;
+ }
  
- 
- static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
--			 u32 *trb_buff_len, struct xhci_segment *seg)
-+			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
+-static int matrix_keypad_remove(struct platform_device *pdev)
++static void matrix_keypad_remove(struct platform_device *pdev)
  {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
- 	unsigned int unalign;
--	unsigned int max_pkt;
- 	u32 new_buff_len;
- 	size_t len;
+ 	struct matrix_keypad *keypad = platform_get_drvdata(pdev);
  
--	max_pkt = usb_endpoint_maxp(&urb->ep->desc);
- 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
+ 	matrix_keypad_free_gpio(keypad);
+ 	input_unregister_device(keypad->input_dev);
+ 	kfree(keypad);
+-
+-	return 0;
+ }
  
- 	/* we got lucky, last normal TRB data on segment is packet aligned */
-@@ -3842,9 +3840,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 		if (enqd_len + trb_buff_len < full_len) {
- 			field |= TRB_CHAIN;
- 			if (trb_is_link(ring->enqueue + 1)) {
--				if (xhci_align_td(xhci, urb, enqd_len,
--						  &trb_buff_len,
--						  ring->enq_seg)) {
-+				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
-+						ring->enq_seg, ring->bounce_buf_len)) {
- 					send_addr = ring->enq_seg->bounce_dma;
- 					/* TD bounced at least, and last on this seg */
- 					td->bounce_seg = ring->enq_seg;
+ #ifdef CONFIG_OF
+@@ -570,7 +568,7 @@ MODULE_DEVICE_TABLE(of, matrix_keypad_dt_match);
+ 
+ static struct platform_driver matrix_keypad_driver = {
+ 	.probe		= matrix_keypad_probe,
+-	.remove		= matrix_keypad_remove,
++	.remove_new	= matrix_keypad_remove,
+ 	.driver		= {
+ 		.name	= "matrix-keypad",
+ 		.pm	= pm_sleep_ptr(&matrix_keypad_pm_ops),
 -- 
 2.53.0
 
