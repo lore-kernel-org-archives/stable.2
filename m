@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408485;
-	b=fqca4qn3j/oE1jEK2CrC+qRv6CrRJF1Wc19T/s4+KfZJJJWdnMzFB5fqpol9Zj95hSP9
-	 GzrRIWU1I/tBielu4GY46eo19zdfIAAXXcLCS1DeglFKc4XkoZMYp03IBxKOgTlo/E1fX
-	 8Ko6uqVz9uNRI+fNl1iba4PvuPpzJzaX84DWsL9wB4lWb8svTnXKOx23hFVXjrXnyPFDW
-	 +XaXEZErUHBl2HtjY/89thJQixFG02U4UzGty2ovbiqENMwqG5BlEyJlBzf5UUmJOBtMy
-	 ZhAxTb5fQ+Mu5Jvs7z4ev57YifB2U2fUXHDxzohCJAD9UEVoX5KdKTC5gx42DFj4blA==
+	t=1794408536;
+	b=BjSLEngut+XMfkJ41pJqHsO428hD0xn2H1hU1tN/y55OFk9Wy49pJN5Vd2dETI/YUPUV
+	 TqplvwBR0AEIN2AnRclQEH6Dh/5CbDLZoQRF4ku6AdHSL9yxLhaTaAGHDH8ttmeC513vR
+	 oU2Bi1D2Q+jAka0foNRufmlgGTpjyfX/7ZHismZnhz7OciRUzxtTtTHp7PNmDxn3yhU/6
+	 2IS1+Q+NLZ7QSsAF/FnZDFUZxGqp1PQPoD+DlnA99qiB29Q35glTio3JruSGEa0NKPgsM
+	 rsVYUa5C2kPJDNfDC8Ys1qJSm/7BtAbPwh4bhC1aOvDfQNbQkuKAePXd/Xwmy9l0OWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408536;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=h5ujBcBbYLwjrcrzb8U97L3Chf9bNsYxYwtvASK0RoU=;
-	b=sh23VTFJwhYn0MZPZwbfDFxiTNJ9eqtxnK+7OaBQG1hVjJxDwpiM71ZZjsA6+B8WtopF
-	 HYMg8GAIynKY83bi3ac3xx2qZ01fwogeZiCkMwP6H55IndV25njwJsPr+/8PJdtpMG5A/
-	 NKrLoVmo+T97qWVtRJD045LWN2X9yek+MG5cn4x5QP/E/7WwR7e65pSjwWzF1YoHXbczA
-	 d5vz8P3lMHBI0UlnSt9JU8asjBn9a+5fMBBx/BukrPLJKq4Ey+2kLDeLUqhd3hEfBrxIZ
-	 Qu9n9dcfo7y81PNwtNUxZDUg5xvniqkw9LG5sNnDFvmAmRRCbqLMWll+ANgdYwTgoFw==
+	bh=0Epdyfueyi/37oyon1G31vg9AvMN1aBFSMT6SN7+dgk=;
+	b=bd3lBWSTCjKy1vDurK1pRR6icLkWnQ2av2ySkCabsEIMW5zoNJV8W22p3Ag7wveLeIli
+	 BcW84LiLvrJvcJwCfQO6GNhDToGWFgi+M5oILl4v8I6+f1+0jgB474XGtNAGWl1aYsEFF
+	 9pxF3mssd1Gq3oepvBcH4rNUXtt0Sa5f+pyhuSOCq+rYQfJB9v5R4Aa31VKhNBiSrw67b
+	 Ov4mm6Of647nVZ7fwW99paVEmQqIpx6V3FEPGD1TQrRJeKT0ILt23FvWxeYG+DA0+Pr8F
+	 RHLLrJA5RasJnka+Xi6hpQ33AGSW1WKvTiTlOfkGxaiLk3G3UvNzOJo2iwEQZau39gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkhxNAFz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYj25GD8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68526606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:48:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6062D606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:48:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkhxNAFz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F35F1F00A05;
-	Wed, 11 Nov 2026 14:48:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYj25GD8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64441F00A05;
+	Wed, 11 Nov 2026 14:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408484;
-	bh=h5ujBcBbYLwjrcrzb8U97L3Chf9bNsYxYwtvASK0RoU=;
+	s=k20260515; t=1794408536;
+	bh=0Epdyfueyi/37oyon1G31vg9AvMN1aBFSMT6SN7+dgk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dkhxNAFzvh5e67s5oXwAv2eJIAzLwGmV//nRH5X2RERAsCH6snGd5t8uH7NuP2O11
-	 Mw16G+YmVzBQO6NUDQW1S01idK1qHpgipckldK9qpvTQ0Vl66EodWcCDwvp5T/90iW
-	 0J6HmN2YTEbj7A2WNMmPdKeqqc1L23jcfAem3+4oQFkXvtjS7laNadcE36h79lGnqX
-	 6CCbD1pW41Pg3RmjuTxoMIBf3X7b6Rq6navqiWuPVrqlDEITDo6a9ZQo8Tcfdd/GGs
-	 qcuNF5oJwpbJEeAGeXopyKkEQYdsCClvf1E22wx0CRbRaUCpytl7bkQ0AXNQQ4Kwnf
-	 kfpuOhEJhc7kA==
+	b=QYj25GD82lyXFMlrPIY9EOSuCTp7DvK/VV9Vlryz2KpPD1zA81Um8gTXKj6nOI5M6
+	 kL77nWeU2Duat1hr8mNdRkiqpMTlniBdkICdUL0z0wnrN1Qs5zJ3tTfH3csRgfmJlF
+	 bgNCnt5S4yQhYskLgd7rjYWvQH7SKmi71kO7D6/7ar6Fe+ova33CutVtJxUlciGdk3
+	 PBsyfy9flY0ilt4eqjMf0u1AnAB4cAM1I8vIbGNs/WIM0kVvpHFIXbs2U1Lo8hiWxD
+	 ER/6wLNvgaQ+F0nIbh+1hUsIuTS2ccFeyvsTigUGDwkyV/InRJFn70CbwzUs+dx2Zi
+	 PkpGMCqsHt5FQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
+Cc: Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] iomap: don't mark unwritten parts of a folio uptodate
-Date: Wed, 11 Nov 2026 09:48:02 -0500
-Message-ID: <20261111144715.2370479-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] f2fs: fix to invalidate curseg if change_curseg() fails
+Date: Wed, 11 Nov 2026 09:48:54 -0500
+Message-ID: <20261111144803.2438566-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055638-failed-6.1-a4193b4af359@kernel.org>
-References: <20261107055638-failed-6.1-a4193b4af359@kernel.org>
+In-Reply-To: <20261107051114-failed-6.18-e74476ad8162@kernel.org>
+References: <20261107051114-failed-6.18-e74476ad8162@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +62,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Chao Yu <chao@kernel.org>
 
-[ Upstream commit a4193b4af359db84b2cdf3a040752861984c636b ]
+[ Upstream commit e74476ad8162c1facc74b74ce2d1372492df872e ]
 
-For a buffered write into a hole, an unwritten or new extent, or past
-EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
-write and then marks the blocks uptodate. That includes the range of the
-write itself which still holds whatever was in the folio before. It only
-becomes valid once the copy from userspace has filled it in.
+Our consistency stress test (fsstress + fio + atomic write workers +
+"f2fs_io shutdown 1") triggers below kernel BUG:
 
-But the copy can come up short and __iomap_write_end() only rejects a
-short copy if the folio isn't uptodate. If the zeroed blocks were all
-that was missing the folio is uptodate by then, the short copy is
-accepted, and the rest of the range is exposed to readers and can end up
-on disk. A source buffer that ends in an unmapped page is enough:
+ F2FS-fs (vdd): Stopped filesystem due to reason: 0
+ ------------[ cut here ]------------
+ kernel BUG at fs/f2fs/segment.c:3989!
+ Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+ Workqueue: writeback wb_workfn (flush-253:48)
+ RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
+ Call Trace:
+  <TASK>
+  do_write_block+0x155/0xc10
+  f2fs_outplace_write_data+0x192/0x340
+  f2fs_do_write_data_page+0xc57/0x1880
+  f2fs_write_single_data_page+0xda9/0x15a0
+  f2fs_write_cache_pages+0x973/0x1f20
+  __f2fs_write_data_pages+0x6c4/0x1890
+  do_writepages+0x21e/0x560
+  __writeback_single_inode+0x119/0x11b0
+  writeback_sb_inodes+0x67d/0x17a0
+  wb_writeback+0x207/0x820
+  wb_workfn+0x128/0xc30
+  process_one_work+0x925/0x1600
+  worker_thread+0x60a/0xff0
+  kthread+0x35f/0x460
+  ret_from_fork+0x474/0x7e0
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
 
-        ftruncate(fd, 4096);
-        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
-        pread(fd, buf, 4096, 0);
+The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
+in f2fs_allocate_data_block(), next_blkoff was 512.
 
-The write returns 16 and the read returns 2984 bytes of whatever was in
-that page before. If other blocks of the folio aren't uptodate the short
-copy is rejected but the zeroed blocks keep their uptodate bits and the
-retry with the copied length leaves the same bytes behind.
+The root cause is a race in between atomic write commit and shutdown
+as below:
 
-Only mark blocks uptodate in __iomap_write_begin() after reading them.
-__iomap_write_end() marks the zeroed blocks uptodate once the copy has
-succeeded and rejects a short copy.
+Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
+- f2fs_ioc_commit_atomic_write
+ - f2fs_commit_atomic_write
+  - __f2fs_commit_atomic_write
+   - __replace_atomic_write_block
+    - f2fs_replace_block
+     - __f2fs_replace_block
+                                - f2fs_ioc_shutdown
+                                 - f2fs_do_shutdown
+                                 : F2FS_GOING_DOWN_METASYNC
+                                  - f2fs_sync_fs
+                                                           - f2fs_write_single_data_page
+                                                           : pass f2fs_cp_error() check
+                                  - f2fs_stop_checkpoint
+                                  : set CP_ERROR_FLAG
+      - change_curseg
+       - reset_curseg
+       : curseg->segno = new_segno
+       : curseg->alloc_type = SSR
+       : curseg->next_blkoff = __next_free_blkoff()
+         which is BLKS_PER_SEG if there is no free
+         slot in new_segno
+       - f2fs_get_sum_cache
+       : return -EIO due to f2fs_cp_error()
+      : return error w/o restoring curseg
+     : goto out_unlock, skip restoring
+       old segno, blkoff and alloc_type
+                                                            - f2fs_do_write_data_page
+                                                             - f2fs_outplace_write_data
+                                                              - do_write_block
+                                                               - f2fs_allocate_data_block
+                                                               : curseg->segno is valid
+                                                               : f2fs_bug_on(next_blkoff >=
+                                                                 BLKS_PER_SEG)
 
-Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
-fix (cf. [2]) but it never got merged.
+Since commit 86f33603f8c5 ("f2fs: handle errors of
+f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
+has already been switched to the new segment, then the curseg is left
+in an inconsistent state: it points to a segment which may have no
+free slot, its summary block is zeroed, and the caller can not restore
+it. Subsequent block allocation on the curseg will trigger the BUG.
+Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
+sentry_lock held, so the commit, shutdown and other I/O threads hang
+in D state.
 
-[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
-[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
+Since change_curseg() only fails once CP_ERROR_FLAG is set, no
+checkpoint will be committed afterward, let's invalidate the curseg via
+reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
+then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
+instead of triggering BUG, and do_write_block() can handle the error
+since CP_ERROR_FLAG has been set.
 
-Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ sashal: Adapted iomap_set_range_uptodate() to include the required iop argument. ]
+Cc: stable@kernel.org
+Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+[ sashal: adjusted error-path context to use PTR_ERR(sum_folio) instead of PTR_ERR(entry) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/iomap/buffered-io.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/f2fs/segment.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index d0cfc4c3389c7..9b22279b5c685 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -560,6 +560,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter, loff_t pos,
- 		if (iomap_block_needs_zeroing(iter, block_start)) {
- 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
- 				return -EIO;
-+			/* uptodate once copied, see __iomap_write_end() */
- 			folio_zero_segments(folio, poff, from, to, poff + plen);
- 		} else {
- 			int status;
-@@ -571,8 +572,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter, loff_t pos,
- 					poff, plen, srcmap);
- 			if (status)
- 				return status;
-+			iomap_set_range_uptodate(folio, iop, poff, plen);
- 		}
--		iomap_set_range_uptodate(folio, iop, poff, plen);
- 	} while ((block_start += plen) < block_end);
- 
- 	return 0;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index c0ec2715408e8..1097e688d165f 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3067,6 +3067,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
+ 	if (IS_ERR(sum_folio)) {
+ 		/* GC won't be able to use stale summary pages by cp_error */
+ 		memset(curseg->sum_blk, 0, sbi->sum_entry_size);
++		reset_curseg_fields(curseg);
+ 		return PTR_ERR(sum_folio);
+ 	}
+ 	sum_node = SUM_BLK_PAGE_ADDR(sbi, sum_folio, new_segno);
 -- 
 2.53.0
 
