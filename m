@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418462;
-	b=X4wGjR0R9pggXjjdBhDRQn6KM2J9PJt3SWYMU4IlkEuTBODmRBKCifE9guNfYrhp6bLF
-	 9NjhDG7NnSE39DsToMIap3P7HVHYoOmm2MOy59sXPdpWFL7jSQ6Zm0gjGwsZjJ+6Dnz6D
-	 p7gOJCvRVmw6mJlejjmXTGSW0Mo5vIyMGDlafbe48Ym/Wbqq/2ccpn2qHPzK+am47NYDB
-	 warkFJdhhEHQdZEh+CZkrC1Gl4xcUCJZBc3bEinmiOtAx6S0W1DmFvo62fi4Sz/gphbC+
-	 EdyaEfdG7ervbvldnq6GHOVAD9NVKNkvkNec3aS5eFgiLITpjCI1JWiOD5XBzd2WxCw==
+	t=1794418612;
+	b=w/CBfaop4ReMjEyfEO1neaa9H/5rO7J9C7qH0mI5iUbZi7wB+R38Pb+DrSBm0mZsTEC5
+	 F/ID66ARW1Ck/eVinMIPDsL9vkDRNhQ7FZFYRDhdh9l+McZJwH+8sSHliP2d+RHBs/2DK
+	 vgOv039+TcH3tufb6mt87Otq4Iz2CKkMj8uffIpY/ngfrRq6hsKr8Bw7wgO24Mrb0m/kV
+	 YKPLNjtmZ6f4ZG00Ru4Ey+nvvkmqQmHpeCZ3hI5UJgXa7LPrKsCR2OWgqG0GP3WQTw5PB
+	 RLAUMrGrLrSHg2JIrJCUqX+4wID3pFyF36e7KKzZxfVXYfhhFjXeO10Lz5aSN6Da49Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418612;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=IsQz5Kf689Ov2wwRsR+lh5lwodSQ22klEnCbElQKuOs=;
-	b=X8HvxNvnR9gzm1PUQJV+AT30Dv7CNx6irYrlBmW3EQY3Kxf5FJ16LXwxbh7QBi/+1Bb/
-	 pFFqPcCaYL2ZEbin4Bq7rkp9upNBZphkKg3e7WTQiHsruLupHkPZwDze/GuRU0L9RDMbT
-	 R+gDGBOUIe1nJXz1od0AW+jrWfwXjQX3No/063jFLcgW23mJFq9RQGP4TnLJ3et6RD38L
-	 AwNh8IRDo8rLINrYvI2nhnD8CNwrv9ixXBYZ/iUtWka/30+uQPkYtbuCAhQdC4U6Kx5jA
-	 yxX+zK4yQQn0q6n9KcyCcQLO63hIgFKIFAbHHnm4TgyPXYFzXuxDWA+rt0u01fzMVSA==
+	bh=cUQzGdDyU/6E5PqAuiIYlFP+J2hjngY6cFr7d0VKtgU=;
+	b=TLx+GeeE7kBvPFTBhq6BogU+nLdpY+JBLqK7SvpNhzXpvOVEq4JeiNrLCtG0tHSsXQ0G
+	 +ZHti56VXh1X7CrtrQYrAw8rfjLazpbeJAMmKa3fe8iZpPsK+xjk9ygguT445mKR70si1
+	 cEVncF9OQTdK5zkbW4VzJmB1Q7qu5DbIs2fahkq00M0IQyz699KqD+V2geCYxAwtRlUaQ
+	 Np7OIIrrksqyb3+QVu9un/Z4iNaUiWMUPQ0bkj/8asLjsgZedso7CS9QeplcrWtXaHhCP
+	 +6W+nnJXvYoozKz8B+UQapucqDftlJFWrOseKLUBucI6cIQE5+1XTg5dylXgccwyyow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOgRdSYk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4+KtXV8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C014D606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:34:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5772D606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JOgRdSYk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E041E1F00A05;
-	Wed, 11 Nov 2026 17:34:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4+KtXV8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313F11F00A05;
+	Wed, 11 Nov 2026 17:36:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418462;
-	bh=IsQz5Kf689Ov2wwRsR+lh5lwodSQ22klEnCbElQKuOs=;
+	s=k20260515; t=1794418611;
+	bh=cUQzGdDyU/6E5PqAuiIYlFP+J2hjngY6cFr7d0VKtgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JOgRdSYkIzKdANdKk/sed0qOTo4//E4IUtPIw8wmLvJ8SZgCquKBrg/0UHwGRqGvZ
-	 hr8945CSY5FTj8N6RLn2X79sXY8f5G2d0fvbBIp6/q92Pweb6tbVJFv/nGOc0+s/dy
-	 ffYCcrP0j6rPmkwFJsLPg+UAigiCfOpMHd6czAedD6YKArloz4xTDK3XODAuv6nz4O
-	 K9dFBFYTL9WXq/KelZTCfyoo9UcV4RsTihq4cuwwhRhxFChFNmZfeVtdo1wPru48Kl
-	 xJevsOHpBRNXkb6j0BWYwKSwR55z9cKae++7kR426c03o+B2YpZ6+Et+OuLLujoWaM
-	 CQkoBcWdWaYYQ==
+	b=e4+KtXV8gjDiiEJvYLPgK5ks46iJ4WGyNux0hREX54KWvx8FeJ06Ig6H4XiGJ0HW/
+	 dtEw+enGfP1oLtBAdyFyV++4GFpBdIdD7fX4+fXX47P+oOE3JTTONzKHWpkuirOc78
+	 d5kXGrWokV+g7GgWyQwgHCvJ5eIG0AJ3eciGXAGtj/3/leaE9BhzsvijSFGKzZQpN8
+	 VTs8f/Jyeh9kdaUX7sP/PXGH67amOE9alaGutMqIJsr/6oLocf7VvLvt3/hXZpd0n0
+	 rU8OHjAb7QQpRULZgaSg9pbmyKibmiLSYww7bQ6uGfgM7a0wkpflsxu9A7p7fu7fQv
+	 jL3MXMoz/xxRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Xu Xin <xu.xin@linux.dev>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/madvise: fix data loss from MADV_FREE on a KSM page
-Date: Wed, 11 Nov 2026 12:34:20 -0500
-Message-ID: <20261111173359.3616859-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM
+Date: Wed, 11 Nov 2026 12:36:49 -0500
+Message-ID: <20261111172825.3575288-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202814-failed-5.10-22d043c1da48@kernel.org>
-References: <20261109202814-failed-5.10-22d043c1da48@kernel.org>
+In-Reply-To: <20261109201636-failed-6.1-053621535f01@kernel.org>
+References: <20261109201636-failed-6.1-053621535f01@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +63,135 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 22d043c1da48d6c7274f9dd900714b6d58b7b9c6 ]
+[ Upstream commit 053621535f014085c935879582dd3b65964a0dce ]
 
-MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
-folio remains in the stable tree and can gain new mappings without being
-dirtied again. Once marked lazyfree, reclaim can discard data that those
-mappings still need.
+When doing RSM to L2, validate L1's state after copying it back into vmcb01
+from SMRAM, as SMRAM is carved out of guest memory, i.e. is writable by the
+guest.  Failure to validate L1's state is especially problematic for inputs
+to MMU context, as KVM can end up with impossible CR4 vs. EFER state.  E.g.
+without the recent hardening FNAME(walk_addr_generic), a guest can trigger:
 
-KSM always marks a folio dirty when converting it to a KSM folio in
-try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
-but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
-PG_swapbacked instead of discarding the folio. This also protects folios
-that were already lazyfree when KSM converted them.
+  ------------[ cut here ]------------
+  UBSAN: array-index-out-of-bounds in arch/x86/kvm/mmu/paging_tmpl.h:435:15
+  index 3 is out of range for type 'u32 [2]'
+  CPU: 3 UID: 0 PID: 92 Comm: CPU 1/KVM Not tainted 7.3.0-rc1 #2 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5f/0x90
+   dump_stack+0x10/0x18
+   ubsan_epilogue+0x9/0x39
+   __ubsan_handle_out_of_bounds.cold+0x50/0x55
+   paging32_walk_addr_generic+0x889/0x970
+   paging32_page_fault+0x79/0xa60
+   kvm_mmu_do_page_fault+0x125/0x270
+   kvm_mmu_page_fault+0x88/0x7b0
+   npf_interception+0xc8/0x220 [kvm_amd]
+   svm_invoke_exit_handler+0x16d/0x1d0 [kvm_amd]
+   svm_handle_exit+0xb7/0x160 [kvm_amd]
+   vcpu_enter_guest+0x428/0x16a0
+   kvm_arch_vcpu_ioctl_run+0x479/0x920
+   kvm_vcpu_ioctl+0x316/0xb00
+   __x64_sys_ioctl+0xa3/0x100
+   x64_sys_call+0x281/0x23d0
+   do_syscall_64+0xba/0x550
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+  RIP: 0033:0x79bb30deb04b
+   </TASK>
+  ---[ end trace ]---
 
-Skip KSM folios before clearing their dirty flag, checking under the
-folio lock to serialize with KSM conversion.
-
-Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
+Fixes: 37be407b2ce8 ("KVM: nSVM: Fix L1 state corruption upon return from SMM")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Xu Xin <xu.xin@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-34-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted folio-based KSM handling to page-based APIs ]
+Reported-by: Bill Wendling <morbo@google.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Tested-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261022021046.295001-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: adapted validation to __nested_vmcb_check_save() with failure routed through the existing unmap_save cleanup ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/madvise.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/x86/kvm/svm/nested.c | 23 ++++++++++++++++-------
+ arch/x86/kvm/svm/svm.c    |  2 ++
+ arch/x86/kvm/svm/svm.h    |  2 ++
+ 3 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 8b6ed35c1d265..9fc121162aa60 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -652,6 +652,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (PageSwapCache(page) || PageDirty(page)) {
- 			if (!trylock_page(page))
- 				continue;
-+			/*
-+			 * KSM pages can gain new mappings at any time, so we must
-+			 * not clear their dirty flag.
-+			 */
-+			if (PageKsm(page)) {
-+				unlock_page(page);
-+				continue;
-+			}
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index af9caff998eba..1bd94165d2fba 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1507,6 +1507,21 @@ static void nested_copy_vmcb_cache_to_control(struct vmcb_control_area *dst,
+ 	/* 'clean' and 'hv_enlightenments' are not changed by KVM */
+ }
+ 
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save)
++{
++	struct vmcb_save_area_cached save_cached;
 +
- 			/*
- 			 * If page is shared with others, we couldn't clear
- 			 * PG_dirty of the page.
++	if (!(save->cr0 & X86_CR0_PG) ||
++	    !(save->cr0 & X86_CR0_PE) ||
++	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
++		return false;
++
++	__nested_copy_vmcb_save_to_cache(&save_cached, save);
++	return __nested_vmcb_check_save(vcpu, &save_cached);
++}
++
+ static int svm_get_nested_state(struct kvm_vcpu *vcpu,
+ 				struct kvm_nested_state __user *user_kvm_nested_state,
+ 				u32 user_data_size)
+@@ -1583,7 +1598,6 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 		&user_kvm_nested_state->data.svm[0];
+ 	struct vmcb_control_area *ctl;
+ 	struct vmcb_save_area *save;
+-	struct vmcb_save_area_cached save_cached;
+ 	struct vmcb_ctrl_area_cached ctl_cached;
+ 	unsigned long cr0;
+ 	int ret;
+@@ -1653,12 +1667,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	 * Validate host state saved from before VMRUN (see
+ 	 * nested_svm_check_permissions).
+ 	 */
+-	__nested_copy_vmcb_save_to_cache(&save_cached, save);
+-	if (!(save->cr0 & X86_CR0_PG) ||
+-	    !(save->cr0 & X86_CR0_PE) ||
+-	    (save->rflags & X86_EFLAGS_VM) ||
+-	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+-	    !__nested_vmcb_check_save(vcpu, &save_cached))
++	if (!nested_svm_check_vmcb01_save(vcpu, save))
+ 		goto out_free;
+ 
+ 
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 4e68391c71f67..016a0d777f232 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -4622,6 +4622,8 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const char *smstate)
+ 	 */
+ 
+ 	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, map_save.hva + 0x400);
++	if (!nested_svm_check_vmcb01_save(vcpu, &svm->vmcb01.ptr->save))
++		goto unmap_save;
+ 
+ 	/*
+ 	 * Enter the nested guest now
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index f5975b88756fd..087786ce1b47f 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -629,6 +629,8 @@ void nested_copy_vmcb_save_to_cache(struct vcpu_svm *svm,
+ 				    struct vmcb_save_area *save);
+ void nested_sync_control_from_vmcb02(struct vcpu_svm *svm);
+ void nested_vmcb02_compute_g_pat(struct vcpu_svm *svm);
++bool nested_svm_check_vmcb01_save(struct kvm_vcpu *vcpu,
++				  struct vmcb_save_area *save);
+ void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb);
+ 
+ extern struct kvm_x86_nested_ops svm_nested_ops;
 -- 
 2.53.0
 
