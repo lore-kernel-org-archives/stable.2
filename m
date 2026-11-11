@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794403517;
-	b=uwMaR33jMsS3B4mfgeqDb1hISNI8VZEMT2nln98d4N9bd8L4iZPWzqIL1fpaqyIeOKNH
-	 UG6OQE2ZonDzpHuEqp2sqlKXWJmpCYhFcdkpvHwV91H2Wu5WPwUiOx+poWGYGMGdMoiyq
-	 +oENdYi9hskUEs1erxz2ckafkue8nPVG/4+KL+CaqEl/OhjxchwNfE/LT3LnHmIL1A2mm
-	 d01m+32l2lDpZQfJQ08pE8bsrhyTDrNJip4u75jvmftQWL/3Zy6u8WLRFeFgbSr8lSJl0
-	 JV4VdT7AYCgXSgPwFBdFxBZQPvm0o44D1CA0svfGrfwSdfYX3ZhYhHwevVlEhVWGjlQ==
+	t=1794403548;
+	b=d4f1BAMgTZaYoQnH+uh+O4D5Th2tHSZ9j5EPADChWnwYNLPXI4sZWLyXbzuGj8GtkG6z
+	 rKZIHU+YTvED7vtZDBViWFSDxAU1yZIL8bkwpS3uthThHjMCa0e3DHZYq7GjBscJugJSA
+	 loln+UDTBlI9hde2h1vIkCR3KZI4/x8KmxWdNoutAIQ9Q9H5APcn0TLcQaiUJk50rCrWR
+	 xD15iGG/3LtXz30D1+WsGt6qLd75dl90m2J4GDdM/3gN9LNkVCWmk3ntJsQSCz/OZeHyR
+	 IrXvezwDa++8ai9l/2UQOMJ9TjpLBTgcGWH1ee9k3NEo6Rqkd8MuWa2mgDYhf2VLvVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794403517;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794403548;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=eJNT/VdkbrqGrEw6gKdBlP+dalU2tZyI5HnyQExAmMc=;
-	b=loHiUKBjaLo0YG2/tvvQGDiMRooXPErBAb2rn12JBG1CXmvT4T1m7dojE6RZoMWn0cBX
-	 NPVlY6i5snuUzdGWyTERHlja80zUorFggi6jdRTsGkjV6ri8dC5gX04UW4FHoVhLFre+o
-	 FMpAC+7D3X+rBXjaOpbB/yQ7tzyeshFkpsd/8FmXg3pQOA4VWLfn/rqi0YP4MM6bZ7KQ/
-	 NoR1x5DB5XNxWk2YtIqpz4cLkz6QwRPz0jYmQftNVBXEaFvIlqeHU5vQf0c8Rf7LkNtLo
-	 YmKTwoeNqhgZsMCuU6+3a1KxZvFYHJ/WVzzvveINgNvoXF2pnV+numWMIaX+sdwXzjw==
+	bh=7j6K4ymAuzBMX9W5WRAXhD0XKR3tDm8GZC3I5ImshWs=;
+	b=3KOGuGTlUbLtwAYQylVDndcf1B8pnbmHF8p7t+LW/FFOzRK73jmO4sVKxIUVnc5EyGa0
+	 VklxjNwrpzxlNf/8Y5KCkpzbd7tA3xjSRQwTbovVxzCFEB20vWz9ogK5RHbap156FyNya
+	 rOoe/CHVBALJxGhcNQ//3yV0qFmYvAtRVTr818esM6yeuDTZxk33hwIeFN3G50+KiZouA
+	 APbcRZlzNkON+m/qsH6hXzizJ60f0hNjpChWJCPvE3FGosR4ebtmPTGXipEBIm2DHxeO/
+	 khpvQS0zdQ1JdTvxdYAovMlM8VeQwC8NqwJE/pUCu4nHKEAryY3Qpwr7i7Rt7rmIqvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Lw77bvy6;
-	arc=none smtp.remote-ip=91.218.175.71
-Received: from mta0.migadu.com (out-71.mta0.migadu.com [91.218.175.71])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ttEE+jcA;
+	arc=none smtp.remote-ip=95.215.58.198
+Received: from mta1.migadu.com (out-198.mta1.migadu.com [95.215.58.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04054606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04054606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C647E606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C647E606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Lw77bvy6
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ttEE+jcA
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yoExrapFOLtghFbcLctct3JNOERc7cokVmPwkaRmCGw=;
+DKIM-Signature: a=rsa-sha256; bh=pZ1tVJT3sizNNG5ieAh672I7HNNd/9qK1uI+Hcm/IN0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794403514; v=1; x=1795008314;
- b=Lw77bvy6KHNCnwn7q1UwKHxijpQl4fVcXkpbkHDPK9CeEZHKG7F8guLWY9ybksMf67Wf7ttD
- tbdsWSd8xrzJmKH+7+ZGfAJWCZ6mj+Pg+bIHwvV4asGxjlU8b1jBe5y0B8fRJmy2dBvKlUsbPq0
- PHQixXNj5kMeUaxXR4nMqkY8=
+ t=1794403545; v=1; x=1795008345;
+ b=ttEE+jcAp8sv2SM7hjB3TvOqI/mYGu8jVHq00g8sWEXUA/63W2oC/htGPIvaWgLOzpKgQQVC
+ nkoPHrC391xRg9nnK6BVOuVfAastBV3GldlSwGumzKcMB5geCLxZQRGrlaYMbQ3tmPKBgl/h/ja
+ bNyrDEp9j6W6FZZyCmxKKWWc=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bad35e8f732a4047;
-	Wed, 11 Nov 2026 13:25:14 +0000
-X-Mizu-Trace-ID: bad35e8f732a4047
+Received: by smtp.migadu.com with ESMTPS id 30e8c23962f2caf9;
+	Wed, 11 Nov 2026 13:25:45 +0000
+X-Mizu-Trace-ID: 30e8c23962f2caf9
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: stable@vger.kernel.org
@@ -55,12 +55,12 @@ Cc: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: [PATCH 6.1.y] khugepaged: fix readahead lock inversion in collapse_file()
-Date: Wed, 11 Nov 2026 21:25:06 +0800
-Message-ID: <20261111132506.88827-1-lance.yang@linux.dev>
+Subject: [PATCH 6.6.y] khugepaged: fix readahead lock inversion in collapse_file()
+Date: Wed, 11 Nov 2026 21:25:33 +0800
+Message-ID: <20261111132533.88889-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261109201858-failed-6.1-eadce52a9ef6@kernel.org>
-References: <20261109201858-failed-6.1-eadce52a9ef6@kernel.org>
+In-Reply-To: <20261109201407-failed-6.6-eadce52a9ef6@kernel.org>
+References: <20261109201407-failed-6.6-eadce52a9ef6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,27 +104,27 @@ Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
 (cherry picked from commit eadce52a9ef657d561b3e76c9b5f178bd99735f5)
 ---
-Backport to 6.1:
+Backport to 6.6:
 - Use find_lock_page(), unlock_page() and put_page() for the existing
   page-based collapse code.
 
- mm/khugepaged.c | 43 ++++++++++++++++++++++++++++++++-----------
- 1 file changed, 32 insertions(+), 11 deletions(-)
+ mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4c3581364cb2..1dc800b380f6 100644
+index 42330aeb7638..396963ced1ce 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -1780,6 +1780,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -1793,6 +1793,8 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
  	int nr_none = 0, result = SCAN_SUCCEED;
  	bool is_shmem = shmem_file(file);
 +	bool do_readahead = false;
 +	bool readahead_done = false;
- 	int nr;
  
  	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
-@@ -1791,6 +1793,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	VM_BUG_ON(start & (HPAGE_PMD_NR - 1));
+@@ -1803,6 +1805,10 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  
  	mapping_set_update(&xas, mapping);
  
@@ -132,10 +132,10 @@ index 4c3581364cb2..1dc800b380f6 100644
 +	result = SCAN_SUCCEED;
 +	do_readahead = false;
 +	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
- 	/*
- 	 * Ensure we have slots for all the pages in the range.  This is
- 	 * almost certainly a no-op because most of the pages must be present
-@@ -1875,17 +1881,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	__folio_set_locked(new_folio);
+ 	if (is_shmem)
+ 		__folio_set_swapbacked(new_folio);
+@@ -1867,17 +1873,9 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  			}
  		} else {	/* !is_shmem */
  			if (!page || xa_is_value(page)) {
@@ -143,7 +143,7 @@ index 4c3581364cb2..1dc800b380f6 100644
 -				page_cache_sync_readahead(mapping, &file->f_ra,
 -							  file, index,
 -							  end - index);
--				/* drain pagevecs to help isolate_lru_page() */
+-				/* drain lru cache to help isolate_lru_page() */
 -				lru_add_drain();
 -				page = find_lock_page(mapping, index);
 -				if (unlikely(page == NULL)) {
@@ -156,10 +156,10 @@ index 4c3581364cb2..1dc800b380f6 100644
  			} else if (PageDirty(page)) {
  				/*
  				 * khugepaged only works on read-only fd,
-@@ -2147,6 +2145,29 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+@@ -2204,6 +2202,30 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	new_folio->mapping = NULL;
  
- 	if (hpage)
- 		unlock_page(hpage);
+ 	folio_unlock(new_folio);
 +
 +	/* Readahead may take invalidate_lock; source pages are unlocked. */
 +	if (do_readahead) {
@@ -172,7 +172,7 @@ index 4c3581364cb2..1dc800b380f6 100644
 +				page = find_lock_page(mapping, index);
 +				if (!page) {
 +					result = SCAN_FAIL;
-+					goto out;
++					goto out_put;
 +				}
 +			}
 +			unlock_page(page);
@@ -183,9 +183,10 @@ index 4c3581364cb2..1dc800b380f6 100644
 +		readahead_done = true;
 +		goto retry;
 +	}
++out_put:
+ 	folio_put(new_folio);
  out:
  	VM_BUG_ON(!list_empty(&pagelist));
- 	if (hpage) {
 -- 
 2.49.0
 
