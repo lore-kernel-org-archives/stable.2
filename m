@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794415544;
-	b=T84wJMJYzu+WxJFpP+wlRoMk8hoHvUGxSfIJbiNZ95judVi+PLrY8ZYKsi21R234jUxe
-	 ut6TCUQHt/f/fzEo1PjdjHBaAacQ8ngjHPSCRcce02Y7iv1+/XskXH3a38vbH4VGECxeM
-	 uHVfHSrxply98lqv4DmfDdvKnwVNt1oVf+wcOJJbXMVpFu5twas3Nz6mP7Zm1DmkOA7tA
-	 dTo03STvhKX4UgxgA6rgo/kS+ciOSGPb37QWKpJNSOLMFDrC0sUMML2vgnqcQNcu8U85N
-	 H2ZaOtyagjDikrllbbAxzJZoOXR3tIE8dg0Dv1+Lew9x0ss20ZYVzdvyWcbqH/+YQ6A==
+	t=1794415545;
+	b=NMu5CaHeoTZ0NPo3lbMtiM5PPKB4EcTG3i8eQ+mPXH0ARV/4nLKcYH/jx4i/WqH4r1GI
+	 rS+k4ohi29p49g+p0GMLUWeeh+B3Uzx8IWQMPNjsr0R7jqg0pXzQlxBKkxeyBVe23ig6F
+	 i3tK3Brheay8XVnJqnoZtizsTDZlEEhOdDrgjZKlk21hCOBJHZex3df2ZmG7kKkxU2D0q
+	 LLR/Vakke8RDuI5ZVSzhy+Hreuf9O10/6xiv/aAu9LRDfllk4GQrsM3OcM1v7fd9NpnLZ
+	 r/t53Ll0ztwBH0MtupZaxhYBEG0BRpfmSzi83TgvVum9FKtQ7fRgUrKz4WXnkYfHGxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794415544;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794415545;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VOW8RRHaz+rLMRygqacojD8JQx5uHCNw1MbgGWo55AA=;
-	b=cpaeR/DRrBXV9ZLVzOPKQtVi7r8b3vLyKZw4mtlCo/206EanJTzOCn6RGkUc/NlIkHXS
-	 zOKpBJI8f6K91NLanc8w71+pqq5pu3CVhXZwa2lnCq2YyXhTBZFBVzWtKsV0Bmu76DhAn
-	 Av/IZjqBbVp6thF+ZQ7bpI6BmHhjI/6BPDrFVneVIl2OGeJOZESv+ZqzA21lYwEBtM9Si
-	 qNwU/u0xPRiM4oty41jcumRUcnM/VsCsRd+qaTHNrKxsefh7IkeB3lNTeNTzUxeyLZVpH
-	 i93lLhHYiofUASg9maaZEZYPY0KSqJgmd5B1WsGgloDRjQgdsa+AFsW3oIgwWlmjMMw==
+	bh=mYHwXftYbkJsDgBHGvIYVUpJcxuYVbzq0v81NbV+HZk=;
+	b=HGqiWZcFbFLO/Cvorir+i1uNGPLSFeMRzSyTvj18ojr/JTHr2Sqw8bRDyyfWEMQTzzA7
+	 nAXONV0z4VFf9hf5ntmdwLzWQj230dS2bv7TqG4PlURqA99NjhruWZ32GoiK7DnNSXx13
+	 PBB8ok0xcB+m4otGWSqKL2XW7TZHseAhktQI8b0iDvgsSpSHxBiQgHVLMmuZHeHqmgRIg
+	 drvTK8YYdQsQbEhX38A5DRkOiyIUA+XZgr4TD2Q/stULO6JJYxAfRuOriB5umEHC60Rqe
+	 hff/oQwcc4mu06jYqTs6q3LjS90oA7DyLEZ5sTqWMsdkejzEMaBhasJQe4M0UVDZc+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBuBD6JX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qy8fWg/N";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6110606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:45:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6573F606A32D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:45:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBuBD6JX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB711F00A05;
-	Wed, 11 Nov 2026 16:45:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qy8fWg/N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C8031F00A06;
+	Wed, 11 Nov 2026 16:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794415544;
-	bh=VOW8RRHaz+rLMRygqacojD8JQx5uHCNw1MbgGWo55AA=;
+	s=k20260515; t=1794415545;
+	bh=mYHwXftYbkJsDgBHGvIYVUpJcxuYVbzq0v81NbV+HZk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jBuBD6JXch3yt9+D3n+GSs8AE2NRArbNxbHEo4XTTpeyWD0A1N3QsHiiHMWL71OSQ
-	 kOHfWKbjQLyvQ6h80ub705r8tBhBL4F0iXSuZNqHI574FcX8lDc8Uvsx2BK21SmM1N
-	 UaWvFwJKJnBPjKQXja8DuH4J4qeIIpkNLL5MzoKzh5Ary25uX41U5wAD4C9PYHiMwF
-	 12v0gtWWLWTAkVUQfBu/QZXHMfqa9avKwxwLstYPxDxFX5c8momDEq4dbHJavIwLju
-	 nktTc5GTwPD8xyVPWA6b2vdxsTwRrOfbKbUWG2uR+xX+hbazm2Zrh23CU1iHwIbDmv
-	 V15BHyq/XOD1w==
+	b=Qy8fWg/NNG7l52V+GgtSTc7bUPksgRvojWpg2Iu7KfYL3Sbs7fpYIOFlJnoK0PkZy
+	 ePBdjpiFj3NE+PxVoYZZ07C8e8vUEwubcLzvTjViiXgUq3kCUJuLstdcBwItXekR3P
+	 5GyCve9NTLcbLaOTBS2tvIeyuNonhGuhg6Q1kanSul1DdSrkB5VEadh8jThUCXWTPY
+	 jJFhrKRu/esf8nX6JjVnlunDEAbgsJk62JjdpGFRGTlZNkKEh9aBNXnb+XanlDtERd
+	 1NiYt+5hdyW66LySgiOX5cwNkhWeoU5IKnFlhKmM5q5DQzHPYOjWpjGXBAnDTONOXL
+	 zr/9b5VEH2ZEw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mark O'Donovan <shiftee@posteo.net>,
+Cc: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	Hannes Reinecke <hare@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
-	Hannes Reinecke <hare@suse.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] nvme-auth: add flag for bi-directional auth
-Date: Wed, 11 Nov 2026 11:45:41 -0500
-Message-ID: <20261111164516.3303260-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] nvme-auth: fail when the controller does not authenticate itself
+Date: Wed, 11 Nov 2026 11:45:42 -0500
+Message-ID: <20261111164516.3303260-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053428-failed-6.6-f9e43d924bc7@kernel.org>
+In-Reply-To: <20261111164516.3303260-1-sashal@kernel.org>
 References: <20261107053428-failed-6.6-f9e43d924bc7@kernel.org>
+ <20261111164516.3303260-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +64,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mark O'Donovan <shiftee@posteo.net>
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-[ Upstream commit fc1e03eacac8e5ff8664ce2ebadabba8604f09f4 ]
+[ Upstream commit f9e43d924bc74feeb56197de82b2845de2a4b85a ]
 
-Introduces an explicit variable for bi-directional auth.
-The currently used variable chap->s2 is incorrectly zeroed for
-uni-directional auth. That will be fixed in the next patch so this
-needs to change to avoid sending unexpected success2 messages
+nvme_auth_process_dhchap_success1() returns success as soon as the
+controller clears the rvalid flag in its DH-HMAC-CHAP success1 message,
+without looking at whether the host had asked the controller to
+authenticate.  A host configured with a controller secret sends a
+challenge in its reply, computes the expected controller response, and
+sets chap->bi_directional; if the controller then answers with
+rvalid = 0 the response is never compared, the host still sends
+success2, and the queue is marked as authenticated.
 
-Signed-off-by: Mark O'Donovan <shiftee@posteo.net>
+A malicious or man-in-the-middle controller therefore only has to clear
+one flag to turn the configured bidirectional authentication into a
+one-way one, without holding any secret of its own.  The target side
+already treats the mirror image of this as fatal: when the host supplied
+a challenge but no controller key is configured, nvmet_auth_success1()
+fails the authentication rather than answering with rvalid = 0.
+
+Refuse the connection if the controller returns no response although
+bidirectional authentication was requested.  chap->bi_directional is the
+right condition rather than ctrl->ctrl_key, because secure concatenation
+sends a challenge only to derive the PSK and deliberately clears
+bi_directional; a one-way setup without a controller secret keeps
+returning success as before.
+
+Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
+Cc: stable@vger.kernel.org
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Stable-dep-of: f9e43d924bc7 ("nvme-auth: fail when the controller does not authenticate itself")
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/auth.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/nvme/host/auth.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/nvme/host/auth.c b/drivers/nvme/host/auth.c
-index 9f2a6472802e7..6903c1a4e7692 100644
+index 6903c1a4e7692..03d05a71e6616 100644
 --- a/drivers/nvme/host/auth.c
 +++ b/drivers/nvme/host/auth.c
-@@ -29,6 +29,7 @@ struct nvme_dhchap_queue_context {
- 	int error;
- 	u32 s1;
- 	u32 s2;
-+	bool bi_directional;
- 	u16 transaction;
- 	u8 status;
- 	u8 dhgroup_id;
-@@ -313,6 +314,7 @@ static int nvme_auth_set_dhchap_reply_data(struct nvme_ctrl *ctrl,
- 	data->dhvlen = cpu_to_le16(chap->host_key_len);
- 	memcpy(data->rval, chap->response, chap->hash_len);
- 	if (ctrl->ctrl_key) {
-+		chap->bi_directional = true;
- 		get_random_bytes(chap->c2, chap->hash_len);
- 		data->cvalid = 1;
- 		chap->s2 = nvme_auth_get_seqnum();
-@@ -664,6 +666,7 @@ static void nvme_auth_reset_dhchap(struct nvme_dhchap_queue_context *chap)
- 	chap->error = 0;
- 	chap->s1 = 0;
- 	chap->s2 = 0;
-+	chap->bi_directional = false;
- 	chap->transaction = 0;
- 	memset(chap->c1, 0, sizeof(chap->c1));
- 	memset(chap->c2, 0, sizeof(chap->c2));
-@@ -826,7 +829,7 @@ static void nvme_queue_auth_work(struct work_struct *work)
- 		goto fail2;
- 	}
+@@ -367,8 +367,21 @@ static int nvme_auth_process_dhchap_success1(struct nvme_ctrl *ctrl,
+ 			 nvme_auth_hmac_name(chap->hash_id),
+ 			 nvme_auth_dhgroup_name(chap->dhgroup_id));
  
--	if (chap->s2) {
-+	if (chap->bi_directional) {
- 		/* DH-HMAC-CHAP Step 5: send success2 */
- 		dev_dbg(ctrl->device, "%s: qid %d send success2\n",
- 			__func__, chap->qid);
+-	if (!data->rvalid)
++	if (!data->rvalid) {
++		/*
++		 * The controller did not return a response.  If we asked it to
++		 * authenticate itself the session must not be used, otherwise
++		 * mutual authentication would silently degrade to one-way.
++		 */
++		if (chap->bi_directional) {
++			dev_warn(ctrl->device,
++				 "qid %d: controller did not authenticate\n",
++				 chap->qid);
++			chap->status = NVME_AUTH_DHCHAP_FAILURE_FAILED;
++			return -ECONNREFUSED;
++		}
+ 		return 0;
++	}
+ 
+ 	/* Validate controller response */
+ 	if (crypto_memneq(chap->response, data->rval, data->hl)) {
 -- 
 2.53.0
 
