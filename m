@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434107;
-	b=UdhtPhz390JwJBCAJ9X+EQpVkRs/ky3JHPHfaU3LP79TVrKwXsw5yUW4SNmqqMsOMYAC
-	 tF7om2YoeTxV0mBTmaOzGHSbdMTMCfVG+GJITrSY/SqgIeV8eEuG5liDlr8n8n1BS0DaD
-	 3uk97dzSvqafGi4QyQ2h0qvoT5loR9GEErGheWhmUqyfQQANRtFTck/yts+/+IcEJtd1u
-	 8+llxJNgQDdC9fqS3/q+VEITJ5cY0SqBiboDCNxRVKW+XT6+GVhAqRjRjkR+WYYiq0V4C
-	 3Qtt1jHbvspe+0LTm0NiokGrJgxxyKQAdcXbkgfmrL2t8e407u0W+tUu8RRO5hBstkQ==
+	t=1794434108;
+	b=sy8FVQ9Syu6IiRhpTfyq/sM2UqZsXTg7CkOFSIYNyauMhzKkTkQL+x5iX3ZA4fD2gxmR
+	 4rulnYK0H6hOj80lvEMOVyDW9lP0FNvLyVMWV7e75iGkLIaiRvcnxQ/Iifu/uP1GSytIR
+	 0ZJca6xkSZjf635YRoTYMqYzYGlIMF79HKXaf3rl4Am/Lw96Afdg5pH2ff3L9X7+NrIoR
+	 VmEOfWt+1VGLKiSqo0xXgWKJggpxs0LbkO2xxVNuFksnaDOxoMywD0EtybE/YuT82lz1s
+	 pvaZsotoFoiiUvLnTh/zO8RAZeY5zxfUGmNO0ShbfVK8O+N+NSoJV3zxVy8JQ6pXHtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434108;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zF9oubV0Jz/J6ZKNGy23up8DmkWa0Io4zaM5l+k/zvI=;
-	b=I1oeoKa294JuHBwgeFWVG9EnKKl8boB6YykEs6+iz7xVo68u6mPJ3fD77/TZcNwGXs7c
-	 WpaWnq5LvhuikPo5qKJ7vt1EeAPA43ziJMFafLzTlz8I7cXE0DkkBPjdP7v1Yi7LsywGO
-	 IjUMJDj1ZD6lPsPurQZX5NWFg+VFzV468KSTcxHWMeiZRHQjbLL+PTT+hyLge0oaxuQ0V
-	 7iPjG8NrL0DWWlN3ifkwGN7HgiqwOHyMZyOc0iUM1/r7sjOBqLBo+/u7coZwYdPBtFmVc
-	 SOuvhJgs1jZ2uJ/iMOmanGuyI2GOXWjtcXTIE2MSO1MpzcxCV38pXUOrbHZyoobsLwg==
+	bh=iNNTkeUPlZofGTcR4AVLM6WXSL0ltbTteyIwZ+bm5Cg=;
+	b=cMV/8cgo2qIQ4GI6SboiAiwKPaZaXZhv5RIYh/F1ei0zkhqYTT0jc/XdrVXx5spdaRnC
+	 QJjjShRp7pvhQCNzQjxHWrVdBg4CWHCgeeIvEHo4rlXAzviSJYaXtwY7JH/5M1Rh6ww3/
+	 BN7jygcDGZt9h9YEsjsxsIWJ3kn6v+6UGhxTA0v2XCkUBFOeCoVxgv4aHOOdEqOIJOtPN
+	 2RJbndqUf49wcCDg17DNV0h77UL6LmMmOxGhg1W63JwRqodRGuT2a7jt2T4H42FDIHoQl
+	 wXlldRBaWKV42g6QxLtHxTYSiUvwNiTBTnila5VCAD4SxA3Qwwcdac6HYUpppZNNbMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFRo9d+0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+rRBwNT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4C160A2637;
-	Wed, 11 Nov 2026 21:55:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11864606A8B1
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFRo9d+0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BF61F00A11;
-	Wed, 11 Nov 2026 21:55:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B+rRBwNT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AD91F00A05;
+	Wed, 11 Nov 2026 21:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434106;
-	bh=zF9oubV0Jz/J6ZKNGy23up8DmkWa0Io4zaM5l+k/zvI=;
+	s=k20260515; t=1794434107;
+	bh=iNNTkeUPlZofGTcR4AVLM6WXSL0ltbTteyIwZ+bm5Cg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hFRo9d+0qGSj9Qj5KGuhFp/5/yxDwVgiwew7zeF1kOBU+rHwR6u78AWruoszIPTQ5
-	 j9ijTyp+uL7aBku4UBARF4yJVcK9ciVYisHcMgn6oEJVMdLBQFNVTeaOkeiUJNyqfQ
-	 g4mamFn3Sf417ik+Mkq9r1u4hmsw1TgX+kvaRXBYPAD+LlfBYdN7BCHleg4bZVy3Fb
-	 NMiRP/CV2AooyaDMuk4Mvtlpf+QvgOa49ef6cIlwjh6531eLxRirY8JuJ1ps/W6KTL
-	 QLF4Ho7Rmu+FqRU8sGWdc6AUn6hrh4EmOlqqttF//qjHFDCXvBeZSwk8Hu/xYOIbrW
-	 tLRSPAEGTB2FA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Paul Cercueil <paul@crapouillou.net>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Alex Smith <alex@alex-smith.me.uk>,
-	Zubair Lutfullah Kakakhel <Zubair.Kakakhel@imgtec.com>,
-	linux-mips@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] dmaengine: jz4780: Fix descriptor cleanup on hwdesc setup failure
-Date: Wed, 11 Nov 2026 21:52:47 +0000
-Message-ID: <20261111215349.1983909-10-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261111215349.1983909-1-lee@kernel.org>
-References: <20261111215349.1983909-1-lee@kernel.org>
+	b=B+rRBwNTZPCP3GkczldNb1gp7x8p+J2N1ZhdeYUkY/2kdTtyshwQyH2xgahMTf5qV
+	 mjRUvfgQlOH4qSs+Sh00RH4QXGgrdcRIPwc1LplBlCtp1P4qiqEyAmcmu7kNzmELXe
+	 YvV1yIHzX7YwcP1h95N/kLWcmIQOXMmk5R4tPw0vcn2O5wrlGqMoZBCJScIogBBTWr
+	 NL9Whbj+XEYx90iI3i+FZV9QbusqxhQa+eyTB/Sixw8NA82xmT3QhYv2PjD+6O1Ua1
+	 VMvar3NKucj85ieoCNFydKTjeuAVVIN8/bjwVoFARkZ76FGBzBOREr5k/snfZt5Wac
+	 biTc1NAnlHuWA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	Sven Eckelmann <sven@narfation.org>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 6.12.y] batman-adv: tpmeter: fix u32 truncation of reported bytes
+Date: Wed, 11 Nov 2026 16:54:41 -0500
+Message-ID: <2026-11-11-1-daily-reply-0008-b7bf3299f24cb4de7601@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110190100.108068-1-sven@narfation.org>
+References: <20261110190100.108068-1-sven@narfation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,56 +61,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When jz4780_dma_setup_hwdesc() fails in jz4780_dma_prep_slave_sg() or
-jz4780_dma_prep_dma_cyclic(), the error paths pass &jzchan->desc->vdesc
-to jz4780_dma_desc_free() instead of the newly allocated &desc->vdesc.
-This leaks the newly allocated descriptor and either dereferences NULL
-when jzchan->desc is NULL or frees the currently active descriptor while
-it is still in flight.  Furthermore, jz4780_dma_desc_free() derives
-jzchan from vdesc->tx.chan, which is not yet initialised before
-vchan_tx_prep() is called.
+> [PATCH 6.12.y] batman-adv: tpmeter: fix u32 truncation of reported bytes
+Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
-Initialise desc->vdesc.tx.chan in jz4780_dma_desc_alloc() and pass
-&desc->vdesc to jz4780_dma_desc_free() in the preparation error paths.
-
-Fixes: d894fc6046fe ("dmaengine: jz4780: add driver for the Ingenic JZ4780 DMA controller")
-Closes: https://sashiko.dev/#/bug/linux-b39121ef-5ffb-401a-9d04-0afccd467bde
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/dma/dma-jz4780.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
-index ac2094e65ecf..c3974c825ba7 100644
---- a/drivers/dma/dma-jz4780.c
-+++ b/drivers/dma/dma-jz4780.c
-@@ -248,6 +248,7 @@ jz4780_dma_desc_alloc(struct jz4780_dma_chan *jzchan, unsigned int count,
- 		return NULL;
- 	}
- 
-+	desc->vdesc.tx.chan = &jzchan->vchan.chan;
- 	desc->count = count;
- 	desc->type = type;
- 
-@@ -379,7 +380,7 @@ static struct dma_async_tx_descriptor *jz4780_dma_prep_slave_sg(
- 					      sg_dma_len(&sgl[i]),
- 					      direction);
- 		if (err < 0) {
--			jz4780_dma_desc_free(&jzchan->desc->vdesc);
-+			jz4780_dma_desc_free(&desc->vdesc);
- 			return NULL;
- 		}
- 
-@@ -426,7 +427,7 @@ static struct dma_async_tx_descriptor *jz4780_dma_prep_dma_cyclic(
- 		err = jz4780_dma_setup_hwdesc(jzchan, &desc->desc[i], buf_addr,
- 					      period_len, direction);
- 		if (err < 0) {
--			jz4780_dma_desc_free(&jzchan->desc->vdesc);
-+			jz4780_dma_desc_free(&desc->vdesc);
- 			return NULL;
- 		}
- 
 -- 
-2.56.0.567.gdb80ae8cd5-goog
-
+Thanks,
+Sasha
