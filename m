@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794378756;
-	b=Xz23DIuKUb105nIYi17h1965xtZcTQLJmha5aiCtV91zaoXoErYw7MrkwBs/7Y5epk0y
-	 sA5rdhiwnEflUamSqmfb2t/rTBqssOeyDyVkGV+GnIujewaRJjcK0Ax4PPe2iVTRejYdJ
-	 75OmGhlYTpYxAQfrZ7+p6PREeTtc3JwkTy8qkkT0fQYToFwgH2GUu6nKaPQnVqcgz4fxO
-	 YiXUa02fw3qnmTdPCPhtviUYQQnQZTOU26wr0NMQS7S9cM62UJ599mTuswHq7wl148Pag
-	 UE3wvG6HSo5V49vccwWxajKFi+qp9AbSbafOLOHFb5y80Ouptkmiv3EKroOmFJdOk4A==
+	t=1794379150;
+	b=IBGnUeYjWudl6zuZE3FmkdUAKS19d6S7gIrEJYjgXXe7Q8pJbw6iiZoLn14jqlxzE3j6
+	 77O0vZf1YGqQ84+oNu9axL9B0GnVgjSEPEVC0X1NFfCA1D9VOzWwoyMHlfAPCReEm9sIP
+	 9ogUkuMagidMG2jRcjsZ7ML0V/+qHH4ztY9RFasG6Q3l0Lr/3hZQD4qOmkTztDO4AGuli
+	 5yoDyNarAT4+V8cJhvux2ZG/N22S8v1yYdPsaKSBugQlNcO1T2UjLtlpD96IsbDQP9C3S
+	 af+o2WJSBfm+La13a+h8pgcVQHW03L4ti2ylESsRRHqxa5UsVxEn0+AIFgIUsu5RvfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794378756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iG+inULdiX/9F1jgHvoIofo1nPKwdx5Mas8WwwOmeh8=;
-	b=Q4LtR6pqOdC09Mdn410UoPrDRmfLGRvWmbVaelV+tdNEDUhYk2DMlJnIjZe0EysVmKPl
-	 gwtU/ELNUDLjnJcHpqrusDOsGa7ZBU3vus+seMdt01Wx6gkKzMFAWmVb8PrVxiJidAaeh
-	 WP2snS8dFqoivRKuSSQcZQqgX4uD79U2dX/YR8QVRulYIHNmRuaWu0XHdxpc2FKMrsu5h
-	 6hcXDgNXSJpAD+xC1VWuP7biqcprlL1eEmH1+qNQSjnedzRl6nKqcGXzw+gB64YYcM4Si
-	 Yjn2+JUGgFJJztVXbuN+wnVPSUFZ6q1KzOeX852nfl0IdCWqLtJQVsi6CcWUodO1Sog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794379150;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HQolPJgJiOV+YQC/Q5bHCl53G1r/iU0xK+wIzCcT7QA=;
+	b=pPwsSVYW34W69fR/HyzFJNWt/fWPUR/taj2clmjf9mTBZz6LNpIhOuaCp9ic/eXDVhve
+	 n5N/bk7ps7XkQbvmFMSgYYyrdk7yz6TK1XWV0DjPq8dHV9Jf5LPcv97WgQOgcI050GMAi
+	 g2LAxfJjuopLByNt+sSzWBttTf3l+6dJ8M/3fQYhenooFiUhjZEA6xgieT3LLJhzYO52I
+	 r17TkmbjIAjoLx28keaLJ47RcFzSKm9ezlKyRpzOmx2xbxDsHQiZgC6ObV9kbN6wPg+PK
+	 oX6TuItG2Dixyo5Uf1eS+a/KY8BmwFVRUWx92U1yQ1RIrIJJkxKSOcvb4ofhH/5idDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tHlREPoq;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hpwjQ94D;
+	arc=none smtp.remote-ip=115.124.28.124
+Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com [115.124.28.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C2E606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:32:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13C2E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFC6606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 06:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EFC6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tHlREPoq
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so29707605e9.2
-        for <stable@vger.kernel.org>; Tue, 10 Nov 2026 22:32:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794378754; x=1794983554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iG+inULdiX/9F1jgHvoIofo1nPKwdx5Mas8WwwOmeh8=;
-        b=tHlREPoqa3VREtd/3FqXEUOQP7wEvLpOjRoM9iujAcGnu2x208KdouZARqXfWc8LUp
-         xQPFMmdwxe0xffIOTCemDQi04ZE3O+U7kC7Az5oHwzwHT0Kb/PNDdI8MkPRuIC165xZi
-         J9LjxfJQyt7jUVlixwSoVo4Au61L8iJDi0e7wUe4P5RENdlkHX28QizsvyhSScqj7GLA
-         9uTuUbaAnv7tzNWvwEHBoa9OD9fTDDsYS71kqMeeJ5Z3BL5Sq6qoectk/JdgJLn9+rnC
-         iiHX7XhC2ap7sdO9RGcsPVuCZ+FTEamoYDxeG8NQ80Ij2fqXLNBF/mvJnCFJybSK73Rb
-         FWgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794378754; x=1794983554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iG+inULdiX/9F1jgHvoIofo1nPKwdx5Mas8WwwOmeh8=;
-        b=jqjHXD0SWu5uEToA+XyBLWcLhqZFSkNeA/DialV6AquNsc83kTjbG6xhbLWCpgFrOw
-         hK/Y0xWEy1qDhYOHVI7vGX4veysXOfxxADqkeb4nkOWlhInlKDieb2dgssHRWApHjvR1
-         TC54t3JkugfX0z+v+GFnVjyjDbQZGiC/878aN8O05DTGHZdScsWRzBLvER4z+teCrfBz
-         bchKyRuI0Yty/fUVSASkTTdSLYPNJ3kU4/nkiIQk87H30w67nRuBz5Q/YxhDZNKQNcQD
-         9aexxGrAig/SPEHFMSHtkrmtb7g8d+GI13Vx2CXbsN8KqZVoC7hzcnpzd3dI+BtcrjhP
-         5oRw==
-X-Forwarded-Encrypted: i=1; AL+hErEc6OOzcFqumzqMdogQRysglW3KTpvtUmaFBimOtHqvPPtWn5g4gRy+VgNobhiPdmz5pw5i/Xw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8y0L/wCSdeJn/xJJRFWUQq/O7dnQ6I4orjiTu67VvWgDniB/Ev
-	zmVxU9hQORCf4EpAywU8cHsQ0ie7zNqkCOJcujAiz2H326xyo5acAa6r
-X-Gm-Gg: AYBFou25/kPb0Uwg30g7xY0EkgizdUu3gTLCT1rwcguOiQ8s1Km9149HhL2Pwg9Fdxw
-	5uQWodTZPrmrQPy1B/NHks6WxEG8ocZhHytx7vqtGr2ooyQOErhMLkYrjm97UpDEp4XkHV+gFej
-	GNao2wBLSnhkX4ajPCw1tRMTDlLXgw1wRHU5wcghAjAS6m9B/Fq61yYeYRvsf/tpwmO468HTueY
-	Wq2hO2i8eMLtht4ouNSkJObDKIyGT4TGVBjG+Y0wjlf3QdCkU0aU303dY/7ICxy5IkiNw9IAioV
-	l4Q2tK5Pt1q2t1oKFXyjehDDJh62bCycs9emaETB5oE/FxJRS/tFOv+2d6t+iijCQ9XjtpBNZVR
-	4fstvST5uQMgogozN4X5/2ADk3gHR+ZumT5KmBkeGErwUMtXbo+HR1A9H4/llfQoCryMocW05fA
-	b5iTcApCwVAM5TRks1lQqhY3Haygps9fU8wnx8XEY80t8LZOxple0KkuCzU13/eMnOrDqAi4C8b
-	5yqV+TJ1uhdI4vSZt7KVSf4BSNHSRhjw8dS7Ef34Tzq7I9o8MSZsRDO8Rl8//+/2/8ZjX/aMUpz
-	LZnioqrjFC5NHGiajfjGOdLd2ZxLwIOAzOovhHCX1bcGqzYhXNq5Ga6+iBKhZQuiubzmSpubUA=
-	=
-X-Received: by 2002:a5d:64e3:0:b0:48d:ff71:dd9d with SMTP id ffacd0b85a97d-499c903d741mr1957954f8f.23.1794378754237;
-        Tue, 10 Nov 2026 22:32:34 -0800 (PST)
-Received: from Sheldon ([185.4.35.110])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835d2c027sm8981259f8f.24.2026.11.10.22.32.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 22:32:33 -0800 (PST)
-From: Victor Carreras <vicajilau@gmail.com>
-To: rafael@kernel.org,
-	hdegoede@redhat.com,
-	bhelgaas@google.com,
-	lukas@wunner.de
-Cc: mika.westerberg@linux.intel.com,
-	lenb@kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ACPI: x86: Disable wakeup on MSI MS-1592 and MS-1594 dGPU root port
-Date: Wed, 11 Nov 2026 07:32:27 +0100
-Message-ID: <20261111063227.14511-1-vicajilau@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CAJZ5v0iqOoS8t-5PFeLPuaJrpeByx2Yr-dnpYU2fT6yTb6-7=A@mail.gmail.com>
-References: <CAJZ5v0iqOoS8t-5PFeLPuaJrpeByx2Yr-dnpYU2fT6yTb6-7=A@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hpwjQ94D
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1794379139; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=HQolPJgJiOV+YQC/Q5bHCl53G1r/iU0xK+wIzCcT7QA=;
+	b=hpwjQ94DoUs/orkKMBa0bomLIWBdDyobN6L7b9bskMMeNPHsSiLcn+CXY21AqhAQvdBlb6+JI9z157zx0M6BkncV4RKXQQ1O7serIi4O7jCExYl04GjJeDbqWtWTNKCRr1s6gqzzJQ4rGCZ27MAt22in9sM8Z2IF7Qg+pcgTl/4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07452067|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00401223-0.000122205-0.995866;FP=9040451327402512022|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=3;RT=3;SR=0;TI=SMTPD_---.k.Vwrgg_1794379137;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k.Vwrgg_1794379137 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 11 Nov 2026 14:38:59 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: stable@vger.kernel.org
+Cc: John Johansen <john.johansen@canonical.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y v3] apparmor: check accept index + 1 is in bounds
+Date: Wed, 11 Nov 2026 14:38:57 +0800
+Message-ID: <20261111063857.496598-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026-11-10-1-daily-reply-0036-apparmor-accept-v3@kernel.org>
+References: <2026-11-10-1-daily-reply-0036-apparmor-accept-v3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,26 +63,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 9, 2026 at 8:32 PM Rafael J. Wysocki wrote:
-> Please see Sashiko's feedback on this one and let me know what you
-> think about it:
+[ Upstream commit afe5d5a747393cb3d00795db31d7fce5108a766a ]
 
-Hi Rafael,
+aa_lookup_fperms() returns perms[index + 1] when the current fsuid
+does not match cond->uid, so such an entry consumes two slots in the
+perms table.  But verify_dfa_accept_index() only checks that index is
+within the perms table, so a policy whose last accept entry is reached
+with a non-matching fsuid reads perms[index + 1] one entry past the
+end of the table.
 
-Sashiko is right, v2 does not work as intended. Clearing can_wakeup in a
-final fixup is undone by pcie_pme_can_wakeup() when the PME service
-binds, and in any case acpi_pci_wakeup() and acpi_pci_propagate_wakeup()
-only look at adev->wakeup.flags.valid, so _DSW on PEG0 still gets
-evaluated, both for the root port itself and when wakeup is propagated
-from the dGPU below it.
+The perms table is allocated by unpack_perms_table() with a u16 size
+read from the policy blob, so a crafted policy can place an accept
+entry at index size - 1 to reach the out-of-bounds read.
 
-v3 follows the suggestion: it clears adev->wakeup.flags.valid from a
-DECLARE_PCI_FIXUP_EARLY quirk, which runs in pci_setup_device() after
-pci_set_acpi_fwnode() and before device_add() calls pci_acpi_setup(),
-so pci_acpi_setup() and pci_acpi_cleanup() stay balanced and both
-paths skip PEG0. With v3 and the SSDT workaround removed, the root port
-and the dGPU reach D3cold on my MS-1594 and the touchpad keeps working
-across repeated D3cold cycles. I'm sending it as a reply to this thread.
+Check that index + 1 is also in bounds.
 
-Thanks,
-Victor
+Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ Adapted for 6.12.y: this tree predates ACCEPT_FLAG_OWNER (2e12c5f06017), so aa_lookup_fperms() reads perms[index + 1] whenever fsuid does not match cond->uid and every accept index of the file dfa gets the pair bound.  The policy dfa has one perms slot per state (accept[state] == state, table size == state_count) and aa_lookup_perms() never reads index + 1, so verify_dfa_accept_index() takes a pair flag that is set only for rules->file->dfa. ]
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+v3: limit the index + 1 bound check to the file dfa.  v2 applied
+    the check to every accept index of both the file and the policy
+    dfa, but the policy dfa has one perms slot per state
+    (accept[state] == state, table size == state_count), so its
+    last state always failed the new check and profiles with a
+    policy dfa were rejected on load, per review.
+
+ security/apparmor/policy_unpack.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 4642058..53e95d9 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1202,13 +1202,22 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
+  * verify_dfa_accept_index - verify accept indexes are in range of perms table
+  * @dfa: the dfa to check accept indexes are in range
+  * @table_size: the permission table size the indexes should be within
++ * @pair: the accept indexes reference two slots, index and index + 1
+  */
+-static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
++static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size,
++				    bool pair)
+ {
+ 	int i;
+ 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
+ 		if (ACCEPT_TABLE(dfa)[i] >= table_size)
+ 			return false;
++		/*
++		 * Accept indexes for owner-conditional permissions come
++		 * in pairs, so the non-owner entry at index + 1 must also
++		 * be in bounds.
++		 */
++		if (pair && ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
++			return false;
+ 	}
+ 	return true;
+ }
+@@ -1273,14 +1282,16 @@ static int verify_profile(struct aa_profile *profile)
+ 		return 0;
+ 
+ 	if (rules->file->dfa && !verify_dfa_accept_index(rules->file->dfa,
+-							rules->file->size)) {
++							rules->file->size,
++							true)) {
+ 		audit_iface(profile, NULL, NULL,
+ 			    "Unpack: file Invalid named transition", NULL,
+ 			    -EPROTO);
+ 		return -EPROTO;
+ 	}
+ 	if (rules->policy->dfa &&
+-	    !verify_dfa_accept_index(rules->policy->dfa, rules->policy->size)) {
++	    !verify_dfa_accept_index(rules->policy->dfa, rules->policy->size,
++				     false)) {
+ 		audit_iface(profile, NULL, NULL,
+ 			    "Unpack: policy Invalid named transition", NULL,
+ 			    -EPROTO);
+-- 
+2.43.0
+
