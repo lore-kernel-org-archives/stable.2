@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794356250;
-	b=MCe1UajcSmG3bozd2GVrNCO/UvW6+oJcx+E5cVckDEohsYaL50//rQ9mCui7TGP/+NGI
-	 6ws6iw0O6637CHJoRLbz0mdtU3T3Lsx42MqdQwRHDbcu5mRNJJkQ29XXzQGTQELWNQNz7
-	 lpV4OnwmxhBZqlUhNKqCj7J1UZMu6La6YrG7mgvn16FT4Iyx1vq7iE8XytYNDv4yvM7bD
-	 qWG1RoeQESOCdLAHkghd6zYak72rjvHOkJtpYg86GxTN59NRHl9J5OHL0CEf9UXh42WGT
-	 vHqm7dhBcG3Ye/O2kPHlxAwhdcNTHMWRBsJKcmtpowUTlsN2+nXLeehfKn5WtQueUzg==
+	t=1794356251;
+	b=3t0Zef6rOEsqpeRnbCzZoRNem6tUHr1YfZSqsYl7g9hrWuo3vmDLvznNx9YeuVPreUc5
+	 lymMo7mlaUaA8hgieYpZkgoCuupuvi/l2/6Tl0+sYn6SPtwRfvezrcNLF/NYxtwQwgLmc
+	 uwnqq6RwzGJ3K0+9LMp9lC9P1r0RoBI7Yr+r3AbWWxIo8DuT2DgLJanbimTiP6uAW2NuG
+	 zHBe9nb47zxKkEWiP5PXXgHHdsuBdL8C/twQq2GmVgxyx/EcjMo2+AzHVb6ZGYdkaGEBf
+	 /KyX3P0/Q+X7RA6tX+ye7OTciRfOGGbsM0QTcpSwzl8AfKf6a0kuzmUbAftDkGa8FHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794356250;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794356251;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qvKp/SWRpa3t6q7FKfrQFlJzExhJI154nNVRcxceyJI=;
-	b=gbiU0fXb8LLN5rNFry5J83W0hlPUO1aE2Fg3kPLKAfxKzDu9yHI9Z4/0xX7kUsHs361R
-	 qkmOhl7SDk9vMGdK6j8wpc3oClZfuvY5eRB3gMbF3zSXULy77qY/HtDg8zJzmCTb7/8nM
-	 kpdfVGjadqWBV5vETp+VHIAoMwIkzSy1iFFuw7j7+oiiAW6KSPkTIyVIF+HFYDKLkI446
-	 mWotM/FOiOcP0wrbIsGAEbg2adboJ2I6zl95Jccn17x6iqavZbVLbfnKx1RoQrPHb/rdK
-	 KuDyxB3MQ4lt0om8XFXcJl8u/kztlE9hk7mEHVwKvB/CJt9kvlZMx8VbXgG/pWf2Aaw==
+	bh=+KlaMb/t2FSMM2DP9hYWfnzJVXtL1M7I7E8fcLu+wYs=;
+	b=a5d9Sb2FZ7W5f17qz+SI43QxrRReiEjZA1I+aWNmWhmYpfzlKQKOW8haotY+R2b3r9hU
+	 YFfexaYz/J78uJnqLwYZoO4zOtWyFQoFaKgjOl30cZ9OUPubmKRfte/NXlSwzvQShrXxT
+	 5Z3XL0ytv0elMhtGStAPkef5zhkRTsdsz/u5FwCBD3k5r5oRhAjJKsIi98uiNH7MoPitQ
+	 0/CLs8uwVQRWxLr5E56ilDp3lDkXrPw0LlNBsbeXw6na+STs++AcGqgvPu5gQJ2kwcQ5p
+	 YtKI5SyQbgZiDN2HYIAtKScRU3Z5yaojbzjxf82O0xtaS+3EJUZ5C+MJERhAu6qw4Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+E2Vl6C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ78cLsk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86D2606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C627606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J+E2Vl6C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 094001F0093C;
-	Wed, 11 Nov 2026 00:17:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJ78cLsk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0671F00A05;
+	Wed, 11 Nov 2026 00:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794356250;
-	bh=qvKp/SWRpa3t6q7FKfrQFlJzExhJI154nNVRcxceyJI=;
+	s=k20260515; t=1794356251;
+	bh=+KlaMb/t2FSMM2DP9hYWfnzJVXtL1M7I7E8fcLu+wYs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J+E2Vl6CzmIka3AfsSgvdMpE4Ad8Pz132+5/D+/zfrDqbP41cQG4iAtpRPV7WcNxH
-	 01oTDl8c/WJ+Q6Jr6ZOLr0SkW8OCIXi9/LDpkkXhaNCo4amBdpNBeKz1ynq2bLQewn
-	 ZjZcghrHJot8M5dbIr2FyyLABEnUWHbH1gQrq5lz5u9O1rwyhChB+8lLzvIyshLTPh
-	 9gCUxNx4t+yVgY9gEHSrs4zSdBpVLOATxb2PfYf4QYbS41+Ua1RJTrt2E07LA93AWN
-	 C5mlp0wzBDjZPZFEXSYLC1bp1/8FECS9CQQ/CziKz7J9EgoU6zYQ9YBIxrcDwr+3uR
-	 +dIXcLcqEflcQ==
+	b=TJ78cLsk6O0X2Ljp/LydS4NF4OvB1NAMUApgrP0CdRxm1pEDhsncPG28r2rBsOfCM
+	 URfqM9DQytBCGR0v/Fl08FLb3dDEi5+yp1bje0BCYh1WBQsoTA09BZmqJjjNxFjIkG
+	 LGGOK+JvWEND9g34usDPPJ2Tpo0XIUVE96J2a2GHih8i2TCirxV31Z+SET4ktFTlr+
+	 f1LKqEo0ejpgUxjIMDkzp5QhTp2NT24+i7T9cbQDVY91W51mizlAA7rx+GRqP0L00y
+	 MGTcbe2Kn65YS/y0TIaAjHbVHYGA9VVFl9sGsXrvVqGZueKHd2Dvv1EiSCWRsRwwen
+	 vz/F5x1aMlxCw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Lukas Wunner <lukas@wunner.de>,
-	Michael Ellerman <mpe@ellerman.id.au>,
+	Hans de Goede <hdegoede@redhat.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/4] driver core: Add device_show_string() helper for sysfs attributes
-Date: Tue, 10 Nov 2026 19:17:25 -0500
-Message-ID: <20261111001652.217391-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/4] platform/x86: Use device_show_string() helper for sysfs attributes
+Date: Tue, 10 Nov 2026 19:17:26 -0500
+Message-ID: <20261111001652.217391-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111001652.217391-1-sashal@kernel.org>
 References: <20261107055306-failed-6.1-3d9a175707ee@kernel.org>
@@ -65,109 +65,174 @@ Content-Transfer-Encoding: 8bit
 
 From: Lukas Wunner <lukas@wunner.de>
 
-[ Upstream commit 3cc50d07be10f67aff836f8247a240ec132c6a67 ]
+[ Upstream commit 3182459b7bff642eb968d6203a08aea3862436c1 ]
 
-For drivers wishing to expose an unsigned long, int or bool at a static
-memory location in sysfs, the driver core provides ready-made helpers
-such as device_show_ulong() to be used as ->show() callback.
+Deduplicate sysfs ->show() callbacks which expose a string at a static
+memory location.  Use the newly introduced device_show_string() helper
+in the driver core instead by declaring those sysfs attributes with
+DEVICE_STRING_ATTR_RO().
 
-Some drivers need to expose a string and so far they all provide their
-own ->show() implementation.  arch/powerpc/perf/hv-24x7.c went so far
-as to create a device_show_string() helper but kept it private.
-
-Make it public for reuse by other drivers.  The pattern seems to be
-sufficiently frequent to merit a public helper.
-
-Add a DEVICE_STRING_ATTR_RO() macro in line with the existing
-DEVICE_ULONG_ATTR() and similar macros to ease declaration of string
-attributes.
+No functional change intended.
 
 Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Acked-by: Michael Ellerman <mpe@ellerman.id.au>
-Link: https://lore.kernel.org/r/2e3eaaf2600bb55c0415c23ba301e809403a7aa2.1713608122.git.lukas@wunner.de
+Acked-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/3ae8c9a73fbb291c1c863777af175c657a2a10e9.1713608122.git.lukas@wunner.de
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+The third ASUS fan and ThinkPad auxiliary MAC attributes are absent,
+so omit their conversions. Keep the conversions for the existing
+keyboard, CPU/GPU fan and Toshiba version attributes.
+
 Stable-dep-of: 3d9a175707ee ("platform/x86: asus-wmi: fix TUF keyboard power state shutdown naming")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/powerpc/perf/hv-24x7.c | 10 ----------
- drivers/base/core.c         |  9 +++++++++
- include/linux/device.h      | 15 +++++++++++++++
- 3 files changed, 24 insertions(+), 10 deletions(-)
+ drivers/platform/x86/asus-wmi.c     | 49 ++++++++---------------------
+ drivers/platform/x86/toshiba_acpi.c |  9 ++----
+ 2 files changed, 15 insertions(+), 43 deletions(-)
 
-diff --git a/arch/powerpc/perf/hv-24x7.c b/arch/powerpc/perf/hv-24x7.c
-index 7dda59923ed6a..d33c4c9a145dc 100644
---- a/arch/powerpc/perf/hv-24x7.c
-+++ b/arch/powerpc/perf/hv-24x7.c
-@@ -438,16 +438,6 @@ static char *memdup_to_str(char *maybe_str, int max_len, gfp_t gfp)
- 	return kasprintf(gfp, "%.*s", max_len, maybe_str);
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index 8814b258caa55..2506f15ce53a1 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -783,17 +783,12 @@ static ssize_t kbd_rgb_mode_store(struct device *dev,
+ }
+ static DEVICE_ATTR_WO(kbd_rgb_mode);
+ 
+-static ssize_t kbd_rgb_mode_index_show(struct device *device,
+-						 struct device_attribute *attr,
+-						 char *buf)
+-{
+-	return sysfs_emit(buf, "%s\n", "cmd mode red green blue speed");
+-}
+-static DEVICE_ATTR_RO(kbd_rgb_mode_index);
++static DEVICE_STRING_ATTR_RO(kbd_rgb_mode_index, 0444,
++			     "cmd mode red green blue speed");
+ 
+ static struct attribute *kbd_rgb_mode_attrs[] = {
+ 	&dev_attr_kbd_rgb_mode.attr,
+-	&dev_attr_kbd_rgb_mode_index.attr,
++	&dev_attr_kbd_rgb_mode_index.attr.attr,
+ 	NULL,
+ };
+ 
+@@ -835,17 +830,12 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+ }
+ static DEVICE_ATTR_WO(kbd_rgb_state);
+ 
+-static ssize_t kbd_rgb_state_index_show(struct device *device,
+-						 struct device_attribute *attr,
+-						 char *buf)
+-{
+-	return sysfs_emit(buf, "%s\n", "cmd boot awake sleep keyboard");
+-}
+-static DEVICE_ATTR_RO(kbd_rgb_state_index);
++static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
++			     "cmd boot awake sleep keyboard");
+ 
+ static struct attribute *kbd_rgb_state_attrs[] = {
+ 	&dev_attr_kbd_rgb_state.attr,
+-	&dev_attr_kbd_rgb_state_index.attr,
++	&dev_attr_kbd_rgb_state_index.attr.attr,
+ 	NULL,
+ };
+ 
+@@ -2074,13 +2064,6 @@ static ssize_t pwm1_enable_store(struct device *dev,
+ 	return count;
  }
  
--static ssize_t device_show_string(struct device *dev,
--		struct device_attribute *attr, char *buf)
+-static ssize_t fan1_label_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
 -{
--	struct dev_ext_attribute *d;
--
--	d = container_of(attr, struct dev_ext_attribute, attr);
--
--	return sprintf(buf, "%s\n", (char *)d->var);
+-	return sysfs_emit(buf, "%s\n", ASUS_FAN_DESC);
 -}
 -
- static ssize_t cpumask_show(struct device *dev,
- 			    struct device_attribute *attr, char *buf)
- {
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 84019bebd901b..32cb9ab16695a 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -2474,6 +2474,15 @@ ssize_t device_show_bool(struct device *dev, struct device_attribute *attr,
+ static ssize_t asus_hwmon_temp1(struct device *dev,
+ 				struct device_attribute *attr,
+ 				char *buf)
+@@ -2115,13 +2098,6 @@ static ssize_t fan2_input_show(struct device *dev,
+ 	return sysfs_emit(buf, "%d\n", value * 100);
  }
- EXPORT_SYMBOL_GPL(device_show_bool);
  
-+ssize_t device_show_string(struct device *dev,
-+			   struct device_attribute *attr, char *buf)
-+{
-+	struct dev_ext_attribute *ea = to_ext_attr(attr);
+-static ssize_t fan2_label_show(struct device *dev,
+-					  struct device_attribute *attr,
+-					  char *buf)
+-{
+-	return sysfs_emit(buf, "%s\n", ASUS_GPU_FAN_DESC);
+-}
+-
+ static ssize_t pwm2_enable_show(struct device *dev,
+ 				struct device_attribute *attr,
+ 				char *buf)
+@@ -2172,11 +2148,12 @@ static ssize_t pwm2_enable_store(struct device *dev,
+ static DEVICE_ATTR_RW(pwm1);
+ static DEVICE_ATTR_RW(pwm1_enable);
+ static DEVICE_ATTR_RO(fan1_input);
+-static DEVICE_ATTR_RO(fan1_label);
++static DEVICE_STRING_ATTR_RO(fan1_label, 0444, ASUS_FAN_DESC);
 +
-+	return sysfs_emit(buf, "%s\n", (char *)ea->var);
-+}
-+EXPORT_SYMBOL_GPL(device_show_string);
-+
- /**
-  * device_release - free device structure.
-  * @kobj: device's kobject.
-diff --git a/include/linux/device.h b/include/linux/device.h
-index da53172bf3c62..70fbcc437360b 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -138,6 +138,8 @@ ssize_t device_show_bool(struct device *dev, struct device_attribute *attr,
- 			char *buf);
- ssize_t device_store_bool(struct device *dev, struct device_attribute *attr,
- 			 const char *buf, size_t count);
-+ssize_t device_show_string(struct device *dev, struct device_attribute *attr,
-+			   char *buf);
+ /* Fan2 - GPU fan */
+ static DEVICE_ATTR_RW(pwm2_enable);
+ static DEVICE_ATTR_RO(fan2_input);
+-static DEVICE_ATTR_RO(fan2_label);
++static DEVICE_STRING_ATTR_RO(fan2_label, 0444, ASUS_GPU_FAN_DESC);
  
- /**
-  * DEVICE_ATTR - Define a device attribute.
-@@ -257,6 +259,19 @@ ssize_t device_store_bool(struct device *dev, struct device_attribute *attr,
- 	struct dev_ext_attribute dev_attr_##_name = \
- 		{ __ATTR(_name, _mode, device_show_bool, device_store_bool), &(_var) }
+ /* Temperature */
+ static DEVICE_ATTR(temp1_input, S_IRUGO, asus_hwmon_temp1, NULL);
+@@ -2186,9 +2163,9 @@ static struct attribute *hwmon_attributes[] = {
+ 	&dev_attr_pwm1_enable.attr,
+ 	&dev_attr_pwm2_enable.attr,
+ 	&dev_attr_fan1_input.attr,
+-	&dev_attr_fan1_label.attr,
++	&dev_attr_fan1_label.attr.attr,
+ 	&dev_attr_fan2_input.attr,
+-	&dev_attr_fan2_label.attr,
++	&dev_attr_fan2_label.attr.attr,
  
-+/**
-+ * DEVICE_STRING_ATTR_RO - Define a device attribute backed by a r/o string.
-+ * @_name: Attribute name.
-+ * @_mode: File mode.
-+ * @_var: Identifier of string.
-+ *
-+ * Like DEVICE_ULONG_ATTR(), but @_var is a string. Because the length of the
-+ * string allocation is unknown, the attribute must be read-only.
-+ */
-+#define DEVICE_STRING_ATTR_RO(_name, _mode, _var) \
-+	struct dev_ext_attribute dev_attr_##_name = \
-+		{ __ATTR(_name, (_mode) & ~0222, device_show_string, NULL), (_var) }
-+
- #define DEVICE_ATTR_IGNORE_LOCKDEP(_name, _mode, _show, _store) \
- 	struct device_attribute dev_attr_##_name =		\
- 		__ATTR_IGNORE_LOCKDEP(_name, _mode, _show, _store)
+ 	&dev_attr_temp1_input.attr,
+ 	NULL
+@@ -2205,12 +2182,12 @@ static umode_t asus_hwmon_sysfs_is_visible(struct kobject *kobj,
+ 		if (asus->fan_type != FAN_TYPE_AGFN)
+ 			return 0;
+ 	} else if (attr == &dev_attr_fan1_input.attr
+-	    || attr == &dev_attr_fan1_label.attr
++	    || attr == &dev_attr_fan1_label.attr.attr
+ 	    || attr == &dev_attr_pwm1_enable.attr) {
+ 		if (asus->fan_type == FAN_TYPE_NONE)
+ 			return 0;
+ 	} else if (attr == &dev_attr_fan2_input.attr
+-	    || attr == &dev_attr_fan2_label.attr
++	    || attr == &dev_attr_fan2_label.attr.attr
+ 	    || attr == &dev_attr_pwm2_enable.attr) {
+ 		if (asus->gpu_fan_type == FAN_TYPE_NONE)
+ 			return 0;
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index 3541c2048905b..7307249f812d3 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -1820,12 +1820,7 @@ static DECLARE_WORK(kbd_bl_work, toshiba_acpi_kbd_bl_work);
+ /*
+  * Sysfs files
+  */
+-static ssize_t version_show(struct device *dev,
+-			    struct device_attribute *attr, char *buf)
+-{
+-	return sprintf(buf, "%s\n", TOSHIBA_ACPI_VERSION);
+-}
+-static DEVICE_ATTR_RO(version);
++static DEVICE_STRING_ATTR_RO(version, 0444, TOSHIBA_ACPI_VERSION);
+ 
+ static ssize_t fan_store(struct device *dev,
+ 			 struct device_attribute *attr,
+@@ -2434,7 +2429,7 @@ static ssize_t cooling_method_store(struct device *dev,
+ static DEVICE_ATTR_RW(cooling_method);
+ 
+ static struct attribute *toshiba_attributes[] = {
+-	&dev_attr_version.attr,
++	&dev_attr_version.attr.attr,
+ 	&dev_attr_fan.attr,
+ 	&dev_attr_kbd_backlight_mode.attr,
+ 	&dev_attr_kbd_type.attr,
 -- 
 2.53.0
 
