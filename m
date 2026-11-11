@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794418636;
-	b=Pe8OlMqy6WjsbxjchCRi1RyQiLpoFjbV+8+gJJMpX2IWEodI+xlGuZ3N/zXInlll4ZMk
-	 X4YNuUPSmdTWOCqWJsAkcPo7Fh4TxYZywYsd7dX2gKUxWr0YEu7/0W4nwCLc/au+k4Vl0
-	 e3Ls4bFzozB7/pqhWE+hG7Bi2X0iAYF98x/2IQz09TxoQFMR4XrGMKsM8y+WXL+t6F9KP
-	 uj9Vm7qQ5f8H2asc4BKWZEYxHNw5QFBskQ9hE7efRigFVqHA7Zak0EOYCFpNuzD8IACRR
-	 idYojJQFkEMLolMMM52uOd0ne2i+Oof1pHNXoEIkqX5VN/R1C/tRny0chqWu1+jsAxg==
+	t=1794418746;
+	b=zA7DhOwFmb14mS5cMnVrs2qDN8EVH1Pfl0GgiC4h0w7fBVodc8hYJjKHi8fzkaHAu3yQ
+	 e2/9lOoNrr3O15ttQoftIIT30UuNdQIFsaTnZWmtqYbfBjHc4TpiLJDCFvP5WVNtrtXa/
+	 fIG4jsPhXTKwcOiDn+tw3M3hHdS5kcjBUmURTJko8UmrI8KKo/Te8SfO5tKioy3DyU0Im
+	 gegrDYEnOqGaumCjp5UwfKh+jvXf1vyOCrF9Zi2MkvcH87gH7jShaQud8fetnZJQkzVm/
+	 /c80ebxLlUMyquVu1+3Au48wzz8FQuCbWyPkoafZA0paQoyMxMFDmpZ6Y0jtLIS0EaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794418636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794418746;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4A/yii84Hr0pkSEHxfBqeIpjfn/9sKUAmcz4HwzH7bw=;
-	b=0MtvXcJGYHoXMYJMRiDdQWB0Im4N8CQwFU/sB8wbZnBa6JVC/LORkcChWI3ZDXN+y07a
-	 M0qLrXEMTeCXy/I3j3FiuqzwK3SOXyPhJbK4MLbX5jAjkA58GbMw6CSEknyHA8EZ+BbXQ
-	 EaVnDCUyNNOaaQ7BPL9+rKPnQNg3GLBaGRdbK5oW4ydk2aKBHRrGaoAbHUplBYar2AUnp
-	 wyPCi8UUolby3ZyuLMkjFM6DchMFpeXh1vU/SpfS/9ZAv7bqx1CskSvy94Uy+Cdm200Xd
-	 BI50hbxe/BeoCT/UBuGLnRxLiolxLmq6cjSkpiDjM6d9YwjhaZ+xjKo1imDkxhtcWkQ==
+	bh=RPx4W2H46ROzDhsE+zVNFq5Rqpkmfo96O19aFpn8vIo=;
+	b=xGv9gixUDjnGueqZF8TzGR0gQYlq2VVERelg1PSl9eDc3wozEwpRZwkk3kGo3bDAe4Er
+	 IJKIN6UgnzXi3TAYWa8ROeNiRH6QuBAvP6hk1yi0Cy+6NK5vY2ijw+65xdLYuqrK2II4v
+	 uLc7jBzCIoIJ1c/VdDQBfiGOWn/erOUdlLENNHUITWatyILIJUwm3l4HpyNz00S8QlMwt
+	 zsQ2gzMTyzYWc6H19Xf0jAzIcIBY3fLJFzwMhy4ViWFPUDzrAPGzXOfJCpM/t1bGAkw2L
+	 oAroQSn/zPZ1kQ81rdirVy/0yUFJyYPStLzgof6VTeTQo1hLrNVRRt4N96pWL2pvp4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd5ER+IW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEqxYcxm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28CB606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:37:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DA4606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:39:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fd5ER+IW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08AA91F00A05;
-	Wed, 11 Nov 2026 17:37:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEqxYcxm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AAEC1F00A05;
+	Wed, 11 Nov 2026 17:39:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794418635;
-	bh=4A/yii84Hr0pkSEHxfBqeIpjfn/9sKUAmcz4HwzH7bw=;
+	s=k20260515; t=1794418746;
+	bh=RPx4W2H46ROzDhsE+zVNFq5Rqpkmfo96O19aFpn8vIo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fd5ER+IWg6aBT16SvhjhQgxguA1Ulc9uEId4zE0xxOKT5ucw+yoQY1Y5GO1wYGU2c
-	 NqTHkoawCMwO0D1iroZ+7uUbYLy68TJfDk2Te7Zvb+n0+gwBabqKknnxdKirRcRkCz
-	 m8CNYLAI2VE4vEeng9YFX8gyNBlmZ32nMLmpPOLBmZSZPdO1N9SacGlKPEFVHo44hz
-	 VZ4NBAm6MHMGbh5AYK9bh7g7BEc0bizeJp5/XaxUiMJT5n9Kx8/uCHpd30uUWmo7oA
-	 Nlo6kLoILKOD3kZwsc3RH6VIyMNlHGUWrtmMND7W4W5nQVZOc/+5rpWWAAJ0T+EEe9
-	 E2N9gcixnJQeg==
+	b=cEqxYcxmzTx1c+QcN6UqacSxf+ck5YLdsQ0P1PhC9+EHv0gbwgFgcic7EpmD0ATg+
+	 2T+W+YdJ1PLubxbtqigjVeUnVObgHJ/o1V+TCnycICE0QV3b1PlJon7O7Oof5SKPO4
+	 StD9yL9rNZmYHgSa4bcTyv25oFaiv919nZuZCFuJOfSPw/ucsN+OXYNmK+qSZsL8Mv
+	 p+vjmKzndSvtTAyifc1ZOgX7Y5fsctRbMII4li8Q3Ide9uGi4x++ZElh6DxsCdt3x1
+	 flK0rLwm+XT0A2bs42bdOZ2tDWlLxqtmi1sM/Ksmz+eI6Z2s6fs9RRLdlJds5OpYDJ
+	 DKDRUnsMzSpSg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Yiming Qian <yimingqian591@gmail.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: ipu6: Fix firmware config leak on stream start
-Date: Wed, 11 Nov 2026 12:37:13 -0500
-Message-ID: <20261111173645.3594758-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] ipmr: prevent info-leak in pmr_cache_report()
+Date: Wed, 11 Nov 2026 12:39:03 -0500
+Message-ID: <20261111173836.3630034-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051831-failed-6.12-d3d9bc694fe0@kernel.org>
-References: <20261107051831-failed-6.12-d3d9bc694fe0@kernel.org>
+In-Reply-To: <20261107052532-failed-6.12-94a6736bb5ab@kernel.org>
+References: <20261107052532-failed-6.12-94a6736bb5ab@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,108 +63,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit d3d9bc694fe087c672c3ad5871984dc45cd9f425 ]
+[ Upstream commit 4f34002e2e37639133693c13a2a9977fab86880d ]
 
-ipu6_isys_fwcom_cfg_init() runs on every first stream start and allocates
-the firmware config and queue configs with devm, so each STREAMON/STREAMOFF
-cycle leaks them. They are only needed until ipu6_fw_com_prepare() has
-copied them, so free them right after. Also check the return value, an
-allocation failure would otherwise make ipu6_fw_com_prepare() dereference
-a NULL queue config.
+Yiming Qian reported:
 
-Fixes: f625e8d7ffc1 ("media: intel/ipu6: input system ABI between firmware and driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-[ sashal: Adapted fwcom_cfg and isys->fwctx to existing fwcom and isys->fwcom names with cleanup inlined in the caller. ]
+<quote>
+ ipmr_cache_report()` allocates a report skb with `alloc_skb(128,
+ GFP_ATOMIC)` and appends a `struct igmphdr` using `skb_put()`. In the
+ non-`IGMPMSG_WHOLEPKT` path it initializes only:
+
+ - `igmp->type`
+ - `igmp->code`
+
+ but does not initialize:
+
+ - `igmp->csum`
+ - `igmp->group`
+
+ Later, `igmpmsg_netlink_event()` copies the bytes after `sizeof(struct
+ igmpmsg)` into the `IPMRA_CREPORT_PKT` netlink attribute and emits
+ `RTM_NEWCACHEREPORT` on `RTNLGRP_IPV4_MROUTE_R`.
+
+ As a result, 6 bytes of stale heap data from the skb head are
+ disclosed to userspace.
+</quote>
+
+Let's use skb_put_zero() instead of skb_put() to fix this bug.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Yiming Qian <yimingqian591@gmail.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260430070611.4004529-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 94a6736bb5ab ("ipmr: only copy pktinfo to cache reports")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 29 ++++++++++++++-------
- 1 file changed, 19 insertions(+), 10 deletions(-)
+ net/ipv4/ipmr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index 62ed92ff1d303..51d02649d7a74 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -218,7 +218,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
- 	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
- 	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
--	struct device *dev = &isys->adev->auxdev.dev;
- 	int type_proxy = IPU6_FW_ISYS_QUEUE_TYPE_PROXY;
- 	int type_dev = IPU6_FW_ISYS_QUEUE_TYPE_DEV;
- 	int type_msg = IPU6_FW_ISYS_QUEUE_TYPE_MSG;
-@@ -228,7 +227,6 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	struct ipu6_fw_isys_fw_config *isys_fw_cfg;
- 	u32 num_in_message_queues;
- 	unsigned int max_streams;
--	unsigned int size;
- 	unsigned int i;
- 
- 	max_streams = isys->pdata->ipdata->max_streams;
-@@ -236,7 +234,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	max_sram_blocks = isys->pdata->ipdata->max_sram_blocks;
- 	max_devq_size = isys->pdata->ipdata->max_devq_size;
- 	num_in_message_queues = clamp(num_streams, 1U, max_streams);
--	isys_fw_cfg = devm_kzalloc(dev, sizeof(*isys_fw_cfg), GFP_KERNEL);
-+	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
- 	if (!isys_fw_cfg)
- 		return -ENOMEM;
- 
-@@ -248,15 +246,14 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	isys_fw_cfg->num_recv_queues[type_dev] = 0;
- 	isys_fw_cfg->num_recv_queues[type_msg] = 1;
- 
--	size = sizeof(*input_queue_cfg) * max_send_queues;
--	input_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
- 	if (!input_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_fw_cfg;
- 
--	size = sizeof(*output_queue_cfg) * IPU6_N_MAX_RECV_QUEUES;
--	output_queue_cfg = devm_kzalloc(dev, size, GFP_KERNEL);
-+	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
-+					IPU6_N_MAX_RECV_QUEUES);
- 	if (!output_queue_cfg)
--		return -ENOMEM;
-+		goto err_free_input_queue_cfg;
- 
- 	fwcom->input = input_queue_cfg;
- 	fwcom->output = output_queue_cfg;
-@@ -319,6 +316,13 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
- 	fwcom->specific_size = sizeof(*isys_fw_cfg);
- 
- 	return 0;
-+
-+err_free_input_queue_cfg:
-+	kfree(input_queue_cfg);
-+err_free_fw_cfg:
-+	kfree(isys_fw_cfg);
-+
-+	return -ENOMEM;
- }
- 
- int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
-@@ -332,10 +336,15 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- 	};
- 	int ret;
- 
--	ipu6_isys_fwcom_cfg_init(isys, &fwcom, num_streams);
-+	ret = ipu6_isys_fwcom_cfg_init(isys, &fwcom, num_streams);
-+	if (ret)
-+		return ret;
- 
- 	isys->fwcom = ipu6_fw_com_prepare(&fwcom, isys->adev,
- 					  isys->pdata->base);
-+	kfree(fwcom.specific_addr);
-+	kfree(fwcom.output);
-+	kfree(fwcom.input);
- 	if (!isys->fwcom) {
- 		dev_err(dev, "isys fw com prepare failed\n");
- 		return -EIO;
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index 3b58e8e88ad25..fec7012a62e45 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1088,11 +1088,12 @@ static int ipmr_cache_report(const struct mr_table *mrt,
+ 		msg->im_vif_hi = vifi >> 8;
+ 		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
+ 		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
+-		/* Add our header */
+-		igmp = skb_put(skb, sizeof(struct igmphdr));
++		/* Add our header.
++		 * Note that code, csum and group fields are cleared.
++		 */
++		igmp = skb_put_zero(skb, sizeof(struct igmphdr));
+ 		igmp->type = assert;
+ 		msg->im_msgtype = assert;
+-		igmp->code = 0;
+ 		ip_hdr(skb)->tot_len = htons(skb->len);	/* Fix the length */
+ 		skb->transport_header = skb->network_header;
+ 	}
 -- 
 2.53.0
 
