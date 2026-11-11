@@ -1,110 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794429390;
-	b=iwKU2S+Rkhm0q8xSZLa32qbPp+JF7T8cJlHdwkDacXgpFlMZ4o7WWx3C6ebaL2Pw5N88
-	 vYxct5FEEoX1rR/MZPGh6nJGvMyxm7hhD02fxYgZy5wuzJ7VomqBY9qLP53q38L+v0+5p
-	 cULR02TTnIdsOUfushM8l2hJry5Z2dEIuqcU9VWwcUdLXsxMwAxNn8qddv0S67dG/TNp+
-	 /U5QUNDKEE/Y4RNK9NjDi+5G/MhnegF33jUTLfiEyaff4RUdKRed57GvLSwGhofjjx/hS
-	 nKrSdmiwU+OMR5ThUUU8wG+drHUXCE9bOG3keVWm4NBIrUoUelFok15HU5hZcvQkugQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794429390;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NNGE6UrmGIoih3+sbT7xMKwGPGzkwVpsddz65pffQVE=;
-	b=AAhNP9Gv7O0biNEDFsjtc7vJ1VlrdEBG4vgKTNdlJd7V5oZLEzcp630gZFWCW2Z/r3eQ
-	 7opZYqQraNlK9UaTvFvYfQAD9EWUVdE0xbHIVMnHSJg7EWxmmqs0dnfHmkl//0bp1pdiP
-	 hjPPnQgEwE4hL8JjokmW6rxFw6/sk/gt6uqBhVSkXcyZ4dzWSnqXW0+60j1DUCwR0TKWo
-	 CXa8FemMiH6gHroLFjaZiVaksr8qeKkI4P0m9V9UCsvFTaTuGNufCw5PRAkLtA+2fBjVE
-	 qprf5YolPVC1DxZcRtoB9fPJafSc0m9uIctvVdm5blGZpkGgCzATbIR1U1OFp9HtNXQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudlinux.com;
-	spf=pass smtp.mailfrom=cloudlinux.com;
-	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=ZVLF+vIn;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794429761;
+	b=v20DJaYE/Z5uvU6lI0tYqMpJECJQFEFc7B/BWvE5hOp5kSmcFgUroTbkh7AQqBQDggCf
+	 VbeK71yHTuo5Q1zuoVBDkdQP6uJy54BtSVomOd2KuptVpDdnj6TmPk0uGjPmwmTvZ4unq
+	 6j/3bd4AOlLjczj3DuPMZ/qEGUcB5ZkNPRSOHT252/2HvbutKLSi/nNEx+9SjNbQIdrrD
+	 eUvX/qTIesPkhFKfawMYFjYCh5Z4R2lGpGzQ8W9UdMxGqU2EG7T31w1U8LLYcXUHhMpjY
+	 g28jR2qXj8/MD7ar4BUx3ofV+xw3izwIiVIB4RNgTUeCUh04iCBLtJ6seQ7l7OSf48A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794429761;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=FkN83yy1WD4qiKYRQgrYbDYfmEGJAV4efcLDG1rAZ94=;
+	b=3/Kf2jpvGGtMxxXbJAReOhoIr8jAfi9M6i3wyd2Go1kJRACHY7BwU14l/r2AZstLNCAk
+	 0fxeOEzRycz357e18AS+fnrVaeyg2a5apGaFnH8gejMUyWZT2UuLa0QrxHDm2Vow5+g4W
+	 DeWcjB+iOTF+G8m+GIyj9dLxyHmFlwqgjsU+4Yh9V+SHGU3u9mW2oOKOBf+f7yHKElNt1
+	 Ji/Yiq+sBbt19LpawyWZfdjtW1ZOh+OYmNA4JBEjB/YI8FSol4gXWl4sjQLhx91QVPTsm
+	 twoBwfA++oyNFccDwxIqNjzXSEXfX03aIytK6I2qbYzTUyNYkNu537hj+fyzazvGYwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUnNgSjz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C793F606A321;
+	Wed, 11 Nov 2026 20:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BUnNgSjz
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794429761;
+	b=Wf3zfFA1F5mGvXrst1uzCp02riRYOVQphksjnIq3N5afH2JqRXkYvZeXGoN5YxYoKIL1
+	 YnKissn7GTEBOmActeC2jyqSvtJMOTZaffrv8/JqBVFLk9Gd8Eh8Nq+ngrH0soWVeHd/P
+	 AjBiTOExKx8x1vY+wo8dOKBQknWgmmMV4B3i9xO83E9u5T4oKANd2jBwQ1M6ggI/YJpFb
+	 yhi5hPsGWh6UKKnLKlYkCTI5KxPHc1sEMwtjT3Sei9Z1ylVzZ+MmoEsQjkw2fLbwjZXcS
+	 0HunBOCYSgjmY8KzEWZgdnA/AW+O2e8zyRwaaK3Dczvg77eEyBKrh5zic7cgfVaEGdA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794429761;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=FkN83yy1WD4qiKYRQgrYbDYfmEGJAV4efcLDG1rAZ94=;
+	b=TzfnAPRSwJ96efIVYgpYRjAZByKrb/IX8BYlQiHrvm/Ja2ljO+qOTVvJhsHbq3Kb5bSz
+	 /xqXXU5dJVdVIfPPEgDlVYzq0d0KWtDf9yQ9rHENo5V89NOgoqe4CpehzHOylYrGPaP0L
+	 8wxMgS48FD9QU3mbO8H0BMzsMTHNJPwjLw7CnKqKLFIVnCGCmPptT4e0UAr5CK/vVc6Sd
+	 cyXbs8qeguwoW8ftnSwoLijPCRzIq4C1MMHrxk/CiJdOO//VbLgZvjNKjhLP1mrvzoHko
+	 D6wX83HtZKjvlMxc5mcFoj24SM9PZ1zcCXhtFfH8HMM41JBiJmk0q5Lk+4f+M6lDxKA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39008606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 20:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39008606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=ZVLF+vIn
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so42207165e9.2
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 12:36:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudlinux.com; s=google; t=1794429388; x=1795034188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NNGE6UrmGIoih3+sbT7xMKwGPGzkwVpsddz65pffQVE=;
-        b=ZVLF+vIn3YWx2xaDmvc4ASv3P9waWwcCVU3SNR2EwPknjDiIZ0Jza+Xvgr3YBC0Cgj
-         3LfwimsG8o+30npPVueJUpJopy8NgZo9x06PHOpgTfwTH4+V1m6DlG7eC4Y14rvC/KCz
-         yu/+eMbK2BILgpIfzjyOeaR+LmTzbuoX2BAcvkNW/Hc1WMSnC9a1MseEp5BPHHifG5oG
-         pvvUWM2EGZCA13ilunkCs65OLsASUAPYKwV/ysKdDj1YS2PAvKMzx7bvoSwPLPXyVgLF
-         88IXM+BMVRhCvw1foZSljOGbFi8dglkxfieGRuuxJ+3Eu8jwkKLjIm64HEKbZdbM+OHS
-         1aEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794429388; x=1795034188;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NNGE6UrmGIoih3+sbT7xMKwGPGzkwVpsddz65pffQVE=;
-        b=M9bcWQrVZryczeisg7l2xkt8HoXxts9H+KtUMjLiw1v3DK88iFzlzeXcxAgo2XXYON
-         hFeEJNsFWPaxZB9+2vNawKCN3uGrADGIuBrlZMGVWmNiR7YXHldTWQpCxlPjD5KdmqeD
-         8aTwS7ysKmSgrqOV4P6bhqGsayH+K1vYA9G44YeX3hva5KvpqcvMy1btDuguaFdM+6Qi
-         tV68OHrN+tI/Roh5NISFWdAX8XI/FVktzX3kNswer0VAikpBUyb2O57+Vd5eW8GSJ6iY
-         JBbFm1BrrgIZ/PPLhYnM34WYwpbENA9460+yHKWtmKJ31B30UyIR09vnPw1QLGcND1Up
-         Oiqw==
-X-Forwarded-Encrypted: i=1; AL+hErHmuN3gUL13ASdzSsY4Sa6KqWDWG44wWX8to37t0XONLXcpN0g6FpfimPEOKDq0xWA3oq20AsE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eY7y/b4l3OpiZv1nVOQ+ZDmfccIMbvZXq9NtuAIXILR6A5oPA
-	hWwqVP0CGpjzjZd3kEukvyq/lpzoBa3wpFeaB67kjlHuXl8OC5we7jN2/ow9t+ohCexe1D9aU+V
-	8gz/EKwQmLw==
-X-Gm-Gg: AYBFou10duXj/3A+JUkFO/2z0msEFJbpQO3KDi1LfcSfXbBDp3bsH7d8J5B4/7ltV9c
-	fjxuwY9Q/aIALZ+Sv7fulpb+MYMWbefu4KBJCl/2kuUf5JLV+OLHi9F+Ub68FcfEVTPtrXoekq0
-	SI/2nlgnGjNiq3BjyHhnhB5Lbxc33KOmvx/YBH45UhsFmoAyx36cQS10fI/MwVwHrvTYVynjSeF
-	ye4bWxXNuCtFklwB3CLAVSbUGejDzdyF6ftY9m7aQ0ZkWktWvbLlqBZP9PnI+Mi4B6G2ATqSScN
-	a4CIAp7ak/JDv47htecK9WhmzzdLld3bKWrVbkmULeal4+jQDpj4s+GGTwly9DVmvsy9lQIq3gk
-	vobhFH1p2vaCdYkDFeotpYVCBx/8A5396yo0s8Gg8OrqUzFVpqxhvlR2PldSeTahn8KbR/CzWX8
-	yAA6lKfFJFoKjwMLd4rRvtOCOWWzGnCGper5rnTYrLIE0zwOG7G/cmKqSthQzqp6gZE1p27haNL
-	KK0aZ4tk7aaGANkvZiotTLQcJqS2q+ZOcdxHkJOP8U2bwMMxwbgNjLDeuLwqqrDoZxfYq2EfmZf
-	7bJFhxLJb9jfqufYdg4Hw0kymkN+eyAL0QTH74M=
-X-Received: by 2002:a05:600c:81c5:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4ba09376130mr58077175e9.15.1794429388649;
-        Wed, 11 Nov 2026 12:36:28 -0800 (PST)
-Received: from winnie.home.arpa ([62.4.45.73])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e258e8dsm21071525e9.4.2026.11.11.12.36.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 12:36:27 -0800 (PST)
-From: Sergei Nizovtsev <snizovtsev@cloudlinux.com>
-To: bpf@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org,
-	Sergei Nizovtsev <snizovtsev@cloudlinux.com>,
-	stable@vger.kernel.org,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Serge Hallyn <serge@hallyn.com>,
-	Amir Goldstein <amir73il@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf] bpf, lsm: Mark backing_file_alloc/free LSM hooks as untrusted
-Date: Wed, 11 Nov 2026 21:35:52 +0100
-Message-ID: <20261111203614.1221188-1-snizovtsev@cloudlinux.com>
-X-Mailer: git-send-email 2.56.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 1BA661F00A06;
+	Wed, 11 Nov 2026 20:42:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794429761;
+	bh=FkN83yy1WD4qiKYRQgrYbDYfmEGJAV4efcLDG1rAZ94=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=BUnNgSjzOLRdv8ucQUrixpAOzbqslSFpzv0QHJmDKr8rUUxFaTt/n4WAYMGlbjqk3
+	 D77TYCgbSJMRTGuTluXE3WKd9yTSwAilktVVjXdfZz+LMJTAYw+7dNymPWGASzt7uU
+	 UOhtTi9yfNO3j+jyEocU3vpoNW1U9zE0OMiAjfwY4SDYKuZrYIk0ttuAKIJGadboQl
+	 TEYSWLb7deeftglApJ6fflqU6t1ohzPHTEltr8JE204YGTJTWFQAyKddecA+8ieV/f
+	 lEO8zEtDV9WgHEy6b8Or6NNh0RD5hO/xC/4DNo9mUUGA1GN8z1zZZ8ukT72V0MtkyL
+	 APgXMILjEqPpw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 94CC2490F8;
+	Wed, 11 Nov 2026 20:42:40 +0000 (UTC)
+From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
+Date: Wed, 11 Nov 2026 15:42:39 -0500
+Subject: [PATCH v2 1/3] nvme-tcp: use an aligned buffer for the TLS record
+ type
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,86 +83,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261111-nvme-tcp-live-ctrlrec-v2-1-6295202b84de@gmail.com>
+References: <20261111-nvme-tcp-live-ctrlrec-v2-0-6295202b84de@gmail.com>
+In-Reply-To: <20261111-nvme-tcp-live-ctrlrec-v2-0-6295202b84de@gmail.com>
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Hannes Reinecke <hare@kernel.org>
+Cc: Martin Belanger <martin.nvme.dev@gmail.com>, 
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Martin Belanger <martin.belanger@dell.com>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794429760; l=2965;
+ i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
+ bh=dSfexLwo67gflGLyNcBaaPITAwXJ0vNQ1LHo8u5k2cI=;
+ b=CE/SMiI50fYM2KLpbRvPoeTipY7fRKGrogVnilfikot6baI7SWjq8ZPpW+hTM+r4ti4jsDTpr
+ MYuWLqeeVx1BF3cbKn+/vVjvdhnfyeI1ZFzUdJPDmsyyg/qrt5YhUe7
+X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
+ pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
+X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
+ with auth_id=1176
+X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
+Reply-To: martin.nvme.dev@gmail.com
 
-The backing_file_alloc and backing_file_free LSM hooks get the backing
-file as "struct file *backing_file", but its f_path is not populated
-while they run:
+From: Martin Belanger <martin.belanger@dell.com>
 
- - security_backing_file_alloc() is called from init_backing_file() in
-   alloc_empty_backing_file(), before vfs_open() sets f_path, so
-   backing_file->f_path.dentry is NULL;
- - security_backing_file_free() can run for a backing file whose open
-   failed and whose f_path was already cleared.
+The buffers that receive the TLS record type are char arrays.
+put_cmsg() and tls_get_record_type() access them as struct cmsghdr,
+which needs a stricter alignment than a char array has.
 
-Neither hook is listed in untrusted_lsm_hooks, so bpf_lsm_is_trusted()
-lets BPF LSM programs use the argument as a trusted pointer.  A program
-attached to lsm/backing_file_alloc can pass &backing_file->f_path to the
-trusted-args kfunc bpf_path_d_path(), and d_path() dereferences the NULL
-dentry on the first open of a file on overlayfs:
+Use a union with struct cmsghdr, sized with CMSG_SPACE(), as
+svc_tcp_recv_cmsg() and xs_tls_read_record() in sunrpc do.
 
-  extern int bpf_path_d_path(const struct path *path, char *buf,
-                             size_t sz) __ksym;
-  char buf[256];
-
-  SEC("lsm/backing_file_alloc")
-  int BPF_PROG(poc, struct file *backing_file,
-               const struct file *user_file)
-  {
-          bpf_path_d_path(&backing_file->f_path, buf, sizeof(buf));
-          return 0;
-  }
-
-  # bpftool prog load poc.bpf.o /sys/fs/bpf/poc autoattach
-  # cat <any file on an overlayfs mount>
-
-  Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-  RIP: 0010:d_path+0xb4/0x810
-  Call Trace:
-   bpf_path_d_path+0x26/0x70
-   bpf_prog_f8f2e241d4ff7217_poc+0x33/0x37
-   bpf_trampoline_6442521065+0x61/0xf9
-   security_backing_file_alloc+0x78/0xe0
-   alloc_empty_backing_file+0xf0/0x170
-   backing_file_open+0xfd/0x290
-   ovl_open_realfile+0x1ed/0x270
-   ovl_open+0x1a9/0x2f0
-   do_dentry_open+0x404/0x1280
-   vfs_open_consume+0xba/0x4b0
-   path_openat+0xc4f/0x1f60
-
-Add both hooks to untrusted_lsm_hooks, next to file_alloc_security and
-file_free_security, which are listed there for the same reason.  The
-program above is then rejected at load time with "R1 must be referenced
-or trusted".
-
-Fixes: 6af36aeb147a ("lsm: add backing_file LSM hooks")
+Fixes: 2837966ab2a8 ("nvme-tcp: control message handling for recvmsg()")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5-2
-Signed-off-by: Sergei Nizovtsev <snizovtsev@cloudlinux.com>
+Signed-off-by: Martin Belanger <martin.belanger@dell.com>
 ---
-Tested on bpf.git master (475a0cfd02f1) under virtme-ng with KASAN: the
-reproducer oopses without the patch and fails to load with it. Only the
-backing_file_alloc case was reproduced; backing_file_free is from code
-reading.
+ drivers/nvme/host/tcp.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
- kernel/bpf/bpf_lsm.c | 2 ++
- 1 file changed, 2 insertions(+)
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 7ecc6c007f8d..749d77b4e172 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -77,6 +77,12 @@ MODULE_PARM_DESC(tls_handshake_timeout,
+ /* TLS records read while waiting for the ICResp, the ICResp included */
+ #define NVME_TCP_ICRESP_MAX_RECORDS 8
+ 
++/* control message buffer for the TLS record type */
++union nvme_tcp_tls_cmsg {
++	struct cmsghdr	cmsg;
++	u8		buf[CMSG_SPACE(sizeof(u8))];
++};
++
+ static int nvme_tcp_cpu_queues[NR_CPUS];
+ static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
+ 
+@@ -1653,11 +1659,11 @@ static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
+ 			.iov_base = buf,
+ 			.iov_len = sizeof(buf),
+ 		};
+-		char cbuf[CMSG_LEN(sizeof(char))] = {};
++		union nvme_tcp_tls_cmsg u = {};
+ 		/* kTLS fails a control record read without a cmsg buffer */
+ 		struct msghdr drain = {
+-			.msg_control = cbuf,
+-			.msg_controllen = sizeof(cbuf),
++			.msg_control = &u,
++			.msg_controllen = sizeof(u),
+ 		};
+ 
+ 		ret = kernel_recvmsg(queue->sock, &drain, &iov, 1, sizeof(buf),
+@@ -1682,7 +1688,7 @@ static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
+ static int nvme_tcp_recv_icresp(struct nvme_tcp_queue *queue,
+ 				struct nvme_tcp_icresp_pdu *icresp)
+ {
+-	char cbuf[CMSG_LEN(sizeof(char))];
++	union nvme_tcp_tls_cmsg u;
+ 	struct msghdr msg;
+ 	struct kvec iov;
+ 	u8 ctype;
+@@ -1690,12 +1696,12 @@ static int nvme_tcp_recv_icresp(struct nvme_tcp_queue *queue,
+ 
+ 	for (i = 0; i < NVME_TCP_ICRESP_MAX_RECORDS; i++) {
+ 		memset(&msg, 0, sizeof(msg));
+-		memset(cbuf, 0, sizeof(cbuf));
++		memset(&u, 0, sizeof(u));
+ 		iov.iov_base = icresp;
+ 		iov.iov_len = sizeof(*icresp);
+ 		if (nvme_tcp_queue_tls(queue)) {
+-			msg.msg_control = cbuf;
+-			msg.msg_controllen = sizeof(cbuf);
++			msg.msg_control = &u;
++			msg.msg_controllen = sizeof(u);
+ 		}
+ 		msg.msg_flags = MSG_WAITALL;
+ 		ret = kernel_recvmsg(queue->sock, &msg, &iov, 1,
+@@ -1703,8 +1709,7 @@ static int nvme_tcp_recv_icresp(struct nvme_tcp_queue *queue,
+ 		if (ret <= 0 || !nvme_tcp_queue_tls(queue))
+ 			return ret;
+ 
+-		ctype = tls_get_record_type(queue->sock->sk,
+-					    (struct cmsghdr *)cbuf);
++		ctype = tls_get_record_type(queue->sock->sk, &u.cmsg);
+ 		if (ctype == TLS_RECORD_TYPE_DATA)
+ 			return ret;
+ 
 
-diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
-index f58dce888ff4a..f39a3766f2245 100644
---- a/kernel/bpf/bpf_lsm.c
-+++ b/kernel/bpf/bpf_lsm.c
-@@ -411,6 +411,8 @@ BTF_ID(func, bpf_lsm_bpf_map_free)
- BTF_ID(func, bpf_lsm_bpf_prog_free)
- BTF_ID(func, bpf_lsm_file_alloc_security)
- BTF_ID(func, bpf_lsm_file_free_security)
-+BTF_ID(func, bpf_lsm_backing_file_alloc)
-+BTF_ID(func, bpf_lsm_backing_file_free)
- #ifdef CONFIG_SECURITY_NETWORK
- BTF_ID(func, bpf_lsm_sk_alloc_security)
- BTF_ID(func, bpf_lsm_sk_free_security)
 -- 
-2.56.0
+2.53.0
+
 
