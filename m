@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794377931;
-	b=YvYuRUdHiLCLFmg2UXC49cKMi2saZ4wsYZnp0w3kbyCqxPjM4AkYftxD9fp3eZFKcQh9
-	 OWPyrPai3Xrnh6xiW4ouBFXMTDNnn4zhFpVGHhAifXUB9EZCpVsCAFBpJyJsAmmcjhGmp
-	 ggvg94uXl4TFQ28/KyeVaeCC4NUEYOOyC4NNmVFPkBfMyoVk8Zj4dFdZ1PsL9EJLz60bV
-	 AmF4ftu+dfAbqk0CmGfpLZgKth1lVOCYEmX76gyHoHMsHiwIMAnfLzxmfKCBnSHdfraGo
-	 Fq6ZhnR/0Q3Rse074JkYr1DA01rC9B3lh05EYqeNhhv17r61eSkzGBDiwTDermWTJlw==
+	t=1794377928;
+	b=y7fceuBYJGLqJXnmfk1grblWpMEFS1iEE+3Z8YaWYIotDKGqsS5t5ELWgnNrnV1LFij1
+	 BUJ9vzH5AO2GdFNVro8iwq0LHgeRPTCpVLoSsHhG7VWwEi/PutaDKYoarkwUr/Fm4INNp
+	 IQ7w7u/XtcOBjCqx6nXuGJmSDxzUgn1FPiBK5mXUYmQpprtKiGQ/VWcS83lVW76NSLruQ
+	 2xPm8sC5B5enSzFbrQyXMM5PWpRe0/KCKFA80HF/jNaN6Rf76mJyJ+S/4CQuqSQS5+j8N
+	 Vatp3vgVBBIP5JN1KCgdKWNL3PEPVdj2L4wliAmCjRVXUh1veqYuPE7RqKeexMxqKJg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794377931;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794377928;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=x5X8EYURuKn/7X627usknV/yyXb+kYv1CRAi9eXfVxQ=;
-	b=IpLe9LN2+cAltYgb07nJPuGv6CKAp1//OPNQROqkW9trTa7YvbgeF1afPLSQyChGmipJ
-	 Nd0eWbWDKV9KszX3CqhMBQ4+XX4McXMATBxhPoDejZYBkfLTkMVpbud8eHdTSEYdImr1k
-	 8c7VrpIwYsIMDJhy7qBNb6RTQkiYh1AMWFCYD7ngXh1TO6rCMvliVyQBFA6da3rIOEOLv
-	 wbQuKw9SNwhgAf/0XgqMShj9J1AeIR3rhDIY/O3tLYVAEsNrcXrzFoaWlVNq7m4/XDaWJ
-	 zaMsAcPIi9P2ptuylVxsD2L26IBRXZogedkyJtE5hbTtCxpuv+nLhhxyL0L8xJqyqVg==
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=Lft7t/Pd6lbQ1q/PbU6GADsR1ZcLNV2ta2CQM+/hYSYFNy3Fvc6XkSZOFal0jETgBoAA
+	 29MDfcA4nnhRzHzbpGmYhu6q3CclHscEzyVxnz/TA5hHIJPcQHb3QyfGTDEDVxGJyfbAe
+	 QmA0Ph8yCWusIPCIUJ7CqldPdlucFiNslcpxesqt6X5W0DE0S6TpbePdZtODZl4vuZdr7
+	 TJt98wdE2PscqWIxcOlY8azi3x/R+8axJEzFZbiSQaP6TbhntFIYQ4rI2cJWzII952em+
+	 /x+n7M0xuR0Vy/3oI4qxfJkHH0mpVyJZzrYcP62fEYFvonpx4ZzaPRAqe1ROrAhD6Qg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoJJjtSE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEAqvzN9;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7284060A382C;
-	Wed, 11 Nov 2026 06:18:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B36F606A320;
+	Wed, 11 Nov 2026 06:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoJJjtSE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEAqvzN9
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794377931;
-	b=SdgdNbZjB1lAnozICCWqN9fvF2ZtWQqZmRj29TuS4ycjnUsRdtqS/11dMQBZ6jd3QBNF
-	 nDZfBj2uwmRFfGJ/5o0neOnf6nAKSBdm1xYROWkFC2LUOdu13NdpYMyekQUvFAptR0l2V
-	 6+OWXnv6CLzBRxrX135Dh3z2sdRX37Ud0DEsltttOFpWOPKGWbsEUsUXix4NMARPE1bA6
-	 PEbNZBlzWYkD5poHKO33fRAR6VEtfeDkli9sg8XLHcNmc4KtB7aa0VOGucux0B48d2Okz
-	 cySUayIRe7lL1TBSc66u0DeGbSvlfg7lHtQ3Hrh2UzVKtdfwBh637wjFRW/VjkuBYlg==
+	t=1794377928;
+	b=h7ueBH+XYghige5DuadhGiB1glqCVPaEF2UnujYUOt10x4+jKh+NpOxkGW/H/PmNHkb+
+	 +xCbeMp8LuBhTs5vWUtywFN5P99n82IcZRwoHKRwX4HXlOASD5ilfjKoa7nRvLW9bEHtx
+	 TfFu66YUYkyR3deY+a15SDC6VUXQwJAzDQgrED6NBnio+tliLRSXUKHgJ+B3xeVJGSSK7
+	 0I8uJGS9KYe/QchmBdZ2ZKvAPrP1BV9YqfIQ3XSRvoTDxdw0qkrPdaUPcug2BPzcpTAK5
+	 FgeJCug4Rp1gFitthKEA5I1nznU9DYhFkaGWlZ1gLbVTCdECqQJ0f+2YjR0ijzUiqhg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794377931;
+	c=relaxed/relaxed; t=1794377928;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=x5X8EYURuKn/7X627usknV/yyXb+kYv1CRAi9eXfVxQ=;
-	b=IcEgVDoGpImmK9r+1P6AEE+Ol75ZnP5spIpf4lIxZlrCevnVEr9yfzviuuTqdkeJVnbr
-	 NiTRMzdQ+m9A2zEoqutok0NBSY5ETKPesAwbmyJN+mAOAqyqwIsp9pfWHOImGpNPRgewY
-	 HUNUsibdbzAo3l4iVFm8QBZw9Oul87H6DCQya/kDPt+ci1KDGagoloG1rLyYJ9xsCYH5E
-	 1sW2yU8E/eZgRYUhi65we8oWc8ZKgwpCr9+C73lw57xqigdux5Im0sV4LgGgsduBqlqqQ
-	 F4kFWStWx2CPRYLIp15CO1OjzxkJAiEXI68vtbA+nKKQLb1t59czPz3tM8S+wSSMBEg==
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=ndiPg7eoTcOJuB1Uik/N3u215eB51Z8n0mzXpFetCI2mDLlhb6TL8LSGdg5OYmARGNkM
+	 fcrTUSfEHODgWT6t+RMSZHURCsuMWexiBn+Vg4Mlj6KwNQrZqGJP0fmONBD1/SaKSY8KT
+	 C6rhGTijy2+wITsD5+Gw7Tido8SvRG3xDTdUGjRONrWoFP3hZJoIGptSyLsPezYxve92j
+	 /CqsNShE3giIRjmuW1aX9sZlZ21AyI5Aqq5oOCaPBS86NZ+qPvTmqyM/3wmcotL7p9uVQ
+	 KaqM1R/dNdYFUKXAD976STzEeW10lzkeEYaaoRizBca770w6naDIsN3P3ZV/k5HazNw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 818441F00A09;
+	by smtp.kernel.org (Postfix) with ESMTPS id 6FFCD1F00A08;
 	Wed, 11 Nov 2026 06:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794377931;
-	bh=x5X8EYURuKn/7X627usknV/yyXb+kYv1CRAi9eXfVxQ=;
+	s=k20260515; t=1794377928;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WoJJjtSEVG5501CZVecN4tyChc5cxBsDdZ2msOm4cnh+Ad8GzcwVWxA6KPaCSF5we
-	 66nuInTn5nE3Nq11T5llTcew1mBM8W7hwxbmO8YVQMOwMpqmC7CkB34nDhQtMG4Q6g
-	 hXI/1JuC7TI++A7xbyXBS2FVwzHl1Odq/4XgqxfsoExD9XeDGdMndCpRPAeBJ74fMH
-	 t0kA2u8lg0jOU4BCLvgPy0jaHEI0AByb37PZJdxF/vE+xj5kulugh9nuq6TmOksSUJ
-	 SRAu9y44fTGDtJc3vzrvQeyyMofL6H4axDFpGqC5qlTDI7tfQVWoTRuIE9WFwOBgBC
-	 PYUtivRJadtEg==
+	b=WEAqvzN94RlB8SiMI75i32D73GYujz1zPy7KZVpLkkN7csNeA7eTtCAqdd5xgdwFF
+	 QuVRMBhUJhw/yIQjYGSsTy+6Wz9+M1KHt0atvOtTL/vL/8+5IM1bFFoWSLAhhfRqEy
+	 N9O/VcqP3ppsVtJi7VmxoTXtlTk82UF4hRysY7sBINxb88F+XT8gFusTqbCxyMFNU0
+	 i17Miv8OpMO30aL85e5lzlgHb8DIrDOoXAMIj6jp8MQfTxMMgCGsxTwMjCg9gmr7ie
+	 eJxB3Dv/KE0jX7L+DXbf4AU4jPhqhUNMv57+9xihqF8e08vtmoWN0n2/Y2dwz+VFLt
+	 Rw2NDzxk6LLdw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0D8B248E0A;
-	Wed, 11 Nov 2026 06:18:47 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id EFBC648E06;
+	Wed, 11 Nov 2026 06:18:46 +0000 (UTC)
 From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Wed, 11 Nov 2026 14:17:58 +0800
-Subject: [PATCH net v9 04/10] can: dev: check netif_running() before
- bus-off recovery
+Date: Wed, 11 Nov 2026 14:17:57 +0800
+Subject: [PATCH net v9 03/10] can: rockchip_canfd: retry the outstanding TX
+ buffer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-rockchip-canfd-restart-close-v9-4-6643f3825ba3@qq.com>
+Message-Id: <20261111-rockchip-canfd-restart-close-v9-3-6643f3825ba3@qq.com>
 References: <20261111-rockchip-canfd-restart-close-v9-0-6643f3825ba3@qq.com>
 In-Reply-To: <20261111-rockchip-canfd-restart-close-v9-0-6643f3825ba3@qq.com>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
@@ -101,11 +101,11 @@ Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-doc@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794377925; l=5740;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794377925; l=1735;
  i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=lSfO05WxZKbUGYfufnG16jV7I5aalY2A58BbhwHwTvU=;
- b=Ipawlslf9+rOi+tI+kJO/yW+1uVe8LxR4ymweqd69/PVhgSk2P8O3c92UGEfp5k+njVMCFm96
- nW5xOOb/nY8BAhFZgdyH6TvBkBspfjJUvWzJ5cB6u40LEdp3ZiqLcfJ
+ bh=mAdiDJWuUPvQyM82hTpk52wGLUSpbq2jpnpY6emM93U=;
+ b=DzwygOqoERFHhFngW+ttdCvPayAo5SCyAJg6NN02KVaARwkXTLiaR2cVUEUmPSWO6BeSrJlw7
+ Dl2C05kKccfAfx0OCDOESTknt/QULmXvs4rJArR/0E+j/VJG7WUdSoZ
 X-Developer-Key: i=1579567540@qq.com; a=ed25519;
  pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
 X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
@@ -116,138 +116,45 @@ Content-Transfer-Encoding: 7bit
 
 From: Cunhao Lu <1579567540@qq.com>
 
-The networking core clears __LINK_STATE_START before calling ndo_stop(),
-but CAN bus-off recovery neither checks this state before queuing work
-nor before calling the driver's restart callback. Recovery can therefore
-be queued or started after the interface has begun closing, potentially
-re-enabling hardware while the driver is tearing it down.
+rkcanfd_xmit_retry() uses tx_head to select the buffer for the erratum 6
+retransmission. With a TX FIFO depth of one, the masked head and tail
+indices both select buffer 0. With two buffers and one outstanding frame,
+tx_head selects the next free buffer instead of the pending one.
 
-Check netif_running() in can_restart() before flushing echo skbs, sending
-the restart notification or enabling the carrier. Keep the existing
-unsupported-operation check first. In can_bus_off(), schedule recovery
-only when the check observes the interface running, and make the log
-message reflect that decision. Keep reporting bus-off and disabling the
-carrier.
+Use tx_tail to retry the outstanding buffer. Otherwise, the pending echo
+entry can remain incomplete and leave the TX queue stopped.
 
-These checks do not wait for recovery that has already passed the check,
-nor serialize the check with work submission. Drivers still need to
-cancel restart work before tearing down resources and quiesce its
-producers before their final cleanup.
+Backports must include the preceding TX serialization fix or equivalent
+synchronization. It prevents completion and retry from observing a newly
+published head before its initial TX command and serializes the
+MODE/CMD/MODE sequences used by submission and retry.
 
-Fixes: 39549eef3587 ("can: CAN Network device driver and Netlink interface")
+Fixes: a5605d61c7dd ("can: rockchip_canfd: enable full TX-FIFO depth of 2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Cunhao Lu <1579567540@qq.com>
 
 ---
-Changes in v7:
-- Clarify the running checks' limits and configure restart-ms while down.
-
-Changes in v6:
-- Update the can_bus_off() comment and document the running-interface
-  requirement for automatic recovery.
-
+Changes in v8:
+- Apply the retry-slot correction after TX serialization.
 ---
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Q: Do the running checks serialize recovery with device close?
-
-A: No. With automatic recovery enabled, a worker can pass the check
-before close clears the running bit. Drivers such as FlexCAN still
-cancel it after hardware teardown, so their restart callback can run
-after shutdown. The Rockchip patches in this series wait for an active
-restart before teardown and cancel again after draining the IRQ.
-Other drivers need separate lifetime fixes; these checks only reject
-recovery that observes down.
-
-Q: Can HI3110 queue restart work after close and outlive the device?
-
-A: Yes. With restart-ms nonzero, its IRQ thread can sample running
-before close, then queue work after close_candev() returns. The later
-free_irq() drains the producer but does not cancel the queued core
-work. A quick reopen can execute stale recovery; removal can leave
-work referring to a freed can_priv. The driver's private workqueue
-does not own this work. A separate fix must quiesce producers before
-final cancellation and protect teardown from an active restart. The
-running checks narrow this window but cannot protect freed memory.
-
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261017-rockchip-canfd-restart-close-v6-0-ed605feb4b6e%40qq.com
----
- Documentation/networking/can.rst | 10 ++++++++--
- drivers/net/can/dev/dev.c        | 13 ++++++++++---
- 2 files changed, 18 insertions(+), 5 deletions(-)
-
-diff --git a/Documentation/networking/can.rst b/Documentation/networking/can.rst
-index 51bc70748f753..9debef8702d5f 100644
---- a/Documentation/networking/can.rst
-+++ b/Documentation/networking/can.rst
-@@ -1302,7 +1302,8 @@ More info to the above output:
- 	Automatic restart delay time. If set to a non-zero value, a
- 	restart of the CAN controller will be triggered automatically
- 	in case of a bus-off condition after the specified delay time
--	in milliseconds. By default it's off.
-+	in milliseconds. Recovery is skipped if the interface is found
-+	to be down. By default it's off.
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index caa71cf8e39a..8998b7855d15 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -63,8 +63,8 @@ static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
  
- "bitrate 125000 sample-point 0.875"
- 	Shows the real bit-rate in bits/sec and the sample-point in the
-@@ -1376,9 +1377,14 @@ before you can start it to avoid error-prone default settings::
- A device may enter the "bus-off" state if too many errors occurred on
- the CAN bus. Then no more messages are received or sent. An automatic
- bus-off recovery can be enabled by setting the "restart-ms" to a
--non-zero value, e.g.::
-+non-zero value while the interface is down, e.g.::
- 
-+    $ ip link set canX down
-     $ ip link set canX type can restart-ms 100
-+    $ ip link set canX up
-+
-+Before scheduling or starting recovery, the kernel checks whether the
-+interface is running and skips recovery if it is down.
- 
- Alternatively, the application may realize the "bus-off" condition
- by monitoring CAN error message frames and do a restart when
-diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
-index 769745e22a3c7..a893a49a33813 100644
---- a/drivers/net/can/dev/dev.c
-+++ b/drivers/net/can/dev/dev.c
-@@ -198,6 +198,9 @@ static int can_restart(struct net_device *dev)
- 	if (!priv->do_set_mode)
- 		return -EOPNOTSUPP;
- 
-+	if (!netif_running(dev))
-+		return -ENETDOWN;
-+
- 	if (netif_carrier_ok(dev))
- 		netdev_err(dev, "Attempt to restart for bus-off recovery, but carrier is OK?\n");
- 
-@@ -259,13 +262,17 @@ int can_restart_now(struct net_device *dev)
-  *
-  * This functions should be called when the device goes bus-off to
-  * tell the netif layer that no more packets can be sent or received.
-- * If enabled, a timer is started to trigger bus-off recovery.
-+ * If automatic recovery is enabled, schedule delayed work unless the
-+ * running check observes the interface down. Drivers must still synchronize
-+ * recovery with device close.
-  */
- void can_bus_off(struct net_device *dev)
+ void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
  {
- 	struct can_priv *priv = netdev_priv(dev);
-+	bool restart;
+-	const unsigned int tx_head = rkcanfd_get_tx_head(priv);
+-	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
++	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
++	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
  
--	if (priv->restart_ms)
-+	restart = priv->restart_ms && netif_running(dev);
-+	if (restart)
- 		netdev_info(dev, "bus-off, scheduling restart in %d ms\n",
- 			    priv->restart_ms);
- 	else
-@@ -273,7 +280,7 @@ void can_bus_off(struct net_device *dev)
+ 	lockdep_assert_held(&priv->tx_lock);
  
- 	netif_carrier_off(dev);
- 
--	if (priv->restart_ms)
-+	if (restart)
- 		schedule_delayed_work(&priv->restart_work,
- 				      msecs_to_jiffies(priv->restart_ms));
- }
 
 -- 
 2.34.1
