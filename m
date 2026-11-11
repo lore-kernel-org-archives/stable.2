@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794493159;
-	b=ut3GVgUEaDL/hn3cl+Vr0yc/kQCNEE5Sq8mgLnE926+viYK7GEfCDZMYcV5IeeLiaP1f
-	 BQyyYDZEsdt+uIagAHJ40so80x2TlEKkakHvc36m/0Dtgk4Hv123XsALy/46AAwG6QE1i
-	 JDH5y7S8rB0JfKjK9CAmv2C6oYmNlPaQUMHM3AzH3Kic4rdCp5rFH/D+ti0QKlhRhY5h1
-	 XwnWT6oXB94pkNdiec6lf4nCaVyQcboeXwXa5ikeoQ/Gqx9aDv6cLNOYB/2hR2ci1VjFD
-	 vufMAVnBKHpjvEgxKfGsLtBh0otJJ+RvlUzk/ry9S2DGYozqRIG+bIs9n4TAuHWuKQg==
+	t=1794493320;
+	b=fXOQCyRGesLXhfLvVryke/yPI/2GgS+oZnbIebiRWHWJfjzZK11kqvk9+rkjvwFlMamQ
+	 j2Kd6mLlRjzqjNhX/4/EzDsocM6prDQhMRQBD4BXYsX0R/3Qiuw5md6CoZwM7HdDkZaZe
+	 D6S322W0+qmPxc+rouVYKI1fuzyqGLtdjvQV3DNZin2pRr/DJO2cyT+MKg4+3w/vGOxWI
+	 b4NuVgrcIhSiIgQq4To78ZypfO+oqZ7yhTm6UpWmJJKKDfxXAqvE47Q4uYlnFxKMBn435
+	 sj765mnGGuOfDZyPewZK+TLQY2I52mEj1CIKXlDEdARRPG3FibCWpssDbsN0EbF9Cdg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794493159;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
-	b=HS23g966mraNki5wg/+YRHWdApBegGkxEbBoT2CNEUjFhs9qbMwX1OAJcLUBYyZgaF0z
-	 Pkx67I+qrvVPoqGHHXU9d5/2PvKHUsho3o6sQwicKCgvoE6vV6MokV5qPq2yuevfg/Pva
-	 Zf4x4JQ7yNYTjJOLx78ovoywnutO9XUjoWsPmwH4vnaIJVNy0ahtOaL6v3/dU8Rta2fH8
-	 THvQuwb92+fVL1CshXuC0pU+rjRQuO8m2VV4Fm5Ns+19we+BdzPIDa2qa2rTHy+ScpIi7
-	 8scVBnRzGEjsVuE7DnMPYqo4QptFET0Lg17gP+sOHDQjA0ktDqCoXeeKLiR465r9Y6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794493320;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qMXLak3/e8ONgPzK6NDuk2NwGSz9RpB7BhNGZqEv0NE=;
+	b=Va+4DOenbS+aNKPCRkW5Xj+6zZVI4z8utS+skA36zwJp5HAJ+ykD3wrKEOxHw1COraua
+	 gCL/I66Usl6eQ804eBVN+optVpOSjRaLnuusLdYlut0ACk4PFakAdf8UfN760R/6KoBuK
+	 FmjVR1rEoFXZMKfxN57qrluznUZJa9wLdPxoD3KdCHXkizQGKabhPthGJssYuW+0IxHpf
+	 vbqr5d377eg84w1plblCBfpATBvi+5UVTXS5h4vEgVt4v9ChdEIsYQR66tjDNBRFnuqCd
+	 q2I2kGlXltmN5pRmqrTQ7Ta8ntls6BkKyU2ixYEphmVEyJ1ELGjvmWA8rsgB/Hnzw7g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n740z2IW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.41
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ApmIf5pn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF6B606F906
-	for <stable@vger.kernel.org>; Thu, 12 Nov 2026 14:19:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BF6B606F906
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EBB9606B83E;
+	Thu, 12 Nov 2026 14:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EBB9606B83E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n740z2IW
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-486f013db83so1532412fac.0
-        for <stable@vger.kernel.org>; Thu, 12 Nov 2026 06:19:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794493158; cv=none;
-        d=google.com; s=arc-20260327;
-        b=js8bANyYywk+GVrjI30H2x9CJoWEvVffMMGL6PRmCtc6JUYl0okRVU1g9NaNPOMDVy
-         vf9sNvHuPyU+f4PTSanGD45vKOD8vF/w8JNeHH6neJ9s18jmICA4Mi4cgaWV8zHvfOzG
-         HBhq09zrOBhOEpBNXZ1may53xyyNq6E7llOzsDgSallfes2Ilylw46Znl+4ehvNpYuS1
-         4e88MPEUUhscXmnLQ0nF7ttnj0GtvvsFgSmdiO8rRJQFHqZWvLx4jakRuhI5N3I0vvbH
-         oLh0IAYzhaLxCFqO6x0V6kRzv43HtR+vzkzU7CqkSBRfq1g4wTmWhZYjmK04+KiosprR
-         IMqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
-        fh=OAeyGyC9sUXXLnLFC1/fgzv/esjIHhWwgJB7rtl/LzA=;
-        b=UYcqJczD5n+i+sz/YJCGZyOFRUxzVPguoUe/eGB3Ly79on6tRZYSO1T4dKzs2YvP2w
-         oGFjDgbCQqPuAM/QSlfVYRFiuZ/dViR9r7zyDp68rS7rdTF9dJaQJBrXCTiQyMv1GiKv
-         m5aBvCPV3+xDXMFW1XuzUg+hfLLxl2TyaqrdSfLaIqE/KFGTh89wy0ul2RPD7yYMUHv+
-         XNSLOeUSpplmj9F05OAjJCVpICgKXO9LoPAtMyrJJIXd0lzg7R1aeKgT1WTEiER8eiyu
-         fmziI7MN2W1Dc4PgBvth0PYdxxSyQd03fr18K1Ztw/I6IAxWaBbzRSFfqs27mQnblGT8
-         ZSQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794493158; x=1795097958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
-        b=n740z2IWYCmLBpYIgW448OkK5o3ft2gBxMpiTJ48LxTVxlMv+7UQabzWl8F6WGKYQa
-         XOfd8zRj83llakPGeaGvKqWA1+fkHDUv6vc50OyrXLWCPWh6/t8U6bdPN9+S3G1DjowB
-         lj02JtRwQz4UnVKEsAv+Apof0XrKarU3AkD0puPyB+s2T18f7BeAZe/GWMdgaSvY4NLa
-         mpjbtSeIuZPbTZJz+aluoECSmzpKAziUUS83YuZBggqNkBcaBQ9Ob+mKPtJP5/y3xtWK
-         Yboa6/x23UgnFTTfsxFTFIRiSHJ3qlAt+HzWqjptrbJHXV601r5hfhzHbCGQR7h3YTJ6
-         L2Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794493158; x=1795097958;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kd+/Nlp8ommBqhSffMOJg7lXCNoL6VMsRA3sgFnMf+Q=;
-        b=W/2gRdtFJlPsLEgKxqgi0OT4rdJuyOk1KWEHlHMe3mUXcnWCtTHExbALY0sOIl1weX
-         EmGycvHDCM1ixd7Qd2/wOrR/fiqRfqtXqrFMYC3fOttmyRvUTqvwLkPj2u5IlLBWYm0G
-         vvxbO6mcTHF/JxXFJw69rD/dpmbMDBRm7mVTu0lDhESpg4OEC/2umouoPIzY7wQKoeGp
-         x5CgkkrHYOtHkAetDNlBM51g7hu4a92Qt6IYYubuttkKI/FzjFXoMC43tg13/upuny3C
-         GVPMi1k5l5xe7FrocKWFZIrVJdEvdacRi9bNu7MLJdMMhNe3f/LAndFTySu6rXJOzatf
-         lCOA==
-X-Forwarded-Encrypted: i=1; AL+hErGjwlLw/ujMZZP2tW3T7nUgTcTxIghSTRjfLHEKNQdmPs7lGUiyKy7dZI4rzBY3ZoFubOJ5S8Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zi99EmbmLhHYR8epDMJBM8rm9nRMa7X7ojacK3ydbq/XfX/sh
-	ZQOSK65BrheIpCxM2p0hbQSnDiLNdZAETPqjfdLjb6Cztkj7sMKZickkDY7K8atrXMh6VIA7ipn
-	Wd8owZP/WNVrGIdTRd4baA29ZPWdN8ps=
-X-Gm-Gg: AYBFou01h6Linah+uhFpJxu4+icGYlVOcFBeQyswvDiNfXLsiVnHj9OUNX26IRMAgmp
-	+E4QBuExRdpkWW9/WBR/7LT7YRMc6pjkhBudQVcLYLggF30VA5l7Myvyme96QSK5+3TF0py8Hmk
-	tttzK1O5TKnyQPTjq0IKMc04yE9fgsm8KF1B524Cfio/Fa03rLJYbrOERzfnneknoIDWFwCpB6p
-	qjWMVmW1/LO/X3bMkfgnTDKSEXtWU3SvCyXYVFcraCIht/6b9iBuinHSHWlpSZtG0lhK5JZber5
-	9hIP0l3aV/NqxMjJlNflyJ7NcQQuTWKFKZJyfo4IZFoFvm/RGa3IZQ/+GR6oaP9idSCembDqZ+h
-	flXAtUlXtwi3kHODbmSDncxMZYUy39XBnTvAEL4bD3jk6H5InxBqcJjVaF+rzuYTergvj
-X-Received: by 2002:a05:6870:8186:b0:4ad:8800:b277 with SMTP id
- 586e51a60fabf-4ae46b9f2famr4644533fac.24.1794493157905; Thu, 12 Nov 2026
- 06:19:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ApmIf5pn
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XRtgnRT3pLLxA+sH+yqwuIvAUr56fsjoPmcjcJfTFEp4CMrAP+tS4kDltK6N9NTzJ4lr7eVlL5HfxEHQrKD2TFwjqDzS1cf9bNzpYKbZ9JDhQdHd91/B4ZlVek0n+0Nr3ggKqJXDP8G2IKKAoOFcwLhzBtteGYgQhU9z7xMdrtqtYBeZwketvaTMm61a54/wFrJU0vhe3W9xSUbbbQmlsadU60+kkQYHMVMZfY2NBnPcWgDywJew4ktfPF5kvjpTIPVMvZsUsMyC+3xe8illKjjvwIbkZpQOkj4oZuy+3U0+AayKV0m8JMj3r5jJdIoXxqrDv/hLM39TR8sgOYCGyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qMXLak3/e8ONgPzK6NDuk2NwGSz9RpB7BhNGZqEv0NE=;
+ b=PGlkI6bepEJHRJGqjnM4coJxF1GjYyssSiMzOhhKLwdoBhbMxZ5JxlniwEyLOrql6OGrxo3uhlaE9wr2cFfbKFucXrUY+UPwcuxjFug7chuupeZEsWsxpJLLuHiXzcwvkd6NbI0zhj50KLfvxCPXE5Ux6RRvuSzbo2olWsF8Axx5A48VkTYg03h26fR0A+obDyPdsFSCMK8ayZ/QL3vlZdCjHZFqdZr9uQTxsBuRAdgqlyNnvPnQIEfZ/cHiY9Dt/4I52PNzQigNlM6dAK09nc6KQ5w4spmRTiERBTj53bG2i6wh7WDT27glBh5EOGXsIF/fH2Cpzls3hnt4KN8/hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qMXLak3/e8ONgPzK6NDuk2NwGSz9RpB7BhNGZqEv0NE=;
+ b=ApmIf5pnQfvUxlWNGUyd4RR0vGD0cCwAeEmxtf0/2RV8zTN7TUsMk4kI3fRfHAN/7OYnb3j/opf2puyg7T8esit9ciV0Fek4bDazWbraGocdOEGpAFYrQeLvcpiPjlVwHDU6lQU3gglwfJr9l1bF5VT3OuAcSNRZuKC432QTaROVPJpoVoKVXm4yq2v+xa8vXoeXlvhXFzsgM0CB7SIKYjW4cIkgR+hhfJXjLFmu3gEU+hXDvdlYWKGzOMjRODLqcbnH3/5zrYs+CT5wBnvo9tQdUl1Lp2A1aCCJbXetoQaB7R/QpdtqIRQvDhtcbbjALNEXhXFIyGRzthO+T7AlLQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by PH9PR12MB731475.namprd12.prod.outlook.com
+ (2603:10b6:510:414::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Thu, 12 Nov
+ 2026 14:21:57 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.009; Thu, 12 Nov 2026
+ 14:21:57 +0000
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: jgg@ziepe.ca, kevin.tian@intel.com, 
+ Peiyang He <peiyang_he@smail.nju.edu.cn>
+Cc: nicolinc@nvidia.com, praan@google.com, stable@vger.kernel.org, 
+ joro@8bytes.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <09A8E000F2353E67+20261106122832.88995-1-peiyang_he@smail.nju.edu.cn>
+References: <09A8E000F2353E67+20261106122832.88995-1-peiyang_he@smail.nju.edu.cn>
+Subject: Re: [PATCH] iommufd/selftest: Fix wrong slot cleared on mock HW
+ queue destroy
+Message-Id: <179435827945.1896047.12678566630085540625.b4-ty@b4>
+Date: Tue, 10 Nov 2026 20:51:19 -0400
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-ClientProxiedBy: YT4P288CA0080.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d0::15) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,107 +98,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112091451.22969-1-amaan.cheval@gmail.com> <179447532371.2168702.1261444176228225499@kernel.org>
-In-Reply-To: <179447532371.2168702.1261444176228225499@kernel.org>
-From: Amaan Cheval <amaan.cheval@gmail.com>
-Date: Thu, 12 Nov 2026 19:49:06 +0530
-X-Gm-Features: AclHuK-8r8_CUyAx0z3-RpELzn7MRNMdR_7wvQomD_xLmxRhfmXb6fT2JGFsk1A
-Message-ID: <CAG+wEg0k_VuhZ5Y4zPyUvaTmK-erV6=A6TDmFS5E9Ycu5B1Rcw@mail.gmail.com>
-Subject: Re: [PATCH net v6 0/2] gve: fix RX page refcount overflow with the
- pagecnt bias
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com, 
-	przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com, 
-	pkaligineedi@google.com, maolson@google.com, csully@google.com, 
-	willemb@google.com, yangchun@google.com, npl@google.com, 
-	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
-	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
-	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|PH9PR12MB731475:EE_
+X-MS-Office365-Filtering-Correlation-Id: b600d9cd-c60b-4e02-37ef-08df40c84f10
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	jTlmTd+4g4O4Z7NZJzy+V6Y4icM4sG2jWQwWzQtNhm5JF0qBr8O3lu5EmsIxvl4hVcR58iB+9VAaUOBxtFYRUhh2NymAsxkP5/qsJ2Iz7dUIcYx+DsM4zXZAKjOE7JQ4P5s5thMY/75fFGB84YRaCa8+EhZSqralDDXbznvnhseLDtMoA0Bcs4vvgiZejigE240PU5KkJxI48JAauE/gXJ4yYA2mEAQWFIxgy3i0NoRspacnii4UJ+4kDC9WO4tJ/sH2b8AXj67mn1BgmRfBImOcE4DCewfl83WkW0XQepjnXOe8o44W5fUTAMw9Va8zXtKDQZeiIqMJttZ53DfH98GJEDAJNg/Er60GG1oxv1K0XoPWd89txOsCXQJvVfhn1VpxkfTilY03hQ4x6QpsqifHHndxmEfnbtqf7W3A/aLsAIPuQQznIF5empehJSAfmwYuIOd1tvSZmNiCueklwgQjZubB2mxDZ5Siai6orKApnWbRCpy5+XtZC8E7t/qhjazmRe7DU0DyIjA9dEVAFj4C4mchqzgy3E/6ncbIy1zRxPKPELN3gWx1u57uWIp2YLidVs7lRR9dunb+3c94i9sjAPAXFwlGtygW+j8ZdnYwoR0FGl9LyGKh4LBP13YZ12g+yzqNSpIz8GGj2Twt3i0yoEilZl4zfl/MSt1nNHA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a3RhSkRGOVcxbkJWVG43Z002aDdWZVErYjhBNXdkbTVhRVNoUUZJK2NZTWVT?=
+ =?utf-8?B?TGRsRzNuVWV4UnVBNVNtVW5ZSlZNaENPQ01kRFA4aVloaVNGQVBacEdYK0t5?=
+ =?utf-8?B?MkdmcW9ZcGlQRjRkL0pIS2lMWXRtKzJuRS9xVVFKYlNrNy94U1JzdmxaUU0w?=
+ =?utf-8?B?czZMU3NKdExEQVJWY3hXWkJOV2UzZVJ6c2lFbGJqVUdleC9OTXVXbngrWkVK?=
+ =?utf-8?B?SVJYRVVDOXU0NXN4SFZiTThBbTRXMzdqMXVMa0V0TkVOZFJ4b2k2WnBCcWx3?=
+ =?utf-8?B?Tlc0enNTS0IvWGhGYnhLZGpjTXpUQkhYTDRiNlpscVh3QUZNMzBKNlIrbExS?=
+ =?utf-8?B?amVqbUlieSs2NWRDWnphSGVmamRSazQxazlYa1MzQWJoSEZkNlFmd3dGaUx4?=
+ =?utf-8?B?Y3c4c0tRd0JTQzlrV1ZnTGdSellWN1c2dkQ2SGJqY0RyNVpBQ2k0TUpWYVpV?=
+ =?utf-8?B?OFozeHNJVUpiZjFGTWYrdU0yaVM2aHVWcEFRd2N3T01mL21ydDR2YTV5eGtW?=
+ =?utf-8?B?cHl5OTkxOHJWSHBEMFQ2SGRLMXZSV21zREpmWUJ6VitwVTNtaVc3N0NlRTRh?=
+ =?utf-8?B?Uyt3NzdvODRrWmVJdXQ5YzFCOHZSeFNZQWN0RU8yNENyWnpIQjZMRXZoTTJO?=
+ =?utf-8?B?TncxL2l1QWJwc0hZVGc5Vkh3ZEVlWjNkbHZ1emEvczZmSlZ2MFUrRTVzWHJF?=
+ =?utf-8?B?bFZNQlI1U0pCU0p0S2R0UTdDbnQ0U05YUk93L2tGUG1TYW1aZ3dDVjJ5V2ZX?=
+ =?utf-8?B?ay80b284Ulc1Yms3VndPQVZQeG5Wc2dyV001SXNaWEk2N3FPdFVvOURKbUd1?=
+ =?utf-8?B?LytNWXFEdmVuZVBSYnQ5WHlKaDJVOGNSd1FDN2Uxb0l2NkFDancxU2UrYktK?=
+ =?utf-8?B?NllDRStJU1FhT3RDMUJqdDBNUTB5bENBVktLUmVkN3Byb3JocnowLzljNDBW?=
+ =?utf-8?B?YmlHc1hRRW82TlZnaStZR09ubU9BTGJabDJLRWZRNmNpY01xUFRMNVREVk8x?=
+ =?utf-8?B?RHhwWjB0MlRaai9lMC9hMktkSGdVaWI5UENtTFVtZlZ3NGt2clFUa0VBN2cx?=
+ =?utf-8?B?QWYrY1dWQ3IvenRaQU56ckQrNXdOeC9kZ0VteG1PN2s2UU5wWmlYZXdUVWhB?=
+ =?utf-8?B?QUNjczF0K2ZuNDJObkI4dDFrQXpFczd3T0xHVGg4T1UwWjRiV3pQTldWd1gy?=
+ =?utf-8?B?cHc1eU1zOXl0ai9td2ljRjg5QTd0NVNRam1zN1hFTTI4QUthVDgzK1N3cWFx?=
+ =?utf-8?B?bWk0S04xTllaaEgyUkJoNFRZK2IxS094aTZyc2JoZkgzVnBQZ1FzOWJJNFRI?=
+ =?utf-8?B?U3ZkODF1UVY2bWtHRWY1R0xvTmdNaU5lSEdCUUYvam9maWpVY2ZpZ1BHVVl5?=
+ =?utf-8?B?SStwRmV1MFExY1RaUldnSm5DaExDNm1qNlpTNUtBVGg0bGxkTGIrTUJYenc4?=
+ =?utf-8?B?RmdXbVRBY1lvMjV1SDliempHU3RpOWt1d2ZpdFFmZHd6aTEvZkZHaXhpOXE3?=
+ =?utf-8?B?SmxOR2xnUngzcjk1K1AxdmtwcHFnZU92aXlwWU1XcVBBeUdnTWNzeE5OUU9R?=
+ =?utf-8?B?ZkFEMmg3OUg0V01aY1FMZ1NYTE9zV1hEaURzZG5Db0kvVzI2WUlSWFFIWDBY?=
+ =?utf-8?B?SVVUOEJYWW1QT09RbjNZSnJ1YnJBY1VKTFpMc3RXOWhDNlRCN3Izd3pCR0Rv?=
+ =?utf-8?B?MGV1NHBwQlNHaXMvRlBINDJISXJRaXM2V3liZTl5ZHF4SCtZSkdSOVl3ZWxa?=
+ =?utf-8?B?dXZqNFM5RzRYYU5TdnRTQlNONDg5b1VLby8xVzVEckJUemN4QUVXTkJUVmhR?=
+ =?utf-8?B?L3FrUlVjVXJKTm9UL2dlbzk1VWgvWGJKUVd2cVovbkZHTGxMSmxESEFENC9S?=
+ =?utf-8?B?VldPTE9TWHVoNEVKU0paODVTQnMvOFRSU2pCU2tuSGFVdk14YjhRMDYzazZv?=
+ =?utf-8?B?a2xHWGd6czlremU4ZDFYVERUQTVuRXh0K1crMmEyUFBLdjdUNXRhNURmVXk2?=
+ =?utf-8?B?cU0rYnpEbjErd3ZtRHZHbExxcWIxT1VyRElERk5TZzBhL2FneGttdG0rSVJ4?=
+ =?utf-8?B?L1ZVTFdYbGFrVjA5bjVLS1ZmMXdIZkVGSE5wOXZlWndjZ1Nsd2I2WlQrZThK?=
+ =?utf-8?B?bVkrakZaQWlDZ1FVQWdXYnVJVGVSRVd0bDdLR01vNWcxclU5ZXFlNHJ5STdJ?=
+ =?utf-8?B?MXQ5VDFzMnRzU00vTW5sMjlDeS9uTzE1dFQyc0hCUmttOWlHcHphc3Y0amUw?=
+ =?utf-8?B?QXBJbjE4eW1qczZ5NGl5allXYVU2V1oxZGNKV0l0NmRzZkhFajVYYUtueWM3?=
+ =?utf-8?Q?aS3vbm5yG2ac1kZRyR?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b600d9cd-c60b-4e02-37ef-08df40c84f10
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2026 14:21:57.4973
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iAunu7Eyxv4A9Tr0FwoRzEYhqkFy8ndvolZ/lNL0MheLWZ0x2DR6I1n+/JODX/Uh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR12MB731475
 
-On Thu, Nov 12, 2026 at 2:52=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
-:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by LLM and not proven at runtime). If it was triggered
->    please include the symptoms, like the stack trace or kernel messages.
->
 
-Patch 2's bug was triggered at runtime; patch 1's was not.
+On Fri, 06 Nov 2026 20:28:32 +0800, Peiyang He wrote:
+> iommufd/selftest: Fix wrong slot cleared on mock HW queue destroy
 
-Patch 2 (the refcount overflow) was reproduced on gVNIC with the splice(2)
-relay proxy described in its commit message, on GQI-QPL (n2-standard-8,
-6.12.113 and v7.3 mainline) and on DQO-RDA (c3-standard-4, 6.12.113,
-where DQO-RDA still used the bias). On the stock driver ~78 of 100
-downloads through the proxy failed with EIO on GQI-QPL and ~39 of 100
-on DQO-RDA, and tee() of the pipe failed with EFAULT; with the patch 100
-of 100 completed. Harshitha also ran the reproducer on an N4 VM in
-DQO-QPL mode, the one format I could not test myself, and gave a
-Tested-by on v2:
-https://lore.kernel.org/netdev/CAEAWyHfCM_ZesnChP71AQvxjM4MASwukesgzuWCYECt=
-s7jiNhA@mail.gmail.com/
+Applied, thanks!
 
-Kernel messages on the stock driver:
+[1/1] iommufd/selftest: Fix wrong slot cleared on mock HW queue destroy
+      https://git.kernel.org/pub/scm/linux/kernel/git/jgg/iommufd.git/commit/?id=231e471ac4d0579bba3a800fc46519f8a04894d9
 
-  WARNING: CPU: 5 PID: 1198138 at net/core/skbuff.c:7324
-skb_splice_from_iter+0x118/0x300
-  RDX: 0000000080000000 RSI: ff34c0bcc1881c00 RDI: ff89153145163c60
+Best regards,
+-- 
+Jason
 
-RDX is the page's refcount at the sendpage_ok() check: INT_MAX + 1.
-With tee():
-
-  WARNING: CPU: 7 PID: 3008617 at include/linux/mm.h:1456
-generic_pipe_buf_get+0x51/0x60
-
-And on GQI, once the pinned page comes back around the ring:
-
-  Pagecount should never be less than the bias.
-  WARNING: CPU: 0 ... gve_rx.c:507 gve_rx_can_recycle_buffer+0x58/0x70 [gve=
-]
-   gve_rx_poll ... gve_napi_poll ... __napi_poll ... net_rx_action
-  gve 0000:00:04.0: Performing reset
-
-The reset recovered on its own within 1-10 s each time and recurred for
-as long as the pinning workload ran. The reproducer, full traces and the
-kprobe measurements of the refcounts are at the Link in patch 2:
-https://github.com/AmaanC/kernel-bias
-
-Patch 1 (refuse XDP on DQO-QPL and GQI-RDA) is from code reading, not
-from a crash. The DQO-QPL use-after-free on an XDP_REDIRECT to a copy-mode
-AF_XDP socket was raised by Sashiko on an earlier version and I confirmed
-the path through gve_xdp_done_dqo(), xdp_do_redirect() and xsk_rcv(); the
-GQI-RDA NULL write came from Sashiko's review of v5 and the FIFO
-allocation in gve_tx_alloc_ring_gqi(). I have not run XDP traffic on
-either format and have not reproduced either crash. Patch 1 is in the
-series because patch 2 makes that path matter: with the bias at
-USHRT_MAX the driver hands its last reference to the consumer once every
-65535 handoffs instead of once every INT_MAX, so a copy-mode AF_XDP
-redirect on DQO-QPL would free a page still mapped in the QPL within
-seconds rather than, in practice, never.
-
-What I did confirm is the attach itself: on an n4-standard-4 whose gVNIC
-runs in DQO-QPL (queue format 4), Debian's 7.2.11 kernel accepts a
-native XDP attach once HW-GRO is off, Rx buffers are 2048 bytes and the
-queues are 2/2 to get past the driver's other checks, which is what
-patch 1 closes.
-
-Thanks,
-Amaan
-
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
