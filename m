@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434420;
-	b=nK+tousIVKymXuaGT+hGMBjMpCti4trJjLb69hxiBzdftiOzOkasg7vYgFJZKDlyrIlh
-	 Or2bEUJ72gHdyO7UFHq3wrWNYFmYCVFXeIuNl5ZdmrYyG1XnrjlxdoIYQ+453GHdsg4vH
-	 2evtacmDKUE+yLPAK9ZovUZTvQcD2DmEOIayD8wWkg6HJJnqtZTmAL9k0E0r3kS76siJa
-	 U1MJ4BVsxRWD0nYzVg6DEHf8LG02Dd3EH+LHr7AnlVbaZr73yORDjUGODRGtch0nyt6pD
-	 WMgSCUetAJRLnst1D4ZmdjtFWTYyo9c+HMCDK/dlYpR8UZEIoyPrBOuNZYCltOs4aoQ==
+	t=1794434425;
+	b=kN2G1/be/6+3JfZaqtivdtHL6Bk2Ynh6Yep1Yzp6tGo5gZuHRcKpy1gKyPR17E+SH/LZ
+	 eti7PI0MLXcCH6NzntagVI1lp3P/H4UmUWvp36m9tA2y4Q2UHtjQBCQkdPu4kI5UdgO8G
+	 SH9TaLpqUB3WdW1gw024pQEquQXzqY6O2GaJsbEd3tHQES132WfeY2wnB3M1wcp5nLG3F
+	 awM9lI79y0w2pb4En+BW61+EKoa5m+2eNPdTfkJB4jWCiNSkYQQjT6+2IOxqPUI65LEQR
+	 UYwjGFxqys3yaBKjt4zc5hPQROMJpAMbNqHp6IauENqjBDn4OskbmS7Oq6Qbk5xJNPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434425;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dsExlSronX8FZ2ybTbfKUty77l62irOlolHhcJPSkxw=;
-	b=vNXh4W27aQ6tQNzww0aEPMix+KRcBV7IeQfT19ItgeZfUgaek64n/ucun+1de6ghbvnh
-	 TR96rOvXXl1sSQkZ3P+oP8YyNx0NAMegoQv7rto2AcVQ8w6fd3OadHxsidKOLlL/PkQY7
-	 Ow+1Y/nOY27pAbx8GMfTaTv+GWPdXyr0Zx5jVWa77Vt4lEktED30jQAoTEjhy/o+fokr7
-	 hLvvq6Wd7dc7znPJsC520pXl+qIeqW+m/IUFqqAMOlRjq5tbmMnhfOkJYFGaKn5zGUMF2
-	 N5yPI3hAWb+63+H6DFmYiCAZTZKqpEi9SC//jlk6+YQOcKGtBIy+kES0Pj0/JCSgPVg==
+	bh=ZHvYGTmbJqczwpKl5nraRSA21m3YoEwNoNnIMQVxtIM=;
+	b=wAcLWcQeIae8hZDDU/YfQTy1a99Q/rZcDqfpNpX/VWB8Ayt7ZGmomgOMYOlczP3PSfFw
+	 sdLdBTH0bUc1LgU00VHHejzM4X3pBMgJvXy/x9MAFL6BG5cKnVG1nF/kiUBKZJ72YNX00
+	 F7kLlb5FfIfUirtfopA04CJ4EqPSzJ6a8oLqvAkx27t9izeGZuUqbGSmCzQQi3RzO8rh7
+	 BeM9P9B0rEzcKNfSal9dXwhRwz2Uqty1MFXGzpUDFacLpCF7KMUHJnKmNR8GoJuDwJijI
+	 O9TGFecWa4le/ZXSD6EvOFMqbZnT3ia4vrpxLDqc+/fdeglyuKJvAGcIQQVKnBDIi6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDIVWdWa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4h8Awzd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5E960A382A;
-	Wed, 11 Nov 2026 22:00:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E6360A3836;
+	Wed, 11 Nov 2026 22:00:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDIVWdWa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6884E1F00A07;
-	Wed, 11 Nov 2026 22:00:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4h8Awzd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5363E1F00A0B;
+	Wed, 11 Nov 2026 22:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434419;
-	bh=dsExlSronX8FZ2ybTbfKUty77l62irOlolHhcJPSkxw=;
+	s=k20260515; t=1794434424;
+	bh=ZHvYGTmbJqczwpKl5nraRSA21m3YoEwNoNnIMQVxtIM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YDIVWdWavpLnnBM/PFAhd6PZr/mwm7ExUTFbVqWP5Ajf+PUDNv3s2IdtQhOTxpBe8
-	 aPFJA4v1lMdr6S/XNQiknu+li2y8nXgZvpzj+1kpwTZT5bnGRJnymA60DoVgQZu7kv
-	 inKony10gi/xVZAHVoAacAuibhztE/uJzhPWaaGIYI6FLeyzVFRsI4LUzuj2V+EsMp
-	 SNVRhLKFkwWclKwXMBM48JiYIZPCKpwxIQw5mpS+nkvsA/TGR9IizyqbWdbs6Mea5q
-	 rVyKST/Axw6CqnU68kKHo5LfMht1VWevDU6mmcq/f0yf+kc7dAvMtBE1ctSAYTWVzz
-	 LT29YrgRgxWYQ==
+	b=G4h8AwzdWPBd5kXLtPEIcLPvQ1XEyQuMdhORFExWsjdSoCaNtKsy7cfD3LDzBiwzp
+	 F/zr+qUwxinhgii6Ov55+l27DkiMmrKtOCqiSmfImRT63WEgM7IMeZtc12uDMHCX//
+	 tJ8kF3IWMazWVTjbrF94KYeuJiqa9WwQCac0phugFVC4VBWOuFGHgt5/kCGwQOWtDE
+	 tJmZvLYiMtMsry3oI6Of8Xhd+l2bCBFjjY1ax4kIB4m7/fmuV3etcOhrLgFP7IzHT+
+	 L8UOZdV06abq0DPr+URdfAWVnUkr9k8h5sxMZjQCN0FeeSr/RySdscpSgh81/KZtCs
+	 qETQm6/IBBE7g==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 11 Nov 2026 23:00:00 +0100
-Subject: [PATCH 2/3] mm/rmap: fix PTE table overruns during batched unmap
+Date: Wed, 11 Nov 2026 23:00:01 +0100
+Subject: [PATCH 3/3] mm/rmap: fix PTE table overruns during batched
+ reference checks
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-pte_table_clamped_end-v1-2-2dbe339c487a@kernel.org>
+Message-Id: <20261111-pte_table_clamped_end-v1-3-2dbe339c487a@kernel.org>
 References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
 In-Reply-To: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
 To: Lorenzo Stoakes <ljs@kernel.org>, 
@@ -71,18 +72,18 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
  Chris Mason <mason@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1207; i=david@kernel.org;
- h=from:subject:message-id; bh=NCRqXSs2UWcZHc60tsEtuDGoKWTuIDJIrKjK6A4XeBY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+PE2deoJdQX9NVHVyydSpX9bPvrvqK1Pl5/I3s9mNg
- vdt9DI41FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEFrAwMvxln3TllKr3j0OT
- vWbI6X3n6Djgs7tRwsI/8b2hRt7E9fMY/me2SHBI+D210wyfE8j8y0L28wwHTbVZa+7wuuxlDjd
- R4wYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1280; i=david@kernel.org;
+ h=from:subject:message-id; bh=fwx7b+WXIb167Hoov0yJz4Tl/bBR+K10WHa0ZfAYrs4=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+PE1depvP59o0LaXohd+F6rhf/LQ5Lrq3XMR35U1NA
+ Z1a4VfvO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjI60xGhomLD7z/ev7Jq2uN
+ qp6s3R5uuomPuVXjX9Vv2/148/Fqpb+MDI1HX02/wdpkJrDjDbu8ps4GjZ6Y9bfapLmaryZoygQ
+ 3cwAA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
 With a folded PMD, pmd_addr_end() simply returns the supplied end.
-folio_unmap_pte_batch() can therefore walk past the PTE table when
-unmapping a large folio.
+folio_referenced_one() can therefore walk past the PTE table when
+checking references to a large folio.
 
 Folded PMDs are uncommon, but can occur even on arm64, for example
 with 64K pages and a 42-bit virtual address space.
@@ -90,7 +91,7 @@ with 64K pages and a 42-bit virtual address space.
 Use pte_table_clamped_end() to clamp the range to the PTE table and
 VMA boundaries.
 
-Fixes: 354dffd29575 ("mm: support batched unmap for lazyfree large folios during reclamation")
+Fixes: 52e054f71840 ("mm: rmap: support batched checks of the references for large folios")
 Cc: stable@vger.kernel.org
 Reported-by: Chris Mason <mason@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
@@ -99,18 +100,18 @@ Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/mm/rmap.c b/mm/rmap.c
-index 0faef46806e5c..491a954b7fa44 100644
+index 491a954b7fa44..65646ed6fc453 100644
 --- a/mm/rmap.c
 +++ b/mm/rmap.c
-@@ -1978,7 +1978,7 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 		return 1;
+@@ -973,7 +973,7 @@ static bool folio_referenced_one(struct folio *folio,
+ 			pteval = ptep_get(pvmw.pte);
  
- 	/* We may only batch within a single VMA and a single page table. */
--	end_addr = pmd_addr_end(addr, vma->vm_end);
-+	end_addr = pte_table_clamped_end(addr, vma->vm_end);
- 	max_nr = (end_addr - addr) >> PAGE_SHIFT;
+ 		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
+-			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
++			const unsigned long end_addr = pte_table_clamped_end(address, vma->vm_end);
+ 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
  
- 	/* We only support lazyfree or file folios batching for now ... */
+ 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
 
 -- 
 2.43.0
