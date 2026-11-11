@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794405876;
-	b=vuoaAuV5G4DqwFqufhbk+N8Lvrd5K6bm5p7w9trLXUrHLvHGr4KKl56kmaqgWLfeUHIL
-	 bTRjmUzbv+OEgOZMZ4B2J8++GKr89A40N/jvk1QlC8RDWnlEE7oX7QX0lG1zK3+waNS3o
-	 TFqsyD+mas86AssW0F4B4NmI9AJja2nChXPYEt/8if5Hd7qV40AEqb6QRwkax/yHfpdi2
-	 yZU7j1eHkI7A0VCCp0j9v7163vhNxvaBImNKjV0Ae7NUN3W0Gz4QEeJX1Yn7mO8gccGT+
-	 5pe3tIopbS9R7axoaAZbKrJaI5Yd2at9VXuclKgyhf/uTM6PS6sefm+JYryCGPduDgA==
+	t=1794405877;
+	b=UkWfdkyyY4c1OffSaDOvz1o+n1OopPDEDugpyyEdUsYb0m1kVdHCOCOQrjNNWCbL7BB6
+	 6cfWrpqaF3lZHbizdaYmiAclGyswEzycaOfOxs5mpdLTqscchMxgb03SQ7cTPT3r7jPIY
+	 4j90624fGYgBbAhGsVzv/k3A0kVhAVsZUBYrulMfQ4Lqx706dMayaZsLidMtI3TsnAu0S
+	 ulOV8Wl+6T2ro5GO8brblDeoHoChMtm1trAxICRG+kirgBpDcDmwkkxoSGmpXivK/tKoy
+	 Pr+z/G9oKsU7egbCNIuzCsHVm2MPXeJKKCZIN1zNQPBnp+9cMuLr4Aevha3gqQm2AZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794405876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794405877;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=o/3/7YwdNvnfhiJsfdYc5wPcT1t2X0L5LeZ7MOQ0H4s=;
-	b=33W2gc0iI430L1WQYirw31n+nnJd4FrgADXTpvN65buJl+7IbMko5tP1dgmR4rUSU8Jz
-	 y6oPe4PgehQ78gS75UZzCo1EUMqtvo3tJrCmWwVT8RVL/zkDshtg9XOjxXQjgxvQqXCOz
-	 uYCC3PNkWjE/jAvTxSnZtYz64VKODf2aB8Ro+0b9O3mQdubuAGBwNmtF0xl+lIPpBet2d
-	 hH0itk8feddRuKtQNQyxJdh3svegNS9UmsPo6zAgLDrKhPCtzkzpvgAuyICe2GnJgH82B
-	 ROQWFc+kHhpr2p8pyIiSLTj/UswGPCstRpkvO6hvyurlcrKGpwl1+Uxmg8CVq5o5iZg==
+	bh=LOZQ4fQdFUcv/PlfQjG/zUDCnb/okhW5hs+VuRsHR6s=;
+	b=3g8l2PF9Ywck8+th7kX6wTXRS0A1IC3iV1k8gzZ3ucYiiJNsb+KgS2yIoZoF3YSmxBVw
+	 QkZAnDsWEpvBXNiobOHvjE+tt2weTYBrq6eZKoxe0/rAwTUJn3TMK6vLgCwDB+TCWE1kZ
+	 0iGHP7KVaSHVGnhejJ8TMeIpAc0Gw/VfPxtKlo75m25Gns1V30M+9VD6nKv279LU7uGtO
+	 iIynRF/v88ISPnunLgDGKYfCLsGdLfHLKJuyVqRVAVKEoqxWDdUQ6YDUhyRBb24/dmkGm
+	 //ShHGBHgyedClvrdSrl+DLNqhTE/p2eqtClZ+V/g+cLymO691ApX+ZLUjcSOrPr9fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1beubmx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAs+0zG3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B6D606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:04:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2E7606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:04:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V1beubmx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4821F00A05;
-	Wed, 11 Nov 2026 14:04:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dAs+0zG3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554AE1F00A06;
+	Wed, 11 Nov 2026 14:04:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794405876;
-	bh=o/3/7YwdNvnfhiJsfdYc5wPcT1t2X0L5LeZ7MOQ0H4s=;
+	s=k20260515; t=1794405877;
+	bh=LOZQ4fQdFUcv/PlfQjG/zUDCnb/okhW5hs+VuRsHR6s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V1beubmx0gULtHTK9iZ6ZUie27vhLloRfLrNdbL6BBdHT9FkvegMR8avjNbRl5Cno
-	 xLM30h7xUYamqyMqtXjHaRUkqLoniqKUjopIVK6109V8SzL0/7h8BTFlDoSm2+jQFl
-	 tR+KxZyCufADL+1kdb8aCsQRj0J738d2YX8Ga7l0MDw4ap4jqvM8pLLUHIhflndTyC
-	 bgD/ntXETKXbtIojLZ+LVgLoF7CsPhtiV7IKaO4zXNlHkX53imPp0Ru/AytMEYo6kq
-	 3SSZWNEQJ/SAFD0MigRxnoy2B7937lt52LnGUU2FoNgebQ2kqaYsszxDVQF5EExM3s
-	 ZYlC3YW9vW/pg==
+	b=dAs+0zG3PYX+FKZLLD5TzFZkgYqlA58uR7Veqm0X1CmjhniPVnKMe3gebSpzlJ5sq
+	 OSZ5EP5sxAIA0we6JOaQ8L9zcMnxFahBXmuT6vsuJ9LA5qO1jgiXS/UuwnBCBbwZ1X
+	 udhp9OMf4wolEfvNK6ES+BBRV/1/JsfETq3Tgn6e7CBhVDo63PEFBif4NyKsmP5Ut/
+	 aAfkIvNdhDU05N5dRqizs1cGJnaTaSY6rXssK1/pyT5CtnPd5u0RHHR24tT359MVm2
+	 MTqlUmYw7mld1Nw4aEwy241cYECJQZ8UNa4aq+yQ3XL/aX6tc4xyB7En7OVspyJfS+
+	 izSey5WHfv9WA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>,
+Cc: Linmao Li <lilinmao@kylinos.cn>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Aksh Garg <a-garg7@ti.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] PCI: cadence: Remove device links to PHY
-Date: Wed, 11 Nov 2026 09:04:32 -0500
-Message-ID: <20261111140404.2184541-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] PCI: cadence: Store the core controller in platform drvdata
+Date: Wed, 11 Nov 2026 09:04:33 -0500
+Message-ID: <20261111140404.2184541-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107050451-failed-7.3-cfe96ce583c5@kernel.org>
+In-Reply-To: <20261111140404.2184541-1-sashal@kernel.org>
 References: <20261107050451-failed-7.3-cfe96ce583c5@kernel.org>
+ <20261111140404.2184541-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,129 +64,114 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "vladimir.oltean@nxp.com" <vladimir.oltean@nxp.com>
+From: Linmao Li <lilinmao@kylinos.cn>
 
-[ Upstream commit b59e98ae3841f84d0fb21dbf80e69e6c241a29d9 ]
+[ Upstream commit cfe96ce583c51bf6e034d4038c652a1e8227867c ]
 
-This is a partial revert of the device link pieces from commit
-dfb80534692d ("PCI: cadence: Add generic PHY support to host and EP
-drivers").
+cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
+platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
+cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() but use
+it as a struct cdns_pcie pointer. This makes them read phy_count and phy
+beyond the wrapper.
 
-The trouble with this is that a PHY consumer driver dereferences fields
-from struct phy, which will become no longer possible.
+struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
+the redundant wrapper and store the struct cdns_pcie pointer directly.
 
-Since commit 987351e1ea77 ("phy: core: Add consumer device link support")
-from 2019, the PHY core also adds a device link to order PHY provider and
-consumer suspend/resume operations. The reverted functionality is from
-2018 and is redundant with the PHY core now.
-
-Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Reviewed-by: Aksh Garg <a-garg7@ti.com>
-Link: https://patch.msgid.link/20260912161440.1032188-2-vladimir.oltean@nxp.com
-Stable-dep-of: cfe96ce583c5 ("PCI: cadence: Store the core controller in platform drvdata")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260915082826.4135665-1-lilinmao@kylinos.cn
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../pci/controller/cadence/pcie-cadence-plat.c   |  4 ----
- drivers/pci/controller/cadence/pcie-cadence.c    | 16 +---------------
- drivers/pci/controller/cadence/pcie-cadence.h    |  2 --
- 3 files changed, 1 insertion(+), 21 deletions(-)
+ .../controller/cadence/pcie-cadence-plat.c    | 27 ++++++-------------
+ 1 file changed, 8 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-index a1ea24fc3b63f..5900d68c6e83a 100644
+index 5900d68c6e83a..abda260543c8b 100644
 --- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
 +++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-@@ -41,7 +41,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+@@ -14,14 +14,6 @@
+ 
+ #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
+ 
+-/**
+- * struct cdns_plat_pcie - private data for this PCIe platform driver
+- * @pcie: Cadence PCIe controller
+- */
+-struct cdns_plat_pcie {
+-	struct cdns_pcie        *pcie;
+-};
+-
+ static const struct of_device_id cdns_plat_pcie_of_match[];
+ 
+ static u64 cdns_plat_cpu_addr_fixup(struct cdns_pcie *pcie, u64 cpu_addr)
+@@ -36,9 +28,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
+ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ {
+ 	const struct cdns_plat_pcie_of_data *data;
+-	struct cdns_plat_pcie *cdns_plat_pcie;
+ 	struct device *dev = &pdev->dev;
  	struct pci_host_bridge *bridge;
++	struct cdns_pcie *pcie;
  	struct cdns_pcie_ep *ep;
  	struct cdns_pcie_rc *rc;
--	int phy_count;
  	bool is_rc;
- 	int ret;
+@@ -51,11 +43,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 	is_rc = data->is_rc;
  
-@@ -122,9 +121,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 	pm_runtime_put_sync(dev);
- 	pm_runtime_disable(dev);
- 	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
--	phy_count = cdns_plat_pcie->pcie->phy_count;
--	while (phy_count--)
--		device_link_del(cdns_plat_pcie->pcie->link[phy_count]);
- 
- 	return 0;
- }
-diff --git a/drivers/pci/controller/cadence/pcie-cadence.c b/drivers/pci/controller/cadence/pcie-cadence.c
-index a1eada56edba7..0ac9802499414 100644
---- a/drivers/pci/controller/cadence/pcie-cadence.c
-+++ b/drivers/pci/controller/cadence/pcie-cadence.c
-@@ -222,7 +222,6 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
- 	struct device_node *np = dev->of_node;
- 	int phy_count;
- 	struct phy **phy;
--	struct device_link **link;
- 	int i;
- 	int ret;
- 	const char *name;
-@@ -238,10 +237,6 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
- 	if (!phy)
- 		return -ENOMEM;
- 
--	link = devm_kcalloc(dev, phy_count, sizeof(*link), GFP_KERNEL);
--	if (!link)
+ 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
+-	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
+-	if (!cdns_plat_pcie)
 -		return -ENOMEM;
 -
- 	for (i = 0; i < phy_count; i++) {
- 		of_property_read_string_index(np, "phy-names", i, &name);
- 		phy[i] = devm_phy_get(dev, name);
-@@ -249,17 +244,10 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
- 			ret = PTR_ERR(phy[i]);
- 			goto err_phy;
- 		}
--		link[i] = device_link_add(dev, &phy[i]->dev, DL_FLAG_STATELESS);
--		if (!link[i]) {
--			devm_phy_put(dev, phy[i]);
--			ret = -EINVAL;
--			goto err_phy;
--		}
+-	platform_set_drvdata(pdev, cdns_plat_pcie);
+ 	if (is_rc) {
+ 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
+ 			return -ENODEV;
+@@ -67,9 +54,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 		rc = pci_host_bridge_priv(bridge);
+ 		rc->pcie.dev = dev;
+ 		rc->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &rc->pcie;
++		pcie = &rc->pcie;
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -94,9 +81,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 
+ 		ep->pcie.dev = dev;
+ 		ep->pcie.ops = &cdns_plat_ops;
+-		cdns_plat_pcie->pcie = &ep->pcie;
++		pcie = &ep->pcie;
+ 
+-		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
++		ret = cdns_pcie_init_phy(dev, pcie);
+ 		if (ret) {
+ 			dev_err(dev, "failed to init phy\n");
+ 			return ret;
+@@ -114,13 +101,15 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
+ 			goto err_init;
  	}
  
- 	pcie->phy_count = phy_count;
- 	pcie->phy = phy;
--	pcie->link = link;
- 
- 	ret =  cdns_pcie_enable_phy(pcie);
- 	if (ret)
-@@ -268,10 +256,8 @@ int cdns_pcie_init_phy(struct device *dev, struct cdns_pcie *pcie)
++	platform_set_drvdata(pdev, pcie);
++
  	return 0;
  
- err_phy:
--	while (--i >= 0) {
--		device_link_del(link[i]);
-+	while (--i >= 0)
- 		devm_phy_put(dev, phy[i]);
--	}
+  err_init:
+  err_get_sync:
+ 	pm_runtime_put_sync(dev);
+ 	pm_runtime_disable(dev);
+-	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
++	cdns_pcie_disable_phy(pcie);
  
- 	return ret;
+ 	return 0;
  }
-diff --git a/drivers/pci/controller/cadence/pcie-cadence.h b/drivers/pci/controller/cadence/pcie-cadence.h
-index b4d51adefea53..4a96e1869e535 100644
---- a/drivers/pci/controller/cadence/pcie-cadence.h
-+++ b/drivers/pci/controller/cadence/pcie-cadence.h
-@@ -260,7 +260,6 @@ struct cdns_plat_pcie_of_data {
-  * @is_hpa: indicates if the architecture is HPA
-  * @phy_count: number of supported PHY devices
-  * @phy: list of pointers to specific PHY control blocks
-- * @link: list of pointers to corresponding device link representations
-  * @ops: Platform-specific ops to control various inputs from Cadence PCIe
-  *       wrapper
-  * @cdns_pcie_reg_offsets: Register bank offsets for different SoC
-@@ -276,7 +275,6 @@ struct cdns_pcie {
- 	bool				     is_hpa;
- 	int			             phy_count;
- 	struct phy		             **phy;
--	struct device_link	             **link;
- 	const  struct cdns_pcie_ops          *ops;
- 	const  struct cdns_plat_pcie_of_data *cdns_pcie_reg_offsets;
- 	int				     max_link_speed;
 -- 
 2.53.0
 
