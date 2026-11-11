@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794438107;
-	b=UY4cHkdUuudcmQwOCx8GomdNpfg/TgL8/CPwWzNrYefYZzo6xQLSGGzYh42Gk08ioXqd
-	 FYFj0wItq5Dlq8LAefE6Sam2jFUQEmOarYkcGC7jSqOWDqiuNzqvI4ixJRq5o8sScSNfw
-	 qOPVJEIqV2HTcthd36caA/oO+5eZhm2OnlWwETJBNbqoDXJz/mubiGv9lprQomTM5r5UJ
-	 EqiMhagyd4CdTw3VLEvMDDqnoygRNWZwDXERWJT69Jfrx7/dp5ed09bvtFjnQjAahSOBU
-	 j15PwrSnl35CI2qligIaNoGRGZ/fi5CdeKSQiRvKHdns4LOsh28q1pn6TWc9oYAdprQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794438107;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=wj6qsWXGoJ393cS9Xlx1U/BYTtbd972bohi7Obe4yhA=;
-	b=MdNLvXPnqUTJ+eNkr+nm+ofPh2LXilMB++uR3gh/myQhcenzJ8Lk5XlUszADWVwEKRmC
-	 oVUrwWlClRRFEaXR1efdHtDuoB96B1RKk6Uhv94pZrv2CSqlFJPEw8d1hZWpLJWqzRttY
-	 T+9di0HP1RRRtnQ43BaIqmkWVtBwjhdAdeD6iWHTOGinPOLZIZQrMg2TSozV8FDBrjxhQ
-	 gL+eWzIHNBOx21+Ux1uI97I6YwyT2ggVByebMLVNB5S3x9Pd1XSsrYWcQtWiZ+8ibYn2f
-	 HppmsxkmVsEQboZYmvj4HMu1MGmV2Ro22CewJ9SZTR88/PRmgi37e2evUIkPjTgC11Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MvhzWRa6;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794438168;
+	b=olDRyfyjTW24L89t3kbkUsuDu4dyp51bCE3K8IRXH+xE9J/mC5gcTla3vf6gL1zRTj97
+	 TV8r0wQnmT+Ttz4jYr8WYYVE2JI3SO3ughtGvtP1NS7VUA6WVI67uH6iEaJ4CUyO+PdM5
+	 1rJ6kT3a2T5ZRR5jROnL8P6ggPjS8s0/Qw7cpx9oOCE04vbbSDPYX7u05U9xWSkoydW9d
+	 CIG8h5acgYzRvUDB8jdYvflCT2MgfNruMdt9CabsDvx/2e7U48ZjRhSsx+LMZtskUUdaO
+	 /lDLORQ/Zlv5CajxAaOdKGPM3qcz+w6GVSnlqlimYeU6t15KPAIDXmoYTCXSgbvKvgA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794438168;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aQ20vb8Bet0kUFiWnP39yfO89c23b2KfFHWpqDI0nbA=;
+	b=FNz9XAW4gZNpW6gXK9DRgUiFLS7AGVi+gA0Ts3QkYYIbk7/seS7ejf8NcpxiGgvLB3by
+	 5ag5iA0zkjLBvK6slxm9mVFlz4lM9/Sk+9+DRiAYR8W6jtItlKAzzTRuOFkX1OGH/Ra1/
+	 g4RgMIqmMzjmFM50/xzedm3P0VrLk8nwb8oq35kVpW5OhrvYyvKLObN3JBM6WNVyPmZVi
+	 i79RUluWcOmnJ+Ne1vKyTea7GZe8g48Pk4hc7cxMtfY05q9Ubs+37xxx2h3yH6f/5JhVY
+	 0/LT7100KFLoxTx6pw+r2WirTA4IzLSP8U3J9l3QCE11BFRRhJaA638n8A+AUn449Pg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OwfXvCcm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BD260A380C;
+	Wed, 11 Nov 2026 23:02:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OwfXvCcm
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794438168;
+	b=SFNpQnUiXRQsQ/VMnqSFLa0oYZTlLwPG8Z75glIG2Dvx4E5/mru8P6mptSx79RY571jG
+	 RQbRKQWo4ykxRRPMRXe5/N8j8IZI5hHz4OmpNvRQz+gTqJ0P70/X2OJx/joSiwG87qhS1
+	 S07r1h41QZgiuFFtcYlZUHpPRmdwi76zszujYQPn9kbXfRIf8q9uQ699gc1QNkX79lCD5
+	 wYkuzizCyUqBfN9a99jbuLBjFZKhZcy2GcUDXMWVazM6evxESw54IaoOgFhUmzQr3k8uO
+	 Ac6LduAY+uo7E71WBvHvTMe67bnBRDkNiQvkedD3kAw83Cvr2QYEYADqyqyzgYQWmxw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794438168;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aQ20vb8Bet0kUFiWnP39yfO89c23b2KfFHWpqDI0nbA=;
+	b=1GLyoVNvqS6I4jyQdWko6KvEcnM+VrWINSaU04HI/LrSAzc9OvKcUbFvj6uCePgfhqFd
+	 Sgva6dar+ybFuu7GTbygfJuAEG+HPlGkChX7tvOyT87vZO3nLB9Lc8xMzNFIda+mIQ3NG
+	 9C+o+ixNiPACi10n9y/PFctpirrVIAlaFgdyE8m3jOfDs02D6QoJOQKQw23b2JkTwlLCL
+	 vipXJvE3jAuDgnzoCJwaGJnyFfNaeJgmJ9QMeiJa30AKHtt1uW9JTUJR+diGACeJD7+wA
+	 wnSuAFjwgbYcK2ohB8ffCeqSlbA3SypRyclp0jcXyNUQjhGwaL00q5r+gz356POoUBA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9D060A2619
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED9D060A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MvhzWRa6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794438106;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wj6qsWXGoJ393cS9Xlx1U/BYTtbd972bohi7Obe4yhA=;
-	b=MvhzWRa6CxIyw8RcXYZWBtWEP8d+FaOLRY7Yj+cGsQUwd9RiIzFQ75zG6FPExdtuv4Z/TN
-	NQQFojrYTOKFc10pKvQ01tAdFxIGFJjIJCuSb0DKJyivf8gWgMFugStr/aUgO7qCfHPUAU
-	Klx4NgvoiPVMYE2qjUX0BHtio+f5Duc=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-20-yazoqcCZMMyfwaVL55ieTA-1; Wed,
- 11 Nov 2026 18:01:42 -0500
-X-MC-Unique: yazoqcCZMMyfwaVL55ieTA-1
-X-Mimecast-MFC-AGG-ID: yazoqcCZMMyfwaVL55ieTA_1794438100
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 229991801313;
-	Wed, 11 Nov 2026 23:01:40 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 01DC41800495;
-	Wed, 11 Nov 2026 23:01:36 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Thu, 12 Nov 2026 00:01:39 +0100 (CET)
-Date: Thu, 12 Nov 2026 00:01:35 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Michal Nazarewicz <mina86@mina86.com>,
-	Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-	stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH] sched/wait: Queue non-exclusive waiters at the head in
- do_wait_intr*()
-Message-ID: <avTzzxZvE3HqH3KS@redhat.com>
-References: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
+	by smtp.kernel.org (Postfix) with ESMTPS id 603001F00A0C;
+	Wed, 11 Nov 2026 23:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794438168;
+	bh=aQ20vb8Bet0kUFiWnP39yfO89c23b2KfFHWpqDI0nbA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=OwfXvCcm9yFo70eTOJGniN0E9GRZLDNMuvNQOFeR6UZ05OFG6Zq1E56VnOSfAfF3r
+	 ZHpvkiMrg92ggDL1VcsedNO8a7m/vTdjiEHZr6iH3PYmiUzIJz/a3yD8EVQ2tTMJN5
+	 srvILUm0ET9Ih1OgKg9I/40mcUrMspOWZsy+d/8FuUnBDIbfh8hT0mKuEz2kMSP5mX
+	 mGOxXoPeCb4y4h+IHDKFyfMObMsSjMoInEaZ14r71WLBWiUQ2njWtohoCBgBrRK8ue
+	 BQEgrCdmmyKOs199lts/M9TTqVu7sD8q4e8+FcCaaFtSkB2Rb82WdjLXbCmMg/1xlH
+	 WZDyCQ74Bcjww==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D7BFD49159;
+	Wed, 11 Nov 2026 23:02:45 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Wed, 11 Nov 2026 18:02:45 -0500
+Subject: [PATCH 1/3] ext4: fix directory count after fast commit replay
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,36 +82,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-b4-sched-wait-intr-head-v1-1-17cf2af5b964@columbia.edu>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-ext4-fc-replay-mkdir-v1-1-4b20be29aed8@columbia.edu>
+References: <20261111-ext4-fc-replay-mkdir-v1-0-4b20be29aed8@columbia.edu>
+In-Reply-To: <20261111-ext4-fc-replay-mkdir-v1-0-4b20be29aed8@columbia.edu>
+To: Theodore Ts'o <tytso@mit.edu>
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>, 
+ Harshad Shirwadkar <harshadshirwadkar@gmail.com>, 
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794438165; l=3807;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=ImtH9yBJQanvkzGVDZNAzZ+LpPYNZJVGBXslCGNfD/s=;
+ b=HvUFeKc3kMmZOzHYzygqp2gE7e20fECTP9LJ3Q3umKkWKVGzVgtoyRAYsCyueVREf94Qtyui+
+ RM1mvs7qBqdBPlQ9BDo6JXeNuoY44Pj2JA122NBBUI++U9jnJxloSbx
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On 11/11, Mani Tofigh via B4 Relay wrote:
->
-> --- a/kernel/sched/wait.c
-> +++ b/kernel/sched/wait.c
-> @@ -319,8 +319,12 @@ EXPORT_SYMBOL(prepare_to_wait_event);
->   */
->  int do_wait_intr(wait_queue_head_t *wq, wait_queue_entry_t *wait)
->  {
-> -	if (likely(list_empty(&wait->entry)))
-> -		__add_wait_queue_entry_tail(wq, wait);
-> +	if (likely(list_empty(&wait->entry))) {
-> +		if (wait->flags & WQ_FLAG_EXCLUSIVE)
-> +			__add_wait_queue_entry_tail(wq, wait);
-> +		else
-> +			__add_wait_queue(wq, wait);
+From: Mani Tofigh <mt4022@columbia.edu>
 
-This look right and matches prepare_to_wait_event(). But it seems there is
-another problem if WQ_FLAG_EXCLUSIVE, see the
-"Exclusive waiter must not fail if it was selected by wakeup" comment in
-prepare_to_wait_event().
+After a crash, the fast commit replay of a mkdir leaves the group's
+directory count one short.  e2fsck reports:
 
-Perhaps it makes more sense to simply kill __wait_event_interruptible_locked()
-and reimplement wait_event_interruptible_locked() on top of
-___wait_event(cmd => do_wait_intr) ? This way do_wait_intr() will only need
-to do unlock + schedule + lock.
+  Directories count wrong for group #0 (2, counted=3).
 
-Oleg.
+The replay marks the inode of an INODE or CREAT tag used with
+ext4_mark_inode_used().  That lowers the group's free inode count but
+never raises bg_used_dirs_count since the function doesn't know the
+inode's mode.
+
+Pass the mode to ext4_mark_inode_used() and count directories there.
+The INODE tag of a new directory comes first and does the counting.
+ext4_fc_replay_create() now looks up the inode before marking it used
+to get its mode.
+
+With the fix, the directory count is right after the replay.
+
+Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+ fs/ext4/ext4.h        |  2 +-
+ fs/ext4/fast_commit.c | 12 ++++++------
+ fs/ext4/ialloc.c      |  4 +++-
+ 3 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index bf0325ecbec7..c5044aaddb69 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -3059,7 +3059,7 @@ extern int ext4fs_dirhash(const struct inode *dir, const char *name, int len,
+ 			  struct dx_hash_info *hinfo);
+ 
+ /* ialloc.c */
+-extern int ext4_mark_inode_used(struct super_block *sb, int ino);
++int ext4_mark_inode_used(struct super_block *sb, int ino, umode_t mode);
+ extern struct inode *__ext4_new_inode(const struct mnt_idmap *, handle_t *,
+ 				      struct inode *, umode_t,
+ 				      const struct qstr *qstr, __u32 goal,
+diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+index 0cac890cf370..0eac7be3f58c 100644
+--- a/fs/ext4/fast_commit.c
++++ b/fs/ext4/fast_commit.c
+@@ -1984,7 +1984,7 @@ static int ext4_fc_replay_inode(struct super_block *sb,
+ 	ret = sync_dirty_buffer(iloc.bh);
+ 	if (ret)
+ 		goto out_brelse;
+-	ret = ext4_mark_inode_used(sb, ino);
++	ret = ext4_mark_inode_used(sb, ino, le16_to_cpu(raw_fc_inode->i_mode));
+ 	if (ret)
+ 		goto out_brelse;
+ 
+@@ -2041,11 +2041,6 @@ static int ext4_fc_replay_create(struct super_block *sb,
+ 	trace_ext4_fc_replay(sb, EXT4_FC_TAG_CREAT, darg.ino,
+ 			darg.parent_ino, darg.dname_len);
+ 
+-	/* This takes care of update group descriptor and other metadata */
+-	ret = ext4_mark_inode_used(sb, darg.ino);
+-	if (ret)
+-		goto out;
+-
+ 	inode = ext4_iget(sb, darg.ino, EXT4_IGET_NORMAL);
+ 	if (IS_ERR(inode)) {
+ 		ext4_debug("inode %d not found.", darg.ino);
+@@ -2054,6 +2049,11 @@ static int ext4_fc_replay_create(struct super_block *sb,
+ 		goto out;
+ 	}
+ 
++	/* This takes care of update group descriptor and other metadata */
++	ret = ext4_mark_inode_used(sb, darg.ino, inode->i_mode);
++	if (ret)
++		goto out;
++
+ 	if (S_ISDIR(inode->i_mode)) {
+ 		/*
+ 		 * If we are creating a directory, we need to make sure that the
+diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
+index 527f1f703c3e..e29faa8590c6 100644
+--- a/fs/ext4/ialloc.c
++++ b/fs/ext4/ialloc.c
+@@ -758,7 +758,7 @@ static int find_inode_bit(struct super_block *sb, ext4_group_t group,
+ 	return 1;
+ }
+ 
+-int ext4_mark_inode_used(struct super_block *sb, int ino)
++int ext4_mark_inode_used(struct super_block *sb, int ino, umode_t mode)
+ {
+ 	unsigned long max_ino = le32_to_cpu(EXT4_SB(sb)->s_es->s_inodes_count);
+ 	struct buffer_head *inode_bitmap_bh = NULL, *group_desc_bh = NULL;
+@@ -860,6 +860,8 @@ int ext4_mark_inode_used(struct super_block *sb, int ino)
+ 	}
+ 
+ 	ext4_free_inodes_set(sb, gdp, ext4_free_inodes_count(sb, gdp) - 1);
++	if (S_ISDIR(mode))
++		ext4_used_dirs_set(sb, gdp, ext4_used_dirs_count(sb, gdp) + 1);
+ 	if (ext4_has_group_desc_csum(sb)) {
+ 		ext4_inode_bitmap_csum_set(sb, gdp, inode_bitmap_bh);
+ 		ext4_group_desc_csum_set(sb, group, gdp);
+
+-- 
+2.53.0
+
 
