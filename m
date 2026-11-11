@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434105;
-	b=r9W03BNTTTwiofJAWE0ucsii+dcLeymFVxRXzmqEuqn9VOoTOtURldwsUHnsDJT2quA/
-	 1U05mx310JLtAjyvoxsqnyHMs0AuVIkorkUWde6sRw7JK5HbULDhnID5FDB4q/gLpgpwE
-	 X/cmK7K8LKJpUUxeG6fwSL27nrCIPhjQsuPl/+kI96ChTsqRlONJ01RrnKhiwc44e4HR7
-	 l6VcpDxpca2HLO/OJqE/lT5EpXzI26y8lToNezyqMrA8/qrFmmim88kb9tmyYFt3dMSzD
-	 r8rMG8pvogCdIZVtFdNK+vCN8kxFkBjaRFOFEb2maYboPrlMBtppHYuBxq1q9XeNzLA==
+	t=1794434100;
+	b=2o+JTOm0nI1OugtwoHL21/spUwlOEZOIii4WcNYEU4+QW2ABFHVNfBeNRd2GapU+zt9F
+	 OCysvkeVGuD1PBmU73TToMljY+JDzi5nEhBWNBL+969xkmlWP6uoTsV0+AqYZ8X+tRjqE
+	 GXD9Z6sgGHLoTk6OImOg+Os2rU2eFKE2YO/6R+H5vp9Sjhm6GE2a4LpMyTTHW7x/lRYzZ
+	 0aNlYLNWkGeL7ZuI4euAe3dJVbGDiF5TSHbYlfwC4CX8HbeX5p/BBIMY1+6s7XgvLZl3c
+	 hiA75MjuItKGVVDm0CJjfleh7jMRoNA84vR2/aw5gXQhrXnhgY4CNDmbqu4TSQqYvdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434100;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sw5O80fr6uDMXYtyasxZA5bt9Uk7BIT5HA3pGW50YUI=;
-	b=PRLvBWEpz/bIqLvR/BRRYiWzxlXo+NWvt7cbczxyIn5K2zg3IuUsLalr5agBOEWYRuKg
-	 K1XY+aXZR/MsLTe8oizDYtAShvDYLne7GTpRTvdUhl4RopGYY/bxU1crMHVVNiOsfkxyo
-	 66js3HxETPB0LAWcvJdQQkbGZYOZmfodaETsFp0VWljAmR3Az/Mqzwu+/njWDJF9tsLwx
-	 pkdAAc6ZuBy4cC3YYGbBLCYeTsyvtI/1fwFfyLonuO43awcVtMtX99m4H6EO04DR8B/mj
-	 OT0BE4h8P07NFE46rGxVCVouBL9+ztGWV4ZpdsHbXrtoRad3x2YEYavWTHoiInRmPmQ==
+	bh=YpATtb9CRJROOdQJGZVI7OOr5rIfYH3Wyflv4TMGDlU=;
+	b=RlBsIlKnyP6JKFcIsXHjERYRqltQs+a/D6diqQ9OdIqiESpxBdoI2qYC8e488VW8PRU4
+	 WJe7yrY+fQYXKzTgCWWwNWeT+ZuxFfPt4phS2gXALsU0pwE2PnTYp0A69xyfUlAvaEYSx
+	 tmPLc3cn4ISfliGlMmYlAAN5tJEfLCEjZIGaJTqNW2bbl8X4k9T8VU019mNUgWp46Bcob
+	 Mgb03a1oe/TJ2PM1kezgl1Zw7sfMzIs4WTPpUigUcMuHGLzgbSVlIFuMQDIf7uAQQpCvS
+	 fv8yO1g/b58QJSlAY78yNZAIcf1mOntUD18Qjqr3014r0UFncERK+MgH1jYviITAwig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgKiIwrd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLcFk7Mk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C9060A2609
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDF560A2625;
+	Wed, 11 Nov 2026 21:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgKiIwrd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3E21F00A0E;
-	Wed, 11 Nov 2026 21:55:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLcFk7Mk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F364D1F00A06;
+	Wed, 11 Nov 2026 21:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434105;
-	bh=sw5O80fr6uDMXYtyasxZA5bt9Uk7BIT5HA3pGW50YUI=;
+	s=k20260515; t=1794434100;
+	bh=YpATtb9CRJROOdQJGZVI7OOr5rIfYH3Wyflv4TMGDlU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PgKiIwrd/V7GsmBnUvxCmhAdj1xiJaoMf9F33/ZgVwopbe7BgX2KdZzg+PU3AWubN
-	 AJOA7kNDMHJ0G7EZrsQFIZxeRkPPkQS6dshCGHyCSZvy6yLRwpm6nd1cWjW1OardX0
-	 cfDo/585EA5VQqlnMk29qWwd4S64fN6s5UBKxdXWVmZ2KqrJ76SOXG1AEXGyCenh84
-	 9F+//kSF+rXhL0xBwUTd4NmDkhEdzvMtuGiOIfyHHcoGb1ikdSWNDP9F5XHA2yrEiS
-	 em8DQesjMW0TnQaTk/29o4UEhCF11IREfRE4bPh05nlEkEeycci0nnchq1QZjl7g09
-	 69esv03mI8Xbw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Sven Eckelmann <sven@narfation.org>
-Subject: Re: [PATCH 6.12.y] batman-adv: tt: only transmit local ROAM flag together with DEL
-Date: Wed, 11 Nov 2026 16:54:37 -0500
-Message-ID: <2026-11-11-1-daily-reply-0004-7df746515a66bde1d3e9@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110190218.109666-1-sven@narfation.org>
-References: <20261110190218.109666-1-sven@narfation.org>
+	b=dLcFk7MkZ89xniHB4Yq1Ikv92uOz0S+AbyJXVJeToeCxEVv+SdH8piJiMqqOqsiem
+	 kQ31jmIn4vxkUsHVmNBwAeT1lvAfXxznGwMEcmHS2bg9DcUFfWNyKsbqUiwZIA2CGF
+	 itMAnYoE99DGVIQdd953v6J5OMdgHx0bTeYZK7xFftIY+geXzblMDiqQfZsiVUs/gU
+	 j6EIqyCjBJtEVAPj3of+essWEdouJt/ypWHb4D/Brm0LImpF85aQv5euhQK4xliJHX
+	 CcqKK7Q/y0Bxj0GfyBFl1vR+SjIJpt2J/VT7R6YANRxH3E3AOwBCGB8ZbWYE0rtKqR
+	 t9FKOff9sWQNA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Sylvain Munaut <tnt@246tNt.com>,
+	Grant Likely <grant.likely@secretlab.ca>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 08/10] dmaengine: bestcomm: Check rh_create() return value in bcom_sram_init()
+Date: Wed, 11 Nov 2026 21:52:46 +0000
+Message-ID: <20261111215349.1983909-9-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
+In-Reply-To: <20261111215349.1983909-1-lee@kernel.org>
+References: <20261111215349.1983909-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,9 +65,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 6.12.y] batman-adv: tt: only transmit local ROAM flag together with DEL
-Queued for 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+rh_create() returns ERR_PTR(-ENOMEM) on allocation failure.
+bcom_sram_init() assigns this return value directly to bcom_sram->rh
+without checking IS_ERR() and passes it to rh_attach_region(), which
+dereferences the error pointer.
 
+Check IS_ERR(bcom_sram->rh) after rh_create() and unmap the SRAM region
+on failure.
+
+Fixes: 2f9ea1bde0d1 ("[POWERPC] bestcomm: core bestcomm support for Freescale MPC5200")
+Closes: https://sashiko.dev/#/bug/linux-c3caaf6f-9a88-4451-b40e-d061c1fdeabd
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/dma/bestcomm/sram.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/dma/bestcomm/sram.c b/drivers/dma/bestcomm/sram.c
+index 09ef5142c26c..df4d90cee465 100644
+--- a/drivers/dma/bestcomm/sram.c
++++ b/drivers/dma/bestcomm/sram.c
+@@ -88,6 +88,10 @@ int bcom_sram_init(struct device_node *sram_node, char *owner)
+ 
+ 	/* Create an rheap (defaults to 32 bits word alignment) */
+ 	bcom_sram->rh = rh_create(4);
++	if (IS_ERR(bcom_sram->rh)) {
++		rv = PTR_ERR(bcom_sram->rh);
++		goto error_unmap;
++	}
+ 
+ 	/* Attach the free zones */
+ 	regaddr_p = NULL;
+@@ -111,6 +115,8 @@ int bcom_sram_init(struct device_node *sram_node, char *owner)
+ 
+ 	return 0;
+ 
++error_unmap:
++	iounmap((void __iomem *)bcom_sram->base_virt);
+ error_release:
+ 	release_mem_region(res.start, resource_size(&res));
+ error_free:
 -- 
-Thanks,
-Sasha
+2.56.0.567.gdb80ae8cd5-goog
+
