@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794410688;
-	b=WmirANz0/n0reHyuz6b1phvW4UjnW0o/OJ5BMUTahI6mTDD4K4oKrIqGjVAyTxlTJg//
-	 TBmYaJfguBnolmQQNr5NXSHJhWjHoPXuvh4QOkRB4RkBpAEMgLiganVynYYINMHH2c31X
-	 /A8zcgg/uWAAn9l/yADsOwKp211aQSjPjVKeMlqqwZng0e4qJspGzGwt0LFycUBhOI9Ln
-	 qEMGt0izSEOwnsEaJtG+BqrPruJw87PsiOb821UB77MiLYbIOH2BTWVmSzb+Nyvg58A29
-	 RPkvAHQya1OLSUokZBre5V90FLPZnhZ+RxoDfEc+GRL26zTIfgQtca9LXCo+Qd643WA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794410688;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794410755;
+	b=MsaEt1LprOaSgouJUsgKjCG6tb3wFFHYSBkH7DFARnHIqe1Y9YpEvoyXTnETAUuWIyMq
+	 W7Em2Vg02x0luAnAFFiXvKOvn/R8k+mfLc/sigqiWbsXgkj4x4qXI9T8RTzD53NDuM5vq
+	 JIkwoPilb1BE4b50UKh2RTYszehhjih6i4iFUm1TapXUX4mek64S8I+xM8S/bpXFLXSwv
+	 LcKWSqmNVpppIAbaTMhcSsBc1nWzDaSJ6jx3T+pmCK/IfYN5vjdgKFksXCZoGLW0fRNdU
+	 e2f+tN8y5TBmdsA6KRXeoMVnYUB8AAKgTTZRhK5GsLS2mxJ0QEsJL7BmbjvBdCqrO4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794410755;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=n4i9xV6coeC0dw23WHMaqm6dfnSZyHsCImBOodlCWGI=;
-	b=i/hioBZrrBM1O9rperqr+fZ4W6eIDN4126kPPqYDmPvHleTTLvLmZhNgDG2tehWkTopO
-	 Gs5MGvOO6KkRco6iO4LV/xH6iEKyWW3vHbF027q4lEE1DhY7ncqcsi5M2SMR1j4LhuEdw
-	 GZGn+JwmCxX6II0R7YA7AAXXdqP2ZWl9BclamKwFus+kL3jlEB1bRnoi7bO0C1MX2yKho
-	 TV/Q00vZMsKd08dS7hw0TVNt6LpwfkBeKz8aA5QtI8jEDvBi4xYY4zcU31vwyHmAy5L4h
-	 mwqCpi3wMQ61G9l8qVRKVD5gdAOnBKQh1OCSeX4ddOUHl+290GJLiMia10+CkJ/O4IQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rToyuMs2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=VVuhmpTOxkpymn0weSleRGrGxCwyKmh4kNc2qrZbhPg=;
+	b=IcNbYgTtJJsZXMOrCWnr6tHj0T4IRLbiQ4AgxMvJId5bHPdYWABPkMkKqS7Y/10Zv0r3
+	 6XQY3ESVhyajmmlhIZK8c9gWQTwyMIyhdW7MyiyKO9+z8xzkCP6erXNWtGeb4bOrKC+Pd
+	 KzJrkLgND2blSe6Cbben5c63K0wKw/Df6RjeGC87sP4fTm6kKnixraEdwchPwFHVBtD7x
+	 k7rFLjbzkgkaL1c3M/b81s6bGPgIf7qVPqwC0YK6OA/f16L7Z+yITu3sdxXCFHo4l0C65
+	 zFHre6PGjnu3V8Kb77iscuakzM84+qvs63OeJdy7X3+y9PFC/EGad+BD7USfng2u5DQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nNGvMAIL;
+	arc=none smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2693606A338
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:24:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2693606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EB6606A32D
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 15:25:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46EB6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rToyuMs2
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67bee1f693bso3057638d50.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:24:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794410687; cv=none;
-        d=google.com; s=arc-20260327;
-        b=noh3rrIEUKBkJnvS5s+5quEvf2I103B+jeljlEOrSK4oZ8ITVyc9RuLXSQQMcJ1EE1
-         6SXTV/wS6nZ7PgxPIFG+yzA08OXWreaKwHgJgIVUs/GqOUzwunO6ELAkOUlaI+kGDLwp
-         Z8fT2HbyGQ/46frXQioLcruz/0hM1FWOybeVKzhVSxw2BTZIv0BaF9WWqLNZWNtygPKR
-         D10Twza8WJYBKWWt/hY5ZO7QQpQqZ/bFUR/JYNB04JMb9ZhCd0kGSXskPFFczqXvtbLJ
-         U3SivY8pIf+YhLwDMAHCqAmLn+WUGyGXvIYyezcyTjR5dG2Urd+kr4jpDDks8Sq7VecD
-         bi7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=n4i9xV6coeC0dw23WHMaqm6dfnSZyHsCImBOodlCWGI=;
-        fh=BVEElqncTXyzlDXP3urBWhwQ0v9J7Ids/6BGC0tBIOQ=;
-        b=IDTZ3qfMzS6iKqpnkw7wCCpRvmiWG9qOIhqzVrY7xmydCVCmYWCpbv3NRaTFWuqD2I
-         lUe1ErZPK+ZtEbQpTc4jPFuneBIR0y9iwF+fsA+n+PNLNpDav62f6HiMS3oqUtJfuTqU
-         z0Z8Lxqz6F8O2B1o2XcyoO2CJUSipdhftXB7S6Q1BALYEs6PYuhsQ3UfKYpvmAyWBxI/
-         EQHFsVI0U6T+2lURJpCx4z7MedqOAKTbQIuTz+zHqlaiAW12Ow6jDkSqfIz9GCOoGwWE
-         Ydr/YqwOGpJcW84dv8mnP5liMVut7yP2+c+SZlzka43+7Q+lAhmQIZr5JkcYspebdDPo
-         txGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=nNGvMAIL
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-54f873cbe2aso33098931cf.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 07:25:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794410687; x=1795015487; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=rowland.harvard.edu; s=google; t=1794410754; x=1795015554; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=n4i9xV6coeC0dw23WHMaqm6dfnSZyHsCImBOodlCWGI=;
-        b=rToyuMs2OSr2TCYP532sQALRu830BkM7UYIDWfU2cR7ONAGox+n1E2h7hDAflbsiEp
-         MWmleTs6MFm+g6C1nvf8GFEwMRuyEClvN6Ta3aairwMV0ykYsqIngN1ttCjUoWRJ47y7
-         emxZg5cDKf1XnmMhSjyap+SIXOxzjFvOkgwRg90iP4SiOokkciHlsDHQkFoTk5iZuU68
-         hl4Lwea7zfF/RsL7bGVUIp/YRj7WXbzZ4Tb7FRaw4FkuZQQ7eM03lvAugaBV3AFt9rxX
-         NALcKElMXYJg7/TOpibcqebFTGdAAPJUUGm+M2xwbFdLXyNnWO72RndGmqts9Lwu4+GK
-         SyoA==
+        bh=VVuhmpTOxkpymn0weSleRGrGxCwyKmh4kNc2qrZbhPg=;
+        b=nNGvMAILLhIgpSoaRMs9TXupHeAJcVzXWR7e4jlC4QcIAGFon1n43zEsGUnQzyYj4T
+         /cqjz2kPZtxEXRtaRzUeNuobDbt1po0n1thnjWj5aBlikM9PiREmxVOKIH5N+qfSNCf2
+         1a80QphSH/bW4nH/V1F5fUP0LGuFqRQc4GTK6zZrtcBupN/GF+bvddj3vrPtrwXsq3+3
+         alTS32l1WW9pXSSkHhFjvHpoXthbHSBfJnIizENmzz5znt7G1HpmNReXq/1vumc2S97p
+         YukMPBPqoMbQgaHGDnd6nJqH2FhAiCxTX4lfAhQmczRTG59MmUjR8YswEsLNeZe/3uii
+         eHPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794410687; x=1795015487;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794410754; x=1795015554;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n4i9xV6coeC0dw23WHMaqm6dfnSZyHsCImBOodlCWGI=;
-        b=RfhGQD5daL/hcPJ/kqPLPeMAma8aWimd7rbLp06DU7p1fxZ+ian8wMpCP2DJj8tO5h
-         8+KXz9m5GgQTZNHpsYQnIMNsAowxGbaMZqkmMZL4Pz09lfXAfCC6pj3l9zIFY5uRSZFa
-         HT8TyltCkmltCDZTV0t9vtLdBvg243HQlPBhM1gvq/gMUE/IUMkBRJN83QWBUXcCIN1E
-         GYwqUPwFCd0AgJwQvU1lrSH0iLTZU6EkjM+q1dQNp/z9hO2Uxda4xbND5+aFF9cBr1+1
-         ZYObXwWN79xjnM/nIG6qXm0EwLJgN9KOPM9hKgPKqMqJiixflsN2loJIQ0EbMCRB3uiE
-         Miaw==
-X-Forwarded-Encrypted: i=1; AL+hErEXQthRmvy58NkAKXUaNBHLMtn7/PGIYbXIMa+d6bnlz9PiQjFOI4MEoyQ9FzkoZc1ILnL5T9w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ugv9RuHfjOP6m01qZkcSgG7x1lkD9lxWJc7fXA8IvR1WX7+qc
-	sDF4ax6LCmtnOZ2pMygv+mNfeVx2v/2di5LrbK3WegzqbbSKtnatqHP2/+7hBEVVQmMcJXFw1Hn
-	pjre+0mZZkdkI5r25AvJRr4GNTuAdoLs=
-X-Gm-Gg: AYBFou0Qh7L3zX/eQd6o2wcFjrXPVqJ5YZMcQptljYVlOsihyOF2vrZ6hVgQPR9eTZ4
-	bfd8rD4U1Z3oNumWnlZhx9t0ePHaj7KJo3B4oGVMWmikolLFWmMQrDk+sloQaYUwvERn5s+Gk8X
-	M0WYVdPpr2Ovn2N00dKHXFGmuqqTqB6T3G3IEgolYtZa601P/uIf0Oi/gzdwDPvvftO2f/E433K
-	LCcfwg4WlJXNBrYTf2FfWaRrOYDyzrOkEYPoO+kG8norc9JQh74AFq0AwgOkLk3gW7vqA+aQ6Tc
-	/e2x/e2tcbwM0WoIPQDNTYK7EirYehfKYmHZiMLXNDaYXH0g6FalhgZnccreMsnv5hJFoDX4sYI
-	V0bgVxjpAShxHstYKvbVZBRbSrDldS6Snn25z3Qnzp59Axv8VpkToQPxNx+Oc97LRwA==
-X-Received: by 2002:a05:690e:1504:b0:677:da43:28c1 with SMTP id
- 956f58d0204a3-67c67f95cdcmr1887314d50.61.1794410686353; Wed, 11 Nov 2026
- 07:24:46 -0800 (PST)
+        bh=VVuhmpTOxkpymn0weSleRGrGxCwyKmh4kNc2qrZbhPg=;
+        b=KSnFYQBXih/3X3sEXgM9cf6flhFSoyiTMshKg71kPtd5pGyNym/WbwbiyOw+aLXdSb
+         7EhexAd6rbzuUR36Pvqna9Oyu1Uzk9PSNVgyJ8wZ3WFFn/kxip6qFwFnHM7hdMo8uTjJ
+         wv5qf96s+OV4So9FZ5eEj4KH8mCdcF1yoJZszsnNVVI6yBllP0EMbSKJLsd2QEWEzQ1o
+         iQpNovTVKFjXb4+n9KJJOT7qXs9aKWzW958SulxQq5yIzfaI4frzkXfh7bMKzHYZmHzu
+         ZLhL2eMWN69KjojEOx/oyKY37rd6jF+/sdgVaYGntc/FSxXdyuav4HX3W3hLGC9eKsxC
+         gW8A==
+X-Forwarded-Encrypted: i=1; AL+hErF9LP3RHN9AINVZvl5HNx4Vroc6/QNer0zZmH1jqZPnH1WEstljhRJiFpBQz2TGvumf1iF3cYo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2KFN0Z2CT1Y9qmHtqYzRvNA7P1WLhEdUKG1buIudjT4rbwgFf
+	YWOIWdHeXI+1fZOisugG9s1OVSHvgu4utEqTgn+C7LYZeLpJBHlnI/c3JpLfEk92gN9ZBkKIDAp
+	BSlRvhw==
+X-Gm-Gg: AYBFou2OBpSOyxFeZYopsW2tNVlu5cwCbZ7Hxj3TqcMLP7BJ2PItisMBurcfWeUXI/L
+	gwS28YIJTgRwsh7ezlPEuveziJaGoYYzfLcVgAJW6T3XXN8S6UJhLXlm7RHHqrN7+5BmSiWxsi1
+	dv4rgAILI9hS8zXIfSFllRUbeux2RXlTGF8JmwHrmaHwWgomyvraNDXXz4Req2e6VUXD8v9APpc
+	RBvmTlDCAM4CSYyy+8ZZhEOOAJZDBBXWejzXVt4YJaPR6ScfDOBO1K+VUy5hTYCZZOavYSjo33U
+	gnTNQ65uPUvVti8ErQuRFgV+wJJNzM95hitmu6b/EFrF79MqYutViqgltiXgVoBX+t1LbLA5P/6
+	Dr8xzxBxAmdVETHnwTKFmUb1dg4iJFvGqWAy0leznTHqEpVhKGTARwb5PY3JOWFFlLgJrfi7uzx
+	9RhlGVgf3OatSbZZSsdaq0D2K0enM86MpNfoazqOC9ytPdpw+meYKDmPX/m0aeZlG6FklBgjryf
+	Mv0wYSDhcTnAgTzELBFz27EGvxzLHXN58uqOvfdKYGsZo1ldZA5MEjhvVZ+Ho8mEG9LI8/OzQZm
+	js0VT6GxyMZ2dx5fW2Abf6oPlHpoDy53tH/Zb6aa5HzgUXjUmPc=
+X-Received: by 2002:ac8:5dd0:0:b0:535:fc2d:b7c2 with SMTP id d75a77b69052e-556c1391522mr40169741cf.33.1794410753989;
+        Wed, 11 Nov 2026 07:25:53 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::d355])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5550b9425c5sm52788841cf.17.2026.11.11.07.25.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 07:25:53 -0800 (PST)
+Date: Wed, 11 Nov 2026 10:25:50 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb-storage: onetouch: Fix potential use-after-free on
+ input failure
+Message-ID: <c342c36a-df9f-4bf7-b96a-a4609f128b0e@rowland.harvard.edu>
+References: <20261111-e5624093d6-usb-storage@mail.sdu.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,236 +99,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110150250.71520-1-ekffu200098@gmail.com> <87cxsbg1fs.fsf@igalia.com>
- <CABFDxMHOy2JRYfCk0ovp3nzXWMjpXyiYsLGO3k3Up3e76Z-wXw@mail.gmail.com>
- <CABFDxMGJ+Uum7dde3AN5Ab+H4Gwb23Upj7r9=SO21NWCo+Mhow@mail.gmail.com> <87mrrf8o4k.fsf@igalia.com>
-In-Reply-To: <87mrrf8o4k.fsf@igalia.com>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Thu, 12 Nov 2026 00:24:34 +0900
-X-Gm-Features: AclHuK9pJt9whdPT0W2osC63TiBxJY3kQf0Ig_irSJmHZwpSbOdmq-OOp5cP5hI
-Message-ID: <CABFDxMEuH399Q5CPp_Pnvx1ZCpr0MAaBLDmVz2aoKqJ26ng4ZA@mail.gmail.com>
-Subject: Re: [PATCH] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
-To: Luis Henriques <luis@igalia.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Miklos Szeredi <mszeredi@redhat.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-e5624093d6-usb-storage@mail.sdu.edu.cn>
 
-2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 10:58,=
- Luis Henriques <luis@igalia.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+On Wed, Nov 11, 2026 at 08:23:03PM +0800, Guangshuo Li wrote:
+> If input_register_device() fails, onetouch_connect_input() frees the
+> onetouch state but leaves it installed in ss->extra. USB-storage cleanup
+> then calls onetouch_release_input() on the freed state.
+> 
+> Install the extra state and callbacks only after input registration
+> succeeds.
+> 
+> This issue was found by our static analysis tool under development.
+> 
+> Fixes: 17efe155253e ("USB: onetouch - handle errors from input_register_device()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> ---
 
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
->
-> On Wed, Nov 11 2026, Sang-Heon Jeon wrote:
->
-> > 2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 8:=
-27, Sang-Heon Jeon <ekffu200098@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
-=84=B1:
-> >>
-> >> Hi, Luis
-> >>
-> >> 2026=EB=85=84 11=EC=9B=94 11=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 6=
-:28, Luis Henriques <luis@igalia.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
-> >> >
-> >> > On Wed, Nov 11 2026, Sang-Heon Jeon wrote:
-> >> >
-> >> > > inval_wq_set() schedules dentry_tree_work when inval_wq is enabled=
-.
-> >> > >
-> >> > > But inval_wq_set() can be called at boot or module load before
-> >> > > fuse_dentry_tree_init() initializes the work, so __queue_delayed_w=
-ork()
-> >> > > warns and the work never starts.
-> >> > >
-> >> > > So defer scheduling the work until fuse_dentry_tree_init() sets it=
- up.
-> >> > >
-> >> > > Fixes: ab84ad597386 ("fuse: new work queue to periodically invalid=
-ate expired dentries")
-> >> > > Cc: stable@vger.kernel.org
-> >> > > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> >> > > ---
-> >> > > QEMU based test result
-> >> > > - booted with "fuse.inval_wq=3D5"
-> >> >
-> >> > Thank you, Sang-Heon.  I've sent a fix for this already[1], but sash=
-iko
-> >> > still has some race complains which I haven't looked into yet.  But =
-maybe
-> >> > Miklos is happier with your patch, in which case you can add my
-> >>
-> >> Sorry, I missed that thread.. sashiko also complains about the same
-> >> race condition between init and sysfs setup. But I'm not sure it is a
-> >> realistic scenario. So I want to hear other voices as well.
-> >
-> > I also checked the other sashiko's complaints from your patch, the one
-> > about race between module cleanup and sysfs. It looks easier to
-> > reproduce, but still I'm not sure this is a realistic problem. If it
-> > is worth fixing, I will sent v2 with serialization between module
-> > init, cleanup and inval_wq_set()
->
-> I agree that the first race doesn't look realistic, though it could be
-> fixed by adding an extra spinlock (which could protect both inval_wq and
-> dentry_tree_is_initialised).
->
-> The second race would be easier to fix by setting
-> dentry_tree_is_initialised back to 'false' in fuse_dentry_tree_cleanup().
-
-But I think race can still exist with that.
-
-CPU0
-                    CPU1
-
-                       inval_wq_set()
-
-                        READ_ONCE(dentry_tree_is_initialised) // true
-
-                        <sleep>
-fuse_dentry_tree_cleanup()
- WRITE_ONCE(dentry_tree_is_initialised, false);
- cancel_delayed_work_sync(&dentry_tree_work);
-
-                        <wakeup>
-
-                        mod_delayed_work(&dentry_tree_work) // already
-false but executed
-
-
-                        fuse_dentry_tree_work() // later can cause
-UAF?
-
-IMO, if we need to fix the first and second race both, then I prefer
-to use lock. But if we need to fix the second race only, then
-disable_delayed_work_sync(sashiko's suggestion) looks better.
-
-Please correct me if I misunderstand something.
-
-> One thing I like with my version of the fix is that it replaces the usage
-> of schedule_delayed_work() by mod_delayed_work().  But maybe that's out
-> of the scope of this fix, and I should send that separately.
-
-I do believe that is a great enhancement. But as you said it could be
-applied separately :)
-
-> Cheers,
-> --
-> Lu=C3=ADs
->
->
-> >> > Reviewed-by: Luis Henriques <luis@igalia.com>
-> >>
-> >> Thanks for your review :)
-> >>
-> >> > [1] https://lore.kernel.org/20261106155512.24801-1-luis%40igalia.com
-> >> >
-> >> > Cheers,
-> >> > --
-> >> > Lu=C3=ADs
-> >> >
-> >> > > 1) AS-IS (before fix)
-> >> > > [    0.011073] Kernel command line: rootwait root=3D/dev/vda conso=
-le=3Dtty1 console=3DttyS0 nokaslr  fuse.inval_wq=3D5
-> >> > > [    0.011114] ------------[ cut here ]------------
-> >> > > [    0.011115] WARNING: kernel/workqueue.c:2704 at __queue_delayed=
-_work+0x11a/0x140, CPU#0: swapper/0
-> >> > > [    0.011124] Modules linked in:
-> >> > > [    0.011128] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.4.=
-0-rc1-00010-gab9787d7e66a #1 PREEMPT(undef)
-> >> > > [    0.011130] Hardware name: QEMU Standard PC (i440FX + PIIX, 199=
-6), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-> >> > > [    0.011131] RIP: 0010:__queue_delayed_work+0x11a/0x140
-> >> > > [ 0.011133] Code: c4 08 48 89 df 5b e9 85 28 0a 00 90 0f 0b 90 4c =
-8b 42 08 48 8d
-> >> > > 42 08 49 39 c0 0f 84 1c ff ff ff 90 0f 0b 90 e9 13 ff ff ff 90 <0f=
-> 0b 90 e9 ec
-> >> > > fe ff ff bff
-> >> > > [    0.011134] RSP: 0000:ffffffff82e03e00 EFLAGS: 00010003 ORIG_RA=
-X: 0000000000000000
-> >> > > [    0.011135] RAX: 0000000000000000 RBX: 0000000000000040 RCX: 00=
-00000000001388
-> >> > > [    0.011136] RDX: ffffffff83a3f320 RSI: 0000000000000000 RDI: 00=
-00000000000040
-> >> > > [    0.011136] RBP: 0000000000000000 R08: 0000000000000082 R09: 00=
-00000000000001
-> >> > > [    0.011136] R10: 000000000000000a R11: 000000000000000a R12: ff=
-ffffff82c09fd0
-> >> > > [    0.011137] R13: ffff88807ffcfb89 R14: 0000000000000000 R15: 00=
-00000000001388
-> >> > > [    0.011140] FS:  0000000000000000(0000) GS:ffff8880fa26e000(000=
-0) knlGS:0000000000000000
-> >> > > [    0.011141] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >> > > [    0.011141] CR2: ffff888003a67000 CR3: 0000000002e30000 CR4: 00=
-000000000000b0
-> >> > > [    0.011142] Call Trace:
-> >> > > [    0.011143]  <TASK>
-> >> > > [    0.011143]  queue_delayed_work_on+0x6a/0x80
-> >> > > [    0.011145]  inval_wq_set+0xc4/0xe0
-> >> > > [    0.011149]  parse_args+0x299/0x3c0
-> >> > > [    0.011151]  ? __pfx_unknown_bootoption+0x10/0x10
-> >> > > [    0.011154]  start_kernel+0x3b8/0x7c0
-> >> > > [    0.011156]  ? __pfx_unknown_bootoption+0x10/0x10
-> >> > > [    0.011157]  x86_64_start_reservations+0x24/0x30
-> >> > > [    0.011160]  x86_64_start_kernel+0xd1/0xe0
-> >> > > [    0.011162]  common_startup_64+0x13e/0x158
-> >> > > [    0.011165]  </TASK>
-> >> > > [    0.011166] ---[ end trace 0000000000000000 ]---
-> >> > > [    0.011173] ------------[ cut here ]------------
-> >> > >
-> >> > > 2) TO-BE (after fix)
-> >> > > - no error while booting, and also fuse_dentry_tree_work works wel=
-l.
-> >> > >
-> >> > > ---
-> >> > >  fs/fuse/dir.c | 10 ++++++++++
-> >> > >  1 file changed, 10 insertions(+)
-> >> > >
-> >> > > diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-> >> > > index da23ccd8685c..6965a77a871f 100644
-> >> > > --- a/fs/fuse/dir.c
-> >> > > +++ b/fs/fuse/dir.c
-> >> > > @@ -39,6 +39,7 @@ static struct delayed_work dentry_tree_work;
-> >> > >  /* Minimum invalidation work queue frequency */
-> >> > >  #define FUSE_DENTRY_INVAL_FREQ_MIN 5
-> >> > >
-> >> > > +static bool inval_wq_ready;
-> >> > >  unsigned __read_mostly inval_wq;
-> >> > >  static int inval_wq_set(const char *val, const struct kernel_para=
-m *kp)
-> >> > >  {
-> >> > > @@ -62,6 +63,10 @@ static int inval_wq_set(const char *val, const =
-struct kernel_param *kp)
-> >> > >
-> >> > >       *((unsigned int *)kp->arg) =3D num;
-> >> > >
-> >> > > +     /* Defer the work until fuse_dentry_tree_init() sets it up. =
-*/
-> >> > > +     if (!inval_wq_ready)
-> >> > > +             return 0;
-> >> > > +
-> >> > >       if (num && !old)
-> >> > >               schedule_delayed_work(&dentry_tree_work,
-> >> > >                                     secs_to_jiffies(num));
-> >> > > @@ -224,6 +229,11 @@ void fuse_dentry_tree_init(void)
-> >> > >               dentry_hash[i].tree =3D RB_ROOT;
-> >> > >       }
-> >> > >       INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
-> >> > > +     inval_wq_ready =3D true;
-> >> > > +
-> >> > > +     if (inval_wq)
-> >> > > +             schedule_delayed_work(&dentry_tree_work,
-> >> > > +                                   secs_to_jiffies(inval_wq));
-> >> > >  }
-> >> > >
-> >> > >  void fuse_dentry_tree_cleanup(void)
-> >> > >
-> >> > > base-commit: ab9787d7e66ac7e6e94fc975b37c5b56fff98ca9
-> >> > > --
-> >> > > 2.53.0
-> >> > >
-> >> >
-> >>
-> >> Best regards,
-> >> Sang-Heon Jeon
-
-Best regards,
-Sang-Heon Jeon
+>  drivers/usb/storage/onetouch.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/usb/storage/onetouch.c b/drivers/usb/storage/onetouch.c
+> index 49d281f7bef6..e09b3c6b9a6a 100644
+> --- a/drivers/usb/storage/onetouch.c
+> +++ b/drivers/usb/storage/onetouch.c
+> @@ -237,16 +237,16 @@ static int onetouch_connect_input(struct us_data *ss)
+>  	onetouch->irq->transfer_dma = onetouch->data_dma;
+>  	onetouch->irq->transfer_flags |= URB_NO_TRANSFER_DMA_MAP;
+>  
+> +	error = input_register_device(onetouch->dev);
+> +	if (error)
+> +		goto fail3;
+> +
+>  	ss->extra_destructor = onetouch_release_input;
+>  	ss->extra = onetouch;
+>  #ifdef CONFIG_PM
+>  	ss->suspend_resume_hook = usb_onetouch_pm_hook;
+>  #endif
+>  
+> -	error = input_register_device(onetouch->dev);
+> -	if (error)
+> -		goto fail3;
+> -
+>  	return 0;
+>  
+>   fail3:	usb_free_urb(onetouch->irq);
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.43.0
+> 
