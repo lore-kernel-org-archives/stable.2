@@ -1,63 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.67
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794384927;
-	b=J7aSQ2vPA8Xq4MVzjFHYEs6VXetVJLqe0fVkxeTekdOvOR3q9x3PdZWy1x0jFA1YX8lQ
-	 XJsvRN9H8biciBZzmrStkc4ZpnpVGDaUFQ5OgMYtrjs9HySH/8SKsLuexNrK5Gc+lRvD5
-	 hULKVsFhpa9nla/de/YnPNjJieJ8rpyEHL1/YLVaOoudn3PVHKrnuMinOhX/6lpvOK+b8
-	 gF9W7akjerwxtR3/mrPEirMgZ6nGWjZt567tQeWPlNN8QZAeQR6el9ieN5Hih+SUz4Rbm
-	 gYBDP8IDK0bPHO2YfRJ/5E/PgNj63AAbEEl8FNv+cldXGdj7/ehDXYrw977qi9V+teg==
+	t=1794385405;
+	b=twgWd+jRM6ztpHJFJOqyhNbACf/NsdHjLTwJcbOUbJIl/sGLQXisovTzmHCJzRT78jck
+	 k9nT8ioS76JF3WN2AxKM5/AhmRylAN5l4tf7WGgA5y6CbuUtfjI0jzL0vbWntjpt7FlRS
+	 x4ot0106OR6ubfx8O3LFW2IU4XDLX2+JySsVBpe11ptPq/1m7XzuKfTgdr7W36KiFAfFI
+	 NnJnIZztMkNXJRbfAXADb4h9yx8V0QUxE3UrSIEnNJU/bFI41WvoA+jRLDoh8QlLx1yMB
+	 qVlwVijHqs105UeXfBwNGfnhG4fMRT+1YpXlFJnq4evTsEKnszbRRIeJ95NPcT2V07w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794384927;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AniNH7vBkjZ81jPIGkygTkY1tLPixcJPXpEKPibhbUU=;
-	b=XObiD9qbnBIVcBb5vO4TecJlTGEWTLrhIUOjYd9ugonSFiE3z9fTRR9Xf9st0Annlq71
-	 t6M7tt2TX6umX3Uq+huFqwYQ92XRhVEILC2kxLlZdnL7udVL5pQs90dMvJYaB9/V1+DzY
-	 N0eEFlRgbESZMc/GGe+w+NVvkGnQ1M03879m/5TfnD4JG5vaDhjN5HmLx2GFVaQZsGNJJ
-	 zSlXtnVGgzp4giUDyRaq6lgy5VqCKCqJRe6TwhUo4TTOieHzlEfg8mFbMrsYvrEm0Femj
-	 trZILFKw9HAozCCB95qHXFaoDC59fEOS/ZmrjszFH0w2OiEl5YcOk1gacrqCaewUgYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794385405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=q7WNoDNvK27nmUs1OscOlkdJptRoBsF44ZsXFn7l1eA=;
+	b=dCqONXWq+EgTF6DYekz8l2RBglAv1QnRVYzVKVBquSJ1wxENUS8k4Rm2UhL2e1ZLxRbS
+	 FL6bCVHMAk9x5YC/Mrm+sD7/tdRIfYwunKJmIq331qWjLl7pGauBvydQEAtWBK4BaMtER
+	 gGHCeRcy21e5ksSdVGiXatUZEU8Q0QKXhHptsSMVn4HILOlnklK/fR1eyoV6mVUFo7OVx
+	 ATCrFGUBJr/EvYbgCWdFybfv+E4PTB2QPAyvdcpqIoobXU1Zmev0kK32TjXToft9TwseT
+	 iVCvugI/tHsH69IaSrRJdpZxoger5J5764gaIMAH8iVVKf3NtM+3PK+1IdW8eywbkfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kxcufjRx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGqefc3N;
+	arc=none smtp.remote-ip=209.85.210.67
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com [209.85.210.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBED2606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:15:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E7D606A334
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4E7D606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kxcufjRx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415031F00A05;
-	Wed, 11 Nov 2026 08:15:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794384927;
-	bh=AniNH7vBkjZ81jPIGkygTkY1tLPixcJPXpEKPibhbUU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kxcufjRxyQMwY9kLU11b1kmAnP4mV1EA1WBVYguiCDZlLLzCiiR0rvSz+antPdxSl
-	 sRRWix20y25TA10em5T1MIVqgVdb/BPi2vkeDhs/UKTtgCbQhvb+CdKEKR3mwQl/nt
-	 YQhPTb5vpDH5N8njdo4v3Z1qiq5RsdcBU+9F91YqiKXyVSO9tXfL6YAEWATZCdAFO8
-	 JIcMBaNkFpP0fFxdiEB6ld5N/2dRubVRza2IGKUdBME4H+vd+mQ3f5DSthOPof0nJc
-	 b2cIZL6VVKSLQMmGPS/+tXpZnULD/LN6E9hIgm1CUIkKXtyqkswyusingBPA5FTgUj
-	 Bt5opxZGGbIKw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Caleb Kan <ckan@cloudflare.com>,
-	Matt Fleming <mfleming@cloudflare.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Marco Elver <elver@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
-	Caleb Kan <calebkan1106@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] stackdepot: stop preallocating after the final pool
-Date: Wed, 11 Nov 2026 03:15:25 -0500
-Message-ID: <20261111081338.1418886-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107052548-failed-6.12-8f56ea8e0706@kernel.org>
-References: <20261107052548-failed-6.12-8f56ea8e0706@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGqefc3N
+Received: by mail-ot1-f67.google.com with SMTP id 46e09a7af769-854e904005cso1837414a34.1
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:23:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794385403; x=1794990203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q7WNoDNvK27nmUs1OscOlkdJptRoBsF44ZsXFn7l1eA=;
+        b=mGqefc3NCxerrmYCjjLVfZT0mIT5UV90VtP0gRC7dXQKyP/reZlPLbjZyQzSZuOOiO
+         iumhvcJGZEbx8jFYMr6oTuRXXdUyikQOINICli7utWsLokxwlckuh9OLDWKm/Egmu8+1
+         ywhtrHxx2XRqa1dQVCvWfzQZVuhTFViTynRuR+Z6Xwti8yO/hVmLMLFgdx7g1UDz+cCq
+         KivpOz6YMcrPaI+GY7FQak6ObCPeWFEm9ftG7jAQsHy/YlVDG6G5qmszxW1gcaf10T37
+         CBdHlMAguWXqv1I41VjyVKdeocbCfhCqFL+wWxgwHP6s93JsAEMeS3i+mXurOovwdFTs
+         7Ukg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794385403; x=1794990203;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q7WNoDNvK27nmUs1OscOlkdJptRoBsF44ZsXFn7l1eA=;
+        b=m36J+L91RhZqUNmi2d/UAdjxE0XthKDs2J06wknVCFeyrzS0BqBg+IO9SvaiM9632v
+         +az4xFBBgLjOjpiso2DS4gdBh7+jonpv6CnzGNv9nv1SwDW4Qdpi7za6BVmMADTeOTG2
+         9a5FEveN+qr38QxNE6IUu26vXD/0QY9UIvAzk6TycfUk/WmphYSANM/YND6bTwwVcBmZ
+         cgXe5iYEFHPdG6XjZdpZwn+rBZYvAtBi5BjtJH1Il/CpEoYKHir94qgoH/wuLRQh2qGZ
+         CAIDcmFxkrhcQQVvBKbnM3uzlomFHEtIL7KeCHzDmxkcDJ0wpQXL6obld5J4v+APL3aO
+         DN2A==
+X-Forwarded-Encrypted: i=1; AL+hErGwZuGDkTVurUJ1Ct7c/Z3CkWG6RGSfuxxzGMyvredPdETRyy/c9BxRa3IRSilDgdkv582O5aA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+tfrA1Pw5nyxJ0O1ZrwvKgq0Hcp46hKK7KiY66xSEBEiVPLKix
+	p1dTsqgJ0NpZp6Xucdevz5LjzEyT+zxBU2r2XkWVwy3l8WCIzt2Kah0L
+X-Gm-Gg: AYBFou0uAk6WdIelu+lrAQUzKZfcjkn1i0BRojSPrAHRU83mjxDRx72vaed4y6uFMP0
+	47J77ZR++M11b74rA1up5TQxZ1/GdsNMfb+VXouUnNgRDlpDZyQTVfmPRnH4EMpzsk12W6tYMQe
+	TflS4cPkabP8+kASsOKIviMJjW/8u8Kx4ccciSjJ+v/1WycpKiMoEpvD9zP1WjruD4vHSZku1Cs
+	TT7cgbm/K/eBqRD8ataVbVXJUd+Y7TXXDVG1T/c+sxE/AFYWaiWQ6X1LR53YjGiRPHHD0HaSia7
+	x2KOoFMqZy1RxN7BSiIxLqdf8es44uUXLctfxQQ/GLF2guPIG6QTqpTXlCCVSzNDTadYti8/hZl
+	7u7v5F7F4xRx+8O8QBS88tjjTiFuleLLeKWX2sswGyLTajGFYoXIGop9GBxdG8DVhlRAeEtNkFd
+	IJ0M+oi30wuzrjPN2MGQf5SDT5ErtRP+NL0WPUtK+HcxkcgW4Q6SIIMiKNt5Wc4HOLlaPg9wU9J
+	+IYvp3J9iN2JUu3QudOLUIBA8Bafzpu3IeJPCohENdba8fxWuGrdOpPsGqljmndWergpCIsTuof
+	cyg7dnMal03VVzI3O/AKx91IGpWn39PmfILfNOaRCmRNqaPh0aPJYNqY5bbKk0vF2Cv5
+X-Received: by 2002:a05:6820:290b:b0:70b:930f:9a9d with SMTP id 006d021491bc7-71915c19d90mr1375796eaf.31.1794385403379;
+        Wed, 11 Nov 2026 00:23:23 -0800 (PST)
+Received: from localhost.localdomain ([14.22.11.161])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbfa976sm4056000a34.21.2026.11.11.00.23.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2026 00:23:22 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: lucien.xin@gmail.com,
+	marcelo.leitner@gmail.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	edumazet@kernel.org
+Cc: linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] sctp: fix skb_over_panic when adding addresses with a pending delete of another family
+Date: Wed, 11 Nov 2026 16:23:13 +0800
+Message-ID: <20261111082313.1606366-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <CADvbK_daN6zZNPckkGh=r70ooNwTz59VViJy5jPp1w18SDPrzw@mail.gmail.com>
+References: <CADvbK_daN6zZNPckkGh=r70ooNwTz59VViJy5jPp1w18SDPrzw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,59 +107,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Caleb Kan <ckan@cloudflare.com>
+sctp_make_asconf_update_ip() accounts for a pending DEL_IP
+parameter by reusing the length of the address being added. The
+write-back side instead serializes the pending address itself,
+with its own address family. If the pending delete is IPv6
+(20-byte parameter) while the added addresses are IPv4 (8-byte),
+the chunk is allocated 12 bytes short and sctp_addto_chunk()
+writes past the end of the skb. E.g. on mainline (05441d697f7f):
 
-[ Upstream commit 8f56ea8e0706d92774603260779c7032f03ef3ac ]
+    skbuff: skb_over_panic: text:ffffffff84859c77 len:392 put:20
+        tail:0x188 end:0x180 dev:<NULL>
+    kernel BUG at net/core/skbuff.c:215!
+    CPU: 0 UID: 1000 PID: 379 Comm: poc_sctp
+    Call Trace:
+     skb_panic
+     skb_put
+     sctp_addto_chunk
+     sctp_make_asconf_update_ip
+     sctp_send_asconf_add_ip
+     sctp_setsockopt_bindx
+     __x64_sys_setsockopt
 
-depot_init_pool() decides whether another pool is needed before it
-increments pools_num. When it registers the last allowed pool, pools_num
-is still one below stack_max_pools, so the existing comparison clears
-new_pool.
+Requires addip enabled on the endpoint (net.sctp.addip_enable=1).
 
-With new_pool cleared, stack_depot_save_flags() can allocate another
-order-2 pool after a lookup miss. depot_keep_new_pool() retains its pointer
-in the global new_pool, so the allocation is not lost. However, pools_num
-has already reached stack_max_pools, and depot_init_pool() rejects every
-attempt to register the pool. It remains allocated and unusable until
-reboot. The non-NULL pointer prevents later saves from allocating more
-spare pools.
+Account for the pending delete with its own address family, as the
+write-back side already does.
 
-Account for the pool being registered in the limit check so registering
-the final pool installs STACK_DEPOT_POISON and prevents the extra
-allocation.
+This issue was discovered by Tencent CodeBuddy Security.
 
-Link: https://lore.kernel.org/20261022083330.3159793-1-matt@readmodwrite.com
-Fixes: 31639fd6cebd ("stackdepot: use variable size records for non-evictable entries")
-Signed-off-by: Caleb Kan <ckan@cloudflare.com>
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Marco Elver <elver@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Caleb Kan <calebkan1106@gmail.com>
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-[ sashal: Used the existing DEPOT_MAX_POOLS constant instead of upstream's stack_max_pools variable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: 8a07eb0a50ae ("sctp: Add ASCONF operation on the single-homed host")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- lib/stackdepot.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2: move the pending-delete accounting out of the length loop and
+    drop the del_pickup flag, which no longer guards anything.
 
-diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-index 245d5b4166999..1f1d63d21f26b 100644
---- a/lib/stackdepot.c
-+++ b/lib/stackdepot.c
-@@ -273,7 +273,7 @@ static bool depot_init_pool(void **prealloc)
- 	 * NULL; do not reset to NULL if we have reached the maximum number of
- 	 * pools.
- 	 */
--	if (pools_num < DEPOT_MAX_POOLS)
-+	if (pools_num + 1 < DEPOT_MAX_POOLS)
- 		WRITE_ONCE(new_pool, NULL);
- 	else
- 		WRITE_ONCE(new_pool, STACK_DEPOT_POISON);
--- 
-2.53.0
+ net/sctp/sm_make_chunk.c | 16 ++++++++++------
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 90de272842512..b8e4db81636e2 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -2870,7 +2870,6 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *asoc,
+ 	int addr_param_len = 0;
+ 	union sctp_addr *addr;
+ 	int totallen = 0, i;
+-	int del_pickup = 0;
+ 	struct sctp_af *af;
+ 	void *addr_buf;
+ 
+@@ -2885,16 +2884,21 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *asoc,
+ 		totallen += addr_param_len;
+ 
+ 		addr_buf += af->sockaddr_len;
+-		if (asoc->asconf_addr_del_pending && !del_pickup) {
+-			/* reuse the parameter length from the same scope one */
+-			totallen += paramlen;
+-			totallen += addr_param_len;
+-			del_pickup = 1;
+-
+-			pr_debug("%s: picked same-scope del_pending addr, "
+-				 "totallen for all addresses is %d\n",
+-				 __func__, totallen);
+-		}
++	}
++
++	if (asoc->asconf_addr_del_pending) {
++		/* The DEL_IP parameter is serialized from the pending address
++		 * itself below; account for its own address family, which may
++		 * differ from the added ones.
++		 */
++		addr = asoc->asconf_addr_del_pending;
++		af = sctp_get_af_specific(addr->v4.sin_family);
++		totallen += paramlen;
++		totallen += af->to_addr_param(addr, &addr_param);
++
++		pr_debug("%s: picked del_pending addr, "
++			 "totallen for all addresses is %d\n",
++			 __func__, totallen);
+ 	}
+ 
+ 	/* Create an asconf chunk with the required length. */
+@@ -2917,7 +2921,7 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *asoc,
+ 
+ 		addr_buf += af->sockaddr_len;
+ 	}
+-	if (flags == SCTP_PARAM_ADD_IP && del_pickup) {
++	if (flags == SCTP_PARAM_ADD_IP && asoc->asconf_addr_del_pending) {
+ 		addr = asoc->asconf_addr_del_pending;
+ 		af = sctp_get_af_specific(addr->v4.sin_family);
+ 		addr_param_len = af->to_addr_param(addr, &addr_param);
