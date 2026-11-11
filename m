@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794428710;
-	b=rr9yBddcnvfODS/+/pQhz/4pCC9g4tgTAZXzUmonye1R+qLi+NQkOTxdLg6XLB2M4ISd
-	 HWxppHx5Va31fHHCy1eIj+IymZIANq/IsnYbvTCcNEJ47PGjW96/RVSMtQWWVOrzryPGK
-	 80ojQUungYFr1U8/mka0jBV2xzWIArfAccavIVHkLfmIDWTYn25R4qzXgxiYB7TDhOnwh
-	 X6RXr3pRlr8mnfLlWkhaZrIJiY7iyDRmYTc/lFcRLVRH6aFMZl1LErsznR5fH7pvHwMT3
-	 QZlYOqNMllDCGrR89XqLK44GaZZqJiBM5Y7YO4fqnssAKE8tktiXhDY1JCdoZNXxhuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794428710;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=eyPtou3mnNUtK4XdibRlCeShaANokPxgCZPvXYB2rkg=;
-	b=mTOW6oumbffFr0tE4tq8kgXJkBA388PBT9OBZdC6e8hwHXoP4YwAMQ/pE6HF44DlVD2v
-	 CuNUI33AuRyz/qjIqUM+RG0afgdwnPLgD9GcRd/5ZVgYGCjqp58sDmhN4VG09wvfxPuKi
-	 BmCjPX4xZWFWN5vd/oUXpTHQhwmXEO4tQz59yGfQfBFBIiBhpbqhgtHD3r1YdRu7rXGex
-	 qKicPVVoWrVXpSFKFhvXLkchX7W+pmWi/x0VgwM6RV4GU7hcGXSNWgj8BURON9O6NsI/U
-	 jNKVqAiEnnfzwRRZNkD0fj6wVjnuNszHYmY9/hmy6YsxJAj2oGLI4LY8F1iuizt/3EQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCKrFKAG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794428848;
+	b=RP/udpmCiF979vr5NdOXTXStEWMmTgeC6LruhvAE5WpRxjVCKgtTChhEm+Tu25jVY6AD
+	 mV35AY+wqXcbgK2QFLdT41GTCLQF9iSZncG/4ctCQV8cCAk+mOEy8ryGEyGV1y57okabv
+	 yF9TNQi3SuYTJO8VEvFanpQicYeI6x4bFLsGQWcSwgGaxuHDMtaJFXPjawY2b4eSjchvr
+	 bZtUzouiP4rxNfoMUldZaxof7Tmper8w8EkhfAGrHsZPxCAmakGta/JAyEaHJ8VXYCL2S
+	 AHvNUUMx+BSzeAlu2xXv955vgG/tIaAnZpeVpsPyrCKVGuty7grlkJ7URtePxQrdjow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794428848;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=g+hlyuXTXCIxB36zR/n3kH2plCVxKzMUEqxRKYhxisk=;
+	b=ff9dpWW+mNE77EAgcWczdUX+V9TIydi4r+1HtnurlaDvyLKvMCAJUOpoG4gaYEWFwfKL
+	 rYZb5iH1lOGHXrviKuBBi+O/VAizmGG+KecWulnI/YV7ETYdWlZIZMkd8SSYX0dk6wZ9V
+	 M1a854ZaoGqNG2B9eSxKTUttHORQ8NTqiuPXFlOjfxT8O6hUkkrzVWdy4DJ5TPxeHnpkA
+	 5b/tnTMRV47HQxwpyFrYN0iby46yni0UmTAScVAj47ohpMaHYcXzh+rF82We58tDhlfGU
+	 S007nKVcQgbT2zeFUiJt/1hapReXYMOkn6hzdgCpXrXz0ptR0XeDqTQQGJZWYR/TryQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4f18klA;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178AA606A324;
-	Wed, 11 Nov 2026 20:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3813F606A330;
+	Wed, 11 Nov 2026 20:27:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCKrFKAG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794428709;
-	b=c+Wh0XqXE4haoVTHfaiaQoY4S4KikxO4uaDKs4gJNmTRGXg4t/4idMlwT9p1Swjx4jDL
-	 CKFOVgWRAt/uup0pELbtHnFC5heK9OhF6bmAr8ZTJ/AxHCYgRPN4gedWMGCkeU0I4Y4cN
-	 XOLiXiq2VW20JOTnXO9afWxdg8VBCY+JpgUgFivL0nWNSwO9MyCYX/EOWVOvuTxTZOtwB
-	 J4AjeyLqmpMVeGk+dn7X4EixxTUXkSebk8ls4m6fu/3aOe2vVJJnY6BA2U6ZSZe6x0k6M
-	 ceP+mLEIqu61Kxt9R9uKNGK39jcpqNaTD0zWko8NFXtYpUIJUAl6+Cd0Jc9cyS+5yiQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794428709;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=eyPtou3mnNUtK4XdibRlCeShaANokPxgCZPvXYB2rkg=;
-	b=YHWSXXzA7YWCC9JcOCFIZ9KPJ4RfEzI3ERaSnfaJCQ8qgfyt7gmcAZX0YQ+Tg4WxT3qW
-	 /4PqZmJqvGRyr8EZYkBTu5755BYL8glNNaumjbXoiQ6c3nZVlKRLpKHznzRZY7vl6FjfN
-	 X7cNVCuHMgXa1tCVVGsnqNahCe0kc4tQkdpXO8yau5WlJ12lu0GZJ7/UhtxGcEFTa/cpb
-	 hYaeqkYVEM2B0Q8yAdYXxOInt7puyjUhF5Vq7fypjc/HF0EuFnES+4SkAjY+f0zY15Zig
-	 8iQCm8EqBj3bUSTLBGJaOP10uQMShFrc5t+QtZ/CFDn+rWeI7rBQxUCxSo7LlGiSmHg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 561CF1F00A05;
-	Wed, 11 Nov 2026 20:25:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U4f18klA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD961F00A05;
+	Wed, 11 Nov 2026 20:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794428709;
-	bh=eyPtou3mnNUtK4XdibRlCeShaANokPxgCZPvXYB2rkg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=XCKrFKAG8iW6nUVrqi9se0OUNL+CGC1/3Izt6KsrY5oOD757MZeI4ZCS/5/GpWrgj
-	 KvEjT7+n0iRORMNjXv1CwQqX+cZzFKmmedQlorYRrMuwVHuq6ymYKiJOlBOQ2O3hA9
-	 Lhi6WGqvsBoA/RJw8M87ITGMAXtBD/ctlTkzh+3gGOKbPYos9ZMxBwsAZVjIRDKdsd
-	 +vBPcDSvzoc9muoco7Lan8QRZN58Y/SGd/xP9mWNMkddE0Z0sjqe1Dt7WEBKcY8Ajk
-	 EerBhrL1JbDbdi7XvclQBeh28Trxv25AzCFSU9RiJ8MI4EjTzcmc97t59bRozdAKaC
-	 4+XBz7KyQ2dOw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A6A20490EA;
-	Wed, 11 Nov 2026 20:25:08 +0000 (UTC)
-From: Alban Munari via B4 Relay <devnull+alban.kernel.gmail.com@kernel.org>
-Date: Wed, 11 Nov 2026 20:24:48 +0000
-Subject: [PATCH] ALSA: hda: cs35l41: Fix hibernation deadlock with the
- firmware reload
+	s=k20260515; t=1794428847;
+	bh=g+hlyuXTXCIxB36zR/n3kH2plCVxKzMUEqxRKYhxisk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=U4f18klAluHIX1bmSD6lEPTg6vG33IcCHoGhX6EZvcUEqxSPMZp/CBRoKyLw+C/Hy
+	 VQZv7WUpY4qnzO98DJ2vo82dkDOyhmnedx1WV6CmhlBwn3oX1xGQHu2Gp3zmIuBAQR
+	 ElTC4UzRZGvBs3bSCDrRbWNrvdR7wqmdQZ7xaEoEKS4ukYGhKqM8ObzKVx1mPvtAI+
+	 A92sgoToXys2D4xv0lLl0MjarGgKBhMYjWhweQOTw0yYaASRMr6UcqJh0oir/A+AGL
+	 cH93oo11QU4OHOu9yqMF0Vy9nJcdeEz9PlI1RBgzxA4sKznXvblMjAv5XFON/Zojng
+	 aqSCH3vmCKL0A==
+Subject: Re: [PATCH 1/2] can: kvaser_usb: hydra: reject commands shorter than
+ the header
+From: netdev-bot+sashiko@kernel.org
+To: joasantonio108@gmail.com
+Cc: mkl@pengutronix.de, mailhol@kernel.org, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Wed, 11 Nov 2026 20:27:26 +0000
+Message-ID: <179442884694.488853.1203340184494622977@kernel.org>
+In-Reply-To: <20261110-kvaser-usb-validate-v1-1-f266b85aa908@gmail.com>
+References: <20261110-kvaser-usb-validate-v1-1-f266b85aa908@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,120 +62,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-cs35l41-freezable-fw-load-v1-1-ebcaf549b2f7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBCF4Vchs3YSW8DbqxgW7XSqYxowHUED4
- d2penbf4vwLKGdhhUu1QOZJVIa+wOwqoLvrb4wSisHu7cGUIWndpsZgzMyz84kxvjENLiCd28Z
- SPPngjlD+z8xRPr/2tftbR/9gen2DsK4bNq2gkn0AAAA=
-X-Change-ID: 20261111-cs35l41-freezable-fw-load-c9542cf8bda7
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Stefan Binding <sbinding@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Alban Munari <alban.kernel@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794428707; l=3724;
- i=alban.kernel@gmail.com; s=hephaestus; h=from:subject:message-id;
- bh=IXzrGoSena48kpecVx+KFjQckzRH8kQoM0LZy+B5cYI=;
- b=E5phtmV4Gn6aVvUFA1LPzfdPdrfTyxdtNb1tewiRSAM7gAMZoN6x9nLViSuPmIycTBlW6fX24
- CbOSxRcbkjoDPIc+y3A/0AyHUAkvqEX9YXllN36Fv3zd/1vHTr0wrow
-X-Developer-Key: i=alban.kernel@gmail.com; a=ed25519;
- pk=E4gTLxHRk8yuKicoDcjhUfRHnlctgbnlV9dmOwM5338=
-X-Endpoint-Received: by B4 Relay for alban.kernel@gmail.com/hephaestus with
- auth_id=1455
-X-Original-From: Alban Munari <alban.kernel@gmail.com>
-Reply-To: alban.kernel@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Alban Munari <alban.kernel@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-cs35l41_system_resume() is also the .thaw and .restore callback, and it
-schedules fw_load_work on system_wq. During hibernation, .thaw runs
-right after the snapshot is created, while tasks and freezable
-workqueues stay frozen until the system powers off. The work calls
-request_firmware() with fw_mutex held. When the firmware files are not
-cached, the lookup waits for filesystem I/O whose completion runs on a
-freezable workqueue (btrfs completes reads on its endio workqueues,
-which are WQ_FREEZABLE), so it never returns. The next step of
-hibernation then waits for fw_mutex in cs35l41_system_suspend_prep(),
-and the machine stays on after the image has been written.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Blocked tasks on an ASUS ROG Strix G17 (G713PI) after the image was
-saved, from SysRq-W:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  task:systemd-sleep state:D
-   __mutex_lock.constprop.0
-   cs35l41_system_suspend_prep [snd_hda_scodec_cs35l41]
-   dpm_prepare
-   dpm_suspend_start
-   hibernation_platform_enter
-   hibernate.cold
+- [Medium] The patch says it rejects commands shorter than the header.
 
-  task:kworker/15:2 state:D
-  Workqueue: events cs35l41_fw_load_work [snd_hda_scodec_cs35l41]
-   bit_wait_io
-   read_extent_buffer_pages [btrfs]
-   btrfs_lookup [btrfs]
-   path_openat
-   kernel_read_file_from_path_initns
-   fw_get_filesystem_firmware
-   _request_firmware
-   cs35l41_request_firmware_file [snd_hda_scodec_cs35l41]
-   cs35l41_smart_amp [snd_hda_scodec_cs35l41]
-   cs35l41_fw_load_work [snd_hda_scodec_cs35l41]
+--
 
-Queue the work on system_freezable_wq. After .thaw it then stays
-pending until the system powers off, and on resume it runs once tasks
-are thawed and the firmware files can be read.
+can: kvaser_usb: hydra: reject commands shorter than the header
 
-Fixes: 88672826e2a4 ("ALSA: hda: cs35l41: Support System Suspend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alban Munari <alban.kernel@gmail.com>
----
-Testing: ASUS ROG Strix G17 (G713PI), two CS35L41 amplifiers (CSC3551),
-7.2.14-zen1 with this change applied. Before it, every hibernation since
-2026-11-02 left the machine on after writing the image; with it, three
-hibernations powered off, on mains and on battery, and both amplifiers
-reloaded their firmware about one second after tasks restarted. Without
-the change, setting "L0 DSP1 Firmware Load" and "R0 DSP1 Firmware Load"
-to off before hibernating also avoided the hang. On sound/for-next the
-change was build-tested only.
+This commit adds a lower bound on the command length returned by
+kvaser_usb_hydra_cmd_size(). The check is added in both
+kvaser_usb_hydra_wait_cmd() and kvaser_usb_hydra_read_bulk_callback(), so
+a CMD_EXTENDED command with a zero length no longer causes an infinite
+parse loop. Lengths shorter than struct kvaser_cmd_header are now treated
+as format errors.
 
-AI assistance: the fix was developed in an interactive session with
-Claude Code (Claude Opus 5.5, Anthropic). The model read the journals
-and the kernel source, proposed hypotheses and experiments, decoded the
-pm_trace value and the pstore records, and wrote the change, the
-changelog and these notes. I directed the investigation with a
-troubleshooting procedure I wrote for the assistant (research before
-experiments, one variable per test), supplied the observations, ran
-every experiment on the machine, reviewed the change and tested it as
-described above.
----
- sound/hda/codecs/side-codecs/cs35l41_hda.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+> index 687911d764ded..92bfdcb04b019 100644
+> --- a/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+> +++ b/drivers/net/can/usb/kvaser_usb/kvaser_usb_hydra.c
+> @@ -676,7 +676,8 @@ static int kvaser_usb_hydra_wait_cmd(const struct kvaser_usb *dev, u8 cmd_no,
+>  
+>  			tmp_cmd = buf + pos;
+>  			cmd_len = kvaser_usb_hydra_cmd_size(tmp_cmd);
+> -			if (pos + cmd_len > actual_len) {
+> +			if (cmd_len < sizeof(struct kvaser_cmd_header) ||
+> +			    pos + cmd_len > actual_len) {
+>  				dev_err_ratelimited(&dev->intf->dev,
+>  						    "Format error\n");
+>  				break;
+> @@ -2156,6 +2157,11 @@ static void kvaser_usb_hydra_read_bulk_callback(struct kvaser_usb *dev,
+>  
+>  		cmd_len = kvaser_usb_hydra_cmd_size(cmd);
+>  
+> +		if (cmd_len < sizeof(struct kvaser_cmd_header)) {
+> +			dev_err(&dev->intf->dev, "Format error\n");
+> +			return;
+> +		}
+> +
 
-diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-index 6fbc194d3347..efe937d18330 100644
---- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-+++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-@@ -1012,7 +1012,7 @@ static int cs35l41_system_resume(struct device *dev)
- 
- 	if (cs35l41->request_fw_load && !cs35l41->fw_request_ongoing) {
- 		cs35l41->fw_request_ongoing = true;
--		schedule_work(&cs35l41->fw_load_work);
-+		queue_work(system_freezable_wq, &cs35l41->fw_load_work);
- 	}
- 
- 	return ret;
+[Severity: Medium]
+Is struct kvaser_cmd_header the right lower bound here?
 
----
-base-commit: 291d8707fa439ed4ec72552e7770177f6b6514e4
-change-id: 20261111-cs35l41-freezable-fw-load-c9542cf8bda7
+kvaser_usb_hydra_cmd_size() returns sizeof(struct kvaser_cmd), which is
+32, for every non-extended command. So this check only has an effect for
+CMD_EXTENDED.
 
-Best regards,
---  
-Alban Munari <alban.kernel@gmail.com>
+The fixed header of an extended command is the 8-byte prefix of struct
+kvaser_cmd_ext, and the length field is part of that prefix:
 
+struct kvaser_cmd_ext {
+	struct kvaser_cmd_header header;
+	__le16 len;
+	u8 cmd_no_ext;
+	u8 reserved;
+	...
 
+With a 4-byte bound, a CMD_EXTENDED with len between 4 and 7 still passes
+this check, and also the new check in kvaser_usb_hydra_wait_cmd(). In the
+bulk callback the command is then handled like this:
+
+kvaser_usb_hydra_read_bulk_callback()
+  kvaser_usb_hydra_handle_cmd()
+    kvaser_usb_hydra_handle_cmd_ext()
+      switch (cmd->cmd_no_ext)
+      kvaser_usb_hydra_rx_msg_ext()
+        memcpy(cf->data, cmd->rx_can.kcan_payload, cf->len);
+
+Both cmd_no_ext (offset 6) and rx_can (from offset 8) are outside the
+declared command. So the dispatch decision and the CAN frame passed to
+netif_rx() come from the next command in the transfer, or from stale URB
+buffer bytes. Parsing then resumes 4 to 7 bytes later, in the middle of
+what was just treated as payload.
+
+The commit message says "A command can never be shorter than its header".
+The leaf fix it cites, 0c73772cd2b8, bounds by CMD_HEADER_LEN, and that
+header includes the length field.
+
+Should the CMD_EXTENDED minimum be at least
+offsetof(struct kvaser_cmd_ext, rx_can)? For reference,
+kvaser_usb_hydra_frame_to_cmd_ext() always builds extended commands of at
+least 32 bytes, aligned to 8.
+
+A complete fix would also need per-sub-command minimum sizes, similar to
+kvaser_usb_leaf_verify_size(). The extended handlers already read up to 96
+bytes based on dlc, whatever cmd_len says. That over-read predates this
+patch, and neither bound fixes it.
+
+The later patch in this series, "can: kvaser_usb: reject devices reporting
+zero max outstanding tx", only changes probe in kvaser_usb_core.c and does
+not touch these parsers.
+
+>  		if (pos + cmd_len > len) {
+>  			/* We got first part of a command */
+>  			int leftover_bytes;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-kvaser-usb-validate-v1-0-f266b85aa908%40gmail.com
