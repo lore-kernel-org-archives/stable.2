@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420919;
-	b=VzsmssmN2KQGCeUdUQtufNSm0tb33GIofRobybgVOzgoYpWUaeF+OJJLwvVEcqZTXVYJ
-	 IV2LwaBaLoqaPBShbuFwW38QA5Ml3/V8udexzlDcmzTOcVC7UlJOaohMaY0rsvZfIN+3O
-	 CqGuxw4AnUN3ZHepk5wORTgShjs+YMgEfd95R7D7O6ZFCEeeYQwxJCTCIK//bUII4QzuA
-	 TAaabO3qpAmkL3KDdHgiZKgRb/Qcxb6cQrwIwnZcq2F2SB+dnE2V81kR2rh3t+vdB0/sp
-	 sAayeI8Ph+vnA5GJiuKw3P+jzv8r2F4oG8fKUXE0P7fip8YZSHsvN8o6WVJtd1H47cQ==
+	t=1794420928;
+	b=N75l9RSNfkEb9f68rtMTxAT2QQtQLTlkVABmZuEVrg51g/+gycQpxZyxbcPk1j2pUm4/
+	 nzlVIf+RQYfvaz8BTSUOY2W82VWTcj7nX1OdbUAVAdxerYiRf0oV01aff4kCOm1tUFqeW
+	 F5YbGlKQctnQj0jtk+68cXYnlvjbYAcQsFXw8OS0myqZcTWx7mi44PBV8D7+gl1gu3v1q
+	 nilCHxfFZTlNzMxcw+uuYEcyuejlxFyvZM+rf1sighKWR0ib8J2mrOIILHrdeQUXKz12k
+	 JlN70QGUhvnux5stIIQIXsBuYFaBDokOmKdAYNpEKwW0FKHfMGjkZPU5bcqGhSWPdWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420919;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420928;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=h/gMKka0KRVoDYIjz1ajHMHaZowebVJOe2Ih0vRtI6w=;
-	b=abUMFIQzW1wGAtakasGIUVvs5YquvbrvEjCuquQCyyLqcSPM7CRSLY4MnPfDItQGqsf2
-	 8i+BYfq+M7T8FPtRkDJvHHD1udv3YmItff5KTcWjotqz4Q11n88CBJDMJ/OX5CLi6BPT+
-	 Ys1bQnAA+vr7WueARjtXvBCBSV486Tw54j88N1Cgt52cG7cjmciMdb/D5+opIPSVMUKI1
-	 vCtrU3Rzq9rhVfsLMHBwXtqBbpa+3bslo4TGtHAsQVJP5069VtTNrIY/yWGspjVKUwtGp
-	 YRLyCMR5mY8U1UuucXV1q/SvGFT96yegBFxpSLt7E1UaI174QXePDAFnmMXO8/176Bg==
+	bh=/og5Uhf95J9kveBkAm0grQ3O8w2sq19wcFkN9LBdY1Y=;
+	b=wGDuGfe9K+aptQKjcExcRFRYJaecefYeyZeyLy3z4ZrrwaA6kJMaDbFx2YyBSJ3NEcj0
+	 PBrJexdprw7XJSU0p7Xu/mjd+DfSb39vjwCJWr6q7OIeyQv3hkLQzUhaaexWa8SSYr6Vc
+	 /RFWz+xb2t/jSSDNk3TdqCsZVDz/MXEqPdKJQ1Db9jnlW2VVLR9NcUbZJkjIaDakoykMc
+	 XabzgJxm7E5VM58l7y1O31MBnD0YSOSqS+RLWE+ZRZRYTM0QZnYoHR2KxNLN9wUGePlcC
+	 nQRds9JW2OTOMup/whWml/ys209jSHqj8Usp0/VoBwJzelWM6Nq6cVn3yfRWD54Qr0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G3G/Avwr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfBrjCyC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DF2606A88D;
-	Wed, 11 Nov 2026 18:15:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDA4606AE24;
+	Wed, 11 Nov 2026 18:15:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G3G/Avwr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14AEC1F00A05;
-	Wed, 11 Nov 2026 18:15:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PfBrjCyC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7123A1F00A06;
+	Wed, 11 Nov 2026 18:15:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794420919;
-	bh=h/gMKka0KRVoDYIjz1ajHMHaZowebVJOe2Ih0vRtI6w=;
+	s=k20260515; t=1794420928;
+	bh=/og5Uhf95J9kveBkAm0grQ3O8w2sq19wcFkN9LBdY1Y=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=G3G/AvwrGxMCrgciaaymdYokDEwWVMqcW7sQoSgNfmLG73ObWU4/CgPD83q/GF3HC
-	 l6OrGPBF3VkAfcGm48h26cMxgB7gl+iWHYpL9jLI89e5MkWICAxZ9cXNa5RVf2AuDd
-	 NkZMzfZtPNsjZ6C8UMlihXtXGK53CtGfw8s5FG19kEVcWjA6DBL+cbnKSq6cCfxLH6
-	 H/tt27z5bi9yoy5sBEc4ixkK0plFfI3O6qSdFra3ueHxclDVFiCV6jAOKMIFxwQlzg
-	 0uQHib+dInkNx5CR9sn3rPUgt8skTptKHSpECdXZOq/WGl6wPw96Z1SlCiYG6AtzPM
-	 32lhC+r1+zjBw==
+	b=PfBrjCyCEH4wXB5O/qCXaz4drr/LxPt30HG6A9qGicPPmSwUDubQFA2D5zBSLO2jq
+	 oZi8G2hRwvOpkhyIt4F/cX2r5HbwH5ITk7ZWHxB9LrXWR6w9QYZGsSGdIW+UQTt9rL
+	 EOQ+S63htwEV/veE+Moi8ecIDP6WHQvXlRFrLvw2q+8uzfVq+m5lj94H5oc1JXAiIR
+	 yioz/2yhUIwbp2FcscmdFPS9D/EfDfC+z1691Ycaj0vXo4zju1ADuLpLgny38G5sEy
+	 dp5pAOYctwKt/HKvlfEXhEo1cLie8WihfnUcjkKUa/tyMX5xonS6Uc9NPCt/8I0gCb
+	 wF61DPm2msXew==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 11 Nov 2026 18:13:21 +0000
-Subject: [PATCH 07/13] mm/migrate_device: look up fault folio after a split
+Date: Wed, 11 Nov 2026 18:13:22 +0000
+Subject: [PATCH 08/13] mm/migrate_device: fix ksmd oops on a migrated KSM
+ page
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-mason-migrate-et-al-fixes-v1-7-3d2454362e8d@kernel.org>
+Message-Id: <20261111-mason-migrate-et-al-fixes-v1-8-3d2454362e8d@kernel.org>
 References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
 In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
 To: David Hildenbrand <david@kernel.org>, 
@@ -83,60 +84,58 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, 
  "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
  Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1644; i=ljs@kernel.org;
- h=from:subject:message-id; bh=4y13Zn4Hv1aBFdu53Ug8OJJPI5ryvtg3+l0TbgSLV/c=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+bMiuPGJq8Kpaq2TdZ+lvpce7bHgDLux73dg61z/n8
- 1/R4EVTO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjAR/VMM/5TmGzLqzJ/p75i+
- 4/qipbOme54KaW6avPTDk0kZpg8Kz5QwMvQsmeGpL6hfW2uxSua96fsk/f/LAxdMWOl7fOvHrQ/
- 2K7AAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1396; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=a2nM5nYZYqHBeImIwabwKtGvLlr/iYuSs+KhVwYHkrQ=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+bMjW/fH5seTsZY377rZ/cdzgfHf1r9Pnjh6YE9Gwf
+ FFC5tyH9zpKWRjEuBhkxRRZnn8R3x8kEjav84K/G8wcViaQIQxcnAIwkehAhv+Vytnz/JS1RGX7
+ 7suXrb/xL/Lx7Jg1QZx3zB6LNPC61K1iZHin25NzzX2imY4Ic4sGs/rs/osaatdEllQu3xE74Z/
+ qR34A
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Chris Mason <mason@kernel.org>
 
-migrate_vma_collect_pmd() looks up the folio of migrate->fault_page once,
-when it is entered, at which point the folio is locked.
+After a KSM page is migrated to device private memory, ksmd can oops,
+and KSM then stops until reboot. A process that maps the page can also
+loop in page faults when it next accesses the page.
 
-The fault folio is assumed not to change after this, however if
-migrate_vma_split_folio() splits a PTE-mapped large folio which contains
-the fault page, the fault page ends up in a different folio.
+The problem arises because KSM doesn't know not to try to look at device
+private memory that does not exist in the direct map.
 
-Resolve the issue by looking up fault_folio again after each restart of the
-walk.
+Disallow this from happening by explicitly testing for this scenario in
+__migrate_device_pages().
 
-Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
+Fixes: a5430dda8a3a ("mm/migrate: support un-addressable ZONE_DEVICE page in migration")
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ ljs: pared down commit message ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ ljs: tweak commit message, comment ]
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/migrate_device.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ mm/migrate_device.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index ae795fdf36f4..45e571dbfb4c 100644
+index 45e571dbfb4c..7ebd02ec303b 100644
 --- a/mm/migrate_device.c
 +++ b/mm/migrate_device.c
-@@ -233,11 +233,14 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
- 	struct mm_struct *mm = vma->vm_mm;
- 	unsigned long addr = start, unmapped = 0;
- 	spinlock_t *ptl;
--	struct folio *fault_folio = migrate->fault_page ?
--		page_folio(migrate->fault_page) : NULL;
-+	struct folio *fault_folio;
- 	pte_t *ptep;
+@@ -1205,6 +1205,15 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 		}
  
- again:
-+	/* The fault page is in another folio once its folio has been split */
-+	fault_folio = migrate->fault_page ?
-+		page_folio(migrate->fault_page) : NULL;
+ 
++		/*
++		 * KSM doesn't know not to try to read device private pages, so
++		 * disallow the combination.
++		 */
++		if (folio_is_device_private(newfolio) && folio_test_ksm(folio)) {
++			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
++			goto next;
++		}
 +
- 	/* [start, addr) is collected if we get here after splitting a folio */
- 	if (pmd_trans_huge(*pmdp) || !pmd_present(*pmdp)) {
- 		int ret = migrate_vma_collect_huge_pmd(pmdp, addr, end, walk, fault_folio);
+ 		if (folio_is_device_private(newfolio) ||
+ 		    folio_is_device_coherent(newfolio)) {
+ 			if (mapping) {
 
 -- 
 2.56.0
