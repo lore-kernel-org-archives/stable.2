@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419548;
-	b=ukZ+jS8mmuXDo8GG5+aalpHH8N+SPrWSGEKvSKCYOL4YUmsi2nHmbJSpme0/wpa3dDVk
-	 QObqYA/J1Iw7glh8vjuYMzAyXNi8UdAtnWPEq/4RSeTLwkXqtt5fR6JaBKBheHXna68/Z
-	 uWYWRvw3CS6p4W4DcYVeKxv3TCKD4viNxuZWYiDb4xKfh2XjYMUH6xEt760XUNAey75sZ
-	 KYv19SpkZzJO/N59gEatZgak24IbjhEb//X3+mURxFNzeL5nCtONGhw3eIZYqhccv+4a7
-	 uRYKOjdXquU62VAi/mkcgZrzYGDUBwlVE1ZSj/p234BWIgDnLjv/hzA1RR4utXt6E8g==
+	t=1794419549;
+	b=WyUb0ti75AQC5cslXfnHhR7+L+b2L7JWDSVXhzYlg6TzmkUrGOcquf5OEcKs2MCSmKn0
+	 QiFXLD4LN/h1rxmVqEaF84LSaGAgQ2dTu1qzuAQuWIEw3v9C8akka7TT9e0ZmVuH+qPs4
+	 bSVYd32uGG1A1f8kZLwZeFM7DvTDHvD2+kWXatgoi0JfdB4oLkqgMx5p0VR68nCrXUAPj
+	 zCw2lGPUqZxy71vzunlUFYI3OLW2EqFt62Vs4I/dE5Erawao4SpeJa4QCuFJ7NO7jxVp8
+	 DCrtjHtV3EoVKBdepBRrcmJWmC5Q4Cr8/nJJwcugly5rLsdiqgq7Bqzmi77sHzLU/Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419549;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WaqnWNvV7JU7VNS/6Ua/J/JnApB2IJmo9S1AEr4ywbY=;
-	b=Cu+aBP30DHcsPLxfyPitTYn4MEs+S+XTKkXK0GhTbInTA8jbIvF9VLaAn7zZcFc7FDjN
-	 K2aHGo0bEXFqtV77lYZW6haOgwNsehIY4lNNz286zAJu4IX9FIH+MhEjFajaSqkfUrPU1
-	 2tBLI/fTiyMByI6tSld+Jug2rmMn2+Y3JneAYnpQ9POzEeLSWgqJfcgmAoTs/Dq4qMJ0f
-	 6FWHInFkDB2EXF0zJqY1lsOwol74JTpQxb4fqdIHNWUdMgl/tm67lKpaeDkPm+KdIsS0S
-	 oxIlBDv8Jjj+lxJWArJEdFMGbKWW9IeMSsOn+GjEQhHWE3fS5rByx5g4j0iDrj0MBMg==
+	bh=rch6jPBX3VR6E702Px1nW7yNwuj5D5JGWPeP0FJfbcQ=;
+	b=txbFgpEJvFUiH0r9b3edcezaFqDMP2KYD6U1rmh2VfVRR0mDH2JF9lrMrbHyqG79yBU6
+	 PXQyhYtTgKrpTsCckno0d1WGx24GLNEA2kKMh6DzmN8Am3a1QnkrSC17GS5nYAbZgdBI5
+	 EHOJIR0mED3t7wch2DjZM+FoxYPlOrN29GL5YLDqytcenamkf9O6JkNd0CouvVHY81Ru/
+	 Z0clJdI/HG862Df3PQN/NzKFtD/gbzhPCxDmp/nb3vVRZrsLNZnAB92DhWugQNK1iqXV7
+	 pAynIQFbohv76Naw5b14tcylzxm78rQG5lLtZzItHejJzv4NuciAgHYy3zEjw//MQVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7xr5fa+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eycsCrz+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E61606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF00606A32A
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:52:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7xr5fa+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D201F00A09;
-	Wed, 11 Nov 2026 17:52:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eycsCrz+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56D001F00A0D;
+	Wed, 11 Nov 2026 17:52:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794419548;
-	bh=WaqnWNvV7JU7VNS/6Ua/J/JnApB2IJmo9S1AEr4ywbY=;
+	bh=rch6jPBX3VR6E702Px1nW7yNwuj5D5JGWPeP0FJfbcQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b7xr5fa+PfrYSyAf/G7PQLiIiCFsvmWN/jBwT4pkCOpmpfPjA3EBt192ChZvXngZC
-	 btYYJcL4bR2MyllxaSvFjgo1p3S/zCZnTeFkAZftZfdUtyhnQpTpuB08oVO6ybwh5k
-	 yHTDkx8cKu8GWwxVh4awC2OguOSm/QOrqvG6XMaTs1ozYnP1kUAH3nUtQyAzK2l1DP
-	 2FJwGUmiMj0AGKnvM9uh7RLk5tJep+BR2RhMzDI1jxQ2rSwdfu+LzcjU+rx8XITfN6
-	 Nfvh5hDiZWxAYqIJFc8ndfmxrNQjHP5xsTSLn+vDdsIW9AhDjN1JxVioXTGkj+t8+V
-	 745Kiztq4DRMw==
+	b=eycsCrz+Pcs4GUWz6p1M3Z5UqIbjSQF4NgmWxWd5H7f2qDWTiE42AwTQ4P0BhvwF5
+	 SgNgOnxE3VnreY7kfBNRi3mXjejtg7M/m1CXW6BRozPWgRskqKt/yFDpkqkhKjyV0q
+	 tg7lrp7j/0reK0BrXR+7EHRRg6EC0CTvZIQfw8jOQpIT2y2NsVieYKE83x+7BpzaU4
+	 wo23n0eCSGY7VYginXzdjngr24khgePjxnv08/6sdhO/pRbenIiH8GEeU1o46K+VvZ
+	 DwOcInYFUw9YQXbRd4IP99ZxIDtrKq0GCV2Xy4jfxZDHvH79q1Eqy2a8TY2gXXCKWD
+	 xb79vdcxqEusg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Li zeming <zeming@nfschina.com>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+Cc: Magnus Lindholm <linmag7@gmail.com>,
 	Matt Turner <mattst88@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] arch/alpha/kernel/smp.c: remove unnecessary (void*) conversions
-Date: Wed, 11 Nov 2026 12:52:25 -0500
-Message-ID: <20261111175211.3693066-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms
+Date: Wed, 11 Nov 2026 12:52:26 -0500
+Message-ID: <20261111175211.3693066-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055102-failed-6.1-fe221b7b2d3e@kernel.org>
+In-Reply-To: <20261111175211.3693066-1-sashal@kernel.org>
 References: <20261107055102-failed-6.1-fe221b7b2d3e@kernel.org>
+ <20261111175211.3693066-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,47 +62,238 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Li zeming <zeming@nfschina.com>
+From: Magnus Lindholm <linmag7@gmail.com>
 
-[ Upstream commit 829715a2d14c7110987bfa5e6173b516c41f8627 ]
+[ Upstream commit fe221b7b2d3ecd042dd391f74ff6a6fdeb7c2038 ]
 
-The void * type pointer does not need to be cast and assigned to another
-pointer.
+flush_tlb_mm(), flush_tlb_page() and flush_icache_user_page() skip the
+shootdown IPI when mm_users <= 1, on the assumption that no other CPU can
+be running the mm. A task that borrows an mm through kthread_use_mm()
+takes mmgrab() rather than mmget(), so it never appears in mm_users, and
+kthread_use_mm() may be handed an mm that is already the caller's
+active_mm and loaded on that CPU. Such a CPU was not only left without
+an IPI, its mm->context[cpu] was cleared from under it.
 
-Link: https://lkml.kernel.org/r/20221213074522.3738-1-zeming@nfschina.com
-Signed-off-by: Li zeming <zeming@nfschina.com>
-Cc: Ivan Kokshaysky <ink@jurassic.park.msu.ru>
-Cc: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: fe221b7b2d3e ("alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms")
+mm->context[cpu] is already the record of which CPUs hold an ASN for the
+mm. Test it rather than clearing it: take the shortcut only when no
+other CPU has one, and otherwise fall through to the IPI, which
+invalidates those CPUs properly. A CPU that merely ran the mm in the
+past also holds a context and now costs an IPI, which errs in the safe
+direction.
+
+Change ipi_flush_tlb_mm(), ipi_flush_icache_page() and the migration
+callback ipi_flush_mm_and_page() to test current->mm, like
+ipi_flush_tlb_page(). A CPU that only retains the mm lazily then clears
+its own slot through flush_tlb_other(), rather than publishing a new ASN
+on every IPI or migration rendezvous. The migration callback still does
+its per-VA tbi() afterwards. Returning to the mm allocates a fresh ASN
+through ev5_switch_mm(), or through the direct-load path when
+kthread_use_mm() switches current's mm.
+
+Once these historical slots are gone, the shortcut is available again
+if mm_users remains at most one and no other CPU has taken or kept a
+context. An explicit kthread_use_mm() borrower has current->mm set and
+still receives the invalidate it needs.
+
+The caller-side tests in flush_tlb_mm() and flush_icache_user_page()
+remain current->active_mm. A kernel thread that flushes its lazily held
+mm can therefore publish its own context slot. Those branches also
+perform the shortcut check, which excludes the calling CPU's slot, so
+leave them unchanged. This is distinct from a remote lazy CPU keeping
+its slot populated through repeated callbacks.
+
+Together with the preceding patch, dropping these clearing loops leaves
+every runtime write to mm->context[] targeting the writing CPU's own slot,
+so the array becomes a lockless publication of which CPUs may be using the
+mm, with a single writer per slot. Mark the two stores that are now
+observed from other CPUs; flush_tlb_other() already uses WRITE_ONCE().
+The uniprocessor flush_icache_user_page() is left alone, as nothing reads
+another CPU's slot there, and init_new_context() runs before the mm is
+shared.
+
+Order the slot reads after the page-table changes with smp_mb(). On the
+publishing CPU, the store in ev5_switch_mm() precedes the mb() in Alpha's
+arch_spin_unlock(), when finish_lock_switch() drops the rq lock. This
+relies on Alpha's unlock implementation, not a generic scheduler promise
+of a full barrier on unlock; document that reliance at the store. Also
+issue smp_mb() after publishing in __load_new_mm_context(), before loading
+and using the mm.
+
+This covers every caller, including check_mmu_context(), which can
+publish a replacement after finish_lock_switch() has already run.
+
+This requires the preceding removal of remote slot clearing from
+migrate_flush_tlb_page(). It also requires the stale-TLB series to set
+need_new_asn on both the reused and newly allocated ASN paths. Otherwise
+an IPI between finish_lock_switch() and check_mmu_context() can zero a
+new slot while asn_lock is set, and the task can return to user space
+with a live ASN that the shortcut cannot see.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: <stable@vger.kernel.org> # 53ab52cfe5ce: alpha: load the MMU context when switch_mm() switches the current task
+Cc: <stable@vger.kernel.org> # 01df8f401888: alpha: run check_mmu_context() from finish_arch_post_lock_switch()
+Cc: <stable@vger.kernel.org> # ef43cfc28c42: alpha: only use a targeted tbi() when the target mm is really current
+Cc: <stable@vger.kernel.org> # 738cf8f7a78f: alpha: invalidate the local context in flush_tlb_page()
+Cc: <stable@vger.kernel.org> # 62c92086f30e: alpha: fix the local TLB invalidate in flush_tlb_page()
+Cc: <stable@vger.kernel.org> # 3faee097b939: alpha: fix the local TLB invalidate in the UP flush_tlb_page()
+Cc: <stable@vger.kernel.org> # b2c3b654bb64: alpha: invalidate the local context in flush_tlb_mm()
+Cc: <stable@vger.kernel.org> # f19ae6f51a38: alpha: invalidate the local context in flush_icache_user_page()
+Cc: <stable@vger.kernel.org> # 471e7f9c890b: alpha: do not clear remote MMU contexts in migrate_flush_tlb_page()
+Cc: stable@vger.kernel.org
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/r/20261010144621.974850-3-linmag7@gmail.com
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/alpha/kernel/smp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/alpha/include/asm/mmu_context.h |  7 +++-
+ arch/alpha/kernel/smp.c              | 52 ++++++++++++++--------------
+ arch/alpha/mm/fault.c                |  4 ++-
+ arch/alpha/mm/tlbflush.c             |  2 +-
+ 4 files changed, 36 insertions(+), 29 deletions(-)
 
+diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
+index 7aeee0846dc9d..42c9ab7624224 100644
+--- a/arch/alpha/include/asm/mmu_context.h
++++ b/arch/alpha/include/asm/mmu_context.h
+@@ -149,7 +149,12 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	mmc = next_mm->context[cpu];
+ 	if ((mmc ^ asn) & ~HARDWARE_ASN_MASK) {
+ 		mmc = __get_new_mm_context(next_mm, cpu);
+-		next_mm->context[cpu] = mmc;
++		/*
++		 * Ordered before any user access through the mm by the
++		 * mb() in arch_spin_unlock(), when finish_lock_switch()
++		 * drops the rq lock.
++		 */
++		WRITE_ONCE(next_mm->context[cpu], mmc);
+ 	}
+ #ifdef CONFIG_SMP
+ 	/* A deferred shootdown can also invalidate a newly allocated ASN. */
 diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
-index afa4b990f9226..9cff09ea8178d 100644
+index 9cff09ea8178d..67fb6063bdc91 100644
 --- a/arch/alpha/kernel/smp.c
 +++ b/arch/alpha/kernel/smp.c
-@@ -628,7 +628,7 @@ flush_tlb_all(void)
- static void
+@@ -629,12 +629,30 @@ static void
  ipi_flush_tlb_mm(void *x)
  {
--	struct mm_struct *mm = (struct mm_struct *) x;
-+	struct mm_struct *mm = x;
- 	if (mm == current->active_mm && !asn_locked())
+ 	struct mm_struct *mm = x;
+-	if (mm == current->active_mm && !asn_locked())
++	if (mm == current->mm && !asn_locked())
  		flush_tlb_current(mm);
  	else
-@@ -673,7 +673,7 @@ struct flush_tlb_page_struct {
- static void
- ipi_flush_tlb_page(void *x)
- {
--	struct flush_tlb_page_struct *data = (struct flush_tlb_page_struct *)x;
-+	struct flush_tlb_page_struct *data = x;
- 	struct mm_struct * mm = data->mm;
+ 		flush_tlb_other(mm);
+ }
  
- 	/* A targeted tbi() needs a thread of MM to be current.  */
++/* True if a CPU other than this one holds an ASN for MM.  */
++static bool
++mm_context_elsewhere(struct mm_struct *mm)
++{
++	int cpu, this_cpu = smp_processor_id();
++
++	/* Pairs with the barrier the publishing CPU issues before using MM.  */
++	smp_mb();
++
++	for_each_online_cpu(cpu) {
++		if (cpu == this_cpu)
++			continue;
++		if (READ_ONCE(mm->context[cpu]))
++			return true;
++	}
++	return false;
++}
++
+ void
+ flush_tlb_mm(struct mm_struct *mm)
+ {
+@@ -642,14 +660,8 @@ flush_tlb_mm(struct mm_struct *mm)
+ 
+ 	if (mm == current->active_mm) {
+ 		flush_tlb_current(mm);
+-		if (atomic_read(&mm->mm_users) <= 1) {
+-			int cpu, this_cpu = smp_processor_id();
+-			for (cpu = 0; cpu < NR_CPUS; cpu++) {
+-				if (!cpu_online(cpu) || cpu == this_cpu)
+-					continue;
+-				if (mm->context[cpu])
+-					mm->context[cpu] = 0;
+-			}
++		if (atomic_read(&mm->mm_users) <= 1 &&
++		    !mm_context_elsewhere(mm)) {
+ 			preempt_enable();
+ 			return;
+ 		}
+@@ -694,14 +706,8 @@ flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
+ 	/* As in ipi_flush_tlb_page(): a targeted tbi() needs MM current.  */
+ 	if (mm == current->mm) {
+ 		flush_tlb_current_page(mm, vma, addr);
+-		if (atomic_read(&mm->mm_users) <= 1) {
+-			int cpu, this_cpu = smp_processor_id();
+-			for (cpu = 0; cpu < NR_CPUS; cpu++) {
+-				if (!cpu_online(cpu) || cpu == this_cpu)
+-					continue;
+-				if (mm->context[cpu])
+-					mm->context[cpu] = 0;
+-			}
++		if (atomic_read(&mm->mm_users) <= 1 &&
++		    !mm_context_elsewhere(mm)) {
+ 			preempt_enable();
+ 			return;
+ 		}
+@@ -732,7 +738,7 @@ static void
+ ipi_flush_icache_page(void *x)
+ {
+ 	struct mm_struct *mm = (struct mm_struct *) x;
+-	if (mm == current->active_mm && !asn_locked())
++	if (mm == current->mm && !asn_locked())
+ 		__load_new_mm_context(mm);
+ 	else
+ 		flush_tlb_other(mm);
+@@ -751,14 +757,8 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
+ 
+ 	if (mm == current->active_mm) {
+ 		__load_new_mm_context(mm);
+-		if (atomic_read(&mm->mm_users) <= 1) {
+-			int cpu, this_cpu = smp_processor_id();
+-			for (cpu = 0; cpu < NR_CPUS; cpu++) {
+-				if (!cpu_online(cpu) || cpu == this_cpu)
+-					continue;
+-				if (mm->context[cpu])
+-					mm->context[cpu] = 0;
+-			}
++		if (atomic_read(&mm->mm_users) <= 1 &&
++		    !mm_context_elsewhere(mm)) {
+ 			preempt_enable();
+ 			return;
+ 		}
+diff --git a/arch/alpha/mm/fault.c b/arch/alpha/mm/fault.c
+index 1179b7df4af9c..de5e04dd88931 100644
+--- a/arch/alpha/mm/fault.c
++++ b/arch/alpha/mm/fault.c
+@@ -45,7 +45,9 @@ __load_new_mm_context(struct mm_struct *next_mm)
+ 	struct pcb_struct *pcb;
+ 
+ 	mmc = __get_new_mm_context(next_mm, smp_processor_id());
+-	next_mm->context[smp_processor_id()] = mmc;
++	WRITE_ONCE(next_mm->context[smp_processor_id()], mmc);
++	/* Publish the context before this CPU can access the mm. */
++	smp_mb();
+ 
+ 	pcb = &current_thread_info()->pcb;
+ 	pcb->asn = mmc & HARDWARE_ASN_MASK;
+diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
+index 239c72b8a7412..a2aef90e6234b 100644
+--- a/arch/alpha/mm/tlbflush.c
++++ b/arch/alpha/mm/tlbflush.c
+@@ -66,7 +66,7 @@ static void ipi_flush_mm_and_page(void *x)
+ 	struct tlb_mm_and_addr *d = x;
+ 
+ 	/* Part 1: mm context side (Alpha uses ASN/context as a key mechanism). */
+-	if (d->mm == current->active_mm && !asn_locked())
++	if (d->mm == current->mm && !asn_locked())
+ 		__load_new_mm_context(d->mm);
+ 	else
+ 		flush_tlb_other(d->mm);
 -- 
 2.53.0
 
