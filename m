@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794372728;
-	b=rXdwz24E6uQysoScengSlSMipq7wvZEefGQO51BhRu0I/DctIDAwkHooFnoDO7Dv4Lnl
-	 7trw/vNTBC5CbIWEc7JUcjz8cuz2p3ocDAKYfiIui5MzadcuD8/n/jV1qTJZ/DgaK1Ya2
-	 wYHXFr5ioKUyRjVoOwFsHhkN/LOejS0+MmbUCdXX+rSvU+OK+Vf/p1eUyaWndLvB5lTJz
-	 mC0U5m2EmcPCKWi9W2VaEgJMI3JQBaKUoQhudZr1ElBwywHYWqS/fB8bhUDLMY+FcdPu7
-	 VeByoF7ZSOaKYHd8meBrumNTL3nGumZhtWQbdRy7n3DPc3HGHnXsEgZlBfhGC4GCFAA==
+	t=1794372734;
+	b=FnjQ4qRX8s8icB+w/SnUJUVqmZcCdz8IMBMJdmMAb2SrHkCCC7CfurK7wfKofQDR/b5Y
+	 7A+9Cpb57Dk0kMTYi8c+INAEj3MwfFPB8AALNjCUIBIODzk7tF2tqR7aXXkzwHYE1T9Ws
+	 PjWnXbKDUrGmOsMTlf6aycWcbsU5hKEygCMJTNC2gANc4t7nvFUnYof6ZHDM0P0JhzEhA
+	 CdD8lHVRPI39WkRPgXR7la2y1QlqVkYWqZBRPDaVDbnDclAMSZNPsuGtlZ9LyTqEHJje2
+	 hIP/5ghwv2NVc67DLrZptCtSPVmf2BYGwTxqwowHdDsAmw58caO1RidX9Ntwito5bHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794372728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794372734;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=a/HNXoqWDSZ7Qu81iy1RtmIeTUZdqQ/LIQfn6acZCt4=;
-	b=f371eUeR+gyjXMLxenrY+TV6BDJpT2NCk3uvxJjL2KhDrDmksilpIvN6saopYGL4iWA0
-	 m/KWZVVOm9Tj2bZJkgXcgXuCR/HiaZFrGD93XzLM5ZIICwbbIdP9EWOiUrnIyfvqOrQfm
-	 Sy40jGBMWeT4Nf+gzFC1Fxh3MWIAg2rgUTHSqzvOv2++leWZmZvcST+CMLo0zB6t2wx91
-	 tG6XjEmxeeNuReWAYuRKX4o21kr8hqe8FyACRRvFXALqiKTVEEitTUmNWBAljg+kd1Zjy
-	 cP2n1W1Zej5hDWHvBVUyM+VsqERsaZcnfSmgzf3j1UvUzU9+5waT3QRCwjgeK39pcbg==
+	bh=nyb4Q4LZEhp+uC8X35Si7vYml4whZpMSjqzv7dl7JAM=;
+	b=b/hVu/8tzOoCp7IsMTp2kievlwwNUnoMirmpou1n5rGbRdfpQaGcqTOgrNgKu0zCAzpO
+	 FWK6lpSicsneWqvSikR+2swZ3raiyTDg4AvdhvrqD9UXfghhnIChahCuKFDeXMtiyo2Ue
+	 yMVIOa5Ou3jQtvNHW3aPMXUz2+uHtgsTFocuIx4TfiOqggio0sspXjNJMoRRpKZxLc0Gt
+	 vMiM3BWm5dhxpOCL2K4FNJFQeBisRJzVp7ecxOnAc08EbFFwMvUeBz0gyj+WUFex/6Umw
+	 Tlcz3Dcx0pYAv5B3yzt1y+lwljL/nkc1h5Ll0vgw9AVw+LiW3cw2p2ysJ0ttbwQ9ZZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMnIW3CH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHPPeYMd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F329606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BA6606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:52:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMnIW3CH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF12A1F0093C;
-	Wed, 11 Nov 2026 04:52:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHPPeYMd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9281F0089F;
+	Wed, 11 Nov 2026 04:52:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794372728;
-	bh=a/HNXoqWDSZ7Qu81iy1RtmIeTUZdqQ/LIQfn6acZCt4=;
+	s=k20260515; t=1794372734;
+	bh=nyb4Q4LZEhp+uC8X35Si7vYml4whZpMSjqzv7dl7JAM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nMnIW3CH2icbcutUHnGVi7gTZB4l1M+aXBNbxE8zXd3b7UaP87o/dia6RFatApNKl
-	 atUJ4gMcWAs+2A2r1LmdUbSL80jvwdXBPCboBON/URKF4U1uMRt8KWCwSV1WPiOhzK
-	 C/DMVIRHAz+dt4gTxcZb2RhkkbgkIyALF0/UQeyNPEYgQqCRZf1X6h5e5yggNONIp5
-	 CNX4vzjtFMz1QD5GxM15E0pvlQxtOKEZivdGtKw8vCzYFLejUBg/Kh4raWgA83ZnA+
-	 tfB+k3ox3pNTsB19BMUs4Ev/h1eRtjEG96p9Vv8CoPc23DYJ3Es0YARJEA2+aKFzqq
-	 7kvklKfDg+aQQ==
+	b=jHPPeYMd0FbO4eU+2GppATRwYzfLERi7Vgtm3GGGOvpv/reybTyWpDZNcfFPUYWut
+	 ao1BIQezI+0Bn9t3RMdyiIBjPqLMZ0oDBRizr2Gcfm6spCai4So+je1ZLpTDH5RniI
+	 qEgCZQWXdVjtipZve1mwqLJ0p+7srloXZWskk7eBT0+EdoeTk53d1g0nMk/7UsVTND
+	 m91L1B+aXXT31Jd6OclYlxIBQCAu6NYZM4BOz/N5Nd/ImM7M9nHOEQhhBCRGlwLGDn
+	 JjI0noWDklSM/KkcHTfL8AXAv1ZA7DJlJk6OYIlZQyAz9Mk49F+9fDcg5maBLxxVWM
+	 JMetYfYwyM4Ug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ido Schimmel <idosch@nvidia.com>,
-	Sashiko <netdev-bot+sashiko@kernel.org>,
-	Hangbin Liu <liuhangbin@kylinos.cn>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] ipmr, ip6mr: validate packets injected into the register vif on xmit
-Date: Tue, 10 Nov 2026 23:52:05 -0500
-Message-ID: <20261111045050.1179137-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] ASoC: hdac_hda: Allocate the private data at codec driver bind
+Date: Tue, 10 Nov 2026 23:52:11 -0500
+Message-ID: <20261111044945.1160231-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111045050.1179137-1-sashal@kernel.org>
-References: <20261107052652-failed-6.12-aa1799e93f5e@kernel.org>
- <20261111045050.1179137-1-sashal@kernel.org>
+In-Reply-To: <20261107053955-failed-6.6-08a44bde821d@kernel.org>
+References: <20261107053955-failed-6.6-08a44bde821d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,102 +61,117 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ido Schimmel <idosch@nvidia.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit aa1799e93f5ebb973252aec649d84d12d9c7fd1c ]
+[ Upstream commit 7d357eae973a1e1933f81f55aa1b3b4e3064570f ]
 
-reg_vif_xmit() passes the packet to ipmr_cache_report() which copies its
-IP header into the IGMPMSG_WHOLEPKT report that is queued to the mroute
-socket. Nothing guarantees that the packet contains a full IP header, so
-when a short packet is injected on the register device (e.g., using
-AF_PACKET), the copy reads past the end of the packet and a recvmsg() on
-the mroute socket leaks the uninitialized bytes to user space [1].
+The SOF HDA code allocates struct hdac_hda_priv and stores it as drvdata
+of the codec device before the codec driver is bound. The driver core
+clears drvdata on unbind, so after unbinding the codec driver via sysfs
+a subsequent bind dereferences a NULL pointer in hdac_hda_dev_probe().
 
-IPv6 has the same problem [2]. Its reg_vif_xmit() does call
-pskb_inet_may_pull(), but the helper keys off skb->protocol and does not
-pull anything when the protocol is neither IPv4 nor IPv6.
+All information in the private data can be derived from the codec
+device itself, so allocate and set it up in hdac_hda_dev_probe() as a
+device managed resource, which is released on unbind.
 
-Fix by dropping packets whose protocol does not match the address family
-of the register device or that do not contain a full network header.
+Remove the allocation from SOF, keeping the check for iDisp codecs
+without display audio component.
 
-[1]
-BUG: KMSAN: kernel-infoleak in _copy_to_iter
- raw_recvmsg
+Fixes: 3fd63658caed ("ASoC: Intel: Drop hdac_ext usage for codec device creation")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261027083840.28813-2-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Uninit was stored to memory at:
- ipmr_cache_report
- reg_vif_xmit
- packet_sendmsg
+Omit the dev_index initialization because the private structure has no
+such member and the firmware patch loader that uses it is absent. Keep
+the allocation tied to codec driver binding and preserve the existing
+iDisp audio-component check.
 
-Uninit was created at:
- __alloc_skb
- sock_alloc_send_pskb
- packet_sendmsg
-
-Bytes 1-3 of 21 are uninitialized
-
-[2]
-BUG: KMSAN: kernel-infoleak in _copy_to_iter
- rawv6_recvmsg
-
-Uninit was stored to memory at:
- ip6mr_cache_report
- reg_vif_xmit
- packet_sendmsg
-
-Uninit was created at:
- __alloc_skb
- sock_alloc_send_pskb
- packet_sendmsg
-
-Bytes 8-23 of 41 are uninitialized
-
-Fixes: 14fb64e1f449 ("[IPV6] MROUTE: Support PIM-SM (SSM).")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz%40nebusec.ai
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261025071729.34967-3-idosch@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 08a44bde821d ("ASoC: hdac_hda: Restore the codec device type on unbind")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c  | 6 ++++++
- net/ipv6/ip6mr.c | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ sound/soc/codecs/hdac_hda.c     | 12 +++++++++++-
+ sound/soc/sof/intel/hda-codec.c | 22 ++++------------------
+ 2 files changed, 15 insertions(+), 19 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 6ebbd83b01306..8fadd5281c5e4 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -513,6 +513,12 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb, struct net_device *dev)
- 	};
- 	int err;
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index a3229a51eef33..5a196a756aaf4 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -606,10 +606,20 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
  
-+	if (skb->protocol != htons(ETH_P_IP) || !pskb_inet_may_pull(skb)) {
-+		DEV_STATS_INC(dev, tx_errors);
-+		kfree_skb(skb);
-+		return NETDEV_TX_OK;
-+	}
+ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ {
+-	struct hdac_hda_priv *hda_pvt = dev_get_drvdata(&hdev->dev);
++	struct hdac_hda_priv *hda_pvt;
+ 	struct hdac_ext_link *hlink;
+ 	int ret;
+ 
++	hda_pvt = devm_kzalloc(&hdev->dev, sizeof(*hda_pvt), GFP_KERNEL);
++	if (!hda_pvt)
++		return -ENOMEM;
 +
- 	rcu_read_lock();
- 	err = ipmr_fib_lookup(net, &fl4, &mrt);
- 	if (err < 0) {
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 9a1d04e197ff4..0ecb6af344fbc 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -616,7 +616,7 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb,
- 		.flowi6_mark	= skb->mark,
- 	};
++	hda_pvt->codec = dev_to_hda_codec(&hdev->dev);
++	/* Intel iDisp (HDMI/DP) codec */
++	if (((hdev->vendor_id >> 16) & 0xFFFF) == 0x8086)
++		hda_pvt->need_display_power = true;
++	dev_set_drvdata(&hdev->dev, hda_pvt);
++
+ 	/* hold the ref while we probe */
+ 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index 82a6707fb4b80..0bb9e547127ba 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -15,8 +15,6 @@
+ #include "hda.h"
  
--	if (!pskb_inet_may_pull(skb))
-+	if (skb->protocol != htons(ETH_P_IPV6) || !pskb_inet_may_pull(skb))
- 		goto tx_err;
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+-#include "../../codecs/hdac_hda.h"
+-
+ #define CODEC_PROBE_RETRIES	3
  
- 	if (ip6mr_fib_lookup(net, &fl6, &mrt) < 0)
+ #define IDISP_VID_INTEL	0x80860000
+@@ -139,7 +137,6 @@ static struct hda_codec *hda_codec_device_init(struct hdac_bus *bus, int addr, i
+ /* probe individual codec */
+ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ {
+-	struct hdac_hda_priv *hda_priv;
+ 	struct hda_bus *hbus = sof_to_hbus(sdev);
+ 	struct hda_codec *codec;
+ 	u32 hda_cmd = (address << 28) | (AC_NODE_ROOT << 20) |
+@@ -159,26 +156,15 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 	dev_dbg(sdev->dev, "HDA codec #%d probed OK: response: %x\n",
+ 		address, resp);
+ 
+-	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
+-	if (!hda_priv)
+-		return -ENOMEM;
+-
+ 	codec = hda_codec_device_init(&hbus->core, address, HDA_DEV_LEGACY);
+ 	ret = PTR_ERR_OR_ZERO(codec);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	hda_priv->codec = codec;
+-	dev_set_drvdata(&codec->core.dev, hda_priv);
+-
+-	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
+-		if (!hbus->core.audio_component) {
+-			dev_dbg(sdev->dev,
+-				"iDisp hw present but no driver\n");
+-			ret = -ENOENT;
+-			goto out;
+-		}
+-		hda_priv->need_display_power = true;
++	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL && !hbus->core.audio_component) {
++		dev_dbg(sdev->dev, "iDisp hw present but no driver\n");
++		ret = -ENOENT;
++		goto out;
+ 	}
+ 
+ 	if (is_generic_config(hbus))
 -- 
 2.53.0
 
