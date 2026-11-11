@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434044;
-	b=eA7VjuQVQoc9WP8TLQiXGrA3K0D9cifqlgqHn3kEu2JDoecO7YoCScJy+S+fW+dAICyq
-	 lTncf6bN8606imna4UZGCA4G4t6tBWvE901JDJ/mu5ip6fbamW+jIBmYHWmQrqIResrN6
-	 84+cu8o54aonynx9mu7bq3H3wRkl+fB2t8U++o1gUIy+olRDeAFjcUJvZ7tFT0V8zqFVz
-	 TVoZameXZjux1VK8NHQxGpO+j+y1sWMIKPBlVGHzSGBGaYffAIpYMcsLgqyodxJntxW5L
-	 4+cMNJvHJpgqedsSJNbSAUAuFufKpHewQL9z23W4IWv6FrI0fJEJc77XW6QrbmpGKZQ==
+	b=AyxksrE1+Uu2+FvUM9s6wVgZSAuF2OyLchbpNYMwLf/4LBSqWOLgkRpSPmtbvh/uW9ZM
+	 VgDjo1kzqIfbe14IiAY567seHKfc1YxjcstNoylNhZJGZECRieiR90flUaAABEloS7mYd
+	 6rhSpuuCcep6gWsoNqtNb7m3ZWYYXYnEQ30mVF/yaOZj1eMCZ0WmfRgLwXMeVSY3CfRk3
+	 7Gpk91zOtvtQyRYx6yfJgxrXjEpbq4Ps6n4noMBxKQQSD1sorxmDkRo9sR0UMPaT28t1e
+	 1yhebPvNIOB5vjVR35M84cdT2kLNrFgsw2SuDVEq5H14QoambBDs2mIaEx4FsKL9Y9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434044;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hPA+fu9c0eiFI0kD+EAZDiNVDC8pWETQJZNKgYAh3VA=;
-	b=TXH46ayW1ftoFUk1ol+BkkqGKPAvI8aMQkL2y+QFmwluL9u9gMbTHsXC043bQD3KEZyR
-	 s/FTFNfotJ7pnHB5D5HnY3MmSGcvO6oAWo9HoR4S/G/3FAz4yfeAvp8EAYVPsTTrZiyVM
-	 Tnz9h1pC47bl3skiDluf/RHpqY9CC7r/2tIP8Yg1P1vLw6StciQFjGIUnzu0ErutRb5vS
-	 STGF1zh8NU0xM+wc0CGIzdNsa2NKoTwfofSRDY0YEltLzD6Fud6Jxz3q6roBZQGqHjC1O
-	 i8HALVzD5iGD8yOKcRh0/eSdq+YTT75ETMaJ2ktmIE0RBZBnVPdcLSgkNKOQv4qnWCA==
+	bh=tuf8c1dlqjfS6dbHyCUO3x+DWJUmuzX7o0coWObKxGQ=;
+	b=wflcZTPCIo847szK/z9ER11h5B95n/bkNP0J4mf9oCjfokQ6n+wHNLzt03uPPuS8xKVr
+	 8328UC7yTGFnf6AXwJGfwjzj/K3jZEAbX6QDy3UnmhEw/ofbGM82vVyyJ+gB6L/2XFSC0
+	 5I6991YNEMb/04zIqeizr5GKIAoB1cnz17fMRbHkASeDwcrR0nkxe3Gy2Xar0csGFdrqy
+	 FnFstZidsecyA7S1dA8WXWxHt2+MWN9+9CqPOQvPIFgPa4YZWinWSBQataXsIuX/SiyST
+	 zQ5aD5+oQZN8Xrvmb4pQFikaEDl80U2ckpcFLIwBBxVzzDdShryOmZbJ7xhX92wen9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6fYCzH9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhDBxcV5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA9C606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BACA606A335;
 	Wed, 11 Nov 2026 21:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6fYCzH9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F961F00A05;
-	Wed, 11 Nov 2026 21:54:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhDBxcV5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05D2B1F00A06;
+	Wed, 11 Nov 2026 21:54:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794434043;
-	bh=hPA+fu9c0eiFI0kD+EAZDiNVDC8pWETQJZNKgYAh3VA=;
+	bh=tuf8c1dlqjfS6dbHyCUO3x+DWJUmuzX7o0coWObKxGQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I6fYCzH9vtquPOYO2/OGhOXQLElzmSJourux0mDbKslwE779M+rDv9rZg2EPmpaB2
-	 +W/+rpyY2B1MY5Ak7oLqSBb5F8LIpPyLqeYLTiASg897wK358FSri8vCHIM6Rzi/In
-	 vyGVqtcZLFp5XPEKHS2MdV1pP3OQC7Bq1Wh1m6KaC83CidrR5kKv0PEinzAAtl1yVF
-	 N3ZQqxdz1Eh1DL6iC+yPeOoUX3KJpbsA19yWzgglHFwn96uk6UvHxH6T802SPx360k
-	 lPr677ptj4jCC2mfKG3Atso2I9joI4ci/RDpBUeepQdbRJGaZ8H+YhCeZNeK4wH6SK
-	 UCoSssM2wiCJA==
+	b=GhDBxcV54Kva1Fq+NJm+2XQQubAC/+TC/eESoUhg68uhbvb599SE9NubrZ1l6ZPCj
+	 ILR7HbuWX3ep560jXWlyfTGlIIfE3WCMhKujFeqvzIEarxxMswXuTGjqJoXSQG7uVy
+	 e1j+hJl1lDpzWNe/WM1SXcUKD6S+mFbZHeDBVjBeHkFouySnjStY3QBi41Tq0RdVxj
+	 Ew5gYAcS72WQ50q/WkRIPmMU0mtZroTt4W1wZOIUXxVtJ61VI/O6XRxwm+Ppmg4bJJ
+	 XuPQ0gAypiXPvYPvYncq84vNmikJjuYFWaAPKgTDRbl7fNRk16n5AGoGnT+ZepTAsL
+	 KmEh7LA81HONg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Peter Pearse <peter.pearse@arm.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Haojian Zhuang <haojian.zhuang@linaro.org>,
 	Linus Walleij <linusw@kernel.org>,
-	Joachim Eastwood <manabian@gmail.com>,
-	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 01/10] dmaengine: pl08x: Defer OF DMA controller registration until slave setup
-Date: Wed, 11 Nov 2026 21:52:39 +0000
-Message-ID: <20261111215349.1983909-2-lee@kernel.org>
+Subject: [PATCH 08/10] pinctrl: single: Free pinconf settings array in pcs_dt_free_map()
+Date: Wed, 11 Nov 2026 21:51:53 +0000
+Message-ID: <20261111215256.1982044-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.567.gdb80ae8cd5-goog
-In-Reply-To: <20261111215349.1983909-1-lee@kernel.org>
-References: <20261111215349.1983909-1-lee@kernel.org>
+In-Reply-To: <20261111215256.1982044-1-lee@kernel.org>
+References: <20261111215256.1982044-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,80 +66,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pl08x_of_probe() registers the controller with
-of_dma_controller_register() before pl08x_dma_init_virtual_channels()
-initialises the slave channels list and before
-dma_async_device_register() registers the slave DMA device, and
-pl08x_probe() does not unregister the OF DMA controller if subsequent
-initialisation fails.
+pcs_parse_pinconf() allocates a settings array via devm_kcalloc() on the
+pin controller device and attaches it to map[1].data.configs.configs.
+When the pinctrl core copies the map entries into its internal tables or
+tears down a consumer device mapping, it invokes pcs_dt_free_map(),
+which only frees the outer map array and leaves the per-map configs
+array allocated on pcs->dev until the pin controller itself is unbound.
 
-Move of_dma_controller_register() after dma_async_device_register() for
-the slave device and unwind slave device registration if OF controller
-registration fails.
+Free map[i].data.configs.configs for PIN_MAP_TYPE_CONFIGS_GROUP entries
+in pcs_dt_free_map().
 
-Fixes: aa4734da6674 ("dmaengine: pl08x: support dt channel assignment")
-Closes: https://sashiko.dev/#/bug/linux-4e233fb9-3b0c-4442-b601-c6706c9f5aba
+Fixes: 9dddb4df90d1 ("pinctrl: single: support generic pinconf")
+Closes: https://sashiko.dev/#/bug/linux-fcedec46-4487-4392-a882-3d3bef07e56f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/dma/amba-pl08x.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/pinctrl/pinctrl-single.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
-index 543c2eb8cfa8..d8441e338502 100644
---- a/drivers/dma/amba-pl08x.c
-+++ b/drivers/dma/amba-pl08x.c
-@@ -2678,6 +2678,12 @@ static int pl08x_of_probe(struct amba_device *adev,
- 
- 	pl08x->pd = pd;
- 
-+	return 0;
-+}
-+
-+static int pl08x_of_register(struct amba_device *adev,
-+			     struct pl08x_driver_data *pl08x)
-+{
- 	return of_dma_controller_register(adev->dev.of_node, pl08x_of_xlate,
- 					  pl08x);
- }
-@@ -2688,6 +2694,12 @@ static inline int pl08x_of_probe(struct amba_device *adev,
+diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
+index 13e0ae8bb389..fcd86dbf6869 100644
+--- a/drivers/pinctrl/pinctrl-single.c
++++ b/drivers/pinctrl/pinctrl-single.c
+@@ -311,9 +311,13 @@ static void pcs_pin_dbg_show(struct pinctrl_dev *pctldev,
+ static void pcs_dt_free_map(struct pinctrl_dev *pctldev,
+ 				struct pinctrl_map *map, unsigned num_maps)
  {
- 	return -EINVAL;
- }
+-	struct pcs_device *pcs;
++	struct pcs_device *pcs = pinctrl_dev_get_drvdata(pctldev);
 +
-+static inline int pl08x_of_register(struct amba_device *adev,
-+				    struct pl08x_driver_data *pl08x)
-+{
-+	return 0;
-+}
- #endif
++	for (unsigned int i = 0; i < num_maps; i++) {
++		if (map[i].type == PIN_MAP_TYPE_CONFIGS_GROUP)
++			devm_kfree(pcs->dev, map[i].data.configs.configs);
++	}
  
- static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
-@@ -2944,6 +2956,15 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
- 			__func__, ret);
- 			goto out_no_slave_reg;
- 		}
-+		if (np) {
-+			ret = pl08x_of_register(adev, pl08x);
-+			if (ret) {
-+				dev_warn(&pl08x->adev->dev,
-+					 "%s failed to register OF DMA controller - %d\n",
-+					 __func__, ret);
-+				goto out_no_of_dma;
-+			}
-+		}
- 	}
+-	pcs = pinctrl_dev_get_drvdata(pctldev);
+ 	devm_kfree(pcs->dev, map);
+ }
  
- 	amba_set_drvdata(adev, pl08x);
-@@ -2954,6 +2975,8 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	return 0;
- 
-+out_no_of_dma:
-+	dma_async_device_unregister(&pl08x->slave);
- out_no_slave_reg:
- 	dma_async_device_unregister(&pl08x->memcpy);
- out_no_memcpy_reg:
 -- 
 2.56.0.567.gdb80ae8cd5-goog
 
