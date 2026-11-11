@@ -1,50 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420854;
-	b=2Sg6TPkODSiElGR+RvYqaRadCw+rWu5Atqrj2eF3pwbOEkoF17fW/2XwI+XKC5260cov
-	 pvdscCcjlTg53wHxk/7DIVqnTWNprt23xqkv07Vut1STi27t7jpcugL+dTqweQHkA6HGJ
-	 2uU4hToxQM9ZwdQMT6NPmJHcw3MWRfrx/KIfD6m/sxYT8tFNwDAiC8mX9CC2uhEJXVq1C
-	 1skKEPKlET0xcxLwH0Ua3a90vosCdGzlkSyooeacxW0QnM7Vkdb7MLt556XtFCWeeSmXH
-	 rfad6Apg6yoiSgtFbvcw4q9prm+PhXAiv0A4nSB/LpU0KRS4nDFi5y8Fgfcu6Jdcjkw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420854;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=P77y/7kt1y7+rX559SuEiGkJe08l/ufdA6D5PwoUHF8=;
-	b=F2X4+MRkUfKaxcxnt4IugUK2o0wn4EejfsxUYr+90ZY8ujq2B6u+4nfmDld9xtKCpcv0
-	 Hmu0naxoHyqQc/tETPWhpAZbLRXgaWCqZjBxOKo4+GgqCeGbr8iWFluF/a+Tuj9idCkce
-	 H4LgUvFW/qhms6zdKdAylHVEcqGBiTiAmZlwGbB2+ZvkTBH/Tr1XxFxosvidd6xcDgdN2
-	 RkBd4HPaGBgKAOvw6jTX1UPFKv8PO1Hk7B4jH+4hTRNFgJF9ucUiH2Qk3fTScimw2y5gU
-	 SvZYrY1zKD0mcbkXzPQvkH+v5DZGjimwwK/2gMRPCj/IBqJ64kUPjXCVXqwBmiR7CXg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ul6g87vr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794420857;
+	b=T/0uKnuQXhP2hv3w2Cmrnkprkwlm4+Z3Yp9Ear9xbrxk1qvVWVGA8y0i1NPmygKBnPcm
+	 kglOZnkifazafHV1q5fUD8BGkklYtZSGuFnVMRr/nh9heUUuMTRguiSPBEA0EPSI4FIMT
+	 JVj/P8aN5DWNQil2GKAmH2jJIaQYrXo5tpCBOUKiAfmPg+iSjVmNgAAqOYvtfGGXHV/d4
+	 S5aQVbxNuShGQuncmBZuOnGGeu30iC4Lar4YmgqEz/ehJRTLLkqAj+bB94GPrfw+eWoTg
+	 BTzt5+EBI3jnBhoj+M9Oj96249ZLNRok8/kWAd0NbSwjSdJqNBwZh8uwjFP8J4wywZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420857;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=u/plPOsLmxcLve8ez+d90RlH8s4a6+KgPsXYYRGMH+s=;
+	b=N/VP+wL2XXk7lTJWYdO5XGvzhP4d0Q9SnmNg8hEqzaEQLu9d0QbnULRqDFZS80DcAa81
+	 gb+0hngiPc5KPy6GJZrwpQXoP7u9vnF+qLhPxLRKHWx/KWFhYDGey3C+ER0elGNdO+nxq
+	 br3OrJUNNxQcpTaLJjskCG/6xGln39ApUja4UNq60SAtoInrDB6kmpYx1dOZoElBQdCV3
+	 Tj4mzByYctBcqHDTutGb+c7uJ2+ncHILyOc3Dw5O8bIhIy89dQBPOT6fo4BCaUvhK6Hxx
+	 ph0x2SgXe5XwgT0KaNl2DO8uyUaRuC4lkumm4hRSDjRmiSydIyf0WTNOZvtEGVhG3uw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gK3Ktt7u;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4EE1606A89A;
-	Wed, 11 Nov 2026 18:14:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E21606B789
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:14:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E21606B789
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ul6g87vr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292C91F00A05;
-	Wed, 11 Nov 2026 18:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794420854;
-	bh=P77y/7kt1y7+rX559SuEiGkJe08l/ufdA6D5PwoUHF8=;
-	h=From:Subject:Date:To:Cc;
-	b=Ul6g87vrcahtCdQQl18AuyzeILV3lOpch0X+0iIicnk0DlFQfuQXsmH9TaKZlQL/S
-	 WjDLYnab3GQJwmbI9XfT1YShrJPtcnxuFDsaCS0yeUehxX53peguu1LeEqugWcT/cY
-	 o8QG6XaUY5RInTkZy+ihZhQfRXGT/QLcSrXJr0xJc3MAIrV21R4YgwdDxn5d+eT6KP
-	 MLlMz3gS1TKsARmHMDBHBZcR/zOC69qflX3oCBKrUE71W5RT5C0085C3gWBqrnZE5x
-	 Ou3wpKGynuq0cReHCBYykC6OBFahHTbtVFSKZdlv3wFgVH7GvjBdqv6/vCypO8WAgq
-	 HVUFXq0FaggHQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: [PATCH 00/13] mm: batch of (urgentish?) fixes in oomk, cachestat,
- dev-migrate, percpu
-Date: Wed, 11 Nov 2026 18:13:14 +0000
-Message-Id: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gK3Ktt7u
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso7571006a12.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 10:14:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794420855; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f36Ek1ekkpSaXMm1XM0n3UUgL0uheUMCoS34AH6CB4+GYJzZlPF8uZ3JtwZEZUY6l8
+         QZETy4u41dWkhn7fFu/uu9rAXq8sTl4DVEbOe5h69bHQgWULfgYNa3Ku1wBTfETu+gM+
+         WhRt+/dcOGgmtS5oK55HHm2P2VdXzgLj/O/RYdSCMS/k0hzaj3Sq9QNvdozO+9+hRxsH
+         oPGnPsnpD67CBoPDZ3moq9s2RA/qShTUUG9crbT5tSxggz1qCSHQrd8KoB7fdeTtHT4D
+         CL8cTdQXwkYz7CIRj3Z9Ormdf22uPUgSRf6p3kC1IBKs/KehS6hwEHwFlKMnZjDFoUkO
+         yt9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u/plPOsLmxcLve8ez+d90RlH8s4a6+KgPsXYYRGMH+s=;
+        fh=VS6RGsxmEAqQYzn8OmHnkA13eJRh/oPjOqHZsuF5dpc=;
+        b=k1gMpzJ6zwd3IrqdqN5F2ro11+fMDfpRmXq8zupIER87Ij6TfMAmAm7fDzPO6Hcqxe
+         XxTAfd4nm2HDXjxkloF1MrF9L2r8xiWiyOUI68GSzRk7n13yRHBMByggOI+jqbc9A9kW
+         FCEfonnaazVhEy9BZQf44Wwrp4bnK7K4qGSepafn1Cuw8UgtRXWG557X6GOPl/KqMZpO
+         R+WW4dGy0p5TivVaK32aPxO6pCekLY5zw8CeShRx/n/GJO4z1sUwLuB5qRoYO8VrDjqZ
+         OH2wmOzwEVGkfPBEorylNto/5ya4FDYr6NsHWVGMnwwBmAUqGx+KkeTb3BVOtwnkWFSw
+         +Z4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794420855; x=1795025655; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u/plPOsLmxcLve8ez+d90RlH8s4a6+KgPsXYYRGMH+s=;
+        b=gK3Ktt7uO48sW2HgQ0sVF9ZavycJxcbvaivLmHcWQulOKR0K+srmmhX0wrZ7nRBmRa
+         QoFZ8MoNmA2K+OPj7Vp/gk683cYhzgQhGkxGXWkIk9U5lxsLcrvcgbF16iKFYlJhtLUP
+         EYagIys/GjeF/5rBRMry/hZGaW87hXgjPbZlgYQfMhr70TSnSll553qcRhgEo7JH9ITI
+         HVNtK0HAl/YlKDhN+5Pb94TLqbEjvyimuxozA66PEoXg6IuhLOeKB3NjOAYRx1Pm3x0J
+         kIuL8HfSuEoQgBdDFTJTIIFkx+ySUshUusQ2esQ0fjviccCV80pg0SJsrkbz4cCKqIFP
+         5ZLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794420855; x=1795025655;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u/plPOsLmxcLve8ez+d90RlH8s4a6+KgPsXYYRGMH+s=;
+        b=PyBii8x/KvajXsm91IAJqJ2ea8whq3AjKd+3cIaN0WMdlv6QvPFs25kQGkRSp3PaKO
+         FsyOZ7cOWHUIuuamPI3UiQA6Q0pqog3mHZzludC8RGViRfkWDYVKpN3HUbX8AlJVZnGV
+         ekD3qZXAlCJ53kQlEo7uz4NES75ypZrvM+wf2ySBk7pQ23mrXkzuFBqbQ8n2BOr7+VG7
+         60clvMNdqXmoqKIDUKPkUrgNJ8mGBl7/ndOm1C3pLpSb6qSecv0ksPDWPPkdFY7fHgVO
+         xt2jwPGhNO7mgAvAmGF0bAbmkQuRFx/lcn6N6//D5reOW67oNN4DrotNYBht8uMpQCyo
+         yfSg==
+X-Forwarded-Encrypted: i=1; AL+hErECusRAwhy5xbAj8xUKPrl0gQoDCzRfWu9FjQogYMlKOuKkh/SwgkLX1D0WnG8vFQD6QrmUGpQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BqvI4CNVcI5fjq46+1Txiwdw6nt5d8JJpGm1eEM9ak7WJ4rGr
+	6jPr54GE3/KOQ7qx2wkUQeUNm6tRD7K4NTs1IUQDWgpCiKrFmyFFpCP5DxMhp/6dTUptVAIz5eG
+	Pc5kOjXUUry33pKG0tTjk5Y1U9vjUQvI=
+X-Gm-Gg: AYBFou0/DKRGmgkm3S855SgRNMYbxFGqfA3phGFsIBDtR5HsSZ7t9cyM0I8P5fv2Kja
+	hRggFGU3KVvZUa1LQ1dyU3x7oLwRkhh747tSbbwBR0ekwND66IquC+uCc5r/pvoQTnRRspj/0Be
+	6IdhNoUl1c41wImQi0g3VrQy+vE3w+sCO3Hi6jfTvLuapY5oZv6lXxJF0c3dnu3W+/QBfUCFyYM
+	mPXVmYwq4fmXI/qFprT1MFJEZchF2q5BlA4JMadJgmBDooD/1i69uuAYrF+FEXFUDMQYGnLqMCr
+	CJ/ktLpfk+qSPu9GWyB6xPPwAglUDcfHidUyBNtoGpgOwYCHYQFO7txMjbB8zVyf929FOWuYsHY
+	gOIpxRhO5DsKBl6AVn0nF+eyTRj4/HWZ1iijvJomKnjAPA6lrBHugHZw/Dn8od7QncEgtWQ==
+X-Received: by 2002:a05:6402:1247:b0:6b1:da03:d010 with SMTP id
+ 4fb4d7f45d1cf-6b7777178f4mr1942836a12.23.1794420855147; Wed, 11 Nov 2026
+ 10:14:15 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,98 +104,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3LSwqAMAwA0atI1gZaDf6uIi6KRg1olaaIIN7d4
- vIxzAPKQVihyx4IfInK4RNsnsG4Or8wypQMhSkqa02Nu9PD4y5LcJGRI7oNZ7lZ0VBLU0lNQyN
- B+s/Af0h7P7zvB5HA7NZrAAAA
-X-Change-ID: 20261107-mason-migrate-et-al-fixes-0494d34884c4
-To: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
- Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2003; i=ljs@kernel.org;
- h=from:subject:message-id; bh=qNocdPfgYdCqYkS09WXKZzoMqv0tyceAP/BmWJ6twEY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+bMh6/jjggEma/N5V3S07XynbZuybunzBqwu5UlJrv
- WJmeO2e0VHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJCB5kZJjzxOxws0rvo5nh
- an+Tm1ZIePvFZaofOV4ukycVd26OHT8jw5p7drqvkg04c+4cX/256vjk2ds3znor/5nFZdLC0tw
- yRjYA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+References: <20261111000913.22943-1-shakeel.butt@linux.dev>
+In-Reply-To: <20261111000913.22943-1-shakeel.butt@linux.dev>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 12 Nov 2026 02:13:38 +0800
+X-Gm-Features: AclHuK8h0ELM0_haw4Gg_bsSdt3hCgaLBxy2Y7ejZe79euvCzbW_wpkEQNryCYE
+Message-ID: <CAMgjq7B+PE-Tw_v3bKYzNOTaT6+0_fn8gW7sNpMwzP1tPGbDug@mail.gmail.com>
+Subject: Re: [PATCH] mm: mglru: splice all generations when reparenting a memcg
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Noah Feldt <noah@feldt.systems>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A bunch of fixes for oomk, cachestat, device migration and the per-CPU
-allocator.
+On Wed, Nov 11, 2026 at 8:10=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
+> Noah reported list_del corruption on single-node hosts running 7.2.11,
+> which already has commit bf4ade7dbd76 ("memcg: keep folio's objcg same
+> as its node"). The bad pointer is an MGLRU list head in a freed
+> mem_cgroup_per_node:
+>
+>   slab mem_cgroup_per_node start ff31bfa36a3c9e00 pointer offset 528 size=
+ 1920
+>   list_del corruption. next->prev should be ffacf881ccc70e08, but was ff3=
+1bfa36a3ca010. (next=3Dff31bfa36a3ca010)
+>
+> When a memcg goes offline, __lru_gen_reparent_memcg() moves its MGLRU
+> lists to the parent. It moves only the generations (gens) from min_seq
+> to max_seq, and it puts each list at the same index in the parent.
+>
+> A folio's gen in folio->flags can be ahead of the list it is on. In the
+> parent, the same index can stand for an older gen, so the folio's gen
+> can end up older than its list. Once the parent's min_seq passes that
+> gen, sort_folio() puts the folio on the list for max_seq + 1, where it
+> stays until the next aging.
+>
+> If the parent goes offline before that aging, the folio is not moved to
+> the grandparent. It stays on the parent's list after the parent is
+> freed, and the next list_del() on it touches freed memory. This needs
+> two cgroups on one branch to go offline one after the other, such as a
+> container and then its pod.
+>
+> The parent always has MAX_NR_GENS gens at this point, so every index is
+> valid in it. Move all MAX_NR_GENS lists, not only the gens from min_seq
+> to max_seq.
+>
+> A reproducer that drives these steps through the lru_gen debugfs file
+> gets a KASAN use-after-free on the freed mem_cgroup_per_node without
+> this patch, and no report with it.
+>
+> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+> Reported-by: Noah Feldt <noah@feldt.systems>
+> Closes: https://lore.kernel.org/all/20261110132853.71228-1-noah@feldt.sys=
+tems/
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Cc: <stable@vger.kernel.org>
+> ---
+>  mm/vmscan.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 6a1af9b92349..902616a3b755 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4751,19 +4751,25 @@ void max_lru_gen_memcg(struct mem_cgroup *memcg, =
+int nid)
+>   * The same generation has different meanings in the parent and child me=
+mcg,
+>   * so this compromise method will cause the LRU inversion problem. But a=
+s the
+>   * system runs, this problem will be fixed automatically.
+> + *
+> + * Move all MAX_NR_GENS lists, not only the gens from min_seq to max_seq=
+.
+> + * An earlier reparenting can leave a folio whose gen is older than the =
+list
+> + * it is on. Once min_seq passes that gen, sort_folio() puts the folio o=
+n the
+> + * list for max_seq + 1, where it stays until the next aging. If that li=
+st
 
-These patches were originally AI-generated, tamed into upstreamable state.
+"sort_folio() puts the folio on the list for max_seq + 1" seems not
+very accurate as MAX_NR_GENS - MIN_NR_GENS =3D=3D 2, could be any stale
+gen outside [min_seq, max_seq], right?
 
-Some are more reworked than others. Those which needed a significant
-rethink are submitted as mine and marked as Reported-by the relevant
-original author, others are smaller edits which are annotated as such in
-the usual fashion.
+The fix itself looks good.
 
-Please check for correctness, sanity, and whether the cc: stable is
-warranted (I have not included it for 3 where it seemed unwarranted.)
+> + * were skipped, the folio would stay behind on a memcg that is about to=
+ be
+> + * freed. The parent has MAX_NR_GENS gens here, so every index is valid =
+in it.
+>   */
+>  static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct=
+ lruvec *parent_lruvec,
+>                                      int zone, int type)
+>  {
+>         struct lru_gen_folio *child_lrugen, *parent_lrugen;
+>         enum lru_list lru =3D type * LRU_INACTIVE_FILE;
+> -       int i;
+> +       int gen;
+>
+>         child_lrugen =3D &child_lruvec->lrugen;
+>         parent_lrugen =3D &parent_lruvec->lrugen;
+>
+> -       for (i =3D 0; i < get_nr_gens(child_lruvec, type); i++) {
+> -               int gen =3D lru_gen_from_seq(child_lrugen->max_seq - i);
+> +       for (gen =3D 0; gen < MAX_NR_GENS; gen++) {
+>                 long nr_pages =3D child_lrugen->nr_pages[gen][type][zone]=
+;
+>                 int child_lru_active =3D lru_gen_is_active(child_lruvec, =
+gen) ? LRU_ACTIVE : 0;
+>                 int parent_lru_active =3D lru_gen_is_active(parent_lruvec=
+, gen) ? LRU_ACTIVE : 0;
+> --
+> 2.51.0
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
-Chris Mason (5):
-      mm: cachestat: count each page only once
-      mm: cachestat: restart the walk after each entry
-      mm/migrate_device: fix ksmd oops on a migrated KSM page
-      mm/migrate_device: refuse to migrate shadow stacks
-      percpu: queue the balance work on an unbound workqueue
+As Barry mentioned this is basically the same code as a prepare commit
+for MGLRU-FG, which is a fine and clean fix, I just didn't realize the
+problem was already reproducible though.
 
-Josef Bacik (4):
-      mm/migrate_device: allocate THP deferred split heads
-      mm/migrate_device: don't collect a range twice
-      mm/migrate_device: don't let go of the fault page
-      mm/migrate_device: look up fault folio after a split
+Thanks!
 
-Lorenzo Stoakes (ARM) (4):
-      mm/mmap: free gathered pages before MMF_OOM_SKIP
-      mm/migrate_device: fix use-after-free of the anon rmap
-      percpu: fix contig hints that are too low
-      percpu: search the whole reserved chunk
-
- include/linux/migrate.h  |   1 +
- include/linux/mm_types.h |   2 +
- include/linux/oom.h      |   9 ++++
- mm/filemap.c             |  21 ++++++---
- mm/migrate_device.c      | 111 ++++++++++++++++++++++++++++++++---------------
- mm/mmap.c                |   9 +++-
- mm/oom_kill.c            |   4 +-
- mm/percpu.c              |  69 +++++++++--------------------
- 8 files changed, 136 insertions(+), 90 deletions(-)
----
-base-commit: 7f04048247a69019ccaa9c152002d3601b19453c
-change-id: 20261107-mason-migrate-et-al-fixes-0494d34884c4
-
-Cheers,
--- 
-Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+Reviewed-by: Kairui Song <kasong@tencent.com>
