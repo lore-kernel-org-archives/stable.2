@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794408458;
-	b=HOA/1porqkIiKhHdTC67LjHlUKmNV0vmJAZB0gWSwSsuoOpBz7W1rIeksHl4UJbNTqw4
-	 05T/mvjMs3YXAHYE+ELTc9wTOCgmZ/1ybBk5JMT398tPySjfR+/iPSmYDZS2zINfbLQk2
-	 UiDgm+7JgJJYeXwJGzr+4mw/ViQFUhpF8x/11cKwCF1XNrKjpZurPpNixoWf34zAGzXdj
-	 CXKGFTs3e56wS3cpDqzjKso6ZBmovUqIOAe7hWpxzFEdxidK7nFhwE+UIKhtk6rGFjB6l
-	 xRpJ9kEkO0PTs9d2K/Z6i95CvyPOd7KS2zabmKq+nT1Nrrg9Rlg+4M/mpM56yuK6sLA==
+	t=1794408471;
+	b=qwsH8+l0Eew4QIri2csybkEHNfSmRHlcfIxMVmBUDJk1P1ERfDfbDXTnJuTIQYX3x/8I
+	 1/Q6oVvcIkYnt6NnJTC5SJrbid4rrpxK8jJoNJXVUg+lVjG7q7ra8VFPOkEnVkSpsRWRy
+	 vgPfBOyDI5Xs0TU0c+MlfYciozHjGRlJfcabVUsJoPSUQM0NxkoJxd1GwViXIPoWMkYlA
+	 tcuTLC3FMRgags/BFlw9wgRF/52xzqZdafvQybTfXPaFqqEVHFlwKsZpFhnaX4gdfM5Cf
+	 jHh9kclkUxEjpODtiw8JS7Erukp6tqLrMCV5T4+/Nuj+wQiiyN9xWwTPpAYe+WleR8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794408458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794408471;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xt7YBHsRUOO/GbbxIjE4kXFrozFvU3CMPvWj9oEr/tM=;
-	b=aifXpEBrmN02RETObK5jp+xxrkKXSmdQXBphM5s0ZKpL6hYtucDJK1N1vR5HGXZqBbOL
-	 k9PxnlctJWG3F1AzHKHxZ/Uv8lYEiuTA3B/0edyz/eNoURmuDKx0h3od1LHgP9eyoqLIj
-	 SURX900c5dMIs9W2fiBmvvo87M0S9YjFKStwf7BB5JkpDDlwZTJGNRKStBD0d6blIcxCA
-	 IOjAnMMLt8/G9eYJ7/YS/pzC+C5jHKL0tjtejISTtc1JcOFK4Jb+1RUbzV6umXUkGwrRx
-	 qsvnXrzyFFGn3doxXo22uvSCr/FmAKZBIntXBj8yO2DCkq1NLO4viv5xzE+6BBhd/UQ==
+	bh=dVo3UWfNLm5MzcGJrPPxngDCYnmUZLpnuJzO84ZDdCw=;
+	b=ESnuEiAOAYZZiee9QOOnFyZC4W+C3gHXDcvevrCl1VIpv1C4Ql+dxvbUQ9tF4dsat0m3
+	 nBCyXYGHdP76s5g/2GLWEOp7ONBgTm2yEZEihZAJuAStaTrFbQe6GyTIqBBAA4pgml7sE
+	 loL0wh5Thf2mDbx7RM3KCcd7J8RMYP/tHD4vrGcz95xGjMVoVYryqFWFwX1uXpZ0Etyw7
+	 CP2tCMu9JYIBvxtMwSXON+AM8HBlP0k8/yiJaM2EbSDutJALDKvfixAuBenXTL7/+qC5e
+	 syVgGPdCc+URmO6h5FefL1R+mTW8NUsUbCB4Vr3UQWn1IZfB4/ES3qaaBHXlBFmg06g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mG8uxaQq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X1xsscS/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4986C606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C23D606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 14:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mG8uxaQq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5051F00A05;
-	Wed, 11 Nov 2026 14:47:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X1xsscS/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BD7A1F00A05;
+	Wed, 11 Nov 2026 14:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794408457;
-	bh=xt7YBHsRUOO/GbbxIjE4kXFrozFvU3CMPvWj9oEr/tM=;
+	s=k20260515; t=1794408471;
+	bh=dVo3UWfNLm5MzcGJrPPxngDCYnmUZLpnuJzO84ZDdCw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mG8uxaQquQh9rjiKAknG8mY1HdelcyqhoKsPaoMAqVc/E8TWGtRQZwimZFJlPghxB
-	 RaO289lYPAg3AenvRaVrpEop+tWR/6aMcatqXYedUteqm7wtIIyQseczXvNf4m5jGq
-	 Su0Jiimq2/F5s4sqPPLYHNZKITGrywHCu4NR9QsQ47gIYObMkiCkmYEQUeUlg+F35l
-	 aB8VQLKQ5QvJ3P6VEd8ljH5lP0NtJhyWoDDXu05SdkwoM3ki0Q9IJaE98qvuu7Ydab
-	 r+8Dp9YejVpM0x7zapOJOZXakHMcfp0et0V/hEF8MqOxhX+N9Fl/xanvZofIfV5GC2
-	 IAvTS7Bof6YXA==
+	b=X1xsscS/x70Qmd4/UGHBsSmQ9DLxRUuQWIoYOHCVxJ+0YDkmYy7AKRvG1VDWNIbjA
+	 hQw7PQPLGd9kaLvyk09V79vZ5kWSpqkkEIgAvLdCNqtZ4cwaPaaDLGg/k1NlWBDx/H
+	 nPWj+Xn3Uy6FwJX4A/W1JRG3IUbAV3J4LmxIMK5J17VtFq71CEi7zZWvSgxJSk5gKF
+	 6yvA9LTUm9Ax2IKlLEp16vIP4WK9RM6IyF4hydQPSK3q1fMsC9EF8uagpCEfswS7Z3
+	 f9erKTnHI4kR4/k4WzS0IvWvHqu0+i4AZBCTrKHO47OCKKP93pM0S50VB/Zygm+xzt
+	 bfET41u9PRwYw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] media: sti: delta: use unaligned accessors for MJPEG SOF fields
-Date: Wed, 11 Nov 2026 09:47:35 -0500
-Message-ID: <20261111144544.2395168-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ceph: fix longname buffer overflow in ceph_fname_to_usr()
+Date: Wed, 11 Nov 2026 09:47:48 -0500
+Message-ID: <20261111144626.2448202-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053118-failed-6.6-fdc5bf02aeae@kernel.org>
-References: <20261107053118-failed-6.6-fdc5bf02aeae@kernel.org>
+In-Reply-To: <20261107052640-failed-6.12-71975d6e0db1@kernel.org>
+References: <20261107052640-failed-6.12-71975d6e0db1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +62,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-[ Upstream commit fdc5bf02aeaef04e7d13895db9b6eaf8083953f9 ]
+[ Upstream commit 71975d6e0db17646102488cf54480fda9de0f7a7 ]
 
-delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
-byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
-The SOF parser then reads 16-bit big-endian fields directly from that
-byte stream.
+Snapshot longname reconstruction formats "_<name>_<inode>" via snprintf()
+and memcpy()s the result into oname->name.  Checking the length against
+NAME_MAX only protects the LOOKUPNAME/export callers, whose buffer is
+allocated with fscrypt_fname_alloc_buffer(NAME_MAX).  The readdir path
+points oname->name straight at the altname in the MDS reply, whose
+capacity is altname_len; the reconstructed name can exceed that while
+still fitting under NAME_MAX, overflowing the in-place destination.
 
-The SOF payload is not an aligned object. The marker scan can find the
-payload at any byte position, and the SOF layout also puts frame_height
-and frame_width after a one-byte sample_precision field. Those fields
-therefore sit at odd offsets within the payload even when the payload
-base happens to be 2-byte aligned.
+Save the actual oname->len before the decryption overwrites it, and fail
+with -ENAMETOOLONG when the reconstructed name would not fit.
 
-Avoid casting the byte stream to __be16 pointers and use
-get_unaligned_be16() for the SOF length, height, and width fields.
-
-This issue was detected by our static analysis tool and confirmed by
-manual audit. A focused UBSAN alignment validation of the same typed
-load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
-
-Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: Replaced the unavailable Linux unaligned header with the architecture unaligned header. ]
+Fixes: dd66df0053ef ("ceph: add support for encrypted snapshot names")
+Suggested-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ sashal: adjusted context for the struct fscrypt_str temporary buffer and %ld inode formatting ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/ceph/crypto.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-index 90e5b2f72c82b..6e156cd806bb5 100644
---- a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-+++ b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-@@ -4,6 +4,7 @@
-  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
-  */
+diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
+index f955a37d6b17d..97fa6b821d5e8 100644
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -389,6 +389,7 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 	struct fscrypt_str iname;
+ 	char *name = fname->name;
+ 	int name_len = fname->name_len;
++	int dst_len;
+ 	int ret;
  
-+#include <asm/unaligned.h>
- #include "delta.h"
- #include "delta-mjpeg.h"
+ 	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname->name)))
+@@ -464,6 +465,9 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 		iname.len = fname->ctext_len;
+ 	}
  
-@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
- 		goto err_no_more;
++	/* oname->len is overwritten by the decryption below */
++	dst_len = oname->len;
++
+ 	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ?
+ 			tname->name : oname->name;
+ 	_oname.len = oname->len;
+@@ -481,6 +485,10 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
  
- 	memset(header, 0, sizeof(*header));
--	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->length           = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->sample_precision = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
--	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_height     = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
--	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_width      = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->nb_of_components = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
+ 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%ld",
+ 				    oname->len, oname->name, dir->i_ino);
++		if (name_len > dst_len) {
++			ret = -ENAMETOOLONG;
++			goto out;
++		}
+ 		memcpy(oname->name, tmp_buf, name_len);
+ 		oname->len = name_len;
+ 	}
 -- 
 2.53.0
 
