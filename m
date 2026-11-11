@@ -1,106 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794389889;
-	b=TAHjCNhEX54XLIhYMzQgwzO+4ywJQMBIf6ifaOOgDNttj0m4WmtsAWxJvBYUOgMNJaLt
-	 WM98ssVLtX6XPo51NbUlByX5Hnu6d562QJwlWImQ4chZuxOglQL/V1cFx5GJZj2kwBwef
-	 Gppztee6wHsYrvrrEml9QiCGDOGeFHvtqZTGj49ydL6ymi97o/K2pUDnp7ViSpEIQCBrn
-	 LEQGBG+rJ6OjKLXQywsRJpKkKhNO1dyMh2xlFarsUvBBCluWpG/tMDfg2ZA7igxpb/mJr
-	 VDL3hEXPoxq2N1NXsDIkYZcXDjqTILahl/jIarEbS8kR5CzDXRYsrzCKWznoOdKDXww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794389889;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794389901;
+	b=j/GT8/tc4HN27FR/W117pqvhy4s8VFG0c/BjlH5B0EPqtzvlOdTTwUrx1oC8XThBOQYw
+	 E+otM5uXHHEcQRumFomCfTlKCYonUglJ6mNmfZ92KmZ11zXrOU2aePapYMAeuHcBswZeM
+	 4pcU0u1a19xpR5yQpgwQK3ub5pZaWHWlxfTiVYX/zaf6iMieuDxAgm8q+vM4qQ4eU4/lc
+	 RnRePQlSnAWftcfLW0X7OAMhlZ0eTfL9y2Gg2rJjo7S76mj6mPtpvHzi6bjKjec7hd4YT
+	 VUq9th7AJLRJUhE2z1RYzZsSfPvEF4/TCApIK7qqPpFJk9flEfqRX3jYzRQMl333iuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794389901;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nNJ7JQckRH+BEIq6xP+FgdYGraXKkj9NjALFdeEe068=;
-	b=iNLgvb/bBNurjfMxfgr2uhOizSbdht3M1LzHhKpteySitwoVeeTGM0mKm61PtsP4WIoO
-	 xOEBCAHWkg8sL6r2WjsS/ePTZDRpOZ4zI8lWcAn4gH9RyI/6sypSbNZiPREtaIHmj+OGj
-	 j4dDazhbqHbjzle7yD3+bN6Wuidt2KOX/wwpW647Bz3RWHlp+bzXMTh3b/C5FI9j9W55Z
-	 /LyES2cV9june5BI5hO6/qaGWiv7R8dtS8euILBxCJXwwgAW2A+pNHE+wi0vKaj7w4MM7
-	 LkJyB24h8WPSuv8yMzAExLl7jMLmpAa6Mw/bBzIzB0CEA3i/p9aTFbxJZy3Bx+jTeHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Hp8TINu+;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+	b=QN+o6dbn9PV4siGWl+8eOdil5WtkunHmoxxtqPaPJ4ZKF/m10x7FaJGbxFH5pV9C6UD/
+	 CH34jcbLAmStVJzo7gx77Dxb4WNYQ16Y0x6t0uHRfMJBrUSp6oYhsNNqn6MBgUSg9Pyrk
+	 TUZY24IOJmBSyJXOW93H+LULSHsbgXYyKDeXjeY3iy5VDMtre3NhVAAM1mBvP/iZQCGAk
+	 e/omx0LIEF+v3pEoGXn5FWqLW3FUij3YuyI9zNeeF04FHYbjAvWX7AuPzEL3+QNZH3Gys
+	 J+nz33KDo5a0NRkMYJ04pz8FDtO4WcgCjtxAspNAj40lRnLFReKiMnaMhP0bbDXPWjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pcc.me.uk;
+	spf=pass smtp.mailfrom=pcc.me.uk;
+	dkim=pass header.d=pcc-me-uk.20260707.gappssmtp.com header.i=@pcc-me-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C2w8b7OY;
+	arc=fail smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A125606A338
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:38:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A125606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCAF60A2635
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 09:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBCAF60A2635
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pcc.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pcc.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Hp8TINu+
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3704d30b84fso3820559eec.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:38:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pcc-me-uk.20260707.gappssmtp.com header.i=@pcc-me-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=C2w8b7OY
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b785ca42ebso391957a12.2
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 01:38:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794389899; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OT/PKU9etc8SGDaSyO5Otk2n+kcxKNtgwni03WV6tVaXuYmYJzdubIbzfG5P38mjKb
+         7/MSa2zAqSk4pNqNSUYZVjFh9IYo1gtSoq4ZhbYMlyrfSW9mnWEEQBUtCttJQviJZr8y
+         T0EAXe3Q0lB8zj2pFwtgODDsT/mnc7+gOWbvt5rfn4jcgZEjKhfiLInye2yk9nRRp8rf
+         gB6Hw9KKNyEe90dutPk7CO3aMxJLCqBO8ZwCmwwDxn9WCSnjyK7gKzJMCDvon9TXDeXf
+         Pi2Ow4gxS0C7pgp7u45hngZWItxQGJcs0YaJyz0+haVXyVVFEWFmOXMc49y8gsOLLtCV
+         8FXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+        fh=j9I8NTRhKXOwASsAwAhzQn4z/S8dA3EtE5bckaC3p9A=;
+        b=n2udLalItrV+OsYejFNpfmWbsWZEJl2ubqSBs7kAWeyO2Da0yPe7fJMLl96E1ZIfaU
+         XEBrih2LyCKpFKA+X+NN6Oh/MydpgxFZqGV/PXmF0QqOz2ObKp5YmMrIAciQ3+/pXmKq
+         YFh+caCNqKgbzg3YTsPDwYnrNpl1T5JAjadrKKAVPmCo3V/raovkwGLUTROUxAj3Tka8
+         lOoh5E5DOy3MoqAmiOgj8hmS0UWh9BO9gzU7ulGPhwtPnjIy6w7jN0HnXj3BkqMX5rRc
+         gFgosom5oq3AbeU7jMA7nBPIiq2+cISk3Y2VLaknA3yDpKBpLrdKRLvgaEwuvUj2BMh9
+         tyAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794389888; x=1794994688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nNJ7JQckRH+BEIq6xP+FgdYGraXKkj9NjALFdeEe068=;
-        b=Hp8TINu+StVbWUF9STZfwLttRriFG4m/TTYAn77RmTP7oLZkquAPtP7LDofs0l6YaA
-         mXPlO1+FE4H4/APt9LqPOS0nTpcaffuF2gWKMGdl3AfVowWkxWwy52ja0UhNR47UMD+Y
-         4j40IXj6fEW45aK8lxNu1G/qBPELv/6Hno8gmS4aaanQb5hJaGZ4m4T6cPO54tLdpr0K
-         VsBWhYE12WYodlVzWVPNWM5eoMXBgee/68IdlhFwMsn4fD9WhAhs6Hkpp69nM/2ImCoY
-         kI9t8I/N1m32OIEnHE7hjkAHX7GsKZSJPJnve5ZY2Pif67LTxxy+heRKCrEHX3ZsqrxJ
-         bY8A==
+        d=pcc-me-uk.20260707.gappssmtp.com; s=20260707; t=1794389899; x=1794994699; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+        b=C2w8b7OYkg7O6ncEssqboYxo4r22YL6J95e/T49TeMXUL2k0xnALN9YymFBsayWC/Y
+         /aiCRjZweTxNor60miNWYMu5GTviTVd+I2jgn9sJflJJMvEgRDTFbUcBWBtVxkBJ8nKK
+         e7AAdO+j9b0hGq41NCxDbWSFFg990yTj4LaDBrvZWHkhJnGNh4fA3ISsavIbx3MYZDyf
+         SNMIilWJLam/OsH0oK1KbGIH2rusvJilQJoU5oDhHomPnmCf+zIoHZkLL72MuOlrwaC9
+         u4BXGOqjXz0vDDexPr4YyiJXEX2H1cc+QJRfyjzBl6IaAE6Mpn9EnyX01x3Pf81XuVXC
+         1+MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794389888; x=1794994688;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nNJ7JQckRH+BEIq6xP+FgdYGraXKkj9NjALFdeEe068=;
-        b=D4kYgpgVbm96hzfXX4XJQBjSHRMD3V7h6C5velBzYL4djDlsghLhuInc6w1Cna+HcA
-         DbwJepMq1GxtcBo77foxS2R/wnLoQNEx9znwqCzkVr4SUJhqKWPvgw78lA4ZXxyqwCy/
-         ZwL3pVr+DFx+t1uoXmenre3lgSnRviQysKzw+fOTObvxt8HXnDO7JykKZajBCRpzqlsB
-         SK1452EUHj/ghhNaYLZpo3tEdC/HPGnqyOqSyoRFwhWinrx08L4tIH7pxFgLyjow5CHm
-         /j6lUlTuqQHEhR+L4/6ffle4UbqPBDwcMgrGHbSxFEsN7a6vZnm5ZZfi/GnjNRhBeMNA
-         +zIg==
-X-Forwarded-Encrypted: i=1; AL+hErFH2QY8+791efP2vsLF1M5NWkrs4t8bD5DfV9m/xUf3hXmj0t6meQmUE+qHF49C0L7lVX7wA+I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nxmku6LBA2wrX8xqmW8NS/J2cqVL6fSRmGTQIKCDgxGH6tmMj
-	FIif8Jdm4zA32yjzTytP/O8tu+I5DGmbP0Qt7uXjp1glXgFgJadKcbmFbGqvBA56Ba4=
-X-Gm-Gg: AYBFou1mHbNGDhKy3lScnX4B3tdCn0PLoWjj02lydnn6EyB7Uy2BvaEtP8IcRkYjA7+
-	W0V/bXzFvjjqKmQa5GyGgbN9k5Xbp6MyMTJvBJxABFF6b7bC+uko30MGVcEXFy9Y41fULUrJpMu
-	r5nAD9YRqIoYAJBFZDvzt5aWM56dp28fkm3nDF4dlENwJGgH4ntAWPvYKDks4Uy2D/RFwjuqbcH
-	ha0I9/6kW6QELIpjckx0v43l5I734ecINvDVhoifI3CCk7uv+H1B+oby/VTMG78o05qmzrwWynh
-	E4DobCkcZB+NNXjsVi2/HvztxADf/MKOt2nwNkmqHVJ8ZjRfXbdbj9YBRlkXBycYJS1WvjU3H5T
-	qiFLTuU0RCsIJRDwIgr3nTohiUbuVgTSvlopZj1anyZlTlXgRPGMwDHalH0Mzv8EY5XuhraMUM6
-	6mY9fthkMmnXy/c1JFEmdBU23hsPlNmBBLYgVrYL58Jt6CH5yId54E5E1U85t12ewBl7IBUvKIm
-	eg8y6AhuHmQvqZYtAjwbPI0/fPzvbBQeNCW8ZCm2m8YHCKOPR2iTIzTPLUyK3cFNNReFo1gsF9c
-	w+568QVjP/bNWPRikqyfP8kI081xoXpkTe2nANk4BAz4wChqDMqqeLcuEkKkow==
-X-Received: by 2002:a05:7301:4902:b0:376:f63a:cb24 with SMTP id 5a478bee46e88-376f63ad124mr1305017eec.3.1794389888322;
-        Wed, 11 Nov 2026 01:38:08 -0800 (PST)
-Received: from G6L4RL2QG9.bytedance.net ([61.213.176.10])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375212e9e03sm29016749eec.23.2026.11.11.01.38.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 11 Nov 2026 01:38:07 -0800 (PST)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Miaohe Lin <linmiaohe@huawei.com>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 3/3] mm/hugetlb_vmemmap: fix deadlock during PMD split
-Date: Wed, 11 Nov 2026 17:37:46 +0800
-Message-ID: <20261111093747.50048-4-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261111093747.50048-1-songmuchun@bytedance.com>
-References: <20261111093747.50048-1-songmuchun@bytedance.com>
+        d=1e100.net; s=20260707; t=1794389899; x=1794994699;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mcP1Za+h/1XIgDOTVtisn2Oic4OHK4yE4jC+JPQehyY=;
+        b=kAT8QDvNvHYtK6Twy40PXbKB12D7JUdtBZpBxl1ZZGJb+IqowI0Xk+1DcsPJL6u24E
+         ybp7gNAntL7cvpOqBwF/lpKOtlBPKRuvnCoYVEhGmOLIdx5gDP5M9i8gmYHiUtGuQRML
+         wFTEfMhIomZHTI28BKfUMk+LTkuUxsCOoh+P+goczKYhaijUjKbXKBjmzd3GIdDIkO2Q
+         IjFLcCpPeZano5UVSTjrWZDRRpAJ0QkPO9Cyq9LAzjowMvVRcGf6bohpwhpLcRMUZp/g
+         RSub4hj+Mm2ALtdtk9N64Zvo9J3fvQ2UWVAtAru8zt61h9DeWxnJtxwcBIr+L0X9J3eD
+         qzpQ==
+X-Forwarded-Encrypted: i=1; AL+hErGygwhJmjngNDKiq3FsozhQMkhhcJpCkJxHHl/dakFz9lQcE42hi0O4RtzWCUbRG1jrH/h8Mwo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ckmI6TkWKQ817cwHa2qGV7paSum1qhhxwP6mOHNOq9phBWAZb
+	+aGHvQn8Ut7czlLAkUHnrxjIMaDzwu6m0wIkbD6HaPZJMxZHRJhZfrccm1xgWdxPkW/vRRfpzkb
+	/Px9h4R9mq0HHTaNPsrbmWwQL8iK/zLbK1HH3/vPpfA==
+X-Gm-Gg: AYBFou0GaANG4LNxoach86yoj0V5ZvIKVkYYWSdthzdPYHqUfjfqOE6/zSfNtygjvsU
+	Fdop7eXQEAVpMQTOPWeKw/Pb6xWwPKG7g5c7HGi5TRmywYlcKOgGg0SksnEppGMZtqttRxIg9X6
+	AZDpU8AZckdNGaJc3Po94QbMng8H04A8Yhuc0HUvFn0cOTM/qA/Y9tNdTqehVnJu/xm+QmpsvCz
+	BbYn6Gfc17wGdKs271voEsNJoISFRJKTPNVSer4QhFgWq5t1p197tWJg9+pahCCSSkGMrMIJotU
+	Uct7t0o03nYgAD+EQ6LknfrvmNZH1kWXtpCgMWhtVwyDVCBg2vNIQcn6PvoY12xVob7FzoCKien
+	uEIzPmDbCcuUDWNCpxQc+qC+1SnnUBaFGN4V2ixA2CWVnf77+tgk67F6qdkrrjtFoXW0kCQ==
+X-Received: by 2002:a05:6402:13c5:b0:6b5:76be:be54 with SMTP id
+ 4fb4d7f45d1cf-6b777829b2fmr1504916a12.35.1794389899169; Wed, 11 Nov 2026
+ 01:38:19 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,61 +104,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261107-mte-kasan-split-v1-0-d84ea5f30f94@google.com>
+ <20261107-mte-kasan-split-v1-1-d84ea5f30f94@google.com> <avNjcKtuQkZW0_Sr@arm.com>
+ <avQqdBEGwje1iVlz@google.com>
+In-Reply-To: <avQqdBEGwje1iVlz@google.com>
+From: Peter Collingbourne <peter@pcc.me.uk>
+Date: Wed, 11 Nov 2026 01:38:06 -0800
+X-Gm-Features: AclHuK-VneSANYCNXJ36s2sFC-63re0-bOqlxxsBmGtmuBf0Sv7UobeBKGGbfM8
+Message-ID: <CAPQLkRi4zdGZRy=59SeaRz67Vj-+jEJKH-eWMZZ=kk8t-=3-kg@mail.gmail.com>
+Subject: Re: [PATCH 01/24] arm64: Fix lazy TCO clear when enabling user MTE
+To: =?UTF-8?Q?Pierre=2DCl=C3=A9ment_Tosi?= <ptosi@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-vmemmap_remap_range() currently walks vmemmap page tables under
-init_mm.mmap_lock. If the walk reaches a leaf PMD, vmemmap_split_pmd()
-allocates a PTE table with GFP_KERNEL and can enter direct reclaim:
+On Wed, Nov 11, 2026 at 12:57=E2=80=AFAM Pierre-Cl=C3=A9ment Tosi <ptosi@go=
+ogle.com> wrote:
+>
+> Hi Catalin,
+>
+> On Tue, Nov 10, 2026 at 06:33:20PM +0000, Catalin Marinas wrote:
+> > On Sat, Nov 07, 2026 at 04:36:07PM +0100, Pierre-Cl=C3=A9ment Tosi wrot=
+e:
+> > > On kernel entry from EL0 with HW KASAN inactive and user MTE disabled=
+ or
+> > > in async mode, mte_disable_tco_entry() leaves PSTATE.TCO set to avoid=
+ an
+> > > expensive write, as it assumes that EL1 tag checks are not needed.
+> > >
+> > > However, if the thread is in the process of enabling sync or asymm MT=
+E,
+> > > set_mte_ctrl() updates SCTLR_EL1.TCF0 without clearing PSTATE.TCO! As=
+ a
+> > > result, kernel uaccesses miss tag faults until the next context switc=
+h.
+> >
+> > Nit: next context switch or another syscall. I think this makes it
+> > clearer that the only potential missed tag accesses after the prctl() i=
+s
+> > a signal frame write as we don't have other uaccesses.
 
-hugetlb_vmemmap_optimize_folio()
-  vmemmap_remap_range()
-    mmap_read_lock(&init_mm)  <-- outer read lock
-    ...
-      vmemmap_split_pmd()
-        pte_alloc_one_kernel(&init_mm)  /* GFP_KERNEL */
-          <direct reclaim>
-            ttm_pool_shrinker_scan()
-              ...
-                change_page_attr_set_clr()
-                  mmap_read_lock(&init_mm)  <-- self-deadlock
+Or any other kernel entry such as signal delivery.
 
-Since commit d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on
-attribute changes to avoid UAF"), reclaim through TTM can enter CPA,
-which also takes init_mm.mmap_lock. If a writer is pending, the nested
-read blocks behind it while the outer read cannot be released, causing a
-self-deadlock.
+> >
+> > > Clear TCO in set_mte_ctrl() immediately after setting the task's SCTL=
+R.
+> > >
+> > > Cc: Peter Collingbourne <peter@pcc.me.uk>
+> > > Cc: stable@vger.kernel.org
+> > > Fixes: 38ddf7dafaea ("arm64: mte: avoid clearing PSTATE.TCO on entry =
+unless necessary")
+> > > Signed-off-by: Pierre-Cl=C3=A9ment Tosi <ptosi@google.com>
+> >
+> > The patch is correct but I wonder whether we need a cc stable.
+> >
+> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>
+> Thanks for your review.
+>
+> I'm happy to drop the cc in the next version. The rationale was that this=
+ fixed
+> an unexpected userspace-visible kernel behavior and closed a window durin=
+g which
+> tag checks were not performed, which _could_ be a concern when userspace =
+enables
+> MTE for security. I can see how this doesn't make a strong case for backp=
+orting.
 
-HVO walks vmemmap ranges whose intermediate page tables remain present.
-vmemmap_split_pmd() revalidates the PMD under init_mm.page_table_lock
-before installing the PTE table. Use the lockless page-table walker so the
-allocation no longer runs under init_mm.mmap_lock.
+I don't think this needs a cc stable.
 
-Fixes: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/sashiko-outbox-206969@kernel.org/
----
- mm/hugetlb_vmemmap.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+I'm also skeptical that this is worth "fixing" at all. All that this
+patch does is move the TCO disable slightly earlier in a way that is
+almost unobservable except by sending a signal to a process at the
+right time. So this patch only has a useful effect if it would
+otherwise be somehow possible to compromise a process by taking
+advantage of the kernel's signal frame write. Even then it doesn't
+really help mitigate anything, it just makes the window of opportunity
+slightly smaller.
 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 6fba3184356c..5852b0a1c479 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -161,10 +161,8 @@ static int vmemmap_remap_range(unsigned long start, unsigned long end,
- 
- 	VM_BUG_ON(!PAGE_ALIGNED(start | end));
- 
--	mmap_read_lock(&init_mm);
--	ret = walk_kernel_page_table_range(start, end, &vmemmap_remap_ops,
--				    NULL, walk);
--	mmap_read_unlock(&init_mm);
-+	ret = walk_kernel_page_table_range_lockless(start, end, &vmemmap_remap_ops,
-+						    NULL, walk);
- 	if (ret)
- 		return ret;
- 
--- 
-2.54.0
-
+Peter
