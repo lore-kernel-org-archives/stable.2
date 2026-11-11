@@ -1,79 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794433274;
-	b=xQ+87pqk/n+nApQe+UqTRXyL06aNz0NPskByCbcD6aaI0YD1CZy1CJPmAz4q5XJ6Kf/E
-	 3Io0C7i67ldRw406luyv6C6oQjZ6y80x3TtBVJaVy1jwllQcBiOTQSG3hyAw1iNW91ONI
-	 wBAsC+kKwcEePHIt4ehSfzGkP2DbDk/k3QzHxK7wB2pM9ePo/UdPxLFvZz4y5dbNIlwVe
-	 Yzd8f5nMYPaDHl7NXCPIz87TLKzmxC2LtZWYognIrpucT7QBCEGNZeDZ/dig3vsbzpnlJ
-	 xm6jfTRebxgMRedsft8NxHD+g2KFxNaMixwL8FIUeKVFmmhhCxgA/quupTHlX4pfzpg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794433274;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1kEvh0l2Lq9vO+Sx97tlKmLk6qXU8j2YZAXmCALXyGw=;
-	b=cTLMl+j/dwWqO2h4zaB0Go0bvxSNyZeQq+5FfUVe2LaRWZApGbMtPsvrbduli2KRbeUO
-	 jyJYhvzqhKzxPj/VXP2o0hqq9zcduZB+We0cCpJxGYNP+DVSqOLd3OtbnKzYr/79zDYbn
-	 CqN90NPNA3bqmkJojgVSafgVtzst3uogTCAdz/NVMw1ZxRoEezh7lNWX8aDmo2yi/4sLD
-	 e2xMcwiR4TA5V6epz+MrtyainJLKRJeHzigDsKRGNEcX8oLBVvQrOGbiQlTrNuZrp5+lc
-	 daorD7TIpBa5C93NIFXUX7qbliTb3FD+cGZcCB1E50pdhzgKtuP/IkuUf6EoV9Bi4cw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5zF4jw0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0134F606A338;
-	Wed, 11 Nov 2026 21:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5zF4jw0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794433273;
-	b=n+OfJLYD4o4eNtRdfZMU/sgkHXuCcXQd79hvB1L4glEpV8FZLb4cYhhlK05yD2zeUHpm
-	 a3b14WW/v9sxjV2+Z8h8GHBs4GRA46M3ggfDtNnIf6cphPRc5goLqEtvPQyKuQrZDVA9h
-	 x9iemoUndhmfXVTt1Ou95nOr09fACPrZJi2J916nnNe2jyqO38Vs2wcObQuIDCHjvlah0
-	 2r5DCNikyii/Ptibs5UIXBRPNCdq3+gLbO5qWIOhehTVUASla2w7b4lozV/WtJSu7XNoB
-	 54M+BKAekBgfxqPZ9eY7l8ZqWQ/syxGY6ZrjWNaL7tjFjOhtrpjhxvxwK5w0W6/XHGA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794433273;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1kEvh0l2Lq9vO+Sx97tlKmLk6qXU8j2YZAXmCALXyGw=;
-	b=vtH6SitOqX/ITiibbgGgdDQfGLG6Yihf79ipk0ySVpV9YcL7z0qy4p6vsu3zEfbP0cEd
-	 0We06qB48vlC1XnISDwEK7RC4142mU5K+HzuasCUCJDHvvHDHWVt7Gwcjhx8CyLSxtTs1
-	 9R2Ar0EDywCe/gvfKTHdpqg1T0Xc5k1C8nDnG1AkQhUTnkexkMVvkfIYV9Jr5p3b+vJ+2
-	 LhZwksV8NzszJ+x1zYFOyF7AdGtDyNT2saGMZ8MNkudTlG6KOcEAv32owgJp/o1KRBq9M
-	 u0wX2lCQMewxNXV6jNfitYXzivMScU/+skwRBG97tcfz4UuCCWAknF++OyfEtUuliPg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794433632;
+	b=ISTQkLPSFoQzFugQc/jDr4b6B0OTqX584hWevGKaYsKCVJrwEFFwhF3Nyem+VI3zysq3
+	 At9KsJNOIfhMyOyCsBkaJGMqziloLz68oLLzr1AHZWPLVxrw2wJDfDBg0Ni+KZJDKoXPK
+	 IeGFQhq7hQSAqutJbMD4T5x3iVPfPVF2hmRjlDGb7GZ8m03v0WN5kvlJcnFARlnqLYCqd
+	 2oVrcATd4gQ3XnJ4fyBIhXEy5SBqNpi76OohssB4uJduBR+VIX3M9zGn2fiT8mg3FWfYx
+	 +o2bVHkgdL5/ir3khp/oKALAotOAGQsCep8ZLx4bQ/MlEwETi8DCe3BA1xMpM/V4VBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794433632;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=YvOEyv3VqLxiUMZ8Y2pmrOuocmXhB80LSHRQNIO8VwU=;
+	b=FdzibaTN9nv/vriA9pwGH1zMl9Ty9E42hTR4I8aGbZvsUzQmn0zyCZywEqfpX1imMDFz
+	 1y+YeFJiIrC/e8/57mp00HVFXxoh3Zh6ahYbEYhEizrz29a4bynSUOQJWX+S7Irc93KYl
+	 FCZQymq3uRDNLKFxQwXBejqa3CGLKckHfIBJHteAYhp/QwgnHJ+UrTm7M4QhL3pw1Ob72
+	 nmcJxDB20gIxNwi9luebuJZsa5VEDOvRysbY6up52K0oHP+B026mCWcvryCilZzGNUfJu
+	 m7CFcvYKPxasXI9cgNfeIao91qiVPb3YowqLCWfyIz0Y9UNlYrEtiHWIvCAALnVqOOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=RBX1HAsP;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 17AD91F00A05;
-	Wed, 11 Nov 2026 21:41:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794433273;
-	bh=1kEvh0l2Lq9vO+Sx97tlKmLk6qXU8j2YZAXmCALXyGw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=M5zF4jw0yN1CegGa/x7DxxSEi6GOsBDkXqrIyyxZpAxHBN3b8oUXpCH13B0x6hkHf
-	 113kfq3BazZ31bmifr2qKbObhZZvRjLvMHj9BErgDNkRUwAViWXYNZ6/zEIEKfAfE9
-	 BmZirdntyqhs7NTBDSAdLdrhBB9dOYa12qRiwJZr2dgHOYNGcwtcrypMk1g5z/JrG+
-	 czdKqg6KPlhlIrHJWwb/b32zIIIyGo2HcKPqQnMFapfpntqnCWyVz73r9JvOuENLw4
-	 jRFyTxU87hky14H7OLnKGhKwgP1su/WQgL+yaZcM3fdibwOOwc6OIyvMJhVlzSzFMv
-	 LKK2IG5jGjxlg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6298D49128;
-	Wed, 11 Nov 2026 21:41:12 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Wed, 11 Nov 2026 16:41:12 -0500
-Subject: [PATCH] btrfs: fix loss of fsynced file after link into new dir
- and unlink
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE83606A324;
+	Wed, 11 Nov 2026 21:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FE83606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=RBX1HAsP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=YvOEyv3VqLxiUMZ8Y2pmrOuocmXhB80LSHRQNIO8VwU=; b=RBX1HAsP8zVG0K1o1j2FF/lKrv
+	qjMMLrFO7eMQ9e7LJlVh2PMGL5APM3C9b10Nv+6mzHIcza+e+9IzBpwnmw6DUyOcWfgk6UyglQnqT
+	KPA3dHQY3K3wsZB/KuscWiN1mYgei7OJTC8GrXzO9HS6WZKjazhfefV1ZepWYvtBzmbJ9FfI8a9Rt
+	XzWnxzccZclEvOn0ZGBdmevN/scPHrLhOx5eHVO9AZR5TD8b53OpUyiztWYT2s5i3oF49tjKKGlwQ
+	fgczPiCnq+y7Rzd3+eZrlJk7lsjNjZKLnaxUaml9nqPAyDEFdRG+FFeOZ7M9xTq+Ae/8EL185bXQv
+	sLHuJNqQ==;
+Received: from [151.115.150.205] (port=42092 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xRG9t-0000000BsZK-3ZCS;
+	Wed, 11 Nov 2026 22:47:09 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] udp_tunnel: fix GRO callback mismatch during setup
+Date: Wed, 11 Nov 2026 21:46:23 +0000
+Message-ID: <20261111214622.2482547-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,110 +75,209 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261111-btrfs-link-unlink-fsync-v1-1-a817d4a890af@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBBFryKz7oAGDOJVpAsTJ3baMi0ZFUW8u
- zH+zect3ttBKTIptMUOkRZW/kmC6lGAf/UyEvKQGExpbJWGbopB8cvywVnyBd3Eo2mobwzVvrY
- Okv2PFHjN5e55s87uTX66cnAcJ0LpL317AAAA
-X-Change-ID: 20261111-btrfs-link-unlink-fsync-28ea82e5c56b
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>, 
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794433272; l=3107;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=JJHTvU9AbtLdmkks3pC7kN08S+SdKLTMH7tvu3/atzo=;
- b=bVSKpsrlub2NsW242Dk1cjS+F/kB9pGV3rKL6fP/Jr72Ud+/xnaTg2lBFDFY8BOTMnk1QQRr+
- /mm/LylOVivAvTfGxPAEx5+vQZFHW16vBMJjewAFTkfzys/Sh6L63aX
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-From: Mani Tofigh <mt4022@columbia.edu>
+setup_udp_tunnel_sock() updates an already bound socket. GRO can find it
+while the socket callbacks and global static call disagree. Receive and
+completion may then parse one packet differently and write out of bounds,
+KASAN reports as:
 
-If we create a file, add a hard link to it in a new directory, remove
-its old name and then fsync the file through a file descriptor opened
-before the unlink, the file is gone after a power failure.  Example:
+  BUG: KASAN: slab-out-of-bounds in udp6_gro_complete+0x48a/0x4b0
+  Write of size 2 at addr ffff8880044d8e78 by task repro/44
 
-  mkdir /mnt/A
-  fd = open("/mnt/A/foo", O_CREAT | O_WRONLY)
-  mkdir /mnt/A/B
-  ln /mnt/A/foo /mnt/A/B/bar
-  unlink /mnt/A/foo
-  fsync(fd)                     /* or fdatasync(fd) */
-  <power fail>
+Publish gro_receive last and read it once. Count tunnel GRO receive
+callbacks and consume one at each UDP completion. Only use the static
+call if its target matches, and wait before changing it.
 
-After log replay, B and B/bar don't exist and the file is gone.
-
-The fsync uses the file's dentry, which is still the unlinked A/foo.
-The inode is new, so btrfs_log_all_parents() finds no parent in the
-commit root, and log_all_new_ancestors() then takes the fast path for a
-single link.  That path walks up from the dentry's parent A and never
-logs B.  On log replay the inode ref for B/bar is skipped because B
-doesn't exist, and the inode ends up with no links.
-
-Fix this by not taking the fast path when the inode had a link, unlink
-or rename in the current transaction.  The slow path finds the parents
-from the inode refs in the subvolume tree and logs B and A.  That only
-adds a search of the subvolume tree.
-
-The problem is old, e.g., v7.1 loses the file as well.  It was only
-hidden, by a fallback to a transaction commit, between
-commit 0f24ea456ae1 ("btrfs: tracepoints: add trace event for
-btrfs_log_all_parents()") and commit 36f9aafa46f5 ("btrfs: fix
-unnecessary transaction commit fallback from btrfs_log_all_parents()").
-
-With the fix, the file and its data survive.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it every time.
-
-CC: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Fixes: 5d7f5b2f6b93 ("udp_tunnel: use static call for GRO hooks when possible")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/btrfslink.c
 
-It uses dm-flakey to drop all writes once fsync returns.
+v1: https://lore.kernel.org/all/20260906211351.1272699-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Sashiko: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906211351.1272699-2-Jeremy.Jean%40oss.cyber.gouv.fr
 
-No Fixes: tag since this looks older than the single link fast path.
----
- fs/btrfs/tree-log.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ include/net/gro.h          |  3 ++-
+ net/core/gro.c             |  1 +
+ net/ipv4/udp_offload.c     | 51 +++++++++++++++++++++++++++-----------
+ net/ipv4/udp_tunnel_core.c |  5 ++--
+ 4 files changed, 42 insertions(+), 18 deletions(-)
 
-diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
-index 85ef3c26e0e4..4f24b277f1b7 100644
---- a/fs/btrfs/tree-log.c
-+++ b/fs/btrfs/tree-log.c
-@@ -7543,9 +7543,13 @@ static int log_all_new_ancestors(struct btrfs_trans_handle *trans,
+diff --git a/include/net/gro.h b/include/net/gro.h
+index 7a19d4486456..81bd838f268f 100644
+--- a/include/net/gro.h
++++ b/include/net/gro.h
+@@ -45,7 +45,8 @@ struct napi_gro_cb {
+ 	/* Used in ipv6_gro_receive() and foo-over-udp and esp-in-udp */
+ 	u16	proto;
  
- 	/*
- 	 * For a single hard link case, go through a fast path that does not
--	 * need to iterate the fs/subvolume tree.
-+	 * need to iterate the fs/subvolume tree. But not if the inode had a
-+	 * link, unlink or rename in the current transaction, since then the
-+	 * dentry used for the fsync may be an unlinked one, whose parent is
-+	 * not the parent of the remaining link.
- 	 */
--	if (inode->vfs_inode.i_nlink < 2) {
-+	if (inode->vfs_inode.i_nlink < 2 &&
-+	    inode->last_unlink_trans < trans->transid) {
- 		ret = log_new_ancestors_fast(trans, inode, parent, ctx);
- 		goto out;
+-	u16	pad;
++	/* UDP tunnel GRO callbacks left to complete */
++	u16	udp_tunnel_gro_count;
+ 
+ /* Used in napi_gro_cb::free */
+ #define NAPI_GRO_FREE             1
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 75f6a5f39a4b..96c3bbd6c153 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -526,6 +526,7 @@ static enum gro_result dev_gro_receive(struct gro_node *gro,
+ 	*(u32 *)&NAPI_GRO_CB(skb)->zeroed = 0;
+ 	NAPI_GRO_CB(skb)->flush = skb_has_frag_list(skb);
+ 	NAPI_GRO_CB(skb)->count = 1;
++	NAPI_GRO_CB(skb)->udp_tunnel_gro_count = 0;
+ 	if (unlikely(skb_is_gso(skb))) {
+ 		NAPI_GRO_CB(skb)->count = skb_shinfo(skb)->gso_segs;
+ 		/* Only support TCP and non DODGY users, with a sane gso_segs. */
+diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
+index cd9d7426b227..39f06fcd59ab 100644
+--- a/net/ipv4/udp_offload.c
++++ b/net/ipv4/udp_offload.c
+@@ -136,6 +136,7 @@ void udp_tunnel_update_gro_rcv(struct sock *sk, bool add)
+ 		static_branch_enable(&udp_tunnel_static_call);
+ 	} else if (old_gro_type_nr == 1) {
+ 		static_branch_disable(&udp_tunnel_static_call);
++		synchronize_net();
+ 		static_call_update(udp_tunnel_gro_rcv, dummy_gro_rcv);
  	}
-
----
-base-commit: 4c34f0909344e48d917afac0eeffb6e1c2681524
-change-id: 20261111-btrfs-link-unlink-fsync-28ea82e5c56b
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+ 
+@@ -144,27 +145,37 @@ void udp_tunnel_update_gro_rcv(struct sock *sk, bool add)
+ }
+ EXPORT_SYMBOL_GPL(udp_tunnel_update_gro_rcv);
+ 
+-static struct sk_buff *udp_tunnel_gro_rcv(struct sock *sk,
++static struct sk_buff *udp_tunnel_gro_rcv(udp_tunnel_gro_receive_t gro_receive,
++					  struct sock *sk,
+ 					  struct list_head *head,
+ 					  struct sk_buff *skb)
+ {
+-	if (static_branch_likely(&udp_tunnel_static_call)) {
+-		if (unlikely(gro_recursion_inc_test(skb))) {
+-			NAPI_GRO_CB(skb)->flush |= 1;
+-			return NULL;
+-		}
+-		return static_call(udp_tunnel_gro_rcv)(sk, head, skb);
++	if (unlikely(gro_recursion_inc_test(skb))) {
++		NAPI_GRO_CB(skb)->flush |= 1;
++		return NULL;
+ 	}
+-	return call_gro_receive_sk(udp_sk(sk)->gro_receive, sk, head, skb);
++	NAPI_GRO_CB(skb)->udp_tunnel_gro_count++;
++
++	if (static_branch_likely(&udp_tunnel_static_call) &&
++	    likely(gro_receive == static_call_query(udp_tunnel_gro_rcv)))
++		return static_call(udp_tunnel_gro_rcv)(sk, head, skb);
++	return gro_receive(sk, head, skb);
+ }
+ 
+ #else
+ 
+-static struct sk_buff *udp_tunnel_gro_rcv(struct sock *sk,
++static struct sk_buff *udp_tunnel_gro_rcv(udp_tunnel_gro_receive_t gro_receive,
++					  struct sock *sk,
+ 					  struct list_head *head,
+ 					  struct sk_buff *skb)
+ {
+-	return call_gro_receive_sk(udp_sk(sk)->gro_receive, sk, head, skb);
++	if (unlikely(gro_recursion_inc_test(skb))) {
++		NAPI_GRO_CB(skb)->flush |= 1;
++		return NULL;
++	}
++	NAPI_GRO_CB(skb)->udp_tunnel_gro_count++;
++
++	return gro_receive(sk, head, skb);
+ }
+ 
+ #endif
+@@ -777,6 +788,7 @@ static struct sk_buff *udp_gro_receive_segment(struct list_head *head,
+ struct sk_buff *udp_gro_receive(struct list_head *head, struct sk_buff *skb,
+ 				struct udphdr *uh, struct sock *sk)
+ {
++	udp_tunnel_gro_receive_t gro_receive = NULL;
+ 	struct sk_buff *pp = NULL;
+ 	struct sk_buff *p;
+ 	struct udphdr *uh2;
+@@ -795,7 +807,11 @@ struct sk_buff *udp_gro_receive(struct list_head *head, struct sk_buff *skb,
+ 	 * cases. Such packets should be caught in udp_unexpected_gso later.
+ 	 */
+ 	NAPI_GRO_CB(skb)->is_flist = 0;
+-	if (!sk || !udp_sk(sk)->gro_receive) {
++	if (sk) {
++		/* Pairs with smp_store_release() in setup_udp_tunnel_sock(). */
++		gro_receive = smp_load_acquire(&udp_sk(sk)->gro_receive);
++	}
++	if (!gro_receive) {
+ 		/* If the packet was locally encapsulated in a UDP tunnel that
+ 		 * wasn't detected above, do not GRO.
+ 		 */
+@@ -842,7 +858,7 @@ struct sk_buff *udp_gro_receive(struct list_head *head, struct sk_buff *skb,
+ 
+ 	skb_gro_pull(skb, sizeof(struct udphdr)); /* pull encapsulating udp header */
+ 	skb_gro_postpull_rcsum(skb, uh, sizeof(struct udphdr));
+-	pp = udp_tunnel_gro_rcv(sk, head, skb);
++	pp = udp_tunnel_gro_rcv(gro_receive, sk, head, skb);
+ 
+ out:
+ 	skb_gro_flush_final(skb, pp, flush);
+@@ -921,6 +937,7 @@ int udp_gro_complete(struct sk_buff *skb, int nhoff,
+ {
+ 	struct udphdr *uh = (struct udphdr *)(skb->data + nhoff);
+ 	unsigned int newlen = skb->len - nhoff;
++	udp_tunnel_gro_complete_t gro_complete = NULL;
+ 	struct sock *sk;
+ 	int err;
+ 
+@@ -928,7 +945,12 @@ int udp_gro_complete(struct sk_buff *skb, int nhoff,
+ 
+ 	sk = INDIRECT_CALL_INET(lookup, udp6_lib_lookup_skb,
+ 				udp4_lib_lookup_skb, skb, uh->source, uh->dest);
+-	if (sk && udp_sk(sk)->gro_complete) {
++	if (NAPI_GRO_CB(skb)->udp_tunnel_gro_count) {
++		NAPI_GRO_CB(skb)->udp_tunnel_gro_count--;
++		if (sk)
++			gro_complete = READ_ONCE(udp_sk(sk)->gro_complete);
++	}
++	if (gro_complete) {
+ 		skb_shinfo(skb)->gso_type = uh->check ? SKB_GSO_UDP_TUNNEL_CSUM
+ 					: SKB_GSO_UDP_TUNNEL;
+ 
+@@ -941,8 +963,7 @@ int udp_gro_complete(struct sk_buff *skb, int nhoff,
+ 		 * functions to make them set up the inner offsets.
+ 		 */
+ 		skb->encapsulation = 1;
+-		err = udp_sk(sk)->gro_complete(sk, skb,
+-				nhoff + sizeof(struct udphdr));
++		err = gro_complete(sk, skb, nhoff + sizeof(struct udphdr));
+ 	} else {
+ 		err = udp_gro_complete_segment(skb);
+ 	}
+diff --git a/net/ipv4/udp_tunnel_core.c b/net/ipv4/udp_tunnel_core.c
+index a128fe85620d..147c92374975 100644
+--- a/net/ipv4/udp_tunnel_core.c
++++ b/net/ipv4/udp_tunnel_core.c
+@@ -84,8 +84,9 @@ void setup_udp_tunnel_sock(struct net *net, struct sock *sk,
+ 	udp_sk(sk)->encap_err_rcv = cfg->encap_err_rcv;
+ 	udp_sk(sk)->encap_err_lookup = cfg->encap_err_lookup;
+ 	udp_sk(sk)->encap_destroy = cfg->encap_destroy;
+-	udp_sk(sk)->gro_receive = cfg->gro_receive;
+-	udp_sk(sk)->gro_complete = cfg->gro_complete;
++	WRITE_ONCE(udp_sk(sk)->gro_complete, cfg->gro_complete);
++	/* Pairs with smp_load_acquire() in udp_gro_receive(). */
++	smp_store_release(&udp_sk(sk)->gro_receive, cfg->gro_receive);
+ 
+ 	udp_tunnel_encap_enable(sk);
+ 
+-- 
+2.47.3
 
