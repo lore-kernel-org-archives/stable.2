@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794413922;
-	b=PdPBRZ24K6Brlu0gi08hKgWe0he7kzSAhH/DDSw/XXC2ClecsLre+HoDAwxXng5yUzuE
-	 wUSx7j2U9sgZSH8kQC5Dm3+EzH+7/Bq/gnRnXdVXQO5ap+ydfEv1PfwqYioYJaK9LHq0l
-	 ZeDRo0FkDbkXa6aCRnv/fxG2uxMPaOzxsGSZ+Dd1QrJLkFEaGR0Rmf4P0+y8MHcgwoYBK
-	 Qbuvp/NzxAUUtRQ2TlxA3elju1PPejIbibx1Hhn0dFzAEskhHoiGau6ZQdehYCdotijb4
-	 u2O3dhMB39fdl03f4D98OKX7J3kKAVg/IVFukb+vVQDZ7/Scua1zE/2NPnYQ+Tp5VSg==
+	t=1794413924;
+	b=kKrVyt2sLeCuGMQuipMIFqsnVEoDPLyqRQCQ20sC7YcjccFagxnbF8OOjzsYZY0VjfAe
+	 oUKcOkvjcZk3QkdoGzd1nN00VwfcLb5Mvc8bde23gDEcNupdP/JR2YEKBfRZhFuXagdD+
+	 YmTmuFAQIg85JweTP2pxqveFO9PymxcICP+uEG4KRRoE0nKW5XSSym++LFL7O3ZgpLUn7
+	 OBQ9+KIquzmlfmBt5Vye0LDzuV9E4sKBq2wWW72aUHO0Aq3Bb4OZDIOHrxIRJg3f79neX
+	 v6ANAZvpM67nYbkPDf6gQb9Vh/uqU2Wl8tSh9o/vPWk6UmhR4jSg5OztcLIVz/eqbNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794413922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794413924;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tl93JRlsuokDAZ/kZAYyC2gobOkeon3ZjeST6XHzX88=;
-	b=uEuulNrgYItyT5wGMmYkB0Hf/QQPQ8Guwyrmmm5pcIpNnERP0fQRPOB9EDZgSUzl+x6+
-	 qJREEexTgCRBOTsjA7HJWp1pMF9M8TviF9RPPd4pEtKwEFJ+NAiBS2CXo+CZDs/ettC/d
-	 btQNHKu6hOQA/SnPFCxknkHvxRGxkKL3wJMyeLgwclQdTGxKu83FY/wf3v/l4FekesSYL
-	 WjGqK17JusHVdXpDW+Ni5VDkpMiAmkBzVnrEcDMOtHb4YlSlgfaRTTPOX/i0iWQfH60ny
-	 1G/SU19XlzR8g+FShnGORxZoJv3VnVYkCV3e25i17TUxOhmaDSXmNnEMy/mbtIfRKZw==
+	bh=xB2s5ICjL3oZNT6AvTpBrsJtB4knw0Blt3rv8CPT2C4=;
+	b=P2jg9ggCtXv+LvMf0yD4Rk1xCzxP/bmbKGvapGO7K6rQE3+bZ1eVky2ukVmuRXTljVag
+	 R8SKqb9nnL2TeGaIwHXUxXMc0Nt+FhmA8jl4EdT3LkfWN01n/+CpeRz61ezFsW6UH0GSM
+	 9naEuniKkNNV0ssHc4QViQcweoKgxJ94SQwF10XaF5Ssj5KbqD6//Y+q8Val6WXojUe+4
+	 3VT2qz5ftsGw6ggGu6NlioIU3rY5nOAJgOTHFM6OVHcFH64+9hgxAaW5lYj1HhApR2ZJI
+	 bOvOsosBhjNJz+vNPMc5yOi4Ce/BegGQNvIk3plc/+VHAc3xPWIJk4p4iBuTCVhd4Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ionos.com;
 	spf=pass smtp.mailfrom=ionos.com;
-	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=gKStaRxV;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=TGAaFXZq;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8043360A3811
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8043360A3811
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992CA60A3822
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 16:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 992CA60A3822
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=gKStaRxV
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so2196412f8f.3
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:18:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.a=rsa-sha256 header.s=google header.b=TGAaFXZq
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so25985175e9.3
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 08:18:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1794413921; x=1795018721; darn=vger.kernel.org;
+        d=ionos.com; s=google; t=1794413922; x=1795018722; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tl93JRlsuokDAZ/kZAYyC2gobOkeon3ZjeST6XHzX88=;
-        b=gKStaRxVo5TTjFggIqYp7llrrzPcPl69s/GyATJGxs41sZ0V4cyMGFkBrH/x6LMWlY
-         rMSSEiHNHFVmqZ7EpXsGhR1b5yv0ik3kyAcyJ0sMi96QNRuLdLgYYPReEXAuQlx3PEmf
-         h70aKddg1nWWkOmUdN27YvD5SaMgRqwov54stAPfpwkyKt34fJoy5Rqvqt5pMkIaSopk
-         LDSA6kACTUw+Rh3y+lXxB1tTFrdrF26jVk+DG96N7skf8AB0G7d+m4WGaPUKr78P3n5n
-         rMkOwhMggK4QyH8u+UtVAd7OR2aUhZbhfxm5HAjSLf9B5e3hKcMyllDAhs/5vyhytI1F
-         lbXw==
+        bh=xB2s5ICjL3oZNT6AvTpBrsJtB4knw0Blt3rv8CPT2C4=;
+        b=TGAaFXZqf2Brxuyh2Exohfr7P8fxYKFal37wdrA7UNjI79I0ZnjXdGiL4EJesRtQsG
+         D76COQSg5iYYvHX9juvxJ/zB+k/o22jwdL8GzfsubnXIeFFE5hNhq8II71G5Y1CUZYoy
+         9fLwoG+YTOnvITgSGe3iZ8iG14qxTwiQMvech6s3ROnxuMCwFR4/Ld/N3uXvTdm8vfri
+         czNlMo8XOQGS+MKEsSBlIPtItvNBy74On4GuUOU/awT2qLro+LUpyCGGL2b4wpuOk85r
+         2IKdHPSA/uSTx+/F8TwFPeDMsQln3bOiVp77+J1180cNhMl8sMou+OWPwjStpw7HbyLY
+         usZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794413921; x=1795018721;
+        d=1e100.net; s=20260707; t=1794413922; x=1795018722;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tl93JRlsuokDAZ/kZAYyC2gobOkeon3ZjeST6XHzX88=;
-        b=qOVYsDhdJLtaEKuXvcJluwr49aMObc+T13bByUptYNZcZg9EbzoFNeIC8r2mU30bzw
-         ZvXA3wUn9zIFue6pq5YtA7Pa3cYYdntPf6WWLjnlbc381o9UieTP5E1a4Mo+qGcf22A8
-         8RZKfUJkBOYZgA5ryex/T8nsIlYAeOak3M5nN/6BKHyt1r+w2pmQs1JFI5yzo+TgXWXP
-         vE+lYZuz64Jt0vJoULYXGzDzAdvPvXFq9QsWplYQcByBqnUEz79dnbwNLTol16DgT+Me
-         tZhspixvv1TJWTI+7jgr20GD+8mjYPjf2h0bbMAMI1U00xfFGcsVFhntO9ut/io5QdqI
-         9Fhw==
-X-Forwarded-Encrypted: i=1; AL+hErFhAL4ADIL/nd1X3E8zIghVhZ7KKwCRH7I7mhd/fSmI7O4A0zwBg5D8Jx0ObTZlFJurMUdbFew=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xQlT4HN6E/Oh9gBdp3W20XcmmaGYqhZtBlqKXvnSl5oCzrlOb
-	dLbLwT3Ra16gLPCqAU4KyVSewr+BJtbZixSvOajvaGCo5djKn1MWGdCagInPKXUUyco=
-X-Gm-Gg: AYBFou3EqBJlGfvlMgmTUKV8/Lso6TI9z1CEI/MuB59hzExhfokh1/QMONduDXD+a1P
-	Li4CeYD+Ko8OdpPXAGrvp1eg+jN9+MC3JnGYau4ycHfeu8Dq/gPzeCv6S0NwV1GXu2bqnZAiD3G
-	VwstVHzJ85iaam+fllhQKsKbgxm2j3gKw0qwjjf3x1S4EhSyHcWsG4AFkw8n942Y4VrbgLIJZ8W
-	+mH3p/cpoVfO16UF7HuzjGyqdOyN7ALsqX+HerXwDq3EpMIeoechO1nJj7DrekbW7N8XqZiWl7j
-	Z+lvQP9osM0YM/SDGWLZzLy/k/NRJ6aE+ubPGJW43Q7JCrDkR5xB4sM3dYA/V1dKAwWMY5yno/N
-	kqHjOJE/XBKaZkTS8uWxlpZFAp/swAEq4i1WMqQ5lp9wN7cvvQjnyvsBcWGNiWhtaTJNREm3ycI
-	tIv9AXSEwWmVwPSqjG6zwyWy1caCgx35MJmYUhBLKCAV/1fBsHDFIuG1V/XAHP8ApFtqWYSqFFe
-	A7GsPWmx7TKJzOcRAmtUhhiwhnjoBFyBxzGD/EeKivsgSTFzK2Ss14yG3cyTpphllrKH7e3vtaR
-	eS29fuw93GoWwy5DcFbmJxfGjYI7BhdAqMWsjjeZDyQCFjc8sXOfkJrSqaVrA6xu/Ykd5IOIe7E
-	MOUh4AfbvNgboQ0OEDYbLuosP/+A5EceWp56BlIFv1vaHMQ3sxk0=
-X-Received: by 2002:a05:6000:4914:b0:48d:f391:5c45 with SMTP id ffacd0b85a97d-499c6f8d953mr4709372f8f.42.1794413920839;
-        Wed, 11 Nov 2026 08:18:40 -0800 (PST)
+        bh=xB2s5ICjL3oZNT6AvTpBrsJtB4knw0Blt3rv8CPT2C4=;
+        b=yyiLbt/A/cn+/kAwPOQIMQNOU4ZnV1qMgDuc/PjXFEYlNzEH9ZzMwyHomWF2IRBpo/
+         tzZ13yqhwjmtqVa03MjU24x8vkepmi8Pm9w1HBUjcwSgd+EMcgV9O3+AeHy/8NTDwRQ7
+         MPX7BcQ78Z6EpvN1yN9E3u7bJCw7u0qyKdRsVF5BtQ/fFgH5+Q+55lgnwDyrYmvOivj6
+         6pwhkTN0dokSkvgnnR+3W29SXJarc8z4QOgosnarphA5kDzUndohzYhGA3u8foNXazg+
+         s7EdexofcFeoJhvaYBsUA3/yGpt6UV5p+LCpEAkm2ciyc2lSxjhFYtBO+5oqJ4nl9uHw
+         edFQ==
+X-Forwarded-Encrypted: i=1; AL+hErGc+/BZ7ZUBLg96wQ17Zp2jtvj13fkMwqdl3xLShcu1AFGQopfjNQW8Fu7jeKyWLQQ3JPK2JZU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9aB86Dz6X19vs3hMMYBxwoz046AZsI0Sb+AAUmADTwk9cDlh8Y
+	EuO/OoRHz64ifyxwi02vs8mPxHPe4ghV2EPrnfYZbail74R44Jw5SN03Io5QmnMcVzM=
+X-Gm-Gg: AYBFou0tBcEqUw//JNN3XZxG6qlck/3pELVX5gQGoXHz9M8lXdmKR39l+JsX0MPk5Go
+	/Xm2ryuKVQa80BdddVGN/KILIJqZeh1VyV2mlIjM7XEtyYWAQO/Q94t9yNhnJCuvPPuY8XLcdkm
+	Mffh3aaOKwfqMG/D4QCq0hUfxTnNhHr+I6UzcjlxhjAaqkotupCoAXfJDd4zEhmM9/x5Cs5lkdH
+	jlqj0o32gsw/kKQqZysxt6H40C/Z/QDxW0r5sagO3Wlh8rbzWJffv+b+PcGuKZmrqXq9H1XwXJM
+	REDMlkmyBOGv5cG3JkWbT6kp1Ca8n411wBgQ5mVplXltJxE45XbBLnPIA2thReI2sShcr7rqz/h
+	3fcXS6tK5bLzj5HzfOxESGsLWJY53LFC+q7n4AiSyp8UZZPVsUQLk1SD6sud03RqFraApksxIbQ
+	gWa7zR28eCS07crjwcZ1rRiDCq8JovcK3hiTOb/z2lAH1wla7QpjbTOWkhIejXGQUXtxtXQ+DwL
+	Zy+XWam5XXa0yz1Zxa31r8z3vdIPq25Opv/Fo02XM+2nN1PgJhIjdkFsP+m0caW79VO3D+3NTsm
+	QZTWpioRgJkrEVFw1mLYdRHkAn0C7XLTgty1+dgOLQ4Df6xSHDVGzxHcctXI87iER9mhhhIXkIE
+	E4QPRJ969mvjMQ4hHKrrnfdoyJzs7xQpYEjsja5kW5/esa7zs07I=
+X-Received: by 2002:a05:600c:354a:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4ba0935dacbmr52726595e9.11.1794413922136;
+        Wed, 11 Nov 2026 08:18:42 -0800 (PST)
 Received: from raven.intern.cm-ag (p200300dc6f4cbe00023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f4c:be00:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bd6esm12209506f8f.28.2026.11.11.08.18.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4983600bd6esm12209506f8f.28.2026.11.11.08.18.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 08:18:40 -0800 (PST)
+        Wed, 11 Nov 2026 08:18:41 -0800 (PST)
 From: Max Kellermann <max.kellermann@ionos.com>
 To: xiubli@redhat.com,
 	idryomov@gmail.com,
@@ -87,9 +87,9 @@ To: xiubli@redhat.com,
 	linux-kernel@vger.kernel.org
 Cc: Max Kellermann <max.kellermann@ionos.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 6/9] ceph: fix mdsmap use-after-free in ceph_get_tree() error path
-Date: Wed, 11 Nov 2026 17:18:27 +0100
-Message-ID: <20261111161830.1336485-7-max.kellermann@ionos.com>
+Subject: [PATCH 7/9] ceph: fix osdmap use-after-free in ceph_sync_setxattr()
+Date: Wed, 11 Nov 2026 17:18:28 +0100
+Message-ID: <20261111161830.1336485-8-max.kellermann@ionos.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261111161830.1336485-1-max.kellermann@ionos.com>
 References: <20261111161830.1336485-1-max.kellermann@ionos.com>
@@ -104,45 +104,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When mounting fails, ceph_get_tree() calls
-ceph_mdsmap_is_cluster_available() on mdsc->mdsmap without holding
-mdsc->mutex.  The MDS client is still running at that point, and
-ceph_mdsc_handle_mdsmap() can replace the mdsmap and free the old one
-concurrently, so this can walk freed memory.
+ceph_sync_setxattr() reads osdc->osdmap->epoch without holding
+osdc->lock, but ceph_osdc_handle_map() replaces the osdmap and frees
+the old one under that lock (held for writing).  A setxattr() racing
+with an osdmap update can therefore read the epoch from freed memory
+and send a garbage epoch to the MDS, which uses it to decide whether
+it needs a newer osdmap to validate the layout.
 
-Check the map while holding mdsc->mutex.
+Read the epoch while holding osdc->lock for reading.
 
-Fixes: 97820058fb28 ("ceph: check availability of mds cluster on mount after wait timeout")
+Fixes: 968cd14edc3a ("ceph: set osdmap epoch for setxattr")
 Cc: stable@vger.kernel.org
 Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 ---
- fs/ceph/super.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/ceph/xattr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/ceph/super.c b/fs/ceph/super.c
-index 01f92d77ef45..94ff935492e5 100644
---- a/fs/ceph/super.c
-+++ b/fs/ceph/super.c
-@@ -1364,6 +1364,7 @@ static int ceph_get_tree(struct fs_context *fc)
- 	struct dentry *res;
- 	int (*compare_super)(struct super_block *, struct fs_context *) =
- 		ceph_compare_super;
-+	bool available;
- 	int err;
+diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
+index 8f97b6448d7a..64ccf70aa3dd 100644
+--- a/fs/ceph/xattr.c
++++ b/fs/ceph/xattr.c
+@@ -1179,8 +1179,11 @@ static int ceph_sync_setxattr(struct inode *inode, const char *name,
  
- 	dout("ceph_get_tree\n");
-@@ -1429,7 +1430,11 @@ static int ceph_get_tree(struct fs_context *fc)
- 	return 0;
- 
- out_splat:
--	if (!ceph_mdsmap_is_cluster_available(fsc->mdsc->mdsmap)) {
-+	/* ceph_mdsc_handle_mdsmap() replaces and frees the mdsmap */
-+	mutex_lock(&fsc->mdsc->mutex);
-+	available = ceph_mdsmap_is_cluster_available(fsc->mdsc->mdsmap);
-+	mutex_unlock(&fsc->mdsc->mutex);
-+	if (!available) {
- 		pr_info("No mds server is up or the cluster is laggy\n");
- 		err = -EHOSTUNREACH;
+ 	if (op == CEPH_MDS_OP_SETXATTR) {
+ 		req->r_args.setxattr.flags = cpu_to_le32(flags);
++		/* ceph_osdc_handle_map() replaces and frees the osdmap */
++		down_read(&osdc->lock);
+ 		req->r_args.setxattr.osdmap_epoch =
+ 			cpu_to_le32(osdc->osdmap->epoch);
++		up_read(&osdc->lock);
+ 		req->r_pagelist = pagelist;
+ 		pagelist = NULL;
  	}
 -- 
 2.53.0
