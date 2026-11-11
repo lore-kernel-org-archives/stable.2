@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404389;
-	b=LT16rPos4BDoFk0AQzzIKOYnk9qWesqcBXQ+N0dBoEK6AaNmmsOjuayW/J899MNH0hYG
-	 Hsl3UDANGeVXyvMH3OSJG0kfr28XkG5N9FbXySkwSs7SUd6nNyGcxtd1SEbD2Egr4y0JS
-	 uB9I9nUiunPBsP/fT144ZKOULXlTl7WxhiS/MGMgS0eDJUHU343L8r4WHXH0HpYMfK915
-	 QbAaYToRJ3+qgDhGyq5VTzyKyTDrM5uO85C/5E/pi7CylTuZ6Oqo3z4lQu6vIYIhyGgT2
-	 B/utX9FYRYSvLUYl7Revht6YCwTdxxfr/oa49+BaSyhQ2IPuGQqBYtX9w8OKg25jbBw==
+	t=1794404413;
+	b=5Th390Vkid9332pppevTqYDlxl6PnIxKpNk9i+jAzOMoW566V3z14Ra/kSkaMDjS6y0v
+	 7RoueCCvcos7aiYNWafBFr5c2PCzobWPXVXdSMJvx/P0qnfCsEFf3wRPDXXxBXz4rhjfk
+	 IIYj1Ybuw6aI2iAD/QRYyFLKCXH7Eo+hLbOx8t5aGDGwi02IKmerxPLh3XBF3NOmylvVx
+	 BFIWRg/sKCQoEh9RQX6z6YbyUKvLs/94G/wBhN5LD7hnsBnhMjb+tfDE9vI1ifDL51IYs
+	 U2aqKr64wh/lpmSEdhRIB0NnZRLjUKzgszxIT/cuKN+IiPjJIzVGoqRYjcEhhJEfPoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404413;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=A5DmeS2+BPAwHNHAnFN+zzC8nswMO/spzsVIeUXnwl0=;
-	b=k0lZrWQbgS8uiGwwel2uA4DyR1H34G+a+CWibc5LPi5nB8nPFar15qZSN7HREsVxT907
-	 r+j9jZaKPuz/swuJiCjh0zMqyEn5ghap3bLiJdlJzzhh3LNLGW3f3Z+CSDqfNsYzExu24
-	 Sf36WmRM1W0sI1dLslIrIXOxJBQkC7csDha1Bh//bcTQuFmjfKaGPlpa9BYLLpahlEedI
-	 PMzPkmZnXYH/Bye/oDl6awsB+V6AhKwfXITT9kxkbckGzkcDvox8Ix/ixjgiXji1XCFwd
-	 giq4jYHHJSUIdNK9mfuJQNPxtucnRuuDRrfBNwUQ24lo9iIZohlTjimkabUZw6z5zqQ==
+	bh=k5G1F6aV4/3ps9AFFlOOcRysmWg37mTDeiAMXktZMTs=;
+	b=JbXx92/J8IU6PS9Ls6MpZqFkmRP+kZfn8rjvi2npFtsGlzENMAEjxVWIrrHrOf6LXYcd
+	 V5Arfjt+PL3Au7kFs+qqydoaZCeC7vcEh2IlPsoMzjNXoVoY8ulI4FXjTehDeBZ2TX7dS
+	 tZrFDUWpu1hMUgmqWFWltg05hcVNoOmvGTn/W8EPZih1pV/SSxHZdfAcpB32ElOlXgzAQ
+	 nMTUiQxCykMCd3b/q+bVDI0QV9jbK96BFwFayFjgyNBvIVBV0QMW2bS0L8nFGASOyZv6z
+	 idD0ZbxanKeZrEUptKBakM3CsDWntqr/8lv3p7iKOubKM7nNY4BCPSxxGiF93nrn5Wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzqs+M1j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt7o7Mdh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303C6606A33B
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF1DC606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:40:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzqs+M1j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3B71F00A07;
-	Wed, 11 Nov 2026 13:39:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt7o7Mdh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2281F00A06;
+	Wed, 11 Nov 2026 13:40:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794404389;
-	bh=A5DmeS2+BPAwHNHAnFN+zzC8nswMO/spzsVIeUXnwl0=;
+	s=k20260515; t=1794404413;
+	bh=k5G1F6aV4/3ps9AFFlOOcRysmWg37mTDeiAMXktZMTs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dzqs+M1jNiumWzOkAGMOiuZZfKczWe2HfB7+V8YfpE12fNGtFBGE9Qy4/wHDw+kob
-	 Pq7ujG4ZlgBM2WtWgivALRnbIY4Y18P+7ack/7vPc65CsMF4kzxY0a0R2QqCliHP81
-	 giMx1xRlXrTWoM6EFxJChIz14f7xPZLguvtz0e1LVtIkgo+Gq9wSMtBJ/EQ7VLROu3
-	 8I5cyAWupxvzVRfaHHp2MCHbSHxahXEvnDXV1572cpvQV61CJruNj5d0q3Jf2Pi5Ca
-	 qKmeG/m41ibTwZ31w913LOUyAPZpZVduNTVWtuej+bV8DClbXpYlngTVtRZLiuob2T
-	 f4A5VDSkp+zDA==
+	b=Rt7o7Mdh/z4/iMbWJ+XWFEmqqMVE2SXG+WpwaPQQHUFQlEw14Y1B0COEHWAZuYiRI
+	 axlg7BN7/Ao9xMVB5hDt1XfjZyFJmxBg6P8fllClFYQDB/mDuocfNjfAzV5phz7bCK
+	 Zh8Fls308kcaLExIztqPMQuDK9++CEW7nmQQwqKvOzLfrbhw+oUc5ZnCyA2P6QEINH
+	 gXpHp3EQhjQR2rJBLOYdq+esli+WfVVtjw8fkY1R/nYanRqlUDduuw2ZY3IJaLXV4l
+	 qtbIV1hjzVDzwPNmYO08wJeURSt2d3Mg6VRJVoftJ0I5yFs4vvugj851zVPWqo301z
+	 eX4xkUsLUToQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Hsiu-Hsien Lee <swinds24@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
+Cc: Edward Adam Davis <eadavis@qq.com>,
+	syzbot+151afab124dfbc5f15e6@syzkaller.appspotmail.com,
+	Heming Zhao <heming.zhao@suse.com>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Junxiao Bi <junxiao.bi@oracle.com>,
+	Changwei Ge <gechangwei@live.cn>,
+	Jun Piao <piaojun@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] ext4: fix fast commit replay failing on a read-only mount
-Date: Wed, 11 Nov 2026 08:39:45 -0500
-Message-ID: <20261111133858.1650548-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] ocfs2: fix oob in __ocfs2_find_path
+Date: Wed, 11 Nov 2026 08:40:10 -0500
+Message-ID: <20261111133959.1649406-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111133858.1650548-1-sashal@kernel.org>
-References: <20261107054548-failed-6.1-e1a881ea4674@kernel.org>
- <20261111133858.1650548-1-sashal@kernel.org>
+In-Reply-To: <20261107051119-failed-6.18-6193ce7896af@kernel.org>
+References: <20261107051119-failed-6.18-6193ce7896af@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,114 +69,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hsiu-Hsien Lee <swinds24@gmail.com>
+From: Edward Adam Davis <eadavis@qq.com>
 
-[ Upstream commit e1a881ea4674876721cab97680d1d8308f90e9a4 ]
+[ Upstream commit e0b0f2834c9bec51b1068de5cf5e10c7519143eb ]
 
-A filesystem with fast_commit that needs recovery cannot be mounted
-read-only:
+syzbot constructed a corrupted image, which resulted in el->l_count from
+the b-tree extent block being 0.  Since the length of the l_recs array
+depends on l_count, reading its member e_blkno triggered the out-of-bounds
+access reported by syzbot in [1].
 
-  EXT4-fs (dm-0): INFO: recovery required on readonly filesystem
-  EXT4-fs (dm-0): write access will be enabled during recovery
-  WARNING: CPU: 22 PID: 5544 at fs/ext4/ext4_jbd2.c:73
-   ext4_journal_check_start
-   __ext4_journal_start_sb
-   __ext4_unlink
-   ext4_fc_replay
-   do_one_pass
-   jbd2_journal_recover
-   jbd2_journal_load
-   __ext4_fill_super
-  JBD2: journal recovery failed
-  EXT4-fs (dm-0): error loading journal
+The loop terminates when l_count is 0, similar to when next_free is 0.
 
-Fast commit replay runs ext4 metadata operations instead of writing
-blocks through the buffer cache: ext4_fc_replay_{unlink,link,create}()
-reach __ext4_unlink() and __ext4_link(), which start a handle.
-ext4_journal_check_start() returns -EROFS on a read-only sb, and as
-that is not -ENOENT it propagates out of jbd2_journal_recover() and
-kills the whole recovery.  The EXT4_FC_REPLAY check that would hand
-out a no-journal handle sits after the sb_rdonly() test, so replay can
-never complete read-only.
+[1]
+UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:1838:11
+index 0 is out of range for type 'struct ocfs2_extent_rec[] __counted_by(l_count)' (aka 'struct ocfs2_extent_rec[]')
+Call Trace:
+ __ocfs2_find_path+0x606/0xa40 fs/ocfs2/alloc.c:1838
+ ocfs2_find_leaf+0xab/0x1c0 fs/ocfs2/alloc.c:1946
+ ocfs2_get_clusters_nocache+0x172/0xc60 fs/ocfs2/extent_map.c:418
+ ocfs2_get_clusters+0x505/0xa70 fs/ocfs2/extent_map.c:631
+ ocfs2_extent_map_get_blocks+0x202/0x6a0 fs/ocfs2/extent_map.c:678
+ ocfs2_read_virt_blocks+0x286/0x930 fs/ocfs2/extent_map.c:1001
+ ocfs2_read_dir_block fs/ocfs2/dir.c:521 [inline]
+ ocfs2_find_entry_el fs/ocfs2/dir.c:728 [inline]
+ ocfs2_find_entry+0x3e4/0x2090 fs/ocfs2/dir.c:1120
+ ocfs2_find_files_on_disk+0xdf/0x310 fs/ocfs2/dir.c:2023
+ ocfs2_lookup_ino_from_name+0x52/0x100 fs/ocfs2/dir.c:2045
+ _ocfs2_get_system_file_inode fs/ocfs2/sysfile.c:136 [inline]
+ ocfs2_get_system_file_inode+0x326/0x770 fs/ocfs2/sysfile.c:112
+ ocfs2_init_global_system_inodes+0x319/0x660 fs/ocfs2/super.c:461
+ ocfs2_initialize_super fs/ocfs2/super.c:2196 [inline]
+ ocfs2_fill_super+0x4432/0x65b0 fs/ocfs2/super.c:993
+ get_tree_bdev_flags+0x40e/0x4d0 fs/super.c:1691
+ vfs_get_tree+0x92/0x2a0 fs/super.c:1751
+ fc_mount fs/namespace.c:1199 [inline]
 
-ext4_load_journal() has already promised that write access will be
-enabled during recovery, so make that true for the superblock as well:
-clear SB_RDONLY across jbd2_journal_load() when recovery is needed on a
-read-only mount and the devices are writable, as ext4_orphan_cleanup()
-does.  Unlike ext4_handle_error(), which avoids SB_RDONLY because it
-would need s_umount, the sb here is still inside ext4_fill_super() and
-not published, so nothing can observe it.
-
-The failure is not clean either: the replay handlers passing a NULL
-handle (ext4_fc_replay_inode(), _add_range(), _del_range()) never hit
-ext4_journal_check_start() and do write, leaving a partially applied
-fast commit behind.
-
-Reproducer, where the unlink only ever reaches the fast commit area:
-
-  mke2fs -q -F -t ext4 -O fast_commit -b 4096 /dev/sdb3 262144
-  mount /dev/sdb3 /mnt
-  dd if=/dev/zero of=/mnt/victim bs=4k count=1 conv=fsync
-  sync                          # victim now in a full commit
-  rm /mnt/victim
-  dd if=/dev/zero of=/mnt/trigger bs=4k count=1 conv=fsync
-  <crash, or snapshot the device while mounted and write it back>
-  mount -o ro /dev/sdb3 /mnt
-
-Without this patch that mount fails; with it recovery completes and
-victim is gone, i.e. the UNLINK record was really replayed.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260812044353.1018268-1-swinds24@gmail.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Link: https://lkml.kernel.org/r/tencent_4D99464FA28D9225BE0DBA923F5DF6DD8C07@qq.com
+Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+Reported-by: syzbot+151afab124dfbc5f15e6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=151afab124dfbc5f15e6
+Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+Acked-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 6193ce7896af ("ocfs2: fix array out of bound access in __ocfs2_find_path()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ext4/super.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ fs/ocfs2/alloc.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index acaaa0218f22d..64a7d7beadf21 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5939,6 +5939,7 @@ static int ext4_load_journal(struct super_block *sb,
- 	int err = 0;
- 	int really_read_only;
- 	int journal_dev_ro;
-+	bool enable_write = false;
- 
- 	if (WARN_ON_ONCE(!ext4_has_feature_journal(sb)))
- 		return -EFSCORRUPTED;
-@@ -5995,6 +5996,7 @@ static int ext4_load_journal(struct super_block *sb,
- 			}
- 			ext4_msg(sb, KERN_INFO, "write access will "
- 			       "be enabled during recovery");
-+			enable_write = true;
+diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+index fb7d8dc2129be..d35c6761dd124 100644
+--- a/fs/ocfs2/alloc.c
++++ b/fs/ocfs2/alloc.c
+@@ -1811,14 +1811,15 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 			ret = -EROFS;
+ 			goto out;
  		}
- 	}
+-		if (le16_to_cpu(el->l_next_free_rec) == 0) {
++		if (!el->l_next_free_rec || !el->l_count) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+-				    "Owner %llu has empty extent list at depth %u\n",
++				    "Owner %llu has empty extent list at depth %u\n"
++				    "(next free=%u count=%u)\n",
+ 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+-				    le16_to_cpu(el->l_tree_depth));
++				    le16_to_cpu(el->l_tree_depth),
++				    le16_to_cpu(el->l_next_free_rec), le16_to_cpu(el->l_count));
+ 			ret = -EROFS;
+ 			goto out;
+-
+ 		}
  
-@@ -6011,7 +6013,19 @@ static int ext4_load_journal(struct super_block *sb,
- 		if (save)
- 			memcpy(save, ((char *) es) +
- 			       EXT4_S_ERR_START, EXT4_S_ERR_LEN);
-+		/*
-+		 * Fast commit replay performs regular ext4 metadata updates
-+		 * (see ext4_fc_replay()) which refuse to run on a read-only
-+		 * superblock.  We promised write access above, so make that
-+		 * true for the duration of the recovery, the same way
-+		 * ext4_orphan_cleanup() does.  The superblock is not published
-+		 * yet, so nothing can observe the transient state.
-+		 */
-+		if (enable_write)
-+			sb->s_flags &= ~SB_RDONLY;
- 		err = jbd2_journal_load(journal);
-+		if (enable_write)
-+			sb->s_flags |= SB_RDONLY;
- 		if (save && memcmp(((char *) es) + EXT4_S_ERR_START,
- 				   save, EXT4_S_ERR_LEN)) {
- 			memcpy(((char *) es) + EXT4_S_ERR_START,
+ 		for(i = 0; i < le16_to_cpu(el->l_next_free_rec) - 1; i++) {
 -- 
 2.53.0
 
