@@ -1,73 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794439445;
-	b=0Fo2tSux/W0F2yKatw2GL/dGZlFjjJ+HdVKKnmPIGMjS4f0duVfjnmBLBN32rTs8g2SQ
-	 xOjGjGxh9ex8kl+NkJXUe4/YqKD+YoUhiMD9ZLDsN4g7tzqsXjvwzeW63nDTi6b1/8Ytm
-	 XtuFcjopKeHTajAQpIF7uWkCaYrCa4Vz/dS01Uokpe+IThTTtEV0jmB4f7dnWvAW2zban
-	 qVXeFPjWWPN2VYlXemwHVovmNcmbn1Bck7HOIAMRPinIrfcYqG0gTKoAa50Fql6NEm8fC
-	 goWKDLVfylPUfFMNeHSptwSrESqPTOqjnOBDxntokpFDSeCd7OTEP1LluDBkoqWFrQg==
+	t=1794439461;
+	b=FyApaeYWqicUutx8jVLxITTo6SbdAYijoFPBSctwpz2tCaQv5KXhvK0YD1PIQ0kb80Xl
+	 6QNNkZaOuD3sLzy9phw5igZJxFp6DU5umUYtOdKsInc+joPd+QVZLAZ7Gvw5W6tYPQOpH
+	 cO+sly3NO2GjixFHnr2CV9GnYrvJ4YLs3c6jtMBPOXCTd9fZuxU0GzfKJhnCddTSnqXx8
+	 upDkRV5iD34SOG916gh/ef12pV7G06dBpcNiXTiRSZGDg5RpMz5pHZ7e5LqEStWz3923Y
+	 MPRuCH1CP0G0+2eNoOO7zgUuP6dmXIHRMvKR/Ggy+6kaq1TIF9r1WMx7CIGYv0v4UHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794439445;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794439461;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Pzj7/9EShhIscsdSH7OqKldqnG9+28gt2htGJFAbmXQ=;
-	b=Ao98jVXchkIm0hFufIq1tZJALDcM0QzUQiR3x6hAfvLGWYA/DYsDbupKiu9eYca4SUM7
-	 IMjHsVLEI+KNO09IrDgXqi0kMi2fljlgCpNrVeOwpaTM4ffDM4X72YK82vF2hQRgqck1E
-	 bwhlwzE3c/7mspWJe3jLnx9gQ87+enqE9HuKQJIuLuPeJ8nBlB+AFgiHKcnrRfKHBXpq7
-	 8nq/6QaldW3cCwrFJKH2AWrL6l0FSgSYCEmAWHPumyyWj5qD/uwHFoutQGGO1svSPdFMh
-	 UmSQ/vC5AdG8hJjCM6PNa0d2+fex4fJ2hjAvf5pXj2fKpD6f/0BXfYghqZlXAcmUdRQ==
+	bh=4NB1N9SBrZSq6FdH11+V5mDiYB1ugRNBVW4MjRCA8l8=;
+	b=k9Ub3Pt0ikoO5CdTLzW1NfEPitzC/62bJQR3WrE6dSw6SmyhmcQUnlzqjGT8VpfbIA5G
+	 8Rwy484NokyGSzCSz7hU44KZAKHDm4kzu/Y3b7s/Jm9qORx+YLqVRyKT2c/wZ+CsJ3yyR
+	 Gxea7Px3oIGSL4mZWRseK8YVJnrTYfcVf24qxqz4M7D17g0oiJfxDsAG+rWkMVXFwSVQn
+	 6Il4EW6ogJKMAMTUYPNmGKcu21oFTjchb/rf1gB7EWMdK+N1lAF1KV/X07+c29W4zf5OW
+	 NA9R5qttcvXPK2G4X9z5DTQwv6ZezddHF+I2X2wr1pQESMWcKvKq6cJi1xXZZnPMZ5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOW6t4rr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYyMBkoM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16EE606A321
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:24:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49530606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:24:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOW6t4rr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300F21F00A05;
-	Wed, 11 Nov 2026 23:24:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYyMBkoM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B43111F00A05;
+	Wed, 11 Nov 2026 23:24:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794439445;
-	bh=Pzj7/9EShhIscsdSH7OqKldqnG9+28gt2htGJFAbmXQ=;
+	s=k20260515; t=1794439460;
+	bh=4NB1N9SBrZSq6FdH11+V5mDiYB1ugRNBVW4MjRCA8l8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WOW6t4rr/oO9IgCNXlY5yJAog0dMPgMfWuxIWNG23BRkeXJNdJGHXUD602xoZOjJ3
-	 PQzlZoFfLx1VrViIf8Zl8CwGJV/udGLqXCX3K+mNu+3w6WvBxhd+4h6x3Me4fuFPQ3
-	 ewbxjcIW3K8ef+rZ1ybT4Dl100HqNfD3YxbcMpDTopYTkxcQ46RckyAzO/PhKvq/Ms
-	 rjZExPBJoesTwrxnjiKD73gm8X6IP/uTfG7kz7sI9vtVgGUpt9IDl05uzA6hJz0D4y
-	 pgdbQM8/ot1LUjkyij5hmbPBGooyrGbhZinzTp/v9b++/Y5Xgnfs4n79BG5Kiil4MS
-	 jZwcurINKY/KA==
+	b=hYyMBkoMVX588MFNDEZwN+1Xce5oDjG7u9xpTQOfrMZwCHmmzz25AAijdlSDZNVDY
+	 EcIwKUhWWQ/4jNKr3BY0Uls16EanBBXjDXDaNDKggHC8LxkwmdIO+1hfKK3sS5G+Nc
+	 OQhgB7fa+iBPiGdLr9QgCy3Orkjz/pAe2ZvUnr/V3JV8NLF0uQSbQkkDCLWjAg3yQ8
+	 WQzVFjo+5AQSFzJ8ag2sYMYoVbQgaV54R3tYJGELOts2QXdcAcrmMv1WfID8HACmHS
+	 Q1DJzDZ6Me6W1i1PW+3RsOar3BVhlmZpkbD2Mgszpe2c0MXdU/aG7EgdIetlIpPAZ4
+	 FjB/Nf1kbK2RQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+Cc: Wei Yang <albinwyang@tencent.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Mason <mason@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
 	"Liam R. Howlett" <liam@infradead.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
 	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Adam Litke <agl@us.ibm.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Rik van Riel <riel@surriel.com>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/hugetlb: fix endless write fault on a leftover uffd bit
-Date: Wed, 11 Nov 2026 18:24:01 -0500
-Message-ID: <20261111232336.406571-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()
+Date: Wed, 11 Nov 2026 18:24:18 -0500
+Message-ID: <20261111232356.485300-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055428-failed-6.1-f61e1cf15fb4@kernel.org>
-References: <20261107055428-failed-6.1-f61e1cf15fb4@kernel.org>
+In-Reply-To: <20261107055415-failed-6.1-f5cfc8e3b20a@kernel.org>
+References: <20261107055415-failed-6.1-f5cfc8e3b20a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,117 +67,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Wei Yang <albinwyang@tencent.com>
 
-[ Upstream commit f61e1cf15fb44f9cf89d43d8ef01f926322bb1c4 ]
+[ Upstream commit f5cfc8e3b20ad71949a1e5623ff45882c063a71b ]
 
-hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
-registered for userfaultfd write protection, and hugetlb_wp() bails out
-for any entry with the uffd bit set assuming hugetlb_fault() has already
-resolved it.
+During stress testing with stress-ng on a 256-CPU system, a softlockup was
+observed when madvise(MADV_COLD) was called on a 31GB memory region backed
+by transparent hugepages.  The region contains 15935 THP PMD entries, and
+the softlockup was triggered after 14485 of them had been processed.
 
-When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
-that is not registered for uffd-wp, a write fault to it never makes
-progress. If the access comes from the kernel, e.g. read(2) from
-/dev/zero into such page, the task spins in the page fault handler,
-ignores SIGKILL and keeps holding the locks taken by the system call.
+The THP branch of madvise_cold_or_pageout_pte_range() has no scheduling
+point.  walk_pmd_range() invokes it once per 2MB PMD entry with no
+cond_resched() anywhere in the loop.  Each iteration calls
+pmdp_invalidate() which issues a synchronous TLB shootdown (dsb ish)
+waiting for all CPUs to acknowledge.  This operation can be time-consuming
+under heavy system load, causing the accumulated time across all PMD
+entries to exceed the softlockup threshold (20s) and panic when
+softlockup_panic=1.  On a CONFIG_PREEMPT_NONE=y kernel, there is no other
+opportunity to reschedule during this entire traversal.
 
-Such entries should not exist, but an unprivileged user can create them,
-for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
-or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
+The regular PTE path already has an unconditional cond_resched() at the
+function tail (introduced by commit 9c276cc65a58 ("mm: introduce
+MADV_COLD") and commit 1a4e58cce84e ("mm: introduce MADV_PAGEOUT") when
+MADV_COLD and MADV_PAGEOUT were first introduced) and a conditional one
+inside the loop (commit b2f557a21bc8 ("mm/madvise: add cond_resched() in
+madvise_cold_or_pageout_pte_range()")).  The THP branch never received
+equivalent treatment.
 
-Clear the uffd bit when the VMA is not registered for uffd-wp and let the
-fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
+Fix by adding cond_resched() at the huge_unlock exit path after
+spin_unlock(ptl) and reclaim_pages(), which is the single exit point for
+all goto paths in the THP branch.
 
-Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
-a private VMA that was made PROT_NONE now drops the RWP protection of
-that page.
+Crash log:
+  watchdog: BUG: soft lockup - CPU#63 stuck for 23s! [stress-ng-vm:1665914]
+  ...
+  Call trace:
+  pmdp_invalidate+0x48/0x68
+  madvise_cold_or_pageout_pte_range+0x84c/0xb00
+  walk_pmd_range.isra.0+0x1ac/0x3b0
+  walk_pud_range+0x120/0x190
+  walk_pgd_range+0x170/0x1b8
+  __walk_page_range+0x184/0x198
+  walk_page_range_vma+0x94/0x128
+  madvise_cold+0xd8/0x198
+  madvise_vma_behavior+0x234/0x638
+  madvise_walk_vmas.constprop.0+0xdc/0x210
+  madvise_do_behavior+0xa8/0x328
+  do_madvise+0xd8/0x140
+  __arm64_sys_madvise+0x2c/0xe0
 
-Original fix generated by an LLM and sent in private by Josef.
-
-[rppt@kernel.org: massage commit message]
-[david@kernel.org: convert comment into a TODO]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-6-42796911043b@kernel.org
-Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Link: https://lore.kernel.org/20261010024042.4070048-1-albin_yang@163.com
+Signed-off-by: Wei Yang <albinwyang@tencent.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: <stable@vger.kernel.org>
-[ sashal: Adapted userfaultfd write-protection handling to older synchronous-only interfaces. ]
+[ sashal: Adjusted patch context to retain page_list where upstream uses folio_list. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 38 ++++++++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 14 deletions(-)
+ mm/madvise.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index de805b385d06b..9280e3d0cedd4 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -6180,23 +6180,33 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 		goto out_ptl;
- 
- 	/* Handle userfault-wp first, before trying to lock more pages */
--	if (userfaultfd_wp(vma) && huge_pte_uffd_wp(huge_ptep_get(ptep)) &&
-+	if (huge_pte_uffd_wp(huge_ptep_get(ptep)) &&
- 	    (flags & FAULT_FLAG_WRITE) && !huge_pte_write(entry)) {
--		struct vm_fault vmf = {
--			.vma = vma,
--			.address = haddr,
--			.real_address = address,
--			.flags = flags,
--		};
-+		if (userfaultfd_wp(vma)) {
-+			struct vm_fault vmf = {
-+				.vma = vma,
-+				.address = haddr,
-+				.real_address = address,
-+				.flags = flags,
-+			};
- 
--		spin_unlock(ptl);
--		if (pagecache_page) {
--			unlock_page(pagecache_page);
--			put_page(pagecache_page);
-+			spin_unlock(ptl);
-+			if (pagecache_page) {
-+				unlock_page(pagecache_page);
-+				put_page(pagecache_page);
-+			}
-+			hugetlb_vma_unlock_read(vma);
-+			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
-+			return handle_userfault(&vmf, VM_UFFD_WP);
- 		}
--		hugetlb_vma_unlock_read(vma);
--		mutex_unlock(&hugetlb_fault_mutex_table[hash]);
--		return handle_userfault(&vmf, VM_UFFD_WP);
-+
-+		/*
-+		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
-+		 * are no longer registered with uffd.
-+		 */
-+		entry = huge_pte_clear_uffd_wp(entry);
-+		set_huge_pte_at(mm, haddr, ptep, entry);
-+		/* Fallthrough to CoW */
+diff --git a/mm/madvise.c b/mm/madvise.c
+index b271cc1b48edb..447b2ae438fe9 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -401,6 +401,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		spin_unlock(ptl);
+ 		if (pageout)
+ 			reclaim_pages(&page_list);
++		cond_resched();
+ 		return 0;
  	}
  
- 	/*
 -- 
 2.53.0
 
