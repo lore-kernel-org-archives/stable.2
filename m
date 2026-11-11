@@ -1,49 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794434425;
-	b=kN2G1/be/6+3JfZaqtivdtHL6Bk2Ynh6Yep1Yzp6tGo5gZuHRcKpy1gKyPR17E+SH/LZ
-	 eti7PI0MLXcCH6NzntagVI1lp3P/H4UmUWvp36m9tA2y4Q2UHtjQBCQkdPu4kI5UdgO8G
-	 SH9TaLpqUB3WdW1gw024pQEquQXzqY6O2GaJsbEd3tHQES132WfeY2wnB3M1wcp5nLG3F
-	 awM9lI79y0w2pb4En+BW61+EKoa5m+2eNPdTfkJB4jWCiNSkYQQjT6+2IOxqPUI65LEQR
-	 UYwjGFxqys3yaBKjt4zc5hPQROMJpAMbNqHp6IauENqjBDn4OskbmS7Oq6Qbk5xJNPQ==
+	t=1794434434;
+	b=QFXj7gUYuPxheL07GQamaGEX6J55gL/eW5lOxD3Ay2e4zXoXOcm8IyGgZKVE4Hqkp2oq
+	 XZSUyTn+W5bhkD0OePO8D934cFPwAgGRkL4U+nHXRJIrVNNMcSTLwmDtKs819aEKMi+7x
+	 WBhLoVnnTeTxUeA+4Yyd/NV23W4y1Jtx6rst514FPcUpPb0HeTIUVed6KZ0Eo0s0fW06O
+	 TX6cQ4DPSqQsaxplH1yA94AUoMC2BI92nLP7PCDdSztv5Akv/qtKmIUpOQNzLDO/yMyHY
+	 lohuRXop4ko3L3LJPEZWH/nU7m0tRIJDlj6mX3VYHZTua04Z2Q8a8HbHC/XHI6DURUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794434425;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ZHvYGTmbJqczwpKl5nraRSA21m3YoEwNoNnIMQVxtIM=;
-	b=wAcLWcQeIae8hZDDU/YfQTy1a99Q/rZcDqfpNpX/VWB8Ayt7ZGmomgOMYOlczP3PSfFw
-	 sdLdBTH0bUc1LgU00VHHejzM4X3pBMgJvXy/x9MAFL6BG5cKnVG1nF/kiUBKZJ72YNX00
-	 F7kLlb5FfIfUirtfopA04CJ4EqPSzJ6a8oLqvAkx27t9izeGZuUqbGSmCzQQi3RzO8rh7
-	 BeM9P9B0rEzcKNfSal9dXwhRwz2Uqty1MFXGzpUDFacLpCF7KMUHJnKmNR8GoJuDwJijI
-	 O9TGFecWa4le/ZXSD6EvOFMqbZnT3ia4vrpxLDqc+/fdeglyuKJvAGcIQQVKnBDIi6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794434434;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=sMow4GbZ3VvBLjiBina48O6/cSg+LRhs6gWMpwYdc/o=;
+	b=SNa3NYAdNGrQuQiBtdSOrcaRuwiP0lrqA+eYImFydFY+c0zWhQd/QEc7mPnetQ1nUudR
+	 f1XGpZYpwu7qRRLXLRzHHMHd9C2k0YwRTO3TZM5+P/I0o147L+G+IrQ0X9Cq3E7X2Sm9l
+	 o8iMw5OX06PURXm9vCJBNPgkdK0XB+RvTr+DtxO1t/CSEzfMYFzGVE5xZlGEH0qd+I39W
+	 /nXYvZt6oQ0Xl0kxXc7qSVSVZLpz2tmWafg6V+JRAmnPB+zwbsGjJQA6JSouLk5Goln22
+	 VBoXz9REJyjsyv+MVMaF0XewnMrJnQ8imIbH/eX4vEfUH7Mf8u199nEywMX4hCDa2HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4h8Awzd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fJ917ztV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E6360A3836;
-	Wed, 11 Nov 2026 22:00:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008C6606A331
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 22:00:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4h8Awzd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5363E1F00A0B;
-	Wed, 11 Nov 2026 22:00:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fJ917ztV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D661F00A06;
+	Wed, 11 Nov 2026 22:00:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434424;
-	bh=ZHvYGTmbJqczwpKl5nraRSA21m3YoEwNoNnIMQVxtIM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=G4h8AwzdWPBd5kXLtPEIcLPvQ1XEyQuMdhORFExWsjdSoCaNtKsy7cfD3LDzBiwzp
-	 F/zr+qUwxinhgii6Ov55+l27DkiMmrKtOCqiSmfImRT63WEgM7IMeZtc12uDMHCX//
-	 tJ8kF3IWMazWVTjbrF94KYeuJiqa9WwQCac0phugFVC4VBWOuFGHgt5/kCGwQOWtDE
-	 tJmZvLYiMtMsry3oI6Of8Xhd+l2bCBFjjY1ax4kIB4m7/fmuV3etcOhrLgFP7IzHT+
-	 L8UOZdV06abq0DPr+URdfAWVnUkr9k8h5sxMZjQCN0FeeSr/RySdscpSgh81/KZtCs
-	 qETQm6/IBBE7g==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 11 Nov 2026 23:00:01 +0100
-Subject: [PATCH 3/3] mm/rmap: fix PTE table overruns during batched
- reference checks
+	s=k20260515; t=1794434433;
+	bh=sMow4GbZ3VvBLjiBina48O6/cSg+LRhs6gWMpwYdc/o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fJ917ztVT79RRDByrX9TuluFe5Z5Bj1d0G0kLaVDJM0FgdPQfmf/W7brkZf9k5T0B
+	 t4QBCqEtGI48aIyGh2+M3BO8PK0kd0vQMAIi+o3S4nuh3OD+TKqOktEJNjLvSwI2Tw
+	 6bsysCAYJEcfVtnsr2j7Yx5yYFrcu8SkbmtrmMzUA0tJ/w/4u71RyFuTKhRcV6GRz/
+	 htPvzHfU24Of9o0WW6uiw6ONm86hxAd8GLe4fch5WLQgTp+WReN0B9DOS1NxmLMRub
+	 pKbfCse7IhL20Hhzy1QdmDBIgkBqx19AMbM6+8lh6+JsKm7yN17dQiOpe5Z9fX9sUr
+	 yxOegR4OGUBkQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] PCI/pwrctrl: slot: Rename private struct and pointers for consistency
+Date: Wed, 11 Nov 2026 17:00:30 -0500
+Message-ID: <20261111220022.4081244-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107051332-failed-6.18-ee450e3a2d33@kernel.org>
+References: <20261107051332-failed-6.18-ee450e3a2d33@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,66 +60,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-pte_table_clamped_end-v1-3-2dbe339c487a@kernel.org>
-References: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-In-Reply-To: <20261111-pte_table_clamped_end-v1-0-2dbe339c487a@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
- Peter Xu <peterx@redhat.com>, Lokesh Gidra <lokeshgidra@google.com>, 
- Barry Song <baohua@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Harry Yoo <harry@kernel.org>, Jann Horn <jannh@google.com>, 
- Lance Yang <lance.yang@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- Chris Mason <mason@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1280; i=david@kernel.org;
- h=from:subject:message-id; bh=fwx7b+WXIb167Hoov0yJz4Tl/bBR+K10WHa0ZfAYrs4=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLK+PE1depvP59o0LaXohd+F6rhf/LQ5Lrq3XMR35U1NA
- Z1a4VfvO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjI60xGhomLD7z/ev7Jq2uN
- qp6s3R5uuomPuVXjX9Vv2/148/Fqpb+MDI1HX02/wdpkJrDjDbu8ps4GjZ6Y9bfapLmaryZoygQ
- 3cwAA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-With a folded PMD, pmd_addr_end() simply returns the supplied end.
-folio_referenced_one() can therefore walk past the PTE table when
-checking references to a large folio.
+From: Bjorn Helgaas <bhelgaas@google.com>
 
-Folded PMDs are uncommon, but can occur even on arm64, for example
-with 64K pages and a 42-bit virtual address space.
+[ Upstream commit e40d16e6c23994b28894179b87f9747edd63062a ]
 
-Use pte_table_clamped_end() to clamp the range to the PTE table and
-VMA boundaries.
+Previously the pwrseq, tc9563, and slot pwrctrl drivers used different
+naming conventions for their private data structs and pointers to them,
+which makes patches hard to read.
 
-Fixes: 52e054f71840 ("mm: rmap: support batched checks of the references for large folios")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Rename structs, variables, and functions to reduce boiler-plate and start
+with "slot":
+
+  struct pci_pwrctrl_slot_data      -> struct slot_pwrctrl
+  struct pci_pwrctrl ctx            -> struct pci_pwrctrl pwrctrl
+  pci_pwrctrl_slot_probe()          -> slot_pwrctrl_probe()
+  pci_pwrctrl_slot_of_match[]       -> slot_pwrctrl_of_match[]
+  pci_pwrctrl_slot_driver           -> slot_pwrctrl_driver
+  devm_pci_pwrctrl_slot_power_off() -> devm_slot_pwrctrl_power_off()
+
+No functional change intended.
+
+[bhelgaas: move "slot" to beginning, also rename functions, etc]
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260115-pci-pwrctrl-rework-v5-2-9d26da3ce903@oss.qualcomm.com
+Stable-dep-of: ee450e3a2d33 ("PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/rmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pci/pwrctrl/slot.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 491a954b7fa44..65646ed6fc453 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -973,7 +973,7 @@ static bool folio_referenced_one(struct folio *folio,
- 			pteval = ptep_get(pvmw.pte);
+diff --git a/drivers/pci/pwrctrl/slot.c b/drivers/pci/pwrctrl/slot.c
+index 3320494b62d89..51de1eecdb26b 100644
+--- a/drivers/pci/pwrctrl/slot.c
++++ b/drivers/pci/pwrctrl/slot.c
+@@ -13,23 +13,23 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/slab.h>
  
- 		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
--			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
-+			const unsigned long end_addr = pte_table_clamped_end(address, vma->vm_end);
- 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
+-struct pci_pwrctrl_slot_data {
+-	struct pci_pwrctrl ctx;
++struct slot_pwrctrl {
++	struct pci_pwrctrl pwrctrl;
+ 	struct regulator_bulk_data *supplies;
+ 	int num_supplies;
+ };
  
- 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
-
+-static void devm_pci_pwrctrl_slot_power_off(void *data)
++static void devm_slot_pwrctrl_power_off(void *data)
+ {
+-	struct pci_pwrctrl_slot_data *slot = data;
++	struct slot_pwrctrl *slot = data;
+ 
+ 	regulator_bulk_disable(slot->num_supplies, slot->supplies);
+ 	regulator_bulk_free(slot->num_supplies, slot->supplies);
+ }
+ 
+-static int pci_pwrctrl_slot_probe(struct platform_device *pdev)
++static int slot_pwrctrl_probe(struct platform_device *pdev)
+ {
+-	struct pci_pwrctrl_slot_data *slot;
++	struct slot_pwrctrl *slot;
+ 	struct device *dev = &pdev->dev;
+ 	struct clk *clk;
+ 	int ret;
+@@ -53,7 +53,7 @@ static int pci_pwrctrl_slot_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	ret = devm_add_action_or_reset(dev, devm_pci_pwrctrl_slot_power_off,
++	ret = devm_add_action_or_reset(dev, devm_slot_pwrctrl_power_off,
+ 				       slot);
+ 	if (ret)
+ 		return ret;
+@@ -64,31 +64,31 @@ static int pci_pwrctrl_slot_probe(struct platform_device *pdev)
+ 				     "Failed to enable slot clock\n");
+ 	}
+ 
+-	pci_pwrctrl_init(&slot->ctx, dev);
++	pci_pwrctrl_init(&slot->pwrctrl, dev);
+ 
+-	ret = devm_pci_pwrctrl_device_set_ready(dev, &slot->ctx);
++	ret = devm_pci_pwrctrl_device_set_ready(dev, &slot->pwrctrl);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to register pwrctrl driver\n");
+ 
+ 	return 0;
+ }
+ 
+-static const struct of_device_id pci_pwrctrl_slot_of_match[] = {
++static const struct of_device_id slot_pwrctrl_of_match[] = {
+ 	{
+ 		.compatible = "pciclass,0604",
+ 	},
+ 	{ }
+ };
+-MODULE_DEVICE_TABLE(of, pci_pwrctrl_slot_of_match);
++MODULE_DEVICE_TABLE(of, slot_pwrctrl_of_match);
+ 
+-static struct platform_driver pci_pwrctrl_slot_driver = {
++static struct platform_driver slot_pwrctrl_driver = {
+ 	.driver = {
+ 		.name = "pci-pwrctrl-slot",
+-		.of_match_table = pci_pwrctrl_slot_of_match,
++		.of_match_table = slot_pwrctrl_of_match,
+ 	},
+-	.probe = pci_pwrctrl_slot_probe,
++	.probe = slot_pwrctrl_probe,
+ };
+-module_platform_driver(pci_pwrctrl_slot_driver);
++module_platform_driver(slot_pwrctrl_driver);
+ 
+ MODULE_AUTHOR("Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>");
+ MODULE_DESCRIPTION("Generic PCI Power Control driver for PCI Slots");
 -- 
-2.43.0
+2.53.0
 
