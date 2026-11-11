@@ -1,55 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419127;
-	b=JiNbsXid9+YLV/NR3e8tXV6RXonJfxN79sf8dH48lXLnuXT1CstUDOndBU5i0V5EtjCi
-	 azp+knwGe2+Va50wT6xMw9k9r6LeObN0gHTxYKirpKmiiRvDUiaq8aGOOzW1/Kb6lYy2+
-	 IrSBhoUM82ukEpNFq5XBoceFpMkRzAgPoDQt//cIH7osDzJ0wChu/DxkINqPMBrE7cOz+
-	 5lX2SFpTLoxSiwXKk6HfiaXbxkQBA3szIZqDDIfLWxdRIPm5spkiEXPgV3CBnmjdY+R0I
-	 +bB3DoOhNlL6KZiZci+L+raXEH6AbIHhvOj3krRvqe6lWVVpZytgsP8qhYIkqzmfTJA==
+	t=1794419139;
+	b=4IFvzVSoq55T0bxYTuKeeZv+GEUaHm/WJ36szh3mNiBwgL00c2fCEu854CO9J2Im8GSH
+	 s3/6AIOMoxiR7DzkKdtisCp0Z8yvGsWa72EeU2tbdFRbIHcvhcmG3sPe+sHjvvMRmx3a6
+	 srlVBloXzmWr7G0vU6MJ+158C5FaeCxLwmDvFcognPuGDiCsperDGRItgsSzsBulPRIiN
+	 SlUJpsgffBhWOmD3dlmSz3PA3XKfy5OQOSivhHc7X9NW9h0EWjyV0ZjavDKHLPy3VRnEM
+	 /dFJHhTVF+axgU77dFfyl/4A1u2GlatnprGfsNFA/fHyY0/jAxwm1eLYVAakExtPpNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419139;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mRP6vAhoWR3MmECjS8zD3FHlWKIUtew1wC7ZcpglQmg=;
-	b=cJOuKMSBvinP3CtbLLWF1sAMvLD0ottrM7dx65V7QAZ83WHfYTXbVH1VYi1PRss63Tkx
-	 hhP+/xbqfFa0JE5x1RcPxT7ozOMJoE3E23WgvNiRFsAb1x2mnohR4itObKi3EVroUR9uJ
-	 /aipKTMEeV05Wt+BkeS4yEoDidJhpHuEheS/fB2fKoOCy/U43ATAVhyrFgZKjRZGJfGnM
-	 Q8nZJ6jR7+ZrvQnGoqx/6A7HJlQTITuQ2HWdy1PgBNFbr5vnOV9LfUgT1t9H8epd3NcRx
-	 7+TFnsqbR45RZZUVIfJQhdJrcO/0rb9/OSOujfM6FaL67aVqekPzhNjAT07wRRsH59w==
+	bh=cVZMS7plCFhcLSpzUPKcqs16DyXXNTzX3X1i67/v02I=;
+	b=ZMYmVdZpFUw3RgFcnUMrXtpJZuTexBX7FP2HwCxG+U66mt6F6dIJuIvZxu1Ldyx9wYge
+	 m657XM/aMRjRmBE2lYZMm6VDcXZwPxq6Cpi3fNcRaDP/TdL1FRY2etRsaO8fDm1ZQEXrB
+	 HiOXFkM7+US/0yQtHxm3z4Ubm8BLPkxoB7LjFbXn535flqJIVxGkAyCSqM9HCSooAqXbw
+	 /pEjS8u9Q5TCXJu49iaz4t244kFHcsg03eot8YB+GMKuItx+j8ovF2mC4SLUpeSEhLMyG
+	 O91MJYWwI2h2zsV5ElfwU1tNYtg3SAaf+DQVWgVAwppIyzZuClA9Mz3hWhVlYhLhcPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BInpHpYF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PmmvhFGJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBCE606C1CE
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCC4606A89E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BInpHpYF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A5B1F00A05;
-	Wed, 11 Nov 2026 17:45:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PmmvhFGJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260271F00A0B;
+	Wed, 11 Nov 2026 17:45:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419127;
-	bh=mRP6vAhoWR3MmECjS8zD3FHlWKIUtew1wC7ZcpglQmg=;
+	s=k20260515; t=1794419139;
+	bh=cVZMS7plCFhcLSpzUPKcqs16DyXXNTzX3X1i67/v02I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BInpHpYF37SZXjnXvXfNKP5FCNOAXzbx9n3YNXs+OfkC+/8VTNepSuPWalsGSeMDZ
-	 LnN+97qRatRaUiAbnDIEKM38CI8prcQ31spAUgNiXTojz91iEDtVq7/JzSyzbdt/D4
-	 8KL5yJkwywu3B2rAc/LpHl1nZ3SId1JCEg5C0LuN+D+dLun7/lckElJGEmUbcDvtwZ
-	 UV0gnk1jOEdmXSBVaY7GaJF3XQd7zG8fzx6DlJTF1ECUCJNL7/hq9Fg3CKIGAqWwQd
-	 s6wkjGpiHzbzgMAe64qceKQhuRDn9pYXItanp26CKCobiQK5zv444P2RqBxJvUefYv
-	 FMW0se03gFGow==
+	b=PmmvhFGJxzskSobyrH2XfiI2XvB0Ze4dQuaGF9DgJMuK3IM5KzUMEleWeefyVyrBx
+	 XPKfmYuwP0RTiMAx/RnH/WBikiarqTsYVRNu02iBHKyC2xKaR3BTUhaXlrvgy151qK
+	 vl1m+gqJTM/Szl+SGAgxW+o/676Eekp9hvmrFaONgkcNBsEw/3wIaV69sow3CKnewN
+	 qbdDKNYDDhXeqMhXRYZ+vX6ngOnFPPbfcLDtgYJwg/U+FrG1mJ3ED/275NVkrqi1D1
+	 FRN9TQd5dD+8FGzbdIJj+n+KmXNClcSerl/rBeMAYybgFEufn6fK6GL8ODFrQ4RKZb
+	 kdlTMUan+Fbag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henrik Enquist <henrik.enquist@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Samarth Narang <samarth.colleges@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ALSA: aloop: Update the PCM Slave controls for a matching playback
-Date: Wed, 11 Nov 2026 12:45:25 -0500
-Message-ID: <20261111174512.3685448-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/ksm: keep soft-dirty when merging a page
+Date: Wed, 11 Nov 2026 12:45:37 -0500
+Message-ID: <20261111174518.3654526-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055309-failed-6.1-c3bde2beacbc@kernel.org>
-References: <20261107055309-failed-6.1-c3bde2beacbc@kernel.org>
+In-Reply-To: <20261109201702-failed-6.1-2efc6332f18b@kernel.org>
+References: <20261109201702-failed-6.1-2efc6332f18b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,68 +68,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Henrik Enquist <henrik.enquist@gmail.com>
+From: Samarth Narang <samarth.colleges@gmail.com>
 
-[ Upstream commit c3bde2beacbcb40790f0e3c3f909f9e16bbced9c ]
+[ Upstream commit 2efc6332f18bfd848f74f3d5ba45b31450601faa ]
 
-The "PCM Slave" format, rate, channels and access controls report the
-parameters of the playback side of a cable. loopback_check_format()
-updates them when a playback starts, but returns early when a capture
-is open and its parameters match. The controls then keep the module
-defaults, or the parameters of an earlier stream.
+replace_page() maps the KSM page with a PTE built from scratch, so the
+soft-dirty bit of the PTE it replaces is lost.  A page written since
+"clear_refs 4" then no longer shows as soft-dirty once it is merged, and a
+soft-dirty based dumper treats it as unchanged.
 
-A playback that joins an open capture with the same parameters is the
-normal case without notify, where it is constrained to the capture's
-parameters, and also with notify whenever the player happens to use
-them. An application that reads the controls to find the playback's
-parameters, for example to reopen the capture side at the right rate
-after a restart, then gets the wrong values.
+Copy the soft-dirty bit from the original PTE to the new PTE.
 
-Only skip the capture stop when the parameters match, and update the
-controls in every case. A value event is still sent only for a control
-whose value changes.
-
-Reproducer:
-  arecord -D hw:Loopback,1,0 -r 44100 -f S16_LE -c 2 /dev/null &
-  aplay -D hw:Loopback,0,0 -t raw -r 44100 -f S16_LE -c 2 /dev/zero &
-  amixer -c Loopback cget "iface=PCM,name='PCM Slave Rate',device=1"
-Before: the control reports 48000, the module default.
-After: it reports 44100.
-
-Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
-Link: https://patch.msgid.link/20261021-aloop-slave-controls-v1-1-62297727177f@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: adjusted context to match the existing loopback_check_format() implementation ]
+Link: https://lore.kernel.org/20261021182157.1873726-1-samarth.colleges@gmail.com
+Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Xu Xin <xu.xin@linux.dev>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adjusted context to retain pte_pfn(*ptep) instead of pte_pfn(ptep_get(ptep)). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/drivers/aloop.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ mm/ksm.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 9c7671f034d54..29959455fe072 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -346,11 +346,14 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 			check = runtime->format != cruntime->format ||
- 				runtime->rate != cruntime->rate ||
- 				runtime->channels != cruntime->channels;
--			if (!check)
--				return 0;
--			if (stream == SNDRV_PCM_STREAM_CAPTURE)
-+			/*
-+			 * Matching params also go on to the update below, so that
-+			 * the setup controls follow a playback that joins an open
-+			 * capture.
-+			 */
-+			if (check && stream == SNDRV_PCM_STREAM_CAPTURE)
- 				return -EIO;
--			else if (cruntime->state == SNDRV_PCM_STATE_RUNNING) {
-+			else if (check && cruntime->state == SNDRV_PCM_STATE_RUNNING) {
- 				/* close must not free the peer runtime below */
- 				atomic_inc(&cable->stop_count);
- 				stop_capture = true;
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 99eb19860fd59..c976e41f853b0 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1178,6 +1178,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
+ 
++	/* Preserve soft-dirty when replacing the page. */
++	if (pte_soft_dirty(orig_pte))
++		newpte = pte_mksoft_dirty(newpte);
++
+ 	flush_cache_page(vma, addr, pte_pfn(*ptep));
+ 	/*
+ 	 * No need to notify as we are replacing a read only page with another
 -- 
 2.53.0
 
