@@ -1,119 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794430843;
-	b=tGcODet3t8ZspBUUmRvl39DuTahIBrspaMoyHz0KKc1pGkePSTBBMZ0GHinY1JWkDu0G
-	 IdNBDgbmMVyCMuh3NF/rvNseHMVzhkgQRCn372Wbe1giL0eYwPJFK2yMt/5a6ZdBy8NZY
-	 rNx9e+59Ee5glMIaDLvArcnUTxe3XfzPrcy7Vb+ErkUdImbjPsIUi77TiDnea99BSxi1+
-	 q/vm3WfaqZyljVkXND8Iqsd+oUnSzXZ/aPfS4EQtPDGaCglnnuYInzfWvIbZL9Lq03SOs
-	 E6LIAqO/K4D5FBVuaxY4pxg91Gy7zTMzJC88uZQ6TozgNrEkztW7oAxqLI2QTBgQSDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794430843;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
-	b=YCUbwZvyNV4slIwQuRbJQ9Ne7RNhBOZW686pzj6R0yBQWLy1ac59JxG6hFEhM224qxoW
-	 oWpR4kHdnCajhvmPLvOtqcQsofr83EPDnERxmCDadGbfP84qsvjaaCan4meDGXIEJvTJH
-	 4nuUiJr0Tv+2/YgjsUrJQtoQPQaM7oyBdZ/MceqZ4O3HJuhddZsfo8pwZ7k1Ct28EWs+7
-	 oCb7fwNh+914aU64xo164XH9RL3q7T8KY+4z6E9QbfrRwE3sbFTBYi7dzMZT7QqQ95f5l
-	 0ipB1224a4wdahAnR67NncTeGMadsv7rdTzPHotpLD2lPyP0tKixhj4zKdpW9GgR5mQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WpcepRv0;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="O2ll/t1I";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794430947;
+	b=joYl/AQCNwvqlX2SPlUySOy/YMYv1kvXPzHJ+W3R+L2vfqHwfVyVBKk0QK/pH27b3CWj
+	 uMm3RIrBR08Rp6ZKuNcrbuUAMrp4BJaTviiKQWvnKzbXWPviX4RbW7dw0ieKQIowNr+Vm
+	 HBNOP+wTZ4fF0INaPVsbBAbXU1rsTWRlm+/5jEMgCAHfiGS9CZhwOqot1S7W2X6ejUm5W
+	 wR2JWWG327eE/ABWE5sa0mo7a/yweU6dc7xoeLJix5m6mM2xAAbTt+R0za4y4ntq/YBzZ
+	 Veyt2ydS6yUkwFo11eEBiv45U8gLxCsYTmc1SQTfLI7DXwCM3yQAD0SIlCGLeSLz9LA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794430947;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Gvn5m3zvm2JBXqWK7LIJzhjZYVT4WuG035S4Y95swAA=;
+	b=aWkEg0Wr9F5lwRwkum/4Bah91p2iTMKIv4YTn/7azX7aiO7EJB2pEAF55pixkglqjHrB
+	 7xCQm7yQ5udzCdcxZrQ5lF3cCdGXRrO7yvin38DYcg5j+iDXD5G1atJ3MfQQ0MAOH4wwv
+	 B2T/ESri5FIqBYKA1waXAupwXipbjt+20Hi/gucdw1nykqnjz5nxbh2qc0Flp8XcPo9XV
+	 TqLgErYLkNQtZ49Ugvq6bXHnX965hd/oscoxFoHCCtjz4MkDotcNUDA7/HybSFQu0kJ8v
+	 662jXFeT/kcP9OADVhBmoeOHRoQLm24dtQbfqASsiV9P6oW9sGbS3UOTLiBLUTVg7dw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv3rYXKt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC1C606A32A;
+	Wed, 11 Nov 2026 21:02:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv3rYXKt
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794430947;
+	b=l278fNp9d9N2zATavbmJ80MFeQLAIJEcM3eLNNkiyXZ5lagGEmmZAsw4b/Fpvc4R++io
+	 bBuxszgxhIvrZUkDcE73G+GWKgZ8gJed1Sb+bygn3vjkuOwJIv3GzRiDGo77OH7kvsFnp
+	 WPzJEcEHvt9pVS2xycP29jysgJsShALN+qFZePf5Ho1T8UeGiApEuqruVjabexHiPFxJ5
+	 nvJTi3C7v6YK94fzKxTIDo2y5G3l8+1sfiDbkN4KpXxvqnsXxFZy1MCJ1OAiqr3+G6iRW
+	 IJx5BLspGj2F4JHJsI7DM+wG9bYZIpvXyLHukjG73jf2CoCcV3tn813ilV6C52omOiQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794430947;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Gvn5m3zvm2JBXqWK7LIJzhjZYVT4WuG035S4Y95swAA=;
+	b=iiP3whytwGfv6RQCoyzLgiLJPNnYnhgVFGlFy6oNcCQ08cUkIt4g+AGt0sdngvHSkHHh
+	 ZtwU3RXxrdGYsg06Cs06Ua4dlNsQ5Lsfu18f51SozZZ9xfUbR0EgJ+EcsedT1NoLpLZkE
+	 FNS7XTfXoMecWdrPmyW3QTubtOvcqrQIi2MUOrzpa+4KN56MxupqLSGQ2q+hC9hJSlG+Y
+	 FnQlBzd5YoQxeUs/8JSXq0bXB1PyvKiihVL1ZJemf8kz75D7x1K1AVnkh/hnoyu/LxtHr
+	 YkBgkk4+WOfryxAELRDwIAHgS5/By9UuKkV+iKxYPbwPXewOqXIPYW1D/w9Oj9ZFaYg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52095606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52095606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WpcepRv0;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=O2ll/t1I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794430842;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
-	b=WpcepRv0u/AtqPKOc+NcqzJjSkil8wdWMwxJW1bF795axAad6g/ziaO3ikRhs93e2Pi+JD
-	nng9eKLnWU8OPdOyowZ9GoOdlAPfSNwqRjP1Pv+MnI1+0WTCM+G+DgX2cmEM5pdp3yP/x6
-	TVaXtAqnpbCrurtU3OEDQW8/AI2XKi8=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-613-SN6aF-NGNoSXIJkNFX8Vfg-1; Wed, 11 Nov 2026 16:00:40 -0500
-X-MC-Unique: SN6aF-NGNoSXIJkNFX8Vfg-1
-X-Mimecast-MFC-AGG-ID: SN6aF-NGNoSXIJkNFX8Vfg_1794430840
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91eaad6eaeaso68136046d6.1
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:00:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794430840; x=1795035640; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
-        b=O2ll/t1ICUS+mLiTv0S3uW83OKD3VQPIXp3VdYcTtgNfta8lXcgm7MgfHkPnHnL+BU
-         VqWhGo9rQqdkG+yWSJP8rdTHLIiXysAwuMkfOf6eMdsrJ9gFtGx4Z8w/i6rxIOKetPox
-         UU9pi5WoR+M7Dy8BS8DsdDSEEAROuz2/VmbladhR3hi2A0dpF/+TRNxZoXi45TQBMn2D
-         PBauJh14rQRhi+QotDP95vOW59XZV79y152vIV5UsUG+1Kh1lJdzZfeTLc1XP780HeQ7
-         KWVFQJz7jq9rdkNpkQ/kxUtB1CJ7r/BKwtcNldqCPlAaZG8AzI9QzRlyCKqlaeA65khx
-         Kpwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794430840; x=1795035640;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bfwzc0Soc5yMmxMHyRdKnO8B25Ja28l1t2oGS6mpFwU=;
-        b=R+rnm7qb6rULsGsNw5VRSDOrRETDyLceRwgVOqTIpXcktGAAqasra4wRekSAr358xE
-         lcBECkfSGxXtp1hUpvhP0kJczG1cfQFXhMm2vgktSBSczGHX0Z7fSQOyxo3AfBsDMt7K
-         xnvLX0sdsrTzqybZdd3APQRfHsCE3zqceBaxkYtQVk478k1s2Hyjb+ZrM/hl5/iJ327Z
-         N9rFXydv6CfHO4Qc/zoDb8QJxr5DAV9VJ2+4w+aepRb/PRyP4ZWuJBNHX9PJWY+Ifpux
-         IP3kyAWH93vBcmxhrBEVtO53eYO2AQtQvkQOV5cgdF+q/j1bbEzAmeZVZMWjyOYDbV0Q
-         j5Tw==
-X-Forwarded-Encrypted: i=1; AL+hErHLvzvVp0bBzWyU5VgP9AnPvfymjBWY2TKEmmFFU/5oWgYN+5l86Y1tRUYXpinfj93zzcjLRz4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FTbIiEl6Y3z9K4mJ5xiY5YjPJ9isYQAJaCcegfomOMQ5xikCN
-	y/boMJTkbPyb0p86aeXTcdArgWaV83my1qzpgUd4u2o9mTqmvdtM35EsNExeOYJOo/yRwMSrRRp
-	c4q4QEoPYxx8+OOky5QGsFIvf0VOTVpoFsgdQN7MdjrRP8Y4W4OMCKH2OQg==
-X-Gm-Gg: AYBFou0Xo1RhD9uBcNAIETbj19Ae2xH1LhApp8x+2icDEEdTUt9UcZUrRf5vtSehEG1
-	eLTGXxEEpbsZCAzPLES2hi6hUy/elOJBCv2oP8CU4cJs8tWDP/y36i/vU8eyQhKc9wpK20prMud
-	GNWASLgCS3iQPQz1vR3L1Wrsr8SoFmI478Yo3QCPXfiIveG4iGbAQmx6OyJ2C/WuAmsLMS8LCUp
-	Ec06EqJuSlMLpft366IgDESbgkYmcKIXgbpbk5MFGvoj/Y4CGEOQMm/osZXXRi2qeoUVqtqrn+g
-	R+0oQdDkI/VWN+lVgvYEITm0CdsXVfTd5X94STuQnjwAGJIYYG2piztn67NBSXof9wMfc6hLW6B
-	yxcVkdSgF4LWjrFgwKm9Q/dD+88BcagdfYaYGT86TB3RCB6F2++EHR4ugntRvD3wF/maX1r/7SG
-	lkytyOB5a0ZcSvkQ==
-X-Received: by 2002:a05:622a:590b:b0:536:663d:18ca with SMTP id d75a77b69052e-556c0ea966fmr54823171cf.48.1794430840078;
-        Wed, 11 Nov 2026 13:00:40 -0800 (PST)
-X-Received: by 2002:a05:622a:590b:b0:536:663d:18ca with SMTP id d75a77b69052e-556c0ea966fmr54822201cf.48.1794430839462;
-        Wed, 11 Nov 2026 13:00:39 -0800 (PST)
-Received: from [192.168.5.11] (pool-108-49-8-41.bstnma.east.verizon.net. [108.49.8.41])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f03ca6548sm29611306d6.9.2026.11.11.13.00.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 13:00:38 -0800 (PST)
-Message-ID: <5b9d4fa7e29fa7ef780f5a6386de6ce9f6ee7bab.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau/disp: Set
- drm_mode_config_funcs.atomic_(check|commit) (attempt 2)
-From: lyude@redhat.com
-To: airlied@redhat.com, Danilo Krummrich <dakr@kernel.org>, David Airlie
-	 <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, Ruben
- Wauters <rubenru09@aol.com>, stable@vger.kernel.org
-Date: Wed, 11 Nov 2026 16:00:35 -0500
-In-Reply-To: <20261111-nouveau-atomic-fix-v1-1-118e65d3a2f5@redhat.com>
-References: <20261111-nouveau-atomic-fix-v1-1-118e65d3a2f5@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by smtp.kernel.org (Postfix) with ESMTPS id 685501F00A05;
+	Wed, 11 Nov 2026 21:02:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794430947;
+	bh=Gvn5m3zvm2JBXqWK7LIJzhjZYVT4WuG035S4Y95swAA=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=nv3rYXKtVXvIr8mwVSKlp4nl8PAJre7lrxqv4k4STzBao0didPURRYtBe39K4Fmkz
+	 EzqkCsJ9if3w/n2eOH5em5/q10c1A2jXVYsKJ+Tg2wifeN9PEfPLXuABl10zPoZuOP
+	 9S/EJGFQydBmuDSLL48D3lor3FwwWfoB1OlebLg3DMsIicXC5EJ8Gy7letovlmn1Uz
+	 AKXDKZti69+QiiGe2wYAoKqGGst8gCRXqL8CF325oRnUEWJejyvKfKvHkogsYiES2z
+	 t33s1DSnAQWTmMlaSOHt08XxLOSn5Ohy4+J2dHvqjDrivRCEWXtb0VohK6qdfWMe2I
+	 1rjVckapfe9tw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B22CE490F8;
+	Wed, 11 Nov 2026 21:02:25 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Wed, 11 Nov 2026 16:02:25 -0500
+Subject: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,74 +82,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTsJbdCgVzEuoPzqaAOTjkUSw
+ t2t+nbf5q1kSAKjU7VSwiwm01jgdhWFezfewDIUk6/9wZVYRcHQKUYsIWaTGfzunsjKx9btfVs
+ 3rm8GKgNNuMrym58vf1vuHwiv75G27QObfYctfgAAAA==
+X-Change-ID: 20261111-pipe-epollexclusive-wakeup-981528041b4d
+To: Christian Brauner <brauner@kernel.org>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>, Oleg Nesterov <oleg@redhat.com>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794430945; l=3875;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=AMo3CuUQRFmmdnadGKZpp80pX6RvxZnQfgMh8Vg/BZs=;
+ b=vKagOaquZDeNf8CRSF5BrdESHWSEON6SGjDwk4FBb4Vfz1qkjFSxsKl31j4K60lWFb24/LumK
+ fWzBA7CejUbDqSjbFj6mS+PWDVzPdCQJYxe3tDV+kqpfafvnMpEKd7r
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+From: Mani Tofigh <mt4022@columbia.edu>
 
-On Wed, 2026-11-11 at 16:00 +1000, Dave Airlie via B4 Relay wrote:
-> From: Dave Airlie <airlied@redhat.com>
->=20
-> commit 604826acb3f5 attempted to add these flags but
-> commit 6c65db809796 reverted it due to it
-> failing on hw from pre-atomic times.
->=20
-> So use a second set of functions.
->=20
-> original commit msg from Lyude:
-> "Apparently we never actually filled these in, despite the fact that
-> we do
-> in fact technically support atomic modesetting.
->=20
-> Since not having these filled in causes us to potentially forget to
-> disable
-> fbdev and friends during suspend/resume, let's fix it."
->=20
-> Reported-by: Ruben Wauters <rubenru09@aol.com>
-> Closes: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/517
-> Fixes: 6c65db809796 ("Revert "drm/nouveau/disp: Set
-> drm_mode_config_funcs.atomic_(check|commit)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_display.c | 11 ++++++++++-
-> =C2=A01 file changed, 10 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c
-> b/drivers/gpu/drm/nouveau/nouveau_display.c
-> index d71dcfc6ee66..07882624a7f6 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-> @@ -354,6 +354,11 @@ static const struct drm_mode_config_funcs
-> nouveau_mode_config_funcs =3D {
-> =C2=A0	.fb_create =3D nouveau_user_framebuffer_create,
-> =C2=A0};
-> =C2=A0
-> +static const struct drm_mode_config_funcs
-> nouveau_mode_config_funcs_atomic =3D {
-> +	.fb_create =3D nouveau_user_framebuffer_create,
-> +	.atomic_commit =3D drm_atomic_helper_commit,
-> +	.atomic_check =3D drm_atomic_helper_check,
-> +};
-> =C2=A0
-> =C2=A0struct nouveau_drm_prop_enum_list {
-> =C2=A0	u8 gen_mask;
-> @@ -654,7 +659,11 @@ nouveau_display_create(struct drm_device *dev)
-> =C2=A0	drm_mode_create_scaling_mode_property(dev);
-> =C2=A0	drm_mode_create_dvi_i_properties(dev);
-> =C2=A0
-> -	dev->mode_config.funcs =3D &nouveau_mode_config_funcs;
-> +	/* this only gets set if the driver has the ATOMIC flag */
-> +	if (drm_drv_uses_atomic_modeset(dev))
-> +		dev->mode_config.funcs =3D
-> &nouveau_mode_config_funcs_atomic;
-> +	else
-> +		dev->mode_config.funcs =3D &nouveau_mode_config_funcs;
-> =C2=A0
-> =C2=A0	dev->mode_config.min_width =3D 0;
-> =C2=A0	dev->mode_config.min_height =3D 0;
->=20
-> ---
-> base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-> change-id: 20261111-nouveau-atomic-fix-7478260ce6a7
->=20
-> Best regards,
+A task blocked in read() on a pipe can sleep while the pipe holds data,
+when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+reader, so a write into an empty pipe wakes only the watcher.  The
+watcher reads without sleeping in anon_pipe_read() and doesn't pass the
+wakeup on.  Since commit f1cebdec9739 ("pipe: only enable the extra
+wake_up(rd_wait) for EPOLLET consumers") the next writes into the
+non-empty pipe don't wake anyone anymore:
+
+  Task E                   Task A                 Task C
+  epoll_wait(ep, -1)
+    /* EPOLLEXCLUSIVE */
+                           read(p[0])
+                                                  write(p[1], "1")
+                                                    /* wakes E only */
+                                                  write(p[1], "2")
+                                                    /* no wakeup */
+  read(p[0], 1 byte)
+  exit()
+                           /* still asleep, "2" is in the pipe */
+
+A then sleeps until the next write into an empty pipe, if ever.  Before
+that commit any pipe_poll() enabled the per-write wakeups.  Those
+reached A because an EPOLLEXCLUSIVE entry only takes a wakeup while a
+task sleeps in epoll_wait().
+
+So EPOLLEXCLUSIVE consumers depend on the per-write wakeups too, for a
+different reason than EPOLLET.  Enable them for EPOLLEXCLUSIVE as well
+and say why in the comment.  With the fix, A reads the second byte.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
+
+Fixes: f1cebdec9739 ("pipe: only enable the extra wake_up(rd_wait) for EPOLLET consumers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/pipeexcl.c
+
+There are a couple of older gaps like this (a single write, and the
+write side with EPOLLOUT|EPOLLEXCLUSIVE).  I left both alone here though.
+---
+ fs/pipe.c                 | 6 +++++-
+ include/linux/pipe_fs_i.h | 2 +-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/fs/pipe.c b/fs/pipe.c
+index 4c1122597a3c..8ad792d300c9 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
+ 	 * and the ->pseudo_edgetrigger check in anon_pipe_write().
+ 	 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
+ 	 * same behaviour.
++	 *
++	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
++	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
++	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
+ 	 */
+ 	if ((filp->f_mode & FMODE_READ) &&
+-	    wait && (wait->_key & EPOLLET) &&
++	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
+ 	    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
+ 		WRITE_ONCE(pipe->pseudo_edgetrigger, true);
+ 
+diff --git a/include/linux/pipe_fs_i.h b/include/linux/pipe_fs_i.h
+index 95f6236c5c5b..6b2e14ec6ef8 100644
+--- a/include/linux/pipe_fs_i.h
++++ b/include/linux/pipe_fs_i.h
+@@ -90,7 +90,7 @@ struct anon_pipe_prealloc {
+  *	@files: number of struct file referring this pipe (protected by ->i_lock)
+  *	@r_counter: reader counter
+  *	@w_counter: writer counter
+- *	@pseudo_edgetrigger: has an EPOLLET consumer, enable per-write wakeups
++ *	@pseudo_edgetrigger: enable per-write wakeups for EPOLLET/EPOLLEXCLUSIVE
+  *	@fasync_readers: reader side fasync
+  *	@fasync_writers: writer side fasync
+  *	@bufs: the circular array of pipe buffers
+
+---
+base-commit: b0993210e420f2f1d61e6719fbcd3966b96ff9ed
+change-id: 20261111-pipe-epollexclusive-wakeup-981528041b4d
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
