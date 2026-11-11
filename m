@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366338;
-	b=VWmCaLVQSvD0+qERnRnz1pb9HmGdykZfGUInoOCX/HdKEWBy9dKCAWb+sa7q0nSsSPpA
-	 okRWc1BubSdxrxrv7YCmcbzFTyGqn5F9wxW80RgqwRjimXkhcAlnr3dpw2MyfqXIWZVyT
-	 qeUTebF06O22LyRqMRuPdNow/DkBStgsQ2dGSRlQNy3RG4kvSmjJRe5Ke29mYhQvZm1Lh
-	 1rja/siyWvLV+D6m17s0WidjLr9PXNxY0DEyW00UuCSFvIviciibEbEk3d7XJKAI1gsLv
-	 nCGfQZUkV9G2v96N8gWfqh+XDfQsuLVqweuPloawI+Vh56eXrZxlZdWAuhUlOM6qqEA==
+	t=1794366365;
+	b=q4grrw0rLkw1T8qyhf1/PnSiczfCD3yQHoR/N/VKXSCRVAXTkEqTUa1BWLBpYmX49uLV
+	 U+B/nM68tvCUTsiN2TQnZO6XoRUz/tcu8oTgHMhHp5ZpnfSxxkpsQKR1XS3MmOeFkSF11
+	 LGCpyyVlng5sSAt7wkCDAmAYcBuhxQxCHB92qJ+ifrRO6lTZP7XVlZkfY5GgctF4KeGdO
+	 sb9bWUHRZ8h1f1kcUENtturICg8xr0WXqW0Q9Vc6EusvN7KMXv/reLYktxqDI+qAs2Wx6
+	 ltv1P21VWNx/rr7ULgqDy2ZLUawjuMnFGI2a+pEEaxGX74PMsyotNLHNlXnTubR9GqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366338;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366365;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CJY3sYm6H9nt7ZQcfdqW3cJcAfWqT5Ao4Yc8PP4Ak5w=;
-	b=dRagUgAZOWwYT/7znFCAy1oC9G6Gysf7A8UkS35HdptJJFlhjrnliGcyfFbQQ+kLWiDS
-	 /ZcAk/5KXFBPo19Ekef8ZxnpkSVWzanQ2Wu+a+s/SoHCHW8Txy23iN1bGFh8euXH91kln
-	 j4RHRUqUXDw5EcK5WscJ2oq/0Rg0sFt3PTFxQRRoTmquQzsTkyyNMuiQha2bGj1zPi59L
-	 QXwQrRo52DERgkOy4bkcE5/g4eScfhXBttVIoiQ/gpulGUWleghSfXY/uFcMvEqzrQPsQ
-	 nPkQvyFlScvqsjPoUxlw4qS1wGnHIIeT0w/AcsenPyu9TF98X13TmK1UyV+qwXuNI4g==
+	bh=ZhK6fxGp0Yhji3Lq0mMK6EbuS1F4rWHrpBGbgJUnycM=;
+	b=xbNfmd6S7JCWaTHZsyawccwSjoToowfJRLEF+7RXKJnM35cc3M4XY9/LisMD+sZaq4xM
+	 TQUZoSUdxfgEVQaHIMuR87anrK4g/XG2K1LT3eQedTayp5LvibLaS52o4sqMC0Lqd0wlk
+	 //sINgCDEfCkONZUlT9IARpMXE406UZJUVKfqRzrVVTvjUJuB9+WhjHitDUUmf4FLSkBK
+	 seHOyqzaLq4K0FKeQO28hik4oO6bG0av4Ug1GZKlqEj0Ol9ZOPsZqQElfKsTyQCnG4kjq
+	 nIeKl+Q1HoQ5EpG5QGVpZzJFwjATidzJDuwCGLzWN70T+hDfHFXMWspA89o76grLEfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JP7uZ2nd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EfrDZg9p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FA0606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0983606A320
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:06:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JP7uZ2nd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3111F0089F;
-	Wed, 11 Nov 2026 03:05:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EfrDZg9p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF4C1F0089F;
+	Wed, 11 Nov 2026 03:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366338;
-	bh=CJY3sYm6H9nt7ZQcfdqW3cJcAfWqT5Ao4Yc8PP4Ak5w=;
+	s=k20260515; t=1794366365;
+	bh=ZhK6fxGp0Yhji3Lq0mMK6EbuS1F4rWHrpBGbgJUnycM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JP7uZ2nd9u3WDMNJUq4CXCgdmD9MswNXqV09jPe/jf6Gqpi7VCFSdgeySXitJm4XP
-	 jvgyMqUmut0cNNyPdtGBDCThfOqlcdRyFPoslHnhTiLqmY51zA6ZmEmSzWEBRYvSVq
-	 SPILpYvKsPWRYct7Q6is0R2D0fdaeKSReqDualSWYHcLzbYM+v9JVqGSWEoDeXiIRM
-	 xK4BV+Na6C4xcYNFLQVEQb0IuBW3lh+iSu8IETwfZLIXueqXb9K3xMSHYJN3GpCq03
-	 3QeHPpnk4E1alqMg265d/9s/VdWqnxKG9nr4bxC2t2lDJfR45i5RmkKuOuWrLJ1MM9
-	 727Pz1dl9G4ag==
+	b=EfrDZg9paVFizpE2hATnU/gqxVVIJ9aqqPFm2PdU5uWMWVUo+5eQoNksbuE2Yh+Dl
+	 NKm9iISHXbaIyb1JTjoSrlX8t/M7O3ZCata0nWfJMiW+wfYcOhCRbgmuGh6+2WNKjY
+	 wDbx8YgxV6fBlaerX6HS3Uip5oDH9TXxZSVaan36GO1dTY4KfjdbWN7awzjByL1SCc
+	 OKetMQ7Ee4SMrOB/xLgTpZkdyIsMCz71kbAdqi0U5cBW5FZgHyq18yYZUpvnJrNOh2
+	 PBQBjEnamDv/186jayt8bXiiZaM0IU4ZoV5tYi80lHDox4zT8dkuG8WYmptcKu4Ebi
+	 R3/fiGPc2aZDg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	Miklos Szeredi <mszeredi@redhat.com>,
+Cc: David Woodhouse <dwmw@amazon.co.uk>,
+	sashiko-bot@kernel.org,
+	Paul Durrant <paul@xen.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] fuse: don't drop destination page cache on a zero byte copy reply
-Date: Tue, 10 Nov 2026 22:05:36 -0500
-Message-ID: <20261111030525.832037-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration
+Date: Tue, 10 Nov 2026 22:06:03 -0500
+Message-ID: <20261111030546.811623-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051747-failed-6.12-f7585e1ce341@kernel.org>
-References: <20261107051747-failed-6.12-f7585e1ce341@kernel.org>
+In-Reply-To: <20261107055744-failed-5.15-eacdb76c5f04@kernel.org>
+References: <20261107055744-failed-5.15-eacdb76c5f04@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,62 +63,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joanne Koong <joannelkoong@gmail.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-[ Upstream commit f7585e1ce3418ec282485854b3d8d31c6a961e37 ]
+[ Upstream commit eacdb76c5f04956035c5d7f7e1973028f30684a2 ]
 
-__fuse_copy_file_range() clears the destination page cache after the
-server replies:
+Xen's map_guest_area() enforces that vcpu_info is aligned to
+sizeof(xen_ulong_t). KVM has no such check, allowing a guest to
+register vcpu_info at an arbitrary byte alignment.
 
-	truncate_inode_pages_range(inode_out->i_mapping,
-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
+Enforce unconditional 4-byte alignment regardless of the current
+shinfo mode. This is sufficient because subsequent commits ensure
+that all locked atomic operations on vcpu_info fields use at most
+32-bit accesses. Return -ENXIO on failure, matching Xen's
+map_guest_area() behaviour for unaligned requests.
 
-A server may legitimately reply that it copied nothing, eg if the source
-file turns out to be shorter than the size the kernel has cached for it.
+Originally observed in review of an unrelated patch:
+https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org/
 
-If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
-which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
-as its end of file sentinel, so rather than clearing nothing it drops
-every folio in the destination mapping.
-
-That is not only a cache drop. truncate_cleanup_folio() calls
-folio_cancel_dirty(), and fuse_writeback_range() only wrote back
-[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
-file is discarded without ever reaching the server.
-
-Skip the call when the server copied nothing, since there is nothing
-stale to clear in that case.
-
-Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: Replaced bytes_copied with outarg.size to match the existing copy reply format. ]
+Fixes: 73e69a86347a ("KVM: x86/xen: register vcpu info")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org
+Assisted-by: Kiro:claude-opus-4.6-1m
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Link: https://patch.msgid.link/20260831213632.81023-7-dwmw2@infradead.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: Omitted the HVA alignment check because only GPA registration is supported. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/fuse/file.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ arch/x86/kvm/xen.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index d242613a1c8a0..d0cf617c36c31 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3344,9 +3344,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	if (err)
- 		goto out;
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index ab9f88de6deb9..69c2d8dda2d25 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -356,6 +356,10 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 			break;
+ 		}
  
--	truncate_inode_pages_range(inode_out->i_mapping,
--				   ALIGN_DOWN(pos_out, PAGE_SIZE),
--				   ALIGN(pos_out + outarg.size, PAGE_SIZE) - 1);
-+	if (outarg.size)
-+		truncate_inode_pages_range(inode_out->i_mapping,
-+					   ALIGN_DOWN(pos_out, PAGE_SIZE),
-+					   ALIGN(pos_out + outarg.size,
-+						 PAGE_SIZE) - 1);
- 
- 	file_update_time(file_out);
- 	fuse_write_update_attr(inode_out, pos_out + outarg.size, outarg.size);
++		r = -ENXIO;
++		if (!IS_ALIGNED(data->u.gpa, sizeof(u32)))
++			break;
++
+ 		/* It must fit within a single page */
+ 		if ((data->u.gpa & ~PAGE_MASK) + sizeof(struct vcpu_info) > PAGE_SIZE) {
+ 			r = -EINVAL;
 -- 
 2.53.0
 
