@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794434121;
-	b=t/MsTMsZh3SgcvdslOenBIkPVAjov1owo4PZjTvqjA7M2nrM/dzMvMisn8QkuCr14/k6
-	 CL7Ug4Ihxt7oj/xC0L8xKu9pMYr8JF0Tx+LymXcHqMPwkXPEWRFArgzSIbMqqOcNX6i74
-	 1GbFQ0rWzX3cg1j7IapNOHUD/LjOu77RZA1gSN1C06QGEUF6deXq78aatme6n7SPXsmjD
-	 creIRY96PVa0ytAjSmQhmFKsKfap30LMfEEc2h9MLKmwheTjSUXL6IaKCiGoLct+YIWdj
-	 18FwlcF/ASGzcsBkza+miUEwzaPrenRTIpBQ89MVHTH3PACKrkoorvVfEg85ZeNgFVg==
+	b=v2DpqOLg1u60qFLZTyUx3xiP87bfcYSmkH2ljuG0Ld0NVS6rxYBP+hCYSpk+MkUVp4pJ
+	 IhwbdNdajOxTmR31rGoI1cgLIlKd5p1iridODt2PODPr08z8HiTCAqMr+uySOWgwDtzAl
+	 R7moZBsKH3ta0QsUODAC/AvPYWztVOrTZLrY2lNRLfpCOChYqTztOQRt31j+cUGtHvrCD
+	 x2QbXENavLN2JXhXDZKVo2YnvClcqT1sNVTn2e9puoCQDI8uauBKw1Ixg1co0oTqlLMNx
+	 YTFy5KR7GakkqHFWG+9rB1ERt1/DbAzN8Mg0aLNj6YyyBu/kn1BEje9QNIO+yGy/IsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794434121;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cU9gAyLB+QYQ8kTxCcvTeen8RJ65VvMiekEmsuQV8zg=;
-	b=YsLq0hNglnZoiQu8Y+b8NZpJ/tm4LgJm3R5EQ2JS9LACnDhe4nH2M2TeVgmogi8XnctU
-	 TacZdGGZ/o+5qCnaMwGrfpJtFsfv5Oqn4djGRxuvyTfjo/D0sDs1lxrK+oZao5lwfz8CC
-	 cwIu24TmZtDmO+Vls1IgEMqyYIehvTFP76LyMacbDhTtuONxLY9aKEUyBJZYkEMsxUTD7
-	 uNzyXoQ+N5Hr52vjlQnfxlIGyYCeZwmPPtUSGC7NFMBnrJ0bafugsv/34uZLMi6QiHHW2
-	 vvQe1VmOZgj7fxGjFnIiA3NYivhMEyfU5gXT0bC7DC1po1YwmMXhGCwKwYQRWhYrIsg==
+	bh=Zr4Vx+/Gmb10yJo7an73dZh8NbM8pKsHfcPn/uLTgIY=;
+	b=z7aMA5tPh79SjdMTcwLxSjT3aYuivr7XcrTH7zojhdW6nkkl3ZXkl1y9t3Ol1gac6Fkq
+	 Wa4gGWJonYNAmh1Ems7ACDMRlY2b003TMDjdWvoKc1c8zOKbPz/vhz40PY8j3XLMLHBTR
+	 bFjktwyDFtoEYWRiNsmvH+n6JK9FA6TPXLR+ZpRGbejd5NnOMyKSRQ77JYyJYWsTLZ3d0
+	 BK6K9n/OkOtElwIhew/YkP79pRp7LFewfcELhfHEtwgU0pAoxNdkyzlAAigqi+x8KajVY
+	 kWwbrPuSp8Huy5ZJCi6wB/4jqUdBLlI89InECcl4g2XtTzeY8neOUv4uO2xUFSMebpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRRQRKkb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dn+ZWFko;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0207660A3814
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A889B60A3814
 	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 21:55:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YRRQRKkb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56AAE1F00A06;
-	Wed, 11 Nov 2026 21:55:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dn+ZWFko
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0F81F00A05;
+	Wed, 11 Nov 2026 21:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794434120;
-	bh=cU9gAyLB+QYQ8kTxCcvTeen8RJ65VvMiekEmsuQV8zg=;
+	s=k20260515; t=1794434121;
+	bh=Zr4Vx+/Gmb10yJo7an73dZh8NbM8pKsHfcPn/uLTgIY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YRRQRKkb4BOmhEP2KqaX/7a4zCA3WsOc/0gIU6eNp4o4Bxj/4/1SxGR2IKdLqtoCR
-	 Kj6bkjH5NeScaZ81N9YAaEsZNareqkh4xZqKkMjEVbO4HKg2AAC2JyQC93/ZrSf2pv
-	 1mYB47H3fps/QEmfp/6TBgBE6u7Bmz8y0zHpKZ77H2Axcpq8nquBZDh5gt1E1bMhbz
-	 IMBTI2q27COYMs8nGIPhfvffk2CEiUGNhmCVCy9Ck6Q9nS7jcQQgKjKheKtCJ+An5W
-	 4GwQmDpmQNwyqmXDy1EY1zeIL1jjVncTo0ELhf/T+Jf7fNJo5mThoTHYYYo/GcLkzw
-	 cLR9SOqVvSKgw==
+	b=dn+ZWFkoLntbqr8MHvjvquurDWnxSc2SphXD72MqXvTxSyppnWjBgbi8riDk0Jk8L
+	 iUv8C5GrS5YJPNQ6YiH/cfz9JGBrbXPk11Sfey/UQibxYr+BoZ1WR9VV8+TWFZoAY4
+	 V7lRPzQqNjEng1/hBKrwB7gyjykDVpUJ5J3P1vZmTZLjeYKrRRcrG0gzVDOakYT/gt
+	 qRx1hVtcS2v6RnKrPirEQF4NYV//AjDjp70DWzpq0PxLNTxvzG8+zLp6fD42prMx7s
+	 6ERzbZWNIMwbJUjXyBmp+nsdqs28687zLO6ruisgBm5CEdcVfe1j2n8ZNVxg8thCY9
+	 z8oN8qox4593w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Siwei Zhang <oss@fourdim.xyz>
-Subject: Re: [PATCH 5.10.y v3 2/3] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-Date: Wed, 11 Nov 2026 16:54:57 -0500
-Message-ID: <2026-11-11-1-daily-reply-0024-b3f3824e55d7379b942d@kernel.org>
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: Re: [PATCH 5.10.y] ALSA: hwdep: Serialize DSP load requests
+Date: Wed, 11 Nov 2026 16:54:58 -0500
+Message-ID: <2026-11-11-1-daily-reply-0025-7d3aa7a83ebfc4bfd8b3@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110191136.1748573-3-oss@fourdim.xyz>
-References: <20261110191136.1748573-3-oss@fourdim.xyz>
+In-Reply-To: <20261111041847.4364-1-25031212351@stu.xidian.edu.cn>
+References: <20261111041847.4364-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,15 +60,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 5.10.y v3 2/3] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
-This breaks outgoing AMP channel setup on 5.10. AMP is still present here and
-l2cap_send_create_chan_req() never sets CONF_CONNECT_PEND, so the new
-l2cap_chan_connect_pending() check drops the Create Channel Response and the
-channel hangs in BT_CONNECT. The check comes from a518b9a9ef6e ("Bluetooth:
-L2CAP: Only accept connection responses to outstanding requests").
-
-Could you add set_bit(CONF_CONNECT_PEND, &chan->conf_state) in
-l2cap_send_create_chan_req() and send a v4? Patches 1/3 and 3/3 look fine.
+> [PATCH 5.10.y] ALSA: hwdep: Serialize DSP load requests
+guard(mutex)(&hw->dsp_mutex) sits after two early returns in
+snd_hwdep_dsp_load(). 5.15 and 5.10 build with -std=gnu89
+-Wdeclaration-after-statement, so this fails the 5.15 build with
+CONFIG_WERROR=y ("ISO C90 forbids mixed declarations and code") and warns on
+5.10.
 
 -- 
 Thanks,
