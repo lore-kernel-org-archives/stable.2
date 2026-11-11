@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794440102;
-	b=FwRbvZbORmIqK6qQ4ab1eO21UJ6MLx0eArgFSOCrIEjUNuba+pK+IEVDANUKN7Ss6Jss
-	 zT4pAEfogQzLoCpOGxGoXO89f7LbAlotCBz1z8SSn1V6jM+n0/wxA78NcNQPXBM74ofgh
-	 A092PGYWEME29e3W2u9123UXbv/QLXBXzQV9dTb7N53prJ0FcwOOwxYVR9POitYxOFb+C
-	 qbS6dLsvZmhs4BbGM58Qcc+hiyveFO22v1IhFOCfQ5USxLe/fq7FBRUqGpn/BEoBLR7rh
-	 tPZ2PtLdvw7shkOrLzpPG0IxtV0du6V9aH1q6Ss3byqk5oO+EM1bImWIe50E9wiQ6HQ==
+	t=1794440151;
+	b=mxq2nL3GwymuMkExE219U/w5u6JQ+boqN8FN2jZNH6yt9gsXeAKqiP1DuezV2Ou1dK3/
+	 MAf9E9kFIraxn+ezRFpTKd92TFzD0Fmzrk2Enl6NWrV0+MOabD3CUSIKzgPnJP+JAz+gD
+	 d7Sd8EoGDEFtCUY3YbsLVFff2kP/DmkJb5Z6B/qbvrzLKTPPTuu8Cg1hLo1IJ43XA6Wa5
+	 SFuUafnPrnLlyNmQxF2kxfjm3++Z/IvulywnGK8fZkd9L43tJgHn3dySZMkNGldnALV8B
+	 az0YwuFPn+aR8fswkwccHlBts1C1XYBgM3UMexQN+UVPmV+enXNIrkcBuyQ15R3Gc0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794440102;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=/saIjk+/mSYq8iZPgFXOiIKZ5cwgIKJ/PXOQnMC6enM=;
-	b=2I9TYsVQ8CveweESzni3bQWjNP/86RvgTRVeZQTHOEQwOLh0tt1uP0I+mupEKMNMQ3pp
-	 TkRIFkZHApx3Gu1hNd2lkmWB13yqo3VKtjlFeBIpYUkMFfPxb5hMvOrBMRgSSmKiXRhBV
-	 q5KHejlA12qtGrNfhzJsbw5R+02BMcaElo7+bUXfw1arbNsTtLR33QcQd6Xt9OX04A37g
-	 y8HDexET1d+AYg0w0Ishe2IjK/6buLSiDsh2J+Th6MrBqO2QDbIYYQDn3x773P/qalKbC
-	 Nk3dFzPgXTZHpJXkWGKc+mqIVUUWpyDgdaw4jVVyA/rC8Ixi2iVmZNlebRJMiNgADaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794440151;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=y15nD3ooHqZo/hsrIbsyG7qM0GNUZ2y1/h0fzZP2n7g=;
+	b=p6ngILbzEq2Jnkx9Z9W9eG1nLUzZe1EGMMOWGXPg7/rolQel5mbW2HQlgmtiWuLuow/m
+	 xJ8yE2QFzrTQq88378H4pT/xZbwz8+14N+GpFOhQVi57t+HBNK4ywiVH+B7JSUmAsyCRQ
+	 L5ozefDw+B6IUJpPzFyzQLx2mlYnwOY2ItVxDTwJC/PU0IHDOxuqxtBAPCXyuI+l72xMR
+	 djMaAHuuHb5emjA3zFp4LmLk+R3PWnFlcmhlBTECKWBLJqy8yAwe7sj1pUfhqQd0d5GIU
+	 UhwhwX/NCctOsl+Tgs9U7hKQHqEU5FQTJ359pvP0cIsZoR5W3eD7AbmV25JCbwguYOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xp4Yhy+Y;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M00+dY+E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0A0606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:35:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC0A0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5459606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 23:35:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xp4Yhy+Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794440100;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/saIjk+/mSYq8iZPgFXOiIKZ5cwgIKJ/PXOQnMC6enM=;
-	b=Xp4Yhy+YIvpi3JUP+bBCVlNhRud0NcKMbeaFKgrXMUaKDyiaueamIFZW82W7KTicHcrn42
-	xR/TewgJtEaIXzKeGpch0nnRD7QedRoZSOZ3gkud6yAWMyq9vaSzknXdeqofTuM5GjMjv2
-	AX1pLcZ6V3AvyFMfu8DSArqMVi732QI=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-104-pXEQOR1MOveyCYTcvZquSA-1; Wed,
- 11 Nov 2026 18:34:59 -0500
-X-MC-Unique: pXEQOR1MOveyCYTcvZquSA-1
-X-Mimecast-MFC-AGG-ID: pXEQOR1MOveyCYTcvZquSA_1794440097
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4670719560B5;
-	Wed, 11 Nov 2026 23:34:57 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BBD27410;
-	Wed, 11 Nov 2026 23:34:54 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Thu, 12 Nov 2026 00:34:56 +0100 (CET)
-Date: Thu, 12 Nov 2026 00:34:53 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tz2294@columbia.edu, stable@vger.kernel.org,
-	Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
-Message-ID: <avT7nQs7zYseYtMw@redhat.com>
-References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M00+dY+E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941DF1F00A05;
+	Wed, 11 Nov 2026 23:35:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794440151;
+	bh=y15nD3ooHqZo/hsrIbsyG7qM0GNUZ2y1/h0fzZP2n7g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M00+dY+Ehii9d4+FV4NkFqfb8OHL+X/S3Ple9Mo8tDz3r6wQXmMKh6fAMh1FsLjG9
+	 29qHencsF8f5qJ+PWIpHhj6pk96DbVZvJEfRIKXXiX5yjS2qOjt9b1/kpv22NGlu9L
+	 4ULaxJkZ2tqz1aYLzW24WsqHWaiOlbw+g5N1/xCZwFn3fXQf9E8HaAkgs1uLvvtcpy
+	 8V84W+4vrthIiXWosm9YFqN5sR8C7X1pnjvwqMe7mgUNDlN7kGKdsXmSpUKqywpqFW
+	 /aEn69UROvDlJzBvjMkkljetmLZW3OZaUK0anospN7v0gzncowwO4MExKMmqSfZTzk
+	 ksej+3gkd8rzQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: HOYOUNG SEO <hy50.seo@samsung.com>,
+	Stanley Jhu <stanleyjhu@google.com>,
+	Bean Huo <beanhuo@micron.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] scsi: ufs: core: Change the error check sequence for auto hibern8
+Date: Wed, 11 Nov 2026 18:35:49 -0500
+Message-ID: <20261111233538.617218-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109200218-failed-6.18-6b2ff2b3eafa@kernel.org>
+References: <20261109200218-failed-6.18-6b2ff2b3eafa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,24 +62,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Transfer-Encoding: 8bit
 
-On 11/11, Mani Tofigh via B4 Relay wrote:
->
-> From: Mani Tofigh <mt4022@columbia.edu>
->
-> A task blocked in read() on a pipe can sleep while the pipe holds data,
-> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
-> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
-> reader, so a write into an empty pipe wakes only the watcher.
+From: HOYOUNG SEO <hy50.seo@samsung.com>
 
-I am already sleeping, but at first glance this is already wrong?
+[ Upstream commit 6b2ff2b3eafa381db9b4c8a6ed98b353b2a09f39 ]
 
-I mean, a WQ_FLAG_EXCLUSIVE waiter should not sit ahead of non-exclusive
-waiter, no?
+Auto-hibern8 enter and exit are performed by the host controller without a
+UIC command, and the auto-hibern8 idle timer only runs while no UIC command
+is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is therefore
+usually reported while hba->active_uic_cmd is NULL.
 
-Oleg.
+Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
+easier to analyze"), ufshcd_uic_cmd_compl() returns early when
+hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
+called. Such auto-hibern8 errors are no longer recorded in hba->errors, so
+ufshcd_check_errors() is not called for them and the error handler is not
+scheduled.
+
+Check for auto-hibern8 errors before checking for an active UIC command, as
+was done before that commit, but keep returning early when there is no
+active UIC command so that a NULL cmd is never dereferenced. Only report
+the missing UIC command if no auto-hibern8 error was found.
+
+Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier to analyze")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261027110357.3649301-1-hy50.seo@samsung.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: used host_lock directly because it is already a pointer ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/ufs/core/ufshcd.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 97f86b6905b56..7fdfbc6dd413f 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5581,15 +5581,22 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
+ {
+ 	irqreturn_t retval = IRQ_NONE;
+ 	struct uic_command *cmd;
++	bool ah8_err;
+ 
+ 	guard(spinlock_irqsave)(hba->host->host_lock);
++
++	/*
++	 * Auto-hibern8 is performed without a UIC command, so check for
++	 * auto-hibern8 errors before checking for an active UIC command.
++	 */
++	ah8_err = ufshcd_is_auto_hibern8_error(hba, intr_status);
++	if (ah8_err)
++		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
++
+ 	cmd = hba->active_uic_cmd;
+ 	if (!cmd)
+ 		goto unlock;
+ 
+-	if (ufshcd_is_auto_hibern8_error(hba, intr_status))
+-		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
+-
+ 	if (intr_status & UIC_COMMAND_COMPL) {
+ 		cmd->argument2 |= ufshcd_get_uic_cmd_result(hba);
+ 		cmd->argument3 = ufshcd_get_dme_attr_val(hba);
+-- 
+2.53.0
 
