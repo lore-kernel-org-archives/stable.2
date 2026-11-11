@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794419850;
-	b=jaz9gdvpy97clIQwXfr5czTCgplACAAhQYpqWePo2m2HBb2Kpxud60ibW/qLrlLy8WKy
-	 GS9C0AOVwI0PuNnZA6aCmUdKu+r8kbAQgBycNthDK7wQRylkleCUQxoEpkqvpCYyiB4V2
-	 l2rSqkVUHX4FFcjwNVzWxz0bqgZiwERYsmnncipzKg98Jhu92tOPHTufSWPHVDOsJpC1F
-	 t1s4wMQPAltGPKngiDRFhcsUv5dwPfDZEdo2TzIpq26vaERekRrxL11pK0odKny4v/WV2
-	 5aQyvPJx8PAqN7QTqDnk4K5aBk2JPmyfB1HkY7H0S9C43lImpNf2Jk3EbAErVL4rG5Q==
+	t=1794419877;
+	b=Gq8ikzxINRGF5cloYnk6V/6/Vx2kMJX7kTygDgD7THAicJPEkK2RUiPieWv6aYgoZYuL
+	 HSbPOkAO/i2xqFn/SaLM6lYo/FztxGOxp1U0HVmMo7Am427kHfxlGBWK9CM/Ewx5799C1
+	 VOWA15M+GklUl07nIVoH1dvBdA3AIxQvs473RpL5BfkGlnPoSY5Q4qlM3w422Hff2jyV4
+	 Ymj91oDv+1NHGuM842f/OZPXbPBhDrLG+f/vLIFaG0XamvgiKvQuz56FwQPPkjRPDrGKn
+	 6o++bKlS/icax7+f6c6vS/pxqAum3jPvttNAFXB3zSJuhGat24D/GM/3bf5G4SHzCmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794419850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794419877;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RUFQ+BqETQtvZKJj7YJY/vtA5QdUYciKAWLwRhReREo=;
-	b=Y0RCwHMyhR9GyLVdRAzkXWrzJvhAfeayhteOs7geRd2KB839HiJdColC2zy2lCjeuVPX
-	 Hn7ujhQija2QfzOFt0ryfJCrobYOoNRMprl/tTb7WnM/4ngbK7UrUN4YO0gIjrXq5EKlk
-	 CrgdNkKhOJ51VeROXME0OhKM/obampIW0N9Vpk3+xhPBIrmjYj7mA9CB3NRaGJHxDw5XP
-	 JCLj6f5ryoA8MzpEDipA38MZZyuCrKCv2iFpBfAaRCBsg0iq4KCgWoK9owXkI4o1eKLLP
-	 e8Os1dI2PLpdSOYQHGPqmv0Etse7N8OBV4MES/f865Ftas6oIXM6S7Ls/br7skeRKBg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=rxZDV3nYxdbUnpHmE/B3X68mpGffGprb6aDXhTSC51U=;
+	b=0hu4AfG0BIZjiZLyqzf5ij/OqTymYiecAFOOJwDEOK7pMOoS9gjPACOJzr1YQgtsGNv8
+	 FoVyY8CNdQXTe18aHYS9SgFb5uDc8fcIPJEWK1cg3iTXlitVNqgnZeJWMurujJDJG8PKy
+	 3bp5n6p3+OiHsGyEoEWFz0FmLnWiOhzKqUJ4zFDD/ztZGYjSXSVlhz3ZQy429HZMxnhBh
+	 nrhF7XFOls+IpSdrp86qBfqjW936ltpzgScdsEKesvVwp9QV0YQyDwqolhuyJmITq7Zoj
+	 pRLJYvidY63ALTzEXuMdNAxZcK/smNksmrJVl23Z3DLGOtzIqmGv8TbUthCDG5hCAZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjkqYT1A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjsARsDh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA18606A326
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8D860A3833
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjkqYT1A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393351F00A06;
-	Wed, 11 Nov 2026 17:57:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjsARsDh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534AD1F00AC8;
+	Wed, 11 Nov 2026 17:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794419849;
-	bh=RUFQ+BqETQtvZKJj7YJY/vtA5QdUYciKAWLwRhReREo=;
+	s=k20260515; t=1794419877;
+	bh=rxZDV3nYxdbUnpHmE/B3X68mpGffGprb6aDXhTSC51U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UjkqYT1AAcYXmPh7PuollIcGZky5NnLdd9aBWLgyE6FJQ36XIpiks/3iGs1W5SR2e
-	 TJ7sh7LgfxZruiEctbKNGS74Rjovr8g1EzA/1ee9swhpD4LrE0uW4oXGzCH9i5dPpr
-	 qiX08AyOn08Gu6WGZKFvVq99B1TDUr+U+kgTxQv33tpclA2Wp933s7pQobw7rmeXZv
-	 GOzAjZv53UuD16rd8soH9WyhKtcxCFjmqE6OFN7QutxjrPR0nNhFSD/IFNUTZSGghk
-	 BN7IbT2BPmF7AZfp4QtB6Bn3uXGNjf1NQRlKuF0TNXMvBnWskPX40AYlogmCDteGC+
-	 UbiUw7cWwgzvg==
+	b=HjsARsDhM/1jgzFFG+ey76Cmt81nPXk7HnZf3O3RtP91hAmwYCG4RPRDWbis4/GU9
+	 fzhavSnCZx5nZnftQsvkSBdSg8g2AMpP7Px/wbAfWeBE/eRcW8IPCK0bAfOD8hBw2N
+	 RPRONBUI/2SinbLycM26xMkd+kdZpugFS4Ozg0jVouW8BJDTM+G99HalU5vCMBNEQu
+	 z0D+X+utADLzLyVLKwMC5TqoKTEOge7AIuiGkYKsogNrRGB8WAWZfSzptE82eDtk3G
+	 IX1y/hP7cDPdpUHbJwrsCBA2nVIytATBxkba07Kvac9ggdWD/KbaEw9VREwQhrsq5m
+	 KflaNqxpKjN2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henrik Enquist <henrik.enquist@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Li zeming <zeming@nfschina.com>,
+	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+	Matt Turner <mattst88@gmail.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ALSA: aloop: Update the PCM Slave controls for a matching playback
-Date: Wed, 11 Nov 2026 12:57:27 -0500
-Message-ID: <20261111175712.3698081-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] arch/alpha/kernel/smp.c: remove unnecessary (void*) conversions
+Date: Wed, 11 Nov 2026 12:57:51 -0500
+Message-ID: <20261111175746.3724675-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107061020-failed-5.15-c3bde2beacbc@kernel.org>
-References: <20261107061020-failed-5.15-c3bde2beacbc@kernel.org>
+In-Reply-To: <20261107060811-failed-5.15-fe221b7b2d3e@kernel.org>
+References: <20261107060811-failed-5.15-fe221b7b2d3e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,72 +62,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Henrik Enquist <henrik.enquist@gmail.com>
+From: Li zeming <zeming@nfschina.com>
 
-[ Upstream commit c3bde2beacbcb40790f0e3c3f909f9e16bbced9c ]
+[ Upstream commit 829715a2d14c7110987bfa5e6173b516c41f8627 ]
 
-The "PCM Slave" format, rate, channels and access controls report the
-parameters of the playback side of a cable. loopback_check_format()
-updates them when a playback starts, but returns early when a capture
-is open and its parameters match. The controls then keep the module
-defaults, or the parameters of an earlier stream.
+The void * type pointer does not need to be cast and assigned to another
+pointer.
 
-A playback that joins an open capture with the same parameters is the
-normal case without notify, where it is constrained to the capture's
-parameters, and also with notify whenever the player happens to use
-them. An application that reads the controls to find the playback's
-parameters, for example to reopen the capture side at the right rate
-after a restart, then gets the wrong values.
-
-Only skip the capture stop when the parameters match, and update the
-controls in every case. A value event is still sent only for a control
-whose value changes.
-
-Reproducer:
-  arecord -D hw:Loopback,1,0 -r 44100 -f S16_LE -c 2 /dev/null &
-  aplay -D hw:Loopback,0,0 -t raw -r 44100 -f S16_LE -c 2 /dev/zero &
-  amixer -c Loopback cget "iface=PCM,name='PCM Slave Rate',device=1"
-Before: the control reports 48000, the module default.
-After: it reports 44100.
-
-Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
-Link: https://patch.msgid.link/20261021-aloop-slave-controls-v1-1-62297727177f@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Retained explicit locking with goto unlock cleanup instead of upstream’s scoped locking. ]
+Link: https://lkml.kernel.org/r/20221213074522.3738-1-zeming@nfschina.com
+Signed-off-by: Li zeming <zeming@nfschina.com>
+Cc: Ivan Kokshaysky <ink@jurassic.park.msu.ru>
+Cc: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: fe221b7b2d3e ("alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/drivers/aloop.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ arch/alpha/kernel/smp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index fb507076e006f..b2df37d63ad73 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -351,12 +351,15 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 		check = runtime->format != cruntime->format ||
- 			runtime->rate != cruntime->rate ||
- 			runtime->channels != cruntime->channels;
--		if (!check)
--			goto unlock;
--		if (stream == SNDRV_PCM_STREAM_CAPTURE) {
-+		/*
-+		 * Matching params also go on to the update below, so that
-+		 * the setup controls follow a playback that joins an open
-+		 * capture.
-+		 */
-+		if (check && stream == SNDRV_PCM_STREAM_CAPTURE) {
- 			err = -EIO;
- 			goto unlock;
--		} else if (snd_pcm_running(dpcm_capt->substream)) {
-+		} else if (check && snd_pcm_running(dpcm_capt->substream)) {
- 			/* close must not free the peer runtime below */
- 			atomic_inc(&cable->stop_count);
- 			stop_capture = true;
+diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
+index 8a712076436f0..8fa4345306a53 100644
+--- a/arch/alpha/kernel/smp.c
++++ b/arch/alpha/kernel/smp.c
+@@ -634,7 +634,7 @@ flush_tlb_all(void)
+ static void
+ ipi_flush_tlb_mm(void *x)
+ {
+-	struct mm_struct *mm = (struct mm_struct *) x;
++	struct mm_struct *mm = x;
+ 	if (mm == current->active_mm && !asn_locked())
+ 		flush_tlb_current(mm);
+ 	else
+@@ -679,7 +679,7 @@ struct flush_tlb_page_struct {
+ static void
+ ipi_flush_tlb_page(void *x)
+ {
+-	struct flush_tlb_page_struct *data = (struct flush_tlb_page_struct *)x;
++	struct flush_tlb_page_struct *data = x;
+ 	struct mm_struct * mm = data->mm;
+ 
+ 	/* A targeted tbi() needs a thread of MM to be current.  */
 -- 
 2.53.0
 
