@@ -1,126 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794401964;
-	b=LWioHDj5sw1Ws+Jzb3ZvY2GI0tf/dskRmFK36pryCJMKAI2VgbQsDXg3r4G3+ud96ARs
-	 DHbOX5nCOu/9deAZ4zX7by0ncdQtv5zYkSzOaLwL7H7k/LqjTQMOcakOg6t0x9ZV98jvG
-	 jwY5NInvpHlqbkv7evd65OC+Jj7U7zVWs1wnYfW4uLV0vFD9TwsIydR6nfqxvqIPP5OBM
-	 yfG0CyhBcPfznvZ1wn0Qkxonq5Adbi/W5wD9+3hH2gYmeXCD9nfCNca/dRbSWAap7TbNo
-	 SgEt5jQMTSUA9vsqAgVw+VrHu2XpZm2dvV8zZ6FCMWgDVJTu0HsCcSFPE9Fiif9wung==
+	t=1794402101;
+	b=iuhd9eHWxaCG88KJh5NVUwnj1ZKQoynuMG9xjmfW/9n82siz1CI9g0sywLU4fOnlWjN1
+	 Vz6uPwFJeP+pn0oPA4POGS7KvzOYZGN7FciJQA0UMdWHR8F1C4DiPpt3LTcoAWe76BJqb
+	 8lf4/5NbtOxteeXEuJYajZufE5zZKrb+zzIKX5kCBlUloYctUtxX5qHTY0UgEvkd5gsbl
+	 vwX/J5SnOf96XHjCpkXdZOxw1p1ULLlJPs4AnzX/UxajgPtUXP3ujhiPaLNvLJlTMdBBI
+	 fF7v5GmZ5AcLqOzpcAT8qaMIykVcGFWw5sn6RNmKpgJqNpS2SvjaIyZHIF0K49F0ahQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794401964;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-	b=eT3jUJIrd9KeDimdN19kOuNTM2N8eqLgI2fpd+3tX505K18uWIGbYta3TbZsu4MUv3nJ
-	 N4oPgD6O7JSsw7FdeVsbVpNp07vmE0EHRry80h0y3z797SQm02RHoXStIKtWzRDLa81V7
-	 soIArEJCtxmBabnh5d9nRRMWiRdIwDke1MGqy+6RUXzyfknkn3KaavH26UFoURPxuKrhr
-	 DQDu9Dq4cRVFp74D6Ng+lsmL5IUHqcxHoSOzqBebM2bKN3nyi71mFH6sreUNHVpAZlMpl
-	 m/bPPCuzZllBWPqHOZCE8sSxixcavfjrMV1iMHopGNF8IQpy/O6MEu3qpGZixxupEvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794402101;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+	b=jaklWJfzatiL6nlHsX7qcQhMcZuMk9tICyMre+bsef9l5pEWxqUoUNWXXjDMtEhOPIfN
+	 hHcEFT0KebIJk6opGNnAZ9RXQ2bj9CGYRPayVe231DxE+4/pH0hQxRsq4DIzTcwlEQOFE
+	 BzOSCa6mXPgHehFKIEzU/CRZYe8IFcFxIfSbzM+a+wOdDF4xN60JWBAAIqVeWJeklguKT
+	 Lx89MRLcIKii2AVIr7KT8s/4aN61DEetaKQUhs1sOTNbeiYtETqdMBzuSqzGqptQGS62n
+	 LgqykbKRHNmI65IFmQEnlAT0WIjw3pNdAKPF+sQCMk0wgYgxqLrZO80z/clotuY2lFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JEqd+uVU;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=egZJe0Wi;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6q+meWf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ahN0Ajmk;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3CD606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 12:59:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D3CD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE8C606A32E
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CE8C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JEqd+uVU;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=egZJe0Wi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794401962;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-	b=JEqd+uVUQJCURQmz/P4v9c+sOafMl2DoF4gKAL4wPs6UuW/1WwHYf1lcrmQmMIdMkyQToD
-	h/qqbE1r1d26CmmKtb35PrPqu1hDHoDFjbPvwYcDhZvO3O1A5tuKv3PepBtNdUzGq8TrEr
-	CmxVbqKTX+3oire+gfzeMamHFOrubDA=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-379-P4SYwa-bNAmXGt-a5jvHWg-1; Wed, 11 Nov 2026 07:59:19 -0500
-X-MC-Unique: P4SYwa-bNAmXGt-a5jvHWg-1
-X-Mimecast-MFC-AGG-ID: P4SYwa-bNAmXGt-a5jvHWg_1794401958
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e0ef019a4so2718687f8f.3
-        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:59:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6q+meWf;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ahN0Ajmk
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ABCZ6gT3292100
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:01:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fNNA5DINfFRpf2eORoYgUUVl
+	bLJUUgtkmYcnEbAYKiY=; b=p6q+meWfh8pxTAsOPcNqXBXxXBRbH+GJDC4uiwKA
+	LJ5hYTCU3/k1FKYji7ugZnbHErDA5WuhE5KzDaz8lgoup47Kf0aitPgAEw3rW0lp
+	tMtswTpUYDD8q4tClQtiOBprE7ZUy4pXagV9SgI+lMAfwYQfVHVebO5KPPIcUnid
+	chmnqaobA7mVsL+v/gdx+NJL5U1KFoj9M4mB1lr2ZMcQaWN29IzteadEmIgwVhrK
+	EIpAcU2xW1xN36ygYXdO+5SKN19CrB5t79dsRs5D885Pvk1tYO8MeB2FCyVs7Qv2
+	wejjCK8v+qWke5jhjykBYz7/jQCHfyyuSVzlG19XahwgNg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hvdnp2jwj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:01:40 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eac41ff334so2898125e0c.0
+        for <stable@vger.kernel.org>; Wed, 11 Nov 2026 05:01:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794401958; x=1795006758; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-        b=egZJe0Wi2sgZjvTjgJJhuoiDyof/Zk202uF3RPLv7m98WY0lrJYAOScdPXsTc5/K6H
-         iWOQD8Q8pfH+bo+CxmkCanycg34E778FPSycBkv9TT0zKvt9ZQos2kBtFwTiEay0ifT6
-         sSYwu/OX3X2UwHWh0WW6Yx1NOEsfd7LJni2XNK2svB60HCMrsPeai6p86u2aOxhQ15iZ
-         uJ1mxwmz1LeTHMj1zCcCEmD3liecbAY3V3qZdZ6mJxbQCkb27aD7Zd21LnW/3QY3kvjE
-         3Eakp+wW7kTWdyz5OQLLcZi4t8I9nQnbeRV0QIejW3m79wGCkWLbU7k3Ux1HXOR9GZPL
-         9bPw==
+        d=oss.qualcomm.com; s=google; t=1794402099; x=1795006899; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+        b=ahN0AjmkD63PvVgeHmTW9R+4V623g7CKUjFoxTx/rILg6XoSPLCx7vdHPmEiblcs9+
+         OXFKV7KwAzlj2DLe0CbFaW5Bl+jini2AbY9yNuUlleNQsjl8UoD/rLmNakZWu011wDRz
+         38XM8LokSGsfwigtXiC7FcGwIKOc7I2XZxri8d7jzBWcGK4gC/ypzwPsIgP4XWflydYe
+         RvqfloJW/9ugMzKTVIOYs+R/w5gem1fhgrJt9duQl6Q62scnAmDmH8VUXAEEpO75agNy
+         j8BI4XUxTGkuy4yAazi5PoyFxyec5jlQglS9mkW6IXcVyjrruY5FmAnPRdATuGlT8Bjm
+         HNiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794401958; x=1795006758;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Sfjm76wcFaYplzSjvgbZRL4nEIoICacZtL8Z7ioFei4=;
-        b=RVUzjEuDjwa3fp8vmw/LnEcoVh0eubLejae6Rw4pXr4n7ECDGQqBIvx7h3y2/MqNyg
-         HGpWB0JuXvMnqG2uD6IP5SaFz9/DclEH0SnICPdpbZsw/NCOhEB9jTTq5Jz/W/d6HHJr
-         QTpBUPg3e85W50U44WbsO10XA9v9RboxzCXirkHs4JMVCUedSsJAk0g91Tym9gPQeEMc
-         WU0ZvuyxsCcvNU8MER3pRjn6gKFP9frb8KpKLk4UUehieiqtosHHHIfQM05f+rf/j2fC
-         vP8lzBDXG6QyfvHUOpQolz0v0MhIfux7eLz6swCl/+PIqII0umh2E8jS0Mev5cV4gIkb
-         jl4A==
-X-Forwarded-Encrypted: i=1; AL+hErEqMxBuQpLiNXZzI906tCYiM01L9hId/YvqzYLao9wC7Eg68VjhohiqMtRTqa8tAPFVQZ3RAsM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8k809+sWpzAL2IxmwwRvit7NOS32ffXGZ7//s6Tg59N/6L3ST/
-	hOYUhoA6YUNNE9P7xXArnFwNd9m+lAMX4oHA3A/yZv8aE8gCfBqVG3omUM0WiuCW5sS9PYTqdCB
-	pblxQVirPSkuGA0igMAZNHbXlhJeE8w1rf3OOG/b9YYOWhfQ0ltymGhP0Eg==
-X-Gm-Gg: AYBFou24Ds6Jn4d2/ui7zORCBUaEhMBCBqwJsMPB/AJC0/isvkrjxg1AkkNU4n4KdUb
-	AVzD/heNTRAZaDGaEVFWodLZSKVCaQQplZjaYCH6Njas/UCCdyLKbfVuswU+SHnfc7JykRxHVC0
-	5aLC6jBiCs24axpoF7u6M5ulAkEfkK5o9w3iAeT2tNWGtp0Pg6vlzq+bJoG9cWGOF+T0N5oofNr
-	fVIpMvg22pnIf796N6j23/AZs8sbkTgjenUIVOR/jKyen4nRtraqhYPfPNaTtx5ApkGIZ7kyHxJ
-	dk6yqmfoRhsxQcvu1pYtXcltmya37lBVRRF4/9OMBqsr9+ZFMxQ/c1kkU8LmfKOL9i3FpBJmuGI
-	pBQ3ZAWztbY0OGiMEmh/fk1N/0eEn9q3jH5t9R/O6HhKERPsjfIh/Vkb/sdxdS6+RqmljSUP+Kl
-	3axjw=
-X-Received: by 2002:a05:6000:2502:b0:491:1e11:9ffe with SMTP id ffacd0b85a97d-499c48154f6mr4396740f8f.2.1794401957782;
-        Wed, 11 Nov 2026 04:59:17 -0800 (PST)
-X-Received: by 2002:a05:6000:2502:b0:491:1e11:9ffe with SMTP id ffacd0b85a97d-499c48154f6mr4396705f8f.2.1794401957282;
-        Wed, 11 Nov 2026 04:59:17 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49842f2a1f9sm11424324f8f.15.2026.11.11.04.59.14
+        d=1e100.net; s=20260707; t=1794402099; x=1795006899;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fNNA5DINfFRpf2eORoYgUUVlbLJUUgtkmYcnEbAYKiY=;
+        b=kzAPg0CecZVAvB7nyCwLDpd1LaiR3CbK8hqGrNcCtXouhvN4pDFaZpnMFxpz2d+RgY
+         82hf+HkjCEhd/3pgOx8u6kWtx8vIRK6Kl6PNG9G+R9h08xOPBD9O9YTkhC43BGH0WwWP
+         Du01VPGAwgcdZOTnOgo6NDWESvbNjGuM7Bllip6NO787FrblPKvtkeigWV1yH+NHTaL3
+         a+2PyxBH50REZ1m4apfmcWU7lICnP21pe5w6uJFlm6cYCe/2d2+KhBI5KOpShxqlLYhw
+         KcqEkarc/ZPmQZJ4dk1J5biLZeORgXCGRyWOFSAMe0HlaBtwL4ACCDy4FHiJk1ic6q6q
+         YCVw==
+X-Forwarded-Encrypted: i=1; AL+hErFOD/HetO1pOpVeazCdnB1Ly6jj6DOrYl+2u9LfrfUzqqq9A1QWARi9c9mRVSlmNvOO42IgYus=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/oyYW/8FNCXEoCrG1taK4o87GOhescdfmwqBtybB52c+76T0TI
+	xEFJHM0/qZvCzCD2k3tTxa6feDcyQPYgRQFqs+SaxJdnuAmVvLiNUFVoeceUfzZESU6YUb2VfU+
+	53jHZX0DbYClvlFJBGWQILhex3DF8Cftw/1QKiBzKQMZs2ETioJ2pDNvMgeo=
+X-Gm-Gg: AYBFou1nsitDAS+tIoga2Fsj2te9OHdDebzy4iQ1Jn2UNvgI1SrSl724Xn286pUIXVl
+	6MVo4ND53nTUBLY6xT8YN85Z5qYiH1wPz0XLAk8G94WYlJkvKuNtUbIUBdf7Z7vuCjbM3L2+5kI
+	dNd1SX/ZPotJYxt0XQ0ahzI2mq0CLCO3b8ljhHKFzd/Qq918JxHjp3KyveRBHsbyewHlWqJKzzQ
+	yn5K7H80qYoITCcHe780EsYq+v2aQLHwWTIMYU9PGRmIYGonUVkAiKq88ysE9BNvYJy7VPDQS+o
+	HzxSqlG1VcAdfhtMBKaDTbyuRsYcQ07o2ix/mIaQ/pLiPVauNPrAgBD4UNhO9oF8m3ZknKvIrBh
+	a0ifTb/h/qbEAuORZlDqlZvryJqSLg9A3MyyO7HsAvt+Yl+x4IB+DcyWz+xIXDs5Y8jGjn70f2d
+	KlIfHmVq8pinfXXG4cUH8A0NiN5Zq1poBFj45oCp9F9+Jkn8XuZttcw4Ng4+R7LQ==
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr672589e0c.8.1794402098899;
+        Wed, 11 Nov 2026 05:01:38 -0800 (PST)
+X-Received: by 2002:a05:6122:d12:b0:5ea:389c:520b with SMTP id 71dfb90a1353d-5ee1c3daf90mr672510e0c.8.1794402098347;
+        Wed, 11 Nov 2026 05:01:38 -0800 (PST)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c157b7a657sm947505e87.11.2026.11.11.05.01.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Nov 2026 04:59:15 -0800 (PST)
-Date: Wed, 11 Nov 2026 13:59:12 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 13/29] sched/deadline: Keep departing bandwidth across
- a root domain rebuild
-Message-ID: <avRmoK08LoIeySBL@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-14-mathieu.desnoyers@efficios.com>
+        Wed, 11 Nov 2026 05:01:37 -0800 (PST)
+Date: Wed, 11 Nov 2026 15:01:35 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>,
+        Vasant Hegde <vasant.hegde@amd.com>,
+        Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        David Woodhouse <dwmw2@infradead.org>,
+        Lu Baolu <baolu.lu@linux.intel.com>,
+        Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+        Eric Auger <eric.auger@redhat.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Joerg Roedel <jroedel@suse.de>,
+        Srinath Mannam <srinath.mannam@broadcom.com>,
+        Oza Pawandeep <quic_poza@quicinc.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Bjorn Helgaas <bhelgaas@google.com>,
+        Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, kvm@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v7 0/5] of_iommu: add support for "iommu-ranges"
+Message-ID: <h7j7lyl6d67xfdw3gyabfngpurumbqd6fkcvuhyi4juashcx5r@egybwhfdaonn>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,218 +139,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108185406.1549770-14-mathieu.desnoyers@efficios.com>
+In-Reply-To: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfX8/JDeFQmcPVK
+ X7iV5bF9QKrYwnXOPbJo+f9B5/UD2nHsFVVNVF20OjLBOaDktTHs1ek25LogFyr05ei/P/X6910
+ H2v04y1cj1jO/IkdPrtucUNHSFMVyh6IhY9SJWiZti7yGEgrQc5Tj0oNX1RKGAPvoequgDSiN2F
+ pBMDLTK9K8MTHzJ0WYwd28omAejvKUyp4uf/nZ59MkO3K0hQgzLU0Vu9xTH497Pcctp1d9J08qN
+ cdThPImiU03pc8BPJooRzj2bnxd3ljl3gCT5d2DQSn7G4p3M/6ptcMTowdv5FdHP2qHv40TJmYZ
+ jeuJTVg7SHlsnWnX9+ZVSKwE1D/6S82kDpfjicep2yYFVf2eH+EnrkH/F7rPLGKCiCGoL4MUMhj
+ oBHUJ/uDNBlUf0otl3Kfzau8DbpJckNAA55HftXMUNTqEBfrHgDBtvOa4hJV0tdHgOXJqi0QZRL
+ EapdxXQNSzNzQqOy/3A==
+X-Proofpoint-GUID: uRTjYq_WjMhOjqh14OizDkd5rXRBQGWY
+X-Proofpoint-ORIG-GUID: uRTjYq_WjMhOjqh14OizDkd5rXRBQGWY
+X-Authority-Analysis: v=2.4 cv=NK1AaE6g c=1 sm=1 tr=0 ts=6af46734 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Ycv8Z8E-TvjlFfbjzzEA:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTExMDA1MSBTYWx0ZWRfX+pekPrF7NZYS
+ 3g+FngbJ8fp019BonFFuGTBqKw/kPulO03obT1HZCdIMlQdJjrhZrGpJF2C9T/2HJIOqkHooZiQ
+ FG/8sZR9luPGJxvs9ldkCp+B5qAOpFU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-11_02,2026-11-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
+ adultscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611110051
 
-Hello,
-
-On 08/11/26 13:53, Mathieu Desnoyers wrote:
-> A task that leaves SCHED_DEADLINE, or dies, keeps its bandwidth in
-> total_bw until its 0-lag time. This keeps admission control on the safe
-> side. Then inactive_task_timer() removes it from the root domain of the
-> task's CPU. Two things break this:
+On Fri, Nov 06, 2026 at 10:44:23PM +0530, Vikash Garodia wrote:
+> The series adds support for recently introduced property 
+> "iommu-ranges". It adds the required checks to error out for cases 
+> which are not following the schema definition.
 > 
->  - A rebuild of the accounting clears every root domain, then adds back
->    the deadline tasks of the cpusets. It misses a task out of the
->    class, or a dead one. Their bandwidth is dropped, and the timer
->    removes it again.
->  - A task out of the class can also move to another root domain. The
->    timer then takes total_bw from that one, which never had it.
+> Iommu-ranges was defined in schema with this PR
+> https://github.com/devicetree-org/dt-schema/pull/207
 > 
-> Either way, a root domain admits deadline tasks beyond its capacity
-> until the next rebuild.
+> The patch series is being posted as revision v6, since the patches 
+> were initially part of the media series [1]. The patches are moved out 
+> to get review comments from iommu reviewers, which was otherwise looking 
+> as a media series. Happy to move this back to media series if anyone have 
+> any concerns. 
+> [1] 
+> https://lore.kernel.org/linux-media/20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com/
 > 
-> Fix this with dl_departed_list. A departing task goes on it with the
-> CPU it is on. A rebuild puts its bandwidth back in that CPU's root
-> domain. The timer removes it from there, and so does
-> sched_dl_overflow() for a task back in the class.
-> 
-> A rebuild still drops the bandwidth of a task whose CPU is inactive, or
-> that dies during the rebuild. Each task records a count of the
-> rebuilds, dl_bw_gen, with its bandwidth. The timer removes nothing if a
-> rebuild came since.
-> 
-> Make dl_cookie and dl_bw_visited() static: only deadline.c uses them.
-> 
-> deadline_rebuild_test, added later in this series, fails every time on
-> v7.3 and v7.4-rc1 kernels. A one-CPU partition root admits two tasks of
-> 600ms every second there, where it has room for one. It passes with
-> this patch.
-> 
-> Fixes: 387e31300b57 ("sched/deadline: Fix the update of the total -deadline utilization")
-> Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > ---
 
-...
+FWIW these changes are also required for the DCP display controller to
+work on Qualcomm platforms...
 
-> +/*
-> + * A task that leaves SCHED_DEADLINE, or dies, before its 0-lag time keeps
-> + * its bandwidth in total_bw until that time. Then the inactive timer
-> + * removes it. Meanwhile the task may run anywhere, under another policy.
-> + * The timer holds a reference to it.
-> + *
-> + * A rebuild of the root domains' accounting (dl_clear_root_domains() and
-> + * dl_add_task_root_domain()) does not find such a task among the deadline
-> + * tasks of the cpusets. So dl_departed_list holds these tasks, from their
-> + * departure to their timer. The rebuild puts their bandwidth back in the
-> + * root domain of the CPU each one was on when it left.
-> + *
-> + * dl_bw_gen counts the rebuilds. Each task records its value when its
-> + * bandwidth is counted. If a rebuild dropped the bandwidth since, there
-> + * is nothing to remove. A rebuild drops it when the CPU recorded is no
-> + * longer active. It also drops the bandwidth of a task that dies while
-> + * the rebuild runs. The cpuset walk skips that task, and it was not dead
-> + * yet when the list was put back.
-
-It took me a bit of staring to (hopefully) understand better how
-dl_bw_gen works, maybe the following can help others?
-
- /*
-  * dl_bw_gen numbers the rebuilds of the accounting: how many times the
-  * root domains were wiped and reconstructed (dl_clear_root_domain
-  * increments it). A task records the number of its last definite
-  * state, counted or settled. That number dates the state:
-  *
-  *  - Current: the bandwidth is counted, or a release settled it since
-  *    the rebuild began. A release subtracts; the walk of the cpusets
-  *    skips.
-  *  - One behind: the clear that just ran wiped it. The rebuild puts
-  *    it back.
-  *  - Older: an earlier rebuild dropped it. Leave it out; its release
-  *    removes nothing.
-  *
-  * Only equalities are compared, so the wrap of the counter is
-  * harmless.
-  */
-
-> + *
-> + * dl_departed_lock protects the list and both counts. Take it with
-> + * interrupts disabled, under the task's rq lock or pi_lock or in the
-> + * rebuild, and before any dl_bw lock.
-> + */
-> +static LIST_HEAD(dl_departed_list);
-> +static DEFINE_RAW_SPINLOCK(dl_departed_lock);
-> +static unsigned int dl_bw_gen;
-
-...
-
-> +/*
-> + * Clear every root domain before a rebuild of their accounting, and count
-> + * the rebuild in dl_bw_gen. Put back the bandwidth of their servers. Put
-> + * back the bandwidth of the tasks on dl_departed_list, which no cpuset
-> + * holds as deadline tasks. Put each in the root domain of the CPU
-> + * recorded for it, or drop it if that CPU is not active.
-> + * dl_add_task_root_domain() then adds the deadline tasks of the cpusets.
-> + */
-> +void dl_clear_root_domains(void)
->  {
-> -	dl_clear_root_domain(cpu_rq(cpu)->rd);
-> +	struct sched_dl_entity *dl_se;
-> +	u64 cookie = ++dl_cookie;
-> +	struct dl_bw *dl_b;
-> +	int cpu;
-> +
-> +	guard(raw_spinlock_irqsave)(&dl_departed_lock);
-> +	dl_bw_gen++;
-> +	for_each_possible_cpu(cpu) {
-> +		if (!dl_bw_visited(cpu, cookie))
-> +			dl_clear_root_domain(cpu_rq(cpu)->rd);
-> +	}
-> +	list_for_each_entry(dl_se, &dl_departed_list, dl_departed_node) {
-> +		cpu = dl_se->dl_departed_cpu;
-> +		/*
-> +		 * Skip bandwidth that an earlier rebuild dropped. It is not
-> +		 * counted now, and its release removes nothing
-> +		 * (dl_task_release_bw()).
-> +		 */
-> +		if (dl_se->dl_bw_gen != dl_bw_gen - 1)
-> +			continue;
-> +		if (!cpu_active(cpu))
-> +			continue;
-
-Maybe additional info can again help (before the above)?
-
- /*
-  * Drop the bandwidth of a task whose CPU is inactive.
-  * That CPU no longer identifies the root domain that
-  * counts it: a CPU going offline sits in the default root
-  * domain by then, and the old one cannot be found back
-  * from the recorded number. The release then removes
-  * nothing, and no later rebuild restores it.
-  */
-
-> +		dl_b = dl_bw_of(cpu);
-> +		raw_spin_lock(&dl_b->lock);
-> +		__dl_add(dl_b, dl_se->dl_bw, dl_bw_cpus(cpu));
-> +		raw_spin_unlock(&dl_b->lock);
-> +		dl_se->dl_bw_gen = dl_bw_gen;
-> +	}
->  }
-
-...
-
->  static void switched_to_dl(struct rq *rq, struct task_struct *p)
->  {
->  	cancel_inactive_timer(&p->dl);
-> +	/*
-> +	 * A task on the departed list gets here when priority inheritance
-> +	 * boosts it back into the class before its 0-lag time. (A policy change
-> +	 * took it off the list in sched_dl_overflow().) The inactive timer no
-> +	 * longer removes its bandwidth: the task does when it leaves the class
-> +	 * again. So take it off the list. If the task moved to another root
-> +	 * domain meanwhile, it then takes the bandwidth from that root domain
-> +	 * instead.
-> +	 */
-> +	if (p->dl.dl_departed_cpu >= 0)
-> +		dl_task_undepart(p);
-
-Can something like the following happen? And do we actually have a test
-for it?
-
-1. T departs. A SCHED_DEADLINE task with bandwidth X leaves the class
-asleep, 0-lag still ahead. Per the design, X stays counted in rd(A)'s
-total_bw; T goes on dl_departed_list with dl_departed_cpu = A, and the
-inactive timer is armed as the designated releaser. So far so good — the
-record says "rd( A) owes X on T's behalf."
-
-2. T migrates. T is now a fair task; it wakes and gets placed on a CPU
-in a different root domain, rd(B). task_cpu(T) = B.
-
-3. T is PI-boosted back. A deadline waiter blocks on a mutex T holds ->
-rt_mutex_setprio -> class change -> switched_to_dl():
-   - cancel_inactive_timer() — the designated releaser is cancelled;
-   - dl_task_undepart() — T is delisted and dl_departed_cpu is reset to −1.
-
-   X is still sitting in rd(A)'s total_bw, but nothing anywhere
-   remembers that. T runs in rd(B) on its donor's reservation.
-
-4. The boost ends. T is deboosted out of the class -> switched_from_dl()
--> task_non_contending() -> dl_task_release_bw(p, task_cpu(p)). T is not on
-the departed list, so the passed-in CPU is used: X is subtracted from
-rd(B).
-
-...
-
-Apart from the above, the proposed approach looks alright. I now wonder,
-though, if an overall different scheme might make more sense. The
-half-baked solution we have today for rebuilding bandwidth information
-after domain changes is based on cpusets keeping track of DEADLINE tasks
-(with the indirect cpu <-> rd association complicating things further).
-With dl_departed_list, we now have one half of a per-domain membership
-structure; the accounted current tasks are the other half. Wouldn't it
-be better to move to a single list of accounted tasks (current and
-departed alike), keyed by their recorded home CPU, which turns the
-rebuild from a reconstruction into a re-partition? The dl_bw_gen
-machinery and the cpuset walk would both go away. I understand this
-would require some major restructuring of a number of patches in this
-set, so maybe we can think of doing it after this set lands (or the
-majority of the patches in here). Unless you are open to trying the idea
-(if it makes any sense) and see if it simplifies things?
-
-Thanks,
-Juri
-
+-- 
+With best wishes
+Dmitry
