@@ -1,63 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794404697;
-	b=qd8KP3DRSqElxGlIVnPLC9RkdkBRAd73F3FhxuQKKSeLfWr3nHY9isN+KVHA1D1uYqAf
-	 hvXqSrBnsCO1yAft2kQfnFN1UmO2+w4x5mEiyzspK2529E5eYLA0PvPuibJErjxo9gYBg
-	 ZOG/iHvMxcEF6ba/9Uru/DVsHo+o1jnx6NJdC/V5tGKWW3l1feXM3HCUndMTq2oqeosTw
-	 LqGH/EILd2yQvL+HUV187I8dJ4vavRTA4VQpPGdLCOFJx1QGZIkIV6WsOzH92h2lF8ob/
-	 ACk66fW9XWNrbaDMA+T8Zlm5SSO7xjJdIVM7hv+mnwSSJMjN+JzHnV6DRSQMfImiT1Q==
+	t=1794404758;
+	b=UhW+PSibQRvx0iV+kkX9GS+l3TIZMdz1gwpu6Mtoo4d2AjMBdN5h4+4FTn4N7NO0UQ81
+	 w9lKOBfhzX9lVB8IOPvymlpFnlYO02eDPkkKi8wkBxyCM5MJ5jL5JNQD+IPDiQmAyrGzk
+	 FjfzDsLKdFfD0c66xQosU80VZpYMO33FEWYRsM4smBLxbSc2Lg4buXiXyEKuqX6qSJm2k
+	 JUXN5QeBuDZshG0Suo0MsINUVWCW4dEUSfT52k81QVXm2LayokdrImNQ3LGU6GYj/blpJ
+	 6ixWKgJCXPq3b2Gnslv7sl/76p6LfloFkEL4VCtkRZoDHrvG3RDXUhFfHCcMeObKfhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794404697;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:MIME-Version:Content-Type;
-	bh=L9NVOt4hOFoYtGev0mEhj0TEZnxJ0HjT+1Qu0Bv20T0=;
-	b=E6MY9MRCuzaCDNxcVXF8t0x0zBIZSPrrp17Q3hHwPfe+GGCcm7phmcLNuGfHC2AuTZ0S
-	 PaLCnBsJcLzkl1S4jrz/ltHDWf5M3cUOQS6+xTmmZmLjp7umNaIMQ3XZLSCcR/dv8Si5x
-	 JWwVfKqcw35der4uihEMAACm8bxGv+mQvAUa426MCftGpV+HgxYYXsjIaf3sax9xDQwA0
-	 cPO+WMSMalpmKxQcyUfKzh8EG151TvEi0rl6opQOQ/Hqi1UTjMMScsezJgCFod1sJGhDB
-	 SQHzbsem2sIa2ObQ+07bYsBItPjJ6jZwJDfLIy+QgYqiWXQLPsKqzCbHEx3YUuCqPoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794404758;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DYIun7Og7Grxb0CUQI9i6cbed8WFV6IK7ow4l60LsJI=;
+	b=wAQnA9ZP1+5gAuZY5L/souOMtDjuIKD6dW3LrD23OVIfBxouRS8Yog3bx/zCtnzxlwol
+	 eHXFKA+twfQaywjoo1rOT5I3vXPnHZ7FUnSZ+YkirUbwat2DtAgrL+R0nMniDewBdJ0dA
+	 kAo7bS0TeyZWY2S99Pr3jBQ0XpjHiVXn/KtxHd0CkONh4nCvqwpeaBHaK1Tbr9ytgqO6X
+	 AsRct/FAtrAK5yjxZHS7Ts6SfN4BhKN0B5tGzPkl4UQmRX0kRvIWNh8YA1G5vSt1V9x+F
+	 mjtc8vb1i9C+J6quVm4j+AeteyRt+QmHX+Sw9E7KEr3JY6fYir6oxLmGUYim5p1jE9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=vV+0FcTB;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g8t1aYW0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81ED606A31C;
-	Wed, 11 Nov 2026 13:44:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E81ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7C6606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 13:45:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=vV+0FcTB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=L9NVOt4hOFoYtGev0mEhj0TEZnxJ0HjT+1Qu0Bv20T0=; b=vV+0FcTBoNU5o4OLSQPC6PgnRv
-	fgHstmcDFOtYkngXKEoAi2RMXhliQ/4spjCvQ9nlOI+mZb/xXFgUtY+yiig6PXX9y6k7NOR3Elkvr
-	FM8cqexiY0emYR3TlgAj1TV+tz/qP60mxdF6USCI15sJgqLex7T7rFKWB8Uc1XTxdU39ZqtZRhjI8
-	vbAniFGvU4pH34YgOGgPNOonS1U4UL4eDK5lXgNEN3Gxac5H4kEtMi6j4qWKu9RQ1CZ/PoEDe93zv
-	Ix1OOYGXg81QTqFSZhqqdH3gQPl3tX2Kc0G/o19I9cBSYs1xS4x0jjk7zvhYo0vHV3t36Pe/ZNDGo
-	GrdGWOCA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xR8d7-00000001Stc-3el0;
-	Wed, 11 Nov 2026 10:44:51 -0300
-Message-ID: <10dd9cea16f8ebff2103ee7ac7e5ec4f@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org, David Howells <dhowells@redhat.com>, Ronnie
- Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
- <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
- <bharathsm@microsoft.com>, Giuseppe Piscitelli <ooonea@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] smb: client: retry a hard link open without a lease
-In-Reply-To: <CAKYAXd-VC8shz7r9P=mS5XvOuGoadBhjJ6XYaaivL1z8v0UGpA@mail.gmail.com>
-References: <20261110225412.3937476-1-pc@manguebit.org>
- <CAKYAXd-VC8shz7r9P=mS5XvOuGoadBhjJ6XYaaivL1z8v0UGpA@mail.gmail.com>
-Date: Wed, 11 Nov 2026 10:44:50 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g8t1aYW0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EA951F00A05;
+	Wed, 11 Nov 2026 13:45:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794404758;
+	bh=DYIun7Og7Grxb0CUQI9i6cbed8WFV6IK7ow4l60LsJI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g8t1aYW0iChdjDzmbFXAghBZDsqbq1bTbIiFRt7IhKdFG8TfeOTTXDnmipYMGHr7a
+	 gRgnc5UCBWg0w8brSTkfG9jzDKxW4/5DAuFXrV69qWCvBUj/Z7SgXWk+N+VvkvYphV
+	 alsg8/LDg1LGxZkpF6fKluqtxC0Uy673sBQST4byGpJSqmFYPArplyEV8w44p8B9B4
+	 Je1rkOlMf1cMKaQWkrc/wFgvgRfnWXdbmx+FSvGBP6YPOewhMgoD2rYiH+B/0FcT8V
+	 htPj8q5BJQ6+lUGcL4AhPHd6P5K6SMUHJRRIZgVE3p9d0PTuSVnJhbLgOEw30BzKQu
+	 K1UJfAgub9Plw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ye Bin <yebin10@huawei.com>,
+	Baokun Li <libaokun1@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] ext4: commit super block if fs record error when journal record without error
+Date: Wed, 11 Nov 2026 08:45:54 -0500
+Message-ID: <20261111134523.2064738-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107060307-failed-5.15-e1a881ea4674@kernel.org>
+References: <20261107060307-failed-5.15-e1a881ea4674@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,29 +60,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Namjae Jeon <linkinjeon@kernel.org> writes:
+From: Ye Bin <yebin10@huawei.com>
 
->> @@ -214,6 +214,19 @@ int smb2_open_file(const unsigned int xid, struct cifs_open_parms *oparms,
->>                 rc = SMB2_open(xid, oparms, smb2_path, &smb2_oplock, data, NULL, &err_iov,
->>                                &err_buftype);
->>         }
->> +       if (rc == -EINVAL && smb2_oplock != SMB2_OPLOCK_LEVEL_NONE &&
->> +           !oparms->pending) {
->> +               cifs_dbg(FYI, "%s: invalid lease key, resending request without lease\n",
->> +                        __func__);
->> +               free_rsp_buf(err_buftype, err_iov.iov_base);
->> +               memset(&err_iov, 0, sizeof(err_iov));
->> +               err_buftype = CIFS_NO_BUFFER;
->> +               smb2_oplock = SMB2_OPLOCK_LEVEL_NONE;
->> +               oparms->reconnect = reconnect;
->> +               oparms->replay = false;
->> +               rc = SMB2_open(xid, oparms, smb2_path, &smb2_oplock,
->> +                              data, NULL, &err_iov, &err_buftype);
-> Should we retry without FILE_READ_ATTRIBUTES if this retry returns
-> -EACCES?  EACCES handling above only applies to the first SMB2_open()
-> call...
+[ Upstream commit eee00237fa5ec8f704f7323b54e48cc34e2d9168 ]
 
-Indeed.  We should retry on -EACESS without read attr there as well.
-Thanks!
+Now, 'es->s_state' maybe covered by recover journal. And journal errno
+maybe not recorded in journal sb as IO error. ext4_update_super() only
+update error information when 'sbi->s_add_error_count' large than zero.
+Then 'EXT4_ERROR_FS' flag maybe lost.
+To solve above issue just recover 'es->s_state' error flag after journal
+replay like error info.
+
+Signed-off-by: Ye Bin <yebin10@huawei.com>
+Reviewed-by: Baokun Li <libaokun1@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://lore.kernel.org/r/20230307061703.245965-2-yebin@huaweicloud.com
+Stable-dep-of: e1a881ea4674 ("ext4: fix fast commit replay failing on a read-only mount")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ext4/super.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index c89e460180b82..ae0509f6936e8 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -5400,6 +5400,7 @@ static int ext4_load_journal(struct super_block *sb,
+ 		err = jbd2_journal_wipe(journal, !really_read_only);
+ 	if (!err) {
+ 		char *save = kmalloc(EXT4_S_ERR_LEN, GFP_KERNEL);
++
+ 		if (save)
+ 			memcpy(save, ((char *) es) +
+ 			       EXT4_S_ERR_START, EXT4_S_ERR_LEN);
+@@ -5408,6 +5409,14 @@ static int ext4_load_journal(struct super_block *sb,
+ 			memcpy(((char *) es) + EXT4_S_ERR_START,
+ 			       save, EXT4_S_ERR_LEN);
+ 		kfree(save);
++		es->s_state |= cpu_to_le16(EXT4_SB(sb)->s_mount_state &
++					   EXT4_ERROR_FS);
++		/* Write out restored error information to the superblock */
++		if (!bdev_read_only(sb->s_bdev)) {
++			int err2;
++			err2 = ext4_commit_super(sb);
++			err = err ? : err2;
++		}
+ 	}
+ 
+ 	if (err) {
+-- 
+2.53.0
+
