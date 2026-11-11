@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794416691;
-	b=sUYbtPBEfy9E3MgPUE5Is4QsixotpPlx6fTZ4dVpJamQNJiaCmdjG+pRO2xoByCh35bu
-	 cT4PtdHf7EjSgZ+lb/nvPRzkQAVeVqP5VF/aYDdjq9Uyyy2Y1IHyKUcuQSjLUZFy6y2R7
-	 MU0/cAq2QbkVCEuXIbHFUMCWlGFLBkgnjVnrEGnC7eRsM+BUweqltNW6+2faDYG4rq2YC
-	 wBJ/TX4eSGGF/kCvHHYVI8aTfwqyzfVo2p2BhlF+I42GHWOuksMLej+Zx5ZrGPyCsIa6/
-	 FtM+9QcNJfMPTd06aWjwSzuLavn+fcsA2er9otrfnOp6+YsSZuJYW2A8rs3q12DmbHg==
+	t=1794416695;
+	b=4g7qsUrxmBD90MA6pcloDMEOChj9HeCOxU8FFKFTcjrp7v/M/xyX9t4WZXTTw4LLI8Ta
+	 jFpG8Cp9FqV1I3msdDDMdB+MgnGlWiREx2vNWZRRB85tWG7BJuR61Yy4smwJJaMRJcKyB
+	 WQozK07qQj9vjBBMCZdicf9l27JdmWRbu6UH1OsIMJr4zRUJq1Uz0udkVpqsqNlqKxDy/
+	 48e4MJFtyW7jTbaQwVaYon1KDrn+6/tMlD/rWR+WIhtIFDmKv/1IqO5wYAinHGKyWSb9a
+	 Lu3bfMh8wYP26Aolh/YmimLDuIKxpuN9JId61dyKwPkpDSjdTpIqzYMwIQqB2c0Lr+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794416691;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794416695;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uahblEfTxGwHDD4cIJJP3t+ZnQSSzHCKwp/hTQ66JE0=;
-	b=iG6zDYnLH1Ypb3MJvdesXa3YFoOBhkougW3dsGAyE9J+pf/2qf2U2Q51LMmKaJDRO3gw
-	 vKED8ZU8tEh0vGl+t6WeGYLUk/YtPIUU/lnKY/EeCHW7YufIdwd3TCUT9nv6vdDEJPkER
-	 IOTEn0dNtjXqvX6s0tOqwzU8a1XAlAbnhMQsLgNRZWdtYoHVX4EuPzf4m3vQAy9kBkBHP
-	 Y0FG9QLZgic2z2riTGbF6E2GdpM9d1IOYBtc88S/agrDZBWfZwBvlREMn2bnxtKvwba23
-	 hx8Y3YipIOC0wbTUgd4spm1Zw8aGYnWpk/XhX3MQ70oXLVRp3TLNLsmQ9q2FncDf2ng==
+	bh=7Aa4XB3lbiDyPF6hB01Dg3zGGEF1X3Q0KL6eV787JYU=;
+	b=Mixgi/JoQxofQZDOaIDBB02RfQ3POEKixsWdXXdlzTwPUtlVjuCoW/XJivJQW+imhQDX
+	 cXVD0GLvKca04rxOfjzl6jGPsZA9bSj0NIgEMEBSxHus4cFXGZlHrKJFb5afTIB1mtykC
+	 8se5fXpn/luBtI/WicZmOPrUYJGHF0XgMIIck0ziW/Vfyae6rk5ki2DOZQ69aTRsbO2ir
+	 ic4+x/aclvn7ujtMwRVkQvPyIfE/rNqTXF7J9L7tzD9SGCge8Oz4COpVt3hQKA3rhlwkW
+	 Scq3zWEYfEatr/dZNMEg37tvjpi+HS/RUh3lbh5jvl28D5/yrr2YiPyMo7Gx3dGy2dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBywbFNu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5FOZjCt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F78606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:04:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15113606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 17:04:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBywbFNu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A785D1F00A05;
-	Wed, 11 Nov 2026 17:04:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A5FOZjCt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BD8E1F00A05;
+	Wed, 11 Nov 2026 17:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794416691;
-	bh=uahblEfTxGwHDD4cIJJP3t+ZnQSSzHCKwp/hTQ66JE0=;
+	s=k20260515; t=1794416694;
+	bh=7Aa4XB3lbiDyPF6hB01Dg3zGGEF1X3Q0KL6eV787JYU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iBywbFNuRnmVBYCg4fseMiIabnkR/aQ9ozj2GOtqamM5F9pZgDyGG4FYgZ0dx02hw
-	 uQrLk6HHWI+SK/qBKmnGIYQ0ujGRmJqotews8QUAY58kmTOrgVEmZlw37eRDCbYE4P
-	 rCpsfrrm31G2PLvbcWo6tm6+65kVxqr1sJIshz5Ztbf/D7ojjpn9nfI+IgcrgShUoN
-	 /RcFAygwsb0KaWC/IinWxtLQskqGfSgtdGwNdvhFIMwhWqHFWhcypvT7lr/gNicakz
-	 gK8vC96yatvpMLcHMinL33jX8ZsYSruYUdCUdBfSUPp26CC2tqJcGTYWSoQIRmqhFY
-	 KnvZcSf3ZLO9g==
+	b=A5FOZjCto5O/lrYH35FBCKohAwxN7wKd8dX6bJVASP2Gj3Ep/Be4AUzQ5ShVHVXJp
+	 vWVcmQeXtlSSS5HWa+gX+vHYUK/EAFxvIROB0MnSL7S3r4ltuG8fPEBchR/uIOLeP8
+	 WeFYHr8IMjGftH+9gDx/S0VBRHKQNsUHu4FOOe3QmuNXhszlpsEKngLFMyXNtZw9pX
+	 j35omRc567MRkgnFYeZJAMuEeTM+cuVyndDV+2rSndFnNKbN+SE06F3srJbthuqn11
+	 qyK1arxgFUbvDAvrp79MccSodbZ8WGdKbs+yt6tCU94hW+rjV36Ls5VRJF9rfclRpB
+	 AI3geBShAxjAg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Russell King <rmk+kernel@armlinux.org.uk>,
+Cc: Shivansh Dhiman <shivansh.dhiman@amd.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ARM: 9488/1: smp: set current pointer in assembly before jumping into C
-Date: Wed, 11 Nov 2026 12:04:49 -0500
-Message-ID: <20261111170426.3354605-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] KVM: SVM: Add a vCPU-aware helper to get supported DEBUGCTL bits
+Date: Wed, 11 Nov 2026 12:04:51 -0500
+Message-ID: <20261111170439.3395604-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054905-failed-6.1-f6e551e7d515@kernel.org>
-References: <20261107054905-failed-6.1-f6e551e7d515@kernel.org>
+In-Reply-To: <20261109200129-failed-7.3-053621535f01@kernel.org>
+References: <20261109200129-failed-7.3-053621535f01@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,126 +62,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Shivansh Dhiman <shivansh.dhiman@amd.com>
 
-[ Upstream commit f6e551e7d515579b952422c93415470fb672d848 ]
+[ Upstream commit cd0e6f4d7cec11be97fe6476309719b23ab5accb ]
 
-With CONFIG_KCOV_INSTRUMENT_ALL=y, secondary CPUs fail to come online
-on ARMv6K/ARMv7 SMP:
+Replace DEBUGCTL_RESERVED_BITS with a vCPU-aware helper that provides the
+set of supported bits so that KVM can handle bits that are conditionally
+supported based on the vCPU model, e.g. for features like Bus Lock Detect.
 
-  CPU1: failed to boot: -38
+No functional change intended.
 
-The compiler inserts a call to __sanitizer_cov_trace_pc() at the entry
-of secondary_start_kernel(), before set_current(task). The KCOV hook
-dereferences current while TPIDRURO is still uninitialized, causing a
-data abort before cpu_init() has installed the exception stacks. The
-secondary CPU consequently never completes startup.
-
-Initialize current in the secondary assembly handoff, as
-__mmap_switched already does for the boot CPU.
-
-With current set in assembly, the set_current() call in
-secondary_start_kernel() is redundant. Drop it together with the
-function and the task argument. The hotplug resuscitate path in
-arch_cpu_idle_dead() needs no hand-off either, as smp_ops.cpu_die()
-can only return if the CPU kept its register state, TPIDRURO included.
-
-Assisted-by: Claude:claude-fable-5
-
-Fixes: 50596b7559bf ("ARM: smp: Store current pointer in TPIDRURO register if available")
-Cc: stable@vger.kernel.org
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
-Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
-[ sashal: Adjusted context in arch_cpu_idle_dead() to accommodate the missing unreachable() call. ]
+Signed-off-by: Shivansh Dhiman <shivansh.dhiman@amd.com>
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+[sean: invert from reserved => supported, massage changelog]
+Link: https://patch.msgid.link/20260930193634.3415089-12-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: 053621535f01 ("KVM: nSVM: Check validity of vmcs01 save area copied from SMRAM on RSM")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/include/asm/smp.h   |  2 +-
- arch/arm/kernel/head-nommu.S |  1 +
- arch/arm/kernel/head.S       |  1 +
- arch/arm/kernel/smp.c        | 15 ++-------------
- 4 files changed, 5 insertions(+), 14 deletions(-)
+ arch/x86/kvm/svm/nested.c | 8 ++++----
+ arch/x86/kvm/svm/svm.c    | 6 +++---
+ arch/x86/kvm/svm/svm.h    | 7 +++++--
+ 3 files changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm/include/asm/smp.h b/arch/arm/include/asm/smp.h
-index 7c1c90d9f5827..e46a380a4bbb4 100644
---- a/arch/arm/include/asm/smp.h
-+++ b/arch/arm/include/asm/smp.h
-@@ -43,7 +43,7 @@ extern void set_smp_ipi_range(int ipi_base, int nr_ipi);
-  * Called from platform specific assembly code, this is the
-  * secondary CPU entry point.
-  */
--asmlinkage void secondary_start_kernel(struct task_struct *task);
-+asmlinkage void secondary_start_kernel(void);
- 
- 
- /*
-diff --git a/arch/arm/kernel/head-nommu.S b/arch/arm/kernel/head-nommu.S
-index 950bef83339f5..9fe76c8d1d476 100644
---- a/arch/arm/kernel/head-nommu.S
-+++ b/arch/arm/kernel/head-nommu.S
-@@ -117,6 +117,7 @@ ENTRY(secondary_startup)
- 	ldr	r7, __secondary_data		@ reload r7
- 	ldr	sp, [r7, #12]			@ set up the stack pointer
- 	ldr	r0, [r7, #16]			@ set up task pointer
-+	set_current r0, r1
- 	mov	fp, #0
- 	b	secondary_start_kernel
- ENDPROC(secondary_startup)
-diff --git a/arch/arm/kernel/head.S b/arch/arm/kernel/head.S
-index 21930b9ac1c4c..85f3eab3eb393 100644
---- a/arch/arm/kernel/head.S
-+++ b/arch/arm/kernel/head.S
-@@ -442,6 +442,7 @@ ENTRY(__secondary_switched)
- 	adr_l	r7, secondary_data + 12		@ get secondary_data.stack
- 	ldr	sp, [r7]
- 	ldr	r0, [r7, #4]			@ get secondary_data.task
-+	set_current r0, r1
- 	mov	fp, #0
- 	b	secondary_start_kernel
- ENDPROC(__secondary_switched)
-diff --git a/arch/arm/kernel/smp.c b/arch/arm/kernel/smp.c
-index 978db2d96b446..4b3cf4105a837 100644
---- a/arch/arm/kernel/smp.c
-+++ b/arch/arm/kernel/smp.c
-@@ -376,12 +376,9 @@ void arch_cpu_idle_dead(void)
- 	 */
- 	__asm__("mov	sp, %0\n"
- 	"	mov	fp, #0\n"
--	"	mov	r0, %1\n"
- 	"	b	secondary_start_kernel"
- 		:
--		: "r" (task_stack_page(current) + THREAD_SIZE - 8),
--		  "r" (current)
--		: "r0");
-+		: "r" (task_stack_page(current) + THREAD_SIZE - 8));
- }
- #endif /* CONFIG_HOTPLUG_CPU */
- 
-@@ -400,23 +397,15 @@ static void smp_store_cpu_info(unsigned int cpuid)
- 	check_cpu_icache_size(cpuid);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 2aa87ae6b8f31..ae5688e5c7fb0 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -821,7 +821,7 @@ static void nested_vmcb02_prepare_save(struct vcpu_svm *svm)
+ 		 * svm_set_msr's definition of reserved bits.
+ 		 */
+ 		svm_copy_lbrs(&vmcb02->save, save);
+-		vmcb02->save.dbgctl &= ~DEBUGCTL_RESERVED_BITS;
++		vmcb02->save.dbgctl &= svm_get_supported_debugctl(vcpu);
+ 	} else {
+ 		svm_copy_lbrs(&vmcb02->save, &vmcb01->save);
+ 	}
+@@ -1203,7 +1203,7 @@ int nested_svm_vmrun(struct kvm_vcpu *vcpu)
  }
  
--static void set_current(struct task_struct *cur)
--{
--	/* Set TPIDRURO */
--	asm("mcr p15, 0, %0, c13, c0, 3" :: "r"(cur) : "memory");
--}
--
- /*
-  * This is the secondary CPU boot entry.  We're using this CPUs
-  * idle thread stack, but a set of temporary page tables.
-  */
--asmlinkage void secondary_start_kernel(struct task_struct *task)
-+asmlinkage void secondary_start_kernel(void)
+ /* Copy state save area fields which are handled by VMRUN */
+-void svm_copy_vmrun_state(struct vmcb_save_area *to_save,
++void svm_copy_vmrun_state(struct kvm_vcpu *vcpu, struct vmcb_save_area *to_save,
+ 			  struct vmcb_save_area *from_save)
  {
- 	struct mm_struct *mm = &init_mm;
- 	unsigned int cpu;
+ 	to_save->es = from_save->es;
+@@ -1230,7 +1230,7 @@ void svm_copy_vmrun_state(struct vmcb_save_area *to_save,
  
--	set_current(task);
--
- 	secondary_biglittle_init();
+ 	if (kvm_cpu_cap_has(X86_FEATURE_LBRV)) {
+ 		svm_copy_lbrs(to_save, from_save);
+-		to_save->dbgctl &= ~DEBUGCTL_RESERVED_BITS;
++		to_save->dbgctl &= svm_get_supported_debugctl(vcpu);
+ 	}
+ }
+ 
+@@ -2070,7 +2070,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 
+ 	svm->nested.vmcb12_gpa = kvm_state->hdr.svm.vmcb_pa;
+ 
+-	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, save);
++	svm_copy_vmrun_state(vcpu, &svm->vmcb01.ptr->save, save);
+ 	nested_copy_vmcb_control_to_cache(svm, ctl);
+ 
+ 	svm_switch_vmcb(svm, &svm->nested.vmcb02);
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 13c44d6196513..bb8a14f21e3e5 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -3169,7 +3169,7 @@ static int svm_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr)
+ 			data &= ~DEBUGCTLMSR_BTF;
+ 		}
+ 
+-		if (data & DEBUGCTL_RESERVED_BITS)
++		if (data & ~svm_get_supported_debugctl(vcpu))
+ 			return 1;
+ 
+ 		if (svm->vmcb->save.dbgctl == data)
+@@ -5064,7 +5064,7 @@ static int svm_enter_smm(struct kvm_vcpu *vcpu, union kvm_smram *smram)
+ 
+ 	BUILD_BUG_ON(offsetof(struct vmcb, save) != 0x400);
+ 
+-	svm_copy_vmrun_state(m_save.map.hva + 0x400, &svm->vmcb01.ptr->save);
++	svm_copy_vmrun_state(vcpu, m_save.map.hva + 0x400, &svm->vmcb01.ptr->save);
+ 	return 0;
+ }
+ 
+@@ -5104,7 +5104,7 @@ static int svm_leave_smm(struct kvm_vcpu *vcpu, const union kvm_smram *smram)
+ 	 * used during SMM (see svm_enter_smm())
+ 	 */
+ 
+-	svm_copy_vmrun_state(&svm->vmcb01.ptr->save, m_save.map.hva + 0x400);
++	svm_copy_vmrun_state(vcpu, &svm->vmcb01.ptr->save, m_save.map.hva + 0x400);
  
  	/*
+ 	 * Enter the nested guest now
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index 29bde741874ad..2216988365593 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -786,7 +786,10 @@ BUILD_SVM_MSR_BITMAP_HELPERS(bool, test, test)
+ BUILD_SVM_MSR_BITMAP_HELPERS(void, clear, __clear)
+ BUILD_SVM_MSR_BITMAP_HELPERS(void, set, __set)
+ 
+-#define DEBUGCTL_RESERVED_BITS (~DEBUGCTLMSR_LBR)
++static inline u64 svm_get_supported_debugctl(struct kvm_vcpu *vcpu)
++{
++	return DEBUGCTLMSR_LBR;
++}
+ 
+ /* svm.c */
+ extern bool dump_invalid_vmcb;
+@@ -876,7 +879,7 @@ void svm_leave_nested(struct kvm_vcpu *vcpu);
+ void svm_free_nested(struct vcpu_svm *svm);
+ int svm_allocate_nested(struct vcpu_svm *svm);
+ int nested_svm_vmrun(struct kvm_vcpu *vcpu);
+-void svm_copy_vmrun_state(struct vmcb_save_area *to_save,
++void svm_copy_vmrun_state(struct kvm_vcpu *vcpu, struct vmcb_save_area *to_save,
+ 			  struct vmcb_save_area *from_save);
+ void svm_copy_vmloadsave_state(struct vmcb *to_vmcb, struct vmcb *from_vmcb);
+ void nested_svm_vmexit(struct vcpu_svm *svm);
 -- 
 2.53.0
 
