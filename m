@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794425224;
-	b=RZoZzT6OhCLPJoVYokg5EEEeKDdFGW7PGeF9Mv/8DPsRonYj5GpS7ecuTBEAVNc5APoV
-	 mrbOuz/Bej9gKlZgl3Gj2FM0uOzxMbpOQn6A70EVQSBYhQaKX+sTIQbkktB4F+r4QySkO
-	 BN2bsNuEuJa3naGoKXxzuGiTz78XcieQBMfz2AJRjYyUML1LuVFAm7G5eC9HosR7Ag2sO
-	 r4l45r1CzYBUvyAPsVR8SWGgar+q1XbLNDqqtmL+FzNVNjraNDG3l4LMUS95KuemdEQCh
-	 zmqp3egDWim2mEgUhy8TBeDOQPV2ABUiFi8MOp7AufIwOSuHWPJSe18mW8wzN+mVRrQ==
+	t=1794425363;
+	b=48brV4jLayDndP9pUqEOv9pliQ6XR5bZL8IYNaCJJ1df76u55IG5SfrSrLZmlxwUfqO9
+	 yXXok99UNYdEmvzNOi0WyGpDQqKNWbMGzf9DCRPpt1ao3yH2VFc8BQbzqmGqz+ctzirRx
+	 s4QH/g74AZl10D+EH5ZUdFaPIAiOSnYg3rLJUEyH6RgDAdEyo3O6BYlH9H+/TtofLOu8I
+	 p2sub+SD4maNr0EtMY+doxHwmVt2ojk0M6Ohdz9pEoFNTAqQXBS6yUSHKltH/XkOwFa5S
+	 PYisu9TItiwAYz68De1MHqYGIUUxp+xztsNySpOMWJtT1s/1YnZ8hlawMw3jSPEEsAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794425224;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794425363;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YP9onUf4LiFjjvTiPcQF6TYWrUzVajrr4rRp3t6+9S4=;
-	b=Ob2v5Vu6Yw7GZqEc8El/ZzfA90BguHKXZEbvzj+3scajvV5EHm0awXZ/xgsaXn+esTvX
-	 8AFRcJiTID1elsFDgA7H796zDrRJECKtutJQ6Qfhaxm27HlY3Q1VDuKn/gy1hWpQlNXJP
-	 tCLUedOVS0MBrN5SrYDBCCUP6mC5GDjqAiJkR3SHSGEj2gepODVw8JiZkvgiNoUkmg6PS
-	 A69sCsij2Sq+j+CFTRYRqsA9Kb37xlQActVV/hfzqZhrPdOOy6VkFHpyJgWkYtpP9+n7J
-	 wGbhNt/057h6S70C5+lfNGh5Szu8KbfHx+A+jh4KrLHwkwjmeypnUWM6PT6eW9kGe3Q==
+	bh=3CJKnJUUEQqc9D7/K2DZ4cq+Vui+GbNmW2tFxDU+shI=;
+	b=gon6nwBGsyFPkNaUjALNMrNIGsjg2y7S5xvQeM8jQBgiDuTpR8zet7HbEOQb4YuNvjHg
+	 I2yW9xGQygaFKBr+Wmwk916xTTerJiyb/R9NQuNfCX8assZbf+KJ8dwcyzCabUfkaVdW8
+	 uSnI70f5bqKsU1dtmw5/g+DA/wiVRmFTYw4d4X0qkA6je5nExg21ZGLrssE/YwpbIibMY
+	 pVCEXXDTUqU+JatIFOL3J4fbqcNYhgALCc7E8NJqkWjD0WGH3/v0Of5w1BjzL2QcoXX1W
+	 wy8505b+GR7pYNou0zcqjQJDsHprp0SnK4AAcgjesWtCyYoTRaaymAppuzA0zrnSIGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EL+W5t4F;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nIp/ughy";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA89606A327
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE52606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 19:29:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EL+W5t4F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482AD1F00A05;
-	Wed, 11 Nov 2026 19:27:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nIp/ughy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEC41F00A05;
+	Wed, 11 Nov 2026 19:29:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794425224;
-	bh=YP9onUf4LiFjjvTiPcQF6TYWrUzVajrr4rRp3t6+9S4=;
+	s=k20260515; t=1794425363;
+	bh=3CJKnJUUEQqc9D7/K2DZ4cq+Vui+GbNmW2tFxDU+shI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EL+W5t4FC9r1IOVFjpb5xWsK/3rnn3EpyyG+aNAN2oQCjRRpQl6xhEZ2y2eADOdN+
-	 JqR8IaQmgeGGeZd1Z1szZAaIsjE+XIGME9rm6KtbL5AZMnMxTwQ9MrVeUm3Nc8NhoX
-	 Wnc2fA5fq6qwaUPm1xv4hc/ngNBVfqlfBpuXuWpoTHsHa4MGUEbDLCY4IjRhc0KHtd
-	 pqGST8Q69gMBMKgT9u4CbJueSjhb/alzBqTgvC/fMtvJhUZhUXok2jxyN50rMFOaDY
-	 CesvlN0lzzGd7frMMyOWWdIuPbDVdZd+YGYiG7ke71UdW6eoDIS9CHiynqg6IBmYL2
-	 t9ZppilZfDsag==
+	b=nIp/ughyU8vhcWxAQp6ln2NC50ZtzJoLieAsuhPzh8lAS4V5w/1X8VslHlvnomh04
+	 YSPwviXeISnhDJl9sBe4QQ71tUJTT15IyJhk/xs86t1wctL4meGEPCyRBpZNyZocYF
+	 E1qJZzRBeyrbx86Q3Q5Zd3AJmMjkry1SKpaqaC4L9kAzD4uB6XmvHn9ssPiVMkCINX
+	 Dl3etiGrDKOomfQlBNzIq0l2EDcRXyR8dRhxlt8jU3PImmER6uhZUoatiiI5E8+4o/
+	 TOrakC22cQey3Z9YF9ttuNMltu5v7eMa+6Ihle807dC5GUe+kg3RaWfDEym2yU/yqV
+	 TcKbXO7dXpgXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
@@ -47,12 +47,12 @@ Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Hugh Dickins <hughd@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mm/ksm: mark migration stores with WRITE_ONCE()
-Date: Wed, 11 Nov 2026 14:27:02 -0500
-Message-ID: <20261111192643.3980567-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/ksm: mark migration stores with WRITE_ONCE()
+Date: Wed, 11 Nov 2026 14:29:21 -0500
+Message-ID: <20261111192903.3987292-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060230-failed-5.15-d3863210464f@kernel.org>
-References: <20261107060230-failed-5.15-d3863210464f@kernel.org>
+In-Reply-To: <20261107061908-failed-5.10-d3863210464f@kernel.org>
+References: <20261107061908-failed-5.10-d3863210464f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,17 +109,17 @@ Acked-by: Xu Xin <xu.xin16@zte.com.cn>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Cc: Hugh Dickins <hughd@google.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: Adapted folio-based KSM operations to the existing page-based interfaces. ]
+[ sashal: adapted folio-based KSM operations to page-based equivalents ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/ksm.c | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/mm/ksm.c b/mm/ksm.c
-index 3ed1bd6085f91..7e720cf2c4bcc 100644
+index 466ca19997551..f9bb12cb8cec5 100644
 --- a/mm/ksm.c
 +++ b/mm/ksm.c
-@@ -862,7 +862,8 @@ static inline struct stable_node *page_stable_node(struct page *page)
+@@ -869,7 +869,8 @@ static inline struct stable_node *page_stable_node(struct page *page)
  static inline void set_page_stable_node(struct page *page,
  					struct stable_node *stable_node)
  {
@@ -129,7 +129,7 @@ index 3ed1bd6085f91..7e720cf2c4bcc 100644
  }
  
  #ifdef CONFIG_SYSFS
-@@ -2765,7 +2766,7 @@ void ksm_migrate_page(struct page *newpage, struct page *oldpage)
+@@ -2774,7 +2775,7 @@ void ksm_migrate_page(struct page *newpage, struct page *oldpage)
  	stable_node = page_stable_node(newpage);
  	if (stable_node) {
  		VM_BUG_ON_PAGE(stable_node->kpfn != page_to_pfn(oldpage), oldpage);
