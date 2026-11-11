@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794357340;
-	b=T15Ts2KfgMbc6LgvLzsHSLbcKyAaphG2lFPEJLyShAT51waBFDBYwtJ17+K/byZklGT9
-	 tLMtWc49u0rhBw+PXxRJ08SlsDNGlWcju8ypcplZb9oK3pBE5Trd1aETRo0ryKikEqnmY
-	 Gfke10yTac0YBSgn9rFIEDS2tRZrvF3sqaFblX+T0gdGPXLM8Xj919OR/ixLLrqWiS49l
-	 ZEZoBdWJlLwcv7M7kbkLOE204n7qzj0x/FTpjX5b3gJy8+D2n2oSgOIqlp7INmUse7hmE
-	 CikpCsM3PrOIsXDZP7dtfPMq/lZBg331koztIyuHrLKKx028oYSyssJ1dHoSV70/H1A==
+	t=1794357375;
+	b=mGj1G1XUNhCv1lCKpuO0vi6iij5tC9Kih8i8wSpn7qGBTBl917o0/bv/HGAYGYLqqbYS
+	 0A+RyD5LX0eNTYCeRLjAZYsOd7RrpCI6k8vPHTYeqt3xZiC6xvtBdzJuu7UeL5L2fKyf7
+	 DjhJkpv1xQuIq3MMNfMIuxcQlCNQ7LlAE/9baM2p2GqakMn3+1hFbyPXAbRgTD+VmEkCc
+	 gPlZdG03QRdDhScBuAUbtgsM+qOWNaOhZFOFTD6mWwXWMskGpGvQBFTPt25E++JUQw4Fk
+	 ipaS7Ndyp/Vm+VxjS/UlBHl/4QsZMbJ4cHR7QETjLgjiH1d26xC+CU6GAOICzfboc/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794357340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794357375;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3JuYNeajO97zVr0inSSrXivQOJQaH3UNRM80JX2yDK8=;
-	b=F33ZYwQUJ18QTalBjaV77v7aNhylZlTkAo11hxJcI6c0ebqg4bfrRBmHY0z+ifPzFJly
-	 wKyKxHryAcZ92TPkMulYYDhxTdVjDgl0mWv2rJ6ml8+ZsAK+jILyKc935T1nUUeKuvdVb
-	 QBa0dtnIRgRVK37rd9Vi3BOkh79/+aHyIgA0ab43R/030wjiv4VSIVb+znjvNaqriuruF
-	 fxR1CtMl6pn7HT/rt0UMMD5H4GJKIvP/7YEtkWnGcQyQxnFmAR2TyiMq4WfoycafmZ3pm
-	 48R6HwrBKV7ItYRJlhydbbQq0yhlbk5lTuxM6sruA+p4Bux9ovd0sxCGsACGppI2uiQ==
+	bh=VgvghYGjz0cm34g5RNWKJoB5yybU1ndRLt5Jtc/eTEk=;
+	b=rWUESoK5fgYNnRvGwnoLSq2jipMJHkfEGH8vR/d6GeLrGwh56rhIOSyTVqeNEDnrVHqe
+	 JgPKx8qAnuI9EiJJhHGRN2Mx2mRa3vxCk1gi6Dq9Ky1mbS2m06jw2eXTPeC2aXF3VpMmC
+	 w/b4+erXjjH/5oH8QWGUKJ0MHPuvuFGHKK8gnmearfVBoJU5J7fpDvKHKEGUgwMuvxava
+	 xOsU7EH11+VxE9ZXJC7QFgJTc7IZwHjs0JuencmI2YAcrTqdQrG2FDC/rNyb0oKlP1V4M
+	 pEJFCkaToMN7Bj9xlsyOJlCwUS5EeWqBMut64KklINod2pwgSqTutYJmv19rbcLb7Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IhB1nbRk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjCdNuP7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9334C606A320
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:35:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BAA606A321
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 00:36:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IhB1nbRk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6F41F0093C;
-	Wed, 11 Nov 2026 00:35:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjCdNuP7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD14F1F0089F;
+	Wed, 11 Nov 2026 00:36:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794357340;
-	bh=3JuYNeajO97zVr0inSSrXivQOJQaH3UNRM80JX2yDK8=;
+	s=k20260515; t=1794357375;
+	bh=VgvghYGjz0cm34g5RNWKJoB5yybU1ndRLt5Jtc/eTEk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IhB1nbRkjlelspqSCMh41kaIFz3h5dvj4DYEvmfoF6LC5ehOYFatkYNw+EUF3cA6x
-	 w3ShuaK67p22E2Yl7ihsVm0bwQyHcZ4bcbiZyKFF7XpW67AWeMgfBQQTZY+3g9I+in
-	 U3uTZX/TroAsyDP6M0/6wnw0Cm3VOkpNj5IJSydeSWQ0JMOH15BboPd+L38IbBrP6/
-	 a6voAxDpoZP/zRp+lwTnzPUUHCgV+RzpXctYUrYTbnw+dNSqfag2u4SWcwpbq+iPmM
-	 8++OX6TkZ/gGRMkJzUs7KKwlFf2IA5vvztb3zLe04q3XQAyMS1Ax/Mh0ZyKUjkR6z/
-	 XRVKawgUPHGUQ==
+	b=bjCdNuP7vag0ABNwCqCea8rzoAO5Elk2DTK2Bgks0nLAD8/ITNQqZ1nNPTBp7+6q8
+	 t+UWoybpKpB9G13JgfXFd/4xoOWtQ2QL7dB7itP2oJzoP17mTNZapnWsq6ARKS2nr5
+	 XwQ8peWMnf8/3l7NsjEhgnj54f34kveFsYv07PSo3GvbFOhEhVSx1oKl1J41476y8b
+	 AqIYUgLxNNlAmZLfPRzafnKp3xJFP2rZtHOjMcKX79uYGrkQ/3VVrnGPV7uTb0fyFf
+	 rUuqWCDo8fTnF/pEhQCb8TSNMgpv7Sr1Si2pSDnzNv1pUsdwbYGU55Q0jDUO7M5tVx
+	 LPEJ2cNA7WMJQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Juergen Gross <jgross@suse.com>,
+Cc: Brandon Williams <turbine.bmw@gmail.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
-Date: Tue, 10 Nov 2026 19:35:38 -0500
-Message-ID: <20261111003448.284562-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] power: supply: qcom_battmgr: Notify charger supplies of online changes
+Date: Tue, 10 Nov 2026 19:36:13 -0500
+Message-ID: <20261111002555.240825-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053313-failed-6.6-6f165abe2b40@kernel.org>
-References: <20261107053313-failed-6.6-6f165abe2b40@kernel.org>
+In-Reply-To: <20261107052345-failed-6.12-87fd20da8ca8@kernel.org>
+References: <20261107052345-failed-6.12-87fd20da8ca8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +61,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Brandon Williams <turbine.bmw@gmail.com>
 
-[ Upstream commit 6f165abe2b40ede71c98956cd74cd17c18505e75 ]
+[ Upstream commit 87fd20da8ca8bacdaa9bff5860167f208077dc51 ]
 
-dmabuf_exp_wait_released() takes a reference on the exported
-gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
-dmabuf_exp_wait_obj_new(), which drops that reference after adding the
-wait object to the wait list.  When the wait object allocation fails,
-dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
-reference is never dropped, leaking a reference to the exported
-gntdev_dmabuf.
+On SC8280XP and X1E80100 the AC, USB and wireless supplies take their
+online state from the charging source in the battery status response.
+The firmware sends no notification for those supplies when the charging
+source changes, and the driver only announces the battery, so userspace
+never learns that the charger was plugged in or out. UPower keeps the
+state it read at startup: a laptop booted on the charger never goes on
+battery.
 
-Drop the reference on the allocation failure path so the reference is
-consumed whether the wait object is created or not.
+Call power_supply_changed() for a supply whose online state changes when
+a status response is parsed. A supply that is not registered yet, when
+the battery is read during probe, reports its state when it registers.
 
-Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
+Tested on a Microsoft Surface Pro 11 (X1E80100): after restarting UPower
+on the charger, unplugging now sets OnBattery, and plugging in clears it.
+
+Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
-[ sashal: adjusted context for kzalloc(sizeof(*obj), GFP_KERNEL) instead of kzalloc_obj(*obj) ]
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
+Link: https://patch.msgid.link/20261013-upstream-battmgr-charger-online-v1-1-731973e133a0@gmail.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+[ sashal: Adjusted context to account for the missing battery-percentage calculation after charger-state updates. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/xen/gntdev-dmabuf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/power/supply/qcom_battmgr.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index d7b56466bec5d..cf82ab2e3aa6a 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
- 	struct gntdev_dmabuf_wait_obj *obj;
+diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+index d559825538631..3674afb0d49d0 100644
+--- a/drivers/power/supply/qcom_battmgr.c
++++ b/drivers/power/supply/qcom_battmgr.c
+@@ -998,6 +998,23 @@ static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
+ 	return DIV_ROUND_CLOSEST(temperature, 10);
+ }
  
- 	obj = kzalloc(sizeof(*obj), GFP_KERNEL);
--	if (!obj)
-+	if (!obj) {
-+		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
- 		return ERR_PTR(-ENOMEM);
-+	}
++/*
++ * The charger supplies' online state comes from the battery status response,
++ * and the firmware sends no notification of its own when it changes, so
++ * announce the change here. A supply that is not registered yet announces its
++ * state when it is.
++ */
++static void qcom_battmgr_sc8280xp_set_online(struct power_supply *psy,
++					     bool *online, bool value)
++{
++	if (*online == value)
++		return;
++
++	*online = value;
++	if (psy)
++		power_supply_changed(psy);
++}
++
+ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
+ 					   const struct qcom_battmgr_message *resp,
+ 					   size_t len)
+@@ -1067,9 +1084,12 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
+ 		battmgr->status.temperature = qcom_battmgr_sc8280xp_convert_temp(le32_to_cpu(resp->status.temperature));
  
- 	init_completion(&obj->completion);
- 	obj->gntdev_dmabuf = gntdev_dmabuf;
+ 		source = le32_to_cpu(resp->status.charging_source);
+-		battmgr->ac.online = source == BATTMGR_CHARGING_SOURCE_AC;
+-		battmgr->usb.online = source == BATTMGR_CHARGING_SOURCE_USB;
+-		battmgr->wireless.online = source == BATTMGR_CHARGING_SOURCE_WIRELESS;
++		qcom_battmgr_sc8280xp_set_online(battmgr->ac_psy, &battmgr->ac.online,
++						 source == BATTMGR_CHARGING_SOURCE_AC);
++		qcom_battmgr_sc8280xp_set_online(battmgr->usb_psy, &battmgr->usb.online,
++						 source == BATTMGR_CHARGING_SOURCE_USB);
++		qcom_battmgr_sc8280xp_set_online(battmgr->wls_psy, &battmgr->wireless.online,
++						 source == BATTMGR_CHARGING_SOURCE_WIRELESS);
+ 		break;
+ 	case BATTMGR_BAT_DISCHARGE_TIME:
+ 		battmgr->status.discharge_time = le32_to_cpu(resp->time);
 -- 
 2.53.0
 
