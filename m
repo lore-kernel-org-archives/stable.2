@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794366825;
-	b=MisdxbjUxbhURQt08nKKj/EzhEnNA1xbDWOGYubHrBTTuPLETgxmm7ZgBkdj+IFYShcD
-	 Wdw3ipdaTmNO0vF+jobTIXEDBs1i7PQXob2TR863gRL8DW5LMvbUhxL2c/Gw4qqe+YHoN
-	 cfZravvZror1AM8CcP5/su6aYrEW28ey3oSLqhCQHltRxcd+JeaZ3RucDDiK1CcirXXuW
-	 C+UZCACVo1BQxYA4K5UqEfP7J7+sQNt8YGIAHL3PsXjrTltBAinEvJQVlaEUm1pTOfKAW
-	 j1RcCDAQ0rr8Gn/VzSB5+VKYEiL7JL4CS86cU6u1UfWS4uvPTwedaTw2iatS9aXm2Pg==
+	t=1794366860;
+	b=M9mUthCCISSPeI4SQY53IK+q6QLu2BnsYmzhIXQ+1IXyKJYFQa2UC+ULC2eGoq31WiqN
+	 3ISlKOJZaJjrh38a6sdd7nJF2ZZlaXuulmsH0uxkPepHfg86vuPZToEZQVwNIzRi7e+9A
+	 4vvkTlIwslHuIIvE3Gv7lIZ+l5lNFWyGu8qqUqRm6MXQUm9bH49egQ5DlF0Lv0qzOfmcr
+	 Q1d6K1UVg7+GCmJ0I5LLgYKVRgVA6K79T1Z0avr4zY4qtIXQpE49NJN4RwdaVoa0314EG
+	 nWLYukRqdKjYXj+4hFBHdoIuYcw3HsvVmtWCA9/Zb+57LgIDaOtfG4VZjNEeLM8ybAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794366825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794366860;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=phQVKZmesdUoM78efvClfyyt5KXbDh+jIA8DftB/3Vo=;
-	b=bMBbCrpYOEaJtLx9gFGUGdY2xykGi7wO9ZEyaorTnbNXTE3kFjz0UFv2mJSz0A6BIpSb
-	 OAVQDnHy175xyjUaD2Evkp09yZE1DqTfjsFZNoTFbRdkhuHnbegMX1C421r0OH625sRNp
-	 o+Gj6TYa7KGpaoexD7qtx0Tbm1Qkt99C80XmneC6Rt+NWOo9uKKyPjTQdnNCFV+dHSqAY
-	 cWj/vOJBNB/g2KeeuxjVDJ1MZYC+LTvmRD01J37FPrLB02/u/zAV+6Px7xQoVhXIBGYN/
-	 TdUIrh6hA7sqzP8pPT9irQldUa+Ha0iaBLHK9HomaObdWUj0CGu6d/cifXh8t/p/LCg==
+	bh=k6rlZ2WiDqk0pIUbf9ubitWXJk5orv/Nuk4Uj0oTmoc=;
+	b=t9vBLM8Fa9ObNlwbyFmFF1BDIWKpR/cNt8yyaio6qDZgFFpn4mIXIYJJqw+HYWIZyM9o
+	 KUONjJGGnsknS2G/sha/PZMbxTA7Cz0LS4bMeS+f1Fq9B6PvD9d9c4LPoa83RDSqGv+Q2
+	 5nBBrGYa9/lvRRV6sCXp7d2unLZtogSUoSRh8yvd2W+65/TsKSDYcTAlAZfVB0DDZPLX5
+	 I/U05vi4guBMJx6A5cRzatREmL6ALe1WyRXo2dNCH0/1DdGq6rqmjq0qkC9PsBjzQIZ2i
+	 vvutpqZmcmUoK55/ykzPwmHF5mPKATNIfUuLGmeiyjPS76WYT48WHdcQSiiffDPmZ/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlQx2TyE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sqs1I/Yv";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E50606A31C
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:13:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A463C606A31C
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 03:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlQx2TyE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D3A1F0093C;
-	Wed, 11 Nov 2026 03:13:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sqs1I/Yv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A651F0089F;
+	Wed, 11 Nov 2026 03:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794366825;
-	bh=phQVKZmesdUoM78efvClfyyt5KXbDh+jIA8DftB/3Vo=;
+	s=k20260515; t=1794366860;
+	bh=k6rlZ2WiDqk0pIUbf9ubitWXJk5orv/Nuk4Uj0oTmoc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BlQx2TyEwjInQejxFiWFm75RykWvb/veFxXO9w8EHzpkwNO9NLu2rI+sKmkMUAtXW
-	 KEyDNwVMYMidK/K3IcUspgoUGoxrJ71gSEK7YazpX50iX3b/K7bTzhn5bVP1JMy6+8
-	 DkBGrz2Z1Q9dtQhZiikCbn6ZkWke7oGMU+yEuf3h6Rgs6KksZitMU4YDI7Dl14endN
-	 cV6SXfEiu74X/c+er5N79qwEghLCR76D3fEQiTSfqIfKC9TWs9uqlMK5gSG0yzZiWD
-	 ZCAlAoATikj2p3+4PIjeUCmo/2VQ/1pLyUzOgYiOQGTN3JzVbrFbelKX5gHpg18/MB
-	 /FkUBo+pnxwQA==
+	b=Sqs1I/YvN7GFRs30h4wWjtycBvnz9eHOnDtbteOmq15Z2K6AwsMfej3+uIQeG9ODr
+	 kPjjpkE6XT5ob9f9l4Qdt9jpcz4n7KFNE9isI0tSUisznY0PItcQpfl9aq/vMq8X6G
+	 wZd6hsTV9Puhq4jGperoDu1Fi0Rs6OA7+K7mO64S59IDSgAvgeoxY2es3A2By5Pxwq
+	 Y4UOi8Tc6ZX1vfTGY0zHtPuiWt6EC4TgFEkaxx/fUIh6qMkXYbpxjFkXHe0/8KeTDp
+	 qiKHHZkFtG99M4L1LfQTHX0d6Glp3uKV3OnZlQ+AlF0l0D0+DNHTm/zGma3K2r05y3
+	 J7vHDXASWogcw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Armaan Sandhu <armaan.sandhu0504@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Leizhen Zhang <lzsx618@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
+Cc: Hans de Goede <hdegoede@redhat.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Wolfram Sang <wsa@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] lib/cmdline: fix get_options() count and overflow with large ranges
-Date: Tue, 10 Nov 2026 22:13:41 -0500
-Message-ID: <20261111031318.849711-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] i2c: acpi: Add i2c_acpi_new_device_by_fwnode() function
+Date: Tue, 10 Nov 2026 22:14:17 -0500
+Message-ID: <20261111031403.856886-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261111031318.849711-1-sashal@kernel.org>
-References: <20261107052511-failed-6.12-5d72266218b1@kernel.org>
- <20261111031318.849711-1-sashal@kernel.org>
+In-Reply-To: <20261107062755-failed-5.10-a65917d0a22f@kernel.org>
+References: <20261107062755-failed-5.10-a65917d0a22f@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,131 +63,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-[ Upstream commit 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 ]
+[ Upstream commit c537be0bfad6337f2afd618fe252c03217191405 ]
 
-get_range() stops writing once the array is full, but get_options() still
-advances its index by the whole range.  So "1-100" parsed into four ints
-reports 99 numbers, and a range like "0-2147483647" wraps the index
-negative and writes outside the array.
+Change i2c_acpi_new_device() into i2c_acpi_new_device_by_fwnode() and
+add a static inline wrapper providing the old i2c_acpi_new_device()
+behavior.
 
-Stop once a range fills the array, bail out in validation mode before the
-count overflows, and saturate the range length in get_range().  Add KUnit
-cases; without the fix "0-2147483647" panics the test kernel.
+This is necessary because in some cases we may only have access
+to the fwnode / acpi_device and not to the matching physical-node
+struct device *.
 
-Only root can supply this input, so this is a robustness fix.
-
-[akpm@linux-foundation.org: add additional test case from Leizhen]
-Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
-Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
-Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Leizhen Zhang <lzsx618@gmail.com>
-Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <stable@vger.kernel.org>
+Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+Acked-by: Wolfram Sang <wsa@kernel.org>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/20211203102857.44539-4-hdegoede@redhat.com
+Stable-dep-of: a65917d0a22f ("i2c: acpi: Fix adapter reference leak in i2c_acpi_new_device_by_fwnode()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- lib/cmdline.c       | 13 ++++++++++++-
- lib/cmdline_kunit.c | 39 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+), 1 deletion(-)
+ drivers/i2c/i2c-core-acpi.c | 17 +++++++++++------
+ include/linux/i2c.h         | 17 +++++++++++++----
+ 2 files changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/lib/cmdline.c b/lib/cmdline.c
-index 90ed997d95701..f5dc59b3548e9 100644
---- a/lib/cmdline.c
-+++ b/lib/cmdline.c
-@@ -11,6 +11,7 @@
+diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
+index 2f180862dbec9..6f8532ccea850 100644
+--- a/drivers/i2c/i2c-core-acpi.c
++++ b/drivers/i2c/i2c-core-acpi.c
+@@ -473,8 +473,8 @@ struct notifier_block i2c_acpi_notifier = {
+ };
  
- #include <linux/export.h>
- #include <linux/kernel.h>
-+#include <linux/overflow.h>
- #include <linux/string.h>
- #include <linux/ctype.h>
+ /**
+- * i2c_acpi_new_device - Create i2c-client for the Nth I2cSerialBus resource
+- * @dev:     Device owning the ACPI resources to get the client from
++ * i2c_acpi_new_device_by_fwnode - Create i2c-client for the Nth I2cSerialBus resource
++ * @fwnode:  fwnode with the ACPI resources to get the client from
+  * @index:   Index of ACPI resource to get
+  * @info:    describes the I2C device; note this is modified (addr gets set)
+  * Context: can sleep
+@@ -490,15 +490,20 @@ struct notifier_block i2c_acpi_notifier = {
+  * Returns a pointer to the new i2c-client, or error pointer in case of failure.
+  * Specifically, -EPROBE_DEFER is returned if the adapter is not found.
+  */
+-struct i2c_client *i2c_acpi_new_device(struct device *dev, int index,
+-				       struct i2c_board_info *info)
++struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
++						 int index,
++						 struct i2c_board_info *info)
+ {
+-	struct acpi_device *adev = ACPI_COMPANION(dev);
+ 	struct i2c_acpi_lookup lookup;
+ 	struct i2c_adapter *adapter;
++	struct acpi_device *adev;
+ 	LIST_HEAD(resource_list);
+ 	int ret;
  
-@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
++	adev = to_acpi_device_node(fwnode);
++	if (!adev)
++		return ERR_PTR(-ENODEV);
++
+ 	memset(&lookup, 0, sizeof(lookup));
+ 	lookup.info = info;
+ 	lookup.device_handle = acpi_device_handle(adev);
+@@ -520,7 +525,7 @@ struct i2c_client *i2c_acpi_new_device(struct device *dev, int index,
  
- 	(*str)++;
- 	upper_range = simple_strtol((*str), NULL, 0);
--	inc_counter = upper_range - *pint;
-+	/* Keep the sign of the result when the difference doesn't fit */
-+	if (check_sub_overflow(upper_range, *pint, &inc_counter))
-+		inc_counter = upper_range < *pint ? -1 : INT_MAX;
- 	for (x = *pint; n && x < upper_range; x++, n--)
- 		*pint++ = x;
- 	return inc_counter;
-@@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
- 			range_nums = get_range((char **)&str, pint, n);
- 			if (range_nums < 0)
- 				break;
-+			/* The range didn't fit, so the array is full */
-+			if (!validate && range_nums > n) {
-+				i = nints;
-+				break;
-+			}
-+			/* Leave room for the upper number of the range */
-+			if (range_nums >= INT_MAX - i)
-+				break;
- 			/*
- 			 * Decrement the result by one to leave out the
- 			 * last number in the range.  The next iteration
-diff --git a/lib/cmdline_kunit.c b/lib/cmdline_kunit.c
-index af44ae9e92c3e..74c4b5ea32250 100644
---- a/lib/cmdline_kunit.c
-+++ b/lib/cmdline_kunit.c
-@@ -139,6 +139,44 @@ static void cmdline_test_range(struct kunit *test)
- 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
+ 	return i2c_new_client_device(adapter, info);
  }
+-EXPORT_SYMBOL_GPL(i2c_acpi_new_device);
++EXPORT_SYMBOL_GPL(i2c_acpi_new_device_by_fwnode);
  
-+static const struct {
-+	const char *in;
-+	int parsed[4];
-+	int validated;
-+} cmdline_test_range_overflow_cases[] = {
-+	{ "1-100",         { 3, 1, 2, 3, },    100,        },
-+	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
-+	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
-+	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
-+	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
-+	{ "2147483647--5", { 0, 2147483647, }, 0,          },
-+	{ "1,0-2147483647", { 3, 1, 0, 1, },   1, },
-+};
-+
-+static void cmdline_test_range_overflow(struct kunit *test)
+ #ifdef CONFIG_ACPI_I2C_OPREGION
+ static int acpi_gsb_i2c_read_bytes(struct i2c_client *client,
+diff --git a/include/linux/i2c.h b/include/linux/i2c.h
+index 93eacd3844d19..a10a7072b583d 100644
+--- a/include/linux/i2c.h
++++ b/include/linux/i2c.h
+@@ -998,8 +998,9 @@ struct acpi_resource_i2c_serialbus;
+ bool i2c_acpi_get_i2c_resource(struct acpi_resource *ares,
+ 			       struct acpi_resource_i2c_serialbus **i2c);
+ u32 i2c_acpi_find_bus_speed(struct device *dev);
+-struct i2c_client *i2c_acpi_new_device(struct device *dev, int index,
+-				       struct i2c_board_info *info);
++struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
++						 int index,
++						 struct i2c_board_info *info);
+ struct i2c_adapter *i2c_acpi_find_adapter_by_handle(acpi_handle handle);
+ #else
+ static inline bool i2c_acpi_get_i2c_resource(struct acpi_resource *ares,
+@@ -1011,8 +1012,9 @@ static inline u32 i2c_acpi_find_bus_speed(struct device *dev)
+ {
+ 	return 0;
+ }
+-static inline struct i2c_client *i2c_acpi_new_device(struct device *dev,
+-					int index, struct i2c_board_info *info)
++static inline struct i2c_client *i2c_acpi_new_device_by_fwnode(
++					struct fwnode_handle *fwnode, int index,
++					struct i2c_board_info *info)
+ {
+ 	return ERR_PTR(-ENODEV);
+ }
+@@ -1022,4 +1024,11 @@ static inline struct i2c_adapter *i2c_acpi_find_adapter_by_handle(acpi_handle ha
+ }
+ #endif /* CONFIG_ACPI */
+ 
++static inline struct i2c_client *i2c_acpi_new_device(struct device *dev,
++						     int index,
++						     struct i2c_board_info *info)
 +{
-+	unsigned int i, j;
-+
-+	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
-+		const char *in = cmdline_test_range_overflow_cases[i].in;
-+		const int *e = cmdline_test_range_overflow_cases[i].parsed;
-+		/* Two guard elements past the array handed to get_options() */
-+		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
-+		int n;
-+
-+		memset(r, 0, sizeof(r));
-+		get_options(in, ARRAY_SIZE(r) - 2, r);
-+		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
-+		for (; j < ARRAY_SIZE(r); j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
-+
-+		get_options(in, 0, &n);
-+		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
-+				    "Pattern: %s (validated)", in);
-+	}
++	return i2c_acpi_new_device_by_fwnode(dev_fwnode(dev), index, info);
 +}
 +
- static void cmdline_test_next_arg_quoted_value(struct kunit *test)
- {
- 	char in[] = "foo=\"bar baz\" qux=1";
-@@ -203,6 +241,7 @@ static struct kunit_case cmdline_test_cases[] = {
- 	KUNIT_CASE(cmdline_test_lead_int),
- 	KUNIT_CASE(cmdline_test_tail_int),
- 	KUNIT_CASE(cmdline_test_range),
-+	KUNIT_CASE(cmdline_test_range_overflow),
- 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
- 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
- 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
+ #endif /* _LINUX_I2C_H */
 -- 
 2.53.0
 
