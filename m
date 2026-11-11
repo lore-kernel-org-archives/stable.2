@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794422209;
-	b=Nyyp6q2m65q0IAYIsu3M18pyhzpEwYnnI9MM/bNgdGaso0kV/irDAZIV0gUH8aMtGJ92
-	 WKlkkGgmsLA4yUVCVhwdj0ZVyRHF0EHJ+F1Qiqft6C/W9Wg4QuyW/e61/16gfkPJwC4CF
-	 SM165Q66uMDN4tgrkQIIcdUX21nVxkoKJsIa+iEcoOGCNz7bx/Y2TlOOJr8IuOgA06Qgd
-	 hVpx8dUhGV3e+3P37oG+DY4DnROB1+O3LU2fS8EauyVZpcHIUedmhwd5+Al3i9v+I1bQr
-	 VgVgvBvkBWXjU6ael4uCuuCF/fcCgwH4HGvi/pZf5NKyuYyPvMORt13/6GNf00WTUkg==
+	t=1794422363;
+	b=FhwVddDp1I6eyVoMi1BtnAb0jjmTgwWgL8SnJ+saw46NKFXckrpJ01Mr4qrNLc2IDc4d
+	 +T7sgSoXf8EJYI7zoqgHRHMbzZc6Uh3Xvn+0lziN+X/fLX1xAZ0PmBZY7wVYV8TM4crUA
+	 PkZ+D5mBNqK4W3t9Ai7lwRZcuQNhz+6o1fLrQ0UnUVumoA+MvUTY7oeEGlYOxzfl9cy7h
+	 xMeLjVrAOTA54m6BxI83m2Nk5BxED0Fqy6yVTtqoHJjXSQ0Q0WJOdszQeh8pE+91ad9UA
+	 /b/qA4TTYhpIg3MXSt3w4zGVyez0G9avl9CYfF56C21qlwqX2U/W9EDesObv3Zb3Jgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794422209;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794422363;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uuespoRDwBQJeUBvmL5s6lub4zWS+XIVRIT635tecJg=;
-	b=pSvSNG108tvh1UwwAQYebHpAur0H2N6og3ADBGmNZyMZ0shKjmpV1evVTCNJGS0oM3EJ
-	 B0/I7uNo1tUmIe2j+312sJv7a8PfP3IwNYk4NBmBhavJU9ws2K96qk7cP02I0tkLcxmHh
-	 WglYGo+3Az5+u/yIG+IJOkBDz+X94gNWPVLR7J+vvpTYILTFN/513jgSW2ZgevWeRKMF1
-	 OToiL6QAsbmEvf8E8SSP9qHV5tIG/y7QceBXXQ/Hgy9wjqNRbBirXFMb/21H5tgP78KCw
-	 yvWP7c7VBz5Y10GDjtlajBZZHZyNGUEREY41KQXewXBlTKBe20/7P31ErFzkqpnityA==
+	bh=hV3eGu3i96MgTq1oe8yvIy5+UiVirZmEj2wqHa6K8hQ=;
+	b=qa7GO7JE2CzAVllmuvh0wCEf+5uXzH+8Z6cAgJ8AmIBPt2NAXGdTz2NINjU4XtHIaCwO
+	 qsizZVZuG6A8Tob0MgUWscY8nixWq44Ips4Sd86z2SsQWZl0IuxpS5mym5+b+xqRhMxvM
+	 x60enfIIxvhoIqWnNHc/8/fxdzJ3bppmZJcfmA9ua/1lx7VWAyx1sfKBUNEgWh7DFc8WT
+	 KabFvj4jEG5eAbBhyws/u+aYPqiqjr2c0QDYceD6yoPBQRfgvW2amehAr0Synl+A6BJby
+	 xCbR7Yzudn08JBnJqlXJQH2vFNk+hxg1qvqSQVnBB9vwDXh6P+3sjBYpnuK63+QGhbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LuixgFLU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7wgJELt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F61C606A324
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312C5606A334
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:39:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LuixgFLU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA5D1F00A05;
-	Wed, 11 Nov 2026 18:36:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7wgJELt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DDCB1F00A05;
+	Wed, 11 Nov 2026 18:39:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794422209;
-	bh=uuespoRDwBQJeUBvmL5s6lub4zWS+XIVRIT635tecJg=;
+	s=k20260515; t=1794422362;
+	bh=hV3eGu3i96MgTq1oe8yvIy5+UiVirZmEj2wqHa6K8hQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LuixgFLULkqEp5nMVeum2u/HISbzV7bDZtBTY05rBOmrIsIU3bsq8ao9rSavGnZin
-	 hXQKdgtDyQmPolkmGaMwO9yo9hzhA5QBV/D/bhP0kd1Wv4A//vsnweR1ScZ5BHS/RY
-	 UxgeabXT9YY9BNH55s32y6nnpxpq/TmK1AF0EQsgDJYXpbXtPHC9kZCalYXvtXSdH4
-	 FTh9xq+wWt6sio6/Hc2SIzNTxaVZb9E4BvIUr3YKbAwh5hVU21KP5cjdH33+WCYdo7
-	 pTfokESHP7e10+9anG3c3Xuyf3k9U2Yb/V8jGTleGrCv/Opzy/FMItS00Fco9paDaZ
-	 NwyAzWVXVZ8ow==
+	b=A7wgJELt5twYyBAf0W+7EGZ7CHnvwQC1EAwrqCUGtEIBgzvv/nHFF79n6FPvabZ5h
+	 H5pxRlkR62zNbE9pgtzYG3WnS6EN2uopM2kJXpudMJTg92fWZjihk1HDM/+XQdd3Tv
+	 EFFgrWN+ciJyJgMat7coruFvDxLa2XGQ9xjtfpH7mkISUokL38UPEqioVaRLT+6L3e
+	 fnnlyh+lcLAHekIYLFL1Xnq+yWot9CXvmucW1RoCymXlBdhYv/A0iTFpSwyGhJm0hJ
+	 O//8hdlhZI1YgeFOGvKsWGl21VJFb+rlDxACdbyOnk0uvgNtmsyMR5VO0cj8r2C6h6
+	 n42uFNSWcV7aQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Fan Wu <fanwu01@zju.edu.cn>,
 	Song Li <songl@zju.edu.cn>,
 	Miklos Szeredi <mszeredi@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] virtio_fs: read the vring size under virtio_fs_mutex in ->get_tree
-Date: Wed, 11 Nov 2026 13:36:47 -0500
-Message-ID: <20261111183629.3870449-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] virtio_fs: read the vring size under virtio_fs_mutex in ->get_tree
+Date: Wed, 11 Nov 2026 13:39:20 -0500
+Message-ID: <20261111183854.3863855-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107060737-failed-5.15-e7ccc777a040@kernel.org>
-References: <20261107060737-failed-5.15-e7ccc777a040@kernel.org>
+In-Reply-To: <20261107055028-failed-6.1-e7ccc777a040@kernel.org>
+References: <20261107055028-failed-6.1-e7ccc777a040@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,17 +82,17 @@ Co-developed-by: Song Li <songl@zju.edu.cn>
 Signed-off-by: Song Li <songl@zju.edu.cn>
 Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
-[ sashal: adjusted context for kref_get() instead of kobject_get() ]
+[ sashal: Retained kref_get(&fs->refcount) instead of upstream's kobject_get(&fs->kobj). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/fuse/virtio_fs.c | 21 +++++++++++----------
  1 file changed, 11 insertions(+), 10 deletions(-)
 
 diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index ba8d5f5dbeb01..08f1ae3ea896f 100644
+index 9e4f2ba0ef9d2..104d32619c535 100644
 --- a/fs/fuse/virtio_fs.c
 +++ b/fs/fuse/virtio_fs.c
-@@ -252,26 +252,23 @@ static int virtio_fs_add_instance(struct virtio_fs *fs)
+@@ -265,26 +265,23 @@ static int virtio_fs_add_instance(struct virtio_fs *fs)
  	return 0;
  }
  
@@ -125,7 +125,7 @@ index ba8d5f5dbeb01..08f1ae3ea896f 100644
  }
  
  static void virtio_fs_free_devs(struct virtio_fs *fs)
-@@ -1438,13 +1435,17 @@ static int virtio_fs_get_tree(struct fs_context *fsc)
+@@ -1436,13 +1433,17 @@ static int virtio_fs_get_tree(struct fs_context *fsc)
  	 * in fc->iq->priv. Once fuse_conn is going away, it calls ->put()
  	 * to drop the reference to this object.
  	 */
