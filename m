@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794370200;
-	b=ckY+ssFtBdfKXTQnFcA21CFHB6V2onf545u8G8O58ZoA7VmknNh70BwAs3Blp/rr+3pS
-	 CmKz5dBQ9iZNkiM+dIfHVMj1NPpVYT5y+B1v2RnjtiuIdDBP0VD3FGKht5LqpICOac1tx
-	 kvCJuhZd5LsqfTFM2nS7YzXtS10/VlUq/ycqcwShxVeDqDTNMOkQqQAa9PQJ80oIHxMtb
-	 8snwImAkIxEXmdLtuCE5+U+L2tn70+Pt1W7jzb5bC7wD3L9Ol77TirQIOV0kWJCajWOeS
-	 FB+5WEu73W4P+UVAQxVNfDdIlIOvmvXD40jgGfDbUzJ6IVOpah6vvE9hO5/azOYTrAQ==
+	t=1794370205;
+	b=J1noBJ5EX/qcNI1r0M4e7fCt/qvcJb3F7wT1m46BOkfrN/WGJdxJeeGU0fERfWGXDlFo
+	 99oF9NnpqNqWbzjjL2UbwnaGnYGmwiik9CplxhbRZAwKVZQsLMWzs0vDKsPU5FyfI1xkb
+	 9EBuYzw2zFaR1lCSXT6PrJiNALh1dMrXUeOt/OvWLwZinhnZzUy+q5tJue6+45nRThCCn
+	 MZSaDifREj+ZVF0xzi06eFhVFhubGwJ8e35Iqv3VZ8FaOM5vEy9MZdn8kRqGbOd8a3S9R
+	 9LCPDIDnV8MCXPkhA+hWxJcxSPvN/uJf0m87vq99MYkZmQXQEbIAvCSs8N2HP3Jt26w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794370200;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794370205;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=fY4NiB0lnCmXXvWoHiXa3CSwTq2oIvD6K9iiaXuO72o=;
-	b=PTreTEuO+bDEV4BvekcKY7wQM7S8JXEJnVI/Lm4RtHf7OyEtt2PPwtwrg0pA3aYBwoab
-	 GcNkXsP4q8TYMBeXM2H/f3XoIigJQOWINI8y2NripkbsUDDILE8iWUUMnNJTYJ8Lpz7sS
-	 V7XzveTecfCQwBWD3DFnk06nXcgqPSscf0hZf9XH6HEXbtUHnugwbPywaQl9B03LkTtmQ
-	 W+XA1kaayyhP+C0ku8k9y56oMhwvuaDyRhyjk0zP/Aa5syRns/6bRzXQ7jlaXmUDxIBIh
-	 sSB6FpQTj+6gSKFqQ//lMIficYhULRFaaJT2IxiDV1JFnFFlVyc941Aecn7fxL4H6aw==
+	bh=idNLXweLoPNjx3jK9Nmfy3VMz81+Rf6DURR5LGdMO8o=;
+	b=I3DP5qlt+3FhMxVCC0mSoyfTI39DmbfmX3c5SkHcSHhyQZGYR5V8bjTgdB2tz3KJd73I
+	 5m0vmedY/a0SVHHDky4S1b/JB8OyEyq2DQ3mL4KVHp0fGlwSXJlLw65V83fvDS/VCe3GO
+	 QfQtUPcJAoDOubCBD14NoPlDnPxbiyJfBvE4A+iuqoVuuVnWQ8CNiWTLqMC88aEIPKmMP
+	 hoDyVGockXO5xZupQ86hlT+uOHd/Y6sxU7mayFMVDc7RzYvITaC4dNHHZXx8rPJgAfOhR
+	 KJNOpLGhTSMijqDjng42RtkZSgclkTIlaPXGWeCGSsO9W3XByq67EjJuaktbiJOJ0iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.xidian.edu.cn;
 	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
 	arc=none smtp.remote-ip=162.243.164.118
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D47A606A330
-	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D47A606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1778D606A324
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 04:10:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1778D606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Subject:Date:
 	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=fY4NiB0lnCmXXvWoHiXa3CSwTq2oIvD6K9
-	iiaXuO72o=; b=XUxXCna5FCGC56Yu/VVNh4MyW+QVb6TNGJFsDKFkIy2LKg4dZ4
-	mJRFFFsIPIxZGEy7qL9qoPrweDFdSaj/L6a7OcmNxND3zKs04DVgPtEe/stTyguu
-	GDOP9P/51UW5kB+/jrXbaAu8+hUhjNRnJKl5pLbt55lTTaUy2w/3Sqo3I=
+	Content-Transfer-Encoding; bh=idNLXweLoPNjx3jK9Nmfy3VMz81+Rf6DUR
+	R5LGdMO8o=; b=u+S6LEVKPqRGkkyU4YQXa7ZgA+FWgZMz60hpCggKSwIIlZxt5p
+	80Zsx2IpeEZDH2C5/w/tDDdpmbxXTQ9kB89j1dEKmsz0FjNcbcDdrmePaERYBOYd
+	4LgQ8sf3cZbBHEWpIMaemH6ydtxAtjAasZPN3zPvtJLrjOB0m+px9/4xo=
 Received: from user-virtual-machine.localdomain (unknown [113.200.174.33])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmiwGS6vNq_+ZyAQ--.14204S2;
-	Wed, 11 Nov 2026 12:09:54 +0800 (CST)
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmiwGS6vNq_+ZyAQ--.14204S4;
+	Wed, 11 Nov 2026 12:09:55 +0800 (CST)
 From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: stable@vger.kernel.org
-Subject: [PATCH 5.15.y 0/2] ALSA: bcd2000: backport the MIDI URB use-after-free fix
-Date: Wed, 11 Nov 2026 12:09:51 +0800
-Message-Id: <20261111040953.33271-1-25031212351@stu.xidian.edu.cn>
+Subject: [PATCH 5.15.y 2/2] ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
+Date: Wed, 11 Nov 2026 12:09:53 +0800
+Message-Id: <20261111040953.33271-3-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109202440-failed-5.15-f6c7bb1f0799@kernel.org>
+In-Reply-To: <20261111040953.33271-1-25031212351@stu.xidian.edu.cn>
 References: <20261109202440-failed-5.15-f6c7bb1f0799@kernel.org>
+ <20261111040953.33271-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,51 +57,103 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkBmiwGS6vNq_+ZyAQ--.14204S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrury8Kr18WF4xGr13JF4rGrg_yoW8Jr17pF
-	WrWF45Kr1Dur4fZr13JF18Kry5Zws5Ja4qvF1fKr1jqry5WF47Jr4xGa1qka4DKFZ7G3s8
-	ZrnrJ3sxCF4DuaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
-	15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc2xSY4AK67AK6r45MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUJVWUXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyT
-	uYvjxUy8u4DUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUOD2rzNcaM2wACs5
+X-CM-TRANSID:BrQMCkBmiwGS6vNq_+ZyAQ--.14204S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw1kCr13tFyxWF43Ww45KFg_yoW5Zr4UpF
+	48Gr4Yyr4Durn09F1IyFn7CF1Fy3Z7Ja4DGryFg34avFyrX3W3tay0yF45CFsIkryxG3sx
+	Z3WDtayfWFs8Cw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPYb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kE
+	wVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x
+	0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF
+	7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2
+	xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2
+	jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY02Avz4
+	vE14v_Gryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1j6r15MI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
+	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07bOBM_U
+	UUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUOD2rzNcaM4AAAsA
 
-The 5.15.y stable queue could not apply f6c7bb1f0799 ("ALSA: bcd2000:
-Fix use-after-free of MIDI URBs on file close") because that patch is
-built on 221253723dc5 ("ALSA: bcd2000: Fix race between rawmidi and
-disconnect"), which is not present in 5.15.y.  This series backports
-the missing prerequisite first and then the requested fix.
+commit f6c7bb1f0799591a62be75b9bcf84245b4f208b7 upstream.
 
-221253723dc5 adds a spinlock around the rawmidi operations and the
-completion callbacks, and clears the URB pointers under that lock.
-f6c7bb1f0799 then takes a URB reference under the same lock in
-bcd2000_midi_output_close(), so a rawmidi file that is closed after the
-device has been disconnected can no longer call usb_kill_urb() on a
-freed URB.
+The 5.15.y tree is still built with -std=gnu89, so the guard() and
+scoped_guard() helpers used by the upstream patch cannot be used
+here.  Use explicit spin_lock_irqsave()/spin_unlock_irqrestore()
+pairs instead; the locking scope is unchanged.
 
-Both patches are faithful backports: the resulting code matches the
-upstream commits exactly, apart from the surrounding 5.15.y code that
-differs from mainline.  They were build tested with CONFIG_SND_BCD2000=y.
+bcd2000_disconnect() calls snd_card_disconnect(), which only prevents
+new opens, and then frees the MIDI URBs.  A rawmidi file that was
+already open can still be closed afterwards, and its close callback,
+bcd2000_midi_output_close(), calls usb_kill_urb() on midi_out_urb.
 
-Takashi Iwai (1):
-  ALSA: bcd2000: Fix race between rawmidi and disconnect
+The URB pointers are cleared on disconnect and their accesses are
+serialized with midi_lock, but bcd2000_midi_output_close() reads
+midi_out_urb without that lock.  The check can therefore pass just
+before the pointer is cleared, and usb_kill_urb() then runs on the URB
+that has already been freed:
 
-YuanZhe Liu (1):
-  ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
+  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
+  Read of size 8 at addr ffff8880078e7d40
+   usb_kill_urb
+   bcd2000_midi_output_close
+   close_substream
+   rawmidi_release_priv
+   snd_rawmidi_release
 
- sound/usb/bcd2000/bcd2000.c | 62 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 54 insertions(+), 8 deletions(-)
+  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
+  Freed by:     usb_free_urb <- bcd2000_midi_free
+                <- bcd2000_disconnect
 
+Take the lock in bcd2000_midi_output_close() and reference the URB with
+usb_get_urb() before releasing it.  The URB then stays valid until
+usb_put_urb() after usb_kill_urb() has returned, even if a disconnect
+frees it in the meantime.  usb_kill_urb() itself cannot run under
+midi_lock, as the completion handler takes the same lock.
+
+Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
+Cc: stable@vger.kernel.org
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20261031190936.5696-1-25031212351@stu.xidian.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/bcd2000/bcd2000.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
+index 95806e031..69c0f1b96 100644
+--- a/sound/usb/bcd2000/bcd2000.c
++++ b/sound/usb/bcd2000/bcd2000.c
+@@ -185,11 +185,26 @@ static int bcd2000_midi_output_open(struct snd_rawmidi_substream *substream)
+ static int bcd2000_midi_output_close(struct snd_rawmidi_substream *substream)
+ {
+ 	struct bcd2000 *bcd2k = substream->rmidi->private_data;
++	struct urb *urb = NULL;
++	unsigned long flags;
+ 
++	/*
++	 * Reference the URB under the lock so that it stays valid until
++	 * usb_kill_urb() returns, even if a disconnect frees it in the
++	 * meantime.  usb_kill_urb() cannot run under the lock, as the
++	 * completion handler takes the same lock.
++	 */
++	spin_lock_irqsave(&bcd2k->midi_lock, flags);
+ 	if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
+-		usb_kill_urb(bcd2k->midi_out_urb);
++		urb = usb_get_urb(bcd2k->midi_out_urb);
+ 		bcd2k->midi_out_active = 0;
+ 	}
++	spin_unlock_irqrestore(&bcd2k->midi_lock, flags);
++
++	if (urb) {
++		usb_kill_urb(urb);
++		usb_put_urb(urb);
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
