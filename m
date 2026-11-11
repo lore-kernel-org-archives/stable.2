@@ -1,48 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794420863;
-	b=ZxitOrggm4lxnPAICl1m0azgm5ZFnFFk7r/o2PYLk2UPe8cqgutdUXIJ38JB4LUyHAYO
-	 Q6ncQIHYQrQ5fWRX7qNPRzXTjBgTicidysuVCRS9opsCutgTRwfPrkDfoYry9JxMzOAj3
-	 +gay6324SSuEUIFuv6yxh1mKNXCTMygD6WvB/cIJziXPFE+caY1BEIEyIhCEUKe5BRDBy
-	 NlJSc2QgPuiNiZMEGmIDF3kcYhv8z65TTBiPhS4GAgLrCD5/y4KW0c8ULkJeBdxNm4ppw
-	 vnipEI6ToOsSUdTLuY1TYkNs4zwrHb47hddWp7KkzEylM+n8GuNS+rRMMfvYInmJUPg==
+	t=1794420865;
+	b=G09az5zDwwXTklFs/kYU4im+2cvXnwL9pPIlMKEdfOuRAbuDQBBieDk5skAS9z9y6X/X
+	 3m/oi7DoQOs0OT2jQ7pVSDXC3rTu89F2FDI81tEdJpoI5BjtcpU4ozwC/F9y3Kq4XHbk6
+	 NuuTyrx3/6Iq4D8rfYHBniO1maZh8UuzCZZM8VeHH4/99GCrxupniM0IpNcw0tCjHf8sa
+	 gLrDLewizDxCCDlxy08bQnRG+FIj+Li379K0qDFHxYuxCprb1htSVl3tJi8c3xwhZ/AgX
+	 9dHe+JHOLXqMoE90XtUQgoC9Y02umkzbgT4yJMJMMieivyrDpXytUVQaugZPTSNFm0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794420863;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=srFqpP6ZDnZa1ayDvcvXf1T4HKZiEcS8ufIpxBUhNHg=;
-	b=G6THet1KKH87+y/GCzlXVIsqSKf/j1t1sCWpcBCMq4hAIlNhSAA6yV5hOuVdbtoP5q0S
-	 zacVR5R9WiV764uoFq7WMNSMDWd8co93ZOZhs0HH9rcb5rLGf84EOl7xOkZ/41PI53yNM
-	 78f8UUza+eOINmxavJEEd/OGnbGgnwryFxHSayiZxbw0qhjN8SJZ2aLAecVG9goOaTRhh
-	 6+bPeWTBjVeyzplyogbUGbuYRRtshE+Yi7ZVsVKXoldKKhyh5vnbfKkvgYieJU8KSUkoz
-	 0cer0nayUP3PtXxtEGNdgEvpYUOZ6VSp5gea5DKp3b6vIG4EQDsFVSYlSYol9uQZ04g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794420865;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=rkhyKQXmZ01pLNtAx+Rpj6vVvEcp+C4aLgaU8KL+p+o=;
+	b=CloeGz2w4JB9fpmdjys3eqyfgamsUMtTJZjmiKSFSRInwibaEx7M7iuC6NOzwqjlpM0K
+	 EaOiBMGg1DX8Dvar/eUjn+dXzGaG6Mumb27bAn6lHQ6qBJiGlUFs5o9QDE+fZDZVIFvlO
+	 W2lxUNekwpeNfOFJjEvl2ij46kuYu7Dpjv3dsUQh79SFeiWH+88KRaAcNF0xKnGpUZeAg
+	 BLWUdIhQc9GIPHl2Eh8y6+dhttgLBvkSi9XQhk7wttZgZUR8lYYEUYTwteJv0ZivyVKzU
+	 xYbPIY0QB4fo3+jjeu0zbfPPpbwh1Qa9qp6rF32IbIixCxRXzMXpUaUC9lBfuBV9eYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ip+MeyH0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Chd74lXB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997D4606A89A;
-	Wed, 11 Nov 2026 18:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEFB606D720
+	for <stable@vger.kernel.org>; Wed, 11 Nov 2026 18:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ip+MeyH0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869881F00A06;
-	Wed, 11 Nov 2026 18:14:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Chd74lXB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6BC1F00A09;
+	Wed, 11 Nov 2026 18:14:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794420863;
-	bh=srFqpP6ZDnZa1ayDvcvXf1T4HKZiEcS8ufIpxBUhNHg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ip+MeyH0mnXVSjSEn12CmZeAEvgFsGWlr2WxmKNYL4sDxR1G3qt6hIEeCNLwGRFSp
-	 hRz3BFLnK1H3vdJVAQ+gzq1wyNwNKgnhHaIcFgsYPryXM7b3smmdxggP5pI+D7b5nk
-	 WzSd/KZbK58N22J/u4fo9F/KGqgsa6bwTbAR6aSXLzmUl4RlWxpsCtsXTKKsB58gzr
-	 HDhTg4lpizdWNz3Q2pqvL1tOvYOgZwIMv0JLX+IIB+76j2VkMilI+DCxCJY7fztCkY
-	 lH1zl8oVWWKAAjqvSwMw1ntCa2zfNJ9rCfQIB2m3ydcDzywt951PY2hpzcZOXtAiUm
-	 1o903NslRCmfQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 11 Nov 2026 18:13:15 +0000
-Subject: [PATCH 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
+	s=k20260515; t=1794420865;
+	bh=rkhyKQXmZ01pLNtAx+Rpj6vVvEcp+C4aLgaU8KL+p+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Chd74lXBTaYoO0RHtnBt4IauYQ2KKqO+rEgD6kaGkcnV0wzrY8HKVqvr3/roiNvcU
+	 l5cC9THSgLx4dcZadJm3ysalrjiZ/CxMpV4HbY7by1ZZeGxrF1kokpBnvCqV7Xtv8G
+	 cvc+lrUyxpuxu+eu1n2SXPRwR6y/D+bJxvbsV4C5Kw2yoiNVy0KDz5z10wiMrp9D4Y
+	 NFOW0/7G5H1RmoM5dtoAfEc6trauV2Z+G5skIX6qm7vsauRMSZnFtytpE7+R5dyLqe
+	 7pYqAUbEfbQsd+/xiKnsZ4qjsLVsKntw55smBLM+qLyOjnhxpO4AXSVJZNMqaoC8qT
+	 7gsSEZlzxs9Qg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA
+Date: Wed, 11 Nov 2026 13:14:23 -0500
+Message-ID: <20261111181404.3754010-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107052305-failed-6.12-e21952d72b47@kernel.org>
+References: <20261107052305-failed-6.12-e21952d72b47@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,151 +59,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261111-mason-migrate-et-al-fixes-v1-1-3d2454362e8d@kernel.org>
-References: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
-In-Reply-To: <20261111-mason-migrate-et-al-fixes-v1-0-3d2454362e8d@kernel.org>
-To: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
- Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
- =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
- Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
- Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
- Chris Mason <mason@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
- Mark Brown <broonie@kernel.org>, 
- "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3855; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ogD4hL7hm3MRJZQvw+1xlLAOQuORFeu7Ul+kQhgYJJ0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+bMjquVNbGPnR7VVQQfTClY2bbHxy97cnzl+ofuT2p
- 4n1djG7OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARpU6G/9We2ln6sZLPOtNn
- 9MyQ3OUqbf6TZ4n09+4XuTM3tE3rOMTI0POkclbizHgPx6lNj9mv2cX1nZP00XfPEmTfv8dM738
- gGwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-The OOM killer can quickly trigger again after having selected a
-victim. That victim might not have freed its memory yet, but its mm will
-be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-This can cause the OOM killer to kill an innocent process when the first
-might have freed enough memory to relieve the memory pressure.
+[ Upstream commit e21952d72b4740f08a272d694cca223b6b0099ca ]
 
-Fix the issue by freeing the memory before marking the mm MMF_OOM_SKIP.
+Generally userspace is going to step the dirty bitmap through the IOVA
+space. However if the bitmap ends in the middle of a large PTE this is
+problematic. The first step will clear the dirty bit and report dirty to
+the end of its bitmap while the second step will see the clear'd dirty and
+report clean for the start of the bitmap. If it happens this ends up
+losing dirties.
 
-Note that the task which calls mmput() might not be the victim - if it
-took a reference on the mm (e.g. ptrace), it may hold the last reference
-and release it when it calls mmput().
+Further this function is missing bounds checking so if this does happen
+ther is a good chance it will write memory beyond what the userspace was
+expecting.
 
-Therefore we cannot rely on current to tell whether the mm belongs to an
-OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
-unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
-mark_oom_victim() sets on the victim's mm, and check that.
+Return an error code if this illegal condition happens.
 
-Reported-by: Chris Mason <mason@kernel.org>
-Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+[ sashal: Added missing bitmap error-propagation infrastructure connecting the stored error field to the iterator and ioctl caller. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mm_types.h | 2 ++
- include/linux/oom.h      | 9 +++++++++
- mm/mmap.c                | 9 ++++++++-
- mm/oom_kill.c            | 4 +++-
- 4 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/iommu/iommufd/io_pagetable.c |  2 +-
+ drivers/iommu/iommufd/iova_bitmap.c  | 19 ++++++++++++++++++-
+ include/uapi/linux/iommufd.h         |  6 ++++++
+ 3 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 1ed35d258d2e..09e63ff12b04 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -2030,6 +2030,8 @@ enum {
- #define MMF_TOPDOWN		31	/* mm searches top down by default */
- #define MMF_TOPDOWN_MASK	BIT(MMF_TOPDOWN)
+diff --git a/drivers/iommu/iommufd/io_pagetable.c b/drivers/iommu/iommufd/io_pagetable.c
+index 177e8e12f189f..382150147f4d1 100644
+--- a/drivers/iommu/iommufd/io_pagetable.c
++++ b/drivers/iommu/iommufd/io_pagetable.c
+@@ -505,7 +505,7 @@ iommu_read_and_clear_dirty(struct iommu_domain *domain,
+ 	arg.iopt = iopt;
+ 	arg.domain = domain;
+ 	arg.dirty = &dirty;
+-	iova_bitmap_for_each(iter, &arg, __iommu_read_and_clear_dirty);
++	ret = iova_bitmap_for_each(iter, &arg, __iommu_read_and_clear_dirty);
  
-+#define MMF_OOM_VICTIM		32	/* mm is the oom victim */
-+
- #define MMF_INIT_LEGACY_MASK	(MMF_DUMP_FILTER_MASK |\
- 				 MMF_DISABLE_THP_MASK | MMF_HAS_MDWE_MASK |\
- 				 MMF_VM_MERGE_ANY_MASK | MMF_TOPDOWN_MASK)
-diff --git a/include/linux/oom.h b/include/linux/oom.h
-index 00da05d227e6..a9390cb70541 100644
---- a/include/linux/oom.h
-+++ b/include/linux/oom.h
-@@ -76,6 +76,15 @@ static inline bool tsk_is_oom_victim(struct task_struct * tsk)
- 	return tsk->signal->oom_mm;
- }
+ 	if (!(flags & IOMMU_DIRTY_NO_CLEAR))
+ 		iommu_iotlb_sync(domain, &gather);
+diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
+index 0943a351fb917..e12a36bf6aed5 100644
+--- a/drivers/iommu/iommufd/iova_bitmap.c
++++ b/drivers/iommu/iommufd/iova_bitmap.c
+@@ -116,6 +116,9 @@ struct iova_bitmap {
  
-+/*
-+ * Use this helper if tsk->mm != mm and the victim mm needs a special
-+ * handling. This is guaranteed to stay true after once set.
-+ */
-+static inline bool mm_is_oom_victim(struct mm_struct *mm)
-+{
-+	return mm_flags_test(MMF_OOM_VICTIM, mm);
-+}
+ 	/* length of the IOVA range for the whole bitmap */
+ 	size_t length;
 +
++	/* first error encountered while recording dirty IOVAs */
++	int err;
+ };
+ 
  /*
-  * Checks whether a page fault on the given mm is still reliable.
-  * This is no longer true if the oom reaper started to reap the
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 7618e72766a5..4cb18b217048 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
- 	/* update_hiwater_rss(mm) here? but nobody should be looking */
- 	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
- 	unmap_vmas(&tlb, &unmap);
+@@ -384,7 +387,9 @@ static int iova_bitmap_advance_to(struct iova_bitmap *bitmap,
+ int iova_bitmap_for_each(struct iova_bitmap *bitmap, void *opaque,
+ 			 iova_bitmap_fn_t fn)
+ {
+-	return fn(bitmap, bitmap->iova, bitmap->length, opaque);
++	int ret = fn(bitmap, bitmap->iova, bitmap->length, opaque);
 +
++	return ret ? ret : bitmap->err;
+ }
+ EXPORT_SYMBOL_NS_GPL(iova_bitmap_for_each, IOMMUFD);
+ 
+@@ -404,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
+ 	struct iova_bitmap_map *mapped = &bitmap->mapped;
+ 	unsigned long cur_bit, last_bit, last_page_idx;
+ 
 +	/*
-+	 * Free the memory before marking MMF_OOM_SKIP so a re-triggered OOM
-+	 * killer will only skip this mm if it's already freed all it can.
++	 * If the range cannot be recorded then the system call returns failure.
++	 * This is to prevent loosing dirties if userspace is expecting to step
++	 * the bitmap through the IOVA space.
 +	 */
-+	if (mm_is_oom_victim(mm))
-+		tlb_flush_mmu(&tlb);
- 	mmap_read_unlock(mm);
- 
- 	/*
- 	 * Set MMF_OOM_SKIP to hide this task from the oom killer/reaper
--	 * because the memory has been already freed.
-+	 * because the memory has been already unmapped.
- 	 */
- 	mm_flags_set(MMF_OOM_SKIP, mm);
- 	mmap_write_lock(mm);
-diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-index 5d48bd862c27..9de57a23893c 100644
---- a/mm/oom_kill.c
-+++ b/mm/oom_kill.c
-@@ -752,8 +752,10 @@ static void mark_oom_victim(struct task_struct *tsk)
- 		return;
- 
- 	/* oom_mm is bound to the signal struct life time. */
--	if (!cmpxchg(&tsk->signal->oom_mm, NULL, mm))
-+	if (!cmpxchg(&tsk->signal->oom_mm, NULL, mm)) {
- 		mmgrab(tsk->signal->oom_mm);
-+		mm_flags_set(MMF_OOM_VICTIM, mm);
++	if (!length || length > bitmap->length || iova < bitmap->iova ||
++	    iova - bitmap->iova > bitmap->length - length) {
++		if (!bitmap->err)
++			bitmap->err = -EPROTO;
++		return;
 +	}
++
+ update_indexes:
+ 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
  
- 	/*
- 	 * Make sure that the process is woken up from uninterruptible sleep
-
+diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+index 41048271a0667..e245fa295662a 100644
+--- a/include/uapi/linux/iommufd.h
++++ b/include/uapi/linux/iommufd.h
+@@ -621,6 +621,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
+  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
+  * with the dirty IOVAs. In doing so it will also by default clear any
+  * dirty bit metadata set in the IOPTE.
++ *
++ * The IOVA range given must fully enclose any IOPTE. If the range starts or
++ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
++ * reporting a dirty range.
++ *
++ * On failure the dirty state becomes unknown and the userspace must restart.
+  */
+ struct iommu_hwpt_get_dirty_bitmap {
+ 	__u32 size;
 -- 
-2.56.0
+2.53.0
 
